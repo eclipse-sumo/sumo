@@ -15,7 +15,6 @@
 # @version $Id$
 
 
-
 def isElmInList(list, elm):
     maxindex = len(list) - 1
     index = 0

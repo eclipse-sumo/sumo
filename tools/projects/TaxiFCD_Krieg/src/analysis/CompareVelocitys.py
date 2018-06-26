@@ -133,5 +133,6 @@ def writeOutput():
                 edge, fcdEdgeDict[edge], vtypeEdgeDict[edge], absDeviation, relDeviation))
     outputFile.close()
 
+
 # start the program
 main()

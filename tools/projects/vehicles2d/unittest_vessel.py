@@ -13,7 +13,6 @@
 # @version $Id$
 
 
-
 import unittest
 from sys import exit
 import math
@@ -778,7 +777,6 @@ class testCaseVessel(unittest.TestCase):
         the black shades are missing .. see bmp output"""
 
         visual = VISUAL
-
 
         image_name = self.__dict__['_testMethodName']
         myFlaeche = main.Flaeche(xdim=500, ydim=500, scale=10,
@@ -1787,7 +1785,6 @@ class testCaseVessel(unittest.TestCase):
         visual = VISUAL
         visual = True
 
-
         image_name = self.__dict__['_testMethodName']
         myFlaeche = main.Flaeche(xdim=60, ydim=60, scale=10,
                                  output=image_name)
@@ -1831,7 +1828,6 @@ class testCaseVessel(unittest.TestCase):
 
         visual = VISUAL
         visual = True
-
 
         image_name = self.__dict__['_testMethodName']
         myFlaeche = main.Flaeche(xdim=60, ydim=60, scale=10,
@@ -1892,7 +1888,6 @@ class testCaseVessel(unittest.TestCase):
         visual = VISUAL
         visual = True
 
-
         image_name = self.__dict__['_testMethodName']
         myFlaeche = main.Flaeche(xdim=60, ydim=60, scale=10,
                                  output=image_name)
@@ -1938,7 +1933,6 @@ class testCaseVessel(unittest.TestCase):
         #        vessel.x = 300; vessel.y = 305; vessel.rotation = 0; vessel.r = 20
 
         visual = VISUAL
-
 
         image_name = self.__dict__['_testMethodName']
         myFlaeche = main.Flaeche(xdim=20, ydim=20, scale=10,
@@ -2035,7 +2029,6 @@ class testCaseVessel(unittest.TestCase):
         #        vessel.x = 300; vessel.y = 305; vessel.rotation = 0; vessel.r = 20
 
         visual = VISUAL
-
 
         image_name = self.__dict__['_testMethodName']
         myFlaeche = main.Flaeche(xdim=60, ydim=60, scale=10,

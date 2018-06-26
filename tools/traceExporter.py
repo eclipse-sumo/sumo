@@ -26,16 +26,16 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', 'tools'))
 sys.path.append(os.path.join(os.environ.get(
     "SUMO_HOME", os.path.join(os.path.dirname(__file__), '..', '..')), 'tools'))
 
-from sumolib.miscutils import getSocketStream
-import sumolib.net
-import sumolib.output.convert.phem as phem
-import sumolib.output.convert.omnet as omnet
-import sumolib.output.convert.shawn as shawn
-import sumolib.output.convert.ns2 as ns2
-import sumolib.output.convert.gpsdat as gpsdat
-import sumolib.output.convert.gpx as gpx
-import sumolib.output.convert.poi as poi
-import sumolib.output.convert.fcdfilter as fcdfilter
+from sumolib.miscutils import getSocketStream  # noqa
+import sumolib.net  # noqa
+import sumolib.output.convert.phem as phem  # noqa
+import sumolib.output.convert.omnet as omnet  # noqa
+import sumolib.output.convert.shawn as shawn  # noqa
+import sumolib.output.convert.ns2 as ns2  # noqa
+import sumolib.output.convert.gpsdat as gpsdat  # noqa
+import sumolib.output.convert.gpx as gpx  # noqa
+import sumolib.output.convert.poi as poi  # noqa
+import sumolib.output.convert.fcdfilter as fcdfilter  # noqa
 
 
 class FCDTimeEntry:
@@ -139,7 +139,8 @@ output format. Optionally the output can be sampled, filtered and distorted.
     from optparse import OptionParser
     optParser = OptionParser(usage=USAGE)
     optParser.add_option("-i", "--fcd-input", dest="fcd", metavar="FILE",
-                         help="Defines the FCD-output file to use as input (numeric value is interpreted as port to listen on)")
+                         help="Defines the FCD-output file to use as input " +
+                              "(numeric value is interpreted as port to listen on)")
     optParser.add_option("-n", "--net-input", dest="net", metavar="FILE",
                          help="Defines the network file to use as input")
     optParser.add_option("-p", "--penetration", type="float", dest="penetration",

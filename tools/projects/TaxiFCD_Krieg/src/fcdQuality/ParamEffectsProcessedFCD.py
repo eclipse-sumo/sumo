@@ -395,6 +395,7 @@ def getMean(list):
     """Returns a median value from the values in the given list."""
     return sum(list) / len(list)
 
+
 # start the program
 # cProfile.run('main()')
 main()

@@ -74,18 +74,18 @@ def computeLinkPhasesAndTimes(logic):
         lastTime = int(time)
     logic.normTimes = newTimes
     if args.debug:
-        print ('normTimes', newTimes, file=sys.stderr)
+        print('normTimes', newTimes, file=sys.stderr)
 
     # create the phase string
     for myKey, phaseDef in logic.links2sigGrpPhase.items():
         newPhases = []
         sigGrpPhaseIndex = 1
         if args.debug:
-            print ('phaseDef', phaseDef, 'len', len(phaseDef), file=sys.stderr)
+            print('phaseDef', phaseDef, 'len', len(phaseDef), file=sys.stderr)
         for currentPhase in sortPhases:
             if args.debug:
-                print ('SGPIndex', sigGrpPhaseIndex, 'startCurrPhase', currentPhase,
-                       'endCurrPhase',  phaseDef[sigGrpPhaseIndex + 1], file=sys.stderr)
+                print('SGPIndex', sigGrpPhaseIndex, 'startCurrPhase', currentPhase,
+                      'endCurrPhase',  phaseDef[sigGrpPhaseIndex + 1], file=sys.stderr)
             newPhases.append(phaseDef[sigGrpPhaseIndex])
             if int(phaseDef[sigGrpPhaseIndex + 1]) == currentPhase and sigGrpPhaseIndex + 2 < len(phaseDef):
                 sigGrpPhaseIndex += 2

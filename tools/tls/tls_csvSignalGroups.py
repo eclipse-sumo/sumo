@@ -173,7 +173,7 @@ class TlLogic(sumolib.net.TLSProgram):
                     self._tlIndexToSignalGroup[tlIndex] = sgID
 
     def xmlOutput(self, doc):
-        # transform signal group based information to "phase" elements of constant signal states 
+        # transform signal group based information to "phase" elements of constant signal states
         # TODO: insert tlIndex in completeSignals query
         self._allTimes.sort()
         tlIndices = []

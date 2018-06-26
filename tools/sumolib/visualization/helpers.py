@@ -17,13 +17,13 @@ from __future__ import absolute_import
 from __future__ import print_function
 
 import os
+import gc 
 import matplotlib
 if 'TEXTTEST_SANDBOX' in os.environ or (os.name == 'posix' and 'DISPLAY' not in os.environ):
     matplotlib.use('Agg')
-from pylab import *
-from matplotlib.ticker import FuncFormatter as ff
-from matplotlib.collections import LineCollection
-import gc
+from pylab import *  # noqa
+from matplotlib.ticker import FuncFormatter as ff  # noqa
+from matplotlib.collections import LineCollection  # noqa
 
 # http://datadebrief.blogspot.de/2010/10/plotting-sunrise-sunset-times-in-python.html
 

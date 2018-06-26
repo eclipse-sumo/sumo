@@ -13,7 +13,6 @@
 # @version $Id$
 
 
-
 VISUAL = False
 # VISUAL = True
 

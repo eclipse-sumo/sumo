@@ -2623,6 +2623,7 @@ def make_movie(file_base):
                      file_base + "*.bmp",
                      file_base + ".gif"])
 
+
 if __name__ == '__main__':
     print '...'
 

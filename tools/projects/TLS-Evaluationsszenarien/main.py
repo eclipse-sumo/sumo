@@ -63,6 +63,7 @@ def readIni(nb):
 
     return filename
 
+
 for ini in range(1, 5):
     iniFilename = readIni(ini)
 

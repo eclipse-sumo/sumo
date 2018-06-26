@@ -126,7 +126,7 @@ def compound_object(element_name, attrnames, warn=False):
             fields = ['%s="%s"' % (self._original_fields[i], str(getattr(self, k)))
                       for i, k in enumerate(self._fields) if getattr(self, k) is not None
                       # see #3454
-                      and not '{' in self._original_fields[i]]
+                      and '{' not in self._original_fields[i]]
             if not self._child_dict:
                 return "%s<%s %s/>\n" % (initialIndent, element_name, " ".join(fields))
             else:

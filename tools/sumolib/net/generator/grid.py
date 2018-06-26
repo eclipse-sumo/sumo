@@ -20,7 +20,7 @@ sys.path.append(
 sys.path.append(os.path.join(os.environ.get("SUMO_HOME", os.path.join(
     os.path.dirname(__file__), '..', '..', '..', '..')), 'tools'))
 
-from . import network
+from . import network  # noqa
 
 
 def grid(numIntersectionsX=10, numIntersectionsY=5, defaultNode=None, defaultEdge=None, centralReservation=0):

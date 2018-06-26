@@ -13,7 +13,6 @@
 # @version $Id$
 
 
-
 def skip_all_but_selected():
     global lost, finished, afinished, unfinished, devel_skip, devel_run, broken, visual
 
