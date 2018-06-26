@@ -62,7 +62,8 @@ public:
     RORouteHandler(RONet& net, const std::string& file,
                    const bool tryRepair,
                    const bool emptyDestinationsAllowed,
-                   const bool ignoreErrors);
+                   const bool ignoreErrors,
+                   const bool checkSchema);
 
     /// standard destructor
     virtual ~RORouteHandler();

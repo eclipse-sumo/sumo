@@ -222,7 +222,7 @@ ROLoader::openTypedRoutes(const std::string& optionName,
     }
     for (const std::string& fileIt : myOptions.getStringVector(optionName)) {
         try {
-            RORouteHandler* handler = new RORouteHandler(net, fileIt, myOptions.getBool("repair"), myEmptyDestinationsAllowed, myOptions.getBool("ignore-errors"));
+            RORouteHandler* handler = new RORouteHandler(net, fileIt, myOptions.getBool("repair"), myEmptyDestinationsAllowed, myOptions.getBool("ignore-errors"), !readAll);
             if (readAll) {
                 if (!XMLSubSys::runParser(*handler, fileIt)) {
                     WRITE_ERROR("Loading of " + fileIt + " failed.");

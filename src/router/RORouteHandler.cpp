@@ -53,8 +53,9 @@
 RORouteHandler::RORouteHandler(RONet& net, const std::string& file,
                                const bool tryRepair,
                                const bool emptyDestinationsAllowed,
-                               const bool ignoreErrors) :
-    SUMORouteHandler(file, "routes"),
+                               const bool ignoreErrors,
+                               const bool checkSchema) :
+    SUMORouteHandler(file, checkSchema ? "routes" : ""),
     myNet(net),
     myActivePerson(0),
     myActiveContainerPlan(0),
