@@ -207,6 +207,10 @@ public:
      */
     virtual const SUMOVehicleParameter& getParameter() const = 0;
 
+    /** @brief Replaces the vehicle's parameter
+     */
+    virtual void replaceParameter(const SUMOVehicleParameter* newParameter) = 0;
+
     /** @brief Called when the vehicle is inserted into the network
      *
      * Sets optional information about departure time, informs the vehicle

@@ -127,6 +127,11 @@ MSBaseVehicle::getParameter() const {
     return *myParameter;
 }
 
+void
+MSBaseVehicle::replaceParameter(const SUMOVehicleParameter* newParameter) {
+    delete myParameter;
+    myParameter = newParameter;
+}
 
 double
 MSBaseVehicle::getMaxSpeed() const {

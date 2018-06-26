@@ -411,15 +411,19 @@ MSTriggeredRerouter::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification 
                 edges.insert(edges.end(), edgesFromPark.begin() + 1, edgesFromPark.end());
             }
 
+            if (newDestination) {
+                SUMOVehicleParameter* newParameter = new SUMOVehicleParameter();
+                *newParameter = veh.getParameter();
+                newParameter->arrivalPosProcedure = ARRIVAL_POS_GIVEN;
+                newParameter->arrivalPos = newParkingArea->getEndLanePosition();
+                veh.replaceParameter(newParameter);
+            }
             veh.replaceRouteEdges(edges, getID(), false, false, false);
             std::string errorMsg;
             if (!veh.replaceParkingArea(newParkingArea, errorMsg)) {
                 WRITE_WARNING("Vehicle '" + veh.getID() + "' at rerouter '" + getID()
                               + "' could not reroute to new parkingArea '" + newParkingArea->getID()
                               + "' reason=" + errorMsg + ", time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
-            }
-            if (newDestination) {
-                veh.setArrivalPos(newParkingArea->getEndLanePosition());
             }
         }
         return false;

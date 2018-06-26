@@ -84,6 +84,9 @@ public:
      */
     const SUMOVehicleParameter& getParameter() const;
 
+    /// @brief replace the vehicle parameter (deleting the old one)
+    void replaceParameter(const SUMOVehicleParameter* newParameter);
+
     /// @brief check whether the vehicle is equiped with a device of the given type
     bool hasDevice(const std::string& deviceName) const;
 
