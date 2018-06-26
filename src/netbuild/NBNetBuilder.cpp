@@ -46,6 +46,7 @@
 #include <utils/geom/GeoConvHelper.h>
 #include "NBAlgorithms.h"
 #include "NBAlgorithms_Ramps.h"
+#include "NBAlgorithms_Railway.h"
 #include "NBHeightMapper.h"
 
 
@@ -142,6 +143,11 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         PROGRESS_BEGIN_MESSAGE("Align pt stop id signs with corresponding edge id signs");
         myPTStopCont.alignIdSigns();
         PROGRESS_TIME_MESSAGE(before);
+    }
+    
+    // analyse and fix railway topology
+    if (oc.exists("railway.topology.check") && oc.getBool("railway.topology.check")) {
+        NBRailwayTopologyAnalyzer::analyzeTopology(*this, oc);
     }
 
     if (oc.getBool("junctions.join") || (oc.exists("ramps.guess") && oc.getBool("ramps.guess"))) {

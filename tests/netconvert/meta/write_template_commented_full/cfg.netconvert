@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jun 22 23:39:17 2018 by Eclipse SUMO netconvert Version b663296
+<!-- generated on Tue Jun 26 11:12:41 2018 by Eclipse SUMO netconvert Version 267588b
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -566,6 +566,9 @@
 
         <!-- Warn about edge geometries with a grade in % above FLOAT. The threshold applies to roads with a speed limit of 50km/h and is scaled according to road speed. -->
         <geometry.max-grade value="10" type="FLOAT"/>
+
+        <!-- Analyse topology of the railway network -->
+        <railway.topology.check value="false" type="BOOL"/>
 
         <!-- Turn off normalizing node positions -->
         <offset.disable-normalization value="false" synonymes="disable-normalize-node-positions" type="BOOL"/>
