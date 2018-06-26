@@ -22,6 +22,7 @@ set(netedit_SRCS
    GNEAttributeCarrier.cpp
    GNEReferenceCounter.h
    GNEEvent_NetworkLoaded.h
+   changes/GNEChange_CalibratorItem.cpp
 )
 
 add_executable(netedit ${netedit_SRCS} netedit.rc)
