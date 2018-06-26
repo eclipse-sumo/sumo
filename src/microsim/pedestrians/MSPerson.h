@@ -368,7 +368,7 @@ public:
     }
 
     /// @brief set new walk and replace the stages with relative indices in the interval [firstIndex, nextIndex[
-    void reroute(ConstMSEdgeVector& newEdges, int firstIndex, int nextIndex);
+    void reroute(ConstMSEdgeVector& newEdges, double departPos, int firstIndex, int nextIndex);
 
 
     /** @class Influencer

@@ -635,13 +635,19 @@ MSPerson::routeOutput(OutputDevice& os) const {
 
 
 void
-MSPerson::reroute(ConstMSEdgeVector& newEdges, int firstIndex, int nextIndex) {
+MSPerson::reroute(ConstMSEdgeVector& newEdges, double departPos, int firstIndex, int nextIndex) {
     assert(nextIndex > firstIndex);
-    //std::cout << " newEdges=" << toString(newEdges) << " firstIndex=" << firstIndex << " nextIndex=" << nextIndex << "\n";
+    //std::cout << SIMTIME << " reroute person " << getID() 
+    //    << "  newEdges=" << toString(newEdges) 
+    //    << " firstIndex=" << firstIndex 
+    //    << " nextIndex=" << nextIndex 
+    //    << " departPos=" << getEdgePos() 
+    //    << " arrivalPos=" <<  getNextStage(nextIndex - 1)->getArrivalPos()
+    //    << "\n";
     MSPerson::MSPersonStage_Walking* newStage = new MSPerson::MSPersonStage_Walking(getID(), newEdges,
             getNextStage(nextIndex - 1)->getDestinationStop(), -1,
             -1,
-            getEdgePos(),
+            departPos,
             getNextStage(nextIndex - 1)->getArrivalPos(), 
             0);
     appendStage(newStage, nextIndex);

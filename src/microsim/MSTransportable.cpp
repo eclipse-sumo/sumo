@@ -613,10 +613,11 @@ MSTransportable::rerouteParkingArea(MSStoppingPlace* orig, MSStoppingPlace* repl
             MSPerson* p = dynamic_cast<MSPerson*>(this);
             if (p != 0) {
                 const MSEdge* to = nextStage->getDestination();
-                double  arrivalPos = nextStage->getArrivalPos();
+                double departPos = stage->getArrivalPos();
+                double arrivalPos = nextStage->getArrivalPos();
                 double speed = p->getVehicleType().getMaxSpeed();
                 ConstMSEdgeVector newEdges;
-                MSNet::getInstance()->getPedestrianRouter().compute(stage->getDestination(), to, stage->getArrivalPos(), arrivalPos, speed, 0, 0, newEdges);
+                MSNet::getInstance()->getPedestrianRouter().compute(stage->getDestination(), to, departPos, arrivalPos, speed, 0, 0, newEdges);
                 if (newEdges.empty()) {
                     WRITE_WARNING("Could not reroute person '" + getID() 
                             + "' when rerouting vehicle '" + stage->getVehicle()->getID()
@@ -626,7 +627,7 @@ MSTransportable::rerouteParkingArea(MSStoppingPlace* orig, MSStoppingPlace* repl
                     //for (int stage = 0; stage < p->getNumStages(); stage++) {
                     //    std::cout << stage << ": " << p->getStageSummary(stage) << "\n";;
                     //}
-                    p->reroute(newEdges, 1, 2);
+                    p->reroute(newEdges, departPos, 1, 2);
                     //std::cout << SIMTIME << " plan after rerouting " << getID() << ":\n";
                     //for (int stage = 0; stage < p->getNumStages(); stage++) {
                     //    std::cout << stage << ": " << p->getStageSummary(stage) << "\n";;

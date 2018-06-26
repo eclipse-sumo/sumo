@@ -373,7 +373,7 @@ Person::rerouteTraveltime(const std::string& personID) {
     }
     MSTransportable::Stage* destStage = p->getNextStage(nextIndex - 1);
     const MSEdge* to = destStage->getEdges().back();
-    double  arrivalPos = destStage->getArrivalPos();
+    double arrivalPos = destStage->getArrivalPos();
     double speed = p->getVehicleType().getMaxSpeed();
     ConstMSEdgeVector newEdges;
     MSNet::getInstance()->getPedestrianRouter().compute(from, to, departPos, arrivalPos, speed, 0, 0, newEdges);
@@ -393,7 +393,7 @@ Person::rerouteTraveltime(const std::string& personID) {
         // @note: maybe this should be done automatically by the router
         newEdges.insert(newEdges.begin(), from);
     }
-    p->reroute(newEdges, firstIndex, nextIndex);
+    p->reroute(newEdges, departPos, firstIndex, nextIndex);
 }
 
 
