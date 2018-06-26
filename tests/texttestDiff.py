@@ -46,8 +46,8 @@ if ("net.netgen" in orig
         or ".net.xml" in orig):
     sumo = os.environ["GUISIM_BINARY"]
     extraArgs = []
-    #extraArgs += ["--gui-settings-file", "/scr2/debug/000_view_settings/internal_junctions.xml"]
-    #extraArgs += ["--gui-settings-file", "/scr2/debug/000_view_settings/junctions.xml"]
-    #extraArgs += ["--gui-settings-file", "/scr2/debug/000_view_settings/junctionType.xml"]
+    # extraArgs += ["--gui-settings-file", "/scr2/debug/000_view_settings/internal_junctions.xml"]
+    # extraArgs += ["--gui-settings-file", "/scr2/debug/000_view_settings/junctions.xml"]
+    # extraArgs += ["--gui-settings-file", "/scr2/debug/000_view_settings/junctionType.xml"]
     subprocess.Popen([sumo, "-n", orig, "-e", "3600"] + extraArgs)
     subprocess.Popen([sumo, "-n", new, "-e", "3600"] + extraArgs)

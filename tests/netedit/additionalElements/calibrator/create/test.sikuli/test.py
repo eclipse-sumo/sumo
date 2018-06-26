@@ -88,13 +88,13 @@ netedit.modifyAdditionalDefaultValue(4, "routeProbe")
 # create calibrator with a valid parameter in other lane
 netedit.leftClick(match, 200, 230)
 
-# change output with an invalid value 
+# change output with an invalid value
 netedit.modifyAdditionalDefaultValue(5, "%%%%###!!!")
 
 # create calibrator with a valid parameter in other lane
 netedit.leftClick(match, 200, 230)
 
-# change output with an valid value 
+# change output with an valid value
 netedit.modifyAdditionalDefaultValue(5, "myOwnOutput")
 
 # create calibrator with a valid parameter in other lane

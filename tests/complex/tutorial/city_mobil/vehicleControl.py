@@ -124,7 +124,7 @@ def getPosition(vehicleID):
 
 
 def stopAt(vehicleID, edge, pos=None):
-    if pos == None:
+    if pos is None:
         pos = STOP_POS
         if edge.endswith("out") or edge.endswith("in"):
             pos = 90.
@@ -154,7 +154,7 @@ def _rerouteCar(vehicleID):
         for idx in range(SLOTS_PER_ROW):
             for dir in ["l", "r"]:
                 slotEdge = "slot%s-%s%s" % (rowIdx, idx, dir)
-                if not slotEdge in occupancy:
+                if slotEdge not in occupancy:
                     occupancy[slotEdge] = vehicleID
                     stopAt(vehicleID, slotEdge, SLOT_LENGTH - 5.)
                     return
@@ -188,7 +188,7 @@ def _checkInitialPositions(vehicleID, edge, pos):
         elif "foot" in edge:
             traci.vehicle.setStop(vehicleID, "-" + edge)
             parkEdge = edge.replace("foot", "slot")
-            if not parkEdge in persons:
+            if parkEdge not in persons:
                 persons[parkEdge] = []
             persons[parkEdge].append(vehicleID)
             vehicleStatus[vehicleID].parking = True

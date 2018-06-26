@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit without search the pink square reference
-neteditProcess, match= netedit.setupAndStart(neteditTestRoot, ['--configuration-file', 'input_net.netccfg'])
+neteditProcess, match = netedit.setupAndStart(neteditTestRoot, ['--configuration-file', 'input_net.netccfg'])
 
 # save loaded network as (for texttest comparing)
 netedit.saveNetwork()

@@ -58,4 +58,3 @@ netedit.saveShapes()
 
 # quit netedit
 netedit.quit(neteditProcess)
-

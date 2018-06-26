@@ -9,7 +9,7 @@
 
 # @file    runner.py
 # @author  Jakob Erdmann
-# @date    
+# @date
 # @version $Id$
 
 from __future__ import absolute_import
@@ -33,7 +33,7 @@ print("lanes to %s: %s" % (
     ' '.join(sorted([l.getID() for l in lane2.getIncoming()]))))
 
 print("connections from %s:\n%s" % (
-    lane.getID(), 
+    lane.getID(),
     '\n'.join(list(map(str, lane.getOutgoing())))))
 print("outgoing internal lanes of %s: %s" % (
     lane.getID(),

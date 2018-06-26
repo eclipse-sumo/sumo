@@ -27,7 +27,7 @@ class SimpleManager(vehicleControl.Manager):
         self.personsWaitingAt = {}
 
     def personArrived(self, personID, edge, target):
-        if not edge in self.personsWaitingAt:
+        if edge not in self.personsWaitingAt:
             self.personsWaitingAt[edge] = []
         self.personsWaitingAt[edge].append((personID, target))
 

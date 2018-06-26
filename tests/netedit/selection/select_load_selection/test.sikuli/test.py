@@ -31,7 +31,7 @@ netedit.selectMode()
 # save selection
 netedit.loadSelection()
 
-#check undo-redo
+# check undo-redo
 netedit.undo(match, 1)
 netedit.redo(match, 1)
 

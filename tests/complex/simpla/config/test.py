@@ -55,7 +55,7 @@ class TestConfig(ut.TestCase):
                 <vTypeMap original="origVTypeID" leader="leaderVTypeID" follower="followerVTypeID" catchup="catchupVTypeID" catchupFollower="catchupFollowerVTypeID" />
             """
         self.cfg_body1 =\
-            """        
+            """
                 <controlRate value="0" />
                 <vehicleSelectors>empty</vehicleSelectors>
                 <maxPlatoonGap value="-1" />

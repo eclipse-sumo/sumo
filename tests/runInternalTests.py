@@ -76,6 +76,7 @@ def runInternal(suffix, args, out=sys.stdout, guiTests=False, console=False, chr
     subprocess.call("%s %s -a %s" % (ttBin, args, apps), env=os.environ,
                     stdout=out, stderr=out, shell=True)
 
+
 if __name__ == "__main__":
     optParser = optparse.OptionParser()
     optParser.add_option("-s", "--suffix", default="",

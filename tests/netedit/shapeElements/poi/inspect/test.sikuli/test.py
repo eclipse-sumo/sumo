@@ -133,7 +133,7 @@ netedit.modifyAttribute(12, "dummyGEO")
 # Change parameter 9 with a non valid value (empty)
 netedit.modifyAttribute(12, "")
 
-# Change parameter 9 with a valid value 
+# Change parameter 9 with a valid value
 netedit.modifyAttribute(12, "3.73,74.30")
 
 # Change boolean parameter GEO

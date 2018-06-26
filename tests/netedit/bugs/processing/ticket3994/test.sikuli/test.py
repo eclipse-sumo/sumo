@@ -32,7 +32,7 @@ netedit.rebuildNetwork()
 netedit.selectMode()
 
 # select node 1
-netedit.leftClick(match, 315, 220) 
+netedit.leftClick(match, 315, 220)
 
 # select node 2
 netedit.leftClick(match, 415, 220)

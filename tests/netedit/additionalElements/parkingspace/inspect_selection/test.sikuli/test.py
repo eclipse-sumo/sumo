@@ -103,4 +103,3 @@ netedit.saveNetwork()
 
 # quit netedit
 netedit.quit(neteditProcess)
-

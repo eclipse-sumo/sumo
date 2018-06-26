@@ -67,7 +67,7 @@ netedit.leftClick(match, 400, 250)
 # set valid filename
 netedit.modifyAdditionalDefaultValue(4, "myOwnFilename.txt")
 
-#create E2 with valid filename
+# create E2 with valid filename
 netedit.leftClick(match, 400, 250)
 
 # Change cont

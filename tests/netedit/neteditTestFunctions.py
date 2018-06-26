@@ -36,7 +36,7 @@ referenceImage = os.path.join("imageResources", "reference.png")
 # interaction functions
 #################################################
 
-""" 
+"""
 @brief type escape key
 """
 
@@ -149,7 +149,7 @@ def leftClick(match, positionx, positiony):
     click(clickedPosition)
     print "TestFunctions: Clicked over position", clickedPosition.x, '-', clickedPosition.y
 
-    
+
 """
 @brief do left click over a position relative to match (pink square) while shift key is pressed
 """
@@ -168,7 +168,7 @@ def leftClickShift(match, positionx, positiony):
     # Release Shift key (Sikulix function)
     keyUp(Key.SHIFT)
 
-    
+
 """
 @brief do left click over a position relative to match (pink square) while control key is pressed
 """
@@ -186,8 +186,8 @@ def leftClickControl(match, positionx, positiony):
     print "TestFunctions: Clicked with Control key pressed over position", clickedPosition.x, '-', clickedPosition.y
     # Release Shift key (Sikulix function)
     keyUp(Key.CTRL)
-    
-    
+
+
 """
 @brief drag and drop from position 1 to position 2
 """
@@ -203,6 +203,7 @@ def dragDrop(match, x1, y1, x2, y2):
 #################################################
 # basic functions
 #################################################
+
 
 """
 @brief setup Netedit
@@ -326,6 +327,7 @@ def setupAndStart(testRoot, extraParameters=[], debugInformation=True, searchRef
         click(Region(200, 200, 10, 10))
         return NeteditProcess
 
+
 """
 @brief rebuild network
 """
@@ -343,7 +345,7 @@ def rebuildNetwork():
 def rebuildNetworkWithVolatileOptions(question=True):
     typeTwoKeys(Key.F5, Key.SHIFT)
     # confirm recompute
-    if question == True:
+    if question is True:
         waitQuestion('y')
     else:
         waitQuestion('n')
@@ -446,8 +448,8 @@ def waitQuestion(answer):
 """
 
 
-def quit(NeteditProcess, openNetNonSavedDialog=False, saveNet=False, 
-         openAdditionalsNonSavedDialog=False, saveAdditionals=False, 
+def quit(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
+         openAdditionalsNonSavedDialog=False, saveAdditionals=False,
          openShapesNonSavedDialog=False, saveShapes=False):
     # check if Netedit is already closed
     if NeteditProcess.poll() is not None:
@@ -477,7 +479,7 @@ def quit(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
                 waitQuestion("s")
             else:
                 waitQuestion("q")
-                
+
         # Check if additionals must be saved
         if openShapesNonSavedDialog:
             # Wait some seconds
@@ -503,7 +505,7 @@ def quit(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
 """
 
 
-def openNetworkAs(waitTime = 2):
+def openNetworkAs(waitTime=2):
     # open save network as dialog
     typeTwoKeys("o", Key.CTRL)
     # jump to filename TextField
@@ -530,7 +532,7 @@ def saveNetwork():
 """
 
 
-def saveNetworkAs(waitTime = 2):
+def saveNetworkAs(waitTime=2):
     # open save network as dialog
     typeTwoKeys("s", Key.CTRL + Key.SHIFT)
     # jump to filename TextField
@@ -581,7 +583,7 @@ def openAboutDialog(waitingTime=DELAY_QUESTION):
 """
 
 
-def openConfigurationShortcut(waitTime = 2):
+def openConfigurationShortcut(waitTime=2):
     # open configuration dialog
     typeTwoKeys("o", Key.CTRL + Key.SHIFT)
     # jump to filename TextField
@@ -598,7 +600,7 @@ def openConfigurationShortcut(waitTime = 2):
 """
 
 
-def savePlainXML(waitTime = 2):
+def savePlainXML(waitTime=2):
     # open configuration dialog
     typeTwoKeys("l", Key.CTRL)
     # jump to filename TextField
@@ -613,7 +615,8 @@ def savePlainXML(waitTime = 2):
 # Create nodes and edges
 #################################################
 
-""" 
+
+"""
 @brief Change to create edge mode
 """
 
@@ -665,6 +668,7 @@ def changeTwoWayOption():
 # Inspect mode
 #################################################
 
+
 """
 @brief go to inspect mode
 """
@@ -672,6 +676,7 @@ def changeTwoWayOption():
 
 def inspectMode():
     typeKey("i")
+
 
 """
 @brief modify attribute of type int/float/string
@@ -708,6 +713,7 @@ def modifyBoolAttribute(attributeNumber):
 # Move mode
 #################################################
 
+
 """
 @brief set move mode
 """
@@ -717,7 +723,7 @@ def moveMode():
     typeKey("m")
 
 
-"""    
+"""
 @brief move element
 """
 
@@ -733,6 +739,7 @@ def moveElement(match, startX, startY, endX, endY):
 #################################################
 # crossings
 #################################################
+
 
 """
 @brief Change to crossing mode
@@ -833,6 +840,7 @@ def crossingInvertEdges(useSelectedEdges=False, thereIsSelectedEdges=False):
 # additionals
 #################################################
 
+
 """
 @brief change to additional mode
 """
@@ -856,7 +864,7 @@ def changeAdditional(additional):
     pasteIntoTextField(additional)
     # type enter to save change
     typeEnter()
-    
+
 
 """
 @brief modify default int/double/string value of an additional
@@ -985,6 +993,7 @@ def fixStoppingPlace(solution):
 # delete
 #################################################
 
+
 """
 @brief Change to delete mode
 """
@@ -1031,6 +1040,7 @@ def waitAutomaticallyDeleteAdditionalsWarning():
 #################################################
 # select mode
 #################################################
+
 
 """
 @brief Change to select mode
@@ -1094,6 +1104,8 @@ def lockSelection(glType):
         typeTab()
     # type enter to save change
     typeSpace()
+
+
 """
 @brief select elements with default frame values
 """
@@ -1115,7 +1127,7 @@ def selectDefault():
 
 def saveSelection():
     focusOnFrame()
-    #jump to save
+    # jump to save
     for x in range(0, 24):
         typeTab()
     typeSpace()
@@ -1124,8 +1136,8 @@ def saveSelection():
     filename = os.path.join(textTestSandBox, "selection.txt")
     pasteIntoTextField(filename)
     typeEnter()
-    
-    
+
+
 """
 @brief save selection
 """
@@ -1133,7 +1145,7 @@ def saveSelection():
 
 def loadSelection():
     focusOnFrame()
-    #jump to save
+    # jump to save
     for x in range(0, 25):
         typeTab()
     typeSpace()
@@ -1142,7 +1154,7 @@ def loadSelection():
     filename = os.path.join(textTestSandBox, "selection.txt")
     pasteIntoTextField(filename)
     typeEnter()
-    
+
 
 """
 @brief select items
@@ -1309,6 +1321,7 @@ def selectionToogleEdges():
 # traffic light
 #################################################
 
+
 """
 @brief Change to traffic light mode
 """
@@ -1336,6 +1349,7 @@ def createTLS():
 # shapes
 #################################################
 
+
 """
 @brief change to shape mode
 """
@@ -1360,9 +1374,11 @@ def changeShape(shape):
     # type enter to save change
     typeEnter()
 
+
 """
 @brief Create squared Polygon in position with a certain size
 """
+
 
 def createSquaredPoly(match, positionx, positiony, size, close):
     # focus current frame
@@ -1375,7 +1391,7 @@ def createSquaredPoly(match, positionx, positiony, size, close):
     leftClick(match, positionx - (size/2), positiony - (size/2))
     leftClick(match, positionx - (size/2), positiony)
     # check if polygon has to be closed
-    if(close == True):
+    if (close is True):
         leftClick(match, positionx, positiony)
     # finish draw
     typeEnter()
@@ -1384,6 +1400,7 @@ def createSquaredPoly(match, positionx, positiony, size, close):
 """
 @brief Create rectangle Polygon in position with a certain size
 """
+
 
 def createRectangledPoly(match, positionx, positiony, sizex, sizey, close):
     # focus current frame
@@ -1396,7 +1413,7 @@ def createRectangledPoly(match, positionx, positiony, sizex, sizey, close):
     leftClick(match, positionx - (sizex/2), positiony - (sizey/2))
     leftClick(match, positionx - (sizex/2), positiony)
     # check if polygon has to be closed
-    if(close == True):
+    if (close is True):
         leftClick(match, positionx, positiony)
     # finish draw
     typeEnter()
@@ -1405,6 +1422,7 @@ def createRectangledPoly(match, positionx, positiony, sizex, sizey, close):
 """
 @brief Create line Polygon in position with a certain size
 """
+
 
 def createLinePoly(match, positionx, positiony, sizex, sizey, close):
     # focus current frame
@@ -1415,10 +1433,11 @@ def createLinePoly(match, positionx, positiony, sizex, sizey, close):
     leftClick(match, positionx, positiony)
     leftClick(match, positionx - (sizex/2), positiony - (sizey/2))
     # check if polygon has to be closed
-    if(close == True):
+    if (close is True):
         leftClick(match, positionx, positiony)
     # finish draw
     typeEnter()
+
 
 """
 @brief modify default int/double/string value of an shape

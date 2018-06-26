@@ -31,7 +31,7 @@ netedit.rebuildNetwork()
 # go to select mode
 netedit.selectMode()
 
-# select manually the junction center 
+# select manually the junction center
 netedit.leftClick(match, 320, 220)
 
 # use a rectangle to check add mode
@@ -43,7 +43,7 @@ netedit.selectionClear()
 # Select "remove" mode
 netedit.modificationModeRemove()
 
-# select manually the junction center 
+# select manually the junction center
 netedit.leftClick(match, 320, 220)
 
 # use a rectangle to check remove mode
@@ -82,4 +82,3 @@ netedit.saveNetwork()
 
 # quit netedit
 netedit.quit(neteditProcess)
-

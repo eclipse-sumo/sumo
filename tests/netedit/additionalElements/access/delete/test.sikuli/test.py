@@ -60,7 +60,7 @@ netedit.undo(match, 1)
 # go to inspect mode
 netedit.deleteMode()
 
-#delete busStop
+# delete busStop
 netedit.leftClick(match, 420, 295)
 
 # undo

@@ -31,7 +31,7 @@ vehicles1 = []
 for s in demand.streams:
     vehicles1.extend(s.toVehicles(0, 86400))
 
-#demand.build(0, 3600, 3600, "net.net.xml", "linear.rou.xml")
+# demand.build(0, 3600, 3600, "net.net.xml", "linear.rou.xml")
 
 demand = Demand()
 demand.addStream(Stream(None, 0, 39600, 400, "from", "to", "passenger"))
@@ -41,7 +41,7 @@ demand.addStream(Stream(None, 46800, 86400, 1200, "from", "to", "passenger"))
 vehicles2 = []
 for s in demand.streams:
     vehicles2.extend(s.toVehicles(0, 86400))
-#demand.build(0, 3600, 3600, "net.net.xml", "linear.rou.xml")
+# demand.build(0, 3600, 3600, "net.net.xml", "linear.rou.xml")
 
 vehicles3 = []  # [600, 0, .000025, 14400]
 demand = Demand()
@@ -49,7 +49,7 @@ demand.addStream(Stream(None, None, None, WaveComposition(
     800, [[400, 0, .000025, 14400], [200, 0, .00001, 14400]]), "from", "to", "passenger"))
 for s in demand.streams:
     vehicles3.extend(s.toVehicles(0, 86400))
-#demand.build(0, 3600, "net.net.xml", "linear.rou.xml")
+# demand.build(0, 3600, "net.net.xml", "linear.rou.xml")
 
 STEP = 300
 d1 = [0] * (86400 / STEP)

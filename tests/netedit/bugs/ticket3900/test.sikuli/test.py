@@ -30,4 +30,3 @@ netedit.saveNetwork()
 
 # quit netedit
 netedit.quit(neteditProcess, True, True, True, False)
-

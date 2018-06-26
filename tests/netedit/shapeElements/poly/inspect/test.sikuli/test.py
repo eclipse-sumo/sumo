@@ -65,7 +65,8 @@ netedit.modifyAttribute(1, "")
 netedit.modifyAttribute(1, "12.00,8.00")
 
 # Change parameter 1 with a valid value
-netedit.modifyAttribute(1, "12.00,8.00 9.00,13.00 12.00,18.00 7.00,15.00 2.00,18.00 5.00,13.00 2.00,8.00 7.00,11.00 12.00,8.00")
+netedit.modifyAttribute(
+    1, "12.00,8.00 9.00,13.00 12.00,18.00 7.00,15.00 2.00,18.00 5.00,13.00 2.00,8.00 7.00,11.00 12.00,8.00")
 
 # Change parameter 2 with a non valid value (dummy)
 netedit.modifyAttribute(3, "dummyColor")
@@ -119,7 +120,8 @@ netedit.modifyAttribute(9, "365")
 netedit.modifyAttribute(9, "10")
 
 # Change parameter 9 with a valid value
-netedit.modifyAttribute(11, "-13.00,8.00 -8.00,13.00 -13.00,18.00 -18.00,23.00 -23.00,18.00 -28.00,13.00 -23.00,8.00 -18.00,3.00 -13.00,8.00")
+netedit.modifyAttribute(
+    11, "-13.00,8.00 -8.00,13.00 -13.00,18.00 -18.00,23.00 -23.00,18.00 -28.00,13.00 -23.00,8.00 -18.00,3.00 -13.00,8.00")
 
 # Change boolean parameter 10
 netedit.modifyShapeDefaultBoolValue(12)
