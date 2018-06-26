@@ -116,8 +116,6 @@ class PropertyReader(xml.sax.handler.ContentHandler):
         idx = 0
         if ext in (".cpp", ".h"):
             if lines[idx] == SEPARATOR:
-                if lines[idx] != SEPARATOR:
-                    print(self._file, "missing license start", idx, lines[idx].rstrip())
                 year = lines[idx + 2][17:21]
                 end = idx + 9
                 license = EPL_HEADER.replace("2001", year)
@@ -146,6 +144,9 @@ class PropertyReader(xml.sax.handler.ContentHandler):
                 idx += 1
             license = EPL_HEADER.replace("//   ", "# ").replace("// ", "# ").replace("\n//", "")
             end = idx + 7
+            if len(lines) < 13:
+                print(self._file,"is too short (%s lines, at least 13 required for valid header)"% len(lines))
+                return 
             year = lines[idx + 1][16:20]
             license = license.replace("2001", year).replace(SEPARATOR, "")
             if "module" in lines[idx + 2]:
@@ -159,7 +160,7 @@ class PropertyReader(xml.sax.handler.ContentHandler):
                     print("!!%s!!" % os.path.commonprefix([fileLicense, license]))
                     print(fileLicense)
                     print(license)
-            self.checkDoxyLines(lines, end+1, "#")
+            self.checkDoxyLines(lines, end + 1, "#")
         if self._haveFixed:
             open(self._file, "w").write("".join(lines))
 
