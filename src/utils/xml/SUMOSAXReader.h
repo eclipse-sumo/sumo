@@ -81,6 +81,9 @@ private:
     class LocalSchemaResolver : public XERCES_CPP_NAMESPACE::EntityResolver {
     public:
         XERCES_CPP_NAMESPACE::InputSource* resolveEntity(const XMLCh* const publicId, const XMLCh* const systemId);
+        void setHandler(GenericSAXHandler& handler);
+    private:
+        GenericSAXHandler* myHandler;
     };
 
 private:

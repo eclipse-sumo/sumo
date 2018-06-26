@@ -252,6 +252,10 @@ protected:
     virtual void myEndElement(int element);
 
 
+    void setSchemaSeen(const bool schemaSeen=true) {
+        mySchemaSeen = schemaSeen;
+    }
+
 private:
     /**
      * @brief converts from c++-string into unicode
@@ -313,6 +317,9 @@ private:
 
     /// @brief The root element to expect, empty string disables the check
     std::string myExpectedRoot;
+
+    /// @brief whether the reader has already seen a schema
+    bool mySchemaSeen;
 
 private:
     /// @brief invalidated copy constructor
