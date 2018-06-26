@@ -567,18 +567,18 @@ def main(args=None):
                     if step == options.firstStep + 1 and options.skipFirstRouting:
                         if options.caloldprob:
                             calFirstRouteProbs("dump_000_%s.xml" % (
-                                options.aggregation), get_basename(f) + "_001.rou.alt.xml", options.addweights,
+                                options.aggregation), basename + "_001.rou.alt.xml", options.addweights,
                                 ecomeasure)
                         else:
                             shutil.copy(
-                                get_basename(f) + "_001.rou.alt.xml", get_basename(f) + "_001.rou.galt.xml")
+                                basename + "_001.rou.alt.xml", basename + "_001.rou.galt.xml")
                             shutil.copy(
-                                get_basename(f) + "_001.rou.xml", get_basename(f) + "_001.grou.xml")
+                                basename + "_001.rou.xml", basename + "_001.grou.xml")
                     if step == options.firstStep and not options.skipFirstRouting:
                         shutil.copy(
-                            get_basename(f) + "_000.rou.alt.xml", get_basename(f) + "_000.rou.galt.xml")
+                            basename + "_000.rou.alt.xml", basename + "_000.rou.galt.xml")
                         shutil.copy(
-                            get_basename(f) + "_000.rou.xml", get_basename(f) + "_000.grou.xml")
+                            basename + "_000.rou.xml", basename + "_000.grou.xml")
                     else:
                         print('step:', step)
                         print('get externalgawron')
@@ -586,7 +586,7 @@ def main(args=None):
                             step - 1, options.aggregation)
                         if (not options.skipFirstRouting) or (options.skipFirstRouting and step > 1):
                             output, edgesMap = getRouteChoices(
-                                edgesMap, dumpfile, get_basename(f) + "_%03i.rou.alt.xml" % step, options.net,
+                                edgesMap, dumpfile, basename + "_%03i.rou.alt.xml" % step, options.net,
                                 options.addweights, options.gA, options.gBeta, step, ecomeasure)
 
         # simulation
