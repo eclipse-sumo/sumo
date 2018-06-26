@@ -197,7 +197,7 @@
         <xsd:attribute name="id" type="xsd:string" use="required"/>
         <xsd:attribute name="lanes" type="xsd:string" use="required"/>
         <xsd:attribute name="file" type="xsd:string" use="optional"/>
-        <xsd:attribute name="pos" type="xsd:string" use="optional"/
+        <xsd:attribute name="pos" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="routeProbeType">
@@ -258,7 +258,7 @@
         <xsd:attribute name="file" type="xsd:string" use="optional"/>
         <xsd:attribute name="probability" type="positiveFloatType"/>
         <xsd:attribute name="timeThreshold" type="nonNegativeFloatType" use="optional"/>
-        <xsd:attribute name="pos" type="xsd:string" use="optional"/
+        <xsd:attribute name="pos" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="instantInductionLoopType">
