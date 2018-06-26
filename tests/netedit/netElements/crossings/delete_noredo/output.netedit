@@ -6,12 +6,12 @@ Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 140
 [log]  TYPE "#F5."
 [log]  TYPE "d"
-[log] CLICK on L(554,365)@S(0)[0,0 1280x720] (234 msec)
+[log] CLICK on L(554,365)@S(0)[0,0 1600x900] (234 msec)
 TestFunctions: Clicked over position 554 - 365
-[log] CLICK on L(689,365)@S(0)[0,0 1280x720] (234 msec)
-TestFunctions: Clicked over position 689 - 365
+[log] CLICK on L(704,365)@S(0)[0,0 1600x900] (234 msec)
+TestFunctions: Clicked over position 704 - 365
 [log]  TYPE "i"
-[log] CLICK on L(304,140)@S(0)[0,0 1280x720] (234 msec)
+[log] CLICK on L(304,140)@S(0)[0,0 1600x900] (235 msec)
 TestFunctions: Clicked over position 304 - 140
 [log] ( Ctrl )  TYPE "z"
 [log] ( Ctrl )  TYPE "z"

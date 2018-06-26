@@ -56,7 +56,7 @@ netedit.modifyAttribute(1, "gneJ0")
 netedit.rebuildNetwork()
 
 # inspect edge again after recomputing
-netedit.leftClick(match, 350, 260)
+netedit.leftClick(match, 360, 250)
 
 # Change parameter 2 with a non valid value (dummy Junction)
 netedit.modifyAttribute(2, "dummy_Junction")
@@ -162,4 +162,3 @@ netedit.saveNetwork()
 
 # quit netedit
 netedit.quit(neteditProcess)
-

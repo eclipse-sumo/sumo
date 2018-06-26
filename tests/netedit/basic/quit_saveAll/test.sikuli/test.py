@@ -25,6 +25,13 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
 
+# Change to create mode
+netedit.createEdgeMode()
+
+# Create two nodes
+netedit.leftClick(match, 0, 400)
+netedit.leftClick(match, 500, 400)
+
 # recompute
 netedit.rebuildNetwork()
 

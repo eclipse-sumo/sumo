@@ -35,7 +35,7 @@ netedit.deleteMode()
 netedit.leftClick(match, 250, 225)
 
 # delete second crossing
-netedit.leftClick(match, 385, 225)
+netedit.leftClick(match, 400, 225)
 
 # check undo redo
 netedit.undo(match, 2)
