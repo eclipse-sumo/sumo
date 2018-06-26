@@ -56,7 +56,7 @@ else:
     sys.exit("please declare environment variable 'SUMO_HOME'")
 
 import traci  # noqa
-
+from ._utils import openGap
 
 class SimplaException(Exception):
     '''
