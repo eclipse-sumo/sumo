@@ -157,6 +157,8 @@ class PlatoonManager(traci.StepListener):
             self._manageLeaders()
             self._adviseLanes()
             self._timeSinceLastControl = 0.
+        # platoon manager can only be removed by calling simpla.stop()
+        return True
 
     def stop(self):
         '''stop()

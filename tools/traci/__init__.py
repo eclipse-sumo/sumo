@@ -118,8 +118,16 @@ def simulationStep(step=0):
     """
     global _stepListeners
     responses = _connections[""].simulationStep(step)
+    
+    # manage stepListeners
+    listenersToRemove=[]
     for listener in _stepListeners:
-        listener.step(step)
+        keep = listener.step(step)
+        if not keep:
+            listenersToRemove.append(listener)
+    for listener in listenersToRemove:
+        removeStepListener(listener)
+    
     return responses
 
 
@@ -133,7 +141,7 @@ class StepListener(object):
         After adding a StepListener 'listener' with traci.addStepListener(listener),
         TraCI will call listener.step(s) after each call to traci.simulationStep(s)
         """
-
+        return True
 
 def addStepListener(listener):
     """addStepListener(traci.StepListener) -> bool
