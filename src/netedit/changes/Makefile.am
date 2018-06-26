@@ -9,5 +9,4 @@ GNEChange_Connection.cpp GNEChange_Connection.h \
 GNEChange_Attribute.cpp GNEChange_Attribute.h \
 GNEChange_TLS.cpp GNEChange_TLS.h \
 GNEChange_Additional.cpp GNEChange_Additional.h \
-GNEChange_CalibratorItem.cpp GNEChange_CalibratorItem.h \
 GNEChange_Shape.cpp GNEChange_Shape.h

@@ -17,8 +17,6 @@ set(netedit_changes_SRCS
    GNEChange_TLS.cpp
    GNEChange_Additional.h
    GNEChange_Additional.cpp
-   GNEChange_CalibratorItem.h
-   GNEChange_CalibratorItem.cpp
    GNEChange_Shape.h
    GNEChange_Shape.cpp
    )

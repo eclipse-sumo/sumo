@@ -22,7 +22,6 @@
 
 #include <utils/geom/GeomConvHelper.h>
 #include <netedit/changes/GNEChange_Additional.h>
-#include <netedit/changes/GNEChange_CalibratorItem.h>
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNEJunction.h>
 #include <netedit/netelements/GNELane.h>
@@ -1649,7 +1648,7 @@ GNEAdditionalHandler::buildVehicleType(GNEViewNet* viewNet, bool allowUndoRedo, 
                 loadingDuration, latAlignment, minGapLat, maxSpeedLat);
         if (allowUndoRedo) {
             viewNet->getUndoList()->p_begin("add " + toString(vType->getTag()));
-            viewNet->getUndoList()->add(new GNEChange_CalibratorItem(vType, true), true);
+            viewNet->getUndoList()->add(new GNEChange_Additional(vType, true), true);
             viewNet->getUndoList()->p_end();
         } else {
             viewNet->getNet()->insertCalibratorVehicleType(vType);

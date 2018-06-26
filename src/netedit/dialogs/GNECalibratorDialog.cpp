@@ -26,7 +26,6 @@
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/options/OptionsCont.h>
-#include <netedit/changes/GNEChange_CalibratorItem.h>
 #include <netedit/changes/GNEChange_Additional.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
@@ -341,7 +340,7 @@ GNECalibratorDialog::onCmdClickedVehicleType(FXObject*, FXSelector, void*) {
                         myFlowsEdited.erase(std::find(myFlowsEdited.begin(), myFlowsEdited.end(), j));
                     }
                     // remove vehicle type of calibrator vehicle types
-                    myEditedCalibrator->getViewNet()->getUndoList()->add(new GNEChange_CalibratorItem(vehicleTypes.at(i), false), true);
+                    myEditedCalibrator->getViewNet()->getUndoList()->add(new GNEChange_Additional(vehicleTypes.at(i), false), true);
                     // update flows and vehicle types table
                     updateFlowTable();
                     updateVehicleTypeTable();
@@ -349,7 +348,7 @@ GNECalibratorDialog::onCmdClickedVehicleType(FXObject*, FXSelector, void*) {
                 }
             } else {
                 // remove vehicle type of calibrator vehicle types
-                myEditedCalibrator->getViewNet()->getUndoList()->add(new GNEChange_CalibratorItem(vehicleTypes.at(i), false), true);
+                myEditedCalibrator->getViewNet()->getUndoList()->add(new GNEChange_Additional(vehicleTypes.at(i), false), true);
                 // update vehicle types table
                 updateVehicleTypeTable();
                 return 1;

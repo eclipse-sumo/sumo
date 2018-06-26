@@ -21,13 +21,11 @@
 #include <config.h>
 
 #include <iostream>
+#include <utils/common/MsgHandler.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/div/GUIDesigns.h>
-#include <utils/common/MsgHandler.h>
-#include <netedit/changes/GNEChange_CalibratorItem.h>
-
-#include "GNECalibratorVehicleTypeDialog.h"
+#include <netedit/changes/GNEChange_Additional.h>
 #include <netedit/additionals/GNECalibrator.h>
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNELane.h>
@@ -35,6 +33,8 @@
 #include <netedit/GNENet.h>
 #include <netedit/additionals/GNECalibratorVehicleType.h>
 #include <netedit/GNEUndoList.h>
+
+#include "GNECalibratorVehicleTypeDialog.h"
 
 
 // ===========================================================================
@@ -203,7 +203,7 @@ GNECalibratorVehicleTypeDialog::GNECalibratorVehicleTypeDialog(GNECalibratorVehi
 
     // add element if we aren't updating an existent element
     if (myUpdatingElement == false) {
-        parent->getViewNet()->getUndoList()->add(new GNEChange_CalibratorItem(myEditedCalibratorVehicleType, true), true);
+        parent->getViewNet()->getUndoList()->add(new GNEChange_Additional(myEditedCalibratorVehicleType, true), true);
     }
 
     // open as modal dialog
