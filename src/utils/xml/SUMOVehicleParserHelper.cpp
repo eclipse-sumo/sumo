@@ -372,6 +372,12 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
         vtype->speedFactor.getParameter()[1] = attrs.get<double>(SUMO_ATTR_SPEEDDEV, vtype->id.c_str(), ok);
         vtype->parametersSet |= VTYPEPARS_SPEEDFACTOR_SET;
     }
+    // validate speed distribution
+    std::string error;
+    if (!vtype->speedFactor.isValid(error)) {
+        WRITE_ERROR("Invalid speed distribution when parsing vType '" + vtype->id + "' (" + error + ")");
+        throw ProcessError();
+    }
     if (attrs.hasAttribute(SUMO_ATTR_ACTIONSTEPLENGTH)) {
         double actionStepLengthSecs = attrs.get<double>(SUMO_ATTR_ACTIONSTEPLENGTH, vtype->id.c_str(), ok);
         vtype->actionStepLength = processActionStepLength(actionStepLengthSecs);

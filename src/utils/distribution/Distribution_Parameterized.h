@@ -78,6 +78,9 @@ public:
         return myParameter;
     }
 
+    /// @brief check whether the distribution is valid
+    bool isValid(std::string& error);
+
     /// Returns the string representation of this distribution
     std::string toStr(std::streamsize accuracy) const;
 
