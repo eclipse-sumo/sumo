@@ -15,6 +15,8 @@ Warning: Adding space 'parkingArea_gneE1_0_0space1' in GNEChange_Additional
 Warning: Adding space 'parkingArea_gneE1_0_0space2' in GNEChange_Additional
 Warning: Adding rerouter 'rerouter_0' in GNEChange_Additional
 Warning: Adding variableSpeedSign 'variableSpeedSign_0' in GNEChange_Additional
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Warning: Keys Shift + F5 (Compute with volatile options) pressed
 Warning: Opening FXMessageBox 'Volatile Recomputing'
 Warning: Closed FXMessageBox 'Volatile Recomputing' with 'Yes'
@@ -38,8 +40,6 @@ Warning: Deleting unreferenced chargingStation 'chargingStation_gneE1_0_0'
 Warning: Deleting unreferenced busStop 'busStop_gneE1_0_0'
 Warning: Created connection 'fromgneE0_1togneE1_1' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_1togneE0_1' in retrieveGNEConnection()
-Warning: net has to be saved
-Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Warning: Additionals saved
 Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor

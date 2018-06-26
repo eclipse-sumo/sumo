@@ -1,22 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!-- generated on 26.06.2018 14:24:42 by Eclipse SUMO netedit Version 88bb7b0b92
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.10_from_25Jun140419.2648/netedit.gui/bugs/additionals/ticket3879\input_additionals.add.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.10_from_25Jun140419.2648/netedit.gui/bugs/additionals/ticket3879\input_net.net.xml"/>
+    </input>
+
+    <output>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.10_from_25Jun140419.2648/netedit.gui/bugs/additionals/ticket3879\additionals.xml"/>
+        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.10_from_25Jun140419.2648/netedit.gui/bugs/additionals/ticket3879\shapes.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.10_from_25Jun140419.2648/netedit.gui/bugs/additionals/ticket3879\net.net.xml"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="0"/>
+        <rectangular-lane-cut value="false"/>
+        <sidewalks.guess value="true"/>
+        <crossings.guess value="true"/>
+        <walkingareas value="false"/>
+    </processing>
+
+    <visualisation>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.10_from_25Jun140419.2648/netedit.gui/bugs/additionals/ticket3879\gui-settings.xml"/>
+        <window-size value="700,500"/>
+        <window-pos value="50,50"/>
+        <gui-testing value="true"/>
+        <gui-testing-debug value="true"/>
+    </visualisation>
+
+    <report>
+        <no-warnings value="true"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.10_from_25Jun140419.2648/netedit.gui/bugs/additionals/ticket3879\log.txt"/>
+    </report>
+
+</configuration>
+-->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <busStop id="busStop_gneE1_0_0" lane="gneE1_1" startPos="42.01" endPos="50.00" friendlyPos="1"/>
-    <chargingStation id="chargingStation_gneE1_0_0" lane="gneE1_1" startPos="21.94" endPos="31.94" friendlyPos="1"/>
-    <containerStop id="containerStop_gneE1_0_0" lane="gneE1_1" startPos="31.87" endPos="41.87" friendlyPos="1"/>
-    <parkingArea id="parkingArea_gneE1_0_0" lane="gneE1_1" startPos="11.84" endPos="21.84" length="5.00">
+    <busStop id="busStop_gneE1_0_0" lane="gneE1_1" friendlyPos="1" startPos="42.01" endPos="50.00"/>
+    <chargingStation id="chargingStation_gneE1_0_0" lane="gneE1_1" friendlyPos="1" startPos="21.94" endPos="31.94"/>
+    <containerStop id="containerStop_gneE1_0_0" lane="gneE1_1" friendlyPos="1" startPos="31.87" endPos="41.87"/>
+    <parkingArea id="parkingArea_gneE1_0_0" length="5.00" lane="gneE1_1" startPos="11.84" endPos="21.84">
         <space x="29.09" y="10.92"/>
         <space x="32.71" y="10.95"/>
         <space x="36.82" y="10.96"/>
     </parkingArea>
     <e1Detector id="e1Detector_gneE1_0_0" lane="gneE1_1" pos="19.68" freq="100.00" file="e1Detector_gneE1_0_0.txt"/>
-    <e2Detector id="e2Detector_gneE1_0_0" lane="gneE1_1" pos="7.17" length="10.00" freq="100.00" file="e2Detector_gneE1_0_0.txt"/>
-    <e3Detector id="e3Detector_0" freq="100.00" file="e3Detector_0.txt" pos="9.06,-7.45">
+    <e2Detector id="e2Detector_gneE1_0_0" length="10.00" lane="gneE1_1" pos="7.17" freq="100.00" file="e2Detector_gneE1_0_0.txt"/>
+    <e3Detector id="e3Detector_0" pos="9.06,-7.45" freq="100.00" file="e3Detector_0.txt">
         <detEntry lane="gneE0_1" pos="5.45"/>
         <detExit lane="gneE0_1" pos="12.65"/>
     </e3Detector>
-    <instantInductionLoop id="instantInductionLoop_0" lane="gneE1_1" pos="22.00" freq="100.00" file="instantInductionLoop_0.txt"/>
-    <rerouter id="rerouter_0" edges="gneE0" file="rerouter_0.txt" pos="15.59,-7.40"/>
+    <instantInductionLoop id="instantInductionLoop_0" lane="gneE1_1" pos="22.00" file="instantInductionLoop_0.txt"/>
+    <rerouter id="rerouter_0" edges="gneE0" pos="15.59,-7.40" file="rerouter_0.txt"/>
     <variableSpeedSign id="variableSpeedSign_0" lanes="gneE0_0" pos="20.22,-7.28"/>
 </additional>
