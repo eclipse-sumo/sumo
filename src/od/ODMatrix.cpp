@@ -257,17 +257,17 @@ ODMatrix::write(SUMOTime begin, const SUMOTime end,
                 myNumWritten++;
                 if (pedestrians) {
                     dev.openTag(SUMO_TAG_PERSON).writeAttr(SUMO_ATTR_ID, (*i).id).writeAttr(SUMO_ATTR_DEPART, time2string(t));
+                    dev.writeAttr(SUMO_ATTR_DEPARTPOS, "random");
                     dev.openTag(SUMO_TAG_WALK);
                     dev.writeAttr(SUMO_ATTR_FROM, (*i).from).writeAttr(SUMO_ATTR_TO, (*i).to);
-                    dev.writeAttr(SUMO_ATTR_DEPARTPOS, "random");
                     dev.writeAttr(SUMO_ATTR_ARRIVALPOS, "random");
                     dev.closeTag();
                     dev.closeTag();
                 } else if (persontrips) {
                     dev.openTag(SUMO_TAG_PERSON).writeAttr(SUMO_ATTR_ID, (*i).id).writeAttr(SUMO_ATTR_DEPART, time2string(t));
+                    dev.writeAttr(SUMO_ATTR_DEPARTPOS, "random");
                     dev.openTag(SUMO_TAG_PERSONTRIP);
                     dev.writeAttr(SUMO_ATTR_FROM, (*i).from).writeAttr(SUMO_ATTR_TO, (*i).to);
-                    dev.writeAttr(SUMO_ATTR_DEPARTPOS, "random");
                     dev.writeAttr(SUMO_ATTR_ARRIVALPOS, "random");
                     dev.closeTag();
                     dev.closeTag();

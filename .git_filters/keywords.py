@@ -41,7 +41,7 @@ def gitid(fname):
     habit of using numerical tags. Use the short hash if no tag available.
     """
     try:
-        r = subprocess.check_output(["git", "describe", "--long", "--always"]).strip()
+        r = subprocess.check_output(["git", "describe", "--long", "--always"], universal_newlines=True).strip()
         if "-" in r:
             r = r.replace("-g", "-")
             m1 = r.find("-") + 1
@@ -63,12 +63,11 @@ def gitid(fname):
 
 
 if __name__ == '__main__':
-    if len(sys.argv) > 1:
-        if sys.argv[1] == "clean":
-            rid = re.compile(r'\$' + r'Id.*\$')
-            id = UNMANGLED
-        else:
-            rid = re.compile(r'\$' + r'Id:?\$')
-            id = gitid(sys.argv[1])
+    if len(sys.argv) <= 1 or sys.argv[1] == "clean":
+        rid = re.compile(r'\$' + r'Id.*\$')
+        id = UNMANGLED
+    else:
+        rid = re.compile(r'\$' + r'Id:?\$')
+        id = gitid(sys.argv[1])
     for line in sys.stdin:
         print(rid.sub(id, line), end="")

@@ -10,7 +10,7 @@
 # @file    makeRoutes.py
 # @author  Daniel Krajzewicz
 # @date    2014-10-06
-# @version $Id: makeRoutes.py v0_32_0+0134-9f1b8d0bad oss@behrisch.de 2018-01-04 21:53:06 +0100 $
+# @version $Id$
 
 
 from __future__ import print_function
