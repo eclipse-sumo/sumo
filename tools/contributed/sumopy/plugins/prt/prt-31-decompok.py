@@ -544,7 +544,8 @@ class Decompressors(Compressors):
                         # vehicle is a platoon leader:
                         # find a queue that fits the platoon
                         id_targetedge_sumo = traci.vehicle.getRoute(id_veh_entered_sumo)[-1]
-                        print '    dispatch id_veh_entered_sumo %s with target %s' % (id_veh_entered_sumo, id_targetedge_sumo)
+                        print '    dispatch id_veh_entered_sumo %s with target %s' % (
+                            id_veh_entered_sumo, id_targetedge_sumo)
 
                         is_found_queue = False
                         costs = np.zeros(n_queues, dtype=np.float32)
@@ -609,7 +610,9 @@ class Decompressors(Compressors):
                         edges.ids_sumo[ids_shuntedge], releasetime_queues):
                     if 0:
                         print '    QQQQQQ shunt %s ' % (id_shuntedge_sumo)
-                        print '      simtime-releasetime_queue', simtime-releasetime_queue, (simtime - releasetime_queue > 15), (simtime - self.releasetimes[id_comp] > 10)
+                        print '      simtime-releasetime_queue', simtime - \
+                            releasetime_queue, (simtime - releasetime_queue > 15), (simtime -
+                                                                                    self.releasetimes[id_comp] > 10)
                         print '      queue', queue, id(queue)
                         print '      queue_alloc', queue_alloc
 
@@ -856,7 +859,8 @@ class Mergenodes(am.ArrayObjman):
                         print '      +PRT merge with 2 PRT lines entering'
 
                         if id_type != id_zippertype:
-                            print 'WARNING: PRT network node %d %s is NOT in zipper mode!' % (id_node, nodes.ids_sumo[id_node])
+                            print 'WARNING: PRT network node %d %s is NOT in zipper mode!' % (
+                                id_node, nodes.ids_sumo[id_node])
 
                         if not ids_shuntedges.isdisjoint(ids_edge_from):
                             print '    one incoming edge is  a shunt edge. Detect last shunt node.'
@@ -1294,8 +1298,10 @@ class Mergenodes(am.ArrayObjman):
                 for id_veh_merged, id_veh_merged_sumo in zip(ids_vehs_merged[::-1], ids_vehs_merged_sumo[::-1]):
                     dist = traci.vehicle.getDrivingDistance(id_veh_merged_sumo, id_edge_merge_sumo, 3.0)
                     stoppeddist_tomerge = dist-0.5/self.decel*get_traci_velocity(id_veh_merged_sumo)**2
-                    print '      check veh %d, d  %.2fm, d_new  %.2fm, ind_insert = %d' % (id_veh_merged, dist, dist_tomerge_new, ind_insert)
-                    print '                    ds %.2fm, ds_new %.2fm, v %.2f, v_new =%.2fm, ' % (stoppeddist_tomerge, stoppeddist_tomerge_new, get_traci_velocity(id_veh_merged_sumo), get_traci_velocity(id_veh_sumo),)
+                    print '      check veh %d, d  %.2fm, d_new  %.2fm, ind_insert = %d' % (
+                        id_veh_merged, dist, dist_tomerge_new, ind_insert)
+                    print '                    ds %.2fm, ds_new %.2fm, v %.2f, v_new =%.2fm, ' % (
+                        stoppeddist_tomerge, stoppeddist_tomerge_new, get_traci_velocity(id_veh_merged_sumo), get_traci_velocity(id_veh_sumo),)
                     if stoppeddist_tomerge_new > stoppeddist_tomerge:
                         # distance to merge of this vehicle in queue is greater
                         # than the new vehicle
@@ -1324,7 +1330,8 @@ class Mergenodes(am.ArrayObjman):
 
                     elif ind_insert > 0:
                         # there is at least 1 other veh in front
-                        print '    vehicle will be inserted in front of', ids_vehs_merged_sumo[ind_insert], 'and in behind', ids_vehs_merged_sumo[ind_insert-1]
+                        print '    vehicle will be inserted in front of', ids_vehs_merged_sumo[
+                            ind_insert], 'and in behind', ids_vehs_merged_sumo[ind_insert-1]
                         # G1
                         # |
                         # V
@@ -1906,7 +1913,8 @@ class PrtStops(am.ArrayObjman):
 
             if 0:
                 for id_veh_sumo in self.ids_vehs_sumo_prev[id_stop]:
-                    print '    stopstate ', id_veh_sumo, bin(traci.vehicle.getStopState(id_veh_sumo))[2:], traci.vehicle.getRoute(id_veh_sumo)
+                    print '    stopstate ', id_veh_sumo, bin(traci.vehicle.getStopState(id_veh_sumo))[
+                        2:], traci.vehicle.getRoute(id_veh_sumo)
 
             if 0:
                 self.get_berthqueues(id_stop)
@@ -2156,7 +2164,8 @@ class PrtStops(am.ArrayObjman):
 
             if 0:
                 for id_person_sumo in ids_person_sumo_prev:
-                    print '    ids_person_sumo=%s pos = %.2f ' % (id_person_sumo, traci.person.getLanePosition(id_person_sumo))
+                    print '    ids_person_sumo=%s pos = %.2f ' % (
+                        id_person_sumo, traci.person.getLanePosition(id_person_sumo))
                 # nomore print '    ids_persons_sumo_boarded',self.ids_persons_sumo_boarded[id_stop]
 
             # check if boarding is completed in load area,
@@ -2335,7 +2344,8 @@ class PrtStops(am.ArrayObjman):
         self.ids_veh_lead[id_stop] = id_veh
 
     def program_leadveh(self, id_stop, id_veh, id_stop_target, time_start):
-        print 'program_leadveh prt.%d  from id_stop %d to id_stop_target %d at %d' % (id_veh, id_stop, id_stop_target, time_start), 'check leader', id_veh == self.ids_veh_lead[id_stop]
+        print 'program_leadveh prt.%d  from id_stop %d to id_stop_target %d at %d' % (
+            id_veh, id_stop, id_stop_target, time_start), 'check leader', id_veh == self.ids_veh_lead[id_stop]
 
         # check also if occupied in the meanwhile?? need to know emptytrip or not...
         if id_veh == self.ids_veh_lead[id_stop]:
@@ -2440,7 +2450,8 @@ class PrtStops(am.ArrayObjman):
             return id_person_sumo_inveh
 
         else:
-            print 'WARNING: on stop %d edge %s, berth %d no person found inside vehicle prt.%d' % (id_stop, self.ids_stop_to_ids_edge_sumo[id_stop], id_berth, id_veh)
+            print 'WARNING: on stop %d edge %s, berth %d no person found inside vehicle prt.%d' % (
+                id_stop, self.ids_stop_to_ids_edge_sumo[id_stop], id_berth, id_veh)
             return None
 
     def _get_stopline(self, id_stop, simtime):
@@ -2524,7 +2535,8 @@ class PrtStops(am.ArrayObjman):
             self.parent.prtvehicles.control_slow_down(id_veh)
         else:
             # command vehicle to go to berth for alighting
-            print '     send entering vehicle id_veh %d to id_berth_alight %d at pos %.2fm' % (id_veh, id_berth, self.get_berths().stoppositions[id_berth])
+            print '     send entering vehicle id_veh %d to id_berth_alight %d at pos %.2fm' % (
+                id_veh, id_berth, self.get_berths().stoppositions[id_berth])
             self.parent.prtvehicles.control_stop_alight(id_veh, id_stop, id_berth,
                                                         id_edge_sumo=self.ids_stop_to_ids_edge_sumo[id_stop],
                                                         position=self.get_berths().stoppositions[id_berth],
@@ -3060,7 +3072,8 @@ class PrtVehicles(am.ArrayObjman):
 
                 th = (dist_min + self.length)/velocity
                 ds_check = self.tau*velocity + 0.5/decel_emergency*velocity*velocity
-                print '    %7s: v=%3.1f vg=%3.1f dh=%4.1f th=%4.1fs ds=%4.1f dc=%4.1f lp=%3.1f dm=%4.1f %s' % (id_sumo, velocity, velocitiy_ghost_min, dist_min, th, dist_safe, dist_comf, length_plat, disttomerge, a)
+                print '    %7s: v=%3.1f vg=%3.1f dh=%4.1f th=%4.1fs ds=%4.1f dc=%4.1f lp=%3.1f dm=%4.1f %s' % (
+                    id_sumo, velocity, velocitiy_ghost_min, dist_min, th, dist_safe, dist_comf, length_plat, disttomerge, a)
 
         fact_urgent = np.clip(dists_safe/diststomerge_min, 0.0, 1.0)
 
@@ -4137,7 +4150,8 @@ class VehicleMan(am.ArrayObjman):
                 print '  inflows_sched', self.inflows_sched[ids_stop_target, inds_search]
                 print '  delta flow', (flow_person_est-self.inflows_sched[ids_stop_target, inds_search])
                 print '  demandcomp', self.weight_demand.get_value() * stops.numbers_person_wait[ids_stop_target]
-                print '  flowcomp', self.weight_flow.get_value() * (flow_person_est-self.inflows_sched[ids_stop_target, inds_search])
+                print '  flowcomp', self.weight_flow.get_value(
+                ) * (flow_person_est-self.inflows_sched[ids_stop_target, inds_search])
 
                 print '  flow_person_est', flow_person_est
 
@@ -4156,7 +4170,9 @@ class VehicleMan(am.ArrayObjman):
                 print '    timeweight', timeweight
                 print '    durations_est', durations_est
                 print '    inds_search_base', inds_search_base
-                print '    inds_search unclipped\n', inds_search_base + np.array(1.0*durations_est/self.time_update_flows.get_value(), dtype=np.int32).reshape(n_stop_target, 1)
+                print '    inds_search unclipped\n', inds_search_base + \
+                    np.array(1.0*durations_est/self.time_update_flows.get_value(),
+                             dtype=np.int32).reshape(n_stop_target, 1)
                 print '    inds_search clipped  \n', inds_search
                 print '    inds_time_min', inds_time_min
                 print '    ind_stop_current', ind_stop_current, durations_est[ind_stop_current]
@@ -4598,7 +4614,8 @@ class PrtService(SimobjMixin, DemandobjMixin, cm.BaseObjman):
         for id_edge, id_stop, id_ptstop in zip(ids_edge, ids_prtstop, ids_ptstop):
             # print '  Found PRT stop %d, PT stop %d with id_edge %d '%(id_stop,id_ptstop, id_edge)
             if not fstar.has_key(id_edge):
-                print 'WARNING in make_times_stop_to_stop: PRT stop %d, PT stop %d has no id_edge %d in fstar' % (id_stop, id_ptstop, id_edge)
+                print 'WARNING in make_times_stop_to_stop: PRT stop %d, PT stop %d has no id_edge %d in fstar' % (
+                    id_stop, id_ptstop, id_edge)
                 is_incomplete_fstar = True
 
         # check if fstar is complete (all to edges are in keys)
@@ -4608,7 +4625,8 @@ class PrtService(SimobjMixin, DemandobjMixin, cm.BaseObjman):
             if not ids_fromedge_set.issuperset(fstar[id_fromedge]):
                 is_incomplete_fstar = True
                 ids_miss = fstar[id_fromedge].difference(ids_fromedge_set)
-                print 'WARNING in make_times_stop_to_stop: incomplete fstar of id_fromedge = %d, %s' % (id_fromedge, ids_sumo[id_fromedge])
+                print 'WARNING in make_times_stop_to_stop: incomplete fstar of id_fromedge = %d, %s' % (
+                    id_fromedge, ids_sumo[id_fromedge])
                 for id_edge in ids_miss:
                     print '  missing', id_edge, ids_sumo[id_edge]
 
@@ -4657,7 +4675,8 @@ class PrtService(SimobjMixin, DemandobjMixin, cm.BaseObjman):
                         stop_to_stop[ids_edge_to_ids_prtstop[id_edge],
                                      ids_edge_to_ids_prtstop[id_edge_target]] = costs[id_edge_target]
                     else:
-                        print 'WARNING in make_times_stop_to_stop: unreacle station id_fromedge = %d, %s' % (id_edge_target, ids_sumo[id_edge_target])
+                        print 'WARNING in make_times_stop_to_stop: unreacle station id_fromedge = %d, %s' % (
+                            id_edge_target, ids_sumo[id_edge_target])
                         is_incomplete_fstar = True
 
                 # put back origin to targets (probably not the best way)
@@ -4844,7 +4863,8 @@ class Stopresults(am.ArrayObjman):
         # return self.ids_stop.get_linktab()
 
     def init_recording(self, n_timesteps, time_step):
-        print 'init_recording n_timesteps, time_step', n_timesteps, time_step, len(self.ids_stop.get_linktab().get_ids())
+        print 'init_recording n_timesteps, time_step', n_timesteps, time_step, len(
+            self.ids_stop.get_linktab().get_ids())
         self.clear()
 
         self.time_step.set_value(time_step)

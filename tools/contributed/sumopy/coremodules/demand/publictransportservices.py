@@ -526,7 +526,8 @@ class PtLinks(am.ArrayObjman):
 
                         # compute length and time between  fromstop and tostop
                         while id_stopedge_next != ids_edge[ind_edge]:
-                            print '      ind_edge,id_stopedge_next,ids_edge[ind_edge]', ind_edge, id_stopedge_next, ids_edge[ind_edge], len(ids_edge)
+                            print '      ind_edge,id_stopedge_next,ids_edge[ind_edge]', ind_edge, id_stopedge_next, ids_edge[ind_edge], len(
+                                ids_edge)
                             ind_edge += 1
                             length_edge = edgelengths[ids_edge[ind_edge]]
                             length += length_edge

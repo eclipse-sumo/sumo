@@ -16,7 +16,7 @@
 import os
 import numpy as np
 from collections import OrderedDict
-#import  matplotlib as mpl
+# import  matplotlib as mpl
 from agilepy.lib_base.geometry import *
 from coremodules.misc.matplottools import *
 import agilepy.lib_base.classman as cm
@@ -174,13 +174,13 @@ class StrategyPlotter(PlotoptionsMixin, Process):
         inds_plot = np.arange(len(index_strat[inds_nz]))
         bar_width = 0.45
         opacity = 0.5
-        #error_config = {'ecolor': '0.3'}
+        # error_config = {'ecolor': '0.3'}
 
         rects = ax.barh(inds_plot, values[inds][inds_nz],
                         # align='center',
                         alpha=opacity,
                         height=bar_width, color=colors[inds][inds_nz],  # self.color_chart,
-                        #yerr=std_women, error_kw=error_config,
+                        # yerr=std_women, error_kw=error_config,
                         linewidth=self.width_line,
                         # facecolor=colors[inds][inds_nz],
                         )
@@ -189,7 +189,7 @@ class StrategyPlotter(PlotoptionsMixin, Process):
         ax.set_yticklabels(names_strat[inds][inds_nz])
         ax.legend()
 
-        #ax.legend(loc='best',shadow=True, fontsize=self.size_labelfont)
+        # ax.legend(loc='best',shadow=True, fontsize=self.size_labelfont)
         ax.grid(self.is_grid)
         if self.is_title:
             ax.set_title('Strategy shares', fontsize=self.size_titlefont)
@@ -236,13 +236,13 @@ class StrategyPlotter(PlotoptionsMixin, Process):
 
         bar_width = 0.45
         opacity = 0.5
-        #error_config = {'ecolor': '0.3'}
+        # error_config = {'ecolor': '0.3'}
 
         rects = ax.barh(inds_plot, values[inds][inds_nz],
                         # align='center',
                         alpha=opacity,
                         height=bar_width, color=colors[inds][inds_nz],
-                        #yerr=std_women, error_kw=error_config,
+                        # yerr=std_women, error_kw=error_config,
                         linewidth=self.width_line,
                         # facecolor=colors[inds][inds_nz],
                         )
@@ -251,7 +251,7 @@ class StrategyPlotter(PlotoptionsMixin, Process):
         ax.set_yticklabels(names_strat[inds][inds_nz])
         ax.legend()
 
-        #ax.legend(loc='best',shadow=True, fontsize=self.size_labelfont)
+        # ax.legend(loc='best',shadow=True, fontsize=self.size_labelfont)
         ax.grid(self.is_grid)
         if self.is_title:
             ax.set_title('Mean estimated travel time of strategies', fontsize=self.size_titlefont)
@@ -314,7 +314,7 @@ class StrategyPlotter(PlotoptionsMixin, Process):
             if len(timefactors) > 0:
                 x_max = max(x_max, np.max(timefactors))
 
-        #bins = np.linspace(x_min,x_max,self.n_bins)
+        # bins = np.linspace(x_min,x_max,self.n_bins)
         bins = np.arange(x_min, x_max, self.timeint_bins)
         if len(bins) > 0:
             for id_strat, timefactors in strategytimefactors.iteritems():
@@ -399,7 +399,7 @@ class StrategyPlotter(PlotoptionsMixin, Process):
             if len(timefactors) > 0:
                 x_max = max(x_max, np.max(timefactors))
 
-        #bins = np.linspace(x_min,x_max,self.n_bins)
+        # bins = np.linspace(x_min,x_max,self.n_bins)
         bins = np.arange(x_min, x_max, self.timeint_bins)
         if len(bins) > 0:
             for id_strat, timefactors in strategytimefactors.iteritems():

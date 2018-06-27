@@ -81,9 +81,9 @@ class TripDrawings(Polygons):
         landusetypes = self._facilities.get_landusetypes()
         ids_landusetype = self._facilities.ids_landusetype.value
         for id_landusetype in landusetypes.get_ids():
-            #inds = np.flatnonzero(ids_landusetype == id_landusetype)
-            #color = landusetypes.colors[id_landusetype]
-            #self.colors.value[self._inds_map[inds]] = color
+            # inds = np.flatnonzero(ids_landusetype == id_landusetype)
+            # color = landusetypes.colors[id_landusetype]
+            # self.colors.value[self._inds_map[inds]] = color
             self.colors.value[self._inds_map[np.flatnonzero(
                 ids_landusetype == id_landusetype)]] = landusetypes.colors[id_landusetype]
 
@@ -129,7 +129,7 @@ class RouteDrawings(Polygons):
             self.del_rows(self.get_ids())
 
         ids = self._zones.get_ids()
-        #self._inds_map = self._zones.get_inds(ids)
+        # self._inds_map = self._zones.get_inds(ids)
         self.add_rows(ids=ids)
 
         # plugins to keep grapgics syncronized with netelements
@@ -168,7 +168,7 @@ class RouteDrawings(Polygons):
                          colors=self.color_default.value,
                          colors_highl=self._get_colors_highl(self.color_default.value)
                          )
-            #self._inds_map = self._zones.get_inds(self._zones.get_ids())
+            # self._inds_map = self._zones.get_inds(self._zones.get_ids())
             # self._update_vertexvbo()
             # self._update_colorvbo()
 
@@ -196,7 +196,7 @@ class RouteDrawings(Polygons):
         # print '  self.get_vertices_array()=\n',self.get_vertices_array()
         # self._drawobj_anim.del_drawobj(self.id_anim)
         self.update_internal()
-        #self._inds_map = self._zones.get_inds(self._zones.get_ids())
+        # self._inds_map = self._zones.get_inds(self._zones.get_ids())
         # self._update_vertexvbo()
         # self._update_colorvbo()
         return True
@@ -204,7 +204,7 @@ class RouteDrawings(Polygons):
     def del_elem(self, id_zone):
         """
         Deletes an element from network and then in on canvas
-        through callback on_del_element 
+        through callback on_del_element
         """
         # print 'del_elem'
         # print '    len(self),len(self._zones)',len(self),len(self._zones)
@@ -272,7 +272,7 @@ class WxGui(turnflowsgui.TurnflowWxGuiMixin,
         Set mainframe and initialize widgets to various places.
         """
         self._mainframe = mainframe
-        #self._neteditor = mainframe.add_view("Network", Neteditor)
+        # self._neteditor = mainframe.add_view("Network", Neteditor)
 
         # mainframe.browse_obj(self._module)
         self.make_menu()
@@ -282,7 +282,7 @@ class WxGui(turnflowsgui.TurnflowWxGuiMixin,
         """
         Check through mainframe what the state of the application is
         and reset widgets. For exampe enable/disable widgets
-        dependent on the availability of data. 
+        dependent on the availability of data.
         """
         scenario = self.get_scenario()
         # print 'demand refresh_widgets',scenario.net
@@ -332,7 +332,7 @@ class WxGui(turnflowsgui.TurnflowWxGuiMixin,
         menubar.append_item('demand/vehicles/load defaults',
                             self.on_load_vtypes_defaults,
                             info='Load default vehicle types, removing all existing vehicle types.',
-                            #bitmap = self.get_icon("route3_24px.png"),
+                            # bitmap = self.get_icon("route3_24px.png"),
                             )
 
         # ----------------------------------------------------------------------
@@ -432,39 +432,39 @@ class WxGui(turnflowsgui.TurnflowWxGuiMixin,
 
 
 # (self._menuitem_draw_route, id_item,) = menubar.append_item(
-##            'plugins/traces/draw selected route in network',
+#            'plugins/traces/draw selected route in network',
 # self.on_renew_objectbrowser,
-##            info='Enable visualization of routes in network tab. Double-click on trace in table.',
+#            info='Enable visualization of routes in network tab. Double-click on trace in table.',
 # check=True)
 # self._menuitem_draw_route.Check(False)
-##
+#
 # (self._menuitem_plot_route, id_item,) = menubar.append_item(
-##            'plugins/traces/add plot selected route',
+#            'plugins/traces/add plot selected route',
 # self.on_renew_objectbrowser,
-##            info='Enable adding of routes to graphics in trace tab. Double-click on trace in table.',
+#            info='Enable adding of routes to graphics in trace tab. Double-click on trace in table.',
 # check=True)
 # self._menuitem_plot_route.Check(False)
 
     def on_clear_vtypes(self, event=None):
         self._demand.vtypes.clear_vtypes()
         self._mainframe.browse_obj(self._demand.vtypes)
-        #if event:  event.Skip()
+        # if event:  event.Skip()
 
     def on_load_vtypes_defaults(self, event=None):
         self._demand.vtypes.clear_vtypes()
         self._demand.vtypes.add_vtypes_default()
         self._mainframe.browse_obj(self._demand.vtypes)
-        #if event:  event.Skip()
+        # if event:  event.Skip()
 
     def on_clear_trips(self, event=None):
         self._demand.trips.clear_trips()
         self._mainframe.browse_obj(self._demand.trips)
-        #if event:  event.Skip()
+        # if event:  event.Skip()
 
     def on_clear_routes(self, event=None):
         self._demand.trips.clear_routes()
         self._mainframe.browse_obj(self._demand.trips)
-        #if event:  event.Skip()
+        # if event:  event.Skip()
 
     def on_route(self, event=None):
         """Generates routes from current trip info. Uses a python implementation of a fastest path router.
@@ -474,7 +474,8 @@ class WxGui(turnflowsgui.TurnflowWxGuiMixin,
         self._mainframe.browse_obj(self._demand.trips)
 
     def on_route_del_disconnected(self, event=None):
-        """Generates routes from current trip info and deletes disconnected trips. Uses a python implementation of a fastest path router.
+        """Generates routes from current trip info and deletes disconnected trips. Uses a python implementation of
+        a fastest path router.
         """
         # self._demand.trips.clear_routes()
         self._demand.trips.route(is_del_disconnected=True)
@@ -488,7 +489,8 @@ class WxGui(turnflowsgui.TurnflowWxGuiMixin,
         self._mainframe.browse_obj(self._demand.trips)
 
     def on_route_uncongested(self, event=None):
-        """Generates routes from current trip info using routing methods with uncongested network assumption. Based on duarouter.
+        """Generates routes from current trip info using routing methods with uncongested network assumption.
+        Based on duarouter.
         """
         # self._demand.trips.clear_routes()
 
@@ -520,7 +522,7 @@ class WxGui(turnflowsgui.TurnflowWxGuiMixin,
             # self._mainframe.refresh_moduleguis()
 
     def on_route_congested(self, event=None):
-        """Generates routes from current trip info using routing methods with congested network assumption. 
+        """Generates routes from current trip info using routing methods with congested network assumption.
         Based on marouter.
         """
         # self._demand.trips.clear_routes()
@@ -553,7 +555,7 @@ class WxGui(turnflowsgui.TurnflowWxGuiMixin,
             # self._mainframe.refresh_moduleguis()
 
     def on_import_vtypes_xml(self, event=None):
-        """Select xml file and import new vehicle types. 
+        """Select xml file and import new vehicle types.
         """
         filepath = self._demand.trips.get_routefilepath()
         defaultFile = os.path.dirname(filepath)
@@ -573,8 +575,8 @@ class WxGui(turnflowsgui.TurnflowWxGuiMixin,
         self._mainframe.browse_obj(self._demand.vtypes)
 
     def on_import_trips_xml(self, event=None):
-        """Select xml file and import new trips. 
-        New trips with associated routes will generated. 
+        """Select xml file and import new trips.
+        New trips with associated routes will generated.
         """
         filepath = self._demand.trips.get_routefilepath()
         defaultFile = os.path.dirname(filepath)
@@ -595,8 +597,8 @@ class WxGui(turnflowsgui.TurnflowWxGuiMixin,
         self._mainframe.browse_obj(self._demand.trips)
 
     def on_import_triproutes_xml(self, event=None):
-        """Select xml file and import trips and routes. 
-        New trips with associated routes will generated. 
+        """Select xml file and import trips and routes.
+        New trips with associated routes will generated.
         """
         filepath = self._demand.trips.get_routefilepath()
         defaultFile = os.path.dirname(filepath)
@@ -618,8 +620,8 @@ class WxGui(turnflowsgui.TurnflowWxGuiMixin,
         self._mainframe.browse_obj(self._demand.trips)
 
     def on_import_routes_alternative_xml(self, event=None):
-        """Select xml file and import routes. 
-        Routes will added as route alternative to existing trips. 
+        """Select xml file and import routes.
+        Routes will added as route alternative to existing trips.
         """
         filepath = self._demand.trips.get_routefilepath()
         defaultFile = os.path.dirname(filepath)
@@ -643,10 +645,10 @@ class WxGui(turnflowsgui.TurnflowWxGuiMixin,
         self._mainframe.browse_obj(self._demand.trips)
 
     def on_import_trips_from_scenario(self, event=None):
-        """Select xml file and import new vehicle types. 
+        """Select xml file and import new vehicle types.
         """
         filepath = self.get_scenario().get_rootfilepath()
-        #defaultFile = os.path.dirname(filepath)
+        # defaultFile = os.path.dirname(filepath)
         dirpath = os.path.dirname(filepath)
         wildcards_all = "All files (*.*)|*.*"
         wildcards_obj = "Python binary files (*.obj)|*.obj"

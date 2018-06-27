@@ -324,7 +324,8 @@ class PrtStops(am.ArrayObjman):
             # reset  allocation index
             if len(self.ids_vehs_alight_allocated[id_prtstop]) == 0:
                 if np.all(berths.states[ids_berth_alight] == BERTHSTATES['free']):
-                    print '    reset inds_berth_alight_allocated', self.inds_berth_alight_allocated[id_prtstop], '->', len(self.ids_berth_alight[id_prtstop])
+                    print '    reset inds_berth_alight_allocated', self.inds_berth_alight_allocated[id_prtstop], '->', len(
+                        self.ids_berth_alight[id_prtstop])
                     self.inds_berth_alight_allocated[id_prtstop] = len(self.ids_berth_alight[id_prtstop])
 
                     # try to allocate unallocated vehicles
@@ -551,7 +552,8 @@ class PrtVehicles(am.ArrayObjman):
                             id_edge_sumo=None,
                             position=None,
                             ):
-        print 'control_stop_alight', self.get_id_sumo(id_veh), traci.vehicle.getLanePosition(self.get_id_sumo(id_veh)), '->', position, id_berth
+        print 'control_stop_alight', self.get_id_sumo(id_veh), traci.vehicle.getLanePosition(
+            self.get_id_sumo(id_veh)), '->', position, id_berth
         self.ids_berth[id_veh] = id_berth
         traci.vehicle.setStop(self.get_id_sumo(id_veh),
                               id_edge_sumo,

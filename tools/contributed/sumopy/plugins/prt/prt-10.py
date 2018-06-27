@@ -548,7 +548,8 @@ class PrtStops(am.ArrayObjman):
 
             if 0:
                 for id_person_sumo in ids_person_sumo_prev:
-                    print '    ids_person_sumo=%s pos = %.2f ' % (id_person_sumo, traci.person.getLanePosition(id_person_sumo))
+                    print '    ids_person_sumo=%s pos = %.2f ' % (
+                        id_person_sumo, traci.person.getLanePosition(id_person_sumo))
                 print '    ids_persons_sumo_boarded', self.ids_persons_sumo_boarded[id_stop]
 
             # check if boarding is completed in load area and reprogram
@@ -616,7 +617,8 @@ class PrtStops(am.ArrayObjman):
             berths.ids_veh[id_berth] = -1
 
         else:
-            print 'WARNING: on stop %d edge %s, berth %d no person found inside vehicle %d'(id_stop, self.ids_stop_to_ids_edge_sumo[id_stop], id_berth, id_veh)
+            print 'WARNING: on stop %d edge %s, berth %d no person found inside vehicle %d'(
+                id_stop, self.ids_stop_to_ids_edge_sumo[id_stop], id_berth, id_veh)
 
     def schedule_trip_empty(self, id_stop, id_berth, id_veh, simtime):
 
@@ -874,7 +876,8 @@ class PrtVehicles(am.ArrayObjman):
                             id_edge_sumo=None,
                             position=None,
                             ):
-        print 'control_stop_alight', self.get_id_sumo(id_veh), traci.vehicle.getLanePosition(self.get_id_sumo(id_veh)), '->', position, id_berth
+        print 'control_stop_alight', self.get_id_sumo(id_veh), traci.vehicle.getLanePosition(
+            self.get_id_sumo(id_veh)), '->', position, id_berth
         self.ids_berth[id_veh] = id_berth
         traci.vehicle.setStop(self.get_id_sumo(id_veh),
                               id_edge_sumo,

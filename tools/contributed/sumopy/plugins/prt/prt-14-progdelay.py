@@ -628,7 +628,8 @@ class PrtStops(am.ArrayObjman):
 
             if 0:
                 for id_person_sumo in ids_person_sumo_prev:
-                    print '    ids_person_sumo=%s pos = %.2f ' % (id_person_sumo, traci.person.getLanePosition(id_person_sumo))
+                    print '    ids_person_sumo=%s pos = %.2f ' % (
+                        id_person_sumo, traci.person.getLanePosition(id_person_sumo))
                 print '    ids_persons_sumo_boarded', self.ids_persons_sumo_boarded[id_stop]
 
             # check if boarding is completed in load area and program
@@ -698,7 +699,8 @@ class PrtStops(am.ArrayObjman):
 
             elif len(self.ids_vehs_prog[id_stop]) > 0:
                 if (self.ids_vehs[id_stop][ind_queue-1] == self.ids_vehs_prog[id_stop][-1][1]):
-                    print '   id_veh is new leader because next vehicle %d is programmed' % (self.ids_vehs[id_stop][ind_queue-1],)
+                    print '   id_veh is new leader because next vehicle %d is programmed' % (
+                        self.ids_vehs[id_stop][ind_queue-1],)
                     self.set_leadveh(id_stop, id_veh)
                     return True
                 else:
@@ -711,7 +713,8 @@ class PrtStops(am.ArrayObjman):
         self.ids_veh_lead[id_stop] = id_veh
 
     def program_leadveh(self, id_stop, id_veh, id_stop_target, time_start):
-        print 'program_leadveh prt.%d  from id_stop %d to id_stop_target %d at %d' % (id_veh, id_stop, id_stop_target, time_start)
+        print 'program_leadveh prt.%d  from id_stop %d to id_stop_target %d at %d' % (
+            id_veh, id_stop, id_stop_target, time_start)
         # check also if occupied in the meanwhile?? need to know emptytrip or not...
         if id_veh == self.ids_veh_lead[id_stop]:
             # check in vehman:if self.parent.prtvehicles.is_still_empty(id_veh):
@@ -777,7 +780,8 @@ class PrtStops(am.ArrayObjman):
             self.parent.vehicleman.init_trip_occupied(id_veh, id_stop, id_stop_dest, simtime)
 
         else:
-            print 'WARNING: on stop %d edge %s, berth %d no person found inside vehicle prt.%d' % (id_stop, self.ids_stop_to_ids_edge_sumo[id_stop], id_berth, id_veh)
+            print 'WARNING: on stop %d edge %s, berth %d no person found inside vehicle prt.%d' % (
+                id_stop, self.ids_stop_to_ids_edge_sumo[id_stop], id_berth, id_veh)
 
     def init_trip_empty(self, id_stop, id_berth, id_veh, simtime=-1, is_ask_vehman=True):
         print 'Stops.init_trip_empty  id_stop, id_berth, id_veh, is_ask_vehman', id_stop, id_berth, 'prt.%d' % id_veh, is_ask_vehman
@@ -1535,7 +1539,8 @@ class VehicleMan(am.ArrayObjman):
 
             self.inflows_est[id_stop_current, ind_time_depart] += 1
             time_depart = process.simtime + ind_time_depart*self.time_update_flows.get_value()-duration_est
-            print '      ind_time_depart, time_arr, duration_est', ind_time_depart, process.simtime + ind_time_depart*self.time_update_flows.get_value(), duration_est
+            print '      ind_time_depart, time_arr, duration_est', ind_time_depart, process.simtime + \
+                ind_time_depart*self.time_update_flows.get_value(), duration_est
             print '      time_order', time_order, 'time_depart', time_depart, 'delay', time_depart-time_order
 
             stops.program_leadveh(id_stop_current, id_veh_lead, id_stop_target, time_depart)
@@ -1702,7 +1707,8 @@ class VehicleMan(am.ArrayObjman):
                         durations_est,
                     ):
 
-                print '    check veh prt.%d' % (id_veh_lead), state, 'id_stop_current', id_stop_current, 'id_stop_target', id_stop_target
+                print '    check veh prt.%d' % (
+                    id_veh_lead), state, 'id_stop_current', id_stop_current, 'id_stop_target', id_stop_target
 
                 #VEHICLESTATES = {'init':0,'waiting':1,'boarding':2,'alighting':3,'emptytrip':4,'occupiedtrip':5,'forewarding':6}
                 # if state == VEHICLESTATES['occupiedtrip']:
@@ -1723,7 +1729,8 @@ class VehicleMan(am.ArrayObjman):
 
                 # if time_depart < process.simtime+15:
                 #    time_depart = process.simtime+15
-                print '      ind_time_depart, time_arr, duration_est', ind_time_depart, process.simtime + ind_time_depart*self.time_update_flows.get_value(), duration_est
+                print '      ind_time_depart, time_arr, duration_est', ind_time_depart, process.simtime + \
+                    ind_time_depart*self.time_update_flows.get_value(), duration_est
                 print '      time_order', time_order, 'time_depart', time_depart, 'delay', time_depart-time_order
 
                 stops.program_leadveh(id_stop_current, id_veh_lead, id_stop_target, time_depart)

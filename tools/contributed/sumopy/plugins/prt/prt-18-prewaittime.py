@@ -516,7 +516,8 @@ class PrtStops(am.ArrayObjman):
                     berths.ids_veh[ids_berth_alight],
                 ):
 
-                    print '    check alight->board  for veh prt.%d' % id_veh, 'at berth', id_berth_alight, berths.states[id_berth_alight], berths.states[id_berth_alight] == BERTHSTATES['free']
+                    print '    check alight->board  for veh prt.%d' % id_veh, 'at berth', id_berth_alight, berths.states[
+                        id_berth_alight], berths.states[id_berth_alight] == BERTHSTATES['free']
                     # TODO: this could go into one vehicle method?
 
                     if id_veh >= 0:  # is there a waiting vehicle
@@ -524,7 +525,8 @@ class PrtStops(am.ArrayObjman):
                         if vehicles.is_completed_alighting(id_veh):
 
                             id_berth_board = self.allocate_board(id_stop)
-                            print '    try allocate id_veh=prt.%d for berth id_berth_board=%d' % (id_veh, id_berth_board)
+                            print '    try allocate id_veh=prt.%d for berth id_berth_board=%d' % (
+                                id_veh, id_berth_board)
                             if id_berth_board >= 0:
                                 # print '     send vehicle id_veh %d to id_berth_board %d'%(id_veh,id_berth_board)#,berths.stoppositions[id_berth_board]
                                 berths.ids_veh[id_berth_alight] = -1
@@ -594,7 +596,8 @@ class PrtStops(am.ArrayObjman):
             # if all allocated vehicles for board area
             # found their berth and all berths are free, then
             # reset  allocation index
-            print '  board berth rest check', len(self.ids_vehs_board_allocated[id_stop]) == 0, np.all(berths.states[ids_berth_board] == BERTHSTATES['free']), berths.states[ids_berth_board]
+            print '  board berth rest check', len(self.ids_vehs_board_allocated[id_stop]) == 0, np.all(
+                berths.states[ids_berth_board] == BERTHSTATES['free']), berths.states[ids_berth_board]
             if (self.inds_berth_board_allocated[id_stop] == 0) & (len(self.ids_vehs_board_allocated[id_stop]) == 0):
 
                 if np.all(berths.states[ids_berth_board] == BERTHSTATES['free']):
@@ -648,7 +651,8 @@ class PrtStops(am.ArrayObjman):
 
             if 0:
                 for id_person_sumo in ids_person_sumo_prev:
-                    print '    ids_person_sumo=%s pos = %.2f ' % (id_person_sumo, traci.person.getLanePosition(id_person_sumo))
+                    print '    ids_person_sumo=%s pos = %.2f ' % (
+                        id_person_sumo, traci.person.getLanePosition(id_person_sumo))
                 print '    ids_persons_sumo_boarded', self.ids_persons_sumo_boarded[id_stop]
 
             # check if boarding is completed in load area and program
@@ -742,7 +746,8 @@ class PrtStops(am.ArrayObjman):
 
             i += 1
 
-        print '  trigger platoon?', inds_platoon, len(inds_platoon), n_platoon_max, process.simtime - self.times_plat_accumulate[id_stop], timeout_platoon
+        print '  trigger platoon?', inds_platoon, len(
+            inds_platoon), n_platoon_max, process.simtime - self.times_plat_accumulate[id_stop], timeout_platoon
         if len(inds_platoon) == 0:
             return
 
@@ -766,7 +771,8 @@ class PrtStops(am.ArrayObjman):
             for i in xrange(1, len(inds_platoon)):
                 time_start_pre, id_veh_pre, id_stop_target_pre, is_prog_pre = ids_vehs_prog[inds_platoon[i-1]]
                 time_start, id_veh, id_stop_target, is_prog = ids_vehs_prog[inds_platoon[i]]
-                print '    check prt.%d' % ids_vehs_prog[inds_platoon[i]][1], 'with leader prt.%d' % ids_vehs_prog[inds_platoon[i-1]][1], id_stop_target == id_stop_target_pre
+                print '    check prt.%d' % ids_vehs_prog[inds_platoon[i]
+                                                         ][1], 'with leader prt.%d' % ids_vehs_prog[inds_platoon[i-1]][1], id_stop_target == id_stop_target_pre
                 if id_stop_target == id_stop_target_pre:
                     self.parent.prtvehicles.concatenate(id_veh, id_veh_pre)
 
@@ -780,7 +786,8 @@ class PrtStops(am.ArrayObjman):
             return False
         else:
             ind_queue = self.ids_vehs[id_stop].index(id_veh)
-            print 'try_set_leadveh id_stop, id_veh,ind_queue', id_stop, 'prt.%d' % id_veh, ind_queue, len(self.ids_vehs[id_stop]), len(self.ids_vehs_prog[id_stop])
+            print 'try_set_leadveh id_stop, id_veh,ind_queue', id_stop, 'prt.%d' % id_veh, ind_queue, len(
+                self.ids_vehs[id_stop]), len(self.ids_vehs_prog[id_stop])
 
             if ind_queue == 0:  # len(self.ids_vehs[id_stop])-1:
                 print '  id_veh is new leader because last position', self.ids_vehs[id_stop].index(id_veh)
@@ -808,7 +815,8 @@ class PrtStops(am.ArrayObjman):
         self.ids_veh_lead[id_stop] = id_veh
 
     def program_leadveh(self, id_stop, id_veh, id_stop_target, time_start):
-        print 'program_leadveh prt.%d  from id_stop %d to id_stop_target %d at %d' % (id_veh, id_stop, id_stop_target, time_start)
+        print 'program_leadveh prt.%d  from id_stop %d to id_stop_target %d at %d' % (
+            id_veh, id_stop, id_stop_target, time_start)
         # check also if occupied in the meanwhile?? need to know emptytrip or not...
         if id_veh == self.ids_veh_lead[id_stop]:
             # check in vehman:if self.parent.prtvehicles.is_still_empty(id_veh):
@@ -880,7 +888,8 @@ class PrtStops(am.ArrayObjman):
 
         if id_person_sumo_inveh is not None:
             # program vehicle to person's destination
-            print '    found person,origs_dests', id_person_sumo_inveh, self.id_person_to_origs_dests[id_person_sumo_inveh]
+            print '    found person,origs_dests', id_person_sumo_inveh, self.id_person_to_origs_dests[
+                id_person_sumo_inveh]
             id_stop_orig, id_stop_dest, id_edge_sumo_from, id_edge_sumo_to = \
                 self.id_person_to_origs_dests[id_person_sumo_inveh].pop(0)
             print '    found person', id_person_sumo_inveh, 'from', id_stop_orig, id_edge_sumo_from, ' to', id_edge_sumo_to, id_stop_dest
@@ -902,7 +911,8 @@ class PrtStops(am.ArrayObjman):
             self.parent.vehicleman.init_trip_occupied(id_veh, id_stop, id_stop_dest, simtime)
 
         else:
-            print 'WARNING: on stop %d edge %s, berth %d no person found inside vehicle prt.%d' % (id_stop, self.ids_stop_to_ids_edge_sumo[id_stop], id_berth, id_veh)
+            print 'WARNING: on stop %d edge %s, berth %d no person found inside vehicle prt.%d' % (
+                id_stop, self.ids_stop_to_ids_edge_sumo[id_stop], id_berth, id_veh)
 
     def _get_stopline(self, id_stop, simtime):
         if self.types[id_stop] == STOPTYPES['group']:
@@ -1838,7 +1848,8 @@ class VehicleMan(am.ArrayObjman):
             print '  demand', stops.numbers_person_wait[ids_stop_target]
             print '  flow', (flow_person_est-self.inflows_sched[ids_stop_target, inds_search])
             print '  demandcomp', self.weight_demand.get_value() * stops.numbers_person_wait[ids_stop_target]
-            print '  flowcomp', self.weight_flow.get_value() * (flow_person_est-self.inflows_sched[ids_stop_target, inds_search])
+            print '  flowcomp', self.weight_flow.get_value(
+            ) * (flow_person_est-self.inflows_sched[ids_stop_target, inds_search])
             print '  inflows_est', self.inflows_sched[ids_stop_target, inds_search]
             print '  flow_person_est', flow_person_est
 
@@ -1865,7 +1876,8 @@ class VehicleMan(am.ArrayObjman):
             ind_time_arrive = ind_target % n_searchint+inds_time_min[ind_stop_target]
             if 0:
                 print '    n_searchint', n_searchint, ind_target/n_searchint, ind_target % n_searchint
-                print '    ind_target,ind_stop_target,ind_delta_depart,c_min', ind_target, costs[ind_target/n_searchint, ind_target % n_searchint]
+                print '    ind_target,ind_stop_target,ind_delta_depart,c_min', ind_target, costs[
+                    ind_target/n_searchint, ind_target % n_searchint]
                 print '    inds_time_min,ind_time_arrive', inds_time_min[ind_stop_target], ind_time_arrive
 
             id_stop_target = ids_stop_target[ind_stop_target][0]
@@ -1965,7 +1977,8 @@ class VehicleMan(am.ArrayObjman):
                     durations_est,
                 ):
 
-            print '    check veh prt.%d' % (id_veh_lead), state, 'id_stop_current', id_stop_current, 'id_stop_target', id_stop_target
+            print '    check veh prt.%d' % (
+                id_veh_lead), state, 'id_stop_current', id_stop_current, 'id_stop_target', id_stop_target
 
             #VEHICLESTATES = {'init':0,'waiting':1,'boarding':2,'alighting':3,'emptytrip':4,'occupiedtrip':5,'forewarding':6}
             # if state == VEHICLESTATES['occupiedtrip']:
@@ -1986,7 +1999,8 @@ class VehicleMan(am.ArrayObjman):
 
             # if time_depart < process.simtime+15:
             #    time_depart = process.simtime+15
-            print '      ind_time_depart, time_arr, duration_est', ind_time_depart, process.simtime + ind_time_depart*self.time_update_flows.get_value(), duration_est
+            print '      ind_time_depart, time_arr, duration_est', ind_time_depart, process.simtime + \
+                ind_time_depart*self.time_update_flows.get_value(), duration_est
             print '      time_order', time_order, 'time_depart', time_depart, 'delay', time_depart-time_order
 
             stops.program_leadveh(id_stop_current, id_veh_lead, id_stop_target, time_depart)
@@ -2702,8 +2716,10 @@ class PrtService(cm.BaseObjman):
             #virtualpop.plans.value.ids_person[id_plan] = id_person
             print 79*'_'
             print '  id_plan=%d, id_person=%d, ' % (id_plan, id_person)
-            print '    id_fac_home = %d, id_edge_home = %d, id_stopedge_home=%d' % (id_fac_home, id_edge_home, id_stopedge_home)
-            print '    id_fac_activity = %d, id_edge_activity = %d, id_stopedge_activity=%d' % (id_fac_activity, id_edge_activity, id_stopedge_activity)
+            print '    id_fac_home = %d, id_edge_home = %d, id_stopedge_home=%d' % (
+                id_fac_home, id_edge_home, id_stopedge_home)
+            print '    id_fac_activity = %d, id_edge_activity = %d, id_stopedge_activity=%d' % (
+                id_fac_activity, id_edge_activity, id_stopedge_activity)
             # are nearest stops different?
             if id_stop_home != id_stop_activity:
                 # so walk to prt stop

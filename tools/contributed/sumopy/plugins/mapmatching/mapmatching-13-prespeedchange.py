@@ -435,7 +435,8 @@ class BirgilMatcher(Process):
         print '  ids_edge_final', ids_edge_final
 
         # print '  ind_point_initial,ind_point_final,n_points_eff',ind_point_initial,ind_point_final,n_points_eff
-        print '  id_point_initial=%d,id_point_final=%d,n_points_eff=%d' % (ids_point[ind_point_initial], ids_point[ind_point_final], n_points_eff)
+        print '  id_point_initial=%d,id_point_final=%d,n_points_eff=%d' % (
+            ids_point[ind_point_initial], ids_point[ind_point_final], n_points_eff)
         if (ind_point_initial < 0) | (ind_point_final < 0) | (n_points_eff < self.n_points_min):
             print 'ABOARD: insufficient valid points'
             return [], 0.0, 0.0, -1.0, -1.0, -1.0, -1.0, 0.0, [], False
@@ -1500,7 +1501,8 @@ class EccTracesImporter(FilterMixin):
                             # print '  id_trip,id_trip_sumo,id_pers',id_trip,cols[j_id_trip], id_pers
                             # print
             else:
-                print 'WARNING: inconsistent number of columns (%d) in line %d, file %s' % (len(cols), i_line, self.workoutsfilepath)
+                print 'WARNING: inconsistent number of columns (%d) in line %d, file %s' % (
+                    len(cols), i_line, self.workoutsfilepath)
                 print '  cols =', cols
 
             i_line += 1
@@ -1598,7 +1600,8 @@ class EccTracesImporter(FilterMixin):
                     altitudes.append(get_colvalue(cols[ind_alt]))
 
             else:
-                print 'WARNING: inconsistent number of columns (%d) in line %d, file %s' % (len(cols), i_line, self.pointsfilepath)
+                print 'WARNING: inconsistent number of columns (%d) in line %d, file %s' % (
+                    len(cols), i_line, self.pointsfilepath)
                 print '  cols =', cols
 
             i_line += 1
@@ -1710,7 +1713,8 @@ class EccTracesImporter(FilterMixin):
                                          zip=zip,
                                          )
             else:
-                print 'WARNING: inconsistent number of columns (%d) in line %d, file %s' % (len(cols), i_line, self.workoutsfilepath)
+                print 'WARNING: inconsistent number of columns (%d) in line %d, file %s' % (
+                    len(cols), i_line, self.workoutsfilepath)
                 # print '  cols =',cols
 
             i_line += 1
@@ -1808,7 +1812,8 @@ class EccTracesImporter(FilterMixin):
                     altitudes.append(get_colvalue(cols[ind_alt]))
 
             else:
-                print 'WARNING: inconsistent number of columns (%d) in line %d, file %s' % (len(cols), i_line, self.pointsfilepath)
+                print 'WARNING: inconsistent number of columns (%d) in line %d, file %s' % (
+                    len(cols), i_line, self.pointsfilepath)
                 # print '  cols =',cols
 
             i_line += 1
@@ -1986,7 +1991,8 @@ class EccTracesImporter(FilterMixin):
                     altitudes.append(get_colvalue(cols[ind_alt]))
 
             else:
-                print 'WARNING: inconsistent columns in line %d, file %s' % (i_line, os.path.basename(self.pointsfilepath))
+                print 'WARNING: inconsistent columns in line %d, file %s' % (
+                    i_line, os.path.basename(self.pointsfilepath))
 
             i_line += 1
 
@@ -2122,7 +2128,8 @@ class EccTracesImporter(FilterMixin):
                     altitudes.append(get_colvalue(cols[ind_alt]))
 
             else:
-                print 'WARNING: inconsistent columns in line %d, file %s' % (i_line, os.path.basename(self.pointsfilepath))
+                print 'WARNING: inconsistent columns in line %d, file %s' % (
+                    i_line, os.path.basename(self.pointsfilepath))
 
             i_line += 1
 
@@ -4136,7 +4143,8 @@ class Routesanalyzer(Process):
 
                     if is_begin:
                         pos = get_pos_from_coord(id_edge_current, coord)
-                        print '      id_point=%d,id_end %d id_edge_current=%d, id_edgeres=%d, pos= %.2f, v=%.2f' % (id_point, ids_points_ee[ind_matched], id_edge_current, id_edgeres_current, pos, speed)
+                        print '      id_point=%d,id_end %d id_edge_current=%d, id_edgeres=%d, pos= %.2f, v=%.2f' % (
+                            id_point, ids_points_ee[ind_matched], id_edge_current, id_edgeres_current, pos, speed)
 
                         edgesresults.pointspositions[id_edgeres_current].append(pos)
                         edgesresults.pointsspeeds[id_edgeres_current].append(speed)
@@ -4165,7 +4173,8 @@ class Routesanalyzer(Process):
                     while is_cont:
 
                         is_cont = id_point == ids_points_ee[ind_matched]
-                        print '        id_point =%d, id_startpoint%d ind_matched=%d,n_matched=%d' % (id_point, ids_points_ee[ind_matched], ind_matched, n_matched), is_cont
+                        print '        id_point =%d, id_startpoint%d ind_matched=%d,n_matched=%d' % (
+                            id_point, ids_points_ee[ind_matched], ind_matched, n_matched), is_cont
                         if is_cont:
                             # this is the first point in a new edge
                             # TODO: it should actually the last point in an edge
@@ -4186,7 +4195,8 @@ class Routesanalyzer(Process):
                                                          (time - time_speedaverage-time_wait), 0, self.edgespeed_max)
                                     time_wait = 0.0
                                     edgesresults.speeds_inmotion[id_edgeres_current] += v_inmotion
-                                    print '      id_edge = %d, v_av =%.2fkm/h, v_im = %.2fkm/h' % (id_edge_current, v_av*3.6, v_inmotion*3.6)
+                                    print '      id_edge = %d, v_av =%.2fkm/h, v_im = %.2fkm/h' % (
+                                        id_edge_current, v_av*3.6, v_inmotion*3.6)
 
                                 if time - time_speedaverage > 10.0:
                                     # time passed since enering last edge is
@@ -4240,7 +4250,8 @@ class Routesanalyzer(Process):
                                 time_wait = 0.0
                                 edgesresults.speeds_inmotion[id_edgeres_current] += v_inmotion
 
-                                print '      last id_edge = %d, v_av =%.2fkm/h, v_im = %.2fkm/h' % (id_edge_current, v_av*3.6, v_inmotion*3.6), time - time_speedaverage, time_wait, time - time_speedaverage-time_wait
+                                print '      last id_edge = %d, v_av =%.2fkm/h, v_im = %.2fkm/h' % (
+                                    id_edge_current, v_av*3.6, v_inmotion*3.6), time - time_speedaverage, time_wait, time - time_speedaverage-time_wait
 
                                 # save wait times in tls is necessary
                                 if id_tlsedge != -1:

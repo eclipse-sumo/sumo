@@ -90,7 +90,7 @@ class Personresults(am.ArrayObjman):
         # default cannot be kwarg
         default = kwargs['default']
         del kwargs['default']
-        if kwargs.has_key('groupnames'):
+        if 'groupnames' in kwargs:
             kwargs['groupnames'].append('results')
         else:
             kwargs['groupnames'] = ['results']
@@ -99,7 +99,7 @@ class Personresults(am.ArrayObjman):
 
     def import_xml(self, sumo, datapaths):
         datapathkey = self.datapathkey.get_value()
-        if datapaths.has_key(datapathkey):
+        if datapathkey in datapaths:
             self.import_sumoxml(datapaths[datapathkey], sumo)
             self.get_persons().update_results(self)
 

@@ -891,7 +891,8 @@ class ChoiceWidgetContainer(WidgetContainer):
             #ind = self._choicenames.index(value)
             ind = self._choicevalues.index(val)
         except:
-            print 'WARNING in ChoiceWidgetContainer.set_widgetvalue: %s with value "%s" not in choice list' % (self._attrconf.attrname, val)
+            print 'WARNING in ChoiceWidgetContainer.set_widgetvalue: %s with value "%s" not in choice list' % (
+                self._attrconf.attrname, val)
             return
         # print '  ind',ind,self.valuewidget
         if self._attrconf.is_writable():

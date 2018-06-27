@@ -3571,7 +3571,8 @@ class SumoNodeReader(handler.ContentHandler):
             else:
                 if attrs.has_key('projParameter'):
                     if self._net.get_projparams() != attrs['projParameter']:
-                        print 'WARNING: merge with incompatible projections %s versus %s.' % (self._net.getprojparams(), attrs['projparams'])
+                        print 'WARNING: merge with incompatible projections %s versus %s.' % (
+                            self._net.getprojparams(), attrs['projparams'])
 
         elif name == 'node':
             if attrs['id'][0] != ':':  # no internal node

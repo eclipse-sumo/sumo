@@ -49,7 +49,7 @@ class VirtualpopWxGuiMixin:
                             bitmap=self.get_icon("icon_virtualpopulation.jpg")
                             )
         menubar.append_menu('demand/virtual population/configure population',
-                            #bitmap = self.get_icon("icon_virtualpopulation.jpg")
+                            # bitmap = self.get_icon("icon_virtualpopulation.jpg")
                             )
 
         menubar.append_item('demand/virtual population/configure population/generate...',
@@ -61,7 +61,7 @@ class VirtualpopWxGuiMixin:
                             )
 
         menubar.append_menu('demand/virtual population/configure vehicles',
-                            #bitmap = self.get_icon("icon_virtualpopulation.jpg")
+                            # bitmap = self.get_icon("icon_virtualpopulation.jpg")
                             )
 
         menubar.append_item('demand/virtual population/configure vehicles/provide vehicles...',
@@ -74,19 +74,19 @@ class VirtualpopWxGuiMixin:
                             )
 
         menubar.append_menu('demand/virtual population/plans',
-                            #bitmap = self.get_icon("icon_virtualpopulation.jpg")
+                            # bitmap = self.get_icon("icon_virtualpopulation.jpg")
                             )
 
         menubar.append_item('demand/virtual population/plans/generate...',
                             self.on_generate_plan,
-                            #info='Generate plans for private transport.',
-                            #bitmap = self.get_icon("Document_Import_24px.png"),
+                            # info='Generate plans for private transport.',
+                            # bitmap = self.get_icon("Document_Import_24px.png"),
                             )
 
         menubar.append_item('demand/virtual population/plans/select current plans...',
                             self.on_planselection,
-                            #info='Generate plans for private transport.',
-                            #bitmap = self.get_icon("Document_Import_24px.png"),
+                            # info='Generate plans for private transport.',
+                            # bitmap = self.get_icon("Document_Import_24px.png"),
                             )
 
         menubar.append_item('demand/virtual population/plans/clear plans',
@@ -97,7 +97,7 @@ class VirtualpopWxGuiMixin:
         # menubar.append_item( 'demand/virtual population/plans/export plans to SUMO xml...',
         #    self.on_write_plans_to_sumoxml,
         #    info='Export all plans to SUMO routes XML format.',
-        #    #bitmap = self.get_icon("Document_Import_24px.png"),
+        #    # bitmap = self.get_icon("Document_Import_24px.png"),
         #    )
 
         menubar.append_item('demand/virtual population/clear polulation, plans and vehicles',
@@ -125,7 +125,7 @@ class VirtualpopWxGuiMixin:
     def on_clear_pop(self, event=None):
         self._demand.virtualpop.clear_population()
         self._mainframe.browse_obj(self._demand.virtualpop)
-        #if event:  event.Skip()
+        # if event:  event.Skip()
 
     def on_select_plans_preferred_mode(self, event=None):
         """
@@ -161,8 +161,8 @@ class VirtualpopWxGuiMixin:
         Plan selector to set current plan with different methods
         """
         # self._landuse.parking.make_parking()
-        #self._canvas = canvas.draw()
-        #drawing = self.get_drawing().get_drawobj_by_ident('parkingdraws')
+        # self._canvas = canvas.draw()
+        # drawing = self.get_drawing().get_drawobj_by_ident('parkingdraws')
 
         # TODO: make a proper import mask that allows to set parameters
         # self._landuse.maps.download()
@@ -208,7 +208,7 @@ class VirtualpopWxGuiMixin:
         dlg.CenterOnScreen()
 
         # this does not return until the dialog is closed.
-        #val = dlg.ShowModal()
+        # val = dlg.ShowModal()
         print 'on_create_pop_from_odflows'
         dlg.Show()
         dlg.MakeModal(True)
@@ -234,7 +234,7 @@ class VirtualpopWxGuiMixin:
         dlg.CenterOnScreen()
 
         # this does not return until the dialog is closed.
-        #val = dlg.ShowModal()
+        # val = dlg.ShowModal()
         print 'on_create_pop_from_odflows'
         dlg.Show()
         dlg.MakeModal(True)
@@ -260,7 +260,7 @@ class VirtualpopWxGuiMixin:
         dlg.CenterOnScreen()
 
         # this does not return until the dialog is closed.
-        #val = dlg.ShowModal()
+        # val = dlg.ShowModal()
         print 'on_provide_vehicles'
         dlg.Show()
         dlg.MakeModal(True)
@@ -286,7 +286,7 @@ class VirtualpopWxGuiMixin:
         dlg.CenterOnScreen()
 
         # this does not return until the dialog is closed.
-        #val = dlg.ShowModal()
+        # val = dlg.ShowModal()
         print 'on_generate_plan'
         dlg.Show()
         dlg.MakeModal(True)

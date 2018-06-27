@@ -388,7 +388,8 @@ class BirgilMatcher(Process):
         print '  ids_edge_final', ids_edge_final
 
         # print '  ind_point_initial,ind_point_final,n_points_eff',ind_point_initial,ind_point_final,n_points_eff
-        print '  id_point_initial=%d,id_point_final=%d,n_points_eff=%d' % (ids_point[ind_point_initial], ids_point[ind_point_final], n_points_eff)
+        print '  id_point_initial=%d,id_point_final=%d,n_points_eff=%d' % (
+            ids_point[ind_point_initial], ids_point[ind_point_final], n_points_eff)
         if (ind_point_initial < 0) | (ind_point_final < 0) | (n_points_eff < self.n_points_min):
             print '  Aboard: insufficient valid points'
             return [], 0.0, 0.0, -1.0, -1.0, -1.0, -1.0, 0.0
@@ -429,7 +430,8 @@ class BirgilMatcher(Process):
             length_gps += dist_interpoint
             # print '   coords',coords[ind_point],coords[ind_point-1],(coords[ind_point]-coords[ind_point-1])
             print 79*'_'
-            print '    check ID point %d,  dist_interpoint=%.2fm, length_gps=%.2fm, phi_point %d deg' % (ids_point[ind_point], dist_interpoint, length_gps, phi_point/np.pi*180)
+            print '    check ID point %d,  dist_interpoint=%.2fm, length_gps=%.2fm, phi_point %d deg' % (
+                ids_point[ind_point], dist_interpoint, length_gps, phi_point/np.pi*180)
             routelist_new = []
             ind_route = 0
             for routeinfo in routelist:
@@ -448,7 +450,8 @@ class BirgilMatcher(Process):
                 # if dist_point_edge is not a number (nan) the point is outside projection of edge
 
                 print 79*'-'
-                print '      route ', ind_route, 'costs_tot', costs_tot, 'dist_point_edge', dist_point_edge, len(ids_edge), id_edge_last
+                print '      route ', ind_route, 'costs_tot', costs_tot, 'dist_point_edge', dist_point_edge, len(
+                    ids_edge), id_edge_last
                 print '        cost= %.3f, length_cum=%.3f' % (cost, length_cum,)
                 print '        Xost= %.3f, Xength_cum=%.3f' % (cost, self.weight_cumlength * length_cum,)
                 print '        ids_edge', ids_edge
@@ -620,13 +623,16 @@ class BirgilMatcher(Process):
         phi_seg = np.arctan2(y2-y1, x2-x1)
         #dist_ps = max(dist,  self.dist_min)
         # print '  x1,y1,x2,y2',x1,y1,x2,y2
-        print '     dist =%.1f phi_point=%.2f,phi_seg=%.2f,phi_point-phi_seg=%.2f, delta_phi=%.2f' % (dist, phi_point/np.pi*180, phi_seg/np.pi*180, (phi_point-phi_seg)/np.pi*180, np.clip(phi_point-phi_seg, -np.pi/2, np.pi/2)/np.pi*180)
+        print '     dist =%.1f phi_point=%.2f,phi_seg=%.2f,phi_point-phi_seg=%.2f, delta_phi=%.2f' % (
+            dist, phi_point/np.pi*180, phi_seg/np.pi*180, (phi_point-phi_seg)/np.pi*180, np.clip(phi_point-phi_seg, -np.pi/2, np.pi/2)/np.pi*180)
         #cost = dist_ps*np.abs(np.sin(np.abs(phi_point-phi_seg)))
         cost_angle = np.abs(np.sin(np.clip(phi_point-phi_seg, -np.pi/2, np.pi/2)))
         cost = dist + self.weight_angle * cost_angle - self.weight_access * accesslevel
 
-        print '     cost_birgil=%.3f, dist=%.3f,  cost_angle=%.3f, accesslevel=%d' % (cost, dist, cost_angle, accesslevel)
-        print '     cost_birgil=%.3f, Xist=%.3f,  Xost_angle=%.3f, Xccesslevel=%.3f' % (cost, dist, self.weight_angle * cost_angle, self.weight_access*accesslevel)
+        print '     cost_birgil=%.3f, dist=%.3f,  cost_angle=%.3f, accesslevel=%d' % (
+            cost, dist, cost_angle, accesslevel)
+        print '     cost_birgil=%.3f, Xist=%.3f,  Xost_angle=%.3f, Xccesslevel=%.3f' % (
+            cost, dist, self.weight_angle * cost_angle, self.weight_access*accesslevel)
         # print '  cost_birgil=',cost
         return cost
 

@@ -504,7 +504,8 @@ class PrtVehicles(am.ArrayObjman):
                             id_edge_sumo=None,
                             position=None,
                             ):
-        print 'control_stop_alight', self.get_id_sumo(id_veh), traci.vehicle.getLanePosition(self.get_id_sumo(id_veh)), '->', position, id_berth
+        print 'control_stop_alight', self.get_id_sumo(id_veh), traci.vehicle.getLanePosition(
+            self.get_id_sumo(id_veh)), '->', position, id_berth
         self.ids_berth[id_veh] = id_berth
         traci.vehicle.setStop(self.get_id_sumo(id_veh),
                               id_edge_sumo,
@@ -537,7 +538,8 @@ class PrtVehicles(am.ArrayObjman):
         # VEHICLESTATES = {'init':0,'wait':1,'boarding':2,'alighting'
 
     def is_completed_alight(self, id_veh):
-        print 'is_completed_alight', self.get_id_sumo(id_veh), self.states[id_veh], self.states[id_veh] == VEHICLESTATES['alighting'], traci.vehicle.getPersonNumber(self.get_id_sumo(id_veh)), type(traci.vehicle.getPersonNumber(self.get_id_sumo(id_veh)))
+        print 'is_completed_alight', self.get_id_sumo(id_veh), self.states[id_veh], self.states[id_veh] == VEHICLESTATES['alighting'], traci.vehicle.getPersonNumber(
+            self.get_id_sumo(id_veh)), type(traci.vehicle.getPersonNumber(self.get_id_sumo(id_veh)))
         if self.states[id_veh] == VEHICLESTATES['alighting']:
             if traci.vehicle.getPersonNumber(self.get_id_sumo(id_veh)) == 0:
                 self.states[id_veh] = VEHICLESTATES['wait']

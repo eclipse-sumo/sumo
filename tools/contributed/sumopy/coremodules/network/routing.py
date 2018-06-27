@@ -173,7 +173,8 @@ def edgedijkstra_backwards(id_edge_start, cost_limit,
                         newstate += '<Q'
                     else:
                         newstate += '>Q|'
-                    print '    id_bedge', id_edge, 'w=%.2f,w_tot=%.2f' % (weights[id_edge], weight_tot), weights[id_edge] >= 0, D[e] + weights[id_edge] < cost_limit, id_edge not in D, (id_edge not in Q or weight_tot < Q[id_edge]), newstate
+                    print '    id_bedge', id_edge, 'w=%.2f,w_tot=%.2f' % (
+                        weights[id_edge], weight_tot), weights[id_edge] >= 0, D[e] + weights[id_edge] < cost_limit, id_edge not in D, (id_edge not in Q or weight_tot < Q[id_edge]), newstate
 
                 if weights[id_edge] >= 0:  # edge accessible?
                     weight_tot = D[e] + weights[id_edge]

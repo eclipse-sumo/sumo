@@ -583,7 +583,8 @@ class PrtStops(am.ArrayObjman):
 
             if 0:
                 for id_person_sumo in ids_person_sumo_prev:
-                    print '    ids_person_sumo=%s pos = %.2f ' % (id_person_sumo, traci.person.getLanePosition(id_person_sumo))
+                    print '    ids_person_sumo=%s pos = %.2f ' % (
+                        id_person_sumo, traci.person.getLanePosition(id_person_sumo))
                 print '    ids_persons_sumo_boarded', self.ids_persons_sumo_boarded[id_stop]
 
             # check if boarding is completed in load area and program
@@ -655,7 +656,8 @@ class PrtStops(am.ArrayObjman):
             berths.ids_veh[id_berth] = -1
 
         else:
-            print 'WARNING: on stop %d edge %s, berth %d no person found inside vehicle %d'(id_stop, self.ids_stop_to_ids_edge_sumo[id_stop], id_berth, id_veh)
+            print 'WARNING: on stop %d edge %s, berth %d no person found inside vehicle %d'(
+                id_stop, self.ids_stop_to_ids_edge_sumo[id_stop], id_berth, id_veh)
 
     def schedule_trip_empty(self, id_stop, id_berth, id_veh, simtime):
 
@@ -990,7 +992,8 @@ class PrtVehicles(am.ArrayObjman):
         # print 'board ',id_veh_sumo, traci.vehicle.getStopState(id_veh_sumo )# bin(traci.vehicle.getStopState(id_veh_sumo ))[2:]
 
     def is_completed_alighting(self, id_veh):
-        print 'is_completed_alighting', self.get_id_sumo(id_veh), self.states[id_veh], self.states[id_veh] == VEHICLESTATES['alighting'], traci.vehicle.getPersonNumber(self.get_id_sumo(id_veh)), type(traci.vehicle.getPersonNumber(self.get_id_sumo(id_veh)))
+        print 'is_completed_alighting', self.get_id_sumo(id_veh), self.states[id_veh], self.states[id_veh] == VEHICLESTATES['alighting'], traci.vehicle.getPersonNumber(
+            self.get_id_sumo(id_veh)), type(traci.vehicle.getPersonNumber(self.get_id_sumo(id_veh)))
         if self.states[id_veh] == VEHICLESTATES['alighting']:
             if traci.vehicle.getPersonNumber(self.get_id_sumo(id_veh)) == 0:
                 print '  is_completed_alighting', self.get_id_sumo(id_veh), 'completed alighting'

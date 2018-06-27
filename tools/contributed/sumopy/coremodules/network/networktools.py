@@ -101,7 +101,8 @@ class TlsGenerator(netconvert.NetConvertMixin):
                    edges.ids_tonode[ids_edge],
                    edges.speeds_max[ids_edge],
                    ):
-            print '    is_major_road', id_edge, self.is_major_road(priority, n_lanes, speed_max), id_edge not in ids_edges_major
+            print '    is_major_road', id_edge, self.is_major_road(
+                priority, n_lanes, speed_max), id_edge not in ids_edges_major
             if self.is_major_road(priority, n_lanes, speed_max):
                 if id_edge not in ids_edges_major:
                     #dist = 0
@@ -265,7 +266,8 @@ class TlsGenerator(netconvert.NetConvertMixin):
 
                 # detect incoming edges
                 # ,not is_ped_edge,'not from TLS',edges.ids_fromnode[id_edge] not in ids_nodes_tls
-                print '       is external', edges.ids_fromnode[id_edge] not in ids_nodes_tls, 'is_cycle_edge', is_cycle_edge, 'is_major', id_edge in edges_major, 'is_noped'
+                print '       is external', edges.ids_fromnode[
+                    id_edge] not in ids_nodes_tls, 'is_cycle_edge', is_cycle_edge, 'is_major', id_edge in edges_major, 'is_noped'
                 if edges.ids_fromnode[id_edge] not in ids_nodes_tls:
                     # from node is not part of the TLS
                     # so it comes from external
@@ -434,7 +436,8 @@ class TlsGenerator(netconvert.NetConvertMixin):
                         dists_to < dist_intercheck,
                         (ids_connodes == id_node), (ids_conedges_from != id_edge_from),
                         inds):
-                    print '    id_con:%d d_from %.2f, d_to %.2f' % (id_con1, df, dt), df < dist_intercheck, dt < dist_intercheck, id_node1 == id_node, id_edge1 != id_edge_from, crit
+                    print '    id_con:%d d_from %.2f, d_to %.2f' % (
+                        id_con1, df, dt), df < dist_intercheck, dt < dist_intercheck, id_node1 == id_node, id_edge1 != id_edge_from, crit
                     # print '    vf',vf,'vt',vt,'cent',cent,cent-vt
 
                 dists_fromcon_node[id_con] = np.array(dists_from[inds], dtype=np.int32)
@@ -447,7 +450,8 @@ class TlsGenerator(netconvert.NetConvertMixin):
         if 1:  # debug
             print '  show conflicts:', len(inds_cons_conflict)
             for id_con_tls, inds_con_conflict, id_connode in zip(ids_con_tls, inds_cons_conflict.values(), ids_connodes):
-                print '   id_connode:%d id_con:%d' % (id_connode, id_con_tls), 'ids_conf', ids_con_tls[inds_con_conflict]
+                print '   id_connode:%d id_con:%d' % (
+                    id_connode, id_con_tls), 'ids_conf', ids_con_tls[inds_con_conflict]
 
             # print '  id_node %d, id_con %d confl:'%(id_node,id_con)
             # print '    ids_con_conflict',ids_con_tls[inds_con_conflict]
@@ -554,7 +558,8 @@ class TlsGenerator(netconvert.NetConvertMixin):
                                             weights=costs_bike, fstar=fstar)
 
                 for id_outgoing_tls in ids_outgoing_bike_tls:  # +ids_outgoing_tls+ids_outgoing_major_tls:
-                    print '      bike route from %d to %d' % (id_incoming_tls, id_outgoing_tls), 'can route?', (id_incoming_tls in D) & (id_outgoing_tls in D)
+                    print '      bike route from %d to %d' % (
+                        id_incoming_tls, id_outgoing_tls), 'can route?', (id_incoming_tls in D) & (id_outgoing_tls in D)
                     if (id_incoming_tls in D) & (id_outgoing_tls in D):
 
                         # avoid route with turnaround
@@ -667,7 +672,8 @@ class TlsGenerator(netconvert.NetConvertMixin):
                         inds_con_route |= (lanes.ids_edge[ids_fromlane_tls] == id_edge_from) & (
                             lanes.ids_edge[ids_tolane_tls] == id_edge_to)
 
-                print '    id_node,prio', id_node, prio, id_node in nodes_tls, 'n_cons_route', len(np.flatnonzero(inds_con_route))
+                print '    id_node,prio', id_node, prio, id_node in nodes_tls, 'n_cons_route', len(
+                    np.flatnonzero(inds_con_route))
 
             # make phase  for ids_edges
             if prio != -1:
@@ -721,7 +727,8 @@ class TlsGenerator(netconvert.NetConvertMixin):
                     i_route]
 
                 #inds_cons_conflict_group = inds_cons_conflict.copy()
-                print '    Check group', i_group, 'for ind_tlsroute', ind_tlsroute, 'c=%.1f' % routes_tls_cost[ind_tlsroute]
+                print '    Check group', i_group, 'for ind_tlsroute', ind_tlsroute, 'c=%.1f' % routes_tls_cost[
+                    ind_tlsroute]
 
                 # print '     inds_cons_conflict',inds_cons_conflict
                 # check whether there are other, compatible
@@ -736,7 +743,8 @@ class TlsGenerator(netconvert.NetConvertMixin):
                         # no phase group associated with
                         ind_tlsroute2, inds_con_route2, prio2, inds_cons_conflict_route2, inds_cons_merge_route2 = routeconnectordata[
                             j_route]
-                        print '      check with ind_tlsroute2', ind_tlsroute2, np.any(inds_cons_conflict_route2 & inds_con_route), np.any(inds_cons_conflict_route & inds_con_route2)
+                        print '      check with ind_tlsroute2', ind_tlsroute2, np.any(
+                            inds_cons_conflict_route2 & inds_con_route), np.any(inds_cons_conflict_route & inds_con_route2)
                         # print '        c',inds_con_route
                         # print '        x',inds_cons_conflict_route2
                         if (not np.any(inds_cons_conflict_route2 & inds_alloc_group)) & (not np.any(inds_confict_group & inds_con_route2)):
@@ -862,7 +870,8 @@ class TlsGenerator(netconvert.NetConvertMixin):
         if 1:
             # go though all nodes of this TLS
             for id_node, nodeattrs in nodes_tls.iteritems():
-                print '    safecheck id_node', id_node, 'is_crossing', nodeattrs['is_crossing'], 'is_cycleped', nodeattrs['is_cycleped']
+                print '    safecheck id_node', id_node, 'is_crossing', nodeattrs[
+                    'is_crossing'], 'is_cycleped', nodeattrs['is_cycleped']
 
                 #nodeattrs['is_cycleped'] = is_cycleped
                 # nodeattrs['is_crossing'] =
@@ -878,7 +887,8 @@ class TlsGenerator(netconvert.NetConvertMixin):
 
                     for id_edge_from in nodeattrs['ids_cycleped_incoming']:  # nodes.ids_incoming[id_node]:
                         for id_edge_to in nodeattrs['ids_cycleped_outgoing']:
-                            print '      safecheck cycleped from edge %d to edge %d id_edge' % (id_edge_from, id_edge_to)
+                            print '      safecheck cycleped from edge %d to edge %d id_edge' % (
+                                id_edge_from, id_edge_to)
 
                             # connector index vector with all connectors for this edge
 
@@ -970,7 +980,8 @@ class TlsGenerator(netconvert.NetConvertMixin):
 
                                     inds_noconf = phaseconflicts[i] == 0
                                     inds_noconf_last = phaseconflicts[i-1] == 0
-                                    print '          safecheck phase', i, 'inds_noconf', inds_noconf[ind_con], 'inds_noconf_last', inds_noconf_last[ind_con]
+                                    print '          safecheck phase', i, 'inds_noconf', inds_noconf[
+                                        ind_con], 'inds_noconf_last', inds_noconf_last[ind_con]
 
                                     if inds_noconfmerge[ind_con]:  # no red at ind_con
 
@@ -985,7 +996,8 @@ class TlsGenerator(netconvert.NetConvertMixin):
 
                                         # ambiguous cons = green cons inds & inds where cons should be red
                                         inds_con_ambiqu = inds_noconf & (inds_con_confcheck > 0) & are_enabeled
-                                        print '            inds_con_ambiqu', ids_con_tls[inds_con_ambiqu], 'resolve ambig', (inds_noconf_last[ind_con]) & np.any(inds_con_ambiqu)
+                                        print '            inds_con_ambiqu', ids_con_tls[inds_con_ambiqu], 'resolve ambig', (inds_noconf_last[ind_con]) & np.any(
+                                            inds_con_ambiqu)
 
                                         # any ambiguous connector found?
                                         if np.any(inds_con_ambiqu):
@@ -1281,7 +1293,8 @@ class TlsGenerator(netconvert.NetConvertMixin):
 
         id_fromlane = ids_fromlane_tls[ind_con_block]
         is_disabled = not are_enabeled[ind_con_block]
-        print 'block_connection id %d id_fromlane %d' % (ids_con_tls[ind_con_block], id_fromlane), 'nocycleped', lanes.ids_mode[ids_fromlane_tls[ind_con_block]] not in self.ids_cycleped, 'slot', slots[ind_con_block], 'L=%dm' % edges.lengths[lanes.ids_edge[id_fromlane]],
+        print 'block_connection id %d id_fromlane %d' % (ids_con_tls[ind_con_block], id_fromlane), 'nocycleped', lanes.ids_mode[ids_fromlane_tls[
+            ind_con_block]] not in self.ids_cycleped, 'slot', slots[ind_con_block], 'L=%dm' % edges.lengths[lanes.ids_edge[id_fromlane]],
 
         if (slots[ind_con_block] > 0) | is_disabled:
             # ind_con_block has already been tuned to red
@@ -1484,7 +1497,8 @@ class TlsGenerator(netconvert.NetConvertMixin):
                 return
 
             for id_edge, length, id_edgenode in zip(ids_edge, edges.lengths[ids_edge], edges.ids_fromnode[ids_edge]):
-                print '    check in id_edge', id_edge, dist+length, dist_tls_max, (dist+length < dist_tls_max), (length < self.dist_tls_internode_max)
+                print '    check in id_edge', id_edge, dist + \
+                    length, dist_tls_max, (dist+length < dist_tls_max), (length < self.dist_tls_internode_max)
                 if (dist+length < dist_tls_max) & (length < self.dist_tls_internode_max):
                     if id_edgenode not in nodes_tls:
                         self.init_tlsnode(id_edgenode, nodes_tls)
@@ -1571,7 +1585,8 @@ class TlsGenerator(netconvert.NetConvertMixin):
             # determine angle change
             angle = get_diff_angle_clockwise(dir1, dir2)
             angle_abs = min(angle, 2*np.pi-angle)
-            print '      id_edge:%d, angle_abs:%.1f, angle_max: %.1f' % (id_edge, angle_abs/np.pi*180, angle_max/np.pi*180), id_fromnode in nodes_tls, (angle_abs < angle_max)
+            print '      id_edge:%d, angle_abs:%.1f, angle_max: %.1f' % (
+                id_edge, angle_abs/np.pi*180, angle_max/np.pi*180), id_fromnode in nodes_tls, (angle_abs < angle_max)
             if id_fromnode in nodes_tls:
                     # route is still in TLS
                 p01 = shape_curr[-2][:2]

@@ -282,7 +282,8 @@ class Road:
         self._n_lane_forward_osm = n_lane_forward_osm
         self._n_lane_backward_osm = n_lane_backward_osm
         self._n_lane_osm = n_lane_osm
-        print '  lane numbers: n_lane_forward_osm=%d, n_lane_backward_osm=%d n_default=%d' % (n_lane_forward_osm, n_lane_backward_osm, self.n_lane)
+        print '  lane numbers: n_lane_forward_osm=%d, n_lane_backward_osm=%d n_default=%d' % (
+            n_lane_forward_osm, n_lane_backward_osm, self.n_lane)
 
     def _get_access(self, access_str):
         access_data = np.array(access_str.split('|'), dtype=np.object)[::-1]
@@ -2425,7 +2426,8 @@ class OxImporter(Process):
 
     def is_edge_eligible(self, id_osm, id_fromnode_sumo, id_tonode_sumo):
 
-        print 'is_edge_eligible', id_osm, type(id_osm), id_fromnode_sumo, id_tonode_sumo, self.edges_osm.has_key(id_osm), self._edgelookup.has_key(id_osm)
+        print 'is_edge_eligible', id_osm, type(id_osm), id_fromnode_sumo, id_tonode_sumo, self.edges_osm.has_key(
+            id_osm), self._edgelookup.has_key(id_osm)
         if not self.edges_osm.has_key(id_osm):
             # foe some reason, nx network has edges that are not in jason
             return False
@@ -2648,7 +2650,8 @@ class OxImporter(Process):
         for ind, id_fromnode,  id_tonode, id_edge_sumo in zip(np.arange(len(self._ids_edge_sumo)), self._ids_fromnode, self._ids_tonode, self._ids_edge_sumo):
             ids_fromtonode = (id_fromnode, id_tonode)
             if nodelookup.has_key(ids_fromtonode):
-                print '  WARNING: %s double edge to %s detected' % (id_edge_sumo, nodelookup[ids_fromtonode]), 'from', id_fromnode, 'to', id_tonode
+                print '  WARNING: %s double edge to %s detected' % (
+                    id_edge_sumo, nodelookup[ids_fromtonode]), 'from', id_fromnode, 'to', id_tonode
                 self._are_edge_valid[ind] = False
 
             nodelookup[ids_fromtonode] = id_edge_sumo
@@ -2685,7 +2688,8 @@ class OxImporter(Process):
             road = edges_osm[id_edge_osm]
 
             if road.highway in footpath_condig:
-                print '  check edge', ids_edge_sumo[ind], road.footway, (road.get_osmattr('tunnel') != 'yes'), (length > dist_min_remove), length
+                print '  check edge', ids_edge_sumo[ind], road.footway, (road.get_osmattr(
+                    'tunnel') != 'yes'), (length > dist_min_remove), length
                 #(road.footway != 'crossing') (road.footway != 'sidewalk')
                 ids_osm_main = set()
                 is_remove = True
@@ -2706,10 +2710,12 @@ class OxImporter(Process):
                                 ids_edge_sumo[ind_edge_main])
                             road_main = edges_osm[id_edge_osm_main]
                             prio = road_main.get_priority(is_opp)
-                            print '    check medge %s d=%.1fm al=%.1f' % (ids_edge_sumo[ind_edge_main], dist, angle/np.pi*180), prio, road_main.highway, (angle < alpha_crit), (dist < 2*dist_min_detect), (road_main.highway not in footpath_nomerge)
+                            print '    check medge %s d=%.1fm al=%.1f' % (ids_edge_sumo[ind_edge_main], dist, angle/np.pi*180), prio, road_main.highway, (
+                                angle < alpha_crit), (dist < 2*dist_min_detect), (road_main.highway not in footpath_nomerge)
                             # print '   p1',shape[i-1],'pc',point,'p2',shape[i]
                             if (angle < 2*alpha_crit) & (dist < dist_min_detect) & (road_main.highway not in footpath_nomerge):
-                                print '     add edge main edge %s' % ids_edge_sumo[ind_edge_main], (id_edge_osm_main, is_opp)
+                                print '     add edge main edge %s' % ids_edge_sumo[ind_edge_main], (
+                                    id_edge_osm_main, is_opp)
                                 ids_osm_main.add((id_edge_osm_main, is_opp))
                                 is_foundmatch = True
                                 break
@@ -2732,10 +2738,12 @@ class OxImporter(Process):
                                     ids_edge_sumo[ind_edge_main])
                                 road_main = edges_osm[id_edge_osm_main]
                                 prio = road_main.get_priority(is_opp)
-                                print '   check medge %s d=%.1fm al=%.1f,%.2f' % (ids_edge_sumo[ind_edge_main], dist, angle/np.pi*180, angle), prio, road_main.highway, (angle < alpha_crit), (dist < dist_min_detect), (road_main.highway not in footpath_nomerge)
+                                print '   check medge %s d=%.1fm al=%.1f,%.2f' % (ids_edge_sumo[ind_edge_main], dist, angle/np.pi*180, angle), prio, road_main.highway, (
+                                    angle < alpha_crit), (dist < dist_min_detect), (road_main.highway not in footpath_nomerge)
                                 # print '   p1',shape[i-1],'pc',point,'p2',shape[i]
                                 if (prio <= prio_max) & (angle < alpha_crit) & (dist < dist_min_detect) & (road_main.highway not in footpath_nomerge):
-                                    print '       add edge main edge %s' % ids_edge_sumo[ind_edge_main], (id_edge_osm_main, is_opp)
+                                    print '       add edge main edge %s' % ids_edge_sumo[ind_edge_main], (
+                                        id_edge_osm_main, is_opp)
                                     ids_osm_main.add((id_edge_osm_main, is_opp))
                                     is_foundmatch = True
                                     break
@@ -2762,11 +2770,13 @@ class OxImporter(Process):
                                     ids_edge_sumo[ind_edge_main])
                                 road_main = edges_osm[id_edge_osm_main]
                                 prio = road_main.get_priority(is_opp)
-                                print '   check medge %s d=%.1fm al=%.1f' % (ids_edge_sumo[ind_edge_main], dist, angle/np.pi*180), prio, road_main.highway, (angle < alpha_crit_cross), (dist < dist_min_detect_cross), (road_main.highway in footpath_merge_cross)
+                                print '   check medge %s d=%.1fm al=%.1f' % (ids_edge_sumo[ind_edge_main], dist, angle/np.pi*180), prio, road_main.highway, (
+                                    angle < alpha_crit_cross), (dist < dist_min_detect_cross), (road_main.highway in footpath_merge_cross)
                                 # print '   p1',shape[i-1],'pc',point,'p2',shape[i]
                                 # if (prio<=prio_max)&(((angle<alpha_crit_cross)&(dist < dist_min_detect))|(dist < dist_min_detect_cross))& (road_main.highway in footpath_merge_cross):
                                 if (prio <= prio_max) & (angle < alpha_crit_cross) & (dist < dist_min_detect_cross) & (road_main.highway in footpath_merge_cross):
-                                    print '       add edge main edge %s' % ids_edge_sumo[ind_edge_main], (id_edge_osm_main, is_opp)
+                                    print '       add edge main edge %s' % ids_edge_sumo[ind_edge_main], (
+                                        id_edge_osm_main, is_opp)
                                     ids_osm_main.add((id_edge_osm_main, is_opp))
                                     is_foundmatch = True
                                     break

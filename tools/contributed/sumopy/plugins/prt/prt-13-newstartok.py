@@ -622,7 +622,8 @@ class PrtStops(am.ArrayObjman):
 
             if 0:
                 for id_person_sumo in ids_person_sumo_prev:
-                    print '    ids_person_sumo=%s pos = %.2f ' % (id_person_sumo, traci.person.getLanePosition(id_person_sumo))
+                    print '    ids_person_sumo=%s pos = %.2f ' % (
+                        id_person_sumo, traci.person.getLanePosition(id_person_sumo))
                 print '    ids_persons_sumo_boarded', self.ids_persons_sumo_boarded[id_stop]
 
             # check if boarding is completed in load area and program
@@ -685,7 +686,8 @@ class PrtStops(am.ArrayObjman):
 
             elif len(self.ids_vehs_prog[id_stop]) > 0:
                 if (self.ids_vehs[id_stop][ind_queue-1] == self.ids_vehs_prog[id_stop][-1][1]):
-                    print '   id_veh is new leader because next vehicle %d has departed' % (self.ids_vehs[id_stop][ind_queue+1],)
+                    print '   id_veh is new leader because next vehicle %d has departed' % (
+                        self.ids_vehs[id_stop][ind_queue+1],)
                     self.set_leadveh(id_stop, id_veh)
                     return True
                 else:
@@ -761,7 +763,8 @@ class PrtStops(am.ArrayObjman):
             self.parent.vehicleman.init_trip_occupied(id_veh, id_stop, id_stop_dest, simtime)
 
         else:
-            print 'WARNING: on stop %d edge %s, berth %d no person found inside vehicle %d'(id_stop, self.ids_stop_to_ids_edge_sumo[id_stop], id_berth, id_veh)
+            print 'WARNING: on stop %d edge %s, berth %d no person found inside vehicle %d'(
+                id_stop, self.ids_stop_to_ids_edge_sumo[id_stop], id_berth, id_veh)
 
     def init_trip_empty(self, id_stop, id_berth, id_veh, simtime=-1, is_ask_vehman=True):
         print 'init_trip_empty  id_stop, id_berth, id_veh, is_ask_vehman', id_stop, id_berth, id_veh, is_ask_vehman

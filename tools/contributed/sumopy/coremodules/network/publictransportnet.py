@@ -83,18 +83,21 @@ class StopAccessProvider(Process):
                 # print ' Check access at stop %s lane %d. al='%(id_stop,id_lane)
                 if lanes.get_accesslevel([id_lane], id_mode_ped) == -1:
                     # no pedaccess
-                    print '    add ped access at stop %s lane %d, ID edge SUMO "%s".' % (id_stop, id_lane, edges.ids_sumo[id_edge])
+                    print '    add ped access at stop %s lane %d, ID edge SUMO "%s".' % (
+                        id_stop, id_lane, edges.ids_sumo[id_edge])
                     lanes.add_access(id_lane, id_mode_ped)
                     n_add_access += 1
 
                 if self.is_bikeaccess:
                     if lanes.get_accesslevel([id_lane], id_mode_bike) == -1:
-                        print '    add bike access at stop %s lane %d, ID edge SUMO "%s".' % (id_stop, id_lane, edges.ids_sumo[id_edge])
+                        print '    add bike access at stop %s lane %d, ID edge SUMO "%s".' % (
+                            id_stop, id_lane, edges.ids_sumo[id_edge])
                         lanes.add_access(id_lane, id_mode_bike)
                         n_add_access += 1
 
             else:
-                print 'WARNING: stop %s at edge %d, SUMO ID %s with without access lane.' % (id_stop, id_edge, edges.ids_sumo[id_edge])
+                print 'WARNING: stop %s at edge %d, SUMO ID %s with without access lane.' % (
+                    id_stop, id_edge, edges.ids_sumo[id_edge])
                 # return False
 
         print '  Added access to %d stops' % n_add_access

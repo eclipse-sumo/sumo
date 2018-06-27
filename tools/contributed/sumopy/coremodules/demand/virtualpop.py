@@ -21,7 +21,7 @@ import agilepy.lib_base.xmlman as xm
 from agilepy.lib_base.misc import random_choice, get_inversemap
 from agilepy.lib_base.processes import Process
 
-#from coremodules.modules_common import *
+# from coremodules.modules_common import *
 from coremodules.network.network import SumoIdsConf, MODES
 from coremodules.network import routing
 from coremodules.simulation import results as res
@@ -1079,7 +1079,8 @@ class TransitStrategy(StrategyMixin):
                                 ids_stopedge_from, poss_stop_from,
                                 ids_stopedge_to, poss_stop_to,
                                 ):
-                        print '    stage for linktype %2d fromedge %s toedge %s' % (linktype, edges.ids_sumo[id_stopedge_from], edges.ids_sumo[id_stopedge_to])
+                        print '    stage for linktype %2d fromedge %s toedge %s' % (
+                            linktype, edges.ids_sumo[id_stopedge_from], edges.ids_sumo[id_stopedge_to])
 
                         print '    id_stopedge_from,id_stopedge_to', id_stopedge_from, id_stopedge_to
                         if linktype == type_transit:  # transit!
@@ -1467,12 +1468,14 @@ class AutoStrategy(StrategyMixin):
         preeval[(persons.ids_iauto[ids_person] > -1)
                 & (persons.ids_mode_preferred[ids_person] != self._id_mode_auto)] = 0
 
-        print '  persons with car but with a different preferred mode', len(np.flatnonzero((persons.ids_iauto[ids_person] > -1) & (persons.ids_mode_preferred[ids_person] != self._id_mode_auto)))
+        print '  persons with car but with a different preferred mode', len(np.flatnonzero(
+            (persons.ids_iauto[ids_person] > -1) & (persons.ids_mode_preferred[ids_person] != self._id_mode_auto)))
 
         # put 2 for persons with car access and who prefer the car
         preeval[(persons.ids_iauto[ids_person] > -1)
                 & (persons.ids_mode_preferred[ids_person] == self._id_mode_auto)] = 2
-        print '  persons  with car access and who prefer the car', len(np.flatnonzero((persons.ids_iauto[ids_person] > -1) & (persons.ids_mode_preferred[ids_person] == self._id_mode_auto)))
+        print '  persons  with car access and who prefer the car', len(np.flatnonzero(
+            (persons.ids_iauto[ids_person] > -1) & (persons.ids_mode_preferred[ids_person] == self._id_mode_auto)))
 
         return preeval
 
@@ -1903,12 +1906,14 @@ class BikeStrategy(StrategyMixin):
         preeval[(persons.ids_ibike[ids_person] > -1)
                 & (persons.ids_mode_preferred[ids_person] != self._id_mode_bike)] = 0
 
-        print '  persons with bike but with a different preferred mode', len(np.flatnonzero((persons.ids_ibike[ids_person] > -1) & (persons.ids_mode_preferred[ids_person] != self._id_mode_bike)))
+        print '  persons with bike but with a different preferred mode', len(np.flatnonzero(
+            (persons.ids_ibike[ids_person] > -1) & (persons.ids_mode_preferred[ids_person] != self._id_mode_bike)))
 
         # put 2 for persons with bike access and who prefer the bikr
         preeval[(persons.ids_ibike[ids_person] > -1)
                 & (persons.ids_mode_preferred[ids_person] == self._id_mode_auto)] = 2
-        print '  persons  with car access and who prefer the car', len(np.flatnonzero((persons.ids_ibike[ids_person] > -1) & (persons.ids_mode_preferred[ids_person] == self._id_mode_bike)))
+        print '  persons  with car access and who prefer the car', len(np.flatnonzero(
+            (persons.ids_ibike[ids_person] > -1) & (persons.ids_mode_preferred[ids_person] == self._id_mode_bike)))
 
         return preeval
 
@@ -5703,7 +5708,8 @@ class VehicleProvider(Process):
             ids_pers_assign = np.random.choice(ids_pers_miss, n_need, replace=False)
             ids_iauto = iautos.assign_to_persons(ids_pers_assign)
 
-        print '  created %d autos, target share=%.2f, share = %.2f' % (iautos.get_share(is_abs=True), iautos.get_share(), self.share_autoowner)
+        print '  created %d autos, target share=%.2f, share = %.2f' % (
+            iautos.get_share(is_abs=True), iautos.get_share(), self.share_autoowner)
 
         ids_prefer_bike = virtualpop.select_ids(
             (virtualpop.ids_mode_preferred.get_value() == id_mode_bike) & (virtualpop.ids_ibike.get_value() == -1))
@@ -5717,7 +5723,8 @@ class VehicleProvider(Process):
             ids_pers_assign = np.random.choice(ids_pers_miss, n_need, replace=False)
             ids_ibike = ibikes.assign_to_persons(ids_pers_assign)
 
-        print '  created %d bikes, target share=%.2f, share = %.2f' % (ibikes.get_share(is_abs=True), ibikes.get_share(), self.share_bikeowner)
+        print '  created %d bikes, target share=%.2f, share = %.2f' % (
+            ibikes.get_share(is_abs=True), ibikes.get_share(), self.share_bikeowner)
 
         ids_prefer_moto = virtualpop.select_ids(
             (virtualpop.ids_mode_preferred.get_value() == id_mode_moto) & (virtualpop.ids_imoto.get_value() == -1))
@@ -5730,7 +5737,8 @@ class VehicleProvider(Process):
             ids_pers_assign = np.random.choice(ids_pers_miss, n_need, replace=False)
             ids_imoto = imotos.assign_to_persons(ids_pers_assign)
 
-        print '  created %d moto, target share=%.2f, share = %.2f' % (imotos.get_share(is_abs=True), imotos.get_share(), self.share_motorcycleowner)
+        print '  created %d moto, target share=%.2f, share = %.2f' % (
+            imotos.get_share(is_abs=True), imotos.get_share(), self.share_motorcycleowner)
         return True
 
         # TODO: generate and assign  additional vehicles

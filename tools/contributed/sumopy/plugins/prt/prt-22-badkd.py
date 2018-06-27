@@ -690,7 +690,8 @@ class PrtStops(am.ArrayObjman):
 
             if 0:
                 for id_person_sumo in ids_person_sumo_prev:
-                    print '    ids_person_sumo=%s pos = %.2f ' % (id_person_sumo, traci.person.getLanePosition(id_person_sumo))
+                    print '    ids_person_sumo=%s pos = %.2f ' % (
+                        id_person_sumo, traci.person.getLanePosition(id_person_sumo))
                 # nomore print '    ids_persons_sumo_boarded',self.ids_persons_sumo_boarded[id_stop]
 
             # check if boarding is completed in load area,
@@ -964,7 +965,8 @@ class PrtStops(am.ArrayObjman):
             return id_person_sumo_inveh
 
         else:
-            print 'WARNING: on stop %d edge %s, berth %d no person found inside vehicle prt.%d' % (id_stop, self.ids_stop_to_ids_edge_sumo[id_stop], id_berth, id_veh)
+            print 'WARNING: on stop %d edge %s, berth %d no person found inside vehicle prt.%d' % (
+                id_stop, self.ids_stop_to_ids_edge_sumo[id_stop], id_berth, id_veh)
             return None
 
     def _get_stopline(self, id_stop, simtime):
@@ -1952,7 +1954,8 @@ class VehicleMan(am.ArrayObjman):
                 print '  inflows_sched', self.inflows_sched[ids_stop_target, inds_search]
                 print '  delta flow', (flow_person_est-self.inflows_sched[ids_stop_target, inds_search])
                 print '  demandcomp', self.weight_demand.get_value() * stops.numbers_person_wait[ids_stop_target]
-                print '  flowcomp', self.weight_flow.get_value() * (flow_person_est-self.inflows_sched[ids_stop_target, inds_search])
+                print '  flowcomp', self.weight_flow.get_value(
+                ) * (flow_person_est-self.inflows_sched[ids_stop_target, inds_search])
 
                 print '  flow_person_est', flow_person_est
 
@@ -1971,7 +1974,9 @@ class VehicleMan(am.ArrayObjman):
                 print '    timeweight', timeweight
                 print '    durations_est', durations_est
                 print '    inds_search_base', inds_search_base
-                print '    inds_search unclipped\n', inds_search_base + np.array(1.0*durations_est/self.time_update_flows.get_value(), dtype=np.int32).reshape(n_stop_target, 1)
+                print '    inds_search unclipped\n', inds_search_base + \
+                    np.array(1.0*durations_est/self.time_update_flows.get_value(),
+                             dtype=np.int32).reshape(n_stop_target, 1)
                 print '    inds_search clipped  \n', inds_search
                 print '    inds_time_min', inds_time_min
                 print '    ind_stop_current', ind_stop_current, durations_est[ind_stop_current]
@@ -2628,7 +2633,8 @@ class PrtService(DemandobjMixin, cm.BaseObjman):
         for id_edge, id_stop, id_ptstop in zip(ids_edge, ids_prtstop, ids_ptstop):
             # print '  Found PRT stop %d, PT stop %d with id_edge %d '%(id_stop,id_ptstop, id_edge)
             if not fstar.has_key(id_edge):
-                print 'WARNING in make_times_stop_to_stop: PRT stop %d, PT stop %d has no id_edge %d in fstar' % (id_stop, id_ptstop, id_edge)
+                print 'WARNING in make_times_stop_to_stop: PRT stop %d, PT stop %d has no id_edge %d in fstar' % (
+                    id_stop, id_ptstop, id_edge)
                 is_incomplete_fstar = True
 
         # check if fstar is complete (all to edges are in keys)
@@ -2638,7 +2644,8 @@ class PrtService(DemandobjMixin, cm.BaseObjman):
             if not ids_fromedge_set.issuperset(fstar[id_fromedge]):
                 is_incomplete_fstar = True
                 ids_miss = fstar[id_fromedge].difference(ids_fromedge_set)
-                print 'WARNING in make_times_stop_to_stop: incomplete fstar of id_fromedge = %d, %s' % (id_fromedge, ids_sumo[id_fromedge])
+                print 'WARNING in make_times_stop_to_stop: incomplete fstar of id_fromedge = %d, %s' % (
+                    id_fromedge, ids_sumo[id_fromedge])
                 for id_edge in ids_miss:
                     print '  missing', id_edge, ids_sumo[id_edge]
 
@@ -2897,8 +2904,10 @@ class PrtService(DemandobjMixin, cm.BaseObjman):
             #virtualpop.plans.value.ids_person[id_plan] = id_person
             print 79*'_'
             print '  id_plan=%d, id_person=%d, ' % (id_plan, id_person)
-            print '    id_fac_home = %d, id_edge_home = %d, id_stopedge_home=%d' % (id_fac_home, id_edge_home, id_stopedge_home)
-            print '    id_fac_activity = %d, id_edge_activity = %d, id_stopedge_activity=%d' % (id_fac_activity, id_edge_activity, id_stopedge_activity)
+            print '    id_fac_home = %d, id_edge_home = %d, id_stopedge_home=%d' % (
+                id_fac_home, id_edge_home, id_stopedge_home)
+            print '    id_fac_activity = %d, id_edge_activity = %d, id_stopedge_activity=%d' % (
+                id_fac_activity, id_edge_activity, id_stopedge_activity)
             # are nearest stops different?
             if id_stop_home != id_stop_activity:
                 # so walk to prt stop

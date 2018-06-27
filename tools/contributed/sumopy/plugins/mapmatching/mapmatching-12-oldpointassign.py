@@ -435,7 +435,8 @@ class BirgilMatcher(Process):
         print '  ids_edge_final', ids_edge_final
 
         # print '  ind_point_initial,ind_point_final,n_points_eff',ind_point_initial,ind_point_final,n_points_eff
-        print '  id_point_initial=%d,id_point_final=%d,n_points_eff=%d' % (ids_point[ind_point_initial], ids_point[ind_point_final], n_points_eff)
+        print '  id_point_initial=%d,id_point_final=%d,n_points_eff=%d' % (
+            ids_point[ind_point_initial], ids_point[ind_point_final], n_points_eff)
         if (ind_point_initial < 0) | (ind_point_final < 0) | (n_points_eff < self.n_points_min):
             print 'ABOARD: insufficient valid points'
             return [], 0.0, 0.0, -1.0, -1.0, -1.0, -1.0, 0.0, [], False
@@ -1496,7 +1497,8 @@ class EccTracesImporter(FilterMixin):
                             # print '  id_trip,id_trip_sumo,id_pers',id_trip,cols[j_id_trip], id_pers
                             # print
             else:
-                print 'WARNING: inconsistent number of columns (%d) in line %d, file %s' % (len(cols), i_line, self.workoutsfilepath)
+                print 'WARNING: inconsistent number of columns (%d) in line %d, file %s' % (
+                    len(cols), i_line, self.workoutsfilepath)
                 print '  cols =', cols
 
             i_line += 1
@@ -1594,7 +1596,8 @@ class EccTracesImporter(FilterMixin):
                     altitudes.append(get_colvalue(cols[ind_alt]))
 
             else:
-                print 'WARNING: inconsistent number of columns (%d) in line %d, file %s' % (len(cols), i_line, self.pointsfilepath)
+                print 'WARNING: inconsistent number of columns (%d) in line %d, file %s' % (
+                    len(cols), i_line, self.pointsfilepath)
                 print '  cols =', cols
 
             i_line += 1
@@ -1706,7 +1709,8 @@ class EccTracesImporter(FilterMixin):
                                          zip=zip,
                                          )
             else:
-                print 'WARNING: inconsistent number of columns (%d) in line %d, file %s' % (len(cols), i_line, self.workoutsfilepath)
+                print 'WARNING: inconsistent number of columns (%d) in line %d, file %s' % (
+                    len(cols), i_line, self.workoutsfilepath)
                 # print '  cols =',cols
 
             i_line += 1
@@ -1804,7 +1808,8 @@ class EccTracesImporter(FilterMixin):
                     altitudes.append(get_colvalue(cols[ind_alt]))
 
             else:
-                print 'WARNING: inconsistent number of columns (%d) in line %d, file %s' % (len(cols), i_line, self.pointsfilepath)
+                print 'WARNING: inconsistent number of columns (%d) in line %d, file %s' % (
+                    len(cols), i_line, self.pointsfilepath)
                 # print '  cols =',cols
 
             i_line += 1
@@ -1982,7 +1987,8 @@ class EccTracesImporter(FilterMixin):
                     altitudes.append(get_colvalue(cols[ind_alt]))
 
             else:
-                print 'WARNING: inconsistent columns in line %d, file %s' % (i_line, os.path.basename(self.pointsfilepath))
+                print 'WARNING: inconsistent columns in line %d, file %s' % (
+                    i_line, os.path.basename(self.pointsfilepath))
 
             i_line += 1
 
@@ -2118,7 +2124,8 @@ class EccTracesImporter(FilterMixin):
                     altitudes.append(get_colvalue(cols[ind_alt]))
 
             else:
-                print 'WARNING: inconsistent columns in line %d, file %s' % (i_line, os.path.basename(self.pointsfilepath))
+                print 'WARNING: inconsistent columns in line %d, file %s' % (
+                    i_line, os.path.basename(self.pointsfilepath))
 
             i_line += 1
 
