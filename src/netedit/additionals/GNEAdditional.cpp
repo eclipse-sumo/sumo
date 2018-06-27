@@ -108,7 +108,7 @@ GNEAdditional::writeAdditional(OutputDevice& device) const {
     // obtain tag properties
     const TagValues &tagProperties = getTagProperties(getTag());
     // first check if minimum number of childs is correct
-    if(tagProperties.hasMinimumNumberOfChilds() && myAdditionalChilds.size() < tagProperties.getMinNumberOfChilds()) {
+    if (tagProperties.hasMinimumNumberOfChilds() && (int)myAdditionalChilds.size() < tagProperties.getMinNumberOfChilds()) {
         WRITE_WARNING(toString(getTag()) + " with ID='" + getID() + "' cannot be written; It need at least " + toString(tagProperties.getMinNumberOfChilds()) + " childs.");
     } else {
         // Open Tag or synonim Tag

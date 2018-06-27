@@ -144,7 +144,7 @@ GNECalibratorFlow::getParentName() const {
 
 
 void 
-GNECalibratorFlow::drawGL(const GUIVisualizationSettings& s) const {
+GNECalibratorFlow::drawGL(const GUIVisualizationSettings& /* s */) const {
     // Currently This additional isn't drawn
 }
 
