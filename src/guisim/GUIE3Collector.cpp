@@ -94,7 +94,7 @@ void
 GUIE3Collector::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
     glPushName(getGlID());
     glPushMatrix();
-    glTranslated(0, 0, getType());
+    glTranslated(0, 0, GLO_JUNCTION + 0.4); // do not draw on top of linkRules
     typedef std::vector<SingleCrossingDefinition> CrossingDefinitions;
     CrossingDefinitions::const_iterator i;
     GLHelper::setColor(s.SUMO_color_E3Entry);
