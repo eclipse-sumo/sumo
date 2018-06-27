@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jun 22 11:32:12 2018 by Eclipse SUMO netconvert Version 9eff290
+<!-- generated on Wed Jun 27 13:26:32 2018 by Eclipse SUMO netconvert Version f6e78da
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -367,7 +367,7 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="W" type="dead_end" x="0.00" y="100.00" incLanes="CW_0 CW_1 CW_2 CWb_0 CWb_1" intLanes="" shape="0.00,107.90 0.00,91.80 0.00,90.80"/>
 
     <junction id=":C_28_0" type="internal" x="91.30" y="105.82" incLanes=":C_0_0" intLanes=":C_5_0 :C_8_0 :C_8_1 :C_13_0 :C_17_0 :C_26_0 :C_27_0 :C_c0_0 :C_c9_0"/>
-    <junction id=":C_29_0" type="internal" x="100.00" y="105.60" incLanes=":C_3_0 SC_1 SC_2" intLanes=":C_5_0 :C_6_0 :C_8_0 :C_8_1 :C_10_0 :C_12_0 :C_13_0 :C_14_0 :C_15_0 :C_15_1 :C_20_0 :C_22_0 :C_22_1 :C_24_0 :C_c0_0 :C_c3_0"/>
+    <junction id=":C_29_0" type="internal" x="100.00" y="105.60" incLanes=":C_3_0 :C_13_0 SC_1 SC_2" intLanes=":C_35_0 :C_5_0 :C_6_0 :C_8_0 :C_8_1 :C_10_0 :C_12_0 :C_13_0 :C_14_0 :C_15_0 :C_15_1 :C_20_0 :C_22_0 :C_22_1 :C_24_0 :C_c0_0 :C_c3_0"/>
     <junction id=":C_30_0" type="internal" x="108.91" y="111.70" incLanes=":C_4_0" intLanes=":C_12_0 :C_20_0 :C_c1_0 :C_c2_0"/>
     <junction id=":C_31_0" type="internal" x="92.75" y="92.30" incLanes=":C_6_0 WCb_0" intLanes=":C_1_0 :C_1_1 :C_3_0 :C_7_0 :C_8_0 :C_8_1 :C_12_0 :C_13_0 :C_15_0 :C_15_1 :C_17_0 :C_18_0 :C_19_0 :C_20_0 :C_21_0 :C_22_0 :C_22_1 :C_24_0 :C_26_0 :C_27_0 :C_c2_0 :C_c7_0"/>
     <junction id=":C_32_0" type="internal" x="105.82" y="108.70" incLanes=":C_7_0" intLanes=":C_5_0 :C_6_0 :C_12_0 :C_15_0 :C_15_1 :C_20_0 :C_24_0 :C_c0_0 :C_c3_0"/>
@@ -381,7 +381,7 @@ SPDX-License-Identifier: EPL-2.0
     <junction id=":C_40_0" type="internal" x="94.18" y="91.30" incLanes=":C_21_0" intLanes=":C_1_0 :C_1_1 :C_6_0 :C_10_0 :C_19_0 :C_20_0 :C_26_0 :C_c6_0 :C_c9_0"/>
     <junction id=":C_41_0" type="internal" x="94.40" y="100.00" incLanes=":C_24_0 EC_1 EC_2" intLanes=":C_1_0 :C_1_1 :C_3_0 :C_5_0 :C_6_0 :C_7_0 :C_8_0 :C_8_1 :C_13_0 :C_15_0 :C_15_1 :C_17_0 :C_26_0 :C_27_0 :C_c0_0 :C_c9_0"/>
     <junction id=":C_42_0" type="internal" x="88.30" y="108.91" incLanes=":C_25_0" intLanes=":C_5_0 :C_13_0 :C_c10_0 :C_c11_0"/>
-    <junction id=":C_43_0" type="internal" x="92.62" y="108.20" incLanes=":C_27_0 SCb_0" intLanes=":C_0_0 :C_1_0 :C_1_1 :C_5_0 :C_6_0 :C_8_0 :C_8_1 :C_10_0 :C_11_0 :C_12_0 :C_13_0 :C_14_0 :C_15_0 :C_15_1 :C_17_0 :C_19_0 :C_20_0 :C_22_0 :C_22_1 :C_24_0 :C_c4_0 :C_c11_0"/>
+    <junction id=":C_43_0" type="internal" x="92.62" y="108.20" incLanes=":C_27_0 :C_13_0 :C_17_0 SCb_0" intLanes=":C_35_0 :C_37_0 :C_0_0 :C_1_0 :C_1_1 :C_5_0 :C_6_0 :C_8_0 :C_8_1 :C_10_0 :C_11_0 :C_12_0 :C_13_0 :C_14_0 :C_15_0 :C_15_1 :C_17_0 :C_19_0 :C_20_0 :C_22_0 :C_22_1 :C_24_0 :C_c4_0 :C_c11_0"/>
 
     <connection from="EC" to="CN" fromLane="1" toLane="1" via=":C_7_0" tl="C" linkIndex="7" dir="r" state="o"/>
     <connection from="EC" to="CW" fromLane="1" toLane="1" via=":C_8_0" tl="C" linkIndex="8" dir="s" state="o"/>
