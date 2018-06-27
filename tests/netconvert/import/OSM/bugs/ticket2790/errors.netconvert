@@ -13,4 +13,6 @@ Warning: Found sharp turn with radius 8.15 at the start of edge '293506780'.
 Warning: Found sharp turn with radius 8.15 at the end of edge '293506788'.
 Warning: In lane '-209812787_0': Could not build shape (no line intersection).
 Warning: For junction '2199832187': could not compute shape.
+Warning: While computing intersection geometry at junction '2199832209': no line intersection
+Warning: While computing intersection geometry at junction '2199832209': no line intersection
 Warning: For junction '2199832209': could not compute shape.

@@ -502,30 +502,30 @@ NBNodeShapeComputer::joinSameDirectionEdges(std::map<NBEdge*, std::set<NBEdge*> 
         GeomsMap& geomsCW) {
     EdgeVector::const_iterator i, j;
     // compute boundary lines and extend it by 100m
-    for (i = myNode.myAllEdges.begin(); i != myNode.myAllEdges.end() - 1; i++) {
+    for (i = myNode.myAllEdges.begin(); i != myNode.myAllEdges.end(); i++) {
         // store current edge's boundary as current ccw/cw boundary
         try {
             geomsCCW[*i] = (*i)->getCCWBoundaryLine(myNode);
         } catch (InvalidArgument& e) {
-            WRITE_WARNING(std::string("While computing intersection geometry: ") + std::string(e.what()));
+            WRITE_WARNING("While computing intersection geometry at junction '" + myNode.getID() + "': " + std::string(e.what()));
             geomsCCW[*i] = (*i)->getGeometry();
         }
         try {
             geomsCW[*i] = (*i)->getCWBoundaryLine(myNode);
         } catch (InvalidArgument& e) {
-            WRITE_WARNING(std::string("While computing intersection geometry: ") + std::string(e.what()));
+            WRITE_WARNING("While computing intersection geometry at junction '" + myNode.getID() + "': " + std::string(e.what()));
+            geomsCW[*i] = (*i)->getGeometry();
+        }
+        // ensure the boundary is valid
+        if (geomsCCW[*i].length2D() < NUMERICAL_EPS) {
+            geomsCCW[*i] = (*i)->getGeometry();
+        }
+        if (geomsCW[*i].length2D() < NUMERICAL_EPS) {
             geomsCW[*i] = (*i)->getGeometry();
         }
         // extend the boundary by extroplating it by 100m
         geomsCCW[*i].extrapolate2D(100, true);
         geomsCW[*i].extrapolate2D(100, true);
-        //
-        for (j = i + 1; j != myNode.myAllEdges.end(); j++) {
-            geomsCCW[*j] = (*j)->getCCWBoundaryLine(myNode);
-            geomsCW[*j] = (*j)->getCWBoundaryLine(myNode);
-            geomsCCW[*j].extrapolate2D(100, true);
-            geomsCW[*j].extrapolate2D(100, true);
-        }
     }
     // compute same (edges where an intersection doesn't work well
     // (always check an edge and its cw neightbor)

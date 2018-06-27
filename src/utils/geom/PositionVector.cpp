@@ -916,6 +916,7 @@ PositionVector::extrapolate2D(const double val, const bool onlyFirst) {
     assert(size() > 1);
     Position& p1 = (*this)[0];
     Position& p2 = (*this)[1];
+    assert(p1.distanceTo2D(p2) > 0);
     const Position offset = (p2 - p1) * (val / p1.distanceTo2D(p2));
     p1.sub(offset);
     if (!onlyFirst) {
