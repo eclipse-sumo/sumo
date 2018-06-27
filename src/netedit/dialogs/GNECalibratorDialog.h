@@ -54,9 +54,6 @@ public:
     /// @brief destructor
     ~GNECalibratorDialog();
 
-    /// @brief get edited calibrator
-    GNECalibrator* getEditedCalibrator() const;
-
     /// @name FOX-callbacks
     /// @{
     /// @brief event after press accept button
@@ -92,9 +89,6 @@ protected:
     GNECalibratorDialog() {}
 
 private:
-    /// @brief pointer to edited calibrator
-    GNECalibrator* myEditedCalibrator;
-
     /// @brief current edited flows
     std::vector<GNEAdditional*> myFlowsEdited;
 

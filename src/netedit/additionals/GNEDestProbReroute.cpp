@@ -24,12 +24,12 @@
 #include <netedit/dialogs/GNERerouterIntervalDialog.h>
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/changes/GNEChange_Attribute.h>
-
-#include "GNEDestProbReroute.h"
-#include <netedit/GNEUndoList.h>
-#include "GNERerouter.h"
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNENet.h>
+#include <netedit/GNEUndoList.h>
+
+#include "GNEDestProbReroute.h"
+#include "GNERerouter.h"
 #include "GNERerouterInterval.h"
 
 // ===========================================================================
@@ -37,8 +37,8 @@
 // ===========================================================================
 
 GNEDestProbReroute::GNEDestProbReroute(GNERerouterIntervalDialog* rerouterIntervalDialog) :
-    GNEAdditional(rerouterIntervalDialog->getEditedRerouterInterval(), rerouterIntervalDialog->getEditedRerouterInterval()->getViewNet(), GLO_REROUTER, SUMO_TAG_DEST_PROB_REROUTE, false, false),
-    myNewEdgeDestination(rerouterIntervalDialog->getEditedRerouterInterval()->getAdditionalParent()->getEdgeChilds().at(0)),
+    GNEAdditional(rerouterIntervalDialog->getEditedAdditional(), rerouterIntervalDialog->getEditedAdditional()->getViewNet(), GLO_REROUTER, SUMO_TAG_DEST_PROB_REROUTE, false, false),
+    myNewEdgeDestination(rerouterIntervalDialog->getEditedAdditional()->getAdditionalParent()->getEdgeChilds().at(0)),
     myProbability(parse<double>(getTagProperties(SUMO_TAG_ROUTE_PROB_REROUTE).getDefaultValue(SUMO_ATTR_PROB))) {
 }
 

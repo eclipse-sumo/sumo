@@ -61,9 +61,6 @@ public:
     /// @brief destructor
     ~GNERerouterIntervalDialog();
 
-    /// @brief get edited Rerouter Interval
-    GNEAdditional* getEditedRerouterInterval() const;
-
     /// @name FOX-callbacks
     /// @{
     /// @brief event after press accept button
@@ -128,12 +125,6 @@ public:
 protected:
     /// @brief FOX needs this
     GNERerouterIntervalDialog() {}
-
-    /// @brief pointer to rerouter interval
-    GNEAdditional* myEditedRerouterInterval;
-
-    /// @brief flag to indicate if rerouter interval is being created or modified
-    bool myUpdatingElement;
 
     /// @brief begin time text field
     FXTextField* myBeginTextField;

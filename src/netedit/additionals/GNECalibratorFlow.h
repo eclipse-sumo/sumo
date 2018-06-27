@@ -49,7 +49,7 @@ class GNECalibratorFlow : public GNEAdditional {
 
 public:
     /// @brief default constructor (used only in GNECalibratorDialog)
-    GNECalibratorFlow(GNECalibrator* calibratorParent);
+    GNECalibratorFlow(GNEAdditional* calibratorParent);
 
     /// @brief parameter constructor
     GNECalibratorFlow(GNECalibrator* calibratorParent, GNECalibratorVehicleType* vehicleType, GNECalibratorRoute* route, const std::string &vehsPerHour, const std::string &speed,

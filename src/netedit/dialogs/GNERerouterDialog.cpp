@@ -54,7 +54,7 @@ FXIMPLEMENT(GNERerouterDialog, GNEAdditionalDialog, GNERerouterDialogMap, ARRAYN
 // ===========================================================================
 
 GNERerouterDialog::GNERerouterDialog(GNERerouter* rerouterParent) :
-    GNEAdditionalDialog(rerouterParent, 320, 240),
+    GNEAdditionalDialog(rerouterParent, false, 320, 240),
     myEditedRerouter(rerouterParent) {
 
     // create add buton and label

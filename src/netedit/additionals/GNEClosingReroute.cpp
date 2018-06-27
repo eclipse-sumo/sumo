@@ -38,8 +38,8 @@
 // ===========================================================================
 
 GNEClosingReroute::GNEClosingReroute(GNERerouterIntervalDialog* rerouterIntervalDialog) :
-    GNEAdditional(rerouterIntervalDialog->getEditedRerouterInterval(), rerouterIntervalDialog->getEditedRerouterInterval()->getViewNet(), GLO_CALIBRATOR, SUMO_TAG_CLOSING_REROUTE, false, false),
-    myClosedEdge(rerouterIntervalDialog->getEditedRerouterInterval()->getAdditionalParent()->getEdgeChilds().at(0)),
+    GNEAdditional(rerouterIntervalDialog->getEditedAdditional(), rerouterIntervalDialog->getEditedAdditional()->getViewNet(), GLO_CALIBRATOR, SUMO_TAG_CLOSING_REROUTE, false, false),
+    myClosedEdge(rerouterIntervalDialog->getEditedAdditional()->getAdditionalParent()->getEdgeChilds().at(0)),
     myAllowedVehicles(getTagProperties(SUMO_TAG_CLOSING_LANE_REROUTE).getDefaultValue(SUMO_ATTR_ALLOW)),
     myDisallowedVehicles(getTagProperties(SUMO_TAG_CLOSING_LANE_REROUTE).getDefaultValue(SUMO_ATTR_DISALLOW)) {
 }

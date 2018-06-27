@@ -53,7 +53,7 @@
 // ===========================================================================
 
 
-GNECalibratorFlow::GNECalibratorFlow(GNECalibrator* calibratorParent) :
+GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent) :
     GNEAdditional(calibratorParent, calibratorParent->getViewNet(), GLO_CALIBRATOR, SUMO_TAG_FLOW, false, false),
     myVehicleType(calibratorParent->getViewNet()->getNet()->retrieveAdditional(SUMO_TAG_VTYPE, DEFAULT_VTYPE_ID)),
     myRoute(calibratorParent->getViewNet()->getNet()->getAdditionals(SUMO_TAG_ROUTE).front()) {

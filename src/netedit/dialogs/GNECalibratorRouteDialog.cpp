@@ -26,8 +26,6 @@
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/common/MsgHandler.h>
 #include <netedit/changes/GNEChange_Additional.h>
-
-#include "GNECalibratorRouteDialog.h"
 #include <netedit/additionals/GNECalibrator.h>
 #include <netedit/additionals/GNECalibratorRoute.h>
 #include <netedit/netelements/GNEEdge.h>
@@ -35,6 +33,8 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
+
+#include "GNECalibratorRouteDialog.h"
 
 
 // ===========================================================================
@@ -53,13 +53,11 @@ FXIMPLEMENT(GNECalibratorRouteDialog, GNEAdditionalDialog, GNECalibratorRouteDia
 // ===========================================================================
 
 GNECalibratorRouteDialog::GNECalibratorRouteDialog(GNECalibratorRoute* editedCalibratorRoute, bool updatingElement) :
-    GNEAdditionalDialog(editedCalibratorRoute, 400, 120),
-    myEditedCalibratorRoute(editedCalibratorRoute),
-    myUpdatingElement(updatingElement),
+    GNEAdditionalDialog(editedCalibratorRoute, updatingElement, 400, 120),
     myCalibratorRouteValid(true) {
     // change default header
     std::string typeOfOperation =  + " for ";
-    changeAdditionalDialogHeader(myUpdatingElement ? "Edit " + toString(myEditedCalibratorRoute->getTag()) + " of " : "Create " + toString(myEditedCalibratorRoute->getTag()));
+    changeAdditionalDialogHeader(myUpdatingElement ? "Edit " + toString(myEditedAdditional->getTag()) + " of " : "Create " + toString(myEditedAdditional->getTag()));
 
     // Create auxiliar frames for data
     FXHorizontalFrame* columns = new FXHorizontalFrame(myContentFrame, GUIDesignUniformHorizontalFrame);
@@ -86,7 +84,7 @@ GNECalibratorRouteDialog::GNECalibratorRouteDialog(GNECalibratorRoute* editedCal
 
     // add element if we aren't updating an existent element
     if (myUpdatingElement == false) {
-        myEditedCalibratorRoute->getViewNet()->getUndoList()->add(new GNEChange_Additional(myEditedCalibratorRoute, true), true);
+        myEditedAdditional->getViewNet()->getUndoList()->add(new GNEChange_Additional(myEditedAdditional, true), true);
         // Routes are created without edges
         myCalibratorRouteValid = false;
         myInvalidAttr = SUMO_ATTR_EDGES;
@@ -106,7 +104,7 @@ GNECalibratorRouteDialog::onCmdAccept(FXObject*, FXSelector, void*) {
         }
         std::string operation1 = myUpdatingElement ? ("updating") : ("creating");
         std::string operation2 = myUpdatingElement ? ("updated") : ("created");
-        std::string tagString = toString(myEditedCalibratorRoute->getTag());
+        std::string tagString = toString(myEditedAdditional->getTag());
         // open warning dialog box
         FXMessageBox::warning(getApp(), MBOX_OK,
                               ("Error " + operation1 + " " + tagString).c_str(), "%s",
@@ -151,33 +149,31 @@ GNECalibratorRouteDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
     // At start we assumed, that all values are valid
     myCalibratorRouteValid = true;
     myInvalidAttr = SUMO_ATTR_NOTHING;
-    // get pointer to undo list (Only for code legilibity)
-    GNEUndoList* undoList = myEditedCalibratorRoute->getViewNet()->getUndoList();
     // set color of myTextFieldRouteID, depending if current value is valid or not
-    if (myEditedCalibratorRoute->getID() == myTextFieldRouteID->getText().text()) {
+    if (myEditedAdditional->getID() == myTextFieldRouteID->getText().text()) {
         myTextFieldRouteID->setTextColor(FXRGB(0, 0, 0));
-        myEditedCalibratorRoute->setAttribute(SUMO_ATTR_ID, myTextFieldRouteID->getText().text(), undoList);
-    } else if (myEditedCalibratorRoute->isValid(SUMO_ATTR_ID, myTextFieldRouteID->getText().text())) {
+        myEditedAdditional->setAttribute(SUMO_ATTR_ID, myTextFieldRouteID->getText().text(), myEditedAdditional->getViewNet()->getUndoList());
+    } else if (myEditedAdditional->isValid(SUMO_ATTR_ID, myTextFieldRouteID->getText().text())) {
         myTextFieldRouteID->setTextColor(FXRGB(0, 0, 0));
-        myEditedCalibratorRoute->setAttribute(SUMO_ATTR_ID, myTextFieldRouteID->getText().text(), undoList);
+        myEditedAdditional->setAttribute(SUMO_ATTR_ID, myTextFieldRouteID->getText().text(), myEditedAdditional->getViewNet()->getUndoList());
     } else {
         myTextFieldRouteID->setTextColor(FXRGB(255, 0, 0));
         myCalibratorRouteValid = false;
         myInvalidAttr = SUMO_ATTR_ID;
     }
     // set color of myTextFieldRouteEdges, depending if current value is valEdges or not
-    if (myEditedCalibratorRoute->isValid(SUMO_ATTR_EDGES, myTextFieldEdges->getText().text())) {
+    if (myEditedAdditional->isValid(SUMO_ATTR_EDGES, myTextFieldEdges->getText().text())) {
         myTextFieldEdges->setTextColor(FXRGB(0, 0, 0));
-        myEditedCalibratorRoute->setAttribute(SUMO_ATTR_EDGES, myTextFieldEdges->getText().text(), undoList);
+        myEditedAdditional->setAttribute(SUMO_ATTR_EDGES, myTextFieldEdges->getText().text(), myEditedAdditional->getViewNet()->getUndoList());
     } else {
         myTextFieldEdges->setTextColor(FXRGB(255, 0, 0));
         myCalibratorRouteValid = false;
         myInvalidAttr = SUMO_ATTR_EDGES;
     }
     // set color of myTextFieldColor, depending if current value is valid or not
-    if (myEditedCalibratorRoute->isValid(SUMO_ATTR_COLOR, myTextFieldColor->getText().text())) {
+    if (myEditedAdditional->isValid(SUMO_ATTR_COLOR, myTextFieldColor->getText().text())) {
         myTextFieldColor->setTextColor(FXRGB(0, 0, 0));
-        myEditedCalibratorRoute->setAttribute(SUMO_ATTR_COLOR, myTextFieldColor->getText().text(), undoList);
+        myEditedAdditional->setAttribute(SUMO_ATTR_COLOR, myTextFieldColor->getText().text(), myEditedAdditional->getViewNet()->getUndoList());
     } else {
         myTextFieldColor->setTextColor(FXRGB(255, 0, 0));
         myCalibratorRouteValid = false;
@@ -189,9 +185,9 @@ GNECalibratorRouteDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
 
 void
 GNECalibratorRouteDialog::updateCalibratorRouteValues() {
-    myTextFieldRouteID->setText(myEditedCalibratorRoute->getID().c_str());
-    myTextFieldEdges->setText(myEditedCalibratorRoute->getAttribute(SUMO_ATTR_EDGES).c_str());
-    myTextFieldColor->setText(myEditedCalibratorRoute->getAttribute(SUMO_ATTR_COLOR).c_str());
+    myTextFieldRouteID->setText(myEditedAdditional->getID().c_str());
+    myTextFieldEdges->setText(myEditedAdditional->getAttribute(SUMO_ATTR_EDGES).c_str());
+    myTextFieldColor->setText(myEditedAdditional->getAttribute(SUMO_ATTR_COLOR).c_str());
 }
 
 /****************************************************************************/

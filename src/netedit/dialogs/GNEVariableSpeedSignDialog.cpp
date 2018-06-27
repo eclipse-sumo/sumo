@@ -54,8 +54,7 @@ FXIMPLEMENT(GNEVariableSpeedSignDialog, GNEAdditionalDialog, GNERerouterDialogMa
 // ===========================================================================
 
 GNEVariableSpeedSignDialog::GNEVariableSpeedSignDialog(GNEVariableSpeedSign* editedVariableSpeedSign) :
-    GNEAdditionalDialog(editedVariableSpeedSign, 300, 400),
-    myEditedVariableSpeedSign(editedVariableSpeedSign),
+    GNEAdditionalDialog(editedVariableSpeedSign, false, 300, 400),
     myStepsValids(false) {
 
     // create Horizontal frame for row elements
@@ -73,7 +72,7 @@ GNEVariableSpeedSignDialog::GNEVariableSpeedSignDialog(GNEVariableSpeedSign* edi
     myStepsTable->setSelTextColor(FXRGBA(0, 0, 0, 255));
 
     // fill edited steps
-    for (auto i : myEditedVariableSpeedSign->getAdditionalChilds()) {
+    for (auto i : myEditedAdditional->getAdditionalChilds()) {
         myEditedSteps.push_back(i);
     }
 
@@ -91,17 +90,11 @@ GNEVariableSpeedSignDialog::GNEVariableSpeedSignDialog(GNEVariableSpeedSign* edi
 GNEVariableSpeedSignDialog::~GNEVariableSpeedSignDialog() {}
 
 
-GNEVariableSpeedSign*
-GNEVariableSpeedSignDialog::getEditedVariableSpeedSign() const {
-    return myEditedVariableSpeedSign;
-}
-
-
 long
 GNEVariableSpeedSignDialog::onCmdAddStep(FXObject*, FXSelector, void*) {
     // Declare variables for time and speed
     GNEVariableSpeedSignStep* step = new GNEVariableSpeedSignStep(this);
-    myEditedVariableSpeedSign->getViewNet()->getUndoList()->add(new GNEChange_Additional(step, true), true);
+    myEditedAdditional->getViewNet()->getUndoList()->add(new GNEChange_Additional(step, true), true);
     myEditedSteps.push_back(step);
     // Update table
     updateTableSteps();
@@ -126,8 +119,8 @@ GNEVariableSpeedSignDialog::onCmdEditStep(FXObject*, FXSelector, void*) {
             double time = GNEAttributeCarrier::parse<double>(myStepsTable->getItem(i, 0)->getText().text());
             double speed = GNEAttributeCarrier::parse<double>(myStepsTable->getItem(i, 1)->getText().text());
             // set new values in Closing  reroute
-            step->setAttribute(SUMO_ATTR_TIME, toString(time), myEditedVariableSpeedSign->getViewNet()->getUndoList());
-            step->setAttribute(SUMO_ATTR_SPEED, toString(speed), myEditedVariableSpeedSign->getViewNet()->getUndoList());
+            step->setAttribute(SUMO_ATTR_TIME, toString(time), myEditedAdditional->getViewNet()->getUndoList());
+            step->setAttribute(SUMO_ATTR_SPEED, toString(speed), myEditedAdditional->getViewNet()->getUndoList());
             // set Correct label
             myStepsTable->getItem(i, 2)->setIcon(GUIIconSubSys::getIcon(ICON_CORRECT));
         }
@@ -144,7 +137,7 @@ GNEVariableSpeedSignDialog::onCmdClickedStep(FXObject*, FXSelector, void*) {
     for (int i = 0; i < (int)myEditedSteps.size(); i++) {
         if (myStepsTable->getItem(i, 3)->hasFocus()) {
             myStepsTable->removeRows(i);
-            myEditedVariableSpeedSign->getViewNet()->getUndoList()->add(new GNEChange_Additional(myEditedSteps.at(i), false), true);
+            myEditedAdditional->getViewNet()->getUndoList()->add(new GNEChange_Additional(myEditedSteps.at(i), false), true);
             myEditedSteps.erase(myEditedSteps.begin() + i);
             // Update table
             updateTableSteps();
@@ -158,7 +151,7 @@ GNEVariableSpeedSignDialog::onCmdClickedStep(FXObject*, FXSelector, void*) {
 long 
 GNEVariableSpeedSignDialog::onCmdSortSteps(FXObject*, FXSelector, void*) {
     // Sort variable speed sign steps
-    myEditedVariableSpeedSign->sortVariableSpeedSignSteps();
+    //myEditedAdditional->sortVariableSpeedSignSteps();
     // update table
     updateTableSteps();
     return 1;
@@ -184,7 +177,7 @@ GNEVariableSpeedSignDialog::onCmdAccept(FXObject*, FXSelector, void*) {
         // accept changes before closing dialog
         acceptChanges();
         // sort steps after finish
-        myEditedVariableSpeedSign->sortVariableSpeedSignSteps();
+        //myEditedAdditional->sortVariableSpeedSignSteps();
         // stop dialgo sucesfully
         getApp()->stopModal(this, TRUE);
         return 1;

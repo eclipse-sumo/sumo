@@ -53,9 +53,6 @@ public:
     /// @brief destructor
     ~GNEVariableSpeedSignDialog();
 
-    /// @brief get edited Variable Speed Sign
-    GNEVariableSpeedSign* getEditedVariableSpeedSign() const;
-
     /// @name FOX-callbacks
     /// @{
     /// @brief event called after press add row button
@@ -83,9 +80,6 @@ public:
 protected:
     /// @brief FOX needs this
     GNEVariableSpeedSignDialog() {}
-
-    /// @brief Pointer to Variable Speed Signal
-    GNEVariableSpeedSign* myEditedVariableSpeedSign;
 
     /// @brief current VSS steps edited
     std::vector<GNEAdditional*> myEditedSteps;

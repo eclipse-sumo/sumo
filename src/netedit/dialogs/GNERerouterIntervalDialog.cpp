@@ -88,9 +88,7 @@ FXIMPLEMENT(GNERerouterIntervalDialog, GNEAdditionalDialog, GNERerouterIntervalD
 // ===========================================================================
 
 GNERerouterIntervalDialog::GNERerouterIntervalDialog(GNEAdditional* rerouterInterval, bool updatingElement) :
-    GNEAdditionalDialog(rerouterInterval->getAdditionalParent(), 960, 480),
-    myEditedRerouterInterval(rerouterInterval),
-    myUpdatingElement(updatingElement),
+    GNEAdditionalDialog(rerouterInterval, updatingElement, 960, 480),
     myBeginEndValid(true),
     myClosingLaneReroutesValid(true),
     myClosingReroutesValid(true),
@@ -98,38 +96,38 @@ GNERerouterIntervalDialog::GNERerouterIntervalDialog(GNEAdditional* rerouterInte
     myParkingAreaReroutesValid(true),
     myRouteProbReroutesValid(true) {
     // fill closing Reroutes
-    for (auto i : myEditedRerouterInterval->getAdditionalChilds()) {
+    for (auto i : myEditedAdditional->getAdditionalChilds()) {
         if(i->getTag() == SUMO_TAG_CLOSING_REROUTE) {
             myClosingReroutesEdited.push_back(i);
         }
     }
     // fill closing Lane Reroutes
-    for (auto i : myEditedRerouterInterval->getAdditionalChilds()) {
+    for (auto i : myEditedAdditional->getAdditionalChilds()) {
         if(i->getTag() == SUMO_TAG_CLOSING_LANE_REROUTE) {
             myClosingLaneReroutesEdited.push_back(i);
         }
     }
     // fill Dest Prob Reroutes
-    for (auto i : myEditedRerouterInterval->getAdditionalChilds()) {
+    for (auto i : myEditedAdditional->getAdditionalChilds()) {
         if(i->getTag() == SUMO_TAG_DEST_PROB_REROUTE) {
             myDestProbReroutesEdited.push_back(i);
         }
     }
     // fill Route Prob Reroutes
-    for (auto i : myEditedRerouterInterval->getAdditionalChilds()) {
+    for (auto i : myEditedAdditional->getAdditionalChilds()) {
         if(i->getTag() == SUMO_TAG_ROUTE_PROB_REROUTE) {
             myRouteProbReroutesEdited.push_back(i);
         }
     }
     // fill Parking Area reroutes
-    for (auto i : myEditedRerouterInterval->getAdditionalChilds()) {
+    for (auto i : myEditedAdditional->getAdditionalChilds()) {
         if(i->getTag() == SUMO_TAG_PARKING_ZONE_REROUTE) {
             myParkingAreaRerouteEdited.push_back(i);
         }
     }
     // change default header
-    std::string typeOfOperation = myUpdatingElement ? "Edit " + toString(myEditedRerouterInterval->getTag()) + " of " : "Create " + toString(myEditedRerouterInterval->getTag()) + " for ";
-    changeAdditionalDialogHeader(typeOfOperation + toString(myEditedRerouterInterval->getAdditionalParent()->getTag()) + " '" + myEditedRerouterInterval->getAdditionalParent()->getID() + "'");
+    std::string typeOfOperation = myUpdatingElement ? "Edit " + toString(myEditedAdditional->getTag()) + " of " : "Create " + toString(myEditedAdditional->getTag()) + " for ";
+    changeAdditionalDialogHeader(typeOfOperation + toString(myEditedAdditional->getAdditionalParent()->getTag()) + " '" + myEditedAdditional->getAdditionalParent()->getID() + "'");
 
     // Create auxiliar frames for tables
     FXHorizontalFrame* columns = new FXHorizontalFrame(myContentFrame, GUIDesignUniformHorizontalFrame);
@@ -139,15 +137,15 @@ GNERerouterIntervalDialog::GNERerouterIntervalDialog(GNEAdditional* rerouterInte
 
     // create horizontal frame for begin and end label
     FXHorizontalFrame* beginEndElementsLeft = new FXHorizontalFrame(columnLeft, GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(beginEndElementsLeft, (toString(SUMO_ATTR_BEGIN) + " and " + toString(SUMO_ATTR_END) + " of " + toString(myEditedRerouterInterval->getTag())).c_str(), 0, GUIDesignLabelLeftThick);
+    new FXLabel(beginEndElementsLeft, (toString(SUMO_ATTR_BEGIN) + " and " + toString(SUMO_ATTR_END) + " of " + toString(myEditedAdditional->getTag())).c_str(), 0, GUIDesignLabelLeftThick);
     myCheckLabel = new FXLabel(beginEndElementsLeft, "", GUIIconSubSys::getIcon(ICON_CORRECT), GUIDesignLabelIcon32x32Thicked);
 
     // create horizontal frame for begin and end text fields
     FXHorizontalFrame* beginEndElementsRight = new FXHorizontalFrame(columnRight, GUIDesignAuxiliarHorizontalFrame);
     myBeginTextField = new FXTextField(beginEndElementsRight, GUIDesignTextFieldNCol, this, MID_GNE_REROUTEDIALOG_EDIT_INTERVAL, GUIDesignTextFieldReal);
-    myBeginTextField->setText(toString(myEditedRerouterInterval->getAttribute(SUMO_ATTR_BEGIN)).c_str());
+    myBeginTextField->setText(toString(myEditedAdditional->getAttribute(SUMO_ATTR_BEGIN)).c_str());
     myEndTextField = new FXTextField(beginEndElementsRight, GUIDesignTextFieldNCol, this, MID_GNE_REROUTEDIALOG_EDIT_INTERVAL, GUIDesignTextFieldReal);
-    myEndTextField->setText(toString(myEditedRerouterInterval->getAttribute(SUMO_ATTR_END)).c_str());
+    myEndTextField->setText(toString(myEditedAdditional->getAttribute(SUMO_ATTR_END)).c_str());
 
     // Create labels and tables
     FXHorizontalFrame* buttonAndLabelClosingLaneReroute = new FXHorizontalFrame(columnLeft, GUIDesignAuxiliarHorizontalFrame);
@@ -197,7 +195,7 @@ GNERerouterIntervalDialog::GNERerouterIntervalDialog(GNEAdditional* rerouterInte
 
     // add element if we aren't updating an existent element
     if (myUpdatingElement == false) {
-        myEditedRerouterInterval->getViewNet()->getUndoList()->add(new GNEChange_Additional(myEditedRerouterInterval, true), true);
+        myEditedAdditional->getViewNet()->getUndoList()->add(new GNEChange_Additional(myEditedAdditional, true), true);
     }
 
     // open as modal dialog
@@ -208,24 +206,18 @@ GNERerouterIntervalDialog::GNERerouterIntervalDialog(GNEAdditional* rerouterInte
 GNERerouterIntervalDialog::~GNERerouterIntervalDialog() {}
 
 
-GNEAdditional*
-GNERerouterIntervalDialog::getEditedRerouterInterval() const {
-    return myEditedRerouterInterval;
-}
-
-
 long
 GNERerouterIntervalDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     // set strings for dialogs
-    std::string errorTitle = "Error" + toString(myUpdatingElement ? "updating" : "creating") + " " + toString(myEditedRerouterInterval->getTag()) + " of " + toString(myEditedRerouterInterval->getAdditionalParent()->getTag());
-    std::string operationType = toString(myEditedRerouterInterval->getAdditionalParent()->getTag()) + "'s " + toString(myEditedRerouterInterval->getTag()) + " cannot be " + (myUpdatingElement ? "updated" : "created") + " because ";
+    std::string errorTitle = "Error" + toString(myUpdatingElement ? "updating" : "creating") + " " + toString(myEditedAdditional->getTag()) + " of " + toString(myEditedAdditional->getAdditionalParent()->getTag());
+    std::string operationType = toString(myEditedAdditional->getAdditionalParent()->getTag()) + "'s " + toString(myEditedAdditional->getTag()) + " cannot be " + (myUpdatingElement ? "updated" : "created") + " because ";
     if (myBeginEndValid == false) {
         // write warning if netedit is running in testing mode
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Opening FXMessageBox of type 'warning'");
         }
         // open warning Box
-        FXMessageBox::warning(getApp(), MBOX_OK, errorTitle.c_str(), "%s", (operationType + toString(myEditedRerouterInterval->getTag()) + " defined by " + toString(SUMO_ATTR_BEGIN) + " and " + toString(SUMO_ATTR_END) + " is invalid.").c_str());
+        FXMessageBox::warning(getApp(), MBOX_OK, errorTitle.c_str(), "%s", (operationType + toString(myEditedAdditional->getTag()) + " defined by " + toString(SUMO_ATTR_BEGIN) + " and " + toString(SUMO_ATTR_END) + " is invalid.").c_str());
         // write warning if netedit is running in testing mode
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Closed FXMessageBox of type 'warning' with 'OK'");
@@ -241,7 +233,7 @@ GNERerouterIntervalDialog::onCmdAccept(FXObject*, FXSelector, void*) {
             WRITE_WARNING("Opening FXMessageBox of type 'warning'");
         }
         // open warning Box
-        FXMessageBox::warning(getApp(), MBOX_OK, errorTitle.c_str(), "%s", (operationType + "at least one " + toString(myEditedRerouterInterval->getTag()) + "'s element must be defined.").c_str());
+        FXMessageBox::warning(getApp(), MBOX_OK, errorTitle.c_str(), "%s", (operationType + "at least one " + toString(myEditedAdditional->getTag()) + "'s element must be defined.").c_str());
         // write warning if netedit is running in testing mode
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Closed FXMessageBox of type 'warning' with 'OK'");
@@ -344,7 +336,7 @@ long
 GNERerouterIntervalDialog::onCmdAddClosingLaneReroute(FXObject*, FXSelector, void*) {
     // create closing lane reroute
     GNEClosingLaneReroute* closingLaneReroute = new GNEClosingLaneReroute(this);
-    myEditedRerouterInterval->getViewNet()->getUndoList()->add(new GNEChange_Additional(closingLaneReroute, true), true);
+    myEditedAdditional->getViewNet()->getUndoList()->add(new GNEChange_Additional(closingLaneReroute, true), true);
     myClosingLaneReroutesEdited.push_back(closingLaneReroute);
     // update closing lane reroutes table
     updateClosingLaneReroutesTable();
@@ -356,7 +348,7 @@ long
 GNERerouterIntervalDialog::onCmdAddClosingReroute(FXObject*, FXSelector, void*) {
     // create closing reroute
     GNEClosingReroute* closingReroute = new GNEClosingReroute(this);
-    myEditedRerouterInterval->getViewNet()->getUndoList()->add(new GNEChange_Additional(closingReroute, true), true);
+    myEditedAdditional->getViewNet()->getUndoList()->add(new GNEChange_Additional(closingReroute, true), true);
     myClosingReroutesEdited.push_back(closingReroute);
     // update closing reroutes table
     updateClosingReroutesTable();
@@ -368,7 +360,7 @@ long
 GNERerouterIntervalDialog::onCmdAddDestProbReroute(FXObject*, FXSelector, void*) {
     // create closing reroute and add it to table
     GNEDestProbReroute* destProbReroute = new GNEDestProbReroute(this);
-    myEditedRerouterInterval->getViewNet()->getUndoList()->add(new GNEChange_Additional(destProbReroute, true), true);
+    myEditedAdditional->getViewNet()->getUndoList()->add(new GNEChange_Additional(destProbReroute, true), true);
     myDestProbReroutesEdited.push_back(destProbReroute);
     // update dest Prob reroutes table
     updateDestProbReroutesTable();
@@ -380,7 +372,7 @@ long
 GNERerouterIntervalDialog::onCmdAddRouteProbReroute(FXObject*, FXSelector, void*) {
     // create route Prob Reroute
     GNERouteProbReroute* routeProbReroute = new GNERouteProbReroute(this);
-    myEditedRerouterInterval->getViewNet()->getUndoList()->add(new GNEChange_Additional(routeProbReroute, true), true);
+    myEditedAdditional->getViewNet()->getUndoList()->add(new GNEChange_Additional(routeProbReroute, true), true);
     myRouteProbReroutesEdited.push_back(routeProbReroute);
     // update route prob reroutes table
     updateRouteProbReroutesTable();
@@ -392,7 +384,7 @@ long
 GNERerouterIntervalDialog::onCmdAddParkingAreaReroute(FXObject*, FXSelector, void*) {
     // create parkingAreaReroute and add it to table
     GNEParkingAreaReroute* parkingAreaReroute = new GNEParkingAreaReroute(this);
-    myEditedRerouterInterval->getViewNet()->getUndoList()->add(new GNEChange_Additional(parkingAreaReroute, true), true);
+    myEditedAdditional->getViewNet()->getUndoList()->add(new GNEChange_Additional(parkingAreaReroute, true), true);
     myParkingAreaRerouteEdited.push_back(parkingAreaReroute);
     // update dest Prob reroutes table
     updateParkingAreaReroutesTable();
@@ -406,7 +398,7 @@ GNERerouterIntervalDialog::onCmdClickedClosingLaneReroute(FXObject*, FXSelector,
     for (int i = 0; i < (int)myClosingLaneReroutesEdited.size(); i++) {
         if (myClosingLaneRerouteTable->getItem(i, 4)->hasFocus()) {
             myClosingLaneRerouteTable->removeRows(i);
-            myEditedRerouterInterval->getViewNet()->getUndoList()->add(new GNEChange_Additional(myClosingLaneReroutesEdited.at(i), false), true);
+            myEditedAdditional->getViewNet()->getUndoList()->add(new GNEChange_Additional(myClosingLaneReroutesEdited.at(i), false), true);
             myClosingLaneReroutesEdited.erase(myClosingLaneReroutesEdited.begin() + i);
             updateClosingLaneReroutesTable();
             return 1;
@@ -422,7 +414,7 @@ GNERerouterIntervalDialog::onCmdClickedClosingReroute(FXObject*, FXSelector, voi
     for (int i = 0; i < (int)myClosingReroutesEdited.size(); i++) {
         if (myClosingRerouteTable->getItem(i, 4)->hasFocus()) {
             myClosingRerouteTable->removeRows(i);
-            myEditedRerouterInterval->getViewNet()->getUndoList()->add(new GNEChange_Additional(myClosingReroutesEdited.at(i), false), true);
+            myEditedAdditional->getViewNet()->getUndoList()->add(new GNEChange_Additional(myClosingReroutesEdited.at(i), false), true);
             myClosingReroutesEdited.erase(myClosingReroutesEdited.begin() + i);
             updateClosingReroutesTable();
             return 1;
@@ -438,7 +430,7 @@ GNERerouterIntervalDialog::onCmdClickedDestProbReroute(FXObject*, FXSelector, vo
     for (int i = 0; i < (int)myDestProbReroutesEdited.size(); i++) {
         if (myDestProbRerouteTable->getItem(i, 3)->hasFocus()) {
             myDestProbRerouteTable->removeRows(i);
-            myEditedRerouterInterval->getViewNet()->getUndoList()->add(new GNEChange_Additional(myDestProbReroutesEdited.at(i), false), true);
+            myEditedAdditional->getViewNet()->getUndoList()->add(new GNEChange_Additional(myDestProbReroutesEdited.at(i), false), true);
             myDestProbReroutesEdited.erase(myDestProbReroutesEdited.begin() + i);
             updateDestProbReroutesTable();
             return 1;
@@ -454,7 +446,7 @@ GNERerouterIntervalDialog::onCmdClickedRouteProbReroute(FXObject*, FXSelector, v
     for (int i = 0; i < (int)myRouteProbReroutesEdited.size(); i++) {
         if (myRouteProbRerouteTable->getItem(i, 3)->hasFocus()) {
             myRouteProbRerouteTable->removeRows(i);
-            myEditedRerouterInterval->getViewNet()->getUndoList()->add(new GNEChange_Additional(myRouteProbReroutesEdited.at(i), false), true);
+            myEditedAdditional->getViewNet()->getUndoList()->add(new GNEChange_Additional(myRouteProbReroutesEdited.at(i), false), true);
             myRouteProbReroutesEdited.erase(myRouteProbReroutesEdited.begin() + i);
             updateRouteProbReroutesTable();
             return 1;
@@ -470,7 +462,7 @@ GNERerouterIntervalDialog::onCmdClickedParkingAreaReroute(FXObject*, FXSelector,
     for (int i = 0; i < (int)myParkingAreaRerouteEdited.size(); i++) {
         if (myParkingAreaRerouteTable->getItem(i, 3)->hasFocus()) {
             myParkingAreaRerouteTable->removeRows(i);
-            myEditedRerouterInterval->getViewNet()->getUndoList()->add(new GNEChange_Additional(myParkingAreaRerouteEdited.at(i), false), true);
+            myEditedAdditional->getViewNet()->getUndoList()->add(new GNEChange_Additional(myParkingAreaRerouteEdited.at(i), false), true);
             myParkingAreaRerouteEdited.erase(myParkingAreaRerouteEdited.begin() + i);
             updateParkingAreaReroutesTable();
             return 1;
@@ -497,9 +489,9 @@ GNERerouterIntervalDialog::onCmdEditClosingLaneReroute(FXObject*, FXSelector, vo
             myClosingLaneRerouteTable->getItem(i, 3)->setIcon(GUIIconSubSys::getIcon(ICON_ERROR));
         } else {
             // set new values in Closing Lane reroute
-            closingLaneReroute->setAttribute(SUMO_ATTR_ID, myClosingLaneRerouteTable->getItem(i, 0)->getText().text(), myEditedRerouterInterval->getViewNet()->getUndoList());
-            closingLaneReroute->setAttribute(SUMO_ATTR_ALLOW, myClosingLaneRerouteTable->getItem(i, 1)->getText().text(), myEditedRerouterInterval->getViewNet()->getUndoList());
-            closingLaneReroute->setAttribute(SUMO_ATTR_DISALLOW, myClosingLaneRerouteTable->getItem(i, 2)->getText().text(), myEditedRerouterInterval->getViewNet()->getUndoList());
+            closingLaneReroute->setAttribute(SUMO_ATTR_ID, myClosingLaneRerouteTable->getItem(i, 0)->getText().text(), myEditedAdditional->getViewNet()->getUndoList());
+            closingLaneReroute->setAttribute(SUMO_ATTR_ALLOW, myClosingLaneRerouteTable->getItem(i, 1)->getText().text(), myEditedAdditional->getViewNet()->getUndoList());
+            closingLaneReroute->setAttribute(SUMO_ATTR_DISALLOW, myClosingLaneRerouteTable->getItem(i, 2)->getText().text(), myEditedAdditional->getViewNet()->getUndoList());
             // set Correct label
             myClosingLaneRerouteTable->getItem(i, 3)->setIcon(GUIIconSubSys::getIcon(ICON_CORRECT));
         }
@@ -527,9 +519,9 @@ GNERerouterIntervalDialog::onCmdEditClosingReroute(FXObject*, FXSelector, void*)
             myClosingRerouteTable->getItem(i, 3)->setIcon(GUIIconSubSys::getIcon(ICON_ERROR));
         } else {
             // set new values in Closing  reroute
-            closingReroute->setAttribute(SUMO_ATTR_ID, myClosingRerouteTable->getItem(i, 0)->getText().text(), myEditedRerouterInterval->getViewNet()->getUndoList());
-            closingReroute->setAttribute(SUMO_ATTR_ALLOW, myClosingRerouteTable->getItem(i, 1)->getText().text(), myEditedRerouterInterval->getViewNet()->getUndoList());
-            closingReroute->setAttribute(SUMO_ATTR_DISALLOW, myClosingRerouteTable->getItem(i, 2)->getText().text(), myEditedRerouterInterval->getViewNet()->getUndoList());
+            closingReroute->setAttribute(SUMO_ATTR_ID, myClosingRerouteTable->getItem(i, 0)->getText().text(), myEditedAdditional->getViewNet()->getUndoList());
+            closingReroute->setAttribute(SUMO_ATTR_ALLOW, myClosingRerouteTable->getItem(i, 1)->getText().text(), myEditedAdditional->getViewNet()->getUndoList());
+            closingReroute->setAttribute(SUMO_ATTR_DISALLOW, myClosingRerouteTable->getItem(i, 2)->getText().text(), myEditedAdditional->getViewNet()->getUndoList());
             // set Correct label
             myClosingRerouteTable->getItem(i, 3)->setIcon(GUIIconSubSys::getIcon(ICON_CORRECT));
         }
@@ -554,8 +546,8 @@ GNERerouterIntervalDialog::onCmdEditDestProbReroute(FXObject*, FXSelector, void*
             myDestProbRerouteTable->getItem(i, 2)->setIcon(GUIIconSubSys::getIcon(ICON_ERROR));
         } else {
             // set new values in Closing  reroute
-            destProbReroute->setAttribute(SUMO_ATTR_ID, myDestProbRerouteTable->getItem(i, 0)->getText().text(), myEditedRerouterInterval->getViewNet()->getUndoList());
-            destProbReroute->setAttribute(SUMO_ATTR_PROB, myDestProbRerouteTable->getItem(i, 1)->getText().text(), myEditedRerouterInterval->getViewNet()->getUndoList());
+            destProbReroute->setAttribute(SUMO_ATTR_ID, myDestProbRerouteTable->getItem(i, 0)->getText().text(), myEditedAdditional->getViewNet()->getUndoList());
+            destProbReroute->setAttribute(SUMO_ATTR_PROB, myDestProbRerouteTable->getItem(i, 1)->getText().text(), myEditedAdditional->getViewNet()->getUndoList());
             // set Correct label
             myDestProbRerouteTable->getItem(i, 2)->setIcon(GUIIconSubSys::getIcon(ICON_CORRECT));
         }
@@ -580,8 +572,8 @@ GNERerouterIntervalDialog::onCmdEditRouteProbReroute(FXObject*, FXSelector, void
             myRouteProbRerouteTable->getItem(i, 2)->setIcon(GUIIconSubSys::getIcon(ICON_ERROR));
         } else {
             // set new values in Closing  reroute
-            routeProbReroute->setAttribute(SUMO_ATTR_ID, myRouteProbRerouteTable->getItem(i, 0)->getText().text(), myEditedRerouterInterval->getViewNet()->getUndoList());
-            routeProbReroute->setAttribute(SUMO_ATTR_PROB, myRouteProbRerouteTable->getItem(i, 1)->getText().text(), myEditedRerouterInterval->getViewNet()->getUndoList());
+            routeProbReroute->setAttribute(SUMO_ATTR_ID, myRouteProbRerouteTable->getItem(i, 0)->getText().text(), myEditedAdditional->getViewNet()->getUndoList());
+            routeProbReroute->setAttribute(SUMO_ATTR_PROB, myRouteProbRerouteTable->getItem(i, 1)->getText().text(), myEditedAdditional->getViewNet()->getUndoList());
             // set Correct label
             myRouteProbRerouteTable->getItem(i, 2)->setIcon(GUIIconSubSys::getIcon(ICON_CORRECT));
         }
@@ -606,8 +598,8 @@ GNERerouterIntervalDialog::onCmdEditParkingAreaReroute(FXObject*, FXSelector, vo
             myParkingAreaRerouteTable->getItem(i, 2)->setIcon(GUIIconSubSys::getIcon(ICON_ERROR));
         } else {
             // set new values in Closing  reroute
-            parkingAreaReroute->setAttribute(SUMO_ATTR_ID, myParkingAreaRerouteTable->getItem(i, 0)->getText().text(), myEditedRerouterInterval->getViewNet()->getUndoList());
-            parkingAreaReroute->setAttribute(SUMO_ATTR_PROB, myParkingAreaRerouteTable->getItem(i, 1)->getText().text(), myEditedRerouterInterval->getViewNet()->getUndoList());
+            parkingAreaReroute->setAttribute(SUMO_ATTR_ID, myParkingAreaRerouteTable->getItem(i, 0)->getText().text(), myEditedAdditional->getViewNet()->getUndoList());
+            parkingAreaReroute->setAttribute(SUMO_ATTR_PROB, myParkingAreaRerouteTable->getItem(i, 1)->getText().text(), myEditedAdditional->getViewNet()->getUndoList());
             // set Correct label
             myParkingAreaRerouteTable->getItem(i, 2)->setIcon(GUIIconSubSys::getIcon(ICON_CORRECT));
         }
@@ -620,13 +612,13 @@ GNERerouterIntervalDialog::onCmdEditParkingAreaReroute(FXObject*, FXSelector, vo
 
 long
 GNERerouterIntervalDialog::onCmdChangeBeginEnd(FXObject*, FXSelector, void*) {
-    if (myEditedRerouterInterval->isValid(SUMO_ATTR_BEGIN, myBeginTextField->getText().text()) &&
-            myEditedRerouterInterval->isValid(SUMO_ATTR_END, myEndTextField->getText().text())) {
+    if (myEditedAdditional->isValid(SUMO_ATTR_BEGIN, myBeginTextField->getText().text()) &&
+            myEditedAdditional->isValid(SUMO_ATTR_END, myEndTextField->getText().text())) {
         // set new values in rerouter interval
-        myEditedRerouterInterval->setAttribute(SUMO_ATTR_BEGIN, myBeginTextField->getText().text(), myEditedRerouterInterval->getViewNet()->getUndoList());
-        myEditedRerouterInterval->setAttribute(SUMO_ATTR_END, myEndTextField->getText().text(), myEditedRerouterInterval->getViewNet()->getUndoList());
+        myEditedAdditional->setAttribute(SUMO_ATTR_BEGIN, myBeginTextField->getText().text(), myEditedAdditional->getViewNet()->getUndoList());
+        myEditedAdditional->setAttribute(SUMO_ATTR_END, myEndTextField->getText().text(), myEditedAdditional->getViewNet()->getUndoList());
         // sort intervals of rerouter (Note. Change this in the future)
-        dynamic_cast<GNERerouter*>(myEditedRerouterInterval->getAdditionalParent())->sortIntervals();
+        dynamic_cast<GNERerouter*>(myEditedAdditional->getAdditionalParent())->sortIntervals();
         // change icon
         myBeginEndValid = true;
         myCheckLabel->setIcon(GUIIconSubSys::getIcon(ICON_CORRECT));
