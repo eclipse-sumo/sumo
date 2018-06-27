@@ -38,8 +38,9 @@
 
 GNEDestProbReroute::GNEDestProbReroute(GNERerouterIntervalDialog* rerouterIntervalDialog) :
     GNEAdditional(rerouterIntervalDialog->getEditedAdditional(), rerouterIntervalDialog->getEditedAdditional()->getViewNet(), GLO_REROUTER, SUMO_TAG_DEST_PROB_REROUTE, false, false),
-    myNewEdgeDestination(rerouterIntervalDialog->getEditedAdditional()->getAdditionalParent()->getEdgeChilds().at(0)),
-    myProbability(parse<double>(getTagProperties(SUMO_TAG_ROUTE_PROB_REROUTE).getDefaultValue(SUMO_ATTR_PROB))) {
+    myNewEdgeDestination(rerouterIntervalDialog->getEditedAdditional()->getAdditionalParent()->getEdgeChilds().at(0)) {
+    // fill dest prob reroute interval with default values
+    setDefaultValues();
 }
 
 

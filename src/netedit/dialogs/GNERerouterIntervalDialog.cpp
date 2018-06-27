@@ -489,7 +489,7 @@ GNERerouterIntervalDialog::onCmdEditClosingLaneReroute(FXObject*, FXSelector, vo
             myClosingLaneRerouteTable->getItem(i, 3)->setIcon(GUIIconSubSys::getIcon(ICON_ERROR));
         } else {
             // set new values in Closing Lane reroute
-            closingLaneReroute->setAttribute(SUMO_ATTR_ID, myClosingLaneRerouteTable->getItem(i, 0)->getText().text(), myEditedAdditional->getViewNet()->getUndoList());
+            closingLaneReroute->setAttribute(SUMO_ATTR_LANE, myClosingLaneRerouteTable->getItem(i, 0)->getText().text(), myEditedAdditional->getViewNet()->getUndoList());
             closingLaneReroute->setAttribute(SUMO_ATTR_ALLOW, myClosingLaneRerouteTable->getItem(i, 1)->getText().text(), myEditedAdditional->getViewNet()->getUndoList());
             closingLaneReroute->setAttribute(SUMO_ATTR_DISALLOW, myClosingLaneRerouteTable->getItem(i, 2)->getText().text(), myEditedAdditional->getViewNet()->getUndoList());
             // set Correct label
@@ -519,7 +519,7 @@ GNERerouterIntervalDialog::onCmdEditClosingReroute(FXObject*, FXSelector, void*)
             myClosingRerouteTable->getItem(i, 3)->setIcon(GUIIconSubSys::getIcon(ICON_ERROR));
         } else {
             // set new values in Closing  reroute
-            closingReroute->setAttribute(SUMO_ATTR_ID, myClosingRerouteTable->getItem(i, 0)->getText().text(), myEditedAdditional->getViewNet()->getUndoList());
+            closingReroute->setAttribute(SUMO_ATTR_EDGE, myClosingRerouteTable->getItem(i, 0)->getText().text(), myEditedAdditional->getViewNet()->getUndoList());
             closingReroute->setAttribute(SUMO_ATTR_ALLOW, myClosingRerouteTable->getItem(i, 1)->getText().text(), myEditedAdditional->getViewNet()->getUndoList());
             closingReroute->setAttribute(SUMO_ATTR_DISALLOW, myClosingRerouteTable->getItem(i, 2)->getText().text(), myEditedAdditional->getViewNet()->getUndoList());
             // set Correct label
@@ -546,7 +546,7 @@ GNERerouterIntervalDialog::onCmdEditDestProbReroute(FXObject*, FXSelector, void*
             myDestProbRerouteTable->getItem(i, 2)->setIcon(GUIIconSubSys::getIcon(ICON_ERROR));
         } else {
             // set new values in Closing  reroute
-            destProbReroute->setAttribute(SUMO_ATTR_ID, myDestProbRerouteTable->getItem(i, 0)->getText().text(), myEditedAdditional->getViewNet()->getUndoList());
+            destProbReroute->setAttribute(SUMO_ATTR_EDGE, myDestProbRerouteTable->getItem(i, 0)->getText().text(), myEditedAdditional->getViewNet()->getUndoList());
             destProbReroute->setAttribute(SUMO_ATTR_PROB, myDestProbRerouteTable->getItem(i, 1)->getText().text(), myEditedAdditional->getViewNet()->getUndoList());
             // set Correct label
             myDestProbRerouteTable->getItem(i, 2)->setIcon(GUIIconSubSys::getIcon(ICON_CORRECT));
@@ -572,7 +572,7 @@ GNERerouterIntervalDialog::onCmdEditRouteProbReroute(FXObject*, FXSelector, void
             myRouteProbRerouteTable->getItem(i, 2)->setIcon(GUIIconSubSys::getIcon(ICON_ERROR));
         } else {
             // set new values in Closing  reroute
-            routeProbReroute->setAttribute(SUMO_ATTR_ID, myRouteProbRerouteTable->getItem(i, 0)->getText().text(), myEditedAdditional->getViewNet()->getUndoList());
+            routeProbReroute->setAttribute(SUMO_ATTR_ROUTE, myRouteProbRerouteTable->getItem(i, 0)->getText().text(), myEditedAdditional->getViewNet()->getUndoList());
             routeProbReroute->setAttribute(SUMO_ATTR_PROB, myRouteProbRerouteTable->getItem(i, 1)->getText().text(), myEditedAdditional->getViewNet()->getUndoList());
             // set Correct label
             myRouteProbRerouteTable->getItem(i, 2)->setIcon(GUIIconSubSys::getIcon(ICON_CORRECT));
@@ -598,7 +598,7 @@ GNERerouterIntervalDialog::onCmdEditParkingAreaReroute(FXObject*, FXSelector, vo
             myParkingAreaRerouteTable->getItem(i, 2)->setIcon(GUIIconSubSys::getIcon(ICON_ERROR));
         } else {
             // set new values in Closing  reroute
-            parkingAreaReroute->setAttribute(SUMO_ATTR_ID, myParkingAreaRerouteTable->getItem(i, 0)->getText().text(), myEditedAdditional->getViewNet()->getUndoList());
+            parkingAreaReroute->setAttribute(SUMO_ATTR_PARKING, myParkingAreaRerouteTable->getItem(i, 0)->getText().text(), myEditedAdditional->getViewNet()->getUndoList());
             parkingAreaReroute->setAttribute(SUMO_ATTR_PROB, myParkingAreaRerouteTable->getItem(i, 1)->getText().text(), myEditedAdditional->getViewNet()->getUndoList());
             // set Correct label
             myParkingAreaRerouteTable->getItem(i, 2)->setIcon(GUIIconSubSys::getIcon(ICON_CORRECT));
@@ -654,7 +654,7 @@ GNERerouterIntervalDialog::updateClosingLaneReroutesTable() {
     // iterate over values
     for (int i = 0; i < (int)myClosingLaneReroutesEdited.size(); i++) {
         // Set closing edge
-        item = new FXTableItem(myClosingLaneReroutesEdited.at(i)->getAttribute(SUMO_ATTR_ID).c_str());
+        item = new FXTableItem(myClosingLaneReroutesEdited.at(i)->getAttribute(SUMO_ATTR_LANE).c_str());
         myClosingLaneRerouteTable->setItem(i, 0, item);
         // set allow vehicles
         item = new FXTableItem(myClosingLaneReroutesEdited.at(i)->getAttribute(SUMO_ATTR_ALLOW).c_str());
@@ -701,7 +701,7 @@ GNERerouterIntervalDialog::updateClosingReroutesTable() {
     // iterate over values
     for (int i = 0; i < (int)myClosingReroutesEdited.size(); i++) {
         // Set closing edge
-        item = new FXTableItem(myClosingReroutesEdited.at(i)->getAttribute(SUMO_ATTR_ID).c_str());
+        item = new FXTableItem(myClosingReroutesEdited.at(i)->getAttribute(SUMO_ATTR_EDGE).c_str());
         myClosingRerouteTable->setItem(i, 0, item);
         // set allow vehicles
         item = new FXTableItem(myClosingReroutesEdited.at(i)->getAttribute(SUMO_ATTR_ALLOW).c_str());
@@ -746,7 +746,7 @@ GNERerouterIntervalDialog::updateDestProbReroutesTable() {
     // iterate over values
     for (int i = 0; i < (int)myDestProbReroutesEdited.size(); i++) {
         // Set new destination
-        item = new FXTableItem(myDestProbReroutesEdited.at(i)->getAttribute(SUMO_ATTR_ID).c_str());
+        item = new FXTableItem(myDestProbReroutesEdited.at(i)->getAttribute(SUMO_ATTR_EDGE).c_str());
         myDestProbRerouteTable->setItem(i, 0, item);
         // Set probability
         item = new FXTableItem(myDestProbReroutesEdited.at(i)->getAttribute(SUMO_ATTR_PROB).c_str());
@@ -788,7 +788,7 @@ GNERerouterIntervalDialog::updateRouteProbReroutesTable() {
     // iterate over values
     for (int i = 0; i < (int)myRouteProbReroutesEdited.size(); i++) {
         // Set new route
-        item = new FXTableItem(myRouteProbReroutesEdited.at(i)->getAttribute(SUMO_ATTR_ID).c_str());
+        item = new FXTableItem(myRouteProbReroutesEdited.at(i)->getAttribute(SUMO_ATTR_ROUTE).c_str());
         myRouteProbRerouteTable->setItem(i, 0, item);
         // Set probability
         item = new FXTableItem(myRouteProbReroutesEdited.at(i)->getAttribute(SUMO_ATTR_PROB).c_str());
@@ -820,7 +820,7 @@ GNERerouterIntervalDialog::updateParkingAreaReroutesTable() {
     myParkingAreaRerouteTable->setColumnWidth(1, 124);
     myParkingAreaRerouteTable->setColumnWidth(2, GUIDesignTableIconCellWidth);
     myParkingAreaRerouteTable->setColumnWidth(3, GUIDesignTableIconCellWidth);
-    myParkingAreaRerouteTable->setColumnText(0, toString(SUMO_ATTR_PARKING_AREA).c_str());
+    myParkingAreaRerouteTable->setColumnText(0, toString(SUMO_ATTR_PARKING).c_str());
     myParkingAreaRerouteTable->setColumnText(1, toString(SUMO_ATTR_PROB).c_str());
     myParkingAreaRerouteTable->setColumnText(2, "");
     myParkingAreaRerouteTable->setColumnText(3, "");
@@ -830,7 +830,7 @@ GNERerouterIntervalDialog::updateParkingAreaReroutesTable() {
     // iterate over values
     for (int i = 0; i < (int)myParkingAreaRerouteEdited.size(); i++) {
         // Set new destination
-        item = new FXTableItem(myParkingAreaRerouteEdited.at(i)->getAttribute(SUMO_ATTR_ID).c_str());
+        item = new FXTableItem(myParkingAreaRerouteEdited.at(i)->getAttribute(SUMO_ATTR_PARKING).c_str());
         myParkingAreaRerouteTable->setItem(i, 0, item);
         // Set probability
         item = new FXTableItem(myParkingAreaRerouteEdited.at(i)->getAttribute(SUMO_ATTR_PROB).c_str());

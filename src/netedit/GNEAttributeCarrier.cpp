@@ -122,6 +122,13 @@ GNEAttributeCarrier::TagValues::getAttribute(SumoXMLAttr attr) const {
     if(myAttributeValues.count(attr) != 0) {
         return myAttributeValues.at(attr);
     } else {
+        // check if we're try to loading an synonym
+        for (auto i : myAttributeValues) {
+            if(i.second.hasAttrSynonym() && i.second.getAttrSynonym() == attr) {
+                return myAttributeValues.at(i.first);
+            }
+        }
+        // throw error if these attribute doesn't exist
         throw ProcessError("Attribute '" + toString(attr) + "' doesn't exist");
     }
 }

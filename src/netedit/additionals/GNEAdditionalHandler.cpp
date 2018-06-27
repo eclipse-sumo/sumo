@@ -461,7 +461,7 @@ GNEAdditionalHandler::parseAndBuildRerouterInterval(const SUMOSAXAttributes& att
         if (rerouter == nullptr) {
             WRITE_WARNING("A " + toString(tag) + " must be declared within the definition of a " + toString(SUMO_TAG_REROUTER) + ".");
         } else if(buildRerouterInterval(myViewNet, true, rerouter, begin, end)) {
-            myParentElements.back().second = rerouter->getID() + "_" + toString(begin) + "_" + toString(end);
+            myParentElements.back().second = rerouter->getAdditionalChilds().back()->getID();
         }
     }
 }
@@ -478,7 +478,7 @@ GNEAdditionalHandler::parseAndBuildRerouterClosingLaneReroute(const SUMOSAXAttri
     if (!abort) {
         // obtain lane and rerouter interval
         GNELane* lane = myViewNet->getNet()->retrieveLane(laneID, false, true);
-        GNERerouterInterval* rerouterInterval = dynamic_cast<GNERerouterInterval*>(myViewNet->getNet()->retrieveAdditional(SUMO_TAG_INTERVAL, (myParentElements.end()-2)->second, false));
+        GNERerouterInterval* rerouterInterval = dynamic_cast<GNERerouterInterval*>(myViewNet->getNet()->retrieveAdditional((myParentElements.end()-2)->first, (myParentElements.end()-2)->second, false));
         // check that all elements are valid
         if (lane == nullptr) {
             WRITE_WARNING("The lane '" + laneID + "' to use within the " + toString(tag) + " is not known.");
@@ -502,7 +502,7 @@ GNEAdditionalHandler::parseAndBuildRerouterClosingReroute(const SUMOSAXAttribute
     if (!abort) {
         // obtain edge and rerouter interval
         GNEEdge* edge = myViewNet->getNet()->retrieveEdge(edgeID, false);
-        GNERerouterInterval* rerouterInterval = dynamic_cast<GNERerouterInterval*>(myViewNet->getNet()->retrieveAdditional(SUMO_TAG_INTERVAL, (myParentElements.end()-2)->second, false));
+        GNERerouterInterval* rerouterInterval = dynamic_cast<GNERerouterInterval*>(myViewNet->getNet()->retrieveAdditional((myParentElements.end()-2)->first, (myParentElements.end()-2)->second, false));
         // check that all elements are valid
         if (edge == nullptr) {
             WRITE_WARNING("The edge '" + edgeID + "' to use within the " + toString(tag) + " is not known.");
@@ -525,7 +525,7 @@ GNEAdditionalHandler::parseAndBuildRerouterDestProbReroute(const SUMOSAXAttribut
     if (!abort) {
         // obtain edge and rerouter interval
         GNEEdge* edge = myViewNet->getNet()->retrieveEdge(edgeID, false);
-        GNERerouterInterval* rerouterInterval = dynamic_cast<GNERerouterInterval*>(myViewNet->getNet()->retrieveAdditional(SUMO_TAG_INTERVAL, (myParentElements.end()-2)->second, false));
+        GNERerouterInterval* rerouterInterval = dynamic_cast<GNERerouterInterval*>(myViewNet->getNet()->retrieveAdditional((myParentElements.end()-2)->first, (myParentElements.end()-2)->second, false));
         // check that all elements are valid
         if (edge == nullptr) {
             WRITE_WARNING("The edge '" + edgeID + "' to use within the " + toString(tag) + " is not known.");
@@ -548,7 +548,7 @@ GNEAdditionalHandler::parseAndBuildRerouterParkingAreaReroute(const SUMOSAXAttri
     if (!abort) {
         // obtain edge and rerouter interval
         GNEParkingArea* parkingArea = dynamic_cast<GNEParkingArea*>(myViewNet->getNet()->retrieveAdditional(SUMO_TAG_PARKING_AREA, parkingAreaID, false));
-        GNERerouterInterval* rerouterInterval = dynamic_cast<GNERerouterInterval*>(myViewNet->getNet()->retrieveAdditional(SUMO_TAG_INTERVAL, (myParentElements.end()-2)->second, false));
+        GNERerouterInterval* rerouterInterval = dynamic_cast<GNERerouterInterval*>(myViewNet->getNet()->retrieveAdditional((myParentElements.end()-2)->first, (myParentElements.end()-2)->second, false));
         // check that all elements are valid
         if (parkingArea == nullptr) {
             WRITE_WARNING("The parkingArea '" + parkingAreaID + "' to use within the " + toString(tag) + " is not known.");

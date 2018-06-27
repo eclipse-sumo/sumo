@@ -37,8 +37,9 @@
 
 GNERouteProbReroute::GNERouteProbReroute(GNERerouterIntervalDialog* rerouterIntervalDialog) :
     GNEAdditional(rerouterIntervalDialog->getEditedAdditional(), rerouterIntervalDialog->getEditedAdditional()->getViewNet(), GLO_REROUTER, SUMO_TAG_ROUTE_PROB_REROUTE, false, false),
-    myNewRouteId(rerouterIntervalDialog->getEditedAdditional()->generateAdditionalChildID(SUMO_TAG_ROUTE)),
-    myProbability(parse<double>(getTagProperties(SUMO_TAG_ROUTE_PROB_REROUTE).getDefaultValue(SUMO_ATTR_PROB))) {
+    myNewRouteId(rerouterIntervalDialog->getEditedAdditional()->generateAdditionalChildID(SUMO_TAG_ROUTE)) {
+    // fill route prob reroute interval with default values
+    setDefaultValues();
 }
 
 
