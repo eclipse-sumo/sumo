@@ -126,7 +126,7 @@ def getTimeDiff(steps, sim=True):
         else:
             source = SOURCE_VTYPE
         if step.source == source:
-            if times[0] != None:
+            if times[0] is not None:
                 times[1] = step.time
             else:
                 if getSecondEdgeSim:
@@ -134,7 +134,7 @@ def getTimeDiff(steps, sim=True):
                 getSecondEdgeSim = True
         elif step.source == SOURCE_FCD:
             fcdDataNo += 1
-            if times[2] != None:
+            if times[2] is not None:
                 times[3] = step.time
             else:
                 if getSecondEdgeFcd:
@@ -143,7 +143,7 @@ def getTimeDiff(steps, sim=True):
     if fcdDataNo <= 6:
         raise TypeError("not enough values")
 
-    if (None in times and not avg) or (avg and times[2] == None or times[3] == None):
+    if (None in times and not avg) or (avg and times[2] is None or times[3] is None):
         raise TypeError("Can't calculate time difference because not all needed values are available. %s Source:%s" % (
             times, source))
 

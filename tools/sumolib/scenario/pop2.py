@@ -1263,7 +1263,7 @@ class ScenarioSet_SinSinDemand(ScenarioSet):
         return len(self.offsets) * len(self.frequencies)
 
     def genDemand(self, scenario, simSteps, offset, frequency):
-        #fd = tempfile.NamedTemporaryFile(mode="w", delete=False)
+        # fd = tempfile.NamedTemporaryFile(mode="w", delete=False)
         fd = open(scenario.demandName, "w")
         # ---routes---
         print("""<routes>
@@ -1306,7 +1306,7 @@ class ScenarioSet_SinSinDemand(ScenarioSet):
 
         print("</routes>", file=fd)
         fd.close()
-        #duarouter = sumolib.checkBinary("duarouter")
+        # duarouter = sumolib.checkBinary("duarouter")
         # retCode = subprocess.call([duarouter, "-v", "-n", scenario.netName,  "-t", fd.name, "-o", scenario.demandName, "--no-warnings"]) # aeh, implizite no-warnings sind nicht schoen
         # os.remove(fd.name)
     """
@@ -1393,7 +1393,7 @@ class ScenarioSet_OneSinDemand(ScenarioSet):
         return len(self.amplitudes) * len(self.amplitudes)
 
     def genDemand(self, scenario, simSteps, amplitude, frequency):
-        #fd = tempfile.NamedTemporaryFile(mode="w", delete=False)
+        # fd = tempfile.NamedTemporaryFile(mode="w", delete=False)
         fd = open(scenario.demandName, "w")
         # ---routes---
         print("""<routes>
@@ -2230,7 +2230,7 @@ class ScenarioSet_RealWorld(ScenarioSet):
             print("Computing for %s<->%s" % (which, scale))
             sID = "RealWorld(%s-%s)" % (which, scale)
             s = getScenario("RealWorld", self.params)
-            #s.demandName = s.fullPath("routes_%s.rou.xml" % sID)
+            # s.demandName = s.fullPath("routes_%s.rou.xml" % sID)
             desc = {
                 "scenario": "RealWorld", "which": which, "scale": str(scale)}
             yield s, desc, sID

@@ -26,7 +26,7 @@ from unittest_constants import VISUAL, finished, devel_skip, devel_run, broken
 
 
 class someTestcase_ada_star_bugs(unittest.TestCase):
-    ########### adastar #######################################
+    # adastar
 
     @unittest.skipIf(devel_run, 'done')
     def test_ada_run_and_rebuild_hindrance_at_start_node(self):

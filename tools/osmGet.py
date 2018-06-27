@@ -115,7 +115,7 @@ def get(args=None):
         conn.close()
     else:
         host = 'www.overpass-api.de'
-        #host= 'overpass.osm.rambler.ru'
+        # host= 'overpass.osm.rambler.ru'
         port = 443
 
         if os.environ.get("https_proxy") is not None:

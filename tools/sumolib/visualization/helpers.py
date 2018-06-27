@@ -17,7 +17,7 @@ from __future__ import absolute_import
 from __future__ import print_function
 
 import os
-import gc 
+import gc
 import matplotlib
 if 'TEXTTEST_SANDBOX' in os.environ or (os.name == 'posix' and 'DISPLAY' not in os.environ):
     matplotlib.use('Agg')

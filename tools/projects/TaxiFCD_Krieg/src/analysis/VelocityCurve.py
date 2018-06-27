@@ -142,7 +142,7 @@ def getAveragedValues(interval):
 
     # calc relative Error
     for i in range(len(fcdValues)):
-        if simFcdValues[i] == None or fcdValues[i] == None:
+        if simFcdValues[i] is None or fcdValues[i] is None:
             relErrorValues[i] = None
             absErrorValues[i] = None
         else:

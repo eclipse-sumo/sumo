@@ -871,7 +871,7 @@ class Vessel():
 
         upper_left = (new_upper_left_x, new_upper_left_y)
 
-        #### upper right ######
+        # upper right
 
         new_upper_right_x = upper_right[0]
         new_upper_right_y = upper_right[1]
@@ -2049,7 +2049,7 @@ class Flaeche():
              ---x----------
                 |       |<
                 |   X   |< not included
-                |       |< 
+                |       |<
              -----------------
                 |       | ^^^not included
 
@@ -2584,7 +2584,7 @@ class Flaeche():
 
 class Layer():
 
-    """Layer should provide an easy way to scetch up some Data 
+    """Layer should provide an easy way to scetch up some Data
        from a Flaeche"""
 
     def __init__(self, flaeche):

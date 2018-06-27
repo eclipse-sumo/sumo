@@ -127,7 +127,7 @@ def createTrips(options):
         for trp_nr, line in enumerate(sumolib.output.parse(options.ptlines, 'ptLine')):
             stop_ids = []
             for stop in line.busStop:
-                if not stop.id in stopsLanes:
+                if stop.id not in stopsLanes:
                     sys.stderr.write("Warning: skipping unknown stop '%s'\n" % stop.id)
                     continue
                 laneId = stopsLanes[stop.id]
@@ -141,7 +141,7 @@ def createTrips(options):
                         sys.exit("Invalid lane '%s' for stop '%s'" % (laneId, stop.id))
                 stop_ids.append(stop.id)
 
-            if options.types is not None and not line.type in options.types:
+            if options.types is not None and line.type not in options.types:
                 if options.verbose:
                     print("Skipping line '%s' because it has type '%s'\n" % (line.id, line.type))
                 numSkipped += 1

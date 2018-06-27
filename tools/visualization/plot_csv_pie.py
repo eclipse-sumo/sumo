@@ -31,6 +31,7 @@ import sumolib  # noqa
 from sumolib.visualization import helpers  # noqa
 import matplotlib.pyplot as plt  # noqa
 
+
 def main(args=None):
     """The main function; parses options and plots"""
     # ---------- build and read options ----------

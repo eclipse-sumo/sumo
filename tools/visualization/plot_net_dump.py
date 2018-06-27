@@ -32,6 +32,7 @@ from sumolib.visualization import helpers  # noqa
 import matplotlib.pyplot as plt  # noqa
 import matplotlib  # noqa
 
+
 class WeightsReader(ContentHandler):
 
     """Reads the dump file"""
