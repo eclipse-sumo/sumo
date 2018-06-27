@@ -56,24 +56,9 @@
 GNECalibratorFlow::GNECalibratorFlow(GNECalibratorDialog* calibratorDialog) :
     GNEAdditional(calibratorDialog->getEditedCalibrator(), calibratorDialog->getEditedCalibrator()->getViewNet(), GLO_CALIBRATOR, SUMO_TAG_FLOW, false, false),
     myVehicleType(calibratorDialog->getEditedCalibrator()->getViewNet()->getNet()->getAdditional(SUMO_TAG_VTYPE, "DEFAULT_VTYPE_ID")),
-    myRoute(nullptr),
-    myVehsPerHour(getTagProperties(SUMO_TAG_FLOW).getDefaultValue(SUMO_ATTR_VEHSPERHOUR)),
-    mySpeed(getTagProperties(SUMO_TAG_FLOW).getDefaultValue(SUMO_ATTR_SPEED)),
-    myColor(parse<RGBColor>(getTagProperties(SUMO_TAG_FLOW).getDefaultValue(SUMO_ATTR_COLOR))),
-    myDepartLane(getTagProperties(SUMO_TAG_FLOW).getDefaultValue(SUMO_ATTR_DEPARTLANE)),
-    myDepartPos(getTagProperties(SUMO_TAG_FLOW).getDefaultValue(SUMO_ATTR_DEPARTPOS)),
-    myDepartSpeed(getTagProperties(SUMO_TAG_FLOW).getDefaultValue(SUMO_ATTR_DEPARTSPEED)),
-    myArrivalLane(getTagProperties(SUMO_TAG_FLOW).getDefaultValue(SUMO_ATTR_ARRIVALLANE)),
-    myArrivalPos(getTagProperties(SUMO_TAG_FLOW).getDefaultValue(SUMO_ATTR_ARRIVALPOS)),
-    myArrivalSpeed(getTagProperties(SUMO_TAG_FLOW).getDefaultValue(SUMO_ATTR_ARRIVALSPEED)),
-    myLine(getTagProperties(SUMO_TAG_FLOW).getDefaultValue(SUMO_ATTR_LINE)),
-    myPersonNumber(parse<int>(getTagProperties(SUMO_TAG_FLOW).getDefaultValue(SUMO_ATTR_PERSON_NUMBER))),
-    myContainerNumber(parse<int>(getTagProperties(SUMO_TAG_FLOW).getDefaultValue(SUMO_ATTR_CONTAINER_NUMBER))),
-    myReroute(parse<bool>(getTagProperties(SUMO_TAG_FLOW).getDefaultValue(SUMO_ATTR_CONTAINER_NUMBER))),
-    myDepartPosLat(getTagProperties(SUMO_TAG_FLOW).getDefaultValue(SUMO_ATTR_DEPARTPOS_LAT)),
-    myArrivalPosLat(getTagProperties(SUMO_TAG_FLOW).getDefaultValue(SUMO_ATTR_ARRIVALPOS_LAT)),
-    myBegin(parse<double>(getTagProperties(SUMO_TAG_FLOW).getDefaultValue(SUMO_ATTR_BEGIN))),
-    myEnd(parse<double>(getTagProperties(SUMO_TAG_FLOW).getDefaultValue(SUMO_ATTR_END))) {
+    myRoute(nullptr) {
+    // fill calibrator flows with default values
+    setDefaultValues();
     // set route with the first route founded in additional parent
     for(auto i : myAdditionalParent->getAdditionalChilds()) {
         if(!myRoute && (i->getTag() == SUMO_TAG_ROUTE)) {

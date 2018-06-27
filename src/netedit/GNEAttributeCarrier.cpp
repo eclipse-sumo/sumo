@@ -1652,16 +1652,12 @@ GNEAttributeCarrier::fillAttributeCarriers() {
         // set values of tag
         myAllowedTags[currentTag] = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_PARENT | TAGPROPERTY_INTERNAL, 42, ICON_EMPTY /* temporal */, SUMO_TAG_CALIBRATOR);
         // set values of attributes
-        myAllowedTags[currentTag].addAttribute(SUMO_ATTR_ID,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
-            "The id of the vehicle type to use for this vehicle", 
-            "");
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_TYPE,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE,
             "The id of the vehicle type to use for this vehicle", 
             DEFAULT_VTYPE_ID);
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_ROUTE,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
             "The id of the route the vehicle shall drive along", 
             "");
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_VEHSPERHOUR,
@@ -1679,7 +1675,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_BEGIN,
             ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUE,
             "First vehicle departure time",  
-            "0");
+            "0.00");
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_END,
             ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUE,
             "End of departure interval", 

@@ -51,32 +51,9 @@
 // ===========================================================================
 
 GNECalibratorVehicleType::GNECalibratorVehicleType(GNEViewNet *viewNet, const std::string& id) :
-    GNEAdditional((id == "") ? viewNet->getNet()->generateAdditionalID(SUMO_TAG_VTYPE) : id, viewNet, GLO_CALIBRATOR, SUMO_TAG_VTYPE, false, false),
-    myAccel(parse<double>(getTagProperties(SUMO_TAG_VTYPE).getDefaultValue(SUMO_ATTR_ACCEL))),
-    myDecel(parse<double>(getTagProperties(SUMO_TAG_VTYPE).getDefaultValue(SUMO_ATTR_DECEL))),
-    mySigma(parse<double>(getTagProperties(SUMO_TAG_VTYPE).getDefaultValue(SUMO_ATTR_SIGMA))),
-    myTau(parse<double>(getTagProperties(SUMO_TAG_VTYPE).getDefaultValue(SUMO_ATTR_TAU))),
-    myLength(parse<double>(getTagProperties(SUMO_TAG_VTYPE).getDefaultValue(SUMO_ATTR_LENGTH))),
-    myMinGap(parse<double>(getTagProperties(SUMO_TAG_VTYPE).getDefaultValue(SUMO_ATTR_MINGAP))),
-    myMaxSpeed(parse<double>(getTagProperties(SUMO_TAG_VTYPE).getDefaultValue(SUMO_ATTR_MAXSPEED))),
-    mySpeedFactor(parse<double>(getTagProperties(SUMO_TAG_VTYPE).getDefaultValue(SUMO_ATTR_SPEEDFACTOR))),
-    mySpeedDev(parse<double>(getTagProperties(SUMO_TAG_VTYPE).getDefaultValue(SUMO_ATTR_SPEEDDEV))),
-    myColor(parse<RGBColor>(getTagProperties(SUMO_TAG_VTYPE).getDefaultValue(SUMO_ATTR_COLOR))),
-    myVClass(parse<SUMOVehicleClass>(getTagProperties(SUMO_TAG_VTYPE).getDefaultValue(SUMO_ATTR_VCLASS))),
-    myEmissionClass(getTagProperties(SUMO_TAG_VTYPE).getDefaultValue(SUMO_ATTR_EMISSIONCLASS)),
-    myShape(parse<SUMOVehicleShape>(getTagProperties(SUMO_TAG_VTYPE).getDefaultValue(SUMO_ATTR_GUISHAPE))),
-    myWidth(parse<double>(getTagProperties(SUMO_TAG_VTYPE).getDefaultValue(SUMO_ATTR_WIDTH))),
-    myFilename(getTagProperties(SUMO_TAG_VTYPE).getDefaultValue(SUMO_ATTR_IMGFILE)),
-    myImpatience(parse<double>(getTagProperties(SUMO_TAG_VTYPE).getDefaultValue(SUMO_ATTR_IMPATIENCE))),
-    myLaneChangeModel(getTagProperties(SUMO_TAG_VTYPE).getDefaultValue(SUMO_ATTR_LANE_CHANGE_MODEL)),
-    myCarFollowModel(getTagProperties(SUMO_TAG_VTYPE).getDefaultValue(SUMO_ATTR_CAR_FOLLOW_MODEL)),
-    myPersonCapacity(parse<int>(getTagProperties(SUMO_TAG_VTYPE).getDefaultValue(SUMO_ATTR_PERSON_CAPACITY))),
-    myContainerCapacity(parse<int>(getTagProperties(SUMO_TAG_VTYPE).getDefaultValue(SUMO_ATTR_CONTAINER_CAPACITY))),
-    myBoardingDuration(parse<double>(getTagProperties(SUMO_TAG_VTYPE).getDefaultValue(SUMO_ATTR_BOARDING_DURATION))),
-    myLoadingDuration(parse<double>(getTagProperties(SUMO_TAG_VTYPE).getDefaultValue(SUMO_ATTR_LOADING_DURATION))),
-    myLatAlignment(getTagProperties(SUMO_TAG_VTYPE).getDefaultValue(SUMO_ATTR_LATALIGNMENT)),
-    myMinGapLat(parse<double>(getTagProperties(SUMO_TAG_VTYPE).getDefaultValue(SUMO_ATTR_MINGAP_LAT))),
-    myMaxSpeedLat(parse<double>(getTagProperties(SUMO_TAG_VTYPE).getDefaultValue(SUMO_ATTR_MAXSPEED_LAT))) {
+    GNEAdditional((id == "") ? viewNet->getNet()->generateAdditionalID(SUMO_TAG_VTYPE) : id, viewNet, GLO_CALIBRATOR, SUMO_TAG_VTYPE, false, false) {
+    // fill calibrator vehicle type with default values
+    setDefaultValues();
 }
 
 
