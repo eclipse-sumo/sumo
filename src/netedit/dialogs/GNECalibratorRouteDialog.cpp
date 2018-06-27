@@ -87,6 +87,9 @@ GNECalibratorRouteDialog::GNECalibratorRouteDialog(GNECalibratorRoute* editedCal
     // add element if we aren't updating an existent element
     if (myUpdatingElement == false) {
         myEditedCalibratorRoute->getViewNet()->getUndoList()->add(new GNEChange_Additional(myEditedCalibratorRoute, true), true);
+        // Routes are created without edges
+        myCalibratorRouteValid = false;
+        myInvalidAttr = SUMO_ATTR_EDGES;
     }
 }
 
@@ -103,14 +106,11 @@ GNECalibratorRouteDialog::onCmdAccept(FXObject*, FXSelector, void*) {
         }
         std::string operation1 = myUpdatingElement ? ("updating") : ("creating");
         std::string operation2 = myUpdatingElement ? ("updated") : ("created");
-        std::string parentTagString = toString(myEditedCalibratorRoute->getAdditionalParent()->getTag());
         std::string tagString = toString(myEditedCalibratorRoute->getTag());
         // open warning dialog box
         FXMessageBox::warning(getApp(), MBOX_OK,
-                              ("Error " + operation1 + " " + parentTagString + "'s " + tagString).c_str(), "%s",
-                              (parentTagString + "'s " + tagString + " cannot be " + operation2 +
-                               " because parameter " + toString(myInvalidAttr) +
-                               " is invalid.").c_str());
+                              ("Error " + operation1 + " " + tagString).c_str(), "%s",
+                              (tagString + " cannot be " + operation2 + " because parameter " + toString(myInvalidAttr) + " is invalid.").c_str());
         // write warning if netedit is running in testing mode
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Closed FXMessageBox of type 'warning' with 'OK'");
@@ -165,7 +165,6 @@ GNECalibratorRouteDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
         myCalibratorRouteValid = false;
         myInvalidAttr = SUMO_ATTR_ID;
     }
-
     // set color of myTextFieldRouteEdges, depending if current value is valEdges or not
     if (myEditedCalibratorRoute->isValid(SUMO_ATTR_EDGES, myTextFieldEdges->getText().text())) {
         myTextFieldEdges->setTextColor(FXRGB(0, 0, 0));
@@ -175,7 +174,6 @@ GNECalibratorRouteDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
         myCalibratorRouteValid = false;
         myInvalidAttr = SUMO_ATTR_EDGES;
     }
-
     // set color of myTextFieldColor, depending if current value is valid or not
     if (myEditedCalibratorRoute->isValid(SUMO_ATTR_COLOR, myTextFieldColor->getText().text())) {
         myTextFieldColor->setTextColor(FXRGB(0, 0, 0));

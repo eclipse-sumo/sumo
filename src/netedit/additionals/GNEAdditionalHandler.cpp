@@ -262,14 +262,10 @@ GNEAdditionalHandler::parseAndBuildCalibratorRoute(const SUMOSAXAttributes& attr
         if (GNEAttributeCarrier::canParse<std::vector<GNEEdge*> >(myViewNet->getNet(), edgeIDs, true)) {
             edges = GNEAttributeCarrier::parse<std::vector<GNEEdge*> >(myViewNet->getNet(), edgeIDs);
         }
-        // get calibrator parent
-        GNECalibrator* calibrator = dynamic_cast<GNECalibrator*>(myViewNet->getNet()->retrieveAdditional((myParentElements.end()-2)->first, (myParentElements.end()-2)->second, false));
         // check that all elements are valid
         if (myViewNet->getNet()->retrieveAdditional(SUMO_TAG_ROUTE, routeID, false) != nullptr) {
             WRITE_WARNING("There is another " + toString(tag) + " with the same ID='" + routeID + "'.");
-        } else if (calibrator == nullptr) {
-            WRITE_WARNING("A " + toString(tag) + " must be declared within the definition of a " + toString(SUMO_TAG_CALIBRATOR) + ".");
-        } else if ((edges.size() > 0) && buildCalibratorRoute(myViewNet, myUndoAdditionals, calibrator, routeID, edges, color)) {
+        } else if ((edges.size() > 0) && buildCalibratorRoute(myViewNet, myUndoAdditionals, routeID, edges, color)) {
             // save ID of last created element
             myParentElements.back().second = routeID;
         }
@@ -1611,7 +1607,7 @@ GNEAdditionalHandler::buildCalibrator(GNEViewNet* viewNet, bool allowUndoRedo, c
 
 
 bool
-GNEAdditionalHandler::buildCalibratorRoute(GNEViewNet* viewNet, bool allowUndoRedo, GNECalibrator* calibratorParent, const std::string& routeID, const std::vector<GNEEdge*>& edges, const RGBColor& color) {
+GNEAdditionalHandler::buildCalibratorRoute(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& routeID, const std::vector<GNEEdge*>& edges, const RGBColor& color) {
     if (viewNet->getNet()->retrieveAdditional(SUMO_TAG_ROUTE, routeID, false) == nullptr) {
         // create route and add it to calibrator parent
         GNECalibratorRoute* route = new GNECalibratorRoute(viewNet, routeID, edges, color);
