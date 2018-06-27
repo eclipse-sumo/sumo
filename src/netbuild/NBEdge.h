@@ -232,7 +232,7 @@ public:
         std::vector<int> foeInternalLinks;
 
         /// @brief FOE Incomings lanes
-        std::string foeIncomingLanes;
+        std::vector<std::string> foeIncomingLanes;
 
         /// @brief The lane index of this internal lane within the internal edge
         int internalLaneIndex;

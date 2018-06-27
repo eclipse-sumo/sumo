@@ -1514,6 +1514,11 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
                         if ((n.forbids(*i2, (*k2).toEdge, this, con.toEdge, signalised) || rightTurnConflict) && (needsCont || dir == LINKDIR_TURN)) {
                             tmpFoeIncomingLanes.insert((*i2)->getID() + "_" + toString((*k2).fromLane));
                         }
+                        if (bothPrio && oppositeLeftIntersect && getID() < (*i2)->getID()) {
+                            //std::cout << " c1=" << con.getDescription(this) << " c2=" << (*k2).getDescription(*i2) << " bothPrio=" << bothPrio << " oppositeLeftIntersect=" << oppositeLeftIntersect << "\n";
+                            // break symmetry using edge id
+                            tmpFoeIncomingLanes.insert(innerID + "_" + toString(index) + "_0");
+                        }
                         index++;
                     }
                 }
@@ -1600,7 +1605,7 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
         if (crossingPositions.first >= 0) {
             std::pair<PositionVector, PositionVector> split = shape.splitAt(crossingPositions.first);
             con.shape = split.first;
-            con.foeIncomingLanes = joinToString(tmpFoeIncomingLanes, " ");
+            con.foeIncomingLanes = std::vector<std::string>(tmpFoeIncomingLanes.begin(), tmpFoeIncomingLanes.end());
             con.foeInternalLinks = foeInternalLinks; // resolve link indices to lane ids later
             con.viaID = innerID + "_" + toString(splitIndex + noInternalNoSplits);
             ++splitIndex;

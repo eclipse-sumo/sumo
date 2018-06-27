@@ -538,11 +538,13 @@ NWWriter_SUMO::writeInternalNodes(OutputDevice& into, const NBNode& n) {
     const std::vector<NBEdge*>& incoming = n.getIncomingEdges();
     // build the list of internal lane ids
     std::vector<std::string> internalLaneIDs;
+    std::map<std::string, std::string> viaIDs;
     for (EdgeVector::const_iterator i = incoming.begin(); i != incoming.end(); i++) {
         const std::vector<NBEdge::Connection>& elv = (*i)->getConnections();
         for (std::vector<NBEdge::Connection>::const_iterator k = elv.begin(); k != elv.end(); ++k) {
             if ((*k).toEdge != 0) {
                 internalLaneIDs.push_back((*k).getInternalLaneID());
+                viaIDs[(*k).getInternalLaneID()] = ((*k).viaID);
             }
         }
     }
@@ -561,12 +563,16 @@ NWWriter_SUMO::writeInternalNodes(OutputDevice& into, const NBNode& n) {
             into.writeAttr(SUMO_ATTR_TYPE, NODETYPE_INTERNAL);
             NWFrame::writePositionLong(pos, into);
             std::string incLanes = (*k).getInternalLaneID();
-            if ((*k).foeIncomingLanes.length() != 0) {
-                incLanes += " " + (*k).foeIncomingLanes;
+            std::vector<std::string> foeIDs;
+            for (std::string incLane : (*k).foeIncomingLanes) {
+                incLanes += " " + incLane;
+                if (incLane[0] == ':') {
+                    // intersecting left turns
+                    foeIDs.push_back(viaIDs[incLane] + "_0");
+                }
             }
             into.writeAttr(SUMO_ATTR_INCLANES, incLanes);
             const std::vector<int>& foes = (*k).foeInternalLinks;
-            std::vector<std::string> foeIDs;
             for (std::vector<int>::const_iterator it = foes.begin(); it != foes.end(); ++it) {
                 foeIDs.push_back(internalLaneIDs[*it]);
             }
