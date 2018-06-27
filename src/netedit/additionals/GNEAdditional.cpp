@@ -124,11 +124,20 @@ GNEAdditional::writeAdditional(OutputDevice& device) const {
             if(i.second.isOptional() && i.second.hasDefaultValue()) {
                 // Only write attributes with default value if is different of original
                 if(i.second.getDefaultValue() != attribute) {
-                    device.writeAttr(i.first, attribute);
+                    // check if attribute must be written using a synonim
+                    if(i.second.hasAttrSynonym()) {
+                        device.writeAttr(i.second.getAttrSynonym(), attribute);
+                    } else {
+                        device.writeAttr(i.first, attribute);
+                    }
                 }
             } else {
                 // Attributes without default values are always writted
-                device.writeAttr(i.first, attribute);
+                if(i.second.hasAttrSynonym()) {
+                    device.writeAttr(i.second.getAttrSynonym(), attribute);
+                } else {
+                    device.writeAttr(i.first, attribute);
+                }
             }
         }
         // iterate over childs

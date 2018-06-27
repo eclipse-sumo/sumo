@@ -107,6 +107,16 @@ GNEAttributeCarrier::TagValues::addAttribute(SumoXMLAttr attr, int attributeProp
 }
 
 
+void 
+GNEAttributeCarrier::TagValues::addAttribute(SumoXMLAttr attr, int attributeProperty, const std::string &definition, const std::string &defaultValue, SumoXMLAttr synonym) {
+    if(myAttributeValues.count(attr) == 0) {
+        myAttributeValues[attr] = AttributeValues(attributeProperty, (int)myAttributeValues.size(), definition, defaultValue, std::vector<std::string>(), synonym);
+    } else {
+        throw ProcessError("Attribute '" + toString(attr) + "' already inserted");
+    }
+}
+
+
 const GNEAttributeCarrier::AttributeValues&
 GNEAttributeCarrier::TagValues::getAttribute(SumoXMLAttr attr) const {
     if(myAttributeValues.count(attr) != 0) {
@@ -1800,10 +1810,11 @@ GNEAttributeCarrier::fillAttributeCarriers() {
         // set values of tag
         myAllowedTags[currentTag] = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_INTERNAL | TAGPROPERTY_PARENT, 52, ICON_REROUTER, SUMO_TAG_INTERVAL);
         // set values of attributes
-        myAllowedTags[currentTag].addAttribute(SUMO_ATTR_ID,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
+        myAllowedTags[currentTag].addAttribute(SUMO_ATTR_EDGE,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_SYNONYM,
             "Edge ID", 
-            "");
+            "",
+            SUMO_ATTR_ID);
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_ALLOW,
             ATTRPROPERTY_VCLASS | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_COMBINABLE | ATTRPROPERTY_OPTIONAL,
             "allowed vehicles", 
@@ -1818,10 +1829,11 @@ GNEAttributeCarrier::fillAttributeCarriers() {
         // set values of tag
         myAllowedTags[currentTag] = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_INTERNAL | TAGPROPERTY_PARENT, 53, ICON_REROUTER, SUMO_TAG_INTERVAL);
         // set values of attributes
-        myAllowedTags[currentTag].addAttribute(SUMO_ATTR_ID,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
+        myAllowedTags[currentTag].addAttribute(SUMO_ATTR_LANE,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_SYNONYM,
             "Lane ID", 
-            "");
+            "",
+            SUMO_ATTR_ID);
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_ALLOW,
             ATTRPROPERTY_VCLASS | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_COMBINABLE | ATTRPROPERTY_OPTIONAL,
             "allowed vehicles", 
@@ -1836,10 +1848,11 @@ GNEAttributeCarrier::fillAttributeCarriers() {
         // set values of tag
         myAllowedTags[currentTag] = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_INTERNAL | TAGPROPERTY_PARENT, 54, ICON_EMPTY, SUMO_TAG_INTERVAL);
         // set values of attributes
-        myAllowedTags[currentTag].addAttribute(SUMO_ATTR_ID,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
+        myAllowedTags[currentTag].addAttribute(SUMO_ATTR_EDGE,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_SYNONYM,
             "Edge ID", 
-            "");
+            "",
+            SUMO_ATTR_ID);
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_PROB,
             ATTRPROPERTY_FLOAT | ATTRPROPERTY_PROBABILITY | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "probability", 
@@ -1850,10 +1863,11 @@ GNEAttributeCarrier::fillAttributeCarriers() {
         // set values of tag
         myAllowedTags[currentTag] = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_INTERNAL | TAGPROPERTY_PARENT, 55, ICON_EMPTY, SUMO_TAG_INTERVAL);
         // set values of attributes
-        myAllowedTags[currentTag].addAttribute(SUMO_ATTR_ID,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
+        myAllowedTags[currentTag].addAttribute(SUMO_ATTR_PARKING,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_SYNONYM,
             "ParkingArea ID", 
-            "");
+            "",
+            SUMO_ATTR_ID);
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_PROB,
             ATTRPROPERTY_FLOAT | ATTRPROPERTY_PROBABILITY | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "probability", 
@@ -1864,10 +1878,11 @@ GNEAttributeCarrier::fillAttributeCarriers() {
         // set values of tag
         myAllowedTags[currentTag] = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_INTERNAL, 56, ICON_EMPTY, SUMO_TAG_INTERVAL);
         // set values of attributes
-        myAllowedTags[currentTag].addAttribute(SUMO_ATTR_ID,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
+        myAllowedTags[currentTag].addAttribute(SUMO_ATTR_ROUTE,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_SYNONYM,
             "Route", 
-            "");
+            "",
+            SUMO_ATTR_ID);
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_PROB,
             ATTRPROPERTY_FLOAT | ATTRPROPERTY_PROBABILITY | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "probability", 
