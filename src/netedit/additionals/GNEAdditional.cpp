@@ -496,7 +496,7 @@ GNEAdditional::updateChildConnections() {
         }
     }
 
-    // calculate position and rotation of every simbol for every lane
+    // calculate position and rotation of every symbol for every lane
     for (auto i : myLaneChilds) {
         std::pair<Position, double> posRot;
         // set position and lenght depending of shape's lengt
@@ -512,26 +512,29 @@ GNEAdditional::updateChildConnections() {
 
     // calculate position for every additional child
     for (auto i : myAdditionalChilds) {
-        std::vector<Position> posConnection;
-        double A = std::abs(i->getPositionInView().x() - getPositionInView().x());
-        double B = std::abs(i->getPositionInView().y() - getPositionInView().y());
-        // Set positions of connection's vertex. Connection is build from Entry to E3
-        posConnection.push_back(i->getPositionInView());
-        if (getPositionInView().x() > i->getPositionInView().x()) {
-            if (getPositionInView().y() > i->getPositionInView().y()) {
-                posConnection.push_back(Position(i->getPositionInView().x() + A, i->getPositionInView().y()));
+        // check that position is valid
+        if(i->getPositionInView() != Position::INVALID) {
+            std::vector<Position> posConnection;
+            double A = std::abs(i->getPositionInView().x() - getPositionInView().x());
+            double B = std::abs(i->getPositionInView().y() - getPositionInView().y());
+            // Set positions of connection's vertex. Connection is build from Entry to E3
+            posConnection.push_back(i->getPositionInView());
+            if (getPositionInView().x() > i->getPositionInView().x()) {
+                if (getPositionInView().y() > i->getPositionInView().y()) {
+                    posConnection.push_back(Position(i->getPositionInView().x() + A, i->getPositionInView().y()));
+                } else {
+                    posConnection.push_back(Position(i->getPositionInView().x(), i->getPositionInView().y() - B));
+                }
             } else {
-                posConnection.push_back(Position(i->getPositionInView().x(), i->getPositionInView().y() - B));
+                if (getPositionInView().y() > i->getPositionInView().y()) {
+                    posConnection.push_back(Position(i->getPositionInView().x(), i->getPositionInView().y() + B));
+                } else {
+                    posConnection.push_back(Position(i->getPositionInView().x() - A, i->getPositionInView().y()));
+                }
             }
-        } else {
-            if (getPositionInView().y() > i->getPositionInView().y()) {
-                posConnection.push_back(Position(i->getPositionInView().x(), i->getPositionInView().y() + B));
-            } else {
-                posConnection.push_back(Position(i->getPositionInView().x() - A, i->getPositionInView().y()));
-            }
+            posConnection.push_back(getPositionInView());
+            myChildConnectionPositions.push_back(posConnection);
         }
-        posConnection.push_back(getPositionInView());
-        myChildConnectionPositions.push_back(posConnection);
     }
 
     // calculate geometry for connections between parent and childs

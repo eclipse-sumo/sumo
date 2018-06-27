@@ -73,7 +73,7 @@ GNERouteProbReroute::updateGeometry() {
 
 Position 
 GNERouteProbReroute::getPositionInView() const {
-    return Position();
+    return Position::INVALID;
 }
 
 

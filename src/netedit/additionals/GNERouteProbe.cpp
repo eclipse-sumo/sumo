@@ -113,11 +113,7 @@ GNERouteProbe::updateGeometry() {
 
 Position
 GNERouteProbe::getPositionInView() const {
-    Position A = myEdge->getLanes().front()->getShape().positionAtOffset(5);
-    Position B = myEdge->getLanes().back()->getShape().positionAtOffset(5);
-
-    // return Middle point
-    return Position((A.x() + B.x()) / 2, (A.y() + B.y()) / 2);
+    return Position::INVALID;
 }
 
 

@@ -73,7 +73,7 @@ GNEParkingAreaReroute::updateGeometry() {
 
 Position 
 GNEParkingAreaReroute::getPositionInView() const {
-    return Position();
+    return Position::INVALID;
 }
 
 

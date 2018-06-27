@@ -236,7 +236,6 @@ GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
 
                 glPopMatrix();
             }
-            glPopName();
         }
 
         // Draw connections
@@ -317,7 +316,7 @@ GNERerouter::isValid(SumoXMLAttr key, const std::string& value) {
             if (value.empty()) {
                 return false;
             } else {
-                return canParse<std::vector<GNELane*> >(myViewNet->getNet(), value, false);
+                return canParse<std::vector<GNEEdge*> >(myViewNet->getNet(), value, false);
             }
         case SUMO_ATTR_POSITION:
             return canParse<Position>(value);

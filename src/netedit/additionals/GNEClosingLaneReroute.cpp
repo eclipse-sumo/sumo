@@ -77,7 +77,7 @@ GNEClosingLaneReroute::updateGeometry() {
 
 Position 
 GNEClosingLaneReroute::getPositionInView() const {
-    return Position();
+    return Position::INVALID;
 }
 
 

@@ -86,7 +86,7 @@ GNERerouterInterval::updateGeometry() {
 
 Position 
 GNERerouterInterval::getPositionInView() const {
-    return Position();
+    return Position::INVALID;
 }
 
 

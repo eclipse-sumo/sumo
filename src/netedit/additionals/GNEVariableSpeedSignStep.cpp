@@ -81,7 +81,7 @@ GNEVariableSpeedSignStep::updateGeometry() {
 
 Position 
 GNEVariableSpeedSignStep::getPositionInView() const {
-    return Position();
+    return Position::INVALID;
 }
 
 
