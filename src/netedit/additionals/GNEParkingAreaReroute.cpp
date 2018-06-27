@@ -127,7 +127,7 @@ GNEParkingAreaReroute::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
          return isValidAdditionalID(value);
         case SUMO_ATTR_PARKING: {
-            GNEAdditional* a = myViewNet->getNet()->retrieveAdditional(value, false);
+            GNEAdditional* a = myViewNet->getNet()->retrieveAdditional(SUMO_TAG_PARKING_AREA, value, false);
             return (a != nullptr) && (a->getTag() == SUMO_TAG_PARKING_AREA);
         }
         case SUMO_ATTR_PROB:
@@ -148,7 +148,7 @@ GNEParkingAreaReroute::setAttribute(SumoXMLAttr key, const std::string& value) {
             changeAdditionalID(value);
             break;
         case SUMO_ATTR_PARKING:
-            myParkingArea = dynamic_cast<GNEParkingArea*>(myViewNet->getNet()->retrieveAdditional(value));
+            myParkingArea = dynamic_cast<GNEParkingArea*>(myViewNet->getNet()->retrieveAdditional(SUMO_TAG_PARKING_AREA, value));
             break;
         case SUMO_ATTR_PROB:
             myProbability = parse<double>(value);

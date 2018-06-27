@@ -312,11 +312,11 @@ GNEFrame::ACHierarchy::showAttributeCarrierParents() {
             // check if is an additional, and in other case return nullptr
             if(tagValue.isAdditional()) {
                 // Obtain Additional
-                GNEAdditional* additional = myFrameParent->getViewNet()->getNet()->retrieveAdditional(myAC->getID(), false);
+                GNEAdditional* additional = myFrameParent->getViewNet()->getNet()->retrieveAdditional(myAC->getTag(), myAC->getID(), false);
                 if(additional) {
                     // first check if additional has another additional as parent (to add it into root)
                     if (tagValue.hasParent()) {
-                        GNEAdditional* additionalParent = myFrameParent->getViewNet()->getNet()->retrieveAdditional(additional->getAttribute(GNE_ATTR_PARENT));
+                        GNEAdditional* additionalParent = myFrameParent->getViewNet()->getNet()->retrieveAdditional(myAC->getTag(), additional->getAttribute(GNE_ATTR_PARENT));
                         // create additional parent item
                         FXTreeItem* additionalParentItem = myTreelist->insertItem(0, 0, toString(additionalParent->getTag()).c_str(), additionalParent->getIcon(), additionalParent->getIcon());
                         additionalParentItem->setExpanded(true);
@@ -455,7 +455,7 @@ GNEFrame::ACHierarchy::showAttributeCarrierChilds(GNEAttributeCarrier *AC, FXTre
             // check if is an additional
             if(GNEAttributeCarrier::getTagProperties(AC->getTag()).isAdditional()) {
                 // retrieve additional
-                GNEAdditional *additional = myFrameParent->getViewNet()->getNet()->retrieveAdditional(AC->getID(), false);
+                GNEAdditional *additional = myFrameParent->getViewNet()->getNet()->retrieveAdditional(AC->getTag(), AC->getID(), false);
                 if(additional) {
                     // insert additional item
                     FXTreeItem* additionalItem = addACIntoList(AC, itemParent);

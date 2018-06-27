@@ -55,7 +55,7 @@
 
 GNECalibratorFlow::GNECalibratorFlow(GNECalibrator* calibratorParent) :
     GNEAdditional(calibratorParent, calibratorParent->getViewNet(), GLO_CALIBRATOR, SUMO_TAG_FLOW, false, false),
-    myVehicleType(calibratorParent->getViewNet()->getNet()->getAdditional(SUMO_TAG_VTYPE, "DEFAULT_VTYPE_ID")),
+    myVehicleType(calibratorParent->getViewNet()->getNet()->retrieveAdditional(SUMO_TAG_VTYPE, DEFAULT_VTYPE_ID)),
     myRoute(calibratorParent->getViewNet()->getNet()->getAdditionals(SUMO_TAG_ROUTE).front()) {
     // fill calibrator flows with default values
     setDefaultValues();
@@ -217,9 +217,9 @@ GNECalibratorFlow::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             return isValidAdditionalID(value);
         case SUMO_ATTR_TYPE:
-            return isValidID(value) && (myViewNet->getNet()->retrieveAdditional(value, false) != nullptr);
+            return isValidID(value) && (myViewNet->getNet()->retrieveAdditional(SUMO_TAG_VTYPE, value, false) != nullptr);
         case SUMO_ATTR_ROUTE:
-            return isValidID(value) && (myViewNet->getNet()->retrieveAdditional(value, false) != nullptr);
+            return isValidID(value) && (myViewNet->getNet()->retrieveAdditional(SUMO_TAG_ROUTE, value, false) != nullptr);
         case SUMO_ATTR_VEHSPERHOUR:
             if(value.empty()) {
                 // speed and vehsPerHour cannot be empty at the same time
@@ -323,10 +323,10 @@ GNECalibratorFlow::setAttribute(SumoXMLAttr key, const std::string& value) {
             changeAdditionalID(value);
             break;
         case SUMO_ATTR_TYPE:
-            myVehicleType = myViewNet->getNet()->retrieveAdditional(value);
+            myVehicleType = myViewNet->getNet()->retrieveAdditional(SUMO_TAG_VTYPE, value);
             break;
         case SUMO_ATTR_ROUTE:
-            myRoute = myViewNet->getNet()->retrieveAdditional(value);
+            myRoute = myViewNet->getNet()->retrieveAdditional(SUMO_TAG_ROUTE, value);
             break;
         case SUMO_ATTR_VEHSPERHOUR:
             myVehsPerHour = value;

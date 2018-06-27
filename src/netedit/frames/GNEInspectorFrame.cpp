@@ -960,7 +960,7 @@ GNEInspectorFrame::NeteditAttributesEditor::showNeteditAttributesEditor() {
             // show NeteditAttributesEditor
             show();
             // obtain additional Parent
-            GNEAdditional* additional = myInspectorFrameParent->getViewNet()->getNet()->retrieveAdditional(myInspectorFrameParent->getInspectedACs().front()->getAttribute(GNE_ATTR_PARENT));
+            GNEAdditional* additional = myInspectorFrameParent->getViewNet()->getNet()->retrieveAdditional(tagValue.getParentTag(), myInspectorFrameParent->getInspectedACs().front()->getAttribute(GNE_ATTR_PARENT));
             // show additional parent frame
             myHorizontalFrameAdditionalParent->show();
             // set Label and TextField with the Tag and ID of parent
@@ -1040,10 +1040,10 @@ GNEInspectorFrame::NeteditAttributesEditor::refreshNeteditAttributesEditor(bool 
         // Check if item has another item as parent (Currently only for single Additionals)
         if (myHorizontalFrameAdditionalParent->shown() && ((myTextFieldAdditionalParent->getTextColor() == FXRGB(0, 0, 0)) || forceRefresh)) {
             // obtain additional Parent
-            GNEAdditional* additional = myInspectorFrameParent->getViewNet()->getNet()->retrieveAdditional(myInspectorFrameParent->getInspectedACs().front()->getAttribute(GNE_ATTR_PARENT));
+            const auto &tagValue = GNEAttributeCarrier::getTagProperties(myInspectorFrameParent->getInspectedACs().front()->getTag());
             // set Label and TextField with the Tag and ID of parent
-            myLabelAdditionalParent->setText((toString(additional->getTag()) + " parent").c_str());
-            myTextFieldAdditionalParent->setText(additional->getID().c_str());
+            myLabelAdditionalParent->setText((toString(GNEAttributeCarrier::getTagProperties(myInspectorFrameParent->getInspectedACs().front()->getTag()).getParentTag()) + " parent").c_str());
+            myTextFieldAdditionalParent->setText(myInspectorFrameParent->getInspectedACs().front()->getAttribute(GNE_ATTR_PARENT).c_str());
         }
     }
 }

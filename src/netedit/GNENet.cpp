@@ -1730,13 +1730,10 @@ GNENet::removeExplicitTurnaround(std::string id) {
 
 
 GNEAdditional*
-GNENet::retrieveAdditional(const std::string& id, bool hardFail) const {
-    for (auto i : myAttributeCarriers.additionals) {
-        if (i.second->getID() == id) {
-            return i.second;
-        }
-    }
-    if (hardFail) {
+GNENet::retrieveAdditional(SumoXMLTag type, const std::string& id, bool hardFail) const {
+    if (myAttributeCarriers.additionals.find(std::make_pair(id, type)) != myAttributeCarriers.additionals.end()) {
+        return myAttributeCarriers.additionals.at(std::make_pair(id, type));
+    } else if (hardFail) {
         throw ProcessError("Attempted to retrieve non-existant additional");
     } else {
         return nullptr;
@@ -1754,18 +1751,6 @@ GNENet::retrieveAdditionals(bool onlySelected) {
         }
     }
     return result;
-}
-
-
-GNEAdditional*
-GNENet::getAdditional(SumoXMLTag type, const std::string& id) const {
-    if (myAttributeCarriers.additionals.empty()) {
-        return nullptr;
-    } else if (myAttributeCarriers.additionals.find(std::make_pair(id, type)) != myAttributeCarriers.additionals.end())  {
-        return myAttributeCarriers.additionals.at(std::make_pair(id, type));
-    } else {
-        return nullptr;
-    }
 }
 
 

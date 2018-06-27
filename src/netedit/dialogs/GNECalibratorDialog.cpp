@@ -258,7 +258,7 @@ GNECalibratorDialog::onCmdAddFlow(FXObject*, FXSelector, void*) {
     // only add flow if there is CalibratorRoutes and Calibrator vehicle types
     if (myRoutesEdited.size() > 0) {
         // create new calibrator and configure it with GNECalibratorFlowDialog
-        GNECalibratorFlow* flow = new GNECalibratorFlow(this);
+        GNECalibratorFlow* flow = new GNECalibratorFlow(myEditedCalibrator);
         if (GNECalibratorFlowDialog(flow, false).openAsModalDialog() != 0) {
             myFlowsEdited.push_back(flow);
         }

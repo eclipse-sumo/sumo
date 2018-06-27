@@ -262,7 +262,7 @@ GNEDetectorExit::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_BLOCK_MOVEMENT:
             return canParse<bool>(value);
         case GNE_ATTR_PARENT:
-            return (myViewNet->getNet()->getAdditional(SUMO_TAG_E3DETECTOR, value) != nullptr);
+            return (myViewNet->getNet()->retrieveAdditional(SUMO_TAG_E3DETECTOR, value, false) != nullptr);
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         default:

@@ -310,7 +310,7 @@ GNECalibrator::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_OUTPUT:
             return isValidFilename(value);
         case SUMO_ATTR_ROUTEPROBE:
-            if (isValidID(value) && (myViewNet->getNet()->getAdditional(SUMO_TAG_ROUTEPROBE, value) != nullptr)) {
+            if (isValidID(value) && (myViewNet->getNet()->retrieveAdditional(SUMO_TAG_ROUTEPROBE, value, false) != nullptr)) {
                 return true;
             } else {
                 return false;
@@ -354,7 +354,7 @@ GNECalibrator::setAttribute(SumoXMLAttr key, const std::string& value) {
             myOutput = value;
             break;
         case SUMO_ATTR_ROUTEPROBE:
-            myRouteProbe = dynamic_cast<GNERouteProbe*>(myViewNet->getNet()->getAdditional(SUMO_TAG_ROUTEPROBE, value));
+            myRouteProbe = dynamic_cast<GNERouteProbe*>(myViewNet->getNet()->retrieveAdditional(SUMO_TAG_ROUTEPROBE, value));
             break;
         case GNE_ATTR_SELECTED:
             if(parse<bool>(value)) {

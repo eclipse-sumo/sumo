@@ -174,7 +174,7 @@ GNEAdditional::getAdditionalParent() const {
 std::string 
 GNEAdditional::generateAdditionalChildID(SumoXMLTag childTag) {
     int counter = 0;
-    while (myViewNet->getNet()->getAdditional(childTag, getID() + toString(childTag) + toString(counter)) != nullptr) {
+    while (myViewNet->getNet()->retrieveAdditional(childTag, getID() + toString(childTag) + toString(counter), false) != nullptr) {
         counter++;
     }
     return (getID() + toString(childTag) + toString(counter));
@@ -579,7 +579,7 @@ GNEAdditional::getAdditionalID() const {
 
 bool
 GNEAdditional::isValidAdditionalID(const std::string& newID) const {
-    if (isValidID(newID) && (myViewNet->getNet()->getAdditional(getTag(), newID) == nullptr)) {
+    if (isValidID(newID) && (myViewNet->getNet()->retrieveAdditional(getTag(), newID, false) == nullptr)) {
         return true;
     } else {
         return false;
@@ -589,7 +589,7 @@ GNEAdditional::isValidAdditionalID(const std::string& newID) const {
 
 void
 GNEAdditional::changeAdditionalID(const std::string& newID) {
-    if (myViewNet->getNet()->getAdditional(getTag(), newID) != nullptr) {
+    if (myViewNet->getNet()->retrieveAdditional(getTag(), newID, false) != nullptr) {
         throw InvalidArgument("An Additional with tag " + toString(getTag()) + " and ID = " + newID + " already exists");
     } else if (isValidID(newID) == false) {
         throw InvalidArgument("Additional ID " + newID + " contains invalid characters");
@@ -639,7 +639,7 @@ GNEAdditional::changeAdditionalParent(const std::string& newAdditionalParentID) 
     } else {
         // remove this additional of the childs of parent additional
         myAdditionalParent->removeAdditionalChild(this);
-        myAdditionalParent = myViewNet->getNet()->retrieveAdditional(newAdditionalParentID);
+        myAdditionalParent = myViewNet->getNet()->retrieveAdditional(getTag(), newAdditionalParentID);
         // add this additional int the childs of parent additional
         myAdditionalParent->addAdditionalChild(this);
         updateGeometry();

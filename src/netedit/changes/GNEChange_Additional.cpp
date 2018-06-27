@@ -80,7 +80,7 @@ GNEChange_Additional::~GNEChange_Additional() {
             WRITE_WARNING("Deleting unreferenced " + toString(myAdditional->getTag()) + " '" + myAdditional->getID() + "'");
         }
         // make sure that additional isn't in net before removing
-        if (myNet->retrieveAdditional(myAdditional->getID(), false)) {
+        if (myNet->retrieveAdditional(myAdditional->getTag(), myAdditional->getID(), false)) {
             myNet->deleteAdditional(myAdditional);
         }
         delete myAdditional;

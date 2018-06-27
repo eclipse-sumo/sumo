@@ -549,22 +549,16 @@ public:
     /// @{
 
     /**@brief Returns the named additional
+     * @param[in] type tag with the type of additional
      * @param[in] id The id of the additional to return.
      * @param[in] failHard Whether attempts to retrieve a nonexisting additional should result in an exception
      */
-    GNEAdditional* retrieveAdditional(const std::string& id, bool hardFail = true) const;
+    GNEAdditional* retrieveAdditional(SumoXMLTag type, const std::string& id, bool hardFail = true) const;
 
     /**@brief return all additionals
      * @param[in] onlySelected Whether to return only selected additionals
      */
     std::vector<GNEAdditional*> retrieveAdditionals(bool onlySelected = false);
-
-    /**@brief Returns the named additional
-     * @param[in] type tag with the type of additional
-     * @param[in] id The id of the additional to return.
-     * @return The named additional, or 0 if don't exists
-     */
-    GNEAdditional* getAdditional(SumoXMLTag type, const std::string& id) const;
 
     /**@brief get vector with additionals
      * @param[in] type type of additional to get. SUMO_TAG_NOTHING will get all additionals

@@ -1451,13 +1451,13 @@ GNEAdditionalFrame::generateID(GNENetElement* netElement) const {
     std::string currentAdditionalTypeStr = toString(myAdditionalSelector->getCurrentAdditionalType());
     if (netElement) {
         // generate ID using netElement
-        while (myViewNet->getNet()->getAdditional(myAdditionalSelector->getCurrentAdditionalType(), currentAdditionalTypeStr + "_" + netElement->getID() + "_" + toString(additionalIndex)) != nullptr) {
+        while (myViewNet->getNet()->retrieveAdditional(myAdditionalSelector->getCurrentAdditionalType(), currentAdditionalTypeStr + "_" + netElement->getID() + "_" + toString(additionalIndex), false) != nullptr) {
             additionalIndex++;
         }
         return currentAdditionalTypeStr + "_" + netElement->getID() + "_" + toString(additionalIndex);
     } else {
         // generate ID without netElement
-        while (myViewNet->getNet()->getAdditional(myAdditionalSelector->getCurrentAdditionalType(), currentAdditionalTypeStr + "_" + toString(additionalIndex)) != nullptr) {
+        while (myViewNet->getNet()->retrieveAdditional(myAdditionalSelector->getCurrentAdditionalType(), currentAdditionalTypeStr + "_" + toString(additionalIndex), false) != nullptr) {
             additionalIndex++;
         }
         return currentAdditionalTypeStr + "_" + toString(additionalIndex);
