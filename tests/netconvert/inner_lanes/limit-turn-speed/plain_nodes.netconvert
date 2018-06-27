@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jun 15 08:18:23 2018 by Eclipse SUMO netconvert Version c774178
+<!-- generated on Wed Jun 27 22:13:12 2018 by Eclipse SUMO netconvert Version 9448296
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -31,10 +31,13 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <nodes version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
-    <location netOffset="100.00,100.00" convBoundary="0.00,0.00,200.00,200.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+    <location netOffset="100.00,100.00" convBoundary="0.00,0.00,500.00,200.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
     <node id="C" x="100.00" y="100.00" type="traffic_light" tl="C"/>
     <node id="E" x="200.00" y="100.00" type="priority"/>
+    <node id="E2" x="300.00" y="100.00" type="priority"/>
+    <node id="E3" x="400.00" y="94.00" type="priority"/>
+    <node id="E4" x="500.00" y="0.00" type="dead_end"/>
     <node id="N" x="100.00" y="200.00" type="priority"/>
     <node id="S" x="100.00" y="0.00" type="priority"/>
     <node id="W" x="0.00" y="100.00" type="priority"/>

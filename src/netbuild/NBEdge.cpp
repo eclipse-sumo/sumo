@@ -1586,14 +1586,20 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
                 const double angle = fabs(GeomHelper::angleDiff(
                             getLaneShape(con.fromLane).angleAt2D(-2),
                             con.toEdge->getLaneShape(con.toLane).angleAt2D(0)));
-                if (angle > 0) {
-                    const double radius = shape.length2D() / angle;
+                const double length = shape.length2D();
+                // do not trust the radius of tiny junctions
+                if (angle > 0 && length > 1) {
+                    // permit higher turning speed on wide lanes
+                    const double radius = length / angle + getLaneWidth(con.fromLane) / 4;
                     con.vmax = MIN2(con.vmax, limitTurnSpeed * sqrt(radius));
                     // ensure, that value is saved
                     con.speed = con.vmax;
                 }
-                //std::cout << con.getDescription(this) <<  " angle=" << angle << " length=" << shape.length2D() << " radius=" << shape.length2d() / angle 
-                //    << " vmaxTurn=" << limitTurnSpeed * sqrt(shape.length2d() / angle) << " vmax=" << con.vmax << "\n";
+                assert(con.vmax > 0);
+                //if (con.vmax < 5) {
+                //    std::cout << con.getDescription(this) << " angle=" << RAD2DEG(angle) << " length=" << length << " radius=" << length / angle 
+                //        << " vmaxTurn=" << limitTurnSpeed * sqrt(length / angle) << " vmax=" << con.vmax << "\n";
+                //}
             }
         } else {
             con.vmax = con.speed;
