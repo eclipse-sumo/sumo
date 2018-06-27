@@ -18,11 +18,13 @@
 <!--
         <stop lane=":C_14_0" endPos="30.5" duration="50" />
 -->
+        <param key="has.fcd.device" value="false"/>
     </flow>
 
 <route id="EW" edges="EW1 EW2"/>
     <vehicle id="EW_bike" type="bicycle" route="EW" depart="0" departLane="0" departPos="-5">
         <stop lane=":C_1_0" endPos="14" duration="150" />
+        <param key="has.fcd.device" value="false"/>
     </vehicle>
 
 <route id="ES" edges="EW1 NS2"/>
