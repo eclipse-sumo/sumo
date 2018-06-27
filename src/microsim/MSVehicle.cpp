@@ -2338,6 +2338,13 @@ MSVehicle::checkLinkLeader(const MSLink* link, const MSLane* lane, double seen,
                 link->passedJunction(this);
             }
         }
+#ifdef DEBUG_PLAN_MOVE_LEADERINFO
+        else {
+            if (DEBUG_COND) {
+                std::cout << SIMTIME << " veh=" << getID() << " ignoring leader " << leader->getID() << "\n";
+            }
+        }
+#endif
     }
     // if this is the link between two internal lanes we may have to slow down for pedestrians
     vLinkWait = MIN2(vLinkWait, v);

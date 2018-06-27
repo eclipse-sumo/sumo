@@ -448,7 +448,7 @@ MSLink::opened(SUMOTime arrivalTime, double arrivalSpeed, double leaveSpeed, dou
                                      impatience, decel, waitingTime, ego)) {
 #ifdef MSLink_DEBUG_OPENED
                         if (gDebugFlag1) {
-                            std::cout << SIMTIME << " blocked by " << foe->getID() << " arrival=" << arrivalTime << " foeArrival=" << i->second.arrivalTime << "\n";
+                            std::cout << SIMTIME << " blocked by " << foe->getID() << " arrival=" << arrivalTime << " foeArrival=" << it.second.arrivalTime << "\n";
                         }
 #endif
                         if (collectFoes == 0) {
@@ -480,7 +480,7 @@ MSLink::opened(SUMOTime arrivalTime, double arrivalSpeed, double leaveSpeed, dou
                                      impatience, decel, waitingTime, ego)) {
 #ifdef MSLink_DEBUG_OPENED
                         if (gDebugFlag1) {
-                            std::cout << SIMTIME << " blocked by sublane foe " << foe->getID() << " arrival=" << arrivalTime << " foeArrival=" << i->second.arrivalTime << "\n";
+                            std::cout << SIMTIME << " blocked by sublane foe " << foe->getID() << " arrival=" << arrivalTime << " foeArrival=" << it.second.arrivalTime << "\n";
                         }
 #endif
                         if (collectFoes == 0) {
@@ -515,6 +515,11 @@ MSLink::opened(SUMOTime arrivalTime, double arrivalSpeed, double leaveSpeed, dou
                 continue;
             }
         }
+#ifdef MSLink_DEBUG_OPENED
+        if (gDebugFlag1) {
+            std::cout << "    foeLink=" << (*i)->getViaLaneOrLane()->getID() << " numApproaching=" << (*i)->getApproaching().size() << "\n";
+        }
+#endif
         if ((*i)->blockedAtTime(arrivalTime, leaveTime, arrivalSpeed, leaveSpeed, myLane == (*i)->getLane(),
                                 impatience, decel, waitingTime, collectFoes, ego)) {
             return false;
@@ -849,6 +854,17 @@ MSLink::isExitLink() const {
     }
 }
 
+bool
+MSLink::isExitLinkAfterInternalJunction() const {
+    if (MSGlobals::gUsingInternalLanes) {
+        return (getInternalLaneBefore() != 0 
+                && myInternalLaneBefore->getIncomingLanes().size() == 1 
+                && myInternalLaneBefore->getIncomingLanes().front().viaLink->isInternalJunctionLink());
+    } else {
+        return false;
+    }
+}
+
 
 MSLink*
 MSLink::getCorrespondingExitLink() const {
@@ -898,8 +914,9 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
             if (gDebugFlag1) {
                 std::cout << " distToCrossing=" << distToCrossing << " foeLane=" << foeLane->getID() << "\n";
             }
-            // special treatment of contLane foe only applies if this lane is not a contLane itself
-            const bool contLane = (foeLane->getLinkCont()[0]->getViaLaneOrLane()->getEdge().isInternal()) && !isInternalJunctionLink();
+            // special treatment of contLane foe only applies if this lane is not a contLane or contLane follower itself
+            const bool contLane = (foeLane->getLinkCont()[0]->getViaLaneOrLane()->getEdge().isInternal() && !(
+                    isInternalJunctionLink() || isExitLinkAfterInternalJunction()));
             if (!contLane && distToCrossing + crossingWidth < 0) {
                 continue; // vehicle is behind the crossing point, continue with next foe lane
             }

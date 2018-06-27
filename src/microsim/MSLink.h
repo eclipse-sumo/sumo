@@ -462,6 +462,9 @@ public:
     /// @brief return whether the fromLane of this link is an internal lane and toLane is a normal lane
     bool isExitLink() const;
 
+    /// @brief return whether the fromLane of this link is an internal lane and its incoming lane is also an internal lane
+    bool isExitLinkAfterInternalJunction() const;
+
     /// @brief returns the corresponding exit link for entryLinks to a junction.
     MSLink* getCorrespondingExitLink() const;
 
