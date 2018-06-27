@@ -132,10 +132,10 @@ GNENet::GNENet(NBNetBuilder* netBuilder) :
     if (myZBoundary.ymin() != Z_INITIALIZED) {
         myZBoundary.add(0, 0);
     }
-
     // default vehicle type is always available
     GNECalibratorVehicleType *defaultVehicleType = new GNECalibratorVehicleType(myViewNet, DEFAULT_VTYPE_ID);
     myAttributeCarriers.additionals[std::make_pair(defaultVehicleType->getID(), defaultVehicleType->getTag())] = defaultVehicleType;
+    defaultVehicleType->incRef("GNENet::DEFAULT_VEHTYPE");
 }
 
 
@@ -144,12 +144,10 @@ GNENet::~GNENet() {
     for (auto i : myPolygons) {
         dynamic_cast<GNEAttributeCarrier*>(i.second)->decRef("GNENet::~GNENet");
     }
-
     // Decrease reference of POIs (needed after volatile recomputing)
     for (auto i : myPOIs) {
         dynamic_cast<GNEAttributeCarrier*>(i.second)->decRef("GNENet::~GNENet");
     }
-
     // Drop Edges
     for (auto it : myAttributeCarriers.edges) {
         it.second->decRef("GNENet::~GNENet");
