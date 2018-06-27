@@ -1,21 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jun 20 15:16:23 2018 by Eclipse SUMO netgenerate Version 4cb87b0
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
+<!-- generated on Wed Jun 27 13:27:39 2018 by Eclipse SUMO netconvert Version f6e78da
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
-    <grid_network>
-        <grid value="true"/>
-        <grid.number value="1"/>
-        <grid.attach-length value="100"/>
-    </grid_network>
+    <input>
+        <sumo-net-file value="net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+    </output>
 
     <processing>
         <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="0"/>
+        <rectangular-lane-cut value="false"/>
+        <walkingareas value="false"/>
     </processing>
-
-    <building_defaults>
-        <default.junctions.radius value="1.5"/>
-    </building_defaults>
 
 </configuration>
 -->
@@ -101,7 +104,7 @@
         <request index="5"  response="011110000110" foes="111110000110" cont="0"/>
         <request index="6"  response="000000000000" foes="010000000100" cont="0"/>
         <request index="7"  response="000000000000" foes="110000111100" cont="0"/>
-        <request index="8"  response="100000100111" foes="110000110111" cont="1"/>
+        <request index="8"  response="000000000111" foes="110000110111" cont="1"/>
         <request index="9"  response="000000000010" foes="000000100010" cont="0"/>
         <request index="10" response="000111000110" foes="000111100110" cont="0"/>
         <request index="11" response="000110111110" foes="000110111110" cont="0"/>
@@ -112,7 +115,7 @@
     <junction id="top0" type="dead_end" x="100.00" y="200.00" incLanes="A0top0_0" intLanes="" shape="100.00,200.00 103.20,200.00 100.00,200.00" radius="1.50"/>
 
     <junction id=":A0_12_0" type="internal" x="98.69" y="102.69" incLanes=":A0_2_0 bottom0A0_0" intLanes=":A0_4_0 :A0_5_0 :A0_6_0 :A0_7_0 :A0_8_0 :A0_10_0 :A0_11_0"/>
-    <junction id=":A0_13_0" type="internal" x="101.31" y="97.31" incLanes=":A0_8_0 top0A0_0" intLanes=":A0_0_0 :A0_1_0 :A0_2_0 :A0_4_0 :A0_5_0 :A0_10_0 :A0_11_0"/>
+    <junction id=":A0_13_0" type="internal" x="101.31" y="97.31" incLanes=":A0_8_0 :A0_2_0 top0A0_0" intLanes=":A0_12_0 :A0_0_0 :A0_1_0 :A0_2_0 :A0_4_0 :A0_5_0 :A0_10_0 :A0_11_0"/>
 
     <connection from="bottom0A0" to="A0right0" fromLane="0" toLane="0" via=":A0_6_0" dir="r" state="M"/>
     <connection from="bottom0A0" to="A0top0" fromLane="0" toLane="0" via=":A0_7_0" dir="s" state="M"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed 27 Jun 2018 09:14:18 AM CEST by Eclipse SUMO netedit Version 6446968
+<!-- generated on Wed Jun 27 13:30:49 2018 by Eclipse SUMO netconvert Version f6e78da
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -213,9 +213,9 @@
     <junction id="gneJ6" type="dead_end" x="192.25" y="211.77" incLanes="" intLanes="" shape="192.25,211.77 185.75,211.65"/>
     <junction id="gneJ8" type="dead_end" x="409.35" y="109.02" incLanes="" intLanes="" shape="409.35,109.02 408.95,119.91"/>
 
-    <junction id=":C_24_0" type="internal" x="188.83" y="109.65" incLanes=":C_2_0 WE1_0 WE1_2" intLanes=":C_4_0 :C_8_0 :C_9_0 :C_10_0 :C_11_0 :C_12_0 :C_13_0 :C_14_0 :C_15_0 :C_16_0 :C_17_0 :C_20_0 :C_21_0 :C_22_0 :C_23_0"/>
+    <junction id=":C_24_0" type="internal" x="188.83" y="109.65" incLanes=":C_2_0 :C_14_0 :C_17_0 WE1_0 WE1_2" intLanes=":C_29_0 :C_31_0 :C_4_0 :C_8_0 :C_9_0 :C_10_0 :C_11_0 :C_12_0 :C_13_0 :C_14_0 :C_15_0 :C_16_0 :C_17_0 :C_20_0 :C_21_0 :C_22_0 :C_23_0"/>
     <junction id=":C_25_0" type="internal" x="198.89" y="109.32" incLanes=":C_3_0 EW1_0" intLanes=":C_1_0 :C_2_0 :C_8_0 :C_10_0 :C_14_0 :C_17_0"/>
-    <junction id=":C_26_0" type="internal" x="201.00" y="101.34" incLanes=":C_5_0 WE1_0 WE1_2" intLanes=":C_8_0 :C_9_0 :C_10_0 :C_11_0 :C_12_0 :C_13_0 :C_14_0 :C_15_0 :C_16_0 :C_20_0 :C_21_0 :C_22_0 :C_23_0"/>
+    <junction id=":C_26_0" type="internal" x="201.00" y="101.34" incLanes=":C_5_0 :C_14_0 WE1_0 WE1_2" intLanes=":C_29_0 :C_8_0 :C_9_0 :C_10_0 :C_11_0 :C_12_0 :C_13_0 :C_14_0 :C_15_0 :C_16_0 :C_20_0 :C_21_0 :C_22_0 :C_23_0"/>
     <junction id=":C_27_0" type="internal" x="192.89" y="99.83" incLanes=":C_9_0 NS1_0 NS1_1" intLanes=":C_1_0 :C_2_0 :C_4_0 :C_5_0 :C_10_0 :C_13_0 :C_14_0 :C_16_0 :C_17_0 :C_18_0 :C_19_0 :C_20_0 :C_22_0"/>
     <junction id=":C_28_0" type="internal" x="192.69" y="96.55" incLanes=":C_11_0 NS1_0 NS1_1" intLanes=":C_1_0 :C_2_0 :C_4_0 :C_5_0 :C_13_0 :C_14_0 :C_16_0 :C_17_0 :C_18_0 :C_19_0 :C_20_0 :C_22_0"/>
     <junction id=":C_29_0" type="internal" x="197.45" y="93.39" incLanes=":C_14_0 EW1_0 EW1_2" intLanes=":C_0_0 :C_1_0 :C_2_0 :C_3_0 :C_4_0 :C_5_0 :C_8_0 :C_9_0 :C_10_0 :C_11_0 :C_16_0 :C_20_0 :C_21_0 :C_22_0 :C_23_0"/>
