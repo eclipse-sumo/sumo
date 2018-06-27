@@ -30,6 +30,11 @@
 #include <microsim/MSNet.h>
 #include <microsim/MSVehicle.h>
 
+//#define DEBUG_E3_NOTIFY_ENTER_AND_LEAVE
+//#define DEBUG_E3_NOTIFY_MOVE
+//#define DEBUG_COND(obj) ((obj.getID() == ""))
+#define DEBUG_COND(obj) (true)
+#define DEBUG_COND_VEH(veh) (veh.isSelected())
 
 // ===========================================================================
 // method definitions
@@ -71,6 +76,14 @@ MSE3Collector::MSE3EntryReminder::notifyMove(SUMOVehicle& veh, double oldPos,
             const double timeBeforeEnter = MSCFModel::passingTime(oldPos, myPosition, newPos, oldSpeed, newSpeed);
             const double fractionTimeOnDet = TS - timeBeforeEnter;
             myCollector.enter(veh, entryTime - fractionTimeOnDet, fractionTimeOnDet);
+#ifdef DEBUG_E3_NOTIFY_MOVE
+    if (DEBUG_COND(myCollector) && DEBUG_COND_VEH(veh)) {
+        std::cout << "\n" << SIMTIME
+                << " MSE3EntryReminder::notifyMove() (" << getDescription() << "on lane '" << myLane->getID() << "')"
+                << " vehicle '" << veh.getID() << "'"
+                << " entered. oldPos=" << oldPos << " newPos=" << newPos << " newSpeed=" << newSpeed << "\n";
+    }
+#endif
         }
     }
     return true;
@@ -100,9 +113,10 @@ MSE3Collector::MSE3LeaveReminder::MSE3LeaveReminder(
 bool
 MSE3Collector::MSE3LeaveReminder::notifyEnter(SUMOVehicle& veh, Notification reason, const MSLane* enteredLane) {
     if (reason != NOTIFICATION_JUNCTION) {
-        const double posOnLane = veh.getBackPositionOnLane(enteredLane) + veh.getVehicleType().getLength();
-        if (posOnLane > myPosition) {
+        const double backPosOnLane = veh.getBackPositionOnLane(enteredLane);
+        if (backPosOnLane > myPosition) {
             // if the vehicle changes into a covered section we assume it was already registred on another lane
+            // however, if it is not fully past the detector we still need to track it
             return false;
         }
     }
@@ -124,6 +138,14 @@ MSE3Collector::MSE3LeaveReminder::notifyMove(SUMOVehicle& veh, double oldPos,
 //        const double leaveTimeFront = SIMTIME - TS + (myPosition - oldPos) / newSpeed;
         const double leaveTimeFront = SIMTIME - TS + timeBeforeLeave;
         myCollector.leaveFront(veh, leaveTimeFront);
+#ifdef DEBUG_E3_NOTIFY_MOVE
+    if (DEBUG_COND(myCollector) && DEBUG_COND_VEH(veh)) {
+        std::cout << "\n" << SIMTIME
+                << " MSE3LeaveReminder::notifyMove() (" << getDescription() << "on lane '" << myLane->getID() << "')"
+                << " vehicle '" << veh.getID() << "'"
+                << " leaveFront. oldPos=" << oldPos << " newPos=" << newPos << " newSpeed=" << newSpeed << "\n";
+    }
+#endif
     }
     const double backPos = newPos - veh.getVehicleType().getLength();
     if (backPos < myPosition) {
@@ -136,6 +158,14 @@ MSE3Collector::MSE3LeaveReminder::notifyMove(SUMOVehicle& veh, double oldPos,
     assert(!MSGlobals::gSemiImplicitEulerUpdate || newSpeed != 0); // how could it move across the detector otherwise
     const double timeBeforeLeave = MSCFModel::passingTime(oldBackPos, myPosition, backPos, oldSpeed, newSpeed);
     myCollector.leave(veh, leaveStep - TS + timeBeforeLeave, timeBeforeLeave);
+#ifdef DEBUG_E3_NOTIFY_MOVE
+    if (DEBUG_COND(myCollector) && DEBUG_COND_VEH(veh)) {
+        std::cout << "\n" << SIMTIME
+                << " MSE3LeaveReminder::notifyMove() (" << getDescription() << "on lane '" << myLane->getID() << "')"
+                << " vehicle '" << veh.getID() << "'"
+                << " left. oldPos=" << oldPos << " newPos=" << newPos << " newSpeed=" << newSpeed << "\n";
+    }
+#endif
     return false;
 }
 
