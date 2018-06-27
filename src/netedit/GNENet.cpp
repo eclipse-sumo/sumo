@@ -132,9 +132,10 @@ GNENet::GNENet(NBNetBuilder* netBuilder) :
     if (myZBoundary.ymin() != Z_INITIALIZED) {
         myZBoundary.add(0, 0);
     }
+
     // default vehicle type is always available
-    insertAdditional(new GNECalibratorVehicleType(myViewNet, DEFAULT_VTYPE_ID)); 
-    myAttributeCarriers.additionals.begin()->second->incRef("GNENet::DEFAULT_VEHTYPE");
+    GNECalibratorVehicleType *defaultVehicleType = new GNECalibratorVehicleType(myViewNet, DEFAULT_VTYPE_ID);
+    myAttributeCarriers.additionals[std::make_pair(defaultVehicleType->getID(), defaultVehicleType->getTag())] = defaultVehicleType;
 }
 
 
@@ -1882,9 +1883,9 @@ void
 GNENet::saveAdditionalsConfirmed(const std::string& filename) {
     OutputDevice& device = OutputDevice::getDevice(filename);
     device.writeXMLHeader("additional", "additional_file.xsd");
-    // first write all vehicle types
+    // first write all vehicle types (Except DEFAULT_VTYPE_ID)
     for (auto i : myAttributeCarriers.additionals) {
-        if (i.first.second == SUMO_TAG_VTYPE) {
+        if ((i.first.second == SUMO_TAG_VTYPE) && (i.second->getID() != DEFAULT_VTYPE_ID)) {
             i.second->writeAdditional(device);
         }
     }
