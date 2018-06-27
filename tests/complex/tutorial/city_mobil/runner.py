@@ -23,12 +23,12 @@ import simpleManager
 import agentManager
 
 # build/check network
-import createNet
+import createNet  # noqa
 # perform simple scenario
 vehicleControl.init(simpleManager.SimpleManager(), True)
 # perform agent scenario
 vehicleControl.init(agentManager.AgentManager(), True)
 try:
     shutil.copy("all-the-results.txt", "../result2")
-except:
+except IOError:
     print("Missing 'all-the-results.txt'")

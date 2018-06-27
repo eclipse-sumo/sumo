@@ -16,7 +16,7 @@
 from __future__ import absolute_import
 import vehicleControl
 import statistics
-from constants import *
+from constants import INFINITY, DOUBLE_ROWS, ROW_DIST, CYBER_SPEED, WAIT_PER_PERSON
 
 
 class PersonAgent:

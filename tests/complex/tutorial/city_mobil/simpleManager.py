@@ -17,7 +17,7 @@
 from __future__ import absolute_import
 import vehicleControl
 import statistics
-from constants import *
+from constants import DOUBLE_ROWS, WAIT_PER_PERSON
 
 
 class SimpleManager(vehicleControl.Manager):

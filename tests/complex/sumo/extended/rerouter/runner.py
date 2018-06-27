@@ -180,6 +180,6 @@ for r in rerouter:
                     verify(vehroutes, edge[0])
                     try:
                         os.remove("vehroutes.xml")
-                    except:
+                    except OSError:
                         pass
     nd.close()

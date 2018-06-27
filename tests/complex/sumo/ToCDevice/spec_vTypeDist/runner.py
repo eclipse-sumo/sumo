@@ -107,14 +107,14 @@ if __name__ == "__main__":
         traci.simulationStep()
         if t % 20 == 0:
             printToCParams(ToC_vehicle, True)
-            print ("Current type: %s" % traci.vehicle.getTypeID(ToC_vehicle))
+            print("Current type: %s" % traci.vehicle.getTypeID(ToC_vehicle))
 
     requestToC(ToC_vehicle, 0)
     for t in range(100):
         traci.simulationStep()
         if t % 20 == 0:
             printToCParams(ToC_vehicle, True)
-            print ("Current type: %s" % traci.vehicle.getTypeID(ToC_vehicle))
+            print("Current type: %s" % traci.vehicle.getTypeID(ToC_vehicle))
 
     traci.close()
     sys.stdout.flush()

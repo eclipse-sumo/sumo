@@ -85,11 +85,11 @@ def patchTLSType(ifile, itype, ofile, otype):
 def main():
     try:
         os.mkdir("results")
-    except:
+    except OSError:
         pass
     try:
         os.mkdir("gfx")
-    except:
+    except OSError:
         pass
 
     sumoHome = os.path.abspath(

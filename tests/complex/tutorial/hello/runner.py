@@ -38,7 +38,7 @@ retcode = subprocess.call(
     [netconvertBinary, "-c", "data/hello.netccfg"], stdout=sys.stdout, stderr=sys.stderr)
 try:
     shutil.copy("data/hello.net.xml", "net.net.xml")
-except:
+except IOError:
     print("Missing 'hello.net.xml'")
 print(">> Netbuilding closed with status %s" % retcode)
 sys.stdout.flush()

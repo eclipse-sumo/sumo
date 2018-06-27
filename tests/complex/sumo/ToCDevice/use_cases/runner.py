@@ -72,7 +72,7 @@ def run(timeUntilMRM, downwardEdgeID, distance, upwardEdgeID, upwardDist):
         traci.simulationStep()
         step += 1
         if options.debug:
-            print ("\n---------------------------------\nsimstep: %s" % step)
+            print("\n---------------------------------\nsimstep: %s" % step)
         # Keep book of entered AVs
         arrivedVehs = [vehID for vehID in traci.simulation.getArrivedIDList() if vehID.startswith(AV_identifier)]
         downwardToCPending.update([vehID for vehID in traci.simulation.getDepartedIDList()
@@ -101,10 +101,10 @@ def run(timeUntilMRM, downwardEdgeID, distance, upwardEdgeID, upwardDist):
         upwardToCPending.difference_update(upwardTocPerformed)
         if options.debug:
             print("downwardTocRequested=%s" % downwardTocRequested)
-            print ("Downward ToC performed: %s" % str(sorted(downwardTocPerformed)))
-            print ("Upward ToC performed: %s" % str(sorted(upwardTocPerformed)))
-            print ("DownwardToCPending:%s" % str(sorted(downwardToCPending)))
-            print ("upwardToCPending:%s" % str(sorted(upwardToCPending)))
+            print("Downward ToC performed: %s" % str(sorted(downwardTocPerformed)))
+            print("Upward ToC performed: %s" % str(sorted(upwardTocPerformed)))
+            print("DownwardToCPending:%s" % str(sorted(downwardToCPending)))
+            print("upwardToCPending:%s" % str(sorted(upwardToCPending)))
         upwardToCPending.difference_update(arrivedVehs)
 
 
@@ -171,7 +171,7 @@ if __name__ == "__main__":
     downwardEdgeID = None
     distance = None
     if options.verbose:
-        print ("time to MRM: %s" % (timeUntilMRM))
+        print("time to MRM: %s" % (timeUntilMRM))
     # this script has been called from the command line. It will start sumo as a
     # server, then connect and run
     if options.nogui:

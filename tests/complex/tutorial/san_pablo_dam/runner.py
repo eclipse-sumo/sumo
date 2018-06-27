@@ -102,7 +102,7 @@ retcode = subprocess.call([netconvertBinary, "-n", "data/spd-road.nod.xml", "-e"
                            "data/spd-road.edg.xml", "-o", "data/spd-road.net.xml", "-v"], stdout=sys.stdout, stderr=sys.stderr)
 try:
     shutil.copy("data/spd-road.net.xml", "net.net.xml")
-except:
+except IOError:
     print("Missing 'spd-road.net.xml'")
 print(">> Netbuilding closed with status %s" % retcode)
 sys.stdout.flush()

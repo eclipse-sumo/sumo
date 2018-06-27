@@ -19,14 +19,22 @@ from __future__ import print_function
 import subprocess
 import random
 import sys
+import os
 from optparse import OptionParser
 
-from constants import *  # sys.path is modified here
-
-import traci
-import traci.constants as tc
-
+from constants import PREFIX, DOUBLE_ROWS, STOP_POS, SLOTS_PER_ROW, SLOT_LENGTH, BUS_CAPACITY, BREAK_DELAY
+from constants import CYBER_CAPACITY, PORT
 import statistics
+
+if 'SUMO_HOME' in os.environ:
+    tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
+    sys.path.append(tools)
+else:
+    sys.exit("please declare environment variable 'SUMO_HOME'")
+
+import traci  # noqa
+import traci.constants as tc  # noqa
+import sumolib  # noqa
 
 
 class Manager:
@@ -86,9 +94,9 @@ def init(manager, forTest=False):
     optParser.add_option("-b", "--break", type="int", dest="breakstep", metavar="TIMESTEP",
                          help="let a vehicle break for %s seconds at TIMESTEP" % BREAK_DELAY)
     (options, args) = optParser.parse_args()
-    sumoExe = SUMO
+    sumoExe = os.environ.get("SUMO_BINARY", os.path.join(os.environ['SUMO_HOME'], 'bin', 'sumo'))
     if options.gui:
-        sumoExe = SUMOGUI
+        sumoExe = os.environ.get("GUISIM_BINARY", os.path.join(os.environ['SUMO_HOME'], 'bin', 'sumo-gui'))
     sumoConfig = "%s%02i.sumocfg" % (PREFIX, options.demand)
     if options.cyber:
         sumoConfig = "%s%02i_cyber.sumocfg" % (PREFIX, options.demand)

@@ -48,7 +48,7 @@ random.seed(606)
 
 def checkDir(dir, outputDirName):
     if not os.path.exists(dir):
-        print ("%s does not exist." % dir)
+        print("%s does not exist." % dir)
     else:
         outputdir = os.path.join(dir, outputDirName)
         if not os.path.exists(outputdir):
@@ -160,11 +160,11 @@ def setAddOutputFiles(DATA_DIR, outputDirName, freq, i, j, k, l, t, closedLaneFi
 
 
 def printParameterSet(i, j, k, l, t):
-    print ("initialAwareness: %s" % (i))
-    print ("responseTime: %s" % (j))
-    print ("recoveryRate: %s" % (k))
-    print ("mrmDecel: %s" % (l))
-    print ("timeUntilMRM: %s" % (t))
+    print("initialAwareness: %s" % (i))
+    print("responseTime: %s" % (j))
+    print("recoveryRate: %s" % (k))
+    print("mrmDecel: %s" % (l))
+    print("timeUntilMRM: %s" % (t))
 
 
 if __name__ == "__main__":

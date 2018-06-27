@@ -77,82 +77,82 @@ def printParams(vehID, only_dynamic=False):
 
 
 def resetParams(vehID):
-    print ("\nResetting parameters...\n")
+    print("\nResetting parameters...\n")
 
     new_minAwareness = 0.05
     traci.vehicle.setParameter(vehID, "device.driverstate.minAwareness", str(new_minAwareness))
     minAwareness = float(traci.vehicle.getParameter(vehID, "device.driverstate.minAwareness"))
-    print ("new minAwareness:%s (diff=%s)" % (minAwareness, minAwareness-new_minAwareness))
+    print("new minAwareness:%s (diff=%s)" % (minAwareness, minAwareness-new_minAwareness))
 
     new_initialAwareness = 0.06
     traci.vehicle.setParameter(vehID, "device.driverstate.initialAwareness", str(new_initialAwareness))
     initialAwareness = float(traci.vehicle.getParameter(vehID, "device.driverstate.initialAwareness"))
-    print ("new initialAwareness:%s (diff=%s)" % (initialAwareness, initialAwareness-new_initialAwareness))
+    print("new initialAwareness:%s (diff=%s)" % (initialAwareness, initialAwareness-new_initialAwareness))
 
     new_errorTimeScaleCoefficient = 0.11
     traci.vehicle.setParameter(vehID, "device.driverstate.errorTimeScaleCoefficient",
                                str(new_errorTimeScaleCoefficient))
     errorTimeScaleCoefficient = float(traci.vehicle.getParameter(vehID, "device.driverstate.errorTimeScaleCoefficient"))
-    print ("new errorTimeScaleCoefficient:%s (diff=%s)" %
-           (errorTimeScaleCoefficient, errorTimeScaleCoefficient-new_errorTimeScaleCoefficient))
+    print("new errorTimeScaleCoefficient:%s (diff=%s)" %
+          (errorTimeScaleCoefficient, errorTimeScaleCoefficient-new_errorTimeScaleCoefficient))
 
     new_errorNoiseIntensityCoefficient = 0.22
     traci.vehicle.setParameter(vehID, "device.driverstate.errorNoiseIntensityCoefficient",
                                str(new_errorNoiseIntensityCoefficient))
     errorNoiseIntensityCoefficient = float(traci.vehicle.getParameter(
         vehID, "device.driverstate.errorNoiseIntensityCoefficient"))
-    print ("new errorNoiseIntensityCoefficient:%s (diff=%s)" %
-           (errorNoiseIntensityCoefficient, errorNoiseIntensityCoefficient-new_errorNoiseIntensityCoefficient))
+    print("new errorNoiseIntensityCoefficient:%s (diff=%s)" %
+          (errorNoiseIntensityCoefficient, errorNoiseIntensityCoefficient-new_errorNoiseIntensityCoefficient))
 
     new_speedDifferenceErrorCoefficient = 0.33
     traci.vehicle.setParameter(vehID, "device.driverstate.speedDifferenceErrorCoefficient",
                                str(new_speedDifferenceErrorCoefficient))
     speedDifferenceErrorCoefficient = float(traci.vehicle.getParameter(
         vehID, "device.driverstate.speedDifferenceErrorCoefficient"))
-    print ("new speedDifferenceErrorCoefficient:%s (diff=%s)" %
-           (speedDifferenceErrorCoefficient, speedDifferenceErrorCoefficient-new_speedDifferenceErrorCoefficient))
+    print("new speedDifferenceErrorCoefficient:%s (diff=%s)" %
+          (speedDifferenceErrorCoefficient, speedDifferenceErrorCoefficient-new_speedDifferenceErrorCoefficient))
 
     new_headwayErrorCoefficient = 0.44
     traci.vehicle.setParameter(vehID, "device.driverstate.headwayErrorCoefficient", str(new_headwayErrorCoefficient))
     headwayErrorCoefficient = float(traci.vehicle.getParameter(vehID, "device.driverstate.headwayErrorCoefficient"))
-    print ("new headwayErrorCoefficient:%s (diff=%s)" %
-           (headwayErrorCoefficient, headwayErrorCoefficient-new_headwayErrorCoefficient))
+    print("new headwayErrorCoefficient:%s (diff=%s)" %
+          (headwayErrorCoefficient, headwayErrorCoefficient-new_headwayErrorCoefficient))
 
     new_speedDifferenceChangePerceptionThreshold = 0.55
     traci.vehicle.setParameter(vehID, "device.driverstate.speedDifferenceChangePerceptionThreshold",
                                str(new_speedDifferenceChangePerceptionThreshold))
     speedDifferenceChangePerceptionThreshold = float(traci.vehicle.getParameter(
         vehID, "device.driverstate.speedDifferenceChangePerceptionThreshold"))
-    print ("new speedDifferenceChangePerceptionThreshold:%s (diff=%s)" % (speedDifferenceChangePerceptionThreshold,
-                                                                          speedDifferenceChangePerceptionThreshold-new_speedDifferenceChangePerceptionThreshold))
+    print("new speedDifferenceChangePerceptionThreshold:%s (diff=%s)" % (speedDifferenceChangePerceptionThreshold,
+                                                                         speedDifferenceChangePerceptionThreshold-new_speedDifferenceChangePerceptionThreshold))
 
     new_headwayChangePerceptionThreshold = 0.66
     traci.vehicle.setParameter(vehID, "device.driverstate.headwayChangePerceptionThreshold",
                                str(new_headwayChangePerceptionThreshold))
     headwayChangePerceptionThreshold = float(traci.vehicle.getParameter(
         vehID, "device.driverstate.headwayChangePerceptionThreshold"))
-    print ("new headwayChangePerceptionThreshold:%s (diff=%s)" %
-           (headwayChangePerceptionThreshold, headwayChangePerceptionThreshold-new_headwayChangePerceptionThreshold))
+    print("new headwayChangePerceptionThreshold:%s (diff=%s)" %
+          (headwayChangePerceptionThreshold, headwayChangePerceptionThreshold-new_headwayChangePerceptionThreshold))
 
     new_awareness = 0.77
     traci.vehicle.setParameter(vehID, "device.driverstate.awareness", str(new_awareness))
     awareness = float(traci.vehicle.getParameter(vehID, "device.driverstate.awareness"))
-    print ("new awareness:%s (diff=%s)" % (awareness, awareness-new_awareness))
+    print("new awareness:%s (diff=%s)" % (awareness, awareness-new_awareness))
 
     new_errorState = 0.88
     traci.vehicle.setParameter(vehID, "device.driverstate.errorState", str(new_errorState))
     errorState = float(traci.vehicle.getParameter(vehID, "device.driverstate.errorState"))
-    print ("new errorState:%s (diff=%s)" % (errorState, errorState-new_errorState))
+    print("new errorState:%s (diff=%s)" % (errorState, errorState-new_errorState))
 
     new_errorNoiseIntensity = 0.99
     traci.vehicle.setParameter(vehID, "device.driverstate.errorNoiseIntensity", str(new_errorNoiseIntensity))
     errorNoiseIntensity = float(traci.vehicle.getParameter(vehID, "device.driverstate.errorNoiseIntensity"))
-    print ("new errorNoiseIntensity:%s (diff=%s)" % (errorNoiseIntensity, errorNoiseIntensity-new_errorNoiseIntensity))
+    print("new errorNoiseIntensity:%s (diff=%s)" % (errorNoiseIntensity, errorNoiseIntensity-new_errorNoiseIntensity))
 
     new_errorTimeScale = 1.11
     traci.vehicle.setParameter(vehID, "device.driverstate.errorTimeScale", str(new_errorTimeScale))
     errorTimeScale = float(traci.vehicle.getParameter(vehID, "device.driverstate.errorTimeScale"))
-    print ("new errorTimeScale:%s (diff=%s)" % (errorTimeScale, errorTimeScale-new_errorTimeScale))
+    print("new errorTimeScale:%s (diff=%s)" % (errorTimeScale, errorTimeScale-new_errorTimeScale))
 
     print("\n")
 

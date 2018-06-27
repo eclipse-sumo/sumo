@@ -22,7 +22,19 @@ from __future__ import absolute_import
 from __future__ import print_function
 import random
 import subprocess
-from constants import *
+import os
+import sys
+from constants import PREFIX, DOUBLE_ROWS, ROW_DIST, STOP_POS, SLOTS_PER_ROW, SLOT_WIDTH
+from constants import SLOT_LENGTH, SLOT_FOOT_LENGTH, CAR_CAPACITY, CYBER_CAPACITY, BUS_CAPACITY, TOTAL_CAPACITY
+from constants import CYBER_SPEED, CYBER_LENGTH, OCCUPATION_PROBABILITY, PORT
+
+if 'SUMO_HOME' in os.environ:
+    tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
+    sys.path.append(tools)
+else:
+    sys.exit("please declare environment variable 'SUMO_HOME'")
+
+import sumolib  # noqa
 
 occupied = 0
 nodes = open("%s.nod.xml" % PREFIX, "w")
@@ -197,6 +209,8 @@ edges.close()
 print("</connections>", file=connections)
 connections.close()
 
+NETCONVERT = os.environ.get(
+    "NETCONVERT_BINARY", os.path.join(os.environ["SUMO_HOME"], 'bin', 'netconvert'))
 subprocess.call([NETCONVERT,
                  '--no-internal-links',
                  '-n', '%s.nod.xml' % PREFIX,
@@ -240,6 +254,7 @@ stops.close()
 totalSlots = 2 * DOUBLE_ROWS * SLOTS_PER_ROW
 bat = open("%s.bat" % PREFIX, "w")
 breakbat = open("%s_break.bat" % PREFIX, "w")
+
 for period in range(5, 50, 5):
     routes = open("%s_demand%02i.rou.xml" % (PREFIX, period), "w")
     print("<routes>", file=routes)

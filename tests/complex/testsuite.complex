@@ -28,3 +28,6 @@ state
 
 # emission tools, especially emissionDrivingCycleemissions
 emissions
+
+# scenario generation
+scenario_generation

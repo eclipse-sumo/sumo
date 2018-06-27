@@ -34,7 +34,7 @@ retcode = subprocess.call(
     [netconvertBinary, "-c", "data/circular.netccfg"], stdout=sys.stdout, stderr=sys.stderr)
 try:
     shutil.copy("data/circular.net.xml", "net.net.xml")
-except:
+except IOError:
     print("Missing 'circular.net.xml'")
 print(">> Netbuilding closed with status %s" % retcode)
 sys.stdout.flush()

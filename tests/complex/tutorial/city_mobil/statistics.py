@@ -15,6 +15,7 @@
 
 from __future__ import absolute_import
 from __future__ import print_function
+import sys
 persons = {}
 personsRunning = 0
 
@@ -93,7 +94,7 @@ def evaluate(forTest=False):
 
 
 if __name__ == "__main__":
-    from pylab import *
+    from pylab import figure, errorbar, legend, savefig, show, title, xlabel, xlim, ylabel, ylim
     stats = open(sys.argv[1])
     demand = []
     simpleWaitMean = []

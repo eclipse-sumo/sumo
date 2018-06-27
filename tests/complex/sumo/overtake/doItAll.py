@@ -157,6 +157,7 @@ def writeVSSFile():
     fp = open('input_vss.add.xml', 'w')
     print('<additional>', file=fp)
     s = '\t<variableSpeedSign id="vss" lanes="2to3_0'
+    maxLanes = None
     for lane in range(1, maxLanes):
         s = s + ' 2to3_' + repr(lane)
     print(s + '" file="laneFlows.vss.xml"/>', file=fp)
