@@ -275,14 +275,14 @@ long
 GNECalibratorDialog::onCmdClickedFlow(FXObject*, FXSelector, void*) {
     // check if some delete button was pressed
     for (int i = 0; i < (int)myFlowsEdited.size(); i++) {
-        if (myFlowList->getItem(i, 3)->hasFocus()) {
+        if (myFlowList->getItem(i, 2)->hasFocus()) {
             // remove flow of calibrator flows
             myEditedCalibrator->getViewNet()->getUndoList()->add(new GNEChange_Additional(myFlowsEdited.at(i), false), true);
             myFlowsEdited.erase(myFlowsEdited.begin() + i);
             // update flows table
             updateFlowTable();
             return 1;
-        } else if (myFlowList->getItem(i, 0)->hasFocus() || myFlowList->getItem(i, 1)->hasFocus() || myFlowList->getItem(i, 2)->hasFocus()) {
+        } else if (myFlowList->getItem(i, 0)->hasFocus() || myFlowList->getItem(i, 1)->hasFocus()) {
             // modify flow of calibrator flows (temporal)
             GNECalibratorFlowDialog((GNECalibratorFlow*)myFlowsEdited.at(i), true).openAsModalDialog();
             // update flows table
@@ -312,7 +312,12 @@ long
 GNECalibratorDialog::onCmdClickedVehicleType(FXObject*, FXSelector, void*) {
     // check if some delete button was pressed
     for (int i = 0; i < (int)myVehicleTypesEdited.size(); i++) {
-        if (myVehicleTypeList->getItem(i, 2)->hasFocus()) {
+        // Make sure that default vehicle isn't edited
+        if((i == 0) && (myVehicleTypeList->getItem(i, 0)->hasFocus() || myVehicleTypeList->getItem(i, 1)->hasFocus() || myVehicleTypeList->getItem(i, 2)->hasFocus())) {
+            FXMessageBox::warning(getApp(), MBOX_OK,
+                                 ("Error editing default " + toString(SUMO_TAG_VTYPE)).c_str(), "%s",
+                                 ("Default " + toString(SUMO_TAG_VTYPE) + " cannot be either edited or deleted.").c_str());
+        } else if (myVehicleTypeList->getItem(i, 2)->hasFocus()) {
             // find all flows that contains vehicle type to delete as "vehicle type" parameter
             std::vector<GNEAdditional*> calibratorFlowsToErase;
             for (auto j : myFlowsEdited) {
@@ -356,6 +361,7 @@ GNECalibratorDialog::onCmdClickedVehicleType(FXObject*, FXSelector, void*) {
             } else {
                 // remove vehicle type of calibrator vehicle types
                 myEditedCalibrator->getViewNet()->getUndoList()->add(new GNEChange_Additional(myVehicleTypesEdited.at(i), false), true);
+                myVehicleTypesEdited.erase(myVehicleTypesEdited.begin() + i);
                 // update vehicle types table
                 updateVehicleTypeTable();
                 return 1;
@@ -396,7 +402,7 @@ GNECalibratorDialog::updateRouteTable() {
     // iterate over routes
     for (auto i : myRoutesEdited) {
         // Set ID
-        item = new FXTableItem(toString(i->getID()).c_str());
+        item = new FXTableItem(toString(i->getAttribute(SUMO_ATTR_ID)).c_str());
         myRouteList->setItem(indexRow, 0, item);
         // Set edges
         item = new FXTableItem(toString(i->getAttribute(SUMO_ATTR_EDGES)).c_str());
@@ -419,37 +425,32 @@ GNECalibratorDialog::updateFlowTable() {
     // clear table
     myFlowList->clearItems();
     // set number of rows
-    myFlowList->setTableSize(int(myFlowsEdited.size()), 4);
+    myFlowList->setTableSize(int(myFlowsEdited.size()), 3);
     // Configure list
-    myFlowList->setVisibleColumns(4);
-    myFlowList->setColumnWidth(0, 92);
-    myFlowList->setColumnWidth(1, 90);
-    myFlowList->setColumnWidth(2, 90);
-    myFlowList->setColumnWidth(3, GUIDesignTableIconCellWidth);
-    myFlowList->setColumnText(0, toString(SUMO_ATTR_ID).c_str());
+    myFlowList->setVisibleColumns(3);
+    myFlowList->setColumnWidth(0, 136);
+    myFlowList->setColumnWidth(1, 136);
+    myFlowList->setColumnWidth(2, GUIDesignTableIconCellWidth);
+    myFlowList->setColumnText(0, toString(SUMO_ATTR_TYPE).c_str());
     myFlowList->setColumnText(1, toString(SUMO_ATTR_VCLASS).c_str());
-    myFlowList->setColumnText(2, toString(SUMO_ATTR_ROUTE).c_str());
-    myFlowList->setColumnText(3, "");
+    myFlowList->setColumnText(2, "");
     myFlowList->getRowHeader()->setWidth(0);
     // Declare index for rows and pointer to FXTableItem
     int indexRow = 0;
     FXTableItem* item = 0;
     // iterate over flows
     for (auto i : myFlowsEdited) {
-        // Set id
-        item = new FXTableItem(i->getID().c_str());
-        myFlowList->setItem(indexRow, 0, item);
         // Set vehicle type
         item = new FXTableItem(i->getAttribute(SUMO_ATTR_TYPE).c_str());
-        myFlowList->setItem(indexRow, 1, item);
+        myFlowList->setItem(indexRow, 0, item);
         // Set route
         item = new FXTableItem(i->getAttribute(SUMO_ATTR_ROUTE).c_str());
-        myFlowList->setItem(indexRow, 2, item);
+        myFlowList->setItem(indexRow, 1, item);
         // set remove
         item = new FXTableItem("", GUIIconSubSys::getIcon(ICON_REMOVE));
         item->setJustify(FXTableItem::CENTER_X | FXTableItem::CENTER_Y);
         item->setEnabled(false);
-        myFlowList->setItem(indexRow, 3, item);
+        myFlowList->setItem(indexRow, 2, item);
         // Update index
         indexRow++;
     }
@@ -479,13 +480,17 @@ GNECalibratorDialog::updateVehicleTypeTable() {
     // iterate over vehicle types
     for (auto i : myVehicleTypesEdited) {
         // Set id
-        item = new FXTableItem(i->getID().c_str());
+        item = new FXTableItem(i->getAttribute(SUMO_ATTR_ID).c_str());
         myVehicleTypeList->setItem(indexRow, 0, item);
         // Set VClass
         item = new FXTableItem(i->getAttribute(SUMO_ATTR_VCLASS).c_str());
         myVehicleTypeList->setItem(indexRow, 1, item);
-        // set remove
-        item = new FXTableItem("", GUIIconSubSys::getIcon(ICON_REMOVE));
+        // set remove icon except for default vehicle type
+        if(indexRow != 0) {
+            item = new FXTableItem("", GUIIconSubSys::getIcon(ICON_REMOVE));
+        } else {
+            item = new FXTableItem("");
+        }
         item->setJustify(FXTableItem::CENTER_X | FXTableItem::CENTER_Y);
         item->setEnabled(false);
         myVehicleTypeList->setItem(indexRow, 2, item);
@@ -495,6 +500,7 @@ GNECalibratorDialog::updateVehicleTypeTable() {
     // enable or disable flow and label button
     updateFlowAndLabelButton();
 }
+
 
 void
 GNECalibratorDialog::updateFlowAndLabelButton() {
