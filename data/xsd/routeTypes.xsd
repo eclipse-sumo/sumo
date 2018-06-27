@@ -380,9 +380,11 @@
     </xsd:complexType>
 
     <xsd:complexType name="tripType">
-        <xsd:sequence>
-            <xsd:element name="stop" type="stopType" minOccurs="0" maxOccurs="unbounded"/>
-            <xsd:element name="param" type="paramType" minOccurs="0" maxOccurs="unbounded"/>
+        <xsd:sequence minOccurs="0" maxOccurs="unbounded">
+            <xsd:choice>
+                <xsd:element name="stop" type="stopType" minOccurs="0" maxOccurs="unbounded"/>
+                <xsd:element name="param" type="paramType" minOccurs="0" maxOccurs="unbounded"/>
+            </xsd:choice>
         </xsd:sequence>
         <xsd:attribute name="id" type="xsd:string" use="required"/>
         <xsd:attribute name="fromTaz" type="xsd:string"/>
@@ -401,6 +403,8 @@
         <xsd:attribute name="arrivalSpeed" type="arrivalSpeedType"/>
         <xsd:attribute name="departPosLat" type="departPosLatType"/>
         <xsd:attribute name="arrivalPosLat" type="arrivalPosLatType"/>
+        <xsd:attribute name="line" type="xsd:string"/>
+        <xsd:attribute name="personNumber" type="xsd:nonNegativeInteger"/>
     </xsd:complexType>
 
     <xsd:complexType name="routeType">
