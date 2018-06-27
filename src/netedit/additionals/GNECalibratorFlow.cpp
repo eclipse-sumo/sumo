@@ -53,18 +53,12 @@
 // ===========================================================================
 
 
-GNECalibratorFlow::GNECalibratorFlow(GNECalibratorDialog* calibratorDialog) :
-    GNEAdditional(calibratorDialog->getEditedCalibrator(), calibratorDialog->getEditedCalibrator()->getViewNet(), GLO_CALIBRATOR, SUMO_TAG_FLOW, false, false),
-    myVehicleType(calibratorDialog->getEditedCalibrator()->getViewNet()->getNet()->getAdditional(SUMO_TAG_VTYPE, "DEFAULT_VTYPE_ID")),
-    myRoute(nullptr) {
+GNECalibratorFlow::GNECalibratorFlow(GNECalibrator* calibratorParent) :
+    GNEAdditional(calibratorParent, calibratorParent->getViewNet(), GLO_CALIBRATOR, SUMO_TAG_FLOW, false, false),
+    myVehicleType(calibratorParent->getViewNet()->getNet()->getAdditional(SUMO_TAG_VTYPE, "DEFAULT_VTYPE_ID")),
+    myRoute(calibratorParent->getViewNet()->getNet()->getAdditionals(SUMO_TAG_ROUTE).front()) {
     // fill calibrator flows with default values
     setDefaultValues();
-    // set route with the first route founded in additional parent
-    for(auto i : myAdditionalParent->getAdditionalChilds()) {
-        if(!myRoute && (i->getTag() == SUMO_TAG_ROUTE)) {
-            myRoute = i;
-        }
-    }
 }
 
 

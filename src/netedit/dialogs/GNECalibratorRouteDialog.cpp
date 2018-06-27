@@ -53,13 +53,13 @@ FXIMPLEMENT(GNECalibratorRouteDialog, GNEAdditionalDialog, GNECalibratorRouteDia
 // ===========================================================================
 
 GNECalibratorRouteDialog::GNECalibratorRouteDialog(GNECalibratorRoute* editedCalibratorRoute, bool updatingElement) :
-    GNEAdditionalDialog(editedCalibratorRoute->getAdditionalParent(), 400, 120),
+    GNEAdditionalDialog(editedCalibratorRoute, 400, 120),
     myEditedCalibratorRoute(editedCalibratorRoute),
     myUpdatingElement(updatingElement),
     myCalibratorRouteValid(true) {
     // change default header
-    std::string typeOfOperation = myUpdatingElement ? "Edit " + toString(myEditedCalibratorRoute->getTag()) + " of " : "Create " + toString(myEditedCalibratorRoute->getTag()) + " for ";
-    changeAdditionalDialogHeader(typeOfOperation + toString(myEditedCalibratorRoute->getAdditionalParent()->getTag()) + " '" + myEditedCalibratorRoute->getAdditionalParent()->getID() + "'");
+    std::string typeOfOperation =  + " for ";
+    changeAdditionalDialogHeader(myUpdatingElement ? "Edit " + toString(myEditedCalibratorRoute->getTag()) + " of " : "Create " + toString(myEditedCalibratorRoute->getTag()));
 
     // Create auxiliar frames for data
     FXHorizontalFrame* columns = new FXHorizontalFrame(myContentFrame, GUIDesignUniformHorizontalFrame);

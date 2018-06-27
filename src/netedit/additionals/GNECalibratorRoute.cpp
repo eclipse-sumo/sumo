@@ -41,33 +41,25 @@
 #include <netedit/netelements/GNELane.h>
 #include <netedit/netelements/GNEJunction.h>
 #include <netedit/changes/GNEChange_Attribute.h>
-
-#include "GNECalibratorRoute.h"
-#include "GNECalibrator.h"
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 
+#include "GNECalibratorRoute.h"
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
-GNECalibratorRoute::GNECalibratorRoute(GNECalibratorDialog* calibratorDialog) :
-    GNEAdditional(calibratorDialog->getEditedCalibrator(), calibratorDialog->getEditedCalibrator()->getViewNet(), GLO_CALIBRATOR, SUMO_TAG_ROUTE, false, false),
-    myColor(parse<RGBColor>(getTagProperties(SUMO_TAG_ROUTE).getDefaultValue(SUMO_ATTR_COLOR))) {
-    // add the Edge in which Calibrator is placed as default Edge
-    if (GNEAttributeCarrier::getTagProperties(calibratorDialog->getEditedCalibrator()->getTag()).hasAttribute(SUMO_ATTR_EDGE)) {
-        myEdges.push_back(myViewNet->getNet()->retrieveEdge(calibratorDialog->getEditedCalibrator()->getAttribute(SUMO_ATTR_EDGE)));
-    } else {
-        GNELane* lane = myViewNet->getNet()->retrieveLane(calibratorDialog->getEditedCalibrator()->getAttribute(SUMO_ATTR_LANE));
-        myEdges.push_back(myViewNet->getNet()->retrieveEdge(lane->getParentEdge().getID()));
-    }
+GNECalibratorRoute::GNECalibratorRoute(GNEViewNet *viewNet) :
+    GNEAdditional(viewNet->getNet()->generateAdditionalID(SUMO_TAG_ROUTE), viewNet, GLO_CALIBRATOR, SUMO_TAG_ROUTE, false, false) {
+    // fill route type with default values
+    setDefaultValues();
 }
 
 
-GNECalibratorRoute::GNECalibratorRoute(GNECalibrator* calibratorParent, const std::string& routeID, const std::vector<GNEEdge*>& edges, const RGBColor& color) :
-    GNEAdditional(routeID, calibratorParent->getViewNet(), GLO_CALIBRATOR, SUMO_TAG_ROUTE, false, false),
+GNECalibratorRoute::GNECalibratorRoute(GNEViewNet *viewNet, const std::string& routeID, const std::vector<GNEEdge*>& edges, const RGBColor& color) :
+    GNEAdditional(routeID, viewNet, GLO_CALIBRATOR, SUMO_TAG_ROUTE, false, false),
     myEdges(edges),
     myColor(color) {
 }
@@ -108,7 +100,7 @@ GNECalibratorRoute::getPositionInView() const {
 
 std::string 
 GNECalibratorRoute::getParentName() const {
-    return myAdditionalParent->getID();
+    return myViewNet->getNet()->getMicrosimID();
 }
 
 

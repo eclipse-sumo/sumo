@@ -141,10 +141,8 @@ GNECalibratorFlowDialog::GNECalibratorFlowDialog(GNECalibratorFlow* editedCalibr
     myComboBoxVehicleType->setNumVisible((int)myEditedCalibratorFlow->getAdditionalParent()->getViewNet()->getNet()->getAdditionals(SUMO_TAG_VTYPE).size());
 
     // fill comboBox of Routes
-    for (auto i : myEditedCalibratorFlow->getAdditionalParent()->getAdditionalChilds()) {
-        if(i->getTag() == SUMO_TAG_ROUTE) {
-            myComboBoxRoute->appendItem(i->getID().c_str());
-        }
+    for (auto i : myEditedCalibratorFlow->getViewNet()->getNet()->getAdditionals(SUMO_TAG_ROUTE)) {
+        myComboBoxRoute->appendItem(i->getID().c_str());
     }
     myComboBoxRoute->setNumVisible((int)myComboBoxRoute->getNumItems());
 

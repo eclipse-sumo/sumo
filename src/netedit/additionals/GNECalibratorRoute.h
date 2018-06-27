@@ -33,9 +33,7 @@
 // class declaration
 // ===========================================================================
 
-class GNECalibrator;
 class GNEEdge;
-class GNECalibratorDialog;
 
 // ===========================================================================
 // class definitions
@@ -48,10 +46,10 @@ class GNECalibratorRoute : public GNEAdditional {
 
 public:
     /// @brief default constructor (used only in GNECalibratorDialog)
-    GNECalibratorRoute(GNECalibratorDialog* calibratorDialog);
+    GNECalibratorRoute(GNEViewNet *viewNet);
 
     /// @brief parameter constructor
-    GNECalibratorRoute(GNECalibrator* calibratorParent, const std::string& routeID, const std::vector<GNEEdge*>& edges, const RGBColor& color);
+    GNECalibratorRoute(GNEViewNet *viewNet, const std::string& routeID, const std::vector<GNEEdge*>& edges, const RGBColor& color);
 
     /// @brief destructor
     ~GNECalibratorRoute();

@@ -1887,6 +1887,12 @@ GNENet::saveAdditionalsConfirmed(const std::string& filename) {
             i.second->writeAdditional(device);
         }
     }
+    // now write all routes
+    for (auto i : myAttributeCarriers.additionals) {
+        if ((i.first.second == SUMO_TAG_ROUTE)) {
+            i.second->writeAdditional(device);
+        }
+    }
     // now write all route probes (see Ticket #4058)
     for (auto i : myAttributeCarriers.additionals) {
         if (i.first.second == SUMO_TAG_ROUTEPROBE) {
@@ -1914,7 +1920,7 @@ GNENet::saveAdditionalsConfirmed(const std::string& filename) {
     // finally write rest of additionals
     for (auto i : myAttributeCarriers.additionals) {
         const auto &tagValue = GNEAttributeCarrier::getTagProperties(i.first.second);
-        if(!tagValue.isStoppingPlace() && !tagValue.isDetector() && (i.first.second != SUMO_TAG_ROUTEPROBE) && (i.first.second != SUMO_TAG_VTYPE)) {
+        if(!tagValue.isStoppingPlace() && !tagValue.isDetector() && (i.first.second != SUMO_TAG_ROUTEPROBE) && (i.first.second != SUMO_TAG_VTYPE) && (i.first.second != SUMO_TAG_ROUTE)) {
             // only save additionals that doesn't have Additional parents, because they are automatically writed by writeAdditional(...) parent's function
             if (i.second->getAdditionalParent() == nullptr) {
                 i.second->writeAdditional(device);

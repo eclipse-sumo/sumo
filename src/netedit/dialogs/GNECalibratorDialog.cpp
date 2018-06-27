@@ -170,7 +170,7 @@ GNECalibratorDialog::onCmdReset(FXObject*, FXSelector, void*) {
 long
 GNECalibratorDialog::onCmdAddRoute(FXObject*, FXSelector, void*) {
     // create nes calibrator route and configure it with GNECalibratorRouteDialog
-    GNECalibratorRoute* calibratorRoute = new GNECalibratorRoute(this);
+    GNECalibratorRoute* calibratorRoute = new GNECalibratorRoute(myEditedCalibrator->getViewNet());
     if(GNECalibratorRouteDialog(calibratorRoute, false).openAsModalDialog() != 0) {
         myRoutesEdited.push_back(calibratorRoute);
     }
@@ -299,7 +299,7 @@ long
 GNECalibratorDialog::onCmdAddVehicleType(FXObject*, FXSelector, void*) {
     // create new calibrator flow and configure it with GNECalibratorVehicleTypeDialog
     GNECalibratorVehicleType *VType = new GNECalibratorVehicleType(myEditedCalibrator->getViewNet());
-    if(GNECalibratorVehicleTypeDialog(VType, myEditedCalibrator, false).openAsModalDialog() != 0) {
+    if(GNECalibratorVehicleTypeDialog(VType, false).openAsModalDialog() != 0) {
         myVehicleTypesEdited.push_back(VType);
     }
     // update vehicle types table
@@ -368,7 +368,7 @@ GNECalibratorDialog::onCmdClickedVehicleType(FXObject*, FXSelector, void*) {
             }
         } else if (myVehicleTypeList->getItem(i, 0)->hasFocus() || myVehicleTypeList->getItem(i, 1)->hasFocus()) {
             // modify vehicle type of calibratorVehicleTypes
-            GNECalibratorVehicleTypeDialog((GNECalibratorVehicleType*)myVehicleTypesEdited.at(i), myEditedCalibrator, true).openAsModalDialog();
+            GNECalibratorVehicleTypeDialog((GNECalibratorVehicleType*)myVehicleTypesEdited.at(i), true).openAsModalDialog();
             // update vehicle types table
             updateVehicleTypeTable();
             // update Flows routes also because VType ID could be changed

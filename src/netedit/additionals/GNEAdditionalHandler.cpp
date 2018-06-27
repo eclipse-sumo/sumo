@@ -1614,7 +1614,7 @@ bool
 GNEAdditionalHandler::buildCalibratorRoute(GNEViewNet* viewNet, bool allowUndoRedo, GNECalibrator* calibratorParent, const std::string& routeID, const std::vector<GNEEdge*>& edges, const RGBColor& color) {
     if (viewNet->getNet()->retrieveAdditional(routeID, false) == nullptr) {
         // create route and add it to calibrator parent
-        GNECalibratorRoute* route = new GNECalibratorRoute(calibratorParent, routeID, edges, color);
+        GNECalibratorRoute* route = new GNECalibratorRoute(viewNet, routeID, edges, color);
         if (allowUndoRedo) {
             viewNet->getUndoList()->p_begin("add " + toString(route->getTag()));
             viewNet->getUndoList()->add(new GNEChange_Additional(route, true), true);
@@ -1622,7 +1622,6 @@ GNEAdditionalHandler::buildCalibratorRoute(GNEViewNet* viewNet, bool allowUndoRe
             return true;
         } else {
             viewNet->getNet()->insertAdditional(route);
-            calibratorParent->addAdditionalChild(route);
             route->incRef("buildCalibratorRoute");
         }
         return true;

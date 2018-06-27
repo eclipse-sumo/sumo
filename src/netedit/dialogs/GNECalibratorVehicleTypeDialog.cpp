@@ -52,15 +52,14 @@ FXIMPLEMENT(GNECalibratorVehicleTypeDialog, GNEAdditionalDialog, GNECalibratorVe
 // member method definitions
 // ===========================================================================
 
-GNECalibratorVehicleTypeDialog::GNECalibratorVehicleTypeDialog(GNECalibratorVehicleType* editedCalibratorVehicleType, GNEAdditional* parent, bool updatingElement) :
-    GNEAdditionalDialog(parent, 500, 370),
+GNECalibratorVehicleTypeDialog::GNECalibratorVehicleTypeDialog(GNECalibratorVehicleType* editedCalibratorVehicleType, bool updatingElement) :
+    GNEAdditionalDialog(editedCalibratorVehicleType, 500, 370),
     myEditedCalibratorVehicleType(editedCalibratorVehicleType),
     myUpdatingElement(updatingElement),
     myCalibratorVehicleTypeValid(true),
     myInvalidAttr(SUMO_ATTR_NOTHING) {
     // change default header
-    std::string typeOfOperation = myUpdatingElement ? "Edit " + toString(myEditedCalibratorVehicleType->getTag()) + " of " : "Create " + toString(myEditedCalibratorVehicleType->getTag()) + " for ";
-    changeAdditionalDialogHeader(typeOfOperation + toString(parent->getTag()) + " '" + parent->getID() + "'");
+    changeAdditionalDialogHeader(updatingElement? "Edit " + toString(myEditedCalibratorVehicleType->getTag()) + " of " : "Create " + toString(myEditedCalibratorVehicleType->getTag()));
 
     // Create auxiliar frames for values
     FXHorizontalFrame* columns = new FXHorizontalFrame(myContentFrame, GUIDesignUniformHorizontalFrame);
@@ -203,7 +202,7 @@ GNECalibratorVehicleTypeDialog::GNECalibratorVehicleTypeDialog(GNECalibratorVehi
 
     // add element if we aren't updating an existent element
     if (myUpdatingElement == false) {
-        parent->getViewNet()->getUndoList()->add(new GNEChange_Additional(myEditedCalibratorVehicleType, true), true);
+        myEditedCalibratorVehicleType->getViewNet()->getUndoList()->add(new GNEChange_Additional(myEditedCalibratorVehicleType, true), true);
     }
 }
 
