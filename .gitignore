@@ -41,6 +41,7 @@
 /bin/testgeom*
 /bin/testmicrosim*
 /bin/testnetbuild*
+/bin/testlibsumo*
 /bin/*.dll
 /bin/*.so
 /bin/*.pyd
@@ -83,9 +84,15 @@
 /tools/game/racing/log
 /tools/game/racing/tripinfos.xml
 /tools/game/A10KW/*
+/tools/contributed/lisum/target
 /tools/contributed/traas/dist
 /tools/contributed/traas/javadoc
 /tools/contributed/traas/release
+/tools/libsumo/_libsumo.so
+/tools/libsumo/java/
+/tools/libsumo/libsumo.py
+/tools/libsumo/libsumoPYTHON_wrap.cxx
+/tools/libsumo/setup.py
 # extracted tests
 /tests/_*
 # global patterns
@@ -117,4 +124,4 @@ lib*.a
 *.lib
 *.res
 *.ipch
-/bin/libsumo.py
+
