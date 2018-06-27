@@ -517,20 +517,12 @@ NBNodeShapeComputer::joinSameDirectionEdges(std::map<NBEdge*, std::set<NBEdge*> 
             geomsCW[*i] = (*i)->getGeometry();
         }
         // extend the boundary by extroplating it by 100m
-        PositionVector g1 =
-            myNode.hasIncoming(*i)
-            ? (*i)->getCCWBoundaryLine(myNode)
-            : (*i)->getCWBoundaryLine(myNode);
         geomsCCW[*i].extrapolate2D(100, true);
         geomsCW[*i].extrapolate2D(100, true);
         //
         for (j = i + 1; j != myNode.myAllEdges.end(); j++) {
             geomsCCW[*j] = (*j)->getCCWBoundaryLine(myNode);
             geomsCW[*j] = (*j)->getCWBoundaryLine(myNode);
-            PositionVector g2 =
-                myNode.hasIncoming(*j)
-                ? (*j)->getCCWBoundaryLine(myNode)
-                : (*j)->getCWBoundaryLine(myNode);
             geomsCCW[*j].extrapolate2D(100, true);
             geomsCW[*j].extrapolate2D(100, true);
         }
