@@ -81,5 +81,4 @@ Warning: Deleting unreferenced access 'busStop_gneE4_0_0access0' in GNENet destr
 Warning: Deleting unreferenced access 'busStop_gneE4_0_0access1' in GNENet destructor
 Warning: Deleting unreferenced access 'busStop_gneE4_0_0access2' in GNENet destructor
 Warning: Deleting unreferenced access 'busStop_gneE4_0_0access3' in GNENet destructor
-Warning: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor

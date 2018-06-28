@@ -60,5 +60,4 @@ Warning: Deleting unreferenced e2Detector 'e2Detector_gneE2_2_2' in GNENet destr
 Warning: Deleting unreferenced e2Detector 'e2Detector_gneE2_3_3' in GNENet destructor
 Warning: Deleting unreferenced e2Detector 'e2Detector_gneE2_4_4' in GNENet destructor
 Warning: Deleting unreferenced e2Detector 'e2Detector_gneE4_0_5' in GNENet destructor
-Warning: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor

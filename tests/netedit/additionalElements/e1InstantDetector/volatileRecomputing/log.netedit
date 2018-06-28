@@ -60,5 +60,4 @@ Warning: Deleting unreferenced instantInductionLoop 'instantInductionLoop_5' in 
 Warning: Deleting unreferenced instantInductionLoop 'instantInductionLoop_6' in GNENet destructor
 Warning: Deleting unreferenced instantInductionLoop 'instantInductionLoop_7' in GNENet destructor
 Warning: Deleting unreferenced instantInductionLoop 'instantInductionLoop_8' in GNENet destructor
-Warning: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor

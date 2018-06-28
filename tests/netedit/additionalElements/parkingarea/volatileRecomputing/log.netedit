@@ -87,5 +87,4 @@ Warning: Deleting unreferenced space 'parkingArea_gneE2_4_1space0' in GNENet des
 Warning: Deleting unreferenced parkingArea 'parkingArea_gneE4_0_0' in GNENet destructor
 Warning: Deleting unreferenced space 'parkingArea_gneE4_0_0space0' in GNENet destructor
 Warning: Deleting unreferenced parkingArea 'parkingArea_gneE4_0_8' in GNENet destructor
-Warning: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor

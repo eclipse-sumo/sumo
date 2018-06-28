@@ -290,5 +290,4 @@ Warning: Deleting unreferenced busStop 'busStop_gneE7_0_6' in GNENet destructor
 Warning: Deleting unreferenced e3Detector 'e3Detector_0' in GNENet destructor
 Warning: Deleting unreferenced detEntry 'e3Detector_0detEntry0' in GNENet destructor
 Warning: Deleting unreferenced detExit 'e3Detector_0detExit0' in GNENet destructor
-Warning: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor

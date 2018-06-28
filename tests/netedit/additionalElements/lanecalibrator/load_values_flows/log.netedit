@@ -1,8 +1,8 @@
 Warning: Adding calibrator 'calibratorFlows' in GNEChange_Additional
 Warning: Additionals has to be saved
 Warning: Current saving Status: net saved, additionals unsaved, shapes saved
-Warning: Adding calibrator route into calibrator 'calibratorFlows'
-Warning: Adding calibrator vehicle type 'CalibratorFlowType'
+Warning: Adding route 'CalibratorFlowRoute' in GNEChange_Additional
+Warning: Adding vType 'CalibratorFlowType' in GNEChange_Additional
 Warning: Adding flow 'calibratorFlowsflow0' in GNEChange_Additional
 Warning: Adding flow 'calibratorFlowsflow1' in GNEChange_Additional
 Warning: Adding flow 'calibratorFlowsflow2' in GNEChange_Additional
@@ -201,17 +201,19 @@ Warning: Adding flow 'calibratorFlowsflow194' in GNEChange_Additional
 Warning: Adding flow 'calibratorFlowsflow195' in GNEChange_Additional
 Warning: Adding flow 'calibratorFlowsflow196' in GNEChange_Additional
 Warning: Adding flow 'calibratorFlowsflow197' in GNEChange_Additional
-Warning: A route must be declared within the definition of a calibrator.
-Warning: Adding calibrator vehicle type 'typeWithoutCalibrator'
+Warning: Adding route 'routeWithoutCalibrator' in GNEChange_Additional
+Warning: Adding vType 'typeWithoutCalibrator' in GNEChange_Additional
 Warning: A flow must be declared within the definition of a calibrator.
 Warning: net has to be saved
 Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-Warning: Deleting unreferenced flow 'calibratorFlowsflow197'
+Warning: Deleting unreferenced vType 'typeWithoutCalibrator'
 Warning: Additionals has to be saved
 Warning: Current saving Status: net saved, additionals unsaved, shapes saved
+Warning: Deleting unreferenced route 'routeWithoutCalibrator'
+Warning: Deleting unreferenced flow 'calibratorFlowsflow197'
 Warning: Deleting unreferenced flow 'calibratorFlowsflow196'
 Warning: Deleting unreferenced flow 'calibratorFlowsflow195'
 Warning: Deleting unreferenced flow 'calibratorFlowsflow194'
@@ -409,7 +411,8 @@ Warning: Deleting unreferenced flow 'calibratorFlowsflow3'
 Warning: Deleting unreferenced flow 'calibratorFlowsflow2'
 Warning: Deleting unreferenced flow 'calibratorFlowsflow1'
 Warning: Deleting unreferenced flow 'calibratorFlowsflow0'
-Warning: Deleting calibrator route
+Warning: Deleting unreferenced vType 'CalibratorFlowType'
+Warning: Deleting unreferenced route 'CalibratorFlowRoute'
 Warning: Deleting unreferenced calibrator 'calibratorFlows'
 Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
@@ -419,7 +422,5 @@ Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
 Warning: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
-Warning: Deleting unreferenced vType 'CalibratorFlowType' in GNENet destructor
 Warning: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
-Warning: Deleting unreferenced vType 'typeWithoutCalibrator' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor

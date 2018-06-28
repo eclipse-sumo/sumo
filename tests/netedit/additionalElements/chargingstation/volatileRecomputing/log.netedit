@@ -60,5 +60,4 @@ Warning: Deleting unreferenced chargingStation 'chargingStation_gneE2_2_5' in GN
 Warning: Deleting unreferenced chargingStation 'chargingStation_gneE2_3_4' in GNENet destructor
 Warning: Deleting unreferenced chargingStation 'chargingStation_gneE2_4_3' in GNENet destructor
 Warning: Deleting unreferenced chargingStation 'chargingStation_gneE4_0_2' in GNENet destructor
-Warning: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor

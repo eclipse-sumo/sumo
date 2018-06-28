@@ -138,5 +138,4 @@ Warning: Deleting unreferenced detExit 'e3Detector_1detExit4' in GNENet destruct
 Warning: Deleting unreferenced detExit 'e3Detector_1detExit5' in GNENet destructor
 Warning: Deleting unreferenced detExit 'e3Detector_1detExit6' in GNENet destructor
 Warning: Deleting unreferenced detExit 'e3Detector_1detExit7' in GNENet destructor
-Warning: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor
