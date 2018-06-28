@@ -23,6 +23,9 @@ changeWidth_merge2
 # split 1 lane into 2 lanes while keeping total width
 changeWidth_split2
 
+# split 1 wide lane into a car lane and a bicycle lane at an intersection
+changeWidth_split_bikelane
+
 # Tests if links on internal junctions for indirect left turning bicycles are assigned to the correct traffic light indices
 indirect_left_turns_tl_control
 

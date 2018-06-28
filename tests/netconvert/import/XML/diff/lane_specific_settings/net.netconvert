@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jun 28 16:44:54 2018 by Eclipse SUMO netconvert Version e5dd1a0
+<!-- generated on Thu Jun 28 21:53:01 2018 by Eclipse SUMO netconvert Version b23a606
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -35,7 +35,7 @@ SPDX-License-Identifier: EPL-2.0
     <location netOffset="0.00,0.00" convBoundary="0.00,100.00,200.00,200.00" origBoundary="0.00,0.00,200.00,200.00" projParameter="!"/>
 
     <edge id=":C_0" function="internal">
-        <lane id=":C_0_0" index="0" speed="16.95" length="11.36" shape="87.50,117.90 87.50,113.90 87.25,111.67 86.50,110.08 85.25,109.12 83.50,108.80"/>
+        <lane id=":C_0_0" index="0" speed="16.95" length="12.13" shape="87.50,117.90 87.50,113.90 87.25,111.28 86.50,109.40 85.25,108.27 83.50,107.90"/>
     </edge>
     <edge id=":C_1" function="internal">
         <lane id=":C_1_0" index="0" allow="bicycle" speed="16.95" length="39.05" shape="87.50,117.90 87.50,113.90 89.91,106.26 95.95,99.20 103.87,94.02 111.90,92.00"/>
@@ -53,16 +53,16 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":C_5_0" index="0" speed="16.95" length="28.12" shape="97.50,117.90 97.50,113.90 98.40,107.12 101.10,102.28 105.60,99.37 111.90,98.40"/>
     </edge>
     <edge id=":C_6" function="internal">
-        <lane id=":C_6_0" index="0" allow="bicycle" speed="16.95" length="6.23" shape="97.50,117.90 97.50,113.90 98.52,112.36 98.87,112.19"/>
+        <lane id=":C_6_0" index="0" allow="bicycle" speed="16.95" length="6.66" shape="97.50,117.90 97.50,113.90 99.20,112.70 99.71,112.44"/>
     </edge>
     <edge id=":C_14" function="internal">
-        <lane id=":C_14_0" index="0" speed="16.95" length="3.75" shape="98.87,112.19 99.55,111.85 100.57,112.36 101.60,113.90"/>
+        <lane id=":C_14_0" index="0" speed="16.95" length="2.66" shape="99.71,112.44 100.00,112.30 100.80,112.70 101.60,113.90"/>
     </edge>
     <edge id=":C_7" function="internal">
         <lane id=":C_7_0" index="0" allow="bicycle" speed="13.89" length="5.00" shape="111.90,110.80 110.54,110.99 109.58,111.57 108.99,112.54 108.80,113.90"/>
     </edge>
     <edge id=":C_8" function="internal">
-        <lane id=":C_8_0" index="0" allow="bicycle" speed="13.89" length="8.12" width="4.00" shape="111.90,110.80 108.97,110.99 106.88,111.57 105.62,112.54 105.20,113.90"/>
+        <lane id=":C_8_0" index="0" allow="bicycle" speed="13.89" length="8.39" width="4.00" shape="111.90,110.40 108.97,110.62 106.88,111.28 105.62,112.37 105.20,113.90"/>
     </edge>
     <edge id=":C_9" function="internal">
         <lane id=":C_9_0" index="0" allow="bicycle" speed="13.89" length="11.44" shape="111.90,110.80 107.39,110.99 104.17,111.57 102.24,112.54 101.60,113.90"/>
@@ -79,7 +79,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":E_0_0" index="0" speed="26.95" length="6.72" width="6.00" shape="200.00,98.40 201.72,99.55 202.30,100.70 201.72,101.85 200.00,103.00"/>
     </edge>
     <edge id=":N_0" function="internal">
-        <lane id=":N_0_0" index="0" speed="16.95" length="5.99" width="5.00" shape="101.60,200.00 100.57,201.54 99.55,202.05 98.53,201.54 97.50,200.00"/>
+        <lane id=":N_0_0" index="0" speed="16.95" length="7.30" width="5.00" shape="101.60,200.00 100.35,201.88 99.10,202.50 97.85,201.88 96.60,200.00"/>
     </edge>
 
     <edge id="CE" from="C" to="E" priority="2">
@@ -144,7 +144,7 @@ SPDX-License-Identifier: EPL-2.0
     </junction>
     <junction id="W" type="dead_end" x="0.00" y="100.00" incLanes="CW_0 CW_1 CW_2" intLanes="" shape="0.00,100.00 0.00,110.40 0.00,100.00"/>
 
-    <junction id=":C_14_0" type="internal" x="98.87" y="112.19" incLanes=":C_6_0 EC_0" intLanes=":C_7_0 :C_8_0 :C_9_0"/>
+    <junction id=":C_14_0" type="internal" x="99.71" y="112.44" incLanes=":C_6_0 EC_0" intLanes=":C_7_0 :C_8_0 :C_9_0"/>
 
     <connection from="CE" to="EC" fromLane="2" toLane="2" via=":E_0_0" dir="t" state="M"/>
     <connection from="CN" to="NC" fromLane="2" toLane="2" via=":N_0_0" dir="t" state="M"/>

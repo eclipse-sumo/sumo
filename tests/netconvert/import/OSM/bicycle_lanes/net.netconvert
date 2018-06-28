@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jun 28 16:44:59 2018 by Eclipse SUMO netconvert Version e5dd1a0
+<!-- generated on Thu Jun 28 21:53:11 2018 by Eclipse SUMO netconvert Version b23a606
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -74,10 +74,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":1560223378_0_0" index="0" disallow="tram rail_urban rail rail_electric bicycle ship" speed="13.89" length="4.67" shape="2940.26,187.84 2938.99,187.16 2938.51,186.40 2938.83,185.57 2939.95,184.65"/>
     </edge>
     <edge id=":1665723004_0" function="internal">
-        <lane id=":1665723004_0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="11.11" length="10.44" shape="571.75,675.83 570.57,679.11 570.07,681.87 570.25,684.10 571.10,685.81"/>
+        <lane id=":1665723004_0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="11.11" length="9.76" shape="571.75,675.83 570.81,678.64 570.52,681.13 570.91,683.28 571.95,685.11"/>
     </edge>
     <edge id=":1665723004_1" function="internal">
-        <lane id=":1665723004_1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="8.33" length="3.07" shape="571.75,675.83 570.96,676.35 570.37,676.38 569.99,675.93 569.82,675.00"/>
+        <lane id=":1665723004_1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="8.33" length="4.67" shape="571.75,675.83 570.54,676.62 569.65,676.67 569.07,675.99 568.81,674.57"/>
     </edge>
     <edge id=":1665723004_2" function="internal">
         <lane id=":1665723004_2_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="11.11" length="9.19" shape="563.01,675.98 565.01,677.84 566.81,678.30 568.41,677.35 569.82,675.00"/>
@@ -129,7 +129,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":2627346845_15_0" index="0" speed="13.89" length="2.34" shape="3157.59,154.90 3157.28,155.74 3156.17,156.67"/>
     </edge>
     <edge id=":35215949_0" function="internal">
-        <lane id=":35215949_0_0" index="0" allow="bicycle" speed="8.33" length="3.07" width="1.00" shape="614.76,552.01 615.18,551.16 615.67,550.84 616.23,551.04 616.84,551.76"/>
+        <lane id=":35215949_0_0" index="0" allow="bicycle" speed="8.33" length="1.46" width="1.00" shape="615.85,551.88 616.05,551.47 616.28,551.32 616.55,551.41 616.84,551.76"/>
     </edge>
     <edge id=":937153130_0" function="internal">
         <lane id=":937153130_0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="0.25" shape="673.08,805.84 673.29,806.09"/>

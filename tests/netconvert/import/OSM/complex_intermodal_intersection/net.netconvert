@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jun 28 09:17:13 2018 by Eclipse SUMO netconvert Version 3ef3414
+<!-- generated on Thu Jun 28 21:53:11 2018 by Eclipse SUMO netconvert Version b23a606
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -147,7 +147,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":3815833413_0_0" index="0" allow="bicycle pedestrian" speed="2.78" length="2.92" width="2.00" shape="391.14,229.41 391.94,229.00 392.50,229.04 392.81,229.50 392.88,230.40"/>
     </edge>
     <edge id=":3815833414_0" function="internal">
-        <lane id=":3815833414_0_0" index="0" allow="bicycle pedestrian" speed="5.55" length="6.64" width="2.00" shape="361.68,232.37 363.37,232.21 364.86,231.65 366.14,230.67 367.22,229.30"/>
+        <lane id=":3815833414_0_0" index="0" allow="bicycle pedestrian" speed="5.55" length="6.39" width="2.00" shape="361.68,232.37 363.13,232.19 364.46,231.57 365.68,230.52 366.79,229.03"/>
     </edge>
     <edge id=":3815833414_1" function="internal">
         <lane id=":3815833414_1_0" index="0" allow="bicycle" speed="8.33" length="1.46" width="1.00" shape="361.68,232.37 362.05,232.63 362.17,232.89 362.04,233.13 361.66,233.37"/>
