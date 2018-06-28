@@ -1,11 +1,11 @@
-Written configuration to '/scr2/texttest_tmp/tools.28Jun093229.12766/tools/import/OSM/webWizard/2018-06-28-09-32-30/osm.netccfg'
+Written configuration to '/scr2/texttest_tmp/tools.28Jun165354.24558/tools/import/OSM/webWizard/2018-06-28-16-53-56/osm.netccfg'
 Loading configuration... done.
 Parsing types from '/scr1/sumo/data/typemap/osmNetconvert.typ.xml'... done.
 Parsing types from '/scr1/sumo/data/typemap/osmNetconvertUrbanDe.typ.xml'... done.
 Parsing types from '/scr1/sumo/data/typemap/osmNetconvertPedestrians.typ.xml'... done.
 Parsing types from '/scr1/sumo/data/typemap/osmNetconvertShips.typ.xml'... done.
 Parsing types from '/scr1/sumo/data/typemap/osmNetconvertBicycle.typ.xml'... done.
-Parsing nodes from osm-file '/scr2/texttest_tmp/tools.28Jun093229.12766/tools/import/OSM/webWizard/2018-06-28-09-32-30/osm_bbox.osm.xml'... 
+Parsing nodes from osm-file '/scr2/texttest_tmp/tools.28Jun165354.24558/tools/import/OSM/webWizard/2018-06-28-16-53-56/osm_bbox.osm.xml'... 
 Found duplicate nodes. Substituting 1241955149 with 1026369077
 Found duplicate nodes. Substituting 1241955153 with 1241955144
 Found duplicate nodes. Substituting 2094266861 with 27410745
@@ -90,7 +90,7 @@ Found duplicate nodes. Substituting 3334358080 with 2166130502
 Found duplicate nodes. Substituting 3334358081 with 2166130495
 Found duplicate nodes. Substituting 3334358082 with 2166130499
 done.
-Parsing edges from osm-file '/scr2/texttest_tmp/tools.28Jun093229.12766/tools/import/OSM/webWizard/2018-06-28-09-32-30/osm_bbox.osm.xml'... 
+Parsing edges from osm-file '/scr2/texttest_tmp/tools.28Jun165354.24558/tools/import/OSM/webWizard/2018-06-28-16-53-56/osm_bbox.osm.xml'... 
 done.
 Removing duplicate edges... done.
 Adding new type 'cycleway.track|highway.primary' (first occurence for edge '4067932').
@@ -101,7 +101,7 @@ Adding new type 'cycleway.track|highway.tertiary' (first occurence for edge '477
 Adding new type 'cycleway.track|highway.secondary' (first occurence for edge '23812656#0').
 Adding new type 'cycleway.lane|highway.pedestrian' (first occurence for edge '24540240#0').
 Adding new type 'cycleway.lane|highway.residential' (first occurence for edge '38208961').
-Parsing relations from osm-file '/scr2/texttest_tmp/tools.28Jun093229.12766/tools/import/OSM/webWizard/2018-06-28-09-32-30/osm_bbox.osm.xml'... 
+Parsing relations from osm-file '/scr2/texttest_tmp/tools.28Jun165354.24558/tools/import/OSM/webWizard/2018-06-28-16-53-56/osm_bbox.osm.xml'... 
 done.
  Removed 47 traffic lights before loading plain-XML
  Import done:
@@ -112,22 +112,22 @@ Proj projection parameters used: '+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +
 Removing self-loops... done (0ms).
 Processing public transport stops... done (0ms).
 Revising public transport stops based on pt lines... 
-done (3ms).
+done (2ms).
 Align pt stop id signs with corresponding edge id signs... done (0ms).
 Joining junction clusters... 
 done (6ms).
  Joined 77 junction cluster(s).
-Removing empty nodes and geometry nodes... done (6ms).
+Removing empty nodes and geometry nodes... done (7ms).
    509 nodes removed.
 Moving network to origin... done (9ms).
 Computing turning directions... 
-done (2ms).
-Assigning nodes to traffic lights... done (0ms).
-Guessing and setting on-/off-ramps... done (3ms).
+done (1ms).
+Assigning nodes to traffic lights... done (1ms).
+Guessing and setting on-/off-ramps... done (2ms).
 Sorting nodes' edges... done (3ms).
-Computing node shapes... done (47ms).
+Computing node shapes... done (48ms).
 Computing edge shapes... done (28ms).
-Computing node types... done (1ms).
+Computing node types... done (0ms).
 Guessed 935 pedestrian crossings.
 Computing priorities... done (1ms).
 Computing approached edges... done (2ms).
@@ -136,7 +136,7 @@ Guessing and setting roundabouts...
 done (1ms).
 Computing approaching lanes... done (9ms).
 Dividing of lanes on approached lanes... done (4ms).
-Processing turnarounds... done (1ms).
+Processing turnarounds... done (0ms).
 Rechecking of lane endings... 
 done (0ms).
 Joining traffic light nodes... done (1ms).
@@ -161,14 +161,14 @@ Summary:
   Applied offset     : -388415.86,-5817979.56
   Converted boundary : 0.00,0.00,6080.75,5405.51
 -----------------------------------------------------
-Writing network... done (551ms).
+Writing network... done (534ms).
 Success.
-Written configuration to '/scr2/texttest_tmp/tools.28Jun093229.12766/tools/import/OSM/webWizard/2018-06-28-09-32-30/osm.polycfg'
+Written configuration to '/scr2/texttest_tmp/tools.28Jun165354.24558/tools/import/OSM/webWizard/2018-06-28-16-53-56/osm.polycfg'
 Loading configuration... done.
-Parsing network projection from '/scr2/texttest_tmp/tools.28Jun093229.12766/tools/import/OSM/webWizard/2018-06-28-09-32-30/osm.net.xml'... done.
-Parsing nodes from osm-file '/scr2/texttest_tmp/tools.28Jun093229.12766/tools/import/OSM/webWizard/2018-06-28-09-32-30/osm_bbox.osm.xml'... done.
-Parsing relations from osm-file '/scr2/texttest_tmp/tools.28Jun093229.12766/tools/import/OSM/webWizard/2018-06-28-09-32-30/osm_bbox.osm.xml'... done.
-Parsing edges from osm-file '/scr2/texttest_tmp/tools.28Jun093229.12766/tools/import/OSM/webWizard/2018-06-28-09-32-30/osm_bbox.osm.xml'... done.
+Parsing network projection from '/scr2/texttest_tmp/tools.28Jun165354.24558/tools/import/OSM/webWizard/2018-06-28-16-53-56/osm.net.xml'... done (3ms).
+Parsing nodes from osm-file '/scr2/texttest_tmp/tools.28Jun165354.24558/tools/import/OSM/webWizard/2018-06-28-16-53-56/osm_bbox.osm.xml'... done (267ms).
+Parsing relations from osm-file '/scr2/texttest_tmp/tools.28Jun165354.24558/tools/import/OSM/webWizard/2018-06-28-16-53-56/osm_bbox.osm.xml'... done (200ms).
+Parsing edges from osm-file '/scr2/texttest_tmp/tools.28Jun165354.24558/tools/import/OSM/webWizard/2018-06-28-16-53-56/osm_bbox.osm.xml'... done (219ms).
 Success.
 Success.
 Success.
@@ -178,17 +178,17 @@ Success.
 Success.
 Written configuration to 'osm.sumocfg'
 Loading configuration... done.
-Loading net-file from 'osm.net.xml'... done (573ms).
-Loading additional-files from 'osm.poly.xml'... done (203ms).
+Loading net-file from 'osm.net.xml'... done (533ms).
+Loading additional-files from 'osm.poly.xml'... done (153ms).
 Loading additional-files from 'osm_stops.add.xml'... done (6ms).
 Loading done.
 Simulation started with time: 0.00
-Simulation ended at time: 3546.00
+Simulation ended at time: 3579.00
 Reason: All vehicles have left the simulation.
 Performance: 
- Duration: 6414ms
- Real time factor: 552.853
- UPS: 20709.541628
+ Duration: 5435ms
+ Real time factor: 658.51
+ UPS: 24458.509660
 Vehicles: 
  Inserted: 443
  Running: 0
@@ -198,29 +198,29 @@ Persons:
  Inserted: 208
  Running: 0
 Statistics (avg):
- RouteLength: 1934.39
- Duration: 299.84
- WaitingTime: 39.43
- TimeLoss: 88.31
- DepartDelay: -0.15
+ RouteLength: 1935.84
+ Duration: 300.07
+ WaitingTime: 39.62
+ TimeLoss: 88.59
+ DepartDelay: -0.12
 Pedestrian Statistics (avg of 333 walks):
- RouteLength: 624.00
- Duration: 524.30
- TimeLoss: 71.62
+ RouteLength: 623.96
+ Duration: 523.93
+ TimeLoss: 71.28
 Ride Statistics (avg of 100 rides):
- WaitingTime: 123.18
- RouteLength: 802.08
- Duration: 73.57
+ WaitingTime: 123.53
+ RouteLength: 801.94
+ Duration: 73.43
  Bus: 41
  Train: 52
  Bike: 0
  Aborted: 7
 
-DijkstraRouter answered 11160 queries and explored 11.57 edges on average.
-DijkstraRouter spent 36ms answering queries (0.00ms on average).
-DijkstraRouter answered 373 queries and explored 631.19 edges on average.
-DijkstraRouter spent 114ms answering queries (0.31ms on average).
-Building scenario in '/scr2/texttest_tmp/tools.28Jun093229.12766/tools/import/OSM/webWizard/2018-06-28-09-32-30'
+DijkstraRouter answered 11085 queries and explored 11.60 edges on average.
+DijkstraRouter spent 30ms answering queries (0.00ms on average).
+DijkstraRouter answered 373 queries and explored 630.66 edges on average.
+DijkstraRouter spent 104ms answering queries (0.28ms on average).
+Building scenario in '/scr2/texttest_tmp/tools.28Jun165354.24558/tools/import/OSM/webWizard/2018-06-28-16-53-56'
 generating trips...
 Imported 36 lines with 115 stops and skipped 23 lines
    bus: 17
