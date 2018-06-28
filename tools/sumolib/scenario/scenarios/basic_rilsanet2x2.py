@@ -16,11 +16,12 @@ from __future__ import absolute_import
 from __future__ import print_function
 
 
-from . import *
+from . import fileNeedsRebuild, Scenario
 import os
+import shutil
 import sumolib.net.generator.grid as netGenerator
 import sumolib.net.generator.demand as demandGenerator
-from sumolib.net.generator.network import *
+from sumolib.net.generator.network import Edge, Lane
 
 
 flowsRiLSA1 = [

@@ -18,7 +18,7 @@ import os
 import subprocess
 import sys
 try:
-    import texttestlib
+    import texttestlib  # noqa
     haveTextTestLib = True
 except ImportError:
     haveTextTestLib = False

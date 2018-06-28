@@ -12,7 +12,7 @@ b = "input_routes.rou.xml"
 
 dl = os.listdir()
 for n in dl:
-    print (n)
+    print(n)
     if(os.path.isdir(n)):
         d = os.path.join(os.path.realpath(n), b)
         shutil.copy(orig_fn, d)

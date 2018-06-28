@@ -124,9 +124,9 @@ def compound_object(element_name, attrnames, warn=False):
 
         def toXML(self, initialIndent="", indent="    "):
             fields = ['%s="%s"' % (self._original_fields[i], str(getattr(self, k)))
-                      for i, k in enumerate(self._fields) if getattr(self, k) is not None
+                      for i, k in enumerate(self._fields) if getattr(self, k) is not None and
                       # see #3454
-                      and '{' not in self._original_fields[i]]
+                      '{' not in self._original_fields[i]]
             if not self._child_dict:
                 return "%s<%s %s/>\n" % (initialIndent, element_name, " ".join(fields))
             else:
@@ -182,7 +182,8 @@ def parse(xmlfile, element_names, element_attrs={}, attr_conversions={},
 _NO_CHILDREN = {}
 
 
-def _IDENTITY(x): return x
+def _IDENTITY(x):
+    return x
 
 
 def _get_compound_object(node, elementTypes, element_name, element_attrs, attr_conversions, heterogeneous, warn):

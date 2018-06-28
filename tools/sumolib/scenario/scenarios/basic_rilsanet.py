@@ -15,11 +15,12 @@ from __future__ import absolute_import
 from __future__ import print_function
 
 
-from . import *
+from . import fileNeedsRebuild, Scenario
 import os
+import shutil
 import sumolib.net.generator.grid as netGenerator
 import sumolib.net.generator.demand as demandGenerator
-from sumolib.net.generator.network import *
+from sumolib.net.generator.network import Edge, Lane
 
 
 flowsRiLSA1 = [
@@ -179,5 +180,5 @@ class Scenario_BasicRiLSANet(Scenario):
             if fileNeedsRebuild(self.demandName, "duarouter"):
                 self.demand.build(0, 86400, self.netName, self.demandName)
 
-        shutils.copy(self.NET_FILE, self.sandboxPath(self.NET_FILE))
-        shutils.copy(self.TLS_FILE, self.sandboxPath(self.TLS_FILE))
+        shutil.copy(self.NET_FILE, self.sandboxPath(self.NET_FILE))
+        shutil.copy(self.TLS_FILE, self.sandboxPath(self.TLS_FILE))

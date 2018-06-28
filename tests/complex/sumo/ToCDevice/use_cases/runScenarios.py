@@ -178,7 +178,7 @@ if __name__ == "__main__":
 
     options.codes = options.codes.split()
     if options.verbose:
-        print ("output frequency: %s" % (options.frequency))
+        print("output frequency: %s" % (options.frequency))
     # two use cases
     for code in options.codes:
         DATA_DIR = os.path.join(ROOT_DIR, code)

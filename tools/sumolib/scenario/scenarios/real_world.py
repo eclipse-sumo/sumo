@@ -15,11 +15,10 @@
 from __future__ import absolute_import
 from __future__ import print_function
 
-from . import *
+from . import fileNeedsRebuild, Scenario
 import os
 import sumolib.net.generator.cross as netGenerator  # noqa
 import sumolib.net.generator.demand as demandGenerator  # noqa
-from sumolib.net.generator.network import *
 
 
 class Scenario_RealWorld(Scenario):

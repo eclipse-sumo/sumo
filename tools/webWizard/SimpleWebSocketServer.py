@@ -20,11 +20,11 @@ import sys
 
 VER = sys.version_info[0]
 if VER >= 3:
-    import socketserver
+    import socketserver  # noqa
     from http.server import BaseHTTPRequestHandler
     from io import StringIO, BytesIO
 else:
-    import SocketServer
+    import SocketServer  # noqa
     from BaseHTTPServer import BaseHTTPRequestHandler
     from StringIO import StringIO
 
@@ -183,7 +183,7 @@ class WebSocket(object):
                 if len(reason) > 0:
                     try:
                         reason = reason.decode('utf8', errors='strict')
-                    except:
+                    except Exception:
                         status = 1002
             else:
                 status = 1002
@@ -253,7 +253,7 @@ class WebSocket(object):
                 if self.opcode == TEXT:
                     try:
                         self.data = self.data.decode('utf8', errors='strict')
-                    except Exception as exp:
+                    except Exception:
                         raise Exception('invalid utf-8 payload')
 
                 self.handleMessage()
@@ -646,7 +646,7 @@ class SimpleWebSocketServer(object):
                             if opcode == CLOSE:
                                 raise Exception('received client close')
 
-                except Exception as n:
+                except Exception:
                     client.client.close()
                     client.handleClose()
                     del self.connections[ready]
@@ -662,7 +662,7 @@ class SimpleWebSocketServer(object):
                         self.connections[fileno] = self._constructWebSocket(
                             newsock, address)
                         self.listeners.append(fileno)
-                    except Exception as n:
+                    except Exception:
                         if sock is not None:
                             sock.close()
                 else:
@@ -671,7 +671,7 @@ class SimpleWebSocketServer(object):
                     client = self.connections[ready]
                     try:
                         client._handleData()
-                    except Exception as n:
+                    except Exception:
                         client.client.close()
                         client.handleClose()
                         del self.connections[ready]

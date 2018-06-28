@@ -121,7 +121,7 @@ def simulationStep(step=0):
     responses = _connections[""].simulationStep(step)
     
     # manage stepListeners
-    listenersToRemove=[]
+    listenersToRemove = []
     for (listenerID, listener) in _stepListeners.items():
         keep = listener.step(step)
         if not keep:
@@ -159,7 +159,6 @@ class StepListener(object):
         return self._ID
     
     
-
 def addStepListener(listener):
     """addStepListener(traci.StepListener) -> int
 

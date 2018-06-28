@@ -59,10 +59,7 @@ class Test_Shapes(unittest.TestCase):
                        "--junctions.corner-detail", "0",
                        "--offset.disable-normalization"]
 
-            netconvertProcess = subprocess.call(
-                command,
-                stdout=sys.stdout,
-                stderr=sys.stderr)
+            subprocess.call(command, stdout=sys.stdout, stderr=sys.stderr)
 
 #        cls.sumo_net_2d = sumolib.net.readNet(
 #            NETFILE_2D,
@@ -184,7 +181,7 @@ class Test_Shapes(unittest.TestCase):
 
         edge_id = 'center_we'
         the_edge = self.sumo_net.getEdge(edge_id)
-        the_lane = the_edge.getLane(0)  # 'center_we_0'
+        # the_lane = the_edge.getLane(0)  # 'center_we_0'
 
         # check edge shape
         expected_result_raw_edge_shape_2D = \
@@ -203,7 +200,7 @@ class Test_Shapes(unittest.TestCase):
                          expected_result_raw_edge_shape_3D)
 
     @unittest.skipIf(False, '')
-    def test_h001_edge_shape_not_stored(self):
+    def test_h001_edge_shape_stored(self):
         """
 
         The edge is the center line of an H (both directions,
@@ -218,7 +215,7 @@ class Test_Shapes(unittest.TestCase):
 
         edge_id = 'center_ew'
         the_edge = self.sumo_net.getEdge(edge_id)
-        the_lane = the_edge.getLane(0)  # 'center_we_0'
+        # the_lane = the_edge.getLane(0)  # 'center_we_0'
 
         # check edge shape
         expected_result_raw_edge_shape_2D = \
@@ -706,7 +703,7 @@ class Test_Shapes(unittest.TestCase):
 
         # check fromNode coords
         self.assertEqual(result_from_point_wi,
-                         (100, 0,  0))
+                         (100, 0, 0))
 
         # check first shape point coords
         self.assertTrue(100 <= result_start_point_wi[0] <= 200)   # x
@@ -934,7 +931,7 @@ class Test_Shapes(unittest.TestCase):
         the_lane = the_edge.getLane(0)  # straight_no_counter_0
 
         expected_result = \
-            [(100.0, 100.0, 10.0),  (200.0, 100.0, 10.0)]
+            [(100.0, 100.0, 10.0), (200.0, 100.0, 10.0)]
 
         # check lane shape
 

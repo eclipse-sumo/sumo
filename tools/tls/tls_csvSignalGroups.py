@@ -468,7 +468,7 @@ if __name__ == "__main__":
                                     sg.addFreeTime(int(line[colIndices["on2"]]), int(line[colIndices["off2"]]))
                             signalGroups[sg._id] = sg
                             signalGroupOrder.append(sg._id)
-                except:
+                except Exception:
                     print("In file %s, line %s" % (inputFileName, i+1), file=sys.stderr)
                     raise
 

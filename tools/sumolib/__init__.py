@@ -164,7 +164,7 @@ class _Running:
                 if self.warn:
                     try:
                         int(id)
-                    except:
+                    except ValueError:
                         sys.stderr.write(
                             'Warning: ID "%s" is not an integer.\n' % id)
                         self.warn = False

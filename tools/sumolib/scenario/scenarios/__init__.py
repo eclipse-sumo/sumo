@@ -16,7 +16,6 @@ from __future__ import absolute_import
 from __future__ import print_function
 import sumolib.net.generator.cross as netGenerator  # noqa
 import sumolib.net.generator.demand as demandGenerator
-from sumolib.net.generator.network import *
 import sumolib
 import os
 
@@ -141,7 +140,7 @@ class Scenario:
         self.addAdditionalFile("vtypes")
         try:
             os.makedirs(os.path.join(SANDBOX_PATH, self.name))
-        except:
+        except OSError:
             pass
 
     def addAdditionalFile(self, name):

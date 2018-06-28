@@ -18,7 +18,7 @@ import struct
 from . import constants as tc
 from .domain import Domain
 from .storage import Storage
-from .exceptions import *
+from .exceptions import TraCIException
 
 
 def _TIME2STEPS(time):

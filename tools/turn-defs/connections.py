@@ -19,6 +19,8 @@ import logging
 import unittest
 import os
 import sys
+import collectinghandler
+import xml
 
 if 'SUMO_HOME' in os.environ:
     tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
@@ -27,7 +29,7 @@ else:
     sys.exit("please declare environment variable 'SUMO_HOME'")
 
 import sumolib  # noqa
-import collectinghandler # noqa
+
 
 LOGGER = logging.getLogger(__name__)
 

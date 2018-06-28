@@ -16,8 +16,8 @@
 from __future__ import absolute_import
 from __future__ import print_function
 import sumolib.net.generator.demand as demandGenerator
-from sumolib.net.generator.network import *
-from .scenarios import *
+import sumolib
+from .scenarios import extrapolateDemand, getScenario, split_by_proportions, fileNeedsRebuild
 import random
 import math
 
@@ -752,16 +752,16 @@ class ScenarioSet_BasicOutflow(ScenarioSet):
                     s.demand._f1Value = f1
                     s.demand._f2Value = f2
                 desc = {
-                    "scenario": "BasicOutflow", "g1": str(g1), "g2": str(g2)}
+                    "scenario": "BasicOutflow", "g1": str(f1), "g2": str(f2)}
                 yield s, desc, sID
 
     def getRunsMatrix(self):
         ret = []
         ranges = [[], []]
-        for f1 in range(self.getInt("g1from"), self.getInt("g1to"), self.getInt("g1step")):
+        for g1 in range(self.getInt("g1from"), self.getInt("g1to"), self.getInt("g1step")):
             ret.append([])
             ranges[0].append(g1)
-            for f2 in range(self.getInt("g2from"), self.getInt("g2to"), self.getInt("g2step")):
+            for g2 in range(self.getInt("g2from"), self.getInt("g2to"), self.getInt("g2step")):
                 ret[-1].append({"scenario": "BasicOutflow",
                                 "g1": str(g1), "g2": str(g2)})
                 ranges[1].append(g2)
@@ -1823,9 +1823,6 @@ class ScenarioSet_CorrFlowsDistancesA(ScenarioSet):
         for i in range(1, 7):
             ret.append([i * 6 - .5, -0.5, i * 6 - .5, 5.5])
         return ret
-
-    def halfX(self):
-        return False
 
     def adjust(self, fig):
         fig.subplots_adjust(bottom=0.2)

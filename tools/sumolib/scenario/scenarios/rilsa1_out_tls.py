@@ -15,11 +15,12 @@
 from __future__ import absolute_import
 
 
-from . import *
+from . import fileNeedsRebuild, Scenario
 import os
 import shutil
+import subprocess
 import sumolib.net.generator.demand as demandGenerator
-from sumolib.net.generator.network import *
+import sumolib
 
 
 flowsRiLSA1 = [
@@ -64,8 +65,7 @@ class Scenario_RiLSA1OutTLS(Scenario):
         # network
         if fileNeedsRebuild(os.path.join(self.THIS_DIR, self.NET_FILE), "netconvert"):
             netconvert = sumolib.checkBinary("netconvert")
-            retCode = subprocess.call(
-                [netconvert, "-c", os.path.join(self.THIS_DIR, "build.netc.cfg")])
+            subprocess.call([netconvert, "-c", os.path.join(self.THIS_DIR, "build.netc.cfg")])
         # build the demand model (streams)
         if withDefaultDemand:
             self.demand = demandGenerator.Demand()

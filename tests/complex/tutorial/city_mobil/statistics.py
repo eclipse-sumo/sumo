@@ -73,8 +73,7 @@ def evaluate(forTest=False):
     for route, times in sorted(routeTimes.items()):
         timeArray = numpy.array(times)
         if forTest:
-            print(route, timeArray.max() < 1000, timeArray.mean()
-                  < 1000, math.sqrt(timeArray.var()) < 100)
+            print(route, timeArray.max() < 1000, timeArray.mean() < 1000, math.sqrt(timeArray.var()) < 100)
         else:
             print(route, timeArray.max(), timeArray.mean(),
                   math.sqrt(timeArray.var()))
