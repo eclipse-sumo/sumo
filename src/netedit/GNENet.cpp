@@ -725,6 +725,20 @@ GNENet::splitEdge(GNEEdge* edge, const Position& pos, GNEUndoList* undoList, GNE
     for (int i = 0; i < (int)edge->getLanes().size(); ++i) {
         undoList->add(new GNEChange_Connection(edge, NBEdge::Connection(i, secondPart->getNBEdge(), i), false, true), true);
     }
+    // move connections at the destination junction from the original edge to the secondPart
+    for (GNECrossing* crossing : secondPart->getGNEJunctionDestiny()->getGNECrossings()) {
+        if (crossing->checkEdgeBelong(edge)) {
+            EdgeVector newNBEdges;
+            for (NBEdge* nbEdge : crossing->getNBCrossing()->edges) {
+                if (nbEdge == edge->getNBEdge()) {
+                    newNBEdges.push_back(secondPart->getNBEdge());
+                } else {
+                    newNBEdges.push_back(nbEdge);
+                }
+            }
+            crossing->setAttribute(SUMO_ATTR_EDGES, toString(newNBEdges), undoList);
+        }
+    }
     undoList->p_end();
     return newJunction;
 }
