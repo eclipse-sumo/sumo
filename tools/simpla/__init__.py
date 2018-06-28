@@ -57,15 +57,7 @@ else:
 
 import traci  # noqa
 from ._utils import openGap
-
-class SimplaException(Exception):
-    '''
-    Simple exception raised by simpla.
-    '''
-
-    def __init__(self, *args, **kwargs):
-        super(SimplaException, self).__init__(*args, **kwargs)
-
+from ._utils import SimplaException
 
 import simpla._config  # noqa
 import simpla._reporting as rp  # noqa
