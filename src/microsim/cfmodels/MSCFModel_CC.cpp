@@ -232,7 +232,7 @@ double MSCFModel_CC::freeSpeed(const MSVehicle* const veh, double speed, double 
     CC_VehicleVariables *vars = (CC_VehicleVariables *)veh->getCarFollowVariables();
     if (vars->activeController != Plexe::DRIVER)
     {
-        return _v(veh, seen, speed, maxSpeed);
+        return _v(veh, seen, speed, std::numeric_limits<double>::max());
     }
     else {
         return MSCFModel::freeSpeed(veh, speed, seen, maxSpeed, onInsertion);
@@ -297,7 +297,7 @@ MSCFModel_CC::_v(const MSVehicle* const veh, double gap2pred, double egoSpeed, d
     if (vars->crashed || vars->crashedVictim)
         return 0;
 
-    if (predSpeed < 0 || gap2pred < 0)
+    if (predSpeed < 0 || (predSpeed > 1e9 && vars->activeController != Plexe::ACC) || gap2pred < 0)
         return 1e9;
 
     if (vars->usePrediction)
