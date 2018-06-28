@@ -749,7 +749,7 @@ private:
     void removeJoinedTrafficLights();
 
     /// @brief displace lane shapes to account for change in lane width at this node
-    void displaceShapeAtWidthChange(const NBEdge::Connection& con, PositionVector& fromShape, PositionVector& toShape) const;
+    void displaceShapeAtWidthChange(const NBEdge* from, const NBEdge::Connection& con, PositionVector& fromShape, PositionVector& toShape) const;
 
 private:
     /// @brief The position the node lies at

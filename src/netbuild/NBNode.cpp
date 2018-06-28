@@ -656,7 +656,7 @@ NBNode::computeInternalLaneShape(NBEdge* fromE, const NBEdge::Connection& con, i
     if (con.customShape.size() == 0) {
         PositionVector fromShape = fromE->getLaneShape(con.fromLane);
         PositionVector toShape = con.toEdge->getLaneShape(con.toLane);
-        displaceShapeAtWidthChange(con, fromShape, toShape);
+        displaceShapeAtWidthChange(fromE, con, fromShape, toShape);
         double extrapolateBeg = 5. * fromE->getNumLanes();
         double extrapolateEnd = 5. * con.toEdge->getNumLanes();
         LinkDirection dir = getDirection(fromE, con.toEdge);
@@ -689,7 +689,8 @@ NBNode::isConstantWidthTransition() const {
 }
 
 void
-NBNode::displaceShapeAtWidthChange(const NBEdge::Connection& con, PositionVector& fromShape, PositionVector& toShape) const {
+NBNode::displaceShapeAtWidthChange(const NBEdge* from, const NBEdge::Connection& con, 
+        PositionVector& fromShape, PositionVector& toShape) const {
     if (isConstantWidthTransition()) {
         // displace shapes
         NBEdge* in = myIncomingEdges[0];
@@ -713,6 +714,26 @@ NBNode::displaceShapeAtWidthChange(const NBEdge::Connection& con, PositionVector
 
             }
         } catch (InvalidArgument&) { }
+    } else {
+        SVCPermissions fromP = from->getPermissions(con.fromLane);
+        SVCPermissions toP = con.toEdge->getPermissions(con.toLane);
+        if ((fromP & toP) == SVC_BICYCLE && (fromP | toP) != SVC_BICYCLE) {
+            double shift = (from->getLaneWidth(con.fromLane) - con.toEdge->getLaneWidth(con.toLane)) / 2;
+            if (toP == SVC_BICYCLE) {
+                // let connection to dedicated bicycle lane start on the right side of a mixed lane for straight an right-going connections
+                // (on the left side for left turns)
+                // XXX indirect left turns should also start on the right side
+                LinkDirection dir = getDirection(from, con.toEdge);
+                if (dir == LINKDIR_LEFT || dir == LINKDIR_PARTLEFT || dir == LINKDIR_TURN) {
+                    fromShape.move2side(-shift);
+                } else {
+                    fromShape.move2side(shift);
+                }
+            } else if (fromP == SVC_BICYCLE) {
+                // let connection from dedicated bicycle end on the right side of a mixed lane
+                toShape.move2side(-shift);
+            }
+        }
     }
 }
 
