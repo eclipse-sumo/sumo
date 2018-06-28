@@ -132,9 +132,14 @@ GNENet::GNENet(NBNetBuilder* netBuilder) :
     if (myZBoundary.ymin() != Z_INITIALIZED) {
         myZBoundary.add(0, 0);
     }
+    // fill additionals with tags
+    for (auto i : GNEAttributeCarrier::allowedAdditionalTags(true)) {
+        myAttributeCarriers.additionals.insert(std::make_pair(i, std::map<std::string, GNEAdditional*>()));
+    }
+
     // default vehicle type is always available
     GNECalibratorVehicleType *defaultVehicleType = new GNECalibratorVehicleType(myViewNet, DEFAULT_VTYPE_ID);
-    myAttributeCarriers.additionals[std::make_pair(defaultVehicleType->getID(), defaultVehicleType->getTag())] = defaultVehicleType;
+    myAttributeCarriers.additionals.at(defaultVehicleType->getTag()).insert(std::make_pair(defaultVehicleType->getID(), defaultVehicleType));
     defaultVehicleType->incRef("GNENet::DEFAULT_VEHTYPE");
 }
 
@@ -168,13 +173,15 @@ GNENet::~GNENet() {
     }
     // Drop Additionals (Only used for additionals that were inserted without using GNEChange_Additional)
     for (auto it : myAttributeCarriers.additionals) {
-        // decrease reference manually (because it was increased manually in GNEAdditionalHandler)
-        it.second->decRef();
-        // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Deleting unreferenced " + toString(it.second->getTag()) + " '" + it.second->getID() + "' in GNENet destructor");
+        for (auto j : it.second) {
+            // decrease reference manually (because it was increased manually in GNEAdditionalHandler)
+            j.second->decRef();
+            // show extra information for tests
+            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+                WRITE_WARNING("Deleting unreferenced " + toString(j.second->getTag()) + " '" + j.second->getID() + "' in GNENet destructor");
+            }
+            delete j.second;
         }
-        delete it.second;
     }
     // show extra information for tests
     if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
@@ -1193,7 +1200,9 @@ GNENet::retrieveAttributeCarriers(SumoXMLTag type) {
             }
         }
         for (auto i : myAttributeCarriers.additionals) {
-            result.push_back(i.second);
+            for (auto j : i.second) {
+                result.push_back(j.second);
+            }
         }
         for (auto i : myPolygons) {
             result.push_back(dynamic_cast<GNEPoly*>(i.second));
@@ -1203,10 +1212,8 @@ GNENet::retrieveAttributeCarriers(SumoXMLTag type) {
         }
     } else if (GNEAttributeCarrier::getTagProperties(type).isAdditional()) {
         // only returns additionals of a certain type.
-        for (auto i : myAttributeCarriers.additionals) {
-            if(i.first.second == type) {
-                result.push_back(i.second);
-            }
+        for (auto i : myAttributeCarriers.additionals.at(type)) {
+            result.push_back(i.second);
         }
     } else {
         // return only a part of elements, depending of type
@@ -1731,8 +1738,8 @@ GNENet::removeExplicitTurnaround(std::string id) {
 
 GNEAdditional*
 GNENet::retrieveAdditional(SumoXMLTag type, const std::string& id, bool hardFail) const {
-    if (myAttributeCarriers.additionals.find(std::make_pair(id, type)) != myAttributeCarriers.additionals.end()) {
-        return myAttributeCarriers.additionals.at(std::make_pair(id, type));
+    if (myAttributeCarriers.additionals.at(type).count(id) != 0) {
+        return myAttributeCarriers.additionals.at(type).at(id);
     } else if (hardFail) {
         throw ProcessError("Attempted to retrieve non-existant additional");
     } else {
@@ -1742,12 +1749,14 @@ GNENet::retrieveAdditional(SumoXMLTag type, const std::string& id, bool hardFail
 
 
 std::vector<GNEAdditional*>
-GNENet::retrieveAdditionals(bool onlySelected) {
+GNENet::retrieveAdditionals(bool onlySelected) const {
     std::vector<GNEAdditional*> result;
     // returns additionals depending of selection
     for (auto i : myAttributeCarriers.additionals) {
-        if(!onlySelected || i.second->isAttributeCarrierSelected()) {
-            result.push_back(i.second);
+        for (auto j : i.second) {
+            if(!onlySelected || j.second->isAttributeCarrierSelected()) {
+                result.push_back(j.second);
+            }
         }
     }
     return result;
@@ -1757,8 +1766,16 @@ GNENet::retrieveAdditionals(bool onlySelected) {
 std::vector<GNEAdditional*>
 GNENet::getAdditionals(SumoXMLTag type) const {
     std::vector<GNEAdditional*> vectorOfAdditionals;
-    for (auto i : myAttributeCarriers.additionals) {
-        if ((type == SUMO_TAG_NOTHING) || (type == i.second->getTag())) {
+    if(type == SUMO_TAG_NOTHING) {
+        // get all additionals
+        for (auto i : myAttributeCarriers.additionals) {
+            for (auto j : i.second) {
+                vectorOfAdditionals.push_back(j.second);
+            }
+        }
+    } else {
+        // get only the attribute carriers of type
+        for (auto i : myAttributeCarriers.additionals.at(type)) {
             vectorOfAdditionals.push_back(i.second);
         }
     }
@@ -1766,12 +1783,18 @@ GNENet::getAdditionals(SumoXMLTag type) const {
 }
 
 
+const std::map<std::string, GNEAdditional*> &
+GNENet::getAdditionalMapByType(SumoXMLTag type) const {
+    return myAttributeCarriers.additionals.at(type);
+}
+
+
 int
 GNENet::getNumberOfAdditionals(SumoXMLTag type) const {
     int counter = 0;
     for (auto i : myAttributeCarriers.additionals) {
-        if ((type == SUMO_TAG_NOTHING) || (type == i.second->getTag())) {
-            counter++;
+        if ((type == SUMO_TAG_NOTHING) || (type == i.first)) {
+            counter += i.second.size();
         }
     }
     return counter;
@@ -1780,13 +1803,12 @@ GNENet::getNumberOfAdditionals(SumoXMLTag type) const {
 
 void
 GNENet::updateAdditionalID(const std::string& oldID, GNEAdditional* additional) {
-    auto additionalToUpdate = myAttributeCarriers.additionals.find(std::pair<std::string, SumoXMLTag>(oldID, additional->getTag()));
-    if (additionalToUpdate == myAttributeCarriers.additionals.end()) {
+    if (myAttributeCarriers.additionals.at(additional->getTag()).count(oldID) == 0) {
         throw ProcessError(toString(additional->getTag()) + " with old ID='" + oldID + "' doesn't exist");
     } else {
         // remove an insert additional again into container
-        myAttributeCarriers.additionals.erase(additionalToUpdate);
-        myAttributeCarriers.additionals[std::pair<std::string, SumoXMLTag>(additional->getID(), additional->getTag())] = additional;
+        myAttributeCarriers.additionals.at(additional->getTag()).erase(oldID);
+        myAttributeCarriers.additionals.at(additional->getTag()).insert(std::make_pair(additional->getID(), additional));
         // additionals has to be saved
         requiereSaveAdditionals(true);
     }
@@ -1818,13 +1840,15 @@ GNENet::saveAdditionals(const std::string& filename) {
     std::vector<GNEStoppingPlace*> invalidStoppingPlaces;
     std::vector<GNEDetector*> invalidDetectors;
     for (auto i : myAttributeCarriers.additionals) {
-        GNEStoppingPlace* stoppingPlace = dynamic_cast<GNEStoppingPlace*>(i.second);
-        GNEDetector* detector = dynamic_cast<GNEDetector*>(i.second);
-        // check if has to be fixed
-        if ((stoppingPlace != nullptr) && (stoppingPlace->areStoppingPlacesPositionsFixed() == false)) {
-            invalidStoppingPlaces.push_back(stoppingPlace);
-        } else if ((detector != nullptr) && (detector->isDetectorPositionFixed() == false)) {
-            invalidDetectors.push_back(detector);
+        for (auto j : i.second) {
+            GNEStoppingPlace* stoppingPlace = dynamic_cast<GNEStoppingPlace*>(j.second);
+            GNEDetector* detector = dynamic_cast<GNEDetector*>(j.second);
+            // check if has to be fixed
+            if ((stoppingPlace != nullptr) && (stoppingPlace->areStoppingPlacesPositionsFixed() == false)) {
+                invalidStoppingPlaces.push_back(stoppingPlace);
+            } else if ((detector != nullptr) && (detector->isDetectorPositionFixed() == false)) {
+                invalidDetectors.push_back(detector);
+            }
         }
     }
     // if there are invalid StoppingPlaces or detectors, open GNEDialog_FixAdditionalPositions
@@ -1855,7 +1879,7 @@ GNENet::saveAdditionals(const std::string& filename) {
 std::string 
 GNENet::generateAdditionalID(SumoXMLTag type) const {
     int counter = 0;
-    while (myAttributeCarriers.additionals.count(std::make_pair(toString(type) + "_" + toString(counter), type)) > 0){
+    while (myAttributeCarriers.additionals.at(type).count(toString(type) + "_" + toString(counter)) != 0){
         counter++;
     }
     return (toString(type) + "_" + toString(counter));
@@ -1868,47 +1892,61 @@ GNENet::saveAdditionalsConfirmed(const std::string& filename) {
     device.writeXMLHeader("additional", "additional_file.xsd");
     // first write all vehicle types (Except DEFAULT_VTYPE_ID)
     for (auto i : myAttributeCarriers.additionals) {
-        if ((i.first.second == SUMO_TAG_VTYPE) && (i.second->getID() != DEFAULT_VTYPE_ID)) {
-            i.second->writeAdditional(device);
+        if (i.first == SUMO_TAG_VTYPE) {
+            for (auto j : i.second) {
+                if (j.second->getID() != DEFAULT_VTYPE_ID) {
+                    j.second->writeAdditional(device);
+                }
+            }
         }
     }
     // now write all routes
     for (auto i : myAttributeCarriers.additionals) {
-        if ((i.first.second == SUMO_TAG_ROUTE)) {
-            i.second->writeAdditional(device);
+        if (i.first == SUMO_TAG_ROUTE) {
+            for (auto j : i.second) {
+                j.second->writeAdditional(device);
+            }
         }
     }
     // now write all route probes (see Ticket #4058)
     for (auto i : myAttributeCarriers.additionals) {
-        if (i.first.second == SUMO_TAG_ROUTEPROBE) {
-            i.second->writeAdditional(device);
+        if (i.first == SUMO_TAG_ROUTEPROBE) {
+            for (auto j : i.second) {
+                j.second->writeAdditional(device);
+            }
         }
     }
     // now write all stoppingPlaces
     for (auto i : myAttributeCarriers.additionals) {
-        if (GNEAttributeCarrier::getTagProperties(i.first.second).isStoppingPlace()) {
-            // only save stoppingPlaces that doesn't have Additional parents, because they are automatically writed by writeAdditional(...) parent's function
-            if (i.second->getAdditionalParent() == nullptr) {
-                i.second->writeAdditional(device);
+        if (GNEAttributeCarrier::getTagProperties(i.first).isStoppingPlace()) {
+            for (auto j : i.second) {
+                // only save stoppingPlaces that doesn't have Additional parents, because they are automatically writed by writeAdditional(...) parent's function
+                if(j.second->getAdditionalParent() == nullptr) {
+                    j.second->writeAdditional(device);
+                }
             }
         }
     }
     // now write all detectors
     for (auto i : myAttributeCarriers.additionals) {
-        if (GNEAttributeCarrier::getTagProperties(i.first.second).isDetector()) {
-            // only save stoppingPlaces that doesn't have Additional parents, because they are automatically writed by writeAdditional(...) parent's function
-            if (i.second->getAdditionalParent() == nullptr) {
-                i.second->writeAdditional(device);
+        if (GNEAttributeCarrier::getTagProperties(i.first).isDetector()) {
+            for (auto j : i.second) {
+                // only save Detectors that doesn't have Additional parents, because they are automatically writed by writeAdditional(...) parent's function
+                if(j.second->getAdditionalParent() == nullptr) {
+                    j.second->writeAdditional(device);
+                }
             }
         }
     }
     // finally write rest of additionals
     for (auto i : myAttributeCarriers.additionals) {
-        const auto &tagValue = GNEAttributeCarrier::getTagProperties(i.first.second);
-        if(!tagValue.isStoppingPlace() && !tagValue.isDetector() && (i.first.second != SUMO_TAG_ROUTEPROBE) && (i.first.second != SUMO_TAG_VTYPE) && (i.first.second != SUMO_TAG_ROUTE)) {
-            // only save additionals that doesn't have Additional parents, because they are automatically writed by writeAdditional(...) parent's function
-            if (i.second->getAdditionalParent() == nullptr) {
-                i.second->writeAdditional(device);
+        const auto &tagValue = GNEAttributeCarrier::getTagProperties(i.first);
+        if(!tagValue.isStoppingPlace() && !tagValue.isDetector() && (i.first != SUMO_TAG_ROUTEPROBE) && (i.first != SUMO_TAG_VTYPE) && (i.first != SUMO_TAG_ROUTE)) {
+            for (auto j : i.second) {
+                // only save additionals that doesn't have Additional parents, because they are automatically writed by writeAdditional(...) parent's function
+                if (j.second->getAdditionalParent() == nullptr) {
+                    j.second->writeAdditional(device);
+                }
             }
         }
     }
@@ -2072,8 +2110,8 @@ GNENet::getNumberOfTLSPrograms() const {
 void
 GNENet::insertAdditional(GNEAdditional* additional) {
     // Check if additional element exists before insertion
-    if (myAttributeCarriers.additionals.find(std::pair<std::string, SumoXMLTag>(additional->getID(), additional->getTag())) == myAttributeCarriers.additionals.end()) {
-        myAttributeCarriers.additionals[std::pair<std::string, SumoXMLTag>(additional->getID(), additional->getTag())] = additional;
+    if (myAttributeCarriers.additionals.at(additional->getTag()).count(additional->getID()) == 0) {
+        myAttributeCarriers.additionals.at(additional->getTag()).insert(std::make_pair(additional->getID(), additional));
         myGrid.addAdditionalGLObject(additional);
         // check if additional is selected
         if(additional->isAttributeCarrierSelected()) {
@@ -2091,16 +2129,14 @@ GNENet::insertAdditional(GNEAdditional* additional) {
 
 void
 GNENet::deleteAdditional(GNEAdditional* additional) {
-    // obtain iterator to additional to remove
-    auto additionalToRemove = myAttributeCarriers.additionals.find(std::make_pair(additional->getID(), additional->getTag()));
     // Check if additional element exists before deletion
-    if (additionalToRemove == myAttributeCarriers.additionals.end()) {
+    if (myAttributeCarriers.additionals.at(additional->getTag()).count(additional->getID()) == 0) {
         throw ProcessError(toString(additional->getTag()) + " with ID='" + additional->getID() + "' doesn't exist");
     } else {
         // remove it from Inspector Frame
         myViewNet->getViewParent()->getInspectorFrame()->removeInspectedAC(additional);
         // Remove from container
-        myAttributeCarriers.additionals.erase(additionalToRemove);
+        myAttributeCarriers.additionals.at(additional->getTag()).erase(additional->getID());
         // Remove from grid
         myGrid.removeAdditionalGLObject(additional);
         // check if additional is selected
@@ -2393,7 +2429,9 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
         // clear all additionals of grid
         auto copyOfAdditionals = myAttributeCarriers.additionals;
         for (const auto& it : copyOfAdditionals) {
-            myGrid.removeAdditionalGLObject(it.second);
+            for (const auto& j : it.second) {
+                myGrid.removeAdditionalGLObject(j.second);
+            }
         }
 
         // remove all edges of grid and net
