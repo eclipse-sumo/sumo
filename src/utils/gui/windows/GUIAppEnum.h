@@ -823,6 +823,8 @@ enum {
     MID_GNE_REROUTEDIALOG_TABLE_PARKINGAREAREROUTE,
     /// @brief add interval
     MID_GNE_REROUTEDIALOG_ADD_INTERVAL,
+    /// @brief sort rerouter intervals
+    MID_GNE_REROUTEDIALOG_SORT_INTERVAL,
     /// @brief add closing lane reroute
     MID_GNE_REROUTEDIALOG_ADD_CLOSINGLANEREROUTE,
     /// @brief add closing reroute

@@ -87,7 +87,7 @@ FXIMPLEMENT(GNERerouterIntervalDialog, GNEAdditionalDialog, GNERerouterIntervalD
 // member method definitions
 // ===========================================================================
 
-GNERerouterIntervalDialog::GNERerouterIntervalDialog(GNEAdditional* rerouterInterval, bool updatingElement) :
+GNERerouterIntervalDialog::GNERerouterIntervalDialog(GNERerouterInterval* rerouterInterval, bool updatingElement) :
     GNEAdditionalDialog(rerouterInterval, updatingElement, 960, 480),
     myBeginEndValid(true),
     myClosingLaneReroutesValid(true),
@@ -197,9 +197,6 @@ GNERerouterIntervalDialog::GNERerouterIntervalDialog(GNEAdditional* rerouterInte
     if (myUpdatingElement == false) {
         myEditedAdditional->getViewNet()->getUndoList()->add(new GNEChange_Additional(myEditedAdditional, true), true);
     }
-
-    // open as modal dialog
-    openAsModalDialog();
 }
 
 

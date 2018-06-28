@@ -159,6 +159,9 @@ public:
      /// @brief sort childs (used by Rerouters and VSS)
     void sortAdditionalChilds();
 
+    /// @brief check if childs are overlapped (Used by Rerouters)
+    bool checkAdditionalChildsOverlapping() const;
+
     /// @brief add edge child
     void addEdgeChild(GNEEdge* edge);
 

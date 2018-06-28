@@ -87,9 +87,6 @@ protected:
     /// @brief Table with the data
     FXTable* myStepsTable;
 
-    /// @brief Horizontal frame for row elements
-    FXHorizontalFrame* myAddStepFrame;
-
     /// @brief Button for insert row
     FXButton* myAddStepButton;
 

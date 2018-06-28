@@ -56,7 +56,7 @@ class GNERerouterIntervalDialog : public GNEAdditionalDialog {
 
 public:
     /// @brief constructor
-    GNERerouterIntervalDialog(GNEAdditional* rerouterInterval, bool updatingElement);
+    GNERerouterIntervalDialog(GNERerouterInterval* rerouterInterval, bool updatingElement);
 
     /// @brief destructor
     ~GNERerouterIntervalDialog();

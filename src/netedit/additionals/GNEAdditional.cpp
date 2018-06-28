@@ -236,7 +236,9 @@ GNEAdditional::sortAdditionalChilds() {
         }
         // set end attribute
         if(getTagProperties(i->getTag()).hasAttribute(SUMO_ATTR_END) && canParse<double>(i->getAttribute(SUMO_ATTR_END))) {
-            sortedChilds.back().first.first = parse<double>(i->getAttribute(SUMO_ATTR_END));
+            sortedChilds.back().first.second = parse<double>(i->getAttribute(SUMO_ATTR_END));
+        } else {
+            sortedChilds.back().first.second = sortedChilds.back().first.first;
         }
     }
     // sort childs
@@ -247,6 +249,47 @@ GNEAdditional::sortAdditionalChilds() {
         for (auto i : sortedChilds) {
             myAdditionalChilds.push_back(i.second);
         }
+    } else {
+        throw ProcessError("Some additional childs were lost during sorting");
+    }
+}
+
+
+bool 
+GNEAdditional::checkAdditionalChildsOverlapping() const {
+    // declare a vector to keep sorted childs
+    std::vector<std::pair<std::pair<double, double>, GNEAdditional*> > sortedChilds;
+    // iterate over additional childs
+    for (auto i : myAdditionalChilds) {
+        sortedChilds.push_back(std::make_pair(std::make_pair(0.,0.), i));
+        // set begin/start attribute
+        if(getTagProperties(i->getTag()).hasAttribute(SUMO_ATTR_TIME) && canParse<double>(i->getAttribute(SUMO_ATTR_TIME))) {
+            sortedChilds.back().first.first = parse<double>(i->getAttribute(SUMO_ATTR_TIME));
+        } else if(getTagProperties(i->getTag()).hasAttribute(SUMO_ATTR_BEGIN) && canParse<double>(i->getAttribute(SUMO_ATTR_BEGIN))) {
+            sortedChilds.back().first.first = parse<double>(i->getAttribute(SUMO_ATTR_BEGIN));
+        }
+        // set end attribute
+        if(getTagProperties(i->getTag()).hasAttribute(SUMO_ATTR_END) && canParse<double>(i->getAttribute(SUMO_ATTR_END))) {
+            sortedChilds.back().first.second = parse<double>(i->getAttribute(SUMO_ATTR_END));
+        } else {
+            sortedChilds.back().first.second = sortedChilds.back().first.first;
+        }
+    }
+    // sort childs
+    std::sort(sortedChilds.begin(), sortedChilds.end());
+    // make sure that number of sorted childs is the same as the additional childs
+    if(sortedChilds.size() == myAdditionalChilds.size()) {
+        if(sortedChilds.size() == 1) {
+            return true;
+        } else {
+            // check overlapping
+            for (int i = 0; i < (sortedChilds.size() - 1); i++) {
+                if(sortedChilds.at(i).first.second > sortedChilds.at(i+1).first.first) {
+                    return false;
+                }
+            }
+        }
+        return true;
     } else {
         throw ProcessError("Some additional childs were lost during sorting");
     }

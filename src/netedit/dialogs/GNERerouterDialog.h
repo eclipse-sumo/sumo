@@ -53,9 +53,6 @@ public:
     /// @brief destructor
     ~GNERerouterDialog();
 
-    /// @brief get edited rerouter
-    GNERerouter* getEditedRerouter() const;
-
     /// @name FOX-callbacks
     /// @{
     /// @brief event after press accept button
@@ -70,6 +67,9 @@ public:
     /// @brief add new interval
     long onCmdAddInterval(FXObject*, FXSelector, void*);
 
+    /// @brief sort current intervals
+    long onCmdSortIntervals(FXObject*, FXSelector, void*);
+
     /// @brief remove or edit interval
     long onCmdClickedInterval(FXObject*, FXSelector, void*);
     /// @}
@@ -78,14 +78,14 @@ protected:
     /// @brief FOX needs this
     GNERerouterDialog() {}
 
-    /// @brief pointer to edited rerouter
-    GNERerouter* myEditedRerouter;
-
     /// @brief rerouter interval edited
     std::vector<GNEAdditional*> myRerouterIntervalsEdited;
 
     /// @brief button for add new interval
     FXButton* myAddInterval;
+
+    /// @brief button for sort interval
+    FXButton* mySortIntervals;
 
     /// @brief list with intervals
     FXTable* myIntervalTable;
