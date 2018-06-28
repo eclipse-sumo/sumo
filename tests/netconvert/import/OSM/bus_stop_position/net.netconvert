@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jun 28 09:17:12 2018 by Eclipse SUMO netconvert Version 3ef3414
+<!-- generated on Thu Jun 28 10:54:22 2018 by Eclipse SUMO netconvert Version b7042e5
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -379,7 +379,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="16" response="00001000001000100" foes="00001000001000100" cont="1"/>
     </junction>
     <junction id="28095233" type="traffic_light" x="1398.64" y="178.24" incLanes="68189544_0 68189544_1 68189544_2 68189544_3 -281053466_0 155605283_0" intLanes=":28095233_0_0 :28095233_14_0 :28095233_2_0 :28095233_2_1 :28095233_2_2 :28095233_5_0 :28095233_6_0 :28095233_7_0 :28095233_8_0 :28095233_9_0 :28095233_10_0 :28095233_11_0 :28095233_12_0 :28095233_15_0" shape="1403.65,185.37 1405.32,174.40 1403.73,173.83 1403.21,173.35 1402.87,172.73 1402.71,171.97 1402.73,171.09 1396.38,170.31 1395.14,171.47 1393.74,171.67 1391.82,171.62 1389.38,171.32 1386.41,170.77 1384.45,180.17 1384.54,181.51 1385.60,184.53 1388.50,183.66 1390.83,183.29 1392.60,183.43 1393.82,184.06 1394.47,185.20 1394.56,186.84 1400.92,187.48 1401.34,186.14 1401.73,185.71 1402.25,185.44 1402.88,185.33">
-        <request index="0"  response="00000000000000" foes="01110011000000" cont="0"/>
+        <request index="0"  response="00000000000000" foes="01110011000010" cont="0"/>
         <request index="1"  response="00000000000001" foes="10000001000001" cont="1"/>
         <request index="2"  response="00000000000000" foes="01100111000000" cont="0"/>
         <request index="3"  response="00000000000000" foes="01100111000000" cont="0"/>
@@ -428,9 +428,9 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="821551878" type="traffic_light" x="1437.08" y="184.08" incLanes="4579853_0 4579853_1 4579853_2" intLanes=":821551878_0_0 :821551878_1_0 :821551878_2_0 :821551878_2_1 :821551878_2_2 :821551878_5_0" shape="1439.41,189.23 1440.69,181.43 1438.64,180.16 1438.10,178.90 1437.89,177.22 1437.99,175.12 1438.42,172.61 1431.02,176.55 1430.62,177.47 1430.31,177.76 1429.92,177.95 1429.46,178.02 1428.93,177.99 1427.26,188.96 1429.83,189.23 1431.75,189.22 1433.34,189.07 1434.93,188.93 1436.85,188.93">
         <request index="0" response="000000" foes="000000" cont="0"/>
         <request index="1" response="011100" foes="011100" cont="0"/>
-        <request index="2" response="000000" foes="000000" cont="0"/>
-        <request index="3" response="000000" foes="000000" cont="0"/>
-        <request index="4" response="000000" foes="000000" cont="0"/>
+        <request index="2" response="000000" foes="000010" cont="0"/>
+        <request index="3" response="000000" foes="000010" cont="0"/>
+        <request index="4" response="000000" foes="000010" cont="0"/>
         <request index="5" response="000000" foes="000000" cont="0"/>
     </junction>
 
