@@ -80,7 +80,9 @@ GUIE2Collector::MyWrapper::MyWrapper(GUIE2Collector& detector) :
         v.insert(v.end(), shape.begin(), shape.end());
     }
     // build geometry
-    myFullGeometry = v.getSubpart(detector.getStartPos(), detector.getStartPos() + detector.getLength());
+    myFullGeometry = v.getSubpart(
+            lanes.front()->interpolateLanePosToGeometryPos(detector.getStartPos()),
+            lanes.back()->interpolateLanePosToGeometryPos(detector.getStartPos() + detector.getLength()));
     //
     myShapeRotations.reserve(myFullGeometry.size() - 1);
     myShapeLengths.reserve(myFullGeometry.size() - 1);
