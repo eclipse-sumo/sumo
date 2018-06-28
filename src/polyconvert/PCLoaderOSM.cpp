@@ -32,11 +32,8 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 #include <utils/common/StringUtils.h>
-#include <utils/options/OptionsCont.h>
-#include <utils/options/Option.h>
 #include <utils/common/StdDefs.h>
-#include <polyconvert/PCPolyContainer.h>
-#include "PCLoaderOSM.h"
+#include <utils/common/SysUtils.h>
 #include <utils/common/RGBColor.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/geom/Position.h>
@@ -44,6 +41,10 @@
 #include <utils/xml/XMLSubSys.h>
 #include <utils/geom/GeomConvHelper.h>
 #include <utils/common/FileHelpers.h>
+#include <utils/options/OptionsCont.h>
+#include <utils/options/Option.h>
+#include <polyconvert/PCPolyContainer.h>
+#include "PCLoaderOSM.h"
 
 // static members
 // ---------------------------------------------------------------------------
@@ -102,6 +103,7 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
             WRITE_ERROR("Could not open osm-file '" + *file + "'.");
             return;
         }
+        const long before = SysUtils::getCurrentMillis();
         PROGRESS_BEGIN_MESSAGE("Parsing nodes from osm-file '" + *file + "'");
         if (!XMLSubSys::runParser(nodesHandler, *file)) {
             for (std::map<long long int, PCOSMNode*>::const_iterator i = nodes.begin(); i != nodes.end(); ++i) {
@@ -109,7 +111,7 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
             }
             throw ProcessError();
         }
-        PROGRESS_DONE_MESSAGE();
+        PROGRESS_TIME_MESSAGE(before);
     }
     // load relations to see which additional ways may be relevant
     Relations relations;
@@ -117,9 +119,10 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
     RelationsHandler relationsHandler(additionalWays, relations, withAttributes, *m);
     for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
         // edges
+        const long before = SysUtils::getCurrentMillis();
         PROGRESS_BEGIN_MESSAGE("Parsing relations from osm-file '" + *file + "'");
         XMLSubSys::runParser(relationsHandler, *file);
-        PROGRESS_DONE_MESSAGE();
+        PROGRESS_TIME_MESSAGE(before);
     }
 
     // load ways
@@ -127,9 +130,10 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
     EdgesHandler edgesHandler(nodes, edges, additionalWays, withAttributes, *m);
     for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
         // edges
+        const long before = SysUtils::getCurrentMillis();
         PROGRESS_BEGIN_MESSAGE("Parsing edges from osm-file '" + *file + "'");
         XMLSubSys::runParser(edgesHandler, *file);
-        PROGRESS_DONE_MESSAGE();
+        PROGRESS_TIME_MESSAGE(before);
     }
 
     // build all
@@ -162,28 +166,66 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
             e->myIsClosed = false;
             e->standalone = true;
 
-            Position prev = getEndPosition(edges[rel->myWays.front()], true, nodes);
             std::set<long long int> remaining(rel->myWays.begin(), rel->myWays.end());
+            PCOSMEdge* minEdge = edges[rel->myWays.front()];
+            e->myCurrentNodes.insert(e->myCurrentNodes.end(), minEdge->myCurrentNodes.begin(), minEdge->myCurrentNodes.end());
+            Position prev(convertNodePosition(nodes[minEdge->myCurrentNodes.back()]));
+            minEdge->standalone = false;
+            remaining.erase(minEdge->id);
             bool ok = true;
             while (!remaining.empty()) {
                 // assemble in an order that greedily reduces jump size 
                 double minDist = std::numeric_limits<double>::max();
-                PCOSMEdge* minEdge = 0;
+                bool minFront = false;
                 for (long long int wayID : remaining) {
                     PCOSMEdge* part = edges[wayID];
-                    const double dist = prev.distanceTo2D(getEndPosition(part, true, nodes));
-                    if (dist < minDist) {
-                        minDist = dist;
+                    Position frontPos(convertNodePosition(nodes.find(part->myCurrentNodes.front())->second));
+                    const double frontDist = prev.distanceTo2D(frontPos);
+                    Position backPos(convertNodePosition(nodes.find(part->myCurrentNodes.back())->second));
+                    const double backDist = prev.distanceTo2D(backPos);
+                    if (frontDist < minDist) {
+                        minDist = frontDist;
                         minEdge = part;
+                        minFront = true;
+                    }
+                    if (backDist < minDist) {
+                        minDist = backDist;
+                        minEdge = part;
+                        minFront = false;
                     }
                 }
                 if (minDist > mergeRelationsThreshold) {
-                    WRITE_WARNING("Could not import polygon from relation '" + toString(rel->id) + "' (name:" + e->name + " reason: found gap of " + toString(minDist) + "m)");
-                    ok = false;
+                    double length = 0.;
+                    for (long long int wayID : remaining) {
+                        PCOSMEdge* part = edges[wayID];
+                        Position last(Position::INVALID);
+                        for (long long int nodeID : part->myCurrentNodes) {
+                            Position nodePos(convertNodePosition(nodes[nodeID]));
+                            if (last != Position::INVALID) {
+                                length += last.distanceTo2D(nodePos);
+                            }
+                            last = nodePos;
+                        }
+                        if (part->myIsClosed) {
+                            length += last.distanceTo2D(convertNodePosition(nodes[part->myCurrentNodes.front()]));
+                        }
+                    }
+                    if (length > mergeRelationsThreshold) {
+                        WRITE_WARNING("Could not import polygon from relation '" + toString(rel->id) +
+                                      "' (name:" + e->name + " reason: found gap of " + toString(minDist) + 
+                                      "m to way '" + toString(minEdge->id) +
+                                      "')\n Total length of remaining ways: " + toString(length) + "m.");
+                        ok = false;
+                    }
                     break;
                 }
-                e->myCurrentNodes.insert(e->myCurrentNodes.end(), minEdge->myCurrentNodes.begin(), minEdge->myCurrentNodes.end());
-                prev = getEndPosition(minEdge, false, nodes);
+                if (minFront) {
+                    e->myCurrentNodes.insert(e->myCurrentNodes.end(), minEdge->myCurrentNodes.begin(), minEdge->myCurrentNodes.end());
+                    prev = convertNodePosition(nodes[minEdge->myCurrentNodes.back()]);
+                } else {
+                    e->myCurrentNodes.insert(e->myCurrentNodes.end(), minEdge->myCurrentNodes.rbegin(), minEdge->myCurrentNodes.rend());
+                    prev = convertNodePosition(nodes[minEdge->myCurrentNodes.front()]);
+                }
                 minEdge->standalone = false;
                 remaining.erase(minEdge->id);
             }
@@ -296,13 +338,13 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
 }
 
 
-Position 
-PCLoaderOSM::getEndPosition(PCOSMEdge* e, bool start, const std::map<long long int, PCOSMNode*>& nodes) {
-    PCOSMNode* n = nodes.find(start ? e->myCurrentNodes.front() : e->myCurrentNodes.back())->second;
+Position
+PCLoaderOSM::convertNodePosition(PCOSMNode* n) {
     Position pos(n->lon, n->lat);
     GeoConvHelper::getProcessing().x2cartesian(pos);
     return pos;
 }
+
 
 int
 PCLoaderOSM::addPolygon(const PCOSMEdge* edge, const PositionVector& vec, const PCTypeMap::TypeDef& def, const std::string& fullType, int index, bool useName, PCPolyContainer& toFill, bool ignorePruning, bool withAttributes) {
@@ -326,6 +368,7 @@ PCLoaderOSM::addPolygon(const PCOSMEdge* edge, const PositionVector& vec, const 
         }
     }
 }
+
 
 int
 PCLoaderOSM::addPOI(const PCOSMNode* node, const Position& pos, const PCTypeMap::TypeDef& def, const std::string& fullType,

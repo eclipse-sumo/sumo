@@ -135,8 +135,8 @@ protected:
 private:
     static std::set<std::string> initMyKeysToInclude();
 
-    /// @brief retrieve cartesian coordinate for way start/end
-    static Position getEndPosition(PCOSMEdge* e, bool start, const std::map<long long int, PCOSMNode*>& nodes);
+    /// @brief retrieve cartesian coordinate for given node
+    static Position convertNodePosition(PCOSMNode* n);
 
 protected:
     /**
