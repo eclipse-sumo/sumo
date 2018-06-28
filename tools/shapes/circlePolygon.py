@@ -21,24 +21,7 @@ import sys
 import math
 from optparse import OptionParser
 
-optParser = OptionParser()
-optParser.add_option("-r", "--radius", type="float", default=100,
-                     help="default radius")
-optParser.add_option("-p", "--prefix", default="poly",
-                     help="id prefix")
-optParser.add_option("-t", "--type", default="unknown",
-                     help="type string")
-optParser.add_option("-c", "--color", default="1,0,0",
-                     help="color string")
-optParser.add_option("-f", "--fill", action="store_true",
-                     default=False, help="fill the polygons")
-optParser.add_option("-l", "--layer", type="int", default=-1,
-                     help="layer")
-optParser.add_option("-x", "--corners", type="int", default=100,
-                     help="default number of corners")
-optParser.add_option(
-    "-o", "--output-file", help="output file (default: standard output)")
-(options, args) = optParser.parse_args()
+
 
 
 def setCircle(idx,x,y,r,c,prefix,type,color,fill,layer,output):
@@ -55,15 +38,29 @@ def setCircle(idx,x,y,r,c,prefix,type,color,fill,layer,output):
         file=output)
 
 if __name__ == "__main__":
-
-    output = sys.stdout if options.output_file is None else open(options.output_file, 'w')
+    optParser = OptionParser()
+    optParser.add_option("-r", "--radius", type="float", default=100,
+                         help="default radius")
+    optParser.add_option("-p", "--prefix", default="poly",
+                         help="id prefix")
+    optParser.add_option("-t", "--type", default="unknown",
+                         help="type string")
+    optParser.add_option("-c", "--color", default="1,0,0",
+                         help="color string")
+    optParser.add_option("-f", "--fill", action="store_true",
+                         default=False, help="fill the polygons")
+    optParser.add_option("-l", "--layer", type="int", default=-1,
+                         help="layer")
+    optParser.add_option("-x", "--corners", type="int", default=100,
+                         help="default number of corners")
+    optParser.add_option(
+        "-o", "--output-file", help="output file (default: standard output)")
+    (options, args) = optParser.parse_args()
     
     if len(args) == 0:
         print >> sys.stderr, "Usage: " + sys.argv[0] + " x,y[[,r],c] ..."
         sys.exit()
-        
-    optParser = OptionParser()
-    (options, args) = optParser.parse_args()
+
     output = sys.stdout if options.output_file is None else open(options.output_file, 'w')
     print("<additional>", file=output)
     for idx, d in enumerate(args):
@@ -73,5 +70,5 @@ if __name__ == "__main__":
         r = float(desc[2]) if len(desc) > 2 else options.radius
         c = int(desc[3]) if len(desc) > 3 else options.corners
 
-        setCircle(idx,x,y,r,c,prefix,type,color,fill,layer,output)
+        setCircle(idx,x,y,r,c,options.prefix,options.type,options.color,options.fill,options.layer,output)
     print("</additional>", file=output)
