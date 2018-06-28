@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jun 22 11:31:52 2018 by Eclipse SUMO netconvert Version 9eff290
+<!-- generated on Thu Jun 28 07:21:23 2018 by Eclipse SUMO netconvert Version 53533a1
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -3583,7 +3583,7 @@
     <junction id=":14_19_0" type="internal" x="502.57" y="560.86" incLanes=":14_15_0 -762.0.00_0 -825.0.00_0 -848.0.00_0" intLanes=":14_0_0 :14_5_0 :14_10_0"/>
     <junction id=":16_16_0" type="internal" x="1022.53" y="531.56" incLanes=":16_6_0 -765.0.00_0" intLanes=":16_1_0 :16_2_0 :16_9_0 :16_10_0 :16_11_0 :16_12_0 :16_13_0 :16_14_0"/>
     <junction id=":16_17_0" type="internal" x="1022.72" y="530.16" incLanes=":16_7_0 -765.0.00_0 -768.0.00_0 -854.0.00_0" intLanes=":16_2_0 :16_8_0 :16_13_0"/>
-    <junction id=":16_18_0" type="internal" x="1016.21" y="530.74" incLanes=":16_14_0 -851.0.00_0" intLanes=":16_1_0 :16_2_0 :16_3_0 :16_4_0 :16_5_0 :16_6_0 :16_9_0 :16_10_0"/>
+    <junction id=":16_18_0" type="internal" x="1016.21" y="530.74" incLanes=":16_14_0 -851.0.00_0 :16_6_0" intLanes=":16_16_0 :16_1_0 :16_2_0 :16_3_0 :16_4_0 :16_5_0 :16_6_0 :16_9_0 :16_10_0"/>
     <junction id=":16_19_0" type="internal" x="1015.85" y="532.18" incLanes=":16_15_0 -768.0.00_0 -851.0.00_0 -854.0.00_0" intLanes=":16_0_0 :16_5_0 :16_10_0"/>
     <junction id=":17_16_0" type="internal" x="1055.36" y="522.49" incLanes=":17_3_0 -764.0.00_0 -770.0.00_0 -898.0.00_0" intLanes=":17_4_0 :17_9_0 :17_14_0"/>
     <junction id=":17_17_0" type="internal" x="1050.93" y="518.79" incLanes=":17_5_0 -799.0.00_0" intLanes=":17_0_0 :17_1_0 :17_2_0 :17_9_0 :17_10_0 :17_14_0 :17_15_0"/>
@@ -3603,7 +3603,7 @@
     <junction id=":20_9_0" type="internal" x="1028.22" y="548.77" incLanes=":20_1_0 -771.0.00_0" intLanes=":20_4_0 :20_5_0 :20_6_0 :20_7_0"/>
     <junction id=":20_10_0" type="internal" x="1030.61" y="546.05" incLanes=":20_2_0 -767.0.00_0 -771.0.00_0" intLanes=":20_3_0 :20_7_0"/>
     <junction id=":20_11_0" type="internal" x="1026.06" y="551.23" incLanes=":20_8_0 -767.0.00_0 -857.0.00_0" intLanes=":20_0_0 :20_4_0"/>
-    <junction id=":21_16_0" type="internal" x="1009.17" y="507.46" incLanes=":21_6_0 -861.0.00_0" intLanes=":21_1_0 :21_2_0 :21_9_0 :21_10_0 :21_11_0 :21_12_0 :21_13_0 :21_14_0"/>
+    <junction id=":21_16_0" type="internal" x="1009.17" y="507.46" incLanes=":21_6_0 -861.0.00_0 :21_14_0" intLanes=":21_18_0 :21_1_0 :21_2_0 :21_9_0 :21_10_0 :21_11_0 :21_12_0 :21_13_0 :21_14_0"/>
     <junction id=":21_17_0" type="internal" x="1011.58" y="504.87" incLanes=":21_7_0 -769.0.00_0 -855.0.00_0 -861.0.00_0" intLanes=":21_2_0 :21_8_0 :21_13_0"/>
     <junction id=":21_18_0" type="internal" x="1007.59" y="509.14" incLanes=":21_14_0 -775.0.00_0" intLanes=":21_1_0 :21_2_0 :21_3_0 :21_4_0 :21_5_0 :21_6_0 :21_9_0 :21_10_0"/>
     <junction id=":21_19_0" type="internal" x="1005.21" y="511.68" incLanes=":21_15_0 -769.0.00_0 -775.0.00_0 -855.0.00_0" intLanes=":21_0_0 :21_5_0 :21_10_0"/>
@@ -3624,7 +3624,7 @@
     <junction id=":27_11_0" type="internal" x="632.59" y="385.00" incLanes=":27_8_0 -776.0.00_0 -914.0.00_0" intLanes=":27_0_0 :27_4_0"/>
     <junction id=":28_12_0" type="internal" x="565.08" y="321.96" incLanes=":28_2_0 -779.0.00_0" intLanes=":28_5_0 :28_6_0 :28_7_0 :28_8_0 :28_9_0 :28_10_0"/>
     <junction id=":28_13_0" type="internal" x="566.27" y="320.98" incLanes=":28_3_0 -778.0.00_0 -779.0.00_0" intLanes=":28_4_0 :28_9_0"/>
-    <junction id=":28_14_0" type="internal" x="561.41" y="310.28" incLanes=":28_10_0 -864.0.00_0" intLanes=":28_0_0 :28_1_0 :28_2_0 :28_5_0 :28_6_0"/>
+    <junction id=":28_14_0" type="internal" x="561.41" y="310.28" incLanes=":28_10_0 -864.0.00_0 :28_2_0" intLanes=":28_12_0 :28_0_0 :28_1_0 :28_2_0 :28_5_0 :28_6_0"/>
     <junction id=":28_15_0" type="internal" x="560.13" y="311.04" incLanes=":28_11_0 -778.0.00_0 -864.0.00_0" intLanes=":28_1_0 :28_6_0"/>
     <junction id=":29_9_0" type="internal" x="717.27" y="227.72" incLanes=":29_2_0 -866.0.00_0 -891.0.00_0" intLanes=":29_3_0 :29_7_0"/>
     <junction id=":29_10_0" type="internal" x="714.99" y="225.73" incLanes=":29_4_0 -792.0.00_0" intLanes=":29_0_0 :29_1_0 :29_7_0 :29_8_0"/>
@@ -3731,7 +3731,7 @@
     <junction id=":8_9_0" type="internal" x="491.62" y="524.67" incLanes=":8_5_0 -756.0.00_0 -849.0.00_0" intLanes=":8_1_0 :8_6_0"/>
     <junction id=":8_10_0" type="internal" x="484.13" y="522.67" incLanes=":8_7_0 -842.0.00_0" intLanes=":8_1_0 :8_2_0 :8_3_0 :8_4_0"/>
     <junction id=":8_11_0" type="internal" x="480.38" y="521.48" incLanes=":8_8_0 -842.0.00_0 -849.0.00_0" intLanes=":8_0_0 :8_4_0"/>
-    <junction id=":9_16_0" type="internal" x="405.50" y="484.53" incLanes=":9_6_0 -845.0.00_0" intLanes=":9_1_0 :9_2_0 :9_9_0 :9_10_0 :9_11_0 :9_12_0 :9_13_0 :9_14_0"/>
+    <junction id=":9_16_0" type="internal" x="405.50" y="484.53" incLanes=":9_6_0 -845.0.00_0 :9_14_0" intLanes=":9_18_0 :9_1_0 :9_2_0 :9_9_0 :9_10_0 :9_11_0 :9_12_0 :9_13_0 :9_14_0"/>
     <junction id=":9_17_0" type="internal" x="405.03" y="483.11" incLanes=":9_7_0 -757.0.00_0 -843.0.00_0 -845.0.00_0" intLanes=":9_2_0 :9_8_0 :9_13_0"/>
     <junction id=":9_18_0" type="internal" x="399.72" y="487.44" incLanes=":9_14_0 -759.0.00_0" intLanes=":9_1_0 :9_2_0 :9_3_0 :9_4_0 :9_5_0 :9_6_0 :9_9_0 :9_10_0"/>
     <junction id=":9_19_0" type="internal" x="400.26" y="488.78" incLanes=":9_15_0 -757.0.00_0 -759.0.00_0 -843.0.00_0" intLanes=":9_0_0 :9_5_0 :9_10_0"/>

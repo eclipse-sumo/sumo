@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jun 22 11:32:17 2018 by Eclipse SUMO netgenerate Version 9eff290
+<!-- generated on Thu Jun 28 07:21:49 2018 by Eclipse SUMO netgenerate Version 53533a1
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -245,7 +245,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="8" response="000010001" foes="000010001" cont="1"/>
     </junction>
 
-    <junction id=":A1_9_0" type="internal" x="10.66" y="16.67" incLanes=":A1_1_0" intLanes=":A1_4_0 :A1_7_0"/>
+    <junction id=":A1_9_0" type="internal" x="10.66" y="16.67" incLanes=":A1_1_0 :A1_4_0" intLanes=":A1_10_0 :A1_4_0 :A1_7_0"/>
     <junction id=":A1_10_0" type="internal" x="8.52" y="13.04" incLanes=":A1_4_0" intLanes=":A1_1_0 :A1_7_0"/>
     <junction id=":B1_9_0" type="internal" x="23.43" y="18.24" incLanes=":B1_1_0 B2B1_0" intLanes=":B1_4_0 :B1_5_0 :B1_6_0 :B1_7_0"/>
     <junction id=":B1_10_0" type="internal" x="17.40" y="10.26" incLanes=":B1_2_0 A1B1_0 B2B1_0" intLanes=":B1_3_0 :B1_7_0"/>

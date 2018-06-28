@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jun 22 11:32:18 2018 by Eclipse SUMO netgenerate Version 9eff290
+<!-- generated on Thu Jun 28 07:21:49 2018 by Eclipse SUMO netgenerate Version 53533a1
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -2695,7 +2695,7 @@ SPDX-License-Identifier: EPL-2.0
     <junction id=":137_2_0" type="internal" x="1410.86" y="2189.52" incLanes=":137_0_0 333_0" intLanes=":137_1_0"/>
     <junction id=":1372_6_0" type="internal" x="1207.07" y="692.01" incLanes=":1372_1_0" intLanes=":1372_3_0 :1372_4_0 :1372_5_0"/>
     <junction id=":1372_7_0" type="internal" x="1207.20" y="694.06" incLanes=":1372_4_0 1427_0" intLanes=":1372_1_0 :1372_2_0"/>
-    <junction id=":1372_8_0" type="internal" x="1207.11" y="694.04" incLanes=":1372_5_0 1427_0" intLanes=":1372_1_0 :1372_2_0"/>
+    <junction id=":1372_8_0" type="internal" x="1207.11" y="694.04" incLanes=":1372_5_0 1427_0 :1372_1_0" intLanes=":1372_6_0 :1372_1_0 :1372_2_0"/>
     <junction id=":1387_2_0" type="internal" x="2176.12" y="2404.78" incLanes=":1387_1_0 1391_0" intLanes=":1387_0_0"/>
     <junction id=":1440_4_0" type="internal" x="1409.92" y="735.98" incLanes=":1440_3_0 1524_0" intLanes=":1440_1_0"/>
     <junction id=":1446_3_0" type="internal" x="1335.80" y="898.62" incLanes=":1446_2_0 1494_0" intLanes=":1446_0_0 :1446_1_0"/>

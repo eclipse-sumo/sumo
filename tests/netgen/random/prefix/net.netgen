@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jun 22 11:32:19 2018 by Eclipse SUMO netgenerate Version 9eff290
+<!-- generated on Thu Jun 28 07:21:50 2018 by Eclipse SUMO netgenerate Version 53533a1
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -976,7 +976,7 @@ SPDX-License-Identifier: EPL-2.0
     <junction id=":foo_14_11_0" type="internal" x="600.00" y="1294.40" incLanes=":foo_14_5_0 foo_-360_0 foo_-70_0" intLanes=":foo_14_1_0 :foo_14_6_0"/>
     <junction id=":foo_2_16_0" type="internal" x="600.00" y="702.61" incLanes=":foo_2_2_0 foo_-27_0" intLanes=":foo_2_5_0 :foo_2_6_0 :foo_2_7_0 :foo_2_8_0 :foo_2_9_0 :foo_2_10_0 :foo_2_13_0 :foo_2_14_0"/>
     <junction id=":foo_2_17_0" type="internal" x="600.00" y="708.38" incLanes=":foo_2_3_0 foo_-27_0 foo_-64_0 foo_113_0" intLanes=":foo_2_4_0 :foo_2_9_0 :foo_2_14_0"/>
-    <junction id=":foo_2_18_0" type="internal" x="600.00" y="698.93" incLanes=":foo_2_10_0 foo_3_0" intLanes=":foo_2_0_0 :foo_2_1_0 :foo_2_2_0 :foo_2_5_0 :foo_2_6_0 :foo_2_13_0 :foo_2_14_0 :foo_2_15_0"/>
+    <junction id=":foo_2_18_0" type="internal" x="600.00" y="698.93" incLanes=":foo_2_10_0 :foo_2_2_0 foo_3_0" intLanes=":foo_2_16_0 :foo_2_0_0 :foo_2_1_0 :foo_2_2_0 :foo_2_5_0 :foo_2_6_0 :foo_2_13_0 :foo_2_14_0 :foo_2_15_0"/>
     <junction id=":foo_2_19_0" type="internal" x="600.00" y="694.40" incLanes=":foo_2_11_0 foo_-64_0 foo_113_0 foo_3_0" intLanes=":foo_2_1_0 :foo_2_6_0 :foo_2_12_0"/>
     <junction id=":foo_22_4_0" type="internal" x="401.12" y="1002.73" incLanes=":foo_22_1_0 foo_23_0" intLanes=":foo_22_2_0"/>
     <junction id=":foo_22_5_0" type="internal" x="402.95" y="1000.23" incLanes=":foo_22_3_0 foo_-79_0" intLanes=":foo_22_0_0"/>
