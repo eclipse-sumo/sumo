@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jun 22 11:32:14 2018 by Eclipse SUMO netconvert Version 9eff290
+<!-- generated on Thu Jun 28 09:17:19 2018 by Eclipse SUMO netconvert Version 3ef3414
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -81,7 +81,7 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
 
     <junction id="1" type="dead_end" x="0.00" y="0.00" incLanes="s4_0 s4_1 s4_2" intLanes="" shape="0.00,9.60 0.00,0.00"/>
-    <junction id="2" type="priority" x="500.00" y="0.00" incLanes="s3-AddedOffRampEdge_0 s3-AddedOffRampEdge_1 s3-AddedOffRampEdge_2 s3-AddedOffRampEdge_3" intLanes="" shape="502.43,12.80 502.43,0.00 498.50,0.00 498.50,9.60 497.95,10.90 499.66,13.60 500.60,13.05 500.96,12.91 501.34,12.84 501.81,12.81">
+    <junction id="2" type="priority" x="500.00" y="0.00" incLanes="s3-AddedOffRampEdge_0 s3-AddedOffRampEdge_1 s3-AddedOffRampEdge_2 s3-AddedOffRampEdge_3" intLanes="" shape="502.43,12.80 502.43,0.00 498.50,0.00 498.50,9.60 499.11,9.74 499.11,9.93 498.92,10.18 498.53,10.50 497.95,10.90 499.66,13.60 500.60,13.05 500.96,12.91 501.34,12.84 501.81,12.81">
         <request index="0" response="0000" foes="0000"/>
         <request index="1" response="0000" foes="0000"/>
         <request index="2" response="0000" foes="0000"/>
@@ -93,7 +93,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="1" response="000" foes="000"/>
         <request index="2" response="000" foes="000"/>
     </junction>
-    <junction id="4" type="priority" x="1500.00" y="0.00" incLanes="on_0 s1_0 s1_1 s1_2" intLanes="" shape="1500.34,13.60 1502.05,10.90 1501.50,9.60 1501.50,0.00 1497.57,0.00 1497.57,12.80 1498.66,12.84 1499.04,12.91 1499.40,13.05 1499.81,13.28">
+    <junction id="4" type="priority" x="1500.00" y="0.00" incLanes="on_0 s1_0 s1_1 s1_2" intLanes="" shape="1500.34,13.60 1502.05,10.90 1501.08,10.18 1500.89,9.93 1500.89,9.74 1501.10,9.64 1501.50,9.60 1501.50,0.00 1497.57,0.00 1497.57,12.80 1498.66,12.84 1499.04,12.91 1499.40,13.05 1499.81,13.28">
         <request index="0" response="0000" foes="0000"/>
         <request index="1" response="0000" foes="0000"/>
         <request index="2" response="0000" foes="0000"/>

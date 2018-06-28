@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jun 22 11:32:15 2018 by Eclipse SUMO netconvert Version 9eff290
+<!-- generated on Thu Jun 28 09:17:20 2018 by Eclipse SUMO netconvert Version 3ef3414
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -46,11 +46,11 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="osgb4000000025305634_1" index="1" speed="13.40" length="297.43" shape="75.74,106.12 78.44,95.63 80.45,86.60 83.48,76.50 88.15,63.57 90.45,56.59 93.44,41.63 96.51,30.39 101.65,21.14 111.56,7.27 112.45,4.59 113.05,1.60 111.48,1.60 108.92,3.31 105.08,6.19 104.40,6.94 81.68,25.85"/>
     </edge>
 
-    <junction id="osgb4000000025275959" type="priority" x="79.00" y="26.00" incLanes="osgb4000000025305634_0 osgb4000000025305634_1" intLanes="" shape="84.75,29.54 80.65,24.62 78.51,28.09">
+    <junction id="osgb4000000025275959" type="priority" x="79.00" y="26.00" incLanes="osgb4000000025305634_0 osgb4000000025305634_1" intLanes="" shape="84.75,29.54 80.65,24.62 79.50,25.66 79.17,26.10 78.92,26.60 78.72,27.24 78.51,28.09">
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>
-    <junction id="osgb4000000025275970" type="priority" x="20.00" y="230.00" incLanes="osgb4000000025305632_0 osgb4000000025305632_1" intLanes="" shape="77.03,107.52 71.86,101.92 71.60,101.87 65.64,98.93 62.78,114.28 57.57,133.94 50.83,155.67 43.39,177.19 36.08,196.23 29.73,210.54 35.45,213.40">
+    <junction id="osgb4000000025275970" type="priority" x="20.00" y="230.00" incLanes="osgb4000000025305632_0 osgb4000000025305632_1" intLanes="" shape="77.03,107.52 71.86,101.92 71.60,101.87 65.64,98.93 62.15,114.18 56.76,133.82 50.15,155.57 42.98,177.13 35.95,196.21 29.73,210.54 35.45,213.40 41.98,199.48 49.81,181.39 58.09,161.15 65.96,140.76 72.55,122.22">
         <request index="0" response="0000" foes="0000"/>
         <request index="1" response="0000" foes="0000"/>
         <request index="2" response="0000" foes="0000"/>

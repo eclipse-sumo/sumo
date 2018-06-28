@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jun 22 11:32:07 2018 by Eclipse SUMO netconvert Version 9eff290
+<!-- generated on Thu Jun 28 09:17:13 2018 by Eclipse SUMO netconvert Version 3ef3414
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -75,7 +75,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="4si_2" index="2" speed="13.89" length="250.00" shape="498.40,246.00 498.40,13.60"/>
     </edge>
 
-    <junction id="0" type="priority" x="500.00" y="0.00" incLanes="4si_0 4si_1 4si_2 2si_0 2si_1 2si_2 1si_0 1si_1 1si_2" intLanes="" shape="490.40,13.60 503.20,13.60 503.64,11.38 504.20,10.60 504.98,10.04 505.98,9.71 507.20,9.60 507.20,-3.20 486.40,-9.60 486.40,3.20 488.62,4.36 489.40,5.80 489.96,7.82 490.29,10.42">
+    <junction id="0" type="priority" x="500.00" y="0.00" incLanes="4si_0 4si_1 4si_2 2si_0 2si_1 2si_2 1si_0 1si_1 1si_2" intLanes="" shape="490.40,13.60 503.20,13.60 503.64,11.38 504.20,10.60 504.98,10.04 505.98,9.71 507.20,9.60 507.20,-3.20 502.64,-3.67 499.39,-4.86 494.21,-7.94 490.96,-9.13 486.40,-9.60 486.40,3.20 488.62,4.36 489.40,5.80 489.96,7.82 490.29,10.42">
         <request index="0" response="000010000" foes="100010000"/>
         <request index="1" response="011010000" foes="011110000"/>
         <request index="2" response="010001000" foes="010001000"/>
@@ -95,7 +95,7 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="4" type="priority" x="500.00" y="500.00" incLanes="4o_0" intLanes="" shape="500.00,500.00 503.20,500.00 500.00,500.00">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="m1" type="priority" x="250.00" y="0.00" incLanes="1fi_0 1fi_1" intLanes="" shape="254.00,0.00 254.00,-9.60 246.00,-6.40 246.00,0.00">
+    <junction id="m1" type="priority" x="250.00" y="0.00" incLanes="1fi_0 1fi_1" intLanes="" shape="254.00,0.00 254.00,-9.60 250.97,-8.77 249.03,-7.23 247.79,-6.64 246.00,-6.40 246.00,0.00">
         <request index="0" response="000" foes="000"/>
         <request index="1" response="000" foes="000"/>
         <request index="2" response="000" foes="000"/>

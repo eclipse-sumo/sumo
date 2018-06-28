@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jun 22 11:32:07 2018 by Eclipse SUMO netconvert Version 9eff290
+<!-- generated on Thu Jun 28 09:17:13 2018 by Eclipse SUMO netconvert Version 3ef3414
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -105,7 +105,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="gneE9_0" index="0" speed="13.89" length="147.61" shape="123.82,212.92 99.35,71.52"/>
     </edge>
 
-    <junction id="gneJ10" type="priority" x="337.50" y="209.44" incLanes="gneE7_0 -gneE8_0" intLanes="" shape="337.59,209.53 339.85,207.26 339.09,206.68 338.68,206.48 338.24,206.34 337.78,206.26 337.29,206.24 337.47,212.64 339.63,212.43 341.09,211.95 341.84,211.20 341.89,210.16 341.23,208.86 339.86,207.28 337.60,209.54">
+    <junction id="gneJ10" type="priority" x="337.50" y="209.44" incLanes="gneE7_0 -gneE8_0" intLanes="" shape="337.59,209.53 339.85,207.26 337.29,206.24 337.47,212.64 339.63,212.43 341.09,211.95 341.84,211.20 341.89,210.16 341.23,208.86 339.86,207.28 337.60,209.54">
         <request index="0" response="0000" foes="1000"/>
         <request index="1" response="0100" foes="0100"/>
         <request index="2" response="0000" foes="0010"/>
@@ -144,7 +144,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="2" response="0000" foes="0010"/>
         <request index="3" response="0001" foes="0001"/>
     </junction>
-    <junction id="gneJ44" type="priority" x="1592.38" y="732.96" incLanes="gneE31_0 -gneE32_0" intLanes="" shape="1592.88,736.33 1594.16,730.06 1592.67,729.92 1591.94,729.99 1591.22,730.14 1590.52,730.37 1589.83,730.70">
+    <junction id="gneJ44" type="priority" x="1592.38" y="732.96" incLanes="gneE31_0 -gneE32_0" intLanes="" shape="1592.88,736.33 1594.16,730.06 1592.51,729.80 1591.91,729.82 1591.33,729.97 1590.67,730.26 1589.83,730.70">
         <request index="0" response="0000" foes="1000"/>
         <request index="1" response="0100" foes="0100"/>
         <request index="2" response="0000" foes="0010"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jun 22 11:32:00 2018 by Eclipse SUMO netconvert Version 9eff290
+<!-- generated on Thu Jun 28 08:40:37 2018 by Eclipse SUMO netconvert Version 3ef3414
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -195,7 +195,7 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="2" type="dead_end" x="400.00" y="214.20" incLanes="2fo_0" intLanes="" shape="400.00,214.20 400.23,211.01 400.00,214.20"/>
     <junction id="3" type="dead_end" x="214.20" y="0.00" incLanes="3fo_0" intLanes="" shape="214.20,-0.00 211.01,-0.23 214.20,-0.00"/>
     <junction id="4" type="dead_end" x="185.80" y="400.00" incLanes="4fo_0" intLanes="" shape="185.80,400.00 188.99,400.23 185.80,400.00"/>
-    <junction id="m1" type="priority" x="50.00" y="189.35" incLanes="1o_0 1fi_0" intLanes=":m1_0_0 :m1_1_0 :m1_1_1 :m1_1_2" shape="53.76,192.83 54.67,180.06 46.24,185.87 45.78,192.26">
+    <junction id="m1" type="priority" x="50.00" y="189.35" incLanes="1o_0 1fi_0" intLanes=":m1_0_0 :m1_1_0 :m1_1_1 :m1_1_2" shape="53.76,192.83 54.67,180.06 52.63,180.39 51.35,181.48 49.56,184.45 48.28,185.54 46.24,185.87 45.78,192.26">
         <request index="0" response="0000" foes="0000" cont="0"/>
         <request index="1" response="0000" foes="0000" cont="0"/>
         <request index="2" response="0000" foes="0000" cont="0"/>
@@ -212,7 +212,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="1" response="000" foes="000" cont="0"/>
         <request index="2" response="000" foes="000" cont="0"/>
     </junction>
-    <junction id="m4" type="priority" x="189.35" y="350.00" incLanes="4o_0 4fi_0" intLanes=":m4_0_0 :m4_1_0 :m4_1_1" shape="192.83,346.24 183.25,345.56 185.87,353.76 192.26,354.22">
+    <junction id="m4" type="priority" x="189.35" y="350.00" incLanes="4o_0 4fi_0" intLanes=":m4_0_0 :m4_1_0 :m4_1_1" shape="192.83,346.24 183.25,345.56 183.86,348.64 185.26,350.68 185.77,351.96 185.87,353.76 192.26,354.22">
         <request index="0" response="000" foes="000" cont="0"/>
         <request index="1" response="000" foes="000" cont="0"/>
         <request index="2" response="000" foes="000" cont="0"/>

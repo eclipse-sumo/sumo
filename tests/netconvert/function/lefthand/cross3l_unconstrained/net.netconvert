@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jun 22 11:32:09 2018 by Eclipse SUMO netconvert Version 9eff290
+<!-- generated on Thu Jun 28 09:17:15 2018 by Eclipse SUMO netconvert Version 3ef3414
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -206,7 +206,7 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="4" type="priority" x="500.00" y="1000.00" incLanes="4o_0" intLanes=":4_0_0" shape="500.00,1000.00 496.80,1000.00 500.00,1000.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="m1" type="priority" x="250.00" y="500.00" incLanes="1fi_0 1fi_1" intLanes=":m1_0_0 :m1_0_1 :m1_0_2" shape="254.00,500.00 254.00,509.60 246.00,506.40 246.00,500.00">
+    <junction id="m1" type="priority" x="250.00" y="500.00" incLanes="1fi_0 1fi_1" intLanes=":m1_0_0 :m1_0_1 :m1_0_2" shape="254.00,500.00 254.00,509.60 250.97,508.77 249.03,507.23 247.79,506.64 246.00,506.40 246.00,500.00">
         <request index="0" response="000" foes="000" cont="0"/>
         <request index="1" response="000" foes="000" cont="0"/>
         <request index="2" response="000" foes="000" cont="0"/>
@@ -221,7 +221,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="1" response="000" foes="000" cont="0"/>
         <request index="2" response="000" foes="000" cont="0"/>
     </junction>
-    <junction id="m4" type="priority" x="500.00" y="750.00" incLanes="4fi_0 4fi_1" intLanes=":m4_0_0 :m4_0_1 :m4_0_2" shape="500.00,746.00 509.60,746.00 506.40,754.00 500.00,754.00">
+    <junction id="m4" type="priority" x="500.00" y="750.00" incLanes="4fi_0 4fi_1" intLanes=":m4_0_0 :m4_0_1 :m4_0_2" shape="500.00,746.00 509.60,746.00 508.77,749.03 507.23,750.97 506.64,752.21 506.40,754.00 500.00,754.00">
         <request index="0" response="000" foes="000" cont="0"/>
         <request index="1" response="000" foes="000" cont="0"/>
         <request index="2" response="000" foes="000" cont="0"/>

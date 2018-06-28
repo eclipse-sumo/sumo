@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jun 22 11:32:14 2018 by Eclipse SUMO netconvert Version 9eff290
+<!-- generated on Thu Jun 28 09:17:20 2018 by Eclipse SUMO netconvert Version 3ef3414
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -319,7 +319,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="5" response="0000000" foes="0001111" cont="0"/>
         <request index="6" response="0000000" foes="0001111" cont="0"/>
     </junction>
-    <junction id="n_m7" type="priority" x="3500.00" y="500.00" incLanes="e_m6_0 e_m6_1 e_m6_2" intLanes=":n_m7_0_0 :n_m7_1_0 :n_m7_2_0 :n_m7_3_0 :n_m7_4_0 :n_m7_5_0" shape="3500.00,504.00 3509.60,504.00 3509.75,500.02 3508.22,497.35 3505.73,495.32 3503.04,493.26 3500.88,490.51 3500.00,486.40 3490.40,486.40 3490.41,488.62 3489.91,489.40 3489.08,489.96 3487.91,490.29 3486.40,490.40 3486.40,500.00 3490.56,500.11 3493.96,500.44 3496.60,501.00 3498.49,501.78 3499.62,502.78">
+    <junction id="n_m7" type="priority" x="3500.00" y="500.00" incLanes="e_m6_0 e_m6_1 e_m6_2" intLanes=":n_m7_0_0 :n_m7_1_0 :n_m7_2_0 :n_m7_3_0 :n_m7_4_0 :n_m7_5_0" shape="3500.00,504.00 3509.60,504.00 3508.89,499.91 3507.11,497.21 3502.49,493.19 3500.71,490.49 3500.00,486.40 3490.40,486.40 3489.96,488.62 3489.40,489.40 3488.62,489.96 3487.62,490.29 3486.40,490.40 3486.40,500.00 3490.56,500.11 3493.96,500.44 3496.60,501.00 3498.49,501.78 3499.62,502.78">
         <request index="0" response="000000" foes="000000" cont="0"/>
         <request index="1" response="000000" foes="000000" cont="0"/>
         <request index="2" response="000000" foes="000000" cont="0"/>
@@ -338,7 +338,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="3" response="00000" foes="00000" cont="0"/>
         <request index="4" response="00000" foes="00000" cont="0"/>
     </junction>
-    <junction id="n_o2" type="priority" x="3000.00" y="1000.00" incLanes="e_shape0_0 e_shape0_1 e_shape0_2" intLanes=":n_o2_0_0 :n_o2_0_1 :n_o2_0_2 :n_o2_3_0 :n_o2_4_0" shape="3006.21,1008.34 3003.88,999.03 3001.72,999.56 3000.97,999.25 3000.43,998.55 3000.11,997.47 3000.00,996.00 2993.60,996.00 2993.16,998.22 2992.60,999.00 2991.82,999.56 2990.82,999.89 2989.60,1000.00 2989.60,1009.60 2993.16,1009.65 2995.81,1009.72 2998.00,1009.73 3000.16,1009.57 3002.75,1009.14">
+    <junction id="n_o2" type="priority" x="3000.00" y="1000.00" incLanes="e_shape0_0 e_shape0_1 e_shape0_2" intLanes=":n_o2_0_0 :n_o2_0_1 :n_o2_0_2 :n_o2_3_0 :n_o2_4_0" shape="3006.21,1008.34 3003.88,999.03 3001.72,999.12 3000.97,998.76 3000.43,998.11 3000.11,997.20 3000.00,996.00 2993.60,996.00 2993.16,998.22 2992.60,999.00 2991.82,999.56 2990.82,999.89 2989.60,1000.00 2989.60,1009.60 2993.16,1009.65 2995.81,1009.72 2998.00,1009.73 3000.16,1009.57 3002.75,1009.14">
         <request index="0" response="00000" foes="00000" cont="0"/>
         <request index="1" response="00000" foes="00000" cont="0"/>
         <request index="2" response="00000" foes="00000" cont="0"/>
@@ -356,7 +356,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="3" response="00000" foes="00000" cont="0"/>
         <request index="4" response="00000" foes="00000" cont="0"/>
     </junction>
-    <junction id="n_u2" type="priority" x="3000.00" y="0.00" incLanes="e_shape1_0 e_shape1_1 e_shape1_2" intLanes=":n_u2_0_0 :n_u2_1_0 :n_u2_2_0 :n_u2_2_1 :n_u2_2_2" shape="3000.00,15.50 3006.40,15.50 3006.83,13.38 3007.37,12.74 3008.12,12.37 3009.09,12.28 3010.28,12.47 3012.61,3.15 3009.35,1.59 3006.83,0.64 3004.65,0.14 3002.39,-0.03 2999.64,-0.03 2996.00,0.00 2996.00,9.60 2998.22,10.26 2999.00,11.07 2999.56,12.22 2999.89,13.69">
+    <junction id="n_u2" type="priority" x="3000.00" y="0.00" incLanes="e_shape1_0 e_shape1_1 e_shape1_2" intLanes=":n_u2_0_0 :n_u2_1_0 :n_u2_2_0 :n_u2_2_1 :n_u2_2_2" shape="3000.00,15.50 3006.40,15.50 3006.83,13.38 3007.37,12.74 3008.12,12.37 3009.09,12.28 3010.28,12.47 3012.61,3.15 3009.12,2.21 3006.54,1.42 3004.40,0.81 3002.24,0.36 2999.60,0.09 2996.00,0.00 2996.00,9.60 2998.22,10.26 2999.00,11.07 2999.56,12.22 2999.89,13.69">
         <request index="0" response="00000" foes="00000" cont="0"/>
         <request index="1" response="00000" foes="00000" cont="0"/>
         <request index="2" response="00000" foes="00000" cont="0"/>

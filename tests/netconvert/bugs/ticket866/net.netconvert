@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jun 22 11:32:14 2018 by Eclipse SUMO netconvert Version 9eff290
+<!-- generated on Thu Jun 28 09:17:19 2018 by Eclipse SUMO netconvert Version 3ef3414
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -50,7 +50,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <junction id="2159689627" type="dead_end" x="0.00" y="49.16" incLanes="" intLanes="" shape="0.03,52.36 -0.03,45.96"/>
     <junction id="324321646" type="dead_end" x="272.57" y="18.01" incLanes="exit_with_only_one_lane_0" intLanes="" shape="276.97,20.26 274.12,18.80"/>
-    <junction id="443238" type="priority" x="248.17" y="67.55" incLanes="bug_in_osm_db_0 bug_in_osm_db_1 motorway_0 motorway_1" intLanes="" shape="249.77,74.91 252.76,65.68 250.79,65.57 249.14,65.03 247.45,64.40 246.01,63.85 245.14,63.55 243.68,69.79 246.15,71.22 246.78,72.18 247.39,73.18 248.29,74.12">
+    <junction id="443238" type="priority" x="248.17" y="67.55" incLanes="bug_in_osm_db_0 bug_in_osm_db_1 motorway_0 motorway_1" intLanes="" shape="249.77,74.91 252.76,65.68 245.14,63.55 243.68,69.79 246.15,71.22 246.78,72.18 247.39,73.18 248.29,74.12">
         <request index="0" response="10" foes="10"/>
         <request index="1" response="00" foes="01"/>
     </junction>

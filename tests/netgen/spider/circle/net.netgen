@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jun 22 11:32:17 2018 by Eclipse SUMO netgenerate Version 9eff290
+<!-- generated on Thu Jun 28 08:57:49 2018 by Eclipse SUMO netgenerate Version 3ef3414
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -350,25 +350,25 @@ SPDX-License-Identifier: EPL-2.0
         <request index="2" response="0000" foes="0010" cont="0"/>
         <request index="3" response="0001" foes="0001" cont="1"/>
     </junction>
-    <junction id="B10" type="priority" x="61.63" y="5.77" incLanes="B11B10_0 B9B10_0" intLanes=":B10_0_0 :B10_4_0 :B10_2_0 :B10_5_0" shape="62.80,8.85 62.03,2.50 61.02,2.70 60.53,2.86 60.06,3.06 59.61,3.30 59.17,3.58">
+    <junction id="B10" type="priority" x="61.63" y="5.77" incLanes="B11B10_0 B9B10_0" intLanes=":B10_0_0 :B10_4_0 :B10_2_0 :B10_5_0" shape="62.80,8.85 62.03,2.50 60.89,2.67 60.50,2.78 60.13,2.96 59.71,3.21 59.17,3.58">
         <request index="0" response="0000" foes="1000" cont="0"/>
         <request index="1" response="0100" foes="0100" cont="1"/>
         <request index="2" response="0000" foes="0010" cont="0"/>
         <request index="3" response="0001" foes="0001" cont="1"/>
     </junction>
-    <junction id="B11" type="priority" x="109.15" y="0.00" incLanes="B12B11_0 B10B11_0" intLanes=":B11_0_0 :B11_4_0 :B11_2_0 :B11_5_0" shape="108.75,3.27 111.02,-2.71 110.03,-3.00 109.52,-3.08 109.01,-3.13 108.50,-3.12 107.98,-3.08">
+    <junction id="B11" type="priority" x="109.15" y="0.00" incLanes="B12B11_0 B10B11_0" intLanes=":B11_0_0 :B11_4_0 :B11_2_0 :B11_5_0" shape="108.75,3.27 111.02,-2.71 109.93,-3.09 109.53,-3.17 109.13,-3.19 108.63,-3.16 107.98,-3.08">
         <request index="0" response="0000" foes="1000" cont="0"/>
         <request index="1" response="0100" foes="0100" cont="1"/>
         <request index="2" response="0000" foes="0010" cont="0"/>
         <request index="3" response="0001" foes="0001" cont="1"/>
     </junction>
-    <junction id="B12" type="priority" x="153.90" y="16.97" incLanes="B13B12_0 B11B12_0" intLanes=":B12_0_0 :B12_4_0 :B12_2_0 :B12_5_0" shape="152.03,19.68 156.82,15.44 156.07,14.72 155.67,14.42 155.23,14.14 154.78,13.90 154.30,13.70">
+    <junction id="B12" type="priority" x="153.90" y="16.97" incLanes="B13B12_0 B11B12_0" intLanes=":B12_0_0 :B12_4_0 :B12_2_0 :B12_5_0" shape="152.03,19.68 156.82,15.44 156.03,14.60 155.71,14.34 155.36,14.14 154.91,13.94 154.30,13.70">
         <request index="0" response="0000" foes="1000" cont="0"/>
         <request index="1" response="0100" foes="0100" cont="1"/>
         <request index="2" response="0000" foes="0010" cont="0"/>
         <request index="3" response="0001" foes="0001" cont="1"/>
     </junction>
-    <junction id="B13" type="priority" x="185.64" y="52.80" incLanes="B1B13_0 B12B13_0" intLanes=":B13_0_0 :B13_4_0 :B13_2_0 :B13_5_0" shape="182.72,54.33 188.94,52.80 188.61,51.82 188.39,51.35 188.14,50.91 187.84,50.49 187.51,50.09">
+    <junction id="B13" type="priority" x="185.64" y="52.80" incLanes="B1B13_0 B12B13_0" intLanes=":B13_0_0 :B13_4_0 :B13_2_0 :B13_5_0" shape="182.72,54.33 188.94,52.80 188.63,51.69 188.47,51.31 188.25,50.97 187.94,50.58 187.51,50.09">
         <request index="0" response="0000" foes="1000" cont="0"/>
         <request index="1" response="0100" foes="0100" cont="1"/>
         <request index="2" response="0000" foes="0010" cont="0"/>
@@ -416,7 +416,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="2" response="0000" foes="0010" cont="0"/>
         <request index="3" response="0001" foes="0001" cont="1"/>
     </junction>
-    <junction id="B9" type="priority" x="22.24" y="32.96" incLanes="B10B9_0 B8B9_0" intLanes=":B9_0_0 :B9_4_0 :B9_2_0 :B9_5_0" shape="24.71,35.14 21.07,29.88 20.27,30.53 19.92,30.90 19.59,31.29 19.30,31.72 19.04,32.17">
+    <junction id="B9" type="priority" x="22.24" y="32.96" incLanes="B10B9_0 B8B9_0" intLanes=":B9_0_0 :B9_4_0 :B9_2_0 :B9_5_0" shape="24.71,35.14 21.07,29.88 20.15,30.56 19.85,30.84 19.61,31.17 19.35,31.59 19.04,32.17">
         <request index="0" response="0000" foes="1000" cont="0"/>
         <request index="1" response="0100" foes="0100" cont="1"/>
         <request index="2" response="0000" foes="0010" cont="0"/>

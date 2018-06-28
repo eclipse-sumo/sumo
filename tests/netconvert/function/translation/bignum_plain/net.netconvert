@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jun 22 11:32:10 2018 by Eclipse SUMO netconvert Version 9eff290
+<!-- generated on Thu Jun 28 09:17:16 2018 by Eclipse SUMO netconvert Version 3ef3414
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -114,7 +114,7 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="4" type="priority" x="200000.00" y="500.00" incLanes="4o_0" intLanes="" shape="200000.00,500.00 200003.20,500.00 200000.00,500.00">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="m1" type="priority" x="199750.00" y="0.00" incLanes="1fi_0 1fi_1" intLanes="" shape="199754.00,0.00 199754.00,-9.60 199746.00,-6.40 199746.00,0.00">
+    <junction id="m1" type="priority" x="199750.00" y="0.00" incLanes="1fi_0 1fi_1" intLanes="" shape="199754.00,0.00 199754.00,-9.60 199750.97,-8.77 199749.03,-7.23 199747.79,-6.64 199746.00,-6.40 199746.00,0.00">
         <request index="0" response="000" foes="000"/>
         <request index="1" response="000" foes="000"/>
         <request index="2" response="000" foes="000"/>
@@ -124,7 +124,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="1" response="000" foes="000"/>
         <request index="2" response="000" foes="000"/>
     </junction>
-    <junction id="m3" type="priority" x="200000.00" y="-250.00" incLanes="3fi_0 3fi_1" intLanes="" shape="200000.00,-246.00 200009.60,-246.00 200006.40,-254.00 200000.00,-254.00">
+    <junction id="m3" type="priority" x="200000.00" y="-250.00" incLanes="3fi_0 3fi_1" intLanes="" shape="200000.00,-246.00 200009.60,-246.00 200008.77,-249.03 200007.23,-250.97 200006.64,-252.21 200006.40,-254.00 200000.00,-254.00">
         <request index="0" response="000" foes="000"/>
         <request index="1" response="000" foes="000"/>
         <request index="2" response="000" foes="000"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jun 22 11:31:57 2018 by Eclipse SUMO netconvert Version 9eff290
+<!-- generated on Thu Jun 28 08:28:34 2018 by Eclipse SUMO netconvert Version 3ef3414
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -80,7 +80,7 @@ SPDX-License-Identifier: EPL-2.0
         </lane>
     </edge>
 
-    <junction id="0" type="priority" x="17007.34" y="661.88" incLanes="4_0 4_1 2_0 2_1 2_2" intLanes="" shape="17004.42,670.79 17010.81,670.59 17011.19,668.35 17011.72,667.56 17012.48,666.98 17013.47,666.62 17014.69,666.47 17014.41,656.88 17009.60,657.02 17004.79,657.17 16999.98,657.32 17000.29,666.92 17002.53,667.29 17003.32,667.82 17003.90,668.58 17004.27,669.57">
+    <junction id="0" type="priority" x="17007.34" y="661.88" incLanes="4_0 4_1 2_0 2_1 2_2" intLanes="" shape="17004.42,670.79 17010.81,670.59 17011.19,668.35 17011.72,667.56 17012.48,666.98 17013.47,666.62 17014.69,666.47 17014.41,656.88 16999.98,657.32 17000.29,666.92 17002.53,667.29 17003.32,667.82 17003.90,668.58 17004.27,669.57">
         <request index="0" response="11100" foes="11100"/>
         <request index="1" response="11100" foes="11100"/>
         <request index="2" response="00000" foes="00011"/>

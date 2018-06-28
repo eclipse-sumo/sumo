@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jun 22 11:32:04 2018 by Eclipse SUMO netconvert Version 9eff290
+<!-- generated on Thu Jun 28 08:40:41 2018 by Eclipse SUMO netconvert Version 3ef3414
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -89,7 +89,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="-117528_2" index="2" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="27.78" length="818.88" shape="1104.93,281.72 1056.39,255.24 680.26,79.06 623.39,51.39 572.27,31.15 514.22,13.34 457.07,1.67 387.39,-3.20 344.58,-1.50"/>
     </edge>
 
-    <junction id="-117529" type="priority" x="344.49" y="1.71" incLanes="-117528_0 -117528_1 -117528_2" intLanes=":-117529_0_0 :-117529_0_1 :-117529_0_2" shape="344.90,6.49 344.52,-3.10 344.28,-3.14 344.20,-3.13 344.11,-3.11 344.01,-3.08 343.87,-3.06 344.68,6.51">
+    <junction id="-117529" type="priority" x="344.49" y="1.71" incLanes="-117528_0 -117528_1 -117528_2" intLanes=":-117529_0_0 :-117529_0_1 :-117529_0_2" shape="344.90,6.49 344.52,-3.10 343.87,-3.06 344.68,6.51">
         <request index="0" response="000" foes="000" cont="0"/>
         <request index="1" response="000" foes="000" cont="0"/>
         <request index="2" response="000" foes="000" cont="0"/>

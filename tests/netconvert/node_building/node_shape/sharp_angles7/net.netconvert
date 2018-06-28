@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jun 22 11:31:53 2018 by Eclipse SUMO netconvert Version 9eff290
+<!-- generated on Thu Jun 28 07:51:57 2018 by Eclipse SUMO netconvert Version 3ef3414
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -46,7 +46,7 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="100797353" type="dead_end" x="0.00" y="141.22" incLanes="" intLanes="" shape="0.79,142.61 -0.79,139.83"/>
     <junction id="414958322" type="dead_end" x="108.08" y="0.00" incLanes="2_0" intLanes="" shape="106.97,-1.15 109.19,1.15"/>
     <junction id="415082951" type="dead_end" x="71.30" y="149.18" incLanes="1_0" intLanes="" shape="72.51,148.14 70.09,150.22"/>
-    <junction id="C" type="priority" x="40.89" y="116.31" incLanes="3_0" intLanes="" shape="40.89,116.23 43.31,114.15 41.41,114.06 38.66,115.71 34.86,119.75 44.29,116.85 42.84,116.40 41.99,116.15 41.27,115.99 40.85,116.00">
+    <junction id="C" type="priority" x="40.89" y="116.31" incLanes="3_0" intLanes="" shape="40.89,116.23 43.31,114.15 41.41,114.06 38.66,115.71 38.62,116.79 38.14,117.43 37.35,118.13 36.26,118.91 34.86,119.75 44.29,116.85 42.84,116.40 41.99,116.15 41.27,115.99 40.85,116.00">
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>

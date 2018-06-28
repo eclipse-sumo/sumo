@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jun 22 11:31:52 2018 by Eclipse SUMO netconvert Version 9eff290
+<!-- generated on Thu Jun 28 09:32:08 2018 by Eclipse SUMO netconvert Version 3ef3414
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -319,7 +319,7 @@
         <lane id="L9_2" index="2" speed="13.89" length="982.40" shape="2996.00,1001.60 2013.60,1001.60"/>
     </edge>
 
-    <junction id="1" type="priority" x="1000.00" y="1000.00" incLanes="L11_0 L11_1 L11_2 L2_0 L2_1" intLanes=":1_0_0 :1_0_1 :1_0_2 :1_3_0 :1_3_1 :1_3_2" shape="1004.00,1009.60 1004.00,990.40 996.00,993.60 996.00,1009.60">
+    <junction id="1" type="priority" x="1000.00" y="1000.00" incLanes="L11_0 L11_1 L11_2 L2_0 L2_1" intLanes=":1_0_0 :1_0_1 :1_0_2 :1_3_0 :1_3_1 :1_3_2" shape="1004.00,1009.60 1004.00,990.40 1000.97,991.23 999.03,992.77 997.79,993.36 996.00,993.60 996.00,1009.60">
         <request index="0" response="000000" foes="000000" cont="0"/>
         <request index="1" response="000000" foes="000000" cont="0"/>
         <request index="2" response="000000" foes="000000" cont="0"/>
@@ -327,7 +327,7 @@
         <request index="4" response="000000" foes="000000" cont="0"/>
         <request index="5" response="000000" foes="000000" cont="0"/>
     </junction>
-    <junction id="2" type="priority" x="1000.00" y="0.00" incLanes="L13_0 L13_1 L13_2 L4_0 L4_1" intLanes=":2_0_0 :2_0_1 :2_0_2 :2_3_0 :2_3_1 :2_3_2" shape="1004.00,9.60 1004.00,-9.60 996.00,-6.40 996.00,9.60">
+    <junction id="2" type="priority" x="1000.00" y="0.00" incLanes="L13_0 L13_1 L13_2 L4_0 L4_1" intLanes=":2_0_0 :2_0_1 :2_0_2 :2_3_0 :2_3_1 :2_3_2" shape="1004.00,9.60 1004.00,-9.60 1000.97,-8.77 999.03,-7.23 997.79,-6.64 996.00,-6.40 996.00,9.60">
         <request index="0" response="000000" foes="000000" cont="0"/>
         <request index="1" response="000000" foes="000000" cont="0"/>
         <request index="2" response="000000" foes="000000" cont="0"/>

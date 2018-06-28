@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jun 22 11:31:53 2018 by Eclipse SUMO netconvert Version 9eff290
+<!-- generated on Thu Jun 28 08:55:21 2018 by Eclipse SUMO netconvert Version 3ef3414
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -54,7 +54,7 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
 
     <junction id="3091127668" type="dead_end" x="0.00" y="191.11" incLanes="1_0" intLanes="" shape="-0.00,191.11 5.22,195.78 0.00,191.11"/>
-    <junction id="C" type="right_before_left" x="180.00" y="58.11" incLanes="2_0 3_0 -1_0" intLanes="" shape="229.02,61.14 227.88,47.18 225.63,47.38 225.31,47.26 225.53,46.98 226.29,46.55 227.59,45.98 222.24,33.04 211.76,35.52 204.03,38.53 197.72,41.92 191.44,45.51 183.86,49.14 173.61,52.63 177.39,66.11 187.84,63.54 195.94,62.28 202.89,61.86 209.91,61.83 218.22,61.74">
+    <junction id="C" type="right_before_left" x="180.00" y="58.11" incLanes="2_0 3_0 -1_0" intLanes="" shape="229.02,61.14 227.88,47.18 227.59,45.98 222.24,33.04 212.29,37.35 204.71,40.87 198.29,43.89 191.78,46.68 183.97,49.50 173.61,52.63 177.39,66.11 187.84,63.54 195.94,62.28 202.89,61.86 209.91,61.83 218.22,61.74">
         <request index="0" response="000000" foes="001000"/>
         <request index="1" response="110000" foes="111000"/>
         <request index="2" response="000000" foes="100000"/>

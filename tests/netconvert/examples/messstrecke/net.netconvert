@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jun 22 11:31:53 2018 by Eclipse SUMO netconvert Version 9eff290
+<!-- generated on Thu Jun 28 08:28:31 2018 by Eclipse SUMO netconvert Version 3ef3414
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -341,7 +341,7 @@ SPDX-License-Identifier: EPL-2.0
         <phase duration="4"  state="rrryyyrr"/>
     </tlLogic>
 
-    <junction id="AltglienickerBreit" type="priority" x="1908.47" y="180.00" incLanes="AltglienickerBreitS_0 AltglienickerN_0" intLanes=":AltglienickerBreit_0_0 :AltglienickerBreit_1_0 :AltglienickerBreit_1_1" shape="1905.27,184.00 1914.87,184.00 1911.67,176.00 1905.27,176.00">
+    <junction id="AltglienickerBreit" type="priority" x="1908.47" y="180.00" incLanes="AltglienickerBreitS_0 AltglienickerN_0" intLanes=":AltglienickerBreit_0_0 :AltglienickerBreit_1_0 :AltglienickerBreit_1_1" shape="1905.27,184.00 1914.87,184.00 1914.04,180.97 1912.50,179.03 1911.91,177.79 1911.67,176.00 1905.27,176.00">
         <request index="0" response="000" foes="000" cont="0"/>
         <request index="1" response="000" foes="000" cont="0"/>
         <request index="2" response="000" foes="000" cont="0"/>
@@ -400,14 +400,14 @@ SPDX-License-Identifier: EPL-2.0
         <request index="7" response="000000000" foes="000000110" cont="0"/>
         <request index="8" response="000110000" foes="000110110" cont="1"/>
     </junction>
-    <junction id="ErnstRuskaHavestadtDiv1" type="priority" x="985.25" y="200.00" incLanes="ErnstRuska231W_0 ErnstRuska231W_1 ErnstRuska2O_0 ErnstRuska2O_1" intLanes=":ErnstRuskaHavestadtDiv1_0_0 :ErnstRuskaHavestadtDiv1_0_1 :ErnstRuskaHavestadtDiv1_2_0 :ErnstRuskaHavestadtDiv1_2_1 :ErnstRuskaHavestadtDiv1_2_2" shape="989.25,206.40 989.25,190.40 981.25,193.60 981.25,206.40">
+    <junction id="ErnstRuskaHavestadtDiv1" type="priority" x="985.25" y="200.00" incLanes="ErnstRuska231W_0 ErnstRuska231W_1 ErnstRuska2O_0 ErnstRuska2O_1" intLanes=":ErnstRuskaHavestadtDiv1_0_0 :ErnstRuskaHavestadtDiv1_0_1 :ErnstRuskaHavestadtDiv1_2_0 :ErnstRuskaHavestadtDiv1_2_1 :ErnstRuskaHavestadtDiv1_2_2" shape="989.25,206.40 989.25,190.40 986.22,191.23 984.28,192.77 983.04,193.36 981.25,193.60 981.25,206.40">
         <request index="0" response="00000" foes="00000" cont="0"/>
         <request index="1" response="00000" foes="00000" cont="0"/>
         <request index="2" response="00000" foes="00000" cont="0"/>
         <request index="3" response="00000" foes="00000" cont="0"/>
         <request index="4" response="00000" foes="00000" cont="0"/>
     </junction>
-    <junction id="ErnstRuskaHavestadtDiv2" type="priority" x="1045.25" y="200.00" incLanes="ErnstRuska3W_0 ErnstRuska3W_1 ErnstRuska232O_0 ErnstRuska232O_1 ErnstRuska232O_2" intLanes=":ErnstRuskaHavestadtDiv2_0_0 :ErnstRuskaHavestadtDiv2_0_1 :ErnstRuskaHavestadtDiv2_2_0 :ErnstRuskaHavestadtDiv2_2_1" shape="1049.25,206.40 1049.25,193.60 1041.25,190.40 1041.25,206.40">
+    <junction id="ErnstRuskaHavestadtDiv2" type="priority" x="1045.25" y="200.00" incLanes="ErnstRuska3W_0 ErnstRuska3W_1 ErnstRuska232O_0 ErnstRuska232O_1 ErnstRuska232O_2" intLanes=":ErnstRuskaHavestadtDiv2_0_0 :ErnstRuskaHavestadtDiv2_0_1 :ErnstRuskaHavestadtDiv2_2_0 :ErnstRuskaHavestadtDiv2_2_1" shape="1049.25,206.40 1049.25,193.60 1046.22,192.77 1044.28,191.23 1043.04,190.64 1041.25,190.40 1041.25,206.40">
         <request index="0" response="0000" foes="0000" cont="0"/>
         <request index="1" response="0000" foes="0000" cont="0"/>
         <request index="2" response="0000" foes="0000" cont="0"/>

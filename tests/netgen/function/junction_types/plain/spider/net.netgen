@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jun 22 11:32:19 2018 by Eclipse SUMO netgenerate Version 9eff290
+<!-- generated on Thu Jun 28 08:57:51 2018 by Eclipse SUMO netgenerate Version 3ef3414
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -275,7 +275,7 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
 
     <junction id="A1" type="unregulated" x="100.00" y="100.00" incLanes="B2A1_0 B1A1_0 B4A1_0 B3A1_0" intLanes=":A1_0_0 :A1_1_0 :A1_2_0 :A1_3_0 :A1_4_0 :A1_5_0 :A1_6_0 :A1_7_0 :A1_8_0 :A1_9_0 :A1_10_0 :A1_11_0 :A1_12_0 :A1_13_0 :A1_14_0 :A1_15_0" shape="96.80,107.20 103.20,107.20 103.64,104.98 104.20,104.20 104.98,103.64 105.98,103.31 107.20,103.20 107.20,96.80 104.98,96.36 104.20,95.80 103.64,95.02 103.31,94.02 103.20,92.80 96.80,92.80 96.36,95.02 95.80,95.80 95.02,96.36 94.02,96.69 92.80,96.80 92.80,103.20 95.02,103.64 95.80,104.20 96.36,104.98 96.69,105.98"/>
-    <junction id="B1" type="priority" x="200.00" y="100.00" incLanes="B4B1_0 A1B1_0 B2B1_0" intLanes=":B1_0_0 :B1_9_0 :B1_10_0 :B1_3_0 :B1_4_0 :B1_5_0 :B1_6_0 :B1_7_0 :B1_11_0" shape="193.97,89.45 189.45,93.97 190.57,95.54 190.57,96.09 190.18,96.49 189.42,96.72 188.27,96.80 188.27,103.20 189.45,106.03 193.97,110.55 196.90,107.04 198.66,103.52 199.25,100.00 198.66,96.48 196.90,92.96">
+    <junction id="B1" type="priority" x="200.00" y="100.00" incLanes="B4B1_0 A1B1_0 B2B1_0" intLanes=":B1_0_0 :B1_9_0 :B1_10_0 :B1_3_0 :B1_4_0 :B1_5_0 :B1_6_0 :B1_7_0 :B1_11_0" shape="193.97,89.45 189.45,93.97 190.57,95.54 190.57,96.09 190.18,96.49 189.42,96.72 188.27,96.80 188.27,103.20 190.18,103.51 190.57,103.91 190.57,104.46 190.20,105.16 189.45,106.03 193.97,110.55 196.90,107.04 198.66,103.52 199.25,100.00 198.66,96.48 196.90,92.96">
         <request index="0" response="000000000" foes="100010000" cont="0"/>
         <request index="1" response="011000000" foes="011110000" cont="1"/>
         <request index="2" response="010001000" foes="010001000" cont="1"/>

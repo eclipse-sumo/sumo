@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jun 22 11:31:56 2018 by Eclipse SUMO netconvert Version 9eff290
+<!-- generated on Thu Jun 28 08:28:34 2018 by Eclipse SUMO netconvert Version 3ef3414
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -56,7 +56,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
-    <junction id="1.70" type="priority" x="70.00" y="3.20" incLanes="1.30_0 1.30_1" intLanes=":1.70_0_0" shape="74.00,0.00 74.00,-3.20 66.00,-6.40 66.00,0.00">
+    <junction id="1.70" type="priority" x="70.00" y="3.20" incLanes="1.30_0 1.30_1" intLanes=":1.70_0_0" shape="74.00,0.00 74.00,-3.20 70.97,-4.03 69.03,-5.57 67.79,-6.16 66.00,-6.40 66.00,0.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
 

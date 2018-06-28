@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jun 22 11:32:10 2018 by Eclipse SUMO netconvert Version 9eff290
+<!-- generated on Thu Jun 28 09:17:16 2018 by Eclipse SUMO netconvert Version 3ef3414
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -145,7 +145,7 @@ SPDX-License-Identifier: EPL-2.0
         <phase duration="3"  state="rryyy"/>
     </tlLogic>
 
-    <junction id="301292612" type="traffic_light" x="43.13" y="56.80" incLanes="27437972_0 27437972_1 27445003_0 27445003_1" intLanes=":301292612_0_0 :301292612_0_1 :301292612_0_2 :301292612_3_0 :301292612_4_0" shape="47.81,62.54 50.53,56.74 48.89,47.67 42.71,46.01 41.71,48.04 40.97,48.65 40.07,48.99 39.01,49.07 37.80,48.89 34.72,61.31 37.49,61.76 39.63,61.71 41.43,61.47 43.19,61.33 45.22,61.58">
+    <junction id="301292612" type="traffic_light" x="43.13" y="56.80" incLanes="27437972_0 27437972_1 27445003_0 27445003_1" intLanes=":301292612_0_0 :301292612_0_1 :301292612_0_2 :301292612_3_0 :301292612_4_0" shape="47.81,62.54 50.53,56.74 48.89,47.67 42.71,46.01 37.80,48.89 34.72,61.31 37.49,61.76 39.63,61.71 41.43,61.47 43.19,61.33 45.22,61.58">
         <request index="0" response="00000" foes="11000" cont="0"/>
         <request index="1" response="00000" foes="11000" cont="0"/>
         <request index="2" response="00000" foes="11000" cont="0"/>

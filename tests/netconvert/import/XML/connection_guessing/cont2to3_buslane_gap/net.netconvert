@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jun 22 11:32:00 2018 by Eclipse SUMO netconvert Version 9eff290
+<!-- generated on Thu Jun 28 08:40:38 2018 by Eclipse SUMO netconvert Version 3ef3414
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -49,13 +49,13 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="beg_2" index="2" speed="13.89" length="200.00" shape="0.00,-1.60 196.00,-1.60"/>
     </edge>
 
-    <junction id="C" type="priority" x="300.00" y="0.00" incLanes="WC_0 WC_1" intLanes="" shape="304.00,0.00 304.00,-9.60 296.00,-6.40 296.00,0.00">
+    <junction id="C" type="priority" x="300.00" y="0.00" incLanes="WC_0 WC_1" intLanes="" shape="304.00,0.00 304.00,-9.60 300.97,-8.77 299.03,-7.23 297.79,-6.64 296.00,-6.40 296.00,0.00">
         <request index="0" response="000" foes="000"/>
         <request index="1" response="000" foes="000"/>
         <request index="2" response="000" foes="000"/>
     </junction>
     <junction id="E" type="dead_end" x="400.00" y="0.00" incLanes="CE_0 CE_1 CE_2" intLanes="" shape="400.00,-9.60 400.00,0.00"/>
-    <junction id="W" type="unregulated" x="200.00" y="0.00" incLanes="beg_0 beg_1 beg_2" intLanes="" shape="204.00,0.00 204.00,-6.40 196.00,-9.60 196.00,0.00"/>
+    <junction id="W" type="unregulated" x="200.00" y="0.00" incLanes="beg_0 beg_1 beg_2" intLanes="" shape="204.00,0.00 204.00,-6.40 200.97,-7.23 199.03,-8.77 197.79,-9.36 196.00,-9.60 196.00,0.00"/>
     <junction id="gneJ0" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,0.00 0.00,-9.60"/>
 
     <connection from="WC" to="CE" fromLane="0" toLane="0" dir="s" state="M"/>

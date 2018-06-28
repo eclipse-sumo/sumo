@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jun 22 11:32:19 2018 by Eclipse SUMO netgenerate Version 9eff290
+<!-- generated on Thu Jun 28 08:57:51 2018 by Eclipse SUMO netgenerate Version 3ef3414
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -1398,7 +1398,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="87_1" index="1" speed="13.89" length="173.08" shape="482.68,1304.80 309.60,1304.80"/>
     </edge>
 
-    <junction id="-101.250.00" type="priority" x="300.00" y="650.00" incLanes="-101_0 -101_1" intLanes=":-101.250.00_0_0 :-101.250.00_0_1 :-101.250.00_0_2 :-101.250.00_0_3" shape="290.40,654.00 296.80,654.00 303.20,646.00 290.40,646.00">
+    <junction id="-101.250.00" type="priority" x="300.00" y="650.00" incLanes="-101_0 -101_1" intLanes=":-101.250.00_0_0 :-101.250.00_0_1 :-101.250.00_0_2 :-101.250.00_0_3" shape="290.40,654.00 296.80,654.00 297.27,651.98 298.46,650.79 301.54,649.21 302.73,648.02 303.20,646.00 290.40,646.00">
         <request index="0" response="0000" foes="0000" cont="0"/>
         <request index="1" response="0000" foes="0000" cont="0"/>
         <request index="2" response="0000" foes="0000" cont="0"/>
@@ -1410,13 +1410,13 @@ SPDX-License-Identifier: EPL-2.0
         <request index="2" response="0000" foes="0000" cont="0"/>
         <request index="3" response="0000" foes="0000" cont="0"/>
     </junction>
-    <junction id="-113.310.56" type="priority" x="341.60" y="872.26" incLanes="-113_0 -113_1" intLanes=":-113.310.56_0_0 :-113.310.56_0_1 :-113.310.56_0_2 :-113.310.56_0_3" shape="350.26,878.03 346.71,872.71 336.50,871.82 343.60,882.47">
+    <junction id="-113.310.56" type="priority" x="341.60" y="872.26" incLanes="-113_0 -113_1" intLanes=":-113.310.56_0_0 :-113.310.56_0_1 :-113.310.56_0_2 :-113.310.56_0_3" shape="350.26,878.03 346.71,872.71 344.77,873.43 343.11,873.11 340.09,871.42 338.44,871.10 336.50,871.82 343.60,882.47">
         <request index="0" response="0000" foes="0000" cont="0"/>
         <request index="1" response="0000" foes="0000" cont="0"/>
         <request index="2" response="0000" foes="0000" cont="0"/>
         <request index="3" response="0000" foes="0000" cont="0"/>
     </junction>
-    <junction id="-15.250.00" type="priority" x="600.00" y="1050.00" incLanes="-15_0 -15_1" intLanes=":-15.250.00_0_0 :-15.250.00_0_1 :-15.250.00_0_2 :-15.250.00_0_3" shape="590.40,1054.00 596.80,1054.00 603.20,1046.00 590.40,1046.00">
+    <junction id="-15.250.00" type="priority" x="600.00" y="1050.00" incLanes="-15_0 -15_1" intLanes=":-15.250.00_0_0 :-15.250.00_0_1 :-15.250.00_0_2 :-15.250.00_0_3" shape="590.40,1054.00 596.80,1054.00 597.27,1051.98 598.46,1050.79 601.54,1049.21 602.73,1048.02 603.20,1046.00 590.40,1046.00">
         <request index="0" response="0000" foes="0000" cont="0"/>
         <request index="1" response="0000" foes="0000" cont="0"/>
         <request index="2" response="0000" foes="0000" cont="0"/>
@@ -1458,7 +1458,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="2" response="0000" foes="0000" cont="0"/>
         <request index="3" response="0000" foes="0000" cont="0"/>
     </junction>
-    <junction id="-360.150.00" type="priority" x="600.00" y="1350.00" incLanes="-360_0 -360_1" intLanes=":-360.150.00_0_0 :-360.150.00_0_1 :-360.150.00_0_2 :-360.150.00_0_3" shape="590.40,1354.00 596.80,1354.00 603.20,1346.00 590.40,1346.00">
+    <junction id="-360.150.00" type="priority" x="600.00" y="1350.00" incLanes="-360_0 -360_1" intLanes=":-360.150.00_0_0 :-360.150.00_0_1 :-360.150.00_0_2 :-360.150.00_0_3" shape="590.40,1354.00 596.80,1354.00 597.27,1351.98 598.46,1350.79 601.54,1349.21 602.73,1348.02 603.20,1346.00 590.40,1346.00">
         <request index="0" response="0000" foes="0000" cont="0"/>
         <request index="1" response="0000" foes="0000" cont="0"/>
         <request index="2" response="0000" foes="0000" cont="0"/>
@@ -1482,19 +1482,19 @@ SPDX-License-Identifier: EPL-2.0
         <request index="2" response="0000" foes="0000" cont="0"/>
         <request index="3" response="0000" foes="0000" cont="0"/>
     </junction>
-    <junction id="-44.150.00" type="priority" x="650.00" y="600.00" incLanes="-44_0 -44_1" intLanes=":-44.150.00_0_0 :-44.150.00_0_1 :-44.150.00_0_2 :-44.150.00_0_3" shape="654.00,609.60 654.00,603.20 646.00,596.80 646.00,609.60">
+    <junction id="-44.150.00" type="priority" x="650.00" y="600.00" incLanes="-44_0 -44_1" intLanes=":-44.150.00_0_0 :-44.150.00_0_1 :-44.150.00_0_2 :-44.150.00_0_3" shape="654.00,609.60 654.00,603.20 651.98,602.73 650.79,601.54 649.21,598.46 648.02,597.27 646.00,596.80 646.00,609.60">
         <request index="0" response="0000" foes="0000" cont="0"/>
         <request index="1" response="0000" foes="0000" cont="0"/>
         <request index="2" response="0000" foes="0000" cont="0"/>
         <request index="3" response="0000" foes="0000" cont="0"/>
     </junction>
-    <junction id="-5.150.00" type="priority" x="650.00" y="1000.00" incLanes="-5_0 -5_1" intLanes=":-5.150.00_0_0 :-5.150.00_0_1 :-5.150.00_0_2 :-5.150.00_0_3" shape="654.00,1009.60 654.00,1003.20 646.00,996.80 646.00,1009.60">
+    <junction id="-5.150.00" type="priority" x="650.00" y="1000.00" incLanes="-5_0 -5_1" intLanes=":-5.150.00_0_0 :-5.150.00_0_1 :-5.150.00_0_2 :-5.150.00_0_3" shape="654.00,1009.60 654.00,1003.20 651.98,1002.73 650.79,1001.54 649.21,998.46 648.02,997.27 646.00,996.80 646.00,1009.60">
         <request index="0" response="0000" foes="0000" cont="0"/>
         <request index="1" response="0000" foes="0000" cont="0"/>
         <request index="2" response="0000" foes="0000" cont="0"/>
         <request index="3" response="0000" foes="0000" cont="0"/>
     </junction>
-    <junction id="-64.150.00" type="priority" x="650.00" y="700.00" incLanes="-64_0 -64_1" intLanes=":-64.150.00_0_0 :-64.150.00_0_1 :-64.150.00_0_2 :-64.150.00_0_3" shape="654.00,709.60 654.00,703.20 646.00,696.80 646.00,709.60">
+    <junction id="-64.150.00" type="priority" x="650.00" y="700.00" incLanes="-64_0 -64_1" intLanes=":-64.150.00_0_0 :-64.150.00_0_1 :-64.150.00_0_2 :-64.150.00_0_3" shape="654.00,709.60 654.00,703.20 651.98,702.73 650.79,701.54 649.21,698.46 648.02,697.27 646.00,696.80 646.00,709.60">
         <request index="0" response="0000" foes="0000" cont="0"/>
         <request index="1" response="0000" foes="0000" cont="0"/>
         <request index="2" response="0000" foes="0000" cont="0"/>
@@ -1506,13 +1506,13 @@ SPDX-License-Identifier: EPL-2.0
         <request index="2" response="0000" foes="0000" cont="0"/>
         <request index="3" response="0000" foes="0000" cont="0"/>
     </junction>
-    <junction id="-76.250.00" type="priority" x="800.00" y="750.00" incLanes="-76_0 -76_1" intLanes=":-76.250.00_0_0 :-76.250.00_0_1 :-76.250.00_0_2 :-76.250.00_0_3" shape="790.40,754.00 796.80,754.00 803.20,746.00 790.40,746.00">
+    <junction id="-76.250.00" type="priority" x="800.00" y="750.00" incLanes="-76_0 -76_1" intLanes=":-76.250.00_0_0 :-76.250.00_0_1 :-76.250.00_0_2 :-76.250.00_0_3" shape="790.40,754.00 796.80,754.00 797.27,751.98 798.46,750.79 801.54,749.21 802.73,748.02 803.20,746.00 790.40,746.00">
         <request index="0" response="0000" foes="0000" cont="0"/>
         <request index="1" response="0000" foes="0000" cont="0"/>
         <request index="2" response="0000" foes="0000" cont="0"/>
         <request index="3" response="0000" foes="0000" cont="0"/>
     </junction>
-    <junction id="-85.250.00" type="priority" x="500.00" y="1350.00" incLanes="-85_0 -85_1" intLanes=":-85.250.00_0_0 :-85.250.00_0_1 :-85.250.00_0_2 :-85.250.00_0_3" shape="490.40,1354.00 496.80,1354.00 503.20,1346.00 490.40,1346.00">
+    <junction id="-85.250.00" type="priority" x="500.00" y="1350.00" incLanes="-85_0 -85_1" intLanes=":-85.250.00_0_0 :-85.250.00_0_1 :-85.250.00_0_2 :-85.250.00_0_3" shape="490.40,1354.00 496.80,1354.00 497.27,1351.98 498.46,1350.79 501.54,1349.21 502.73,1348.02 503.20,1346.00 490.40,1346.00">
         <request index="0" response="0000" foes="0000" cont="0"/>
         <request index="1" response="0000" foes="0000" cont="0"/>
         <request index="2" response="0000" foes="0000" cont="0"/>
@@ -1586,13 +1586,13 @@ SPDX-License-Identifier: EPL-2.0
         <request index="2" response="0000" foes="0000" cont="0"/>
         <request index="3" response="0000" foes="0000" cont="0"/>
     </junction>
-    <junction id="109.350.00" type="priority" x="300.00" y="950.00" incLanes="109_0 109_1" intLanes=":109.350.00_0_0 :109.350.00_0_1 :109.350.00_0_2 :109.350.00_0_3" shape="290.40,954.00 296.80,954.00 303.20,946.00 290.40,946.00">
+    <junction id="109.350.00" type="priority" x="300.00" y="950.00" incLanes="109_0 109_1" intLanes=":109.350.00_0_0 :109.350.00_0_1 :109.350.00_0_2 :109.350.00_0_3" shape="290.40,954.00 296.80,954.00 297.27,951.98 298.46,950.79 301.54,949.21 302.73,948.02 303.20,946.00 290.40,946.00">
         <request index="0" response="0000" foes="0000" cont="0"/>
         <request index="1" response="0000" foes="0000" cont="0"/>
         <request index="2" response="0000" foes="0000" cont="0"/>
         <request index="3" response="0000" foes="0000" cont="0"/>
     </junction>
-    <junction id="11.50.00" type="priority" x="550.00" y="1000.00" incLanes="11_0 11_1" intLanes=":11.50.00_0_0 :11.50.00_0_1 :11.50.00_0_2 :11.50.00_0_3" shape="554.00,1009.60 554.00,1003.20 546.00,996.80 546.00,1009.60">
+    <junction id="11.50.00" type="priority" x="550.00" y="1000.00" incLanes="11_0 11_1" intLanes=":11.50.00_0_0 :11.50.00_0_1 :11.50.00_0_2 :11.50.00_0_3" shape="554.00,1009.60 554.00,1003.20 551.98,1002.73 550.79,1001.54 549.21,998.46 548.02,997.27 546.00,996.80 546.00,1009.60">
         <request index="0" response="0000" foes="0000" cont="0"/>
         <request index="1" response="0000" foes="0000" cont="0"/>
         <request index="2" response="0000" foes="0000" cont="0"/>
@@ -1688,7 +1688,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="22" response="000000001110000111101110" foes="000000001110000111111110" cont="0"/>
         <request index="23" response="000000001000000110000001" foes="000000001000000110000001" cont="0"/>
     </junction>
-    <junction id="246.250.00" type="priority" x="300.00" y="350.00" incLanes="246_0 246_1" intLanes=":246.250.00_0_0 :246.250.00_0_1 :246.250.00_0_2 :246.250.00_0_3" shape="290.40,354.00 296.80,354.00 303.20,346.00 290.40,346.00">
+    <junction id="246.250.00" type="priority" x="300.00" y="350.00" incLanes="246_0 246_1" intLanes=":246.250.00_0_0 :246.250.00_0_1 :246.250.00_0_2 :246.250.00_0_3" shape="290.40,354.00 296.80,354.00 297.27,351.98 298.46,350.79 301.54,349.21 302.73,348.02 303.20,346.00 290.40,346.00">
         <request index="0" response="0000" foes="0000" cont="0"/>
         <request index="1" response="0000" foes="0000" cont="0"/>
         <request index="2" response="0000" foes="0000" cont="0"/>
@@ -1720,13 +1720,13 @@ SPDX-License-Identifier: EPL-2.0
         <request index="22" response="000000001110000111101110" foes="000000001110000111111110" cont="0"/>
         <request index="23" response="000000001000000110000001" foes="000000001000000110000001" cont="0"/>
     </junction>
-    <junction id="27.50.00" type="priority" x="600.00" y="650.00" incLanes="27_0 27_1" intLanes=":27.50.00_0_0 :27.50.00_0_1 :27.50.00_0_2 :27.50.00_0_3" shape="590.40,654.00 596.80,654.00 603.20,646.00 590.40,646.00">
+    <junction id="27.50.00" type="priority" x="600.00" y="650.00" incLanes="27_0 27_1" intLanes=":27.50.00_0_0 :27.50.00_0_1 :27.50.00_0_2 :27.50.00_0_3" shape="590.40,654.00 596.80,654.00 597.27,651.98 598.46,650.79 601.54,649.21 602.73,648.02 603.20,646.00 590.40,646.00">
         <request index="0" response="0000" foes="0000" cont="0"/>
         <request index="1" response="0000" foes="0000" cont="0"/>
         <request index="2" response="0000" foes="0000" cont="0"/>
         <request index="3" response="0000" foes="0000" cont="0"/>
     </junction>
-    <junction id="3.250.00" type="priority" x="600.00" y="750.00" incLanes="3_0 3_1" intLanes=":3.250.00_0_0 :3.250.00_0_1 :3.250.00_0_2 :3.250.00_0_3" shape="590.40,754.00 596.80,754.00 603.20,746.00 590.40,746.00">
+    <junction id="3.250.00" type="priority" x="600.00" y="750.00" incLanes="3_0 3_1" intLanes=":3.250.00_0_0 :3.250.00_0_1 :3.250.00_0_2 :3.250.00_0_3" shape="590.40,754.00 596.80,754.00 597.27,751.98 598.46,750.79 601.54,749.21 602.73,748.02 603.20,746.00 590.40,746.00">
         <request index="0" response="0000" foes="0000" cont="0"/>
         <request index="1" response="0000" foes="0000" cont="0"/>
         <request index="2" response="0000" foes="0000" cont="0"/>
@@ -1743,7 +1743,7 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="359" type="priority" x="600.00" y="1500.00" incLanes="360_0 360_1" intLanes=":359_0_0" shape="596.80,1500.00 609.60,1500.00 603.20,1500.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="361.266.23" type="priority" x="347.43" y="315.81" incLanes="361_0 361_1" intLanes=":361.266.23_0_0 :361.266.23_0_1 :361.266.23_0_2 :361.266.23_0_3" shape="348.19,326.18 350.22,320.11 344.65,311.51 340.60,323.65">
+    <junction id="361.266.23" type="priority" x="347.43" y="315.81" incLanes="361_0 361_1" intLanes=":361.266.23_0_0 :361.266.23_0_1 :361.266.23_0_2 :361.266.23_0_3" shape="348.19,326.18 350.22,320.11 348.45,319.02 347.69,317.52 347.17,314.10 346.41,312.60 344.65,311.51 340.60,323.65">
         <request index="0" response="0000" foes="0000" cont="0"/>
         <request index="1" response="0000" foes="0000" cont="0"/>
         <request index="2" response="0000" foes="0000" cont="0"/>
@@ -1770,7 +1770,7 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="375" type="priority" x="300.00" y="0.00" incLanes="376_0 376_1" intLanes=":375_0_0" shape="303.20,0.00 290.40,0.00 296.80,0.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="38.250.00" type="priority" x="350.00" y="600.00" incLanes="38_0 38_1" intLanes=":38.250.00_0_0 :38.250.00_0_1 :38.250.00_0_2 :38.250.00_0_3" shape="354.00,609.60 354.00,603.20 346.00,596.80 346.00,609.60">
+    <junction id="38.250.00" type="priority" x="350.00" y="600.00" incLanes="38_0 38_1" intLanes=":38.250.00_0_0 :38.250.00_0_1 :38.250.00_0_2 :38.250.00_0_3" shape="354.00,609.60 354.00,603.20 351.98,602.73 350.79,601.54 349.21,598.46 348.02,597.27 346.00,596.80 346.00,609.60">
         <request index="0" response="0000" foes="0000" cont="0"/>
         <request index="1" response="0000" foes="0000" cont="0"/>
         <request index="2" response="0000" foes="0000" cont="0"/>
@@ -1839,7 +1839,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="22" response="000000000000001110000000" foes="000000111100001111111100" cont="1"/>
         <request index="23" response="000000110000001100000011" foes="000000110000001100000011" cont="1"/>
     </junction>
-    <junction id="70.50.00" type="priority" x="550.00" y="1300.00" incLanes="70_0 70_1" intLanes=":70.50.00_0_0 :70.50.00_0_1 :70.50.00_0_2 :70.50.00_0_3" shape="554.00,1309.60 554.00,1303.20 546.00,1296.80 546.00,1309.60">
+    <junction id="70.50.00" type="priority" x="550.00" y="1300.00" incLanes="70_0 70_1" intLanes=":70.50.00_0_0 :70.50.00_0_1 :70.50.00_0_2 :70.50.00_0_3" shape="554.00,1309.60 554.00,1303.20 551.98,1302.73 550.79,1301.54 549.21,1298.46 548.02,1297.27 546.00,1296.80 546.00,1309.60">
         <request index="0" response="0000" foes="0000" cont="0"/>
         <request index="1" response="0000" foes="0000" cont="0"/>
         <request index="2" response="0000" foes="0000" cont="0"/>

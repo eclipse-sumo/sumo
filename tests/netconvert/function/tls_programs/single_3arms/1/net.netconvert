@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jun 22 11:32:08 2018 by Eclipse SUMO netconvert Version 9eff290
+<!-- generated on Thu Jun 28 09:17:14 2018 by Eclipse SUMO netconvert Version 3ef3414
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -108,7 +108,7 @@ SPDX-License-Identifier: EPL-2.0
         <phase duration="3"  state="yyyyrrrrr"/>
     </tlLogic>
 
-    <junction id="n1" type="traffic_light" x="90.87" y="69.00" incLanes="e13_0 e14_0 e2_0" intLanes=":n1_0_0 :n1_1_0 :n1_9_0 :n1_3_0 :n1_4_0 :n1_10_0 :n1_6_0 :n1_11_0 :n1_12_0" shape="89.74,77.04 95.91,75.36 95.59,72.52 95.83,71.33 96.33,70.30 97.11,69.43 98.15,68.72 95.12,63.09 93.24,64.06 91.28,65.01 89.26,65.93 87.16,66.82 85.00,67.67 82.77,68.50 84.92,74.53 87.13,74.21 88.01,74.48 88.74,75.04 89.31,75.90">
+    <junction id="n1" type="traffic_light" x="90.87" y="69.00" incLanes="e13_0 e14_0 e2_0" intLanes=":n1_0_0 :n1_1_0 :n1_9_0 :n1_3_0 :n1_4_0 :n1_10_0 :n1_6_0 :n1_11_0 :n1_12_0" shape="89.74,77.04 95.91,75.36 95.59,72.52 95.83,71.33 96.33,70.30 97.11,69.43 98.15,68.72 95.12,63.09 92.59,64.44 90.69,65.40 89.10,66.14 87.47,66.80 85.47,67.53 82.77,68.50 84.92,74.53 87.13,74.21 88.01,74.48 88.74,75.04 89.31,75.90">
         <request index="0" response="000010000" foes="100010000" cont="0"/>
         <request index="1" response="011010000" foes="011110000" cont="0"/>
         <request index="2" response="010001000" foes="010001000" cont="1"/>
