@@ -167,7 +167,7 @@ GNERerouterDialog::onCmdClickedInterval(FXObject*, FXSelector, void*) {
     for (int i = 0; i < (int)myEditedAdditional->getAdditionalChilds().size(); i++) {
         if (myIntervalTable->getItem(i, 0)->hasFocus() || myIntervalTable->getItem(i, 1)->hasFocus()) {
             // edit interval
-            GNERerouterIntervalDialog((GNERerouterInterval*)myEditedAdditional->getAdditionalChilds().at(i), true);
+            GNERerouterIntervalDialog(myEditedAdditional->getAdditionalChilds().at(i), true);
             // update interval table after editing
             updateIntervalTable();
             return 1;

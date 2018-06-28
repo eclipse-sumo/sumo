@@ -560,17 +560,11 @@ public:
      */
     std::vector<GNEAdditional*> retrieveAdditionals(bool onlySelected = false) const;
 
-    /**@brief get vector with additionals
-     * @param[in] type type of additional to get. SUMO_TAG_NOTHING will get all additionals
-     * @return vector with pointers to additionals.
-     */
-    std::vector<GNEAdditional*> getAdditionals(SumoXMLTag type = SUMO_TAG_NOTHING) const;
-
     /**@brief get map with IDs and pointers to additionals
      * @param[in] type type of additional to get. SUMO_TAG_NOTHING will get all additionals
      * @return map with IDs and pointers to additionals.
      */
-    const std::map<std::string, GNEAdditional*> &getAdditionalMapByType(SumoXMLTag type) const;
+    const std::map<std::string, GNEAdditional*> &getAdditionalByType(SumoXMLTag type) const;
 
     /**@brief Returns the number of additionals of the net
      * @param[in] type type of additional to count. SUMO_TAG_NOTHING will count all additionals

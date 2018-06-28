@@ -58,7 +58,7 @@ FXIMPLEMENT(GNECalibratorFlowDialog, GNEAdditionalDialog, GNECalibratorFlowDialo
 // member method definitions
 // ===========================================================================
 
-GNECalibratorFlowDialog::GNECalibratorFlowDialog(GNECalibratorFlow* editedCalibratorFlow, bool updatingElement) :
+GNECalibratorFlowDialog::GNECalibratorFlowDialog(GNEAdditional* editedCalibratorFlow, bool updatingElement) :
     GNEAdditionalDialog(editedCalibratorFlow, updatingElement, 600, 280),
     myCalibratorFlowValid(false),
     myInvalidAttr(SUMO_ATTR_VEHSPERHOUR) {
@@ -132,15 +132,16 @@ GNECalibratorFlowDialog::GNECalibratorFlowDialog(GNECalibratorFlow* editedCalibr
     // 19 create textfield for end
     new FXLabel(columnRightLabel, toString(SUMO_ATTR_END).c_str(), 0, GUIDesignLabelThick);
     myTextFieldEnd = new FXTextField(columnRightValue, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextFieldReal);
+    
     // fill comboBox of VTypes
-    for (auto i : myEditedAdditional->getViewNet()->getNet()->getAdditionals(SUMO_TAG_VTYPE)) {
-        myComboBoxVehicleType->appendItem(i->getID().c_str());
+    for (auto i : myEditedAdditional->getViewNet()->getNet()->getAdditionalByType(SUMO_TAG_VTYPE)) {
+        myComboBoxVehicleType->appendItem(i.first.c_str());
     }
-    myComboBoxVehicleType->setNumVisible((int)myEditedAdditional->getAdditionalParent()->getViewNet()->getNet()->getAdditionals(SUMO_TAG_VTYPE).size());
+    myComboBoxVehicleType->setNumVisible((int)myComboBoxVehicleType->getNumItems());
 
     // fill comboBox of Routes
-    for (auto i : myEditedAdditional->getViewNet()->getNet()->getAdditionals(SUMO_TAG_ROUTE)) {
-        myComboBoxRoute->appendItem(i->getID().c_str());
+    for (auto i : myEditedAdditional->getViewNet()->getNet()->getAdditionalByType(SUMO_TAG_ROUTE)) {
+        myComboBoxRoute->appendItem(i.first.c_str());
     }
     myComboBoxRoute->setNumVisible((int)myComboBoxRoute->getNumItems());
 

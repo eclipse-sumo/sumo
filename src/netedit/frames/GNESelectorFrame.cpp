@@ -948,7 +948,7 @@ GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) 
         }
     }
     // select additionals
-    std::vector<GNEAdditional*> additionals = mySelectorFrameParent->getViewNet()->getNet()->getAdditionals();
+    std::vector<GNEAdditional*> additionals = mySelectorFrameParent->getViewNet()->getNet()->retrieveAdditionals();
     for (auto i : additionals) {
         i->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->getViewNet()->getUndoList());
     }

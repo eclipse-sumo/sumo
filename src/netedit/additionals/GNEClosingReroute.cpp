@@ -135,9 +135,17 @@ GNEClosingReroute::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_EDGE:
             return (myViewNet->getNet()->retrieveEdge(value, false) != nullptr);
         case SUMO_ATTR_ALLOW:
-            return canParseVehicleClasses(value);
+            if(value == "all") {
+                return true;
+            } else {
+                return canParseVehicleClasses(value);
+            }
         case SUMO_ATTR_DISALLOW:
-            return canParseVehicleClasses(value);
+            if(value == "all") {
+                return true;
+            } else {
+                return canParseVehicleClasses(value);
+            }
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }

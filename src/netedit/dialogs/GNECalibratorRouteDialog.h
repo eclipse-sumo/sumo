@@ -46,7 +46,7 @@ class GNECalibratorRouteDialog : public GNEAdditionalDialog {
 
 public:
     /// @brief constructor
-    GNECalibratorRouteDialog(GNECalibratorRoute* editedCalibratorRoute, bool updatingElement);
+    GNECalibratorRouteDialog(GNEAdditional* editedCalibratorRoute, bool updatingElement);
 
     /// @brief destructor
     ~GNECalibratorRouteDialog();

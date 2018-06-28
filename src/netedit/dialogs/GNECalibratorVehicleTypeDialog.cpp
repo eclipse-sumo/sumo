@@ -52,7 +52,7 @@ FXIMPLEMENT(GNECalibratorVehicleTypeDialog, GNEAdditionalDialog, GNECalibratorVe
 // member method definitions
 // ===========================================================================
 
-GNECalibratorVehicleTypeDialog::GNECalibratorVehicleTypeDialog(GNECalibratorVehicleType* editedCalibratorVehicleType, bool updatingElement) :
+GNECalibratorVehicleTypeDialog::GNECalibratorVehicleTypeDialog(GNEAdditional* editedCalibratorVehicleType, bool updatingElement) :
     GNEAdditionalDialog(editedCalibratorVehicleType, updatingElement, 500, 370),
     myCalibratorVehicleTypeValid(true),
     myInvalidAttr(SUMO_ATTR_NOTHING) {

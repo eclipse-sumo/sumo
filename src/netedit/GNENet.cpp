@@ -1763,28 +1763,8 @@ GNENet::retrieveAdditionals(bool onlySelected) const {
 }
 
 
-std::vector<GNEAdditional*>
-GNENet::getAdditionals(SumoXMLTag type) const {
-    std::vector<GNEAdditional*> vectorOfAdditionals;
-    if(type == SUMO_TAG_NOTHING) {
-        // get all additionals
-        for (auto i : myAttributeCarriers.additionals) {
-            for (auto j : i.second) {
-                vectorOfAdditionals.push_back(j.second);
-            }
-        }
-    } else {
-        // get only the attribute carriers of type
-        for (auto i : myAttributeCarriers.additionals.at(type)) {
-            vectorOfAdditionals.push_back(i.second);
-        }
-    }
-    return vectorOfAdditionals;
-}
-
-
 const std::map<std::string, GNEAdditional*> &
-GNENet::getAdditionalMapByType(SumoXMLTag type) const {
+GNENet::getAdditionalByType(SumoXMLTag type) const {
     return myAttributeCarriers.additionals.at(type);
 }
 

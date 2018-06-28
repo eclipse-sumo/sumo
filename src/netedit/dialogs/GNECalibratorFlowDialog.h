@@ -46,7 +46,7 @@ class GNECalibratorFlowDialog : public GNEAdditionalDialog {
 
 public:
     /// @brief constructor
-    GNECalibratorFlowDialog(GNECalibratorFlow* editedCalibratorFlowParent, bool updatingElement);
+    GNECalibratorFlowDialog(GNEAdditional* editedCalibratorFlow, bool updatingElement);
 
     /// @brief destructor
     ~GNECalibratorFlowDialog();

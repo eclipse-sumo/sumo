@@ -52,7 +52,7 @@ FXIMPLEMENT(GNECalibratorRouteDialog, GNEAdditionalDialog, GNECalibratorRouteDia
 // member method definitions
 // ===========================================================================
 
-GNECalibratorRouteDialog::GNECalibratorRouteDialog(GNECalibratorRoute* editedCalibratorRoute, bool updatingElement) :
+GNECalibratorRouteDialog::GNECalibratorRouteDialog(GNEAdditional* editedCalibratorRoute, bool updatingElement) :
     GNEAdditionalDialog(editedCalibratorRoute, updatingElement, 400, 120),
     myCalibratorRouteValid(true) {
     // change default header
