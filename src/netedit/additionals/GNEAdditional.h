@@ -156,6 +156,9 @@ public:
     /// @brief return vector of additionals that have as Parent this edge (For example, Calibrators)
     const std::vector<GNEAdditional*>& getAdditionalChilds() const;
 
+     /// @brief sort childs (used by Rerouters and VSS)
+    void sortAdditionalChilds();
+
     /// @brief add edge child
     void addEdgeChild(GNEEdge* edge);
 
@@ -198,7 +201,6 @@ public:
     GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent);
 
     /**@brief Returns the boundary to which the view shall be centered in order to show the object
-     *
      * @return The boundary the object is within
      */
     Boundary getCenteringBoundary() const;
@@ -266,11 +268,6 @@ protected:
     std::vector<double> myShapeLengths;
     /// @}
 
-private:
-    /// @brief flag to check if this additional is movable
-    bool myMovable;
-
-protected:
     /// @brief boolean to check if additional element is blocked (i.e. cannot be moved with mouse)
     bool myBlockMovement;
 
@@ -353,9 +350,13 @@ protected:
 
     /// @brief position and rotation of every simbol over lane
     std::vector<std::pair<Position, double> > mySymbolsPositionAndRotation;
+
     /// @}
 
 private:
+    /// @brief flag to check if this additional is movable
+    bool myMovable;
+
     /// @brief Matrix with the Vertex's positions of connections between parents an their childs
     std::vector<std::vector<Position> > myChildConnectionPositions;
 

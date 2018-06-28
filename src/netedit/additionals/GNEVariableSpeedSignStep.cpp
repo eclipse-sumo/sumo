@@ -41,6 +41,8 @@ GNEVariableSpeedSignStep::GNEVariableSpeedSignStep(GNEVariableSpeedSignDialog* v
     // set time Attribute manually
     if (myAdditionalParent->getAdditionalChilds().size() > 0) {
         myTime = parse<double>(myAdditionalParent->getAdditionalChilds().back()->getAttribute(SUMO_ATTR_TIME)) + 1;
+    } else {
+        myTime = 0;
     }
 }
 

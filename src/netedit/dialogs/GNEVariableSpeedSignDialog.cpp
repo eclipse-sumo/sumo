@@ -72,9 +72,7 @@ GNEVariableSpeedSignDialog::GNEVariableSpeedSignDialog(GNEVariableSpeedSign* edi
     myStepsTable->setSelTextColor(FXRGBA(0, 0, 0, 255));
 
     // fill edited steps
-    for (auto i : myEditedAdditional->getAdditionalChilds()) {
-        myEditedSteps.push_back(i);
-    }
+    myEditedSteps = myEditedAdditional->getAdditionalChilds();
 
     // update table
     updateTableSteps();
@@ -151,11 +149,14 @@ GNEVariableSpeedSignDialog::onCmdClickedStep(FXObject*, FXSelector, void*) {
 long 
 GNEVariableSpeedSignDialog::onCmdSortSteps(FXObject*, FXSelector, void*) {
     // Sort variable speed sign steps
-    //myEditedAdditional->sortVariableSpeedSignSteps();
+    myEditedAdditional->sortAdditionalChilds();
+    // fill edited steps
+    myEditedSteps = myEditedAdditional->getAdditionalChilds();
     // update table
     updateTableSteps();
     return 1;
 }
+
 
 long
 GNEVariableSpeedSignDialog::onCmdAccept(FXObject*, FXSelector, void*) {
@@ -164,7 +165,6 @@ GNEVariableSpeedSignDialog::onCmdAccept(FXObject*, FXSelector, void*) {
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Opening FXMessageBox of type 'warning'");
         }
-        //
         // open warning Box
         FXMessageBox::warning(getApp(), MBOX_OK, ("Error updating " + toString(SUMO_TAG_VSS) + " " + toString(SUMO_TAG_STEP)).c_str(), "%s",
                               (toString(SUMO_TAG_VSS) + " " + toString(SUMO_TAG_STEP) + "cannot be updated because there are invalid values").c_str());
@@ -177,7 +177,7 @@ GNEVariableSpeedSignDialog::onCmdAccept(FXObject*, FXSelector, void*) {
         // accept changes before closing dialog
         acceptChanges();
         // sort steps after finish
-        //myEditedAdditional->sortVariableSpeedSignSteps();
+        myEditedAdditional->sortAdditionalChilds();
         // stop dialgo sucesfully
         getApp()->stopModal(this, TRUE);
         return 1;

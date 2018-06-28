@@ -58,13 +58,6 @@ public:
     /// @brief open GNEVariableSpeedSignDialog
     void openAdditionalDialog();
 
-    /// @name Functions related with Variable Speed Sign Steps
-    /// @{
-    /// @brief sort steps
-    void sortVariableSpeedSignSteps();
-
-    /// @}
-
     /// @name Functions related with geometry of element
     /// @{
     /**@brief change the position of the element geometry without saving in undoList

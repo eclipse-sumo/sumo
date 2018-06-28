@@ -124,30 +124,6 @@ GNEVariableSpeedSign::commitGeometryMoving(const Position& oldPos, GNEUndoList* 
 }
 
 
-void
-GNEVariableSpeedSign::sortVariableSpeedSignSteps() {
-    /*
-    // declare a vector to keep sorted steps
-    std::vector<GNEVariableSpeedSignStep*> sortedSteps;
-    // sort intervals usin time as criterium
-    while (mySteps.size() > 0) {
-        int time_small = 0;
-        // find the interval with the small begin
-        for (int i = 0; i < (int)mySteps.size(); i++) {
-            if (mySteps.at(i)->getTime() < mySteps.at(time_small)->getTime()) {
-                time_small = i;
-            }
-        }
-        // add it to sorted steps and remove it from mySteps
-        sortedSteps.push_back(mySteps.at(time_small));
-        mySteps.erase(mySteps.begin() + time_small);
-    }
-    // restore mySteps using sorted steps
-    mySteps = sortedSteps;
-    */
-}
-
-
 std::string
 GNEVariableSpeedSign::getParentName() const {
     return myViewNet->getNet()->getMicrosimID();
