@@ -224,7 +224,7 @@ GNEPoly::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     buildShowParamsPopupEntry(ret);
     FXMenuCommand* simplifyShape = new FXMenuCommand(ret, "Simplify Shape\t\tReplace current shape with a rectangle", 0, &parent, MID_GNE_POLYGON_SIMPLIFY_SHAPE);
     // disable simplify shape if polygon was already simplified
-    if (mySimplifiedShape) {
+    if (mySimplifiedShape || myShape.size() <= 2) {
         simplifyShape->disable();
     }
     // create open or close polygon's shape only if myNetElementShapeEdited is nullptr
@@ -241,7 +241,7 @@ GNEPoly::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         FXMenuCommand* removeGeometryPoint = new FXMenuCommand(ret, "Remove geometry point\t\tRemove geometry point under mouse", 0, &parent, MID_GNE_POLYGON_DELETE_GEOMETRY_POINT);
         FXMenuCommand* setFirstPoint = new FXMenuCommand(ret, "Set first geometry point\t\tSet", 0, &parent, MID_GNE_POLYGON_SET_FIRST_POINT);
         // disable setFirstPoint if shape only have three points
-        if ((myClosedShape && (myShape.size() <= 4)) || (!myClosedShape && (myShape.size() <= 3))) {
+        if ((myClosedShape && (myShape.size() <= 4)) || (!myClosedShape && (myShape.size() <= 2))) {
             removeGeometryPoint->disable();
         }
         // disable setFirstPoint if mouse is over first point
@@ -505,15 +505,21 @@ GNEPoly::changeFirstGeometryPoint(int oldIndex, bool allowUndo) {
 
 void
 GNEPoly::simplifyShape(bool allowUndo) {
-    if (!mySimplifiedShape) {
+    if (!mySimplifiedShape && myShape.size() > 2) {
         const Boundary b =  myShape.getBoxBoundary();
         PositionVector simplifiedShape;
-        // create a square as simplified shape
-        simplifiedShape.push_back(Position(b.xmin(), b.ymin()));
-        simplifiedShape.push_back(Position(b.xmin(), b.ymax()));
-        simplifiedShape.push_back(Position(b.xmax(), b.ymax()));
-        simplifiedShape.push_back(Position(b.xmax(), b.ymin()));
-        simplifiedShape.push_back(simplifiedShape[0]);
+        if (myShape.isClosed()) {
+            // create a square as simplified shape
+            simplifiedShape.push_back(Position(b.xmin(), b.ymin()));
+            simplifiedShape.push_back(Position(b.xmin(), b.ymax()));
+            simplifiedShape.push_back(Position(b.xmax(), b.ymax()));
+            simplifiedShape.push_back(Position(b.xmax(), b.ymin()));
+            simplifiedShape.push_back(simplifiedShape[0]);
+        } else {
+            // create a line as simplified shape
+            simplifiedShape.push_back(myShape.front());
+            simplifiedShape.push_back(myShape.back());
+        }
         // set new shape depending of allowUndo
         if (allowUndo) {
             myNet->getViewNet()->getUndoList()->p_begin("simplify shape");
