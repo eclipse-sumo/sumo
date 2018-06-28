@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jun 22 11:32:06 2018 by Eclipse SUMO netconvert Version 9eff290
+<!-- generated on Thu Jun 28 16:44:59 2018 by Eclipse SUMO netconvert Version e5dd1a0
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -108,12 +108,12 @@ SPDX-License-Identifier: EPL-2.0
         <request index="2"  response="01000001000" foes="01000001000"/>
         <request index="3"  response="00000000000" foes="01000000100"/>
         <request index="4"  response="00000000000" foes="11000000011"/>
-        <request index="5"  response="00000000000" foes="11000000011"/>
+        <request index="5"  response="00000000000" foes="11000000010"/>
         <request index="6"  response="00110000010" foes="00110000010"/>
-        <request index="7"  response="00000000000" foes="00001000010"/>
+        <request index="7"  response="00000000000" foes="00001000000"/>
         <request index="8"  response="00000000000" foes="00001000010"/>
         <request index="9"  response="00000111000" foes="00000111110"/>
-        <request index="10" response="00000110001" foes="00000110001"/>
+        <request index="10" response="00000110000" foes="00000110000"/>
     </junction>
 
     <connection from="-190083608#0" to="190083608#0" fromLane="1" toLane="1" dir="t" state="M"/>

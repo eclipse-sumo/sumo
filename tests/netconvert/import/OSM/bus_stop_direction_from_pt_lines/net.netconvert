@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jun 28 10:54:22 2018 by Eclipse SUMO netconvert Version b7042e5
+<!-- generated on Thu Jun 28 16:44:58 2018 by Eclipse SUMO netconvert Version e5dd1a0
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -2302,12 +2302,12 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="1769087051" type="dead_end" x="622.88" y="1130.86" incLanes="165358540_0" intLanes="" shape="621.29,1131.04 624.48,1130.96 624.48,1130.65 621.28,1130.77"/>
     <junction id="1769087052" type="dead_end" x="622.97" y="1134.75" incLanes="165358547_0" intLanes="" shape="621.38,1134.95 624.57,1134.83 624.57,1134.57 621.37,1134.64"/>
     <junction id="1769087053" type="priority" x="623.46" y="1148.03" incLanes="-391493950#1_0 -391493950#1_1 391493950#0_0 391493950#0_1" intLanes=":1769087053_0_0 :1769087053_0_1 :1769087053_6_0 :1769087053_3_0 :1769087053_3_1 :1769087053_7_0" shape="626.61,1152.16 626.40,1143.76 625.56,1143.61 625.26,1143.39 625.04,1143.09 624.90,1142.70 624.85,1142.22 621.65,1142.34 621.51,1143.17 621.31,1143.46 621.03,1143.67 620.66,1143.80 620.20,1143.84 620.21,1152.24">
-        <request index="0" response="000000" foes="100000" cont="0"/>
+        <request index="0" response="000000" foes="000000" cont="0"/>
         <request index="1" response="000000" foes="100000" cont="0"/>
-        <request index="2" response="011000" foes="011000" cont="1"/>
-        <request index="3" response="000000" foes="000100" cont="0"/>
+        <request index="2" response="010000" foes="010000" cont="1"/>
+        <request index="3" response="000000" foes="000000" cont="0"/>
         <request index="4" response="000000" foes="000100" cont="0"/>
-        <request index="5" response="000011" foes="000011" cont="1"/>
+        <request index="5" response="000010" foes="000010" cont="1"/>
     </junction>
     <junction id="1919940018" type="priority" x="406.46" y="1102.55" incLanes="169753567#2_0 -28362838#0_0" intLanes=":1919940018_0_0 :1919940018_1_0 :1919940018_2_0 :1919940018_2_1 :1919940018_4_0" shape="402.72,1105.83 411.34,1101.60 410.92,1100.25 410.90,1099.58 411.00,1098.93 411.23,1098.28 411.58,1097.64 408.91,1095.89 404.06,1097.42 400.81,1102.93">
         <request index="0" response="00000" foes="00000" cont="0"/>
@@ -2373,21 +2373,21 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="2408597001" type="dead_end" x="821.47" y="1178.10" incLanes="232512338_0 332385845#0_0" intLanes="" shape="821.12,1180.47 823.79,1178.70 822.30,1176.10 821.93,1175.11 821.63,1174.08 821.28,1172.84 820.74,1171.18 817.72,1172.24 817.86,1172.93 817.79,1173.08 817.63,1173.10 817.37,1173.00 817.02,1172.76 815.10,1175.32 817.58,1176.98 818.48,1177.55 819.29,1178.19 820.13,1179.10"/>
     <junction id="2408597005" type="dead_end" x="816.22" y="1163.13" incLanes="232512339_0" intLanes="" shape="814.80,1163.91 817.81,1162.85 814.62,1162.89 814.63,1163.28 814.64,1163.41 814.67,1163.54 814.72,1163.70"/>
     <junction id="2408597007" type="priority" x="815.93" y="1141.94" incLanes="-456455657#1_0 -456455657#1_1 456455657#0_0 456455657#0_1" intLanes=":2408597007_0_0 :2408597007_0_1 :2408597007_6_0 :2408597007_3_0 :2408597007_3_1 :2408597007_7_0" shape="814.41,1147.70 817.61,1147.65 817.76,1146.79 817.97,1146.49 818.26,1146.27 818.63,1146.14 819.09,1146.09 818.94,1137.69 812.57,1137.86 812.89,1146.26 813.72,1146.39 814.02,1146.59 814.23,1146.87 814.36,1147.24">
-        <request index="0" response="000000" foes="100000" cont="0"/>
+        <request index="0" response="000000" foes="000000" cont="0"/>
         <request index="1" response="000000" foes="100000" cont="0"/>
-        <request index="2" response="011000" foes="011000" cont="1"/>
-        <request index="3" response="000000" foes="000100" cont="0"/>
+        <request index="2" response="010000" foes="010000" cont="1"/>
+        <request index="3" response="000000" foes="000000" cont="0"/>
         <request index="4" response="000000" foes="000100" cont="0"/>
-        <request index="5" response="000011" foes="000011" cont="1"/>
+        <request index="5" response="000010" foes="000010" cont="1"/>
     </junction>
     <junction id="241490604" type="dead_end" x="860.66" y="1176.51" incLanes="" intLanes="" shape="859.06,1176.57 862.26,1176.45"/>
     <junction id="241490607" type="priority" x="866.81" y="1141.26" incLanes="-391493953#1_0 -391493953#1_1 391493953#0_0 391493953#0_1" intLanes=":241490607_0_0 :241490607_0_1 :241490607_6_0 :241490607_3_0 :241490607_3_1 :241490607_7_0" shape="865.32,1146.98 868.52,1146.92 868.70,1146.04 868.95,1145.72 869.30,1145.48 869.75,1145.32 870.30,1145.24 869.74,1136.86 868.90,1136.75 868.60,1136.56 868.38,1136.28 868.24,1135.91 868.18,1135.46 864.98,1135.58 864.85,1136.42 864.65,1136.71 864.37,1136.93 864.00,1137.05 863.54,1137.10 863.64,1145.50 864.56,1145.66 864.89,1145.86 865.12,1146.15 865.27,1146.52">
-        <request index="0" response="000000" foes="100000" cont="0"/>
+        <request index="0" response="000000" foes="000000" cont="0"/>
         <request index="1" response="000000" foes="100000" cont="0"/>
-        <request index="2" response="011000" foes="011000" cont="1"/>
-        <request index="3" response="000000" foes="000100" cont="0"/>
+        <request index="2" response="010000" foes="010000" cont="1"/>
+        <request index="3" response="000000" foes="000000" cont="0"/>
         <request index="4" response="000000" foes="000100" cont="0"/>
-        <request index="5" response="000011" foes="000011" cont="1"/>
+        <request index="5" response="000010" foes="000010" cont="1"/>
     </junction>
     <junction id="241490614" type="dead_end" x="860.99" y="1185.49" incLanes="22495188#0_0" intLanes="" shape="859.49,1188.68 862.69,1188.57 862.83,1187.73 863.03,1187.44 863.31,1187.23 863.68,1187.10 864.14,1187.05 864.09,1183.85 863.22,1183.70 862.91,1183.49 862.68,1183.20 862.53,1182.83 862.47,1182.37 859.28,1182.49"/>
     <junction id="241490616" type="dead_end" x="876.97" y="1185.27" incLanes="22495190_0" intLanes="" shape="876.94,1183.67 876.99,1186.87"/>
@@ -2401,26 +2401,26 @@ SPDX-License-Identifier: EPL-2.0
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="2524297263" type="traffic_light" x="424.13" y="1153.75" incLanes="-110450334#1_0 -110450334#1_1 -110450334#1_2 -110450334#1_3 110450334#0_0 110450334#0_1 110450334#0_2" intLanes=":2524297263_0_0 :2524297263_0_1 :2524297263_0_2 :2524297263_0_3 :2524297263_9_0 :2524297263_5_0 :2524297263_5_1 :2524297263_5_2 :2524297263_10_0" shape="427.24,1164.31 427.02,1146.31 426.18,1146.15 425.88,1145.94 425.67,1145.64 425.53,1145.25 425.48,1144.78 422.28,1144.87 422.13,1145.71 421.93,1146.00 421.65,1146.21 421.28,1146.34 420.82,1146.39 421.05,1164.39">
-        <request index="0" response="000000000" foes="100000000" cont="0"/>
+        <request index="0" response="000000000" foes="000000000" cont="0"/>
         <request index="1" response="000000000" foes="100000000" cont="0"/>
         <request index="2" response="000000000" foes="100000000" cont="0"/>
         <request index="3" response="000000000" foes="100000000" cont="0"/>
-        <request index="4" response="011100000" foes="011100000" cont="1"/>
-        <request index="5" response="000000000" foes="000010000" cont="0"/>
+        <request index="4" response="011000000" foes="011000000" cont="1"/>
+        <request index="5" response="000000000" foes="000000000" cont="0"/>
         <request index="6" response="000000000" foes="000010000" cont="0"/>
         <request index="7" response="000000000" foes="000010000" cont="0"/>
-        <request index="8" response="000001111" foes="000001111" cont="1"/>
+        <request index="8" response="000001110" foes="000001110" cont="1"/>
     </junction>
     <junction id="2524297264" type="priority" x="451.44" y="1153.42" incLanes="-110450334#2_0 -110450334#2_1 -110450334#2_2 -110450334#2_3 245193871#2_0 110450334#1_0 110450334#1_1 110450334#1_2" intLanes=":2524297264_0_0 :2524297264_0_1 :2524297264_0_2 :2524297264_0_3 :2524297264_9_0 :2524297264_5_0 :2524297264_5_1 :2524297264_5_2 :2524297264_10_0" shape="450.30,1164.04 450.08,1146.04 449.04,1145.72 448.48,1145.31 447.90,1144.74 447.30,1144.00 446.68,1143.10 443.99,1144.84 444.27,1145.54 444.22,1145.79 444.05,1145.97 443.74,1146.08 443.30,1146.12 443.51,1164.11">
-        <request index="0" response="000000000" foes="100000000" cont="0"/>
+        <request index="0" response="000000000" foes="000000000" cont="0"/>
         <request index="1" response="000000000" foes="100000000" cont="0"/>
         <request index="2" response="000000000" foes="100000000" cont="0"/>
         <request index="3" response="000000000" foes="100000000" cont="0"/>
-        <request index="4" response="011100000" foes="011100000" cont="1"/>
-        <request index="5" response="000000000" foes="000010000" cont="0"/>
+        <request index="4" response="011000000" foes="011000000" cont="1"/>
+        <request index="5" response="000000000" foes="000000000" cont="0"/>
         <request index="6" response="000000000" foes="000010000" cont="0"/>
         <request index="7" response="000000000" foes="000010000" cont="0"/>
-        <request index="8" response="000001111" foes="000001111" cont="1"/>
+        <request index="8" response="000001110" foes="000001110" cont="1"/>
     </junction>
     <junction id="27787557" type="traffic_light" x="188.83" y="1160.76" incLanes="-338412128_0 -338412128_1 -338412128_2" intLanes=":27787557_0_0" shape="188.83,1160.76 188.95,1170.36 188.83,1160.76">
         <request index="0" response="0" foes="0" cont="0"/>
@@ -2456,26 +2456,26 @@ SPDX-License-Identifier: EPL-2.0
         <request index="8" response="000010011" foes="000010111" cont="0"/>
     </junction>
     <junction id="27787691" type="priority" x="543.15" y="1149.39" incLanes="-391493949_0 -391493949_1 -391493949_2 -155073133#0_0 338412122_0 338412122_1" intLanes=":27787691_0_0 :27787691_0_1 :27787691_12_0 :27787691_13_0 :27787691_4_0 :27787691_5_0 :27787691_6_0 :27787691_7_0 :27787691_8_0 :27787691_14_0 :27787691_10_0 :27787691_15_0" shape="549.51,1156.59 549.15,1144.99 547.48,1144.72 546.89,1144.32 546.46,1143.76 546.18,1143.03 546.06,1142.12 539.67,1142.38 539.40,1144.08 539.02,1144.69 538.46,1145.15 537.73,1145.44 536.83,1145.59 537.37,1153.97 539.99,1154.04 541.89,1154.51 543.44,1155.20 544.98,1155.91 546.89,1156.43">
-        <request index="0"  response="000000000000" foes="100001000000" cont="0"/>
+        <request index="0"  response="000000000000" foes="000000000000" cont="0"/>
         <request index="1"  response="000000000000" foes="100001000000" cont="0"/>
         <request index="2"  response="011100000000" foes="011111000000" cont="1"/>
-        <request index="3"  response="010100110000" foes="010100110000" cont="1"/>
-        <request index="4"  response="010100000000" foes="010100001000" cont="0"/>
+        <request index="3"  response="010000100000" foes="010000100000" cont="1"/>
+        <request index="4"  response="000100000000" foes="000100000000" cont="0"/>
         <request index="5"  response="010100000000" foes="010100001000" cont="0"/>
-        <request index="6"  response="010100000111" foes="110100000111" cont="0"/>
+        <request index="6"  response="010100000110" foes="110100000110" cont="0"/>
         <request index="7"  response="001000000100" foes="001000000100" cont="0"/>
-        <request index="8"  response="000000000000" foes="001001111100" cont="0"/>
+        <request index="8"  response="000000000000" foes="001001110100" cont="0"/>
         <request index="9"  response="000100000000" foes="000110000100" cont="1"/>
-        <request index="10" response="000000000000" foes="000001111100" cont="0"/>
-        <request index="11" response="000001000011" foes="000001000011" cont="1"/>
+        <request index="10" response="000000000000" foes="000001101100" cont="0"/>
+        <request index="11" response="000001000010" foes="000001000010" cont="1"/>
     </junction>
     <junction id="27787965" type="traffic_light" x="713.86" y="1442.48" incLanes="53356539#0_0 53356539#0_1 -53356539#1_0 -53356539#1_1" intLanes=":27787965_0_0 :27787965_0_1 :27787965_6_0 :27787965_3_0 :27787965_3_1 :27787965_7_0" shape="709.67,1442.79 718.06,1442.45 718.05,1442.22 709.66,1442.44">
-        <request index="0" response="000000" foes="100000" cont="0"/>
+        <request index="0" response="000000" foes="000000" cont="0"/>
         <request index="1" response="000000" foes="100000" cont="0"/>
-        <request index="2" response="011000" foes="011000" cont="1"/>
-        <request index="3" response="000000" foes="000100" cont="0"/>
+        <request index="2" response="010000" foes="010000" cont="1"/>
+        <request index="3" response="000000" foes="000000" cont="0"/>
         <request index="4" response="000000" foes="000100" cont="0"/>
-        <request index="5" response="000011" foes="000011" cont="1"/>
+        <request index="5" response="000010" foes="000010" cont="1"/>
     </junction>
     <junction id="28096705" type="priority" x="6.36" y="0.00" incLanes="28362838#2_0" intLanes=":28096705_0_0" shape="6.36,0.00 3.29,-0.92 6.36,0.00">
         <request index="0" response="0" foes="0" cont="0"/>
@@ -2490,24 +2490,24 @@ SPDX-License-Identifier: EPL-2.0
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="29018805" type="priority" x="698.18" y="1146.18" incLanes="4710636#2_0 4710636#2_1 4710636#2_2 4710636#2_3 -391493954#0_0 -391493954#0_1 -391493954#0_2 -391493954#0_3 391493952#2_0 391493952#2_1 391493952#2_2 391493952#2_3" intLanes=":29018805_0_0 :29018805_1_0 :29018805_2_0 :29018805_3_0 :29018805_3_1 :29018805_5_0 :29018805_18_0 :29018805_7_0 :29018805_7_1 :29018805_7_2 :29018805_19_0 :29018805_20_0 :29018805_12_0 :29018805_13_0 :29018805_14_0 :29018805_14_1 :29018805_14_2 :29018805_21_0" shape="693.11,1159.99 704.17,1158.99 706.91,1156.61 706.55,1138.62 703.62,1137.99 702.59,1137.16 701.84,1135.99 701.39,1134.48 701.22,1132.62 694.82,1132.70 689.50,1135.78 689.93,1153.77">
-        <request index="0"  response="000000001110000000" foes="100000001110000000" cont="0"/>
-        <request index="1"  response="011100011111011000" foes="011100111111011100" cont="0"/>
+        <request index="0"  response="000000000010000000" foes="000000000010000000" cont="0"/>
+        <request index="1"  response="011100011111011000" foes="011100011111011100" cont="0"/>
         <request index="2"  response="000000001110000010" foes="100000001110000010" cont="0"/>
         <request index="3"  response="011111011111000000" foes="011111011111000010" cont="0"/>
-        <request index="4"  response="011111011111000000" foes="011111011111000010" cont="0"/>
-        <request index="5"  response="011100011111000000" foes="011100111111000000" cont="0"/>
+        <request index="4"  response="011110011111000000" foes="011110011111000010" cont="0"/>
+        <request index="5"  response="011000011111000000" foes="011000111111000000" cont="0"/>
         <request index="6"  response="011111001110000000" foes="011111001110111010" cont="1"/>
-        <request index="7"  response="000000000000000000" foes="100000000001111111" cont="0"/>
-        <request index="8"  response="000000000000000000" foes="100000000001111111" cont="0"/>
-        <request index="9"  response="000000000000000000" foes="100000000001111111" cont="0"/>
-        <request index="10" response="011111000000000000" foes="011111000000111010" cont="1"/>
-        <request index="11" response="011100000000100010" foes="011100000000100010" cont="1"/>
+        <request index="7"  response="000000000000000000" foes="000000000001111111" cont="0"/>
+        <request index="8"  response="000000000000000000" foes="100000000001111110" cont="0"/>
+        <request index="9"  response="000000000000000000" foes="100000000001111110" cont="0"/>
+        <request index="10" response="011110000000000000" foes="011110000000111010" cont="1"/>
+        <request index="11" response="011000000000100000" foes="011000000000100000" cont="1"/>
         <request index="12" response="000000000000000000" foes="000000010001011000" cont="0"/>
         <request index="13" response="000000000000000000" foes="000000010001011000" cont="0"/>
-        <request index="14" response="000000000000000000" foes="000000110001111010" cont="0"/>
+        <request index="14" response="000000000000000000" foes="000000010001011010" cont="0"/>
         <request index="15" response="000000000000000000" foes="000000110001111010" cont="0"/>
         <request index="16" response="000000000000000000" foes="000000110001111010" cont="0"/>
-        <request index="17" response="000000001110000101" foes="000000001110000101" cont="1"/>
+        <request index="17" response="000000001100000100" foes="000000001100000100" cont="1"/>
     </junction>
     <junction id="29325954" type="dead_end" x="710.06" y="550.33" incLanes="" intLanes="" shape="708.83,549.32 711.30,551.35"/>
     <junction id="29325955" type="dead_end" x="705.82" y="537.73" incLanes="182692409#2_0" intLanes="" shape="704.65,536.64 706.99,538.83"/>
@@ -2521,42 +2521,42 @@ SPDX-License-Identifier: EPL-2.0
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
     <junction id="29325968" type="priority" x="709.92" y="1145.96" incLanes="-391493954#1_0 -391493954#1_1 -391493954#1_2 -391493954#1_3 391493945#3_0 391493945#3_1 391493954#0_0 391493954#0_1 391493954#0_2" intLanes=":29325968_0_0 :29325968_1_0 :29325968_2_0 :29325968_3_0 :29325968_3_1 :29325968_3_2 :29325968_20_0 :29325968_7_0 :29325968_8_0 :29325968_9_0 :29325968_9_1 :29325968_9_2 :29325968_12_0 :29325968_13_0 :29325968_14_0 :29325968_21_0 :29325968_16_0 :29325968_16_1 :29325968_22_0 :29325968_23_0" shape="706.94,1159.15 714.34,1159.03 717.26,1156.28 716.58,1138.30 714.45,1138.04 713.69,1137.64 713.14,1137.06 712.79,1136.30 712.64,1135.36 706.25,1135.65 705.99,1137.31 705.61,1137.89 705.05,1138.31 704.32,1138.57 703.42,1138.67 703.74,1156.67">
-        <request index="0"  response="00000000000000000000" foes="01001000111000000000" cont="0"/>
-        <request index="1"  response="00000000000000000000" foes="11001011111000000100" cont="0"/>
+        <request index="0"  response="00000000000000000000" foes="00001000001000000000" cont="0"/>
+        <request index="1"  response="00000000000000000000" foes="01001000111000000100" cont="0"/>
         <request index="2"  response="00000000000000000010" foes="01001000111000000010" cont="0"/>
         <request index="3"  response="00000000000000000000" foes="11001011111000000000" cont="0"/>
         <request index="4"  response="00000000000000000000" foes="11001011111000000000" cont="0"/>
         <request index="5"  response="00000000000000000000" foes="11001011111000000000" cont="0"/>
-        <request index="6"  response="00110100000110000000" foes="00110100000110000000" cont="1"/>
-        <request index="7"  response="00110100000000000000" foes="00110100000001000000" cont="0"/>
+        <request index="6"  response="00110000000100000000" foes="00110000000100000000" cont="1"/>
+        <request index="7"  response="00000100000000000000" foes="00000100000000000000" cont="0"/>
         <request index="8"  response="00110100000000000000" foes="00110100000001000000" cont="0"/>
-        <request index="9"  response="01111100000000111111" foes="01111100000000111111" cont="0"/>
-        <request index="10" response="01111100000000111111" foes="01111100000000111111" cont="0"/>
-        <request index="11" response="01111100000000111111" foes="01111100000000111111" cont="0"/>
-        <request index="12" response="01111100000000111010" foes="11111100000000111010" cont="0"/>
-        <request index="13" response="01111100000000111010" foes="11111100000000111010" cont="0"/>
-        <request index="14" response="00000000000000000000" foes="00000011111111000000" cont="0"/>
+        <request index="9"  response="00111100000000111111" foes="00111100000000111111" cont="0"/>
+        <request index="10" response="01111100000000111110" foes="01111100000000111110" cont="0"/>
+        <request index="11" response="01111100000000111110" foes="01111100000000111110" cont="0"/>
+        <request index="12" response="01111100000000111000" foes="11111100000000111000" cont="0"/>
+        <request index="13" response="01111100000000111000" foes="11111100000000111000" cont="0"/>
+        <request index="14" response="00000000000000000000" foes="00000011111110000000" cont="0"/>
         <request index="15" response="00110000000000111111" foes="00110011111000111111" cont="1"/>
-        <request index="16" response="00000000000000000000" foes="00001011111111000000" cont="0"/>
-        <request index="17" response="00000000000000000000" foes="00001011111111000000" cont="0"/>
-        <request index="18" response="00000000000000111111" foes="00000011111000111111" cont="1"/>
-        <request index="19" response="00000011000000111010" foes="00000011000000111010" cont="1"/>
+        <request index="16" response="00000000000000000000" foes="00001011111101000000" cont="0"/>
+        <request index="17" response="00000000000000000000" foes="00001011111101000000" cont="0"/>
+        <request index="18" response="00000000000000111110" foes="00000011110000111110" cont="1"/>
+        <request index="19" response="00000011000000111000" foes="00000011000000111000" cont="1"/>
     </junction>
     <junction id="29325970" type="dead_end" x="473.64" y="1036.84" incLanes="48275262_0" intLanes="" shape="472.10,1036.41 475.18,1037.26"/>
     <junction id="29325978" type="traffic_light" x="412.87" y="1153.89" incLanes="-110450334#0_0 -110450334#0_1 -110450334#0_2 -110450334#0_3 28362836#1_0 28362836#1_1 28362836#1_2 245193868_0 245193868_1" intLanes=":29325978_0_0 :29325978_0_1 :29325978_0_2 :29325978_0_3 :29325978_13_0 :29325978_5_0 :29325978_6_0 :29325978_7_0 :29325978_8_0 :29325978_9_0 :29325978_9_1 :29325978_9_2 :29325978_14_0" shape="420.22,1164.40 419.99,1146.40 418.42,1146.11 417.85,1145.73 417.43,1145.19 417.15,1144.50 417.02,1143.64 407.44,1144.27 407.25,1146.20 406.91,1146.89 406.40,1147.40 405.72,1147.72 404.87,1147.86 405.66,1164.84">
-        <request index="0"  response="0000000000000" foes="1000110000000" cont="0"/>
+        <request index="0"  response="0000000000000" foes="0000000000000" cont="0"/>
         <request index="1"  response="0000000000000" foes="1000110000000" cont="0"/>
         <request index="2"  response="0000000000000" foes="1000110000000" cont="0"/>
         <request index="3"  response="0000000000000" foes="1000110000000" cont="0"/>
-        <request index="4"  response="0111001100000" foes="0111001100000" cont="1"/>
-        <request index="5"  response="0111000000000" foes="0111000010000" cont="0"/>
+        <request index="4"  response="0110001000000" foes="0110001000000" cont="1"/>
+        <request index="5"  response="0001000000000" foes="0001000000000" cont="0"/>
         <request index="6"  response="0111000000000" foes="0111000010000" cont="0"/>
-        <request index="7"  response="0111000001111" foes="1111000001111" cont="0"/>
-        <request index="8"  response="0111000001111" foes="1111000001111" cont="0"/>
-        <request index="9"  response="0000000000000" foes="0000111110000" cont="0"/>
-        <request index="10" response="0000000000000" foes="0000111110000" cont="0"/>
-        <request index="11" response="0000000000000" foes="0000111110000" cont="0"/>
-        <request index="12" response="0000110001111" foes="0000110001111" cont="1"/>
+        <request index="7"  response="0111000001110" foes="1111000001110" cont="0"/>
+        <request index="8"  response="0111000001110" foes="1111000001110" cont="0"/>
+        <request index="9"  response="0000000000000" foes="0000111100000" cont="0"/>
+        <request index="10" response="0000000000000" foes="0000111010000" cont="0"/>
+        <request index="11" response="0000000000000" foes="0000111010000" cont="0"/>
+        <request index="12" response="0000110001110" foes="0000110001110" cont="1"/>
     </junction>
     <junction id="29325979" type="traffic_light" x="397.80" y="1154.60" incLanes="-245193868_0 -245193868_1 -245193868_2 -245193868_3 4619354_0 4619354_1 4619354_2" intLanes=":29325979_0_0 :29325979_0_1 :29325979_8_0 :29325979_9_0 :29325979_4_0 :29325979_5_0 :29325979_5_1 :29325979_10_0" shape="403.95,1164.92 403.15,1147.94 399.09,1142.67 395.89,1142.75 392.03,1145.26 392.78,1161.24 395.24,1161.43 396.98,1162.13 399.75,1164.03 401.49,1164.72">
         <request index="0" response="00000000" foes="10000000" cont="0"/>
@@ -2569,48 +2569,48 @@ SPDX-License-Identifier: EPL-2.0
         <request index="7" response="00000011" foes="00000011" cont="1"/>
     </junction>
     <junction id="29325980" type="priority" x="587.58" y="1148.06" incLanes="-155071540_0 -391493950#0_0 -391493950#0_1 391493947_0 391493947_1 391493947_2" intLanes=":29325980_0_0 :29325980_1_0 :29325980_2_0 :29325980_3_0 :29325980_4_0 :29325980_5_0 :29325980_13_0 :29325980_7_0 :29325980_14_0 :29325980_9_0 :29325980_9_1 :29325980_15_0 :29325980_16_0" shape="584.69,1155.52 591.08,1155.26 591.35,1153.59 591.74,1153.01 592.30,1152.59 593.04,1152.34 593.96,1152.26 593.95,1143.86 591.19,1143.62 589.20,1143.04 587.59,1142.28 585.98,1141.54 583.99,1141.00 581.23,1140.84 581.56,1152.43 583.24,1152.74 583.84,1153.16 584.28,1153.77 584.56,1154.55">
-        <request index="0"  response="0000010100000" foes="1000010100000" cont="0"/>
+        <request index="0"  response="0000000100000" foes="0000000100000" cont="0"/>
         <request index="1"  response="0000010100000" foes="1000010100000" cont="0"/>
-        <request index="2"  response="0111010100000" foes="0111110100000" cont="0"/>
-        <request index="3"  response="0111010100000" foes="0111110100000" cont="0"/>
+        <request index="2"  response="0111010100000" foes="0111010100000" cont="0"/>
+        <request index="3"  response="0110010100000" foes="0110110100000" cont="0"/>
         <request index="4"  response="0100001000000" foes="0100001000000" cont="0"/>
-        <request index="5"  response="0000000000000" foes="1100001001111" cont="0"/>
+        <request index="5"  response="0000000000000" foes="0100001001111" cont="0"/>
         <request index="6"  response="0000000100000" foes="0100000110000" cont="1"/>
-        <request index="7"  response="0000000000000" foes="1100000001111" cont="0"/>
-        <request index="8"  response="0011000001100" foes="0011000001100" cont="1"/>
-        <request index="9"  response="0000000000000" foes="0000100001100" cont="0"/>
+        <request index="7"  response="0000000000000" foes="1100000001110" cont="0"/>
+        <request index="8"  response="0010000001000" foes="0010000001000" cont="1"/>
+        <request index="9"  response="0000000000000" foes="0000000000100" cont="0"/>
         <request index="10" response="0000000000000" foes="0000100001100" cont="0"/>
         <request index="11" response="0000011100000" foes="0000011111100" cont="1"/>
-        <request index="12" response="0000010100011" foes="0000010100011" cont="1"/>
+        <request index="12" response="0000010000010" foes="0000010000010" cont="1"/>
     </junction>
     <junction id="29325981" type="priority" x="552.11" y="946.95" incLanes="155073133#4_0" intLanes=":29325981_0_0" shape="552.11,946.95 549.02,946.10 552.11,946.95">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="29325995" type="traffic_light" x="1093.42" y="1132.73" incLanes="-391493948_0 -391493948_1 -391493948_2 391493946_0 391493946_1 391493946_2" intLanes=":29325995_0_0 :29325995_0_1 :29325995_6_0 :29325995_3_0 :29325995_3_1 :29325995_7_0" shape="1097.61,1140.02 1097.30,1128.43 1094.24,1127.68 1092.26,1126.19 1091.00,1125.64 1089.21,1125.45 1089.54,1137.05 1092.59,1137.79 1094.56,1139.28 1095.82,1139.83">
-        <request index="0" response="000000" foes="100000" cont="0"/>
+        <request index="0" response="000000" foes="000000" cont="0"/>
         <request index="1" response="000000" foes="100000" cont="0"/>
-        <request index="2" response="011000" foes="011000" cont="1"/>
-        <request index="3" response="000000" foes="000100" cont="0"/>
+        <request index="2" response="010000" foes="010000" cont="1"/>
+        <request index="3" response="000000" foes="000000" cont="0"/>
         <request index="4" response="000000" foes="000100" cont="0"/>
-        <request index="5" response="000011" foes="000011" cont="1"/>
+        <request index="5" response="000010" foes="000010" cont="1"/>
     </junction>
     <junction id="29325996" type="priority" x="1174.51" y="1130.55" incLanes="-391493951_0 -391493951_1 456455656_0 456455656_1" intLanes=":29325996_0_0 :29325996_0_1 :29325996_6_0 :29325996_3_0 :29325996_3_1 :29325996_7_0" shape="1174.78,1134.74 1174.53,1126.35 1174.25,1126.36 1174.47,1134.75">
-        <request index="0" response="000000" foes="100000" cont="0"/>
+        <request index="0" response="000000" foes="000000" cont="0"/>
         <request index="1" response="000000" foes="100000" cont="0"/>
-        <request index="2" response="011000" foes="011000" cont="1"/>
-        <request index="3" response="000000" foes="000100" cont="0"/>
+        <request index="2" response="010000" foes="010000" cont="1"/>
+        <request index="3" response="000000" foes="000000" cont="0"/>
         <request index="4" response="000000" foes="000100" cont="0"/>
-        <request index="5" response="000011" foes="000011" cont="1"/>
+        <request index="5" response="000010" foes="000010" cont="1"/>
     </junction>
     <junction id="29498342" type="priority" x="704.68" y="1201.13" incLanes="53356539#1_0 53356539#1_1 161159325#1_0 161159325#1_1 161159325#1_2" intLanes=":29498342_0_0 :29498342_0_1 :29498342_0_2 :29498342_0_3 :29498342_8_0 :29498342_5_0 :29498342_5_1 :29498342_9_0" shape="700.67,1205.72 709.07,1205.37 709.77,1202.69 710.51,1201.85 711.29,1201.01 711.92,1199.92 712.24,1198.33 693.91,1197.55 694.31,1199.62 695.51,1200.84 697.12,1201.63 698.77,1202.42 700.08,1203.64">
-        <request index="0" response="00000000" foes="10000000" cont="0"/>
+        <request index="0" response="00000000" foes="00000000" cont="0"/>
         <request index="1" response="00000000" foes="10000000" cont="0"/>
         <request index="2" response="00000000" foes="10000000" cont="0"/>
         <request index="3" response="00000000" foes="10000000" cont="0"/>
-        <request index="4" response="01100000" foes="01100000" cont="1"/>
-        <request index="5" response="00000000" foes="00010000" cont="0"/>
+        <request index="4" response="01000000" foes="01000000" cont="1"/>
+        <request index="5" response="00000000" foes="00000000" cont="0"/>
         <request index="6" response="00000000" foes="00010000" cont="0"/>
-        <request index="7" response="00001111" foes="00001111" cont="1"/>
+        <request index="7" response="00001110" foes="00001110" cont="1"/>
     </junction>
     <junction id="3162988225" type="traffic_light" x="710.14" y="1159.09" incLanes="161159325#0_0 161159325#0_1 161159325#0_2" intLanes=":3162988225_0_0 :3162988225_0_1 :3162988225_0_2" shape="714.34,1158.89 706.94,1159.01 714.33,1159.41">
         <request index="0" response="000" foes="000" cont="0"/>
@@ -2618,13 +2618,13 @@ SPDX-License-Identifier: EPL-2.0
         <request index="2" response="000" foes="000" cont="0"/>
     </junction>
     <junction id="332023341" type="priority" x="1016.38" y="1134.95" incLanes="-391493946_0 -391493946_1 391493953#1_0 391493953#1_1" intLanes=":332023341_0_0 :332023341_0_1 :332023341_7_0 :332023341_3_0 :332023341_3_1 :332023341_3_2 :332023341_8_0" shape="1020.50,1139.03 1020.17,1127.44 1017.15,1128.35 1016.20,1129.16 1015.25,1129.96 1014.02,1130.60 1012.24,1130.90 1012.55,1139.30">
-        <request index="0" response="0000000" foes="1000000" cont="0"/>
+        <request index="0" response="0000000" foes="0000000" cont="0"/>
         <request index="1" response="0000000" foes="1000000" cont="0"/>
-        <request index="2" response="0111000" foes="0111000" cont="1"/>
-        <request index="3" response="0000000" foes="0000100" cont="0"/>
+        <request index="2" response="0110000" foes="0110000" cont="1"/>
+        <request index="3" response="0000000" foes="0000000" cont="0"/>
         <request index="4" response="0000000" foes="0000100" cont="0"/>
         <request index="5" response="0000000" foes="0000100" cont="0"/>
-        <request index="6" response="0000011" foes="0000011" cont="1"/>
+        <request index="6" response="0000010" foes="0000010" cont="1"/>
     </junction>
     <junction id="3395046247" type="dead_end" x="736.08" y="1180.54" incLanes="332385846#1_0" intLanes="" shape="736.03,1178.94 736.14,1182.14"/>
     <junction id="3395046248" type="dead_end" x="732.00" y="1180.68" incLanes="332385846#0_0" intLanes="" shape="733.56,1182.23 733.45,1179.03 734.62,1180.51 732.50,1178.11 731.66,1178.78 731.32,1178.96 730.95,1179.07 730.49,1179.12 729.88,1179.15 729.98,1182.35"/>
@@ -2683,13 +2683,13 @@ SPDX-License-Identifier: EPL-2.0
         <request index="3" response="0001" foes="0001" cont="1"/>
     </junction>
     <junction id="3684232083" type="priority" x="1215.60" y="1129.31" incLanes="-456455655_0 -456455655_1 391493951_0 391493951_1" intLanes=":3684232083_0_0 :3684232083_0_1 :3684232083_7_0 :3684232083_3_0 :3684232083_3_1 :3684232083_3_2 :3684232083_8_0" shape="1219.81,1133.29 1219.20,1121.71 1216.25,1122.69 1215.33,1123.51 1214.41,1124.31 1213.21,1124.95 1211.46,1125.24 1211.73,1133.64">
-        <request index="0" response="0000000" foes="1000000" cont="0"/>
+        <request index="0" response="0000000" foes="0000000" cont="0"/>
         <request index="1" response="0000000" foes="1000000" cont="0"/>
-        <request index="2" response="0111000" foes="0111000" cont="1"/>
-        <request index="3" response="0000000" foes="0000100" cont="0"/>
+        <request index="2" response="0110000" foes="0110000" cont="1"/>
+        <request index="3" response="0000000" foes="0000000" cont="0"/>
         <request index="4" response="0000000" foes="0000100" cont="0"/>
         <request index="5" response="0000000" foes="0000100" cont="0"/>
-        <request index="6" response="0000011" foes="0000011" cont="1"/>
+        <request index="6" response="0000010" foes="0000010" cont="1"/>
     </junction>
     <junction id="3785063967" type="traffic_light" x="709.02" y="1126.72" incLanes="391493945#1_0 391493945#1_1" intLanes=":3785063967_0_0 :3785063967_0_1" shape="705.83,1127.03 712.22,1126.70 712.21,1126.40 705.81,1126.73">
         <request index="0" response="00" foes="00" cont="0"/>
@@ -2704,58 +2704,58 @@ SPDX-License-Identifier: EPL-2.0
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
     <junction id="3785063971" type="priority" x="564.51" y="1148.70" incLanes="-391493947_0 -391493947_1 391493949_0 391493949_1" intLanes=":3785063971_0_0 :3785063971_0_1 :3785063971_0_2 :3785063971_8_0 :3785063971_4_0 :3785063971_4_1 :3785063971_4_2 :3785063971_9_0" shape="568.63,1152.79 568.31,1141.20 565.30,1142.11 563.40,1143.71 562.17,1144.34 560.39,1144.63 560.76,1156.23 563.75,1155.30 565.64,1153.71 566.86,1153.08">
-        <request index="0" response="00000000" foes="10000000" cont="0"/>
+        <request index="0" response="00000000" foes="00000000" cont="0"/>
         <request index="1" response="00000000" foes="10000000" cont="0"/>
         <request index="2" response="00000000" foes="10000000" cont="0"/>
-        <request index="3" response="01110000" foes="01110000" cont="1"/>
-        <request index="4" response="00000000" foes="00001000" cont="0"/>
+        <request index="3" response="01100000" foes="01100000" cont="1"/>
+        <request index="4" response="00000000" foes="00000000" cont="0"/>
         <request index="5" response="00000000" foes="00001000" cont="0"/>
         <request index="6" response="00000000" foes="00001000" cont="0"/>
-        <request index="7" response="00000111" foes="00000111" cont="1"/>
+        <request index="7" response="00000110" foes="00000110" cont="1"/>
     </junction>
     <junction id="3785063972" type="traffic_light" x="727.59" y="1145.28" incLanes="-391493954#3_0 -391493954#3_1 -391493954#3_2 -391493954#3_3 391493954#2_0 391493954#2_1 391493954#2_2" intLanes=":3785063972_0_0 :3785063972_0_1 :3785063972_0_2 :3785063972_0_3 :3785063972_9_0 :3785063972_5_0 :3785063972_5_1 :3785063972_5_2 :3785063972_10_0" shape="728.14,1155.87 727.46,1137.88 727.15,1137.89 727.84,1155.88">
-        <request index="0" response="000000000" foes="100000000" cont="0"/>
+        <request index="0" response="000000000" foes="000000000" cont="0"/>
         <request index="1" response="000000000" foes="100000000" cont="0"/>
         <request index="2" response="000000000" foes="100000000" cont="0"/>
         <request index="3" response="000000000" foes="100000000" cont="0"/>
-        <request index="4" response="011100000" foes="011100000" cont="1"/>
-        <request index="5" response="000000000" foes="000010000" cont="0"/>
+        <request index="4" response="011000000" foes="011000000" cont="1"/>
+        <request index="5" response="000000000" foes="000000000" cont="0"/>
         <request index="6" response="000000000" foes="000010000" cont="0"/>
         <request index="7" response="000000000" foes="000010000" cont="0"/>
-        <request index="8" response="000001111" foes="000001111" cont="1"/>
+        <request index="8" response="000001110" foes="000001110" cont="1"/>
     </junction>
     <junction id="3785063973" type="traffic_light" x="723.41" y="1145.44" incLanes="-391493954#2_0 -391493954#2_1 -391493954#2_2 -391493954#2_3 391493954#1_0 391493954#1_1 391493954#1_2" intLanes=":3785063973_0_0 :3785063973_0_1 :3785063973_0_2 :3785063973_0_3 :3785063973_9_0 :3785063973_5_0 :3785063973_5_1 :3785063973_5_2 :3785063973_10_0" shape="723.97,1156.03 723.28,1138.04 722.98,1138.05 723.67,1156.04">
-        <request index="0" response="000000000" foes="100000000" cont="0"/>
+        <request index="0" response="000000000" foes="000000000" cont="0"/>
         <request index="1" response="000000000" foes="100000000" cont="0"/>
         <request index="2" response="000000000" foes="100000000" cont="0"/>
         <request index="3" response="000000000" foes="100000000" cont="0"/>
-        <request index="4" response="011100000" foes="011100000" cont="1"/>
-        <request index="5" response="000000000" foes="000010000" cont="0"/>
+        <request index="4" response="011000000" foes="011000000" cont="1"/>
+        <request index="5" response="000000000" foes="000000000" cont="0"/>
         <request index="6" response="000000000" foes="000010000" cont="0"/>
         <request index="7" response="000000000" foes="000010000" cont="0"/>
-        <request index="8" response="000001111" foes="000001111" cont="1"/>
+        <request index="8" response="000001110" foes="000001110" cont="1"/>
     </junction>
     <junction id="3785063974" type="traffic_light" x="689.75" y="1146.38" incLanes="-391493952#2_0 -391493952#2_1 -391493952#2_2 391493952#1_0 391493952#1_1 391493952#1_2 391493952#1_3" intLanes=":3785063974_0_0 :3785063974_0_1 :3785063974_0_2 :3785063974_9_0 :3785063974_4_0 :3785063974_4_1 :3785063974_4_2 :3785063974_4_3 :3785063974_10_0" shape="690.08,1153.77 689.65,1135.78 689.34,1135.78 689.79,1153.78">
-        <request index="0" response="000000000" foes="100000000" cont="0"/>
+        <request index="0" response="000000000" foes="000000000" cont="0"/>
         <request index="1" response="000000000" foes="100000000" cont="0"/>
         <request index="2" response="000000000" foes="100000000" cont="0"/>
-        <request index="3" response="011110000" foes="011110000" cont="1"/>
-        <request index="4" response="000000000" foes="000001000" cont="0"/>
+        <request index="3" response="011100000" foes="011100000" cont="1"/>
+        <request index="4" response="000000000" foes="000000000" cont="0"/>
         <request index="5" response="000000000" foes="000001000" cont="0"/>
         <request index="6" response="000000000" foes="000001000" cont="0"/>
         <request index="7" response="000000000" foes="000001000" cont="0"/>
-        <request index="8" response="000000111" foes="000000111" cont="1"/>
+        <request index="8" response="000000110" foes="000000110" cont="1"/>
     </junction>
     <junction id="3785063975" type="traffic_light" x="685.17" y="1146.49" incLanes="-391493952#1_0 -391493952#1_1 -391493952#1_2 391493952#0_0 391493952#0_1 391493952#0_2 391493952#0_3" intLanes=":3785063975_0_0 :3785063975_0_1 :3785063975_0_2 :3785063975_9_0 :3785063975_4_0 :3785063975_4_1 :3785063975_4_2 :3785063975_4_3 :3785063975_10_0" shape="685.50,1153.89 685.05,1135.89 684.75,1135.90 685.20,1153.89">
-        <request index="0" response="000000000" foes="100000000" cont="0"/>
+        <request index="0" response="000000000" foes="000000000" cont="0"/>
         <request index="1" response="000000000" foes="100000000" cont="0"/>
         <request index="2" response="000000000" foes="100000000" cont="0"/>
-        <request index="3" response="011110000" foes="011110000" cont="1"/>
-        <request index="4" response="000000000" foes="000001000" cont="0"/>
+        <request index="3" response="011100000" foes="011100000" cont="1"/>
+        <request index="4" response="000000000" foes="000000000" cont="0"/>
         <request index="5" response="000000000" foes="000001000" cont="0"/>
         <request index="6" response="000000000" foes="000001000" cont="0"/>
         <request index="7" response="000000000" foes="000001000" cont="0"/>
-        <request index="8" response="000000111" foes="000000111" cont="1"/>
+        <request index="8" response="000000110" foes="000000110" cont="1"/>
     </junction>
     <junction id="3785063977" type="traffic_light" x="699.39" y="1159.42" incLanes="4710636#1_0 4710636#1_1 4710636#1_2 4710636#1_3" intLanes=":3785063977_0_0 :3785063977_0_1 :3785063977_0_2 :3785063977_0_3" shape="693.11,1160.03 704.19,1159.36 704.15,1158.76 693.09,1159.77">
         <request index="0" response="0000" foes="0000" cont="0"/>
@@ -2770,52 +2770,52 @@ SPDX-License-Identifier: EPL-2.0
         <request index="3" response="0000" foes="0000" cont="0"/>
     </junction>
     <junction id="3947062854" type="priority" x="785.21" y="1143.10" incLanes="-456455657#0_0 -456455657#0_1 391493954#3_0 391493954#3_1 391493954#3_2" intLanes=":3947062854_0_0 :3947062854_0_1 :3947062854_0_2 :3947062854_0_3 :3947062854_8_0 :3947062854_5_0 :3947062854_5_1 :3947062854_9_0" shape="789.36,1147.14 789.04,1138.75 785.98,1138.03 783.99,1136.57 782.73,1136.02 780.93,1135.85 781.61,1153.84 783.60,1153.29 784.75,1152.06 786.21,1148.92 787.36,1147.69">
-        <request index="0" response="00000000" foes="10000000" cont="0"/>
+        <request index="0" response="00000000" foes="00000000" cont="0"/>
         <request index="1" response="00000000" foes="10000000" cont="0"/>
         <request index="2" response="00000000" foes="10000000" cont="0"/>
         <request index="3" response="00000000" foes="10000000" cont="0"/>
-        <request index="4" response="01100000" foes="01100000" cont="1"/>
-        <request index="5" response="00000000" foes="00010000" cont="0"/>
+        <request index="4" response="01000000" foes="01000000" cont="1"/>
+        <request index="5" response="00000000" foes="00000000" cont="0"/>
         <request index="6" response="00000000" foes="00010000" cont="0"/>
-        <request index="7" response="00001111" foes="00001111" cont="1"/>
+        <request index="7" response="00001110" foes="00001110" cont="1"/>
     </junction>
     <junction id="3947062855" type="priority" x="638.21" y="1147.67" incLanes="-391493952#0_0 -391493952#0_1 -391493952#0_2 391493950#1_0 391493950#1_1" intLanes=":3947062855_0_0 :3947062855_0_1 :3947062855_8_0 :3947062855_3_0 :3947062855_3_1 :3947062855_3_2 :3947062855_3_3 :3947062855_9_0" shape="642.39,1154.97 641.94,1136.97 639.94,1137.50 638.77,1138.71 637.27,1141.83 636.10,1143.05 634.10,1143.57 634.31,1151.97 637.36,1152.72 639.34,1154.21 640.59,1154.78">
-        <request index="0" response="00000000" foes="10000000" cont="0"/>
+        <request index="0" response="00000000" foes="00000000" cont="0"/>
         <request index="1" response="00000000" foes="10000000" cont="0"/>
-        <request index="2" response="01111000" foes="01111000" cont="1"/>
-        <request index="3" response="00000000" foes="00000100" cont="0"/>
+        <request index="2" response="01110000" foes="01110000" cont="1"/>
+        <request index="3" response="00000000" foes="00000000" cont="0"/>
         <request index="4" response="00000000" foes="00000100" cont="0"/>
         <request index="5" response="00000000" foes="00000100" cont="0"/>
         <request index="6" response="00000000" foes="00000100" cont="0"/>
-        <request index="7" response="00000011" foes="00000011" cont="1"/>
+        <request index="7" response="00000010" foes="00000010" cont="1"/>
     </junction>
     <junction id="417656202" type="dead_end" x="876.18" y="1154.59" incLanes="22495189_0" intLanes="" shape="877.78,1154.51 874.58,1154.66"/>
     <junction id="4527119680" type="priority" x="1131.95" y="1131.69" incLanes="-456455656_0 -456455656_1 391493948_0 391493948_1" intLanes=":4527119680_0_0 :4527119680_0_1 :4527119680_0_2 :4527119680_7_0 :4527119680_4_0 :4527119680_4_1 :4527119680_8_0" shape="1136.06,1135.78 1135.83,1127.39 1127.83,1127.60 1128.15,1139.20 1131.16,1138.29 1133.05,1136.69 1134.28,1136.07">
-        <request index="0" response="0000000" foes="1000000" cont="0"/>
+        <request index="0" response="0000000" foes="0000000" cont="0"/>
         <request index="1" response="0000000" foes="1000000" cont="0"/>
         <request index="2" response="0000000" foes="1000000" cont="0"/>
-        <request index="3" response="0110000" foes="0110000" cont="1"/>
-        <request index="4" response="0000000" foes="0001000" cont="0"/>
+        <request index="3" response="0100000" foes="0100000" cont="1"/>
+        <request index="4" response="0000000" foes="0000000" cont="0"/>
         <request index="5" response="0000000" foes="0001000" cont="0"/>
-        <request index="6" response="0000111" foes="0000111" cont="1"/>
+        <request index="6" response="0000110" foes="0000110" cont="1"/>
     </junction>
     <junction id="4879497922" type="priority" x="599.56" y="1441.33" incLanes="155071540_0" intLanes=":4879497922_0_0" shape="599.56,1441.33 602.76,1441.20 599.56,1441.33">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="502869380" type="dead_end" x="814.89" y="820.73" incLanes="24927977#1_0" intLanes="" shape="813.29,820.72 816.49,820.74"/>
     <junction id="504921081" type="priority" x="466.62" y="1153.23" incLanes="-41292662#0_0 -338412122_0 -338412122_1 110450334#2_0 110450334#2_1 110450334#2_2" intLanes=":504921081_0_0 :504921081_1_0 :504921081_2_0 :504921081_3_0 :504921081_4_0 :504921081_12_0 :504921081_6_0 :504921081_13_0 :504921081_8_0 :504921081_8_1 :504921081_14_0 :504921081_15_0" shape="463.70,1167.87 470.10,1167.75 470.15,1164.56 470.43,1161.94 470.95,1159.89 471.70,1158.42 472.68,1157.52 473.90,1157.18 473.60,1148.79 470.54,1148.66 468.31,1148.14 466.51,1147.42 464.70,1146.68 462.47,1146.12 459.40,1145.92 459.62,1163.92 461.86,1164.34 462.64,1164.88 463.21,1165.66 463.57,1166.65">
-        <request index="0"  response="000001010000" foes="100001010000" cont="0"/>
+        <request index="0"  response="000000010000" foes="000000010000" cont="0"/>
         <request index="1"  response="000001010000" foes="100001010000" cont="0"/>
-        <request index="2"  response="011101010000" foes="011111010000" cont="0"/>
+        <request index="2"  response="011001010000" foes="011011010000" cont="0"/>
         <request index="3"  response="010000100000" foes="010000100000" cont="0"/>
-        <request index="4"  response="000000000000" foes="110000100111" cont="0"/>
+        <request index="4"  response="000000000000" foes="010000100111" cont="0"/>
         <request index="5"  response="000000010000" foes="010000011000" cont="1"/>
-        <request index="6"  response="000000000000" foes="110000000111" cont="0"/>
-        <request index="7"  response="001100000100" foes="001100000100" cont="1"/>
-        <request index="8"  response="000000000000" foes="000010000100" cont="0"/>
+        <request index="6"  response="000000000000" foes="110000000110" cont="0"/>
+        <request index="7"  response="001000000100" foes="001000000100" cont="1"/>
+        <request index="8"  response="000000000000" foes="000000000000" cont="0"/>
         <request index="9"  response="000000000000" foes="000010000100" cont="0"/>
         <request index="10" response="000001110000" foes="000001111100" cont="1"/>
-        <request index="11" response="000001010011" foes="000001010011" cont="1"/>
+        <request index="11" response="000001000010" foes="000001000010" cont="1"/>
     </junction>
     <junction id="613400623" type="priority" x="425.90" y="1038.98" incLanes="182692409#1_0" intLanes=":613400623_0_0" shape="428.19,1041.68 429.43,1038.73 428.68,1038.23 428.47,1037.92 428.38,1037.56 428.40,1037.16 428.53,1036.72 425.55,1035.54 423.28,1041.35 426.27,1042.50 426.72,1041.78 427.02,1041.59 427.36,1041.51 427.75,1041.54">
         <request index="0" response="0" foes="0" cont="0"/>
@@ -2834,19 +2834,19 @@ SPDX-License-Identifier: EPL-2.0
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="730887355" type="priority" x="833.59" y="1141.64" incLanes="-391493953#0_0 -391493953#0_1 58980579_0 -186519599_0 456455657#1_0 456455657#1_1" intLanes=":730887355_0_0 :730887355_0_1 :730887355_13_0 :730887355_14_0 :730887355_4_0 :730887355_5_0 :730887355_6_0 :730887355_7_0 :730887355_8_0 :730887355_9_0 :730887355_15_0 :730887355_11_0 :730887355_16_0" shape="838.76,1145.78 838.66,1137.38 838.13,1136.69 838.22,1135.81 838.54,1134.58 839.10,1133.00 839.90,1131.07 836.96,1129.80 836.30,1129.68 829.91,1129.94 829.96,1132.25 829.91,1134.14 829.77,1135.61 829.52,1136.67 829.17,1137.31 828.72,1137.52 828.86,1145.92">
-        <request index="0"  response="0000000000000" foes="1000011000000" cont="0"/>
+        <request index="0"  response="0000000000000" foes="0000001000000" cont="0"/>
         <request index="1"  response="0000000000000" foes="1000011000000" cont="0"/>
         <request index="2"  response="0111000000000" foes="0111111000000" cont="1"/>
-        <request index="3"  response="0101000110000" foes="0101000110000" cont="1"/>
-        <request index="4"  response="0101000000000" foes="0101000001000" cont="0"/>
+        <request index="3"  response="0100000100000" foes="0100000100000" cont="1"/>
+        <request index="4"  response="0001000000000" foes="0001000000000" cont="0"/>
         <request index="5"  response="0101000000000" foes="0101000001000" cont="0"/>
-        <request index="6"  response="0101000000111" foes="1101000000111" cont="0"/>
-        <request index="7"  response="0101000000111" foes="1101000000111" cont="0"/>
+        <request index="6"  response="0101000000111" foes="0101000000111" cont="0"/>
+        <request index="7"  response="0101000000110" foes="1101000000110" cont="0"/>
         <request index="8"  response="0010000000100" foes="0010000000100" cont="0"/>
-        <request index="9"  response="0000000000000" foes="0010011111100" cont="0"/>
+        <request index="9"  response="0000000000000" foes="0010011110100" cont="0"/>
         <request index="10" response="0001000000000" foes="0001100000100" cont="1"/>
-        <request index="11" response="0000000000000" foes="0000011111100" cont="0"/>
-        <request index="12" response="0000011000011" foes="0000011000011" cont="1"/>
+        <request index="11" response="0000000000000" foes="0000011101100" cont="0"/>
+        <request index="12" response="0000010000010" foes="0000010000010" cont="1"/>
     </junction>
     <junction id="730887379" type="priority" x="711.41" y="1042.15" incLanes="-58980583_0 111325188#1_0 111325188#1_1" intLanes=":730887379_0_0 :730887379_1_0 :730887379_2_0 :730887379_3_0 :730887379_3_1" shape="716.66,1045.29 716.59,1038.89 715.78,1038.73 715.52,1038.53 715.35,1038.24 715.28,1037.87 715.30,1037.42 708.96,1036.53 707.85,1046.27 714.22,1046.81 714.55,1045.98 714.90,1045.68 715.36,1045.47 715.95,1045.34">
         <request index="0" response="11000" foes="11000" cont="0"/>

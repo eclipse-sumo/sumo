@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jun 28 08:55:30 2018 by Eclipse SUMO netconvert Version 3ef3414
+<!-- generated on Thu Jun 28 16:45:42 2018 by Eclipse SUMO netconvert Version e5dd1a0
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -993,7 +993,7 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="279806670" type="priority" x="666.59" y="548.17" incLanes="578659338#3_0 52036180#1_0 52036180#1_1" intLanes=":279806670_0_0 :279806670_1_0 :279806670_1_1" shape="664.73,550.78 668.04,545.31 667.24,544.50 666.88,543.88 666.54,543.12 666.24,542.21 665.96,541.16 664.01,541.62 664.06,542.34 663.95,542.52 663.75,542.57 663.45,542.50 663.07,542.30 659.76,547.78">
         <request index="0" response="110" foes="110" cont="0"/>
         <request index="1" response="000" foes="001" cont="0"/>
-        <request index="2" response="000" foes="001" cont="0"/>
+        <request index="2" response="000" foes="000" cont="0"/>
     </junction>
     <junction id="294163439" type="priority" x="518.69" y="372.47" incLanes="-403442280#0_0" intLanes=":294163439_0_0" shape="518.69,372.47 517.69,369.43 518.69,372.47">
         <request index="0" response="0" foes="0" cont="0"/>

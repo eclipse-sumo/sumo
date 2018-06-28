@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jun 28 10:54:18 2018 by Eclipse SUMO netconvert Version b7042e5
+<!-- generated on Thu Jun 28 16:27:06 2018 by Eclipse SUMO netconvert Version e5dd1a0
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -74,16 +74,16 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
 
     <junction id="275525455" type="priority" x="80.71" y="40.67" incLanes="156364570#0_0 156364570#0_1 156364570#0_2 -25294729#0_0 -25294729#0_1 -156364570#1_0 -156364570#1_1 -156364570#1_2" intLanes="" shape="85.46,51.26 92.11,38.49 91.49,37.98 91.38,37.70 91.39,37.40 91.55,37.07 91.83,36.72 84.39,29.46 82.42,31.25 81.59,31.81 80.87,32.15 80.27,32.26 79.77,32.15 73.32,45.03">
-        <request index="0" response="0000000000" foes="0001100000"/>
+        <request index="0" response="0000000000" foes="0000100000"/>
         <request index="1" response="0000000000" foes="0001100000"/>
         <request index="2" response="1110000000" foes="1111100000"/>
-        <request index="3" response="1010000000" foes="1010000000"/>
+        <request index="3" response="0010000000" foes="0010000000"/>
         <request index="4" response="1010000000" foes="1010000000"/>
         <request index="5" response="1010000111" foes="1010000111"/>
-        <request index="6" response="1010000111" foes="1010000111"/>
+        <request index="6" response="1010000110" foes="1010000110"/>
         <request index="7" response="0000000000" foes="0101111100"/>
         <request index="8" response="0010000000" foes="0010000100"/>
-        <request index="9" response="0000000000" foes="0001111100"/>
+        <request index="9" response="0000000000" foes="0001110100"/>
     </junction>
     <junction id="2796688606" type="dead_end" x="100.04" y="55.52" incLanes="-77348147_0 -77348147_1" intLanes="" shape="100.04,55.52 105.55,52.68 100.04,55.52"/>
     <junction id="614674365" type="priority" x="93.56" y="47.36" incLanes="77348147_0 77348147_1 -156364570#0_0 -156364570#0_1 -156364570#0_2" intLanes="" shape="93.54,56.44 102.31,46.94 100.80,44.91 100.43,44.02 100.02,43.20 99.34,42.42 98.17,41.64 91.52,54.42 92.46,54.95 92.76,55.20 93.01,55.50 93.25,55.90">

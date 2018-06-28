@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jun 28 09:17:12 2018 by Eclipse SUMO netconvert Version 3ef3414
+<!-- generated on Thu Jun 28 16:44:59 2018 by Eclipse SUMO netconvert Version e5dd1a0
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -800,7 +800,7 @@ SPDX-License-Identifier: EPL-2.0
     </junction>
     <junction id="1392924660" type="priority" x="441.02" y="822.02" z="33.35" incLanes="143308532#1_0 143308532#1_1 47770433_0" intLanes="" shape="442.23,825.67,33.35 443.92,819.50,33.35 439.11,818.17,33.35 437.40,824.34,33.35 438.12,824.71,33.18 438.34,824.97,33.18 438.44,825.28,33.17 438.44,825.65,33.17 438.28,826.13,33.35 440.14,826.88,33.35 440.65,826.04,33.27 440.96,825.77,33.31 441.31,825.62,33.35 441.70,825.58,33.39">
         <request index="0" response="000" foes="100"/>
-        <request index="1" response="000" foes="100"/>
+        <request index="1" response="000" foes="000"/>
         <request index="2" response="011" foes="011"/>
     </junction>
     <junction id="1410393659" type="dead_end" x="636.68" y="793.43" z="35.92" incLanes="" intLanes="" shape="635.87,792.84,35.92 637.49,794.01,35.92"/>
@@ -1315,7 +1315,7 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="846231372" type="priority" x="551.90" y="850.52" z="34.81" incLanes="70139065_0 143308546#7_0 143308546#7_1" intLanes="" shape="554.37,856.98,34.81 556.12,856.00,34.81 555.87,855.32,34.59 555.92,855.11,34.59 556.08,855.00,34.59 556.37,854.98,34.60 556.84,855.06,34.81 558.40,848.86,34.81 552.84,847.46,34.81 551.26,853.66,34.81 552.25,854.19,34.75 552.76,854.66,34.72 553.28,855.28,34.68 553.81,856.04,34.64">
         <request index="0" response="110" foes="110"/>
         <request index="1" response="000" foes="001"/>
-        <request index="2" response="000" foes="001"/>
+        <request index="2" response="000" foes="000"/>
     </junction>
     <junction id="851572284" type="priority" x="440.36" y="726.15" z="32.63" incLanes="-142575658#1_0 142575658#0_0" intLanes="" shape="442.89,729.53,32.63 443.32,723.14,32.63 442.55,722.93,32.68 442.27,722.70,32.64 442.09,722.41,32.60 442.01,722.04,32.56 442.04,721.56,32.63 440.06,721.27,32.63 439.76,722.16,32.55 439.51,722.46,32.57 439.18,722.67,32.58 438.79,722.78,32.60 438.33,722.79,32.63 437.85,729.17,32.63">
         <request index="0" response="000000" foes="100000"/>
