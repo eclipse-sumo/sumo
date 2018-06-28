@@ -72,9 +72,6 @@ GNERerouterDialog::GNERerouterDialog(GNERerouter* rerouterParent) :
     myIntervalTable->setSelTextColor(FXRGBA(0, 0, 0, 255));
     myIntervalTable->setEditable(false);
 
-    // fill rerouter intervals
-    myRerouterIntervalsEdited = myEditedAdditional->getAdditionalChilds();
-
     // update intervals
     updateIntervalTable();
 
@@ -137,10 +134,7 @@ GNERerouterDialog::onCmdReset(FXObject*, FXSelector, void*) {
 long
 GNERerouterDialog::onCmdAddInterval(FXObject*, FXSelector, void*) {
     // create empty rerouter interval and configure it with GNERerouterIntervalDialog
-    GNERerouterInterval* rerouterInterval = new GNERerouterInterval(this);
-    if(GNERerouterIntervalDialog(rerouterInterval, false).openAsModalDialog() != 0) {
-        myRerouterIntervalsEdited.push_back(rerouterInterval);
-    }
+    GNERerouterIntervalDialog(new GNERerouterInterval(this), false);
     // update interval table
     updateIntervalTable();
     return 1;
@@ -151,8 +145,6 @@ long
 GNERerouterDialog::onCmdSortIntervals(FXObject*, FXSelector, void*) {
     // Sort variable speed sign steps
     myEditedAdditional->sortAdditionalChilds();
-    // fill edited steps
-    myRerouterIntervalsEdited = myEditedAdditional->getAdditionalChilds();
     // update table
     updateIntervalTable();
     return 1;
@@ -162,21 +154,20 @@ GNERerouterDialog::onCmdSortIntervals(FXObject*, FXSelector, void*) {
 long
 GNERerouterDialog::onCmdClickedInterval(FXObject*, FXSelector, void*) {
     // check if some delete button was pressed
-    for (int i = 0; i < (int)myRerouterIntervalsEdited.size(); i++) {
+    for (int i = 0; i < (int)myEditedAdditional->getAdditionalChilds().size(); i++) {
         if (myIntervalTable->getItem(i, 2)->hasFocus()) {
             // remove interval
-            myEditedAdditional->getViewNet()->getUndoList()->add(new GNEChange_Additional(myRerouterIntervalsEdited.at(i), false), true);
-            myRerouterIntervalsEdited.erase(myRerouterIntervalsEdited.begin() + i);
+            myEditedAdditional->getViewNet()->getUndoList()->add(new GNEChange_Additional(myEditedAdditional->getAdditionalChilds().at(i), false), true);
             // update interval table after removing
             updateIntervalTable();
             return 1;
         }
     }
     // check if some begin or o end  button was pressed
-    for (int i = 0; i < (int)myRerouterIntervalsEdited.size(); i++) {
+    for (int i = 0; i < (int)myEditedAdditional->getAdditionalChilds().size(); i++) {
         if (myIntervalTable->getItem(i, 0)->hasFocus() || myIntervalTable->getItem(i, 1)->hasFocus()) {
             // edit interval
-            GNERerouterIntervalDialog((GNERerouterInterval*)myRerouterIntervalsEdited.at(i), true).openAsModalDialog();
+            GNERerouterIntervalDialog((GNERerouterInterval*)myEditedAdditional->getAdditionalChilds().at(i), true);
             // update interval table after editing
             updateIntervalTable();
             return 1;
@@ -192,7 +183,7 @@ GNERerouterDialog::updateIntervalTable() {
     // clear table
     myIntervalTable->clearItems();
     // set number of rows
-    myIntervalTable->setTableSize(int(myRerouterIntervalsEdited.size()), 3);
+    myIntervalTable->setTableSize(int(myEditedAdditional->getAdditionalChilds().size()), 3);
     // Configure list
     myIntervalTable->setVisibleColumns(4);
     myIntervalTable->setColumnWidth(0, 137);
@@ -206,7 +197,7 @@ GNERerouterDialog::updateIntervalTable() {
     int indexRow = 0;
     FXTableItem* item = 0;
     // iterate over values
-    for (auto i : myRerouterIntervalsEdited) {
+    for (auto i : myEditedAdditional->getAdditionalChilds()) {
         // Set time
         item = new FXTableItem(i->getAttribute(SUMO_ATTR_BEGIN).c_str());
         myIntervalTable->setItem(indexRow, 0, item);

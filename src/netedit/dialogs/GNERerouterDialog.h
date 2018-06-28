@@ -78,9 +78,6 @@ protected:
     /// @brief FOX needs this
     GNERerouterDialog() {}
 
-    /// @brief rerouter interval edited
-    std::vector<GNEAdditional*> myRerouterIntervalsEdited;
-
     /// @brief button for add new interval
     FXButton* myAddInterval;
 

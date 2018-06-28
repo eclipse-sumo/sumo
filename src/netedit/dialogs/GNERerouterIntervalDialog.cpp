@@ -197,6 +197,9 @@ GNERerouterIntervalDialog::GNERerouterIntervalDialog(GNERerouterInterval* rerout
     if (myUpdatingElement == false) {
         myEditedAdditional->getViewNet()->getUndoList()->add(new GNEChange_Additional(myEditedAdditional, true), true);
     }
+
+    // Open as modal dialog
+    openAsModalDialog();
 }
 
 

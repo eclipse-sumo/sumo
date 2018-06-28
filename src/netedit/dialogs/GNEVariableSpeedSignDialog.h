@@ -81,9 +81,6 @@ protected:
     /// @brief FOX needs this
     GNEVariableSpeedSignDialog() {}
 
-    /// @brief current VSS steps edited
-    std::vector<GNEAdditional*> myEditedSteps;
-
     /// @brief Table with the data
     FXTable* myStepsTable;
 

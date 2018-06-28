@@ -89,6 +89,9 @@ GNECalibratorRouteDialog::GNECalibratorRouteDialog(GNECalibratorRoute* editedCal
         myCalibratorRouteValid = false;
         myInvalidAttr = SUMO_ATTR_EDGES;
     }
+
+    // open as modal dialog
+    openAsModalDialog();
 }
 
 
