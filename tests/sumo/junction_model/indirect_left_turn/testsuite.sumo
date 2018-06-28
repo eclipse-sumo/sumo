@@ -9,3 +9,7 @@ opposite_left_turner_bikes
 # Tests interaction with straight-going vehicle from the same origin.
 # At test creation, the left turning vehicle does not recognize the queue of indirect left turning bikes as possible foes (#4252).
 straight_from_left
+
+# Tests interaction with straight-going vehicle from the same origin.
+# At test creation, the left turning vehicle does not recognize the queue of indirect left turning bikes as possible foes (#4252).
+straight_from_left_blockedSecond
