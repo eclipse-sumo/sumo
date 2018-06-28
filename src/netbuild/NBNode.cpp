@@ -575,7 +575,10 @@ NBNode::bezierControlPoints(
                 if (intersect == Position::INVALID) {
 #ifdef DEBUG_SMOOTH_GEOM
                     if (DEBUGCOND2(recordError)) {
-                        std::cout << "   bezierControlPoints failed beg=" << beg << " end=" << end << " intersect=" << intersect << "\n";
+                        std::cout << "   bezierControlPoints failed beg=" << beg << " end=" << end << " intersect=" << intersect 
+                            << " endShapeBegLine=" << endShapeBegLine
+                            << " begShapeEndLineRev=" << begShapeEndLineRev
+                            << "\n";
                     }
 #endif
                     ok = false;
