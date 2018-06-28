@@ -204,6 +204,10 @@ public:
     /// @brief unspecified lane width
     static const double UNSPECIFIED_RADIUS;
 
+    /// @brief flags for controlling shape generation
+    static const int AVOID_WIDE_RIGHT_TURN;
+    static const int AVOID_WIDE_LEFT_TURN;
+    static const int FOUR_CONTROL_POINTS;
 public:
     /**@brief Constructor
      * @param[in] id The id of the node

@@ -37,8 +37,9 @@
 #include "NBNodeShapeComputer.h"
 
 //#define DEBUG_NODE_SHAPE
+//#define DEBUG_SMOOTH_CORNERS
 //#define DEBUG_RADIUS
-//#define DEBUGCOND (myNode.getID() == "C")
+#define DEBUGCOND (myNode.getID() == "C")
 
 // ===========================================================================
 // method definitions
@@ -438,7 +439,7 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
         Position p = ccwBound.positionAtOffset2D(offset);
         p.setz(myNode.getPosition().z());
         if (i != newAll.begin()) {
-            ret.append(getSmoothCorner(geomsCW[*(i - 1)].reverse(), ccwBound, ret[-1], p, cornerDetail));
+            ret.append(getSmoothCorner(geomsCW[*(i - 1)], ccwBound, ret[-1], p, cornerDetail));
         }
         ret.push_back_noDoublePos(p);
         //
@@ -479,18 +480,77 @@ NBNodeShapeComputer::getSmoothCorner(PositionVector begShape, PositionVector end
                                      const Position& begPoint, const Position& endPoint, int cornerDetail) {
     PositionVector ret;
     if (cornerDetail > 0) {
-        begShape = begShape.reverse();
-        begShape[-1] = begPoint;
-        endShape[0] = endPoint;
-        PositionVector curve = myNode.computeSmoothShape(begShape, endShape, cornerDetail + 2, false, 25, 25);
+        PositionVector begShape2 = begShape.reverse();
+        const double begSplit = begShape2.nearest_offset_to_point2D(begPoint, false);
+        if (begSplit > POSITION_EPS && begSplit < begShape2.length2D() - POSITION_EPS) {
+            begShape2 = begShape2.splitAt(begSplit).first;
+        } else {
+#ifdef DEBUG_SMOOTH_CORNERS
+            if (DEBUGCOND) {
+                std::cout << "getSmoothCorner begPoint=" << begPoint << " endPoint=" << endPoint 
+                    << " begShape=" << begShape << " endShape=" << endShape 
+                    << " begLength=" << begShape2.length2D
+                    << " begSplit=" << begSplit
+                    << "\n";
+            }
+#endif
+            return ret;
+        }
+        PositionVector endShape2 = endShape;
+        const double endSplit = endShape2.nearest_offset_to_point2D(endPoint, false);
+        if (endSplit > POSITION_EPS && endSplit < endShape2.length2D() - POSITION_EPS) {
+            endShape2 = endShape2.splitAt(endSplit).second;
+        } else {
+#ifdef DEBUG_SMOOTH_CORNERS
+            if (DEBUGCOND) {
+                std::cout << "getSmoothCorner begPoint=" << begPoint << " endPoint=" << endPoint 
+                    << " begShape=" << begShape << " endShape=" << endShape 
+                    << " endLength=" << endShape2.length2D
+                    << " endSplit=" << endSplit
+                    << "\n";
+            }
+#endif
+            return ret;
+        }
+#ifdef DEBUG_SMOOTH_CORNERS
+        if (DEBUGCOND) {
+            std::cout << "getSmoothCorner begPoint=" << begPoint << " endPoint=" << endPoint 
+                << " begShape=" << begShape << " endShape=" << endShape 
+                << " begShape2=" << begShape2 << " endShape2=" << endShape2 
+                << "\n";
+        }
+#endif
+        if (begShape2.size() < 2 || endShape2.size() < 2) {
+            return ret;
+        }
+        const double angle = GeomHelper::angleDiff(begShape2.angleAt2D(-2), endShape2.angleAt2D(0));
+        NBNode* recordError = 0;
+#ifdef DEBUG_SMOOTH_CORNERS
+        if (DEBUGCOND) {
+            std::cout << "   angle=" << RAD2DEG(angle) << "\n";
+        }
+        recordError = const_cast<NBNode*>(&myNode);
+#endif
+        // fill highly acute corners
+        //if (fabs(angle) > DEG2RAD(135)) {
+        //    return ret;
+        //}
+        PositionVector curve = myNode.computeSmoothShape(begShape2, endShape2, cornerDetail + 2, false, 25, 25, recordError, NBNode::AVOID_WIDE_LEFT_TURN);
+        //PositionVector curve = myNode.computeSmoothShape(begShape2, endShape2, cornerDetail + 2, false, 25, 25, recordError, 0);
+        const double curvature = curve.length2D() / begPoint.distanceTo2D(endPoint);
+#ifdef DEBUG_SMOOTH_CORNERS
+        if (DEBUGCOND) {
+            std::cout << "   curveLength=" << curve.length2D() << " dist=" << begPoint.distanceTo2D(endPoint) << " curvature=" << curvature << "\n";
+        }
+#endif
+        if (curvature > 2 && angle > DEG2RAD(85)) {
+            // simplify dubious inside corner shape
+            return ret;
+        }
         if (curve.size() > 2) {
             curve.erase(curve.begin());
             curve.pop_back();
             ret = curve;
-            if (curve.length2D() > 2 * begPoint.distanceTo2D(endPoint)) {
-                // simplify dubious corner shape
-                ret.clear();
-            }
         }
     }
     return ret;

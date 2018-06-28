@@ -64,7 +64,6 @@
 // create intermediate walking areas if either of the following thresholds is exceeded
 #define SPLIT_CROSSING_WIDTH_THRESHOLD 1.5 // meters
 #define SPLIT_CROSSING_ANGLE_THRESHOLD 5 // degrees
-#define AVOID_WIDE_LEFT_TURN 1 // flag
 
 // minimum length for a weaving section at a combined on-off ramp
 #define MIN_WEAVE_LENGTH 20.0
@@ -82,6 +81,9 @@
 const int NBNode::FORWARD(1);
 const int NBNode::BACKWARD(-1);
 const double NBNode::UNSPECIFIED_RADIUS = -1;
+const int NBNode::AVOID_WIDE_LEFT_TURN(1);
+const int NBNode::AVOID_WIDE_RIGHT_TURN(2);
+const int NBNode::FOUR_CONTROL_POINTS(4);
 
 // ===========================================================================
 // method definitions
@@ -604,10 +606,17 @@ NBNode::bezierControlPoints(
                     }
                     ok = false;
                     return PositionVector();
+                } else if ((shapeFlag & FOUR_CONTROL_POINTS)) {
+                    init.push_back(begShapeEndLineRev.positionAtOffset2D(100 - extrapolateBeg));
+                    init.push_back(endShapeBegLine.positionAtOffset2D(100 - extrapolateEnd));
                 } else if (lengthenBeg || lengthenEnd) {
                     init.push_back(begShapeEndLineRev.positionAtOffset2D(100 - minControlLength));
                     init.push_back(endShapeBegLine.positionAtOffset2D(100 - minControlLength));
-                } else if (shapeFlag == AVOID_WIDE_LEFT_TURN && angle > DEG2RAD(85) && (distBeg > 20 || distEnd > 20)) {
+                } else if ((shapeFlag & AVOID_WIDE_LEFT_TURN) != 0 && angle > DEG2RAD(85) && (distBeg > 20 || distEnd > 20)) {
+                    //std::cout << "   bezierControlPoints intersect=" << intersect << " distBeg=" << distBeg <<  " distEnd=" << distEnd << "\n";
+                    init.push_back(begShapeEndLineRev.positionAtOffset2D(100 - 10.0));
+                    init.push_back(endShapeBegLine.positionAtOffset2D(100 - 10.0));
+                } else if ((shapeFlag & AVOID_WIDE_RIGHT_TURN) != 0 && angle < DEG2RAD(-85) && (distBeg > 20 || distEnd > 20)) {
                     //std::cout << "   bezierControlPoints intersect=" << intersect << " distBeg=" << distBeg <<  " distEnd=" << distEnd << "\n";
                     init.push_back(begShapeEndLineRev.positionAtOffset2D(100 - 10.0));
                     init.push_back(endShapeBegLine.positionAtOffset2D(100 - 10.0));
