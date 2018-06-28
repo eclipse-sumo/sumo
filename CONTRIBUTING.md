@@ -19,11 +19,14 @@ APIs to remotely control and influence the simulation.
 Information regarding source code management, builds, coding standards, and
 more.
 
-* https://projects.eclipse.org/projects/technology.sumo/developer
+* http://sumo.dlr.de/wiki/Developer/Main
 
 The project maintains the following source code repositories
 
 * https://github.com/eclipse/sumo
+
+We are happily accepting pull requests against the master of this repository,
+for details see below and http://sumo.dlr.de/wiki/FAQ#How_do_code_contributions_work.3F.
 
 ## Eclipse Contributor Agreement
 

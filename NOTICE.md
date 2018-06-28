@@ -64,6 +64,7 @@ OpenStreetMap data files (n/a)
 Proj4 - (4.9.3)
 
 * License: MIT AND LicenseRef-Public-Domain AND Apache-2.0
+* Project: https://proj4.org/
 
 RTree (n/a)
 
@@ -92,3 +93,21 @@ another country, of encryption software. BEFORE using any encryption software,
 please check the country's laws, regulations and policies concerning the import,
 possession, or use, and re-export of encryption software, to see if this is
 permitted.
+
+## Derivative Works
+
+EPL requires that "derivative works" be licensed under the terms of the EPL
+whereas "separate modules of software" may be licensed arbitrarily. Please follow the links
+below for lists of files where modifications are considered derivative work.
+
+We currently consider all modifications to [src](src/README_Contributing.md) and [tools](tools/README_Contributing.md) (including the subdirectories) as derivative work except for the following cases:
+- TraCI client applications that use the public TraCI client libraries
+- separate modules residing in [src](src/README_Contributing.md)
+- car following models that inherit from MSCFModel (excluding [modifications of the existing models](src/microsim/cfmodels/README_Contributing.md))
+- lane changing models that inherit from MSAbstractLaneChangeModel (excluding [modifications of the existing models](src/microsim/lcmodels/README_Contributing.md))
+- simulation output modules (excluding [changes to the existing classes](src/microsim/output/README_Contributing.md))
+- vehicle device modules (excluding [changes to the existing classes](src/microsim/devices/README_Contributing.md))
+- network import modules (excluding [changes to the existing classes](src/netimport/README_Contributing.md))
+- network export modules (excluding [changes to the existing classes](src/netwrite/README_Contributing.md))
+- software that build upon the existing Python and Java tools libraries (excluding [changes to the existing](tools/README_Contributing.md))
+
