@@ -430,6 +430,11 @@ public:
                                   const NBEdge* prohibitorFrom, const NBEdge* prohibitorTo, int prohibitorFromLane,
                                   bool lefthand = false);
 
+    /// @brief return whether the given laneToLane connection originate from the same edge and are in conflict due to turning across each other
+    bool turnFoes(const NBEdge* from, const NBEdge* to, int fromLane,
+                                  const NBEdge* from2, const NBEdge* to2, int fromLane2,
+                                  bool lefthand = false) const;
+
     /**@brief Returns the information whether "prohibited" flow must let "prohibitor" flow pass
      * @param[in] possProhibitedFrom The maybe prohibited connection's begin
      * @param[in] possProhibitedTo The maybe prohibited connection's end

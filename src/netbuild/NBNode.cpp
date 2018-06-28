@@ -1499,6 +1499,52 @@ NBNode::rightTurnConflict(const NBEdge* from, const NBEdge* to, int fromLane,
 
 
 bool
+NBNode::turnFoes(const NBEdge* from, const NBEdge* to, int fromLane,
+                          const NBEdge* from2, const NBEdge* to2, int fromLane2,
+                          bool lefthand) const {
+    UNUSED_PARAMETER(lefthand);
+    if (from != from2 || to == to2 || fromLane == fromLane2) {
+        return false;
+    }
+    if (from->isTurningDirectionAt(to)
+            || from2->isTurningDirectionAt(to2)) {
+        // XXX should warn if there are any non-turning connections left of this
+        return false;
+    }
+    bool result = false;
+    EdgeVector::const_iterator it = find(myAllEdges.begin(), myAllEdges.end(), from);
+    if (fromLane < fromLane2) {
+        // conflict if 'to' comes before 'to2' going clockwise starting at 'from'
+        while (*it != to2) {
+            if (*it == to) {
+                result = true;
+            }
+            NBContHelper::nextCW(myAllEdges, it);
+        }
+    } else {
+        // conflict if 'to' comes before 'to2' going counter-clockwise starting at 'from'
+        while (*it != to2) {
+            if (*it == to) {
+                result = true;
+            }
+            NBContHelper::nextCCW(myAllEdges, it);
+        }
+    }
+    /*
+    if (result) {
+        std::cout << "turnFoes node=" << getID() 
+        << " from=" << from->getLaneID(fromLane)
+        << " to=" << to->getID()
+        << " from2=" << from2->getLaneID(fromLane2)
+        << " to2=" << to2->getID()
+        << "\n";
+    }
+    */
+    return result;
+}
+
+
+bool
 NBNode::isLeftMover(const NBEdge* const from, const NBEdge* const to) const {
     // when the junction has only one incoming edge, there are no
     //  problems caused by left blockings
