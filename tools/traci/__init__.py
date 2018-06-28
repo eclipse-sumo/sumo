@@ -43,7 +43,8 @@ from . import _lane, _person, _route, _vehicle, _vehicletype  # noqa
 from . import _edge, _gui, _junction, _poi, _polygon, _simulation  # noqa
 
 _connections = {}
-_stepListeners = []
+_stepListeners = {}
+_nextStepListenerID = 0
 # cannot use immutable type as global variable
 _currentLabel = [""]
 
@@ -121,12 +122,12 @@ def simulationStep(step=0):
     
     # manage stepListeners
     listenersToRemove=[]
-    for listener in _stepListeners:
+    for (listenerID, listener) in _stepListeners.items():
         keep = listener.step(step)
         if not keep:
-            listenersToRemove.append(listener)
-    for listener in listenersToRemove:
-        removeStepListener(listener)
+            listenersToRemove.append(listenerID)
+    for listenerID in listenersToRemove:
+        removeStepListener(listenerID)
     
     return responses
 
@@ -136,39 +137,64 @@ class StepListener(object):
 
     @abc.abstractmethod
     def step(self, s=0):
-        """step(int) -> None
+        """step(int) -> bool
 
         After adding a StepListener 'listener' with traci.addStepListener(listener),
         TraCI will call listener.step(s) after each call to traci.simulationStep(s)
+        The return value indicates whether the stepListener wants to stay active.
         """
         return True
 
+    def cleanUp(self):
+        """cleanUp() -> None
+
+        This method is called at removal of the stepListener, allowing to schedule some final actions
+        """
+        pass
+    
+    def setID(self, ID):
+        self._ID = ID
+        
+    def getID(self):
+        return self._ID
+    
+    
+
 def addStepListener(listener):
-    """addStepListener(traci.StepListener) -> bool
+    """addStepListener(traci.StepListener) -> int
 
     Append the step listener (its step function is called at the end of every call to traci.simulationStep())
-    Returns True if the listener was added successfully, False otherwise.
+    Returns the ID assigned to the listener if it was added successfully, None otherwise.
     """
+    global _nextStepListenerID, _stepListeners
     if issubclass(type(listener), StepListener):
-        _stepListeners.append(listener)
-        return True
+        listener.setID(_nextStepListenerID)
+        _stepListeners[_nextStepListenerID] = listener
+        _nextStepListenerID+=1
+        #print ("traci: Added stepListener %s\nlisteners: %s"%(_nextStepListenerID - 1, _stepListeners))
+        return _nextStepListenerID - 1
     warnings.warn(
         "Proposed listener's type must inherit from traci.StepListener. Not adding object of type '%s'" %
         type(listener))
-    return False
+    return None
 
 
-def removeStepListener(listener):
+def removeStepListener(listenerID):
     """removeStepListener(traci.StepListener) -> bool
 
     Remove the step listener from traci's step listener container.
     Returns True if the listener was removed successfully, False if it wasn't registered.
     """
-    if listener in _stepListeners:
-        _stepListeners.remove(listener)
+    global _stepListeners
+    #print ("traci: removeStepListener %s\nlisteners: %s"%(listenerID, _stepListeners))
+    if listenerID in _stepListeners.keys():
+        _stepListeners[listenerID].cleanUp()
+        del _stepListeners[listenerID]
+        #print ("traci: Removed stepListener %s"%(listenerID))
         return True
-    warnings.warn(
-        "removeStepListener(listener): listener %s not registered as step listener" % str(listener))
+    msg="removeStepListener(listener): listener %s not registered as step listener.\nlisteners:%s" % (listenerID, _stepListeners)
+    print ("traci: "+msg)
+    warnings.warn(msg)
     return False
 
 
