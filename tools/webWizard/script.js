@@ -278,7 +278,7 @@ on("ready", function(){
 
     function setPositionByString() {
       query = elem("#address").value
-      var url = "http://nominatim.openstreetmap.org/search?q=" + query + "&format=json&polygon=0&addressdetails=0&limit=1&callback";
+      var url = "https://nominatim.openstreetmap.org/search?q=" + query + "&format=json&polygon=0&addressdetails=0&limit=1&callback";
       getJSON(url,
           function(err, data) {
             if (err != null) {
