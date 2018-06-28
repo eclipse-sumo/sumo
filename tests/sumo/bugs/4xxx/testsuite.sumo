@@ -7,9 +7,6 @@ ticket4180
 # SW_passenger doesn't recognize EW_bike as link-leader. All the stopping on internal lanes is to reproduce the situation with vehicles on the junction after phase switch, occuring in dense traffic without artificial setup.
 ticket4189
 
-# Bicycle wrongly recognizes vehicle as leader
-ticket4223
-
 # Deadlock on junction
 ticket4251
 
