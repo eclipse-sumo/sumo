@@ -2374,7 +2374,7 @@ MSVehicle::getSafeFollowSpeed(const std::pair<const MSVehicle*, double> leaderIn
     }
     if (distToCrossing >= 0) {
         // drive up to the crossing point with the current link leader
-        vsafeLeader = MAX2(vsafeLeader, cfModel.stopSpeed(this, getSpeed(), distToCrossing));
+        vsafeLeader = MAX2(vsafeLeader, cfModel.stopSpeed(this, getSpeed(), distToCrossing - getVehicleType().getMinGap()));
     }
     return vsafeLeader;
 }

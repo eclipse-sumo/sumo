@@ -988,7 +988,7 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                             // or there is no crossing point
                             continue; // next vehicle
                         }
-                        gap = distToCrossing - leaderBackDist - ((sameTarget || sameSource) ? ego->getVehicleType().getMinGap() : 0);
+                        gap = distToCrossing - ego->getVehicleType().getMinGap() - ((sameTarget || sameSource) ? leaderBackDist : 0);
                     }
                     if (gDebugFlag1) {
                         std::cout << " leader=" << leader->getID() << " contLane=" << contLane << " cannotIgnore=" << cannotIgnore << "\n";
