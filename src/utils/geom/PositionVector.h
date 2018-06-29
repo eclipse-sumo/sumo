@@ -213,7 +213,7 @@ public:
     bool partialWithin(const AbstractPoly& poly, double offset = 0) const;
 
     /// @brief Returns the two lists made when this list vector is splitted at the given point
-    std::pair<PositionVector, PositionVector> splitAt(double where) const;
+    std::pair<PositionVector, PositionVector> splitAt(double where, bool use2D=false) const;
 
     //// @brief Output operator
     friend std::ostream& operator<<(std::ostream& os, const PositionVector& geom);

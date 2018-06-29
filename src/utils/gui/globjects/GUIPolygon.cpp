@@ -33,7 +33,7 @@
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GLHelper.h>
 
-//#define GUIPolygon_DEBUG_DRAW_VERTICES
+#define GUIPolygon_DEBUG_DRAW_VERTICES
 
 // ===========================================================================
 // method definitions

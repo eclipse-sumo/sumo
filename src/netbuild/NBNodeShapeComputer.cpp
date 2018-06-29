@@ -482,36 +482,31 @@ NBNodeShapeComputer::getSmoothCorner(PositionVector begShape, PositionVector end
     if (cornerDetail > 0) {
         PositionVector begShape2 = begShape.reverse();
         const double begSplit = begShape2.nearest_offset_to_point2D(begPoint, false);
-        if (begSplit > POSITION_EPS && begSplit < begShape2.length2D() - POSITION_EPS) {
-            begShape2 = begShape2.splitAt(begSplit).first;
-        } else {
 #ifdef DEBUG_SMOOTH_CORNERS
-            if (DEBUGCOND) {
-                std::cout << "getSmoothCorner begPoint=" << begPoint << " endPoint=" << endPoint 
-                    << " begShape=" << begShape << " endShape=" << endShape 
-                    << " begLength=" << begShape2.length2D
-                    << " begSplit=" << begSplit
-                    << "\n";
-            }
+        if (DEBUGCOND) {
+            std::cout << " begLength=" << begShape2.length2D() << " begSplit=" << begSplit << "\n";
+        }
 #endif
+        if (begSplit > POSITION_EPS && begSplit < begShape2.length2D() - POSITION_EPS) {
+            begShape2 = begShape2.splitAt(begSplit, true).first;
+        } else {
             return ret;
         }
         PositionVector endShape2 = endShape;
         const double endSplit = endShape2.nearest_offset_to_point2D(endPoint, false);
-        if (endSplit > POSITION_EPS && endSplit < endShape2.length2D() - POSITION_EPS) {
-            endShape2 = endShape2.splitAt(endSplit).second;
-        } else {
 #ifdef DEBUG_SMOOTH_CORNERS
-            if (DEBUGCOND) {
-                std::cout << "getSmoothCorner begPoint=" << begPoint << " endPoint=" << endPoint 
-                    << " begShape=" << begShape << " endShape=" << endShape 
-                    << " endLength=" << endShape2.length2D
-                    << " endSplit=" << endSplit
-                    << "\n";
-            }
+        if (DEBUGCOND) {
+            std::cout << " endLength=" << endShape2.length2D() << " endSplit=" << endSplit << "\n";
+        }
 #endif
+        if (endSplit > POSITION_EPS && endSplit < endShape2.length2D() - POSITION_EPS) {
+            endShape2 = endShape2.splitAt(endSplit, true).second;
+        } else {
             return ret;
         }
+        // flatten z to junction z level
+        begShape2 = begShape2.interpolateZ(myNode.getPosition().z(), myNode.getPosition().z());
+        endShape2 = endShape2.interpolateZ(myNode.getPosition().z(), myNode.getPosition().z());
 #ifdef DEBUG_SMOOTH_CORNERS
         if (DEBUGCOND) {
             std::cout << "getSmoothCorner begPoint=" << begPoint << " endPoint=" << endPoint 

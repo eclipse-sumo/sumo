@@ -499,32 +499,35 @@ PositionVector::crosses(const Position& p1, const Position& p2) const {
 
 
 std::pair<PositionVector, PositionVector>
-PositionVector::splitAt(double where) const {
+PositionVector::splitAt(double where, bool use2D) const {
+    const double len = use2D ? length2D() : length();
     if (size() < 2) {
         throw InvalidArgument("Vector to short for splitting");
     }
-    if (where < 0 || where > length()) {
-        throw InvalidArgument("Invalid split position " + toString(where) + " for vector of length " + toString(length()));
+    if (where < 0 || where > len) {
+        throw InvalidArgument("Invalid split position " + toString(where) + " for vector of length " + toString(len));
     }
-    if (where <= POSITION_EPS || where >= length() - POSITION_EPS) {
-        WRITE_WARNING("Splitting vector close to end (pos: " + toString(where) + ", length: " + toString(length()) + ")");
+    if (where <= POSITION_EPS || where >= len - POSITION_EPS) {
+        WRITE_WARNING("Splitting vector close to end (pos: " + toString(where) + ", length: " + toString(len) + ")");
     }
     PositionVector first, second;
     first.push_back((*this)[0]);
     double seen = 0;
     const_iterator it = begin() + 1;
-    double next = first.back().distanceTo(*it);
+    double next = use2D ? first.back().distanceTo2D(*it) : first.back().distanceTo(*it);
     // see how many points we can add to first
     while (where >= seen + next + POSITION_EPS) {
         seen += next;
         first.push_back(*it);
         it++;
-        next = first.back().distanceTo(*it);
+        next = use2D ? first.back().distanceTo2D(*it) : first.back().distanceTo(*it);
     }
     if (fabs(where - (seen + next)) > POSITION_EPS || it == end() - 1) {
         // we need to insert a new point because 'where' is not close to an
         // existing point or it is to close to the endpoint
-        const Position p = positionAtOffset(first.back(), *it, where - seen);
+        const Position p = (use2D 
+                ? positionAtOffset2D(first.back(), *it, where - seen) 
+                : positionAtOffset(first.back(), *it, where - seen));
         first.push_back(p);
         second.push_back(p);
     } else {
@@ -537,7 +540,7 @@ PositionVector::splitAt(double where) const {
     assert(first.size() >= 2);
     assert(second.size() >= 2);
     assert(first.back() == second.front());
-    assert(fabs(first.length() + second.length() - length()) < 2 * POSITION_EPS);
+    assert(fabs((use2D ? first.length2D() + second.length2D() : first.length() + second.length()) - len) < 2 * POSITION_EPS);
     return std::pair<PositionVector, PositionVector>(first, second);
 }
 
