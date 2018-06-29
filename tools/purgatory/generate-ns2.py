@@ -34,22 +34,22 @@ from optparse import OptionParser # noqa
 
 usage = "usage: %prog [options]"
 parser = OptionParser()
-parser.add_option("--node",        "-N", action="store",  type="string",
-                  dest="nodefile",    help="name of nodesfile to be read")
-parser.add_option("--edge",        "-E", action="store",  type="string",
-                  dest="edgefile",    help="name of edgesfile to be read")
-parser.add_option("--route",       "-r", action="store",  type="string",
-                  dest="routefile",   help="name of routesfile to be read")
-parser.add_option("--net",         "-n", action="store",  type="string", dest="netfile",
+parser.add_option("--node", "-N", action="store", type="string",
+                  dest="nodefile", help="name of nodesfile to be read")
+parser.add_option("--edge", "-E", action="store", type="string",
+                  dest="edgefile", help="name of edgesfile to be read")
+parser.add_option("--route", "-r", action="store", type="string",
+                  dest="routefile", help="name of routesfile to be read")
+parser.add_option("--net", "-n", action="store", type="string", dest="netfile",
                   help="name of netfile to be read, you need either to specify this or node and edge")
-parser.add_option("--begin",       "-b", action="store",  type="int",
-                  dest="begintime",   help="time at which simulation starts")
-parser.add_option("--end",         "-e", action="store",  type="int",
-                  dest="endtime",     help="time at which simulation ends")
+parser.add_option("--begin", "-b", action="store", type="int",
+                  dest="begintime", help="time at which simulation starts")
+parser.add_option("--end", "-e", action="store", type="int",
+                  dest="endtime", help="time at which simulation ends")
 parser.add_option("--penetration", "-p", action="append", type="float",
                   dest="penetration", help="penetration factor of vehicles in [0,1]")
-parser.add_option("--seed",        "-s", action="store",
-                  type="int",    dest="seed", help="seed value for random generator")
+parser.add_option("--seed", "-s", action="store",
+                  type="int", dest="seed", help="seed value for random generator")
 (options, args) = parser.parse_args()
 
 #
@@ -174,9 +174,9 @@ for penetration in options.penetration:
               ".tcl -a activity_" + str(penetration) + ".tcl -c config_" + str(penetration) + ".tcl -p " +
               str(penetration) + " -s " + str(options.seed) + " -b " + str(options.begintime) + " -e " +
               str(options.endtime))
-    if (os.path.isfile("mobility_" + str(penetration) + ".tcl") is False
-            or os.path.isfile("activity_" + str(penetration) + ".tcl") is False
-            or os.path.isfile("config_" + str(penetration) + ".tcl") is False):
+    if (os.path.isfile("mobility_" + str(penetration) + ".tcl") is False or
+            os.path.isfile("activity_" + str(penetration) + ".tcl") is False or
+            os.path.isfile("config_" + str(penetration) + ".tcl") is False):
         print("error creating mobility, activity, config")
         sys.exit(1)
     else:

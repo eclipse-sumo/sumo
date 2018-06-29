@@ -117,6 +117,6 @@ except IndexError:
         print("Sonstiger Fehler")
 except IOError:
     print("Datei existiert nicht")
-except:
+except Exception:
     print("unerwarteter Fehler. ich weiss auch nicht, was hier nicht stimmt")
 print("Fertig, Fertig")

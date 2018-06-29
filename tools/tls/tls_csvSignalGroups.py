@@ -103,7 +103,7 @@ class TlLogic(sumolib.net.TLSProgram):
             sg._times = {}  # clear previous entries
             for fromTime, toTime in sg._freeTimes:  # calculate times of signal state changes
                 if(sg._transTimes[0] > 0):
-                    sg._times[self._timeToCycle(fromTime-sg._transTimes[0])] = sg._start
+                    sg._times[self._timeToCycle(fromTime - sg._transTimes[0])] = sg._start
                 sg._times[fromTime] = sg._free
                 if(sg._transTimes[1] > 0):
                     sg._times[self._timeToCycle(toTime)] = sg._stop
@@ -131,13 +131,13 @@ class TlLogic(sumolib.net.TLSProgram):
                     # check link validity (lane exists?)
                     for connIn, connOut, tlIndex in connections:
                         fromLaneSep = fromLink.find('_')
-                        if fromLaneSep > 0 and fromLink[fromLaneSep+1:].isdigit():
+                        if fromLaneSep > 0 and fromLink[fromLaneSep + 1:].isdigit():
                             valid = fromLink == connIn.getID()
                         else:
                             valid = fromLink == connIn.getEdge().getID()
                         if toLink != '' and valid:
                             toLaneSep = toLink.find('_')
-                            if toLaneSep > 0 and toLink[toLaneSep+1:].isdigit():
+                            if toLaneSep > 0 and toLink[toLaneSep + 1:].isdigit():
                                 valid = toLink == connOut.getID()
                             else:
                                 valid = toLink == connOut.getEdge().getID()
@@ -205,10 +205,10 @@ class TlLogic(sumolib.net.TLSProgram):
                 sgID = self._tlIndexToSignalGroup[tlIndex]
                 states[tlIndex] = self._signalGroups[sgID].completeSignals[tlIndex][self._allTimes[i]]
             # fill duration up to the cycle time
-            if(i == len(self._allTimes)-1):
+            if(i == len(self._allTimes) - 1):
                 duration = self._cycleTime - self._allTimes[i]
             else:
-                duration = self._allTimes[i+1] - self._allTimes[i]
+                duration = self._allTimes[i + 1] - self._allTimes[i]
             states = "".join([states[tlIndex] for tlIndex in tlIndices])
             phaseEl = doc.createElement("phase")
             phaseEl.setAttribute("duration", str(duration))
@@ -267,7 +267,7 @@ class SignalGroup(object):
                 prohibits = ownConn.getJunction()._prohibits
                 ownJunctionIndex = ownConn.getJunctionIndex()
                 if ownJunctionIndex in prohibits:
-                    result = prohibits[ownConn.getJunctionIndex()][len(prohibits)-conn.getJunctionIndex() - 1] == '1'
+                    result = prohibits[ownConn.getJunctionIndex()][len(prohibits) - conn.getJunctionIndex() - 1] == '1'
         return result
 
     def calculateCompleteSignals(self, times):
@@ -287,11 +287,11 @@ class SignalGroup(object):
             timeKeys = list(self._times.keys())
             timeKeys.sort()
             relevantKey = None
-            if(time < timeKeys[0] or time >= timeKeys[len(timeKeys)-1]):
-                relevantKey = timeKeys[len(timeKeys)-1]
+            if(time < timeKeys[0] or time >= timeKeys[len(timeKeys) - 1]):
+                relevantKey = timeKeys[len(timeKeys) - 1]
             else:
-                for i in range(0, len(timeKeys)-1):
-                    if(time >= timeKeys[i] and time < timeKeys[i+1]):
+                for i in range(0, len(timeKeys) - 1):
+                    if(time >= timeKeys[i] and time < timeKeys[i + 1]):
                         relevantKey = timeKeys[i]
                         break
             result = self._times[relevantKey]
@@ -469,7 +469,7 @@ if __name__ == "__main__":
                             signalGroups[sg._id] = sg
                             signalGroupOrder.append(sg._id)
                 except Exception:
-                    print("In file %s, line %s" % (inputFileName, i+1), file=sys.stderr)
+                    print("In file %s, line %s" % (inputFileName, i + 1), file=sys.stderr)
                     raise
 
         # build everything together

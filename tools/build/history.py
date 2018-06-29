@@ -63,6 +63,6 @@ try:
             for d in dups[1:]:
                 subprocess.call('ln -sf %s %s' % (dups[0], d), shell=True)
     subprocess.call(["git", "checkout", "-q", "master"])
-except:
+except Exception:
     traceback.print_exc()
 os.remove(LOCK)

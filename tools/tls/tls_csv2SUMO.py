@@ -85,7 +85,7 @@ def computeLinkPhasesAndTimes(logic):
         for currentPhase in sortPhases:
             if args.debug:
                 print('SGPIndex', sigGrpPhaseIndex, 'startCurrPhase', currentPhase,
-                      'endCurrPhase',  phaseDef[sigGrpPhaseIndex + 1], file=sys.stderr)
+                      'endCurrPhase', phaseDef[sigGrpPhaseIndex + 1], file=sys.stderr)
             newPhases.append(phaseDef[sigGrpPhaseIndex])
             if int(phaseDef[sigGrpPhaseIndex + 1]) == currentPhase and sigGrpPhaseIndex + 2 < len(phaseDef):
                 sigGrpPhaseIndex += 2

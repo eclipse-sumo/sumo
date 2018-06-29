@@ -55,7 +55,7 @@ def parse_args(args):
         options.routefiles = args[1:]
         options.colorgen = Colorgen(
             (options.hue, options.saturation, options.brightness))
-    except:
+    except Exception:
         sys.exit(USAGE)
     if options.outfile is None:
         options.outfile = options.routefiles[0] + ".poly.xml"

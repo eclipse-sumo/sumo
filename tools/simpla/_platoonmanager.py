@@ -78,7 +78,7 @@ class PlatoonManager(traci.StepListener):
             if rp.VERBOSITY >= 1:
                 warn(
                     "Restricting given control rate (= %d per sec.) to 1 per timestep (= %g per sec.)" %
-                    (cfg.CONTROL_RATE, 1./self._DeltaT), True)
+                    (cfg.CONTROL_RATE, 1. / self._DeltaT), True)
             self._controlInterval = self._DeltaT
         else:
             self._controlInterval = 1. / cfg.CONTROL_RATE
@@ -500,7 +500,7 @@ class PlatoonManager(traci.StepListener):
                 report("Actual leaders: %s" % rp.array2String(actualLeaders), 3)
                 report("registered leaders: %s" % rp.array2String(registeredLeaders), 3)
             for (ego, registeredLeader, actualLeader) in reversed(
-                                                         list(zip(vehicles, registeredLeaders, actualLeaders))):
+                    list(zip(vehicles, registeredLeaders, actualLeaders))):
                 if (ego == actualLeader):
                     if rp.VERBOSITY >= 1:
                         warn("Platoon %s:\nVehicle '%s' was found as its own leader. Platoon order might be corrupted." % (
@@ -570,14 +570,14 @@ class PlatoonManager(traci.StepListener):
                 if leader.state.edgeID == veh.state.edgeID:
                     # leader is on the same edge, advise follower to use the same lane
                     try:
-                        traci.vehicle.changeLane(veh.getID(), leader.state.laneIX, int(self._controlInterval*1000))
+                        traci.vehicle.changeLane(veh.getID(), leader.state.laneIX, int(self._controlInterval * 1000))
                     except traci.exceptions.TraCIException as e:
                         if rp.VERBOSITY >= 1:
                             warn("Lanechange advice for vehicle'%s' failed. Message:\n%s" % (veh.getID(), e.message))
                 else:
                     # leader is on another edge, just stay on the current and hope it is the right one
                     try:
-                        traci.vehicle.changeLane(veh.getID(), veh.state.laneIX, int(self._controlInterval*1000))
+                        traci.vehicle.changeLane(veh.getID(), veh.state.laneIX, int(self._controlInterval * 1000))
                     except traci.exceptions.TraCIException as e:
                         if rp.VERBOSITY >= 1:
                             warn("Lanechange advice for vehicle'%s' failed. Message:\n%s" % (veh.getID(), e.message))

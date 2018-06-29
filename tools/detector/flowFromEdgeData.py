@@ -58,8 +58,8 @@ def get_options(args=None):
     optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
                          default=False, help="tell me what you are doing")
     (options, args) = optParser.parse_args(args=args)
-    if not options.detfile or not options.edgeDataFile or (not options.flowfile
-                                                           and not options.flowout):
+    if not options.detfile or not options.edgeDataFile or (not options.flowfile and
+                                                           not options.flowout):
         optParser.print_help()
         sys.exit()
 
@@ -176,8 +176,8 @@ def main(options):
     detReader = detector.DetectorReader(options.detfile, LaneMap())
     time = options.begin * 60
     haveDetFlows = True
-    while ((options.end is None and haveDetFlows)
-            or (options.end is not None and time < options.end * 60)):
+    while ((options.end is None and haveDetFlows) or
+            (options.end is not None and time < options.end * 60)):
         intervalBeginM = time / 60
         intervalEndM = intervalBeginM + options.interval
         if options.end is not None:

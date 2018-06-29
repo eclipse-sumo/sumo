@@ -80,7 +80,7 @@ def parseBusRoute(br, stops):
             i = vals.index("HALTESTELLE", i)
             i = i + 1
             stops.insert(0, int(vals[i]))
-        except:
+        except Exception:
             i = len(vals) + 1
     return (id, name, startKante, ziel, zeiten, stops)
 

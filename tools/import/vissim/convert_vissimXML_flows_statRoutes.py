@@ -65,7 +65,7 @@ def parse_flows(xmldoc):
             # keeping (timeInterval, volume, vehicle composition)
             #   time interval converted to [s]
             v_input_d["flow"].append(
-                [float(volume.getAttribute('timeInt').split(" ")[1])/1000,
+                [float(volume.getAttribute('timeInt').split(" ")[1]) / 1000,
                  float(volume.getAttribute('volume')),
                  float(volume.getAttribute('vehComp'))])        # FIXME: nasty, redundant
         v_input_d["flow"] = np.array(v_input_d["flow"])
@@ -269,7 +269,7 @@ def parse_routes(xmldoc, edge_id_list, verbinder_d):
                 else:
                     # extension list *IS* ordered by its splitting sequence as generated
                     sumo_links.extend(e for e in split_edge_list
-                                      if e.startswith(link_key+'['))
+                                      if e.startswith(link_key + '['))
             # update with sumo ids info
             route_d["links"] = sumo_links
 
@@ -348,7 +348,7 @@ def validate_rel_flow(routes_by_start_d, flow_d):
                 # check if the time frame starts are the same
                 assert np.array_equal(ref_time_shape[:, 0], route["rel_flow"][:, 0]),\
                     "\nPROBLEM: flow count and relative flow time frames are not aligned\n\t"\
-                    "for VISSIM start link id: "+start_link
+                    "for VISSIM start link id: " + start_link
         # copy back modifications
         routes_by_start_d[start_link] = sl_routes
 
@@ -553,9 +553,9 @@ if __name__ == '__main__':
     result_doc.appendChild(routes_Elem)
 
     create_vTypeDistribution_elems(vehicle_comp_d, vehicle_type_d, speed_d, routes_Elem)
-    print('-'*3)
+    print('-' * 3)
     create_routeDistribution_elems(routes_by_start_d, routes_Elem)
-    print('-'*3)
+    print('-' * 3)
     create_flow_elems(routes_by_start_d, flow_d, routes_Elem)
     print('OK.\n---')
 

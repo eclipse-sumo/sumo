@@ -36,7 +36,7 @@ def parse_args():
     options, args = optParser.parse_args()
     try:
         options.routefile = args[0]
-    except:
+    except Exception:
         sys.exit(USAGE)
     if options.outfile is None:
         options.outfile = options.routefile + ".rou.xml"

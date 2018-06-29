@@ -69,7 +69,7 @@ def runInternal(suffix, args, out=sys.stdout, guiTests=False, console=False, chr
     try:
         subprocess.call(['python3', '-V'])
         apps += ',complex.python3,tools.python3'
-    except:
+    except Exception:
         pass
     if guiTests:
         apps += ",sumo.meso.gui"

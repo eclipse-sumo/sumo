@@ -17,11 +17,11 @@
 from __future__ import absolute_import
 from __future__ import print_function
 
-from genRoutes import *
+from genRoutes import genRoutes
 import subprocess
 import sys
-from changeNet import *
-from pylab import *
+from changeNet import setTLType, changePhaseDurations
+from pylab import ceil
 import libxml2
 
 durWE = []

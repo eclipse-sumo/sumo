@@ -44,6 +44,7 @@ fd = open(sys.argv[2])
 fdo = open(sys.argv[3], "w")
 fdo.write("<pois>\n")
 parsingCounts = False
+lastKnown = ""
 for line in fd:
     if parsingCounts:
         if line[0] == '*' or line[0] == '$' or line.find(";") < 0:

@@ -27,19 +27,19 @@ class SimplaException(Exception):
         super(SimplaException, self).__init__(*args, **kwargs)
 
 
-
 _activeGapControllers = {}
 DEBUG_GAP_CONTROL = False
 
+
 class GapController(traci.StepListener):
     '''
-    class that manages opening a gap in front of its assigned vehicle 
+    class that manages opening a gap in front of its assigned vehicle
     '''
-    
+
     def __init__(self, vehID, desiredGap, desiredSpeedDiff, maximumDecel, duration):
-        ''' 
+        '''
         GapController()
-        
+
         @see openGap()
         '''
         self._desiredGap = float(desiredGap)
@@ -53,13 +53,13 @@ class GapController(traci.StepListener):
 #         self._speedGain = 0.07
         self._gapGain = 0.04
         self._speedGain = 0.8
-        
+
         # leaderHorizon coefficients assures that the leader is detected even if
         # the leader is farther away than the desired gap. The look ahead distance
-        # given to traci.vehicle.getLeader is min(desiredGap*horizonFactor, minHorizon) 
+        # given to traci.vehicle.getLeader is min(desiredGap*horizonFactor, minHorizon)
         self._leaderHorizonFactor = 1.5
         self._minimalLeaderHorizon = 50
-        
+
         # step-length of simulation
         self._TS = traci.simulation.getDeltaT() / 1000.
         # last received speed info
@@ -67,77 +67,72 @@ class GapController(traci.StepListener):
         self._egoSpeed = None
         # whether controlled vehicle has an active setSpeed command
         self._speedControlActive = False
-        
+
         if DEBUG_GAP_CONTROL:
-            print ("Created GapController for vehicle %s"%self._vehID)
-            print ("desiredGap=%s, desiredSpeedDiff=%s, maximumDecel=%s, duration=%s"%(desiredGap, desiredSpeedDiff, maximumDecel, duration))
+            print("Created GapController for vehicle %s" % self._vehID)
+            print("desiredGap=%s, desiredSpeedDiff=%s, maximumDecel=%s, duration=%s" % (desiredGap, desiredSpeedDiff, maximumDecel, duration))
 
     def step(self, s=0):
         '''
-        Perform one control step and count down the activity period for the controller 
+        Perform one control step and count down the activity period for the controller
         '''
         self._applyControl()
-        
+
         self._duration -= self._TS
-        
+
         if DEBUG_GAP_CONTROL:
-            print ("Step of gap controller with listenerID=%s"%self.getID())
-            print ("Remaining activity period: %s"%self._duration)
-            
+            print ("Step of gap controller with listenerID=%s" % self.getID())
+            print ("Remaining activity period: %s" % self._duration)
+
         return self._duration > 0
-    
-        
+
     def _applyControl(self):
-        leaderInfo = traci.vehicle.getLeader(self._vehID, max(self._desiredGap*self._leaderHorizonFactor, self._minimalLeaderHorizon))
+        leaderInfo = traci.vehicle.getLeader(self._vehID, max(self._desiredGap * self._leaderHorizonFactor, self._minimalLeaderHorizon))
 #         leaderInfo = traci.vehicle.getLeader(self._vehID, self._desiredGap)
         if leaderInfo is None:
             # no leader
             self._releaseControl()
             print("Lost leader...")
             return
-                
+
         (leaderID, gap) = leaderInfo
-        assert(leaderID is not "");
-        
+        assert(leaderID is not "")
+
         self._egoSpeed = traci.vehicle.getSpeed(self._vehID)
         self._leaderSpeed = traci.vehicle.getSpeed(leaderID)
         speedDiff = self._leaderSpeed - self._egoSpeed
-        
-        
+
         # first determine a desired acceleration from the controller
         accel = self._accel(speedDiff, gap)
-        
+
         if DEBUG_GAP_CONTROL:
-            print ("GapController's acceleration control for veh '%s':"%self._vehID)
-            print ("accel(speedDiff=%s, gapError=%s) = %s"%(speedDiff, gap - self._desiredGap, accel))
-        
+            print("GapController's acceleration control for veh '%s':" % self._vehID)
+            print("accel(speedDiff=%s, gapError=%s) = %s" % (speedDiff, gap - self._desiredGap, accel))
+
         # assure that the speedDifference is not increased above the desired value
-        if (accel <= 0 and speedDiff - self._TS*accel >= self._desiredSpeedDiff):
-            accel = (speedDiff - self._desiredSpeedDiff)/self._TS
-        elif (accel >= 0 and speedDiff - self._TS*accel <= -self._desiredSpeedDiff):
-            accel = (speedDiff + self._desiredSpeedDiff)/self._TS
+        if (accel <= 0 and speedDiff - self._TS * accel >= self._desiredSpeedDiff):
+            accel = (speedDiff - self._desiredSpeedDiff) / self._TS
+        elif (accel >= 0 and speedDiff - self._TS * accel <= -self._desiredSpeedDiff):
+            accel = (speedDiff + self._desiredSpeedDiff) / self._TS
         if DEBUG_GAP_CONTROL:
-            print ("Truncating to prevent exceeding desired speedDiff results in\n   accel=%s"%accel)
-        
-            
+            print("Truncating to prevent exceeding desired speedDiff results in\n   accel=%s" % accel)
+
         # assure it does not exceed the [maxdecel, maxaccel] bounds (assuming maximumAccel = maximumDecel)
         maximumAccel = self._maximumDecel
         accel = max(min(accel, maximumAccel), -self._maximumDecel)
         if DEBUG_GAP_CONTROL:
-            print ("Truncating to maximal decel/accel results in\n   accel=%s"%accel)
-        
+            print("Truncating to maximal decel/accel results in\n   accel=%s" % accel)
+
         # apply the calculated acceleration
-        self._imposeSpeed(self._egoSpeed + self._TS*accel)
-    
-    
+        self._imposeSpeed(self._egoSpeed + self._TS * accel)
+
     def _accel(self, speedDiff, gap):
         '''
         Returns the acceleration computed by a linear controller
         '''
         gapError = gap - self._desiredGap
-        return self._gapGain*gapError + self._speedGain*speedDiff
-        
-    
+        return self._gapGain * gapError + self._speedGain * speedDiff
+
     def _releaseControl(self):
         '''
         Releases the vehicle's speed control such that sumo may take over again
@@ -145,79 +140,73 @@ class GapController(traci.StepListener):
         if self._speedControlActive:
             traci.vehicle.setSpeed(self._vehID, -1)
             self._speedControlActive = False
-    
+
     def _imposeSpeed(self, speed):
         '''
         Sends a setSpeed command to the vehicle via traci
         '''
-        traci.vehicle.setSpeed(self._vehID, max(speed,0))
+        traci.vehicle.setSpeed(self._vehID, max(speed, 0))
         self._speedControlActive = True
-        
+
     def cleanUp(self):
         global _activeGapControllers
         del _activeGapControllers[self._vehID]
         traci.StepListener.cleanUp(self)
         self._releaseControl()
         if DEBUG_GAP_CONTROL:
-            print ("Cleaned up stepListener %s."%self.getID())
-        
-        
-        
-        
-        
+            print ("Cleaned up stepListener %s." % self.getID())
+
+
 def openGap(vehID, desiredGap, desiredSpeedDiff, maximumDecel, duration):
     '''
     openGap(string, float>0, float>0, float>0, float>0)
 
     vehID - ID of the vehicle to be controlled
-    desiredGap - gap that shall be established 
+    desiredGap - gap that shall be established
     desiredSpeedDiff - rate at which the gap is open if possible
     maximumDecel - maximal deceleration at which the desiredSpeedDiff is tried to be approximated
     duration - The period for which the gap control should be active
 
     This methods adds a controller for the opening of a gap in front of the given vehicle.
     The controller stays active for a period of the given duration.
-    If a leader is closer than the desiredGap, the controller tries to establish the desiredGap by inducing the 
+    If a leader is closer than the desiredGap, the controller tries to establish the desiredGap by inducing the
     given speedDifference, while not braking harder than maximumDecel.
-    An object of the class GapCreator is created to manage the vehicle state and is added to traci as a stepListener.  
-    '''   
+    An object of the class GapCreator is created to manage the vehicle state and is added to traci as a stepListener.
+    '''
     global _activeGapControllers
-        
+
     if DEBUG_GAP_CONTROL:
         print ("openGap()")
-        
+
     # Check type error
     errorMsg = None
     if desiredGap <= 0:
-        errorMsg = "simpla.openGap(): Parameter desiredGap has to be a positive float (given value = %s)."%desiredGap
+        errorMsg = "simpla.openGap(): Parameter desiredGap has to be a positive float (given value = %s)." % desiredGap
     elif desiredSpeedDiff <= 0:
-        errorMsg = "simpla.openGap(): Parameter desiredSpeedDiff has to be a positive float (given value = %s)."%desiredSpeedDiff
+        errorMsg = "simpla.openGap(): Parameter desiredSpeedDiff has to be a positive float (given value = %s)." % desiredSpeedDiff
     elif maximumDecel <= 0:
-        errorMsg = "simpla.openGap(): Parameter maximumDecel has to be a positive float (given value = %s)."%maximumDecel
+        errorMsg = "simpla.openGap(): Parameter maximumDecel has to be a positive float (given value = %s)." % maximumDecel
     elif duration <= 0:
-        errorMsg = "simpla.openGap(): Parameter duration has to be a positive float (given value = %s)."%duration
+        errorMsg = "simpla.openGap(): Parameter duration has to be a positive float (given value = %s)." % duration
     if errorMsg is not None:
         raise SimplaException(errorMsg)
-    
+
     # remove any previous controller attached to the vehicle
     removeGapController(vehID)
     gc = GapController(vehID, desiredGap, desiredSpeedDiff, maximumDecel, duration)
     listenerID = traci.addStepListener(gc)
-    _activeGapControllers[vehID] = listenerID    
+    _activeGapControllers[vehID] = listenerID
     if DEBUG_GAP_CONTROL:
-        print ("Active controllers: %s."%( _activeGapControllers ))
+        print ("Active controllers: %s." % (_activeGapControllers))
 
-    
+
 def removeGapController(vehID):
     '''
     Removes any current gap controller
     '''
     global _activeGapControllers
     if DEBUG_GAP_CONTROL:
-        print ("removeGapController(%s)\nactive: %s."%(vehID, _activeGapControllers ))
+        print ("removeGapController(%s)\nactive: %s." % (vehID, _activeGapControllers))
     if vehID in _activeGapControllers:
         listenerID = _activeGapControllers[vehID]
         traci.removeStepListener(listenerID)
-    
-
-    

@@ -18,9 +18,9 @@
 from __future__ import absolute_import
 from __future__ import print_function
 
-from evaluator import *
-from plotter import *
-
+from evaluator import getAvgGreenTime, getMinTravelTime, getSaturationFlow
+from plotter import figure, griddata, load, legend, meshgrid, plot, show, subplot, xlabel, ylabel, ylim
+from plotter import compareData, plotDiagram
 
 plotDiagram('data\\000')
 plotDiagram('data\\001')

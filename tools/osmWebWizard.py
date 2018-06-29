@@ -116,7 +116,7 @@ class Builder(object):
                     self.tmp = os.path.abspath(os.path.join(base, now))
                     os.makedirs(self.tmp)
                     break
-                except:
+                except Exception:
                     print("Cannot create directory '%s'" % self.tmp)
                     self.tmp = None
         if self.tmp is None:
@@ -357,7 +357,7 @@ class Builder(object):
     def finalize(self):
         try:
             shutil.rmtree(self.tmp)
-        except:
+        except Exception:
             pass
 
 
@@ -396,7 +396,7 @@ class OSMImporterWebSocket(WebSocket):
                 builder.finalize()
 
                 self.sendMessage(u"zip " + data)
-        except:
+        except Exception:
             print(traceback.format_exc())
             # reset 'Generate Scenario' button
             while self.steps > 0:

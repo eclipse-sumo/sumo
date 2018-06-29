@@ -30,7 +30,7 @@ from __future__ import absolute_import
 from __future__ import print_function
 
 from matplotlib import rcParams
-from pylab import *
+from pylab import arange, figure, legend, savefig, plot, show, xlim, xticks, ylim, yticks
 from optparse import OptionParser
 from xml.sax import make_parser, handler
 
@@ -211,7 +211,7 @@ class NetReader(handler.ContentHandler):
         if not options.show:
             rcParams['backend'] = 'Agg'
         if options.size:
-            f = figure(figsize=(options.size.split(",")))
+            figure(figsize=(options.size.split(",")))
         else:
             figure()
         plot([-1000, -2000], [-1000, -2000],
@@ -427,11 +427,11 @@ optParser.add_option("--color-map", dest="colormap",
 # axes/legend
 optParser.add_option("--xticks", dest="xticks", type="string", default="",
                      help="defines ticks on x-axis")
-optParser.add_option("--yticks", dest="yticks", type="string",  default="",
+optParser.add_option("--yticks", dest="yticks", type="string", default="",
                      help="defines ticks on y-axis")
-optParser.add_option("--xlim", dest="xlim", type="string",  default="",
+optParser.add_option("--xlim", dest="xlim", type="string", default="",
                      help="defines x-axis range")
-optParser.add_option("--ylim", dest="ylim", type="string",  default="",
+optParser.add_option("--ylim", dest="ylim", type="string", default="",
                      help="defines y-axis range")
 # output
 optParser.add_option("--size", dest="size", type="string", default="",

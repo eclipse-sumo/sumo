@@ -1042,7 +1042,7 @@ class VehicleDomain(Domain):
         """setSpeed(string, double) -> None
 
         Sets the speed in m/s for the named vehicle within the last step.
-        Calling with speed=-1 hands the vehicle control back to SUMO. 
+        Calling with speed=-1 hands the vehicle control back to SUMO.
         """
         self._connection._sendDoubleCmd(
             tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_SPEED, vehID, speed)

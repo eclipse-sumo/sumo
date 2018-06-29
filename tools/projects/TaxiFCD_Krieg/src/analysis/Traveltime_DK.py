@@ -18,7 +18,7 @@
 from __future__ import absolute_import
 from __future__ import print_function
 
-from pylab import *
+from pylab import bar, plot, show, xlim, ylim
 
 
 # global vars
@@ -329,7 +329,7 @@ def plotBarChart(mode="relDiff"):
         # else:
         # print travelTimeDict[mode]*100
         # i+=1
-    b = bar(barsDict.keys(), barsDict.values(), width=10, alpha=0.5)
+    bar(barsDict.keys(), barsDict.values(), width=10, alpha=0.5)
     # hist(l, bins=41)
     # savefig(mainPath+"norm_abw_hist.png")
     print("over100", i)

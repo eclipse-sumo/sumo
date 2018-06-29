@@ -212,8 +212,8 @@ def getLaneGroupFlows(tl, connFlowsMap, phases):
                 inEdge = connsList[j][0]._edge._id
                 if j == 0:
                     exEdge = inEdge
-                if (inEdge == exEdge and control == 'G') or (inEdge == exEdge
-                                                             and control == 'g' and j not in ownGreenConnsList):
+                if (inEdge == exEdge and control == 'G') or (inEdge == exEdge and
+                                                             control == 'g' and j not in ownGreenConnsList):
                     if j in connFlowsMap[tl._id]:
                         groupFlows += connFlowsMap[tl._id][j]
                     if connsList[j][0].getIndex() not in laneIndexList:

@@ -18,7 +18,7 @@
 from __future__ import absolute_import
 from __future__ import print_function
 
-from pylab import *
+from pylab import colorbar, contourf, figtext, show, title, xlabel, xticks, ylabel, yticks
 from os import walk
 from os.path import join
 import util.Path as path

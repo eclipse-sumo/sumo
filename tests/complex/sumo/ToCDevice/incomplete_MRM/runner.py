@@ -46,7 +46,7 @@ def run():
         traci.simulationStep()
         if step == 200:
             requestToC(ToC_vehicle, timeTillMRM)
-            t = traci.simulation.getCurrentTime()/1000.
+            t = traci.simulation.getCurrentTime() / 1000.
             print("Requested ToC of veh0 at t=%s (until t=%s)" % (t, t + timeTillMRM))
         printToCParams(ToC_vehicle, True)
         step += 1

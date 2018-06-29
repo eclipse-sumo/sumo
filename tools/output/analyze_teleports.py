@@ -49,7 +49,7 @@ def parse_log(logfile, edges=True, aggregate=3600):
                 else:
                     waitingCounts[edge] += 1
                     waitingStepCounts[int(time) / aggregate] += 1
-        except:
+        except Exception:
             print(sys.exc_info())
             sys.exit("error when parsing line '%s'" % line)
 

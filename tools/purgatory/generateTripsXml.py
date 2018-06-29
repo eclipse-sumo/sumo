@@ -345,17 +345,17 @@ def main(options):
                             counts, vehID, begin, period, odConnTable, startVertex, endVertex, tripList, vehIDtoODMap)
                     else:
                         matrixSum += matrixPshort[start][end]
-                        while (counts < float(math.ceil(matrixPshort[start][end]))
-                               and (matrixPshort[start][end] - counts) > 0.5
-                               and float(subVehID) < matrixSum)or float(subVehID) < matrixSum:
+                        while (counts < float(math.ceil(matrixPshort[start][end])) and
+                               (matrixPshort[start][end] - counts) > 0.5 and
+                               float(subVehID) < matrixSum)or float(subVehID) < matrixSum:
                             counts, vehID, tripList, vehIDtoODMap = addVeh(
                                 counts, vehID, begin, period, odConnTable, startVertex, endVertex, tripList, vehIDtoODMap)
                             subVehID += 1
                 else:
                     matrixSum += matrixPshort[start][end]
-                    while (counts < float(math.ceil(matrixPshort[start][end]))
-                           and (matrixPshort[start][end] - counts) > 0.5
-                           and float(vehID) < matrixSum) or float(vehID) < matrixSum:
+                    while (counts < float(math.ceil(matrixPshort[start][end])) and
+                           (matrixPshort[start][end] - counts) > 0.5 and
+                           float(vehID) < matrixSum) or float(vehID) < matrixSum:
                         counts, vehID, tripList, vehIDtoODMap = addVeh(
                             counts, vehID, begin, period, odConnTable, startVertex, endVertex, tripList, vehIDtoODMap)
     if options.debug:

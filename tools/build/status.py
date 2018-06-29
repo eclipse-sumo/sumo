@@ -75,7 +75,7 @@ Subject: Error occurred while building
             server = smtplib.SMTP(smtpServer)
             server.sendmail(fromAddr, toAddr, message)
             server.quit()
-        except:
+        except Exception:
             print("Could not send mail.")
 
 

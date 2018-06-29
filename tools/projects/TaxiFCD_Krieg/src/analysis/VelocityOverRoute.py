@@ -19,11 +19,11 @@ from __future__ import absolute_import
 from __future__ import print_function
 
 
-from pylab import *
+from pylab import axis, close, figure, grid, legend, plot, savefig, title, xlabel, xticks, ylabel
 import util.Path as path
 import util.Reader as reader
 from cPickle import load
-from analysis.Taxi import *
+from analysis.Taxi import SOURCE_FCD, SOURCE_SIMFCD
 
 # global vars
 WEE = True  # =withoutEmptyEdges decide which analysis file should be used
@@ -142,7 +142,7 @@ def plotIt(taxiId):
         route[0][route[1].index(lastShown)] = ""
 
     # plot the results
-    fig = figure(figsize=(width, height), dpi=96)
+    figure(figsize=(width, height), dpi=96)
     plot(values[0], values[1], values[0], values[2])
     legend(("FCD", "simulierte FCD"))
     title(U"Geschwindigkeit  \u00FCber Strecke")

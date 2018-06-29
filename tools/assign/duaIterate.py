@@ -486,7 +486,7 @@ def main(args=None):
                 "Error: Please use either --zip or --clean-alt but not both.")
         try:
             subprocess.call("7z", stdout=open(os.devnull, 'wb'))
-        except:
+        except Exception:
             sys.exit(
                 "Error: Could not locate 7z, please make sure its on the search path.")
         zipProcesses = {}
@@ -631,7 +631,7 @@ def main(args=None):
                     for f in glob.glob("*_%03i*" % s):
                         try:
                             os.remove(f)
-                        except:
+                        except Exception:
                             print("Could not remove %s" % f, file=zipLog)
                     del zipProcesses[s]
             zipStep = step - 2
@@ -667,7 +667,7 @@ def main(args=None):
             for f in glob.glob("*_%03i*" % s):
                 try:
                     os.remove(f)
-                except:
+                except Exception:
                     print("Could not remove %s" % f, file=zipLog)
         zipLog.close()
     print("dua-iterate ended (duration: %s)" % (datetime.now() - starttime))

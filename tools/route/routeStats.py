@@ -71,12 +71,14 @@ def main():
     if options.attribute == "length":
         net = readNet(options.network)
 
-        def attribute_retriever(vehicle): return sum([net.getEdge(e).getLength()
-                                                      for e in vehicle.route[0].edges.split()])
+        def attribute_retriever(vehicle):
+            return sum([net.getEdge(e).getLength() for e in vehicle.route[0].edges.split()])
     elif options.attribute == "depart":
-        def attribute_retriever(vehicle): return float(vehicle.depart)
+        def attribute_retriever(vehicle):
+            return float(vehicle.depart)
     elif options.attribute == "numEdges":
-        def attribute_retriever(vehicle): return len(vehicle.route[0].edges.split())
+        def attribute_retriever(vehicle):
+            return len(vehicle.route[0].edges.split())
     else:
         sys.exit("Invalid value '%s' for option --attribute" % options.attribute)
 

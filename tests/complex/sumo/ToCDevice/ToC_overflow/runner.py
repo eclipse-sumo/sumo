@@ -45,14 +45,14 @@ def run():
     while step < 1000:
         traci.simulationStep()
         if step % 200 == 0 and step < 700:
-            timeTillMRM = step/20.
+            timeTillMRM = step / 20.
             requestToC(ToC_vehicle, timeTillMRM)
-            t = traci.simulation.getCurrentTime()/1000.
+            t = traci.simulation.getCurrentTime() / 1000.
             print("Requested ToC of veh0 at t=%s (until t=%s)" % (t, t + timeTillMRM))
         elif step % 200 == 1 and step < 700:
-            timeTillMRM = step/20.
+            timeTillMRM = step / 20.
             requestToC(ToC_vehicle, timeTillMRM)
-            t = traci.simulation.getCurrentTime()/1000.
+            t = traci.simulation.getCurrentTime() / 1000.
             print("Requested ToC of veh0 at t=%s (until t=%s)" % (t, t + timeTillMRM))
         elif step % 200 == 150 or step % 200 == 151:
             timeTillMRM = 10.
@@ -61,7 +61,7 @@ def run():
             requestToC(ToC_vehicle, timeTillMRM)
             requestToC(ToC_vehicle, timeTillMRM)
             requestToC(ToC_vehicle, timeTillMRM)
-            t = traci.simulation.getCurrentTime()/1000.
+            t = traci.simulation.getCurrentTime() / 1000.
             print("Requested 5 ToCs of veh0 at t=%s (until t=%s)" % (t, t + timeTillMRM))
             printToCParams(ToC_vehicle, True)
         printToCParams(ToC_vehicle, True)

@@ -38,10 +38,10 @@ def make_geh(interval_minutes):
         m = m * 60 / interval_minutes
         c = c * 60 / interval_minutes
         """Error function for hourly traffic flow measures after Geoffrey E. Havers"""
-        if m+c == 0:
+        if m + c == 0:
             return 0
         else:
-            return math.sqrt(2 * (m-c) * (m-c) / float(m+c))
+            return math.sqrt(2 * (m - c) * (m - c) / float(m + c))
     return geh
 
 
@@ -256,8 +256,8 @@ parser.setContentHandler(reader)
 if options.interval:
     haveFlows = True
     start = options.begin  # minutes
-    while ((options.end is None and haveFlows)
-            or (options.end is not None and start < options.end)):
+    while ((options.end is None and haveFlows) or
+            (options.end is not None and start < options.end)):
         end = start + options.interval
         if options.end is not None:
             end = min(end, options.end)

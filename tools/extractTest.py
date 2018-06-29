@@ -25,9 +25,7 @@ import os
 import sys
 from os.path import join
 import optparse
-import os
 import glob
-import sys
 import shutil
 import subprocess
 from collections import defaultdict

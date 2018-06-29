@@ -83,7 +83,7 @@ def patchLinks(page, name):
             link = page[l:le]
             p = link.find("daily/pydoc")
             if p >= 0:
-                link = level + ".." + link[p+5:]
+                link = level + ".." + link[p + 5:]
                 page = page[:l] + link + page[le:]
         b = page.find(" href=", b + 1)
     return page, images, level
@@ -150,11 +150,11 @@ optParser.add_option("-r", "--version", help="add version info")
 
 try:
     os.mkdir(options.mirror)
-except:
+except Exception:
     pass
 try:
     os.mkdir(options.mirror + "/images")
-except:
+except Exception:
     pass
 images = set()
 pages = getAllPages(args)
@@ -167,7 +167,7 @@ for name in pages:
     if name.find("/") > 0:
         try:
             os.makedirs(os.path.join(options.mirror, name[:name.rfind("/")]))
-        except:
+        except Exception:
             pass
     if True:  # name.find(".")<0:
         c, pi, level = patchLinks(c, name)
@@ -261,11 +261,11 @@ tpl = tpl[:b] + c + tpl[e:]
 # build HTML pages
 try:
     os.mkdir(options.output)
-except:
+except Exception:
     pass
 try:
     os.mkdir(options.output + "/images")
-except:
+except Exception:
     pass
 for name in pages:
     if name.endswith(".css"):
@@ -308,7 +308,7 @@ for name in pages:
 
     try:
         os.makedirs(os.path.split(t)[0])
-    except:
+    except Exception:
         pass
     fd = open(t, "wb")
     fd.write(cc.encode("utf8"))

@@ -16,8 +16,9 @@
 
 from __future__ import absolute_import
 
-from pylab import *
-from ConfigParser import *
+from pylab import array, close, colorbar, concatenate, contourf, exp, figure, frange, griddata, load, legend  # noqa
+from pylab import meshgrid, plot, savefig, show, subplot, subtitle, title, xlabel, xlim, ylabel, ylim  # noqa
+from ConfigParser import ConfigParser
 
 
 def compareData(name1, name2, str):
@@ -37,13 +38,13 @@ def compareData(name1, name2, str):
 
     flowWEA1 = data1[:, 0]
     flowNSA1 = data1[:, 1]
-    qWEA1 = data1[:, 2]
-    qNSA1 = data1[:, 3]
+    # qWEA1 = data1[:, 2]
+    # qNSA1 = data1[:, 3]
     avgDelayWEA1 = data1[:, 4]
     avgDelayNSA1 = data1[:, 5]
     avgDelayA1 = data1[:, 6]
-    greenWEA1 = data1[:, 7]
-    greenNSA1 = data1[:, 8]
+    # greenWEA1 = data1[:, 7]
+    # greenNSA1 = data1[:, 8]
 
     filename2 = name2 + ".dat"
 
@@ -51,13 +52,13 @@ def compareData(name1, name2, str):
 
     flowWEA2 = data2[:, 0]
     flowNSA2 = data2[:, 1]
-    qWEA2 = data2[:, 2]
-    qNSA2 = data2[:, 3]
+    # qWEA2 = data2[:, 2]
+    # qNSA2 = data2[:, 3]
     avgDelayWEA2 = data2[:, 4]
     avgDelayNSA2 = data2[:, 5]
     avgDelayA2 = data2[:, 6]
-    greenWEA2 = data2[:, 7]
-    greenNSA2 = data2[:, 8]
+    # greenWEA2 = data2[:, 7]
+    # greenNSA2 = data2[:, 8]
 
     [X, Y] = meshgrid(vehphWEA, vehphNSA)
 
@@ -102,7 +103,7 @@ def compareData(name1, name2, str):
     title('Average Delay NS')
     colorbar()
 
-    suptitle('Average Delay VA vs. FC (ratio), ' + distr)
+    subtitle('Average Delay VA vs. FC (ratio), ' + distr)
     savefig(str + "WENS.png")
 
 
@@ -190,7 +191,7 @@ def plotDiagram(name):
     xlabel('Flow q WE')
     ylabel('Flow q NS')
 
-    suptitle("Average Delay (WE " + ("poisson" if distrWE == 'p' else "uniform") +
+    subtitle("Average Delay (WE " + ("poisson" if distrWE == 'p' else "uniform") +
              ", NS " + ("poisson" if distrNS == 'p' else "uniform") + ", " + tlType + ")")
 
     savefig(name + "AvgDelayNSWE.png")
@@ -220,7 +221,7 @@ def plotDiagram(name):
     xlabel('Flow q WE')
     ylabel('Flow q NS')
 
-    suptitle("Average Delay (WE " + ("poisson" if distrWE == 'p' else "uniform") +
+    subtitle("Average Delay (WE " + ("poisson" if distrWE == 'p' else "uniform") +
              ", NS " + ("poisson" if distrNS == 'p' else "uniform") + ", " + tlType + ")")
 
     savefig(name + "AvgDelay.png")
@@ -245,7 +246,7 @@ def plotDiagram(name):
     xlabel('Input flow WE')
     ylabel('Input flow NS')
 
-    suptitle("Input flow vs. flow q (WE " + ("poisson" if distrWE == 'p' else "uniform") +
+    subtitle("Input flow vs. flow q (WE " + ("poisson" if distrWE == 'p' else "uniform") +
              ", NS " + ("poisson" if distrNS == 'p' else "uniform") + ", " + tlType + ")")
 
     savefig(name + "flowvsq.png")
@@ -298,7 +299,7 @@ def plotDiagram(name):
     xlabel('Flow q WE')
     ylabel('Flow q NS')
 
-    suptitle("Green-time (WE " + ("poisson" if distrWE == 'p' else "uniform") +
+    subtitle("Green-time (WE " + ("poisson" if distrWE == 'p' else "uniform") +
              ", NS " + ("poisson" if distrNS == 'p' else "uniform") + ", " + tlType + ")")
 
     savefig(name + "GreenTime.png")

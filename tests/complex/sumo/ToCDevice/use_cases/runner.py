@@ -49,7 +49,7 @@ def doToC(vehSet, changePerformed, timeUntilMRM, edgeID, distance):
             if vehID.startswith("AVflowToC."):
                 requestToC(vehID, timeUntilMRM)
                 if options.verbose:
-                    t = traci.simulation.getCurrentTime()/1000.
+                    t = traci.simulation.getCurrentTime() / 1000.
                     print("## Requesting ToC for vehicle '%s'!" % (vehID))
                     print("Requested ToC of %s at t=%s (until t=%s)" % (vehID, t, t + float(timeUntilMRM)))
                     printToCParams(vehID, True)

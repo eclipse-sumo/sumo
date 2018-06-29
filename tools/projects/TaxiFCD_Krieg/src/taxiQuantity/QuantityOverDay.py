@@ -18,7 +18,7 @@
 from __future__ import absolute_import
 from __future__ import print_function
 
-from pylab import *
+from pylab import date2num, figure, show, title, xlabel, ylabel
 import datetime
 from matplotlib.dates import MinuteLocator, HourLocator, DateFormatter
 import util.Path as path

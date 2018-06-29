@@ -46,46 +46,46 @@ def run():
         traci.simulationStep()
         if step == 100:
             requestMRM(ToC_vehicle)
-            t = traci.simulation.getCurrentTime()/1000.
+            t = traci.simulation.getCurrentTime() / 1000.
             print("Requested MRM of veh at t=%s" % (t))
         if step == 200:
             # switch to AUTOMATED
             requestToC(ToC_vehicle, 0)
-            t = traci.simulation.getCurrentTime()/1000.
+            t = traci.simulation.getCurrentTime() / 1000.
             print("Requested upward ToC of veh at t=%s" % (t))
         if step == 205:
             # init ToC
             requestToC(ToC_vehicle, timeTillMRM)
-            t = traci.simulation.getCurrentTime()/1000.
+            t = traci.simulation.getCurrentTime() / 1000.
             print("Requested downward ToC of veh at t=%s (until t=%s)" % (t, t + timeTillMRM))
         if step == 215:
             # MRM in preparatory phase
             requestMRM(ToC_vehicle)
-            t = traci.simulation.getCurrentTime()/1000.
+            t = traci.simulation.getCurrentTime() / 1000.
             print("Requested MRM during ToC-preparation of veh at t=%s" % (t))
         if step == 300:
             # switch to AUTOMATED
             requestToC(ToC_vehicle, 0)
             # init ToC
             requestToC(ToC_vehicle, timeTillMRM)
-            t = traci.simulation.getCurrentTime()/1000.
+            t = traci.simulation.getCurrentTime() / 1000.
             print("Requested downward ToC of veh at t=%s (until t=%s)" % (t, t + timeTillMRM))
         if step == 330:
             # MRM in recovery phase
             requestMRM(ToC_vehicle)
-            t = traci.simulation.getCurrentTime()/1000.
+            t = traci.simulation.getCurrentTime() / 1000.
             print("Requested MRM in recovery phase of veh at t=%s" % (t))
         if step == 400:
             # switch to AUTOMATED
             requestToC(ToC_vehicle, 0)
             # init ToC
             requestToC(ToC_vehicle, timeTillMRM)
-            t = traci.simulation.getCurrentTime()/1000.
+            t = traci.simulation.getCurrentTime() / 1000.
             print("Requested downward ToC of veh at t=%s (until t=%s)" % (t, t + timeTillMRM))
         if step == 450:
             # MRM in manual state
             requestMRM(ToC_vehicle)
-            t = traci.simulation.getCurrentTime()/1000.
+            t = traci.simulation.getCurrentTime() / 1000.
             print("Requested MRM in manual state of veh at t=%s" % (t))
 
         printToCParams(ToC_vehicle, True)

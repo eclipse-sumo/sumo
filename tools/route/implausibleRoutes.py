@@ -48,7 +48,7 @@ def get_options():
                          help="Routes with an implausibility-score above treshold are reported")
     optParser.add_option("--airdist-ratio-factor", type="float", default=1, dest="airdist_ratio_factor",
                          help="Implausibility factor for the ratio of routeDist/airDist ")
-    optParser.add_option("--detour-ratio-factor", type="float", default=1,  dest="detour_ratio_factor",
+    optParser.add_option("--detour-ratio-factor", type="float", default=1, dest="detour_ratio_factor",
                          help="Implausibility factor for the ratio of routeDuration/shortestDuration ")
     optParser.add_option("--detour-factor", type="float", default=0.01, dest="detour_factor",
                          help="Implausibility factor for the absolute detour time in (routeDuration-shortestDuration)" +

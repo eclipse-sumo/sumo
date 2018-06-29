@@ -34,7 +34,7 @@ import sumolib  # noqa
 if len(sys.argv) < 4:
     print("Usage: " + sys.argv[0] + " <NET> <POIS> <OUTPUT>")
     sys.exit()
-parser = make_parser()
+
 print("Reading net...")
 net = sumolib.net.readNet(sys.argv[1])
 

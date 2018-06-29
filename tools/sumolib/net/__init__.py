@@ -33,11 +33,11 @@ from collections import defaultdict
 
 import sumolib
 from . import lane, edge, node, connection, roundabout
-from .lane import Lane
-from .edge import Edge
-from .node import Node
-from .connection import Connection
-from .roundabout import Roundabout
+from .lane import Lane  # noqa
+from .edge import Edge  # noqa
+from .node import Node  # noqa
+from .connection import Connection  # noqa
+from .roundabout import Roundabout  # noqa
 
 
 class TLS:

@@ -39,7 +39,7 @@ def parse_args():
     options, args = optParser.parse_args()
     try:
         options.net, = args
-    except:
+    except Exception:
         sys.exit(USAGE)
     if options.outfile is None:
         options.outfile = options.net + ".taz.xml"

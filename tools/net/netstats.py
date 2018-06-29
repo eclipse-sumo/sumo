@@ -38,7 +38,7 @@ def renderHTML(values):
 
 
 def renderPNG(values):
-    from pylab import *
+    from pylab import bar, show
     bar([0], [values["edgeNumber"]], 1, color='r')
     show()
 

@@ -35,7 +35,7 @@ from collections import defaultdict
 
 try:
     import httplib
-except:
+except ImportError:
     pass
 
 _SCOREFILE = "scores.pkl"
@@ -179,12 +179,12 @@ def loadHighscore():
                     name, game, score = item.split(',')
                     scores[category][idx] = (name, game, int(float(score)))
             return scores
-    except:
+    except Exception:
         pass
 
     try:
         return pickle.load(open(_SCOREFILE))
-    except:
+    except Exception:
         pass
     return {}
 
@@ -409,7 +409,7 @@ class ScoreDialog:
                 f = open(_SCOREFILE, 'w')
                 pickle.dump(high, f)
                 f.close()
-            except:
+            except Exception:
                 pass
             try:
                 conn = httplib.HTTPConnection(_SCORESERVER)
@@ -418,7 +418,7 @@ class ScoreDialog:
                 if _DEBUG:
                     r1 = conn.getresponse()
                     print(r1.status, r1.reason, r1.read())
-            except:
+            except Exception:
                 pass
         self.quit()
 

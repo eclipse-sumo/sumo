@@ -23,8 +23,8 @@ Secondly the average travel time will be calculate (avg=True).
 from __future__ import absolute_import
 from __future__ import print_function
 
-from pylab import *
-from analysis.Taxi import *
+from pylab import figure, legend, pie, show, subplots_adjust, title, xlabel, xticks, ylabel, yticks
+from analysis.Taxi import SOURCE_FCD, SOURCE_SIMFCD, SOURCE_VTYPE
 import util.Reader as reader
 import util.Path as path
 from util import CalcTime
@@ -123,7 +123,7 @@ def getBarsMulti():
                 simDiffDict.setdefault(taxi.id, []).append(sim)
                 fcdDiffDict.setdefault(taxi.id, fcd)
 
-            except TypeError as e:
+            except TypeError:  # as e:
                 pass
                 # print "Error by taxi %s : %s"  %(taxi.id,e.message)
 
@@ -170,7 +170,7 @@ def getBars():
             # barsDict[(diff/10)*10]=barsDict.setdefault((diff/10)*10,0)+1
             barsDictSim[
                 (diffSim / 10) * 10] = barsDictSim.setdefault((diffSim / 10) * 10, 0) + 1
-        except TypeError as e:
+        except TypeError:  # as e:
             pass
             # print "Error by taxi %s : %s"  %(taxi.id,e.message)
     print("mw", sum(mw) / (len(mw) + 0.0))  # 9.46
@@ -310,8 +310,8 @@ def drawBarChart():
     subplots_adjust(left=0.10, right=0.60, bottom=0.10, top=0.90)
     xticks(range(-110, 130, 20), size=textsize)
     yticks(size=textsize)
-    # b=bar(xList,yList, width=10, alpha=0.5)
-    bSim = bar(xListSim, yListSim, width=10, color="red", alpha=0.5)
+    # b = bar(xList,yList, width=10, alpha=0.5)
+    # bSim = bar(xListSim, yListSim, width=10, color="red", alpha=0.5)
     legend((None,), ('Taxis gesamt: ' + str(sum(barsDictSim.values())),
                      '> 0 Sim. langsammer', '< 0 Sim. schneller'), shadow=True)
     # u'\u00f8'+' Reisezeit: '+str(sum(traveltimeList)/len(traveltimeList))+'s'

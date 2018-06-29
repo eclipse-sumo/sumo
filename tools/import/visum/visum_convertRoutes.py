@@ -162,7 +162,9 @@ parse = False
 ok = True
 route = ""
 id = ""
+attributes = []
 count = 0
+no = 0
 fd = open(options.routes)
 fdo = open(options.output, "w")
 fdo.write("<routes>\n")

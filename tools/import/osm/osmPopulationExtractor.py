@@ -157,8 +157,8 @@ class PopulationReader(handler.ContentHandler):
         if name == 'node' and self._population:
             newInput = True
             for n in self._net._nodes:
-                diffLat = abs(float(self._nodeLat) - float(n.lat))
-                diffLon = abs(float(self._nodeLon) - float(n.lon))
+                # diffLat = abs(float(self._nodeLat) - float(n.lat))
+                # diffLon = abs(float(self._nodeLon) - float(n.lon))
                 # and diffLat < 0.003 and diffLon < 0.003 and
                 # int(self._population) == int(n.population):
                 if self._name and self._name == n.name and self._population == n.population:

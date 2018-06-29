@@ -149,13 +149,13 @@ def readEdgeDump(fileName):
     """Get for each interval all edges with corresponding speed."""
     edgeDumpDict = {}
     begin = False
-    interval = 0
+    # interval = 0
     inputFile = open(fileName, 'r')
     for line in inputFile:
         words = line.split('"')
         if not begin and words[0].find("<end>") != -1:
             words = words[0].split(">")
-            interval = int(words[1][:-5])
+            # interval = int(words[1][:-5])
         elif words[0].find("<interval") != -1 and int(words[1]) >= simStartTime:
             int(words[1])
             begin = True

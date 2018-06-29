@@ -24,8 +24,8 @@ import sys
 sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import traci  # noqa
 import sumolib  # noqa
-import simpla
-from simpla import SimplaException
+import simpla  # noqa
+from simpla import SimplaException  # noqa
 
 sumoBinary = sumolib.checkBinary('sumo')
 
@@ -34,13 +34,13 @@ sumoProcess = subprocess.Popen([sumoBinary,
                                 '-c', 'sumo.sumocfg',
                                 '--remote-port', str(PORT)], stdout=sys.stdout)
 traci.init(PORT)
-simpla._utils.DEBUG_GAP_CONTROL=True
+simpla._utils.DEBUG_GAP_CONTROL = True
+
 
 def step():
     s = traci.simulation.getCurrentTime() / 1000
     traci.simulationStep()
     return s
-
 
 
 def check(vehID):
@@ -51,9 +51,10 @@ def check(vehID):
     print("lane", traci.vehicle.getLaneID(vehID))
     print("lanePos", traci.vehicle.getLanePosition(vehID))
 
-    
+
 followerID = "follower"
 leaderID = "leader"
+
 
 def runSteps(nSteps):
     for i in range(nSteps):
@@ -64,88 +65,89 @@ def runSteps(nSteps):
         check(leaderID)
         leaderInfo = traci.vehicle.getLeader(followerID, 1000)
         if leaderInfo is not None:
-            print("\n# gap = %s"%leaderInfo[1])
+            print("\n# gap = %s" % leaderInfo[1])
             speedDiff = traci.vehicle.getSpeed(leaderID) - traci.vehicle.getSpeed(followerID)
-            print("# speedDiff = %s\n"%speedDiff)
+            print("# speedDiff = %s\n" % speedDiff)
         else:
             print("\n# No follow-lead relation!\n")
-    
+
+
 runSteps(100)
 
 # params for next openGap call
-gap=50
-speedDiff=1.0
-maxDecel=0.1
-duration=100
+gap = 50
+speedDiff = 1.0
+maxDecel = 0.1
+duration = 100
 
-print("\n# Calling simpla.openGap(%s, %s, %s, %s)\n"%(gap, speedDiff, maxDecel, duration))
+print("\n# Calling simpla.openGap(%s, %s, %s, %s)\n" % (gap, speedDiff, maxDecel, duration))
 simpla.openGap(followerID, gap, speedDiff, maxDecel, duration)
 print("\n")
 
-runSteps(200)        
+runSteps(200)
 
 # params for next openGap call
-speedDiff=10
-maxDecel=10. # Don't exceed vehicle's decel
-duration=50
+speedDiff = 10
+maxDecel = 10.  # Don't exceed vehicle's decel
+duration = 50
 
-print("\n# Calling simpla.openGap(%s, %s, %s, %s)\n"%(gap, speedDiff, maxDecel, duration))
+print("\n# Calling simpla.openGap(%s, %s, %s, %s)\n" % (gap, speedDiff, maxDecel, duration))
 simpla.openGap(followerID, gap, speedDiff, maxDecel, duration)
 print("\n")
 
-runSteps(100)        
+runSteps(100)
 
 # params for next openGap call
-gap=75
-speedDiff=4.0
-maxDecel=2.
+gap = 75
+speedDiff = 4.0
+maxDecel = 2.
 
-print("\n# Calling simpla.openGap(%s, %s, %s, %s)\n"%(gap, speedDiff, maxDecel, duration))
+print("\n# Calling simpla.openGap(%s, %s, %s, %s)\n" % (gap, speedDiff, maxDecel, duration))
 simpla.openGap(followerID, gap, speedDiff, maxDecel, duration)
 print("\n")
 
 # params for next openGap call
-gap=-75
-print("\n# Calling simpla.openGap(%s, %s, %s, %s)\n"%(gap, speedDiff, maxDecel, duration))
-try:
-    simpla.openGap(followerID, gap, speedDiff, maxDecel, duration)
-except SimplaException as e:
-    print(e)
-print("\n")
-    
-gap=75
-speedDiff=-4
-print("\n# Calling simpla.openGap(%s, %s, %s, %s)\n"%(gap, speedDiff, maxDecel, duration))
-try:
-    simpla.openGap(followerID, gap, speedDiff, maxDecel, duration)
-except SimplaException as e:
-    print(e)
-print("\n")
-    
-speedDiff=4
-maxDecel=-2
-print("\n# Calling simpla.openGap(%s, %s, %s, %s)\n"%(gap, speedDiff, maxDecel, duration))
+gap = -75
+print("\n# Calling simpla.openGap(%s, %s, %s, %s)\n" % (gap, speedDiff, maxDecel, duration))
 try:
     simpla.openGap(followerID, gap, speedDiff, maxDecel, duration)
 except SimplaException as e:
     print(e)
 print("\n")
 
-maxDecel=2
-duration=-100
-print("\n# Calling simpla.openGap(%s, %s, %s, %s)\n"%(gap, speedDiff, maxDecel, duration))
+gap = 75
+speedDiff = -4
+print("\n# Calling simpla.openGap(%s, %s, %s, %s)\n" % (gap, speedDiff, maxDecel, duration))
 try:
     simpla.openGap(followerID, gap, speedDiff, maxDecel, duration)
 except SimplaException as e:
     print(e)
 print("\n")
 
-duration=51
-gap=10000
+speedDiff = 4
+maxDecel = -2
+print("\n# Calling simpla.openGap(%s, %s, %s, %s)\n" % (gap, speedDiff, maxDecel, duration))
+try:
+    simpla.openGap(followerID, gap, speedDiff, maxDecel, duration)
+except SimplaException as e:
+    print(e)
+print("\n")
+
+maxDecel = 2
+duration = -100
+print("\n# Calling simpla.openGap(%s, %s, %s, %s)\n" % (gap, speedDiff, maxDecel, duration))
+try:
+    simpla.openGap(followerID, gap, speedDiff, maxDecel, duration)
+except SimplaException as e:
+    print(e)
+print("\n")
+
+duration = 51
+gap = 10000
 print("\n# Calling simpla.openGap() various times\n")
 simpla.openGap(followerID, gap, speedDiff, maxDecel, duration)
-simpla.openGap(followerID, gap*3, speedDiff, maxDecel/2., duration)
-simpla.openGap(followerID, gap, speedDiff, maxDecel, duration/2.)
+simpla.openGap(followerID, gap * 3, speedDiff, maxDecel / 2., duration)
+simpla.openGap(followerID, gap, speedDiff, maxDecel, duration / 2.)
 print("\n")
 
 runSteps(100)

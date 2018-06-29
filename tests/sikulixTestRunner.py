@@ -37,7 +37,7 @@ try:
     # case is ocuppied
     if "200 OK" not in statusReceived:
         sys.exit("Sikulix server not ready")
-except:
+except Exception:
     # Cannot connect to SikulixServer, then Sikulix Server isn't running
     sys.exit("Sikulix server isn't running")
 

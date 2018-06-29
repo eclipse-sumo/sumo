@@ -18,7 +18,7 @@
 from __future__ import absolute_import
 
 import sys
-from pylab import *
+from pylab import colorbar, contourf, figtext, show, title, xlabel, xticks, ylabel, yticks
 
 
 # index = int(sys.argv[2])

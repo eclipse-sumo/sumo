@@ -16,7 +16,7 @@
 import os
 import sys
 import subprocess
-from sikuli import *
+from sikuli import Key, Region, Settings, click, drag, dropAt, hover, keyDown, keyUp, paste, wait
 
 # define delay before every operation
 DELAY = 0.1
@@ -296,7 +296,7 @@ def getReferenceMatch(neProcess, waitTime):
             print ("TestFunctions: Position of 'reference.png' isn't consistent. Check that interface scaling is 100% (See #3746)")
         # return reference match
         return referenceMatch
-    except:
+    except Exception:
         neProcess.kill()
         # print debug information
         sys.exit("TestFunctions: Killed Netedit process. 'reference.png' not found")
@@ -1387,9 +1387,9 @@ def createSquaredPoly(match, positionx, positiony, size, close):
     typeEnter()
     # create polygon
     leftClick(match, positionx, positiony)
-    leftClick(match, positionx, positiony - (size/2))
-    leftClick(match, positionx - (size/2), positiony - (size/2))
-    leftClick(match, positionx - (size/2), positiony)
+    leftClick(match, positionx, positiony - (size / 2))
+    leftClick(match, positionx - (size / 2), positiony - (size / 2))
+    leftClick(match, positionx - (size / 2), positiony)
     # check if polygon has to be closed
     if (close is True):
         leftClick(match, positionx, positiony)
@@ -1409,9 +1409,9 @@ def createRectangledPoly(match, positionx, positiony, sizex, sizey, close):
     typeEnter()
     # create polygon
     leftClick(match, positionx, positiony)
-    leftClick(match, positionx, positiony - (sizey/2))
-    leftClick(match, positionx - (sizex/2), positiony - (sizey/2))
-    leftClick(match, positionx - (sizex/2), positiony)
+    leftClick(match, positionx, positiony - (sizey / 2))
+    leftClick(match, positionx - (sizex / 2), positiony - (sizey / 2))
+    leftClick(match, positionx - (sizex / 2), positiony)
     # check if polygon has to be closed
     if (close is True):
         leftClick(match, positionx, positiony)
@@ -1431,7 +1431,7 @@ def createLinePoly(match, positionx, positiony, sizex, sizey, close):
     typeEnter()
     # create polygon
     leftClick(match, positionx, positiony)
-    leftClick(match, positionx - (sizex/2), positiony - (sizey/2))
+    leftClick(match, positionx - (sizex / 2), positiony - (sizey / 2))
     # check if polygon has to be closed
     if (close is True):
         leftClick(match, positionx, positiony)

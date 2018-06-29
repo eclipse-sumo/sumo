@@ -23,15 +23,17 @@ import sys
 import os
 import re
 import shutil
-from genRoutes import *
-from evaluator import *
-from changeNet import *
-from ConfigParser import *
-from plotter import *
+from genRoutes import genRoutes
+from evaluator import getAvgDelayWE, getAvgDelayNS, getAvgDelay, getAvgGreenTime, evalTrips, getSaturationFlow
+from evaluator import setPhaseMinMax, getOptGreenTimes
+from changeNet import setTLType, changePhaseDurations
+from ConfigParser import ConfigParser
+from plotter import plotDiagram
 
 
 def readIni(nb):
-    global K, N, cut, gui, distrWE, distrNS, vehphWEA, vehphNSA, maxSumFlow, tlType, intergreenLength, GSum, phaseMinWE, phaseMaxWE, phaseMinNS, phaseMaxNS, maxGap, detPos
+    global K, N, cut, gui, distrWE, distrNS, vehphWEA, vehphNSA, maxSumFlow, tlType, intergreenLength, GSum
+    global phaseMinWE, phaseMaxWE, phaseMinNS, phaseMaxNS, maxGap, detPos
     filename = 'input' + str(nb).zfill(2) + '.ini'
     ini = ConfigParser()
     ini.read(filename)

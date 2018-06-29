@@ -25,7 +25,7 @@ from __future__ import print_function
 
 import os
 import sys
-from xml.dom.minidom import *
+from xml.dom.minidom import parse
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import sumolib.net  # noqa
 

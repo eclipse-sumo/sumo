@@ -97,7 +97,7 @@ def writeTypes(fout, prefix):
     <vType id="%smonorail" vClass="rail"/>
     <vType id="%strolleybus" vClass="bus"/>
     <vType id="%saerialway" vClass="bus"/>
-    <vType id="%sferry" vClass="ship"/>""" % tuple([prefix]*9), file=fout)
+    <vType id="%sferry" vClass="ship"/>""" % tuple([prefix] * 9), file=fout)
 
 
 def createTrips(options):

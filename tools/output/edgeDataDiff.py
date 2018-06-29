@@ -43,7 +43,7 @@ def write_diff(orig, new, out):
                             float(getattr(edge_old, attr))
                         diffStats[attr].add(delta, edge_old.id)
                         f.write(' %s="%s"' % (attr, delta))
-                    except:
+                    except Exception:
                         pass
                 f.write("/>\n")
             f.write("</interval>\n")

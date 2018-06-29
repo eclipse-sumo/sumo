@@ -80,7 +80,7 @@ try:
     sumoPro.wait()
     pPro.wait()
     xPro.wait()
-except:
+except Exception:
     sumoPro.kill()
     pPro.kill()
     xPro.kill()

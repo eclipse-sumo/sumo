@@ -22,9 +22,7 @@ import math
 from optparse import OptionParser
 
 
-
-
-def setCircle(idx,x,y,r,c,prefix,type,color,fill,layer,output):
+def setCircle(idx, x, y, r, c, prefix, type, color, fill, layer, output):
     angle = 2 * math.pi / c
     shape = ""
     for i in range(c):
@@ -36,6 +34,7 @@ def setCircle(idx,x,y,r,c,prefix,type,color,fill,layer,output):
     print('    <poly id="%s%s" type="%s" color="%s" fill="%i" layer="%s" shape="%s"/>' % (
         prefix, idx, options.type, color, fill, layer, shape[:-1]),
         file=output)
+
 
 if __name__ == "__main__":
     optParser = OptionParser()
@@ -56,7 +55,7 @@ if __name__ == "__main__":
     optParser.add_option(
         "-o", "--output-file", help="output file (default: standard output)")
     (options, args) = optParser.parse_args()
-    
+
     if len(args) == 0:
         print >> sys.stderr, "Usage: " + sys.argv[0] + " x,y[[,r],c] ..."
         sys.exit()
@@ -70,5 +69,5 @@ if __name__ == "__main__":
         r = float(desc[2]) if len(desc) > 2 else options.radius
         c = int(desc[3]) if len(desc) > 3 else options.corners
 
-        setCircle(idx,x,y,r,c,options.prefix,options.type,options.color,options.fill,options.layer,output)
+        setCircle(idx, x, y, r, c, options.prefix, options.type, options.color, options.fill, options.layer, output)
     print("</additional>", file=output)

@@ -100,7 +100,7 @@ def parse_dualog(dualog, limit):
                 teleports = 0
                 step_counts.append(counts)
                 counts = defaultdict(lambda: 0)
-        except:
+        except Exception:
             sys.exit("error when parsing line '%s'" % line)
 
     print("  parsed %s steps" % len(step_values))

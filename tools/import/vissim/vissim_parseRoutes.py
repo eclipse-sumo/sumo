@@ -97,7 +97,7 @@ def parseRouteDecision(rd):
         else:
             try:
                 i = vals.index("ROUTE", i)
-            except:
+            except Exception:
                 i = -1
         if r_ziel in edgemap:
             r_edges.append(edgemap[r_ziel])

@@ -48,8 +48,8 @@ for p in shapesParts:
 
 if shape:
     shapes.append((id, shape))
-    
-        
+
+
 with open(outfile, 'w') as outf:
     numPoly = 0
     numPoi = 0

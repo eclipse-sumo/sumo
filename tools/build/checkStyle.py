@@ -145,8 +145,8 @@ class PropertyReader(xml.sax.handler.ContentHandler):
             license = EPL_HEADER.replace("//   ", "# ").replace("// ", "# ").replace("\n//", "")
             end = idx + 7
             if len(lines) < 13:
-                print(self._file,"is too short (%s lines, at least 13 required for valid header)"% len(lines))
-                return 
+                print(self._file, "is too short (%s lines, at least 13 required for valid header)" % len(lines))
+                return
             year = lines[idx + 1][16:20]
             license = license.replace("2001", year).replace(SEPARATOR, "")
             if "module" in lines[idx + 2]:

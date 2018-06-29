@@ -148,7 +148,7 @@ class TestPlatoonManager(ut.TestCase):
         expectedVTypes = ["connected", "connected_pLeader", "connected_pFollower",
                           "connected_pCatchup", "connected_pCatchupFollower"]
         registeredPlatoonVTypes = list(
-            set(reduce(lambda x, y: x+y, [[orig]+list(mapped.values()) for orig, mapped in cfg.PLATOON_VTYPES.items()])))
+            set(reduce(lambda x, y: x + y, [[orig] + list(mapped.values()) for orig, mapped in cfg.PLATOON_VTYPES.items()])))
         expectedVTypes.sort()
         registeredPlatoonVTypes.sort()
         self.assertListEqual(expectedVTypes, registeredPlatoonVTypes)
@@ -165,7 +165,7 @@ class TestPlatoonManager(ut.TestCase):
         expectedVTypes = ["connected", "connected_pLeader", "connected_pFollower",
                           "connected_pCatchup", "connected_pCatchupFollower"]
         registeredPlatoonVTypes = list(
-            set(reduce(lambda x, y: x+y, [[orig]+list(mapped.values()) for orig, mapped in cfg.PLATOON_VTYPES.items()])))
+            set(reduce(lambda x, y: x + y, [[orig] + list(mapped.values()) for orig, mapped in cfg.PLATOON_VTYPES.items()])))
         expectedVTypes.sort()
         registeredPlatoonVTypes.sort()
         self.assertListEqual(expectedVTypes, registeredPlatoonVTypes)
@@ -322,7 +322,7 @@ class TestPlatoonManager(ut.TestCase):
         t0 = traci.simulation.getCurrentTime()
         self.assertEqual(t0, 71400)
 
-        expected_split_time = t0 + mgr._DeltaT*1000 + cfg.PLATOON_SPLIT_TIME*1000
+        expected_split_time = t0 + mgr._DeltaT * 1000 + cfg.PLATOON_SPLIT_TIME * 1000
 
         while traci.simulation.getCurrentTime() <= expected_split_time:
             traci.simulationStep()

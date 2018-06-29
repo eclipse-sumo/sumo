@@ -97,7 +97,7 @@ if __name__ == "__main__":
 
     try:
         os.makedirs(os.path.join(options.output, "images"))
-    except:
+    except Exception:
         pass
     images = set()
     for name in getAllPages(args):
@@ -107,7 +107,7 @@ if __name__ == "__main__":
             try:
                 os.makedirs(
                     os.path.join(options.output, name[:name.rfind("/")]))
-            except:
+            except Exception:
                 pass
             images.update(getImages(c))
         name = name + ".txt"

@@ -58,13 +58,13 @@ class AbstractHandler__asList(ContentHandler):
             for a in self._attributes:
                 try:
                     tmp[a] = float(attrs[a])
-                except TypeError:
+                except ValueError:
                     tmp[a] = attrs[a]
         else:
             for a in attrs.keys():
                 try:
                     tmp[a] = float(attrs[a])
-                except TypeError:
+                except ValueError:
                     tmp[a] = attrs[a]
         self._values.append(tmp)
 

@@ -18,11 +18,11 @@
 from __future__ import absolute_import
 from __future__ import print_function
 
-from pylab import *
+from pylab import axis, close, figure, grid, legend, plot, savefig, show, subplot, title, xlabel, xticks, ylabel
 import util.Path as path
 import util.Reader as reader
 from cPickle import load
-from analysis.Taxi import *
+from analysis.Taxi import SOURCE_FCD, SOURCE_SIMFCD
 
 
 # global vars
@@ -164,7 +164,7 @@ def plotIt(taxiId):
     makethemNice(SOURCE_SIMFCD)
 
     # plot the results
-    fig = figure(figsize=(width, height), dpi=96)
+    figure(figsize=(width, height), dpi=96)
 
     subplot(211)
     title(U"Geschwindigkeit  \u00FCber Zeit pro Kante")

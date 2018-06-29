@@ -31,6 +31,7 @@ fd = open(sys.argv[1])
 fdo = open(sys.argv[2], "w")
 fdo.write("<types>\n")
 parsingTypes = False
+attributes = []
 for line in fd:
     if parsingTypes:
         if line[0] == '*' or line[0] == '$' or line.find(";") < 0:

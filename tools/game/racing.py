@@ -26,10 +26,10 @@ import math
 
 if sys.version_info.major == 3:
     import queue as Queue
-    from tkinter import *
+    from tkinter import Button, Frame, Tk
 else:
     import Queue
-    from Tkinter import *
+    from Tkinter import Button, Frame, Tk
 
 try:
     sys.path.append(os.path.join(os.environ.get("SUMO_HOME",
@@ -94,7 +94,7 @@ def mouseControl(master, speed, steerAngle, accel=2.6, decel=4.5):
         else:
             speed -= dy * TS * decel
         steerAngle = MAX_STEER_ANGLE * dx
-    except Exception as e:
+    except Exception:  # as e:
         # print(e)
         pass
     return speed, steerAngle

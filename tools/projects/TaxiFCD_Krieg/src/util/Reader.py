@@ -17,7 +17,7 @@
 from __future__ import absolute_import
 
 import util.Path as path
-from analysis.Taxi import *
+from analysis.Taxi import SOURCE_FCD, SOURCE_SIMFCD, Step, Taxi
 from cPickle import dump
 from cPickle import load
 from os.path import exists

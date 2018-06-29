@@ -77,8 +77,8 @@ def outputStatistics(net, starttime, periods):
             totaltime += edge.flow * edge.actualtime
             totalflow += edge.flow
             foutMOE.write('\nedge:%s \t from:%s \t to:%s \t freeflowtime(s):%2.2f \t traveltime(s):%2.2f \t traffic flow(veh):%2.2f \t v/c:%2.2f' % (
-                             edge._id, edge._from, edge._to, edge.freeflowtime, edge.actualtime,
-                             edge.flow, (edge.flow / edge.estcapacity)))
+                          edge._id, edge._from, edge._to, edge.freeflowtime, edge.actualtime,
+                          edge.flow, (edge.flow / edge.estcapacity)))
         if edge.flow > edge.estcapacity and edge.connection == 0:
             foutMOE.write('****overflow!')
 
