@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sat Jun 23 07:43:32 2018 by Eclipse SUMO netconvert Version 5dfbfcc
+<!-- generated on Fri Jun 29 08:05:42 2018 by Eclipse SUMO netconvert Version b1dcafe
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -210,7 +210,7 @@
         <request index="1" response="000" foes="000" cont="0"/>
         <request index="2" response="000" foes="000" cont="0"/>
     </junction>
-    <junction id="f2" type="priority" x="390.00" y="100.00" incLanes="i2_0 i2_1 i2_2" intLanes=":f2_0_0 :f2_0_1 :f2_0_2" shape="390.00,100.00 399.60,100.00 399.33,97.65 398.98,96.55 398.50,95.51 397.89,94.52 397.14,93.58">
+    <junction id="f2" type="priority" x="390.00" y="100.00" incLanes="i2_0 i2_1 i2_2" intLanes=":f2_0_0 :f2_0_1 :f2_0_2" shape="390.00,100.00 399.60,100.00 399.47,97.37 399.23,96.46 398.80,95.61 398.12,94.70 397.14,93.58">
         <request index="0" response="000" foes="000" cont="0"/>
         <request index="1" response="000" foes="000" cont="0"/>
         <request index="2" response="000" foes="000" cont="0"/>
@@ -235,7 +235,7 @@
         <request index="1" response="000" foes="000" cont="0"/>
         <request index="2" response="000" foes="000" cont="0"/>
     </junction>
-    <junction id="f7" type="priority" x="390.00" y="700.00" incLanes="i7_0 i7_1 i7_2" intLanes=":f7_0_0" shape="394.00,700.00 394.00,696.80 386.00,690.40 386.00,700.00">
+    <junction id="f7" type="priority" x="390.00" y="700.00" incLanes="i7_0 i7_1 i7_2" intLanes=":f7_0_0" shape="394.00,700.00 394.00,696.80 391.98,696.33 390.79,695.14 389.21,692.06 388.02,690.87 386.00,690.40 386.00,700.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="z0" type="priority" x="700.00" y="700.00" incLanes="e8_0 e8_1 e8_2 o_0" intLanes=":z0_0_0 :z0_1_0 :z0_2_0 :z0_3_0 :z0_3_1" shape="706.06,700.00 706.06,690.40 704.93,690.25 704.42,690.06 703.93,689.80 703.48,689.47 703.06,689.05 695.93,695.48 696.39,696.21 696.38,696.47 696.20,696.65 695.85,696.76 695.34,696.80 695.34,700.00">
@@ -255,7 +255,7 @@
         <request index="1" response="000" foes="000" cont="0"/>
         <request index="2" response="000" foes="000" cont="0"/>
     </junction>
-    <junction id="z3" type="priority" x="990.00" y="100.00" incLanes="e3_0 e3_1 e3_2" intLanes=":z3_0_0 :z3_0_1 :z3_0_2" shape="980.40,103.68 990.00,103.68 989.73,101.33 989.38,100.24 988.90,99.19 988.29,98.20 987.54,97.26">
+    <junction id="z3" type="priority" x="990.00" y="100.00" incLanes="e3_0 e3_1 e3_2" intLanes=":z3_0_0 :z3_0_1 :z3_0_2" shape="980.40,103.68 990.00,103.68 989.87,101.06 989.63,100.14 989.20,99.30 988.52,98.39 987.54,97.26">
         <request index="0" response="000" foes="000" cont="0"/>
         <request index="1" response="000" foes="000" cont="0"/>
         <request index="2" response="000" foes="000" cont="0"/>
