@@ -201,6 +201,7 @@ GNECalibratorFlowDialog::onCmdAccept(FXObject*, FXSelector, void*) {
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Closed FXMessageBox of type 'warning' with 'OK'");
         }
+        return 0;
     } else {
         // accept changes before closing dialog
         acceptChanges();
