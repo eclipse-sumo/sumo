@@ -166,15 +166,16 @@ GNECalibratorFlowDialog::~GNECalibratorFlowDialog() {}
 
 long
 GNECalibratorFlowDialog::onCmdAccept(FXObject*, FXSelector, void*) {
+    std::string operation1 = myUpdatingElement ? ("updating") : ("creating");
+    std::string operation2 = myUpdatingElement ? ("updated") : ("created");
+    std::string parentTagString = toString(myEditedAdditional->getAdditionalParent()->getTag());
+    std::string tagString = toString(myEditedAdditional->getTag());
     if (myCalibratorFlowValid == false) {
         // write warning if netedit is running in testing mode
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Opening FXMessageBox of type 'warning'");
         }
-        std::string operation1 = myUpdatingElement ? ("updating") : ("creating");
-        std::string operation2 = myUpdatingElement ? ("updated") : ("created");
-        std::string parentTagString = toString(myEditedAdditional->getAdditionalParent()->getTag());
-        std::string tagString = toString(myEditedAdditional->getTag());
+
         // open warning dialog box
         FXMessageBox::warning(getApp(), MBOX_OK,
                               ("Error " + operation1 + " " + parentTagString + "'s " + tagString).c_str(), "%s",
@@ -186,6 +187,20 @@ GNECalibratorFlowDialog::onCmdAccept(FXObject*, FXSelector, void*) {
             WRITE_WARNING("Closed FXMessageBox of type 'warning' with 'OK'");
         }
         return 0;
+    } else if(!myEditedAdditional->getAdditionalParent()->checkAdditionalChildsOverlapping()) {
+        // write warning if netedit is running in testing mode
+        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+            WRITE_WARNING("Opening FXMessageBox of type 'warning'");
+        }
+        // open warning dialog box
+        FXMessageBox::warning(getApp(), MBOX_OK,
+                              ("Error " + operation1 + " " + parentTagString + "'s " + tagString).c_str(), "%s",
+                              (parentTagString + "'s " + tagString + " cannot be " + operation2 +
+                               " because there is overlapping with another " + tagString + ".").c_str());
+        // write warning if netedit is running in testing mode
+        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+            WRITE_WARNING("Closed FXMessageBox of type 'warning' with 'OK'");
+        }
     } else {
         // accept changes before closing dialog
         acceptChanges();
