@@ -66,5 +66,6 @@ for f in flows:
         prob = rel[2] / 100.
         iprob = 1. - prob
         demand.addStream(
-            Stream(None, rel[1], f[0], rel[0], {prob: "lkw", iprob: "pkw"}))
-demand.build(0, 3600, 3600, "net.net.xml")
+            # Stream(None, rel[1], f[0], rel[0], {prob: "lkw", iprob: "pkw"}))
+			Stream(None, 0, 3600, 400, "from", "to", {prob: "lkw", iprob: "pkw"}))
+# demand.build(0, 3600, 3600, "net.net.xml")
