@@ -45,11 +45,10 @@ GNEClosingReroute::GNEClosingReroute(GNERerouterIntervalDialog* rerouterInterval
 }
 
 
-GNEClosingReroute::GNEClosingReroute(GNERerouterInterval* rerouterIntervalParent, GNEEdge* closedEdge, const std::string &allowedVehicles, const std::string &disallowedVehicles) :
+GNEClosingReroute::GNEClosingReroute(GNERerouterInterval* rerouterIntervalParent, GNEEdge* closedEdge, SVCPermissions permissions) :
     GNEAdditional(rerouterIntervalParent, rerouterIntervalParent->getViewNet(), GLO_CALIBRATOR, SUMO_TAG_CLOSING_REROUTE, false, false),
     myClosedEdge(closedEdge),
-    myAllowedVehicles(allowedVehicles),
-    myDisallowedVehicles(disallowedVehicles) {
+    myPermissions(permissions) {
 }
 
 
@@ -100,9 +99,9 @@ GNEClosingReroute::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_EDGE:
             return myClosedEdge->getID();
         case SUMO_ATTR_ALLOW:
-            return myAllowedVehicles;
+            return getVehicleClassNames(myPermissions);
         case SUMO_ATTR_DISALLOW:
-            return myDisallowedVehicles;
+            return getVehicleClassNames(invertPermissions(myPermissions));
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -135,17 +134,9 @@ GNEClosingReroute::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_EDGE:
             return (myViewNet->getNet()->retrieveEdge(value, false) != nullptr);
         case SUMO_ATTR_ALLOW:
-            if(value == "all") {
-                return true;
-            } else {
-                return canParseVehicleClasses(value);
-            }
+            return canParseVehicleClasses(value);
         case SUMO_ATTR_DISALLOW:
-            if(value == "all") {
-                return true;
-            } else {
-                return canParseVehicleClasses(value);
-            }
+            return canParseVehicleClasses(value);
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -165,10 +156,10 @@ GNEClosingReroute::setAttribute(SumoXMLAttr key, const std::string& value) {
             myClosedEdge = myViewNet->getNet()->retrieveEdge(value);
             break;
         case SUMO_ATTR_ALLOW:
-            myAllowedVehicles = value;
+            myPermissions = parseVehicleClasses(value);
             break;
         case SUMO_ATTR_DISALLOW:
-            myAllowedVehicles = value;
+            myPermissions = invertPermissions(parseVehicleClasses(value));
             break;
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");

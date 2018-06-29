@@ -1788,7 +1788,7 @@ GNENet::getNumberOfAdditionals(SumoXMLTag type) const {
     int counter = 0;
     for (auto i : myAttributeCarriers.additionals) {
         if ((type == SUMO_TAG_NOTHING) || (type == i.first)) {
-            counter += i.second.size();
+            counter += (int)i.second.size();
         }
     }
     return counter;
