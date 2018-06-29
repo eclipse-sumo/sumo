@@ -108,8 +108,8 @@ GNEAdditional::writeAdditional(OutputDevice& device) const {
     // obtain tag properties
     const TagValues &tagProperties = getTagProperties(getTag());
     // first check if minimum number of childs is correct
-    if (tagProperties.hasMinimumNumberOfChilds() && (int)myAdditionalChilds.size() < tagProperties.getMinNumberOfChilds()) {
-        WRITE_WARNING(toString(getTag()) + " with ID='" + getID() + "' cannot be written; It need at least " + toString(tagProperties.getMinNumberOfChilds()) + " childs.");
+    if ((tagProperties.hasMinimumNumberOfChilds() || tagProperties.hasMinimumNumberOfChilds()) && !checkAdditionalChildRestriction()) {
+        WRITE_WARNING(toString(getTag()) + " with ID='" + getID() + "' cannot be written");
     } else {
         // Open Tag or synonim Tag
         if(tagProperties.hasTagSynonym()) {
@@ -140,7 +140,7 @@ GNEAdditional::writeAdditional(OutputDevice& device) const {
                 }
             }
         }
-        // iterate over childs
+        // iterate over childs and write it in XML
         for (auto i : myAdditionalChilds) {
             i->writeAdditional(device);
         }
@@ -223,34 +223,57 @@ GNEAdditional::getAdditionalChilds() const {
 
 void 
 GNEAdditional::sortAdditionalChilds() {
-    // declare a vector to keep sorted childs
-    std::vector<std::pair<std::pair<double, double>, GNEAdditional*> > sortedChilds;
-    // iterate over additional childs
-    for (auto i : myAdditionalChilds) {
-        sortedChilds.push_back(std::make_pair(std::make_pair(0.,0.), i));
-        // set begin/start attribute
-        if(getTagProperties(i->getTag()).hasAttribute(SUMO_ATTR_TIME) && canParse<double>(i->getAttribute(SUMO_ATTR_TIME))) {
-            sortedChilds.back().first.first = parse<double>(i->getAttribute(SUMO_ATTR_TIME));
-        } else if(getTagProperties(i->getTag()).hasAttribute(SUMO_ATTR_BEGIN) && canParse<double>(i->getAttribute(SUMO_ATTR_BEGIN))) {
-            sortedChilds.back().first.first = parse<double>(i->getAttribute(SUMO_ATTR_BEGIN));
+    if(getTag() == SUMO_TAG_E3DETECTOR) {
+        // we need to sort Entry/Exits due additional.xds model
+        std::vector<GNEAdditional*> sortedEntryExits;
+        // obtain all entrys
+        for (auto i : myAdditionalChilds) {
+            if(i->getTag() == SUMO_TAG_DET_ENTRY) {
+                sortedEntryExits.push_back(i);
+            }
         }
-        // set end attribute
-        if(getTagProperties(i->getTag()).hasAttribute(SUMO_ATTR_END) && canParse<double>(i->getAttribute(SUMO_ATTR_END))) {
-            sortedChilds.back().first.second = parse<double>(i->getAttribute(SUMO_ATTR_END));
+        // obtain all exits
+        for (auto i : myAdditionalChilds) {
+            if(i->getTag() == SUMO_TAG_DET_EXIT) {
+                sortedEntryExits.push_back(i);
+            }
+        }
+        // change myAdditionalChilds for sortedEntryExits
+        if(sortedEntryExits.size() == myAdditionalChilds.size()) {
+            myAdditionalChilds = sortedEntryExits;
         } else {
-            sortedChilds.back().first.second = sortedChilds.back().first.first;
-        }
-    }
-    // sort childs
-    std::sort(sortedChilds.begin(), sortedChilds.end());
-    // make sure that number of sorted childs is the same as the additional childs
-    if(sortedChilds.size() == myAdditionalChilds.size()) {
-        myAdditionalChilds.clear();
-        for (auto i : sortedChilds) {
-            myAdditionalChilds.push_back(i.second);
+            throw ProcessError("Some additional childs were lost during sorting");
         }
     } else {
-        throw ProcessError("Some additional childs were lost during sorting");
+        // declare a vector to keep sorted childs
+        std::vector<std::pair<std::pair<double, double>, GNEAdditional*> > sortedChilds;
+        // iterate over additional childs
+        for (auto i : myAdditionalChilds) {
+            sortedChilds.push_back(std::make_pair(std::make_pair(0.,0.), i));
+            // set begin/start attribute
+            if(getTagProperties(i->getTag()).hasAttribute(SUMO_ATTR_TIME) && canParse<double>(i->getAttribute(SUMO_ATTR_TIME))) {
+                sortedChilds.back().first.first = parse<double>(i->getAttribute(SUMO_ATTR_TIME));
+            } else if(getTagProperties(i->getTag()).hasAttribute(SUMO_ATTR_BEGIN) && canParse<double>(i->getAttribute(SUMO_ATTR_BEGIN))) {
+                sortedChilds.back().first.first = parse<double>(i->getAttribute(SUMO_ATTR_BEGIN));
+            }
+            // set end attribute
+            if(getTagProperties(i->getTag()).hasAttribute(SUMO_ATTR_END) && canParse<double>(i->getAttribute(SUMO_ATTR_END))) {
+                sortedChilds.back().first.second = parse<double>(i->getAttribute(SUMO_ATTR_END));
+            } else {
+                sortedChilds.back().first.second = sortedChilds.back().first.first;
+            }
+        }
+        // sort childs
+        std::sort(sortedChilds.begin(), sortedChilds.end());
+        // make sure that number of sorted childs is the same as the additional childs
+        if(sortedChilds.size() == myAdditionalChilds.size()) {
+            myAdditionalChilds.clear();
+            for (auto i : sortedChilds) {
+                myAdditionalChilds.push_back(i.second);
+            }
+        } else {
+            throw ProcessError("Some additional childs were lost during sorting");
+        }
     }
 }
 
@@ -763,6 +786,13 @@ GNEAdditional::unselectAttributeCarrier(bool changeFlag) {
 bool 
 GNEAdditional::isAttributeCarrierSelected() const {
     return mySelected;
+}
+
+
+bool 
+GNEAdditional::checkAdditionalChildRestriction() const {
+    // throw exception because this function mus be implemented in child (see GNEE3Detector)
+    throw ProcessError("Calling non-implemented function checkAdditionalChildRestriction during saving of " + toString(getTag()) + ". It muss be reimplemented in child class");
 }
 
 /****************************************************************************/

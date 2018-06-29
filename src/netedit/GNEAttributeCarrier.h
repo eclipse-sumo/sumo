@@ -221,12 +221,12 @@ public:
         TagValues();
 
         /// @brief parameter constructor
-        TagValues(int tagProperty, int positionListed, GUIIcon icon, SumoXMLTag tagParent = SUMO_TAG_NOTHING, int minNumberOfChilds = 0, int maxNumberOfChilds = 0, SumoXMLTag tagSynonym = SUMO_TAG_NOTHING);
+        TagValues(int tagProperty, int positionListed, GUIIcon icon, SumoXMLTag tagParent = SUMO_TAG_NOTHING, SumoXMLTag tagSynonym = SUMO_TAG_NOTHING);
 
         /// @brief add attribute (duplicated attributed aren't allowed)
         void addAttribute(SumoXMLAttr attr, int attributeProperty, const std::string &definition, const std::string &defaultValue, std::vector<std::string> discreteValues = std::vector<std::string>(), SumoXMLAttr synonym = SUMO_ATTR_NOTHING);
 
-        /// @brief add attribute with synonim (duplicated attributed aren't allowed)
+        /// @brief add attribute with synonym (duplicated attributed aren't allowed)
         void addAttribute(SumoXMLAttr attr, int attributeProperty, const std::string &definition, const std::string &defaultValue, SumoXMLAttr synonym);
 
         /// @brief add deprecated Attribute
@@ -258,12 +258,6 @@ public:
 
         /// @brief get tag synonym
         SumoXMLTag getTagSynonym() const;
-
-        /// @brief get minimum number of childs
-        int getMinNumberOfChilds() const;
-
-        /// @brief get maximum number of childs
-        int getMaxNumberOfChilds() const;
 
         /// @brief check if current TagValues owns the attribute attr
         bool hasAttribute(SumoXMLAttr attr) const;
@@ -337,12 +331,6 @@ public:
 
         /// @brief parent tag
         SumoXMLTag myParentTag;
-
-        /// @brief maximun number of childs (0 -> unlimited)
-        int myMinNumberOfChilds;
-
-        /// @brief maximun number of childs (0 -> unlimited)
-        int myMaxNumberOfChilds;
 
         /// @brief Tag written in XML (If is SUMO_TAG_NOTHING), original Tag name will be written)
         SumoXMLTag myTagSynonym;

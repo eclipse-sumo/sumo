@@ -62,19 +62,15 @@ GNEAttributeCarrier::TagValues::TagValues() :
     myIcon(ICON_EMPTY),
     myPositionListed(0),
     myParentTag(SUMO_TAG_NOTHING),
-    myMinNumberOfChilds(0),
-    myMaxNumberOfChilds(0),
     myTagSynonym(SUMO_TAG_NOTHING) {
 }
 
 
-GNEAttributeCarrier::TagValues::TagValues(int tagProperty, int positionListed, GUIIcon icon, SumoXMLTag parentTag, int minNumberOfChilds, int maxNumberOfChilds, SumoXMLTag tagSynonym) :
+GNEAttributeCarrier::TagValues::TagValues(int tagProperty, int positionListed, GUIIcon icon, SumoXMLTag parentTag, SumoXMLTag tagSynonym) :
     myTagProperty(tagProperty),
     myIcon(icon),
     myPositionListed(positionListed),
     myParentTag(parentTag),
-    myMinNumberOfChilds(minNumberOfChilds),
-    myMaxNumberOfChilds(maxNumberOfChilds),
     myTagSynonym(tagSynonym) {
 }
 
@@ -190,20 +186,8 @@ GNEAttributeCarrier::TagValues::getTagSynonym() const {
     if(hasTagSynonym()) {
         return myTagSynonym;
     } else {
-        throw ProcessError("Tag doesn't have synonim");
+        throw ProcessError("Tag doesn't have synonym");
     }
-}
-
-
-int 
-GNEAttributeCarrier::TagValues::getMinNumberOfChilds() const {
-    return myMinNumberOfChilds;
-}
-
-
-int
-GNEAttributeCarrier::TagValues::getMaxNumberOfChilds() const {
-    return myMaxNumberOfChilds;
 }
 
 
@@ -448,7 +432,7 @@ GNEAttributeCarrier::AttributeValues::getAttrSynonym() const {
     if(hasAttrSynonym()) {
         return myAttrSynonym;
     } else {
-        throw ProcessError("Attr doesn't have synonim");
+        throw ProcessError("Attr doesn't have synonym");
     }
 }
 
@@ -1502,7 +1486,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_E3DETECTOR;
     {
         // set values of tag
-        myAllowedTags[currentTag] = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DETECTOR | TAGPROPERTY_BLOCKMOVEMENT | TAGPROPERTY_MINIMUMCHILDS, 22, ICON_E3, SUMO_TAG_NOTHING, 1);
+        myAllowedTags[currentTag] = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DETECTOR | TAGPROPERTY_BLOCKMOVEMENT | TAGPROPERTY_MINIMUMCHILDS, 22, ICON_E3);
         // set values of attributes
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_ID,
             ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
@@ -1658,7 +1642,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_LANECALIBRATOR;
     {
         // set values of tag
-        myAllowedTags[currentTag] = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_SYNONYM | TAGPROPERTY_DIALOG, 41, ICON_CALIBRATOR, SUMO_TAG_NOTHING, 0, 0, SUMO_TAG_CALIBRATOR);
+        myAllowedTags[currentTag] = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_SYNONYM | TAGPROPERTY_DIALOG, 41, ICON_CALIBRATOR, SUMO_TAG_NOTHING, SUMO_TAG_CALIBRATOR);
         // set values of attributes
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_ID,
             ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,

@@ -822,14 +822,7 @@ GNEAdditionalFrame::SelectorParentAdditional::refreshListOfAdditionalParents() {
     if(myAdditionalTypeParent != SUMO_TAG_NOTHING) {
         // fill list with IDs of additionals
         for (auto i : myAdditionalFrameParent->getViewNet()->getNet()->getAdditionalByType(myAdditionalTypeParent)) {
-            // Only show additionals that have unlimited number of childs, or a limited number but currently with chidls under the limit
-            if(GNEAttributeCarrier::getTagProperties(myAdditionalTypeParent).getMaxNumberOfChilds()) {
-                if ((int)i.second->getAdditionalChilds().size() < GNEAttributeCarrier::getTagProperties(myAdditionalTypeParent).getMaxNumberOfChilds()) {
-                    myAdditionalParentsList->appendItem(i.first.c_str());
-                }
-            } else {
-                myAdditionalParentsList->appendItem(i.first.c_str());
-            }
+            myAdditionalParentsList->appendItem(i.first.c_str());
         }
     }
 }

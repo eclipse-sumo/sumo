@@ -363,6 +363,11 @@ private:
     /// @brief Matrix with the Vertex's positions of connections between parents an their childs
     std::vector<std::vector<Position> > myChildConnectionPositions;
 
+    /**@brief check restriction with the number of childs
+     * @throw ProcessError if itis called without be reimplemented in child class
+     */
+    virtual bool checkAdditionalChildRestriction() const;
+
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
 

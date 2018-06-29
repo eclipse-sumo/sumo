@@ -244,6 +244,30 @@ GNEDetectorE3::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
+bool 
+GNEDetectorE3::checkAdditionalChildRestriction() const {
+    int numEntrys = 0;
+    int numExits = 0;
+    // iterate over additional chidls and obtain number of entrys and exits
+    for (auto i : myAdditionalChilds) {
+        if (i->getTag() == SUMO_TAG_DET_ENTRY) {
+            numEntrys++;
+        } else if (i->getTag() == SUMO_TAG_DET_EXIT) {
+            numExits++;
+        }
+    }
+    // write warnings
+    if(numEntrys == 0) {
+        WRITE_WARNING("An " + toString(SUMO_TAG_E3DETECTOR) + " need at least one " + toString(SUMO_TAG_DET_ENTRY) + " detector.");
+    }
+     if(numExits == 0) {
+        WRITE_WARNING("An " + toString(SUMO_TAG_E3DETECTOR) + " need at least one " + toString(SUMO_TAG_DET_EXIT) + " detector.");
+    }
+    // return false depending of number of Entrys and Exits
+     return ((numEntrys != 0) && (numExits != 0));
+}
+
+
 void
 GNEDetectorE3::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {

@@ -125,6 +125,9 @@ protected:
     double mySpeedThreshold;
 
 private:
+    /// @brief check restriction with the number of childs
+    bool checkAdditionalChildRestriction() const;
+
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
