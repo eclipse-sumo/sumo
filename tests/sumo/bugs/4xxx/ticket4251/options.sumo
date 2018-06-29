@@ -1,4 +1,4 @@
 -r input_routes.rou.xml
 -n net.net.xml
---time-to-teleport 100
 --no-step-log true
+--tripinfo-output tripinfos.xml
