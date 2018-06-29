@@ -1825,7 +1825,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_ALLOW,
             ATTRPROPERTY_VCLASS | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_COMBINABLE | ATTRPROPERTY_OPTIONAL,
             "allowed vehicles", 
-            "all"); 
+            ""); 
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_DISALLOW,
             ATTRPROPERTY_VCLASS | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_COMBINABLE | ATTRPROPERTY_OPTIONAL,
             "disallowed vehicles", 
@@ -1844,7 +1844,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_ALLOW,
             ATTRPROPERTY_VCLASS | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_COMBINABLE | ATTRPROPERTY_OPTIONAL,
             "allowed vehicles", 
-            "all");
+            "");
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_DISALLOW,
             ATTRPROPERTY_VCLASS | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_COMBINABLE | ATTRPROPERTY_OPTIONAL,
             "disallowed vehicles", 
