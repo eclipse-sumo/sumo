@@ -229,6 +229,9 @@ public:
         /// @brief add attribute with synonim (duplicated attributed aren't allowed)
         void addAttribute(SumoXMLAttr attr, int attributeProperty, const std::string &definition, const std::string &defaultValue, SumoXMLAttr synonym);
 
+        /// @brief add deprecated Attribute
+        void addDeprecatedAttribute(SumoXMLAttr attr);
+
         /// @brief get attribute (throw error if doesn't exist)
         const AttributeValues &getAttribute(SumoXMLAttr attr) const;
 
@@ -316,6 +319,9 @@ public:
         /// @brief return true if tag correspond to an element that can be reparent
         bool canBeReparent() const;
 
+        /// @brief return true if attribute of this tag is deprecated
+        bool isAttributeDeprecated(SumoXMLAttr attr) const;
+
     private:
         /// @brief Property of attribute
         int myTagProperty;
@@ -340,6 +346,9 @@ public:
 
         /// @brief Tag written in XML (If is SUMO_TAG_NOTHING), original Tag name will be written)
         SumoXMLTag myTagSynonym;
+
+        /// @brief List with the deprecated Attributes
+        std::vector<SumoXMLAttr> myDeprecatedAttributes;
     };
 
     /**@brief Constructor
@@ -484,11 +493,21 @@ public:
 
     /// @brief Parse attribute from XML and show warnings if there are problems parsing it
     template <typename T>
-    static T parseAttributeFromXML(const SUMOSAXAttributes& attrs, const std::string& objectID, const SumoXMLTag tag, const SumoXMLAttr attribute, bool& abort/*, T optional*/) {
+    static T parseAttributeFromXML(const SUMOSAXAttributes& attrs, const std::string& objectID, const SumoXMLTag tag, const SumoXMLAttr attribute, bool& abort) {
         bool parsedOk = true;
+        // obtain tag properties
+        const auto &tagProperties = getTagProperties(tag);
+        // first check if attribute is deprecated
+        if (tagProperties.isAttributeDeprecated(attribute)) {
+            // show warning if deprecateda ttribute is in the SUMOSAXAttributes
+            if (attrs.hasAttribute(attribute)) {
+                WRITE_WARNING("Attribute " + toString(attribute) + "' of " + toString(tag) + " is deprecated and will not be loaded.");
+            }
+            return parse<T>("");
+        }
         std::string defaultValue, parsedAttribute;
         // obtain attribute properties (Only for improving efficiency)
-        const auto &attrProperties = getTagProperties(tag).getAttribute(attribute);
+        const auto &attrProperties = tagProperties.getAttribute(attribute);
         // set additionalOfWarningMessage
         std::string additionalOfWarningMessage;
         if (objectID != "") {

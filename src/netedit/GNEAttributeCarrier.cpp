@@ -99,21 +99,38 @@ GNEAttributeCarrier::TagValues::getPositionListed() const {
 
 void 
 GNEAttributeCarrier::TagValues::addAttribute(SumoXMLAttr attr, int attributeProperty, const std::string &definition, const std::string &defaultValue, std::vector<std::string> discreteValues, SumoXMLAttr synonym) {
-    if(myAttributeValues.count(attr) == 0) {
-        myAttributeValues[attr] = AttributeValues(attributeProperty, (int)myAttributeValues.size(), definition, defaultValue, discreteValues, synonym);
-    } else {
+    if(isAttributeDeprecated(attr)) {
+        throw ProcessError("Attribute '" + toString(attr) + "' is deprecated and cannot be inserted");
+    } else if(myAttributeValues.count(attr) != 0) {
         throw ProcessError("Attribute '" + toString(attr) + "' already inserted");
+    } else {
+        myAttributeValues[attr] = AttributeValues(attributeProperty, (int)myAttributeValues.size(), definition, defaultValue, discreteValues, synonym);
     }
 }
 
 
 void 
 GNEAttributeCarrier::TagValues::addAttribute(SumoXMLAttr attr, int attributeProperty, const std::string &definition, const std::string &defaultValue, SumoXMLAttr synonym) {
-    if(myAttributeValues.count(attr) == 0) {
-        myAttributeValues[attr] = AttributeValues(attributeProperty, (int)myAttributeValues.size(), definition, defaultValue, std::vector<std::string>(), synonym);
-    } else {
+    if(isAttributeDeprecated(attr)) {
+        throw ProcessError("Attribute '" + toString(attr) + "' is deprecated and cannot be inserted");
+    } else if(myAttributeValues.count(attr) != 0) {
         throw ProcessError("Attribute '" + toString(attr) + "' already inserted");
+    } else {
+        myAttributeValues[attr] = AttributeValues(attributeProperty, (int)myAttributeValues.size(), definition, defaultValue, std::vector<std::string>(), synonym);
     }
+}
+
+
+void 
+GNEAttributeCarrier::TagValues::addDeprecatedAttribute(SumoXMLAttr attr) {
+    // Check that attribute wasn't already inserted
+    for (auto i : myAttributeValues) {
+        if (i.first == attr) {
+            throw ProcessError("Attribute '" + toString(attr) + "' is deprecated but was inserted in list of attributes");
+        }
+    }
+    // add it into myDeprecatedAttributes
+    myDeprecatedAttributes.push_back(attr);
 }
 
 
@@ -295,6 +312,12 @@ GNEAttributeCarrier::TagValues::hasMaximumNumberOfChilds() const {
 bool 
 GNEAttributeCarrier::TagValues::canBeReparent() const {
     return (myTagProperty & TAGPROPERTY_REPARENT) != 0;
+}
+
+
+bool 
+GNEAttributeCarrier::TagValues::isAttributeDeprecated(SumoXMLAttr attr) const {
+    return (std::find(myDeprecatedAttributes.begin(), myDeprecatedAttributes.end(), attr) != myDeprecatedAttributes.end());
 }
 
 // ---------------------------------------------------------------------------
@@ -1572,6 +1595,8 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     {
         // set values of tag
         myAllowedTags[currentTag] = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_BLOCKMOVEMENT | TAGPROPERTY_DIALOG, 30, ICON_VARIABLESPEEDSIGN);
+        // set "file" as deprecated attribute
+        myAllowedTags[currentTag].addDeprecatedAttribute(SUMO_ATTR_FILE);
         // set values of attributes
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_ID,
             ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE,
@@ -1584,10 +1609,6 @@ GNEAttributeCarrier::fillAttributeCarriers() {
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_LANES,
             ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE,
             "list of lanes of Variable Speed Sign", 
-            "");
-        myAllowedTags[currentTag].addAttribute(SUMO_ATTR_FILE,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_FILENAME | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
-            "The path to the output file", 
             "");
     }
     currentTag = SUMO_TAG_STEP;

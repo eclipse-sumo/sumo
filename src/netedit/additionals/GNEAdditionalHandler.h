@@ -554,8 +554,12 @@ public:
     DOCUMENTAR
     */
     static bool builDestProbReroute(GNEViewNet* viewNet, bool allowUndoRedo, GNERerouterInterval* rerouterIntervalParent, GNEEdge* newEdgeDestination, double probability);
-
+    
+    /**
+    DOCUMENTAR
+    */
     static bool builParkingAreaReroute(GNEViewNet* viewNet, bool allowUndoRedo, GNERerouterInterval* rerouterIntervalParent, GNEParkingArea* newParkignArea, double probability);
+    
     /**
     DOCUMENTAR
     */
@@ -584,7 +588,7 @@ public:
      * @return true if was sucesfully created, false in other case
      * @exception InvalidArgument If the VariableSpeedSign can not be added to the net (is duplicate)
      */
-    static bool buildVariableSpeedSign(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, Position pos, const std::vector<GNELane*>& destLanes, const std::string& file, bool blockMovement);
+    static bool buildVariableSpeedSign(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, Position pos, const std::vector<GNELane*>& destLanes, bool blockMovement);
 
     /**@brief Builds a VariableSpeedSign Step
     * @param[in] viewNet viewNet in which element will be inserted
