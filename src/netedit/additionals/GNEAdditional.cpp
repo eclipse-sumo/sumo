@@ -197,6 +197,11 @@ GNEAdditional::addAdditionalChild(GNEAdditional* additional) {
         throw ProcessError(toString(additional->getTag()) + " with ID='" + additional->getID() + "' was already inserted in " + toString(getTag()) + " with ID='" + getID() + "'");
     } else {
         myAdditionalChilds.push_back(additional);
+        // Check if childs has to be sorted automatically
+        if(getTagProperties(getTag()).canAutomaticSortChilds()) {
+            sortAdditionalChilds();
+        }
+        // update geometry (for set geometry of lines between Parents and Childs)
         updateGeometry();
     }
 }
@@ -210,6 +215,11 @@ GNEAdditional::removeAdditionalChild(GNEAdditional* additional) {
         throw ProcessError(toString(additional->getTag()) + " with ID='" + additional->getID() + "' doesn't exist in " + toString(getTag()) + " with ID='" + getID() + "'");
     } else {
         myAdditionalChilds.erase(it);
+        // Check if childs has to be sorted automatically
+        if(getTagProperties(getTag()).canAutomaticSortChilds()) {
+            sortAdditionalChilds();
+        }
+        // update geometry (for remove geometry of lines between Parents and Childs)
         updateGeometry();
     }
 }

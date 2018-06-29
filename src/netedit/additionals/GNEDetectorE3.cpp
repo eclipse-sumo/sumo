@@ -258,10 +258,10 @@ GNEDetectorE3::checkAdditionalChildRestriction() const {
     }
     // write warnings
     if(numEntrys == 0) {
-        WRITE_WARNING("An " + toString(SUMO_TAG_E3DETECTOR) + " need at least one " + toString(SUMO_TAG_DET_ENTRY) + " detector.");
+        WRITE_WARNING("An " + toString(SUMO_TAG_E3DETECTOR) + " need at least one " + toString(SUMO_TAG_DET_ENTRY) + " detector");
     }
      if(numExits == 0) {
-        WRITE_WARNING("An " + toString(SUMO_TAG_E3DETECTOR) + " need at least one " + toString(SUMO_TAG_DET_EXIT) + " detector.");
+        WRITE_WARNING("An " + toString(SUMO_TAG_E3DETECTOR) + " need at least one " + toString(SUMO_TAG_DET_EXIT) + " detector");
     }
     // return false depending of number of Entrys and Exits
      return ((numEntrys != 0) && (numExits != 0));

@@ -288,14 +288,14 @@ GNEAttributeCarrier::TagValues::hasMinimumNumberOfChilds() const {
 
 
 bool 
-GNEAttributeCarrier::TagValues::hasMaximumNumberOfChilds() const {
-    return (myTagProperty & TAGPROPERTY_MAXIMUMCHILDS) != 0;
+GNEAttributeCarrier::TagValues::canBeReparent() const {
+    return (myTagProperty & TAGPROPERTY_REPARENT) != 0;
 }
 
 
-bool 
-GNEAttributeCarrier::TagValues::canBeReparent() const {
-    return (myTagProperty & TAGPROPERTY_REPARENT) != 0;
+bool
+GNEAttributeCarrier::TagValues::canAutomaticSortChilds() const {
+    return (myTagProperty & TAGPROPERTY_AUTOMATICSORTING) != 0;
 }
 
 
@@ -1486,7 +1486,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_E3DETECTOR;
     {
         // set values of tag
-        myAllowedTags[currentTag] = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DETECTOR | TAGPROPERTY_BLOCKMOVEMENT | TAGPROPERTY_MINIMUMCHILDS, 22, ICON_E3);
+        myAllowedTags[currentTag] = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DETECTOR | TAGPROPERTY_BLOCKMOVEMENT | TAGPROPERTY_MINIMUMCHILDS | TAGPROPERTY_AUTOMATICSORTING, 22, ICON_E3);
         // set values of attributes
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_ID,
             ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
