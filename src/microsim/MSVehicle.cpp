@@ -2327,10 +2327,12 @@ MSVehicle::checkLinkLeader(const MSLink* link, const MSLane* lane, double seen,
                 v = MAX2(v, lastLink->myVLinkWait);
             }
             // if blocked by a leader from the same or next lane we must yield our request
+            // also, if blocked by a stopped leader
             if (v < SUMO_const_haltingSpeed
                     //&& leader->getSpeed() < SUMO_const_haltingSpeed
                     && (leader->getLane()->getLogicalPredecessorLane() == myLane->getLogicalPredecessorLane()
-                        || leader->getLane()->getLogicalPredecessorLane() == myLane)) {
+                        || leader->getLane()->getLogicalPredecessorLane() == myLane
+                        || leader->isStopped())) {
                 setRequest = false;
                 if (lastLink != 0 && leader->getLane()->getLogicalPredecessorLane() == myLane) {
                     // we are not yet on the junction so must abort that request as well
