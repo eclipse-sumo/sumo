@@ -51,13 +51,15 @@ if shape:
     
         
 with open(outfile, 'w') as outf:
+    numPoly = 0
+    numPoi = 0
     if shapes:
-        print "writing %s polygons" % len(shapes)
         outf.write("<shapes>\n")
         for i, (id, shape) in enumerate(shapes):
             if len(shape) > 1:
                 outf.write('    <poly id="%s" shape="%s" color="%s" fill="%s"/>\n' % (
                     id, " ".join(shape), COLORS[i % len(COLORS)], fill))
+                numPoly += 1
             else:
                 xyz = shape[0].split(',')
                 if len(xyz) >= 2:
@@ -65,6 +67,8 @@ with open(outfile, 'w') as outf:
                     y = xyz[1]
                     outf.write('    <poi id="%s" x="%s" y="%s" color="%s"/>\n' % (
                         id, x, y, COLORS[i % len(COLORS)]))
+                    numPoi += 1
         outf.write("</shapes>\n")
+    print("wrote %s polygons and %s POIs to '%s'" % (numPoly, numPoi, outfile))
 
 
