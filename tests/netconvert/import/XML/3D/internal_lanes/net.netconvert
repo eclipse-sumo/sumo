@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jun 28 08:28:36 2018 by Eclipse SUMO netconvert Version 3ef3414
+<!-- generated on Fri Jun 29 08:47:00 2018 by Eclipse SUMO netconvert Version 0c796fb
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -95,7 +95,7 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
 
     <junction id="gneJ0" type="unregulated" x="0.00" y="0.00" incLanes="gneE7_0" intLanes=":gneJ0_0_0" shape="0.00,0.00 0.00,3.20 0.00,0.00"/>
-    <junction id="gneJ1" type="priority" x="100.00" y="0.00" z="10.00" incLanes="gneE5_0 gneE6_0 gneE0_0" intLanes=":gneJ1_0_0 :gneJ1_1_0 :gneJ1_2_0 :gneJ1_3_0 :gneJ1_4_0 :gneJ1_9_0 :gneJ1_6_0 :gneJ1_10_0 :gneJ1_11_0" shape="96.80,7.20,10.00 103.20,7.20,10.00 103.59,5.18,9.27 104.07,4.32,9.29 104.74,3.70,9.30 105.61,3.32,9.32 107.20,3.20,10.00 107.20,-3.20,10.00 92.80,-3.20,10.00 92.80,3.20,10.00 94.82,3.59,9.27 95.68,4.07,9.29 96.30,4.74,9.30 96.68,5.61,9.32">
+    <junction id="gneJ1" type="priority" x="100.00" y="0.00" z="10.00" incLanes="gneE5_0 gneE6_0 gneE0_0" intLanes=":gneJ1_0_0 :gneJ1_1_0 :gneJ1_2_0 :gneJ1_3_0 :gneJ1_4_0 :gneJ1_9_0 :gneJ1_6_0 :gneJ1_10_0 :gneJ1_11_0" shape="96.80,7.20,10.00 103.20,7.20,10.00 103.64,4.98,10.00 104.20,4.20,10.00 104.98,3.64,10.00 105.98,3.31,10.00 107.20,3.20,10.00 107.20,-3.20,10.00 92.80,-3.20,10.00 92.80,3.20,10.00 95.02,3.64,10.00 95.80,4.20,10.00 96.36,4.98,10.00 96.69,5.98,10.00">
         <request index="0" response="000010000" foes="100010000" cont="0"/>
         <request index="1" response="011010000" foes="011110000" cont="0"/>
         <request index="2" response="010001000" foes="010001000" cont="0"/>
