@@ -65,6 +65,7 @@ import simpla._platoonmanager  # noqa
 
 warn = rp.Warner("simpla")
 _mgr = None
+_mgr_listenerID = None
 _useStepListener = 'addStepListener' in dir(traci)
 _emergencyDecelImplemented = 'VAR_EMERGENCY_DECEL' in dir(traci.constants)
 
@@ -81,22 +82,22 @@ def load(config_filename):
     '''
     Load the config from file and create a Platoon Manager
     '''
-    global _mgr
+    global _mgr, _mgr_listenerID
     simpla._config.load(config_filename)
     _mgr = simpla._platoonmanager.PlatoonManager()
     if _useStepListener:
         # For SUMO version >= 0.30
-        traci.addStepListener(_mgr)
+        _mgr_listenerID = traci.addStepListener(_mgr)
 
 
 def stop():
     '''
     Stop the PlatoonManager
     '''
-    global _mgr
+    global _mgr, _mgr_listenerID
     if _mgr is not None:
         _mgr.stop()
-        traci.removeStepListener(_mgr)
+        traci.removeStepListener(_mgr_listenerID)
     _mgr = None
 
 
