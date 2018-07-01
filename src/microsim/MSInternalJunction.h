@@ -80,6 +80,8 @@ public:
 
 private:
 
+    bool indirectBicycleTurn(const MSLane* specialLane, const MSLink* thisLink, const MSLane* foeFirstPart, const MSLink* foeLink) const;
+
     std::vector<MSLink*> myInternalLinkFoes;
     std::vector<MSLane*> myInternalLaneFoes;
 
