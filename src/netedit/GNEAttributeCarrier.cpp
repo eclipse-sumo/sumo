@@ -522,6 +522,12 @@ GNEAttributeCarrier::AttributeValues::isVClass() const {
 
 
 bool 
+GNEAttributeCarrier::AttributeValues::isSVCPermission() const {
+    return ((myAttributeProperty & ATTRPROPERTY_LIST) != 0) && ((myAttributeProperty & ATTRPROPERTY_VCLASS) != 0);
+}
+
+
+bool 
 GNEAttributeCarrier::AttributeValues::isList() const {
     return (myAttributeProperty & ATTRPROPERTY_LIST) != 0;
 }

@@ -121,14 +121,22 @@ GNEAdditional::writeAdditional(OutputDevice& device) const {
         for (auto i : tagProperties) {
             // obtain attribute
             std::string attribute = getAttribute(i.first);
-            if(i.second.isOptional() && i.second.hasDefaultValue()) {
+            if(i.second.isOptional() && i.second.hasDefaultValue() && !i.second.isCombinable()) {
                 // Only write attributes with default value if is different of original
                 if(i.second.getDefaultValue() != attribute) {
                     // check if attribute must be written using a synonim
                     if(i.second.hasAttrSynonym()) {
                         device.writeAttr(i.second.getAttrSynonym(), attribute);
                     } else {
-                        device.writeAttr(i.first, attribute);
+                        // SVC permissions uses their own writting function
+                        if(i.second.isSVCPermission()) {
+                            // disallow attribute musn't be written
+                            if (i.first != SUMO_ATTR_DISALLOW) {
+                                writePermissions(device, parseVehicleClasses(attribute));
+                            }
+                        } else {
+                            device.writeAttr(i.first, attribute);
+                        }
                     }
                 }
             } else {
@@ -136,7 +144,15 @@ GNEAdditional::writeAdditional(OutputDevice& device) const {
                 if(i.second.hasAttrSynonym()) {
                     device.writeAttr(i.second.getAttrSynonym(), attribute);
                 } else {
-                    device.writeAttr(i.first, attribute);
+                    // SVC permissions uses their own writting function
+                    if(i.second.isSVCPermission()) {
+                        // disallow attribute musn't be written
+                        if (i.first != SUMO_ATTR_DISALLOW) {
+                            writePermissions(device, parseVehicleClasses(attribute));
+                        }
+                    } else {
+                        device.writeAttr(i.first, attribute);
+                    }
                 }
             }
         }

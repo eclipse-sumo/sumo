@@ -76,7 +76,7 @@ public:
         ATTRPROPERTY_POSITIVE =     1 << 7,     // Attribute is positive (Including Zero)
         ATTRPROPERTY_NOTZERO =      1 << 8,     // Attribute cannot be 0 (only for numerical attributes)
         ATTRPROPERTY_UNIQUE =       1 << 9,     // Attribute is unique (cannot be edited in a selection of similar elements (ID, Position...)
-        ATTRPROPERTY_FILENAME =     1 << 10,     // Attribute is a filename (string that cannot contains certain characters)
+        ATTRPROPERTY_FILENAME =     1 << 10,    // Attribute is a filename (string that cannot contains certain characters)
         ATTRPROPERTY_NONEDITABLE =  1 << 11,    // Attribute is non editable (index of a lane)
         ATTRPROPERTY_DISCRETE =     1 << 12,    // Attribute is discrete (only certain values are allowed)
         ATTRPROPERTY_PROBABILITY =  1 << 13,    // Attribute is probability (only allowed values between 0 and 1, including both)
@@ -157,6 +157,9 @@ public:
 
         /// @brief return true if atribute is a VehicleClass
         bool isVClass() const;
+
+        /// @brief return true if atribute is a VehicleClass
+        bool isSVCPermission() const;
 
         /// @brief return true if atribute is a list
         bool isList() const;
