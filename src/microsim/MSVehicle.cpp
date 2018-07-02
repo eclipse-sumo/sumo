@@ -2987,7 +2987,11 @@ MSVehicle::executeMove() {
 
     // Determine vNext = speed after current sim step (ballistic), resp. in current simstep (euler)
     // Call to finalizeSpeed applies speed reduction due to dawdling / lane changing but ensures minimum safe speed
-    double vNext = myActionStep ? MAX2(getCarFollowModel().finalizeSpeed(this, vSafe), vSafeMin) : vSafe;
+    double vNext = vSafe;
+    if (myActionStep) {
+        vNext = getCarFollowModel().finalizeSpeed(this, vSafe);
+        vNext = MAX2(vNext, vSafeMin);
+    }
     // (Leo) to avoid tiny oscillations (< 1e-10) of vNext in a standing vehicle column (observed for ballistic update), we cap off vNext
     //       (We assure to do this only for vNext<<NUMERICAL_EPS since otherwise this would nullify the workaround for #2995
     if (fabs(vNext) < 0.1 * NUMERICAL_EPS * TS) {
