@@ -282,6 +282,21 @@ GNEVariableSpeedSign::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
+std::string 
+GNEVariableSpeedSign::getPopUpID() const {
+    return toString(getTag()) + ": " + getID();
+}
+
+
+std::string 
+GNEVariableSpeedSign::getHierarchyName() const {
+    return toString(getTag());
+}
+
+// ===========================================================================
+// private
+// ===========================================================================
+
 void
 GNEVariableSpeedSign::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {

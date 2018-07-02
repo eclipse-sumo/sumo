@@ -144,6 +144,18 @@ GNEClosingReroute::isValid(SumoXMLAttr key, const std::string& value) {
     }
 }
 
+
+std::string 
+GNEClosingReroute::getPopUpID() const {
+    return toString(getTag());
+}
+
+
+std::string 
+GNEClosingReroute::getHierarchyName() const {
+    return toString(getTag()) + ": " + myClosedEdge->getID();
+}
+
 // ===========================================================================
 // private
 // ===========================================================================

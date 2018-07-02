@@ -121,4 +121,15 @@ GNEDetector::getParentName() const {
 }
 
 
+std::string 
+GNEDetector::getPopUpID() const {
+    return toString(getTag()) + ": " + getID();
+}
+
+
+std::string 
+GNEDetector::getHierarchyName() const {
+    return toString(getTag());
+}
+
 /****************************************************************************/

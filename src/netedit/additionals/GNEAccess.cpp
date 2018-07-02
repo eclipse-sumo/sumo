@@ -280,6 +280,18 @@ GNEAccess::isValid(SumoXMLAttr key, const std::string& value) {
     }
 }
 
+
+std::string 
+GNEAccess::getPopUpID() const {
+    return toString(getTag());
+}
+
+
+std::string 
+GNEAccess::getHierarchyName() const {
+    return toString(getTag()) + ": " + myLane->getParentEdge().getID();
+}
+
 // ===========================================================================
 // private
 // ===========================================================================

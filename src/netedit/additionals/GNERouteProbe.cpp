@@ -261,6 +261,21 @@ GNERouteProbe::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
 }
 
 
+std::string 
+GNERouteProbe::getPopUpID() const {
+    return toString(getTag()) + ": " + getID();
+}
+
+
+std::string 
+GNERouteProbe::getHierarchyName() const {
+    return toString(getTag());
+}
+
+// ===========================================================================
+// private
+// ===========================================================================
+
 bool
 GNERouteProbe::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {

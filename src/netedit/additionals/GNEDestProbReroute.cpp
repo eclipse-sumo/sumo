@@ -137,6 +137,18 @@ GNEDestProbReroute::isValid(SumoXMLAttr key, const std::string& value) {
     }
 }
 
+
+std::string 
+GNEDestProbReroute::getPopUpID() const {
+    return toString(getTag());
+}
+
+
+std::string 
+GNEDestProbReroute::getHierarchyName() const {
+    return toString(getTag()) + ": " + myNewEdgeDestination->getID();
+}
+
 // ===========================================================================
 // private
 // ===========================================================================

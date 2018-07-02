@@ -268,6 +268,21 @@ GNEDetectorE3::checkAdditionalChildRestriction() const {
 }
 
 
+std::string 
+GNEDetectorE3::getPopUpID() const {
+    return toString(getTag()) + ":" + getID();
+}
+
+
+std::string 
+GNEDetectorE3::getHierarchyName() const {
+    return toString(getTag());
+}
+
+// ===========================================================================
+// private
+// ===========================================================================
+
 void
 GNEDetectorE3::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {

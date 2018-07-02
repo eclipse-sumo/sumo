@@ -229,6 +229,18 @@ GNEParkingSpace::isValid(SumoXMLAttr key, const std::string& value) {
     }
 }
 
+
+std::string 
+GNEParkingSpace::getPopUpID() const {
+    return toString(getTag());
+}
+
+
+std::string 
+GNEParkingSpace::getHierarchyName() const {
+    return toString(getTag());
+}
+
 // ===========================================================================
 // private
 // ===========================================================================

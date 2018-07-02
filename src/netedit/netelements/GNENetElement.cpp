@@ -168,4 +168,26 @@ GNENetElement::isAttributeCarrierSelected() const {
     return mySelected;
 }
 
+
+std::string 
+GNENetElement::getPopUpID() const {
+    if(getTag() == SUMO_TAG_CONNECTION) {
+        return getAttribute(SUMO_ATTR_FROM) + "_" + getAttribute(SUMO_ATTR_FROM_LANE) + " -> " + getAttribute(SUMO_ATTR_TO) + "_" + getAttribute(SUMO_ATTR_TO_LANE);
+    } else {
+        return toString(getTag()) + ": " + getID();
+    }
+}
+
+
+std::string 
+GNENetElement::getHierarchyName() const {
+    if(getTag() == SUMO_TAG_LANE) {
+        return toString(getTag()) + " " + getAttribute(SUMO_ATTR_INDEX);
+    } else if(getTag() == SUMO_TAG_CONNECTION) {
+        return getAttribute(SUMO_ATTR_FROM_LANE) + " -> " + getAttribute(SUMO_ATTR_TO_LANE);
+    } else {
+        return toString(getTag());
+    }
+}
+
 /****************************************************************************/

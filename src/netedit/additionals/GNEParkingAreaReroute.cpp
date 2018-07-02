@@ -137,6 +137,18 @@ GNEParkingAreaReroute::isValid(SumoXMLAttr key, const std::string& value) {
     }
 }
 
+
+std::string 
+GNEParkingAreaReroute::getPopUpID() const {
+    return toString(getTag());
+}
+
+
+std::string 
+GNEParkingAreaReroute::getHierarchyName() const {
+    return toString(getTag()) + ": " + myParkingArea->getID();
+}
+
 // ===========================================================================
 // private
 // ===========================================================================

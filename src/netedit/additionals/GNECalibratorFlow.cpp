@@ -314,6 +314,18 @@ GNECalibratorFlow::isValid(SumoXMLAttr key, const std::string& value) {
     }
 }
 
+
+std::string 
+GNECalibratorFlow::getPopUpID() const {
+    return toString(getTag());
+}
+
+
+std::string 
+GNECalibratorFlow::getHierarchyName() const {
+    return toString(getTag()) + ": " + getAttribute(SUMO_ATTR_BEGIN) + " -> " + getAttribute(SUMO_ATTR_END);
+}
+
 // ===========================================================================
 // private
 // ===========================================================================

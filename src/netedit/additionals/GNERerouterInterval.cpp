@@ -158,6 +158,18 @@ GNERerouterInterval::isValid(SumoXMLAttr key, const std::string& value) {
     }
 }
 
+
+std::string 
+GNERerouterInterval::getPopUpID() const {
+    return toString(getTag());
+}
+
+
+std::string 
+GNERerouterInterval::getHierarchyName() const {
+    return toString(getTag()) + ": " + getAttribute(SUMO_ATTR_BEGIN) + " -> " + getAttribute(SUMO_ATTR_END);
+}
+
 // ===========================================================================
 // private
 // ===========================================================================

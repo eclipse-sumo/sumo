@@ -262,4 +262,16 @@ GNEStoppingPlace::setStoppingPlaceGeometry(double movingToSide) {
     }
 }
 
+
+std::string 
+GNEStoppingPlace::getPopUpID() const {
+    return toString(getTag()) + ": " + getID();
+}
+
+
+std::string 
+GNEStoppingPlace::getHierarchyName() const {
+    return toString(getTag());
+}
+
 /****************************************************************************/

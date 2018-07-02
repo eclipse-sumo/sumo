@@ -306,6 +306,21 @@ GNECalibratorVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
+std::string 
+GNECalibratorVehicleType::getPopUpID() const {
+    return toString(getTag()) + ": " + getID();
+}
+
+
+std::string 
+GNECalibratorVehicleType::getHierarchyName() const {
+    return toString(getTag());
+}
+
+// ===========================================================================
+// private
+// ===========================================================================
+
 void
 GNECalibratorVehicleType::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {

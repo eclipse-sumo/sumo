@@ -65,6 +65,7 @@ class GNEAttributeCarrier : public GNEReferenceCounter {
 
 public:
 
+    /// @brief struct with the tag Properties
     enum AttrProperty {
         ATTRPROPERTY_INT =          1 << 0,     // Attribute is an integer (Including Zero)
         ATTRPROPERTY_FLOAT =        1 << 1,     // Attribute is a float
@@ -382,6 +383,12 @@ public:
     * @param[in] undoList The undoList on which to register changes
     */
     virtual bool isValid(SumoXMLAttr key, const std::string& value) = 0;
+
+    /// @brief get PopPup ID (Used in AC Hierarchy)
+    virtual std::string getPopUpID() const = 0;
+
+    /// @brief get Hierarchy Name (Used in AC Hierarchy)
+    virtual std::string getHierarchyName() const = 0;
     /// @}
 
     /// @name Certain attributes and ACs (for example, connections) can be either loaded or guessed. The following static variables are used to remark it.
@@ -672,10 +679,9 @@ public:
     /// @brief function to calculate circle resolution for all circles drawn in drawGL(...) functions
     static int getCircleResolution(const GUIVisualizationSettings& settings);
 
-    /**@brief write attribute if is essential or if is optional AND is different of default value 
-     * (Note: This solution is temporal, see #4049)
-     */
-    void writeAttribute(OutputDevice& device, SumoXMLAttr key) const;
+protected:
+    /// @brief boolean to check if this AC is selected (instead of GUIGlObjectStorage)
+    bool mySelected;
 
 private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
@@ -687,11 +693,6 @@ private:
     /// @brief the xml tag to which this attribute carrier corresponds
     const SumoXMLTag myTag;
 
-protected:
-    /// @brief boolean to check if this AC is selected (instead of GUIGlObjectStorage)
-    bool mySelected;
-
-private:
     /// @brief map with the tags values
     static std::map<SumoXMLTag, TagValues> myAllowedTags;
 

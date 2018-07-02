@@ -140,6 +140,18 @@ GNERouteProbReroute::isValid(SumoXMLAttr key, const std::string& value) {
     }
 }
 
+
+std::string 
+GNERouteProbReroute::getPopUpID() const {
+    return toString(getTag());
+}
+
+
+std::string 
+GNERouteProbReroute::getHierarchyName() const {
+    return toString(getTag()) + ": " + myNewRouteId;
+}
+
 // ===========================================================================
 // private
 // ===========================================================================

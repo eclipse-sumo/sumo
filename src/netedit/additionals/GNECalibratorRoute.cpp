@@ -161,6 +161,18 @@ GNECalibratorRoute::isValid(SumoXMLAttr key, const std::string& value) {
     }
 }
 
+
+std::string 
+GNECalibratorRoute::getPopUpID() const {
+    return toString(getTag()) + ": " + getID();
+}
+
+
+std::string 
+GNECalibratorRoute::getHierarchyName() const {
+    return toString(getTag());
+}
+
 // ===========================================================================
 // private
 // ===========================================================================

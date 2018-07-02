@@ -144,6 +144,18 @@ GNEClosingLaneReroute::isValid(SumoXMLAttr key, const std::string& value) {
     }
 }
 
+
+std::string 
+GNEClosingLaneReroute::getPopUpID() const {
+    return toString(getTag());
+}
+
+
+std::string 
+GNEClosingLaneReroute::getHierarchyName() const {
+    return toString(getTag()) + ": " + myClosedLane->getID();
+}
+
 // ===========================================================================
 // private
 // ===========================================================================

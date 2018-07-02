@@ -344,6 +344,21 @@ GNERerouter::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
+std::string 
+GNERerouter::getPopUpID() const {
+    return toString(getTag()) + ": " + getID();
+}
+
+
+std::string 
+GNERerouter::getHierarchyName() const {
+    return toString(getTag());
+}
+
+// ===========================================================================
+// private
+// ===========================================================================
+
 void
 GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {

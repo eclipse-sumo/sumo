@@ -164,6 +164,18 @@ GNEVariableSpeedSignStep::isValid(SumoXMLAttr key, const std::string& value) {
     }
 }
 
+
+std::string 
+GNEVariableSpeedSignStep::getPopUpID() const {
+    return toString(getTag());
+}
+
+
+std::string 
+GNEVariableSpeedSignStep::getHierarchyName() const {
+    return toString(getTag()) + ": " + getAttribute(SUMO_ATTR_TIME);
+}
+
 // ===========================================================================
 // private
 // ===========================================================================

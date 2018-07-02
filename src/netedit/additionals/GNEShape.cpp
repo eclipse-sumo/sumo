@@ -131,4 +131,16 @@ GNEShape::isAttributeCarrierSelected() const {
     return mySelected;
 }
 
+
+std::string 
+GNEShape::getPopUpID() const {
+    return toString(getTag()) + ": " + getID();
+}
+
+
+std::string 
+GNEShape::getHierarchyName() const {
+    return toString(getTag());
+}
+
 /****************************************************************************/
