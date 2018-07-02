@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Di 26 Jun 2018 12:18:23 CEST by Eclipse SUMO netedit Version 4e572b6
+<!-- generated on Mon Jul  2 22:43:25 2018 by Eclipse SUMO netconvert Version ebd18c8
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="hbs_intersections_3.net.xml"/>
+        <sumo-net-file value="net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="hbs_intersections_3.net.xml"/>
+        <output-file value="net.net.xml"/>
     </output>
 
     <processing>
@@ -20,10 +20,6 @@
         <walkingareas value="false"/>
     </processing>
 
-    <visualisation>
-        <registry-viewport value="true"/>
-    </visualisation>
-
 </configuration>
 -->
 
@@ -32,7 +28,7 @@
     <location netOffset="-690084.16,-5335366.27" convBoundary="0.00,0.00,600.07,286.25" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
     <edge id=":C_0" function="internal">
-        <lane id=":C_0_0" index="0" speed="13.89" length="18.80" width="3.50" shape="374.22,166.31 367.39,166.51 362.47,167.66 359.47,169.77 358.37,172.83"/>
+        <lane id=":C_0_0" index="0" speed="13.89" length="18.06" width="3.50" shape="374.22,166.31 367.75,166.52 363.09,167.69 360.24,169.80 359.20,172.86"/>
     </edge>
     <edge id=":C_1" function="internal">
         <lane id=":C_1_0" index="0" allow="bicycle" speed="13.89" length="37.28" width="1.50" shape="373.50,166.28 372.25,166.24 363.53,164.91 356.73,164.35 351.09,164.31 336.35,164.79"/>
@@ -56,7 +52,7 @@
         <lane id=":C_22_0" index="0" speed="13.89" length="19.72" width="3.50" shape="363.28,160.50 363.12,160.49 360.11,159.76 357.22,156.41 353.57,151.91 352.54,145.75"/>
     </edge>
     <edge id=":C_6" function="internal">
-        <lane id=":C_6_0" index="0" allow="bicycle" speed="13.89" length="19.03" width="1.50" shape="359.43,144.25 360.09,148.67 362.50,151.89 366.64,153.91 372.52,154.73"/>
+        <lane id=":C_6_0" index="0" allow="bicycle" speed="13.89" length="18.29" width="1.50" shape="360.30,144.28 360.91,148.70 363.15,151.91 367.02,153.92 372.52,154.73"/>
     </edge>
     <edge id=":C_7" function="internal">
         <lane id=":C_7_0" index="0" speed="13.89" length="20.77" width="3.50" shape="359.43,144.25 360.03,149.76 362.36,153.76 366.40,156.24 372.17,157.22"/>
@@ -71,7 +67,7 @@
         <lane id=":C_10_0" index="0" speed="13.89" length="30.55" width="3.50" shape="356.18,144.13 354.66,152.25 350.85,157.99 344.75,161.33 336.36,162.29"/>
     </edge>
     <edge id=":C_11" function="internal">
-        <lane id=":C_11_0" index="0" speed="13.89" length="20.59" width="3.50" shape="334.87,152.76 342.48,152.50 347.97,151.28 351.32,149.11 352.54,145.98"/>
+        <lane id=":C_11_0" index="0" speed="13.89" length="19.85" width="3.50" shape="334.87,152.76 342.12,152.49 347.35,151.27 350.54,149.08 351.71,145.94"/>
     </edge>
     <edge id=":C_12" function="internal">
         <lane id=":C_12_0" index="0" allow="bicycle" speed="13.89" length="38.11" width="1.50" shape="334.64,152.92 346.89,153.79 353.35,154.77 362.16,155.34 372.61,154.73"/>
@@ -95,7 +91,7 @@
         <lane id=":C_24_0" index="0" speed="13.89" length="14.75" width="3.50" shape="349.11,162.25 355.71,166.41 358.37,172.83"/>
     </edge>
     <edge id=":C_17" function="internal">
-        <lane id=":C_17_0" index="0" allow="bicycle" speed="13.89" length="20.53" width="1.50" shape="351.63,174.73 350.82,170.53 347.99,167.47 343.16,165.56 336.32,164.79"/>
+        <lane id=":C_17_0" index="0" allow="bicycle" speed="13.89" length="19.76" width="1.50" shape="350.75,174.70 350.00,170.50 347.34,167.45 342.78,165.55 336.32,164.79"/>
     </edge>
     <edge id=":C_18" function="internal">
         <lane id=":C_18_0" index="0" speed="13.89" length="22.41" width="3.50" shape="351.63,174.73 350.86,169.44 348.05,165.60 343.22,163.22 336.36,162.29"/>
@@ -159,26 +155,26 @@
 
     <junction id="C" type="traffic_light" x="356.17" y="159.05" incLanes="EW1_0 EW1_1 EW1_2 SN1_0 SN1_1 WE1_0 WE1_1 WE1_2 NS1_0 NS1_1" intLanes=":C_0_0 :C_1_0 :C_21_0 :C_3_0 :C_4_0 :C_22_0 :C_6_0 :C_7_0 :C_8_0 :C_9_0 :C_10_0 :C_11_0 :C_12_0 :C_23_0 :C_14_0 :C_15_0 :C_24_0 :C_17_0 :C_18_0 :C_19_0 :C_20_0" shape="372.19,168.00 374.19,167.53 374.25,165.32 377.91,165.51 378.16,159.39 371.92,159.01 372.64,153.85 370.43,153.74 366.99,153.27 365.26,152.43 363.96,151.49 362.44,149.72 361.55,148.31 361.19,146.90 360.94,146.01 361.07,144.31 354.45,144.06 354.00,146.21 350.70,145.69 350.39,146.45 350.70,145.63 349.50,148.10 348.36,149.75 346.60,151.08 344.32,152.30 341.65,152.45 337.05,151.82 334.83,151.63 334.89,153.52 331.30,153.65 331.23,159.89 336.40,160.40 336.30,165.66 341.64,165.80 344.26,166.28 345.76,167.03 347.35,168.40 348.82,169.85 349.03,170.78 350.13,172.58 350.03,174.72 356.65,174.78 356.65,172.70 360.40,172.98 360.16,171.98 361.97,170.14 363.12,168.99 364.58,167.90 366.72,167.27 369.49,167.37" customShape="1">
         <request index="0"  response="000010010000000000000" foes="000010010000100001000" cont="0"/>
-        <request index="1"  response="000010010000000000000" foes="111110010011100000000" cont="0"/>
-        <request index="2"  response="000011111100000110000" foes="110011111111100110000" cont="1"/>
+        <request index="1"  response="000010010000000000000" foes="111110010001100001000" cont="0"/>
+        <request index="2"  response="000011111100000110000" foes="110011111111100111000" cont="1"/>
         <request index="3"  response="000010010000000000111" foes="000010010000100000111" cont="0"/>
-        <request index="4"  response="000010010000000000000" foes="111110010011100000000" cont="0"/>
+        <request index="4"  response="000010010000000000000" foes="111010010011100000100" cont="0"/>
         <request index="5"  response="000001111100000000000" foes="110001111111100000100" cont="1"/>
-        <request index="6"  response="000001001000000000000" foes="100001001000000000000" cont="0"/>
+        <request index="6"  response="000000001000000000000" foes="000000001000000000000" cont="0"/>
         <request index="7"  response="000001001000000000000" foes="100001001000000000000" cont="0"/>
         <request index="8"  response="000011011000000111111" foes="100011011000000111111" cont="0"/>
         <request index="9"  response="011111011000000110110" foes="011111011000000110110" cont="0"/>
-        <request index="10" response="011111011000000110110" foes="011111011000000110110" cont="0"/>
+        <request index="10" response="011011011000000110100" foes="011011011000000110100" cont="0"/>
         <request index="11" response="000000000000000100100" foes="010000100000000100100" cont="0"/>
-        <request index="12" response="000000000000000100100" foes="110000000011111100100" cont="0"/>
-        <request index="13" response="000011000000000011011" foes="110011000011100111111" cont="1"/>
+        <request index="12" response="000000000000000100100" foes="010000100011111100100" cont="0"/>
+        <request index="13" response="000011000000000011011" foes="110011100011100111111" cont="1"/>
         <request index="14" response="000000011100000100100" foes="010000011100000100100" cont="0"/>
-        <request index="15" response="000000000000000100100" foes="110000000011111100100" cont="0"/>
+        <request index="15" response="000000000000000100100" foes="110000010011110100100" cont="0"/>
         <request index="16" response="000000000000000011011" foes="110000010011100011111" cont="1"/>
-        <request index="17" response="000000000000000010010" foes="000000000011000010010" cont="0"/>
+        <request index="17" response="000000000000000000010" foes="000000000001000000010" cont="0"/>
         <request index="18" response="000000000000000010010" foes="000000000011000010010" cont="0"/>
         <request index="19" response="000011111100000110110" foes="000011111111000110110" cont="0"/>
-        <request index="20" response="000011011000111110110" foes="000011011000111110110" cont="0"/>
+        <request index="20" response="000011010000110110110" foes="000011010000110110110" cont="0"/>
     </junction>
     <junction id="gneJ10" type="dead_end" x="583.53" y="166.27" incLanes="" intLanes="" shape="583.53,166.27 583.24,174.61"/>
     <junction id="gneJ13" type="dead_end" x="352.15" y="286.25" incLanes="SN2_0" intLanes="" shape="355.65,286.39 352.15,286.25"/>
@@ -189,8 +185,8 @@
     <junction id="gneJ6" type="dead_end" x="360.47" y="0.00" incLanes="" intLanes="" shape="360.47,0.00 366.96,0.27"/>
     <junction id="gneJ9" type="dead_end" x="600.07" y="166.42" incLanes="WE2_0 WE2_1" intLanes="" shape="600.23,161.42 600.07,166.42"/>
 
-    <junction id=":C_21_0" type="internal" x="350.80" y="166.79" incLanes=":C_2_0" intLanes=":C_4_0 :C_8_0 :C_9_0 :C_10_0 :C_11_0 :C_12_0 :C_13_0 :C_14_0 :C_15_0 :C_16_0 :C_19_0 :C_20_0"/>
-    <junction id=":C_22_0" type="internal" x="363.28" y="160.50" incLanes=":C_5_0" intLanes=":C_8_0 :C_9_0 :C_10_0 :C_11_0 :C_12_0 :C_13_0 :C_14_0 :C_15_0 :C_19_0 :C_20_0"/>
+    <junction id=":C_21_0" type="internal" x="350.80" y="166.79" incLanes=":C_2_0 :C_13_0 :C_16_0" intLanes=":C_23_0 :C_24_0 :C_4_0 :C_8_0 :C_9_0 :C_10_0 :C_11_0 :C_12_0 :C_13_0 :C_14_0 :C_15_0 :C_16_0 :C_19_0 :C_20_0"/>
+    <junction id=":C_22_0" type="internal" x="363.28" y="160.50" incLanes=":C_5_0 :C_13_0" intLanes=":C_23_0 :C_8_0 :C_9_0 :C_10_0 :C_11_0 :C_12_0 :C_13_0 :C_14_0 :C_15_0 :C_19_0 :C_20_0"/>
     <junction id=":C_23_0" type="internal" x="361.69" y="152.96" incLanes=":C_13_0" intLanes=":C_0_0 :C_1_0 :C_2_0 :C_3_0 :C_4_0 :C_5_0 :C_8_0 :C_9_0 :C_10_0 :C_15_0 :C_19_0 :C_20_0"/>
     <junction id=":C_24_0" type="internal" x="349.11" y="162.25" incLanes=":C_16_0" intLanes=":C_0_0 :C_1_0 :C_2_0 :C_3_0 :C_4_0 :C_8_0 :C_9_0 :C_10_0 :C_19_0 :C_20_0"/>
 
@@ -218,7 +214,7 @@
 
     <connection from=":C_0" to="SN2" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from=":C_1" to="EW2" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":C_2" to="NS2" fromLane="0" toLane="0" via=":C_21_0" dir="l" state="m" tl="C" linkIndex="19"/>
+    <connection from=":C_2" to="NS2" fromLane="0" toLane="0" via=":C_21_0" dir="l" state="m"/>
     <connection from=":C_21" to="NS2" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from=":C_3" to="SN2" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from=":C_4" to="EW2" fromLane="0" toLane="1" dir="s" state="M"/>
@@ -231,7 +227,7 @@
     <connection from=":C_10" to="EW2" fromLane="0" toLane="1" dir="l" state="M"/>
     <connection from=":C_11" to="NS2" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from=":C_12" to="WE2" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":C_13" to="SN2" fromLane="0" toLane="0" via=":C_23_0" dir="l" state="m" tl="C" linkIndex="8"/>
+    <connection from=":C_13" to="SN2" fromLane="0" toLane="0" via=":C_23_0" dir="l" state="m"/>
     <connection from=":C_23" to="SN2" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from=":C_14" to="NS2" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from=":C_15" to="WE2" fromLane="0" toLane="1" dir="s" state="M"/>
