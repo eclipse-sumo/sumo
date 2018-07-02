@@ -119,7 +119,7 @@ def simulationStep(step=0):
     """
     global _stepListeners
     responses = _connections[""].simulationStep(step)
-    
+
     # manage stepListeners
     listenersToRemove = []
     for (listenerID, listener) in _stepListeners.items():
@@ -128,7 +128,7 @@ def simulationStep(step=0):
             listenersToRemove.append(listenerID)
     for listenerID in listenersToRemove:
         removeStepListener(listenerID)
-    
+
     return responses
 
 
@@ -151,14 +151,14 @@ class StepListener(object):
         This method is called at removal of the stepListener, allowing to schedule some final actions
         """
         pass
-    
+
     def setID(self, ID):
         self._ID = ID
-        
+
     def getID(self):
         return self._ID
-    
-    
+
+
 def addStepListener(listener):
     """addStepListener(traci.StepListener) -> int
 
@@ -169,8 +169,8 @@ def addStepListener(listener):
     if issubclass(type(listener), StepListener):
         listener.setID(_nextStepListenerID)
         _stepListeners[_nextStepListenerID] = listener
-        _nextStepListenerID+=1
-        #print ("traci: Added stepListener %s\nlisteners: %s"%(_nextStepListenerID - 1, _stepListeners))
+        _nextStepListenerID += 1
+        # print ("traci: Added stepListener %s\nlisteners: %s"%(_nextStepListenerID - 1, _stepListeners))
         return _nextStepListenerID - 1
     warnings.warn(
         "Proposed listener's type must inherit from traci.StepListener. Not adding object of type '%s'" %
@@ -185,14 +185,14 @@ def removeStepListener(listenerID):
     Returns True if the listener was removed successfully, False if it wasn't registered.
     """
     global _stepListeners
-    #print ("traci: removeStepListener %s\nlisteners: %s"%(listenerID, _stepListeners))
+    # print ("traci: removeStepListener %s\nlisteners: %s"%(listenerID, _stepListeners))
     if listenerID in _stepListeners.keys():
         _stepListeners[listenerID].cleanUp()
         del _stepListeners[listenerID]
-        #print ("traci: Removed stepListener %s"%(listenerID))
+        # print ("traci: Removed stepListener %s"%(listenerID))
         return True
-    msg="removeStepListener(listener): listener %s not registered as step listener.\nlisteners:%s" % (listenerID, _stepListeners)
-    #print ("traci: "+msg)
+    msg = "removeStepListener(listener): listener %s not registered as step listener.\nlisteners:%s" % (listenerID, _stepListeners)
+    # print ("traci: "+msg)
     warnings.warn(msg)
     return False
 
