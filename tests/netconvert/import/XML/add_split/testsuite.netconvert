@@ -36,6 +36,9 @@ speed_navteq
 # split edge into 3 parts with custom ids
 3_parts_rename
 
+# split edge and set new permissions
+split_and_permissions
+
 # split an edge that is part of a roundabout
 roundabout
 
