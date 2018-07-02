@@ -528,7 +528,7 @@ public:
      * @param[in] blockMovemet enable or disable block movement
      * @return true if was sucesfully created, false in other case
      */
-    static bool buildRerouter(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, Position pos, const std::vector<GNEEdge*>& edges, double prob, const std::string& file, bool off, double timeThreshold, bool blockMovement);
+    static bool buildRerouter(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, Position pos, const std::vector<GNEEdge*>& edges, double prob, const std::string& file, bool off, double timeThreshold, const std::string& vTypes, bool blockMovement);
 
     /**@brief builds a rerouter interval
     * @param[in] viewNet viewNet in which element will be inserted

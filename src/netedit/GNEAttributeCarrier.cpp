@@ -1804,6 +1804,10 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "The waiting time threshold (in s) that must be reached to activate rerouting (default -1 which disables the threshold)", 
             "0.00");
+        myAllowedTags[currentTag].addAttribute(SUMO_ATTR_VTYPES,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            "The list of vehicle types that shall be affected by this rerouter (empty to affect all types)",
+            "");
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_OFF,
             ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "Whether the router should be inactive initially (and switched on in the gui)", 
