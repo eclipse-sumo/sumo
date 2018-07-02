@@ -33,3 +33,6 @@ ticket4287
 
 # Left turner waits for other left turning vehicle although it could go on.
 ticket4296
+
+# Indirekt left turner ignores foes on lanes intersecting its first internal lane part before internal junction.
+ticket4299
