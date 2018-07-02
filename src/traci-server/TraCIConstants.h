@@ -68,6 +68,9 @@
 // command: close sumo
 #define CMD_CLOSE 0x7F
 
+// command: add subscription filter
+#define CMD_ADD_SUBSCRIPTION_FILTER 0x7e
+
 
 // command: subscribe induction loop (e1) context
 #define CMD_SUBSCRIBE_INDUCTIONLOOP_CONTEXT 0x80
@@ -447,6 +450,44 @@
 #define ROUTING_MODE_DEFAULT 0x00
 // use aggregated travel times from device.rerouting
 #define ROUTING_MODE_AGGREGATED 0x01
+
+// ****************************************
+// FILTER TYPES (for context subscription filters)
+// ****************************************
+
+// Reset all filters
+#define FILTER_TYPE_NONE 0x00
+
+// Filter by list of lanes relative to ego vehicle
+#define FILTER_TYPE_LANES 0x01
+
+// Exclude vehicles on opposite (and other) lanes from context subscription result
+#define FILTER_TYPE_NOOPPOSITE 0x02
+
+// Specify maximal downstream distance for vehicles in context subscription result
+#define FILTER_TYPE_DOWNSTREAM_DIST 0x03
+
+// Specify maximal upstream distance for vehicles in context subscription result
+#define FILTER_TYPE_UPSTREAM_DIST 0x04
+
+// Only return leader and follower in context subscription result
+#define FILTER_TYPE_CF_MANEUVER 0x05
+
+// Only return leader and follower on ego and neighboring lane in context subscription result
+#define FILTER_TYPE_LC_MANEUVER 0x06
+
+// Only return foes on upcoming junction in context subscription result
+#define FILTER_TYPE_TURN_MANEUVER 0x07
+
+// Only return vehicles of the given vClass in context subscription result
+#define FILTER_TYPE_VCLASS 0x08
+
+// Only return vehicles of the given vType in context subscription result
+#define FILTER_TYPE_VTYPE 0x09
+
+
+
+
 
 // ****************************************
 // VARIABLE TYPES (for CMD_GET_*_VARIABLE)

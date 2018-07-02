@@ -29,6 +29,34 @@
 // class definitions
 // ===========================================================================
 namespace libsumo {
+
+    /** @brief Filter types for context subscriptions
+     */
+    enum SubscriptionFilterType {
+        // No filters
+        SUBS_FILTER_NONE = 0,
+        // Filter by list of lanes relative to ego vehicle
+        SUBS_FILTER_LANES = 1,
+        // Exclude vehicles on opposite (and other) lanes from context subscription result
+        SUBS_FILTER_NOOPPOSITE = 1 << 1,
+        // Specify maximal downstream distance for vehicles in context subscription result
+        SUBS_FILTER_DOWNSTREAM_DIST = 1 << 2,
+        // Specify maximal upstream distance for vehicles in context subscription result
+        SUBS_FILTER_UPSTREAM_DIST = 1 << 3,
+        // Only return leader and follower in context subscription result
+        SUBS_FILTER_CF_MANEUVER = 1 << 4,
+        // Only return leader and follower on ego and neighboring lane in context subscription result
+        SUBS_FILTER_LC_MANEUVER = 1 << 5,
+        // Only return foes on upcoming junction in context subscription result
+        SUBS_FILTER_TURN_MANEUVER = 1 << 6,
+        // Only return vehicles of the given vClass in context subscription result
+        SUBS_FILTER_VCLASS = 1 << 7,
+        // Only return vehicles of the given vType in context subscription result
+        SUBS_FILTER_VTYPE = 1 << 8
+    };
+
+
+
     /** @class Subscription
      * @brief Representation of a subscription
      */
@@ -47,7 +75,8 @@ namespace libsumo {
             const std::vector<int>& variablesArg, const std::vector<std::vector<unsigned char> >& paramsArg,
             SUMOTime beginTimeArg, SUMOTime endTimeArg, int contextDomainArg, double rangeArg)
             : commandId(commandIdArg), id(idArg), variables(variablesArg), parameters(paramsArg), beginTime(beginTimeArg), endTime(endTimeArg),
-            contextDomain(contextDomainArg), range(rangeArg) {}
+            contextDomain(contextDomainArg), range(rangeArg), activeFilters(SUBS_FILTER_NONE),
+            filterLanes(), filterDownstreamDist(-1), filterUpstreamDist(-1), filterVTypes(), filterVClasses(0) {}
 
         /// @brief commandIdArg The command id of the subscription
         int commandId;
@@ -65,6 +94,19 @@ namespace libsumo {
         int contextDomain;
         /// @brief The range of the context
         double range;
+
+        /// @brief Active filters for the subscription (bitset, see SubscriptionFilterType)
+        int activeFilters;
+        /// @brief lanes specified by the lanes filter
+        std::vector<int> filterLanes;
+        /// @brief Downstream distance specified by the downstream distance filter
+        double filterDownstreamDist;
+        /// @brief Upstream distance specified by the upstream distance filter
+        double filterUpstreamDist;
+        /// @brief vTypes specified by the vTypes filter
+        std::vector<std::string> filterVTypes;
+        /// @brief vClasses specified by the vClasses filter
+        SVCPermissions filterVClasses;
     };
 }
 

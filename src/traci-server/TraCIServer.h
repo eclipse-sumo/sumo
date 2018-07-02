@@ -384,6 +384,9 @@ private:
     /// @brief The list of known, still valid subscriptions
     std::vector<libsumo::Subscription> mySubscriptions;
 
+    /// @brief The last modified context subscription (the one to add a filter to, see @addSubscriptionFilter(), currently only for vehicle to vehicle context)
+    libsumo::Subscription* myLastContextSubscription;
+
     /// @brief Changes in the states of simulated vehicles
     /// @note
     /// Server cache myVehicleStateChanges is used for managing last steps subscription updates
@@ -395,11 +398,24 @@ private:
 
 private:
     bool addObjectVariableSubscription(const int commandId, const bool hasContext);
-    void initialiseSubscription(const libsumo::Subscription& s);
+    void initialiseSubscription(libsumo::Subscription& s);
     void removeSubscription(int commandId, const std::string& identity, int domain);
     bool processSingleSubscription(const libsumo::Subscription& s, tcpip::Storage& writeInto,
                                    std::string& errors);
 
+
+    bool addSubscriptionFilter();
+    void removeFilters(libsumo::Subscription s);
+    void addLaneFilter(libsumo::Subscription s, std::vector<int> lanes);
+    void addNoOppositeFilter(libsumo::Subscription s);
+    void addDownstreamDistanceFilter(libsumo::Subscription s, double dist);
+    void addUpstreamDistanceFilter(libsumo::Subscription s, double dist);
+    void addCFManeuverFilter(libsumo::Subscription s);
+    void addLCManeuverFilter(libsumo::Subscription s);
+    void addTurnManeuverFilter(libsumo::Subscription s);
+    void addVClassFilter(libsumo::Subscription s, SVCPermissions vClasses);
+    void addVTypeFilter(libsumo::Subscription s, std::vector<std::string> vTypes);
+    bool isVehicleToVehicleContextSubscription(const libsumo::Subscription& s);
 
     bool findObjectShape(int domain, const std::string& id, PositionVector& shape);
 
