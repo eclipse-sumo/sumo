@@ -907,17 +907,19 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
             const MSLane* foeLane = myFoeLanes[i];
             // distance from the querying vehicle to the crossing point with foeLane
             double distToCrossing = dist - myLengthsBehindCrossing[i].first;
-            const bool sameTarget = (myLane == foeLane->getLinkCont()[0]->getLane());
+            const bool sameTarget = (myLane == foeLane->getLinkCont()[0]->getLane()) && !isInternalJunctionLink();
             const bool sameSource = (myInternalLaneBefore != 0 && myInternalLaneBefore->getLogicalPredecessorLane() == foeLane->getLogicalPredecessorLane());
             const double crossingWidth = (sameTarget || sameSource) ? 0 : foeLane->getWidth();
             const double foeCrossingWidth = (sameTarget || sameSource) ? 0 : myInternalLaneBefore->getWidth();
             if (gDebugFlag1) {
-                std::cout << " distToCrossing=" << distToCrossing << " foeLane=" << foeLane->getID() << "\n";
+                std::cout << " distToCrossing=" << distToCrossing << " foeLane=" << foeLane->getID() << " cWidth=" << crossingWidth 
+                    << " ijl=" << isInternalJunctionLink() << " sT=" << sameTarget << " sS=" << sameSource
+                    << "\n";
             }
             // special treatment of contLane foe only applies if this lane is not a contLane or contLane follower itself
             const bool contLane = (foeLane->getLinkCont()[0]->getViaLaneOrLane()->getEdge().isInternal() && !(
                     isInternalJunctionLink() || isExitLinkAfterInternalJunction()));
-            if (!contLane && distToCrossing + crossingWidth < 0) {
+            if (distToCrossing + crossingWidth < 0) {
                 continue; // vehicle is behind the crossing point, continue with next foe lane
             }
             const double foeDistToCrossing = foeLane->getLength() - myLengthsBehindCrossing[i].second;
@@ -937,11 +939,16 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                         && leader->getVehicleType().getVehicleClass() == SVC_BICYCLE 
                         && foeLane->getIncomingLanes().front().viaLink->getDirection() == LINKDIR_LEFT);
                 const bool cannotIgnore = ((contLane && !ignoreIndirectBicycleTurn) || sameTarget || sameSource) && ego != nullptr;
-                const bool inTheWay = !pastTheCrossingPoint && leaderBackDist + foeCrossingWidth < leader->getVehicleType().getLength();
+                const bool inTheWay = !pastTheCrossingPoint && leaderBackDist < leader->getVehicleType().getLength();
                 const bool isOpposite = leader->getLaneChangeModel().isOpposite();
                 if (gDebugFlag1) {
                     std::cout << " candiate leader=" << leader->getID()
                               << " cannotIgnore=" << cannotIgnore
+                              << " fdtc=" << foeDistToCrossing
+                              << " lb=" << leaderBack
+                              << " lbd=" << leaderBackDist
+                              << " fcwidth=" << foeCrossingWidth
+                              << " foePastCP=" << pastTheCrossingPoint
                               << " inTheWay=" << inTheWay
                               << " willPass=" << foeLane->getLinkCont()[0]->getApproaching(leader).willPass
                               << " isFrontOnLane=" << leader->isFrontOnLane(foeLane)
@@ -950,6 +957,11 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                 if (leader == ego) {
                     continue;
                 }
+                // after entering the conflict area, ignore foe vehicles that are not in the way
+                if (distToCrossing < -POSITION_EPS && !inTheWay) {
+                    continue;
+                }
+                // ignore foe vehicles that will not pass
                 if (!cannotIgnore 
                         && !foeLane->getLinkCont()[0]->getApproaching(leader).willPass 
                         && leader->isFrontOnLane(foeLane) 
