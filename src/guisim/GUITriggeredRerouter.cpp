@@ -215,8 +215,8 @@ GUITriggeredRerouter::GUITriggeredRerouterPopupMenu::onCmdOpenManip(FXObject*,
 // -------------------------------------------------------------------------
 
 GUITriggeredRerouter::GUITriggeredRerouter(const std::string& id, const MSEdgeVector& edges, double prob, 
-    const std::string& aXMLFilename, bool off, SUMOTime timeThreshold, SUMORTree& rtree) :
-    MSTriggeredRerouter(id, edges, prob, aXMLFilename, off, timeThreshold),
+    const std::string& aXMLFilename, bool off, SUMOTime timeThreshold, const std::string& vTypes, SUMORTree& rtree) :
+    MSTriggeredRerouter(id, edges, prob, aXMLFilename, off, timeThreshold, vTypes),
     GUIGlObject_AbstractAdd(GLO_REROUTER, id) {
     // add visualisation objects for edges which trigger the rerouter
     for (MSEdgeVector::const_iterator it = edges.begin(); it != edges.end(); ++it) {

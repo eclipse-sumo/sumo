@@ -69,7 +69,8 @@ MSEdge MSTriggeredRerouter::mySpecialDest_terminateRoute("MSTriggeredRerouter_te
 MSTriggeredRerouter::MSTriggeredRerouter(const std::string& id,
         const MSEdgeVector& edges,
         double prob, const std::string& file, bool off,
-        SUMOTime timeThreshold) :
+        SUMOTime timeThreshold,
+        const std::string& vTypes) :
     MSTrigger(id),
     MSMoveReminder(id),
     SUMOSAXHandler(file),
@@ -93,6 +94,8 @@ MSTriggeredRerouter::MSTriggeredRerouter(const std::string& id,
         setUserMode(true);
         setUserUsageProbability(0);
     }
+    const std::vector<std::string> vt = StringTokenizer(vTypes).getVector();
+    myVehicleTypes.insert(vt.begin(), vt.end());
 }
 
 
@@ -353,6 +356,9 @@ MSTriggeredRerouter::notifyLeave(SUMOVehicle& /*veh*/, double /*lastPos*/,
 
 bool
 MSTriggeredRerouter::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification /*reason*/, const MSLane* /* enteredLane */) {
+    if (!vehicleApplies(veh)) {
+        return false;
+    }
     // check whether the vehicle shall be rerouted
     const SUMOTime time = MSNet::getInstance()->getCurrentTimeStep();
     const MSTriggeredRerouter::RerouteInterval* rerouteDef = getCurrentReroute(time, veh);
@@ -806,5 +812,10 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
     return nearParkArea;
 }
 
+
+bool 
+MSTriggeredRerouter::vehicleApplies(const SUMOVehicle& veh) const {
+    return myVehicleTypes.empty() || myVehicleTypes.count(veh.getVehicleType().getID()) > 0;
+}
 /****************************************************************************/
 

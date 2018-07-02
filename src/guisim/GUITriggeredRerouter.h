@@ -63,6 +63,7 @@ public:
                          const MSEdgeVector& edges, double prob,
                          const std::string& aXMLFilename, bool off,
                          SUMOTime timeThreshold,
+                         const std::string& vTypes,
                          SUMORTree& rtree);
 
 

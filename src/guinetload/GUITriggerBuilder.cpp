@@ -60,8 +60,9 @@ MSTriggeredRerouter*
 GUITriggerBuilder::buildRerouter(MSNet& net, const std::string& id,
                                  MSEdgeVector& edges,
                                  double prob, const std::string& file, bool off,
-                                 SUMOTime timeThreshold) {
-    GUITriggeredRerouter* rr = new GUITriggeredRerouter(id, edges, prob, file, off, timeThreshold,
+                                 SUMOTime timeThreshold,
+                                 const std::string& vTypes) {
+    GUITriggeredRerouter* rr = new GUITriggeredRerouter(id, edges, prob, file, off, timeThreshold, vTypes,
             dynamic_cast<GUINet&>(net).getVisualisationSpeedUp());
     return rr;
 }
