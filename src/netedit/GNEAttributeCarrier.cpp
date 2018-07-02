@@ -1830,7 +1830,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_CLOSING_REROUTE;
     {
         // set values of tag
-        myAllowedTags[currentTag] = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_INTERNAL | TAGPROPERTY_PARENT, 52, ICON_REROUTER, SUMO_TAG_INTERVAL);
+        myAllowedTags[currentTag] = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_INTERNAL | TAGPROPERTY_PARENT, 52, ICON_EMPTY, SUMO_TAG_INTERVAL);
         // set values of attributes
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_EDGE,
             ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_SYNONYM,
@@ -1849,7 +1849,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_CLOSING_LANE_REROUTE;
     {
         // set values of tag
-        myAllowedTags[currentTag] = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_INTERNAL | TAGPROPERTY_PARENT, 53, ICON_REROUTER, SUMO_TAG_INTERVAL);
+        myAllowedTags[currentTag] = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_INTERNAL | TAGPROPERTY_PARENT, 53, ICON_EMPTY, SUMO_TAG_INTERVAL);
         // set values of attributes
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_LANE,
             ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_SYNONYM,

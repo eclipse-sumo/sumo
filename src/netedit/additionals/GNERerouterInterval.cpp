@@ -111,6 +111,8 @@ GNERerouterInterval::getAttribute(SumoXMLAttr key) const {
             return toString(myBegin);
         case SUMO_ATTR_END:
             return toString(myEnd);
+        case GNE_ATTR_PARENT:
+            return myAdditionalParent->getID();
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }

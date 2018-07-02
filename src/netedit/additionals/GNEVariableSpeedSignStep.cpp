@@ -108,6 +108,8 @@ GNEVariableSpeedSignStep::getAttribute(SumoXMLAttr key) const {
             return toString(myTime);
         case SUMO_ATTR_SPEED:
             return toString(mySpeed);
+        case GNE_ATTR_PARENT:
+            return myAdditionalParent->getID();
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }

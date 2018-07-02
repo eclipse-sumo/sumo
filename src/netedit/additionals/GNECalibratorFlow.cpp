@@ -171,6 +171,8 @@ GNECalibratorFlow::getAttribute(SumoXMLAttr key) const {
             return myDepartPosLat;
         case SUMO_ATTR_ARRIVALPOS_LAT:
             return myArrivalPosLat;
+        case GNE_ATTR_PARENT:
+            return myAdditionalParent->getID();
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }

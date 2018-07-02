@@ -316,7 +316,7 @@ GNEFrame::ACHierarchy::showAttributeCarrierParents() {
                 if(additional) {
                     // first check if additional has another additional as parent (to add it into root)
                     if (tagValue.hasParent()) {
-                        GNEAdditional* additionalParent = myFrameParent->getViewNet()->getNet()->retrieveAdditional(myAC->getTag(), additional->getAttribute(GNE_ATTR_PARENT));
+                        GNEAdditional* additionalParent = myFrameParent->getViewNet()->getNet()->retrieveAdditional(tagValue.getParentTag(), additional->getAttribute(GNE_ATTR_PARENT));
                         // create additional parent item
                         FXTreeItem* additionalParentItem = myTreelist->insertItem(0, 0, toString(additionalParent->getTag()).c_str(), additionalParent->getIcon(), additionalParent->getIcon());
                         additionalParentItem->setExpanded(true);

@@ -98,6 +98,8 @@ GNEDestProbReroute::getAttribute(SumoXMLAttr key) const {
             return myNewEdgeDestination->getID();
         case SUMO_ATTR_PROB:
             return toString(myProbability);
+        case GNE_ATTR_PARENT:
+            return myAdditionalParent->getID();
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }

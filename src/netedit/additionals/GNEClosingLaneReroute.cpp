@@ -103,6 +103,8 @@ GNEClosingLaneReroute::getAttribute(SumoXMLAttr key) const {
             return getVehicleClassNames(myPermissions);
         case SUMO_ATTR_DISALLOW:
             return getVehicleClassNames(invertPermissions(myPermissions));
+        case GNE_ATTR_PARENT:
+            return myAdditionalParent->getID();
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
