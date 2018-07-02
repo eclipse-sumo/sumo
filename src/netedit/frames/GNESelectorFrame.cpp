@@ -214,10 +214,14 @@ GNESelectorFrame::handleIDs(const std::vector<GNEAttributeCarrier*> &ACs, Modifi
         // first unselect AC of ACToUnselect and then selects AC of ACToSelect
         myViewNet->getUndoList()->p_begin("selection using rectangle");
         for (auto i : ACToUnselect) {
-            i.second->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
+            if(GNEAttributeCarrier::getTagProperties(i.second->getTag()).isSelectable()) {
+                i.second->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
+            }
         }
         for (auto i : ACToSelect) {
-            i.second->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
+            if(GNEAttributeCarrier::getTagProperties(i.second->getTag()).isSelectable()) {
+                i.second->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
+            }
         }
         // finish operation
         myViewNet->getUndoList()->p_end();
@@ -865,7 +869,10 @@ GNESelectorFrame::SelectionOperation::onCmdLoad(FXObject*, FXSelector, void*) {
         if (loadedACs.size() > 0) {
             mySelectorFrameParent->getViewNet()->getUndoList()->p_begin("load selection");
             for (auto i : loadedACs) {
-                i->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->getViewNet()->getUndoList());
+                // check that AC can be selected
+                if(GNEAttributeCarrier::getTagProperties(i->getTag()).isSelectable()) {
+                    i->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->getViewNet()->getUndoList());
+                }
             }
             mySelectorFrameParent->getViewNet()->getUndoList()->p_end();
         }
@@ -950,7 +957,9 @@ GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) 
     // select additionals
     std::vector<GNEAdditional*> additionals = mySelectorFrameParent->getViewNet()->getNet()->retrieveAdditionals();
     for (auto i : additionals) {
-        i->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->getViewNet()->getUndoList());
+        if(GNEAttributeCarrier::getTagProperties(i->getTag()).isSelectable()) {
+            i->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->getViewNet()->getUndoList());
+        }
     }
     // select polygons
     for (auto i : mySelectorFrameParent->getViewNet()->getNet()->getPolygons()) {

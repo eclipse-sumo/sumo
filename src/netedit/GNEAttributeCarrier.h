@@ -215,7 +215,8 @@ public:
         TAGPROPERTY_MINIMUMCHILDS =    1 << 14,    // Element will be only writed in XML if has a minimum number of childs
         TAGPROPERTY_REPARENT =         1 << 15,    // Element can be reparent
         TAGPROPERTY_SYNONYM =          1 << 16,    // Element will be written with a different name in der XML
-        TAGPROPERTY_AUTOMATICSORTING = 1 << 17,    // Element Sort automatic their Childs (used by Additionals)
+        TAGPROPERTY_AUTOMATICSORTING = 1 << 17,    // Element sort automatic their Childs (used by Additionals)
+        TAGPROPERTY_SELECTABLE       = 1 << 18,    // Element is selectable
     };
 
     /// @brief struct with the attribute Properties
@@ -283,6 +284,9 @@ public:
 
         /// @brief return true if tag correspond to an internal element (i.e. Cannot be created using frames)
         bool isInternal() const;
+
+        /// @brief return true if tag correspond to a selectable element
+        bool isSelectable() const;
 
         /// @brief return true if tag correspond to an element that can block their movement
         bool canBlockMovement() const;

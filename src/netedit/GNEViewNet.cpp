@@ -2943,7 +2943,9 @@ GNEViewNet::SelectingArea::processSelection(GNEViewNet *viewNet, bool shiftKeyPr
                     i.second->setAttribute(GNE_ATTR_SELECTED, "false", viewNet->myUndoList);
                 }
                 for (auto i : ACToSelect) {
-                    i.second->setAttribute(GNE_ATTR_SELECTED, "true", viewNet->myUndoList);
+                    if(GNEAttributeCarrier::getTagProperties(i.second->getTag()).isSelectable()) {
+                        i.second->setAttribute(GNE_ATTR_SELECTED, "true", viewNet->myUndoList);
+                    }
                 }
                 viewNet->myUndoList->p_end();
             }
