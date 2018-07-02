@@ -75,7 +75,7 @@ MSInternalJunction::postloadInit() {
         for (MSLinkCont::const_iterator q = lc.begin(); q != lc.end(); ++q) {
             if ((*q)->getViaLane() != 0) {
                 const int foeIndex = (*i)->getIncomingLanes()[0].viaLink->getIndex();
-                //std::cout << "       response=" << response << " index=" << ownLinkIndex << " foeIndex=" << foeIndex << "\n";
+                //std::cout << "       response=" << response << " index=" << ownLinkIndex << " foeIndex=" << foeIndex << " ibct=" << indirectBicycleTurn(specialLane, thisLink, *i, *q) << "\n";
                 if (response.test(foeIndex) || indirectBicycleTurn(specialLane, thisLink, *i, *q)) {
                     // only respect vehicles before internal junctions if they
                     // have priority (see the analogous foeLinks.test() when
