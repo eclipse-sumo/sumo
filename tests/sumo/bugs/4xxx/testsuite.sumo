@@ -25,6 +25,9 @@ ticket4285
 # Indirekt left turner ignores foes on lanes intersecting its first internal lane part before internal junction.
 ticket4286
 
+# Indirekt left turner ignores foes on lanes intersecting its first internal lane part before internal junction.
+ticket4286b
+
 # Indirect left turner blocks other vehicles on junction, which should go on.
 ticket4287
 
