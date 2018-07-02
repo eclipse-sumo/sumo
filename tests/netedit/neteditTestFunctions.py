@@ -16,7 +16,7 @@
 import os
 import sys
 import subprocess
-from sikuli import Key, Region, Settings, click, drag, dropAt, hover, keyDown, keyUp, paste, wait
+from sikuli import Key, Region, Settings, click, drag, dropAt, hover, keyDown, keyUp, paste, wait, type
 
 # define delay before every operation
 DELAY = 0.1
