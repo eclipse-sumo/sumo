@@ -2056,6 +2056,9 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         // TODO: Consider option on the CFModel side to allow red/yellow light violation
 
         if (yellowOrRed && canBrake && !ignoreRed(*link, canBrake)) {
+            if (lane->isInternal()) {
+                checkLinkLeaderCurrentAndParallel(*link, lane, seen, lastLink, v, vLinkPass, vLinkWait, setRequest);
+            }
             // the vehicle is able to brake in front of a yellow/red traffic light
             lfLinks.push_back(DriveProcessItem(*link, vLinkWait, vLinkWait, false, t + TIME2STEPS(seen / MAX2(vLinkWait, NUMERICAL_EPS)), vLinkWait, 0, 0, seen));
             //lfLinks.push_back(DriveProcessItem(0, vLinkWait, vLinkWait, false, 0, 0, stopDist));
@@ -2077,16 +2080,8 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
 #endif
         }
 
-        if (MSGlobals::gUsingInternalLanes) {
-            // we want to pass the link but need to check for foes on internal lanes
-            checkLinkLeader(*link, lane, seen, lastLink, v, vLinkPass, vLinkWait, setRequest);
-            if (getLaneChangeModel().getShadowLane() != 0) {
-                MSLink* parallelLink = (*link)->getParallelLink(getLaneChangeModel().getShadowDirection());
-                if (parallelLink != 0) {
-                    checkLinkLeader(parallelLink, lane, seen, lastLink, v, vLinkPass, vLinkWait, setRequest, true);
-                }
-            }
-        }
+
+        checkLinkLeaderCurrentAndParallel(*link, lane, seen, lastLink, v, vLinkPass, vLinkWait, setRequest);
 
         if (lastLink != 0) {
             lastLink->adaptLeaveSpeed(laneMaxV);
@@ -2274,6 +2269,23 @@ MSVehicle::adaptToLeader(const std::pair<const MSVehicle*, double> leaderInfo,
     }
 }
 
+
+void
+MSVehicle::checkLinkLeaderCurrentAndParallel(const MSLink* link, const MSLane* lane, double seen,
+                         DriveProcessItem* const lastLink, double& v, double& vLinkPass, double& vLinkWait, bool& setRequest) const 
+{
+    if (MSGlobals::gUsingInternalLanes) {
+        // we want to pass the link but need to check for foes on internal lanes
+        checkLinkLeader(link, lane, seen, lastLink, v, vLinkPass, vLinkWait, setRequest);
+        if (getLaneChangeModel().getShadowLane() != 0) {
+            MSLink* parallelLink = link->getParallelLink(getLaneChangeModel().getShadowDirection());
+            if (parallelLink != 0) {
+                checkLinkLeader(parallelLink, lane, seen, lastLink, v, vLinkPass, vLinkWait, setRequest, true);
+            }
+        }
+    }
+
+}
 
 void
 MSVehicle::checkLinkLeader(const MSLink* link, const MSLane* lane, double seen,

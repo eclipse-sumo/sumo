@@ -1891,6 +1891,10 @@ protected:
                          DriveProcessItem* const lastLink, double& v, double& vLinkPass, double& vLinkWait, bool& setRequest,
                          bool isShadowLink = false) const;
 
+    /// @brief checks for link leaders of the current link as well as the parallel link (if there is one)
+    void checkLinkLeaderCurrentAndParallel(const MSLink* link, const MSLane* lane, double seen,
+                         DriveProcessItem* const lastLink, double& v, double& vLinkPass, double& vLinkWait, bool& setRequest) const;
+
 
     // @brief return the lane on which the back of this vehicle resides
     const MSLane* getBackLane() const;
