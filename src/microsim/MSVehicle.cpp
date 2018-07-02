@@ -2990,7 +2990,9 @@ MSVehicle::executeMove() {
     double vNext = vSafe;
     if (myActionStep) {
         vNext = getCarFollowModel().finalizeSpeed(this, vSafe);
-        vNext = MAX2(vNext, vSafeMin);
+        if (vNext > 0) {
+            vNext = MAX2(vNext, vSafeMin);
+        }
     }
     // (Leo) to avoid tiny oscillations (< 1e-10) of vNext in a standing vehicle column (observed for ballistic update), we cap off vNext
     //       (We assure to do this only for vNext<<NUMERICAL_EPS since otherwise this would nullify the workaround for #2995
