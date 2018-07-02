@@ -927,13 +927,17 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
             // special care must be taken for continuation lanes. (next lane is also internal)
             // vehicles on these lanes should always block (gap = -1)
             // vehicles on cont. lanes or on internal lanes with the same target as this link can never be ignored
-            const bool cannotIgnore = (contLane || sameTarget || sameSource) && ego != 0;
             MSLane::AnyVehicleIterator end = foeLane->anyVehiclesEnd();
             for (MSLane::AnyVehicleIterator it_veh = foeLane->anyVehiclesBegin(); it_veh != end; ++it_veh) {
                 MSVehicle* leader = (MSVehicle*)*it_veh;
                 const double leaderBack = leader->getBackPositionOnLane(foeLane);
                 const double leaderBackDist = foeDistToCrossing - leaderBack;
-                const bool inTheWay = leaderBackDist + foeCrossingWidth > 0 && leaderBackDist + foeCrossingWidth < leader->getVehicleType().getLength();
+                const bool pastTheCrossingPoint = leaderBackDist + foeCrossingWidth < 0;
+                const bool ignoreIndirectBicycleTurn = (pastTheCrossingPoint 
+                        && leader->getVehicleType().getVehicleClass() == SVC_BICYCLE 
+                        && foeLane->getIncomingLanes().front().viaLink->getDirection() == LINKDIR_LEFT);
+                const bool cannotIgnore = ((contLane && !ignoreIndirectBicycleTurn) || sameTarget || sameSource) && ego != nullptr;
+                const bool inTheWay = !pastTheCrossingPoint && leaderBackDist + foeCrossingWidth < leader->getVehicleType().getLength();
                 const bool isOpposite = leader->getLaneChangeModel().isOpposite();
                 if (gDebugFlag1) {
                     std::cout << " candiate leader=" << leader->getID()
@@ -977,7 +981,7 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                         // we need to determine whether the vehicle passes the
                         // crossing from the left or the right (heuristic)
                         fromLeft = foeDistToCrossing > 0.5 * foeLane->getLength();
-                    } else if ((contLane && !sameSource) || isOpposite) {
+                    } else if ((contLane && !sameSource && !ignoreIndirectBicycleTurn) || isOpposite) {
                         gap = -1; // always break for vehicles which are on a continuation lane or for opposite-direction vehicles
                     } else {
                         if (gDebugFlag1) {
