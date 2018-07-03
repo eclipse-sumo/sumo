@@ -1331,8 +1331,10 @@ TraCIServer::addSubscriptionFilter() {
         addSubscriptionFilterCFManeuver();
         break;
     case FILTER_TYPE_LC_MANEUVER:
+    {
         int dir = int(myInputStorage.readByte());
         addSubscriptionFilterLCManeuver(dir);
+    }
         break;
     case FILTER_TYPE_TURN_MANEUVER:
         addSubscriptionFilterTurnManeuver();
