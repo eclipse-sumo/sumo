@@ -221,7 +221,11 @@ MSCFModel_CC::stopSpeed(const MSVehicle* const veh, double speed, double gap2pre
     CC_VehicleVariables *vars = (CC_VehicleVariables *)veh->getCarFollowVariables();
     if (vars->activeController != Plexe::DRIVER)
     {
-        return _v(veh, gap2pred, speed, -1);
+        double gap2pred, relSpeed;
+        getRadarMeasurements(veh, gap2pred, relSpeed);
+        if (gap2pred == -1)
+            gap2pred = std::numeric_limits<double>().max();
+        return _v(veh, gap2pred, speed, speed + relSpeed);
     }
     else {
         return myHumanDriver->stopSpeed(veh, speed, gap2pred);
@@ -232,7 +236,11 @@ double MSCFModel_CC::freeSpeed(const MSVehicle* const veh, double speed, double 
     CC_VehicleVariables *vars = (CC_VehicleVariables *)veh->getCarFollowVariables();
     if (vars->activeController != Plexe::DRIVER)
     {
-        return _v(veh, seen, speed, std::numeric_limits<double>::max());
+        double gap2pred, relSpeed;
+        getRadarMeasurements(veh, gap2pred, relSpeed);
+        if (gap2pred == -1)
+            gap2pred = std::numeric_limits<double>().max();
+        return _v(veh, gap2pred, speed, speed + relSpeed);
     }
     else {
         return MSCFModel::freeSpeed(veh, speed, seen, maxSpeed, onInsertion);
@@ -296,9 +304,6 @@ MSCFModel_CC::_v(const MSVehicle* const veh, double gap2pred, double egoSpeed, d
 
     if (vars->crashed || vars->crashedVictim)
         return 0;
-
-    if (predSpeed < 0 || (predSpeed > 1e9 && vars->activeController != Plexe::ACC) || gap2pred < 0)
-        return 1e9;
 
     if (vars->usePrediction)
         currentTime = STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep() + DELTA_T);
