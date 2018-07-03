@@ -73,16 +73,16 @@ Warning: Setting new attribute selected 'true' into connection 'from8_2to1_2'
 Warning: Setting new attribute selected 'true' into junction 'D'
 Warning: Setting new attribute selected 'true' into edge '4'
 Warning: Setting new attribute selected 'true' into e3Detector 'e3Detector_0'
-Warning: Setting new attribute selected 'true' into detEntry 'e3Detector_0detEntry0'
-Warning: Setting new attribute selected 'true' into detExit 'e3Detector_0detExit0'
 Warning: Setting new attribute selected 'true' into e3Detector 'e3Detector_1'
-Warning: Setting new attribute selected 'true' into detEntry 'e3Detector_1detEntry0'
-Warning: Setting new attribute selected 'true' into detExit 'e3Detector_1detExit0'
 Warning: Setting new attribute selected 'true' into e3Detector 'e3Detector_2'
-Warning: Setting new attribute selected 'true' into detEntry 'e3Detector_2detEntry0'
-Warning: Setting new attribute selected 'true' into detExit 'e3Detector_2detExit0'
 Warning: Setting new attribute selected 'true' into e3Detector 'e3Detector_3'
+Warning: Setting new attribute selected 'true' into detEntry 'e3Detector_0detEntry0'
+Warning: Setting new attribute selected 'true' into detEntry 'e3Detector_1detEntry0'
+Warning: Setting new attribute selected 'true' into detEntry 'e3Detector_2detEntry0'
 Warning: Setting new attribute selected 'true' into detEntry 'e3Detector_3detEntry0'
+Warning: Setting new attribute selected 'true' into detExit 'e3Detector_0detExit0'
+Warning: Setting new attribute selected 'true' into detExit 'e3Detector_1detExit0'
+Warning: Setting new attribute selected 'true' into detExit 'e3Detector_2detExit0'
 Warning: Setting new attribute selected 'true' into detExit 'e3Detector_3detExit0'
 Warning: Setting new attribute selected 'true' into poly 'poly_0'
 Warning: Setting new attribute selected 'true' into poi 'POI_0'
@@ -122,16 +122,16 @@ Warning: Setting new attribute selected 'true' into connection 'from8_2to1_2'
 Warning: Setting new attribute selected 'true' into junction 'D'
 Warning: Setting new attribute selected 'true' into edge '4'
 Warning: Setting new attribute selected 'true' into e3Detector 'e3Detector_0'
-Warning: Setting new attribute selected 'true' into detEntry 'e3Detector_0detEntry0'
-Warning: Setting new attribute selected 'true' into detExit 'e3Detector_0detExit0'
 Warning: Setting new attribute selected 'true' into e3Detector 'e3Detector_1'
-Warning: Setting new attribute selected 'true' into detEntry 'e3Detector_1detEntry0'
-Warning: Setting new attribute selected 'true' into detExit 'e3Detector_1detExit0'
 Warning: Setting new attribute selected 'true' into e3Detector 'e3Detector_2'
-Warning: Setting new attribute selected 'true' into detEntry 'e3Detector_2detEntry0'
-Warning: Setting new attribute selected 'true' into detExit 'e3Detector_2detExit0'
 Warning: Setting new attribute selected 'true' into e3Detector 'e3Detector_3'
+Warning: Setting new attribute selected 'true' into detEntry 'e3Detector_0detEntry0'
+Warning: Setting new attribute selected 'true' into detEntry 'e3Detector_1detEntry0'
+Warning: Setting new attribute selected 'true' into detEntry 'e3Detector_2detEntry0'
 Warning: Setting new attribute selected 'true' into detEntry 'e3Detector_3detEntry0'
+Warning: Setting new attribute selected 'true' into detExit 'e3Detector_0detExit0'
+Warning: Setting new attribute selected 'true' into detExit 'e3Detector_1detExit0'
+Warning: Setting new attribute selected 'true' into detExit 'e3Detector_2detExit0'
 Warning: Setting new attribute selected 'true' into detExit 'e3Detector_3detExit0'
 Warning: Setting new attribute selected 'true' into poly 'poly_0'
 Warning: Setting new attribute selected 'true' into poi 'POI_0'
@@ -220,16 +220,16 @@ Warning: Setting new attribute selected 'true' into connection 'from8_2to1_2'
 Warning: Setting new attribute selected 'true' into junction 'D'
 Warning: Setting new attribute selected 'true' into edge '4'
 Warning: Setting new attribute selected 'true' into e3Detector 'e3Detector_0'
-Warning: Setting new attribute selected 'true' into detEntry 'e3Detector_0detEntry0'
-Warning: Setting new attribute selected 'true' into detExit 'e3Detector_0detExit0'
 Warning: Setting new attribute selected 'true' into e3Detector 'e3Detector_1'
-Warning: Setting new attribute selected 'true' into detEntry 'e3Detector_1detEntry0'
-Warning: Setting new attribute selected 'true' into detExit 'e3Detector_1detExit0'
 Warning: Setting new attribute selected 'true' into e3Detector 'e3Detector_2'
-Warning: Setting new attribute selected 'true' into detEntry 'e3Detector_2detEntry0'
-Warning: Setting new attribute selected 'true' into detExit 'e3Detector_2detExit0'
 Warning: Setting new attribute selected 'true' into e3Detector 'e3Detector_3'
+Warning: Setting new attribute selected 'true' into detEntry 'e3Detector_0detEntry0'
+Warning: Setting new attribute selected 'true' into detEntry 'e3Detector_1detEntry0'
+Warning: Setting new attribute selected 'true' into detEntry 'e3Detector_2detEntry0'
 Warning: Setting new attribute selected 'true' into detEntry 'e3Detector_3detEntry0'
+Warning: Setting new attribute selected 'true' into detExit 'e3Detector_0detExit0'
+Warning: Setting new attribute selected 'true' into detExit 'e3Detector_1detExit0'
+Warning: Setting new attribute selected 'true' into detExit 'e3Detector_2detExit0'
 Warning: Setting new attribute selected 'true' into detExit 'e3Detector_3detExit0'
 Warning: Setting new attribute selected 'true' into poly 'poly_0'
 Warning: Setting new attribute selected 'true' into poi 'POI_0'
@@ -338,16 +338,16 @@ Warning: Setting new attribute selected 'true' into connection 'from8_2to1_2'
 Warning: Setting new attribute selected 'true' into junction 'D'
 Warning: Setting new attribute selected 'true' into edge '4'
 Warning: Setting new attribute selected 'true' into e3Detector 'e3Detector_0'
-Warning: Setting new attribute selected 'true' into detEntry 'e3Detector_0detEntry0'
-Warning: Setting new attribute selected 'true' into detExit 'e3Detector_0detExit0'
 Warning: Setting new attribute selected 'true' into e3Detector 'e3Detector_1'
-Warning: Setting new attribute selected 'true' into detEntry 'e3Detector_1detEntry0'
-Warning: Setting new attribute selected 'true' into detExit 'e3Detector_1detExit0'
 Warning: Setting new attribute selected 'true' into e3Detector 'e3Detector_2'
-Warning: Setting new attribute selected 'true' into detEntry 'e3Detector_2detEntry0'
-Warning: Setting new attribute selected 'true' into detExit 'e3Detector_2detExit0'
 Warning: Setting new attribute selected 'true' into e3Detector 'e3Detector_3'
+Warning: Setting new attribute selected 'true' into detEntry 'e3Detector_0detEntry0'
+Warning: Setting new attribute selected 'true' into detEntry 'e3Detector_1detEntry0'
+Warning: Setting new attribute selected 'true' into detEntry 'e3Detector_2detEntry0'
 Warning: Setting new attribute selected 'true' into detEntry 'e3Detector_3detEntry0'
+Warning: Setting new attribute selected 'true' into detExit 'e3Detector_0detExit0'
+Warning: Setting new attribute selected 'true' into detExit 'e3Detector_1detExit0'
+Warning: Setting new attribute selected 'true' into detExit 'e3Detector_2detExit0'
 Warning: Setting new attribute selected 'true' into detExit 'e3Detector_3detExit0'
 Warning: Setting new attribute selected 'true' into poly 'poly_0'
 Warning: Setting new attribute selected 'true' into poi 'POI_0'
@@ -457,8 +457,8 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'modified' into 
 Warning: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '7'
 Warning: Removing connection '8_2->1_2' from edge '8'
 Warning: Removing detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
-Warning: Removing detExit 'e3Detector_1detExit0' in GNEChange_Additional
 Warning: Removing detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
+Warning: Removing detExit 'e3Detector_1detExit0' in GNEChange_Additional
 Warning: Removing detExit 'e3Detector_3detExit0' in GNEChange_Additional
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '1'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'A'
@@ -594,8 +594,8 @@ Warning: Setting previous attribute modificationStatusNotForPrinting 'modified' 
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'A'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '1'
 Warning: Adding detExit 'e3Detector_3detExit0' in GNEChange_Additional
-Warning: Adding detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
 Warning: Adding detExit 'e3Detector_1detExit0' in GNEChange_Additional
+Warning: Adding detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
 Warning: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Warning: Adding a previously selected connection '8_2->1_2' into edge '8'
 Warning: Created connection 'from8_2to1_2' in retrieveGNEConnection()
@@ -791,8 +791,8 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'modified' into 
 Warning: Removing connection '8_2->1_2' from edge '8'
 Warning: Deleting unreferenced connection 'from8_2to1_2' in removeConnection()
 Warning: Removing detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
-Warning: Removing detExit 'e3Detector_1detExit0' in GNEChange_Additional
 Warning: Removing detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
+Warning: Removing detExit 'e3Detector_1detExit0' in GNEChange_Additional
 Warning: Removing detExit 'e3Detector_3detExit0' in GNEChange_Additional
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '1'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'A'
@@ -861,10 +861,18 @@ Warning: Removing poi 'POI_1' from viewNet
 Warning: Removing poi 'POI_2' from viewNet
 Warning: Removing poi 'POI_3' from viewNet
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: e3Detector with ID='e3Detector_0' cannot be written; It need at least 1 childs.
-Warning: e3Detector with ID='e3Detector_1' cannot be written; It need at least 1 childs.
-Warning: e3Detector with ID='e3Detector_2' cannot be written; It need at least 1 childs.
-Warning: e3Detector with ID='e3Detector_3' cannot be written; It need at least 1 childs.
+Warning: An e3Detector need at least one detEntry detector
+Warning: An e3Detector need at least one detExit detector
+Warning: e3Detector with ID='e3Detector_0' cannot be written
+Warning: An e3Detector need at least one detEntry detector
+Warning: An e3Detector need at least one detExit detector
+Warning: e3Detector with ID='e3Detector_1' cannot be written
+Warning: An e3Detector need at least one detEntry detector
+Warning: An e3Detector need at least one detExit detector
+Warning: e3Detector with ID='e3Detector_2' cannot be written
+Warning: An e3Detector need at least one detEntry detector
+Warning: An e3Detector need at least one detExit detector
+Warning: e3Detector with ID='e3Detector_3' cannot be written
 Warning: Additionals saved
 Warning: Shapes saved
 Warning: Deleting unreferenced edge '4' in GNEChange_Attribute

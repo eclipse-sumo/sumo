@@ -26,10 +26,10 @@ Warning: Created connection 'fromgneE0_2togneE1_2' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_2togneE0_2' in retrieveGNEConnection()
 Warning: Setting new attribute startPos '24.88' into busStop 'busStop_gneE1_0_0'
 Warning: Setting new attribute endPos '24.99' into busStop 'busStop_gneE1_0_0'
-Warning: Setting new attribute startPos '24.88' into chargingStation 'chargingStation_gneE1_2_0'
-Warning: Setting new attribute endPos '24.99' into chargingStation 'chargingStation_gneE1_2_0'
 Warning: Setting new attribute startPos '24.88' into containerStop 'containerStop_gneE1_1_0'
 Warning: Setting new attribute endPos '24.99' into containerStop 'containerStop_gneE1_1_0'
+Warning: Setting new attribute startPos '24.88' into chargingStation 'chargingStation_gneE1_2_0'
+Warning: Setting new attribute endPos '24.99' into chargingStation 'chargingStation_gneE1_2_0'
 Warning: Additionals saved
 Warning: Deleting unreferenced routeProbe 'routeProbe_gneE1_0'
 Warning: Additionals has to be saved

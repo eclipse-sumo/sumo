@@ -14,8 +14,8 @@ Warning: Setting new attribute selected 'true' into edge 'gneE1'
 Warning: Setting new attribute selected 'true' into junction 'gneJ1'
 Warning: Setting new attribute selected 'true' into edge 'gneE0'
 Warning: Setting new attribute selected 'true' into busStop 'busStopA'
-Warning: Setting new attribute selected 'true' into access 'busStopAaccess0'
 Warning: Setting new attribute selected 'true' into busStop 'busStopB'
+Warning: Setting new attribute selected 'true' into access 'busStopAaccess0'
 Warning: Setting new attribute selected 'true' into access 'busStopBaccess0'
 Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 4 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Value '-30' for attribute length of access isn't valid
