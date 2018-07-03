@@ -62,7 +62,7 @@ dist-hook:
 	    find tests/complex/tutorial -regex ".*\.\(xml\|txt\|sumocfg\|netccfg\|py\|osm\)" -print0 | xargs -0 cp -v --parents --target-directory $(abs_distdir) ; \
 	    mv -v ${abs_distdir}/tests/complex/tutorial $(abs_distdir)/docs ; \
 	    rm -rf $(abs_distdir)/tests ; \
-	    tools/extractTest.py -i -f tests/examples.txt -o $(abs_distdir)/docs ; \
+	    tools/extractTest.py -i -f tests/examples.txt -o $(abs_distdir) ; \
 	    find build -regex ".*\.\(vcxproj\|vcxproj\.filters\|props\|sln\|spec\|cmake\)" -print0 | xargs -0 cp --parents --target-directory $(abs_distdir) ; \
 	    find data -regex ".*\.\(xsd\|xml\|csv\|veh\|obj\|mtl\)" -print0 | xargs -0 cp --parents --target-directory $(abs_distdir) ; \
 	    find tools -regex ".*\.\(py\|pl\|xml\|sumocfg\|gif\|html\|png\|js\|css\)" -print0 | xargs -0 cp --parents --target-directory $(abs_distdir) ; \
