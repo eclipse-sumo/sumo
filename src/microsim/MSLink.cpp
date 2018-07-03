@@ -152,7 +152,7 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
         // compute crossing points
         for (std::vector<const MSLane*>::const_iterator it_lane = myFoeLanes.begin(); it_lane != myFoeLanes.end(); ++it_lane) {
             const bool sameTarget = myLane == (*it_lane)->getLinkCont()[0]->getLane();
-            if (sameTarget && !beforeInternalJunction) {
+            if (sameTarget && !beforeInternalJunction && !contIntersect(lane, *it_lane)) {
                 //if (myLane == (*it_lane)->getLinkCont()[0]->getLane()) {
                 // this foeLane has the same target and merges at the end (lane exits the junction)
                 myLengthsBehindCrossing.push_back(std::make_pair(0, 0)); // dummy value, never used
@@ -330,8 +330,16 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
 }
 
 
-std::pair<double, double>
-getLastIntersections(const MSLane* lane, const MSLane* foe);
+bool
+MSLink::contIntersect(const MSLane* lane, const MSLane* foe) {
+    if (foe->getLinkCont()[0]->getViaLane() != 0) {
+        std::vector<double> intersections = lane->getShape().intersectsAtLengths2D(foe->getShape());
+        return intersections.size() > 0;
+    }
+    return false;
+
+
+}
 
 void
 MSLink::setApproaching(const SUMOVehicle* approaching, const SUMOTime arrivalTime, const double arrivalSpeed, const double leaveSpeed,

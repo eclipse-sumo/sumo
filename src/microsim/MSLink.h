@@ -534,6 +534,9 @@ private:
     /// @brief figure out whether the cont status remains in effect when switching off the tls
     bool checkContOff() const;
 
+    /// @brief check if the lane intersects with a foe cont-lane
+    bool contIntersect(const MSLane* lane, const MSLane* foe); 
+
 private:
     /// @brief The lane behind the junction approached by this link
     MSLane* myLane;
