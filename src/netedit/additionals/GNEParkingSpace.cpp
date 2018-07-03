@@ -273,7 +273,7 @@ GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value) {
             myBlockMovement = parse<bool>(value);
             break;
         case GNE_ATTR_PARENT:
-            changeAdditionalParent(value);
+            changeFirstAdditionalParent(value);
             break;
         case GNE_ATTR_SELECTED:
             if(parse<bool>(value)) {

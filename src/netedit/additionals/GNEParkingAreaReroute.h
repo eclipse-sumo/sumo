@@ -122,9 +122,6 @@ public:
     /// @}
 
 protected:
-    /// @brief id of new edge destination
-    GNEParkingArea* myParkingArea;
-
     /// @brief probability with which a vehicle will use the given edge as destination
     double myProbability;
 

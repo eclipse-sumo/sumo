@@ -72,6 +72,17 @@ public:
     */
     GNEAdditional(GNEAdditional* additionalParent, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, bool movable, bool blockMovement);
 
+    /**@brief Constructor used by Additionals that have another additional sparent
+    * @param[in] additionalParent pointer to first additional parent
+    * @param[in] additionalParent pointer to second additional parent
+    * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
+    * @param[in] type GUIGlObjectType of additional
+    * @param[in] tag Type of xml tag that define the additional element (SUMO_TAG_BUS_STOP, SUMO_TAG_REROUTER, etc...)
+    * @param[in] movable Flag to indicate if this additional is movable
+    * @param[in] block movement enable or disable additional movement
+    */
+    GNEAdditional(GNEAdditional* firstAdditionalParent, GNEAdditional* secondAdditionalParent, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, bool movable, bool blockMovement);
+
     /**@brief Constructor used by Additionals that have Edge childs
     * @param[in] id Gl-id of the additional element (Must be unique)
     * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
@@ -140,6 +151,9 @@ public:
 
     // @brief get first additional parent
     GNEAdditional* getFirstAdditionalParent() const;
+
+    // @brief get second additional parent
+    GNEAdditional* getSecondAdditionalParent() const;
 
     /// @brief gererate a new ID for an additional child
     std::string generateAdditionalChildID(SumoXMLTag childTag);
@@ -283,6 +297,9 @@ protected:
     /// @brief pointer to first Addititional parent
     GNEAdditional* myFirstAdditionalParent;
 
+    /// @brief pointer to second Addititional parent
+    GNEAdditional* mySecondAdditionalParent;
+
     /// @brief vector with the Additional childs
     std::vector<GNEAdditional*> myAdditionalChilds;
 
@@ -340,11 +357,17 @@ protected:
     */
     GNELane* changeLane(GNELane* oldLane, const std::string& newLaneID);
 
-    /**@brief change additional parent of additional
+    /**@brief change first additional parent of additional
     * @throw exception if this additional doesn't have previously a defined Additional parent
     * @throw exception if additional with ID newAdditionalParentID doesn't exist
     */
-    void changeAdditionalParent(const std::string& newAdditionalParentID);
+    void changeFirstAdditionalParent(const std::string& newAdditionalParentID);
+
+    /**@brief change second additional parent of additional
+    * @throw exception if this additional doesn't have previously a defined Additional parent
+    * @throw exception if additional with ID newAdditionalParentID doesn't exist
+    */
+    void changeSecondAdditionalParent(const std::string& newAdditionalParentID);
 
     /// @}
 

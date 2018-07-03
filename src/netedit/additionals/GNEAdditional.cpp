@@ -61,6 +61,7 @@ GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlOb
     myMovable(movable),
     myBlockMovement(blockMovement),
     myFirstAdditionalParent(nullptr),
+    mySecondAdditionalParent(nullptr),
     myBlockIconRotation(0.) {
 }
 
@@ -72,6 +73,19 @@ GNEAdditional::GNEAdditional(GNEAdditional* additionalParent, GNEViewNet* viewNe
     myMovable(movable),
     myBlockMovement(blockMovement),
     myFirstAdditionalParent(additionalParent),
+    mySecondAdditionalParent(nullptr),
+    myBlockIconRotation(0.) {
+}
+
+
+GNEAdditional::GNEAdditional(GNEAdditional* firstAdditionalParent, GNEAdditional* secondAdditionalParent, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, bool movable, bool blockMovement) :
+    GUIGlObject(type, firstAdditionalParent->generateAdditionalChildID(tag)),
+    GNEAttributeCarrier(tag),
+    myViewNet(viewNet),
+    myMovable(movable),
+    myBlockMovement(blockMovement),
+    myFirstAdditionalParent(firstAdditionalParent),
+    mySecondAdditionalParent(secondAdditionalParent),
     myBlockIconRotation(0.) {
 }
 
@@ -83,6 +97,7 @@ GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlOb
     myMovable(movable),
     myBlockMovement(blockMovement),
     myFirstAdditionalParent(nullptr),
+    mySecondAdditionalParent(nullptr),
     myEdgeChilds(edgeChilds),
     myBlockIconRotation(0.) {
 }
@@ -95,6 +110,7 @@ GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlOb
     myMovable(movable),
     myBlockMovement(blockMovement),
     myFirstAdditionalParent(nullptr),
+    mySecondAdditionalParent(nullptr),
     myLaneChilds(laneChilds),
     myBlockIconRotation(0.) {
 }
@@ -193,6 +209,12 @@ GNEAdditional::isAdditionalBlocked() const {
 GNEAdditional*
 GNEAdditional::getFirstAdditionalParent() const {
     return myFirstAdditionalParent;
+}
+
+
+GNEAdditional*
+GNEAdditional::getSecondAdditionalParent() const {
+    return mySecondAdditionalParent;
 }
 
 
@@ -771,7 +793,7 @@ GNEAdditional::changeLane(GNELane* oldLane, const std::string& newLaneID) {
 
 
 void
-GNEAdditional::changeAdditionalParent(const std::string& newAdditionalParentID) {
+GNEAdditional::changeFirstAdditionalParent(const std::string& newAdditionalParentID) {
     if (myFirstAdditionalParent == nullptr) {
         throw InvalidArgument(toString(getTag()) + " with ID '" + getMicrosimID() + "' doesn't have an additional parent");
     } else {
@@ -781,6 +803,22 @@ GNEAdditional::changeAdditionalParent(const std::string& newAdditionalParentID) 
         myFirstAdditionalParent = myViewNet->getNet()->retrieveAdditional(myFirstAdditionalParent->getTag(), newAdditionalParentID);
         // add this additional int the childs of parent additional
         myFirstAdditionalParent->addAdditionalChild(this);
+        updateGeometry();
+    }
+}
+
+
+void
+GNEAdditional::changeSecondAdditionalParent(const std::string& newAdditionalParentID) {
+    if (mySecondAdditionalParent == nullptr) {
+        throw InvalidArgument(toString(getTag()) + " with ID '" + getMicrosimID() + "' doesn't have an additional parent");
+    } else {
+        // remove this additional of the childs of parent additional
+        mySecondAdditionalParent->removeAdditionalChild(this);
+        // set new additional parent
+        mySecondAdditionalParent = myViewNet->getNet()->retrieveAdditional(mySecondAdditionalParent->getTag(), newAdditionalParentID);
+        // add this additional int the childs of parent additional
+        mySecondAdditionalParent->addAdditionalChild(this);
         updateGeometry();
     }
 }

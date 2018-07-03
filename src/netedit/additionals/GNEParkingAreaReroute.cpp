@@ -37,15 +37,15 @@
 // ===========================================================================
 
 GNEParkingAreaReroute::GNEParkingAreaReroute(GNERerouterIntervalDialog* rerouterIntervalDialog) :
-    GNEAdditional(rerouterIntervalDialog->getEditedAdditional(), rerouterIntervalDialog->getEditedAdditional()->getViewNet(), GLO_REROUTER, SUMO_TAG_PARKING_ZONE_REROUTE, false, false),
-    myParkingArea(nullptr),
+    GNEAdditional(rerouterIntervalDialog->getEditedAdditional(), 
+                  rerouterIntervalDialog->getEditedAdditional()->getViewNet()->getNet()->getAdditionalByType(SUMO_TAG_PARKING_AREA).begin()->second, 
+                  rerouterIntervalDialog->getEditedAdditional()->getViewNet(), GLO_REROUTER, SUMO_TAG_PARKING_ZONE_REROUTE, false, false),
     myProbability(parse<double>(getTagProperties(SUMO_TAG_PARKING_ZONE_REROUTE).getDefaultValue(SUMO_ATTR_PROB))) {
 }
 
 
 GNEParkingAreaReroute::GNEParkingAreaReroute(GNERerouterInterval* rerouterIntervalParent, GNEParkingArea* newParkingArea, double probability):
-    GNEAdditional(rerouterIntervalParent, rerouterIntervalParent->getViewNet(), GLO_REROUTER, SUMO_TAG_PARKING_ZONE_REROUTE, false, false),
-    myParkingArea(newParkingArea),
+    GNEAdditional(rerouterIntervalParent, newParkingArea, rerouterIntervalParent->getViewNet(), GLO_REROUTER, SUMO_TAG_PARKING_ZONE_REROUTE, false, false),
     myProbability(probability) {
 }
 
@@ -95,7 +95,7 @@ GNEParkingAreaReroute::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getAdditionalID();
         case SUMO_ATTR_PARKING:
-            return myParkingArea == nullptr ? "" : myParkingArea->getID();
+            return mySecondAdditionalParent->getID();
         case SUMO_ATTR_PROB:
             return toString(myProbability);
         default:
@@ -125,11 +125,9 @@ bool
 GNEParkingAreaReroute::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-         return isValidAdditionalID(value);
-        case SUMO_ATTR_PARKING: {
-            GNEAdditional* a = myViewNet->getNet()->retrieveAdditional(SUMO_TAG_PARKING_AREA, value, false);
-            return (a != nullptr) && (a->getTag() == SUMO_TAG_PARKING_AREA);
-        }
+            return isValidAdditionalID(value);
+        case SUMO_ATTR_PARKING:
+            return isValidAdditionalID(value) && (myViewNet->getNet()->retrieveAdditional(SUMO_TAG_PARKING_AREA, value, false) != nullptr);
         case SUMO_ATTR_PROB:
             return canParse<double>(value) && parse<double>(value) >= 0 && parse<double>(value) <= 1;
         default:
@@ -146,11 +144,7 @@ GNEParkingAreaReroute::getPopUpID() const {
 
 std::string 
 GNEParkingAreaReroute::getHierarchyName() const {
-    if(myParkingArea == nullptr) {
-        return toString(getTag());
-    } else {
-        return toString(getTag()) + ": " + myParkingArea->getID();
-    }
+    return toString(getTag()) + ": " + getSecondAdditionalParent()->getID();
 }
 
 // ===========================================================================
@@ -164,7 +158,7 @@ GNEParkingAreaReroute::setAttribute(SumoXMLAttr key, const std::string& value) {
             changeAdditionalID(value);
             break;
         case SUMO_ATTR_PARKING:
-            myParkingArea = dynamic_cast<GNEParkingArea*>(myViewNet->getNet()->retrieveAdditional(SUMO_TAG_PARKING_AREA, value, false));
+            changeSecondAdditionalParent(value);
             break;
         case SUMO_ATTR_PROB:
             myProbability = parse<double>(value);
