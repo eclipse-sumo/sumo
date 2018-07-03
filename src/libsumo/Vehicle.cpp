@@ -813,6 +813,13 @@ Vehicle::add(const std::string& vehicleID,
             throw TraCIException("Invalid route '" + routeID + "' for vehicle: '" + vehicleID + "'");
         }
     }
+    // check if the route implies a trip
+    if (route->getEdges().size() == 2) {
+        const MSEdgeVector& succ = route->getEdges().front()->getSuccessors();
+        if (std::find(succ.begin(), succ.end(), route->getEdges().back()) == succ.end()) {
+            vehicleParams.parametersSet |= VEHPARS_FORCE_REROUTE;
+        }
+    }
     std::string error;
     if (!SUMOVehicleParameter::parseDepart(depart, "vehicle", vehicleID, vehicleParams.depart, vehicleParams.departProcedure, error)) {
         throw TraCIException(error);
