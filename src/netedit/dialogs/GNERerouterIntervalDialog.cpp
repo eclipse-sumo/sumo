@@ -177,11 +177,17 @@ GNERerouterIntervalDialog::GNERerouterIntervalDialog(GNEAdditional* rerouterInte
     myRouteProbRerouteTable->setSelTextColor(FXRGBA(0, 0, 0, 255));
 
     FXHorizontalFrame* buttonAndLabelParkingAreaReroute = new FXHorizontalFrame(columnRight2, GUIDesignAuxiliarHorizontalFrame);
-    myAddParkingAreaReroute = new FXButton(buttonAndLabelParkingAreaReroute, "", GUIIconSubSys::getIcon(ICON_ADD), this, MID_GNE_REROUTEDIALOG_ADD_PARKINGAREAREROUTE, GUIDesignButtonIcon);
-    new FXLabel(buttonAndLabelParkingAreaReroute, ("Add new " + toString(SUMO_TAG_PARKING_ZONE_REROUTE) + "s").c_str(), 0, GUIDesignLabelThick);
+    FXButton *parkingAreaRerouteButton = myAddParkingAreaReroute = new FXButton(buttonAndLabelParkingAreaReroute, "", GUIIconSubSys::getIcon(ICON_ADD), this, MID_GNE_REROUTEDIALOG_ADD_PARKINGAREAREROUTE, GUIDesignButtonIcon);
+    FXLabel * parkingAreaRerouteLabel = new FXLabel(buttonAndLabelParkingAreaReroute, ("Add new " + toString(SUMO_TAG_PARKING_ZONE_REROUTE) + "s").c_str(), 0, GUIDesignLabelThick);
     myParkingAreaRerouteTable = new FXTable(columnRight2, this, MID_GNE_REROUTEDIALOG_TABLE_PARKINGAREAREROUTE, GUIDesignTableAdditionals);
     myParkingAreaRerouteTable->setSelBackColor(FXRGBA(255, 255, 255, 255));
     myParkingAreaRerouteTable->setSelTextColor(FXRGBA(0, 0, 0, 255));
+
+    // disable add parkingAreaReroute Button and change label if there isn't parkingAreas in net
+    if(rerouterInterval->getViewNet()->getNet()->getAdditionalByType(SUMO_TAG_PARKING_AREA).size() == 0) {
+        parkingAreaRerouteButton->disable();
+        parkingAreaRerouteLabel->setText(("There isn't " + toString(SUMO_TAG_PARKING_AREA) + "s in net").c_str());
+    }
 
     // update tables
     updateClosingLaneReroutesTable();
