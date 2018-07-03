@@ -69,12 +69,11 @@ public:
     /// @brief Destructor.
     ~MSDevice_FCD();
 
-
-    /// @name Methods called on vehicle movement / state change, overwriting MSDevice
-    /// @{
-
     bool notifyEnter(SUMOVehicle& /*veh*/, MSMoveReminder::Notification /*reason*/, const MSLane* /*enteredLane*/ ) {
         return false;
+    }
+
+    void saveState(OutputDevice& /* out */) const {
     }
 
     /// @brief return the name for this type of device

@@ -169,6 +169,7 @@ MSDevice::equippedByDefaultAssignmentOptions(const OptionsCont& oc, const std::s
     }
 }
 
+
 bool
 MSDevice::equippedByParameter(const MSTransportable* t, const std::string& deviceName, bool outputOptionSet) {
     const std::string key = "has." + deviceName + ".device";
@@ -179,6 +180,7 @@ MSDevice::equippedByParameter(const MSTransportable* t, const std::string& devic
     }
     return outputOptionSet;
 }
+
 
 void
 MSDevice::saveState(OutputDevice& /* out */) const {
