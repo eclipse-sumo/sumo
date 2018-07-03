@@ -1197,6 +1197,7 @@ GUIApplicationWindow::onCmdFullScreen(FXObject*, FXSelector, void*) {
         myToolBar5->hide();
         myToolBar6->hide();
         myToolBar7->hide();
+        myToolBar8->hide();
         myMessageWindow->hide();
         if (myMDIClient->numChildren() > 0) {
             GUISUMOViewParent* w = dynamic_cast<GUISUMOViewParent*>(myMDIClient->getActiveChild());

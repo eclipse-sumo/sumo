@@ -217,7 +217,7 @@ GUIMainWindow::setWindowSizeAndPos() {
     if (oc.isSet("window-size") || getApp()->reg().readIntEntry("SETTINGS", "maximized", 0) == 0 || oc.isSet("window-pos")) {
         // when restoring previous pos, make sure the window fits fully onto the current screen
         int x = MAX2(0, MIN2(getApp()->reg().readIntEntry("SETTINGS", "x", 150), getApp()->getRootWindow()->getWidth() - windowWidth));
-        int y = MAX2(0, MIN2(getApp()->reg().readIntEntry("SETTINGS", "y", 150), getApp()->getRootWindow()->getHeight() - windowHeight));
+        int y = MAX2(50, MIN2(getApp()->reg().readIntEntry("SETTINGS", "y", 150), getApp()->getRootWindow()->getHeight() - windowHeight));
         if (oc.isSet("window-pos")) {
             std::vector<std::string> windowPos = oc.getStringVector("window-pos");
             if (windowPos.size() != 2
