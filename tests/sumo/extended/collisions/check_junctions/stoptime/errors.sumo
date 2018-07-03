@@ -5,5 +5,5 @@ Warning: Teleporting vehicle 'vertical.0' after earlier collision, lane=':0_9_0,
 Warning: Teleporting vehicle 'horizontal.0' after earlier collision, lane=':0_13_0, time=34.00.
 Warning: Vehicle 'vertical.0' ends teleporting on edge '4o', time 34.00.
 Warning: Vehicle 'horizontal.0' ends teleporting on edge '2o', time 34.00.
-Warning: Teleporting vehicle 'vertical.8'; waited too long (yield), lane='3si_1', time=398.00.
-Warning: Vehicle 'vertical.8' ends teleporting on edge '4o', time 398.00.
+Warning: Teleporting vehicle 'vertical.9'; waited too long (yield), lane='3si_1', time=393.00.
+Warning: Vehicle 'vertical.9' ends teleporting on edge '4o', time 393.00.
