@@ -775,7 +775,8 @@ GNEAdditional::changeAdditionalParent(const std::string& newAdditionalParentID) 
     } else {
         // remove this additional of the childs of parent additional
         myAdditionalParent->removeAdditionalChild(this);
-        myAdditionalParent = myViewNet->getNet()->retrieveAdditional(getTag(), newAdditionalParentID);
+        // set new additional parent
+        myAdditionalParent = myViewNet->getNet()->retrieveAdditional(myAdditionalParent->getTag(), newAdditionalParentID);
         // add this additional int the childs of parent additional
         myAdditionalParent->addAdditionalChild(this);
         updateGeometry();
