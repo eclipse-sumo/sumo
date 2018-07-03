@@ -1594,7 +1594,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_STEP;
     {
         // set values of tag
-        myAllowedTags[currentTag] = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_INTERNAL, 31, ICON_STEP, SUMO_TAG_VSS);
+        myAllowedTags[currentTag] = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_INTERNAL, 31, ICON_VSSSTEP, SUMO_TAG_VSS);
         // set values of attributes
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_TIME,
             ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME,
@@ -1668,7 +1668,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_FLOW;
     {
         // set values of tag
-        myAllowedTags[currentTag] = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_PARENT | TAGPROPERTY_INTERNAL, 42, ICON_EMPTY /* temporal */, SUMO_TAG_CALIBRATOR);
+        myAllowedTags[currentTag] = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_PARENT | TAGPROPERTY_INTERNAL, 42, ICON_FLOW, SUMO_TAG_CALIBRATOR);
         // set values of attributes
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_TYPE,
             ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE,
@@ -1750,7 +1750,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_ROUTE;
     {
         // set values of tag
-        myAllowedTags[currentTag] = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_PARENT | TAGPROPERTY_INTERNAL, 43, ICON_EMPTY /* temporal */);
+        myAllowedTags[currentTag] = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_PARENT | TAGPROPERTY_INTERNAL, 43, ICON_ROUTE);
         // set values of attributes
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_ID,
             ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
@@ -1806,7 +1806,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_INTERVAL;
     {
         // set values of tag
-        myAllowedTags[currentTag] = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_INTERNAL | TAGPROPERTY_PARENT, 51, ICON_EMPTY, SUMO_TAG_REROUTER);
+        myAllowedTags[currentTag] = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_INTERNAL | TAGPROPERTY_PARENT, 51, ICON_REROUTERINTERVAL, SUMO_TAG_REROUTER);
         // set values of attributes
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_BEGIN,
             ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUE,
@@ -1820,7 +1820,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_CLOSING_REROUTE;
     {
         // set values of tag
-        myAllowedTags[currentTag] = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_INTERNAL | TAGPROPERTY_PARENT, 52, ICON_EMPTY, SUMO_TAG_INTERVAL);
+        myAllowedTags[currentTag] = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_INTERNAL | TAGPROPERTY_PARENT, 52, ICON_CLOSINGREROUTE, SUMO_TAG_INTERVAL);
         // set values of attributes
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_EDGE,
             ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_SYNONYM,
@@ -1839,7 +1839,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_CLOSING_LANE_REROUTE;
     {
         // set values of tag
-        myAllowedTags[currentTag] = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_INTERNAL | TAGPROPERTY_PARENT, 53, ICON_EMPTY, SUMO_TAG_INTERVAL);
+        myAllowedTags[currentTag] = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_INTERNAL | TAGPROPERTY_PARENT, 53, ICON_CLOSINGLANEREROUTE, SUMO_TAG_INTERVAL);
         // set values of attributes
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_LANE,
             ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_SYNONYM,
@@ -1858,7 +1858,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_DEST_PROB_REROUTE;
     {
         // set values of tag
-        myAllowedTags[currentTag] = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_INTERNAL | TAGPROPERTY_PARENT, 54, ICON_EMPTY, SUMO_TAG_INTERVAL);
+        myAllowedTags[currentTag] = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_INTERNAL | TAGPROPERTY_PARENT, 54, ICON_DESTPROBREROUTE, SUMO_TAG_INTERVAL);
         // set values of attributes
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_EDGE,
             ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_SYNONYM,
@@ -1873,7 +1873,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_PARKING_ZONE_REROUTE;
     {
         // set values of tag
-        myAllowedTags[currentTag] = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_INTERNAL | TAGPROPERTY_PARENT, 55, ICON_EMPTY, SUMO_TAG_INTERVAL);
+        myAllowedTags[currentTag] = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_INTERNAL | TAGPROPERTY_PARENT, 55, ICON_PARKINGZONEREROUTE, SUMO_TAG_INTERVAL);
         // set values of attributes
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_PARKING,
             ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_SYNONYM,
@@ -1888,7 +1888,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_ROUTE_PROB_REROUTE; 
     {
         // set values of tag
-        myAllowedTags[currentTag] = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_INTERNAL, 56, ICON_EMPTY, SUMO_TAG_INTERVAL);
+        myAllowedTags[currentTag] = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_INTERNAL, 56, ICON_ROUTEPROBREROUTE, SUMO_TAG_INTERVAL);
         // set values of attributes
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_ROUTE,
             ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_SYNONYM,
@@ -1947,7 +1947,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_VTYPE;
     {
         // set values of tag
-        myAllowedTags[currentTag] = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_PARENT | TAGPROPERTY_INTERNAL, 80, ICON_EMPTY /* temporal */);
+        myAllowedTags[currentTag] = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_PARENT | TAGPROPERTY_INTERNAL, 80, ICON_VTYPE);
         // set values of attributes
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_ID,
             ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,

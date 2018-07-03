@@ -352,12 +352,23 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[ICON_E3] = new FXXPMIcon(a, e3_xpm);
     myIcons[ICON_E3ENTRY] = new FXXPMIcon(a, e3entry_xpm);
     myIcons[ICON_E3EXIT] = new FXXPMIcon(a, e3exit_xpm);
-    myIcons[ICON_E1INSTANT] = new FXXPMIcon(a, e1_xpm); /** temporal **/
+    myIcons[ICON_E1INSTANT] = new FXXPMIcon(a, /*e1Instant_xpm*/ empty_xpm);
     myIcons[ICON_REROUTER] = new FXXPMIcon(a, rerouter_xpm);
     myIcons[ICON_ROUTEPROBE] = new FXXPMIcon(a, routeprobe_xpm);
     myIcons[ICON_VAPORIZER] = new FXXPMIcon(a, vaporizer_xpm);
     myIcons[ICON_VARIABLESPEEDSIGN] = new FXXPMIcon(a, variablespeedsign_xpm);
     myIcons[ICON_CALIBRATOR] = new FXXPMIcon(a, calibrator_xpm);
+    myIcons[ICON_REROUTERINTERVAL] = new FXXPMIcon(a, /*rerouterinterval_xpm*/ empty_xpm);
+    myIcons[ICON_VSSSTEP] = new FXXPMIcon(a, /*vssstep_xpm*/ empty_xpm);
+    myIcons[ICON_CLOSINGREROUTE] = new FXXPMIcon(a, /*closingreroute_xpm*/ empty_xpm);
+    myIcons[ICON_CLOSINGLANEREROUTE] = new FXXPMIcon(a, /*closinglanereroute_xpm*/ empty_xpm);
+    myIcons[ICON_DESTPROBREROUTE] = new FXXPMIcon(a, /*destprobreroute_xpm*/ empty_xpm);
+    myIcons[ICON_PARKINGZONEREROUTE] = new FXXPMIcon(a, /*parkingzonereroute_xpm*/ empty_xpm);
+    myIcons[ICON_ROUTEPROBREROUTE] = new FXXPMIcon(a, /*routeprobreroute_xpm*/ empty_xpm);
+
+    myIcons[ICON_FLOW] = new FXXPMIcon(a, /*flow_xpm*/ empty_xpm);
+    myIcons[ICON_ROUTE] = new FXXPMIcon(a, /*route_xpm*/ empty_xpm);
+    myIcons[ICON_VTYPE] = new FXXPMIcon(a, /*vtype_xpm*/ empty_xpm);
 
     myIcons[ICON_VCLASS_IGNORING] = new FXXPMIcon(a, vclass_ignoring_xpm);
     myIcons[ICON_VCLASS_PRIVATE] = new FXXPMIcon(a, vclass_private_xpm);

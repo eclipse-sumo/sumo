@@ -216,7 +216,7 @@ public:
         TAGPROPERTY_REPARENT =         1 << 15,    // Element can be reparent
         TAGPROPERTY_SYNONYM =          1 << 16,    // Element will be written with a different name in der XML
         TAGPROPERTY_AUTOMATICSORTING = 1 << 17,    // Element sort automatic their Childs (used by Additionals)
-        TAGPROPERTY_SELECTABLE       = 1 << 18,    // Element is selectable
+        TAGPROPERTY_SELECTABLE =       1 << 18,    // Element is selectable
     };
 
     /// @brief struct with the attribute Properties
