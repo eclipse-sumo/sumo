@@ -112,13 +112,13 @@ GNECalibratorFlow::updateGeometry() {
 
 Position 
 GNECalibratorFlow::getPositionInView() const {
-    return myAdditionalParent->getPositionInView();
+    return myFirstAdditionalParent->getPositionInView();
 }
 
 
 std::string 
 GNECalibratorFlow::getParentName() const {
-    return myAdditionalParent->getID();
+    return myFirstAdditionalParent->getID();
 }
 
 
@@ -172,7 +172,7 @@ GNECalibratorFlow::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ARRIVALPOS_LAT:
             return myArrivalPosLat;
         case GNE_ATTR_PARENT:
-            return myAdditionalParent->getID();
+            return myFirstAdditionalParent->getID();
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }

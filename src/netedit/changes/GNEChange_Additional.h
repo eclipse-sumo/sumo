@@ -86,7 +86,7 @@ private:
     GNEEdge* myEdgeParent;
 
     /// @brief pointer to additional (used by additional with parents, for example Entry/exits)
-    GNEAdditional* myAdditionalParent;
+    GNEAdditional* myFirstAdditionalParent;
 
     /// @brief list of Edge childs (used by Rerouters)
     std::vector<GNEEdge*> myEdgeChilds;

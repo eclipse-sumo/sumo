@@ -40,7 +40,7 @@
 
 GNEClosingLaneReroute::GNEClosingLaneReroute(GNERerouterIntervalDialog* rerouterIntervalDialog) :
     GNEAdditional(rerouterIntervalDialog->getEditedAdditional(), rerouterIntervalDialog->getEditedAdditional()->getViewNet(), GLO_REROUTER, SUMO_TAG_CLOSING_LANE_REROUTE, false, false),
-    myClosedLane(rerouterIntervalDialog->getEditedAdditional()->getAdditionalParent()->getEdgeChilds().at(0)->getLanes().at(0)) {
+    myClosedLane(rerouterIntervalDialog->getEditedAdditional()->getFirstAdditionalParent()->getEdgeChilds().at(0)->getLanes().at(0)) {
     // fill closing lane reroute interval with default values
     setDefaultValues();
 }
@@ -76,13 +76,13 @@ GNEClosingLaneReroute::updateGeometry() {
 
 Position 
 GNEClosingLaneReroute::getPositionInView() const {
-    return myAdditionalParent->getPositionInView();
+    return myFirstAdditionalParent->getPositionInView();
 }
 
 
 std::string 
 GNEClosingLaneReroute::getParentName() const {
-    return myAdditionalParent->getID();
+    return myFirstAdditionalParent->getID();
 }
 
 
@@ -104,7 +104,7 @@ GNEClosingLaneReroute::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_DISALLOW:
             return getVehicleClassNames(invertPermissions(myPermissions));
         case GNE_ATTR_PARENT:
-            return myAdditionalParent->getID();
+            return myFirstAdditionalParent->getID();
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }

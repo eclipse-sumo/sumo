@@ -87,7 +87,7 @@ GNEDetectorEntry::updateGeometry() {
     myViewNet->getNet()->refreshElement(this);
 
     // update E3 parent Geometry
-    myAdditionalParent->updateGeometry();
+    myFirstAdditionalParent->updateGeometry();
 }
 
 
@@ -218,7 +218,7 @@ GNEDetectorEntry::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_BLOCK_MOVEMENT:
             return toString(myBlockMovement);
         case GNE_ATTR_PARENT:
-            return myAdditionalParent->getID();
+            return myFirstAdditionalParent->getID();
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         default:

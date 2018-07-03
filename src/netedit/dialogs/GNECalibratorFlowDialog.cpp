@@ -64,7 +64,7 @@ GNECalibratorFlowDialog::GNECalibratorFlowDialog(GNEAdditional* editedCalibrator
     myInvalidAttr(SUMO_ATTR_VEHSPERHOUR) {
     // change default header
     std::string typeOfOperation = updatingElement ? "Edit " + toString(myEditedAdditional->getTag()) + " of " : "Create " + toString(myEditedAdditional->getTag()) + " for ";
-    changeAdditionalDialogHeader(typeOfOperation + toString(myEditedAdditional->getAdditionalParent()->getTag()) + " '" + myEditedAdditional->getAdditionalParent()->getID() + "'");
+    changeAdditionalDialogHeader(typeOfOperation + toString(myEditedAdditional->getFirstAdditionalParent()->getTag()) + " '" + myEditedAdditional->getFirstAdditionalParent()->getID() + "'");
 
     // Create auxiliar frames for tables
     FXHorizontalFrame* columns = new FXHorizontalFrame(myContentFrame, GUIDesignUniformHorizontalFrame);
@@ -168,7 +168,7 @@ long
 GNECalibratorFlowDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     std::string operation1 = myUpdatingElement ? ("updating") : ("creating");
     std::string operation2 = myUpdatingElement ? ("updated") : ("created");
-    std::string parentTagString = toString(myEditedAdditional->getAdditionalParent()->getTag());
+    std::string parentTagString = toString(myEditedAdditional->getFirstAdditionalParent()->getTag());
     std::string tagString = toString(myEditedAdditional->getTag());
     if (myCalibratorFlowValid == false) {
         // write warning if netedit is running in testing mode
@@ -187,7 +187,7 @@ GNECalibratorFlowDialog::onCmdAccept(FXObject*, FXSelector, void*) {
             WRITE_WARNING("Closed FXMessageBox of type 'warning' with 'OK'");
         }
         return 0;
-    } else if(!myEditedAdditional->getAdditionalParent()->checkAdditionalChildsOverlapping()) {
+    } else if(!myEditedAdditional->getFirstAdditionalParent()->checkAdditionalChildsOverlapping()) {
         // write warning if netedit is running in testing mode
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Opening FXMessageBox of type 'warning'");

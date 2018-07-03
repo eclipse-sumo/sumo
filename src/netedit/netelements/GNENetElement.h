@@ -166,7 +166,7 @@ protected:
     GNENet* myNet;
 
     /// @brief list of Additional parents of this NetElement
-    std::vector<GNEAdditional*> myAdditionalParents;
+    std::vector<GNEAdditional*> myFirstAdditionalParents;
 
     /// @brief list of Additional Childs of this NetElement
     std::vector<GNEAdditional*> myAdditionalChilds;

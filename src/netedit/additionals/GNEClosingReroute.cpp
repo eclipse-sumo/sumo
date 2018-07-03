@@ -39,7 +39,7 @@
 
 GNEClosingReroute::GNEClosingReroute(GNERerouterIntervalDialog* rerouterIntervalDialog) :
     GNEAdditional(rerouterIntervalDialog->getEditedAdditional(), rerouterIntervalDialog->getEditedAdditional()->getViewNet(), GLO_CALIBRATOR, SUMO_TAG_CLOSING_REROUTE, false, false),
-    myClosedEdge(rerouterIntervalDialog->getEditedAdditional()->getAdditionalParent()->getEdgeChilds().at(0)) {
+    myClosedEdge(rerouterIntervalDialog->getEditedAdditional()->getFirstAdditionalParent()->getEdgeChilds().at(0)) {
     // fill closing reroute interval with default values
     setDefaultValues();
 }
@@ -75,13 +75,13 @@ GNEClosingReroute::updateGeometry() {
 
 Position 
 GNEClosingReroute::getPositionInView() const {
-    return myAdditionalParent->getPositionInView();
+    return myFirstAdditionalParent->getPositionInView();
 }
 
 
 std::string 
 GNEClosingReroute::getParentName() const {
-    return myAdditionalParent->getID();
+    return myFirstAdditionalParent->getID();
 }
 
 
@@ -103,7 +103,7 @@ GNEClosingReroute::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_DISALLOW:
             return getVehicleClassNames(invertPermissions(myPermissions));
         case GNE_ATTR_PARENT:
-            return myAdditionalParent->getID();
+            return myFirstAdditionalParent->getID();
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }

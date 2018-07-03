@@ -55,10 +55,10 @@ GNENetElement::getNet() const {
 void
 GNENetElement::addAdditionalParent(GNEAdditional* additional) {
     // First check that additional wasn't already inserted
-    if (std::find(myAdditionalParents.begin(), myAdditionalParents.end(), additional) != myAdditionalParents.end()) {
+    if (std::find(myFirstAdditionalParents.begin(), myFirstAdditionalParents.end(), additional) != myFirstAdditionalParents.end()) {
         throw ProcessError(toString(additional->getTag()) + " with ID='" + additional->getID() + "' was already inserted in " + toString(getTag()) + " with ID='" + getID() + "'");
     } else {
-        myAdditionalParents.push_back(additional);
+        myFirstAdditionalParents.push_back(additional);
         // update geometry is needed for stacked additionals (routeProbes and Vaporicers)
         updateGeometry();
     }
@@ -68,11 +68,11 @@ GNENetElement::addAdditionalParent(GNEAdditional* additional) {
 void
 GNENetElement::removeAdditionalParent(GNEAdditional* additional) {
     // First check that additional was already inserted
-    auto it = std::find(myAdditionalParents.begin(), myAdditionalParents.end(), additional);
-    if (it == myAdditionalParents.end()) {
+    auto it = std::find(myFirstAdditionalParents.begin(), myFirstAdditionalParents.end(), additional);
+    if (it == myFirstAdditionalParents.end()) {
         throw ProcessError(toString(additional->getTag()) + " with ID='" + additional->getID() + "' doesn't exist in " + toString(getTag()) + " with ID='" + getID() + "'");
     } else {
-        myAdditionalParents.erase(it);
+        myFirstAdditionalParents.erase(it);
         // update geometry is needed for stacked additionals (routeProbes and Vaporicers)
         updateGeometry();
     }
@@ -108,7 +108,7 @@ GNENetElement::removeAdditionalChild(GNEAdditional* additional) {
 
 const std::vector<GNEAdditional*>&
 GNENetElement::getAdditionalParents() const {
-    return myAdditionalParents;
+    return myFirstAdditionalParents;
 }
 
 

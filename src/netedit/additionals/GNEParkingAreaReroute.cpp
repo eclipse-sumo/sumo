@@ -79,7 +79,7 @@ GNEParkingAreaReroute::getPositionInView() const {
 
 std::string 
 GNEParkingAreaReroute::getParentName() const {
-    return myAdditionalParent->getID();
+    return myFirstAdditionalParent->getID();
 }
 
 

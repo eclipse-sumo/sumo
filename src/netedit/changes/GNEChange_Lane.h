@@ -93,7 +93,7 @@ private:
     std::vector<GNEShape*> myShapeChilds;
 
     /// @brief we need to preserve the list of additional sets in which this lane is a child
-    std::vector<GNEAdditional*> myAdditionalParents;
+    std::vector<GNEAdditional*> myFirstAdditionalParents;
 
     /// @bried whether to recompute connection when adding a new lane
     bool myRecomputeConnections;

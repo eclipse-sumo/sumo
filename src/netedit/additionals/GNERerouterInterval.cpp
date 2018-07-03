@@ -73,13 +73,13 @@ GNERerouterInterval::updateGeometry() {
 
 Position 
 GNERerouterInterval::getPositionInView() const {
-    return myAdditionalParent->getPositionInView();
+    return myFirstAdditionalParent->getPositionInView();
 }
 
 
 std::string 
 GNERerouterInterval::getParentName() const {
-    return myAdditionalParent->getID();
+    return myFirstAdditionalParent->getID();
 }
 
 
@@ -99,7 +99,7 @@ GNERerouterInterval::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_END:
             return toString(myEnd);
         case GNE_ATTR_PARENT:
-            return myAdditionalParent->getID();
+            return myFirstAdditionalParent->getID();
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }

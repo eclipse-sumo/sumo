@@ -1915,7 +1915,7 @@ GNENet::saveAdditionalsConfirmed(const std::string& filename) {
         if (GNEAttributeCarrier::getTagProperties(i.first).isStoppingPlace()) {
             for (auto j : i.second) {
                 // only save stoppingPlaces that doesn't have Additional parents, because they are automatically writed by writeAdditional(...) parent's function
-                if(j.second->getAdditionalParent() == nullptr) {
+                if(j.second->getFirstAdditionalParent() == nullptr) {
                     j.second->writeAdditional(device);
                 }
             }
@@ -1926,7 +1926,7 @@ GNENet::saveAdditionalsConfirmed(const std::string& filename) {
         if (GNEAttributeCarrier::getTagProperties(i.first).isDetector()) {
             for (auto j : i.second) {
                 // only save Detectors that doesn't have Additional parents, because they are automatically writed by writeAdditional(...) parent's function
-                if(j.second->getAdditionalParent() == nullptr) {
+                if(j.second->getFirstAdditionalParent() == nullptr) {
                     j.second->writeAdditional(device);
                 }
             }
@@ -1938,7 +1938,7 @@ GNENet::saveAdditionalsConfirmed(const std::string& filename) {
         if(!tagValue.isStoppingPlace() && !tagValue.isDetector() && (i.first != SUMO_TAG_ROUTEPROBE) && (i.first != SUMO_TAG_VTYPE) && (i.first != SUMO_TAG_ROUTE)) {
             for (auto j : i.second) {
                 // only save additionals that doesn't have Additional parents, because they are automatically writed by writeAdditional(...) parent's function
-                if (j.second->getAdditionalParent() == nullptr) {
+                if (j.second->getFirstAdditionalParent() == nullptr) {
                     j.second->writeAdditional(device);
                 }
             }

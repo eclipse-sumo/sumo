@@ -651,7 +651,7 @@ GNELane::updateGeometry() {
     for (auto i : myAdditionalChilds) {
         i->updateGeometry();
     }
-    for (auto i : myAdditionalParents) {
+    for (auto i : myFirstAdditionalParents) {
         i->updateGeometry();
     }
     for (auto i : myShapes) {
@@ -1029,7 +1029,7 @@ GNELane::getColorValue(int activeScheme) const {
 void
 GNELane::removeLaneOfAdditionalParents(GNEUndoList* undoList, bool allowEmpty) {
     // iterate over all additional parents of lane
-    for (auto i : myAdditionalParents) {
+    for (auto i : myFirstAdditionalParents) {
         // Obtain attribute LANES of additional
         std::vector<std::string>  laneIDs = parse<std::vector<std::string> >(i->getAttribute(SUMO_ATTR_LANES));
         // check that at least there is an lane

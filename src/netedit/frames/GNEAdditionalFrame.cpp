@@ -165,7 +165,7 @@ GNEAdditionalFrame::AdditionalSelector::setCurrentAdditional(SumoXMLTag actualAd
             }
         }
         myAdditionalFrameParent->getAdditionalParameters()->showAdditionalParameters();
-        // Show myAdditionalParentSelector if we're adding a additional with parent
+        // Show myFirstAdditionalParentSelector if we're adding a additional with parent
         if (tagValue.hasParent()) {
             myAdditionalFrameParent->getAdditionalParentSelector()->showListOfAdditionalParents(tagValue.getParentTag());
         } else {
@@ -737,7 +737,7 @@ GNEAdditionalFrame::getNeteditAttributes() const {
 
 GNEAdditionalFrame::SelectorParentAdditional* 
 GNEAdditionalFrame::getAdditionalParentSelector() const {
-    return myAdditionalParentSelector;
+    return myFirstAdditionalParentSelector;
 }
 
 
@@ -761,9 +761,9 @@ GNEAdditionalFrame::SelectorParentAdditional::SelectorParentAdditional(GNEAdditi
     myAdditionalFrameParent(additionalFrameParent),
     myAdditionalTypeParent(SUMO_TAG_NOTHING) {
     // Create label with the type of SelectorParentAdditional
-    myAdditionalParentsLabel = new FXLabel(this, "No additional selected", 0, GUIDesignLabelLeftThick);
+    myFirstAdditionalParentsLabel = new FXLabel(this, "No additional selected", 0, GUIDesignLabelLeftThick);
     // Create list
-    myAdditionalParentsList = new FXList(this, this, MID_GNE_SET_TYPE, GUIDesignListSingleElement, 0, 0, 0, 100);
+    myFirstAdditionalParentsList = new FXList(this, this, MID_GNE_SET_TYPE, GUIDesignListSingleElement, 0, 0, 0, 100);
     // Hide List
     hideListOfAdditionalParents();
 }
@@ -774,9 +774,9 @@ GNEAdditionalFrame::SelectorParentAdditional::~SelectorParentAdditional() {}
 
 std::string
 GNEAdditionalFrame::SelectorParentAdditional::getIdSelected() const {
-    for (int i = 0; i < myAdditionalParentsList->getNumItems(); i++) {
-        if (myAdditionalParentsList->isItemSelected(i)) {
-            return myAdditionalParentsList->getItem(i)->getText().text();
+    for (int i = 0; i < myFirstAdditionalParentsList->getNumItems(); i++) {
+        if (myFirstAdditionalParentsList->isItemSelected(i)) {
+            return myFirstAdditionalParentsList->getItem(i)->getText().text();
         }
     }
     return "";
@@ -786,24 +786,24 @@ GNEAdditionalFrame::SelectorParentAdditional::getIdSelected() const {
 void 
 GNEAdditionalFrame::SelectorParentAdditional::setIDSelected(const std::string &id) {
     // first unselect all
-    for (int i = 0; i < myAdditionalParentsList->getNumItems(); i++) {
-        myAdditionalParentsList->getItem(i)->setSelected(false);
+    for (int i = 0; i < myFirstAdditionalParentsList->getNumItems(); i++) {
+        myFirstAdditionalParentsList->getItem(i)->setSelected(false);
     }
     // select element if correspond to given ID
-    for (int i = 0; i < myAdditionalParentsList->getNumItems(); i++) {
-        if(myAdditionalParentsList->getItem(i)->getText().text() == id) {
-            myAdditionalParentsList->getItem(i)->setSelected(true);
+    for (int i = 0; i < myFirstAdditionalParentsList->getNumItems(); i++) {
+        if(myFirstAdditionalParentsList->getItem(i)->getText().text() == id) {
+            myFirstAdditionalParentsList->getItem(i)->setSelected(true);
         }
     }
-    // recalc myAdditionalParentsList
-    myAdditionalParentsList->recalc();
+    // recalc myFirstAdditionalParentsList
+    myFirstAdditionalParentsList->recalc();
 }
 
 
 void
 GNEAdditionalFrame::SelectorParentAdditional::showListOfAdditionalParents(SumoXMLTag additionalType) {
     myAdditionalTypeParent = additionalType;
-    myAdditionalParentsLabel->setText(("Parent type: " + toString(additionalType)).c_str());
+    myFirstAdditionalParentsLabel->setText(("Parent type: " + toString(additionalType)).c_str());
     refreshListOfAdditionalParents();
     show();
 }
@@ -818,11 +818,11 @@ GNEAdditionalFrame::SelectorParentAdditional::hideListOfAdditionalParents() {
 
 void 
 GNEAdditionalFrame::SelectorParentAdditional::refreshListOfAdditionalParents() {
-    myAdditionalParentsList->clearItems();
+    myFirstAdditionalParentsList->clearItems();
     if(myAdditionalTypeParent != SUMO_TAG_NOTHING) {
         // fill list with IDs of additionals
         for (auto i : myAdditionalFrameParent->getViewNet()->getNet()->getAdditionalByType(myAdditionalTypeParent)) {
-            myAdditionalParentsList->appendItem(i.first.c_str());
+            myFirstAdditionalParentsList->appendItem(i.first.c_str());
         }
     }
 }
@@ -1133,7 +1133,7 @@ GNEAdditionalFrame::GNEAdditionalFrame(FXHorizontalFrame* horizontalFrameParent,
     myNeteditParameters = new GNEAdditionalFrame::NeteditAttributes(this);
 
     // Create create list for additional Set
-    myAdditionalParentSelector = new GNEAdditionalFrame::SelectorParentAdditional(this);
+    myFirstAdditionalParentSelector = new GNEAdditionalFrame::SelectorParentAdditional(this);
 
     /// Create list for SelectorParentEdges
     myEdgeParentsSelector = new GNEAdditionalFrame::SelectorParentEdges(this);
@@ -1177,11 +1177,11 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GNEAdditional* addi
         // if user click over an additional element parent, mark int in AdditionalParentSelector
         if (additionalElement && (additionalElement->getTag() == tagValue.getParentTag())) {
         valuesOfElement[GNE_ATTR_PARENT] = additionalElement->getID();
-        myAdditionalParentSelector->setIDSelected(additionalElement->getID());
+        myFirstAdditionalParentSelector->setIDSelected(additionalElement->getID());
         }
         // stop if currently there isn't a valid selected parent
-        if (myAdditionalParentSelector->getIdSelected() != "") {
-            valuesOfElement[GNE_ATTR_PARENT] = myAdditionalParentSelector->getIdSelected();
+        if (myFirstAdditionalParentSelector->getIdSelected() != "") {
+            valuesOfElement[GNE_ATTR_PARENT] = myFirstAdditionalParentSelector->getIdSelected();
         } else {
             myAdditionalParameters->showWarningMessage("A " + toString(tagValue.getParentTag()) + " must be selected before insertion of " + toString(myAdditionalSelector->getCurrentAdditionalType()) + ".");
             return ADDADDITIONAL_INVALID_ARGUMENTS;
@@ -1404,7 +1404,7 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GNEAdditional* addi
     // Create additional
     if (GNEAdditionalHandler::buildAdditional(myViewNet, true, myAdditionalSelector->getCurrentAdditionalType(), valuesOfElement)) {
         // Refresh additional Parent Selector (For additionals that have a limited number of childs)
-        myAdditionalParentSelector->refreshListOfAdditionalParents();
+        myFirstAdditionalParentSelector->refreshListOfAdditionalParents();
         return ADDADDITIONAL_SUCCESS;
     } else {
         return ADDADDITIONAL_INVALID_ARGUMENTS;

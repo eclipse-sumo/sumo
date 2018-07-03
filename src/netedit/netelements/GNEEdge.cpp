@@ -126,7 +126,7 @@ GNEEdge::updateGeometry() {
         i->updateGeometry();
     }
     // Update geometry of additional parents vinculated to this edge
-    for (auto i : myAdditionalParents) {
+    for (auto i : myFirstAdditionalParents) {
         i->updateGeometry();
     }
     // refresh element
@@ -693,7 +693,7 @@ GNEEdge::getGNECrossings() {
 void
 GNEEdge::removeEdgeOfAdditionalParents(GNEUndoList* undoList, bool allowEmpty) {
     // iterate over all additional parents of edge
-    for (auto i : myAdditionalParents) {
+    for (auto i : myFirstAdditionalParents) {
         // Obtain attribute EDGES of additional
         std::vector<std::string>  edgeIDs = parse<std::vector<std::string> >(i->getAttribute(SUMO_ATTR_EDGES));
         // check that at least there is an Edge

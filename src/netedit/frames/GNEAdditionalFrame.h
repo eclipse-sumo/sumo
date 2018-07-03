@@ -346,10 +346,10 @@ public:
         SumoXMLTag myAdditionalTypeParent;
 
         /// @brief Label with the name of additional
-        FXLabel* myAdditionalParentsLabel;
+        FXLabel* myFirstAdditionalParentsLabel;
 
         /// @brief List of additional sets
-        FXList* myAdditionalParentsList;
+        FXList* myFirstAdditionalParentsList;
     };
 
     // ===========================================================================
@@ -562,7 +562,7 @@ private:
     GNEAdditionalFrame::NeteditAttributes* myNeteditParameters;
 
     /// @brief list of additional Set
-    GNEAdditionalFrame::SelectorParentAdditional* myAdditionalParentSelector;
+    GNEAdditionalFrame::SelectorParentAdditional* myFirstAdditionalParentSelector;
 
     /// @brief list of SelectorParentEdges
     GNEAdditionalFrame::SelectorParentEdges* myEdgeParentsSelector;

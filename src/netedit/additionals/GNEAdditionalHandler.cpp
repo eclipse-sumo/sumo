@@ -455,7 +455,7 @@ GNEAdditionalHandler::parseAndBuildRerouterInterval(const SUMOSAXAttributes& att
         if(rerouter == nullptr) {
             GNERerouterInterval* lastInsertedRerouterInterval = dynamic_cast<GNERerouterInterval*>(myViewNet->getNet()->retrieveAdditional(SUMO_TAG_INTERVAL, (myParentElements.end()-2)->second, false));
             if(lastInsertedRerouterInterval) {
-                rerouter = dynamic_cast<GNERerouter*>(lastInsertedRerouterInterval->getAdditionalParent());
+                rerouter = dynamic_cast<GNERerouter*>(lastInsertedRerouterInterval->getFirstAdditionalParent());
             }
         }
         // check that rerouter exist

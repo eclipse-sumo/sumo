@@ -39,8 +39,8 @@ GNEVariableSpeedSignStep::GNEVariableSpeedSignStep(GNEVariableSpeedSignDialog* v
     // fill VSS Step with default values
     setDefaultValues();
     // set time Attribute manually
-    if (myAdditionalParent->getAdditionalChilds().size() > 0) {
-        myTime = parse<double>(myAdditionalParent->getAdditionalChilds().back()->getAttribute(SUMO_ATTR_TIME)) + 1;
+    if (myFirstAdditionalParent->getAdditionalChilds().size() > 0) {
+        myTime = parse<double>(myFirstAdditionalParent->getAdditionalChilds().back()->getAttribute(SUMO_ATTR_TIME)) + 1;
     } else {
         myTime = 0;
     }
@@ -83,13 +83,13 @@ GNEVariableSpeedSignStep::updateGeometry() {
 
 Position 
 GNEVariableSpeedSignStep::getPositionInView() const {
-    return myAdditionalParent->getPositionInView();
+    return myFirstAdditionalParent->getPositionInView();
 }
 
 
 std::string 
 GNEVariableSpeedSignStep::getParentName() const {
-    return myAdditionalParent->getID();
+    return myFirstAdditionalParent->getID();
 }
 
 
@@ -109,7 +109,7 @@ GNEVariableSpeedSignStep::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_SPEED:
             return toString(mySpeed);
         case GNE_ATTR_PARENT:
-            return myAdditionalParent->getID();
+            return myFirstAdditionalParent->getID();
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -148,7 +148,7 @@ GNEVariableSpeedSignStep::isValid(SumoXMLAttr key, const std::string& value) {
                 }
                 // check that there isn't duplicate times
                 int counter = 0;
-                for (auto i : myAdditionalParent->getAdditionalChilds()) {
+                for (auto i : myFirstAdditionalParent->getAdditionalChilds()) {
                     if(parse<double>(i->getAttribute(SUMO_ATTR_TIME)) == newTime) {
                         counter++;
                     }

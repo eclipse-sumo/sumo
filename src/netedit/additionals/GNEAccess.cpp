@@ -162,7 +162,7 @@ GNEAccess::getEdge() const {
 
 std::string
 GNEAccess::getParentName() const {
-    return myAdditionalParent->getID();
+    return myFirstAdditionalParent->getID();
 }
 
 
@@ -210,7 +210,7 @@ GNEAccess::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_BLOCK_MOVEMENT:
             return toString(myBlockMovement);
         case GNE_ATTR_PARENT:
-            return myAdditionalParent->getID();
+            return myFirstAdditionalParent->getID();
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         default:
@@ -249,7 +249,7 @@ GNEAccess::isValid(SumoXMLAttr key, const std::string& value) {
             GNELane *lane = myViewNet->getNet()->retrieveLane(value, false);
             if (lane != nullptr) {
                 if(myLane->getParentEdge().getID() != lane->getParentEdge().getID()) {
-                    return dynamic_cast<GNEBusStop*>(myAdditionalParent)->accessCanBeCreated(lane->getParentEdge());
+                    return dynamic_cast<GNEBusStop*>(myFirstAdditionalParent)->accessCanBeCreated(lane->getParentEdge());
                 } else {
                     return true;
                 }

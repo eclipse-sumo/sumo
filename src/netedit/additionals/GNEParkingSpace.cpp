@@ -106,7 +106,7 @@ GNEParkingSpace::getPositionInView() const {
 
 std::string
 GNEParkingSpace::getParentName() const {
-    return myAdditionalParent->getMicrosimID();
+    return myFirstAdditionalParent->getMicrosimID();
 }
 
 
@@ -168,7 +168,7 @@ GNEParkingSpace::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_BLOCK_MOVEMENT:
             return toString(myBlockMovement);
         case GNE_ATTR_PARENT:
-            return myAdditionalParent->getID();
+            return myFirstAdditionalParent->getID();
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         default:

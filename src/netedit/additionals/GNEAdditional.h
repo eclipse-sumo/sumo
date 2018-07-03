@@ -138,8 +138,8 @@ public:
     /// @brief Check if additional item is currently blocked (i.e. cannot be moved with mouse)
     bool isAdditionalBlocked() const;
 
-    // @brief get additional parent
-    GNEAdditional* getAdditionalParent() const;
+    // @brief get first additional parent
+    GNEAdditional* getFirstAdditionalParent() const;
 
     /// @brief gererate a new ID for an additional child
     std::string generateAdditionalChildID(SumoXMLTag childTag);
@@ -280,8 +280,8 @@ protected:
     /// @brief boolean to check if additional element is blocked (i.e. cannot be moved with mouse)
     bool myBlockMovement;
 
-    /// @brief pointer to Addititional parent
-    GNEAdditional* myAdditionalParent;
+    /// @brief pointer to first Addititional parent
+    GNEAdditional* myFirstAdditionalParent;
 
     /// @brief vector with the Additional childs
     std::vector<GNEAdditional*> myAdditionalChilds;
