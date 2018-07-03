@@ -238,7 +238,7 @@ GNEParkingSpace::getPopUpID() const {
 
 std::string 
 GNEParkingSpace::getHierarchyName() const {
-    return toString(getTag());
+    return toString(getTag()) + ": " + getAttribute(SUMO_ATTR_X) + ", " + getAttribute(SUMO_ATTR_Y);
 }
 
 // ===========================================================================

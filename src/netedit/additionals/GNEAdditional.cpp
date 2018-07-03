@@ -174,7 +174,10 @@ GNEAdditional::writeAdditional(OutputDevice& device) const {
         }
         // iterate over childs and write it in XML
         for (auto i : myAdditionalChilds) {
-            i->writeAdditional(device);
+            // only write additionals that doesn't have second parent (because they are saved within the definition of first parent)
+            if(i->getSecondAdditionalParent()) {
+                i->writeAdditional(device);
+            }
         }
         // Close tag
         device.closeTag();
