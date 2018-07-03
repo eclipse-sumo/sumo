@@ -100,6 +100,8 @@
 
 #define CRLL_LOOK_AHEAD 5
 
+#define JUNCTION_BLOCKAGE_TIME 5 // s
+
 // @todo Calibrate with real-world values / make configurable
 #define DIST_TO_STOPLINE_EXPECT_PRIORITY 1.0
 
@@ -1884,6 +1886,13 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                 lastLink->adaptLeaveSpeed(cfModel.stopSpeed(this, vLinkPass, endPos));
             }
             v = MIN2(v, stopSpeed);
+            if (lane->isInternal()) {
+                MSLinkCont::const_iterator exitLink = MSLane::succLinkSec(*this, view + 1, *lane, bestLaneConts);
+                assert(!lane->isLinkEnd(exitLink));
+                bool dummySetRequest;
+                double dummyVLinkWait;
+                checkLinkLeaderCurrentAndParallel(*exitLink, lane, seen, lastLink, v, vLinkPass, dummyVLinkWait, dummySetRequest);
+            }
             lfLinks.push_back(DriveProcessItem(v, myStopDist));
 
 #ifdef DEBUG_PLAN_MOVE
@@ -2339,12 +2348,13 @@ MSVehicle::checkLinkLeader(const MSLink* link, const MSLane* lane, double seen,
                 v = MAX2(v, lastLink->myVLinkWait);
             }
             // if blocked by a leader from the same or next lane we must yield our request
-            // also, if blocked by a stopped leader
+            // also, if blocked by a stopped or blocked leader
             if (v < SUMO_const_haltingSpeed
                     //&& leader->getSpeed() < SUMO_const_haltingSpeed
                     && (leader->getLane()->getLogicalPredecessorLane() == myLane->getLogicalPredecessorLane()
                         || leader->getLane()->getLogicalPredecessorLane() == myLane
-                        || leader->isStopped())) {
+                        || leader->isStopped()
+                        || leader->getWaitingTime() > TIME2STEPS(JUNCTION_BLOCKAGE_TIME))) {
                 setRequest = false;
                 if (lastLink != 0 && leader->getLane()->getLogicalPredecessorLane() == myLane) {
                     // we are not yet on the junction so must abort that request as well
