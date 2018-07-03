@@ -53,19 +53,6 @@ GNERerouterInterval::GNERerouterInterval(GNERerouter* rerouterParent, double beg
 
 GNERerouterInterval::~GNERerouterInterval() {}
 
-
-double
-GNERerouterInterval::getBegin() const {
-    return myBegin;
-}
-
-
-double
-GNERerouterInterval::getEnd() const {
-    return myEnd;
-}
-
-
 void 
 GNERerouterInterval::moveGeometry(const Position&, const Position&) {
     // This additional cannot be moved
@@ -86,7 +73,7 @@ GNERerouterInterval::updateGeometry() {
 
 Position 
 GNERerouterInterval::getPositionInView() const {
-    return Position::INVALID;
+    return myAdditionalParent->getPositionInView();
 }
 
 

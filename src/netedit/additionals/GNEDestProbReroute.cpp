@@ -73,7 +73,7 @@ GNEDestProbReroute::updateGeometry() {
 
 Position 
 GNEDestProbReroute::getPositionInView() const {
-    return Position::INVALID;
+    return myAdditionalParent->getPositionInView();
 }
 
 

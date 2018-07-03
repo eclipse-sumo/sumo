@@ -56,12 +56,6 @@ public:
     /// @brief destructor
     ~GNERerouterInterval();
 
-    /// @brief get begin
-    double getBegin() const;
-
-    /// @brief get end
-    double getEnd() const;
-
     /// @name Functions related with geometry of element
     /// @{
     /**@brief change the position of the element geometry without saving in undoList

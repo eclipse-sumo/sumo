@@ -76,7 +76,7 @@ GNEClosingLaneReroute::updateGeometry() {
 
 Position 
 GNEClosingLaneReroute::getPositionInView() const {
-    return Position::INVALID;
+    return myAdditionalParent->getPositionInView();
 }
 
 

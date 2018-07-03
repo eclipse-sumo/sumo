@@ -112,7 +112,7 @@ GNECalibratorFlow::updateGeometry() {
 
 Position 
 GNECalibratorFlow::getPositionInView() const {
-    return Position();
+    return myAdditionalParent->getPositionInView();
 }
 
 

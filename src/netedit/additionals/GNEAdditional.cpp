@@ -485,6 +485,8 @@ GNEAdditional::getCenteringBoundary() const {
         Boundary b = myShape.getBoxBoundary();
         b.grow(20);
         return b;
+    } else if (myAdditionalParent) {
+        return myAdditionalParent->getCenteringBoundary();
     } else {
         return Boundary(-0.1, 0.1, 0, 1, 0, 1);
     }
@@ -636,8 +638,8 @@ GNEAdditional::updateChildConnections() {
 
     // calculate position for every additional child
     for (auto i : myAdditionalChilds) {
-        // check that position is valid
-        if(i->getPositionInView() != Position::INVALID) {
+        // check that position is different of position
+        if(i->getPositionInView() != getPositionInView()) {
             std::vector<Position> posConnection;
             double A = std::abs(i->getPositionInView().x() - getPositionInView().x());
             double B = std::abs(i->getPositionInView().y() - getPositionInView().y());

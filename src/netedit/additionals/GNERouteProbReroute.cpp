@@ -76,7 +76,7 @@ GNERouteProbReroute::updateGeometry() {
 
 Position 
 GNERouteProbReroute::getPositionInView() const {
-    return Position::INVALID;
+    return myAdditionalParent->getPositionInView();
 }
 
 

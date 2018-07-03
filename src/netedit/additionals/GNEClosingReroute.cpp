@@ -75,7 +75,7 @@ GNEClosingReroute::updateGeometry() {
 
 Position 
 GNEClosingReroute::getPositionInView() const {
-    return Position();
+    return myAdditionalParent->getPositionInView();
 }
 
 
