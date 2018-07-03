@@ -35,6 +35,7 @@
 // class declarations
 // ===========================================================================
 
+class GNEAdditional;
 class GNECalibrator;
 class GNECalibratorRoute;
 class GNECalibratorVehicleType;
@@ -656,15 +657,35 @@ public:
     */
     static bool fixE2DetectorPositionPosition(double& pos, double& length, const double laneLength, const bool friendlyPos);
 
-protected:
+private:
+    /// @brief Stack used to save the last inserted element
+    struct HierarchyInsertedElements {
+
+        /// @brief insert new element (called only in function myStartElement)
+        void insertElement(SumoXMLTag tag);
+
+        /// @brief commit element insertion (used to save ID of last correct inserted element)
+        void commitElementInsertion (const std::string &id);
+
+        /// @brief pop last inserted element (used only in function myEndElement)
+        void popElement();
+
+        /// @brief retrieve additional parent correspond to current status of myInsertedElements
+        GNEAdditional* retrieveAdditionalParent(GNEViewNet* viewNet, SumoXMLTag expectedTag) const;
+
+    private:
+        /// @brief vector used as stack
+        std::vector<std::pair<SumoXMLTag, std::string> > myInsertedElements;
+    };
+
     /// @brief pointer to View's Net
     GNEViewNet* myViewNet;
 
     /// @brief flag to check if created additionals must be undo and redo
     bool myUndoAdditionals;
 
-    /// @brief The element stack used to save the last inserted element
-    std::vector<std::pair<SumoXMLTag, std::string> > myParentElements;
+    /// @brief HierarchyInsertedElements used for insert childs
+    HierarchyInsertedElements myParentElements;
 };
 
 

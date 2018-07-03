@@ -78,7 +78,7 @@ GNEAdditionalHandler::myStartElement(int element, const SUMOSAXAttributes& attrs
     // Obtain tag of element
     SumoXMLTag tag = static_cast<SumoXMLTag>(element);
     // push element int stack
-    myParentElements.push_back(std::make_pair(tag, ""));
+    myParentElements.insertElement(tag);
     // Call parse and build depending of tag
     switch (element) {
         case SUMO_TAG_BUS_STOP:
@@ -175,9 +175,9 @@ GNEAdditionalHandler::myStartElement(int element, const SUMOSAXAttributes& attrs
 
 
 void
-GNEAdditionalHandler::myEndElement(int /* element */) {
+GNEAdditionalHandler::myEndElement(int) {
     // pop last inserted element
-    myParentElements.pop_back();
+    myParentElements.popElement();
 }
 
 
@@ -201,7 +201,7 @@ GNEAdditionalHandler::parseAndBuildVaporizer(const SUMOSAXAttributes& attrs, con
             WRITE_WARNING("Time interval of " + toString(tag) + " isn't valid. Attribute '" + toString(SUMO_ATTR_BEGIN) + "' is greater than attribute '" + toString(SUMO_ATTR_END) + "'.");
         } else if(buildVaporizer(myViewNet, myUndoAdditionals, edge, begin, end)) {
             // save ID of last created element
-            myParentElements.back().second = edgeID;
+            myParentElements.commitElementInsertion(edgeID);
         }
     }
 }
@@ -241,7 +241,7 @@ GNEAdditionalHandler::parseAndBuildRouteProbe(const SUMOSAXAttributes& attrs, co
             }
             if(buildRouteProbe(myViewNet, myUndoAdditionals, id, edge, freq, file, begin)) {
                 // save ID of last created element
-                myParentElements.back().second = id;
+                myParentElements.commitElementInsertion(id);
             }
         }
     }
@@ -267,7 +267,7 @@ GNEAdditionalHandler::parseAndBuildCalibratorRoute(const SUMOSAXAttributes& attr
             WRITE_WARNING("There is another " + toString(tag) + " with the same ID='" + routeID + "'.");
         } else if ((edges.size() > 0) && buildCalibratorRoute(myViewNet, myUndoAdditionals, routeID, edges, color)) {
             // save ID of last created element
-            myParentElements.back().second = routeID;
+            myParentElements.commitElementInsertion(routeID);
         }
     }
 }
@@ -311,7 +311,7 @@ GNEAdditionalHandler::parseAndBuildCalibratorVehicleType(const SUMOSAXAttributes
         } else if(buildVehicleType(myViewNet, true, vehicleTypeID, accel, decel, sigma, tau, length, minGap, maxSpeed, speedFactor, speedDev, color, vClass, emissionClass, shape, width, 
                                    filename, impatience, laneChangeModel, carFollowModel, personCapacity, containerCapacity, boardingDuration, loadingDuration, latAlignment, minGapLat, maxSpeedLat)) {
             // save ID of last created element
-            myParentElements.back().second = vehicleTypeID;
+            myParentElements.commitElementInsertion(vehicleTypeID);
         }
     }
 }
@@ -343,7 +343,7 @@ GNEAdditionalHandler::parseAndBuildCalibratorFlow(const SUMOSAXAttributes& attrs
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
         // obtain route, vehicle type and calibrator parent
-        GNECalibrator* calibrator = dynamic_cast<GNECalibrator*>(myViewNet->getNet()->retrieveAdditional((myParentElements.end()-2)->first, (myParentElements.end()-2)->second, false));
+        GNECalibrator* calibrator = dynamic_cast<GNECalibrator*>(myParentElements.retrieveAdditionalParent(myViewNet, SUMO_TAG_CALIBRATOR));
         GNECalibratorRoute* route = dynamic_cast<GNECalibratorRoute*>(myViewNet->getNet()->retrieveAdditional(SUMO_TAG_ROUTE, routeID, false));
         GNECalibratorVehicleType* vtype = dynamic_cast<GNECalibratorVehicleType*>(myViewNet->getNet()->retrieveAdditional(SUMO_TAG_VTYPE, vehicleTypeID, false));
         // check that all elements are valid
@@ -386,7 +386,7 @@ GNEAdditionalHandler::parseAndBuildVariableSpeedSign(const SUMOSAXAttributes& at
             WRITE_WARNING("There is another " + toString(tag) + " with the same ID='" + id + "'.");
         } else if ((lanes.size() > 0) && buildVariableSpeedSign(myViewNet, myUndoAdditionals, id, pos, lanes, false)) {
             // save ID of last created element
-            myParentElements.back().second = id;
+            myParentElements.commitElementInsertion(id);
         }
     }
 }
@@ -400,7 +400,7 @@ GNEAdditionalHandler::parseAndBuildVariableSpeedSignStep(const SUMOSAXAttributes
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
         // get Variable Speed Signal
-        GNEVariableSpeedSign* variableSpeedSign = dynamic_cast<GNEVariableSpeedSign*>(myViewNet->getNet()->retrieveAdditional((myParentElements.end()-2)->first, (myParentElements.end()-2)->second, false));
+        GNEVariableSpeedSign* variableSpeedSign = dynamic_cast<GNEVariableSpeedSign*>(myParentElements.retrieveAdditionalParent(myViewNet, SUMO_TAG_VSS));
         // check that all parameters are valid
         if (variableSpeedSign == nullptr) {
             WRITE_WARNING("A " + toString(tag) + " must be declared within the definition of a " + toString(SUMO_TAG_VSS) + ".");
@@ -435,7 +435,7 @@ GNEAdditionalHandler::parseAndBuildRerouter(const SUMOSAXAttributes& attrs, cons
             WRITE_WARNING("There is another " + toString(tag) + " with the same ID='" + id + "'.");
         } else if ((edgesIDs.size() > 0) && buildRerouter(myViewNet, myUndoAdditionals, id, pos, edges, probability, file, off, timeThreshold, vTypes, false)) {
             // save ID of last created element
-            myParentElements.back().second = id;
+            myParentElements.commitElementInsertion(id);
         }
     }
 }
@@ -450,10 +450,10 @@ GNEAdditionalHandler::parseAndBuildRerouterInterval(const SUMOSAXAttributes& att
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
         // obtain rerouter
-        GNERerouter* rerouter = dynamic_cast<GNERerouter*>(myViewNet->getNet()->retrieveAdditional((myParentElements.end()-2)->first, (myParentElements.end()-2)->second, false));
+        GNERerouter* rerouter = dynamic_cast<GNERerouter*>(myParentElements.retrieveAdditionalParent(myViewNet, SUMO_TAG_REROUTER));
         // special case for load multiple intervals in the same rerouter
         if(rerouter == nullptr) {
-            GNERerouterInterval* lastInsertedRerouterInterval = dynamic_cast<GNERerouterInterval*>(myViewNet->getNet()->retrieveAdditional(SUMO_TAG_INTERVAL, (myParentElements.end()-2)->second, false));
+            GNERerouterInterval* lastInsertedRerouterInterval = dynamic_cast<GNERerouterInterval*>(myParentElements.retrieveAdditionalParent(myViewNet, SUMO_TAG_INTERVAL));
             if(lastInsertedRerouterInterval) {
                 rerouter = dynamic_cast<GNERerouter*>(lastInsertedRerouterInterval->getFirstAdditionalParent());
             }
@@ -462,7 +462,7 @@ GNEAdditionalHandler::parseAndBuildRerouterInterval(const SUMOSAXAttributes& att
         if (rerouter == nullptr) {
             WRITE_WARNING("A " + toString(tag) + " must be declared within the definition of a " + toString(SUMO_TAG_REROUTER) + ".");
         } else if(buildRerouterInterval(myViewNet, true, rerouter, begin, end)) {
-            myParentElements.back().second = rerouter->getAdditionalChilds().back()->getID();
+            myParentElements.commitElementInsertion(rerouter->getAdditionalChilds().back()->getID());
         }
     }
 }
@@ -479,7 +479,7 @@ GNEAdditionalHandler::parseAndBuildRerouterClosingLaneReroute(const SUMOSAXAttri
     if (!abort) {
         // obtain lane and rerouter interval
         GNELane* lane = myViewNet->getNet()->retrieveLane(laneID, false, true);
-        GNERerouterInterval* rerouterInterval = dynamic_cast<GNERerouterInterval*>(myViewNet->getNet()->retrieveAdditional((myParentElements.end()-2)->first, (myParentElements.end()-2)->second, false));
+        GNERerouterInterval* rerouterInterval = dynamic_cast<GNERerouterInterval*>(myParentElements.retrieveAdditionalParent(myViewNet, SUMO_TAG_INTERVAL));
         // check that all elements are valid
         if (lane == nullptr) {
             WRITE_WARNING("The lane '" + laneID + "' to use within the " + toString(tag) + " is not known.");
@@ -503,7 +503,7 @@ GNEAdditionalHandler::parseAndBuildRerouterClosingReroute(const SUMOSAXAttribute
     if (!abort) {
         // obtain edge and rerouter interval
         GNEEdge* edge = myViewNet->getNet()->retrieveEdge(edgeID, false);
-        GNERerouterInterval* rerouterInterval = dynamic_cast<GNERerouterInterval*>(myViewNet->getNet()->retrieveAdditional((myParentElements.end()-2)->first, (myParentElements.end()-2)->second, false));
+        GNERerouterInterval* rerouterInterval = dynamic_cast<GNERerouterInterval*>(myParentElements.retrieveAdditionalParent(myViewNet, SUMO_TAG_INTERVAL));
         // check that all elements are valid
         if (edge == nullptr) {
             WRITE_WARNING("The edge '" + edgeID + "' to use within the " + toString(tag) + " is not known.");
@@ -526,7 +526,7 @@ GNEAdditionalHandler::parseAndBuildRerouterDestProbReroute(const SUMOSAXAttribut
     if (!abort) {
         // obtain edge and rerouter interval
         GNEEdge* edge = myViewNet->getNet()->retrieveEdge(edgeID, false);
-        GNERerouterInterval* rerouterInterval = dynamic_cast<GNERerouterInterval*>(myViewNet->getNet()->retrieveAdditional((myParentElements.end()-2)->first, (myParentElements.end()-2)->second, false));
+        GNERerouterInterval* rerouterInterval = dynamic_cast<GNERerouterInterval*>(myParentElements.retrieveAdditionalParent(myViewNet, SUMO_TAG_INTERVAL));
         // check that all elements are valid
         if (edge == nullptr) {
             WRITE_WARNING("The edge '" + edgeID + "' to use within the " + toString(tag) + " is not known.");
@@ -549,7 +549,7 @@ GNEAdditionalHandler::parseAndBuildRerouterParkingAreaReroute(const SUMOSAXAttri
     if (!abort) {
         // obtain edge and rerouter interval
         GNEParkingArea* parkingArea = dynamic_cast<GNEParkingArea*>(myViewNet->getNet()->retrieveAdditional(SUMO_TAG_PARKING_AREA, parkingAreaID, false));
-        GNERerouterInterval* rerouterInterval = dynamic_cast<GNERerouterInterval*>(myViewNet->getNet()->retrieveAdditional((myParentElements.end()-2)->first, (myParentElements.end()-2)->second, false));
+        GNERerouterInterval* rerouterInterval = dynamic_cast<GNERerouterInterval*>(myParentElements.retrieveAdditionalParent(myViewNet, SUMO_TAG_INTERVAL));
         // check that all elements are valid
         if (parkingArea == nullptr) {
             WRITE_WARNING("The parkingArea '" + parkingAreaID + "' to use within the " + toString(tag) + " is not known.");
@@ -571,7 +571,7 @@ GNEAdditionalHandler::parseAndBuildRerouterRouteProbReroute(const SUMOSAXAttribu
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
         // obtain rerouter interval
-        GNERerouterInterval* rerouterInterval = dynamic_cast<GNERerouterInterval*>(myViewNet->getNet()->retrieveAdditional(SUMO_TAG_INTERVAL, (myParentElements.end()-2)->second, false));
+        GNERerouterInterval* rerouterInterval = dynamic_cast<GNERerouterInterval*>(myParentElements.retrieveAdditionalParent(myViewNet, SUMO_TAG_INTERVAL));
         // check that all elements are valid
         if (rerouterInterval == nullptr) {
             WRITE_WARNING("A " + toString(tag) + " must be declared within the definition of a " + toString(SUMO_TAG_INTERVAL) + ".");
@@ -608,7 +608,7 @@ GNEAdditionalHandler::parseAndBuildBusStop(const SUMOSAXAttributes& attrs, const
             WRITE_WARNING("Invalid position for " + toString(tag) + " with ID = '" + id + "'.");
         } else if(buildBusStop(myViewNet, myUndoAdditionals, id, lane, startPos, endPos, name, lines, friendlyPosition, false)){
             // save ID of last created element
-            myParentElements.back().second = id;
+            myParentElements.commitElementInsertion(id);
         }
     }
 }
@@ -640,7 +640,7 @@ GNEAdditionalHandler::parseAndBuildContainerStop(const SUMOSAXAttributes& attrs,
             WRITE_WARNING("Invalid position for " + toString(tag) + " with ID = '" + id + "'.");
         } else if(buildContainerStop(myViewNet, myUndoAdditionals, id, lane, startPos, endPos, name, lines, friendlyPosition, false)){
             // save ID of last created element
-            myParentElements.back().second = id;
+            myParentElements.commitElementInsertion(id);
         }
     }
 }
@@ -659,7 +659,7 @@ GNEAdditionalHandler::parseAndBuildAccess(const SUMOSAXAttributes& attrs, const 
         double posDouble = GNEAttributeCarrier::parse<double>(position);
         // get lane and busStop parent
         GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false, true);
-        GNEBusStop* busStop = dynamic_cast<GNEBusStop*>(myViewNet->getNet()->retrieveAdditional((myParentElements.end()-2)->first, (myParentElements.end()-2)->second, false));
+        GNEBusStop* busStop = dynamic_cast<GNEBusStop*>(myParentElements.retrieveAdditionalParent(myViewNet, SUMO_TAG_BUS_STOP));
         // check that all parameters are valid
         if (lane == nullptr) {
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " is not known.");
@@ -705,7 +705,7 @@ GNEAdditionalHandler::parseAndBuildChargingStation(const SUMOSAXAttributes& attr
             WRITE_WARNING("Invalid position for " + toString(tag) + " with ID = '" + id + "'.");
         } else if(buildChargingStation(myViewNet, myUndoAdditionals, id, lane, startPos, endPos, name, chargingPower, efficiency, chargeInTransit, chargeDelay, friendlyPosition, false)) {
             // save ID of last created element
-            myParentElements.back().second = id;
+            myParentElements.commitElementInsertion(id);
         }
     }
 }
@@ -740,8 +740,7 @@ GNEAdditionalHandler::parseAndBuildParkingArea(const SUMOSAXAttributes& attrs, c
             WRITE_WARNING("Invalid position for " + toString(tag) + " with ID = '" + id + "'.");
         } else if(buildParkingArea(myViewNet, myUndoAdditionals, id, lane, startPos, endPos, name, friendlyPosition, roadSideCapacity, width, length, angle, false)) {
             // save ID of last created element
-            myParentElements.back().second = id;
-        }
+            myParentElements.commitElementInsertion(id);        }
     }
 }
 
@@ -759,7 +758,7 @@ GNEAdditionalHandler::parseAndBuildParkingSpace(const SUMOSAXAttributes& attrs, 
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
         // get Parking Area Parent
-        GNEParkingArea* parkingAreaParent = dynamic_cast<GNEParkingArea*>(myViewNet->getNet()->retrieveAdditional((myParentElements.end()-2)->first, (myParentElements.end()-2)->second, false));
+        GNEParkingArea* parkingAreaParent = dynamic_cast<GNEParkingArea*>(myParentElements.retrieveAdditionalParent(myViewNet, SUMO_TAG_PARKING_AREA));
         // check that all parameters are valid
         if (myViewNet == nullptr) {
             WRITE_WARNING("A " + toString(tag) + " must be declared within the definition of a " + toString(SUMO_TAG_PARKING_AREA) + ".");
@@ -798,7 +797,7 @@ GNEAdditionalHandler::parseAndBuildCalibrator(const SUMOSAXAttributes& attrs, co
                 WRITE_WARNING("The  edge '" + edgeID + "' to use within the " + toString(typeOfCalibrator) + " '" + id + "' is not known.");
             } else if (buildCalibrator(myViewNet, myUndoAdditionals, id, edge, position, outfile, freq)) {
                 // save ID of last created element
-                myParentElements.back().second = id;
+                myParentElements.commitElementInsertion(id);
             }
         }
     } else if (attrs.hasAttribute(SUMO_ATTR_LANE)) {
@@ -821,7 +820,7 @@ GNEAdditionalHandler::parseAndBuildCalibrator(const SUMOSAXAttributes& attrs, co
                 WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(typeOfCalibrator) + " '" + id + "' is not known.");
             } else if (buildCalibrator(myViewNet, myUndoAdditionals, id, lane, position, outfile, freq)) {
                 // save ID of last created element
-                myParentElements.back().second = id;
+                myParentElements.commitElementInsertion(id);
             }
         }
     } else {
@@ -855,7 +854,7 @@ GNEAdditionalHandler::parseAndBuildDetectorE1(const SUMOSAXAttributes& attrs, co
             WRITE_WARNING("Invalid position for " + toString(tag) + " with ID = '" + id + "'.");
         } else if(buildDetectorE1(myViewNet, myUndoAdditionals, id, lane, position, frequency, file, vehicleTypes, friendlyPos, false)){
             // save ID of last created element
-            myParentElements.back().second = id;
+            myParentElements.commitElementInsertion(id);
         }
     }
 }
@@ -890,7 +889,7 @@ GNEAdditionalHandler::parseAndBuildDetectorE2(const SUMOSAXAttributes& attrs, co
             WRITE_WARNING("Invalid position for " + toString(tag) + " with ID = '" + id + "'.");
         } else if(buildDetectorE2(myViewNet, myUndoAdditionals, id, lane, position, length, frequency, file, cont, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, friendlyPos, false)) {
             // save ID of last created element
-            myParentElements.back().second = id;
+            myParentElements.commitElementInsertion(id);
         }
     }
 }
@@ -913,7 +912,7 @@ GNEAdditionalHandler::parseAndBuildDetectorE3(const SUMOSAXAttributes& attrs, co
             WRITE_WARNING("There is another " + toString(tag) + " with the same ID='" + id + "'.");
         } else if (buildDetectorE3(myViewNet, myUndoAdditionals, id, pos, frequency, file, haltingTimeThreshold, haltingSpeedThreshold, false)) {
             // save ID of last created element
-            myParentElements.back().second = id;
+            myParentElements.commitElementInsertion(id);
         }
     }
 }
@@ -930,7 +929,7 @@ GNEAdditionalHandler::parseAndBuildDetectorEntry(const SUMOSAXAttributes& attrs,
     if (!abort) {
         // get lane and E3 parent
         GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false, true);
-        GNEDetectorE3* E3Parent = dynamic_cast<GNEDetectorE3*>(myViewNet->getNet()->retrieveAdditional((myParentElements.end()-2)->first, (myParentElements.end()-2)->second, false));
+        GNEDetectorE3* E3Parent = dynamic_cast<GNEDetectorE3*>(myParentElements.retrieveAdditionalParent(myViewNet, SUMO_TAG_E3DETECTOR));
         // check that all parameters are valid
         if (lane == nullptr) {
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " is not known.");
@@ -956,7 +955,7 @@ GNEAdditionalHandler::parseAndBuildDetectorExit(const SUMOSAXAttributes& attrs, 
     if (!abort) {
         // get lane and E3 parent
         GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false, true);
-        GNEDetectorE3* E3Parent = dynamic_cast<GNEDetectorE3*>(myViewNet->getNet()->retrieveAdditional((myParentElements.end()-2)->first, (myParentElements.end()-2)->second, false));
+        GNEDetectorE3* E3Parent = dynamic_cast<GNEDetectorE3*>(myParentElements.retrieveAdditionalParent(myViewNet, SUMO_TAG_E3DETECTOR));
         // check that all parameters are valid
         if (lane == nullptr) {
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " is not known.");
@@ -994,7 +993,7 @@ GNEAdditionalHandler::parseAndBuildDetectorE1Instant(const SUMOSAXAttributes& at
             WRITE_WARNING("Invalid position for " + toString(tag) + " with ID = '" + id + "'.");
         } else if (buildDetectorE1Instant(myViewNet, myUndoAdditionals, id, lane, position, file, friendlyPos, false)){
             // save ID of last created element
-            myParentElements.back().second = id;
+            myParentElements.commitElementInsertion(id);
         }
     }
 }
@@ -2068,6 +2067,45 @@ bool GNEAdditionalHandler::fixE2DetectorPositionPosition(double& pos, double& le
         }
     }
     return true;
+}
+
+
+
+void 
+GNEAdditionalHandler::HierarchyInsertedElements::insertElement(SumoXMLTag tag) {
+    myInsertedElements.push_back(std::make_pair(tag, ""));
+}
+
+
+void 
+GNEAdditionalHandler::HierarchyInsertedElements::commitElementInsertion (const std::string &id) {
+    myInsertedElements.back().second = id;
+}
+
+
+void 
+GNEAdditionalHandler::HierarchyInsertedElements::popElement() {
+    myInsertedElements.pop_back();
+}
+
+
+GNEAdditional*
+GNEAdditionalHandler::HierarchyInsertedElements::retrieveAdditionalParent(GNEViewNet* viewNet, SumoXMLTag expectedTag) const {
+    if(myInsertedElements.size() <= 2) {
+        // warning message
+        return nullptr;
+    } else {
+        GNEAdditional *retrievedAdditional = viewNet->getNet()->retrieveAdditional((myInsertedElements.end()-2)->first, (myInsertedElements.end()-2)->second, false);
+        if(retrievedAdditional == nullptr) {
+            // warning message
+            return nullptr;
+        } else if( retrievedAdditional->getTag() != expectedTag) {
+            // warning message
+            return nullptr;
+        } else {
+            return retrievedAdditional;
+        }
+    }
 }
 
 /****************************************************************************/
