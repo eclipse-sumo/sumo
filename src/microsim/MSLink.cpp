@@ -962,13 +962,12 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                     continue;
                 }
                 // ignore foe vehicles that will not pass
-                if (!cannotIgnore 
+                if ((!cannotIgnore || leader->isStopped())
                         && !foeLane->getLinkCont()[0]->getApproaching(leader).willPass 
                         && leader->isFrontOnLane(foeLane) 
                         && !isOpposite 
                         && !inTheWay 
-                        // willPass is false if the vehicle is stopped or already on the stopping edge
-                        && !leader->isStopped() 
+                        // willPass is false if the vehicle is already on the stopping edge
                         && !leader->willStop()) {
                     continue;
                 }

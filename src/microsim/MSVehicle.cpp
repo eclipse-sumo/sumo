@@ -1368,7 +1368,7 @@ MSVehicle::isStopped() const {
 
 bool
 MSVehicle::willStop() const {
-    return !myStops.empty() && myLane != 0 && &myStops.front().lane->getEdge() == &myLane->getEdge();
+    return !isStopped() && !myStops.empty() && myLane != 0 && &myStops.front().lane->getEdge() == &myLane->getEdge();
 }
 
 bool
