@@ -698,21 +698,26 @@ GUIVehicle::getStopInfo() const {
 void
 GUIVehicle::selectBlockingFoes() const {
     double dist = myLane->getLength() - getPositionOnLane();
+#ifdef DEBUG_FOES
+    std::cout << SIMTIME << " selectBlockingFoes veh=" << getID() << " dist=" << dist << " numLinks=" << myLFLinkLanes.size() << "\n";
+#endif
     for (DriveItemVector::const_iterator i = myLFLinkLanes.begin(); i != myLFLinkLanes.end(); ++i) {
         const DriveProcessItem& dpi = *i;
         if (dpi.myLink == 0) {
+            /// XXX if the vehicle intends to stop on an intersection, there could be a relevant exitLink (see #4299)
             continue;
         }
         std::vector<const SUMOVehicle*> blockingFoes;
         std::vector<const MSPerson*> blockingPersons;
 #ifdef DEBUG_FOES
+        std::cout << "   foeLink=" << dpi.myLink->getViaLaneOrLane()->getID() << "\n";
         const bool isOpen =
 #endif
             dpi.myLink->opened(dpi.myArrivalTime, dpi.myArrivalSpeed, dpi.getLeaveSpeed(), getVehicleType().getLength(),
                                getImpatience(), getCarFollowModel().getMaxDecel(), getWaitingTime(), getLateralPositionOnLane(), &blockingFoes);
 #ifdef DEBUG_FOES
         if (!isOpen) {
-            std::cout << SIMTIME << " veh=" << getID() << " foes at link=" << dpi.myLink->getViaLaneOrLane()->getID() << ":\n";
+            std::cout << "     closed due to:\n";
             for (std::vector<const SUMOVehicle*>::const_iterator it = blockingFoes.begin(); it != blockingFoes.end(); ++it) {
                 std::cout << "   " << (*it)->getID() << "\n";
             }
@@ -732,7 +737,7 @@ GUIVehicle::selectBlockingFoes() const {
                                          getWaitingTime(), shadowLatPos, &blockingFoes);
 #ifdef DEBUG_FOES
                 if (!isShadowOpen) {
-                    std::cout << SIMTIME << " veh=" << getID() << " foes at shadow link=" << parallelLink->getViaLaneOrLane()->getID() << ":\n";
+                    std::cout <<  "    foes at shadow link=" << parallelLink->getViaLaneOrLane()->getID() << ":\n";
                     for (std::vector<const SUMOVehicle*>::const_iterator it = blockingFoes.begin(); it != blockingFoes.end(); ++it) {
                         std::cout << "   " << (*it)->getID() << "\n";
                     }
@@ -743,7 +748,13 @@ GUIVehicle::selectBlockingFoes() const {
         for (std::vector<const SUMOVehicle*>::const_iterator it = blockingFoes.begin(); it != blockingFoes.end(); ++it) {
             gSelected.select(static_cast<const GUIVehicle*>(*it)->getGlID());
         }
+#ifdef DEBUG_FOES
+        gDebugFlag1 = true;
+#endif
         const MSLink::LinkLeaders linkLeaders = (dpi.myLink)->getLeaderInfo(this, dist, &blockingPersons);
+#ifdef DEBUG_FOES
+        gDebugFlag1 = false;
+#endif
         for (MSLink::LinkLeaders::const_iterator it = linkLeaders.begin(); it != linkLeaders.end(); ++it) {
             // the vehicle to enter the junction first has priority
             const GUIVehicle* leader = dynamic_cast<const GUIVehicle*>(it->vehAndGap.first);
@@ -751,7 +762,7 @@ GUIVehicle::selectBlockingFoes() const {
                 if (dpi.myLink->isLeader(this, leader)) {
                     gSelected.select(leader->getGlID());
 #ifdef DEBUG_FOES
-                    std::cout << SIMTIME << " veh=" << getID() << " linkLeader at link=" << dpi.myLink->getViaLaneOrLane()->getID() << " foe=" << leader->getID() << "\n";
+                    std::cout << "      linkLeader=" << leader->getID() << "\n";
 #endif
                 }
             } else {
