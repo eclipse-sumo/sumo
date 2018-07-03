@@ -405,16 +405,16 @@ private:
 
 
     bool addSubscriptionFilter();
-    void removeFilters(libsumo::Subscription s);
-    void addLaneFilter(libsumo::Subscription s, std::vector<int> lanes);
-    void addNoOppositeFilter(libsumo::Subscription s);
-    void addDownstreamDistanceFilter(libsumo::Subscription s, double dist);
-    void addUpstreamDistanceFilter(libsumo::Subscription s, double dist);
-    void addCFManeuverFilter(libsumo::Subscription s);
-    void addLCManeuverFilter(libsumo::Subscription s);
-    void addTurnManeuverFilter(libsumo::Subscription s);
-    void addVClassFilter(libsumo::Subscription s, SVCPermissions vClasses);
-    void addVTypeFilter(libsumo::Subscription s, std::vector<std::string> vTypes);
+    void removeFilters();
+    void addSubscriptionFilterLanes(std::vector<int> lanes);
+    void addSubscriptionFilterNoOpposite();
+    void addSubscriptionFilterDownstreamDistance(double dist);
+    void addSubscriptionFilterUpstreamDistance(double dist);
+    void addSubscriptionFilterCFManeuver();
+    void addSubscriptionFilterLCManeuver(int dir);
+    void addSubscriptionFilterTurnManeuver();
+    void addSubscriptionFilterVClass(SVCPermissions vClasses);
+    void addSubscriptionFilterVType(std::vector<std::string> vTypes);
     bool isVehicleToVehicleContextSubscription(const libsumo::Subscription& s);
 
     bool findObjectShape(int domain, const std::string& id, PositionVector& shape);

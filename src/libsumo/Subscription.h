@@ -76,7 +76,7 @@ namespace libsumo {
             SUMOTime beginTimeArg, SUMOTime endTimeArg, int contextDomainArg, double rangeArg)
             : commandId(commandIdArg), id(idArg), variables(variablesArg), parameters(paramsArg), beginTime(beginTimeArg), endTime(endTimeArg),
             contextDomain(contextDomainArg), range(rangeArg), activeFilters(SUBS_FILTER_NONE),
-            filterLanes(), filterDownstreamDist(-1), filterUpstreamDist(-1), filterVTypes(), filterVClasses(0) {}
+            filterLanes(), filterDownstreamDist(-1), filterUpstreamDist(-1), filterVTypes(), filterVClasses(0), filterLCDir(0) {}
 
         /// @brief commandIdArg The command id of the subscription
         int commandId;
@@ -95,7 +95,7 @@ namespace libsumo {
         /// @brief The range of the context
         double range;
 
-        /// @brief Active filters for the subscription (bitset, see SubscriptionFilterType)
+        /// @brief Active filters for the subscription (bitset, @see SubscriptionFilterType)
         int activeFilters;
         /// @brief lanes specified by the lanes filter
         std::vector<int> filterLanes;
@@ -105,8 +105,10 @@ namespace libsumo {
         double filterUpstreamDist;
         /// @brief vTypes specified by the vTypes filter
         std::vector<std::string> filterVTypes;
-        /// @brief vClasses specified by the vClasses filter
-        SVCPermissions filterVClasses;
+        /// @brief vClasses specified by the vClasses filter, @see SVCPermissions
+        int filterVClasses;
+        /// @brief direction of lane change filter (in {-1,1})
+        int filterLCDir;
     };
 }
 
