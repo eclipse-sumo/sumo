@@ -466,6 +466,7 @@ MSPModel_Striping::getNextLane(const PState& ped, const MSLane* currentLane, con
                 WRITE_WARNING("Person '" + ped.myPerson->getID() + "' could not find route across junction '" + junction->getID() + "', time=" +
                               time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
                 // error indicated by nextDir == UNDEFINED_DIRECTION
+                nextLane = nextRouteLane;
             }
         } else if (currentEdge == nextRouteEdge) {
             // strange loop in this route. No need to use walkingArea
