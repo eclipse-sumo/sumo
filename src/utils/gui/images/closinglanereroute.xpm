@@ -1,5 +1,5 @@
 /* XPM */
-static const char *parkingspace_xpm[] = {
+static const char *closinglanereroute_xpm[] = {
 /* columns rows colors chars-per-pixel */
 "16 16 256 2 ",
 "   c black",
