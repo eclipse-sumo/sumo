@@ -240,7 +240,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[ICON_OPEN_TLSPROGRAMS] = new FXXPMIcon(a, shapeopen_xpm);
     myIcons[ICON_RELOAD] = new FXXPMIcon(a, reload_xpm);
     myIcons[ICON_SAVE] = new FXXPMIcon(a, filesave_xpm);
-    myIcons[ICON_CLOSE] = 0;//new FXXPMIcon(a, close);
+    myIcons[ICON_CLOSE] = new FXXPMIcon(a, empty_xpm);
     myIcons[ICON_START] = new FXXPMIcon(a, play_xpm);
     myIcons[ICON_STOP] = new FXXPMIcon(a, stop_xpm);
     myIcons[ICON_STEP] = new FXXPMIcon(a, step_xpm);
