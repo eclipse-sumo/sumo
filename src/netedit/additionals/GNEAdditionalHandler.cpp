@@ -21,6 +21,7 @@
 #include <config.h>
 
 #include <utils/geom/GeomConvHelper.h>
+#include <utils/xml/XMLSubSys.h>
 #include <netedit/changes/GNEChange_Additional.h>
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNEJunction.h>
@@ -28,6 +29,7 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNENet.h>
+
 
 #include "GNEAdditionalHandler.h"
 #include "GNEBusStop.h"
@@ -1674,6 +1676,21 @@ GNEAdditionalHandler::buildRerouter(GNEViewNet* viewNet, bool allowUndoRedo, con
                 i->addAdditionalParent(rerouter);
             }
             rerouter->incRef("buildRerouter");
+        }
+        // parse 
+        if(!file.empty()) {
+            // we assume that rerouter values files is placed in the same folder as the additional file
+            std::string currentAdditionalFilename = OptionsCont::getOptions().getString("sumo-additionals-file");
+            // clear filename
+            while(!currentAdditionalFilename.empty() && !(currentAdditionalFilename.back() == '\\' || currentAdditionalFilename.back() == '/')) {
+                currentAdditionalFilename.pop_back();
+            }
+            // Create additional handler for parse rerouter values
+            GNEAdditionalHandler rerouterValuesHandler(currentAdditionalFilename + file, viewNet);
+            // Run parser
+            if (!XMLSubSys::runParser(rerouterValuesHandler, currentAdditionalFilename + file, false)) {
+                WRITE_MESSAGE("Loading of " + file + " failed.");
+            }
         }
         return true;
     } else {
