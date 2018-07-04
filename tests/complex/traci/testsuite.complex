@@ -18,6 +18,7 @@ closingOutput
 
 # Tests for context subscriptions
 contextSubscriptions
+ContextSubscriptionFilters
 
 # Test for many screenshots
 b50
