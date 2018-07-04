@@ -248,6 +248,7 @@ install(CODE "execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink $ENV{DE
 add_custom_target(examples COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/extractTest.py -x -f ${CMAKE_SOURCE_DIR}/tests/examples.txt) 
 if (GIT_FOUND)
     add_custom_target(dist DEPENDS examples
+        COMMAND rm -rf sumo-git sumo-git.zip
         COMMAND ${GIT_EXECUTABLE} archive --prefix sumo-git/ -o sumo-git.zip HEAD
         COMMAND unzip sumo-git.zip
         COMMAND cp -a docs/tutorial docs/examples sumo-git/docs
@@ -256,5 +257,12 @@ if (GIT_FOUND)
         COMMAND rm -rf sumo-git sumo-git.zip
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
     set_property(TARGET dist PROPERTY FOLDER "CMake") 
+    add_custom_target(distcheck DEPENDS dist
+        COMMAND unzip sumo-src-git.zip
+        COMMAND rm -rf _cmake_build _cmake_install
+        COMMAND mkdir _cmake_build _cmake_install
+        COMMAND rm -rf _cmake_build _cmake_install
+        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+    set_property(TARGET distcheck PROPERTY FOLDER "CMake") 
 endif ()
 message(STATUS "Enabled features: ${ENABLED_FEATURES}")
