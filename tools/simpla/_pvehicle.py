@@ -85,6 +85,7 @@ class PVehicle(object):
             self._vTypes[mode] = self._determinePlatoonVType(mode)
             self._laneChangeModes[mode] = cfg.LC_MODE[mode]
             self._speedFactors[mode] = cfg.SPEEDFACTOR[mode]
+        self._speedFactors[PlatoonMode.NONE] = traci.vehicletype.getSpeedFactor(self._vTypes[PlatoonMode.NONE])
 
         # Initialize platoon mode to none
         self._currentPlatoonMode = PlatoonMode.NONE
@@ -265,6 +266,9 @@ class PVehicle(object):
         Resets the active speed factor to the mode specific base value
         '''
         self._activeSpeedFactor = cfg.SPEEDFACTOR[self._currentPlatoonMode]
+        if self._activeSpeedFactor is None:
+            assert(self._currentPlatoonMode is PlatoonMode.NONE)
+            self._activeSpeedFactor = self._speedFactors[self._currentPlatoonMode]
         traci.vehicle.setSpeedFactor(self._ID, self._activeSpeedFactor)
 
     def splitCountDown(self, dt):
