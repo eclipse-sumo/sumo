@@ -402,6 +402,7 @@ MSPModel_Striping::getNextLane(const PState& ped, const MSLane* currentLane, con
         if (currentEdge->isInternal()) {
             assert(junction == currentEdge->getFromJunction());
             nextDir = junction == nextRouteEdge->getFromJunction() ? FORWARD : BACKWARD;
+            nextLane = nextRouteLane;
             if DEBUGCOND(ped) {
                 std::cout << "  internal\n";
             }
@@ -526,6 +527,7 @@ MSPModel_Striping::getNextLane(const PState& ped, const MSLane* currentLane, con
                   << " pedDir=" << ped.myDir
                   << "\n";
     }
+    assert(nextLane != 0 || nextRouteLane == 0);
     return NextLaneInfo(nextLane, link, nextDir);
 }
 
@@ -1371,8 +1373,9 @@ MSPModel_Striping::PState::moveToNextLane(SUMOTime currentTime) {
             // lane was not checked for obstacles)
             const double newLength = (myWalkingAreaPath == 0 ? myLane->getLength() : myWalkingAreaPath->length);
             if (-dist > newLength) {
-                assert(false);
+                assert(OptionsCont::getOptions().getBool("ignore-route-errors"));
                 // should not happen because the end of myLane should have been an obstacle as well
+                // (only when the route is broken)
                 dist = -newLength;
             }
             if (myDir == BACKWARD) {
