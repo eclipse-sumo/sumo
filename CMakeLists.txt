@@ -67,7 +67,6 @@ message(STATUS "")
 set(ENABLED_FEATURES "${CMAKE_HOST_SYSTEM}")
 
 find_package(PythonInterp REQUIRED)
-find_package(Git)
 
 #http://stackoverflow.com/questions/1487752/how-do-i-instruct-cmake-to-look-for-libraries-installed-by-macports
 if (APPLE)
@@ -236,6 +235,7 @@ set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER "CMake")
 
 add_subdirectory(src)
 if (GTEST_FOUND)
+    enable_testing()
     add_subdirectory(unittest)
 endif ()
 
@@ -245,23 +245,31 @@ install(DIRECTORY tools/ DESTINATION share/sumo/tools)
 install(CODE "execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink $ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin $ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/share/sumo/bin)")
 
 # custom targets
-add_custom_target(examples COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/extractTest.py -x -f ${CMAKE_SOURCE_DIR}/tests/examples.txt) 
+add_custom_target(examples COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/extractTest.py -x -f ${CMAKE_SOURCE_DIR}/tests/examples.txt)
+add_test(exampletest ${CMAKE_SOURCE_DIR}/bin/sumo ${CMAKE_SOURCE_DIR}/docs/examples/sumo/busses/test.sumocfg)
+find_package(Git)
 if (GIT_FOUND)
+    set(PACKAGE_VERSION "git")
     add_custom_target(dist DEPENDS examples
-        COMMAND rm -rf sumo-git sumo-git.zip
-        COMMAND ${GIT_EXECUTABLE} archive --prefix sumo-git/ -o sumo-git.zip HEAD
-        COMMAND unzip sumo-git.zip
-        COMMAND cp -a docs/tutorial docs/examples sumo-git/docs
-        COMMAND zip -r sumo-src-git.zip sumo-git
-        COMMAND tar czf sumo-src-git.tar.gz sumo-git
-        COMMAND rm -rf sumo-git sumo-git.zip
+        COMMAND rm -rf sumo-${PACKAGE_VERSION} sumo-${PACKAGE_VERSION}.zip sumo-src-${PACKAGE_VERSION}.tar.gz
+        COMMAND ${GIT_EXECUTABLE} archive --prefix sumo-${PACKAGE_VERSION}/ -o sumo-${PACKAGE_VERSION}.zip HEAD
+        COMMAND unzip sumo-${PACKAGE_VERSION}.zip
+        COMMAND cp -a docs/tutorial docs/examples sumo-${PACKAGE_VERSION}/docs
+        COMMAND zip -r sumo-src-${PACKAGE_VERSION}.zip sumo-${PACKAGE_VERSION}
+        COMMAND tar czf sumo-src-${PACKAGE_VERSION}.tar.gz sumo-${PACKAGE_VERSION}
+        COMMAND rm -rf sumo-${PACKAGE_VERSION} sumo-${PACKAGE_VERSION}.zip
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
     set_property(TARGET dist PROPERTY FOLDER "CMake") 
+
     add_custom_target(distcheck DEPENDS dist
-        COMMAND unzip sumo-src-git.zip
-        COMMAND rm -rf _cmake_build _cmake_install
-        COMMAND mkdir _cmake_build _cmake_install
-        COMMAND rm -rf _cmake_build _cmake_install
+        COMMAND rm -rf sumo-${PACKAGE_VERSION}
+        COMMAND unzip sumo-src-${PACKAGE_VERSION}.zip
+        COMMAND cd sumo-${PACKAGE_VERSION} && mkdir _cmake_build _cmake_install && cd _cmake_build
+                && cmake -DCMAKE_INSTALL_PREFIX=../_cmake_install .. || (echo "ERROR: the cmake configuration failed." && false)
+                && make -j8 || (echo "ERROR: the compilation failed." && false)
+                && make test || (echo "ERROR: the test suite failed." && false)
+                && make install || (echo "ERROR: the install target failed." && false)
+        COMMAND rm -rf sumo-${PACKAGE_VERSION}
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
     set_property(TARGET distcheck PROPERTY FOLDER "CMake") 
 endif ()
