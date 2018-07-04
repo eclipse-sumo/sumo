@@ -411,7 +411,7 @@ private:
     void addSubscriptionFilterDownstreamDistance(double dist);
     void addSubscriptionFilterUpstreamDistance(double dist);
     void addSubscriptionFilterCFManeuver();
-    void addSubscriptionFilterLCManeuver(int dir);
+    void addSubscriptionFilterLCManeuver();
     void addSubscriptionFilterTurnManeuver();
     void addSubscriptionFilterVClass(SVCPermissions vClasses);
     void addSubscriptionFilterVType(std::vector<std::string> vTypes);

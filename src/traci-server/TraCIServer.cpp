@@ -1254,8 +1254,7 @@ TraCIServer::addSubscriptionFilter() {
         break;
     case FILTER_TYPE_LC_MANEUVER:
     {
-        int dir = int(myInputStorage.readByte());
-        addSubscriptionFilterLCManeuver(dir);
+        addSubscriptionFilterLCManeuver();
     }
         break;
     case FILTER_TYPE_TURN_MANEUVER:
@@ -1278,7 +1277,11 @@ TraCIServer::addSubscriptionFilter() {
         success  = false;
     }
 
-    // acknowledge filter addition
+    if (success) {
+        // acknowledge filter addition
+        writeStatusCmd(CMD_ADD_SUBSCRIPTION_FILTER, RTYPE_OK, "");
+    }
+
     return success;
 }
 
@@ -1335,11 +1338,10 @@ TraCIServer::addSubscriptionFilterCFManeuver() {
 }
 
 void
-TraCIServer::addSubscriptionFilterLCManeuver(int dir) {
-    std::cout << "Adding LC-maneuver filter (direction = " << dir << ")" << std::endl;
+TraCIServer::addSubscriptionFilterLCManeuver() {
+    std::cout << "Adding LC-maneuver filter" << std::endl;
     if (myLastContextSubscription != nullptr) {
         myLastContextSubscription->activeFilters = myLastContextSubscription->activeFilters | libsumo::SUBS_FILTER_LC_MANEUVER;
-        myLastContextSubscription->filterLCDir = dir;
     }
 }
 
