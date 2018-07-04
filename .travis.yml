@@ -28,4 +28,4 @@ script:
   - sudo make install
   - make examples
   - export SUMO_HOME=`pwd`
-  - cd docs/examples;_PWD=`pwd`;ls | while read i; do if [[ "$i" == "tools" ]]; then continue;fi;EXEC=$i;echo $i;cd $i;find . -type d | while read j;do echo $j;count=(`ls -1 $j/test.* 2>/dev/null | wc -l`);if [ $count != 0 ];then $_PWD/../bin/$EXEC $j/test.*;SUCCESS=$?;if [ $SUCCESS != 0 ]; then echo "An error occured";exit $SUCCESS;fi;fi;done;SUCCESS=$?;if [ $SUCCESS != 0 ]; then exit $SUCCESS ;fi;cd $_PWD;done;SUCCESS=$?;if [ $SUCCESS != 0 ]; then exit $SUCCESS;fi
+  - cd docs/examples;_PWD=`pwd`;ls | while read i; do if [[ "$i" == "tools" ]]; then continue;fi;EXEC=$i;echo $i;cd $i;find . -type d | while read j;do echo $j;count=(`ls -1 $j/test.* 2>/dev/null | wc -l`);if [ $count != 0 ];then $_PWD/../../bin/$EXEC $j/test.*;SUCCESS=$?;if [ $SUCCESS != 0 ]; then echo "An error occured";exit $SUCCESS;fi;fi;done;SUCCESS=$?;if [ $SUCCESS != 0 ]; then exit $SUCCESS ;fi;cd $_PWD;done;SUCCESS=$?;if [ $SUCCESS != 0 ]; then exit $SUCCESS;fi

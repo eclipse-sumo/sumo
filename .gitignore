@@ -7,7 +7,6 @@
 /config.sub
 /configure
 /depcomp
-/examples
 /install-sh
 /libtool
 /ltmain.sh
@@ -50,8 +49,10 @@
 /bin/RelWithDebInfo
 # docs dir, make artifacts
 /docs/doxygen
+/docs/examples
 /docs/javadoc
 /docs/pydoc
+/docs/tutorial
 /docs/userdoc
 # src dir, mostly configure / make stuff
 /src/config.h
