@@ -164,17 +164,17 @@ MSDevice_Bluelight::notifyMove(SUMOVehicle& veh, double /* oldPos */,
             
         }
         else {//if vehicle is passed all vehicles which had to react should get their state back after they leave the communication range
-            double distanceDelta = veh.getPosition().distanceTo(veh2->getPosition());
-            if (distanceDelta > 25 && veh.getID() != veh2->getID() && influencedVehicles.count(veh2->getID()) > 0) {
-                influencedVehicles.erase(veh2->getID());
-                MSVehicleType& t = static_cast<MSVehicle*>(veh2)->getSingularType();
-                std::map<std::string, LateralAlignment>::iterator it = influenced.find(veh2->getID());
-                if (it != influenced.end()) {
-                    //it->second();
-                    std::cout << "Change allingnment for" << veh2->getID() << "\n";
-                    t.setPreferredLateralAlignment(LATALIGN_CENTER);
+            if (influencedVehicles.count(veh2->getID()) > 0) {
+                double distanceDelta = veh.getPosition().distanceTo(veh2->getPosition());
+                if (distanceDelta > 25 && veh.getID() != veh2->getID()) {
+                    influencedVehicles.erase(veh2->getID());
+                    MSVehicleType& t = static_cast<MSVehicle*>(veh2)->getSingularType();
+                    std::map<std::string, LateralAlignment>::iterator it = influenced.find(veh2->getID());
+                    if (it != influenced.end()) {
+                        std::cout << "Change allingnment for: "  << it->first << ":" << it->second << "\n";
+                        t.setPreferredLateralAlignment(static_cast<LateralAlignment>(it->second));
+                    }
                 }
-
             }
         }
     }
