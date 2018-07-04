@@ -1376,15 +1376,15 @@ class VehicleDomain(Domain):
         Restricts vehicles returned by the last modified vehicle context subscription to leader and follower of the ego
         """
         self._connection._addSubscriptionFilter(tc.FILTER_TYPE_CF_MANEUVER)
+                
+    def addSubscriptionFilterLCManeuver(self):
+        """addSubscriptionFilterLCManeuver() -> None
 
-    def addSubscriptionFilterLCManeuver(self, direction):
-        """addSubscriptionFilterLCManeuver(int) -> None
-
-        Restricts vehicles returned by the last modified vehicle context subscription to neighbor and ego-lane leader
-        and follower of the ego
+        Restricts vehicles returned by the last modified vehicle context subscription to neighbor and ego-lane leader and follower of the ego.
+        Combine with: lanes-filter to restrict to one direction; distance filters; vClass/vType filter.
         """
-        self._connection._addSubscriptionFilter(tc.FILTER_TYPE_LC_MANEUVER, direction)
-
+        self._connection._addSubscriptionFilter(tc.FILTER_TYPE_LC_MANEUVER)
+        
     def addSubscriptionFilterTurnManeuver(self):
         """addSubscriptionFilterTurnManeuver() -> None
 

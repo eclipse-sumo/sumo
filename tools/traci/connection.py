@@ -257,9 +257,10 @@ class Connection:
         command = tc.CMD_ADD_SUBSCRIPTION_FILTER
         self._queue.append(command)
         if filterType == tc.FILTER_TYPE_NONE \
-                or filterType == tc.FILTER_TYPE_NOOPPOSITE \
-                or filterType == tc.FILTER_TYPE_CF_MANEUVER \
-                or filterType == tc.FILTER_TYPE_TURN_MANEUVER:
+        or filterType == tc.FILTER_TYPE_NOOPPOSITE \
+        or filterType == tc.FILTER_TYPE_CF_MANEUVER \
+        or filterType == tc.FILTER_TYPE_LC_MANEUVER \
+        or filterType == tc.FILTER_TYPE_TURN_MANEUVER:
             # filter without parameter
             assert(params is None)
             length = 1 + 1 + 1  # length + CMD + FILTER_ID
@@ -291,16 +292,19 @@ class Connection:
             # filter with list(byte) parameter
             try:
                 l = len(params)
-            except Exception:
-                raise TraCIException("Filter type %s requires identifier list as parameter." % str(filterType))
-            length = 1 + 1 + 1 + 1 + 1 + l
-            # length + CMD + FILTER_ID + TYPE_STRINGLIST + length(list) as ubyte + lane-indices
+            except:
+                raise TraCIException("Filter type lanes requires index list as parameter.")
+            length = 1 + 1 + 1 + 1 + 1 + l # length + CMD + FILTER_ID + TYPE_STRINGLIST + length(list) as ubyte + lane-indices
             if length <= 255:
                 self._string += struct.pack("!BBBi", length, command, filterType, l)
             else:
                 length += 4  # extended msg length
                 self._string += struct.pack("!BiBBi", 0, length, command, filterType, l)
             for i in params:
+                if i <= -128 or i >= 128:
+                    raise TraCIException("Filter type lanes: maximal lane index is 127.")
+                if i < 0:
+                    i += 256
                 self._string += struct.pack("!B", i)
 
     def isEmbedded(self):
