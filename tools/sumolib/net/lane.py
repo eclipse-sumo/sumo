@@ -182,7 +182,6 @@ class Lane:
             xmax = max(xmax, p[0])
             ymin = min(ymin, p[1])
             ymax = max(ymax, p[1])
-        assert(xmin != xmax or ymin != ymax)
         return (xmin, ymin, xmax, ymax)
 
     def getClosestLanePosAndDist(self, point, perpendicular=False):
