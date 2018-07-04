@@ -3,22 +3,18 @@ Loading configuration... done.
 Loading configuration... done.
 Loading configuration... done.
 Loading configuration... done.
-Could not connect to TraCI server at localhost:38399 [Errno 111] Connection refused
+Loading configuration... done.
  Retrying in 1 seconds
 Testing config warnings...
-Could not connect to TraCI server at localhost:59467 [Errno 111] Connection refused
  Retrying in 1 seconds
 Testing exception messages...
-Could not connect to TraCI server at localhost:35893 [Errno 111] Connection refused
  Retrying in 1 seconds
 Testing malformed vtype map file causing exception...
-Could not connect to TraCI server at localhost:43999 [Errno 111] Connection refused
  Retrying in 1 seconds
 Testing empty config...
-Could not connect to TraCI server at localhost:54629 [Errno 111] Connection refused
  Retrying in 1 seconds
 Testing standard config...
-Loading vehicle type mappings from file '/home/leo/sumo_master/sumo/tests/complex/simpla/config/vtype.map'... (Config)
+Loading vehicle type mappings from file '/home/leo/repos/sumo_master/sumo/tests/complex/simpla/config/vtype.map'... (Config)
 original type: 'pkwFern5' (Config)
 platoon leader type: 'pkwFern5_pLeader' (Config)
 platoon follower type: 'pkwFern5_pFollower' (Config)
@@ -49,3 +45,5 @@ platoon leader type: 'pkwFern2b_pLeader' (Config)
 platoon follower type: 'pkwFern2b_pFollower' (Config)
 catchup type: 'pkwFern2b_pCatchup' (Config)
 catchup follower type: 'pkwFern2b_pCatchupFollower' (Config)
+ Retrying in 1 seconds
+Testing specification of vTypeMap only...

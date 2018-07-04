@@ -24,6 +24,7 @@ sys.path.append(os.path.join(sumoHome, "tools"))
 
 import traci  # noqa
 import sumolib  # noqa
+import simpla  # noqa
 import simpla._config as cfg  # noqa
 import simpla._reporting as rp  # noqa
 from simpla import SimplaException  # noqa
@@ -73,6 +74,7 @@ catchupFollower="catchupFollowerVTypeID" /><verbosity value="200" ></verbosity>
         self.cfg_body2 = '<vTypeMapFile file="vtype2.map"></vTypeMapFile>'
         self.cfg_body3 = '<vTypeMapFile file="vtype3.map"></vTypeMapFile>'
         self.cfg_body4 = '<vTypeMapFile file="FileThatDoesntExist"></vTypeMapFile>'
+        self.cfg_body5 = '<vTypeMap original="original_type1" leader="leader_type1" follower="follower_type1" catchup ="catchup_type1" catchupFollower ="catchupFollower_type1"/>'
 
         # start a sumo instance
         self.sumocfg = os.path.join(self.testDir, "sumo.sumocfg")
@@ -218,13 +220,28 @@ catchupFollower="catchupFollowerVTypeID" /><verbosity value="200" ></verbosity>
             self.assertTrue(str(e).startswith("Original vType must be specified"))
 
 
-# # restrict run to specific tests
-# select_test = 4
-# tests = [a for a in dir(TestConfig) if a.startswith("test")]
-# print (tests, len(tests))
-# for i,t in enumerate(tests):
-#     if i != selected_test:
-#         delattr(TestConfig, t)
+    def test_only_vTypeMap_given(self):
+        print("Testing specification of vTypeMap only...")
+        self.patchConfigFile(self.cfg_body5)
+        simpla.load(self.CFG1)
+        # print ("controlInterval: %s"%simpla._mgr._controlInterval)
+        for i in range(10):
+            # print ("Time: %s"%traci.simulation.getCurrentTime())
+            # print ("Vehicles: %s"%traci.vehicle.getIDList())
+            traci.simulationStep()
+        
+            
+#~ # restrict run to specific tests
+#~ selected_test = 5
+#~ tests = [a for a in dir(TestConfig) if a.startswith("test")]
+#~ print (tests, len(tests))
+#~ for i,t in enumerate(tests):
+    #~ if i != selected_test:
+        #~ print("Removing test %s (%s)"%(i, t))
+        #~ delattr(TestConfig, t)
+    #~ else:
+        #~ print("Keeping test %s (%s)"%(i, t))
+        
 
 
 if __name__ == "__main__":
