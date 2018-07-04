@@ -201,25 +201,26 @@ public:
     };
 
     enum TAGProperty {
-        TAGPROPERTY_NETELEMENT =       1 << 0,     // Edges, Junctions, Lanes...
-        TAGPROPERTY_ADDITIONAL =       1 << 1,     // Bus Stops, Charging Stations, Detectors...
-        TAGPROPERTY_SHAPE =            1 << 2,     // POIs, Polygons
-        TAGPROPERTY_STOPPINGPLACE =    1 << 3,     // StoppingPlaces (BusStops, ChargingStations...)
-        TAGPROPERTY_DETECTOR =         1 << 4,     // Detectors (E1, E2...)
-        TAGPROPERTY_ROUTEELEMENT =     1 << 5,     // VTypes, Vehicles, Flows...
-        TAGPROPERTY_INTERNAL =         1 << 6,     // If set, element cannot be created using Frames (GNEAdditionalFrame, GNEPolygonFrame...)
-        TAGPROPERTY_BLOCKMOVEMENT =    1 << 7,     // Element can block their movement
-        TAGPROPERTY_BLOCKSHAPE =       1 << 8,     // Element can block their shape
-        TAGPROPERTY_CLOSESHAPE =       1 << 9,     // Element can close their shape
-        TAGPROPERTY_GEOPOSITION =      1 << 10,    // Element's position can be defined using a GEO position
-        TAGPROPERTY_GEOSHAPE =         1 << 11,    // Element's shape acn be defined using a GEO Shape
-        TAGPROPERTY_DIALOG =           1 << 12,    // Element can be edited using a dialog (GNECalibratorDialog, GNERerouterDialog...)
-        TAGPROPERTY_PARENT =           1 << 13,    // Element will be writed in XML as child of another element (E3Entry -> E3Detector...)
-        TAGPROPERTY_MINIMUMCHILDS =    1 << 14,    // Element will be only writed in XML if has a minimum number of childs
-        TAGPROPERTY_REPARENT =         1 << 15,    // Element can be reparent
-        TAGPROPERTY_SYNONYM =          1 << 16,    // Element will be written with a different name in der XML
-        TAGPROPERTY_AUTOMATICSORTING = 1 << 17,    // Element sort automatic their Childs (used by Additionals)
-        TAGPROPERTY_SELECTABLE =       1 << 18,    // Element is selectable
+        TAGPROPERTY_NETELEMENT =          1 << 0,   // Edges, Junctions, Lanes...
+        TAGPROPERTY_ADDITIONAL =          1 << 1,   // Bus Stops, Charging Stations, Detectors...
+        TAGPROPERTY_SHAPE =               1 << 2,   // POIs, Polygons
+        TAGPROPERTY_STOPPINGPLACE =       1 << 3,   // StoppingPlaces (BusStops, ChargingStations...)
+        TAGPROPERTY_DETECTOR =            1 << 4,   // Detectors (E1, E2...)
+        TAGPROPERTY_ROUTEELEMENT =        1 << 5,   // VTypes, Vehicles, Flows...
+        TAGPROPERTY_INTERNAL =            1 << 6,   // If set, element cannot be created using Frames (GNEAdditionalFrame, GNEPolygonFrame...)
+        TAGPROPERTY_BLOCKMOVEMENT =       1 << 7,   // Element can block their movement
+        TAGPROPERTY_BLOCKSHAPE =          1 << 8,   // Element can block their shape
+        TAGPROPERTY_CLOSESHAPE =          1 << 9,   // Element can close their shape
+        TAGPROPERTY_GEOPOSITION =         1 << 10,  // Element's position can be defined using a GEO position
+        TAGPROPERTY_GEOSHAPE =            1 << 11,  // Element's shape acn be defined using a GEO Shape
+        TAGPROPERTY_DIALOG =              1 << 12,  // Element can be edited using a dialog (GNECalibratorDialog, GNERerouterDialog...)
+        TAGPROPERTY_PARENT =              1 << 13,  // Element will be writed in XML as child of another element (E3Entry -> E3Detector...)
+        TAGPROPERTY_MINIMUMCHILDS =       1 << 14,  // Element will be only writed in XML if has a minimum number of childs
+        TAGPROPERTY_REPARENT =            1 << 15,  // Element can be reparent
+        TAGPROPERTY_SYNONYM =             1 << 16,  // Element will be written with a different name in der XML
+        TAGPROPERTY_AUTOMATICSORTING =    1 << 17,  // Element sort automatic their Childs (used by Additionals)
+        TAGPROPERTY_SELECTABLE =          1 << 18,  // Element is selectable
+        TAGPROPERTY_WRITECHILDSSEPARATE = 1 << 19,  // Element writes their childs in a separated filename
     };
 
     /// @brief struct with the attribute Properties
@@ -323,6 +324,9 @@ public:
 
         /// @brief return true if tag correspond to an element that can sort their childs automatic
         bool canAutomaticSortChilds() const;
+
+        /// @brief return true if tag correspond to an element that can sort their childs automatic
+        bool canWriteChildsSeparate() const;
 
         /// @brief return true if attribute of this tag is deprecated
         bool isAttributeDeprecated(SumoXMLAttr attr) const;

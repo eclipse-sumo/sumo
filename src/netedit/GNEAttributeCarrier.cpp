@@ -305,6 +305,12 @@ GNEAttributeCarrier::TagValues::canAutomaticSortChilds() const {
 }
 
 
+bool
+GNEAttributeCarrier::TagValues::canWriteChildsSeparate() const {
+    return (myTagProperty & TAGPROPERTY_WRITECHILDSSEPARATE) != 0;
+}
+
+
 bool 
 GNEAttributeCarrier::TagValues::isAttributeDeprecated(SumoXMLAttr attr) const {
     return (std::find(myDeprecatedAttributes.begin(), myDeprecatedAttributes.end(), attr) != myDeprecatedAttributes.end());
@@ -1774,7 +1780,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_REROUTER;
     {
         // set values of tag
-        myAllowedTags[currentTag] = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_SELECTABLE | TAGPROPERTY_BLOCKMOVEMENT | TAGPROPERTY_DIALOG, 50, ICON_REROUTER);
+        myAllowedTags[currentTag] = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_SELECTABLE | TAGPROPERTY_BLOCKMOVEMENT | TAGPROPERTY_DIALOG | TAGPROPERTY_WRITECHILDSSEPARATE, 50, ICON_REROUTER);
         // set values of attributes
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_ID,
             ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
