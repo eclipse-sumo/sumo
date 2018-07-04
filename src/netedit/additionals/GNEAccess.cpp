@@ -48,12 +48,13 @@
 
 #include "GNEAccess.h"
 #include "GNEBusStop.h"
+#include "GNEAdditionalHandler.h"
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
-GNEAccess::GNEAccess(GNEBusStop *busStop, GNELane* lane, GNEViewNet* viewNet, const std::string& pos, const std::string& length, bool friendlyPos, bool blockMovement) :
+GNEAccess::GNEAccess(GNEAdditional *busStop, GNELane* lane, GNEViewNet* viewNet, const std::string& pos, const std::string& length, bool friendlyPos, bool blockMovement) :
     GNEAdditional(busStop, viewNet, GLO_ACCESS, SUMO_TAG_ACCESS, true, blockMovement),
     myLane(lane),
     myPositionOverLane(pos),
@@ -249,7 +250,7 @@ GNEAccess::isValid(SumoXMLAttr key, const std::string& value) {
             GNELane *lane = myViewNet->getNet()->retrieveLane(value, false);
             if (lane != nullptr) {
                 if(myLane->getParentEdge().getID() != lane->getParentEdge().getID()) {
-                    return dynamic_cast<GNEBusStop*>(myFirstAdditionalParent)->accessCanBeCreated(lane->getParentEdge());
+                    return GNEAdditionalHandler::accessCanBeCreated(myFirstAdditionalParent, lane->getParentEdge());
                 } else {
                     return true;
                 }

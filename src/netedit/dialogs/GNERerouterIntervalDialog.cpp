@@ -643,8 +643,8 @@ GNERerouterIntervalDialog::onCmdChangeBeginEnd(FXObject*, FXSelector, void*) {
         // set new values in rerouter interval
         myEditedAdditional->setAttribute(SUMO_ATTR_BEGIN, myBeginTextField->getText().text(), myEditedAdditional->getViewNet()->getUndoList());
         myEditedAdditional->setAttribute(SUMO_ATTR_END, myEndTextField->getText().text(), myEditedAdditional->getViewNet()->getUndoList());
-        // sort intervals of rerouter (Note. Change this in the future)
-        dynamic_cast<GNERerouter*>(myEditedAdditional->getFirstAdditionalParent())->sortIntervals();
+        // sort intervals of rerouter
+        myEditedAdditional->sortAdditionalChilds();
         // change icon
         myBeginEndValid = true;
         myCheckLabel->setIcon(GUIIconSubSys::getIcon(ICON_CORRECT));

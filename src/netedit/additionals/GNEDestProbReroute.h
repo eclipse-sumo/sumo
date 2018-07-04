@@ -51,7 +51,7 @@ public:
     GNEDestProbReroute(GNERerouterIntervalDialog* rerouterIntervalDialog);
 
     /// @brief constructor
-    GNEDestProbReroute(GNERerouterInterval* rerouterIntervalParent, GNEEdge* newEdgeDestination, double probability);
+    GNEDestProbReroute(GNEAdditional* rerouterIntervalParent, GNEEdge* newEdgeDestination, double probability);
 
     /// @brief destructor
     ~GNEDestProbReroute();

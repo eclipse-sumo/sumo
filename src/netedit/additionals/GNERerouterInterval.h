@@ -51,7 +51,7 @@ public:
     GNERerouterInterval(GNERerouterDialog* rerouterDialog);
 
     /// @brief constructor
-    GNERerouterInterval(GNERerouter* rerouterParent, double begin, double end);
+    GNERerouterInterval(GNEAdditional* rerouterParent, double begin, double end);
 
     /// @brief destructor
     ~GNERerouterInterval();

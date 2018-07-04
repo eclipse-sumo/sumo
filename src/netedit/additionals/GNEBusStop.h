@@ -59,9 +59,6 @@ public:
     /// @brief Destructor
     ~GNEBusStop();
 
-    /// @brief
-    bool accessCanBeCreated(GNEEdge &edge) const;
-
     /// @name Functions related with geometry of element
     /// @{
     /// @brief update pre-computed geometry information

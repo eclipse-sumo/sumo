@@ -52,7 +52,7 @@ public:
     GNEClosingLaneReroute(GNERerouterIntervalDialog* rerouterIntervalDialog);
 
     /// @brief parameter constructor
-    GNEClosingLaneReroute(GNERerouterInterval* rerouterIntervalParent, GNELane* closedLane, SVCPermissions permissions);
+    GNEClosingLaneReroute(GNEAdditional* rerouterIntervalParent, GNELane* closedLane, SVCPermissions permissions);
 
     /// @brief destructor
     ~GNEClosingLaneReroute();

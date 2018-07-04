@@ -44,7 +44,7 @@ GNERerouterInterval::GNERerouterInterval(GNERerouterDialog* rerouterDialog) :
 }
 
 
-GNERerouterInterval::GNERerouterInterval(GNERerouter* rerouterParent, double begin, double end) :
+GNERerouterInterval::GNERerouterInterval(GNEAdditional* rerouterParent, double begin, double end) :
     GNEAdditional(rerouterParent, rerouterParent->getViewNet(), GLO_REROUTER, SUMO_TAG_INTERVAL, false, false),
     myBegin(begin),
     myEnd(end) {

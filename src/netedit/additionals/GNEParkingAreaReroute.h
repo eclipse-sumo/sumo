@@ -52,7 +52,7 @@ public:
     GNEParkingAreaReroute(GNERerouterIntervalDialog* rerouterIntervalDialog);
 
     /// @brief constructor
-    GNEParkingAreaReroute(GNERerouterInterval* rerouterIntervalParent, GNEParkingArea* newParkingArea, double probability);
+    GNEParkingAreaReroute(GNEAdditional* rerouterIntervalParent, GNEAdditional* newParkingArea, double probability);
 
     /// @brief destructor
     ~GNEParkingAreaReroute();

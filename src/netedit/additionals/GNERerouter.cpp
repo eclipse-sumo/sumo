@@ -124,49 +124,6 @@ GNERerouter::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList)
 }
 
 
-int
-GNERerouter::getNumberOfOverlappedIntervals() const {
-    /*
-    int numOverlappings = 0;
-    // iterate over intervals to save the number of overlappings
-    for (int i = 0; i < (int)(myRerouterIntervals.size() - 1); i++) {
-        if (myRerouterIntervals.at(i)->getEnd() > myRerouterIntervals.at(i + 1)->getBegin()) {
-            numOverlappings++;
-        } else if (myRerouterIntervals.at(i)->getEnd() > myRerouterIntervals.at(i + 1)->getEnd()) {
-            numOverlappings++;
-        }
-    }
-    // return number of overlappings found
-    return numOverlappings;
-    */
-    return 0;
-}
-
-
-void
-GNERerouter::sortIntervals() {
-    /*
-    // declare a vector to keep sorted intervals
-    std::vector<GNERerouterInterval*> sortedIntervals;
-    // sort intervals usin begin as criterium
-    while (myRerouterIntervals.size() > 0) {
-        int begin_small = 0;
-        // find the interval with the small begin
-        for (int i = 0; i < (int)myRerouterIntervals.size(); i++) {
-            if (myRerouterIntervals.at(i)->getBegin() < myRerouterIntervals.at(begin_small)->getBegin()) {
-                begin_small = i;
-            }
-        }
-        // add it to sortd intervals and remove it from myRerouterIntervals
-        sortedIntervals.push_back(myRerouterIntervals.at(begin_small));
-        myRerouterIntervals.erase(myRerouterIntervals.begin() + begin_small);
-    }
-    // restore myRerouterIntervals using sorted intervals
-    myRerouterIntervals = sortedIntervals;
-    */
-}
-
-
 std::string
 GNERerouter::getParentName() const {
     return myViewNet->getNet()->getMicrosimID();

@@ -66,15 +66,17 @@ GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlOb
 }
 
 
-GNEAdditional::GNEAdditional(GNEAdditional* additionalParent, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, bool movable, bool blockMovement) :
-    GUIGlObject(type, additionalParent->generateAdditionalChildID(tag)),
+GNEAdditional::GNEAdditional(GNEAdditional* singleAdditionalParent, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, bool movable, bool blockMovement) :
+    GUIGlObject(type, singleAdditionalParent->generateAdditionalChildID(tag)),
     GNEAttributeCarrier(tag),
     myViewNet(viewNet),
     myMovable(movable),
     myBlockMovement(blockMovement),
-    myFirstAdditionalParent(additionalParent),
+    myFirstAdditionalParent(singleAdditionalParent),
     mySecondAdditionalParent(nullptr),
     myBlockIconRotation(0.) {
+    // check that additional parent is of expected type
+    assert(singleAdditionalParent->getTag() == getTagProperties(getTag()).getParentTag());
 }
 
 
@@ -87,6 +89,8 @@ GNEAdditional::GNEAdditional(GNEAdditional* firstAdditionalParent, GNEAdditional
     myFirstAdditionalParent(firstAdditionalParent),
     mySecondAdditionalParent(secondAdditionalParent),
     myBlockIconRotation(0.) {
+    // check that additional parent is of expected type
+    assert(firstAdditionalParent->getTag() == getTagProperties(getTag()).getParentTag());
 }
 
 

@@ -60,17 +60,6 @@ public:
     /// @brief open GNERerouterDialog
     void openAdditionalDialog();
 
-    /// @name Functions related with rerouter intervals
-    /// @{
-
-    /// @brief get number of overlapped intervals
-    int getNumberOfOverlappedIntervals() const;
-
-    /// @brief sort intervals
-    void sortIntervals();
-
-    /// @}
-
     /// @name Functions related with geometry of element
     /// @{
     /**@brief change the position of the element geometry without saving in undoList

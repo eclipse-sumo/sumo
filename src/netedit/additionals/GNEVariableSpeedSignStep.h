@@ -50,7 +50,7 @@ public:
     GNEVariableSpeedSignStep(GNEVariableSpeedSignDialog* variableSpeedSignDialog);
 
     /// @brief constructor
-    GNEVariableSpeedSignStep(GNEVariableSpeedSign* variableSpeedSignParent, double time, double speed);
+    GNEVariableSpeedSignStep(GNEAdditional* variableSpeedSignParent, double time, double speed);
 
     /// @brief destructor
     ~GNEVariableSpeedSignStep();

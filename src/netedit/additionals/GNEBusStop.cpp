@@ -91,17 +91,6 @@ GNEBusStop::updateGeometry() {
 }
 
 
-bool 
-GNEBusStop::accessCanBeCreated(GNEEdge &edge) const {
-    for (auto i : myAdditionalChilds) {
-        if (dynamic_cast<GNEAccess*>(i)->getEdge().getID() == edge.getID()) {
-            return false;
-        }
-    }
-    return true;
-}
-
-
 void
 GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
     // obtain circle resolution
