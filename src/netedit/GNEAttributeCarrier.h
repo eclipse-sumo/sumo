@@ -177,6 +177,9 @@ public:
         /// @brief return true if atribute is combinable with other Attribute
         bool isCombinable() const;
 
+        /// @brief return true if atribute isn't editable
+        bool isNonEditable() const;
+
     private:
         /// @brief Property of attribute
         int myAttributeProperty;

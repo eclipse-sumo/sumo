@@ -562,6 +562,12 @@ GNEAttributeCarrier::AttributeValues::isCombinable() const {
     return (myAttributeProperty & ATTRPROPERTY_COMBINABLE) != 0;
 }
 
+
+bool 
+GNEAttributeCarrier::AttributeValues::isNonEditable() const {
+    return (myAttributeProperty & ATTRPROPERTY_NONEDITABLE) != 0;
+}
+
 // ---------------------------------------------------------------------------
 // GNEAttributeCarrier - methods
 // ---------------------------------------------------------------------------

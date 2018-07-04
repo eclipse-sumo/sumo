@@ -383,10 +383,15 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::showAttribute(SumoXMLTag AC
         }
         // show check button
         myBoolCheckButton->show();
+        // enable or disable depending if attribute is editable
+        if(attrValue.isNonEditable()) {
+            myBoolCheckButton->disable();
+        } else {
+            myBoolCheckButton->enable();
+        }
     } else if (attrValue.isDiscrete()) {
         // Check if are combinable choices
-        if ((attrValue.getDiscreteValues().size() > 0) && 
-             attrValue.isCombinable()) {
+        if ((attrValue.getDiscreteValues().size() > 0) && attrValue.isCombinable()) {
             // hide label
             myLabel->hide();
             // Show button combinable choices
@@ -407,22 +412,46 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::showAttribute(SumoXMLTag AC
             myChoicesCombo->setCurrentItem(myChoicesCombo->findItem(value.c_str()));
             myChoicesCombo->setTextColor(FXRGB(0, 0, 0));
             myChoicesCombo->show();
+            // enable or disable depending if attribute is editable
+            if(attrValue.isNonEditable()) {
+                myChoicesCombo->disable();
+            } else {
+                myChoicesCombo->enable();
+            }
         }
     } else if (attrValue.isFloat() || attrValue.isTime()) {
         // show TextField for real/time values
         myTextFieldReal->setText(value.c_str());
         myTextFieldReal->setTextColor(FXRGB(0, 0, 0));
         myTextFieldReal->show();
+        // enable or disable depending if attribute is editable
+        if(attrValue.isNonEditable()) {
+            myTextFieldReal->disable();
+        } else {
+            myTextFieldReal->enable();
+        }
     } else if (attrValue.isInt()) {
         // Show textField for int attributes
         myTextFieldInt->setText(value.c_str());
         myTextFieldInt->setTextColor(FXRGB(0, 0, 0));
         myTextFieldInt->show();
+        // enable or disable depending if attribute is editable
+        if(attrValue.isNonEditable()) {
+            myTextFieldInt->disable();
+        } else {
+            myTextFieldInt->enable();
+        }
     } else {
         // In any other case (String, list, etc.), show value as String
         myTextFieldStrings->setText(value.c_str());
         myTextFieldStrings->setTextColor(FXRGB(0, 0, 0));
         myTextFieldStrings->show();
+        // enable or disable depending if attribute is editable
+        if(attrValue.isNonEditable()) {
+            myTextFieldStrings->disable();
+        } else {
+            myTextFieldStrings->enable();
+        }
     }
     // Show AttributeInput
     show();
