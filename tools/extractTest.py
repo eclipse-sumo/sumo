@@ -107,7 +107,7 @@ def main(options):
         if not os.path.exists(os.path.dirname(options.python_script)):
             os.makedirs(os.path.dirname(options.python_script))
         pyBatch = open(options.python_script, 'w')
-        pyBatch.write('import subprocess\nfor p in [\n')
+        pyBatch.write('import subprocess,sys\nfor p in [\n')
     for source, target, app in targets:
         outputFiles = glob.glob(join(source, "output.[0-9a-z]*"))
         # print source, target, outputFiles
@@ -202,14 +202,18 @@ def main(options):
             if app == "netgen":
                 call = ["netgenerate"] + appOptions
             elif app == "tools":
-                call = appOptions
-                call[0] = os.path.join(SUMO_HOME, call[0])
+                call = ["python"] + appOptions
+                call[1] = os.path.join(SUMO_HOME, call[1])
             elif app == "complex":
-                call = appOptions
-                call[0] = os.path.join(".", os.path.basename(call[0]))
+                call = ["python"]
+                for o in appOptions:
+                    if o.endswith(".py"):
+                        call.insert(1, os.path.join(".", os.path.basename(o)))
+                    else:
+                        call.append(o)
             else:
                 call = [app] + appOptions
-            pyBatch.write('subprocess.Popen(["%s"], cwd="%s"),\n' % ('", "'.join(call), testPath))
+            pyBatch.write('subprocess.Popen(["%s"], cwd=r"%s"),\n' % ('", r"'.join(call), testPath))
         if options.skip_configuration:
             continue
         oldWorkDir = os.getcwd()
@@ -219,8 +223,7 @@ def main(options):
             appOptions += ['--save-configuration', '%s.%scfg' %
                            (nameBase, app[:4])]
             if app == "netgen":
-                # binary is now called differently but app still has the old
-                # name
+                # binary is now called differently but app still has the old name
                 app = "netgenerate"
             if options.verbose:
                 print("calling %s for testPath '%s' with  options '%s'" %
@@ -235,7 +238,7 @@ def main(options):
                 open(nameBase + ".bat", "w").write(tool + " " + " ".join(appOptions[:-1]))
         os.chdir(oldWorkDir)
     if options.python_script:
-        pyBatch.write(']:\n  if p.wait() != 0:\n    raise subprocess.CalledProcessError()\n')
+        pyBatch.write(']:\n  if p.wait() != 0:\n    sys.exit(1)\n')
 
 
 if __name__ == "__main__":
