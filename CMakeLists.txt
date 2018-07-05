@@ -260,6 +260,7 @@ if (GIT_FOUND)
         COMMAND rm -rf sumo-${PACKAGE_VERSION} sumo-${PACKAGE_VERSION}.zip
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
     set_property(TARGET dist PROPERTY FOLDER "CMake") 
+    set_property(TARGET dist PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
 
     add_custom_target(distcheck DEPENDS dist
         COMMAND rm -rf sumo-${PACKAGE_VERSION}
@@ -272,5 +273,6 @@ if (GIT_FOUND)
         COMMAND rm -rf sumo-${PACKAGE_VERSION}
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
     set_property(TARGET distcheck PROPERTY FOLDER "CMake") 
+    set_property(TARGET distcheck PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
 endif ()
 message(STATUS "Enabled features: ${ENABLED_FEATURES}")
