@@ -59,7 +59,7 @@ if __name__ == "__main__":
         with open(options.trace) as traces:
             for line in traces:
                 id, traceString = line.split(":")
-                trace = [map(float, pos.split(",")) for pos in traceString.split()]
+                trace = [tuple(map(float, pos.split(","))) for pos in traceString.split()]
                 if options.geo:
                     trace = [net.convertLonLat2XY(*pos) for pos in trace]
                 if options.poi_output is not None:

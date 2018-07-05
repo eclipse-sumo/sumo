@@ -134,7 +134,7 @@ class DetectorRouteEmitterReader(handler.ContentHandler):
         nGEHthresh = 0
         n = 0
         geh = make_geh(interval)
-        for edge, detData in self._detReader._edge2DetData.iteritems():
+        for edge, detData in self._detReader._edge2DetData.items():
             rFlow = self._edgeFlow.get(edge, 0)
             for group in detData:
                 if group.isValid:
@@ -183,7 +183,7 @@ class DetectorRouteEmitterReader(handler.ContentHandler):
         print_record(*cols)
         output = []
         time = self._begin if self._begin is not None else 0
-        for edge, detData in self._detReader._edge2DetData.iteritems():
+        for edge, detData in self._detReader._edge2DetData.items():
             detString = []
             dFlow = []
             for group in detData:

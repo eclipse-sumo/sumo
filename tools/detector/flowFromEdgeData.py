@@ -102,7 +102,7 @@ def printFlows(options, edgeFlow, detReader):
     edgeIDCol = "edge " if options.edgenames else ""
     print('# detNames %sRouteFlow DetFlow ratio' % edgeIDCol, file=options.outfile)
     output = []
-    for edge, detData in detReader._edge2DetData.iteritems():
+    for edge, detData in detReader._edge2DetData.items():
         detString = []
         dFlow = []
         for group in detData:
@@ -130,7 +130,7 @@ def calcStatistics(options, begin, edgeFlow, detReader):
     sumSquaredDev = 0
     sumSquaredPercent = 0
     n = 0
-    for edge, detData in detReader._edge2DetData.iteritems():
+    for edge, detData in detReader._edge2DetData.items():
         rFlow = edgeFlow.get(edge, 0)
         for group in detData:
             if group.isValid:

@@ -22,8 +22,7 @@ import sys
 from xml.sax.handler import ContentHandler
 
 if 'SUMO_HOME' in os.environ:
-    tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
-    sys.path.append(tools)
+    sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 else:
     sys.exit("please declare environment variable 'SUMO_HOME'")
 
@@ -198,9 +197,9 @@ def main(args=None):
                     v = options.widthMax
                 if options.widthMin is not None and v < options.widthMin:
                     v = options.widthMin
-                if not maxWidthValue or maxWidthValue < v:
+                if maxWidthValue is None or maxWidthValue < v:
                     maxWidthValue = v
-                if not minWidthValue or minWidthValue > v:
+                if minWidthValue is None or minWidthValue > v:
                     minWidthValue = v
                 widths[e] = v
         if options.widthMax is not None:

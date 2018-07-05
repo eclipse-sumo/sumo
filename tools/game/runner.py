@@ -33,15 +33,13 @@ from optparse import OptionParser
 from xml.dom import pulldom
 from collections import defaultdict
 
-try:
-    import httplib
-except ImportError:
-    pass
-
+_UPLOAD = False if "noupload" in sys.argv else True
 _SCOREFILE = "scores.pkl"
-_SCORESERVER = "sumo.dlr.de"
-_SCORESCRIPT = "/scores.php?game=TLS&"
-_DEBUG = True
+if _UPLOAD:
+    _TIMEOUT = 5
+    _SCORESERVER = "sumo.dlr.de"
+    _SCORESCRIPT = "/scores.php?game=TLS&"
+_DEBUG = True if "debug" in sys.argv else False
 _SCORES = 30
 
 _LANGUAGE_EN = {'title': 'Interactive Traffic Light',
@@ -84,6 +82,27 @@ _LANGUAGE_DE = {'title': 'Interaktives Ampelspiel',
                 'your score': 'Deine Punkte',
                 'Continue': 'Weiter',
                 }
+
+
+def printDebug(*args):
+    if _DEBUG:
+        print("DEBUG:", end=" ")
+        for message in args:
+            print(message, end=" ")
+        print()
+
+
+if _UPLOAD:
+    print("Highscore upload is enabled. To disable call this script with 'noupload' argument.")
+    printDebug("import httplib...")
+    try:
+        import httplib
+        printDebug("SUCCESS")
+    except:
+        printDebug()("FAILED - disabling upload...")
+        _UPLOAD = False
+else:
+    print("Upload is disabled. To enable highscore upload, call this script without 'noupload' argument.")
 
 
 def computeScoreFromWaitingTime(gamename):
@@ -166,21 +185,24 @@ _SCORING_FUNCTION.update({
 
 
 def loadHighscore():
-    try:
-        conn = httplib.HTTPConnection(_SCORESERVER)
-        conn.request("GET", _SCORESCRIPT + "top=" + str(_SCORES))
-        response = conn.getresponse()
-        if response.status == httplib.OK:
-            scores = {}
-            for line in response.read().splitlines():
-                category, values = line.split()
-                scores[category] = _SCORES * [("", "", -1.)]
-                for idx, item in enumerate(values.split(':')):
-                    name, game, score = item.split(',')
-                    scores[category][idx] = (name, game, int(float(score)))
-            return scores
-    except Exception:
-        pass
+    if _UPLOAD:
+        printDebug("try to load highscore from scoreserver...")
+        try:
+            conn = httplib.HTTPConnection(_SCORESERVER, timeout=_TIMEOUT)
+            conn.request("GET", _SCORESCRIPT + "top=" + str(_SCORES))
+            response = conn.getresponse()
+            if response.status == httplib.OK:
+                scores = {}
+                for line in response.read().splitlines():
+                    category, values = line.split()
+                    scores[category] = _SCORES * [("", "", -1.)]
+                    for idx, item in enumerate(values.split(':')):
+                        name, game, score = item.split(',')
+                        scores[category][idx] = (name, game, int(float(score)))
+                printDebug("SUCCESS")
+                return scores
+        except Exception:
+            printDebug("FAILED")
 
     try:
         return pickle.load(open(_SCOREFILE))
@@ -411,15 +433,19 @@ class ScoreDialog:
                 f.close()
             except Exception:
                 pass
-            try:
-                conn = httplib.HTTPConnection(_SCORESERVER)
-                conn.request("GET", _SCORESCRIPT + "category=%s&name=%s&instance=%s&points=%s" % (
-                    self.category, name, "_".join(self.switch), self.score))
-                if _DEBUG:
-                    r1 = conn.getresponse()
-                    print(r1.status, r1.reason, r1.read())
-            except Exception:
-                pass
+            
+            if _UPLOAD:
+                printDebug("try to upload score...")
+                try:
+                    conn = httplib.HTTPConnection(_SCORESERVER, timeout=_TIMEOUT)
+                    conn.request("GET", _SCORESCRIPT + "category=%s&name=%s&instance=%s&points=%s" % (
+                        self.category, name, "_".join(self.switch), self.score))
+                    if _DEBUG:
+                        r1 = conn.getresponse()
+                        print(r1.status, r1.reason, r1.read())
+                    printDebug("SUCCESS")
+                except:
+                    printDebug("FAILED")
         self.quit()
 
     def quit(self, event=None):
@@ -472,6 +498,6 @@ else:
 root = Tkinter.Tk()
 IMAGE.dlrLogo = Tkinter.PhotoImage(file='dlr.gif')
 IMAGE.sumoLogo = Tkinter.PhotoImage(file='logo.gif')
-IMAGE.qrCode = Tkinter.PhotoImage(file='dlr_lndw_15_ts_4.gif')
+IMAGE.qrCode = Tkinter.PhotoImage(file='qr_sumo.dlr.de.gif')
 start = StartDialog(root, lang)
 root.mainloop()

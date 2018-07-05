@@ -213,7 +213,7 @@ class DetectorReader(handler.ContentHandler):
             group.addDetFlow(flow, speed)
 
     def clearFlows(self, begin=0, interval=None):
-        for groupList in self._edge2DetData.itervalues():
+        for groupList in self._edge2DetData.values():
             for group in groupList:
                 group.clearFlow(begin, interval)
 

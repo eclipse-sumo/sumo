@@ -111,12 +111,12 @@ class TlLogic(sumolib.net.TLSProgram):
                 else:
                     sg._times[self._timeToCycle(toTime)] = sg._red
                 for timeKey in sg._times:
-                    if(timeKey not in self._allTimes):
+                    if timeKey not in self._allTimes:
                         self._allTimes.append(timeKey)
         if(self._debug):
-            print("All switch times: %s" % str(self._allTimes))
-        for sg in self._signalGroups.values():
-            sg.calculateCompleteSignals(self._allTimes)
+            print("All switch times: %s" % str(sorted(self._allTimes)))
+        for sg in sorted(self._signalGroups.keys()):
+            self._signalGroups[sg].calculateCompleteSignals(self._allTimes)
 
     def setSignalGroupRelations(self, sgToLinks):
         if self.net is not None:
@@ -126,7 +126,7 @@ class TlLogic(sumolib.net.TLSProgram):
             # for connIn, connOut, tlIndex in connections:
             #     print("from %s to %s (tlIndex %d)" % (connIn.getID(), connOut.getID(), tlIndex ))
 
-            for sgID in sgToLinks:
+            for sgID in sorted(sgToLinks.keys()):
                 for fromLink, toLink in sgToLinks[sgID]:
                     # check link validity (lane exists?)
                     for connIn, connOut, tlIndex in connections:
@@ -150,7 +150,7 @@ class TlLogic(sumolib.net.TLSProgram):
                                 self._tlIndexToSignalGroup[tlIndex] = sgID
                             else:
                                 print("Error: linkIndex %d already bound to signal group %s. Cannot assign it to signal group %s." % (
-                                    tlIndex, self._tlIndexToSignalGroup[tlIndex], sgID))
+                                      tlIndex, self._tlIndexToSignalGroup[tlIndex], sgID))
                                 sys.exit(-1)
 
             # set dummy signal groups for every uncovered linkIndex to output "o"/"O" signal
@@ -248,7 +248,6 @@ class SignalGroup(object):
             # get junction index of the connection
             for conn in junction.getConnections():
                 if(conn.getFromLane() == connIn and conn.getToLane() == connOut):
-                    conn.getJunctionIndex()
                     ownConn = conn
                     break
         # store yielding info based on tlIndex values
@@ -271,7 +270,7 @@ class SignalGroup(object):
         return result
 
     def calculateCompleteSignals(self, times):
-        for tlIndex in self._tlIndexToYield:
+        for tlIndex in sorted(self._tlIndexToYield):
             if self._debug:
                 print("SG %s: tlIndex %d: yield tlIndices %s" % (self._id, tlIndex, str(self._tlIndexToYield[tlIndex])))
             self.completeSignals[tlIndex] = {}
@@ -351,7 +350,6 @@ def writeInputTemplates(net, outputDir, delimiter):
         with open(os.path.join(outputDir, "%s.csv" % tlsID), 'wb') as inputTemplate:
             csvWriter = csv.writer(inputTemplate, quoting=csv.QUOTE_NONE, delimiter=delimiter)
             csvWriter.writerows(data)
-
 
 def getOptions():
     argParser = argparse.ArgumentParser()

@@ -16,7 +16,6 @@
 from __future__ import absolute_import
 from __future__ import print_function
 
-import sys
 import os
 import gc
 import matplotlib
@@ -47,7 +46,7 @@ def addPlotOptions(optParser):
     optParser.add_option("--colors", dest="colors",
                          default=None, help="Defines the colors to use")
     optParser.add_option("--colormap", dest="colormap",
-                         default="spectral", help="Defines the colormap to use")
+                         default="nipy_spectral", help="Defines the colormap to use")
     optParser.add_option("-l", "--labels", dest="labels",
                          default=None, help="Defines the labels to use")
     optParser.add_option("--xlim", dest="xlim",

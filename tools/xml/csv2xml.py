@@ -73,7 +73,7 @@ def row2vehicle_and_route(row, tag):
         return ('    <%s %s>\n        <route edges="%s"/>\n    </%s>\n' % (
             tag,
             ' '.join(['%s="%s"' % (a[len(tag) + 1:], v)
-                      for a, v in row.items() if v != "" and a != "route_edges"]),
+                      for a, v in sorted(row.items()) if v != "" and a != "route_edges"]),
             edges, tag))
 
 
