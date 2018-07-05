@@ -103,8 +103,10 @@ def main(options):
         source_and_maybe_target = val.split(SOURCE_DEST_SEP) + ["", ""]
         targets.append(source_and_maybe_target[:3])
 
-    pyBatch = open(options.python_script, 'w') if options.python_script else None
-    if pyBatch:
+    if options.python_script:
+        if not os.path.exists(os.path.dirname(options.python_script)):
+            os.makedirs(os.path.dirname(options.python_script))
+        pyBatch = open(options.python_script, 'w')
         pyBatch.write('import subprocess\nfor p in [\n')
     for source, target, app in targets:
         outputFiles = glob.glob(join(source, "output.[0-9a-z]*"))
@@ -196,7 +198,7 @@ def main(options):
                                     toCopy, join(testPath, os.path.basename(toCopy)), merge, exclude)
                         else:
                             shutil.copy2(toCopy, testPath)
-        if pyBatch:
+        if options.python_script:
             if app == "netgen":
                 call = ["netgenerate"] + appOptions
             elif app == "tools":
@@ -232,7 +234,7 @@ def main(options):
                 tool = join("%SUMO_HOME%", appOptions[-1])
                 open(nameBase + ".bat", "w").write(tool + " " + " ".join(appOptions[:-1]))
         os.chdir(oldWorkDir)
-    if pyBatch:
+    if options.python_script:
         pyBatch.write(']:\n  if p.wait() != 0:\n    raise subprocess.CalledProcessError()\n')
 
 
