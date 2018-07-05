@@ -11,6 +11,7 @@ Warning: Current saving Status: net unsaved, additionals saved, shapes unsaved
 Warning: Keys Shift + F5 (Compute with volatile options) pressed
 Warning: Opening FXMessageBox 'Volatile Recomputing'
 Warning: Closed FXMessageBox 'Volatile Recomputing' with 'Yes'
+Warning: Additionals saved
 Warning: Shapes saved
 Warning: Removing poly 'poly_5' from net in ~GNEChange_Shape()
 Warning: delete poly 'poly_5' in ~GNEChange_Shape()

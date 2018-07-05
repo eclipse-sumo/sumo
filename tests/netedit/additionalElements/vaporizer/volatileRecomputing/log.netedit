@@ -44,9 +44,9 @@ Warning: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ2' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ3' in GNENet destructor
+Warning: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Warning: Deleting unreferenced vaporizer 'gneE0' in GNENet destructor
 Warning: Deleting unreferenced vaporizer 'gneE1' in GNENet destructor
 Warning: Deleting unreferenced vaporizer 'gneE2' in GNENet destructor
 Warning: Deleting unreferenced vaporizer 'gneE4' in GNENet destructor
-Warning: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor

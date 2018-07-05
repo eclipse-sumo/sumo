@@ -67,18 +67,19 @@ Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ2' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ3' in GNENet destructor
 Warning: Deleting unreferenced busStop 'busStop_gneE1_0_2' in GNENet destructor
+Warning: Deleting unreferenced busStop 'busStop_gneE2_0_5' in GNENet destructor
+Warning: Deleting unreferenced busStop 'busStop_gneE4_0_0' in GNENet destructor
 Warning: Deleting unreferenced access 'busStop_gneE1_0_2access0' in GNENet destructor
 Warning: Deleting unreferenced access 'busStop_gneE1_0_2access1' in GNENet destructor
 Warning: Deleting unreferenced access 'busStop_gneE1_0_2access2' in GNENet destructor
 Warning: Deleting unreferenced access 'busStop_gneE1_0_2access3' in GNENet destructor
-Warning: Deleting unreferenced busStop 'busStop_gneE2_0_5' in GNENet destructor
 Warning: Deleting unreferenced access 'busStop_gneE2_0_5access0' in GNENet destructor
 Warning: Deleting unreferenced access 'busStop_gneE2_0_5access1' in GNENet destructor
 Warning: Deleting unreferenced access 'busStop_gneE2_0_5access2' in GNENet destructor
 Warning: Deleting unreferenced access 'busStop_gneE2_0_5access3' in GNENet destructor
-Warning: Deleting unreferenced busStop 'busStop_gneE4_0_0' in GNENet destructor
 Warning: Deleting unreferenced access 'busStop_gneE4_0_0access0' in GNENet destructor
 Warning: Deleting unreferenced access 'busStop_gneE4_0_0access1' in GNENet destructor
 Warning: Deleting unreferenced access 'busStop_gneE4_0_0access2' in GNENet destructor
 Warning: Deleting unreferenced access 'busStop_gneE4_0_0access3' in GNENet destructor
+Warning: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor
