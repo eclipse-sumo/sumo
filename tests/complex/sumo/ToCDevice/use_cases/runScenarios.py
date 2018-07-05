@@ -1,19 +1,17 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
-"""
-@file    runScenarios.py
-@author  Yun-Pang Floetteroed
-@date    2018-05-30
-@version $Id: runScenarios.py
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Copyright (C) 2008-2018 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials
+# are made available under the terms of the Eclipse Public License v2.0
+# which accompanies this distribution, and is available at
+# http://www.eclipse.org/legal/epl-v20.html
+# SPDX-License-Identifier: EPL-2.0
 
-- generate *.rou.xml files according to the given parameters sets for the pre-defined scenarios
-- run runner.py for simulating each scenario for UC1_1 and UC5
-- fcd- and edge/lane-based outputs will be generated.
+# @file    runScenarios.py
+# @author  Yun-Pang Floetteroed
+# @date    2018-05-30
+# @version $Id$
 
-SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
-Copyright (C) 2008-2018 DLR (http://www.dlr.de/) and contributors
-
-"""
 from __future__ import print_function
 import os
 import sys
@@ -34,7 +32,8 @@ responseTime = [2]  # , 5, 9, 15] # [[1, 5], [3, 9], [3,15]] ? give a range or a
 recoveryRate = [0.05]  # , 0.05, 0.05]
 mrmDecel = [1.1]  # , 1.3, 1.5]
 routeMap = {}
-routeMap['UC1_1'] = ['r0', 'start approach1 approach2 safetyzone1_1 safetyzone1_2 workzone safetyzone2_1 safetyzone2_2 leave end']
+routeMap['UC1_1'] = ['r0', 'start approach1 approach2 safetyzone1_1 safetyzone1_2 workzone safetyzone2_1 ' +
+                     'safetyzone2_2 leave end']
 routeMap['UC5_1'] = ['r0', 'e0']
 outputDirName = "OUTPUT"
 random.seed(606)
@@ -91,7 +90,8 @@ def generateRouteFile(DATA_DIR, i, j, k, l, rList, code):
         <!-- default vClass is passenger -->
         <vType id="toc" sigma="0." speedFactor="1" vClass="custom1" emergencyDecel="9" />
         <vType id="automated" sigma="0." speedFactor="1" vClass="custom1" emergencyDecel="9" />
-        <vType id="manual" sigma="0.5" speedFactor="normc(0.8,0.1,0.5,1.5)" emergencyDecel="9" guiShape="passenger/van" driverState="true"/>
+        <vType id="manual" sigma="0.5" speedFactor="normc(0.8,0.1,0.5,1.5)" emergencyDecel="9" \
+guiShape="passenger/van" driverState="true"/>
         <route id="%s" edges="%s"/>
         <!-- one  hour automated vehicle flow -->
         <flow id="AVflowToC" type="toc" route="%s" begin="0" end="3600" number="100" color="red">
@@ -131,7 +131,8 @@ def setAddOutputFiles(DATA_DIR, outputDirName, freq, i, j, k, l, t, closedLaneFi
     laneFile = os.path.join(outputDirName, "lanes_%s_%s_%s_%s_%s_%s.xml" % (freq, i, j, k, l, t))
     fd = open(addfile, 'w')
     print("""
-    <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" \
+xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
         <edgeData id="edge_%s" freq="%s" file="%s" excludeEmpty="true"/>
         <edgeData id="edge_%s" type= "emissions" freq="%s" file="%s" excludeEmpty="true"/>
         <laneData id="lane_%s" freq="%s" file="%s" excludeEmpty="true"/>

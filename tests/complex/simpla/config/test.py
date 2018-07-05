@@ -50,9 +50,11 @@ class TestConfig(ut.TestCase):
                 <switchImpatienceFactor value="0.1" />
                 <platoonSplitTime value="3.0" />
                 <lcMode original="597" leader="597" follower="514" catchup="514" catchupFollower="514" />
-                <speedFactor original="1.01" leader="1.01" follower="1.11" catchup="1.21" catchupFollower="1.31" ></speedFactor>
+                <speedFactor original="1.01" leader="1.01" follower="1.11" catchup="1.21" catchupFollower="1.31" >\
+</speedFactor>
                 <verbosity value="2" />
-                <vTypeMap original="origVTypeID" leader="leaderVTypeID" follower="followerVTypeID" catchup="catchupVTypeID" catchupFollower="catchupFollowerVTypeID" />
+                <vTypeMap original="origVTypeID" leader="leaderVTypeID" follower="followerVTypeID" \
+catchup="catchupVTypeID" catchupFollower="catchupFollowerVTypeID" />
             """
         self.cfg_body1 =\
             """
@@ -64,7 +66,8 @@ class TestConfig(ut.TestCase):
                 <platoonSplitTime value="-1" ></platoonSplitTime>
                 <lcMode leader="100000" follower="-1" catchupFollower="0" />
                 <speedFactor original="-1" leader="0" follower="0.5" catchup="-4"/>
-                <vTypeMap leader="leaderVTypeID" follower="followerVTypeID" catchup="catchupVTypeID" catchupFollower="catchupFollowerVTypeID" /><verbosity value="200" ></verbosity>
+                <vTypeMap leader="leaderVTypeID" follower="followerVTypeID" catchup="catchupVTypeID" \
+catchupFollower="catchupFollowerVTypeID" /><verbosity value="200" ></verbosity>
                 <UnknownConfigParam></UnknownConfigParam>
             """
         self.cfg_body2 = '<vTypeMapFile file="vtype2.map"></vTypeMapFile>'
@@ -165,8 +168,10 @@ class TestConfig(ut.TestCase):
             "WARNING: Parameter catchupDist must be positive. Ignoring given value: -1.0 (Config)",
             "WARNING: Parameter switchImpatienceFactor must be non-negative. Ignoring given value: -1.0 (Config)",
             "WARNING: Parameter platoonSplitTime must be non-negative. Ignoring given value: -1.0 (Config)",
-            "WARNING: Given lane change mode '100000' lies out of admissible range [0,255]. Using default mode instead. (Config)",
-            "WARNING: Given lane change mode '-1' lies out of admissible range [0,255]. Using default mode instead. (Config)",
+            "WARNING: Given lane change mode '100000' lies out of admissible range [0,255]. " +
+            "Using default mode instead. (Config)",
+            "WARNING: Given lane change mode '-1' lies out of admissible range [0,255]. " +
+            "Using default mode instead. (Config)",
             "WARNING: vTypeMap must specify original type. Ignoring malformed vTypeMap element. (Config)",
             "WARNING: Given speedFactor 0.0 is invalid. Using default value. (Config)",
             "WARNING: Given speedFactor -4.0 is invalid. Using default value. (Config)",

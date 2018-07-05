@@ -5,6 +5,7 @@
 # are made available under the terms of the Eclipse Public License v2.0
 # which accompanies this distribution, and is available at
 # http://www.eclipse.org/legal/epl-v20.html
+# SPDX-License-Identifier: EPL-2.0
 
 # @file    runner.py
 # @author  Lena Kalleske
@@ -30,10 +31,9 @@ try:
         os.path.dirname(__file__), "..", "..", "..")), "tools"))  # tutorial in docs
     from sumolib import checkBinary  # noqa
 except ImportError:
-    sys.exit(
-        "please declare environment variable 'SUMO_HOME' as the root directory of your sumo installation (it should contain folders 'bin', 'tools' and 'docs')")
+    sys.exit("please declare environment variable 'SUMO_HOME'")
 
-import traci
+import traci  # noqa
 
 myVehicle = "deviceHolder"
 
@@ -124,7 +124,8 @@ def resetParams(vehID):
     speedDifferenceChangePerceptionThreshold = float(traci.vehicle.getParameter(
         vehID, "device.driverstate.speedDifferenceChangePerceptionThreshold"))
     print("new speedDifferenceChangePerceptionThreshold:%s (diff=%s)" % (speedDifferenceChangePerceptionThreshold,
-                                                                         speedDifferenceChangePerceptionThreshold - new_speedDifferenceChangePerceptionThreshold))
+                                                                         speedDifferenceChangePerceptionThreshold -
+                                                                         new_speedDifferenceChangePerceptionThreshold))
 
     new_headwayChangePerceptionThreshold = 0.66
     traci.vehicle.setParameter(vehID, "device.driverstate.headwayChangePerceptionThreshold",

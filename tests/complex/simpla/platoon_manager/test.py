@@ -58,7 +58,8 @@ class TestPlatoonManager(ut.TestCase):
                 <switchImpatienceFactor value="0.1" />
                 <platoonSplitTime value="3.0" />
                 <lcMode original="597" leader="597" follower="514" catchup="514" catchupFollower="514" />
-                <speedFactor original="1.01" leader="1.01" follower="1.11" catchup="1.21" catchupFollower="1.31" ></speedFactor>
+                <speedFactor original="1.01" leader="1.01" follower="1.11" catchup="1.21" catchupFollower="1.31" >\
+</speedFactor>
                 <verbosity value="2" />
             """
 
@@ -72,13 +73,15 @@ class TestPlatoonManager(ut.TestCase):
                 <switchImpatienceFactor value="0.1" />
                 <platoonSplitTime value="3.0" />
                 <lcMode original="597" leader="597" follower="514" catchup="514" catchupFollower="514" />
-                <speedFactor original="1.01" leader="1.01" follower="1.11" catchup="1.21" catchupFollower="1.31" ></speedFactor>
+                <speedFactor original="1.01" leader="1.01" follower="1.11" catchup="1.21" catchupFollower="1.31" >\
+</speedFactor>
                 <verbosity value="2" />
             """
 
         self.cfg_body2 =\
             """
-                <vTypeMap original="unknownVTypeID" leader="leaderVTypeID" follower="followerVTypeID" catchup="catchupVTypeID" catchupFollower="catchupFollowerVTypeID" />
+                <vTypeMap original="unknownVTypeID" leader="leaderVTypeID" follower="followerVTypeID" \
+catchup="catchupVTypeID" catchupFollower="catchupFollowerVTypeID" />
             """
 
         self.cfg_body3 =\
@@ -90,9 +93,11 @@ class TestPlatoonManager(ut.TestCase):
                 <switchImpatienceFactor value="0.1" />
                 <platoonSplitTime value="3.0" />
                 <lcMode original="597" leader="597" follower="514" catchup="514" catchupFollower="514" />
-                <speedFactor original="1.01" leader="1.01" follower="1.11" catchup="1.21" catchupFollower="1.31" ></speedFactor>
+                <speedFactor original="1.01" leader="1.01" follower="1.11" catchup="1.21" catchupFollower="1.31" >\
+</speedFactor>
                 <verbosity value="2" />
-                <vTypeMap original="connected" leader="connected_pLeader" follower="connected_pFollower" catchup="connected_pCatchup" catchupFollower="connected_pCatchupFollower" />
+                <vTypeMap original="connected" leader="connected_pLeader" follower="connected_pFollower" \
+catchup="connected_pCatchup" catchupFollower="connected_pCatchupFollower" />
             """
         # template still needs to insert definite values for placeholders
         self.SUMO_CFG_TEMPLATE = os.path.join(testDir, "sumo.sumocfg")
@@ -109,7 +114,8 @@ class TestPlatoonManager(ut.TestCase):
         # Connect
         traci.init(PORT, numRetries=2)
 
-    def patchSumoConfig(self, routes_fn="input_routes.rou.xml", net_fn="input_net.net.xml", vtypes_fn="input_types.typ.xml"):
+    def patchSumoConfig(self, routes_fn="input_routes.rou.xml", net_fn="input_net.net.xml",
+                        vtypes_fn="input_types.typ.xml"):
         # replace routes_fn in config template
         with open(self.SUMO_CFG_TEMPLATE, "r") as cfg_template, open(self.SUMO_CFG, "w") as cfg:
             template_str = cfg_template.read()
@@ -148,7 +154,8 @@ class TestPlatoonManager(ut.TestCase):
         expectedVTypes = ["connected", "connected_pLeader", "connected_pFollower",
                           "connected_pCatchup", "connected_pCatchupFollower"]
         registeredPlatoonVTypes = list(
-            set(reduce(lambda x, y: x + y, [[orig] + list(mapped.values()) for orig, mapped in cfg.PLATOON_VTYPES.items()])))
+            set(reduce(lambda x, y: x + y, [[orig] + list(mapped.values())
+                       for orig, mapped in cfg.PLATOON_VTYPES.items()])))
         expectedVTypes.sort()
         registeredPlatoonVTypes.sort()
         self.assertListEqual(expectedVTypes, registeredPlatoonVTypes)
@@ -165,7 +172,8 @@ class TestPlatoonManager(ut.TestCase):
         expectedVTypes = ["connected", "connected_pLeader", "connected_pFollower",
                           "connected_pCatchup", "connected_pCatchupFollower"]
         registeredPlatoonVTypes = list(
-            set(reduce(lambda x, y: x + y, [[orig] + list(mapped.values()) for orig, mapped in cfg.PLATOON_VTYPES.items()])))
+            set(reduce(lambda x, y: x + y, [[orig] + list(mapped.values())
+                       for orig, mapped in cfg.PLATOON_VTYPES.items()])))
         expectedVTypes.sort()
         registeredPlatoonVTypes.sort()
         self.assertListEqual(expectedVTypes, registeredPlatoonVTypes)
@@ -179,12 +187,18 @@ class TestPlatoonManager(ut.TestCase):
         simpla.load(self.CFG1)
         # simpla.load(self.SIMPLA_CFG_WARN)
         expected_warnings = [
-            "WARNING: Restricting given control rate (= 1000 per sec.) to 1 per timestep (= 10 per sec.) (PlatoonManager)",
-            "WARNING: emergencyDecel of mapped vType 'connected_pCatchupFollower' (10.5m.) does not equal emergencyDecel of original vType 'connected' (4.5m.) (PlatoonManager)",
-            "WARNING: emergencyDecel of mapped vType 'connected_pFollower' (1.7m.) does not equal emergencyDecel of original vType 'connected' (4.5m.) (PlatoonManager)",
-            "WARNING: emergencyDecel of mapped vType 'connected_pCatchup' (0.5m.) does not equal emergencyDecel of original vType 'connected' (4.5m.) (PlatoonManager)",
-            "WARNING: length of mapped vType 'connected_pLeader' (10.0m.) does not equal length of original vType 'connected' (5.0m.)\nThis will probably lead to collisions. (PlatoonManager)",
-            "WARNING: length of mapped vType 'connected_pCatchupFollower' (3.0m.) does not equal length of original vType 'connected' (5.0m.)\nThis will probably lead to collisions. (PlatoonManager)",
+            "WARNING: Restricting given control rate (= 1000 per sec.) to 1 per timestep (= 10 per sec.) " +
+            "(PlatoonManager)",
+            "WARNING: emergencyDecel of mapped vType 'connected_pCatchupFollower' (10.5m.) does not equal " +
+            "emergencyDecel of original vType 'connected' (4.5m.) (PlatoonManager)",
+            "WARNING: emergencyDecel of mapped vType 'connected_pFollower' (1.7m.) does not equal emergencyDecel " +
+            "of original vType 'connected' (4.5m.) (PlatoonManager)",
+            "WARNING: emergencyDecel of mapped vType 'connected_pCatchup' (0.5m.) does not equal emergencyDecel of " +
+            "original vType 'connected' (4.5m.) (PlatoonManager)",
+            "WARNING: length of mapped vType 'connected_pLeader' (10.0m.) does not equal length of original vType " +
+            "'connected' (5.0m.)\nThis will probably lead to collisions. (PlatoonManager)",
+            "WARNING: length of mapped vType 'connected_pCatchupFollower' (3.0m.) does not equal length of original " +
+            "vType 'connected' (5.0m.)\nThis will probably lead to collisions. (PlatoonManager)",
         ]
         warnings_list = [r for t, r in rp.WARNING_LOG]
         # for w in warnings_list:
@@ -195,7 +209,9 @@ class TestPlatoonManager(ut.TestCase):
         traci.simulationStep(1000)
         self.assertEqual(rp.WARNING_LOG[-1][0], "1.0")
         self.assertEqual(
-            rp.WARNING_LOG[-1][1], "WARNING: Step lengths that differ from SUMO's simulation step length are not supported and probably lead to undesired behavior.\nConsider decreasing simpla's control rate instead. (PlatoonManager)")
+            rp.WARNING_LOG[-1][1], "WARNING: Step lengths that differ from SUMO's simulation step length are not " +
+            "supported and probably lead to undesired behavior.\nConsider decreasing simpla's control rate instead." +
+            "(PlatoonManager)")
 
     def test_unknown_vtypes(self):
         print("Testing Exceptions for unknown vTypes...")
@@ -208,7 +224,8 @@ class TestPlatoonManager(ut.TestCase):
             self.assertTrue(False, "PlatoonManager() should raise an exception in case of unknown vtypes")
         except simpla.SimplaException as e:
             self.assertEqual(
-                str(e), "vType 'unknownVTypeID' is unknown to sumo! Note: Platooning vTypes must be defined at startup.")
+                str(e), "vType 'unknownVTypeID' is unknown to sumo! Note: Platooning vTypes must be defined at " +
+                "startup.")
 
     def test_add_and_remove(self):
         print("Testing adding and removing connected vehicles...")
@@ -256,14 +273,16 @@ class TestPlatoonManager(ut.TestCase):
 
         self.assertEqual(rp.REPORT_LOG[-1][0], "11.4")
         self.assertEqual(
-            rp.REPORT_LOG[-1][1], "Platoon '1' joined Platoon '0', which now contains vehicles:\n['connected.1', 'IAMconnectedTOO'] (PlatoonManager)")
+            rp.REPORT_LOG[-1][1], "Platoon '1' joined Platoon '0', which now contains vehicles:\n['connected.1', " +
+            "'IAMconnectedTOO'] (PlatoonManager)")
 
         while traci.simulation.getCurrentTime() <= 17000:
             traci.simulationStep()
 
         self.assertEqual(rp.REPORT_LOG[-1][0], "16.0")
         self.assertEqual(
-            rp.REPORT_LOG[-1][1], "Platoon '0' splits (ID of new platoon: '2'):\n    Platoon '0': ['connected.1']\n    Platoon '2': ['IAMconnectedTOO'] (PlatoonManager)")
+            rp.REPORT_LOG[-1][1], "Platoon '0' splits (ID of new platoon: '2'):\n    Platoon '0': ['connected.1']\n" +
+            "    Platoon '2': ['IAMconnectedTOO'] (PlatoonManager)")
 
         while traci.simulation.getCurrentTime() <= 18000:
             traci.simulationStep()
@@ -304,7 +323,8 @@ class TestPlatoonManager(ut.TestCase):
             traci.simulationStep()
 
 #         self.assertEqual(rp.REPORT_LOG[-1][0], "13.7")
-#         self.assertEqual(rp.REPORT_LOG[-1][1], "Platoon '1' joined Platoon '0', which now contains vehicles:\n['connected.1', 'connected.2'] (PlatoonManager)")
+#         self.assertEqual(rp.REPORT_LOG[-1][1], "Platoon '1' joined Platoon '0', which now contains " +
+#                          "vehicles:\n['connected.1', 'connected.2'] (PlatoonManager)")
 
         self.assertEqual(veh1.getCurrentPlatoonMode(), PlatoonMode.LEADER)
         self.assertEqual(veh2.getCurrentPlatoonMode(), PlatoonMode.FOLLOWER)
@@ -333,7 +353,8 @@ class TestPlatoonManager(ut.TestCase):
             traci.simulationStep()
 
         self.assertEqual(
-            rp.REPORT_LOG[-1][1], "Platoon '0' splits (ID of new platoon: '6'):\n    Platoon '0': ['connected.1']\n    Platoon '6': ['connected.2'] (PlatoonManager)")
+            rp.REPORT_LOG[-1][1], "Platoon '0' splits (ID of new platoon: '6'):\n    Platoon '0': ['connected.1']\n" +
+            "    Platoon '6': ['connected.2'] (PlatoonManager)")
 
 
 # # ignore some tests for faster execution

@@ -60,8 +60,10 @@ def iterateGreenTimes(emissionClass, outputFile, T, MIN_GREEN, log):
         print('    <laneData id="traffic" freq="100000" file="aggregated_traffic.xml"/>', file=fd)
         print('    <laneData id="noise" freq="100000" type="harmonoise" file="aggregated_noise.xml"/>', file=fd)
         print('    <laneData id="emissions" freq="100000" type="hbefa" file="aggregated_emissions.xml"/>', file=fd)
-        print('    <e2Detector id="e2" lane="e_0" pos=".1" length="9999.8" freq="100000" file="e2.xml" friendlyPos="x"/>', file=fd)
-        print('    <e2Detector id="e2_tls" tl="c" to="w_0" lane="e_0" pos=".1" length="9999.8" freq="100000" file="e2_tls.xml" friendlyPos="x"/>', file=fd)
+        print('    <e2Detector id="e2" lane="e_0" pos=".1" length="9999.8" freq="100000" file="e2.xml" ' +
+              'friendlyPos="x"/>', file=fd)
+        print('    <e2Detector id="e2_tls" tl="c" to="w_0" lane="e_0" pos=".1" length="9999.8" freq="100000" ' +
+              'file="e2_tls.xml" friendlyPos="x"/>', file=fd)
         print('</additional>', file=fd)
         fd.close()
 
