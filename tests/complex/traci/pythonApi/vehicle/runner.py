@@ -427,8 +427,8 @@ except traci.TraCIException as e:
 
 for i in range(10):
     step()
-    print('%s speed="%s" consumed="%s" charged="%s" cap="%s" maxCap="%s" station="%s" mass=%s emissionClass=%s ' +
-          'electricityConsumption=%s' % (
+    print(('%s speed="%s" consumed="%s" charged="%s" cap="%s" maxCap="%s" station="%s" mass=%s emissionClass=%s ' +
+          'electricityConsumption=%s') % (
             electricVeh,
             traci.vehicle.getSpeed(electricVeh),
             traci.vehicle.getParameter(electricVeh, "device.battery.energyConsumed"),

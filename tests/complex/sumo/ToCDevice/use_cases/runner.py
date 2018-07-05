@@ -16,6 +16,12 @@
 # @date    2009-03-26
 # @version $Id$
 
+"""
+-- generate *.rou.xml files according to the given parameters sets for the pre-defined scenarios
+-- run runner.py for simulating each scenario for UC1_1 and UC5
+-- fcd- and edge/lane-based outputs will be generated.
+"""
+
 from __future__ import absolute_import
 from __future__ import print_function
 
