@@ -133,7 +133,8 @@ GNENet::GNENet(NBNetBuilder* netBuilder) :
         myZBoundary.add(0, 0);
     }
     // fill additionals with tags
-    for (auto i : GNEAttributeCarrier::allowedAdditionalTags(true)) {
+    auto listOfTags = GNEAttributeCarrier::allowedAdditionalTags(false);
+    for (auto i : listOfTags) {
         myAttributeCarriers.additionals.insert(std::make_pair(i, std::map<std::string, GNEAdditional*>()));
     }
 
@@ -1318,6 +1319,17 @@ GNENet::computeEverything(GNEApplicationWindow* window, bool force, bool volatil
 
     // load additionals if was recomputed with volatile options
     if (additionalPath != "") {
+        // fill additionals with tags
+        auto listOfTags = GNEAttributeCarrier::allowedAdditionalTags(false);
+        for (auto i : listOfTags) {
+            myAttributeCarriers.additionals.insert(std::make_pair(i, std::map<std::string, GNEAdditional*>()));
+        }
+
+        // default vehicle type is always available
+        GNECalibratorVehicleType *defaultVehicleType = new GNECalibratorVehicleType(myViewNet, DEFAULT_VTYPE_ID);
+        myAttributeCarriers.additionals.at(defaultVehicleType->getTag()).insert(std::make_pair(defaultVehicleType->getID(), defaultVehicleType));
+        defaultVehicleType->incRef("GNENet::DEFAULT_VEHTYPE");
+
         // Create additional handler
         GNEAdditionalHandler additionalHandler(additionalPath, myViewNet, false);
         // Run parser
@@ -2109,7 +2121,10 @@ GNENet::insertAdditional(GNEAdditional* additional) {
     // Check if additional element exists before insertion
     if (myAttributeCarriers.additionals.at(additional->getTag()).count(additional->getID()) == 0) {
         myAttributeCarriers.additionals.at(additional->getTag()).insert(std::make_pair(additional->getID(), additional));
-        myGrid.addAdditionalGLObject(additional);
+        // only add drawable elements in grid
+        if(additional->getTagProperties(additional->getTag()).isDrawable()) {
+            myGrid.addAdditionalGLObject(additional);
+        }
         // check if additional is selected
         if(additional->isAttributeCarrierSelected()) {
             additional->selectAttributeCarrier(false);
@@ -2134,8 +2149,10 @@ GNENet::deleteAdditional(GNEAdditional* additional) {
         myViewNet->getViewParent()->getInspectorFrame()->removeInspectedAC(additional);
         // Remove from container
         myAttributeCarriers.additionals.at(additional->getTag()).erase(additional->getID());
-        // Remove from grid
-        myGrid.removeAdditionalGLObject(additional);
+        // only remove drawable elements of grid
+        if(additional->getTagProperties(additional->getTag()).isDrawable()) {
+            myGrid.removeAdditionalGLObject(additional);
+        }
         // check if additional is selected
         if(additional->isAttributeCarrierSelected()) {
             additional->unselectAttributeCarrier(false);

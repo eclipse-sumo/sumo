@@ -115,7 +115,8 @@ GNEAdditionalFrame::AdditionalSelector::AdditionalSelector(GNEAdditionalFrame *a
     myAdditionalMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
 
     // Add options to myAdditionalMatchBox
-    for (auto i : GNEAttributeCarrier::allowedAdditionalTags(false)) {
+    auto listOfTags = GNEAttributeCarrier::allowedAdditionalTags(true);
+    for (auto i : listOfTags) {
         myAdditionalMatchBox->appendItem(toString(i).c_str());
     }
 
@@ -197,7 +198,8 @@ GNEAdditionalFrame::AdditionalSelector::setCurrentAdditional(SumoXMLTag actualAd
 long
 GNEAdditionalFrame::AdditionalSelector::onCmdselectAttributeCarrier(FXObject*, FXSelector, void*) {
     // Check if value of myAdditionalMatchBox correspond of an allowed additional tags 
-    for (auto i : GNEAttributeCarrier::allowedAdditionalTags(false)) {
+    auto listOfTags = GNEAttributeCarrier::allowedAdditionalTags(false);
+    for (auto i : listOfTags) {
         if (toString(i) == myAdditionalMatchBox->getText().text()) {
             myAdditionalMatchBox->setTextColor(FXRGB(0, 0, 0));
             setCurrentAdditional(i);

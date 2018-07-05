@@ -207,7 +207,7 @@ public:
         TAGPROPERTY_STOPPINGPLACE =       1 << 3,   // StoppingPlaces (BusStops, ChargingStations...)
         TAGPROPERTY_DETECTOR =            1 << 4,   // Detectors (E1, E2...)
         TAGPROPERTY_ROUTEELEMENT =        1 << 5,   // VTypes, Vehicles, Flows...
-        TAGPROPERTY_INTERNAL =            1 << 6,   // If set, element cannot be created using Frames (GNEAdditionalFrame, GNEPolygonFrame...)
+        TAGPROPERTY_DRAWABLE =            1 << 6,   // Element can be drawed in view
         TAGPROPERTY_BLOCKMOVEMENT =       1 << 7,   // Element can block their movement
         TAGPROPERTY_BLOCKSHAPE =          1 << 8,   // Element can block their shape
         TAGPROPERTY_CLOSESHAPE =          1 << 9,   // Element can close their shape
@@ -286,8 +286,8 @@ public:
         /// @brief return true if tag correspond to a shape (Only used to group all detectors in the XML)
         bool isDetector() const;
 
-        /// @brief return true if tag correspond to an internal element (i.e. Cannot be created using frames)
-        bool isInternal() const;
+        /// @brief return true if tag correspond to a drawable element
+        bool isDrawable() const;
 
         /// @brief return true if tag correspond to a selectable element
         bool isSelectable() const;
@@ -433,16 +433,16 @@ public:
     static const TagValues &getTagProperties(SumoXMLTag tag);
 
     /// @brief get all editable for tag elements of all types
-    static std::vector<SumoXMLTag> allowedTags(bool includingInternals);
+    static std::vector<SumoXMLTag> allowedTags(bool onlyDrawables);
 
     /// @brief get all editable for tag net elements
-    static std::vector<SumoXMLTag> allowedNetElementsTags(bool includingInternals);
+    static std::vector<SumoXMLTag> allowedNetElementsTags(bool onlyDrawables);
 
     /// @brief get all editable for tag additional elements
-    static std::vector<SumoXMLTag> allowedAdditionalTags(bool includingInternals);
+    static std::vector<SumoXMLTag> allowedAdditionalTags(bool onlyDrawables);
 
     /// @brief get all editable for tag shape elements
-    static std::vector<SumoXMLTag> allowedShapeTags(bool includingInternals);
+    static std::vector<SumoXMLTag> allowedShapeTags(bool onlyDrawables);
 
     /// @brief return the number of attributes of the tag with the most highter number of attributes
     static int getHigherNumberOfAttributes();
