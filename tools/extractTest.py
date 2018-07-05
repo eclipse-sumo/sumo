@@ -203,7 +203,7 @@ def main(options):
                 call = ["netgenerate"] + appOptions
             elif app == "tools":
                 call = appOptions
-                call[0] = os.path.join(os.environ["SUMO_HOME"], call[0])
+                call[0] = os.path.join(SUMO_HOME, call[0])
             elif app == "complex":
                 call = appOptions
                 call[0] = os.path.join(".", os.path.basename(call[0]))
