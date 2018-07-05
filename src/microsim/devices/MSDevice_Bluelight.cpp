@@ -136,7 +136,8 @@ MSDevice_Bluelight::notifyMove(SUMOVehicle& veh, double /* oldPos */,
             // todo only vehicles in front of the emergency vehicle should react
             if (distanceDelta <= 25 && veh.getID() != veh2->getID() && influencedVehicles.count(veh2->getID())== 0) {
                 influencedVehicles.insert(static_cast<std::string>(veh2->getID()));
-                //std::cout << "In Range Vehicle '" << veh2->getID() << "\n";
+                influencedTypes.insert(std::make_pair(static_cast<std::string>(veh2->getID()), veh2->getVehicleType().getID()));
+                //Vehicle gets a new Vehicletype to change the alignment and the lanechange options 
                 MSVehicleType& t = static_cast<MSVehicle*>(veh2)->getSingularType();
                 MSVehicle::Influencer& lanechange = static_cast<MSVehicle*>(veh2)->getInfluencer();
 
@@ -145,20 +146,12 @@ MSDevice_Bluelight::notifyMove(SUMOVehicle& veh, double /* oldPos */,
                 const int numLanes= (int)veh2->getEdge()->getLanes().size();
                 //Setting the lateral alignment to build a rescue lane
                 if (veh2->getLane()->getIndex() == numLanes-1) {
-                    influenced.insert(std::make_pair(static_cast<std::string>(veh2->getID()), t.getPreferredLateralAlignment()));
                     t.setPreferredLateralAlignment(LATALIGN_LEFT);
-                    std::cout << "New alignment to left for vehicle: " << veh2->getID() << " " << veh2->getVehicleType().getPreferredLateralAlignment() << "\n";
+                    // the alignement is changet to left for the vehicle std::cout << "New alignment to left for vehicle: " << veh2->getID() << " " << veh2->getVehicleType().getPreferredLateralAlignment() << "\n";
                 } else {
-                    influenced.insert(std::make_pair(static_cast<std::string>(veh2->getID()), t.getPreferredLateralAlignment()));
                     t.setPreferredLateralAlignment(LATALIGN_RIGHT);
-                    std::cout << "New alignment to right for vehicle: " << veh2->getID() << " " << veh2->getVehicleType().getPreferredLateralAlignment() << "\n";
+                    // the alignement is changet to right for the vehicle std::cout << "New alignment to right for vehicle: " << veh2->getID() << " " << veh2->getVehicleType().getPreferredLateralAlignment() << "\n";
                 }
-
-                
-                //std::cout << "Vehcile in influencedVehicleList: " << influencedVehicles.size() << "\n";
-                std::cout << "Vehcile in influenced: " << influenced.size() << "\n";
-                //std::cout << "Vehcile in influencedVehicleList: " << veh2->getID() << "\n";
-                //influencedVehicles->push_back(static_cast<MSVehicle>(veh2));
                 
             }
             
@@ -168,11 +161,11 @@ MSDevice_Bluelight::notifyMove(SUMOVehicle& veh, double /* oldPos */,
                 double distanceDelta = veh.getPosition().distanceTo(veh2->getPosition());
                 if (distanceDelta > 25 && veh.getID() != veh2->getID()) {
                     influencedVehicles.erase(veh2->getID());
-                    MSVehicleType& t = static_cast<MSVehicle*>(veh2)->getSingularType();
-                    std::map<std::string, LateralAlignment>::iterator it = influenced.find(veh2->getID());
-                    if (it != influenced.end()) {
-                        std::cout << "Change allingnment for: "  << it->first << ":" << it->second << "\n";
-                        t.setPreferredLateralAlignment(static_cast<LateralAlignment>(it->second));
+                    std::map<std::string, std::string>::iterator it = influencedTypes.find(veh2->getID());
+                    if (it != influencedTypes.end()) {
+                        // The vehicle gets back its old VehicleType after the emergency vehicle have passed them
+                        MSVehicleType* targetType = MSNet::getInstance()->getVehicleControl().getVType(it->second);
+                        static_cast<MSVehicle*>(veh2)->replaceVehicleType(targetType);
                     }
                 }
             }

@@ -148,11 +148,8 @@ private:
     // @brief collects all vehicleIDs which had to react to the emergency vehicle 
     std::set<std::string> influencedVehicles;
 
-    // @brief collects all LateralAlignments of the vehicles which had to react to the emergency vehicle 
-    std::map<std::string, LateralAlignment> influenced;
-
-    // @brief collects all LateralAlignments of the vehicles which had to react to the emergency vehicle 
-    std::map<std::string, MSVehicleType> influencedTypes;
+    // @brief collects all VehicleTypes of the vehicles which had to react to the emergency vehicle 
+    std::map<std::string, std::string> influencedTypes;
 
     /// @brief a value which is initialised based on a commandline/configuration option
     double myCustomValue1;
