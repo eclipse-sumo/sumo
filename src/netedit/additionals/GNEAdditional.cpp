@@ -185,7 +185,7 @@ GNEAdditional::writeAdditional(OutputDevice& device) const {
                 currentAdditionalFilename.pop_back();
             }
             OutputDevice& deviceChilds = OutputDevice::getDevice(currentAdditionalFilename + getAttribute(SUMO_ATTR_FILE));
-            deviceChilds.writeXMLHeader("rerouter", "additional_file.xsd");
+            deviceChilds.writeXMLHeader("rerouterValue", "additional_file.xsd");
             // save childs in a different filename
             for (auto i : myAdditionalChilds) {
                 // only write additionals that doesn't have second parent (because they are saved within the definition of first parent)

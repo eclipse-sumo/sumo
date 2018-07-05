@@ -52,7 +52,7 @@ class GNEAdditional;
 class GNEAdditionalHandler : public SUMOSAXHandler {
 public:
     /// @brief Constructor
-    GNEAdditionalHandler(const std::string& file, GNEViewNet* viewNet, bool undoAdditionals = true);
+    GNEAdditionalHandler(const std::string& file, GNEViewNet* viewNet, bool undoAdditionals = true, GNEAdditional *additionalParent = nullptr);
 
     /// @brief Destructor
     ~GNEAdditionalHandler();
@@ -66,14 +66,15 @@ public:
      * @see GenericSAXHandler::myStartElement
      */
     void myStartElement(int element, const SUMOSAXAttributes& attrs);
-    /// @}
-    //
+
     /** @brief Called when a closing tag occurs
      * @param[in] element ID of the currently opened element
      * @exception ProcessError If something fails
      * @see GenericSAXHandler::myEndElement
      */
     void myEndElement(int element);
+
+    /// @}
 
     /// @name parsing methods
     ///
@@ -679,6 +680,9 @@ private:
 
     /// @brief flag to check if created additionals must be undo and redo
     bool myUndoAdditionals;
+
+    /// @brief pointer to parent additional (used for loading additional childs placed in a different XML)
+    GNEAdditional *myAdditionalParent; 
 
     /// @brief HierarchyInsertedElements used for insert childs
     HierarchyInsertedElements myParentElements;

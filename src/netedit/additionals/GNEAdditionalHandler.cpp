@@ -65,10 +65,15 @@
 // member method definitions
 // ===========================================================================
 
-GNEAdditionalHandler::GNEAdditionalHandler(const std::string& file, GNEViewNet* viewNet, bool undoAdditionals) :
+GNEAdditionalHandler::GNEAdditionalHandler(const std::string& file, GNEViewNet* viewNet, bool undoAdditionals, GNEAdditional *additionalParent) :
     SUMOSAXHandler(file),
     myViewNet(viewNet),
-    myUndoAdditionals(undoAdditionals) {
+    myUndoAdditionals(undoAdditionals),
+    myAdditionalParent(additionalParent) {
+    if(additionalParent) {
+        myParentElements.insertElement(additionalParent->getTag());
+        myParentElements.commitElementInsertion(additionalParent->getID());
+    }
 }
 
 
@@ -79,99 +84,102 @@ void
 GNEAdditionalHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
     // Obtain tag of element
     SumoXMLTag tag = static_cast<SumoXMLTag>(element);
-    // push element int stack
-    myParentElements.insertElement(tag);
-    // Call parse and build depending of tag
-    switch (element) {
-        case SUMO_TAG_BUS_STOP:
-            parseAndBuildBusStop(attrs, tag);
-            break;
-        case SUMO_TAG_TRAIN_STOP:
-            parseAndBuildBusStop(attrs, SUMO_TAG_BUS_STOP);
-            break;
-        case SUMO_TAG_ACCESS:
-            parseAndBuildAccess(attrs, tag);
-            break;
-        case SUMO_TAG_CONTAINER_STOP:
-            parseAndBuildContainerStop(attrs, tag);
-            break;
-        case SUMO_TAG_CHARGING_STATION:
-            parseAndBuildChargingStation(attrs, tag);
-            break;
-        case SUMO_TAG_E1DETECTOR:
-        case SUMO_TAG_INDUCTION_LOOP:
-            parseAndBuildDetectorE1(attrs, tag);
-            break;
-        case SUMO_TAG_E2DETECTOR:
-        case SUMO_TAG_LANE_AREA_DETECTOR:
-            parseAndBuildDetectorE2(attrs, tag);
-            break;
-        case SUMO_TAG_E3DETECTOR:
-        case SUMO_TAG_ENTRY_EXIT_DETECTOR:
-            parseAndBuildDetectorE3(attrs, tag);
-            break;
-        case SUMO_TAG_DET_ENTRY:
-            parseAndBuildDetectorEntry(attrs, tag);
-            break;
-        case SUMO_TAG_DET_EXIT:
-            parseAndBuildDetectorExit(attrs, tag);
-            break;
-        case SUMO_TAG_INSTANT_INDUCTION_LOOP:
-            parseAndBuildDetectorE1Instant(attrs, tag);
-            break;
-        case SUMO_TAG_ROUTEPROBE:
-            parseAndBuildRouteProbe(attrs, tag);
-            break;
-        case SUMO_TAG_VAPORIZER:
-            parseAndBuildVaporizer(attrs, tag);
-            break;
-        case SUMO_TAG_VSS:
-            parseAndBuildVariableSpeedSign(attrs, tag);
-            break;
-        case SUMO_TAG_STEP:
-            parseAndBuildVariableSpeedSignStep(attrs, tag);
-            break;
-        case SUMO_TAG_CALIBRATOR:
-            parseAndBuildCalibrator(attrs, tag);
-            break;
-        case SUMO_TAG_PARKING_AREA:
-            parseAndBuildParkingArea(attrs, tag);
-            break;
-        case SUMO_TAG_PARKING_SPACE:
-            parseAndBuildParkingSpace(attrs, tag);
-            break;
-        case SUMO_TAG_VTYPE:
-            parseAndBuildCalibratorVehicleType(attrs, tag);
-            break;
-        case SUMO_TAG_ROUTE:
-            parseAndBuildCalibratorRoute(attrs, tag);
-            break;
-        case SUMO_TAG_FLOW:
-            parseAndBuildCalibratorFlow(attrs, tag);
-            break;
-        case SUMO_TAG_REROUTER:
-            parseAndBuildRerouter(attrs, tag);
-            break;
-        case SUMO_TAG_INTERVAL:
-            parseAndBuildRerouterInterval(attrs, tag);
-            break;
-        case SUMO_TAG_CLOSING_LANE_REROUTE:
-            parseAndBuildRerouterClosingLaneReroute(attrs, tag);
-            break;
-        case SUMO_TAG_CLOSING_REROUTE:
-            parseAndBuildRerouterClosingReroute(attrs, tag);
-            break;
-        case SUMO_TAG_DEST_PROB_REROUTE:
-            parseAndBuildRerouterDestProbReroute(attrs, tag);
-            break;
-        case SUMO_TAG_PARKING_ZONE_REROUTE:
-            parseAndBuildRerouterParkingAreaReroute(attrs, tag);
-            break;
-        case SUMO_TAG_ROUTE_PROB_REROUTE:
-            parseAndBuildRerouterRouteProbReroute(attrs, tag);
-            break;
-        default:
-            break;
+    // only continue if tag is valid
+    if(tag != SUMO_TAG_NOTHING) {
+        // push element int stack
+        myParentElements.insertElement(tag);
+        // Call parse and build depending of tag
+        switch (tag) {
+            case SUMO_TAG_BUS_STOP:
+                parseAndBuildBusStop(attrs, tag);
+                break;
+            case SUMO_TAG_TRAIN_STOP:
+                parseAndBuildBusStop(attrs, SUMO_TAG_BUS_STOP);
+                break;
+            case SUMO_TAG_ACCESS:
+                parseAndBuildAccess(attrs, tag);
+                break;
+            case SUMO_TAG_CONTAINER_STOP:
+                parseAndBuildContainerStop(attrs, tag);
+                break;
+            case SUMO_TAG_CHARGING_STATION:
+                parseAndBuildChargingStation(attrs, tag);
+                break;
+            case SUMO_TAG_E1DETECTOR:
+            case SUMO_TAG_INDUCTION_LOOP:
+                parseAndBuildDetectorE1(attrs, tag);
+                break;
+            case SUMO_TAG_E2DETECTOR:
+            case SUMO_TAG_LANE_AREA_DETECTOR:
+                parseAndBuildDetectorE2(attrs, tag);
+                break;
+            case SUMO_TAG_E3DETECTOR:
+            case SUMO_TAG_ENTRY_EXIT_DETECTOR:
+                parseAndBuildDetectorE3(attrs, tag);
+                break;
+            case SUMO_TAG_DET_ENTRY:
+                parseAndBuildDetectorEntry(attrs, tag);
+                break;
+            case SUMO_TAG_DET_EXIT:
+                parseAndBuildDetectorExit(attrs, tag);
+                break;
+            case SUMO_TAG_INSTANT_INDUCTION_LOOP:
+                parseAndBuildDetectorE1Instant(attrs, tag);
+                break;
+            case SUMO_TAG_ROUTEPROBE:
+                parseAndBuildRouteProbe(attrs, tag);
+                break;
+            case SUMO_TAG_VAPORIZER:
+                parseAndBuildVaporizer(attrs, tag);
+                break;
+            case SUMO_TAG_VSS:
+                parseAndBuildVariableSpeedSign(attrs, tag);
+                break;
+            case SUMO_TAG_STEP:
+                parseAndBuildVariableSpeedSignStep(attrs, tag);
+                break;
+            case SUMO_TAG_CALIBRATOR:
+                parseAndBuildCalibrator(attrs, tag);
+                break;
+            case SUMO_TAG_PARKING_AREA:
+                parseAndBuildParkingArea(attrs, tag);
+                break;
+            case SUMO_TAG_PARKING_SPACE:
+                parseAndBuildParkingSpace(attrs, tag);
+                break;
+            case SUMO_TAG_VTYPE:
+                parseAndBuildCalibratorVehicleType(attrs, tag);
+                break;
+            case SUMO_TAG_ROUTE:
+                parseAndBuildCalibratorRoute(attrs, tag);
+                break;
+            case SUMO_TAG_FLOW:
+                parseAndBuildCalibratorFlow(attrs, tag);
+                break;
+            case SUMO_TAG_REROUTER:
+                parseAndBuildRerouter(attrs, tag);
+                break;
+            case SUMO_TAG_INTERVAL:
+                parseAndBuildRerouterInterval(attrs, tag);
+                break;
+            case SUMO_TAG_CLOSING_LANE_REROUTE:
+                parseAndBuildRerouterClosingLaneReroute(attrs, tag);
+                break;
+            case SUMO_TAG_CLOSING_REROUTE:
+                parseAndBuildRerouterClosingReroute(attrs, tag);
+                break;
+            case SUMO_TAG_DEST_PROB_REROUTE:
+                parseAndBuildRerouterDestProbReroute(attrs, tag);
+                break;
+            case SUMO_TAG_PARKING_ZONE_REROUTE:
+                parseAndBuildRerouterParkingAreaReroute(attrs, tag);
+                break;
+            case SUMO_TAG_ROUTE_PROB_REROUTE:
+                parseAndBuildRerouterRouteProbReroute(attrs, tag);
+                break;
+            default:
+                break;
+        }
     }
 }
 
@@ -1677,7 +1685,7 @@ GNEAdditionalHandler::buildRerouter(GNEViewNet* viewNet, bool allowUndoRedo, con
             }
             rerouter->incRef("buildRerouter");
         }
-        // parse 
+        // parse rerouter childs
         if(!file.empty()) {
             // we assume that rerouter values files is placed in the same folder as the additional file
             std::string currentAdditionalFilename = OptionsCont::getOptions().getString("sumo-additionals-file");
@@ -1686,7 +1694,7 @@ GNEAdditionalHandler::buildRerouter(GNEViewNet* viewNet, bool allowUndoRedo, con
                 currentAdditionalFilename.pop_back();
             }
             // Create additional handler for parse rerouter values
-            GNEAdditionalHandler rerouterValuesHandler(currentAdditionalFilename + file, viewNet);
+            GNEAdditionalHandler rerouterValuesHandler(currentAdditionalFilename + file, viewNet, allowUndoRedo, rerouter);
             // Run parser
             if (!XMLSubSys::runParser(rerouterValuesHandler, currentAdditionalFilename + file, false)) {
                 WRITE_MESSAGE("Loading of " + file + " failed.");
@@ -2117,13 +2125,15 @@ GNEAdditionalHandler::HierarchyInsertedElements::commitElementInsertion (const s
 
 void 
 GNEAdditionalHandler::HierarchyInsertedElements::popElement() {
-    myInsertedElements.pop_back();
+    if(!myInsertedElements.empty()) {
+        myInsertedElements.pop_back();
+    }
 }
 
 
 GNEAdditional*
 GNEAdditionalHandler::HierarchyInsertedElements::retrieveAdditionalParent(GNEViewNet* viewNet, SumoXMLTag expectedTag) const {
-    if(myInsertedElements.size() <= 2) {
+    if(myInsertedElements.size() < 2) {
         // currently we're finding additional parent in the additional XML root
         WRITE_WARNING("A " + toString(myInsertedElements.back().first) + " must be declared within the definition of a " + toString(expectedTag) + ".");
         return nullptr;
