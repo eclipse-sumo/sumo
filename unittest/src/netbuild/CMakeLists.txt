@@ -1,5 +1,6 @@
 add_executable(testnetbuild NBHeightMapperTest.cpp
         NBTrafficLightLogicTest.cpp)
+add_test(NAME testnetbuild COMMAND $<TARGET_FILE:testnetbuild>)
 set_target_properties(testnetbuild PROPERTIES OUTPUT_NAME_DEBUG testnetbuildD)
 
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")

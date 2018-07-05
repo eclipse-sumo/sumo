@@ -245,8 +245,8 @@ install(DIRECTORY tools/ DESTINATION share/sumo/tools)
 install(CODE "execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink $ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin $ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/share/sumo/bin)")
 
 # custom targets
-add_custom_target(examples COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/extractTest.py -x -f ${CMAKE_SOURCE_DIR}/tests/examples.txt)
-add_test(exampletest ${CMAKE_SOURCE_DIR}/bin/sumo ${CMAKE_SOURCE_DIR}/docs/examples/sumo/busses/test.sumocfg)
+add_custom_target(examples COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/extractTest.py -x -f ${CMAKE_SOURCE_DIR}/tests/examples.txt -p ${CMAKE_SOURCE_DIR}/docs/examples/runAll.py)
+add_test(exampletest ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/docs/examples/runAll.py)
 find_package(Git)
 if (GIT_FOUND)
     set(PACKAGE_VERSION "git")
