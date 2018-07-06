@@ -105,6 +105,7 @@ Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ2' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ3' in GNENet destructor
 Warning: Deleting unreferenced e3Detector 'e3Detector_0' in GNENet destructor
+Warning: Deleting unreferenced e3Detector 'e3Detector_1' in GNENet destructor
 Warning: Deleting unreferenced detEntry 'e3Detector_0detEntry0' in GNENet destructor
 Warning: Deleting unreferenced detEntry 'e3Detector_0detEntry1' in GNENet destructor
 Warning: Deleting unreferenced detEntry 'e3Detector_0detEntry2' in GNENet destructor
@@ -113,15 +114,6 @@ Warning: Deleting unreferenced detEntry 'e3Detector_0detEntry4' in GNENet destru
 Warning: Deleting unreferenced detEntry 'e3Detector_0detEntry5' in GNENet destructor
 Warning: Deleting unreferenced detEntry 'e3Detector_0detEntry6' in GNENet destructor
 Warning: Deleting unreferenced detEntry 'e3Detector_0detEntry7' in GNENet destructor
-Warning: Deleting unreferenced detExit 'e3Detector_0detExit0' in GNENet destructor
-Warning: Deleting unreferenced detExit 'e3Detector_0detExit1' in GNENet destructor
-Warning: Deleting unreferenced detExit 'e3Detector_0detExit2' in GNENet destructor
-Warning: Deleting unreferenced detExit 'e3Detector_0detExit3' in GNENet destructor
-Warning: Deleting unreferenced detExit 'e3Detector_0detExit4' in GNENet destructor
-Warning: Deleting unreferenced detExit 'e3Detector_0detExit5' in GNENet destructor
-Warning: Deleting unreferenced detExit 'e3Detector_0detExit6' in GNENet destructor
-Warning: Deleting unreferenced detExit 'e3Detector_0detExit7' in GNENet destructor
-Warning: Deleting unreferenced e3Detector 'e3Detector_1' in GNENet destructor
 Warning: Deleting unreferenced detEntry 'e3Detector_1detEntry0' in GNENet destructor
 Warning: Deleting unreferenced detEntry 'e3Detector_1detEntry1' in GNENet destructor
 Warning: Deleting unreferenced detEntry 'e3Detector_1detEntry2' in GNENet destructor
@@ -130,6 +122,14 @@ Warning: Deleting unreferenced detEntry 'e3Detector_1detEntry4' in GNENet destru
 Warning: Deleting unreferenced detEntry 'e3Detector_1detEntry5' in GNENet destructor
 Warning: Deleting unreferenced detEntry 'e3Detector_1detEntry6' in GNENet destructor
 Warning: Deleting unreferenced detEntry 'e3Detector_1detEntry7' in GNENet destructor
+Warning: Deleting unreferenced detExit 'e3Detector_0detExit0' in GNENet destructor
+Warning: Deleting unreferenced detExit 'e3Detector_0detExit1' in GNENet destructor
+Warning: Deleting unreferenced detExit 'e3Detector_0detExit2' in GNENet destructor
+Warning: Deleting unreferenced detExit 'e3Detector_0detExit3' in GNENet destructor
+Warning: Deleting unreferenced detExit 'e3Detector_0detExit4' in GNENet destructor
+Warning: Deleting unreferenced detExit 'e3Detector_0detExit5' in GNENet destructor
+Warning: Deleting unreferenced detExit 'e3Detector_0detExit6' in GNENet destructor
+Warning: Deleting unreferenced detExit 'e3Detector_0detExit7' in GNENet destructor
 Warning: Deleting unreferenced detExit 'e3Detector_1detExit0' in GNENet destructor
 Warning: Deleting unreferenced detExit 'e3Detector_1detExit1' in GNENet destructor
 Warning: Deleting unreferenced detExit 'e3Detector_1detExit2' in GNENet destructor
@@ -138,4 +138,5 @@ Warning: Deleting unreferenced detExit 'e3Detector_1detExit4' in GNENet destruct
 Warning: Deleting unreferenced detExit 'e3Detector_1detExit5' in GNENet destructor
 Warning: Deleting unreferenced detExit 'e3Detector_1detExit6' in GNENet destructor
 Warning: Deleting unreferenced detExit 'e3Detector_1detExit7' in GNENet destructor
+Warning: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor

@@ -2,8 +2,10 @@ Warning: Adding e3Detector 'e3Detector_A' in GNEChange_Additional
 Warning: Additionals has to be saved
 Warning: Current saving Status: net saved, additionals unsaved, shapes saved
 Warning: Adding detEntry 'e3Detector_AdetEntry0' in GNEChange_Additional
+Warning: Adding detExit 'e3Detector_AdetExit0' in GNEChange_Additional
 Warning: Adding e3Detector 'e3Detector_B' in GNEChange_Additional
 Warning: Adding detEntry 'e3Detector_BdetEntry0' in GNEChange_Additional
+Warning: Adding detExit 'e3Detector_BdetExit0' in GNEChange_Additional
 Warning: net has to be saved
 Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
@@ -14,10 +16,12 @@ Warning: Setting new attribute selected 'true' into edge 'gneE1'
 Warning: Setting new attribute selected 'true' into junction 'gneJ1'
 Warning: Setting new attribute selected 'true' into edge 'gneE0'
 Warning: Setting new attribute selected 'true' into e3Detector 'e3Detector_A'
-Warning: Setting new attribute selected 'true' into detEntry 'e3Detector_AdetEntry0'
 Warning: Setting new attribute selected 'true' into e3Detector 'e3Detector_B'
+Warning: Setting new attribute selected 'true' into detEntry 'e3Detector_AdetEntry0'
 Warning: Setting new attribute selected 'true' into detEntry 'e3Detector_BdetEntry0'
-Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 4 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Setting new attribute selected 'true' into detExit 'e3Detector_AdetExit0'
+Warning: Setting new attribute selected 'true' into detExit 'e3Detector_BdetExit0'
+Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 6 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Value '-30' for attribute freq of e3Detector isn't valid
 Warning: Setting new attribute freq '50' into e3Detector 'e3Detector_A'
 Warning: Setting new attribute freq '50' into e3Detector 'e3Detector_B'
@@ -30,6 +34,11 @@ Warning: Setting new attribute timeThreshold '11.3' into e3Detector 'e3Detector_
 Warning: Value '-3' for attribute speedThreshold of e3Detector isn't valid
 Warning: Setting new attribute speedThreshold '4' into e3Detector 'e3Detector_A'
 Warning: Setting new attribute speedThreshold '4' into e3Detector 'e3Detector_B'
+Warning: Setting new attribute blockMovement 'true' into e3Detector 'e3Detector_A'
+Warning: Setting new attribute blockMovement 'true' into e3Detector 'e3Detector_B'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute blockMovement '0' into e3Detector 'e3Detector_B'
+Warning: Setting previous attribute blockMovement '0' into e3Detector 'e3Detector_A'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute speedThreshold '3.39' into e3Detector 'e3Detector_B'
 Warning: Setting previous attribute speedThreshold '1.39' into e3Detector 'e3Detector_A'
@@ -42,6 +51,44 @@ Warning: Setting previous attribute file 'e3Detector_00.txt' into e3Detector 'e3
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute freq '120.00' into e3Detector 'e3Detector_B'
 Warning: Setting previous attribute freq '100.00' into e3Detector 'e3Detector_A'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute selected '0' into detExit 'e3Detector_BdetExit0'
+Warning: Setting previous attribute selected '0' into detExit 'e3Detector_AdetExit0'
+Warning: Setting previous attribute selected '0' into detEntry 'e3Detector_BdetEntry0'
+Warning: Setting previous attribute selected '0' into detEntry 'e3Detector_AdetEntry0'
+Warning: Setting previous attribute selected '0' into e3Detector 'e3Detector_B'
+Warning: Setting previous attribute selected '0' into e3Detector 'e3Detector_A'
+Warning: Setting previous attribute selected '0' into edge 'gneE0'
+Warning: Setting previous attribute selected '0' into junction 'gneJ1'
+Warning: Setting previous attribute selected '0' into edge 'gneE1'
+Warning: Setting previous attribute selected '0' into junction 'gneJ0'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Removing detExit 'e3Detector_BdetExit0' in GNEChange_Additional
+Warning: Removing detEntry 'e3Detector_BdetEntry0' in GNEChange_Additional
+Warning: Removing e3Detector 'e3Detector_B' in GNEChange_Additional
+Warning: Removed inspected element from Inspected ACs. 1 ACs remains.
+Warning: Removing detExit 'e3Detector_AdetExit0' in GNEChange_Additional
+Warning: Removing detEntry 'e3Detector_AdetEntry0' in GNEChange_Additional
+Warning: Removing e3Detector 'e3Detector_A' in GNEChange_Additional
+Warning: Removed inspected element from Inspected ACs. 0 ACs remains.
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Adding e3Detector 'e3Detector_A' in GNEChange_Additional
+Warning: Adding detEntry 'e3Detector_AdetEntry0' in GNEChange_Additional
+Warning: Adding detExit 'e3Detector_AdetExit0' in GNEChange_Additional
+Warning: Adding e3Detector 'e3Detector_B' in GNEChange_Additional
+Warning: Adding detEntry 'e3Detector_BdetEntry0' in GNEChange_Additional
+Warning: Adding detExit 'e3Detector_BdetExit0' in GNEChange_Additional
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute selected 'true' into junction 'gneJ0'
+Warning: Setting new attribute selected 'true' into edge 'gneE1'
+Warning: Setting new attribute selected 'true' into junction 'gneJ1'
+Warning: Setting new attribute selected 'true' into edge 'gneE0'
+Warning: Setting new attribute selected 'true' into e3Detector 'e3Detector_A'
+Warning: Setting new attribute selected 'true' into e3Detector 'e3Detector_B'
+Warning: Setting new attribute selected 'true' into detEntry 'e3Detector_AdetEntry0'
+Warning: Setting new attribute selected 'true' into detEntry 'e3Detector_BdetEntry0'
+Warning: Setting new attribute selected 'true' into detExit 'e3Detector_AdetExit0'
+Warning: Setting new attribute selected 'true' into detExit 'e3Detector_BdetExit0'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute freq '50' into e3Detector 'e3Detector_A'
 Warning: Setting new attribute freq '50' into e3Detector 'e3Detector_B'
@@ -54,13 +101,18 @@ Warning: Setting new attribute timeThreshold '11.3' into e3Detector 'e3Detector_
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute speedThreshold '4' into e3Detector 'e3Detector_A'
 Warning: Setting new attribute speedThreshold '4' into e3Detector 'e3Detector_B'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute blockMovement 'true' into e3Detector 'e3Detector_A'
+Warning: Setting new attribute blockMovement 'true' into e3Detector 'e3Detector_B'
 Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-Warning: Deleting unreferenced detEntry 'e3Detector_BdetEntry0'
+Warning: Deleting unreferenced detExit 'e3Detector_BdetExit0'
 Warning: Additionals has to be saved
 Warning: Current saving Status: net saved, additionals unsaved, shapes saved
+Warning: Deleting unreferenced detEntry 'e3Detector_BdetEntry0'
 Warning: Deleting unreferenced e3Detector 'e3Detector_B'
+Warning: Deleting unreferenced detExit 'e3Detector_AdetExit0'
 Warning: Deleting unreferenced detEntry 'e3Detector_AdetEntry0'
 Warning: Deleting unreferenced e3Detector 'e3Detector_A'
 Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor

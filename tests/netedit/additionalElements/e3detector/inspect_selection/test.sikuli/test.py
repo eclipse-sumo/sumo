@@ -61,9 +61,12 @@ netedit.modifyAttribute(3, "-3")
 # Set valid speed speed treshold
 netedit.modifyAttribute(3, "4")
 
+# change block movement
+netedit.modifyBoolAttribute(5)
+
 # Check undo redo
-netedit.undo(match, 4)
-netedit.redo(match, 4)
+netedit.undo(match, 7)
+netedit.redo(match, 7)
 
 # save additionals
 netedit.saveAdditionals()
