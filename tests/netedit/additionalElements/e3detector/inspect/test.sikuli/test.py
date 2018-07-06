@@ -44,10 +44,19 @@ netedit.leftClick(match, 450, 100)
 netedit.changeAdditional("detEntry")
 
 # Create Entry detector E3 (for saving)
-netedit.selectAdditionalChild(6, 0)
-netedit.leftClick(match, 100, 200)
-netedit.selectAdditionalChild(6, 1)
-netedit.leftClick(match, 400, 300)
+netedit.leftClick(match, 250, 100)
+netedit.leftClick(match, 250, 200)
+netedit.leftClick(match, 450, 100)
+netedit.leftClick(match, 450, 200)
+
+# select entry detector
+netedit.changeAdditional("detExit")
+
+# Create Exit detector E3 (for saving)
+netedit.leftClick(match, 250, 100)
+netedit.leftClick(match, 250, 450)
+netedit.leftClick(match, 450, 100)
+netedit.leftClick(match, 450, 450)
 
 # go to inspect mode
 netedit.inspectMode()
@@ -112,8 +121,8 @@ netedit.modifyAttribute(5, "-12.1")
 # Change parameter 5 with a valid value
 netedit.modifyAttribute(5, "6.3")
 
-# go to a empty area
-netedit.leftClick(match, 0, 0)
+# Change parameter 7 with a valid value
+netedit.modifyBoolAttribute(7)
 
 # Check undos and redos
 netedit.undo(match, 16)

@@ -9,10 +9,14 @@ Warning: Adding e3Detector 'e3Detector_1' in GNEChange_Additional
 Warning: Selected additional 'detEntry' in AdditionalSelector
 Warning: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Warning: Adding detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
+Warning: Selected additional 'detExit' in AdditionalSelector
+Warning: Adding detExit 'e3Detector_0detExit0' in GNEChange_Additional
+Warning: Adding detExit 'e3Detector_1detExit0' in GNEChange_Additional
 Warning: Value 'e3Detector_1' for attribute id of e3Detector isn't valid
 Warning: Value 'Id with spaces' for attribute id of e3Detector isn't valid
 Warning: Setting new attribute id 'correctID' into e3Detector 'e3Detector_0'
 Warning: Setting new attribute id 'correctIDdetEntry0' into detEntry 'e3Detector_0detEntry0'
+Warning: Setting new attribute id 'correctIDdetExit0' into detExit 'e3Detector_0detExit0'
 Warning: Value 'dummy position' for attribute pos of e3Detector isn't valid
 Warning: Setting new attribute pos '0,0' into e3Detector 'correctID'
 Warning: Setting new attribute pos '25,25' into e3Detector 'correctID'
@@ -26,6 +30,9 @@ Warning: Value '-5' for attribute timeThreshold of e3Detector isn't valid
 Warning: Setting new attribute timeThreshold '4' into e3Detector 'correctID'
 Warning: Value '-12.1' for attribute speedThreshold of e3Detector isn't valid
 Warning: Setting new attribute speedThreshold '6.3' into e3Detector 'correctID'
+Warning: Setting new attribute blockMovement 'true' into e3Detector 'correctID'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute blockMovement '0' into e3Detector 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute speedThreshold '1.39' into e3Detector 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -43,8 +50,13 @@ Warning: Setting previous attribute pos '0.00,0.00' into e3Detector 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute pos '22.00,29.00' into e3Detector 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute id 'e3Detector_0detExit0' into detExit 'correctIDdetExit0'
 Warning: Setting previous attribute id 'e3Detector_0detEntry0' into detEntry 'correctIDdetEntry0'
 Warning: Setting previous attribute id 'e3Detector_0' into e3Detector 'correctID'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Removing detExit 'e3Detector_1detExit0' in GNEChange_Additional
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Removing detExit 'e3Detector_0detExit0' in GNEChange_Additional
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -54,9 +66,6 @@ Warning: Removing e3Detector 'e3Detector_1' in GNEChange_Additional
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing e3Detector 'e3Detector_0' in GNEChange_Additional
 Warning: Removed inspected element from Inspected ACs. 0 ACs remains.
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
@@ -66,8 +75,13 @@ Warning: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Adding detExit 'e3Detector_0detExit0' in GNEChange_Additional
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Adding detExit 'e3Detector_1detExit0' in GNEChange_Additional
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute id 'correctID' into e3Detector 'e3Detector_0'
 Warning: Setting new attribute id 'correctIDdetEntry0' into detEntry 'e3Detector_0detEntry0'
+Warning: Setting new attribute id 'correctIDdetExit0' into detExit 'e3Detector_0detExit0'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute pos '0,0' into e3Detector 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
@@ -85,8 +99,7 @@ Warning: Setting new attribute timeThreshold '4' into e3Detector 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute speedThreshold '6.3' into e3Detector 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute blockMovement 'true' into e3Detector 'correctID'
 Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
@@ -96,9 +109,11 @@ Warning: Created crossing ':gneJ0_c0' in retrieveGNECrossing()
 Warning: Created crossing ':gneJ0_c1' in retrieveGNECrossing()
 Warning: Created crossing ':gneJ1_c0' in retrieveGNECrossing()
 Warning: Created crossing ':gneJ1_c1' in retrieveGNECrossing()
-Warning: Deleting unreferenced detEntry 'e3Detector_1detEntry0'
+Warning: Deleting unreferenced detExit 'e3Detector_1detExit0'
 Warning: Additionals has to be saved
 Warning: Current saving Status: net saved, additionals unsaved, shapes saved
+Warning: Deleting unreferenced detExit 'correctIDdetExit0'
+Warning: Deleting unreferenced detEntry 'e3Detector_1detEntry0'
 Warning: Deleting unreferenced detEntry 'correctIDdetEntry0'
 Warning: Deleting unreferenced e3Detector 'e3Detector_1'
 Warning: Deleting unreferenced e3Detector 'correctID'
