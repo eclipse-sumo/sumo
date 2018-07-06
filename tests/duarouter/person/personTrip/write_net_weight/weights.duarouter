@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jun  4 12:22:52 2018 by Eclipse SUMO duarouter Version 2207eac
+<!-- generated on 07/06/18 17:30:50 by Eclipse SUMO duarouter Version UNKNOWN
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -93,6 +93,12 @@ SPDX-License-Identifier: EPL-2.0
         <edge id="rend_depart_connector" traveltime="0.00" effort="0.00"/>
         <edge id="rend_arrival_connector" traveltime="0.00" effort="0.00"/>
         <edge id="gneJ1_walking_connector" traveltime="0.00" effort="0.00"/>
+        <edge id=":absEnd_0_car-1.00" traveltime="0.00" effort="0.00"/>
+        <edge id=":beg_0_car-1.00" traveltime="0.35" effort="0.00"/>
+        <edge id=":beg_1_car-1.00" traveltime="0.18" effort="0.00"/>
+        <edge id=":begleft_0_car-1.00" traveltime="0.09" effort="0.00"/>
+        <edge id=":end_0_car-1.00" traveltime="0.49" effort="0.00"/>
+        <edge id=":endleft_0_car-1.00" traveltime="0.18" effort="0.00"/>
         <edge id="beg_car-1.00" traveltime="17.93" effort="0.00"/>
         <edge id="beg2left_car-1.00" traveltime="8.99" effort="0.00"/>
         <edge id="end_car-1.00" traveltime="17.93" effort="0.00"/>

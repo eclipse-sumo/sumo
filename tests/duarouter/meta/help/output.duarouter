@@ -1,4 +1,4 @@
-Eclipse SUMO duarouter Version 27b98ce
+Eclipse SUMO duarouter Version UNKNOWN
  Copyright (C) 2001-2018 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 Shortest path router and DUE computer for the microscopic, multi-modal traffic
   simulation SUMO.
@@ -58,6 +58,7 @@ Processing Options:
   --unsorted-input                    Assume input is unsorted
   -s, --route-steps TIME              Load routes for the next number of
                                         seconds ahead
+  --no-internal-links                 Disable (junction) internal links
   --randomize-flows                   generate random departure times for flow
                                         input
   --max-alternatives INT              Prune the number of alternatives to INT

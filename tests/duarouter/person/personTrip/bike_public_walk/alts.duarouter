@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed May 30 23:53:22 2018 by Eclipse SUMO duarouter Version 09fe253
+<!-- generated on 07/06/18 17:30:50 by Eclipse SUMO duarouter Version UNKNOWN
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -35,8 +35,8 @@ SPDX-License-Identifier: EPL-2.0
         </routeDistribution>
     </vehicle>
     <person id="p0" depart="0.00">
-        <ride cost="134.74" from="beg" to="beg2left" busStop="beg2left" lines="p0_b0"/>
-        <ride cost="225.26" busStop="left2end" lines="train" intended="train.1" depart="310.00"/>
+        <ride cost="135.64" from="beg" to="beg2left" busStop="beg2left" lines="p0_b0"/>
+        <ride cost="224.36" busStop="left2end" lines="train" intended="train.1" depart="310.00"/>
         <walk cost="241.57" edges="left2end end"/>
     </person>
 </routes>
