@@ -180,7 +180,7 @@ def call(command, log):
     log.flush()
     retCode = subprocess.call(command, stdout=log, stderr=log)
     if retCode != 0:
-        print("Execution of %s failed. Look into %s for details." %
+        print(("Execution of %s failed. Look into %s for details.") %
               (command, log.name), file=sys.stderr)
         sys.exit(retCode)
 
@@ -358,7 +358,8 @@ def writeSUMOConf(sumoBinary, step, options, additional_args, route_files):
             print('    <edgeData id="dump%s" freq="%s" file="%s" excludeEmpty="true" minSamples="1"/>' % (
                 suffix, options.aggregation, get_dumpfilename(options, step, "dump")), file=fd)
         if options.ecomeasure:
-            print('    <edgeData id="eco%s" type="hbefa" freq="%s" file="dump%s.xml" excludeEmpty="true" minSamples="1"/>' %
+            print(('    <edgeData id="eco%s" type="hbefa" freq="%s" file="dump%s.xml" ' +
+                   'excludeEmpty="true" minSamples="1"/>') %
                   (suffix, options.aggregation, suffix), file=fd)
         print("</a>", file=fd)
 
@@ -464,14 +465,14 @@ def main(args=None):
         subprocess.call(duaBinary, stdout=subprocess.PIPE)
     except OSError:
         sys.exit(
-            "Error: Could not locate duarouter (%s).\nMake sure its on the search path or set environment " +
-            "variable DUAROUTER_BINARY\n" % duaBinary)
+            ("Error: Could not locate duarouter (%s).\nMake sure its on the search path or set environment " +
+             "variable DUAROUTER_BINARY\n") % duaBinary)
     try:
         subprocess.call(sumoBinary, stdout=subprocess.PIPE)
     except OSError:
         sys.exit(
-            "Error: Could not locate sumo (%s).\nMake sure its on the search path or set environment " +
-            "variable SUMO_BINARY\n" % sumoBinary)
+            ("Error: Could not locate sumo (%s).\nMake sure its on the search path or set environment " +
+             "variable SUMO_BINARY\n") % sumoBinary)
 
     sumo_args = assign_remaining_args(
         sumoBinary, 'sumo', options.remaining_args)

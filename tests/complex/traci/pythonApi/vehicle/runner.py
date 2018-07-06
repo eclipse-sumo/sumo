@@ -21,7 +21,11 @@ from __future__ import absolute_import
 import os
 import subprocess
 import sys
-sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
+if 'SUMO_HOME' in os.environ:
+    tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
+    sys.path.append(tools)
+else:
+    sys.exit("please declare environment variable 'SUMO_HOME'")
 import traci  # noqa
 import sumolib  # noqa
 

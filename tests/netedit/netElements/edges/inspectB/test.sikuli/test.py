@@ -63,7 +63,8 @@ netedit.modifyAttribute(10, "")
 
 # Change parameter 10 with a valid value (empty)
 netedit.modifyAttribute(
-    10, "emergency authority army vip passenger hov bus coach tram rail_urban rail rail_electric motorcycle moped pedestrian custom1")
+    10, "emergency authority army vip passenger hov bus coach tram rail_urban rail " +
+    "rail_electric motorcycle moped pedestrian custom1")
 
 # Change parameter 11 with an non valid value (dummy)
 netedit.modifyAttribute(11, "dummyShape")

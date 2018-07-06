@@ -340,8 +340,8 @@ def doLohseStopCheck(net, options, stable, iter, maxIter, foutlog):
         elif counts < int(net.geteffEdgeCounts() * 0.05) and float(iter) > options.maxiteration * 0.85:
             stable = True
             foutlog.write(
-                'The number of the links with convergence is 95% of the total links.' +
-                'The number of executed iterations:%s\n' % iter)
+                ('The number of the links with convergence is 95% of the total links.' +
+                 'The number of executed iterations:%s\n') % iter)
 
     if iter >= maxIter:
         print('The max. number of iterations is reached!')

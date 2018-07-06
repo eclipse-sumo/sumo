@@ -22,8 +22,11 @@ import sys
 import shutil
 from scipy.optimize import fmin_cobyla
 
-sys.path.append(
-    os.path.join(os.path.dirname(__file__), '..', '..', '..', '..', "tools"))
+if 'SUMO_HOME' in os.environ:
+    tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
+    sys.path.append(tools)
+else:
+    sys.exit("please declare environment variable 'SUMO_HOME'")
 from sumolib import checkBinary  # noqa
 import validate  # noqa
 
@@ -99,7 +102,8 @@ def conAmax(params):  # aMax > 0.1
 netconvertBinary = checkBinary('netconvert')
 # build/check network
 retcode = subprocess.call([netconvertBinary, "-n", "data/spd-road.nod.xml", "-e",
-                           "data/spd-road.edg.xml", "-o", "data/spd-road.net.xml", "-v"], stdout=sys.stdout, stderr=sys.stderr)
+                           "data/spd-road.edg.xml", "-o", "data/spd-road.net.xml", "-v"],
+                          stdout=sys.stdout, stderr=sys.stderr)
 try:
     shutil.copy("data/spd-road.net.xml", "net.net.xml")
 except IOError:

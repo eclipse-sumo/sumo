@@ -28,8 +28,7 @@ try:
         os.path.dirname(__file__), "..", "..", "..")), "tools"))  # tutorial in docs
     from sumolib import checkBinary  # noqa
 except ImportError:
-    sys.exit(
-        "please declare environment variable 'SUMO_HOME' as the root directory of your sumo installation (it should contain folders 'bin', 'tools' and 'docs')")
+    sys.exit("please declare environment variable 'SUMO_HOME'")
 
 netconvertBinary = checkBinary('netconvert')
 sumoBinary = checkBinary('sumo')

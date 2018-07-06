@@ -107,8 +107,8 @@ class DetectorGroupData:
                 self.timeline = [[None, None] for i in range(index)]
                 self.timeline.append([0, 0])
             else:
-                sys.stderr.write("Gap in data for group=%s. Or data interval is higher than aggregation interval " +
-                                 "(i=%s, time=%s, begin=%s, lastTime=%s)\n" % (
+                sys.stderr.write(("Gap in data for group=%s. Or data interval is higher than aggregation interval " +
+                                 "(i=%s, time=%s, begin=%s, lastTime=%s)\n") % (
                                      self.ids, self.interval, time, self.begin, len(self.timeline) * self.interval))
                 while len(self.timeline) < index:
                     self.timeline.append([None, None])
@@ -116,8 +116,8 @@ class DetectorGroupData:
         if index == len(self.timeline):
             # new entry
             if time % self.interval != 0 and time > self.interval:
-                sys.stderr.write("Aggregation interval is not a multiple of data interval for group=%s (i=%s " +
-                                 "time=%s begin=%s)\n" % (
+                sys.stderr.write(("Aggregation interval is not a multiple of data interval for group=%s (i=%s " +
+                                 "time=%s begin=%s)\n") % (
                                      self.ids, self.interval, time, self.begin))
             self.timeline.append([0, 0])
         oldFlow, oldSpeed = self.timeline[index]

@@ -270,17 +270,20 @@ class Net:
                     self.addSinkEdge(edgeObj)
                     foundSinks.append(edgeObj.label)
         if options.verbose:
-            print("Loaded %s sources and %s sinks from detector file. Added %s sources and %s sinks from the network" % (
+            print(("Loaded %s sources and %s sinks from detector file. Added %s sources and %s sinks " +
+                   "from the network") % (
                 len(sources), len(sinks), len(foundSources), len(foundSinks)))
         if options.source_sink_output:
             with open(options.source_sink_output, 'w') as outf:
                 outf.write('<detectors>\n')
                 freq = options.interval * 60 if options.interval else 24 * 3600
                 for source in foundSources:
-                    outf.write('    <e1Detector id="%s_0" lane="%s_0" pos="1" type="source" friendlyPos="true" file="NUL" freq="%s"/>\n' %
+                    outf.write('    <e1Detector id="%s_0" lane="%s_0" pos="1" type="source" friendlyPos="true" ' +
+                               'file="NUL" freq="%s"/>\n' %
                                (source, source, freq))
                 for sink in foundSinks:
-                    outf.write('    <e1Detector id="%s_0" lane="%s_0" pos="-1" type="sink" friendlyPos="true" file="NUL" freq="%s"/>\n' %
+                    outf.write('    <e1Detector id="%s_0" lane="%s_0" pos="-1" type="sink" friendlyPos="true" ' +
+                               'file="NUL" freq="%s"/>\n' %
                                (sink, sink, freq))
                 outf.write('</detectors>\n')
 

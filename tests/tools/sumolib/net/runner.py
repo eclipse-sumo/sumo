@@ -40,10 +40,10 @@ internal_edge = net.getEdge(":C_0")
 internal_lane = net.getLane(":C_0_0")
 internal_lane_cons = internal_lane.getOutgoing()
 print("connections from %s:\n%s" % (internal_lane.getID(),
-    '\n'.join(map(str, internal_lane_cons))))
+                                    '\n'.join(map(str, internal_lane_cons))))
 internal_lane_incoming = sorted(internal_lane.getIncoming())
 print("lanes to %s: %s" % (internal_lane.getID(),
-    ' '.join([l.getID() for l in internal_lane_incoming])))
+                           ' '.join([l.getID() for l in internal_lane_incoming])))
 assert(internal_edge.getFunction() == 'internal')
 assert(internal_edge.isSpecial())
 assert(internal_lane.getEdge().isSpecial())

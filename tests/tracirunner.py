@@ -60,5 +60,5 @@ if success:
     serverProcess.wait()
 else:
     if serverProcess.poll() is None:
-        print ("Server hangs and does not answer connection requests", file=sys.stderr)
+        print("Server hangs and does not answer connection requests", file=sys.stderr)
         serverProcess.kill()

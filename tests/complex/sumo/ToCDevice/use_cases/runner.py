@@ -29,15 +29,12 @@ import os
 import sys
 import optparse
 # we need to import python modules from the $SUMO_HOME/tools directory
-try:
-    sys.path.append(os.path.join(os.path.dirname(
-        __file__), '..', '..', '..', '..', "tools"))  # tutorial in tests
-    sys.path.append(os.path.join(os.environ.get("SUMO_HOME", os.path.join(
-        os.path.dirname(__file__), "..", "..", "..")), "tools"))  # tutorial in docs
-    from sumolib import checkBinary  # noqa
-except ImportError:
+if 'SUMO_HOME' in os.environ:
+    tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
+    sys.path.append(tools)
+else:
     sys.exit("please declare environment variable 'SUMO_HOME'")
-
+from sumolib import checkBinary  # noqa
 import traci  # noqa
 
 AV_identifier = "AVflow"

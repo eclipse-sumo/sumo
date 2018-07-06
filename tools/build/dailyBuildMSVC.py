@@ -236,7 +236,8 @@ for platform, dllDir in platformDlls:
             for dllPath in (os.path.join(options.rootDir, dllDir), debugDllPath):
                 for f in glob.glob(os.path.join(dllPath, "*.dll")) + glob.glob(os.path.join(dllPath, "*", "*.dll")):
                     zipf.write(f, os.path.join(binDir, f[len(dllPath) + 1:]))
-            for f in glob.glob(os.path.join(options.rootDir, options.binDir, "*D.exe")) + glob.glob(os.path.join(options.rootDir, options.binDir, "*D.pdb")):
+            for f in (glob.glob(os.path.join(options.rootDir, options.binDir, "*D.exe")) +
+                      glob.glob(os.path.join(options.rootDir, options.binDir, "*D.pdb"))):
                 zipf.write(f, os.path.join(binDir, os.path.basename(f)))
             zipf.close()
         except IOError as ziperr:

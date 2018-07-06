@@ -433,7 +433,7 @@ class ScoreDialog:
                 f.close()
             except Exception:
                 pass
-            
+
             if _UPLOAD:
                 printDebug("try to upload score...")
                 try:

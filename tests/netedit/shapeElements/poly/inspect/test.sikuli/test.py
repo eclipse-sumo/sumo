@@ -121,7 +121,8 @@ netedit.modifyAttribute(9, "10")
 
 # Change parameter 9 with a valid value
 netedit.modifyAttribute(
-    11, "-13.00,8.00 -8.00,13.00 -13.00,18.00 -18.00,23.00 -23.00,18.00 -28.00,13.00 -23.00,8.00 -18.00,3.00 -13.00,8.00")
+    11,
+    "-13.00,8.00 -8.00,13.00 -13.00,18.00 -18.00,23.00 -23.00,18.00 -28.00,13.00 -23.00,8.00 -18.00,3.00 -13.00,8.00")
 
 # Change boolean parameter 10
 netedit.modifyShapeDefaultBoolValue(12)

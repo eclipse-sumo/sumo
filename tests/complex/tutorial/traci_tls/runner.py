@@ -24,17 +24,14 @@ import optparse
 import random
 
 # we need to import python modules from the $SUMO_HOME/tools directory
-try:
-    sys.path.append(os.path.join(os.path.dirname(
-        __file__), '..', '..', '..', '..', "tools"))  # tutorial in tests
-    sys.path.append(os.path.join(os.environ.get("SUMO_HOME", os.path.join(
-        os.path.dirname(__file__), "..", "..", "..")), "tools"))  # tutorial in docs
-    from sumolib import checkBinary  # noqa
-except ImportError:
-    sys.exit(
-        "please declare environment variable 'SUMO_HOME' as the root directory of your sumo installation (it should contain folders 'bin', 'tools' and 'docs')")
-
-import traci
+if 'SUMO_HOME' in os.environ:
+    tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
+    sys.path.append(tools)
+else:
+    sys.exit("please declare environment variable 'SUMO_HOME'")
+	
+from sumolib import checkBinary  # noqa
+import traci  # noqa
 
 
 def generate_routefile():
@@ -46,7 +43,8 @@ def generate_routefile():
     pNS = 1. / 30
     with open("data/cross.rou.xml", "w") as routes:
         print("""<routes>
-        <vType id="typeWE" accel="0.8" decel="4.5" sigma="0.5" length="5" minGap="2.5" maxSpeed="16.67" guiShape="passenger"/>
+        <vType id="typeWE" accel="0.8" decel="4.5" sigma="0.5" length="5" minGap="2.5" maxSpeed="16.67" \
+guiShape="passenger"/>
         <vType id="typeNS" accel="0.8" decel="4.5" sigma="0.5" length="7" minGap="3" maxSpeed="25" guiShape="bus"/>
 
         <route id="right" edges="51o 1i 2o 52i" />

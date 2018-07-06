@@ -16,19 +16,22 @@
 
 """
 
-Creates a vehicle type distribution with a number of representative car-following parameter sets. Optional parameters can be viewed by using the --help switch.
+Creates a vehicle type distribution with a number of representative car-following parameter sets. \
+Optional parameters can be viewed by using the --help switch.
 Mandatory input:
 path to config file - defines the car-following model parameter distributions for one single vehicle type distribution
 
 In the config file, one line is used per vehicle type attribute. The syntax is:
 nameOfAttribute; valueOfAttribute [; limits]
 
-ValueOfAttribute can be a string, a scalar value or a distribution definition. Available distributions and its syntax are:
+ValueOfAttribute can be a string, a scalar value or a distribution definition. \
+Available distributions and its syntax are:
 "normal(mu,sd)" with mu and sd being floating numbers: Normal distribution with mean mu and standard deviation sd.
 "uniform(a,b)" with limits a and b being floating numbers: Uniform distribution between a and b.
 "gamma(alpha,beta)" with parameters alpha and beta: Gamma distribution.
 
-Limits are optional and defined as the allowed interval: e.g. "[0,1]" or "[3.5,5.0]". By default, no negative values are accepted but have to be enabled by
+Limits are optional and defined as the allowed interval: e.g. "[0,1]" or "[3.5,5.0]". \
+By default, no negative values are accepted but have to be enabled by
 a negative lower limit.
 
 """
@@ -121,15 +124,19 @@ def get_options(args=None):
     argParser.add_argument(
         "configFile", help="file path of the config file which defines the car-following parameter distributions")
     argParser.add_argument(
-        "-o", "--output-file", dest="outputFile", default="vTypeDistributions.add.xml", help="file path of the output file (if the file already exists, the script tries to insert the distribution node into it)")
+        "-o", "--output-file", dest="outputFile", default="vTypeDistributions.add.xml", help="file path of the " +
+        "output file (if the file already exists, the script tries to insert the distribution node into it)")
     argParser.add_argument(
-        "-n", "--name", dest="vehDistName", default="vehDist", help="alphanumerical ID used for the created vehicle type distribution")
+        "-n", "--name", dest="vehDistName", default="vehDist", help="alphanumerical ID used for the created " +
+        "vehicle type distribution")
     argParser.add_argument(
         "-s", "--size", type=int, default=100, dest="vehicleCount", help="number of vTypes in the distribution")
     argParser.add_argument(
-        "-d", "--decimal-places", type=int, default=3, dest="decimalPlaces", help="number of decimal places for numeric attribute values")
+        "-d", "--decimal-places", type=int, default=3, dest="decimalPlaces", help="number of decimal places for " +
+        "numeric attribute values")
     argParser.add_argument(
-        "--resampling", type=int, default=100, dest="nrSamplingAttempts", help="number of attempts to resample a value until it lies in the specified bounds")
+        "--resampling", type=int, default=100, dest="nrSamplingAttempts", help="number of attempts to resample a " +
+        "value until it lies in the specified bounds")
     argParser.add_argument("--seed", type=int, help="random seed", default=42)
 
     options = argParser.parse_args()

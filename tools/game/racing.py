@@ -200,7 +200,8 @@ class RacingClient:
                     x, y = x2, y2
                     traci.simulationStep()
                     if VERBOSE:
-                        print("old=%.2f,%.2f new=%.2f,%.2f found=%.2f,%.2f speed=%.2f steer=%.2f angle=%s rad/pi=%.2f cos=%.2f sin=%.2f" % (
+                        print(("old=%.2f,%.2f new=%.2f,%.2f found=%.2f,%.2f speed=%.2f steer=%.2f " +
+                               "angle=%s rad/pi=%.2f cos=%.2f sin=%.2f") % (
                             x, y, x2, y2, x3, y3, speed, steerAngle, angle, rad / math.pi,
                             math.cos(rad), math.sin(rad)))
                 except traci.TraCIException:

@@ -121,7 +121,7 @@ def main(options):
             elif app in appName:
                 appName = set([app])
             else:
-                print("Skipping %s because the application was not unique (found %s)." % (
+                print(("Skipping %s because the application was not unique (found %s).") % (
                     source, appName), file=sys.stderr)
                 continue
         app = next(iter(appName))
@@ -226,7 +226,7 @@ def main(options):
                 # binary is now called differently but app still has the old name
                 app = "netgenerate"
             if options.verbose:
-                print("calling %s for testPath '%s' with  options '%s'" %
+                print(("calling %s for testPath '%s' with  options '%s'") %
                       (checkBinary(app), testPath, " ".join(appOptions)))
             subprocess.call([checkBinary(app)] + appOptions)
         elif app == "tools":
