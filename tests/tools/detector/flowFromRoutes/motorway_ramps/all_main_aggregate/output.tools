@@ -7,7 +7,7 @@ Detector;RouteFlow;DetFlow;ratio
 2_;600.0;600.0;0.0
 #;interval;0
 #;avgRouteFlow;avgDetFlow;avgDev;RMSE;RMSPE;GEH;GEH%
-#;600.0;600.0;0.0;0.0;0.0;0.0;100
+#;600.0;600.0;0.0;0.0;0.0;0.0;100.0
 Reading routes
 Reading emitters
 Reading flows
@@ -16,7 +16,7 @@ Detector;RouteFlow;DetFlow;ratio
 2_;300.0;300.0;0.0
 #;interval;3600
 #;avgRouteFlow;avgDetFlow;avgDev;RMSE;RMSPE;GEH;GEH%
-#;300.0;300.0;0.0;0.0;0.0;0.0;100
+#;300.0;300.0;0.0;0.0;0.0;0.0;100.0
 Reading routes
 Reading emitters
 Reading flows
