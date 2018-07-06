@@ -164,7 +164,7 @@ class DetectorRouteEmitterReader(handler.ContentHandler):
             math.sqrt(sumSquaredDev / n),
             math.sqrt(sumSquaredPercent / n),
             sumGEH / n,
-            100 * nGEHthresh / n,
+            100. * nGEHthresh / n,
             comment=True)
 
     def printFlows(self, includeDets, useGEH, interval):
