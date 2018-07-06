@@ -71,8 +71,12 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Removing detExit 'e3Detector_1detExit0' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Removing detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
-Warning: e3Detector with ID='e3Detector_1' cannot be written; It need at least 1 childs.
-Warning: e3Detector with ID='e3Detector_2' cannot be written; It need at least 1 childs.
+Warning: An e3Detector need at least one detEntry detector
+Warning: An e3Detector need at least one detExit detector
+Warning: e3Detector with ID='e3Detector_1' cannot be written
+Warning: An e3Detector need at least one detEntry detector
+Warning: An e3Detector need at least one detExit detector
+Warning: e3Detector with ID='e3Detector_2' cannot be written
 Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
