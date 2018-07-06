@@ -1218,7 +1218,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "");
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_NAME,
             ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
-            "Name of bus stop", 
+            "Name of " + toString(currentTag), 
             "");
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_FRIENDLY_POS,
             ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
@@ -1274,7 +1274,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "");
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_NAME,
             ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
-            "Name of Container Stop", 
+            "Name of " + toString(currentTag), 
             "");
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_FRIENDLY_POS,
             ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
@@ -1308,7 +1308,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "");
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_NAME,
             ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
-            "Name of Charging Station", 
+            "Name of " + toString(currentTag), 
             "");
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_FRIENDLY_POS,
             ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
@@ -1352,6 +1352,10 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "The end position on the lane (the higher position on the lane) in meters, must be larger than startPos by more than 0.1m", 
             "");
+        myAllowedTags[currentTag].addAttribute(SUMO_ATTR_NAME,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            "Name of " + toString(currentTag), 
+            "");
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_ROADSIDE_CAPACITY,
             ATTRPROPERTY_INT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             " The number of parking spaces for road-side parking ", 
@@ -1360,10 +1364,6 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "If set, no error will be reported if element is placed behind the lane. Instead,it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1", 
             "0");
-        myAllowedTags[currentTag].addAttribute(SUMO_ATTR_NAME,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
-            "Name of Parking Area", 
-            "");
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_WIDTH,
             ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "The width of the road-side parking spaces", 
@@ -1428,6 +1428,10 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUE,
             "The aggregation period the values the detector collects shall be summed up", 
             "900.00");
+        myAllowedTags[currentTag].addAttribute(SUMO_ATTR_NAME,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            "Name of " + toString(currentTag), 
+            "");
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_FILE,
             ATTRPROPERTY_STRING | ATTRPROPERTY_FILENAME | ATTRPROPERTY_DEFAULTVALUE,
             "The path to the output file", 
@@ -1466,6 +1470,10 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUE,
             "The aggregation period the values the detector collects shall be summed up", 
             "900.00");
+        myAllowedTags[currentTag].addAttribute(SUMO_ATTR_NAME,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            "Name of " + toString(currentTag), 
+            "");
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_FILE,
             ATTRPROPERTY_STRING | ATTRPROPERTY_FILENAME | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "The path to the output file", 
@@ -1508,6 +1516,10 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUE,
             "The aggregation period the values the detector collects shall be summed up", 
             "900.00");
+        myAllowedTags[currentTag].addAttribute(SUMO_ATTR_NAME,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            "Name of " + toString(currentTag), 
+            "");
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_FILE,
             ATTRPROPERTY_STRING | ATTRPROPERTY_FILENAME | ATTRPROPERTY_DEFAULTVALUE,
             "The path to the output file", 
@@ -1574,6 +1586,10 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE,
             "The position on the lane the detector shall be laid on in meters. The position must be a value between -1*lane's length and the lane's length", 
             "");
+        myAllowedTags[currentTag].addAttribute(SUMO_ATTR_NAME,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            "Name of " + toString(currentTag), 
+            "");
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_FILE,
             ATTRPROPERTY_STRING | ATTRPROPERTY_FILENAME | ATTRPROPERTY_DEFAULTVALUE,
             "The path to the output file", 
@@ -1601,6 +1617,10 @@ GNEAttributeCarrier::fillAttributeCarriers() {
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_LANES,
             ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE,
             "list of lanes of Variable Speed Sign", 
+            "");
+        myAllowedTags[currentTag].addAttribute(SUMO_ATTR_NAME,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            "Name of " + toString(currentTag), 
             "");
     }
     currentTag = SUMO_TAG_STEP;
@@ -1638,6 +1658,10 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "The aggregation interval in which to calibrate the flows. default is step-length", 
             "1.00");
+        myAllowedTags[currentTag].addAttribute(SUMO_ATTR_NAME,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            "Name of " + toString(currentTag), 
+            "");
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_ROUTEPROBE,
             ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "The id of the routeProbe element from which to determine the route distribution for generated vehicles", 
@@ -1668,6 +1692,10 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "The aggregation interval in which to calibrate the flows. default is step-length", 
             "100.00");
+        myAllowedTags[currentTag].addAttribute(SUMO_ATTR_NAME,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            "Name of " + toString(currentTag), 
+            "");
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_ROUTEPROBE,
             ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "The id of the routeProbe element from which to determine the route distribution for generated vehicles", 
@@ -1794,6 +1822,10 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             ATTRPROPERTY_STRING | ATTRPROPERTY_POSITION | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "X,Y position in editor (Only used in NETEDIT)", 
             "0,0"); // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
+        myAllowedTags[currentTag].addAttribute(SUMO_ATTR_NAME,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            "Name of " + toString(currentTag), 
+            "");
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_FILE,
             ATTRPROPERTY_STRING | ATTRPROPERTY_FILENAME | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "The path to the definition file (alternatively, the intervals may defined as children of the rerouter)", 
@@ -1929,6 +1961,10 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE,
             "The frequency in which to report the distribution", 
             "3600");
+        myAllowedTags[currentTag].addAttribute(SUMO_ATTR_NAME,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            "Name of " + toString(currentTag), 
+            "");
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_FILE,
             ATTRPROPERTY_STRING | ATTRPROPERTY_FILENAME | ATTRPROPERTY_DEFAULTVALUE,
             "The file for generated output", 
@@ -1955,6 +1991,10 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             ATTRPROPERTY_FLOAT | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUE,
             "End Time", 
             "3600.00");
+        myAllowedTags[currentTag].addAttribute(SUMO_ATTR_NAME,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            "Name of " + toString(currentTag), 
+            "");
     }
     currentTag = SUMO_TAG_VTYPE;
     {

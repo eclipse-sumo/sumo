@@ -53,8 +53,8 @@
 // member method definitions
 // ===========================================================================
 
-GNEVariableSpeedSign::GNEVariableSpeedSign(const std::string& id, GNEViewNet* viewNet, const Position &pos, const std::vector<GNELane*> &lanes, bool blockMovement) :
-    GNEAdditional(id, viewNet, GLO_VSS, SUMO_TAG_VSS, true, blockMovement, lanes),
+GNEVariableSpeedSign::GNEVariableSpeedSign(const std::string& id, GNEViewNet* viewNet, const Position &pos, const std::vector<GNELane*> &lanes, const std::string& name, bool blockMovement) :
+    GNEAdditional(id, viewNet, GLO_VSS, SUMO_TAG_VSS, name, true, blockMovement, lanes),
     myPosition(pos) {
 }
 
@@ -222,6 +222,8 @@ GNEVariableSpeedSign::getAttribute(SumoXMLAttr key) const {
             return parseIDs(myLaneChilds);
         case SUMO_ATTR_POSITION:
             return toString(myPosition);
+        case SUMO_ATTR_NAME:
+            return myAdditionalName;
         case GNE_ATTR_BLOCK_MOVEMENT:
             return toString(myBlockMovement);
         case GNE_ATTR_SELECTED:
@@ -249,6 +251,7 @@ GNEVariableSpeedSign::setAttribute(SumoXMLAttr key, const std::string& value, GN
         }
         case SUMO_ATTR_LANES:
         case SUMO_ATTR_POSITION:
+        case SUMO_ATTR_NAME:
         case GNE_ATTR_BLOCK_MOVEMENT:
         case GNE_ATTR_SELECTED:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
@@ -272,6 +275,8 @@ GNEVariableSpeedSign::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return canParse<std::vector<GNELane*> >(myViewNet->getNet(), value, false);
             }
+        case SUMO_ATTR_NAME:
+            return true;
         case GNE_ATTR_BLOCK_MOVEMENT:
             return canParse<bool>(value);
         case GNE_ATTR_SELECTED:
@@ -308,6 +313,9 @@ GNEVariableSpeedSign::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_POSITION:
             myPosition = parse<Position>(value);
+            break;
+        case SUMO_ATTR_NAME:
+            myAdditionalName = value;
             break;
         case GNE_ATTR_BLOCK_MOVEMENT:
             myBlockMovement = parse<bool>(value);

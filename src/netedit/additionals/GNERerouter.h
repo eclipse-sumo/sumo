@@ -46,12 +46,13 @@ public:
      * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
      * @param[in] pos position (center) of the rerouter in the map
      * @param[in] edges vector with the edges of rerotuer
+     * @param[in] name Rerouter name
      * @param[in] filename The path to the definition file
      * @param[in] probability The probability for vehicle rerouting
      * @param[in] off Whether the router should be inactive initially
      * @param[in] block movement enable or disable additional movement
      */
-    GNERerouter(const std::string& id, GNEViewNet* viewNet, const Position &pos, const std::vector<GNEEdge*> &edges, 
+    GNERerouter(const std::string& id, GNEViewNet* viewNet, const Position &pos, const std::vector<GNEEdge*> &edges, const std::string& name, 
                 const std::string& filename, double probability, bool off, double timeThreshold, const std::string& vTypes, bool blockMovement);
 
     /// @brief Destructor

@@ -42,13 +42,14 @@ public:
      * @param[in] pos position (center) of the detector in the map
      * @param[in] freq the aggregation period the values the detector collects shall be summed up.
      * @param[in] filename The path to the output file
+     * @param[in] name E3 detector name
      * @param[in] timeThreshold The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting
      * @param[in] speedThreshold The speed-based threshold that describes how slow a vehicle has to be to be recognized as halting
      * @param[in] block movement enable or disable additional movement  
      */
-    GNEDetectorE3(const std::string& id, GNEViewNet* viewNet, Position pos, double freq, const std::string& filename, const double timeThreshold, double speedThreshold, bool blockMovement);
+    GNEDetectorE3(const std::string& id, GNEViewNet* viewNet, Position pos, double freq, const std::string& filename, const std::string& name, const double timeThreshold, double speedThreshold, bool blockMovement);
 
-    /// @brief GNEDetectorE3 6Destructor
+    /// @brief GNEDetectorE3 Destructor
     ~GNEDetectorE3();
 
     /// @name Functions related with geometry of element

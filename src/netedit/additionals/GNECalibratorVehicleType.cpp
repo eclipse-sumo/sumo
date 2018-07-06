@@ -51,14 +51,14 @@
 // ===========================================================================
 
 GNECalibratorVehicleType::GNECalibratorVehicleType(GNEViewNet *viewNet) :
-    GNEAdditional(viewNet->getNet()->generateAdditionalID(SUMO_TAG_VTYPE), viewNet, GLO_CALIBRATOR, SUMO_TAG_VTYPE, false, false) {
+    GNEAdditional(viewNet->getNet()->generateAdditionalID(SUMO_TAG_VTYPE), viewNet, GLO_CALIBRATOR, SUMO_TAG_VTYPE, "", false, false) {
     // fill calibrator vehicle type with default values
     setDefaultValues();
 }
 
 
 GNECalibratorVehicleType::GNECalibratorVehicleType(GNEViewNet *viewNet, const std::string& id) :
-    GNEAdditional(id, viewNet, GLO_CALIBRATOR, SUMO_TAG_VTYPE, false, false) {
+    GNEAdditional(id, viewNet, GLO_CALIBRATOR, SUMO_TAG_VTYPE, "", false, false) {
     // fill calibrator vehicle type with default values
     setDefaultValues();
 }
@@ -70,7 +70,7 @@ GNECalibratorVehicleType::GNECalibratorVehicleType(GNEViewNet *viewNet, std::str
         SUMOVehicleShape shape, double width, const std::string& filename, double impatience, const std::string& laneChangeModel,
         const std::string& carFollowModel, int personCapacity, int containerCapacity, double boardingDuration,
         double loadingDuration, const std::string& latAlignment, double minGapLat, double maxSpeedLat) :
-    GNEAdditional(vehicleTypeID, viewNet, GLO_CALIBRATOR, SUMO_TAG_VTYPE, false, false),
+    GNEAdditional(vehicleTypeID, viewNet, GLO_CALIBRATOR, SUMO_TAG_VTYPE, "", false, false),
     myAccel(accel),
     myDecel(decel),
     mySigma(sigma),

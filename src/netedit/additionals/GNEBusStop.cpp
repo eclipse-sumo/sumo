@@ -190,8 +190,8 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
     glPopMatrix();
     // Draw name if isn't being drawn for selecting
     drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
-    if (s.addFullName.show && (myName != "") && !s.drawForSelecting) {
-        GLHelper::drawText(myName, mySignPos, GLO_MAX - getType(), s.addFullName.scaledSize(s.scale), s.addFullName.color, myBlockIconRotation);
+    if (s.addFullName.show && (myAdditionalName != "") && !s.drawForSelecting) {
+        GLHelper::drawText(myAdditionalName, mySignPos, GLO_MAX - getType(), s.addFullName.scaledSize(s.scale), s.addFullName.color, myBlockIconRotation);
     }
     // Pop name
     glPopName();
@@ -210,7 +210,7 @@ GNEBusStop::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ENDPOS:
             return myEndPosition;
         case SUMO_ATTR_NAME:
-            return myName;
+            return myAdditionalName;
         case SUMO_ATTR_FRIENDLY_POS:
             return toString(myFriendlyPosition);
         case SUMO_ATTR_LINES:
@@ -332,7 +332,7 @@ GNEBusStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             myEndPosition = value;
             break;
         case SUMO_ATTR_NAME:
-            myName = value;
+            myAdditionalName = value;
             break;
         case SUMO_ATTR_FRIENDLY_POS:
             myFriendlyPosition = parse<bool>(value);

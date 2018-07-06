@@ -51,8 +51,8 @@
 // member method definitions
 // ===========================================================================
 
-GNEDetectorE1::GNEDetectorE1(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double pos, double freq, const std::string& filename, const std::string& vehicleTypes, bool friendlyPos, bool blockMovement) :
-    GNEDetector(id, viewNet, GLO_E1DETECTOR, SUMO_TAG_E1DETECTOR, lane, pos, freq, filename, friendlyPos, blockMovement),
+GNEDetectorE1::GNEDetectorE1(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double pos, double freq, const std::string& filename, const std::string& name, const std::string& vehicleTypes, bool friendlyPos, bool blockMovement) :
+    GNEDetector(id, viewNet, GLO_E1DETECTOR, SUMO_TAG_E1DETECTOR, lane, pos, freq, filename, name, friendlyPos, blockMovement),
     myVehicleTypes(vehicleTypes) {
 }
 
@@ -215,6 +215,8 @@ GNEDetectorE1::getAttribute(SumoXMLAttr key) const {
             return toString(myPositionOverLane);
         case SUMO_ATTR_FREQUENCY:
             return toString(myFreq);
+        case SUMO_ATTR_NAME:
+            return myAdditionalName;
         case SUMO_ATTR_FILE:
             return myFilename;
         case SUMO_ATTR_VTYPES:
@@ -241,6 +243,7 @@ GNEDetectorE1::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         case SUMO_ATTR_LANE:
         case SUMO_ATTR_POSITION:
         case SUMO_ATTR_FREQUENCY:
+        case SUMO_ATTR_NAME:
         case SUMO_ATTR_FILE:
         case SUMO_ATTR_VTYPES:
         case SUMO_ATTR_FRIENDLY_POS:
@@ -270,6 +273,8 @@ GNEDetectorE1::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<double>(value);
         case SUMO_ATTR_FREQUENCY:
             return (canParse<double>(value) && (parse<double>(value) >= 0));
+        case SUMO_ATTR_NAME:
+            return true;
         case SUMO_ATTR_FILE:
             return isValidFilename(value);
         case SUMO_ATTR_VTYPES:
@@ -306,6 +311,9 @@ GNEDetectorE1::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_FILE:
             myFilename = value;
+            break;
+        case SUMO_ATTR_NAME:
+            myAdditionalName = value;
             break;
         case SUMO_ATTR_VTYPES:
             myVehicleTypes = value;

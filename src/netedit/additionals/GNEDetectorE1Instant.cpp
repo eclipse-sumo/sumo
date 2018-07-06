@@ -51,8 +51,8 @@
 // member method definitions
 // ===========================================================================
 
-GNEDetectorE1Instant::GNEDetectorE1Instant(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double pos, const std::string& filename, bool friendlyPos, bool blockMovement) :
-    GNEDetector(id, viewNet, GLO_E1DETECTOR_INSTANT, SUMO_TAG_INSTANT_INDUCTION_LOOP, lane, pos, 0, filename, friendlyPos, blockMovement) {
+GNEDetectorE1Instant::GNEDetectorE1Instant(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double pos, const std::string& filename, const std::string& name, bool friendlyPos, bool blockMovement) :
+    GNEDetector(id, viewNet, GLO_E1DETECTOR_INSTANT, SUMO_TAG_INSTANT_INDUCTION_LOOP, lane, pos, 0, filename, name, friendlyPos, blockMovement) {
 }
 
 
@@ -213,6 +213,8 @@ GNEDetectorE1Instant::getAttribute(SumoXMLAttr key) const {
             return myLane->getID();
         case SUMO_ATTR_POSITION:
             return toString(myPositionOverLane);
+        case SUMO_ATTR_NAME:
+            return myAdditionalName;
         case SUMO_ATTR_FILE:
             return myFilename;
         case SUMO_ATTR_FRIENDLY_POS:
@@ -236,6 +238,7 @@ GNEDetectorE1Instant::setAttribute(SumoXMLAttr key, const std::string& value, GN
         case SUMO_ATTR_ID:
         case SUMO_ATTR_LANE:
         case SUMO_ATTR_POSITION:
+        case SUMO_ATTR_NAME:
         case SUMO_ATTR_FILE:
         case SUMO_ATTR_FRIENDLY_POS:
         case GNE_ATTR_BLOCK_MOVEMENT:
@@ -262,6 +265,8 @@ GNEDetectorE1Instant::isValid(SumoXMLAttr key, const std::string& value) {
             }
         case SUMO_ATTR_POSITION:
             return canParse<double>(value);
+        case SUMO_ATTR_NAME:
+            return true;
         case SUMO_ATTR_FILE:
             return isValidFilename(value);
         case SUMO_ATTR_FRIENDLY_POS:
@@ -290,6 +295,9 @@ GNEDetectorE1Instant::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_POSITION:
             myPositionOverLane = parse<double>(value);
+            break;
+        case SUMO_ATTR_NAME:
+            myAdditionalName = value;
             break;
         case SUMO_ATTR_FILE:
             myFilename = value;

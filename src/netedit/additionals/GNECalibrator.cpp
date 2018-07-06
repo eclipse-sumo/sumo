@@ -56,8 +56,8 @@
 // member method definitions
 // ===========================================================================
 
-GNECalibrator::GNECalibrator(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, double pos, double frequency, const std::string& output) :
-    GNEAdditional(id, viewNet, GLO_CALIBRATOR, SUMO_TAG_CALIBRATOR, false, false),
+GNECalibrator::GNECalibrator(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, double pos, double frequency, const std::string& name, const std::string& output) :
+    GNEAdditional(id, viewNet, GLO_CALIBRATOR, SUMO_TAG_CALIBRATOR, name, false, false),
     myEdge(edge),
     myLane(nullptr),
     myPositionOverLane(pos / edge->getLanes().at(0)->getLaneParametricLength()),
@@ -68,8 +68,8 @@ GNECalibrator::GNECalibrator(const std::string& id, GNEViewNet* viewNet, GNEEdge
 }
 
 
-GNECalibrator::GNECalibrator(const std::string& id, GNEViewNet* viewNet, GNELane* lane, double pos, double frequency, const std::string& output) :
-    GNEAdditional(id, viewNet, GLO_CALIBRATOR, SUMO_TAG_LANECALIBRATOR, false, false),
+GNECalibrator::GNECalibrator(const std::string& id, GNEViewNet* viewNet, GNELane* lane, double pos, double frequency, const std::string& name, const std::string& output) :
+    GNEAdditional(id, viewNet, GLO_CALIBRATOR, SUMO_TAG_LANECALIBRATOR, name, false, false),
     myEdge(nullptr),
     myLane(lane),
     myPositionOverLane(pos / lane->getLaneParametricLength()),
@@ -230,6 +230,8 @@ GNECalibrator::getAttribute(SumoXMLAttr key) const {
             }
         case SUMO_ATTR_FREQUENCY:
             return toString(myFrequency);
+        case SUMO_ATTR_NAME:
+            return myAdditionalName;
         case SUMO_ATTR_OUTPUT:
             return myOutput;
         case SUMO_ATTR_ROUTEPROBE:
@@ -257,6 +259,7 @@ GNECalibrator::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         case SUMO_ATTR_LANE:
         case SUMO_ATTR_POSITION:
         case SUMO_ATTR_FREQUENCY:
+        case SUMO_ATTR_NAME:
         case SUMO_ATTR_OUTPUT:
         case SUMO_ATTR_ROUTEPROBE:
         case GNE_ATTR_SELECTED:
@@ -307,6 +310,8 @@ GNECalibrator::isValid(SumoXMLAttr key, const std::string& value) {
             }
         case SUMO_ATTR_FREQUENCY:
             return (canParse<double>(value) && parse<double>(value) >= 0);
+        case SUMO_ATTR_NAME:
+            return true;
         case SUMO_ATTR_OUTPUT:
             return isValidFilename(value);
         case SUMO_ATTR_ROUTEPROBE:
@@ -361,6 +366,9 @@ GNECalibrator::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_FREQUENCY:
             myFrequency = parse<double>(value);
+            break;
+        case SUMO_ATTR_NAME:
+            myAdditionalName = value;
             break;
         case SUMO_ATTR_OUTPUT:
             myOutput = value;

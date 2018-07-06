@@ -52,8 +52,8 @@
 // member method definitions
 // ===========================================================================
 
-GNERouteProbe::GNERouteProbe(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, const std::string &frequency, const std::string& filename, double begin) :
-    GNEAdditional(id, viewNet, GLO_ROUTEPROBE, SUMO_TAG_ROUTEPROBE, false, false),
+GNERouteProbe::GNERouteProbe(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, const std::string &frequency, const std::string& name, const std::string& filename, double begin) :
+    GNEAdditional(id, viewNet, GLO_ROUTEPROBE, SUMO_TAG_ROUTEPROBE, name, false, false),
     myEdge(edge),
     myFrequency(frequency),
     myFilename(filename),
@@ -227,6 +227,8 @@ GNERouteProbe::getAttribute(SumoXMLAttr key) const {
             return getAdditionalID();
         case SUMO_ATTR_EDGE:
             return myEdge->getID();
+        case SUMO_ATTR_NAME:
+            return myAdditionalName;
         case SUMO_ATTR_FILE:
             return myFilename;
         case SUMO_ATTR_FREQUENCY:
@@ -249,6 +251,7 @@ GNERouteProbe::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
     switch (key) {
         case SUMO_ATTR_ID:
         case SUMO_ATTR_EDGE:
+        case SUMO_ATTR_NAME:
         case SUMO_ATTR_FILE:
         case SUMO_ATTR_FREQUENCY:
         case SUMO_ATTR_BEGIN:
@@ -287,6 +290,8 @@ GNERouteProbe::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return false;
             }
+        case SUMO_ATTR_NAME:
+            return true;
         case SUMO_ATTR_FILE:
             return isValidFilename(value);
         case SUMO_ATTR_FREQUENCY:
@@ -313,6 +318,9 @@ GNERouteProbe::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_EDGE:
             myEdge = changeEdge(myEdge, value);
+            break;
+        case SUMO_ATTR_NAME:
+            myAdditionalName = value;
             break;
         case SUMO_ATTR_FILE:
             myFilename = value;

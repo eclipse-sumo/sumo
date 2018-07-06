@@ -52,8 +52,8 @@
 // member method definitions
 // ===========================================================================
 
-GNEVaporizer::GNEVaporizer(GNEViewNet* viewNet, GNEEdge* edge, double begin, double end) :
-    GNEAdditional(edge->getID(), viewNet, GLO_VAPORIZER, SUMO_TAG_VAPORIZER, false, false),
+GNEVaporizer::GNEVaporizer(GNEViewNet* viewNet, GNEEdge* edge, double begin, double end, const std::string &name) :
+    GNEAdditional(edge->getID(), viewNet, GLO_VAPORIZER, SUMO_TAG_VAPORIZER, name, false, false),
     myEdge(edge),
     myBegin(begin),
     myEnd(end) {
@@ -228,6 +228,8 @@ GNEVaporizer::getAttribute(SumoXMLAttr key) const {
             return toString(myBegin);
         case SUMO_ATTR_END:
             return toString(myEnd);
+        case SUMO_ATTR_NAME:
+            return myAdditionalName;
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         default:
@@ -246,6 +248,7 @@ GNEVaporizer::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLis
         case SUMO_ATTR_EDGE:
         case SUMO_ATTR_BEGIN:
         case SUMO_ATTR_END:
+        case SUMO_ATTR_NAME:
         case GNE_ATTR_SELECTED:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
@@ -276,6 +279,8 @@ GNEVaporizer::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return false;
             }
+        case SUMO_ATTR_NAME:
+            return true;
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         default:
@@ -311,6 +316,9 @@ GNEVaporizer::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_END:
             myEnd = parse<double>(value);
+            break;
+        case SUMO_ATTR_NAME:
+            myAdditionalName = value;
             break;
         case GNE_ATTR_SELECTED:
             if(parse<bool>(value)) {

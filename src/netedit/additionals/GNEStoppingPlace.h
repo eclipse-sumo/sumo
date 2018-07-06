@@ -138,9 +138,6 @@ protected:
     /// @brief The  position this stopping place is located at (optional, if empty takes the lane lenght)
     std::string myEndPosition;
 
-    /// @brief name of stoppingPlace
-    std::string myName;
-
     /// @brief Flag for friendly position
     bool myFriendlyPosition;
 

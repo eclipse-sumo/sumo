@@ -1074,7 +1074,9 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
         myTLSProgramsFile = OptionsCont::getOptions().getString("TLSPrograms-output");
     }
     // after loading net shouldn't be saved
-    myNet->requiereSaveNet(false);
+    if(myNet) {
+        myNet->requiereSaveNet(false);
+    }
     update();
 }
 

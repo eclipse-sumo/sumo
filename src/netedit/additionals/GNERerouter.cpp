@@ -54,8 +54,8 @@
 // member method definitions
 // ===========================================================================
 
-GNERerouter::GNERerouter(const std::string& id, GNEViewNet* viewNet, const Position &pos, const std::vector<GNEEdge*> &edges, const std::string& filename, double probability, bool off, double timeThreshold, const std::string& vTypes, bool blockMovement) :
-    GNEAdditional(id, viewNet, GLO_REROUTER, SUMO_TAG_REROUTER, true, blockMovement, edges),
+GNERerouter::GNERerouter(const std::string& id, GNEViewNet* viewNet, const Position &pos, const std::vector<GNEEdge*> &edges, const std::string& name, const std::string& filename, double probability, bool off, double timeThreshold, const std::string& vTypes, bool blockMovement) :
+    GNEAdditional(id, viewNet, GLO_REROUTER, SUMO_TAG_REROUTER, name, true, blockMovement, edges),
     myPosition(pos),
     myFilename(filename),
     myProbability(probability),
@@ -216,6 +216,8 @@ GNERerouter::getAttribute(SumoXMLAttr key) const {
             return parseIDs(myEdgeChilds);
         case SUMO_ATTR_POSITION:
             return toString(myPosition);
+        case SUMO_ATTR_NAME:
+            return myAdditionalName;
         case SUMO_ATTR_FILE:
             return myFilename;
         case SUMO_ATTR_PROB:
@@ -253,6 +255,7 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
         }
         case SUMO_ATTR_EDGES:
         case SUMO_ATTR_POSITION:
+        case SUMO_ATTR_NAME:
         case SUMO_ATTR_FILE:
         case SUMO_ATTR_PROB:
         case SUMO_ATTR_HALTING_TIME_THRESHOLD:
@@ -281,6 +284,8 @@ GNERerouter::isValid(SumoXMLAttr key, const std::string& value) {
             }
         case SUMO_ATTR_POSITION:
             return canParse<Position>(value);
+        case SUMO_ATTR_NAME:
+            return true;
         case SUMO_ATTR_FILE:
             return isValidFilename(value);
         case SUMO_ATTR_PROB:
@@ -337,6 +342,9 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value) {
         }
         case SUMO_ATTR_POSITION:
             myPosition = parse<Position>(value);
+            break;
+        case SUMO_ATTR_NAME:
+            myAdditionalName = value;
             break;
         case SUMO_ATTR_FILE:
             myFilename = value;
