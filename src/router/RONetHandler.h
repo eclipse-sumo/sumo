@@ -57,7 +57,7 @@ public:
      * @param[in] net The network instance to fill
      * @param[in] eb The abstract edge builder to use
      */
-    RONetHandler(RONet& net, ROAbstractEdgeBuilder& eb);
+    RONetHandler(RONet& net, ROAbstractEdgeBuilder& eb, const bool ignoreInternal);
 
 
     /// @brief Destructor
@@ -180,6 +180,12 @@ protected:
     /// @brief The net to store the information into
     RONet& myNet;
 
+    /// @brief The object used to build of edges of the desired type
+    ROAbstractEdgeBuilder& myEdgeBuilder;
+
+    /// @brief whether to ignore junction internal edges
+    const bool myIgnoreInternal;
+
     /// @brief The name of the edge/node that is currently processed
     std::string myCurrentName;
 
@@ -191,9 +197,6 @@ protected:
 
     /// @brief The currently built stopping place
     SUMOVehicleParameter::Stop* myCurrentStoppingPlace;
-
-    /// @brief The object used to build of edges of the desired type
-    ROAbstractEdgeBuilder& myEdgeBuilder;
 
     /// @brief temporary data for checking node initialisation after network parsing is finished
     std::set<std::string> myUnseenNodeIDs;

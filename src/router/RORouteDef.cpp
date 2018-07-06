@@ -177,7 +177,7 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
             // option repair.from is in effect
             const std::string& frontID = oldEdges.front()->getID();
             for (ConstROEdgeVector::iterator i = oldEdges.begin(); i != oldEdges.end();) {
-                if ((*i)->prohibits(&veh)) {
+                if ((*i)->prohibits(&veh) || (*i)->isInternal()) {
                     i = oldEdges.erase(i);
                 } else {
                     WRITE_MESSAGE("Changing invalid starting edge '" + frontID
@@ -194,7 +194,7 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
             // option repair.to is in effect
             const std::string& backID = oldEdges.back()->getID();
             // oldEdges cannot get empty here, otherwise we would have left the stage when checking "from"
-            while (oldEdges.back()->prohibits(&veh)) {
+            while (oldEdges.back()->prohibits(&veh) || oldEdges.back()->isInternal()) {
                 oldEdges.pop_back();
             }
             WRITE_MESSAGE("Changing invalid destination edge '" + backID
@@ -204,7 +204,7 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
         assert(mandatory.size() >= 2);
         // removed prohibited
         for (ConstROEdgeVector::iterator i = oldEdges.begin(); i != oldEdges.end();) {
-            if ((*i)->prohibits(&veh)) {
+            if ((*i)->prohibits(&veh) || (*i)->isInternal()) {
                 // no need to check the mandatories here, this was done before
                 i = oldEdges.erase(i);
             } else {

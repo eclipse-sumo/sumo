@@ -98,12 +98,6 @@ ROEdge::addLane(ROLane* lane) {
 
 void
 ROEdge::addSuccessor(ROEdge* s, std::string) {
-    if (s->isInternal() && !isInternal()) {
-        if (s->myApproachingEdges.size() == 0) {
-            s->myApproachingEdges.push_back(this);
-        }
-        return;
-    }
     if (find(myFollowingEdges.begin(), myFollowingEdges.end(), s) == myFollowingEdges.end()) {
         myFollowingEdges.push_back(s);
         if (isTazConnector()) {

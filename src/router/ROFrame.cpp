@@ -94,6 +94,9 @@ ROFrame::fillOptions(OptionsCont& oc) {
     oc.doRegister("route-steps", 's', new Option_String("200", "TIME"));
     oc.addDescription("route-steps", "Processing", "Load routes for the next number of seconds ahead");
 
+    oc.doRegister("no-internal-links", new Option_Bool(false));
+    oc.addDescription("no-internal-links", "Processing", "Disable (junction) internal links");
+
     oc.doRegister("randomize-flows", new Option_Bool(false));
     oc.addDescription("randomize-flows", "Processing", "generate random departure times for flow input");
 

@@ -26,11 +26,11 @@
 #include <config.h>
 
 #include <string>
-#include <utils/options/OptionsCont.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/ToString.h>
+#include <utils/common/TplConvert.h>
 #include <utils/xml/SUMORouteHandler.h>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
@@ -45,12 +45,10 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-RONetHandler::RONetHandler(RONet& net,
-                           ROAbstractEdgeBuilder& eb)
+RONetHandler::RONetHandler(RONet& net, ROAbstractEdgeBuilder& eb, const bool ignoreInternal)
     : SUMOSAXHandler("sumo-network"),
-      myNet(net), myCurrentName(),
-      myCurrentEdge(0), myCurrentStoppingPlace(0),
-      myEdgeBuilder(eb) {}
+    myNet(net), myEdgeBuilder(eb), myIgnoreInternal(ignoreInternal),
+    myCurrentName(), myCurrentEdge(nullptr), myCurrentStoppingPlace(nullptr) {}
 
 
 RONetHandler::~RONetHandler() {}
@@ -252,8 +250,8 @@ RONetHandler::parseConnection(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     std::string fromID = attrs.get<std::string>(SUMO_ATTR_FROM, 0, ok);
     std::string toID = attrs.get<std::string>(SUMO_ATTR_TO, 0, ok);
-    int fromLane = attrs.get<int>(SUMO_ATTR_FROM_LANE, 0, ok);
-    int toLane = attrs.get<int>(SUMO_ATTR_TO_LANE, 0, ok);
+    const int fromLane = attrs.get<int>(SUMO_ATTR_FROM_LANE, 0, ok);
+    const int toLane = attrs.get<int>(SUMO_ATTR_TO_LANE, 0, ok);
     std::string dir = attrs.get<std::string>(SUMO_ATTR_DIR, 0, ok);
     std::string viaID = attrs.getOpt<std::string>(SUMO_ATTR_VIA, 0, ok, "");
     ROEdge* from = myNet.getEdge(fromID);
@@ -270,15 +268,19 @@ RONetHandler::parseConnection(const SUMOSAXAttributes& attrs) {
     if ((int)to->getLanes().size() <= toLane) {
         throw ProcessError("invalid toLane '" + toString(toLane) + "' in connection to '" + toID + "'.");
     }
-    from->getLanes()[fromLane]->addOutgoingLane(to->getLanes()[toLane]);
-    from->addSuccessor(to, dir);
-    if (viaID != "") {
-        ROEdge* via = myNet.getEdge(viaID.substr(0, viaID.rfind('_')));
-        if (via == 0) {
+    if (myIgnoreInternal || viaID == "") {
+        from->getLanes()[fromLane]->addOutgoingLane(to->getLanes()[toLane]);
+        from->addSuccessor(to, dir);
+    }  else {
+        ROEdge* const via = myNet.getEdge(viaID.substr(0, viaID.rfind('_')));
+        const int viaLane = TplConvert::_str2int(viaID.substr(via->getID().length() + 1));
+        if (via == nullptr) {
             throw ProcessError("unknown via-edge '" + viaID + "' in connection");
         }
+        from->getLanes()[fromLane]->addOutgoingLane(via->getLanes()[viaLane]);
         from->addSuccessor(via, dir);
-        return;
+        via->getLanes()[viaLane]->addOutgoingLane(to->getLanes()[toLane]);
+        via->addSuccessor(to, dir);
     }
 }
 
