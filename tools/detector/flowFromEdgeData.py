@@ -118,9 +118,9 @@ def printFlows(options, edgeFlow, detReader):
     for group, edge, rflow, dflow in sorted(output):
         if dflow > 0 or options.respectzero:
             if options.edgenames:
-                print(group, edge, rflow, dflow, relError(rflow, dflow), file=options.outfile)
+                print(group, edge, repr(rflow), repr(dflow), repr(relError(rflow, dflow)), file=options.outfile)
             else:
-                print(group, rflow, dflow, relError(rflow, dflow), file=options.outfile)
+                print(group, repr(rflow), repr(dflow), repr(relError(rflow, dflow)), file=options.outfile)
 
 
 def calcStatistics(options, begin, edgeFlow, detReader):
@@ -149,8 +149,8 @@ def calcStatistics(options, begin, edgeFlow, detReader):
     if n == 0:
         # avoid division by zero
         n = -1
-    print('#', rSum / n, dSum / n, sumAbsDev / n,
-          math.sqrt(sumSquaredDev / n), math.sqrt(sumSquaredPercent / n),
+    print('#', " ".join(map(repr, [rSum / n, dSum / n, sumAbsDev / n,
+          math.sqrt(sumSquaredDev / n), math.sqrt(sumSquaredPercent / n)])),
           file=options.outfile)
 
 
