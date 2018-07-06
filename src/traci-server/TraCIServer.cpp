@@ -1055,9 +1055,9 @@ TraCIServer::removeSubscription(int commandId, const std::string& id, int domain
     bool found = false;
     std::vector<libsumo::Subscription>::iterator j;
     for (j = mySubscriptions.begin(); j != mySubscriptions.end();) {
-        if ((*j).id == id && (*j).commandId == commandId && (domain < 0 || (*j).contextDomain == domain)) {
+        if (j->id == id && j->commandId == commandId && (domain < 0 || j->contextDomain == domain)) {
             j = mySubscriptions.erase(j);
-            if (myLastContextSubscription == &(*j)) {
+            if (j != mySubscriptions.end() && myLastContextSubscription == &(*j)) {
                 // Remove also reference for filter additions
                 myLastContextSubscription = nullptr;
             }
@@ -1070,7 +1070,7 @@ TraCIServer::removeSubscription(int commandId, const std::string& id, int domain
     if (found) {
         writeStatusCmd(commandId, RTYPE_OK, "");
     } else {
-        writeStatusCmd(commandId, RTYPE_OK, "The subscription to remove was not found.");
+        writeStatusCmd(commandId, RTYPE_ERR, "The subscription to remove was not found.");
     }
 }
 
