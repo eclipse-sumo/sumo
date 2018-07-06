@@ -44,8 +44,15 @@ netedit.leftClick(match, 300, 50)
 netedit.changeAdditional("detEntry")
 
 # Create Entry detectors for E3 2
-netedit.selectAdditionalChild(6, 3)
+netedit.leftClick(match, 300, 50)
 netedit.leftClick(match, 150, 300)
+
+# select exit detector
+netedit.changeAdditional("detExit")
+
+# Create Exit detectors for E3 2
+netedit.leftClick(match, 300, 50)
+netedit.leftClick(match, 250, 300)
 
 # Change to delete
 netedit.deleteMode()
@@ -63,7 +70,7 @@ netedit.leftClick(match, 500, 50)
 netedit.leftClick(match, 400, 300)
 
 # Check undo
-netedit.undo(match, 5)
+netedit.undo(match, 9)
 
 # Change to delete
 netedit.deleteMode()
@@ -78,7 +85,7 @@ netedit.leftClick(match, 400, 300)
 netedit.waitAutomaticallyDeleteAdditionalsWarning()
 
 # check redo
-netedit.redo(match, 5)
+netedit.redo(match, 9)
 
 # save additionals
 netedit.saveAdditionals()
