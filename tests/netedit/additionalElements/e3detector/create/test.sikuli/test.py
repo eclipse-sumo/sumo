@@ -35,63 +35,118 @@ netedit.additionalMode()
 netedit.changeAdditional("e3Detector")
 
 # create E3 with default parameters (will not be writed)
-netedit.leftClick(match, 100, 100)
+netedit.leftClick(match, 0, 100)
 
 # create E3 with default parameters
-netedit.leftClick(match, 200, 100)
+netedit.leftClick(match, 100, 100)
 
 # set invalid frequency
 netedit.modifyAdditionalDefaultValue(2, "-30")
 
 # try to create E3 with different frequency
-netedit.leftClick(match, 300, 100)
+netedit.leftClick(match, 200, 100)
 
 # set valid frequency
 netedit.modifyAdditionalDefaultValue(2, "150")
 
 # create E3 with different frequency
+netedit.leftClick(match, 200, 100)
+
+# set invalid file
+netedit.modifyAdditionalDefaultValue(3, "%%%$$%%$%")
+
+# try to create E3 with invalid file
+netedit.leftClick(match, 300, 100)
+
+# set valid file
+netedit.modifyAdditionalDefaultValue(3, "myOwnFile.txt")
+
+# create E3 with different file
 netedit.leftClick(match, 300, 100)
 
 # set invalid timeTreshold
-netedit.modifyAdditionalDefaultValue(3, "-4")
+netedit.modifyAdditionalDefaultValue(4, "-4")
 
 # try to create E3 with different timeTreshold
 netedit.leftClick(match, 400, 100)
 
 # set valid timeTreshold
-netedit.modifyAdditionalDefaultValue(3, "5")
+netedit.modifyAdditionalDefaultValue(4, "5")
 
 # create E3 with different timeTreshold
 netedit.leftClick(match, 400, 100)
 
 # set invalid speedTreshold
-netedit.modifyAdditionalDefaultValue(4, "-3.80")
+netedit.modifyAdditionalDefaultValue(5, "-3.80")
 
 # try to create E3 with different speedTreshold
 netedit.leftClick(match, 500, 100)
 
 # set valid speedTreshold
-netedit.modifyAdditionalDefaultValue(4, "2.51")
+netedit.modifyAdditionalDefaultValue(5, "2.51")
 
 # create E3 with different speedTreshold
 netedit.leftClick(match, 500, 100)
 
+# set block movement
+netedit.modifyAdditionalDefaultBoolValue(7)
+
+# create E3 with different block movement
+netedit.leftClick(match, 600, 100)
+
+# restore block movement
+netedit.modifyAdditionalDefaultBoolValue(7)
+
 # select entry detector
 netedit.changeAdditional("detEntry")
 
-# Create Entry detectors for all E3 detectors except for the first
-netedit.selectAdditionalChild(6, 1)
-netedit.leftClick(match, 50, 200)
-netedit.selectAdditionalChild(6, 1)
+# Create Entry and exit detectors for all E3 detectors (except for the first, that only have one Entry)
+netedit.leftClick(match, 0, 100) #select E3
+netedit.leftClick(match, 0, 250)
+
+netedit.leftClick(match, 100, 100) #select E3
+netedit.leftClick(match, 100, 200)
+
+netedit.leftClick(match, 200, 100) #select E3
 netedit.leftClick(match, 200, 250)
-netedit.selectAdditionalChild(6, 1)
-netedit.leftClick(match, 350, 200)
-netedit.selectAdditionalChild(6, 1)
-netedit.leftClick(match, 500, 250)
+
+netedit.leftClick(match, 300, 100) #select E3
+netedit.leftClick(match, 300, 200)
+
+netedit.leftClick(match, 400, 100) #select E3
+netedit.leftClick(match, 400, 250)
+
+netedit.leftClick(match, 500, 100) #select E3
+netedit.leftClick(match, 500, 200)
+
+netedit.leftClick(match, 600, 100) #select E3
+netedit.leftClick(match, 600, 250)
+
+# select entry detector
+netedit.changeAdditional("detExit")
+
+# Create Entry and exit detectors for all E3 detectors (except for the first, that only have one Entry)
+netedit.leftClick(match, 100, 100) #select E3
+netedit.leftClick(match, 100, 400)
+
+netedit.leftClick(match, 200, 100) #select E3
+netedit.leftClick(match, 200, 450)
+
+netedit.leftClick(match, 300, 100) #select E3
+netedit.leftClick(match, 300, 400)
+
+netedit.leftClick(match, 400, 100) #select E3
+netedit.leftClick(match, 400, 450)
+
+netedit.leftClick(match, 500, 100) #select E3
+netedit.leftClick(match, 500, 400)
+
+netedit.leftClick(match, 600, 100) #select E3
+netedit.leftClick(match, 600, 450)
 
 # Check undo redo
-netedit.undo(match, 9)
-netedit.redo(match, 9)
+netedit.undo(match, 20)
+netedit.redo(match, 20)
 
 # save additionals
 netedit.saveAdditionals()
