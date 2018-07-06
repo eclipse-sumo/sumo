@@ -210,7 +210,7 @@ catchup="connected_pCatchup" catchupFollower="connected_pCatchupFollower" />
         self.assertEqual(rp.WARNING_LOG[-1][0], "1.0")
         self.assertEqual(
             rp.WARNING_LOG[-1][1], "WARNING: Step lengths that differ from SUMO's simulation step length are not " +
-            "supported and probably lead to undesired behavior.\nConsider decreasing simpla's control rate instead." +
+            "supported and probably lead to undesired behavior.\nConsider decreasing simpla's control rate instead. " +
             "(PlatoonManager)")
 
     def test_unknown_vtypes(self):
