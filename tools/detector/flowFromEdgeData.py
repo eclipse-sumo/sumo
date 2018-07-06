@@ -49,8 +49,8 @@ def get_options(args=None):
                          default=False, help="do not use abbreviated names for detector groups")
     optParser.add_option("--edge-names", action="store_true", dest="edgenames",
                          default=False, help="include detector group edge name in output")
-    optParser.add_option("-b", "--begin", type="float", default=0, help="begin time in minutes")
-    optParser.add_option("--end", type="float", default=None, help="end time in minutes")
+    optParser.add_option("-b", "--begin", type="int", default=0, help="begin time in minutes")
+    optParser.add_option("--end", type="int", default=None, help="end time in minutes")
     optParser.add_option("-o", "--output-file", dest="output",
                          help="write output to file instead of printing it to console", metavar="FILE")
     optParser.add_option("--flow-output", dest="flowout",
@@ -174,11 +174,10 @@ def main(options):
             options.end = interval.end / 60
 
     detReader = detector.DetectorReader(options.detfile, LaneMap())
-    time = options.begin * 60
+    intervalBeginM = options.begin
     haveDetFlows = True
     while ((options.end is None and haveDetFlows) or
-            (options.end is not None and time < options.end * 60)):
-        intervalBeginM = time / 60
+            (options.end is not None and intervalBeginM < options.end)):
         intervalEndM = intervalBeginM + options.interval
         if options.end is not None:
             intervalEndM = min(intervalEndM, options.end)
@@ -190,13 +189,13 @@ def main(options):
         if options.verbose:
             print("Reading edgeData")
         edgeFlow = readEdgeData(
-            options.edgeDataFile, time, intervalEndM * 60,
+            options.edgeDataFile, intervalBeginM * 60, intervalEndM * 60,
             detReader, options.flowout)
         if haveDetFlows and options.flowfile:
             printFlows(options, edgeFlow, detReader)
             calcStatistics(options, intervalBeginM, edgeFlow, detReader)
             detReader.clearFlows()
-        time += options.interval * 60
+        intervalBeginM += options.interval
     options.outfile.close()
 
 
