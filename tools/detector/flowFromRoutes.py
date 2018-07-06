@@ -50,7 +50,7 @@ SEP = ";"
 
 def print_record(*args, **kwargs):
     comment = '#' + SEP if kwargs.get('comment', False) else ''
-    print(comment + SEP.join(map(str, args)))
+    print(comment + SEP.join([repr(a) if type(a) is float else str(a) for a in args]))
 
 
 class LaneMap:
@@ -164,7 +164,7 @@ class DetectorRouteEmitterReader(handler.ContentHandler):
             math.sqrt(sumSquaredDev / n),
             math.sqrt(sumSquaredPercent / n),
             sumGEH / n,
-            100 * nGEHthresh / n,
+            100. * nGEHthresh / n,
             comment=True)
 
     def printFlows(self, includeDets, useGEH, interval):

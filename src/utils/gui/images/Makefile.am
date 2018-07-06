@@ -183,7 +183,7 @@ GNETexture_Lock.cpp GNETexture_LockSelected.cpp \
 GNETexture_Empty.cpp GNETexture_EmptySelected.cpp \
 GNETexture_NotMoving.cpp GNETexture_NotMovingSelected.cpp \
 GNETexture_LaneBus.cpp GNETexture_LaneBike.cpp \
-GNETexture_LanePedestrian.cpp GNETexture_TLS.cpp \
+GNETexture_LanePedestrian.cpp GNETexture_TLS.cpp
 
 libguiutilsimages_a_SOURCES = GUIIconSubSys.cpp GUIIconSubSys.h \
 GUITextureSubSys.cpp GUITextureSubSys.h \
