@@ -930,7 +930,7 @@ GNEAdditionalHandler::parseAndBuildDetectorEntry(const SUMOSAXAttributes& attrs,
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " is not known.");
         } else if (!checkAndFixDetectorPositionPosition(position, lane->getLaneShapeLength(), friendlyPos)) {
             WRITE_WARNING("Invalid position for " + toString(tag) + ".");
-        } else {
+        } else if(E3Parent) {
             buildDetectorEntry(myViewNet, myUndoAdditionals, E3Parent, lane, position, friendlyPos, false);
         }
     }
@@ -954,7 +954,7 @@ GNEAdditionalHandler::parseAndBuildDetectorExit(const SUMOSAXAttributes& attrs, 
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " is not known.");
         } else if (!checkAndFixDetectorPositionPosition(position, lane->getLaneShapeLength(), friendlyPos)) {
             WRITE_WARNING("Invalid position for " + toString(tag) + ".");
-        } else {
+        } else if(E3Parent) {
             buildDetectorExit(myViewNet, myUndoAdditionals, E3Parent, lane, position, friendlyPos, false);
         }
     }
@@ -2141,11 +2141,11 @@ GNEAdditionalHandler::HierarchyInsertedElements::retrieveAdditionalParent(GNEVie
         GNEAdditional *retrievedAdditional = viewNet->getNet()->retrieveAdditional((myInsertedElements.end()-2)->first, (myInsertedElements.end()-2)->second, false);
         if(retrievedAdditional == nullptr) {
             // additional doesn't exist
-            WRITE_WARNING("A " + toString((myInsertedElements.end()-2)->first) + " must be declared within the definition of a " + toString(expectedTag) + ".");
+            WRITE_WARNING("A " + toString((myInsertedElements.end()-1)->first) + " must be declared within the definition of a " + toString(expectedTag) + ".");
             return nullptr;
         } else if( retrievedAdditional->getTag() != expectedTag) {
             // invalid additional parent
-            WRITE_WARNING("A " + toString((myInsertedElements.end()-2)->first) + " cannot be declared within the definition of a " + toString(retrievedAdditional->getTag()) + ".");
+            WRITE_WARNING("A " + toString((myInsertedElements.end()-1)->first) + " cannot be declared within the definition of a " + toString(retrievedAdditional->getTag()) + ".");
             return nullptr;
         } else {
             return retrievedAdditional;
