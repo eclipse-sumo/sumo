@@ -833,7 +833,9 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into e
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ17'
 Warning: Removing edge 'gneE19' from net
 Warning: Removing junction 'gneJ19' from net
-Warning: e3Detector with ID='e3Detector_0' cannot be written; It need at least 1 childs.
+Warning: An e3Detector need at least one detEntry detector
+Warning: An e3Detector need at least one detExit detector
+Warning: e3Detector with ID='e3Detector_0' cannot be written
 Warning: Additionals saved
 Warning: Created connection 'from-gneE10_0to-gneE9_0' in retrieveGNEConnection()
 Warning: Created connection 'from-gneE12_0to-gneE11_0' in retrieveGNEConnection()
