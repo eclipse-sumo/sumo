@@ -114,9 +114,9 @@ if (SUMO_LIBRARIES)
     # set GoogleTest
     # Prevent GoogleTest from overriding our compiler/linker options
     set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
-    add_subdirectory("${SUMO_LIBRARIES}/googletest-1.8.0${LIB_VERSION}/googletest"
+    add_subdirectory("${SUMO_LIBRARIES}/googletest-1.8.0/googletest"
                      "${CMAKE_BINARY_DIR}/googletest-build")
-    include_directories("${SUMO_LIBRARIES}/googletest-1.8.0${LIB_VERSION}/googletest/include")
+    include_directories("${SUMO_LIBRARIES}/googletest-1.8.0/googletest/include")
     set(GTEST_BOTH_LIBRARIES "gtest" "gtest_main")
     set(GTEST_FOUND true)
     # set FFMPEG
