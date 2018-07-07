@@ -1433,7 +1433,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "The path to the output file", 
             "");
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_VTYPES,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_VCLASS | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "Space separated list of vehicle type ids to consider", 
             "");
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_FRIENDLY_POS,
