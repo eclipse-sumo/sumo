@@ -12,6 +12,7 @@ Warning: Adding busStop 'busStop_gneE6_0_9' in GNEChange_Additional
 Warning: Adding busStop 'busStop_gneE7_0_6' in GNEChange_Additional
 Warning: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
 Warning: The lane 'gneE23_0' to use within the detEntry is not known.
+Warning: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Warning: Adding detExit 'e3Detector_0detExit0' in GNEChange_Additional
 Warning: net has to be saved
 Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
@@ -76,6 +77,7 @@ Warning: Additionals saved
 Warning: Deleting unreferenced detExit 'e3Detector_0detExit0'
 Warning: Additionals has to be saved
 Warning: Current saving Status: net saved, additionals unsaved, shapes saved
+Warning: Deleting unreferenced detEntry 'e3Detector_0detEntry0'
 Warning: Deleting unreferenced e3Detector 'e3Detector_0'
 Warning: Deleting unreferenced busStop 'busStop_gneE7_0_6'
 Warning: Deleting unreferenced busStop 'busStop_gneE6_0_9'

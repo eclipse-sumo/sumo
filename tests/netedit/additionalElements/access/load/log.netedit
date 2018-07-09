@@ -1,5 +1,6 @@
 Warning: Essential unique string attribute 'id' of busStop is missing; busStop cannot be created
 Warning: A access must be declared within the definition of a busStop.
+Warning: A access must be declared within the definition of a busStop.
 Warning: Adding busStop 'busStop_0' in GNEChange_Additional
 Warning: Additionals has to be saved
 Warning: Current saving Status: net saved, additionals unsaved, shapes saved
@@ -21,6 +22,7 @@ Warning: Adding access 'busStop_0access8' in GNEChange_Additional
 Warning: Adding access 'busStop_0access9' in GNEChange_Additional
 Warning: Adding access 'busStop_0access10' in GNEChange_Additional
 Warning: Adding access 'busStop_0access11' in GNEChange_Additional
+Warning: A access must be declared within the definition of a busStop.
 Warning: A access must be declared within the definition of a busStop.
 Warning: net has to be saved
 Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved

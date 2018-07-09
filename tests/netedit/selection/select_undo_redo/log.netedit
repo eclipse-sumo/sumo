@@ -3,11 +3,15 @@ Warning: Additionals has to be saved
 Warning: Current saving Status: net saved, additionals unsaved, shapes saved
 Warning: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
 Warning: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
+Warning: Adding detExit 'e3Detector_0detExit0' in GNEChange_Additional
 Warning: Adding e3Detector 'e3Detector_1' in GNEChange_Additional
+Warning: Adding detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
 Warning: Adding detExit 'e3Detector_1detExit0' in GNEChange_Additional
 Warning: Adding e3Detector 'e3Detector_2' in GNEChange_Additional
 Warning: Adding detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
+Warning: Adding detExit 'e3Detector_2detExit0' in GNEChange_Additional
 Warning: Adding e3Detector 'e3Detector_3' in GNEChange_Additional
+Warning: Adding detEntry 'e3Detector_3detEntry0' in GNEChange_Additional
 Warning: Adding detExit 'e3Detector_3detExit0' in GNEChange_Additional
 Warning: Adding poly 'poly_0' into viewNet
 Warning: Shapes has to be saved
@@ -52,17 +56,21 @@ Warning: Setting new attribute selected 'true' into edge '8'
 Warning: Setting new attribute selected 'true' into junction 'Center'
 Warning: Setting new attribute selected 'true' into busStop 'busStop_3_1_0'
 Warning: Setting new attribute selected 'true' into detEntry 'e3Detector_0detEntry0'
+Warning: Setting new attribute selected 'true' into detEntry 'e3Detector_1detEntry0'
 Warning: Setting new attribute selected 'true' into detExit 'e3Detector_1detExit0'
 Warning: Setting new attribute selected 'true' into detEntry 'e3Detector_2detEntry0'
-Warning: Setting new attribute selected 'true' into detExit 'e3Detector_3detExit0'
+Warning: Setting new attribute selected 'true' into detExit 'e3Detector_2detExit0'
+Warning: Setting new attribute selected 'true' into detEntry 'e3Detector_3detEntry0'
 Warning: Setting new attribute selected 'true' into poly 'poly_0'
-Warning: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 5 Additionals, 0 Crossings, 1 Polygons, 0 POIs
+Warning: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 7 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Key DEL (delete) pressed
-Warning: Removing busStop 'busStop_3_1_0' in GNEChange_Additional
 Warning: Removing detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
-Warning: Removing detExit 'e3Detector_1detExit0' in GNEChange_Additional
+Warning: Removing detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
 Warning: Removing detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
-Warning: Removing detExit 'e3Detector_3detExit0' in GNEChange_Additional
+Warning: Removing detEntry 'e3Detector_3detEntry0' in GNEChange_Additional
+Warning: Removing detExit 'e3Detector_1detExit0' in GNEChange_Additional
+Warning: Removing detExit 'e3Detector_2detExit0' in GNEChange_Additional
+Warning: Removing busStop 'busStop_3_1_0' in GNEChange_Additional
 Warning: Removing connection '6_2->4_2' from edge '6'
 Warning: Deleting unreferenced connection 'from6_2to4_2' in removeConnection()
 Warning: Removing connection '6_2->1_2' from edge '6'
@@ -135,6 +143,7 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into e
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '7'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Warning: Removing edge '5' from net
+Warning: Removing detExit 'e3Detector_0detExit0' in GNEChange_Additional
 Warning: Removing poiLane 'POI_4' from viewNet
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'B'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '6'
@@ -142,6 +151,7 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into e
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '7'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Warning: Removing edge '6' from net
+Warning: Removing detExit 'e3Detector_3detExit0' in GNEChange_Additional
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'C'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '8'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '7'
@@ -165,6 +175,7 @@ Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' i
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '7'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '8'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'C'
+Warning: Adding detExit 'e3Detector_3detExit0' in GNEChange_Additional
 Warning: Adding edge '6' from net
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '7'
@@ -172,6 +183,7 @@ Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' i
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '6'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'B'
 Warning: Adding poiLane 'POI_4' into viewNet
+Warning: Adding detExit 'e3Detector_0detExit0' in GNEChange_Additional
 Warning: Adding edge '5' from net
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '7'
@@ -244,17 +256,21 @@ Warning: Adding connection '6_2->1_2' into edge '6'
 Warning: Created connection 'from6_2to1_2' in retrieveGNEConnection()
 Warning: Adding connection '6_2->4_2' into edge '6'
 Warning: Created connection 'from6_2to4_2' in retrieveGNEConnection()
-Warning: Adding detExit 'e3Detector_3detExit0' in GNEChange_Additional
-Warning: Adding detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
-Warning: Adding detExit 'e3Detector_1detExit0' in GNEChange_Additional
-Warning: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Warning: Adding busStop 'busStop_3_1_0' in GNEChange_Additional
+Warning: Adding detExit 'e3Detector_2detExit0' in GNEChange_Additional
+Warning: Adding detExit 'e3Detector_1detExit0' in GNEChange_Additional
+Warning: Adding detEntry 'e3Detector_3detEntry0' in GNEChange_Additional
+Warning: Adding detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
+Warning: Adding detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
+Warning: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Removing busStop 'busStop_3_1_0' in GNEChange_Additional
 Warning: Removing detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
-Warning: Removing detExit 'e3Detector_1detExit0' in GNEChange_Additional
+Warning: Removing detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
 Warning: Removing detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
-Warning: Removing detExit 'e3Detector_3detExit0' in GNEChange_Additional
+Warning: Removing detEntry 'e3Detector_3detEntry0' in GNEChange_Additional
+Warning: Removing detExit 'e3Detector_1detExit0' in GNEChange_Additional
+Warning: Removing detExit 'e3Detector_2detExit0' in GNEChange_Additional
+Warning: Removing busStop 'busStop_3_1_0' in GNEChange_Additional
 Warning: Removing connection '6_2->4_2' from edge '6'
 Warning: Deleting unreferenced connection 'from6_2to4_2' in removeConnection()
 Warning: Removing connection '6_2->1_2' from edge '6'
@@ -327,6 +343,7 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into e
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '7'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Warning: Removing edge '5' from net
+Warning: Removing detExit 'e3Detector_0detExit0' in GNEChange_Additional
 Warning: Removing poiLane 'POI_4' from viewNet
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'B'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '6'
@@ -334,6 +351,7 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into e
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '7'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Warning: Removing edge '6' from net
+Warning: Removing detExit 'e3Detector_3detExit0' in GNEChange_Additional
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'C'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '8'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '7'
@@ -357,6 +375,7 @@ Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' i
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '7'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '8'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'C'
+Warning: Adding detExit 'e3Detector_3detExit0' in GNEChange_Additional
 Warning: Adding edge '6' from net
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '7'
@@ -364,6 +383,7 @@ Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' i
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '6'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'B'
 Warning: Adding poiLane 'POI_4' into viewNet
+Warning: Adding detExit 'e3Detector_0detExit0' in GNEChange_Additional
 Warning: Adding edge '5' from net
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '7'
@@ -436,11 +456,13 @@ Warning: Adding connection '6_2->1_2' into edge '6'
 Warning: Created connection 'from6_2to1_2' in retrieveGNEConnection()
 Warning: Adding connection '6_2->4_2' into edge '6'
 Warning: Created connection 'from6_2to4_2' in retrieveGNEConnection()
-Warning: Adding detExit 'e3Detector_3detExit0' in GNEChange_Additional
-Warning: Adding detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
-Warning: Adding detExit 'e3Detector_1detExit0' in GNEChange_Additional
-Warning: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Warning: Adding busStop 'busStop_3_1_0' in GNEChange_Additional
+Warning: Adding detExit 'e3Detector_2detExit0' in GNEChange_Additional
+Warning: Adding detExit 'e3Detector_1detExit0' in GNEChange_Additional
+Warning: Adding detEntry 'e3Detector_3detEntry0' in GNEChange_Additional
+Warning: Adding detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
+Warning: Adding detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
+Warning: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Warning: Additionals saved
 Warning: Shapes saved
 Warning: Removing poiLane 'POI_5' from net in ~GNEChange_Shape()
@@ -460,11 +482,15 @@ Warning: delete poly 'poly_0' in ~GNEChange_Shape()
 Warning: Deleting unreferenced detExit 'e3Detector_3detExit0'
 Warning: Additionals has to be saved
 Warning: Current saving Status: net saved, additionals unsaved, shapes saved
+Warning: Deleting unreferenced detEntry 'e3Detector_3detEntry0'
 Warning: Deleting unreferenced e3Detector 'e3Detector_3'
+Warning: Deleting unreferenced detExit 'e3Detector_2detExit0'
 Warning: Deleting unreferenced detEntry 'e3Detector_2detEntry0'
 Warning: Deleting unreferenced e3Detector 'e3Detector_2'
 Warning: Deleting unreferenced detExit 'e3Detector_1detExit0'
+Warning: Deleting unreferenced detEntry 'e3Detector_1detEntry0'
 Warning: Deleting unreferenced e3Detector 'e3Detector_1'
+Warning: Deleting unreferenced detExit 'e3Detector_0detExit0'
 Warning: Deleting unreferenced detEntry 'e3Detector_0detEntry0'
 Warning: Deleting unreferenced e3Detector 'e3Detector_0'
 Warning: Deleting unreferenced busStop 'busStop_3_1_0'

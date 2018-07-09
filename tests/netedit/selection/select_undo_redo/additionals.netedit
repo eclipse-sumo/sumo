@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 24.06.2018 18:03:37 by Eclipse SUMO netedit Version 7725fee923
+<!-- generated on 09.07.2018 15:49:06 by Eclipse SUMO netedit Version 88bb7b0b92
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/selection/select_undo_redo\input_additionals.add.xml"/>
-        <sumo-shapes-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/selection/select_undo_redo\input_shapes.add.xml"/>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/selection/select_undo_redo\input_net.net.xml"/>
+        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_09Jul154621.2764/netedit.gui/selection/select_undo_redo\input_additionals.add.xml"/>
+        <sumo-shapes-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_09Jul154621.2764/netedit.gui/selection/select_undo_redo\input_shapes.add.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_09Jul154621.2764/netedit.gui/selection/select_undo_redo\input_net.net.xml"/>
     </input>
 
     <output>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/selection/select_undo_redo\additionals.xml"/>
-        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/selection/select_undo_redo\shapes.xml"/>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/selection/select_undo_redo\net.net.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_09Jul154621.2764/netedit.gui/selection/select_undo_redo\additionals.xml"/>
+        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_09Jul154621.2764/netedit.gui/selection/select_undo_redo\shapes.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_09Jul154621.2764/netedit.gui/selection/select_undo_redo\net.net.xml"/>
     </output>
 
     <processing>
@@ -20,13 +20,13 @@
         <no-turnarounds value="true"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
-        <junctions.corner-detail value="0"/>
+        <junctions.corner-detail value="5"/>
         <rectangular-lane-cut value="false"/>
         <walkingareas value="false"/>
     </processing>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/selection/select_undo_redo\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_09Jul154621.2764/netedit.gui/selection/select_undo_redo\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -35,7 +35,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/selection/select_undo_redo\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_09Jul154621.2764/netedit.gui/selection/select_undo_redo\log.txt"/>
     </report>
 
 </configuration>
@@ -45,14 +45,18 @@
     <busStop id="busStop_3_1_0" lane="3_1" startPos="0.20" endPos="10.20"/>
     <e3Detector id="e3Detector_0" pos="0.00,100.00" freq="100.00" file="e3Detector_0.txt">
         <detEntry lane="6_1" pos="36.66"/>
+        <detExit lane="6_1" pos="26.66"/>
     </e3Detector>
     <e3Detector id="e3Detector_1" pos="100.00,100.00" freq="100.00" file="e3Detector_1.txt">
-        <detExit lane="2_1" pos="4.87"/>
+        <detEntry lane="2_1" pos="4.87"/>
+        <detExit lane="2_1" pos="5.87"/>
     </e3Detector>
     <e3Detector id="e3Detector_2" pos="100.00,0.00" freq="100.00" file="e3Detector_2.txt">
         <detEntry lane="4_1" pos="6.40"/>
+        <detExit lane="4_1" pos="7.40"/>
     </e3Detector>
     <e3Detector id="e3Detector_3" pos="0.00,0.00" freq="100.00" file="e3Detector_3.txt">
-        <detExit lane="7_2" pos="36.48"/>
+        <detEntry lane="7_2" pos="36.48"/>
+        <detExit lane="7_2" pos="26.48"/>
     </e3Detector>
 </additional>

@@ -14,6 +14,6 @@
         <space x="32.71" y="10.95" z="0.00" width="3.20" length="5.00" angle="0.00" blockMovement="1"/>
         <space x="36.82" y="10.96" z="0.00" width="3.20" length="5.00" angle="0.00" blockMovement="1"/>
     </parkingArea>
-    <rerouter id="rerouter_0" edges="gneE0" probability="1.00" file="rerouter_0.txt" off="0" pos="15.59,-7.40" blockMovement="1"/>
+    <rerouter id="rerouter_0" edges="gneE0" probability="1.00" off="0" pos="15.59,-7.40" blockMovement="1"/>
     <variableSpeedSign id="variableSpeedSign_0" lanes="gneE0_0" pos="20.22,-7.28" blockMovement="1"/>
 </additionals>

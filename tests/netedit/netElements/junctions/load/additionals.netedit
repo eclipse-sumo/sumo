@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 25.06.2018 09:37:42 by Eclipse SUMO netedit Version 7725fee923
+<!-- generated on 09.07.2018 15:45:05 by Eclipse SUMO netedit Version 88bb7b0b92
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.5_from_23Jun211908.2852/netedit.gui/netElements/junctions/load\input_additionals.add.xml"/>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.5_from_23Jun211908.2852/netedit.gui/netElements/junctions/load\input_net.net.xml"/>
+        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_09Jul154329.1404/netedit.gui/netElements/junctions/load\input_additionals.add.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_09Jul154329.1404/netedit.gui/netElements/junctions/load\input_net.net.xml"/>
     </input>
 
     <output>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.5_from_23Jun211908.2852/netedit.gui/netElements/junctions/load\additionals.xml"/>
-        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.5_from_23Jun211908.2852/netedit.gui/netElements/junctions/load\shapes.xml"/>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.5_from_23Jun211908.2852/netedit.gui/netElements/junctions/load\net.net.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_09Jul154329.1404/netedit.gui/netElements/junctions/load\additionals.xml"/>
+        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_09Jul154329.1404/netedit.gui/netElements/junctions/load\shapes.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_09Jul154329.1404/netedit.gui/netElements/junctions/load\net.net.xml"/>
     </output>
 
     <processing>
         <no-turnarounds value="true"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
-        <junctions.corner-detail value="0"/>
+        <junctions.corner-detail value="5"/>
         <rectangular-lane-cut value="false"/>
         <walkingareas value="false"/>
     </processing>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.5_from_23Jun211908.2852/netedit.gui/netElements/junctions/load\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_09Jul154329.1404/netedit.gui/netElements/junctions/load\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -33,7 +33,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.5_from_23Jun211908.2852/netedit.gui/netElements/junctions/load\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_09Jul154329.1404/netedit.gui/netElements/junctions/load\log.txt"/>
     </report>
 
 </configuration>
@@ -51,6 +51,7 @@
     <busStop id="busStop_gneE6_0_9" lane="gneE6_0" startPos="2.50" endPos="7.50"/>
     <busStop id="busStop_gneE7_0_6" lane="gneE7_0" startPos="2.50" endPos="7.50"/>
     <e3Detector id="e3Detector_0" pos="60.00,50.00" freq="100.00" file="e3Detector_0.txt">
+        <detEntry lane="-gneE17_0" pos="5.00"/>
         <detExit lane="-gneE17_0" pos="5.00"/>
     </e3Detector>
 </additional>

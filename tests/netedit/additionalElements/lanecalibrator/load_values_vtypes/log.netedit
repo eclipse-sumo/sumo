@@ -131,6 +131,7 @@ Warning: Adding vType 'type124' in GNEChange_Additional
 Warning: Adding route 'routeWithoutCalibrator' in GNEChange_Additional
 Warning: Adding vType 'typeWithoutCalibrator' in GNEChange_Additional
 Warning: A flow must be declared within the definition of a calibrator.
+Warning: flow cannot be created; their route with ID = 'typeWithoutCalibrator' doesn't exist
 Warning: net has to be saved
 Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Warning: Additionals saved
