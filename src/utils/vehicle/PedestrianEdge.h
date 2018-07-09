@@ -44,7 +44,7 @@ public:
         myStartPos(pos >= 0 ? pos : (forward ? 0. : edge->getLength())) { }
 
     bool includeInRoute(bool allEdges) const {
-        return allEdges || (!this->getEdge()->isCrossing() && !this->getEdge()->isWalkingArea());
+        return allEdges || (!this->getEdge()->isCrossing() && !this->getEdge()->isWalkingArea() && !this->getEdge()->isInternal());
     }
 
     bool prohibits(const IntermodalTrip<E, N, V>* const trip) const {
