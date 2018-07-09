@@ -276,7 +276,7 @@ GNEVariableSpeedSign::isValid(SumoXMLAttr key, const std::string& value) {
                 return canParse<std::vector<GNELane*> >(myViewNet->getNet(), value, false);
             }
         case SUMO_ATTR_NAME:
-            return true;
+            return isValidName(value);
         case GNE_ATTR_BLOCK_MOVEMENT:
             return canParse<bool>(value);
         case GNE_ATTR_SELECTED:

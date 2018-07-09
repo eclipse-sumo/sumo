@@ -292,7 +292,7 @@ GNEChargingStation::isValid(SumoXMLAttr key, const std::string& value) {
                 }
             }
         case SUMO_ATTR_NAME:
-            return true;
+            return isValidName(value);
         case SUMO_ATTR_FRIENDLY_POS:
             return canParse<bool>(value);
         case SUMO_ATTR_CHARGINGPOWER:

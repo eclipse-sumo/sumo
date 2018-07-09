@@ -812,6 +812,16 @@ GNEAttributeCarrier::isValidID(const std::string& value) {
 
 
 bool
+GNEAttributeCarrier::isValidName(const std::string& value) {
+    if(value.size() == 0) {
+        return true;
+    } else {
+        return value.find_first_of(" \t\n\r@$%^&/|\\{}*'\";:<>") == std::string::npos;
+    }
+}
+
+
+bool
 GNEAttributeCarrier::isValidFilename(const std::string& value) {
     // @note Only characteres that aren't permited in a file path or belong to XML sintax
     return (value.find_first_of("\t\n\r@$%^&|\\{}*'\";:<>") == std::string::npos);

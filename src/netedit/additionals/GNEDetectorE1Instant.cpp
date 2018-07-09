@@ -266,7 +266,7 @@ GNEDetectorE1Instant::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_POSITION:
             return canParse<double>(value);
         case SUMO_ATTR_NAME:
-            return true;
+            return isValidName(value);
         case SUMO_ATTR_FILE:
             return isValidFilename(value);
         case SUMO_ATTR_FRIENDLY_POS:

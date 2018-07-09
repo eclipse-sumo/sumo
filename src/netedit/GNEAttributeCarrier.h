@@ -491,10 +491,13 @@ public:
     /// @brief parse a string of booleans (1 0 1 1....) using AND operation
     static bool parseStringToANDBool(const std::string& string);
 
-    /// @brief true if value is a valid sumo ID
+    /// @brief return true if value is a valid sumo ID
     static bool isValidID(const std::string& value);
 
-    /// @brief true if value is a valid file value
+    /// @brief return true if value is a valid sumo ID
+    static bool isValidName(const std::string& value);
+
+    /// @brief return true if value is a valid file value
     static bool isValidFilename(const std::string& value);
 
     /// @brief default value for invalid positions (used by POIs and Polygons)
