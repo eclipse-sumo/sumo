@@ -37,24 +37,31 @@ netedit.changeAdditional("e3Detector")
 # create E3 with default parameters
 netedit.leftClick(match, 275, 50)
 
-# select exit detector
+# select entry detector
 netedit.changeAdditional("detExit")
 
-# try to create Exit without select child
+# try to create Entry without select child
 netedit.leftClick(match, 50, 200)
 
-# Create four Exit detectors
-netedit.selectAdditionalChild(6, 0)
+# Create three Entry detectors
+netedit.leftClick(match, 275, 50)
 netedit.leftClick(match, 50, 200)
-netedit.selectAdditionalChild(6, 0)
+netedit.leftClick(match, 275, 50)
 netedit.leftClick(match, 200, 200)
-netedit.selectAdditionalChild(6, 0)
+
+# select exit detector
+netedit.changeAdditional("detEntry")
+
+netedit.leftClick(match, 275, 50)
 netedit.leftClick(match, 350, 200)
+
+# select exit detector
+netedit.changeAdditional("detExit")
 
 # Change friendlyPos
 netedit.modifyAdditionalDefaultBoolValue(1)
 
-# create exit detector with different friendly pos
+# create entry detector with different friendly pos
 netedit.selectAdditionalChild(6, 0)
 netedit.leftClick(match, 500, 200)
 

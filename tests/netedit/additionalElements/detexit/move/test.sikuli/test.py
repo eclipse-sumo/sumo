@@ -37,12 +37,19 @@ netedit.changeAdditional("e3Detector")
 # create E3
 netedit.leftClick(match, 250, 50)
 
-# select exit detector
+# select entry detector
 netedit.changeAdditional("detExit")
 
-# Create Exit detector
-netedit.selectAdditionalChild(6, 0)
+# Create Entry detector
+netedit.leftClick(match, 250, 50)
 netedit.leftClick(match, 100, 200)
+
+# select Exit detector
+netedit.changeAdditional("detEntry")
+
+# Create Exit detector
+netedit.leftClick(match, 250, 50)
+netedit.leftClick(match, 100, 250)
 
 # apply zoom out
 netedit.setZoom("25", "0", "70")
@@ -50,36 +57,33 @@ netedit.setZoom("25", "0", "70")
 # change to move mode
 netedit.moveMode()
 
-# change to move mode
-netedit.moveMode()
-
-# move Exit to left
+# move Entry to left
 netedit.moveElement(match, 110, 200, 50, 200)
 
 # move back
 netedit.moveElement(match, 50, 200, 120, 200)
 
-# move Exit to right
+# move Entry to right
 netedit.moveElement(match, 120, 200, 250, 200)
 
 # move back
 netedit.moveElement(match, 250, 200, 120, 200)
 
-# move Exit to left overpassing lane
+# move Entry to left overpassing lane
 netedit.moveElement(match, 120, 200, -150, 200)
 
 # move back
 netedit.moveElement(match, -105, 200, 120, 200)
 
-# move Exit to right overpassing lane
+# move Entry to right overpassing lane
 netedit.moveElement(match, 120, 200, 580, 200)
 
 # move back to another different position of initial
 netedit.moveElement(match, 550, 200, 300, 200)
 
 # Check undos and redos
-netedit.undo(match, 10)
-netedit.redo(match, 10)
+netedit.undo(match, 11)
+netedit.redo(match, 11)
 
 # save additionals
 netedit.saveAdditionals()

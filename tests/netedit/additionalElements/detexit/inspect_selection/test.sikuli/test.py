@@ -34,13 +34,13 @@ netedit.selectionInvert()
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect exit
+# inspect entry
 netedit.leftClick(match, 150, 250)
 
 # Change friendly position
 netedit.modifyBoolAttribute(0)
 
-# Check undos and redos
+# Check undo redo
 netedit.undo(match, 1)
 netedit.redo(match, 1)
 

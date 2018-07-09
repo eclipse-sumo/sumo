@@ -40,17 +40,22 @@ netedit.leftClick(match, 250, 400)
 # create second E3
 netedit.leftClick(match, 350, 400)
 
-# select exit detector
+# select entry detector
 netedit.changeAdditional("detExit")
 
-# Create Exit detector E3
-netedit.selectAdditionalChild(6, 0)
+# Create Entry detector E3
+netedit.leftClick(match, 250, 400)
 netedit.leftClick(match, 200, 200)
+
+# select exit detector and create in the second E3
+netedit.changeAdditional("detEntry")
+netedit.leftClick(match, 350, 400)
+netedit.leftClick(match, 400, 200)
 
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect Exit
+# inspect Entry
 netedit.leftClick(match, 200, 200)
 
 # Change parameter 0 with a non valid value (dummy Lane)
@@ -84,11 +89,8 @@ netedit.modifyAttribute(4, "e3Detector_1")
 netedit.modifyBoolAttribute(5)
 
 # Check undos and redos
-netedit.undo(match, 8)
-netedit.redo(match, 8)
-
-# save additionals
-netedit.saveAdditionals()
+netedit.undo(match, 9)
+netedit.redo(match, 9)
 
 # save additionals
 netedit.saveAdditionals()

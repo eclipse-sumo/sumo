@@ -37,23 +37,30 @@ netedit.changeAdditional("e3Detector")
 # create E3
 netedit.leftClick(match, 250, 50)
 
-# select exit detector
+# select entry detector
 netedit.changeAdditional("detExit")
 
-# Create Exit detector
-netedit.selectAdditionalChild(6, 0)
+# Create Entry detector
+netedit.leftClick(match, 250, 50)
 netedit.leftClick(match, 100, 200)
+
+# select exit detector
+netedit.changeAdditional("detEntry")
+
+# Create Exit detector
+netedit.leftClick(match, 250, 50)
+netedit.leftClick(match, 100, 250)
 
 # change to move mode
 netedit.moveMode()
 
-# move Exit to right
+# move Entry to right
 netedit.moveElement(match, -75, 190, 150, 190)
 
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect Exit
+# inspect Entry
 netedit.leftClick(match, 275, 190)
 
 # block additional
@@ -62,13 +69,13 @@ netedit.modifyBoolAttribute(5)
 # change to move mode
 netedit.moveMode()
 
-# try to move Exit to right (must be blocked)
+# try to move Entry to right (must be blocked)
 netedit.moveElement(match, 140, 190, 300, 190)
 
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect Exit
+# inspect Entry
 netedit.leftClick(match, 275, 190)
 
 # unblock additional
@@ -77,12 +84,12 @@ netedit.modifyBoolAttribute(5)
 # change to move mode
 netedit.moveMode()
 
-# move Exit to right (must be allowed)
+# move Entry to right (must be allowed)
 netedit.moveElement(match, 140, 190, 300, 190)
 
 # Check undos and redos
-netedit.undo(match, 6)
-netedit.redo(match, 6)
+netedit.undo(match, 7)
+netedit.redo(match, 7)
 
 # save additionals
 netedit.saveAdditionals()
