@@ -73,7 +73,7 @@ GNEParkingAreaReroute::updateGeometry() {
 
 Position 
 GNEParkingAreaReroute::getPositionInView() const {
-    return Position::INVALID;
+    return myFirstAdditionalParent->getPositionInView();
 }
 
 

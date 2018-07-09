@@ -74,14 +74,16 @@ GNEStoppingPlace::~GNEStoppingPlace() {}
 
 Position
 GNEStoppingPlace::getPositionInView() const {
+    double startPos = canParse<double>(myStartPosition)? parse<double>(myStartPosition) : 0;
+    double endPos = canParse<double>(myEndPosition)? parse<double>(myEndPosition) : myLane->getShape().length();
     if(myStartPosition.empty() && myEndPosition.empty()) {
         return myLane->getShape().positionAtOffset(myLane->getShape().length()/2);
     } else if (myStartPosition.empty()) {
-        return myLane->getShape().positionAtOffset(parse<double>(myEndPosition));
+        return myLane->getShape().positionAtOffset(endPos);
     } else if(myEndPosition.empty()) {
-        return myLane->getShape().positionAtOffset(parse<double>(myStartPosition));
+        return myLane->getShape().positionAtOffset(startPos);
     } else {
-        return myLane->getShape().positionAtOffset((parse<double>(myStartPosition) + parse<double>(myEndPosition)) / 2.0);
+        return myLane->getShape().positionAtOffset((startPos + endPos) / 2.0);
     }
 }
 

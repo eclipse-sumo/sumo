@@ -132,10 +132,17 @@ GNEAccess::updateGeometry() {
 
 Position 
 GNEAccess::getPositionInView() const {
-    if(myPositionOverLane.empty()) {
-        return myLane->getShape().positionAtOffset(0);
+    if(!canParse<double>(myPositionOverLane)) {
+        return myLane->getShape().front();
     } else {
-        return myLane->getShape().positionAtOffset(parse<double>(myPositionOverLane));
+        double posOverLane = parse<double>(myPositionOverLane);
+        if(posOverLane < 0) {
+            myLane->getShape().front();
+        } else if (posOverLane > myLane->getShape().length()) {
+            myLane->getShape().back();
+        } else {
+            return myLane->getShape().positionAtOffset(posOverLane);
+        }
     }
 }
 

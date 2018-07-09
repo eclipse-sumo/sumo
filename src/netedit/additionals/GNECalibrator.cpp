@@ -60,7 +60,7 @@ GNECalibrator::GNECalibrator(const std::string& id, GNEViewNet* viewNet, GNEEdge
     GNEAdditional(id, viewNet, GLO_CALIBRATOR, SUMO_TAG_CALIBRATOR, name, false),
     myEdge(edge),
     myLane(nullptr),
-    myPositionOverLane(pos / edge->getLanes().at(0)->getLaneParametricLength()),
+    myPositionOverLane(pos),
     myFrequency(frequency),
     myOutput(output),
     myRouteProbe(nullptr)  /** change this in the future **/
@@ -72,7 +72,7 @@ GNECalibrator::GNECalibrator(const std::string& id, GNEViewNet* viewNet, GNELane
     GNEAdditional(id, viewNet, GLO_CALIBRATOR, SUMO_TAG_LANECALIBRATOR, name, false),
     myEdge(nullptr),
     myLane(lane),
-    myPositionOverLane(pos / lane->getLaneParametricLength()),
+    myPositionOverLane(pos),
     myFrequency(frequency),
     myOutput(output),
     myRouteProbe(nullptr) /** change this in the future **/
@@ -105,15 +105,15 @@ GNECalibrator::updateGeometry() {
     // get shape depending of we have a edge or a lane
     if (myLane) {
         // Get shape of lane parent
-        myShape.push_back(myLane->getShape().positionAtOffset(myPositionOverLane * myLane->getShape().length()));
+        myShape.push_back(myLane->getShape().positionAtOffset(myPositionOverLane));
         // Save rotation (angle) of the vector constructed by points f and s
-        myShapeRotations.push_back(myLane->getShape().rotationDegreeAtOffset(myPositionOverLane * myLane->getShape().length()) * -1);
+        myShapeRotations.push_back(myLane->getShape().rotationDegreeAtOffset(myPositionOverLane * -1));
     } else if (myEdge) {
         for (auto i : myEdge->getLanes()) {
             // Get shape of lane parent
-            myShape.push_back(i->getShape().positionAtOffset(myPositionOverLane * i->getShape().length()));
+            myShape.push_back(i->getShape().positionAtOffset(myPositionOverLane));
             // Save rotation (angle) of the vector constructed by points f and s
-            myShapeRotations.push_back(myEdge->getLanes().at(0)->getShape().rotationDegreeAtOffset(myPositionOverLane * i->getShape().length()) * -1);
+            myShapeRotations.push_back(myEdge->getLanes().at(0)->getShape().rotationDegreeAtOffset(myPositionOverLane) * -1);
         }
     } else {
         throw ProcessError("Both myEdge and myLane aren't defined");
@@ -125,13 +125,13 @@ GNECalibrator::updateGeometry() {
 
 Position
 GNECalibrator::getPositionInView() const {
-    // get position depending of we have a edge or a lane
-    if (myLane) {
-        return myLane->getShape().positionAtOffset(myPositionOverLane * myLane->getShape().length());
-    } else if (myEdge) {
-        return myEdge->getLanes().at(0)->getShape().positionAtOffset(myPositionOverLane * myEdge->getLanes().at(0)->getShape().length());
+    PositionVector shape = myLane? myLane->getShape() : myEdge->getLanes().at(0)->getShape();
+    if(myPositionOverLane < 0) {
+        shape.front();
+    } else if (myPositionOverLane > shape.length()) {
+        shape.back();
     } else {
-        throw ProcessError("Both myEdge and myLane aren't defined");
+        return shape.positionAtOffset(myPositionOverLane);
     }
 }
 
@@ -221,13 +221,7 @@ GNECalibrator::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_LANE:
             return myLane->getID();
         case SUMO_ATTR_POSITION:
-            if (myEdge) {
-                return toString(myPositionOverLane * myEdge->getLanes().at(0)->getLaneParametricLength());
-            } else if (myLane) {
-                return toString(myPositionOverLane * myLane->getLaneParametricLength());
-            } else {
-                throw ProcessError("Both myEdge and myLane aren't defined");
-            }
+            return toString(myPositionOverLane);
         case SUMO_ATTR_FREQUENCY:
             return toString(myFrequency);
         case SUMO_ATTR_NAME:
@@ -291,16 +285,10 @@ GNECalibrator::isValid(SumoXMLAttr key, const std::string& value) {
             }
         case SUMO_ATTR_POSITION:
             if (canParse<double>(value)) {
-                // obtain relative new start position
-                double newPosition;
-                if (myEdge) {
-                    newPosition = parse<double>(value) / myEdge->getLanes().at(0)->getLaneParametricLength();
-                } else if (myLane) {
-                    newPosition = parse<double>(value) / myLane->getLaneParametricLength();
-                } else {
-                    throw ProcessError("Both myEdge and myLane aren't defined");
-                }
-                if ((newPosition < 0) || (newPosition > 1)) {
+                // obtain position and check if is valid
+                double newPosition = parse<double>(value);
+                PositionVector shape = myLane? myLane->getShape() : myEdge->getLanes().at(0)->getShape();
+                if ((newPosition < 0) || (newPosition > shape.length())) {
                     return false;
                 } else {
                     return true;
@@ -356,13 +344,7 @@ GNECalibrator::setAttribute(SumoXMLAttr key, const std::string& value) {
             myLane = changeLane(myLane, value);
             break;
         case SUMO_ATTR_POSITION:
-            if (myEdge) {
-                myPositionOverLane = parse<double>(value) / myEdge->getLanes().at(0)->getLaneParametricLength();
-            } else if (myLane) {
-                myPositionOverLane = parse<double>(value) / myLane->getLaneParametricLength();
-            } else {
-                throw ProcessError("Both myEdge and myLane aren't defined");
-            }
+            myPositionOverLane = parse<double>(value);
             break;
         case SUMO_ATTR_FREQUENCY:
             myFrequency = parse<double>(value);
