@@ -1800,7 +1800,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_ROUTE;
     {
         // set values of tag
-        myAllowedTags[currentTag] = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_PARENT, 43, ICON_ROUTE);
+        myAllowedTags[currentTag] = TagValues(TAGPROPERTY_ADDITIONAL, 43, ICON_ROUTE);
         // set values of attributes
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_ID,
             ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,

@@ -360,13 +360,13 @@ GNEAdditionalHandler::parseAndBuildCalibratorFlow(const SUMOSAXAttributes& attrs
         GNEAdditional* vtype = myViewNet->getNet()->retrieveAdditional(SUMO_TAG_VTYPE, vehicleTypeID, false);
         // check that all elements are valid
         if (route == nullptr) {
-            WRITE_WARNING(toString(SUMO_TAG_ROUTE) + " with ID = '" + routeID + "' cannot be created; their " + toString(SUMO_TAG_ROUTE) + " with ID = '" + routeID + "' doesn't exist");
+            WRITE_WARNING(toString(SUMO_TAG_FLOW) + " cannot be created; their " + toString(SUMO_TAG_ROUTE) + " with ID = '" + routeID + "' doesn't exist");
             abort = true;
         } else if (vtype == nullptr) {
-            WRITE_WARNING(toString(SUMO_TAG_VTYPE) + " with ID = '" + vehicleTypeID + "' cannot be created; their " + toString(SUMO_TAG_VTYPE) + " with ID = '" + vehicleTypeID + "' doesn't exist");
+            WRITE_WARNING(toString(SUMO_TAG_FLOW) + " cannot be created; their " + toString(SUMO_TAG_VTYPE) + " with ID = '" + vehicleTypeID + "' doesn't exist");
             abort = true;
         } else if ((vehsPerHour.empty()) && (speed.empty())) {
-            WRITE_WARNING(toString(SUMO_TAG_VTYPE) + " with ID = '" + vehicleTypeID + "' cannot be created; At least parameters " + toString(SUMO_ATTR_VEHSPERHOUR) + " or " + toString(SUMO_ATTR_SPEED) + " has to be defined");
+            WRITE_WARNING(toString(SUMO_TAG_FLOW) + " cannot be created; At least parameters " + toString(SUMO_ATTR_VEHSPERHOUR) + " or " + toString(SUMO_ATTR_SPEED) + " has to be defined");
             abort = true;
         } else if(calibrator != NULL) {
             buildCalibratorFlow(myViewNet, true, calibrator, route, vtype, vehsPerHour, speed, color, departLane, departPos, departSpeed, arrivalLane, arrivalPos, arrivalSpeed,
