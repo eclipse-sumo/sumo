@@ -5,6 +5,7 @@ option(CHECK_OPTIONAL_LIBS "Try to download / enable all optional libraries" tru
 option(MULTITHREADED_BUILD "Use all available cores for building" true)
 
 project(SUMO)
+set(PACKAGE_VERSION "git")
 cmake_minimum_required(VERSION 3.1)
 # do not expand quoted variables in if statements
 cmake_policy(SET CMP0054 NEW)
@@ -240,16 +241,22 @@ if (GTEST_FOUND)
 endif ()
 
 # installation
-install(DIRECTORY data/ DESTINATION share/sumo/data) 
-install(DIRECTORY tools/ DESTINATION share/sumo/tools) 
-install(CODE "execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink $ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin $ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/share/sumo/bin)")
+install(DIRECTORY data/ DESTINATION share/sumo/data)
+install(DIRECTORY tools/ DESTINATION share/sumo/tools
+        PATTERN "calibration" EXCLUDE
+        PATTERN "lisum" EXCLUDE
+        PATTERN "sumolib4matlab/src" EXCLUDE
+        PATTERN "traas" EXCLUDE
+        PATTERN "traci4matlab/src" EXCLUDE
+        PATTERN ".git" EXCLUDE
+       )
+install(CODE "execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink ../../bin $ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/share/sumo/bin)")
 
 # custom targets
 add_custom_target(examples COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/extractTest.py -x -f ${CMAKE_SOURCE_DIR}/tests/examples.txt -p ${CMAKE_SOURCE_DIR}/docs/examples/runAll.py)
 add_test(exampletest ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/docs/examples/runAll.py)
 find_package(Git)
 if (GIT_FOUND)
-    set(PACKAGE_VERSION "git")
     add_custom_target(dist DEPENDS examples
         COMMAND rm -rf sumo-${PACKAGE_VERSION} sumo-${PACKAGE_VERSION}.zip sumo-src-${PACKAGE_VERSION}.tar.gz
         COMMAND ${GIT_EXECUTABLE} archive --prefix sumo-${PACKAGE_VERSION}/ -o sumo-${PACKAGE_VERSION}.zip HEAD
