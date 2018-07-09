@@ -44,8 +44,13 @@ netedit.leftClick(match, 350, 400)
 netedit.changeAdditional("detEntry")
 
 # Create Entry detector E3
-netedit.selectAdditionalChild(6, 0)
+netedit.leftClick(match, 250, 400)
 netedit.leftClick(match, 200, 200)
+
+# select exit detector and create in the second E3
+netedit.changeAdditional("detExit")
+netedit.leftClick(match, 350, 400)
+netedit.leftClick(match, 400, 200)
 
 # go to inspect mode
 netedit.inspectMode()
@@ -84,8 +89,8 @@ netedit.modifyAttribute(4, "e3Detector_1")
 netedit.modifyBoolAttribute(5)
 
 # Check undos and redos
-netedit.undo(match, 8)
-netedit.redo(match, 8)
+netedit.undo(match, 9)
+netedit.redo(match, 9)
 
 # save additionals
 netedit.saveAdditionals()

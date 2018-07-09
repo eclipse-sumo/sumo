@@ -1,7 +1,3 @@
 java version "1.8.0_171"
 Java(TM) SE Runtime Environment (build 1.8.0_171-b11)
 Java HotSpot(TM) 64-Bit Server VM (build 25.171-b11, mixed mode)
-Error: missing elements in content model '(detEntry+,detExit+)'
- In file 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Jun145422.948/netedit.gui/additionalElements/detentry/volatileRecomputing\additionals.xml'
- At line/column 55/18.
-

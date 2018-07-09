@@ -44,12 +44,19 @@ netedit.changeAdditional("detEntry")
 netedit.leftClick(match, 50, 200)
 
 # Create three Entry detectors
-netedit.selectAdditionalChild(6, 0)
+netedit.leftClick(match, 275, 50)
 netedit.leftClick(match, 50, 200)
-netedit.selectAdditionalChild(6, 0)
+netedit.leftClick(match, 275, 50)
 netedit.leftClick(match, 200, 200)
-netedit.selectAdditionalChild(6, 0)
+
+# select exit detector
+netedit.changeAdditional("detExit")
+
+netedit.leftClick(match, 275, 50)
 netedit.leftClick(match, 350, 200)
+
+# select exit detector
+netedit.changeAdditional("detEntry")
 
 # Change friendlyPos
 netedit.modifyAdditionalDefaultBoolValue(1)

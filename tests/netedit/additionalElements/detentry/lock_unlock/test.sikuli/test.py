@@ -41,8 +41,15 @@ netedit.leftClick(match, 250, 50)
 netedit.changeAdditional("detEntry")
 
 # Create Entry detector
-netedit.selectAdditionalChild(6, 0)
+netedit.leftClick(match, 250, 50)
 netedit.leftClick(match, 100, 200)
+
+# select exit detector
+netedit.changeAdditional("detExit")
+
+# Create Exit detector
+netedit.leftClick(match, 250, 50)
+netedit.leftClick(match, 100, 250)
 
 # change to move mode
 netedit.moveMode()
@@ -81,8 +88,8 @@ netedit.moveMode()
 netedit.moveElement(match, 140, 190, 300, 190)
 
 # Check undos and redos
-netedit.undo(match, 6)
-netedit.redo(match, 6)
+netedit.undo(match, 7)
+netedit.redo(match, 7)
 
 # save additionals
 netedit.saveAdditionals()

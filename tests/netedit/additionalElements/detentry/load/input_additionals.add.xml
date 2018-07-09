@@ -2,6 +2,7 @@
 	<!-- Entry with non valid E3 parent  (Without ID) -->
 	<e3Detector freq="100.00" file="e3Detector_0.txt" timeThreshold="1.00" speedThreshold="1.39" pos="22.97,6.36">
 		<detEntry lane="gneE1_0" pos="10" friendlyPos="0"/>
+		<detExit lane="gneE1_0" pos="10" friendlyPos="1"/>
 	</e3Detector>
 	
 	<!-- Valid parent -->
@@ -45,6 +46,9 @@
 
 		<!-- Valid Entry -->
         <detEntry lane="gneE1_0" pos="50" friendlyPos="1"/>
+		
+		<!-- Valid Entry -->
+        <detExit lane="gneE1_0" pos="50" friendlyPos="1"/>
     </e3Detector>
 	
 	<!-- Entry without E3 parent -->

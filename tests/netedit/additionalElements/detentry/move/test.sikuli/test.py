@@ -41,8 +41,15 @@ netedit.leftClick(match, 250, 50)
 netedit.changeAdditional("detEntry")
 
 # Create Entry detector
-netedit.selectAdditionalChild(6, 0)
+netedit.leftClick(match, 250, 50)
 netedit.leftClick(match, 100, 200)
+
+# select Exit detector
+netedit.changeAdditional("detExit")
+
+# Create Exit detector
+netedit.leftClick(match, 250, 50)
+netedit.leftClick(match, 100, 250)
 
 # apply zoom out
 netedit.setZoom("25", "0", "70")
@@ -75,8 +82,8 @@ netedit.moveElement(match, 120, 200, 580, 200)
 netedit.moveElement(match, 550, 200, 300, 200)
 
 # Check undos and redos
-netedit.undo(match, 10)
-netedit.redo(match, 10)
+netedit.undo(match, 11)
+netedit.redo(match, 11)
 
 # save additionals
 netedit.saveAdditionals()
