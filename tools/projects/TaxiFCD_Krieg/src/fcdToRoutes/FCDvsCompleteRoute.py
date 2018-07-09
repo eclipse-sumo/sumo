@@ -141,7 +141,8 @@ def clacAvg():
 
     print()
     print(
-        "Betrachtung der hinzugefuegten Kanten nur fuer die Taxis bei denen tatsaechlich auch Kanten hinzugefuegt wurden")
+        "Betrachtung der hinzugefuegten Kanten nur fuer die Taxis bei denen tatsaechlich " +
+        "auch Kanten hinzugefuegt wurden")
     print("ids (Taxis/Routen)", len(ids))
     print("% der Gesamtrouten", 100.0 * len(ids) / len(diffList))
     print("avg 200 (ids)", sum(diffList200) / (len(diffList200) + 0.0))

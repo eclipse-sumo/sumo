@@ -99,7 +99,8 @@ def arrangeData():
                 # skip edges without traffic
                 if withoutEmptyEdges and vtypeTuple[1] not in drivenEdgesSet:
                     continue
-                outputFile.write("\t\t<step time=\"%s\" source=\"vtypeProbe\" speed=\"%s\" rawSpeed=\"%s\" edge=\"%s\" lat=\"%s\" lon=\"%s\"/>\n"
+                outputFile.write(("\t\t<step time=\"%s\" source=\"vtypeProbe\" speed=\"%s\" " +
+                                 "rawSpeed=\"%s\" edge=\"%s\" lat=\"%s\" lon=\"%s\"/>\n")
                                  % (vtypeTuple[0], vtypeTuple[4], None, vtypeTuple[1], vtypeTuple[2], vtypeTuple[3]))
 
             # write fcd Infos (enhanced with Infos of raw-FCD)
@@ -115,7 +116,8 @@ def arrangeData():
                         break
 
                 # write results in file
-                outputFile.write("\t\t<step time=\"%s\" source=\"FCD\" speed=\"%s\" rawSpeed=\"%s\" edge=\"%s\" lat=\"%s\" lon=\"%s\"/>\n"
+                outputFile.write(("\t\t<step time=\"%s\" source=\"FCD\" speed=\"%s\" " +
+                                 "rawSpeed=\"%s\" edge=\"%s\" lat=\"%s\" lon=\"%s\"/>\n")
                                  % (fcdTuple[0], fcdTuple[2], rawTuple[3], fcdTuple[1], rawTuple[1], rawTuple[2]))
 
                 # Reset values after write of line:
@@ -134,7 +136,8 @@ def arrangeData():
                         break
 
                 # write results in file
-                outputFile.write("\t\t<step time=\"%s\" source=\"simFCD\" speed=\"%s\" rawSpeed=\"%s\" edge=\"%s\" lat=\"%s\" lon=\"%s\"/>\n"
+                outputFile.write(("\t\t<step time=\"%s\" source=\"simFCD\" speed=\"%s\" " +
+                                 "rawSpeed=\"%s\" edge=\"%s\" lat=\"%s\" lon=\"%s\"/>\n")
                                  % (fcdTuple[0], fcdTuple[2], rawTuple[3], fcdTuple[1], rawTuple[1], rawTuple[2]))
 
                 # Reset values after write of line:

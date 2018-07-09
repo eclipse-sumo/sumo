@@ -504,8 +504,11 @@ optParser.add_option("-i", "--intervals", dest="interval",
                      help="intervals to be generated ([0:<TIME>-1], [<TIME>:2*<TIME>-1], ...)",
                      metavar="<TIME>", type="int")
 
-optParser.set_usage('\ngenerateITetrisNetworkMetrics.py -n inputs\\a_costa\\acosta.net.xml -p outputs\\a_costa\\ -t passenger2a,passenger5,passenger1,passenger2b,passenger3,passenger4 -i 500 \n' +
-                    'generateITetrisNetworkMetrics.py -n inputs\\a_costa\\acosta.net.xml -p outputs\\a_costa\\ -i 500\n' + 'generateITetrisNetworkMetrics.py -n inputs\\a_costa\\acosta.net.xml -p outputs\\a_costa\\')
+optParser.set_usage('\ngenerateITetrisNetworkMetrics.py -n inputs\\a_costa\\acosta.net.xml -p outputs\\a_costa\\ -t ' +
+                    'passenger2a,passenger5,passenger1,passenger2b,passenger3,passenger4 -i 500 \n' +
+                    'generateITetrisNetworkMetrics.py -n inputs\\a_costa\\acosta.net.xml -p outputs\\a_costa\\ ' +
+                    '-i 500\n' + 'generateITetrisNetworkMetrics.py -n inputs\\a_costa\\acosta.net.xml ' +
+                    '-p outputs\\a_costa\\')
 # parse options
 (options, args) = optParser.parse_args()
 if not options.netfile or not options.path:

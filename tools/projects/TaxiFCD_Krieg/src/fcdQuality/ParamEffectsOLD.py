@@ -201,7 +201,8 @@ def createOutput(edgeDumpDict, vtypeDict, vehSum, taxiSum):
                 abs = meanV - v
                 rel = abs / v * 100
                 outputFile.write(
-                    '\t\t<edge id="%s" simSpeed="%.2f" fcdSpeed="%.2f" absDeviation="%.2f" relDeviation="%.2f"/>\n' % (edge, v, meanV, abs, rel))
+                    '\t\t<edge id="%s" simSpeed="%.2f" fcdSpeed="%.2f" absDeviation="%.2f" relDeviation="%.2f"/>\n' % (
+                        edge, v, meanV, abs, rel))
         outputFile.write('\t</interval>\n')
     outputFile.write('</results>')
     outputFile.close()

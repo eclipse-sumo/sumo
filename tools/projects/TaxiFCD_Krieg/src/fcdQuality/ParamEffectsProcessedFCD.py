@@ -49,9 +49,11 @@ U_RAW = 3  # use the vtypeprobe-data directly to create output for readPlot
 mode = W_FCD  # choose the mode
 simStartTime = 21600  # =6 o'clock  ->begin in edgeDump
 aggInterval = 900  # aggregation Interval of the edgeDump
-# [5,10]#[20,40,60,80,100,150,200,250,300]#[1,2,5,10,20,50,100,200,500]#[20,50,100,200,500] #period in seconds | single element or a hole list
+# [5,10]#[20,40,60,80,100,150,200,250,300]#[1,2,5,10,20,50,100,200,500]#[20,50,100,200,500]
+# period in seconds | single element or a hole list
 period = [20, 40, 60, 80, 100, 150, 200, 250, 300]
-# [0.1, 0.2, 0.5, 1.0, 2.0, 5.0, 10.0, 20., 50.] #how many taxis in percent of the total vehicles | single element or a hole list
+# [0.1, 0.2, 0.5, 1.0, 2.0, 5.0, 10.0, 20., 50.] #how many taxis in percent
+# of the total vehicles | single element or a hole list
 quota = [0.1, 0.2, 0.5, 1.0, 2.0, 5.0, 10.0, 20., 50.]
 iteration = 2
 
@@ -105,7 +107,8 @@ def generatePeriodQuotaSets(stopByPeriod=False):
 
     """Generates all period-quota-sets (with creation of new Taxis for each set).
     You can iterate over that generator and gets for each step the period and quota.
-    If stopByPeriod=True it stops not only in the quota block but in the period block to-> have a look at the code.
+    If stopByPeriod=True it stops not only in the quota block but in the period block to->
+    have a look at the code.
     """
     if type(period) != list:
         period = [period]
@@ -299,10 +302,12 @@ def writeRawFCD():
                 # print ouptut
                 # veh_id         date (time to simDate+time)    x (remove and
                 # set comma new)
-                outputFile.write(str(getVehId(tup[0])) + '\t' + time + '\t' + tup[3][0:2] + '.' + tup[3][2:7] + tup[3][8:] +
+                outputFile.write(str(getVehId(tup[0])) + '\t' + time + '\t' + tup[3][0:2] + '.' + tup[3][2:7] +
+                                 tup[3][8:] +
                                  # y (remove and set comma new)
                                  # status      speed form m/s in km/h
-                                 '\t' + tup[4][0:2] + '.' + tup[4][2:7] + tup[4][8:] + '\t' + "90" + '\t' + str(int(round(tup[2] * 3.6))) + '\n')
+                                 '\t' + tup[4][0:2] + '.' + tup[4][2:7] + tup[4][8:] + '\t' + "90" + '\t' +
+                                 str(int(round(tup[2] * 3.6))) + '\n')
         # print dataset, time
         print(vehId)
     outputFile.close()

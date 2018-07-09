@@ -30,13 +30,17 @@ else:
 def get_options():
     optParser = OptionParser()
     optParser.add_option(
-        "-w", "--width", type="float", default=0.7, help="pedestrian width, negative numbers denote the center of a uniform distribution [x-0.2, x+0.2]")
+        "-w", "--width", type="float", default=0.7, help="pedestrian width, negative numbers denote the center " +
+        "of a uniform distribution [x-0.2, x+0.2]")
     optParser.add_option(
-        "-l", "--length", type="float", default=0.5, help="pedestrian length, negative numbers denote the center of a uniform distribution [x-0.2, x+0.2]")
+        "-l", "--length", type="float", default=0.5, help="pedestrian length, negative numbers denote the center " +
+        "of a uniform distribution [x-0.2, x+0.2]")
     optParser.add_option(
-        "-m", "--minGap", type="float", default=0.2, help="pedestrian min gap, negative numbers denote the center of a uniform distribution [x-0.2, x+0.2]")
+        "-m", "--minGap", type="float", default=0.2, help="pedestrian min gap, negative numbers denote the center " +
+        "of a uniform distribution [x-0.2, x+0.2]")
     optParser.add_option(
-        "-s", "--maxSpeed", type="float", default=1.2, help="pedestrian max speed, negative numbers denote the center of a uniform distribution [x-0.4, x+0.4]")
+        "-s", "--maxSpeed", type="float", default=1.2, help="pedestrian max speed, negative numbers denote the " +
+        "center of a uniform distribution [x-0.4, x+0.4]")
     optParser.add_option(
         "-d", "--departPos", type="float", default=0, help="depart position")
     optParser.add_option(
@@ -73,7 +77,8 @@ def write_ped(f, index, options, depart, edges):
     else:
         color = ' color="%s"' % options.color
 
-    f.write('    <vType id="%s%s" vClass="pedestrian" width="%s" length="%s" minGap="%s" maxSpeed="%s" guiShape="pedestrian"%s/>\n' % (
+    f.write(('    <vType id="%s%s" vClass="pedestrian" width="%s" length="%s" minGap="%s" maxSpeed="%s" ' +
+             'guiShape="pedestrian"%s/>\n') % (
         options.name, index,
         randomOrFixed(options.width),
         randomOrFixed(options.length),

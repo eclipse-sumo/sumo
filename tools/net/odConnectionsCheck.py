@@ -351,7 +351,8 @@ def main():
             for endVertex in separateZones:
                 if startVertex.label != endVertex.label:
                     totalCounts, subCounts, odPairSet = net.checkRoute(
-                        startVertex, endVertex, totalCounts, subCounts, P, odPairSet, matrixPshort[start][end], skipList)
+                        startVertex, endVertex, totalCounts, subCounts, P, odPairSet, matrixPshort[start][end],
+                        skipList)
 
     print('total OD connections:', totalCounts)
     if len(odPairSet) > 0:

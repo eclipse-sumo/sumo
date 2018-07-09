@@ -46,10 +46,12 @@ def main():
         if line.find("<vehicle id") != -1:
             # veh_id                       date (time to simDate+time)
             # x (remove and set comma new)
-            outputFile.write(str(getVehId(words[1])) + '\t' + getDateFromDepart(time) + '\t' + words[13][0:2] + '.' + words[13][2:7] + words[13][8:] +
+            outputFile.write(str(getVehId(words[1])) + '\t' + getDateFromDepart(time) + '\t' +
+                             words[13][0:2] + '.' + words[13][2:7] + words[13][8:] +
                              # y (remove and set comma new)
                              # status      speed form m/s in km/h
-                             '\t' + words[11][0:2] + '.' + words[11][2:7] + words[11][8:] + '\t' + "90" + '\t' + str(int(round(float(words[15]) * 3.6))) + '\n')
+                             '\t' + words[11][0:2] + '.' + words[11][2:7] + words[11][8:] + '\t' +
+                             "90" + '\t' + str(int(round(float(words[15]) * 3.6))) + '\n')
     outputFile.close()
     inputFile.close()
     for key in vehIdDict:

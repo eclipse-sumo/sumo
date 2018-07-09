@@ -52,17 +52,27 @@ typemaps = {
 }
 
 vehicleParameters = {
-    "passenger":  ["--vehicle-class", "passenger",  "--vclass", "passenger",  "--prefix", "veh",   "--min-distance", "300",  "--trip-attributes", 'speedDev="0.1" departLane="best"', "--validate"],
-    "truck":      ["--vehicle-class", "truck",      "--vclass", "truck",      "--prefix", "truck", "--min-distance", "600",  "--trip-attributes", 'speedDev="0.1" departLane="best"', "--validate"],
-    "bus":        ["--vehicle-class", "bus",        "--vclass", "bus",        "--prefix", "bus",   "--min-distance", "600",  "--trip-attributes",                'departLane="best"', "--validate"],
-    "motorcycle": ["--vehicle-class", "motorcycle", "--vclass", "motorcycle", "--prefix", "moto",  "--max-distance", "1200", "--trip-attributes", 'speedDev="0.1" departLane="best"', "--validate"],
-    "bicycle":    ["--vehicle-class", "bicycle",    "--vclass", "bicycle",    "--prefix", "bike",  "--max-distance", "8000", "--trip-attributes", 'speedDev="0.1" departLane="best"', "--validate"],
-    "tram":       ["--vehicle-class", "tram",       "--vclass", "tram",       "--prefix", "tram",  "--min-distance", "1200", "--trip-attributes",                'departLane="best"', "--validate"],
-    "rail_urban": ["--vehicle-class", "rail_urban", "--vclass", "rail_urban", "--prefix", "urban", "--min-distance", "1800", "--trip-attributes",                'departLane="best"', "--validate"],
-    "rail":       ["--vehicle-class", "rail",       "--vclass", "rail",       "--prefix", "rail",  "--min-distance", "2400", "--trip-attributes",                'departLane="best"', "--validate"],
+    "passenger":  ["--vehicle-class", "passenger",  "--vclass", "passenger",  "--prefix", "veh",   "--min-distance",
+                   "300",  "--trip-attributes", 'speedDev="0.1" departLane="best"', "--validate"],
+    "truck":      ["--vehicle-class", "truck",      "--vclass", "truck",      "--prefix", "truck", "--min-distance",
+                   "600",  "--trip-attributes", 'speedDev="0.1" departLane="best"', "--validate"],
+    "bus":        ["--vehicle-class", "bus",        "--vclass", "bus",        "--prefix", "bus",   "--min-distance",
+                   "600",  "--trip-attributes",                'departLane="best"', "--validate"],
+    "motorcycle": ["--vehicle-class", "motorcycle", "--vclass", "motorcycle", "--prefix", "moto",  "--max-distance",
+                   "1200", "--trip-attributes", 'speedDev="0.1" departLane="best"', "--validate"],
+    "bicycle":    ["--vehicle-class", "bicycle",    "--vclass", "bicycle",    "--prefix", "bike",  "--max-distance",
+                   "8000", "--trip-attributes", 'speedDev="0.1" departLane="best"', "--validate"],
+    "tram":       ["--vehicle-class", "tram",       "--vclass", "tram",       "--prefix", "tram",  "--min-distance",
+                   "1200", "--trip-attributes",                'departLane="best"', "--validate"],
+    "rail_urban": ["--vehicle-class", "rail_urban", "--vclass", "rail_urban", "--prefix", "urban", "--min-distance",
+                   "1800", "--trip-attributes",                'departLane="best"', "--validate"],
+    "rail":       ["--vehicle-class", "rail",       "--vclass", "rail",       "--prefix", "rail",  "--min-distance",
+                   "2400", "--trip-attributes",                'departLane="best"', "--validate"],
     "ship":       ["--vehicle-class", "ship",       "--vclass", "ship",       "--prefix", "ship",                                                                                      "--validate"],
-    "pedestrian": ["--vehicle-class", "pedestrian", "--pedestrians", "--prefix", "ped",   "--max-distance", "2000", "--trip-attributes", 'speedDev="0.1"', ],
-    "persontrips": ["--vehicle-class", "pedestrian", "--persontrips", "--prefix", "ped",                             "--trip-attributes", 'speedDev="0.1" modes="public"', ],
+    "pedestrian": ["--vehicle-class", "pedestrian", "--pedestrians", "--prefix", "ped",   "--max-distance",
+                   "2000", "--trip-attributes", 'speedDev="0.1"', ],
+    "persontrips": ["--vehicle-class", "pedestrian", "--persontrips", "--prefix", "ped",
+                    "--trip-attributes", 'speedDev="0.1" modes="public"', ],
 }
 
 vehicleNames = {
@@ -407,7 +417,8 @@ class OSMImporterWebSocket(WebSocket):
 parser = ArgumentParser(
     description="OSM Web Wizard for SUMO - Websocket Server")
 parser.add_argument("--remote", action="store_true",
-                    help="In remote mode, SUMO GUI will not be automatically opened instead a zip file will be generated.")
+                    help="In remote mode, SUMO GUI will not be automatically opened instead a zip file " +
+                    "will be generated.")
 parser.add_argument("--testing", action="store_true",
                     help="Only a pre-defined scenario will be generated for testing purposes.")
 parser.add_argument("--address", default="", help="Address for the Websocket.")

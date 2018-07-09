@@ -44,7 +44,8 @@ def write_diff(orig, new, out):
                 origDurations.add(float(vOrig.duration), v.id)
                 durationDiffs.add(durationDiff, v.id)
 
-                f.write('''    <vehicle id="%s" departDiff="%s" arrivalDiff="%s" timeLossDiff="%s" durationDiff="%s" routeLengthDiff="%s"/>\n''' % (
+                f.write(('''    <vehicle id="%s" departDiff="%s" arrivalDiff="%s" timeLossDiff="%s" \
+durationDiff="%s" routeLengthDiff="%s"/>\n''') % (
                     v.id, departDiff, arrivalDiff, timeLossDiff, durationDiff, routeLengthDiff))
                 del vehicles_orig[v.id]
             else:

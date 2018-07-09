@@ -150,7 +150,8 @@ def getAveragedValues(interval):
             absErr = simFcdValues[i] - fcdValues[i]
             relErrorValues[i] = absErr / float(fcdValues[i]) * 100
             absErrorValues[i] = absErr
-    return ([timeValues, fcdValues, simFcdValues, vtypeValues, fcdValuesNo, simFcdValuesNo, vtypeValuesNo, relErrorValues, absErrorValues], interval)
+    return ([timeValues, fcdValues, simFcdValues, vtypeValues, fcdValuesNo, simFcdValuesNo, vtypeValuesNo,
+            relErrorValues, absErrorValues], interval)
 
 
 # start the program
