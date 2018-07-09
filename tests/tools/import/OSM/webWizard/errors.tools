@@ -1447,47 +1447,7 @@ Warning: skipping line '47' because it has too few stops
 Warning: skipping line '51' because it has too few stops
 Warning: skipping line '52' because it has too few stops
 Warning: skipping line '55' because it has too few stops
-Warning: At actuated tlLogic '160514854', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic '25662542', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic '25664673', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic '258045541', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic '262479941', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic '266540878', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic '29219465', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic '3153666983', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic '3213513670', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic '506357660', minDur 5.00 is too short for a detector gap of 27.78m.
 Warning: At actuated tlLogic 'GS_2071374815', minDur 5.00 is too short for a detector gap of 166.66m.
-Warning: At actuated tlLogic 'GS_26871464', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic 'GS_cluster_21487285_29207836', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic 'cluster_1166137168_1566942145_1566942204_3101344339_3101344340_667465427_667465428_967017840', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic 'cluster_1566942191_29221588_3204786099', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic 'cluster_160503146_2314394457_27411250', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic 'cluster_1630500695_21487184', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic 'cluster_1668685201_1785414414_2924018416_2924018417_2924018418_3253177075_3253177076_3253177078_3253177079', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic 'cluster_1791264885_27411228_588181343_860313203', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic 'cluster_1827996421_21487210_29221504_29221506', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic 'cluster_1828018094_1828018095_1840326399_262469034_29123671_29123672_967017877', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic 'cluster_2045820592_21487242', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic 'cluster_2086246926_28373974', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic 'cluster_21432801_2938442114_295705005_3139140896_3178759584_735967920_735967921_735967926_961816249_961816257', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic 'cluster_21487161_51965322', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic 'cluster_21487209_29219440_768074054', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic 'cluster_21487229_29215077', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic 'cluster_25664680_577258918', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic 'cluster_25665636_3378459427_3378459431_538795142', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic 'cluster_25954547_29221622', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic 'cluster_266540882_614483613', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic 'cluster_29123692_506357662', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic 'cluster_311264847_617915219_735132786_735132792_735132793', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic 'joinedS_0', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic 'joinedS_1', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic 'joinedS_2', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic 'joinedS_3', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic 'joinedS_4', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic 'joinedS_5', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic 'joinedS_6', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic 'joinedS_7', minDur 5.00 is too short for a detector gap of 27.78m.
 Warning: busStop '272441719' for vehicle '7_bus_200:0' on lane '85255869#1_2' is not downstream the current route.
 Warning: busStop '2959830767' on lane '190447768#0_1' is too short for vehicle '33_bus_N6:0'.
 Warning: Vehicle '35_bus_147:1' is not allowed to stop on lane '274513583_0'.
@@ -1507,47 +1467,7 @@ Warning: Teleporting vehicle '35_bus_147:1'; waited too long (wrong lane), lane=
 Warning: Vehicle '35_bus_147:1' teleports beyond arrival edge '274513583', time 1068.00.
 Warning: Teleporting vehicle '49_subway_U2:0'; waited too long (wrong lane), lane='272795472#1_0', time=1214.00.
 Warning: Vehicle '49_subway_U2:0' ends teleporting on edge '199847339', time 1214.00.
-Warning: At actuated tlLogic '160514854', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic '25662542', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic '25664673', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic '258045541', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic '262479941', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic '266540878', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic '29219465', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic '3153666983', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic '3213513670', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic '506357660', minDur 5.00 is too short for a detector gap of 27.78m.
 Warning: At actuated tlLogic 'GS_2071374815', minDur 5.00 is too short for a detector gap of 166.66m.
-Warning: At actuated tlLogic 'GS_26871464', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic 'GS_cluster_21487285_29207836', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic 'cluster_1166137168_1566942145_1566942204_3101344339_3101344340_667465427_667465428_967017840', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic 'cluster_1566942191_29221588_3204786099', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic 'cluster_160503146_2314394457_27411250', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic 'cluster_1630500695_21487184', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic 'cluster_1668685201_1785414414_2924018416_2924018417_2924018418_3253177075_3253177076_3253177078_3253177079', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic 'cluster_1791264885_27411228_588181343_860313203', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic 'cluster_1827996421_21487210_29221504_29221506', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic 'cluster_1828018094_1828018095_1840326399_262469034_29123671_29123672_967017877', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic 'cluster_2045820592_21487242', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic 'cluster_2086246926_28373974', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic 'cluster_21432801_2938442114_295705005_3139140896_3178759584_735967920_735967921_735967926_961816249_961816257', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic 'cluster_21487161_51965322', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic 'cluster_21487209_29219440_768074054', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic 'cluster_21487229_29215077', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic 'cluster_25664680_577258918', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic 'cluster_25665636_3378459427_3378459431_538795142', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic 'cluster_25954547_29221622', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic 'cluster_266540882_614483613', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic 'cluster_29123692_506357662', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic 'cluster_311264847_617915219_735132786_735132792_735132793', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic 'joinedS_0', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic 'joinedS_1', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic 'joinedS_2', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic 'joinedS_3', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic 'joinedS_4', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic 'joinedS_5', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic 'joinedS_6', minDur 5.00 is too short for a detector gap of 27.78m.
-Warning: At actuated tlLogic 'joinedS_7', minDur 5.00 is too short for a detector gap of 27.78m.
 Warning: busStop '2959830767' on lane '190447768#0_1' is too short for vehicle 'pt_bus_N6:0.0'.
 Warning: busStop '2094266784' on lane '200422335#0_0' is too short for vehicle 'pt_subway_U2:0.0'.
 Warning: busStop '2094266782' on lane '200422335#0_0' is too short for vehicle 'pt_subway_U2:0.0'.
