@@ -116,4 +116,7 @@ public_walk_human_readable_time
 
 # Copy of car_public_walk
 bike_public_walk
+
+# see #4314
+walk
 errors
