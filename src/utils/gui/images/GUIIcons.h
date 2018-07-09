@@ -225,6 +225,7 @@ enum GUIIcon {
     /// @name netedit additional icons
     /// @{
     ICON_BUSSTOP,
+    ICON_ACCESS,
     ICON_CONTAINERSTOP,
     ICON_CHARGINGSTATION,
     ICON_E1,
