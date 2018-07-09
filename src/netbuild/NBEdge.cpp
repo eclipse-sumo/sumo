@@ -1989,10 +1989,16 @@ NBEdge::computeEdge2Edges(bool noLeftMovers) {
         return true;
     }
     const EdgeVector& o = myTo->getOutgoingEdges();
+    const bool fromRail = isRailway(getPermissions());
     for (EdgeVector::const_iterator i = o.begin(); i != o.end(); ++i) {
         if (noLeftMovers && myTo->isLeftMover(this, *i)) {
             continue;
         }
+        // avoid sharp railway turns
+        if (fromRail && isRailway((*i)->getPermissions()) &&
+                fabs(NBHelpers::normRelAngle(getAngleAtNode(myTo), (*i)->getAngleAtNode(myTo))) > 90) {
+            continue;
+        };
         myConnections.push_back(Connection(-1, *i, -1));
     }
     myStep = EDGE2EDGES;
