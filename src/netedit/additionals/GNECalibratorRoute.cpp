@@ -52,14 +52,14 @@
 // ===========================================================================
 
 GNECalibratorRoute::GNECalibratorRoute(GNEViewNet *viewNet) :
-    GNEAdditional(viewNet->getNet()->generateAdditionalID(SUMO_TAG_ROUTE), viewNet, GLO_CALIBRATOR, SUMO_TAG_ROUTE, "", false, false) {
+    GNEAdditional(viewNet->getNet()->generateAdditionalID(SUMO_TAG_ROUTE), viewNet, GLO_CALIBRATOR, SUMO_TAG_ROUTE, "", false) {
     // fill route type with default values
     setDefaultValues();
 }
 
 
 GNECalibratorRoute::GNECalibratorRoute(GNEViewNet *viewNet, const std::string& routeID, const std::vector<GNEEdge*>& edges, const RGBColor& color) :
-    GNEAdditional(routeID, viewNet, GLO_CALIBRATOR, SUMO_TAG_ROUTE, "", false, false),
+    GNEAdditional(routeID, viewNet, GLO_CALIBRATOR, SUMO_TAG_ROUTE, "", false),
     myEdges(edges),
     myColor(color) {
 }

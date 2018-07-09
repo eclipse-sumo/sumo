@@ -55,7 +55,7 @@
 // ===========================================================================
 
 GNEAccess::GNEAccess(GNEAdditional *busStop, GNELane* lane, GNEViewNet* viewNet, const std::string& pos, const std::string& length, bool friendlyPos, bool blockMovement) :
-    GNEAdditional(busStop, viewNet, GLO_ACCESS, SUMO_TAG_ACCESS, "", true, blockMovement),
+    GNEAdditional(busStop, viewNet, GLO_ACCESS, SUMO_TAG_ACCESS, "", blockMovement),
     myLane(lane),
     myPositionOverLane(pos),
     myLength(length),

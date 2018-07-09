@@ -53,7 +53,7 @@
 // ===========================================================================
 
 GNEVaporizer::GNEVaporizer(GNEViewNet* viewNet, GNEEdge* edge, double begin, double end, const std::string &name) :
-    GNEAdditional(edge->getID(), viewNet, GLO_VAPORIZER, SUMO_TAG_VAPORIZER, name, false, false),
+    GNEAdditional(edge->getID(), viewNet, GLO_VAPORIZER, SUMO_TAG_VAPORIZER, name, false),
     myEdge(edge),
     myBegin(begin),
     myEnd(end) {
@@ -96,7 +96,7 @@ GNEVaporizer::updateGeometry() {
     myBlockIconPosition = myShape.getLineCenter();
 
     // Set offset of the block icon
-    myBlockIconOffset = Position(1.1, (-3.06) - 2);
+    myBlockIconOffset = Position(1.1, (-3.06));
 
     // Set block icon rotation, and using their rotation for logo
     setBlockIconRotation(firstLane);
