@@ -911,7 +911,7 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
             gDebugFlag1 = true;
             std::cout << "   link=" << (link == nullptr ? "NULL" : link->getViaLaneOrLane()->getID()) 
                 << " dist=" << dist << " d2=" << dist -p.getMinGap() << " la=" << LOOKAHEAD_SAMEDIR * speed 
-                << " opened=" << link->opened(currentTime - DELTA_T, speed, speed, passingLength, p.getImpatience(currentTime), speed, 0, 0, 0, p.ignoreRed(link)) << "\n";
+                << " opened=" << (link == nullptr ? "NULL" : toString(link->opened(currentTime - DELTA_T, speed, speed, passingLength, p.getImpatience(currentTime), speed, 0, 0, 0, p.ignoreRed(link)))) << "\n";
             gDebugFlag1 = false;
         }
         if (link != 0
