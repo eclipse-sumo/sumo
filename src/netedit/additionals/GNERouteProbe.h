@@ -129,9 +129,6 @@ protected:
     /// @brief route probe logo offset
     Position myRouteProbeLogoOffset;
 
-    /// @brief number of lanes of edge (To improve efficiency)
-    int myNumberOfLanes;
-
     /// @brief relative position regarding to other route probes
     int myRelativePositionY;
 

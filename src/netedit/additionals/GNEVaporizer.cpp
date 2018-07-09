@@ -76,9 +76,6 @@ GNEVaporizer::updateGeometry() {
     // get lanes of edge
     GNELane* firstLane = myEdge->getLanes().at(0);
 
-    // Save number of lanes
-    myNumberOfLanes = int(myEdge->getLanes().size());
-
     // Get shape of lane parent
     double offset = firstLane->getShape().length() < 2.5 ? firstLane->getShape().length() : 2.5;
     myShape.push_back(firstLane->getShape().positionAtOffset(offset));
@@ -90,7 +87,7 @@ GNEVaporizer::updateGeometry() {
     Position s = myShape[0] + Position(1, 0);
 
     // Save rotation (angle) of the vector constructed by points f and s
-    myShapeRotations.push_back(firstLane->getShape().rotationDegreeAtOffset(offset) * -1);
+    myShapeRotations.push_back(firstLane->getShape().rotationDegreeAtOffset(0) * -1);
 
     // Set block icon position
     myBlockIconPosition = myShape.getLineCenter();
@@ -108,11 +105,15 @@ GNEVaporizer::updateGeometry() {
 
 Position
 GNEVaporizer::getPositionInView() const {
-    Position A = myEdge->getLanes().front()->getShape().positionAtOffset(5);
-    Position B = myEdge->getLanes().back()->getShape().positionAtOffset(5);
+    if(myEdge->getLanes().front()->getShape().length() < 2.5) {
+        return myEdge->getLanes().front()->getShape().front();
+    } else {
+        Position A = myEdge->getLanes().front()->getShape().positionAtOffset(2.5);
+        Position B = myEdge->getLanes().back()->getShape().positionAtOffset(2.5);
 
-    // return Middle point
-    return Position((A.x() + B.x()) / 2, (A.y() + B.y()) / 2);
+        // return Middle point
+        return Position((A.x() + B.x()) / 2, (A.y() + B.y()) / 2);
+    }
 }
 
 
@@ -141,6 +142,7 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
     double width = (double) 2.0 * s.scale;
     glLineWidth(1.0);
     const double exaggeration = s.addSize.getExaggeration(s);
+    const int numberOfLanes = int(myEdge->getLanes().size());
 
     // set color
     if (isAttributeCarrierSelected()) {
@@ -158,8 +160,8 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
     glBegin(GL_QUADS);
     glVertex2d(0,  0.25);
     glVertex2d(0, -0.25);
-    glVertex2d((myNumberOfLanes * 3.3), -0.25);
-    glVertex2d((myNumberOfLanes * 3.3),  0.25);
+    glVertex2d((numberOfLanes * 3.3), -0.25);
+    glVertex2d((numberOfLanes * 3.3),  0.25);
     glEnd();
     glTranslated(0, 0, .01);
     glBegin(GL_LINES);
@@ -177,7 +179,7 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
         glRotated(90, 0, 0, -1);
         glBegin(GL_LINES);
         glVertex2d(0, 0);
-        glVertex2d(0, (myNumberOfLanes * 3.3));
+        glVertex2d(0, (numberOfLanes * 3.3));
         glEnd();
     }
 
@@ -291,13 +293,13 @@ GNEVaporizer::isValid(SumoXMLAttr key, const std::string& value) {
 
 std::string 
 GNEVaporizer::getPopUpID() const {
-    return toString(getTag()) + ": " + getID();
+    return toString(getTag());
 }
 
 
 std::string 
 GNEVaporizer::getHierarchyName() const {
-    return toString(getTag());
+    return toString(getTag()) + ": " + getAttribute(SUMO_ATTR_BEGIN) + " -> " + getAttribute(SUMO_ATTR_END);
 }
 
 // ===========================================================================

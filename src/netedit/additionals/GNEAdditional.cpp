@@ -592,7 +592,7 @@ GNEAdditional::setBlockIconRotation(GNELane* additionalLane) {
     if (myShape.size() > 0 && myShape.length() != 0) {
         // If length of the shape is distint to 0, Obtain rotation of center of shape
         myBlockIconRotation = myShape.rotationDegreeAtOffset((myShape.length() / 2.)) - 90;
-    } else if (getTagProperties(getTag()).hasAttribute(SUMO_ATTR_LANE)) {
+    } else if (additionalLane) {
         // If additional is over a lane, set rotation in the position over lane
         double posOverLane = additionalLane->getShape().nearest_offset_to_point2D(getPositionInView());
         myBlockIconRotation = additionalLane->getShape().rotationDegreeAtOffset(posOverLane) - 90;

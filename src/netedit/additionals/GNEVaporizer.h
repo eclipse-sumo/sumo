@@ -121,9 +121,6 @@ protected:
     /// @brief end time in which this vaporizer is placed
     double myEnd;
 
-    /// @brief number of lanes of edge (To improve efficiency)
-    int myNumberOfLanes;
-
 private:
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
