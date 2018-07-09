@@ -211,6 +211,9 @@ public:
      * @param[in] nc The container of nodes to loop along
      */
     static void validateRailCrossings(NBNodeCont& nc);
+
+    /// @brief whether the given node only has rail edges
+    static bool isRailwayNode(NBNode* n);
 };
 
 

@@ -46,6 +46,7 @@
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/iodevices/OutputDevice.h>
 #include "NBHelpers.h"
+#include "NBAlgorithms.h"
 #include "NBDistrict.h"
 #include "NBEdgeCont.h"
 #include "NBTrafficLightLogicCont.h"
@@ -1180,7 +1181,7 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
             }
             const EdgeVector& incoming = node->getIncomingEdges();
             const EdgeVector& outgoing = node->getOutgoingEdges();
-            if (!node->isTLControlled() && incoming.size() > 1 && !node->geometryLike()) {
+            if (!node->isTLControlled() && incoming.size() > 1 && !node->geometryLike() && !NBNodeTypeComputer::isRailwayNode(node)) {
                 std::vector<NBNode*> signals;
                 bool isTLS = true;
                 for (EdgeVector::const_iterator it_i = incoming.begin(); it_i != incoming.end(); ++it_i) {
@@ -1194,7 +1195,7 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
                     }
                 }
                 // outgoing edges may be tagged with pedestrian crossings. These
-                // should also be morged into the main TLS
+                // should also be merged into the main TLS
                 for (EdgeVector::const_iterator it_i = outgoing.begin(); it_i != outgoing.end(); ++it_i) {
                     const NBEdge* outEdge = *it_i;
                     NBNode* cand = outEdge->getToNode();
@@ -1512,7 +1513,8 @@ NBNodeCont::discardTrafficLights(NBTrafficLightLogicCont& tlc, bool geometryLike
                 node->removeTrafficLight(tlDef);
                 tlc.extract(tlDef);
             }
-            node->reinit(node->getPosition(), NODETYPE_UNKNOWN);
+            SumoXMLNodeType newType = NBNodeTypeComputer::isRailwayNode(node) ? NODETYPE_RAIL_SIGNAL : NODETYPE_UNKNOWN;
+            node->reinit(node->getPosition(), newType);
         }
     }
 }

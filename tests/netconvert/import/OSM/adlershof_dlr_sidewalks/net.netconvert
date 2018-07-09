@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jun 28 09:17:13 2018 by Eclipse SUMO netconvert Version 3ef3414
+<!-- generated on Mon Jul  9 15:25:35 2018 by Eclipse SUMO netconvert Version 76bbafc
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -1772,8 +1772,11 @@ SPDX-License-Identifier: EPL-2.0
     <edge id="158236729#0" from="1704693343" to="cluster_1789928382_664166124" priority="15" type="railway.tram" spreadType="center" shape="4414.49,1050.06 4441.78,1020.36 4449.17,1011.97 4455.41,1002.99">
         <lane id="158236729#0_0" index="0" allow="tram" speed="27.78" length="62.78" shape="4414.49,1050.06 4441.78,1020.36 4449.17,1011.97 4451.53,1008.57"/>
     </edge>
-    <edge id="158236729#1" from="cluster_1789928382_664166124" to="1704693564" priority="15" type="railway.tram" spreadType="center" shape="4455.41,1002.99 4457.17,999.76 4458.88,996.15 4589.05,734.79 4591.99,729.80 4595.84,724.44 4598.66,722.36 4603.45,719.44 4610.14,717.38 4616.46,717.14 4625.87,717.75 4633.90,720.62 4652.28,731.54 4670.62,745.56">
-        <lane id="158236729#1_0" index="0" allow="tram" speed="27.78" length="396.99" shape="4458.52,996.93 4458.88,996.15 4589.05,734.79 4591.99,729.80 4595.84,724.44 4598.66,722.36 4603.45,719.44 4610.14,717.38 4616.46,717.14 4625.87,717.75 4633.90,720.62 4652.28,731.54 4670.62,745.56"/>
+    <edge id="158236729#1" from="cluster_1789928382_664166124" to="1704693513" priority="15" type="railway.tram" spreadType="center" shape="4455.41,1002.99 4457.17,999.76 4458.88,996.15 4589.05,734.79 4591.99,729.80 4595.84,724.44 4598.66,722.36">
+        <lane id="158236729#1_0" index="0" allow="tram" speed="27.78" length="315.64" shape="4458.52,996.93 4458.88,996.15 4589.05,734.79 4591.99,729.80 4595.84,724.44 4598.66,722.36"/>
+    </edge>
+    <edge id="158236729#2" from="1704693513" to="1704693564" priority="15" type="railway.tram" spreadType="center" shape="4598.66,722.36 4603.45,719.44 4610.14,717.38 4616.46,717.14 4625.87,717.75 4633.90,720.62 4652.28,731.54 4670.62,745.56">
+        <lane id="158236729#2_0" index="0" allow="tram" speed="27.78" length="81.35" shape="4598.66,722.36 4603.45,719.44 4610.14,717.38 4616.46,717.14 4625.87,717.75 4633.90,720.62 4652.28,731.54 4670.62,745.56"/>
     </edge>
     <edge id="161788770" from="1568241639" to="1568241637" priority="1" type="highway.footway" spreadType="center">
         <lane id="161788770_0" index="0" allow="pedestrian" speed="8.33" length="23.18" width="2.00" shape="4159.24,876.95 4173.16,875.89"/>
@@ -3408,7 +3411,10 @@ SPDX-License-Identifier: EPL-2.0
         <request index="8" response="000010001" foes="000010001"/>
     </junction>
     <junction id="1704693343" type="dead_end" x="4414.49" y="1050.06" incLanes="" intLanes="" shape="4415.67,1051.15 4413.31,1048.98"/>
-    <junction id="1704693564" type="dead_end" x="4670.62" y="745.56" incLanes="158236729#1_0" intLanes="" shape="4671.59,744.29 4669.65,746.83"/>
+    <junction id="1704693513" type="rail_signal" x="4598.66" y="722.36" incLanes="158236729#1_0" intLanes="" shape="4599.56,723.69 4597.89,720.95 4597.77,721.03 4597.71,721.08">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="1704693564" type="dead_end" x="4670.62" y="745.56" incLanes="158236729#2_0" intLanes="" shape="4671.59,744.29 4669.65,746.83"/>
     <junction id="175648134" type="dead_end" x="3946.67" y="411.41" incLanes="137699977_0" intLanes="" shape="3945.68,414.04 3947.68,414.03 3947.85,413.06 3948.05,412.71 3948.34,412.44 3948.71,412.26 3949.17,412.17 3948.97,410.18 3943.95,410.73 3944.19,412.71 3945.02,412.78 3945.31,412.96 3945.51,413.22 3945.64,413.58"/>
     <junction id="1787023432" type="priority" x="4421.95" y="498.54" incLanes="24214694#4_0 24214694#4_1 -24214694#5_0 -24214694#5_1 71596029#3_0" intLanes="" shape="4415.96,501.03 4428.31,499.84 4427.83,494.85 4415.48,496.04 4415.40,496.87 4415.22,497.16 4414.94,497.37 4414.58,497.49 4414.13,497.53 4414.13,499.53 4415.08,499.70 4415.43,499.91 4415.69,500.20 4415.87,500.57">
         <request index="0" response="0000" foes="1000"/>
@@ -6114,6 +6120,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="158236729#0" to="142575693#0" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from="158236729#0" to="158236729#1" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="158236729#0" to="143308521#10" fromLane="0" toLane="1" dir="l" state="M"/>
+    <connection from="158236729#1" to="158236729#2" fromLane="0" toLane="0" tl="1704693513" linkIndex="0" dir="s" state="O"/>
     <connection from="161788772" to="-47765623#0" fromLane="0" toLane="0" dir="r" state="="/>
     <connection from="161788772" to="-47765615#1" fromLane="0" toLane="0" dir="s" state="="/>
     <connection from="161788772" to="47765623#2" fromLane="0" toLane="0" dir="l" state="="/>
