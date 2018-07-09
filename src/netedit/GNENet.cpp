@@ -1767,7 +1767,7 @@ GNENet::removeExplicitTurnaround(std::string id) {
 
 GNEAdditional*
 GNENet::retrieveAdditional(SumoXMLTag type, const std::string& id, bool hardFail) const {
-    if (myAttributeCarriers.additionals.at(type).count(id) != 0) {
+    if ((myAttributeCarriers.additionals.count(type) > 0) && (myAttributeCarriers.additionals.at(type).count(id) != 0)) {
         return myAttributeCarriers.additionals.at(type).at(id);
     } else if (hardFail) {
         throw ProcessError("Attempted to retrieve non-existant additional");
