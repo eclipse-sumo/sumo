@@ -14,3 +14,6 @@ resampling_ticket4193
 
 # tests that values are cut down if too many resamples were required
 resampling_ticket4193_lowResampling
+
+# assign a negative constant value
+negative_constant
