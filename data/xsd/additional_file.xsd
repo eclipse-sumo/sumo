@@ -5,7 +5,7 @@
     <xsd:include schemaLocation="meandataTypes.xsd"/>
 
     <xsd:element name="additional" type="additionalType"/>
-	<xsd:element name="rerouterValue" type="rerouterValuesType"/>
+    <xsd:element name="rerouterValue" type="rerouterValuesType"/>
     
     <xsd:complexType name="additionalType">
         <xsd:choice maxOccurs="unbounded">
@@ -58,9 +58,9 @@
         </xsd:choice>
 
     </xsd:complexType>
-	
-	<xsd:complexType name="rerouterValuesType">
-		<xsd:sequence minOccurs="0">
+    
+    <xsd:complexType name="rerouterValuesType">
+        <xsd:sequence minOccurs="0">
             <xsd:element name="interval" minOccurs="1" maxOccurs="unbounded">
                 <xsd:complexType>
                     <xsd:choice maxOccurs="unbounded">
@@ -112,6 +112,7 @@
         <xsd:attribute name="freq" type="positiveFloatType" use="required"/>
         <xsd:attribute name="file" type="xsd:string" use="required"/>
         <xsd:attribute name="vTypes" type="xsd:string" use="optional"/>
+        <xsd:attribute name="name" type="xsd:string" use="optional"/>
         <xsd:attribute name="friendlyPos" use="optional" type="boolType"/>
     </xsd:complexType>
 
@@ -137,6 +138,7 @@
         <xsd:attribute name="speedThreshold" type="xsd:float" use="optional"/>
         <xsd:attribute name="jamThreshold" type="xsd:float" use="optional"/>
         <xsd:attribute name="vTypes" type="xsd:string" use="optional"/>
+        <xsd:attribute name="name" type="xsd:string" use="optional"/>
         <xsd:attribute name="friendlyPos" use="optional" type="boolType"/>
     </xsd:complexType>
 
@@ -155,6 +157,7 @@
         <xsd:attribute name="vTypes" type="xsd:string" use="optional"/>
         <xsd:attribute name="openEntry" type="boolType" use="optional"/>
         <xsd:attribute name="pos" type="xsd:string" use="optional"/>
+        <xsd:attribute name="name" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="detEntryExitType">
@@ -307,6 +310,7 @@
         <xsd:attribute name="vTypes" type="xsd:string" use="optional"/>
         <xsd:attribute name="timeThreshold" type="nonNegativeFloatType" use="optional"/>
         <xsd:attribute name="pos" type="xsd:string" use="optional"/>
+        <xsd:attribute name="name" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="instantInductionLoopType">
@@ -315,6 +319,7 @@
         <xsd:attribute name="pos" type="xsd:float" use="required"/>
         <xsd:attribute name="file" type="xsd:string" use="required"/>
         <xsd:attribute name="friendlyPos" type="boolType" use="optional"/>
+        <xsd:attribute name="name" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="stoppingPlaceType">
@@ -351,6 +356,7 @@
         <xsd:attribute name="efficiency" type="xsd:float"/>
         <xsd:attribute name="chargeInTransit" type="xsd:float"/>
         <xsd:attribute name="chargeDelay" type="xsd:float"/>
+        <xsd:attribute name="name" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="parkingAreaType">
@@ -367,6 +373,7 @@
         <xsd:attribute name="width" type="positiveFloatType" use="optional"/>
         <xsd:attribute name="length" type="positiveFloatType" use="optional"/>
         <xsd:attribute name="angle" type="xsd:float" use="optional"/>
+        <xsd:attribute name="name" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="parkingSpaceType">
@@ -391,12 +398,14 @@
         <xsd:attribute name="freq" type="positiveFloatType" use="optional"/>
         <xsd:attribute name="file" type="xsd:string" use="optional"/>
         <xsd:attribute name="output" type="xsd:string" use="optional"/>
+        <xsd:attribute name="name" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="vaporizerType">
         <xsd:attribute name="id" type="xsd:string" use="required"/>
         <xsd:attribute name="begin" type="nonNegativeFloatType" use="optional"/>
         <xsd:attribute name="end" type="nonNegativeFloatType" use="optional"/>
+        <xsd:attribute name="name" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="polygonType">
