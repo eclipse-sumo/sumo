@@ -7,7 +7,7 @@
 # http://www.eclipse.org/legal/epl-v20.html
 # SPDX-License-Identifier: EPL-2.0
 
-# @file    NeteditTestFunctions.py
+# @file    neteditTestFunctions.py
 # @author  Pablo Alvarez Lopez
 # @date    2016-11-25
 # @version $Id$
