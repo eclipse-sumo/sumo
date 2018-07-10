@@ -19,6 +19,8 @@ Warning: Value '-5' for attribute length of e2Detector isn't valid
 Warning: Setting new attribute length '5' into e2Detector 'correctID'
 Warning: Value '-100' for attribute freq of e2Detector isn't valid
 Warning: Setting new attribute freq '120' into e2Detector 'correctID'
+Warning: Value '%%%&&%$%$' for attribute name of e2Detector isn't valid
+Warning: Setting new attribute name 'customName' into e2Detector 'correctID'
 Warning: Value '%%%&%%%&&' for attribute file of e2Detector isn't valid
 Warning: Setting new attribute file '' into e2Detector 'correctID'
 Warning: Setting new attribute file 'E2Detector_gneE2_1_1.txt' into e2Detector 'correctID'
@@ -31,6 +33,9 @@ Warning: Setting new attribute speedThreshold '6.3' into e2Detector 'correctID'
 Warning: Value '-8' for attribute jamThreshold of e2Detector isn't valid
 Warning: Setting new attribute jamThreshold '12.5' into e2Detector 'correctID'
 Warning: Setting new attribute friendlyPos 'true' into e2Detector 'correctID'
+Warning: Setting new attribute blockMovement 'true' into e2Detector 'correctID'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute blockMovement '0' into e2Detector 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute friendlyPos '0' into e2Detector 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -47,6 +52,8 @@ Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute file '' into e2Detector 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute file 'e2Detector_gneE2_1_0.xml' into e2Detector 'correctID'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute name '' into e2Detector 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute freq '900.00' into e2Detector 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -98,6 +105,8 @@ Warning: Setting new attribute length '5' into e2Detector 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute freq '120' into e2Detector 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute name 'customName' into e2Detector 'correctID'
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute file '' into e2Detector 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute file 'E2Detector_gneE2_1_1.txt' into e2Detector 'correctID'
@@ -113,6 +122,8 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute jamThreshold '12.5' into e2Detector 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute friendlyPos 'true' into e2Detector 'correctID'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute blockMovement 'true' into e2Detector 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Keys Ctrl + Y (Redo) pressed

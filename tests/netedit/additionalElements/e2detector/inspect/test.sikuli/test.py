@@ -92,53 +92,62 @@ netedit.modifyAttribute(4, "-100")
 netedit.modifyAttribute(4, "120")
 
 # Change parameter 5 with an non valid value
-netedit.modifyAttribute(5, "%%%&%%%&&")
-
-# Change parameter 5 with an empty value
-netedit.modifyAttribute(5, "")
+netedit.modifyAttribute(5, "%%%&&%$%$")
 
 # Change parameter 5 with a duplicated value
-netedit.modifyAttribute(5, "E2Detector_gneE2_1_1.txt")
+netedit.modifyAttribute(5, "customName")
 
-# Change parameter 5 with a valid value
-netedit.modifyAttribute(5, "myOwnOutput.txt")
+# Change parameter 6 with an non valid value
+netedit.modifyAttribute(6, "%%%&%%%&&")
 
-# Change boolean parameter 6
-netedit.modifyBoolAttribute(6)
+# Change parameter 6 with an empty value
+netedit.modifyAttribute(6, "")
 
-# Change parameter 7 with a non valid value
-netedit.modifyAttribute(7, "dummyTimeTreshold")
+# Change parameter 6 with a duplicated value
+netedit.modifyAttribute(6, "E2Detector_gneE2_1_1.txt")
 
-# Change parameter 7 with a non valid value
-netedit.modifyAttribute(7, "-5")
+# Change parameter 6 with a valid value
+netedit.modifyAttribute(6, "myOwnOutput.txt")
 
-# Change parameter 7 with a valid value
-netedit.modifyAttribute(7, "4")
-
-# Change parameter 8 with a non valid value
-netedit.modifyAttribute(8, "dummySpeedTreshold")
+# Change boolean parameter 7
+netedit.modifyBoolAttribute(7)
 
 # Change parameter 8 with a non valid value
-netedit.modifyAttribute(8, "-12.1")
+netedit.modifyAttribute(8, "dummyTimeTreshold")
+
+# Change parameter 8 with a non valid value
+netedit.modifyAttribute(8, "-5")
 
 # Change parameter 8 with a valid value
-netedit.modifyAttribute(8, "6.3")
+netedit.modifyAttribute(8, "4")
 
 # Change parameter 9 with a non valid value
-netedit.modifyAttribute(9, "dummyJamThreshold")
+netedit.modifyAttribute(9, "dummySpeedTreshold")
 
 # Change parameter 9 with a non valid value
-netedit.modifyAttribute(9, "-8")
+netedit.modifyAttribute(9, "-12.1")
 
 # Change parameter 9 with a valid value
-netedit.modifyAttribute(9, "12.5")
+netedit.modifyAttribute(9, "6.3")
 
-# Change boolean parameter 10
-netedit.modifyBoolAttribute(10)
+# Change parameter 10 with a non valid value
+netedit.modifyAttribute(10, "dummyJamThreshold")
+
+# Change parameter 10 with a non valid value
+netedit.modifyAttribute(10, "-8")
+
+# Change parameter 10 with a valid value
+netedit.modifyAttribute(10, "12.5")
+
+# Change boolean parameter 11
+netedit.modifyBoolAttribute(11)
+
+# Change boolean parameter 13
+netedit.modifyBoolAttribute(13)
 
 # Check undos and redos
-netedit.undo(match, 24)
-netedit.redo(match, 24)
+netedit.undo(match, 26)
+netedit.redo(match, 26)
 
 # save additionals
 netedit.saveAdditionals()

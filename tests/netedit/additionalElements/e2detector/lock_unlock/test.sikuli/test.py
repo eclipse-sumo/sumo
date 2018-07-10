@@ -38,7 +38,7 @@ netedit.leftClick(match, 240, 250)
 netedit.moveMode()
 
 # move E2 to right
-netedit.moveElement(match, 120, 250, 220, 250)
+netedit.moveElement(match, 130, 250, 220, 250)
 
 # go to inspect mode
 netedit.inspectMode()
@@ -47,7 +47,7 @@ netedit.inspectMode()
 netedit.leftClick(match, 350, 250)
 
 # block additional
-netedit.modifyBoolAttribute(12)
+netedit.modifyBoolAttribute(13)
 
 # change to move mode
 netedit.moveMode()
@@ -62,7 +62,7 @@ netedit.inspectMode()
 netedit.leftClick(match, 350, 250)
 
 # unblock additional
-netedit.modifyBoolAttribute(12)
+netedit.modifyBoolAttribute(13)
 
 # change to move mode
 netedit.moveMode()
