@@ -75,6 +75,7 @@ GNEDialog_AllowDisallow::GNEDialog_AllowDisallow(FXApp* app, std::string* allow)
     // create left frame and fill it
     FXVerticalFrame* myContentLeftFrame = new FXVerticalFrame(myVehiclesFrame, GUIDesignAuxiliarFrame);
     buildVClass(myContentLeftFrame, SVC_PASSENGER, ICON_VCLASS_PASSENGER, "Default vehicle class");
+    buildVClass(myContentLeftFrame, SVC_PRIVATE, ICON_VCLASS_PRIVATE, "A passenger car assigned for private use");
     buildVClass(myContentLeftFrame, SVC_TAXI, ICON_VCLASS_TAXI, "Vehicle for hire with a driver");
     buildVClass(myContentLeftFrame, SVC_BUS, ICON_VCLASS_BUS, "Urban line traffic");
     buildVClass(myContentLeftFrame, SVC_COACH, ICON_VCLASS_COACH, "Overland transport");
@@ -89,15 +90,14 @@ GNEDialog_AllowDisallow::GNEDialog_AllowDisallow(FXApp* app, std::string* allow)
     buildVClass(myContentCenterFrame, SVC_BICYCLE, ICON_VCLASS_BICYCLE, "Human-powered, pedal-driven vehicle");
     buildVClass(myContentCenterFrame, SVC_PEDESTRIAN, ICON_VCLASS_PEDESTRIAN, "Person traveling on foot");
     buildVClass(myContentCenterFrame, SVC_TRAM, ICON_VCLASS_TRAM, "Rail vehicle which runs on tracks");
+    buildVClass(myContentCenterFrame, SVC_RAIL_ELECTRIC, ICON_VCLASS_RAIL_ELECTRIC, "Rail electric vehicle");
     buildVClass(myContentCenterFrame, SVC_RAIL_URBAN, ICON_VCLASS_RAIL_URBAN, "Heavier than tram");
     buildVClass(myContentCenterFrame, SVC_RAIL, ICON_VCLASS_RAIL, "Heavy rail vehicle (ICE)");
-    buildVClass(myContentCenterFrame, SVC_RAIL_ELECTRIC, ICON_VCLASS_RAIL_ELECTRIC, "Rail electric vehicle (Trolleybus)");
-    buildVClass(myContentCenterFrame, SVC_SHIP, ICON_VCLASS_SHIP, "Basic class for navigating waterway");
     buildVClass(myContentCenterFrame, SVC_E_VEHICLE, ICON_VCLASS_EVEHICLE, "Future electric mobility vehicles");
     // create right frame and fill it  (8 vehicles)
     FXVerticalFrame* myContentRightFrame = new FXVerticalFrame(myVehiclesFrame, GUIDesignAuxiliarFrame);
-    buildVClass(myContentRightFrame, SVC_PRIVATE, ICON_VCLASS_PRIVATE, "A passenger car assigned for private use");
     buildVClass(myContentRightFrame, SVC_ARMY, ICON_VCLASS_ARMY, "Vehicle designed for military forces");
+    buildVClass(myContentRightFrame, SVC_SHIP, ICON_VCLASS_SHIP, "Basic class for navigating waterway");
     buildVClass(myContentRightFrame, SVC_AUTHORITY, ICON_VCLASS_AUTHORITY, "Vehicle of a governmental security agency");
     buildVClass(myContentRightFrame, SVC_VIP, ICON_VCLASS_VIP, "A civilian security armored car used by VIPs");
     buildVClass(myContentRightFrame, SVC_HOV, ICON_VCLASS_HOV, "High-Occupancy Vehicle (two or more passengers)");
