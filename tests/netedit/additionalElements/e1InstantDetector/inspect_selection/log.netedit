@@ -14,6 +14,9 @@ Warning: Setting new attribute selected 'true' into edge 'gneE0'
 Warning: Setting new attribute selected 'true' into instantInductionLoop 'E1Instant_A'
 Warning: Setting new attribute selected 'true' into instantInductionLoop 'E1Instant_B'
 Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 2 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Value '%%%&&%$%$' for attribute name of instantInductionLoop isn't valid
+Warning: Setting new attribute name 'customName' into instantInductionLoop 'E1Instant_A'
+Warning: Setting new attribute name 'customName' into instantInductionLoop 'E1Instant_B'
 Warning: Setting new attribute file '' into instantInductionLoop 'E1Instant_A'
 Warning: Setting new attribute file '' into instantInductionLoop 'E1Instant_B'
 Warning: Value '%%%&&%$%$' for attribute file of instantInductionLoop isn't valid
@@ -37,6 +40,12 @@ Warning: Setting previous attribute file 'instantInductionLoop_gneE2_1_1.txt' in
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute file '' into instantInductionLoop 'E1Instant_B'
 Warning: Setting previous attribute file '' into instantInductionLoop 'E1Instant_A'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute file 'instantInductionLoop_01.txt' into instantInductionLoop 'E1Instant_B'
+Warning: Setting previous attribute file 'instantInductionLoop_01.txt' into instantInductionLoop 'E1Instant_A'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute file '' into instantInductionLoop 'E1Instant_A'
+Warning: Setting new attribute file '' into instantInductionLoop 'E1Instant_B'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute file 'instantInductionLoop_gneE2_1_1.txt' into instantInductionLoop 'E1Instant_A'
 Warning: Setting new attribute file 'instantInductionLoop_gneE2_1_1.txt' into instantInductionLoop 'E1Instant_B'

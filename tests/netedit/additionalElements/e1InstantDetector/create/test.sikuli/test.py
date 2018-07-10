@@ -32,35 +32,47 @@ netedit.additionalMode()
 netedit.changeAdditional("instantInductionLoop")
 
 # create E1 Instant with default parameters
+netedit.leftClick(match, 150, 250)
+
+# set invalid name
+netedit.modifyAdditionalDefaultValue(2, "\"\"\"")
+
+# try to create E1 with invalid name
+netedit.leftClick(match, 200, 250)
+
+# set valid name
+netedit.modifyAdditionalDefaultValue(2, "customName")
+
+# try to create E1 with invalid name
 netedit.leftClick(match, 200, 250)
 
 # set invalid filename
-netedit.modifyAdditionalDefaultValue(2, "&&&&&&&&")
+netedit.modifyAdditionalDefaultValue(3, "&&&&&&&&")
 
 # try to create E1 Instant with invalid filename
 netedit.leftClick(match, 300, 250)
 
 # set valid filename
-netedit.modifyAdditionalDefaultValue(2, "myOwnFilename.txt")
+netedit.modifyAdditionalDefaultValue(3, "myOwnFilename.txt")
 
 # create E1 Instant with valid filename
 netedit.leftClick(match, 300, 250)
 
 # Change friendlyPos
-netedit.modifyAdditionalDefaultBoolValue(3)
+netedit.modifyAdditionalDefaultBoolValue(4)
 
 # create E1 Instant with different friendly pos
 netedit.leftClick(match, 400, 250)
 
 # Change block move
-netedit.modifyAdditionalDefaultBoolValue(5)
+netedit.modifyAdditionalDefaultBoolValue(6)
 
 # create E1 Instant with different block move
 netedit.leftClick(match, 450, 250)
 
 # Check undo redo
-netedit.undo(match, 5)
-netedit.redo(match, 5)
+netedit.undo(match, 6)
+netedit.redo(match, 6)
 
 # save additionals
 netedit.saveAdditionals()

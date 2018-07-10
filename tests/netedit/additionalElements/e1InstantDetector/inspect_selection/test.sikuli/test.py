@@ -37,27 +37,34 @@ netedit.inspectMode()
 # inspect E1 Instant
 netedit.leftClick(match, 150, 240)
 
-# Change parameter 0 with an empty value
-netedit.modifyAttribute(0, "")
-
 # Change parameter 0 with an non valid value
 netedit.modifyAttribute(0, "%%%&&%$%$")
 
 # Change parameter 0 with a duplicated value
-netedit.modifyAttribute(0, "instantInductionLoop_gneE2_1_1.txt")
+netedit.modifyAttribute(0, "customName")
 
-# Change parameter 0 with a valid value
-netedit.modifyAttribute(0, "myOwnOutput.txt")
+
+# Change parameter 1 with an empty value
+netedit.modifyAttribute(1, "")
+
+# Change parameter 1 with an non valid value
+netedit.modifyAttribute(1, "%%%&&%$%$")
+
+# Change parameter 1 with a duplicated value
+netedit.modifyAttribute(1, "instantInductionLoop_gneE2_1_1.txt")
+
+# Change parameter 1 with a valid value
+netedit.modifyAttribute(1, "myOwnOutput.txt")
 
 # Change boolean parameter 1
-netedit.modifyBoolAttribute(1)
+netedit.modifyBoolAttribute(2)
 
 # Change boolean parameter block movement
-netedit.modifyBoolAttribute(3)
+netedit.modifyBoolAttribute(4)
 
 # Check undos and redos
-netedit.undo(match, 4)
-netedit.redo(match, 4)
+netedit.undo(match, 5)
+netedit.redo(match, 5)
 
 # save additionals
 netedit.saveAdditionals()

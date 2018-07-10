@@ -1,7 +1,7 @@
 <additionals>
     <!-- E1 A -->
-    <instantInductionLoop id="E1Instant_A" lane="gneE0_0" pos="6" freq="120.00" file="instantInductionLoop_01.txt" vTypes="bus taxi private" friendlyPos="0"/>
+    <instantInductionLoop id="E1Instant_A" lane="gneE0_0" pos="6" freq="120.00" name="A" file="instantInductionLoop_01.txt" vTypes="bus taxi private" friendlyPos="0"/>
 
 	<!-- E1 B -->
-	<instantInductionLoop id="E1Instant_B" lane="gneE0_0" pos="10" freq="90.00" file="instantInductionLoop_01.txt" vTypes="bus taxi private" friendlyPos="0"/>
+	<instantInductionLoop id="E1Instant_B" lane="gneE0_0" pos="10" freq="90.00" name="B" file="instantInductionLoop_01.txt" vTypes="bus taxi private" friendlyPos="0"/>
 </additionals>

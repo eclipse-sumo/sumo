@@ -4,10 +4,14 @@ Warning: Selected additional 'instantInductionLoop' in AdditionalSelector
 Warning: Adding instantInductionLoop 'instantInductionLoop_gneE0_0_0' in GNEChange_Additional
 Warning: Additionals has to be saved
 Warning: Current saving Status: net saved, additionals unsaved, shapes saved
-Warning: Invalid input parameter of instantInductionLoop: input contains invalid characters for a filename
+Warning: Invalid input parameter of instantInductionLoop: Name contains invalid characters
 Warning: Adding instantInductionLoop 'instantInductionLoop_gneE0_0_1' in GNEChange_Additional
+Warning: Invalid input parameter of instantInductionLoop: input contains invalid characters for a filename
 Warning: Adding instantInductionLoop 'instantInductionLoop_gneE0_0_2' in GNEChange_Additional
 Warning: Adding instantInductionLoop 'instantInductionLoop_gneE0_0_3' in GNEChange_Additional
+Warning: Adding instantInductionLoop 'instantInductionLoop_gneE0_0_4' in GNEChange_Additional
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Removing instantInductionLoop 'instantInductionLoop_gneE0_0_4' in GNEChange_Additional
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing instantInductionLoop 'instantInductionLoop_gneE0_0_3' in GNEChange_Additional
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -26,12 +30,15 @@ Warning: Adding instantInductionLoop 'instantInductionLoop_gneE0_0_2' in GNEChan
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding instantInductionLoop 'instantInductionLoop_gneE0_0_3' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Adding instantInductionLoop 'instantInductionLoop_gneE0_0_4' in GNEChange_Additional
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-Warning: Deleting unreferenced instantInductionLoop 'instantInductionLoop_gneE0_0_3'
+Warning: Deleting unreferenced instantInductionLoop 'instantInductionLoop_gneE0_0_4'
 Warning: Additionals has to be saved
 Warning: Current saving Status: net saved, additionals unsaved, shapes saved
+Warning: Deleting unreferenced instantInductionLoop 'instantInductionLoop_gneE0_0_3'
 Warning: Deleting unreferenced instantInductionLoop 'instantInductionLoop_gneE0_0_2'
 Warning: Deleting unreferenced instantInductionLoop 'instantInductionLoop_gneE0_0_1'
 Warning: Deleting unreferenced instantInductionLoop 'instantInductionLoop_gneE0_0_0'
