@@ -80,29 +80,29 @@ class PropertyReader(xml.sax.handler.ContentHandler):
     def checkDoxyLines(self, lines, idx, comment="///"):
         fileRef = "%s @file    %s\n" % (comment, os.path.basename(self._file))
         try:
-			s = lines[idx].split()
-			if s != fileRef.split():
-				print(self._file, "broken @file reference", lines[idx].rstrip())
-				if self._fix and lines[idx].startswith("%s @file" % comment):
-					lines[idx] = fileRef
-					self._haveFixed = True
-			idx += 1
-			s = lines[idx].split()
-			if s[:2] != [comment, "@author"]:
-				print(self._file, "broken @author reference", s)
-			idx += 1
-			while lines[idx].split()[:2] == [comment, "@author"]:
-				idx += 1
-			s = lines[idx].split()
-			if s[:2] != [comment, "@date"]:
-				print(self._file, "broken @date reference", s)
-			idx += 1
-			s = lines[idx].split()
-			if s[:2] != [comment, "@version"]:
-				print(self._file, "broken @version reference", s)
-			idx += 1
-			if lines[idx] not in (comment + "\n", "\n"):
-				print(self._file, "missing empty line", idx, lines[idx].rstrip())
+            s = lines[idx].split()
+            if s != fileRef.split():
+                print(self._file, "broken @file reference", lines[idx].rstrip())
+                if self._fix and lines[idx].startswith("%s @file" % comment):
+                    lines[idx] = fileRef
+                    self._haveFixed = True
+            idx += 1
+            s = lines[idx].split()
+            if s[:2] != [comment, "@author"]:
+                print(self._file, "broken @author reference", s)
+            idx += 1
+            while lines[idx].split()[:2] == [comment, "@author"]:
+                idx += 1
+            s = lines[idx].split()
+            if s[:2] != [comment, "@date"]:
+                print(self._file, "broken @date reference", s)
+            idx += 1
+            s = lines[idx].split()
+            if s[:2] != [comment, "@version"]:
+                print(self._file, "broken @version reference", s)
+            idx += 1
+            if lines[idx] not in (comment + "\n", "\n"):
+                print(self._file, "missing empty line", idx, lines[idx].rstrip())
         except IndexError:
             print(self._file, "seems to be empty")
         idx += 1

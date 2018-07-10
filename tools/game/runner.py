@@ -98,7 +98,7 @@ if _UPLOAD:
     try:
         import httplib
         printDebug("SUCCESS")
-    except:
+    except BaseException:
         printDebug()("FAILED - disabling upload...")
         _UPLOAD = False
 else:
@@ -444,7 +444,7 @@ class ScoreDialog:
                         r1 = conn.getresponse()
                         print(r1.status, r1.reason, r1.read())
                     printDebug("SUCCESS")
-                except:
+                except BaseException:
                     printDebug("FAILED")
         self.quit()
 

@@ -68,7 +68,7 @@ vehicleParameters = {
                    "1800", "--trip-attributes",                'departLane="best"', "--validate"],
     "rail":       ["--vehicle-class", "rail",       "--vclass", "rail",       "--prefix", "rail",  "--min-distance",
                    "2400", "--trip-attributes",                'departLane="best"', "--validate"],
-    "ship":       ["--vehicle-class", "ship",       "--vclass", "ship",       "--prefix", "ship",                                                                                      "--validate"],
+    "ship":       ["--vehicle-class", "ship",       "--vclass", "ship",       "--prefix", "ship", "--validate"],
     "pedestrian": ["--vehicle-class", "pedestrian", "--pedestrians", "--prefix", "ped",   "--max-distance",
                    "2000", "--trip-attributes", 'speedDev="0.1"', ],
     "persontrips": ["--vehicle-class", "pedestrian", "--persontrips", "--prefix", "ped",

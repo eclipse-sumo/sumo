@@ -112,7 +112,8 @@ def createTrips(options):
     trpMap = {}
     with codecs.open(options.trips, 'w', encoding="UTF8") as fouttrips:
         sumolib.writeXMLHeader(
-            fouttrips, "$Id$", "routes")
+            fouttrips, "$Id$",
+            "routes")
         writeTypes(fouttrips, options.vtypeprefix)
 
         departTimes = [options.begin for line in sumolib.output.parse_fast(options.ptlines, 'ptLine', ['id'])]
@@ -164,7 +165,8 @@ def createTrips(options):
                 if len(edges) > 2:
                     vias = ' via="%s"' % (' '.join(edges[1:-1]))
                 fouttrips.write(
-                    '    <trip id="%s" type="%s%s" depart="%s" departLane="best" departPos="0" from="%s" to="%s"%s>\n' % (
+                    ('    <trip id="%s" type="%s%s" depart="%s" departLane="best" departPos="0" from="%s" ' +
+                     'to="%s"%s>\n') % (
                         tripID, options.vtypeprefix, line.type, begin, edges[0], edges[-1], vias))
             else:
                 if len(stop_ids) == 0:
@@ -174,7 +176,8 @@ def createTrips(options):
                 fr, _ = stopsLanes[stop_ids[0]].rsplit("_", 1)
                 to, _ = stopsLanes[stop_ids[-1]].rsplit("_", 1)
                 fouttrips.write(
-                    '    <trip id="%s" type="%s%s" depart="%s" departLane="best" departPos="0" from="%s" to="%s">\n' % (
+                    ('    <trip id="%s" type="%s%s" depart="%s" departLane="best" departPos="0" from="%s" ' +
+                     'to="%s">\n') % (
                         tripID, options.vtypeprefix, line.type, begin, fr, to))
 
             trpMap[tripID] = (lineRef, line.attr_name, line.completeness)
@@ -225,7 +228,8 @@ def createRoutes(options, trpMap, stopNames):
         flows = []
         actualDepart = {}  # departure may be delayed when the edge is not yet empty
         sumolib.writeXMLHeader(
-            foutflows, "$Id$", "routes")
+            foutflows, "$Id$",
+            "routes")
         if not options.novtypes:
             writeTypes(foutflows, options.vtypeprefix)
         collections.defaultdict(int)
@@ -267,7 +271,8 @@ def createRoutes(options, trpMap, stopNames):
             line, name, completeness = trpMap[vehID]
             foutflows.write('    <flow id="%s" type="%s" route="%s" begin="%s" end="%s" period="%s" line="%s" %s>\n' % (
                 flowID, type, flowID, ft(begin), ft(begin + flow_duration), options.period, lineRef, options.flowattrs))
-            foutflows.write('        <param key="name" value=%s/>\n        <param key="completeness" value="%s"/>\n    </flow>\n' %
+            foutflows.write(('        <param key="name" value=%s/>\n        <param key="completeness" ' +
+                             'value="%s"/>\n    </flow>\n') %
                             (quoteattr(name), completeness))
         foutflows.write('</routes>\n')
 
