@@ -2,6 +2,7 @@ noinst_LIBRARIES = libguiutilsimages.a
 
 EXTRA_DIST = flag.cpp flag_minus.cpp flag_plus.cpp manip.cpp \
 accept.xpm \
+access.xpm \
 add.xpm \
 allow_rotation.xpm \
 app_breakpoints.xpm \
