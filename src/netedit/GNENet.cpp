@@ -499,16 +499,14 @@ GNENet::replaceIncomingEdge(GNEEdge* which, GNEEdge* by, GNEUndoList* undoList) 
     for (auto i : which->getLanes()) {
         std::vector<GNEAdditional*> copyOfLaneAdditionals = i->getAdditionalChilds();
         for (auto j : copyOfLaneAdditionals) {
-            UNUSED_PARAMETER(j);
-            undoList->p_add(new GNEChange_Attribute(i, SUMO_ATTR_LANE, by->getNBEdge()->getLaneID(i->getIndex())));
+            undoList->p_add(new GNEChange_Attribute(j, SUMO_ATTR_LANE, by->getNBEdge()->getLaneID(i->getIndex())));
         }
     }
     // replace in shapes childs of lane
     for (auto i : which->getLanes()) {
         std::vector<GNEShape*> copyOfLaneShapes = i->getShapeChilds();
         for (auto j : copyOfLaneShapes) {
-            UNUSED_PARAMETER(j);
-            undoList->p_add(new GNEChange_Attribute(i, SUMO_ATTR_LANE, by->getNBEdge()->getLaneID(i->getIndex())));
+            undoList->p_add(new GNEChange_Attribute(j, SUMO_ATTR_LANE, by->getNBEdge()->getLaneID(i->getIndex())));
         }
     }
     // replace in rerouters
