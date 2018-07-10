@@ -46,30 +46,45 @@ netedit.modifyAttribute(0, "-100")
 # Change parameter 0 with a valid value
 netedit.modifyAttribute(0, "120")
 
-# Change parameter 1 with an empty value
-netedit.modifyAttribute(1, "")
+# Change parameter 1 with a empty value
+netedit.modifyAdditionalDefaultValue(1, "")
 
 # Change parameter 1 with an non valid value
 netedit.modifyAttribute(1, "%%%&&%$%$")
 
 # Change parameter 1 with a duplicated value
-netedit.modifyAttribute(1, "e1Detector_gneE2_1_1.txt")
+netedit.modifyAttribute(1, "customName")
 
-# Change parameter 1 with a valid value
-netedit.modifyAttribute(1, "myOwnOutput.txt")
+# Change parameter 2 with an empty value
+netedit.modifyAttribute(2, "")
 
-# Change parameter 2 with an invalid value
-netedit.modifyAdditionalDefaultValue(2, "DummyVClasses")
+# Change parameter 2 with an non valid value
+netedit.modifyAttribute(2, "%%%&&%$%$")
 
-# Change parameter 2
-netedit.modifyAdditionalDefaultValue(2, "private passenger taxi bus")
+# Change parameter 2 with a duplicated value
+netedit.modifyAttribute(2, "e1Detector_gneE2_1_1.txt")
 
-# Change boolean parameter 3
-netedit.modifyBoolAttribute(3)
+# Change parameter 2 with a valid value
+netedit.modifyAttribute(2, "myOwnOutput.txt")
+
+# Change parameter 3 with a empty value
+netedit.modifyAdditionalDefaultValue(3, "")
+
+# Change parameter 3 with a invalid value
+netedit.modifyAdditionalDefaultValue(3, "Type%%%%%1 Typ$2 Type3")
+
+# Change parameter 3 with a valid value
+netedit.modifyAdditionalDefaultValue(3, "Type1 Type2 Type3")
+
+# Change boolean parameter 4
+netedit.modifyBoolAttribute(4)
+
+# Change boolean parameter 6
+netedit.modifyBoolAttribute(6)
 
 # Check undos and redos
-netedit.undo(match, 4)
-netedit.redo(match, 4)
+netedit.undo(match, 6)
+netedit.redo(match, 6)
 
 # save additionals
 netedit.saveAdditionals()

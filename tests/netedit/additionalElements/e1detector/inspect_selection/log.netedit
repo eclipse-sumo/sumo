@@ -19,6 +19,11 @@ Warning: Setting new attribute freq '900.00' into e1Detector 'E1_B'
 Warning: Value '-100' for attribute freq of e1Detector isn't valid
 Warning: Setting new attribute freq '120' into e1Detector 'E1_A'
 Warning: Setting new attribute freq '120' into e1Detector 'E1_B'
+Warning: Setting new attribute name '' into e1Detector 'E1_A'
+Warning: Setting new attribute name '' into e1Detector 'E1_B'
+Warning: Value '%%%&&%$%$' for attribute name of e1Detector isn't valid
+Warning: Setting new attribute name 'customName' into e1Detector 'E1_A'
+Warning: Setting new attribute name 'customName' into e1Detector 'E1_B'
 Warning: Setting new attribute file '' into e1Detector 'E1_A'
 Warning: Setting new attribute file '' into e1Detector 'E1_B'
 Warning: Value '%%%&&%$%$' for attribute file of e1Detector isn't valid
@@ -26,17 +31,27 @@ Warning: Setting new attribute file 'e1Detector_gneE2_1_1.txt' into e1Detector '
 Warning: Setting new attribute file 'e1Detector_gneE2_1_1.txt' into e1Detector 'E1_B'
 Warning: Setting new attribute file 'myOwnOutput.txt' into e1Detector 'E1_A'
 Warning: Setting new attribute file 'myOwnOutput.txt' into e1Detector 'E1_B'
-Warning: Value 'DummyVClasses' for attribute vTypes of e1Detector isn't valid
-Warning: Setting new attribute vTypes 'private passenger taxi bus' into e1Detector 'E1_A'
-Warning: Setting new attribute vTypes 'private passenger taxi bus' into e1Detector 'E1_B'
+Warning: Setting new attribute vTypes '' into e1Detector 'E1_A'
+Warning: Setting new attribute vTypes '' into e1Detector 'E1_B'
+Warning: Value 'Type%%%%%1 Typ$2 Type3' for attribute vTypes of e1Detector isn't valid
+Warning: Setting new attribute vTypes 'Type1 Type2 Type3' into e1Detector 'E1_A'
+Warning: Setting new attribute vTypes 'Type1 Type2 Type3' into e1Detector 'E1_B'
 Warning: Setting new attribute friendlyPos 'true' into e1Detector 'E1_A'
 Warning: Setting new attribute friendlyPos 'true' into e1Detector 'E1_B'
+Warning: Setting new attribute blockMovement 'true' into e1Detector 'E1_A'
+Warning: Setting new attribute blockMovement 'true' into e1Detector 'E1_B'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute blockMovement '0' into e1Detector 'E1_B'
+Warning: Setting previous attribute blockMovement '0' into e1Detector 'E1_A'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute friendlyPos '0' into e1Detector 'E1_B'
 Warning: Setting previous attribute friendlyPos '0' into e1Detector 'E1_A'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute vTypes 'bus taxi private' into e1Detector 'E1_B'
-Warning: Setting previous attribute vTypes 'bus taxi private' into e1Detector 'E1_A'
+Warning: Setting previous attribute vTypes '' into e1Detector 'E1_B'
+Warning: Setting previous attribute vTypes '' into e1Detector 'E1_A'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute vTypes 'Type4 Type5' into e1Detector 'E1_B'
+Warning: Setting previous attribute vTypes 'Type1 Type2 Type3' into e1Detector 'E1_A'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute file 'e1Detector_gneE2_1_1.txt' into e1Detector 'E1_B'
 Warning: Setting previous attribute file 'e1Detector_gneE2_1_1.txt' into e1Detector 'E1_A'
@@ -50,11 +65,17 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute file 'myOwnOutput.txt' into e1Detector 'E1_A'
 Warning: Setting new attribute file 'myOwnOutput.txt' into e1Detector 'E1_B'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute vTypes 'private passenger taxi bus' into e1Detector 'E1_A'
-Warning: Setting new attribute vTypes 'private passenger taxi bus' into e1Detector 'E1_B'
+Warning: Setting new attribute vTypes '' into e1Detector 'E1_A'
+Warning: Setting new attribute vTypes '' into e1Detector 'E1_B'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute vTypes 'Type1 Type2 Type3' into e1Detector 'E1_A'
+Warning: Setting new attribute vTypes 'Type1 Type2 Type3' into e1Detector 'E1_B'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute friendlyPos 'true' into e1Detector 'E1_A'
 Warning: Setting new attribute friendlyPos 'true' into e1Detector 'E1_B'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute blockMovement 'true' into e1Detector 'E1_A'
+Warning: Setting new attribute blockMovement 'true' into e1Detector 'E1_B'
 Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()

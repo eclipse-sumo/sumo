@@ -52,39 +52,57 @@ netedit.modifyAdditionalDefaultValue(2, "150")
 # try to create E1 with valid frequency
 netedit.leftClick(match, 250, 250)
 
+# set invalid name
+netedit.modifyAdditionalDefaultValue(3, "\"\"\"")
+
+# try to create E1 with invalid name
+netedit.leftClick(match, 300, 250)
+
+# set valid name
+netedit.modifyAdditionalDefaultValue(3, "customName")
+
+# create E1 with valid name
+netedit.leftClick(match, 300, 250)
+
 # set invalid filename
-netedit.modifyAdditionalDefaultValue(3, "&&&&&&&&")
+netedit.modifyAdditionalDefaultValue(4, "&&&&&&&&")
 
 # try to create E1 with invalid filename
-netedit.leftClick(match, 300, 250)
+netedit.leftClick(match, 350, 250)
 
 # set valid filename
-netedit.modifyAdditionalDefaultValue(3, "myOwnFilename.txt")
+netedit.modifyAdditionalDefaultValue(4, "myOwnFilename.txt")
 
 # create E1 with valid filename
-netedit.leftClick(match, 300, 250)
+netedit.leftClick(match, 350, 250)
 
 # set invalid vehicle type
-netedit.modifyAdditionalDefaultValue(4, "dummy vehicles")
+netedit.modifyAdditionalDefaultValue(5, "dummy vehicles")
 
 # try to create E1 with invalid vehicle types
-netedit.leftClick(match, 350, 250)
-
-# set valid vehicle type
-netedit.modifyAdditionalDefaultValue(4, "private passenger taxi bus")
-
-# create E1 with valid vehicle types
-netedit.leftClick(match, 350, 250)
-
-# Change friendlyPos
-netedit.modifyAdditionalDefaultBoolValue(5)
-
-# create E1 with different split by type
 netedit.leftClick(match, 400, 250)
 
+# set valid vehicle type
+netedit.modifyAdditionalDefaultValue(5, "private passenger taxi bus")
+
+# create E1 with valid vehicle types
+netedit.leftClick(match, 400, 250)
+
+# Change friendlyPos
+netedit.modifyAdditionalDefaultBoolValue(6)
+
+# create E1 with different split by type
+netedit.leftClick(match, 450, 250)
+
+# Change friendlyPos
+netedit.modifyAdditionalDefaultBoolValue(8)
+
+# create E1 with different split by type
+netedit.leftClick(match, 500, 250)
+
 # Check undo redo
-netedit.undo(match, 5)
-netedit.redo(match, 5)
+netedit.undo(match, 7)
+netedit.redo(match, 7)
 
 # save additionals
 netedit.saveAdditionals()

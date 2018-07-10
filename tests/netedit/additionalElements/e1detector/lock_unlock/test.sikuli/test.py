@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2018 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2019 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials
 # are made available under the terms of the Eclipse Public License v2.0
 # which accompanies this distribution, and is available at
@@ -47,7 +47,7 @@ netedit.inspectMode()
 netedit.leftClick(match, 350, 250)
 
 # block additional
-netedit.modifyBoolAttribute(8)
+netedit.modifyBoolAttribute(9)
 
 # change to move mode
 netedit.moveMode()
@@ -62,7 +62,7 @@ netedit.inspectMode()
 netedit.leftClick(match, 350, 250)
 
 # unblock additional
-netedit.modifyBoolAttribute(8)
+netedit.modifyBoolAttribute(9)
 
 # change to move mode
 netedit.moveMode()
