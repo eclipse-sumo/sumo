@@ -179,12 +179,7 @@ GNEAdditional::writeAdditional(OutputDevice& device) const {
         // iterate over childs and write it in XML (or in a different file)
         if(tagProperties.canWriteChildsSeparate() && tagProperties.hasAttribute(SUMO_ATTR_FILE) && !getAttribute(SUMO_ATTR_FILE).empty()) {
             // we assume that rerouter values files is placed in the same folder as the additional file
-            std::string currentAdditionalFilename = OptionsCont::getOptions().getString("sumo-additionals-file");
-            // clear filename
-            while(!currentAdditionalFilename.empty() && !(currentAdditionalFilename.back() == '\\' || currentAdditionalFilename.back() == '/')) {
-                currentAdditionalFilename.pop_back();
-            }
-            OutputDevice& deviceChilds = OutputDevice::getDevice(currentAdditionalFilename + getAttribute(SUMO_ATTR_FILE));
+            OutputDevice& deviceChilds = OutputDevice::getDevice(FileHelpers::getFilePath(OptionsCont::getOptions().getString("sumo-additionals-file")) + getAttribute(SUMO_ATTR_FILE));
             deviceChilds.writeXMLHeader("rerouterValue", "additional_file.xsd");
             // save childs in a different filename
             for (auto i : myAdditionalChilds) {

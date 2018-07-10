@@ -127,9 +127,9 @@ Position
 GNECalibrator::getPositionInView() const {
     PositionVector shape = myLane? myLane->getShape() : myEdge->getLanes().at(0)->getShape();
     if(myPositionOverLane < 0) {
-        shape.front();
+        return shape.front();
     } else if (myPositionOverLane > shape.length()) {
-        shape.back();
+        return shape.back();
     } else {
         return shape.positionAtOffset(myPositionOverLane);
     }

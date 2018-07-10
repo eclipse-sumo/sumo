@@ -137,9 +137,9 @@ GNEAccess::getPositionInView() const {
     } else {
         double posOverLane = parse<double>(myPositionOverLane);
         if(posOverLane < 0) {
-            myLane->getShape().front();
+            return myLane->getShape().front();
         } else if (posOverLane > myLane->getShape().length()) {
-            myLane->getShape().back();
+            return myLane->getShape().back();
         } else {
             return myLane->getShape().positionAtOffset(posOverLane);
         }

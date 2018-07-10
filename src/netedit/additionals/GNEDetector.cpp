@@ -112,7 +112,7 @@ GNEDetector::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList)
 Position
 GNEDetector::getPositionInView() const {
     if(myPositionOverLane < 0) {
-        myLane->getShape().front();
+        return myLane->getShape().front();
     } else if (myPositionOverLane > myLane->getShape().length()) {
         myLane->getShape().back();
     } else {

@@ -1708,11 +1708,7 @@ GNEAdditionalHandler::buildRerouter(GNEViewNet* viewNet, bool allowUndoRedo, con
         // parse rerouter childs
         if(!file.empty()) {
             // we assume that rerouter values files is placed in the same folder as the additional file
-            std::string currentAdditionalFilename = OptionsCont::getOptions().getString("sumo-additionals-file");
-            // clear filename
-            while(!currentAdditionalFilename.empty() && !(currentAdditionalFilename.back() == '\\' || currentAdditionalFilename.back() == '/')) {
-                currentAdditionalFilename.pop_back();
-            }
+            std::string currentAdditionalFilename = FileHelpers::getFilePath(OptionsCont::getOptions().getString("sumo-additionals-file"));
             // Create additional handler for parse rerouter values
             GNEAdditionalHandler rerouterValuesHandler(currentAdditionalFilename + file, viewNet, allowUndoRedo, rerouter);
             // Run parser
