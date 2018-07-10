@@ -91,42 +91,48 @@ netedit.modifyAttribute(2, "-100")
 # Change parameter 2 with a valid value
 netedit.modifyAttribute(2, "120")
 
-# Change parameter 3 with a non valid value
-netedit.modifyAttribute(3, "%%%%%&%&&")
-
-# Change parameter 3 with an empty value
-netedit.modifyAttribute(3, "")
+# Change parameter 3 with an non valid value
+netedit.modifyAttribute(3, "%%%&&%$%$")
 
 # Change parameter 3 with a duplicated value
-netedit.modifyAttribute(3, "e3Detector_1.txt")
+netedit.modifyAttribute(3, "customName")
 
-# Change parameter 3 with a valid value
-netedit.modifyAttribute(3, "myOwnOutput.txt")
+# Change parameter 4 with a non valid value
+netedit.modifyAttribute(4, "%%%%%&%&&")
 
-# Change parameter 4 with a non valid value (dummy)
-netedit.modifyAttribute(4, "dummyTimeTreshold")
+# Change parameter 4 with an empty value
+netedit.modifyAttribute(4, "")
 
-# Change parameter 4 with a non valid value (negative)
-netedit.modifyAttribute(4, "-5")
+# Change parameter 4 with a duplicated value
+netedit.modifyAttribute(4, "e3Detector_1.txt")
 
 # Change parameter 4 with a valid value
-netedit.modifyAttribute(4, "4")
+netedit.modifyAttribute(4, "myOwnOutput.txt")
 
 # Change parameter 5 with a non valid value (dummy)
-netedit.modifyAttribute(5, "dummySpeedTreshold")
+netedit.modifyAttribute(5, "dummyTimeTreshold")
 
 # Change parameter 5 with a non valid value (negative)
-netedit.modifyAttribute(5, "-12.1")
+netedit.modifyAttribute(5, "-5")
 
 # Change parameter 5 with a valid value
-netedit.modifyAttribute(5, "6.3")
+netedit.modifyAttribute(5, "4")
 
-# Change parameter 7 with a valid value
-netedit.modifyBoolAttribute(7)
+# Change parameter 6 with a non valid value (dummy)
+netedit.modifyAttribute(6, "dummySpeedTreshold")
+
+# Change parameter 6 with a non valid value (negative)
+netedit.modifyAttribute(6, "-12.1")
+
+# Change parameter 6 with a valid value
+netedit.modifyAttribute(6, "6.3")
+
+# Change parameter 8 with a valid value
+netedit.modifyBoolAttribute(8)
 
 # Check undos and redos
-netedit.undo(match, 16)
-netedit.redo(match, 16)
+netedit.undo(match, 17)
+netedit.redo(match, 17)
 
 # save additionals
 netedit.saveAdditionals()

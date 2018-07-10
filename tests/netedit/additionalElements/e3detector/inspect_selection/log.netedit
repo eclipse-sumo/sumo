@@ -25,6 +25,9 @@ Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 6 Addi
 Warning: Value '-30' for attribute freq of e3Detector isn't valid
 Warning: Setting new attribute freq '50' into e3Detector 'e3Detector_A'
 Warning: Setting new attribute freq '50' into e3Detector 'e3Detector_B'
+Warning: Value '%%%&&%$%$' for attribute name of e3Detector isn't valid
+Warning: Setting new attribute name 'customName' into e3Detector 'e3Detector_A'
+Warning: Setting new attribute name 'customName' into e3Detector 'e3Detector_B'
 Warning: Value '&&&&&&&&' for attribute file of e3Detector isn't valid
 Warning: Setting new attribute file 'myOwnFilename.txt' into e3Detector 'e3Detector_A'
 Warning: Setting new attribute file 'myOwnFilename.txt' into e3Detector 'e3Detector_B'
@@ -48,6 +51,9 @@ Warning: Setting previous attribute timeThreshold '1.00' into e3Detector 'e3Dete
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute file 'e3Detector_00.txt' into e3Detector 'e3Detector_B'
 Warning: Setting previous attribute file 'e3Detector_00.txt' into e3Detector 'e3Detector_A'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute name '' into e3Detector 'e3Detector_B'
+Warning: Setting previous attribute name '' into e3Detector 'e3Detector_A'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute freq '120.00' into e3Detector 'e3Detector_B'
 Warning: Setting previous attribute freq '100.00' into e3Detector 'e3Detector_A'
@@ -92,6 +98,9 @@ Warning: Setting new attribute selected 'true' into detExit 'e3Detector_BdetExit
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute freq '50' into e3Detector 'e3Detector_A'
 Warning: Setting new attribute freq '50' into e3Detector 'e3Detector_B'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute name 'customName' into e3Detector 'e3Detector_A'
+Warning: Setting new attribute name 'customName' into e3Detector 'e3Detector_B'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute file 'myOwnFilename.txt' into e3Detector 'e3Detector_A'
 Warning: Setting new attribute file 'myOwnFilename.txt' into e3Detector 'e3Detector_B'

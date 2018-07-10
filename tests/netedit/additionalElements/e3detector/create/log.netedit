@@ -8,13 +8,15 @@ Warning: Current saving Status: net saved, additionals unsaved, shapes saved
 Warning: Adding e3Detector 'e3Detector_1' in GNEChange_Additional
 Warning: Invalid input parameter of e3Detector: 'freq' cannot be negative
 Warning: Adding e3Detector 'e3Detector_2' in GNEChange_Additional
-Warning: Invalid input parameter of e3Detector: input contains invalid characters for a filename
+Warning: Invalid input parameter of e3Detector: Name contains invalid characters
 Warning: Adding e3Detector 'e3Detector_3' in GNEChange_Additional
-Warning: Invalid input parameter of e3Detector: 'timeThreshold' cannot be negative
+Warning: Invalid input parameter of e3Detector: input contains invalid characters for a filename
 Warning: Adding e3Detector 'e3Detector_4' in GNEChange_Additional
-Warning: Invalid input parameter of e3Detector: 'speedThreshold' cannot be negative
+Warning: Invalid input parameter of e3Detector: 'timeThreshold' cannot be negative
 Warning: Adding e3Detector 'e3Detector_5' in GNEChange_Additional
+Warning: Invalid input parameter of e3Detector: 'speedThreshold' cannot be negative
 Warning: Adding e3Detector 'e3Detector_6' in GNEChange_Additional
+Warning: Adding e3Detector 'e3Detector_7' in GNEChange_Additional
 Warning: Selected additional 'detEntry' in AdditionalSelector
 Warning: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Warning: Adding detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
@@ -23,6 +25,7 @@ Warning: Adding detEntry 'e3Detector_3detEntry0' in GNEChange_Additional
 Warning: Adding detEntry 'e3Detector_4detEntry0' in GNEChange_Additional
 Warning: Adding detEntry 'e3Detector_5detEntry0' in GNEChange_Additional
 Warning: Adding detEntry 'e3Detector_6detEntry0' in GNEChange_Additional
+Warning: Adding detEntry 'e3Detector_7detEntry0' in GNEChange_Additional
 Warning: Selected additional 'detExit' in AdditionalSelector
 Warning: Adding detExit 'e3Detector_1detExit0' in GNEChange_Additional
 Warning: Adding detExit 'e3Detector_2detExit0' in GNEChange_Additional
@@ -30,6 +33,9 @@ Warning: Adding detExit 'e3Detector_3detExit0' in GNEChange_Additional
 Warning: Adding detExit 'e3Detector_4detExit0' in GNEChange_Additional
 Warning: Adding detExit 'e3Detector_5detExit0' in GNEChange_Additional
 Warning: Adding detExit 'e3Detector_6detExit0' in GNEChange_Additional
+Warning: Adding detExit 'e3Detector_7detExit0' in GNEChange_Additional
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Removing detExit 'e3Detector_7detExit0' in GNEChange_Additional
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing detExit 'e3Detector_6detExit0' in GNEChange_Additional
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -42,6 +48,8 @@ Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing detExit 'e3Detector_2detExit0' in GNEChange_Additional
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing detExit 'e3Detector_1detExit0' in GNEChange_Additional
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Removing detEntry 'e3Detector_7detEntry0' in GNEChange_Additional
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing detEntry 'e3Detector_6detEntry0' in GNEChange_Additional
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -56,6 +64,8 @@ Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Removing e3Detector 'e3Detector_7' in GNEChange_Additional
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing e3Detector 'e3Detector_6' in GNEChange_Additional
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -85,6 +95,8 @@ Warning: Adding e3Detector 'e3Detector_5' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding e3Detector 'e3Detector_6' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Adding e3Detector 'e3Detector_7' in GNEChange_Additional
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
@@ -99,6 +111,8 @@ Warning: Adding detEntry 'e3Detector_5detEntry0' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding detEntry 'e3Detector_6detEntry0' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Adding detEntry 'e3Detector_7detEntry0' in GNEChange_Additional
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding detExit 'e3Detector_1detExit0' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding detExit 'e3Detector_2detExit0' in GNEChange_Additional
@@ -110,19 +124,23 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding detExit 'e3Detector_5detExit0' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding detExit 'e3Detector_6detExit0' in GNEChange_Additional
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Adding detExit 'e3Detector_7detExit0' in GNEChange_Additional
 Warning: An e3Detector need at least one detExit detector
 Warning: e3Detector with ID='e3Detector_0' cannot be written
 Warning: Additionals saved
 Warning: Created connection 'fromgneE0_6togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_6' in retrieveGNEConnection()
-Warning: Deleting unreferenced detExit 'e3Detector_6detExit0'
+Warning: Deleting unreferenced detExit 'e3Detector_7detExit0'
 Warning: Additionals has to be saved
 Warning: Current saving Status: net saved, additionals unsaved, shapes saved
+Warning: Deleting unreferenced detExit 'e3Detector_6detExit0'
 Warning: Deleting unreferenced detExit 'e3Detector_5detExit0'
 Warning: Deleting unreferenced detExit 'e3Detector_4detExit0'
 Warning: Deleting unreferenced detExit 'e3Detector_3detExit0'
 Warning: Deleting unreferenced detExit 'e3Detector_2detExit0'
 Warning: Deleting unreferenced detExit 'e3Detector_1detExit0'
+Warning: Deleting unreferenced detEntry 'e3Detector_7detEntry0'
 Warning: Deleting unreferenced detEntry 'e3Detector_6detEntry0'
 Warning: Deleting unreferenced detEntry 'e3Detector_5detEntry0'
 Warning: Deleting unreferenced detEntry 'e3Detector_4detEntry0'
@@ -130,6 +148,7 @@ Warning: Deleting unreferenced detEntry 'e3Detector_3detEntry0'
 Warning: Deleting unreferenced detEntry 'e3Detector_2detEntry0'
 Warning: Deleting unreferenced detEntry 'e3Detector_1detEntry0'
 Warning: Deleting unreferenced detEntry 'e3Detector_0detEntry0'
+Warning: Deleting unreferenced e3Detector 'e3Detector_7'
 Warning: Deleting unreferenced e3Detector 'e3Detector_6'
 Warning: Deleting unreferenced e3Detector 'e3Detector_5'
 Warning: Deleting unreferenced e3Detector 'e3Detector_4'

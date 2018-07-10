@@ -64,7 +64,7 @@ netedit.inspectMode()
 netedit.leftClick(match, 250, 100)
 
 # block additional
-netedit.modifyBoolAttribute(7)
+netedit.modifyBoolAttribute(8)
 
 # change to move mode
 netedit.moveMode()
@@ -79,7 +79,7 @@ netedit.inspectMode()
 netedit.leftClick(match, 250, 100)
 
 # unblock additional
-netedit.modifyBoolAttribute(7)
+netedit.modifyBoolAttribute(8)
 
 # change to move mode
 netedit.moveMode()
@@ -88,8 +88,8 @@ netedit.moveMode()
 netedit.moveElement(match, 120, 50, 300, 50)
 
 # Check undos and redos
-netedit.undo(match, 7)
-netedit.redo(match, 7)
+netedit.undo(match, 8)
+netedit.redo(match, 8)
 
 # save additionals
 netedit.saveAdditionals()

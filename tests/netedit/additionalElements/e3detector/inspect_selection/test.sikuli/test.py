@@ -43,30 +43,36 @@ netedit.modifyAttribute(0, "-30")
 # Set valid freq
 netedit.modifyAttribute(0, "50")
 
+# Change parameter 1 with an non valid value
+netedit.modifyAttribute(1, "%%%&&%$%$")
+
+# Change parameter 1 with a duplicated value
+netedit.modifyAttribute(1, "customName")
+
 # set invalid filename
-netedit.modifyAttribute(1, "&&&&&&&&")
+netedit.modifyAttribute(2, "&&&&&&&&")
 
 # set valid filename
-netedit.modifyAttribute(1, "myOwnFilename.txt")
+netedit.modifyAttribute(2, "myOwnFilename.txt")
 
 # Set invalid time speed treshold
-netedit.modifyAttribute(2, "-5")
+netedit.modifyAttribute(3, "-5")
 
 # Set valid time speed treshold
-netedit.modifyAttribute(2, "11.3")
+netedit.modifyAttribute(3, "11.3")
 
 # Set invalid speed speed treshold
-netedit.modifyAttribute(3, "-3")
+netedit.modifyAttribute(4, "-3")
 
 # Set valid speed speed treshold
-netedit.modifyAttribute(3, "4")
+netedit.modifyAttribute(4, "4")
 
 # change block movement
-netedit.modifyBoolAttribute(5)
+netedit.modifyBoolAttribute(6)
 
 # Check undo redo
-netedit.undo(match, 7)
-netedit.redo(match, 7)
+netedit.undo(match, 8)
+netedit.redo(match, 8)
 
 # save additionals
 netedit.saveAdditionals()

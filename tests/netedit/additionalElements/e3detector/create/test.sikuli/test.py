@@ -52,50 +52,62 @@ netedit.modifyAdditionalDefaultValue(2, "150")
 # create E3 with different frequency
 netedit.leftClick(match, 200, 100)
 
+# set invalid name
+netedit.modifyAdditionalDefaultValue(3, "\"\"\"")
+
+# try to create E3 with invalid name
+netedit.leftClick(match, 250, 50)
+
+# set valid name
+netedit.modifyAdditionalDefaultValue(3, "customName")
+
+# create E3 with valid name
+netedit.leftClick(match, 250, 50)
+
 # set invalid file
-netedit.modifyAdditionalDefaultValue(3, "%%%$$%%$%")
+netedit.modifyAdditionalDefaultValue(4, "%%%$$%%$%")
 
 # try to create E3 with invalid file
 netedit.leftClick(match, 300, 100)
 
 # set valid file
-netedit.modifyAdditionalDefaultValue(3, "myOwnFile.txt")
+netedit.modifyAdditionalDefaultValue(4, "myOwnFile.txt")
 
 # create E3 with different file
 netedit.leftClick(match, 300, 100)
 
 # set invalid timeTreshold
-netedit.modifyAdditionalDefaultValue(4, "-4")
+netedit.modifyAdditionalDefaultValue(5, "-4")
 
 # try to create E3 with different timeTreshold
 netedit.leftClick(match, 400, 100)
 
 # set valid timeTreshold
-netedit.modifyAdditionalDefaultValue(4, "5")
+netedit.modifyAdditionalDefaultValue(5, "5")
 
 # create E3 with different timeTreshold
 netedit.leftClick(match, 400, 100)
 
 # set invalid speedTreshold
-netedit.modifyAdditionalDefaultValue(5, "-3.80")
+netedit.modifyAdditionalDefaultValue(6, "-3.80")
 
 # try to create E3 with different speedTreshold
 netedit.leftClick(match, 500, 100)
 
 # set valid speedTreshold
-netedit.modifyAdditionalDefaultValue(5, "2.51")
+netedit.modifyAdditionalDefaultValue(6, "2.51")
 
 # create E3 with different speedTreshold
 netedit.leftClick(match, 500, 100)
 
 # set block movement
-netedit.modifyAdditionalDefaultBoolValue(7)
+netedit.modifyAdditionalDefaultBoolValue(8)
 
 # create E3 with different block movement
 netedit.leftClick(match, 600, 100)
 
 # restore block movement
-netedit.modifyAdditionalDefaultBoolValue(7)
+netedit.modifyAdditionalDefaultBoolValue(8)
 
 # select entry detector
 netedit.changeAdditional("detEntry")
@@ -110,17 +122,20 @@ netedit.leftClick(match, 100, 200)
 netedit.leftClick(match, 200, 100)  # select E3
 netedit.leftClick(match, 200, 250)
 
+netedit.leftClick(match, 250, 50)  # select E3
+netedit.leftClick(match, 250, 200)
+
 netedit.leftClick(match, 300, 100)  # select E3
-netedit.leftClick(match, 300, 200)
+netedit.leftClick(match, 300, 250)
 
 netedit.leftClick(match, 400, 100)  # select E3
-netedit.leftClick(match, 400, 250)
+netedit.leftClick(match, 400, 200)
 
 netedit.leftClick(match, 500, 100)  # select E3
-netedit.leftClick(match, 500, 200)
+netedit.leftClick(match, 500, 250)
 
 netedit.leftClick(match, 600, 100)  # select E3
-netedit.leftClick(match, 600, 250)
+netedit.leftClick(match, 600, 200)
 
 # select entry detector
 netedit.changeAdditional("detExit")
@@ -132,21 +147,24 @@ netedit.leftClick(match, 100, 400)
 netedit.leftClick(match, 200, 100)  # select E3
 netedit.leftClick(match, 200, 450)
 
+netedit.leftClick(match, 250, 50)  # select E3
+netedit.leftClick(match, 250, 400)
+
 netedit.leftClick(match, 300, 100)  # select E3
-netedit.leftClick(match, 300, 400)
+netedit.leftClick(match, 300, 450)
 
 netedit.leftClick(match, 400, 100)  # select E3
-netedit.leftClick(match, 400, 450)
+netedit.leftClick(match, 400, 400)
 
 netedit.leftClick(match, 500, 100)  # select E3
-netedit.leftClick(match, 500, 400)
+netedit.leftClick(match, 500, 450)
 
 netedit.leftClick(match, 600, 100)  # select E3
-netedit.leftClick(match, 600, 450)
+netedit.leftClick(match, 600, 400)
 
 # Check undo redo
-netedit.undo(match, 20)
-netedit.redo(match, 20)
+netedit.undo(match, 23)
+netedit.redo(match, 23)
 
 # save additionals
 netedit.saveAdditionals()

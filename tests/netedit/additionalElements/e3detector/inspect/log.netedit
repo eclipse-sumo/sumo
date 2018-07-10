@@ -22,6 +22,8 @@ Warning: Setting new attribute pos '0,0' into e3Detector 'correctID'
 Warning: Setting new attribute pos '25,25' into e3Detector 'correctID'
 Warning: Value '-100' for attribute freq of e3Detector isn't valid
 Warning: Setting new attribute freq '120' into e3Detector 'correctID'
+Warning: Value '%%%&&%$%$' for attribute name of e3Detector isn't valid
+Warning: Setting new attribute name 'customName' into e3Detector 'correctID'
 Warning: Value '%%%%%&%&&' for attribute file of e3Detector isn't valid
 Warning: Setting new attribute file '' into e3Detector 'correctID'
 Warning: Setting new attribute file 'e3Detector_1.txt' into e3Detector 'correctID'
@@ -43,6 +45,8 @@ Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute file '' into e3Detector 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute file 'e3Detector_0.xml' into e3Detector 'correctID'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute name '' into e3Detector 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute freq '900.00' into e3Detector 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -88,6 +92,8 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute pos '25,25' into e3Detector 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute freq '120' into e3Detector 'correctID'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute name 'customName' into e3Detector 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute file '' into e3Detector 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
