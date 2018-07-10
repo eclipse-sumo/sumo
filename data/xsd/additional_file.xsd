@@ -134,7 +134,7 @@
         <xsd:attribute name="tl" type="xsd:string" use="optional"/>
         <xsd:attribute name="to" type="xsd:string" use="optional"/>
         <xsd:attribute name="cont" type="boolType" use="optional"/>
-        <xsd:attribute name="timeThreshold" type="xsd:int" use="optional"/>
+        <xsd:attribute name="timeThreshold" type="xsd:float" use="optional"/>
         <xsd:attribute name="speedThreshold" type="xsd:float" use="optional"/>
         <xsd:attribute name="jamThreshold" type="xsd:float" use="optional"/>
         <xsd:attribute name="vTypes" type="xsd:string" use="optional"/>
