@@ -376,6 +376,11 @@ GNEAdditionalFrame::AdditionalAttributeSingle::onCmdSetAttribute(FXObject*, FXSe
         if (GNEAttributeCarrier::isValidID(myTextFieldStrings->getText().text()) == false) {
             myInvalidValue = "RouteProbe ID contains invalid characters";
         }
+    } else if (myAdditionalAttr == SUMO_ATTR_NAME) {
+        // check if filename format is valid
+        if (GNEAttributeCarrier::isValidName(myTextFieldStrings->getText().text()) == false) {
+            myInvalidValue = "Name contains invalid characters";
+        }
     }
     // change color of text field depending of myCurrentValueValid
     if (myInvalidValue.size() == 0) {

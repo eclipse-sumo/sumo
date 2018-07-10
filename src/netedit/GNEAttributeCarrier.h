@@ -638,6 +638,11 @@ public:
                     parsedOk = false;
                 }
             }
+            // set extra check for name values
+            if ((attribute == SUMO_ATTR_NAME) && !isValidName(parsedAttribute)) {
+                errorFormat = "name contains invalid characters; ";
+                parsedOk = false;
+            }
             // set extra check for SVCPermissions values
             if (attrProperties.isVClass()) {
                 if (!canParseVehicleClasses(parsedAttribute)) {

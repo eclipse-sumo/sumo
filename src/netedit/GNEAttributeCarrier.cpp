@@ -816,7 +816,7 @@ GNEAttributeCarrier::isValidName(const std::string& value) {
     if(value.size() == 0) {
         return true;
     } else {
-        return value.find_first_of(" \t\n\r@$%^&/|\\{}*'\";:<>") == std::string::npos;
+        return value.find_first_of("\t\n\r@$%^&/|\\{}*'\";:<>") == std::string::npos;
     }
 }
 
