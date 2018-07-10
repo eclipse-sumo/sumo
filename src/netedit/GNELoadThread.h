@@ -88,7 +88,7 @@ protected:
     /// @brief the parent window to inform about the loading
     MFXInterThreadEventClient* myParent;
 
-    /// @brief the path to load the simulation from
+    /// @brief the path to load the network from
     std::string myFile;
 
     /// @brief @brief The instances of message retriever encapsulations Needed to be deleted from the handler later on

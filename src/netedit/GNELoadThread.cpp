@@ -143,6 +143,13 @@ GNELoadThread::run() {
                     net->computeAndUpdate(oc, false);
                 }
             }
+            if (myFile == "") {
+                if (oc.isSet("configuration-file")) {
+                    myFile = oc.getString("configuration-file");
+                } else if (oc.isSet("sumo-net-file")) {
+                    myFile = oc.getString("sumo-net-file");
+                }
+            }
 
         } catch (ProcessError& e) {
             if (std::string(e.what()) != std::string("Process Error") && std::string(e.what()) != std::string("")) {
