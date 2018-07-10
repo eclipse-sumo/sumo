@@ -25,7 +25,8 @@ import argparse
 from lxml import etree
 
 parser = argparse.ArgumentParser(
-    description='Create tls links from sumo net as needed by tls_csv2SUMO.py. You have to edit the link number field (preset with g). The comment gives the link number shown on demand in SUMO-GUI')
+    description='Create tls links from sumo net as needed by tls_csv2SUMO.py. You have to edit the link number ' +
+    'field (preset with g). The comment gives the link number shown on demand in SUMO-GUI')
 parser.add_argument('net', help='Input file name')
 
 args = parser.parse_args()

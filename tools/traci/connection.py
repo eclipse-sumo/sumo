@@ -167,7 +167,8 @@ class Connection:
         # result.printDebug()
         result.readLength()
         response = result.read("!B")[0]
-        isVariableSubscription = response >= tc.RESPONSE_SUBSCRIBE_INDUCTIONLOOP_VARIABLE and response <= tc.RESPONSE_SUBSCRIBE_PERSON_VARIABLE
+        isVariableSubscription = (response >= tc.RESPONSE_SUBSCRIBE_INDUCTIONLOOP_VARIABLE and
+                                  response <= tc.RESPONSE_SUBSCRIBE_PERSON_VARIABLE)
         objectID = result.readString()
         if not isVariableSubscription:
             domain = result.read("!B")[0]
@@ -251,56 +252,56 @@ class Connection:
             if response - cmdID != 16 or objectID != objID:
                 raise FatalTraCIError("Received answer %02x,%s for context subscription command %02x,%s." % (
                     response, objectID, cmdID, objID))
-                
-    def _addSubscriptionFilter(self, filterType, params = None):
+
+    def _addSubscriptionFilter(self, filterType, params=None):
         command = tc.CMD_ADD_SUBSCRIPTION_FILTER
         self._queue.append(command)
         if filterType == tc.FILTER_TYPE_NONE \
-        or filterType == tc.FILTER_TYPE_NOOPPOSITE \
-        or filterType == tc.FILTER_TYPE_CF_MANEUVER \
-        or filterType == tc.FILTER_TYPE_TURN_MANEUVER:
+                or filterType == tc.FILTER_TYPE_NOOPPOSITE \
+                or filterType == tc.FILTER_TYPE_CF_MANEUVER \
+                or filterType == tc.FILTER_TYPE_TURN_MANEUVER:
             # filter without parameter
             assert(params is None)
-            length = 1 + 1 + 1 # length + CMD + FILTER_ID
+            length = 1 + 1 + 1  # length + CMD + FILTER_ID
             self._string += struct.pack("!BBB", length, command, filterType)
         elif filterType == tc.FILTER_TYPE_DOWNSTREAM_DIST \
-        or filterType == tc.FILTER_TYPE_UPSTREAM_DIST:
+                or filterType == tc.FILTER_TYPE_UPSTREAM_DIST:
             # filter with float parameter
             assert(type(params) is float)
-            length = 1 + 1 + 1 + 1 + 8 # length + CMD + FILTER_ID + floattype + float
+            length = 1 + 1 + 1 + 1 + 8  # length + CMD + FILTER_ID + floattype + float
             self._string += struct.pack("!BBBd", length, command, filterType, tc.TYPE_FLOAT, params)
         elif filterType == tc.FILTER_TYPE_VCLASS \
-        or filterType == tc.FILTER_TYPE_VTYPE:
+                or filterType == tc.FILTER_TYPE_VTYPE:
             # filter with list(string) parameter
             try:
                 l = len(params)
-            except:
-                raise TraCIException("Filter type %s requires identifier list as parameter."%str(filterType))
-            length = 1 + 1 + 1 + 1 + 4 # length + CMD + FILTER_ID + TYPE_STRINGLIST + length(stringlist) 
+            except Exception:
+                raise TraCIException("Filter type %s requires identifier list as parameter." % str(filterType))
+            length = 1 + 1 + 1 + 1 + 4  # length + CMD + FILTER_ID + TYPE_STRINGLIST + length(stringlist)
             for s in params:
-                length += 4 + len(s) # length(s) + s
-                
+                length += 4 + len(s)  # length(s) + s
+
             if length <= 255:
                 self._string += struct.pack("!BBB", length, command, filterType)
             else:
-                length += 4 # extended msg length
+                length += 4  # extended msg length
                 self._string += struct.pack("!BiBB", 0, length, command, filterType)
             self._string += self._packStringList(params)
         elif filterType == tc.FILTER_TYPE_LANES:
             # filter with list(byte) parameter
             try:
                 l = len(params)
-            except:
-                raise TraCIException("Filter type %s requires identifier list as parameter."%str(filterType))
-            length = 1 + 1 + 1 + 1 + 1 + l # length + CMD + FILTER_ID + TYPE_STRINGLIST + length(list) as ubyte + lane-indices
+            except Exception:
+                raise TraCIException("Filter type %s requires identifier list as parameter." % str(filterType))
+            length = 1 + 1 + 1 + 1 + 1 + l
+            # length + CMD + FILTER_ID + TYPE_STRINGLIST + length(list) as ubyte + lane-indices
             if length <= 255:
                 self._string += struct.pack("!BBBi", length, command, filterType, l)
             else:
-                length += 4 # extended msg length
+                length += 4  # extended msg length
                 self._string += struct.pack("!BiBBi", 0, length, command, filterType, l)
             for i in params:
                 self._string += struct.pack("!B", i)
-    
 
     def isEmbedded(self):
         return _embedded

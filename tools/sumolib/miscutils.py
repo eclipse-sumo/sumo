@@ -29,11 +29,13 @@ from collections import defaultdict
 
 # http://www.python.org/dev/peps/pep-0326/
 
-def round(value): # to round in Python 3 like in Python 2
+
+def round(value):  # to round in Python 3 like in Python 2
     if value < 0:
         return math.ceil(value - 0.5)
     else:
         return math.floor(value + 0.5)
+
 
 class _ExtremeType(object):
 

@@ -345,7 +345,8 @@ class Net:
                     if stopOnTLS and ci._tls and ci != edge and not stop:
                         ret.append([ie[0], ie[1], prev, True])
                         stop = True
-                    elif stopOnTurnaround and ie[0]._incoming[ci][0].getDirection() == Connection.LINKDIR_TURN and not stop:
+                    elif (stopOnTurnaround and ie[0]._incoming[ci][0].getDirection() == Connection.LINKDIR_TURN
+                          and not stop):
                         ret.append([ie[0], ie[1], prev, True])
                         stop = True
                     else:
@@ -485,7 +486,8 @@ class NetReader(handler.ContentHandler):
                     intLanes = attrs["intLanes"].split(" ")
                 self._currentNode = self._net.addNode(attrs['id'], attrs['type'],
                                                       tuple(
-                                                          map(float, [attrs['x'], attrs['y'], attrs['z'] if 'z' in attrs else '0'])),
+                                                          map(float, [attrs['x'], attrs['y'],
+                                                              attrs['z'] if 'z' in attrs else '0'])),
                                                       attrs['incLanes'].split(" "), intLanes)
                 self._currentNode.setShape(
                     convertShape(attrs.get('shape', '')))
@@ -628,6 +630,7 @@ def readNet(filename, **others):
         parse(filename, netreader)
     except None:
         print(
-            "Please mind that the network format has changed in 0.13.0, you may need to update your network!", file=sys.stderr)
+            "Please mind that the network format has changed in 0.13.0, you may need to update your network!",
+            file=sys.stderr)
         sys.exit(1)
     return netreader.getNet()

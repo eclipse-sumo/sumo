@@ -274,7 +274,8 @@ def main(options):
     if options.stops_output:
         busStops = codecs.open(options.stops_output, 'w', encoding='utf8')
         busStops.write(
-            '<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">\n')
+            '<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ' +
+            'xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">\n')
     if options.additional_input:
         for busStop in parse(options.additional_input, 'busStop'):
             edge = busStop.lane[:-2]
@@ -289,7 +290,8 @@ def main(options):
         f.write('<!-- generated with %s for %s from %s -->\n' %
                 (os.path.basename(__file__), options.network, options.routeFiles))
         f.write(
-            '<%s xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">\n' % output_type)
+            ('<%s xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ' +
+             'xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">\n') % output_type)
         num_routes = 0
         for _, v in vehicles:
             num_routes += 1

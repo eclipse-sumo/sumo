@@ -270,7 +270,8 @@ def writeHeader(outf, script, root=None, schemaPath=None):
     if root is not None:
         if schemaPath is None:
             schemaPath = root + "_file.xsd"
-        outf.write('<%s xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/%s">\n' % (root, schemaPath))
+        outf.write(('<%s xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ' +
+                   'xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/%s">\n') % (root, schemaPath))
 
 
 def quoteattr(val):

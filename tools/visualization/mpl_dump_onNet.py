@@ -381,9 +381,11 @@ class WeightsReader(handler.ContentHandler):
         else:
             for i in weights._intervalBegins:
                 self.valueDependantNorm(self._unaggEdge2value1[
-                                        i], self._minValue1, self._maxValue1, False, percSpeed and self._value1 == "speed")
+                                        i], self._minValue1, self._maxValue1, False, percSpeed and
+                                        self._value1 == "speed")
                 self.valueDependantNorm(self._unaggEdge2value2[
-                                        i], self._minValue2, self._maxValue2, tendency, percSpeed and self._value2 == "speed")
+                                        i], self._minValue2, self._maxValue2, tendency, percSpeed and
+                                        self._value2 == "speed")
 
 
 # initialise

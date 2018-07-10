@@ -26,7 +26,8 @@ import sumolib.net
 def fcd2omnet(inpFCD, outSTRM, further):
     print('<?xml version="1.0" encoding="utf-8"?>', file=outSTRM)
     print(
-        '<xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="mobility_trace.xsd">', file=outSTRM)
+        '<xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="mobility_trace.xsd">',
+        file=outSTRM)
     print('<!-- generated on %s by %s -->\n' %
           (datetime.datetime.now(), further["app"]), file=outSTRM)
     print('<mobility_trace>', file=outSTRM)
@@ -42,12 +43,14 @@ def fcd2omnet(inpFCD, outSTRM, further):
             # create if not given
             if not vIDm.k(v.id):
                 nid = vIDm.g(v.id)
-                print("""  <create><nodeid>%s</nodeid><time>%s</time>\
-<type>SimpleNode</type><location><xpos>%s</xpos><ypos>%s</ypos></location></create>""" % (nid, timestep.time, v.x, v.y), file=outSTRM)
+                print(("""  <create><nodeid>%s</nodeid><time>%s</time>\
+<type>SimpleNode</type><location><xpos>%s</xpos><ypos>%s</ypos></location></create>""") % (
+                    nid, timestep.time, v.x, v.y), file=outSTRM)
             else:
                 nid = vIDm.g(v.id)
-                print("""  <waypoint><nodeid>%s</nodeid><time>%s</time>\
-<destination><xpos>%s</xpos><ypos>%s</ypos></destination><speed>%s</speed></waypoint>""" % (nid, timestep.time, v.x, v.y, v.speed), file=outSTRM)
+                print(("""  <waypoint><nodeid>%s</nodeid><time>%s</time>\
+<destination><xpos>%s</xpos><ypos>%s</ypos></destination><speed>%s</speed></waypoint>""") % (
+                    nid, timestep.time, v.x, v.y, v.speed), file=outSTRM)
         if checkGaps:
             _writeMissing(outSTRM, timestep.time, vIDm, seen)
     _writeMissing(outSTRM, timestep.time, vIDm, seen)

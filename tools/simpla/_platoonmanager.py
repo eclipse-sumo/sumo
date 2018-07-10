@@ -126,12 +126,14 @@ class PlatoonManager(traci.StepListener):
                 mappedEmergencyDecel = traci.vehicletype.getEmergencyDecel(typeID)
                 if origLength != mappedLength:
                     if rp.VERBOSITY >= 1:
-                        warn("length of mapped vType '%s' (%sm.) does not equal length of original vType '%s' (%sm.)\nThis will probably lead to collisions." % (
+                        warn(("length of mapped vType '%s' (%sm.) does not equal length of original vType " +
+                             "'%s' (%sm.)\nThis will probably lead to collisions.") % (
                             typeID, mappedLength, origType, origLength), True)
                 if origEmergencyDecel != mappedEmergencyDecel:
                     if rp.VERBOSITY >= 1:
-                        warn("emergencyDecel of mapped vType '%s' (%gm.) does not equal emergencyDecel of original vType '%s' (%gm.)" % (
-                            typeID, mappedEmergencyDecel, origType, origEmergencyDecel), True)
+                        warn(("emergencyDecel of mapped vType '%s' (%gm.) does not equal emergencyDecel of original " +
+                              "vType '%s' (%gm.)") % (
+                             typeID, mappedEmergencyDecel, origType, origEmergencyDecel), True)
                 simpla._pvehicle.vTypeParameters[typeID][tc.VAR_TAU] = traci.vehicletype.getTau(typeID)
                 simpla._pvehicle.vTypeParameters[typeID][tc.VAR_DECEL] = traci.vehicletype.getDecel(typeID)
                 simpla._pvehicle.vTypeParameters[typeID][tc.VAR_MINGAP] = traci.vehicletype.getMinGap(typeID)
@@ -145,7 +147,8 @@ class PlatoonManager(traci.StepListener):
         NOTE: argument t is unused, larger step sizes than DeltaT are not supported.
         '''
         if not t == 0 and rp.VERBOSITY >= 1:
-            warn("Step lengths that differ from SUMO's simulation step length are not supported and probably lead to undesired behavior.\nConsider decreasing simpla's control rate instead.")
+            warn("Step lengths that differ from SUMO's simulation step length are not supported and probably lead " +
+                 "to undesired behavior.\nConsider decreasing simpla's control rate instead.")
         # Handle vehicles entering and leaving the simulation
         self._addDeparted()
         self._removeArrived()
@@ -318,7 +321,8 @@ class PlatoonManager(traci.StepListener):
                     elif leader.getPlatoon() == veh.getPlatoon():
                         # the platoon order is violated.
                         if rp.VERBOSITY >= 2:
-                            report("Platoon order for platoon '%s' is violated: real leader '%s' is not registered as leader of '%s'" % (
+                            report(("Platoon order for platoon '%s' is violated: real leader '%s' is not registered " +
+                                   "as leader of '%s'") % (
                                 pltnID, leaderID, veh.getID()), 1)
                         veh.setSplitConditions(False)
                     else:
@@ -427,7 +431,8 @@ class PlatoonManager(traci.StepListener):
                 # Join failed due to too large distance. Try to get closer (change to CATCHUP mode).
                 if not pltn.setMode(PlatoonMode.CATCHUP):
                     if rp.VERBOSITY >= 3:
-                        report("Switch to catchup mode would not be safe for platoon '%s' (%s) chasing platoon '%s' (%s)." %
+                        report(("Switch to catchup mode would not be safe for platoon '%s' (%s) chasing " +
+                                "platoon '%s' (%s).") %
                                (pltn.getID(), str([veh.getID() for veh in pltn.getVehicles()]),
                                 leader.getPlatoon().getID(),
                                 str([veh.getID() for veh in leader.getPlatoon().getVehicles()])))
@@ -468,7 +473,9 @@ class PlatoonManager(traci.StepListener):
 
                 if rp.VERBOSITY >= 4:
                     report("Platoon %s: Leader for veh '%s' is '%s' (%s)"
-                           % (pltn.getID(), veh.getID(), str(leaderID), ("same platoon" if (intraPlatoonLeaders[-1] is not None) else "not from same platoon")), 3)
+                           % (pltn.getID(), veh.getID(), str(leaderID),
+                              ("same platoon" if (intraPlatoonLeaders[-1] is not None) else "not from same platoon")),
+                           3)
 
             pltn.setVehicles(self.reorderVehicles(pltn.getVehicles(), intraPlatoonLeaders))
 
@@ -503,8 +510,9 @@ class PlatoonManager(traci.StepListener):
                     list(zip(vehicles, registeredLeaders, actualLeaders))):
                 if (ego == actualLeader):
                     if rp.VERBOSITY >= 1:
-                        warn("Platoon %s:\nVehicle '%s' was found as its own leader. Platoon order might be corrupted." % (
-                            rp.array2String(vehicles), str(ego)))
+                        warn(("Platoon %s:\nVehicle '%s' was found as its own leader. " +
+                              "Platoon order might be corrupted.") % (
+                             rp.array2String(vehicles), str(ego)))
                     return vehicles
 
                 if actualLeader is None:

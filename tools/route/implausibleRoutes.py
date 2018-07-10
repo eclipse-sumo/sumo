@@ -147,8 +147,9 @@ def main():
                 routeInfos[vehicle.id].detour = 0
                 routeInfos[vehicle.id].detourRatio = 1
                 if oldCosts < newCosts:
-                    sys.stderr.write("Warning: fastest route for '%s' is slower than original route (old=%s, new=%s). Check vehicle types\n" % (
-                        vehicle.id, oldCosts, newCosts))
+                    sys.stderr.write(("Warning: fastest route for '%s' is slower than original route " +
+                                      "(old=%s, new=%s). Check vehicle types\n") % (
+                                      vehicle.id, oldCosts, newCosts))
             else:
                 routeInfos[vehicle.id].detour = oldCosts - newCosts
                 routeInfos[vehicle.id].detourRatio = oldCosts / newCosts

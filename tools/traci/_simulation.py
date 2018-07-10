@@ -354,7 +354,8 @@ class SimulationDomain(Domain):
 
     def findRoute(self, fromEdge, toEdge, vtype="", depart=-1., routingMode=0):
         self._connection._beginMessage(tc.CMD_GET_SIM_VARIABLE, tc.FIND_ROUTE, "",
-                                       1 + 4 + 1 + 4 + len(fromEdge) + 1 + 4 + len(toEdge) + 1 + 4 + len(vtype) + 1 + 8 + 1 + 4)
+                                       (1 + 4 + 1 + 4 + len(fromEdge) + 1 + 4 + len(toEdge) + 1 + 4 + len(vtype) +
+                                        1 + 8 + 1 + 4))
         self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 5)
         self._connection._packString(fromEdge)
         self._connection._packString(toEdge)

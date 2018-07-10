@@ -39,6 +39,7 @@ def mapTrace(trace, net, delta, verbose=False):
     """
     result = ()
     paths = {}
+    lastPos = None
     if verbose:
         print("mapping trace with %s points" % len(trace))
     for pos in trace:

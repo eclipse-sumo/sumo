@@ -121,14 +121,16 @@ class PVehicle(object):
                 or cfg.PLATOON_VTYPES[origVType][mode] is "":
             if "default" in cfg.PLATOON_VTYPES and mode in cfg.PLATOON_VTYPES["default"]:
                 if rp.VERBOSITY >= 1 and not WARNED_DEFAULT[mode]:
-                    warn("Using default vType '%s' for vehicle '%s' (PlatoonMode: '%s'). This warning is issued only once." %
+                    warn(("Using default vType '%s' for vehicle '%s' (PlatoonMode: '%s'). " +
+                          "This warning is issued only once.") %
                          (cfg.PLATOON_VTYPES["default"][mode], self._ID, PlatoonMode(mode).name))
                     WARNED_DEFAULT[mode] = True
                 return cfg.PLATOON_VTYPES["default"][mode]
             else:
                 if rp.VERBOSITY >= 1 and not WARNED_DEFAULT[mode]:
-                    warn("No vType specified for PlatoonMode '%s' for vehicle '%s'. Behavior within platoon is NOT altered. This warning is issued only once." % (
-                        PlatoonMode(mode).name, self._ID))
+                    warn(("No vType specified for PlatoonMode '%s' for vehicle '%s'. Behavior within " +
+                          "platoon is NOT altered. This warning is issued only once.") % (
+                          PlatoonMode(mode).name, self._ID))
                     WARNED_DEFAULT[mode] = True
                 return origVType
         if rp.VERBOSITY >= 3:

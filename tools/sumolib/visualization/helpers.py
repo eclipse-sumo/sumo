@@ -18,6 +18,7 @@ from __future__ import print_function
 
 import os
 import gc
+import sys
 import matplotlib
 if 'TEXTTEST_SANDBOX' in os.environ or (os.name == 'posix' and 'DISPLAY' not in os.environ):
     matplotlib.use('Agg')
@@ -178,7 +179,8 @@ def applyPlotOptions(fig, ax, options):
                 vals[1]), right=float(vals[2]), top=float(vals[3]))
         else:
             print(
-                "Error: adjust must be given as two floats (<LEFT>,<BOTTOM>) or four floats (<LEFT>,<BOTTOM>,<RIGHT>,<TOP>)")
+                "Error: adjust must be given as two floats (<LEFT>,<BOTTOM>) or four floats " +
+                "(<LEFT>,<BOTTOM>,<RIGHT>,<TOP>)")
             sys.exit()
 
 

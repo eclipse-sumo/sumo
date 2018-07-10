@@ -70,7 +70,8 @@ class GapController(traci.StepListener):
 
         if DEBUG_GAP_CONTROL:
             print("Created GapController for vehicle %s" % self._vehID)
-            print("desiredGap=%s, desiredSpeedDiff=%s, maximumDecel=%s, duration=%s" % (desiredGap, desiredSpeedDiff, maximumDecel, duration))
+            print("desiredGap=%s, desiredSpeedDiff=%s, maximumDecel=%s, duration=%s" % (
+                  desiredGap, desiredSpeedDiff, maximumDecel, duration))
 
     def step(self, s=0):
         '''
@@ -87,7 +88,8 @@ class GapController(traci.StepListener):
         return self._duration > 0
 
     def _applyControl(self):
-        leaderInfo = traci.vehicle.getLeader(self._vehID, max(self._desiredGap * self._leaderHorizonFactor, self._minimalLeaderHorizon))
+        leaderInfo = traci.vehicle.getLeader(self._vehID, max(self._desiredGap * self._leaderHorizonFactor,
+                                                              self._minimalLeaderHorizon))
 #         leaderInfo = traci.vehicle.getLeader(self._vehID, self._desiredGap)
         if leaderInfo is None:
             # no leader
@@ -183,9 +185,11 @@ def openGap(vehID, desiredGap, desiredSpeedDiff, maximumDecel, duration):
     if desiredGap <= 0:
         errorMsg = "simpla.openGap(): Parameter desiredGap has to be a positive float (given value = %s)." % desiredGap
     elif desiredSpeedDiff <= 0:
-        errorMsg = "simpla.openGap(): Parameter desiredSpeedDiff has to be a positive float (given value = %s)." % desiredSpeedDiff
+        errorMsg = "simpla.openGap(): Parameter desiredSpeedDiff has to be a positive float (given value = %s)." % (
+            desiredSpeedDiff)
     elif maximumDecel <= 0:
-        errorMsg = "simpla.openGap(): Parameter maximumDecel has to be a positive float (given value = %s)." % maximumDecel
+        errorMsg = "simpla.openGap(): Parameter maximumDecel has to be a positive float (given value = %s)." % (
+            maximumDecel)
     elif duration <= 0:
         errorMsg = "simpla.openGap(): Parameter duration has to be a positive float (given value = %s)." % duration
     if errorMsg is not None:

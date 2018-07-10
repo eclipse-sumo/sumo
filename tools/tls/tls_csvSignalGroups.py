@@ -60,12 +60,13 @@ import xml
 import xml.dom.minidom
 import argparse
 
-try:
-    sys.path.append(os.path.join(os.environ.get("SUMO_HOME"), "tools"))
-    import sumolib.net
-except ImportError:
-    sys.exit(
-        "please declare environment variable 'SUMO_HOME' as the root directory of your sumo installation (it should contain folders 'bin', 'tools' and 'docs')")
+if 'SUMO_HOME' in os.environ:
+    tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
+    sys.path.append(tools)
+else:
+    sys.exit("please declare environment variable 'SUMO_HOME'")
+
+import sumolib.net  # noqa
 
 
 class TlLogic(sumolib.net.TLSProgram):
@@ -149,7 +150,8 @@ class TlLogic(sumolib.net.TLSProgram):
                                 self._signalGroups[sgID].addConnection(connIn, connOut, tlIndex)
                                 self._tlIndexToSignalGroup[tlIndex] = sgID
                             else:
-                                print("Error: linkIndex %d already bound to signal group %s. Cannot assign it to signal group %s." % (
+                                print(("Error: linkIndex %d already bound to signal group %s. " +
+                                      "Cannot assign it to signal group %s.") % (
                                       tlIndex, self._tlIndexToSignalGroup[tlIndex], sgID))
                                 sys.exit(-1)
 
@@ -304,7 +306,8 @@ class SignalGroup(object):
                             time, yieldTlIndex, checkPriority=False)
                         # Do not bother for "y" or "u": prioritary vehicles should not drive
                         wait = yieldSignal in ["g", "G", "o", "O"]
-                        # ("SG %s (tlIndex %d) at time %d (state %s) has to wait for SG %s (tlIndex %d, state %s)? %s" % (
+                        # (("SG %s (tlIndex %d) at time %d (state %s) has to wait for SG %s " +
+                        # "(tlIndex %d, state %s)? %s") % (
                         #  self._id, tlIndex, time, result, sgID, yieldTlIndex, yieldSignal, str(wait)))
                         if(wait):
                             break
@@ -350,6 +353,7 @@ def writeInputTemplates(net, outputDir, delimiter):
         with open(os.path.join(outputDir, "%s.csv" % tlsID), 'wb') as inputTemplate:
             csvWriter = csv.writer(inputTemplate, quoting=csv.QUOTE_NONE, delimiter=delimiter)
             csvWriter.writerows(data)
+
 
 def getOptions():
     argParser = argparse.ArgumentParser()

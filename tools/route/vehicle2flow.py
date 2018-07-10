@@ -56,7 +56,8 @@ def main():
     ]>
     """ % (options.repeat, options.end))
                     line = re.sub(
-                        r'<vehicle(.*)depart( ?= ?"[^"]*")', r'<flow\1begin\2 end="&RepeatEnd;" period="&RepeatInterval;"', line)
+                        r'<vehicle(.*)depart( ?= ?"[^"]*")', r'<flow\1begin\2 end="&RepeatEnd;" ' +
+                        'period="&RepeatInterval;"', line)
                 else:
                     line = re.sub(
                         r'<vehicle(.*)depart( ?= ?"[^"]*")', r'<flow\1begin\2 end="%s" period="%s"' %

@@ -80,7 +80,10 @@ class Scenario_RiLSA1OutTLS(Scenario):
                     lkwNprob = prob - lkwEprob
 
                     self.demand.addStream(demandGenerator.Stream(f[0] + "__" + rel[0], 0, 3600, rel[1], f[0], rel[0],
-                                                                 {"passenger": pkwEprob, "COLOMBO_undetectable_passenger": pkwNprob, "hdv": lkwEprob, "COLOMBO_undetectable_hdv": lkwNprob}))
+                                                                 {"passenger": pkwEprob,
+                                                                  "COLOMBO_undetectable_passenger": pkwNprob,
+                                                                  "hdv": lkwEprob,
+                                                                  "COLOMBO_undetectable_hdv": lkwNprob}))
             if fileNeedsRebuild(self.fullPath("routes.rou.xml"), "duarouter"):
                 self.demand.build(
                     0, 3600, self.fullPath(self.NET_FILE), self.fullPath("routes.rou.xml"))

@@ -769,7 +769,8 @@ class VehicleDomain(Domain):
         in milliseconds.
         """
         self._connection._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.CMD_STOP,
-                                       vehID, 1 + 4 + 1 + 4 + len(edgeID) + 1 + 8 + 1 + 1 + 1 + 4 + 1 + 1 + 1 + 8 + 1 + 4)
+                                       vehID, (1 + 4 + 1 + 4 + len(edgeID) + 1 + 8 + 1 + 1 +
+                                               1 + 4 + 1 + 1 + 1 + 8 + 1 + 4))
         self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 7)
         self._connection._packString(edgeID)
         self._connection._string += struct.pack("!BdBBBiBB", tc.TYPE_DOUBLE, pos,
@@ -925,7 +926,8 @@ class VehicleDomain(Domain):
         if type(edgeID) != str and type(begTime) == str:
             # legacy handling
             warnings.warn(
-                "Parameter order has changed for setAdaptedTraveltime(). Attempting legacy ordering. Please update your code.", stacklevel=2)
+                "Parameter order has changed for setAdaptedTraveltime(). Attempting legacy ordering. " +
+                "Please update your code.", stacklevel=2)
             return self.setAdaptedTraveltime(vehID, begTime, endTime, edgeID, time)
         if time is None:
             # reset
@@ -1250,7 +1252,8 @@ class VehicleDomain(Domain):
         Add a new vehicle (old style)
         """
         self._connection._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.ADD, vehID,
-                                       1 + 4 + 1 + 4 + len(typeID) + 1 + 4 + len(routeID) + 1 + 4 + 1 + 8 + 1 + 8 + 1 + 1)
+                                       (1 + 4 + 1 + 4 + len(typeID) + 1 + 4 + len(routeID)
+                                        + 1 + 4 + 1 + 8 + 1 + 8 + 1 + 1))
         if depart > 0:
             depart *= 1000
         self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 6)
@@ -1330,7 +1333,7 @@ class VehicleDomain(Domain):
         """
         Domain.subscribeContext(
             self, objectID, domain, dist, varIDs, begin, end)
-        
+
     def addSubscriptionFilterLanes(self, lanes):
         """addSubscriptionFilterLanes(list(integer)) -> None
 
@@ -1338,67 +1341,66 @@ class VehicleDomain(Domain):
         lanes is a list of relative lane indices (-1 -> right neighboring lane of the ego, 0 -> ego lane, etc.)
         """
         self._connection._addSubscriptionFilter(tc.FILTER_TYPE_LANES, lanes)
-        
+
     def addSubscriptionFilterNoOpposite(self):
         """addSubscriptionFilterNoOpposite() -> None
 
-        Omits vehicles on other edges than the ego's for the last modified vehicle context subscription (call it just after subscribing).
+        Omits vehicles on other edges than the ego's for the last modified vehicle context subscription
+        (call it just after subscribing).
         """
         self._connection._addSubscriptionFilter(tc.FILTER_TYPE_NOOPPOSITE)
-        
+
     def addSubscriptionFilterDownstreamDistance(self, dist):
         """addSubscriptionFilterDownstreamDist(float) -> None
 
-        Sets the downstream distance along the network for vehicles to be returned by the last modified 
+        Sets the downstream distance along the network for vehicles to be returned by the last modified
         vehicle context subscription (call it just after subscribing).
         """
         self._connection._addSubscriptionFilter(tc.FILTER_TYPE_DOWNSTREAM_DIST, dist)
-        
+
     def addSubscriptionFilterUpstreamDistance(self, dist):
         """addSubscriptionFilterUpstreamDist(float) -> None
 
-        Sets the upstream distance along the network for vehicles to be returned by the last modified 
+        Sets the upstream distance along the network for vehicles to be returned by the last modified
         vehicle context subscription (call it just after subscribing).
         """
         self._connection._addSubscriptionFilter(tc.FILTER_TYPE_UPSTREAM_DIST, dist)
-                
+
     def addSubscriptionFilterCFManeuver(self):
         """addSubscriptionFilterCFManeuver() -> None
 
         Restricts vehicles returned by the last modified vehicle context subscription to leader and follower of the ego
         """
         self._connection._addSubscriptionFilter(tc.FILTER_TYPE_CF_MANEUVER)
-                
+
     def addSubscriptionFilterLCManeuver(self, direction):
         """addSubscriptionFilterLCManeuver(int) -> None
 
-        Restricts vehicles returned by the last modified vehicle context subscription to neighbor and ego-lane leader and follower of the ego
+        Restricts vehicles returned by the last modified vehicle context subscription to neighbor and ego-lane leader
+        and follower of the ego
         """
         self._connection._addSubscriptionFilter(tc.FILTER_TYPE_LC_MANEUVER, direction)
-        
+
     def addSubscriptionFilterTurnManeuver(self):
         """addSubscriptionFilterTurnManeuver() -> None
 
         Restricts vehicles returned by the last modified vehicle context subscription to foes on an upcoming junction
         """
         self._connection._addSubscriptionFilter(tc.FILTER_TYPE_TURN_MANEUVER)
-        
-    def addSubscriptionFilterVClass(self, vClasses):        
+
+    def addSubscriptionFilterVClass(self, vClasses):
         """addSubscriptionFilterVClass(list(String)) -> None
 
         Restricts vehicles returned by the last modified vehicle context subscription to vehicles of the given classes
         """
         self._connection._addSubscriptionFilter(tc.FILTER_TYPE_VCLASS, vClasses)
-                
+
     def addSubscriptionFilterVType(self, vTypes):
         """addSubscriptionFilterVType(list(String)) -> None
 
         Restricts vehicles returned by the last modified vehicle context subscription to vehicles of the given types
         """
         self._connection._addSubscriptionFilter(tc.FILTER_TYPE_VTYPE, vTypes)
-        
-        
-        
 
 
 VehicleDomain()

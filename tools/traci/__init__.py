@@ -191,7 +191,8 @@ def removeStepListener(listenerID):
         del _stepListeners[listenerID]
         # print ("traci: Removed stepListener %s"%(listenerID))
         return True
-    msg = "removeStepListener(listener): listener %s not registered as step listener.\nlisteners:%s" % (listenerID, _stepListeners)
+    msg = "removeStepListener(listener): listener %s not registered as step listener.\nlisteners:%s" % (
+        listenerID, _stepListeners)
     # print ("traci: "+msg)
     warnings.warn(msg)
     return False
