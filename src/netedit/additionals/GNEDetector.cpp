@@ -114,7 +114,7 @@ GNEDetector::getPositionInView() const {
     if(myPositionOverLane < 0) {
         return myLane->getShape().front();
     } else if (myPositionOverLane > myLane->getShape().length()) {
-        myLane->getShape().back();
+        return myLane->getShape().back();
     } else {
         return myLane->getShape().positionAtOffset(myPositionOverLane);
     }
