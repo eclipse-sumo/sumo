@@ -82,8 +82,8 @@ class GapController(traci.StepListener):
         self._duration -= self._TS
 
         if DEBUG_GAP_CONTROL:
-            print ("Step of gap controller with listenerID=%s" % self.getID())
-            print ("Remaining activity period: %s" % self._duration)
+            print("Step of gap controller with listenerID=%s" % self.getID())
+            print("Remaining activity period: %s" % self._duration)
 
         return self._duration > 0
 
@@ -156,7 +156,7 @@ class GapController(traci.StepListener):
         traci.StepListener.cleanUp(self)
         self._releaseControl()
         if DEBUG_GAP_CONTROL:
-            print ("Cleaned up stepListener %s." % self.getID())
+            print("Cleaned up stepListener %s." % self.getID())
 
 
 def openGap(vehID, desiredGap, desiredSpeedDiff, maximumDecel, duration):
@@ -178,7 +178,7 @@ def openGap(vehID, desiredGap, desiredSpeedDiff, maximumDecel, duration):
     global _activeGapControllers
 
     if DEBUG_GAP_CONTROL:
-        print ("openGap()")
+        print("openGap()")
 
     # Check type error
     errorMsg = None
@@ -201,7 +201,7 @@ def openGap(vehID, desiredGap, desiredSpeedDiff, maximumDecel, duration):
     listenerID = traci.addStepListener(gc)
     _activeGapControllers[vehID] = listenerID
     if DEBUG_GAP_CONTROL:
-        print ("Active controllers: %s." % (_activeGapControllers))
+        print("Active controllers: %s." % (_activeGapControllers))
 
 
 def removeGapController(vehID):
@@ -210,7 +210,7 @@ def removeGapController(vehID):
     '''
     global _activeGapControllers
     if DEBUG_GAP_CONTROL:
-        print ("removeGapController(%s)\nactive: %s." % (vehID, _activeGapControllers))
+        print("removeGapController(%s)\nactive: %s." % (vehID, _activeGapControllers))
     if vehID in _activeGapControllers:
         listenerID = _activeGapControllers[vehID]
         traci.removeStepListener(listenerID)

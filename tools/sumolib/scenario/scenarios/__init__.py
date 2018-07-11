@@ -122,7 +122,8 @@ def extrapolateDemand(stream, freq, probs, pivot=demandGenerator.PIVOT__PEAK, tB
         # ok, this works just if _numberModel is a number
         num = float(stream._numberModel) * p / probs[pivot]
         ret.addStream(demandGenerator.Stream(stream.sid + "_" + str(i), t, t + freq,
-                                             num, stream._departEdgeModel, stream._arrivalEdgeModel, stream._vTypeModel))
+                                             num, stream._departEdgeModel, stream._arrivalEdgeModel,
+                                             stream._vTypeModel))
         t = t + freq
     return ret
 

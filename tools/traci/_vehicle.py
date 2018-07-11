@@ -1252,8 +1252,8 @@ class VehicleDomain(Domain):
         Add a new vehicle (old style)
         """
         self._connection._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.ADD, vehID,
-                                       (1 + 4 + 1 + 4 + len(typeID) + 1 + 4 + len(routeID)
-                                        + 1 + 4 + 1 + 8 + 1 + 8 + 1 + 1))
+                                       (1 + 4 + 1 + 4 + len(typeID) + 1 + 4 + len(routeID) +
+                                        1 + 4 + 1 + 8 + 1 + 8 + 1 + 1))
         if depart > 0:
             depart *= 1000
         self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 6)

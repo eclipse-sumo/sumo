@@ -219,7 +219,7 @@ def writeRoutes():
 
     outputFile.write("<routes>\n")
     # known for like used in java
-    for i in xrange(len(taxis)):
+    for i in range(len(taxis)):
         if len(routes[i]) > 3:
             outputFile.write("\t<vehicle id=\"" + taxis[i] + "\" type=\"taxi\" depart=\"" + str(
                 routes[i][0][0]) + "\" color=\"1,0,0\">\n")

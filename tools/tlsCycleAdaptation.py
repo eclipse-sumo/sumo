@@ -241,7 +241,7 @@ def getLaneGroupFlows(tl, connFlowsMap, phases):
             print("group flows: %s" % groupFlowsMap[i])
             print("The used lanes: %s" % phaseLaneIndexMap[i])
     if options.verbose:
-        print ("the current cycle length:%s sec" % currentLength)
+        print("the current cycle length:%s sec" % currentLength)
     return groupFlowsMap, phaseLaneIndexMap, currentLength
 
 

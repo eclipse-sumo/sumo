@@ -242,7 +242,7 @@ def createRoutes(options, trpMap, stopNames):
                     edges = vehicle.route[0].edges
                 else:
                     edges = vehicle.routeDistribution[0].route[1].edges
-            except StandardError:
+            except BaseException:
                 if options.ignoreErrors:
                     sys.stderr.write("Warning: Could not parse edges for vehicle '%s'\n" % id)
                     continue

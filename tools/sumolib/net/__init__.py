@@ -345,8 +345,8 @@ class Net:
                     if stopOnTLS and ci._tls and ci != edge and not stop:
                         ret.append([ie[0], ie[1], prev, True])
                         stop = True
-                    elif (stopOnTurnaround and ie[0]._incoming[ci][0].getDirection() == Connection.LINKDIR_TURN
-                          and not stop):
+                    elif (stopOnTurnaround and ie[0]._incoming[ci][0].getDirection() == Connection.LINKDIR_TURN and
+                          not stop):
                         ret.append([ie[0], ie[1], prev, True])
                         stop = True
                     else:
