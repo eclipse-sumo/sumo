@@ -24,12 +24,14 @@
 #include "NBPTLine.h"
 #include "NBPTStop.h"
 
-NBPTLine::NBPTLine(const std::string& name, const std::string& type) :
+NBPTLine::NBPTLine(const std::string& name, const std::string& type, const std::string& ref, int interval, const std::string& nightService) :
     myName(name),
     myType(type),
     myPTLineId(-1),
-    myRef(name) {
-}
+    myRef(ref != "" ? ref : name),
+    myInterval(interval),
+    myNightService(nightService)
+{ }
 
 void NBPTLine::addPTStop(NBPTStop* pStop) {
     myPTStops.push_back(pStop);
@@ -56,6 +58,12 @@ void NBPTLine::write(OutputDevice& device, NBEdgeCont& ec) {
 
     device.writeAttr(SUMO_ATTR_LINE, StringUtils::escapeXML(myRef));
     device.writeAttr(SUMO_ATTR_TYPE, myType);
+    if (myInterval > 0) {
+        device.writeAttr("interval", myInterval);
+    }
+    if (myNightService != "") {
+        device.writeAttr("nightService", myNightService);
+    }
     device.writeAttr("completeness", toString((double)myPTStops.size() / (double)myNumOfStops));
 
     std::vector<std::string> validEdgeIDs;
@@ -105,9 +113,6 @@ std::vector<long long int>* NBPTLine::getWaysNodes(std::string wayId) {
         return &myWaysNodes[wayId];
     }
     return nullptr;
-}
-void NBPTLine::setRef(std::string ref) {
-    myRef = std::move(ref);
 }
 
 void NBPTLine::addEdgeVector(std::vector<NBEdge*>::iterator fr, std::vector<NBEdge*>::iterator to) {

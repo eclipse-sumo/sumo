@@ -34,7 +34,7 @@ class NBEdgeCont;
 class NBPTLine {
 
 public:
-    explicit NBPTLine(const std::string& name, const std::string& type);
+    explicit NBPTLine(const std::string& name, const std::string& type, const std::string& ref, int interval, const std::string& nightService);
 
     void addPTStop(NBPTStop* pStop);
     long long int getLineID() const;
@@ -43,7 +43,6 @@ public:
     void write(OutputDevice& device, NBEdgeCont& ec);
     void setId(long long int id);
     void addWayNode(long long int way, long long int node);
-    void setRef(std::string basic_string);
 
     void setMyNumOfStops(int numStops);
 
@@ -67,6 +66,8 @@ private:
     std::string myCurrentWay;
     long long int myPTLineId;
     std::string myRef;
+    int myInterval;
+    std::string myNightService;
 
 public:
     void addEdgeVector(std::vector<NBEdge*>::iterator fr, std::vector<NBEdge*>::iterator to);

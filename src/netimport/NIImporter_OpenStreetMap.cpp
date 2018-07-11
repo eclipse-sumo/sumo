@@ -1130,6 +1130,10 @@ NIImporter_OpenStreetMap::RelationHandler::myStartElement(int element,
         if (action == "delete" || !ok) {
             myCurrentRelation = INVALID_ID;
         }
+        myName = "";
+        myRef = "";
+        myInterval = -1;
+        myNightService = "";
         return;
     }
     if (myCurrentRelation == INVALID_ID) {
@@ -1232,11 +1236,13 @@ NIImporter_OpenStreetMap::RelationHandler::myStartElement(int element,
             }
 
         } else if (key == "name") {
-            std::string value = attrs.get<std::string>(SUMO_ATTR_V, toString(myCurrentRelation).c_str(), ok, false);
-            myName = value;
+            myName = attrs.get<std::string>(SUMO_ATTR_V, toString(myCurrentRelation).c_str(), ok, false);
         } else if (key == "ref") {
-            std::string value = attrs.get<std::string>(SUMO_ATTR_V, toString(myCurrentRelation).c_str(), ok, false);
-            myRef = value;
+            myRef = attrs.get<std::string>(SUMO_ATTR_V, toString(myCurrentRelation).c_str(), ok, false);
+        } else if (key == "interval" || key == "headway") {
+            myInterval = attrs.get<int>(SUMO_ATTR_V, toString(myCurrentRelation).c_str(), ok, false);
+        } else if (key == "by_night") {
+            myNightService = attrs.get<std::string>(SUMO_ATTR_V, toString(myCurrentRelation).c_str(), ok, false);
         }
     }
 }
@@ -1353,7 +1359,7 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
                 ptStop->setIsMultipleStopPositions(myStops.size() > 1);;
             }
         } else if (myPTRouteType != "" && myIsRoute && OptionsCont::getOptions().isSet("ptline-output") && myStops.size() > 1) {
-            NBPTLine* ptLine = new NBPTLine(myName, myPTRouteType);
+            NBPTLine* ptLine = new NBPTLine(myName, myPTRouteType, myRef, myInterval, myNightService);
             ptLine->setMyNumOfStops((int)myStops.size());
             for (long long ref : myStops) {
                 if (myOSMNodes.find(ref) == myOSMNodes.end()) {
@@ -1384,9 +1390,6 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
                     continue;
                 }
                 ptLine->addPTStop(ptStop);
-                if (myRef != "") {
-                    ptLine->setRef(myRef);
-                }
             }
             for (long long& myWay : myWays) {
                 auto entr = myOSMEdges.find(myWay);
