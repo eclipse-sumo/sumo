@@ -38,22 +38,25 @@ netedit.inspectMode()
 netedit.leftClick(match, 150, 290)
 
 # Change parameter 0 with a non valid value (dummy)
-netedit.modifyAttribute(0, "dummyRoadSideCapacity")
+netedit.modifyAttribute(0, "%$%$$&&$$")
 
 # Change parameter 0 with a non valid value (double)
-netedit.modifyAttribute(0, "2.3")
+netedit.modifyAttribute(0, "Parking Area Name")
 
-# Change parameter 0 with a non valid value (negative)
-netedit.modifyAttribute(0, "-5")
+# Change parameter 1 with a non valid value (dummy)
+netedit.modifyAttribute(1, "dummyRoadSideCapacity")
 
-# Change parameter 0 with a non valid value (negative)
-netedit.modifyAttribute(0, "7")
+# Change parameter 1 with a non valid value (double)
+netedit.modifyAttribute(1, "2.3")
 
-# Change parameter 1 with a different value
-netedit.modifyBoolAttribute(1)
+# Change parameter 1 with a non valid value (negative)
+netedit.modifyAttribute(1, "-5")
 
-# Change parameter 2 with a non valid value (throw warning)
-netedit.modifyAttribute(2, "new Parking Area Name")
+# Change parameter 1 with a non valid value (negative)
+netedit.modifyAttribute(1, "7")
+
+# Change parameter 2 with a different value
+netedit.modifyBoolAttribute(2)
 
 # Change parameter 3 with a non valid value (dummy)
 netedit.modifyAttribute(3, "dummyWidth")

@@ -91,23 +91,26 @@ netedit.modifyAttribute(3, "10")
 # Change parameter 3 with a valid value
 netedit.modifyAttribute(3, "30")
 
-# Change parameter 4 with a non valid value (dummy)
-netedit.modifyAttribute(4, "dummyRoadSideCapacity")
+# Change parameter 4 with a non valid value (throw warning)
+netedit.modifyAttribute(4, "%%%$$$$%$")
 
-# Change parameter 4 with a non valid value (double)
-netedit.modifyAttribute(4, "2.3")
+# Change parameter 4 with a non valid value (throw warning)
+netedit.modifyAttribute(4, "new Parking Area Name")
 
-# Change parameter 4 with a non valid value (negative)
-netedit.modifyAttribute(4, "-5")
+# Change parameter 45with a non valid value (dummy)
+netedit.modifyAttribute(5, "dummyRoadSideCapacity")
 
-# Change parameter 4 with a non valid value (negative)
-netedit.modifyAttribute(4, "7")
+# Change parameter 5 with a non valid value (double)
+netedit.modifyAttribute(5, "2.3")
 
-# Change parameter 5 with a different value
-netedit.modifyBoolAttribute(5)
+# Change parameter 5 with a non valid value (negative)
+netedit.modifyAttribute(5, "-5")
 
-# Change parameter 6 with a non valid value (throw warning)
-netedit.modifyAttribute(6, "new Parking Area Name")
+# Change parameter 5 with a non valid value (negative)
+netedit.modifyAttribute(5, "7")
+
+# Change parameter 6 with a different value
+netedit.modifyBoolAttribute(6)
 
 # Change parameter 7 with a non valid value (dummy)
 netedit.modifyAttribute(7, "dummyWidth")

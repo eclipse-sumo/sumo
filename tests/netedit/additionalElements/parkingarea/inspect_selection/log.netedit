@@ -14,14 +14,15 @@ Warning: Setting new attribute selected 'true' into edge 'gneE0'
 Warning: Setting new attribute selected 'true' into parkingArea 'parkingAreaA'
 Warning: Setting new attribute selected 'true' into parkingArea 'parkingAreaB'
 Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 2 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Value '%$%$$&&$$' for attribute name of parkingArea isn't valid
+Warning: Setting new attribute name 'Parking Area Name' into parkingArea 'parkingAreaA'
+Warning: Setting new attribute name 'Parking Area Name' into parkingArea 'parkingAreaB'
 Warning: Setting new attribute roadsideCapacity '0' into parkingArea 'parkingAreaB'
 Warning: Value '-5' for attribute roadsideCapacity of parkingArea isn't valid
 Warning: Setting new attribute roadsideCapacity '7' into parkingArea 'parkingAreaA'
 Warning: Setting new attribute roadsideCapacity '7' into parkingArea 'parkingAreaB'
 Warning: Setting new attribute friendlyPos 'true' into parkingArea 'parkingAreaA'
 Warning: Setting new attribute friendlyPos 'true' into parkingArea 'parkingAreaB'
-Warning: Setting new attribute name 'new Parking Area Name' into parkingArea 'parkingAreaA'
-Warning: Setting new attribute name 'new Parking Area Name' into parkingArea 'parkingAreaB'
 Warning: Setting new attribute width '3.20' into parkingArea 'parkingAreaA'
 Warning: Setting new attribute width '3.20' into parkingArea 'parkingAreaB'
 Warning: Value '-5' for attribute width of parkingArea isn't valid
@@ -78,9 +79,6 @@ Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute width '6.00' into parkingArea 'parkingAreaB'
 Warning: Setting previous attribute width '5.00' into parkingArea 'parkingAreaA'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute name 'parkingArea2' into parkingArea 'parkingAreaB'
-Warning: Setting previous attribute name 'parkingArea1' into parkingArea 'parkingAreaA'
-Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute friendlyPos '0' into parkingArea 'parkingAreaB'
 Warning: Setting previous attribute friendlyPos '1' into parkingArea 'parkingAreaA'
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -88,6 +86,9 @@ Warning: Setting previous attribute roadsideCapacity '0' into parkingArea 'parki
 Warning: Setting previous attribute roadsideCapacity '0' into parkingArea 'parkingAreaA'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute roadsideCapacity '10' into parkingArea 'parkingAreaB'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute name 'parkingArea2' into parkingArea 'parkingAreaB'
+Warning: Setting previous attribute name 'parkingArea1' into parkingArea 'parkingAreaA'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute selected '0' into parkingArea 'parkingAreaB'
 Warning: Setting previous attribute selected '0' into parkingArea 'parkingAreaA'
@@ -111,6 +112,9 @@ Warning: Setting new attribute selected 'true' into edge 'gneE0'
 Warning: Setting new attribute selected 'true' into parkingArea 'parkingAreaA'
 Warning: Setting new attribute selected 'true' into parkingArea 'parkingAreaB'
 Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute name 'Parking Area Name' into parkingArea 'parkingAreaA'
+Warning: Setting new attribute name 'Parking Area Name' into parkingArea 'parkingAreaB'
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute roadsideCapacity '0' into parkingArea 'parkingAreaB'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute roadsideCapacity '7' into parkingArea 'parkingAreaA'
@@ -118,9 +122,6 @@ Warning: Setting new attribute roadsideCapacity '7' into parkingArea 'parkingAre
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute friendlyPos 'true' into parkingArea 'parkingAreaA'
 Warning: Setting new attribute friendlyPos 'true' into parkingArea 'parkingAreaB'
-Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute name 'new Parking Area Name' into parkingArea 'parkingAreaA'
-Warning: Setting new attribute name 'new Parking Area Name' into parkingArea 'parkingAreaB'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute width '3.20' into parkingArea 'parkingAreaA'
 Warning: Setting new attribute width '3.20' into parkingArea 'parkingAreaB'

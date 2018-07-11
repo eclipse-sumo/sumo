@@ -32,49 +32,59 @@ netedit.additionalMode()
 netedit.changeAdditional("parkingArea")
 
 # create parkingArea in mode "reference left"
-netedit.leftClick(match, 250, 250)
+netedit.leftClick(match, 220, 250)
+
+
+# set name
+netedit.modifyAdditionalDefaultValue(2, "·$·%···$")
+
+# create parkingArea in mode "reference left"
+netedit.leftClick(match, 240, 250)
+
+# set name
+netedit.modifyAdditionalDefaultValue(2, "parkingArea")
+
+# create parkingArea in mode "reference left"
+netedit.leftClick(match, 240, 250)
+
+
+
 
 # set invalid roadSideCapacity (dummy)
-netedit.modifyAdditionalDefaultValue(2, "dummyRoadSideCapacity")
+netedit.modifyAdditionalDefaultValue(3, "dummyRoadSideCapacity")
 
 # try to create parkingArea in mode "reference left"
 netedit.leftClick(match, 260, 250)
 
 # set invalid roadSideCapacity (empty"
-netedit.modifyAdditionalDefaultValue(2, "")
+netedit.modifyAdditionalDefaultValue(3, "")
 
 # try to create parkingArea in mode "reference left"
 netedit.leftClick(match, 260, 250)
 
 # set invalid roadSideCapacity (negative)
-netedit.modifyAdditionalDefaultValue(2, "-3")
+netedit.modifyAdditionalDefaultValue(3, "-3")
 
 # try to create parkingArea in mode "reference left"
 netedit.leftClick(match, 260, 250)
 
 # set invalid roadSideCapacity (double)
-netedit.modifyAdditionalDefaultValue(2, "2.5")
+netedit.modifyAdditionalDefaultValue(3, "2.5")
 
 # create parkingArea in mode "reference left"
 netedit.leftClick(match, 260, 250)
 
 # set valid roadSideCapacity (int)
-netedit.modifyAdditionalDefaultValue(2, "3")
+netedit.modifyAdditionalDefaultValue(3, "3")
 
 # create parkingArea in mode "reference left"
 netedit.leftClick(match, 260, 250)
 
 # set friendlyPos
-netedit.modifyAdditionalDefaultBoolValue(3)
+netedit.modifyAdditionalDefaultBoolValue(4)
 
 # create parkingArea in mode "reference left"
 netedit.leftClick(match, 270, 250)
-
-# set name
-netedit.modifyAdditionalDefaultValue(4, "parkingArea")
-
-# create parkingArea in mode "reference left"
-netedit.leftClick(match, 280, 250)
 
 # set invalid width (dummy)
 netedit.modifyAdditionalDefaultValue(5, "dummyWidth")

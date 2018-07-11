@@ -20,10 +20,11 @@ Warning: Setting new attribute endPos '' into parkingArea 'correctID'
 Warning: Setting new attribute endPos '3000' into parkingArea 'correctID'
 Warning: Value '10' for attribute endPos of parkingArea isn't valid
 Warning: Setting new attribute endPos '30' into parkingArea 'correctID'
+Warning: Value '%%%$$$$%$' for attribute name of parkingArea isn't valid
+Warning: Setting new attribute name 'new Parking Area Name' into parkingArea 'correctID'
 Warning: Value '-5' for attribute roadsideCapacity of parkingArea isn't valid
 Warning: Setting new attribute roadsideCapacity '7' into parkingArea 'correctID'
 Warning: Setting new attribute friendlyPos 'true' into parkingArea 'correctID'
-Warning: Setting new attribute name 'new Parking Area Name' into parkingArea 'correctID'
 Warning: Value '-5' for attribute width of parkingArea isn't valid
 Warning: Setting new attribute width '0' into parkingArea 'correctID'
 Warning: Setting new attribute width '2.3' into parkingArea 'correctID'
@@ -57,11 +58,11 @@ Warning: Setting previous attribute width '0.00' into parkingArea 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute width '3.20' into parkingArea 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute name '' into parkingArea 'correctID'
-Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute friendlyPos '0' into parkingArea 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute roadsideCapacity '0' into parkingArea 'correctID'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute name '' into parkingArea 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute endPos '3000' into parkingArea 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -113,11 +114,11 @@ Warning: Setting new attribute endPos '3000' into parkingArea 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute endPos '30' into parkingArea 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute name 'new Parking Area Name' into parkingArea 'correctID'
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute roadsideCapacity '7' into parkingArea 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute friendlyPos 'true' into parkingArea 'correctID'
-Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute name 'new Parking Area Name' into parkingArea 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute width '0' into parkingArea 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
