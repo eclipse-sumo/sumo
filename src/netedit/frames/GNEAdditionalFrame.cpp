@@ -1351,12 +1351,6 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GNEAdditional* addi
         }
     }
 
-    // If additional own the attribute SUMO_ATTR_OUTPUT but was't defined, will defined as <ID>.xml
-    // output is optional
-    //if (tagValue.hasAttribute(SUMO_ATTR_OUTPUT) && valuesOfElement[SUMO_ATTR_OUTPUT] == "") {
-    //    valuesOfElement[SUMO_ATTR_OUTPUT] = (valuesOfElement[SUMO_ATTR_ID] + ".xml");
-    //}
-
     // Save block value if additional can be blocked
     if (tagValue.canBlockMovement()) {
         valuesOfElement[GNE_ATTR_BLOCK_MOVEMENT] = toString(myNeteditParameters->isBlockEnabled());
@@ -1412,6 +1406,9 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GNEAdditional* addi
     if (GNEAdditionalHandler::buildAdditional(myViewNet, true, myAdditionalSelector->getCurrentAdditionalType(), valuesOfElement)) {
         // Refresh additional Parent Selector (For additionals that have a limited number of childs)
         myFirstAdditionalParentSelector->refreshListOfAdditionalParents();
+        // clear selected eddges and lanes
+        myEdgeParentsSelector->onCmdClearSelection(0,0,0);
+        myLaneParentsSelector->onCmdClearSelection(0,0,0);
         return ADDADDITIONAL_SUCCESS;
     } else {
         return ADDADDITIONAL_INVALID_ARGUMENTS;
