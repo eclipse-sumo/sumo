@@ -562,6 +562,7 @@ def main(args=None):
                 print("<<")
                 # use the external gawron
                 if options.externalgawron:
+                    basename = get_basename(router_input)
                     ecomeasure = None
                     if options.ecomeasure:
                         ecomeasure = options.ecomeasure

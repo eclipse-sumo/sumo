@@ -38,10 +38,10 @@ class ConfigurationReader(handler.ContentHandler):
 
     """Reads a configuration template, storing the options in an OptionParser"""
 
-    def __init__(self, optParse, groups, options):
+    def __init__(self, optParse, groups, configoptions):
         self._opts = optParse
         self._groups = groups
-        self._options = options
+        self._options = configoptions
         self._group = self._opts
 
     def startElement(self, name, attrs):
@@ -75,22 +75,22 @@ class ConfigurationReader(handler.ContentHandler):
             self._group = self._opts
 
 
-def pullOptions(executable, optParse, groups=None, options=None):
-    output = subprocess.Popen(
+def pullOptions(executable, optParse, groups=None, configoptions=None):
+    optoutput = subprocess.Popen(
         [executable, "--save-template", "-"], stdout=subprocess.PIPE).communicate()[0]
-    parseString(output, ConfigurationReader(optParse, groups, options))
+    parseString(optoutput, ConfigurationReader(optParse, groups, configoptions))
 
 
-def saveConfiguration(executable, options, filename):
-    options.save_configuration = filename
-    call(executable, options)
+def saveConfiguration(executable, configoptions, filename):
+    configoptions.save_configuration = filename
+    call(executable, configoptions)
 
 
-def call(executable, options):
+def call(executable, args):
     optParser = OptionParser()
     pullOptions(executable, optParser)
     cmd = [executable]
-    for option, value in options.__dict__.iteritems():
+    for option, value in args.__dict__.iteritems():
         o = "--" + option.replace("_", "-")
         opt = optParser.get_option(o)
         if opt is not None and value is not None and opt.default != value:
@@ -188,8 +188,8 @@ class TeeFile:
 
     """A helper class which allows simultaneous writes to several files"""
 
-    def __init__(self, *files):
-        self.files = files
+    def __init__(self, *outputfiles):
+        self.files = outputfiles
 
     def write(self, txt):
         """Writes the text to all files"""

@@ -17,8 +17,8 @@ from __future__ import absolute_import
 import os
 import re
 import subprocess
-from Tkinter import *  # Button, Canvas, Frame, Menu, Menubutton, Label, Scrollbar, StringVar, Tk, Entry
-from ttk import *
+from Tkinter import Canvas, Menu, StringVar, Tk, LEFT
+from ttk import Button, Frame, Menubutton, Label, Scrollbar, Entry
 import tkFileDialog
 from sumolib.options import Option, readOptions
 

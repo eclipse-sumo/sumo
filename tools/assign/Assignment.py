@@ -162,8 +162,8 @@ def main():
         # the disk space
         vehicles = []
         iterInterval = 0
-        matrixPshort, startVertices, endVertices, CurrentMatrixSum, begintime, assignPeriod, Pshort_EffCells, matrixSum, smallDemandRatio = getMatrix(
-            net, options.verbose, matrix, matrixSum, options.demandscale)
+        matrixPshort, startVertices, endVertices, CurrentMatrixSum, begintime, assignPeriod, Pshort_EffCells, \
+            matrixSum, smallDemandRatio = getMatrix(net, options.verbose, matrix, matrixSum, options.demandscale)
         options.hours = float(assignPeriod)
         smallDemandPortion = math.ceil(
             float(options.maxiteration) / 2. * smallDemandRatio)

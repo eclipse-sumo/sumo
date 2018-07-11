@@ -227,7 +227,8 @@ for step in range(options.firstStep, options.lastStep):
     parser.setContentHandler(reader)
     for f in files:
         parser.parse(f)
-    generateWeights(step, options, edges, reader, costFunction)
+    # see evaluation of options.costfunc above
+    generateWeights(step, options, edges, reader, costFunction)  # noqa
     print("<<")
     print("< Step %s ended (duration: %s)" % (step, datetime.now() - btimeA))
     print("------------------\n")

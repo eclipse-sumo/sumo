@@ -249,7 +249,7 @@ class PersonDomain(Domain):
             duration *= 1000
 
         if isinstance(edges, str):
-            edges = [edgeList]
+            edges = [edges]
         self._connection._beginMessage(tc.CMD_SET_PERSON_VARIABLE, tc.APPEND_STAGE, personID,
                                        1 + 4 +  # compound
                                        1 + 4 +  # stageType

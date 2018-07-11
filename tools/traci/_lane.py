@@ -281,7 +281,7 @@ class LaneDomain(Domain):
         """getFoes(string) -> list(string)
         Returns the ids of internal lanes that are in conflict with the given internal lane id
         """
-        return getFoes(laneID, "")
+        return self.getFoes(laneID, "")
 
     def setAllowed(self, laneID, allowedClasses):
         """setAllowed(string, list) -> None

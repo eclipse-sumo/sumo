@@ -13,6 +13,7 @@
 # @version $Id$
 
 # Import libraries
+from __future__ import print_function
 import os
 import sys
 import subprocess
@@ -147,7 +148,7 @@ def leftClick(match, positionx, positiony):
     clickedPosition = match.getTarget().offset(positionx, positiony)
     # click respect to offset
     click(clickedPosition)
-    print "TestFunctions: Clicked over position", clickedPosition.x, '-', clickedPosition.y
+    print("TestFunctions: Clicked over position", clickedPosition.x, '-', clickedPosition.y)
 
 
 """
@@ -164,7 +165,7 @@ def leftClickShift(match, positionx, positiony):
     clickedPosition = match.getTarget().offset(positionx, positiony)
     # click respect to offset
     click(clickedPosition)
-    print "TestFunctions: Clicked with Shift key pressed over position", clickedPosition.x, '-', clickedPosition.y
+    print("TestFunctions: Clicked with Shift key pressed over position", clickedPosition.x, '-', clickedPosition.y)
     # Release Shift key (Sikulix function)
     keyUp(Key.SHIFT)
 
@@ -183,7 +184,7 @@ def leftClickControl(match, positionx, positiony):
     clickedPosition = match.getTarget().offset(positionx, positiony)
     # click respect to offset
     click(clickedPosition)
-    print "TestFunctions: Clicked with Control key pressed over position", clickedPosition.x, '-', clickedPosition.y
+    print("TestFunctions: Clicked with Control key pressed over position", clickedPosition.x, '-', clickedPosition.y)
     # Release Shift key (Sikulix function)
     keyUp(Key.CTRL)
 

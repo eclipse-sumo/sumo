@@ -17,6 +17,15 @@ Originally distributed under the MIT license at
 https://github.com/dpallot/simple-websocket-server/tree/master/SimpleWebSocketServer.
 """
 import sys
+import hashlib
+import base64
+import socket
+import struct
+import ssl
+import errno
+import codecs
+from collections import deque
+from select import select
 
 VER = sys.version_info[0]
 if VER >= 3:
@@ -28,15 +37,6 @@ else:
     from BaseHTTPServer import BaseHTTPRequestHandler
     from StringIO import StringIO
 
-import hashlib  # noqa
-import base64  # noqa
-import socket  # noqa
-import struct  # noqa
-import ssl  # noqa
-import errno  # noqa
-import codecs  # noqa
-from collections import deque  # noqa
-from select import select  # noqa
 
 __all__ = ['WebSocket',
            'SimpleWebSocketServer',
@@ -47,7 +47,8 @@ def _check_unicode(val):
     if VER >= 3:
         return isinstance(val, str)
     else:
-        return isinstance(val, unicode)
+        # python 2.7
+        return isinstance(val, unicode)  # noqa
 
 
 class HTTPRequest(BaseHTTPRequestHandler):
