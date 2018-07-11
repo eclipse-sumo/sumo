@@ -50,19 +50,12 @@ public:
     /// @brief Advances by one step (or up to the given time)
     static void step(const SUMOTime time = 0);
 
-    /// @brief {object->{variable->value}}
-    typedef std::map<int, TraCIValue> TraCIValues;
-    typedef std::map<std::string, TraCIValues> SubscribedValues;
-    typedef std::map<std::string, SubscribedValues> SubscribedContextValues;
-
-    //void subscribe(int domID, const std::string& objID, SUMOTime beginTime, SUMOTime endTime, const std::vector<int>& vars) const;
-    //void subscribeContext(int domID, const std::string& objID, SUMOTime beginTime, SUMOTime endTime, int domain, double range, const std::vector<int>& vars) const;
-
-    const SubscribedValues getSubscriptionResults() const;
-    const TraCIValues getSubscriptionResults(const std::string& objID) const;
-
-    const SubscribedContextValues getContextSubscriptionResults() const;
-    const SubscribedValues getContextSubscriptionResults(const std::string& objID) const;
+    static void subscribe(const std::string& objID, const std::vector<int>& vars, SUMOTime beginTime, SUMOTime endTime);
+    static void subscribeContext(const std::string& objID, int domain, double range, const std::vector<int>& vars, SUMOTime beginTime, SUMOTime endTime);
+    static const SubscriptionResults getSubscriptionResults();
+    static const TraCIResults getSubscriptionResults(const std::string& objID);
+    static const ContextSubscriptionResults getContextSubscriptionResults();
+    static const SubscriptionResults getContextSubscriptionResults(const std::string& objID);
 
     static SUMOTime getCurrentTime();
 
@@ -87,8 +80,8 @@ public:
     static std::string getParameter(const std::string& objectID, const std::string& key);
 
 private:
-    SubscribedValues mySubscribedValues;
-    SubscribedContextValues mySubscribedContextValues;
+    static SubscriptionResults mySubscriptionResults;
+    static ContextSubscriptionResults myContextSubscriptionResults;
 
     /// @brief invalidated standard constructor
     Simulation();

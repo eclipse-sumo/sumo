@@ -27,6 +27,16 @@
 
 
 namespace libsumo {
+// ===========================================================================
+// static member initializations
+// ===========================================================================
+SubscriptionResults Edge::mySubscriptionResults;
+ContextSubscriptionResults Edge::myContextSubscriptionResults;
+
+
+// ===========================================================================
+// static member definitions
+// ===========================================================================
 std::vector<std::string>
 Edge::getIDList() {
     std::vector<std::string> ids;
@@ -334,27 +344,27 @@ Edge::subscribeContext(const std::string& objID, int domain, double range, const
 }
 
 
-const SubscribedValues
+const SubscriptionResults
 Edge::getSubscriptionResults() {
-    return SubscribedValues();
+    return mySubscriptionResults;
 }
 
 
-const TraCIValues
+const TraCIResults
 Edge::getSubscriptionResults(const std::string& objID) {
-    return TraCIValues();
+    return mySubscriptionResults[objID];
 }
 
 
-const SubscribedContextValues
+const ContextSubscriptionResults
 Edge::getContextSubscriptionResults() {
-    return SubscribedContextValues();
+    return myContextSubscriptionResults;
 }
 
 
-const SubscribedValues
+const SubscriptionResults
 Edge::getContextSubscriptionResults(const std::string& objID) {
-    return SubscribedValues();
+    return myContextSubscriptionResults[objID];
 }
 
 

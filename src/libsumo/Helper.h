@@ -24,6 +24,7 @@
 #include <config.h>
 
 #include <vector>
+#include <libsumo/Subscription.h>
 #include <libsumo/TraCIDefs.h>
 
 
@@ -89,49 +90,16 @@ inline LANE_RTREE_QUAL::Rect LANE_RTREE_QUAL::CombineRect(Rect* a_rectA, Rect* a
     return newRect;
 }
 
-/**
- * @class Helper
- * @brief C++ TraCI client API implementation
- */
 namespace libsumo {
 
-/** @class StoringVisitor
- * @brief Allows to store the object; used as context while traveling the rtree in TraCI
- */
-
+/**
+* @class Helper
+* @brief C++ TraCI client API implementation
+*/
 class Helper {
 public:
-    /** @brief Connects to the specified SUMO server
-    * @param[in] host The name of the host to connect to
-    * @param[in] port The port to connect to
-    * @exception tcpip::SocketException if the connection fails
-    */
-    //void connect(const std::string& host, int port);
-
-
-    /// @brief ends the Helper and closes the connection
-    void close();
-    /// @}
-
-    /// @brief load a Helper with the given arguments
-    static void load(const std::vector<std::string>& args);
-
-    /// @brief Advances by one step (or up to the given time)
-    static void HelperStep(const SUMOTime time = 0);
-
-    /// @brief {object->{variable->value}}
-    typedef std::map<int, TraCIValue> TraCIValues;
-    typedef std::map<std::string, TraCIValues> SubscribedValues;
-    typedef std::map<std::string, SubscribedValues> SubscribedContextValues;
-
-    //void subscribe(int domID, const std::string& objID, SUMOTime beginTime, SUMOTime endTime, const std::vector<int>& vars) const;
-    //void subscribeContext(int domID, const std::string& objID, SUMOTime beginTime, SUMOTime endTime, int domain, double range, const std::vector<int>& vars) const;
-
-    const SubscribedValues& getSubscriptionResults() const;
-    const TraCIValues& getSubscriptionResults(const std::string& objID) const;
-
-    const SubscribedContextValues& getContextSubscriptionResults() const;
-    const SubscribedValues& getContextSubscriptionResults(const std::string& objID) const;
+    void subscribe(int domID, const std::string& objID, SUMOTime beginTime, SUMOTime endTime, const std::vector<int>& vars) const;
+    void subscribeContext(int domID, const std::string& objID, SUMOTime beginTime, SUMOTime endTime, int domain, double range, const std::vector<int>& vars) const;
 
     /// @brief helper functions
     static TraCIPositionVector makeTraCIPositionVector(const PositionVector& positionVector);
@@ -210,8 +178,8 @@ public:
 
 private:
 
-    SubscribedValues mySubscribedValues;
-    SubscribedContextValues mySubscribedContextValues;
+    /// @brief The list of known, still valid subscriptions
+    static std::vector<Subscription> mySubscriptions;
 
     /// @brief A storage of objects
     static std::map<int, NamedRTree*> myObjects;

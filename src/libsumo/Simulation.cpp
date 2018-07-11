@@ -48,10 +48,17 @@
 #include <libsumo/TraCIDefs.h>
 
 
-// ===========================================================================
-// member definitions
-// ===========================================================================
 namespace libsumo {
+// ===========================================================================
+// static member initializations
+// ===========================================================================
+SubscriptionResults Simulation::mySubscriptionResults;
+ContextSubscriptionResults Simulation::myContextSubscriptionResults;
+
+
+// ===========================================================================
+// static member definitions
+// ===========================================================================
 void
 Simulation::load(const std::vector<std::string>& args) {
     close();
@@ -90,45 +97,36 @@ Simulation::close() {
 }
 
 
-/* void
-Simulation::subscribe(int domID, const std::string& objID, SUMOTime beginTime, SUMOTime endTime, const std::vector<int>& vars) const {
+void
+Simulation::subscribe(const std::string& objID, const std::vector<int>& vars, SUMOTime beginTime, SUMOTime endTime) {
 }
 
 void
-Simulation::subscribeContext(int domID, const std::string& objID, SUMOTime beginTime, SUMOTime endTime, int domain, double range, const std::vector<
-int>& vars) const {
-} */
-
-
-const Simulation::SubscribedValues
-Simulation::getSubscriptionResults() const {
-    return mySubscribedValues;
+Simulation::subscribeContext(const std::string& objID, int domain, double range, const std::vector<int>& vars, SUMOTime beginTime, SUMOTime endTime) {
 }
 
 
-const Simulation::TraCIValues
-Simulation::getSubscriptionResults(const std::string& objID) const {
-    if (mySubscribedValues.find(objID) != mySubscribedValues.end()) {
-        return mySubscribedValues.find(objID)->second;
-    } else {
-        return TraCIValues();
-    }
+const SubscriptionResults
+Simulation::getSubscriptionResults() {
+    return mySubscriptionResults;
 }
 
 
-const Simulation::SubscribedContextValues
-Simulation::getContextSubscriptionResults() const {
-    return mySubscribedContextValues;
+const TraCIResults
+Simulation::getSubscriptionResults(const std::string& objID) {
+    return mySubscriptionResults[objID];
 }
 
 
-const Simulation::SubscribedValues
-Simulation::getContextSubscriptionResults(const std::string& objID) const {
-    if (mySubscribedContextValues.find(objID) != mySubscribedContextValues.end()) {
-        return mySubscribedContextValues.find(objID)->second;
-    } else {
-        return SubscribedValues();
-    }
+const ContextSubscriptionResults
+Simulation::getContextSubscriptionResults() {
+    return myContextSubscriptionResults;
+}
+
+
+const SubscriptionResults
+Simulation::getContextSubscriptionResults(const std::string& objID) {
+    return myContextSubscriptionResults[objID];
 }
 
 

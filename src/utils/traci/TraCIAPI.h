@@ -127,13 +127,28 @@ public:
         /// @brief set generic paramter
         void setParameter(const std::string& objectID, const std::string& key, const std::string& value) const;
 
+        void subscribe(int domID, const std::string& objID, SUMOTime beginTime, SUMOTime endTime, const std::vector<int>& vars) const;
+        void subscribeContext(int domID, const std::string& objID, SUMOTime beginTime, SUMOTime endTime, int domain, double range, const std::vector<int>& vars) const;
+
+        const libsumo::SubscriptionResults getSubscriptionResults() const;
+        const libsumo::TraCIResults getSubscriptionResults(const std::string& objID) const;
+
+        const libsumo::ContextSubscriptionResults getContextSubscriptionResults() const;
+        const libsumo::SubscriptionResults getContextSubscriptionResults(const std::string& objID) const;
+
+        // the following are only for internal use
+        void clearSubscriptionResults();
+        libsumo::SubscriptionResults& getModifiableSubscriptionResults();
+        libsumo::SubscriptionResults& getModifiableContextSubscriptionResults(const std::string& objID);
+
 
     protected:
         /// @brief The parent TraCI client which offers the connection
         TraCIAPI& myParent;
         int myCmdGetID; 
         int myCmdSetID; 
-
+        libsumo::SubscriptionResults mySubscriptionResults;
+        libsumo::ContextSubscriptionResults myContextSubscriptionResults;
 
 
     private:
@@ -493,15 +508,6 @@ public:
         SUMOTime getDeltaT() const;
         libsumo::TraCIBoundary getNetBoundary() const;
         int getMinExpectedNumber() const;
-
-        void subscribe(int domID, const std::string& objID, SUMOTime beginTime, SUMOTime endTime, const std::vector<int>& vars) const;
-        void subscribeContext(int domID, const std::string& objID, SUMOTime beginTime, SUMOTime endTime, int domain, double range, const std::vector<int>& vars) const;
-
-        const libsumo::SubscribedValues getSubscriptionResults() const;
-        const libsumo::TraCIValues getSubscriptionResults(const std::string& objID) const;
-
-        const libsumo::SubscribedContextValues getContextSubscriptionResults() const;
-        const libsumo::SubscribedValues getContextSubscriptionResults(const std::string& objID) const;
 
     private:
         /// @brief invalidated copy constructor
@@ -936,9 +942,9 @@ protected:
     void processGET(tcpip::Storage& inMsg, int command, int expectedType, bool ignoreCommandId = false) const;
     /// @}
 
-    void readVariableSubscription(tcpip::Storage& inMsg);
-    void readContextSubscription(tcpip::Storage& inMsg);
-    void readVariables(tcpip::Storage& inMsg, const std::string& objectID, int variableCount, libsumo::SubscribedValues& into);
+    void readVariableSubscription(int cmdId, tcpip::Storage& inMsg);
+    void readContextSubscription(int cmdId, tcpip::Storage& inMsg);
+    void readVariables(tcpip::Storage& inMsg, const std::string& objectID, int variableCount, libsumo::SubscriptionResults& into);
 
     template <class T>
     static inline std::string toString(const T& t, std::streamsize accuracy = PRECISION) {
@@ -953,11 +959,9 @@ protected:
     void closeSocket();
 
 protected:
+    std::map<int, TraCIScopeWrapper*> myDomains;
     /// @brief The socket
     tcpip::Socket* mySocket;
-
-    libsumo::SubscribedValues mySubscribedValues;
-    libsumo::SubscribedContextValues mySubscribedContextValues;
 };
 
 

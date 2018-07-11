@@ -78,13 +78,17 @@ public:
 
     static void subscribe(const std::string& objID, const std::vector<int>& vars, SUMOTime beginTime, SUMOTime endTime);
     static void subscribeContext(const std::string& objID, int domain, double range, const std::vector<int>& vars, SUMOTime beginTime, SUMOTime endTime);
-    static const SubscribedValues getSubscriptionResults();
-    static const TraCIValues getSubscriptionResults(const std::string& objID);
-    static const SubscribedContextValues getContextSubscriptionResults();
-    static const SubscribedValues getContextSubscriptionResults(const std::string& objID);
+    static const SubscriptionResults getSubscriptionResults();
+    static const TraCIResults getSubscriptionResults(const std::string& objID);
+    static const ContextSubscriptionResults getContextSubscriptionResults();
+    static const SubscriptionResults getContextSubscriptionResults(const std::string& objID);
 
 private:
     static MSEdge* getEdge(const std::string& id);
+
+private:
+    static SubscriptionResults mySubscriptionResults;
+    static ContextSubscriptionResults myContextSubscriptionResults;
 };
 
 }

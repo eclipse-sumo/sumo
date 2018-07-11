@@ -31,6 +31,8 @@
 #include <map>
 #include <string>
 #include <stdexcept>
+#include <sstream>
+#include <memory>
 
 
 // ===========================================================================
@@ -60,17 +62,33 @@ public:
 /// @name Structures definitions
 /// @{
 
+struct TraCIResult {
+    virtual std::string getString() {
+        return "";
+    }
+};
+
 /** @struct TraCIPosition
     * @brief A 3D-position
     */
-struct TraCIPosition {
+struct TraCIPosition : TraCIResult {
+    std::string getString() {
+        std::ostringstream os;
+        os << "TraCIPosition(" << x << "," << y << "," << z << ")";
+        return os.str();
+    }
     double x, y, z;
 };
 
 /** @struct TraCIColor
     * @brief A color
     */
-struct TraCIColor {
+struct TraCIColor : TraCIResult {
+    std::string getString() {
+        std::ostringstream os;
+        os << "TraCIColor(" << r << "," << g << "," << b << "," << a << ")";
+        return os.str();
+    }
     unsigned char r, g, b, a;
 };
 
@@ -88,22 +106,59 @@ struct TraCIBoundary {
 };
 
 
-struct TraCIValue {
-    union {
-        double scalar;
-        TraCIPosition position;
-        TraCIColor color;
-    };
-    std::string string;
-    std::vector<std::string> stringList;
+struct TraCIInt : TraCIResult {
+    TraCIInt() : value(0) {}
+    TraCIInt(int v) : value(v) {}
+    std::string getString() {
+        std::ostringstream os;
+        os << value;
+        return os.str();
+    }
+    int value;
+};
+
+
+struct TraCIDouble : TraCIResult {
+    TraCIDouble() : value(0.) {}
+    TraCIDouble(double v) : value(v) {}
+    std::string getString() {
+        std::ostringstream os;
+        os << value;
+        return os.str();
+    }
+    double value;
+};
+
+
+struct TraCIString : TraCIResult {
+    TraCIString() : value("") {}
+    TraCIString(std::string v) : value(v) {}
+    std::string getString() {
+        return value;
+    }
+    std::string value;
+};
+
+
+struct TraCIStringList : TraCIResult {
+    std::string getString() {
+        std::ostringstream os;
+        os << "[";
+        for (std::string v : value) {
+            os << v << ",";
+        }
+        os << "]";
+        return os.str();
+    }
+    std::vector<std::string> value;
 };
 
 
 /// @brief {variable->value}
-typedef std::map<int, libsumo::TraCIValue> TraCIValues;
+typedef std::map<int, std::shared_ptr<TraCIResult> > TraCIResults;
 /// @brief {object->{variable->value}}
-typedef std::map<std::string, TraCIValues> SubscribedValues;
-typedef std::map<std::string, SubscribedValues> SubscribedContextValues;
+typedef std::map<std::string, TraCIResults> SubscriptionResults;
+typedef std::map<std::string, SubscriptionResults> ContextSubscriptionResults;
 
 
 class TraCIPhase {

@@ -90,15 +90,17 @@ LaneStoringVisitor::add(const MSLane* const l) const {
 
 namespace libsumo {
 // ===========================================================================
-// static member definitions
+// static member initializations
 // ===========================================================================
+std::vector<Subscription> Helper::mySubscriptions;
 std::map<int, NamedRTree*> Helper::myObjects;
 LANE_RTREE_QUAL* Helper::myLaneTree;
 std::map<std::string, MSVehicle*> Helper::myRemoteControlledVehicles;
 std::map<std::string, MSPerson*> Helper::myRemoteControlledPersons;
 
+
 // ===========================================================================
-// member definitions
+// static member definitions
 // ===========================================================================
 TraCIPositionVector
 Helper::makeTraCIPositionVector(const PositionVector& positionVector) {

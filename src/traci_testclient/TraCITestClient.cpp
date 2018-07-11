@@ -42,8 +42,6 @@
 #include <utils/common/ToString.h>
 #include "TraCITestClient.h"
 
-using namespace libsumo;
-
 
 // ===========================================================================
 // method definitions
@@ -706,10 +704,10 @@ TraCITestClient::testAPI() {
     answerLog << "    getIDCount: " << lane.getIDCount() << "\n";
     const std::string laneID = "e_m6_0";
     answerLog << "    getLinkNumber: " << lane.getLinkNumber(laneID) << "\n";
-    std::vector<TraCIConnection> connections = lane.getLinks(laneID);
+    std::vector<libsumo::TraCIConnection> connections = lane.getLinks(laneID);
     answerLog << "    getLinks:\n";
     for (int i = 0; i < (int)connections.size(); ++i) {
-        const TraCIConnection& c = connections[i];
+        const libsumo::TraCIConnection& c = connections[i];
         answerLog << "    approachedLane=" << c.approachedLane
                   << " hasPrio=" << c.hasPrio
                   << " isOpen=" << c.isOpen
@@ -789,21 +787,21 @@ TraCITestClient::testAPI() {
     answerLog << "    isRouteValid: " << vehicle.isRouteValid("0") << "\n";
     vehicle.setParameter("0", "meaningOfLife", "42");
     answerLog << "    param: " << vehicle.getParameter("0", "meaningOfLife") << "\n";
-    TraCIColor col1;
+    libsumo::TraCIColor col1;
     col1.r = 255;
     col1.g = 255;
     col1.b = 0;
     col1.a = 128;
     vehicle.setColor("0", col1);
-    TraCIColor col2 = vehicle.getColor("0");
+    libsumo::TraCIColor col2 = vehicle.getColor("0");
     answerLog << "    getColor:  r=" << (int)col2.r << " g=" << (int)col2.g << " b=" << (int)col2.b << " a=" << (int)col2.a << "\n";
     int signals = vehicle.getSignals("0");
     answerLog << "    getSignals: " << signals << "\n";
     vehicle.setSignals("0", signals ^ TraCIAPI::VehicleScope::SIGNAL_FOGLIGHT);
     answerLog << "    getNextTLS:\n";
-    std::vector<TraCINextTLSData> result = vehicle.getNextTLS("0");
+    std::vector<libsumo::TraCINextTLSData> result = vehicle.getNextTLS("0");
     for (int i = 0; i < (int)result.size(); ++i) {
-        const TraCINextTLSData& d = result[i];
+        const libsumo::TraCINextTLSData& d = result[i];
         answerLog << "      tls=" << d.id << " tlIndex=" << d.tlIndex << " dist=" << d.dist << " state=" << d.state << "\n";
     }
     answerLog << "    moveToXY, simStep:\n";
@@ -840,13 +838,13 @@ TraCITestClient::testAPI() {
     answerLog << "  inductionloop:\n";
     answerLog << "    getIDList: " << joinToString(inductionloop.getIDList(), " ") << "\n";
     answerLog << "    getVehicleData:\n";
-    std::vector<TraCIVehicleData> result2 = inductionloop.getVehicleData("det1");
+    std::vector<libsumo::TraCIVehicleData> result2 = inductionloop.getVehicleData("det1");
     for (int i = 0; i < (int)result2.size(); ++i) {
-        const TraCIVehicleData& vd = result2[i];
+        const libsumo::TraCIVehicleData& vd = result2[i];
         answerLog << "      veh=" << vd.id << " length=" << vd.length << " entered=" << vd.entryTime << " left=" << vd.leaveTime << " type=" << vd.typeID << "\n";
     }
 
-    // simulaton
+    // simulation
     answerLog << "  simulation:\n";
     answerLog << "    getCurrentTime: " << simulation.getCurrentTime() << "\n";
     answerLog << "    parkingArea param: " << simulation.getParameter("park1", "parkingArea.capacity") << "\n";
@@ -854,21 +852,21 @@ TraCITestClient::testAPI() {
     std::vector<int> vars;
     vars.push_back(VAR_ROAD_ID);
     vars.push_back(VAR_LANEPOSITION);
-    simulation.subscribe(CMD_SUBSCRIBE_VEHICLE_VARIABLE, "1", 0, TIME2STEPS(100), vars);
+    vehicle.subscribe(CMD_SUBSCRIBE_VEHICLE_VARIABLE, "1", 0, TIME2STEPS(100), vars);
     simulationStep();
     answerLog << "    subscription results:\n";
-    TraCIValues result3 = simulation.getSubscriptionResults("1");
-    answerLog << "      roadID=" << result3[VAR_ROAD_ID].string << " pos=" << result3[VAR_LANEPOSITION].scalar << "\n";
+    libsumo::TraCIResults result3 = vehicle.getSubscriptionResults("1");
+    answerLog << "      roadID=" << result3[VAR_ROAD_ID]->getString() << " pos=" << result3[VAR_LANEPOSITION]->getString() << "\n";
 
     answerLog << "    subscribe to vehicles around edge 'e_u1':\n";
     std::vector<int> vars2;
     vars2.push_back(VAR_LANEPOSITION);
-    simulation.subscribeContext(CMD_SUBSCRIBE_EDGE_CONTEXT, "e_u1", 0, TIME2STEPS(100), CMD_GET_VEHICLE_VARIABLE, 100, vars2);
+    edge.subscribeContext(CMD_SUBSCRIBE_EDGE_CONTEXT, "e_u1", 0, TIME2STEPS(100), CMD_GET_VEHICLE_VARIABLE, 100, vars2);
     simulationStep();
     answerLog << "    context subscription results:\n";
-    SubscribedValues result4 = simulation.getContextSubscriptionResults("e_u1");
-    for (SubscribedValues::iterator it = result4.begin(); it != result4.end(); ++it) {
-        answerLog << "      vehicle=" << it->first << " pos=" << it->second[VAR_LANEPOSITION].scalar << "\n";
+    libsumo::SubscriptionResults result4 = edge.getContextSubscriptionResults("e_u1");
+    for (libsumo::SubscriptionResults::iterator it = result4.begin(); it != result4.end(); ++it) {
+        answerLog << "      vehicle=" << it->first << " pos=" << it->second[VAR_LANEPOSITION]->getString() << "\n";
     }
 
     // person
@@ -923,21 +921,21 @@ TraCITestClient::testAPI() {
     answerLog << "    phaseDuration: " << trafficlights.getPhaseDuration("n_m4") << "\n";
     answerLog << "    nextSwitch: " << trafficlights.getNextSwitch("n_m4") << "\n";
     answerLog << "    controlledLanes: " << joinToString(trafficlights.getControlledLanes("n_m4"), " ") << "\n";
-    std::vector<std::vector<TraCILink> > links = trafficlights.getControlledLinks("n_m4");
+    std::vector<std::vector<libsumo::TraCILink> > links = trafficlights.getControlledLinks("n_m4");
     answerLog << "    controlledLinks:\n";
     for (int i = 0; i < (int)links.size(); ++i) {
         for (int j = 0; j < (int)links[i].size(); ++j) {
             answerLog << "      index=" << i << " link=" << j << " fromLane=" << links[i][j].fromLane << " viaLane=" << links[i][j].viaLane << " toLane=" << links[i][j].toLane << "\n";
         }
     }
-    TraCILogic newLogic("custom", 0, 3);
-    newLogic.phases.push_back(TraCIPhase(5, 5, 5,   "rrrrrrr"));
-    newLogic.phases.push_back(TraCIPhase(10, 5, 15, "ggggggg"));
-    newLogic.phases.push_back(TraCIPhase(3, 3, 3,   "GGGGGGG"));
-    newLogic.phases.push_back(TraCIPhase(3, 3, 3,   "yyyyyyy"));
+    libsumo::TraCILogic newLogic("custom", 0, 3);
+    newLogic.phases.push_back(libsumo::TraCIPhase(5, 5, 5, "rrrrrrr"));
+    newLogic.phases.push_back(libsumo::TraCIPhase(10, 5, 15, "ggggggg"));
+    newLogic.phases.push_back(libsumo::TraCIPhase(3, 3, 3, "GGGGGGG"));
+    newLogic.phases.push_back(libsumo::TraCIPhase(3, 3, 3, "yyyyyyy"));
     trafficlights.setCompleteRedYellowGreenDefinition("n_m4", newLogic);
 
-    std::vector<TraCILogic> logics = trafficlights.getCompleteRedYellowGreenDefinition("n_m4");
+    std::vector<libsumo::TraCILogic> logics = trafficlights.getCompleteRedYellowGreenDefinition("n_m4");
     answerLog << "    completeDefinition:\n";
     for (int i = 0; i < (int)logics.size(); ++i) {
         answerLog << "      subID=" << logics[i].subID << " type=" << logics[i].type << " phase=" << logics[i].currentPhaseIndex << "\n";
