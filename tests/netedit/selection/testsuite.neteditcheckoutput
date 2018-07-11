@@ -1,0 +1,32 @@
+# default values of selection
+select_default
+
+# select using click
+select_basic
+
+# check toogle edges selection
+select_toogle_edges
+
+# save selection
+select_save_selection
+
+# load selection (one of the IDs is invalid)
+select_load_selection
+
+# check set operators clear and invert
+select_setoperators
+
+# check the rectangle selection
+select_rectangle
+
+# select differents busstops
+select_additional_basic
+
+# check that undo-redo of elements works correctly
+select_undo_redo
+
+# try to select elements with wrong parameters
+select_wrong_parameters
+
+# lock selection
+select_lockselection
