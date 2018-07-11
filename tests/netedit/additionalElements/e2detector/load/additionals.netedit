@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 25.06.2018 14:37:27 by Eclipse SUMO netedit Version 7725fee923
+<!-- generated on 11.07.2018 10:06:55 by Eclipse SUMO netedit Version 88bb7b0b92
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jun140419.724/netedit.gui/additionalElements/e2detector/load\input_additionals.add.xml"/>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jun140419.724/netedit.gui/additionalElements/e2detector/load\input_net.net.xml"/>
+        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_11Jul090516.3184/netedit.gui/additionalElements/e2detector/load\input_additionals.add.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_11Jul090516.3184/netedit.gui/additionalElements/e2detector/load\input_net.net.xml"/>
     </input>
 
     <output>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jun140419.724/netedit.gui/additionalElements/e2detector/load\additionals.xml"/>
-        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jun140419.724/netedit.gui/additionalElements/e2detector/load\shapes.xml"/>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jun140419.724/netedit.gui/additionalElements/e2detector/load\net.net.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_11Jul090516.3184/netedit.gui/additionalElements/e2detector/load\additionals.xml"/>
+        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_11Jul090516.3184/netedit.gui/additionalElements/e2detector/load\shapes.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_11Jul090516.3184/netedit.gui/additionalElements/e2detector/load\net.net.xml"/>
     </output>
 
     <processing>
         <no-turnarounds value="true"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
-        <junctions.corner-detail value="0"/>
+        <junctions.corner-detail value="5"/>
         <rectangular-lane-cut value="false"/>
         <walkingareas value="false"/>
     </processing>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jun140419.724/netedit.gui/additionalElements/e2detector/load\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_11Jul090516.3184/netedit.gui/additionalElements/e2detector/load\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -33,7 +33,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jun140419.724/netedit.gui/additionalElements/e2detector/load\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_11Jul090516.3184/netedit.gui/additionalElements/e2detector/load\log.txt"/>
     </report>
 
 </configuration>
@@ -69,6 +69,6 @@
     <e2Detector id="E2_38" length="10.00" lane="gneE0_0" pos="0.00" freq="120.00" file="e2Detector_38.txt" jamThreshold="12.00" friendlyPos="1"/>
     <e2Detector id="E2_39" length="0.00" lane="gneE0_0" pos="50.00" freq="120.00" file="e2Detector_39.txt" jamThreshold="12.00" friendlyPos="1"/>
     <e2Detector id="E2_40" length="14.00" lane="gneE0_0" pos="36.00" freq="120.00" file="e2Detector_40.txt" jamThreshold="12.00" friendlyPos="1"/>
-	<e2Detector id="E2_41" length="14.00" lane="gneE0_0" pos="36.00" freq="120.00" name="%%%·$$$·" file="e2Detector_40.txt" jamThreshold="12.00" friendlyPos="1"/>
-	<e2Detector id="E2_42" length="14.00" lane="gneE0_0" pos="36.00" freq="120.00" name="customName" file="e2Detector_40.txt" jamThreshold="12.00" friendlyPos="1"/>
-	</additional>
+    <e2Detector id="E2_42" length="5.00" lane="gneE0_0" pos="36.00" freq="120.00" file="e2Detector_40.txt" jamThreshold="12.00" friendlyPos="1"/>
+    <e2Detector id="E2_43" name="valid name" length="5.00" lane="gneE0_0" pos="37.00" freq="120.00" file="e2Detector_41.txt" jamThreshold="12.00" friendlyPos="1"/>
+</additional>

@@ -29,13 +29,13 @@ neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
 netedit.inspectMode()
 
 # inspect edge
-netedit.leftClick(match, 220, 230)
+netedit.leftClick(match, 100, 230)
 
 # Change parameter lengt
 netedit.modifyAttribute(12, "25")
 
 # inspect edge
-netedit.leftClick(match, 220, 370)
+netedit.leftClick(match, 100, 370)
 
 # Change parameter lengt
 netedit.modifyAttribute(12, "25")

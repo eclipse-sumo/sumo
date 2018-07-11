@@ -5,8 +5,8 @@ TestFunctions: Netedit opened successfully
 Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 140
 [log]  TYPE "i"
-[log] CLICK on L(524,370)@S(0)[0,0 1280x720] (234 msec)
-TestFunctions: Clicked over position 524 - 370
+[log] CLICK on L(404,370)@S(0)[0,0 1600x900] (234 msec)
+TestFunctions: Clicked over position 404 - 370
 [log]  TYPE "#F12."
 [log]  TYPE "#TAB."
 [log]  TYPE "#TAB."
@@ -23,8 +23,8 @@ TestFunctions: Clicked over position 524 - 370
 [log]  TYPE "#TAB."
 [log] ( Ctrl )  TYPE "a"
 [log]  TYPE "#ENTER."
-[log] CLICK on L(524,510)@S(0)[0,0 1280x720] (235 msec)
-TestFunctions: Clicked over position 524 - 510
+[log] CLICK on L(404,510)@S(0)[0,0 1600x900] (235 msec)
+TestFunctions: Clicked over position 404 - 510
 [log]  TYPE "#F12."
 [log]  TYPE "#TAB."
 [log]  TYPE "#TAB."
@@ -43,6 +43,12 @@ TestFunctions: Clicked over position 524 - 510
 [log]  TYPE "#ENTER."
 [log]  TYPE "#F5."
 [log] ( Ctrl+Shift )  TYPE "d"
+[log] ( Shift )  TYPE "#TAB."
+[log] ( Shift )  TYPE "#TAB."
+[log]  TYPE " "
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE " "
 [log] ( Ctrl )  TYPE "s"
 [log] ( Ctrl )  TYPE "q"
 TestFunctions: Netedit closed successfully

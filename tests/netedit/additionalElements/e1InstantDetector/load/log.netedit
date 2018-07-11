@@ -24,16 +24,14 @@ Warning: Adding instantInductionLoop 'E1Instant_19' in GNEChange_Additional
 Warning: Adding instantInductionLoop 'E1Instant_20' in GNEChange_Additional
 Warning: Adding instantInductionLoop 'E1Instant_21' in GNEChange_Additional
 Warning: Adding instantInductionLoop 'E1Instant_22' in GNEChange_Additional
-Warning: Adding instantInductionLoop 'E1Instant_23' in GNEChange_Additional
 Warning: net has to be saved
 Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-Warning: Deleting unreferenced instantInductionLoop 'E1Instant_23'
+Warning: Deleting unreferenced instantInductionLoop 'E1Instant_22'
 Warning: Additionals has to be saved
 Warning: Current saving Status: net saved, additionals unsaved, shapes saved
-Warning: Deleting unreferenced instantInductionLoop 'E1Instant_22'
 Warning: Deleting unreferenced instantInductionLoop 'E1Instant_21'
 Warning: Deleting unreferenced instantInductionLoop 'E1Instant_20'
 Warning: Deleting unreferenced instantInductionLoop 'E1Instant_19'

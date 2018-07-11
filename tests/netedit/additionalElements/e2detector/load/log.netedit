@@ -49,14 +49,18 @@ Warning: Adding e2Detector 'E2_38' in GNEChange_Additional
 Warning: Adding e2Detector 'E2_39' in GNEChange_Additional
 Warning: Adding e2Detector 'E2_40' in GNEChange_Additional
 Warning: Format of essential positive float attribute 'length' of e2Detector with ID 'E2_41' is invalid; Cannot be negative; e2Detector cannot be created
+Warning: Adding e2Detector 'E2_42' in GNEChange_Additional
+Warning: Adding e2Detector 'E2_43' in GNEChange_Additional
 Warning: net has to be saved
 Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-Warning: Deleting unreferenced e2Detector 'E2_40'
+Warning: Deleting unreferenced e2Detector 'E2_43'
 Warning: Additionals has to be saved
 Warning: Current saving Status: net saved, additionals unsaved, shapes saved
+Warning: Deleting unreferenced e2Detector 'E2_42'
+Warning: Deleting unreferenced e2Detector 'E2_40'
 Warning: Deleting unreferenced e2Detector 'E2_39'
 Warning: Deleting unreferenced e2Detector 'E2_38'
 Warning: Deleting unreferenced e2Detector 'E2_37'

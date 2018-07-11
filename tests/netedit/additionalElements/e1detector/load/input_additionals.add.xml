@@ -76,5 +76,11 @@
 	
 	<!-- valid friendlyPos, invalid position 2 -->
     <e1Detector id="E1_23" lane="gneE1_0" pos="500" freq="120.00" file="e1Detector_23.txt" vTypes="taxi bus" friendlyPos="1"/>    
+	
+	<!-- invalid name -->
+    <e1Detector id="E1_24" lane="gneE1_0" pos="12" freq="120.00" file="e1Detector_22.txt" vTypes="taxi bus" friendlyPos="1" name="$·$··%·"/>    
+	
+	<!-- valid name -->
+    <e1Detector id="E1_25" lane="gneE1_0" pos="15" freq="120.00" file="e1Detector_23.txt" vTypes="taxi bus" friendlyPos="1" name="custom Name"/>    
     
 </additionals>

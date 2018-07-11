@@ -14,7 +14,7 @@ Warning: Adding instantInductionLoop 'instantInductionLoop_1' in GNEChange_Addit
 Warning: Adding rerouter 'rerouter_0' in GNEChange_Additional
 Warning: Adding routeProbe 'routeProbe_gneE1_0' in GNEChange_Additional
 Warning: Essential unique string attribute 'id' of vaporizer is missing; vaporizer cannot be created
-Warning: Format of essential list of strings attribute 'lanes' of variableSpeedSign with ID 'variableSpeedSign_0' is invalid; variableSpeedSign cannot be created
+Warning: Adding variableSpeedSign 'variableSpeedSign_0' in GNEChange_Additional
 Warning: net has to be saved
 Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Warning: Setting new attribute length '25' into edge 'gneE1'
@@ -31,9 +31,10 @@ Warning: Setting new attribute endPos '24.99' into containerStop 'containerStop_
 Warning: Setting new attribute startPos '24.88' into chargingStation 'chargingStation_gneE1_2_0'
 Warning: Setting new attribute endPos '24.99' into chargingStation 'chargingStation_gneE1_2_0'
 Warning: Additionals saved
-Warning: Deleting unreferenced routeProbe 'routeProbe_gneE1_0'
+Warning: Deleting unreferenced variableSpeedSign 'variableSpeedSign_0'
 Warning: Additionals has to be saved
 Warning: Current saving Status: net saved, additionals unsaved, shapes saved
+Warning: Deleting unreferenced routeProbe 'routeProbe_gneE1_0'
 Warning: Deleting unreferenced rerouter 'rerouter_0'
 Warning: Deleting unreferenced instantInductionLoop 'instantInductionLoop_1'
 Warning: Deleting unreferenced detExit 'e3Detector_0detExit0'

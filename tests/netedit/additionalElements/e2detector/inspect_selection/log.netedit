@@ -63,8 +63,8 @@ Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute file 'e2Detector_B.txt' into e2Detector 'E2_B'
 Warning: Setting previous attribute file 'e2Detector_A.txt' into e2Detector 'E2_A'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute name '' into e2Detector 'E2_B'
-Warning: Setting previous attribute name '' into e2Detector 'E2_A'
+Warning: Setting previous attribute name 'B' into e2Detector 'E2_B'
+Warning: Setting previous attribute name 'A' into e2Detector 'E2_A'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute freq '100.00' into e2Detector 'E2_B'
 Warning: Setting previous attribute freq '100.00' into e2Detector 'E2_A'
