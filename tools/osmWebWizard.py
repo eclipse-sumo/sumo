@@ -433,8 +433,6 @@ if __name__ == "__main__":
                 u'vehicles': {u'passenger': {u'count': 6, u'fringeFactor': 5},
                               u'bicycle': {u'count': 2, u'fringeFactor': 2},
                               u'pedestrian': {u'count': 4, u'fringeFactor': 1},
-                              u'rail_urban': {u'count': 8, u'fringeFactor': 40},
-                              u'bus': {u'count': 1, u'fringeFactor': 2},
                               u'ship': {u'count': 1, u'fringeFactor': 40}},
                 u'osm': os.path.abspath('osm_bbox.osm.xml'),
                 u'poly': True,
