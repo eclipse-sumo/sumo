@@ -538,10 +538,6 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::onCmdOpenAttributeDialog(FX
                 for (auto it_ac : myAttributesEditorParent->getInspectorFrameParent()->getInspectedACs()) {
                     it_ac->setAttribute(myAttr, newValue, myAttributesEditorParent->getInspectorFrameParent()->getViewNet()->getUndoList());
                 }
-                // finish change multiple attributes
-                if (myAttributesEditorParent->getInspectorFrameParent()->getInspectedACs().size() > 1) {
-                    myAttributesEditorParent->getInspectorFrameParent()->getViewNet()->getUndoList()->p_end();
-                }
                 // If previously value was incorrect, change font color to black
                 myTextFieldStrings->setTextColor(FXRGB(0, 0, 0));
                 myTextFieldStrings->killFocus();
@@ -549,21 +545,21 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::onCmdOpenAttributeDialog(FX
         }
         return 0;
     } else if (obj == myButtonCombinableChoices) {
-        // obtain vehicles of text field and check if are valid
-        std::string vehicles = myTextFieldStrings->getText().text();
-        // check if values can parse
-        if (canParseVehicleClasses(vehicles) == false) {
-            if (myAttr == SUMO_ATTR_ALLOW) {
-                vehicles = getVehicleClassNames(SVCAll, true);
-            } else {
-                vehicles = "";
-            }
+        // if its valid for the first AC than its valid for all (of the same type)
+        if (myAttributesEditorParent->getInspectorFrameParent()->getInspectedACs().size() > 1) {
+            myAttributesEditorParent->getInspectorFrameParent()->getViewNet()->getUndoList()->p_begin("Change multiple attributes");
         }
         // open GNEDialog_AllowDisallow
-        GNEDialog_AllowDisallow(getApp(), &vehicles).execute();
-        // set obtained vehicles into TextField Strings
-        myTextFieldStrings->setText((vehicles).c_str());
-        onCmdSetAttribute(0, 0, 0);
+        GNEDialog_AllowDisallow(myAttributesEditorParent->getInspectorFrameParent()->getViewNet(), myAttributesEditorParent->getInspectorFrameParent()->getInspectedACs().front()).execute();
+        std::string allowed = myAttributesEditorParent->getInspectorFrameParent()->getInspectedACs().front()->getAttribute(SUMO_ATTR_ALLOW);
+        // Set new value of attribute in all selected ACs
+        for (auto it_ac : myAttributesEditorParent->getInspectorFrameParent()->getInspectedACs()) {
+            it_ac->setAttribute(SUMO_ATTR_ALLOW, allowed, myAttributesEditorParent->getInspectorFrameParent()->getViewNet()->getUndoList());
+        }
+        // finish change multiple attributes
+        if (myAttributesEditorParent->getInspectorFrameParent()->getInspectedACs().size() > 1) {
+            myAttributesEditorParent->getInspectorFrameParent()->getViewNet()->getUndoList()->p_end();
+        }
         return 1;
     } else {
         throw ProcessError("Invalid call to onCmdOpenAttributeDialog");

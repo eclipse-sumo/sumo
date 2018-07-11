@@ -26,8 +26,11 @@
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/common/ToString.h>
 #include <utils/xml/SUMOSAXAttributes.h>
+#include <netedit/GNEAttributeCarrier.h>
+#include <netedit/GNEViewNet.h>
 
 #include "GNEDialog_AllowDisallow.h"
+
 
 
 // ===========================================================================
@@ -51,10 +54,11 @@ FXIMPLEMENT(GNEDialog_AllowDisallow, FXDialogBox, GNEDialog_AllowDisallowMap, AR
 // member method definitions
 // ===========================================================================
 
-GNEDialog_AllowDisallow::GNEDialog_AllowDisallow(FXApp* app, std::string* allow) :
-    FXDialogBox(app, ("Edit allowed and disallowed " + toString(SUMO_ATTR_VCLASS) + "es").c_str(), GUIDesignDialogBox),
-    myAllow(allow),
-    myCopyOfAllow(*allow) {
+GNEDialog_AllowDisallow::GNEDialog_AllowDisallow(GNEViewNet *viewNet, GNEAttributeCarrier *AC) :
+    FXDialogBox(viewNet->getApp(), ("Edit " + toString(SUMO_ATTR_ALLOW) + " " + toString(SUMO_ATTR_VCLASS) + "es").c_str(), GUIDesignDialogBox),
+    myViewNet(viewNet),
+    myAC(AC) {
+    assert(GNEAttributeCarrier::getTagProperties(AC->getTag()).hasAttribute(SUMO_ATTR_ALLOW));
     // set vehicle icon for this dialog
     setIcon(GUIIconSubSys::getIcon(ICON_GREENVEHICLE));
     // create main frame
@@ -182,11 +186,7 @@ GNEDialog_AllowDisallow::onCmdAccept(FXObject*, FXSelector, void*) {
         }
     }
     // chek if all vehicles are enabled and set new allowed vehicles
-    if (allowedVehicles.size() == 25) {
-        (*myAllow) = "all";
-    } else {
-        (*myAllow) = joinToString(allowedVehicles, " ");
-    }
+    myAC->setAttribute(SUMO_ATTR_ALLOW, joinToString(allowedVehicles, " "), myViewNet->getUndoList());
     // Stop Modal
     getApp()->stopModal(this, TRUE);
     return 1;
@@ -203,17 +203,25 @@ GNEDialog_AllowDisallow::onCmdCancel(FXObject*, FXSelector, void*) {
 
 long
 GNEDialog_AllowDisallow::onCmdReset(FXObject*, FXSelector, void*) {
-    // clear allow and disallow VClasses
-    std::vector<std::string> allowStringVector;
-    SUMOSAXAttributes::parseStringVector(myCopyOfAllow, allowStringVector);
-    // iterate over myVClassMap and set icons
-    for (auto i : myVClassMap) {
-        if (std::find(allowStringVector.begin(), allowStringVector.end(), getVehicleClassNames(i.first)) != allowStringVector.end()) {
+    if(myAC->getAttribute(SUMO_ATTR_ALLOW) == "all") {
+        // iterate over myVClassMap and set all icons as true
+        for (auto i : myVClassMap) {
             i.second.first->setIcon(GUIIconSubSys::getIcon(ICON_ACCEPT));
             i.second.second->setText((getVehicleClassNames(i.first) + " allowed").c_str());
-        } else {
-            i.second.first->setIcon(GUIIconSubSys::getIcon(ICON_CANCEL));
-            i.second.second->setText((getVehicleClassNames(i.first) + " disallowed").c_str());
+        }
+    } else {
+        // declare string vector for saving all vclasses
+        std::vector<std::string> allowStringVector;
+        SUMOSAXAttributes::parseStringVector(myAC->getAttribute(SUMO_ATTR_ALLOW), allowStringVector);
+        // iterate over myVClassMap and set icons
+        for (auto i : myVClassMap) {
+            if (std::find(allowStringVector.begin(), allowStringVector.end(), getVehicleClassNames(i.first)) != allowStringVector.end()) {
+                i.second.first->setIcon(GUIIconSubSys::getIcon(ICON_ACCEPT));
+                i.second.second->setText((getVehicleClassNames(i.first) + " allowed").c_str());
+            } else {
+                i.second.first->setIcon(GUIIconSubSys::getIcon(ICON_CANCEL));
+                i.second.second->setText((getVehicleClassNames(i.first) + " disallowed").c_str());
+            }
         }
     }
     return 1;

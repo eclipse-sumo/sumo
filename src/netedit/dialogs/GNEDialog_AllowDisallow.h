@@ -29,6 +29,13 @@
 // class definitions
 // ===========================================================================
 
+class GNEAttributeCarrier;
+class GNEViewNet;
+
+// ===========================================================================
+// class definitions
+// ===========================================================================
+
 /**
  * @class GNEDialog_AllowDisallow
  * @brief Dialog for edit rerouters
@@ -39,7 +46,7 @@ class GNEDialog_AllowDisallow : public FXDialogBox {
 
 public:
     /// @brief Constructor
-    GNEDialog_AllowDisallow(FXApp* app, std::string* allow);
+    GNEDialog_AllowDisallow(GNEViewNet* viewNet, GNEAttributeCarrier* AC);
 
     /// @brief destructor
     ~GNEDialog_AllowDisallow();
@@ -72,11 +79,11 @@ protected:
     /// @brief FOX needs this
     GNEDialog_AllowDisallow() {}
 
-    /// @brief pointer to current allowed vehicles
-    std::string* myAllow;
+    /// @pointer to viewNet
+    GNEViewNet* myViewNet;
 
-    /// @brief copy of current allowed vehicles
-    std::string myCopyOfAllow;
+    /// @brief edited AC
+    GNEAttributeCarrier *myAC;
 
     /// @brief select all VClass
     FXButton* mySelectAllVClassButton;
@@ -104,10 +111,10 @@ private:
     void buildVClass(FXVerticalFrame* contentsFrame, SUMOVehicleClass vclass, GUIIcon vclassIcon, const std::string& description);
 
     /// @brief Invalidated copy constructor.
-    GNEDialog_AllowDisallow(const GNEDialog_AllowDisallow&);
+    GNEDialog_AllowDisallow(const GNEDialog_AllowDisallow&) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNEDialog_AllowDisallow& operator=(const GNEDialog_AllowDisallow&);
+    GNEDialog_AllowDisallow& operator=(const GNEDialog_AllowDisallow&) = delete;
 };
 
 #endif
