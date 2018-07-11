@@ -854,7 +854,7 @@ GNEAdditionalHandler::parseAndBuildDetectorE1(const SUMOSAXAttributes& attrs, co
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " '" + id + "' is not known.");
         } else if (!checkAndFixDetectorPositionPosition(position, lane->getLaneShapeLength(), friendlyPos)) {
             WRITE_WARNING("Invalid position for " + toString(tag) + " with ID = '" + id + "'.");
-        } else if(buildDetectorE1(myViewNet, myUndoAdditionals, id, lane, position, frequency, name, file, vehicleTypes, friendlyPos, false)){
+        } else if(buildDetectorE1(myViewNet, myUndoAdditionals, id, lane, position, frequency, file, name, vehicleTypes, friendlyPos, false)){
             // save ID of last created element
             myParentElements.commitElementInsertion(id);
         }
