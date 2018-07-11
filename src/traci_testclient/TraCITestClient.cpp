@@ -852,7 +852,7 @@ TraCITestClient::testAPI() {
     std::vector<int> vars;
     vars.push_back(VAR_ROAD_ID);
     vars.push_back(VAR_LANEPOSITION);
-    vehicle.subscribe(CMD_SUBSCRIBE_VEHICLE_VARIABLE, "1", 0, TIME2STEPS(100), vars);
+    vehicle.subscribe("1", vars, 0, TIME2STEPS(100));
     simulationStep();
     answerLog << "    subscription results:\n";
     libsumo::TraCIResults result3 = vehicle.getSubscriptionResults("1");
@@ -861,7 +861,7 @@ TraCITestClient::testAPI() {
     answerLog << "    subscribe to vehicles around edge 'e_u1':\n";
     std::vector<int> vars2;
     vars2.push_back(VAR_LANEPOSITION);
-    edge.subscribeContext(CMD_SUBSCRIBE_EDGE_CONTEXT, "e_u1", 0, TIME2STEPS(100), CMD_GET_VEHICLE_VARIABLE, 100, vars2);
+    edge.subscribeContext("e_u1", CMD_GET_VEHICLE_VARIABLE, 100, vars2, 0, TIME2STEPS(100));
     simulationStep();
     answerLog << "    context subscription results:\n";
     libsumo::SubscriptionResults result4 = edge.getContextSubscriptionResults("e_u1");
@@ -964,8 +964,8 @@ TraCITestClient::testAPI() {
     load(args);
     simulationStep();
     answerLog << "    getCurrentTime: " << simulation.getCurrentTime() << "\n";
-    simulation.subscribe(CMD_SUBSCRIBE_VEHICLE_VARIABLE, "0", 0, TIME2STEPS(100), vars);
-    simulation.subscribeContext(CMD_SUBSCRIBE_EDGE_CONTEXT, "e_u1", 0, TIME2STEPS(100), CMD_GET_VEHICLE_VARIABLE, 100, vars2);
+    vehicle.subscribe("0", vars, 0, TIME2STEPS(100));
+    edge.subscribeContext("e_u1", CMD_GET_VEHICLE_VARIABLE, 100, vars2, 0, TIME2STEPS(100));
 
     answerLog << "  gui:\n";
     try {

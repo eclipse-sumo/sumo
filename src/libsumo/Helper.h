@@ -98,8 +98,8 @@ namespace libsumo {
 */
 class Helper {
 public:
-    void subscribe(int domID, const std::string& objID, SUMOTime beginTime, SUMOTime endTime, const std::vector<int>& vars) const;
-    void subscribeContext(int domID, const std::string& objID, SUMOTime beginTime, SUMOTime endTime, int domain, double range, const std::vector<int>& vars) const;
+    static void subscribe(const int commandId, const std::string& id, const std::vector<int>& variables,
+                          const SUMOTime beginTime, const SUMOTime endTime, const int contextDomain=0, const double range = 0.);
 
     /// @brief helper functions
     static TraCIPositionVector makeTraCIPositionVector(const PositionVector& positionVector);

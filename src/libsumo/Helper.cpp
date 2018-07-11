@@ -102,6 +102,15 @@ std::map<std::string, MSPerson*> Helper::myRemoteControlledPersons;
 // ===========================================================================
 // static member definitions
 // ===========================================================================
+void
+Helper::subscribe(const int commandId, const std::string& id, const std::vector<int>& variables,
+                  const SUMOTime beginTime, const SUMOTime endTime, const int contextDomain, const double range) {
+    std::vector<std::vector<unsigned char> > parameters;
+    libsumo::Subscription s(commandId, id, variables, parameters, beginTime, endTime, contextDomain, range);
+    mySubscriptions.push_back(s);
+}
+
+
 TraCIPositionVector
 Helper::makeTraCIPositionVector(const PositionVector& positionVector) {
     TraCIPositionVector tp;

@@ -99,10 +99,12 @@ Simulation::close() {
 
 void
 Simulation::subscribe(const std::string& objID, const std::vector<int>& vars, SUMOTime beginTime, SUMOTime endTime) {
+    libsumo::Helper::subscribe(CMD_SUBSCRIBE_SIM_VARIABLE, objID, vars, beginTime, endTime);
 }
 
 void
 Simulation::subscribeContext(const std::string& objID, int domain, double range, const std::vector<int>& vars, SUMOTime beginTime, SUMOTime endTime) {
+    libsumo::Helper::subscribe(CMD_SUBSCRIBE_SIM_CONTEXT, objID, vars, beginTime, endTime, domain, range);
 }
 
 

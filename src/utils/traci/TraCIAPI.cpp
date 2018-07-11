@@ -3040,24 +3040,24 @@ TraCIAPI::TraCIScopeWrapper::setParameter(const std::string& objectID, const std
 
 
 void
-TraCIAPI::TraCIScopeWrapper::subscribe(int domID, const std::string& objID, SUMOTime beginTime, SUMOTime endTime, const std::vector<int>& vars) const {
-    myParent.send_commandSubscribeObjectVariable(domID, objID, beginTime, endTime, vars);
+TraCIAPI::TraCIScopeWrapper::subscribe(const std::string& objID, const std::vector<int>& vars, SUMOTime beginTime, SUMOTime endTime) const {
+    myParent.send_commandSubscribeObjectVariable(mySubscribeID, objID, beginTime, endTime, vars);
     tcpip::Storage inMsg;
-    myParent.check_resultState(inMsg, domID);
+    myParent.check_resultState(inMsg, mySubscribeID);
     if (vars.size() > 0) {
-        myParent.check_commandGetResult(inMsg, domID);
-        myParent.readVariableSubscription(domID + 0x10, inMsg);
+        myParent.check_commandGetResult(inMsg, mySubscribeID);
+        myParent.readVariableSubscription(mySubscribeID + 0x10, inMsg);
     }
 }
 
 
 void
-TraCIAPI::TraCIScopeWrapper::subscribeContext(int domID, const std::string& objID, SUMOTime beginTime, SUMOTime endTime, int domain, double range, const std::vector<int>& vars) const {
-    myParent.send_commandSubscribeObjectContext(domID, objID, beginTime, endTime, domain, range, vars);
+TraCIAPI::TraCIScopeWrapper::subscribeContext(const std::string& objID, int domain, double range, const std::vector<int>& vars, SUMOTime beginTime, SUMOTime endTime) const {
+    myParent.send_commandSubscribeObjectContext(myContextSubscribeID, objID, beginTime, endTime, domain, range, vars);
     tcpip::Storage inMsg;
-    myParent.check_resultState(inMsg, domID);
-    myParent.check_commandGetResult(inMsg, domID);
-    myParent.readContextSubscription(domID + 0x60, inMsg);
+    myParent.check_resultState(inMsg, myContextSubscribeID);
+    myParent.check_commandGetResult(inMsg, myContextSubscribeID);
+    myParent.readContextSubscription(myContextSubscribeID + 0x60, inMsg);
 }
 
 
