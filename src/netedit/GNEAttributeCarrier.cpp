@@ -1030,7 +1030,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
         myAllowedTags[currentTag].addAttribute(GNE_ATTR_BIDIR,
             ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE, // virtual attribute to check of this edge is part of a bidirectional railway
             "Enable or disable bidireccional edge", 
-            "false");
+            "0");
     }
     currentTag = SUMO_TAG_JUNCTION;
     {
@@ -1938,6 +1938,10 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             ATTRPROPERTY_FLOAT | ATTRPROPERTY_PROBABILITY | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "probability", 
             "1.00");
+        myAllowedTags[currentTag].addAttribute(SUMO_ATTR_VISIBLE,
+            ATTRPROPERTY_BOOL | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_DEFAULTVALUE,
+            "Enable or disable visibility for parking area reroutes", 
+            "1");
     }
     currentTag = SUMO_TAG_ROUTE_PROB_REROUTE; 
     {
@@ -2153,7 +2157,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             toString(Shape::DEFAULT_IMG_FILE));
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_RELATIVEPATH,
             ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
-            "Enable or disbale use image file as a relative path", 
+            "Enable or disable use image file as a relative path", 
             toString(Shape::DEFAULT_RELATIVEPATH));
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_ANGLE,
             ATTRPROPERTY_FLOAT | ATTRPROPERTY_ANGLE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,

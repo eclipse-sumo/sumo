@@ -557,7 +557,7 @@ public:
     /**
     DOCUMENTAR
     */
-    static bool builParkingAreaReroute(GNEViewNet* viewNet, bool allowUndoRedo, GNEAdditional* rerouterIntervalParent, GNEAdditional* newParkignArea, double probability);
+    static bool builParkingAreaReroute(GNEViewNet* viewNet, bool allowUndoRedo, GNEAdditional* rerouterIntervalParent, GNEAdditional* newParkignArea, double probability, bool visible);
     
     /**
     DOCUMENTAR

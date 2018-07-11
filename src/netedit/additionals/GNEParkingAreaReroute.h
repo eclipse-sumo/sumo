@@ -52,7 +52,7 @@ public:
     GNEParkingAreaReroute(GNERerouterIntervalDialog* rerouterIntervalDialog);
 
     /// @brief constructor
-    GNEParkingAreaReroute(GNEAdditional* rerouterIntervalParent, GNEAdditional* newParkingArea, double probability);
+    GNEParkingAreaReroute(GNEAdditional* rerouterIntervalParent, GNEAdditional* newParkingArea, double probability, bool visible);
 
     /// @brief destructor
     ~GNEParkingAreaReroute();
@@ -124,6 +124,9 @@ public:
 protected:
     /// @brief probability with which a vehicle will use the given edge as destination
     double myProbability;
+
+    /// @brief enable or disable visibility of Parking Area Reroute
+    bool myVisible;
 
 private:
     /// @brief set attribute after validation

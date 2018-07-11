@@ -39,14 +39,16 @@
 GNEParkingAreaReroute::GNEParkingAreaReroute(GNERerouterIntervalDialog* rerouterIntervalDialog) :
     GNEAdditional(rerouterIntervalDialog->getEditedAdditional(), 
                   rerouterIntervalDialog->getEditedAdditional()->getViewNet()->getNet()->getAdditionalByType(SUMO_TAG_PARKING_AREA).begin()->second, 
-                  rerouterIntervalDialog->getEditedAdditional()->getViewNet(), GLO_REROUTER, SUMO_TAG_PARKING_ZONE_REROUTE, "", false),
-    myProbability(parse<double>(getTagProperties(SUMO_TAG_PARKING_ZONE_REROUTE).getDefaultValue(SUMO_ATTR_PROB))) {
+                  rerouterIntervalDialog->getEditedAdditional()->getViewNet(), GLO_REROUTER, SUMO_TAG_PARKING_ZONE_REROUTE, "", false) {
+    // fill route type with default values
+    setDefaultValues();
 }
 
 
-GNEParkingAreaReroute::GNEParkingAreaReroute(GNEAdditional* rerouterIntervalParent, GNEAdditional* newParkingArea, double probability):
+GNEParkingAreaReroute::GNEParkingAreaReroute(GNEAdditional* rerouterIntervalParent, GNEAdditional* newParkingArea, double probability, bool visible):
     GNEAdditional(rerouterIntervalParent, newParkingArea, rerouterIntervalParent->getViewNet(), GLO_REROUTER, SUMO_TAG_PARKING_ZONE_REROUTE, "", false),
-    myProbability(probability) {
+    myProbability(probability),
+    myVisible(visible) {
 }
 
 
@@ -98,6 +100,10 @@ GNEParkingAreaReroute::getAttribute(SumoXMLAttr key) const {
             return mySecondAdditionalParent->getID();
         case SUMO_ATTR_PROB:
             return toString(myProbability);
+        case SUMO_ATTR_VISIBLE:
+            return toString(myVisible);
+        case GNE_ATTR_PARENT:
+            return toString(myFirstAdditionalParent->getID());
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -113,6 +119,7 @@ GNEParkingAreaReroute::setAttribute(SumoXMLAttr key, const std::string& value, G
         case SUMO_ATTR_ID:
         case SUMO_ATTR_PARKING:
         case SUMO_ATTR_PROB:
+        case SUMO_ATTR_VISIBLE:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
         default:
@@ -130,6 +137,8 @@ GNEParkingAreaReroute::isValid(SumoXMLAttr key, const std::string& value) {
             return isValidAdditionalID(value) && (myViewNet->getNet()->retrieveAdditional(SUMO_TAG_PARKING_AREA, value, false) != nullptr);
         case SUMO_ATTR_PROB:
             return canParse<double>(value) && parse<double>(value) >= 0 && parse<double>(value) <= 1;
+        case SUMO_ATTR_VISIBLE:
+            return canParse<bool>(value);
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -162,6 +171,9 @@ GNEParkingAreaReroute::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_PROB:
             myProbability = parse<double>(value);
+            break;
+        case SUMO_ATTR_VISIBLE:
+            myVisible = parse<bool>(value);
             break;
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");

@@ -183,16 +183,20 @@ GNEAdditional::writeAdditional(OutputDevice& device) const {
             deviceChilds.writeXMLHeader("rerouterValue", "additional_file.xsd");
             // save childs in a different filename
             for (auto i : myAdditionalChilds) {
-                // only write additionals that doesn't have second parent (because they are saved within the definition of first parent)
+                // avoid to write two times additionals that haben two parents (Only write as child of first parent)
                 if(i->getSecondAdditionalParent() == nullptr) {
+                    i->writeAdditional(deviceChilds);
+                } else if (getTag() == getTagProperties(i->getTag()).getParentTag()) {
                     i->writeAdditional(deviceChilds);
                 }
             }
             deviceChilds.close();
         } else {
             for (auto i : myAdditionalChilds) {
-                // only write additionals that doesn't have second parent (because they are saved within the definition of first parent)
+                // avoid to write two times additionals that haben two parents (Only write as child of first parent)
                 if(i->getSecondAdditionalParent() == nullptr) {
+                    i->writeAdditional(device);
+                } else if (getTag() == getTagProperties(i->getTag()).getParentTag()) {
                     i->writeAdditional(device);
                 }
             }
