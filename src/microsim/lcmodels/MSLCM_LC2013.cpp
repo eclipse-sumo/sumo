@@ -2098,6 +2098,8 @@ MSLCM_LC2013::getParameter(const std::string& key) const {
         return toString(myLookaheadLeft);
     } else if (key == toString(SUMO_ATTR_LCA_SPEEDGAINRIGHT)) {
         return toString(mySpeedGainRight);
+    } else if (key == toString(SUMO_ATTR_LCA_ASSERTIVE)) {
+        return toString(myAssertive);
     }
     throw InvalidArgument("Parameter '" + key + "' is not supported for laneChangeModel of type '" + toString(myModel) + "'");
 }
@@ -2123,6 +2125,8 @@ MSLCM_LC2013::setParameter(const std::string& key, const std::string& value) {
         myLookaheadLeft = doubleValue;
     } else if (key == toString(SUMO_ATTR_LCA_SPEEDGAINRIGHT)) {
         mySpeedGainRight = doubleValue;
+    } else if (key == toString(SUMO_ATTR_LCA_ASSERTIVE)) {
+        myAssertive = doubleValue;
     } else {
         throw InvalidArgument("Setting parameter '" + key + "' is not supported for laneChangeModel of type '" + toString(myModel) + "'");
     }
