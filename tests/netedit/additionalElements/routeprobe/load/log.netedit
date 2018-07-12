@@ -9,10 +9,9 @@ Warning: Adding routeProbe 'routeProbe_02' in GNEChange_Additional
 Warning: Adding routeProbe 'routeProbe_03' in GNEChange_Additional
 Warning: The edge 'dummyEdge' to use within the routeProbe 'routeProbe_04' is not known.
 Warning: Adding routeProbe 'routeProbe_05' in GNEChange_Additional
-Warning: Essential string attribute 'freq' of routeProbe with ID 'routeProbe_06' is missing; routeProbe cannot be created
-Warning: Adding routeProbe 'routeProbe_07' in GNEChange_Additional
-Warning: freqof routeProbe'routeProbe_08' cannot be negative.
-Warning: Adding routeProbe 'routeProbe_08' in GNEChange_Additional
+Warning: Essential positive time attribute 'freq' of routeProbe with ID 'routeProbe_06' is missing; routeProbe cannot be created
+Warning: Format of essential positive time attribute 'freq' of routeProbe with ID 'routeProbe_07' is invalid; Cannot be parsed to time; routeProbe cannot be created
+Warning: Format of essential positive time attribute 'freq' of routeProbe with ID 'routeProbe_08' is invalid; Time cannot be negative; routeProbe cannot be created
 Warning: Adding routeProbe 'routeProbe_09' in GNEChange_Additional
 Warning: Essential filename attribute 'file' of routeProbe with ID 'routeProbe_10' is missing; routeProbe cannot be created
 Warning: Format of essential filename attribute 'file' of routeProbe with ID 'routeProbe_11' is invalid; Filename contains invalid characters; routeProbe cannot be created
@@ -22,21 +21,23 @@ Warning: Adding routeProbe 'routeProbe_14' in GNEChange_Additional
 Warning: Adding routeProbe 'routeProbe_15' in GNEChange_Additional
 Warning: Adding routeProbe 'routeProbe_16' in GNEChange_Additional
 Warning: Adding routeProbe 'routeProbe_17' in GNEChange_Additional
+Warning: Adding routeProbe 'routeProbe_18' in GNEChange_Additional
+Warning: Adding routeProbe 'routeProbe_19' in GNEChange_Additional
 Warning: net has to be saved
 Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-Warning: Deleting unreferenced routeProbe 'routeProbe_17'
+Warning: Deleting unreferenced routeProbe 'routeProbe_19'
 Warning: Additionals has to be saved
 Warning: Current saving Status: net saved, additionals unsaved, shapes saved
+Warning: Deleting unreferenced routeProbe 'routeProbe_18'
+Warning: Deleting unreferenced routeProbe 'routeProbe_17'
 Warning: Deleting unreferenced routeProbe 'routeProbe_16'
 Warning: Deleting unreferenced routeProbe 'routeProbe_15'
 Warning: Deleting unreferenced routeProbe 'routeProbe_14'
 Warning: Deleting unreferenced routeProbe 'routeProbe_13'
 Warning: Deleting unreferenced routeProbe 'routeProbe_09'
-Warning: Deleting unreferenced routeProbe 'routeProbe_08'
-Warning: Deleting unreferenced routeProbe 'routeProbe_07'
 Warning: Deleting unreferenced routeProbe 'routeProbe_05'
 Warning: Deleting unreferenced routeProbe 'routeProbe_03'
 Warning: Deleting unreferenced routeProbe 'routeProbe_02'

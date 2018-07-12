@@ -67,27 +67,33 @@ netedit.modifyAttribute(2, "-50")
 # Change parameter 2 with a valid value
 netedit.modifyAttribute(2, "150")
 
-# Change parameter 3 with a non valid value (invalid characters)
-netedit.modifyAttribute(3, "$$$$$$$$")
+# Change parameter 3 with an non valid value
+netedit.modifyAttribute(3, "%%%&&%$%$")
 
-# Change parameter 3 with a valid value
-netedit.modifyAttribute(3, "OwnOutput.txt")
+# Change parameter 3 with a duplicated value
+netedit.modifyAttribute(3, "customName")
 
-# Change parameter 4 with a non valid value (dummy)
-netedit.modifyAttribute(4, "dummy")
-
-# Change parameter 4 with a non valid value (negative)
-netedit.modifyAttribute(4, "-5")
+# Change parameter 4 with a non valid value (invalid characters)
+netedit.modifyAttribute(4, "$$$$$$$$")
 
 # Change parameter 4 with a valid value
-netedit.modifyAttribute(4, "20")
+netedit.modifyAttribute(4, "OwnOutput.txt")
+
+# Change parameter 5 with a non valid value (dummy)
+netedit.modifyAttribute(5, "dummy")
+
+# Change parameter 5 with a non valid value (negative)
+netedit.modifyAttribute(5, "-5")
+
+# Change parameter 5 with a valid value
+netedit.modifyAttribute(5, "20")
 
 # click over an empty area
 netedit.leftClick(match, 0, 0)
 
 # Check undos and redos
-netedit.undo(match, 13)
-netedit.redo(match, 13)
+netedit.undo(match, 12)
+netedit.redo(match, 12)
 
 # save additionals
 netedit.saveAdditionals()

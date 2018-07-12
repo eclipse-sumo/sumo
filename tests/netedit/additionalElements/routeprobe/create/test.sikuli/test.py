@@ -49,21 +49,42 @@ netedit.modifyAdditionalDefaultValue(2, "120")
 # create routeProbe (camera will be moved)
 netedit.leftClick(match, 250, 220)
 
+# set invalid name
+netedit.modifyAdditionalDefaultValue(3, "\"\"\"")
+
+# try to create RouteProbe with invalid name
+netedit.leftClick(match, 250, 220)
+
+# set valid name
+netedit.modifyAdditionalDefaultValue(3, "customName")
+
+# create RouteProbe with valid name
+netedit.leftClick(match, 250, 220)
+
+# set invalid filename
+netedit.modifyAdditionalDefaultValue(4, "&&&&&&&&")
+
+# try to create RouteProbe with invalid filename
+netedit.leftClick(match, 250, 220)
+
+# set valid filename
+netedit.modifyAdditionalDefaultValue(4, "myOwnFilename.txt")
+
 # set invalid default begin
-netedit.modifyAdditionalDefaultValue(3, "-11")
+netedit.modifyAdditionalDefaultValue(5, "-11")
 
 # try to create routeProbe
 netedit.leftClick(match, 250, 220)
 
 # set valid default begin
-netedit.modifyAdditionalDefaultValue(3, "10")
+netedit.modifyAdditionalDefaultValue(5, "10")
 
 # create routeProbe (camera will be moved)
 netedit.leftClick(match, 250, 220)
 
 # Check undo redo
-netedit.undo(match, 4)
-netedit.redo(match, 4)
+netedit.undo(match, 6)
+netedit.redo(match, 6)
 
 # save additionals
 netedit.saveAdditionals()

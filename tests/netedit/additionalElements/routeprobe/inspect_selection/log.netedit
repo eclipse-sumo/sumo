@@ -17,10 +17,51 @@ Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 2 Addi
 Warning: Value '-30' for attribute freq of routeProbe isn't valid
 Warning: Setting new attribute freq '50' into routeProbe 'routeProbe_01'
 Warning: Setting new attribute freq '50' into routeProbe 'routeProbe_02'
+Warning: Value '%%%&&%$%$' for attribute name of routeProbe isn't valid
+Warning: Setting new attribute name 'customName' into routeProbe 'routeProbe_01'
+Warning: Setting new attribute name 'customName' into routeProbe 'routeProbe_02'
 Warning: Value '$$$$$$$$' for attribute file of routeProbe isn't valid
 Warning: Setting new attribute file 'OwnOutput.txt' into routeProbe 'routeProbe_01'
 Warning: Setting new attribute file 'OwnOutput.txt' into routeProbe 'routeProbe_02'
 Warning: Value '-5' for attribute begin of routeProbe isn't valid
+Warning: Setting new attribute begin '11.3' into routeProbe 'routeProbe_01'
+Warning: Setting new attribute begin '11.3' into routeProbe 'routeProbe_02'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute begin '3.00' into routeProbe 'routeProbe_02'
+Warning: Setting previous attribute begin '0.00' into routeProbe 'routeProbe_01'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute file 'routeProbe_01.txt' into routeProbe 'routeProbe_02'
+Warning: Setting previous attribute file 'routeProbe_01.txt' into routeProbe 'routeProbe_01'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute name '' into routeProbe 'routeProbe_02'
+Warning: Setting previous attribute name '' into routeProbe 'routeProbe_01'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute freq '120.00' into routeProbe 'routeProbe_02'
+Warning: Setting previous attribute freq '100.00' into routeProbe 'routeProbe_01'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute selected '0' into routeProbe 'routeProbe_02'
+Warning: Setting previous attribute selected '0' into routeProbe 'routeProbe_01'
+Warning: Setting previous attribute selected '0' into edge 'gneE0'
+Warning: Setting previous attribute selected '0' into junction 'gneJ1'
+Warning: Setting previous attribute selected '0' into edge 'gneE1'
+Warning: Setting previous attribute selected '0' into junction 'gneJ0'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute selected 'true' into junction 'gneJ0'
+Warning: Setting new attribute selected 'true' into edge 'gneE1'
+Warning: Setting new attribute selected 'true' into junction 'gneJ1'
+Warning: Setting new attribute selected 'true' into edge 'gneE0'
+Warning: Setting new attribute selected 'true' into routeProbe 'routeProbe_01'
+Warning: Setting new attribute selected 'true' into routeProbe 'routeProbe_02'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute freq '50' into routeProbe 'routeProbe_01'
+Warning: Setting new attribute freq '50' into routeProbe 'routeProbe_02'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute name 'customName' into routeProbe 'routeProbe_01'
+Warning: Setting new attribute name 'customName' into routeProbe 'routeProbe_02'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute file 'OwnOutput.txt' into routeProbe 'routeProbe_01'
+Warning: Setting new attribute file 'OwnOutput.txt' into routeProbe 'routeProbe_02'
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute begin '11.3' into routeProbe 'routeProbe_01'
 Warning: Setting new attribute begin '11.3' into routeProbe 'routeProbe_02'
 Warning: Additionals saved

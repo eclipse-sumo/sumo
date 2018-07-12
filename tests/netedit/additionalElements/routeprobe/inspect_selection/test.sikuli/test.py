@@ -43,17 +43,27 @@ netedit.modifyAttribute(0, "-30")
 # Set valid freq
 netedit.modifyAttribute(0, "50")
 
-# Change parameter 3 with a non valid value (invalid characters)
-netedit.modifyAttribute(1, "$$$$$$$$")
+# Change parameter 1 with an non valid value
+netedit.modifyAttribute(1, "%%%&&%$%$")
 
-# Change parameter 3 with a valid value
-netedit.modifyAttribute(1, "OwnOutput.txt")
+# Change parameter 1 with a duplicated value
+netedit.modifyAttribute(1, "customName")
+
+# Change parameter 2 with a non valid value (invalid characters)
+netedit.modifyAttribute(2, "$$$$$$$$")
+
+# Change parameter 2 with a valid value
+netedit.modifyAttribute(2, "OwnOutput.txt")
 
 # Set invalid begin
-netedit.modifyAttribute(2, "-5")
+netedit.modifyAttribute(3, "-5")
 
 # Set valid begin
-netedit.modifyAttribute(2, "11.3")
+netedit.modifyAttribute(3, "11.3")
+
+# Check undos and redos
+netedit.undo(match, 5)
+netedit.redo(match, 5)
 
 # save additionals
 netedit.saveAdditionals()
