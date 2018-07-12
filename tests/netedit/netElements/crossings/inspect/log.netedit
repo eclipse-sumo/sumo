@@ -28,7 +28,6 @@ Warning: Created connection 'from8_1to4_1' in retrieveGNEConnection()
 Warning: Created crossing ':Center_c0' in retrieveGNECrossing()
 Warning: Created crossing ':Center_c1' in retrieveGNECrossing()
 Warning: Current Viewport values: 50.00, 50.00, 50.00. Zoom = '240.00'
-Warning: Value 'dummyID' for attribute id of crossing isn't valid
 Warning: Setting new attribute edges '3 7 1' into crossing ':Center_c1'
 Warning: net has to be saved
 Warning: Current saving Status: net unsaved, additionals saved, shapes saved
@@ -47,13 +46,19 @@ Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute priority 'false' into crossing ':Center_c1'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute edges '4 8' into crossing ':Center_c0'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute edges '3 7' into crossing ':Center_c1'
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Key F5 (Compute) pressed
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute edges '3 7 1' into crossing ':Center_c1'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute edges '3' into crossing ':Center_c0'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute priority 'true' into crossing ':Center_c1'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute width '4' into crossing ':Center_c1'
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Deleting unreferenced edge '1' in GNENet destructor
 Warning: Deleting unreferenced lane '1_0' in GNEEdge destructor
 Warning: Deleting unreferenced lane '1_1' in GNEEdge destructor
