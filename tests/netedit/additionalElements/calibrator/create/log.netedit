@@ -10,11 +10,15 @@ Warning: Adding calibrator 'calibrator_gneE0_1' in GNEChange_Additional
 Warning: Invalid input parameter of calibrator: 'freq' doesn't have a valid 'time' format
 Warning: Invalid input parameter of calibrator: 'freq' cannot be negative
 Warning: Adding calibrator 'calibrator_gneE1_2' in GNEChange_Additional
-Warning: Invalid input parameter of calibrator: RouteProbe ID contains invalid characters
-Warning: Invalid input parameter of calibrator: RouteProbe ID contains invalid characters
+Warning: Invalid input parameter of calibrator: Name contains invalid characters
 Warning: Adding calibrator 'calibrator_gneE1_3' in GNEChange_Additional
-Warning: Invalid input parameter of calibrator: input contains invalid characters for a filename
+Warning: Invalid input parameter of calibrator: RouteProbe ID contains invalid characters
+Warning: Invalid input parameter of calibrator: RouteProbe ID contains invalid characters
 Warning: Adding calibrator 'calibrator_gneE1_4' in GNEChange_Additional
+Warning: Invalid input parameter of calibrator: input contains invalid characters for a filename
+Warning: Adding calibrator 'calibrator_gneE1_5' in GNEChange_Additional
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Removing calibrator 'calibrator_gneE1_5' in GNEChange_Additional
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing calibrator 'calibrator_gneE1_4' in GNEChange_Additional
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -37,12 +41,15 @@ Warning: Adding calibrator 'calibrator_gneE1_3' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding calibrator 'calibrator_gneE1_4' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Adding calibrator 'calibrator_gneE1_5' in GNEChange_Additional
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-Warning: Deleting unreferenced calibrator 'calibrator_gneE1_4'
+Warning: Deleting unreferenced calibrator 'calibrator_gneE1_5'
 Warning: Additionals has to be saved
 Warning: Current saving Status: net saved, additionals unsaved, shapes saved
+Warning: Deleting unreferenced calibrator 'calibrator_gneE1_4'
 Warning: Deleting unreferenced calibrator 'calibrator_gneE1_3'
 Warning: Deleting unreferenced calibrator 'calibrator_gneE1_2'
 Warning: Deleting unreferenced calibrator 'calibrator_gneE0_1'

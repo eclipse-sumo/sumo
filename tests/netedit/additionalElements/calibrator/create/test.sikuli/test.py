@@ -70,39 +70,51 @@ netedit.modifyAdditionalDefaultValue(3, "250")
 # create calibrator with a valid parameter in other lane
 netedit.leftClick(match, 400, 180)
 
+# set invalid name
+netedit.modifyAdditionalDefaultValue(4, "\"\"\"")
+
+# try to create calibrator with invalid name
+netedit.leftClick(match, 200, 230)
+
+# set valid name
+netedit.modifyAdditionalDefaultValue(4, "customName")
+
+# create calibrator with valid name
+netedit.leftClick(match, 200, 230)
+
 # change routeprobe with a invalid  routeProbe
-netedit.modifyAdditionalDefaultValue(4, "%%$···$%")
+netedit.modifyAdditionalDefaultValue(5, "%%$···$%")
 
 # create calibrator with a different routeProbe in other lane
 netedit.leftClick(match, 200, 230)
 
 # change frequency with a different routeProbe (Valid, empty)
-netedit.modifyAdditionalDefaultValue(4, "")
+netedit.modifyAdditionalDefaultValue(5, "")
 
 # create calibrator with a valid parameter in other lane
 netedit.leftClick(match, 200, 230)
 
 # change routeprobe with a different routeProbe
-netedit.modifyAdditionalDefaultValue(4, "routeProbe")
+netedit.modifyAdditionalDefaultValue(5, "routeProbe")
 
 # create calibrator with a valid parameter in other lane
 netedit.leftClick(match, 200, 230)
 
 # change output with an invalid value
-netedit.modifyAdditionalDefaultValue(5, "%%%%###!!!")
+netedit.modifyAdditionalDefaultValue(6, "%%%%###!!!")
 
 # create calibrator with a valid parameter in other lane
 netedit.leftClick(match, 200, 230)
 
 # change output with an valid value
-netedit.modifyAdditionalDefaultValue(5, "myOwnOutput")
+netedit.modifyAdditionalDefaultValue(6, "myOwnOutput")
 
 # create calibrator with a valid parameter in other lane
 netedit.leftClick(match, 200, 230)
 
 # Check undo redo
-netedit.undo(match, 6)
-netedit.redo(match, 6)
+netedit.undo(match, 7)
+netedit.redo(match, 7)
 
 # save additionals
 netedit.saveAdditionals()
