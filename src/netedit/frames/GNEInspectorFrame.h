@@ -443,6 +443,9 @@ private:
     /// @brief GEO Attributes editor
     GEOAttributesEditor* myGEOAttributesEditor;
 
+    /// @brief Generic parameters editor
+    GenericParametersEditor* myGenericParametersEditor;
+
     /// @brief Template editor
     TemplateEditor* myTemplateEditor;
 
