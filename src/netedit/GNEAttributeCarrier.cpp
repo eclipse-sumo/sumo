@@ -1972,7 +1972,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "The id of an edge in the simulation network", 
             "");
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_FREQUENCY,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUE,
             "The frequency in which to report the distribution", 
             "3600");
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_NAME,
