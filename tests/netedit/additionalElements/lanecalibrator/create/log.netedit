@@ -10,11 +10,13 @@ Warning: Adding laneCalibrator 'laneCalibrator_gneE0_0_1' in GNEChange_Additiona
 Warning: Invalid input parameter of laneCalibrator: 'freq' doesn't have a valid 'time' format
 Warning: Invalid input parameter of laneCalibrator: 'freq' cannot be negative
 Warning: Adding laneCalibrator 'laneCalibrator_gneE1_0_2' in GNEChange_Additional
-Warning: Invalid input parameter of laneCalibrator: RouteProbe ID contains invalid characters
-Warning: Invalid input parameter of laneCalibrator: RouteProbe ID contains invalid characters
+Warning: Invalid input parameter of laneCalibrator: Name contains invalid characters
 Warning: Adding laneCalibrator 'laneCalibrator_gneE1_0_3' in GNEChange_Additional
-Warning: Invalid input parameter of laneCalibrator: input contains invalid characters for a filename
+Warning: Invalid input parameter of laneCalibrator: RouteProbe ID contains invalid characters
+Warning: Invalid input parameter of laneCalibrator: RouteProbe ID contains invalid characters
 Warning: Adding laneCalibrator 'laneCalibrator_gneE1_0_4' in GNEChange_Additional
+Warning: Invalid input parameter of laneCalibrator: input contains invalid characters for a filename
+Warning: Invalid input parameter of laneCalibrator: input contains invalid characters for a filename
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing laneCalibrator 'laneCalibrator_gneE1_0_4' in GNEChange_Additional
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -26,6 +28,7 @@ Warning: Removing laneCalibrator 'laneCalibrator_gneE0_0_1' in GNEChange_Additio
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing laneCalibrator 'laneCalibrator_gneE0_0_0' in GNEChange_Additional
 Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding laneCalibrator 'laneCalibrator_gneE0_0_0' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
@@ -36,6 +39,7 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding laneCalibrator 'laneCalibrator_gneE1_0_3' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding laneCalibrator 'laneCalibrator_gneE1_0_4' in GNEChange_Additional
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
