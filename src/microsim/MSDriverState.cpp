@@ -7,7 +7,7 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    MSTransportable.cpp
+/// @file    MSDriverState.cpp
 /// @author  Melanie Weber
 /// @author  Andreas Kendziorra
 /// @author  Michael Behrisch

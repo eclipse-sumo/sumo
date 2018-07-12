@@ -7,7 +7,7 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    test_lib.cpp
+/// @file    testlibsumo_main.cpp
 /// @author  Michael Behrisch
 /// @date    Tue, 20 Nov 2001
 /// @version $Id$

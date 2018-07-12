@@ -7,7 +7,7 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    MSCFModel_CACC.cpp
+/// @file    MSCFModel_ACC.h
 /// @author  Kallirroi Porfyri
 /// @date    Feb 2018
 /// @version $Id$
