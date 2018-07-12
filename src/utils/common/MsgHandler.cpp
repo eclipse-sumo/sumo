@@ -193,33 +193,21 @@ MsgHandler::initOutputOptions() {
     }
     // build the logger if possible
     if (oc.isSet("log", false)) {
-        try {
-            OutputDevice* logFile = &OutputDevice::getDevice(oc.getString("log"));
-            getErrorInstance()->addRetriever(logFile);
-            if (!oc.getBool("no-warnings")) {
-                getWarningInstance()->addRetriever(logFile);
-            }
-            getMessageInstance()->addRetriever(logFile);
-        } catch (IOError&) {
-            throw ProcessError("Could not build logging file '" + oc.getString("log") + "'");
+        OutputDevice* logFile = &OutputDevice::getDevice(oc.getString("log"));
+        getErrorInstance()->addRetriever(logFile);
+        if (!oc.getBool("no-warnings")) {
+            getWarningInstance()->addRetriever(logFile);
         }
+        getMessageInstance()->addRetriever(logFile);
     }
     if (oc.isSet("message-log", false)) {
-        try {
-            OutputDevice* logFile = &OutputDevice::getDevice(oc.getString("message-log"));
-            getMessageInstance()->addRetriever(logFile);
-        } catch (IOError&) {
-            throw ProcessError("Could not build logging file '" + oc.getString("message-log") + "'");
-        }
+        OutputDevice* logFile = &OutputDevice::getDevice(oc.getString("message-log"));
+        getMessageInstance()->addRetriever(logFile);
     }
     if (oc.isSet("error-log", false)) {
-        try {
-            OutputDevice* logFile = &OutputDevice::getDevice(oc.getString("error-log"));
-            getErrorInstance()->addRetriever(logFile);
-            getWarningInstance()->addRetriever(logFile);
-        } catch (IOError&) {
-            throw ProcessError("Could not build logging file '" + oc.getString("error-log") + "'");
-        }
+        OutputDevice* logFile = &OutputDevice::getDevice(oc.getString("error-log"));
+        getErrorInstance()->addRetriever(logFile);
+        getWarningInstance()->addRetriever(logFile);
     }
     if (!oc.getBool("verbose")) {
         getMessageInstance()->removeRetriever(&OutputDevice::getDevice("stdout"));
