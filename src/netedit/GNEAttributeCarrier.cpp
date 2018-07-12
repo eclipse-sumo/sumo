@@ -940,36 +940,41 @@ bool
 GNEAttributeCarrier::addGenericParameter(const std::string &parameter, const std::string &value) {
     // make sure that generic parameter isn't duplicated
     for (auto i : myGenericParameters) {
-        if(i.first == parameter) {
+        if(i.parameter == parameter) {
             return false;
         }
     }
     // add generic parameter
-    myGenericParameters.push_back(std::make_pair(parameter, value));
+    myGenericParameters.push_back(GenericParameter(parameter, value));
     return true;
 }
 
 
 bool 
-GNEAttributeCarrier::removeGenericParameter(const std::string &parameter, const std::string &value) {
-    // find generic parameter
-    auto finder = std::find(myGenericParameters.begin(), myGenericParameters.end(), std::make_pair(parameter, value));
+GNEAttributeCarrier::removeGenericParameter(const std::string &parameter) {
     // make sure that generic parameter exist
-    if(finder != myGenericParameters.end()) {
-        myGenericParameters.erase(finder);
-        return true;
-    } else {
-        return false;
+    for(int i = 0; i < (int)myGenericParameters.size(); i++) {
+        if(myGenericParameters.at(i).parameter == parameter) {
+            myGenericParameters.erase(myGenericParameters.begin() + i);
+            return true;
+        }
     }
+    return false;
 }
 
 
 bool 
 GNEAttributeCarrier::updateGenericParameter(const std::string &oldParameter, const std::string &newParameter) {
+    // first check that new parameter doesn't exist already
+    for (auto i : myGenericParameters) {
+        if(i.parameter == newParameter) {
+            return false;
+        }
+    }
     // find and replace parameter
     for (auto i : myGenericParameters) {
-        if(i.first == oldParameter) {
-            i.first = newParameter;
+        if(i.parameter == oldParameter) {
+            i.parameter = newParameter;
             return true;
         }
     }
@@ -982,8 +987,8 @@ bool
 GNEAttributeCarrier::updateGenericParameterValue(const std::string &parameter, const std::string &newValue) {
     // find and replace parameter
     for (auto i : myGenericParameters) {
-        if(i.first == parameter) {
-            i.second = newValue;
+        if(i.parameter == parameter) {
+            i.parameter = newValue;
             return true;
         }
     }

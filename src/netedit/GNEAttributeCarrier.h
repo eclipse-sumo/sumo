@@ -64,7 +64,6 @@ class GNEAttributeCarrier : public GNEReferenceCounter {
     friend class GNEChange_Attribute;
 
 public:
-
     /// @brief struct with the tag Properties
     enum AttrProperty {
         ATTRPROPERTY_INT =          1 << 0,     // Attribute is an integer (Including Zero)
@@ -354,6 +353,20 @@ public:
         std::vector<SumoXMLAttr> myDeprecatedAttributes;
     };
 
+    /// @brief struct for generic parameter
+    struct GenericParameter {
+        /// @brief constructor
+        GenericParameter(const std::string &_parameter, const std::string &_attribute) :
+            parameter(_parameter),
+            attribute(_attribute) { }
+
+        /// @brief parameter
+        std::string parameter;
+        
+        /// @brief attribute
+        std::string attribute;
+    };
+
     /**@brief Constructor
      * @param[in] tag SUMO Tag assigned to this type of object
      * @param[in] icon GUIIcon associated to the type of object
@@ -451,12 +464,12 @@ public:
     bool addGenericParameter(const std::string &parameter, const std::string &value);
 
     /// @brief remove generic parameter
-    bool removeGenericParameter(const std::string &parameter, const std::string &value);
+    bool removeGenericParameter(const std::string &parameter);
 
     /// @brief update generic parameter
     bool updateGenericParameter(const std::string &oldParameter, const std::string &newParameter);
 
-    /// @brief update generic parameter value
+    /// @brief update value generic parameter 
     bool updateGenericParameterValue(const std::string &parameter, const std::string &newValue);
 
     /// @brief true if a value of type T can be parsed from string
@@ -735,7 +748,7 @@ protected:
     bool mySelected;
 
     /// @brief Vector with the generic parameters
-    std::vector<std::pair<std::string, std::string> > myGenericParameters;
+    std::vector<GenericParameter> myGenericParameters;
 
 private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)

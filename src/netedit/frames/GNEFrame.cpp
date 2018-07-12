@@ -62,8 +62,10 @@ FXDEFMAP(GNEFrame::ACHierarchy) GNEFrameACHierarchyMap[] = {
 };
 
 FXDEFMAP(GNEFrame::GenericParametersEditor) GenericParametersEditorMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEFrame::GenericParametersEditor::onCmdSetGenericParameter),
-    FXMAPFUNC(SEL_COMMAND,  MID_HELP,               GNEFrame::GenericParametersEditor::onCmdGenericParameterHelp),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADD_ATTRIBUTE,      GNEFrame::GenericParametersEditor::onCmdAddGenericParameter),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_REMOVE_ATTRIBUTE,   GNEFrame::GenericParametersEditor::onCmdRemoveGenericParameter),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,      GNEFrame::GenericParametersEditor::onCmdSetGenericParameter),
+    FXMAPFUNC(SEL_COMMAND,  MID_HELP,                   GNEFrame::GenericParametersEditor::onCmdGenericParameterHelp),
 };
 
 // Object implementation
@@ -491,26 +493,6 @@ GNEFrame::GenericParametersEditor::GenericParametersEditor(GNEFrame* inspectorFr
     FXGroupBox(inspectorFrameParent->myContentFrame, "Generic parameters", GUIDesignGroupBoxFrame),
     myFrameParent(inspectorFrameParent) {
 
-    // Create elements for additional parent
-    myHorizontalFrameAdditionalParent = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    myLabelAdditionalParent = new FXLabel(myHorizontalFrameAdditionalParent, "Block move", 0, GUIDesignLabelAttribute);
-    myTextFieldAdditionalParent = new FXTextField(myHorizontalFrameAdditionalParent, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-
-    // Create elements for block movement
-    myHorizontalFrameBlockMovement = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    myLabelBlockMovement = new FXLabel(myHorizontalFrameBlockMovement, "Block move", 0, GUIDesignLabelAttribute);
-    myCheckBoxBlockMovement = new FXCheckButton(myHorizontalFrameBlockMovement, "", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButtonAttribute);
-
-    // Create elements for block shape
-    myHorizontalFrameBlockShape = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    myLabelBlockShape = new FXLabel(myHorizontalFrameBlockShape, "Block shape", 0, GUIDesignLabelAttribute);
-    myCheckBoxBlockShape = new FXCheckButton(myHorizontalFrameBlockShape, "", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButtonAttribute);
-
-    // Create elements for close shape
-    myHorizontalFrameCloseShape = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    myLabelCloseShape = new FXLabel(myHorizontalFrameCloseShape, "Close shape", 0, GUIDesignLabelAttribute);
-    myCheckBoxCloseShape = new FXCheckButton(myHorizontalFrameCloseShape, "", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButtonAttribute);
-
     // Create help button
     myHelpButton = new FXButton(this, "Help", 0, this, MID_HELP, GUIDesignButtonRectangular);
 }
@@ -527,11 +509,6 @@ GNEFrame::GenericParametersEditor::showGenericParametersEditor() {
 
 void
 GNEFrame::GenericParametersEditor::hideGenericParametersEditor() {
-    // hide all elements of GroupBox
-    myHorizontalFrameAdditionalParent->hide();
-    myHorizontalFrameBlockMovement->hide();
-    myHorizontalFrameBlockShape->hide();
-    myHorizontalFrameCloseShape->hide();
     // hide groupbox
     hide();
 }
@@ -540,6 +517,18 @@ GNEFrame::GenericParametersEditor::hideGenericParametersEditor() {
 void 
 GNEFrame::GenericParametersEditor::refreshGenericParametersEditor(bool forceRefresh) {
     ;
+}
+
+
+long 
+GNEFrame::GenericParametersEditor::onCmdAddGenericParameter(FXObject*, FXSelector, void*) {
+    return 1;
+}
+
+
+long 
+GNEFrame::GenericParametersEditor::onCmdRemoveGenericParameter(FXObject* button, FXSelector, void*) {
+    return 1;
 }
 
 
@@ -552,6 +541,12 @@ GNEFrame::GenericParametersEditor::onCmdSetGenericParameter(FXObject* obj, FXSel
 long 
 GNEFrame::GenericParametersEditor::onCmdGenericParameterHelp(FXObject*, FXSelector, void*) {
     return 0;
+}
+
+
+GNEFrame::GenericParametersEditor::GenericParameterRow::GenericParameterRow(GNEFrame::GenericParametersEditor *genericParametersEditor) {
+    /// @frame horizontal frame for change additional parent
+    FXHorizontalFrame* horizontalFrame;
 }
 
 

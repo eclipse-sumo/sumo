@@ -525,6 +525,10 @@ enum {
     /// @name GNEFrame messages
     /// @{
     // MID_GNE_WIZARD,
+    /// @brief attribute added
+    MID_GNE_ADD_ATTRIBUTE,
+    /// @brief attribute removed
+    MID_GNE_REMOVE_ATTRIBUTE,
     /// @brief attribute edited
     MID_GNE_SET_ATTRIBUTE,
     /// @brief used to select a type of element in a combo box

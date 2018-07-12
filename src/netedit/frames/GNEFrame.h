@@ -150,6 +150,12 @@ public:
         /// @name FOX-callbacks
         /// @{
 
+        /// @brief Called when user clicks over add generic parameter
+        long onCmdAddGenericParameter(FXObject*, FXSelector, void*);
+
+         /// @brief Called when user clicks over a remove generic parameter
+        long onCmdRemoveGenericParameter(FXObject* button, FXSelector, void*);
+
         /// @brief Called when user change the current GEO Attribute
         long onCmdSetGenericParameter(FXObject*, FXSelector, void*);
 
@@ -162,44 +168,29 @@ public:
         GenericParametersEditor() {}
 
     private:
+        /// @brief struct for generic parameters Row
+        struct GenericParameterRow {
+            /// @brief 
+            GenericParameterRow(GenericParametersEditor * genericParametersEditor);
+
+            /// @brief TextField for parameter
+            FXTextField *parameter;
+
+            /// @brief TextField for value
+            FXTextField *value;
+
+            /// @brief Button for remove parameter row
+            FXButton *remove;
+        };
+
         /// @brief pointer to inspector frame parent
         GNEFrame* myFrameParent;
 
-        /// @frame horizontal frame for change additional parent
-        FXHorizontalFrame* myHorizontalFrameAdditionalParent;
-
         /// @brief Label for additional parent
-        FXLabel* myLabelAdditionalParent;
+        FXLabel* myLabelGenericParameters;
 
-        /// @brief pointer for change additional parent
-        FXTextField* myTextFieldAdditionalParent;
-
-        /// @frame horizontal frame for block movement
-        FXHorizontalFrame* myHorizontalFrameBlockMovement;
-
-        /// @brief Label for Check blocked movement
-        FXLabel* myLabelBlockMovement;
-
-        /// @brief pointer to check box "Block movement"
-        FXCheckButton* myCheckBoxBlockMovement;
-
-        /// @frame horizontal frame for block shape
-        FXHorizontalFrame* myHorizontalFrameBlockShape;
-
-        /// @brief Label for Check blocked shape
-        FXLabel* myLabelBlockShape;
-
-        /// @brief pointer to check box "Block Shape"
-        FXCheckButton* myCheckBoxBlockShape;
-
-        /// @frame horizontal frame for close shape
-        FXHorizontalFrame* myHorizontalFrameCloseShape;
-
-        /// @brief Label for close shape
-        FXLabel* myLabelCloseShape;
-
-        /// @brief pointer to check box "Block movement"
-        FXCheckButton* myCheckBoxCloseShape;
+        /// @brief button for add generic parameter
+        FXButton* myAddGenericParameter;
 
         /// @brief button for help
         FXButton* myHelpButton;
