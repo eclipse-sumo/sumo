@@ -1,0 +1,155 @@
+Loading configuration... done.
+use externalgawron
+> Executing step 0
+>> Running router on input_trips.trips.xml
+>>> Begin time: 2018-07-12 13:07:39.516000
+>>> End time: 2018-07-12 13:07:39.820000
+>>> Duration: 0:00:00.304000
+<<
+basename input_trips
+>> Running simulation
+>>> Begin time: 2018-07-12 13:07:39.823000
+>>> End time: 2018-07-12 13:07:40.167000
+>>> Duration: 0:00:00.344000
+<<
+>> Smoothing edge weights
+>>> Updated 4 edges
+>>> Decayed 0 unseen edges
+>>> Error avg:0 mean:0
+>>> Absolute Error avg:0 mean:0
+< Step 0 ended (duration: 0:00:00.654000)
+------------------
+
+Loading configuration... done.
+> Executing step 1
+>> Running router on input_trips_000.rou.alt.xml
+>>> Begin time: 2018-07-12 13:07:40.171000
+>>> End time: 2018-07-12 13:07:40.487000
+>>> Duration: 0:00:00.316000
+<<
+basename input_trips
+step: 1
+get externalgawron
+run getRouteChoices
+ecoMeasure: None
+prefix: input_trips_001
+parse network file
+could not parse weights file: None
+parse dumpfile
+dump_000_900.xml
+parse routeAltfile: input_trips_001.rou.alt.xml
+parse routeAltfile from externalGawron:  input_trips_000.rou.galt.xml
+new probability for route 1 for veh 0
+new probability for route 3 for veh 1
+new probability for route 5 for veh 2
+new probability for route 7 for veh 3
+new probability for route 9 for veh 4
+new probability for route 11 for veh 5
+new probability for route 13 for veh 6
+new probability for route 15 for veh 7
+new probability for route 17 for veh 8
+new probability for route 19 for veh 9
+>> Running simulation
+>>> Begin time: 2018-07-12 13:07:40.496000
+>>> End time: 2018-07-12 13:07:40.823000
+>>> Duration: 0:00:00.327000
+<<
+>> Smoothing edge weights
+>>> Updated 7 edges
+>>> Decayed 0 unseen edges
+>>> Error avg:0.148571428571 mean:0
+>>> Absolute Error avg:0.202857142857 mean:0.02
+< Step 1 ended (duration: 0:00:00.654000)
+------------------
+
+Loading configuration... done.
+> Executing step 2
+>> Running router on input_trips_001.rou.alt.xml
+>>> Begin time: 2018-07-12 13:07:40.828000
+>>> End time: 2018-07-12 13:07:41.124000
+>>> Duration: 0:00:00.296000
+<<
+basename input_trips
+step: 2
+get externalgawron
+run getRouteChoices
+ecoMeasure: None
+prefix: input_trips_002
+parse dumpfile
+dump_001_900.xml
+parse routeAltfile: input_trips_002.rou.alt.xml
+parse routeAltfile from externalGawron:  input_trips_001.rou.galt.xml
+>> Running simulation
+>>> Begin time: 2018-07-12 13:07:41.131000
+>>> End time: 2018-07-12 13:07:41.475000
+>>> Duration: 0:00:00.344000
+<<
+>> Smoothing edge weights
+>>> Updated 7 edges
+>>> Decayed 0 unseen edges
+>>> Error avg:0.0756686261296 mean:0
+>>> Absolute Error avg:0.10277766816 mean:0.0100053361793
+< Step 2 ended (duration: 0:00:00.654000)
+------------------
+
+Loading configuration... done.
+> Executing step 3
+>> Running router on input_trips_002.rou.alt.xml
+>>> Begin time: 2018-07-12 13:07:41.484000
+>>> End time: 2018-07-12 13:07:41.835000
+>>> Duration: 0:00:00.351000
+<<
+basename input_trips
+step: 3
+get externalgawron
+run getRouteChoices
+ecoMeasure: None
+prefix: input_trips_003
+parse dumpfile
+dump_002_900.xml
+parse routeAltfile: input_trips_003.rou.alt.xml
+parse routeAltfile from externalGawron:  input_trips_002.rou.galt.xml
+>> Running simulation
+>>> Begin time: 2018-07-12 13:07:41.842000
+>>> End time: 2018-07-12 13:07:42.174000
+>>> Duration: 0:00:00.332000
+<<
+>> Smoothing edge weights
+>>> Updated 7 edges
+>>> Decayed 0 unseen edges
+>>> Error avg:0.0507654632594 mean:0
+>>> Absolute Error avg:0.0688306653075 mean:0.006671411414
+< Step 3 ended (duration: 0:00:00.692000)
+------------------
+
+Loading configuration... done.
+> Executing step 4
+>> Running router on input_trips_003.rou.alt.xml
+>>> Begin time: 2018-07-12 13:07:42.177000
+>>> End time: 2018-07-12 13:07:42.480000
+>>> Duration: 0:00:00.303000
+<<
+basename input_trips
+step: 4
+get externalgawron
+run getRouteChoices
+ecoMeasure: None
+prefix: input_trips_004
+parse dumpfile
+dump_003_900.xml
+parse routeAltfile: input_trips_004.rou.alt.xml
+parse routeAltfile from externalGawron:  input_trips_003.rou.galt.xml
+>> Running simulation
+>>> Begin time: 2018-07-12 13:07:42.491000
+>>> End time: 2018-07-12 13:07:42.838000
+>>> Duration: 0:00:00.347000
+<<
+>> Smoothing edge weights
+>>> Updated 7 edges
+>>> Decayed 0 unseen edges
+>>> Error avg:0.0381957528422 mean:0
+>>> Absolute Error avg:0.0517418475506 mean:0.00500400399406
+< Step 4 ended (duration: 0:00:00.663000)
+------------------
+
+dua-iterate ended (duration: 0:00:03.356000)

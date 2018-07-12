@@ -428,7 +428,7 @@ def getRouteChoices(edgesMap, dumpfile, routeAltfile, netfile, addWeightsfile, a
     prefix = os.path.basename(routeAltfile)
     # prefix = prefix[:prefix.find('.')]
     prefix = prefix[:-12]
-    print('outputPath:', outputPath)
+    # print('outputPath:', outputPath)
     print('prefix:', prefix)
     outputAltfile = os.path.join(outputPath, prefix + '.rou.galt.xml')
     outputRoufile = os.path.join(outputPath, prefix + '.grou.xml')
