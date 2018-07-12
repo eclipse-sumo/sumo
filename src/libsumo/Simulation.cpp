@@ -83,6 +83,7 @@ Simulation::step(const SUMOTime time) {
             MSNet::getInstance()->simulationStep();
         }
     }
+    Helper::handleSubscriptions(time);
 }
 
 

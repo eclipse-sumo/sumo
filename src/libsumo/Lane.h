@@ -34,6 +34,7 @@
 // class declarations
 // ===========================================================================
 class MSLane;
+class PositionVector;
 
 
 // ===========================================================================
@@ -90,6 +91,12 @@ public:
     // Subscriptions (TODO?)
     //static void subscribe(const std::string& objID, SUMOTime beginTime, SUMOTime endTime, const std::vector<int>& vars);
     //static void subscribeContext(const std::string& objID, SUMOTime beginTime, SUMOTime endTime, int domain, double range, const std::vector<int>& vars);
+
+    /** @brief Saves the shape of the requested object in the given container
+    *  @param id The id of the poi to retrieve
+    *  @param shape The container to fill
+    */
+    static void storeShape(const std::string& id, PositionVector& shape);
 
 private:
     static const MSLane* getLane(const std::string& id);

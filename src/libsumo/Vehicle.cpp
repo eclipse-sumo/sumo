@@ -1313,6 +1313,12 @@ Vehicle::setParameter(const std::string& vehicleID, const std::string& key, cons
 }
 
 
+void
+Vehicle::storeShape(const std::string& id, PositionVector& shape) {
+    shape.push_back(getVehicle(id)->getPosition());
+}
+
+
 
 }
 

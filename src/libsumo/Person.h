@@ -31,6 +31,8 @@
 // class declarations
 // ===========================================================================
 class MSPerson;
+class PositionVector;
+
 
 // ===========================================================================
 // class definitions
@@ -79,6 +81,12 @@ public:
 
     // This does not only return the person's vType, but makes it singular.
     static std::string getSingularVType(const std::string& personID);
+
+    /** @brief Saves the shape of the requested object in the given container
+    *  @param id The id of the poi to retrieve
+    *  @param shape The container to fill
+    */
+    static void storeShape(const std::string& id, PositionVector& shape);
 
 private:
     /// @brief invalidated standard constructor

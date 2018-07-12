@@ -32,6 +32,7 @@
 // class declarations
 // ===========================================================================
 class MSEdge;
+class PositionVector;
 
 
 // ===========================================================================
@@ -82,6 +83,12 @@ public:
     static const TraCIResults getSubscriptionResults(const std::string& objID);
     static const ContextSubscriptionResults getContextSubscriptionResults();
     static const SubscriptionResults getContextSubscriptionResults(const std::string& objID);
+
+    /** @brief Saves the shape of the requested object in the given container
+    *  @param id The id of the edge to retrieve
+    *  @param shape The container to fill
+    */
+    static void storeShape(const std::string& id, PositionVector& shape);
 
 private:
     static MSEdge* getEdge(const std::string& id);

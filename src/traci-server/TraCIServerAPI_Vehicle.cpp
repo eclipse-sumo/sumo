@@ -1158,17 +1158,4 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
 }
 
 
-
-// ------ helper functions ------
-bool
-TraCIServerAPI_Vehicle::getPosition(const std::string& id, Position& p) {
-    MSVehicle* v = dynamic_cast<MSVehicle*>(MSNet::getInstance()->getVehicleControl().getVehicle(id));
-    if (v == 0) {
-        return false;
-    }
-    p = v->getPosition();
-    return true;
-}
-
-
 /****************************************************************************/

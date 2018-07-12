@@ -33,10 +33,14 @@
 #include <microsim/MSTransportable.h>
 #include <microsim/pedestrians/MSPerson.h>
 #include <libsumo/TraCIDefs.h>
+#include <libsumo/Edge.h>
 #include <libsumo/InductionLoop.h>
 #include <libsumo/Junction.h>
+#include <libsumo/Lane.h>
+#include <libsumo/Person.h>
 #include <libsumo/POI.h>
 #include <libsumo/Polygon.h>
+#include <libsumo/Vehicle.h>
 #include <traci-server/TraCIConstants.h>
 #include "Helper.h"
 
@@ -108,6 +112,54 @@ Helper::subscribe(const int commandId, const std::string& id, const std::vector<
     std::vector<std::vector<unsigned char> > parameters;
     libsumo::Subscription s(commandId, id, variables, parameters, beginTime, endTime, contextDomain, range);
     mySubscriptions.push_back(s);
+}
+
+
+void
+Helper::handleSubscriptions(const SUMOTime t) {
+    for (std::vector<libsumo::Subscription>::iterator i = mySubscriptions.begin(); i != mySubscriptions.end();) {
+        const libsumo::Subscription& s = *i;
+        if (s.beginTime > t) {
+            ++i;
+            continue;
+        }
+        bool ok = handleSingleSubscription(s);
+        if (ok) {
+            ++i;
+        } else {
+            i = mySubscriptions.erase(i);
+        }
+    }
+}
+
+
+bool
+Helper::handleSingleSubscription(const Subscription& s) {
+    bool ok = true;
+    const int getCommandId = s.contextDomain > 0 ? s.contextDomain : s.commandId - 0x30;
+    std::set<std::string> objIDs;
+    if (s.contextDomain > 0) {
+        PositionVector shape;
+        findObjectShape(s.commandId, s.id, shape);
+        collectObjectsInRange(s.contextDomain, shape, s.range, objIDs);
+    } else {
+        objIDs.insert(s.id);
+    }
+    const int numVars = s.contextDomain > 0 && s.variables.size() == 1 && s.variables[0] == ID_LIST ? 0 : (int)s.variables.size();
+    for (std::set<std::string>::iterator j = objIDs.begin(); j != objIDs.end(); ++j) {
+        if (numVars > 0) {
+            std::vector<std::vector<unsigned char> >::const_iterator k = s.parameters.begin();
+            for (std::vector<int>::const_iterator i = s.variables.begin(); i != s.variables.end(); ++i, ++k) {
+                /* if (myExecutors.find(getCommandId) != myExecutors.end()) {
+                    ok &= myExecutors[getCommandId](*this, message, tmpOutput);
+                } else {
+                    writeStatusCmd(s.commandId, RTYPE_NOTIMPLEMENTED, "Unsupported command specified", tmpOutput);
+                    ok = false;
+                }*/
+            }
+        }
+    }
+    return ok;
 }
 
 
@@ -224,6 +276,39 @@ Helper::cleanup() {
     myObjects.clear();
     delete myLaneTree;
     myLaneTree = 0;
+}
+
+
+void
+Helper::findObjectShape(int domain, const std::string& id, PositionVector& shape) {
+    switch (domain) {
+    case CMD_SUBSCRIBE_INDUCTIONLOOP_CONTEXT:
+        InductionLoop::storeShape(id, shape);
+        break;
+    case CMD_SUBSCRIBE_LANE_CONTEXT:
+        Lane::storeShape(id, shape);
+        break;
+    case CMD_SUBSCRIBE_VEHICLE_CONTEXT:
+        Vehicle::storeShape(id, shape);
+        break;
+    case CMD_SUBSCRIBE_PERSON_CONTEXT:
+        Person::storeShape(id, shape);
+        break;
+    case CMD_SUBSCRIBE_POI_CONTEXT:
+        POI::storeShape(id, shape);
+        break;
+    case CMD_SUBSCRIBE_POLYGON_CONTEXT:
+        Polygon::storeShape(id, shape);
+        break;
+    case CMD_SUBSCRIBE_JUNCTION_CONTEXT:
+        Junction::storeShape(id, shape);
+        break;
+    case CMD_SUBSCRIBE_EDGE_CONTEXT:
+        Edge::storeShape(id, shape);
+        break;
+    default:
+        break;
+    }
 }
 
 

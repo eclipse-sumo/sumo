@@ -128,6 +128,7 @@ Polygon::setParameter(std::string& id, std::string& name, std::string& value) {
     p->setParameter(name, value);
 }
 
+
 NamedRTree*
 Polygon::getTree() {
     NamedRTree* t = new NamedRTree();
@@ -140,6 +141,13 @@ Polygon::getTree() {
     }
     return t;
 }
+
+
+void
+Polygon::storeShape(const std::string& id, PositionVector& shape) {
+    shape = getPolygon(id)->getShape();
+}
+
 
 }
 

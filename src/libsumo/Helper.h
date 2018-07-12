@@ -101,6 +101,8 @@ public:
     static void subscribe(const int commandId, const std::string& id, const std::vector<int>& variables,
                           const SUMOTime beginTime, const SUMOTime endTime, const int contextDomain=0, const double range = 0.);
 
+    static void handleSubscriptions(const SUMOTime t);
+
     /// @brief helper functions
     static TraCIPositionVector makeTraCIPositionVector(const PositionVector& positionVector);
     static TraCIPosition makeTraCIPosition(const Position& position);
@@ -130,6 +132,8 @@ public:
             const std::string& pType, const std::string& vehType);
 
     static std::string getParameter(const std::string& objectID, const std::string& key);
+
+    static void findObjectShape(int domain, const std::string& id, PositionVector& shape);
 
     static void collectObjectsInRange(int domain, const PositionVector& shape, double range, std::set<std::string>& into);
 
@@ -177,7 +181,9 @@ public:
     /// @}
 
 private:
+    static bool handleSingleSubscription(const Subscription& s);
 
+private:
     /// @brief The list of known, still valid subscriptions
     static std::vector<Subscription> mySubscriptions;
 

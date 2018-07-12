@@ -347,6 +347,14 @@ Lane::getLane(const std::string& id) {
     }
     return r;
 }
+
+
+void
+Lane::storeShape(const std::string& id, PositionVector& shape) {
+    shape = getLane(id)->getShape();
+}
+
+
 }
 
 

@@ -584,10 +584,19 @@ Person::getPerson(const std::string& personID) {
     return p;
 }
 
+
 std::string
 Person::getSingularVType(const std::string& personID) {
     return getPerson(personID)->getSingularType().getID();
 }
+
+
+void
+Person::storeShape(const std::string& id, PositionVector& shape) {
+    shape.push_back(getPerson(id)->getPosition());
+}
+
+
 }
 
 

@@ -124,6 +124,7 @@ InductionLoop::getDetector(const std::string& id) {
     return il;
 }
 
+
 NamedRTree*
 InductionLoop::getTree() {
     NamedRTree* t = new NamedRTree();
@@ -136,6 +137,14 @@ InductionLoop::getTree() {
     }
     return t;
 }
+
+
+void
+InductionLoop::storeShape(const std::string& id, PositionVector& shape) {
+    MSInductLoop* const il = getDetector(id);
+    shape.push_back(il->getLane()->getShape().positionAtOffset(il->getPosition()));
+}
+
 
 }
 

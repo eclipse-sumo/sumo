@@ -187,6 +187,12 @@ public:
     static void setParameter(const std::string& vehicleID, const std::string& key, const std::string& value);
     /// @}
 
+    /** @brief Saves the shape of the requested object in the given container
+    *  @param id The id of the poi to retrieve
+    *  @param shape The container to fill
+    */
+    static void storeShape(const std::string& id, PositionVector& shape);
+
 private:
     static MSVehicle* getVehicle(const std::string& id);
 

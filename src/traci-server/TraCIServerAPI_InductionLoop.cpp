@@ -140,16 +140,5 @@ TraCIServerAPI_InductionLoop::processGet(TraCIServer& server, tcpip::Storage& in
 }
 
 
-bool
-TraCIServerAPI_InductionLoop::getPosition(const std::string& id, Position& p) {
-    MSInductLoop* il = static_cast<MSInductLoop*>(MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_INDUCTION_LOOP).get(id));
-    if (il == 0) {
-        return false;
-    }
-    p = il->getLane()->getShape().positionAtOffset(il->getPosition());
-    return true;
-}
-
-
 /****************************************************************************/
 

@@ -32,8 +32,6 @@
 #include "Helper.h"
 
 
-
-
 // ===========================================================================
 // member definitions
 // ===========================================================================
@@ -131,7 +129,7 @@ POI::setParameter(const std::string& poiID, const std::string& param, const std:
 PointOfInterest*
 POI::getPoI(const std::string& id) {
     PointOfInterest* sumoPoi = MSNet::getInstance()->getShapeContainer().getPOIs().get(id);
-    if (sumoPoi == 0) {
+    if (sumoPoi == nullptr) {
         throw TraCIException("POI '" + id + "' is not known");
     }
     return sumoPoi;
@@ -148,6 +146,12 @@ POI::getTree() {
         t->Insert(cmin, cmax, i.second);
     }
     return t;
+}
+
+
+void
+POI::storeShape(const std::string& id, PositionVector& shape) {
+    shape.push_back(*getPoI(id));
 }
 
 

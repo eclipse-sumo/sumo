@@ -1081,82 +1081,6 @@ TraCIServer::isVehicleToVehicleContextSubscription(const libsumo::Subscription& 
 
 
 bool
-TraCIServer::findObjectShape(int domain, const std::string& id, PositionVector& shape) {
-    Position p;
-    switch (domain) {
-        case CMD_SUBSCRIBE_INDUCTIONLOOP_CONTEXT:
-            if (TraCIServerAPI_InductionLoop::getPosition(id, p)) {
-                shape.push_back(p);
-                return true;
-            }
-            break;
-        case CMD_SUBSCRIBE_MULTIENTRYEXIT_CONTEXT:
-            break;
-        case CMD_SUBSCRIBE_TL_CONTEXT:
-            break;
-        case CMD_SUBSCRIBE_LANE_CONTEXT:
-            if (TraCIServerAPI_Lane::getShape(id, shape)) {
-                return true;
-            }
-            break;
-        case CMD_SUBSCRIBE_VEHICLE_CONTEXT:
-            if (TraCIServerAPI_Vehicle::getPosition(id, p)) {
-                shape.push_back(p);
-                return true;
-            }
-            break;
-        case CMD_SUBSCRIBE_PERSON_CONTEXT:
-            if (TraCIServerAPI_Person::getPosition(id, p)) {
-                shape.push_back(p);
-                return true;
-            }
-            break;
-        case CMD_SUBSCRIBE_VEHICLETYPE_CONTEXT:
-            break;
-        case CMD_SUBSCRIBE_ROUTE_CONTEXT:
-            break;
-        case CMD_SUBSCRIBE_POI_CONTEXT:
-            if (TraCIServerAPI_POI::getPosition(id, p)) {
-                shape.push_back(p);
-                return true;
-            }
-            return false;
-        case CMD_SUBSCRIBE_POLYGON_CONTEXT:
-            if (TraCIServerAPI_Polygon::getShape(id, shape)) {
-                return true;
-            }
-            break;
-        case CMD_SUBSCRIBE_JUNCTION_CONTEXT: {
-            const MSJunction* const j = MSNet::getInstance()->getJunctionControl().get(id);
-            if (j != nullptr) {
-                shape.push_back(j->getPosition());
-                return true;
-            }
-            break;
-        }
-        case CMD_SUBSCRIBE_EDGE_CONTEXT: {
-            const MSEdge* const e = MSEdge::dictionary(id);
-            if (e != nullptr) {
-                const std::vector<MSLane*>& lanes = e->getLanes();
-                shape = lanes.front()->getShape();
-                if (lanes.size() > 1) {
-                    copy(lanes.back()->getShape().begin(), lanes.back()->getShape().end(), back_inserter(shape));
-                }
-                return true;
-            }
-            break;
-        }
-        case CMD_SUBSCRIBE_SIM_CONTEXT:
-            break;
-        case CMD_SUBSCRIBE_GUI_CONTEXT:
-            break;
-        default:
-            break;
-    }
-    return false;
-}
-
-bool
 TraCIServer::processSingleSubscription(const libsumo::Subscription& s, tcpip::Storage& writeInto,
                                        std::string& errors) {
     bool ok = true;
@@ -1165,9 +1089,7 @@ TraCIServer::processSingleSubscription(const libsumo::Subscription& s, tcpip::St
     std::set<std::string> objIDs;
     if (s.contextDomain > 0) {
         PositionVector shape;
-        if (!findObjectShape(s.commandId, s.id, shape)) {
-            return false;
-        }
+        libsumo::Helper::findObjectShape(s.commandId, s.id, shape);
         libsumo::Helper::collectObjectsInRange(s.contextDomain, shape, s.range, objIDs);
     } else {
         objIDs.insert(s.id);

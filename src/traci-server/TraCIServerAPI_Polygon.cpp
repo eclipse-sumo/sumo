@@ -236,21 +236,4 @@ TraCIServerAPI_Polygon::processSet(TraCIServer& server, tcpip::Storage& inputSto
 }
 
 
-bool
-TraCIServerAPI_Polygon::getShape(const std::string& id, PositionVector& shape) {
-    SUMOPolygon* poly = getPolygon(id);
-    if (poly == 0) {
-        return false;
-    }
-    shape = poly->getShape();
-    return true;
-}
-
-
-SUMOPolygon*
-TraCIServerAPI_Polygon::getPolygon(const std::string& id) {
-    return MSNet::getInstance()->getShapeContainer().getPolygons().get(id);
-}
-
-
 /****************************************************************************/

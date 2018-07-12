@@ -57,23 +57,6 @@ public:
                            tcpip::Storage& outputStorage);
 
 
-    /** @brief Returns the named polygons's shape
-     *
-     * @param[in] id The id of the searched polygon
-     * @param[out] shape The shape, if the polygon is known
-     * @return Whether the polygon is known
-     */
-    static bool getShape(const std::string& id, PositionVector& shape);
-
-
-private:
-    /** @brief Returns the named polygon
-     * @param[in] id The id of the searched polygon
-     * @return The named polygon, or 0 if it is not known
-     */
-    static SUMOPolygon* getPolygon(const std::string& id);
-
-
 private:
     /// @brief invalidated copy constructor
     TraCIServerAPI_Polygon(const TraCIServerAPI_Polygon& s);

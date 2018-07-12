@@ -223,21 +223,4 @@ TraCIServerAPI_POI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
 }
 
 
-bool
-TraCIServerAPI_POI::getPosition(const std::string& id, Position& p) {
-    PointOfInterest* poi = getPoI(id);
-    if (poi == 0) {
-        return false;
-    }
-    p = *poi;
-    return true;
-}
-
-
-PointOfInterest*
-TraCIServerAPI_POI::getPoI(const std::string& id) {
-    return MSNet::getInstance()->getShapeContainer().getPOIs().get(id);
-}
-
-
 /****************************************************************************/
