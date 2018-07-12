@@ -466,7 +466,9 @@ long
 GNERerouterIntervalDialog::onCmdClickedParkingAreaReroute(FXObject*, FXSelector, void*) {
     // check if some delete button was pressed
     for (int i = 0; i < (int)myParkingAreaRerouteEdited.size(); i++) {
-        if (myParkingAreaRerouteTable->getItem(i, 3)->hasFocus()) {
+        if(myParkingAreaRerouteTable->getItem(i, 3)->hasFocus()) {
+            ;
+        } else if (myParkingAreaRerouteTable->getItem(i, 4)->hasFocus()) {
             myParkingAreaRerouteTable->removeRows(i);
             myEditedAdditional->getViewNet()->getUndoList()->add(new GNEChange_Additional(myParkingAreaRerouteEdited.at(i), false), true);
             myParkingAreaRerouteEdited.erase(myParkingAreaRerouteEdited.begin() + i);
@@ -618,16 +620,20 @@ GNERerouterIntervalDialog::onCmdEditParkingAreaReroute(FXObject*, FXSelector, vo
         GNEAdditional* parkingAreaReroute = myParkingAreaRerouteEdited.at(i);
         if (parkingAreaReroute->isValidID(myParkingAreaRerouteTable->getItem(i, 0)->getText().text()) == false) {
             myParkingAreaReroutesValid = false;
-            myParkingAreaRerouteTable->getItem(i, 2)->setIcon(GUIIconSubSys::getIcon(ICON_ERROR));
+            myParkingAreaRerouteTable->getItem(i, 3)->setIcon(GUIIconSubSys::getIcon(ICON_ERROR));
         } else if (parkingAreaReroute->isValid(SUMO_ATTR_PROB, myParkingAreaRerouteTable->getItem(i, 1)->getText().text()) == false) {
             myParkingAreaReroutesValid = false;
-            myParkingAreaRerouteTable->getItem(i, 2)->setIcon(GUIIconSubSys::getIcon(ICON_ERROR));
+            myParkingAreaRerouteTable->getItem(i, 3)->setIcon(GUIIconSubSys::getIcon(ICON_ERROR));
+        } else if (parkingAreaReroute->isValid(SUMO_ATTR_VISIBLE, myParkingAreaRerouteTable->getItem(i, 2)->getText().text()) == false) {
+            myParkingAreaReroutesValid = false;
+            myParkingAreaRerouteTable->getItem(i, 3)->setIcon(GUIIconSubSys::getIcon(ICON_ERROR));
         } else {
             // set new values in Closing  reroute
             parkingAreaReroute->setAttribute(SUMO_ATTR_PARKING, myParkingAreaRerouteTable->getItem(i, 0)->getText().text(), myEditedAdditional->getViewNet()->getUndoList());
             parkingAreaReroute->setAttribute(SUMO_ATTR_PROB, myParkingAreaRerouteTable->getItem(i, 1)->getText().text(), myEditedAdditional->getViewNet()->getUndoList());
+            parkingAreaReroute->setAttribute(SUMO_ATTR_VISIBLE, myParkingAreaRerouteTable->getItem(i, 2)->getText().text(), myEditedAdditional->getViewNet()->getUndoList());
             // set Correct label
-            myParkingAreaRerouteTable->getItem(i, 2)->setIcon(GUIIconSubSys::getIcon(ICON_CORRECT));
+            myParkingAreaRerouteTable->getItem(i, 3)->setIcon(GUIIconSubSys::getIcon(ICON_CORRECT));
         }
     }
     // update list
@@ -839,17 +845,19 @@ GNERerouterIntervalDialog::updateParkingAreaReroutesTable() {
     // clear table
     myParkingAreaRerouteTable->clearItems();
     // set number of rows
-    myParkingAreaRerouteTable->setTableSize(int(myParkingAreaRerouteEdited.size()), 4);
+    myParkingAreaRerouteTable->setTableSize(int(myParkingAreaRerouteEdited.size()), 5);
     // Configure list
     myParkingAreaRerouteTable->setVisibleColumns(4);
     myParkingAreaRerouteTable->setColumnWidth(0, 124);
-    myParkingAreaRerouteTable->setColumnWidth(1, 124);
-    myParkingAreaRerouteTable->setColumnWidth(2, GUIDesignTableIconCellWidth);
+    myParkingAreaRerouteTable->setColumnWidth(1, 90);
+    myParkingAreaRerouteTable->setColumnWidth(2, 35);
     myParkingAreaRerouteTable->setColumnWidth(3, GUIDesignTableIconCellWidth);
+    myParkingAreaRerouteTable->setColumnWidth(4, GUIDesignTableIconCellWidth);
     myParkingAreaRerouteTable->setColumnText(0, toString(SUMO_ATTR_PARKING).c_str());
     myParkingAreaRerouteTable->setColumnText(1, toString(SUMO_ATTR_PROB).c_str());
-    myParkingAreaRerouteTable->setColumnText(2, "");
+    myParkingAreaRerouteTable->setColumnText(2, "vis.");
     myParkingAreaRerouteTable->setColumnText(3, "");
+    myParkingAreaRerouteTable->setColumnText(4, "");
     myParkingAreaRerouteTable->getRowHeader()->setWidth(0);
     // Declare pointer to FXTableItem
     FXTableItem* item = 0;
@@ -861,17 +869,20 @@ GNERerouterIntervalDialog::updateParkingAreaReroutesTable() {
         // Set probability
         item = new FXTableItem(myParkingAreaRerouteEdited.at(i)->getAttribute(SUMO_ATTR_PROB).c_str());
         myParkingAreaRerouteTable->setItem(i, 1, item);
+        // Set visible
+        item = new FXTableItem(myParkingAreaRerouteEdited.at(i)->getAttribute(SUMO_ATTR_VISIBLE) == "1"? "true" : "false");
+        myParkingAreaRerouteTable->setItem(i, 2, item);
         // set valid icon
         item = new FXTableItem("");
         item->setIcon(GUIIconSubSys::getIcon(ICON_CORRECT));
         item->setJustify(FXTableItem::CENTER_X | FXTableItem::CENTER_Y);
         item->setEnabled(false);
-        myParkingAreaRerouteTable->setItem(i, 2, item);
+        myParkingAreaRerouteTable->setItem(i, 3, item);
         // set remove
         item = new FXTableItem("", GUIIconSubSys::getIcon(ICON_REMOVE));
         item->setJustify(FXTableItem::CENTER_X | FXTableItem::CENTER_Y);
         item->setEnabled(false);
-        myParkingAreaRerouteTable->setItem(i, 3, item);
+        myParkingAreaRerouteTable->setItem(i, 4, item);
     }
 }
 
