@@ -195,6 +195,10 @@ public:
         return mySavedStates.find(dir)->second;
     }
 
+    bool hasSavedState(const int dir) const {
+        return mySavedStates.find(dir) != mySavedStates.end();
+    }
+
     void saveState(const int dir, const int stateWithoutTraCI, const int state) {
         mySavedStates[dir] = std::make_pair(stateWithoutTraCI | myCanceledStates[dir], state);
     }

@@ -498,7 +498,7 @@ Vehicle::getVia(const std::string& vehicleID) {
 std::pair<int, int>
 Vehicle::getLaneChangeState(const std::string& vehicleID, int direction) {
     MSVehicle* veh = getVehicle(vehicleID);
-    if (veh->isOnRoad()) {
+    if (veh->isOnRoad() && veh->getLaneChangeModel().hasSavedState(direction)) {
         return veh->getLaneChangeModel().getSavedState(direction);
     } else {
         return std::make_pair((int)LCA_UNKNOWN, (int)LCA_UNKNOWN);
