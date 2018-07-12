@@ -31,18 +31,6 @@
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/windows/GUIMainWindow.h>
-
-
-#include "GNEFrame.h"
-#include <netedit/GNEViewParent.h>
-#include <netedit/GNEViewNet.h>
-#include <netedit/GNEAttributeCarrier.h>
-#include "GNEInspectorFrame.h"
-#include "GNEPolygonFrame.h"
-#include "GNEDeleteFrame.h"
-#include <netedit/GNENet.h>
-
-
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNELane.h>
 #include <netedit/netelements/GNEConnection.h>
@@ -51,6 +39,16 @@
 #include <netedit/netelements/GNECrossing.h>
 #include <netedit/additionals/GNEPOI.h>
 #include <netedit/additionals/GNEPoly.h>
+#include <netedit/GNENet.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/GNEAttributeCarrier.h>
+
+#include "GNEFrame.h"
+#include "GNEInspectorFrame.h"
+#include "GNEPolygonFrame.h"
+#include "GNEDeleteFrame.h"
+
 
 // ===========================================================================
 // FOX callback mapping
@@ -63,8 +61,14 @@ FXDEFMAP(GNEFrame::ACHierarchy) GNEFrameACHierarchyMap[] = {
     FXMAPFUNC(SEL_RIGHTBUTTONRELEASE,   MID_GNE_DELETEFRAME_CHILDS,         GNEFrame::ACHierarchy::onCmdShowChildMenu),
 };
 
+FXDEFMAP(GNEFrame::GenericParametersEditor) GenericParametersEditorMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEFrame::GenericParametersEditor::onCmdSetGenericParameter),
+    FXMAPFUNC(SEL_COMMAND,  MID_HELP,               GNEFrame::GenericParametersEditor::onCmdGenericParameterHelp),
+};
+
 // Object implementation
-FXIMPLEMENT(GNEFrame::ACHierarchy,  FXGroupBox, GNEFrameACHierarchyMap, ARRAYNUMBER(GNEFrameACHierarchyMap))
+FXIMPLEMENT(GNEFrame::ACHierarchy,              FXGroupBox, GNEFrameACHierarchyMap, ARRAYNUMBER(GNEFrameACHierarchyMap))
+FXIMPLEMENT(GNEFrame::GenericParametersEditor,  FXGroupBox, GenericParametersEditorMap, ARRAYNUMBER(GenericParametersEditorMap))
 
 
 // ===========================================================================
@@ -478,6 +482,78 @@ GNEFrame::ACHierarchy::addACIntoList(GNEAttributeCarrier *AC, FXTreeItem* itemPa
     item->setExpanded(true);
     return item;
 }
+
+// ---------------------------------------------------------------------------
+// GNEFrame::GenericParametersEditor - methods
+// ---------------------------------------------------------------------------
+
+GNEFrame::GenericParametersEditor::GenericParametersEditor(GNEFrame* inspectorFrameParent) :
+    FXGroupBox(inspectorFrameParent->myContentFrame, "Generic parameters", GUIDesignGroupBoxFrame),
+    myFrameParent(inspectorFrameParent) {
+
+    // Create elements for additional parent
+    myHorizontalFrameAdditionalParent = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    myLabelAdditionalParent = new FXLabel(myHorizontalFrameAdditionalParent, "Block move", 0, GUIDesignLabelAttribute);
+    myTextFieldAdditionalParent = new FXTextField(myHorizontalFrameAdditionalParent, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+
+    // Create elements for block movement
+    myHorizontalFrameBlockMovement = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    myLabelBlockMovement = new FXLabel(myHorizontalFrameBlockMovement, "Block move", 0, GUIDesignLabelAttribute);
+    myCheckBoxBlockMovement = new FXCheckButton(myHorizontalFrameBlockMovement, "", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButtonAttribute);
+
+    // Create elements for block shape
+    myHorizontalFrameBlockShape = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    myLabelBlockShape = new FXLabel(myHorizontalFrameBlockShape, "Block shape", 0, GUIDesignLabelAttribute);
+    myCheckBoxBlockShape = new FXCheckButton(myHorizontalFrameBlockShape, "", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButtonAttribute);
+
+    // Create elements for close shape
+    myHorizontalFrameCloseShape = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    myLabelCloseShape = new FXLabel(myHorizontalFrameCloseShape, "Close shape", 0, GUIDesignLabelAttribute);
+    myCheckBoxCloseShape = new FXCheckButton(myHorizontalFrameCloseShape, "", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButtonAttribute);
+
+    // Create help button
+    myHelpButton = new FXButton(this, "Help", 0, this, MID_HELP, GUIDesignButtonRectangular);
+}
+
+
+GNEFrame::GenericParametersEditor::~GenericParametersEditor() {}
+
+
+void
+GNEFrame::GenericParametersEditor::showGenericParametersEditor() {
+    show();
+}
+
+
+void
+GNEFrame::GenericParametersEditor::hideGenericParametersEditor() {
+    // hide all elements of GroupBox
+    myHorizontalFrameAdditionalParent->hide();
+    myHorizontalFrameBlockMovement->hide();
+    myHorizontalFrameBlockShape->hide();
+    myHorizontalFrameCloseShape->hide();
+    // hide groupbox
+    hide();
+}
+
+
+void 
+GNEFrame::GenericParametersEditor::refreshGenericParametersEditor(bool forceRefresh) {
+    ;
+}
+
+
+long
+GNEFrame::GenericParametersEditor::onCmdSetGenericParameter(FXObject* obj, FXSelector, void*) {
+    return 1;
+}
+
+
+long 
+GNEFrame::GenericParametersEditor::onCmdGenericParameterHelp(FXObject*, FXSelector, void*) {
+    return 0;
+}
+
 
 // ---------------------------------------------------------------------------
 // GNEFrame - methods

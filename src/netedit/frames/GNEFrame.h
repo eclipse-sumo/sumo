@@ -123,6 +123,88 @@ public:
         GNEAttributeCarrier* myRightClickedAC;
     };
 
+    // ===========================================================================
+    // class GenericParametersEditor
+    // ===========================================================================
+
+    class GenericParametersEditor : private FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEFrame::GenericParametersEditor)
+
+    public:
+        /// @brief constructor
+        GenericParametersEditor(GNEFrame* frameParent);
+
+        /// @brief destructor
+        ~GenericParametersEditor();
+
+        /// @brief show netedit attributes editor
+        void showGenericParametersEditor();
+
+        /// @brief hide netedit attributes editor
+        void hideGenericParametersEditor();
+
+        /// @brief refresh netedit attributes
+        void refreshGenericParametersEditor(bool forceRefresh);
+
+        /// @name FOX-callbacks
+        /// @{
+
+        /// @brief Called when user change the current GEO Attribute
+        long onCmdSetGenericParameter(FXObject*, FXSelector, void*);
+
+        /// @brief Called when user press the help button
+        long onCmdGenericParameterHelp(FXObject*, FXSelector, void*);
+        /// @}
+
+    protected:
+        /// @brief FOX needs this
+        GenericParametersEditor() {}
+
+    private:
+        /// @brief pointer to inspector frame parent
+        GNEFrame* myFrameParent;
+
+        /// @frame horizontal frame for change additional parent
+        FXHorizontalFrame* myHorizontalFrameAdditionalParent;
+
+        /// @brief Label for additional parent
+        FXLabel* myLabelAdditionalParent;
+
+        /// @brief pointer for change additional parent
+        FXTextField* myTextFieldAdditionalParent;
+
+        /// @frame horizontal frame for block movement
+        FXHorizontalFrame* myHorizontalFrameBlockMovement;
+
+        /// @brief Label for Check blocked movement
+        FXLabel* myLabelBlockMovement;
+
+        /// @brief pointer to check box "Block movement"
+        FXCheckButton* myCheckBoxBlockMovement;
+
+        /// @frame horizontal frame for block shape
+        FXHorizontalFrame* myHorizontalFrameBlockShape;
+
+        /// @brief Label for Check blocked shape
+        FXLabel* myLabelBlockShape;
+
+        /// @brief pointer to check box "Block Shape"
+        FXCheckButton* myCheckBoxBlockShape;
+
+        /// @frame horizontal frame for close shape
+        FXHorizontalFrame* myHorizontalFrameCloseShape;
+
+        /// @brief Label for close shape
+        FXLabel* myLabelCloseShape;
+
+        /// @brief pointer to check box "Block movement"
+        FXCheckButton* myCheckBoxCloseShape;
+
+        /// @brief button for help
+        FXButton* myHelpButton;
+    };
+
     /**@brief Constructor
      * @brief parent FXHorizontalFrame in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
