@@ -29,7 +29,7 @@ neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
 netedit.deleteMode()
 
 # delete junction
-netedit.leftClick(match, 330, 300)
+netedit.leftClick(match, 340, 300)
 
 # Undo
 netedit.undo(match, 1)
@@ -41,7 +41,7 @@ netedit.deleteMode()
 netedit.changeAutomaticallyDeleteAdditionals(match)
 
 # try to delete junction
-netedit.leftClick(match, 330, 300)
+netedit.leftClick(match, 340, 300)
 
 # wait warning
 netedit.waitAutomaticallyDeleteAdditionalsWarning()
