@@ -31,7 +31,7 @@ from xml.sax import parse
 
 class Vehicle:
 
-    def __init__(self, label, depart, departlane, departpos, departspeed):
+    def __init__(self, label, depart, departlane='first', departpos='base', departspeed=0):
         self.label = label
         self.CO_abs = 0.
         self.CO2_abs = 0.
@@ -168,8 +168,11 @@ class routeReader(handler.ContentHandler):
 
     def startElement(self, name, attrs):
         if name == 'vehicle':
-            self._vehObj = Vehicle(attrs['id'], attrs['depart'], attrs[
-                                   'departLane'], attrs['departPos'], attrs['departSpeed'])
+            if ('departPos' in attrs):
+                self._vehObj = Vehicle(attrs['id'], attrs['depart'], attrs[
+                                       'departLane'], attrs['departPos'], attrs['departSpeed'])
+            else:
+                self._vehObj = Vehicle(attrs['id'], attrs['depart'])
             self._vehMap[attrs['id']] = self._vehObj
             self._vehList.append(self._vehObj)
 
@@ -339,7 +342,7 @@ class vehrouteReader(handler.ContentHandler):
             self._count = 0
         if name == 'route':
             self._routObj = None
-        if name == 'route-alternatives':
+        if (name == 'route-alternatives' or name == 'routes'):
             self._fout.write('</route-alternatives>\n')
             self._fout.close()
             self._foutrout.write('</routes>\n')
@@ -431,9 +434,15 @@ def getRouteChoices(edgesMap, dumpfile, routeAltfile, netfile, addWeightsfile, a
     outputRoufile = os.path.join(outputPath, prefix + '.grou.xml')
 
     if len(edgesMap) == 0:
-        print('parse network file')
-        parse(netfile, netReader(edgesList, edgesMap))
-        parse(addWeightsfile, addweightsReader(edgesList, edgesMap))
+        try:
+            print('parse network file')
+            parse(netfile, netReader(edgesList, edgesMap))
+        except AttributeError:
+            print("could not parse netfile: " + str(netfile))
+        try:
+            parse(addWeightsfile, addweightsReader(edgesList, edgesMap))
+        except AttributeError:
+            print("could not parse weights file: " + str(addWeightsfile))
     else:
         resetEdges(edgesMap)
 
@@ -455,16 +464,20 @@ def getRouteChoices(edgesMap, dumpfile, routeAltfile, netfile, addWeightsfile, a
     print('parse dumpfile')
     print(dumpfile)
     parse(dumpfile, dumpsReader(edgesList, edgesMap))
-    print('parse routeAltfile')
-    print(routeAltfile)
     # parse routeAltfile from SUMO
-    parse(routeAltfile, routeReader(vehList, vehMap))
-    print('parse routeAltfile from externalGawron')
+    try:
+        print('parse routeAltfile:', routeAltfile)
+        parse(routeAltfile, routeReader(vehList, vehMap))
+    except IOError:
+        print('could not parse routeAltfile:', routeAltfile)
     ex_outputAltFile = prefix[
         :prefix.rfind('_')] + '_%03i' % (step - 1) + '.rou.galt.xml'
-    print('ex_outputAltFile:', ex_outputAltFile)
-    parse(ex_outputAltFile, vehrouteReader(
-        vehList, vehMap, edgesMap, fout, foutrout, ecoMeasure, alpha, beta))
+    try:
+        print('parse routeAltfile from externalGawron: ', ex_outputAltFile)
+        parse(ex_outputAltFile, vehrouteReader(
+            vehList, vehMap, edgesMap, fout, foutrout, ecoMeasure, alpha, beta))
+    except IOError:
+        print('could not parse routeAltfile from externalGawron:', ex_outputAltFile)
     return outputRoufile, edgesMap
 
 

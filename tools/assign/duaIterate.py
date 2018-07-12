@@ -563,6 +563,9 @@ def main(args=None):
                 # use the external gawron
                 if options.externalgawron:
                     basename = get_basename(router_input)
+                    if ((step > 0 and not options.skipFirstRouting) or step > 1):
+                        basename = basename[:-4]
+                    print('basename', basename)
                     ecomeasure = None
                     if options.ecomeasure:
                         ecomeasure = options.ecomeasure
