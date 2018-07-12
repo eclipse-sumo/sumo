@@ -285,12 +285,12 @@ MSDevice_Routing::getEffort(const MSEdge* const e, const SUMOVehicle* const v, d
     const int id = e->getNumericalID();
     if (id < (int)myEdgeSpeeds.size()) {
         double effort = MAX2(e->getLength() / MAX2(myEdgeSpeeds[id], NUMERICAL_EPS), e->getMinimumTravelTime(v));
-        if (myRandomizeWeightsFactor != 1) {
-            effort *= RandHelper::rand((double)1, myRandomizeWeightsFactor);
+        if (myRandomizeWeightsFactor != 1.) {
+            effort *= RandHelper::rand(1., myRandomizeWeightsFactor);
         }
         return effort;
     }
-    return 0;
+    return 0.;
 }
 
 
