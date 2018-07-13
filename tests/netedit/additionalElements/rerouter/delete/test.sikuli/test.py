@@ -35,7 +35,7 @@ netedit.additionalMode()
 netedit.changeAdditional("rerouter")
 
 # select edge child
-netedit.selectAdditionalChild(10, 0)
+netedit.selectAdditionalChild(12, 0)
 
 # create rerouter with default parameters
 netedit.leftClick(match, 200, 100)

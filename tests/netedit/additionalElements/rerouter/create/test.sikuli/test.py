@@ -35,65 +35,119 @@ netedit.additionalMode()
 netedit.changeAdditional("rerouter")
 
 # try to create rerouter without edge child (Warning)
+netedit.leftClick(match, 50, 100)
+
+# select edge child
+netedit.selectAdditionalChild(12, 0)
+
+# create rerouter with default parameters
 netedit.leftClick(match, 100, 100)
 
 # select edge child
-netedit.selectAdditionalChild(10, 0)
-
-# create rerouter with default parameters
-netedit.leftClick(match, 200, 100)
+netedit.selectAdditionalChild(12, 0)
 
 # set invalid filename
-netedit.modifyAdditionalDefaultValue(2, "$$$$$$$$")
+netedit.modifyAdditionalDefaultValue(2, "$$&&$$$$$$")
+
+# try to create rerouter with invalid name
+netedit.leftClick(match, 200, 100)
+
+# set valid name
+netedit.modifyAdditionalDefaultValue(2, "custom Name")
+
+# create rerouter with valid name
+netedit.leftClick(match, 200, 100)
+
+# select edge child
+netedit.selectAdditionalChild(12, 0)
+
+# set invalid filename
+netedit.modifyAdditionalDefaultValue(3, "$$$$$$$$")
 
 # try to create rerouter with invalid filename
 netedit.leftClick(match, 300, 100)
 
 # set valid filename
-netedit.modifyAdditionalDefaultValue(2, "myOwnFilename.txt")
+netedit.modifyAdditionalDefaultValue(3, "myOwnFilenameRerouter.txt")
 
 # create rerouter with valid filename
 netedit.leftClick(match, 300, 100)
 
+# select edge child
+netedit.selectAdditionalChild(12, 0)
+
 # set invalid probability
-netedit.modifyAdditionalDefaultValue(3, "2")
+netedit.modifyAdditionalDefaultValue(4, "2")
 
 # try to create rerouter with invalid probability
 netedit.leftClick(match, 400, 100)
 
 # set valid probability
-netedit.modifyAdditionalDefaultValue(3, "0.3")
+netedit.modifyAdditionalDefaultValue(4, "0.3")
 
 # create rerouter with valid probability
 netedit.leftClick(match, 400, 100)
 
-# set invalid frequency (dummy)
-netedit.modifyAdditionalDefaultValue(4, "dummyFrequency")
+# select edge child
+netedit.selectAdditionalChild(12, 0)
 
-# create rerouter with invalid frequency
+# set invalid time treshold (dummy)
+netedit.modifyAdditionalDefaultValue(5, "dummyFrequency")
+
+# try to create rerouter with invalid time treshold
 netedit.leftClick(match, 500, 100)
 
-# set invalid frequency (negative)
-netedit.modifyAdditionalDefaultValue(4, "-3")
+# select edge child
+netedit.selectAdditionalChild(12, 0)
 
-# create rerouter with invalid frequency
+# set invalid time treshold (negative)
+netedit.modifyAdditionalDefaultValue(5, "-3")
+
+# try to create rerouter with invalid time treshold
 netedit.leftClick(match, 500, 100)
 
-# set valid frequency
-netedit.modifyAdditionalDefaultValue(4, "2.7")
+# set valid time treshold
+netedit.modifyAdditionalDefaultValue(5, "2.7")
 
-# create rerouter with invalid frequency
+# create rerouter with valid time treshold
 netedit.leftClick(match, 500, 100)
+
+# select edge child
+netedit.selectAdditionalChild(12, 0)
+
+# set invalid vtypes
+netedit.modifyAdditionalDefaultValue(6, "%%% type2 &&&&")
+
+# create rerouter with valid time treshold
+netedit.leftClick(match, 550, 100)
+
+# set valid time treshold
+netedit.modifyAdditionalDefaultValue(6, "type1 type2 type3")
+
+# create rerouter with valid time treshold
+netedit.leftClick(match, 550, 100)
+
+# select edge child
+netedit.selectAdditionalChild(12, 0)
 
 # change off
-netedit.modifyAdditionalDefaultBoolValue(5)
+netedit.modifyAdditionalDefaultBoolValue(7)
 
-# try to create rerouter with different timeTreshold
+# create route with different off
 netedit.leftClick(match, 600, 100)
 
+# select edge child
+netedit.selectAdditionalChild(12, 0)
+
+# change block movement
+netedit.modifyAdditionalDefaultBoolValue(9)
+
+# try to create rerouter with different timeTreshold
+netedit.leftClick(match, 200, 200)
+
 # Check undo redo
-netedit.undo(match, 5)
-netedit.redo(match, 5)
+netedit.undo(match, 8)
+netedit.redo(match, 8)
 
 # save additionals
 netedit.saveAdditionals()
