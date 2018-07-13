@@ -173,14 +173,30 @@ public:
             /// @brief 
             GenericParameterRow(GenericParametersEditor * genericParametersEditor);
 
+            /// @brief show row
+            void showRow(bool clear);
+
+            /// @brief hide row
+            void hideRow();
+
+            /// @brief check if row is shown
+            bool shown() const;
+
+            /// @brief copy values of other parameter Row
+            void copyValues(const GenericParameterRow & other);
+
             /// @brief TextField for parameter
-            FXTextField *parameter;
+            FXTextField *parameterField;
 
             /// @brief TextField for value
-            FXTextField *value;
+            FXTextField *valueField;
 
             /// @brief Button for remove parameter row
-            FXButton *remove;
+            FXButton *removeButton;
+
+        private:
+            /// @brief frame in which elements are placed
+            FXHorizontalFrame* horizontalFrame;
         };
 
         /// @brief pointer to inspector frame parent
@@ -194,6 +210,9 @@ public:
 
         /// @brief button for help
         FXButton* myHelpButton;
+
+        /// @brief vector with the current GenericParameterRow
+        std::vector<GenericParameterRow> myGenericParameterRows;
     };
 
     /**@brief Constructor

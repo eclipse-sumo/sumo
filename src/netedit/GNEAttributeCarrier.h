@@ -472,6 +472,9 @@ public:
     /// @brief update value generic parameter 
     bool updateGenericParameterValue(const std::string &parameter, const std::string &newValue);
 
+    /// @brief maximun number of generic parameters (currently 100)
+    static const int MAXNUMBER_GENERICPARAMETERS;
+
     /// @brief true if a value of type T can be parsed from string
     template<typename T>
     static bool canParse(const std::string& string) {
