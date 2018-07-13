@@ -381,6 +381,11 @@ GNEAdditionalFrame::AdditionalAttributeSingle::onCmdSetAttribute(FXObject*, FXSe
         if (GNEAttributeCarrier::isValidName(myTextFieldStrings->getText().text()) == false) {
             myInvalidValue = "Name contains invalid characters";
         }
+    } else if (myAdditionalAttr == SUMO_ATTR_VTYPES) {
+        // check if filename format is valid
+        if (GNEAttributeCarrier::isValidListOfIDs(myTextFieldStrings->getText().text()) == false) {
+            myInvalidValue = "Ids contains invalid characters";
+        }
     }
     // change color of text field depending of myCurrentValueValid
     if (myInvalidValue.size() == 0) {

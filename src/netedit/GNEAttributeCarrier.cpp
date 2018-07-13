@@ -811,6 +811,23 @@ GNEAttributeCarrier::isValidID(const std::string& value) {
 }
 
 
+bool 
+GNEAttributeCarrier::isValidListOfIDs(const std::string& value) {
+    std::vector<std::string> typeIDs = parse<std::vector<std::string>>(value);
+    if(typeIDs.empty()) {
+        return false;
+    } else {
+        // check that gives IDs are validd
+        for(auto i : typeIDs) {
+            if(!isValidID(i)) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
+
+
 bool
 GNEAttributeCarrier::isValidName(const std::string& value) {
     if(value.size() == 0) {

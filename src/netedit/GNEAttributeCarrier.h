@@ -494,6 +494,9 @@ public:
     /// @brief return true if value is a valid sumo ID
     static bool isValidID(const std::string& value);
 
+    /// @brief return true if value is a valid list of sumo ID (Empty isn't valid)
+    static bool isValidListOfIDs(const std::string& value);
+
     /// @brief return true if value is a valid sumo ID
     static bool isValidName(const std::string& value);
 

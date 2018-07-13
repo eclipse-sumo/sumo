@@ -277,20 +277,12 @@ GNEDetectorE1::isValid(SumoXMLAttr key, const std::string& value) {
             return isValidName(value);
         case SUMO_ATTR_FILE:
             return isValidFilename(value);
-        case SUMO_ATTR_VTYPES: {
+        case SUMO_ATTR_VTYPES:
             if(value.empty()) {
                 return true;
             } else {
-                std::vector<std::string> typeIDs = parse<std::vector<std::string>>(value);
-                // check that gives IDs are validd
-                for(auto i : typeIDs) {
-                    if(!isValidID(i)) {
-                        return false;
-                    }
-                }
-                return true;
+                return isValidListOfIDs(value);
             }
-        }
         case SUMO_ATTR_FRIENDLY_POS:
             return canParse<bool>(value);
         case GNE_ATTR_BLOCK_MOVEMENT:

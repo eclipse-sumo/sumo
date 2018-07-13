@@ -293,7 +293,11 @@ GNERerouter::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_HALTING_TIME_THRESHOLD:
             return canParse<double>(value) && (parse<double>(value) >= 0);
         case SUMO_ATTR_VTYPES:
-            return true;
+            if(value.empty()) {
+                return true;
+            } else {
+                return isValidListOfIDs(value);
+            }
         case SUMO_ATTR_OFF:
             return canParse<bool>(value);
         case GNE_ATTR_BLOCK_MOVEMENT:
