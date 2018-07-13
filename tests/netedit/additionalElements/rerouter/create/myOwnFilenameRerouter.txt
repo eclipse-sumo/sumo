@@ -1,6 +1,6 @@
 <rerouterValue>
 	<interval begin="0.00" end="3600.00">
-		<routeProbReroute id="1"/>
+		<routeProbReroute id="routeA"/>
 		<destProbReroute id="gneE1"/>
 		<closingLaneReroute id="gneE1_0"/>
 		<closingReroute id="gneE1"/>
@@ -9,6 +9,6 @@
 		<closingLaneReroute id="gneE1_0" disallow="bus"/>
 		<closingReroute id="gneE1" disallow="pedestrian"/>
 		<destProbReroute id="gneE1" probability="0.70"/>
-		<routeProbReroute id="2" probability="0.60"/>
+		<routeProbReroute id="routeB" probability="0.60"/>
 	</interval>
 </rerouterValue>
