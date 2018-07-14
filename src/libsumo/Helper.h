@@ -180,12 +180,28 @@ public:
     };
     /// @}
 
+    class SubscriptionWrapper : public VariableWrapper {
+    public:
+        SubscriptionWrapper(VariableWrapper::SubscriptionHandler handler, SubscriptionResults& into, ContextSubscriptionResults& context);
+        void setContext(const std::string& refID);
+        void wrapDouble(const std::string& objID, const int variable, const double value);
+        void wrapInt(const std::string& objID, const int variable, const int value);
+        void wrapStringList(const std::string& objID, const int variable, const std::vector<std::string> value);
+    private:
+        SubscriptionResults myResults;
+        ContextSubscriptionResults myContextResults;
+        SubscriptionResults& myActiveResults;
+    };
+
 private:
-    static bool handleSingleSubscription(const Subscription& s);
+    static void handleSingleSubscription(const Subscription& s);
 
 private:
     /// @brief The list of known, still valid subscriptions
     static std::vector<Subscription> mySubscriptions;
+
+    /// @brief Map of commandIds -> their executors; applicable if the executor applies to the method footprint
+    static std::map<int, std::shared_ptr<VariableWrapper> > myWrapper;
 
     /// @brief A storage of objects
     static std::map<int, NamedRTree*> myObjects;

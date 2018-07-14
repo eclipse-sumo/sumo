@@ -25,6 +25,7 @@
 
 #include <string>
 #include <vector>
+#include <memory>
 #include <libsumo/TraCIDefs.h>
 
 
@@ -33,6 +34,7 @@
 // ===========================================================================
 class MSEdge;
 class PositionVector;
+class VariableWrapper;
 
 
 // ===========================================================================
@@ -89,6 +91,8 @@ public:
     *  @param shape The container to fill
     */
     static void storeShape(const std::string& id, PositionVector& shape);
+
+    static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper);
 
 private:
     static MSEdge* getEdge(const std::string& id);

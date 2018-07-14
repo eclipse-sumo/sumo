@@ -380,6 +380,27 @@ Edge::storeShape(const std::string& id, PositionVector& shape) {
 }
 
 
+bool
+Edge::handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper) {
+    switch (variable) {
+    case VAR_CURRENT_TRAVELTIME:
+        wrapper->wrapDouble(objID, variable, getTraveltime(objID));
+        return true;
+    case VAR_WAITING_TIME:
+        wrapper->wrapDouble(objID, variable, getWaitingTime(objID));
+        return true;
+    case LAST_STEP_PERSON_ID_LIST:
+        wrapper->wrapStringList(objID, variable, getLastStepPersonIDs(objID));
+        return true;
+    case LAST_STEP_VEHICLE_ID_LIST:
+        wrapper->wrapStringList(objID, variable, getLastStepVehicleIDs(objID));
+        return true;
+    default:
+        return false;
+    }
+}
+
+
 }
 
 

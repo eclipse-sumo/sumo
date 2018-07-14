@@ -97,6 +97,7 @@ namespace libsumo {
 // static member initializations
 // ===========================================================================
 std::vector<Subscription> Helper::mySubscriptions;
+std::map<int, std::shared_ptr<VariableWrapper> > Helper::myWrapper;
 std::map<int, NamedRTree*> Helper::myObjects;
 LANE_RTREE_QUAL* Helper::myLaneTree;
 std::map<std::string, MSVehicle*> Helper::myRemoteControlledVehicles;
@@ -117,25 +118,17 @@ Helper::subscribe(const int commandId, const std::string& id, const std::vector<
 
 void
 Helper::handleSubscriptions(const SUMOTime t) {
-    for (std::vector<libsumo::Subscription>::iterator i = mySubscriptions.begin(); i != mySubscriptions.end();) {
-        const libsumo::Subscription& s = *i;
+    for (const libsumo::Subscription& s : mySubscriptions) {
         if (s.beginTime > t) {
-            ++i;
             continue;
         }
-        bool ok = handleSingleSubscription(s);
-        if (ok) {
-            ++i;
-        } else {
-            i = mySubscriptions.erase(i);
-        }
+        handleSingleSubscription(s);
     }
 }
 
 
-bool
+void
 Helper::handleSingleSubscription(const Subscription& s) {
-    bool ok = true;
     const int getCommandId = s.contextDomain > 0 ? s.contextDomain : s.commandId - 0x30;
     std::set<std::string> objIDs;
     if (s.contextDomain > 0) {
@@ -146,20 +139,18 @@ Helper::handleSingleSubscription(const Subscription& s) {
         objIDs.insert(s.id);
     }
     const int numVars = s.contextDomain > 0 && s.variables.size() == 1 && s.variables[0] == ID_LIST ? 0 : (int)s.variables.size();
-    for (std::set<std::string>::iterator j = objIDs.begin(); j != objIDs.end(); ++j) {
+    auto wrapper = myWrapper.find(getCommandId);
+    if (wrapper == myWrapper.end()) {
+        throw TraCIException("Unsupported command specified");
+    }
+    std::shared_ptr<VariableWrapper> handler = wrapper->second;
+    for (const std::string objID : objIDs) {
         if (numVars > 0) {
-            std::vector<std::vector<unsigned char> >::const_iterator k = s.parameters.begin();
-            for (std::vector<int>::const_iterator i = s.variables.begin(); i != s.variables.end(); ++i, ++k) {
-                /* if (myExecutors.find(getCommandId) != myExecutors.end()) {
-                    ok &= myExecutors[getCommandId](*this, message, tmpOutput);
-                } else {
-                    writeStatusCmd(s.commandId, RTYPE_NOTIMPLEMENTED, "Unsupported command specified", tmpOutput);
-                    ok = false;
-                }*/
+            for (const int variable : s.variables) {
+                handler->handle(objID, variable, handler.get());
             }
         }
     }
-    return ok;
 }
 
 
@@ -615,6 +606,7 @@ Helper::findCloserLane(const MSEdge* edge, const Position& pos, double& bestDist
     return newBest;
 }
 
+
 bool
 Helper::moveToXYMap_matchingRoutePosition(const Position& pos, const std::string& origID,
         const ConstMSEdgeVector& currentRoute, int routeIndex,
@@ -690,6 +682,35 @@ Helper::moveToXYMap_matchingRoutePosition(const Position& pos, const std::string
 #endif
     return true;
 }
+
+
+Helper::SubscriptionWrapper::SubscriptionWrapper(VariableWrapper::SubscriptionHandler handler, SubscriptionResults& into, ContextSubscriptionResults& context)
+    : VariableWrapper(handler), myResults(into), myContextResults(context), myActiveResults(into) {
+
+}
+
+void
+Helper::SubscriptionWrapper::setContext(const std::string& refID) {
+    myActiveResults = refID == "" ? myResults : myContextResults[refID];
+}
+
+void
+Helper::SubscriptionWrapper::wrapDouble(const std::string& objID, const int variable, const double value) {
+    myActiveResults[objID][variable] = std::make_shared<TraCIDouble>(value);
+}
+
+
+void
+Helper::SubscriptionWrapper::wrapInt(const std::string& objID, const int variable, const int value) {
+
+}
+
+
+void
+Helper::SubscriptionWrapper::wrapStringList(const std::string& objID, const int variable, const std::vector<std::string> value) {
+
+}
+
 
 }
 
