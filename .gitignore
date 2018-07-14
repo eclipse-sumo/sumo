@@ -92,6 +92,7 @@
 /tools/libsumo/_libsumo.so
 /tools/libsumo/java/
 /tools/libsumo/libsumo.py
+/tools/libsumo/_libsumo.pyd
 /tools/libsumo/libsumoPYTHON_wrap.cxx
 /tools/libsumo/setup.py
 # extracted tests
