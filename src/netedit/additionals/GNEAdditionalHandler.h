@@ -392,7 +392,6 @@ public:
      * @param[in] freq the aggregation period the values the detector collects shall be summed up.
      * @param[in] filename The path to the output file.
      * @param[in] name E2 detector name
-     * @param[in] cont Holds the information whether detectors longer than a lane shall be cut off or continued
      * @param[in] timeThreshold The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting
      * @param[in] speedThreshold The speed-based threshold that describes how slow a vehicle has to be to be recognized as halting
      * @param[in] jamThreshold The minimum distance to the next standing vehicle in order to make this vehicle count as a participant to the jam
@@ -402,7 +401,7 @@ public:
      * @exception InvalidArgument If the detector can not be added to the net (is duplicate)
      */
     static bool buildDetectorE2(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, double pos, double length, double freq, const std::string& filename,
-                                const std::string& name, bool cont, const double timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, bool blockMovement);
+                                const std::string& name, const double timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, bool blockMovement);
 
     /**@brief Builds a multi entry exit detector (E3)
      * @param[in] viewNet viewNet in which element will be inserted

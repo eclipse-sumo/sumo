@@ -45,7 +45,6 @@ public:
      * @param[in] freq the aggregation period the values the detector collects shall be summed up.
      * @param[in] filename The path to the output file.
      * @param[in] name E2 detector name
-     * @param[in] cont attribute to enable or disable splitByType
      * @param[in] timeThreshold The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting
      * @param[in] speedThreshold The speed-based threshold that describes how slow a vehicle has to be to be recognized as halting
      * @param[in] speedThreshold The minimum distance to the next standing vehicle in order to make this vehicle count as a participant to the jam
@@ -53,7 +52,7 @@ public:
      * @param[in] block movement enable or disable additional movement
      */
     GNEDetectorE2(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double pos, double length, double freq, const std::string& filename,
-                  const std::string& name, bool cont, const double timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, bool blockMovement);
+                  const std::string& name , const double timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, bool blockMovement);
 
     /// @brief Destructor
     ~GNEDetectorE2();
@@ -105,9 +104,6 @@ public:
 protected:
     /// @brief E2 detector lenght
     double myLength;
-
-    /// @brief attribute to enable or disable splitByType
-    bool myCont;
 
     /// @brief The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting
     double myTimeThreshold;

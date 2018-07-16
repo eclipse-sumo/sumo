@@ -54,10 +54,9 @@
 // ===========================================================================
 
 GNEDetectorE2::GNEDetectorE2(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double pos, double length, double freq, const std::string& filename, 
-                             const std::string& name, bool cont, const double timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, bool blockMovement) :
+                             const std::string& name, const double timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, bool blockMovement) :
     GNEDetector(id, viewNet, GLO_E2DETECTOR, SUMO_TAG_E2DETECTOR, lane, pos, freq, filename, name, friendlyPos, blockMovement),
     myLength(length),
-    myCont(cont),
     myTimeThreshold(timeThreshold),
     mySpeedThreshold(speedThreshold),
     myJamThreshold(jamThreshold) {
@@ -235,8 +234,6 @@ GNEDetectorE2::getAttribute(SumoXMLAttr key) const {
             return myAdditionalName;
         case SUMO_ATTR_FILE:
             return myFilename;
-        case SUMO_ATTR_CONT:
-            return toString(myCont);
         case SUMO_ATTR_HALTING_TIME_THRESHOLD:
             return toString(myTimeThreshold);
         case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
@@ -268,7 +265,6 @@ GNEDetectorE2::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         case SUMO_ATTR_LENGTH:
         case SUMO_ATTR_NAME:
         case SUMO_ATTR_FILE:
-        case SUMO_ATTR_CONT:
         case SUMO_ATTR_HALTING_TIME_THRESHOLD:
         case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
         case SUMO_ATTR_JAM_DIST_THRESHOLD:
@@ -304,8 +300,6 @@ GNEDetectorE2::isValid(SumoXMLAttr key, const std::string& value) {
             return isValidName(value);
         case SUMO_ATTR_FILE:
             return isValidFilename(value);
-        case SUMO_ATTR_CONT:
-            return canParse<bool>(value);
         case SUMO_ATTR_HALTING_TIME_THRESHOLD:
             return (canParse<double>(value) && (parse<double>(value) >= 0));
         case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
@@ -350,9 +344,6 @@ GNEDetectorE2::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_FILE:
             myFilename = value;
-            break;
-        case SUMO_ATTR_CONT:
-            myCont = parse<bool>(value);
             break;
         case SUMO_ATTR_HALTING_TIME_THRESHOLD:
             myTimeThreshold = parse<double>(value);

@@ -877,8 +877,9 @@ GNEAdditionalHandler::parseAndBuildDetectorE2(const SUMOSAXAttributes& attrs, co
     double haltingTimeThreshold = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_HALTING_TIME_THRESHOLD, abort);
     double haltingSpeedThreshold = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_HALTING_SPEED_THRESHOLD, abort);
     double jamDistThreshold = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_JAM_DIST_THRESHOLD, abort);
-    bool cont = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, id, tag, SUMO_ATTR_CONT, abort);
     bool friendlyPos = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, id, tag, SUMO_ATTR_FRIENDLY_POS, abort);
+    // cont attribute is deprecated
+    GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_CONT, abort);
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
         // get pointer to lane
@@ -891,7 +892,7 @@ GNEAdditionalHandler::parseAndBuildDetectorE2(const SUMOSAXAttributes& attrs, co
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " '" + id + "' is not known.");
         } else if (!fixE2DetectorPositionPosition(position, length, lane->getParentEdge().getNBEdge()->getFinalLength(), friendlyPos)) {
             WRITE_WARNING("Invalid position for " + toString(tag) + " with ID = '" + id + "'.");
-        } else if(buildDetectorE2(myViewNet, myUndoAdditionals, id, lane, position, length, frequency, file, name, cont, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, friendlyPos, false)) {
+        } else if(buildDetectorE2(myViewNet, myUndoAdditionals, id, lane, position, length, frequency, file, name, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, friendlyPos, false)) {
             // save ID of last created element
             myParentElements.commitElementInsertion(id);
         }
@@ -1140,7 +1141,6 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, S
             double length = GNEAttributeCarrier::parse<double>(values[SUMO_ATTR_LENGTH]);
             std::string filename = values[SUMO_ATTR_FILE];
             std::string name = values[SUMO_ATTR_NAME];
-            bool cont = GNEAttributeCarrier::parse<bool>(values[SUMO_ATTR_CONT]);
             double timeThreshold = GNEAttributeCarrier::parse<double>(values[SUMO_ATTR_HALTING_TIME_THRESHOLD]);
             double speedThreshold = GNEAttributeCarrier::parse<double>(values[SUMO_ATTR_HALTING_SPEED_THRESHOLD]);
             double jamThreshold = GNEAttributeCarrier::parse<double>(values[SUMO_ATTR_JAM_DIST_THRESHOLD]);
@@ -1148,7 +1148,7 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, S
             bool blockMovement = GNEAttributeCarrier::parse<bool>(values[GNE_ATTR_BLOCK_MOVEMENT]);
             // Build detector E2
             if (lane) {
-                return buildDetectorE2(viewNet, allowUndoRedo, id, lane, pos, length, freq, filename, name, cont, timeThreshold, speedThreshold, jamThreshold, friendlyPos, blockMovement);
+                return buildDetectorE2(viewNet, allowUndoRedo, id, lane, pos, length, freq, filename, name, timeThreshold, speedThreshold, jamThreshold, friendlyPos, blockMovement);
             } else {
                 return false;
             }
@@ -1468,9 +1468,9 @@ GNEAdditionalHandler::buildDetectorE1(GNEViewNet* viewNet, bool allowUndoRedo, c
 
 bool
 GNEAdditionalHandler::buildDetectorE2(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, double pos, double length, double freq, const std::string& filename,
-                                      const std::string& name, bool cont, const double timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, bool blockMovement) {
+                                      const std::string& name, const double timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, bool blockMovement) {
     if (viewNet->getNet()->retrieveAdditional(SUMO_TAG_E2DETECTOR, id, false) == nullptr) {
-        GNEDetectorE2* detectorE2 = new GNEDetectorE2(id, lane, viewNet, pos, length, freq, filename, name, cont, timeThreshold, speedThreshold, jamThreshold, friendlyPos, blockMovement);
+        GNEDetectorE2* detectorE2 = new GNEDetectorE2(id, lane, viewNet, pos, length, freq, filename, name, timeThreshold, speedThreshold, jamThreshold, friendlyPos, blockMovement);
         if (allowUndoRedo) {
             viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_E2DETECTOR));
             viewNet->getUndoList()->add(new GNEChange_Additional(detectorE2, true), true);
