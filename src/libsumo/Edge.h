@@ -34,7 +34,9 @@
 // ===========================================================================
 class MSEdge;
 class PositionVector;
-class VariableWrapper;
+namespace libsumo {
+    class VariableWrapper;
+}
 
 
 // ===========================================================================
@@ -93,6 +95,8 @@ public:
     static void storeShape(const std::string& id, PositionVector& shape);
 
     static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper);
+
+    static std::shared_ptr<VariableWrapper> makeWrapper();
 
 private:
     static MSEdge* getEdge(const std::string& id);

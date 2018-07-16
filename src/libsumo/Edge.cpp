@@ -380,6 +380,12 @@ Edge::storeShape(const std::string& id, PositionVector& shape) {
 }
 
 
+std::shared_ptr<VariableWrapper>
+Edge::makeWrapper() {
+    return std::make_shared<Helper::SubscriptionWrapper>(handleVariable, mySubscriptionResults, myContextSubscriptionResults);
+}
+
+
 bool
 Edge::handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper) {
     switch (variable) {

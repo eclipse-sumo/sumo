@@ -139,6 +139,9 @@ Helper::handleSingleSubscription(const Subscription& s) {
         objIDs.insert(s.id);
     }
     const int numVars = s.contextDomain > 0 && s.variables.size() == 1 && s.variables[0] == ID_LIST ? 0 : (int)s.variables.size();
+    if (myWrapper.empty()) {
+        myWrapper[CMD_GET_EDGE_VARIABLE] = Edge::makeWrapper();
+    }
     auto wrapper = myWrapper.find(getCommandId);
     if (wrapper == myWrapper.end()) {
         throw TraCIException("Unsupported command specified");
