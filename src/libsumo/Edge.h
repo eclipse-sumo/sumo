@@ -81,8 +81,8 @@ public:
     static void setMaxSpeed(const std::string& id, double value);
     static void setParameter(const std::string& id, const std::string& name, const std::string& value);
 
-    static void subscribe(const std::string& objID, const std::vector<int>& vars, SUMOTime beginTime, SUMOTime endTime);
-    static void subscribeContext(const std::string& objID, int domain, double range, const std::vector<int>& vars, SUMOTime beginTime, SUMOTime endTime);
+    static void subscribe(const std::string& objID, const std::vector<int>& vars=std::vector<int>(), SUMOTime beginTime=0, SUMOTime endTime=2^31-1);
+    static void subscribeContext(const std::string& objID, int domain, double range, const std::vector<int>& vars=std::vector<int>(), SUMOTime beginTime=0, SUMOTime endTime=2^31-1);
     static const SubscriptionResults getSubscriptionResults();
     static const TraCIResults getSubscriptionResults(const std::string& objID);
     static const ContextSubscriptionResults getContextSubscriptionResults();
@@ -94,12 +94,12 @@ public:
     */
     static void storeShape(const std::string& id, PositionVector& shape);
 
-    static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper);
-
     static std::shared_ptr<VariableWrapper> makeWrapper();
 
 private:
     static MSEdge* getEdge(const std::string& id);
+
+    static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper);
 
 private:
     static SubscriptionResults mySubscriptionResults;
