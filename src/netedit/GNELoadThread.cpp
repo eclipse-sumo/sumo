@@ -269,7 +269,9 @@ GNELoadThread::setDefaultOptions(OptionsCont& oc) {
 bool
 GNELoadThread::initOptions() {
     OptionsCont& oc = OptionsCont::getOptions();
+    // fill all optiones
     fillOptions(oc);
+    // set manually the net file
     if (myFile != "") {
         if (myLoadNet) {
             oc.set("sumo-net-file", myFile);
@@ -277,9 +279,14 @@ GNELoadThread::initOptions() {
             oc.set("configuration-file", myFile);
         }
     }
+    // set default options defined in GNELoadThread::setDefaultOptions(...)
     setDefaultOptions(oc);
     try {
+        // set all values writables, because certain attributes already setted can be updated throught console
+        oc.resetWritable();
+        // load options from console
         OptionsIO::getOptions();
+        // if output file wasn't defined in the command line manually, set value of "sumo-net-file"
         if (!oc.isSet("output-file")) {
             oc.set("output-file", oc.getString("sumo-net-file"));
         }
