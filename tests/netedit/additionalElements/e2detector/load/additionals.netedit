@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 11.07.2018 10:06:55 by Eclipse SUMO netedit Version 88bb7b0b92
+<!-- generated on 16.07.2018 10:47:23 by Eclipse SUMO netedit Version 7115a4b324
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_11Jul090516.3184/netedit.gui/additionalElements/e2detector/load\input_additionals.add.xml"/>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_11Jul090516.3184/netedit.gui/additionalElements/e2detector/load\input_net.net.xml"/>
+        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Jul104245.2044/netedit.gui/additionalElements/e2detector/load\input_additionals.add.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Jul104245.2044/netedit.gui/additionalElements/e2detector/load\input_net.net.xml"/>
     </input>
 
     <output>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_11Jul090516.3184/netedit.gui/additionalElements/e2detector/load\additionals.xml"/>
-        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_11Jul090516.3184/netedit.gui/additionalElements/e2detector/load\shapes.xml"/>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_11Jul090516.3184/netedit.gui/additionalElements/e2detector/load\net.net.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Jul104245.2044/netedit.gui/additionalElements/e2detector/load\additionals.xml"/>
+        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Jul104245.2044/netedit.gui/additionalElements/e2detector/load\shapes.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Jul104245.2044/netedit.gui/additionalElements/e2detector/load\net.net.xml"/>
     </output>
 
     <processing>
@@ -24,7 +24,7 @@
     </processing>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_11Jul090516.3184/netedit.gui/additionalElements/e2detector/load\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Jul104245.2044/netedit.gui/additionalElements/e2detector/load\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -33,7 +33,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_11Jul090516.3184/netedit.gui/additionalElements/e2detector/load\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Jul104245.2044/netedit.gui/additionalElements/e2detector/load\log.txt"/>
     </report>
 
 </configuration>
@@ -43,9 +43,6 @@
     <e2Detector id="E2_01" length="10.00" lane="gneE0_0" pos="1.00" freq="100.00" file="e2Detector_01.txt"/>
     <e2Detector id="E2_10" length="12.00" lane="gneE0_0" pos="9.00" freq="100.00" file="e2Detector_10.txt"/>
     <e2Detector id="E2_14" length="10.00" lane="gneE0_0" pos="13.00" freq="120.00" file="e2Detector_14.txt"/>
-    <e2Detector id="E2_15" length="10.00" lane="gneE0_0" pos="14.00" freq="120.00"/>
-    <e2Detector id="E2_16" length="10.00" lane="gneE0_0" pos="15.00" freq="120.00"/>
-    <e2Detector id="E2_17" length="10.00" lane="gneE0_0" pos="16.00" freq="120.00"/>
     <e2Detector id="E2_18" length="10.00" lane="gneE0_0" pos="17.00" freq="120.00" file="e2Detector_01"/>
     <e2Detector id="E2_19" length="10.00" lane="gneE0_0" pos="18.00" freq="120.00" file="myOwnFile.txt"/>
     <e2Detector id="E2_20" length="10.00" lane="gneE0_0" pos="19.00" freq="120.00" file="e2Detector_20.txt"/>

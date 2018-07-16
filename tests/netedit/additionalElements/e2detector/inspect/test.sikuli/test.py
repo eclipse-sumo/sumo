@@ -109,45 +109,42 @@ netedit.modifyAttribute(6, "E2Detector_gneE2_1_1.txt")
 # Change parameter 6 with a valid value
 netedit.modifyAttribute(6, "myOwnOutput.txt")
 
-# Change boolean parameter 7
-netedit.modifyBoolAttribute(7)
+# Change parameter 7 with a non valid value
+netedit.modifyAttribute(7, "dummyTimeTreshold")
+
+# Change parameter 7 with a non valid value
+netedit.modifyAttribute(7, "-5")
+
+# Change parameter 7 with a valid value
+netedit.modifyAttribute(7, "4")
 
 # Change parameter 8 with a non valid value
-netedit.modifyAttribute(8, "dummyTimeTreshold")
+netedit.modifyAttribute(8, "dummySpeedTreshold")
 
 # Change parameter 8 with a non valid value
-netedit.modifyAttribute(8, "-5")
+netedit.modifyAttribute(8, "-12.1")
 
 # Change parameter 8 with a valid value
-netedit.modifyAttribute(8, "4")
+netedit.modifyAttribute(8, "6.3")
 
 # Change parameter 9 with a non valid value
-netedit.modifyAttribute(9, "dummySpeedTreshold")
+netedit.modifyAttribute(9, "dummyJamThreshold")
 
 # Change parameter 9 with a non valid value
-netedit.modifyAttribute(9, "-12.1")
+netedit.modifyAttribute(9, "-8")
 
 # Change parameter 9 with a valid value
-netedit.modifyAttribute(9, "6.3")
+netedit.modifyAttribute(9, "12.5")
 
-# Change parameter 10 with a non valid value
-netedit.modifyAttribute(10, "dummyJamThreshold")
+# Change boolean parameter 10
+netedit.modifyBoolAttribute(10)
 
-# Change parameter 10 with a non valid value
-netedit.modifyAttribute(10, "-8")
-
-# Change parameter 10 with a valid value
-netedit.modifyAttribute(10, "12.5")
-
-# Change boolean parameter 11
-netedit.modifyBoolAttribute(11)
-
-# Change boolean parameter 13
-netedit.modifyBoolAttribute(13)
+# Change boolean parameter 12
+netedit.modifyBoolAttribute(12)
 
 # Check undos and redos
-netedit.undo(match, 26)
-netedit.redo(match, 26)
+netedit.undo(match, 25)
+netedit.redo(match, 25)
 
 # save additionals
 netedit.saveAdditionals()

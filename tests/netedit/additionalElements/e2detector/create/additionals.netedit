@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 10.07.2018 11:17:23 by Eclipse SUMO netedit Version 88bb7b0b92
+<!-- generated on 16.07.2018 10:23:07 by Eclipse SUMO netedit Version 7115a4b324
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_10Jul111340.2852/netedit.gui/additionalElements/e2detector/create\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Jul102153.2040/netedit.gui/additionalElements/e2detector/create\input_net.net.xml"/>
     </input>
 
     <output>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_10Jul111340.2852/netedit.gui/additionalElements/e2detector/create\additionals.xml"/>
-        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_10Jul111340.2852/netedit.gui/additionalElements/e2detector/create\shapes.xml"/>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_10Jul111340.2852/netedit.gui/additionalElements/e2detector/create\net.net.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Jul102153.2040/netedit.gui/additionalElements/e2detector/create\additionals.xml"/>
+        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Jul102153.2040/netedit.gui/additionalElements/e2detector/create\shapes.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Jul102153.2040/netedit.gui/additionalElements/e2detector/create\net.net.xml"/>
     </output>
 
     <processing>
@@ -23,7 +23,7 @@
     </processing>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_10Jul111340.2852/netedit.gui/additionalElements/e2detector/create\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Jul102153.2040/netedit.gui/additionalElements/e2detector/create\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -32,7 +32,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_10Jul111340.2852/netedit.gui/additionalElements/e2detector/create\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Jul102153.2040/netedit.gui/additionalElements/e2detector/create\log.txt"/>
     </report>
 
 </configuration>
@@ -44,9 +44,9 @@
     <e2Detector id="e2Detector_gneE0_0_2" length="5.00" lane="gneE0_0" pos="27.00" freq="120.00" file="e2Detector_gneE0_0_2.xml"/>
     <e2Detector id="e2Detector_gneE0_0_3" name="customName" length="5.00" lane="gneE0_0" pos="42.00" freq="120.00" file="e2Detector_gneE0_0_3.xml"/>
     <e2Detector id="e2Detector_gneE0_0_4" name="customName" length="5.00" lane="gneE0_0" pos="32.00" freq="120.00" file="myOwnFilename.txt"/>
-    <e2Detector id="e2Detector_gneE0_0_5" name="customName" length="5.00" lane="gneE0_0" pos="37.00" freq="120.00" file="myOwnFilename.txt" cont="1"/>
-    <e2Detector id="e2Detector_gneE1_0_6" name="customName" length="5.00" lane="gneE1_0" pos="43.00" freq="120.00" file="myOwnFilename.txt" cont="1" timeThreshold="10.00"/>
-    <e2Detector id="e2Detector_gneE1_0_7" name="customName" length="5.00" lane="gneE1_0" pos="33.00" freq="120.00" file="myOwnFilename.txt" cont="1" timeThreshold="10.00" speedThreshold="2.50"/>
-    <e2Detector id="e2Detector_gneE1_0_8" name="customName" length="5.00" lane="gneE1_0" pos="23.00" freq="120.00" file="myOwnFilename.txt" cont="1" timeThreshold="10.00" speedThreshold="2.50" jamThreshold="15.50"/>
-    <e2Detector id="e2Detector_gneE1_0_9" name="customName" length="5.00" lane="gneE1_0" pos="13.00" freq="120.00" file="myOwnFilename.txt" cont="1" timeThreshold="10.00" speedThreshold="2.50" jamThreshold="15.50" friendlyPos="1"/>
+    <e2Detector id="e2Detector_gneE1_0_5" name="customName" length="5.00" lane="gneE1_0" pos="43.00" freq="120.00" file="myOwnFilename.txt" timeThreshold="10.00"/>
+    <e2Detector id="e2Detector_gneE1_0_6" name="customName" length="5.00" lane="gneE1_0" pos="33.00" freq="120.00" file="myOwnFilename.txt" timeThreshold="10.00" speedThreshold="2.50"/>
+    <e2Detector id="e2Detector_gneE1_0_7" name="customName" length="5.00" lane="gneE1_0" pos="23.00" freq="120.00" file="myOwnFilename.txt" timeThreshold="10.00" speedThreshold="2.50" jamThreshold="15.50"/>
+    <e2Detector id="e2Detector_gneE1_0_8" name="customName" length="5.00" lane="gneE1_0" pos="13.00" freq="120.00" file="myOwnFilename.txt" timeThreshold="10.00" speedThreshold="2.50" jamThreshold="15.50" friendlyPos="1"/>
+    <e2Detector id="e2Detector_gneE1_0_9" name="customName" length="5.00" lane="gneE1_0" pos="8.00" freq="120.00" file="myOwnFilename.txt" timeThreshold="10.00" speedThreshold="2.50" jamThreshold="15.50" friendlyPos="1"/>
 </additional>
