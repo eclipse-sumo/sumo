@@ -215,7 +215,7 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPa
     myRecentNets(a, "nets"),
     myConfigPattern(configPattern),
     hadDependentBuild(false),
-    myNet(0),
+    myNet(nullptr),
     myUndoList(new GNEUndoList(this)),
     myTitlePrefix("NETEDIT " VERSION_STRING) {
     // init icons
@@ -1004,13 +1004,15 @@ GNEApplicationWindow::eventOccurred() {
 
 void
 GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
+    OptionsCont& oc = OptionsCont::getOptions();
     myAmLoading = false;
     GNEEvent_NetworkLoaded* ec = static_cast<GNEEvent_NetworkLoaded*>(e);
     // check whether the loading was successfull
-    if (ec->myNet == 0) {
+    if (ec->myNet == nullptr) {
         // report failure
         setStatusBarText("Loading of '" + ec->myFile + "' failed!");
     } else {
+        // set new Net
         myNet = ec->myNet;
         // report success
         setStatusBarText("'" + ec->myFile + "' loaded.");
@@ -1038,8 +1040,8 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
     getApp()->endWaitCursor();
     myMessageWindow->registerMsgHandlers();
     // check if additionals has to be loaded at start
-    if (OptionsCont::getOptions().isSet("sumo-additionals-file") && myNet) {
-        myAdditionalsFile = OptionsCont::getOptions().getString("sumo-additionals-file");
+    if (oc.isSet("sumo-additionals-file") && !oc.getString("sumo-additionals-file").empty() && myNet) {
+        myAdditionalsFile = oc.getString("sumo-additionals-file");
         WRITE_MESSAGE("Loading additionals from '" + myAdditionalsFile + "'");
         GNEAdditionalHandler additionalHandler(myAdditionalsFile, myNet->getViewNet());
         // Run parser
@@ -1050,8 +1052,8 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
         myUndoList->p_end();
     }
     // check if shapes has to be loaded at start
-    if (OptionsCont::getOptions().isSet("sumo-shapes-file") && myNet) {
-        myShapesFile = OptionsCont::getOptions().getString("sumo-shapes-file");
+    if (oc.isSet("sumo-shapes-file") && !oc.getString("sumo-shapes-file").empty() && myNet) {
+        myShapesFile = oc.getString("sumo-shapes-file");
         WRITE_MESSAGE("Loading shapes");
         GNEShapeHandler shapeHandler(myShapesFile, myNet);
         // Run parser
@@ -1062,16 +1064,16 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
         myUndoList->p_end();
     }
     // check if additionals output must be changed
-    if (OptionsCont::getOptions().isSet("additionals-output")) {
-        myAdditionalsFile = OptionsCont::getOptions().getString("additionals-output");
+    if (oc.isSet("additionals-output")) {
+        myAdditionalsFile = oc.getString("additionals-output");
     }
     // check if shapes output must be changed
-    if (OptionsCont::getOptions().isSet("shapes-output")) {
-        myShapesFile = OptionsCont::getOptions().getString("shapes-output");
+    if (oc.isSet("shapes-output")) {
+        myShapesFile = oc.getString("shapes-output");
     }
     // check if TLSPrograms output must be changed
-    if (OptionsCont::getOptions().isSet("TLSPrograms-output")) {
-        myTLSProgramsFile = OptionsCont::getOptions().getString("TLSPrograms-output");
+    if (oc.isSet("TLSPrograms-output")) {
+        myTLSProgramsFile = oc.getString("TLSPrograms-output");
     }
     // after loading net shouldn't be saved
     if(myNet) {
@@ -1114,8 +1116,8 @@ GUISUMOAbstractView*
 GNEApplicationWindow::openNewView() {
     std::string caption = "View #" + toString(myViewNumber++);
     FXuint opts = MDI_TRACKING;
-    GNEViewParent* viewParent = new GNEViewParent(myMDIClient, myMDIMenu, FXString(caption.c_str()), this, getBuildGLCanvas(),
-            myNet, myUndoList, nullptr, opts, 10, 10, 300, 200);
+    // create view parent
+    GNEViewParent* viewParent = new GNEViewParent(myMDIClient, myMDIMenu, FXString(caption.c_str()), this, getBuildGLCanvas(), myNet, myUndoList, nullptr, opts, 10, 10, 300, 200);
     if (myMDIClient->numChildren() == 1) {
         viewParent->maximize();
     } else {
@@ -1184,9 +1186,10 @@ GNEApplicationWindow::closeAllWindows() {
     myCartesianCoordinate->setText("N/A");
 
     myUndoList->p_clear();
-    if (myNet != 0) {
+    // check if net can be deleted
+    if (myNet != nullptr) {
         delete myNet;
-        myNet = 0;
+        myNet = nullptr;
         GeoConvHelper::resetLoaded();
     }
     myMessageWindow->unregisterMsgHandlers();
@@ -1955,9 +1958,14 @@ GNEApplicationWindow::onUpdSaveNetwork(FXObject* sender, FXSelector, void*) {
 GNEViewNet*
 GNEApplicationWindow::getView() {
     if (mySubWindows.size() != 0) {
-        return (GNEViewNet*)(((GUIGlChildWindow*)mySubWindows[0])->getView());
+        GUIGlChildWindow* childWindows = dynamic_cast<GUIGlChildWindow*>(mySubWindows[0]);
+        if(childWindows != nullptr) {
+            return dynamic_cast<GNEViewNet*>(childWindows->getView());
+        } else {
+            return nullptr;
+        }
     } else {
-        return 0;
+        return nullptr;
     }
 }
 
