@@ -51,6 +51,7 @@ Warning: Adding closingLaneReroute 'rerouter_4interval1closingLaneReroute0' in G
 Warning: Adding closingReroute 'rerouter_4interval1closingReroute0' in GNEChange_Additional
 Warning: Adding destProbReroute 'rerouter_4interval1destProbReroute0' in GNEChange_Additional
 Warning: Adding routeProbReroute 'rerouter_4interval1routeProbReroute0' in GNEChange_Additional
+Warning: Invalid input parameter of rerouter: Ids contains invalid characters
 Warning: Adding rerouter 'rerouter_5' in GNEChange_Additional
 Warning: Adding interval 'rerouter_5interval0' in GNEChange_Additional
 Warning: Adding routeProbReroute 'rerouter_5interval0routeProbReroute0' in GNEChange_Additional
@@ -62,7 +63,6 @@ Warning: Adding closingLaneReroute 'rerouter_5interval1closingLaneReroute0' in G
 Warning: Adding closingReroute 'rerouter_5interval1closingReroute0' in GNEChange_Additional
 Warning: Adding destProbReroute 'rerouter_5interval1destProbReroute0' in GNEChange_Additional
 Warning: Adding routeProbReroute 'rerouter_5interval1routeProbReroute0' in GNEChange_Additional
-Warning: Invalid input parameter of rerouter: List of edges cannot be empty
 Warning: Adding rerouter 'rerouter_6' in GNEChange_Additional
 Warning: Adding interval 'rerouter_6interval0' in GNEChange_Additional
 Warning: Adding routeProbReroute 'rerouter_6interval0routeProbReroute0' in GNEChange_Additional

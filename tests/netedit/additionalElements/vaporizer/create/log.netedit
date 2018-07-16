@@ -8,15 +8,15 @@ Warning: Invalid input parameter of vaporizer: 'begin' cannot be negative
 Warning: Adding vaporizer 'gneE0' in GNEChange_Additional
 Warning: Invalid input parameter of vaporizer: 'end' cannot be negative
 Warning: Adding vaporizer 'gneE4' in GNEChange_Additional
-Warning: Adding vaporizer 'gneE3' in GNEChange_Additional
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Removing vaporizer 'gneE3' in GNEChange_Additional
+Warning: Time interval of vaporizer isn't valid. Attribute 'begin' is greater than attribute 'end'.
+Warning: Time interval of vaporizer isn't valid. Attribute 'begin' is greater than attribute 'end'.
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing vaporizer 'gneE4' in GNEChange_Additional
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing vaporizer 'gneE0' in GNEChange_Additional
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing vaporizer 'gneE1' in GNEChange_Additional
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding vaporizer 'gneE1' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
@@ -24,14 +24,12 @@ Warning: Adding vaporizer 'gneE0' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding vaporizer 'gneE4' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Adding vaporizer 'gneE3' in GNEChange_Additional
 Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-Warning: Deleting unreferenced vaporizer 'gneE3'
+Warning: Deleting unreferenced vaporizer 'gneE4'
 Warning: Additionals has to be saved
 Warning: Current saving Status: net saved, additionals unsaved, shapes saved
-Warning: Deleting unreferenced vaporizer 'gneE4'
 Warning: Deleting unreferenced vaporizer 'gneE0'
 Warning: Deleting unreferenced vaporizer 'gneE1'
 Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor
