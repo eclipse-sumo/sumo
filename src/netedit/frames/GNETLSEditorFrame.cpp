@@ -611,7 +611,7 @@ GNETLSEditorFrame::buildIinternalLanes(NBTrafficLightDefinition* tlDef) {
         const NBConnectionVector& links = tlDef->getControlledLinks();
         for (auto it : links) {
             int tlIndex = it.getTLIndex();
-            PositionVector shape = nbn->computeInternalLaneShape(it.getFrom(), NBEdge::Connection(it.getFromLane(),
+            PositionVector shape = it.getFrom()->getToNode()->computeInternalLaneShape(it.getFrom(), NBEdge::Connection(it.getFromLane(),
                                    it.getTo(), it.getToLane()), NUM_POINTS);
             GNEInternalLane* ilane = new GNEInternalLane(this, innerID + '_' + toString(tlIndex),  shape, tlIndex);
             rtree.addAdditionalGLObject(ilane);
