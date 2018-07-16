@@ -1085,7 +1085,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "",
             SUMOXMLDefinitions::TrafficLightTypes.getStrings());
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_TLID,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE,
             "An optional id for the traffic light program", 
             "");
     }
