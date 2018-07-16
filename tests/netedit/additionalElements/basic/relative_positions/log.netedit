@@ -6,6 +6,7 @@ Warning: Adding calibrator 'calibrator_gneE1_1' in GNEChange_Additional
 Warning: Adding chargingStation 'chargingStation_gneE1_2_0' in GNEChange_Additional
 Warning: Adding containerStop 'containerStop_gneE1_1_0' in GNEChange_Additional
 Warning: Adding e1Detector 'e1Detector_gneE0_2_0' in GNEChange_Additional
+Warning: Attribute cont' of e2Detector is deprecated and will not be loaded.
 Warning: Adding e2Detector 'e2Detector_gneE0_1_0' in GNEChange_Additional
 Warning: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
 Warning: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
