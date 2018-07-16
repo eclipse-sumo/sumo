@@ -1302,13 +1302,15 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, S
         case SUMO_TAG_VAPORIZER: {
             // obtain specify attributes of vaporizer
             GNEEdge* edge = viewNet->getNet()->retrieveEdge(values[SUMO_ATTR_EDGE], false);
-            double startTime = GNEAttributeCarrier::parse<double>(values[SUMO_ATTR_BEGIN]);
+            double begin = GNEAttributeCarrier::parse<double>(values[SUMO_ATTR_BEGIN]);
             double end = GNEAttributeCarrier::parse<double>(values[SUMO_ATTR_END]);
             std::string name = values[SUMO_ATTR_NAME];
             // Build Vaporizer
             if (edge) {
-                if(viewNet->getNet()->retrieveAdditional(tag, edge->getID(), false) == nullptr) { 
-                    return buildVaporizer(viewNet, allowUndoRedo, edge, startTime, end, name);
+                if(begin > end) {
+                    WRITE_WARNING("Time interval of " + toString(tag) + " isn't valid. Attribute '" + toString(SUMO_ATTR_BEGIN) + "' is greater than attribute '" + toString(SUMO_ATTR_END) + "'.");
+                } else if(viewNet->getNet()->retrieveAdditional(tag, edge->getID(), false) == nullptr) { 
+                    return buildVaporizer(viewNet, allowUndoRedo, edge, begin, end, name);
                 } else {
                     WRITE_WARNING("There is already a " + toString(tag) + " in the edge '" + edge->getID() + "'.");
                 }
