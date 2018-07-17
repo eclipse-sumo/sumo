@@ -16,6 +16,9 @@
 %rename(vehicle) Vehicle;
 %rename(vehicletype) VehicleType;
 
+%typemap(TraCIDouble) double;
+%typemap(TraCIInt) int;
+
 // adding dummy init and close for easier traci -> libsumo transfer
 %pythoncode %{
 def init(port):
@@ -42,10 +45,13 @@ def simulationStep(step=0):
 %}
 
 // replacing vector instances of standard types, see https://stackoverflow.com/questions/8469138
-%include "std_vector.i"
+%include "std_map.i"
+%include "std_shared_ptr.i"
 %include "std_string.i"
+%include "std_vector.i"
 %template(StringVector) std::vector<std::string>;
 %template(TraCIStageVector) std::vector<libsumo::TraCIStage>;
+%template() std::map<int, std::shared_ptr<libsumo::TraCIResult> >;
 
 // exception handling
 %include "exception.i"

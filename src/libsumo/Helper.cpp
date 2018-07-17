@@ -113,6 +113,7 @@ Helper::subscribe(const int commandId, const std::string& id, const std::vector<
     std::vector<std::vector<unsigned char> > parameters;
     libsumo::Subscription s(commandId, id, variables, parameters, beginTime, endTime, contextDomain, range);
     mySubscriptions.push_back(s);
+    handleSingleSubscription(s);
 }
 
 
@@ -147,10 +148,14 @@ Helper::handleSingleSubscription(const Subscription& s) {
         throw TraCIException("Unsupported command specified");
     }
     std::shared_ptr<VariableWrapper> handler = wrapper->second;
-    for (const std::string objID : objIDs) {
+    for (const std::string& objID : objIDs) {
         if (numVars > 0) {
             for (const int variable : s.variables) {
                 handler->handle(objID, variable, handler.get());
+            }
+        } else {
+            if (!handler->handle(objID, LAST_STEP_VEHICLE_NUMBER, handler.get())) {
+                handler->handle(objID, ID_LIST, handler.get());
             }
         }
     }

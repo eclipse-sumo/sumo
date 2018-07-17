@@ -389,6 +389,12 @@ Edge::makeWrapper() {
 bool
 Edge::handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper) {
     switch (variable) {
+    case ID_LIST:
+        wrapper->wrapStringList(objID, variable, getIDList());
+        return true;
+    case ID_COUNT:
+        wrapper->wrapInt(objID, variable, getIDCount());
+        return true;
     case VAR_CURRENT_TRAVELTIME:
         wrapper->wrapDouble(objID, variable, getTraveltime(objID));
         return true;
@@ -400,6 +406,33 @@ Edge::handleVariable(const std::string& objID, const int variable, VariableWrapp
         return true;
     case LAST_STEP_VEHICLE_ID_LIST:
         wrapper->wrapStringList(objID, variable, getLastStepVehicleIDs(objID));
+        return true;
+    case VAR_CO2EMISSION:
+        wrapper->wrapDouble(objID, variable, getCO2Emission(objID));
+        return true;
+    case VAR_COEMISSION:
+        wrapper->wrapDouble(objID, variable, getCOEmission(objID));
+        return true;
+    case VAR_HCEMISSION:
+        wrapper->wrapDouble(objID, variable, getHCEmission(objID));
+        return true;
+    case VAR_PMXEMISSION:
+        wrapper->wrapDouble(objID, variable, getPMxEmission(objID));
+        return true;
+    case VAR_NOXEMISSION:
+        wrapper->wrapDouble(objID, variable, getNOxEmission(objID));
+        return true;
+    case VAR_FUELCONSUMPTION:
+        wrapper->wrapDouble(objID, variable, getFuelConsumption(objID));
+        return true;
+    case VAR_NOISEEMISSION:
+        wrapper->wrapDouble(objID, variable, getNoiseEmission(objID));
+        return true;
+    case VAR_ELECTRICITYCONSUMPTION:
+        wrapper->wrapDouble(objID, variable, getElectricityConsumption(objID));
+        return true;
+    case LAST_STEP_VEHICLE_NUMBER:
+        wrapper->wrapDouble(objID, variable, getLastStepVehicleNumber(objID));
         return true;
     default:
         return false;
