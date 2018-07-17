@@ -166,6 +166,7 @@ public:
     static void setType(const std::string& vehicleID, const std::string& typeID);
     static void setRouteID(const std::string& vehicleID, const std::string& routeID);
     static void setRoute(const std::string& vehicleID, const std::vector<std::string>& edgeIDs);
+    static void updateBestLanes(const std::string& vehicleID);
     static void setAdaptedTraveltime(const std::string& vehicleID, const std::string& edgeID,
                                      double time = INVALID_DOUBLE_VALUE, double begSeconds = 0, double endSeconds = std::numeric_limits<double>::max());
     static void setEffort(const std::string& vehicleID, const std::string& edgeID,

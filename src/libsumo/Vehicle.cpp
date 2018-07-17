@@ -1039,7 +1039,6 @@ Vehicle::setRouteID(const std::string& vehicleID, const std::string& routeID) {
     }
 }
 
-
 void
 Vehicle::setRoute(const std::string& vehicleID, const std::vector<std::string>& edgeIDs) {
     MSVehicle* veh = getVehicle(vehicleID);
@@ -1052,6 +1051,12 @@ Vehicle::setRoute(const std::string& vehicleID, const std::vector<std::string>& 
     if (!veh->replaceRouteEdges(edges, "traci:setRoute", veh->getLane() == 0, true)) {
         throw TraCIException("Route replacement failed for " + veh->getID());
     }
+}
+
+void
+Vehicle::updateBestLanes(const std::string& vehicleID) {
+    MSVehicle* veh = getVehicle(vehicleID);
+    veh->updateBestLanes(true);
 }
 
 void
