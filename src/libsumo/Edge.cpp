@@ -308,13 +308,13 @@ Edge::setAllowedSVCPermissions(const std::string& id, int permissions) {
 
 
 void
-Edge::adaptTraveltime(const std::string& id, double begTime, double endTime, double value) {
+Edge::adaptTraveltime(const std::string& id, double value, double begTime, double endTime) {
     MSNet::getInstance()->getWeightsStorage().addTravelTime(getEdge(id), begTime, endTime, value);
 }
 
 
 void
-Edge::setEffort(const std::string& id, double begTime, double endTime, double value) {
+Edge::setEffort(const std::string& id, double value, double begTime, double endTime) {
     MSNet::getInstance()->getWeightsStorage().addEffort(getEdge(id), begTime, endTime, value);
 }
 

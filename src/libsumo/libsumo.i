@@ -16,9 +16,6 @@
 %rename(vehicle) Vehicle;
 %rename(vehicletype) VehicleType;
 
-%typemap(TraCIDouble) double;
-%typemap(TraCIInt) int;
-
 // adding dummy init and close for easier traci -> libsumo transfer
 %pythoncode %{
 def init(port):
@@ -33,6 +30,27 @@ def start(args):
 def simulationStep(step=0):
     simulation.step(step)
 %}
+
+%typemap(out) std::map<int, std::shared_ptr<libsumo::TraCIResult> > {
+    $result = PyDict_New();
+    for (auto iter = $1.begin(); iter != $1.end(); ++iter) {
+        const int theKey = iter->first;
+        const libsumo::TraCIResult* const theVal = iter->second.get();
+        const libsumo::TraCIDouble* const theDouble = dynamic_cast<const libsumo::TraCIDouble*>(theVal);
+        if (theDouble != nullptr) {
+            PyDict_SetItem($result, PyInt_FromLong(theKey), PyFloat_FromDouble(theDouble->value));
+            continue;
+        }
+        const libsumo::TraCIInt* const theInt = dynamic_cast<const libsumo::TraCIInt*>(theVal);
+        if (theInt != nullptr) {
+            PyDict_SetItem($result, PyInt_FromLong(theKey), PyInt_FromLong(theInt->value));
+            continue;
+        }
+        PyObject *value = SWIG_NewPointerObj(SWIG_as_voidptr(theVal), SWIGTYPE_p_libsumo__TraCIResult, 0);
+        PyDict_SetItem($result, PyInt_FromLong(theKey), value);
+    }
+};
+
 #endif
 
 %begin %{
@@ -44,14 +62,12 @@ def simulationStep(step=0):
 #include <libsumo/TraCIDefs.h>
 %}
 
+
 // replacing vector instances of standard types, see https://stackoverflow.com/questions/8469138
-%include "std_map.i"
-%include "std_shared_ptr.i"
 %include "std_string.i"
 %include "std_vector.i"
 %template(StringVector) std::vector<std::string>;
 %template(TraCIStageVector) std::vector<libsumo::TraCIStage>;
-%template() std::map<int, std::shared_ptr<libsumo::TraCIResult> >;
 
 // exception handling
 %include "exception.i"
