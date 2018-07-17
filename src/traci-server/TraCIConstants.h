@@ -679,6 +679,9 @@
 // edges (get: routes, vehicles)
 #define VAR_EDGES 0x54
 
+// update bestLanes (set: vehicle)
+#define VAR_UPDATE_BESTLANES 0x6a
+
 // filled? (get: polygons)
 #define VAR_FILL 0x55
 

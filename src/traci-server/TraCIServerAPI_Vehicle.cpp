@@ -498,6 +498,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             && variable != CMD_CHANGESUBLANE
             && variable != CMD_SLOWDOWN && variable != CMD_CHANGETARGET && variable != CMD_RESUME
             && variable != VAR_TYPE && variable != VAR_ROUTE_ID && variable != VAR_ROUTE
+            && variable != VAR_UPDATE_BESTLANES
             && variable != VAR_EDGE_TRAVELTIME && variable != VAR_EDGE_EFFORT
             && variable != CMD_REROUTE_TRAVELTIME && variable != CMD_REROUTE_EFFORT
             && variable != VAR_SIGNALS && variable != VAR_MOVE_TO
@@ -1138,7 +1139,11 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 libsumo::Vehicle::setActionStepLength(id, fabs(value), resetActionOffset);
             }
             break;
-            default:
+            case VAR_UPDATE_BESTLANES: {
+                libsumo::Vehicle::updateBestLanes(id);
+            }
+            break;
+            default: {
                 try {
                     const MSVehicleType& type = v->getSingularType();
                     if (!TraCIServerAPI_VehicleType::setVariable(CMD_SET_VEHICLE_VARIABLE, variable, type.getID(), server, inputStorage, outputStorage)) {
@@ -1149,7 +1154,8 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 } catch (libsumo::TraCIException& e) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, e.what(), outputStorage);
                 }
-                break;
+            }
+            break;
         }
     } catch (libsumo::TraCIException& e) {
         return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, e.what(), outputStorage);
