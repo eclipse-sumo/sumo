@@ -594,8 +594,8 @@ GNEFrame::GenericParametersEditor::onCmdGenericParameterHelp(FXObject*, FXSelect
 
 GNEFrame::GenericParametersEditor::GenericParameterRow::GenericParameterRow(GNEFrame::GenericParametersEditor *genericParametersEditor) {
     horizontalFrame = new FXHorizontalFrame(genericParametersEditor, GUIDesignAuxiliarHorizontalFrame);
-    parameterField = new FXTextField(horizontalFrame, GUIDesignTextFieldNCol, genericParametersEditor, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldInt);
-    valueField = new FXTextField(horizontalFrame, GUIDesignTextFieldNCol, genericParametersEditor, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldInt);
+    parameterField = new FXTextField(horizontalFrame, GUIDesignTextFieldNCol, genericParametersEditor, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    valueField = new FXTextField(horizontalFrame, GUIDesignTextFieldNCol, genericParametersEditor, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     removeButton = new FXButton(horizontalFrame, "", GUIIconSubSys::getIcon(ICON_REMOVE), genericParametersEditor, MID_GNE_REMOVE_ATTRIBUTE, GUIDesignButtonIcon);
     // by defaults rows are hidden
     hideRow();
