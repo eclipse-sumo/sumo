@@ -396,7 +396,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     myEdgeCont.computeEdge2Edges(oc.getBool("no-left-connections"));
     PROGRESS_TIME_MESSAGE(before);
     //
-    if (mayAddOrRemove && oc.getBool("roundabouts.guess")) {
+    if (oc.getBool("roundabouts.guess")) {
         before = SysUtils::getCurrentMillis();
         PROGRESS_BEGIN_MESSAGE("Guessing and setting roundabouts");
         const int numGuessed = myEdgeCont.guessRoundabouts();
