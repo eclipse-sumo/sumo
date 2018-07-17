@@ -241,7 +241,9 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
     } else {
         // node shape has been computed and is valid for drawing
         const bool drawShape = myNBNode.getShape().size() > 0 && s.drawJunctionShape;
-        const bool drawBubble = (!drawShape || myNBNode.getShape().area() < 4) && s.drawJunctionShape; // magic threshold
+        const bool drawBubble = (((!drawShape || myNBNode.getShape().area() < 4) 
+                && s.drawJunctionShape) 
+            || myNet->getViewNet()->showJunctionAsBubbles());
 
         if (drawShape) {
             setColor(s, false);
@@ -261,22 +263,6 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                     GLHelper::drawFilledPolyTesselated(shape, true);
                 }
                 glPopMatrix();
-            }
-            // Check if a  buuble must be drawed over junction
-            if (myNet->getViewNet()->showJunctionAsBubbles()) {
-                setColor(s, true);
-                // recognize full transparency and simply don't draw
-                glGetFloatv(GL_CURRENT_COLOR, color);
-                if (color[3] != 0) {
-                    glPushMatrix();
-                    glTranslated(myNBNode.getPosition().x(), myNBNode.getPosition().y(), getType() + 0.05);
-                    if (!s.drawForSelecting || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo(myNBNode.getPosition()) <= (circleWidthSquared + 2))) {
-                        GLHelper::drawFilledCircle(circleWidth, circleResolution);                    
-                    } else {
-                        GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
-                    }
-                    glPopMatrix();
-                }
             }
         }
         if (drawBubble) {
