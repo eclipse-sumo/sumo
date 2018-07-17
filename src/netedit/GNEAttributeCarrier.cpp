@@ -998,6 +998,27 @@ GNEAttributeCarrier::updateGenericParameterValue(const std::string &parameter, c
 }
 
 
+bool 
+GNEAttributeCarrier::isGenericParameterValid(const std::string &value) const {
+    return true;
+}
+
+
+std::string 
+GNEAttributeCarrier::getGenericParameterStr() const {
+    std::string result;
+    // Generate an string using the following structure: "key1=value1|key2=value2|...
+    for (auto i : myGenericParameters) {
+        result += i.parameter + "=" + i.attribute + "|";
+    }
+    // remove the last "|"
+    if(!result.empty()) {
+        result.pop_back();
+    }
+    return result;
+}
+
+
 int 
 GNEAttributeCarrier::getCircleResolution(const GUIVisualizationSettings& settings) {
     if(settings.drawForSelecting) {

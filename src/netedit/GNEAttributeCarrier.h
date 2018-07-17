@@ -472,6 +472,12 @@ public:
     /// @brief update value generic parameter 
     bool updateGenericParameterValue(const std::string &parameter, const std::string &newValue);
 
+    /// @brief check if given generic parameter is valid
+    bool isGenericParameterValid(const std::string &value) const;
+
+    /// @brief return generic parameters in string format
+    std::string getGenericParameterStr() const;
+
     /// @brief maximun number of generic parameters (currently 100)
     static const int MAXNUMBER_GENERICPARAMETERS;
 

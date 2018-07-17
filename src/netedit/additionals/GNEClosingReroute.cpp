@@ -104,6 +104,8 @@ GNEClosingReroute::getAttribute(SumoXMLAttr key) const {
             return getVehicleClassNames(invertPermissions(myPermissions));
         case GNE_ATTR_PARENT:
             return myFirstAdditionalParent->getID();
+        case GNE_ATTR_GENERIC:
+            return getGenericParameterStr();
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }

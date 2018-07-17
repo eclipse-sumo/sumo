@@ -276,6 +276,8 @@ GNEPOI::getAttribute(SumoXMLAttr key) const {
             return toString(myBlockMovement);
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
+        case GNE_ATTR_GENERIC:
+            return getGenericParameterStr();
         default:
             throw InvalidArgument(toString(getTag()) + " attribute '" + toString(key) + "' not allowed");
     }
