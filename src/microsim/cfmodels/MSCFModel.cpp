@@ -937,7 +937,7 @@ MSCFModel::calculateEmergencyDeceleration(double gap, double egoSpeed, double pr
 #endif
 
     // Case 2) applies
-    assert(predSpeed < egoSpeed);
+    assert(gap < 0 || predSpeed < egoSpeed);
     if (gap <= 0.) {
         return - std::numeric_limits<double>::max();
     }
