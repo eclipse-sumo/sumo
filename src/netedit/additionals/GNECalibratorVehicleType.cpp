@@ -409,6 +409,9 @@ GNECalibratorVehicleType::setAttribute(SumoXMLAttr key, const std::string& value
         case SUMO_ATTR_MAXSPEED_LAT:
             myMaxSpeedLat = parse<double>(value);
             break;
+        case GNE_ATTR_GENERIC:
+            setGenericParameterStr(value);
+            break;
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }

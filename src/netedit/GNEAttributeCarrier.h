@@ -478,6 +478,9 @@ public:
     /// @brief return generic parameters in string format
     std::string getGenericParameterStr() const;
 
+    /// @brief set generic parameters in string format
+    void setGenericParameterStr(const std::string &value) const;
+
     /// @brief maximun number of generic parameters (currently 100)
     static const int MAXNUMBER_GENERICPARAMETERS;
 

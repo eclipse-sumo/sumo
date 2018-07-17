@@ -1019,6 +1019,12 @@ GNEAttributeCarrier::getGenericParameterStr() const {
 }
 
 
+void 
+GNEAttributeCarrier::setGenericParameterStr(const std::string &value) const {
+
+}
+
+
 int 
 GNEAttributeCarrier::getCircleResolution(const GUIVisualizationSettings& settings) {
     if(settings.drawForSelecting) {
