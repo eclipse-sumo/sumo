@@ -305,6 +305,8 @@ GNECalibratorVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<double>(value);
         case SUMO_ATTR_MAXSPEED_LAT:
             return canParse<double>(value);
+        case GNE_ATTR_GENERIC:
+            return isGenericParameterValid(value);
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }

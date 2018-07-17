@@ -304,6 +304,8 @@ GNECalibratorFlow::isValid(SumoXMLAttr key, const std::string& value) {
             return SUMOXMLDefinitions::LateralAlignments.hasString(value);
         case SUMO_ATTR_ARRIVALPOS_LAT:
             return SUMOXMLDefinitions::LateralAlignments.hasString(value);
+        case GNE_ATTR_GENERIC:
+            return isGenericParameterValid(value);
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }

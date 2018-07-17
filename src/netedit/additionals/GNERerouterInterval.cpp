@@ -143,6 +143,8 @@ GNERerouterInterval::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<double>(value) && (parse<double>(value) >= 0) && (parse<double>(value) < myEnd);
         case SUMO_ATTR_END:
             return canParse<double>(value) && (parse<double>(value) >= 0) && (parse<double>(value) > myBegin);
+        case GNE_ATTR_GENERIC:
+            return isGenericParameterValid(value);
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }

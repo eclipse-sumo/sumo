@@ -142,6 +142,8 @@ GNEParkingAreaReroute::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<double>(value) && parse<double>(value) >= 0 && parse<double>(value) <= 1;
         case SUMO_ATTR_VISIBLE:
             return canParse<bool>(value);
+        case GNE_ATTR_GENERIC:
+            return isGenericParameterValid(value);
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
