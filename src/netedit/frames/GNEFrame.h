@@ -139,7 +139,7 @@ public:
         ~GenericParametersEditor();
 
         /// @brief show netedit attributes editor
-        void showGenericParametersEditor();
+        void showGenericParametersEditor(GNEAttributeCarrier *AC);
 
         /// @brief hide netedit attributes editor
         void hideGenericParametersEditor();
@@ -164,6 +164,9 @@ public:
         GenericParametersEditor() {}
 
     private:
+        /// @brief edited Attribute Carrier
+        GNEAttributeCarrier *myAC;
+
         /// @brief pointer to inspector frame parent
         GNEFrame* myFrameParent;
 

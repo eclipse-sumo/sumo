@@ -504,7 +504,9 @@ GNEFrame::GenericParametersEditor::~GenericParametersEditor() {}
 
 
 void
-GNEFrame::GenericParametersEditor::showGenericParametersEditor() {
+GNEFrame::GenericParametersEditor::showGenericParametersEditor(GNEAttributeCarrier *AC) {
+    assert(myAC);
+    myAC = AC;
     show();
 }
 
