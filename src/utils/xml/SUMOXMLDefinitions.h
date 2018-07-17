@@ -868,6 +868,8 @@ enum SumoXMLAttr {
     GNE_ATTR_CLOSE_SHAPE,
     /// @brief parent of an additional element
     GNE_ATTR_PARENT,
+    /// @brief generic attribute
+    GNE_ATTR_GENERIC,
     // @}
 
     SUMO_ATTR_TARGETLANE,
