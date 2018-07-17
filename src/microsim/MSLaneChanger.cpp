@@ -998,18 +998,25 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, double> leader) {
         // prevent by appropriate bestLane distances
         return false;
     }
+    int ret = 0;
+    ret = vehicle->influenceChangeDecision(ret);
+    bool oppositeChangeByTraci = false;
+    // Check whether a lane change to the opposite direction was requested via TraCI
+    if ((ret &(LCA_TRACI)) != 0) {
+        oppositeChangeByTraci = true;
+        }
     const bool isOpposite = vehicle->getLaneChangeModel().isOpposite();
-    if (!isOpposite && leader.first == 0) {
+    if (!isOpposite && leader.first == 0 && !oppositeChangeByTraci) {
         // no reason to change unless there is a leader
         // or we are changing back to the propper direction
         // XXX also check whether the leader is so far away as to be irrelevant
         return false;
     }
     MSLane* opposite = source->getOpposite();
+    //There is no lane for opposite driving
     if (opposite == 0) {
         return false;
     }
-
     // changing into the opposite direction is always to the left (XXX except for left-hand networkds)
     int direction = isOpposite ? -1 : 1;
     std::pair<MSVehicle*, double> neighLead((MSVehicle*)0, -1);
@@ -1017,7 +1024,7 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, double> leader) {
     // preliminary sanity checks for overtaking space
     double timeToOvertake;
     double spaceToOvertake;
-    if (!isOpposite) {
+    if (!isOpposite && !oppositeChangeByTraci) {
         assert(leader.first != 0);
         // find a leader vehicle with sufficient space ahead for merging back
         const double overtakingSpeed = source->getVehicleMaxSpeed(vehicle); // just a guess
@@ -1108,7 +1115,6 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, double> leader) {
                       << "\n";
         }
 #endif
-
         // check for dangerous oncoming leader
         if (neighLead.first != 0) {
             const MSVehicle* oncoming = neighLead.first;
@@ -1140,10 +1146,12 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, double> leader) {
         // -1 will use getMaximumBrakeDist() as look-ahead distance
         neighLead = opposite->getOppositeLeader(vehicle, -1, false);
     }
-
     // compute remaining space on the opposite side
     // 1. the part that remains on the current lane
     double usableDist = isOpposite ? vehicle->getPositionOnLane() : source->getLength() - vehicle->getPositionOnLane();
+    if (oppositeChangeByTraci) {
+        spaceToOvertake = 10;
+    }
     if (usableDist < spaceToOvertake) {
         // look forward along the next lanes
         const std::vector<MSLane*>& bestLaneConts = vehicle->getBestLanesContinuation();
@@ -1194,7 +1202,6 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, double> leader) {
         std::cout << "   usableDist=" << usableDist << " spaceToOvertake=" << spaceToOvertake << " timeToOvertake=" << timeToOvertake << "\n";
     }
 #endif
-
     // compute wish to change
     // Does "preb" mean "previousBestLanes" ??? If so *rename*
     std::vector<MSVehicle::LaneQ> preb = vehicle->getBestLanes();

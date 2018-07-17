@@ -837,12 +837,16 @@ class VehicleDomain(Domain):
             "!BiBBBiBB", tc.TYPE_COMPOUND, 3, tc.TYPE_BYTE, laneIndex, tc.TYPE_INTEGER, duration, tc.TYPE_BYTE, 0)
         self._connection._sendExact()
 
-    def changeLaneRelative(self, vehID, laneIndex, duration):
+    def changeLaneRelative(self, vehID, left, duration):
         """changeLane(string, int, int) -> None
 
         Forces a relative lane change; if successful,
         the lane will be chosen for the given amount of time (in ms).
         """
+        if left >0:
+            laneIndex= left
+        else:
+            laneIndex= 0
         self._connection._beginMessage(
             tc.CMD_SET_VEHICLE_VARIABLE, tc.CMD_CHANGELANE, vehID, 1 + 4 + 1 + 1 + 1 + 4 + 1 + 1)
         self._connection._string += struct.pack(

@@ -354,6 +354,9 @@ MSVehicle::Influencer::influenceChangeDecision(const SUMOTime currentTime, const
             } else {
                 changeRequest = REQUEST_HOLD;
             }
+        }else { // change to opposite direction driving
+            changeRequest = REQUEST_LEFT;
+            state = state | LCA_TRACI;
         }
     }
     // check whether the current reason shall be canceled / overridden

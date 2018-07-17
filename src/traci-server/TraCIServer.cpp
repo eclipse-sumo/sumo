@@ -1461,7 +1461,7 @@ TraCIServer::readTypeCheckingBoundary(tcpip::Storage& inputStorage, Boundary& in
 
 bool
 TraCIServer::readTypeCheckingByte(tcpip::Storage& inputStorage, int& into) {
-    if (inputStorage.readUnsignedByte() != TYPE_BYTE) {
+    if (inputStorage.readByte() != TYPE_BYTE) {
         return false;
     }
     into = inputStorage.readByte();

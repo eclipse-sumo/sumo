@@ -628,9 +628,10 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                     }
                 }
 
-                if ((laneIndex < 0) || (laneIndex >= (int)(v->getEdge()->getLanes().size()))) {
+                if ((laneIndex < 0) || (laneIndex >= (int)(v->getEdge()->getLanes().size()) && relative <1)) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "No lane with index '" + toString(laneIndex) + "' on road '" + v->getEdge()->getID() + "'.", outputStorage);
                 }
+
                 if (relative < 1) {
                     libsumo::Vehicle::changeLane(id, laneIndex, duration);
                 }
