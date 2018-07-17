@@ -917,6 +917,13 @@ class VehicleDomain(Domain):
         self._connection._packStringList(edgeList)
         self._connection._sendExact()
 
+    def updateBestLanes(self, vehID):
+        """ updateBestLanes(string) -> None
+        Triggers an update of the vehicle's bestLanes (structure determining the lane preferences used by LC models)
+        It may be called after modifying the vClass for instance.
+        """
+        self._connection._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_UPDATE_BESTLANES, vehID)
+
     def setAdaptedTraveltime(self, vehID, edgeID, time=None, begTime=None, endTime=None):
         """setAdaptedTraveltime(string, string, double, int, int) -> None
         Inserts the information about the travel time of edge "edgeID" valid
