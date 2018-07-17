@@ -171,7 +171,7 @@ public:
         GNEFrame* myFrameParent;
 
         /// @brief text field for write generic parameter
-        FXTextField *myGenericParameterField;
+        FXTextField *myTextFieldGenericParameter;
 
         /// @brief button for add generic parameter
         FXButton* myEditGenericParameterButton;

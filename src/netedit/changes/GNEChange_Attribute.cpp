@@ -49,7 +49,7 @@ GNEChange_Attribute::GNEChange_Attribute(GNENetElement* netElement,
     myKey(key),
     myOrigValue(customOrigValue ? origValue : netElement->getAttribute(key)),
     myNewValue(value),
-    myNetElement(netElement),
+    myNetElement(nullptr),
     myAdditional(nullptr),
     myShape(nullptr) {
     myAC->incRef("GNEChange_Attribute " + toString(myKey));

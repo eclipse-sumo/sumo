@@ -491,9 +491,10 @@ GNEFrame::ACHierarchy::addACIntoList(GNEAttributeCarrier *AC, FXTreeItem* itemPa
 
 GNEFrame::GenericParametersEditor::GenericParametersEditor(GNEFrame* inspectorFrameParent) :
     FXGroupBox(inspectorFrameParent->myContentFrame, "Generic parameters", GUIDesignGroupBoxFrame),
-    myFrameParent(inspectorFrameParent) {
+    myFrameParent(inspectorFrameParent),
+    myAC(nullptr) {
     // create textfield and buttons
-    myGenericParameterField = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    myTextFieldGenericParameter = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     myEditGenericParameterButton = new FXButton(this, "Edit generic parameter", 0, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButton);
     // Create help button
     myHelpButton = new FXButton(this, "Help", 0, this, MID_HELP, GUIDesignButtonRectangular);
@@ -505,14 +506,18 @@ GNEFrame::GenericParametersEditor::~GenericParametersEditor() {}
 
 void
 GNEFrame::GenericParametersEditor::showGenericParametersEditor(GNEAttributeCarrier *AC) {
-    assert(myAC);
+    assert(AC);
     myAC = AC;
+    // refresh GenericParametersEditor
+    refreshGenericParametersEditor();
+    // show groupbox
     show();
 }
 
 
 void
 GNEFrame::GenericParametersEditor::hideGenericParametersEditor() {
+    myAC = nullptr;
     // hide groupbox
     hide();
 }
@@ -520,20 +525,30 @@ GNEFrame::GenericParametersEditor::hideGenericParametersEditor() {
 
 void 
 GNEFrame::GenericParametersEditor::refreshGenericParametersEditor() {
-    ;
+    assert(myAC);
+    // set last valid attribute
+    myTextFieldGenericParameter->setText(myAC->getAttribute(GNE_ATTR_GENERIC).c_str());
+    myTextFieldGenericParameter->setTextColor(FXRGB(0, 0, 0));
 }
 
 
 long 
 GNEFrame::GenericParametersEditor::onCmdEditGenericParameter(FXObject*, FXSelector, void*) {
-
+    assert(myAC);
     return 1;
 }
 
 
 long 
 GNEFrame::GenericParametersEditor::onCmdSetGenericParameter(FXObject*, FXSelector, void*) {
-
+    assert(myAC);
+    if(myAC->isValid(GNE_ATTR_GENERIC, myTextFieldGenericParameter->getText().text())) {
+        myAC->setAttribute(GNE_ATTR_GENERIC, myTextFieldGenericParameter->getText().text(), myFrameParent->getViewNet()->getUndoList());
+        myTextFieldGenericParameter->setTextColor(FXRGB(0, 0, 0));
+    } else {
+        myTextFieldGenericParameter->setTextColor(FXRGB(255, 0, 0));
+        myTextFieldGenericParameter->killFocus();
+    }
     return 1;
 }
 
