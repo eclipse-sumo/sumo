@@ -375,6 +375,7 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         case SUMO_ATTR_SPEED:
         case SUMO_ATTR_CUSTOMSHAPE:
         case GNE_ATTR_SELECTED:
+        case GNE_ATTR_GENERIC:
             // no special handling
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;

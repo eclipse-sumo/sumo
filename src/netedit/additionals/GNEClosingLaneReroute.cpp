@@ -123,6 +123,7 @@ GNEClosingLaneReroute::setAttribute(SumoXMLAttr key, const std::string& value, G
         case SUMO_ATTR_LANE:
         case SUMO_ATTR_ALLOW:
         case SUMO_ATTR_DISALLOW:
+        case GNE_ATTR_GENERIC:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
         default:

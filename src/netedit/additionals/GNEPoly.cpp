@@ -616,6 +616,7 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case GNE_ATTR_BLOCK_SHAPE:
         case GNE_ATTR_CLOSE_SHAPE:
         case GNE_ATTR_SELECTED:
+        case GNE_ATTR_GENERIC:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
         default:

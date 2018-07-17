@@ -207,6 +207,7 @@ GNECalibratorFlow::setAttribute(SumoXMLAttr key, const std::string& value, GNEUn
         case SUMO_ATTR_REROUTE:
         case SUMO_ATTR_DEPARTPOS_LAT:
         case SUMO_ATTR_ARRIVALPOS_LAT:
+        case GNE_ATTR_GENERIC:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
         default:

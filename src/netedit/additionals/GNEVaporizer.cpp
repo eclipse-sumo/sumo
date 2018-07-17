@@ -261,6 +261,7 @@ GNEVaporizer::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLis
         case SUMO_ATTR_END:
         case SUMO_ATTR_NAME:
         case GNE_ATTR_SELECTED:
+        case GNE_ATTR_GENERIC:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
         default:

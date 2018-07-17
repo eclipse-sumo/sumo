@@ -136,6 +136,7 @@ GNECalibratorRoute::setAttribute(SumoXMLAttr key, const std::string& value, GNEU
         case SUMO_ATTR_ID:
         case SUMO_ATTR_EDGES:
         case SUMO_ATTR_COLOR:
+        case GNE_ATTR_GENERIC:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
         default:

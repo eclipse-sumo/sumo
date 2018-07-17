@@ -925,6 +925,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case GNE_ATTR_SHAPE_START:
         case GNE_ATTR_SHAPE_END:
         case GNE_ATTR_SELECTED:
+        case GNE_ATTR_GENERIC:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
         case SUMO_ATTR_NAME:

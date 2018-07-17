@@ -853,6 +853,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
         case SUMO_ATTR_RADIUS:
         case SUMO_ATTR_TLTYPE:
         case GNE_ATTR_SELECTED:
+        case GNE_ATTR_GENERIC:
             undoList->add(new GNEChange_Attribute(this, key, value), true);
             break;
         case SUMO_ATTR_KEEP_CLEAR:

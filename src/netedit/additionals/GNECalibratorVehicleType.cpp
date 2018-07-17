@@ -233,6 +233,7 @@ GNECalibratorVehicleType::setAttribute(SumoXMLAttr key, const std::string& value
         case SUMO_ATTR_LATALIGNMENT:
         case SUMO_ATTR_MINGAP_LAT:
         case SUMO_ATTR_MAXSPEED_LAT:
+        case GNE_ATTR_GENERIC:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
         default:

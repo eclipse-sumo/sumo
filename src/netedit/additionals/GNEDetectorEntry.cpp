@@ -246,6 +246,7 @@ GNEDetectorEntry::setAttribute(SumoXMLAttr key, const std::string& value, GNEUnd
         case GNE_ATTR_BLOCK_MOVEMENT:
         case GNE_ATTR_PARENT:
         case GNE_ATTR_SELECTED:
+        case GNE_ATTR_GENERIC:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
         default:

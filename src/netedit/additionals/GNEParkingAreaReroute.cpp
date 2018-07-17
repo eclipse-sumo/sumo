@@ -122,6 +122,7 @@ GNEParkingAreaReroute::setAttribute(SumoXMLAttr key, const std::string& value, G
         case SUMO_ATTR_PARKING:
         case SUMO_ATTR_PROB:
         case SUMO_ATTR_VISIBLE:
+        case GNE_ATTR_GENERIC:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
         default:

@@ -120,6 +120,7 @@ GNERouteProbReroute::setAttribute(SumoXMLAttr key, const std::string& value, GNE
         case SUMO_ATTR_ID:
         case SUMO_ATTR_ROUTE:
         case SUMO_ATTR_PROB:
+        case GNE_ATTR_GENERIC:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
         default:

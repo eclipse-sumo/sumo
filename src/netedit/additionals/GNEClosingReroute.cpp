@@ -122,6 +122,7 @@ GNEClosingReroute::setAttribute(SumoXMLAttr key, const std::string& value, GNEUn
         case SUMO_ATTR_EDGE:
         case SUMO_ATTR_ALLOW:
         case SUMO_ATTR_DISALLOW:
+        case GNE_ATTR_GENERIC:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
         default:

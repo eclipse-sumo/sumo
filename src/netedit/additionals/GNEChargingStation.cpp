@@ -248,6 +248,7 @@ GNEChargingStation::setAttribute(SumoXMLAttr key, const std::string& value, GNEU
         case SUMO_ATTR_CHARGEDELAY:
         case GNE_ATTR_BLOCK_MOVEMENT:
         case GNE_ATTR_SELECTED:
+        case GNE_ATTR_GENERIC:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
         default:
