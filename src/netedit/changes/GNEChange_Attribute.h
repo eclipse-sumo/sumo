@@ -47,18 +47,41 @@ class GNEChange_Attribute : public GNEChange {
     FXDECLARE_ABSTRACT(GNEChange_Attribute)
 
 public:
-    /**@brief Constructor
+    /**@brief Constructor for NetElements
      * @param[in] ac The attribute-carrier to be modified
      * @param[in] key The attribute key
      * @param[in] value The new value
      * @param[in] testingMode flag to indicate if netedit is running in testing mode
      */
-    GNEChange_Attribute(GNEAttributeCarrier* ac,
+    GNEChange_Attribute(GNENetElement* netElement,
                         const SumoXMLAttr key,
                         const std::string& value,
                         bool customOrigValue = false,
                         const std::string& origValue = "");
 
+    /**@brief Constructor for Additionals
+     * @param[in] ac The attribute-carrier to be modified
+     * @param[in] key The attribute key
+     * @param[in] value The new value
+     * @param[in] testingMode flag to indicate if netedit is running in testing mode
+     */
+    GNEChange_Attribute(GNEAdditional* additionals,
+                        const SumoXMLAttr key,
+                        const std::string& value,
+                        bool customOrigValue = false,
+                        const std::string& origValue = "");
+
+    /**@brief Constructor for Shapes
+     * @param[in] ac The attribute-carrier to be modified
+     * @param[in] key The attribute key
+     * @param[in] value The new value
+     * @param[in] testingMode flag to indicate if netedit is running in testing mode
+     */
+    GNEChange_Attribute(GNEShape* shapes,
+                        const SumoXMLAttr key,
+                        const std::string& value,
+                        bool customOrigValue = false,
+                        const std::string& origValue = "");
 
     /// @brief Destructor
     ~GNEChange_Attribute();

@@ -41,21 +41,48 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Attribute, GNEChange, nullptr, 0)
 // member method definitions
 // ===========================================================================
 
-GNEChange_Attribute::GNEChange_Attribute(GNEAttributeCarrier* ac,
+GNEChange_Attribute::GNEChange_Attribute(GNENetElement* netElement,
         SumoXMLAttr key, const std::string& value,
         bool customOrigValue, const std::string& origValue) :
     GNEChange(0, true),
-    myAC(ac),
+    myAC(netElement),
     myKey(key),
-    myOrigValue(customOrigValue ? origValue : ac->getAttribute(key)),
+    myOrigValue(customOrigValue ? origValue : netElement->getAttribute(key)),
     myNewValue(value),
+    myNetElement(netElement),
     myAdditional(nullptr),
     myShape(nullptr) {
     myAC->incRef("GNEChange_Attribute " + toString(myKey));
-    // try to cast AC as netElement, additional or Shape
-    myNetElement = dynamic_cast<GNENetElement*>(myAC);
-    myAdditional = dynamic_cast<GNEAdditional*>(myAC);
-    myShape = dynamic_cast<GNEShape*>(myAC);
+}
+
+
+GNEChange_Attribute::GNEChange_Attribute(GNEAdditional* additionals,
+        SumoXMLAttr key, const std::string& value,
+        bool customOrigValue, const std::string& origValue) :
+    GNEChange(0, true),
+    myAC(additionals),
+    myKey(key),
+    myOrigValue(customOrigValue ? origValue : additionals->getAttribute(key)),
+    myNewValue(value),
+    myNetElement(nullptr),
+    myAdditional(additionals),
+    myShape(nullptr) {
+    myAC->incRef("GNEChange_Attribute " + toString(myKey));
+}
+
+
+GNEChange_Attribute::GNEChange_Attribute(GNEShape* shapes,
+        SumoXMLAttr key, const std::string& value,
+        bool customOrigValue, const std::string& origValue) :
+    GNEChange(0, true),
+    myAC(shapes),
+    myKey(key),
+    myOrigValue(customOrigValue ? origValue : shapes->getAttribute(key)),
+    myNewValue(value),
+    myNetElement(nullptr),
+    myAdditional(nullptr),
+    myShape(shapes) {
+    myAC->incRef("GNEChange_Attribute " + toString(myKey));
 }
 
 
