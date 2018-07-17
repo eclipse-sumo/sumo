@@ -120,7 +120,7 @@ GNECalibratorRoute::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_COLOR:
             return toString(myColor);
         case GNE_ATTR_GENERIC:
-            return getGenericParameterStr();
+            return getGenericParametersStr();
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -160,7 +160,7 @@ GNECalibratorRoute::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_COLOR:
             return canParse<RGBColor>(value);
         case GNE_ATTR_GENERIC:
-            return isGenericParameterValid(value);
+            return isGenericParametersValid(value);
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -195,7 +195,7 @@ GNECalibratorRoute::setAttribute(SumoXMLAttr key, const std::string& value) {
             myColor = parse<RGBColor>(value);
             break;
         case GNE_ATTR_GENERIC:
-            setGenericParameterStr(value);
+            setGenericParametersStr(value);
             break;
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");

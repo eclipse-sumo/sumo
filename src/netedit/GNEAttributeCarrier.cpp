@@ -23,6 +23,7 @@
 
 #include <algorithm>
 #include <utils/common/MsgHandler.h>
+#include <utils/common/StringTokenizer.h>
 #include <utils/xml/SUMOSAXAttributes.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/globjects/GUIGlObject.h>
@@ -576,6 +577,73 @@ GNEAttributeCarrier::AttributeValues::isNonEditable() const {
 }
 
 // ---------------------------------------------------------------------------
+// GenericParameter - methods
+// ---------------------------------------------------------------------------
+
+GNEAttributeCarrier::GenericParameter::GenericParameter(const std::string &parameter, const std::string &attribute) :
+    pair(parameter, attribute) {}
+
+
+GNEAttributeCarrier::GenericParameter::GenericParameter(const std::string &value) :
+    pair("", "") {
+    // check that 
+    assert(std::count(value.begin(), value.end(), '=') == 1);
+    bool change = false;
+    // separate value in key and attribute
+    for(auto i : value) {
+        if(i == '=') {
+            change = true;
+        } else if(!change) {
+            first.push_back(i);
+        } else {
+            second.push_back(i);
+        }
+    }
+    assert(!first.empty() && !second.empty());
+}
+
+
+std::string&
+GNEAttributeCarrier::GenericParameter::parameter() {
+    return first;
+}
+        
+
+std::string&
+GNEAttributeCarrier::GenericParameter::attribute() {
+    return second;
+}
+
+
+bool 
+GNEAttributeCarrier::GenericParameter::isGenericParameterValid(const std::string &value) {
+    // only exactly one '=' is allowed
+    if(std::count(value.begin(), value.end(), '=') == 1) {
+        std::string key;
+        std::string attribute;
+        bool change = false;
+        // separate value in key and attribute
+        for(auto i : value) {
+            if(i == '=') {
+                change = true;
+            } else if(!change) {
+                key.push_back(i);
+            } else {
+                attribute.push_back(i);
+            }
+        }
+        // key and attributes cannot be empty
+        if (key.empty() || attribute.empty()) {
+            return false;
+        } else {
+            return isValidID(key) && isValidID(attribute);
+        }
+    } else {
+        return false;
+    }
+}
+
+// ---------------------------------------------------------------------------
 // GNEAttributeCarrier - methods
 // ---------------------------------------------------------------------------
 
@@ -941,7 +1009,7 @@ bool
 GNEAttributeCarrier::addGenericParameter(const std::string &parameter, const std::string &value) {
     // make sure that generic parameter isn't duplicated
     for (auto i : myGenericParameters) {
-        if(i.parameter == parameter) {
+        if(i.parameter() == parameter) {
             return false;
         }
     }
@@ -955,7 +1023,7 @@ bool
 GNEAttributeCarrier::removeGenericParameter(const std::string &parameter) {
     // make sure that generic parameter exist
     for(int i = 0; i < (int)myGenericParameters.size(); i++) {
-        if(myGenericParameters.at(i).parameter == parameter) {
+        if(myGenericParameters.at(i).parameter() == parameter) {
             myGenericParameters.erase(myGenericParameters.begin() + i);
             return true;
         }
@@ -968,14 +1036,14 @@ bool
 GNEAttributeCarrier::updateGenericParameter(const std::string &oldParameter, const std::string &newParameter) {
     // first check that new parameter doesn't exist already
     for (auto i : myGenericParameters) {
-        if(i.parameter == newParameter) {
+        if(i.parameter() == newParameter) {
             return false;
         }
     }
     // find and replace parameter
     for (auto i : myGenericParameters) {
-        if(i.parameter == oldParameter) {
-            i.parameter = newParameter;
+        if(i.parameter() == oldParameter) {
+            i.parameter() = newParameter;
             return true;
         }
     }
@@ -988,8 +1056,8 @@ bool
 GNEAttributeCarrier::updateGenericParameterValue(const std::string &parameter, const std::string &newValue) {
     // find and replace parameter
     for (auto i : myGenericParameters) {
-        if(i.parameter == parameter) {
-            i.parameter = newValue;
+        if(i.parameter() == parameter) {
+            i.parameter() = newValue;
             return true;
         }
     }
@@ -999,17 +1067,29 @@ GNEAttributeCarrier::updateGenericParameterValue(const std::string &parameter, c
 
 
 bool 
-GNEAttributeCarrier::isGenericParameterValid(const std::string &value) const {
+GNEAttributeCarrier::isGenericParametersValid(const std::string &value) const {
+    // separate value in a vector of string using | as separator
+    std::vector<std::string> parsedValues;
+    StringTokenizer st(value, "|", true);
+    while (st.hasNext()) {
+        parsedValues.push_back(st.next());
+    }
+    // check that  parsed values can be parsed in generic parameter
+    for(auto i : parsedValues) {
+        if(!GenericParameter::isGenericParameterValid(i)) {
+            return false;
+        }
+    }
     return true;
 }
 
 
 std::string 
-GNEAttributeCarrier::getGenericParameterStr() const {
+GNEAttributeCarrier::getGenericParametersStr() const {
     std::string result;
     // Generate an string using the following structure: "key1=value1|key2=value2|...
     for (auto i : myGenericParameters) {
-        result += i.parameter + "=" + i.attribute + "|";
+        result += i.parameter() + "=" + i.attribute() + "|";
     }
     // remove the last "|"
     if(!result.empty()) {
@@ -1020,8 +1100,19 @@ GNEAttributeCarrier::getGenericParameterStr() const {
 
 
 void 
-GNEAttributeCarrier::setGenericParameterStr(const std::string &value) const {
-
+GNEAttributeCarrier::setGenericParametersStr(const std::string &value) {
+    // separate value in a vector of string using | as separator
+    std::vector<std::string> parsedValues;
+    StringTokenizer st(value, "|", true);
+    while (st.hasNext()) {
+        parsedValues.push_back(st.next());
+    }
+    // clear current existent generic parameters
+    myGenericParameters.clear();
+    // check that  parsed values can be parsed in generic parameter
+    for(auto i : parsedValues) {
+        myGenericParameters.push_back(GenericParameter(i));
+    }
 }
 
 

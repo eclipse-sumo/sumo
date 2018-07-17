@@ -354,17 +354,22 @@ public:
     };
 
     /// @brief struct for generic parameter
-    struct GenericParameter {
+    class GenericParameter : private std::pair<std::string, std::string> {
+    public:
         /// @brief constructor
-        GenericParameter(const std::string &_parameter, const std::string &_attribute) :
-            parameter(_parameter),
-            attribute(_attribute) { }
+        GenericParameter(const std::string &parameter, const std::string &attribute);
 
-        /// @brief parameter
-        std::string parameter;
+        /// @brief constructor using string
+        GenericParameter(const std::string &value);
+
+        /// @brief reference to generic parameter
+        std::string &parameter();
         
-        /// @brief attribute
-        std::string attribute;
+        /// @brief reference to generic attribute
+        std::string &attribute();
+
+        /// @brief check if a string can be parsed to a GenericParameter
+        static bool isGenericParameterValid(const std::string &value);
     };
 
     /**@brief Constructor
@@ -473,13 +478,13 @@ public:
     bool updateGenericParameterValue(const std::string &parameter, const std::string &newValue);
 
     /// @brief check if given generic parameter is valid
-    bool isGenericParameterValid(const std::string &value) const;
+    bool isGenericParametersValid(const std::string &value) const;
 
     /// @brief return generic parameters in string format
-    std::string getGenericParameterStr() const;
+    std::string getGenericParametersStr() const;
 
     /// @brief set generic parameters in string format
-    void setGenericParameterStr(const std::string &value) const;
+    void setGenericParametersStr(const std::string &value);
 
     /// @brief maximun number of generic parameters (currently 100)
     static const int MAXNUMBER_GENERICPARAMETERS;

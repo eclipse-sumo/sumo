@@ -101,7 +101,7 @@ GNERerouterInterval::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_PARENT:
             return myFirstAdditionalParent->getID();
         case GNE_ATTR_GENERIC:
-            return getGenericParameterStr();
+            return getGenericParametersStr();
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -144,7 +144,7 @@ GNERerouterInterval::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_END:
             return canParse<double>(value) && (parse<double>(value) >= 0) && (parse<double>(value) > myBegin);
         case GNE_ATTR_GENERIC:
-            return isGenericParameterValid(value);
+            return isGenericParametersValid(value);
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -179,7 +179,7 @@ GNERerouterInterval::setAttribute(SumoXMLAttr key, const std::string& value) {
             myEnd = parse<double>(value);
             break;
         case GNE_ATTR_GENERIC:
-            setGenericParameterStr(value);
+            setGenericParametersStr(value);
             break;
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");

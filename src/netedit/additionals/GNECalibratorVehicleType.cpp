@@ -194,7 +194,7 @@ GNECalibratorVehicleType::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_MAXSPEED_LAT:
             return toString(myMaxSpeedLat);
         case GNE_ATTR_GENERIC:
-            return getGenericParameterStr();
+            return getGenericParametersStr();
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -306,7 +306,7 @@ GNECalibratorVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_MAXSPEED_LAT:
             return canParse<double>(value);
         case GNE_ATTR_GENERIC:
-            return isGenericParameterValid(value);
+            return isGenericParametersValid(value);
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -410,7 +410,7 @@ GNECalibratorVehicleType::setAttribute(SumoXMLAttr key, const std::string& value
             myMaxSpeedLat = parse<double>(value);
             break;
         case GNE_ATTR_GENERIC:
-            setGenericParameterStr(value);
+            setGenericParametersStr(value);
             break;
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
