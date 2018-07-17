@@ -43,6 +43,7 @@
 #include <netedit/GNEViewParent.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEAttributeCarrier.h>
+#include <netedit/dialogs/GNEGenericParameterDialog.h>
 
 #include "GNEFrame.h"
 #include "GNEInspectorFrame.h"
@@ -62,10 +63,9 @@ FXDEFMAP(GNEFrame::ACHierarchy) GNEFrameACHierarchyMap[] = {
 };
 
 FXDEFMAP(GNEFrame::GenericParametersEditor) GenericParametersEditorMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADD_ATTRIBUTE,      GNEFrame::GenericParametersEditor::onCmdAddGenericParameter),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_REMOVE_ATTRIBUTE,   GNEFrame::GenericParametersEditor::onCmdRemoveGenericParameter),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,      GNEFrame::GenericParametersEditor::onCmdSetGenericParameter),
-    FXMAPFUNC(SEL_COMMAND,  MID_HELP,                   GNEFrame::GenericParametersEditor::onCmdGenericParameterHelp),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,   GNEFrame::GenericParametersEditor::onCmdEditGenericParameter),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,          GNEFrame::GenericParametersEditor::onCmdSetGenericParameter),
+    FXMAPFUNC(SEL_COMMAND,  MID_HELP,                       GNEFrame::GenericParametersEditor::onCmdGenericParameterHelp),
 };
 
 // Object implementation
@@ -492,16 +492,9 @@ GNEFrame::ACHierarchy::addACIntoList(GNEAttributeCarrier *AC, FXTreeItem* itemPa
 GNEFrame::GenericParametersEditor::GenericParametersEditor(GNEFrame* inspectorFrameParent) :
     FXGroupBox(inspectorFrameParent->myContentFrame, "Generic parameters", GUIDesignGroupBoxFrame),
     myFrameParent(inspectorFrameParent) {
-    // create label for generic parameters
-    myLabelGenericParameters = new FXLabel(this, "No generic parameters", 0, GUIDesignLabelFrameInformation);
-    // create all generic parameters rows
-    for(int i = 0; i < GNEAttributeCarrier::MAXNUMBER_GENERICPARAMETERS; i++) {
-        myGenericParameterRows.push_back(GenericParameterRow(this));
-    }
-    FXHorizontalFrame* horizontalFrameAdd = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    // create label and button for add
-    new FXLabel(horizontalFrameAdd, "Add parameter", 0, GUIDesignLabelFrameInformation);
-    myAddGenericParameter = new FXButton(horizontalFrameAdd, "", GUIIconSubSys::getIcon(ICON_ADD), this, MID_GNE_ADD_ATTRIBUTE, GUIDesignButtonIcon);
+    // create textfield and buttons
+    myGenericParameterField = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    myEditGenericParameterButton = new FXButton(this, "Edit generic parameter", 0, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButton);
     // Create help button
     myHelpButton = new FXButton(this, "Help", 0, this, MID_HELP, GUIDesignButtonRectangular);
 }
@@ -524,64 +517,21 @@ GNEFrame::GenericParametersEditor::hideGenericParametersEditor() {
 
 
 void 
-GNEFrame::GenericParametersEditor::refreshGenericParametersEditor(bool forceRefresh) {
+GNEFrame::GenericParametersEditor::refreshGenericParametersEditor() {
     ;
 }
 
 
 long 
-GNEFrame::GenericParametersEditor::onCmdAddGenericParameter(FXObject*, FXSelector, void*) {
-    // show rows
-    for (auto i : myGenericParameterRows) {
-        if(!i.shown()) {
-            // show first hidden row
-            i.showRow(true);
-            // disable add button if this is the last generic parameter
-            if(i.removeButton == myGenericParameterRows.back().removeButton) {
-                myAddGenericParameter->disable();
-            }
-            // hide myLabelGenericParameters if previously was shown
-            if(myLabelGenericParameters->shown()) {
-                myLabelGenericParameters->hide();
-            }
-            return 1;
-        }
-    }
+GNEFrame::GenericParametersEditor::onCmdEditGenericParameter(FXObject*, FXSelector, void*) {
+
     return 1;
 }
 
 
 long 
-GNEFrame::GenericParametersEditor::onCmdRemoveGenericParameter(FXObject* button, FXSelector, void*) {
-    // search clicked button and save position in index
-    for (int i = 0; i < myGenericParameterRows.size(); i++) {
-        if (myGenericParameterRows.at(i).removeButton == button) {
-            // copy values of the next rows to the last row
-            for (int j = i; (j < myGenericParameterRows.size() - 1); j++) {
-                myGenericParameterRows.at(j).copyValues(myGenericParameterRows.at(j+1));
-            }
-        }
-    }
-    // hide last row
-    for (int i = 1; i < myGenericParameterRows.size(); i++) {
-        if(!myGenericParameterRows.at(i).shown()) {
-            myGenericParameterRows.at(i-1).hideRow();
-            // enable add generic parameter button if previously was disbled
-            if(!myAddGenericParameter->isEnabled()) {
-                myAddGenericParameter->enable();
-            }
-        }
-    }
-    // show label if first generic parameter row is hidden
-    if(!myGenericParameterRows.front().shown()) {
-        myLabelGenericParameters->show();
-    }
-    return 1;
-}
+GNEFrame::GenericParametersEditor::onCmdSetGenericParameter(FXObject*, FXSelector, void*) {
 
-
-long
-GNEFrame::GenericParametersEditor::onCmdSetGenericParameter(FXObject* obj, FXSelector, void*) {
     return 1;
 }
 
@@ -589,53 +539,6 @@ GNEFrame::GenericParametersEditor::onCmdSetGenericParameter(FXObject* obj, FXSel
 long 
 GNEFrame::GenericParametersEditor::onCmdGenericParameterHelp(FXObject*, FXSelector, void*) {
     return 0;
-}
-
-
-GNEFrame::GenericParametersEditor::GenericParameterRow::GenericParameterRow(GNEFrame::GenericParametersEditor *genericParametersEditor) {
-    horizontalFrame = new FXHorizontalFrame(genericParametersEditor, GUIDesignAuxiliarHorizontalFrame);
-    parameterField = new FXTextField(horizontalFrame, GUIDesignTextFieldNCol, genericParametersEditor, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    valueField = new FXTextField(horizontalFrame, GUIDesignTextFieldNCol, genericParametersEditor, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    removeButton = new FXButton(horizontalFrame, "", GUIIconSubSys::getIcon(ICON_REMOVE), genericParametersEditor, MID_GNE_REMOVE_ATTRIBUTE, GUIDesignButtonIcon);
-    // by defaults rows are hidden
-    hideRow();
-}
-
-
-void 
-GNEFrame::GenericParametersEditor::GenericParameterRow::showRow(bool clear) {
-    horizontalFrame->show();
-    parameterField->show();
-    valueField->show();
-    removeButton->show();
-    if(clear) {
-        parameterField->setText("");
-        valueField->setText("");
-    }
-    horizontalFrame->getParent()->recalc();
-}
-
-
-void 
-GNEFrame::GenericParametersEditor::GenericParameterRow::hideRow() {
-    horizontalFrame->hide();
-    parameterField->hide();
-    valueField->hide();
-    removeButton->hide();
-    horizontalFrame->getParent()->recalc();
-}
-
-
-bool 
-GNEFrame::GenericParametersEditor::GenericParameterRow::shown() const {
-    return horizontalFrame->shown();
-}
-
-
-void 
-GNEFrame::GenericParametersEditor::GenericParameterRow::copyValues(const GenericParameterRow & other) {
-    parameterField->setText(other.parameterField->getText());
-    valueField->setText(other.valueField->getText());
 }
 
 // ---------------------------------------------------------------------------

@@ -145,18 +145,14 @@ public:
         void hideGenericParametersEditor();
 
         /// @brief refresh netedit attributes
-        void refreshGenericParametersEditor(bool forceRefresh);
+        void refreshGenericParametersEditor();
 
         /// @name FOX-callbacks
         /// @{
-
         /// @brief Called when user clicks over add generic parameter
-        long onCmdAddGenericParameter(FXObject*, FXSelector, void*);
+        long onCmdEditGenericParameter(FXObject*, FXSelector, void*);
 
-         /// @brief Called when user clicks over a remove generic parameter
-        long onCmdRemoveGenericParameter(FXObject* button, FXSelector, void*);
-
-        /// @brief Called when user change the current GEO Attribute
+        /// @brief Called when user udpate the generic parameter text field
         long onCmdSetGenericParameter(FXObject*, FXSelector, void*);
 
         /// @brief Called when user press the help button
@@ -168,51 +164,17 @@ public:
         GenericParametersEditor() {}
 
     private:
-        /// @brief struct for generic parameters Row
-        struct GenericParameterRow {
-            /// @brief 
-            GenericParameterRow(GenericParametersEditor * genericParametersEditor);
-
-            /// @brief show row
-            void showRow(bool clear);
-
-            /// @brief hide row
-            void hideRow();
-
-            /// @brief check if row is shown
-            bool shown() const;
-
-            /// @brief copy values of other parameter Row
-            void copyValues(const GenericParameterRow & other);
-
-            /// @brief TextField for parameter
-            FXTextField *parameterField;
-
-            /// @brief TextField for value
-            FXTextField *valueField;
-
-            /// @brief Button for remove parameter row
-            FXButton *removeButton;
-
-        private:
-            /// @brief frame in which elements are placed
-            FXHorizontalFrame* horizontalFrame;
-        };
-
         /// @brief pointer to inspector frame parent
         GNEFrame* myFrameParent;
 
-        /// @brief Label for additional parent
-        FXLabel* myLabelGenericParameters;
+        /// @brief text field for write generic parameter
+        FXTextField *myGenericParameterField;
 
         /// @brief button for add generic parameter
-        FXButton* myAddGenericParameter;
+        FXButton* myEditGenericParameterButton;
 
         /// @brief button for help
         FXButton* myHelpButton;
-
-        /// @brief vector with the current GenericParameterRow
-        std::vector<GenericParameterRow> myGenericParameterRows;
     };
 
     /**@brief Constructor
