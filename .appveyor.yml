@@ -16,9 +16,8 @@ environment:
           configuration: Release
 
 install:
-    - curl -fsS -o SUMOLibraries-master.zip https://codeload.github.com/DLR-TS/SUMOLibraries/zip/master
-    - 7z x SUMOLibraries-master.zip
-    - set SUMO_LIBRARIES=%CD%\SUMOLibraries-master
+    - git clone https://github.com/DLR-TS/SUMOLibraries
+    - set SUMO_LIBRARIES=%CD%\SUMOLibraries
 
 build_script:
     - cd %APPVEYOR_BUILD_FOLDER%
