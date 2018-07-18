@@ -544,7 +544,7 @@ GNEFrame::GenericParametersEditor::getGenericParametersStr() const {
     std::string result;
     // Generate an string using the following structure: "key1=value1|key2=value2|...
     for (auto i = myGenericParameters->begin(); i != myGenericParameters->end(); i++) {
-        result += i->parameter() + "=" + i->attribute() + "|";
+        result += i->key() + "=" + i->value() + "|";
     }
     // remove the last "|"
     if(!result.empty()) {
@@ -557,6 +557,10 @@ GNEFrame::GenericParametersEditor::getGenericParametersStr() const {
 long 
 GNEFrame::GenericParametersEditor::onCmdEditGenericParameter(FXObject*, FXSelector, void*) {
     GNEGenericParameterDialog(myFrameParent->getViewNet(), myGenericParameters).execute();
+    // set values edited in Parameter dialog in Edited AC
+    if(myAC) {
+        myAC->setAttribute(GNE_ATTR_GENERIC, getGenericParametersStr(), myFrameParent->getViewNet()->getUndoList());
+    }
     // Refresh parameter editor
     refreshGenericParametersEditor();
     return 1;
@@ -571,9 +575,17 @@ GNEFrame::GenericParametersEditor::onCmdSetGenericParameter(FXObject*, FXSelecto
     while (st.hasNext()) {
         parsedValues.push_back(st.next());
     }
+    // first check if we have more than 100 values
+    if(parsedValues.size() > GNEAttributeCarrier::MAXNUMBER_GENERICPARAMETERS) {
+        WRITE_WARNING("Maximun number of Generic Parameters reached. Only " + toString(GNEAttributeCarrier::MAXNUMBER_GENERICPARAMETERS) + " are allowed.");
+        myTextFieldGenericParameter->setTextColor(FXRGB(255, 0, 0));
+        myTextFieldGenericParameter->killFocus();
+        return 1;
+    }
     // first check if parsed generic parameters are valid
     for(auto i : parsedValues) {
         if(!GNEAttributeCarrier::GenericParameter::isGenericParameterValid(i)) {
+            WRITE_WARNING("Invalid format of Generic Parameter (" + i + ")");
             myTextFieldGenericParameter->setTextColor(FXRGB(255, 0, 0));
             myTextFieldGenericParameter->killFocus();
             return 1;
@@ -582,7 +594,8 @@ GNEFrame::GenericParametersEditor::onCmdSetGenericParameter(FXObject*, FXSelecto
     // now check if there is duplicated parameters
     std::sort(parsedValues.begin(), parsedValues.end());
     for (auto i = parsedValues.begin(); i != parsedValues.end(); i++) {
-        if(((i+1) != parsedValues.end()) && (GNEAttributeCarrier::GenericParameter(*i).parameter()) == GNEAttributeCarrier::GenericParameter(*(i+1)).parameter()) {
+        if(((i+1) != parsedValues.end()) && (GNEAttributeCarrier::GenericParameter(*i).key()) == GNEAttributeCarrier::GenericParameter(*(i+1)).key()) {
+            WRITE_WARNING("Generic Parameters wit the same key aren't allowed (" + (*i) + " - " + *(i+1) + ")");
             myTextFieldGenericParameter->setTextColor(FXRGB(255, 0, 0));
             myTextFieldGenericParameter->killFocus();
             return 1;

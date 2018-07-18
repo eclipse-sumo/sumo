@@ -599,18 +599,19 @@ GNEAttributeCarrier::GenericParameter::GenericParameter(const std::string &value
             second.push_back(i);
         }
     }
-    assert(!first.empty() && !second.empty());
+    // check that key isn't empty
+    assert(!first.empty());
 }
 
 
 std::string&
-GNEAttributeCarrier::GenericParameter::parameter() {
+GNEAttributeCarrier::GenericParameter::key() {
     return first;
 }
         
 
 std::string&
-GNEAttributeCarrier::GenericParameter::attribute() {
+GNEAttributeCarrier::GenericParameter::value() {
     return second;
 }
 
@@ -632,8 +633,8 @@ GNEAttributeCarrier::GenericParameter::isGenericParameterValid(const std::string
                 attribute.push_back(i);
             }
         }
-        // key and attributes cannot be empty
-        if (key.empty() || attribute.empty()) {
+        // key cannot be empty
+        if (key.empty()) {
             return false;
         } else {
             return isValidID(key) && isValidID(attribute);
@@ -1006,24 +1007,24 @@ GNEAttributeCarrier::getHigherNumberOfAttributes() {
 
 
 bool 
-GNEAttributeCarrier::addGenericParameter(const std::string &parameter, const std::string &value) {
+GNEAttributeCarrier::addGenericParameter(const std::string &key, const std::string &value) {
     // make sure that generic parameter isn't duplicated
     for (auto i : myGenericParameters) {
-        if(i.parameter() == parameter) {
+        if(i.key() == key) {
             return false;
         }
     }
     // add generic parameter
-    myGenericParameters.push_back(GenericParameter(parameter, value));
+    myGenericParameters.push_back(GenericParameter(key, value));
     return true;
 }
 
 
 bool 
-GNEAttributeCarrier::removeGenericParameter(const std::string &parameter) {
+GNEAttributeCarrier::removeGenericParameter(const std::string &key) {
     // make sure that generic parameter exist
     for(int i = 0; i < (int)myGenericParameters.size(); i++) {
-        if(myGenericParameters.at(i).parameter() == parameter) {
+        if(myGenericParameters.at(i).key() == key) {
             myGenericParameters.erase(myGenericParameters.begin() + i);
             return true;
         }
@@ -1033,17 +1034,17 @@ GNEAttributeCarrier::removeGenericParameter(const std::string &parameter) {
 
 
 bool 
-GNEAttributeCarrier::updateGenericParameter(const std::string &oldParameter, const std::string &newParameter) {
+GNEAttributeCarrier::updateGenericParameter(const std::string &oldKey, const std::string &newKey) {
     // first check that new parameter doesn't exist already
     for (auto i : myGenericParameters) {
-        if(i.parameter() == newParameter) {
+        if(i.key() == newKey) {
             return false;
         }
     }
     // find and replace parameter
     for (auto i : myGenericParameters) {
-        if(i.parameter() == oldParameter) {
-            i.parameter() = newParameter;
+        if(i.key() == oldKey) {
+            i.key() = newKey;
             return true;
         }
     }
@@ -1053,11 +1054,11 @@ GNEAttributeCarrier::updateGenericParameter(const std::string &oldParameter, con
 
 
 bool 
-GNEAttributeCarrier::updateGenericParameterValue(const std::string &parameter, const std::string &newValue) {
+GNEAttributeCarrier::updateGenericParameterValue(const std::string &key, const std::string &newValue) {
     // find and replace parameter
     for (auto i : myGenericParameters) {
-        if(i.parameter() == parameter) {
-            i.parameter() = newValue;
+        if(i.key() == key) {
+            i.key() = newValue;
             return true;
         }
     }
@@ -1074,6 +1075,10 @@ GNEAttributeCarrier::isGenericParametersValid(const std::string &value) {
     while (st.hasNext()) {
         parsedValues.push_back(st.next());
     }
+    // check number of parsed values (cannot be greather than MAXNUMBER_GENERICPARAMETERS)
+    if(parsedValues.size() > MAXNUMBER_GENERICPARAMETERS) {
+        return false;
+    }
     // check that  parsed values can be parsed in generic parameter
     for(auto i : parsedValues) {
         if(!GenericParameter::isGenericParameterValid(i)) {
@@ -1089,7 +1094,7 @@ GNEAttributeCarrier::getGenericParametersStr() const {
     std::string result;
     // Generate an string using the following structure: "key1=value1|key2=value2|...
     for (auto i : myGenericParameters) {
-        result += i.parameter() + "=" + i.attribute() + "|";
+        result += i.key() + "=" + i.value() + "|";
     }
     // remove the last "|"
     if(!result.empty()) {

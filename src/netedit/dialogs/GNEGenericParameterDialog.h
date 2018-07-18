@@ -53,8 +53,11 @@ public:
 
     /// @name FOX-callbacks
     /// @{
-    /// @brief event when user press a enable/disable button
+    /// @brief event when user change an attribute
     long onCmdSetAttribute(FXObject*, FXSelector, void*);
+
+    /// @brief event when user press a remove (or add) button
+    long onCmdRemoveAttribute(FXObject*, FXSelector, void*);
 
     /// @brief event after press accept button
     long onCmdAccept(FXObject*, FXSelector, void*);
@@ -98,19 +101,22 @@ private:
         void enableRow(const std::string &parameter, const std::string &value) const;
 
         /// @brief toogle add button
-        void toogleAddButton() const;
+        void toogleAddButton();
+
+        /// @brief check if remove button is in mode "add"
+        bool isButtonInAddMode() const;
 
         /// @brief copy values of other parameter Row
         void copyValues(const GenericParameterRow & other);
 
         /// @brief TextField for parameter
-        FXTextField *parameterField;
+        FXTextField *keyField;
 
         /// @brief TextField for value
         FXTextField *valueField;
 
-        /// @brief Button for remove parameter row
-        FXButton *removeButton;
+        /// @brief Button for add or remove row
+        FXButton *button;
 
     private:
         /// @brief frame in which elements are placed
@@ -120,6 +126,11 @@ private:
     /// @brief vector with the GenericParameterRows
     std::vector<GenericParameterRow> myGenericParameterRows;
 
+    // @brief copy of current edited Generic Parameters (using for reset)
+    const std::vector<GNEAttributeCarrier::GenericParameter> myCopyOfGenericParameters;
+
+    /// @brief update values
+    void updateValues();
 
     /// @brief Invalidated copy constructor.
     GNEGenericParameterDialog(const GNEGenericParameterDialog&) = delete;

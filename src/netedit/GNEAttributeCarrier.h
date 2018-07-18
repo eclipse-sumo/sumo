@@ -362,11 +362,11 @@ public:
         /// @brief constructor using string
         GenericParameter(const std::string &value);
 
-        /// @brief reference to generic parameter
-        std::string &parameter();
+        /// @brief reference to generic parameter key
+        std::string &key();
         
-        /// @brief reference to generic attribute
-        std::string &attribute();
+        /// @brief reference to generic parameter value
+        std::string &value();
 
         /// @brief check if a string can be parsed to a GenericParameter
         static bool isGenericParameterValid(const std::string &value);
@@ -466,16 +466,16 @@ public:
     static int getHigherNumberOfAttributes();
 
     /// @brief add generic parameter
-    bool addGenericParameter(const std::string &parameter, const std::string &value);
+    bool addGenericParameter(const std::string &key, const std::string &value);
 
     /// @brief remove generic parameter
-    bool removeGenericParameter(const std::string &parameter);
+    bool removeGenericParameter(const std::string &key);
 
     /// @brief update generic parameter
-    bool updateGenericParameter(const std::string &oldParameter, const std::string &newParameter);
+    bool updateGenericParameter(const std::string &oldKey, const std::string &newKey);
 
     /// @brief update value generic parameter 
-    bool updateGenericParameterValue(const std::string &parameter, const std::string &newValue);
+    bool updateGenericParameterValue(const std::string &key, const std::string &newValue);
 
     /// @brief check if given generic parameter is valid
     static bool isGenericParametersValid(const std::string &value);
