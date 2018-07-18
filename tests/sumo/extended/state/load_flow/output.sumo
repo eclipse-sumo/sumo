@@ -3,5 +3,5 @@ Loading state from 'input_state.xml'...
 done (1ms).
 Loading done.
 Simulation started with time: 10.00
-Simulation ended at time: 110.00
+Simulation ended at time: 136.00
 Reason: All vehicles have left the simulation.
