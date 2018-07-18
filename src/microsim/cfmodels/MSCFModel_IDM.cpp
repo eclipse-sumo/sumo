@@ -25,9 +25,6 @@
 
 #include "MSCFModel_IDM.h"
 #include <microsim/MSVehicle.h>
-#include <microsim/MSLane.h>
-#include <utils/common/RandHelper.h>
-#include <utils/common/SUMOTime.h>
 
 
 // ===========================================================================
