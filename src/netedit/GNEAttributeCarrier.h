@@ -478,13 +478,16 @@ public:
     bool updateGenericParameterValue(const std::string &parameter, const std::string &newValue);
 
     /// @brief check if given generic parameter is valid
-    bool isGenericParametersValid(const std::string &value) const;
+    static bool isGenericParametersValid(const std::string &value);
 
     /// @brief return generic parameters in string format
     std::string getGenericParametersStr() const;
 
     /// @brief set generic parameters in string format
     void setGenericParametersStr(const std::string &value);
+
+    /// @brief get generic parameters
+    const std::vector<GenericParameter> &getGenericParameters() const;
 
     /// @brief maximun number of generic parameters (currently 100)
     static const int MAXNUMBER_GENERICPARAMETERS;
@@ -764,10 +767,6 @@ protected:
     /// @brief boolean to check if this AC is selected (instead of GUIGlObjectStorage)
     bool mySelected;
 
-    /// @brief Vector with the generic parameters
-    std::vector<GenericParameter> myGenericParameters;
-
-private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
 
@@ -779,6 +778,9 @@ private:
 
     /// @brief the xml tag to which this attribute carrier corresponds
     const SumoXMLTag myTag;
+
+    /// @brief Vector with the generic parameters
+    std::vector<GenericParameter> myGenericParameters;
 
     /// @brief map with the tags values
     static std::map<SumoXMLTag, TagValues> myAllowedTags;

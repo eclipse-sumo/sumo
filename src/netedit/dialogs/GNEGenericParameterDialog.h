@@ -46,7 +46,7 @@ class GNEGenericParameterDialog : public FXDialogBox {
 
 public:
     /// @brief Constructor
-    GNEGenericParameterDialog(GNEViewNet* viewNet, GNEAttributeCarrier* AC);
+    GNEGenericParameterDialog(GNEViewNet* viewNet, std::vector<GNEAttributeCarrier::GenericParameter> *genericParameters);
 
     /// @brief destructor
     ~GNEGenericParameterDialog();
@@ -54,7 +54,7 @@ public:
     /// @name FOX-callbacks
     /// @{
     /// @brief event when user press a enable/disable button
-    long onCmdValueChanged(FXObject*, FXSelector, void*);
+    long onCmdSetAttribute(FXObject*, FXSelector, void*);
 
     /// @brief event after press accept button
     long onCmdAccept(FXObject*, FXSelector, void*);
@@ -73,8 +73,8 @@ protected:
     /// @pointer to viewNet
     GNEViewNet* myViewNet;
 
-    /// @brief edited AC
-    GNEAttributeCarrier *myAC;
+    /// @brief edited generic parameters
+    std::vector<GNEAttributeCarrier::GenericParameter> *myGenericParameters;
 
     /// @brief accept button
     FXButton* myAcceptButton;
@@ -89,16 +89,16 @@ private:
     /// @brief struct for generic parameters Row
     struct GenericParameterRow {
         /// @brief 
-        GenericParameterRow(GNEGenericParameterDialog * genericParametersEditor);
+        GenericParameterRow(GNEGenericParameterDialog * genericParametersEditor, FXVerticalFrame* frame);
 
-        /// @brief show row
-        void showRow(bool clear);
+        /// @brief disable row
+        void disableRow();
 
-        /// @brief hide row
-        void hideRow();
+        /// @brief enable rlow
+        void enableRow(const std::string &parameter, const std::string &value) const;
 
-        /// @brief check if row is shown
-        bool shown() const;
+        /// @brief toogle add button
+        void toogleAddButton() const;
 
         /// @brief copy values of other parameter Row
         void copyValues(const GenericParameterRow & other);
@@ -116,6 +116,10 @@ private:
         /// @brief frame in which elements are placed
         FXHorizontalFrame* horizontalFrame;
     };
+
+    /// @brief vector with the GenericParameterRows
+    std::vector<GenericParameterRow> myGenericParameterRows;
+
 
     /// @brief Invalidated copy constructor.
     GNEGenericParameterDialog(const GNEGenericParameterDialog&) = delete;

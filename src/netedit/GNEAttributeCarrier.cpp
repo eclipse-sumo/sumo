@@ -1067,7 +1067,7 @@ GNEAttributeCarrier::updateGenericParameterValue(const std::string &parameter, c
 
 
 bool 
-GNEAttributeCarrier::isGenericParametersValid(const std::string &value) const {
+GNEAttributeCarrier::isGenericParametersValid(const std::string &value) {
     // separate value in a vector of string using | as separator
     std::vector<std::string> parsedValues;
     StringTokenizer st(value, "|", true);
@@ -1113,6 +1113,12 @@ GNEAttributeCarrier::setGenericParametersStr(const std::string &value) {
     for(auto i : parsedValues) {
         myGenericParameters.push_back(GenericParameter(i));
     }
+}
+
+
+const std::vector<GNEAttributeCarrier::GenericParameter>&
+GNEAttributeCarrier::getGenericParameters() const {
+    return myGenericParameters;
 }
 
 

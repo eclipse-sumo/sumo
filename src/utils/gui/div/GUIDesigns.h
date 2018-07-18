@@ -39,8 +39,12 @@
 /// @brief text field extended over Frame with thick frame and limited to Doubles/doubles
 #define GUIDesignTextFieldReal              (FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT | TEXTFIELD_REAL), 0, 0, 0, 23, 2, 2, 2, 2
 
+/// @brief text field with thick frame and certain width
+#define GUIDesignTextFielWidth100           (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 100, 23, 2, 2, 2, 2
+
 /// @brief Num of column of text field
 #define GUIDesignTextFieldNCol              1
+
 /// @}
 
 

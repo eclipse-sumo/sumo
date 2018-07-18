@@ -37,7 +37,7 @@
 // ===========================================================================
 
 FXDEFMAP(GNEGenericParameterDialog) GNEGenericParameterDialogMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ALLOWDISALLOW_CHANGE,               GNEGenericParameterDialog::onCmdValueChanged),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,                      GNEGenericParameterDialog::onCmdSetAttribute),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALDIALOG_BUTTONACCEPT,      GNEGenericParameterDialog::onCmdAccept),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALDIALOG_BUTTONCANCEL,      GNEGenericParameterDialog::onCmdCancel),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALDIALOG_BUTTONRESET,       GNEGenericParameterDialog::onCmdReset),
@@ -50,28 +50,39 @@ FXIMPLEMENT(GNEGenericParameterDialog, FXDialogBox, GNEGenericParameterDialogMap
 // member method definitions
 // ===========================================================================
 
-GNEGenericParameterDialog::GNEGenericParameterDialog(GNEViewNet *viewNet, GNEAttributeCarrier *AC) :
-    FXDialogBox(viewNet->getApp(), ("Edit " + toString(SUMO_ATTR_ALLOW) + " " + toString(SUMO_ATTR_VCLASS) + "es").c_str(), GUIDesignDialogBox),
+GNEGenericParameterDialog::GNEGenericParameterDialog(GNEViewNet *viewNet, std::vector<GNEAttributeCarrier::GenericParameter> *genericParameters) :
+    FXDialogBox(viewNet->getApp(), "Edit generic parameters", GUIDesignDialogBox),
     myViewNet(viewNet),
-    myAC(AC) {
-    assert(GNEAttributeCarrier::getTagProperties(AC->getTag()).hasAttribute(SUMO_ATTR_ALLOW));
+    myGenericParameters(genericParameters) {
+    assert(myGenericParameters);
     // set vehicle icon for this dialog
     setIcon(GUIIconSubSys::getIcon(ICON_GREENVEHICLE));
     // create main frame
     FXVerticalFrame* mainFrame = new FXVerticalFrame(this, GUIDesignAuxiliarFrame);
     // create groupbox for options
-    FXGroupBox* myGroupBoxOptions = new FXGroupBox(mainFrame, "Selection options", GUIDesignGroupBoxFrame);
-    FXHorizontalFrame* myOptionsFrame = new FXHorizontalFrame(myGroupBoxOptions, GUIDesignAuxiliarHorizontalFrame);
+    FXGroupBox* genericParametersGroupBox = new FXGroupBox(mainFrame, "Selection options", GUIDesignGroupBoxFrame);
 
-    new FXLabel(myOptionsFrame, "Allow all vehicles", nullptr, GUIDesignLabelLeftThick);
+    FXHorizontalFrame* horizontalFrameGenericParameters = new FXHorizontalFrame(genericParametersGroupBox, GUIDesignAuxiliarHorizontalFrame);
 
-    new FXLabel(myOptionsFrame, "Allow only non-road vehicles", nullptr, GUIDesignLabelLeftThick);
+    FXVerticalFrame* verticalFrame1 = new FXVerticalFrame(horizontalFrameGenericParameters, GUIDesignAuxiliarVerticalFrame);
+    FXVerticalFrame* verticalFrame2 = new FXVerticalFrame(horizontalFrameGenericParameters, GUIDesignAuxiliarVerticalFrame);
+    FXVerticalFrame* verticalFrame3 = new FXVerticalFrame(horizontalFrameGenericParameters, GUIDesignAuxiliarVerticalFrame);
+    FXVerticalFrame* verticalFrame4 = new FXVerticalFrame(horizontalFrameGenericParameters, GUIDesignAuxiliarVerticalFrame);
+    FXVerticalFrame* verticalFrame5 = new FXVerticalFrame(horizontalFrameGenericParameters, GUIDesignAuxiliarVerticalFrame);
 
-    new FXLabel(myOptionsFrame, "Disallow all vehicles", nullptr, GUIDesignLabelLeftThick);
-    // create groupbox for vehicles
-    FXGroupBox* myGroupBoxVehiclesFrame = new FXGroupBox(mainFrame, ("Select " + toString(SUMO_ATTR_VCLASS) + "es").c_str(), GUIDesignGroupBoxFrame);
-    // Create frame for vehicles's columns
-    FXHorizontalFrame* myVehiclesFrame = new FXHorizontalFrame(myGroupBoxVehiclesFrame, GUIDesignContentsFrame);
+    for (int i = 0; i < GNEAttributeCarrier::MAXNUMBER_GENERICPARAMETERS; i++) {
+        if(i < 20) {
+            myGenericParameterRows.push_back(GenericParameterRow(this, verticalFrame1));
+        } else if(i < 40) {
+            myGenericParameterRows.push_back(GenericParameterRow(this,verticalFrame2));
+        } else if(i < 60) {
+            myGenericParameterRows.push_back(GenericParameterRow(this, verticalFrame3));
+        } else if(i < 80) {
+            myGenericParameterRows.push_back(GenericParameterRow(this, verticalFrame4));
+        } else {
+            myGenericParameterRows.push_back(GenericParameterRow(this, verticalFrame5));
+        }
+    }
     // create dialog buttons bot centered
     FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(mainFrame, GUIDesignHorizontalFrame);
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
@@ -89,9 +100,8 @@ GNEGenericParameterDialog::~GNEGenericParameterDialog() {
 
 
 long
-GNEGenericParameterDialog::onCmdValueChanged(FXObject* obj, FXSelector, void*) {
+GNEGenericParameterDialog::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
     FXButton* buttonPressed = dynamic_cast<FXButton*>(obj);
-
     return 1;
 }
 
@@ -116,47 +126,59 @@ GNEGenericParameterDialog::onCmdCancel(FXObject*, FXSelector, void*) {
 
 long
 GNEGenericParameterDialog::onCmdReset(FXObject*, FXSelector, void*) {
+    int index = 0; 
+    for (auto i = myGenericParameters->begin(); i != myGenericParameters->end(); i++) {
+        if(index < GNEAttributeCarrier::MAXNUMBER_GENERICPARAMETERS) {
+            myGenericParameterRows.at(index).enableRow(i->parameter(), i->attribute());
+        } else {
+            // Maximun number of generic parameter reached
+            return 1;
+        }
+        index++;
+    }
+    // check if add button can be enabled
+    if(index < GNEAttributeCarrier::MAXNUMBER_GENERICPARAMETERS) {
+        myGenericParameterRows.at(index).toogleAddButton();
+    }
     return 1;
 }
 
 
-GNEGenericParameterDialog::GenericParameterRow::GenericParameterRow(GNEGenericParameterDialog *genericParametersEditor) {
-    horizontalFrame = new FXHorizontalFrame(genericParametersEditor, GUIDesignAuxiliarHorizontalFrame);
-    parameterField = new FXTextField(horizontalFrame, GUIDesignTextFieldNCol, genericParametersEditor, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    valueField = new FXTextField(horizontalFrame, GUIDesignTextFieldNCol, genericParametersEditor, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+GNEGenericParameterDialog::GenericParameterRow::GenericParameterRow(GNEGenericParameterDialog *genericParametersEditor, FXVerticalFrame* frame) {
+    horizontalFrame = new FXHorizontalFrame(frame, GUIDesignAuxiliarHorizontalFrame);
+    parameterField = new FXTextField(horizontalFrame, GUIDesignTextFieldNCol, genericParametersEditor, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFielWidth100);
+    valueField = new FXTextField(horizontalFrame, GUIDesignTextFieldNCol, genericParametersEditor, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFielWidth100);
     removeButton = new FXButton(horizontalFrame, "", GUIIconSubSys::getIcon(ICON_REMOVE), genericParametersEditor, MID_GNE_REMOVE_ATTRIBUTE, GUIDesignButtonIcon);
-    // by defaults rows are hidden
-    hideRow();
+    // by defaults rows are disabled
+    disableRow();
 }
 
 
 void 
-GNEGenericParameterDialog::GenericParameterRow::GenericParameterRow::showRow(bool clear) {
-    horizontalFrame->show();
-    parameterField->show();
-    valueField->show();
-    removeButton->show();
-    if(clear) {
-        parameterField->setText("");
-        valueField->setText("");
-    }
-    horizontalFrame->getParent()->recalc();
+GNEGenericParameterDialog::GenericParameterRow::disableRow() {
+    parameterField->setText("");
+    parameterField->disable();
+    valueField->setText("");
+    valueField->disable();
+    removeButton->disable();
 }
 
 
 void 
-GNEGenericParameterDialog::GenericParameterRow::hideRow() {
-    horizontalFrame->hide();
-    parameterField->hide();
-    valueField->hide();
-    removeButton->hide();
-    horizontalFrame->getParent()->recalc();
+GNEGenericParameterDialog::GenericParameterRow::enableRow(const std::string &parameter, const std::string &value) const {
+    parameterField->setText(parameter.c_str());
+    parameterField->enable();
+    valueField->setText(value.c_str());
+    valueField->enable();
+    removeButton->enable();
+    removeButton->setIcon(GUIIconSubSys::getIcon(ICON_REMOVE));
 }
 
 
-bool 
-GNEGenericParameterDialog::GenericParameterRow::shown() const {
-    return horizontalFrame->shown();
+void 
+GNEGenericParameterDialog::GenericParameterRow::toogleAddButton() const {
+    removeButton->enable();
+    removeButton->setIcon(GUIIconSubSys::getIcon(ICON_ADD));
 }
 
 

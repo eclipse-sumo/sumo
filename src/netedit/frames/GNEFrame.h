@@ -28,13 +28,13 @@
 #include <utils/gui/div/GUISelectedStorage.h>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
+#include <netedit/GNEAttributeCarrier.h>
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 class GNEViewNet;
 class GNEUndoList;
-class GNEAttributeCarrier;
 
 // ===========================================================================
 // class definitions
@@ -138,7 +138,7 @@ public:
         /// @brief destructor
         ~GenericParametersEditor();
 
-        /// @brief show netedit attributes editor
+        /// @brief show netedit attributes editor (used for edit generic parameters of an existent AC)
         void showGenericParametersEditor(GNEAttributeCarrier *AC);
 
         /// @brief hide netedit attributes editor
@@ -146,6 +146,9 @@ public:
 
         /// @brief refresh netedit attributes
         void refreshGenericParametersEditor();
+
+        /// @brief get generic parameters as string
+        std::string getGenericParametersStr() const;
 
         /// @name FOX-callbacks
         /// @{
@@ -166,6 +169,9 @@ public:
     private:
         /// @brief edited Attribute Carrier
         GNEAttributeCarrier *myAC;
+
+        /// @brief pointer to current vector of generic parameters 
+        std::vector<GNEAttributeCarrier::GenericParameter> *myGenericParameters;
 
         /// @brief pointer to inspector frame parent
         GNEFrame* myFrameParent;
