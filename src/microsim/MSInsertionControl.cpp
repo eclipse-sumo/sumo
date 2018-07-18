@@ -56,6 +56,7 @@ MSInsertionControl::MSInsertionControl(MSVehicleControl& vc,
     myPendingEmitsUpdateTime(SUMOTime_MIN) 
 {
     myMaxRandomDepartOffset = randomDepartOffset;
+    RandHelper::initRandGlobal(&myFlowRNG);
 }
 
 
@@ -201,7 +202,7 @@ MSInsertionControl::determineCandidates(SUMOTime time) {
                     && pars->depart < time + DELTA_T
                     && pars->repetitionEnd > time
                     // only call rand if all other conditions are met
-                    && RandHelper::rand() < (pars->repetitionProbability * TS))
+                    && RandHelper::rand(&myFlowRNG) < (pars->repetitionProbability * TS))
               ) {
             tryEmitByProb = false; // only emit one per step
             SUMOVehicleParameter* newPars = new SUMOVehicleParameter(*pars);

@@ -242,6 +242,8 @@ private:
     /// @brief Invalidated assignment operator.
     MSInsertionControl& operator=(const MSInsertionControl&);
 
+    /// @brief A random number generator for probabilistic flows
+    std::mt19937 myFlowRNG;
 
 };
 
