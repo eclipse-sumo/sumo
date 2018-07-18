@@ -21,3 +21,6 @@ InvalidLaneId
 
 # Test a relative lane change
 relativeLaneChange
+
+# Test a relative lane change to the opposite driving direction
+relativeLaneChangeOpposite

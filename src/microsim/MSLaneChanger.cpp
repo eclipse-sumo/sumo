@@ -1138,20 +1138,21 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, double> leader) {
                 return false;
             }
         }
-    } else {
+    } else if (!oppositeChangeByTraci){
         timeToOvertake = -1;
         // look forward as far as possible
         spaceToOvertake = std::numeric_limits<double>::max();
         leader = source->getOppositeLeader(vehicle, OPPOSITE_OVERTAKING_ONCOMING_LOOKAHEAD, true);
         // -1 will use getMaximumBrakeDist() as look-ahead distance
         neighLead = opposite->getOppositeLeader(vehicle, -1, false);
+    } else{
+        timeToOvertake = vehicle->getInfluencer().getLaneTimeLineDuration();//todo discuss concept
+        spaceToOvertake =  timeToOvertake * vehicle->getLane()->getVehicleMaxSpeed(vehicle);
     }
     // compute remaining space on the opposite side
     // 1. the part that remains on the current lane
     double usableDist = isOpposite ? vehicle->getPositionOnLane() : source->getLength() - vehicle->getPositionOnLane();
-    if (oppositeChangeByTraci) {
-        spaceToOvertake = 10;
-    }
+
     if (usableDist < spaceToOvertake) {
         // look forward along the next lanes
         const std::vector<MSLane*>& bestLaneConts = vehicle->getBestLanesContinuation();
