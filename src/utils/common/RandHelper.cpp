@@ -32,6 +32,8 @@
 // static member variables
 // ===========================================================================
 std::mt19937 RandHelper::myRandomNumberGenerator;
+int RandHelper::myCallCount(0);
+int RandHelper::myDebugIndex(7);
 
 
 // ===========================================================================

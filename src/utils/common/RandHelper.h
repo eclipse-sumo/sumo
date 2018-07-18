@@ -28,7 +28,9 @@
 #include <cassert>
 #include <vector>
 #include <random>
+#include <iostream>
 
+//#define DEBUG_RANDCALLS
 
 // ===========================================================================
 // class declarations
@@ -59,7 +61,15 @@ public:
         if (rng == 0) {
             rng = &myRandomNumberGenerator;
         }
-        return double((*rng)() / 4294967296.0);
+        const double res = double((*rng)() / 4294967296.0);
+#ifdef DEBUG_RANDCALLS
+        myCallCount++;
+        if (myCallCount == myDebugIndex) {
+            std::cout << "DEBUG\n"; // for setting breakpoint
+        }
+        std::cout << " rand call=" << myCallCount << " val=" << res << "\n";
+#endif
+        return res;
     }
 
     /// @brief Returns a random real number in [0, maxV)
@@ -150,6 +160,10 @@ public:
 protected:
     /// @brief the random number generator to use
     static std::mt19937 myRandomNumberGenerator;
+
+    /// @brief only used for debugging;
+    static int myCallCount;
+    static int myDebugIndex;
 
 };
 
