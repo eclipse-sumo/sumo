@@ -18,6 +18,7 @@
 /latex
 /mirror
 # build dir 
+/cmake-build*
 /build/cmake-build*
 # bin dir
 /bin/TraCITestClient*
