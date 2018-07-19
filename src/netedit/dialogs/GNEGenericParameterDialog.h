@@ -59,6 +59,18 @@ public:
     /// @brief event when user press a remove (or add) button
     long onCmdButtonPress(FXObject*, FXSelector, void*);
 
+    /// @brief event when user press load generic parameters button
+    long onCmdLoadGenericParameters(FXObject*, FXSelector, void*);
+
+    /// @brief event when user press save generic parameters button
+    long onCmdSaveGenericParameters(FXObject*, FXSelector, void*);
+
+    /// @brief event when user press clear generic parameters button
+    long onCmdClearGenericParameters(FXObject*, FXSelector, void*);
+
+    /// @brief event when user press sort generic parameters button
+    long onCmdSortGenericParameters(FXObject*, FXSelector, void*);
+
     /// @brief event after press accept button
     long onCmdAccept(FXObject*, FXSelector, void*);
 

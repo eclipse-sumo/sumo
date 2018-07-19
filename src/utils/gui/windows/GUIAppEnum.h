@@ -883,6 +883,19 @@ enum {
     MID_GNE_FIXSTOPPINGPLACES_CHANGE,
     /// @}
 
+    /// @name Generic Parameters Dialog messages
+    /// @{
+
+    /// @brief Generic parameters dialog load
+    MID_GNE_GENERICPARAMETERS_LOAD,
+    /// @brief Generic parameters dialog save
+    MID_GNE_GENERICPARAMETERS_SAVE,
+    /// @brief Generic parameters dialog clear
+    MID_GNE_GENERICPARAMETERS_CLEAR,
+    /// @brief Generic parameters dialog sort
+    MID_GNE_GENERICPARAMETERS_SORT,
+    /// @}
+
 
     /// @brief last element of enum (not used)
     MID_LAST

@@ -39,9 +39,17 @@
 FXDEFMAP(GNEGenericParameterDialog) GNEGenericParameterDialogMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,                      GNEGenericParameterDialog::onCmdSetAttribute),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_REMOVE_ATTRIBUTE,                   GNEGenericParameterDialog::onCmdButtonPress),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_GENERICPARAMETERS_LOAD,             GNEGenericParameterDialog::onCmdLoadGenericParameters),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_GENERICPARAMETERS_SAVE,             GNEGenericParameterDialog::onCmdSaveGenericParameters),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_GENERICPARAMETERS_CLEAR,            GNEGenericParameterDialog::onCmdClearGenericParameters),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_GENERICPARAMETERS_SORT,             GNEGenericParameterDialog::onCmdSortGenericParameters),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALDIALOG_BUTTONACCEPT,      GNEGenericParameterDialog::onCmdAccept),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALDIALOG_BUTTONCANCEL,      GNEGenericParameterDialog::onCmdCancel),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALDIALOG_BUTTONRESET,       GNEGenericParameterDialog::onCmdReset),
+    FXMAPFUNC(SEL_CHORE,    FXDialogBox::ID_CANCEL,                     GNEGenericParameterDialog::onCmdCancel),
+    FXMAPFUNC(SEL_TIMEOUT,  FXDialogBox::ID_CANCEL,                     GNEGenericParameterDialog::onCmdCancel),
+    FXMAPFUNC(SEL_COMMAND,  FXDialogBox::ID_CANCEL,                     GNEGenericParameterDialog::onCmdCancel),
+    FXMAPFUNC(SEL_CLOSE,    0,                                          GNEGenericParameterDialog::onCmdCancel),
 };
 
 // Object implementation
@@ -89,7 +97,7 @@ GNEGenericParameterDialog::GNEGenericParameterDialog(GNEViewNet *viewNet, std::v
         new FXLabel(horizontalFrameLabels, "key", 0, GUIDesignLabelThick100);
         new FXLabel(horizontalFrameLabels, "value", 0, GUIDesignLabelThick100);
         verticalFrame5->hide();
-    // create rows for 
+    // create rows for all generic parameters in groups of 20 elements
     for (int i = 0; i < GNEAttributeCarrier::MAXNUMBER_GENERICPARAMETERS; i++) {
         if(i < 20) {
             myGenericParameterRows.push_back(GenericParameterRow(this, verticalFrame1));
@@ -105,10 +113,10 @@ GNEGenericParameterDialog::GNEGenericParameterDialog(GNEViewNet *viewNet, std::v
     }
     // create groupbox for options
     FXGroupBox* genericParametersGroupBox = new FXGroupBox(horizontalFrameGenericParametersAndOptions, "Options", GUIDesignGroupBoxFrame);
-    mySortButton = new FXButton(genericParametersGroupBox, "Sort", GUIIconSubSys::getIcon(ICON_RELOAD), this, MID_GNE_ADDITIONALDIALOG_BUTTONACCEPT, GUIDesignButtonRectangular100x23);
-    myClearButton = new FXButton(genericParametersGroupBox, "Clear", GUIIconSubSys::getIcon(ICON_CLEANJUNCTIONS), this, MID_GNE_ADDITIONALDIALOG_BUTTONACCEPT, GUIDesignButtonRectangular100x23);
-    myLoadButton = new FXButton(genericParametersGroupBox, "Load", GUIIconSubSys::getIcon(ICON_OPEN_CONFIG), this, MID_GNE_ADDITIONALDIALOG_BUTTONACCEPT, GUIDesignButtonRectangular100x23);
-    mySaveButton = new FXButton(genericParametersGroupBox, "Save", GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_ADDITIONALDIALOG_BUTTONACCEPT, GUIDesignButtonRectangular100x23);
+    mySortButton = new FXButton(genericParametersGroupBox, "Sort", GUIIconSubSys::getIcon(ICON_RELOAD), this, MID_GNE_GENERICPARAMETERS_SORT, GUIDesignButtonRectangular100x23);
+    myClearButton = new FXButton(genericParametersGroupBox, "Clear", GUIIconSubSys::getIcon(ICON_CLEANJUNCTIONS), this, MID_GNE_GENERICPARAMETERS_CLEAR, GUIDesignButtonRectangular100x23);
+    myLoadButton = new FXButton(genericParametersGroupBox, "Load", GUIIconSubSys::getIcon(ICON_OPEN_CONFIG), this, MID_GNE_GENERICPARAMETERS_LOAD, GUIDesignButtonRectangular100x23);
+    mySaveButton = new FXButton(genericParametersGroupBox, "Save", GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_GENERICPARAMETERS_SAVE, GUIDesignButtonRectangular100x23);
     // add separator
     new FXHorizontalSeparator(mainFrame, GUIDesignHorizontalSeparator);
     // create dialog buttons bot centered
@@ -203,6 +211,30 @@ GNEGenericParameterDialog::onCmdButtonPress(FXObject* obj, FXSelector, void*) {
             return 1;
         }
     }
+    return 1;
+}
+
+
+long
+GNEGenericParameterDialog::onCmdLoadGenericParameters(FXObject*, FXSelector, void*) {
+    return 1;
+}
+
+
+long 
+GNEGenericParameterDialog::onCmdSaveGenericParameters(FXObject*, FXSelector, void*) {
+    return 1;
+}
+
+
+long 
+GNEGenericParameterDialog::onCmdClearGenericParameters(FXObject*, FXSelector, void*) {
+    return 1;
+}
+
+
+long 
+GNEGenericParameterDialog::onCmdSortGenericParameters(FXObject*, FXSelector, void*) {
     return 1;
 }
 
