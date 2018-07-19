@@ -46,11 +46,16 @@ def write_diff(options):
 
     with open(options.out, 'w') as f:
         f.write("<meandata>\n")
-        for interval_old, interval_new in zip(parse(options.orig, 'interval',
-            heterogeneous=True), parse(options.new, 'interval', heterogeneous=True)):
+        for interval_old, interval_new in zip(
+                parse(options.orig, 'interval', heterogeneous=True), 
+                parse(options.new, 'interval', heterogeneous=True)):
             f.write('    <interval begin="%s" end="%s">\n' %
                     (interval_old.begin, interval_old.end))
-            for edge_old, edge_new in zip(interval_old.edge, interval_new.edge):
+            interval_new_edges = dict([(e.id, e) for e in interval_new.edge])
+            for edge_old in interval_old.edge:
+                edge_new = interval_new_edges.get(edge_old.id, None)
+                if edge_new is None:
+                    continue
                 assert(edge_old.id == edge_new.id)
                 f.write('    <edge id="%s"' % edge_old.id)
                 for attr in edge_old._fields:
