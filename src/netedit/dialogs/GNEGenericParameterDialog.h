@@ -57,7 +57,7 @@ public:
     long onCmdSetAttribute(FXObject*, FXSelector, void*);
 
     /// @brief event when user press a remove (or add) button
-    long onCmdRemoveAttribute(FXObject*, FXSelector, void*);
+    long onCmdButtonPress(FXObject*, FXSelector, void*);
 
     /// @brief event after press accept button
     long onCmdAccept(FXObject*, FXSelector, void*);
@@ -91,8 +91,8 @@ protected:
 private:
     /// @brief struct for generic parameters Row
     struct GenericParameterRow {
-        /// @brief 
-        GenericParameterRow(GNEGenericParameterDialog * genericParametersEditor, FXVerticalFrame* frame);
+        /// @brief constructor
+        GenericParameterRow(GNEGenericParameterDialog * genericParametersEditor, FXVerticalFrame* _frameParent);
 
         /// @brief disable row
         void disableRow();
@@ -109,6 +109,9 @@ private:
         /// @brief copy values of other parameter Row
         void copyValues(const GenericParameterRow & other);
 
+        /// @brief frame parent in whith this GenericParameterRow is laced
+        FXVerticalFrame* frameParent;
+
         /// @brief TextField for parameter
         FXTextField *keyField;
 
@@ -117,11 +120,22 @@ private:
 
         /// @brief Button for add or remove row
         FXButton *button;
-
     private:
-        /// @brief frame in which elements are placed
+        /// @brief frame in which elements of GenericParameterRow are placed
         FXHorizontalFrame* horizontalFrame;
     };
+
+    /// @brief sort button
+    FXButton *mySortButton;
+
+    /// @brief clear button
+    FXButton *myClearButton;
+
+    /// @brief load button
+    FXButton *myLoadButton;
+
+    /// @brief save button
+    FXButton *mySaveButton;
 
     /// @brief vector with the GenericParameterRows
     std::vector<GenericParameterRow> myGenericParameterRows;

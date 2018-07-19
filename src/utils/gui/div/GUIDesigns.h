@@ -39,7 +39,7 @@
 /// @brief text field extended over Frame with thick frame and limited to Doubles/doubles
 #define GUIDesignTextFieldReal              (FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT | TEXTFIELD_REAL), 0, 0, 0, 23, 2, 2, 2, 2
 
-/// @brief text field with thick frame and certain width
+/// @brief text field with thick frame and size of 100x23
 #define GUIDesignTextFielWidth100           (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 100, 23, 2, 2, 2, 2
 
 /// @brief Num of column of text field
@@ -64,6 +64,9 @@
 
 /// @brief button only with icon     (46x23)
 #define GUIDesignButtonIconRectangular      (FRAME_THICK | FRAME_RAISED | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 46, 23, 2, 2, 2, 2
+
+/// @brief button rectangular with thick and raise frame with a size of 100x23
+#define GUIDesignButtonRectangular100x23    (FRAME_THICK | FRAME_RAISED | ICON_BEFORE_TEXT | JUSTIFY_CENTER_X | JUSTIFY_CENTER_Y | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 100, 23, 2, 2, 2, 2
 
 /// @}
 
@@ -179,6 +182,10 @@
 
 /// @brief label extended over frame without thick and with text justify to left, used to show information in frames
 #define GUIDesignLabelFrameInformation      (JUSTIFY_LEFT | LAYOUT_FILL_X | ICON_BEFORE_TEXT), 0, 0, 0, 0, 2, 2, 2, 2
+
+/// @brief label with thick, text justify to left and size of 100x23
+#define GUIDesignLabelThick100              (FRAME_THICK | ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 100, 23, 2, 2, 2, 2
+
 /// @}
 
 
@@ -202,10 +209,10 @@
 /// @name FXPackers
 /// @{
 /// @brief Horizontal frame extended over frame parent
-#define GUIDesignHorizontalFrame            (LAYOUT_FILL_X)
+#define GUIDesignHorizontalFrame            (LAYOUT_FILL_X), 0, 0, 0, 0, 4, 4, 4, 4, 4, 4
 
 /// @brief Vertical frame extended over frame parent
-#define GUIDesignVerticalFrame              (LAYOUT_FILL_Y)
+#define GUIDesignVerticalFrame              (LAYOUT_FILL_Y), 0, 0, 0, 0, 4, 4, 4, 4, 4, 4
 
 /// @brief Horizontal frame used for pack icons
 #define GUIDesignHorizontalFrameIcons       (LAYOUT_FILL_X | FRAME_THICK), 0, 0, 0, 0, 0, 0, 0, 0, 2, 2

@@ -38,7 +38,7 @@
 
 FXDEFMAP(GNEGenericParameterDialog) GNEGenericParameterDialogMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,                      GNEGenericParameterDialog::onCmdSetAttribute),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_REMOVE_ATTRIBUTE,                   GNEGenericParameterDialog::onCmdRemoveAttribute),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_REMOVE_ATTRIBUTE,                   GNEGenericParameterDialog::onCmdButtonPress),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALDIALOG_BUTTONACCEPT,      GNEGenericParameterDialog::onCmdAccept),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALDIALOG_BUTTONCANCEL,      GNEGenericParameterDialog::onCmdCancel),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALDIALOG_BUTTONRESET,       GNEGenericParameterDialog::onCmdReset),
@@ -61,17 +61,35 @@ GNEGenericParameterDialog::GNEGenericParameterDialog(GNEViewNet *viewNet, std::v
     setIcon(GUIIconSubSys::getIcon(ICON_GREENVEHICLE));
     // create main frame
     FXVerticalFrame* mainFrame = new FXVerticalFrame(this, GUIDesignAuxiliarFrame);
-    // create groupbox for options
-    FXGroupBox* genericParametersGroupBox = new FXGroupBox(mainFrame, "Selection options", GUIDesignGroupBoxFrame);
-
-    FXHorizontalFrame* horizontalFrameGenericParameters = new FXHorizontalFrame(genericParametersGroupBox, GUIDesignAuxiliarHorizontalFrame);
-
-    FXVerticalFrame* verticalFrame1 = new FXVerticalFrame(horizontalFrameGenericParameters, GUIDesignAuxiliarVerticalFrame);
-    FXVerticalFrame* verticalFrame2 = new FXVerticalFrame(horizontalFrameGenericParameters, GUIDesignAuxiliarVerticalFrame);
-    FXVerticalFrame* verticalFrame3 = new FXVerticalFrame(horizontalFrameGenericParameters, GUIDesignAuxiliarVerticalFrame);
-    FXVerticalFrame* verticalFrame4 = new FXVerticalFrame(horizontalFrameGenericParameters, GUIDesignAuxiliarVerticalFrame);
-    FXVerticalFrame* verticalFrame5 = new FXVerticalFrame(horizontalFrameGenericParameters, GUIDesignAuxiliarVerticalFrame);
-
+    // create frame for Generic Parameters and options
+     FXHorizontalFrame* horizontalFrameGenericParametersAndOptions = new FXHorizontalFrame(mainFrame, GUIDesignHorizontalFrame);
+    // create frames for parameters
+    FXHorizontalFrame* horizontalFrameLabels = nullptr;
+    FXVerticalFrame* verticalFrame1 = new FXVerticalFrame(horizontalFrameGenericParametersAndOptions, GUIDesignAuxiliarVerticalFrame);
+        horizontalFrameLabels = new FXHorizontalFrame(verticalFrame1, GUIDesignAuxiliarHorizontalFrame);
+        new FXLabel(horizontalFrameLabels, "key", 0, GUIDesignLabelThick100);
+        new FXLabel(horizontalFrameLabels, "value", 0, GUIDesignLabelThick100);
+    FXVerticalFrame* verticalFrame2 = new FXVerticalFrame(horizontalFrameGenericParametersAndOptions, GUIDesignAuxiliarVerticalFrame);
+        horizontalFrameLabels = new FXHorizontalFrame(verticalFrame2, GUIDesignAuxiliarHorizontalFrame);
+        new FXLabel(horizontalFrameLabels, "key", 0, GUIDesignLabelThick100);
+        new FXLabel(horizontalFrameLabels, "value", 0, GUIDesignLabelThick100);
+        verticalFrame2->hide();
+    FXVerticalFrame* verticalFrame3 = new FXVerticalFrame(horizontalFrameGenericParametersAndOptions, GUIDesignAuxiliarVerticalFrame);
+        horizontalFrameLabels = new FXHorizontalFrame(verticalFrame3, GUIDesignAuxiliarHorizontalFrame);
+        new FXLabel(horizontalFrameLabels, "key", 0, GUIDesignLabelThick100);
+        new FXLabel(horizontalFrameLabels, "value", 0, GUIDesignLabelThick100);
+        verticalFrame3->hide();
+    FXVerticalFrame* verticalFrame4 = new FXVerticalFrame(horizontalFrameGenericParametersAndOptions, GUIDesignAuxiliarVerticalFrame);
+        horizontalFrameLabels = new FXHorizontalFrame(verticalFrame4, GUIDesignAuxiliarHorizontalFrame);
+        new FXLabel(horizontalFrameLabels, "key", 0, GUIDesignLabelThick100);
+        new FXLabel(horizontalFrameLabels, "value", 0, GUIDesignLabelThick100);
+        verticalFrame4->hide();
+    FXVerticalFrame* verticalFrame5 = new FXVerticalFrame(horizontalFrameGenericParametersAndOptions, GUIDesignAuxiliarVerticalFrame);
+        horizontalFrameLabels = new FXHorizontalFrame(verticalFrame5, GUIDesignAuxiliarHorizontalFrame);
+        new FXLabel(horizontalFrameLabels, "key", 0, GUIDesignLabelThick100);
+        new FXLabel(horizontalFrameLabels, "value", 0, GUIDesignLabelThick100);
+        verticalFrame5->hide();
+    // create rows for 
     for (int i = 0; i < GNEAttributeCarrier::MAXNUMBER_GENERICPARAMETERS; i++) {
         if(i < 20) {
             myGenericParameterRows.push_back(GenericParameterRow(this, verticalFrame1));
@@ -85,6 +103,14 @@ GNEGenericParameterDialog::GNEGenericParameterDialog(GNEViewNet *viewNet, std::v
             myGenericParameterRows.push_back(GenericParameterRow(this, verticalFrame5));
         }
     }
+    // create groupbox for options
+    FXGroupBox* genericParametersGroupBox = new FXGroupBox(horizontalFrameGenericParametersAndOptions, "Options", GUIDesignGroupBoxFrame);
+    mySortButton = new FXButton(genericParametersGroupBox, "Sort", GUIIconSubSys::getIcon(ICON_RELOAD), this, MID_GNE_ADDITIONALDIALOG_BUTTONACCEPT, GUIDesignButtonRectangular100x23);
+    myClearButton = new FXButton(genericParametersGroupBox, "Clear", GUIIconSubSys::getIcon(ICON_CLEANJUNCTIONS), this, MID_GNE_ADDITIONALDIALOG_BUTTONACCEPT, GUIDesignButtonRectangular100x23);
+    myLoadButton = new FXButton(genericParametersGroupBox, "Load", GUIIconSubSys::getIcon(ICON_OPEN_CONFIG), this, MID_GNE_ADDITIONALDIALOG_BUTTONACCEPT, GUIDesignButtonRectangular100x23);
+    mySaveButton = new FXButton(genericParametersGroupBox, "Save", GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_ADDITIONALDIALOG_BUTTONACCEPT, GUIDesignButtonRectangular100x23);
+    // add separator
+    new FXHorizontalSeparator(mainFrame, GUIDesignHorizontalSeparator);
     // create dialog buttons bot centered
     FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(mainFrame, GUIDesignHorizontalFrame);
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
@@ -132,7 +158,8 @@ GNEGenericParameterDialog::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
 
 
 long 
-GNEGenericParameterDialog::onCmdRemoveAttribute(FXObject* obj, FXSelector, void*) {
+GNEGenericParameterDialog::onCmdButtonPress(FXObject* obj, FXSelector, void*) {
+    std::cout << getWidth() << std::endl;
     // find what button was pressed
     for (int i = 0;  i < myGenericParameterRows.size(); i++) {
         if(myGenericParameterRows.at(i).button == obj) {
@@ -143,15 +170,28 @@ GNEGenericParameterDialog::onCmdRemoveAttribute(FXObject* obj, FXSelector, void*
                 // toogle add button in the next row
                 if((i+1) < myGenericParameterRows.size()) {
                     myGenericParameterRows.at(i+1).toogleAddButton();
+                    // check if a new column of Rows has to be show
+                    if(myGenericParameterRows.at(i).frameParent != myGenericParameterRows.at(i+1).frameParent) {
+                        myGenericParameterRows.at(i+1).frameParent->show();
+                        // resize dialog adding size of GenericParameter column
+                        resize(getWidth() + 227, getHeight());
+                    }
                 }
             } else {
                 // remove attribute moving back one position the next attributes
                 for(auto j = i; j < (myGenericParameterRows.size()-1); j++) {
                     myGenericParameterRows.at(j).copyValues(myGenericParameterRows.at(j+1));
                 }
-                //disable add button of the next generic parameter
+                // disable add button of the next generic parameter
                 if(myGenericParameters->size() < myGenericParameterRows.size()) {
                     myGenericParameterRows.at(myGenericParameters->size()).disableRow();
+                    // check if a current column of Rows has to be hidden
+                    if((myGenericParameters->size() > 1) && 
+                       (myGenericParameterRows.at(myGenericParameters->size()).frameParent != myGenericParameterRows.at(myGenericParameters->size()-1).frameParent)) {
+                        myGenericParameterRows.at(myGenericParameters->size()).frameParent->hide();
+                        // resize dialog substracting size of GenericParameter column
+                        resize(getWidth() - 227, getHeight());
+                    }
                 }
                 // remove last generic parameter
                 myGenericParameters->pop_back();
@@ -233,8 +273,9 @@ GNEGenericParameterDialog::onCmdReset(FXObject*, FXSelector, void*) {
 }
 
 
-GNEGenericParameterDialog::GenericParameterRow::GenericParameterRow(GNEGenericParameterDialog *genericParametersEditor, FXVerticalFrame* frame) {
-    horizontalFrame = new FXHorizontalFrame(frame, GUIDesignAuxiliarHorizontalFrame);
+GNEGenericParameterDialog::GenericParameterRow::GenericParameterRow(GNEGenericParameterDialog *genericParametersEditor, FXVerticalFrame* _frameParent) : 
+    frameParent(_frameParent) {
+    horizontalFrame = new FXHorizontalFrame(frameParent, GUIDesignAuxiliarHorizontalFrame);
     keyField = new FXTextField(horizontalFrame, GUIDesignTextFieldNCol, genericParametersEditor, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFielWidth100);
     valueField = new FXTextField(horizontalFrame, GUIDesignTextFieldNCol, genericParametersEditor, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFielWidth100);
     button = new FXButton(horizontalFrame, "", GUIIconSubSys::getIcon(ICON_REMOVE), genericParametersEditor, MID_GNE_REMOVE_ATTRIBUTE, GUIDesignButtonIcon);
