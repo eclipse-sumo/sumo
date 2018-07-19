@@ -584,7 +584,7 @@ GNEFrame::GenericParametersEditor::onCmdSetGenericParameter(FXObject*, FXSelecto
     }
     // first check if parsed generic parameters are valid
     for(auto i : parsedValues) {
-        if(!GNEAttributeCarrier::GenericParameter::isGenericParameterValid(i)) {
+        if(!GNEAttributeCarrier::canParse<GNEAttributeCarrier::GenericParameter>(i)) {
             WRITE_WARNING("Invalid format of Generic Parameter (" + i + ")");
             myTextFieldGenericParameter->setTextColor(FXRGB(255, 0, 0));
             myTextFieldGenericParameter->killFocus();

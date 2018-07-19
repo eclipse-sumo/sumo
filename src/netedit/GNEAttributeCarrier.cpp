@@ -617,31 +617,9 @@ GNEAttributeCarrier::GenericParameter::value() {
 
 
 bool 
-GNEAttributeCarrier::GenericParameter::isGenericParameterValid(const std::string &value) {
-    // only exactly one '=' is allowed
-    if(std::count(value.begin(), value.end(), '=') == 1) {
-        std::string key;
-        std::string attribute;
-        bool change = false;
-        // separate value in key and attribute
-        for(auto i : value) {
-            if(i == '=') {
-                change = true;
-            } else if(!change) {
-                key.push_back(i);
-            } else {
-                attribute.push_back(i);
-            }
-        }
-        // key cannot be empty
-        if (key.empty()) {
-            return false;
-        } else {
-            return isValidID(key) && isValidID(attribute);
-        }
-    } else {
-        return false;
-    }
+GNEAttributeCarrier::GenericParameter::isValid() {
+    // key cannot be empty
+    return (!first.empty() && isValidName(first) && isValidName(second));
 }
 
 // ---------------------------------------------------------------------------
@@ -718,6 +696,38 @@ GNEAttributeCarrier::parse(const std::string& string) {
         return SVS_UNKNOWN;
     } else {
         return SumoVehicleShapeStrings.get(string);
+    }
+}
+
+template<> GNEAttributeCarrier::GenericParameter
+GNEAttributeCarrier::parse(const std::string &value) {
+    // only exactly one '=' is allowed
+    if(std::count(value.begin(), value.end(), '=') == 1) {
+        std::string key;
+        std::string attribute;
+        bool change = false;
+        // separate value in key and attribute
+        for(auto i : value) {
+            if(i == '=') {
+                change = true;
+            } else if(!change) {
+                key.push_back(i);
+            } else {
+                attribute.push_back(i);
+            }
+        }
+        // key cannot be empty
+        if (key.empty()) {
+            throw EmptyData();
+        } else if (!isValidName(key)) {
+            throw FormatException("Generic Parameter Key contains invalid characters");
+        } else if (!isValidName(attribute)) {
+            throw FormatException("Generic Parameter Value contains invalid characters");
+        } else {
+            return GNEAttributeCarrier::GenericParameter(value);
+        }
+    } else {
+        throw FormatException("A generic parameter can only contain exactly one '='");
     }
 }
 
@@ -1081,7 +1091,7 @@ GNEAttributeCarrier::isGenericParametersValid(const std::string &value) {
     }
     // check that  parsed values can be parsed in generic parameter
     for(auto i : parsedValues) {
-        if(!GenericParameter::isGenericParameterValid(i)) {
+        if(!canParse<GNEAttributeCarrier::GenericParameter>(i)) {
             return false;
         }
     }

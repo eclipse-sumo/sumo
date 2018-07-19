@@ -354,7 +354,7 @@ public:
     };
 
     /// @brief struct for generic parameter
-    class GenericParameter : private std::pair<std::string, std::string> {
+    class GenericParameter : public std::pair<std::string, std::string> {
     public:
         /// @brief constructor
         GenericParameter(const std::string &parameter, const std::string &attribute);
@@ -362,14 +362,21 @@ public:
         /// @brief constructor using string
         GenericParameter(const std::string &value);
 
-        /// @brief reference to generic parameter key
+        /// @brief reference to Generic Parameter key
         std::string &key();
         
-        /// @brief reference to generic parameter value
+        /// @brief reference to Generic Parameter value
         std::string &value();
 
-        /// @brief check if a string can be parsed to a GenericParameter
-        static bool isGenericParameterValid(const std::string &value);
+        /// @brief check if current Generic Parameter is valid
+        bool isValid();
+
+    private:
+        /// @brief make first private (to acces member only trought "key()")
+        std::string first;
+
+        /// @brief make second private (to acces member only trought "value()")
+        std::string second;
     };
 
     /**@brief Constructor

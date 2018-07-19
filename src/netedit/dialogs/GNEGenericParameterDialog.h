@@ -126,7 +126,7 @@ private:
     /// @brief vector with the GenericParameterRows
     std::vector<GenericParameterRow> myGenericParameterRows;
 
-    // @brief copy of current edited Generic Parameters (using for reset)
+    // @brief copy of current edited Generic Parameters (used for reset)
     const std::vector<GNEAttributeCarrier::GenericParameter> myCopyOfGenericParameters;
 
     /// @brief update values

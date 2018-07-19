@@ -106,9 +106,25 @@ GNEGenericParameterDialog::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
     // find what value was changed
     for (int i = 0;  i < myGenericParameterRows.size(); i++) {
         if(myGenericParameterRows.at(i).keyField == obj) {
+            // change key of Generic Parameter
             myGenericParameters->at(i).key() = myGenericParameterRows.at(i).keyField->getText().text();
+            // change color of text field depending if attribute is valid
+            if(myGenericParameters->at(i).isValid()) {
+                myGenericParameterRows.at(i).keyField->setTextColor(FXRGB(0, 0, 0));
+            } else {
+                myGenericParameterRows.at(i).keyField->setTextColor(FXRGB(255, 0, 0));
+                myGenericParameterRows.at(i).keyField->killFocus();
+            }
         } else if(myGenericParameterRows.at(i).valueField == obj) {
+            // change value of Generic Parameter
             myGenericParameters->at(i).value() = myGenericParameterRows.at(i).valueField->getText().text();
+            // change color of text field depending if attribute is valid
+            if(myGenericParameters->at(i).isValid()) {
+                myGenericParameterRows.at(i).valueField->setTextColor(FXRGB(0, 0, 0));
+            } else {
+                myGenericParameterRows.at(i).valueField->setTextColor(FXRGB(255, 0, 0));
+                myGenericParameterRows.at(i).valueField->killFocus();
+            }
         }
     }
     return 1;
@@ -153,9 +169,41 @@ GNEGenericParameterDialog::onCmdRemoveAttribute(FXObject* obj, FXSelector, void*
 
 long
 GNEGenericParameterDialog::onCmdAccept(FXObject*, FXSelector, void*) {
-    // chek if all vehicles are enabled and set new allowed vehicles
-    // myAC->setAttribute(SUMO_ATTR_ALLOW, joinToString(allowedVehicles, " "), myViewNet->getUndoList());
-    // Stop Modal
+    // check if all edited generic parameters are valid
+    for (auto i = myGenericParameters->begin(); i != myGenericParameters->end(); i++) {
+        if(!i->isValid()) {
+            // write warning if netedit is running in testing mode
+            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+                WRITE_WARNING("Opening FXMessageBox of type 'warning'");
+            }
+            // open warning Box
+            FXMessageBox::warning(getApp(), MBOX_OK, "Invalid Generic Parameters", "%s", "There are Generic Parameters with invalid characters");
+            // write warning if netedit is running in testing mode
+            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+                WRITE_WARNING("Closed FXMessageBox of type 'warning' with 'OK'");
+            }
+            return 1;
+        }
+    }
+    // now check if there is duplicates generic parameters
+    std::vector<GNEAttributeCarrier::GenericParameter> sortedGenericParameters = (*myGenericParameters);
+    std::sort(sortedGenericParameters.begin(), sortedGenericParameters.end());
+    for (auto i = sortedGenericParameters.begin(); i != sortedGenericParameters.end(); i++) {
+        if(((i+1) != sortedGenericParameters.end()) && (i->key()) == (i+1)->key()) {
+            // write warning if netedit is running in testing mode
+            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+                WRITE_WARNING("Opening FXMessageBox of type 'warning'");
+            }
+            // open warning Box
+            FXMessageBox::warning(getApp(), MBOX_OK, "Duplicated Generic Parameters", "%s", "There are Generic Parameters with the same Key");
+            // write warning if netedit is running in testing mode
+            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+                WRITE_WARNING("Closed FXMessageBox of type 'warning' with 'OK'");
+            }
+            return 1;
+        }
+    }
+    // all ok, then close dialog
     getApp()->stopModal(this, TRUE);
     return 1;
 }
@@ -163,6 +211,8 @@ GNEGenericParameterDialog::onCmdAccept(FXObject*, FXSelector, void*) {
 
 long
 GNEGenericParameterDialog::onCmdCancel(FXObject*, FXSelector, void*) {
+    // restore copy of generic parameters
+    (*myGenericParameters) = myCopyOfGenericParameters;
     // Stop Modal
     getApp()->stopModal(this, FALSE);
     return 1;
@@ -206,10 +256,15 @@ GNEGenericParameterDialog::GenericParameterRow::disableRow() {
 
 void 
 GNEGenericParameterDialog::GenericParameterRow::enableRow(const std::string &parameter, const std::string &value) const {
+    // restore color and enable key field
     keyField->setText(parameter.c_str());
+    keyField->setTextColor(FXRGB(0, 0, 0));
     keyField->enable();
+    // restore color and enable value field
     valueField->setText(value.c_str());
+    valueField->setTextColor(FXRGB(0, 0, 0));
     valueField->enable();
+    // enable button and set icon remove
     button->enable();
     button->setIcon(GUIIconSubSys::getIcon(ICON_REMOVE));
 }
