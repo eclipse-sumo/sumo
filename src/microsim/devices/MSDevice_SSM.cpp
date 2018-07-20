@@ -2024,6 +2024,10 @@ MSDevice_SSM::findFoeConflictLane(const MSVehicle* foe, const MSLane* egoConflic
         // Set foeLane to first internal lane on the next junction
         foeLane = link->getViaLane();
         assert(foeLane == 0 || foeLane->isInternal());
+        if (foeLane == 0) {
+            foeLane = nextNonInternalLane;
+            continue;
+        }
         if (foeLane->getEdge().getToJunction() == conflictJunction) {
             assert(foeLane != 0);
 #ifdef DEBUG_SSM
