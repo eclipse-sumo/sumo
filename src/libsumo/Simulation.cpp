@@ -178,6 +178,23 @@ Simulation::convert3D(const std::string& edgeID, double pos, int laneIndex, bool
     return Helper::makeTraCIPosition(result);
 }
 
+TraCIRoadPosition 
+Simulation::convertRoad(double x, double y, bool isGeo) {
+    Position pos(x, y);
+    if (isGeo) {
+        GeoConvHelper::getFinal().x2cartesian_const(pos);
+    }
+    std::pair<MSLane*, double> roadPos = libsumo::Helper::convertCartesianToRoadMap(pos);
+    if (roadPos.first == nullptr) {
+        throw TraCIException("Cannot convert position to road.");
+    }
+    TraCIRoadPosition result;
+    result.edgeID = roadPos.first->getEdge().getID();
+    result.laneIndex = roadPos.first->getIndex();
+    result.pos = roadPos.second;
+    return result;
+}
+
 
 TraCIStage
 Simulation::findRoute(const std::string& from, const std::string& to, const std::string& typeID, const SUMOTime depart, const int routingMode) {

@@ -65,6 +65,8 @@ public:
 
     static TraCIPosition convert3D(const std::string& edgeID, double pos, int laneIndex=0, bool toGeo=false);
 
+    static TraCIRoadPosition convertRoad(double x, double y, bool isGeo=false);
+
     static int getMinExpectedNumber();
 
     static TraCIStage findRoute(const std::string& from, const std::string& to, const std::string& typeID, const SUMOTime depart, const int routingMode);

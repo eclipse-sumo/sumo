@@ -80,6 +80,20 @@ struct TraCIPosition : TraCIResult {
     double x, y, z;
 };
 
+/** @struct TraCIRoadPosition
+    * @brief An edgeId, position and laneIndex
+    */
+struct TraCIRoadPosition : TraCIResult {
+    std::string getString() {
+        std::ostringstream os;
+        os << "TraCIRoadPosition(" << edgeID << "_" << laneIndex << "," << pos << ")";
+        return os.str();
+    }
+    std::string edgeID;
+    double pos;
+    int laneIndex;
+};
+
 /** @struct TraCIColor
     * @brief A color
     */
