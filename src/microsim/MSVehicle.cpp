@@ -4025,8 +4025,8 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
         ++seen;
         seenLength += currentLanes[0].lane->getLength();
         ++ce;
-        progress &= (seen <= 4 || seenLength < 3000);
-        progress &= seen <= 8;
+        progress &= (seen <= 4 || seenLength < 3000); // motorway 
+        progress &= (seen <= 8 || seenLength < 200);  // urban
         progress &= ce != myRoute->end();
         /*
         if(progress) {
