@@ -35,10 +35,11 @@ else:
     sumoCall = [os.environ.get(
         "GUISIM_BINARY", os.path.join(sumoHome, 'bin', 'sumo-gui')), '-S', '-Q']
 
+
 def runSingle(traciEndTime, viewRange, module, objID, filterID):
     step = 0
     traci.start(sumoCall + ["-c", "sumo.sumocfg"])
-    
+
     subscribed = False
     while not step > traciEndTime:
         responses = traci.simulationStep()
@@ -49,13 +50,13 @@ def runSingle(traciEndTime, viewRange, module, objID, filterID):
                 near1.add(v)
 
         if not subscribed:
-            print("Subscribing to %s context of object '%s'"%(sys.argv[3], objID))
+            print("Subscribing to %s context of object '%s'" % (sys.argv[3], objID))
             module.subscribeContext(objID, traci.constants.CMD_GET_VEHICLE_VARIABLE, viewRange, [
                                     traci.constants.VAR_POSITION])
-            print("Adding subscription filter '%s'"%(filterID))
+            print("Adding subscription filter '%s'" % (filterID))
             sys.stdout.flush()
             if filterID == "lanes":
-                module.addSubscriptionFilterLanes([-1,0,1,100])
+                module.addSubscriptionFilterLanes([-1, 0, 1, 100])
             elif filterID is "noOpposite":
                 module.addSubscriptionFilterNoOpposite()
             elif filterID is "downstreamDistance":
@@ -73,10 +74,10 @@ def runSingle(traciEndTime, viewRange, module, objID, filterID):
             elif filterID is "vType":
                 module.addSubscriptionFilterVType()
             else:
-                print("Error: filterID '%s' not known"%filterID)
+                print("Error: filterID '%s' not known" % filterID)
             subscribed = True
         step += 1
-        
+
     module.unsubscribeContext(objID, traci.constants.CMD_GET_VEHICLE_VARIABLE, viewRange)
     responses = traci.simulationStep()
     if responses:

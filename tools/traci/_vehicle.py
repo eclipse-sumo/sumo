@@ -843,10 +843,10 @@ class VehicleDomain(Domain):
         Forces a relative lane change; if successful,
         the lane will be chosen for the given amount of time (in ms).
         """
-        if left >0:
-            laneIndex= left
+        if left > 0:
+            laneIndex = left
         else:
-            laneIndex= 0
+            laneIndex = 0
         self._connection._beginMessage(
             tc.CMD_SET_VEHICLE_VARIABLE, tc.CMD_CHANGELANE, vehID, 1 + 4 + 1 + 1 + 1 + 4 + 1 + 1)
         self._connection._string += struct.pack(
@@ -1383,7 +1383,7 @@ class VehicleDomain(Domain):
         Restricts vehicles returned by the last modified vehicle context subscription to leader and follower of the ego
         """
         self._connection._addSubscriptionFilter(tc.FILTER_TYPE_CF_MANEUVER)
-                
+
     def addSubscriptionFilterLCManeuver(self):
         """addSubscriptionFilterLCManeuver() -> None
 
@@ -1391,7 +1391,7 @@ class VehicleDomain(Domain):
         Combine with: lanes-filter to restrict to one direction; distance filters; vClass/vType filter.
         """
         self._connection._addSubscriptionFilter(tc.FILTER_TYPE_LC_MANEUVER)
-        
+
     def addSubscriptionFilterTurnManeuver(self):
         """addSubscriptionFilterTurnManeuver() -> None
 

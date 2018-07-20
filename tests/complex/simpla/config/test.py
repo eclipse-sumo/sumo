@@ -219,7 +219,6 @@ catchupFollower="catchupFollowerVTypeID" /><verbosity value="200" ></verbosity>
         except SimplaException as e:
             self.assertTrue(str(e).startswith("Original vType must be specified"))
 
-
     def test_only_vTypeMap_given(self):
         print("Testing specification of vTypeMap only...")
         self.patchConfigFile(self.cfg_body5)
@@ -229,19 +228,17 @@ catchupFollower="catchupFollowerVTypeID" /><verbosity value="200" ></verbosity>
             # print ("Time: %s"%traci.simulation.getCurrentTime())
             # print ("Vehicles: %s"%traci.vehicle.getIDList())
             traci.simulationStep()
-        
-            
-#~ # restrict run to specific tests
-#~ selected_test = 5
-#~ tests = [a for a in dir(TestConfig) if a.startswith("test")]
-#~ print (tests, len(tests))
-#~ for i,t in enumerate(tests):
-    #~ if i != selected_test:
-        #~ print("Removing test %s (%s)"%(i, t))
-        #~ delattr(TestConfig, t)
-    #~ else:
-        #~ print("Keeping test %s (%s)"%(i, t))
-        
+
+# ~ # restrict run to specific tests
+# ~ selected_test = 5
+# ~ tests = [a for a in dir(TestConfig) if a.startswith("test")]
+# ~ print (tests, len(tests))
+# ~ for i,t in enumerate(tests):
+    # ~ if i != selected_test:
+        # ~ print("Removing test %s (%s)"%(i, t))
+        # ~ delattr(TestConfig, t)
+    # ~ else:
+        # ~ print("Keeping test %s (%s)"%(i, t))
 
 
 if __name__ == "__main__":
