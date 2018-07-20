@@ -2457,10 +2457,20 @@ MSDevice_SSM::findSurroundingVehicles(const MSVehicle& veh, double range, FoeInf
                 // Find connection for ego on the junction
                 nextNonInternalLane = *laneIter;
                 MSLink* link = lane->getLinkTo(nextNonInternalLane);
-                assert(link != 0);
+                assert(link != 0 || link->getLength() == 0.);
+
                 // First lane of the connection
                 lane = link->getViaLane();
-                assert(lane != 0);
+                if(lane == 0) {
+                    // link without internal lane
+                    lane = nextNonInternalLane;
+                    edge = &(lane->getEdge());
+                    if (seenJunctions.count(junction) == 0) {
+                        continue;
+                    } else {
+                        break;
+                    }
+                }
 
                 if (seenJunctions.count(junction) == 0) {
                     // Collect vehicles on the junction, if it wasn't considered already
