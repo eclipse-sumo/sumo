@@ -2023,8 +2023,9 @@ MSDevice_SSM::findFoeConflictLane(const MSVehicle* foe, const MSLane* egoConflic
         MSLink* link = foeLane->getLinkTo(nextNonInternalLane);
         // Set foeLane to first internal lane on the next junction
         foeLane = link->getViaLane();
-        assert(foeLane->isInternal());
+        assert(foeLane == 0 || foeLane->isInternal());
         if (foeLane->getEdge().getToJunction() == conflictJunction) {
+            assert(foeLane != 0);
 #ifdef DEBUG_SSM
             std::cout << "Found conflict lane for foe: '" << foeLane->getID() << "'" << std::endl;
 #endif
@@ -2466,6 +2467,7 @@ MSDevice_SSM::findSurroundingVehicles(const MSVehicle& veh, double range, FoeInf
                     lane = nextNonInternalLane;
                     edge = &(lane->getEdge());
                     if (seenJunctions.count(junction) == 0) {
+                        seenJunctions.insert(junction);
                         continue;
                     } else {
                         break;
