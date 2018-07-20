@@ -72,11 +72,9 @@ def runSingle(traciEndTime, viewRange, module, objID):
         persons = traci.person.getIDList()
         pos = {}
         for v in vehs:
-            if v != objID:
-                pos[v] = traci.vehicle.getPosition(v)
+            pos[v] = traci.vehicle.getPosition(v)
         for p in persons:
-            if p != objID:
-                pos[p] = traci.person.getPosition(p)
+            pos[p] = traci.person.getPosition(p)
         shape = None
         egoPos = None
         if hasattr(module, "getPosition"):

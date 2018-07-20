@@ -1098,10 +1098,10 @@ TraCIServer::processSingleSubscription(const libsumo::Subscription& s, tcpip::St
     int skipped = 0;
     for (std::set<std::string>::iterator j = objIDs.begin(); j != objIDs.end(); ++j) {
         if (s.contextDomain > 0) {
-            if (centralObject(s, *j)) {
-                skipped++;
-                continue;
-            }
+            //if (centralObject(s, *j)) {
+            //    skipped++;
+            //    continue;
+            //}
             outputStorage.writeString(*j);
         }
         if (numVars > 0) {
