@@ -53,6 +53,8 @@ public:
 
 
 private:
+    static bool hasStraightPair(const NBNode* node, const EdgeVector& edges); 
+    static bool allSharp(const NBNode* node, const EdgeVector& in, const EdgeVector& out);
 };
 
 
