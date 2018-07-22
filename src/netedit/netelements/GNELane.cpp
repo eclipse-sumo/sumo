@@ -360,7 +360,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
                 } else {
                     glColor3d(0.3, 0.3, 0.3);
                 }
-                drawDirectionIndicators();
+                drawDirectionIndicators(exaggeration);
             }
             if (s.drawLinkJunctionIndex.show) {
                 drawLinkNo(s);
@@ -1071,8 +1071,8 @@ GNELane::drawAsWaterway(const GUIVisualizationSettings& s) const {
 
 
 void
-GNELane::drawDirectionIndicators() const {
-    const double width = myParentEdge.getNBEdge()->getLaneWidth(myIndex);
+GNELane::drawDirectionIndicators(double exaggeration) const {
+    const double width = myParentEdge.getNBEdge()->getLaneWidth(myIndex) * exaggeration;
     glPushMatrix();
     glTranslated(0, 0, GLO_JUNCTION + 0.1);
     int e = (int) getShape().size() - 1;

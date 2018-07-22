@@ -258,7 +258,7 @@ private:
     bool drawAsWaterway(const GUIVisualizationSettings& s) const;
 
     /// @brief direction indicators for lanes
-    void drawDirectionIndicators() const;
+    void drawDirectionIndicators(double exaggeration) const;
 
     /// @brief set color according to edit mode and visualisation settings
     void setLaneColor(const GUIVisualizationSettings& s) const;

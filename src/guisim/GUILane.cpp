@@ -599,7 +599,7 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                         } else {
                             glColor3d(0.3, 0.3, 0.3);
                         }
-                        drawDirectionIndicators();
+                        drawDirectionIndicators(exaggeration);
                     }
                     glTranslated(0, 0, .1);
                     if (s.drawLinkJunctionIndex.show) {
@@ -716,7 +716,7 @@ GUILane::drawBikeMarkings() const {
 }
 
 void
-GUILane::drawDirectionIndicators() const {
+GUILane::drawDirectionIndicators(double exaggeration) const {
     glPushMatrix();
     glTranslated(0, 0, GLO_EDGE);
     int e = (int) getShape().size() - 1;
@@ -725,11 +725,11 @@ GUILane::drawDirectionIndicators() const {
         glTranslated(getShape()[i].x(), getShape()[i].y(), 0.1);
         glRotated(myShapeRotations[i], 0, 0, 1);
         for (double t = 0; t < myShapeLengths[i]; t += myWidth) {
-            const double length = MIN2((double)myHalfLaneWidth, myShapeLengths[i] - t);
+            const double length = MIN2((double)myHalfLaneWidth, myShapeLengths[i] - t) * exaggeration;
             glBegin(GL_TRIANGLES);
             glVertex2d(0, -t - length);
-            glVertex2d(-myQuarterLaneWidth, -t);
-            glVertex2d(+myQuarterLaneWidth, -t);
+            glVertex2d(-myQuarterLaneWidth * exaggeration, -t);
+            glVertex2d(+myQuarterLaneWidth * exaggeration, -t);
             glEnd();
         }
         glPopMatrix();
