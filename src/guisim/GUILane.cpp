@@ -982,16 +982,18 @@ GUILane::getColorValue(int activeScheme) const {
                 case SVC_SHIP:
                     return 4;
                 case SVC_AUTHORITY:
-                    return 6;
+                    return 7;
                 default:
                     break;
             }
             if (myEdge->isTazConnector()) {
-                return 7;
-            } else if ((myPermissions & SVC_PASSENGER) != 0 || isRailway(myPermissions)) {
+                return 8;
+            } else if (isRailway(myPermissions)) {
+                return 5;
+            } else if ((myPermissions & SVC_PASSENGER) != 0) {
                 return 0;
             } else {
-                return 5;
+                return 6;
             }
         case 1:
             return isLaneOrEdgeSelected();
