@@ -992,10 +992,12 @@ GNELane::getColorValue(int activeScheme) const {
                 default:
                     break;
             }
-            if ((myPermissions & SVC_PASSENGER) != 0 || isRailway(myPermissions)) {
+            if (isRailway(myPermissions)) {
+                return 5;
+            } else if ((myPermissions & SVC_PASSENGER) != 0) {
                 return 0;
             } else {
-                return 5;
+                return 6;
             }
         case 1:
             return isAttributeCarrierSelected() ||myParentEdge.isAttributeCarrierSelected();
