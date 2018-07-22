@@ -152,8 +152,8 @@ NBFrame::fillOptions(bool forNetgen) {
         oc.doRegister("geometry.max-grade", new Option_Float(10));
         oc.addDescription("geometry.max-grade", "Processing", "Warn about edge geometries with a grade in % above FLOAT. The threshold applies to roads with a speed limit of 50km/h and is scaled according to road speed.");
 
-        oc.doRegister("railway.topology.check", new Option_Bool(false));
-        oc.addDescription("railway.topology.check", "Processing", "Analyse topology of the railway network");
+        oc.doRegister("railway.topology.output", new Option_FileName());
+        oc.addDescription("railway.topology.output", "Processing", "Analyse topology of the railway network");
     }
 
     oc.doRegister("offset.disable-normalization", new Option_Bool(false));

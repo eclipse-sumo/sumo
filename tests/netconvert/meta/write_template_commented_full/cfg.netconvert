@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jun 26 11:12:41 2018 by Eclipse SUMO netconvert Version 267588b
+<!-- generated on 07/22/18 15:40:23 by Eclipse SUMO netconvert Version 1e67d2b1c5
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -151,7 +151,7 @@
         <osm.stop-output.footway-access-factor value="1.5" type="FLOAT"/>
 
         <!-- Builds parameterized curves whenever the angular change  between straight segments exceeds FLOAT degrees -->
-        <opendrive-output.straight-threshold value="1e-08" type="FLOAT"/>
+        <opendrive-output.straight-threshold value="1e-008" type="FLOAT"/>
 
     </output>
 
@@ -568,7 +568,7 @@
         <geometry.max-grade value="10" type="FLOAT"/>
 
         <!-- Analyse topology of the railway network -->
-        <railway.topology.check value="false" type="BOOL"/>
+        <railway.topology.output value="" type="FILE"/>
 
         <!-- Turn off normalizing node positions -->
         <offset.disable-normalization value="false" synonymes="disable-normalize-node-positions" type="BOOL"/>

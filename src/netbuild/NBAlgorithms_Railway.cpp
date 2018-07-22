@@ -26,6 +26,7 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
+#include <utils/iodevices/OutputDevice.h>
 #include "NBNetBuilder.h"
 #include "NBNodeCont.h"
 #include "NBEdgeCont.h"
@@ -49,6 +50,8 @@
 // ---------------------------------------------------------------------------
 void
 NBRailwayTopologyAnalyzer::analyzeTopology(NBNetBuilder& nb, OptionsCont& oc) {
+    OutputDevice& device = OutputDevice::getDevice(oc.getString("railway.topology.output"));
+    device.writeXMLHeader("railwayTopology", "");
     NBEdgeCont& ec = nb.getEdgeCont();
     NBNodeCont& nc = nb.getNodeCont();
     std::set<NBNode*> railNodes;
@@ -61,7 +64,36 @@ NBRailwayTopologyAnalyzer::analyzeTopology(NBNetBuilder& nb, OptionsCont& oc) {
 
         }
     }
-    std::cout << "Found " << numRailEdges << " railway edges and " << railNodes.size() << " railway nodes.\n";
+    std::set<NBNode*> railSignals;
+    for (NBNode* node : railNodes) {
+        if (node->getType() == NODETYPE_RAIL_SIGNAL) {
+            railSignals.insert(node);
+        }
+    }
+    std::cout << "Found " << numRailEdges << " railway edges and " << railNodes.size() << " railway nodes (" << railSignals.size() << " signals).\n";
+
+
+    std::map<std::pair<int, int>, std::set<NBNode*> > types;
+    for (NBNode* node : railNodes) {
+        const int in = (int)node->getIncomingEdges().size();
+        const int out = (int)node->getOutgoingEdges().size();
+        types[std::make_pair(in, out)].insert(node);
+    }
+    for (auto it : types) {
+        std::cout << "   " << it.first.first << "," << it.first.second << " count:" << it.second.size() << "\n";
+        device.openTag("railNodeType");
+        device.writeAttr("in", it.first.first);
+        device.writeAttr("out", it.first.second);
+        for (NBNode* n : it.second) {
+            device.openTag(SUMO_TAG_NODE);
+            device.writeAttr(SUMO_ATTR_ID, n->getID());
+            device.closeTag();
+        }
+        device.closeTag();
+
+    }
+
+    device.close();
 }
 
 

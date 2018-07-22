@@ -146,7 +146,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     }
     
     // analyse and fix railway topology
-    if (oc.exists("railway.topology.check") && oc.getBool("railway.topology.check")) {
+    if (oc.exists("railway.topology.output") && oc.isSet("railway.topology.output")) {
         NBRailwayTopologyAnalyzer::analyzeTopology(*this, oc);
     }
 
