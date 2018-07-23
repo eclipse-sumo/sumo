@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jun 21 14:19:54 2018 by Eclipse SUMO netconvert Version 1e1904d
+<!-- generated on 07/23/18 17:43:27 by Eclipse SUMO netconvert Version cca791664f
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -60,8 +60,8 @@ SPDX-License-Identifier: EPL-2.0
     <busStop id="1865877888" name="Betriebshof Köpenick" lane="176023646#3_0" startPos="0.00" endPos="36.13" friendlyPos="true">
         <access lane="-403449586#0_0" pos="10.66" length="9.03" friendlyPos="1"/>
         <access lane="403449586#0_0" pos="137.65" length="5.07" friendlyPos="1"/>
-        <access lane="70415298#6_0" pos="61.47" length="33.78" friendlyPos="1"/>
         <access lane="-70415298#6_0" pos="0.00" length="21.88" friendlyPos="1"/>
+        <access lane="70415298#6_0" pos="61.47" length="33.78" friendlyPos="1"/>
     </busStop>
     <busStop id="1865877909" name="Mayschweg" lane="107701628_0" startPos="80.49" endPos="101.22" friendlyPos="true">
         <access lane="93704176#0_0" pos="1687.12" length="7.51" friendlyPos="1"/>
@@ -108,9 +108,9 @@ SPDX-License-Identifier: EPL-2.0
     </busStop>
     <busStop id="3257062966" name="Mayschweg" lane="176023646#0_0" startPos="0.00" endPos="14.59" friendlyPos="true">
         <access lane="151260829#1_0" pos="17.82" length="8.31" friendlyPos="1"/>
-        <access lane="93704176#2_0" pos="0.21" length="2.73" friendlyPos="1"/>
         <access lane="-93704176#2_0" pos="30.05" length="11.37" friendlyPos="1"/>
-        <access lane="93704176#1_0" pos="3.40" length="8.27" friendlyPos="1"/>
+        <access lane="93704176#2_0" pos="0.21" length="2.73" friendlyPos="1"/>
+        <access lane="-93704176#1_0" pos="0.00" length="13.77" friendlyPos="1"/>
     </busStop>
     <busStop id="3257062967" name="Müggelbergallee" lane="319292807_0" startPos="87.60" endPos="112.60" friendlyPos="true"/>
     <busStop id="3257062969" name="Pritstabelstraße" lane="319292807_0" startPos="1461.24" endPos="1486.24" friendlyPos="true">

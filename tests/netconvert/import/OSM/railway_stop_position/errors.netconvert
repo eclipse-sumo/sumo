@@ -11,6 +11,5 @@ Warning: No way found for reference '136039791' in relation '5974249'
 Warning: Ignoring restriction relation '5974249' with unknown from-way.
 Warning: Ignoring restriction relation '5974249' with unknown to-way.
 Warning: Ignoring restriction relation '5974249' with unknown via.
+Warning: Lane '-39028488_0' is not connected from any incoming edge at junction '1509953431'.
 Warning: Connection '313088548_0->254150073#1_0' is only 0.09 short.
-Warning: Connection '-39028488_0->39028488_0' is only 0.00 short.
-Warning: Connection '-223017774#0_0->223017774#0_0' is only 0.00 short.

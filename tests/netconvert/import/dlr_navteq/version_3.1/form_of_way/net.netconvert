@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jun 28 09:17:09 2018 by Eclipse SUMO netconvert Version 3ef3414
+<!-- generated on 07/23/18 17:35:43 by Eclipse SUMO netconvert Version cca791664f
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -18,7 +18,7 @@ SPDX-License-Identifier: EPL-2.0
     </output>
 
     <projection>
-        <proj.scale value="1e-05"/>
+        <proj.scale value="1e-005"/>
         <proj.utm value="true"/>
     </projection>
 
@@ -105,9 +105,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="7" response="000000110" foes="000100110"/>
         <request index="8" response="000001110" foes="001101110"/>
     </junction>
-    <junction id="61070105" type="priority" x="106.00" y="171.64" incLanes="53519004_0" intLanes="" shape="106.00,171.64 109.18,171.93 106.00,171.64">
-        <request index="0" response="0" foes="0"/>
-    </junction>
+    <junction id="61070105" type="dead_end" x="106.00" y="171.64" incLanes="53519004_0" intLanes="" shape="106.00,171.64 109.18,171.93 106.00,171.64"/>
     <junction id="61070136" type="priority" x="298.74" y="117.64" incLanes="-77318512_0 -77318512_1 551731979_0" intLanes="" shape="302.64,121.97 304.26,115.77 303.50,115.40 303.28,115.13 303.17,114.80 303.16,114.41 303.26,113.96 297.16,112.03 296.68,112.98 296.37,113.28 296.01,113.46 295.60,113.52 295.14,113.46 293.61,119.67">
         <request index="0" response="00000" foes="01000"/>
         <request index="1" response="00000" foes="01000"/>
@@ -166,7 +164,6 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="-77318512" to="-551731979" fromLane="1" toLane="0" dir="l" state="M"/>
     <connection from="-820948250" to="820948250" fromLane="0" toLane="0" dir="t" state="M"/>
     <connection from="-820948253" to="820948253" fromLane="0" toLane="0" dir="t" state="M"/>
-    <connection from="53519004" to="-53519004" fromLane="0" toLane="0" dir="t" state="M"/>
     <connection from="551731979" to="-53519003" fromLane="0" toLane="1" dir="l" state="m"/>
     <connection from="551731979" to="-551731979" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="551731982" to="-820948253" fromLane="0" toLane="0" dir="r" state="M"/>
