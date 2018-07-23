@@ -247,6 +247,10 @@ Vehicle::getPersonNumber(const std::string& vehicleID) {
     return getVehicle(vehicleID)->getPersonNumber();
 }
 
+std::vector<std::string>
+Vehicle::getPersonIDList(const std::string& vehicleID) {
+    return getVehicle(vehicleID)->getPersonIDList();
+}
 
 std::pair<std::string, double>
 Vehicle::getLeader(const std::string& vehicleID, double dist) {
@@ -370,6 +374,25 @@ Vehicle::getNextTLS(const std::string& vehicleID) {
             }
             seen += lane->getLength();
             link = MSLane::succLinkSec(*veh, view, *lane, bestLaneConts);
+        }
+    }
+    return result;
+}
+
+std::vector<TraCINextStopData>
+Vehicle::getNextStops(const std::string& vehicleID) {
+    std::vector<TraCINextStopData> result;
+    MSVehicle* veh = getVehicle(vehicleID);
+    std::list<MSVehicle::Stop> stops = veh->getMyStops();
+    for (std::list<MSVehicle::Stop>::iterator it = stops.begin(); it != stops.end(); ++it) {
+        if (!it->reached && !it->collision) {
+            TraCINextStopData nsd;
+            if (it->busstop != 0) { nsd.busStop = it->busstop->getID(); }
+            if (it->containerstop != 0) { nsd.containerStop = it->containerstop->getID(); }
+            if (it->parkingarea != 0) { nsd.parkingArea = it->parkingarea->getID(); }
+            if (it->chargingStation != 0) { nsd.chargingStation = it->chargingStation->getID(); }
+            nsd.lane = it->lane->getID();
+            result.push_back(nsd);
         }
     }
     return result;
@@ -690,6 +713,15 @@ Vehicle::setStop(const std::string& vehicleID,
     }
 }
 
+void
+Vehicle::rerouteParkingArea(const std::string& vehicleID, const std::string& parkingAreaID) {
+    MSVehicle* veh = getVehicle(vehicleID);
+    std::string error;
+    // Forward command to vehicle
+    if (!veh->rerouteParkingArea(parkingAreaID, error)) {
+        throw TraCIException(error);
+    }
+}
 
 void
 Vehicle::resume(const std::string& vehicleID) {

@@ -39,6 +39,9 @@ CMD_SETORDER = 0x03
 #  command: stop node
 CMD_STOP = 0x12
 
+# command: reroute to parking area
+CMD_REROUTE_TO_PARKING = 0xc2
+
 #  command: Resume from parking
 CMD_RESUME = 0x19
 
@@ -774,6 +777,9 @@ VAR_NOISEEMISSION = 0x66
 #  current person number (get: vehicle)
 VAR_PERSON_NUMBER = 0x67
 
+#  current person ids (get: vehicle)
+VAR_PERSON_IDS = 0xc3
+
 #  number of persons waiting at a defined bus stop (get: simulation)
 VAR_BUS_STOP_WAITING = 0x67
 
@@ -791,6 +797,9 @@ VAR_ACCUMULATED_WAITING_TIME = 0x87
 
 #  upcoming traffic lights (get: vehicle)
 VAR_NEXT_TLS = 0x70
+
+#  upcoming stops (get: vehicle)
+VAR_NEXT_STOPS = 0x73
 
 #  current acceleration (get: vehicle)
 VAR_ACCELERATION = 0x72

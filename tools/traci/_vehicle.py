@@ -66,6 +66,23 @@ def _readNextTLS(result):
         nextTLS.append((tlsID, tlsIndex, dist, chr(state)))
     return nextTLS
 
+def _readNextStops(result):
+    result.read("!iB")  # numCompounds, TYPE_INT
+    numStops = result.read("!i")[0]
+    nextStop = []
+    for i in range(numStops):
+        result.read("!B")
+        busStop = result.readString()
+        result.read("!B")
+        chargingStation = result.readString()
+        result.read("!B")
+        containerstop = result.readString()
+        result.read("!B")
+        parkingarea = result.readString()
+        result.read("!B")
+        lane = result.readString()
+        nextStop.append((busStop, chargingStation, containerstop, parkingarea, lane))
+    return nextStop
 
 _RETURN_VALUE_FUNC = {tc.VAR_SPEED: Storage.readDouble,
                       tc.VAR_SPEED_WITHOUT_TRACI: Storage.readDouble,
@@ -90,6 +107,7 @@ _RETURN_VALUE_FUNC = {tc.VAR_SPEED: Storage.readDouble,
                       tc.VAR_NOISEEMISSION: Storage.readDouble,
                       tc.VAR_ELECTRICITYCONSUMPTION: Storage.readDouble,
                       tc.VAR_PERSON_NUMBER: Storage.readInt,
+                      tc.VAR_PERSON_IDS: Storage.readStringList,
                       tc.VAR_EDGE_TRAVELTIME: Storage.readDouble,
                       tc.VAR_EDGE_EFFORT: Storage.readDouble,
                       tc.VAR_ROUTE_VALID: lambda result: bool(result.read("!B")[0]),
@@ -124,6 +142,7 @@ _RETURN_VALUE_FUNC = {tc.VAR_SPEED: Storage.readDouble,
                       tc.VAR_BEST_LANES: _readBestLanes,
                       tc.VAR_LEADER: _readLeader,
                       tc.VAR_NEXT_TLS: _readNextTLS,
+                      tc.VAR_NEXT_STOPS: _readNextStops,
                       tc.VAR_LANEPOSITION_LAT: Storage.readDouble,
                       tc.VAR_MAXSPEED_LAT: Storage.readDouble,
                       tc.VAR_MINGAP_LAT: Storage.readDouble,
@@ -329,6 +348,13 @@ class VehicleDomain(Domain):
         this vehicle.
         """
         return self._getUniversal(tc.VAR_PERSON_NUMBER, vehID)
+
+    def getPersonIDList(self, vehID):
+        """getPersonIDList(string) -> integer
+        Returns the list of persons which includes those defined using attribute 'personNumber'
+        as well as <person>-objects which are riding in this vehicle.
+        """
+        return self._getUniversal(tc.VAR_PERSON_IDS, vehID)
 
     def getAdaptedTraveltime(self, vehID, time, edgeID):
         """getAdaptedTraveltime(string, double, string) -> double
@@ -606,6 +632,13 @@ class VehicleDomain(Domain):
         """
         return self._getUniversal(tc.VAR_NEXT_TLS, vehID)
 
+    def getNextStops(self, vehID):
+        """getNextStop(string) ->
+
+        Return list of upcoming stops [(busStop, chargingStation, containerstop, parkingarea, lane), ...]
+        """
+        return self._getUniversal(tc.VAR_NEXT_STOPS, vehID)
+
     def subscribeLeader(self, vehID, dist=0., begin=0, end=2**31 - 1):
         """subscribeLeader(string, double) -> None
 
@@ -760,6 +793,19 @@ class VehicleDomain(Domain):
         """
         self._connection._sendDoubleCmd(
             tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_MAXSPEED_LAT, vehID, speed)
+
+    def rerouteParkingArea(self, vehID, parkingAreaID):
+        """rerouteParkingArea(string, string)
+
+        Changes the next parking area in parkingAreaID, updates the vehicle route,
+        and preserve consistency in case of passengers/containers on board.
+        """
+        self._connection._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.CMD_REROUTE_TO_PARKING, vehID,
+                                       1 + 4 +  # compound
+                                       1 + 4 + len(parkingAreaID))
+        self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 1)
+        self._connection._packString(parkingAreaID)
+        self._connection._sendExact()
 
     def setStop(self, vehID, edgeID, pos=1., laneIndex=0, duration=2**31 - 1,
                 flags=tc.STOP_DEFAULT, startPos=tc.INVALID_DOUBLE_VALUE, until=-1):

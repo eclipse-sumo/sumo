@@ -258,6 +258,18 @@ struct TraCINextTLSData {
     char state;
 };
 
+struct TraCINextStopData {
+    /// @brief (Optional) bus stop if one is assigned to the stop
+    std::string busStop;
+    /// @brief (Optional) container stop if one is assigned to the stop
+    std::string containerStop;
+    /// @brief (Optional) parking area if one is assigned to the stop
+    std::string parkingArea;
+    /// @brief (Optional) charging station if one is assigned to the stop
+    std::string chargingStation;
+    /// @brief The lane to stop at
+    std::string lane;
+};
 
 struct TraCIBestLanesData {
     /// @brief The id of the lane

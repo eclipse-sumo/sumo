@@ -2445,6 +2445,11 @@ TraCIAPI::VehicleScope::getPersonNumber(const std::string& vehicleID) const {
     return myParent.getInt(CMD_GET_VEHICLE_VARIABLE, VAR_PERSON_NUMBER, vehicleID);
 }
 
+std::vector<std::string>
+TraCIAPI::VehicleScope::getPersonIDList(const std::string& vehicleID) const {
+    return myParent.getStringVector(CMD_GET_VEHICLE_VARIABLE, VAR_PERSON_IDS, vehicleID);
+}
+
 double
 TraCIAPI::VehicleScope::getSpeedWithoutTraCI(const std::string& vehicleID) const {
     return myParent.getDouble(CMD_GET_VEHICLE_VARIABLE, VAR_SPEED_WITHOUT_TRACI, vehicleID);

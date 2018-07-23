@@ -523,6 +523,16 @@ MSBaseVehicle::getPersonNumber() const {
     return boarded + myParameter->personNumber;
 }
 
+std::vector<std::string>
+MSBaseVehicle::getPersonIDList() const {
+    std::vector<std::string> ret;
+    const std::vector<MSTransportable*>& persons = getPersons();
+    for (std::vector<MSTransportable*>::const_iterator it_p = persons.begin(); it_p != persons.end(); ++it_p) {
+        ret.push_back((*it_p)->getID());
+    }
+    return ret;
+}
+
 int
 MSBaseVehicle::getContainerNumber() const {
     int loaded = myContainerDevice == 0 ? 0 : myContainerDevice->size();

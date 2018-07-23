@@ -303,6 +303,11 @@ public:
      */
     int getPersonNumber() const;
 
+    /** @brief Returns the list of persons
+     * @return The list of passengers on-board
+     */
+    std::vector<std::string> getPersonIDList() const;
+
     /** @brief Returns the number of containers
      * @return The number of contaiers on-board
      */

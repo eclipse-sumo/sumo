@@ -4760,6 +4760,77 @@ MSVehicle::onFurtherEdge(const MSEdge* edge) const {
     return false;
 }
 
+bool
+MSVehicle::rerouteParkingArea(const std::string& parkingAreaID, std::string& errorMsg){
+    // this function is based on MSTriggeredRerouter::rerouteParkingArea in order to keep
+    // consistency in the behaviour.
+
+    // get vehicle params
+    MSParkingArea* destParkArea = getNextParkingArea();
+    const MSRoute& route = getRoute();
+    const MSEdge* lastEdge = route.getLastEdge();
+
+    if (destParkArea == nullptr) {
+        // not driving towards a parking area
+        errorMsg = "Vehicle " + getID() + " is not driving to a parking area so it cannot be rerouted.";
+        return false;
+    }
+
+    // if the current route ends at the parking area, the new route will also and at the new area
+    bool newDestination = (&destParkArea->getLane().getEdge() == route.getLastEdge()
+                          && getArrivalPos() >= destParkArea->getBeginLanePosition()
+                          && getArrivalPos() <= destParkArea->getEndLanePosition());
+
+    // retrieve info on the new parking area
+    MSParkingArea* newParkingArea = (MSParkingArea*) MSNet::getInstance()->getStoppingPlace(
+        parkingAreaID, SumoXMLTag::SUMO_TAG_PARKING_AREA);
+
+    if (newParkingArea == 0) {
+        errorMsg = "Parking area ID " + toString(parkingAreaID) + " not found in the network.";
+        return false;
+    }
+
+    const MSEdge* newEdge = &(newParkingArea->getLane().getEdge());
+    SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = getInfluencer().getRouterTT();
+
+    // Compute the route from the current edge to the parking area edge
+    ConstMSEdgeVector edgesToPark;
+    router.compute(getEdge(), newEdge, this, MSNet::getInstance()->getCurrentTimeStep(), edgesToPark);
+
+    // Compute the route from the parking area edge to the end of the route
+    ConstMSEdgeVector edgesFromPark;
+    if (!newDestination) {
+        router.compute(newEdge, lastEdge, this, MSNet::getInstance()->getCurrentTimeStep(), edgesFromPark);
+    } else {
+        // adapt plans of any riders
+        for (MSTransportable* p : getPersons()) {
+            p->rerouteParkingArea(getNextParkingArea(), newParkingArea);
+        }
+    }
+
+    // we have a new destination, let's replace the vehicle route
+    ConstMSEdgeVector edges = edgesToPark;
+    if (edgesFromPark.size() > 0) {
+        edges.insert(edges.end(), edgesFromPark.begin() + 1, edgesFromPark.end());
+    }
+
+    if (newDestination) {
+        SUMOVehicleParameter* newParameter = new SUMOVehicleParameter();
+        *newParameter = getParameter();
+        newParameter->arrivalPosProcedure = ARRIVAL_POS_GIVEN;
+        newParameter->arrivalPos = newParkingArea->getEndLanePosition();
+        replaceParameter(newParameter);
+    }
+    replaceRouteEdges(edges, "TraCI:rerouteParkingArea", false, false, false);
+
+    if (!replaceParkingArea(newParkingArea, errorMsg)) {
+        WRITE_WARNING("Vehicle '" + getID() + "' could not reroute to new parkingArea '" + newParkingArea->getID()
+                        + "' reason=" + errorMsg + ", time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
+        return false;
+    }
+
+    return true;
+}
 
 bool
 MSVehicle::addTraciStop(MSLane* const lane, const double startPos, const double endPos, const SUMOTime duration, const SUMOTime until,
@@ -4946,6 +5017,10 @@ MSVehicle::getNextStop() {
     return myStops.front();
 }
 
+std::list<MSVehicle::Stop>
+MSVehicle::getMyStops() {
+    return myStops;
+}
 
 MSVehicle::Influencer&
 MSVehicle::getInfluencer() {

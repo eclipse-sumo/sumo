@@ -77,6 +77,7 @@ public:
     static double getNoiseEmission(const std::string& vehicleID);
     static double getElectricityConsumption(const std::string& vehicleID);
     static int getPersonNumber(const std::string& vehicleID);
+    static std::vector<std::string> getPersonIDList(const std::string& vehicleID);
     static std::pair<std::string, double> getLeader(const std::string& vehicleID, double dist);
     static double getWaitingTime(const std::string& vehicleID);
     static double getAccumulatedWaitingTime(const std::string& vehicleID);
@@ -87,6 +88,7 @@ public:
     static int getSignalStates(const std::string& vehicleID);
     static std::vector<TraCIBestLanesData> getBestLanes(const std::string& vehicleID);
     static std::vector<TraCINextTLSData> getNextTLS(const std::string& vehicleID);
+    static std::vector<TraCINextStopData> getNextStops(const std::string& vehicleID);
     static int getStopState(const std::string& vehicleID);
     static double getDistance(const std::string& vehicleID);
     static double getDrivingDistance(const std::string& vehicleID, const std::string& edgeID, double position, int laneIndex);
@@ -134,6 +136,9 @@ public:
                         int flags = STOP_DEFAULT,
                         double startPos = INVALID_DOUBLE_VALUE,
                         SUMOTime until = -1);
+
+    static void rerouteParkingArea(const std::string& vehicleID,
+                                   const std::string& parkingAreaID);
 
     static void resume(const std::string& vehicleID);
 
