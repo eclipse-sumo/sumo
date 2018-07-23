@@ -50,6 +50,9 @@
 // command: stop node
 #define CMD_STOP 0x12
 
+// command: reroute to parking area
+#define CMD_REROUTE_TO_PARKING 0xc2
+
 // command: Resume from parking
 #define CMD_RESUME 0x19
 
@@ -785,6 +788,9 @@
 // current person number (get: vehicle)
 #define VAR_PERSON_NUMBER 0x67
 
+// current person ids (get: vehicle)
+#define VAR_PERSON_IDS 0xc3
+
 // number of persons waiting at a defined bus stop (get: simulation)
 #define VAR_BUS_STOP_WAITING 0x67
 
@@ -802,6 +808,9 @@
 
 // upcoming traffic lights (get: vehicle)
 #define VAR_NEXT_TLS 0x70
+
+// upcoming stops (get: vehicle)
+#define VAR_NEXT_STOPS 0x73
 
 // current acceleration (get: vehicle)
 #define VAR_ACCELERATION 0x72

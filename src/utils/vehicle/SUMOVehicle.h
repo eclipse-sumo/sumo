@@ -304,6 +304,11 @@ public:
      */
     virtual int getPersonNumber() const = 0;
 
+    /** @brief Returns the list of persons
+     * @return The list of passengers on-board
+     */
+    virtual std::vector<std::string> getPersonIDList() const = 0;
+
     /** @brief Returns the number of containers
      * @return The number of contaiers on-board
      */

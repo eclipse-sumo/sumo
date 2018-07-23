@@ -692,6 +692,7 @@ public:
         double getSlope(const std::string& vehicleID) const;
         double getAllowedSpeed(const std::string& vehicleID) const;
         int getPersonNumber(const std::string& vehicleID) const;
+        std::vector<std::string> getPersonIDList(const std::string& vehicleID) const;
         double getSpeedWithoutTraCI(const std::string& vehicleID) const;
         bool isRouteValid(const std::string& vehicleID) const;
         double getLateralLanePosition(const std::string& vehicleID) const;

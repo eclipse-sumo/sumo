@@ -1272,6 +1272,12 @@ public:
     double getSpeedWithoutTraciInfluence() const;
 
     /**
+     * reroute the vehicle to the new parking area, updating routes and passengers/containers associated trips
+     * @param parkingAreaID    id of the new parking area
+     */
+    bool rerouteParkingArea(const std::string& parkingAreaID, std::string& errorMsg);
+
+    /**
      * schedule a new stop for the vehicle; each time a stop is reached, the vehicle
      * will wait for the given duration before continuing on its route
      * @param lane     lane on wich to stop
@@ -1305,6 +1311,12 @@ public:
     * @return the upcoming stop
     */
     Stop& getNextStop();
+
+    /**
+    * returns the list of stops not yet reached in the stop queue
+    * @return the list of upcoming stops
+    */
+    std::list<Stop> getMyStops();
 
     /**
     * resumes a vehicle from stopping
