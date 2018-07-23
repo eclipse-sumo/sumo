@@ -62,6 +62,9 @@ private:
 
     static bool hasStraightPair(const NBNode* node, const EdgeVector& edges, const EdgeVector& edges2); 
     static bool allSharp(const NBNode* node, const EdgeVector& in, const EdgeVector& out);
+
+    static void reverseEdges(std::set<NBNode*> brokenNodes);
+    static void addBidiEdges(NBNetBuilder& nb, std::set<NBNode*> railNodes, std::set<NBNode*> brokenNodes);
 };
 
 

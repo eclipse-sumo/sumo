@@ -66,73 +66,10 @@ void
 NBRailwayTopologyAnalyzer::repairTopology(NBNetBuilder& nb) {
     std::set<NBNode*> brokenNodes; 
     getBrokenRailNodes(nb, brokenNodes, false, OutputDevice::getDevice("/dev/null"));
-    // find edge sequences between broken nodes
-    // XXX also search backwards to get sequences that start at the network boundary
-    std::vector<EdgeVector> seqsToReverse;
-    for (NBNode* n : brokenNodes) {
-        EdgeVector inRail, outRail;
-        getRailEdges(n, inRail, outRail);
-        for (NBEdge* start : outRail) {
-            EdgeVector tmp;
-            tmp.push_back(start);
-            if (!allSharp(n, inRail, tmp) 
-                    || (inRail.size() == 1 && outRail.size() == 1)) {
-                continue;
-            }
-
-            //std::cout << " get sequences from " << start->getID() << "\n";
-            bool forward = true;
-            EdgeVector seq;
-            while(forward) {
-                seq.push_back(start);
-                //std::cout << " seq=" << toString(seq) << "\n";
-                NBNode* n2 = start->getToNode();
-                EdgeVector inRail2, outRail2;
-                getRailEdges(n2, inRail2, outRail2);
-                if (brokenNodes.count(n2) != 0) {
-                    EdgeVector tmp2;
-                    tmp2.push_back(start);
-                    if ((outRail2.size() > 0 && allSharp(n2, tmp, outRail2))
-                            || hasStraightPair(n2, tmp2, inRail2)) {
-                        seqsToReverse.push_back(seq);
-                    } else {
-#ifdef DEBUG_SEQSTOREVERSE
-                        if (n->getID() == DEBUGNODEID) std::cout << " abort at n2=" << n2->getID() << " (not all sharp)\n";
-#endif
-                    }
-                    forward = false;
-                } else {
-                    if (outRail2.size() == 0) {
-                        // stop at network border
-                        seqsToReverse.push_back(seq);
-                        forward = false;
-#ifdef DEBUG_SEQSTOREVERSE
-                    if (n->getID() == DEBUGNODEID) std::cout << " abort at n2=" << n2->getID() << " (border)\n";
-#endif
-                    } else if (outRail2.size() > 1 || inRail2.size() > 1) {
-                        // stop at switch
-                        forward = false;
-#ifdef DEBUG_SEQSTOREVERSE
-                    if (n->getID() == DEBUGNODEID) std::cout << " abort at n2=" << n2->getID() << " (switch)\n";
-#endif
-                    } else {
-                        start = outRail2.front();
-                    }
-                }
-            }
-        }
-    }
-    // sort by sequence length
-    std::sort(seqsToReverse.begin(), seqsToReverse.end(), 
-            [](const EdgeVector& a, const EdgeVector& b){ return a.size() < b.size(); });
-    std::cout << " found " << seqsToReverse.size() << " reversible edge sequences between broken rail nodes\n";
-    for (EdgeVector& seq : seqsToReverse) {
-        std::cout << " size=" << seq.size() << " seq=" << toString(seq) << "\n";
-        for (NBEdge* e : seq) {
-            e->reinitNodes(e->getToNode(), e->getFromNode());
-            e->setGeometry(e->getGeometry().reverse());
-        }
-    }
+    reverseEdges(brokenNodes);
+    std::set<NBNode*> railNodes;
+    getRailNodes(nb, railNodes, false);
+    addBidiEdges(nb, railNodes, brokenNodes);
 }
 
 
@@ -332,7 +269,150 @@ NBRailwayTopologyAnalyzer::allSharp(const NBNode* node, const EdgeVector& in, co
 }
 
 
+void 
+NBRailwayTopologyAnalyzer::reverseEdges(std::set<NBNode*> brokenNodes) {
+    // find reversible edge sequences between broken nodes
+    // XXX also search backwards to get sequences that start at the network boundary
+    std::vector<EdgeVector> seqsToReverse;
+    for (NBNode* n : brokenNodes) {
+        EdgeVector inRail, outRail;
+        getRailEdges(n, inRail, outRail);
+        for (NBEdge* start : outRail) {
+            EdgeVector tmp;
+            tmp.push_back(start);
+            if (!allSharp(n, inRail, tmp) 
+                    || (inRail.size() == 1 && outRail.size() == 1)) {
+                continue;
+            }
 
+            //std::cout << " get sequences from " << start->getID() << "\n";
+            bool forward = true;
+            EdgeVector seq;
+            while(forward) {
+                seq.push_back(start);
+                //std::cout << " seq=" << toString(seq) << "\n";
+                NBNode* n2 = start->getToNode();
+                EdgeVector inRail2, outRail2;
+                getRailEdges(n2, inRail2, outRail2);
+                if (brokenNodes.count(n2) != 0) {
+                    EdgeVector tmp2;
+                    tmp2.push_back(start);
+                    if ((outRail2.size() > 0 && allSharp(n2, tmp, outRail2))
+                            || hasStraightPair(n2, tmp2, inRail2)) {
+                        seqsToReverse.push_back(seq);
+                    } else {
+#ifdef DEBUG_SEQSTOREVERSE
+                        if (n->getID() == DEBUGNODEID) std::cout << " abort at n2=" << n2->getID() << " (not all sharp)\n";
+#endif
+                    }
+                    forward = false;
+                } else {
+                    if (outRail2.size() == 0) {
+                        // stop at network border
+                        seqsToReverse.push_back(seq);
+                        forward = false;
+#ifdef DEBUG_SEQSTOREVERSE
+                    if (n->getID() == DEBUGNODEID) std::cout << " abort at n2=" << n2->getID() << " (border)\n";
+#endif
+                    } else if (outRail2.size() > 1 || inRail2.size() > 1) {
+                        // stop at switch
+                        forward = false;
+#ifdef DEBUG_SEQSTOREVERSE
+                    if (n->getID() == DEBUGNODEID) std::cout << " abort at n2=" << n2->getID() << " (switch)\n";
+#endif
+                    } else {
+                        start = outRail2.front();
+                    }
+                }
+            }
+        }
+    }
+    // sort by sequence length
+    std::sort(seqsToReverse.begin(), seqsToReverse.end(), 
+            [](const EdgeVector& a, const EdgeVector& b){ return a.size() < b.size(); });
+    std::cout << " found " << seqsToReverse.size() << " reversible edge sequences between broken rail nodes\n";
+    for (EdgeVector& seq : seqsToReverse) {
+        std::cout << " size=" << seq.size() << " seq=" << toString(seq) << "\n";
+        for (NBEdge* e : seq) {
+            e->reinitNodes(e->getToNode(), e->getFromNode());
+            e->setGeometry(e->getGeometry().reverse());
+        }
+    }
+}
+
+
+void
+NBRailwayTopologyAnalyzer::addBidiEdges(
+        NBNetBuilder& nb,
+        std::set<NBNode*> railNodes, 
+        std::set<NBNode*> brokenNodes) {
+    NBEdgeCont& ec = nb.getEdgeCont();
+    // find buffer stops and ensure that thay are connect to the network in both directions
+    int numBufferStops = 0;
+    int numAddedBidiTotal = 0;
+    for (NBNode* node : railNodes) {
+        if (node->getParameter("buffer_stop", "false") == "true") {
+            if (node->getEdges().size() != 1) {
+                WRITE_WARNING("Ignoring buffer stop junction '" + node->getID() + "' with " + toString(node->getEdges().size()) + " edges\n");
+                continue;
+            }
+            NBNode* bufferStop = node;
+            int numAddedBidi = 0;
+            numBufferStops++;
+            NBEdge* prev = 0;
+            NBEdge* prev2 = 0;
+            EdgeVector inRail, outRail;
+            getRailEdges(node, inRail, outRail);
+            bool addAway = true; // add new edges away from buffer stop
+            while (prev == 0 || (inRail.size() + outRail.size()) == 3) {
+                NBEdge* e = 0;
+                if (prev == 0) {
+                    assert(node->getEdges().size() == 1);
+                    e = node->getEdges().front();
+                    addAway = node == e->getToNode();
+                } else {
+                    if (addAway) {
+                        assert(inRail.size() == 2);
+                        e = inRail.front() == prev2 ? inRail.back() : inRail.front();
+                    } else {
+                        assert(outRail.size() == 2);
+                        e = outRail.front() == prev2 ? outRail.back() : outRail.front();
+                    }
+                }
+                e->setLaneSpreadFunction(LANESPREAD_CENTER);
+                NBNode* e2From = 0;
+                NBNode* e2To = 0;
+                if (addAway) {
+                    e2From = node;
+                    e2To = e->getFromNode();
+                    node = e2To;
+                } else {
+                    e2From = e->getToNode();
+                    e2To = node;
+                    node = e2From;
+                }
+                NBEdge* e2 = new NBEdge("-" + e->getID(), e2From, e2To, 
+                        e, e->getGeometry().reverse());
+                if (!ec.insert(e2)) {
+                    delete e2;
+                    WRITE_ERROR("Could not add edge '" + e2->getID() + "'.");
+                    break;
+                }
+                prev = e;
+                prev2 = e2;
+                numAddedBidi++;
+                numAddedBidiTotal++;
+                inRail.clear();
+                outRail.clear();
+                getRailEdges(node, inRail, outRail);
+            }
+            std::cout << " added " << numAddedBidi << " edges between buffer stop " << bufferStop->getID() << " and node " << node->getID() << "\n";
+        }
+    }
+    std::cout << "added " << numAddedBidiTotal
+        << " edges to connect " << numBufferStops 
+        << " buffer stops in both directions\n";
+}
 
 /****************************************************************************/
 
