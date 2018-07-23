@@ -67,6 +67,7 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
             && variable != VAR_STOP_STARTING_VEHICLES_NUMBER && variable != VAR_STOP_STARTING_VEHICLES_IDS
             && variable != VAR_STOP_ENDING_VEHICLES_NUMBER && variable != VAR_STOP_ENDING_VEHICLES_IDS
             && variable != VAR_COLLIDING_VEHICLES_NUMBER && variable != VAR_COLLIDING_VEHICLES_IDS
+            && variable != VAR_EMERGENCYSTOPPING_VEHICLES_NUMBER && variable != VAR_EMERGENCYSTOPPING_VEHICLES_IDS
             && variable != VAR_PARAMETER
        ) {
         return server.writeErrorStatusCmd(CMD_GET_SIM_VARIABLE, "Get Simulation Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
@@ -143,6 +144,12 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
                 break;
             case VAR_COLLIDING_VEHICLES_IDS:
                 writeVehicleStateIDs(server, tempMsg, MSNet::VEHICLE_STATE_COLLISION);
+                break;
+            case VAR_EMERGENCYSTOPPING_VEHICLES_NUMBER:
+                writeVehicleStateNumber(server, tempMsg, MSNet::VEHICLE_STATE_EMERGENCYSTOP);
+                break;
+            case VAR_EMERGENCYSTOPPING_VEHICLES_IDS:
+                writeVehicleStateIDs(server, tempMsg, MSNet::VEHICLE_STATE_EMERGENCYSTOP);
                 break;
             case VAR_DELTA_T:
                 tempMsg.writeUnsignedByte(TYPE_INTEGER);

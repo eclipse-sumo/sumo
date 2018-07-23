@@ -47,6 +47,8 @@ def checkVehicleStates():
     print("stopend", traci.simulation.getStopEndingVehiclesIDList())
     print("#colliding", traci.simulation.getCollidingVehiclesNumber())
     print("colliding", traci.simulation.getCollidingVehiclesIDList())
+    print("#emergencystopping", traci.simulation.getEmergencyStoppingVehiclesNumber())
+    print("emergencystopping", traci.simulation.getEmergencyStoppingIDList())
     print("min#expected", traci.simulation.getMinExpectedNumber())
     print("#teleportStart", traci.simulation.getStartingTeleportNumber())
     print("teleportStart", traci.simulation.getStartingTeleportIDList())
@@ -58,7 +60,7 @@ def ppStages(comment, stages):
     print("%s\n  %s\n" % (comment, "\n  ".join(map(str, stages))))
 
 
-traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg"])
+traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg", "--ignore-route-errors"])
 traci.simulation.subscribe(
     (traci.constants.VAR_LOADED_VEHICLES_IDS, traci.constants.VAR_DEPARTED_VEHICLES_IDS))
 print(traci.simulation.getSubscriptionResults())
@@ -135,10 +137,16 @@ ppStages("findIntermodalRoute (car)", traci.simulation.findIntermodalRoute("o", 
 ppStages("findIntermodalRoute (bike,car,public)",
          traci.simulation.findIntermodalRoute("o", "2o", modes="car bicycle public"))
 
-for step in range(10):
+traci.vehicle.setSpeedMode("emergencyStopper", 0)
+traci.vehicle.setSpeed("emergencyStopper", 100)
+for step in range(12):
     print("step", step)
     traci.simulationStep()
     if traci.simulation.getCollidingVehiclesNumber() > 0:
+        print("detected collision")
+        checkVehicleStates()
+    if traci.simulation.getEmergencyStoppingVehiclesNumber() > 0:
+        print("detected emergency stop")
         checkVehicleStates()
     print(traci.simulation.getSubscriptionResults())
 traci.close()

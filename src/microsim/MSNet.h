@@ -503,7 +503,9 @@ public:
         /// @brief The vehicle ends to stop
         VEHICLE_STATE_ENDING_STOP,
         /// @brief The vehicle is involved in a collision
-        VEHICLE_STATE_COLLISION
+        VEHICLE_STATE_COLLISION,
+        /// @brief The vehicle had to brake harder than permitted
+        VEHICLE_STATE_EMERGENCYSTOP
     };
 
 

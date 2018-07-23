@@ -1,5 +1,4 @@
 Loading configuration... done.
- Retrying in 1 seconds
 {114: ['horiz', 'horiz1'], 116: []}
 step 0
 {114: [], 116: ['horiz']}
@@ -12,10 +11,10 @@ step 3
 step 4
 {114: [], 116: []}
 step 5
-{114: ['horiz2', 'suddenStop', 'collider'], 116: ['horiz1']}
+{114: ['horiz2', 'suddenStop', 'collider', 'emergencyStopper'], 116: ['horiz1']}
 time 6000
-#loaded 3
-loaded ['horiz2', 'suddenStop', 'collider']
+#loaded 4
+loaded ['horiz2', 'suddenStop', 'collider', 'emergencyStopper']
 #departed 1
 departed ['horiz1']
 #arrived 0
@@ -30,7 +29,9 @@ stopstart []
 stopend []
 #colliding 0
 colliding []
-min#expected 5
+#emergencystopping 0
+emergencystopping []
+min#expected 6
 #teleportStart 0
 teleportStart []
 #teleportEnd 0
@@ -41,7 +42,7 @@ convertRoad2D (-1.22, 3903.52)
 convertRoad3D (-1.22, 3903.52, 2.0)
 convertRoadGeo (12.014678141843579, 48.121449189819344)
 convertRoadGeoAlt (12.014678141843579, 48.121449189819344, 2.0)
-convert2DGeo (12.023018905467282, 48.09105459770769)
+convert2DGeo (12.02301890546728, 48.09105459770769)
 convertGeo2D (-1619.5653987218393, -9550.720807247795)
 convert2DRoad ('o', 2906.187593990786, 0)
 convertGeoRoad ('o', 1012.1563357397523, 0)
@@ -85,6 +86,7 @@ step 5
 step 6
 {114: [], 116: []}
 step 7
+detected collision
 time 14000
 #loaded 0
 loaded []
@@ -102,13 +104,69 @@ stopstart []
 stopend []
 #colliding 2
 colliding ['suddenStop', 'collider']
-min#expected 4
+#emergencystopping 0
+emergencystopping []
+min#expected 5
 #teleportStart 1
 teleportStart ['collider']
 #teleportEnd 0
 teleportEnd []
 {114: [], 116: []}
 step 8
-{114: [], 116: []}
+{114: [], 116: ['emergencyStopper']}
 step 9
+{114: [], 116: []}
+step 10
+detected emergency stop
+time 17000
+#loaded 0
+loaded []
+#departed 0
+departed []
+#arrived 0
+arrived []
+#parkstart 0
+parkstart []
+#parkend 0
+parkend []
+#stopstart 0
+stopstart []
+#stopend 0
+stopend []
+#colliding 0
+colliding []
+#emergencystopping 1
+emergencystopping ['emergencyStopper']
+min#expected 5
+#teleportStart 0
+teleportStart []
+#teleportEnd 0
+teleportEnd []
+{114: [], 116: []}
+step 11
+detected emergency stop
+time 18000
+#loaded 0
+loaded []
+#departed 0
+departed []
+#arrived 0
+arrived []
+#parkstart 0
+parkstart []
+#parkend 0
+parkend []
+#stopstart 0
+stopstart []
+#stopend 0
+stopend []
+#colliding 0
+colliding []
+#emergencystopping 1
+emergencystopping ['emergencyStopper']
+min#expected 5
+#teleportStart 0
+teleportStart []
+#teleportEnd 0
+teleportEnd []
 {114: [], 116: []}

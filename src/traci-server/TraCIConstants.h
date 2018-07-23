@@ -881,6 +881,12 @@
 // ids of vehicles involved in a collision (get: simulation)
 #define VAR_COLLIDING_VEHICLES_IDS 0x81
 
+// number of vehicles involved in a collision (get: simulation)
+#define VAR_EMERGENCYSTOPPING_VEHICLES_NUMBER 0x89
+
+// ids of vehicles involved in a collision (get: simulation)
+#define VAR_EMERGENCYSTOPPING_VEHICLES_IDS 0x8a
+
 // clears the simulation of all not inserted vehicles (set: simulation)
 #define CMD_CLEAR_PENDING_VEHICLES 0x94
 
