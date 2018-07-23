@@ -468,12 +468,32 @@ NBNodeCont::generateNodeClusters(double maxDist, NodeClusters& into) const {
             }
             c.insert(n);
             visited.insert(n);
+            bool pureRail = true;
+            for (NBEdge* e : n->getEdges()) {
+                if ((e->getPermissions() & ~(SVC_RAIL_CLASSES | SVC_PEDESTRIAN)) != 0) {
+                    pureRail = false;
+                    break;
+                }
+            }
 #ifdef DEBUG_JOINJUNCTIONS
-            if (DEBUGCOND(n)) std::cout << "generateNodeClusters: consider n=" << n->getID() << " edges=" << toString(n->getEdges(), ' ') << " with cluster " << joinNamedToStringSorting(c, ' ') << "\n";
+            if (DEBUGCOND(n)) std::cout << "generateNodeClusters: consider n=" << n->getID() << " edges=" << toString(n->getEdges(), ' ') << " with cluster " << joinNamedToStringSorting(c, ' ') << " pureRail=" << pureRail << "\n";
 #endif
-            
             for (NBEdge* e : n->getEdges()) {
                 NBNode* s = n->hasIncoming(e) ? e->getFromNode() : e->getToNode();
+                if (pureRail && n->getType() != NODETYPE_RAIL_CROSSING) {
+                    bool pureRail2 = true;
+                    for (NBEdge* e : n->getEdges()) {
+                        if ((e->getPermissions() & ~(SVC_RAIL_CLASSES | SVC_PEDESTRIAN)) != 0) {
+                            pureRail2 = false;
+                            break;
+                        }
+                    }
+                    if (pureRail2 && s->getType() != NODETYPE_RAIL_CROSSING) {
+                        // do not join pure rail nodes (neither nodes nor the traffic lights)
+                        continue;
+                    }
+                }
+            
                 const double length = e->getLoadedLength();
 #ifdef DEBUG_JOINJUNCTIONS
                 if (DEBUGCOND(n)) std::cout << "generateNodeClusters edge=" << e->getID() << " length=" << length << "\n";
