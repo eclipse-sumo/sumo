@@ -152,10 +152,11 @@ NBRailwayTopologyAnalyzer::getRailEdges(NBNode* node,
 
 
 
-void
+std::set<NBNode*>
 NBRailwayTopologyAnalyzer::getBrokenRailNodes(NBNetBuilder& nb, 
-        std::set<NBNode*>& brokenNodes, 
+        const std::set<NBNode*>& oldBrokenNodes, 
         bool verbose, OutputDevice& device) {
+    std::set<NBNode*> brokenNodes(oldBrokenNodes);
     device.writeXMLHeader("railwayTopology", "");
     std::set<NBNode*> railNodes;
     getRailNodes(nb, railNodes, verbose);
@@ -246,6 +247,7 @@ NBRailwayTopologyAnalyzer::getBrokenRailNodes(NBNetBuilder& nb,
     }
 
     device.close();
+    return brokenNodes;
 }
 
 
@@ -254,7 +256,6 @@ NBRailwayTopologyAnalyzer::getRailNodes(NBNetBuilder& nb, std::set<NBNode*>& rai
         bool verbose) {
 
     NBEdgeCont& ec = nb.getEdgeCont();
-    NBNodeCont& nc = nb.getNodeCont();
     int numRailEdges = 0;
     for (auto it = ec.begin(); it != ec.end(); it++) {
         if (isRailway(it->second->getPermissions())) {
