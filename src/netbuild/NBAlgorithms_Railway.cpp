@@ -57,7 +57,8 @@
 
 void
 NBRailwayTopologyAnalyzer::analyzeTopology(NBNetBuilder& nb, const std::string& outfile) {
-    getBrokenRailNodes(nb, std::set<NBNode*>(), true, OutputDevice::getDevice(outfile));
+    std::set<NBNode*> brokenNodes; 
+    getBrokenRailNodes(nb, brokenNodes, true, OutputDevice::getDevice(outfile));
 }
 
 
@@ -152,11 +153,10 @@ NBRailwayTopologyAnalyzer::getRailEdges(NBNode* node,
 
 
 
-std::set<NBNode*>
+void
 NBRailwayTopologyAnalyzer::getBrokenRailNodes(NBNetBuilder& nb, 
-        const std::set<NBNode*>& oldBrokenNodes, 
+        std::set<NBNode*>& brokenNodes, 
         bool verbose, OutputDevice& device) {
-    std::set<NBNode*> brokenNodes(oldBrokenNodes);
     device.writeXMLHeader("railwayTopology", "");
     std::set<NBNode*> railNodes;
     getRailNodes(nb, railNodes, verbose);
@@ -247,7 +247,6 @@ NBRailwayTopologyAnalyzer::getBrokenRailNodes(NBNetBuilder& nb,
     }
 
     device.close();
-    return brokenNodes;
 }
 
 

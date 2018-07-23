@@ -55,7 +55,7 @@ public:
 
 private:
     static void getRailNodes(NBNetBuilder& nb, std::set<NBNode*>& railNodes, bool verbose);
-    static std::set<NBNode*> getBrokenRailNodes(NBNetBuilder& nb, const std::set<NBNode*>& oldBrokenNodes, 
+    static void getBrokenRailNodes(NBNetBuilder& nb, std::set<NBNode*>& brokenNodes, 
             bool verbose, OutputDevice& device);
 
     static void getRailEdges(NBNode* node, EdgeVector& inEdges, EdgeVector& outEdges);
