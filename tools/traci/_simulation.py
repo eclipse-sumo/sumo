@@ -206,8 +206,8 @@ class SimulationDomain(Domain):
         """
         return self._getUniversal(tc.VAR_EMERGENCYSTOPPING_VEHICLES_NUMBER)
 
-    def getEmergencyStoppingIDList(self):
-        """getEmergencyStoppingIDList() -> list(string)
+    def getEmergencyStoppingVehiclesIDList(self):
+        """getEmergencyStoppingVehiclesIDList() -> list(string)
         Return Ids of vehicles that peformed an emergency stop in the last step
         """
         return self._getUniversal(tc.VAR_EMERGENCYSTOPPING_VEHICLES_IDS)

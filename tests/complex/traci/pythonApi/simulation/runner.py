@@ -48,7 +48,7 @@ def checkVehicleStates():
     print("#colliding", traci.simulation.getCollidingVehiclesNumber())
     print("colliding", traci.simulation.getCollidingVehiclesIDList())
     print("#emergencystopping", traci.simulation.getEmergencyStoppingVehiclesNumber())
-    print("emergencystopping", traci.simulation.getEmergencyStoppingIDList())
+    print("emergencystopping", traci.simulation.getEmergencyStoppingVehiclesIDList())
     print("min#expected", traci.simulation.getMinExpectedNumber())
     print("#teleportStart", traci.simulation.getStartingTeleportNumber())
     print("teleportStart", traci.simulation.getStartingTeleportIDList())
