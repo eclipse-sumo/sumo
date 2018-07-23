@@ -393,11 +393,17 @@ NBEdge::reinitNodes(NBNode* from, NBNode* to) {
     }
     if (myFrom != from) {
         myFrom->removeEdge(this, false);
+    }
+    if (myTo != to) {
+        myTo->removeEdge(this, false);
+    }
+    // remove first from both nodes and then add to the new nodes 
+    // (otherwise reversing does not work)
+    if (myFrom != from) {
         myFrom = from;
         myFrom->addOutgoingEdge(this);
     }
     if (myTo != to) {
-        myTo->removeEdge(this, false);
         myTo = to;
         myTo->addIncomingEdge(this);
     }

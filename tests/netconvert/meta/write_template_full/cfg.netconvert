@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 07/22/18 15:40:22 by Eclipse SUMO netconvert Version 1e67d2b1c5
+<!-- generated on 07/23/18 02:36:28 by Eclipse SUMO netconvert Version cca791664f
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -58,6 +58,7 @@
         <osm.stop-output.footway-access-distance value="150" type="FLOAT" help="The search radius for finding suitable road accesses for rail stops"/>
         <osm.stop-output.footway-max-accesses value="5" type="INT" help="The maximum roud accesses registered per rail stops"/>
         <osm.stop-output.footway-access-factor value="1.5" type="FLOAT" help="The walking length of the access is computed as air-line distance multiplied by FLOAT"/>
+        <railway.topology.output value="" type="FILE" help="Analyse topology of the railway network"/>
         <opendrive-output.straight-threshold value="1e-008" type="FLOAT" help="Builds parameterized curves whenever the angular change  between straight segments exceeds FLOAT degrees"/>
     </output>
 
@@ -209,7 +210,7 @@
         <geometry.check-overlap value="0" type="FLOAT" help="Warn if edges overlap by more than the given threshold value"/>
         <geometry.check-overlap.vertical-threshold value="4" type="FLOAT" help="Ignore overlapping edges if they are separated vertically by the given threshold."/>
         <geometry.max-grade value="10" type="FLOAT" help="Warn about edge geometries with a grade in % above FLOAT. The threshold applies to roads with a speed limit of 50km/h and is scaled according to road speed."/>
-        <railway.topology.output value="" type="FILE" help="Analyse topology of the railway network"/>
+        <railway.topology.repair value="false" type="BOOL" help="Repair topology of the railway network"/>
         <offset.disable-normalization value="false" synonymes="disable-normalize-node-positions" type="BOOL" help="Turn off normalizing node positions"/>
         <offset.x value="0" synonymes="x-offset-to-apply" type="FLOAT" help="Adds FLOAT to net x-positions"/>
         <offset.y value="0" synonymes="y-offset-to-apply" type="FLOAT" help="Adds FLOAT to net y-positions"/>

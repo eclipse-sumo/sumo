@@ -146,8 +146,12 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     }
     
     // analyse and fix railway topology
+    if (oc.exists("railway.topology.repair") && oc.getBool("railway.topology.repair")) {
+        NBRailwayTopologyAnalyzer::repairTopology(*this);
+    }
     if (oc.exists("railway.topology.output") && oc.isSet("railway.topology.output")) {
-        NBRailwayTopologyAnalyzer::analyzeTopology(*this, oc);
+        NBRailwayTopologyAnalyzer::analyzeTopology(*this, 
+                oc.getString("railway.topology.output"));
     }
 
     if (oc.getBool("junctions.join") || (oc.exists("ramps.guess") && oc.getBool("ramps.guess"))) {

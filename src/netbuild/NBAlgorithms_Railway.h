@@ -49,11 +49,18 @@ public:
      * @param[in, changed] nb The network builder which contains the current network representation
      * @param[in] oc The options container
      */
-    static void analyzeTopology(NBNetBuilder& nb, OptionsCont& oc);
+    static void analyzeTopology(NBNetBuilder& nb, const std::string& outfile);
+    static void repairTopology(NBNetBuilder& nb);
 
 
 private:
-    static bool hasStraightPair(const NBNode* node, const EdgeVector& edges); 
+    static void getRailNodes(NBNetBuilder& nb, std::set<NBNode*>& railNodes, bool verbose);
+    static void getBrokenRailNodes(NBNetBuilder& nb, std::set<NBNode*>& brokenNodes, 
+            bool verbose, OutputDevice& device);
+
+    static void getRailEdges(NBNode* node, EdgeVector& inEdges, EdgeVector& outEdges);
+
+    static bool hasStraightPair(const NBNode* node, const EdgeVector& edges, const EdgeVector& edges2); 
     static bool allSharp(const NBNode* node, const EdgeVector& in, const EdgeVector& out);
 };
 

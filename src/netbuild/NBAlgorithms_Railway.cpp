@@ -27,6 +27,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 #include <utils/iodevices/OutputDevice.h>
+#include <utils/iodevices/OutputDevice_String.h>
 #include "NBNetBuilder.h"
 #include "NBNodeCont.h"
 #include "NBEdgeCont.h"
@@ -34,8 +35,10 @@
 #include "NBEdge.h"
 #include "NBAlgorithms_Railway.h"
 
-//#define DEBUG_RAMPS
-#define DEBUGNODEID  "260479469"
+//#define DEBUG_SEQSTOREVERSE
+#define DEBUGNODEID  "1085513902"
+#define DEBUGNODEID2  "28842974"
+#define DEBUGEDGEID  "22820560#0"
 #define DEBUGCOND(obj) ((obj != 0 && (obj)->getID() == DEBUGNODEID))
 
 #define SHARP_THRESHOLD_SAMEDIR 100
@@ -51,49 +54,118 @@
 // ---------------------------------------------------------------------------
 // NBRampsComputer
 // ---------------------------------------------------------------------------
+
 void
-NBRailwayTopologyAnalyzer::analyzeTopology(NBNetBuilder& nb, OptionsCont& oc) {
-    OutputDevice& device = OutputDevice::getDevice(oc.getString("railway.topology.output"));
+NBRailwayTopologyAnalyzer::analyzeTopology(NBNetBuilder& nb, const std::string& outfile) {
+    getBrokenRailNodes(nb, std::set<NBNode*>(), true, OutputDevice::getDevice(outfile));
+}
+
+
+void 
+NBRailwayTopologyAnalyzer::repairTopology(NBNetBuilder& nb) {
+    std::set<NBNode*> brokenNodes; 
+    getBrokenRailNodes(nb, brokenNodes, false, OutputDevice::getDevice("/dev/null"));
+    // find edge sequences between broken nodes
+    // XXX also search backwards to get sequences that start at the network boundary
+    std::vector<EdgeVector> seqsToReverse;
+    for (NBNode* n : brokenNodes) {
+        EdgeVector inRail, outRail;
+        getRailEdges(n, inRail, outRail);
+        for (NBEdge* start : outRail) {
+            EdgeVector tmp;
+            tmp.push_back(start);
+            if (!allSharp(n, inRail, tmp) 
+                    || (inRail.size() == 1 && outRail.size() == 1)) {
+                continue;
+            }
+
+            //std::cout << " get sequences from " << start->getID() << "\n";
+            bool forward = true;
+            EdgeVector seq;
+            while(forward) {
+                seq.push_back(start);
+                //std::cout << " seq=" << toString(seq) << "\n";
+                NBNode* n2 = start->getToNode();
+                EdgeVector inRail2, outRail2;
+                getRailEdges(n2, inRail2, outRail2);
+                if (brokenNodes.count(n2) != 0) {
+                    EdgeVector tmp2;
+                    tmp2.push_back(start);
+                    if ((outRail2.size() > 0 && allSharp(n2, tmp, outRail2))
+                            || hasStraightPair(n2, tmp2, inRail2)) {
+                        seqsToReverse.push_back(seq);
+                    } else {
+#ifdef DEBUG_SEQSTOREVERSE
+                        if (n->getID() == DEBUGNODEID) std::cout << " abort at n2=" << n2->getID() << " (not all sharp)\n";
+#endif
+                    }
+                    forward = false;
+                } else {
+                    if (outRail2.size() == 0) {
+                        // stop at network border
+                        seqsToReverse.push_back(seq);
+                        forward = false;
+#ifdef DEBUG_SEQSTOREVERSE
+                    if (n->getID() == DEBUGNODEID) std::cout << " abort at n2=" << n2->getID() << " (border)\n";
+#endif
+                    } else if (outRail2.size() > 1 || inRail2.size() > 1) {
+                        // stop at switch
+                        forward = false;
+#ifdef DEBUG_SEQSTOREVERSE
+                    if (n->getID() == DEBUGNODEID) std::cout << " abort at n2=" << n2->getID() << " (switch)\n";
+#endif
+                    } else {
+                        start = outRail2.front();
+                    }
+                }
+            }
+        }
+    }
+    // sort by sequence length
+    std::sort(seqsToReverse.begin(), seqsToReverse.end(), 
+            [](const EdgeVector& a, const EdgeVector& b){ return a.size() < b.size(); });
+    std::cout << " found " << seqsToReverse.size() << " reversible edge sequences between broken rail nodes\n";
+    for (EdgeVector& seq : seqsToReverse) {
+        std::cout << " size=" << seq.size() << " seq=" << toString(seq) << "\n";
+        for (NBEdge* e : seq) {
+            e->reinitNodes(e->getToNode(), e->getFromNode());
+            e->setGeometry(e->getGeometry().reverse());
+        }
+    }
+}
+
+
+void 
+NBRailwayTopologyAnalyzer::getRailEdges(NBNode* node, 
+        EdgeVector& inEdges, EdgeVector& outEdges) {
+    for (NBEdge* e : node->getIncomingEdges()) {
+        if ((e->getPermissions() & SVC_RAIL_CLASSES) != 0) {
+            inEdges.push_back(e);
+        }
+    }
+    for (NBEdge* e : node->getOutgoingEdges()) {
+        if ((e->getPermissions() & SVC_RAIL_CLASSES) != 0) {
+            outEdges.push_back(e);
+        }
+    }
+}
+
+
+
+void
+NBRailwayTopologyAnalyzer::getBrokenRailNodes(NBNetBuilder& nb, 
+        std::set<NBNode*>& brokenNodes, 
+        bool verbose, OutputDevice& device) {
     device.writeXMLHeader("railwayTopology", "");
-    NBEdgeCont& ec = nb.getEdgeCont();
-    NBNodeCont& nc = nb.getNodeCont();
     std::set<NBNode*> railNodes;
-    int numRailEdges = 0;
-    for (auto it = ec.begin(); it != ec.end(); it++) {
-        if (isRailway(it->second->getPermissions())) {
-            numRailEdges++;
-            railNodes.insert(it->second->getFromNode());
-            railNodes.insert(it->second->getToNode());
-
-        }
-    }
-    std::set<NBNode*> railSignals;
-    for (NBNode* node : railNodes) {
-        if (node->getType() == NODETYPE_RAIL_SIGNAL) {
-            railSignals.insert(node);
-        }
-    }
-    std::cout << "Found " << numRailEdges << " railway edges and " << railNodes.size() << " railway nodes (" << railSignals.size() << " signals).\n";
-
-
+    getRailNodes(nb, railNodes, verbose);
     std::map<std::pair<int, int>, std::set<NBNode*> > types;
     for (NBNode* node : railNodes) {
-        int in = 0;
-        int out = 0;
-        for (NBEdge* e : node->getIncomingEdges()) {
-            if ((e->getPermissions() & SVC_RAIL_CLASSES) != 0) {
-                in++;
-            }
-        }
-        for (NBEdge* e : node->getOutgoingEdges()) {
-            if ((e->getPermissions() & SVC_RAIL_CLASSES) != 0) {
-                out++;
-            }
-        }
-        types[std::make_pair(in, out)].insert(node);
+        EdgeVector inEdges, outEdges;
+        getRailEdges(node, inEdges, outEdges);
+        types[std::make_pair((int)inEdges.size(), (int)outEdges.size())].insert(node);
     }
 
-    int numBroken = 0;
     int numBrokenA = 0;
     int numBrokenB = 0;
     int numBrokenC = 0;
@@ -108,18 +180,8 @@ NBRailwayTopologyAnalyzer::analyzeTopology(NBNetBuilder& nb, OptionsCont& oc) {
         for (NBNode* n : it.second) {
             device.openTag(SUMO_TAG_NODE);
             device.writeAttr(SUMO_ATTR_ID, n->getID());
-            EdgeVector inRail;
-            for (NBEdge* e : n->getIncomingEdges()) {
-                if ((e->getPermissions() & SVC_RAIL_CLASSES) != 0) {
-                    inRail.push_back(e);
-                }
-            }
-            EdgeVector outRail;
-            for (NBEdge* e : n->getOutgoingEdges()) {
-                if ((e->getPermissions() & SVC_RAIL_CLASSES) != 0) {
-                    outRail.push_back(e);
-                }
-            }
+            EdgeVector inRail, outRail;
+            getRailEdges(n, inRail, outRail);
             // check if there is a mismatch between angle and edge direction
             // a) edge pair angle supports driving but both are outgoing 
             // b) edge pair angle supports driving but both are incoming 
@@ -127,11 +189,11 @@ NBRailwayTopologyAnalyzer::analyzeTopology(NBNetBuilder& nb, OptionsCont& oc) {
             // d) an outgoing edge has a sharp angle from all incoming edges
 
             std::string broken = "";
-            if (in < 2 && hasStraightPair(n, outRail)) {
+            if (in < 2 && hasStraightPair(n, outRail, outRail)) {
                 broken += "a";
                 numBrokenA++;
             }
-            if (out < 2 && hasStraightPair(n, inRail)) {
+            if (out < 2 && hasStraightPair(n, inRail, inRail)) {
                 broken += "b";
                 numBrokenB++;
             }
@@ -160,33 +222,77 @@ NBRailwayTopologyAnalyzer::analyzeTopology(NBNetBuilder& nb, OptionsCont& oc) {
 
             if (broken.size() > 0) {
                 device.writeAttr("broken", broken);
-                numBroken++;
+                brokenNodes.insert(n);
                 numBrokenType++;
             }
             device.closeTag();
         }
         device.closeTag();
-        std::cout << "   " << it.first.first << "," << it.first.second 
-            << " count:" << it.second.size() 
-            << " broken:" << numBrokenType
-            << "\n";
+        if (verbose) {
+            std::cout << "   " << it.first.first << "," << it.first.second 
+                << " count:" << it.second.size() 
+                << " broken:" << numBrokenType
+                << "\n";
+        }
 
     }
-    std::cout << "Found " << numBroken << " broken railway nodes (A=" 
-        << numBrokenA
-        << " B=" << numBrokenB
-        << " C=" << numBrokenC
-        << " D=" << numBrokenD
-        << ")\n";
+    if (verbose) {
+        std::cout << "Found " << brokenNodes.size() << " broken railway nodes (A=" 
+            << numBrokenA
+            << " B=" << numBrokenB
+            << " C=" << numBrokenC
+            << " D=" << numBrokenD
+            << ")\n";
+    }
 
     device.close();
 }
 
 
+void 
+NBRailwayTopologyAnalyzer::getRailNodes(NBNetBuilder& nb, std::set<NBNode*>& railNodes, 
+        bool verbose) {
+
+    NBEdgeCont& ec = nb.getEdgeCont();
+    NBNodeCont& nc = nb.getNodeCont();
+    int numRailEdges = 0;
+    for (auto it = ec.begin(); it != ec.end(); it++) {
+        if (isRailway(it->second->getPermissions())) {
+            numRailEdges++;
+            railNodes.insert(it->second->getFromNode());
+            railNodes.insert(it->second->getToNode());
+
+        }
+    }
+    std::set<NBNode*> railSignals;
+    for (NBNode* node : railNodes) {
+        if (node->getType() == NODETYPE_RAIL_SIGNAL) {
+            railSignals.insert(node);
+        }
+    }
+    if (verbose) {
+        std::cout << "Found " << numRailEdges << " railway edges and " << railNodes.size() << " railway nodes (" << railSignals.size() << " signals).\n";
+    }
+}
+
+
 bool 
-NBRailwayTopologyAnalyzer::hasStraightPair(const NBNode* node, const EdgeVector& edges) {
+NBRailwayTopologyAnalyzer::hasStraightPair(const NBNode* node, const EdgeVector& edges,
+        const EdgeVector& edges2) {
+#ifdef DEBUG_SEQSTOREVERSE
+    //if (node->getID() == DEBUGNODEID2) {
+    //    std::cout << " edges=" << toString(edges) << " edges2=" << toString(edges2) << "\n";
+    //}
+#endif
     for (NBEdge* e1 : edges) {
-        for (NBEdge* e2 : edges) {
+        for (NBEdge* e2 : edges2) {
+            //if (e1->getID() == "195411601#2" && e2->getID() == "93584120#3") {
+            //    std::cout 
+            //        << " DEBUG normRelA=" << NBHelpers::normRelAngle(
+            //                    e1->getAngleAtNode(node), 
+            //                    e2->getAngleAtNode(node))
+            //        << "\n";
+            //}
             if (e1 != e2) {
                 if (fabs(NBHelpers::normRelAngle(
                                 e1->getAngleAtNode(node), 
@@ -224,6 +330,7 @@ NBRailwayTopologyAnalyzer::allSharp(const NBNode* node, const EdgeVector& in, co
     }
     return true;
 }
+
 
 
 

@@ -119,6 +119,9 @@ NWFrame::fillOptions(bool forNetgen) {
 
         oc.doRegister("osm.stop-output.footway-access-factor", new Option_Float(1.5));
         oc.addDescription("osm.stop-output.footway-access-factor", "Output", "The walking length of the access is computed as air-line distance multiplied by FLOAT");
+
+        oc.doRegister("railway.topology.output", new Option_FileName());
+        oc.addDescription("railway.topology.output", "Output", "Analyse topology of the railway network");
     }
 
     // register opendrive options

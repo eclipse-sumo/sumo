@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 07/22/18 15:40:23 by Eclipse SUMO netconvert Version 1e67d2b1c5
+<!-- generated on 07/23/18 02:36:37 by Eclipse SUMO netconvert Version cca791664f
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -149,6 +149,9 @@
 
         <!-- The walking length of the access is computed as air-line distance multiplied by FLOAT -->
         <osm.stop-output.footway-access-factor value="1.5" type="FLOAT"/>
+
+        <!-- Analyse topology of the railway network -->
+        <railway.topology.output value="" type="FILE"/>
 
         <!-- Builds parameterized curves whenever the angular change  between straight segments exceeds FLOAT degrees -->
         <opendrive-output.straight-threshold value="1e-008" type="FLOAT"/>
@@ -567,8 +570,8 @@
         <!-- Warn about edge geometries with a grade in % above FLOAT. The threshold applies to roads with a speed limit of 50km/h and is scaled according to road speed. -->
         <geometry.max-grade value="10" type="FLOAT"/>
 
-        <!-- Analyse topology of the railway network -->
-        <railway.topology.output value="" type="FILE"/>
+        <!-- Repair topology of the railway network -->
+        <railway.topology.repair value="false" type="BOOL"/>
 
         <!-- Turn off normalizing node positions -->
         <offset.disable-normalization value="false" synonymes="disable-normalize-node-positions" type="BOOL"/>
