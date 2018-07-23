@@ -288,9 +288,12 @@ def Popen(extraParameters, debugInformation):
 
 
 def getReferenceMatch(neProcess, waitTime):
+    print("Finding reference")
     try:
-        print("Finding reference")
         referenceMatch = wait(referenceImage, waitTime)
+    except:
+        referenceMatch = None
+    if (referenceMatch != None):
         # print debug information
         print("TestFunctions: 'reference.png' found. Position: " + str(referenceMatch.getTarget().x) + ' - ' +
               str(referenceMatch.getTarget().y))
@@ -299,7 +302,7 @@ def getReferenceMatch(neProcess, waitTime):
                   "is 100% (See #3746)")
         # return reference match
         return referenceMatch
-    except Exception:
+    else:
         neProcess.kill()
         # print debug information
         sys.exit("TestFunctions: Killed Netedit process. 'reference.png' not found")
