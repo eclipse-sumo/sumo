@@ -2555,6 +2555,11 @@ NBEdge::appendTurnaround(bool noTLSControlled, bool onlyDeadends, bool checkPerm
     if (onlyDeadends && myTo->getOutgoingEdges().size() > 1) {
         return;
     }
+    // avoid railway turn-arounds
+    if (isRailway(getPermissions()) && isRailway(myTurnDestination->getPermissions()) 
+            && fabs(NBHelpers::normRelAngle(getAngleAtNode(myTo), myTurnDestination->getAngleAtNode(myTo))) > 90) {
+        return;
+    };
     const int fromLane = (int)myLanes.size() - 1;
     const int toLane = (int)myTurnDestination->getNumLanes() - 1;
     if (checkPermissions) {
