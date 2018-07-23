@@ -61,25 +61,22 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
         if ((veh->isOnRoad() || veh->isParking() || veh->isRemoteControlled()) 
                 && veh->getDevice(typeid(MSDevice_FCD)) != nullptr) {
             Position pos = veh->getPosition();
-            if (useGeo) {
-                of.setPrecision(gPrecisionGeo);
-                GeoConvHelper::getFinal().cartesian2geo(pos);
-            }
             of.openTag(SUMO_TAG_VEHICLE);
             of.writeAttr(SUMO_ATTR_ID, veh->getID());
             of.writeAttr(SUMO_ATTR_X, pos.x());
             of.writeAttr(SUMO_ATTR_Y, pos.y());
+            of.setPrecision(gPrecisionGeo);
+            GeoConvHelper::getFinal().cartesian2geo(pos);
+            of.writeAttr(SUMO_ATTR_LON, pos.x());
+            of.writeAttr(SUMO_ATTR_LAT, pos.y());
             if (elevation) {
                 of.writeAttr(SUMO_ATTR_Z, pos.z());
             }
             of.writeAttr(SUMO_ATTR_ANGLE, GeomHelper::naviDegree(veh->getAngle()));
             of.writeAttr(SUMO_ATTR_TYPE, veh->getVehicleType().getID());
-            of.writeAttr(SUMO_ATTR_SPEED, veh->getSpeed());
-            of.writeAttr(SUMO_ATTR_POSITION, veh->getPositionOnLane());
             if (microVeh != 0) {
                 of.writeAttr(SUMO_ATTR_LANE, microVeh->getLane()->getID());
             }
-            of.writeAttr(SUMO_ATTR_SLOPE, veh->getSlope());
             if (microVeh != 0 && signals) {
                 of.writeAttr("signals", toString(microVeh->getSignals()));
             }
@@ -129,22 +126,19 @@ MSFCDExport::writeTransportable(OutputDevice& of, const MSEdge* e, MSTransportab
         return;
     }
     Position pos = p->getPosition();
-    if (useGeo) {
-        of.setPrecision(gPrecisionGeo);
-        GeoConvHelper::getFinal().cartesian2geo(pos);
-    }
+    Position m_pos = p->getPosition();
+    of.setPrecision(gPrecisionGeo);
+    GeoConvHelper::getFinal().cartesian2geo(pos);
     of.openTag(tag);
     of.writeAttr(SUMO_ATTR_ID, p->getID());
+    of.writeAttr(SUMO_ATTR_LON, m_pos.x());
+    of.writeAttr(SUMO_ATTR_LAT, m_pos.y());
     of.writeAttr(SUMO_ATTR_X, pos.x());
     of.writeAttr(SUMO_ATTR_Y, pos.y());
     if (elevation) {
         of.writeAttr(SUMO_ATTR_Z, pos.z());
     }
     of.writeAttr(SUMO_ATTR_ANGLE, GeomHelper::naviDegree(p->getAngle()));
-    of.writeAttr(SUMO_ATTR_SPEED, p->getSpeed());
-    of.writeAttr(SUMO_ATTR_POSITION, p->getEdgePos());
-    of.writeAttr(SUMO_ATTR_EDGE, e->getID());
-    of.writeAttr(SUMO_ATTR_SLOPE, e->getLanes()[0]->getShape().slopeDegreeAtOffset(p->getEdgePos()));
     of.closeTag();
 }
 /****************************************************************************/
