@@ -232,7 +232,7 @@ GNELoadThread::fillOptions(OptionsCont& oc) {
     oc.doRegister("disable-textures", 'T', new Option_Bool(false)); // !!!
     oc.addDescription("disable-textures", "Visualisation", "");
 
-    oc.doRegister("gui-settings-file", new Option_FileName());
+    oc.doRegister("gui-settings-file", 'g', new Option_FileName());
     oc.addDescription("gui-settings-file", "Visualisation", "Load visualisation settings from FILE");
 
     oc.doRegister("registry-viewport", new Option_Bool(false));
