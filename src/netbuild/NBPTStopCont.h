@@ -68,6 +68,9 @@ public:
 
     void assignLanes(NBEdgeCont& cont);
 
+    /// @brief duplicate stops for superposed rail edges
+    void generateBidiStops(NBEdgeCont& cont);
+
     void localizePTStops(NBEdgeCont& cont);
 
     void findAccessEdgesForRailStops(NBEdgeCont& cont, double maxRadius, int maxCount, double accessFactor);

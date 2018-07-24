@@ -110,6 +110,46 @@ void NBPTStopCont::assignLanes(NBEdgeCont& cont) {
 }
 
 
+void 
+NBPTStopCont::generateBidiStops(NBEdgeCont& ec) {
+    //scnd pass set correct lane
+    std::vector<NBPTStop*> toAdd;
+    for (auto i = myPTStops.begin(); i != myPTStops.end(); i++) {
+        NBPTStop* stop = i->second;
+        NBEdge* edge = ec.getByID(stop->getEdgeId());
+        if (edge != 0 && edge->isBidiRail()) {
+            NBEdge* bidiEdge = edge->getTurnDestination(true);
+            assert(bidiEdge != 0);
+            const std::string id = "-" + stop->getID();
+            if (myPTStops.count(id) > 0) {
+                WRITE_WARNING("Could not create reverse-direction stop '" 
+                        + id + "' for superposed edge '" + bidiEdge->getID() + "'"); 
+                continue;
+            }
+            NBPTStop* bidiStop = new NBPTStop(id, 
+                    stop->getPosition(), 
+                    bidiEdge->getID(), 
+                    stop->getOrigEdgeId(), 
+                    stop->getLength(), 
+                    stop->getName(), 
+                    stop->getPermissions());
+            if (bidiStop->findLaneAndComputeBusStopExtend(ec)) {
+                toAdd.push_back(bidiStop);
+            } else {
+                // should not happen
+                assert(false);
+            }
+        }
+    }
+    for (NBPTStop* newStop : toAdd) {
+        myPTStops[newStop->getID()] = newStop;
+    }
+    if (toAdd.size() > 0) {
+        WRITE_MESSAGE("Added " + toString(toAdd.size()) + " stops for superposed rail edges.");
+    }
+}
+
+
 NBPTStop*
 NBPTStopCont::getReverseStop(NBPTStop* pStop, NBEdgeCont& cont) {
     std::string edgeId = pStop->getEdgeId();

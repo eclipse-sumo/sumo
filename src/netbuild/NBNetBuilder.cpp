@@ -526,9 +526,10 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         PROGRESS_TIME_MESSAGE(before);
     }
 
-    //find accesses for pt rail stops
+    //find accesses for pt rail stops and add bidi-stops
     if (oc.exists("ptstop-output") && oc.isSet("ptstop-output")) {
         before = SysUtils::getCurrentMillis();
+        myPTStopCont.generateBidiStops(myEdgeCont);
         PROGRESS_BEGIN_MESSAGE("Find accesses for pt rail stops");
         double maxRadius = oc.getFloat("osm.stop-output.footway-access-distance");
         double accessFactor = oc.getFloat("osm.stop-output.footway-access-factor");
