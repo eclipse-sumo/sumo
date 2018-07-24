@@ -599,7 +599,9 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                         } else {
                             glColor3d(0.3, 0.3, 0.3);
                         }
-                        drawDirectionIndicators(exaggeration);
+                        if (!isCrossing || s.drawCrossingsAndWalkingareas) {
+                            drawDirectionIndicators(exaggeration);
+                        }
                     }
                     glTranslated(0, 0, .1);
                     if (s.drawLinkJunctionIndex.show) {
