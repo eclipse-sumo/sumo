@@ -278,12 +278,12 @@ class Net:
                 outf.write('<detectors>\n')
                 freq = options.interval * 60 if options.interval else 24 * 3600
                 for source in foundSources:
-                    outf.write('    <e1Detector id="%s_0" lane="%s_0" pos="1" type="source" friendlyPos="true" ' +
-                               'file="NUL" freq="%s"/>\n' %
+                    outf.write(('    <e1Detector id="%s_0" lane="%s_0" pos="1" type="source" friendlyPos="true" ' +
+                               'file="NUL" freq="%s"/>\n') %
                                (source, source, freq))
                 for sink in foundSinks:
-                    outf.write('    <e1Detector id="%s_0" lane="%s_0" pos="-1" type="sink" friendlyPos="true" ' +
-                               'file="NUL" freq="%s"/>\n' %
+                    outf.write(('    <e1Detector id="%s_0" lane="%s_0" pos="-1" type="sink" friendlyPos="true" ' +
+                               'file="NUL" freq="%s"/>\n') %
                                (sink, sink, freq))
                 outf.write('</detectors>\n')
 
