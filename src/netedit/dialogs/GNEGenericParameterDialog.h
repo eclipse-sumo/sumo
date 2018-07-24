@@ -71,6 +71,9 @@ public:
     /// @brief event when user press sort generic parameters button
     long onCmdSortGenericParameters(FXObject*, FXSelector, void*);
 
+    /// @brief event when user press help generic parameters button
+    long onCmdHelpGenericParameter(FXObject*, FXSelector, void*);
+
     /// @brief event after press accept button
     long onCmdAccept(FXObject*, FXSelector, void*);
 
@@ -148,6 +151,9 @@ private:
 
     /// @brief save button
     FXButton *mySaveButton;
+
+    /// @brief help button
+    FXButton* myHelpButton;
 
     /// @brief vector with the GenericParameterRows
     std::vector<GenericParameterRow> myGenericParameterRows;

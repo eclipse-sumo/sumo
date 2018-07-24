@@ -66,7 +66,6 @@ FXDEFMAP(GNEFrame::ACHierarchy) GNEFrameACHierarchyMap[] = {
 FXDEFMAP(GNEFrame::GenericParametersEditor) GenericParametersEditorMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,   GNEFrame::GenericParametersEditor::onCmdEditGenericParameter),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,          GNEFrame::GenericParametersEditor::onCmdSetGenericParameter),
-    FXMAPFUNC(SEL_COMMAND,  MID_HELP,                       GNEFrame::GenericParametersEditor::onCmdGenericParameterHelp),
 };
 
 // Object implementation
@@ -500,8 +499,6 @@ GNEFrame::GenericParametersEditor::GenericParametersEditor(GNEFrame* inspectorFr
     // create textfield and buttons
     myTextFieldGenericParameter = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     myEditGenericParameterButton = new FXButton(this, "Edit generic parameter", 0, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButton);
-    // Create help button
-    myHelpButton = new FXButton(this, "Help", 0, this, MID_HELP, GUIDesignButtonRectangular);
 }
 
 
@@ -613,12 +610,6 @@ GNEFrame::GenericParametersEditor::onCmdSetGenericParameter(FXObject*, FXSelecto
         myAC->setAttribute(GNE_ATTR_GENERIC, getGenericParametersStr(), myFrameParent->getViewNet()->getUndoList());
     }
     return 1;
-}
-
-
-long 
-GNEFrame::GenericParametersEditor::onCmdGenericParameterHelp(FXObject*, FXSelector, void*) {
-    return 0;
 }
 
 // ---------------------------------------------------------------------------

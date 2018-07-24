@@ -157,9 +157,6 @@ public:
 
         /// @brief Called when user udpate the generic parameter text field
         long onCmdSetGenericParameter(FXObject*, FXSelector, void*);
-
-        /// @brief Called when user press the help button
-        long onCmdGenericParameterHelp(FXObject*, FXSelector, void*);
         /// @}
 
     protected:
@@ -181,9 +178,6 @@ public:
 
         /// @brief button for add generic parameter
         FXButton* myEditGenericParameterButton;
-
-        /// @brief button for help
-        FXButton* myHelpButton;
     };
 
     /**@brief Constructor

@@ -48,6 +48,7 @@ enum GUIIcon {
     ICON_RELOAD,
     ICON_SAVE,
     ICON_CLOSE,
+    ICON_HELP,
     /// @}
 
     /// @name simulation control icons
