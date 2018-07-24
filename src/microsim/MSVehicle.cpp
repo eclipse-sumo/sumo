@@ -20,6 +20,7 @@
 /// @author  Axel Wegener
 /// @author  Christoph Sommer
 /// @author  Leonhard Luecken
+/// @author  Lara Codeca
 /// @date    Mon, 05 Mar 2001
 /// @version $Id$
 ///
@@ -547,7 +548,7 @@ MSVehicle::Influencer::implicitSpeedRemote(const MSVehicle* veh, double oldSpeed
             dist = distAlongRoute;
         }
     }
-    if (DIST2SPEED(dist) > veh->getCarFollowModel().maxNextSpeed(oldSpeed, veh) 
+    if (DIST2SPEED(dist) > veh->getCarFollowModel().maxNextSpeed(oldSpeed, veh)
             || DIST2SPEED(dist) < veh->getCarFollowModel().minNextSpeed(oldSpeed, veh)) {
         // implausible movement, keep old speed
         return oldSpeed;
@@ -565,7 +566,7 @@ MSVehicle::Influencer::implicitDeltaPosRemote(const MSVehicle* veh) {
         // if the vehicles is frequently placed on a new edge, the route may
         // consist only of a single edge. In this case the new edge may not be
         // on the route so getDistanceToPosition will return double::max.
-        // In this case we would rather not move the vehicle in executeMove 
+        // In this case we would rather not move the vehicle in executeMove
         // (updateState) as it would result in emergency braking
         dist = veh->getDistanceToPosition(myRemotePos, &myRemoteLane->getEdge());
     }
@@ -1183,7 +1184,7 @@ MSVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& error
         errorMsg = errorMsgStart + " for vehicle '" + myParameter->id + "' on lane '" + stopPar.lane + "' has an invalid position.";
         return false;
     }
-    if (stopType != "stop" && stopType != "parkingArea" && myType->getLength() / 2. > stop.pars.endPos - stop.pars.startPos 
+    if (stopType != "stop" && stopType != "parkingArea" && myType->getLength() / 2. > stop.pars.endPos - stop.pars.startPos
             && MSNet::getInstance()->warnOnce(stopType + ":" + stopID)) {
         errorMsg = errorMsgStart + " on lane '" + stopPar.lane + "' is too short for vehicle '" + myParameter->id + "'.";
     }
@@ -1245,9 +1246,9 @@ MSVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& error
         if (collision) {
             if (distToStop < getCarFollowModel().brakeGap(myState.mySpeed, getCarFollowModel().getEmergencyDecel(), 0)) {
                 double vNew = getCarFollowModel().maximumSafeStopSpeed(distToStop, getSpeed(), false, 0);
-                //std::cout << SIMTIME << " veh=" << getID() << " v=" << myState.mySpeed << " distToStop=" << distToStop 
+                //std::cout << SIMTIME << " veh=" << getID() << " v=" << myState.mySpeed << " distToStop=" << distToStop
                 //    << " vMinNex=" << getCarFollowModel().minNextSpeed(getSpeed(), this)
-                //    << " bg1=" << getCarFollowModel().brakeGap(myState.mySpeed) 
+                //    << " bg1=" << getCarFollowModel().brakeGap(myState.mySpeed)
                 //    << " bg2=" << getCarFollowModel().brakeGap(myState.mySpeed, getCarFollowModel().getEmergencyDecel(), 0)
                 //    << " vNew=" << vNew
                 //    << "\n";
@@ -1405,7 +1406,7 @@ MSVehicle::keepStopping(bool afterProcessing) const {
 }
 
 
-SUMOTime 
+SUMOTime
 MSVehicle::remainingStopDuration() const {
     if (isStopped()) {
         return myStops.front().duration;
@@ -1464,10 +1465,10 @@ MSVehicle::processNextStop(double currentVelocity) {
         // ok, we have already reached the next stop
         // any waiting persons may board now
         MSNet* const net = MSNet::getInstance();
-        const bool boarded = net->hasPersons() && net->getPersonControl().boardAnyWaiting(&myLane->getEdge(), this, 
+        const bool boarded = net->hasPersons() && net->getPersonControl().boardAnyWaiting(&myLane->getEdge(), this,
                 stop.pars, stop.timeToBoardNextPerson, stop.duration) && stop.numExpectedPerson == 0;
         // load containers
-        const bool loaded = net->hasContainers() && net->getContainerControl().loadAnyWaiting( &myLane->getEdge(), this, 
+        const bool loaded = net->hasContainers() && net->getContainerControl().loadAnyWaiting( &myLane->getEdge(), this,
                 stop.pars, stop.timeToLoadNextContainer, stop.duration) && stop.numExpectedContainer == 0;
         if (boarded) {
             if (stop.busstop != 0) {
@@ -2297,7 +2298,7 @@ MSVehicle::adaptToLeader(const std::pair<const MSVehicle*, double> leaderInfo,
 
 void
 MSVehicle::checkLinkLeaderCurrentAndParallel(const MSLink* link, const MSLane* lane, double seen,
-                         DriveProcessItem* const lastLink, double& v, double& vLinkPass, double& vLinkWait, bool& setRequest) const 
+                         DriveProcessItem* const lastLink, double& v, double& vLinkPass, double& vLinkWait, bool& setRequest) const
 {
     if (MSGlobals::gUsingInternalLanes) {
         // we want to pass the link but need to check for foes on internal lanes
@@ -4026,7 +4027,7 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
         ++seen;
         seenLength += currentLanes[0].lane->getLength();
         ++ce;
-        progress &= (seen <= 4 || seenLength < 3000); // motorway 
+        progress &= (seen <= 4 || seenLength < 3000); // motorway
         progress &= (seen <= 8 || seenLength < 200);  // urban
         progress &= ce != myRoute->end();
         /*

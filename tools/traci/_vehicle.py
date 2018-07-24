@@ -72,16 +72,18 @@ def _readNextStops(result):
     nextStop = []
     for i in range(numStops):
         result.read("!B")
-        busStop = result.readString()
-        result.read("!B")
-        chargingStation = result.readString()
-        result.read("!B")
-        containerstop = result.readString()
-        result.read("!B")
-        parkingarea = result.readString()
-        result.read("!B")
         lane = result.readString()
-        nextStop.append((busStop, chargingStation, containerstop, parkingarea, lane))
+        result.read("!B")
+        endPos = result.readDouble()
+        result.read("!B")
+        stoppingPlaceID = result.readString()
+        result.read("!B")
+        stopFlags = result.readInt()
+        result.read("!B")
+        duration = result.readInt()
+        result.read("!B")
+        until = result.readInt()
+        nextStop.append((lane, endPos, stoppingPlaceID, stopFlags, duration, until))
     return nextStop
 
 _RETURN_VALUE_FUNC = {tc.VAR_SPEED: Storage.readDouble,
@@ -633,9 +635,19 @@ class VehicleDomain(Domain):
         return self._getUniversal(tc.VAR_NEXT_TLS, vehID)
 
     def getNextStops(self, vehID):
-        """getNextStop(string) ->
+        """getNextStop(string) -> [(string, double, string, int, int, int)], ...
 
-        Return list of upcoming stops [(busStop, chargingStation, containerstop, parkingarea, lane), ...]
+        Return list of upcoming stops [(lane, endPos, stoppingPlaceID, stopFlags, duration, until), ...]
+        where integer stopFlag is defined as:
+               1 * stopped +
+               2 * parking +
+               4 * personTriggered +
+               8 * containerTriggered +
+              16 * isBusStop +
+              32 * isContainerStop +
+              64 * chargingStation +
+             128 * parkingarea
+        with each of these flags defined as 0 or 1.
         """
         return self._getUniversal(tc.VAR_NEXT_STOPS, vehID)
 
