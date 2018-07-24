@@ -140,6 +140,34 @@ private:
         FXHorizontalFrame* horizontalFrame;
     };
 
+    /// @class GNEGenericParameterHandler
+    /// @brief load generic parameters from a filename
+    class GNEGenericParameterHandler : public SUMOSAXHandler {
+    public:
+        /// @brief Constructor
+        GNEGenericParameterHandler(GNEGenericParameterDialog* genericParameterDialogParent, const std::string& file);
+
+        /// @brief Destructor
+        ~GNEGenericParameterHandler();
+
+        /// @name inherited from GenericSAXHandler
+        /// @{
+        /**@brief Called on the opening of a tag;
+         * @param[in] element ID of the currently opened element
+         * @param[in] attrs Attributes within the currently opened element
+         * @exception ProcessError If something fails
+         * @see GenericSAXHandler::myStartElement
+         */
+        void myStartElement(int element, const SUMOSAXAttributes& attrs);
+
+    private:
+        /// @brief pointer to genericParameterDialog parent
+        GNEGenericParameterDialog* myGenericParameterDialogParent;
+
+        /// @brief flag to check if Warning with the maximum number of attributes was shown
+        bool myMaximumNumberOfAttributesShown;
+    };
+
     /// @brief sort button
     FXButton *mySortButton;
 
@@ -161,8 +189,20 @@ private:
     // @brief copy of current edited Generic Parameters (used for reset)
     const std::vector<GNEAttributeCarrier::GenericParameter> myCopyOfGenericParameters;
 
+    /// @brief vector with the vertical frames
+    std::vector<FXVerticalFrame*> myGenericParametersColumns;
+
+    /// @brief size of dialog a Generic Attributes columns
+    static const int myGenericParameterDialogWidth;
+
+    /// @brief size of Generic Attributes column
+    static const int myGenericParameterColumnWidth;
+
     /// @brief update values
     void updateValues();
+
+    /// @brief resize Generic Parameter Dialog
+    void resizeGenericParameterDialog();
 
     /// @brief Invalidated copy constructor.
     GNEGenericParameterDialog(const GNEGenericParameterDialog&) = delete;

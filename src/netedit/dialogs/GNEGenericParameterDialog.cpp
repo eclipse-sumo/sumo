@@ -21,11 +21,14 @@
 #include <config.h>
 
 #include <iostream>
+#include <utils/foxtools/MFXUtils.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/div/GUIIOGlobals.h>
 #include <utils/common/ToString.h>
 #include <utils/xml/SUMOSAXAttributes.h>
+#include <utils/xml/XMLSubSys.h>
 #include <netedit/GNEAttributeCarrier.h>
 #include <netedit/GNEViewNet.h>
 
@@ -57,6 +60,13 @@ FXDEFMAP(GNEGenericParameterDialog) GNEGenericParameterDialogMap[] = {
 FXIMPLEMENT(GNEGenericParameterDialog, FXDialogBox, GNEGenericParameterDialogMap, ARRAYNUMBER(GNEGenericParameterDialogMap))
 
 // ===========================================================================
+// static members
+// ===========================================================================
+
+const int GNEGenericParameterDialog::myGenericParameterDialogWidth = 367;
+const int GNEGenericParameterDialog::myGenericParameterColumnWidth = 227;
+
+// ===========================================================================
 // member method definitions
 // ===========================================================================
 
@@ -71,47 +81,21 @@ GNEGenericParameterDialog::GNEGenericParameterDialog(GNEViewNet *viewNet, std::v
     // create main frame
     FXVerticalFrame* mainFrame = new FXVerticalFrame(this, GUIDesignAuxiliarFrame);
     // create frame for Generic Parameters and options
-     FXHorizontalFrame* horizontalFrameGenericParametersAndOptions = new FXHorizontalFrame(mainFrame, GUIDesignHorizontalFrame);
-    // create frames for parameters
-    FXHorizontalFrame* horizontalFrameLabels = nullptr;
-    FXVerticalFrame* verticalFrame1 = new FXVerticalFrame(horizontalFrameGenericParametersAndOptions, GUIDesignAuxiliarVerticalFrame);
-        horizontalFrameLabels = new FXHorizontalFrame(verticalFrame1, GUIDesignAuxiliarHorizontalFrame);
+    FXHorizontalFrame* horizontalFrameGenericParametersAndOptions = new FXHorizontalFrame(mainFrame, GUIDesignHorizontalFrame);
+    // create for frames for parameters
+    for(int i = 0; i < 5; i++) {
+        myGenericParametersColumns.push_back(new FXVerticalFrame(horizontalFrameGenericParametersAndOptions, GUIDesignAuxiliarVerticalFrame));
+        FXHorizontalFrame *horizontalFrameLabels = new FXHorizontalFrame(myGenericParametersColumns.back(), GUIDesignAuxiliarHorizontalFrame);
         new FXLabel(horizontalFrameLabels, "key", 0, GUIDesignLabelThick100);
         new FXLabel(horizontalFrameLabels, "value", 0, GUIDesignLabelThick100);
-    FXVerticalFrame* verticalFrame2 = new FXVerticalFrame(horizontalFrameGenericParametersAndOptions, GUIDesignAuxiliarVerticalFrame);
-        horizontalFrameLabels = new FXHorizontalFrame(verticalFrame2, GUIDesignAuxiliarHorizontalFrame);
-        new FXLabel(horizontalFrameLabels, "key", 0, GUIDesignLabelThick100);
-        new FXLabel(horizontalFrameLabels, "value", 0, GUIDesignLabelThick100);
-        verticalFrame2->hide();
-    FXVerticalFrame* verticalFrame3 = new FXVerticalFrame(horizontalFrameGenericParametersAndOptions, GUIDesignAuxiliarVerticalFrame);
-        horizontalFrameLabels = new FXHorizontalFrame(verticalFrame3, GUIDesignAuxiliarHorizontalFrame);
-        new FXLabel(horizontalFrameLabels, "key", 0, GUIDesignLabelThick100);
-        new FXLabel(horizontalFrameLabels, "value", 0, GUIDesignLabelThick100);
-        verticalFrame3->hide();
-    FXVerticalFrame* verticalFrame4 = new FXVerticalFrame(horizontalFrameGenericParametersAndOptions, GUIDesignAuxiliarVerticalFrame);
-        horizontalFrameLabels = new FXHorizontalFrame(verticalFrame4, GUIDesignAuxiliarHorizontalFrame);
-        new FXLabel(horizontalFrameLabels, "key", 0, GUIDesignLabelThick100);
-        new FXLabel(horizontalFrameLabels, "value", 0, GUIDesignLabelThick100);
-        verticalFrame4->hide();
-    FXVerticalFrame* verticalFrame5 = new FXVerticalFrame(horizontalFrameGenericParametersAndOptions, GUIDesignAuxiliarVerticalFrame);
-        horizontalFrameLabels = new FXHorizontalFrame(verticalFrame5, GUIDesignAuxiliarHorizontalFrame);
-        new FXLabel(horizontalFrameLabels, "key", 0, GUIDesignLabelThick100);
-        new FXLabel(horizontalFrameLabels, "value", 0, GUIDesignLabelThick100);
-        verticalFrame5->hide();
+        myGenericParametersColumns.back()->hide();
+    }
     // create rows for all generic parameters in groups of 20 elements
     for (int i = 0; i < GNEAttributeCarrier::MAXNUMBER_GENERICPARAMETERS; i++) {
-        if(i < 20) {
-            myGenericParameterRows.push_back(GenericParameterRow(this, verticalFrame1));
-        } else if(i < 40) {
-            myGenericParameterRows.push_back(GenericParameterRow(this,verticalFrame2));
-        } else if(i < 60) {
-            myGenericParameterRows.push_back(GenericParameterRow(this, verticalFrame3));
-        } else if(i < 80) {
-            myGenericParameterRows.push_back(GenericParameterRow(this, verticalFrame4));
-        } else {
-            myGenericParameterRows.push_back(GenericParameterRow(this, verticalFrame5));
-        }
+        myGenericParameterRows.push_back(GenericParameterRow(this, myGenericParametersColumns.at(i/20)));
     }
+    // show always first column
+    myGenericParametersColumns.at(0)->show();
     // create groupbox for options
     FXGroupBox* genericParametersGroupBox = new FXGroupBox(horizontalFrameGenericParametersAndOptions, "Options", GUIDesignGroupBoxFrame);
     mySortButton = new FXButton(genericParametersGroupBox, "Sort", GUIIconSubSys::getIcon(ICON_RELOAD), this, MID_GNE_GENERICPARAMETERS_SORT, GUIDesignButtonRectangular100x23);
@@ -163,6 +147,8 @@ GNEGenericParameterDialog::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
             }
         }
     }
+    // resize dialog
+    resizeGenericParameterDialog();
     return 1;
 }
 
@@ -182,8 +168,6 @@ GNEGenericParameterDialog::onCmdButtonPress(FXObject* obj, FXSelector, void*) {
                     // check if a new column of Rows has to be show
                     if(myGenericParameterRows.at(i).frameParent != myGenericParameterRows.at(i+1).frameParent) {
                         myGenericParameterRows.at(i+1).frameParent->show();
-                        // resize dialog adding size of GenericParameter column
-                        resize(getWidth() + 227, getHeight());
                     }
                 }
             } else {
@@ -198,8 +182,6 @@ GNEGenericParameterDialog::onCmdButtonPress(FXObject* obj, FXSelector, void*) {
                     if((myGenericParameters->size() > 1) && 
                        (myGenericParameterRows.at(myGenericParameters->size()).frameParent != myGenericParameterRows.at(myGenericParameters->size()-1).frameParent)) {
                         myGenericParameterRows.at(myGenericParameters->size()).frameParent->hide();
-                        // resize dialog substracting size of GenericParameter column
-                        resize(getWidth() - 227, getHeight());
                     }
                 }
                 // remove last generic parameter
@@ -209,7 +191,8 @@ GNEGenericParameterDialog::onCmdButtonPress(FXObject* obj, FXSelector, void*) {
                     myGenericParameterRows.at(myGenericParameters->size()).toogleAddButton();
                 }
             }
-            return 1;
+            // update values
+            updateValues();
         }
     }
     return 1;
@@ -218,12 +201,56 @@ GNEGenericParameterDialog::onCmdButtonPress(FXObject* obj, FXSelector, void*) {
 
 long
 GNEGenericParameterDialog::onCmdLoadGenericParameters(FXObject*, FXSelector, void*) {
+    // get the Additional file name
+    FXFileDialog opendialog(this, "Open Generic Parameter Template");
+    opendialog.setIcon(GUIIconSubSys::getIcon(ICON_GREENVEHICLE));
+    opendialog.setSelectMode(SELECTFILE_EXISTING);
+    opendialog.setPatternList("Generic Parameter Template files (*.xml)\nAll files (*)");
+    if (gCurrentFolder.length() != 0) {
+        opendialog.setDirectory(gCurrentFolder);
+    }
+    if (opendialog.execute()) {
+        gCurrentFolder = opendialog.getDirectory();
+        std::string file = opendialog.getFilename().text();
+        // save current number of generic parameters
+        int numberOfGenericParametersbeforeLoad = (int)myGenericParameters->size();
+        // Create additional handler and run parser
+        if (!XMLSubSys::runParser(GNEGenericParameterHandler(this, file), file, false)) {
+            WRITE_MESSAGE("Loading of Generic Parameters From " + file + " failed.");
+        }
+        // show loaded attributes
+        WRITE_MESSAGE("Loaded " + toString((int)myGenericParameters->size() - numberOfGenericParametersbeforeLoad) + " Generic Parameters.");
+        // update values
+        updateValues();
+        // resize dialog
+        resizeGenericParameterDialog();
+    }
     return 1;
 }
 
 
 long 
 GNEGenericParameterDialog::onCmdSaveGenericParameters(FXObject*, FXSelector, void*) {
+    // obtain file to save generic parameters
+    FXString file = MFXUtils::getFilename2Write(this,
+                    "Select name of the Generic Parameter Template file", ".xml",
+                    GUIIconSubSys::getIcon(ICON_GREENVEHICLE),
+                    gCurrentFolder);
+    if (file == "") {
+        // None generic parameter file was selected, then stop function
+        return 1;
+    } else {
+        OutputDevice& device = OutputDevice::getDevice(file.text());
+        device.writeXMLHeader("genericParameter", "genericparameter_file.xsd");
+        // iterate over all generic parameters and save it in the filename
+        for (auto i = myGenericParameters->begin(); i != myGenericParameters->end(); i++) {
+            device.openTag(SUMO_TAG_PARAM);
+            device.writeAttr(SUMO_ATTR_KEY, i->key());
+            device.writeAttr(SUMO_ATTR_VALUE, i->value());
+            device.closeTag();
+        }
+        device.close();
+    }
     return 1;
 }
 
@@ -336,6 +363,8 @@ GNEGenericParameterDialog::GenericParameterRow::GenericParameterRow(GNEGenericPa
 
 void 
 GNEGenericParameterDialog::GenericParameterRow::disableRow() {
+    // hide all (including frame parent)
+    frameParent->hide();
     keyField->setText("");
     keyField->disable();
     valueField->setText("");
@@ -347,6 +376,8 @@ GNEGenericParameterDialog::GenericParameterRow::disableRow() {
 
 void 
 GNEGenericParameterDialog::GenericParameterRow::enableRow(const std::string &parameter, const std::string &value) const {
+    // show Horizontal Frame parent
+    frameParent->show();
     // restore color and enable key field
     keyField->setText(parameter.c_str());
     keyField->setTextColor(FXRGB(0, 0, 0));
@@ -363,6 +394,8 @@ GNEGenericParameterDialog::GenericParameterRow::enableRow(const std::string &par
 
 void 
 GNEGenericParameterDialog::GenericParameterRow::toogleAddButton() {
+    // show Horizontal Frame parent
+    frameParent->show();
     // clear and disable parameter and value fields
     keyField->setText("");
     keyField->disable();
@@ -388,17 +421,96 @@ GNEGenericParameterDialog::GenericParameterRow::copyValues(const GenericParamete
 }
 
 
+GNEGenericParameterDialog::GNEGenericParameterHandler::GNEGenericParameterHandler(GNEGenericParameterDialog* genericParameterDialogParent, const std::string& file) :
+    SUMOSAXHandler(file),
+    myGenericParameterDialogParent(genericParameterDialogParent),
+    myMaximumNumberOfAttributesShown(false) {
+}
+
+
+GNEGenericParameterDialog::GNEGenericParameterHandler::~GNEGenericParameterHandler() {}
+
+
+void 
+GNEGenericParameterDialog::GNEGenericParameterHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
+// Obtain tag of element
+    SumoXMLTag tag = static_cast<SumoXMLTag>(element);
+    // only continue if tag is valid
+    if(tag != SUMO_TAG_NOTHING) {
+        // Call parse and build depending of tag
+        switch (tag) {
+            case SUMO_TAG_PARAM:
+                // first check that number of generic parameter is lower than limit
+                if(myGenericParameterDialogParent->myGenericParameters->size() < GNEAttributeCarrier::MAXNUMBER_GENERICPARAMETERS) {
+                    // Check that format of Generic Parameter is correct
+                    if(!attrs.hasAttribute(SUMO_ATTR_KEY)) {
+                        WRITE_WARNING("Key of Generic Parameter not defined");
+                    } else if (!attrs.hasAttribute(SUMO_ATTR_VALUE)) {
+                        WRITE_WARNING("Value of Generic Parameter not defined");
+                    } else {
+                        // obtain Key and value
+                        std::string key = attrs.getString(SUMO_ATTR_KEY);
+                        std::string value = attrs.getString(SUMO_ATTR_VALUE);
+                        // check that parsed values are correct
+                        if(!GNEAttributeCarrier::isValidID(key)) {
+                            if(key.size() == 0) {
+                                WRITE_WARNING("Key of Generic Parameter cannot be empty");
+                            } else {
+                                WRITE_WARNING("Key '" + key + "' of Generic Parameter contains invalid characters");
+                            }
+                        } else if(!GNEAttributeCarrier::isValidName(key)) {
+                            WRITE_WARNING("Value '" + value + "'of Generic Parameter contains invalid characters");
+                        } else {
+                            // add generic parameter to vector of myGenericParameterDialogParent
+                            myGenericParameterDialogParent->myGenericParameters->push_back(GNEAttributeCarrier::GenericParameter(key, value));
+                        }
+                    }
+                } else {
+                    // only show warning one time)
+                    if(!myMaximumNumberOfAttributesShown) {
+                        WRITE_WARNING("Maximun number of Generic Parameters reached");
+                        myMaximumNumberOfAttributesShown = true;
+                    }
+                }
+                break;
+            default:
+                break;
+        }
+    }
+}
+
+
 void 
 GNEGenericParameterDialog::updateValues() {
     int index = 0; 
+    // enanble rows
     for (auto i = myGenericParameters->begin(); i != myGenericParameters->end(); i++) {
         myGenericParameterRows.at(index).enableRow(i->key(), i->value());
         index++;
+    }
+    // disable rest of rows
+    for (int i = index; i < myGenericParameterRows.size(); i++) {
+        myGenericParameterRows.at(i).disableRow();
     }
     // check if add button can be enabled
     if(index < GNEAttributeCarrier::MAXNUMBER_GENERICPARAMETERS) {
         myGenericParameterRows.at(index).toogleAddButton();
     }
+    // resize dialog
+    resizeGenericParameterDialog();
 }
+
+
+ void 
+GNEGenericParameterDialog::resizeGenericParameterDialog() {
+    // save index of the last shown column (to avoid Flick)
+    int indexColumn = 0;
+    for (int i = 0; i < myGenericParametersColumns.size(); i++) {
+        if (myGenericParametersColumns.at(i)->shown()) {
+            indexColumn = i;
+        }
+    }
+    resize(myGenericParameterDialogWidth + (indexColumn * myGenericParameterColumnWidth), getHeight());
+ }
 
 /****************************************************************************/
