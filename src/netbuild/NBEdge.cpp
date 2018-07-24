@@ -270,7 +270,9 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to,
     myLoadedLength(UNSPECIFIED_LOADED_LENGTH),
     myAmInnerEdge(false), myAmMacroscopicConnector(false),
     myStreetName(streetName),
-    mySignalOffset(UNSPECIFIED_SIGNAL_OFFSET) {
+    mySignalOffset(UNSPECIFIED_SIGNAL_OFFSET),
+    myIndex(-1)
+{
     init(nolanes, false, "");
 }
 
@@ -297,7 +299,9 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to,
     myLoadedLength(UNSPECIFIED_LOADED_LENGTH),
     myAmInnerEdge(false), myAmMacroscopicConnector(false),
     myStreetName(streetName),
-    mySignalOffset(UNSPECIFIED_SIGNAL_OFFSET) {
+    mySignalOffset(UNSPECIFIED_SIGNAL_OFFSET),
+    myIndex(-1)
+{
     init(nolanes, tryIgnoreNodePositions, origID);
 }
 
@@ -3488,6 +3492,21 @@ NBEdge::setOrigID(const std::string origID) {
             myLanes[i].unsetParameter(SUMO_PARAM_ORIGID);
         }
     }
+}
+
+const EdgeVector& 
+NBEdge::getSuccessors(SUMOVehicleClass vClass) const {
+    // @todo cache sucessors instead of recomputing them every time
+    mySuccesors.clear();
+    for (const Connection& con : myConnections) {
+        if (con.fromLane >= 0 && con.toLane >=0 && con.toEdge != nullptr && 
+                (getPermissions(con.fromLane) 
+                 & con.toEdge->getPermissions(con.toLane) & vClass) != 0
+                && find(mySuccesors.begin(), mySuccesors.end(), con.toEdge) == mySuccesors.end()) {
+            mySuccesors.push_back(con.toEdge);
+        }
+    }
+    return mySuccesors;
 }
 
 

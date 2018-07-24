@@ -583,6 +583,9 @@ public:
      */
     EdgeVector getGeneratedFrom(const std::string& id) const;
 
+    /// @brief return all edges
+    EdgeVector getAllEdges() const;
+
 private:
     /// @brief compute the form factor for a loop of edges
     static double formFactor(const EdgeVector& loopEdges);

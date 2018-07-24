@@ -52,6 +52,7 @@ class NBNodeCont;
 class NBEdgeCont;
 class OutputDevice;
 class GNELane;
+class NBVehicle;
 
 
 // ===========================================================================
@@ -1249,6 +1250,34 @@ public:
     /// @brief compute the first intersection point between the given lane geometries considering their rspective widths
     static double firstIntersection(const PositionVector& v1, const PositionVector& v2, double width2);
 
+    /// @name functions for router usage
+    //@{
+
+    static inline double getTravelTimeStatic(const NBEdge* const edge, const NBVehicle* const /*veh*/, double /*time*/) {
+        return edge->getLength() / edge->getSpeed();
+    }
+
+
+    /// @brief sets the index of the edge in the list of all network edges
+    void setNumericalID(int index) {
+        myIndex = index;
+    }
+
+    /** @brief Returns the index (numeric id) of the edge
+     * @note This is only used in the context of routing
+     * @return This edge's numerical id
+     */
+    int getNumericalID() const {
+        return myIndex;
+    }
+
+    /** @brief Returns the following edges for the given vClass
+     */
+    const EdgeVector& getSuccessors(SUMOVehicleClass vClass) const;
+
+
+    //@}
+
 private:
     /** @class ToEdgeConnectionsAdder
      * @brief A class that being a bresenham-callback assigns the incoming lanes to the edges
@@ -1499,6 +1528,13 @@ private:
     PositionVector myFromBorder;
     PositionVector myToBorder;
     /// @}
+
+
+    /// @brief the index of the edge in the list of all edges. Set by NBEdgeCont and requires re-set whenever the list of edges changes
+    int myIndex;
+
+    // @brief a static list of successor edges. Set by NBEdgeCont and requires reset when the network changes
+    mutable EdgeVector mySuccesors;
 
 public:
     /// @class tls_disable_finder

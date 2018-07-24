@@ -41,6 +41,7 @@ NBPTStop::NBPTStop(std::string ptStopId, Position position, std::string edgeId, 
     myPTStopLength(length),
     myName(name),
     myPermissions(svcPermissions),
+    myBidiStop(nullptr),
     myIsMultipleStopPositions(false) {
 }
 
@@ -50,25 +51,25 @@ NBPTStop::getID() const {
 }
 
 const std::string
-NBPTStop::getOrigEdgeId() {
+NBPTStop::getOrigEdgeId() const {
     return myOrigEdgeId;
 }
 
 
 const std::string
-NBPTStop::getEdgeId() {
+NBPTStop::getEdgeId() const {
     return myEdgeId;
 }
 
 
 const std::string
-NBPTStop::getName() {
+NBPTStop::getName() const {
     return myName;
 }
 
 
 const Position& 
-NBPTStop::getPosition() {
+NBPTStop::getPosition() const {
     return myPosition;
 }
 
@@ -127,7 +128,7 @@ NBPTStop::reshiftPosition(const double offsetX, const double offsetY) {
 
 
 SVCPermissions 
-NBPTStop::getPermissions() {
+NBPTStop::getPermissions() const {
     return myPermissions;
 }
 
@@ -145,7 +146,7 @@ NBPTStop::getPlatformCands() {
 
 
 bool 
-NBPTStop::getIsMultipleStopPositions() {
+NBPTStop::getIsMultipleStopPositions() const {
     return myIsMultipleStopPositions;
 }
 
@@ -157,7 +158,7 @@ NBPTStop::setIsMultipleStopPositions(bool multipleStopPositions) {
 
 
 double 
-NBPTStop::getLength() {
+NBPTStop::getLength() const {
     return myPTStopLength;
 }
 

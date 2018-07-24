@@ -1400,4 +1400,14 @@ NBEdgeCont::checkGrade(double threshold) const {
 }
 
 
+EdgeVector 
+NBEdgeCont::getAllEdges() const {
+    EdgeVector result;
+    for (auto item : myEdges) {
+        item.second->setNumericalID((int)result.size());
+        result.push_back(item.second);
+    }
+    return result;
+}
+
 /****************************************************************************/

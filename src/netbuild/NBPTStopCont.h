@@ -68,8 +68,8 @@ public:
 
     void assignLanes(NBEdgeCont& cont);
 
-    /// @brief duplicate stops for superposed rail edges
-    void generateBidiStops(NBEdgeCont& cont);
+    /// @brief duplicate stops for superposed rail edges and return the number of generated stops
+    int generateBidiStops(NBEdgeCont& cont);
 
     void localizePTStops(NBEdgeCont& cont);
 

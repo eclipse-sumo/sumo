@@ -110,7 +110,7 @@ void NBPTStopCont::assignLanes(NBEdgeCont& cont) {
 }
 
 
-void 
+int 
 NBPTStopCont::generateBidiStops(NBEdgeCont& ec) {
     //scnd pass set correct lane
     std::vector<NBPTStop*> toAdd;
@@ -135,6 +135,8 @@ NBPTStopCont::generateBidiStops(NBEdgeCont& ec) {
                     stop->getPermissions());
             if (bidiStop->findLaneAndComputeBusStopExtend(ec)) {
                 toAdd.push_back(bidiStop);
+                stop->setBidiStop(bidiStop);
+                bidiStop->setBidiStop(stop);
             } else {
                 // should not happen
                 assert(false);
@@ -147,6 +149,7 @@ NBPTStopCont::generateBidiStops(NBEdgeCont& ec) {
     if (toAdd.size() > 0) {
         WRITE_MESSAGE("Added " + toString(toAdd.size()) + " stops for superposed rail edges.");
     }
+    return (int)toAdd.size();
 }
 
 

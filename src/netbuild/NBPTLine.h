@@ -39,6 +39,11 @@ public:
     void addPTStop(NBPTStop* pStop);
     long long int getLineID() const;
     const std::string& getName() const ;
+
+    const std::string& getType() const {
+        return myType;
+    }
+
     std::vector<NBPTStop*> getStops();
     void write(OutputDevice& device, NBEdgeCont& ec);
     void setId(long long int id);
@@ -50,6 +55,11 @@ public:
     const std::string& getRef() const {
         return myRef;
     }
+
+    void replaceStops(std::vector<NBPTStop*> stops) {
+        myPTStops = stops;
+    }
+
 private:
     std::string myName;
     std::string myType;
