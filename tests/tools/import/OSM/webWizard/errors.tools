@@ -2012,8 +2012,8 @@ Warning: Vehicle 'pt_tram_M2:0.0' ends teleporting on edge '4791000#1', time 362
 Warning: busStop '2071423352' on lane '295250361_0' is too short for vehicle 'pt_subway_U6:0.0'.
 Warning: Teleporting vehicle 'pt_tram_12:0.0'; waited too long (wrong lane), lane='388702047#3_1', time=496.00.
 Warning: Vehicle 'pt_tram_12:0.0' ends teleporting on edge '22820560#2', time 496.00.
-Warning: Teleporting vehicle 'veh18'; waited too long (yield), lane='136571494#6_1', time=497.00.
-Warning: Vehicle 'veh18' ends teleporting on edge '562707499', time 497.00.
+Warning: Teleporting vehicle 'veh41'; waited too long (yield), lane='136571494#6_1', time=508.00.
+Warning: Vehicle 'veh41' ends teleporting on edge '562707499', time 508.00.
 Warning: Teleporting vehicle 'pt_tram_M1:0.0'; waited too long (wrong lane), lane='167272512#2_0', time=596.00.
 Warning: Vehicle 'pt_tram_M1:0.0' ends teleporting on edge '195411594#1', time 596.00.
 Warning: Teleporting vehicle 'pt_tram_M2:2.0'; waited too long (jam), lane='148458500#0_0', time=675.00.
@@ -2025,85 +2025,68 @@ Warning: Vehicle 'pt_tram_M2:2.0' teleports beyond arrival edge '148458500#1', t
 Warning: Vehicle 'pt_tram_M2:2.0' skips stop on lane '148458500#1_0' time=741.00.
 Warning: Teleporting vehicle 'pt_tram_M1:2.0'; waited too long (wrong lane), lane='154321040#2_0', time=746.00.
 Warning: Vehicle 'pt_tram_M1:2.0' ends teleporting on edge '388702047#3', time 746.00.
-Warning: Teleporting vehicle 'veh41'; waited too long (jam), lane='136571494#6_1', time=802.00.
-Warning: Vehicle 'veh41' ends teleporting on edge '562707499', time 802.00.
+Warning: Teleporting vehicle 'veh18'; waited too long (yield), lane='136571494#6_1', time=813.00.
+Warning: Vehicle 'veh18' ends teleporting on edge '562707499', time 813.00.
 Warning: Teleporting vehicle 'pt_tram_12:0.0'; waited too long (wrong lane), lane='22820560#2_0', time=840.00.
 Warning: Vehicle 'pt_tram_12:0.0' ends teleporting on edge '144014237#2', time 840.00.
+Warning: Teleporting vehicle 'veh120'; waited too long (jam), lane='606078065_4', time=897.00.
+Warning: Vehicle 'veh120' ends teleporting on edge '156364553#0', time 897.00.
 Warning: Teleporting vehicle 'pt_tram_12:1.0'; waited too long (wrong lane), lane='167272512#2_0', time=905.00.
 Warning: Vehicle 'pt_tram_12:1.0' ends teleporting on edge '195411594#1', time 905.00.
 Warning: Teleporting vehicle 'pt_tram_M1:0.0'; waited too long (wrong lane), lane='195411594#1_0', time=940.00.
 Warning: Vehicle 'pt_tram_M1:0.0' ends teleporting on edge '167272531#9', time 940.00.
-Warning: Teleporting vehicle 'veh150'; waited too long (jam), lane='606078065_4', time=1012.00.
-Warning: Vehicle 'veh150' ends teleporting on edge '156364553#0', time 1012.00.
 Warning: Teleporting vehicle 'pt_tram_M1:2.0'; waited too long (wrong lane), lane='388702047#3_1', time=1078.00.
 Warning: Vehicle 'pt_tram_M1:2.0' ends teleporting on edge '22820560#2', time 1078.00.
 Warning: Teleporting vehicle 'pt_tram_M1:3.0'; waited too long (wrong lane), lane='154321040#2_0', time=1086.00.
-Warning: Teleporting vehicle 'pt_tram_M2:0.1'; waited too long (wrong lane), lane='148458500#1_0', time=1092.00.
-Warning: Vehicle 'pt_tram_M2:0.1' ends teleporting on edge '4791000#1', time 1092.00.
 Warning: Vehicle 'pt_tram_M1:3.0' skips stop on lane '388702047#3_1' time=1099.00.
 Warning: Vehicle 'pt_tram_M1:3.0' ends teleporting on edge '22820560#2', time 1100.00.
 Warning: Teleporting vehicle 'veh67'; waited too long (jam), lane='136571494#6_1', time=1119.00.
 Warning: Vehicle 'veh67' ends teleporting on edge '562707499', time 1119.00.
-Warning: Person 'ped188' is jammed on edge ':cluster_4565322435_4565322436_w0', time=1172.00.
+Warning: Teleporting vehicle 'pt_bus_N8:1.0'; waited too long (jam), lane='156364553#1_4', time=1180.00.
+Warning: Vehicle 'pt_bus_N8:1.0' ends teleporting on edge '606078066#0', time 1180.00.
+Warning: Teleporting vehicle 'veh150'; waited too long (jam), lane='606078065_4', time=1203.00.
+Warning: Vehicle 'veh150' ends teleporting on edge '156364553#0', time 1203.00.
 Warning: Teleporting vehicle 'pt_tram_M1:1.0'; waited too long (wrong lane), lane='167272512#2_0', time=1214.00.
 Warning: Vehicle 'pt_tram_M1:1.0' ends teleporting on edge '195411594#1', time 1214.00.
-Warning: Teleporting vehicle 'veh77'; waited too long (jam), lane='156364553#1_4', time=1232.00.
-Warning: Vehicle 'veh77' ends teleporting on edge '606078066#0', time 1232.00.
-Warning: Teleporting vehicle 'veh83'; waited too long (jam), lane='156364553#0_4', time=1235.00.
-Warning: Vehicle 'veh83' ends teleporting on edge '156364553#1', time 1235.00.
 Warning: Teleporting vehicle 'pt_tram_12:1.0'; waited too long (wrong lane), lane='195411594#1_0', time=1250.00.
 Warning: Vehicle 'pt_tram_12:1.0' teleports beyond arrival edge '167272531#9', time 1251.00.
 Warning: Teleporting vehicle 'pt_tram_M1:0.0'; waited too long (wrong lane), lane='167272531#9_0', time=1272.00.
 Warning: Vehicle 'pt_tram_M1:0.0' ends teleporting on edge '143891040#0', time 1272.00.
-Warning: Teleporting vehicle 'pt_tram_M2:2.1'; waited too long (jam), lane='148458500#0_0', time=1405.00.
+Warning: Teleporting vehicle 'pt_bus_M48:0.1'; waited too long (jam), lane='156364553#0_3', time=1304.00.
+Warning: Vehicle 'pt_bus_M48:0.1' ends teleporting on edge '156364553#1', time 1304.00.
+Warning: Teleporting vehicle 'pt_tram_M2:3.1'; waited too long (wrong lane), lane='148458500#1_0', time=1392.00.
+Warning: Vehicle 'pt_tram_M2:3.1' ends teleporting on edge '4791000#1', time 1392.00.
 Warning: Teleporting vehicle 'pt_tram_12:0.1'; waited too long (wrong lane), lane='388702047#3_1', time=1415.00.
-Warning: Teleporting vehicle 'pt_tram_M2:3.1'; waited too long (wrong lane), lane='148458500#1_0', time=1436.00.
-Warning: Vehicle 'pt_tram_M2:3.1' ends teleporting on edge '4791000#1', time 1436.00.
-Warning: Teleporting vehicle 'veh84'; waited too long (jam), lane='136571494#6_1', time=1440.00.
-Warning: Vehicle 'pt_tram_M2:2.1' ends teleporting on edge '148458500#1', time 1440.00.
-Warning: Vehicle 'veh84' ends teleporting on edge '562707499', time 1440.00.
-Warning: Teleporting vehicle 'pt_tram_M1:2.1'; waited too long (wrong lane), lane='154321040#2_0', time=1466.00.
-Warning: Vehicle 'pt_tram_M1:2.1' ends teleporting on edge '388702047#3', time 1466.00.
+Warning: Teleporting vehicle 'veh84'; waited too long (jam), lane='136571494#6_1', time=1439.00.
+Warning: Vehicle 'veh84' ends teleporting on edge '562707499', time 1439.00.
 Warning: Vehicle 'pt_tram_12:0.1' skips stop on lane '22820560#2_0' time=1484.00.
 Warning: Vehicle 'pt_tram_12:0.1' ends teleporting on edge '144014237#2', time 1485.00.
-Warning: Teleporting vehicle 'pt_tram_M1:0.1'; waited too long (wrong lane), lane='167272512#2_0', time=1523.00.
-Warning: Vehicle 'pt_tram_M1:0.1' ends teleporting on edge '195411594#1', time 1523.00.
+Warning: Teleporting vehicle 'veh90'; waited too long (jam), lane='156364553#0_4', time=1489.00.
+Warning: Vehicle 'veh90' ends teleporting on edge '156364553#1', time 1489.00.
+Warning: Teleporting vehicle 'veh146'; waited too long (jam), lane='606078065_4', time=1508.00.
+Warning: Vehicle 'veh146' ends teleporting on edge '156364553#0', time 1508.00.
+Warning: Teleporting vehicle 'pt_tram_12:1.1'; waited too long (wrong lane), lane='167272512#2_0', time=1523.00.
+Warning: Vehicle 'pt_tram_12:1.1' ends teleporting on edge '195411594#1', time 1523.00.
 Warning: Teleporting vehicle 'pt_tram_M1:1.0'; waited too long (wrong lane), lane='195411594#1_0', time=1559.00.
 Warning: Vehicle 'pt_tram_M1:1.0' ends teleporting on edge '167272531#9', time 1559.00.
 Warning: Teleporting vehicle 'pt_tram_M1:3.0'; waited too long (wrong lane), lane='22820560#2_0', time=1758.00.
 Warning: Vehicle 'pt_tram_M1:3.0' ends teleporting on edge '144014237#2', time 1758.00.
-Warning: Teleporting vehicle 'veh44'; waited too long (jam), lane='136571494#6_1', time=1786.00.
-Warning: Vehicle 'veh44' ends teleporting on edge '562707499', time 1786.00.
-Warning: Teleporting vehicle 'pt_tram_M1:2.1'; waited too long (wrong lane), lane='388702047#3_1', time=1798.00.
-Warning: Vehicle 'pt_tram_M1:2.1' ends teleporting on edge '22820560#2', time 1798.00.
-Warning: Teleporting vehicle 'pt_tram_M1:3.1'; waited too long (wrong lane), lane='154321040#2_0', time=1806.00.
-Warning: Vehicle 'pt_tram_M1:3.1' ends teleporting on edge '388702047#3', time 1806.00.
-Warning: Teleporting vehicle 'pt_tram_12:1.1'; waited too long (wrong lane), lane='167272512#2_0', time=1832.00.
-Warning: Vehicle 'pt_tram_12:1.1' ends teleporting on edge '195411594#1', time 1832.00.
-Warning: Teleporting vehicle 'pt_tram_M1:0.1'; waited too long (wrong lane), lane='195411594#1_0', time=1868.00.
-Warning: Vehicle 'pt_tram_M1:0.1' skips stop on lane '167272531#9_0' time=1869.00.
-Warning: Vehicle 'pt_tram_M1:0.1' ends teleporting on edge '143891040#0', time 1870.00.
+Warning: Teleporting vehicle 'pt_tram_M2:3.2'; waited too long (wrong lane), lane='148458500#1_0', time=1778.00.
+Warning: Vehicle 'pt_tram_M2:3.2' ends teleporting on edge '4791000#1', time 1778.00.
+Warning: Teleporting vehicle 'veh44'; waited too long (yield), lane='136571494#6_1', time=1787.00.
+Warning: Vehicle 'veh44' ends teleporting on edge '562707499', time 1787.00.
+Warning: Teleporting vehicle 'pt_tram_12:1.1'; waited too long (wrong lane), lane='195411594#1_0', time=1868.00.
+Warning: Vehicle 'pt_tram_12:1.1' teleports beyond arrival edge '167272531#9', time 1869.00.
 Warning: Teleporting vehicle 'pt_tram_M1:1.0'; waited too long (wrong lane), lane='167272531#9_0', time=1891.00.
 Warning: Vehicle 'pt_tram_M1:1.0' ends teleporting on edge '143891040#0', time 1891.00.
 Warning: Teleporting vehicle 'pt_tram_M1:2.0'; waited too long (wrong lane), lane='22820560#2_0', time=2067.00.
 Warning: Vehicle 'pt_tram_M1:2.0' ends teleporting on edge '144014237#2', time 2067.00.
-Warning: Teleporting vehicle 'pt_tram_M1:3.1'; waited too long (wrong lane), lane='388702047#3_1', time=2138.00.
-Warning: Vehicle 'pt_tram_M1:3.1' ends teleporting on edge '22820560#2', time 2138.00.
-Warning: Teleporting vehicle 'pt_tram_M1:1.1'; waited too long (wrong lane), lane='167272512#2_0', time=2141.00.
-Warning: Vehicle 'pt_tram_M1:1.1' ends teleporting on edge '195411594#1', time 2141.00.
-Warning: Teleporting vehicle 'pt_tram_12:1.1'; waited too long (wrong lane), lane='195411594#1_0', time=2177.00.
-Warning: Vehicle 'pt_tram_12:1.1' ends teleporting on edge '167272531#9', time 2177.00.
-Warning: Teleporting vehicle 'pt_tram_M1:2.1'; waited too long (wrong lane), lane='22820560#2_0', time=2376.00.
-Warning: Vehicle 'pt_tram_M1:2.1' ends teleporting on edge '144014237#2', time 2376.00.
-Warning: Teleporting vehicle 'pt_tram_M1:1.1'; waited too long (wrong lane), lane='195411594#1_0', time=2486.00.
-Warning: Vehicle 'pt_tram_M1:1.1' ends teleporting on edge '167272531#9', time 2486.00.
-Warning: Teleporting vehicle 'pt_tram_M1:3.1'; waited too long (wrong lane), lane='22820560#2_0', time=2685.00.
-Warning: Vehicle 'pt_tram_M1:3.1' ends teleporting on edge '144014237#2', time 2685.00.
-Warning: Teleporting vehicle 'pt_tram_M1:1.1'; waited too long (wrong lane), lane='167272531#9_0', time=2818.00.
-Warning: Vehicle 'pt_tram_M1:1.1' ends teleporting on edge '143891040#0', time 2818.00.
-Warning: Person 'ped178' aborted waiting for M5:2 at busStop '4673135647'.
-Warning: Person 'ped177' aborted waiting for M4:1 at busStop '1633759766'.
-Warning: Person 'ped69' aborted waiting for M1:3 at busStop '1661927028'.
+Warning: Teleporting vehicle 'veh58'; waited too long (yield), lane='136571494#6_1', time=2091.00.
+Warning: Vehicle 'veh58' ends teleporting on edge '562707499', time 2091.00.
+Warning: Person 'ped187' aborted waiting for M4:0 at busStop '4673135647'.
+Warning: Person 'ped126' aborted waiting for M4:1 at busStop '1633759766'.
+Warning: Person 'ped41' aborted waiting for M4:1 at busStop '1633759766'.
+Warning: Person 'ped178' aborted waiting for 248:0 at busStop '3867910417'.
 Warning: Person 'ped188' aborted waiting for RE2:2 at busStop '2603331683'.
 Warning: Person 'ped166' aborted waiting for S5:1 at busStop '27411240'.
 Warning: Person 'ped190' aborted waiting for 200:1 at busStop '270718978'.

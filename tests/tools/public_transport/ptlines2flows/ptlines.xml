@@ -40,7 +40,7 @@ SPDX-License-Identifier: EPL-2.0
         <busStop id="3959807221" name="Kolonnenbrücke"/>
         <busStop id="3959807200" name="Dudenstraße/Katzbachstraße"/>
     </ptLine>
-    <ptLine id="1" name="Buslinie 104: Stralau, Tunnelstraße => Neu-Westend, Brixplatz 'test other quotes' " line="104" type="bus" completeness="1.00">
+    <ptLine id="1" name="Buslinie 104: Stralau, Tunnelstraße => Neu-Westend, Brixplatz 'test other quotes' " line="104" type="bus" period="480" completeness="1.00">
         <route edges=" -391493954#3 -391493954#2 -391493954#1 -391493954#0 -391493952#2 -391493952#1 -391493952#0 -391493950#1 -391493950#0 -391493947 -391493949 -338412122 -110450334#2 -110450334#1"/>
         <busStop id="3959807201" name="Dudenstraße/Katzbachstraße"/>
         <busStop id="3959807220" name="Kolonnenbrücke"/>

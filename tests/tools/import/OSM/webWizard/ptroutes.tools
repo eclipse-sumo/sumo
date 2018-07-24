@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2018-07-24 11:43:22.207000 by $Id$
+<!-- generated on 2018-07-24 12:31:26.973000 by $Id$
   options: <doubleminus>testing
 -->
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
@@ -483,323 +483,323 @@
         <stop busStop="1633759766" duration="30.00" until="1858.0"/> <!-- S Hackescher Markt -->
         <stop busStop="1662153916" duration="30.00" until="1946.0"/> <!-- U Weinmeisterstraße/Gipsstraße -->
     </route>
-    <flow id="pt_light_rail_S1:0" type="pt_light_rail" route="pt_light_rail_S1:0" begin="102.0" end="1002.0" period="600.0" line="S1:0" departPos="0">
+    <flow id="pt_light_rail_S1:0" type="pt_light_rail" route="pt_light_rail_S1:0" begin="102.0" end="1002.0" period="600" line="S1:0" departPos="0">
         <param key="name" value="S-Bahnlinie S1: S Oranienburg =&gt; S Wannsee"/>
         <param key="completeness" value="0.06"/>
     </flow>
-    <flow id="pt_light_rail_S1:1" type="pt_light_rail" route="pt_light_rail_S1:1" begin="119.0" end="1019.0" period="600.0" line="S1:1" departPos="0">
+    <flow id="pt_light_rail_S1:1" type="pt_light_rail" route="pt_light_rail_S1:1" begin="119.0" end="1019.0" period="600" line="S1:1" departPos="0">
         <param key="name" value="S-Bahnlinie S1: S Wannsee =&gt; S Oranienburg"/>
         <param key="completeness" value="0.06"/>
     </flow>
-    <flow id="pt_train_RE1:0" type="pt_train" route="pt_train_RE1:0" begin="17.0" end="917.0" period="600.0" line="RE1:0" departPos="0">
+    <flow id="pt_train_RE1:0" type="pt_train" route="pt_train_RE1:0" begin="17.0" end="917.0" period="3600" line="RE1:0" departPos="0">
         <param key="name" value="RE1: Magdeburg =&gt; Eisenhüttenstadt"/>
         <param key="completeness" value="0.06"/>
     </flow>
-    <flow id="pt_train_RE2:0" type="pt_train" route="pt_train_RE2:0" begin="15.0" end="915.0" period="600.0" line="RE2:0" departPos="0">
+    <flow id="pt_train_RE2:0" type="pt_train" route="pt_train_RE2:0" begin="15.0" end="915.0" period="3600" line="RE2:0" departPos="0">
         <param key="name" value="RE2: Cottbus =&gt; Wismar"/>
         <param key="completeness" value="0.05"/>
     </flow>
-    <flow id="pt_light_rail_S5:0" type="pt_light_rail" route="pt_light_rail_S5:0" begin="160.0" end="1060.0" period="600.0" line="S5:0" departPos="0">
+    <flow id="pt_light_rail_S5:0" type="pt_light_rail" route="pt_light_rail_S5:0" begin="160.0" end="1060.0" period="600" line="S5:0" departPos="0">
         <param key="name" value="S-Bahnlinie S5: Strausberg Nord =&gt; Spandau"/>
         <param key="completeness" value="0.08"/>
     </flow>
-    <flow id="pt_train_RB14:0" type="pt_train" route="pt_train_RB14:0" begin="121.0" end="1021.0" period="600.0" line="RB14:0" departPos="0">
+    <flow id="pt_train_RB14:0" type="pt_train" route="pt_train_RB14:0" begin="121.0" end="1021.0" period="3600" line="RB14:0" departPos="0">
         <param key="name" value="RB14: Nauen =&gt; Berlin-Schönefeld"/>
         <param key="completeness" value="0.13"/>
     </flow>
-    <flow id="pt_light_rail_S5:1" type="pt_light_rail" route="pt_light_rail_S5:1" begin="165.0" end="1065.0" period="600.0" line="S5:1" departPos="0">
+    <flow id="pt_light_rail_S5:1" type="pt_light_rail" route="pt_light_rail_S5:1" begin="165.0" end="1065.0" period="600" line="S5:1" departPos="0">
         <param key="name" value="S-Bahnlinie S5: Spandau =&gt; Strausberg Nord"/>
         <param key="completeness" value="0.08"/>
     </flow>
-    <flow id="pt_train_RE1:1" type="pt_train" route="pt_train_RE1:1" begin="115.0" end="1015.0" period="600.0" line="RE1:1" departPos="0">
+    <flow id="pt_train_RE1:1" type="pt_train" route="pt_train_RE1:1" begin="115.0" end="1015.0" period="3600" line="RE1:1" departPos="0">
         <param key="name" value="RE1: Eisenhüttenstadt =&gt; Magdeburg"/>
         <param key="completeness" value="0.06"/>
     </flow>
-    <flow id="pt_tram_M2:0" type="pt_tram" route="pt_tram_M2:0" begin="3.0" end="903.0" period="600.0" line="M2:0" departPos="0">
+    <flow id="pt_tram_M2:0" type="pt_tram" route="pt_tram_M2:0" begin="3.0" end="903.0" period="1200" line="M2:0" departPos="0">
         <param key="name" value="Straßenbahnlinie M2: S+U Alexanderplatz =&gt; Heinersdorf"/>
         <param key="completeness" value="0.11"/>
     </flow>
-    <flow id="pt_bus_TXL:0" type="pt_bus" route="pt_bus_TXL:0" begin="58.0" end="958.0" period="600.0" line="TXL:0" departPos="0">
+    <flow id="pt_bus_TXL:0" type="pt_bus" route="pt_bus_TXL:0" begin="58.0" end="958.0" period="600" line="TXL:0" departPos="0">
         <param key="name" value="Buslinie TXL: Flughafen Tegel =&gt; S+U Alexanderplatz"/>
         <param key="completeness" value="0.29"/>
     </flow>
-    <flow id="pt_tram_M4:2" type="pt_tram" route="pt_tram_M4:2" begin="137.0" end="1037.0" period="600.0" line="M4:2" departPos="0">
+    <flow id="pt_tram_M4:2" type="pt_tram" route="pt_tram_M4:2" begin="137.0" end="1037.0" period="600" line="M4:2" departPos="0">
         <param key="name" value="Straßenbahnlinie M4: S Hackescher Markt =&gt; Falkenberg"/>
         <param key="completeness" value="0.16"/>
     </flow>
-    <flow id="pt_tram_M4:0" type="pt_tram" route="pt_tram_M4:0" begin="133.0" end="1033.0" period="600.0" line="M4:0" departPos="0">
+    <flow id="pt_tram_M4:0" type="pt_tram" route="pt_tram_M4:0" begin="133.0" end="1033.0" period="420" line="M4:0" departPos="0">
         <param key="name" value="Straßenbahnlinie M4: Falkenberg =&gt; S Hackescher Markt"/>
         <param key="completeness" value="0.16"/>
     </flow>
-    <flow id="pt_light_rail_S2:0" type="pt_light_rail" route="pt_light_rail_S2:0" begin="346.0" end="1246.0" period="600.0" line="S2:0" departPos="0">
+    <flow id="pt_light_rail_S2:0" type="pt_light_rail" route="pt_light_rail_S2:0" begin="346.0" end="1246.0" period="1200" line="S2:0" departPos="0">
         <param key="name" value="S-Bahnlinie S2: S Bernau =&gt; S Blankenfelde"/>
         <param key="completeness" value="0.07"/>
     </flow>
-    <flow id="pt_train_RE7:1" type="pt_train" route="pt_train_RE7:1" begin="225.0" end="1125.0" period="600.0" line="RE7:1" departPos="0">
+    <flow id="pt_train_RE7:1" type="pt_train" route="pt_train_RE7:1" begin="225.0" end="1125.0" period="3600" line="RE7:1" departPos="0">
         <param key="name" value="RE7: Dessau =&gt; Wünsdorf-Waldstadt"/>
         <param key="completeness" value="0.07"/>
     </flow>
-    <flow id="pt_light_rail_S2:1" type="pt_light_rail" route="pt_light_rail_S2:1" begin="350.0" end="1250.0" period="600.0" line="S2:1" departPos="0">
+    <flow id="pt_light_rail_S2:1" type="pt_light_rail" route="pt_light_rail_S2:1" begin="350.0" end="1250.0" period="1200" line="S2:1" departPos="0">
         <param key="name" value="S-Bahnlinie S2: S Blankenfelde =&gt; S Bernau"/>
         <param key="completeness" value="0.07"/>
     </flow>
-    <flow id="pt_train_RE7:0" type="pt_train" route="pt_train_RE7:0" begin="215.0" end="1115.0" period="600.0" line="RE7:0" departPos="0">
+    <flow id="pt_train_RE7:0" type="pt_train" route="pt_train_RE7:0" begin="215.0" end="1115.0" period="3600" line="RE7:0" departPos="0">
         <param key="name" value="RE7: Wünsdorf-Waldstadt =&gt; Dessau Hbf"/>
         <param key="completeness" value="0.07"/>
     </flow>
-    <flow id="pt_tram_M4:3" type="pt_tram" route="pt_tram_M4:3" begin="144.0" end="1044.0" period="600.0" line="M4:3" departPos="0">
+    <flow id="pt_tram_M4:3" type="pt_tram" route="pt_tram_M4:3" begin="144.0" end="1044.0" period="420" line="M4:3" departPos="0">
         <param key="name" value="Straßenbahnlinie M4: S Hackescher Markt =&gt; Hohenschönhausen, Zingster Straße"/>
         <param key="completeness" value="0.17"/>
     </flow>
-    <flow id="pt_light_rail_S7:1" type="pt_light_rail" route="pt_light_rail_S7:1" begin="229.0" end="1129.0" period="600.0" line="S7:1" departPos="0">
+    <flow id="pt_light_rail_S7:1" type="pt_light_rail" route="pt_light_rail_S7:1" begin="229.0" end="1129.0" period="600" line="S7:1" departPos="0">
         <param key="name" value="S-Bahnlinie S7: Potsdam Hauptbahnhof =&gt; Ahrensfelde"/>
         <param key="completeness" value="0.10"/>
     </flow>
-    <flow id="pt_tram_M4:1" type="pt_tram" route="pt_tram_M4:1" begin="140.0" end="1040.0" period="600.0" line="M4:1" departPos="0">
+    <flow id="pt_tram_M4:1" type="pt_tram" route="pt_tram_M4:1" begin="140.0" end="1040.0" period="420" line="M4:1" departPos="0">
         <param key="name" value="Straßenbahnlinie M4: Hohenschönhausen, Zingster Straße =&gt; S Hackescher Markt"/>
         <param key="completeness" value="0.17"/>
     </flow>
-    <flow id="pt_light_rail_S25:1" type="pt_light_rail" route="pt_light_rail_S25:1" begin="383.0" end="1283.0" period="600.0" line="S25:1" departPos="0">
+    <flow id="pt_light_rail_S25:1" type="pt_light_rail" route="pt_light_rail_S25:1" begin="383.0" end="1283.0" period="600" line="S25:1" departPos="0">
         <param key="name" value="S-Bahnlinie S25: Teltow =&gt; Hennigsdorf"/>
         <param key="completeness" value="0.07"/>
     </flow>
-    <flow id="pt_tram_M6:1" type="pt_tram" route="pt_tram_M6:1" begin="222.0" end="1122.0" period="600.0" line="M6:1" departPos="0">
+    <flow id="pt_tram_M6:1" type="pt_tram" route="pt_tram_M6:1" begin="222.0" end="1122.0" period="600" line="M6:1" departPos="0">
         <param key="name" value="Straßenbahnlinie M6: S Hackescher Markt =&gt; Hellersdorf, Riesaer Straße"/>
         <param key="completeness" value="0.10"/>
     </flow>
-    <flow id="pt_light_rail_S25:0" type="pt_light_rail" route="pt_light_rail_S25:0" begin="409.0" end="1309.0" period="600.0" line="S25:0" departPos="0">
+    <flow id="pt_light_rail_S25:0" type="pt_light_rail" route="pt_light_rail_S25:0" begin="409.0" end="1309.0" period="600" line="S25:0" departPos="0">
         <param key="name" value="S-Bahnlinie S25: Henningsdorf =&gt; Teltow"/>
         <param key="completeness" value="0.07"/>
     </flow>
-    <flow id="pt_light_rail_S7:0" type="pt_light_rail" route="pt_light_rail_S7:0" begin="223.0" end="1123.0" period="600.0" line="S7:0" departPos="0">
+    <flow id="pt_light_rail_S7:0" type="pt_light_rail" route="pt_light_rail_S7:0" begin="223.0" end="1123.0" period="600" line="S7:0" departPos="0">
         <param key="name" value="S-Bahnlinie S7: Ahrensfelde =&gt; Potsdam Hauptbahnhof"/>
         <param key="completeness" value="0.10"/>
     </flow>
-    <flow id="pt_bus_100:1" type="pt_bus" route="pt_bus_100:1" begin="98.0" end="998.0" period="600.0" line="100:1" departPos="0">
+    <flow id="pt_bus_100:1" type="pt_bus" route="pt_bus_100:1" begin="98.0" end="998.0" period="600" line="100:1" departPos="0">
         <param key="name" value="Buslinie 100: S+U Zoologischer Garten =&gt; S+U Alexanderplatz"/>
         <param key="completeness" value="0.28"/>
     </flow>
-    <flow id="pt_bus_248:1" type="pt_bus" route="pt_bus_248:1" begin="336.0" end="1236.0" period="600.0" line="248:1" departPos="0">
+    <flow id="pt_bus_248:1" type="pt_bus" route="pt_bus_248:1" begin="336.0" end="1236.0" period="600" line="248:1" departPos="0">
         <param key="name" value="Buslinie 248: U Breitenbachplatz =&gt; S Südkreuz =&gt; S+U Warschauer Straße"/>
         <param key="completeness" value="0.07"/>
     </flow>
-    <flow id="pt_bus_N65:1" type="pt_bus" route="pt_bus_N65:1" begin="239.0" end="1139.0" period="600.0" line="N65:1" departPos="0">
+    <flow id="pt_bus_N65:1" type="pt_bus" route="pt_bus_N65:1" begin="239.0" end="1139.0" period="600" line="N65:1" departPos="0">
         <param key="name" value="Buslinie N65: S Hackescher Markt =&gt; Köpenick, Müggelschlößchenweg"/>
         <param key="completeness" value="0.07"/>
     </flow>
-    <flow id="pt_bus_TXL:1" type="pt_bus" route="pt_bus_TXL:1" begin="60.0" end="960.0" period="600.0" line="TXL:1" departPos="0">
+    <flow id="pt_bus_TXL:1" type="pt_bus" route="pt_bus_TXL:1" begin="60.0" end="960.0" period="600" line="TXL:1" departPos="0">
         <param key="name" value="Buslinie TXL: S+U Alexanderplatz =&gt; Flughafen Tegel"/>
         <param key="completeness" value="0.40"/>
     </flow>
-    <flow id="pt_tram_M6:0" type="pt_tram" route="pt_tram_M6:0" begin="218.0" end="1118.0" period="600.0" line="M6:0" departPos="0">
+    <flow id="pt_tram_M6:0" type="pt_tram" route="pt_tram_M6:0" begin="218.0" end="1118.0" period="600" line="M6:0" departPos="0">
         <param key="name" value="Straßenbahnlinie M6: Hellersdorf, Riesaer Straße =&gt; S Hackescher Markt"/>
         <param key="completeness" value="0.10"/>
     </flow>
-    <flow id="pt_bus_M48:1" type="pt_bus" route="pt_bus_M48:1" begin="227.0" end="1127.0" period="600.0" line="M48:1" departPos="0">
+    <flow id="pt_bus_M48:1" type="pt_bus" route="pt_bus_M48:1" begin="227.0" end="1127.0" period="600" line="M48:1" departPos="0">
         <param key="name" value="Buslinie M48: S+U Alexanderplatz/Memhardstraße =&gt; Busseallee"/>
         <param key="completeness" value="0.09"/>
     </flow>
-    <flow id="pt_light_rail_S2:2" type="pt_light_rail" route="pt_light_rail_S2:2" begin="483.0" end="1383.0" period="600.0" line="S2:2" departPos="0">
+    <flow id="pt_light_rail_S2:2" type="pt_light_rail" route="pt_light_rail_S2:2" begin="483.0" end="1383.0" period="1200" line="S2:2" departPos="0">
         <param key="name" value="S-Bahnlinie S2: S Buch =&gt; S Lichtenrade"/>
         <param key="completeness" value="0.09"/>
     </flow>
-    <flow id="pt_light_rail_S2:3" type="pt_light_rail" route="pt_light_rail_S2:3" begin="484.0" end="1384.0" period="600.0" line="S2:3" departPos="0">
+    <flow id="pt_light_rail_S2:3" type="pt_light_rail" route="pt_light_rail_S2:3" begin="484.0" end="1384.0" period="1200" line="S2:3" departPos="0">
         <param key="name" value="S-Bahnlinie S2: Lichtenrade =&gt; Bernau"/>
         <param key="completeness" value="0.08"/>
     </flow>
-    <flow id="pt_bus_N65:0" type="pt_bus" route="pt_bus_N65:0" begin="237.0" end="1137.0" period="600.0" line="N65:0" departPos="0">
+    <flow id="pt_bus_N65:0" type="pt_bus" route="pt_bus_N65:0" begin="237.0" end="1137.0" period="600" line="N65:0" departPos="0">
         <param key="name" value="Buslinie N65: Köpenick, Müggelschlößchenweg =&gt; S Hackescher Markt"/>
         <param key="completeness" value="0.09"/>
     </flow>
-    <flow id="pt_subway_U6:0" type="pt_subway" route="pt_subway_U6:0" begin="441.0" end="1341.0" period="600.0" line="U6:0" departPos="0">
+    <flow id="pt_subway_U6:0" type="pt_subway" route="pt_subway_U6:0" begin="441.0" end="1341.0" period="300" line="U6:0" departPos="0">
         <param key="name" value="U-Bahnlinie U6: U Alt-Mariendorf =&gt; U Alt-Tegel"/>
         <param key="completeness" value="0.10"/>
     </flow>
-    <flow id="pt_bus_M48:0" type="pt_bus" route="pt_bus_M48:0" begin="227.0" end="1127.0" period="600.0" line="M48:0" departPos="0">
+    <flow id="pt_bus_M48:0" type="pt_bus" route="pt_bus_M48:0" begin="227.0" end="1127.0" period="600" line="M48:0" departPos="0">
         <param key="name" value="Buslinie M48: Busseallee =&gt; S+U Alexanderplatz/Memhardstraße"/>
         <param key="completeness" value="0.09"/>
     </flow>
-    <flow id="pt_bus_248:0" type="pt_bus" route="pt_bus_248:0" begin="334.0" end="1234.0" period="600.0" line="248:0" departPos="0">
+    <flow id="pt_bus_248:0" type="pt_bus" route="pt_bus_248:0" begin="334.0" end="1234.0" period="600" line="248:0" departPos="0">
         <param key="name" value="Buslinie 248: S+U Warschauer Straße =&gt; S Südkreuz =&gt; U Breitenbachplatz"/>
         <param key="completeness" value="0.09"/>
     </flow>
-    <flow id="pt_light_rail_S3:1" type="pt_light_rail" route="pt_light_rail_S3:1" begin="362.0" end="1262.0" period="600.0" line="S3:1" departPos="0">
+    <flow id="pt_light_rail_S3:1" type="pt_light_rail" route="pt_light_rail_S3:1" begin="362.0" end="1262.0" period="600" line="S3:1" departPos="0">
         <param key="name" value="S-Bahnlinie S3: Westkreuz =&gt; Erkner"/>
         <param key="completeness" value="0.13"/>
     </flow>
-    <flow id="pt_bus_100:0" type="pt_bus" route="pt_bus_100:0" begin="99.0" end="999.0" period="600.0" line="100:0" departPos="0">
+    <flow id="pt_bus_100:0" type="pt_bus" route="pt_bus_100:0" begin="99.0" end="999.0" period="600" line="100:0" departPos="0">
         <param key="name" value="Buslinie 100: S+U Alexanderplatz =&gt; S+U Zoologischer Garten"/>
         <param key="completeness" value="0.41"/>
     </flow>
-    <flow id="pt_tram_M5:1" type="pt_tram" route="pt_tram_M5:1" begin="157.0" end="1057.0" period="600.0" line="M5:1" departPos="0">
+    <flow id="pt_tram_M5:1" type="pt_tram" route="pt_tram_M5:1" begin="157.0" end="1057.0" period="1200" line="M5:1" departPos="0">
         <param key="name" value="Straßenbahnlinie M5: S+U Hauptbahnhof =&gt; Hohenschönhausen, Zingster Straße"/>
         <param key="completeness" value="0.18"/>
     </flow>
-    <flow id="pt_subway_U6:1" type="pt_subway" route="pt_subway_U6:1" begin="465.0" end="1365.0" period="600.0" line="U6:1" departPos="0">
+    <flow id="pt_subway_U6:1" type="pt_subway" route="pt_subway_U6:1" begin="465.0" end="1365.0" period="300" line="U6:1" departPos="0">
         <param key="name" value="U-Bahnlinie U6: U Alt-Tegel =&gt; U Alt-Mariendorf"/>
         <param key="completeness" value="0.10"/>
     </flow>
-    <flow id="pt_bus_N2:0" type="pt_bus" route="pt_bus_N2:0" begin="15.0" end="915.0" period="600.0" line="N2:0" departPos="0">
+    <flow id="pt_bus_N2:0" type="pt_bus" route="pt_bus_N2:0" begin="15.0" end="915.0" period="600" line="N2:0" departPos="0">
         <param key="name" value="Buslinie N2: U Ruhleben =&gt; S+U Pankow"/>
         <param key="completeness" value="0.15"/>
     </flow>
-    <flow id="pt_train_RE2:1" type="pt_train" route="pt_train_RE2:1" begin="406.0" end="1306.0" period="600.0" line="RE2:1" departPos="0">
+    <flow id="pt_train_RE2:1" type="pt_train" route="pt_train_RE2:1" begin="406.0" end="1306.0" period="3600" line="RE2:1" departPos="0">
         <param key="name" value="RE2: Wismar =&gt; Cottbus"/>
         <param key="completeness" value="0.05"/>
     </flow>
-    <flow id="pt_subway_U2:1" type="pt_subway" route="pt_subway_U2:1" begin="422.0" end="1322.0" period="600.0" line="U2:1" departPos="0">
+    <flow id="pt_subway_U2:1" type="pt_subway" route="pt_subway_U2:1" begin="422.0" end="1322.0" period="240" line="U2:1" departPos="0">
         <param key="name" value="U-Bahnlinie U2: U Ruhleben =&gt; S+U Pankow"/>
         <param key="completeness" value="0.10"/>
     </flow>
-    <flow id="pt_bus_200:1" type="pt_bus" route="pt_bus_200:1" begin="132.0" end="1032.0" period="600.0" line="200:1" departPos="0">
+    <flow id="pt_bus_200:1" type="pt_bus" route="pt_bus_200:1" begin="132.0" end="1032.0" period="600" line="200:1" departPos="0">
         <param key="name" value="Buslinie 200: S+U Zoologischer Garten =&gt; Michelangelostraße"/>
         <param key="completeness" value="0.22"/>
     </flow>
-    <flow id="pt_subway_U2:0" type="pt_subway" route="pt_subway_U2:0" begin="418.0" end="1318.0" period="600.0" line="U2:0" departPos="0">
+    <flow id="pt_subway_U2:0" type="pt_subway" route="pt_subway_U2:0" begin="418.0" end="1318.0" period="240" line="U2:0" departPos="0">
         <param key="name" value="U-Bahnlinie U2: S+U Pankow =&gt; U Ruhleben"/>
         <param key="completeness" value="0.10"/>
     </flow>
-    <flow id="pt_bus_N5:1" type="pt_bus" route="pt_bus_N5:1" begin="331.0" end="1231.0" period="600.0" line="N5:1" departPos="0">
+    <flow id="pt_bus_N5:1" type="pt_bus" route="pt_bus_N5:1" begin="331.0" end="1231.0" period="1800" line="N5:1" departPos="0">
         <param key="name" value="Buslinie N5: S Hackescher Markt =&gt; Hellersdorf, Riesaer Straße"/>
         <param key="completeness" value="0.08"/>
     </flow>
-    <flow id="pt_train_RE2:2" type="pt_train" route="pt_train_RE2:2" begin="410.0" end="1310.0" period="600.0" line="RE2:2" departPos="0">
+    <flow id="pt_train_RE2:2" type="pt_train" route="pt_train_RE2:2" begin="410.0" end="1310.0" period="600" line="RE2:2" departPos="0">
         <param key="name" value="RE2: Berlin Ostbahnhof =&gt; Wismar"/>
         <param key="completeness" value="0.06"/>
     </flow>
-    <flow id="pt_light_rail_S3:0" type="pt_light_rail" route="pt_light_rail_S3:0" begin="386.0" end="1286.0" period="600.0" line="S3:0" departPos="0">
+    <flow id="pt_light_rail_S3:0" type="pt_light_rail" route="pt_light_rail_S3:0" begin="386.0" end="1286.0" period="600" line="S3:0" departPos="0">
         <param key="name" value="S-Bahnlinie S3: Erkner =&gt; Westkreuz"/>
         <param key="completeness" value="0.13"/>
     </flow>
-    <flow id="pt_light_rail_S26:0" type="pt_light_rail" route="pt_light_rail_S26:0" begin="583.0" end="1483.0" period="600.0" line="S26:0" departPos="0">
+    <flow id="pt_light_rail_S26:0" type="pt_light_rail" route="pt_light_rail_S26:0" begin="583.0" end="1483.0" period="600" line="S26:0" departPos="0">
         <param key="name" value="S-Bahnlinie S26: Teltow =&gt; Waidmannslust"/>
         <param key="completeness" value="0.09"/>
     </flow>
-    <flow id="pt_bus_200:0" type="pt_bus" route="pt_bus_200:0" begin="131.0" end="1031.0" period="600.0" line="200:0" departPos="0">
+    <flow id="pt_bus_200:0" type="pt_bus" route="pt_bus_200:0" begin="131.0" end="1031.0" period="600" line="200:0" departPos="0">
         <param key="name" value="Buslinie 200: Michelangelostraße =&gt; S+U Zoologischer Garten"/>
         <param key="completeness" value="0.27"/>
     </flow>
-    <flow id="pt_light_rail_S26:1" type="pt_light_rail" route="pt_light_rail_S26:1" begin="593.0" end="1493.0" period="600.0" line="S26:1" departPos="0">
+    <flow id="pt_light_rail_S26:1" type="pt_light_rail" route="pt_light_rail_S26:1" begin="593.0" end="1493.0" period="600" line="S26:1" departPos="0">
         <param key="name" value="S-Bahnlinie S26: Waidmannslust =&gt; Teltow"/>
         <param key="completeness" value="0.09"/>
     </flow>
-    <flow id="pt_bus_N6:1" type="pt_bus" route="pt_bus_N6:1" begin="485.0" end="1385.0" period="600.0" line="N6:1" departPos="0">
+    <flow id="pt_bus_N6:1" type="pt_bus" route="pt_bus_N6:1" begin="485.0" end="1385.0" period="600" line="N6:1" departPos="0">
         <param key="name" value="Buslinie N6 U Alt-Mariendorf =&gt; U Alt-Tegel"/>
         <param key="completeness" value="0.08"/>
     </flow>
-    <flow id="pt_bus_N5:0" type="pt_bus" route="pt_bus_N5:0" begin="326.0" end="1226.0" period="600.0" line="N5:0" departPos="0">
+    <flow id="pt_bus_N5:0" type="pt_bus" route="pt_bus_N5:0" begin="326.0" end="1226.0" period="1800" line="N5:0" departPos="0">
         <param key="name" value="Buslinie N5: Hellersdorf, Riesaer Straße =&gt; S Hackescher Markt"/>
         <param key="completeness" value="0.12"/>
     </flow>
-    <flow id="pt_subway_U8:1" type="pt_subway" route="pt_subway_U8:1" begin="437.0" end="1337.0" period="600.0" line="U8:1" departPos="0">
+    <flow id="pt_subway_U8:1" type="pt_subway" route="pt_subway_U8:1" begin="437.0" end="1337.0" period="300" line="U8:1" departPos="0">
         <param key="name" value="U-Bahnlinie U8: S+U Wittenau =&gt; S+U Hermannstraße"/>
         <param key="completeness" value="0.17"/>
     </flow>
-    <flow id="pt_bus_N8:1" type="pt_bus" route="pt_bus_N8:1" begin="388.0" end="1288.0" period="600.0" line="N8:1" departPos="0">
+    <flow id="pt_bus_N8:1" type="pt_bus" route="pt_bus_N8:1" begin="388.0" end="1288.0" period="600" line="N8:1" departPos="0">
         <param key="name" value="Buslinie N8: S+U Hermannstraße =&gt; Märkisches Viertel, Wilhelmsruher Damm"/>
         <param key="completeness" value="0.07"/>
     </flow>
-    <flow id="pt_tram_M2:3" type="pt_tram" route="pt_tram_M2:3" begin="131.0" end="1031.0" period="600.0" line="M2:3" departPos="0">
+    <flow id="pt_tram_M2:3" type="pt_tram" route="pt_tram_M2:3" begin="131.0" end="1031.0" period="300" line="M2:3" departPos="0">
         <param key="name" value="Straßenbahnlinie M2: S+U Alexanderplatz =&gt; Am Steinberg"/>
         <param key="completeness" value="0.15"/>
     </flow>
-    <flow id="pt_tram_M2:1" type="pt_tram" route="pt_tram_M2:1" begin="125.0" end="1025.0" period="600.0" line="M2:1" departPos="0">
+    <flow id="pt_tram_M2:1" type="pt_tram" route="pt_tram_M2:1" begin="125.0" end="1025.0" period="300" line="M2:1" departPos="0">
         <param key="name" value="Straßenbahnlinie M2: Am Steinberg =&gt; S+U Alexanderplatz"/>
         <param key="completeness" value="0.15"/>
     </flow>
-    <flow id="pt_light_rail_S9:1" type="pt_light_rail" route="pt_light_rail_S9:1" begin="426.0" end="1326.0" period="600.0" line="S9:1" departPos="0">
+    <flow id="pt_light_rail_S9:1" type="pt_light_rail" route="pt_light_rail_S9:1" begin="426.0" end="1326.0" period="1200" line="S9:1" departPos="0">
         <param key="name" value="S-Bahnlinie S9: S Rathaus Spandau =&gt; S Flughafen Schönefeld"/>
         <param key="completeness" value="0.11"/>
     </flow>
-    <flow id="pt_tram_M2:2" type="pt_tram" route="pt_tram_M2:2" begin="132.0" end="1032.0" period="600.0" line="M2:2" departPos="0">
+    <flow id="pt_tram_M2:2" type="pt_tram" route="pt_tram_M2:2" begin="132.0" end="1032.0" period="1200" line="M2:2" departPos="0">
         <param key="name" value="Straßenbahnlinie M2: Heinersdorf =&gt; S+U Alexanderplatz"/>
         <param key="completeness" value="0.11"/>
     </flow>
-    <flow id="pt_bus_N8:0" type="pt_bus" route="pt_bus_N8:0" begin="383.0" end="1283.0" period="600.0" line="N8:0" departPos="0">
+    <flow id="pt_bus_N8:0" type="pt_bus" route="pt_bus_N8:0" begin="383.0" end="1283.0" period="600" line="N8:0" departPos="0">
         <param key="name" value="Buslinie N8: Märkisches Viertel, Wilhelmsruher Damm =&gt; S+U Hermannstraße"/>
         <param key="completeness" value="0.07"/>
     </flow>
-    <flow id="pt_train_RB14:1" type="pt_train" route="pt_train_RB14:1" begin="525.0" end="1425.0" period="600.0" line="RB14:1" departPos="0">
+    <flow id="pt_train_RB14:1" type="pt_train" route="pt_train_RB14:1" begin="525.0" end="1425.0" period="3600" line="RB14:1" departPos="0">
         <param key="name" value="RB14: Berlin-Schönefeld =&gt; Nauen"/>
         <param key="completeness" value="0.13"/>
     </flow>
-    <flow id="pt_tram_M5:3" type="pt_tram" route="pt_tram_M5:3" begin="505.0" end="1405.0" period="600.0" line="M5:3" departPos="0">
+    <flow id="pt_tram_M5:3" type="pt_tram" route="pt_tram_M5:3" begin="505.0" end="1405.0" period="1200" line="M5:3" departPos="0">
         <param key="name" value="Straßenbahnlinie M5: S Hackescher Markt =&gt; Hohenschönhausen, Zingster Straße"/>
         <param key="completeness" value="0.15"/>
     </flow>
-    <flow id="pt_subway_U8:0" type="pt_subway" route="pt_subway_U8:0" begin="437.0" end="1337.0" period="600.0" line="U8:0" departPos="0">
+    <flow id="pt_subway_U8:0" type="pt_subway" route="pt_subway_U8:0" begin="437.0" end="1337.0" period="300" line="U8:0" departPos="0">
         <param key="name" value="U-Bahnlinie U8: S+U Hermannstraße =&gt; S+U Wittenau"/>
         <param key="completeness" value="0.22"/>
     </flow>
-    <flow id="pt_tram_M5:2" type="pt_tram" route="pt_tram_M5:2" begin="497.0" end="1397.0" period="600.0" line="M5:2" departPos="0">
+    <flow id="pt_tram_M5:2" type="pt_tram" route="pt_tram_M5:2" begin="497.0" end="1397.0" period="1200" line="M5:2" departPos="0">
         <param key="name" value="Straßenbahnlinie M5: Hohenschönhausen, Zingster Straße =&gt; S Hackescher Markt"/>
         <param key="completeness" value="0.15"/>
     </flow>
-    <flow id="pt_bus_N40:1" type="pt_bus" route="pt_bus_N40:1" begin="393.0" end="1293.0" period="600.0" line="N40:1" departPos="0">
+    <flow id="pt_bus_N40:1" type="pt_bus" route="pt_bus_N40:1" begin="393.0" end="1293.0" period="600" line="N40:1" departPos="0">
         <param key="name" value="Buslinie N40: U Turmstraße =&gt; Friedrichshain, Wühlischplatz"/>
         <param key="completeness" value="0.13"/>
     </flow>
-    <flow id="pt_bus_N2:1" type="pt_bus" route="pt_bus_N2:1" begin="321.0" end="1221.0" period="600.0" line="N2:1" departPos="0">
+    <flow id="pt_bus_N2:1" type="pt_bus" route="pt_bus_N2:1" begin="321.0" end="1221.0" period="600" line="N2:1" departPos="0">
         <param key="name" value="Buslinie N2: S+U Pankow =&gt; U Ruhleben"/>
         <param key="completeness" value="0.13"/>
     </flow>
-    <flow id="pt_light_rail_S9:0" type="pt_light_rail" route="pt_light_rail_S9:0" begin="549.0" end="1449.0" period="600.0" line="S9:0" departPos="0">
+    <flow id="pt_light_rail_S9:0" type="pt_light_rail" route="pt_light_rail_S9:0" begin="549.0" end="1449.0" period="1200" line="S9:0" departPos="0">
         <param key="name" value="S-Bahnlinie S9: S Flughafen Schönefeld =&gt; S Rathaus Spandau"/>
         <param key="completeness" value="0.11"/>
     </flow>
-    <flow id="pt_bus_N40:0" type="pt_bus" route="pt_bus_N40:0" begin="389.0" end="1289.0" period="600.0" line="N40:0" departPos="0">
+    <flow id="pt_bus_N40:0" type="pt_bus" route="pt_bus_N40:0" begin="389.0" end="1289.0" period="600" line="N40:0" departPos="0">
         <param key="name" value="Buslinie N40: Friedrichshain, Wühlischplatz =&gt; U Turmstraße"/>
         <param key="completeness" value="0.16"/>
     </flow>
-    <flow id="pt_tram_12:0" type="pt_tram" route="pt_tram_12:0" begin="158.0" end="1058.0" period="600.0" line="12:0" departPos="0">
+    <flow id="pt_tram_12:0" type="pt_tram" route="pt_tram_12:0" begin="158.0" end="1058.0" period="600" line="12:0" departPos="0">
         <param key="name" value="Straßenbahnlinie 12: Weißensee, Pasedagplatz =&gt; Mitte, Am Kupfergraben"/>
         <param key="completeness" value="0.15"/>
     </flow>
-    <flow id="pt_bus_147:1" type="pt_bus" route="pt_bus_147:1" begin="303.0" end="1203.0" period="600.0" line="147:1" departPos="0">
+    <flow id="pt_bus_147:1" type="pt_bus" route="pt_bus_147:1" begin="303.0" end="1203.0" period="600" line="147:1" departPos="0">
         <param key="name" value="Buslinie 147: S+U Hauptbahnhof =&gt; S Ostbahnhof"/>
         <param key="completeness" value="0.39"/>
     </flow>
-    <flow id="pt_bus_147:0" type="pt_bus" route="pt_bus_147:0" begin="275.0" end="1175.0" period="600.0" line="147:0" departPos="0">
+    <flow id="pt_bus_147:0" type="pt_bus" route="pt_bus_147:0" begin="275.0" end="1175.0" period="600" line="147:0" departPos="0">
         <param key="name" value="Buslinie 147: S Ostbahnhof =&gt; S+U Hauptbahnhof"/>
         <param key="completeness" value="0.39"/>
     </flow>
-    <flow id="pt_tram_M5:0" type="pt_tram" route="pt_tram_M5:0" begin="147.0" end="1047.0" period="600.0" line="M5:0" departPos="0">
+    <flow id="pt_tram_M5:0" type="pt_tram" route="pt_tram_M5:0" begin="147.0" end="1047.0" period="1200" line="M5:0" departPos="0">
         <param key="name" value="Straßenbahnlinie M5: Hohenschönhausen, Zingster Straße =&gt; S+U Hauptbahnhof"/>
         <param key="completeness" value="0.19"/>
     </flow>
-    <flow id="pt_bus_N42:1" type="pt_bus" route="pt_bus_N42:1" begin="517.0" end="1417.0" period="600.0" line="N42:1" departPos="0">
+    <flow id="pt_bus_N42:1" type="pt_bus" route="pt_bus_N42:1" begin="517.0" end="1417.0" period="600" line="N42:1" departPos="0">
         <param key="name" value="Buslinie N42: U Theodor-Heuss-Platz =&gt; S+U Alexanderplatz"/>
         <param key="completeness" value="0.15"/>
     </flow>
-    <flow id="pt_bus_147:3" type="pt_bus" route="pt_bus_147:3" begin="565.0" end="1465.0" period="600.0" line="147:3" departPos="0">
+    <flow id="pt_bus_147:3" type="pt_bus" route="pt_bus_147:3" begin="565.0" end="1465.0" period="600" line="147:3" departPos="0">
         <param key="name" value="Buslinie 147: U Märkisches Museum =&gt; S+U Hauptbahnhof"/>
         <param key="completeness" value="0.54"/>
     </flow>
-    <flow id="pt_tram_12:1" type="pt_tram" route="pt_tram_12:1" begin="160.0" end="1060.0" period="600.0" line="12:1" departPos="0">
+    <flow id="pt_tram_12:1" type="pt_tram" route="pt_tram_12:1" begin="160.0" end="1060.0" period="600" line="12:1" departPos="0">
         <param key="name" value="Straßenbahnlinie 12: Mitte, Am Kupfergraben =&gt; Weißensee, Pasedagplatz"/>
         <param key="completeness" value="0.15"/>
     </flow>
-    <flow id="pt_bus_N42:0" type="pt_bus" route="pt_bus_N42:0" begin="508.0" end="1408.0" period="600.0" line="N42:0" departPos="0">
+    <flow id="pt_bus_N42:0" type="pt_bus" route="pt_bus_N42:0" begin="508.0" end="1408.0" period="600" line="N42:0" departPos="0">
         <param key="name" value="Buslinie N42: S+U Alexanderplatz =&gt; U Theodor-Heuss-Platz"/>
         <param key="completeness" value="0.14"/>
     </flow>
-    <flow id="pt_bus_147:2" type="pt_bus" route="pt_bus_147:2" begin="561.0" end="1461.0" period="600.0" line="147:2" departPos="0">
+    <flow id="pt_bus_147:2" type="pt_bus" route="pt_bus_147:2" begin="561.0" end="1461.0" period="600" line="147:2" departPos="0">
         <param key="name" value="Buslinie 147: S+U Hauptbahnhof =&gt; U Märkisches Museum"/>
         <param key="completeness" value="0.54"/>
     </flow>
-    <flow id="pt_tram_M1:2" type="pt_tram" route="pt_tram_M1:2" begin="201.0" end="1101.0" period="600.0" line="M1:2" departPos="0">
+    <flow id="pt_tram_M1:2" type="pt_tram" route="pt_tram_M1:2" begin="201.0" end="1101.0" period="1200" line="M1:2" departPos="0">
         <param key="name" value="Straßenbahnlinie M1: Niederschönhausen, Schillerstraße =&gt; Mitte, Am Kupfergraben"/>
         <param key="completeness" value="0.28"/>
     </flow>
-    <flow id="pt_tram_M1:0" type="pt_tram" route="pt_tram_M1:0" begin="188.0" end="1088.0" period="600.0" line="M1:0" departPos="0">
+    <flow id="pt_tram_M1:0" type="pt_tram" route="pt_tram_M1:0" begin="188.0" end="1088.0" period="1200" line="M1:0" departPos="0">
         <param key="name" value="Straßenbahnlinie M1: Mitte, Am Kupfergraben =&gt; Niederschönhausen, Schillerstraße"/>
         <param key="completeness" value="0.28"/>
     </flow>
-    <flow id="pt_tram_M1:3" type="pt_tram" route="pt_tram_M1:3" begin="247.0" end="1147.0" period="600.0" line="M1:3" departPos="0">
+    <flow id="pt_tram_M1:3" type="pt_tram" route="pt_tram_M1:3" begin="247.0" end="1147.0" period="1200" line="M1:3" departPos="0">
         <param key="name" value="Straßenbahnlinie M1: Rosenthal Nord =&gt; Mitte, Am Kupfergraben"/>
         <param key="completeness" value="0.26"/>
     </flow>
-    <flow id="pt_tram_M1:1" type="pt_tram" route="pt_tram_M1:1" begin="242.0" end="1142.0" period="600.0" line="M1:1" departPos="0">
+    <flow id="pt_tram_M1:1" type="pt_tram" route="pt_tram_M1:1" begin="242.0" end="1142.0" period="1200" line="M1:1" departPos="0">
         <param key="name" value="Straßenbahnlinie M1: Mitte, Am Kupfergraben =&gt; Rosenthal Nord"/>
         <param key="completeness" value="0.26"/>
     </flow>
