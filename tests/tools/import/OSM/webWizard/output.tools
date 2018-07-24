@@ -1,14 +1,14 @@
-Written configuration to '/scr2/texttest_tmp/tools.11Jul125927.3165/tools/import/OSM/webWizard/2018-07-11-12-59-29/osm.netccfg'
+Written configuration to 'D:\erdm_ja\home\.texttest\tmp\tools.24Jul114305.13068\tools\import\OSM\webWizard\2018-07-24-11-43-12\osm.netccfg'
 Loading configuration... done.
-Parsing types from '/scr1/sumo/data/typemap/osmNetconvert.typ.xml'... done.
-Parsing types from '/scr1/sumo/data/typemap/osmNetconvertUrbanDe.typ.xml'... done.
-Parsing types from '/scr1/sumo/data/typemap/osmNetconvertPedestrians.typ.xml'... done.
-Parsing types from '/scr1/sumo/data/typemap/osmNetconvertShips.typ.xml'... done.
-Parsing types from '/scr1/sumo/data/typemap/osmNetconvertBicycle.typ.xml'... done.
-Parsing nodes from osm-file '/scr2/texttest_tmp/tools.11Jul125927.3165/tools/import/OSM/webWizard/2018-07-11-12-59-29/osm_bbox.osm.xml'... 
+Parsing types from 'D:\erdm_ja\sumo-dev\data\typemap\osmNetconvert.typ.xml'... done.
+Parsing types from 'D:\erdm_ja\sumo-dev\data\typemap\osmNetconvertUrbanDe.typ.xml'... done.
+Parsing types from 'D:\erdm_ja\sumo-dev\data\typemap\osmNetconvertPedestrians.typ.xml'... done.
+Parsing types from 'D:\erdm_ja\sumo-dev\data\typemap\osmNetconvertShips.typ.xml'... done.
+Parsing types from 'D:\erdm_ja\sumo-dev\data\typemap\osmNetconvertBicycle.typ.xml'... done.
+Parsing nodes from osm-file 'D:\erdm_ja\home\.texttest\tmp\tools.24Jul114305.13068\tools\import\OSM\webWizard\2018-07-24-11-43-12\osm_bbox.osm.xml'... 
 Found duplicate nodes. Substituting 5632884676 with 1211114249
 done.
-Parsing edges from osm-file '/scr2/texttest_tmp/tools.11Jul125927.3165/tools/import/OSM/webWizard/2018-07-11-12-59-29/osm_bbox.osm.xml'... done.
+Parsing edges from osm-file 'D:\erdm_ja\home\.texttest\tmp\tools.24Jul114305.13068\tools\import\OSM\webWizard\2018-07-24-11-43-12\osm_bbox.osm.xml'... done.
 Removing duplicate edges... 
 Found duplicate edges. Removing 335703514
 Found duplicate edges. Removing 335703529
@@ -24,7 +24,7 @@ Adding new type 'cycleway.lane|highway.pedestrian' (first occurence for edge '24
 Adding new type 'cycleway.lane|highway.residential' (first occurence for edge '38208961').
 Adding new type 'cycleway.track|highway.secondary' (first occurence for edge '60333309#0').
 Adding new type 'highway.service|railway.tram' (first occurence for edge '388702047#0').
-Parsing relations from osm-file '/scr2/texttest_tmp/tools.11Jul125927.3165/tools/import/OSM/webWizard/2018-07-11-12-59-29/osm_bbox.osm.xml'... 
+Parsing relations from osm-file 'D:\erdm_ja\home\.texttest\tmp\tools.24Jul114305.13068\tools\import\OSM\webWizard\2018-07-24-11-43-12\osm_bbox.osm.xml'... 
 done.
  Removed 125 traffic lights before loading plain-XML
  Import done:
@@ -32,52 +32,52 @@ done.
    49 types loaded.
    5187 edges loaded.
 Proj projection parameters used: '+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'.
-Removing self-loops... done (1ms).
-Processing public transport stops... done (0ms).
+Removing self-loops... done (0ms).
+Processing public transport stops... done (1ms).
 Revising public transport stops based on pt lines... 
-done (11ms).
+done (5ms).
 Align pt stop id signs with corresponding edge id signs... done (0ms).
 Joining junction clusters... 
-done (11ms).
- Joined 111 junction cluster(s).
-Removing empty nodes and geometry nodes... done (9ms).
+done (15ms).
+ Joined 109 junction cluster(s).
+Removing empty nodes and geometry nodes... done (16ms).
    549 nodes removed.
-Moving network to origin... done (11ms).
+Moving network to origin... done (12ms).
 Computing turning directions... 
-done (2ms).
-Assigning nodes to traffic lights... done (0ms).
-Guessing and setting on-/off-ramps... done (4ms).
-Sorting nodes' edges... done (3ms).
-Computing node shapes... done (55ms).
-Computing edge shapes... done (32ms).
+done (3ms).
+Assigning nodes to traffic lights... done (1ms).
+Guessing and setting on-/off-ramps... done (5ms).
+Sorting nodes' edges... done (4ms).
+Computing node shapes... done (91ms).
+Computing edge shapes... done (38ms).
 Computing node types... done (1ms).
 Guessed 973 pedestrian crossings.
-Computing priorities... done (2ms).
-Computing approached edges... done (2ms).
+Computing priorities... done (3ms).
+Computing approached edges... done (6ms).
 Guessing and setting roundabouts... 
  Guessed 2 roundabout(s).
-done (1ms).
-Computing approaching lanes... done (11ms).
-Dividing of lanes on approached lanes... done (4ms).
-Processing turnarounds... done (1ms).
+done (3ms).
+Computing approaching lanes... done (24ms).
+Dividing of lanes on approached lanes... done (8ms).
+Processing turnarounds... done (2ms).
 Rechecking of lane endings... 
-done (0ms).
-Joining traffic light nodes... done (2ms).
+done (2ms).
+Joining traffic light nodes... done (3ms).
 Computing traffic light control information... 
 done (1ms).
-Computing node logics... done (16ms).
+Computing node logics... done (35ms).
 Computing traffic light logics... 
-done (6ms).
+done (8ms).
  59 traffic light(s) computed.
 Building inner edges... 
-done (42ms).
-Find accesses for pt rail stops... done (38ms).
+done (68ms).
+Find accesses for pt rail stops... done (69ms).
 -----------------------------------------------------
 Summary:
  Node type statistics:
   Unregulated junctions       : 8
-  Dead-end junctions          : 1397
-  Priority junctions          : 1038
+  Dead-end junctions          : 1399
+  Priority junctions          : 1041
   Right-before-left junctions : 171
   Rail signal junctions      : 19
  Network boundaries:
@@ -85,14 +85,14 @@ Summary:
   Applied offset     : -389562.46,-5817979.56
   Converted boundary : 0.00,0.00,4934.15,4470.73
 -----------------------------------------------------
-Writing network... done (571ms).
+Writing network... done (1166ms).
 Success.
-Written configuration to '/scr2/texttest_tmp/tools.11Jul125927.3165/tools/import/OSM/webWizard/2018-07-11-12-59-29/osm.polycfg'
+Written configuration to 'D:\erdm_ja\home\.texttest\tmp\tools.24Jul114305.13068\tools\import\OSM\webWizard\2018-07-24-11-43-12\osm.polycfg'
 Loading configuration... done.
-Parsing network projection from '/scr2/texttest_tmp/tools.11Jul125927.3165/tools/import/OSM/webWizard/2018-07-11-12-59-29/osm.net.xml'... done (2ms).
-Parsing nodes from osm-file '/scr2/texttest_tmp/tools.11Jul125927.3165/tools/import/OSM/webWizard/2018-07-11-12-59-29/osm_bbox.osm.xml'... done (367ms).
-Parsing relations from osm-file '/scr2/texttest_tmp/tools.11Jul125927.3165/tools/import/OSM/webWizard/2018-07-11-12-59-29/osm_bbox.osm.xml'... done (265ms).
-Parsing edges from osm-file '/scr2/texttest_tmp/tools.11Jul125927.3165/tools/import/OSM/webWizard/2018-07-11-12-59-29/osm_bbox.osm.xml'... done (301ms).
+Parsing network projection from 'D:\erdm_ja\home\.texttest\tmp\tools.24Jul114305.13068\tools\import\OSM\webWizard\2018-07-24-11-43-12\osm.net.xml'... done (3ms).
+Parsing nodes from osm-file 'D:\erdm_ja\home\.texttest\tmp\tools.24Jul114305.13068\tools\import\OSM\webWizard\2018-07-24-11-43-12\osm_bbox.osm.xml'... done (529ms).
+Parsing relations from osm-file 'D:\erdm_ja\home\.texttest\tmp\tools.24Jul114305.13068\tools\import\OSM\webWizard\2018-07-24-11-43-12\osm_bbox.osm.xml'... done (290ms).
+Parsing edges from osm-file 'D:\erdm_ja\home\.texttest\tmp\tools.24Jul114305.13068\tools\import\OSM\webWizard\2018-07-24-11-43-12\osm_bbox.osm.xml'... done (345ms).
 Success.
 Success.
 Success.
@@ -100,49 +100,50 @@ Success.
 Success.
 Written configuration to 'osm.sumocfg'
 Loading configuration... done.
-Loading net-file from 'osm.net.xml'... done (607ms).
-Loading additional-files from 'osm.poly.xml'... done (202ms).
+Loading net-file from 'osm.net.xml'... done (543ms).
+Loading additional-files from 'osm.poly.xml'... done (175ms).
 Loading additional-files from 'osm_stops.add.xml'... done (8ms).
 Loading done.
 Simulation started with time: 0.00
-Simulation ended at time: 3110.00
+Simulation ended at time: 3128.00
 Reason: All vehicles have left the simulation.
 Performance: 
- Duration: 6052ms
- Real time factor: 513.88
- UPS: 32039.491077
+ Duration: 6609ms
+ Real time factor: 473.294
+ UPS: 30450.597670
 Vehicles: 
- Inserted: 446
+ Inserted: 442
  Running: 0
  Waiting: 0
-Teleports: 46 (Jam: 12, Yield: 1, Wrong Lane: 33)
+Teleports: 44 (Jam: 9, Yield: 2, Wrong Lane: 33)
 Persons: 
- Inserted: 198
+ Inserted: 199
  Running: 0
+ Jammed: 1
 Statistics (avg):
- RouteLength: 1702.04
- Duration: 434.76
- WaitingTime: 152.26
- TimeLoss: 210.70
- DepartDelay: 1.86
-Pedestrian Statistics (avg of 419 walks):
- RouteLength: 289.46
- Duration: 242.29
- TimeLoss: 34.69
-Ride Statistics (avg of 190 rides):
- WaitingTime: 108.90
- RouteLength: 826.02
- Duration: 149.78
- Bus: 67
- Train: 114
+ RouteLength: 1685.47
+ Duration: 455.31
+ WaitingTime: 173.79
+ TimeLoss: 232.77
+ DepartDelay: 1.64
+Pedestrian Statistics (avg of 396 walks):
+ RouteLength: 321.65
+ Duration: 274.56
+ TimeLoss: 43.42
+Ride Statistics (avg of 183 rides):
+ WaitingTime: 123.70
+ RouteLength: 815.78
+ Duration: 126.51
+ Bus: 69
+ Train: 108
  Bike: 0
- Aborted: 9
+ Aborted: 6
 
-DijkstraRouter answered 8902 queries and explored 12.53 edges on average.
-DijkstraRouter spent 33ms answering queries (0.00ms on average).
-DijkstraRouter answered 286 queries and explored 658.50 edges on average.
-DijkstraRouter spent 70ms answering queries (0.24ms on average).
-Building scenario in '/scr2/texttest_tmp/tools.11Jul125927.3165/tools/import/OSM/webWizard/2018-07-11-12-59-29'
+DijkstraRouter answered 9191 queries and explored 11.96 edges on average.
+DijkstraRouter spent 49ms answering queries (0.01ms on average).
+DijkstraRouter answered 282 queries and explored 631.48 edges on average.
+DijkstraRouter spent 83ms answering queries (0.29ms on average).
+Building scenario in 'D:\erdm_ja\home\.texttest\tmp\tools.24Jul114305.13068\tools\import\OSM\webWizard\2018-07-24-11-43-12'
 generating trips...
 Imported 81 lines with 319 stops and skipped 5 lines
    tram: 20
@@ -155,10 +156,10 @@ running SUMO to determine actual departure times...
 done.
 creating routes...
 done.
-calling  /scr1/sumo/bin/duarouter -n osm.net.xml -r osm.passenger.trips.xml -o osm.passenger.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log --no-warnings
+calling  D:\erdm_ja\sumo-dev\bin\duarouter.exe -n osm.net.xml -r osm.passenger.trips.xml -o osm.passenger.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log --no-warnings
 calling route2trips
-calling  /scr1/sumo/bin/duarouter -n osm.net.xml -r osm.ship.trips.xml -o osm.ship.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log --no-warnings
+calling  D:\erdm_ja\sumo-dev\bin\duarouter.exe -n osm.net.xml -r osm.ship.trips.xml -o osm.ship.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log --no-warnings
 calling route2trips
-calling  /scr1/sumo/bin/duarouter -n osm.net.xml -r osm.bicycle.trips.xml -o osm.bicycle.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log --no-warnings
+calling  D:\erdm_ja\sumo-dev\bin\duarouter.exe -n osm.net.xml -r osm.bicycle.trips.xml -o osm.bicycle.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log --no-warnings
 calling route2trips
-calling  /scr1/sumo/bin/duarouter -n osm.net.xml -r osm.pedestrian.trips.xml -o osm.pedestrian.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log --no-warnings --additional-files osm_stops.add.xml,osm_pt.rou.xml
+calling  D:\erdm_ja\sumo-dev\bin\duarouter.exe -n osm.net.xml -r osm.pedestrian.trips.xml -o osm.pedestrian.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log --no-warnings --additional-files osm_stops.add.xml,osm_pt.rou.xml
