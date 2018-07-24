@@ -321,8 +321,10 @@ GNEViewNet::selectEdges() {
 
 bool
 GNEViewNet::showConnections() {
-    if (myEditMode == GNE_MODE_CONNECT || myEditMode == GNE_MODE_PROHIBITION) {
+    if (myEditMode == GNE_MODE_CONNECT) {
         return myMenuCheckHideConnections->getCheck() == 0;
+    } else if (myEditMode == GNE_MODE_PROHIBITION) {
+        return true;
     } else if (myMenuCheckShowConnections->shown() == false) {
         return false;
     } else {
