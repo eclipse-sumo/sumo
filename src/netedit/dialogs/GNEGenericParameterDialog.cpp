@@ -169,7 +169,6 @@ GNEGenericParameterDialog::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
 
 long 
 GNEGenericParameterDialog::onCmdButtonPress(FXObject* obj, FXSelector, void*) {
-    std::cout << getWidth() << std::endl;
     // find what button was pressed
     for (int i = 0;  i < myGenericParameterRows.size(); i++) {
         if(myGenericParameterRows.at(i).button == obj) {
@@ -231,12 +230,23 @@ GNEGenericParameterDialog::onCmdSaveGenericParameters(FXObject*, FXSelector, voi
 
 long 
 GNEGenericParameterDialog::onCmdClearGenericParameters(FXObject*, FXSelector, void*) {
+    // simply clear all parameters and disble all rows
+    myGenericParameters->clear();
+    for (auto i : myGenericParameterRows) {
+        i.disableRow();
+    }
+    // update values
+    updateValues();
     return 1;
 }
 
 
 long 
 GNEGenericParameterDialog::onCmdSortGenericParameters(FXObject*, FXSelector, void*) {
+    // simply sort generic parameters using std function
+    std::sort(myGenericParameters->begin(), myGenericParameters->end());
+    // update values
+    updateValues();
     return 1;
 }
 

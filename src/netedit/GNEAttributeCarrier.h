@@ -362,21 +362,14 @@ public:
         /// @brief constructor using string
         GenericParameter(const std::string &value);
 
-        /// @brief reference to Generic Parameter key
+        /// @brief reference to Generic Parameter key (a.k.a first)
         std::string &key();
         
-        /// @brief reference to Generic Parameter value
+        /// @brief reference to Generic Parameter value (a.k.a second)
         std::string &value();
 
         /// @brief check if current Generic Parameter is valid
         bool isValid();
-
-    private:
-        /// @brief make first private (to acces member only trought "key()")
-        std::string first;
-
-        /// @brief make second private (to acces member only trought "value()")
-        std::string second;
     };
 
     /**@brief Constructor
