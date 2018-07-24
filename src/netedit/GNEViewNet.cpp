@@ -322,7 +322,7 @@ GNEViewNet::selectEdges() {
 bool
 GNEViewNet::showConnections() {
     if (myEditMode == GNE_MODE_CONNECT || myEditMode == GNE_MODE_PROHIBITION) {
-        return true;
+        return myMenuCheckHideConnections->getCheck() == 0;
     } else if (myMenuCheckShowConnections->shown() == false) {
         return false;
     } else {
@@ -2382,6 +2382,10 @@ GNEViewNet::buildEditModeControls() {
     myMenuCheckShowConnections = new FXMenuCheck(myToolbar, ("Show " + toString(SUMO_TAG_CONNECTION) + "s\t\tToggle show " + toString(SUMO_TAG_CONNECTION) + "s over " + toString(SUMO_TAG_JUNCTION) + "s").c_str(), this, MID_GNE_VIEWNET_SHOW_CONNECTIONS);
     myMenuCheckShowConnections->setCheck(myVisualizationSettings->showLane2Lane);
 
+    myMenuCheckHideConnections = new FXMenuCheck(myToolbar, 
+            "Hide connections\t\tHide connections", this, 0);
+    myMenuCheckHideConnections->setCheck(false);
+
     myMenuCheckExtendToEdgeNodes = new FXMenuCheck(myToolbar, ("Auto-select " + toString(SUMO_TAG_JUNCTION) + "s\t\tToggle whether selecting multiple " + toString(SUMO_TAG_EDGE) + "s should automatically select their " + toString(SUMO_TAG_JUNCTION) + "s").c_str(), this, 0);
 
     myMenuCheckWarnAboutMerge = new FXMenuCheck(myToolbar, ("Ask for merge\t\tAsk for confirmation before merging " + toString(SUMO_TAG_JUNCTION) + ".").c_str(), this, 0);
@@ -2410,6 +2414,7 @@ GNEViewNet::updateModeSpecificControls() {
     myAutoCreateOppositeEdge->hide();
     myMenuCheckSelectEdges->hide();
     myMenuCheckShowConnections->hide();
+    myMenuCheckHideConnections->hide();
     myMenuCheckExtendToEdgeNodes->hide();
     myMenuCheckChangeAllPhases->hide();
     myMenuCheckWarnAboutMerge->hide();
@@ -2473,6 +2478,7 @@ GNEViewNet::updateModeSpecificControls() {
             myViewParent->getConnectorFrame()->show();
             myViewParent->getConnectorFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getConnectorFrame();
+            myMenuCheckHideConnections->show();
             myEditModeConnection->setChecked(true);
             break;
         case GNE_MODE_TLS:

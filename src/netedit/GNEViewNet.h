@@ -572,6 +572,9 @@ private:
     /// @brief menu check to show connections
     FXMenuCheck* myMenuCheckShowConnections;
 
+    /// @brief menu check to hide connections in connect mode
+    FXMenuCheck* myMenuCheckHideConnections;
+
     /// @brief menu check to extend to edge nodes
     FXMenuCheck* myMenuCheckExtendToEdgeNodes;
 
