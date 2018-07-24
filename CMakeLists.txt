@@ -94,7 +94,10 @@ endif (APPLE)
 # Check if libraries have to be found, depending on SUMO_LIBRARIES
 set(SUMO_LIBRARIES "$ENV{SUMO_LIBRARIES}" CACHE PATH "Location of SUMOLibraries dependencies")
 if (SUMO_LIBRARIES)
-    if(${CMAKE_MODULE_LINKER_FLAGS} STREQUAL "/machine:x64")
+    if(${CMAKE_MODULE_LINKER_FLAGS} STREQUAL "")
+        message(STATUS "Architecture is not specified. Using 64 bit libraries from SUMO_LIBRARIES placed in " ${SUMO_LIBRARIES})
+        set(LIB_VERSION "_64")
+    elseif(${CMAKE_MODULE_LINKER_FLAGS} STREQUAL "/machine:x64")
         message(STATUS "Using 64 bit libraries from SUMO_LIBRARIES placed in " ${SUMO_LIBRARIES})
         set(LIB_VERSION "_64")
     else()
@@ -103,7 +106,7 @@ if (SUMO_LIBRARIES)
     endif()
     # TODO: Use file(GLOB ...) to avoid explicit versions
     # set Xerces
-    if(${MSVC_VERSION} STREQUAL "1800")
+    if(${MSVC_VERSION} AND ${MSVC_VERSION} STREQUAL "1800")
         set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${SUMO_LIBRARIES}/msvc12/xerces-c-3.2.0${LIB_VERSION}")
     else()
         set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${SUMO_LIBRARIES}/xerces-c-3.2.0${LIB_VERSION}")
@@ -255,7 +258,7 @@ install(CODE "execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink ../../b
 # custom targets
 add_custom_target(examples DEPENDS sumo netconvert
     COMMAND ${PYTHON_EXECUTABLE} tools/extractTest.py -x -f tests/examples.txt -p docs/examples/runAll.py
-	WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
 add_test(exampletest ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/docs/examples/runAll.py)
 find_package(Git)
 if (GIT_FOUND)
