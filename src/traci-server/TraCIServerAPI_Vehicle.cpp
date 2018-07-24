@@ -16,6 +16,7 @@
 /// @author  Mario Krumnow
 /// @author  Jakob Erdmann
 /// @author  Robert Hilbrich
+/// @author  Lara Codeca
 /// @date    07.05.2009
 /// @version $Id$
 ///
@@ -378,15 +379,17 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                 tempMsg.writeInt((int)nextStops.size());
                 for (std::vector<libsumo::TraCINextStopData>::iterator it = nextStops.begin(); it != nextStops.end(); ++it) {
                     tempMsg.writeUnsignedByte(TYPE_STRING);
-                    tempMsg.writeString(it->busStop);
-                    tempMsg.writeUnsignedByte(TYPE_STRING);
-                    tempMsg.writeString(it->chargingStation);
-                    tempMsg.writeUnsignedByte(TYPE_STRING);
-                    tempMsg.writeString(it->containerStop);
-                    tempMsg.writeUnsignedByte(TYPE_STRING);
-                    tempMsg.writeString(it->parkingArea);
-                    tempMsg.writeUnsignedByte(TYPE_STRING);
                     tempMsg.writeString(it->lane);
+                    tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+                    tempMsg.writeDouble(it->endPos);
+                    tempMsg.writeUnsignedByte(TYPE_STRING);
+                    tempMsg.writeString(it->stoppingPlaceID);
+                    tempMsg.writeUnsignedByte(TYPE_INTEGER);
+                    tempMsg.writeInt(it->stopFlags);
+                    tempMsg.writeUnsignedByte(TYPE_INTEGER);
+                    tempMsg.writeInt((int)it->duration);
+                    tempMsg.writeUnsignedByte(TYPE_INTEGER);
+                    tempMsg.writeInt((int)it->until);
                 }
             }
             break;
@@ -1072,7 +1075,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 if (!server.readTypeCheckingInt(inputStorage, personNumber)) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "14th parameter (person number) requires an int.", outputStorage);
                 }
-                libsumo::Vehicle::add(id, routeID, vTypeID, depart, departLane, departPos, departSpeed, arrivalLane, arrivalPos, arrivalSpeed, 
+                libsumo::Vehicle::add(id, routeID, vTypeID, depart, departLane, departPos, departSpeed, arrivalLane, arrivalPos, arrivalSpeed,
                         fromTaz, toTaz, line, personCapacity, personNumber);
             }
             break;
