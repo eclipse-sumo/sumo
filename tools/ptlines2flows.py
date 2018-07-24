@@ -45,7 +45,8 @@ def get_options(args=None):
     optParser.add_option(
         "-r", "--routes-file", dest="routes", default="vehroutes.xml", help="file from '--vehroute-output'")
     optParser.add_option("-t", "--trips-file", dest="trips", default="trips.trips.xml", help="output trips file")
-    optParser.add_option("-p", "--period", type=float, default=600, help="period")
+    optParser.add_option("-p", "--period", type=float, default=600, 
+            help="the default service period (in seconds) to use if none is specified in the ptlines file")
     optParser.add_option("-b", "--begin", type=float, default=0, help="start time")
     optParser.add_option("-e", "--end", type=float, default=3600, help="end time")
     optParser.add_option("--min-stops", type=int, default=2,
@@ -118,15 +119,19 @@ def createTrips(options):
 
         departTimes = [options.begin for line in sumolib.output.parse_fast(options.ptlines, 'ptLine', ['id'])]
         if options.randomBegin:
-            departTimes = sorted([options.begin + int(random.random() * options.period) for t in departTimes])
+            departTimes = sorted([options.begin 
+                + int(random.random() * options.period) for t in departTimes])
 
         lineCount = collections.defaultdict(int)
         typeCount = collections.defaultdict(int)
         numLines = 0
         numStops = 0
         numSkipped = 0
-        for trp_nr, line in enumerate(sumolib.output.parse(options.ptlines, 'ptLine')):
+        for trp_nr, line in enumerate(sumolib.output.parse(
+            options.ptlines, 'ptLine', heterogeneous=True)):
             stop_ids = []
+            if not line.hasAttribute("period"):
+                line.setAttribute("period", options.period)
             for stop in line.busStop:
                 if stop.id not in stopsLanes:
                     sys.stderr.write("Warning: skipping unknown stop '%s'\n" % stop.id)
@@ -180,7 +185,7 @@ def createTrips(options):
                      'to="%s">\n') % (
                         tripID, options.vtypeprefix, line.type, begin, fr, to))
 
-            trpMap[tripID] = (lineRef, line.attr_name, line.completeness)
+            trpMap[tripID] = (lineRef, line.attr_name, line.completeness, line.period)
             for stop in stop_ids:
                 fouttrips.write('        <stop busStop="%s" duration="%s"/>\n' % (stop, options.stopduration))
             fouttrips.write('    </trip>\n')
@@ -235,7 +240,7 @@ def createRoutes(options, trpMap, stopNames):
         collections.defaultdict(int)
         for vehicle in sumolib.output.parse(options.routes, 'vehicle'):
             id = vehicle.id
-            lineRef, name, completeness = trpMap[id]
+            lineRef, name, completeness, period = trpMap[id]
             flowID = "%s_%s" % (vehicle.type, lineRef)
             try:
                 if vehicle.route is not None:
@@ -268,9 +273,10 @@ def createRoutes(options, trpMap, stopNames):
             foutflows.write('    </route>\n')
         flow_duration = options.end - options.begin
         for vehID, flowID, lineRef, type, begin in flows:
-            line, name, completeness = trpMap[vehID]
+            line, name, completeness, period = trpMap[vehID]
             foutflows.write('    <flow id="%s" type="%s" route="%s" begin="%s" end="%s" period="%s" line="%s" %s>\n' % (
-                flowID, type, flowID, ft(begin), ft(begin + flow_duration), options.period, lineRef, options.flowattrs))
+                flowID, type, flowID, ft(begin), ft(begin + flow_duration),
+                int(float(period)), lineRef, options.flowattrs))
             foutflows.write(('        <param key="name" value=%s/>\n        <param key="completeness" ' +
                              'value="%s"/>\n    </flow>\n') %
                             (quoteattr(name), completeness))
