@@ -566,7 +566,7 @@ NWWriter_SUMO::writeInternalNodes(OutputDevice& into, const NBNode& n) {
             std::vector<std::string> foeIDs;
             for (std::string incLane : (*k).foeIncomingLanes) {
                 incLanes += " " + incLane;
-                if (incLane[0] == ':') {
+                if (incLane[0] == ':' && viaIDs[incLane] != "") {
                     // intersecting left turns
                     foeIDs.push_back(viaIDs[incLane] + "_0");
                 }
