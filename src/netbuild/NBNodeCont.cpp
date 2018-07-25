@@ -466,30 +466,40 @@ NBNodeCont::generateNodeClusters(double maxDist, NodeClusters& into) const {
             if (visited.find(n) != visited.end()) {
                 continue;
             }
-            c.insert(n);
             visited.insert(n);
             bool pureRail = true;
+            bool railAndPeds = true;
             for (NBEdge* e : n->getEdges()) {
                 if ((e->getPermissions() & ~(SVC_RAIL_CLASSES | SVC_PEDESTRIAN)) != 0) {
+                    railAndPeds = false;
                     pureRail = false;
                     break;
                 }
+                if ((e->getPermissions() & ~(SVC_RAIL_CLASSES)) != 0) {
+                    pureRail = false;
+                }
             }
+            if (pureRail) {
+                // do not join pure rail nodes
+                continue;
+            }
+            c.insert(n);
 #ifdef DEBUG_JOINJUNCTIONS
             if (DEBUGCOND(n)) std::cout << "generateNodeClusters: consider n=" << n->getID() << " edges=" << toString(n->getEdges(), ' ') << " with cluster " << joinNamedToStringSorting(c, ' ') << " pureRail=" << pureRail << "\n";
 #endif
             for (NBEdge* e : n->getEdges()) {
                 NBNode* s = n->hasIncoming(e) ? e->getFromNode() : e->getToNode();
-                if (pureRail && n->getType() != NODETYPE_RAIL_CROSSING) {
-                    bool pureRail2 = true;
+                if (railAndPeds && n->getType() != NODETYPE_RAIL_CROSSING) {
+                    bool railAndPeds2 = true;
                     for (NBEdge* e : n->getEdges()) {
                         if ((e->getPermissions() & ~(SVC_RAIL_CLASSES | SVC_PEDESTRIAN)) != 0) {
-                            pureRail2 = false;
+                            railAndPeds2 = false;
                             break;
                         }
                     }
-                    if (pureRail2 && s->getType() != NODETYPE_RAIL_CROSSING) {
-                        // do not join pure rail nodes (neither nodes nor the traffic lights)
+                    if (railAndPeds2 && s->getType() != NODETYPE_RAIL_CROSSING) {
+                        // do not join rail/ped nodes unless at a rail crossing 
+                        // (neither nodes nor the traffic lights)
                         continue;
                     }
                 }
