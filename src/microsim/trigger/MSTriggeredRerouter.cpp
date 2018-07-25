@@ -256,7 +256,7 @@ MSTriggeredRerouter::myEndElement(int element) {
         myCurrentRouteProb.clear();
         myCurrentParkProb.clear();
         myIntervals.push_back(ri);
-        myIntervals.back().id = (long)&myIntervals.back();
+        myIntervals.back().id = (intptr_t)&myIntervals.back();
         if (!(ri.closed.empty() && ri.closedLanes.empty()) && ri.permissions != SVCAll) {
             MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(
                 new WrappingCommand<MSTriggeredRerouter>(this, &MSTriggeredRerouter::setPermissions), ri.begin);
@@ -559,8 +559,8 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
                                         SUMOVehicle& veh, bool& newDestination) const {
     // reroute destination from initial parking area to the near parking area
     // if the next stop is a parking area, it is included in the current
-    // alternative set and if it can be observed to be full 
-    
+    // alternative set and if it can be observed to be full
+
     MSParkingArea* nearParkArea = nullptr;
     std::vector<ParkingAreaVisible> parks = rerouteDef->parkProbs.getVals();
 
@@ -572,10 +572,10 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
         // not driving towards a parkingArea
         return nullptr;
     }
-    
+
     bool destVisible = false;
     for (auto paVis : parks) {
-        if (paVis.first == destParkArea 
+        if (paVis.first == destParkArea
                 && (paVis.second
                     // if the vehicle is on the destParkArea edge it is always visible
                     || &(destParkArea->getLane().getEdge()) == veh.getEdge())) {
@@ -813,7 +813,7 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
 }
 
 
-bool 
+bool
 MSTriggeredRerouter::vehicleApplies(const SUMOVehicle& veh) const {
     return myVehicleTypes.empty() || myVehicleTypes.count(veh.getVehicleType().getID()) > 0;
 }
