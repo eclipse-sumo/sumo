@@ -105,6 +105,7 @@ NBPTStop::write(OutputDevice& device) {
         device.writeAttr(SUMO_ATTR_LINES, toString(myLines));
     }
     if (!myAccesses.empty()) {
+        std::sort(myAccesses.begin(), myAccesses.end());
         for (auto tuple : myAccesses) {
             device.openTag(SUMO_TAG_ACCESS);
             device.writeAttr(SUMO_ATTR_LANE, std::get<0>(tuple));
