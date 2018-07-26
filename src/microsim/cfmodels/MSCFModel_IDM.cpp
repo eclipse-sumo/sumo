@@ -61,11 +61,16 @@ MSCFModel_IDM::followSpeed(const MSVehicle* const veh, double speed, double gap2
 
 
 double
-MSCFModel_IDM::stopSpeed(const MSVehicle* const veh, const double speed, double gap2pred) const {
-    if (gap2pred < 0.01) {
+MSCFModel_IDM::stopSpeed(const MSVehicle* const veh, const double speed, double gap) const {
+    if (gap < 0.01) {
         return 0;
     }
-    return _v(veh, gap2pred, speed, 0, veh->getLane()->getVehicleMaxSpeed(veh), false);
+    double result = _v(veh, gap, speed, 0, veh->getLane()->getVehicleMaxSpeed(veh), false);
+    if (gap > 0 && speed < NUMERICAL_EPS) {
+        // ensure that stops can be reached:
+        result = maximumSafeStopSpeed(gap, speed, false, 0);
+    } 
+    return result;
 }
 
 
