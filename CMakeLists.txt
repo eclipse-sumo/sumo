@@ -21,10 +21,6 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR
         "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
     set(warnings "-Wall -pedantic -Wextra")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
-    #  Specifically define variable WIN32 for compilations under windows (due an error in Shawn)
-    if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" AND WIN32)
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DWIN32 -D_WIN32_WINNT=0x0501")
-    endif ()
 elseif (MSVC)
     if ("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
         set(warnings "/W3")
@@ -94,12 +90,24 @@ if (APPLE)
     endif ()
 endif (APPLE)
 
+#  Specifically define variable WIN32 for compilations under windows (due an error in Shawn)
+if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" AND WIN32)
+    option(USE_MINGW_64BITS "Use 64 bits libraries for the compilation with MinGW" true)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DWIN32 -D_WIN32_WINNT=0x0501")
+endif ()
+
 # Check if libraries have to be found, depending on SUMO_LIBRARIES
 set(SUMO_LIBRARIES "$ENV{SUMO_LIBRARIES}" CACHE PATH "Location of SUMOLibraries dependencies")
 if (SUMO_LIBRARIES)
-    if(NOT CMAKE_MODULE_LINKER_FLAGS)
-        message(STATUS "Architecture is not specified. Using 64 bit libraries from SUMO_LIBRARIES placed in " ${SUMO_LIBRARIES})
-        set(LIB_VERSION "_64")
+    # Special option for MinGW32
+    if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" AND WIN32)
+        if(USE_MINGW_64BITS)
+            message(STATUS "Using 64 bit libraries from SUMO_LIBRARIES placed in " ${SUMO_LIBRARIES} " for MinGW compilation")
+            set(LIB_VERSION "_64")
+        else()
+            message(STATUS "Using 32 bit libraries from SUMO_LIBRARIES placed in " ${SUMO_LIBRARIES} " for MinGW compilation")
+            set(CHECK_OPTIONAL_LIBS false)
+        endif()
     elseif(${CMAKE_MODULE_LINKER_FLAGS} STREQUAL "/machine:x64")
         message(STATUS "Using 64 bit libraries from SUMO_LIBRARIES placed in " ${SUMO_LIBRARIES})
         set(LIB_VERSION "_64")
@@ -118,14 +126,20 @@ if (SUMO_LIBRARIES)
     set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${SUMO_LIBRARIES}/proj_gdal-1911${LIB_VERSION}")
     # set FOX
     set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${SUMO_LIBRARIES}/fox-1.6.55${LIB_VERSION}")
-    # set GoogleTest
-    # Prevent GoogleTest from overriding our compiler/linker options
-    set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
-    add_subdirectory("${SUMO_LIBRARIES}/googletest-1.8.0/googletest"
-                     "${CMAKE_BINARY_DIR}/googletest-build")
-    include_directories("${SUMO_LIBRARIES}/googletest-1.8.0/googletest/include")
-    set(GTEST_BOTH_LIBRARIES "gtest" "gtest_main")
-    set(GTEST_FOUND true)
+    # set GoogleTest only if compiler isn't mingw32
+    if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" AND WIN32)
+        if(USE_MINGW_64BITS)
+            # Prevent GoogleTest from overriding our compiler/linker options
+            set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+            add_subdirectory("${SUMO_LIBRARIES}/googletest-1.8.0/googletest"
+                             "${CMAKE_BINARY_DIR}/googletest-build")
+            include_directories("${SUMO_LIBRARIES}/googletest-1.8.0/googletest/include")
+            set(GTEST_BOTH_LIBRARIES "gtest" "gtest_main")
+            set(GTEST_FOUND true)
+        else()
+            message(STATUS "Disabled Google Test in Mingw32")
+        endif()
+    endif()
     # set FFMPEG
     set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${SUMO_LIBRARIES}/FFMPEG-3.4.1${LIB_VERSION}")
     # set OSG
