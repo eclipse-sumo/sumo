@@ -289,7 +289,7 @@ TraCIServerAPI_Edge::processSet(TraCIServer& server, tcpip::Storage& inputStorag
                                                           "The third variable must be the value given as double",
                                                           outputStorage);
                     }
-                    libsumo::Edge::adaptTraveltime(id, begTime, endTime, value);
+                    libsumo::Edge::adaptTraveltime(id, value, begTime, endTime);
                 } else if (parameterCount == 1) {
                     // unbound
                     double value = 0;
@@ -332,7 +332,7 @@ TraCIServerAPI_Edge::processSet(TraCIServer& server, tcpip::Storage& inputStorag
                                                           "The third variable must be the value given as double",
                                                           outputStorage);
                     }
-                    libsumo::Edge::setEffort(id, begTime, endTime, value);
+                    libsumo::Edge::setEffort(id, value, begTime, endTime);
                 } else if (parameterCount == 1) {
                     // unbound
                     double value = 0;
