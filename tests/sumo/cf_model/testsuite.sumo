@@ -7,6 +7,9 @@ drive_in_circles
 # show that each model allows vehicles to stop at an exact position
 stop_at_position
 
+# show stopping at a position range
+stop_at_position_slack
+
 # test model behaviour in jam situations
 jam_resolution
 
