@@ -702,6 +702,7 @@ public:
         std::vector<libsumo::TraCINextTLSData> getNextTLS(const std::string& vehID) const;
         std::vector<libsumo::TraCIBestLanesData> getBestLanes(const std::string& vehicleID) const;
         std::pair<std::string, double> getLeader(const std::string& vehicleID, double dist) const;
+        int getRoutingMode(const std::string& vehicleID) const;
         /// @}
 
         /// @name vehicle type value retrieval shortcuts
@@ -759,6 +760,7 @@ public:
         void setLine(const std::string& vehicleID, const std::string& line) const;
         void setVia(const std::string& vehicleID, const std::vector<std::string>& via) const;
         void setSignals(const std::string& vehicleID, int signals) const;
+        void setRoutingMode(const std::string& vehicleID, int routingMode) const;
         /// @}
 
         /// @name vehicle type attribute changing shortcuts

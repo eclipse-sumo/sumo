@@ -57,6 +57,7 @@ testAPI:
     param: 42
     getColor:  r=255 g=255 b=0 a=128
     getSignals: 0
+    getRoutingMode: 1
     getNextTLS:
       tls=n_m4 tlIndex=4 dist=351.95 state=r
     moveToXY, simStep:

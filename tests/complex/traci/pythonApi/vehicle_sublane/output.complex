@@ -33,6 +33,7 @@ traveltime -1001.0
 effort -1001.0
 route valid True
 signals 0
+routingMode 0
 length 5.0
 maxSpeed 55.5555555556
 speedFactor 1.0
@@ -109,6 +110,7 @@ traveltime 55.0
 effort 54.0
 route valid True
 signals 12
+routingMode 1
 length 1.0
 maxSpeed 9.0
 speedFactor 1.1
@@ -185,6 +187,7 @@ traveltime -1001.0
 effort -1001.0
 route valid True
 signals 0
+routingMode 0
 length 5.0
 maxSpeed 55.5555555556
 speedFactor 1.0
@@ -269,6 +272,7 @@ traveltime -1001.0
 effort -1001.0
 route valid True
 signals 0
+routingMode 0
 length 5.0
 maxSpeed 55.5555555556
 speedFactor 1.0
@@ -577,6 +581,7 @@ traveltime -1001.0
 effort -1001.0
 route valid True
 signals 8
+routingMode 0
 length 5.0
 maxSpeed 55.5555555556
 speedFactor 1.0
@@ -705,6 +710,7 @@ traveltime -1001.0
 effort -1001.0
 route valid True
 signals 0
+routingMode 0
 length 7.0
 maxSpeed 55.5555555556
 speedFactor 1.0
@@ -773,6 +779,7 @@ traveltime -1001.0
 effort -1001.0
 route valid True
 signals 0
+routingMode 0
 length 8.0
 maxSpeed 10.0
 speedFactor 1.0
@@ -841,6 +848,7 @@ traveltime -1001.0
 effort -1001.0
 route valid True
 signals 0
+routingMode 0
 length 7.0
 maxSpeed 55.5555555556
 speedFactor 1.0
@@ -909,6 +917,7 @@ traveltime -1001.0
 effort -1001.0
 route valid True
 signals 0
+routingMode 0
 length 8.0
 maxSpeed 10.0
 speedFactor 1.0

@@ -798,6 +798,8 @@ TraCITestClient::testAPI() {
     int signals = vehicle.getSignals("0");
     answerLog << "    getSignals: " << signals << "\n";
     vehicle.setSignals("0", signals ^ TraCIAPI::VehicleScope::SIGNAL_FOGLIGHT);
+    vehicle.setRoutingMode("0", ROUTING_MODE_AGGREGATED);
+    answerLog << "    getRoutingMode: " << vehicle.getRoutingMode("0") << "\n";
     answerLog << "    getNextTLS:\n";
     std::vector<libsumo::TraCINextTLSData> result = vehicle.getNextTLS("0");
     for (int i = 0; i < (int)result.size(); ++i) {
