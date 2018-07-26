@@ -457,6 +457,8 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
             WRITE_ERROR("Unknown car following model '" + cfmS + "' when parsing vType '" + vtype->id + "'");
             throw ProcessError();
         }
+    } else if (defaultCFModel != SUMO_TAG_NOTHING) {
+        vtype->cfModel = defaultCFModel;
     }
     if (attrs.hasAttribute(SUMO_ATTR_PERSON_CAPACITY)) {
         vtype->personCapacity = attrs.get<int>(SUMO_ATTR_PERSON_CAPACITY, vtype->id.c_str(), ok);
