@@ -36,16 +36,17 @@ for step in range(4):
     traci.simulationStep()
 print("laneareas", traci.lanearea.getIDList())
 print("lanearea count", traci.lanearea.getIDCount())
-detID = "det0"
-print("examining", detID)
-print("pos", traci.lanearea.getPosition(detID))
-print("length", traci.lanearea.getLength(detID))
-print("lane", traci.lanearea.getLaneID(detID))
-print("vehNum", traci.lanearea.getLastStepVehicleNumber(detID))
-print("haltNum", traci.lanearea.getLastStepHaltingNumber(detID))
-print("meanSpeed", traci.lanearea.getLastStepMeanSpeed(detID))
-print("vehIDs", traci.lanearea.getLastStepVehicleIDs(detID))
-print("occupancy", traci.lanearea.getLastStepOccupancy(detID))
+
+for detID in traci.lanearea.getIDList():
+    print("examining", detID)
+    print("pos", traci.lanearea.getPosition(detID))
+    print("length", traci.lanearea.getLength(detID))
+    print("lane", traci.lanearea.getLaneID(detID))
+    print("vehNum", traci.lanearea.getLastStepVehicleNumber(detID))
+    print("haltNum", traci.lanearea.getLastStepHaltingNumber(detID))
+    print("meanSpeed", traci.lanearea.getLastStepMeanSpeed(detID))
+    print("vehIDs", traci.lanearea.getLastStepVehicleIDs(detID))
+    print("occupancy", traci.lanearea.getLastStepOccupancy(detID))
 
 traci.lanearea.subscribe(detID)
 print(traci.lanearea.getSubscriptionResults(detID))
