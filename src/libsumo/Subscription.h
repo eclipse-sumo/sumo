@@ -115,7 +115,7 @@ namespace libsumo {
         typedef bool(*SubscriptionHandler)(const std::string& objID, const int variable, VariableWrapper* wrapper);
         VariableWrapper(SubscriptionHandler handler) : handle(handler) {}
         SubscriptionHandler handle;
-        virtual void setContext(const std::string& refID) {}
+        virtual void setContext(const std::string& /*refID*/) {}
         virtual void wrapDouble(const std::string& objID, const int variable, const double value) = 0;
         virtual void wrapInt(const std::string& objID, const int variable, const int value) = 0;
         virtual void wrapStringList(const std::string& objID, const int variable, const std::vector<std::string> value) = 0;

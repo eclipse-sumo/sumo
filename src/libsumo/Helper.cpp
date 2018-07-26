@@ -709,13 +709,13 @@ Helper::SubscriptionWrapper::wrapDouble(const std::string& objID, const int vari
 
 
 void
-Helper::SubscriptionWrapper::wrapInt(const std::string& objID, const int variable, const int value) {
+Helper::SubscriptionWrapper::wrapInt(const std::string& /*objID*/, const int /*variable*/, const int /*value*/) {
 
 }
 
 
 void
-Helper::SubscriptionWrapper::wrapStringList(const std::string& objID, const int variable, const std::vector<std::string> value) {
+Helper::SubscriptionWrapper::wrapStringList(const std::string& /*objID*/, const int /*variable*/, const std::vector<std::string> /*value*/) {
 
 }
 
