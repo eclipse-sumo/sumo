@@ -1804,13 +1804,15 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "Whether the vehicle should be equipped with a rerouting device", 
             "0");
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_DEPARTPOS_LAT,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DISCRETE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "The lateral position on the departure lane at which the vehicle shall enter the net", 
-            "center");
+            "center",
+            SUMOXMLDefinitions::LateralAlignments.getStrings());
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_ARRIVALPOS_LAT,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DISCRETE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "The lateral position on the arrival lane at which the vehicle shall arrive", 
-            "");
+            "center",
+            SUMOXMLDefinitions::LateralAlignments.getStrings());
     }
     currentTag = SUMO_TAG_ROUTE;
     {
@@ -2026,7 +2028,13 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "");
     }
     currentTag = SUMO_TAG_VTYPE;
-    {
+    {   // obtain a vector string with the emissions
+        std::vector<std::string> emissions = { "zero", "LDV", "LDV_G_EU0", "LDV_G_EU1", "LDV_G_EU2", "LDV_G_EU3", "LDV_G_EU4", "LDV_G_EU5", 
+            "LDV_G_EU6", "LDV_G_East", "LDV_D_EU0", "LDV_D_EU1", "LDV_D_EU2", "LDV_D_EU3", "LDV_D_EU4", "LDV_D_EU5", "LDV_D_EU6",
+            "PC", "PC_Alternative", "PC_G_EU0", "PC_G_EU1", "PC_G_EU2", "PC_G_EU3", "PC_G_EU4", "PC_G_EU5", "PC_G_EU6", "PC_G_East",
+            "PC_D_EU0", "PC_D_EU1", "PC_D_EU2", "PC_D_EU3", "PC_D_EU4", "PC_D_EU5", "PC_D_EU6", "Bus", "Coach", "HDV", "HDV_G", "HDV_D_EU0", 
+            "HDV_D_EU1", "HDV_D_EU2", "HDV_D_EU3", "HDV_D_EU4", "HDV_D_EU5", "HDV_D_EU6", "HDV_D_East" };
+
         // set values of tag
         myAllowedTags[currentTag] = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_PARENT, 80, ICON_VTYPE);
         // set values of attributes
@@ -2078,11 +2086,12 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             ATTRPROPERTY_VCLASS | ATTRPROPERTY_DISCRETE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "An abstract vehicle class", 
             "passenger",
-            SumoVehicleShapeStrings.getStrings());
+            SumoVehicleClassStrings.getStrings());
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_EMISSIONCLASS,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DISCRETE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "An abstract emission class", 
-            "P_7_7");
+            "PC_G_EU4",
+            emissions);
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_GUISHAPE,
             ATTRPROPERTY_STRING | ATTRPROPERTY_DISCRETE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "How this vehicle is rendered", 
@@ -2101,13 +2110,15 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "Willingess of drivers to impede vehicles with higher priority", 
             "0.00");
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_LANE_CHANGE_MODEL,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DISCRETE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "The model used for changing lanes", 
-            "LC2013");
+            "LC2013",
+            SUMOXMLDefinitions::LaneChangeModels.getStrings());
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_CAR_FOLLOW_MODEL,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DISCRETE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "The model used for car following", 
-            "Krauss");
+            "Krauss",
+            SUMOXMLDefinitions::CarFollowModels.getStrings());
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_PERSON_CAPACITY,
             ATTRPROPERTY_INT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "The number of persons (excluding an autonomous driver) the vehicle can transport", 
@@ -2125,9 +2136,10 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "The time required to load a container onto the vehicle", 
             "90.00");
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_LATALIGNMENT,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
-            "The preferred lateral alignment when using the sublane-model", 
-            "center");
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DISCRETE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            "The preferred lateral alignment when using the sublane-model",
+            "center",
+            SUMOXMLDefinitions::LateralAlignments.getStrings());
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_MINGAP_LAT,
             ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "The minimum lateral gap at a speed difference of 50km/h when using the sublane-model", 

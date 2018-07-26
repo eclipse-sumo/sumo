@@ -267,7 +267,15 @@ GNECalibratorVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_VCLASS:
             return canParseVehicleClasses(value);
         case SUMO_ATTR_EMISSIONCLASS:
-            return true;
+            if((value == "zero") || (value == "LDV") || (value == "LDV_G_EU0") || (value == "LDV_G_EU1") || (value == "LDV_G_EU2") || (value == "LDV_G_EU3") || (value == "LDV_G_EU4") || (value == "LDV_G_EU5") || 
+               (value == "LDV_G_EU6") || (value == "LDV_G_East") || (value == "LDV_D_EU0") || (value == "LDV_D_EU1") || (value == "LDV_D_EU2") || (value == "LDV_D_EU3") || (value == "LDV_D_EU4") || (value == "LDV_D_EU5") || (value == "LDV_D_EU6") || 
+               (value == "PC") || (value == "PC_Alternative") || (value == "PC_G_EU0") || (value == "PC_G_EU1") || (value == "PC_G_EU2") || (value == "PC_G_EU3") || (value == "PC_G_EU4") || (value == "PC_G_EU5") || (value == "PC_G_EU6") || (value == "PC_G_East") || 
+               (value == "PC_D_EU0") || (value == "PC_D_EU1") || (value == "PC_D_EU2") || (value == "PC_D_EU3") || (value == "PC_D_EU4") || (value == "PC_D_EU5") || (value == "PC_D_EU6") || (value == "Bus") || (value == "Coach") || (value == "HDV") || (value == "HDV_G") || 
+               (value == "HDV_D_EU0") || (value == "HDV_D_EU1") || (value == "HDV_D_EU2") || (value == "HDV_D_EU3") || (value == "HDV_D_EU4") || (value == "HDV_D_EU5") || (value == "HDV_D_EU6") || (value == "HDV_D_East")) {
+                return true;
+            } else {
+                return false;
+            }
         case SUMO_ATTR_GUISHAPE:
             return canParseVehicleShape(value);
         case SUMO_ATTR_WIDTH:
@@ -277,11 +285,9 @@ GNECalibratorVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_IMPATIENCE:
             return canParse<double>(value);
         case SUMO_ATTR_LANE_CHANGE_MODEL:
-            return (value == "LC2013") || (value == "SL2015") || (value == "DK2008");
+            return SUMOXMLDefinitions::LaneChangeModels.hasString(value);
         case SUMO_ATTR_CAR_FOLLOW_MODEL:
-            return (value == "Krauss") || (value == "KraussOrig1")  || (value == "PWagner2009")  ||
-                   (value == "BKerner")  || (value == "IDM")  || (value == "IDMM")  || (value == "KraussPS")  ||
-                   (value == "KraussAB") || (value == "SmartSK") || (value == "Wiedemann") || (value == "Daniel1");
+            return SUMOXMLDefinitions::CarFollowModels.hasString(value);
         case SUMO_ATTR_PERSON_CAPACITY:
             return canParse<int>(value);
         case SUMO_ATTR_CONTAINER_CAPACITY:
@@ -291,11 +297,7 @@ GNECalibratorVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_LOADING_DURATION:
             return canParse<double>(value);
         case SUMO_ATTR_LATALIGNMENT:
-            if ((value == "") || (value == "left") || (value == "right") || (value == "center")) {
-                return true;
-            } else {
-                return canParse<double>(value);
-            }
+            return SUMOXMLDefinitions::LateralAlignments.hasString(value);
         case SUMO_ATTR_MINGAP_LAT:
             return canParse<double>(value);
         case SUMO_ATTR_MAXSPEED_LAT:

@@ -626,6 +626,16 @@ public:
                     parsedOk = false;
                 }
             }
+            // set extra check for discrete values
+            if (attrProperties.isDiscrete()) {
+                // search value in the list of discretes values of attribute properties
+                auto finder = std::find(attrProperties.getDiscreteValues().begin(), attrProperties.getDiscreteValues().end(), parsedAttribute);
+                // check if attribute is valid
+                if(finder == attrProperties.getDiscreteValues().end()) {
+                    errorFormat = "value is not within the set of allowed values for attribute '" + toString(attribute) + "'";
+                    parsedOk = false;
+                }
+            }
             // set extra check for color values
             if (attrProperties.isColor() && !canParse<RGBColor>(parsedAttribute)) {
                 errorFormat = "Invalid RGB format or named color; ";

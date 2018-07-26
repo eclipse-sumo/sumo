@@ -298,17 +298,9 @@ GNECalibratorFlow::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_REROUTE:
             return canParse<bool>(value);
         case SUMO_ATTR_DEPARTPOS_LAT:
-            if ((value == "left") || (value == "right") || (value == "center") || (value == "compact") || (value == "nice") || (value == "arbitrary")) {
-                return true;
-            } else {
-                return false;
-            }
+            return SUMOXMLDefinitions::LateralAlignments.hasString(value);
         case SUMO_ATTR_ARRIVALPOS_LAT:
-            if ((value == "") || (value == "left") || (value == "right") || (value == "center")) {
-                return true;
-            } else {
-                return canParse<double>(value);
-            }
+            return SUMOXMLDefinitions::LateralAlignments.hasString(value);
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
