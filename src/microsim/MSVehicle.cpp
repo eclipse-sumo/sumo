@@ -368,7 +368,7 @@ MSVehicle::Influencer::influenceChangeDecision(const SUMOTime currentTime, const
             } else {
                 changeRequest = REQUEST_HOLD;
             }
-        }else { // change to opposite direction driving
+        } else if (currentEdge.getLanes().back()->getOpposite() != 0) { // change to opposite direction driving
             changeRequest = REQUEST_LEFT;
             state = state | LCA_TRACI;
         }
