@@ -27,7 +27,7 @@ sumoBinary = os.environ["SUMO_BINARY"]
 PORT = sumolib.miscutils.getFreeSocketPort()
 sumoProcess = subprocess.Popen([sumoBinary,
                                 '-c', 'sumo.sumocfg',
-                                #'-S', '-Q',
+                                '-S', '-Q',
                                 '--device.rerouting.adaptation-steps', '120',
                                 '--remote-port', str(PORT)], stdout=sys.stdout)
 

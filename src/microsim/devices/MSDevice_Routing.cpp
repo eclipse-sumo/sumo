@@ -458,6 +458,7 @@ MSDevice_Routing::getRouterTT(const MSEdgeVector& prohibited) {
     if (myRouterWithProhibited == 0) {
         myRouterWithProhibited = new AStarRouter<MSEdge, SUMOVehicle, prohibited_withPermissions<MSEdge, SUMOVehicle> >(
             MSEdge::getAllEdges(), true, &MSDevice_Routing::getEffort);
+        initEdgeWeights();
         initWeightUpdate();
     }
     myRouterWithProhibited->prohibit(prohibited);
