@@ -95,7 +95,7 @@ LaneArea::getLaneID(const std::string& detID) {
 double
 LaneArea::getLength(const std::string& detID) {
     const MSE2Collector* const e2 = getDetector(detID);
-    return e2->getEndPos() - e2->getStartPos();
+    return e2->getLength();
 }
 
 
