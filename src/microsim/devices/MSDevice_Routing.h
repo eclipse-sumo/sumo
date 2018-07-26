@@ -241,6 +241,9 @@ private:
     /// @brief initialize the edge weights if not done before
     static void initEdgeWeights();
 
+    /// @brief intialize period edge weight update
+    static void initWeightUpdate();
+
     /** @brief Performs rerouting before insertion into the network
      *
      * A new route is computed by calling the reroute method. If the routing

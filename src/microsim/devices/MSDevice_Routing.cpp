@@ -153,23 +153,28 @@ MSDevice_Routing::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& in
         myWithTaz = oc.getBool("device.rerouting.with-taz");
         const SUMOTime period = string2time(oc.getString("device.rerouting.period"));
         const SUMOTime prePeriod = string2time(oc.getString("device.rerouting.pre-period"));
-        // make the weights be updated
-        if (myAdaptationInterval == -1) {
-            myAdaptationInterval = string2time(oc.getString("device.rerouting.adaptation-interval"));
-            myAdaptationWeight = oc.getFloat("device.rerouting.adaptation-weight");
-            if (myAdaptationWeight < 1. && myAdaptationInterval > 0) {
-                myEdgeWeightSettingCommand = new StaticCommand<MSDevice_Routing>(&MSDevice_Routing::adaptEdgeEfforts);
-                MSNet::getInstance()->getEndOfTimestepEvents()->addEvent(myEdgeWeightSettingCommand);
-            } else if (period > 0) {
-                WRITE_WARNING("Rerouting is useless if the edge weights do not get updated!");
-            }
-            OutputDevice::createDeviceByOption("device.rerouting.output", "weights", "meandata_file.xsd");
-        }
+        initWeightUpdate();
         // build the device
         into.push_back(new MSDevice_Routing(v, "routing_" + v.getID(), period, prePeriod));
     }
 }
 
+void 
+MSDevice_Routing::initWeightUpdate() {
+    if (myAdaptationInterval == -1) {
+        const OptionsCont& oc = OptionsCont::getOptions();
+        myAdaptationInterval = string2time(oc.getString("device.rerouting.adaptation-interval"));
+        myAdaptationWeight = oc.getFloat("device.rerouting.adaptation-weight");
+        const SUMOTime period = string2time(oc.getString("device.rerouting.period"));
+        if (myAdaptationWeight < 1. && myAdaptationInterval > 0) {
+            myEdgeWeightSettingCommand = new StaticCommand<MSDevice_Routing>(&MSDevice_Routing::adaptEdgeEfforts);
+            MSNet::getInstance()->getEndOfTimestepEvents()->addEvent(myEdgeWeightSettingCommand);
+        } else if (period > 0) {
+            WRITE_WARNING("Rerouting is useless if the edge weights do not get updated!");
+        }
+        OutputDevice::createDeviceByOption("device.rerouting.output", "weights", "meandata_file.xsd");
+    }
+}
 
 // ---------------------------------------------------------------------------
 // MSDevice_Routing-methods
@@ -453,6 +458,7 @@ MSDevice_Routing::getRouterTT(const MSEdgeVector& prohibited) {
     if (myRouterWithProhibited == 0) {
         myRouterWithProhibited = new AStarRouter<MSEdge, SUMOVehicle, prohibited_withPermissions<MSEdge, SUMOVehicle> >(
             MSEdge::getAllEdges(), true, &MSDevice_Routing::getEffort);
+        initWeightUpdate();
     }
     myRouterWithProhibited->prohibit(prohibited);
     return *myRouterWithProhibited;
