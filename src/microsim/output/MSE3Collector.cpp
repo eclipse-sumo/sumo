@@ -228,6 +228,9 @@ MSE3Collector::reset() {
 
 void
 MSE3Collector::enter(const SUMOVehicle& veh, const double entryTimestep, const double fractionTimeOnDet) {
+    if (!vehicleApplies(veh)) {
+        return;
+    }
     if (myEnteredContainer.find(&veh) != myEnteredContainer.end()) {
         WRITE_WARNING("Vehicle '" + veh.getID() + "' reentered " + toString(SUMO_TAG_E3DETECTOR) + " '" + getID() + "'.");
         return;
@@ -259,6 +262,9 @@ MSE3Collector::enter(const SUMOVehicle& veh, const double entryTimestep, const d
 
 void
 MSE3Collector::leaveFront(const SUMOVehicle& veh, const double leaveTimestep) {
+    if (!vehicleApplies(veh)) {
+        return;
+    }
     if (myEnteredContainer.find(&veh) == myEnteredContainer.end()) {
         if (!myOpenEntry) {
             WRITE_WARNING("Vehicle '" + veh.getID() + "' left " + toString(SUMO_TAG_E3DETECTOR) + " '" + getID() + "' without entering it.");
@@ -271,6 +277,9 @@ MSE3Collector::leaveFront(const SUMOVehicle& veh, const double leaveTimestep) {
 
 void
 MSE3Collector::leave(const SUMOVehicle& veh, const double leaveTimestep, const double fractionTimeOnDet) {
+    if (!vehicleApplies(veh)) {
+        return;
+    }
     if (myEnteredContainer.find(&veh) == myEnteredContainer.end()) {
         if (!myOpenEntry) {
             WRITE_WARNING("Vehicle '" + veh.getID() + "' left " + toString(SUMO_TAG_E3DETECTOR) + " '" + getID() + "' without entering it.");
