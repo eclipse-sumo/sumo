@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jul 26 14:07:35 2018 by Eclipse SUMO netconvert Version e93758f
+<!-- generated on Thu Jul 26 15:44:55 2018 by Eclipse SUMO netconvert Version a813078
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <type-files value="/scr1/sumo/data/typemap/osmNetconvert.typ.xml,/scr1/sumo/data/typemap/osmNetconvertUrbanDe.typ.xml,/scr1/sumo/data/typemap/osmNetconvertPedestrians.typ.xml,/scr1/sumo/data/typemap/osmNetconvertShips.typ.xml,/scr1/sumo/data/typemap/osmNetconvertBicycle.typ.xml"/>
-        <osm-files value="/scr2/texttest_tmp/dynamic_gui.26Jul140728.21328/tools/import/OSM/webWizard/2018-07-26-14-07-32/osm_bbox.osm.xml"/>
+        <osm-files value="/scr2/texttest_tmp/tools.26Jul154452.2175/tools/import/OSM/webWizard/test/osm_bbox.osm.xml"/>
     </input>
 
     <output>
-        <output-file value="/scr2/texttest_tmp/dynamic_gui.26Jul140728.21328/tools/import/OSM/webWizard/2018-07-26-14-07-32/osm.net.xml"/>
+        <output-file value="/scr2/texttest_tmp/tools.26Jul154452.2175/tools/import/OSM/webWizard/test/osm.net.xml"/>
         <output.street-names value="true"/>
         <output.original-names value="true"/>
-        <ptstop-output value="/scr2/texttest_tmp/dynamic_gui.26Jul140728.21328/tools/import/OSM/webWizard/2018-07-26-14-07-32/osm_stops.add.xml"/>
-        <ptline-output value="/scr2/texttest_tmp/dynamic_gui.26Jul140728.21328/tools/import/OSM/webWizard/2018-07-26-14-07-32/osm_ptlines.xml"/>
+        <ptstop-output value="/scr2/texttest_tmp/tools.26Jul154452.2175/tools/import/OSM/webWizard/test/osm_stops.add.xml"/>
+        <ptline-output value="/scr2/texttest_tmp/tools.26Jul154452.2175/tools/import/OSM/webWizard/test/osm_ptlines.xml"/>
     </output>
 
     <projection>
@@ -33,6 +33,7 @@
 
     <processing>
         <geometry.remove value="true"/>
+        <railway.topology.repair value="true"/>
         <roundabouts.guess value="true"/>
         <junctions.join value="true"/>
         <junctions.corner-detail value="5"/>
@@ -47,6 +48,13 @@
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="-1615531689" name="S+U Alexanderplatz/Dircksenstraße" lane="-148458500#1_0" startPos="9.37" endPos="34.37" friendlyPos="true">
+        <access lane="272795478_0" pos="14.43" length="8.91" friendlyPos="1"/>
+        <access lane="272795479_0" pos="3.11" length="6.55" friendlyPos="1"/>
+        <access lane="72157168#4_0" pos="21.54" length="19.84" friendlyPos="1"/>
+        <access lane="72157168#5_0" pos="2.78" length="16.06" friendlyPos="1"/>
+        <access lane="75228233_0" pos="0.00" length="19.87" friendlyPos="1"/>
+    </busStop>
     <busStop id="1267954699" name="S+U Friedrichstraße" lane="422000256_0" startPos="31.48" endPos="43.98" friendlyPos="true"/>
     <busStop id="1615531689" name="S+U Alexanderplatz/Dircksenstraße" lane="148458500#1_0" startPos="33.17" endPos="58.17" friendlyPos="true" lines="M2">
         <access lane="272795478_0" pos="14.43" length="8.91" friendlyPos="1"/>
@@ -234,8 +242,8 @@
         <access lane="4613295#1_0" pos="117.28" length="43.91" friendlyPos="1"/>
     </busStop>
     <busStop id="2094266983" name="U Alexanderplatz" lane="438860779_0" startPos="5.19" endPos="205.19" friendlyPos="true" lines="U8">
-        <access lane="272780751#0_0" pos="0.26" length="15.95" friendlyPos="1"/>
         <access lane="272780751#1_0" pos="0.20" length="15.58" friendlyPos="1"/>
+        <access lane="272780753_0" pos="0.00" length="16.23" friendlyPos="1"/>
         <access lane="272780756#1_0" pos="7.63" length="3.66" friendlyPos="1"/>
         <access lane="346229513_0" pos="0.05" length="15.40" friendlyPos="1"/>
         <access lane="483624525_0" pos="0.34" length="12.96" friendlyPos="1"/>
@@ -325,7 +333,7 @@
     <busStop id="2792364395" name="S+U Friedrichstraße" lane="335043669_0" startPos="19.73" endPos="162.01" friendlyPos="true" lines="U6">
         <access lane="190447766#0_0" pos="15.47" length="21.27" friendlyPos="1"/>
         <access lane="195411602#1_0" pos="11.69" length="4.25" friendlyPos="1"/>
-        <access lane="274513566#0_0" pos="0.48" length="19.26" friendlyPos="1"/>
+        <access lane="274513544_0" pos="2.34" length="20.52" friendlyPos="1"/>
         <access lane="274513566#1_0" pos="0.41" length="15.44" friendlyPos="1"/>
         <access lane="465376259#1_0" pos="11.36" length="6.91" friendlyPos="1"/>
     </busStop>

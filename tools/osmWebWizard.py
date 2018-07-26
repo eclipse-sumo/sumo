@@ -191,6 +191,7 @@ class Builder(object):
             netconvertOptions += ",--ptline-output,%s" % self.files["ptlines"]
             self.additionalFiles.append(self.files["stops"])
             self.routenames.append(self.files["ptroutes"])
+            netconvertOptions += ",--railway.topology.repair"
         if self.data["leftHand"]:
             netconvertOptions += ",--lefthand"
 
