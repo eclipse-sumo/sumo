@@ -75,14 +75,19 @@ GUIE2Collector::MyWrapper::MyWrapper(GUIE2Collector& detector) :
     // collect detector shape into one vector (v)
     PositionVector v;
     const std::vector<MSLane*> lanes = detector.getLanes();
+    double detectorLength = detector.getLength();
     for (std::vector<MSLane*>::const_iterator li = lanes.begin(); li != lanes.end(); ++li) {
         const PositionVector& shape = (*li)->getShape();
+        // account for gaps between lanes (e.g. in networks without internal lanes)
+        if (v.size() > 0) {
+            detectorLength += v.back().distanceTo2D(shape.front());
+        }
         v.insert(v.end(), shape.begin(), shape.end());
     }
     // build geometry
     myFullGeometry = v.getSubpart(
             lanes.front()->interpolateLanePosToGeometryPos(detector.getStartPos()),
-            lanes.back()->interpolateLanePosToGeometryPos(detector.getStartPos() + detector.getLength()));
+            lanes.back()->interpolateLanePosToGeometryPos(detector.getStartPos() + detectorLength));
     //
     myShapeRotations.reserve(myFullGeometry.size() - 1);
     myShapeLengths.reserve(myFullGeometry.size() - 1);
