@@ -1,1 +1,1 @@
---testing tools/osmWebWizard.py
+--test-output test tools/osmWebWizard.py

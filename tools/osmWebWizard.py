@@ -120,7 +120,8 @@ class Builder(object):
 
         self.tmp = None
         if local:
-            now = datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
+            now = data.get("testOutputDir",
+                    datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S"))
             for base in ['', os.path.expanduser('~/Sumo')]:
                 try:
                     self.tmp = os.path.abspath(os.path.join(base, now))
@@ -419,16 +420,16 @@ parser = ArgumentParser(
 parser.add_argument("--remote", action="store_true",
                     help="In remote mode, SUMO GUI will not be automatically opened instead a zip file " +
                     "will be generated.")
-parser.add_argument("--testing", action="store_true",
-                    help="Only a pre-defined scenario will be generated for testing purposes.")
+parser.add_argument("--test-output", default=None, dest="testOutputDir",
+                    help="Run with pre-defined options on file 'osm_bbox.xml' and write output to the given directory.")
 parser.add_argument("--address", default="", help="Address for the Websocket.")
 parser.add_argument("--port", type=int, default=8010,
                     help="Port for the Websocket. Please edit script.js when using an other port than 8010.")
 
 if __name__ == "__main__":
     args = parser.parse_args()
-    OSMImporterWebSocket.local = args.testing or not args.remote
-    if args.testing:
+    OSMImporterWebSocket.local = args.testOutputDir is not None or not args.remote
+    if args.testOutputDir is not None:
         data = {u'duration': 900,
                 u'vehicles': {u'passenger': {u'count': 6, u'fringeFactor': 5},
                               u'bicycle': {u'count': 2, u'fringeFactor': 2},
@@ -438,6 +439,7 @@ if __name__ == "__main__":
                 u'poly': True,
                 u'publicTransport': True,
                 u'leftHand': False,
+                u'testOutputDir': args.testOutputDir,
                 }
         builder = Builder(data, True)
         builder.build()
