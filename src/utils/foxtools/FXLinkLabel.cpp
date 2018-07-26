@@ -34,7 +34,7 @@
 FXint
 FXLinkLabel::fxexecute(FXString link) {
 #ifdef WIN32
-    return (intptr_t)ShellExecute(NULL, "open", link.text(), NULL, NULL, SW_SHOWNORMAL) > 32;
+    return (int)ShellExecute(NULL, "open", link.text(), NULL, NULL, SW_SHOWNORMAL) > 32;
 #else
     FXString ext = FXPath::extension(link);
     FXString list;
