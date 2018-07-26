@@ -330,9 +330,11 @@ NBRailwayTopologyAnalyzer::reverseEdges(std::set<NBNode*> brokenNodes) {
     // sort by sequence length
     std::sort(seqsToReverse.begin(), seqsToReverse.end(), 
             [](const EdgeVector& a, const EdgeVector& b){ return a.size() < b.size(); });
-    std::cout << " found " << seqsToReverse.size() << " reversible edge sequences between broken rail nodes\n";
+    if (seqsToReverse.size() > 0) {
+        WRITE_MESSAGE("Found " + toString(seqsToReverse.size()) + " reversible edge sequences between broken rail nodes");
+    }
     for (EdgeVector& seq : seqsToReverse) {
-        std::cout << " size=" << seq.size() << " seq=" << toString(seq) << "\n";
+        WRITE_MESSAGE("  seq=" + toString(seq));
         for (NBEdge* e : seq) {
             e->reinitNodes(e->getToNode(), e->getFromNode());
             e->setGeometry(e->getGeometry().reverse());
@@ -406,12 +408,14 @@ NBRailwayTopologyAnalyzer::addBidiEdges(
                 outRail.clear();
                 getRailEdges(node, inRail, outRail);
             }
-            std::cout << " added " << numAddedBidi << " edges between buffer stop " << bufferStop->getID() << " and node " << node->getID() << "\n";
+            if (numAddedBidi > 0) {
+                WRITE_MESSAGE(" added " + toString(numAddedBidi) + " edges between buffer stop junction '" + bufferStop->getID() + "' and junction '" + node->getID() + "'");
+            }
         }
     }
-    std::cout << "added " << numAddedBidiTotal
-        << " edges to connect " << numBufferStops 
-        << " buffer stops in both directions\n";
+    if (numAddedBidiTotal > 0) {
+        WRITE_MESSAGE(" added " + toString(numAddedBidiTotal) + " edges to connect " + toString(numBufferStops) + " buffer stops in both directions.");
+    }
 }
 
 /****************************************************************************/

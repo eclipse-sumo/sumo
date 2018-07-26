@@ -341,31 +341,35 @@ NBPTLineCont::fixBidiStops(const NBEdgeCont& ec) {
                 double best = std::numeric_limits<double>::max();
                 NBPTStop* to2 = to->getBidiStop();
                 if (from == nullptr) {
-                    from = to;
-                    NBPTStop* from2 = to2;
-                    to = *(it + 1);
-                    const double c1 = getCost(ec, *router, from, to, &veh);
-                    const double c2 = getCost(ec, *router, from2, to, &veh);
-                    best = c1;
-                    if (to->getBidiStop() != nullptr) {
-                        const double c3 = getCost(ec, *router, from, to2, &veh);
-                        const double c4 = getCost(ec, *router, from2, to2, &veh);
-                        if (c2 < best) {
-                            used = from2;
-                            best = c2;
-                        }
-                        if (c3 < best) {
-                            used = from;
-                            best = c3;
-                        }
-                        if (c4 < best) {
-                            used = from2;
-                            best = c4;
-                        }
-                    } else {
-                        if (c2 < c1) {
-                            used = from2;
-                            best = c2;
+                    if ((it + 1) != stops.end()) {
+                        from = to;
+                        NBPTStop* from2 = to2;
+                        to = *(it + 1);
+                        const double c1 = getCost(ec, *router, from, to, &veh);
+                        const double c2 = getCost(ec, *router, from2, to, &veh);
+                        best = c1;
+                        if (to->getBidiStop() != nullptr) {
+                            const double c3 = getCost(ec, *router, from, to2, &veh);
+                            const double c4 = getCost(ec, *router, from2, to2, &veh);
+                            if (c2 < best) {
+                                used = from2;
+                                best = c2;
+                            }
+                            if (c3 < best) {
+                                used = from;
+                                best = c3;
+                            }
+                            if (c4 < best) {
+                                used = from2;
+                                best = c4;
+                            }
+                        } else {
+                            if (c2 < c1) {
+                                used = from2;
+                                best = c2;
+                            } else {
+                                best = c1;
+                            }
                         }
                     }
                 } else {
@@ -374,13 +378,18 @@ NBPTLineCont::fixBidiStops(const NBEdgeCont& ec) {
                     if (c2 < c1) {
                         used = to2;
                         best = c2;
+                    } else {
+                        best = c1;
                     }
 
                 }
                 if (best < std::numeric_limits<double>::max()) {
                     from = used;
+                } else {
+                    WRITE_WARNING("Could not determine direction for line '" + toString(line->getLineID()) + "' at stop '" + used->getID() + "'");
                 };
             }
+            from = used;
             newStops.push_back(used);
         }
         assert(stops.size() == newStops.size());
