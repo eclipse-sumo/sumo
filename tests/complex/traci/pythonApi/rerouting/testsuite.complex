@@ -7,5 +7,8 @@ rerouteTraveltime_adaptEdgeWeight_varyWithTime
 # adapt vehicle specific custom edge weights
 rerouteTraveltime_adaptVehicleEdgeWeight
 
+# tests for behavior when using setRoutingMode
+routingMode
+
 # rerouting person
 person
