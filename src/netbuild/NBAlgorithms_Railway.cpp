@@ -100,10 +100,16 @@ NBRailwayTopologyAnalyzer::getBrokenRailNodes(NBNetBuilder& nb, bool verbose) {
     device.writeXMLHeader("railwayTopology", "");
     std::set<NBNode*> railNodes = getRailNodes(nb, verbose);
     std::map<std::pair<int, int>, std::set<NBNode*> > types;
+    std::set<NBEdge*, ComparatorIdLess> bidiEdges;
     for (NBNode* node : railNodes) {
         EdgeVector inEdges, outEdges;
         getRailEdges(node, inEdges, outEdges);
         types[std::make_pair((int)inEdges.size(), (int)outEdges.size())].insert(node);
+        for (NBEdge* e : outEdges) {
+            if (e->isBidiRail() && bidiEdges.count(e->getTurnDestination(true)) == 0) {
+                bidiEdges.insert(e);
+            }
+        }
     }
 
     int numBrokenA = 0;
@@ -188,6 +194,21 @@ NBRailwayTopologyAnalyzer::getBrokenRailNodes(NBNetBuilder& nb, bool verbose) {
             << " C=" << numBrokenC
             << " D=" << numBrokenD
             << ")\n";
+    }
+
+    for (NBEdge* e : bidiEdges) {
+        device.openTag("bidiEdge");
+        NBEdge* primary = e;
+        NBEdge* secondary = e->getTurnDestination(true);
+        if (e->getID()[0] == '-') {
+            std::swap(primary, secondary);
+        }
+        device.writeAttr(SUMO_ATTR_ID, primary->getID());
+        device.writeAttr("bidi", secondary->getID());
+        device.closeTag();
+    }
+    if (verbose) {
+        std::cout << "Found " << bidiEdges.size() << " bidirectional rail edges\n";
     }
 
     device.close();
