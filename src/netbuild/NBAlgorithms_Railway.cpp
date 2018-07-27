@@ -339,7 +339,7 @@ NBRailwayTopologyAnalyzer::reverseEdges(NBNetBuilder& nb) {
                 if (brokenNodes.count(n2) != 0) {
                     EdgeVector tmp2;
                     tmp2.push_back(start);
-                    if ((outRail2.size() > 0 && allSharp(n2, tmp, outRail2))
+                    if ((outRail2.size() > 0 && allSharp(n2, tmp2, outRail2))
                             || hasStraightPair(n2, tmp2, inRail2)) {
                         seqsToReverse.push_back(seq);
                     } else {
