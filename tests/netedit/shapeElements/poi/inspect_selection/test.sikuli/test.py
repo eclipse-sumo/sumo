@@ -82,11 +82,8 @@ netedit.modifyAttribute(8, "dummyAngle")
 # Set valid angle
 netedit.modifyAttribute(8, "180")
 
-# Change use GEO
-netedit.modifyShapeDefaultBoolValue(10)
-
 # Change block move
-netedit.modifyShapeDefaultBoolValue(12)
+netedit.modifyShapeDefaultBoolValue(11)
 
 # go to select mode
 netedit.selectMode()
@@ -95,8 +92,8 @@ netedit.selectMode()
 netedit.selectionClear()
 
 # Check undos and redos
-netedit.undo(match, 14)
-netedit.redo(match, 14)
+netedit.undo(match, 13)
+netedit.redo(match, 13)
 
 # save shapes
 netedit.saveShapes()

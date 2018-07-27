@@ -56,13 +56,13 @@ netedit.inspectMode()
 netedit.leftClick(match, 100, 100)
 
 # block POI
-netedit.modifyBoolAttribute(15)
+netedit.modifyBoolAttribute(13)
 
 # inspect second POI
 netedit.leftClick(match, 100, 350)
 
 # block POI
-netedit.modifyBoolAttribute(15)
+netedit.modifyBoolAttribute(13)
 
 # go to move mode
 netedit.moveMode()
@@ -80,13 +80,13 @@ netedit.inspectMode()
 netedit.leftClick(match, 100, 100)
 
 # unblock POI
-netedit.modifyBoolAttribute(15)
+netedit.modifyBoolAttribute(13)
 
 # inspect first POI
 netedit.leftClick(match, 100, 350)
 
 # unblock POI
-netedit.modifyBoolAttribute(15)
+netedit.modifyBoolAttribute(13)
 
 # go to move mode
 netedit.moveMode()
