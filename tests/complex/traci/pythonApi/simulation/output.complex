@@ -1,4 +1,5 @@
 Loading configuration... done.
+ Retrying in 1 seconds
 {114: ['horiz', 'horiz1'], 116: []}
 step 0
 {114: [], 116: ['horiz']}
@@ -42,7 +43,7 @@ convertRoad2D (-1.22, 3903.52)
 convertRoad3D (-1.22, 3903.52, 2.0)
 convertRoadGeo (12.014678141843579, 48.121449189819344)
 convertRoadGeoAlt (12.014678141843579, 48.121449189819344, 2.0)
-convert2DGeo (12.02301890546728, 48.09105459770769)
+convert2DGeo (12.023018905467282, 48.09105459770769)
 convertGeo2D (-1619.5653987218393, -9550.720807247795)
 convert2DRoad ('o', 2906.187593990786, 0)
 convertGeoRoad ('o', 1012.1563357397523, 0)
@@ -57,7 +58,7 @@ getParameter parkingArea.capacity 6
 getParameter parkingArea.occupancy 0
 getBusStopWaiting 0
 findRoute Stage(stageType=3, line='', destStop='', edges=['o', '2o'], travelTime=738.4, cost=738.4, intended='', depart=-1.0)
-findRoute with routing mode Stage(stageType=3, line='', destStop='', edges=['o', '2o'], travelTime=0.0, cost=0.0, intended='', depart=-1.0)
+findRoute with routing mode Stage(stageType=3, line='', destStop='', edges=['o', '2o'], travelTime=1455.254240391145, cost=1455.254240391145, intended='', depart=-1.0)
 findIntermodalRoute [Stage(stageType=2, line='', destStop='', edges=['footpath', 'footpath2'], travelTime=144.00000000000003, cost=144.00000000000003, intended='', depart=-1.0)]
 findIntermodalRoute (walk)
   Stage(stageType=2, line='', destStop='', edges=['o', '2o'], travelTime=2463.3033600000003, cost=2463.3033600000003, intended='', depart=-1.0)
