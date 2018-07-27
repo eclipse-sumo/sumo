@@ -221,7 +221,7 @@ GUIParameterTableWindow::closeBuilding(const Parameterised* p) {
         p = dynamic_cast<const Parameterised*>(myObject);
     }
     if (p != 0) {
-        const std::map<std::string, std::string>& map = p->getMap();
+        const std::map<std::string, std::string>& map = p->getParametersMap();
         for (std::map<std::string, std::string>::const_iterator it = map.begin(); it != map.end(); ++it) {
             mkItem(("param:" + it->first).c_str(), false, it->second);
         }
@@ -235,7 +235,7 @@ GUIParameterTableWindow::closeBuilding(const Parameterised* p) {
 int
 GUIParameterTableWindow::numParams(const GUIGlObject* obj) {
     const Parameterised* p = dynamic_cast<const Parameterised*>(obj);
-    return p != 0 ? (int)p->getMap().size() : 0;
+    return p != 0 ? (int)p->getParametersMap().size() : 0;
 }
 
 

@@ -125,7 +125,7 @@ GUIParameterTableWindow*
 GUIContainer::getParameterWindow(GUIMainWindow& app,
                                  GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 12 + (int)getParameter().getMap().size());
+        new GUIParameterTableWindow(app, *this, 12 + (int)getParameter().getParametersMap().size());
     // add items
     ret->mkItem("stage", false, getCurrentStageDescription());
     ret->mkItem("start edge [id]", false, getFromEdge()->getID());
@@ -147,7 +147,7 @@ GUIParameterTableWindow*
 GUIContainer::getTypeParameterWindow(GUIMainWindow& app,
                                      GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 8 + (int)myVType->getParameter().getMap().size());
+        new GUIParameterTableWindow(app, *this, 8 + (int)myVType->getParameter().getParametersMap().size());
     // add items
     ret->mkItem("Type Information:", false, "");
     ret->mkItem("type [id]", false, myVType->getID());

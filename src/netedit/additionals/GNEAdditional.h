@@ -49,7 +49,7 @@ class GUIGLObjectPopupMenu;
  * @class GNEAdditional
  * @brief An Element which don't belongs to GNENet but has influency in the simulation
  */
-class GNEAdditional : public GUIGlObject, public GNEAttributeCarrier {
+class GNEAdditional : public GUIGlObject, public GNEAttributeCarrier {  // parametriced
 
 public:
     /**@brief Constructor

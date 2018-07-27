@@ -263,13 +263,8 @@ ROPerson::saveAsXML(OutputDevice& os, OutputDevice* const typeos, bool asAlterna
         (*it)->saveAsXML(os, asAlternatives);
     }
 
-    for (std::map<std::string, std::string>::const_iterator j = getParameter().getMap().begin(); j != getParameter().getMap().end(); ++j) {
-        os.openTag(SUMO_TAG_PARAM);
-        os.writeAttr(SUMO_ATTR_KEY, (*j).first);
-        os.writeAttr(SUMO_ATTR_VALUE, (*j).second);
-        os.closeTag();
-    }
-    os.closeTag();
+    // write params
+    getParameter().writeParams(os);
 }
 
 

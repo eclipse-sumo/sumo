@@ -152,7 +152,7 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
                                ed->priority, NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET,
                                geom, ed->streetName, "", ed->lsf, true); // always use tryIgnoreNodePositions to keep original shape
         e->setLoadedLength(ed->length);
-        e->updateParameter(ed->getMap());
+        e->updateParameter(ed->getParametersMap());
         if (!myNetBuilder.getEdgeCont().insert(e)) {
             WRITE_ERROR("Could not insert edge '" + ed->id + "'.");
             delete e;
@@ -221,7 +221,7 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
             nbe->setSpeed(fromLaneIndex, lane->maxSpeed);
             nbe->setAcceleration(fromLaneIndex, lane->accelRamp);
             nbe->getLaneStruct(fromLaneIndex).oppositeID = lane->oppositeID;
-            nbe->getLaneStruct(fromLaneIndex).updateParameter(lane->getMap());
+            nbe->getLaneStruct(fromLaneIndex).updateParameter(lane->getParametersMap());
             if (lane->customShape) {
                 nbe->setLaneShape(fromLaneIndex, lane->shape);
             }

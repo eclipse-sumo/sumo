@@ -75,7 +75,7 @@ GUIParameterTableWindow*
 GUIPolygon::getParameterWindow(GUIMainWindow& app,
                                GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 3 + (int)getMap().size());
+        new GUIParameterTableWindow(app, *this, 3 + (int)getParametersMap().size());
     // add items
     ret->mkItem("type", false, getShapeType());
     ret->mkItem("layer", false, toString(getShapeLayer()));

@@ -123,7 +123,7 @@ NBTrafficLightDefinition::compute(OptionsCont& oc) {
         brakingTime = oc.getInt("tls.yellow.time");
     }
     NBTrafficLightLogic* ret = myCompute(brakingTime);
-    ret->updateParameter(getMap());
+    ret->updateParameter(getParametersMap());
     return ret;
 }
 

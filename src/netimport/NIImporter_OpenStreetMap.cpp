@@ -601,7 +601,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             if (addSidewalk && (sidewalkType == WAY_UNKNOWN || (sidewalkType & WAY_FORWARD) != 0)) {
                 nbe->addSidewalk(tc.getSidewalkWidth(type));
             }
-            nbe->updateParameter(e->getMap());
+            nbe->updateParameter(e->getParametersMap());
             if (!ec.insert(nbe)) {
                 delete nbe;
                 throw ProcessError("Could not add edge '" + id + "'.");
@@ -625,7 +625,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             if (addSidewalk && (sidewalkType == WAY_UNKNOWN || (sidewalkType & WAY_BACKWARD) != 0)) {
                 nbe->addSidewalk(tc.getSidewalkWidth(type));
             }
-            nbe->updateParameter(e->getMap());
+            nbe->updateParameter(e->getParametersMap());
             if (!ec.insert(nbe)) {
                 delete nbe;
                 throw ProcessError("Could not add edge '-" + id + "'.");

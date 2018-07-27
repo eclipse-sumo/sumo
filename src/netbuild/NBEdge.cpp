@@ -332,7 +332,7 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to, NBEdge* tpl, con
         setSpeed(i, tpl->getLaneSpeed(tplIndex));
         setPermissions(tpl->getPermissions(tplIndex), i);
         setLaneWidth(i, tpl->myLanes[tplIndex].width);
-        myLanes[i].updateParameter(tpl->myLanes[tplIndex].getMap());;
+        myLanes[i].updateParameter(tpl->myLanes[tplIndex].getParametersMap());
         if (to == tpl->myTo) {
             setEndOffset(i, tpl->myLanes[tplIndex].endOffset);
             setStopOffsets(i, tpl->myLanes[tplIndex].stopOffsets);
@@ -1969,7 +1969,7 @@ NBEdge::hasCustomLaneShape() const {
 bool
 NBEdge::hasLaneParams() const {
     for (std::vector<Lane>::const_iterator i = myLanes.begin(); i != myLanes.end(); ++i) {
-        if (i->getMap().size() > 0) {
+        if (i->getParametersMap().size() > 0) {
             return true;
         }
     }
@@ -2946,7 +2946,7 @@ NBEdge::addLane(int index, bool recomputeShape, bool recomputeConnections, bool 
         myLanes[index].preferred = myLanes[templateIndex].preferred;
         myLanes[index].endOffset = myLanes[templateIndex].endOffset;
         myLanes[index].width = myLanes[templateIndex].width;
-        myLanes[index].updateParameter(myLanes[templateIndex].getMap());
+        myLanes[index].updateParameter(myLanes[templateIndex].getParametersMap());
     }
     const EdgeVector& incs = myFrom->getIncomingEdges();
     if (recomputeShape) {

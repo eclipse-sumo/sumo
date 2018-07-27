@@ -93,7 +93,7 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
                                GUISUMOAbstractView&) {
     const int sublaneParams = MSGlobals::gLateralResolution > 0 ? 4 : 0;
     GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 37 + sublaneParams + (int)getParameter().getMap().size());
+        new GUIParameterTableWindow(app, *this, 37 + sublaneParams + (int)getParameter().getParametersMap().size());
     // add items
     ret->mkItem("lane [id]", false, Named::getIDSecure(myLane, "n/a"));
     if (MSAbstractLaneChangeModel::haveLateralDynamics()) {
@@ -190,7 +190,7 @@ GUIVehicle::getTypeParameterWindow(GUIMainWindow& app,
                                    GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret =
         new GUIParameterTableWindow(app, *this, 25 
-                + (int)myType->getParameter().getMap().size()
+                + (int)myType->getParameter().getParametersMap().size()
                 + (int)myType->getParameter().lcParameter.size()
                 + (int)myType->getParameter().jmParameter.size());
     // add items
