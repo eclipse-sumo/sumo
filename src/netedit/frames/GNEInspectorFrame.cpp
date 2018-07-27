@@ -1188,25 +1188,44 @@ GNEInspectorFrame::GEOAttributesEditor::showGEOAttributesEditor() {
             }
             // show use geo frame
             myUseGEOFrame->show();
-            // set UseGEOCheckButton value of and update label
-            if (value) {
-                myUseGEOCheckButton->setCheck(true);
-                myUseGEOCheckButton->setText("true");
+            // set UseGEOCheckButton value of and update label (only if geo conversion is defined)
+            if(GeoConvHelper::getFinal().getProjString() != "!") {
+                myUseGEOCheckButton->enable();
+                if (value) {
+                    myUseGEOCheckButton->setCheck(true);
+                    myUseGEOCheckButton->setText("true");
+                } else {
+                    myUseGEOCheckButton->setCheck(false);
+                    myUseGEOCheckButton->setText("false");
+                }
             } else {
-                myUseGEOCheckButton->setCheck(false);
-                myUseGEOCheckButton->setText("false");
+                myUseGEOCheckButton->disable();
             }
             // now specify if a single position or an entire shape must be shown (note: cannot be shown both at the same time, and GEO Shape/Position only works for single selections)
             if(tagValue.hasGEOPosition() && myInspectorFrameParent->getInspectedACs().size() == 1) {
                 myGEOAttributeFrame->show();
                 myGEOAttributeLabel->setText(toString(SUMO_ATTR_GEOPOSITION).c_str());
-                myGEOAttributeTextField->setText(myInspectorFrameParent->getInspectedACs().front()->getAttribute(SUMO_ATTR_GEOPOSITION).c_str());
                 myGEOAttributeTextField->setTextColor(FXRGB(0, 0, 0));
+                // only allow edit if geo conversion is defined
+                if(GeoConvHelper::getFinal().getProjString() != "!") {
+                    myGEOAttributeTextField->enable();
+                    myGEOAttributeTextField->setText(myInspectorFrameParent->getInspectedACs().front()->getAttribute(SUMO_ATTR_GEOPOSITION).c_str());
+                } else {
+                    myGEOAttributeTextField->disable();
+                    myGEOAttributeTextField->setText("No geo-conversion defined");
+                }
             } else if (tagValue.hasGEOShape() && myInspectorFrameParent->getInspectedACs().size() == 1) {
                 myGEOAttributeFrame->show();
                 myGEOAttributeLabel->setText(toString(SUMO_ATTR_GEOSHAPE).c_str());
-                myGEOAttributeTextField->setText(myInspectorFrameParent->getInspectedACs().front()->getAttribute(SUMO_ATTR_GEOSHAPE).c_str());
                 myGEOAttributeTextField->setTextColor(FXRGB(0, 0, 0));
+                // only allow edit if geo conversion is defined
+                if(GeoConvHelper::getFinal().getProjString() != "!") {
+                    myGEOAttributeTextField->enable();
+                    myGEOAttributeTextField->setText(myInspectorFrameParent->getInspectedACs().front()->getAttribute(SUMO_ATTR_GEOSHAPE).c_str());
+                } else {
+                    myGEOAttributeTextField->disable();
+                    myGEOAttributeTextField->setText("No geo-conversion defined");
+                }
             }
         }
     }
@@ -1228,7 +1247,7 @@ GNEInspectorFrame::GEOAttributesEditor::refreshGEOAttributesEditor(bool forceRef
     // obtain tag property (only for improve code legibility)
     const auto &tagValue = GNEAttributeCarrier::getTagProperties(myInspectorFrameParent->getInspectedACs().front()->getTag());
     // Check that myGEOAttributeFrame is shown
-    if(myGEOAttributeFrame->shown() && ((myGEOAttributeTextField->getTextColor() == FXRGB(0, 0, 0)) || forceRefresh)) {
+    if((GeoConvHelper::getFinal().getProjString() != "!") && myGEOAttributeFrame->shown() && ((myGEOAttributeTextField->getTextColor() == FXRGB(0, 0, 0)) || forceRefresh)) {
         if (tagValue.hasGEOPosition()) {
             myGEOAttributeTextField->setText(myInspectorFrameParent->getInspectedACs().front()->getAttribute(SUMO_ATTR_GEOPOSITION).c_str());
         } else if (tagValue.hasGEOShape()) {
@@ -1242,7 +1261,7 @@ GNEInspectorFrame::GEOAttributesEditor::refreshGEOAttributesEditor(bool forceRef
 long
 GNEInspectorFrame::GEOAttributesEditor::onCmdSetGEOAttribute(FXObject* obj, FXSelector, void*) {
     // make sure that ACs has elements
-    if (myInspectorFrameParent->getInspectedACs().size() > 0) {
+    if ((GeoConvHelper::getFinal().getProjString() != "!") && (myInspectorFrameParent->getInspectedACs().size() > 0)) {
         if (obj == myGEOAttributeTextField) {
             // obtain tag property (only for improve code legibility)
             const auto &tagValue = GNEAttributeCarrier::getTagProperties(myInspectorFrameParent->getInspectedACs().front()->getTag());
