@@ -179,7 +179,7 @@ GeomHelper::angleDiff(const double angle1, const double angle2) {
 double
 GeomHelper::naviDegree(const double angle) {
     double degree = RAD2DEG(M_PI / 2. - angle);
-    if (isinf(degree)) {
+    if (std::isinf(degree)) {
         //assert(false);
         return 0;
     }
