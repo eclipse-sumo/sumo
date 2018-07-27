@@ -26,6 +26,7 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
+#include <utils/common/TplConvert.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/iodevices/OutputDevice_String.h>
 #include "NBNetBuilder.h"
@@ -101,6 +102,7 @@ NBRailwayTopologyAnalyzer::getBrokenRailNodes(NBNetBuilder& nb, bool verbose) {
     std::set<NBNode*> railNodes = getRailNodes(nb, verbose);
     std::map<std::pair<int, int>, std::set<NBNode*> > types;
     std::set<NBEdge*, ComparatorIdLess> bidiEdges;
+    std::set<NBEdge*, ComparatorIdLess> bufferStops;
     for (NBNode* node : railNodes) {
         EdgeVector inEdges, outEdges;
         getRailEdges(node, inEdges, outEdges);
@@ -116,6 +118,7 @@ NBRailwayTopologyAnalyzer::getBrokenRailNodes(NBNetBuilder& nb, bool verbose) {
     int numBrokenB = 0;
     int numBrokenC = 0;
     int numBrokenD = 0;
+    int numBufferStops = 0;
     for (auto it : types) {
         int numBrokenType = 0;
         device.openTag("railNodeType");
@@ -176,6 +179,10 @@ NBRailwayTopologyAnalyzer::getBrokenRailNodes(NBNetBuilder& nb, bool verbose) {
                 brokenNodes.insert(n);
                 numBrokenType++;
             }
+            if (TplConvert::_2boolSec(n->getParameter("buffer_stop", "false").c_str(), false)) {
+                device.writeAttr("buffer_stop", "true");
+                numBufferStops++;
+            }
             device.closeTag();
         }
         device.closeTag();
@@ -194,6 +201,7 @@ NBRailwayTopologyAnalyzer::getBrokenRailNodes(NBNetBuilder& nb, bool verbose) {
             << " C=" << numBrokenC
             << " D=" << numBrokenD
             << ")\n";
+        std::cout << "Found " << numBufferStops << " railway nodes marked as buffer_stop\n" ;
     }
 
     for (NBEdge* e : bidiEdges) {
@@ -394,7 +402,7 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForBufferStops(NBNetBuilder& nb) {
     int numBufferStops = 0;
     int numAddedBidiTotal = 0;
     for (NBNode* node : railNodes) {
-        if (node->getParameter("buffer_stop", "false") == "true") {
+        if (TplConvert::_2boolSec(node->getParameter("buffer_stop", "false").c_str(), false)) {
             if (node->getEdges().size() != 1) {
                 WRITE_WARNING("Ignoring buffer stop junction '" + node->getID() + "' with " + toString(node->getEdges().size()) + " edges\n");
                 continue;

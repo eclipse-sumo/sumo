@@ -4,3 +4,8 @@ Warning: Found and removed invalid connection from edge 'gneE27' to edge 'gneE26
 Warning: Found and removed invalid connection from edge 'gneE28' to edge 'gneE29' via junction 'gneJ34'.
 Warning: Found and removed invalid connection from edge 'gneE29' to edge 'gneE30' via junction 'gneJ35'.
 Warning: Found and removed invalid connection from edge 'gneE5' to edge 'gneE2' via junction 'gneJ6'.
+Warning: Lane '-gneE1_0' is not connected from any incoming edge at junction 'gneJ2'.
+Warning: Lane '-gneE11_0' is not connected from any incoming edge at junction 'gneJ9'.
+Warning: Edge 'buffer2' is not connected to outgoing edges at junction 'gneJ14'.
+Warning: Edge 'gneE11' is not connected to outgoing edges at junction 'gneJ9'.
+Warning: Lane 'gneE11_0' is not connected from any incoming edge at junction 'gneJ14'.
