@@ -402,7 +402,11 @@ MSPModel_Striping::getNextLane(const PState& ped, const MSLane* currentLane, con
         if (currentEdge->isInternal()) {
             assert(junction == currentEdge->getFromJunction());
             nextDir = junction == nextRouteEdge->getFromJunction() ? FORWARD : BACKWARD;
-            nextLane = nextRouteLane;
+            if (nextDir == FORWARD) {
+                nextLane = currentLane->getLinkCont()[0]->getViaLaneOrLane();
+            } else {
+                nextLane = currentLane->getLogicalPredecessorLane();
+            }
             if DEBUGCOND(ped) {
                 std::cout << "  internal\n";
             }
@@ -501,6 +505,12 @@ MSPModel_Striping::getNextLane(const PState& ped, const MSLane* currentLane, con
                             std::cout << "  direct backward\n";
                         }
                         nextLane = MSLinkContHelper::getInternalFollowingLane(nextRouteLane, currentLane);
+                        if (nextLane != nullptr) {
+                            // advance to the end of consecutive internal lanes
+                            while (nextLane->getLinkCont()[0]->getViaLaneOrLane()->isInternal()) {
+                                nextLane = nextLane->getLinkCont()[0]->getViaLaneOrLane();
+                            }
+                        }
                     }
                 }
             }
