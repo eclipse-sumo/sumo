@@ -83,9 +83,9 @@ GNEPOI::~GNEPOI() {}
 void GNEPOI::writeShape(OutputDevice& device) {
     if(myGNELane) {
         // obtain fixed position over lane
-        double fixedPositionOverLane = myPosOverLane > 1 ? 1 : myPosOverLane < 0 ? 0 : myPosOverLane;
+        double fixedPositionOverLane = myPosOverLane > myGNELane->getShape().length() ? myGNELane->getShape().length() : myPosOverLane < 0 ? 0 : myPosOverLane;
         // write POILane using POI::writeXML
-        writeXML(device, false, 0, myGNELane->getID(), fixedPositionOverLane * myGNELane->getShape().length(), myPosLat);
+        writeXML(device, false, 0, myGNELane->getID(), fixedPositionOverLane, myPosLat);
     } else {
         writeXML(device, myGeo);
     }
@@ -99,7 +99,7 @@ GNEPOI::moveGeometry(const Position& oldPos, const Position& offset) {
             // Calculate new position using old position
             Position newPosition = oldPos;
             newPosition.add(offset);
-            myPosOverLane = myGNELane->getShape().nearest_offset_to_point2D(newPosition, false) / myGNELane->getLaneShapeLength();
+            myPosOverLane = myGNELane->getShape().nearest_offset_to_point2D(newPosition, false);
             // Update geometry
             updateGeometry();
         } else {
@@ -140,9 +140,9 @@ void
 GNEPOI::updateGeometry() {
     if (myGNELane) {
         // obtain fixed position over lane
-        double fixedPositionOverLane = myPosOverLane > 1 ? 1 : myPosOverLane < 0 ? 0 : myPosOverLane;
+        double fixedPositionOverLane = myPosOverLane > myGNELane->getLaneShapeLength() ? myGNELane->getLaneShapeLength() : myPosOverLane < 0 ? 0 : myPosOverLane;
         // set new position regarding to lane
-        set(myGNELane->getShape().positionAtOffset(fixedPositionOverLane * myGNELane->getLaneShapeLength(), -myPosLat));
+        set(myGNELane->getShape().positionAtOffset(fixedPositionOverLane, -myPosLat));
     }
     // refresh element to avoid grabbings problem
     myNet->refreshElement(this);
