@@ -12,14 +12,10 @@ Warning: Setting new attribute id 'newID' into poiLane 'POI_0'
 Warning: Value 'dummyLane' for attribute lane of poiLane isn't valid
 Warning: Value '' for attribute lane of poiLane isn't valid
 Warning: Setting new attribute lane 'gneE0_0' into poiLane 'newID'
-Error: Shape of a(n) user-supplied position is broken: the shape is empty.
 Warning: Value '' for attribute pos of poiLane isn't valid
-Error: Shape of a(n) user-supplied position is broken: the position is neither x,y nor x,y,z.
-Warning: Value '-100' for attribute pos of poiLane isn't valid
-Error: Shape of a(n) user-supplied position is broken: the position is neither x,y nor x,y,z.
-Warning: Value '200' for attribute pos of poiLane isn't valid
-Error: Shape of a(n) user-supplied position is broken: the position is neither x,y nor x,y,z.
-Warning: Value '30.5' for attribute pos of poiLane isn't valid
+Warning: Setting new attribute pos '-100' into poiLane 'newID'
+Warning: Setting new attribute pos '200' into poiLane 'newID'
+Warning: Setting new attribute pos '30.5' into poiLane 'newID'
 Warning: Setting new attribute posLat '-20' into poiLane 'newID'
 Warning: Setting new attribute posLat '15' into poiLane 'newID'
 Warning: Value 'dummyColor' for attribute color of poiLane isn't valid
@@ -79,6 +75,12 @@ Warning: Setting previous attribute posLat '-20.00' into poiLane 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute posLat '0.00' into poiLane 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute pos '200.00' into poiLane 'newID'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute pos '-100.00' into poiLane 'newID'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute pos '44.00' into poiLane 'newID'
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute lane 'gneE1_0' into poiLane 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute id 'POI_0' into poiLane 'newID'
@@ -92,9 +94,6 @@ Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding poiLane 'POI_0' into viewNet
 Warning: Keys Ctrl + Y (Redo) pressed
@@ -103,6 +102,12 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute id 'newID' into poiLane 'POI_0'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute lane 'gneE0_0' into poiLane 'newID'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute pos '-100' into poiLane 'newID'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute pos '200' into poiLane 'newID'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute pos '30.5' into poiLane 'newID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute posLat '-20' into poiLane 'newID'
 Warning: Keys Ctrl + Y (Redo) pressed
@@ -135,9 +140,6 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute angle '30' into poiLane 'newID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute blockMovement 'true' into poiLane 'newID'
-Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Keys Ctrl + Y (Redo) pressed
