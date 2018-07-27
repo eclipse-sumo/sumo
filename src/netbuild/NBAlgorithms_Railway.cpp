@@ -57,28 +57,18 @@
 // ---------------------------------------------------------------------------
 
 void
-NBRailwayTopologyAnalyzer::analyzeTopology(NBNetBuilder& nb, const std::string& outfile) {
-    std::set<NBNode*> brokenNodes; 
-    getBrokenRailNodes(nb, brokenNodes, true, OutputDevice::getDevice(outfile));
+NBRailwayTopologyAnalyzer::analyzeTopology(NBNetBuilder& nb) {
+    getBrokenRailNodes(nb, true);
 }
 
 
 void 
 NBRailwayTopologyAnalyzer::repairTopology(NBNetBuilder& nb) {
-    std::set<NBNode*> brokenNodes; 
-    getBrokenRailNodes(nb, brokenNodes, false, OutputDevice::getDevice("/dev/null"));
-    reverseEdges(brokenNodes);
-    //std::cout << " numBrokenNodes1=" << brokenNodes.size() << " set1=" << toString(brokenNodes) << "\n";
-    brokenNodes.clear();
+    reverseEdges(nb);
     NBTurningDirectionsComputer::computeTurnDirections(nb.getNodeCont(), false);
-    getBrokenRailNodes(nb, brokenNodes, false, OutputDevice::getDevice("/dev/null"));
     //std::cout << " numBrokenNodes2=" << brokenNodes.size() << " set2=" << toString(brokenNodes) << "\n";
-    std::set<NBNode*> railNodes;
-    getRailNodes(nb, railNodes, false);
-    addBidiEdgesForBufferStops(nb, railNodes, brokenNodes);
-    brokenNodes.clear();
-    NBTurningDirectionsComputer::computeTurnDirections(nb.getNodeCont(), false);
-    getBrokenRailNodes(nb, brokenNodes, false, OutputDevice::getDevice("/dev/null"));
+    addBidiEdgesForBufferStops(nb);
+    //NBTurningDirectionsComputer::computeTurnDirections(nb.getNodeCont(), false);
     //std::cout << " numBrokenNodes3=" << brokenNodes.size() << " set3=" << toString(brokenNodes) << "\n";
 }
 
@@ -100,13 +90,15 @@ NBRailwayTopologyAnalyzer::getRailEdges(NBNode* node,
 
 
 
-void
-NBRailwayTopologyAnalyzer::getBrokenRailNodes(NBNetBuilder& nb, 
-        std::set<NBNode*>& brokenNodes, 
-        bool verbose, OutputDevice& device) {
+std::set<NBNode*>
+NBRailwayTopologyAnalyzer::getBrokenRailNodes(NBNetBuilder& nb, bool verbose) {
+    std::set<NBNode*> brokenNodes;; 
+    OutputDevice& device = OutputDevice::getDevice(verbose 
+            ? OptionsCont::getOptions().getString("railway.topology.output")
+            : "/dev/null");
+        
     device.writeXMLHeader("railwayTopology", "");
-    std::set<NBNode*> railNodes;
-    getRailNodes(nb, railNodes, verbose);
+    std::set<NBNode*> railNodes = getRailNodes(nb, verbose);
     std::map<std::pair<int, int>, std::set<NBNode*> > types;
     for (NBNode* node : railNodes) {
         EdgeVector inEdges, outEdges;
@@ -199,12 +191,13 @@ NBRailwayTopologyAnalyzer::getBrokenRailNodes(NBNetBuilder& nb,
     }
 
     device.close();
+    return brokenNodes;
 }
 
 
-void 
-NBRailwayTopologyAnalyzer::getRailNodes(NBNetBuilder& nb, std::set<NBNode*>& railNodes, 
-        bool verbose) {
+std::set<NBNode*> 
+NBRailwayTopologyAnalyzer::getRailNodes(NBNetBuilder& nb, bool verbose) {
+    std::set<NBNode*> railNodes;
 
     NBEdgeCont& ec = nb.getEdgeCont();
     int numRailEdges = 0;
@@ -225,6 +218,7 @@ NBRailwayTopologyAnalyzer::getRailNodes(NBNetBuilder& nb, std::set<NBNode*>& rai
     if (verbose) {
         std::cout << "Found " << numRailEdges << " railway edges and " << railNodes.size() << " railway nodes (" << railSignals.size() << " signals).\n";
     }
+    return railNodes;
 }
 
 
@@ -296,7 +290,8 @@ NBRailwayTopologyAnalyzer::allBidi(const EdgeVector& edges) {
 
 
 void 
-NBRailwayTopologyAnalyzer::reverseEdges(std::set<NBNode*> brokenNodes) {
+NBRailwayTopologyAnalyzer::reverseEdges(NBNetBuilder& nb) {
+    std::set<NBNode*> brokenNodes = getBrokenRailNodes(nb);
     // find reversible edge sequences between broken nodes
     // XXX also search backwards to get sequences that start at the network boundary
     std::vector<EdgeVector> seqsToReverse;
@@ -370,10 +365,9 @@ NBRailwayTopologyAnalyzer::reverseEdges(std::set<NBNode*> brokenNodes) {
 
 
 void
-NBRailwayTopologyAnalyzer::addBidiEdgesForBufferStops(
-        NBNetBuilder& nb,
-        std::set<NBNode*> railNodes, 
-        std::set<NBNode*> brokenNodes) {
+NBRailwayTopologyAnalyzer::addBidiEdgesForBufferStops(NBNetBuilder& nb) {
+    std::set<NBNode*> brokenNodes = getBrokenRailNodes(nb);
+    std::set<NBNode*> railNodes = getRailNodes(nb);
     NBEdgeCont& ec = nb.getEdgeCont();
     // find buffer stops and ensure that thay are connect to the network in both directions
     int numBufferStops = 0;

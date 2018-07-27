@@ -49,14 +49,13 @@ public:
      * @param[in, changed] nb The network builder which contains the current network representation
      * @param[in] oc The options container
      */
-    static void analyzeTopology(NBNetBuilder& nb, const std::string& outfile);
+    static void analyzeTopology(NBNetBuilder& nb);
     static void repairTopology(NBNetBuilder& nb);
 
 
 private:
-    static void getRailNodes(NBNetBuilder& nb, std::set<NBNode*>& railNodes, bool verbose);
-    static void getBrokenRailNodes(NBNetBuilder& nb, std::set<NBNode*>& brokenNodes, 
-            bool verbose, OutputDevice& device);
+    static std::set<NBNode*> getRailNodes(NBNetBuilder& nb, bool verbose=false);
+    static std::set<NBNode*> getBrokenRailNodes(NBNetBuilder& nb, bool verbose=false);
 
     static void getRailEdges(NBNode* node, EdgeVector& inEdges, EdgeVector& outEdges);
 
@@ -64,8 +63,8 @@ private:
     static bool allSharp(const NBNode* node, const EdgeVector& in, const EdgeVector& out);
     static bool allBidi(const EdgeVector& edges);
 
-    static void reverseEdges(std::set<NBNode*> brokenNodes);
-    static void addBidiEdgesForBufferStops(NBNetBuilder& nb, std::set<NBNode*> railNodes, std::set<NBNode*> brokenNodes);
+    static void reverseEdges(NBNetBuilder& nb);
+    static void addBidiEdgesForBufferStops(NBNetBuilder& nb);
 };
 
 
