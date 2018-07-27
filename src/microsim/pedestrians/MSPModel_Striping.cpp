@@ -210,6 +210,11 @@ MSPModel_Striping::hasPedestrians(const MSLane* lane) {
 
 bool
 MSPModel_Striping::usingInternalLanes() {
+    return usingInternalLanesStatic();
+}
+
+bool 
+MSPModel_Striping::usingInternalLanesStatic() {
     return MSGlobals::gUsingInternalLanes && MSNet::getInstance()->hasInternalLinks();
 }
 
@@ -522,10 +527,12 @@ MSPModel_Striping::getNextLane(const PState& ped, const MSLane* currentLane, con
                 if DEBUGCOND(ped) {
                     std::cout << SIMTIME << " no next lane found for " << currentLane->getID() << " dir=" << ped.myDir << "\n";
                 }
-                WRITE_WARNING("Person '" + ped.myPerson->getID() + "' could not find route across junction '" + junction->getID() 
-                        + "' from edge '" + currentEdge->getID()
-                        + "' to edge '" + nextRouteEdge->getID() + "', time=" +
-                        time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
+                if (usingInternalLanesStatic() && currentLane->getLinkCont().size() > 0) {
+                    WRITE_WARNING("Person '" + ped.myPerson->getID() + "' could not find route across junction '" + junction->getID() 
+                            + "' from edge '" + currentEdge->getID()
+                            + "' to edge '" + nextRouteEdge->getID() + "', time=" +
+                            time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
+                }
             } else if (nextLane->getLength() <= POSITION_EPS) {
                 // internal lane too short
                 nextLane = nextRouteLane;

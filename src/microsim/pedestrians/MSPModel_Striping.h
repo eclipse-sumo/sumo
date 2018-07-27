@@ -83,6 +83,7 @@ public:
     bool hasPedestrians(const MSLane* lane);
 
     /// @brief whether movements on intersections are modelled
+    //// @note function declared as member for sake of inheritance (delegates to static function)
     bool usingInternalLanes();
 
     /// @brief returns the next pedestrian beyond minPos that is laterally between minRight and maxLeft or 0
@@ -451,6 +452,8 @@ private:
 
     ///@brief retrieve vehicle obstacles on the given lane
     static Obstacles getVehicleObstacles(const MSLane* lane, int dir, PState* ped = 0); 
+
+    static bool usingInternalLanesStatic();
 private:
     /// @brief the total number of active pedestrians
     int myNumActivePedestrians;
