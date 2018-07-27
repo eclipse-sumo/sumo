@@ -119,26 +119,18 @@ netedit.modifyAttribute(9, "365")
 # Change parameter 8 with a valid value (> 360)
 netedit.modifyAttribute(9, "10")
 
-# Change parameter 9 with a valid value
-netedit.modifyAttribute(
-    11,
-    "-13.00,8.00 -8.00,13.00 -13.00,18.00 -18.00,23.00 -23.00,18.00 -28.00,13.00 -23.00,8.00 -18.00,3.00 -13.00,8.00")
-
-# Change boolean parameter 10
-netedit.modifyShapeDefaultBoolValue(12)
-
 # Change boolean parameter 11
-netedit.modifyShapeDefaultBoolValue(14)
+netedit.modifyShapeDefaultBoolValue(11)
 
 # Change boolean parameter 12
-netedit.modifyShapeDefaultBoolValue(15)
+netedit.modifyShapeDefaultBoolValue(12)
 
 # Change boolean parameter 13
-netedit.modifyShapeDefaultBoolValue(16)
+netedit.modifyShapeDefaultBoolValue(13)
 
 # Check undos and redos
-netedit.undo(match, 25)
-netedit.redo(match, 25)
+netedit.undo(match, 23)
+netedit.redo(match, 23)
 
 # save shapes
 netedit.saveShapes()

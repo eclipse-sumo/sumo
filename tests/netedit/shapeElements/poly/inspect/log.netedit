@@ -38,21 +38,9 @@ Warning: Setting new attribute relativePath 'true' into poly 'newID'
 Warning: Setting new attribute angle '-5' into poly 'newID'
 Warning: Setting new attribute angle '365' into poly 'newID'
 Warning: Setting new attribute angle '10' into poly 'newID'
-Warning: Setting new attribute geoShape '-13.00,8.00 -8.00,13.00 -13.00,18.00 -18.00,23.00 -23.00,18.00 -28.00,13.00 -23.00,8.00 -18.00,3.00 -13.00,8.00' into poly 'newID'
-Warning: Setting new attribute geo 'true' into poly 'newID'
-Warning: Setting new attribute blockMovement 'true' into poly 'newID'
 Warning: Setting new attribute blockShape 'true' into poly 'newID'
-Warning: Setting new attribute closedShape 'false' into poly 'newID'
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute closedShape '1' into poly 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute blockShape '0' into poly 'newID'
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute blockMovement '0' into poly 'newID'
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute geo '0' into poly 'newID'
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute geoShape '-13.000000,8.000000 -16.000000,13.000000 -13.000000,18.000000 -18.000000,15.000000 -23.000000,18.000000 -20.000000,13.000000 -23.000000,8.000000 -18.000000,11.000000 -13.000000,8.000000' into poly 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute angle '365.00' into poly 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -91,6 +79,8 @@ Warning: Removed inspected element from Inspected ACs. 0 ACs remains.
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding poly 'poly_0' into viewNet
 Warning: Keys Ctrl + Y (Redo) pressed
@@ -126,15 +116,9 @@ Warning: Setting new attribute angle '365' into poly 'newID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute angle '10' into poly 'newID'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute geoShape '-13.00,8.00 -8.00,13.00 -13.00,18.00 -18.00,23.00 -23.00,18.00 -28.00,13.00 -23.00,8.00 -18.00,3.00 -13.00,8.00' into poly 'newID'
-Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute geo 'true' into poly 'newID'
-Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute blockMovement 'true' into poly 'newID'
-Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute blockShape 'true' into poly 'newID'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute closedShape 'false' into poly 'newID'
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Keys Ctrl + Y (Redo) pressed
