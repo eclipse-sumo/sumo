@@ -54,6 +54,7 @@ elmar_connected_lanes:elmar_output_connected_lanes.txt
 pois:pois.add.xml
 additional:additional.xml
 ptlines:ptlines.xml
+topology:topology.xml
 
 [run_dependent_text]
 plain_nodes:<!--{[->]}-->
@@ -64,6 +65,7 @@ plain_connections:<!--{[->]}-->
 plain_tllogic:<!--{[->]}-->
 plain_types:<!--{[->]}-->
 joined_nodes:<!--{[->]}-->
+topology:<!--{[->]}-->
 net:<!--{[->]}-->
 foreign:date="[^"]*"{REPLACE date="DATE"}
 pois:<!--{[->]}-->
