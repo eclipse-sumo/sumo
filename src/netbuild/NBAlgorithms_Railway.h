@@ -62,9 +62,10 @@ private:
 
     static bool hasStraightPair(const NBNode* node, const EdgeVector& edges, const EdgeVector& edges2); 
     static bool allSharp(const NBNode* node, const EdgeVector& in, const EdgeVector& out);
+    static bool allBidi(const EdgeVector& edges);
 
     static void reverseEdges(std::set<NBNode*> brokenNodes);
-    static void addBidiEdges(NBNetBuilder& nb, std::set<NBNode*> railNodes, std::set<NBNode*> brokenNodes);
+    static void addBidiEdgesForBufferStops(NBNetBuilder& nb, std::set<NBNode*> railNodes, std::set<NBNode*> brokenNodes);
 };
 
 

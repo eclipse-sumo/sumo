@@ -29,6 +29,7 @@
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/iodevices/OutputDevice_String.h>
 #include "NBNetBuilder.h"
+#include "NBAlgorithms.h"
 #include "NBNodeCont.h"
 #include "NBEdgeCont.h"
 #include "NBNode.h"
@@ -67,9 +68,18 @@ NBRailwayTopologyAnalyzer::repairTopology(NBNetBuilder& nb) {
     std::set<NBNode*> brokenNodes; 
     getBrokenRailNodes(nb, brokenNodes, false, OutputDevice::getDevice("/dev/null"));
     reverseEdges(brokenNodes);
+    //std::cout << " numBrokenNodes1=" << brokenNodes.size() << " set1=" << toString(brokenNodes) << "\n";
+    brokenNodes.clear();
+    NBTurningDirectionsComputer::computeTurnDirections(nb.getNodeCont(), false);
+    getBrokenRailNodes(nb, brokenNodes, false, OutputDevice::getDevice("/dev/null"));
+    //std::cout << " numBrokenNodes2=" << brokenNodes.size() << " set2=" << toString(brokenNodes) << "\n";
     std::set<NBNode*> railNodes;
     getRailNodes(nb, railNodes, false);
-    addBidiEdges(nb, railNodes, brokenNodes);
+    addBidiEdgesForBufferStops(nb, railNodes, brokenNodes);
+    brokenNodes.clear();
+    NBTurningDirectionsComputer::computeTurnDirections(nb.getNodeCont(), false);
+    getBrokenRailNodes(nb, brokenNodes, false, OutputDevice::getDevice("/dev/null"));
+    //std::cout << " numBrokenNodes3=" << brokenNodes.size() << " set3=" << toString(brokenNodes) << "\n";
 }
 
 
@@ -156,6 +166,11 @@ NBRailwayTopologyAnalyzer::getBrokenRailNodes(NBNetBuilder& nb,
                         break;
                     }
                 }
+            }
+            // do not bidi nodes as broken
+            if (((in == 1 && out == 1) || (in == 2) && (out == 2))
+                    && allBidi(inRail) && allBidi(outRail)) {
+                broken = "";
             }
 
             if (broken.size() > 0) {
@@ -269,6 +284,17 @@ NBRailwayTopologyAnalyzer::allSharp(const NBNode* node, const EdgeVector& in, co
 }
 
 
+bool 
+NBRailwayTopologyAnalyzer::allBidi(const EdgeVector& edges) {
+    for (NBEdge* e : edges) {
+        if (!e->isBidiRail()) {
+            return false;
+        }
+    }
+    return true;
+}
+
+
 void 
 NBRailwayTopologyAnalyzer::reverseEdges(std::set<NBNode*> brokenNodes) {
     // find reversible edge sequences between broken nodes
@@ -344,7 +370,7 @@ NBRailwayTopologyAnalyzer::reverseEdges(std::set<NBNode*> brokenNodes) {
 
 
 void
-NBRailwayTopologyAnalyzer::addBidiEdges(
+NBRailwayTopologyAnalyzer::addBidiEdgesForBufferStops(
         NBNetBuilder& nb,
         std::set<NBNode*> railNodes, 
         std::set<NBNode*> brokenNodes) {
