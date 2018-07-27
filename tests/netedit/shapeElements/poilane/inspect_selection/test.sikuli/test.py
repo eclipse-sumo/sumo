@@ -113,7 +113,7 @@ netedit.modifyAttribute(9, "500")
 netedit.modifyAttribute(9, "30")
 
 # Change boolean parameter block
-netedit.modifyShapeDefaultBoolValue(11)
+netedit.modifyShapeDefaultBoolValue(12)
 
 # go to select mode
 netedit.selectMode()
