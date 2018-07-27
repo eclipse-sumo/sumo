@@ -37,6 +37,7 @@
 #include <utils/gui/windows/GUIMainWindow.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GLHelper.h>
+#include <utils/gui/div/GLObjectValuePassConnector.h>
 #include "GUIGlObject.h"
 #include "GUIGlObjectStorage.h"
 
@@ -106,6 +107,7 @@ GUIGlObject::~GUIGlObject() {
     for (auto i : myParamWindows) {
         i->removeObject(this);
     }
+    GLObjectValuePassConnector<double>::removeObject(*this);
     GUIGlObjectStorage::gIDStorage.remove(getGlID());
 }
 

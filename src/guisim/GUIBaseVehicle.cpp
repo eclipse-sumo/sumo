@@ -38,7 +38,6 @@
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GLHelper.h>
-#include <utils/gui/div/GLObjectValuePassConnector.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSLane.h>
@@ -273,7 +272,6 @@ GUIBaseVehicle::~GUIBaseVehicle() {
         while (i->first->removeAdditionalGLVisualisation(this));
     }
     myLock.unlock();
-    GLObjectValuePassConnector<double>::removeObject(*this);
     delete myRoutes;
 }
 
