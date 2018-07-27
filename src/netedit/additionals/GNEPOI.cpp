@@ -71,7 +71,7 @@ GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, cons
 GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color,
     double layer, double angle, const std::string& imgFile, bool relativePath, GNELane* lane, double posOverLane, double posLat,
     double width, double height, bool movementBlocked) :
-    GUIPointOfInterest(id, type, color, Position(), false, lane->getID(), posOverLane / lane->getLaneParametricLength(), posLat, layer, angle, imgFile, relativePath, width, height),
+    GUIPointOfInterest(id, type, color, Position(), false, lane->getID(), posOverLane, posLat, layer, angle, imgFile, relativePath, width, height),
     GNEShape(net, SUMO_TAG_POILANE, movementBlocked, false),
     myGNELane(lane) {
 }
@@ -119,7 +119,7 @@ GNEPOI::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
             // restore old position before commit new position
             double originalPosOverLane = myGNELane->getShape().nearest_offset_to_point2D(oldPos, false);
             undoList->p_begin("position of " + toString(getTag()));
-            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPosOverLane * myGNELane->getLaneParametricLength()), true, toString(originalPosOverLane)));
+            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPosOverLane), true, toString(originalPosOverLane)));
             undoList->p_end();
         } else {
             undoList->p_begin("position of " + toString(getTag()));
@@ -231,7 +231,7 @@ GNEPOI::getAttribute(SumoXMLAttr key) const {
             return myLane;
         case SUMO_ATTR_POSITION:
             if(myGNELane) {
-                return toString(myPosOverLane * myGNELane->getLaneParametricLength());
+                return toString(myPosOverLane);
             } else {
                 return toString(*this);
             }
@@ -309,10 +309,13 @@ GNEPOI::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<RGBColor>(value);
         case SUMO_ATTR_LANE:
             return (myNet->retrieveLane(value, false) != nullptr);
-        case SUMO_ATTR_POSITION: {
-            bool ok;
-            return GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, false).size() == 1;
-        }
+        case SUMO_ATTR_POSITION:
+            if(myGNELane) {
+                canParse<double>(value);
+            } else {
+                bool ok;
+                return GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, false).size() == 1;
+            }
         case SUMO_ATTR_POSITION_LAT:
             return canParse<double>(value);
         case SUMO_ATTR_GEOPOSITION: {
@@ -378,7 +381,7 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_POSITION: {
             if(myGNELane) {
-                myPosOverLane = parse<double>(value) / myGNELane->getLaneParametricLength();
+                myPosOverLane = parse<double>(value);
             } else {
                 bool ok = true;
                 set(GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, false)[0]);
