@@ -57,14 +57,26 @@ private:
     static std::set<NBNode*> getRailNodes(NBNetBuilder& nb, bool verbose=false);
     static std::set<NBNode*> getBrokenRailNodes(NBNetBuilder& nb, bool verbose=false);
 
+    /// @brief filter out rail edges among all edges of a the given node
     static void getRailEdges(NBNode* node, EdgeVector& inEdges, EdgeVector& outEdges);
 
     static bool hasStraightPair(const NBNode* node, const EdgeVector& edges, const EdgeVector& edges2); 
+    static bool isStraight(const NBNode* node, NBEdge* e1, NBEdge* e2);
     static bool allSharp(const NBNode* node, const EdgeVector& in, const EdgeVector& out);
     static bool allBidi(const EdgeVector& edges);
 
+    /// @brief add further bidi-edges near existing bidi-edges
+    static int extendBidiEdges(NBNetBuilder& nb);
+    static int extendBidiEdges(NBNetBuilder& nb, NBNode* node, NBEdge* bidiIn);
+
+    /// @brief reverse edges sequences that are to broken nodes on both sides
     static void reverseEdges(NBNetBuilder& nb);
+
+    /// @brief add bidi-edges to connect buffers stops in both directions
     static void addBidiEdgesForBufferStops(NBNetBuilder& nb);
+
+    /// recompute turning directions for both nodes of the given edge
+    static void updateTurns(NBEdge* edge);
 };
 
 

@@ -65,11 +65,12 @@ NBRailwayTopologyAnalyzer::analyzeTopology(NBNetBuilder& nb) {
 
 void 
 NBRailwayTopologyAnalyzer::repairTopology(NBNetBuilder& nb) {
+    extendBidiEdges(nb);
     reverseEdges(nb);
-    NBTurningDirectionsComputer::computeTurnDirections(nb.getNodeCont(), false);
     //std::cout << " numBrokenNodes2=" << brokenNodes.size() << " set2=" << toString(brokenNodes) << "\n";
     addBidiEdgesForBufferStops(nb);
-    //NBTurningDirectionsComputer::computeTurnDirections(nb.getNodeCont(), false);
+    //addBidiEdgesBetweenSwitches(nb);
+    //addBidiEdgesForStops(nb);
     //std::cout << " numBrokenNodes3=" << brokenNodes.size() << " set3=" << toString(brokenNodes) << "\n";
 }
 
@@ -250,6 +251,28 @@ NBRailwayTopologyAnalyzer::getRailNodes(NBNetBuilder& nb, bool verbose) {
     return railNodes;
 }
 
+bool 
+NBRailwayTopologyAnalyzer::isStraight(const NBNode* node, NBEdge* e1, NBEdge* e2) {
+    const double relAngle = NBHelpers::normRelAngle(e1->getAngleAtNode(node), e2->getAngleAtNode(node));
+    /*
+    std::cout << "  isStraight n=" << node->getID() 
+        << " e1=" << e1->getID()
+        << " e2=" << e2->getID()
+        << " a1=" << e1->getAngleAtNode(node)
+        << " a2=" << e2->getAngleAtNode(node)
+        << " rel=" << relAngle
+        << "\n";
+        */
+    if ((e1->getToNode() == node && e2->getFromNode() == node)
+            || (e1->getFromNode() == node && e2->getToNode() == node)) {
+        // edges go in the same direction
+        return fabs(relAngle) < SHARP_THRESHOLD;
+    } else {
+        // edges go in the opposite direction (both incoming or outgoing)
+        return fabs(relAngle) > SHARP_THRESHOLD_SAMEDIR;
+    }
+}
+
 
 bool 
 NBRailwayTopologyAnalyzer::hasStraightPair(const NBNode* node, const EdgeVector& edges,
@@ -268,21 +291,8 @@ NBRailwayTopologyAnalyzer::hasStraightPair(const NBNode* node, const EdgeVector&
             //                    e2->getAngleAtNode(node))
             //        << "\n";
             //}
-            if (e1 != e2) {
-                if (fabs(NBHelpers::normRelAngle(
-                                e1->getAngleAtNode(node), 
-                                e2->getAngleAtNode(node))) > SHARP_THRESHOLD_SAMEDIR) {
-                    /*
-                    std::cout << "hasStraightPair n=" << node->getID() 
-                        << " e1=" << e1->getID()
-                        << " e2=" << e2->getID()
-                        << " a1=" << e1->getAngleAtNode(node)
-                        << " a2=" << e2->getAngleAtNode(node)
-                        << " rel=" << NBHelpers::normRelAngle(e1->getAngleAtNode(node), e2->getAngleAtNode(node))
-                        << "\n";
-                        */
-                    return true;
-                }
+            if (e1 != e2 && isStraight(node, e1, e2)) {
+                return true;
             }
         }
     }
@@ -294,12 +304,8 @@ bool
 NBRailwayTopologyAnalyzer::allSharp(const NBNode* node, const EdgeVector& in, const EdgeVector& out) {
     for (NBEdge* e1 : in) {
         for (NBEdge* e2 : out) {
-            if (e1 != e2) {
-                if (fabs(NBHelpers::normRelAngle(
-                                e1->getAngleAtNode(node), 
-                                e2->getAngleAtNode(node))) < SHARP_THRESHOLD) {
-                    return false;
-                }
+            if (e1 != e2 && isStraight(node, e1, e2)) {
+                return false;
             }
         }
     }
@@ -315,6 +321,64 @@ NBRailwayTopologyAnalyzer::allBidi(const EdgeVector& edges) {
         }
     }
     return true;
+}
+
+
+int 
+NBRailwayTopologyAnalyzer::extendBidiEdges(NBNetBuilder& nb) {
+    int added = 0;
+    std::set<NBNode*> railNodes = getRailNodes(nb);
+    NBEdgeCont& ec = nb.getEdgeCont();
+    for (auto it = ec.begin(); it != ec.end(); it++) {
+        NBEdge* e = it->second;
+        if (e->isBidiRail()) {
+            added += extendBidiEdges(nb, e->getFromNode(), e->getTurnDestination(true));
+            added += extendBidiEdges(nb, e->getToNode(), e);
+        }
+    }
+    if (added > 0) {
+        std::cout << "Addeded " << added << " bidi-edges as extension of existing bidi edges\n";
+    }
+    return added;
+}
+
+
+int 
+NBRailwayTopologyAnalyzer::extendBidiEdges(NBNetBuilder& nb, NBNode* node, NBEdge* bidiIn) {
+    assert(bidiIn->getToNode() == node);
+    NBEdge* bidiOut = bidiIn->getTurnDestination(true);
+    int added = 0;
+    EdgeVector inRail, outRail;
+    getRailEdges(node, inRail, outRail);
+    for (NBEdge* cand : outRail) {
+        //std::cout << " extendBidiEdges n=" << node->getID() << " bidiIn=" << bidiIn->getID() << " cand=" << cand->getID() << " isStraight=" << isStraight(node, bidiIn, cand) << "\n";
+        if (!cand->isBidiRail() && isStraight(node, bidiIn, cand)) {
+            NBEdge* e2 = new NBEdge("-" + cand->getID(), cand->getToNode(), cand->getFromNode(), 
+                    cand, cand->getGeometry().reverse());
+            if (!nb.getEdgeCont().insert(e2)) {
+                WRITE_WARNING("Could not add bidi-edge '" + e2->getID() + "'.");
+                delete e2;
+            } else {
+                updateTurns(cand);
+                added += 1 + extendBidiEdges(nb, cand->getToNode(), cand);
+            }
+        }
+    }
+    for (NBEdge* cand : inRail) {
+        //std::cout << " extendBidiEdges n=" << node->getID() << " bidiOut=" << bidiOut->getID() << " cand=" << cand->getID() << " isStraight=" << isStraight(node, cand, bidiOut) << "\n";
+        if (!cand->isBidiRail() && isStraight(node, cand, bidiOut)) {
+            NBEdge* e2 = new NBEdge("-" + cand->getID(), cand->getToNode(), cand->getFromNode(), 
+                    cand, cand->getGeometry().reverse());
+            if (!nb.getEdgeCont().insert(e2)) {
+                WRITE_WARNING("Could not add bidi-edge '" + e2->getID() + "'.");
+                delete e2;
+            } else {
+                updateTurns(cand);
+                added += 1 + extendBidiEdges(nb, cand->getFromNode(), e2);
+            }
+        }
+    }
+    return added;
 }
 
 
@@ -445,9 +509,11 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForBufferStops(NBNetBuilder& nb) {
                 NBEdge* e2 = new NBEdge("-" + e->getID(), e2From, e2To, 
                         e, e->getGeometry().reverse());
                 if (!ec.insert(e2)) {
-                    delete e2;
                     WRITE_ERROR("Could not add edge '" + e2->getID() + "'.");
+                    delete e2;
                     break;
+                } else {
+                    updateTurns(e);
                 }
                 prev = e;
                 prev2 = e2;
@@ -465,6 +531,13 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForBufferStops(NBNetBuilder& nb) {
     if (numAddedBidiTotal > 0) {
         WRITE_MESSAGE(" added " + toString(numAddedBidiTotal) + " edges to connect " + toString(numBufferStops) + " buffer stops in both directions.");
     }
+}
+
+
+void 
+NBRailwayTopologyAnalyzer::updateTurns(NBEdge* edge) {
+    NBTurningDirectionsComputer::computeTurnDirectionsForNode(edge->getFromNode(), false);
+    NBTurningDirectionsComputer::computeTurnDirectionsForNode(edge->getToNode(), false);
 }
 
 /****************************************************************************/
