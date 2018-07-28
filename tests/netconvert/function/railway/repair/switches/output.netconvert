@@ -3,15 +3,17 @@ Parsing sumo-net from 'input_net.net.xml'... done.
    21 nodes loaded.
    18 edges loaded.
 Removing self-loops... done (0ms).
-Found 18 railway edges and 21 railway nodes (0 signals).
+Adding 1 bidi-edges between switches junction 'gneJ38' and junction 'gneJ39'
+Adding 3 bidi-edges between switches junction 'gneJ45' and junction 'gneJ48'
+Found 22 railway edges and 21 railway nodes (0 signals).
    0,1 count:5 broken:0
    1,0 count:7 broken:0
-   1,1 count:3 broken:0
-   1,2 count:4 broken:3
-   2,1 count:2 broken:2
-Found 5 broken railway nodes (A=3 B=2 C=2 D=3)
+   1,1 count:1 broken:0
+   1,2 count:2 broken:1
+   2,2 count:6 broken:0
+Found 1 broken railway nodes (A=1 B=0 C=0 D=1)
 Found 0 railway nodes marked as buffer_stop
-Found 0 bidirectional rail edges
+Found 4 bidirectional rail edges
 Removing empty nodes... done (0ms).
    0 nodes removed.
 Computing turning directions... done (0ms).
@@ -25,12 +27,13 @@ Computing approached edges... done (0ms).
 Computing approaching lanes... done (0ms).
 Dividing of lanes on approached lanes... done (0ms).
 Processing turnarounds... done (0ms).
-Rechecking of lane endings... done (0ms).
+Rechecking of lane endings... 
+done (0ms).
 Computing traffic light control information... done (0ms).
 Computing node logics... done (0ms).
 Computing traffic light logics... done (0ms).
  0 traffic light(s) computed.
-Building inner edges... done (0ms).
+Building inner edges... done (1ms).
 -----------------------------------------------------
 Summary:
  Node type statistics:
