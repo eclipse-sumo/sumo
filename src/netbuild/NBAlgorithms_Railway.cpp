@@ -75,7 +75,7 @@ NBRailwayTopologyAnalyzer::repairTopology(NBNetBuilder& nb) {
 
 
 void 
-NBRailwayTopologyAnalyzer::getRailEdges(NBNode* node, 
+NBRailwayTopologyAnalyzer::getRailEdges(const NBNode* node, 
         EdgeVector& inEdges, EdgeVector& outEdges) {
     for (NBEdge* e : node->getIncomingEdges()) {
         if ((e->getPermissions() & SVC_RAIL_CLASSES) != 0) {
@@ -303,11 +303,13 @@ bool
 NBRailwayTopologyAnalyzer::allBroken(const NBNode* node, NBEdge* candOut, const EdgeVector& in, const EdgeVector& out) {
     for (NBEdge* e : in) {
         if (e != candOut && isStraight(node, e, candOut)) {
+            if (gDebugFlag1) std::cout << " isStraight e=" << e->getID() << " candOut=" << candOut->getID() << "\n";
             return false;
         }
     }
     for (NBEdge* e : out) {
         if (e != candOut && !isStraight(node, e, candOut)) {
+            if (gDebugFlag1) std::cout << " isSharp e=" << e->getID() << " candOut=" << candOut->getID() << "\n";
             return false;
         }
     }
@@ -562,8 +564,82 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForBufferStops(NBNetBuilder& nb) {
     }
 }
 
+NBEdge* 
+NBRailwayTopologyAnalyzer::isBidiSwitch(const NBNode* n) {
+    EdgeVector inRail, outRail;
+    getRailEdges(n, inRail, outRail);
+    if (inRail.size() == 2 && outRail.size() == 1 && isStraight(n, inRail.front(), inRail.back())) {
+        if (isStraight(n, inRail.front(), outRail.front())) {
+            return inRail.front();
+        } else if (isStraight(n, inRail.back(), outRail.front())) {
+            return inRail.back();
+        }
+    }
+    if (inRail.size() == 1 && outRail.size() == 2 && isStraight(n, outRail.front(), outRail.back())) {
+        if (isStraight(n, outRail.front(), inRail.front())) {
+            return outRail.front();
+        } else if (isStraight(n, outRail.back(), inRail.front())) {
+            return outRail.back();
+        }
+    }
+    return nullptr;
+}
+
+
 void
 NBRailwayTopologyAnalyzer::addBidiEdgesBetweenSwitches(NBNetBuilder& nb) {
+    std::set<NBNode*> brokenNodes = getBrokenRailNodes(nb);
+    for (NBNode* n : brokenNodes) {
+        NBEdge* edge = isBidiSwitch(n);
+        if (edge != nullptr) {
+            std::vector<NBNode*> nodeSeq;
+            EdgeVector edgeSeq;
+            NBNode* prev = n;
+            nodeSeq.push_back(prev);
+            edgeSeq.push_back(edge);
+            bool forward = true;
+            //std::cout << "Looking for potential bidi-edge sequence starting at junction '" << n->getID() << "' with edge '" + edge->getID() << "'\n";
+            // find a suitable end point for adding bidi edges
+            while (forward) {
+                NBNode* next = edge->getFromNode() == prev ? edge->getToNode() : edge->getFromNode();
+                EdgeVector allRail;
+                getRailEdges(next, allRail, allRail);
+                if (allRail.size() == 2 && isStraight(next, allRail.front(), allRail.back())) {
+                    prev = next;
+                    edge = allRail.front() == edge ? allRail.back() : allRail.front();
+                    nodeSeq.push_back(prev);
+                    edgeSeq.push_back(edge);
+                } else {
+                    forward = false;
+                    EdgeVector inRail2, outRail2;
+                    getRailEdges(next, inRail2, outRail2);
+                    if (isBidiSwitch(next) == edge) {
+                        // suitable switch found as endpoint, add reverse edges
+                        WRITE_MESSAGE("Adding " + toString(edgeSeq.size()) 
+                                + " bidi-edges between switches junction '" + n->getID() + "' and junction '" + next->getID() + "'");
+                        for (NBEdge* e : edgeSeq) {
+                            NBEdge* e2 = new NBEdge("-" + e->getID(), e->getToNode(), e->getFromNode(), 
+                                    e, e->getGeometry().reverse());
+                            if (!nb.getEdgeCont().insert(e2)) {
+                                WRITE_WARNING("Could not add bidi-edge '" + e2->getID() + "'.");
+                                delete e2;
+                            } else {
+                                updateTurns(e);
+                            }
+                        }
+                    } else {
+                        //std::cout << " sequence ended at junction " << next->getID() 
+                        //    << " in=" << inRail2.size() 
+                        //    << " out=" << outRail2.size() 
+                        //    << " bidiSwitch=" << Named::getIDSecure(isBidiSwitch(next))
+                        //    << "\n";
+                    }
+                    
+                }
+            }
+
+        }
+    }
 }
 
 void 

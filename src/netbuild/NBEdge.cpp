@@ -645,11 +645,12 @@ NBEdge::resetNodeBorder(const NBNode* node) {
 
 
 bool 
-NBEdge::isBidiRail() {
+NBEdge::isBidiRail() const {
     return (isRailway(getPermissions()) 
             && myLaneSpreadFunction == LANESPREAD_CENTER 
             && myPossibleTurnDestination != 0 
             && myPossibleTurnDestination->getLaneSpreadFunction() == LANESPREAD_CENTER
+            && isRailway(myPossibleTurnDestination->getPermissions())
             && myPossibleTurnDestination->getGeometry().reverse() == getGeometry());
 }
 
@@ -2807,6 +2808,11 @@ NBEdge::expandableBy(NBEdge* possContinuation, std::string& reason) const {
             reason = "lane " + toString(i) + " width";
             return false;
         }
+    }
+    // conserve bidi-rails
+    if (isBidiRail() != possContinuation->isBidiRail()) {
+        reason = "bidi-rail";
+        return false;
     }
 
     // the vehicle class constraints, too
