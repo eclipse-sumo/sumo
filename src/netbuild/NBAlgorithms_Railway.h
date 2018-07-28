@@ -76,6 +76,9 @@ private:
     /// @brief add bidi-edges to connect buffers stops in both directions
     static void addBidiEdgesForBufferStops(NBNetBuilder& nb);
 
+    /// @brief add bidi-edges to connect switches that are approached in both directions
+    static void addBidiEdgesBetweenSwitches(NBNetBuilder& nb);
+
     /// recompute turning directions for both nodes of the given edge
     static void updateTurns(NBEdge* edge);
 };

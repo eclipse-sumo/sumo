@@ -67,9 +67,8 @@ void
 NBRailwayTopologyAnalyzer::repairTopology(NBNetBuilder& nb) {
     extendBidiEdges(nb);
     reverseEdges(nb);
-    //std::cout << " numBrokenNodes2=" << brokenNodes.size() << " set2=" << toString(brokenNodes) << "\n";
     addBidiEdgesForBufferStops(nb);
-    //addBidiEdgesBetweenSwitches(nb);
+    addBidiEdgesBetweenSwitches(nb);
     //addBidiEdgesForStops(nb);
     //std::cout << " numBrokenNodes3=" << brokenNodes.size() << " set3=" << toString(brokenNodes) << "\n";
 }
@@ -402,7 +401,6 @@ void
 NBRailwayTopologyAnalyzer::reverseEdges(NBNetBuilder& nb) {
     std::set<NBNode*> brokenNodes = getBrokenRailNodes(nb);
     // find reversible edge sequences between broken nodes
-    // XXX also search backwards to get sequences that start at the network boundary
     std::vector<EdgeVector> seqsToReverse;
     for (NBNode* n : brokenNodes) {
         EdgeVector inRail, outRail;
@@ -441,10 +439,9 @@ NBRailwayTopologyAnalyzer::reverseEdges(NBNetBuilder& nb) {
                 } else {
                     if (outRail2.size() == 0) {
                         // stop at network border
-                        seqsToReverse.push_back(seq);
                         forward = false;
 #ifdef DEBUG_SEQSTOREVERSE
-                    if (n->getID() == DEBUGNODEID) std::cout << " abort at n2=" << n2->getID() << " (border)\n";
+                        if (n->getID() == DEBUGNODEID) std::cout << " abort at n2=" << n2->getID() << " (border)\n";
 #endif
                     } else if (outRail2.size() > 1 || inRail2.size() > 1) {
                         // stop at switch
@@ -565,6 +562,9 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForBufferStops(NBNetBuilder& nb) {
     }
 }
 
+void
+NBRailwayTopologyAnalyzer::addBidiEdgesBetweenSwitches(NBNetBuilder& nb) {
+}
 
 void 
 NBRailwayTopologyAnalyzer::updateTurns(NBEdge* edge) {
