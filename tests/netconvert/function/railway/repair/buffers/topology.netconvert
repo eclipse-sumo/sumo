@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sat Jul 28 11:58:51 2018 by Eclipse SUMO netconvert Version 068ec53
+<!-- generated on Sat Jul 28 12:47:48 2018 by Eclipse SUMO netconvert Version ac50bb6
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -39,14 +39,19 @@ SPDX-License-Identifier: EPL-2.0
     <railNodeType in="0" out="1">
         <node id="gneJ12"/>
         <node id="gneJ18"/>
-        <node id="gneJ25"/>
-        <node id="gneJ26"/>
         <node id="gneJ28"/>
         <node id="gneJ29"/>
         <node id="gneJ30"/>
-        <node id="gneJ37"/>
         <node id="gneJ7"/>
         <node id="gneJ8"/>
+    </railNodeType>
+    <railNodeType in="0" out="3">
+        <node id="gneJ6" broken="a"/>
+    </railNodeType>
+    <railNodeType in="1" out="0">
+        <node id="gneJ25"/>
+        <node id="gneJ26"/>
+        <node id="gneJ37"/>
     </railNodeType>
     <railNodeType in="1" out="1">
         <node id="buff1" buffer_stop="true"/>
@@ -58,16 +63,16 @@ SPDX-License-Identifier: EPL-2.0
         <node id="gneJ31"/>
         <node id="gneJ32"/>
         <node id="gneJ33"/>
+        <node id="gneJ34"/>
         <node id="gneJ35"/>
         <node id="gneJ36"/>
         <node id="gneJ4"/>
     </railNodeType>
-    <railNodeType in="1" out="2">
-        <node id="gneJ3" broken="ad"/>
-    </railNodeType>
     <railNodeType in="2" out="0">
         <node id="gneJ10" broken="b"/>
-        <node id="gneJ34" broken="b"/>
+    </railNodeType>
+    <railNodeType in="2" out="1">
+        <node id="gneJ3" broken="bc"/>
     </railNodeType>
     <railNodeType in="2" out="2">
         <node id="gneJ1"/>
@@ -79,7 +84,6 @@ SPDX-License-Identifier: EPL-2.0
     </railNodeType>
     <railNodeType in="3" out="0">
         <node id="gneJ5" broken="b"/>
-        <node id="gneJ6" broken="b"/>
     </railNodeType>
     <railNodeType in="3" out="2">
         <node id="gneJ20"/>
