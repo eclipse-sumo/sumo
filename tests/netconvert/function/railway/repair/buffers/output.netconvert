@@ -3,9 +3,8 @@ Parsing sumo-net from 'input_net.net.xml'... done.
    34 nodes loaded.
    31 edges loaded.
 Removing self-loops... done (0ms).
-Found 8 reversible edge sequences between broken rail nodes
-  seq=gneE16
-  seq=gneE19
+Addeded 3 bidi-edges as extension of existing bidi edges
+Found 6 reversible edge sequences between broken rail nodes
   seq=gneE20
   seq=gneE21
   seq=gneE5
@@ -14,33 +13,29 @@ Found 8 reversible edge sequences between broken rail nodes
   seq=gneE28 gneE29 gneE30
  added 2 edges between buffer stop junction 'buff1' and junction 'gneJ2'
  added 2 edges between buffer stop junction 'buff2' and junction 'gneJ9'
- added 1 edges between buffer stop junction 'buff3' and junction 'gneJ23'
- added 5 edges to connect 3 buffer stops in both directions.
-Found 36 railway edges and 34 railway nodes (0 signals).
+ added 4 edges to connect 2 buffer stops in both directions.
+Found 38 railway edges and 34 railway nodes (0 signals).
    0,1 count:10 broken:0
-   0,3 count:1 broken:1
-   1,0 count:1 broken:0
-   1,1 count:11 broken:0
+   1,1 count:12 broken:0
    1,2 count:1 broken:1
    2,0 count:2 broken:2
-   2,1 count:1 broken:0
-   2,2 count:4 broken:2
+   2,2 count:6 broken:2
    3,0 count:2 broken:2
-   3,1 count:1 broken:1
-Found 9 broken railway nodes (A=2 B=5 C=5 D=5)
+   3,2 count:1 broken:0
+Found 7 broken railway nodes (A=1 B=4 C=5 D=6)
 Found 3 railway nodes marked as buffer_stop
-Found 5 bidirectional rail edges
+Found 8 bidirectional rail edges
 Removing empty nodes... done (0ms).
    0 nodes removed.
 Computing turning directions... done (0ms).
 Assigning nodes to traffic lights... done (0ms).
-Sorting nodes' edges... done (1ms).
-Computing node shapes... done (0ms).
-Computing edge shapes... done (1ms).
+Sorting nodes' edges... done (0ms).
+Computing node shapes... done (1ms).
+Computing edge shapes... done (0ms).
 Computing node types... done (0ms).
 Computing priorities... done (0ms).
 Computing approached edges... done (0ms).
-Computing approaching lanes... done (0ms).
+Computing approaching lanes... done (1ms).
 Dividing of lanes on approached lanes... done (0ms).
 Processing turnarounds... done (0ms).
 Rechecking of lane endings... 
@@ -54,13 +49,13 @@ Building inner edges... done (0ms).
 Summary:
  Node type statistics:
   Unregulated junctions       : 0
-  Dead-end junctions          : 23
-  Priority junctions          : 11
+  Dead-end junctions          : 22
+  Priority junctions          : 12
   Right-before-left junctions : 0
  Network boundaries:
   Original boundary  : -141.99,-267.85,409.02,87.76
   Applied offset     : 0.00,0.00
   Converted boundary : -141.99,-267.85,409.02,87.76
 -----------------------------------------------------
-Writing network... done (3ms).
+Writing network... done (4ms).
 Success.

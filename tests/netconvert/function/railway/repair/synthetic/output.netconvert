@@ -3,27 +3,26 @@ Parsing sumo-net from 'input_net.net.xml'... done.
    34 nodes loaded.
    31 edges loaded.
 Removing self-loops... done (0ms).
-Found 8 reversible edge sequences between broken rail nodes
-  seq=gneE16
-  seq=gneE19
+Addeded 3 bidi-edges as extension of existing bidi edges
+Found 6 reversible edge sequences between broken rail nodes
   seq=gneE20
   seq=gneE21
   seq=gneE5
   seq=gneE27 gneE26
   seq=gneE11 buffer2
   seq=gneE28 gneE29 gneE30
-Found 31 railway edges and 34 railway nodes (0 signals).
+Found 34 railway edges and 34 railway nodes (0 signals).
    0,1 count:12 broken:0
-   0,3 count:1 broken:1
-   1,0 count:2 broken:0
-   1,1 count:10 broken:0
+   1,1 count:12 broken:0
    1,2 count:1 broken:1
    2,0 count:2 broken:2
-   2,1 count:4 broken:1
+   2,1 count:2 broken:1
+   2,2 count:2 broken:0
    3,0 count:2 broken:2
-Found 7 broken railway nodes (A=2 B=5 C=1 D=1)
+   3,2 count:1 broken:0
+Found 6 broken railway nodes (A=1 B=5 C=3 D=3)
 Found 0 railway nodes marked as buffer_stop
-Found 0 bidirectional rail edges
+Found 4 bidirectional rail edges
 Removing empty nodes... done (0ms).
    0 nodes removed.
 Computing turning directions... done (0ms).
@@ -37,9 +36,10 @@ Computing approached edges... done (0ms).
 Computing approaching lanes... done (0ms).
 Dividing of lanes on approached lanes... done (0ms).
 Processing turnarounds... done (0ms).
-Rechecking of lane endings... done (0ms).
+Rechecking of lane endings... 
+done (0ms).
 Computing traffic light control information... done (0ms).
-Computing node logics... done (0ms).
+Computing node logics... done (1ms).
 Computing traffic light logics... done (0ms).
  0 traffic light(s) computed.
 Building inner edges... done (0ms).
@@ -47,13 +47,13 @@ Building inner edges... done (0ms).
 Summary:
  Node type statistics:
   Unregulated junctions       : 0
-  Dead-end junctions          : 24
-  Priority junctions          : 10
+  Dead-end junctions          : 23
+  Priority junctions          : 11
   Right-before-left junctions : 0
  Network boundaries:
   Original boundary  : -141.99,-267.85,409.02,87.76
   Applied offset     : 0.00,0.00
   Converted boundary : -141.99,-267.85,409.02,87.76
 -----------------------------------------------------
-Writing network... done (3ms).
+Writing network... done (4ms).
 Success.

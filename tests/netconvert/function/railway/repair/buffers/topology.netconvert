@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jul 27 22:08:09 2018 by Eclipse SUMO netconvert Version 3bff597
+<!-- generated on Sat Jul 28 11:58:51 2018 by Eclipse SUMO netconvert Version 068ec53
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -48,18 +48,13 @@ SPDX-License-Identifier: EPL-2.0
         <node id="gneJ7"/>
         <node id="gneJ8"/>
     </railNodeType>
-    <railNodeType in="0" out="3">
-        <node id="gneJ22" broken="a"/>
-    </railNodeType>
-    <railNodeType in="1" out="0">
-        <node id="gneJ21"/>
-    </railNodeType>
     <railNodeType in="1" out="1">
         <node id="buff1" buffer_stop="true"/>
         <node id="buff2" buffer_stop="true"/>
         <node id="buff3" buffer_stop="true"/>
         <node id="gneJ11"/>
         <node id="gneJ19"/>
+        <node id="gneJ21"/>
         <node id="gneJ31"/>
         <node id="gneJ32"/>
         <node id="gneJ33"/>
@@ -74,25 +69,27 @@ SPDX-License-Identifier: EPL-2.0
         <node id="gneJ10" broken="b"/>
         <node id="gneJ34" broken="b"/>
     </railNodeType>
-    <railNodeType in="2" out="1">
-        <node id="gneJ20"/>
-    </railNodeType>
     <railNodeType in="2" out="2">
         <node id="gneJ1"/>
         <node id="gneJ14"/>
         <node id="gneJ2" broken="c"/>
+        <node id="gneJ22"/>
+        <node id="gneJ23"/>
         <node id="gneJ9" broken="d"/>
     </railNodeType>
     <railNodeType in="3" out="0">
         <node id="gneJ5" broken="b"/>
         <node id="gneJ6" broken="b"/>
     </railNodeType>
-    <railNodeType in="3" out="1">
-        <node id="gneJ23" broken="bc"/>
+    <railNodeType in="3" out="2">
+        <node id="gneJ20"/>
     </railNodeType>
     <bidiEdge id="buffer3" bidi="-buffer3"/>
     <bidiEdge id="buffer1" bidi="-buffer1"/>
     <bidiEdge id="buffer2" bidi="-buffer2"/>
     <bidiEdge id="gneE1" bidi="-gneE1"/>
     <bidiEdge id="gneE11" bidi="-gneE11"/>
+    <bidiEdge id="gneE15" bidi="-gneE15"/>
+    <bidiEdge id="gneE16" bidi="-gneE16"/>
+    <bidiEdge id="gneE17" bidi="gneE19"/>
 </railwayTopology>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jul 27 21:51:08 2018 by Eclipse SUMO netconvert Version eda0dd5
+<!-- generated on Sat Jul 28 11:56:36 2018 by Eclipse SUMO netconvert Version 068ec53
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -50,18 +50,13 @@ SPDX-License-Identifier: EPL-2.0
         <node id="gneJ7"/>
         <node id="gneJ8"/>
     </railNodeType>
-    <railNodeType in="0" out="3">
-        <node id="gneJ22" broken="a"/>
-    </railNodeType>
-    <railNodeType in="1" out="0">
-        <node id="gneJ21"/>
-        <node id="gneJ24"/>
-    </railNodeType>
     <railNodeType in="1" out="1">
         <node id="gneJ1"/>
         <node id="gneJ11"/>
         <node id="gneJ14"/>
         <node id="gneJ19"/>
+        <node id="gneJ21"/>
+        <node id="gneJ24"/>
         <node id="gneJ31"/>
         <node id="gneJ32"/>
         <node id="gneJ33"/>
@@ -78,12 +73,21 @@ SPDX-License-Identifier: EPL-2.0
     </railNodeType>
     <railNodeType in="2" out="1">
         <node id="gneJ2" broken="bc"/>
-        <node id="gneJ20"/>
-        <node id="gneJ23"/>
         <node id="gneJ9"/>
+    </railNodeType>
+    <railNodeType in="2" out="2">
+        <node id="gneJ22"/>
+        <node id="gneJ23"/>
     </railNodeType>
     <railNodeType in="3" out="0">
         <node id="gneJ5" broken="b"/>
         <node id="gneJ6" broken="b"/>
     </railNodeType>
+    <railNodeType in="3" out="2">
+        <node id="gneJ20"/>
+    </railNodeType>
+    <bidiEdge id="buffer3" bidi="-buffer3"/>
+    <bidiEdge id="gneE15" bidi="-gneE15"/>
+    <bidiEdge id="gneE16" bidi="-gneE16"/>
+    <bidiEdge id="gneE17" bidi="gneE19"/>
 </railwayTopology>
