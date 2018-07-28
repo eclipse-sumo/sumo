@@ -38,7 +38,7 @@
 #include "NBAlgorithms_Railway.h"
 
 //#define DEBUG_SEQSTOREVERSE
-#define DEBUGNODEID  "1085513902"
+#define DEBUGNODEID  "gneJ34"
 #define DEBUGNODEID2  "28842974"
 #define DEBUGEDGEID  "22820560#0"
 #define DEBUGCOND(obj) ((obj != 0 && (obj)->getID() == DEBUGNODEID))
@@ -301,6 +301,22 @@ NBRailwayTopologyAnalyzer::hasStraightPair(const NBNode* node, const EdgeVector&
 
 
 bool 
+NBRailwayTopologyAnalyzer::allBroken(const NBNode* node, NBEdge* candOut, const EdgeVector& in, const EdgeVector& out) {
+    for (NBEdge* e : in) {
+        if (e != candOut && isStraight(node, e, candOut)) {
+            return false;
+        }
+    }
+    for (NBEdge* e : out) {
+        if (e != candOut && !isStraight(node, e, candOut)) {
+            return false;
+        }
+    }
+    return true;
+}
+
+
+bool 
 NBRailwayTopologyAnalyzer::allSharp(const NBNode* node, const EdgeVector& in, const EdgeVector& out) {
     for (NBEdge* e1 : in) {
         for (NBEdge* e2 : out) {
@@ -394,11 +410,14 @@ NBRailwayTopologyAnalyzer::reverseEdges(NBNetBuilder& nb) {
         for (NBEdge* start : outRail) {
             EdgeVector tmp;
             tmp.push_back(start);
-            if (!allSharp(n, inRail, tmp) 
+            // only reverse edges where the node would be unbroken afterwards
+            if (!allBroken(n, start, inRail, outRail) 
                     || (inRail.size() == 1 && outRail.size() == 1)) {
+#ifdef DEBUG_SEQSTOREVERSE
+                if (n->getID() == DEBUGNODEID) std::cout << " abort at start n=" << n->getID() << " (not all broken)\n";
+#endif
                 continue;
             }
-
             //std::cout << " get sequences from " << start->getID() << "\n";
             bool forward = true;
             EdgeVector seq;
@@ -411,12 +430,11 @@ NBRailwayTopologyAnalyzer::reverseEdges(NBNetBuilder& nb) {
                 if (brokenNodes.count(n2) != 0) {
                     EdgeVector tmp2;
                     tmp2.push_back(start);
-                    if ((outRail2.size() > 0 && allSharp(n2, tmp2, outRail2))
-                            || hasStraightPair(n2, tmp2, inRail2)) {
+                    if (allBroken(n2, start, outRail2, inRail2)) {
                         seqsToReverse.push_back(seq);
                     } else {
 #ifdef DEBUG_SEQSTOREVERSE
-                        if (n->getID() == DEBUGNODEID) std::cout << " abort at n2=" << n2->getID() << " (not all sharp)\n";
+                        if (n->getID() == DEBUGNODEID) std::cout << " abort at n2=" << n2->getID() << " (not all broken)\n";
 #endif
                     }
                     forward = false;
@@ -442,17 +460,31 @@ NBRailwayTopologyAnalyzer::reverseEdges(NBNetBuilder& nb) {
         }
     }
     // sort by sequence length
-    std::sort(seqsToReverse.begin(), seqsToReverse.end(), 
-            [](const EdgeVector& a, const EdgeVector& b){ return a.size() < b.size(); });
     if (seqsToReverse.size() > 0) {
         WRITE_MESSAGE("Found " + toString(seqsToReverse.size()) + " reversible edge sequences between broken rail nodes");
     }
+    std::sort(seqsToReverse.begin(), seqsToReverse.end(), 
+            [](const EdgeVector& a, const EdgeVector& b){ return a.size() < b.size(); });
+    int numReversed = 0;
+    std::set<NBNode*> affectedEndpoints;
     for (EdgeVector& seq : seqsToReverse) {
-        WRITE_MESSAGE("  seq=" + toString(seq));
-        for (NBEdge* e : seq) {
-            e->reinitNodes(e->getToNode(), e->getFromNode());
-            e->setGeometry(e->getGeometry().reverse());
+        NBNode* seqStart = seq.front()->getFromNode();
+        NBNode* seqEnd = seq.back()->getToNode();
+        // avoid reversing sequenes on both sides of a broken node
+        if (affectedEndpoints.count(seqStart) == 0
+                && affectedEndpoints.count(seqEnd) == 0) {
+            affectedEndpoints.insert(seqStart);
+            affectedEndpoints.insert(seqEnd);
+            WRITE_MESSAGE("  reversed seq=" + toString(seq));
+            for (NBEdge* e : seq) {
+                e->reinitNodes(e->getToNode(), e->getFromNode());
+                e->setGeometry(e->getGeometry().reverse());
+            }
+            numReversed++;
         }
+    }
+    if (numReversed > 0) {
+        WRITE_MESSAGE("Reversed " + toString(numReversed) + " sequences");
     }
 }
 

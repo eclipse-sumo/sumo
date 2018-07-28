@@ -60,8 +60,9 @@ private:
     /// @brief filter out rail edges among all edges of a the given node
     static void getRailEdges(NBNode* node, EdgeVector& inEdges, EdgeVector& outEdges);
 
-    static bool hasStraightPair(const NBNode* node, const EdgeVector& edges, const EdgeVector& edges2); 
     static bool isStraight(const NBNode* node, NBEdge* e1, NBEdge* e2);
+    static bool hasStraightPair(const NBNode* node, const EdgeVector& edges, const EdgeVector& edges2); 
+    static bool allBroken(const NBNode* node, NBEdge* candOut, const EdgeVector& in, const EdgeVector& out);
     static bool allSharp(const NBNode* node, const EdgeVector& in, const EdgeVector& out);
     static bool allBidi(const EdgeVector& edges);
 
