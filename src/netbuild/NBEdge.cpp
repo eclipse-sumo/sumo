@@ -40,6 +40,7 @@
 #include "NBTypeCont.h"
 #include <utils/geom/GeomHelper.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/common/TplConvert.h>
 #include <utils/common/StringUtils.h>
 #include <utils/common/ToString.h>
 #include <utils/common/UtilExceptions.h>
@@ -3532,6 +3533,12 @@ NBEdge::debugPrintConnections(bool outgoing, bool incoming) const {
             }
         }
     }
+}
+
+
+int
+NBEdge::getLaneIndexFromLaneID(const std::string laneID) {
+    return TplConvert::_2int(laneID.substr(laneID.rfind("_") + 1).c_str());
 }
 
 /****************************************************************************/

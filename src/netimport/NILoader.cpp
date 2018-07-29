@@ -47,6 +47,7 @@
 #include <netimport/NIXMLNodesHandler.h>
 #include <netimport/NIXMLTrafficLightsHandler.h>
 #include <netimport/NIXMLTypesHandler.h>
+#include <netimport/NIXMLPTHandler.h>
 #include <netimport/NIXMLConnectionsHandler.h>
 #include <netimport/NIImporter_DlrNavteq.h>
 #include <netimport/NIImporter_VISUM.h>
@@ -168,6 +169,20 @@ NILoader::loadXML(OptionsCont& oc) {
     loadXMLType(new NIXMLTrafficLightsHandler(
                     myNetBuilder.getTLLogicCont(), myNetBuilder.getEdgeCont()),
                 oc.getStringVector("tllogic-files"), "traffic lights");
+
+    // load public transport stops (used for restricting edge removal and as input when repairing railroad topology)
+    loadXMLType(new NIXMLPTHandler(
+                myNetBuilder.getEdgeCont(),
+                myNetBuilder.getPTStopCont(),
+                myNetBuilder.getPTLineCont()),
+                oc.getStringVector("ptstop-files"), "public transport stops");
+
+    // load public transport lines (used as input when repairing railroad topology)
+    loadXMLType(new NIXMLPTHandler(
+                myNetBuilder.getEdgeCont(),
+                myNetBuilder.getPTStopCont(),
+                myNetBuilder.getPTLineCont()),
+                oc.getStringVector("ptline-files"), "public transport lines");
 }
 
 void

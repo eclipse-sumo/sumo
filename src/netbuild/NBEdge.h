@@ -1257,6 +1257,7 @@ public:
         return edge->getLength() / edge->getSpeed();
     }
 
+    static int getLaneIndexFromLaneID(const std::string laneID);
 
     /// @brief sets the index of the edge in the list of all network edges
     void setNumericalID(int index) {

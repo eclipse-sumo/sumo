@@ -81,6 +81,11 @@ NIFrame::fillOptions() {
     oc.addSynonyme("type-files", "types");
     oc.addDescription("type-files", "Input", "Read XML-type defs from FILE");
 
+    oc.doRegister("ptstop-files", new Option_FileName());
+    oc.addDescription("ptstop-files", "Output", "Reads public transport stops from FILE");
+    oc.doRegister("ptline-files", new Option_FileName());
+    oc.addDescription("ptline-files", "Output", "Reads public transport lines from FILE");
+
     oc.doRegister("shapefile-prefix", new Option_FileName());
     oc.addSynonyme("shapefile-prefix", "shapefile");
     oc.addSynonyme("shapefile-prefix", "arcview", true);

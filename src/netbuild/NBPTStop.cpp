@@ -32,8 +32,7 @@
 // method definitions
 // ===========================================================================
 NBPTStop::NBPTStop(std::string ptStopId, Position position, std::string edgeId, std::string origEdgeId, double length,
-                   std::string name, SVCPermissions svcPermissions)
-    :
+                   std::string name, SVCPermissions svcPermissions) :
     myPTStopId(ptStopId),
     myPosition(position),
     myEdgeId(edgeId),
