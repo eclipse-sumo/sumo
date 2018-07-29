@@ -28,8 +28,8 @@ copy_test_path:input_plain.tll.xml
 copy_test_path:heightmap.tif
 copy_test_path:edge_ids.txt
 copy_test_path:data
-copy_test_path:additional.xml
-copy_test_path:ptlines.xml
+copy_test_path:input_ptstops.xml
+copy_test_path:input_ptlines.xml
 copy_test_path:osmNetconvertPedestrians.typ.xml
 copy_test_path:osmNetconvert.typ.xml
 copy_test_path:osmNetconvertUrbanDe.typ.xml

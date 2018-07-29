@@ -5,3 +5,6 @@ buffers
 
 # add bidirectional edges between switches
 switches
+
+# add bidirectional edges at disconnected stops
+stops

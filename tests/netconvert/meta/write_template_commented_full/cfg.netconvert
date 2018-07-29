@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 07/23/18 02:36:37 by Eclipse SUMO netconvert Version cca791664f
+<!-- generated on Sun Jul 29 23:28:06 2018 by Eclipse SUMO netconvert Version 1e6f500
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -93,6 +93,12 @@
         <!-- Write time values as hour:minute:second or day:hour:minute:second rathern than seconds -->
         <human-readable-time value="false" synonymes="H" type="BOOL"/>
 
+        <!-- Reads public transport stops from FILE -->
+        <ptstop-files value="" type="FILE"/>
+
+        <!-- Reads public transport lines from FILE -->
+        <ptline-files value="" type="FILE"/>
+
         <!-- The generated net will be written to FILE -->
         <output-file value="" synonymes="o output sumo-output" type="FILE"/>
 
@@ -154,7 +160,7 @@
         <railway.topology.output value="" type="FILE"/>
 
         <!-- Builds parameterized curves whenever the angular change  between straight segments exceeds FLOAT degrees -->
-        <opendrive-output.straight-threshold value="1e-008" type="FLOAT"/>
+        <opendrive-output.straight-threshold value="1e-08" type="FLOAT"/>
 
     </output>
 
