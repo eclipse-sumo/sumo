@@ -1613,8 +1613,6 @@ GNENet::replaceJunctionByGeometry(GNEJunction* junction, GNEUndoList* undoList) 
         for (auto con : connections) {
             undoList->add(new GNEChange_Connection(begin, con, false, false), true);
         }
-        // replace incoming edge
-        replaceIncomingEdge(continuation, begin, undoList);
         // fix shape of replaced edge
         PositionVector newShape = begin->getNBEdge()->getInnerGeometry();
         if (begin->getNBEdge()->hasDefaultGeometryEndpointAtNode(begin->getNBEdge()->getToNode())) {
@@ -1627,6 +1625,9 @@ GNENet::replaceJunctionByGeometry(GNEJunction* junction, GNEUndoList* undoList) 
         } else {
             newShape.push_back_noDoublePos(continuation->getNBEdge()->getGeometry()[0]);
         }
+        // replace incoming edge
+        replaceIncomingEdge(continuation, begin, undoList);
+
         newShape.append(continuation->getNBEdge()->getInnerGeometry());
         begin->setAttribute(GNE_ATTR_SHAPE_END, continuation->getAttribute(GNE_ATTR_SHAPE_END), undoList);
         begin->setAttribute(SUMO_ATTR_SHAPE, toString(newShape), undoList);
