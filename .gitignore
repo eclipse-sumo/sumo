@@ -20,6 +20,7 @@
 # build dir 
 /cmake-build*
 /build/cmake-build*
+/build/cmake-codeblocks
 # bin dir
 /bin/TraCITestClient*
 /bin/activitygen*
