@@ -85,14 +85,14 @@ void
 GNEAdditionalHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
     // Obtain tag of element
     SumoXMLTag tag = static_cast<SumoXMLTag>(element);
+    // push element int stack
+    myParentElements.insertElement(tag);
     // check if we're parsing a generic parameter
     if(tag == SUMO_TAG_PARAM) {
         parseGenericParameter(attrs);
     } else if(tag != SUMO_TAG_NOTHING) {
         // reset last inserted additional
         myLastInsertedAdditional = nullptr;
-        // push element int stack
-        myParentElements.insertElement(tag);
         // Call parse and build depending of tag
         switch (tag) {
             case SUMO_TAG_BUS_STOP:
@@ -391,15 +391,32 @@ void
 GNEAdditionalHandler::parseGenericParameter(const SUMOSAXAttributes& attrs) {
     if (myLastInsertedAdditional != 0) {
         bool ok = true;
-        const std::string key = attrs.get<std::string>(SUMO_ATTR_KEY, 0, ok);
+        std::string key;
+        if(attrs.hasAttribute(SUMO_ATTR_KEY)) {
+            // obtain key
+            key = attrs.get<std::string>(SUMO_ATTR_KEY, 0, ok);
+            if (key.empty()) {
+                WRITE_WARNING("Error parsing key from generic parameter. Key cannot be empty");
+                ok = false;
+            }
+            if(!GNEAttributeCarrier::isValidID(key)) {
+                WRITE_WARNING("Error parsing key from generic parameter. Key contains invalid characters");
+                ok = false;
+            }
+        } else {
+            WRITE_WARNING("Error parsing key from generic parameter. Key doesn't exist");
+            ok = false;
+        }
         // circumventing empty string test
         const std::string val = attrs.hasAttribute(SUMO_ATTR_VALUE) ? attrs.getString(SUMO_ATTR_VALUE) : "";
+        if(!GNEAttributeCarrier::isValidName(val)) {
+            WRITE_WARNING("Error parsing value from generic parameter. Value contains invalid characters");
+            ok = false;
+        }
         // set parameter in last inserted additional
         if(ok) {
             WRITE_WARNING("Inserting generic parameter '" + key + "|" + val + "' into additional " + toString(myLastInsertedAdditional->getTag()) + ".");
             myLastInsertedAdditional->setParameter(key, val);
-        } else {
-            WRITE_WARNING("Error parsing key value from generic parameter.");
         }
     }
 }
