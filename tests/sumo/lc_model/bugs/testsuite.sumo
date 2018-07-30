@@ -10,3 +10,6 @@ ticket3360
 # overtaking over two lanes
 ticket3377
 ticket4108
+
+# Copied from speedGain/default, added option --lanechangeDuration=2.5
+ticket4364
