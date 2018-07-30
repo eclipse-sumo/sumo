@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sun Jul 29 23:28:06 2018 by Eclipse SUMO netconvert Version 1e6f500
+<!-- generated on Mon Jul 30 16:32:00 2018 by Eclipse SUMO netconvert Version 2834c9e
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -578,6 +578,9 @@
 
         <!-- Repair topology of the railway network -->
         <railway.topology.repair value="false" type="BOOL"/>
+
+        <!-- Make all rails usable in both direction -->
+        <railway.topology.all-bidi value="false" type="BOOL"/>
 
         <!-- Turn off normalizing node positions -->
         <offset.disable-normalization value="false" synonymes="disable-normalize-node-positions" type="BOOL"/>

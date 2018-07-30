@@ -75,6 +75,42 @@ NBRailwayTopologyAnalyzer::repairTopology(NBNetBuilder& nb) {
 
 
 void 
+NBRailwayTopologyAnalyzer::makeAllBidi(NBNetBuilder& nb) {
+    int numRailEdges = 0;
+    int numBidiEdges = 0;
+    int numNotCenterEdges = 0;
+    int numAddedBidiEdges = 0;
+    for (NBEdge* edge : nb.getEdgeCont().getAllEdges()) {
+        if ((edge->getPermissions() & SVC_RAIL_CLASSES) != 0) {
+            numRailEdges++;
+            // rebuild connections if given from an earlier network
+            edge->invalidateConnections(true);
+            if (!edge->isBidiRail()) {
+                if (edge->getLaneSpreadFunction() == LANESPREAD_CENTER) {
+                    NBEdge* e2 = new NBEdge("-" + edge->getID(), edge->getToNode(), edge->getFromNode(), 
+                            edge, edge->getGeometry().reverse());
+                    if (!nb.getEdgeCont().insert(e2)) {
+                        WRITE_WARNING("Could not add bidi-edge '" + e2->getID() + "'.");
+                        delete e2;
+                    } else {
+                        numAddedBidiEdges++;
+                    }
+                } else {
+                    numNotCenterEdges++;
+                }
+            } else {
+                numBidiEdges++;
+            }
+        }
+    }
+    WRITE_MESSAGE("Added " + toString(numAddedBidiEdges) + " bidi-edges to ensure that all tracks are usable in both directions.");
+    if (numNotCenterEdges) {
+        WRITE_WARNING("Ignore " + toString(numNotCenterEdges) + " edges because they have the wrong spreadType");
+    }
+}
+
+
+void 
 NBRailwayTopologyAnalyzer::getRailEdges(const NBNode* node, 
         EdgeVector& inEdges, EdgeVector& outEdges) {
     for (NBEdge* e : node->getIncomingEdges()) {
@@ -364,6 +400,10 @@ int
 NBRailwayTopologyAnalyzer::extendBidiEdges(NBNetBuilder& nb, NBNode* node, NBEdge* bidiIn) {
     assert(bidiIn->getToNode() == node);
     NBEdge* bidiOut = bidiIn->getTurnDestination(true);
+    if (bidiOut == nullptr) {
+        WRITE_WARNING("Could not find bidi-edge for edge '" + bidiIn->getID() + "'");
+        return 0;
+    }
     int added = 0;
     EdgeVector inRail, outRail;
     getRailEdges(node, inRail, outRail);
@@ -518,9 +558,11 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForBufferStops(NBNetBuilder& nb) {
                     addAway = node == e->getToNode();
                 } else {
                     if (addAway) {
+                        // XXX if node is broken we need to switch direction
                         assert(inRail.size() == 2);
                         e = inRail.front() == prev2 ? inRail.back() : inRail.front();
                     } else {
+                        // XXX if node is broken we need to switch direction
                         assert(outRail.size() == 2);
                         e = outRail.front() == prev2 ? outRail.back() : outRail.front();
                     }

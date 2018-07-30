@@ -154,6 +154,9 @@ NBFrame::fillOptions(bool forNetgen) {
 
         oc.doRegister("railway.topology.repair", new Option_Bool(false));
         oc.addDescription("railway.topology.repair", "Processing", "Repair topology of the railway network");
+
+        oc.doRegister("railway.topology.all-bidi", new Option_Bool(false));
+        oc.addDescription("railway.topology.all-bidi", "Processing", "Make all rails usable in both direction");
     }
 
     oc.doRegister("offset.disable-normalization", new Option_Bool(false));
