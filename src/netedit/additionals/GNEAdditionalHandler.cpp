@@ -69,7 +69,8 @@ GNEAdditionalHandler::GNEAdditionalHandler(const std::string& file, GNEViewNet* 
     SUMOSAXHandler(file),
     myViewNet(viewNet),
     myUndoAdditionals(undoAdditionals),
-    myAdditionalParent(additionalParent) {
+    myAdditionalParent(additionalParent),
+    myLastInsertedAdditional(nullptr) {
     if(additionalParent) {
         myParentElements.insertElement(additionalParent->getTag());
         myParentElements.commitElementInsertion(additionalParent->getID());
@@ -84,8 +85,12 @@ void
 GNEAdditionalHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
     // Obtain tag of element
     SumoXMLTag tag = static_cast<SumoXMLTag>(element);
-    // only continue if tag is valid
-    if(tag != SUMO_TAG_NOTHING) {
+    // check if we're parsing a generic parameter
+    if(tag == SUMO_TAG_PARAM) {
+        parseGenericParameter(attrs);
+    } else if(tag != SUMO_TAG_NOTHING) {
+        // reset last inserted additional
+        myLastInsertedAdditional = nullptr;
         // push element int stack
         myParentElements.insertElement(tag);
         // Call parse and build depending of tag
@@ -210,9 +215,10 @@ GNEAdditionalHandler::parseAndBuildVaporizer(const SUMOSAXAttributes& attrs, con
             WRITE_WARNING("There is already a " + toString(tag) + " in the edge '" + edgeID + "'.");
         } else if (begin > end) {
             WRITE_WARNING("Time interval of " + toString(tag) + " isn't valid. Attribute '" + toString(SUMO_ATTR_BEGIN) + "' is greater than attribute '" + toString(SUMO_ATTR_END) + "'.");
-        } else if(buildVaporizer(myViewNet, myUndoAdditionals, edge, begin, end, name)) {
+        } else {
+            myLastInsertedAdditional = buildVaporizer(myViewNet, myUndoAdditionals, edge, begin, end, name);
             // save ID of last created element
-            myParentElements.commitElementInsertion(edgeID);
+            myParentElements.commitElementInsertion(myLastInsertedAdditional->getID());
         }
     }
 }
@@ -251,10 +257,9 @@ GNEAdditionalHandler::parseAndBuildRouteProbe(const SUMOSAXAttributes& attrs, co
                 }
                 freq = "";
             }
-            if(buildRouteProbe(myViewNet, myUndoAdditionals, id, edge, freq, name, file, begin)) {
-                // save ID of last created element
-                myParentElements.commitElementInsertion(id);
-            }
+            myLastInsertedAdditional = buildRouteProbe(myViewNet, myUndoAdditionals, id, edge, freq, name, file, begin);
+            // save ID of last created element
+            myParentElements.commitElementInsertion(myLastInsertedAdditional->getID());
         }
     }
 }
@@ -277,9 +282,12 @@ GNEAdditionalHandler::parseAndBuildCalibratorRoute(const SUMOSAXAttributes& attr
         // check that all elements are valid
         if (myViewNet->getNet()->retrieveAdditional(SUMO_TAG_ROUTE, routeID, false) != nullptr) {
             WRITE_WARNING("There is another " + toString(tag) + " with the same ID='" + routeID + "'.");
-        } else if ((edges.size() > 0) && buildCalibratorRoute(myViewNet, myUndoAdditionals, routeID, edges, color)) {
+        } else if (edges.size() < 0) {
+            WRITE_WARNING("Routes needs at least one edge.");
+        } else {
+            myLastInsertedAdditional = buildCalibratorRoute(myViewNet, myUndoAdditionals, routeID, edges, color);
             // save ID of last created element
-            myParentElements.commitElementInsertion(routeID);
+            myParentElements.commitElementInsertion(myLastInsertedAdditional->getID());
         }
     }
 }
@@ -320,10 +328,11 @@ GNEAdditionalHandler::parseAndBuildCalibratorVehicleType(const SUMOSAXAttributes
         // check that all elements are valid
         if (myViewNet->getNet()->retrieveAdditional(SUMO_TAG_VTYPE, vehicleTypeID, false) != nullptr) {
             WRITE_WARNING("There is another " + toString(tag) + " with the same ID='" + vehicleTypeID + "'.");
-        } else if(buildVehicleType(myViewNet, true, vehicleTypeID, accel, decel, sigma, tau, length, minGap, maxSpeed, speedFactor, speedDev, color, vClass, emissionClass, shape, width, 
-                                   filename, impatience, laneChangeModel, carFollowModel, personCapacity, containerCapacity, boardingDuration, loadingDuration, latAlignment, minGapLat, maxSpeedLat)) {
+        } else {
+            myLastInsertedAdditional = buildVehicleType(myViewNet, true, vehicleTypeID, accel, decel, sigma, tau, length, minGap, maxSpeed, speedFactor, speedDev, color, vClass, emissionClass, shape, width, 
+                                                        filename, impatience, laneChangeModel, carFollowModel, personCapacity, containerCapacity, boardingDuration, loadingDuration, latAlignment, minGapLat, maxSpeedLat);
             // save ID of last created element
-            myParentElements.commitElementInsertion(vehicleTypeID);
+            myParentElements.commitElementInsertion(myLastInsertedAdditional->getID());
         }
     }
 }
@@ -369,8 +378,28 @@ GNEAdditionalHandler::parseAndBuildCalibratorFlow(const SUMOSAXAttributes& attrs
             WRITE_WARNING(toString(SUMO_TAG_FLOW) + " cannot be created; At least parameters " + toString(SUMO_ATTR_VEHSPERHOUR) + " or " + toString(SUMO_ATTR_SPEED) + " has to be defined");
             abort = true;
         } else if(calibrator != NULL) {
-            buildCalibratorFlow(myViewNet, true, calibrator, route, vtype, vehsPerHour, speed, color, departLane, departPos, departSpeed, arrivalLane, arrivalPos, arrivalSpeed,
-                                line, personNumber, containerNumber, reroute, departPosLat, arrivalPosLat, begin, end);
+            myLastInsertedAdditional = buildCalibratorFlow(myViewNet, true, calibrator, route, vtype, vehsPerHour, speed, color, departLane, departPos, departSpeed, arrivalLane, arrivalPos, arrivalSpeed,
+                                                           line, personNumber, containerNumber, reroute, departPosLat, arrivalPosLat, begin, end);
+            // save ID of last created element
+            myParentElements.commitElementInsertion(myLastInsertedAdditional->getID());
+        }
+    }
+}
+
+
+void 
+GNEAdditionalHandler::parseGenericParameter(const SUMOSAXAttributes& attrs) {
+    if (myLastInsertedAdditional != 0) {
+        bool ok = true;
+        const std::string key = attrs.get<std::string>(SUMO_ATTR_KEY, 0, ok);
+        // circumventing empty string test
+        const std::string val = attrs.hasAttribute(SUMO_ATTR_VALUE) ? attrs.getString(SUMO_ATTR_VALUE) : "";
+        // set parameter in last inserted additional
+        if(ok) {
+            WRITE_WARNING("Inserting generic parameter '" + key + "|" + val + "' into additional " + toString(myLastInsertedAdditional->getTag()) + ".");
+            myLastInsertedAdditional->setParameter(key, val);
+        } else {
+            WRITE_WARNING("Error parsing key value from generic parameter.");
         }
     }
 }
@@ -395,9 +424,12 @@ GNEAdditionalHandler::parseAndBuildVariableSpeedSign(const SUMOSAXAttributes& at
         // check that all elements are valid
         if (myViewNet->getNet()->retrieveAdditional(tag, id, false) != nullptr) {
             WRITE_WARNING("There is another " + toString(tag) + " with the same ID='" + id + "'.");
-        } else if ((lanes.size() > 0) && buildVariableSpeedSign(myViewNet, myUndoAdditionals, id, pos, lanes, name, false)) {
+        } else if (lanes.size() <= 0) {
+            WRITE_WARNING("A Variable Speed Sign needs at least one lane.");
+        } else {
+            myLastInsertedAdditional = buildVariableSpeedSign(myViewNet, myUndoAdditionals, id, pos, lanes, name, false);
             // save ID of last created element
-            myParentElements.commitElementInsertion(id);
+            myParentElements.commitElementInsertion(myLastInsertedAdditional->getID());
         }
     }
 }
@@ -414,7 +446,9 @@ GNEAdditionalHandler::parseAndBuildVariableSpeedSignStep(const SUMOSAXAttributes
         GNEAdditional* variableSpeedSign = myParentElements.retrieveAdditionalParent(myViewNet, SUMO_TAG_VSS);
         // check that all parameters are valid
         if (variableSpeedSign != nullptr) {
-            buildVariableSpeedSignStep(myViewNet, true, variableSpeedSign, time, speed);
+            myLastInsertedAdditional = buildVariableSpeedSignStep(myViewNet, true, variableSpeedSign, time, speed);
+            // save ID of last created element
+            myParentElements.commitElementInsertion(myLastInsertedAdditional->getID());
         }
     }
 }
@@ -443,9 +477,12 @@ GNEAdditionalHandler::parseAndBuildRerouter(const SUMOSAXAttributes& attrs, cons
         // check that all elements are valid
         if (myViewNet->getNet()->retrieveAdditional(tag, id, false) != nullptr) {
             WRITE_WARNING("There is another " + toString(tag) + " with the same ID='" + id + "'.");
-        } else if ((edgesIDs.size() > 0) && buildRerouter(myViewNet, myUndoAdditionals, id, pos, edges, probability, name, file, off, timeThreshold, vTypes, false)) {
+        } else if (edgesIDs.size() <= 0) {
+            WRITE_WARNING("A rerouter needs at least one Edge");
+        } else {
+            myLastInsertedAdditional = buildRerouter(myViewNet, myUndoAdditionals, id, pos, edges, probability, name, file, off, timeThreshold, vTypes, false);
             // save ID of last created element
-            myParentElements.commitElementInsertion(id);
+            myParentElements.commitElementInsertion(myLastInsertedAdditional->getID());
         }
     }
 }
@@ -472,10 +509,9 @@ GNEAdditionalHandler::parseAndBuildRerouterInterval(const SUMOSAXAttributes& att
         if(begin >= end) {
             WRITE_WARNING(toString(tag) + " cannot be created; Attribute " + toString(SUMO_ATTR_END) + " must be greather than " + toString(SUMO_ATTR_BEGIN) + ".");
         } else if (rerouter != nullptr){
-            // if rerouter interval was sucesfully created, save ID in myParentElements
-            if(buildRerouterInterval(myViewNet, true, rerouter, begin, end)) {
-                myParentElements.commitElementInsertion(rerouter->getAdditionalChilds().back()->getID());
-            }
+            myLastInsertedAdditional = buildRerouterInterval(myViewNet, true, rerouter, begin, end);
+            // save ID of last created element
+            myParentElements.commitElementInsertion(myLastInsertedAdditional->getID());
         }
     }
 }
@@ -497,7 +533,9 @@ GNEAdditionalHandler::parseAndBuildRerouterClosingLaneReroute(const SUMOSAXAttri
         if (lane == nullptr) {
             WRITE_WARNING("The lane '" + laneID + "' to use within the " + toString(tag) + " is not known.");
         } else if (rerouterInterval != nullptr) {
-            buildClosingLaneReroute(myViewNet, true, rerouterInterval, lane, parseVehicleClasses(allow, disallow));
+            myLastInsertedAdditional = buildClosingLaneReroute(myViewNet, true, rerouterInterval, lane, parseVehicleClasses(allow, disallow));
+            // save ID of last created element
+            myParentElements.commitElementInsertion(myLastInsertedAdditional->getID());
         }
     }
 }
@@ -518,8 +556,10 @@ GNEAdditionalHandler::parseAndBuildRerouterClosingReroute(const SUMOSAXAttribute
         // check that all elements are valid
         if (edge == nullptr) {
             WRITE_WARNING("The edge '" + edgeID + "' to use within the " + toString(tag) + " is not known.");
-        } else if (rerouterInterval != nullptr){
-            buildClosingReroute(myViewNet, true, rerouterInterval, edge, parseVehicleClasses(allow, disallow));
+        } else if (rerouterInterval != nullptr) {
+            myLastInsertedAdditional = buildClosingReroute(myViewNet, true, rerouterInterval, edge, parseVehicleClasses(allow, disallow));
+            // save ID of last created element
+            myParentElements.commitElementInsertion(myLastInsertedAdditional->getID());
         }
     }
 }
@@ -540,7 +580,9 @@ GNEAdditionalHandler::parseAndBuildRerouterDestProbReroute(const SUMOSAXAttribut
         if (edge == nullptr) {
             WRITE_WARNING("The edge '" + edgeID + "' to use within the " + toString(tag) + " is not known.");
         } else if (rerouterInterval != nullptr) {
-            builDestProbReroute(myViewNet, true, rerouterInterval, edge, probability);
+            myLastInsertedAdditional = builDestProbReroute(myViewNet, true, rerouterInterval, edge, probability);
+            // save ID of last created element
+            myParentElements.commitElementInsertion(myLastInsertedAdditional->getID());
         }
     }
 }
@@ -562,7 +604,9 @@ GNEAdditionalHandler::parseAndBuildRerouterParkingAreaReroute(const SUMOSAXAttri
         if (parkingArea == nullptr) {
             WRITE_WARNING("The parkingArea '" + parkingAreaID + "' to use within the " + toString(tag) + " is not known.");
         } else if (rerouterInterval != nullptr) {
-            builParkingAreaReroute(myViewNet, true, rerouterInterval, parkingArea, probability, visible);
+            myLastInsertedAdditional = builParkingAreaReroute(myViewNet, true, rerouterInterval, parkingArea, probability, visible);
+            // save ID of last created element
+            myParentElements.commitElementInsertion(myLastInsertedAdditional->getID());
         }
     }
 }
@@ -580,7 +624,9 @@ GNEAdditionalHandler::parseAndBuildRerouterRouteProbReroute(const SUMOSAXAttribu
         GNEAdditional* rerouterInterval = myParentElements.retrieveAdditionalParent(myViewNet, SUMO_TAG_INTERVAL);
         // check that all elements are valid
         if (rerouterInterval != nullptr) {
-            buildRouteProbReroute(myViewNet, true, rerouterInterval, routeID, probability);
+            myLastInsertedAdditional = buildRouteProbReroute(myViewNet, true, rerouterInterval, routeID, probability);
+            // save ID of last created element
+            myParentElements.commitElementInsertion(myLastInsertedAdditional->getID());
         }
     }
 }
@@ -610,9 +656,10 @@ GNEAdditionalHandler::parseAndBuildBusStop(const SUMOSAXAttributes& attrs, const
         } else if (!fixStoppinPlacePosition(startPos, endPos, lane->getParentEdge().getNBEdge()->getFinalLength(), POSITION_EPS, friendlyPosition)) {
             // Write error if position isn't valid
             WRITE_WARNING("Invalid position for " + toString(tag) + " with ID = '" + id + "'.");
-        } else if(buildBusStop(myViewNet, myUndoAdditionals, id, lane, startPos, endPos, name, lines, friendlyPosition, false)){
+        } else {
+            myLastInsertedAdditional = buildBusStop(myViewNet, myUndoAdditionals, id, lane, startPos, endPos, name, lines, friendlyPosition, false);
             // save ID of last created element
-            myParentElements.commitElementInsertion(id);
+            myParentElements.commitElementInsertion(myLastInsertedAdditional->getID());
         }
     }
 }
@@ -642,9 +689,10 @@ GNEAdditionalHandler::parseAndBuildContainerStop(const SUMOSAXAttributes& attrs,
         } else if (!fixStoppinPlacePosition(startPos, endPos, lane->getParentEdge().getNBEdge()->getFinalLength(), POSITION_EPS, friendlyPosition)) {
             // write error if position isn't valid
             WRITE_WARNING("Invalid position for " + toString(tag) + " with ID = '" + id + "'.");
-        } else if(buildContainerStop(myViewNet, myUndoAdditionals, id, lane, startPos, endPos, name, lines, friendlyPosition, false)){
+        } else {
+            myLastInsertedAdditional = buildContainerStop(myViewNet, myUndoAdditionals, id, lane, startPos, endPos, name, lines, friendlyPosition, false);
             // save ID of last created element
-            myParentElements.commitElementInsertion(id);
+            myParentElements.commitElementInsertion(myLastInsertedAdditional->getID());
         }
     }
 }
@@ -674,7 +722,9 @@ GNEAdditionalHandler::parseAndBuildAccess(const SUMOSAXAttributes& attrs, const 
         } else if(!accessCanBeCreated(busStop, lane->getParentEdge())) {
             WRITE_WARNING("Edge '" + lane->getParentEdge().getID() + "' already has an Access for busStop '" + busStop->getID() + "'");
         } else {
-            buildAccess(myViewNet, myUndoAdditionals, busStop, lane, toString(posDouble), length, friendlyPos, false);
+            myLastInsertedAdditional = buildAccess(myViewNet, myUndoAdditionals, busStop, lane, toString(posDouble), length, friendlyPos, false);
+            // save ID of last created element
+            myParentElements.commitElementInsertion(myLastInsertedAdditional->getID());
         }
     }
 }
@@ -707,9 +757,10 @@ GNEAdditionalHandler::parseAndBuildChargingStation(const SUMOSAXAttributes& attr
         } else if (!fixStoppinPlacePosition(startPos, endPos, lane->getParentEdge().getNBEdge()->getFinalLength(), POSITION_EPS, friendlyPosition)) {
             // write error if position isn't valid
             WRITE_WARNING("Invalid position for " + toString(tag) + " with ID = '" + id + "'.");
-        } else if(buildChargingStation(myViewNet, myUndoAdditionals, id, lane, startPos, endPos, name, chargingPower, efficiency, chargeInTransit, chargeDelay, friendlyPosition, false)) {
+        } else {
+            myLastInsertedAdditional = buildChargingStation(myViewNet, myUndoAdditionals, id, lane, startPos, endPos, name, chargingPower, efficiency, chargeInTransit, chargeDelay, friendlyPosition, false);
             // save ID of last created element
-            myParentElements.commitElementInsertion(id);
+            myParentElements.commitElementInsertion(myLastInsertedAdditional->getID());
         }
     }
 }
@@ -742,9 +793,11 @@ GNEAdditionalHandler::parseAndBuildParkingArea(const SUMOSAXAttributes& attrs, c
         } else if (!fixStoppinPlacePosition(startPos, endPos, lane->getParentEdge().getNBEdge()->getFinalLength(), POSITION_EPS, friendlyPosition)) {
             // write error if position isn't valid
             WRITE_WARNING("Invalid position for " + toString(tag) + " with ID = '" + id + "'.");
-        } else if(buildParkingArea(myViewNet, myUndoAdditionals, id, lane, startPos, endPos, name, friendlyPosition, roadSideCapacity, width, length, angle, false)) {
+        } else {
+            myLastInsertedAdditional = buildParkingArea(myViewNet, myUndoAdditionals, id, lane, startPos, endPos, name, friendlyPosition, roadSideCapacity, width, length, angle, false);
             // save ID of last created element
-            myParentElements.commitElementInsertion(id);        }
+            myParentElements.commitElementInsertion(myLastInsertedAdditional->getID());
+        }
     }
 }
 
@@ -765,7 +818,9 @@ GNEAdditionalHandler::parseAndBuildParkingSpace(const SUMOSAXAttributes& attrs, 
         GNEAdditional* parkingAreaParent = myParentElements.retrieveAdditionalParent(myViewNet, SUMO_TAG_PARKING_AREA);
         // check that all parameters are valid
         if (parkingAreaParent != nullptr) {
-            buildParkingSpace(myViewNet, myUndoAdditionals, parkingAreaParent, x, y, z, width, length, angle, false);
+            myLastInsertedAdditional = buildParkingSpace(myViewNet, myUndoAdditionals, parkingAreaParent, x, y, z, width, length, angle, false);
+            // save ID of last created element
+            myParentElements.commitElementInsertion(myLastInsertedAdditional->getID());
         }
     }
 }
@@ -796,9 +851,10 @@ GNEAdditionalHandler::parseAndBuildCalibrator(const SUMOSAXAttributes& attrs, co
                 WRITE_WARNING("There is another " + toString(typeOfCalibrator) + " with the same ID='" + id + "'.");
             } else if (edge == nullptr) {
                 WRITE_WARNING("The  edge '" + edgeID + "' to use within the " + toString(typeOfCalibrator) + " '" + id + "' is not known.");
-            } else if (buildCalibrator(myViewNet, myUndoAdditionals, id, edge, position, name, outfile, freq)) {
+            } else {
+                myLastInsertedAdditional = buildCalibrator(myViewNet, myUndoAdditionals, id, edge, position, name, outfile, freq);
                 // save ID of last created element
-                myParentElements.commitElementInsertion(id);
+                myParentElements.commitElementInsertion(myLastInsertedAdditional->getID());
             }
         }
     } else if (attrs.hasAttribute(SUMO_ATTR_LANE)) {
@@ -820,9 +876,10 @@ GNEAdditionalHandler::parseAndBuildCalibrator(const SUMOSAXAttributes& attrs, co
                 WRITE_WARNING("There is another " + toString(typeOfCalibrator) + " with the same ID='" + id + "'.");
             } else if (lane == nullptr) {
                 WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(typeOfCalibrator) + " '" + id + "' is not known.");
-            } else if (buildCalibrator(myViewNet, myUndoAdditionals, id, lane, position, name, outfile, freq)) {
+            } else {
+                myLastInsertedAdditional = buildCalibrator(myViewNet, myUndoAdditionals, id, lane, position, name, outfile, freq);
                 // save ID of last created element
-                myParentElements.commitElementInsertion(id);
+                myParentElements.commitElementInsertion(myLastInsertedAdditional->getID());
             }
         }
     } else {
@@ -855,9 +912,10 @@ GNEAdditionalHandler::parseAndBuildDetectorE1(const SUMOSAXAttributes& attrs, co
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " '" + id + "' is not known.");
         } else if (!checkAndFixDetectorPositionPosition(position, lane->getLaneShapeLength(), friendlyPos)) {
             WRITE_WARNING("Invalid position for " + toString(tag) + " with ID = '" + id + "'.");
-        } else if(buildDetectorE1(myViewNet, myUndoAdditionals, id, lane, position, frequency, file, name, vehicleTypes, friendlyPos, false)){
+        } else {
+            myLastInsertedAdditional = buildDetectorE1(myViewNet, myUndoAdditionals, id, lane, position, frequency, file, name, vehicleTypes, friendlyPos, false);
             // save ID of last created element
-            myParentElements.commitElementInsertion(id);
+            myParentElements.commitElementInsertion(myLastInsertedAdditional->getID());
         }
     }
 }
@@ -892,9 +950,10 @@ GNEAdditionalHandler::parseAndBuildDetectorE2(const SUMOSAXAttributes& attrs, co
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " '" + id + "' is not known.");
         } else if (!fixE2DetectorPositionPosition(position, length, lane->getParentEdge().getNBEdge()->getFinalLength(), friendlyPos)) {
             WRITE_WARNING("Invalid position for " + toString(tag) + " with ID = '" + id + "'.");
-        } else if(buildDetectorE2(myViewNet, myUndoAdditionals, id, lane, position, length, frequency, file, name, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, friendlyPos, false)) {
+        } else {
+            myLastInsertedAdditional = buildDetectorE2(myViewNet, myUndoAdditionals, id, lane, position, length, frequency, file, name, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, friendlyPos, false);
             // save ID of last created element
-            myParentElements.commitElementInsertion(id);
+            myParentElements.commitElementInsertion(myLastInsertedAdditional->getID());
         }
     }
 }
@@ -916,9 +975,10 @@ GNEAdditionalHandler::parseAndBuildDetectorE3(const SUMOSAXAttributes& attrs, co
         // check that all elements are valid
         if (myViewNet->getNet()->retrieveAdditional(tag, id, false) != nullptr) {
             WRITE_WARNING("There is another " + toString(tag) + " with the same ID='" + id + "'.");
-        } else if (buildDetectorE3(myViewNet, myUndoAdditionals, id, pos, frequency, file, name, haltingTimeThreshold, haltingSpeedThreshold, false)) {
+        } else {
+            myLastInsertedAdditional = buildDetectorE3(myViewNet, myUndoAdditionals, id, pos, frequency, file, name, haltingTimeThreshold, haltingSpeedThreshold, false);
             // save ID of last created element
-            myParentElements.commitElementInsertion(id);
+            myParentElements.commitElementInsertion(myLastInsertedAdditional->getID());
         }
     }
 }
@@ -941,8 +1001,10 @@ GNEAdditionalHandler::parseAndBuildDetectorEntry(const SUMOSAXAttributes& attrs,
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " is not known.");
         } else if (!checkAndFixDetectorPositionPosition(position, lane->getLaneShapeLength(), friendlyPos)) {
             WRITE_WARNING("Invalid position for " + toString(tag) + ".");
-        } else if(E3Parent) {
-            buildDetectorEntry(myViewNet, myUndoAdditionals, E3Parent, lane, position, friendlyPos, false);
+        } else if (E3Parent) {
+            myLastInsertedAdditional = buildDetectorEntry(myViewNet, myUndoAdditionals, E3Parent, lane, position, friendlyPos, false);
+            // save ID of last created element
+            myParentElements.commitElementInsertion(myLastInsertedAdditional->getID());
         }
     }
 }
@@ -965,8 +1027,10 @@ GNEAdditionalHandler::parseAndBuildDetectorExit(const SUMOSAXAttributes& attrs, 
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " is not known.");
         } else if (!checkAndFixDetectorPositionPosition(position, lane->getLaneShapeLength(), friendlyPos)) {
             WRITE_WARNING("Invalid position for " + toString(tag) + ".");
-        } else if(E3Parent) {
-            buildDetectorExit(myViewNet, myUndoAdditionals, E3Parent, lane, position, friendlyPos, false);
+        } else if (E3Parent) {
+            myLastInsertedAdditional = buildDetectorExit(myViewNet, myUndoAdditionals, E3Parent, lane, position, friendlyPos, false);
+            // save ID of last created element
+            myParentElements.commitElementInsertion(myLastInsertedAdditional->getID());
         }
     }
 }
@@ -994,15 +1058,16 @@ GNEAdditionalHandler::parseAndBuildDetectorE1Instant(const SUMOSAXAttributes& at
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " '" + id + "' is not known.");
         } else if (!checkAndFixDetectorPositionPosition(position, lane->getLaneShapeLength(), friendlyPos)) {
             WRITE_WARNING("Invalid position for " + toString(tag) + " with ID = '" + id + "'.");
-        } else if (buildDetectorE1Instant(myViewNet, myUndoAdditionals, id, lane, position, file, name, friendlyPos, false)){
+        } else {
+            myLastInsertedAdditional = buildDetectorE1Instant(myViewNet, myUndoAdditionals, id, lane, position, file, name, friendlyPos, false);
             // save ID of last created element
-            myParentElements.commitElementInsertion(id);
+            myParentElements.commitElementInsertion(myLastInsertedAdditional->getID());
         }
     }
 }
 
 
-bool
+GNEAdditional*
 GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, SumoXMLTag tag, std::map<SumoXMLAttr, std::string> values) {
     // create additional depending of the tag
     switch (tag) {
@@ -1324,7 +1389,7 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, S
 }
 
 
-bool
+GNEAdditional*
 GNEAdditionalHandler::buildBusStop(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, const std::string& startPos, const std::string& endPos, const std::string& name, const std::vector<std::string>& lines, bool friendlyPosition, bool blockMovement) {
     if (viewNet->getNet()->retrieveAdditional(SUMO_TAG_BUS_STOP, id, false) == nullptr) {
         GNEBusStop* busStop = new GNEBusStop(id, lane, viewNet, startPos, endPos, name, lines, friendlyPosition, blockMovement);
@@ -1337,14 +1402,14 @@ GNEAdditionalHandler::buildBusStop(GNEViewNet* viewNet, bool allowUndoRedo, cons
             lane->addAdditionalChild(busStop);
             busStop->incRef("buildBusStop");
         }
-        return true;
+        return busStop;
     } else {
         throw ProcessError("Could not build " + toString(SUMO_TAG_BUS_STOP) + " with ID '" + id + "' in netedit; probably declared twice.");
     }
 }
 
 
-bool
+GNEAdditional*
 GNEAdditionalHandler::buildAccess(GNEViewNet* viewNet, bool allowUndoRedo, GNEAdditional *busStop, GNELane* lane, const std::string& pos, const std::string& length, bool friendlyPos, bool blockMovement) {
     // Check if busStop parent and lane is correct
     if (lane == nullptr) {
@@ -1365,12 +1430,12 @@ GNEAdditionalHandler::buildAccess(GNEViewNet* viewNet, bool allowUndoRedo, GNEAd
             busStop->addAdditionalChild(access);
             access->incRef("buildAccess");
         }
-        return true;
+        return access;
     }
 }
 
 
-bool
+GNEAdditional*
 GNEAdditionalHandler::buildContainerStop(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, const std::string& startPos, const std::string& endPos, const std::string& name, const std::vector<std::string>& lines, bool friendlyPosition, bool blockMovement) {
     if (viewNet->getNet()->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, id, false) == nullptr) {
         GNEContainerStop* containerStop = new GNEContainerStop(id, lane, viewNet, startPos, endPos, name, lines, friendlyPosition, blockMovement);
@@ -1383,14 +1448,14 @@ GNEAdditionalHandler::buildContainerStop(GNEViewNet* viewNet, bool allowUndoRedo
             lane->addAdditionalChild(containerStop);
             containerStop->incRef("buildContainerStop");
         }
-        return true;
+        return containerStop;
     } else {
         throw ProcessError("Could not build " + toString(SUMO_TAG_CONTAINER_STOP) + " with ID '" + id + "' in netedit; probably declared twice.");
     }
 }
 
 
-bool
+GNEAdditional*
 GNEAdditionalHandler::buildChargingStation(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, const std::string& startPos, const std::string& endPos, const std::string& name, 
                                            double chargingPower, double efficiency, bool chargeInTransit, double chargeDelay, bool friendlyPosition, bool blockMovement) {
     if (viewNet->getNet()->retrieveAdditional(SUMO_TAG_CHARGING_STATION, id, false) == nullptr) {
@@ -1404,51 +1469,51 @@ GNEAdditionalHandler::buildChargingStation(GNEViewNet* viewNet, bool allowUndoRe
             lane->addAdditionalChild(chargingStation);
             chargingStation->incRef("buildChargingStation");
         }
-        return true;
+        return chargingStation;
     } else {
         throw ProcessError("Could not build " + toString(SUMO_TAG_CHARGING_STATION) + " with ID '" + id + "' in netedit; probably declared twice.");
     }
 }
 
 
-bool 
+GNEAdditional* 
 GNEAdditionalHandler::buildParkingArea(GNEViewNet* viewNet, bool allowUndoRedo, const std::string &id, GNELane* lane, const std::string& startPos, const std::string &endPos, const std::string& name, 
                                        bool friendlyPosition, int roadSideCapacity, double width, const std::string &length, double angle, bool blockMovement) {
     if (viewNet->getNet()->retrieveAdditional(SUMO_TAG_PARKING_AREA, id, false) == nullptr) {
-        GNEParkingArea* ParkingArea = new GNEParkingArea(id, lane, viewNet, startPos, endPos, name, friendlyPosition, roadSideCapacity, width, length, angle, blockMovement);
+        GNEParkingArea* parkingArea = new GNEParkingArea(id, lane, viewNet, startPos, endPos, name, friendlyPosition, roadSideCapacity, width, length, angle, blockMovement);
         if (allowUndoRedo) {
             viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_PARKING_AREA));
-            viewNet->getUndoList()->add(new GNEChange_Additional(ParkingArea, true), true);
+            viewNet->getUndoList()->add(new GNEChange_Additional(parkingArea, true), true);
             viewNet->getUndoList()->p_end();
         } else {
-            viewNet->getNet()->insertAdditional(ParkingArea);
-            lane->addAdditionalChild(ParkingArea);
-            ParkingArea->incRef("buildParkingArea");
+            viewNet->getNet()->insertAdditional(parkingArea);
+            lane->addAdditionalChild(parkingArea);
+            parkingArea->incRef("buildParkingArea");
         }
-        return true;
+        return parkingArea;
     } else {
         throw ProcessError("Could not build " + toString(SUMO_TAG_PARKING_AREA) + " with ID '" + id + "' in netedit; probably declared twice.");
     }
 }
 
 
-bool 
+GNEAdditional* 
 GNEAdditionalHandler::buildParkingSpace(GNEViewNet* viewNet, bool allowUndoRedo, GNEAdditional *parkingAreaParent, double x, double y, double z, double width, double length, double angle, bool blockMovement) {
-    GNEParkingSpace* ParkingSpace = new GNEParkingSpace(viewNet, parkingAreaParent, x, y, z, width, length, angle, blockMovement);
+    GNEParkingSpace* parkingSpace = new GNEParkingSpace(viewNet, parkingAreaParent, x, y, z, width, length, angle, blockMovement);
     if (allowUndoRedo) {
         viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_PARKING_SPACE));
-        viewNet->getUndoList()->add(new GNEChange_Additional(ParkingSpace, true), true);
+        viewNet->getUndoList()->add(new GNEChange_Additional(parkingSpace, true), true);
         viewNet->getUndoList()->p_end();
     } else {
-        viewNet->getNet()->insertAdditional(ParkingSpace);
-        parkingAreaParent->addAdditionalChild(ParkingSpace);
-        ParkingSpace->incRef("buildParkingSpace");
+        viewNet->getNet()->insertAdditional(parkingSpace);
+        parkingAreaParent->addAdditionalChild(parkingSpace);
+        parkingSpace->incRef("buildParkingSpace");
     }
-    return true;
+    return parkingSpace;
 }
 
 
-bool
+GNEAdditional*
 GNEAdditionalHandler::buildDetectorE1(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, double pos, double freq, const std::string& filename, const std::string& name, const std::string& vehicleTypes, bool friendlyPos, bool blockMovement) {
     if (viewNet->getNet()->retrieveAdditional(SUMO_TAG_E1DETECTOR, id, false) == nullptr) {
         GNEDetectorE1* detectorE1 = new GNEDetectorE1(id, lane, viewNet, pos, freq, filename, name, vehicleTypes, friendlyPos, blockMovement);
@@ -1461,14 +1526,14 @@ GNEAdditionalHandler::buildDetectorE1(GNEViewNet* viewNet, bool allowUndoRedo, c
             lane->addAdditionalChild(detectorE1);
             detectorE1->incRef("buildDetectorE1");
         }
-        return true;
+        return detectorE1;
     } else {
         throw ProcessError("Could not build " + toString(SUMO_TAG_E1DETECTOR) + " with ID '" + id + "' in netedit; probably declared twice.");
     }
 }
 
 
-bool
+GNEAdditional*
 GNEAdditionalHandler::buildDetectorE2(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, double pos, double length, double freq, const std::string& filename,
                                       const std::string& name, const double timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, bool blockMovement) {
     if (viewNet->getNet()->retrieveAdditional(SUMO_TAG_E2DETECTOR, id, false) == nullptr) {
@@ -1482,14 +1547,14 @@ GNEAdditionalHandler::buildDetectorE2(GNEViewNet* viewNet, bool allowUndoRedo, c
             lane->addAdditionalChild(detectorE2);
             detectorE2->incRef("buildDetectorE2");
         }
-        return true;
+        return detectorE2;
     } else {
         throw ProcessError("Could not build " + toString(SUMO_TAG_E2DETECTOR) + " with ID '" + id + "' in netedit; probably declared twice.");
     }
 }
 
 
-bool
+GNEAdditional*
 GNEAdditionalHandler::buildDetectorE3(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, Position pos, double freq, const std::string& filename, const std::string& name, const double timeThreshold, double speedThreshold, bool blockMovement) {
     if (viewNet->getNet()->retrieveAdditional(SUMO_TAG_E3DETECTOR, id, false) == nullptr) {
         GNEDetectorE3* detectorE3 = new GNEDetectorE3(id, viewNet, pos, freq, filename, name, timeThreshold, speedThreshold, blockMovement);
@@ -1501,14 +1566,14 @@ GNEAdditionalHandler::buildDetectorE3(GNEViewNet* viewNet, bool allowUndoRedo, c
             viewNet->getNet()->insertAdditional(detectorE3);
             detectorE3->incRef("buildDetectorE3");
         }
-        return true;
+        return detectorE3;
     } else {
         throw ProcessError("Could not build " + toString(SUMO_TAG_E3DETECTOR) + " with ID '" + id + "' in netedit; probably declared twice.");
     }
 }
 
 
-bool
+GNEAdditional*
 GNEAdditionalHandler::buildDetectorEntry(GNEViewNet* viewNet, bool allowUndoRedo, GNEAdditional* E3Parent, GNELane* lane, double pos, bool friendlyPos, bool blockMovement) {
     // Check if Detector E3 parent and lane is correct
     if (lane == nullptr) {
@@ -1527,12 +1592,12 @@ GNEAdditionalHandler::buildDetectorEntry(GNEViewNet* viewNet, bool allowUndoRedo
             E3Parent->addAdditionalChild(entry);
             entry->incRef("buildDetectorEntry");
         }
-        return true;
+        return entry;
     }
 }
 
 
-bool
+GNEAdditional*
 GNEAdditionalHandler::buildDetectorExit(GNEViewNet* viewNet, bool allowUndoRedo, GNEAdditional* E3Parent, GNELane* lane, double pos, bool friendlyPos, bool blockMovement) {
     // Check if Detector E3 parent and lane is correct
     if (lane == nullptr) {
@@ -1551,12 +1616,12 @@ GNEAdditionalHandler::buildDetectorExit(GNEViewNet* viewNet, bool allowUndoRedo,
             E3Parent->addAdditionalChild(exit);
             exit->incRef("buildDetectorExit");
         }
-        return true;
+        return exit;
     }
 }
 
 
-bool
+GNEAdditional*
 GNEAdditionalHandler::buildDetectorE1Instant(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, double pos, const std::string& filename, const std::string& name, bool friendlyPos, bool blockMovement) {
     if (viewNet->getNet()->retrieveAdditional(SUMO_TAG_INSTANT_INDUCTION_LOOP, id, false) == nullptr) {
         GNEDetectorE1Instant* detectorE1Instant = new GNEDetectorE1Instant(id, lane, viewNet, pos, filename, name, friendlyPos, blockMovement);
@@ -1569,14 +1634,14 @@ GNEAdditionalHandler::buildDetectorE1Instant(GNEViewNet* viewNet, bool allowUndo
             lane->addAdditionalChild(detectorE1Instant);
             detectorE1Instant->incRef("buildDetectorE1Instant");
         }
-        return true;
+        return detectorE1Instant;
     } else {
         throw ProcessError("Could not build " + toString(SUMO_TAG_INSTANT_INDUCTION_LOOP) + " with ID '" + id + "' in netedit; probably declared twice.");
     }
 }
 
 
-bool
+GNEAdditional*
 GNEAdditionalHandler::buildCalibrator(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, double pos, const std::string& name, const std::string& outfile, const double freq) {
     if (viewNet->getNet()->retrieveAdditional(SUMO_TAG_CALIBRATOR, id, false) == nullptr) {
         GNECalibrator* calibrator = new GNECalibrator(id, viewNet, lane, pos, freq, name, outfile);
@@ -1591,14 +1656,14 @@ GNEAdditionalHandler::buildCalibrator(GNEViewNet* viewNet, bool allowUndoRedo, c
             lane->addAdditionalChild(calibrator);
             calibrator->incRef("buildCalibrator");
         }
-        return true;
+        return calibrator;
     } else {
         throw ProcessError("Could not build " + toString(SUMO_TAG_CALIBRATOR) + " with ID '" + id + "' in netedit; probably declared twice.");
     }
 }
 
 
-bool
+GNEAdditional*
 GNEAdditionalHandler::buildCalibrator(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNEEdge* edge, double pos, const std::string& name, const std::string& outfile, const double freq) {
     if (viewNet->getNet()->retrieveAdditional(SUMO_TAG_CALIBRATOR, id, false) == nullptr) {
         GNECalibrator* calibrator = new GNECalibrator(id, viewNet, edge, pos, freq, name, outfile);
@@ -1613,14 +1678,14 @@ GNEAdditionalHandler::buildCalibrator(GNEViewNet* viewNet, bool allowUndoRedo, c
             edge->addAdditionalChild(calibrator);
             calibrator->incRef("buildCalibrator");
         }
-        return true;
+        return calibrator;
     } else {
         throw ProcessError("Could not build " + toString(SUMO_TAG_CALIBRATOR) + " with ID '" + id + "' in netedit; probably declared twice.");
     }
 }
 
 
-bool
+GNEAdditional*
 GNEAdditionalHandler::buildCalibratorRoute(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& routeID, const std::vector<GNEEdge*>& edges, const RGBColor& color) {
     if (viewNet->getNet()->retrieveAdditional(SUMO_TAG_ROUTE, routeID, false) == nullptr) {
         // create route and add it to calibrator parent
@@ -1629,12 +1694,11 @@ GNEAdditionalHandler::buildCalibratorRoute(GNEViewNet* viewNet, bool allowUndoRe
             viewNet->getUndoList()->p_begin("add " + toString(route->getTag()));
             viewNet->getUndoList()->add(new GNEChange_Additional(route, true), true);
             viewNet->getUndoList()->p_end();
-            return true;
         } else {
             viewNet->getNet()->insertAdditional(route);
             route->incRef("buildCalibratorRoute");
         }
-        return true;
+        return route;
     } else {
         throw ProcessError("Could not build " + toString(SUMO_TAG_ROUTE) + " with ID '" + routeID + "' in netedit; probably declared twice.");
     }
@@ -1642,7 +1706,7 @@ GNEAdditionalHandler::buildCalibratorRoute(GNEViewNet* viewNet, bool allowUndoRe
 }
 
 
-bool
+GNEAdditional*
 GNEAdditionalHandler::buildVehicleType(GNEViewNet* viewNet, bool allowUndoRedo, std::string vehicleTypeID,
         double accel, double decel, double sigma, double tau, double length, double minGap, double maxSpeed,
         double speedFactor, double speedDev, const RGBColor& color, SUMOVehicleClass vClass, const std::string& emissionClass,
@@ -1663,14 +1727,14 @@ GNEAdditionalHandler::buildVehicleType(GNEViewNet* viewNet, bool allowUndoRedo, 
             viewNet->getNet()->insertAdditional(vType);
             vType->incRef("buildCalibratorVehicleType");
         }
-        return true;
+        return vType;
     } else {
         throw ProcessError("Could not build " + toString(SUMO_TAG_VTYPE) + " with ID '" + vehicleTypeID + "' in netedit; probably declared twice.");
     }
 }
 
 
-bool
+GNEAdditional*
 GNEAdditionalHandler::buildCalibratorFlow(GNEViewNet* viewNet, bool allowUndoRedo, GNEAdditional* calibratorParent, GNEAdditional* route, GNEAdditional* vtype, 
         const std::string &vehsPerHour, const std::string &speed, const RGBColor& color, const std::string& departLane, const std::string& departPos, 
         const std::string& departSpeed, const std::string& arrivalLane, const std::string& arrivalPos, const std::string& arrivalSpeed, const std::string& line, 
@@ -1688,11 +1752,11 @@ GNEAdditionalHandler::buildCalibratorFlow(GNEViewNet* viewNet, bool allowUndoRed
         calibratorParent->addAdditionalChild(flow);
         flow->incRef("buildCalibratorFlow");
     }
-    return true;
+    return flow;
 }
 
 
-bool
+GNEAdditional*
 GNEAdditionalHandler::buildRerouter(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, Position pos, const std::vector<GNEEdge*>& edges, double prob, const std::string& name, const std::string& file, bool off, double timeThreshold, const std::string& vTypes, bool blockMovement) {
     if (viewNet->getNet()->retrieveAdditional(SUMO_TAG_REROUTER, id, false) == nullptr) {
         GNERerouter* rerouter = new GNERerouter(id, viewNet, pos, edges, name, file, prob, off, timeThreshold, vTypes, blockMovement);
@@ -1719,14 +1783,14 @@ GNEAdditionalHandler::buildRerouter(GNEViewNet* viewNet, bool allowUndoRedo, con
                 WRITE_MESSAGE("Loading of " + file + " failed.");
             }
         }
-        return true;
+        return rerouter;
     } else {
         throw ProcessError("Could not build " + toString(SUMO_TAG_REROUTER) + " with ID '" + id + "' in netedit; probably declared twice.");
     }
 }
 
 
-bool
+GNEAdditional*
 GNEAdditionalHandler::buildRerouterInterval(GNEViewNet* viewNet, bool allowUndoRedo, GNEAdditional* rerouterParent, double begin, double end) {
     // check if new interval will produce a overlapping
     if (checkOverlappingRerouterIntervals(rerouterParent, begin, end)) {
@@ -1740,14 +1804,14 @@ GNEAdditionalHandler::buildRerouterInterval(GNEViewNet* viewNet, bool allowUndoR
             rerouterParent->addAdditionalChild(rerouterInterval);
             rerouterInterval->incRef("buildRerouterInterval");
         }
-        return true;
+        return rerouterInterval;
     } else {
         throw ProcessError("Could not build " + toString(SUMO_TAG_INTERVAL) + " with begin '" + toString(begin) + "' and '" + toString(end) + "' in '" + rerouterParent->getID() + "' due overlapping.");
     }
 }
 
 
-bool
+GNEAdditional*
 GNEAdditionalHandler::buildClosingLaneReroute(GNEViewNet* viewNet, bool allowUndoRedo, GNEAdditional* rerouterIntervalParent, GNELane* closedLane, SVCPermissions permissions) {
     // create closing lane reorute
     GNEClosingLaneReroute* closingLaneReroute = new GNEClosingLaneReroute(rerouterIntervalParent, closedLane, permissions);
@@ -1760,11 +1824,11 @@ GNEAdditionalHandler::buildClosingLaneReroute(GNEViewNet* viewNet, bool allowUnd
         rerouterIntervalParent->addAdditionalChild(closingLaneReroute);
         closingLaneReroute->incRef("buildClosingLaneReroute");
     }
-    return true;
+    return closingLaneReroute;
 }
 
 
-bool
+GNEAdditional*
 GNEAdditionalHandler::buildClosingReroute(GNEViewNet* viewNet, bool allowUndoRedo, GNEAdditional* rerouterIntervalParent, GNEEdge* closedEdge, SVCPermissions permissions) {
     // create closing reroute
     GNEClosingReroute* closingReroute = new GNEClosingReroute(rerouterIntervalParent, closedEdge, permissions);
@@ -1777,11 +1841,11 @@ GNEAdditionalHandler::buildClosingReroute(GNEViewNet* viewNet, bool allowUndoRed
         rerouterIntervalParent->addAdditionalChild(closingReroute);
         closingReroute->incRef("buildClosingReroute");
     }
-    return true;
+    return closingReroute;
 }
 
 
-bool
+GNEAdditional*
 GNEAdditionalHandler::builDestProbReroute(GNEViewNet* viewNet, bool allowUndoRedo, GNEAdditional* rerouterIntervalParent, GNEEdge* newEdgeDestination, double probability) {
     // create dest probability reroute
     GNEDestProbReroute* destProbReroute = new GNEDestProbReroute(rerouterIntervalParent, newEdgeDestination, probability);
@@ -1794,11 +1858,11 @@ GNEAdditionalHandler::builDestProbReroute(GNEViewNet* viewNet, bool allowUndoRed
         rerouterIntervalParent->addAdditionalChild(destProbReroute);
         destProbReroute->incRef("builDestProbReroute");
     }
-    return true;
+    return destProbReroute;
 }
 
 
-bool
+GNEAdditional*
 GNEAdditionalHandler::builParkingAreaReroute(GNEViewNet* viewNet, bool allowUndoRedo, GNEAdditional* rerouterIntervalParent, GNEAdditional* newParkingArea, double probability, bool visible) {
     // create dest probability reroute
     GNEParkingAreaReroute* parkingAreaReroute = new GNEParkingAreaReroute(rerouterIntervalParent, newParkingArea, probability, visible);
@@ -1811,11 +1875,11 @@ GNEAdditionalHandler::builParkingAreaReroute(GNEViewNet* viewNet, bool allowUndo
         rerouterIntervalParent->addAdditionalChild(parkingAreaReroute);
         parkingAreaReroute->incRef("builParkingAreaReroute");
     }
-    return true;
+    return parkingAreaReroute;
 }
 
 
-bool
+GNEAdditional*
 GNEAdditionalHandler::buildRouteProbReroute(GNEViewNet* viewNet, bool allowUndoRedo, GNEAdditional* rerouterIntervalParent, const std::string& newRouteId, double probability) {
     // create rout prob rereoute
     GNERouteProbReroute* routeProbReroute = new GNERouteProbReroute(rerouterIntervalParent, newRouteId, probability);
@@ -1828,11 +1892,11 @@ GNEAdditionalHandler::buildRouteProbReroute(GNEViewNet* viewNet, bool allowUndoR
         rerouterIntervalParent->addAdditionalChild(routeProbReroute);
         routeProbReroute->incRef("buildRouteProbReroute");
     }
-    return true;
+    return routeProbReroute;
 }
 
 
-bool
+GNEAdditional*
 GNEAdditionalHandler::buildRouteProbe(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNEEdge* edge, const std::string &freq, const std::string& name, const std::string& file, double begin) {
     if (viewNet->getNet()->retrieveAdditional(SUMO_TAG_ROUTEPROBE, id, false) == nullptr) {
         GNERouteProbe* routeProbe = new GNERouteProbe(id, viewNet, edge, freq, name, file, begin);
@@ -1847,14 +1911,14 @@ GNEAdditionalHandler::buildRouteProbe(GNEViewNet* viewNet, bool allowUndoRedo, c
             edge->addAdditionalChild(routeProbe);
             routeProbe->incRef("buildRouteProbe");
         }
-        return true;
+        return routeProbe;
     } else {
         throw ProcessError("Could not build " + toString(SUMO_TAG_ROUTEPROBE) + " with ID '" + id + "' in netedit; probably declared twice.");
     }
 }
 
 
-bool
+GNEAdditional*
 GNEAdditionalHandler::buildVariableSpeedSign(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, Position pos, const std::vector<GNELane*>& lanes, const std::string& name, bool blockMovement) {
     if (viewNet->getNet()->retrieveAdditional(SUMO_TAG_VSS, id, false) == nullptr) {
         GNEVariableSpeedSign* variableSpeedSign = new GNEVariableSpeedSign(id, viewNet, pos, lanes, name, blockMovement);
@@ -1870,14 +1934,14 @@ GNEAdditionalHandler::buildVariableSpeedSign(GNEViewNet* viewNet, bool allowUndo
             }
             variableSpeedSign->incRef("buildVariableSpeedSign");
         }
-        return true;
+        return variableSpeedSign;
     } else {
         throw ProcessError("Could not build " + toString(SUMO_TAG_VSS) + " with ID '" + id + "' in netedit; probably declared twice.");
     }
 }
 
 
-bool
+GNEAdditional*
 GNEAdditionalHandler::buildVariableSpeedSignStep(GNEViewNet* viewNet, bool allowUndoRedo, GNEAdditional* VSSParent, double time, double speed) {
     // create Variable Speed Sign
     GNEVariableSpeedSignStep* variableSpeedSignStep = new GNEVariableSpeedSignStep(VSSParent, time, speed);
@@ -1890,11 +1954,11 @@ GNEAdditionalHandler::buildVariableSpeedSignStep(GNEViewNet* viewNet, bool allow
         VSSParent->addAdditionalChild(variableSpeedSignStep);
         variableSpeedSignStep->incRef("buildVariableSpeedSignStep");
     }
-    return true;
+    return variableSpeedSignStep;
 }
 
 
-bool
+GNEAdditional*
 GNEAdditionalHandler::buildVaporizer(GNEViewNet* viewNet, bool allowUndoRedo, GNEEdge* edge, double startTime, double end, const std::string &name) {
     GNEVaporizer* vaporizer = new GNEVaporizer(viewNet, edge, startTime, end, name);
     if (allowUndoRedo) {
@@ -1908,7 +1972,7 @@ GNEAdditionalHandler::buildVaporizer(GNEViewNet* viewNet, bool allowUndoRedo, GN
         edge->addAdditionalChild(vaporizer);
         vaporizer->incRef("buildVaporizer");
     }
-    return true;
+    return vaporizer;
 }
 
 

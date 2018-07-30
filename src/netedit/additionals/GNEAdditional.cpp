@@ -57,6 +57,7 @@
 GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName, bool blockMovement) :
     GUIGlObject(type, id),
     GNEAttributeCarrier(tag),
+    Parameterised(),
     myViewNet(viewNet),
     myAdditionalName(additionalName),
     myBlockMovement(blockMovement),
@@ -69,6 +70,7 @@ GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlOb
 GNEAdditional::GNEAdditional(GNEAdditional* singleAdditionalParent, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName, bool blockMovement) :
     GUIGlObject(type, singleAdditionalParent->generateAdditionalChildID(tag)),
     GNEAttributeCarrier(tag),
+    Parameterised(),
     myViewNet(viewNet),
     myAdditionalName(additionalName),
     myBlockMovement(blockMovement),
@@ -83,6 +85,7 @@ GNEAdditional::GNEAdditional(GNEAdditional* singleAdditionalParent, GNEViewNet* 
 GNEAdditional::GNEAdditional(GNEAdditional* firstAdditionalParent, GNEAdditional* secondAdditionalParent, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName, bool blockMovement) :
     GUIGlObject(type, firstAdditionalParent->generateAdditionalChildID(tag)),
     GNEAttributeCarrier(tag),
+    Parameterised(),
     myViewNet(viewNet),
     myAdditionalName(additionalName),
     myBlockMovement(blockMovement),
@@ -97,6 +100,7 @@ GNEAdditional::GNEAdditional(GNEAdditional* firstAdditionalParent, GNEAdditional
 GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName, bool blockMovement, std::vector<GNEEdge*> edgeChilds) :
     GUIGlObject(type, id),
     GNEAttributeCarrier(tag),
+    Parameterised(),
     myViewNet(viewNet),
     myAdditionalName(additionalName),
     myBlockMovement(blockMovement),
@@ -110,6 +114,7 @@ GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlOb
 GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName, bool blockMovement, std::vector<GNELane*> laneChilds) :
     GUIGlObject(type, id),
     GNEAttributeCarrier(tag),
+    Parameterised(),
     myViewNet(viewNet),
     myAdditionalName(additionalName),
     myBlockMovement(blockMovement),
@@ -176,6 +181,8 @@ GNEAdditional::writeAdditional(OutputDevice& device) const {
                 }
             }
         }
+        // save generic parameters
+        writeParams(device);
         // iterate over childs and write it in XML (or in a different file)
         if(tagProperties.canWriteChildsSeparate() && tagProperties.hasAttribute(SUMO_ATTR_FILE) && !getAttribute(SUMO_ATTR_FILE).empty()) {
             // we assume that rerouter values files is placed in the same folder as the additional file

@@ -20,9 +20,10 @@
 // included modules
 // ===========================================================================
 #include <config.h>
+#include <utils/common/MsgHandler.h>
+#include <utils/iodevices/OutputDevice.h>
+#include <utils/common/StringUtils.h>
 
-#include "utils/iodevices/OutputDevice.h"
-#include "utils/common/StringUtils.h"
 #include "TplConvert.h"
 #include "Parameterised.h"
 
@@ -81,7 +82,15 @@ double
 Parameterised::getDouble(const std::string& key, const double defaultValue) const {
     std::map<std::string, std::string>::const_iterator i = myMap.find(key);
     if (i != myMap.end()) {
-        return TplConvert::_2double(i->second.c_str());
+        try {
+            return TplConvert::_2double(i->second.c_str());
+        } catch (NumberFormatException&) {
+            WRITE_WARNING("Invalid conversion from string to double (" + i->second + ")");
+            return defaultValue;
+        } catch (EmptyData&) {
+            WRITE_WARNING("Invalid conversion from string to double (empty value)");
+            return defaultValue;
+        }
     }
     return defaultValue;
 }

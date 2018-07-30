@@ -25,6 +25,7 @@
 
 #include <string>
 #include <vector>
+#include <utils/common/Parameterised.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/settings/GUIPropertySchemeStorage.h>
@@ -49,7 +50,7 @@ class GUIGLObjectPopupMenu;
  * @class GNEAdditional
  * @brief An Element which don't belongs to GNENet but has influency in the simulation
  */
-class GNEAdditional : public GUIGlObject, public GNEAttributeCarrier {  // parametriced
+class GNEAdditional : public GUIGlObject, public GNEAttributeCarrier, public Parameterised {
 
 public:
     /**@brief Constructor

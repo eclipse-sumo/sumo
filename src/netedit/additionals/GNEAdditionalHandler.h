@@ -246,6 +246,11 @@ public:
      */
     void parseAndBuildCalibratorFlow(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
 
+    /**@brief Parse generic parameter and insert it in the last created additional
+     * @param[in] attrs SAX-attributes which define the generic parameter
+     */
+    void parseGenericParameter(const SUMOSAXAttributes& attrs);
+
     /// @}
 
     /// @name building methods
@@ -259,7 +264,7 @@ public:
      * @param[in] values map with the attributes and values of the additional to create
      * @return true if was sucesfully created, false in other case
      */
-    static bool buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, SumoXMLTag tag, std::map<SumoXMLAttr, std::string> values);
+    static GNEAdditional* buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, SumoXMLTag tag, std::map<SumoXMLAttr, std::string> values);
 
     /**@brief Builds a bus stop
      * @param[in] viewNet viewNet in which element will be inserted
@@ -275,7 +280,7 @@ public:
      * @return true if was sucesfully created, false in other case
      * @exception InvalidArgument If the bus stop can not be added to the net (is duplicate)
      */
-    static bool buildBusStop(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, const std::string& startPos, const std::string& endPos, const std::string& name, const std::vector<std::string>& lines, bool friendlyPosition, bool blockMovement);
+    static GNEAdditional* buildBusStop(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, const std::string& startPos, const std::string& endPos, const std::string& name, const std::vector<std::string>& lines, bool friendlyPosition, bool blockMovement);
 
     /**@brief Builds an Access
      * @param[in] viewNet viewNet in which element will be inserted
@@ -289,7 +294,7 @@ public:
      * @return true if was sucesfully created, false in other case
      * @exception InvalidArgument If the detector can not be added to the net (is duplicate)
      */
-    static bool buildAccess(GNEViewNet* viewNet, bool allowUndoRedo, GNEAdditional *busStop, GNELane* lane, const std::string& pos, const std::string& length, bool friendlyPos, bool blockMovement);
+    static GNEAdditional* buildAccess(GNEViewNet* viewNet, bool allowUndoRedo, GNEAdditional *busStop, GNELane* lane, const std::string& pos, const std::string& length, bool friendlyPos, bool blockMovement);
 
     /**@brief Builds a container stop
      * @param[in] viewNet viewNet in which element will be inserted
@@ -305,7 +310,7 @@ public:
      * @return true if was sucesfully created, false in other case
      * @exception InvalidArgument If the container stop can not be added to the net (is duplicate)
      */
-    static bool buildContainerStop(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, const std::string& startPos, const std::string& endPos, const std::string& name, 
+    static GNEAdditional* buildContainerStop(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, const std::string& startPos, const std::string& endPos, const std::string& name, 
                                    const std::vector<std::string>& lines, bool friendlyPosition, bool blockMovement);
 
     /**@brief Builds a charging Station
@@ -325,7 +330,7 @@ public:
      * @return true if was sucesfully created, false in other case
      * @exception InvalidArgument If the charging Station can not be added to the net (is duplicate)
      */
-    static bool buildChargingStation(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, const std::string& startPos, const std::string& endPos, const std::string& name, 
+    static GNEAdditional* buildChargingStation(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, const std::string& startPos, const std::string& endPos, const std::string& name, 
                                      double chargingPower, double efficiency, bool chargeInTransit, double chargeDelay, bool friendlyPosition, bool blockMovement);
 
     /**@brief Builds a Parking Area
@@ -345,7 +350,7 @@ public:
      * @return true if was sucesfully created, false in other case
      * @exception InvalidArgument If the charging Station can not be added to the net (is duplicate)
      */
-    static bool buildParkingArea(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, const std::string& startPos, const std::string &endPos, const std::string& name, 
+    static GNEAdditional* buildParkingArea(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, const std::string& startPos, const std::string &endPos, const std::string& name, 
                                  bool friendlyPosition, int roadSideCapacity, double width, const std::string &length, double angle, bool blockMovement);
 
     /**@brief Builds a Parking Space
@@ -362,7 +367,7 @@ public:
      * @return true if was sucesfully created, false in other case
      * @exception InvalidArgument If the charging Station can not be added to the net (is duplicate)
      */
-    static bool buildParkingSpace(GNEViewNet* viewNet, bool allowUndoRedo, GNEAdditional *parkingAreaParent, double x, double y, double z, double width, double length, double angle, bool blockMovement);
+    static GNEAdditional* buildParkingSpace(GNEViewNet* viewNet, bool allowUndoRedo, GNEAdditional *parkingAreaParent, double x, double y, double z, double width, double length, double angle, bool blockMovement);
 
     /**@brief Builds a induction loop detector (E1)
      * @param[in] viewNet viewNet in which element will be inserted
@@ -379,7 +384,7 @@ public:
      * @return true if was sucesfully created, false in other case
      * @exception InvalidArgument If the detector can not be added to the net (is duplicate)
      */
-    static bool buildDetectorE1(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, double pos, double freq, const std::string& filename, 
+    static GNEAdditional* buildDetectorE1(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, double pos, double freq, const std::string& filename, 
                                 const std::string& name, const std::string& vehicleTypes, bool friendlyPos, bool blockMovement);
 
     /**@brief Builds a lane Area Detector (E2)
@@ -400,7 +405,7 @@ public:
      * @return true if was sucesfully created, false in other case
      * @exception InvalidArgument If the detector can not be added to the net (is duplicate)
      */
-    static bool buildDetectorE2(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, double pos, double length, double freq, const std::string& filename,
+    static GNEAdditional* buildDetectorE2(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, double pos, double length, double freq, const std::string& filename,
                                 const std::string& name, const double timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, bool blockMovement);
 
     /**@brief Builds a multi entry exit detector (E3)
@@ -417,7 +422,7 @@ public:
      * @return true if was sucesfully created, false in other case
      * @exception InvalidArgument If the detector can not be added to the net (is duplicate)
      */
-    static bool buildDetectorE3(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, Position pos, double freq, const std::string& filename, const std::string& name,  const double timeThreshold, double speedThreshold, bool blockMovement);
+    static GNEAdditional* buildDetectorE3(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, Position pos, double freq, const std::string& filename, const std::string& name,  const double timeThreshold, double speedThreshold, bool blockMovement);
 
     /**@brief Builds a entry detector (E3)
      * @param[in] viewNet viewNet in which element will be inserted
@@ -430,7 +435,7 @@ public:
      * @return true if was sucesfully created, false in other case
      * @exception InvalidArgument If the entry detector can not be added to the net (invalid parent or lane)
      */
-    static bool buildDetectorEntry(GNEViewNet* viewNet, bool allowUndoRedo, GNEAdditional* E3Parent, GNELane* lane, double pos, bool friendlyPos, bool blockMovement);
+    static GNEAdditional* buildDetectorEntry(GNEViewNet* viewNet, bool allowUndoRedo, GNEAdditional* E3Parent, GNELane* lane, double pos, bool friendlyPos, bool blockMovement);
 
     /**@brief Builds a exit detector (E3)
      * @param[in] viewNet viewNet in which element will be inserted
@@ -443,7 +448,7 @@ public:
      * @return true if was sucesfully created, false in other case
      * @exception InvalidArgument If the exit detector can not be added to the net (invalid parent or lane
      */
-    static bool buildDetectorExit(GNEViewNet* viewNet, bool allowUndoRedo, GNEAdditional* E3Parent, GNELane* lane, double pos, bool friendlyPos, bool blockMovement);
+    static GNEAdditional* buildDetectorExit(GNEViewNet* viewNet, bool allowUndoRedo, GNEAdditional* E3Parent, GNELane* lane, double pos, bool friendlyPos, bool blockMovement);
 
     /**@brief Builds a Instant Induction Loop Detector (E1Instant)
      * @param[in] viewNet viewNet in which element will be inserted
@@ -458,7 +463,7 @@ public:
      * @return true if was sucesfully created, false in other case
      * @exception InvalidArgument If the detector can not be added to the net (is duplicate)
      */
-    static bool buildDetectorE1Instant(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, double pos, const std::string& filename, const std::string& name, bool friendlyPos, bool blockMovement);
+    static GNEAdditional* buildDetectorE1Instant(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, double pos, const std::string& filename, const std::string& name, bool friendlyPos, bool blockMovement);
 
     /**@brief builds a microscopic calibrator over a lane
      * @param[in] viewNet viewNet in which element will be inserted
@@ -473,7 +478,7 @@ public:
      * @return true if was sucesfully created, false in other case
      * @exception InvalidArgument If the entry detector can not be added to the net (is duplicate)
      */
-    static bool buildCalibrator(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, double pos, const std::string& name, const std::string& outfile, double freq);
+    static GNEAdditional* buildCalibrator(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, double pos, const std::string& name, const std::string& outfile, double freq);
 
     /**@brief builds a microscopic calibrator over an edge
     * @param[in] viewNet viewNet in which element will be inserted
@@ -488,17 +493,17 @@ public:
     * @return true if was sucesfully created, false in other case
     * @exception InvalidArgument If the entry detector can not be added to the net (is duplicate)
     */
-    static bool buildCalibrator(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNEEdge* edge, double pos, const std::string& name, const std::string& outfile, double freq);
+    static GNEAdditional* buildCalibrator(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNEEdge* edge, double pos, const std::string& name, const std::string& outfile, double freq);
 
     /**
     DOCUMENTAR
     */
-    static bool buildCalibratorRoute(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& routeID, const std::vector<GNEEdge*>& edges, const RGBColor& color);
+    static GNEAdditional* buildCalibratorRoute(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& routeID, const std::vector<GNEEdge*>& edges, const RGBColor& color);
 
     /**
     DOCUMENTAR
     */
-    static bool buildVehicleType(GNEViewNet* viewNet, bool allowUndoRedo, std::string vehicleTypeID,
+    static GNEAdditional* buildVehicleType(GNEViewNet* viewNet, bool allowUndoRedo, std::string vehicleTypeID,
                                            double accel, double decel, double sigma, double tau, double length, double minGap, double maxSpeed,
                                            double speedFactor, double speedDev, const RGBColor& color, SUMOVehicleClass vClass, const std::string& emissionClass,
                                            SUMOVehicleShape shape, double width, const std::string& filename, double impatience, const std::string& laneChangeModel,
@@ -508,7 +513,7 @@ public:
     /**
     DOCUMENTAR
     */
-    static bool buildCalibratorFlow(GNEViewNet* viewNet, bool allowUndoRedo, GNEAdditional* calibratorParent, GNEAdditional* route, GNEAdditional* vtype, 
+    static GNEAdditional* buildCalibratorFlow(GNEViewNet* viewNet, bool allowUndoRedo, GNEAdditional* calibratorParent, GNEAdditional* route, GNEAdditional* vtype, 
                                     const std::string &vehsPerHour, const std::string &speed, const RGBColor& color, const std::string& departLane, const std::string& departPos,
                                     const std::string& departSpeed, const std::string& arrivalLane, const std::string& arrivalPos, const std::string& arrivalSpeed,
                                     const std::string& line, int personNumber, int containerNumber, bool reroute, const std::string& departPosLat,
@@ -526,7 +531,7 @@ public:
      * @param[in] blockMovemet enable or disable block movement
      * @return true if was sucesfully created, false in other case
      */
-    static bool buildRerouter(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, Position pos, const std::vector<GNEEdge*>& edges, double prob, const std::string& name, const std::string& file, bool off, double timeThreshold, const std::string& vTypes, bool blockMovement);
+    static GNEAdditional* buildRerouter(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, Position pos, const std::vector<GNEEdge*>& edges, double prob, const std::string& name, const std::string& file, bool off, double timeThreshold, const std::string& vTypes, bool blockMovement);
 
     /**@brief builds a rerouter interval
     * @param[in] viewNet viewNet in which element will be inserted
@@ -536,32 +541,32 @@ public:
     * @param[in] end end of interval
     * @return true if was sucesfully created, false in other case
     */
-    static bool buildRerouterInterval(GNEViewNet* viewNet, bool allowUndoRedo, GNEAdditional* rerouterParent, double begin, double end);
+    static GNEAdditional* buildRerouterInterval(GNEViewNet* viewNet, bool allowUndoRedo, GNEAdditional* rerouterParent, double begin, double end);
 
     /**
     DOCUMENTAR
     */
-    static bool buildClosingLaneReroute(GNEViewNet* viewNet, bool allowUndoRedo, GNEAdditional* rerouterIntervalParent, GNELane* closedLane, SVCPermissions permissions);
+    static GNEAdditional* buildClosingLaneReroute(GNEViewNet* viewNet, bool allowUndoRedo, GNEAdditional* rerouterIntervalParent, GNELane* closedLane, SVCPermissions permissions);
 
     /**
     DOCUMENTAR
     */
-    static bool buildClosingReroute(GNEViewNet* viewNet, bool allowUndoRedo, GNEAdditional* rerouterIntervalParent, GNEEdge* closedEdge, SVCPermissions permissions);
+    static GNEAdditional* buildClosingReroute(GNEViewNet* viewNet, bool allowUndoRedo, GNEAdditional* rerouterIntervalParent, GNEEdge* closedEdge, SVCPermissions permissions);
 
     /**
     DOCUMENTAR
     */
-    static bool builDestProbReroute(GNEViewNet* viewNet, bool allowUndoRedo, GNEAdditional* rerouterIntervalParent, GNEEdge* newEdgeDestination, double probability);
+    static GNEAdditional* builDestProbReroute(GNEViewNet* viewNet, bool allowUndoRedo, GNEAdditional* rerouterIntervalParent, GNEEdge* newEdgeDestination, double probability);
     
     /**
     DOCUMENTAR
     */
-    static bool builParkingAreaReroute(GNEViewNet* viewNet, bool allowUndoRedo, GNEAdditional* rerouterIntervalParent, GNEAdditional* newParkignArea, double probability, bool visible);
+    static GNEAdditional* builParkingAreaReroute(GNEViewNet* viewNet, bool allowUndoRedo, GNEAdditional* rerouterIntervalParent, GNEAdditional* newParkignArea, double probability, bool visible);
     
     /**
     DOCUMENTAR
     */
-    static bool buildRouteProbReroute(GNEViewNet* viewNet, bool allowUndoRedo, GNEAdditional* rerouterIntervalParent, const std::string& newRouteId, double probability);
+    static GNEAdditional* buildRouteProbReroute(GNEViewNet* viewNet, bool allowUndoRedo, GNEAdditional* rerouterIntervalParent, const std::string& newRouteId, double probability);
 
     /**@brief builds a Route probe
      * @param[in] viewNet viewNet in which element will be inserted
@@ -575,7 +580,7 @@ public:
      * @return true if was sucesfully created, false in other case
      * @exception InvalidArgument If the Route Probe can not be added to the net (is duplicate)
      */
-    static bool buildRouteProbe(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNEEdge* edge, const std::string &freq, const std::string& name, const std::string& file, double begin);
+    static GNEAdditional* buildRouteProbe(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNEEdge* edge, const std::string &freq, const std::string& name, const std::string& file, double begin);
 
     /**@brief Builds a VariableSpeedSign (lane speed trigger)
      * @param[in] viewNet viewNet in which element will be inserted
@@ -587,7 +592,7 @@ public:
      * @return true if was sucesfully created, false in other case
      * @exception InvalidArgument If the VariableSpeedSign can not be added to the net (is duplicate)
      */
-    static bool buildVariableSpeedSign(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, Position pos, const std::vector<GNELane*>& destLanes, const std::string& name, bool blockMovement);
+    static GNEAdditional* buildVariableSpeedSign(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, Position pos, const std::vector<GNELane*>& destLanes, const std::string& name, bool blockMovement);
 
     /**@brief Builds a VariableSpeedSign Step
     * @param[in] viewNet viewNet in which element will be inserted
@@ -598,7 +603,7 @@ public:
     * @return true if was sucesfully created, false in other case
     * @exception InvalidArgument If the Variable Speed Sign Step can not be added to the net (is duplicate)
     */
-    static bool buildVariableSpeedSignStep(GNEViewNet* viewNet, bool allowUndoRedo, GNEAdditional* VSSParent, double time, double speed);
+    static GNEAdditional* buildVariableSpeedSignStep(GNEViewNet* viewNet, bool allowUndoRedo, GNEAdditional* VSSParent, double time, double speed);
 
     /**@brief Builds a vaporizer (lane speed trigger)
      * @param[in] viewNet viewNet in which element will be inserted
@@ -610,7 +615,7 @@ public:
      * @return true if was sucesfully created, false in other case
      * @exception ProcessError If the XML definition file is errornous
      */
-    static bool buildVaporizer(GNEViewNet* viewNet, bool allowUndoRedo, GNEEdge* edge, double startTime, double end, const std::string &name);
+    static GNEAdditional* buildVaporizer(GNEViewNet* viewNet, bool allowUndoRedo, GNEEdge* edge, double startTime, double end, const std::string &name);
 
     /**@brief Helper method to obtain the filename
      * @param[in] attrs The attributes to obtain the file name from
@@ -691,6 +696,9 @@ private:
 
     /// @brief pointer to parent additional (used for loading additional childs placed in a different XML)
     GNEAdditional *myAdditionalParent; 
+
+    /// @brief pointer to last inserted additional (used for generic parameters)
+    GNEAdditional *myLastInsertedAdditional;
 
     /// @brief HierarchyInsertedElements used for insert childs
     HierarchyInsertedElements myParentElements;
