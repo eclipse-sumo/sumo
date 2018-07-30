@@ -199,6 +199,9 @@ MSAbstractLaneChangeModel::startLaneChangeManeuver(MSLane* source, MSLane* targe
         setManeuverDist(target->getCenterOnEdge() - source->getCenterOnEdge());
         myVehicle.switchOffSignal(MSVehicle::VEH_SIGNAL_BLINKER_RIGHT | MSVehicle::VEH_SIGNAL_BLINKER_LEFT);
         myVehicle.switchOnSignal(direction == 1 ? MSVehicle::VEH_SIGNAL_BLINKER_LEFT : MSVehicle::VEH_SIGNAL_BLINKER_RIGHT);
+        if(myLCOutput) {
+            memorizeGapsAtLCInit();
+        }
         return true;
     } else {
         primaryLaneChanged(source, target, direction);
@@ -206,6 +209,15 @@ MSAbstractLaneChangeModel::startLaneChangeManeuver(MSLane* source, MSLane* targe
     }
 }
 
+void
+MSAbstractLaneChangeModel::memorizeGapsAtLCInit() {
+    myDontResetLCGaps = true;
+}
+
+void
+MSAbstractLaneChangeModel::clearGapsAtLCInit() {
+    myDontResetLCGaps = false;
+}
 
 void
 MSAbstractLaneChangeModel::primaryLaneChanged(MSLane* source, MSLane* target, int direction) {
@@ -246,6 +258,9 @@ MSAbstractLaneChangeModel::laneChangeOutput(const std::string& tag, MSLane* sour
             of.writeAttr("latGap", latGap == NO_NEIGHBOR ? "None" : toString(latGap));
         }
         of.closeTag();
+        if (MSGlobals::gLaneChangeDuration > DELTA_T) {
+            clearGapsAtLCInit();
+        }
     }
 }
 

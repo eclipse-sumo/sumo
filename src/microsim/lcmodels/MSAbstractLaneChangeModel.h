@@ -219,12 +219,14 @@ public:
         myCanceledStates[1] = LCA_NONE;
         myLastLateralGapRight = NO_NEIGHBOR;
         myLastLateralGapLeft = NO_NEIGHBOR;
-        myLastLeaderGap = NO_NEIGHBOR;
-        myLastLeaderSecureGap = NO_NEIGHBOR;
-        myLastFollowerGap = NO_NEIGHBOR;
-        myLastFollowerSecureGap = NO_NEIGHBOR;
-        myLastOrigLeaderGap = NO_NEIGHBOR;
-        myLastOrigLeaderSecureGap = NO_NEIGHBOR;
+        if (!myDontResetLCGaps) {
+            myLastLeaderGap = NO_NEIGHBOR;
+            myLastLeaderSecureGap = NO_NEIGHBOR;
+            myLastFollowerGap = NO_NEIGHBOR;
+            myLastFollowerSecureGap = NO_NEIGHBOR;
+            myLastOrigLeaderGap = NO_NEIGHBOR;
+            myLastOrigLeaderSecureGap = NO_NEIGHBOR;
+        }
         myCommittedSpeed = 0;
     }
 
@@ -443,6 +445,10 @@ public:
     /// @brief start the lane change maneuver and return whether it continues
     bool startLaneChangeManeuver(MSLane* source, MSLane* target, int direction);
 
+    /// @brief Control for resetting the memorized values for LC relevant gaps until the LC output is triggered in the case of continuous LC.
+    void memorizeGapsAtLCInit();
+    void clearGapsAtLCInit();
+
     /* @brief continue the lane change maneuver and return whether the midpoint
      * was passed in this step
      */
@@ -636,6 +642,10 @@ protected:
     /// @brief acutal and secure distance to closest leader vehicle on the original when performing lane change
     double myLastOrigLeaderGap;
     double myLastOrigLeaderSecureGap;
+
+    /// @brief Flag to prevent resetting the memorized values for LC relevant gaps until the LC output is triggered
+    ///        in the case of continuous LC.
+    bool myDontResetLCGaps;
 
     // @brief the maximum lateral speed when standing
     double myMaxSpeedLatStanding;
