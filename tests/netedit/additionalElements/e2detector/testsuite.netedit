@@ -14,6 +14,9 @@ inspect_selection
 # load additional
 load
 
+# load additionals with generic parameters
+load_genericparameters
+
 # lock/unlock additional
 lock_unlock
 
