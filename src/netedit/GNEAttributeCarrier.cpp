@@ -577,52 +577,6 @@ GNEAttributeCarrier::AttributeValues::isNonEditable() const {
 }
 
 // ---------------------------------------------------------------------------
-// GenericParameter - methods
-// ---------------------------------------------------------------------------
-
-GNEAttributeCarrier::GenericParameter::GenericParameter(const std::string &parameter, const std::string &attribute) :
-    pair(parameter, attribute) {}
-
-
-GNEAttributeCarrier::GenericParameter::GenericParameter(const std::string &value) :
-    pair("", "") {
-    // check that 
-    assert(std::count(value.begin(), value.end(), '=') == 1);
-    bool change = false;
-    // separate value in key and attribute
-    for(auto i : value) {
-        if(i == '=') {
-            change = true;
-        } else if(!change) {
-            first.push_back(i);
-        } else {
-            second.push_back(i);
-        }
-    }
-    // check that key isn't empty
-    assert(!first.empty());
-}
-
-
-std::string&
-GNEAttributeCarrier::GenericParameter::key() {
-    return first;
-}
-        
-
-std::string&
-GNEAttributeCarrier::GenericParameter::value() {
-    return second;
-}
-
-
-bool 
-GNEAttributeCarrier::GenericParameter::isValid() {
-    // key cannot be empty
-    return (!first.empty() && isValidName(first) && isValidName(second));
-}
-
-// ---------------------------------------------------------------------------
 // GNEAttributeCarrier - methods
 // ---------------------------------------------------------------------------
 
@@ -696,38 +650,6 @@ GNEAttributeCarrier::parse(const std::string& string) {
         return SVS_UNKNOWN;
     } else {
         return SumoVehicleShapeStrings.get(string);
-    }
-}
-
-template<> GNEAttributeCarrier::GenericParameter
-GNEAttributeCarrier::parse(const std::string &value) {
-    // only exactly one '=' is allowed
-    if(std::count(value.begin(), value.end(), '=') == 1) {
-        std::string key;
-        std::string attribute;
-        bool change = false;
-        // separate value in key and attribute
-        for(auto i : value) {
-            if(i == '=') {
-                change = true;
-            } else if(!change) {
-                key.push_back(i);
-            } else {
-                attribute.push_back(i);
-            }
-        }
-        // key cannot be empty
-        if (key.empty()) {
-            throw EmptyData();
-        } else if (!isValidName(key)) {
-            throw FormatException("Generic Parameter Key contains invalid characters");
-        } else if (!isValidName(attribute)) {
-            throw FormatException("Generic Parameter Value contains invalid characters");
-        } else {
-            return GNEAttributeCarrier::GenericParameter(value);
-        }
-    } else {
-        throw FormatException("A generic parameter can only contain exactly one '='");
     }
 }
 
@@ -1018,6 +940,7 @@ GNEAttributeCarrier::getHigherNumberOfAttributes() {
 
 bool 
 GNEAttributeCarrier::addGenericParameter(const std::string &key, const std::string &value) {
+    /*
     // make sure that generic parameter isn't duplicated
     for (auto i : myGenericParameters) {
         if(i.key() == key) {
@@ -1026,12 +949,14 @@ GNEAttributeCarrier::addGenericParameter(const std::string &key, const std::stri
     }
     // add generic parameter
     myGenericParameters.push_back(GenericParameter(key, value));
+    */
     return true;
 }
 
 
 bool 
 GNEAttributeCarrier::removeGenericParameter(const std::string &key) {
+    /*
     // make sure that generic parameter exist
     for(int i = 0; i < (int)myGenericParameters.size(); i++) {
         if(myGenericParameters.at(i).key() == key) {
@@ -1039,12 +964,14 @@ GNEAttributeCarrier::removeGenericParameter(const std::string &key) {
             return true;
         }
     }
+    */
     return false;
 }
 
 
 bool 
 GNEAttributeCarrier::updateGenericParameter(const std::string &oldKey, const std::string &newKey) {
+    /*
     // first check that new parameter doesn't exist already
     for (auto i : myGenericParameters) {
         if(i.key() == newKey) {
@@ -1058,6 +985,7 @@ GNEAttributeCarrier::updateGenericParameter(const std::string &oldKey, const std
             return true;
         }
     }
+    */
     // return false if parameter wasn't found
     return false;
 }
@@ -1065,6 +993,7 @@ GNEAttributeCarrier::updateGenericParameter(const std::string &oldKey, const std
 
 bool 
 GNEAttributeCarrier::updateGenericParameterValue(const std::string &key, const std::string &newValue) {
+    /*
     // find and replace parameter
     for (auto i : myGenericParameters) {
         if(i.key() == key) {
@@ -1072,6 +1001,7 @@ GNEAttributeCarrier::updateGenericParameterValue(const std::string &key, const s
             return true;
         }
     }
+    */
     // return false if parameter wasn't found
     return false;
 }
@@ -1079,6 +1009,7 @@ GNEAttributeCarrier::updateGenericParameterValue(const std::string &key, const s
 
 bool 
 GNEAttributeCarrier::isGenericParametersValid(const std::string &value) {
+    /*
     // separate value in a vector of string using | as separator
     std::vector<std::string> parsedValues;
     StringTokenizer st(value, "|", true);
@@ -1095,6 +1026,7 @@ GNEAttributeCarrier::isGenericParametersValid(const std::string &value) {
             return false;
         }
     }
+    */
     return true;
 }
 
@@ -1102,6 +1034,7 @@ GNEAttributeCarrier::isGenericParametersValid(const std::string &value) {
 std::string 
 GNEAttributeCarrier::getGenericParametersStr() const {
     std::string result;
+    /*
     // Generate an string using the following structure: "key1=value1|key2=value2|...
     for (auto i : myGenericParameters) {
         result += i.key() + "=" + i.value() + "|";
@@ -1110,12 +1043,14 @@ GNEAttributeCarrier::getGenericParametersStr() const {
     if(!result.empty()) {
         result.pop_back();
     }
+    */
     return result;
 }
 
 
 void 
 GNEAttributeCarrier::setGenericParametersStr(const std::string &value) {
+    /*
     // separate value in a vector of string using | as separator
     std::vector<std::string> parsedValues;
     StringTokenizer st(value, "|", true);
@@ -1128,12 +1063,7 @@ GNEAttributeCarrier::setGenericParametersStr(const std::string &value) {
     for(auto i : parsedValues) {
         myGenericParameters.push_back(GenericParameter(i));
     }
-}
-
-
-const std::vector<GNEAttributeCarrier::GenericParameter>&
-GNEAttributeCarrier::getGenericParameters() const {
-    return myGenericParameters;
+    */
 }
 
 

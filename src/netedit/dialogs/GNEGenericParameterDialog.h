@@ -46,7 +46,7 @@ class GNEGenericParameterDialog : public FXDialogBox {
 
 public:
     /// @brief Constructor
-    GNEGenericParameterDialog(GNEViewNet* viewNet, std::vector<GNEAttributeCarrier::GenericParameter> *genericParameters);
+    GNEGenericParameterDialog(GNEViewNet* viewNet/*, std::vector<GNEAttributeCarrier::GenericParameter> *genericParameters*/);
 
     /// @brief destructor
     ~GNEGenericParameterDialog();
@@ -92,7 +92,9 @@ protected:
     GNEViewNet* myViewNet;
 
     /// @brief edited generic parameters
+    /*
     std::vector<GNEAttributeCarrier::GenericParameter> *myGenericParameters;
+    */
 
     /// @brief accept button
     FXButton* myAcceptButton;
@@ -185,10 +187,10 @@ private:
 
     /// @brief vector with the GenericParameterRows
     std::vector<GenericParameterRow> myGenericParameterRows;
-
+    /*
     // @brief copy of current edited Generic Parameters (used for reset)
     const std::vector<GNEAttributeCarrier::GenericParameter> myCopyOfGenericParameters;
-
+    */
     /// @brief vector with the vertical frames
     std::vector<FXVerticalFrame*> myGenericParametersColumns;
 

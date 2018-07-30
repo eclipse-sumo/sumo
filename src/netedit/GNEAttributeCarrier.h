@@ -353,25 +353,6 @@ public:
         std::vector<SumoXMLAttr> myDeprecatedAttributes;
     };
 
-    /// @brief struct for generic parameter
-    class GenericParameter : public std::pair<std::string, std::string> {
-    public:
-        /// @brief constructor
-        GenericParameter(const std::string &parameter, const std::string &attribute);
-
-        /// @brief constructor using string
-        GenericParameter(const std::string &value);
-
-        /// @brief reference to Generic Parameter key (a.k.a first)
-        std::string &key();
-        
-        /// @brief reference to Generic Parameter value (a.k.a second)
-        std::string &value();
-
-        /// @brief check if current Generic Parameter is valid
-        bool isValid();
-    };
-
     /**@brief Constructor
      * @param[in] tag SUMO Tag assigned to this type of object
      * @param[in] icon GUIIcon associated to the type of object
@@ -485,9 +466,6 @@ public:
 
     /// @brief set generic parameters in string format
     void setGenericParametersStr(const std::string &value);
-
-    /// @brief get generic parameters
-    const std::vector<GenericParameter> &getGenericParameters() const;
 
     /// @brief maximun number of generic parameters (currently 100)
     static const int MAXNUMBER_GENERICPARAMETERS;
@@ -778,9 +756,6 @@ protected:
 
     /// @brief the xml tag to which this attribute carrier corresponds
     const SumoXMLTag myTag;
-
-    /// @brief Vector with the generic parameters
-    std::vector<GenericParameter> myGenericParameters;
 
     /// @brief map with the tags values
     static std::map<SumoXMLTag, TagValues> myAllowedTags;

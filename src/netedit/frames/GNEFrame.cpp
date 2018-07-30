@@ -492,10 +492,10 @@ GNEFrame::ACHierarchy::addACIntoList(GNEAttributeCarrier *AC, FXTreeItem* itemPa
 GNEFrame::GenericParametersEditor::GenericParametersEditor(GNEFrame* inspectorFrameParent) :
     FXGroupBox(inspectorFrameParent->myContentFrame, "Generic parameters", GUIDesignGroupBoxFrame),
     myFrameParent(inspectorFrameParent),
-    myAC(nullptr),
-    myGenericParameters(nullptr) {
+    myAC(nullptr)/*,
+    myGenericParameters(nullptr)*/ {
     // create empty vector with generic parameters
-    myGenericParameters = new std::vector<GNEAttributeCarrier::GenericParameter>;
+    /*myGenericParameters = new std::vector<GNEAttributeCarrier::GenericParameter>;*/
     // create textfield and buttons
     myTextFieldGenericParameter = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     myEditGenericParameterButton = new FXButton(this, "Edit generic parameter", 0, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButton);
@@ -503,7 +503,7 @@ GNEFrame::GenericParametersEditor::GenericParametersEditor(GNEFrame* inspectorFr
 
 
 GNEFrame::GenericParametersEditor::~GenericParametersEditor() {
-    delete myGenericParameters;
+    /*delete myGenericParameters;*/
 }
 
 
@@ -511,9 +511,11 @@ void
 GNEFrame::GenericParametersEditor::showGenericParametersEditor(GNEAttributeCarrier *AC) {
     myAC = AC;
     // change 
+    /*
     if(myAC) {
         *myGenericParameters = myAC->getGenericParameters();
     }
+    */
     // refresh GenericParametersEditor
     refreshGenericParametersEditor();
     // show groupbox
@@ -539,10 +541,12 @@ GNEFrame::GenericParametersEditor::refreshGenericParametersEditor() {
 std::string 
 GNEFrame::GenericParametersEditor::getGenericParametersStr() const {
     std::string result;
+    /*
     // Generate an string using the following structure: "key1=value1|key2=value2|...
     for (auto i = myGenericParameters->begin(); i != myGenericParameters->end(); i++) {
         result += i->key() + "=" + i->value() + "|";
     }
+    */
     // remove the last "|"
     if(!result.empty()) {
         result.pop_back();
@@ -553,7 +557,9 @@ GNEFrame::GenericParametersEditor::getGenericParametersStr() const {
 
 long 
 GNEFrame::GenericParametersEditor::onCmdEditGenericParameter(FXObject*, FXSelector, void*) {
+    /*
     GNEGenericParameterDialog(myFrameParent->getViewNet(), myGenericParameters).execute();
+    */
     // set values edited in Parameter dialog in Edited AC
     if(myAC) {
         myAC->setAttribute(GNE_ATTR_GENERIC, getGenericParametersStr(), myFrameParent->getViewNet()->getUndoList());
@@ -581,15 +587,18 @@ GNEFrame::GenericParametersEditor::onCmdSetGenericParameter(FXObject*, FXSelecto
     }
     // first check if parsed generic parameters are valid
     for(auto i : parsedValues) {
+        /*
         if(!GNEAttributeCarrier::canParse<GNEAttributeCarrier::GenericParameter>(i)) {
             WRITE_WARNING("Invalid format of Generic Parameter (" + i + ")");
             myTextFieldGenericParameter->setTextColor(FXRGB(255, 0, 0));
             myTextFieldGenericParameter->killFocus();
             return 1;
         }
+        */
     }
     // now check if there is duplicated parameters
     std::sort(parsedValues.begin(), parsedValues.end());
+    /*
     for (auto i = parsedValues.begin(); i != parsedValues.end(); i++) {
         if(((i+1) != parsedValues.end()) && (GNEAttributeCarrier::GenericParameter(*i).key()) == GNEAttributeCarrier::GenericParameter(*(i+1)).key()) {
             WRITE_WARNING("Generic Parameters wit the same key aren't allowed (" + (*i) + " - " + *(i+1) + ")");
@@ -598,13 +607,16 @@ GNEFrame::GenericParametersEditor::onCmdSetGenericParameter(FXObject*, FXSelecto
             return 1;
         }
     }
+    */
     // parsed generic parameters ok, then set text field black and continue
     myTextFieldGenericParameter->setTextColor(FXRGB(0, 0, 0));
     // clear current existent generic parameters and set parsed generic parameters
+    /*
     myGenericParameters->clear();
     for(auto i : parsedValues) {
         myGenericParameters->push_back(GNEAttributeCarrier::GenericParameter(i));
     }
+    */
     // if we're editing generic attributes of an AttributeCarrier, set it
     if(myAC) {
         myAC->setAttribute(GNE_ATTR_GENERIC, getGenericParametersStr(), myFrameParent->getViewNet()->getUndoList());
