@@ -1,0 +1,33 @@
+Warning: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
+Warning: Additionals has to be saved
+Warning: Current saving Status: net saved, additionals unsaved, shapes saved
+Warning: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
+Warning: Inserting generic parameter 'key1|value1' into additional detEntry.
+Warning: Error parsing key from generic parameter. Key doesn't exist
+Warning: Error parsing key from generic parameter. Key contains invalid characters
+Warning: Inserting generic parameter 'key1|value4' into additional detEntry.
+Warning: Inserting generic parameter 'key2|' into additional detEntry.
+Warning: Error parsing value from generic parameter. Value contains invalid characters
+Warning: Inserting generic parameter 'key4|value5' into additional detEntry.
+Warning: Error parsing key from generic parameter. Key doesn't exist
+Warning: Adding detExit 'e3Detector_0detExit0' in GNEChange_Additional
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
+Warning: Additionals saved
+Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
+Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
+Warning: Deleting unreferenced detExit 'e3Detector_0detExit0'
+Warning: Additionals has to be saved
+Warning: Current saving Status: net saved, additionals unsaved, shapes saved
+Warning: Deleting unreferenced detEntry 'e3Detector_0detEntry0'
+Warning: Deleting unreferenced e3Detector 'e3Detector_0'
+Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor
+Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE1' in GNENet destructor
+Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
+Warning: Deleting unreferenced junction 'gneJ0' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
+Warning: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
+Warning: Deleting net builder in GNENet destructor
