@@ -87,13 +87,14 @@ NBRailwayTopologyAnalyzer::makeAllBidi(NBNetBuilder& nb) {
             edge->invalidateConnections(true);
             if (!edge->isBidiRail()) {
                 if (edge->getLaneSpreadFunction() == LANESPREAD_CENTER) {
-                    NBEdge* e2 = new NBEdge("-" + edge->getID(), edge->getToNode(), edge->getFromNode(), 
-                            edge, edge->getGeometry().reverse());
-                    if (!nb.getEdgeCont().insert(e2)) {
-                        WRITE_WARNING("Could not add bidi-edge '" + e2->getID() + "'.");
-                        delete e2;
-                    } else {
+                    const std::string id2 = "-" + edge->getID();
+                    if (nb.getEdgeCont().retrieve(id2) == nullptr) {
+                        NBEdge* e2 = new NBEdge(id2, edge->getToNode(), edge->getFromNode(), 
+                                edge, edge->getGeometry().reverse());
+                        nb.getEdgeCont().insert(e2);
                         numAddedBidiEdges++;
+                    } else {
+                        WRITE_WARNING("Could not add bidi-edge '" + id2 + "'.");
                     }
                 } else {
                     numNotCenterEdges++;
