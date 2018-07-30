@@ -1242,7 +1242,7 @@ public:
     void resetNodeBorder(const NBNode* node);
 
     /// @brief whether this edge is part of a bidirectional railway
-    bool isBidiRail();
+    bool isBidiRail() const;
 
     /// @brief debugging helper to print all connections
     void debugPrintConnections(bool outgoing = true, bool incoming = false) const;
@@ -1257,6 +1257,7 @@ public:
         return edge->getLength() / edge->getSpeed();
     }
 
+    static int getLaneIndexFromLaneID(const std::string laneID);
 
     /// @brief sets the index of the edge in the list of all network edges
     void setNumericalID(int index) {

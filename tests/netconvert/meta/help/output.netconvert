@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version cca791664f
+Eclipse SUMO netconvert Version 1e6f500
  Copyright (C) 2001-2018 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
   SUMO.
@@ -48,6 +48,8 @@ Output Options:
   -H, --human-readable-time            Write time values as hour:minute:second
                                          or day:hour:minute:second rathern than
                                          seconds
+  --ptstop-files FILE                  Reads public transport stops from FILE
+  --ptline-files FILE                  Reads public transport lines from FILE
   -o, --output-file FILE               The generated net will be written to
                                          FILE
   --plain-output-prefix FILE           Prefix of files to write plain xml

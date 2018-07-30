@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jul 26 15:44:55 2018 by Eclipse SUMO netconvert Version a813078
+<!-- generated on Sat Jul 28 14:37:49 2018 by Eclipse SUMO netconvert Version 635b715
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <type-files value="/scr1/sumo/data/typemap/osmNetconvert.typ.xml,/scr1/sumo/data/typemap/osmNetconvertUrbanDe.typ.xml,/scr1/sumo/data/typemap/osmNetconvertPedestrians.typ.xml,/scr1/sumo/data/typemap/osmNetconvertShips.typ.xml,/scr1/sumo/data/typemap/osmNetconvertBicycle.typ.xml"/>
-        <osm-files value="/scr2/texttest_tmp/tools.26Jul154452.2175/tools/import/OSM/webWizard/test/osm_bbox.osm.xml"/>
+        <type-files value="/home/kobo/dlr/sumo/data/typemap/osmNetconvert.typ.xml,/home/kobo/dlr/sumo/data/typemap/osmNetconvertUrbanDe.typ.xml,/home/kobo/dlr/sumo/data/typemap/osmNetconvertPedestrians.typ.xml,/home/kobo/dlr/sumo/data/typemap/osmNetconvertShips.typ.xml,/home/kobo/dlr/sumo/data/typemap/osmNetconvertBicycle.typ.xml"/>
+        <osm-files value="/home/kobo/.texttest/tmp/dynamic_gui.28Jul143731.25123/tools/import/OSM/webWizard/test/osm_bbox.osm.xml"/>
     </input>
 
     <output>
-        <output-file value="/scr2/texttest_tmp/tools.26Jul154452.2175/tools/import/OSM/webWizard/test/osm.net.xml"/>
+        <output-file value="/home/kobo/.texttest/tmp/dynamic_gui.28Jul143731.25123/tools/import/OSM/webWizard/test/osm.net.xml"/>
         <output.street-names value="true"/>
         <output.original-names value="true"/>
-        <ptstop-output value="/scr2/texttest_tmp/tools.26Jul154452.2175/tools/import/OSM/webWizard/test/osm_stops.add.xml"/>
-        <ptline-output value="/scr2/texttest_tmp/tools.26Jul154452.2175/tools/import/OSM/webWizard/test/osm_ptlines.xml"/>
+        <ptstop-output value="/home/kobo/.texttest/tmp/dynamic_gui.28Jul143731.25123/tools/import/OSM/webWizard/test/osm_stops.add.xml"/>
+        <ptline-output value="/home/kobo/.texttest/tmp/dynamic_gui.28Jul143731.25123/tools/import/OSM/webWizard/test/osm_ptlines.xml"/>
     </output>
 
     <projection>
@@ -242,8 +242,8 @@
         <access lane="4613295#1_0" pos="117.28" length="43.91" friendlyPos="1"/>
     </busStop>
     <busStop id="2094266983" name="U Alexanderplatz" lane="438860779_0" startPos="5.19" endPos="205.19" friendlyPos="true" lines="U8">
+        <access lane="272780751#0_0" pos="0.26" length="15.95" friendlyPos="1"/>
         <access lane="272780751#1_0" pos="0.20" length="15.58" friendlyPos="1"/>
-        <access lane="272780753_0" pos="0.00" length="16.23" friendlyPos="1"/>
         <access lane="272780756#1_0" pos="7.63" length="3.66" friendlyPos="1"/>
         <access lane="346229513_0" pos="0.05" length="15.40" friendlyPos="1"/>
         <access lane="483624525_0" pos="0.34" length="12.96" friendlyPos="1"/>

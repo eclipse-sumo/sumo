@@ -99,6 +99,46 @@ bool TraCIServer::myDoCloseConnection = false;
 // ===========================================================================
 // method definitions
 // ===========================================================================
+void
+TraCIServer::initWrapper(const int domainID, const int variable, const std::string& objID) {
+    myWrapperStorage.reset();
+    myWrapperStorage.writeUnsignedByte(domainID);
+    myWrapperStorage.writeUnsignedByte(variable);
+    myWrapperStorage.writeString(objID);
+}
+
+
+bool
+TraCIServer::wrapDouble(const std::string& /* objID */, const int /* variable */, const double value) {
+    myWrapperStorage.writeUnsignedByte(TYPE_DOUBLE);
+    myWrapperStorage.writeDouble(value);
+    return true;
+}
+
+
+bool
+TraCIServer::wrapInt(const std::string& /* objID */, const int /* variable */, const int value) {
+    myWrapperStorage.writeUnsignedByte(TYPE_INTEGER);
+    myWrapperStorage.writeInt(value);
+    return true;
+}
+
+
+bool
+TraCIServer::wrapStringList(const std::string& /* objID */, const int /* variable */, const std::vector<std::string> value) {
+    myWrapperStorage.writeUnsignedByte(TYPE_STRINGLIST);
+    myWrapperStorage.writeStringList(value);
+    return true;
+}
+
+
+tcpip::Storage&
+TraCIServer::getWrapperStorage() {
+    return myWrapperStorage;
+}
+
+
+
 TraCIServer::TraCIServer(const SUMOTime begin, const int port, const int numClients)
     : myServerSocket(0),
       myTargetTime(begin),

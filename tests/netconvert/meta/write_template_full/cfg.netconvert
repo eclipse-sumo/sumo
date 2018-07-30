@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 07/23/18 02:36:28 by Eclipse SUMO netconvert Version cca791664f
+<!-- generated on Sun Jul 29 23:28:06 2018 by Eclipse SUMO netconvert Version 1e6f500
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -39,6 +39,8 @@
         <precision value="2" type="INT" help="Defines the number of digits after the comma for floating point output"/>
         <precision.geo value="6" type="INT" help="Defines the number of digits after the comma for lon,lat output"/>
         <human-readable-time value="false" synonymes="H" type="BOOL" help="Write time values as hour:minute:second or day:hour:minute:second rathern than seconds"/>
+        <ptstop-files value="" type="FILE" help="Reads public transport stops from FILE"/>
+        <ptline-files value="" type="FILE" help="Reads public transport lines from FILE"/>
         <output-file value="" synonymes="o output sumo-output" type="FILE" help="The generated net will be written to FILE"/>
         <plain-output-prefix value="" synonymes="plain plain-output" type="FILE" help="Prefix of files to write plain xml nodes, edges and connections to"/>
         <junctions.join-output value="" type="FILE" help="Writes information about joined junctions to FILE (can be loaded as additional node-file to reproduce joins"/>
@@ -59,7 +61,7 @@
         <osm.stop-output.footway-max-accesses value="5" type="INT" help="The maximum roud accesses registered per rail stops"/>
         <osm.stop-output.footway-access-factor value="1.5" type="FLOAT" help="The walking length of the access is computed as air-line distance multiplied by FLOAT"/>
         <railway.topology.output value="" type="FILE" help="Analyse topology of the railway network"/>
-        <opendrive-output.straight-threshold value="1e-008" type="FLOAT" help="Builds parameterized curves whenever the angular change  between straight segments exceeds FLOAT degrees"/>
+        <opendrive-output.straight-threshold value="1e-08" type="FLOAT" help="Builds parameterized curves whenever the angular change  between straight segments exceeds FLOAT degrees"/>
     </output>
 
     <projection>

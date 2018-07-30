@@ -127,24 +127,12 @@ netedit.modifyAttribute(10, "500")
 # Change parameter 10 with a valid value
 netedit.modifyAttribute(10, "30")
 
-# Change parameter 10 with a non valid value (dummy)
-netedit.modifyAttribute(12, "dummyGEO")
-
-# Change parameter 9 with a non valid value (empty)
-netedit.modifyAttribute(12, "")
-
-# Change parameter 9 with a valid value
-netedit.modifyAttribute(12, "3.73,74.30")
-
-# Change boolean parameter GEO
+# Change boolean parameter block
 netedit.modifyShapeDefaultBoolValue(13)
 
-# Change boolean parameter block
-netedit.modifyShapeDefaultBoolValue(15)
-
 # Check undos and redos
-netedit.undo(match, 24)
-netedit.redo(match, 24)
+netedit.undo(match, 23)
+netedit.redo(match, 23)
 
 # save shapes
 netedit.saveShapes()

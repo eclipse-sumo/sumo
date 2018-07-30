@@ -1,0 +1,7 @@
+Warning: Ignoring buffer stop junction 'buff3' with 2 edges
+
+Warning: Found and removed invalid connection from edge 'gneE27' to edge 'gneE26' via junction 'gneJ34'.
+Warning: Lane '-gneE1_0' is not connected from any incoming edge at junction 'gneJ2'.
+Warning: Lane '-gneE16_0' is not connected from any incoming edge at junction 'gneJ22'.
+Warning: Lane 'gneE11_0' is not connected from any incoming edge at junction 'gneJ9'.
+Warning: Edge 'gneE19' is not connected to outgoing edges at junction 'gneJ22'.

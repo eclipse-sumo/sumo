@@ -1,3 +1,2 @@
- Retrying in 1 seconds
-route initial: ['SC', 'NC']
-route computed: ['SC', 'CN', 'NC']
+route initial: ('SC', 'NC')
+route computed: ('SC', 'CN', 'NC')

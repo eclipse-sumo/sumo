@@ -60,7 +60,7 @@ void NBPTLine::write(OutputDevice& device, NBEdgeCont& ec) {
     device.writeAttr(SUMO_ATTR_TYPE, myType);
     if (myInterval > 0) {
         // write seconds 
-        device.writeAttr("period", 60 * myInterval);
+        device.writeAttr(SUMO_ATTR_PERIOD, 60 * myInterval);
     }
     if (myNightService != "") {
         device.writeAttr("nightService", myNightService);

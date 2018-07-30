@@ -76,17 +76,14 @@ netedit.modifyAttribute(7, "dummyAngle")
 # Set valid angle
 netedit.modifyAttribute(7, "180")
 
-# change use geo
+# change block move
 netedit.modifyBoolAttribute(9)
 
-# change block move
-netedit.modifyBoolAttribute(11)
-
 # change block shape
-netedit.modifyBoolAttribute(12)
+netedit.modifyBoolAttribute(10)
 
 # change close
-netedit.modifyBoolAttribute(13)
+netedit.modifyBoolAttribute(11)
 
 # go to select mode
 netedit.selectMode()

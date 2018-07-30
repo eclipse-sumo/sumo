@@ -210,6 +210,11 @@ MSPModel_Striping::hasPedestrians(const MSLane* lane) {
 
 bool
 MSPModel_Striping::usingInternalLanes() {
+    return usingInternalLanesStatic();
+}
+
+bool 
+MSPModel_Striping::usingInternalLanesStatic() {
     return MSGlobals::gUsingInternalLanes && MSNet::getInstance()->hasInternalLinks();
 }
 
@@ -402,7 +407,11 @@ MSPModel_Striping::getNextLane(const PState& ped, const MSLane* currentLane, con
         if (currentEdge->isInternal()) {
             assert(junction == currentEdge->getFromJunction());
             nextDir = junction == nextRouteEdge->getFromJunction() ? FORWARD : BACKWARD;
-            nextLane = nextRouteLane;
+            if (nextDir == FORWARD) {
+                nextLane = currentLane->getLinkCont()[0]->getViaLaneOrLane();
+            } else {
+                nextLane = currentLane->getLogicalPredecessorLane();
+            }
             if DEBUGCOND(ped) {
                 std::cout << "  internal\n";
             }
@@ -464,8 +473,10 @@ MSPModel_Striping::getNextLane(const PState& ped, const MSLane* currentLane, con
                               << "' to '" << (nextRouteEdge == 0 ? "NULL" : nextRouteEdge->getID())
                               << "\n";
                 }
-                WRITE_WARNING("Person '" + ped.myPerson->getID() + "' could not find route across junction '" + junction->getID() + "', time=" +
-                              time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
+                WRITE_WARNING("Person '" + ped.myPerson->getID() + "' could not find route across junction '" + junction->getID() 
+                        + "' from walkingArea '" + currentEdge->getID()
+                        + "' to edge '" + nextRouteEdge->getID() + "', time=" +
+                        time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
                 // error indicated by nextDir == UNDEFINED_DIRECTION
                 nextLane = nextRouteLane;
             }
@@ -501,6 +512,12 @@ MSPModel_Striping::getNextLane(const PState& ped, const MSLane* currentLane, con
                             std::cout << "  direct backward\n";
                         }
                         nextLane = MSLinkContHelper::getInternalFollowingLane(nextRouteLane, currentLane);
+                        if (nextLane != nullptr) {
+                            // advance to the end of consecutive internal lanes
+                            while (nextLane->getLinkCont()[0]->getViaLaneOrLane()->isInternal()) {
+                                nextLane = nextLane->getLinkCont()[0]->getViaLaneOrLane();
+                            }
+                        }
                     }
                 }
             }
@@ -509,6 +526,12 @@ MSPModel_Striping::getNextLane(const PState& ped, const MSLane* currentLane, con
                 nextLane = nextRouteLane;
                 if DEBUGCOND(ped) {
                     std::cout << SIMTIME << " no next lane found for " << currentLane->getID() << " dir=" << ped.myDir << "\n";
+                }
+                if (usingInternalLanesStatic() && currentLane->getLinkCont().size() > 0) {
+                    WRITE_WARNING("Person '" + ped.myPerson->getID() + "' could not find route across junction '" + junction->getID() 
+                            + "' from edge '" + currentEdge->getID()
+                            + "' to edge '" + nextRouteEdge->getID() + "', time=" +
+                            time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
                 }
             } else if (nextLane->getLength() <= POSITION_EPS) {
                 // internal lane too short

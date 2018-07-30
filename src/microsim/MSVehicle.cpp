@@ -4287,7 +4287,8 @@ MSVehicle::getLeader(double dist) const {
         dist = getCarFollowModel().brakeGap(getSpeed()) + getVehicleType().getMinGap();
     }
     const MSVehicle* lead = 0;
-    const MSLane::VehCont& vehs = myLane->getVehiclesSecure();
+    const MSLane* lane = myLane; // ensure lane does not change between getVehiclesSecure and releaseVehicles;
+    const MSLane::VehCont& vehs = lane->getVehiclesSecure();
     // vehicle might be outside the road network
     MSLane::VehCont::const_iterator it = std::find(vehs.begin(), vehs.end(), this);
     if (it != vehs.end() && it + 1 != vehs.end()) {
@@ -4296,13 +4297,13 @@ MSVehicle::getLeader(double dist) const {
     if (lead != 0) {
         std::pair<const MSVehicle* const, double> result(
             lead, lead->getBackPositionOnLane(myLane) - getPositionOnLane() - getVehicleType().getMinGap());
-        myLane->releaseVehicles();
+        lane->releaseVehicles();
         return result;
     }
     const double seen = myLane->getLength() - getPositionOnLane();
     const std::vector<MSLane*>& bestLaneConts = getBestLanesContinuation(myLane);
     std::pair<const MSVehicle* const, double> result = myLane->getLeaderOnConsecutive(dist, seen, getSpeed(), *this, bestLaneConts);
-    myLane->releaseVehicles();
+    lane->releaseVehicles();
     return result;
 }
 

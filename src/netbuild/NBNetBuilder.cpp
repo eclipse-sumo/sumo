@@ -147,11 +147,12 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     
     // analyse and fix railway topology
     if (oc.exists("railway.topology.repair") && oc.getBool("railway.topology.repair")) {
+        NBTurningDirectionsComputer::computeTurnDirections(myNodeCont, false);
         NBRailwayTopologyAnalyzer::repairTopology(*this);
     }
     if (oc.exists("railway.topology.output") && oc.isSet("railway.topology.output")) {
-        NBRailwayTopologyAnalyzer::analyzeTopology(*this, 
-                oc.getString("railway.topology.output"));
+        NBTurningDirectionsComputer::computeTurnDirections(myNodeCont, false); // recompute after new edges were added
+        NBRailwayTopologyAnalyzer::analyzeTopology(*this);
     }
 
     if (oc.getBool("junctions.join") || (oc.exists("ramps.guess") && oc.getBool("ramps.guess"))) {

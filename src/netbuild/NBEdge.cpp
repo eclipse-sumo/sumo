@@ -40,6 +40,7 @@
 #include "NBTypeCont.h"
 #include <utils/geom/GeomHelper.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/common/TplConvert.h>
 #include <utils/common/StringUtils.h>
 #include <utils/common/ToString.h>
 #include <utils/common/UtilExceptions.h>
@@ -645,11 +646,12 @@ NBEdge::resetNodeBorder(const NBNode* node) {
 
 
 bool 
-NBEdge::isBidiRail() {
+NBEdge::isBidiRail() const {
     return (isRailway(getPermissions()) 
             && myLaneSpreadFunction == LANESPREAD_CENTER 
             && myPossibleTurnDestination != 0 
             && myPossibleTurnDestination->getLaneSpreadFunction() == LANESPREAD_CENTER
+            && isRailway(myPossibleTurnDestination->getPermissions())
             && myPossibleTurnDestination->getGeometry().reverse() == getGeometry());
 }
 
@@ -2808,6 +2810,11 @@ NBEdge::expandableBy(NBEdge* possContinuation, std::string& reason) const {
             return false;
         }
     }
+    // conserve bidi-rails
+    if (isBidiRail() != possContinuation->isBidiRail()) {
+        reason = "bidi-rail";
+        return false;
+    }
 
     // the vehicle class constraints, too
     /*!!!
@@ -3526,6 +3533,12 @@ NBEdge::debugPrintConnections(bool outgoing, bool incoming) const {
             }
         }
     }
+}
+
+
+int
+NBEdge::getLaneIndexFromLaneID(const std::string laneID) {
+    return TplConvert::_2int(laneID.substr(laneID.rfind("_") + 1).c_str());
 }
 
 /****************************************************************************/

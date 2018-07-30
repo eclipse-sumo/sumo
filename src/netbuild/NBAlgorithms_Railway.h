@@ -49,22 +49,39 @@ public:
      * @param[in, changed] nb The network builder which contains the current network representation
      * @param[in] oc The options container
      */
-    static void analyzeTopology(NBNetBuilder& nb, const std::string& outfile);
+    static void analyzeTopology(NBNetBuilder& nb);
     static void repairTopology(NBNetBuilder& nb);
 
 
 private:
-    static void getRailNodes(NBNetBuilder& nb, std::set<NBNode*>& railNodes, bool verbose);
-    static void getBrokenRailNodes(NBNetBuilder& nb, std::set<NBNode*>& brokenNodes, 
-            bool verbose, OutputDevice& device);
+    static std::set<NBNode*> getRailNodes(NBNetBuilder& nb, bool verbose=false);
+    static std::set<NBNode*> getBrokenRailNodes(NBNetBuilder& nb, bool verbose=false);
 
-    static void getRailEdges(NBNode* node, EdgeVector& inEdges, EdgeVector& outEdges);
+    /// @brief filter out rail edges among all edges of a the given node
+    static void getRailEdges(const NBNode* node, EdgeVector& inEdges, EdgeVector& outEdges);
 
+    static bool isStraight(const NBNode* node, NBEdge* e1, NBEdge* e2);
     static bool hasStraightPair(const NBNode* node, const EdgeVector& edges, const EdgeVector& edges2); 
+    static bool allBroken(const NBNode* node, NBEdge* candOut, const EdgeVector& in, const EdgeVector& out);
     static bool allSharp(const NBNode* node, const EdgeVector& in, const EdgeVector& out);
+    static bool allBidi(const EdgeVector& edges);
+    static NBEdge* isBidiSwitch(const NBNode* n);
 
-    static void reverseEdges(std::set<NBNode*> brokenNodes);
-    static void addBidiEdges(NBNetBuilder& nb, std::set<NBNode*> railNodes, std::set<NBNode*> brokenNodes);
+    /// @brief add further bidi-edges near existing bidi-edges
+    static int extendBidiEdges(NBNetBuilder& nb);
+    static int extendBidiEdges(NBNetBuilder& nb, NBNode* node, NBEdge* bidiIn);
+
+    /// @brief reverse edges sequences that are to broken nodes on both sides
+    static void reverseEdges(NBNetBuilder& nb);
+
+    /// @brief add bidi-edges to connect buffers stops in both directions
+    static void addBidiEdgesForBufferStops(NBNetBuilder& nb);
+
+    /// @brief add bidi-edges to connect switches that are approached in both directions
+    static void addBidiEdgesBetweenSwitches(NBNetBuilder& nb);
+
+    /// recompute turning directions for both nodes of the given edge
+    static void updateTurns(NBEdge* edge);
 };
 
 

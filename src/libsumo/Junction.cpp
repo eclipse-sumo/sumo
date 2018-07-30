@@ -88,7 +88,7 @@ Junction::getTree() {
 
 void
 Junction::storeShape(const std::string& id, PositionVector& shape) {
-    shape = getJunction(id)->getShape();
+    shape.push_back(getJunction(id)->getPosition());
 }
 
 

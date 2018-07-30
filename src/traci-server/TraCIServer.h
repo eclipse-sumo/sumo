@@ -59,11 +59,10 @@
 /** @class TraCIServer
  * @brief TraCI server used to control sumo by a remote TraCI client
  */
-class TraCIServer : public MSNet::VehicleStateListener {
+class TraCIServer : public MSNet::VehicleStateListener, public libsumo::VariableWrapper {
 public:
     /// @brief Definition of a method to be called for serving an associated commandID
     typedef bool(*CmdExecutor)(TraCIServer& server, tcpip::Storage& inputStorage, tcpip::Storage& outputStorage);
-
 
     SUMOTime getTargetTime() const {
         return myTargetTime;
@@ -157,8 +156,6 @@ public:
     }
 
     void writeResponseWithLength(tcpip::Storage& outputStorage, tcpip::Storage& tempMsg);
-
-    void collectObjectsInRange(int domain, const PositionVector& shape, double range, std::set<std::string>& into);
 
 
     /// @name Helpers for reading and checking values
@@ -263,6 +260,15 @@ public:
         return myLoadArgs;
     }
 
+    /// @name VariableWrapper interface
+    /// @{
+    void initWrapper(const int domainID, const int variable, const std::string& objID);
+    bool wrapDouble(const std::string& objID, const int variable, const double value);
+    bool wrapInt(const std::string& objID, const int variable, const int value);
+    bool wrapStringList(const std::string& objID, const int variable, const std::vector<std::string> value);
+    tcpip::Storage& getWrapperStorage();
+    /// @}
+
 
 private:
     /** @brief Constructor
@@ -364,8 +370,11 @@ private:
     /// @brief The storage to read from
     tcpip::Storage myInputStorage;
 
-    /// @brief The storage to writeto
+    /// @brief The storage to write to
     tcpip::Storage myOutputStorage;
+
+    /// @brief A temporary storage to let the wrapper write to
+    tcpip::Storage myWrapperStorage;
 
     /// @brief The last timestep's subscription results
     tcpip::Storage mySubscriptionCache;
