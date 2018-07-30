@@ -28,13 +28,21 @@
 #include <microsim/output/MSInductLoop.h>
 #include <microsim/MSNet.h>
 #include <libsumo/TraCIDefs.h>
+#include <traci-server/TraCIConstants.h>
 #include "InductionLoop.h"
+
+
+namespace libsumo {
+// ===========================================================================
+// static member initializations
+// ===========================================================================
+SubscriptionResults InductionLoop::mySubscriptionResults;
+ContextSubscriptionResults InductionLoop::myContextSubscriptionResults;
 
 
 // ===========================================================================
 // member definitions
 // ===========================================================================
-namespace libsumo {
 std::vector<std::string>
 InductionLoop::getIDList() {
     std::vector<std::string> ids;
@@ -125,6 +133,42 @@ InductionLoop::getDetector(const std::string& id) {
 }
 
 
+void
+InductionLoop::subscribe(const std::string& objID, const std::vector<int>& vars, SUMOTime beginTime, SUMOTime endTime) {
+    libsumo::Helper::subscribe(CMD_SUBSCRIBE_EDGE_VARIABLE, objID, vars, beginTime, endTime);
+}
+
+
+void
+InductionLoop::subscribeContext(const std::string& objID, int domain, double range, const std::vector<int>& vars, SUMOTime beginTime, SUMOTime endTime) {
+    libsumo::Helper::subscribe(CMD_SUBSCRIBE_EDGE_CONTEXT, objID, vars, beginTime, endTime, domain, range);
+}
+
+
+const SubscriptionResults
+InductionLoop::getSubscriptionResults() {
+    return mySubscriptionResults;
+}
+
+
+const TraCIResults
+InductionLoop::getSubscriptionResults(const std::string& objID) {
+    return mySubscriptionResults[objID];
+}
+
+
+const ContextSubscriptionResults
+InductionLoop::getContextSubscriptionResults() {
+    return myContextSubscriptionResults;
+}
+
+
+const SubscriptionResults
+InductionLoop::getContextSubscriptionResults(const std::string& objID) {
+    return myContextSubscriptionResults[objID];
+}
+
+
 NamedRTree*
 InductionLoop::getTree() {
     NamedRTree* t = new NamedRTree();
@@ -143,6 +187,41 @@ void
 InductionLoop::storeShape(const std::string& id, PositionVector& shape) {
     MSInductLoop* const il = getDetector(id);
     shape.push_back(il->getLane()->getShape().positionAtOffset(il->getPosition()));
+}
+
+
+std::shared_ptr<VariableWrapper>
+InductionLoop::makeWrapper() {
+    return std::make_shared<Helper::SubscriptionWrapper>(handleVariable, mySubscriptionResults, myContextSubscriptionResults);
+}
+
+
+bool
+InductionLoop::handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper) {
+    switch (variable) {
+        case ID_LIST:
+            return wrapper->wrapStringList(objID, variable, getIDList());
+        case ID_COUNT:
+            return wrapper->wrapInt(objID, variable, getIDCount());
+        case VAR_POSITION:
+            return wrapper->wrapDouble(objID, variable, getPosition(objID));
+        case VAR_LANE_ID:
+            return wrapper->wrapString(objID, variable, getLaneID(objID));
+        case LAST_STEP_VEHICLE_NUMBER:
+            return wrapper->wrapInt(objID, variable, getLastStepVehicleNumber(objID));
+        case LAST_STEP_MEAN_SPEED:
+            return wrapper->wrapDouble(objID, variable, getLastStepMeanSpeed(objID));
+        case LAST_STEP_VEHICLE_ID_LIST:
+            return wrapper->wrapStringList(objID, variable, getLastStepVehicleIDs(objID));
+        case LAST_STEP_OCCUPANCY:
+            return wrapper->wrapDouble(objID, variable, getLastStepOccupancy(objID));
+        case LAST_STEP_LENGTH:
+            return wrapper->wrapDouble(objID, variable, getLastStepMeanLength(objID));
+        case LAST_STEP_TIME_SINCE_DETECTION:
+            return wrapper->wrapDouble(objID, variable, getTimeSinceDetection(objID));
+        default:
+            return false;
+    }
 }
 
 

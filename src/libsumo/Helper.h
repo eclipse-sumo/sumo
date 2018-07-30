@@ -186,7 +186,8 @@ public:
         void setContext(const std::string& refID);
         bool wrapDouble(const std::string& objID, const int variable, const double value);
         bool wrapInt(const std::string& objID, const int variable, const int value);
-        bool wrapStringList(const std::string& objID, const int variable, const std::vector<std::string> value);
+        bool wrapString(const std::string& objID, const int variable, const std::string& value);
+        bool wrapStringList(const std::string& objID, const int variable, const std::vector<std::string>& value);
     private:
         SubscriptionResults myResults;
         ContextSubscriptionResults myContextResults;

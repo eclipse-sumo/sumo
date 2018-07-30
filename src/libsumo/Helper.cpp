@@ -719,7 +719,14 @@ Helper::SubscriptionWrapper::wrapInt(const std::string& objID, const int variabl
 
 
 bool
-Helper::SubscriptionWrapper::wrapStringList(const std::string& objID, const int variable, const std::vector<std::string> value) {
+Helper::SubscriptionWrapper::wrapString(const std::string& objID, const int variable, const std::string& value) {
+    myActiveResults[objID][variable] = std::make_shared<TraCIString>(value);
+    return true;
+}
+
+
+bool
+Helper::SubscriptionWrapper::wrapStringList(const std::string& objID, const int variable, const std::vector<std::string>& value) {
     auto sl = std::make_shared<TraCIStringList>();
     sl->value = value;
     myActiveResults[objID][variable] = sl;
