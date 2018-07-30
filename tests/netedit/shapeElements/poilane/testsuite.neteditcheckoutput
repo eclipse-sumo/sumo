@@ -14,6 +14,9 @@ inspect_selection
 # load poi
 #load
 
+#load pois with generic parameters
+#load_genericparameters
+
 # move poi
 #move
 
