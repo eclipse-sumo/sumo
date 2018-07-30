@@ -1270,7 +1270,7 @@ MSVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& error
             }
         }
         if (myParameter->departPosProcedure == DEPART_POS_BASE || myParameter->departPosProcedure == DEPART_POS_DEFAULT) {
-            pos = MIN2(static_cast<double>(getVehicleType().getLength() + POSITION_EPS), (*myCurrEdge)->getLength());
+            pos = MIN2(stop.pars.endPos + endPosOffset, basePos(*myCurrEdge));
         }
         if (pos > stop.pars.endPos + endPosOffset) {
             if (stop.edge != myRoute->end()) {
@@ -1666,6 +1666,18 @@ MSVehicle::getStopEdges() const {
     ConstMSEdgeVector result;
     for (std::list<Stop>::const_iterator iter = myStops.begin(); iter != myStops.end(); ++iter) {
         result.push_back(*iter->edge);
+    }
+    return result;
+}
+
+
+double
+MSVehicle::basePos(const MSEdge* edge) const {
+    double result = MIN2(getVehicleType().getLength() + POSITION_EPS, edge->getLength());
+    if (hasStops()
+            && myStops.front().edge == myRoute->begin()
+            && (&myStops.front().lane->getEdge()) == *myStops.front().edge) {
+        result = MIN2(result, myStops.front().getEndPos(*this));
     }
     return result;
 }

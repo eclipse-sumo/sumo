@@ -1579,6 +1579,8 @@ public:
     /// @brief sets position outside the road network
     void setRemoteState(Position xyPos);
 
+    /// @brief departure position where the vehicle fits fully onto the edge (if possible)
+    double basePos(const MSEdge* edge) const;
 
     /// @brief compute safe speed for following the given leader
     double getSafeFollowSpeed(const std::pair<const MSVehicle*, double> leaderInfo,

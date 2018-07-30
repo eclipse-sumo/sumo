@@ -586,6 +586,7 @@ public:
      */
     double getVehicleMaxSpeed(const SUMOVehicle* const veh) const;
 
+
     virtual void addPerson(MSTransportable* p) const {
         myPersons.insert(p);
     }
@@ -747,7 +748,6 @@ protected:
 
     /// @brief lookup in map and return 0 if not found
     const std::vector<MSLane*>* getAllowedLanesWithDefault(const AllowedLanesCont& c, const MSEdge* dest) const;
-
 
     /// @brief return upper bound for the depart position on this edge
     double getDepartPosBound(const MSVehicle& veh, bool upper = true) const;

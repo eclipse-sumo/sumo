@@ -413,6 +413,7 @@ MSEdge::getFreeLane(const std::vector<MSLane*>* allowed, const SUMOVehicleClass 
     return res;
 }
 
+
 double
 MSEdge::getDepartPosBound(const MSVehicle& veh, bool upper) const {
     const SUMOVehicleParameter& pars = veh.getParameter();

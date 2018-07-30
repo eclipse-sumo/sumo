@@ -515,7 +515,7 @@ MSLane::insertVehicle(MSVehicle& veh) {
         case DEPART_POS_BASE:
         case DEPART_POS_DEFAULT:
         default:
-            pos = basePos(veh);
+            pos = veh.basePos(myEdge);
             break;
     }
     // determine the lateral position for special cases
@@ -550,11 +550,6 @@ MSLane::insertVehicle(MSVehicle& veh) {
     return isInsertionSuccess(&veh, speed, pos, posLat, patchSpeed, MSMoveReminder::NOTIFICATION_DEPARTED);
 }
 
-
-double
-MSLane::basePos(const MSVehicle& veh) const {
-    return MIN2(veh.getVehicleType().getLength() + POSITION_EPS, myLength);
-}
 
 bool
 MSLane::checkFailure(const MSVehicle* aVehicle, double& speed, double& dist, const double nspeed, const bool patchSpeed, const std::string errorMsg) const {

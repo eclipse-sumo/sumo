@@ -1132,9 +1132,6 @@ protected:
      * (a negative value indicates that safe insertion is impossible) */
     double safeInsertionSpeed(const MSVehicle* veh, double seen, const MSLeaderInfo& leaders, double speed);
 
-    /// @brief departure position where the vehicle fits fully onto the lane (if possible)
-    double basePos(const MSVehicle& veh) const;
-
     /// @brief check whether pedestrians on this lane interfere with vehicle insertion
     bool checkForPedestrians(const MSVehicle* aVehicle, double& speed, double& dist, double pos, bool patchSpeed) const;
 
