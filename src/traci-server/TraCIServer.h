@@ -267,6 +267,7 @@ public:
     bool wrapInt(const std::string& objID, const int variable, const int value);
     bool wrapString(const std::string& objID, const int variable, const std::string& value);
     bool wrapStringList(const std::string& objID, const int variable, const std::vector<std::string>& value);
+    bool wrapPosition(const std::string& objID, const int variable, const libsumo::TraCIPosition& value);
     tcpip::Storage& getWrapperStorage();
     /// @}
 

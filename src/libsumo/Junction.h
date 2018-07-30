@@ -35,6 +35,9 @@
 class NamedRTree;
 class MSJunction;
 class PositionVector;
+namespace libsumo {
+    class VariableWrapper;
+}
 
 
 // ===========================================================================
@@ -52,11 +55,12 @@ public:
     static TraCIPosition getPosition(const std::string& junctionID);
     static TraCIPositionVector getShape(const std::string& junctionID);
 
-    //static std::string getType(const std::string& poiID);
-    //static TraCIColor getColor(const std::string& poiID);
-
-    //static void subscribe(const std::string& objID, SUMOTime beginTime, SUMOTime endTime, const std::vector<int>& vars);
-    //static void subscribeContext(const std::string& objID, SUMOTime beginTime, SUMOTime endTime, int domain, double range, const std::vector<int>& vars);
+    static void subscribe(const std::string& objID, const std::vector<int>& vars = std::vector<int>(), SUMOTime beginTime = 0, SUMOTime endTime = ((2 ^ 31) - 1));
+    static void subscribeContext(const std::string& objID, int domain, double range, const std::vector<int>& vars = std::vector<int>(), SUMOTime beginTime = 0, SUMOTime endTime = ((2 ^ 31) - 1));
+    static const SubscriptionResults getSubscriptionResults();
+    static const TraCIResults getSubscriptionResults(const std::string& objID);
+    static const ContextSubscriptionResults getContextSubscriptionResults();
+    static const SubscriptionResults getContextSubscriptionResults(const std::string& objID);
 
     /** @brief Returns a tree filled with junction instances
      * @return The rtree of junctions
@@ -69,17 +73,20 @@ public:
     */
     static void storeShape(const std::string& id, PositionVector& shape);
 
+    static std::shared_ptr<VariableWrapper> makeWrapper();
+
+    static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper);
+
 private:
     static MSJunction* getJunction(const std::string& id);
 
+private:
+    static SubscriptionResults mySubscriptionResults;
+    static ContextSubscriptionResults myContextSubscriptionResults;
+
+private:
     /// @brief invalidated standard constructor
-    Junction();
-
-    /// @brief invalidated copy constructor
-    Junction(const Junction& src);
-
-    /// @brief invalidated assignment operator
-    Junction& operator=(const Junction& src);
+    Junction() = delete;
 };
 }
 

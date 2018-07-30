@@ -142,6 +142,8 @@ Helper::handleSingleSubscription(const Subscription& s) {
     const int numVars = s.contextDomain > 0 && s.variables.size() == 1 && s.variables[0] == ID_LIST ? 0 : (int)s.variables.size();
     if (myWrapper.empty()) {
         myWrapper[CMD_GET_EDGE_VARIABLE] = Edge::makeWrapper();
+        myWrapper[CMD_GET_INDUCTIONLOOP_VARIABLE] = InductionLoop::makeWrapper();
+        myWrapper[CMD_GET_JUNCTION_VARIABLE] = Junction::makeWrapper();
     }
     auto wrapper = myWrapper.find(getCommandId);
     if (wrapper == myWrapper.end()) {
@@ -730,6 +732,13 @@ Helper::SubscriptionWrapper::wrapStringList(const std::string& objID, const int 
     auto sl = std::make_shared<TraCIStringList>();
     sl->value = value;
     myActiveResults[objID][variable] = sl;
+    return true;
+}
+
+
+bool
+Helper::SubscriptionWrapper::wrapPosition(const std::string& objID, const int variable, const TraCIPosition& value) {
+    myActiveResults[objID][variable] = std::make_shared<TraCIPosition>(value);
     return true;
 }
 

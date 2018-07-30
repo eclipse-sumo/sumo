@@ -47,7 +47,6 @@
 bool
 TraCIServerAPI_Edge::processGet(TraCIServer& server, tcpip::Storage& inputStorage,
                                 tcpip::Storage& outputStorage) {
-    // variable & id
     const int variable = inputStorage.readUnsignedByte();
     const std::string id = inputStorage.readString();
     server.initWrapper(RESPONSE_GET_EDGE_VARIABLE, variable, id);

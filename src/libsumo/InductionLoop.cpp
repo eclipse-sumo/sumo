@@ -135,13 +135,13 @@ InductionLoop::getDetector(const std::string& id) {
 
 void
 InductionLoop::subscribe(const std::string& objID, const std::vector<int>& vars, SUMOTime beginTime, SUMOTime endTime) {
-    libsumo::Helper::subscribe(CMD_SUBSCRIBE_EDGE_VARIABLE, objID, vars, beginTime, endTime);
+    libsumo::Helper::subscribe(CMD_SUBSCRIBE_INDUCTIONLOOP_VARIABLE, objID, vars, beginTime, endTime);
 }
 
 
 void
 InductionLoop::subscribeContext(const std::string& objID, int domain, double range, const std::vector<int>& vars, SUMOTime beginTime, SUMOTime endTime) {
-    libsumo::Helper::subscribe(CMD_SUBSCRIBE_EDGE_CONTEXT, objID, vars, beginTime, endTime, domain, range);
+    libsumo::Helper::subscribe(CMD_SUBSCRIBE_INDUCTIONLOOP_CONTEXT, objID, vars, beginTime, endTime, domain, range);
 }
 
 
