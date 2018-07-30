@@ -19,8 +19,9 @@ from __future__ import print_function
 from __future__ import absolute_import
 import os
 import sys
+
 SUMO_HOME = os.path.join(os.path.dirname(__file__), "..", "..", "..", "..", "..")
-sys.path += [os.path.join(SUMO_HOME, "tools"), os.path.join(SUMO_HOME, "bin")]
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", SUMO_HOME), "tools"))
 if len(sys.argv) > 1:
     import libsumo as traci  # noqa
 else:
