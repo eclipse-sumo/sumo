@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 30.07.2018 14:31:16 by Eclipse SUMO netedit Version 7115a4b324
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-shapes-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.30Jul143033.10532/netedit.gui/shapeElements/poly/load_genericparameters\input_shapes.add.xml"/>
+        <sumo-net-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.30Jul143033.10532/netedit.gui/shapeElements/poly/load_genericparameters\input_net.net.xml"/>
+    </input>
+
+    <output>
+        <additionals-output value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.30Jul143033.10532/netedit.gui/shapeElements/poly/load_genericparameters\additionals.xml"/>
+        <shapes-output value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.30Jul143033.10532/netedit.gui/shapeElements/poly/load_genericparameters\shapes.xml"/>
+        <output-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.30Jul143033.10532/netedit.gui/shapeElements/poly/load_genericparameters\net.net.xml"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="5"/>
+        <rectangular-lane-cut value="false"/>
+        <walkingareas value="false"/>
+    </processing>
+
+    <visualisation>
+        <gui-settings-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.30Jul143033.10532/netedit.gui/shapeElements/poly/load_genericparameters\gui-settings.xml"/>
+        <window-size value="700,500"/>
+        <window-pos value="50,50"/>
+        <gui-testing value="true"/>
+        <gui-testing-debug value="true"/>
+    </visualisation>
+
+    <report>
+        <no-warnings value="true"/>
+        <error-log value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.30Jul143033.10532/netedit.gui/shapeElements/poly/load_genericparameters\log.txt"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <poly id="poly_0" color="green" fill="0" layer="0.00" shape="-50.000000,40.000000 -40.000000,40.000000 -40.000000,30.000000 -50.000000,30.000000 -50.000000,40.000000">
+        <param key="" value=""/>
+        <param key="$?$?$%%??" value="value3"/>
+        <param key="key1" value="value4"/>
+        <param key="key2" value=""/>
+        <param key="key3" value="%%$$$$%"/>
+        <param key="key4" value="value5"/>
+    </poly>
+</additional>
