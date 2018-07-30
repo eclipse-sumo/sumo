@@ -48,177 +48,56 @@ bool
 TraCIServerAPI_Edge::processGet(TraCIServer& server, tcpip::Storage& inputStorage,
                                 tcpip::Storage& outputStorage) {
     // variable & id
-    int variable = inputStorage.readUnsignedByte();
-    std::string id = inputStorage.readString();
-    // check variable
-    if (variable != ID_LIST && variable != VAR_EDGE_TRAVELTIME && variable != VAR_EDGE_EFFORT
-            && variable != VAR_CURRENT_TRAVELTIME
-            && variable != VAR_CO2EMISSION && variable != VAR_COEMISSION && variable != VAR_HCEMISSION
-            && variable != VAR_PMXEMISSION
-            && variable != VAR_NOXEMISSION && variable != VAR_FUELCONSUMPTION && variable != VAR_NOISEEMISSION
-            && variable != VAR_ELECTRICITYCONSUMPTION && variable != VAR_WAITING_TIME
-            && variable != LAST_STEP_VEHICLE_NUMBER && variable != LAST_STEP_MEAN_SPEED
-            && variable != LAST_STEP_OCCUPANCY
-            && variable != LAST_STEP_VEHICLE_HALTING_NUMBER && variable != LAST_STEP_LENGTH
-            && variable != LAST_STEP_PERSON_ID_LIST
-            && variable != LAST_STEP_VEHICLE_ID_LIST 
-            && variable != VAR_LANE_INDEX
-            && variable != ID_COUNT 
-            && variable != VAR_PARAMETER) {
-        return server.writeErrorStatusCmd(CMD_GET_EDGE_VARIABLE,
-                                          "Get Edge Variable: unsupported variable " + toHex(variable, 2)
-                                          + " specified", outputStorage);
-    }
-    // begin response building
-    tcpip::Storage tempMsg;
-    //  response-code, variableID, objectID
-    tempMsg.writeUnsignedByte(RESPONSE_GET_EDGE_VARIABLE);
-    tempMsg.writeUnsignedByte(variable);
-    tempMsg.writeString(id);
-    // process request
-
+    const int variable = inputStorage.readUnsignedByte();
+    const std::string id = inputStorage.readString();
+    server.initWrapper(RESPONSE_GET_EDGE_VARIABLE, variable, id);
     try {
-        if (variable == ID_LIST) {
-            tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-            tempMsg.writeStringList(libsumo::Edge::getIDList());
-        } else if (variable == ID_COUNT) {
-            ;
-            tempMsg.writeUnsignedByte(TYPE_INTEGER);
-            tempMsg.writeInt(libsumo::Edge::getIDCount());
-        } else {
+        if (!libsumo::Edge::handleVariable(id, variable, &server)) {
             switch (variable) {
                 case VAR_EDGE_TRAVELTIME: {
                     // time
                     int time = 0;
                     if (!server.readTypeCheckingInt(inputStorage, time)) {
                         return server.writeErrorStatusCmd(CMD_GET_EDGE_VARIABLE,
-                                                          "The message must contain the time definition.", outputStorage);
+                            "The message must contain the time definition.", outputStorage);
                     }
-                    tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                    tempMsg.writeDouble(libsumo::Edge::getAdaptedTraveltime(id, time));
+                    server.getWrapperStorage().writeUnsignedByte(TYPE_DOUBLE);
+                    server.getWrapperStorage().writeDouble(libsumo::Edge::getAdaptedTraveltime(id, time));
+                    break;
                 }
-                break;
                 case VAR_EDGE_EFFORT: {
                     // time
                     int time = 0;
                     if (!server.readTypeCheckingInt(inputStorage, time)) {
                         return server.writeErrorStatusCmd(CMD_GET_EDGE_VARIABLE,
-                                                          "The message must contain the time definition.", outputStorage);
+                            "The message must contain the time definition.", outputStorage);
                     }
-                    tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                    tempMsg.writeDouble(libsumo::Edge::getEffort(id, time));
-                }
-                break;
-                case VAR_CURRENT_TRAVELTIME:
-                    tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                    tempMsg.writeDouble(libsumo::Edge::getTraveltime(id));
+                    server.getWrapperStorage().writeUnsignedByte(TYPE_DOUBLE);
+                    server.getWrapperStorage().writeDouble(libsumo::Edge::getEffort(id, time));
                     break;
-                case VAR_WAITING_TIME: {
-                    tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                    tempMsg.writeDouble(libsumo::Edge::getWaitingTime(id));
                 }
-                break;
-                case LAST_STEP_PERSON_ID_LIST: {
-                    tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-                    tempMsg.writeStringList(libsumo::Edge::getLastStepPersonIDs(id));
-                }
-                break;
-                case LAST_STEP_VEHICLE_ID_LIST: {
-                    tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-                    tempMsg.writeStringList(libsumo::Edge::getLastStepVehicleIDs(id));
-                }
-                break;
-                case VAR_CO2EMISSION: {
-                    tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                    tempMsg.writeDouble(libsumo::Edge::getCO2Emission(id));
-                }
-                break;
-                case VAR_COEMISSION: {
-                    tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                    tempMsg.writeDouble(libsumo::Edge::getCOEmission(id));
-                }
-                break;
-                case VAR_HCEMISSION: {
-                    tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                    tempMsg.writeDouble(libsumo::Edge::getHCEmission(id));
-                }
-                break;
-                case VAR_PMXEMISSION: {
-                    tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                    tempMsg.writeDouble(libsumo::Edge::getPMxEmission(id));
-                }
-                break;
-                case VAR_NOXEMISSION: {
-                    tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                    tempMsg.writeDouble(libsumo::Edge::getNOxEmission(id));
-                }
-                break;
-                case VAR_FUELCONSUMPTION: {
-                    tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                    tempMsg.writeDouble(libsumo::Edge::getFuelConsumption(id));
-                }
-                break;
-                case VAR_NOISEEMISSION: {
-                    tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                    tempMsg.writeDouble(libsumo::Edge::getNoiseEmission(id));
-                }
-                break;
-                case VAR_ELECTRICITYCONSUMPTION: {
-                    tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                    tempMsg.writeDouble(libsumo::Edge::getElectricityConsumption(id));
-                }
-                break;
-                case LAST_STEP_VEHICLE_NUMBER: {
-                    tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                    tempMsg.writeInt(libsumo::Edge::getLastStepVehicleNumber(id));
-                }
-                break;
-                case LAST_STEP_MEAN_SPEED: {
-                    tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                    tempMsg.writeDouble(libsumo::Edge::getLastStepMeanSpeed(id));
-                }
-                break;
-                case LAST_STEP_OCCUPANCY: {
-                    tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                    tempMsg.writeDouble(libsumo::Edge::getLastStepOccupancy(id));
-
-                }
-                break;
-                case LAST_STEP_VEHICLE_HALTING_NUMBER: {
-                    tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                    tempMsg.writeInt(libsumo::Edge::getLastStepHaltingNumber(id));
-                }
-                break;
-                case LAST_STEP_LENGTH: {
-                    tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                    tempMsg.writeDouble(libsumo::Edge::getLastStepLength(id));
-                }
-                break;
-                case VAR_LANE_INDEX: {
-                    tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                    tempMsg.writeInt(libsumo::Edge::getLaneNumber(id));
-                }
-                break;
                 case VAR_PARAMETER: {
                     std::string paramName;
                     if (!server.readTypeCheckingString(inputStorage, paramName)) {
                         return server.writeErrorStatusCmd(CMD_GET_EDGE_VARIABLE,
-                                                          "Retrieval of a parameter requires its name.",
-                                                          outputStorage);
+                            "Retrieval of a parameter requires its name.",
+                            outputStorage);
                     }
-                    tempMsg.writeUnsignedByte(TYPE_STRING);
-                    tempMsg.writeString(libsumo::Edge::getParameter(id, paramName));
-                }
-                break;
-                default:
+                    server.getWrapperStorage().writeUnsignedByte(TYPE_STRING);
+                    server.getWrapperStorage().writeString(libsumo::Edge::getParameter(id, paramName));
                     break;
+                }
+                default:
+                    return server.writeErrorStatusCmd(CMD_GET_EDGE_VARIABLE,
+                        "Get Edge Variable: unsupported variable " + toHex(variable, 2)
+                        + " specified", outputStorage);
             }
         }
     } catch (libsumo::TraCIException& e) {
         return server.writeErrorStatusCmd(CMD_GET_EDGE_VARIABLE, e.what(), outputStorage);
     }
     server.writeStatusCmd(CMD_GET_EDGE_VARIABLE, RTYPE_OK, "", outputStorage);
-    server.writeResponseWithLength(outputStorage, tempMsg);
+    server.writeResponseWithLength(outputStorage, server.getWrapperStorage());
     return true;
 }
 

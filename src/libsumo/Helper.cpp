@@ -697,26 +697,33 @@ Helper::SubscriptionWrapper::SubscriptionWrapper(VariableWrapper::SubscriptionHa
 
 }
 
+
 void
 Helper::SubscriptionWrapper::setContext(const std::string& refID) {
     myActiveResults = refID == "" ? myResults : myContextResults[refID];
 }
 
-void
+
+bool
 Helper::SubscriptionWrapper::wrapDouble(const std::string& objID, const int variable, const double value) {
     myActiveResults[objID][variable] = std::make_shared<TraCIDouble>(value);
+    return true;
 }
 
 
-void
-Helper::SubscriptionWrapper::wrapInt(const std::string& /*objID*/, const int /*variable*/, const int /*value*/) {
-
+bool
+Helper::SubscriptionWrapper::wrapInt(const std::string& objID, const int variable, const int value) {
+    myActiveResults[objID][variable] = std::make_shared<TraCIInt>(value);
+    return true;
 }
 
 
-void
-Helper::SubscriptionWrapper::wrapStringList(const std::string& /*objID*/, const int /*variable*/, const std::vector<std::string> /*value*/) {
-
+bool
+Helper::SubscriptionWrapper::wrapStringList(const std::string& objID, const int variable, const std::vector<std::string> value) {
+    auto sl = std::make_shared<TraCIStringList>();
+    sl->value = value;
+    myActiveResults[objID][variable] = sl;
+    return true;
 }
 
 

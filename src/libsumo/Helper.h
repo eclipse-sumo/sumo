@@ -184,9 +184,9 @@ public:
     public:
         SubscriptionWrapper(VariableWrapper::SubscriptionHandler handler, SubscriptionResults& into, ContextSubscriptionResults& context);
         void setContext(const std::string& refID);
-        void wrapDouble(const std::string& objID, const int variable, const double value);
-        void wrapInt(const std::string& objID, const int variable, const int value);
-        void wrapStringList(const std::string& objID, const int variable, const std::vector<std::string> value);
+        bool wrapDouble(const std::string& objID, const int variable, const double value);
+        bool wrapInt(const std::string& objID, const int variable, const int value);
+        bool wrapStringList(const std::string& objID, const int variable, const std::vector<std::string> value);
     private:
         SubscriptionResults myResults;
         ContextSubscriptionResults myContextResults;

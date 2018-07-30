@@ -96,10 +96,10 @@ public:
 
     static std::shared_ptr<VariableWrapper> makeWrapper();
 
+    static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper);
+
 private:
     static MSEdge* getEdge(const std::string& id);
-
-    static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper);
 
 private:
     static SubscriptionResults mySubscriptionResults;
