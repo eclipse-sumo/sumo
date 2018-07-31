@@ -142,6 +142,29 @@ public:
     bool isValid(SumoXMLAttr key, const std::string& value);
     /// @}
 
+    /// @name Function related with Generic Parameters
+    /// @{
+
+    /// @brief add generic parameter
+    bool addGenericParameter(const std::string &key, const std::string &value);
+
+    /// @brief remove generic parameter
+    bool removeGenericParameter(const std::string &key);
+
+    /// @brief update generic parameter
+    bool updateGenericParameter(const std::string &oldKey, const std::string &newKey);
+
+    /// @brief update value generic parameter 
+    bool updateGenericParameterValue(const std::string &key, const std::string &newValue);
+
+    /// @brief return generic parameters in string format
+    std::string getGenericParametersStr() const;
+
+    /// @brief set generic parameters in string format
+    void setGenericParametersStr(const std::string &value);
+
+    /// @}
+
 protected:
     /// @brief incoming lane of this connection
     GNELane* myFromLane;

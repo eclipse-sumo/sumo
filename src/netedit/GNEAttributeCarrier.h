@@ -446,26 +446,31 @@ public:
     /// @brief return the number of attributes of the tag with the most highter number of attributes
     static int getHigherNumberOfAttributes();
 
+    /// @name This functions related with generic parameters has to be implemented in all GNEAttributeCarriers
+    /// @{
+
     /// @brief add generic parameter
-    bool addGenericParameter(const std::string &key, const std::string &value);
+    virtual bool addGenericParameter(const std::string &key, const std::string &value) = 0;
 
     /// @brief remove generic parameter
-    bool removeGenericParameter(const std::string &key);
+    virtual bool removeGenericParameter(const std::string &key) = 0;
 
     /// @brief update generic parameter
-    bool updateGenericParameter(const std::string &oldKey, const std::string &newKey);
+    virtual bool updateGenericParameter(const std::string &oldKey, const std::string &newKey) = 0;
 
     /// @brief update value generic parameter 
-    bool updateGenericParameterValue(const std::string &key, const std::string &newValue);
-
-    /// @brief check if given generic parameter is valid
-    static bool isGenericParametersValid(const std::string &value);
+    virtual bool updateGenericParameterValue(const std::string &key, const std::string &newValue) = 0;
 
     /// @brief return generic parameters in string format
-    std::string getGenericParametersStr() const;
+    virtual std::string getGenericParametersStr() const = 0;
 
     /// @brief set generic parameters in string format
-    void setGenericParametersStr(const std::string &value);
+    virtual void setGenericParametersStr(const std::string &value) = 0;
+
+     /// @}
+
+    /// @brief check if given string can be parsed to a map/list of generic parameters
+    static bool isGenericParametersValid(const std::string &value);
 
     /// @brief maximun number of generic parameters (currently 100)
     static const int MAXNUMBER_GENERICPARAMETERS;

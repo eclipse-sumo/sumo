@@ -163,6 +163,29 @@ public:
     bool isValid(SumoXMLAttr key, const std::string& value);
     /// @}
 
+    /// @name Functions related with generic parameters
+    /// @{
+
+    /// @brief add generic parameter
+    bool addGenericParameter(const std::string &key, const std::string &value);
+
+    /// @brief remove generic parameter
+    bool removeGenericParameter(const std::string &key);
+
+    /// @brief update generic parameter
+    bool updateGenericParameter(const std::string &oldKey, const std::string &newKey);
+
+    /// @brief update value generic parameter 
+    bool updateGenericParameterValue(const std::string &key, const std::string &newValue);
+
+    /// @brief return generic parameters in string format
+    std::string getGenericParametersStr() const;
+
+    /// @brief set generic parameters in string format
+    void setGenericParametersStr(const std::string &value);
+
+    /// @}
+
     /**@brief return index of a vertex of shape, or of a new vertex if position is over an shape's edge
      * @param pos position of new/existent vertex
      * @param createIfNoExist enable or disable creation of new verte if there isn't another vertex in position

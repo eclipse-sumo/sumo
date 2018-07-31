@@ -24,6 +24,7 @@
 
 #include <string>
 #include <utility>
+#include <utils/common/StringTokenizer.h>
 #include <utils/foxtools/MFXImageHelper.h>
 #include <utils/geom/Position.h>
 #include <utils/geom/GeomConvHelper.h>
@@ -979,6 +980,90 @@ GNEJunction::isValid(SumoXMLAttr key, const std::string& value) {
             return isGenericParametersValid(value);
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
+}
+
+
+bool 
+GNEJunction::addGenericParameter(const std::string &key, const std::string &value) {
+    if(!myNBNode.knowsParameter(key)) {
+        myNBNode.setParameter(key, value);
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+bool 
+GNEJunction::removeGenericParameter(const std::string &key) {
+    if(myNBNode.knowsParameter(key)) {
+        myNBNode.unsetParameter(key);
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+bool 
+GNEJunction::updateGenericParameter(const std::string &oldKey, const std::string &newKey) {
+    if(myNBNode.knowsParameter(oldKey) && !myNBNode.knowsParameter(newKey)) {
+        std::string value = myNBNode.getParameter(oldKey);
+        myNBNode.unsetParameter(oldKey);
+        myNBNode.setParameter(newKey, value);
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+bool 
+GNEJunction::updateGenericParameterValue(const std::string &key, const std::string &newValue) {
+    if(myNBNode.knowsParameter(key)) {
+        myNBNode.setParameter(key, newValue);
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+std::string 
+GNEJunction::getGenericParametersStr() const {
+    std::string result;
+    // Generate an string using the following structure: "key1=value1|key2=value2|...
+    for (auto i : myNBNode.getParametersMap()) {
+        result += i.first + "=" + i.second + "|";
+    }
+    // remove the last "|"
+    if(!result.empty()) {
+        result.pop_back();
+    }
+    return result;
+}
+
+
+void 
+GNEJunction::setGenericParametersStr(const std::string &value) {
+    // separate value in a vector of string using | as separator
+    std::vector<std::string> parsedValues;
+    StringTokenizer stValues(value, "|", true);
+    while (stValues.hasNext()) {
+        parsedValues.push_back(stValues.next());
+    }
+    // check that parsed values (A=B)can be parsed in generic parameters 
+    for(auto i : parsedValues) {
+        std::vector<std::string> parsedParameters;
+        StringTokenizer stParam(i, "=", true);
+        while (stParam.hasNext()) {
+            parsedParameters.push_back(stParam.next());
+        }
+        // Check that parsed parameters are exactly two and contains valid chracters
+        if(parsedParameters.size() == 2 && isValidID(parsedParameters.front()) && isValidName(parsedParameters.back())) {
+            myNBNode.setParameter(parsedParameters.front(), parsedParameters.back());
+        }
     }
 }
 

@@ -939,131 +939,36 @@ GNEAttributeCarrier::getHigherNumberOfAttributes() {
 
 
 bool 
-GNEAttributeCarrier::addGenericParameter(const std::string &key, const std::string &value) {
-    /*
-    // make sure that generic parameter isn't duplicated
-    for (auto i : myGenericParameters) {
-        if(i.key() == key) {
-            return false;
-        }
-    }
-    // add generic parameter
-    myGenericParameters.push_back(GenericParameter(key, value));
-    */
-    return true;
-}
-
-
-bool 
-GNEAttributeCarrier::removeGenericParameter(const std::string &key) {
-    /*
-    // make sure that generic parameter exist
-    for(int i = 0; i < (int)myGenericParameters.size(); i++) {
-        if(myGenericParameters.at(i).key() == key) {
-            myGenericParameters.erase(myGenericParameters.begin() + i);
-            return true;
-        }
-    }
-    */
-    return false;
-}
-
-
-bool 
-GNEAttributeCarrier::updateGenericParameter(const std::string &oldKey, const std::string &newKey) {
-    /*
-    // first check that new parameter doesn't exist already
-    for (auto i : myGenericParameters) {
-        if(i.key() == newKey) {
-            return false;
-        }
-    }
-    // find and replace parameter
-    for (auto i : myGenericParameters) {
-        if(i.key() == oldKey) {
-            i.key() = newKey;
-            return true;
-        }
-    }
-    */
-    // return false if parameter wasn't found
-    return false;
-}
-
-
-bool 
-GNEAttributeCarrier::updateGenericParameterValue(const std::string &key, const std::string &newValue) {
-    /*
-    // find and replace parameter
-    for (auto i : myGenericParameters) {
-        if(i.key() == key) {
-            i.key() = newValue;
-            return true;
-        }
-    }
-    */
-    // return false if parameter wasn't found
-    return false;
-}
-
-
-bool 
 GNEAttributeCarrier::isGenericParametersValid(const std::string &value) {
-    /*
     // separate value in a vector of string using | as separator
     std::vector<std::string> parsedValues;
-    StringTokenizer st(value, "|", true);
-    while (st.hasNext()) {
-        parsedValues.push_back(st.next());
+    StringTokenizer stValues(value, "|", true);
+    while (stValues.hasNext()) {
+        parsedValues.push_back(stValues.next());
     }
     // check number of parsed values (cannot be greather than MAXNUMBER_GENERICPARAMETERS)
     if(parsedValues.size() > MAXNUMBER_GENERICPARAMETERS) {
         return false;
     }
-    // check that  parsed values can be parsed in generic parameter
+    // check that parsed values (A=B)can be parsed in generic parameters 
     for(auto i : parsedValues) {
-        if(!canParse<GNEAttributeCarrier::GenericParameter>(i)) {
+        std::vector<std::string> parsedParameters;
+        StringTokenizer stParam(i, "=", true);
+        while (stParam.hasNext()) {
+            parsedParameters.push_back(stParam.next());
+        }
+        // Check that parsed parameters are exactly two
+        if(parsedParameters.size() == 2 ) {
+            // check that key and value contains valid characters
+            if(!isValidID(parsedParameters.front()) || !isValidName(parsedParameters.back())) {
+                return false;
+            }
+        } else {
             return false;
         }
     }
-    */
+    // all ok, then return true
     return true;
-}
-
-
-std::string 
-GNEAttributeCarrier::getGenericParametersStr() const {
-    std::string result;
-    /*
-    // Generate an string using the following structure: "key1=value1|key2=value2|...
-    for (auto i : myGenericParameters) {
-        result += i.key() + "=" + i.value() + "|";
-    }
-    // remove the last "|"
-    if(!result.empty()) {
-        result.pop_back();
-    }
-    */
-    return result;
-}
-
-
-void 
-GNEAttributeCarrier::setGenericParametersStr(const std::string &value) {
-    /*
-    // separate value in a vector of string using | as separator
-    std::vector<std::string> parsedValues;
-    StringTokenizer st(value, "|", true);
-    while (st.hasNext()) {
-        parsedValues.push_back(st.next());
-    }
-    // clear current existent generic parameters
-    myGenericParameters.clear();
-    // check that  parsed values can be parsed in generic parameter
-    for(auto i : parsedValues) {
-        myGenericParameters.push_back(GenericParameter(i));
-    }
-    */
 }
 
 

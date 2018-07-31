@@ -25,6 +25,7 @@
 #include <iostream>
 #include <utility>
 #include <time.h>
+#include <utils/common/StringTokenizer.h>
 #include <utils/foxtools/MFXUtils.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/geom/GeomConvHelper.h>
@@ -456,6 +457,93 @@ GNEConnection::isValid(SumoXMLAttr key, const std::string& value) {
     }
 }
 
+
+bool 
+GNEConnection::addGenericParameter(const std::string &key, const std::string &value) {
+    if(!getNBEdgeConnection().knowsParameter(key)) {
+        getNBEdgeConnection().setParameter(key, value);
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+bool 
+GNEConnection::removeGenericParameter(const std::string &key) {
+    if(getNBEdgeConnection().knowsParameter(key)) {
+        getNBEdgeConnection().unsetParameter(key);
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+bool 
+GNEConnection::updateGenericParameter(const std::string &oldKey, const std::string &newKey) {
+    if(getNBEdgeConnection().knowsParameter(oldKey) && !getNBEdgeConnection().knowsParameter(newKey)) {
+        std::string value = getNBEdgeConnection().getParameter(oldKey);
+        getNBEdgeConnection().unsetParameter(oldKey);
+        getNBEdgeConnection().setParameter(newKey, value);
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+bool 
+GNEConnection::updateGenericParameterValue(const std::string &key, const std::string &newValue) {
+    if(getNBEdgeConnection().knowsParameter(key)) {
+        getNBEdgeConnection().setParameter(key, newValue);
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+std::string 
+GNEConnection::getGenericParametersStr() const {
+    std::string result;
+    // Generate an string using the following structure: "key1=value1|key2=value2|...
+    for (auto i : getNBEdgeConnection().getParametersMap()) {
+        result += i.first + "=" + i.second + "|";
+    }
+    // remove the last "|"
+    if(!result.empty()) {
+        result.pop_back();
+    }
+    return result;
+}
+
+
+void 
+GNEConnection::setGenericParametersStr(const std::string &value) {
+    // separate value in a vector of string using | as separator
+    std::vector<std::string> parsedValues;
+    StringTokenizer stValues(value, "|", true);
+    while (stValues.hasNext()) {
+        parsedValues.push_back(stValues.next());
+    }
+    // check that parsed values (A=B)can be parsed in generic parameters 
+    for(auto i : parsedValues) {
+        std::vector<std::string> parsedParameters;
+        StringTokenizer stParam(i, "=", true);
+        while (stParam.hasNext()) {
+            parsedParameters.push_back(stParam.next());
+        }
+        // Check that parsed parameters are exactly two and contains valid chracters
+        if(parsedParameters.size() == 2 && isValidID(parsedParameters.front()) && isValidName(parsedParameters.back())) {
+            getNBEdgeConnection().setParameter(parsedParameters.front(), parsedParameters.back());
+        }
+    }
+}
+
+// ===========================================================================
+// private
+// ===========================================================================
 
 void
 GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value) {

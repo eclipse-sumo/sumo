@@ -25,6 +25,7 @@
 #include <iostream>
 #include <utility>
 #include <time.h>
+#include <utils/common/StringTokenizer.h>
 #include <utils/foxtools/MFXUtils.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/geom/GeomConvHelper.h>
@@ -326,6 +327,90 @@ GNECrossing::isValid(SumoXMLAttr key, const std::string& value) {
             return isGenericParametersValid(value);
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
+}
+
+
+bool 
+GNECrossing::addGenericParameter(const std::string &key, const std::string &value) {
+    if(!myCrossing->knowsParameter(key)) {
+        myCrossing->setParameter(key, value);
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+bool 
+GNECrossing::removeGenericParameter(const std::string &key) {
+    if(myCrossing->knowsParameter(key)) {
+        myCrossing->unsetParameter(key);
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+bool 
+GNECrossing::updateGenericParameter(const std::string &oldKey, const std::string &newKey) {
+    if(myCrossing->knowsParameter(oldKey) && !myCrossing->knowsParameter(newKey)) {
+        std::string value = myCrossing->getParameter(oldKey);
+        myCrossing->unsetParameter(oldKey);
+        myCrossing->setParameter(newKey, value);
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+bool 
+GNECrossing::updateGenericParameterValue(const std::string &key, const std::string &newValue) {
+    if(myCrossing->knowsParameter(key)) {
+        myCrossing->setParameter(key, newValue);
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+std::string 
+GNECrossing::getGenericParametersStr() const {
+    std::string result;
+    // Generate an string using the following structure: "key1=value1|key2=value2|...
+    for (auto i : myCrossing->getParametersMap()) {
+        result += i.first + "=" + i.second + "|";
+    }
+    // remove the last "|"
+    if(!result.empty()) {
+        result.pop_back();
+    }
+    return result;
+}
+
+
+void 
+GNECrossing::setGenericParametersStr(const std::string &value) {
+    // separate value in a vector of string using | as separator
+    std::vector<std::string> parsedValues;
+    StringTokenizer stValues(value, "|", true);
+    while (stValues.hasNext()) {
+        parsedValues.push_back(stValues.next());
+    }
+    // check that parsed values (A=B)can be parsed in generic parameters 
+    for(auto i : parsedValues) {
+        std::vector<std::string> parsedParameters;
+        StringTokenizer stParam(i, "=", true);
+        while (stParam.hasNext()) {
+            parsedParameters.push_back(stParam.next());
+        }
+        // Check that parsed parameters are exactly two and contains valid chracters
+        if(parsedParameters.size() == 2 && isValidID(parsedParameters.front()) && isValidName(parsedParameters.back())) {
+            myCrossing->setParameter(parsedParameters.front(), parsedParameters.back());
+        }
     }
 }
 

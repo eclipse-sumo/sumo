@@ -268,6 +268,29 @@ public:
     virtual std::string getHierarchyName() const = 0;
     /// @}
 
+    /// @name Functions related with Generic Paramters
+    /// @{
+
+    /// @brief add generic parameter
+    bool addGenericParameter(const std::string &key, const std::string &value);
+
+    /// @brief remove generic parameter
+    bool removeGenericParameter(const std::string &key);
+
+    /// @brief update generic parameter
+    bool updateGenericParameter(const std::string &oldKey, const std::string &newKey);
+
+    /// @brief update value generic parameter 
+    bool updateGenericParameterValue(const std::string &key, const std::string &newValue);
+
+    /// @brief return generic parameters in string format
+    std::string getGenericParametersStr() const;
+
+    /// @brief set generic parameters in string format
+    void setGenericParametersStr(const std::string &value);
+
+    /// @}
+
     /** @brief check if a route is valid
      * @param[in] edges vector with the route's edges
      * @param[in] report enable or disable writting warnings if route isn't valid

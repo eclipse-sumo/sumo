@@ -26,6 +26,7 @@
 #include <cmath>
 #include <string>
 #include <algorithm>
+#include <utils/common/StringTokenizer.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/settings/GUIVisualizationSettings.h>
 #include <utils/geom/GeomHelper.h>
@@ -1049,6 +1050,90 @@ GNEEdge::isValid(SumoXMLAttr key, const std::string& value) {
             return isGenericParametersValid(value);
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
+}
+
+
+bool 
+GNEEdge::addGenericParameter(const std::string &key, const std::string &value) {
+    if(!myNBEdge.knowsParameter(key)) {
+        myNBEdge.setParameter(key, value);
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+bool 
+GNEEdge::removeGenericParameter(const std::string &key) {
+    if(myNBEdge.knowsParameter(key)) {
+        myNBEdge.unsetParameter(key);
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+bool 
+GNEEdge::updateGenericParameter(const std::string &oldKey, const std::string &newKey) {
+    if(myNBEdge.knowsParameter(oldKey) && !myNBEdge.knowsParameter(newKey)) {
+        std::string value = myNBEdge.getParameter(oldKey);
+        myNBEdge.unsetParameter(oldKey);
+        myNBEdge.setParameter(newKey, value);
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+bool 
+GNEEdge::updateGenericParameterValue(const std::string &key, const std::string &newValue) {
+    if(myNBEdge.knowsParameter(key)) {
+        myNBEdge.setParameter(key, newValue);
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+std::string 
+GNEEdge::getGenericParametersStr() const {
+    std::string result;
+    // Generate an string using the following structure: "key1=value1|key2=value2|...
+    for (auto i : myNBEdge.getParametersMap()) {
+        result += i.first + "=" + i.second + "|";
+    }
+    // remove the last "|"
+    if(!result.empty()) {
+        result.pop_back();
+    }
+    return result;
+}
+
+
+void 
+GNEEdge::setGenericParametersStr(const std::string &value) {
+    // separate value in a vector of string using | as separator
+    std::vector<std::string> parsedValues;
+    StringTokenizer stValues(value, "|", true);
+    while (stValues.hasNext()) {
+        parsedValues.push_back(stValues.next());
+    }
+    // check that parsed values (A=B)can be parsed in generic parameters 
+    for(auto i : parsedValues) {
+        std::vector<std::string> parsedParameters;
+        StringTokenizer stParam(i, "=", true);
+        while (stParam.hasNext()) {
+            parsedParameters.push_back(stParam.next());
+        }
+        // Check that parsed parameters are exactly two and contains valid chracters
+        if(parsedParameters.size() == 2 && isValidID(parsedParameters.front()) && isValidName(parsedParameters.back())) {
+            myNBEdge.setParameter(parsedParameters.front(), parsedParameters.back());
+        }
     }
 }
 

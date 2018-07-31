@@ -24,6 +24,7 @@
 #include <string>
 #include <iostream>
 #include <utility>
+#include <utils/common/StringTokenizer.h>
 #include <utils/foxtools/MFXUtils.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/common/RandHelper.h>
@@ -862,6 +863,90 @@ GNELane::isValid(SumoXMLAttr key, const std::string& value) {
             return isGenericParametersValid(value);
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
+}
+
+
+bool 
+GNELane::addGenericParameter(const std::string &key, const std::string &value) {
+    if(!myParentEdge.getNBEdge()->getLaneStruct(myIndex).knowsParameter(key)) {
+        myParentEdge.getNBEdge()->getLaneStruct(myIndex).setParameter(key, value);
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+bool 
+GNELane::removeGenericParameter(const std::string &key) {
+    if(myParentEdge.getNBEdge()->getLaneStruct(myIndex).knowsParameter(key)) {
+        myParentEdge.getNBEdge()->getLaneStruct(myIndex).unsetParameter(key);
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+bool 
+GNELane::updateGenericParameter(const std::string &oldKey, const std::string &newKey) {
+    if(myParentEdge.getNBEdge()->getLaneStruct(myIndex).knowsParameter(oldKey) && !myParentEdge.getNBEdge()->getLaneStruct(myIndex).knowsParameter(newKey)) {
+        std::string value = myParentEdge.getNBEdge()->getLaneStruct(myIndex).getParameter(oldKey);
+        myParentEdge.getNBEdge()->getLaneStruct(myIndex).unsetParameter(oldKey);
+        myParentEdge.getNBEdge()->getLaneStruct(myIndex).setParameter(newKey, value);
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+bool 
+GNELane::updateGenericParameterValue(const std::string &key, const std::string &newValue) {
+    if(myParentEdge.getNBEdge()->getLaneStruct(myIndex).knowsParameter(key)) {
+        myParentEdge.getNBEdge()->getLaneStruct(myIndex).setParameter(key, newValue);
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+std::string 
+GNELane::getGenericParametersStr() const {
+    std::string result;
+    // Generate an string using the following structure: "key1=value1|key2=value2|...
+    for (auto i : myParentEdge.getNBEdge()->getLaneStruct(myIndex).getParametersMap()) {
+        result += i.first + "=" + i.second + "|";
+    }
+    // remove the last "|"
+    if(!result.empty()) {
+        result.pop_back();
+    }
+    return result;
+}
+
+
+void 
+GNELane::setGenericParametersStr(const std::string &value) {
+    // separate value in a vector of string using | as separator
+    std::vector<std::string> parsedValues;
+    StringTokenizer stValues(value, "|", true);
+    while (stValues.hasNext()) {
+        parsedValues.push_back(stValues.next());
+    }
+    // check that parsed values (A=B)can be parsed in generic parameters 
+    for(auto i : parsedValues) {
+        std::vector<std::string> parsedParameters;
+        StringTokenizer stParam(i, "=", true);
+        while (stParam.hasNext()) {
+            parsedParameters.push_back(stParam.next());
+        }
+        // Check that parsed parameters are exactly two and contains valid chracters
+        if(parsedParameters.size() == 2 && isValidID(parsedParameters.front()) && isValidName(parsedParameters.back())) {
+            myParentEdge.getNBEdge()->getLaneStruct(myIndex).setParameter(parsedParameters.front(), parsedParameters.back());
+        }
     }
 }
 
