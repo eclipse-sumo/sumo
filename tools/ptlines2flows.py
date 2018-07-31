@@ -170,7 +170,7 @@ def createTrips(options):
                 if len(edges) > 2:
                     vias = ' via="%s"' % (' '.join(edges[1:-1]))
                 fouttrips.write(
-                    ('    <trip id="%s" type="%s%s" depart="%s" departLane="best" departPos="0" from="%s" ' +
+                    ('    <trip id="%s" type="%s%s" depart="%s" departLane="best" from="%s" ' +
                      'to="%s"%s>\n') % (
                         tripID, options.vtypeprefix, line.type, begin, edges[0], edges[-1], vias))
             else:
@@ -181,7 +181,7 @@ def createTrips(options):
                 fr, _ = stopsLanes[stop_ids[0]].rsplit("_", 1)
                 to, _ = stopsLanes[stop_ids[-1]].rsplit("_", 1)
                 fouttrips.write(
-                    ('    <trip id="%s" type="%s%s" depart="%s" departLane="best" departPos="0" from="%s" ' +
+                    ('    <trip id="%s" type="%s%s" depart="%s" departLane="best" from="%s" ' +
                      'to="%s">\n') % (
                         tripID, options.vtypeprefix, line.type, begin, fr, to))
 

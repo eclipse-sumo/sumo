@@ -216,7 +216,6 @@ class Builder(object):
                 # "--no-vtypes",
                 "--vtype-prefix", "pt_",
                 "--verbose",
-                "--flow-attributes", 'departPos="0"',
             ]
             ptlines2flows.main(ptlines2flows.get_options(ptOptions))
 
