@@ -17,10 +17,10 @@ Found 38 railway edges and 34 railway nodes (0 signals).
    1,1 count:13 broken:0
    2,0 count:1 broken:1
    2,1 count:1 broken:1
-   2,2 count:6 broken:2
+   2,2 count:6 broken:1
    3,0 count:1 broken:1
    3,2 count:1 broken:0
-Found 6 broken railway nodes (A=1 B=3 C=6 D=5)
+Found 5 broken railway nodes (A=1 B=3 C=1 D=1)
 Found 3 railway nodes marked as buffer_stop
 Found 8 bidirectional rail edges
 Removing empty nodes... done (0ms).
@@ -55,5 +55,5 @@ Summary:
   Applied offset     : 0.00,0.00
   Converted boundary : -141.99,-267.85,409.02,87.76
 -----------------------------------------------------
-Writing network... done (5ms).
+Writing network... done (2ms).
 Success.

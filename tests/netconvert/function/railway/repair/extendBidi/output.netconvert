@@ -5,9 +5,9 @@ Parsing sumo-net from 'input_net.net.xml'... done.
 Removing self-loops... done (0ms).
 Addeded 2 bidi-edges as extension of existing bidi edges
 Found 12 railway edges and 8 railway nodes (0 signals).
-   1,1 count:4 broken:2
+   1,1 count:4 broken:0
    2,2 count:4 broken:0
-Found 2 broken railway nodes (A=0 B=0 C=4 D=4)
+Found 0 broken railway nodes (A=0 B=0 C=0 D=0)
 Found 0 railway nodes marked as buffer_stop
 Found 4 bidirectional rail edges
 Removing empty nodes... done (0ms).
@@ -25,7 +25,7 @@ Dividing of lanes on approached lanes... done (0ms).
 Processing turnarounds... done (0ms).
 Rechecking of lane endings... done (0ms).
 Computing traffic light control information... done (0ms).
-Computing node logics... done (0ms).
+Computing node logics... done (1ms).
 Computing traffic light logics... done (0ms).
  0 traffic light(s) computed.
 Building inner edges... done (0ms).

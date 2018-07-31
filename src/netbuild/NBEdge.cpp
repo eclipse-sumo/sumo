@@ -646,11 +646,11 @@ NBEdge::resetNodeBorder(const NBNode* node) {
 
 
 bool 
-NBEdge::isBidiRail() const {
+NBEdge::isBidiRail(bool ignoreSpread) const {
     return (isRailway(getPermissions()) 
-            && myLaneSpreadFunction == LANESPREAD_CENTER 
+            && (ignoreSpread || myLaneSpreadFunction == LANESPREAD_CENTER)
             && myPossibleTurnDestination != 0 
-            && myPossibleTurnDestination->getLaneSpreadFunction() == LANESPREAD_CENTER
+            && (ignoreSpread || myPossibleTurnDestination->getLaneSpreadFunction() == LANESPREAD_CENTER)
             && isRailway(myPossibleTurnDestination->getPermissions())
             && myPossibleTurnDestination->getGeometry().reverse() == getGeometry());
 }

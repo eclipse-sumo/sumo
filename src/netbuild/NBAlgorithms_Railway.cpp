@@ -220,7 +220,7 @@ NBRailwayTopologyAnalyzer::getBrokenRailNodes(NBNetBuilder& nb, bool verbose) {
                     }
                 }
             }
-            // do not bidi nodes as broken
+            // do not mark bidi nodes as broken
             if (((in == 1 && out == 1) || (in == 2) && (out == 2))
                     && allBidi(inRail) && allBidi(outRail)) {
                 broken = "";
@@ -371,14 +371,19 @@ NBRailwayTopologyAnalyzer::allBroken(const NBNode* node, NBEdge* candOut, const 
 
 bool 
 NBRailwayTopologyAnalyzer::allSharp(const NBNode* node, const EdgeVector& in, const EdgeVector& out) {
+    bool allBidi = true;
     for (NBEdge* e1 : in) {
         for (NBEdge* e2 : out) {
             if (e1 != e2 && isStraight(node, e1, e2)) {
                 return false;
             }
+            if (!e1->isBidiRail(true)) {
+                //std::cout << " allSharp node=" << node->getID() << " e1=" << e1->getID() << " is not bidi\n";
+                allBidi = false;
+            }
         }
     }
-    return true;
+    return !allBidi;
 }
 
 

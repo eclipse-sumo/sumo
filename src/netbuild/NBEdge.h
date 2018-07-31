@@ -1242,7 +1242,7 @@ public:
     void resetNodeBorder(const NBNode* node);
 
     /// @brief whether this edge is part of a bidirectional railway
-    bool isBidiRail() const;
+    bool isBidiRail(bool ignoreSpread=false) const;
 
     /// @brief debugging helper to print all connections
     void debugPrintConnections(bool outgoing = true, bool incoming = false) const;
