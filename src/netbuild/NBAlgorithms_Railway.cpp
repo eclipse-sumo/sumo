@@ -744,6 +744,7 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForStops(NBNetBuilder& nb) {
     int added = 0;
     int numDisconnected = 0;
     std::set<NBEdge*> addBidiStops;
+    std::set<std::pair<NBPTStop*, NBPTStop*> > visited;
     for (NBPTLine* line : nb.getPTLineCont().getLines()) {
         NBVehicle veh(line->getRef(), SVC_RAIL);
         std::vector<NBPTStop*> stops = line->getStops();
@@ -751,6 +752,12 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForStops(NBNetBuilder& nb) {
             continue;
         }
         for (auto it = stops.begin(); it + 1 != stops.end(); ++it) {
+            std::pair<NBPTStop*, NBPTStop*> trip(*it, *(it + 1));
+            if (visited.count(trip) != 0) {
+                continue;
+            } else {
+                visited.insert(trip);
+            }
             NBEdge* fromEdge = ec.getByID((*it)->getEdgeId());
             NBEdge* toEdge = ec.getByID((*(it + 1))->getEdgeId());
             if (fromEdge == nullptr || toEdge == nullptr
@@ -791,11 +798,13 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForStops(NBNetBuilder& nb) {
         if (!edge->isBidiRail()) {
             NBEdge* e2 = addBidiEdge(nb, edge);
             if (e2 != nullptr) {
+                addedBidiStops++;
                 added += extendBidiEdges(nb, edge->getToNode(), edge);
                 added += extendBidiEdges(nb, edge->getFromNode(), e2);
             }
         } else {
             addedBidiStops++;
+            added--;
         }
     }
 
