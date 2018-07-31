@@ -77,7 +77,7 @@ GNEGenericParameterDialog::GNEGenericParameterDialog(GNEViewNet *viewNet, std::v
     myCopyOfGenericParameters(*myGenericParameters) {
     assert(myGenericParameters);
     // set vehicle icon for this dialog
-    setIcon(GUIIconSubSys::getIcon(ICON_GREENVEHICLE));
+    setIcon(GUIIconSubSys::getIcon(ICON_APP_TABLE));
     // create main frame
     FXVerticalFrame* mainFrame = new FXVerticalFrame(this, GUIDesignAuxiliarFrame);
     // create frame for Generic Parameters and options
@@ -300,6 +300,42 @@ GNEGenericParameterDialog::onCmdSortGenericParameters(FXObject*, FXSelector, voi
 
 long 
 GNEGenericParameterDialog::onCmdHelpGenericParameter(FXObject*, FXSelector, void*) {
+    // Create dialog box
+    FXDialogBox* GenericParameterHelpDialog = new FXDialogBox(this, "Generic Parameters Help", GUIDesignDialogBox);
+    GenericParameterHelpDialog->setIcon(GUIIconSubSys::getIcon(ICON_APP_TABLE));
+    // set help text
+    std::ostringstream help;
+    help
+            << "- Generic Parameters are defined by a Key and a Value.\n"
+            << "- In Netedit can be defined using format key1=parameter1|key2=parameter2|...\n"
+            << " - Duplicated and empty Keys aren't valid.\n"
+            << " - Certain characters aren't allowed (\t\n\r@$%^&/|\\....)\n";
+    // Create label with the help text
+    new FXLabel(GenericParameterHelpDialog, help.str().c_str(), 0, GUIDesignLabelFrameInformation);
+    // Create horizontal separator
+    new FXHorizontalSeparator(GenericParameterHelpDialog, GUIDesignHorizontalSeparator);
+    // Create frame for OK Button
+    FXHorizontalFrame* myHorizontalFrameOKButton = new FXHorizontalFrame(GenericParameterHelpDialog, GUIDesignAuxiliarHorizontalFrame);
+    // Create Button Close (And two more horizontal frames to center it)
+    new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
+    new FXButton(myHorizontalFrameOKButton, "OK\t\tclose", GUIIconSubSys::getIcon(ICON_ACCEPT), GenericParameterHelpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
+    new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
+    // Write Warning in console if we're in testing mode
+    if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+        WRITE_WARNING("Opening Generic Parameter help dialog");
+    }
+    // create Dialog
+    GenericParameterHelpDialog->create();
+    // show in the given position
+    GenericParameterHelpDialog->show(PLACEMENT_CURSOR);
+    // refresh APP
+    getApp()->refresh();
+    // open as modal dialog (will block all windows until stop() or stopModal() is called)
+    getApp()->runModalFor(GenericParameterHelpDialog);
+    // Write Warning in console if we're in testing mode
+    if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+        WRITE_WARNING("Closing Generic Parameter help dialog");
+    }
     return 1;
 }
 
@@ -532,6 +568,7 @@ GNEGenericParameterDialog::resizeGenericParameterDialog() {
             indexColumn = i;
         }
     }
+    // resize dialog
     resize(myGenericParameterDialogWidth + (indexColumn * myGenericParameterColumnWidth), getHeight());
  }
 
