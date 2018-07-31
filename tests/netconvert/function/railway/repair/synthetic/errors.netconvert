@@ -1,3 +1,1 @@
 Warning: Found and removed invalid connection from edge 'gneE27' to edge 'gneE26' via junction 'gneJ34'.
-Warning: Lane '-gneE16_0' is not connected from any incoming edge at junction 'gneJ22'.
-Warning: Edge 'gneE19' is not connected to outgoing edges at junction 'gneJ22'.

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sat Jul 28 14:19:55 2018 by Eclipse SUMO netconvert Version 635b715
+<!-- generated on Tue Jul 31 10:05:11 2018 by Eclipse SUMO netconvert Version e6e8e55
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -46,10 +46,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":gneJ38_1_0" index="0" allow="rail" speed="27.78" length="9.57" shape="-25.52,-71.82 -22.73,-71.25 -20.83,-70.81 -18.90,-70.54 -16.08,-70.45"/>
     </edge>
     <edge id=":gneJ39_0" function="internal">
-        <lane id=":gneJ39_0_0" index="0" allow="rail" speed="27.78" length="3.05" shape="187.21,-69.27 184.72,-70.20 184.46,-70.49"/>
-    </edge>
-    <edge id=":gneJ39_2" function="internal">
-        <lane id=":gneJ39_2_0" index="0" speed="27.78" length="4.84" shape="184.46,-70.49 183.87,-71.17 184.68,-72.16 187.14,-73.19"/>
+        <lane id=":gneJ39_0_0" index="0" allow="rail" speed="27.78" length="8.64" shape="187.21,-69.27 184.76,-70.04 183.08,-70.61 181.36,-70.98 178.82,-71.09"/>
     </edge>
     <edge id=":gneJ39_1" function="internal">
         <lane id=":gneJ39_1_0" index="0" allow="rail" speed="27.78" length="8.64" shape="178.82,-71.09 181.36,-71.24 183.06,-71.66 184.72,-72.32 187.14,-73.19"/>
@@ -73,10 +70,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":gneJ47_1_0" index="0" allow="rail" speed="27.78" length="0.30" shape="138.14,-226.78 138.44,-226.78"/>
     </edge>
     <edge id=":gneJ48_0" function="internal">
-        <lane id=":gneJ48_0_0" index="0" allow="rail" speed="27.78" length="2.95" shape="318.52,-224.92 316.15,-225.87 315.90,-226.17"/>
-    </edge>
-    <edge id=":gneJ48_2" function="internal">
-        <lane id=":gneJ48_2_0" index="0" speed="27.78" length="4.69" shape="315.90,-226.17 315.34,-226.84 316.11,-227.84 318.45,-228.87"/>
+        <lane id=":gneJ48_0_0" index="0" allow="rail" speed="27.78" length="8.35" shape="318.52,-224.92 316.16,-225.71 314.54,-226.29 312.89,-226.65 310.44,-226.78"/>
     </edge>
     <edge id=":gneJ48_1" function="internal">
         <lane id=":gneJ48_1_0" index="0" allow="rail" speed="27.78" length="8.35" shape="310.44,-226.78 312.88,-226.92 314.52,-227.33 316.12,-227.99 318.45,-228.87"/>
@@ -165,9 +159,9 @@ SPDX-License-Identifier: EPL-2.0
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
-    <junction id="gneJ39" type="priority" x="180.57" y="-71.10" incLanes="gneE34_0 gneE31_0" intLanes=":gneJ39_2_0 :gneJ39_1_0" shape="186.79,-67.73 187.64,-70.81 187.62,-71.67 186.65,-74.72 183.81,-73.65 182.81,-73.25 181.79,-72.95 180.54,-72.76 178.82,-72.69 178.83,-69.49 181.83,-69.28 182.86,-69.02 183.88,-68.67 185.12,-68.24">
-        <request index="0" response="10" foes="10" cont="1"/>
-        <request index="1" response="00" foes="01" cont="0"/>
+    <junction id="gneJ39" type="priority" x="180.57" y="-71.10" incLanes="gneE34_0 gneE31_0" intLanes=":gneJ39_0_0 :gneJ39_1_0" shape="186.79,-67.73 187.64,-70.81 187.62,-71.67 186.65,-74.72 183.81,-73.65 182.81,-73.25 181.79,-72.95 180.54,-72.76 178.82,-72.69 178.83,-69.49 181.83,-69.28 182.86,-69.02 183.88,-68.67 185.12,-68.24">
+        <request index="0" response="00" foes="00" cont="0"/>
+        <request index="1" response="00" foes="00" cont="0"/>
     </junction>
     <junction id="gneJ40" type="dead_end" x="-154.63" y="-94.95" incLanes="" intLanes="" shape="-154.91,-93.38 -154.35,-96.52"/>
     <junction id="gneJ41" type="dead_end" x="-134.09" y="-32.02" incLanes="gneE33_0" intLanes="" shape="-133.59,-30.50 -134.59,-33.54"/>
@@ -185,9 +179,9 @@ SPDX-License-Identifier: EPL-2.0
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
-    <junction id="gneJ48" type="priority" x="312.20" y="-226.78" incLanes="gneE41_0 gneE38_0" intLanes=":gneJ48_2_0 :gneJ48_1_0" shape="318.07,-223.39 318.97,-226.46 318.33,-226.74 318.25,-226.89 318.32,-227.04 318.56,-227.20 318.95,-227.36 317.94,-230.39 315.22,-229.32 314.26,-228.92 313.29,-228.63 312.09,-228.44 310.44,-228.38 310.44,-225.18 313.32,-224.96 314.31,-224.70 315.29,-224.34 316.47,-223.90">
-        <request index="0" response="10" foes="10" cont="1"/>
-        <request index="1" response="00" foes="01" cont="0"/>
+    <junction id="gneJ48" type="priority" x="312.20" y="-226.78" incLanes="gneE41_0 gneE38_0" intLanes=":gneJ48_0_0 :gneJ48_1_0" shape="318.07,-223.39 318.97,-226.46 318.33,-226.74 318.25,-226.89 318.32,-227.04 318.56,-227.20 318.95,-227.36 317.94,-230.39 315.22,-229.32 314.26,-228.92 313.29,-228.63 312.09,-228.44 310.44,-228.38 310.44,-225.18 313.32,-224.96 314.31,-224.70 315.29,-224.34 316.47,-223.90">
+        <request index="0" response="00" foes="00" cont="0"/>
+        <request index="1" response="00" foes="00" cont="0"/>
     </junction>
     <junction id="gneJ49" type="dead_end" x="-185.46" y="-271.31" incLanes="" intLanes="" shape="-185.95,-269.79 -184.97,-272.83"/>
     <junction id="gneJ50" type="dead_end" x="-157.78" y="-172.62" incLanes="gneE40_0" intLanes="" shape="-157.08,-171.18 -158.48,-174.06"/>
@@ -208,21 +202,18 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="gneJ58" type="dead_end" x="336.41" y="-328.81" incLanes="gneE47_0" intLanes="" shape="336.93,-330.32 335.89,-327.30"/>
     <junction id="gneJ59" type="dead_end" x="335.06" y="-403.76" incLanes="gneE48_0" intLanes="" shape="334.40,-405.22 335.72,-402.30"/>
 
-    <junction id=":gneJ39_2_0" type="internal" x="184.46" y="-70.49" incLanes=":gneJ39_0_0 gneE31_0" intLanes=":gneJ39_1_0"/>
-    <junction id=":gneJ48_2_0" type="internal" x="315.90" y="-226.17" incLanes=":gneJ48_0_0 gneE38_0" intLanes=":gneJ48_1_0"/>
-
     <connection from="-gneE31" to="gneE33" fromLane="0" toLane="0" via=":gneJ38_0_0" dir="s" state="M"/>
     <connection from="-gneE36" to="gneE40" fromLane="0" toLane="0" via=":gneJ45_0_0" dir="s" state="M"/>
     <connection from="-gneE37" to="-gneE36" fromLane="0" toLane="0" via=":gneJ46_0_0" dir="s" state="M"/>
     <connection from="-gneE38" to="-gneE37" fromLane="0" toLane="0" via=":gneJ47_0_0" dir="s" state="M"/>
     <connection from="gneE31" to="gneE35" fromLane="0" toLane="0" via=":gneJ39_1_0" dir="s" state="M"/>
     <connection from="gneE32" to="gneE31" fromLane="0" toLane="0" via=":gneJ38_1_0" dir="s" state="M"/>
-    <connection from="gneE34" to="gneE35" fromLane="0" toLane="0" via=":gneJ39_0_0" dir="l" state="m"/>
+    <connection from="gneE34" to="-gneE31" fromLane="0" toLane="0" via=":gneJ39_0_0" dir="s" state="M"/>
     <connection from="gneE36" to="gneE37" fromLane="0" toLane="0" via=":gneJ46_1_0" dir="s" state="M"/>
     <connection from="gneE37" to="gneE38" fromLane="0" toLane="0" via=":gneJ47_1_0" dir="s" state="M"/>
     <connection from="gneE38" to="gneE42" fromLane="0" toLane="0" via=":gneJ48_1_0" dir="s" state="M"/>
     <connection from="gneE39" to="gneE36" fromLane="0" toLane="0" via=":gneJ45_1_0" dir="s" state="M"/>
-    <connection from="gneE41" to="gneE42" fromLane="0" toLane="0" via=":gneJ48_0_0" dir="l" state="m"/>
+    <connection from="gneE41" to="-gneE38" fromLane="0" toLane="0" via=":gneJ48_0_0" dir="s" state="M"/>
     <connection from="gneE43" to="gneE44" fromLane="0" toLane="0" via=":gneJ54_0_0" dir="s" state="M"/>
     <connection from="gneE44" to="gneE48" fromLane="0" toLane="0" via=":gneJ55_0_0" dir="R" state="M"/>
     <connection from="gneE44" to="gneE47" fromLane="0" toLane="0" via=":gneJ55_1_0" dir="s" state="M"/>
@@ -230,8 +221,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <connection from=":gneJ38_0" to="gneE33" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":gneJ38_1" to="gneE31" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":gneJ39_0" to="gneE35" fromLane="0" toLane="0" via=":gneJ39_2_0" dir="l" state="m"/>
-    <connection from=":gneJ39_2" to="gneE35" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":gneJ39_0" to="-gneE31" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":gneJ39_1" to="gneE35" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":gneJ45_0" to="gneE40" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":gneJ45_1" to="gneE36" fromLane="0" toLane="0" dir="s" state="M"/>
@@ -239,8 +229,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from=":gneJ46_1" to="gneE37" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":gneJ47_0" to="-gneE37" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":gneJ47_1" to="gneE38" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":gneJ48_0" to="gneE42" fromLane="0" toLane="0" via=":gneJ48_2_0" dir="l" state="m"/>
-    <connection from=":gneJ48_2" to="gneE42" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":gneJ48_0" to="-gneE38" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":gneJ48_1" to="gneE42" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":gneJ53_0" to="gneE43" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":gneJ54_0" to="gneE44" fromLane="0" toLane="0" dir="s" state="M"/>
