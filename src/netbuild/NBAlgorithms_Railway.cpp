@@ -87,14 +87,9 @@ NBRailwayTopologyAnalyzer::makeAllBidi(NBNetBuilder& nb) {
             edge->invalidateConnections(true);
             if (!edge->isBidiRail()) {
                 if (edge->getLaneSpreadFunction() == LANESPREAD_CENTER) {
-                    const std::string id2 = "-" + edge->getID();
-                    if (nb.getEdgeCont().retrieve(id2) == nullptr) {
-                        NBEdge* e2 = new NBEdge(id2, edge->getToNode(), edge->getFromNode(), 
-                                edge, edge->getGeometry().reverse());
-                        nb.getEdgeCont().insert(e2);
+                    NBEdge* e2 = addBidiEdge(nb, edge, false);
+                    if (e2 != nullptr) {
                         numAddedBidiEdges++;
-                    } else {
-                        WRITE_WARNING("Could not add bidi-edge '" + id2 + "'.");
                     }
                 } else {
                     numNotCenterEdges++;
@@ -110,6 +105,24 @@ NBRailwayTopologyAnalyzer::makeAllBidi(NBNetBuilder& nb) {
     }
 }
 
+NBEdge* 
+NBRailwayTopologyAnalyzer::addBidiEdge(NBNetBuilder& nb, NBEdge* edge, bool update) {
+    assert(edge->getLaneSpreadFunction() == LANESPREAD_CENTER);
+    assert(!edge->isBidiRail());
+    const std::string id2 = "-" + edge->getID();
+    if (nb.getEdgeCont().retrieve(id2) == nullptr) {
+        NBEdge* e2 = new NBEdge(id2, edge->getToNode(), edge->getFromNode(), 
+                edge, edge->getGeometry().reverse());
+        nb.getEdgeCont().insert(e2);
+        if (update) {
+            updateTurns(edge);
+        }
+        return e2;
+    } else {
+        WRITE_WARNING("Could not add bidi-edge '" + id2 + "'.");
+        return nullptr;
+    }
+}
 
 void 
 NBRailwayTopologyAnalyzer::getRailEdges(const NBNode* node, 
@@ -411,13 +424,8 @@ NBRailwayTopologyAnalyzer::extendBidiEdges(NBNetBuilder& nb, NBNode* node, NBEdg
     for (NBEdge* cand : outRail) {
         //std::cout << " extendBidiEdges n=" << node->getID() << " bidiIn=" << bidiIn->getID() << " cand=" << cand->getID() << " isStraight=" << isStraight(node, bidiIn, cand) << "\n";
         if (!cand->isBidiRail() && isStraight(node, bidiIn, cand)) {
-            NBEdge* e2 = new NBEdge("-" + cand->getID(), cand->getToNode(), cand->getFromNode(), 
-                    cand, cand->getGeometry().reverse());
-            if (!nb.getEdgeCont().insert(e2)) {
-                WRITE_WARNING("Could not add bidi-edge '" + e2->getID() + "'.");
-                delete e2;
-            } else {
-                updateTurns(cand);
+            NBEdge* e2 = addBidiEdge(nb, cand);
+            if (e2 != nullptr) {
                 added += 1 + extendBidiEdges(nb, cand->getToNode(), cand);
             }
         }
@@ -425,13 +433,8 @@ NBRailwayTopologyAnalyzer::extendBidiEdges(NBNetBuilder& nb, NBNode* node, NBEdg
     for (NBEdge* cand : inRail) {
         //std::cout << " extendBidiEdges n=" << node->getID() << " bidiOut=" << bidiOut->getID() << " cand=" << cand->getID() << " isStraight=" << isStraight(node, cand, bidiOut) << "\n";
         if (!cand->isBidiRail() && isStraight(node, cand, bidiOut)) {
-            NBEdge* e2 = new NBEdge("-" + cand->getID(), cand->getToNode(), cand->getFromNode(), 
-                    cand, cand->getGeometry().reverse());
-            if (!nb.getEdgeCont().insert(e2)) {
-                WRITE_WARNING("Could not add bidi-edge '" + e2->getID() + "'.");
-                delete e2;
-            } else {
-                updateTurns(cand);
+            NBEdge* e2 = addBidiEdge(nb, cand);
+            if (e2 != nullptr) {
                 added += 1 + extendBidiEdges(nb, cand->getFromNode(), e2);
             }
         }
@@ -580,14 +583,9 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForBufferStops(NBNetBuilder& nb) {
                     e2To = node;
                     node = e2From;
                 }
-                NBEdge* e2 = new NBEdge("-" + e->getID(), e2From, e2To, 
-                        e, e->getGeometry().reverse());
-                if (!ec.insert(e2)) {
-                    WRITE_ERROR("Could not add edge '" + e2->getID() + "'.");
-                    delete e2;
+                NBEdge* e2 = addBidiEdge(nb, e);
+                if (e2 == nullptr) {
                     break;
-                } else {
-                    updateTurns(e);
                 }
                 prev = e;
                 prev2 = e2;
@@ -661,14 +659,7 @@ NBRailwayTopologyAnalyzer::addBidiEdgesBetweenSwitches(NBNetBuilder& nb) {
                         WRITE_MESSAGE("Adding " + toString(edgeSeq.size()) 
                                 + " bidi-edges between switches junction '" + n->getID() + "' and junction '" + next->getID() + "'");
                         for (NBEdge* e : edgeSeq) {
-                            NBEdge* e2 = new NBEdge("-" + e->getID(), e->getToNode(), e->getFromNode(), 
-                                    e, e->getGeometry().reverse());
-                            if (!nb.getEdgeCont().insert(e2)) {
-                                WRITE_WARNING("Could not add bidi-edge '" + e2->getID() + "'.");
-                                delete e2;
-                            } else {
-                                updateTurns(e);
-                            }
+                            addBidiEdge(nb, e);
                         }
                     } else {
                         //std::cout << " sequence ended at junction " << next->getID() 

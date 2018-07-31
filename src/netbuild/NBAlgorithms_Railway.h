@@ -68,6 +68,9 @@ private:
     static bool allBidi(const EdgeVector& edges);
     static NBEdge* isBidiSwitch(const NBNode* n);
 
+    /// @brief add bidi-edge for the given edge
+    static NBEdge* addBidiEdge(NBNetBuilder& nb, NBEdge* edge, bool update=true);
+
     /// @brief add further bidi-edges near existing bidi-edges
     static int extendBidiEdges(NBNetBuilder& nb);
     static int extendBidiEdges(NBNetBuilder& nb, NBNode* node, NBEdge* bidiIn);
