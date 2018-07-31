@@ -251,7 +251,7 @@
     </xsd:complexType>
 
     <xsd:complexType name="variableSpeedSignType">
-        <xsd:sequence>
+        <xsd:choice>
             <xsd:element name="param" type="paramType" minOccurs="0" maxOccurs="unbounded"/>
             <xsd:element name="step" minOccurs="1" maxOccurs="unbounded">
                 <xsd:complexType>
@@ -259,7 +259,7 @@
                     <xsd:attribute name="speed" type="xsd:float" use="optional"/>
                 </xsd:complexType>
             </xsd:element>
-        </xsd:sequence>
+        </xsd:choice>
         <xsd:attribute name="id" type="xsd:string" use="required"/>
         <xsd:attribute name="lanes" type="xsd:string" use="required"/>
         <xsd:attribute name="file" type="xsd:string" use="optional"/>
