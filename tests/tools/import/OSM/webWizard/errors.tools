@@ -1894,10 +1894,6 @@ Warning: Intersecting left turns at junction 'cluster_1828018077_1828018093_1828
 Warning: Intersecting left turns at junction 'cluster_2341815018_26871465' from lane '437325047#3_1' and lane '-437325047#5_1'. (increase junction radius to avoid this)
 Warning: Intersecting left turns at junction 'cluster_25664779_25664841_746803372' from lane '66071373#1_1' and lane '153698394#2_1'. (increase junction radius to avoid this)
 Warning: Intersecting left turns at junction 'cluster_25665646_3602294175' from lane '340498982#7_1' and lane '169195795#0_3'. (increase junction radius to avoid this)
-Warning: No connection between edge '148458500#1' and edge '4791000#1' found.
-Warning: No connection between edge '331114772#3' and edge '-148458500#1' found.
-Warning: No connection between edge '331114772#3' and edge '-148458500#1' found.
-Warning: No connection between edge '148458500#1' and edge '4791000#1' found.
 Warning: skipping line '5' because it has too few stops
 Warning: skipping line '78' because it has too few stops
 Warning: skipping line '79' because it has too few stops

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sun Jul 29 23:25:43 2018 by Eclipse SUMO netconvert Version 1e6f500
+<!-- generated on Tue Jul 31 16:37:33 2018 by Eclipse SUMO netconvert Version 0b8c9cc
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -17,6 +17,7 @@ SPDX-License-Identifier: EPL-2.0
         <ptstop-files value="input_ptstops.xml"/>
         <ptline-files value="input_ptlines.xml"/>
         <ptstop-output value="additional.xml"/>
+        <ptline-output value="ptlines.xml"/>
         <railway.topology.output value="topology.xml"/>
     </output>
 
@@ -39,6 +40,11 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="-stopA" name="stopA" lane="-a_0" startPos="20.00" endPos="90.00" friendlyPos="true"/>
+    <busStop id="-stopC" name="stopC" lane="-c_0" startPos="30.00" endPos="80.00" friendlyPos="true"/>
+    <busStop id="-stopF" name="stopF" lane="-f_0" startPos="20.00" endPos="90.00" friendlyPos="true"/>
     <busStop id="stopA" name="stopA" lane="a_0" startPos="10.00" endPos="80.00" friendlyPos="true"/>
     <busStop id="stopC" name="stopC" lane="c_0" startPos="20.00" endPos="70.00" friendlyPos="true"/>
+    <busStop id="stopF" name="stopF" lane="f_0" startPos="10.00" endPos="80.00" friendlyPos="true"/>
+    <busStop id="stopH" name="stopH" lane="h_0" startPos="20.00" endPos="70.00" friendlyPos="true"/>
 </additional>

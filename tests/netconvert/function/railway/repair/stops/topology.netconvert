@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sun Jul 29 23:25:43 2018 by Eclipse SUMO netconvert Version 1e6f500
+<!-- generated on Tue Jul 31 16:37:33 2018 by Eclipse SUMO netconvert Version 0b8c9cc
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -17,6 +17,7 @@ SPDX-License-Identifier: EPL-2.0
         <ptstop-files value="input_ptstops.xml"/>
         <ptline-files value="input_ptlines.xml"/>
         <ptstop-output value="additional.xml"/>
+        <ptline-output value="ptlines.xml"/>
         <railway.topology.output value="topology.xml"/>
     </output>
 
@@ -40,13 +41,25 @@ SPDX-License-Identifier: EPL-2.0
 
 <railwayTopology>
     <railNodeType in="0" out="1">
-        <node id="gneJ40"/>
+        <node id="gneJ44"/>
     </railNodeType>
     <railNodeType in="1" out="0">
-        <node id="gneJ43"/>
+        <node id="gneJ49"/>
     </railNodeType>
     <railNodeType in="1" out="1">
+        <node id="gneJ40"/>
+        <node id="gneJ43"/>
+        <node id="gneJ45"/>
+        <node id="gneJ47" buffer_stop="true"/>
+        <node id="gneJ48"/>
+    </railNodeType>
+    <railNodeType in="2" out="2">
         <node id="gneJ38"/>
         <node id="gneJ39"/>
+        <node id="gneJ46"/>
     </railNodeType>
+    <bidiEdge id="a" bidi="-a"/>
+    <bidiEdge id="b" bidi="-b"/>
+    <bidiEdge id="c" bidi="-c"/>
+    <bidiEdge id="f" bidi="-f"/>
 </railwayTopology>
