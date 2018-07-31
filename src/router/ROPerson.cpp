@@ -265,6 +265,7 @@ ROPerson::saveAsXML(OutputDevice& os, OutputDevice* const typeos, bool asAlterna
 
     // write params
     getParameter().writeParams(os);
+    os.closeTag();
 }
 
 
