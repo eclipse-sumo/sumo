@@ -1102,7 +1102,7 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, S
             if (lane) {
                 return buildBusStop(viewNet, allowUndoRedo, id, lane, startPos, endPos, name, lines, friendlyPos, blockMovement);
             } else {
-                return false;
+                return nullptr;
             }
         }
         case SUMO_TAG_ACCESS: {
@@ -1120,10 +1120,10 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, S
                     return buildAccess(viewNet, allowUndoRedo, busStop, lane, pos, length, friendlyPos, blockMovement);
                 } else {
                     WRITE_WARNING(toString(SUMO_TAG_BUS_STOP) + "'" + busStop->getID() + "' already owns a Acces in the edge '" + lane->getParentEdge().getID() + "'");
-                    return false;
+                    return nullptr;
                 }
             } else {
-                return false;
+                return nullptr;
             }
         }
         case SUMO_TAG_CONTAINER_STOP: {
@@ -1140,7 +1140,7 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, S
             if (lane) {
                 return buildContainerStop(viewNet, allowUndoRedo, id, lane, startPos, endPos, name, lines, friendlyPos, blockMovement);
             } else {
-                return false;
+                return nullptr;
             }
         }
         case SUMO_TAG_CHARGING_STATION: {
@@ -1160,7 +1160,7 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, S
             if (lane) {
                 return buildChargingStation(viewNet, allowUndoRedo, id, lane, startPos, endPos, name, chargingPower, efficiency, chargeInTransit, chargeDelay, friendlyPos, blockMovement);
             } else {
-                return false;
+                return nullptr;
             }
         }
         case SUMO_TAG_PARKING_AREA: {
@@ -1180,7 +1180,7 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, S
             if (lane) {
                 return buildParkingArea(viewNet, allowUndoRedo, id, lane, startPos, endPos, name, friendlyPos, roadSideCapacity, width, lenght, angle, blockMovement);
             } else {
-                return false;
+                return nullptr;
             }
         }
         case SUMO_TAG_PARKING_SPACE: {
@@ -1211,7 +1211,7 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, S
             if (lane) {
                 return buildDetectorE1(viewNet, allowUndoRedo, id, lane, pos, freq, filename, name, vehicleTypes, friendlyPos, blockMovement);
             } else {
-                return false;
+                return nullptr;
             }
         }
         case SUMO_TAG_E2DETECTOR: {
@@ -1232,7 +1232,7 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, S
             if (lane) {
                 return buildDetectorE2(viewNet, allowUndoRedo, id, lane, pos, length, freq, filename, name, timeThreshold, speedThreshold, jamThreshold, friendlyPos, blockMovement);
             } else {
-                return false;
+                return nullptr;
             }
         }
         case SUMO_TAG_E3DETECTOR: {
@@ -1250,7 +1250,7 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, S
             if (pos.size() == 1) {
                 return buildDetectorE3(viewNet, allowUndoRedo, id, pos[0], freq, filename, name, timeThreshold, speedThreshold, blockMovement);
             } else {
-                return false;
+                return nullptr;
             }
         }
         case SUMO_TAG_DET_ENTRY: {
@@ -1264,7 +1264,7 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, S
             if (lane && E3) {
                 return buildDetectorEntry(viewNet, allowUndoRedo, E3, lane, pos, friendlyPos, blockMovement);
             } else {
-                return false;
+                return nullptr;
             }
         }
         case SUMO_TAG_DET_EXIT: {
@@ -1278,7 +1278,7 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, S
             if (lane && E3) {
                 return buildDetectorExit(viewNet, allowUndoRedo, E3, lane, pos, friendlyPos, blockMovement);
             } else {
-                return false;
+                return nullptr;
             }
         }
         case SUMO_TAG_INSTANT_INDUCTION_LOOP: {
@@ -1294,7 +1294,7 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, S
             if (lane) {
                 return buildDetectorE1Instant(viewNet, allowUndoRedo, id, lane, pos, filename, name, friendlyPos, blockMovement);
             } else {
-                return false;
+                return nullptr;
             }
         }
         case SUMO_TAG_VSS: {
@@ -1310,7 +1310,7 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, S
             if (pos.size() == 1) {
                 return buildVariableSpeedSign(viewNet, allowUndoRedo, id, pos[0], lanes, name,blockMovement);
             } else {
-                return false;
+                return nullptr;
             }
         }
         case SUMO_TAG_CALIBRATOR: {
@@ -1326,7 +1326,7 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, S
             if (edge) {
                 return buildCalibrator(viewNet, allowUndoRedo, id, edge, pos, name, outfile, freq);
             } else {
-                return false;
+                return nullptr;
             }
         }
         case SUMO_TAG_LANECALIBRATOR: {
@@ -1342,7 +1342,7 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, S
             if (lane) {
                 return buildCalibrator(viewNet, allowUndoRedo, id, lane, pos, name, outfile, freq);
             } else {
-                return false;
+                return nullptr;
             }
         }
         case SUMO_TAG_REROUTER: {
@@ -1363,7 +1363,7 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, S
             if (pos.size() == 1) {
                 return buildRerouter(viewNet, allowUndoRedo, id, pos[0], edges, prob, name, file, off, timeThreshold, vTypes, blockMovement);
             } else {
-                return false;
+                return nullptr;
             }
         }
         case SUMO_TAG_ROUTEPROBE: {
@@ -1378,7 +1378,7 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, S
             if (edge) {
                 return buildRouteProbe(viewNet, allowUndoRedo, id, edge, freq, name, filename, begin);
             } else {
-                return false;
+                return nullptr;
             }
         }
         case SUMO_TAG_VAPORIZER: {
@@ -1397,11 +1397,11 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, S
                     WRITE_WARNING("There is already a " + toString(tag) + " in the edge '" + edge->getID() + "'.");
                 }
             } else {
-                return false;
+                return nullptr;
             }
         }
         default:
-            return false;
+            return nullptr;
     }
 }
 
