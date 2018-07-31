@@ -116,6 +116,8 @@ NBRailwayTopologyAnalyzer::addBidiEdge(NBNetBuilder& nb, NBEdge* edge, bool upda
         nb.getEdgeCont().insert(e2);
         if (update) {
             updateTurns(edge);
+            // reconnected added edges
+            e2->getFromNode()->invalidateIncomingConnections();
         }
         return e2;
     } else {
@@ -423,7 +425,7 @@ NBRailwayTopologyAnalyzer::extendBidiEdges(NBNetBuilder& nb, NBNode* node, NBEdg
     getRailEdges(node, inRail, outRail);
     for (NBEdge* cand : outRail) {
         //std::cout << " extendBidiEdges n=" << node->getID() << " bidiIn=" << bidiIn->getID() << " cand=" << cand->getID() << " isStraight=" << isStraight(node, bidiIn, cand) << "\n";
-        if (!cand->isBidiRail() && isStraight(node, bidiIn, cand)) {
+        if (!cand->isBidiRail() && isStraight(node, bidiIn, cand) && cand->getLaneSpreadFunction() == LANESPREAD_CENTER) {
             NBEdge* e2 = addBidiEdge(nb, cand);
             if (e2 != nullptr) {
                 added += 1 + extendBidiEdges(nb, cand->getToNode(), cand);
@@ -432,7 +434,7 @@ NBRailwayTopologyAnalyzer::extendBidiEdges(NBNetBuilder& nb, NBNode* node, NBEdg
     }
     for (NBEdge* cand : inRail) {
         //std::cout << " extendBidiEdges n=" << node->getID() << " bidiOut=" << bidiOut->getID() << " cand=" << cand->getID() << " isStraight=" << isStraight(node, cand, bidiOut) << "\n";
-        if (!cand->isBidiRail() && isStraight(node, cand, bidiOut)) {
+        if (!cand->isBidiRail() && isStraight(node, cand, bidiOut) && cand->getLaneSpreadFunction() == LANESPREAD_CENTER) {
             NBEdge* e2 = addBidiEdge(nb, cand);
             if (e2 != nullptr) {
                 added += 1 + extendBidiEdges(nb, cand->getFromNode(), e2);
