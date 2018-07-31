@@ -72,10 +72,10 @@ const int GNEGenericParameterDialog::myGenericParameterColumnWidth = 227;
 
 GNEGenericParameterDialog::GNEGenericParameterDialog(GNEViewNet *viewNet, std::vector<std::pair<std::string, std::string> > *genericParameters) :
     FXDialogBox(viewNet->getApp(), "Edit generic parameters", GUIDesignDialogBox),
-    myViewNet(viewNet)/*,
+    myViewNet(viewNet),
     myGenericParameters(genericParameters),
-    myCopyOfGenericParameters(*myGenericParameters) */{
-    /*assert(myGenericParameters);*/
+    myCopyOfGenericParameters(*myGenericParameters) {
+    assert(myGenericParameters);
     // set vehicle icon for this dialog
     setIcon(GUIIconSubSys::getIcon(ICON_GREENVEHICLE));
     // create main frame

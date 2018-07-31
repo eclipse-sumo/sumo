@@ -168,7 +168,7 @@ public:
         GNEAttributeCarrier *myAC;
 
         /// @brief pointer to current vector of generic parameters 
-        ///std::vector<GNEAttributeCarrier::GenericParameter> *myGenericParameters;
+        std::vector<std::pair<std::string, std::string> > *myGenericParameters;
 
         /// @brief pointer to inspector frame parent
         GNEFrame* myFrameParent;
