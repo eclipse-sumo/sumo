@@ -46,7 +46,14 @@
 
 namespace libsumo {
 // ===========================================================================
-// member definitions
+// static member initializations
+// ===========================================================================
+SubscriptionResults Vehicle::mySubscriptionResults;
+ContextSubscriptionResults Vehicle::myContextSubscriptionResults;
+
+
+// ===========================================================================
+// static member definitions
 // ===========================================================================
 MSVehicle*
 Vehicle::getVehicle(const std::string& id) {
@@ -1371,10 +1378,64 @@ Vehicle::setParameter(const std::string& vehicleID, const std::string& key, cons
 
 
 void
+Vehicle::subscribe(const std::string& objID, const std::vector<int>& vars, SUMOTime beginTime, SUMOTime endTime) {
+    libsumo::Helper::subscribe(CMD_SUBSCRIBE_VEHICLE_VARIABLE, objID, vars, beginTime, endTime);
+}
+
+
+void
+Vehicle::subscribeContext(const std::string& objID, int domain, double range, const std::vector<int>& vars, SUMOTime beginTime, SUMOTime endTime) {
+    libsumo::Helper::subscribe(CMD_SUBSCRIBE_VEHICLE_CONTEXT, objID, vars, beginTime, endTime, domain, range);
+}
+
+
+const SubscriptionResults
+Vehicle::getSubscriptionResults() {
+    return mySubscriptionResults;
+}
+
+
+const TraCIResults
+Vehicle::getSubscriptionResults(const std::string& objID) {
+    return mySubscriptionResults[objID];
+}
+
+
+const ContextSubscriptionResults
+Vehicle::getContextSubscriptionResults() {
+    return myContextSubscriptionResults;
+}
+
+
+const SubscriptionResults
+Vehicle::getContextSubscriptionResults(const std::string& objID) {
+    return myContextSubscriptionResults[objID];
+}
+
+
+void
 Vehicle::storeShape(const std::string& id, PositionVector& shape) {
     shape.push_back(getVehicle(id)->getPosition());
 }
 
+
+std::shared_ptr<VariableWrapper>
+Vehicle::makeWrapper() {
+    return std::make_shared<Helper::SubscriptionWrapper>(handleVariable, mySubscriptionResults, myContextSubscriptionResults);
+}
+
+
+bool
+Vehicle::handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper) {
+    switch (variable) {
+    case ID_LIST:
+        return wrapper->wrapStringList(objID, variable, getIDList());
+    case ID_COUNT:
+        return wrapper->wrapInt(objID, variable, getIDCount());
+    default:
+        return false;
+    }
+}
 
 
 }

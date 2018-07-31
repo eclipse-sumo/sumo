@@ -79,7 +79,7 @@ def simulationStep(step=0):
     } catch (libsumo::TraCIException &e) {
         const std::string s = std::string("TraCI error: ") + e.what();
         SWIG_exception(SWIG_RuntimeError, s.c_str());
-    } catch (ProcessError &e) {
+    } catch (std::runtime_error &e) {
         const std::string s = std::string("SUMO error: ") + e.what();
         SWIG_exception(SWIG_RuntimeError, s.c_str());
     } catch (...) {

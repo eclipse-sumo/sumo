@@ -33,6 +33,10 @@
 // class declarations
 // ===========================================================================
 class MSRoute;
+namespace libsumo {
+    class VariableWrapper;
+}
+
 
 // ===========================================================================
 // class definitions
@@ -53,21 +57,29 @@ public:
     static void add(const std::string& routeID, const std::vector<std::string>& edgeIDs);
     static void setParameter(const std::string& routeID, const std::string& key, const std::string& value); // not needed so far
 
-    //static void subscribe(const std::string& objID, SUMOTime beginTime, SUMOTime endTime, const std::vector<int>& vars);
-    //static void subscribeContext(const std::string& objID, SUMOTime beginTime, SUMOTime endTime, int domain, double range, const std::vector<int>& vars);
+    static void subscribe(const std::string& objID, const std::vector<int>& vars = std::vector<int>(), SUMOTime beginTime = 0, SUMOTime endTime = ((2 ^ 31) - 1));
+    static void subscribeContext(const std::string& objID, int domain, double range, const std::vector<int>& vars = std::vector<int>(), SUMOTime beginTime = 0, SUMOTime endTime = ((2 ^ 31) - 1));
+    static const SubscriptionResults getSubscriptionResults();
+    static const TraCIResults getSubscriptionResults(const std::string& objID);
+    static const ContextSubscriptionResults getContextSubscriptionResults();
+    static const SubscriptionResults getContextSubscriptionResults(const std::string& objID);
+
+    static std::shared_ptr<VariableWrapper> makeWrapper();
+
+    static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper);
 
 private:
     static const MSRoute* getRoute(const std::string& id);
 
+private:
+    static SubscriptionResults mySubscriptionResults;
+    static ContextSubscriptionResults myContextSubscriptionResults;
+
     /// @brief invalidated standard constructor
-    Route();
-
-    /// @brief invalidated copy constructor
-    Route(const Route& src);
-
-    /// @brief invalidated assignment operator
-    Route& operator=(const Route& src);
+    Route() = delete;
 };
+
+
 }
 
 

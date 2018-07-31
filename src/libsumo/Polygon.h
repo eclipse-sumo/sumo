@@ -33,6 +33,9 @@
 // ===========================================================================
 class NamedRTree;
 class SUMOPolygon;
+namespace libsumo {
+    class VariableWrapper;
+}
 
 
 // ===========================================================================
@@ -42,6 +45,7 @@ namespace libsumo {
 class Polygon {
 public:
     static std::vector<std::string> getIDList();
+    static int getIDCount();
     static std::string getType(const std::string& polygonID);
     static TraCIPositionVector getShape(const std::string& polygonID);
     static TraCIColor getColor(const std::string& polygonID);
@@ -53,11 +57,15 @@ public:
     static void add(const std::string& polygonID, const TraCIPositionVector& shape, const TraCIColor& c, bool fill, const std::string& type, int layer);
     static void remove(const std::string& polygonID, int layer = 0);
 
-    //static void subscribe(const std::string& objID, SUMOTime beginTime, SUMOTime endTime, const std::vector<int>& vars);
-    //static void subscribeContext(const std::string& objID, SUMOTime beginTime, SUMOTime endTime, int domain, double range, const std::vector<int>& vars);
-
     static void setFilled(std::string polygonID, bool filled);
     static void setParameter(std::string& name, std::string& value, std::string& string);
+
+    static void subscribe(const std::string& objID, const std::vector<int>& vars = std::vector<int>(), SUMOTime beginTime = 0, SUMOTime endTime = ((2 ^ 31) - 1));
+    static void subscribeContext(const std::string& objID, int domain, double range, const std::vector<int>& vars = std::vector<int>(), SUMOTime beginTime = 0, SUMOTime endTime = ((2 ^ 31) - 1));
+    static const SubscriptionResults getSubscriptionResults();
+    static const TraCIResults getSubscriptionResults(const std::string& objID);
+    static const ContextSubscriptionResults getContextSubscriptionResults();
+    static const SubscriptionResults getContextSubscriptionResults(const std::string& objID);
 
     /** @brief Returns a tree filled with polygon instances
      * @return The rtree of polygons
@@ -70,19 +78,22 @@ public:
     */
     static void storeShape(const std::string& id, PositionVector& shape);
 
+    static std::shared_ptr<VariableWrapper> makeWrapper();
+
+    static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper);
+
 private:
     static SUMOPolygon* getPolygon(const std::string& id);
 
+private:
+    static SubscriptionResults mySubscriptionResults;
+    static ContextSubscriptionResults myContextSubscriptionResults;
+
     /// @brief invalidated standard constructor
-    Polygon();
-
-    /// @brief invalidated copy constructor
-    Polygon(const Polygon& src);
-
-    /// @brief invalidated assignment operator
-    Polygon& operator=(const Polygon& src);
-
+    Polygon() = delete;
 };
+
+
 }
 
 

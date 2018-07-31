@@ -27,12 +27,20 @@
 
 #include <vector>
 #include <libsumo/TraCIDefs.h>
+#ifndef SWIGJAVA
+#ifndef SWIGPYTHON
+#include <microsim/traffic_lights/MSTLLogicControl.h>
+#endif
+#endif
 
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class MSRoute;
+namespace libsumo {
+    class VariableWrapper;
+}
+
 
 // ===========================================================================
 // class definitions
@@ -65,6 +73,17 @@ public:
     static void setCompleteRedYellowGreenDefinition(const std::string& tlsID, const TraCILogic& logic);
     static void setParameter(const std::string& tlsID, const std::string& paramName, const std::string& value);
 
+    static void subscribe(const std::string& objID, const std::vector<int>& vars = std::vector<int>(), SUMOTime beginTime = 0, SUMOTime endTime = ((2 ^ 31) - 1));
+    static void subscribeContext(const std::string& objID, int domain, double range, const std::vector<int>& vars = std::vector<int>(), SUMOTime beginTime = 0, SUMOTime endTime = ((2 ^ 31) - 1));
+    static const SubscriptionResults getSubscriptionResults();
+    static const TraCIResults getSubscriptionResults(const std::string& objID);
+    static const ContextSubscriptionResults getContextSubscriptionResults();
+    static const SubscriptionResults getContextSubscriptionResults(const std::string& objID);
+
+    static std::shared_ptr<VariableWrapper> makeWrapper();
+
+    static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper);
+
 private:
 #ifndef SWIGJAVA
 #ifndef SWIGPYTHON
@@ -72,15 +91,15 @@ private:
 #endif
 #endif
 
+private:
+    static SubscriptionResults mySubscriptionResults;
+    static ContextSubscriptionResults myContextSubscriptionResults;
+
     /// @brief invalidated standard constructor
-    TrafficLight();
-
-    /// @brief invalidated copy constructor
-    TrafficLight(const TrafficLight& src);
-
-    /// @brief invalidated assignment operator
-    TrafficLight& operator=(const TrafficLight& src);
+    TrafficLight() = delete;
 };
+
+
 }
 
 

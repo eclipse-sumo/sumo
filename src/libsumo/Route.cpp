@@ -28,13 +28,22 @@
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSRoute.h>
+#include <traci-server/TraCIConstants.h>
+#include "Helper.h"
 #include "Route.h"
 
 
-// ===========================================================================
-// member definitions
-// ===========================================================================
 namespace libsumo {
+// ===========================================================================
+// static member initializations
+// ===========================================================================
+SubscriptionResults Route::mySubscriptionResults;
+ContextSubscriptionResults Route::myContextSubscriptionResults;
+
+
+// ===========================================================================
+// static member definitions
+// ===========================================================================
 std::vector<std::string>
 Route::getIDList() {
     std::vector<std::string> ids;
@@ -92,6 +101,42 @@ Route::add(const std::string& routeID, const std::vector<std::string>& edgeIDs) 
 }
 
 
+void
+Route::subscribe(const std::string& objID, const std::vector<int>& vars, SUMOTime beginTime, SUMOTime endTime) {
+    libsumo::Helper::subscribe(CMD_SUBSCRIBE_ROUTE_VARIABLE, objID, vars, beginTime, endTime);
+}
+
+
+void
+Route::subscribeContext(const std::string& objID, int domain, double range, const std::vector<int>& vars, SUMOTime beginTime, SUMOTime endTime) {
+    libsumo::Helper::subscribe(CMD_SUBSCRIBE_ROUTE_CONTEXT, objID, vars, beginTime, endTime, domain, range);
+}
+
+
+const SubscriptionResults
+Route::getSubscriptionResults() {
+    return mySubscriptionResults;
+}
+
+
+const TraCIResults
+Route::getSubscriptionResults(const std::string& objID) {
+    return mySubscriptionResults[objID];
+}
+
+
+const ContextSubscriptionResults
+Route::getContextSubscriptionResults() {
+    return myContextSubscriptionResults;
+}
+
+
+const SubscriptionResults
+Route::getContextSubscriptionResults(const std::string& objID) {
+    return myContextSubscriptionResults[objID];
+}
+
+
 const MSRoute*
 Route::getRoute(const std::string& id) {
     const MSRoute* r = MSRoute::dictionary(id);
@@ -100,6 +145,27 @@ Route::getRoute(const std::string& id) {
     }
     return r;
 }
+
+
+std::shared_ptr<VariableWrapper>
+Route::makeWrapper() {
+    return std::make_shared<Helper::SubscriptionWrapper>(handleVariable, mySubscriptionResults, myContextSubscriptionResults);
+}
+
+
+bool
+Route::handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper) {
+    switch (variable) {
+    case ID_LIST:
+        return wrapper->wrapStringList(objID, variable, getIDList());
+    case ID_COUNT:
+        return wrapper->wrapInt(objID, variable, getIDCount());
+    default:
+        return false;
+    }
+}
+
+
 }
 
 

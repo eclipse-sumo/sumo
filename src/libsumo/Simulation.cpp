@@ -387,6 +387,23 @@ Simulation::getParameter(const std::string& objectID, const std::string& key) {
         throw TraCIException("Parameter '" + key + "' is not supported.");
     }
 }
+
+
+std::shared_ptr<VariableWrapper>
+Simulation::makeWrapper() {
+    return std::make_shared<Helper::SubscriptionWrapper>(handleVariable, mySubscriptionResults, myContextSubscriptionResults);
+}
+
+
+bool
+Simulation::handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper) {
+    switch (variable) {
+    default:
+        return false;
+    }
+}
+
+
 }
 
 

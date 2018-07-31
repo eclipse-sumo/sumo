@@ -27,11 +27,15 @@
 #include <libsumo/TraCIDefs.h>
 #include <traci-server/TraCIConstants.h>
 
+
 // ===========================================================================
 // class declarations
 // ===========================================================================
 class MSPerson;
 class PositionVector;
+namespace libsumo {
+    class VariableWrapper;
+}
 
 
 // ===========================================================================
@@ -82,25 +86,37 @@ public:
     // This does not only return the person's vType, but makes it singular.
     static std::string getSingularVType(const std::string& personID);
 
+    static void subscribe(const std::string& objID, const std::vector<int>& vars = std::vector<int>(), SUMOTime beginTime = 0, SUMOTime endTime = ((2 ^ 31) - 1));
+    static void subscribeContext(const std::string& objID, int domain, double range, const std::vector<int>& vars = std::vector<int>(), SUMOTime beginTime = 0, SUMOTime endTime = ((2 ^ 31) - 1));
+    static const SubscriptionResults getSubscriptionResults();
+    static const TraCIResults getSubscriptionResults(const std::string& objID);
+    static const ContextSubscriptionResults getContextSubscriptionResults();
+    static const SubscriptionResults getContextSubscriptionResults(const std::string& objID);
+
     /** @brief Saves the shape of the requested object in the given container
     *  @param id The id of the poi to retrieve
     *  @param shape The container to fill
     */
     static void storeShape(const std::string& id, PositionVector& shape);
 
+    static std::shared_ptr<VariableWrapper> makeWrapper();
+
+    static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper);
+
 private:
-    /// @brief invalidated standard constructor
-    Person();
-
-    /// @brief invalidated copy constructor
-    Person(const Person& src);
-
-    /// @brief invalidated assignment operator
-    Person& operator=(const Person& src);
-
     static MSPerson* getPerson(const std::string& id);
 
+private:
+    static SubscriptionResults mySubscriptionResults;
+    static ContextSubscriptionResults myContextSubscriptionResults;
+
+private:
+    /// @brief invalidated standard constructor
+    Person() = delete;
+
 };
+
+
 }
 
 

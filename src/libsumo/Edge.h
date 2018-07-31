@@ -104,6 +104,11 @@ private:
 private:
     static SubscriptionResults mySubscriptionResults;
     static ContextSubscriptionResults myContextSubscriptionResults;
+
+private:
+    /// @brief invalidated standard constructor
+    Edge() = delete;
+
 };
 
 }

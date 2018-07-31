@@ -26,6 +26,7 @@
 #include <microsim/MSEdge.h>
 #include <microsim/MSNet.h>
 #include <microsim/pedestrians/MSPerson.h>
+#include <traci-server/TraCIConstants.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/vehicle/PedestrianRouter.h>
@@ -37,10 +38,17 @@
 //#define DEBUG_MOVEXY
 //#define DEBUG_MOVEXY_ANGLE
 
-// ===========================================================================
-// member definitions
-// ===========================================================================
 namespace libsumo {
+// ===========================================================================
+// static member initializations
+// ===========================================================================
+SubscriptionResults Person::mySubscriptionResults;
+ContextSubscriptionResults Person::myContextSubscriptionResults;
+
+
+// ===========================================================================
+// static member definitions
+// ===========================================================================
 std::vector<std::string>
 Person::getIDList() {
     MSTransportableControl& c = MSNet::getInstance()->getPersonControl();
@@ -571,8 +579,41 @@ Person::setColor(const std::string& personID, const TraCIColor& c) {
 }
 
 
+void
+Person::subscribe(const std::string& objID, const std::vector<int>& vars, SUMOTime beginTime, SUMOTime endTime) {
+    libsumo::Helper::subscribe(CMD_SUBSCRIBE_PERSON_VARIABLE, objID, vars, beginTime, endTime);
+}
 
-/******** private functions *************/
+
+void
+Person::subscribeContext(const std::string& objID, int domain, double range, const std::vector<int>& vars, SUMOTime beginTime, SUMOTime endTime) {
+    libsumo::Helper::subscribe(CMD_SUBSCRIBE_PERSON_CONTEXT, objID, vars, beginTime, endTime, domain, range);
+}
+
+
+const SubscriptionResults
+Person::getSubscriptionResults() {
+    return mySubscriptionResults;
+}
+
+
+const TraCIResults
+Person::getSubscriptionResults(const std::string& objID) {
+    return mySubscriptionResults[objID];
+}
+
+
+const ContextSubscriptionResults
+Person::getContextSubscriptionResults() {
+    return myContextSubscriptionResults;
+}
+
+
+const SubscriptionResults
+Person::getContextSubscriptionResults(const std::string& objID) {
+    return myContextSubscriptionResults[objID];
+}
+
 
 MSPerson*
 Person::getPerson(const std::string& personID) {
@@ -594,6 +635,25 @@ Person::getSingularVType(const std::string& personID) {
 void
 Person::storeShape(const std::string& id, PositionVector& shape) {
     shape.push_back(getPerson(id)->getPosition());
+}
+
+
+std::shared_ptr<VariableWrapper>
+Person::makeWrapper() {
+    return std::make_shared<Helper::SubscriptionWrapper>(handleVariable, mySubscriptionResults, myContextSubscriptionResults);
+}
+
+
+bool
+Person::handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper) {
+    switch (variable) {
+    case ID_LIST:
+        return wrapper->wrapStringList(objID, variable, getIDList());
+    case ID_COUNT:
+        return wrapper->wrapInt(objID, variable, getIDCount());
+    default:
+        return false;
+    }
 }
 
 

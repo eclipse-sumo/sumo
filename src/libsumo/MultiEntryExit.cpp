@@ -27,14 +27,21 @@
 #include <microsim/output/MSDetectorControl.h>
 #include <microsim/output/MSE2Collector.h>
 #include <microsim/MSNet.h>
-#include <libsumo/TraCIDefs.h>
+#include <traci-server/TraCIConstants.h>
 #include "MultiEntryExit.h"
 
 
-// ===========================================================================
-// member definitions
-// ===========================================================================
 namespace libsumo {
+// ===========================================================================
+// static member initializations
+// ===========================================================================
+SubscriptionResults MultiEntryExit::mySubscriptionResults;
+ContextSubscriptionResults MultiEntryExit::myContextSubscriptionResults;
+
+
+// ===========================================================================
+// static member definitions
+// ===========================================================================
 std::vector<std::string>
 MultiEntryExit::getIDList() {
     std::vector<std::string> ids;
@@ -74,6 +81,42 @@ MultiEntryExit::getLastStepHaltingNumber(const std::string& detID) {
 }
 
 
+void
+MultiEntryExit::subscribe(const std::string& objID, const std::vector<int>& vars, SUMOTime beginTime, SUMOTime endTime) {
+    libsumo::Helper::subscribe(CMD_SUBSCRIBE_MULTIENTRYEXIT_VARIABLE, objID, vars, beginTime, endTime);
+}
+
+
+void
+MultiEntryExit::subscribeContext(const std::string& objID, int domain, double range, const std::vector<int>& vars, SUMOTime beginTime, SUMOTime endTime) {
+    libsumo::Helper::subscribe(CMD_SUBSCRIBE_MULTIENTRYEXIT_CONTEXT, objID, vars, beginTime, endTime, domain, range);
+}
+
+
+const SubscriptionResults
+MultiEntryExit::getSubscriptionResults() {
+    return mySubscriptionResults;
+}
+
+
+const TraCIResults
+MultiEntryExit::getSubscriptionResults(const std::string& objID) {
+    return mySubscriptionResults[objID];
+}
+
+
+const ContextSubscriptionResults
+MultiEntryExit::getContextSubscriptionResults() {
+    return myContextSubscriptionResults;
+}
+
+
+const SubscriptionResults
+MultiEntryExit::getContextSubscriptionResults(const std::string& objID) {
+    return myContextSubscriptionResults[objID];
+}
+
+
 MSE3Collector*
 MultiEntryExit::getDetector(const std::string& id) {
     MSE3Collector* e3 = dynamic_cast<MSE3Collector*>(MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_ENTRY_EXIT_DETECTOR).get(id));
@@ -82,6 +125,27 @@ MultiEntryExit::getDetector(const std::string& id) {
     }
     return e3;
 }
+
+
+std::shared_ptr<VariableWrapper>
+MultiEntryExit::makeWrapper() {
+    return std::make_shared<Helper::SubscriptionWrapper>(handleVariable, mySubscriptionResults, myContextSubscriptionResults);
+}
+
+
+bool
+MultiEntryExit::handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper) {
+    switch (variable) {
+    case ID_LIST:
+        return wrapper->wrapStringList(objID, variable, getIDList());
+    case ID_COUNT:
+        return wrapper->wrapInt(objID, variable, getIDCount());
+    default:
+        return false;
+    }
+}
+
+
 }
 
 

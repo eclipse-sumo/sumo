@@ -24,7 +24,14 @@
 // ===========================================================================
 #include <string>
 #include <libsumo/TraCIDefs.h>
-#include <microsim/MSVehicleType.h>
+
+
+// ===========================================================================
+// class declarations
+// ===========================================================================
+namespace libsumo {
+    class VariableWrapper;
+}
 
 
 // ===========================================================================
@@ -36,10 +43,9 @@
 */
 namespace libsumo {
 class VehicleType {
-
 public:
-
     static std::vector<std::string> getIDList();
+    static int getIDCount();
     static double getLength(const std::string& typeID);
     static double getMaxSpeed(const std::string& typeID);
     static double getActionStepLength(const std::string& typeID);
@@ -89,17 +95,27 @@ public:
 
     static void setParameter(const std::string& id, const std::string& name, const std::string& value);
 
+    static void subscribe(const std::string& objID, const std::vector<int>& vars = std::vector<int>(), SUMOTime beginTime = 0, SUMOTime endTime = ((2 ^ 31) - 1));
+    static void subscribeContext(const std::string& objID, int domain, double range, const std::vector<int>& vars = std::vector<int>(), SUMOTime beginTime = 0, SUMOTime endTime = ((2 ^ 31) - 1));
+    static const SubscriptionResults getSubscriptionResults();
+    static const TraCIResults getSubscriptionResults(const std::string& objID);
+    static const ContextSubscriptionResults getContextSubscriptionResults();
+    static const SubscriptionResults getContextSubscriptionResults(const std::string& objID);
+
+    static std::shared_ptr<VariableWrapper> makeWrapper();
+
+    static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper);
+
+private:
+    static SubscriptionResults mySubscriptionResults;
+    static ContextSubscriptionResults myContextSubscriptionResults;
+
 private:
     /// @brief invalidated standard constructor
-    VehicleType();
-
-    /// @brief invalidated copy constructor
-    VehicleType(const VehicleType& src);
-
-    /// @brief invalidated assignment operator
-    VehicleType& operator=(const VehicleType& src);
-
+    VehicleType() = delete;
 };
+
+
 }
 
 

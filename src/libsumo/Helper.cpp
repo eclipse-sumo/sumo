@@ -37,10 +37,16 @@
 #include <libsumo/InductionLoop.h>
 #include <libsumo/Junction.h>
 #include <libsumo/Lane.h>
+#include <libsumo/LaneArea.h>
+#include <libsumo/MultiEntryExit.h>
 #include <libsumo/Person.h>
 #include <libsumo/POI.h>
 #include <libsumo/Polygon.h>
+#include <libsumo/Route.h>
+#include <libsumo/Simulation.h>
+#include <libsumo/TrafficLight.h>
 #include <libsumo/Vehicle.h>
+#include <libsumo/VehicleType.h>
 #include <traci-server/TraCIConstants.h>
 #include "Helper.h"
 
@@ -144,6 +150,17 @@ Helper::handleSingleSubscription(const Subscription& s) {
         myWrapper[CMD_GET_EDGE_VARIABLE] = Edge::makeWrapper();
         myWrapper[CMD_GET_INDUCTIONLOOP_VARIABLE] = InductionLoop::makeWrapper();
         myWrapper[CMD_GET_JUNCTION_VARIABLE] = Junction::makeWrapper();
+        myWrapper[CMD_GET_LANE_VARIABLE] = Lane::makeWrapper();
+        myWrapper[CMD_GET_LANEAREA_VARIABLE] = LaneArea::makeWrapper();
+        myWrapper[CMD_GET_MULTIENTRYEXIT_VARIABLE] = MultiEntryExit::makeWrapper();
+        myWrapper[CMD_GET_PERSON_VARIABLE] = Person::makeWrapper();
+        myWrapper[CMD_GET_POI_VARIABLE] = POI::makeWrapper();
+        myWrapper[CMD_GET_POLYGON_VARIABLE] = Polygon::makeWrapper();
+        myWrapper[CMD_GET_ROUTE_VARIABLE] = Route::makeWrapper();
+        myWrapper[CMD_GET_SIM_VARIABLE] = Simulation::makeWrapper();
+        myWrapper[CMD_GET_TL_VARIABLE] = TrafficLight::makeWrapper();
+        myWrapper[CMD_GET_VEHICLE_VARIABLE] = Vehicle::makeWrapper();
+        myWrapper[CMD_GET_VEHICLETYPE_VARIABLE] = VehicleType::makeWrapper();
     }
     auto wrapper = myWrapper.find(getCommandId);
     if (wrapper == myWrapper.end()) {

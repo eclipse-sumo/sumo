@@ -74,7 +74,7 @@ TraCIServerAPI_InductionLoop::processGet(TraCIServer& server, tcpip::Storage& in
                 }
                 default:
                     return server.writeErrorStatusCmd(CMD_GET_INDUCTIONLOOP_VARIABLE,
-                        "Get InductionLoop Variable: unsupported variable " + toHex(variable, 2)
+                        "Get Induction Loop Variable: unsupported variable " + toHex(variable, 2)
                         + " specified", outputStorage);
             }
         }

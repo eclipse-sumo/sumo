@@ -28,13 +28,21 @@
 #include <microsim/MSNet.h>
 #include <microsim/traffic_lights/MSTLLogicControl.h>
 #include <microsim/traffic_lights/MSSimpleTrafficLightLogic.h>
+#include <traci-server/TraCIConstants.h>
 #include "TrafficLight.h"
 
 
-// ===========================================================================
-// member definitions
-// ===========================================================================
 namespace libsumo {
+// ===========================================================================
+// static member initializations
+// ===========================================================================
+SubscriptionResults TrafficLight::mySubscriptionResults;
+ContextSubscriptionResults TrafficLight::myContextSubscriptionResults;
+
+
+// ===========================================================================
+// static member definitions
+// ===========================================================================
 std::vector<std::string>
 TrafficLight::getIDList() {
     return MSNet::getInstance()->getTLSControl().getAllTLIds();
@@ -214,6 +222,42 @@ TrafficLight::setParameter(const std::string& tlsID, const std::string& paramNam
 }
 
 
+void
+TrafficLight::subscribe(const std::string& objID, const std::vector<int>& vars, SUMOTime beginTime, SUMOTime endTime) {
+    libsumo::Helper::subscribe(CMD_SUBSCRIBE_TL_VARIABLE, objID, vars, beginTime, endTime);
+}
+
+
+void
+TrafficLight::subscribeContext(const std::string& objID, int domain, double range, const std::vector<int>& vars, SUMOTime beginTime, SUMOTime endTime) {
+    libsumo::Helper::subscribe(CMD_SUBSCRIBE_TL_CONTEXT, objID, vars, beginTime, endTime, domain, range);
+}
+
+
+const SubscriptionResults
+TrafficLight::getSubscriptionResults() {
+    return mySubscriptionResults;
+}
+
+
+const TraCIResults
+TrafficLight::getSubscriptionResults(const std::string& objID) {
+    return mySubscriptionResults[objID];
+}
+
+
+const ContextSubscriptionResults
+TrafficLight::getContextSubscriptionResults() {
+    return myContextSubscriptionResults;
+}
+
+
+const SubscriptionResults
+TrafficLight::getContextSubscriptionResults(const std::string& objID) {
+    return myContextSubscriptionResults[objID];
+}
+
+
 MSTLLogicControl::TLSLogicVariants&
 TrafficLight::getTLS(const std::string& id) {
     if (!MSNet::getInstance()->getTLSControl().knows(id)) {
@@ -221,6 +265,27 @@ TrafficLight::getTLS(const std::string& id) {
     }
     return MSNet::getInstance()->getTLSControl().get(id);
 }
+
+
+std::shared_ptr<VariableWrapper>
+TrafficLight::makeWrapper() {
+    return std::make_shared<Helper::SubscriptionWrapper>(handleVariable, mySubscriptionResults, myContextSubscriptionResults);
+}
+
+
+bool
+TrafficLight::handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper) {
+    switch (variable) {
+    case ID_LIST:
+        return wrapper->wrapStringList(objID, variable, getIDList());
+    case ID_COUNT:
+        return wrapper->wrapInt(objID, variable, getIDCount());
+    default:
+        return false;
+    }
+}
+
+
 }
 
 

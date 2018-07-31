@@ -35,6 +35,9 @@
 // ===========================================================================
 class MSLane;
 class PositionVector;
+namespace libsumo {
+    class VariableWrapper;
+}
 
 
 // ===========================================================================
@@ -88,9 +91,12 @@ public:
     static std::string getParameter(const std::string& laneID, const std::string& param);
     static void setParameter(const std::string& routeID, const std::string& key, const std::string& value); // not needed so far
 
-    // Subscriptions (TODO?)
-    //static void subscribe(const std::string& objID, SUMOTime beginTime, SUMOTime endTime, const std::vector<int>& vars);
-    //static void subscribeContext(const std::string& objID, SUMOTime beginTime, SUMOTime endTime, int domain, double range, const std::vector<int>& vars);
+    static void subscribe(const std::string& objID, const std::vector<int>& vars = std::vector<int>(), SUMOTime beginTime = 0, SUMOTime endTime = ((2 ^ 31) - 1));
+    static void subscribeContext(const std::string& objID, int domain, double range, const std::vector<int>& vars = std::vector<int>(), SUMOTime beginTime = 0, SUMOTime endTime = ((2 ^ 31) - 1));
+    static const SubscriptionResults getSubscriptionResults();
+    static const TraCIResults getSubscriptionResults(const std::string& objID);
+    static const ContextSubscriptionResults getContextSubscriptionResults();
+    static const SubscriptionResults getContextSubscriptionResults(const std::string& objID);
 
     /** @brief Saves the shape of the requested object in the given container
     *  @param id The id of the poi to retrieve
@@ -98,18 +104,22 @@ public:
     */
     static void storeShape(const std::string& id, PositionVector& shape);
 
+    static std::shared_ptr<VariableWrapper> makeWrapper();
+
+    static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper);
+
 private:
     static const MSLane* getLane(const std::string& id);
 
+private:
+    static SubscriptionResults mySubscriptionResults;
+    static ContextSubscriptionResults myContextSubscriptionResults;
+
     /// @brief invalidated standard constructor
-    Lane();
-
-    /// @brief invalidated copy constructor
-    Lane(const Lane& src);
-
-    /// @brief invalidated assignment operator
-    Lane& operator=(const Lane& src);
+    Lane() = delete;
 };
+
+
 }
 
 

@@ -23,144 +23,181 @@
 
 #include <microsim/MSNet.h>
 #include <microsim/MSVehicleControl.h>
+#include <microsim/MSVehicleType.h>
+#include <traci-server/TraCIConstants.h>
 #include <utils/emissions/PollutantsInterface.h>
 #include <utils/xml/SUMOVehicleParserHelper.h>
-#include "VehicleType.h"
 #include "Helper.h"
+#include "VehicleType.h"
 
 
-// ===========================================================================
-// method definitions
-// ===========================================================================
 namespace libsumo {
-std::vector<std::string> VehicleType::getIDList() {
+// ===========================================================================
+// static member initializations
+// ===========================================================================
+SubscriptionResults VehicleType::mySubscriptionResults;
+ContextSubscriptionResults VehicleType::myContextSubscriptionResults;
+
+
+// ===========================================================================
+// static member definitions
+// ===========================================================================
+std::vector<std::string>
+VehicleType::getIDList() {
     std::vector<std::string> ids;
     MSNet::getInstance()->getVehicleControl().insertVTypeIDs(ids);
     return ids;
 }
 
 
-double VehicleType::getLength(const std::string& typeID) {
+int
+VehicleType::getIDCount() {
+    return (int)getIDList().size();
+}
+
+
+double
+VehicleType::getLength(const std::string& typeID) {
     MSVehicleType* v = getVType(typeID);
     return v->getLength();
 }
 
 
-double VehicleType::getMaxSpeed(const std::string& typeID) {
+double
+VehicleType::getMaxSpeed(const std::string& typeID) {
     MSVehicleType* v = getVType(typeID);
     return v->getMaxSpeed();
 }
 
 
-double VehicleType::getActionStepLength(const std::string& typeID) {
+double
+VehicleType::getActionStepLength(const std::string& typeID) {
     MSVehicleType* v = getVType(typeID);
     return v->getActionStepLengthSecs();
 }
 
 
-double VehicleType::getSpeedFactor(const std::string& typeID) {
+double
+VehicleType::getSpeedFactor(const std::string& typeID) {
     MSVehicleType* v = getVType(typeID);
     return v->getSpeedFactor().getParameter()[0];
 }
 
 
-double VehicleType::getSpeedDeviation(const std::string& typeID) {
+double
+VehicleType::getSpeedDeviation(const std::string& typeID) {
     MSVehicleType* v = getVType(typeID);
     return v->getSpeedFactor().getParameter()[1];
 }
 
 
-double VehicleType::getAccel(const std::string& typeID) {
+double
+VehicleType::getAccel(const std::string& typeID) {
     MSVehicleType* v = getVType(typeID);
     return v->getCarFollowModel().getMaxAccel();
 }
 
 
-double VehicleType::getDecel(const std::string& typeID) {
+double
+VehicleType::getDecel(const std::string& typeID) {
     MSVehicleType* v = getVType(typeID);
     return v->getCarFollowModel().getMaxDecel();
 }
 
 
-double VehicleType::getEmergencyDecel(const std::string& typeID) {
+double
+VehicleType::getEmergencyDecel(const std::string& typeID) {
     MSVehicleType* v = getVType(typeID);
     return v->getCarFollowModel().getEmergencyDecel();
 }
 
 
-double VehicleType::getApparentDecel(const std::string& typeID) {
+double
+VehicleType::getApparentDecel(const std::string& typeID) {
     MSVehicleType* v = getVType(typeID);
     return v->getCarFollowModel().getApparentDecel();
 }
 
 
-double VehicleType::getImperfection(const std::string& typeID) {
+double
+VehicleType::getImperfection(const std::string& typeID) {
     MSVehicleType* v = getVType(typeID);
     return v->getCarFollowModel().getImperfection();
 }
 
 
-double VehicleType::getTau(const std::string& typeID) {
+double
+VehicleType::getTau(const std::string& typeID) {
     MSVehicleType* v = getVType(typeID);
     return v->getCarFollowModel().getHeadwayTime();
 }
 
 
-std::string VehicleType::getVehicleClass(const std::string& typeID) {
+std::string
+VehicleType::getVehicleClass(const std::string& typeID) {
     MSVehicleType* v = getVType(typeID);
     return toString(v->getVehicleClass());
 }
 
 
-std::string VehicleType::getEmissionClass(const std::string& typeID) {
+std::string
+VehicleType::getEmissionClass(const std::string& typeID) {
     MSVehicleType* v = getVType(typeID);
     return PollutantsInterface::getName(v->getEmissionClass());
 }
 
 
-std::string VehicleType::getShapeClass(const std::string& typeID) {
+std::string
+VehicleType::getShapeClass(const std::string& typeID) {
     MSVehicleType* v = getVType(typeID);
     return getVehicleShapeName(v->getGuiShape());
 }
 
 
-double VehicleType::getMinGap(const std::string& typeID) {
+double
+VehicleType::getMinGap(const std::string& typeID) {
     MSVehicleType* v = getVType(typeID);
     return v->getMinGap();
 }
 
 
-double VehicleType::getWidth(const std::string& typeID) {
+double
+VehicleType::getWidth(const std::string& typeID) {
     MSVehicleType* v = getVType(typeID);
     return v->getWidth();
 }
 
 
-double VehicleType::getHeight(const std::string& typeID) {
+double
+VehicleType::getHeight(const std::string& typeID) {
     MSVehicleType* v = getVType(typeID);
     return v->getHeight();
 }
 
 
-TraCIColor VehicleType::getColor(const std::string& typeID) {
+TraCIColor
+VehicleType::getColor(const std::string& typeID) {
     MSVehicleType* v = getVType(typeID);
     return Helper::makeTraCIColor(v->getColor());
 }
 
 
-double VehicleType::getMinGapLat(const std::string& typeID) {
+double
+VehicleType::getMinGapLat(const std::string& typeID) {
     MSVehicleType* v = getVType(typeID);
     return v->getMinGapLat();
 }
 
 
-double VehicleType::getMaxSpeedLat(const std::string& typeID) {
+double
+VehicleType::getMaxSpeedLat(const std::string& typeID) {
     MSVehicleType* v = getVType(typeID);
     return v->getMaxSpeedLat();
 }
 
 
-std::string VehicleType::getLateralAlignment(const std::string& typeID) {
+std::string
+VehicleType::getLateralAlignment(const std::string& typeID) {
     MSVehicleType* v = getVType(typeID);
     return toString(v->getPreferredLateralAlignment());
 }
@@ -173,79 +210,92 @@ VehicleType::getParameter(const std::string& typeID, const std::string& key) {
 }
 
 
-void VehicleType::setLength(const std::string& typeID, double length)  {
+void
+VehicleType::setLength(const std::string& typeID, double length)  {
     MSVehicleType* v = getVType(typeID);
     v->setLength(length);
 }
 
 
-void VehicleType::setMaxSpeed(const std::string& typeID, double speed)  {
+void
+VehicleType::setMaxSpeed(const std::string& typeID, double speed)  {
     MSVehicleType* v = getVType(typeID);
     v->setMaxSpeed(speed);
 }
 
 
-void VehicleType::setActionStepLength(const std::string& typeID, double actionStepLength, bool resetActionOffset)  {
+void
+VehicleType::setActionStepLength(const std::string& typeID, double actionStepLength, bool resetActionOffset)  {
     MSVehicleType* v = getVType(typeID);
     v->setActionStepLength(SUMOVehicleParserHelper::processActionStepLength(actionStepLength), resetActionOffset);
 }
 
 
-void VehicleType::setVehicleClass(const std::string& typeID, const std::string& clazz)  {
+void
+VehicleType::setVehicleClass(const std::string& typeID, const std::string& clazz)  {
     MSVehicleType* v = getVType(typeID);
     v->setVClass(getVehicleClassID(clazz));
 }
 
 
-void VehicleType::setSpeedFactor(const std::string& typeID, double factor)  {
+void
+VehicleType::setSpeedFactor(const std::string& typeID, double factor)  {
     MSVehicleType* v = getVType(typeID);
     v->setSpeedFactor(factor);
 }
 
 
-void VehicleType::setSpeedDeviation(const std::string& typeID, double deviation)  {
+void
+VehicleType::setSpeedDeviation(const std::string& typeID, double deviation)  {
     MSVehicleType* v = getVType(typeID);
     v->setSpeedDeviation(deviation);
 }
 
 
-void VehicleType::setEmissionClass(const std::string& typeID, const std::string& clazz)  {
+void
+VehicleType::setEmissionClass(const std::string& typeID, const std::string& clazz)  {
     MSVehicleType* v = getVType(typeID);
     v->setEmissionClass(PollutantsInterface::getClassByName(clazz));
 }
 
 
-void VehicleType::setShapeClass(const std::string& typeID, const std::string& shapeClass)  {
+void
+VehicleType::setShapeClass(const std::string& typeID, const std::string& shapeClass)  {
     MSVehicleType* v = getVType(typeID);
     v->setShape(getVehicleShapeID(shapeClass));
 }
 
 
-void VehicleType::setWidth(const std::string& typeID, double width)  {
+void
+VehicleType::setWidth(const std::string& typeID, double width)  {
     MSVehicleType* v = getVType(typeID);
     v->setWidth(width);
 }
 
 
-void VehicleType::setHeight(const std::string& typeID, double height)  {
+void
+VehicleType::setHeight(const std::string& typeID, double height)  {
     MSVehicleType* v = getVType(typeID);
     v->setHeight(height);
 }
 
 
-void VehicleType::setMinGap(const std::string& typeID, double minGap)  {
+void
+VehicleType::setMinGap(const std::string& typeID, double minGap)  {
     MSVehicleType* v = getVType(typeID);
     v->setMinGap(minGap);
 }
 
 
-void VehicleType::setAccel(const std::string& typeID, double accel)  {
+void
+VehicleType::setAccel(const std::string& typeID, double accel)  {
     MSVehicleType* v = getVType(typeID);
     v->setAccel(accel);
 }
 
 
-void VehicleType::setDecel(const std::string& typeID, double decel)  {
+void
+VehicleType::setDecel(const std::string& typeID, double decel)  {
     MSVehicleType* v = getVType(typeID);
     v->setDecel(decel);
     // automatically raise emergencyDecel to ensure it is at least as high as decel
@@ -259,7 +309,8 @@ void VehicleType::setDecel(const std::string& typeID, double decel)  {
 }
 
 
-void VehicleType::setEmergencyDecel(const std::string& typeID, double decel)  {
+void
+VehicleType::setEmergencyDecel(const std::string& typeID, double decel)  {
     MSVehicleType* v = getVType(typeID);
     v->setEmergencyDecel(decel);
     if (decel < v->getCarFollowModel().getMaxDecel()) {
@@ -268,67 +319,134 @@ void VehicleType::setEmergencyDecel(const std::string& typeID, double decel)  {
 }
 
 
-void VehicleType::setApparentDecel(const std::string& typeID, double decel)  {
+void
+VehicleType::setApparentDecel(const std::string& typeID, double decel)  {
     MSVehicleType* v = getVType(typeID);
     v->setApparentDecel(decel);
 }
 
 
-void VehicleType::setImperfection(const std::string& typeID, double imperfection)  {
+void
+VehicleType::setImperfection(const std::string& typeID, double imperfection)  {
     MSVehicleType* v = getVType(typeID);
     v->setImperfection(imperfection);
 }
 
 
-void VehicleType::setTau(const std::string& typeID, double tau)  {
+void
+VehicleType::setTau(const std::string& typeID, double tau)  {
     MSVehicleType* v = getVType(typeID);
     v->setTau(tau);
 }
 
 
-void VehicleType::setColor(const std::string& typeID, const TraCIColor& c)  {
+void
+VehicleType::setColor(const std::string& typeID, const TraCIColor& c)  {
     MSVehicleType* v = getVType(typeID);
     v->setColor(Helper::makeRGBColor(c));
 
 }
 
 
-void VehicleType::setMinGapLat(const std::string& typeID, double minGapLat)  {
+void
+VehicleType::setMinGapLat(const std::string& typeID, double minGapLat)  {
     MSVehicleType* v = getVType(typeID);
     v->setMinGapLat(minGapLat);
 }
 
 
-void VehicleType::setMaxSpeedLat(const std::string& typeID, double speed)  {
+void
+VehicleType::setMaxSpeedLat(const std::string& typeID, double speed)  {
     MSVehicleType* v = getVType(typeID);
     v->setMaxSpeedLat(speed);
 }
 
 
-void VehicleType::setLateralAlignment(const std::string& typeID, const std::string& latAlignment)  {
+void
+VehicleType::setLateralAlignment(const std::string& typeID, const std::string& latAlignment)  {
     MSVehicleType* v = getVType(typeID);
     v->setPreferredLateralAlignment(SUMOXMLDefinitions::LateralAlignments.get(latAlignment));
 }
 
 
-void VehicleType::copy(const std::string& origTypeID, const std::string& newTypeID)  {
+void
+VehicleType::copy(const std::string& origTypeID, const std::string& newTypeID)  {
     getVType(origTypeID)->duplicateType(newTypeID, true);
 }
 
 
-void VehicleType::setParameter(const std::string& typeID, const std::string& name, const std::string& value) {
+void
+VehicleType::setParameter(const std::string& typeID, const std::string& name, const std::string& value) {
     MSVehicleType* v = getVType(typeID);
     ((SUMOVTypeParameter&)v->getParameter()).setParameter(name, value);
 }
 
 
-MSVehicleType* VehicleType::getVType(std::string id) {
+void
+VehicleType::subscribe(const std::string& objID, const std::vector<int>& vars, SUMOTime beginTime, SUMOTime endTime) {
+    libsumo::Helper::subscribe(CMD_SUBSCRIBE_VEHICLETYPE_VARIABLE, objID, vars, beginTime, endTime);
+}
+
+
+void
+VehicleType::subscribeContext(const std::string& objID, int domain, double range, const std::vector<int>& vars, SUMOTime beginTime, SUMOTime endTime) {
+    libsumo::Helper::subscribe(CMD_SUBSCRIBE_VEHICLETYPE_CONTEXT, objID, vars, beginTime, endTime, domain, range);
+}
+
+
+const SubscriptionResults
+VehicleType::getSubscriptionResults() {
+    return mySubscriptionResults;
+}
+
+
+const TraCIResults
+VehicleType::getSubscriptionResults(const std::string& objID) {
+    return mySubscriptionResults[objID];
+}
+
+
+const ContextSubscriptionResults
+VehicleType::getContextSubscriptionResults() {
+    return myContextSubscriptionResults;
+}
+
+
+const SubscriptionResults
+VehicleType::getContextSubscriptionResults(const std::string& objID) {
+    return myContextSubscriptionResults[objID];
+}
+
+
+MSVehicleType*
+VehicleType::getVType(std::string id) {
     MSVehicleType* t = MSNet::getInstance()->getVehicleControl().getVType(id);
     if (t == 0) {
         throw TraCIException("Vehicle type '" + id + "' is not known");
     }
     return t;
 }
+
+
+std::shared_ptr<VariableWrapper>
+VehicleType::makeWrapper() {
+    return std::make_shared<Helper::SubscriptionWrapper>(handleVariable, mySubscriptionResults, myContextSubscriptionResults);
+}
+
+
+bool
+VehicleType::handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper) {
+    switch (variable) {
+    case ID_LIST:
+        return wrapper->wrapStringList(objID, variable, getIDList());
+    case ID_COUNT:
+        return wrapper->wrapInt(objID, variable, getIDCount());
+    default:
+        return false;
+    }
+}
+
+
 }
 
 

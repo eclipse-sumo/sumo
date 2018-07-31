@@ -28,14 +28,22 @@
 #include <utils/shapes/PointOfInterest.h>
 #include <utils/shapes/ShapeContainer.h>
 #include <microsim/MSNet.h>
+#include <traci-server/TraCIConstants.h>
 #include "POI.h"
 #include "Helper.h"
 
 
-// ===========================================================================
-// member definitions
-// ===========================================================================
 namespace libsumo {
+// ===========================================================================
+// static member initializations
+// ===========================================================================
+SubscriptionResults POI::mySubscriptionResults;
+ContextSubscriptionResults POI::myContextSubscriptionResults;
+
+
+// ===========================================================================
+// static member definitions
+// ===========================================================================
 std::vector<std::string>
 POI::getIDList() {
     std::vector<std::string> ids;
@@ -126,6 +134,42 @@ POI::setParameter(const std::string& poiID, const std::string& param, const std:
 }
 
 
+void
+POI::subscribe(const std::string& objID, const std::vector<int>& vars, SUMOTime beginTime, SUMOTime endTime) {
+    libsumo::Helper::subscribe(CMD_SUBSCRIBE_POI_VARIABLE, objID, vars, beginTime, endTime);
+}
+
+
+void
+POI::subscribeContext(const std::string& objID, int domain, double range, const std::vector<int>& vars, SUMOTime beginTime, SUMOTime endTime) {
+    libsumo::Helper::subscribe(CMD_SUBSCRIBE_POI_CONTEXT, objID, vars, beginTime, endTime, domain, range);
+}
+
+
+const SubscriptionResults
+POI::getSubscriptionResults() {
+    return mySubscriptionResults;
+}
+
+
+const TraCIResults
+POI::getSubscriptionResults(const std::string& objID) {
+    return mySubscriptionResults[objID];
+}
+
+
+const ContextSubscriptionResults
+POI::getContextSubscriptionResults() {
+    return myContextSubscriptionResults;
+}
+
+
+const SubscriptionResults
+POI::getContextSubscriptionResults(const std::string& objID) {
+    return myContextSubscriptionResults[objID];
+}
+
+
 PointOfInterest*
 POI::getPoI(const std::string& id) {
     PointOfInterest* sumoPoi = MSNet::getInstance()->getShapeContainer().getPOIs().get(id);
@@ -152,6 +196,25 @@ POI::getTree() {
 void
 POI::storeShape(const std::string& id, PositionVector& shape) {
     shape.push_back(*getPoI(id));
+}
+
+
+std::shared_ptr<VariableWrapper>
+POI::makeWrapper() {
+    return std::make_shared<Helper::SubscriptionWrapper>(handleVariable, mySubscriptionResults, myContextSubscriptionResults);
+}
+
+
+bool
+POI::handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper) {
+    switch (variable) {
+    case ID_LIST:
+        return wrapper->wrapStringList(objID, variable, getIDList());
+    case ID_COUNT:
+        return wrapper->wrapInt(objID, variable, getIDCount());
+    default:
+        return false;
+    }
 }
 
 

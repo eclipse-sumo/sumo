@@ -36,6 +36,9 @@
 class SUMOVehicle;
 class MSVehicle;
 class MSVehicleType;
+namespace libsumo {
+    class VariableWrapper;
+}
 
 
 // ===========================================================================
@@ -193,11 +196,22 @@ public:
     static void setParameter(const std::string& vehicleID, const std::string& key, const std::string& value);
     /// @}
 
+    static void subscribe(const std::string& objID, const std::vector<int>& vars = std::vector<int>(), SUMOTime beginTime = 0, SUMOTime endTime = ((2 ^ 31) - 1));
+    static void subscribeContext(const std::string& objID, int domain, double range, const std::vector<int>& vars = std::vector<int>(), SUMOTime beginTime = 0, SUMOTime endTime = ((2 ^ 31) - 1));
+    static const SubscriptionResults getSubscriptionResults();
+    static const TraCIResults getSubscriptionResults(const std::string& objID);
+    static const ContextSubscriptionResults getContextSubscriptionResults();
+    static const SubscriptionResults getContextSubscriptionResults(const std::string& objID);
+
     /** @brief Saves the shape of the requested object in the given container
     *  @param id The id of the poi to retrieve
     *  @param shape The container to fill
     */
     static void storeShape(const std::string& id, PositionVector& shape);
+
+    static std::shared_ptr<VariableWrapper> makeWrapper();
+
+    static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper);
 
 private:
     static MSVehicle* getVehicle(const std::string& id);
@@ -206,15 +220,15 @@ private:
 
     static bool isOnInit(const std::string& vehicleID);
 
+private:
+    static SubscriptionResults mySubscriptionResults;
+    static ContextSubscriptionResults myContextSubscriptionResults;
+
     /// @brief invalidated standard constructor
-    Vehicle();
-
-    /// @brief invalidated copy constructor
-    Vehicle(const Vehicle& src);
-
-    /// @brief invalidated assignment operator
-    Vehicle& operator=(const Vehicle& src);
+    Vehicle() = delete;
 };
+
+
 }
 
 

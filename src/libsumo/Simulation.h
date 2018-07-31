@@ -29,6 +29,14 @@
 
 
 // ===========================================================================
+// class declarations
+// ===========================================================================
+namespace libsumo {
+    class VariableWrapper;
+}
+
+
+// ===========================================================================
 // class definitions
 // ===========================================================================
 /**
@@ -49,13 +57,6 @@ public:
 
     /// @brief Advances by one step (or up to the given time)
     static void step(const SUMOTime time = 0);
-
-    static void subscribe(const std::string& objID, const std::vector<int>& vars, SUMOTime beginTime, SUMOTime endTime);
-    static void subscribeContext(const std::string& objID, int domain, double range, const std::vector<int>& vars, SUMOTime beginTime, SUMOTime endTime);
-    static const SubscriptionResults getSubscriptionResults();
-    static const TraCIResults getSubscriptionResults(const std::string& objID);
-    static const ContextSubscriptionResults getContextSubscriptionResults();
-    static const SubscriptionResults getContextSubscriptionResults(const std::string& objID);
 
     static SUMOTime getCurrentTime();
 
@@ -81,19 +82,26 @@ public:
 
     static std::string getParameter(const std::string& objectID, const std::string& key);
 
+    static void subscribe(const std::string& objID, const std::vector<int>& vars, SUMOTime beginTime, SUMOTime endTime);
+    static void subscribeContext(const std::string& objID, int domain, double range, const std::vector<int>& vars, SUMOTime beginTime, SUMOTime endTime);
+    static const SubscriptionResults getSubscriptionResults();
+    static const TraCIResults getSubscriptionResults(const std::string& objID);
+    static const ContextSubscriptionResults getContextSubscriptionResults();
+    static const SubscriptionResults getContextSubscriptionResults(const std::string& objID);
+
+    static std::shared_ptr<VariableWrapper> makeWrapper();
+
+    static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper);
+
 private:
     static SubscriptionResults mySubscriptionResults;
     static ContextSubscriptionResults myContextSubscriptionResults;
 
     /// @brief invalidated standard constructor
-    Simulation();
-
-    /// @brief invalidated copy constructor
-    Simulation(const Simulation& src);
-
-    /// @brief invalidated assignment operator
-    Simulation& operator=(const Simulation& src);
+    Simulation() = delete;
 };
+
+
 }
 
 

@@ -30,13 +30,21 @@
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSVehicle.h>
+#include <traci-server/TraCIConstants.h>
 #include "Lane.h"
 
 
-// ===========================================================================
-// member definitions
-// ===========================================================================
 namespace libsumo {
+// ===========================================================================
+// static member initializations
+// ===========================================================================
+SubscriptionResults Lane::mySubscriptionResults;
+ContextSubscriptionResults Lane::myContextSubscriptionResults;
+
+
+// ===========================================================================
+// static member definitions
+// ===========================================================================
 std::vector<std::string>
 Lane::getIDList() {
     std::vector<std::string> ids;
@@ -261,6 +269,7 @@ Lane::getLastStepVehicleIDs(std::string laneID) {
     return vehIDs;
 }
 
+
 std::vector<std::string>
 Lane::getFoes(const std::string& laneID, const std::string& toLaneID) {
     std::vector<std::string> foeIDs;
@@ -339,6 +348,42 @@ Lane::setParameter(const std::string& laneID, const std::string& key, const std:
 }
 
 
+void
+Lane::subscribe(const std::string& objID, const std::vector<int>& vars, SUMOTime beginTime, SUMOTime endTime) {
+    libsumo::Helper::subscribe(CMD_SUBSCRIBE_LANE_VARIABLE, objID, vars, beginTime, endTime);
+}
+
+
+void
+Lane::subscribeContext(const std::string& objID, int domain, double range, const std::vector<int>& vars, SUMOTime beginTime, SUMOTime endTime) {
+    libsumo::Helper::subscribe(CMD_SUBSCRIBE_LANE_CONTEXT, objID, vars, beginTime, endTime, domain, range);
+}
+
+
+const SubscriptionResults
+Lane::getSubscriptionResults() {
+    return mySubscriptionResults;
+}
+
+
+const TraCIResults
+Lane::getSubscriptionResults(const std::string& objID) {
+    return mySubscriptionResults[objID];
+}
+
+
+const ContextSubscriptionResults
+Lane::getContextSubscriptionResults() {
+    return myContextSubscriptionResults;
+}
+
+
+const SubscriptionResults
+Lane::getContextSubscriptionResults(const std::string& objID) {
+    return myContextSubscriptionResults[objID];
+}
+
+
 const MSLane*
 Lane::getLane(const std::string& id) {
     const MSLane* r = MSLane::dictionary(id);
@@ -352,6 +397,25 @@ Lane::getLane(const std::string& id) {
 void
 Lane::storeShape(const std::string& id, PositionVector& shape) {
     shape = getLane(id)->getShape();
+}
+
+
+std::shared_ptr<VariableWrapper>
+Lane::makeWrapper() {
+    return std::make_shared<Helper::SubscriptionWrapper>(handleVariable, mySubscriptionResults, myContextSubscriptionResults);
+}
+
+
+bool
+Lane::handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper) {
+    switch (variable) {
+    case ID_LIST:
+        return wrapper->wrapStringList(objID, variable, getIDList());
+    case ID_COUNT:
+        return wrapper->wrapInt(objID, variable, getIDCount());
+    default:
+        return false;
+    }
 }
 
 
