@@ -319,7 +319,7 @@ NBPTLineCont::fixBidiStops(const NBEdgeCont& ec) {
 
     SUMOAbstractRouter<NBEdge, NBVehicle>* router;
     router = new DijkstraRouter<NBEdge, NBVehicle, noProhibitions<NBEdge, NBVehicle> >(
-            ec.getAllEdges(), true, &NBEdge::getTravelTimeStatic);
+            ec.getAllEdges(), true, &NBEdge::getTravelTimeStatic, nullptr, true);
 
     for (NBPTLine* line : myPTLines) {
         std::vector<NBPTStop*> stops = line->getStops();
@@ -347,10 +347,15 @@ NBPTLineCont::fixBidiStops(const NBEdgeCont& ec) {
                         to = *(it + 1);
                         const double c1 = getCost(ec, *router, from, to, &veh);
                         const double c2 = getCost(ec, *router, from2, to, &veh);
+                        //std::cout << " from=" << from->getID() << " to=" << to->getID() << " c1=" << MIN2(10000.0, c1) << "\n";
+                        //std::cout << " from2=" << from2->getID() << " to=" << to->getID() << " c2=" << MIN2(10000.0, c2) << "\n";
                         best = c1;
                         if (to->getBidiStop() != nullptr) {
+                            to2 = to->getBidiStop();
                             const double c3 = getCost(ec, *router, from, to2, &veh);
                             const double c4 = getCost(ec, *router, from2, to2, &veh);
+                            //std::cout << " from=" << from->getID() << " to2=" << to2->getID() << " c3=" << MIN2(10000.0, c3) << "\n";
+                            //std::cout << " from2=" << from2->getID() << " to2=" << to2->getID() << " c4=" << MIN2(10000.0, c4) << "\n";
                             if (c2 < best) {
                                 used = from2;
                                 best = c2;
@@ -375,6 +380,8 @@ NBPTLineCont::fixBidiStops(const NBEdgeCont& ec) {
                 } else {
                     const double c1 = getCost(ec, *router, from, to, &veh);
                     const double c2 = getCost(ec, *router, from, to2, &veh);
+                    //std::cout << " from=" << from->getID() << " to=" << to->getID() << " c1=" << MIN2(10000.0, c1) << "\n";
+                    //std::cout << " from=" << from->getID() << " t2o=" << to2->getID() << " c2=" << MIN2(10000.0, c2) << "\n";
                     if (c2 < c1) {
                         used = to2;
                         best = c2;
@@ -395,6 +402,7 @@ NBPTLineCont::fixBidiStops(const NBEdgeCont& ec) {
         assert(stops.size() == newStops.size());
         line->replaceStops(newStops);
     }
+    delete router;
 }
 
 

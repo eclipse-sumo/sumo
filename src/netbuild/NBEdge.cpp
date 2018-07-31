@@ -3505,12 +3505,14 @@ const EdgeVector&
 NBEdge::getSuccessors(SUMOVehicleClass vClass) const {
     // @todo cache sucessors instead of recomputing them every time
     mySuccesors.clear();
+    //std::cout << "getSuccessors edge=" << getID() << " svc=" << toString(vClass) << " cons=" << myConnections.size() << "\n";
     for (const Connection& con : myConnections) {
         if (con.fromLane >= 0 && con.toLane >=0 && con.toEdge != nullptr && 
                 (getPermissions(con.fromLane) 
                  & con.toEdge->getPermissions(con.toLane) & vClass) != 0
                 && find(mySuccesors.begin(), mySuccesors.end(), con.toEdge) == mySuccesors.end()) {
             mySuccesors.push_back(con.toEdge);
+            //std::cout << "   succ=" << con.toEdge->getID() << "\n";
         }
     }
     return mySuccesors;

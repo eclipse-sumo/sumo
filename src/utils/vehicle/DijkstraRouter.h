@@ -119,9 +119,10 @@ public:
 
 
     /// Constructor
-    DijkstraRouter(const std::vector<E*>& edges, bool unbuildIsWarning, Operation effortOperation, Operation ttOperation = nullptr) :
+    DijkstraRouter(const std::vector<E*>& edges, bool unbuildIsWarning, Operation effortOperation, Operation ttOperation = nullptr, bool silent = false) :
         SUMOAbstractRouter<E, V>(effortOperation, "DijkstraRouter"), myTTOperation(ttOperation),
-        myErrorMsgHandler(unbuildIsWarning ?  MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()) {
+        myErrorMsgHandler(unbuildIsWarning ?  MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()),
+        mySilent(silent) {
         for (typename std::vector<E*>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
             myEdgeInfos.push_back(EdgeInfo(*i));
         }
@@ -131,7 +132,7 @@ public:
     virtual ~DijkstraRouter() { }
 
     virtual SUMOAbstractRouter<E, V>* clone() {
-        return new DijkstraRouter<E, V, PF>(myEdgeInfos, myErrorMsgHandler == MsgHandler::getWarningInstance(), this->myOperation, myTTOperation);
+        return new DijkstraRouter<E, V, PF>(myEdgeInfos, myErrorMsgHandler == MsgHandler::getWarningInstance(), this->myOperation, myTTOperation, mySilent);
     }
 
     inline double getTravelTime(const E* const e, const V* const v, const double t, const double effort) const {
@@ -247,7 +248,7 @@ public:
 #ifdef DijkstraRouter_DEBUG_QUERY_PERF
         std::cout << "visited " + toString(num_visited) + " edges (unsuccesful path length: " + toString(into.size()) + ")\n";
 #endif
-        if (to != 0) {
+        if (to != 0 && !mySilent) {
             myErrorMsgHandler->inform("No connection between edge '" + from->getID() + "' and edge '" + to->getID() + "' found.");
         }
         return false;
@@ -283,9 +284,10 @@ public:
     }
 
 private:
-    DijkstraRouter(const std::vector<EdgeInfo>& edgeInfos, bool unbuildIsWarning, Operation effortOperation, Operation ttOperation) :
+    DijkstraRouter(const std::vector<EdgeInfo>& edgeInfos, bool unbuildIsWarning, Operation effortOperation, Operation ttOperation, bool silent) :
         SUMOAbstractRouter<E, V>(effortOperation, "DijkstraRouter"), myTTOperation(ttOperation),
-        myErrorMsgHandler(unbuildIsWarning ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()) {
+        myErrorMsgHandler(unbuildIsWarning ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()),
+        mySilent(silent) {
         for (const EdgeInfo& ei : edgeInfos) {
             myEdgeInfos.push_back(EdgeInfo(ei.edge));
         }
@@ -294,6 +296,9 @@ private:
 private:
     /// @brief The object's operation to perform for travel times
     Operation myTTOperation;
+
+    /// @brief whether to supress warning/error if no route was found
+    bool mySilent;
 
     /// The container of edge information
     std::vector<EdgeInfo> myEdgeInfos;

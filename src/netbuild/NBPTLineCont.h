@@ -50,6 +50,10 @@ public:
         return myPTLines.end();
     }
 
+    const std::vector<NBPTLine*>& getLines() const {
+        return myPTLines;
+    }
+
     void process(NBEdgeCont& cont);
 
     /// @brief add edges that must be kept

@@ -25,6 +25,7 @@
 #include <config.h>
 
 #include <vector>
+#include "NBEdge.h"
 
 
 // ===========================================================================
@@ -32,6 +33,7 @@
 // ===========================================================================
 class NBNetBuilder;
 class OptionsCont;
+class NBVehicle;
 
 
 // ===========================================================================
@@ -53,6 +55,25 @@ public:
     static void repairTopology(NBNetBuilder& nb);
     static void makeAllBidi(NBNetBuilder& nb);
 
+    /// routing edge
+    class Track {
+    public:
+        Track(NBEdge *e) : edge(e) {}
+
+        const std::vector<Track*>& getSuccessors(SUMOVehicleClass /*svc*/) const { 
+            return successors; 
+        }
+        const std::string& getID() const { 
+            return edge->getID();
+        }
+        int getNumericalID() const { 
+            return edge->getNumericalID();
+        }
+
+        const NBEdge* edge;
+        std::vector<Track*> successors;
+    };
+    static double getTravelTimeStatic(const Track* const track, const NBVehicle* const veh, double time);
 
 private:
     static std::set<NBNode*> getRailNodes(NBNetBuilder& nb, bool verbose=false);
@@ -61,7 +82,7 @@ private:
     /// @brief filter out rail edges among all edges of a the given node
     static void getRailEdges(const NBNode* node, EdgeVector& inEdges, EdgeVector& outEdges);
 
-    static bool isStraight(const NBNode* node, NBEdge* e1, NBEdge* e2);
+    static bool isStraight(const NBNode* node, const NBEdge* e1, const NBEdge* e2);
     static bool hasStraightPair(const NBNode* node, const EdgeVector& edges, const EdgeVector& edges2); 
     static bool allBroken(const NBNode* node, NBEdge* candOut, const EdgeVector& in, const EdgeVector& out);
     static bool allSharp(const NBNode* node, const EdgeVector& in, const EdgeVector& out, bool countBidiAsSharp=false);
@@ -84,8 +105,16 @@ private:
     /// @brief add bidi-edges to connect switches that are approached in both directions
     static void addBidiEdgesBetweenSwitches(NBNetBuilder& nb);
 
+    /// @brief add bidi-edges to connect successive public transport stops
+    static void addBidiEdgesForStops(NBNetBuilder& nb);
+
+    /// @brief whether the given tracks are connected (strongly or weakly depending on the router)
+    static bool isConnnected(SUMOAbstractRouter<Track, NBVehicle>& router, 
+        const Track* from, const Track* to, const NBVehicle* veh); 
+
     /// recompute turning directions for both nodes of the given edge
     static void updateTurns(NBEdge* edge);
+
 };
 
 
