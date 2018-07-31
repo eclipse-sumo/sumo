@@ -154,7 +154,7 @@
     </xsd:complexType>
 
     <xsd:complexType name="e3DetectorType">
-        <xsd:choice>
+        <xsd:choice maxOccurs="unbounded">
             <xsd:element name="param" type="paramType" minOccurs="0" maxOccurs="unbounded"/>
             <xsd:element name="detEntry" type="detEntryExitType"
                 minOccurs="1" maxOccurs="unbounded"/>
