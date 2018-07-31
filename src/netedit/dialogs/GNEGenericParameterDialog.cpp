@@ -485,8 +485,10 @@ GNEGenericParameterDialog::updateValues() {
     int index = 0; 
     // enanble rows
     for (auto i = myGenericParameters->begin(); i != myGenericParameters->end(); i++) {
-        myGenericParameterRows.at(index).enableRow(i->first, i->second);
-        index++;
+        if(index < GNEAttributeCarrier::MAXNUMBER_GENERICPARAMETERS) {
+            myGenericParameterRows.at(index).enableRow(i->first, i->second);
+            index++;
+        }
     }
     // disable rest of rows
     for (int i = index; i < myGenericParameterRows.size(); i++) {
