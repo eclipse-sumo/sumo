@@ -70,7 +70,7 @@ const int GNEGenericParameterDialog::myGenericParameterColumnWidth = 227;
 // member method definitions
 // ===========================================================================
 
-GNEGenericParameterDialog::GNEGenericParameterDialog(GNEViewNet *viewNet/*, std::vector<GNEAttributeCarrier::GenericParameter> *genericParameters*/) :
+GNEGenericParameterDialog::GNEGenericParameterDialog(GNEViewNet *viewNet, std::vector<std::pair<std::string, std::string> > *genericParameters) :
     FXDialogBox(viewNet->getApp(), "Edit generic parameters", GUIDesignDialogBox),
     myViewNet(viewNet)/*,
     myGenericParameters(genericParameters),
@@ -123,14 +123,13 @@ GNEGenericParameterDialog::~GNEGenericParameterDialog() {
 
 long
 GNEGenericParameterDialog::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
-    /*
     // find what value was changed
     for (int i = 0;  i < myGenericParameterRows.size(); i++) {
         if(myGenericParameterRows.at(i).keyField == obj) {
             // change key of Generic Parameter
-            myGenericParameters->at(i).key() = myGenericParameterRows.at(i).keyField->getText().text();
+            myGenericParameters->at(i).first = myGenericParameterRows.at(i).keyField->getText().text();
             // change color of text field depending if attribute is valid
-            if(myGenericParameters->at(i).isValid()) {
+            if(GNEAttributeCarrier::isValidID(myGenericParameters->at(i).first)) {
                 myGenericParameterRows.at(i).keyField->setTextColor(FXRGB(0, 0, 0));
             } else {
                 myGenericParameterRows.at(i).keyField->setTextColor(FXRGB(255, 0, 0));
@@ -138,9 +137,9 @@ GNEGenericParameterDialog::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
             }
         } else if(myGenericParameterRows.at(i).valueField == obj) {
             // change value of Generic Parameter
-            myGenericParameters->at(i).value() = myGenericParameterRows.at(i).valueField->getText().text();
+            myGenericParameters->at(i).second = myGenericParameterRows.at(i).valueField->getText().text();
             // change color of text field depending if attribute is valid
-            if(myGenericParameters->at(i).isValid()) {
+            if(GNEAttributeCarrier::isValidName(myGenericParameters->at(i).second)) {
                 myGenericParameterRows.at(i).valueField->setTextColor(FXRGB(0, 0, 0));
             } else {
                 myGenericParameterRows.at(i).valueField->setTextColor(FXRGB(255, 0, 0));
@@ -148,7 +147,6 @@ GNEGenericParameterDialog::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
             }
         }
     }
-    */
     // resize dialog
     resizeGenericParameterDialog();
     return 1;
@@ -157,14 +155,13 @@ GNEGenericParameterDialog::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
 
 long 
 GNEGenericParameterDialog::onCmdButtonPress(FXObject* obj, FXSelector, void*) {
-    /*
     // find what button was pressed
     for (int i = 0;  i < myGenericParameterRows.size(); i++) {
         if(myGenericParameterRows.at(i).button == obj) {
             // add a new parameter if add button was pressed, and remove it in other case
             if(myGenericParameterRows.at(i).isButtonInAddMode()) {
-                myGenericParameters->push_back(GNEAttributeCarrier::GenericParameter("", ""));
-                myGenericParameterRows.at(i).enableRow(myGenericParameters->back().key(), myGenericParameters->back().value());
+                myGenericParameters->push_back(std::make_pair("", ""));
+                myGenericParameterRows.at(i).enableRow(myGenericParameters->back().first, myGenericParameters->back().second);
                 // toogle add button in the next row
                 if((i+1) < myGenericParameterRows.size()) {
                     myGenericParameterRows.at(i+1).toogleAddButton();
@@ -198,14 +195,12 @@ GNEGenericParameterDialog::onCmdButtonPress(FXObject* obj, FXSelector, void*) {
             updateValues();
         }
     }
-    */
     return 1;
 }
 
 
 long
 GNEGenericParameterDialog::onCmdLoadGenericParameters(FXObject*, FXSelector, void*) {
-    /*
     // get the Additional file name
     FXFileDialog opendialog(this, "Open Generic Parameter Template");
     opendialog.setIcon(GUIIconSubSys::getIcon(ICON_GREENVEHICLE));
@@ -230,14 +225,12 @@ GNEGenericParameterDialog::onCmdLoadGenericParameters(FXObject*, FXSelector, voi
         // resize dialog
         resizeGenericParameterDialog();
     }
-    */
     return 1;
 }
 
 
 long 
 GNEGenericParameterDialog::onCmdSaveGenericParameters(FXObject*, FXSelector, void*) {
-    /*
     // obtain file to save generic parameters
     FXString file = MFXUtils::getFilename2Write(this,
                     "Select name of the Generic Parameter Template file", ".xml",
@@ -252,20 +245,18 @@ GNEGenericParameterDialog::onCmdSaveGenericParameters(FXObject*, FXSelector, voi
         // iterate over all generic parameters and save it in the filename
         for (auto i = myGenericParameters->begin(); i != myGenericParameters->end(); i++) {
             device.openTag(SUMO_TAG_PARAM);
-            device.writeAttr(SUMO_ATTR_KEY, i->key());
-            device.writeAttr(SUMO_ATTR_VALUE, i->value());
+            device.writeAttr(SUMO_ATTR_KEY, i->first);
+            device.writeAttr(SUMO_ATTR_VALUE, i->second);
             device.closeTag();
         }
         device.close();
     }
-    */
     return 1;
 }
 
 
 long 
 GNEGenericParameterDialog::onCmdClearGenericParameters(FXObject*, FXSelector, void*) {
-    /*
     // simply clear all parameters and disble all rows
     myGenericParameters->clear();
     for (auto i : myGenericParameterRows) {
@@ -273,19 +264,16 @@ GNEGenericParameterDialog::onCmdClearGenericParameters(FXObject*, FXSelector, vo
     }
     // update values
     updateValues();
-    */
     return 1;
 }
 
 
 long 
 GNEGenericParameterDialog::onCmdSortGenericParameters(FXObject*, FXSelector, void*) {
-    /*
     // simply sort generic parameters using std function
     std::sort(myGenericParameters->begin(), myGenericParameters->end());
     // update values
     updateValues();
-    */
     return 1;
 }
 
@@ -298,10 +286,9 @@ GNEGenericParameterDialog::onCmdHelpGenericParameter(FXObject*, FXSelector, void
 
 long
 GNEGenericParameterDialog::onCmdAccept(FXObject*, FXSelector, void*) {
-    /*
     // check if all edited generic parameters are valid
     for (auto i = myGenericParameters->begin(); i != myGenericParameters->end(); i++) {
-        if(!i->isValid()) {
+        if(!GNEAttributeCarrier::isValidID(i->first) || !GNEAttributeCarrier::isValidName(i->second)) {
             // write warning if netedit is running in testing mode
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
                 WRITE_WARNING("Opening FXMessageBox of type 'warning'");
@@ -316,10 +303,10 @@ GNEGenericParameterDialog::onCmdAccept(FXObject*, FXSelector, void*) {
         }
     }
     // now check if there is duplicates generic parameters
-    std::vector<GNEAttributeCarrier::GenericParameter> sortedGenericParameters = (*myGenericParameters);
+    std::vector<std::pair<std::string, std::string> > sortedGenericParameters = (*myGenericParameters);
     std::sort(sortedGenericParameters.begin(), sortedGenericParameters.end());
     for (auto i = sortedGenericParameters.begin(); i != sortedGenericParameters.end(); i++) {
-        if(((i+1) != sortedGenericParameters.end()) && (i->key()) == (i+1)->key()) {
+        if(((i+1) != sortedGenericParameters.end()) && (i->first) == (i+1)->first) {
             // write warning if netedit is running in testing mode
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
                 WRITE_WARNING("Opening FXMessageBox of type 'warning'");
@@ -335,17 +322,14 @@ GNEGenericParameterDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     }
     // all ok, then close dialog
     getApp()->stopModal(this, TRUE);
-    */
     return 1;
 }
 
 
 long
 GNEGenericParameterDialog::onCmdCancel(FXObject*, FXSelector, void*) {
-    /*
     // restore copy of generic parameters
     (*myGenericParameters) = myCopyOfGenericParameters;
-    */
     // Stop Modal
     getApp()->stopModal(this, FALSE);
     return 1;
@@ -354,10 +338,8 @@ GNEGenericParameterDialog::onCmdCancel(FXObject*, FXSelector, void*) {
 
 long
 GNEGenericParameterDialog::onCmdReset(FXObject*, FXSelector, void*) {
-    /*
     // restore copy of generic parameters
     (*myGenericParameters) = myCopyOfGenericParameters;
-    */
     // disable all rows
     for (auto i : myGenericParameterRows) {
         i.disableRow();
@@ -451,14 +433,13 @@ GNEGenericParameterDialog::GNEGenericParameterHandler::~GNEGenericParameterHandl
 
 void 
 GNEGenericParameterDialog::GNEGenericParameterHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
-// Obtain tag of element
+    // Obtain tag of element
     SumoXMLTag tag = static_cast<SumoXMLTag>(element);
     // only continue if tag is valid
     if(tag != SUMO_TAG_NOTHING) {
         // Call parse and build depending of tag
         switch (tag) {
             case SUMO_TAG_PARAM:
-                /*
                 // first check that number of generic parameter is lower than limit
                 if(myGenericParameterDialogParent->myGenericParameters->size() < GNEAttributeCarrier::MAXNUMBER_GENERICPARAMETERS) {
                     // Check that format of Generic Parameter is correct
@@ -481,7 +462,7 @@ GNEGenericParameterDialog::GNEGenericParameterHandler::myStartElement(int elemen
                             WRITE_WARNING("Value '" + value + "'of Generic Parameter contains invalid characters");
                         } else {
                             // add generic parameter to vector of myGenericParameterDialogParent
-                            myGenericParameterDialogParent->myGenericParameters->push_back(GNEAttributeCarrier::GenericParameter(key, value));
+                            myGenericParameterDialogParent->myGenericParameters->push_back(std::make_pair(key, value));
                         }
                     }
                 } else {
@@ -491,7 +472,6 @@ GNEGenericParameterDialog::GNEGenericParameterHandler::myStartElement(int elemen
                         myMaximumNumberOfAttributesShown = true;
                     }
                 }
-                */
                 break;
             default:
                 break;
@@ -503,13 +483,11 @@ GNEGenericParameterDialog::GNEGenericParameterHandler::myStartElement(int elemen
 void 
 GNEGenericParameterDialog::updateValues() {
     int index = 0; 
-    /*
     // enanble rows
     for (auto i = myGenericParameters->begin(); i != myGenericParameters->end(); i++) {
-        myGenericParameterRows.at(index).enableRow(i->key(), i->value());
+        myGenericParameterRows.at(index).enableRow(i->first, i->second);
         index++;
     }
-    */
     // disable rest of rows
     for (int i = index; i < myGenericParameterRows.size(); i++) {
         myGenericParameterRows.at(i).disableRow();
