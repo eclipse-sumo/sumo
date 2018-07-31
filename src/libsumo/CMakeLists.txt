@@ -77,6 +77,7 @@ if(SWIG_FOUND)
         if(PYTHONLIBS_FOUND)
             include_directories(${PYTHON_INCLUDE_PATH})
             set(CMAKE_SWIG_FLAGS "")
+#            set(CMAKE_SWIG_FLAGS "-keyword") # could be useful but currently generates lots of warnings
             set(CMAKE_SWIG_OUTDIR ${CMAKE_SOURCE_DIR}/tools/libsumo)
             set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/tools/libsumo)
             set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/tools/libsumo)

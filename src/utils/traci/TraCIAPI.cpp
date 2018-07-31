@@ -1039,7 +1039,7 @@ TraCIAPI::LaneScope::getDisallowed(const std::string& laneID) const {
 
 int
 TraCIAPI::LaneScope::getLinkNumber(const std::string& laneID) const {
-    return myParent.getUnsignedByte(CMD_GET_LANE_VARIABLE, LANE_LINK_NUMBER, laneID);
+    return myParent.getInt(CMD_GET_LANE_VARIABLE, LANE_LINK_NUMBER, laneID);
 }
 
 std::vector<libsumo::TraCIConnection>

@@ -413,6 +413,52 @@ Lane::handleVariable(const std::string& objID, const int variable, VariableWrapp
         return wrapper->wrapStringList(objID, variable, getIDList());
     case ID_COUNT:
         return wrapper->wrapInt(objID, variable, getIDCount());
+    case LANE_LINK_NUMBER:
+        return wrapper->wrapInt(objID, variable, getLinkNumber(objID));
+    case LANE_EDGE_ID:
+        return wrapper->wrapString(objID, variable, getEdgeID(objID));
+    case VAR_LENGTH:
+        return wrapper->wrapDouble(objID, variable, getLength(objID));
+    case VAR_MAXSPEED:
+        return wrapper->wrapDouble(objID, variable, getMaxSpeed(objID));
+    case LANE_ALLOWED:
+        return wrapper->wrapStringList(objID, variable, getAllowed(objID));
+    case LANE_DISALLOWED:
+        return wrapper->wrapStringList(objID, variable, getDisallowed(objID));
+    case VAR_CO2EMISSION:
+        return wrapper->wrapDouble(objID, variable, getCO2Emission(objID));
+    case VAR_COEMISSION:
+        return wrapper->wrapDouble(objID, variable, getCOEmission(objID));
+    case VAR_HCEMISSION:
+        return wrapper->wrapDouble(objID, variable, getHCEmission(objID));
+    case VAR_PMXEMISSION:
+        return wrapper->wrapDouble(objID, variable, getPMxEmission(objID));
+    case VAR_NOXEMISSION:
+        return wrapper->wrapDouble(objID, variable, getNOxEmission(objID));
+    case VAR_FUELCONSUMPTION:
+        return wrapper->wrapDouble(objID, variable, getFuelConsumption(objID));
+    case VAR_NOISEEMISSION:
+        return wrapper->wrapDouble(objID, variable, getNoiseEmission(objID));
+    case VAR_ELECTRICITYCONSUMPTION:
+        return wrapper->wrapDouble(objID, variable, getElectricityConsumption(objID));
+    case LAST_STEP_VEHICLE_NUMBER:
+        return wrapper->wrapInt(objID, variable, getLastStepVehicleNumber(objID));
+    case LAST_STEP_MEAN_SPEED:
+        return wrapper->wrapDouble(objID, variable, getLastStepMeanSpeed(objID));
+    case LAST_STEP_VEHICLE_ID_LIST:
+        return wrapper->wrapStringList(objID, variable, getLastStepVehicleIDs(objID));
+    case LAST_STEP_OCCUPANCY:
+        return wrapper->wrapDouble(objID, variable, getLastStepOccupancy(objID));
+    case LAST_STEP_VEHICLE_HALTING_NUMBER:
+        return wrapper->wrapInt(objID, variable, getLastStepHaltingNumber(objID));
+    case LAST_STEP_LENGTH:
+        return wrapper->wrapDouble(objID, variable, getLastStepLength(objID));
+    case VAR_WAITING_TIME:
+        return wrapper->wrapDouble(objID, variable, getWaitingTime(objID));
+    case VAR_CURRENT_TRAVELTIME:
+        return wrapper->wrapDouble(objID, variable, getTraveltime(objID));
+    case VAR_WIDTH:
+        return wrapper->wrapDouble(objID, variable, getWidth(objID));
     default:
         return false;
     }

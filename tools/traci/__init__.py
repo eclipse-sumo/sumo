@@ -97,6 +97,10 @@ def start(cmd, port=None, numRetries=10, label="default"):
     return getVersion()
 
 
+def isLibsumo():
+    return False
+
+
 def isEmbedded():
     return _embedded
 

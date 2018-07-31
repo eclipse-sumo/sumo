@@ -18,6 +18,9 @@
 
 // adding dummy init and close for easier traci -> libsumo transfer
 %pythoncode %{
+def isLibsumo():
+    return True
+
 def init(port):
     print("Warning! To make your code usable with traci and libsumo, please use traci.start instead of traci.init.")
 
