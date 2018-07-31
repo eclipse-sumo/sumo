@@ -9,7 +9,8 @@
 /****************************************************************************/
 /// @file    MSCFModel_Rail.cpp
 /// @author  Gregor L\"ammel
-/// @date    Tue, 08 Feb 2017
+/// @author  Leander Flamm
+/// @date    Tue, 12 Jul 2018
 /// @version $Id$
 ///
 // <description missing>
@@ -70,9 +71,30 @@ MSCFModel_Rail::MSCFModel_Rail(const MSVehicleType* vtype) :
 
 MSCFModel_Rail::~MSCFModel_Rail() { }
 
-double MSCFModel_Rail::followSpeed(const MSVehicle* const veh, double speed, double /* gap2pred*/,
+double MSCFModel_Rail::followSpeed(const MSVehicle* const veh, double speed, double gap,
                                    double /* predSpeed */, double /* predMaxDecel*/, const MSVehicle* const /*pred*/) const {
-    return maxNextSpeed(speed, veh);
+
+	// followSpeed module is used for the simulation of moving block operations. The safety gap is chosen similar to the existing german
+	// system CIR-ELKE (based on LZB). Other implementations of moving block systems may differ, but for now no appropriate parameter 
+	// can be set (would be per lane, not per train) -> hard-coded
+
+	double safetyGap = 5.0; // default value for low speeds (< 30 km/h)
+	if (speed >= 30 / 3.6) {
+		safetyGap = 50.0; // safety distance for higher speeds (>= 30 km/h)
+	}
+
+	const double vsafe = maximumSafeStopSpeed(gap - safetyGap, speed, false, TS); // absolute breaking distance
+	const double vmin = minNextSpeed(speed, veh);
+	const double vmax = maxNextSpeed(speed, veh);
+
+	if (MSGlobals::gSemiImplicitEulerUpdate) {
+		return MIN2(vsafe, vmax);
+	}
+	else {
+		// ballistic
+		// XXX: the euler variant can break as strong as it wishes immediately! The ballistic cannot, refs. #2575.
+		return MAX2(MIN2(vsafe, vmax), vmin);
+	}
 }
 
 int
@@ -111,6 +133,7 @@ double MSCFModel_Rail::maxNextSpeed(double speed, const MSVehicle* const veh) co
             a = (trac - totalRes) / myTrainParams.rotWeight; //kN/t == N/kg
         }
     }
+
     double maxNextSpeed = speed + a * DELTA_T / 1000.;
 
 //    std::cout << veh->getID() << " speed: " << (speed*3.6) << std::endl;
@@ -219,7 +242,7 @@ double MSCFModel_Rail::freeSpeed(const MSVehicle* const /* veh */, double /* spe
         const double fullSpeedGain = (yFull + (onInsertion ? 1. : 0.)) * ACCEL2SPEED(myTrainParams.decl);
         return DIST2SPEED(MAX2(0.0, dist - exactGap) / (yFull + 1)) + fullSpeedGain + targetSpeed;
     } else {
-        WRITE_ERROR("Anything else then semi implicit euler update is not yet implemented. Exiting!");
+        WRITE_ERROR("Anything else than semi implicit euler update is not yet implemented. Exiting!");
         throw ProcessError();
     }
 }
