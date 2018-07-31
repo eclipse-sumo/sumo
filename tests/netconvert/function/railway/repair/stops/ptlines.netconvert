@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sun Jul 29 23:27:09 2018 by Eclipse SUMO netconvert Version 1e6f500
+<!-- generated on Tue Jul 31 13:03:26 2018 by Eclipse SUMO netconvert Version a9399b8
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -40,7 +40,7 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <ptLine id="0" name="0" line="S46" type="light_rail" completeness="inf">
+    <ptLine id="0" name="0" line="S46" type="light_rail" completeness="0.50">
         <busStop id="stopC" name="stopC"/>
         <busStop id="stopA" name="stopA"/>
     </ptLine>

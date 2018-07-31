@@ -101,6 +101,7 @@ NIXMLPTHandler::myEndElement(int element) {
             myCurrentStop = 0;
             break;
         case SUMO_TAG_PT_LINE:
+            myCurrentLine->setMyNumOfStops(myCurrentLine->getStops().size() / myCurrentCompletion);
             myCurrentLine = 0;
             break;
         default:
@@ -161,7 +162,7 @@ NIXMLPTHandler::addPTLine(const SUMOSAXAttributes& attrs) {
     const std::string type = attrs.get<std::string>(SUMO_ATTR_TYPE, id.c_str(), ok);
     const int intervalS = attrs.getOpt<int>(SUMO_ATTR_PERIOD, id.c_str(), ok, -1);
     const std::string nightService = attrs.getStringSecure("nightService", "");
-    const double completeness = TplConvert::_2double(attrs.getStringSecure("completeness", "1").c_str());
+    myCurrentCompletion = TplConvert::_2double(attrs.getStringSecure("completeness", "1").c_str());
     /// XXX parse route child
     //if (!myRoute.empty()) {
     //    device.openTag(SUMO_TAG_ROUTE);

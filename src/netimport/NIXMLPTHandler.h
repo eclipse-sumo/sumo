@@ -142,6 +142,9 @@ private:
     /// @brief The currently processed line
     NBPTLine* myCurrentLine;
 
+    /// @brief the completion level of the current line
+    double myCurrentCompletion;
+
     /// @brief element to receive parameters
     std::vector<Parameterised*> myLastParameterised;
 
