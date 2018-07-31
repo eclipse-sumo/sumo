@@ -270,8 +270,28 @@ GNEGenericParameterDialog::onCmdClearGenericParameters(FXObject*, FXSelector, vo
 
 long 
 GNEGenericParameterDialog::onCmdSortGenericParameters(FXObject*, FXSelector, void*) {
-    // simply sort generic parameters using std function
-    std::sort(myGenericParameters->begin(), myGenericParameters->end());
+    std::vector<std::pair<std::string, std::string> > genericParametersNoEmpty;
+    std::vector<std::string> valuesEmpty;
+    // first extract empty values
+    for (auto i = myGenericParameters->begin(); i != myGenericParameters->end(); i++) {
+        if(!i->first.empty()) {
+            genericParametersNoEmpty.push_back(*i);
+        } else if (i->first.empty() && !i->second.empty()) {
+            valuesEmpty.push_back(i->second);
+        }
+    }
+    // now sort non-empty generic parameters
+    std::sort(genericParametersNoEmpty.begin(), genericParametersNoEmpty.end());
+    // add values without key
+    for (auto i : valuesEmpty) {
+        genericParametersNoEmpty.push_back(std::make_pair("", i));
+    }
+    // fill genericParametersNoEmpty with empty values
+    while (genericParametersNoEmpty.size() < myGenericParameters->size()) {
+        genericParametersNoEmpty.push_back(std::make_pair("", ""));
+    }
+    // finally replace myGenericParameters with genericParametersNoEmpty
+    (*myGenericParameters) = genericParametersNoEmpty;
     // update values
     updateValues();
     return 1;
