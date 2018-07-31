@@ -64,7 +64,7 @@ private:
     static bool isStraight(const NBNode* node, NBEdge* e1, NBEdge* e2);
     static bool hasStraightPair(const NBNode* node, const EdgeVector& edges, const EdgeVector& edges2); 
     static bool allBroken(const NBNode* node, NBEdge* candOut, const EdgeVector& in, const EdgeVector& out);
-    static bool allSharp(const NBNode* node, const EdgeVector& in, const EdgeVector& out);
+    static bool allSharp(const NBNode* node, const EdgeVector& in, const EdgeVector& out, bool countBidiAsSharp=false);
     static bool allBidi(const EdgeVector& edges);
     static NBEdge* isBidiSwitch(const NBNode* n);
 
