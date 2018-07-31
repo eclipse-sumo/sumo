@@ -122,7 +122,7 @@ public:
     /** @struct Crossing
      * @brief A definition of a pedestrian crossing
      */
-    struct Crossing {
+    struct Crossing : public Parameterised {
         /// @brief constructor
         Crossing(const NBNode* _node, const EdgeVector& _edges, double _width, bool _priority, int _customTLIndex, int _customTLIndex2, const PositionVector& _customShape);
         /// @brief The parent node of this crossing
