@@ -928,6 +928,17 @@ GNELane::getGenericParametersStr() const {
 }
 
 
+std::vector<std::pair<std::string, std::string> > 
+GNELane::getGenericParameters() const {
+    std::vector<std::pair<std::string, std::string> >  result;
+    // iterate over parameters map and fill result
+    for (auto i : myParentEdge.getNBEdge()->getLaneStruct(myIndex).getParametersMap()) {
+        result.push_back(std::make_pair(i.first, i.second));
+    }
+    return result;
+}
+
+
 void 
 GNELane::setGenericParametersStr(const std::string &value) {
     // separate value in a vector of string using | as separator

@@ -1045,6 +1045,17 @@ GNEJunction::getGenericParametersStr() const {
 }
 
 
+std::vector<std::pair<std::string, std::string> > 
+GNEJunction::getGenericParameters() const {
+    std::vector<std::pair<std::string, std::string> >  result;
+    // iterate over parameters map and fill result
+    for (auto i : myNBNode.getParametersMap()) {
+        result.push_back(std::make_pair(i.first, i.second));
+    }
+    return result;
+}
+
+
 void 
 GNEJunction::setGenericParametersStr(const std::string &value) {
     // separate value in a vector of string using | as separator

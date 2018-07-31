@@ -179,6 +179,9 @@ public:
     /// @brief return generic parameters in string format
     virtual std::string getGenericParametersStr() const = 0;
 
+    /// @brief return generic parameters as vector of pairs format
+    virtual std::vector<std::pair<std::string, std::string> > getGenericParameters() const = 0;
+
     /// @brief set generic parameters in string format
     virtual void setGenericParametersStr(const std::string &value) = 0;
 

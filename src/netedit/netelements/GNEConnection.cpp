@@ -519,6 +519,17 @@ GNEConnection::getGenericParametersStr() const {
 }
 
 
+std::vector<std::pair<std::string, std::string> > 
+GNEConnection::getGenericParameters() const {
+    std::vector<std::pair<std::string, std::string> >  result;
+    // iterate over parameters map and fill result
+    for (auto i : getNBEdgeConnection().getParametersMap()) {
+        result.push_back(std::make_pair(i.first, i.second));
+    }
+    return result;
+}
+
+
 void 
 GNEConnection::setGenericParametersStr(const std::string &value) {
     // separate value in a vector of string using | as separator
