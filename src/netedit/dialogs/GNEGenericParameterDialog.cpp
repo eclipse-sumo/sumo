@@ -128,8 +128,8 @@ GNEGenericParameterDialog::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
         if(myGenericParameterRows.at(i).keyField == obj) {
             // change key of Generic Parameter
             myGenericParameters->at(i).first = myGenericParameterRows.at(i).keyField->getText().text();
-            // change color of text field depending if attribute is valid
-            if(GNEAttributeCarrier::isValidID(myGenericParameters->at(i).first)) {
+            // change color of text field depending if key is valid or empty
+            if(myGenericParameters->at(i).first.empty() || GNEAttributeCarrier::isValidID(myGenericParameters->at(i).first)) {
                 myGenericParameterRows.at(i).keyField->setTextColor(FXRGB(0, 0, 0));
             } else {
                 myGenericParameterRows.at(i).keyField->setTextColor(FXRGB(255, 0, 0));
@@ -156,7 +156,7 @@ GNEGenericParameterDialog::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
 long 
 GNEGenericParameterDialog::onCmdButtonPress(FXObject* obj, FXSelector, void*) {
     // find what button was pressed
-    for (int i = 0;  i < myGenericParameterRows.size(); i++) {
+    for (int i = 0;  i < (int)myGenericParameterRows.size(); i++) {
         if(myGenericParameterRows.at(i).button == obj) {
             // add a new parameter if add button was pressed, and remove it in other case
             if(myGenericParameterRows.at(i).isButtonInAddMode()) {
@@ -170,11 +170,9 @@ GNEGenericParameterDialog::onCmdButtonPress(FXObject* obj, FXSelector, void*) {
                         myGenericParameterRows.at(i+1).frameParent->show();
                     }
                 }
-            } else {
-                // remove attribute moving back one position the next attributes
-                for(auto j = i; j < (myGenericParameterRows.size()-1); j++) {
-                    myGenericParameterRows.at(j).copyValues(myGenericParameterRows.at(j+1));
-                }
+            } else if(i < myGenericParameters->size()) {
+                // remove generic parameter
+                myGenericParameters->erase(myGenericParameters->begin() + i);
                 // disable add button of the next generic parameter
                 if(myGenericParameters->size() < myGenericParameterRows.size()) {
                     myGenericParameterRows.at(myGenericParameters->size()).disableRow();
@@ -184,8 +182,6 @@ GNEGenericParameterDialog::onCmdButtonPress(FXObject* obj, FXSelector, void*) {
                         myGenericParameterRows.at(myGenericParameters->size()).frameParent->hide();
                     }
                 }
-                // remove last generic parameter
-                myGenericParameters->pop_back();
                 // enable add button in the next empty row
                 if(myGenericParameters->size() < myGenericParameterRows.size()) {
                     myGenericParameterRows.at(myGenericParameters->size()).toogleAddButton();
@@ -344,13 +340,37 @@ long
 GNEGenericParameterDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     // check if all edited generic parameters are valid
     for (auto i = myGenericParameters->begin(); i != myGenericParameters->end(); i++) {
-        if(!GNEAttributeCarrier::isValidID(i->first) || !GNEAttributeCarrier::isValidName(i->second)) {
+        if(i->first.empty()) {
             // write warning if netedit is running in testing mode
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
                 WRITE_WARNING("Opening FXMessageBox of type 'warning'");
             }
             // open warning Box
-            FXMessageBox::warning(getApp(), MBOX_OK, "Invalid Generic Parameters", "%s", "There are Generic Parameters with invalid characters");
+            FXMessageBox::warning(getApp(), MBOX_OK, "Empty Generic Parameter key", "%s", "Generic Parameters with empty keys aren't allowed");
+            // write warning if netedit is running in testing mode
+            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+                WRITE_WARNING("Closed FXMessageBox of type 'warning' with 'OK'");
+            }
+            return 1;
+        } else if(!GNEAttributeCarrier::isValidID(i->first)) {
+            // write warning if netedit is running in testing mode
+            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+                WRITE_WARNING("Opening FXMessageBox of type 'warning'");
+            }
+            // open warning Box
+            FXMessageBox::warning(getApp(), MBOX_OK, "Invalid Generic Parameter key", "%s", "There are keys of Generic Parameters with invalid characters");
+            // write warning if netedit is running in testing mode
+            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+                WRITE_WARNING("Closed FXMessageBox of type 'warning' with 'OK'");
+            }
+            return 1;
+        } else if(!GNEAttributeCarrier::isValidName(i->second)) {
+            // write warning if netedit is running in testing mode
+            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+                WRITE_WARNING("Opening FXMessageBox of type 'warning'");
+            }
+            // open warning Box
+            FXMessageBox::warning(getApp(), MBOX_OK, "Invalid Generic Parameter value", "%s", "There are values of Generic Parameters with invalid characters");
             // write warning if netedit is running in testing mode
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
                 WRITE_WARNING("Closed FXMessageBox of type 'warning' with 'OK'");
@@ -368,7 +388,7 @@ GNEGenericParameterDialog::onCmdAccept(FXObject*, FXSelector, void*) {
                 WRITE_WARNING("Opening FXMessageBox of type 'warning'");
             }
             // open warning Box
-            FXMessageBox::warning(getApp(), MBOX_OK, "Duplicated Generic Parameters", "%s", "There are Generic Parameters with the same Key");
+            FXMessageBox::warning(getApp(), MBOX_OK, "Duplicated Generic Parameters", "%s", "Generic Parameters with the same Key aren't allowed");
             // write warning if netedit is running in testing mode
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
                 WRITE_WARNING("Closed FXMessageBox of type 'warning' with 'OK'");
@@ -436,11 +456,19 @@ GNEGenericParameterDialog::GenericParameterRow::enableRow(const std::string &par
     frameParent->show();
     // restore color and enable key field
     keyField->setText(parameter.c_str());
-    keyField->setTextColor(FXRGB(0, 0, 0));
+    if(parameter.empty() || GNEAttributeCarrier::isValidID(parameter)) {
+        keyField->setTextColor(FXRGB(0, 0, 0));
+    } else {
+        keyField->setTextColor(FXRGB(255, 0, 0));
+    }
     keyField->enable();
     // restore color and enable value field
     valueField->setText(value.c_str());
-    valueField->setTextColor(FXRGB(0, 0, 0));
+    if(GNEAttributeCarrier::isValidName(value)) {
+        valueField->setTextColor(FXRGB(0, 0, 0));
+    } else {
+        valueField->setTextColor(FXRGB(255, 0, 0));
+    }
     valueField->enable();
     // enable button and set icon remove
     button->enable();
@@ -514,7 +542,7 @@ GNEGenericParameterDialog::GNEGenericParameterHandler::myStartElement(int elemen
                             } else {
                                 WRITE_WARNING("Key '" + key + "' of Generic Parameter contains invalid characters");
                             }
-                        } else if(!GNEAttributeCarrier::isValidName(key)) {
+                        } else if(!GNEAttributeCarrier::isValidName(value)) {
                             WRITE_WARNING("Value '" + value + "'of Generic Parameter contains invalid characters");
                         } else {
                             // add generic parameter to vector of myGenericParameterDialogParent
