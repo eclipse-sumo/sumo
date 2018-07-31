@@ -742,8 +742,8 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForStops(NBNetBuilder& nb) {
             bidiTracks, true, &NBRailwayTopologyAnalyzer::getTravelTimeStatic, nullptr, true);
 
     int added = 0;
-    int addedBidiStops = 0;
     int numDisconnected = 0;
+    std::set<NBEdge*> addBidiStops;
     for (NBPTLine* line : nb.getPTLineCont().getLines()) {
         NBVehicle veh(line->getRef(), SVC_RAIL);
         std::vector<NBPTStop*> stops = line->getStops();
@@ -754,7 +754,8 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForStops(NBNetBuilder& nb) {
             NBEdge* fromEdge = ec.getByID((*it)->getEdgeId());
             NBEdge* toEdge = ec.getByID((*(it + 1))->getEdgeId());
             if (fromEdge == nullptr || toEdge == nullptr
-                    || (fromEdge->isBidiRail() && toEdge->isBidiRail())) {
+                    || ((fromEdge->isBidiRail() || addBidiStops.count(fromEdge) != 0)
+                        && (toEdge->isBidiRail() || addBidiStops.count(toEdge) != 0))) {
                 continue;
             }
             if (isConnnected(*routerUni, 
@@ -775,26 +776,29 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForStops(NBNetBuilder& nb) {
                 // make both stops bidirectional
                 // XXX figure out if it is sufficient to make one of the stops bidirectional
                 if (!fromEdge->isBidiRail(true) && fromEdge->getLaneSpreadFunction() == LANESPREAD_CENTER) {
-                    NBEdge* e2 = addBidiEdge(nb, fromEdge);
-                    if (e2 != nullptr) {
-                        addedBidiStops++;
-                        added += extendBidiEdges(nb, fromEdge->getToNode(), fromEdge);
-                        added += extendBidiEdges(nb, fromEdge->getFromNode(), e2);
-                    }
+                    addBidiStops.insert(fromEdge);
                 }
                 if (!toEdge->isBidiRail(true) && toEdge->getLaneSpreadFunction() == LANESPREAD_CENTER) {
-                    NBEdge* e2 = addBidiEdge(nb, toEdge);
-                    if (e2 != nullptr) {
-                        addedBidiStops++;
-                        added += extendBidiEdges(nb, toEdge->getToNode(), toEdge);
-                        added += extendBidiEdges(nb, toEdge->getFromNode(), e2);
-                    }
+                    addBidiStops.insert(toEdge);
                 }
             } else {
                 numDisconnected++;
             }
         }
     }
+    int addedBidiStops = 0;
+    for (NBEdge* edge : addBidiStops) {
+        if (!edge->isBidiRail()) {
+            NBEdge* e2 = addBidiEdge(nb, edge);
+            if (e2 != nullptr) {
+                added += extendBidiEdges(nb, edge->getToNode(), edge);
+                added += extendBidiEdges(nb, edge->getFromNode(), e2);
+            }
+        } else {
+            addedBidiStops++;
+        }
+    }
+
     if (addedBidiStops > 0 || numDisconnected > 0) {
         WRITE_MESSAGE("Added " + toString(addedBidiStops) + " bidi-edges for public transport stops and further " 
                 + toString(added) + " bidi-edges to ensure connectivity of stops (" 
