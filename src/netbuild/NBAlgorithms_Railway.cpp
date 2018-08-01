@@ -526,6 +526,7 @@ NBRailwayTopologyAnalyzer::reverseEdges(NBNetBuilder& nb) {
             [](const EdgeVector& a, const EdgeVector& b){ return a.size() < b.size(); });
     int numReversed = 0;
     std::set<NBNode*> affectedEndpoints;
+    std::set<std::string> reversedIDs;
     for (EdgeVector& seq : seqsToReverse) {
         NBNode* seqStart = seq.front()->getFromNode();
         NBNode* seqEnd = seq.back()->getToNode();
@@ -538,12 +539,18 @@ NBRailwayTopologyAnalyzer::reverseEdges(NBNetBuilder& nb) {
             for (NBEdge* e : seq) {
                 e->reinitNodes(e->getToNode(), e->getFromNode());
                 e->setGeometry(e->getGeometry().reverse());
+                reversedIDs.insert(e->getID());
             }
             numReversed++;
         }
     }
     if (numReversed > 0) {
         WRITE_MESSAGE("Reversed " + toString(numReversed) + " sequences");
+        for (auto& item : nb.getPTStopCont().getStops()) {
+            if (reversedIDs.count(item.second->getEdgeId())) {
+                item.second->findLaneAndComputeBusStopExtend(nb.getEdgeCont());
+            }
+        }
     }
 }
 
