@@ -12,5 +12,12 @@ switches
 # add bidirectional edges at disconnected stops
 stops
 
+# no edges must be added before stops because the buffer_stop heuristc already fixes the network
+# 
+stops_buffer
+
 # only one stop needs to be made bidirectional
 stops_1bidi
+
+# only one stop needs to be made bidirectional but the bidi-edges extend to the other one
+stops_1bidi_extend

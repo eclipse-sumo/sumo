@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Aug  1 10:56:55 2018 by Eclipse SUMO netconvert Version db333e2
+<!-- generated on Wed Aug  1 14:06:41 2018 by Eclipse SUMO netconvert Version 4179c84
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -41,33 +41,27 @@ SPDX-License-Identifier: EPL-2.0
 
 <railwayTopology>
     <railNodeType in="0" out="1">
-        <node id="gneJ44"/>
-        <node id="gneJ53"/>
+        <node id="12"/>
+        <node id="5"/>
     </railNodeType>
     <railNodeType in="1" out="0">
-        <node id="gneJ54"/>
+        <node id="4"/>
+        <node id="6"/>
     </railNodeType>
     <railNodeType in="1" out="1">
-        <node id="gneJ40"/>
-        <node id="gneJ43"/>
-        <node id="gneJ45"/>
-        <node id="gneJ49"/>
-        <node id="gneJ52"/>
+        <node id="1"/>
+        <node id="10"/>
+        <node id="11"/>
+        <node id="7"/>
     </railNodeType>
     <railNodeType in="2" out="2">
-        <node id="gneJ38"/>
-        <node id="gneJ39"/>
-        <node id="gneJ47"/>
-        <node id="gneJ48"/>
-    </railNodeType>
-    <railNodeType in="3" out="2">
-        <node id="gneJ46"/>
+        <node id="2"/>
+        <node id="3"/>
+        <node id="8"/>
+        <node id="9"/>
     </railNodeType>
     <bidiEdge id="a" bidi="-a"/>
-    <bidiEdge id="c" bidi="-c"/>
     <bidiEdge id="b" bidi="-b"/>
     <bidiEdge id="f" bidi="-f"/>
-    <bidiEdge id="g" bidi="-g"/>
     <bidiEdge id="gneE1" bidi="-gneE1"/>
-    <bidiEdge id="h" bidi="-h"/>
 </railwayTopology>

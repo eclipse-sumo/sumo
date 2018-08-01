@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jul 31 16:22:26 2018 by Eclipse SUMO netconvert Version 0b8c9cc
+<!-- generated on Wed Aug  1 12:32:22 2018 by Eclipse SUMO netconvert Version 4179c84
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -43,9 +43,5 @@ SPDX-License-Identifier: EPL-2.0
     <ptLine id="0" name="0" line="S46" type="light_rail" completeness="0.50">
         <busStop id="-stopC" name="stopC"/>
         <busStop id="-stopA" name="stopA"/>
-    </ptLine>
-    <ptLine id="1" name="1" line="S42" type="light_rail" completeness="0.20">
-        <busStop id="-stopF" name="stopF"/>
-        <busStop id="stopH" name="stopH"/>
     </ptLine>
 </additional>

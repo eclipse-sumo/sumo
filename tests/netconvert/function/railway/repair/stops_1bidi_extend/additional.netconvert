@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Aug  1 12:32:22 2018 by Eclipse SUMO netconvert Version 4179c84
+<!-- generated on Wed Aug  1 13:29:29 2018 by Eclipse SUMO netconvert Version 4179c84
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -39,16 +39,13 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<railwayTopology>
-    <railNodeType in="1" out="1">
-        <node id="gneJ40"/>
-        <node id="gneJ43"/>
-    </railNodeType>
-    <railNodeType in="2" out="2">
-        <node id="gneJ38"/>
-        <node id="gneJ39"/>
-    </railNodeType>
-    <bidiEdge id="a" bidi="-a"/>
-    <bidiEdge id="b" bidi="-b"/>
-    <bidiEdge id="c" bidi="-c"/>
-</railwayTopology>
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="-stopA" name="stopA" lane="-a_0" startPos="20.00" endPos="90.00" friendlyPos="true"/>
+    <busStop id="-stopC" name="stopC" lane="-c_0" startPos="22.87" endPos="62.87" friendlyPos="true"/>
+    <busStop id="-stopF" name="stopF" lane="-f_0" startPos="20.00" endPos="90.00" friendlyPos="true"/>
+    <busStop id="-stopH" name="stopH" lane="-h_0" startPos="30.33" endPos="80.33" friendlyPos="true"/>
+    <busStop id="stopA" name="stopA" lane="a_0" startPos="10.00" endPos="80.00" friendlyPos="true"/>
+    <busStop id="stopC" name="stopC" lane="c_0" startPos="30.00" endPos="70.00" friendlyPos="true"/>
+    <busStop id="stopF" name="stopF" lane="f_0" startPos="10.00" endPos="80.00" friendlyPos="true"/>
+    <busStop id="stopH" name="stopH" lane="h_0" startPos="20.00" endPos="70.00" friendlyPos="true"/>
+</additional>
