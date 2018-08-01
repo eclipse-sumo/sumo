@@ -140,6 +140,14 @@ MultiEntryExit::handleVariable(const std::string& objID, const int variable, Var
         return wrapper->wrapStringList(objID, variable, getIDList());
     case ID_COUNT:
         return wrapper->wrapInt(objID, variable, getIDCount());
+    case LAST_STEP_VEHICLE_NUMBER:
+        return wrapper->wrapInt(objID, variable, getLastStepVehicleNumber(objID));
+    case LAST_STEP_MEAN_SPEED:
+        return wrapper->wrapDouble(objID, variable, getLastStepMeanSpeed(objID));
+    case LAST_STEP_VEHICLE_ID_LIST:
+        return wrapper->wrapStringList(objID, variable, getLastStepVehicleIDs(objID));
+    case LAST_STEP_VEHICLE_HALTING_NUMBER:
+        return wrapper->wrapInt(objID, variable, getLastStepHaltingNumber(objID));
     default:
         return false;
     }
