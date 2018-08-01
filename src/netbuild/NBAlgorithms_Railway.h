@@ -58,19 +58,24 @@ public:
     /// routing edge
     class Track {
     public:
-        Track(NBEdge *e) : edge(e) {}
+        Track(NBEdge *e, int i=-1, const std::string& _id="") : 
+            edge(e),
+            index(i < 0 ? edge->getNumericalID() : i),
+            id(_id == "" ? edge->getID() : _id) {}
 
         const std::vector<Track*>& getSuccessors(SUMOVehicleClass /*svc*/) const { 
             return successors; 
         }
         const std::string& getID() const { 
-            return edge->getID();
+            return id;
         }
         int getNumericalID() const { 
-            return edge->getNumericalID();
+            return index;
         }
 
         const NBEdge* edge;
+        const int index;
+        const std::string id;
         std::vector<Track*> successors;
     };
     static double getTravelTimeStatic(const Track* const track, const NBVehicle* const veh, double time);

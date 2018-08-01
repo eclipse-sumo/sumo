@@ -52,13 +52,17 @@ public:
         return myPTStops.begin();
     }
 
-
     /** @brief Returns the pointer to the end of the stored pt stops
      * @return The iterator to the end of stored pt stops
      */
     std::map<std::string, NBPTStop*>::const_iterator end() const {
         return myPTStops.end();
     }
+
+    const std::map<std::string, NBPTStop*>& getStops() const {
+        return myPTStops;
+    }
+
 
     /** @brief remove stops on non existing (removed) edges
      *
