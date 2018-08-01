@@ -802,9 +802,7 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForStops(NBNetBuilder& nb) {
             }
             NBEdge* fromEdge = ec.getByID((*it)->getEdgeId());
             NBEdge* toEdge = ec.getByID((*(it + 1))->getEdgeId());
-            if (fromEdge == nullptr || toEdge == nullptr
-                    || ((fromEdge->isBidiRail() || addBidiStops.count(fromEdge) != 0)
-                        && (toEdge->isBidiRail() || addBidiStops.count(toEdge) != 0))) {
+            if (fromEdge == nullptr || toEdge == nullptr) {
                 continue;
             }
             if (stopTracks.count(fromEdge) == 0
@@ -813,6 +811,9 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForStops(NBNetBuilder& nb) {
             }
             std::vector<const Track*> route;
             router->compute(stopTracks[fromEdge].first, stopTracks[toEdge].second, &veh, 0, route);
+            //if (fromEdge->getID() == "356053025#1" && toEdge->getID() == "23256161") {
+            //    std::cout << "DEBUG: route=" << toString(route) << "\n";
+            //}
             if (route.size() > 0) {
                 assert(route.size() > 2);
                 for (int i = 1; i < route.size() - 1; ++i) {
@@ -836,6 +837,7 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForStops(NBNetBuilder& nb) {
                     }
                 }
             } else {
+                WRITE_WARNING("No connection found between stops on edge '" + fromEdge->getID() + "' and edge '" + toEdge->getID() + "'");
                 numDisconnected++;
             }
         }
