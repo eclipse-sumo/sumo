@@ -388,7 +388,7 @@
         <xsd:attribute name="power" type="xsd:float" use="optional"/>
         <xsd:attribute name="efficiency" type="xsd:float" use="optional"/>
         <xsd:attribute name="chargeInTransit" type="xsd:float" use="optional"/>
-        <xsd:attribute name="chargeDelay" type="xsd:int" use="optional"/>
+        <xsd:attribute name="chargeDelay" type="xsd:float" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="accessType">
