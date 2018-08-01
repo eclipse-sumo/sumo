@@ -141,10 +141,24 @@ TraCIServer::wrapStringList(const std::string& /* objID */, const int /* variabl
 
 
 bool
-TraCIServer::wrapPosition(const std::string& objID, const int variable, const libsumo::TraCIPosition& value) {
-    myWrapperStorage.writeUnsignedByte(POSITION_2D);
+TraCIServer::wrapPosition(const std::string& objID, const int variable, const libsumo::TraCIPosition& value, const bool includeZ) {
+    myWrapperStorage.writeUnsignedByte(includeZ ? POSITION_3D : POSITION_2D);
     myWrapperStorage.writeDouble(value.x);
     myWrapperStorage.writeDouble(value.y);
+    if (includeZ) {
+        myWrapperStorage.writeDouble(value.z);
+    }
+    return true;
+}
+
+
+bool
+TraCIServer::wrapColor(const std::string& objID, const int variable, const libsumo::TraCIColor& value) {
+    myWrapperStorage.writeUnsignedByte(TYPE_COLOR);
+    myWrapperStorage.writeUnsignedByte(value.r);
+    myWrapperStorage.writeUnsignedByte(value.g);
+    myWrapperStorage.writeUnsignedByte(value.b);
+    myWrapperStorage.writeUnsignedByte(value.a);
     return true;
 }
 

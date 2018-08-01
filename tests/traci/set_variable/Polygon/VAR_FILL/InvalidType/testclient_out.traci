@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Mon Jul 01 13:29:08 2013
+TraCITestClient output file. Date: Wed Aug 01 14:54:33 2018
 
 
 -> Command sent: <SimulationStep>:
@@ -6,7 +6,7 @@ TraCITestClient output file. Date: Mon Jul 01 13:29:08 2013
 
 -> Command sent: <SetValue>:
   domID=200 varID=85 objID=p1
-.. Answered with error to command (200), [description: 'fill' must be defined using an unsigned byte.]
+.. Answered with error to command (200), [description: 'fill' must be defined using an integer.]
 
 -> Command sent: <SimulationStep>:
 .. Command acknowledged (2), [description: ]

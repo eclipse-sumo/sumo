@@ -222,6 +222,12 @@ Polygon::handleVariable(const std::string& objID, const int variable, VariableWr
         return wrapper->wrapStringList(objID, variable, getIDList());
     case ID_COUNT:
         return wrapper->wrapInt(objID, variable, getIDCount());
+    case VAR_TYPE:
+        return wrapper->wrapString(objID, variable, getType(objID));
+    case VAR_COLOR:
+        return wrapper->wrapColor(objID, variable, getColor(objID));
+    case VAR_FILL:
+        return wrapper->wrapInt(objID, variable, getFilled(objID));
     default:
         return false;
     }

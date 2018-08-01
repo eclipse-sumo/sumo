@@ -38,78 +38,30 @@
 bool
 TraCIServerAPI_POI::processGet(TraCIServer& server, tcpip::Storage& inputStorage,
                                tcpip::Storage& outputStorage) {
-
-    // variable & id
-    int variable = inputStorage.readUnsignedByte();
-    std::string id = inputStorage.readString();
-    // check variable
-    if (variable != ID_LIST &&
-            variable != VAR_TYPE &&
-            variable != VAR_COLOR &&
-            variable != VAR_POSITION &&
-            variable != VAR_POSITION3D &&
-            variable != ID_COUNT &&
-            variable != VAR_PARAMETER) {
-        return server.writeErrorStatusCmd(CMD_GET_POI_VARIABLE, "Get PoI Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
-    }
-    // begin response building
-    tcpip::Storage tempMsg;
-    //  response-code, variableID, objectID
-    tempMsg.writeUnsignedByte(RESPONSE_GET_POI_VARIABLE);
-    tempMsg.writeUnsignedByte(variable);
-    tempMsg.writeString(id);
-    // process request
+    const int variable = inputStorage.readUnsignedByte();
+    const std::string id = inputStorage.readString();
+    server.initWrapper(RESPONSE_GET_POI_VARIABLE, variable, id);
     try {
-        switch (variable) {
-            case ID_LIST:
-                tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-                tempMsg.writeStringList(libsumo::POI::getIDList());
-                break;
-            case ID_COUNT:
-                tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                tempMsg.writeInt((int) libsumo::POI::getIDCount());
-                break;
-            case VAR_TYPE:
-                tempMsg.writeUnsignedByte(TYPE_STRING);
-                tempMsg.writeString(libsumo::POI::getType(id));
-                break;
-            case VAR_COLOR:
-                tempMsg.writeUnsignedByte(TYPE_COLOR);
-                tempMsg.writeUnsignedByte(libsumo::POI::getColor(id).r);
-                tempMsg.writeUnsignedByte(libsumo::POI::getColor(id).g);
-                tempMsg.writeUnsignedByte(libsumo::POI::getColor(id).b);
-                tempMsg.writeUnsignedByte(libsumo::POI::getColor(id).a);
-                break;
-            case VAR_POSITION:
-                tempMsg.writeUnsignedByte(POSITION_2D);
-                tempMsg.writeDouble(libsumo::POI::getPosition(id).x);
-                tempMsg.writeDouble(libsumo::POI::getPosition(id).y);
-                break;
-            case VAR_POSITION3D:
-                tempMsg.writeUnsignedByte(POSITION_3D);
-                tempMsg.writeDouble(libsumo::POI::getPosition(id).x);
-                tempMsg.writeDouble(libsumo::POI::getPosition(id).y);
-                tempMsg.writeDouble(libsumo::POI::getPosition(id).z);
-                break;
+        if (!libsumo::POI::handleVariable(id, variable, &server)) {
+            switch (variable) {
             case VAR_PARAMETER: {
                 std::string paramName = "";
                 if (!server.readTypeCheckingString(inputStorage, paramName)) {
                     return server.writeErrorStatusCmd(CMD_GET_POI_VARIABLE, "Retrieval of a parameter requires its name.", outputStorage);
                 }
-                tempMsg.writeUnsignedByte(TYPE_STRING);
-                tempMsg.writeString(libsumo::POI::getParameter(id, paramName));
+                server.getWrapperStorage().writeUnsignedByte(TYPE_STRING);
+                server.getWrapperStorage().writeString(libsumo::POI::getParameter(id, paramName));
                 break;
             }
             default:
-                break;
+                return server.writeErrorStatusCmd(CMD_GET_POI_VARIABLE, "Get PoI Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
+            }
         }
     } catch (libsumo::TraCIException& e) {
         return server.writeErrorStatusCmd(CMD_GET_POI_VARIABLE, e.what(), outputStorage);
     }
-
     server.writeStatusCmd(CMD_GET_POI_VARIABLE, RTYPE_OK, "", outputStorage);
-    server.writeResponseWithLength(outputStorage, tempMsg);
-
+    server.writeResponseWithLength(outputStorage, server.getWrapperStorage());
     return true;
 }
 

@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Mon Jul 01 13:29:03 2013
+TraCITestClient output file. Date: Wed Aug 01 14:54:31 2018
 
 
 -> Command sent: <SimulationStep>:
@@ -6,7 +6,7 @@ TraCITestClient output file. Date: Mon Jul 01 13:29:03 2013
 
 -> Command sent: <SetValue>:
   domID=200 varID=78 objID=p1
-.. Answered with error to command (200), [description: The shape must be given using an accoring type.]
+.. Answered with error to command (200), [description: The shape must be given using an according type.]
 
 -> Command sent: <SimulationStep>:
 .. Command acknowledged (2), [description: ]

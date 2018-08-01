@@ -754,8 +754,15 @@ Helper::SubscriptionWrapper::wrapStringList(const std::string& objID, const int 
 
 
 bool
-Helper::SubscriptionWrapper::wrapPosition(const std::string& objID, const int variable, const TraCIPosition& value) {
+Helper::SubscriptionWrapper::wrapPosition(const std::string& objID, const int variable, const TraCIPosition& value, const bool /* includeZ */) {
     myActiveResults[objID][variable] = std::make_shared<TraCIPosition>(value);
+    return true;
+}
+
+
+bool
+Helper::SubscriptionWrapper::wrapColor(const std::string& objID, const int variable, const TraCIColor& value) {
+    myActiveResults[objID][variable] = std::make_shared<TraCIColor>(value);
     return true;
 }
 

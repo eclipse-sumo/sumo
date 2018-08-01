@@ -18,13 +18,15 @@
 from __future__ import print_function
 from __future__ import absolute_import
 import os
-import subprocess
 import sys
-sys.path.append(os.path.join(
-    os.path.dirname(sys.argv[0]), "..", "..", "..", "..", "..", "tools"))
-import traci  # noqa
-import sumolib  # noqa
 
+SUMO_HOME = os.path.join(os.path.dirname(__file__), "..", "..", "..", "..", "..")
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", SUMO_HOME), "tools"))
+if len(sys.argv) > 1:
+    import libsumo as traci  # noqa
+else:
+    import traci  # noqa
+import sumolib  # noqa
 
 def check(poiID):
     print("pois", traci.poi.getIDList())
@@ -35,12 +37,7 @@ def check(poiID):
     print("color", traci.poi.getColor(poiID))
 
 
-sumoBinary = sumolib.checkBinary('sumo-gui')
-
-PORT = sumolib.miscutils.getFreeSocketPort()
-sumoProcess = subprocess.Popen(
-    "%s -S -Q -c sumo.sumocfg --remote-port %s" % (sumoBinary, PORT), shell=True, stdout=sys.stdout)
-traci.init(PORT)
+traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg"])
 for step in range(3):
     print("step", step)
     traci.simulationStep()
@@ -69,4 +66,3 @@ print("poi2 key='lane'", traci.poi.getParameter("poi2", "lane"))
 print("poi2 key='pos'", traci.poi.getParameter("poi2", "pos"))
 print("poi2 key='posLat'", traci.poi.getParameter("poi2", "posLat"))
 traci.close()
-sumoProcess.wait()

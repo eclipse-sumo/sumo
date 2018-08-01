@@ -20,7 +20,7 @@ from . import constants as tc
 
 _RETURN_VALUE_FUNC = {tc.VAR_TYPE: Storage.readString,
                       tc.VAR_SHAPE: Storage.readShape,
-                      tc.VAR_FILL: lambda result: bool(result.read("!B")[0]),
+                      tc.VAR_FILL: lambda result: bool(result.read("!i")[0]),
                       tc.VAR_COLOR: lambda result: result.read("!BBBB")}
 
 
@@ -95,10 +95,10 @@ class PolygonDomain(Domain):
         self._connection._sendExact()
 
     def setFilled(self, polygonID, filled):
-        """setFilled(string) -> bool
-        Returns whether the polygon is filled
+        """setFilled(string, bool) -> None
+        Sets the filled status of the polygon
         """
-        self._connection._sendUByteCmd(
+        self._connection._sendIntCmd(
             tc.CMD_SET_POLYGON_VARIABLE, tc.VAR_FILL, polygonID, (1 if filled else 0))
 
     def add(self, polygonID, shape, color, fill=False, polygonType="", layer=0):
