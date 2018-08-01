@@ -6,9 +6,11 @@ Warning: Essential unique string attribute 'id' of route is missing; route canno
 Warning: Format of essential unique string attribute 'id' of route is invalid; ID cannot be empty; route cannot be created
 Warning: There is another route with the same ID='route01'.
 Warning: Adding route 'route02' in GNEChange_Additional
-Warning: Essential list of strings attribute 'edges' of route with ID 'route03' is missing; route cannot be created
-Warning: Error parsing parameter edges. edge 'dummyEdge1'  doesn't exist.
-Warning: Error parsing parameter edges. edge 'dummyEdge1'  doesn't exist.
+Warning: Essential list of unique strings attribute 'edges' of route with ID 'route03' is missing; route cannot be created
+Warning: Error parsing parameter edges. edge 'dummyEdge1' doesn't exist.
+Warning: Routes needs at least one edge.
+Warning: Error parsing parameter edges. edge 'dummyEdge1' doesn't exist.
+Warning: Routes needs at least one edge.
 Warning: Adding route 'route06' in GNEChange_Additional
 Warning: Adding route 'route07' in GNEChange_Additional
 Warning: Adding route 'route08' in GNEChange_Additional
