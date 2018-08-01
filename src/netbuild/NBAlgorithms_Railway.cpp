@@ -52,13 +52,37 @@
 // static members
 // ===========================================================================
 
+// ---------------------------------------------------------------------------
+// Track methods
+// ---------------------------------------------------------------------------
+
+void 
+NBRailwayTopologyAnalyzer::Track::addSuccessor(Track* track) {
+    successors.push_back(track);
+    minPermissions &= track->edge->getPermissions();
+}
+
+const std::vector<NBRailwayTopologyAnalyzer::Track*>& 
+NBRailwayTopologyAnalyzer::Track::getSuccessors(SUMOVehicleClass svc) const {
+    if ((minPermissions & svc) != 0) {
+        return successors;
+    } else {
+        if (svcSuccessors.count(svc) == 0) {
+            std::vector<Track*> succ;
+            for (Track* t : successors) {
+                if ((t->edge->getPermissions() & svc) != 0) {
+                    succ.push_back(t);
+                }
+            }
+            svcSuccessors[svc] = succ;
+        }
+        return svcSuccessors[svc];
+    }
+}
+
 // ===========================================================================
 // method definitions
 // ===========================================================================
-// ---------------------------------------------------------------------------
-// NBRampsComputer
-// ---------------------------------------------------------------------------
-
 void
 NBRailwayTopologyAnalyzer::analyzeTopology(NBNetBuilder& nb) {
     getBrokenRailNodes(nb, true);
@@ -736,19 +760,19 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForStops(NBNetBuilder& nb) {
                     if (e1->getToNode() == node) {
                         if (e2->getFromNode() == node) {
                             // case 1) plain forward connection
-                            tracks[i]->successors.push_back(tracks[i2]);
+                            tracks[i]->addSuccessor(tracks[i2]);
                             // reverse edge (numerical id incremented by numEdges)
-                            tracks[i2 + numEdges]->successors.push_back(tracks[i + numEdges]);
+                            tracks[i2 + numEdges]->addSuccessor(tracks[i + numEdges]);
                         } else {
                             // case 2) both edges pointing towards each ohter
-                            tracks[i]->successors.push_back(tracks[i2 + numEdges]);
-                            tracks[i2]->successors.push_back(tracks[i + numEdges]);
+                            tracks[i]->addSuccessor(tracks[i2 + numEdges]);
+                            tracks[i2]->addSuccessor(tracks[i + numEdges]);
                         }
                     } else {
                         if (e2->getFromNode() == node) {
                             // case 3) both edges pointing away from each other
-                            tracks[i + numEdges]->successors.push_back(tracks[i2]);
-                            tracks[i2 + numEdges]->successors.push_back(tracks[i]);
+                            tracks[i + numEdges]->addSuccessor(tracks[i2]);
+                            tracks[i2 + numEdges]->addSuccessor(tracks[i]);
                         } else {
                             // already handled via case 1)
                         }
@@ -762,11 +786,11 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForStops(NBNetBuilder& nb) {
     for (auto& item : stopTracks) {
         const int index = item.first->getNumericalID();
         // start
-        item.second.first->successors.push_back(tracks[index]);
-        item.second.first->successors.push_back(tracks[index + numEdges]);
+        item.second.first->addSuccessor(tracks[index]);
+        item.second.first->addSuccessor(tracks[index + numEdges]);
         // end
-        tracks[index]->successors.push_back(item.second.second);
-        tracks[index + numEdges]->successors.push_back(item.second.second);
+        tracks[index]->addSuccessor(item.second.second);
+        tracks[index + numEdges]->addSuccessor(item.second.second);
     }
     // DEBUG
     /*
@@ -788,7 +812,6 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForStops(NBNetBuilder& nb) {
     std::set<NBEdge*> addBidiEdges;
     std::set<std::pair<NBPTStop*, NBPTStop*> > visited;
     for (NBPTLine* line : nb.getPTLineCont().getLines()) {
-        NBVehicle veh(line->getRef(), SVC_RAIL);
         std::vector<NBPTStop*> stops = line->getStops();
         if (stops.size() < 2) {
             continue;
@@ -809,6 +832,7 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForStops(NBNetBuilder& nb) {
                     || stopTracks.count(toEdge) == 0) {
                 continue;
             }
+            NBVehicle veh(line->getRef(), (SUMOVehicleClass)(fromEdge->getPermissions() & SVC_RAIL_CLASSES));
             std::vector<const Track*> route;
             router->compute(stopTracks[fromEdge].first, stopTracks[toEdge].second, &veh, 0, route);
             //if (fromEdge->getID() == "356053025#1" && toEdge->getID() == "23256161") {

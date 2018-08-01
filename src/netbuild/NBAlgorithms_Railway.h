@@ -61,11 +61,13 @@ public:
         Track(NBEdge *e, int i=-1, const std::string& _id="") : 
             edge(e),
             index(i < 0 ? edge->getNumericalID() : i),
-            id(_id == "" ? edge->getID() : _id) {}
+            id(_id == "" ? edge->getID() : _id),
+            minPermissions(edge->getPermissions())
+            {}
 
-        const std::vector<Track*>& getSuccessors(SUMOVehicleClass /*svc*/) const { 
-            return successors; 
-        }
+        void addSuccessor(Track* track);
+        const std::vector<Track*>& getSuccessors(SUMOVehicleClass svc) const;
+
         const std::string& getID() const { 
             return id;
         }
@@ -74,9 +76,13 @@ public:
         }
 
         NBEdge* edge;
+
+    private:
         const int index;
         const std::string id;
         std::vector<Track*> successors;
+        SVCPermissions minPermissions;
+        mutable std::map<SUMOVehicleClass, std::vector<Track*> > svcSuccessors;
     };
     static double getTravelTimeStatic(const Track* const track, const NBVehicle* const veh, double time);
 
