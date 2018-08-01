@@ -532,6 +532,8 @@ GNEConnection::getGenericParameters() const {
 
 void 
 GNEConnection::setGenericParametersStr(const std::string &value) {
+    // clear parameters
+    getNBEdgeConnection().clearParameter();
     // separate value in a vector of string using | as separator
     std::vector<std::string> parsedValues;
     StringTokenizer stValues(value, "|", true);

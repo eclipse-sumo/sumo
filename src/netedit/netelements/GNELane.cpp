@@ -941,6 +941,8 @@ GNELane::getGenericParameters() const {
 
 void 
 GNELane::setGenericParametersStr(const std::string &value) {
+    // clear parameters
+    myParentEdge.getNBEdge()->getLaneStruct(myIndex).clearParameter();
     // separate value in a vector of string using | as separator
     std::vector<std::string> parsedValues;
     StringTokenizer stValues(value, "|", true);

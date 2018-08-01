@@ -1128,6 +1128,8 @@ GNEEdge::getGenericParameters() const {
 
 void 
 GNEEdge::setGenericParametersStr(const std::string &value) {
+    // clear parameters
+    myNBEdge.clearParameter();
     // separate value in a vector of string using | as separator
     std::vector<std::string> parsedValues;
     StringTokenizer stValues(value, "|", true);

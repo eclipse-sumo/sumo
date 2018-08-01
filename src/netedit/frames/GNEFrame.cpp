@@ -591,11 +591,24 @@ GNEFrame::GenericParametersEditor::onCmdSetGenericParameter(FXObject*, FXSelecto
     // now check if there is duplicated parameters
     std::sort(parsedValues.begin(), parsedValues.end());
     for (auto i = parsedValues.begin(); i != parsedValues.end(); i++) {
-        if(((i+1) != parsedValues.end()) && (i == (i+1))) {
-            WRITE_WARNING("Generic Parameters wit the same key aren't allowed (" + (*i) + " - " + *(i+1) + ")");
-            myTextFieldGenericParameter->setTextColor(FXRGB(255, 0, 0));
-            myTextFieldGenericParameter->killFocus();
-            return 1;
+        if(((i+1) != parsedValues.end())) {
+            std::vector<std::string> firstKey, secondKey;
+            StringTokenizer stKey1(*i, "=", true);
+            StringTokenizer stKey2(*(i+1), "=", true);
+            //parse both keys
+            while (stKey1.hasNext()) {
+                firstKey.push_back(stKey1.next());
+            }
+            while (stKey2.hasNext()) {
+                secondKey.push_back(stKey2.next());
+            }
+            // compare both keys and stop if are equal
+            if((firstKey.size() != 2) || (secondKey.size() != 2) || (firstKey.front() == secondKey.front())) {
+                WRITE_WARNING("Generic Parameters wit the same key aren't allowed (" + (*i) + "," + *(i+1) + ")");
+                myTextFieldGenericParameter->setTextColor(FXRGB(255, 0, 0));
+                myTextFieldGenericParameter->killFocus();
+                return 1;
+            }
         }
     }
     // parsed generic parameters ok, then set text field black and continue
