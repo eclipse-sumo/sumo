@@ -73,7 +73,7 @@ public:
             return index;
         }
 
-        const NBEdge* edge;
+        NBEdge* edge;
         const int index;
         const std::string id;
         std::vector<Track*> successors;

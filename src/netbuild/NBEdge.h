@@ -357,7 +357,7 @@ public:
      */
     NBEdge(const std::string& id,
            NBNode* from, NBNode* to,
-           NBEdge* tpl,
+           const NBEdge* tpl,
            const PositionVector& geom = PositionVector(),
            int numLanes = -1);
 

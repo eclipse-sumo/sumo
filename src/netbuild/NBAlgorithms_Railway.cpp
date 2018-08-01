@@ -785,6 +785,7 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForStops(NBNetBuilder& nb) {
     int added = 0;
     int numDisconnected = 0;
     std::set<NBEdge*> addBidiStops;
+    std::set<NBEdge*> addBidiEdges;
     std::set<std::pair<NBPTStop*, NBPTStop*> > visited;
     for (NBPTLine* line : nb.getPTLineCont().getLines()) {
         NBVehicle veh(line->getRef(), SVC_RAIL);
@@ -814,25 +815,24 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForStops(NBNetBuilder& nb) {
             router->compute(stopTracks[fromEdge].first, stopTracks[toEdge].second, &veh, 0, route);
             if (route.size() > 0) {
                 assert(route.size() > 2);
-                const Track* start = route[1];
-                const Track* end = route[route.size() - 2];
-                //std::cout << "route=" << toString(route) << "\n";
-                if (start->getNumericalID() >= numEdges 
-                    // started in reverse
-                    && !fromEdge->isBidiRail(true)) {
-                    if (fromEdge->getLaneSpreadFunction() == LANESPREAD_CENTER) {
-                        addBidiStops.insert(fromEdge);
-                    } else {
-                        WRITE_WARNING("Stop on edge " + fromEdge->getID() + " can only be reached in reverse but edge has the wrong spreadType");
-                    }
-                }
-                if (end->getNumericalID() >= numEdges 
-                    // ended in reverse
-                    && !toEdge->isBidiRail(true)) {
-                    if (toEdge->getLaneSpreadFunction() == LANESPREAD_CENTER) {
-                        addBidiStops.insert(toEdge);
-                    } else {
-                        WRITE_WARNING("Stop on edge " + toEdge->getID() + " can only be reached in reverse but edge has the wrong spreadType");
+                for (int i = 1; i < route.size() - 1; ++i) {
+                    if (route[i]->getNumericalID() >= numEdges) {
+                        NBEdge* edge = route[i]->edge;
+                        if (addBidiEdges.count(edge) == 0) {
+                            if (!edge->isBidiRail(true)) {
+                                bool isStop = i == 1 || i == route.size() - 2;
+                                if (edge->getLaneSpreadFunction() == LANESPREAD_CENTER) {
+                                    addBidiEdges.insert(edge);
+                                    if (isStop) {
+                                        addBidiStops.insert(edge);
+                                    }
+                                } else {
+                                    if (isStop) {
+                                        WRITE_WARNING("Stop on edge " + fromEdge->getID() + " can only be reached in reverse but edge has the wrong spreadType");
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             } else {
@@ -840,24 +840,20 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForStops(NBNetBuilder& nb) {
             }
         }
     }
-    int addedBidiStops = 0;
-    for (NBEdge* edge : addBidiStops) {
+    for (NBEdge* edge : addBidiEdges) {
         if (!edge->isBidiRail()) {
             NBEdge* e2 = addBidiEdge(nb, edge);
             //std::cout << " add bidiEdge for stop at edge " << edge->getID() << "\n";
             if (e2 != nullptr) {
-                addedBidiStops++;
+                added++;
                 added += extendBidiEdges(nb, edge->getToNode(), edge);
                 added += extendBidiEdges(nb, edge->getFromNode(), e2);
             }
-        } else {
-            addedBidiStops++;
-            added--;
         }
     }
 
-    if (addedBidiStops > 0 || numDisconnected > 0) {
-        WRITE_MESSAGE("Added " + toString(addedBidiStops) + " bidi-edges for public transport stops and further " 
+    if (addBidiEdges.size() > 0 || numDisconnected > 0) {
+        WRITE_MESSAGE("Added " + toString(addBidiStops.size()) + " bidi-edges for public transport stops and a total of " 
                 + toString(added) + " bidi-edges to ensure connectivity of stops (" 
                 + toString(numDisconnected) + " stops remain disconnected)");
     }

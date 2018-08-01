@@ -21,3 +21,6 @@ stops_1bidi
 
 # only one stop needs to be made bidirectional but the bidi-edges extend to the other one
 stops_1bidi_extend
+
+# the route between stops requires new bidi edges but they are not reachable by extending from the stops themselves
+stops_bidi_between

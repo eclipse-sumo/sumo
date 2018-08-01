@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sat Jul 28 14:37:49 2018 by Eclipse SUMO netconvert Version 635b715
+<!-- generated on Wed Aug  1 14:50:38 2018 by Eclipse SUMO netconvert Version 8c940fc
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <type-files value="/home/kobo/dlr/sumo/data/typemap/osmNetconvert.typ.xml,/home/kobo/dlr/sumo/data/typemap/osmNetconvertUrbanDe.typ.xml,/home/kobo/dlr/sumo/data/typemap/osmNetconvertPedestrians.typ.xml,/home/kobo/dlr/sumo/data/typemap/osmNetconvertShips.typ.xml,/home/kobo/dlr/sumo/data/typemap/osmNetconvertBicycle.typ.xml"/>
-        <osm-files value="/home/kobo/.texttest/tmp/dynamic_gui.28Jul143731.25123/tools/import/OSM/webWizard/test/osm_bbox.osm.xml"/>
+        <type-files value="/scr1/sumo/data/typemap/osmNetconvert.typ.xml,/scr1/sumo/data/typemap/osmNetconvertUrbanDe.typ.xml,/scr1/sumo/data/typemap/osmNetconvertPedestrians.typ.xml,/scr1/sumo/data/typemap/osmNetconvertShips.typ.xml,/scr1/sumo/data/typemap/osmNetconvertBicycle.typ.xml"/>
+        <osm-files value="/scr2/texttest_tmp/dynamic_gui.01Aug145035.8975/tools/import/OSM/webWizard/test/osm_bbox.osm.xml"/>
     </input>
 
     <output>
-        <output-file value="/home/kobo/.texttest/tmp/dynamic_gui.28Jul143731.25123/tools/import/OSM/webWizard/test/osm.net.xml"/>
+        <output-file value="/scr2/texttest_tmp/dynamic_gui.01Aug145035.8975/tools/import/OSM/webWizard/test/osm.net.xml"/>
         <output.street-names value="true"/>
         <output.original-names value="true"/>
-        <ptstop-output value="/home/kobo/.texttest/tmp/dynamic_gui.28Jul143731.25123/tools/import/OSM/webWizard/test/osm_stops.add.xml"/>
-        <ptline-output value="/home/kobo/.texttest/tmp/dynamic_gui.28Jul143731.25123/tools/import/OSM/webWizard/test/osm_ptlines.xml"/>
+        <ptstop-output value="/scr2/texttest_tmp/dynamic_gui.01Aug145035.8975/tools/import/OSM/webWizard/test/osm_stops.add.xml"/>
+        <ptline-output value="/scr2/texttest_tmp/dynamic_gui.01Aug145035.8975/tools/import/OSM/webWizard/test/osm_ptlines.xml"/>
     </output>
 
     <projection>
@@ -141,7 +141,7 @@
         <access lane="377634148#0_0" pos="0.20" length="5.81" friendlyPos="1"/>
         <access lane="377634148#1_0" pos="0.00" length="3.88" friendlyPos="1"/>
     </busStop>
-    <busStop id="1823298700" name="S+U Friedrichstraße" lane="195411594#1_0" startPos="5.78" endPos="30.78" friendlyPos="true">
+    <busStop id="1823298700" name="S+U Friedrichstraße" lane="195411594#1_0" startPos="43.28" endPos="68.28" friendlyPos="true">
         <access lane="43185731_0" pos="0.00" length="14.29" friendlyPos="1"/>
         <access lane="465376239_0" pos="53.43" length="15.86" friendlyPos="1"/>
         <access lane="465376241_0" pos="0.00" length="15.08" friendlyPos="1"/>
@@ -262,7 +262,7 @@
         <access lane="483624527_0" pos="0.00" length="11.89" friendlyPos="1"/>
         <access lane="483624528_0" pos="3.08" length="15.13" friendlyPos="1"/>
     </busStop>
-    <busStop id="247600965" name="S+U Friedrichstraße" lane="22820560#2_0" startPos="11.82" endPos="36.82" friendlyPos="true">
+    <busStop id="247600965" name="S+U Friedrichstraße" lane="22820560#2_0" startPos="37.19" endPos="62.19" friendlyPos="true">
         <access lane="175885743_0" pos="4.47" length="26.10" friendlyPos="1"/>
         <access lane="465376239_0" pos="22.11" length="21.54" friendlyPos="1"/>
         <access lane="465376240_0" pos="47.91" length="17.02" friendlyPos="1"/>
