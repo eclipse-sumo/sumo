@@ -285,7 +285,7 @@ GNEAdditionalHandler::parseAndBuildCalibratorRoute(const SUMOSAXAttributes& attr
         // check that all elements are valid
         if (myViewNet->getNet()->retrieveAdditional(SUMO_TAG_ROUTE, routeID, false) != nullptr) {
             WRITE_WARNING("There is another " + toString(tag) + " with the same ID='" + routeID + "'.");
-        } else if (edges.size() < 0) {
+        } else if (edges.size() == 0) {
             WRITE_WARNING("Routes needs at least one edge.");
         } else {
             myLastInsertedAdditional = buildCalibratorRoute(myViewNet, myUndoAdditionals, routeID, edges, color);
@@ -444,7 +444,7 @@ GNEAdditionalHandler::parseAndBuildVariableSpeedSign(const SUMOSAXAttributes& at
         // check that all elements are valid
         if (myViewNet->getNet()->retrieveAdditional(tag, id, false) != nullptr) {
             WRITE_WARNING("There is another " + toString(tag) + " with the same ID='" + id + "'.");
-        } else if (lanes.size() <= 0) {
+        } else if (lanes.size() == 0) {
             WRITE_WARNING("A Variable Speed Sign needs at least one lane.");
         } else {
             myLastInsertedAdditional = buildVariableSpeedSign(myViewNet, myUndoAdditionals, id, pos, lanes, name, false);

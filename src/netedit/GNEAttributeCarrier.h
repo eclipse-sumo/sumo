@@ -677,6 +677,16 @@ public:
                 errorFormat = "RouteProbe ID contains invalid characters; ";
                 parsedOk = false;
             }
+            // set extra check for list of edges
+            if ((attribute == SUMO_ATTR_EDGES) && parsedAttribute.empty()) {
+                errorFormat = "List of edges cannot be empty; ";
+                parsedOk = false;
+            }
+            // set extra check for list of lanes
+            if ((attribute == SUMO_ATTR_LANES) && parsedAttribute.empty()) {
+                errorFormat = "List of lanes cannot be empty; ";
+                parsedOk = false;
+            }
             // If attribute has an invalid format
             if (!parsedOk) {
                 // if attribute is optional and has a default value, obtain it as string. In other case, abort.

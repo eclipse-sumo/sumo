@@ -704,7 +704,7 @@ GNEAttributeCarrier::parse(GNENet* net, const std::string& value) {
         if(retrievedEdge) {
             parsedEdges.push_back(net->retrieveEdge(i));
         } else {
-            throw FormatException("Error parsing parameter " + toString(SUMO_ATTR_EDGES) + ". " + toString(SUMO_TAG_EDGE) + " '" + i + "'  doesn't exist.");
+            throw FormatException("Error parsing parameter " + toString(SUMO_ATTR_EDGES) + ". " + toString(SUMO_TAG_EDGE) + " '" + i + "' doesn't exist.");
         }
     }
     return parsedEdges;
@@ -1836,7 +1836,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "The id of Route", 
             "");
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_EDGES,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_UNIQUE,
             "The edges the vehicle shall drive along, given as their ids, separated using spaces", 
             "");
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_COLOR,
