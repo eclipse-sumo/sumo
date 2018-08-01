@@ -1,4 +1,4 @@
-<additionals>
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <vaporizer id="1" begin="5.00" end="15.00">
 	
 		<!-- generic parameter -->
@@ -26,4 +26,4 @@
 		<param/>
 		
 	</vaporizer>
-</additionals>
+</additional>

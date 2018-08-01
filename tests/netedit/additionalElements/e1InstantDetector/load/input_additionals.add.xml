@@ -1,4 +1,4 @@
-<additionals>
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- Without errors -->
     <instantInductionLoop id="E1Instant_01" lane="gneE0_0" pos="3" freq="100.00" file="instantInductionLoop_01.txt" friendlyPos="0"/>
 
@@ -62,4 +62,4 @@
 	<!-- vvalid name -->
     <instantInductionLoop id="E1Instant_22" lane="gneE1_0" pos="13" name="customName" freq="120.00" file="instantInductionLoop_23.txt" vTypes="taxi bus" friendlyPos="1"/>  	
     
-</additionals>
+</additional>

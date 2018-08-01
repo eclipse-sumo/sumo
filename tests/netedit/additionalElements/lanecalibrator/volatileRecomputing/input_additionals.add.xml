@@ -1,4 +1,4 @@
-<additionals>
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <calibrator id="laneCalibrator_gneE0_0_0" lane="gneE0_0" pos="0.00" freq="100.00" output="laneCalibrator_gneE0_0_0.txt"/>
     <calibrator id="laneCalibrator_gneE1_0_0" lane="gneE1_0" pos="0.00" freq="100.00" output="laneCalibrator_gneE1_0_0.txt"/>
     <calibrator id="laneCalibrator_gneE2_0_0" lane="gneE2_0" pos="0.00" freq="100.00" output="laneCalibrator_gneE2_0_0.txt"/>
@@ -7,4 +7,4 @@
     <calibrator id="laneCalibrator_gneE2_3_0" lane="gneE2_3" pos="0.00" freq="100.00" output="laneCalibrator_gneE2_3_0.txt"/>
     <calibrator id="laneCalibrator_gneE2_4_0" lane="gneE2_4" pos="0.00" freq="100.00" output="laneCalibrator_gneE2_4_0.txt"/>
     <calibrator id="laneCalibrator_gneE4_0_0" lane="gneE4_0" pos="0.00" freq="100.00" output="laneCalibrator_gneE4_0_0.txt"/>
-</additionals>
+</additional>

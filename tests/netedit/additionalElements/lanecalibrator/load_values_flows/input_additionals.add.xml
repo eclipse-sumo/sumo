@@ -1,4 +1,4 @@
-<additionals>
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
 	<!-- Calibrator with Flows (and one Route and one Vehicle type) -->
 	<calibrator id="calibratorFlows" edge="gneE0" pos="20.00" freq="100.00" output="calibratorFlows.txt">
 	
@@ -616,4 +616,4 @@
 	<!-- Flow without calibrator (must not be loaded) -->
 	<flow id="flowWithoutCalibrator" type="routeWithoutCalibrator" route="typeWithoutCalibrator" speed="10" vehsPerHour="10" begin="0" end="100" color="1,1,0" departLane="first" departPos="base" departSpeed="0" arrivalLane="current" arrivalPos="max" arrivalSpeed="current" line="line" personNumber="0" containerNumber="0" reroute="false" via="gneE0 gneE1" departPosLat="center" arrivalPosLat="center"/>
 	
-</additionals>
+</additional>

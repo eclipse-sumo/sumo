@@ -1,4 +1,4 @@
-<additionals>
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- E3 A -->
 	<e3Detector id="e3Detector_A" freq="100.00" file="e3Detector_00.txt" name="A" timeThreshold="1.00" speedThreshold="1.39" pos="7.50,-2">
 		<detEntry lane="gneE1_0" pos="5" friendlyPos="0"/>
@@ -11,4 +11,4 @@
 		<detExit lane="gneE1_0" pos="30" friendlyPos="0"/>
 	</e3Detector>
 	
-</additionals>
+</additional>

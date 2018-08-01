@@ -1,7 +1,7 @@
-<additionals>
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- Bus A -->
     <parkingArea id="parkingAreaA" lane="gneE0_0" startPos="5" endPos="10" roadsideCapacity="0" width="5.00" length="7.00" angle="0.00" name="parkingArea1" friendlyPos="true"/>
 
 	<!-- Bus B -->
     <parkingArea id="parkingAreaB" lane="gneE0_0" startPos="15" endPos="20" roadsideCapacity="10" width="6.00" length="8.00" angle="30.00" name="parkingArea2" friendlyPos="false"/>
-</additionals>
+</additional>

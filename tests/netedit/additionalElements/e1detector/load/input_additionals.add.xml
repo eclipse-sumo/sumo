@@ -1,4 +1,4 @@
-<additionals>
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- Without errors -->
     <e1Detector id="E1_01" lane="gneE0_0" pos="3" freq="100.00" file="e1Detector_01.txt" vTypes="bus taxi private" friendlyPos="0"/>
 
@@ -83,4 +83,4 @@
 	<!-- valid name -->
     <e1Detector id="E1_25" lane="gneE1_0" pos="15" freq="120.00" file="e1Detector_23.txt" vTypes="taxi bus" friendlyPos="1" name="custom Name"/>    
     
-</additionals>
+</additional>

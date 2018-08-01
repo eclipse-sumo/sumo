@@ -1,4 +1,4 @@
-<additionals>
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <busStop id="busStop_gneE1_0_0" lane="gneE1_0" startPos="35.00" endPos="45.00" friendlyPos="0"/>
     <calibrator id="calibrator_gneE1_0_0" lane="gneE1_0" pos="5.00" freq="100.00" output="calibrator_gneE1_0_0.txt"/>
     <calibrator id="calibrator_gneE1_1" edge="gneE1" pos="10.00" freq="100.00" output="calibrator_gneE1_1_1.txt"/>
@@ -15,4 +15,4 @@
     <routeProbe id="routeProbe_gneE1_0" edge="gneE1" freq="100.00" file="routeProbe_gneE1_0.txt" begin="0.00"/>
     <vaporizer edge="gneE1" begin="0.00" end="10.00"/>
     <variableSpeedSign id="variableSpeedSign_0" lanes="gneE1_0" pos="19.52,-14.87"/>
-</additionals>
+</additional>

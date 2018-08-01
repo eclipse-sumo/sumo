@@ -1,4 +1,4 @@
-<additionals>
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <instantInductionLoop id="E1Instant_01" lane="gneE0_0" pos="3" freq="100.00" file="instantInductionLoop_01.txt" friendlyPos="0">
 	
 		<!-- generic parameter -->
@@ -26,4 +26,4 @@
 		<param/>
 		
 	</instantInductionLoop>
-</additionals>
+</additional>

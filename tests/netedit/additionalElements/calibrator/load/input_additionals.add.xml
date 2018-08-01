@@ -1,4 +1,4 @@
-<additionals>
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
 	<!-- default calibrator -->
     <calibrator id="calibrator01" edge="gneE0" pos="0.00" freq="100.00" output="calibrator01.txt"/>
 	
@@ -71,4 +71,4 @@
 	<!-- valid output -->
 	<calibrator id="calibrator20" edge="gneE0" pos="34.00" freq="100.00" output="ownOutput.txt"/>
 	
-</additionals>
+</additional>

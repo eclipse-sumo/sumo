@@ -1,4 +1,4 @@
-<additionals>
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- Without errors -->
     <e2Detector id="E2_01" lane="gneE0_0" pos="1" length="10.00" freq="100.00" file="e2Detector_01.txt" cont="0" timeThreshold="1.00" speedThreshold="1.39" jamThreshold="10.00" friendlyPos="0"/>
 
@@ -140,4 +140,4 @@
 	<!-- valid name-->
     <e2Detector id="E2_43" lane="gneE0_0" pos="37" length="5.00" freq="120.00" file="e2Detector_41.txt" name="valid name" cont="0" timeThreshold="1.00" speedThreshold="1.39" jamThreshold="12.00" friendlyPos="1"/>
 
-</additionals>
+</additional>

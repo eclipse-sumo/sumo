@@ -1,4 +1,4 @@
-<additionals>
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- Without errors and without name -->
     <parkingArea id="parkingArea_00" lane="gneE0_0" startPos="5" endPos="10" roadsideCapacity="0" width="12.00" length="5.00" angle="0.00" friendlyPos="false"/>
     
@@ -109,4 +109,4 @@
 	
 	<!-- valid angle -->
     <parkingArea id="parkingArea_32" lane="gneE1_0" startPos="33" endPos="38" roadsideCapacity="4" width="12.00" length="37.5" angle="0.00" name="parkingArea" friendlyPos="true"/>
-</additionals>
+</additional>

@@ -1,4 +1,4 @@
-<additionals>
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- Without errors and without name -->
     <containerStop id="containerStop_00" lane="gneE0_0" startPos="5" endPos="10" lines="line1 line2" friendlyPos="false"/>
 	
@@ -26,4 +26,4 @@
 	<!-- empty generic parameter -->
 	<param/>
 	
-</additionals>
+</additional>
