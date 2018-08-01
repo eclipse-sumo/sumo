@@ -48,7 +48,7 @@ public:
      * @param[in] friendlyPos enable or disable friendly positions
      * @param[in] block movement enable or disable additional movement
      */
-    GNEDetectorE1(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double pos, double freq, const std::string& filename, const std::string& name, const std::string& vehicleTypes, bool friendlyPos, bool blockMovement);
+    GNEDetectorE1(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double pos, double freq, const std::string& filename, const std::string& vehicleTypes, const std::string& name, bool friendlyPos, bool blockMovement);
 
     /// @brief Destructor
     ~GNEDetectorE1();
@@ -93,10 +93,6 @@ public:
      */
     bool isValid(SumoXMLAttr key, const std::string& value);
     /// @}
-
-protected:
-    /// @brief attribute vehicle types
-    std::string myVehicleTypes;
 
 private:
     /// @brief set attribute after validation

@@ -36,13 +36,13 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/xml/SUMOSAXHandler.h>
-
-#include "GNEDetector.h"
 #include <netedit/netelements/GNELane.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
+
+#include "GNEDetector.h"
 
 
 // ===========================================================================
@@ -50,12 +50,13 @@
 // ===========================================================================
 
 GNEDetector::GNEDetector(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, GNELane* lane,
-                         double pos, double freq, const std::string& filename, const std::string& name, bool friendlyPos, bool blockMovement) :
+                         double pos, double freq, const std::string& filename, const std::string& vehicleTypes, const std::string& name, bool friendlyPos, bool blockMovement) :
     GNEAdditional(id, viewNet, type, tag, name, blockMovement),
     myLane(lane),
     myPositionOverLane(pos),
     myFreq(freq),
     myFilename(filename),
+    myVehicleTypes(vehicleTypes),
     myFriendlyPosition(friendlyPos) {
 }
 

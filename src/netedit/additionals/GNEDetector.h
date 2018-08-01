@@ -43,12 +43,13 @@ public:
      * @param[in] lane Lane of this detector belongs
      * @param[in] pos position of the detector on the lane
      * @param[in] freq the aggregation period the values the detector collects shall be summed up.
+     * @param[in] vehicleTypes space separated list of vehicle type ids to consider
      * @param[in] filename The path to the output file.
      * @param[in] name detector name
      * @param[in] friendlyPos enable or disable friendly positions
      * @param[in] block movement enable or disable additional movement
      */
-    GNEDetector(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, GNELane* lane, double pos, double freq, const std::string& filename, const std::string& name, bool friendlyPos, bool blockMovement);
+    GNEDetector(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, GNELane* lane, double pos, double freq, const std::string& filename, const std::string& vehicleTypes, const std::string& name, bool friendlyPos, bool blockMovement);
 
     /**@brief Constructor.
      * @param[in] additionalParent additional parent of this detector (ID will be generated automatically)
@@ -153,6 +154,9 @@ protected:
 
     /// @brief The path to the output file
     std::string myFilename;
+
+    /// @brief attribute vehicle types
+    std::string myVehicleTypes;
 
     /// @brief Flag for friendly position
     bool myFriendlyPosition;

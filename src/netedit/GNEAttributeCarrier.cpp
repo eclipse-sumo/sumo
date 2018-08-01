@@ -1507,6 +1507,10 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             ATTRPROPERTY_STRING | ATTRPROPERTY_FILENAME | ATTRPROPERTY_DEFAULTVALUE,
             "The path to the output file", 
             "");
+        myAllowedTags[currentTag].addAttribute(SUMO_ATTR_VTYPES,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            "Space separated list of vehicle type ids to consider", 
+            "");
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD,
             ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting)", 
@@ -1548,6 +1552,10 @@ GNEAttributeCarrier::fillAttributeCarriers() {
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_FILE,
             ATTRPROPERTY_STRING | ATTRPROPERTY_FILENAME | ATTRPROPERTY_DEFAULTVALUE,
             "The path to the output file", 
+            "");
+        myAllowedTags[currentTag].addAttribute(SUMO_ATTR_VTYPES,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            "Space separated list of vehicle type ids to consider", 
             "");
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD,
             ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
@@ -1618,6 +1626,10 @@ GNEAttributeCarrier::fillAttributeCarriers() {
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_FILE,
             ATTRPROPERTY_STRING | ATTRPROPERTY_FILENAME | ATTRPROPERTY_DEFAULTVALUE,
             "The path to the output file", 
+            "");
+        myAllowedTags[currentTag].addAttribute(SUMO_ATTR_VTYPES,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            "Space separated list of vehicle type ids to consider", 
             "");
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_FRIENDLY_POS,
             ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,

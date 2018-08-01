@@ -51,8 +51,8 @@
 // member method definitions
 // ===========================================================================
 
-GNEDetectorE1Instant::GNEDetectorE1Instant(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double pos, const std::string& filename, const std::string& name, bool friendlyPos, bool blockMovement) :
-    GNEDetector(id, viewNet, GLO_E1DETECTOR_INSTANT, SUMO_TAG_INSTANT_INDUCTION_LOOP, lane, pos, 0, filename, name, friendlyPos, blockMovement) {
+GNEDetectorE1Instant::GNEDetectorE1Instant(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double pos, const std::string& filename, const std::string& vehicleTypes, const std::string& name, bool friendlyPos, bool blockMovement) :
+    GNEDetector(id, viewNet, GLO_E1DETECTOR_INSTANT, SUMO_TAG_INSTANT_INDUCTION_LOOP, lane, pos, 0, filename, vehicleTypes, name, friendlyPos, blockMovement) {
 }
 
 
@@ -217,6 +217,8 @@ GNEDetectorE1Instant::getAttribute(SumoXMLAttr key) const {
             return myAdditionalName;
         case SUMO_ATTR_FILE:
             return myFilename;
+        case SUMO_ATTR_VTYPES:
+            return myVehicleTypes;
         case SUMO_ATTR_FRIENDLY_POS:
             return toString(myFriendlyPosition);
         case GNE_ATTR_BLOCK_MOVEMENT:
@@ -240,6 +242,7 @@ GNEDetectorE1Instant::setAttribute(SumoXMLAttr key, const std::string& value, GN
         case SUMO_ATTR_POSITION:
         case SUMO_ATTR_NAME:
         case SUMO_ATTR_FILE:
+        case SUMO_ATTR_VTYPES:
         case SUMO_ATTR_FRIENDLY_POS:
         case GNE_ATTR_BLOCK_MOVEMENT:
         case GNE_ATTR_SELECTED:
@@ -269,6 +272,12 @@ GNEDetectorE1Instant::isValid(SumoXMLAttr key, const std::string& value) {
             return isValidName(value);
         case SUMO_ATTR_FILE:
             return isValidFilename(value);
+        case SUMO_ATTR_VTYPES:
+            if(value.empty()) {
+                return true;
+            } else {
+                return isValidListOfIDs(value);
+            }
         case SUMO_ATTR_FRIENDLY_POS:
             return canParse<bool>(value);
         case GNE_ATTR_BLOCK_MOVEMENT:
@@ -301,6 +310,9 @@ GNEDetectorE1Instant::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_FILE:
             myFilename = value;
+            break;
+        case SUMO_ATTR_VTYPES:
+            myVehicleTypes = value;
             break;
         case SUMO_ATTR_FRIENDLY_POS:
             myFriendlyPosition = parse<bool>(value);
