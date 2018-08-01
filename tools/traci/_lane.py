@@ -31,11 +31,11 @@ def _readLinks(result):
         result.read("!B")                           # Type String
         approachedInternal = result.readString()
         result.read("!B")                           # Type Byte
-        hasPrio = bool(result.read("!B"))
+        hasPrio = bool(result.read("!B")[0])
         result.read("!B")                           # Type Byte
-        isOpen = bool(result.read("!B"))
+        isOpen = bool(result.read("!B")[0])
         result.read("!B")                           # Type Byte
-        hasFoe = bool(result.read("!B"))
+        hasFoe = bool(result.read("!B")[0])
         result.read("!B")                           # Type String
         state = result.readString()
         result.read("!B")                           # Type String
