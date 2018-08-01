@@ -11,3 +11,6 @@ switches
 
 # add bidirectional edges at disconnected stops
 stops
+
+# only one stop needs to be made bidirectional
+stops_1bidi
