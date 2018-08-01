@@ -424,6 +424,9 @@ NBEdge::init(int noLanes, bool tryIgnoreNodePositions, const std::string& origID
     if (myFrom == 0 || myTo == 0) {
         throw ProcessError("At least one of edge's '" + myID + "' nodes is not known.");
     }
+    if (!SUMOXMLDefinitions::isValidID(myID)) {
+        throw ProcessError("Invalid edge id '" + myID + "'.");
+    }
     // revisit geometry
     //  should have at least two points at the end...
     //  and in dome cases, the node positions must be added

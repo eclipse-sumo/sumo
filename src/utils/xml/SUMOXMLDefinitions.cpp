@@ -779,5 +779,14 @@ SUMOXMLDefinitions::getEdgeIDFromLane(const std::string laneID) {
     return laneID.substr(0, laneID.rfind('_'));
 }
 
+bool
+SUMOXMLDefinitions::isValidID(const std::string& value) {
+    if(value.size() == 0) {
+        return false;
+    } else {
+        return value.find_first_of(" \t\n\r@$%^&|\\{}*'\";:<>") == std::string::npos;
+    }
+}
+
 /****************************************************************************/
 

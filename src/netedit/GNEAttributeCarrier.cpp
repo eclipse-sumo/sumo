@@ -612,7 +612,7 @@ template<> SUMOVehicleClass
 GNEAttributeCarrier::parse(const std::string& string) {
     if (string.size() == 0) {
         throw EmptyData();
-    } else if (SumoVehicleClassStrings.hasString(string) == false) {
+    } else if (!SumoVehicleClassStrings.hasString(string)) {
         return SVC_IGNORING;
     } else {
         return SumoVehicleClassStrings.get(string);
@@ -644,7 +644,7 @@ GNEAttributeCarrier::parse(const std::string& string) {
 
 template<> SUMOVehicleShape
 GNEAttributeCarrier::parse(const std::string& string) {
-    if ((string == "unknown") || (SumoVehicleShapeStrings.hasString(string) == false)) {
+    if ((string == "unknown") || (!SumoVehicleShapeStrings.hasString(string))) {
         return SVS_UNKNOWN;
     } else {
         return SumoVehicleShapeStrings.get(string);
@@ -803,11 +803,7 @@ GNEAttributeCarrier::getID() const {
 
 bool
 GNEAttributeCarrier::isValidID(const std::string& value) {
-    if(value.size() == 0) {
-        return false;
-    } else {
-        return value.find_first_of(" \t\n\r@$%^&/|\\{}*'\";:<>") == std::string::npos;
-    }
+    return SUMOXMLDefinitions::isValidID(value);
 }
 
 
