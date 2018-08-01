@@ -256,23 +256,18 @@ class Connection:
     def _addSubscriptionFilter(self, filterType, params=None):
         command = tc.CMD_ADD_SUBSCRIPTION_FILTER
         self._queue.append(command)
-        if filterType == tc.FILTER_TYPE_NONE \
-                or filterType == tc.FILTER_TYPE_NOOPPOSITE \
-                or filterType == tc.FILTER_TYPE_CF_MANEUVER \
-                or filterType == tc.FILTER_TYPE_LC_MANEUVER \
-                or filterType == tc.FILTER_TYPE_TURN_MANEUVER:
+        if filterType in (tc.FILTER_TYPE_NONE, tc.FILTER_TYPE_NOOPPOSITE, 
+                          tc.FILTER_TYPE_CF_MANEUVER, tc.FILTER_TYPE_LC_MANEUVER, tc.FILTER_TYPE_TURN_MANEUVER):
             # filter without parameter
             assert(params is None)
             length = 1 + 1 + 1  # length + CMD + FILTER_ID
             self._string += struct.pack("!BBB", length, command, filterType)
-        elif filterType == tc.FILTER_TYPE_DOWNSTREAM_DIST \
-                or filterType == tc.FILTER_TYPE_UPSTREAM_DIST:
+        elif filterType in (tc.FILTER_TYPE_DOWNSTREAM_DIST, tc.FILTER_TYPE_UPSTREAM_DIST):
             # filter with float parameter
             assert(type(params) is float)
             length = 1 + 1 + 1 + 1 + 8  # length + CMD + FILTER_ID + floattype + float
             self._string += struct.pack("!BBBd", length, command, filterType, tc.TYPE_FLOAT, params)
-        elif filterType == tc.FILTER_TYPE_VCLASS \
-                or filterType == tc.FILTER_TYPE_VTYPE:
+        elif filterType in (tc.FILTER_TYPE_VCLASS, tc.FILTER_TYPE_VTYPE):
             # filter with list(string) parameter
             try:
                 l = len(params)
@@ -294,12 +289,8 @@ class Connection:
                 l = len(params)
             except:
                 raise TraCIException("Filter type lanes requires index list as parameter.")
-            length = 1 + 1 + 1 + 1 + 1 + l  # length + CMD + FILTER_ID + TYPE_STRINGLIST + length(list) as ubyte + lane-indices
-            if length <= 255:
-                self._string += struct.pack("!BBBi", length, command, filterType, l)
-            else:
-                length += 4  # extended msg length
-                self._string += struct.pack("!BiBBi", 0, length, command, filterType, l)
+            length = 1 + 1 + 1 + 1 + l  # length + CMD + FILTER_ID + length(list) as ubyte + lane-indices
+            self._string += struct.pack("!BBBB", length, command, filterType, l)
             for i in params:
                 if i <= -128 or i >= 128:
                     raise TraCIException("Filter type lanes: maximal lane index is 127.")

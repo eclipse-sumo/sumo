@@ -157,9 +157,7 @@ TraCIServer::getWrapperStorage() {
 
 
 TraCIServer::TraCIServer(const SUMOTime begin, const int port, const int numClients)
-    : myServerSocket(0),
-      myTargetTime(begin),
-      myAmEmbedded(port == 0) {
+    : myServerSocket(nullptr), myTargetTime(begin), myAmEmbedded(port == 0), myLastContextSubscription(nullptr) {
 #ifdef DEBUG_MULTI_CLIENTS
     std::cout << "Creating new TraCIServer for " << numClients << " clients on port " << port << "." << std::endl;
 #endif
@@ -1078,7 +1076,7 @@ TraCIServer::initialiseSubscription(libsumo::Subscription& s) {
             }
             if (needNewSubscription) {
                 mySubscriptions.push_back(s);
-                modifiedSubscription = &s;
+                modifiedSubscription = &mySubscriptions.back();
                 // Add new subscription to subscription cache (note: seems a bit inefficient)
                 if (s.beginTime < MSNet::getInstance()->getCurrentTimeStep()) {
                     // copy new subscription into cache
@@ -1284,7 +1282,7 @@ TraCIServer::addSubscriptionFilter() {
     case FILTER_TYPE_LANES:
     {
         // Read relative lanes to consider for context filter
-        int nrLanes = myInputStorage.readInt();
+        int nrLanes = (int)myInputStorage.readByte();
         std::vector<int> lanes;
         for (int i=0; i<nrLanes; ++i) {
             lanes.push_back((int) myInputStorage.readByte());
