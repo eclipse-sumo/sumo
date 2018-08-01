@@ -85,14 +85,17 @@ void
 GNEAdditionalHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
     // Obtain tag of element
     SumoXMLTag tag = static_cast<SumoXMLTag>(element);
-    // push element int stack
-    myParentElements.insertElement(tag);
     // check if we're parsing a generic parameter
     if(tag == SUMO_TAG_PARAM) {
+        // push element int stack
+        myParentElements.insertElement(tag);
+        // parse generic parameter
         parseGenericParameter(attrs);
     } else if(tag != SUMO_TAG_NOTHING) {
         // reset last inserted additional
         myLastInsertedAdditional = nullptr;
+        // push element int stack
+        myParentElements.insertElement(tag);
         // Call parse and build depending of tag
         switch (tag) {
             case SUMO_TAG_BUS_STOP:
@@ -494,7 +497,7 @@ GNEAdditionalHandler::parseAndBuildRerouter(const SUMOSAXAttributes& attrs, cons
         // check that all elements are valid
         if (myViewNet->getNet()->retrieveAdditional(tag, id, false) != nullptr) {
             WRITE_WARNING("There is another " + toString(tag) + " with the same ID='" + id + "'.");
-        } else if (edgesIDs.size() <= 0) {
+        } else if (edges.size() == 0) {
             WRITE_WARNING("A rerouter needs at least one Edge");
         } else {
             myLastInsertedAdditional = buildRerouter(myViewNet, myUndoAdditionals, id, pos, edges, probability, name, file, off, timeThreshold, vTypes, false);
@@ -1802,10 +1805,14 @@ GNEAdditionalHandler::buildRerouter(GNEViewNet* viewNet, bool allowUndoRedo, con
             std::string currentAdditionalFilename = FileHelpers::getFilePath(OptionsCont::getOptions().getString("sumo-additionals-file"));
             // Create additional handler for parse rerouter values
             GNEAdditionalHandler rerouterValuesHandler(currentAdditionalFilename + file, viewNet, allowUndoRedo, rerouter);
+            // disable validation for rerouters
+            XMLSubSys::setValidation("never", "auto");
             // Run parser
             if (!XMLSubSys::runParser(rerouterValuesHandler, currentAdditionalFilename + file, false)) {
                 WRITE_MESSAGE("Loading of " + file + " failed.");
             }
+            // enable validation for rerouters
+            XMLSubSys::setValidation("auto", "auto");
         }
         return rerouter;
     } else {
