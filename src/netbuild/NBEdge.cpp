@@ -1600,6 +1600,7 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
                             con.toEdge->getLaneShape(con.toLane).angleAt2D(0)));
                 const double length = shape.length2D();
                 // do not trust the radius of tiny junctions
+                // formula adapted from [Odhams, Andre and Cole, David, Models of Driver Speed Choice in Curves, 2004]
                 if (angle > 0 && length > 1) {
                     // permit higher turning speed on wide lanes
                     const double radius = length / angle + getLaneWidth(con.fromLane) / 4;
