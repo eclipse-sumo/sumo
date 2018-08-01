@@ -1384,7 +1384,7 @@ public:
         int getRoutingMode() const {
             return myRoutingMode;
         }
-        int getLaneTimeLineDuration();
+        SUMOTime getLaneTimeLineDuration();
 
         /** @brief Applies stored velocity information on the speed to use
          *

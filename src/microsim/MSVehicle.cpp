@@ -297,9 +297,9 @@ MSVehicle::Influencer::getLaneChangeMode() const {
             1024 * mySublaneLC);
 }
 
-int
+SUMOTime
 MSVehicle::Influencer::getLaneTimeLineDuration(){
-    int duration = -1;
+    SUMOTime duration = -1;
     for (std::vector<std::pair<SUMOTime, int>>::iterator i = myLaneTimeLine.begin(); i != myLaneTimeLine.end(); ++i) {
         if (duration < 0) {
             duration = i->first;
