@@ -28,7 +28,6 @@
             <xsd:element name="rerouter" type="rerouterType" minOccurs="0"/>
             <xsd:element name="instantInductionLoop" type="instantInductionLoopType" minOccurs="0"/>
             <xsd:element name="busStop" type="busStopType" minOccurs="0"/>
-            <xsd:element name="access" type="accessType" minOccurs="0"/>
             <xsd:element name="trainStop" type="busStopType" minOccurs="0"/>
             <xsd:element name="containerStop" type="containerStopType" minOccurs="0"/>
             <xsd:element name="chargingStation" type="chargingStationType" minOccurs="0"/>
@@ -61,7 +60,7 @@
     </xsd:complexType>
     
     <xsd:complexType name="rerouterValuesType">
-        <xsd:choice>
+        <xsd:choice maxOccurs="unbounded">
             <xsd:element name="param" type="paramType" minOccurs="0" maxOccurs="unbounded"/>
             <xsd:element name="interval" minOccurs="1" maxOccurs="unbounded">
                 <xsd:complexType>
@@ -154,13 +153,15 @@
     </xsd:complexType>
 
     <xsd:complexType name="e3DetectorType">
-        <xsd:choice maxOccurs="unbounded">
-            <xsd:element name="param" type="paramType" minOccurs="0" maxOccurs="unbounded"/>
-            <xsd:element name="detEntry" type="detEntryExitType"
-                minOccurs="1" maxOccurs="unbounded"/>
-            <xsd:element name="detExit" type="detEntryExitType"
-                minOccurs="1" maxOccurs="unbounded"/>
-        </xsd:choice>
+        <xsd:sequence>
+            <xsd:element name="detEntry" type="detEntryExitType" minOccurs="1" maxOccurs="unbounded"/>
+            <xsd:element name="detExit" type="detEntryExitType" minOccurs="1" maxOccurs="unbounded"/>
+            <xsd:choice minOccurs="0" maxOccurs="unbounded">
+                <xsd:element name="param" type="paramType" minOccurs="0" maxOccurs="unbounded"/>
+                <xsd:element name="detEntry" type="detEntryExitType" minOccurs="0" maxOccurs="unbounded"/>
+                <xsd:element name="detExit" type="detEntryExitType" minOccurs="0" maxOccurs="unbounded"/>
+            </xsd:choice>
+        </xsd:sequence>
         <xsd:attribute name="id" type="xsd:string" use="required"/>
         <xsd:attribute name="freq" type="positiveFloatType" use="required"/>
         <xsd:attribute name="file" type="xsd:string" use="required"/>
@@ -251,7 +252,7 @@
     </xsd:complexType>
 
     <xsd:complexType name="variableSpeedSignType">
-        <xsd:choice>
+        <xsd:choice maxOccurs="unbounded">
             <xsd:element name="param" type="paramType" minOccurs="0" maxOccurs="unbounded"/>
             <xsd:element name="step" minOccurs="1" maxOccurs="unbounded">
                 <xsd:complexType>
@@ -280,7 +281,7 @@
     </xsd:complexType>
 
     <xsd:complexType name="rerouterType">
-        <xsd:choice>
+        <xsd:choice maxOccurs="unbounded">
             <xsd:element name="param" type="paramType" minOccurs="0" maxOccurs="unbounded"/>
             <xsd:element name="interval" minOccurs="1" maxOccurs="unbounded">
                 <xsd:complexType>
@@ -401,7 +402,7 @@
     </xsd:complexType>
 
     <xsd:complexType name="parkingAreaType">
-        <xsd:choice>
+        <xsd:choice maxOccurs="unbounded">
             <xsd:element name="param" type="paramType" minOccurs="0" maxOccurs="unbounded"/>
             <xsd:element name="space" type="parkingSpaceType" minOccurs="0" maxOccurs="unbounded"/>
         </xsd:choice>
@@ -431,7 +432,7 @@
     </xsd:complexType>
 
     <xsd:complexType name="calibratorType">
-        <xsd:choice>
+        <xsd:choice maxOccurs="unbounded">
             <xsd:element name="param" type="paramType" minOccurs="0" maxOccurs="unbounded"/>
             <xsd:element name="route" type="routeType" minOccurs="0" maxOccurs="unbounded"/>
             <xsd:element name="flow" type="flowCalibratorType" minOccurs="0" maxOccurs="unbounded"/>
