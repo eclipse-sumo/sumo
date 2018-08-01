@@ -177,6 +177,26 @@ LaneArea::handleVariable(const std::string& objID, const int variable, VariableW
         return wrapper->wrapStringList(objID, variable, getIDList());
     case ID_COUNT:
         return wrapper->wrapInt(objID, variable, getIDCount());
+    case LAST_STEP_VEHICLE_NUMBER:
+        return wrapper->wrapInt(objID, variable, getLastStepVehicleNumber(objID));
+    case LAST_STEP_MEAN_SPEED:
+        return wrapper->wrapDouble(objID, variable, getLastStepMeanSpeed(objID));
+    case LAST_STEP_VEHICLE_ID_LIST:
+        return wrapper->wrapStringList(objID, variable, getLastStepVehicleIDs(objID));
+    case LAST_STEP_VEHICLE_HALTING_NUMBER:
+        return wrapper->wrapInt(objID, variable, getLastStepHaltingNumber(objID));
+    case JAM_LENGTH_VEHICLE:
+        return wrapper->wrapInt(objID, variable, getJamLengthVehicle(objID));
+    case JAM_LENGTH_METERS:
+        return wrapper->wrapDouble(objID, variable, getJamLengthMeters(objID));
+    case LAST_STEP_OCCUPANCY:
+        return wrapper->wrapDouble(objID, variable, getLastStepOccupancy(objID));
+    case VAR_POSITION:
+        return wrapper->wrapDouble(objID, variable, getPosition(objID));
+    case VAR_LANE_ID:
+        return wrapper->wrapString(objID, variable, getLaneID(objID));
+    case VAR_LENGTH:
+        return wrapper->wrapDouble(objID, variable, getLength(objID));
     default:
         return false;
     }
