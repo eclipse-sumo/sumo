@@ -86,17 +86,15 @@ Lane::getLinkNumber(std::string laneID) {
 std::vector<TraCIConnection>
 Lane::getLinks(std::string laneID) {
     std::vector<TraCIConnection> v;
-    const MSLane* lane = getLane(laneID);
+    const MSLane* const lane = getLane(laneID);
     const SUMOTime currTime = MSNet::getInstance()->getCurrentTimeStep();
-    const MSLinkCont& links = lane->getLinkCont();
-    for (MSLinkCont::const_iterator i = links.begin(); i != links.end(); ++i) {
-        MSLink* link = (*i);
+    for (const MSLink* const link : lane->getLinkCont()) {
         const std::string approachedLane = link->getLane() != 0 ? link->getLane()->getID() : "";
-        const bool hasPrio = link->havePriority() ? 1 : 0;
+        const bool hasPrio = link->havePriority();
         const double speed = MIN2(lane->getSpeedLimit(), link->getLane()->getSpeedLimit());
         const bool isOpen = link->opened(currTime, speed, speed, SUMOVTypeParameter::getDefault().length,
-                                         SUMOVTypeParameter::getDefault().impatience, SUMOVTypeParameter::getDefaultDecel(), 0) ? 1 : 0;
-        const bool hasFoe = link->hasApproachingFoe(currTime, currTime, 0, SUMOVTypeParameter::getDefaultDecel()) ? 1 : 0;
+                                         SUMOVTypeParameter::getDefault().impatience, SUMOVTypeParameter::getDefaultDecel(), 0);
+        const bool hasFoe = link->hasApproachingFoe(currTime, currTime, 0, SUMOVTypeParameter::getDefaultDecel());
         const std::string approachedInternal = link->getViaLane() != 0 ? link->getViaLane()->getID() : "";
         const std::string state = SUMOXMLDefinitions::LinkStates.getString(link->getState());
         const std::string direction = SUMOXMLDefinitions::LinkDirections.getString(link->getDirection());

@@ -99,7 +99,7 @@ public:
     static const SubscriptionResults getContextSubscriptionResults(const std::string& objID);
 
     /** @brief Saves the shape of the requested object in the given container
-    *  @param id The id of the poi to retrieve
+    *  @param id The id of the lane to retrieve
     *  @param shape The container to fill
     */
     static void storeShape(const std::string& id, PositionVector& shape);

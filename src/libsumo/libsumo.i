@@ -54,6 +54,29 @@ def simulationStep(step=0):
     }
 };
 
+%typemap(out) libsumo::TraCIPositionVector {
+    $result = PyList_New($1.size());
+    int index = 0;
+    for (auto iter = $1.begin(); iter != $1.end(); ++iter) {
+        PyList_SetItem($result, index++, PyTuple_Pack(2, PyFloat_FromDouble(iter->x), PyFloat_FromDouble(iter->y)));
+    }
+};
+
+%typemap(out) std::vector<libsumo::TraCIConnection> {
+    $result = PyList_New($1.size());
+    int index = 0;
+    for (auto iter = $1.begin(); iter != $1.end(); ++iter) {
+        PyList_SetItem($result, index++, PyTuple_Pack(8, PyBytes_FromString(iter->approachedLane.c_str()),
+                                                         PyBool_FromLong(iter->hasPrio),
+                                                         PyBool_FromLong(iter->isOpen),
+                                                         PyBool_FromLong(iter->hasFoe),
+                                                         PyBytes_FromString(iter->approachedInternal.c_str()),
+                                                         PyBytes_FromString(iter->state.c_str()),
+                                                         PyBytes_FromString(iter->direction.c_str()),
+                                                         PyFloat_FromDouble(iter->length)));
+    }
+};
+
 #endif
 
 %begin %{
