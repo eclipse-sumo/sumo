@@ -817,10 +817,14 @@ GNEApplicationWindow::onCmdOpenShapes(FXObject*, FXSelector, void*) {
         gCurrentFolder = opendialog.getDirectory();
         std::string file = opendialog.getFilename().text();
         GNEShapeHandler handler(file, myNet);
+        // disable validation for shapes
+        XMLSubSys::setValidation("never", "auto");
         myUndoList->p_begin("Loading shapes from '" + file + "'");
         if (!XMLSubSys::runParser(handler, file, false)) {
             WRITE_MESSAGE("Loading of shapes failed.");
         }
+        // enable validation for shapes
+        XMLSubSys::setValidation("enable", "auto");
         update();
         myUndoList->p_end();
     }
@@ -841,6 +845,8 @@ GNEApplicationWindow::onCmdOpenAdditionals(FXObject*, FXSelector, void*) {
     if (opendialog.execute()) {
         gCurrentFolder = opendialog.getDirectory();
         std::string file = opendialog.getFilename().text();
+        // disable validation for additionals
+        XMLSubSys::setValidation("never", "auto");
         // Create additional handler
         GNEAdditionalHandler additionalHandler(file, myNet->getViewNet());
         // Run parser
@@ -854,6 +860,8 @@ GNEApplicationWindow::onCmdOpenAdditionals(FXObject*, FXSelector, void*) {
             myUndoList->p_end();
             update();
         }
+        // restore validation for additionals
+        XMLSubSys::setValidation("auto", "auto");
     }
     return 1;
 }
@@ -1044,11 +1052,15 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
         myAdditionalsFile = oc.getString("sumo-additionals-file");
         WRITE_MESSAGE("Loading additionals from '" + myAdditionalsFile + "'");
         GNEAdditionalHandler additionalHandler(myAdditionalsFile, myNet->getViewNet());
+        // disable validation for additionals
+        XMLSubSys::setValidation("never", "auto");
         // Run parser
         myUndoList->p_begin("Loading additionals from '" + myAdditionalsFile + "'");
         if (!XMLSubSys::runParser(additionalHandler, myAdditionalsFile, false)) {
             WRITE_ERROR("Loading of " + myAdditionalsFile + " failed.");
         }
+        // disable validation for additionals
+        XMLSubSys::setValidation("auto", "auto");
         myUndoList->p_end();
     }
     // check if shapes has to be loaded at start
@@ -1056,11 +1068,15 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
         myShapesFile = oc.getString("sumo-shapes-file");
         WRITE_MESSAGE("Loading shapes");
         GNEShapeHandler shapeHandler(myShapesFile, myNet);
+        // disable validation for shapes
+        XMLSubSys::setValidation("never", "auto");
         // Run parser
         myUndoList->p_begin("Loading shapes from '" + myShapesFile + "'");
         if (!XMLSubSys::runParser(shapeHandler, myShapesFile, false)) {
             WRITE_ERROR("Loading of shapes failed.");
         }
+        // enable validation for shapes
+        XMLSubSys::setValidation("auto", "auto");
         myUndoList->p_end();
     }
     // check if additionals output must be changed
