@@ -486,6 +486,7 @@ MSDevice_ToC::ToCPreparationStep(SUMOTime /* t */) {
 #ifdef DEBUG_TOC
         std::cout << SIMTIME << " Aborting ToC preparation for vehicle '" << myHolder.getID() << "'" << std::endl;
 #endif
+        descheduleToCPreparation();
         return 0;
     }
 }
