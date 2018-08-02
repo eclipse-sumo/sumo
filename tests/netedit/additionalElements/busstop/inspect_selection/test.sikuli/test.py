@@ -46,6 +46,13 @@ netedit.modifyBoolAttribute(1)
 # Set lines
 netedit.modifyAttribute(2, "commonLine1 commonLine2")
 
+# Set friendlyPos
+netedit.modifyBoolAttribute(7)
+
+# Check undo redo
+netedit.undo(match, 3)
+netedit.redo(match, 3)
+
 # save additionals
 netedit.saveAdditionals()
 

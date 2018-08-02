@@ -26,6 +26,9 @@ Warning: Please note that using ';' and ',' as XML list separators is deprecated
  From 1.0 onwards, only ' ' will be accepted.
 Warning: Setting new attribute lines 'line1, line2' into busStop 'correctID'
 Warning: Setting new attribute lines 'line1 line2' into busStop 'correctID'
+Warning: Setting new attribute blockMovement 'true' into busStop 'correctID'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute blockMovement '0' into busStop 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute lines 'line1  line2' into busStop 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -91,6 +94,8 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute lines 'line1, line2' into busStop 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute lines 'line1 line2' into busStop 'correctID'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute blockMovement 'true' into busStop 'correctID'
 Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
