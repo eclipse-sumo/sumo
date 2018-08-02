@@ -80,7 +80,7 @@ netedit.modifyAdditionalDefaultValue(3, "Type1 Type2 Type3")
 netedit.modifyBoolAttribute(4)
 
 # Change boolean parameter 6
-netedit.modifyBoolAttribute(6)
+netedit.modifyBoolAttribute(8)
 
 # Check undos and redos
 netedit.undo(match, 6)
