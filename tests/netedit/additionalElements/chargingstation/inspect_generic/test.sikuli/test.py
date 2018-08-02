@@ -83,9 +83,6 @@ netedit.redo(match, 7)
 # save additionals
 netedit.saveAdditionals()
 
-# save additionals
-netedit.saveAdditionals()
-
 # save network
 netedit.saveNetwork()
 
