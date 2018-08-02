@@ -302,7 +302,7 @@ MSRailSignal::getAppropriateState() {
 
 void
 MSRailSignal::updateCurrentPhase() {
-    myCurrentPhase = MSPhaseDefinition(DELTA_T, getAppropriateState());
+    myCurrentPhase.setState(getAppropriateState());
 }
 
 

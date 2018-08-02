@@ -242,6 +242,10 @@ public:
         return state;
     }
 
+    void setState(const std::string& _state) {
+        state = _state;
+    }
+
     const LaneIdVector& getTargetLaneSet() const {
         return targetLaneSet;
     }
