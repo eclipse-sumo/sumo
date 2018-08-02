@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jul 30 16:24:12 2018 by Eclipse SUMO netconvert Version 2834c9e
+<!-- generated on Thu Aug  2 09:35:01 2018 by Eclipse SUMO netconvert Version fe0dd6d
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -70,10 +70,10 @@ SPDX-License-Identifier: EPL-2.0
     </railNodeType>
     <railNodeType in="3" out="3">
         <node id="gneJ2"/>
-        <node id="gneJ6"/>
         <node id="gneJ20"/>
         <node id="gneJ3"/>
         <node id="gneJ5"/>
+        <node id="gneJ6"/>
         <node id="gneJ9"/>
     </railNodeType>
     <bidiEdge id="gneE10" bidi="-gneE10"/>
