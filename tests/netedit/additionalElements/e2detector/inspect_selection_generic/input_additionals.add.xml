@@ -1,0 +1,15 @@
+<additionals>
+    <!-- E2 A -->
+	<e2Detector id="E2_A" lane="gneE0_0" pos="5" length="5" freq="100.00" file="e2Detector_A.txt" name="A" cont="0" timeThreshold="1.00" speedThreshold="1.39" jamThreshold="10.00">
+		<param key="keyA1" value="valueA1"/>
+		<param key="keyA2" value="valueA2"/>
+		<param key="keyA3" value="valueA3"/>
+	</e2Detector>
+	
+	<!-- E2 B -->
+	<e2Detector id="E2_B" lane="gneE0_0" pos="15" length="5" freq="100.00" file="e2Detector_B.txt" name="B" cont="1" timeThreshold="2.00" speedThreshold="3.49" jamThreshold="5.00">
+		<param key="keyB1" value="valueB1"/>
+		<param key="keyB2" value="valueB2"/>
+		<param key="keyB3" value="valueB3"/>
+	</e2Detector>
+</additionals>
