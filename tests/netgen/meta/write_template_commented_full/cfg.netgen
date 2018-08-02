@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jun 22 23:39:11 2018 by Eclipse SUMO netgenerate Version b663296
+<!-- generated on Thu Aug  2 12:24:18 2018 by Eclipse SUMO netgenerate Version 1daeae3
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -366,7 +366,7 @@
         <!-- Builds common edges for turning connections with common from- and to-edge. This causes discrepancies between geometrical length and assigned length due to averaging but enables lane-changing while turning -->
         <junctions.join-turns value="false" type="BOOL"/>
 
-        <!-- Limits speed on junctions by FLOAT times sqrt(turningRadius) -->
+        <!-- Limits speed on junctions to a lateral acceleration of at most FLOAT m/s^2) -->
         <junctions.limit-turn-speed value="-1" type="FLOAT"/>
 
         <!-- Default radius for junctions that do not require wide vehicle turns -->

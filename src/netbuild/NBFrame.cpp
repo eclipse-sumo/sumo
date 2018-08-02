@@ -229,7 +229,7 @@ NBFrame::fillOptions(bool forNetgen) {
 
     oc.doRegister("junctions.limit-turn-speed", new Option_Float(-1));
     oc.addDescription("junctions.limit-turn-speed", "Processing",
-                      "Limits speed on junctions by FLOAT times sqrt(turningRadius)");
+                      "Limits speed on junctions to a lateral acceleration of at most FLOAT m/s^2)");
 
     oc.doRegister("junctions.small-radius", new Option_Float(1.5));
     oc.addDescription("junctions.small-radius", "Processing",

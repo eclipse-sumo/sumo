@@ -1607,7 +1607,7 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
                 if (angle > 0 && length > 1) {
                     // permit higher turning speed on wide lanes
                     const double radius = length / angle + getLaneWidth(con.fromLane) / 4;
-                    con.vmax = MIN2(con.vmax, limitTurnSpeed * sqrt(radius));
+                    con.vmax = MIN2(con.vmax, sqrt(limitTurnSpeed * radius));
                     // ensure, that value is saved
                     con.speed = con.vmax;
                 }

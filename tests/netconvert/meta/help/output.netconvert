@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version 2834c9e
+Eclipse SUMO netconvert Version 1daeae3
  Copyright (C) 2001-2018 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
   SUMO.
@@ -394,8 +394,8 @@ Processing Options:
                                          between geometrical length and assigned
                                          length due to averaging but enables
                                          lane-changing while turning
-  --junctions.limit-turn-speed FLOAT   Limits speed on junctions by FLOAT times
-                                         sqrt(turningRadius)
+  --junctions.limit-turn-speed FLOAT   Limits speed on junctions to a lateral
+                                         acceleration of at most FLOAT m/s^2)
   --junctions.small-radius FLOAT       Default radius for junctions that do not
                                          require wide vehicle turns
   --rectangular-lane-cut               Forces rectangular cuts between lanes
