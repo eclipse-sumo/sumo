@@ -629,7 +629,6 @@ GNEFrame::GenericParametersEditor::onCmdSetGenericParameter(FXObject*, FXSelecto
     if(parsedValues.size() > GNEAttributeCarrier::MAXNUMBER_GENERICPARAMETERS) {
         WRITE_WARNING("Maximun number of Generic Parameters editables in Netedit reached. Only " + toString(GNEAttributeCarrier::MAXNUMBER_GENERICPARAMETERS) + " are allowed.");
         myTextFieldGenericParameter->setTextColor(FXRGB(255, 0, 0));
-        myTextFieldGenericParameter->killFocus();
         return 1;
     }
     // first check if parsed generic parameters are valid
@@ -637,7 +636,6 @@ GNEFrame::GenericParametersEditor::onCmdSetGenericParameter(FXObject*, FXSelecto
         if(!GNEAttributeCarrier::isGenericParametersValid(i)) {
             WRITE_WARNING("Invalid format of Generic Parameter (" + i + ")");
             myTextFieldGenericParameter->setTextColor(FXRGB(255, 0, 0));
-            myTextFieldGenericParameter->killFocus();
             return 1;
         }
     }
@@ -659,13 +657,13 @@ GNEFrame::GenericParametersEditor::onCmdSetGenericParameter(FXObject*, FXSelecto
             if((firstKey.size() != 2) || (secondKey.size() != 2) || (firstKey.front() == secondKey.front())) {
                 WRITE_WARNING("Generic Parameters wit the same key aren't allowed (" + (*i) + "," + *(i+1) + ")");
                 myTextFieldGenericParameter->setTextColor(FXRGB(255, 0, 0));
-                myTextFieldGenericParameter->killFocus();
                 return 1;
             }
         }
     }
     // parsed generic parameters ok, then set text field black and continue
     myTextFieldGenericParameter->setTextColor(FXRGB(0, 0, 0));
+    myTextFieldGenericParameter->killFocus();
     // clear current existent generic parameters and set parsed generic parameters
     myGenericParameters->clear();
     for(auto i : parsedValues) {
