@@ -731,8 +731,8 @@ MSNet::writeOutput() {
     }
 
     // write SSM output
-    for (std::set<MSDevice*>::iterator di = MSDevice_SSM::getInstances().begin(); di != MSDevice_SSM::getInstances().end(); ++di) {
-        MSDevice_SSM* dev = static_cast<MSDevice_SSM*>(*di);
+    for (std::set<MSDevice_SSM*>::iterator di = MSDevice_SSM::getInstances().begin(); di != MSDevice_SSM::getInstances().end(); ++di) {
+        MSDevice_SSM* dev = (*di);
         dev->updateAndWriteOutput();
     }
 }

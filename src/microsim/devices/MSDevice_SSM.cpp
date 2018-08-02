@@ -160,11 +160,11 @@ std::ostream& operator<<(std::ostream& out, MSDevice_SSM::EncounterType type) {
 // static initialisation methods
 // ---------------------------------------------------------------------------
 
-std::set<MSDevice*>* MSDevice_SSM::instances = new std::set<MSDevice*>();
+std::set<MSDevice_SSM*>* MSDevice_SSM::instances = new std::set<MSDevice_SSM*>();
 
 std::set<std::string> MSDevice_SSM::createdOutputFiles;
 
-const std::set<MSDevice*>&
+const std::set<MSDevice_SSM*>&
 MSDevice_SSM::getInstances() {
     return *instances;
 }
@@ -173,10 +173,10 @@ void
 MSDevice_SSM::cleanup() {
     // Close current encounters and flush conflicts to file for all existing devices
     if (instances != 0) {
-        for (std::set<MSDevice*>::iterator ii = instances->begin(); ii != instances->end(); ++ii) {
-            static_cast<MSDevice_SSM*>(*ii)->resetEncounters();
-            static_cast<MSDevice_SSM*>(*ii)->flushConflicts(true);
-            static_cast<MSDevice_SSM*>(*ii)->flushGlobalMeasures();
+        for (std::set<MSDevice_SSM*>::iterator ii = instances->begin(); ii != instances->end(); ++ii) {
+            (*ii)->resetEncounters();
+            (*ii)->flushConflicts(true);
+            (*ii)->flushGlobalMeasures();
         }
         instances->clear();
     }
@@ -2260,8 +2260,16 @@ MSDevice_SSM::MSDevice_SSM(SUMOVehicle& holder, const std::string& id, std::stri
         createdOutputFiles.insert(outputFilename);
     }
 
+    //std::cout << "1) Initialized ssm device '" << id << "' at " << toHex(this) << " with holder '" << myHolder.getID() << std::endl;
     // register at static instance container
     instances->insert(this);
+    //std::cout << "2) Initialized ssm device '" << id << "' at " << toHex(this) << " with holder '" << myHolder.getID() << std::endl;
+
+    /*std::cout << "3) instances: ";
+    for (auto inst : *instances) {
+         std::cout << toString(inst) << " ";
+    }
+    std::cout << std::endl;*/
 
 #ifdef DEBUG_SSM
     std::vector<std::string> measures;
@@ -2280,9 +2288,10 @@ MSDevice_SSM::MSDevice_SSM(SUMOVehicle& holder, const std::string& id, std::stri
 
 /// @brief Destructor.
 MSDevice_SSM::~MSDevice_SSM() {
-    // XXX: Who deletes this device?
+    // Deleted in ~BaseVehicle()
     // unregister from static instance container
-    instances->erase((MSDevice*) this);
+    //std::cout << "Deleting SSM device (at " << toHex(long(this)) << ")  of holder '" << this->myHolder.getID() << "'" << std::endl;
+    instances->erase(this);
     resetEncounters();
     flushConflicts(true);
     flushGlobalMeasures();

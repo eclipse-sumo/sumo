@@ -57,7 +57,7 @@ class MSDevice_SSM : public MSDevice {
 
 private:
     /// All currently existing SSM devices
-    static std::set<MSDevice*>* instances;
+    static std::set<MSDevice_SSM*>* instances;
 
 public:
     /// @brief Different types of encounters corresponding to relative positions of the vehicles.
@@ -307,7 +307,7 @@ public:
 
     /** @brief returns all currently existing SSM devices
      */
-    static const std::set<MSDevice*>& getInstances();
+    static const std::set<MSDevice_SSM*>& getInstances();
 
     /** @brief This is called once per time step in MSNet::writeOutput() and
      *         collects the surrounding vehicles, updates information on encounters
