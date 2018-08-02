@@ -772,18 +772,26 @@ class VehicleDomain(Domain):
         state, stateTraCI = self.getLaneChangeState(vehID, direction)
         return prettifyBitstring(state), prettifyBitstring(stateTraCI)
 
-    def couldChangeLane(self, vehID, direction):
+    def couldChangeLane(self, vehID, direction, state=None):
         """couldChangeLane(string, int) -> bool
         Return whether the vehicle could change lanes in the specified direction
         """
-        state = self.getLaneChangeState(vehID, direction)[0]
+        if state is None:
+            state, stateTraCI = self.getLaneChangeState(vehID, direction)
+            if self.wantsAndCouldChangeLane(vehID, direction, stateTraCI):
+                # vehicle changed in the last step. state is no longer applicable
+                return False
         return state != tc.LCA_UNKNOWN and (state & tc.LCA_BLOCKED == 0)
 
-    def wantsAndCouldChangeLane(self, vehID, direction):
+    def wantsAndCouldChangeLane(self, vehID, direction, state=None):
         """wantsAndCouldChangeLane(string, int) -> bool
         Return whether the vehicle wants to and could change lanes in the specified direction
         """
-        state = self.getLaneChangeState(vehID, direction)[0]
+        if state is None:
+            state, stateTraCI = self.getLaneChangeState(vehID, direction)
+            if self.wantsAndCouldChangeLane(vehID, direction, stateTraCI):
+                # vehicle changed in the last step. state is no longer applicable
+                return False
         if state & tc.LCA_BLOCKED == 0:
             if direction == -1:
                 return state & tc.LCA_RIGHT != 0

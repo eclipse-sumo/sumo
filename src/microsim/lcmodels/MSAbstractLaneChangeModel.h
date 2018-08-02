@@ -211,12 +211,12 @@ public:
     void setOrigLeaderGaps(const MSLeaderDistanceInfo& vehicles);
 
     virtual void prepareStep() {
-        saveLCState(-1, LCA_UNKNOWN, LCA_UNKNOWN);
-        saveLCState(0, LCA_UNKNOWN, LCA_UNKNOWN);
-        saveLCState(1, LCA_UNKNOWN, LCA_UNKNOWN);
         myCanceledStates[-1] = LCA_NONE;
         myCanceledStates[0] = LCA_NONE;
         myCanceledStates[1] = LCA_NONE;
+        saveLCState(-1, LCA_UNKNOWN, LCA_UNKNOWN);
+        saveLCState(0, LCA_UNKNOWN, LCA_UNKNOWN);
+        saveLCState(1, LCA_UNKNOWN, LCA_UNKNOWN);
         myLastLateralGapRight = NO_NEIGHBOR;
         myLastLateralGapLeft = NO_NEIGHBOR;
         if (!myDontResetLCGaps) {
