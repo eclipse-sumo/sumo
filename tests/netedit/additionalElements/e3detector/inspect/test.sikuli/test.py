@@ -124,8 +124,8 @@ netedit.modifyAttribute(6, "-5")
 # Change parameter 6 with a valid value
 netedit.modifyAttribute(6, "4")
 
-# Change parameter 7 with a non valid value (dummy)
-netedit.modifyAttribute(7, "dummySpeedTreshold")
+# Change parameter 8 with a valid value
+netedit.modifyBoolAttribute(10)
 
 # Change parameter 7 with a non valid value (negative)
 netedit.modifyAttribute(7, "-12.1")
