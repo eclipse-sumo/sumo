@@ -564,7 +564,7 @@ MSLaneChangerSublane::checkChangeSublane(
         std::cout << SIMTIME << " veh=" << vehicle->getID() << " stateAfterTraCI=" << toString((LaneChangeAction)state) << " original=" << toString((LaneChangeAction)oldstate) << "\n";
     }
 #endif
-    vehicle->getLaneChangeModel().saveState(laneOffset, oldstate, state);
+    vehicle->getLaneChangeModel().saveLCState(laneOffset, oldstate, state);
     return state;
 }
 

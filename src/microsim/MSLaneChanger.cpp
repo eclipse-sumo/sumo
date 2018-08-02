@@ -974,7 +974,7 @@ MSLaneChanger::checkChange(
                   << "\n";
     }
 #endif
-    vehicle->getLaneChangeModel().saveState(laneOffset, oldstate, state);
+    vehicle->getLaneChangeModel().saveLCState(laneOffset, oldstate, state);
     if (blocked == 0 && (state & LCA_WANTS_LANECHANGE)) {
         // this lane change will be executed, save gaps
         vehicle->getLaneChangeModel().setFollowerGaps(neighFollow, secureBackGap);

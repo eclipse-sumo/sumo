@@ -199,7 +199,7 @@ public:
         return mySavedStates.find(dir) != mySavedStates.end();
     }
 
-    void saveState(const int dir, const int stateWithoutTraCI, const int state) {
+    void saveLCState(const int dir, const int stateWithoutTraCI, const int state) {
         mySavedStates[dir] = std::make_pair(stateWithoutTraCI | myCanceledStates[dir], state);
     }
 
@@ -211,9 +211,9 @@ public:
     void setOrigLeaderGaps(const MSLeaderDistanceInfo& vehicles);
 
     virtual void prepareStep() {
-        saveState(-1, LCA_UNKNOWN, LCA_UNKNOWN);
-        saveState(0, LCA_UNKNOWN, LCA_UNKNOWN);
-        saveState(1, LCA_UNKNOWN, LCA_UNKNOWN);
+        saveLCState(-1, LCA_UNKNOWN, LCA_UNKNOWN);
+        saveLCState(0, LCA_UNKNOWN, LCA_UNKNOWN);
+        saveLCState(1, LCA_UNKNOWN, LCA_UNKNOWN);
         myCanceledStates[-1] = LCA_NONE;
         myCanceledStates[0] = LCA_NONE;
         myCanceledStates[1] = LCA_NONE;
