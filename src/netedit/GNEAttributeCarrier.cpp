@@ -1055,7 +1055,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "The id of the node", 
             "");
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_POSITION,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITION, // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
+            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_POSITION, // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
             "The x-y-z position of the node on the plane in meters", 
             ""); 
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_TYPE,
