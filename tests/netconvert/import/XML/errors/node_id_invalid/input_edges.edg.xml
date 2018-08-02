@@ -2,7 +2,7 @@
 
 	<edge id="1" from="dl" to="dr" spreadType="center" />
 	<edge id="3" from="tr" to="tl" spreadType="center" />
-	<edge id="3" from="dl" to="broken id" spreadType="center" />
+	<edge id="5" from="dl" to="broken id" spreadType="center" />
 
 </edges>
 
