@@ -229,34 +229,31 @@ MSRailSignal::trySwitch() {
 std::string
 MSRailSignal::getAppropriateState() {
     std::string state(myLinks.size(), 'G');   //the state of the phase definition (all signal are green)
-    std::vector<MSLane*>::const_iterator i;    //the iterator of outgoing lanes of this junction
-    for (i = myOutgoingLanes.begin(); i != myOutgoingLanes.end(); i++) {    //for every outgoing lane
-        MSLane* lane = (*i);
-
+    for (MSLane* lane : myOutgoingLanes) {
         //check if the succeeding block is used by a train
         bool succeedingBlockOccupied = false;
-        std::vector<const MSLane*>::const_iterator j;
-        for (j = mySucceedingBlocks.at(lane).begin(); j != mySucceedingBlocks.at(lane).end(); j++) { //for every lane in the block between the current signal and the next signal
-            if (!(*j)->isEmpty()) { //if this lane is not empty
+        const std::vector<const MSLane*>& block = mySucceedingBlocks.at(lane);
+        for (const MSLane* l : block) {
+            if (!l->isEmpty()) { //if this lane is not empty
                 succeedingBlockOccupied = true;
-            } else {
-                std::map<const MSLane*, const MSLink*>::iterator it = mySucceedingBlocksIncommingLinks.find(lane);
-                if (it != mySucceedingBlocksIncommingLinks.end()) {
-                    const MSLink* inCommingLing = it->second;
-                    const std::map<const SUMOVehicle*, MSLink::ApproachingVehicleInformation, ComparatorIdLess> approaching = inCommingLing->getApproaching();
-                    std::map<const SUMOVehicle*,  MSLink::ApproachingVehicleInformation>::const_iterator apprIt = approaching.begin();
-                    for (; apprIt != approaching.end(); apprIt++) {
-                        MSLink::ApproachingVehicleInformation info = apprIt->second;
-                        if (info.arrivalSpeedBraking > 0) {
-                            succeedingBlockOccupied = true;
-                            break;
-                        }
-                    }
-
-                }
-            }
-            if (succeedingBlockOccupied) {
                 break;
+            }
+        }
+        if (!succeedingBlockOccupied) {
+            // check whether approaching vehicles reserve the block 
+            std::map<const MSLane*, const MSLink*>::iterator it = mySucceedingBlocksIncommingLinks.find(lane);
+            if (it != mySucceedingBlocksIncommingLinks.end()) {
+                const MSLink* inCommingLing = it->second;
+                const std::map<const SUMOVehicle*, MSLink::ApproachingVehicleInformation, ComparatorIdLess> approaching = inCommingLing->getApproaching();
+                std::map<const SUMOVehicle*,  MSLink::ApproachingVehicleInformation>::const_iterator apprIt = approaching.begin();
+                for (; apprIt != approaching.end(); apprIt++) {
+                    MSLink::ApproachingVehicleInformation info = apprIt->second;
+                    if (info.arrivalSpeedBraking > 0) {
+                        succeedingBlockOccupied = true;
+                        break;
+                    }
+                }
+
             }
         }
 
