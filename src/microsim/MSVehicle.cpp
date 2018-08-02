@@ -2179,7 +2179,11 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
             } else {
                 arrivalSpeedBraking = cfModel.getMinimalArrivalSpeed(seen, myState.mySpeed);
             }
-            arrivalTimeBraking = MAX2(arrivalTime, t + TIME2STEPS(seen / ((v + arrivalSpeedBraking) * 0.5)));
+            if (v + arrivalSpeedBraking <= 0.) {
+                arrivalTimeBraking = std::numeric_limits<long long int>::max();
+            } else {
+                arrivalTimeBraking = MAX2(arrivalTime, t + TIME2STEPS(seen / ((v + arrivalSpeedBraking) * 0.5)));
+            }
         }
         lfLinks.push_back(DriveProcessItem(*link, v, vLinkWait, setRequest,
                                            arrivalTime, arrivalSpeed,
@@ -3371,7 +3375,7 @@ MSVehicle::getBackPositionOnLane(const MSLane* lane) const {
         }
         WRITE_WARNING("Request backPos of vehicle '" + getID() + "' for invalid lane '" + Named::getIDSecure(lane)
                       + "' time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".")
-        assert(false);
+        //assert(false);
         return  myState.myBackPos;
     }
 }
