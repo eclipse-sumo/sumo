@@ -20,6 +20,24 @@ Warning: Setting new attribute friendlyPos 'true' into containerStop 'containerS
 Warning: Setting new attribute friendlyPos 'true' into containerStop 'containerStopB'
 Warning: Setting new attribute lines 'commonLine1 commonLine2' into containerStop 'containerStopA'
 Warning: Setting new attribute lines 'commonLine1 commonLine2' into containerStop 'containerStopB'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute lines 'line3 line4' into containerStop 'containerStopB'
+Warning: Setting previous attribute lines 'line1 line2' into containerStop 'containerStopA'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute friendlyPos '0' into containerStop 'containerStopB'
+Warning: Setting previous attribute friendlyPos '1' into containerStop 'containerStopA'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute name 'containerStop' into containerStop 'containerStopB'
+Warning: Setting previous attribute name 'containerStop' into containerStop 'containerStopA'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute name 'commonName' into containerStop 'containerStopA'
+Warning: Setting new attribute name 'commonName' into containerStop 'containerStopB'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute friendlyPos 'true' into containerStop 'containerStopA'
+Warning: Setting new attribute friendlyPos 'true' into containerStop 'containerStopB'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute lines 'commonLine1 commonLine2' into containerStop 'containerStopA'
+Warning: Setting new attribute lines 'commonLine1 commonLine2' into containerStop 'containerStopB'
 Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()

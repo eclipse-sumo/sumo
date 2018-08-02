@@ -55,7 +55,7 @@ netedit.deleteMode()
 # disble 'Automatically delete additionals'
 netedit.changeAutomaticallyDeleteAdditionals(match)
 
-# try to delete lane with the second loaded container stop (doesn't allowed)
+# try to delete lane with the second loaded containerStop (doesn't allowed)
 netedit.leftClick(match, 200, 200)
 
 # wait warning

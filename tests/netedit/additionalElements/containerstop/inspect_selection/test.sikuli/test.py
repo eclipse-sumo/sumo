@@ -34,17 +34,24 @@ netedit.selectionInvert()
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect containerstops
+# inspect busstops
 netedit.leftClick(match, 150, 250)
 
 # Set name
 netedit.modifyAttribute(0, "commonName")
 
-# Set friendly position
+# Set friendlyPos
 netedit.modifyBoolAttribute(1)
 
 # Set lines
 netedit.modifyAttribute(2, "commonLine1 commonLine2")
+
+# Set friendlyPos
+netedit.modifyBoolAttribute(7)
+
+# Check undo redo
+netedit.undo(match, 3)
+netedit.redo(match, 3)
 
 # save additionals
 netedit.saveAdditionals()

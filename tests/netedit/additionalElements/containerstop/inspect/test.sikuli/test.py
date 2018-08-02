@@ -101,12 +101,12 @@ netedit.modifyAttribute(6, "line1, line2")
 # Change parameter 5 with a valid value
 netedit.modifyAttribute(6, "line1 line2")
 
-# click over an empty area
-netedit.leftClick(match, 0, 0)
+# Change parameter block movement
+netedit.modifyBoolAttribute(10)
 
 # Check undos and redos
-netedit.undo(match, 16)
-netedit.redo(match, 16)
+netedit.undo(match, 17)
+netedit.redo(match, 17)
 
 # save additionals
 netedit.saveAdditionals()

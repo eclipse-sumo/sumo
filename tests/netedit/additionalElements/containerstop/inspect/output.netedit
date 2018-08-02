@@ -17,16 +17,14 @@ TestFunctions: 'reference.png' found. Position: 304 - 140
 [log]  TYPE "#TAB."
 [log]  TYPE "#TAB."
 [log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
 [log] ( Ctrl )  TYPE "a"
 [log]  TYPE "#ENTER."
-[log] CLICK on L(554,290)@S(0)[0,0 1280x720] (234 msec)
+[log] CLICK on L(554,290)@S(0)[0,0 1600x900] (234 msec)
 TestFunctions: Clicked over position 554 - 290
-[log] CLICK on L(754,290)@S(0)[0,0 1280x720] (234 msec)
+[log] CLICK on L(754,290)@S(0)[0,0 1600x900] (235 msec)
 TestFunctions: Clicked over position 754 - 290
 [log]  TYPE "i"
-[log] CLICK on L(554,310)@S(0)[0,0 1280x720] (235 msec)
+[log] CLICK on L(554,310)@S(0)[0,0 1600x900] (234 msec)
 TestFunctions: Clicked over position 554 - 310
 [log]  TYPE "#F12."
 [log]  TYPE "#TAB."
@@ -103,6 +101,19 @@ TestFunctions: Clicked over position 554 - 310
 [log]  TYPE "#TAB."
 [log]  TYPE "#TAB."
 [log]  TYPE "#TAB."
+[log] ( Ctrl )  TYPE "a"
+[log]  TYPE "#ENTER."
+[log]  TYPE "#F12."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log] ( Ctrl )  TYPE "a"
+[log]  TYPE "#ENTER."
+[log]  TYPE "#F12."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
 [log]  TYPE "#TAB."
 [log]  TYPE "#TAB."
 [log] ( Ctrl )  TYPE "a"
@@ -135,11 +146,25 @@ TestFunctions: Clicked over position 554 - 310
 [log]  TYPE "#TAB."
 [log] ( Ctrl )  TYPE "a"
 [log]  TYPE "#ENTER."
-[log] CLICK on L(304,140)@S(0)[0,0 1280x720] (234 msec)
-TestFunctions: Clicked over position 304 - 140
+[log]  TYPE "#F12."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE " "
 [log]  TYPE "i"
-[log] CLICK on L(304,140)@S(0)[0,0 1280x720] (234 msec)
+[log] CLICK on L(304,140)@S(0)[0,0 1600x900] (234 msec)
 TestFunctions: Clicked over position 304 - 140
+[log] ( Ctrl )  TYPE "z"
+[log] ( Ctrl )  TYPE "z"
+[log] ( Ctrl )  TYPE "z"
 [log] ( Ctrl )  TYPE "z"
 [log] ( Ctrl )  TYPE "z"
 [log] ( Ctrl )  TYPE "z"
@@ -155,8 +180,11 @@ TestFunctions: Clicked over position 304 - 140
 [log] ( Ctrl )  TYPE "z"
 [log] ( Ctrl )  TYPE "z"
 [log]  TYPE "i"
-[log] CLICK on L(304,140)@S(0)[0,0 1280x720] (234 msec)
+[log] CLICK on L(304,140)@S(0)[0,0 1600x900] (234 msec)
 TestFunctions: Clicked over position 304 - 140
+[log] ( Ctrl )  TYPE "y"
+[log] ( Ctrl )  TYPE "y"
+[log] ( Ctrl )  TYPE "y"
 [log] ( Ctrl )  TYPE "y"
 [log] ( Ctrl )  TYPE "y"
 [log] ( Ctrl )  TYPE "y"
