@@ -24,6 +24,77 @@ Warning: Setting new attribute power '11000' into chargingStation 'chargingStati
 Warning: Value '2' for attribute efficiency of chargingStation isn't valid
 Warning: Setting new attribute efficiency '0.5' into chargingStation 'chargingStationA'
 Warning: Setting new attribute efficiency '0.5' into chargingStation 'chargingStationB'
+Warning: Setting new attribute chargeInTransit 'true' into chargingStation 'chargingStationA'
+Warning: Setting new attribute chargeInTransit 'true' into chargingStation 'chargingStationB'
+Warning: Value '-2' for attribute chargeDelay of chargingStation isn't valid
+Warning: Setting new attribute chargeDelay '6.3' into chargingStation 'chargingStationA'
+Warning: Setting new attribute chargeDelay '6.3' into chargingStation 'chargingStationB'
+Warning: Setting new attribute blockMovement 'true' into chargingStation 'chargingStationA'
+Warning: Setting new attribute blockMovement 'true' into chargingStation 'chargingStationB'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute blockMovement '0' into chargingStation 'chargingStationB'
+Warning: Setting previous attribute blockMovement '0' into chargingStation 'chargingStationA'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute chargeDelay '2.00' into chargingStation 'chargingStationB'
+Warning: Setting previous attribute chargeDelay '0.00' into chargingStation 'chargingStationA'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute chargeInTransit '1' into chargingStation 'chargingStationB'
+Warning: Setting previous attribute chargeInTransit '0' into chargingStation 'chargingStationA'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute efficiency '0.85' into chargingStation 'chargingStationB'
+Warning: Setting previous attribute efficiency '0.95' into chargingStation 'chargingStationA'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute power '13000.00' into chargingStation 'chargingStationB'
+Warning: Setting previous attribute power '22000.00' into chargingStation 'chargingStationA'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute friendlyPos '1' into chargingStation 'chargingStationB'
+Warning: Setting previous attribute friendlyPos '0' into chargingStation 'chargingStationA'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute name 'chargingStation' into chargingStation 'chargingStationB'
+Warning: Setting previous attribute name 'chargingStation' into chargingStation 'chargingStationA'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute selected '0' into chargingStation 'chargingStationB'
+Warning: Setting previous attribute selected '0' into chargingStation 'chargingStationA'
+Warning: Setting previous attribute selected '0' into edge 'gneE0'
+Warning: Setting previous attribute selected '0' into junction 'gneJ1'
+Warning: Setting previous attribute selected '0' into edge 'gneE1'
+Warning: Setting previous attribute selected '0' into junction 'gneJ0'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Removing chargingStation 'chargingStationB' in GNEChange_Additional
+Warning: Removed inspected element from Inspected ACs. 1 ACs remains.
+Warning: Removing chargingStation 'chargingStationA' in GNEChange_Additional
+Warning: Removed inspected element from Inspected ACs. 0 ACs remains.
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Adding chargingStation 'chargingStationA' in GNEChange_Additional
+Warning: Adding chargingStation 'chargingStationB' in GNEChange_Additional
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute selected 'true' into junction 'gneJ0'
+Warning: Setting new attribute selected 'true' into edge 'gneE1'
+Warning: Setting new attribute selected 'true' into junction 'gneJ1'
+Warning: Setting new attribute selected 'true' into edge 'gneE0'
+Warning: Setting new attribute selected 'true' into chargingStation 'chargingStationA'
+Warning: Setting new attribute selected 'true' into chargingStation 'chargingStationB'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute name 'commonName' into chargingStation 'chargingStationA'
+Warning: Setting new attribute name 'commonName' into chargingStation 'chargingStationB'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute friendlyPos 'true' into chargingStation 'chargingStationA'
+Warning: Setting new attribute friendlyPos 'true' into chargingStation 'chargingStationB'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute power '11000' into chargingStation 'chargingStationA'
+Warning: Setting new attribute power '11000' into chargingStation 'chargingStationB'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute efficiency '0.5' into chargingStation 'chargingStationA'
+Warning: Setting new attribute efficiency '0.5' into chargingStation 'chargingStationB'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute chargeInTransit 'true' into chargingStation 'chargingStationA'
+Warning: Setting new attribute chargeInTransit 'true' into chargingStation 'chargingStationB'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute chargeDelay '6.3' into chargingStation 'chargingStationA'
+Warning: Setting new attribute chargeDelay '6.3' into chargingStation 'chargingStationB'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute blockMovement 'true' into chargingStation 'chargingStationA'
+Warning: Setting new attribute blockMovement 'true' into chargingStation 'chargingStationB'
 Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()

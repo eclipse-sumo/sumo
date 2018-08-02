@@ -55,6 +55,22 @@ netedit.modifyAttribute(3, "2")
 # set efficiency
 netedit.modifyAttribute(3, "0.5")
 
+# Set charge in transit
+netedit.modifyBoolAttribute(4)
+
+# Set invalid charge delay
+netedit.modifyAttribute(5, "-2")
+
+# Set valid charge delay
+netedit.modifyAttribute(5, "6.3")
+
+# Set charge in transit
+netedit.modifyBoolAttribute(9)
+
+# Check undo redo
+netedit.undo(match, 9)
+netedit.redo(match, 9)
+
 # save additionals
 netedit.saveAdditionals()
 

@@ -124,9 +124,12 @@ netedit.modifyAttribute(9, "-10")
 # Change parameter 8 with a valid value
 netedit.modifyAttribute(9, "3")
 
+# change block movement
+netedit.modifyBoolAttribute(13)
+
 # Check undos and redos
-netedit.undo(match, 18)
-netedit.redo(match, 18)
+netedit.undo(match, 17)
+netedit.redo(match, 17)
 
 # save additionals
 netedit.saveAdditionals()
