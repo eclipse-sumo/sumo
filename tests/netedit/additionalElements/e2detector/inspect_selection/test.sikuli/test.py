@@ -89,7 +89,7 @@ netedit.modifyAttribute(7, "8.5")
 netedit.modifyBoolAttribute(8)
 
 # Set block movement
-netedit.modifyBoolAttribute(10)
+netedit.modifyBoolAttribute(11)
 
 # Check undo redo
 netedit.undo(match, 10)

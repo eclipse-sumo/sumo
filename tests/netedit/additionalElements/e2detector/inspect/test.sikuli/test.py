@@ -136,8 +136,8 @@ netedit.modifyAttribute(9, "6.3")
 # Change parameter 10 with a non valid value
 netedit.modifyAttribute(10, "dummyJamThreshold")
 
-# Change parameter 10 with a non valid value
-netedit.modifyAttribute(10, "-8")
+# Change boolean parameter 12
+netedit.modifyBoolAttribute(14)
 
 # Change parameter 10 with a valid value
 netedit.modifyAttribute(10, "12.5")
