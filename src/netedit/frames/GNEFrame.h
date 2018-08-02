@@ -141,6 +141,9 @@ public:
         /// @brief show netedit attributes editor (used for edit generic parameters of an existent AC)
         void showGenericParametersEditor(GNEAttributeCarrier *AC);
 
+        /// @brief show netedit attributes editor (used for edit generic parameters of an existent list of AC)
+        void showGenericParametersEditor(std::vector<GNEAttributeCarrier*> ACs);
+
         /// @brief hide netedit attributes editor
         void hideGenericParametersEditor();
 
@@ -166,6 +169,9 @@ public:
     private:
         /// @brief edited Attribute Carrier
         GNEAttributeCarrier *myAC;
+
+        /// @brief list of edited ACs
+        std::vector<GNEAttributeCarrier*> myACs;
 
         /// @brief pointer to current vector of generic parameters 
         std::vector<std::pair<std::string, std::string> > *myGenericParameters;

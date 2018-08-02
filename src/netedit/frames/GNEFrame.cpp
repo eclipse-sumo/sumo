@@ -40,6 +40,7 @@
 #include <netedit/netelements/GNECrossing.h>
 #include <netedit/additionals/GNEPOI.h>
 #include <netedit/additionals/GNEPoly.h>
+#include <netedit/GNEUndoList.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/GNEViewNet.h>
@@ -509,16 +510,47 @@ GNEFrame::GenericParametersEditor::~GenericParametersEditor() {
 
 void
 GNEFrame::GenericParametersEditor::showGenericParametersEditor(GNEAttributeCarrier *AC) {
-    myAC = AC;
-    // change 
-    if(myAC) {
-        *myGenericParameters = myAC->getGenericParameters();
+    if(AC != nullptr) {
+        myAC = AC;
+        myACs.clear();
+        // obtain a copy of generic parameters of AC
+        if(myAC) {
+            *myGenericParameters = myAC->getGenericParameters();
+        }
+        // refresh GenericParametersEditor
+        refreshGenericParametersEditor();
+        // show groupbox
+        show();
     }
-    // refresh GenericParametersEditor
-    refreshGenericParametersEditor();
-    // show groupbox
-    show();
 }
+
+
+void 
+GNEFrame::GenericParametersEditor::showGenericParametersEditor(std::vector<GNEAttributeCarrier*> ACs) {
+    if(ACs.size() > 0) {
+        myAC = nullptr;
+        myACs = ACs;
+        // check if generic parameters are different 
+        bool differentsGenericParameters = false;
+        std::string genericParameter = myACs.front()->getAttribute(GNE_ATTR_GENERIC);
+        for (auto i : myACs) {
+            if(genericParameter != i->getAttribute(GNE_ATTR_GENERIC)) {
+                differentsGenericParameters = true;
+            }
+        }
+        // set generic Parameters editor
+        if(differentsGenericParameters) {
+            myGenericParameters->clear();
+        } else {
+            *myGenericParameters = myACs.front()->getGenericParameters();
+        }
+        // refresh GenericParametersEditor
+        refreshGenericParametersEditor();
+        // show groupbox
+        show();
+    }
+}
+
 
 void
 GNEFrame::GenericParametersEditor::hideGenericParametersEditor() {
@@ -530,9 +562,22 @@ GNEFrame::GenericParametersEditor::hideGenericParametersEditor() {
 
 void 
 GNEFrame::GenericParametersEditor::refreshGenericParametersEditor() {
-    // update text field
-    myTextFieldGenericParameter->setText(getGenericParametersStr().c_str());
-    myTextFieldGenericParameter->setTextColor(FXRGB(0, 0, 0));
+    // update text field depending of AC
+    if(myAC) {
+        myTextFieldGenericParameter->setText(getGenericParametersStr().c_str());
+        myTextFieldGenericParameter->setTextColor(FXRGB(0, 0, 0));
+    } else if(myACs.size()) {
+        // check if generic parameters of all inspected ACs are different
+        std::string genericParameter = myACs.front()->getAttribute(GNE_ATTR_GENERIC);
+
+        for (auto i : myACs) {
+            if(genericParameter != i->getAttribute(GNE_ATTR_GENERIC)) {
+                genericParameter = "different generic attributes";
+            }
+        }
+        myTextFieldGenericParameter->setText(genericParameter.c_str());
+        myTextFieldGenericParameter->setTextColor(FXRGB(0, 0, 0));
+    }
 }
 
 
@@ -553,13 +598,21 @@ GNEFrame::GenericParametersEditor::getGenericParametersStr() const {
 
 long 
 GNEFrame::GenericParametersEditor::onCmdEditGenericParameter(FXObject*, FXSelector, void*) {
-    GNEGenericParameterDialog(myFrameParent->getViewNet(), myGenericParameters).execute();
-    // set values edited in Parameter dialog in Edited AC
-    if(myAC) {
-        myAC->setAttribute(GNE_ATTR_GENERIC, getGenericParametersStr(), myFrameParent->getViewNet()->getUndoList());
+    // edit generic parameters using dialog
+    if(GNEGenericParameterDialog(myFrameParent->getViewNet(), myGenericParameters).execute()) {
+        // set values edited in Parameter dialog in Edited AC
+        if(myAC) {
+            myAC->setAttribute(GNE_ATTR_GENERIC, getGenericParametersStr(), myFrameParent->getViewNet()->getUndoList());
+        } else if (myACs.size() > 0) {
+            myFrameParent->getViewNet()->getUndoList()->p_begin("Change multiple generic attributes");
+            for (auto i : myACs) {
+                i->setAttribute(GNE_ATTR_GENERIC, getGenericParametersStr(), myFrameParent->getViewNet()->getUndoList());
+            }
+            myFrameParent->getViewNet()->getUndoList()->p_end();
+        }
+        // Refresh parameter editor
+        refreshGenericParametersEditor();
     }
-    // Refresh parameter editor
-    refreshGenericParametersEditor();
     return 1;
 }
 
@@ -629,6 +682,12 @@ GNEFrame::GenericParametersEditor::onCmdSetGenericParameter(FXObject*, FXSelecto
     // if we're editing generic attributes of an AttributeCarrier, set it
     if(myAC) {
         myAC->setAttribute(GNE_ATTR_GENERIC, getGenericParametersStr(), myFrameParent->getViewNet()->getUndoList());
+    } else if (myACs.size() > 0) {
+        myFrameParent->getViewNet()->getUndoList()->p_begin("Change multiple generic attributes");
+        for (auto i : myACs) {
+            i->setAttribute(GNE_ATTR_GENERIC, getGenericParametersStr(), myFrameParent->getViewNet()->getUndoList());
+        }
+        myFrameParent->getViewNet()->getUndoList()->p_end();
     }
     return 1;
 }

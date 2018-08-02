@@ -216,7 +216,11 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
         myGEOAttributesEditor->showGEOAttributesEditor();
 
         // show generic attributes editor
-        myGenericParametersEditor->showGenericParametersEditor(myInspectedACs.front());
+        if(myInspectedACs.size() == 1) {
+            myGenericParametersEditor->showGenericParametersEditor(myInspectedACs.front());
+        } else {
+            myGenericParametersEditor->showGenericParametersEditor(myInspectedACs);
+        }
 
         // If attributes correspond to an Edge, show template editor
         myTemplateEditor->showTemplateEditor();
