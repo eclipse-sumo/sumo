@@ -177,7 +177,7 @@ NBRailwayTopologyAnalyzer::getBrokenRailNodes(NBNetBuilder& nb, bool verbose) {
         
     device.writeXMLHeader("railwayTopology", "");
     std::set<NBNode*> railNodes = getRailNodes(nb, verbose);
-    std::map<std::pair<int, int>, std::set<NBNode*> > types;
+    std::map<std::pair<int, int>, std::set<NBNode*, ComparatorIdLess> > types;
     std::set<NBEdge*, ComparatorIdLess> bidiEdges;
     std::set<NBEdge*, ComparatorIdLess> bufferStops;
     for (NBNode* node : railNodes) {
