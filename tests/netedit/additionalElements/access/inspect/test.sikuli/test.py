@@ -84,7 +84,7 @@ netedit.modifyAttribute(2, "5")
 netedit.modifyBoolAttribute(3)
 
 # Change block movement
-netedit.modifyBoolAttribute(5)
+netedit.modifyBoolAttribute(7)
 
 # Check undo redo
 netedit.undo(match, 5)
