@@ -2259,17 +2259,8 @@ MSDevice_SSM::MSDevice_SSM(SUMOVehicle& holder, const std::string& id, std::stri
         myOutputFile->openTag("SSMLog");
         createdOutputFiles.insert(outputFilename);
     }
-
-    //std::cout << "1) Initialized ssm device '" << id << "' at " << toHex(this) << " with holder '" << myHolder.getID() << std::endl;
     // register at static instance container
     instances->insert(this);
-    //std::cout << "2) Initialized ssm device '" << id << "' at " << toHex(this) << " with holder '" << myHolder.getID() << std::endl;
-
-    /*std::cout << "3) instances: ";
-    for (auto inst : *instances) {
-         std::cout << toString(inst) << " ";
-    }
-    std::cout << std::endl;*/
 
 #ifdef DEBUG_SSM
     std::vector<std::string> measures;
@@ -2290,7 +2281,6 @@ MSDevice_SSM::MSDevice_SSM(SUMOVehicle& holder, const std::string& id, std::stri
 MSDevice_SSM::~MSDevice_SSM() {
     // Deleted in ~BaseVehicle()
     // unregister from static instance container
-    //std::cout << "Deleting SSM device (at " << toHex(long(this)) << ")  of holder '" << this->myHolder.getID() << "'" << std::endl;
     instances->erase(this);
     resetEncounters();
     flushConflicts(true);
