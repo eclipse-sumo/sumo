@@ -1,7 +1,13 @@
 Warning: Adding busStop 'busStopA' in GNEChange_Additional
 Warning: Additionals has to be saved
 Warning: Current saving Status: net saved, additionals unsaved, shapes saved
+Warning: Inserting generic parameter 'keyA1|valueA1' into additional busStop.
+Warning: Inserting generic parameter 'keyA2|valueA2' into additional busStop.
+Warning: Inserting generic parameter 'keyA3|valueA3' into additional busStop.
 Warning: Adding busStop 'busStopB' in GNEChange_Additional
+Warning: Inserting generic parameter 'keyB1|valueB1' into additional busStop.
+Warning: Inserting generic parameter 'keyB2|valueB2' into additional busStop.
+Warning: Inserting generic parameter 'keyB3|valueB3' into additional busStop.
 Warning: net has to be saved
 Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
@@ -42,8 +48,8 @@ Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute genericParameter 'key1=value1|key2=value2|key3=value3' into busStop 'busStopB'
 Warning: Setting previous attribute genericParameter 'key1=value1|key2=value2|key3=value3' into busStop 'busStopA'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute genericParameter '' into busStop 'busStopB'
-Warning: Setting previous attribute genericParameter '' into busStop 'busStopA'
+Warning: Setting previous attribute genericParameter 'keyB1=valueB1|keyB2=valueB2|keyB3=valueB3' into busStop 'busStopB'
+Warning: Setting previous attribute genericParameter 'keyA1=valueA1|keyA2=valueA2|keyA3=valueA3' into busStop 'busStopA'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute selected '0' into busStop 'busStopB'
 Warning: Setting previous attribute selected '0' into busStop 'busStopA'
