@@ -39,40 +39,15 @@
 bool
 TraCIServerAPI_TrafficLight::processGet(TraCIServer& server, tcpip::Storage& inputStorage,
                                         tcpip::Storage& outputStorage) {
-    // variable & id
     const int variable = inputStorage.readUnsignedByte();
     const std::string id = inputStorage.readString();
-    // check variable
-    if (variable != ID_LIST && variable != TL_RED_YELLOW_GREEN_STATE && variable != TL_COMPLETE_DEFINITION_RYG
-            && variable != TL_CONTROLLED_LANES && variable != TL_CONTROLLED_LINKS
-            && variable != TL_CURRENT_PHASE && variable != TL_CURRENT_PROGRAM
-            && variable != TL_NEXT_SWITCH && variable != TL_PHASE_DURATION && variable != ID_COUNT
-            && variable != VAR_PARAMETER && variable != TL_EXTERNAL_STATE) {
-        return server.writeErrorStatusCmd(CMD_GET_TL_VARIABLE, "Get TLS Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
-    }
-    // begin response building
-    tcpip::Storage tempMsg;
-    //  response-code, variableID, objectID
-    tempMsg.writeUnsignedByte(RESPONSE_GET_TL_VARIABLE);
-    tempMsg.writeUnsignedByte(variable);
-    tempMsg.writeString(id);
+    server.initWrapper(RESPONSE_GET_TL_VARIABLE, variable, id);
     try {
-        switch (variable) {
-            case ID_LIST:
-                tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-                tempMsg.writeStringList(libsumo::TrafficLight::getIDList());
-                break;
-            case ID_COUNT:
-                tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                tempMsg.writeInt(libsumo::TrafficLight::getIDCount());
-                break;
-            case TL_RED_YELLOW_GREEN_STATE:
-                tempMsg.writeUnsignedByte(TYPE_STRING);
-                tempMsg.writeString(libsumo::TrafficLight::getRedYellowGreenState(id));
-                break;
+        if (!libsumo::TrafficLight::handleVariable(id, variable, &server)) {
+            switch (variable) {
             case TL_COMPLETE_DEFINITION_RYG: {
                 std::vector<libsumo::TraCILogic> logics = libsumo::TrafficLight::getCompleteRedYellowGreenDefinition(id);
-                tempMsg.writeUnsignedByte(TYPE_COMPOUND);
+                server.getWrapperStorage().writeUnsignedByte(TYPE_COMPOUND);
                 tcpip::Storage tempContent;
                 int cnt = 0;
                 tempContent.writeUnsignedByte(TYPE_INTEGER);
@@ -113,17 +88,13 @@ TraCIServerAPI_TrafficLight::processGet(TraCIServer& server, tcpip::Storage& inp
                         ++cnt;
                     }
                 }
-                tempMsg.writeInt((int)cnt);
-                tempMsg.writeStorage(tempContent);
+                server.getWrapperStorage().writeInt((int)cnt);
+                server.getWrapperStorage().writeStorage(tempContent);
                 break;
             }
-            case TL_CONTROLLED_LANES:
-                tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-                tempMsg.writeStringList(libsumo::TrafficLight::getControlledLanes(id));
-                break;
             case TL_CONTROLLED_LINKS: {
                 const std::vector<std::vector<libsumo::TraCILink> > links = libsumo::TrafficLight::getControlledLinks(id);
-                tempMsg.writeUnsignedByte(TYPE_COMPOUND);
+                server.getWrapperStorage().writeUnsignedByte(TYPE_COMPOUND);
                 tcpip::Storage tempContent;
                 int cnt = 0;
                 tempContent.writeUnsignedByte(TYPE_INTEGER);
@@ -138,38 +109,17 @@ TraCIServerAPI_TrafficLight::processGet(TraCIServer& server, tcpip::Storage& inp
                         ++cnt;
                     }
                 }
-                tempMsg.writeInt(cnt);
-                tempMsg.writeStorage(tempContent);
+                server.getWrapperStorage().writeInt(cnt);
+                server.getWrapperStorage().writeStorage(tempContent);
                 break;
             }
-            case TL_CURRENT_PHASE:
-                tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                tempMsg.writeInt(libsumo::TrafficLight::getPhase(id));
-                break;
-            case TL_CURRENT_PROGRAM:
-                tempMsg.writeUnsignedByte(TYPE_STRING);
-                tempMsg.writeString(libsumo::TrafficLight::getProgram(id));
-                break;
-            case TL_PHASE_DURATION:
-                tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                tempMsg.writeInt((int)libsumo::TrafficLight::getPhaseDuration(id));
-                break;
-            case TL_NEXT_SWITCH:
-                tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                tempMsg.writeInt((int)libsumo::TrafficLight::getNextSwitch(id));
-                break;
             case VAR_PARAMETER: {
                 std::string paramName = "";
                 if (!server.readTypeCheckingString(inputStorage, paramName)) {
                     return server.writeErrorStatusCmd(CMD_GET_TL_VARIABLE, "Retrieval of a parameter requires its name.", outputStorage);
                 }
-                tempMsg.writeUnsignedByte(TYPE_STRING);
-                tempMsg.writeString(libsumo::TrafficLight::getParameter(id, paramName));
-                break;
-            }
-            case TL_CONTROLLED_JUNCTIONS: {
-                tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-                tempMsg.writeStringList(libsumo::TrafficLight::getControlledJunctions(id));
+                server.getWrapperStorage().writeUnsignedByte(TYPE_STRING);
+                server.getWrapperStorage().writeString(libsumo::TrafficLight::getParameter(id, paramName));
                 break;
             }
             case TL_EXTERNAL_STATE: {
@@ -186,15 +136,15 @@ TraCIServerAPI_TrafficLight::processGet(TraCIServer& server, tcpip::Storage& inp
                     }
                 }
 
-                tempMsg.writeUnsignedByte(TYPE_COMPOUND);
-                tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                tempMsg.writeInt(num * 2);
+                server.getWrapperStorage().writeUnsignedByte(TYPE_COMPOUND);
+                server.getWrapperStorage().writeUnsignedByte(TYPE_INTEGER);
+                server.getWrapperStorage().writeInt(num * 2);
                 for (std::map<std::string, std::string>::const_iterator i = params.begin(); i != params.end(); ++i) {
                     if ("connection:" != (*i).first.substr(0, 11)) {
                         continue;
                     }
-                    tempMsg.writeUnsignedByte(TYPE_STRING);
-                    tempMsg.writeString((*i).second); // foreign id
+                    server.getWrapperStorage().writeUnsignedByte(TYPE_STRING);
+                    server.getWrapperStorage().writeString((*i).second); // foreign id
                     std::string connection = (*i).first.substr(11);
                     std::string from, to;
                     const std::string::size_type b = connection.find("->");
@@ -227,19 +177,20 @@ TraCIServerAPI_TrafficLight::processGet(TraCIServer& server, tcpip::Storage& inp
                         return server.writeErrorStatusCmd(CMD_GET_TL_VARIABLE, "Could not find edge or lane '" + from + "' in traffic light '" + id + "'.", outputStorage);
                     }
                     int pos = (int)std::distance(lanes.begin(), j);
-                    tempMsg.writeUnsignedByte(TYPE_UBYTE);
-                    tempMsg.writeUnsignedByte(state[pos]); // state
+                    server.getWrapperStorage().writeUnsignedByte(TYPE_UBYTE);
+                    server.getWrapperStorage().writeUnsignedByte(state[pos]); // state
                 }
                 break;
             }
             default:
-                break;
+                return server.writeErrorStatusCmd(CMD_GET_TL_VARIABLE, "Get TLS Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
+            }
         }
     } catch (libsumo::TraCIException& e) {
         return server.writeErrorStatusCmd(CMD_GET_TL_VARIABLE, e.what(), outputStorage);
     }
     server.writeStatusCmd(CMD_GET_TL_VARIABLE, RTYPE_OK, "", outputStorage);
-    server.writeResponseWithLength(outputStorage, tempMsg);
+    server.writeResponseWithLength(outputStorage, server.getWrapperStorage());
     return true;
 }
 

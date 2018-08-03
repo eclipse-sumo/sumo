@@ -89,23 +89,33 @@ public:
 
     static TraCIBoundary getNetBoundary();
 
-    static TraCIPosition convert3D(const std::string& edgeID, double pos, int laneIndex=0, bool toGeo=false);
+    static TraCIPosition convert2D(const std::string& edgeID, double pos, int laneIndex = 0, bool toGeo = false);
 
-    static TraCIRoadPosition convertRoad(double x, double y, bool isGeo=false);
+    static TraCIPosition convert3D(const std::string& edgeID, double pos, int laneIndex = 0, bool toGeo = false);
+
+    static TraCIRoadPosition convertRoad(double x, double y, bool isGeo = false);
+
+    static TraCIPosition convertGeo(double x, double y, bool fromGeo = false);
+
+    static double getDistance2D(double x1, double y1, double x2, double y2, bool isGeo = false, bool isDriving = false);
+    static double getDistanceRoad(const std::string& edgeID1, double pos1, const std::string& edgeID2, double pos2, bool isDriving = false);
 
     static int getMinExpectedNumber();
 
-    static TraCIStage findRoute(const std::string& from, const std::string& to, const std::string& typeID, const SUMOTime depart, const int routingMode);
+    static TraCIStage findRoute(const std::string& fromEdge, const std::string& toEdge, const std::string& vType = "", const SUMOTime depart = -1, const int routingMode = 0);
 
     /* @note: default arrivalPos is not -1 because this would lead to very short walks when moving against the edge direction, 
      * instead the middle of the edge is used. DepartPos is treated differently so that 1-edge walks do not have length 0.
      */
-    static std::vector<TraCIStage> findIntermodalRoute(const std::string& from, const std::string& to, const std::string& modes="",
+    static std::vector<TraCIStage> findIntermodalRoute(const std::string& fromEdge, const std::string& toEdge, const std::string& modes = "",
             SUMOTime depart=-1, const int routingMode=0, double speed = -1., double walkFactor = -1.,
             double departPos = 0, double arrivalPos = INVALID_DOUBLE_VALUE, const double departPosLat = 0,
             const std::string& pType = "", const std::string& vType = "", const std::string& destStop = "");
 
     static std::string getParameter(const std::string& objectID, const std::string& key);
+
+    static void clearPending(const std::string& routeID = "");
+    static void saveState(const std::string& fileName);
 
     static void subscribe(const std::string& objID, const std::vector<int>& vars = std::vector<int>(), SUMOTime beginTime = 0, SUMOTime endTime = ((2 ^ 31) - 1));
     static void subscribe(const std::vector<int>& vars = std::vector<int>(), SUMOTime beginTime = 0, SUMOTime endTime = ((2 ^ 31) - 1));

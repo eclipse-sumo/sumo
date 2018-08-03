@@ -63,7 +63,7 @@ def ppStages(comment, stages):
 
 traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg", "--ignore-route-errors"])
 traci.simulation.subscribe(
-    (traci.constants.VAR_LOADED_VEHICLES_IDS, traci.constants.VAR_DEPARTED_VEHICLES_IDS))
+    [traci.constants.VAR_LOADED_VEHICLES_IDS, traci.constants.VAR_DEPARTED_VEHICLES_IDS])
 print(traci.simulation.getSubscriptionResults())
 for step in range(6):
     print("step", step)
@@ -108,8 +108,9 @@ print("getParameter parkingArea.capacity", traci.simulation.getParameter("pa1", 
 print("getParameter parkingArea.occupancy", traci.simulation.getParameter("pa1", "parkingArea.occupancy"))
 try:
     print("getBusStopWaiting", traci.simulation.getBusStopWaiting("foo"))
-except traci.TraCIException:
-    pass
+except traci.TraCIException as e:
+    if traci.isLibsumo():
+        print(e, file=sys.stderr)
 print("getBusStopWaiting", traci.simulation.getBusStopWaiting("bs"))
 try:
     print("findRoute", traci.simulation.findRoute("foo", "fup"))
@@ -129,7 +130,7 @@ except traci.TraCIException:
     pass
 try:
     print("findIntermodalRoute", traci.simulation.findIntermodalRoute(
-        "footpath", "footpath2", "bicycle", vtype="DEFAULT_BIKETYPE"))
+        "footpath", "footpath2", "bicycle", vType="DEFAULT_BIKETYPE"))
 except traci.TraCIException:
     pass
 ppStages("findIntermodalRoute (walk)", traci.simulation.findIntermodalRoute("o", "2o"))

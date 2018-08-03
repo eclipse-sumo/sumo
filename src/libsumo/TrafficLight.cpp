@@ -280,6 +280,20 @@ TrafficLight::handleVariable(const std::string& objID, const int variable, Varia
         return wrapper->wrapStringList(objID, variable, getIDList());
     case ID_COUNT:
         return wrapper->wrapInt(objID, variable, getIDCount());
+    case TL_RED_YELLOW_GREEN_STATE:
+        return wrapper->wrapString(objID, variable, getRedYellowGreenState(objID));
+    case TL_CONTROLLED_LANES:
+        return wrapper->wrapStringList(objID, variable, getControlledLanes(objID));
+    case TL_CURRENT_PHASE:
+        return wrapper->wrapInt(objID, variable, getPhase(objID));
+    case TL_CURRENT_PROGRAM:
+        return wrapper->wrapString(objID, variable, getProgram(objID));
+    case TL_PHASE_DURATION:
+        return wrapper->wrapInt(objID, variable, getPhaseDuration(objID));
+    case TL_NEXT_SWITCH:
+        return wrapper->wrapInt(objID, variable, getNextSwitch(objID));
+    case TL_CONTROLLED_JUNCTIONS:
+        return wrapper->wrapStringList(objID, variable, getControlledJunctions(objID));
     default:
         return false;
     }

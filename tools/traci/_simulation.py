@@ -366,24 +366,24 @@ class SimulationDomain(Domain):
         self._connection._string += struct.pack("!dBB", pos2, 0, distType)
         return self._connection._checkResult(tc.CMD_GET_SIM_VARIABLE, tc.DISTANCE_REQUEST, "").readDouble()
 
-    def findRoute(self, fromEdge, toEdge, vtype="", depart=-1., routingMode=0):
+    def findRoute(self, fromEdge, toEdge, vType="", depart=-1., routingMode=0):
         self._connection._beginMessage(tc.CMD_GET_SIM_VARIABLE, tc.FIND_ROUTE, "",
-                                       (1 + 4 + 1 + 4 + len(fromEdge) + 1 + 4 + len(toEdge) + 1 + 4 + len(vtype) +
+                                       (1 + 4 + 1 + 4 + len(fromEdge) + 1 + 4 + len(toEdge) + 1 + 4 + len(vType) +
                                         1 + 8 + 1 + 4))
         self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 5)
         self._connection._packString(fromEdge)
         self._connection._packString(toEdge)
-        self._connection._packString(vtype)
+        self._connection._packString(vType)
         self._connection._string += struct.pack("!BdBi", tc.TYPE_DOUBLE, depart, tc.TYPE_INTEGER, routingMode)
         return _readStage(self._connection._checkResult(tc.CMD_GET_SIM_VARIABLE, tc.FIND_ROUTE, ""))
 
     def findIntermodalRoute(self, fromEdge, toEdge, modes="", depart=-1., routingMode=0, speed=-1.,
                             walkFactor=-1., departPos=0., arrivalPos=tc.INVALID_DOUBLE_VALUE, departPosLat=0.,
-                            ptype="", vtype="", destStop=""):
+                            pType="", vType="", destStop=""):
         self._connection._beginMessage(tc.CMD_GET_SIM_VARIABLE, tc.FIND_INTERMODAL_ROUTE, "",
                                        1 + 4 + 1 + 4 + len(fromEdge) + 1 + 4 + len(toEdge) + 1 + 4 + len(modes) +
-                                       1 + 8 + 1 + 4 + 1 + 8 + 1 + 8 + 1 + 8 + 1 + 8 + 1 + 8 + 1 + 4 + len(ptype) +
-                                       1 + 4 + len(vtype) + 1 + 4 + len(destStop))
+                                       1 + 8 + 1 + 4 + 1 + 8 + 1 + 8 + 1 + 8 + 1 + 8 + 1 + 8 + 1 + 4 + len(pType) +
+                                       1 + 4 + len(vType) + 1 + 4 + len(destStop))
         self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 13)
         self._connection._packString(fromEdge)
         self._connection._packString(toEdge)
@@ -392,8 +392,8 @@ class SimulationDomain(Domain):
         self._connection._string += struct.pack("!BdBd", tc.TYPE_DOUBLE, speed, tc.TYPE_DOUBLE, walkFactor)
         self._connection._string += struct.pack("!BdBd", tc.TYPE_DOUBLE, departPos, tc.TYPE_DOUBLE, arrivalPos)
         self._connection._string += struct.pack("!Bd", tc.TYPE_DOUBLE, departPosLat)
-        self._connection._packString(ptype)
-        self._connection._packString(vtype)
+        self._connection._packString(pType)
+        self._connection._packString(vType)
         self._connection._packString(destStop)
         answer = self._connection._checkResult(tc.CMD_GET_SIM_VARIABLE, tc.FIND_INTERMODAL_ROUTE, "")
         result = []

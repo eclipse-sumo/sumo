@@ -77,6 +77,7 @@ Simulation::isLoaded() {
 
 void
 Simulation::step(const SUMOTime time) {
+    Helper::clearVehicleStates();
     if (time == 0) {
         MSNet::getInstance()->simulationStep();
     } else {
@@ -85,7 +86,6 @@ Simulation::step(const SUMOTime time) {
         }
     }
     Helper::handleSubscriptions(time);
-    Helper::clearVehicleStates();
 }
 
 
@@ -319,7 +319,18 @@ Simulation::getMinExpectedNumber() {
 }
 
 
-TraCIPosition 
+TraCIPosition
+Simulation::convert2D(const std::string& edgeID, double pos, int laneIndex, bool toGeo) {
+    Position result = Helper::getLaneChecking(edgeID, laneIndex, pos)->getShape().positionAtOffset(pos);
+    if (toGeo) {
+        GeoConvHelper::getFinal().cartesian2geo(result);
+    }
+    result.setz(0.);
+    return Helper::makeTraCIPosition(result);
+}
+
+
+TraCIPosition
 Simulation::convert3D(const std::string& edgeID, double pos, int laneIndex, bool toGeo) {
     Position result = Helper::getLaneChecking(edgeID, laneIndex, pos)->getShape().positionAtOffset(pos);
     if (toGeo) {
@@ -328,7 +339,8 @@ Simulation::convert3D(const std::string& edgeID, double pos, int laneIndex, bool
     return Helper::makeTraCIPosition(result);
 }
 
-TraCIRoadPosition 
+
+TraCIRoadPosition
 Simulation::convertRoad(double x, double y, bool isGeo) {
     Position pos(x, y);
     if (isGeo) {
@@ -343,6 +355,80 @@ Simulation::convertRoad(double x, double y, bool isGeo) {
     result.laneIndex = roadPos.first->getIndex();
     result.pos = roadPos.second;
     return result;
+}
+
+
+TraCIPosition
+Simulation::convertGeo(double x, double y, bool fromGeo) {
+    Position pos(x, y);
+    if (fromGeo) {
+        GeoConvHelper::getFinal().x2cartesian_const(pos);
+    } else {
+        GeoConvHelper::getFinal().cartesian2geo(pos);
+    }
+    return Helper::makeTraCIPosition(pos);
+}
+
+
+double
+Simulation::getDistance2D(double x1, double y1, double x2, double y2, bool isGeo, bool isDriving) {
+    Position pos1(x1, y1);
+    Position pos2(x2, y2);
+    if (isGeo) {
+        GeoConvHelper::getFinal().x2cartesian_const(pos1);
+        GeoConvHelper::getFinal().x2cartesian_const(pos2);
+    }
+    if (isDriving) {
+        std::pair<const MSLane*, double> roadPos1 = libsumo::Helper::convertCartesianToRoadMap(pos1);
+        std::pair<const MSLane*, double> roadPos2 = libsumo::Helper::convertCartesianToRoadMap(pos2);
+        if ((roadPos1.first == roadPos2.first) && (roadPos1.second <= roadPos2.second)) {
+            // same edge
+            return roadPos2.second - roadPos1.second;
+        } else {
+            double distance = 0.;
+            ConstMSEdgeVector newRoute;
+            if (roadPos2.first->isInternal()) {
+                distance = roadPos2.second;
+                roadPos2.first = roadPos2.first->getLogicalPredecessorLane();
+                roadPos2.second = roadPos2.first->getLength();
+            }
+            MSNet::getInstance()->getRouterTT().compute(
+                &roadPos1.first->getEdge(), &roadPos2.first->getEdge(), 0, MSNet::getInstance()->getCurrentTimeStep(), newRoute);
+            MSRoute route("", newRoute, false, 0, std::vector<SUMOVehicleParameter::Stop>());
+            return distance + route.getDistanceBetween(roadPos1.second, roadPos2.second, &roadPos1.first->getEdge(), &roadPos2.first->getEdge());
+        }
+    } else {
+        return pos1.distanceTo(pos2);
+    }
+}
+
+
+double
+Simulation::getDistanceRoad(const std::string& edgeID1, double pos1, const std::string& edgeID2, double pos2, bool isDriving) {
+    std::pair<const MSLane*, double> roadPos1 = std::make_pair(libsumo::Helper::getLaneChecking(edgeID1, 0, pos1), pos1);
+    std::pair<const MSLane*, double> roadPos2 = std::make_pair(libsumo::Helper::getLaneChecking(edgeID2, 0, pos2), pos2);
+    if (isDriving) {
+        if ((roadPos1.first == roadPos2.first) && (roadPos1.second <= roadPos2.second)) {
+            // same edge
+            return roadPos2.second - roadPos1.second;
+        } else {
+            double distance = 0.;
+            ConstMSEdgeVector newRoute;
+            if (roadPos2.first->isInternal()) {
+                distance = roadPos2.second;
+                roadPos2.first = roadPos2.first->getLogicalPredecessorLane();
+                roadPos2.second = roadPos2.first->getLength();
+            }
+            MSNet::getInstance()->getRouterTT().compute(
+                &roadPos1.first->getEdge(), &roadPos2.first->getEdge(), 0, MSNet::getInstance()->getCurrentTimeStep(), newRoute);
+            MSRoute route("", newRoute, false, 0, std::vector<SUMOVehicleParameter::Stop>());
+            return distance + route.getDistanceBetween(roadPos1.second, roadPos2.second, &roadPos1.first->getEdge(), &roadPos2.first->getEdge());
+        }
+    } else {
+        Position pos1 = roadPos1.first->getShape().positionAtOffset(roadPos1.second);
+        Position pos2 = roadPos2.first->getShape().positionAtOffset(roadPos2.second);
+        return pos1.distanceTo(pos2);
+    }
 }
 
 
@@ -536,6 +622,18 @@ Simulation::getParameter(const std::string& objectID, const std::string& key) {
     } else {
         throw TraCIException("Parameter '" + key + "' is not supported.");
     }
+}
+
+
+void
+Simulation::clearPending(const std::string& routeID) {
+    MSNet::getInstance()->getInsertionControl().clearPendingVehicles(routeID);
+}
+
+
+void
+Simulation::saveState(const std::string& fileName) {
+    MSStateHandler::saveState(fileName, MSNet::getInstance()->getCurrentTimeStep());
 }
 
 

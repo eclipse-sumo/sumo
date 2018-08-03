@@ -292,7 +292,7 @@ TraCIServerAPI_Simulation::processSet(TraCIServer& server, tcpip::Storage& input
                 if (!server.readTypeCheckingString(inputStorage, route)) {
                     return server.writeErrorStatusCmd(CMD_SET_SIM_VARIABLE, "A string is needed for clearing pending vehicles.", outputStorage);
                 }
-                MSNet::getInstance()->getInsertionControl().clearPendingVehicles(route);
+                libsumo::Simulation::clearPending(route);
             }
             break;
             case CMD_SAVE_SIMSTATE: {
@@ -301,7 +301,7 @@ TraCIServerAPI_Simulation::processSet(TraCIServer& server, tcpip::Storage& input
                 if (!server.readTypeCheckingString(inputStorage, file)) {
                     return server.writeErrorStatusCmd(CMD_SET_SIM_VARIABLE, "A string is needed for saving simulation state.", outputStorage);
                 }
-                MSStateHandler::saveState(file, MSNet::getInstance()->getCurrentTimeStep());
+                libsumo::Simulation::saveState(file);
             }
             break;
             default:

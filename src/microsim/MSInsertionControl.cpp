@@ -279,7 +279,7 @@ MSInsertionControl::alreadyDeparted(SUMOVehicle* veh) {
 
 
 void
-MSInsertionControl::clearPendingVehicles(std::string& route) {
+MSInsertionControl::clearPendingVehicles(const std::string& route) {
     //clear out the refused vehicle list, deleting the vehicles entirely
     MSVehicleContainer::VehicleVector::iterator veh;
     for (veh = myPendingEmits.begin(); veh != myPendingEmits.end();) {

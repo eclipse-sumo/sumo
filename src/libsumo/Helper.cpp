@@ -313,7 +313,7 @@ Helper::getVehicleStateChanges(const MSNet::VehicleState state) {
 
 void
 Helper::clearVehicleStates() {
-    for (auto i : myVehicleStateListener.myVehicleStateChanges) {
+    for (auto& i : myVehicleStateListener.myVehicleStateChanges) {
         i.second.clear();
     }
 }

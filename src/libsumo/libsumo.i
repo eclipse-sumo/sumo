@@ -18,7 +18,7 @@
 
 // adding dummy init and close for easier traci -> libsumo transfer
 %pythoncode %{
-from traci import constants
+from traci import constants, exceptions
 
 def isLibsumo():
     return True
@@ -35,6 +35,18 @@ def start(args):
 def simulationStep(step=0):
     simulation.step(step)
 %}
+
+%typemap(in) const std::vector<int>& (std::vector<int> vars) {
+    const Py_ssize_t size = PySequence_Size($input);
+    for (Py_ssize_t i = 0; i < size; i++) {
+        vars.push_back(PyLong_AsLong(PySequence_GetItem($input, i)));
+    }
+    $1 = &vars;
+}
+%typemap(typecheck, precedence=SWIG_TYPECHECK_INTEGER) const std::vector<int>& {
+    $1 = PySequence_Check($input) ? 1 : 0;
+}
+
 
 %typemap(out) std::map<int, std::shared_ptr<libsumo::TraCIResult> > {
     $result = PyDict_New();
@@ -54,6 +66,10 @@ def simulationStep(step=0):
         PyObject *value = SWIG_NewPointerObj(SWIG_as_voidptr(theVal), SWIGTYPE_p_libsumo__TraCIResult, 0);
         PyDict_SetItem($result, PyInt_FromLong(theKey), value);
     }
+};
+
+%typemap(out) libsumo::TraCIPosition {
+    $result = PyTuple_Pack(2, PyFloat_FromDouble($1.x), PyFloat_FromDouble($1.y));
 };
 
 %typemap(out) libsumo::TraCIPositionVector {
@@ -78,6 +94,8 @@ def simulationStep(step=0):
                                                          PyFloat_FromDouble(iter->length)));
     }
 };
+
+%exceptionclass libsumo::TraCIException;
 
 #endif
 
@@ -105,8 +123,14 @@ def simulationStep(step=0):
     try {
         $action
     } catch (libsumo::TraCIException &e) {
+#ifdef SWIGPYTHON
+        PyObject *err = SWIG_NewPointerObj(new libsumo::TraCIException(e), SWIGTYPE_p_libsumo__TraCIException, 1);
+        PyErr_SetObject(SWIG_Python_ExceptionType(SWIGTYPE_p_libsumo__TraCIException), err);
+        SWIG_fail;
+#else
         const std::string s = std::string("TraCI error: ") + e.what();
         SWIG_exception(SWIG_RuntimeError, s.c_str());
+#endif
     } catch (std::runtime_error &e) {
         const std::string s = std::string("SUMO error: ") + e.what();
         SWIG_exception(SWIG_RuntimeError, s.c_str());
@@ -114,6 +138,8 @@ def simulationStep(step=0):
         SWIG_exception(SWIG_RuntimeError, "unknown exception");
     }
 }
+
+// %feature("compactdefaultargs") libsumo::Simulation::findRoute;
 
 // Add necessary symbols to generated header
 %{
@@ -149,3 +175,9 @@ def simulationStep(step=0):
 %include "TrafficLight.h"
 %include "Vehicle.h"
 %include "VehicleType.h"
+
+#ifdef SWIGPYTHON
+%pythoncode %{
+exceptions.TraCIException = TraCIException
+%}
+#endif

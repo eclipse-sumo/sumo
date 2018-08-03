@@ -136,7 +136,7 @@ public:
 
 
     /// @brief clears out all pending vehicles from a route, "" for all routes
-    void clearPendingVehicles(std::string& route);
+    void clearPendingVehicles(const std::string& route);
 
 
     /** @brief Checks for all vehicles whether they can be emitted
