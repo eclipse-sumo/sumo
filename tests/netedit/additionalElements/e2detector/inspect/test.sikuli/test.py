@@ -146,7 +146,7 @@ netedit.modifyAttribute(10, "12.5")
 netedit.modifyBoolAttribute(11)
 
 # Change boolean parameter 13
-netedit.modifyBoolAttribute(13)
+netedit.modifyBoolAttribute(15)
 
 # Check undos and redos
 netedit.undo(match, 26)
