@@ -28,6 +28,7 @@ else:
     import traci  # noqa
 import sumolib  # noqa
 
+
 def check(poiID):
     print("pois", traci.poi.getIDList())
     print("poi count", traci.poi.getIDCount())

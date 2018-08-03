@@ -17,8 +17,8 @@
 from __future__ import print_function
 from __future__ import absolute_import
 import os
-import subprocess
 import sys
+
 SUMO_HOME = os.path.join(os.path.dirname(__file__), "..", "..", "..", "..", "..")
 sys.path.append(os.path.join(os.environ.get("SUMO_HOME", SUMO_HOME), "tools"))
 if len(sys.argv) > 1:
@@ -27,7 +27,6 @@ else:
     import traci  # noqa
 import sumolib  # noqa
 
-traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg", "--fcd-output", "fcd.xml"])
 
 def step():
     s = traci.simulation.getCurrentTime() / 1000
@@ -35,6 +34,7 @@ def step():
     return s
 
 
+traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg", "--fcd-output", "fcd.xml"])
 # add walking person
 traci.person.add("newPerson", "3si", -10)
 traci.person.appendWalkingStage("newPerson", ["3si", "2si"], -20)
