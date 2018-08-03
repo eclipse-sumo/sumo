@@ -26,6 +26,7 @@
 #include <vector>
 #include <libsumo/Subscription.h>
 #include <libsumo/TraCIDefs.h>
+#include <microsim/MSNet.h>
 
 
 // ===========================================================================
@@ -147,6 +148,12 @@ public:
 
     static void cleanup();
 
+    static void registerVehicleStateListener();
+
+    static const std::vector<std::string>& getVehicleStateChanges(const MSNet::VehicleState state);
+
+    static void clearVehicleStates();
+
     /// @name functions for moveToXY
     /// @{
     static bool moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveNetwork, const std::string& origID, const double angle,
@@ -200,11 +207,21 @@ private:
     static void handleSingleSubscription(const Subscription& s);
 
 private:
+    class VehicleStateListener : public MSNet::VehicleStateListener {
+    public:
+        void vehicleStateChanged(const SUMOVehicle* const vehicle, MSNet::VehicleState to, const std::string& info = "");
+        /// @brief Changes in the states of simulated vehicles
+        std::map<MSNet::VehicleState, std::vector<std::string> > myVehicleStateChanges;
+    };
+
     /// @brief The list of known, still valid subscriptions
     static std::vector<Subscription> mySubscriptions;
 
     /// @brief Map of commandIds -> their executors; applicable if the executor applies to the method footprint
     static std::map<int, std::shared_ptr<VariableWrapper> > myWrapper;
+
+    /// @brief Changes in the states of simulated vehicles
+    static VehicleStateListener myVehicleStateListener;
 
     /// @brief A storage of objects
     static std::map<int, NamedRTree*> myObjects;
@@ -216,13 +233,7 @@ private:
     static std::map<std::string, MSPerson*> myRemoteControlledPersons;
 
     /// @brief invalidated standard constructor
-    Helper();
-
-    /// @brief invalidated copy constructor
-    Helper(const Helper& src);
-
-    /// @brief invalidated assignment operator
-    Helper& operator=(const Helper& src);
+    Helper() = delete;
 };
 
 }

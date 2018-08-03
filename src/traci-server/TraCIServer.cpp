@@ -322,6 +322,7 @@ TraCIServer::vehicleStateChanged(const SUMOVehicle* const vehicle, MSNet::Vehicl
     }
 }
 
+
 void
 TraCIServer::checkClientOrdering() {
 #ifdef DEBUG_MULTI_CLIENTS
@@ -625,7 +626,6 @@ TraCIServer::processCommandsUntilSimStep(SUMOTime step) {
         for (std::map<MSNet::VehicleState, std::vector<std::string> >::iterator i = myVehicleStateChanges.begin(); i != myVehicleStateChanges.end(); ++i) {
             (*i).second.clear();
         }
-
     } catch (std::invalid_argument& e) {
         throw ProcessError(e.what());
     } catch (libsumo::TraCIException& e) {

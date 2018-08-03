@@ -60,6 +60,31 @@ public:
 
     static SUMOTime getCurrentTime();
 
+    static int getLoadedNumber();
+    static std::vector<std::string> getLoadedIDList();
+    static int getDepartedNumber();
+    static std::vector<std::string> getDepartedIDList();
+    static int getArrivedNumber();
+    static std::vector<std::string> getArrivedIDList();
+    static int getParkingStartingVehiclesNumber();
+    static std::vector<std::string> getParkingStartingVehiclesIDList();
+    static int getParkingEndingVehiclesNumber();
+    static std::vector<std::string> getParkingEndingVehiclesIDList();
+    static int getStopStartingVehiclesNumber();
+    static std::vector<std::string> getStopStartingVehiclesIDList();
+    static int getStopEndingVehiclesNumber();
+    static std::vector<std::string> getStopEndingVehiclesIDList();
+    static int getCollidingVehiclesNumber();
+    static std::vector<std::string> getCollidingVehiclesIDList();
+    static int getEmergencyStoppingVehiclesNumber();
+    static std::vector<std::string> getEmergencyStoppingVehiclesIDList();
+    static int getStartingTeleportNumber();
+    static std::vector<std::string> getStartingTeleportIDList();
+    static int getEndingTeleportNumber();
+    static std::vector<std::string> getEndingTeleportIDList();
+
+    static int getBusStopWaiting(const std::string& id);
+
     static SUMOTime getDeltaT();
 
     static TraCIBoundary getNetBoundary();
@@ -82,8 +107,9 @@ public:
 
     static std::string getParameter(const std::string& objectID, const std::string& key);
 
-    static void subscribe(const std::string& objID, const std::vector<int>& vars, SUMOTime beginTime, SUMOTime endTime);
-    static void subscribeContext(const std::string& objID, int domain, double range, const std::vector<int>& vars, SUMOTime beginTime, SUMOTime endTime);
+    static void subscribe(const std::string& objID, const std::vector<int>& vars = std::vector<int>(), SUMOTime beginTime = 0, SUMOTime endTime = ((2 ^ 31) - 1));
+    static void subscribe(const std::vector<int>& vars = std::vector<int>(), SUMOTime beginTime = 0, SUMOTime endTime = ((2 ^ 31) - 1));
+    static void subscribeContext(const std::string& objID, int domain, double range, const std::vector<int>& vars = std::vector<int>(), SUMOTime beginTime = 0, SUMOTime endTime = ((2 ^ 31) - 1));
     static const SubscriptionResults getSubscriptionResults();
     static const TraCIResults getSubscriptionResults(const std::string& objID);
     static const ContextSubscriptionResults getContextSubscriptionResults();

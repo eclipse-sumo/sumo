@@ -18,6 +18,8 @@
 
 // adding dummy init and close for easier traci -> libsumo transfer
 %pythoncode %{
+from traci import constants
+
 def isLibsumo():
     return True
 

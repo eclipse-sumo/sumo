@@ -65,6 +65,7 @@ Simulation::load(const std::vector<std::string>& args) {
     XMLSubSys::init();
     OptionsIO::setArgs(args);
     NLBuilder::init();
+    Helper::registerVehicleStateListener();
 }
 
 
@@ -84,6 +85,7 @@ Simulation::step(const SUMOTime time) {
         }
     }
     Helper::handleSubscriptions(time);
+    Helper::clearVehicleStates();
 }
 
 
@@ -102,6 +104,13 @@ void
 Simulation::subscribe(const std::string& objID, const std::vector<int>& vars, SUMOTime beginTime, SUMOTime endTime) {
     libsumo::Helper::subscribe(CMD_SUBSCRIBE_SIM_VARIABLE, objID, vars, beginTime, endTime);
 }
+
+
+void
+Simulation::subscribe(const std::vector<int>& vars, SUMOTime beginTime, SUMOTime endTime) {
+    libsumo::Helper::subscribe(CMD_SUBSCRIBE_SIM_VARIABLE, "", vars, beginTime, endTime);
+}
+
 
 void
 Simulation::subscribeContext(const std::string& objID, int domain, double range, const std::vector<int>& vars, SUMOTime beginTime, SUMOTime endTime) {
@@ -136,6 +145,147 @@ Simulation::getContextSubscriptionResults(const std::string& objID) {
 SUMOTime
 Simulation::getCurrentTime() {
     return MSNet::getInstance()->getCurrentTimeStep();
+}
+
+int
+Simulation::getLoadedNumber() {
+    return (int)Helper::getVehicleStateChanges(MSNet::VEHICLE_STATE_BUILT).size();
+}
+
+
+std::vector<std::string>
+Simulation::getLoadedIDList() {
+    return Helper::getVehicleStateChanges(MSNet::VEHICLE_STATE_BUILT);
+}
+
+
+int
+Simulation::getDepartedNumber() {
+    return (int)Helper::getVehicleStateChanges(MSNet::VEHICLE_STATE_DEPARTED).size();
+}
+
+
+std::vector<std::string>
+Simulation::getDepartedIDList() {
+    return Helper::getVehicleStateChanges(MSNet::VEHICLE_STATE_DEPARTED);
+}
+
+
+int
+Simulation::getArrivedNumber() {
+    return (int)Helper::getVehicleStateChanges(MSNet::VEHICLE_STATE_ARRIVED).size();
+}
+
+
+std::vector<std::string>
+Simulation::getArrivedIDList() {
+    return Helper::getVehicleStateChanges(MSNet::VEHICLE_STATE_ARRIVED);
+}
+
+
+int
+Simulation::getParkingStartingVehiclesNumber() {
+    return (int)Helper::getVehicleStateChanges(MSNet::VEHICLE_STATE_STARTING_PARKING).size();
+}
+
+
+std::vector<std::string>
+Simulation::getParkingStartingVehiclesIDList() {
+    return Helper::getVehicleStateChanges(MSNet::VEHICLE_STATE_STARTING_PARKING);
+}
+
+
+int
+Simulation::getParkingEndingVehiclesNumber() {
+    return (int)Helper::getVehicleStateChanges(MSNet::VEHICLE_STATE_ENDING_PARKING).size();
+}
+
+
+std::vector<std::string>
+Simulation::getParkingEndingVehiclesIDList() {
+    return Helper::getVehicleStateChanges(MSNet::VEHICLE_STATE_ENDING_PARKING);
+}
+
+
+int
+Simulation::getStopStartingVehiclesNumber() {
+    return (int)Helper::getVehicleStateChanges(MSNet::VEHICLE_STATE_STARTING_STOP).size();
+}
+
+
+std::vector<std::string>
+Simulation::getStopStartingVehiclesIDList() {
+    return Helper::getVehicleStateChanges(MSNet::VEHICLE_STATE_STARTING_STOP);
+}
+
+
+int
+Simulation::getStopEndingVehiclesNumber() {
+    return (int)Helper::getVehicleStateChanges(MSNet::VEHICLE_STATE_ENDING_STOP).size();
+}
+
+
+std::vector<std::string>
+Simulation::getStopEndingVehiclesIDList() {
+    return Helper::getVehicleStateChanges(MSNet::VEHICLE_STATE_ENDING_STOP);
+}
+
+
+int
+Simulation::getCollidingVehiclesNumber() {
+    return (int)Helper::getVehicleStateChanges(MSNet::VEHICLE_STATE_COLLISION).size();
+}
+
+
+std::vector<std::string>
+Simulation::getCollidingVehiclesIDList() {
+    return Helper::getVehicleStateChanges(MSNet::VEHICLE_STATE_COLLISION);
+}
+
+
+int
+Simulation::getEmergencyStoppingVehiclesNumber() {
+    return (int)Helper::getVehicleStateChanges(MSNet::VEHICLE_STATE_EMERGENCYSTOP).size();
+}
+
+
+std::vector<std::string>
+Simulation::getEmergencyStoppingVehiclesIDList() {
+    return Helper::getVehicleStateChanges(MSNet::VEHICLE_STATE_EMERGENCYSTOP);
+}
+
+
+int
+Simulation::getStartingTeleportNumber() {
+    return (int)Helper::getVehicleStateChanges(MSNet::VEHICLE_STATE_STARTING_TELEPORT).size();
+}
+
+
+std::vector<std::string>
+Simulation::getStartingTeleportIDList() {
+    return Helper::getVehicleStateChanges(MSNet::VEHICLE_STATE_STARTING_TELEPORT);
+}
+
+
+int
+Simulation::getEndingTeleportNumber() {
+    return (int)Helper::getVehicleStateChanges(MSNet::VEHICLE_STATE_ENDING_TELEPORT).size();
+}
+
+
+std::vector<std::string>
+Simulation::getEndingTeleportIDList() {
+    return Helper::getVehicleStateChanges(MSNet::VEHICLE_STATE_ENDING_TELEPORT);
+}
+
+
+int
+Simulation::getBusStopWaiting(const std::string& id) {
+    MSStoppingPlace* s = MSNet::getInstance()->getStoppingPlace(id, SUMO_TAG_BUS_STOP);
+    if (s == nullptr) {
+        throw TraCIException("Unknown bus stop '" + id + "'.");
+    }
+    return s->getTransportableNumber();
 }
 
 
@@ -398,6 +548,58 @@ Simulation::makeWrapper() {
 bool
 Simulation::handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper) {
     switch (variable) {
+    case VAR_TIME_STEP:
+        return wrapper->wrapInt(objID, variable, (int)getCurrentTime());
+    case VAR_LOADED_VEHICLES_NUMBER:
+        return wrapper->wrapInt(objID, variable, getLoadedNumber());
+    case VAR_LOADED_VEHICLES_IDS:
+        return wrapper->wrapStringList(objID, variable, getLoadedIDList());
+    case VAR_DEPARTED_VEHICLES_NUMBER:
+        return wrapper->wrapInt(objID, variable, getDepartedNumber());
+    case VAR_DEPARTED_VEHICLES_IDS:
+        return wrapper->wrapStringList(objID, variable, getDepartedIDList());
+    case VAR_TELEPORT_STARTING_VEHICLES_NUMBER:
+        return wrapper->wrapInt(objID, variable, getStartingTeleportNumber());
+    case VAR_TELEPORT_STARTING_VEHICLES_IDS:
+        return wrapper->wrapStringList(objID, variable, getStartingTeleportIDList());
+    case VAR_TELEPORT_ENDING_VEHICLES_NUMBER:
+        return wrapper->wrapInt(objID, variable, getEndingTeleportNumber());
+    case VAR_TELEPORT_ENDING_VEHICLES_IDS:
+        return wrapper->wrapStringList(objID, variable, getEndingTeleportIDList());
+    case VAR_ARRIVED_VEHICLES_NUMBER:
+        return wrapper->wrapInt(objID, variable, getArrivedNumber());
+    case VAR_ARRIVED_VEHICLES_IDS:
+        return wrapper->wrapStringList(objID, variable, getArrivedIDList());
+    case VAR_PARKING_STARTING_VEHICLES_NUMBER:
+        return wrapper->wrapInt(objID, variable, getParkingStartingVehiclesNumber());
+    case VAR_PARKING_STARTING_VEHICLES_IDS:
+        return wrapper->wrapStringList(objID, variable, getParkingStartingVehiclesIDList());
+    case VAR_PARKING_ENDING_VEHICLES_NUMBER:
+        return wrapper->wrapInt(objID, variable, getParkingEndingVehiclesNumber());
+    case VAR_PARKING_ENDING_VEHICLES_IDS:
+        return wrapper->wrapStringList(objID, variable, getParkingEndingVehiclesIDList());
+    case VAR_STOP_STARTING_VEHICLES_NUMBER:
+        return wrapper->wrapInt(objID, variable, getStopStartingVehiclesNumber());
+    case VAR_STOP_STARTING_VEHICLES_IDS:
+        return wrapper->wrapStringList(objID, variable, getStopStartingVehiclesIDList());
+    case VAR_STOP_ENDING_VEHICLES_NUMBER:
+        return wrapper->wrapInt(objID, variable, getStopEndingVehiclesNumber());
+    case VAR_STOP_ENDING_VEHICLES_IDS:
+        return wrapper->wrapStringList(objID, variable, getStopEndingVehiclesIDList());
+    case VAR_COLLIDING_VEHICLES_NUMBER:
+        return wrapper->wrapInt(objID, variable, getCollidingVehiclesNumber());
+    case VAR_COLLIDING_VEHICLES_IDS:
+        return wrapper->wrapStringList(objID, variable, getCollidingVehiclesIDList());
+    case VAR_EMERGENCYSTOPPING_VEHICLES_NUMBER:
+        return wrapper->wrapInt(objID, variable, getEmergencyStoppingVehiclesNumber());
+    case VAR_EMERGENCYSTOPPING_VEHICLES_IDS:
+        return wrapper->wrapStringList(objID, variable, getEmergencyStoppingVehiclesIDList());
+    case VAR_DELTA_T:
+        return wrapper->wrapInt(objID, variable, (int)getDeltaT());
+    case VAR_MIN_EXPECTED_VEHICLES:
+        return wrapper->wrapInt(objID, variable, getMinExpectedNumber());
+    case VAR_BUS_STOP_WAITING:
+        return wrapper->wrapInt(objID, variable, getBusStopWaiting(objID));
     default:
         return false;
     }

@@ -160,6 +160,8 @@ Route::handleVariable(const std::string& objID, const int variable, VariableWrap
         return wrapper->wrapStringList(objID, variable, getIDList());
     case ID_COUNT:
         return wrapper->wrapInt(objID, variable, getIDCount());
+    case VAR_EDGES:
+        return wrapper->wrapStringList(objID, variable, getEdges(objID));
     default:
         return false;
     }

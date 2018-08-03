@@ -104,6 +104,7 @@ namespace libsumo {
 // ===========================================================================
 std::vector<Subscription> Helper::mySubscriptions;
 std::map<int, std::shared_ptr<VariableWrapper> > Helper::myWrapper;
+Helper::VehicleStateListener Helper::myVehicleStateListener;
 std::map<int, NamedRTree*> Helper::myObjects;
 LANE_RTREE_QUAL* Helper::myLaneTree;
 std::map<std::string, MSVehicle*> Helper::myRemoteControlledVehicles;
@@ -286,14 +287,35 @@ Helper::convertCartesianToRoadMap(Position pos) {
     return result;
 }
 
+
 void
 Helper::cleanup() {
-    for (std::map<int, NamedRTree*>::const_iterator i = myObjects.begin(); i != myObjects.end(); ++i) {
-        delete(*i).second;
+    for (const auto i : myObjects) {
+        delete i.second;
     }
     myObjects.clear();
     delete myLaneTree;
     myLaneTree = 0;
+}
+
+
+void
+Helper::registerVehicleStateListener() {
+    MSNet::getInstance()->addVehicleStateListener(&myVehicleStateListener);
+}
+
+
+const std::vector<std::string>&
+Helper::getVehicleStateChanges(const MSNet::VehicleState state) {
+    return myVehicleStateListener.myVehicleStateChanges[state];
+}
+
+
+void
+Helper::clearVehicleStates() {
+    for (auto i : myVehicleStateListener.myVehicleStateChanges) {
+        i.second.clear();
+    }
 }
 
 
@@ -764,6 +786,12 @@ bool
 Helper::SubscriptionWrapper::wrapColor(const std::string& objID, const int variable, const TraCIColor& value) {
     myActiveResults[objID][variable] = std::make_shared<TraCIColor>(value);
     return true;
+}
+
+
+void
+Helper::VehicleStateListener::vehicleStateChanged(const SUMOVehicle* const vehicle, MSNet::VehicleState to, const std::string& /*info*/) {
+    myVehicleStateChanges[to].push_back(vehicle->getID());
 }
 
 
