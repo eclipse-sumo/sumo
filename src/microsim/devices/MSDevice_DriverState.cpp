@@ -220,12 +220,12 @@ MSDevice_DriverState::getParameter(const std::string& key) const {
 #endif
     if (key == "awareness") {
         return toString(myDriverState->getAwareness());
-    } else if (key == "holder") {
-        return toString(myHolder.getID());
     } else if (key == "errorState") {
         return toString(myDriverState->getErrorState());
     } else if (key == "errorTimeScale") {
         return toString(myDriverState->getErrorTimeScale());
+    } else if (key == "errorNoiseIntensity") {
+        return toString(myDriverState->getErrorNoiseIntensity());
     } else if (key == "errorNoiseIntensity") {
         return toString(myDriverState->getErrorNoiseIntensity());
     } else if (key == "minAwareness") {
