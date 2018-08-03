@@ -2895,6 +2895,37 @@ MSVehicle::updateTimeLoss(double vNext) {
 }
 
 
+bool
+MSVehicle::canReverse() const {
+    if ((getVClass() & SVC_RAIL_CLASSES) != 0 
+            && getPreviousSpeed() <= SUMO_const_haltingSpeed
+            && myState.myPos <= myLane->getLength()
+            && !myLane->isInternal()
+            && (myCurrEdge + 1) != myRoute->end()
+            && myLane->getEdge().getBidiEdge() == *(myCurrEdge + 1)
+            // ensure there are no further stops on this edge
+            && (myStops.empty() || myStops.front().edge != myCurrEdge)
+       ) {
+        // ensure that the vehicle is fully on bidi edges that allow reversal
+        if ((myRoute->end() - myCurrEdge) <= myFurtherLanes.size()) {
+            return false;
+        }
+        int view = 2;
+        for (MSLane* further : myFurtherLanes) {
+            if (!further->getEdge().isInternal()) {
+                if (further->getEdge().getBidiEdge() != *(myCurrEdge + view) 
+                        || (!myStops.empty() && myStops.front().edge == (myCurrEdge + view))) {
+                    return false;
+                }
+                view++;
+            }
+        }
+        return true;
+    }
+    return false;
+}
+
+
 void
 MSVehicle::processLaneAdvances(std::vector<MSLane*>& passedLanes, bool& moved, std::string& emergencyReason) {
     for (std::vector<MSLane*>::reverse_iterator i = myFurtherLanes.rbegin(); i != myFurtherLanes.rend(); ++i) {
@@ -2902,6 +2933,12 @@ MSVehicle::processLaneAdvances(std::vector<MSLane*>& passedLanes, bool& moved, s
     }
     if (passedLanes.size() == 0 || passedLanes.back() != myLane) {
         passedLanes.push_back(myLane);
+    }
+    // let trains reverse direction
+    const bool reverseTrain = canReverse();
+    if (reverseTrain) {
+        myState.myPos += 2 * (myLane->getLength() - myState.myPos) + myType->getLength();
+        myState.mySpeed = 0;
     }
     // move on lane(s)
     if (myState.myPos > myLane->getLength()) {
@@ -2928,6 +2965,16 @@ MSVehicle::processLaneAdvances(std::vector<MSLane*>& passedLanes, bool& moved, s
                     // avoid warning due to numerical instability
                     approachedLane = myLane;
                     myState.myPos = myLane->getLength();
+                } else if (reverseTrain) {
+                    approachedLane = (*(myCurrEdge + 1))->getLanes()[0];
+                    if (MSGlobals::gUsingInternalLanes) {
+                        link = MSLinkContHelper::getConnectingLink(*myLane, *approachedLane);
+                        assert(link != 0);
+                        while (link->getViaLane() != 0) {
+                            link = link->getViaLane()->getLinkCont()[0];
+                        }
+                    }
+                    --myNextDriveItem;
                 } else {
                     emergencyReason = " because there is no connection to the next edge";
                     approachedLane = 0;

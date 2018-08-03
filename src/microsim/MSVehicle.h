@@ -1673,6 +1673,8 @@ protected:
      */
     void updateTimeLoss(double vNext);
 
+    /// @brief whether the vehicle is a train that can reverse its direction at the current point in its route
+    bool canReverse() const; 
 
     /** @brief sets the braking lights on/off
      */
