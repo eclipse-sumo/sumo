@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Aug  2 12:24:18 2018 by Eclipse SUMO netgenerate Version 1daeae3
+<!-- generated on Fri Aug  3 15:51:11 2018 by Eclipse SUMO netgenerate Version d96136b
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -334,7 +334,7 @@
         <flip-y-axis value="false" synonymes="flip-y" type="BOOL"/>
 
         <!-- Enable roundabout-guessing -->
-        <roundabouts.guess value="false" synonymes="guess-roundabouts" type="BOOL"/>
+        <roundabouts.guess value="true" synonymes="guess-roundabouts" type="BOOL"/>
 
         <!-- Enable guessing of opposite direction lanes usable for overtaking -->
         <opposites.guess value="false" type="BOOL"/>
