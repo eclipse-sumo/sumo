@@ -183,7 +183,7 @@ MSRailSignal::init(NLDetectorBuilder&) {
         for (std::vector<const MSLane*>::iterator laneIt = it->second.begin(); laneIt != it->second.end(); laneIt++) {
             const MSLane* lane = *laneIt;
 
-            const MSEdge* reverseEdge = lane->getEdge().getMyOppositeSuperposableEdge();
+            const MSEdge* reverseEdge = lane->getEdge().getBidiEdge();
             if (reverseEdge != 0) {
                 const MSLane* revLane = reverseEdge->getLanes()[0];
                 revLanes.push(revLane);

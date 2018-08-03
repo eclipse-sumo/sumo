@@ -234,8 +234,8 @@ public:
     void checkAndRegisterBiDirEdge();
 
     /// @brief return opposite superposable/congruent edge, if it exist and 0 else
-    inline const MSEdge* getMyOppositeSuperposableEdge() const {
-        return myOppositingSuperposableEdge;
+    inline const MSEdge* getBidiEdge() const {
+        return myBidiEdge;
     }
 
     /// @brief return whether this edge is walking area
@@ -868,7 +868,7 @@ protected:
 private:
 
     /// @brief the oppositing superposble edge
-    const MSEdge* myOppositingSuperposableEdge;
+    const MSEdge* myBidiEdge;
 
     /// @brief Invalidated copy constructor.
     MSEdge(const MSEdge&);

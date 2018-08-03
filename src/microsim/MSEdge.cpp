@@ -989,18 +989,18 @@ MSEdge::hasMinorLink() const {
 
 
 void MSEdge::checkAndRegisterBiDirEdge() {
-    myOppositingSuperposableEdge = 0;
+    myBidiEdge = 0;
     if (getFunction() != EDGEFUNC_NORMAL) {
         return;
     }
     ConstMSEdgeVector candidates = myToJunction->getOutgoing();
     for (ConstMSEdgeVector::const_iterator it = candidates.begin(); it != candidates.end(); it++) {
         if ((*it)->getToJunction() == myFromJunction) { //reverse edge
-            if (myOppositingSuperposableEdge != 0 && isSuperposable(*it)) {
+            if (myBidiEdge != 0 && isSuperposable(*it)) {
                 WRITE_WARNING("Ambiguous superposable edges between junction '" + myToJunction->getID() + "' and '" + myFromJunction->getID() + "'.");
                 break;
             }
-            myOppositingSuperposableEdge = isSuperposable(*it) ? *it : 0;
+            myBidiEdge = isSuperposable(*it) ? *it : 0;
         }
     }
 }

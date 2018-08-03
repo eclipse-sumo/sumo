@@ -491,9 +491,9 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
     glGetFloatv(GL_CURRENT_COLOR, color);
     if (color[3] != 0 && s.scale * exaggeration > s.laneMinSize &&
             // only show one edge for a pair of superposed rail edges
-            (myEdge->getMyOppositeSuperposableEdge() == 0
+            (myEdge->getBidiEdge() == 0
              || s.showLaneDirection
-             || myEdge->getNumericalID() < myEdge->getMyOppositeSuperposableEdge()->getNumericalID())) {
+             || myEdge->getNumericalID() < myEdge->getBidiEdge()->getNumericalID())) {
         // scale tls-controlled lane2lane-arrows along with their junction shapes
         double junctionExaggeration = 1;
         if (!isInternal 
