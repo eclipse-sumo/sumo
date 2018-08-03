@@ -24,3 +24,6 @@ stops_1bidi_extend
 
 # the route between stops requires new bidi edges but they are not reachable by extending from the stops themselves
 stops_bidi_between
+
+# import a network where the public transport line contains a direction reversal at a side branch
+stops_reverse_en_route
