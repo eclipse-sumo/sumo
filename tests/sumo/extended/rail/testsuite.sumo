@@ -6,3 +6,6 @@ interlocking
 
 # speed when passing tracks with different speed limits
 slow_fast_slow
+
+# train serving a public transport line must reverse direction at a branch stop
+reverse_at_stop
