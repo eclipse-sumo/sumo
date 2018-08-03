@@ -607,7 +607,7 @@ public:
     }
 
     /// @brief return the network version
-    double version() const {
+    double getNetworkVersion() const {
         return myVersion;
     }
 
