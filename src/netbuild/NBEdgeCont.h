@@ -40,14 +40,15 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
+class OptionsCont;
+class OutputDevice;
 class NBNodeCont;
 class NBTypeCont;
 class NBEdge;
 class NBNode;
-class OptionsCont;
 class NBDistrictCont;
 class NBTrafficLightLogicCont;
-class OutputDevice;
+class NBPTStopCont;
 
 
 // ===========================================================================
@@ -424,6 +425,10 @@ public:
      * @see NBEdge::appendTurnaround
      */
     void appendTurnarounds(const std::set<std::string>& ids, bool noTLSControlled);
+
+    /** @brief Appends turnarounds to all bidiRail edges with stops
+     */
+    void appendRailwayTurnarounds(const NBPTStopCont& sc);
 
 
     /** @brief Computes the shapes of all edges stored in the container

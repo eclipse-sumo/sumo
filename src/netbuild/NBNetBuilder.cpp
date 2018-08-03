@@ -433,6 +433,11 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     } else {
         myEdgeCont.appendTurnarounds(explicitTurnarounds, oc.getBool("no-turnarounds.tls"));
     }
+    if (oc.exists("railway.topology.repair") && oc.getBool("railway.topology.repair")
+            && myPTStopCont.getStops().size() > 0) {
+        // allow direction reversal at all bidi-edges with stops
+        myEdgeCont.appendRailwayTurnarounds(myPTStopCont);
+    }
     PROGRESS_TIME_MESSAGE(before);
     //
     before = SysUtils::getCurrentMillis();

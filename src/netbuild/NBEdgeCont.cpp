@@ -832,6 +832,27 @@ NBEdgeCont::appendTurnarounds(const std::set<std::string>& ids, bool noTLSContro
 }
 
 
+void 
+NBEdgeCont::appendRailwayTurnarounds(const NBPTStopCont& sc) {
+    std::set<std::string> stopEdgeIDs;
+    for (auto& stopItem : sc.getStops()) {
+        stopEdgeIDs.insert(stopItem.second->getEdgeId());
+    }
+    for (auto& item : myEdges) {
+        NBEdge* edge = item.second;
+        if (edge->isBidiRail() 
+                && (stopEdgeIDs.count(item.first) > 0 ||
+                    stopEdgeIDs.count(edge->getTurnDestination(true)->getID()) > 0)) {
+            NBEdge* to = edge->getTurnDestination(true);
+            assert(to != 0);
+            edge->setConnection(edge->getNumLanes() - 1,
+                    to, to->getNumLanes() - 1, NBEdge::L2L_VALIDATED, false, false, true, 
+                    NBEdge::UNSPECIFIED_CONTPOS, NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE, 
+                    SUMO_const_haltingSpeed);
+        }
+    }
+}
+
 void
 NBEdgeCont::computeEdgeShapes() {
     for (EdgeCont::iterator i = myEdges.begin(); i != myEdges.end(); i++) {
