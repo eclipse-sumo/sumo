@@ -28,6 +28,8 @@ Warning: Value '%%%%%&%&&' for attribute file of e3Detector isn't valid
 Warning: Setting new attribute file '' into e3Detector 'correctID'
 Warning: Setting new attribute file 'e3Detector_1.txt' into e3Detector 'correctID'
 Warning: Setting new attribute file 'myOwnOutput.txt' into e3Detector 'correctID'
+Warning: Value 'Type%%%%%1 Typ$2 Type3' for attribute vTypes of e3Detector isn't valid
+Warning: Setting new attribute vTypes 'Type1 Type2 Type3' into e3Detector 'correctID'
 Warning: Value '-5' for attribute timeThreshold of e3Detector isn't valid
 Warning: Setting new attribute timeThreshold '4' into e3Detector 'correctID'
 Warning: Value '-12.1' for attribute speedThreshold of e3Detector isn't valid
@@ -39,6 +41,8 @@ Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute speedThreshold '1.39' into e3Detector 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute timeThreshold '1.00' into e3Detector 'correctID'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute vTypes '' into e3Detector 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute file 'e3Detector_1.txt' into e3Detector 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -100,6 +104,8 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute file 'e3Detector_1.txt' into e3Detector 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute file 'myOwnOutput.txt' into e3Detector 'correctID'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute vTypes 'Type1 Type2 Type3' into e3Detector 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute timeThreshold '4' into e3Detector 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed

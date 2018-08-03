@@ -58,21 +58,33 @@ netedit.modifyAdditionalDefaultValue(3, "myOwnFilename.txt")
 # create E1 Instant with valid filename
 netedit.leftClick(match, 300, 250)
 
-# Change friendlyPos
-netedit.modifyAdditionalDefaultBoolValue(4)
+# set invalid vehicle types (invalid IDs)
+netedit.modifyAdditionalDefaultValue(4, "%%$$$ %%$$")
 
-# create E1 Instant with different friendly pos
+# try to create E1 with invalid vehicle types
 netedit.leftClick(match, 400, 250)
 
-# Change block move
-netedit.modifyAdditionalDefaultBoolValue(6)
+# set valid vehicle type
+netedit.modifyAdditionalDefaultValue(4, "private passenger taxi bus")
 
-# create E1 Instant with different block move
+# create E1 with valid vehicle types
+netedit.leftClick(match, 400, 250)
+
+# Change friendlyPos
+netedit.modifyAdditionalDefaultBoolValue(5)
+
+# create E1 Instant with different friendly pos
 netedit.leftClick(match, 450, 250)
 
+# Change block move
+netedit.modifyAdditionalDefaultBoolValue(7)
+
+# create E1 Instant with different block move
+netedit.leftClick(match, 500, 250)
+
 # Check undo redo
-netedit.undo(match, 6)
-netedit.redo(match, 6)
+netedit.undo(match, 7)
+netedit.redo(match, 7)
 
 # save additionals
 netedit.saveAdditionals()

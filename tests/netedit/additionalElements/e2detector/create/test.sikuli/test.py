@@ -82,57 +82,69 @@ netedit.modifyAdditionalDefaultValue(5, "myOwnFilename.txt")
 # create E2 with valid filename
 netedit.leftClick(match, 400, 250)
 
+# set invalid vehicle types (invalid IDs)
+netedit.modifyAdditionalDefaultValue(6, "%%$$$ %%$$")
+
+# try to create E1 with invalid vehicle types
+netedit.leftClick(match, 150, 220)
+
+# set valid vehicle type
+netedit.modifyAdditionalDefaultValue(6, "private passenger taxi bus")
+
+# create E1 with valid vehicle types
+netedit.leftClick(match, 150, 220)
+
 # set invalid time threshold
-netedit.modifyAdditionalDefaultValue(6, "-12")
+netedit.modifyAdditionalDefaultValue(7, "-12")
 
 # create E2 with different time threshold
-netedit.leftClick(match, 150, 220)
+netedit.leftClick(match, 250, 220)
 
 # set valid time threshold
-netedit.modifyAdditionalDefaultValue(6, "10")
+netedit.modifyAdditionalDefaultValue(7, "10")
 
 # create E2 with different time threshold
-netedit.leftClick(match, 150, 220)
+netedit.leftClick(match, 250, 220)
 
 # set invalid speed threshold
-netedit.modifyAdditionalDefaultValue(7, "-14")
+netedit.modifyAdditionalDefaultValue(8, "-14")
 
 # try to create E2 with different speed threshold
-netedit.leftClick(match, 250, 220)
+netedit.leftClick(match, 350, 220)
 
 # set valid speed threshold
-netedit.modifyAdditionalDefaultValue(7, "2.5")
+netedit.modifyAdditionalDefaultValue(8, "2.5")
 
 # create E2 with different speed threshold
-netedit.leftClick(match, 250, 220)
+netedit.leftClick(match, 350, 220)
 
 # set invalid jam threshold
-netedit.modifyAdditionalDefaultValue(8, "-30")
+netedit.modifyAdditionalDefaultValue(9, "-30")
 
 # try to create E2 with different jam threshold
-netedit.leftClick(match, 350, 220)
+netedit.leftClick(match, 450, 220)
 
 # set valid jam threshold
-netedit.modifyAdditionalDefaultValue(8, "15.5")
+netedit.modifyAdditionalDefaultValue(9, "15.5")
 
 # create E2 with different jam threshold
-netedit.leftClick(match, 350, 220)
-
-# Change friendlyPos
-netedit.modifyAdditionalDefaultBoolValue(9)
-
-# create E2 with different friendlyPos
 netedit.leftClick(match, 450, 220)
 
 # Change friendlyPos
-netedit.modifyAdditionalDefaultBoolValue(11)
+netedit.modifyAdditionalDefaultBoolValue(10)
 
 # create E2 with different friendlyPos
 netedit.leftClick(match, 500, 220)
 
+# Change block movement
+netedit.modifyAdditionalDefaultBoolValue(12)
+
+# create E2 with different friendlyPos
+netedit.leftClick(match, 525, 220)
+
 # Check undo redo
-netedit.undo(match, 11)
-netedit.redo(match, 11)
+netedit.undo(match, 12)
+netedit.redo(match, 12)
 
 # save additionals
 netedit.saveAdditionals()

@@ -76,8 +76,8 @@ netedit.modifyAdditionalDefaultValue(4, "myOwnFilename.txt")
 # create E1 with valid filename
 netedit.leftClick(match, 350, 250)
 
-# set invalid vehicle type
-netedit.modifyAdditionalDefaultValue(5, "dummy vehicles")
+# set invalid vehicle types (invalid IDs)
+netedit.modifyAdditionalDefaultValue(5, "%%$$$ %%$$"")
 
 # try to create E1 with invalid vehicle types
 netedit.leftClick(match, 400, 250)

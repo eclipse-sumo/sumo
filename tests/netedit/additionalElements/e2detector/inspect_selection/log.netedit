@@ -28,6 +28,9 @@ Warning: Setting new attribute name 'customName' into e2Detector 'E2_B'
 Warning: Value '&&&&&&&&' for attribute file of e2Detector isn't valid
 Warning: Setting new attribute file 'myOwnFilename.txt' into e2Detector 'E2_A'
 Warning: Setting new attribute file 'myOwnFilename.txt' into e2Detector 'E2_B'
+Warning: Value 'Type%%%%%1 Typ$2 Type3' for attribute vTypes of e2Detector isn't valid
+Warning: Setting new attribute vTypes 'Type1 Type2 Type3' into e2Detector 'E2_A'
+Warning: Setting new attribute vTypes 'Type1 Type2 Type3' into e2Detector 'E2_B'
 Warning: Value '-5' for attribute timeThreshold of e2Detector isn't valid
 Warning: Setting new attribute timeThreshold '11.3' into e2Detector 'E2_A'
 Warning: Setting new attribute timeThreshold '11.3' into e2Detector 'E2_B'
@@ -57,6 +60,9 @@ Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute timeThreshold '2.00' into e2Detector 'E2_B'
 Warning: Setting previous attribute timeThreshold '1.00' into e2Detector 'E2_A'
 Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute vTypes '' into e2Detector 'E2_B'
+Warning: Setting previous attribute vTypes '' into e2Detector 'E2_A'
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute file 'e2Detector_B.txt' into e2Detector 'E2_B'
 Warning: Setting previous attribute file 'e2Detector_A.txt' into e2Detector 'E2_A'
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -80,6 +86,9 @@ Warning: Setting new attribute name 'customName' into e2Detector 'E2_B'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute file 'myOwnFilename.txt' into e2Detector 'E2_A'
 Warning: Setting new attribute file 'myOwnFilename.txt' into e2Detector 'E2_B'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute vTypes 'Type1 Type2 Type3' into e2Detector 'E2_A'
+Warning: Setting new attribute vTypes 'Type1 Type2 Type3' into e2Detector 'E2_B'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute timeThreshold '11.3' into e2Detector 'E2_A'
 Warning: Setting new attribute timeThreshold '11.3' into e2Detector 'E2_B'

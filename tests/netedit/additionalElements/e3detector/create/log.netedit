@@ -12,6 +12,7 @@ Warning: Invalid input parameter of e3Detector: Name contains invalid characters
 Warning: Adding e3Detector 'e3Detector_3' in GNEChange_Additional
 Warning: Invalid input parameter of e3Detector: input contains invalid characters for a filename
 Warning: Adding e3Detector 'e3Detector_4' in GNEChange_Additional
+Warning: Invalid input parameter of e3Detector: Ids contains invalid characters
 Warning: Invalid input parameter of e3Detector: 'timeThreshold' cannot be negative
 Warning: Adding e3Detector 'e3Detector_5' in GNEChange_Additional
 Warning: Invalid input parameter of e3Detector: 'speedThreshold' cannot be negative

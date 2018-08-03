@@ -91,15 +91,21 @@ netedit.modifyAttribute(4, "instantInductionLoop_gneE2_1_1.txt")
 # Change parameter 4 with a valid value
 netedit.modifyAttribute(4, "myOwnOutput.txt")
 
-# Change boolean parameter 5
-netedit.modifyBoolAttribute(5)
+# Change parameter 5 with a invalid value
+netedit.modifyAdditionalDefaultValue(5, "Type%%%%%1 Typ$2 Type3")
+
+# Change parameter 5 with a valid value
+netedit.modifyAdditionalDefaultValue(5, "Type1 Type2 Type3")
+
+# Change boolean parameter 6
+netedit.modifyBoolAttribute(6)
 
 # Change boolean parameter block movement
-netedit.modifyBoolAttribute(7)
+netedit.modifyBoolAttribute(8)
 
 # Check undos and redos
-netedit.undo(match, 12)
-netedit.redo(match, 12)
+netedit.undo(match, 13)
+netedit.redo(match, 13)
 
 # save additionals
 netedit.saveAdditionals()

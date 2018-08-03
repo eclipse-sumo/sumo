@@ -24,6 +24,9 @@ Warning: Setting new attribute file 'instantInductionLoop_gneE2_1_1.txt' into in
 Warning: Setting new attribute file 'instantInductionLoop_gneE2_1_1.txt' into instantInductionLoop 'E1Instant_B'
 Warning: Setting new attribute file 'myOwnOutput.txt' into instantInductionLoop 'E1Instant_A'
 Warning: Setting new attribute file 'myOwnOutput.txt' into instantInductionLoop 'E1Instant_B'
+Warning: Value 'Type%%%%%1 Typ$2 Type3' for attribute vTypes of instantInductionLoop isn't valid
+Warning: Setting new attribute vTypes 'Type1 Type2 Type3' into instantInductionLoop 'E1Instant_A'
+Warning: Setting new attribute vTypes 'Type1 Type2 Type3' into instantInductionLoop 'E1Instant_B'
 Warning: Setting new attribute friendlyPos 'true' into instantInductionLoop 'E1Instant_A'
 Warning: Setting new attribute friendlyPos 'true' into instantInductionLoop 'E1Instant_B'
 Warning: Setting new attribute blockMovement 'true' into instantInductionLoop 'E1Instant_A'
@@ -34,6 +37,9 @@ Warning: Setting previous attribute blockMovement '0' into instantInductionLoop 
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute friendlyPos '0' into instantInductionLoop 'E1Instant_B'
 Warning: Setting previous attribute friendlyPos '0' into instantInductionLoop 'E1Instant_A'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute vTypes 'bus taxi private' into instantInductionLoop 'E1Instant_B'
+Warning: Setting previous attribute vTypes 'bus taxi private' into instantInductionLoop 'E1Instant_A'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute file 'instantInductionLoop_gneE2_1_1.txt' into instantInductionLoop 'E1Instant_B'
 Warning: Setting previous attribute file 'instantInductionLoop_gneE2_1_1.txt' into instantInductionLoop 'E1Instant_A'
@@ -52,6 +58,9 @@ Warning: Setting new attribute file 'instantInductionLoop_gneE2_1_1.txt' into in
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute file 'myOwnOutput.txt' into instantInductionLoop 'E1Instant_A'
 Warning: Setting new attribute file 'myOwnOutput.txt' into instantInductionLoop 'E1Instant_B'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute vTypes 'Type1 Type2 Type3' into instantInductionLoop 'E1Instant_A'
+Warning: Setting new attribute vTypes 'Type1 Type2 Type3' into instantInductionLoop 'E1Instant_B'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute friendlyPos 'true' into instantInductionLoop 'E1Instant_A'
 Warning: Setting new attribute friendlyPos 'true' into instantInductionLoop 'E1Instant_B'

@@ -109,30 +109,36 @@ netedit.modifyAttribute(4, "e3Detector_1.txt")
 # Change parameter 4 with a valid value
 netedit.modifyAttribute(4, "myOwnOutput.txt")
 
-# Change parameter 5 with a non valid value (dummy)
-netedit.modifyAttribute(5, "dummyTimeTreshold")
-
-# Change parameter 5 with a non valid value (negative)
-netedit.modifyAttribute(5, "-5")
+# Change parameter 5 with a invalid value
+netedit.modifyAdditionalDefaultValue(5, "Type%%%%%1 Typ$2 Type3")
 
 # Change parameter 5 with a valid value
-netedit.modifyAttribute(5, "4")
+netedit.modifyAdditionalDefaultValue(5, "Type1 Type2 Type3")
 
 # Change parameter 6 with a non valid value (dummy)
-netedit.modifyAttribute(6, "dummySpeedTreshold")
+netedit.modifyAttribute(6, "dummyTimeTreshold")
 
 # Change parameter 6 with a non valid value (negative)
-netedit.modifyAttribute(6, "-12.1")
+netedit.modifyAttribute(6, "-5")
 
 # Change parameter 6 with a valid value
-netedit.modifyAttribute(6, "6.3")
+netedit.modifyAttribute(6, "4")
 
-# Change parameter 8 with a valid value
-netedit.modifyBoolAttribute(8)
+# Change parameter 7 with a non valid value (dummy)
+netedit.modifyAttribute(7, "dummySpeedTreshold")
+
+# Change parameter 7 with a non valid value (negative)
+netedit.modifyAttribute(7, "-12.1")
+
+# Change parameter 7 with a valid value
+netedit.modifyAttribute(7, "6.3")
+
+# Change parameter block movement with a valid value
+netedit.modifyBoolAttribute(9)
 
 # Check undos and redos
-netedit.undo(match, 17)
-netedit.redo(match, 17)
+netedit.undo(match, 18)
+netedit.redo(match, 18)
 
 # save additionals
 netedit.saveAdditionals()

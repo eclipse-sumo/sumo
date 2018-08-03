@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 10.07.2018 14:22:47 by Eclipse SUMO netedit Version 88bb7b0b92
+<!-- generated on 03.08.2018 10:56:01 by Eclipse SUMO netedit Version 7115a4b324
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_10Jul142113.2520/netedit.gui/additionalElements/e1InstantDetector/create\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.3_from_03Aug095647.2948/netedit.gui/additionalElements/e1InstantDetector/create\input_net.net.xml"/>
     </input>
 
     <output>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_10Jul142113.2520/netedit.gui/additionalElements/e1InstantDetector/create\additionals.xml"/>
-        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_10Jul142113.2520/netedit.gui/additionalElements/e1InstantDetector/create\shapes.xml"/>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_10Jul142113.2520/netedit.gui/additionalElements/e1InstantDetector/create\net.net.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.3_from_03Aug095647.2948/netedit.gui/additionalElements/e1InstantDetector/create\additionals.xml"/>
+        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.3_from_03Aug095647.2948/netedit.gui/additionalElements/e1InstantDetector/create\shapes.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.3_from_03Aug095647.2948/netedit.gui/additionalElements/e1InstantDetector/create\net.net.xml"/>
     </output>
 
     <processing>
@@ -23,7 +23,7 @@
     </processing>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_10Jul142113.2520/netedit.gui/additionalElements/e1InstantDetector/create\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.3_from_03Aug095647.2948/netedit.gui/additionalElements/e1InstantDetector/create\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -32,7 +32,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_10Jul142113.2520/netedit.gui/additionalElements/e1InstantDetector/create\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.3_from_03Aug095647.2948/netedit.gui/additionalElements/e1InstantDetector/create\log.txt"/>
     </report>
 
 </configuration>
@@ -42,6 +42,7 @@
     <instantInductionLoop id="instantInductionLoop_gneE0_0_0" lane="gneE0_0" pos="7.00" file="instantInductionLoop_gneE0_0_0.xml"/>
     <instantInductionLoop id="instantInductionLoop_gneE0_0_1" name="customName" lane="gneE0_0" pos="12.00" file="instantInductionLoop_gneE0_0_1.xml"/>
     <instantInductionLoop id="instantInductionLoop_gneE0_0_2" name="customName" lane="gneE0_0" pos="22.00" file="myOwnFilename.txt"/>
-    <instantInductionLoop id="instantInductionLoop_gneE0_0_3" name="customName" lane="gneE0_0" pos="32.00" file="myOwnFilename.txt" friendlyPos="1"/>
-    <instantInductionLoop id="instantInductionLoop_gneE0_0_4" name="customName" lane="gneE0_0" pos="37.00" file="myOwnFilename.txt" friendlyPos="1"/>
+    <instantInductionLoop id="instantInductionLoop_gneE0_0_3" name="customName" vTypes="private passenger taxi bus" lane="gneE0_0" pos="32.00" file="myOwnFilename.txt"/>
+    <instantInductionLoop id="instantInductionLoop_gneE0_0_4" name="customName" vTypes="private passenger taxi bus" lane="gneE0_0" pos="37.00" file="myOwnFilename.txt" friendlyPos="1"/>
+    <instantInductionLoop id="instantInductionLoop_gneE0_0_5" name="customName" vTypes="private passenger taxi bus" lane="gneE0_0" pos="42.00" file="myOwnFilename.txt" friendlyPos="1"/>
 </additional>

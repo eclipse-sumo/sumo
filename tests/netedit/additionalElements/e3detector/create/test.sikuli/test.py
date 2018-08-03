@@ -76,38 +76,47 @@ netedit.modifyAdditionalDefaultValue(4, "myOwnFile.txt")
 # create E3 with different file
 netedit.leftClick(match, 300, 100)
 
+# set invalid vehicle types (invalid IDs)
+netedit.modifyAdditionalDefaultValue(5, "%%$$$ %%$$")
+
+# try to create E3 with invalid vehicle types
+netedit.leftClick(match, 400, 100)
+
+# set valid vehicle type
+netedit.modifyAdditionalDefaultValue(5, "private passenger taxi bus")
+
 # set invalid timeTreshold
-netedit.modifyAdditionalDefaultValue(5, "-4")
+netedit.modifyAdditionalDefaultValue(6, "-4")
 
 # try to create E3 with different timeTreshold
 netedit.leftClick(match, 400, 100)
 
 # set valid timeTreshold
-netedit.modifyAdditionalDefaultValue(5, "5")
+netedit.modifyAdditionalDefaultValue(6, "5")
 
 # create E3 with different timeTreshold
 netedit.leftClick(match, 400, 100)
 
 # set invalid speedTreshold
-netedit.modifyAdditionalDefaultValue(6, "-3.80")
+netedit.modifyAdditionalDefaultValue(7, "-3.80")
 
 # try to create E3 with different speedTreshold
 netedit.leftClick(match, 500, 100)
 
 # set valid speedTreshold
-netedit.modifyAdditionalDefaultValue(6, "2.51")
+netedit.modifyAdditionalDefaultValue(7, "2.51")
 
 # create E3 with different speedTreshold
 netedit.leftClick(match, 500, 100)
 
 # set block movement
-netedit.modifyAdditionalDefaultBoolValue(8)
+netedit.modifyAdditionalDefaultBoolValue(9)
 
 # create E3 with different block movement
 netedit.leftClick(match, 600, 100)
 
 # restore block movement
-netedit.modifyAdditionalDefaultBoolValue(8)
+netedit.modifyAdditionalDefaultBoolValue(9)
 
 # select entry detector
 netedit.changeAdditional("detEntry")

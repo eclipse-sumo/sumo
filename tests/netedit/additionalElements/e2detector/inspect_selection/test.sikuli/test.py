@@ -61,33 +61,39 @@ netedit.modifyAttribute(3, "&&&&&&&&")
 # set valid filename
 netedit.modifyAttribute(3, "myOwnFilename.txt")
 
+# Change parameter 4 with a invalid value
+netedit.modifyAdditionalDefaultValue(4, "Type%%%%%1 Typ$2 Type3")
+
+# Change parameter 4 with a valid value
+netedit.modifyAdditionalDefaultValue(4, "Type1 Type2 Type3")
+
 # Set invalid time speed treshold
-netedit.modifyAttribute(4, "-5")
+netedit.modifyAttribute(5, "-5")
 
 # Set valid time speed treshold
-netedit.modifyAttribute(4, "11.3")
+netedit.modifyAttribute(5, "11.3")
 
 # Set invalid speed speed treshold
-netedit.modifyAttribute(5, "-3")
+netedit.modifyAttribute(6, "-3")
 
 # Set valid speed speed treshold
-netedit.modifyAttribute(5, "4")
+netedit.modifyAttribute(6, "4")
 
 # Set invalid jam speed treshold
-netedit.modifyAttribute(6, "-6")
+netedit.modifyAttribute(7, "-6")
 
 # Set valid jam speed treshold
-netedit.modifyAttribute(6, "8.5")
+netedit.modifyAttribute(7, "8.5")
 
 # Set friendlyPos
-netedit.modifyBoolAttribute(7)
+netedit.modifyBoolAttribute(8)
 
 # Set block movement
-netedit.modifyBoolAttribute(9)
+netedit.modifyBoolAttribute(10)
 
 # Check undo redo
-netedit.undo(match, 9)
-netedit.redo(match, 9)
+netedit.undo(match, 10)
+netedit.redo(match, 10)
 
 # save additionals
 netedit.saveAdditionals()
