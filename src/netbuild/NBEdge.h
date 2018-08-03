@@ -1244,6 +1244,9 @@ public:
     /// @brief whether this edge is part of a bidirectional railway
     bool isBidiRail(bool ignoreSpread=false) const;
 
+    /// @brief whether this edge is a railway edge that does not continue
+    bool isRailDeadEnd() const;
+
     /// @brief debugging helper to print all connections
     void debugPrintConnections(bool outgoing = true, bool incoming = false) const;
 

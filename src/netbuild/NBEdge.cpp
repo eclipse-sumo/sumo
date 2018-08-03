@@ -659,6 +659,21 @@ NBEdge::isBidiRail(bool ignoreSpread) const {
 }
 
 
+bool 
+NBEdge::isRailDeadEnd() const {
+    if (!isRailway(getPermissions())) {
+        return false;
+    }
+    for (NBEdge* out : myTo->getOutgoingEdges()) {
+        if (isRailway(out->getPermissions()) && 
+                out != getTurnDestination(true)) { 
+            return true;
+        }
+    }
+    return true;
+}
+
+
 PositionVector
 NBEdge::cutAtIntersection(const PositionVector& old) const {
     PositionVector shape = old;
@@ -1461,7 +1476,7 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
         PositionVector shape = n.computeInternalLaneShape(this, con, numPoints, myTo);
         std::vector<int> foeInternalLinks;
 
-        if (dir != LINKDIR_STRAIGHT && shape.length() < POSITION_EPS) {
+        if (dir != LINKDIR_STRAIGHT && shape.length() < POSITION_EPS && !(isBidiRail() && getTurnDestination(true) == con.toEdge)) {
             WRITE_WARNING("Connection '" + getID() + "_" + toString(con.fromLane) + "->" + con.toEdge->getID() + "_" + toString(con.toLane) + "' is only " + toString(shape.length()) + " short.");
         }
 
@@ -2565,11 +2580,6 @@ NBEdge::appendTurnaround(bool noTLSControlled, bool onlyDeadends, bool checkPerm
     if (onlyDeadends && myTo->getOutgoingEdges().size() > 1) {
         return;
     }
-    // avoid railway turn-arounds
-    if (isRailway(getPermissions()) && isRailway(myTurnDestination->getPermissions()) 
-            && fabs(NBHelpers::normRelAngle(getAngleAtNode(myTo), myTurnDestination->getAngleAtNode(myTo))) > 90) {
-        return;
-    };
     const int fromLane = (int)myLanes.size() - 1;
     const int toLane = (int)myTurnDestination->getNumLanes() - 1;
     if (checkPermissions) {
@@ -2583,6 +2593,19 @@ NBEdge::appendTurnaround(bool noTLSControlled, bool onlyDeadends, bool checkPerm
             return;
         }
     }
+    // avoid railway turn-arounds 
+    if (isRailway(getPermissions()) && isRailway(myTurnDestination->getPermissions()) 
+            && fabs(NBHelpers::normRelAngle(getAngleAtNode(myTo), myTurnDestination->getAngleAtNode(myTo))) > 90) {
+        // except at dead-ends on bidi-edges where they model a reversal in train direction  
+        // @todo #4382: once the network fringe is tagged, it also should not receive turn-arounds)
+        if (isBidiRail() && isRailDeadEnd()) {
+            // add a slow connection because direction-reversal implies stopping
+            setConnection(fromLane, myTurnDestination, toLane, L2L_VALIDATED, false, false, true, UNSPECIFIED_CONTPOS, UNSPECIFIED_VISIBILITY_DISTANCE, SUMO_const_haltingSpeed);
+            return;
+        } else {
+            return;
+        }
+    };
     setConnection(fromLane, myTurnDestination, toLane, L2L_VALIDATED);
 }
 
