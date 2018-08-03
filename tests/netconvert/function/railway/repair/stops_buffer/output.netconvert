@@ -42,14 +42,14 @@ Computing traffic light logics... done (0ms).
 Building inner edges... done (0ms).
 Added 1 stops for superposed rail edges.
 Find accesses for pt rail stops... done (0ms).
-DijkstraRouter answered 2 queries and explored 2.00 edges on average.
+DijkstraRouter answered 2 queries and explored 3.50 edges on average.
 DijkstraRouter spent 0ms answering queries (0.00ms on average).
 -----------------------------------------------------
 Summary:
  Node type statistics:
   Unregulated junctions       : 0
-  Dead-end junctions          : 3
-  Priority junctions          : 3
+  Dead-end junctions          : 2
+  Priority junctions          : 4
   Right-before-left junctions : 0
  Network boundaries:
   Original boundary  : -100.95,-200.00,200.00,-176.21

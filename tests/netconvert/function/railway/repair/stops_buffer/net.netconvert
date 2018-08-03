@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Aug  1 12:33:50 2018 by Eclipse SUMO netconvert Version 4179c84
+<!-- generated on Fri Aug  3 10:44:26 2018 by Eclipse SUMO netconvert Version 6f447fc
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -52,6 +52,9 @@ SPDX-License-Identifier: EPL-2.0
     <edge id=":gneJ46_1" function="internal">
         <lane id=":gneJ46_1_0" index="0" allow="rail_urban" speed="27.78" length="0.38" shape="99.81,-200.00 100.19,-200.00"/>
     </edge>
+    <edge id=":gneJ47_0" function="internal">
+        <lane id=":gneJ47_0_0" index="0" allow="rail_urban" speed="0.10" length="0.10" shape="200.00,-200.00 200.00,-200.00"/>
+    </edge>
     <edge id=":gneJ48_0" function="internal">
         <lane id=":gneJ48_0_0" index="0" allow="rail_urban" speed="27.78" length="0.38" shape="-0.43,-176.25 -0.54,-176.23 -0.62,-176.22 -0.70,-176.21 -0.81,-176.21"/>
     </edge>
@@ -83,7 +86,8 @@ SPDX-License-Identifier: EPL-2.0
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
-    <junction id="gneJ47" type="dead_end" x="200.00" y="-200.00" incLanes="f_0" intLanes="" shape="200.00,-201.60 200.00,-198.40 200.00,-201.60 200.00,-198.40">
+    <junction id="gneJ47" type="priority" x="200.00" y="-200.00" incLanes="f_0" intLanes=":gneJ47_0_0" shape="200.00,-201.60 200.00,-198.40 200.00,-201.60 200.00,-198.40">
+        <request index="0" response="0" foes="0" cont="0"/>
         <param key="buffer_stop" value="true"/>
     </junction>
     <junction id="gneJ48" type="priority" x="-0.62" y="-176.21" incLanes="g_0" intLanes=":gneJ48_0_0" shape="-0.07,-174.70 -0.80,-177.81 -0.82,-174.61 -0.54,-174.61 -0.44,-174.62 -0.34,-174.64 -0.22,-174.66">
@@ -94,11 +98,13 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="-f" to="g" fromLane="0" toLane="0" via=":gneJ46_0_0" dir="s" state="M"/>
     <connection from="d" to="e" fromLane="0" toLane="0" via=":gneJ45_0_0" dir="s" state="M"/>
     <connection from="e" to="f" fromLane="0" toLane="0" via=":gneJ46_1_0" dir="s" state="M"/>
+    <connection from="f" to="-f" fromLane="0" toLane="0" speed="0.10" via=":gneJ47_0_0" dir="t" state="M"/>
     <connection from="g" to="h" fromLane="0" toLane="0" via=":gneJ48_0_0" dir="s" state="M"/>
 
     <connection from=":gneJ45_0" to="e" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":gneJ46_0" to="g" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":gneJ46_1" to="f" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":gneJ47_0" to="-f" fromLane="0" toLane="0" dir="t" state="M"/>
     <connection from=":gneJ48_0" to="h" fromLane="0" toLane="0" dir="s" state="M"/>
 
 </net>
