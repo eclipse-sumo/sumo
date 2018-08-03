@@ -110,13 +110,13 @@ netedit.modifyAdditionalDefaultValue(7, "2.51")
 netedit.leftClick(match, 500, 100)
 
 # set block movement
-netedit.modifyAdditionalDefaultBoolValue(9)
+netedit.modifyAdditionalDefaultBoolValue(11)
 
 # create E3 with different block movement
 netedit.leftClick(match, 600, 100)
 
 # restore block movement
-netedit.modifyAdditionalDefaultBoolValue(9)
+netedit.modifyAdditionalDefaultBoolValue(11)
 
 # select entry detector
 netedit.changeAdditional("detEntry")

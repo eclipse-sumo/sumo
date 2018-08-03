@@ -134,7 +134,7 @@ netedit.modifyAttribute(7, "-12.1")
 netedit.modifyAttribute(7, "6.3")
 
 # Change parameter block movement with a valid value
-netedit.modifyBoolAttribute(9)
+netedit.modifyBoolAttribute(11)
 
 # Check undos and redos
 netedit.undo(match, 18)
