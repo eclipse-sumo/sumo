@@ -196,6 +196,9 @@ NBRailwayTopologyAnalyzer::getBrokenRailNodes(NBNetBuilder& nb, bool verbose) {
     int numBrokenC = 0;
     int numBrokenD = 0;
     int numBufferStops = 0;
+    if (verbose && types.size() > 0) {
+        WRITE_MESSAGE("Railway nodes by number of incoming,outgoing edges:")
+    }
     for (auto it : types) {
         int numBrokenType = 0;
         device.openTag("railNodeType");
@@ -264,21 +267,19 @@ NBRailwayTopologyAnalyzer::getBrokenRailNodes(NBNetBuilder& nb, bool verbose) {
         }
         device.closeTag();
         if (verbose) {
-            std::cout << "   " << it.first.first << "," << it.first.second 
-                << " count:" << it.second.size() 
-                << " broken:" << numBrokenType
-                << "\n";
+            WRITE_MESSAGE("   " + toString(it.first.first) + "," + toString(it.first.second) 
+                    + " count: " + toString(it.second.size()) + " broken: " + toString(numBrokenType));
         }
 
     }
     if (verbose) {
-        std::cout << "Found " << brokenNodes.size() << " broken railway nodes (A=" 
-            << numBrokenA
-            << " B=" << numBrokenB
-            << " C=" << numBrokenC
-            << " D=" << numBrokenD
-            << ")\n";
-        std::cout << "Found " << numBufferStops << " railway nodes marked as buffer_stop\n" ;
+        WRITE_MESSAGE("Found " + toString(brokenNodes.size()) + " broken railway nodes " 
+            + "(A=" + toString(numBrokenA)
+            + " B=" + toString(numBrokenB)
+            + " C=" + toString(numBrokenC)
+            + " D=" + toString(numBrokenD)
+            + ")");
+        WRITE_MESSAGE("Found " + toString(numBufferStops) + " railway nodes marked as buffer_stop");
     }
 
     for (NBEdge* e : bidiEdges) {
@@ -293,7 +294,7 @@ NBRailwayTopologyAnalyzer::getBrokenRailNodes(NBNetBuilder& nb, bool verbose) {
         device.closeTag();
     }
     if (verbose) {
-        std::cout << "Found " << bidiEdges.size() << " bidirectional rail edges\n";
+        WRITE_MESSAGE("Found " + toString(bidiEdges.size()) + " bidirectional rail edges");
     }
 
     device.close();
@@ -322,7 +323,7 @@ NBRailwayTopologyAnalyzer::getRailNodes(NBNetBuilder& nb, bool verbose) {
         }
     }
     if (verbose) {
-        std::cout << "Found " << numRailEdges << " railway edges and " << railNodes.size() << " railway nodes (" << railSignals.size() << " signals).\n";
+        WRITE_MESSAGE("Found " + toString(numRailEdges) + " railway edges and " + toString(railNodes.size()) + " railway nodes (" + toString(railSignals.size()) + " signals).");
     }
     return railNodes;
 }
@@ -435,9 +436,9 @@ NBRailwayTopologyAnalyzer::extendBidiEdges(NBNetBuilder& nb) {
             added += extendBidiEdges(nb, e->getToNode(), e);
         }
     }
-    if (added > 0) {
-        std::cout << "Addeded " << added << " bidi-edges as extension of existing bidi edges\n";
-    }
+    //if (added > 0) {
+    //    std::cout << "Addeded " << added << " bidi-edges as extension of existing bidi edges\n";
+    //}
     return added;
 }
 
@@ -551,6 +552,7 @@ NBRailwayTopologyAnalyzer::reverseEdges(NBNetBuilder& nb) {
     int numReversed = 0;
     std::set<NBNode*> affectedEndpoints;
     std::set<std::string> reversedIDs;
+    std::map<int, int> seqLengths;
     for (EdgeVector& seq : seqsToReverse) {
         NBNode* seqStart = seq.front()->getFromNode();
         NBNode* seqEnd = seq.back()->getToNode();
@@ -559,17 +561,18 @@ NBRailwayTopologyAnalyzer::reverseEdges(NBNetBuilder& nb) {
                 && affectedEndpoints.count(seqEnd) == 0) {
             affectedEndpoints.insert(seqStart);
             affectedEndpoints.insert(seqEnd);
-            WRITE_MESSAGE("  reversed seq=" + toString(seq));
+            //WRITE_MESSAGE("  reversed seq=" + toString(seq));
             for (NBEdge* e : seq) {
                 e->reinitNodes(e->getToNode(), e->getFromNode());
                 e->setGeometry(e->getGeometry().reverse());
                 reversedIDs.insert(e->getID());
             }
+            seqLengths[seq.size()]++;
             numReversed++;
         }
     }
     if (numReversed > 0) {
-        WRITE_MESSAGE("Reversed " + toString(numReversed) + " sequences");
+        WRITE_MESSAGE("Reversed " + toString(numReversed) + " sequences (count by length: " + joinToString(seqLengths, " ", ":") + ")");
         for (auto& item : nb.getPTStopCont().getStops()) {
             if (reversedIDs.count(item.second->getEdgeId())) {
                 item.second->findLaneAndComputeBusStopExtend(nb.getEdgeCont());
@@ -677,6 +680,9 @@ NBRailwayTopologyAnalyzer::isBidiSwitch(const NBNode* n) {
 void
 NBRailwayTopologyAnalyzer::addBidiEdgesBetweenSwitches(NBNetBuilder& nb) {
     std::set<NBNode*> brokenNodes = getBrokenRailNodes(nb);
+    std::map<int, int> seqLengths;
+    int numAdded = 0;
+    int numSeqs = 0;
     for (NBNode* n : brokenNodes) {
         NBEdge* edge = isBidiSwitch(n);
         if (edge != nullptr) {
@@ -703,11 +709,14 @@ NBRailwayTopologyAnalyzer::addBidiEdgesBetweenSwitches(NBNetBuilder& nb) {
                     getRailEdges(next, inRail2, outRail2);
                     if (isBidiSwitch(next) == edge) {
                         // suitable switch found as endpoint, add reverse edges
-                        WRITE_MESSAGE("Adding " + toString(edgeSeq.size()) 
-                                + " bidi-edges between switches junction '" + n->getID() + "' and junction '" + next->getID() + "'");
+                        //WRITE_MESSAGE("Adding " + toString(edgeSeq.size()) 
+                        //        + " bidi-edges between switches junction '" + n->getID() + "' and junction '" + next->getID() + "'");
                         for (NBEdge* e : edgeSeq) {
                             addBidiEdge(nb, e);
                         }
+                        seqLengths[edgeSeq.size()]++;
+                        numSeqs++;
+                        numAdded += edgeSeq.size();
                     } else {
                         //std::cout << " sequence ended at junction " << next->getID() 
                         //    << " in=" << inRail2.size() 
@@ -720,6 +729,9 @@ NBRailwayTopologyAnalyzer::addBidiEdgesBetweenSwitches(NBNetBuilder& nb) {
             }
 
         }
+    }
+    if (seqLengths.size() > 0) {
+        WRITE_MESSAGE("Added " + toString(numAdded) + " bidi-edges between " + toString(numSeqs) + " pairs of railway switches (count by length: " + joinToString(seqLengths, " ", ":") + ")");
     }
 }
 

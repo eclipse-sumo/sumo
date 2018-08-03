@@ -13,8 +13,9 @@ Added 2 bidi-edges for public transport stops and a total of 3 bidi-edges to ens
 DijkstraRouter answered 1 queries and explored 8.00 edges on average.
 DijkstraRouter spent 0ms answering queries (0.00ms on average).
 Found 6 railway edges and 4 railway nodes (0 signals).
-   1,1 count:2 broken:0
-   2,2 count:2 broken:0
+Railway nodes by number of incoming,outgoing edges:
+   1,1 count: 2 broken: 0
+   2,2 count: 2 broken: 0
 Found 0 broken railway nodes (A=0 B=0 C=0 D=0)
 Found 0 railway nodes marked as buffer_stop
 Found 3 bidirectional rail edges
@@ -38,7 +39,7 @@ Computing traffic light logics... done (0ms).
  0 traffic light(s) computed.
 Building inner edges... done (0ms).
 Added 2 stops for superposed rail edges.
-Find accesses for pt rail stops... done (1ms).
+Find accesses for pt rail stops... done (0ms).
 DijkstraRouter answered 6 queries and explored 3.83 edges on average.
 DijkstraRouter spent 0ms answering queries (0.00ms on average).
 -----------------------------------------------------

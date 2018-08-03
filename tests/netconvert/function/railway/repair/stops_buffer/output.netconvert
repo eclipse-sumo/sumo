@@ -14,10 +14,11 @@ Align pt stop id signs with corresponding edge id signs... done (0ms).
 DijkstraRouter answered 1 queries and explored 12.00 edges on average.
 DijkstraRouter spent 0ms answering queries (0.00ms on average).
 Found 6 railway edges and 6 railway nodes (0 signals).
-   0,1 count:1 broken:0
-   1,0 count:1 broken:0
-   1,1 count:3 broken:0
-   2,2 count:1 broken:0
+Railway nodes by number of incoming,outgoing edges:
+   0,1 count: 1 broken: 0
+   1,0 count: 1 broken: 0
+   1,1 count: 3 broken: 0
+   2,2 count: 1 broken: 0
 Found 0 broken railway nodes (A=0 B=0 C=0 D=0)
 Found 1 railway nodes marked as buffer_stop
 Found 1 bidirectional rail edges
@@ -56,5 +57,5 @@ Summary:
   Applied offset     : 0.00,0.00
   Converted boundary : -100.95,-200.00,200.00,-176.21
 -----------------------------------------------------
-Writing network... done (2ms).
+Writing network... done (1ms).
 Success.

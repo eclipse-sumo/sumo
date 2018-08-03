@@ -3,12 +3,12 @@ Parsing sumo-net from 'input_net.net.xml'... done.
    17 nodes loaded.
    18 edges loaded.
 Removing self-loops... done (0ms).
-Addeded 4 bidi-edges as extension of existing bidi edges
 Found 22 railway edges and 16 railway nodes (0 signals).
-   0,1 count:2 broken:0
-   1,0 count:2 broken:0
-   1,1 count:4 broken:0
-   2,2 count:8 broken:0
+Railway nodes by number of incoming,outgoing edges:
+   0,1 count: 2 broken: 0
+   1,0 count: 2 broken: 0
+   1,1 count: 4 broken: 0
+   2,2 count: 8 broken: 0
 Found 0 broken railway nodes (A=0 B=0 C=0 D=0)
 Found 0 railway nodes marked as buffer_stop
 Found 7 bidirectional rail edges
@@ -43,5 +43,5 @@ Summary:
   Applied offset     : 0.00,0.00
   Converted boundary : -2.59,-200.00,502.64,0.00
 -----------------------------------------------------
-Writing network... done (3ms).
+Writing network... done (1ms).
 Success.

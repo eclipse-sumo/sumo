@@ -4,15 +4,16 @@ Parsing sumo-net from 'input_net.net.xml'... done.
    31 edges loaded.
 Removing self-loops... done (0ms).
 Found 31 railway edges and 34 railway nodes (0 signals).
-   0,1 count:8 broken:0
-   0,2 count:1 broken:1
-   0,3 count:1 broken:1
-   1,0 count:6 broken:0
-   1,1 count:9 broken:0
-   1,2 count:3 broken:3
-   2,0 count:2 broken:2
-   2,1 count:3 broken:3
-   3,0 count:1 broken:1
+Railway nodes by number of incoming,outgoing edges:
+   0,1 count: 8 broken: 0
+   0,2 count: 1 broken: 1
+   0,3 count: 1 broken: 1
+   1,0 count: 6 broken: 0
+   1,1 count: 9 broken: 0
+   1,2 count: 3 broken: 3
+   2,0 count: 2 broken: 2
+   2,1 count: 3 broken: 3
+   3,0 count: 1 broken: 1
 Found 11 broken railway nodes (A=5 B=6 C=2 D=2)
 Found 0 railway nodes marked as buffer_stop
 Found 1 bidirectional rail edges
@@ -21,8 +22,8 @@ Removing empty nodes... done (0ms).
 Computing turning directions... done (0ms).
 Assigning nodes to traffic lights... done (0ms).
 Sorting nodes' edges... done (0ms).
-Computing node shapes... done (1ms).
-Computing edge shapes... done (0ms).
+Computing node shapes... done (0ms).
+Computing edge shapes... done (1ms).
 Computing node types... done (0ms).
 Computing priorities... done (0ms).
 Computing approached edges... done (0ms).

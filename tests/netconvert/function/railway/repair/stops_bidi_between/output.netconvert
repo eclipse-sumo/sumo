@@ -13,12 +13,13 @@ Added 0 bidi-edges for public transport stops and a total of 5 bidi-edges to ens
 DijkstraRouter answered 1 queries and explored 14.00 edges on average.
 DijkstraRouter spent 0ms answering queries (0.00ms on average).
 Found 13 railway edges and 9 railway nodes (0 signals).
-   0,1 count:1 broken:0
-   1,0 count:2 broken:0
-   1,1 count:3 broken:0
-   2,3 count:1 broken:0
-   3,2 count:1 broken:0
-   3,4 count:1 broken:0
+Railway nodes by number of incoming,outgoing edges:
+   0,1 count: 1 broken: 0
+   1,0 count: 2 broken: 0
+   1,1 count: 3 broken: 0
+   2,3 count: 1 broken: 0
+   3,2 count: 1 broken: 0
+   3,4 count: 1 broken: 0
 Found 0 broken railway nodes (A=0 B=0 C=0 D=0)
 Found 0 railway nodes marked as buffer_stop
 Found 5 bidirectional rail edges
@@ -28,7 +29,7 @@ Computing turning directions... done (0ms).
 Assigning nodes to traffic lights... done (0ms).
 Sorting nodes' edges... done (0ms).
 Computing node shapes... done (0ms).
-Computing edge shapes... done (0ms).
+Computing edge shapes... done (1ms).
 Computing node types... done (0ms).
 Computing priorities... done (0ms).
 Computing approached edges... done (0ms).
