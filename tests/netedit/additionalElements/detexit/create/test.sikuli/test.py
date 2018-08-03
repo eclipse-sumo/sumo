@@ -37,7 +37,7 @@ netedit.changeAdditional("e3Detector")
 # create E3 with default parameters
 netedit.leftClick(match, 275, 50)
 
-# select entry detector
+# select Exit detector
 netedit.changeAdditional("detExit")
 
 # try to create Entry without select child
@@ -61,7 +61,7 @@ netedit.changeAdditional("detExit")
 # Change friendlyPos
 netedit.modifyAdditionalDefaultBoolValue(1)
 
-# create entry detector with different friendly pos
+# create Exit detector with different friendly pos
 netedit.selectAdditionalChild(6, 0)
 netedit.leftClick(match, 500, 200)
 

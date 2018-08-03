@@ -37,7 +37,7 @@ netedit.changeAdditional("e3Detector")
 # create E3
 netedit.leftClick(match, 250, 50)
 
-# select entry detector
+# select Exit detector
 netedit.changeAdditional("detExit")
 
 # Create Entry detector

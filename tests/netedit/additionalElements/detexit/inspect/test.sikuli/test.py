@@ -40,7 +40,7 @@ netedit.leftClick(match, 250, 400)
 # create second E3
 netedit.leftClick(match, 350, 400)
 
-# select entry detector
+# select Exit detector
 netedit.changeAdditional("detExit")
 
 # Create Entry detector E3
@@ -80,13 +80,13 @@ netedit.modifyAttribute(1, "25")
 netedit.modifyBoolAttribute(2)
 
 # Change Netedit parameter 1 with a non valid value (Invalid E3 ID)
-netedit.modifyAttribute(4, "invalidE3")
+netedit.modifyAttribute(6, "invalidE3")
 
 # Change Netedit parameter 2 with a non valid value (Invalid E3 ID)
-netedit.modifyAttribute(4, "e3Detector_1")
+netedit.modifyAttribute(6, "e3Detector_1")
 
 # Change Netedit boolean parameter 3 (block)
-netedit.modifyBoolAttribute(5)
+netedit.modifyBoolAttribute(7)
 
 # Check undos and redos
 netedit.undo(match, 9)

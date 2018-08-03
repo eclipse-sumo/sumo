@@ -34,7 +34,7 @@ netedit.selectionInvert()
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect entry
+# inspect Exit
 netedit.leftClick(match, 150, 250)
 
 # Change friendly position
