@@ -1410,7 +1410,7 @@ GNENet::joinSelectedJunctions(GNEUndoList* undoList) {
     }
     EdgeVector allIncoming;
     EdgeVector allOutgoing;
-    std::set<NBNode*> cluster;
+    std::set<NBNode*, ComparatorIdLess> cluster;
     for (auto it : selectedJunctions) {
         cluster.insert(it->getNBNode());
         const EdgeVector& incoming = it->getNBNode()->getIncomingEdges();
