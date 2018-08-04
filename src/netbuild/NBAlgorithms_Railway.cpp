@@ -186,7 +186,12 @@ NBRailwayTopologyAnalyzer::getBrokenRailNodes(NBNetBuilder& nb, bool verbose) {
         types[std::make_pair((int)inEdges.size(), (int)outEdges.size())].insert(node);
         for (NBEdge* e : outEdges) {
             if (e->isBidiRail() && bidiEdges.count(e->getTurnDestination(true)) == 0) {
-                bidiEdges.insert(e);
+                NBEdge* primary = e;
+                NBEdge* secondary = e->getTurnDestination(true);
+                if (e->getID()[0] == '-') {
+                    std::swap(primary, secondary);
+                }
+                bidiEdges.insert(primary);
             }
         }
     }
@@ -284,13 +289,8 @@ NBRailwayTopologyAnalyzer::getBrokenRailNodes(NBNetBuilder& nb, bool verbose) {
 
     for (NBEdge* e : bidiEdges) {
         device.openTag("bidiEdge");
-        NBEdge* primary = e;
-        NBEdge* secondary = e->getTurnDestination(true);
-        if (e->getID()[0] == '-') {
-            std::swap(primary, secondary);
-        }
-        device.writeAttr(SUMO_ATTR_ID, primary->getID());
-        device.writeAttr("bidi", secondary->getID());
+        device.writeAttr(SUMO_ATTR_ID, e->getID());
+        device.writeAttr("bidi", e->getTurnDestination(true)->getID());
         device.closeTag();
     }
     if (verbose) {
