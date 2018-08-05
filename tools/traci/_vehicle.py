@@ -112,7 +112,7 @@ _RETURN_VALUE_FUNC = {tc.VAR_SPEED: Storage.readDouble,
                       tc.VAR_PERSON_IDS: Storage.readStringList,
                       tc.VAR_EDGE_TRAVELTIME: Storage.readDouble,
                       tc.VAR_EDGE_EFFORT: Storage.readDouble,
-                      tc.VAR_ROUTE_VALID: lambda result: bool(result.read("!B")[0]),
+                      tc.VAR_ROUTE_VALID: lambda result: bool(result.read("!i")[0]),
                       tc.VAR_EDGES: Storage.readStringList,
                       tc.VAR_SIGNALS: Storage.readInt,
                       tc.VAR_LENGTH: Storage.readDouble,
@@ -151,7 +151,7 @@ _RETURN_VALUE_FUNC = {tc.VAR_SPEED: Storage.readDouble,
                       tc.VAR_LATALIGNMENT: Storage.readString,
                       tc.DISTANCE_REQUEST: Storage.readDouble,
                       tc.VAR_ROUTING_MODE: Storage.readInt,
-                      tc.VAR_STOPSTATE: lambda result: result.read("!B")[0],
+                      tc.VAR_STOPSTATE: Storage.readInt,
                       tc.VAR_DISTANCE: Storage.readDouble}
 
 

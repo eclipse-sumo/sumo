@@ -1432,6 +1432,88 @@ Vehicle::handleVariable(const std::string& objID, const int variable, VariableWr
         return wrapper->wrapStringList(objID, variable, getIDList());
     case ID_COUNT:
         return wrapper->wrapInt(objID, variable, getIDCount());
+    case VAR_POSITION:
+        return wrapper->wrapPosition(objID, variable, getPosition(objID));
+    case VAR_POSITION3D:
+        return wrapper->wrapPosition(objID, variable, getPosition(objID), true);
+    case VAR_ANGLE:
+        return wrapper->wrapDouble(objID, variable, getAngle(objID));
+    case VAR_SPEED:
+        return wrapper->wrapDouble(objID, variable, getSpeed(objID));
+    case VAR_ROAD_ID:
+        return wrapper->wrapString(objID, variable, getRoadID(objID));
+    case VAR_SPEED_WITHOUT_TRACI:
+        return wrapper->wrapDouble(objID, variable, getSpeedWithoutTraCI(objID));
+    case VAR_SLOPE:
+        return wrapper->wrapDouble(objID, variable, getSlope(objID));
+    case VAR_LANE_ID:
+        return wrapper->wrapString(objID, variable, getLaneID(objID));
+    case VAR_LANE_INDEX:
+        return wrapper->wrapInt(objID, variable, getLaneIndex(objID));
+    case VAR_TYPE:
+        return wrapper->wrapString(objID, variable, getTypeID(objID));
+    case VAR_ROUTE_ID:
+        return wrapper->wrapString(objID, variable, getRouteID(objID));
+    case VAR_ROUTE_INDEX:
+        return wrapper->wrapInt(objID, variable, getRouteIndex(objID));
+    case VAR_COLOR:
+        return wrapper->wrapColor(objID, variable, getColor(objID));
+    case VAR_LANEPOSITION:
+        return wrapper->wrapDouble(objID, variable, getLanePosition(objID));
+    case VAR_LANEPOSITION_LAT:
+        return wrapper->wrapDouble(objID, variable, getLateralLanePosition(objID));
+    case VAR_CO2EMISSION:
+        return wrapper->wrapDouble(objID, variable, getCO2Emission(objID));
+    case VAR_COEMISSION:
+        return wrapper->wrapDouble(objID, variable, getCOEmission(objID));
+    case VAR_HCEMISSION:
+        return wrapper->wrapDouble(objID, variable, getHCEmission(objID));
+    case VAR_PMXEMISSION:
+        return wrapper->wrapDouble(objID, variable, getPMxEmission(objID));
+    case VAR_NOXEMISSION:
+        return wrapper->wrapDouble(objID, variable, getNOxEmission(objID));
+    case VAR_FUELCONSUMPTION:
+        return wrapper->wrapDouble(objID, variable, getFuelConsumption(objID));
+    case VAR_NOISEEMISSION:
+        return wrapper->wrapDouble(objID, variable, getNoiseEmission(objID));
+    case VAR_ELECTRICITYCONSUMPTION:
+        return wrapper->wrapDouble(objID, variable, getElectricityConsumption(objID));
+    case VAR_PERSON_NUMBER:
+        return wrapper->wrapInt(objID, variable, getPersonNumber(objID));
+    case VAR_PERSON_IDS:
+        return wrapper->wrapStringList(objID, variable, getPersonIDList(objID));
+    case VAR_WAITING_TIME:
+        return wrapper->wrapDouble(objID, variable, getWaitingTime(objID));
+    case VAR_ACCUMULATED_WAITING_TIME:
+        return wrapper->wrapDouble(objID, variable, getAccumulatedWaitingTime(objID));
+    case VAR_ROUTE_VALID:
+        return wrapper->wrapInt(objID, variable, isRouteValid(objID));
+    case VAR_EDGES:
+        return wrapper->wrapStringList(objID, variable, getEdges(objID));
+    case VAR_SIGNALS:
+        return wrapper->wrapInt(objID, variable, getSignalStates(objID));
+    case VAR_STOPSTATE:
+        return wrapper->wrapInt(objID, variable, getStopState(objID));
+    case VAR_DISTANCE:
+        return wrapper->wrapDouble(objID, variable, getDistance(objID));
+    case VAR_ALLOWED_SPEED:
+        return wrapper->wrapDouble(objID, variable, getAllowedSpeed(objID));
+    case VAR_SPEED_FACTOR:
+        return wrapper->wrapDouble(objID, variable, getSpeedFactor(objID));
+    case VAR_SPEEDSETMODE:
+        return wrapper->wrapInt(objID, variable, getSpeedMode(objID));
+    case VAR_LANECHANGE_MODE:
+        return wrapper->wrapInt(objID, variable, getLaneChangeMode(objID));
+    case VAR_ROUTING_MODE:
+        return wrapper->wrapInt(objID, variable, getRoutingMode(objID));
+    case VAR_LINE:
+        return wrapper->wrapString(objID, variable, getLine(objID));
+    case VAR_VIA:
+        return wrapper->wrapStringList(objID, variable, getVia(objID));
+    case VAR_ACCELERATION:
+        return wrapper->wrapDouble(objID, variable, getAcceleration(objID));
+    case VAR_LASTACTIONTIME:
+        return wrapper->wrapDouble(objID, variable, getLastActionTime(objID));
     default:
         return false;
     }

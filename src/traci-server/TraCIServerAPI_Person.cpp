@@ -27,11 +27,12 @@
 #include <microsim/pedestrians/MSPerson.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
+#include <libsumo/Person.h>
+#include <libsumo/VehicleType.h>
 #include "TraCIConstants.h"
 #include "TraCIServer.h"
-#include "TraCIServerAPI_Person.h"
-#include <libsumo/Person.h>
 #include "TraCIServerAPI_VehicleType.h"
+#include "TraCIServerAPI_Person.h"
 
 
 // ===========================================================================
@@ -40,101 +41,20 @@
 bool
 TraCIServerAPI_Person::processGet(TraCIServer& server, tcpip::Storage& inputStorage,
                                   tcpip::Storage& outputStorage) {
-    // variable
-    int variable = inputStorage.readUnsignedByte();
-    std::string id = inputStorage.readString();
-    // check variable
-    if (variable != ID_LIST && variable != ID_COUNT
-            && variable != VAR_POSITION && variable != VAR_POSITION3D && variable != VAR_ANGLE && variable != VAR_SPEED
-            && variable != VAR_ROAD_ID && variable != VAR_LANEPOSITION
-            && variable != VAR_WIDTH && variable != VAR_LENGTH && variable != VAR_MINGAP
-            && variable != VAR_TYPE && variable != VAR_SHAPECLASS && variable != VAR_COLOR
-            && variable != VAR_WAITING_TIME && variable != VAR_PARAMETER
-            && variable != VAR_NEXT_EDGE
-            && variable != VAR_EDGES
-            && variable != VAR_STAGE
-            && variable != VAR_STAGES_REMAINING
-            && variable != VAR_VEHICLE
-       ) {
-        return server.writeErrorStatusCmd(CMD_GET_PERSON_VARIABLE, "Get Person Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
-    }
-    // begin response building
-    tcpip::Storage tempMsg;
-    //  response-code, variableID, objectID
-    tempMsg.writeUnsignedByte(RESPONSE_GET_PERSON_VARIABLE);
-    tempMsg.writeUnsignedByte(variable);
-    tempMsg.writeString(id);
-
+    const int variable = inputStorage.readUnsignedByte();
+    const std::string id = inputStorage.readString();
+    server.initWrapper(RESPONSE_GET_PERSON_VARIABLE, variable, id);
     try {
-        if (variable == ID_LIST || variable == ID_COUNT) {
-            if (variable == ID_LIST) {
-                tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-                tempMsg.writeStringList(libsumo::Person::getIDList());
-            } else {
-                tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                tempMsg.writeInt(libsumo::Person::getIDCount());
-            }
-        } else {
+        if (!libsumo::Person::handleVariable(id, variable, &server) &&
+            !libsumo::VehicleType::handleVariable(libsumo::Person::getTypeID(id), variable, &server)) {
             switch (variable) {
-                case VAR_POSITION: {
-                    libsumo::TraCIPosition pos = libsumo::Person::getPosition(id);
-                    tempMsg.writeUnsignedByte(POSITION_2D);
-                    tempMsg.writeDouble(pos.x);
-                    tempMsg.writeDouble(pos.y);
-                }
-                break;
-                case VAR_POSITION3D: {
-                    libsumo::TraCIPosition pos = libsumo::Person::getPosition(id);
-                    tempMsg.writeUnsignedByte(POSITION_3D);
-                    tempMsg.writeDouble(pos.x);
-                    tempMsg.writeDouble(pos.y);
-                    tempMsg.writeDouble(pos.z);
-                }
-                break;
-                case VAR_ANGLE:
-                    tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                    tempMsg.writeDouble(libsumo::Person::getAngle(id));
-                    break;
-                case VAR_SPEED:
-                    tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                    tempMsg.writeDouble(libsumo::Person::getSpeed(id));
-                    break;
-                case VAR_ROAD_ID:
-                    tempMsg.writeUnsignedByte(TYPE_STRING);
-                    tempMsg.writeString(libsumo::Person::getRoadID(id));
-                    break;
-                case VAR_LANEPOSITION:
-                    tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                    tempMsg.writeDouble(libsumo::Person::getLanePosition(id));
-                    break;
-                case VAR_COLOR: {
-                    libsumo::TraCIColor col = libsumo::Person::getColor(id);
-                    tempMsg.writeUnsignedByte(TYPE_COLOR);
-                    tempMsg.writeUnsignedByte(col.r);
-                    tempMsg.writeUnsignedByte(col.g);
-                    tempMsg.writeUnsignedByte(col.b);
-                    tempMsg.writeUnsignedByte(col.a);
-                }
-                break;
-                case VAR_WAITING_TIME:
-                    tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                    tempMsg.writeDouble(libsumo::Person::getWaitingTime(id));
-                    break;
-                case VAR_TYPE:
-                    tempMsg.writeUnsignedByte(TYPE_STRING);
-                    tempMsg.writeString(libsumo::Person::getTypeID(id));
-                    break;
-                case VAR_NEXT_EDGE:
-                    tempMsg.writeUnsignedByte(TYPE_STRING);
-                    tempMsg.writeString(libsumo::Person::getNextEdge(id));
-                    break;
                 case VAR_EDGES: {
                     int nextStageIndex = 0;
                     if (!server.readTypeCheckingInt(inputStorage, nextStageIndex)) {
                         return server.writeErrorStatusCmd(CMD_GET_PERSON_VARIABLE, "The message must contain the stage index.", outputStorage);
                     }
-                    tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-                    tempMsg.writeStringList(libsumo::Person::getEdges(id, nextStageIndex));
+                    server.getWrapperStorage().writeUnsignedByte(TYPE_STRINGLIST);
+                    server.getWrapperStorage().writeStringList(libsumo::Person::getEdges(id, nextStageIndex));
                     break;
                 }
                 case VAR_STAGE: {
@@ -142,17 +62,8 @@ TraCIServerAPI_Person::processGet(TraCIServer& server, tcpip::Storage& inputStor
                     if (!server.readTypeCheckingInt(inputStorage, nextStageIndex)) {
                         return server.writeErrorStatusCmd(CMD_GET_PERSON_VARIABLE, "The message must contain the stage index.", outputStorage);
                     }
-                    tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                    tempMsg.writeInt(libsumo::Person::getStage(id, nextStageIndex));
-                    break;
-                }
-                case VAR_STAGES_REMAINING:
-                    tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                    tempMsg.writeInt(libsumo::Person::getRemainingStages(id));
-                    break;
-                case VAR_VEHICLE: {
-                    tempMsg.writeUnsignedByte(TYPE_STRING);
-                    tempMsg.writeString(libsumo::Person::getVehicle(id));
+                    server.getWrapperStorage().writeUnsignedByte(TYPE_INTEGER);
+                    server.getWrapperStorage().writeInt(libsumo::Person::getStage(id, nextStageIndex));
                     break;
                 }
                 case VAR_PARAMETER: {
@@ -160,20 +71,19 @@ TraCIServerAPI_Person::processGet(TraCIServer& server, tcpip::Storage& inputStor
                     if (!server.readTypeCheckingString(inputStorage, paramName)) {
                         return server.writeErrorStatusCmd(CMD_GET_PERSON_VARIABLE, "Retrieval of a parameter requires its name.", outputStorage);
                     }
-                    tempMsg.writeUnsignedByte(TYPE_STRING);
-                    tempMsg.writeString(libsumo::Person::getParameter(id, paramName));
+                    server.getWrapperStorage().writeUnsignedByte(TYPE_STRING);
+                    server.getWrapperStorage().writeString(libsumo::Person::getParameter(id, paramName));
                     break;
                 }
                 default:
-                    TraCIServerAPI_VehicleType::getVariable(variable, libsumo::Person::getTypeID(id), tempMsg);
-                    break;
+                    return server.writeErrorStatusCmd(CMD_GET_PERSON_VARIABLE, "Get Person Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
             }
         }
     } catch (libsumo::TraCIException& e) {
         return server.writeErrorStatusCmd(CMD_GET_PERSON_VARIABLE, e.what(), outputStorage);
     }
     server.writeStatusCmd(CMD_GET_PERSON_VARIABLE, RTYPE_OK, "", outputStorage);
-    server.writeResponseWithLength(outputStorage, tempMsg);
+    server.writeResponseWithLength(outputStorage, server.getWrapperStorage());
     return true;
 }
 
