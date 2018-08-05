@@ -11,6 +11,7 @@ Warning: Invalid input parameter of e1Detector: Name contains invalid characters
 Warning: Adding e1Detector 'e1Detector_gneE0_0_2' in GNEChange_Additional
 Warning: Invalid input parameter of e1Detector: input contains invalid characters for a filename
 Warning: Adding e1Detector 'e1Detector_gneE0_0_3' in GNEChange_Additional
+Warning: Invalid input parameter of e1Detector: Ids contains invalid characters
 Warning: Adding e1Detector 'e1Detector_gneE0_0_4' in GNEChange_Additional
 Warning: Adding e1Detector 'e1Detector_gneE0_0_5' in GNEChange_Additional
 Warning: Adding e1Detector 'e1Detector_gneE0_0_6' in GNEChange_Additional
