@@ -11,7 +11,7 @@ width 3.2
 allowed ()
 disallowed ()
 linkNum 3
-links [(b'2si_0', True, True, False, b'', b'M', b's', 7.249827584156712), (b'2si_1', True, True, False, b'', b'M', b's', 4.459820624195518), (b'2si_2', True, True, False, b'', b'M', b's', 3.0)]
+links [('2si_0', True, True, False, '', 'M', 's', 7.249827584156712), ('2si_1', True, True, False, '', 'M', 's', 4.459820624195518), ('2si_2', True, True, False, '', 'M', 's', 3.0)]
 shape [(1000.0, 501.65000000000003), (751.5, 501.65000000000003)]
 edge 2fi
 CO2 3655.9332315441243

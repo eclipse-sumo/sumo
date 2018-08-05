@@ -63,13 +63,28 @@ def simulationStep(step=0):
             PyDict_SetItem($result, PyInt_FromLong(theKey), PyInt_FromLong(theInt->value));
             continue;
         }
+        const libsumo::TraCIString* const theString = dynamic_cast<const libsumo::TraCIString*>(theVal);
+        if (theString != nullptr) {
+            PyDict_SetItem($result, PyInt_FromLong(theKey), PyUnicode_FromString(theString->value.c_str()));
+            continue;
+        }
+        const libsumo::TraCIStringList* const theStringList = dynamic_cast<const libsumo::TraCIStringList*>(theVal);
+        if (theStringList != nullptr) {
+            const int size = (int)theStringList->value.size();
+            PyObject* tuple = PyTuple_New(size);
+            for (int i = 0; i < size; i++) {
+                PyTuple_SetItem(tuple, i, PyUnicode_FromString(theStringList->value[i].c_str()));
+            }
+            PyDict_SetItem($result, PyInt_FromLong(theKey), tuple);
+            continue;
+        }
         PyObject *value = SWIG_NewPointerObj(SWIG_as_voidptr(theVal), SWIGTYPE_p_libsumo__TraCIResult, 0);
         PyDict_SetItem($result, PyInt_FromLong(theKey), value);
     }
 };
 
 %typemap(out) libsumo::TraCIPosition {
-    $result = PyTuple_Pack(2, PyFloat_FromDouble($1.x), PyFloat_FromDouble($1.y));
+    $result = PyTuple_Pack(3, PyFloat_FromDouble($1.x), PyFloat_FromDouble($1.y), PyFloat_FromDouble($1.z));
 };
 
 %typemap(out) libsumo::TraCIPositionVector {
@@ -84,13 +99,13 @@ def simulationStep(step=0):
     $result = PyList_New($1.size());
     int index = 0;
     for (auto iter = $1.begin(); iter != $1.end(); ++iter) {
-        PyList_SetItem($result, index++, PyTuple_Pack(8, PyBytes_FromString(iter->approachedLane.c_str()),
+        PyList_SetItem($result, index++, PyTuple_Pack(8, PyUnicode_FromString(iter->approachedLane.c_str()),
                                                          PyBool_FromLong(iter->hasPrio),
                                                          PyBool_FromLong(iter->isOpen),
                                                          PyBool_FromLong(iter->hasFoe),
-                                                         PyBytes_FromString(iter->approachedInternal.c_str()),
-                                                         PyBytes_FromString(iter->state.c_str()),
-                                                         PyBytes_FromString(iter->direction.c_str()),
+                                                         PyUnicode_FromString(iter->approachedInternal.c_str()),
+                                                         PyUnicode_FromString(iter->state.c_str()),
+                                                         PyUnicode_FromString(iter->direction.c_str()),
                                                          PyFloat_FromDouble(iter->length)));
     }
 };
