@@ -111,14 +111,6 @@ struct TraCIColor : TraCIResult {
     */
 typedef std::vector<TraCIPosition> TraCIPositionVector;
 
-/** @struct TraCIBoundary
-    * @brief A 3D-bounding box
-    */
-struct TraCIBoundary {
-    double xMin, yMin, zMin;
-    double xMax, yMax, zMax;
-};
-
 
 struct TraCIInt : TraCIResult {
     TraCIInt() : value(0) {}

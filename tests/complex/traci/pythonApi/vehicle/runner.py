@@ -19,38 +19,21 @@
 from __future__ import print_function
 from __future__ import absolute_import
 import os
-import subprocess
 import sys
-if 'SUMO_HOME' in os.environ:
-    tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
-    sys.path.append(tools)
+
+SUMO_HOME = os.path.join(os.path.dirname(__file__), "..", "..", "..", "..", "..")
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", SUMO_HOME), "tools"))
+if len(sys.argv) > 1:
+    import libsumo as traci  # noqa
 else:
-    sys.exit("please declare environment variable 'SUMO_HOME'")
-import traci  # noqa
+    import traci  # noqa
 import sumolib  # noqa
-
-sumoBinary = sumolib.checkBinary('sumo')
-
-PORT = sumolib.miscutils.getFreeSocketPort()
-sumoProcess = subprocess.Popen([sumoBinary,
-                                '-c', 'sumo.sumocfg',
-                                '--ignore-route-errors',
-                                '--vehroute-output', 'vehroutes.xml',
-                                '--additional-files',
-                                'input_additional.add.xml,input_additional2.add.xml',
-                                '--remote-port', str(PORT)], stdout=sys.stdout)
-traci.init(PORT)
 
 
 def step():
     s = traci.simulation.getCurrentTime() / 1000
     traci.simulationStep()
     return s
-
-
-for i in range(3):
-    print("step", step())
-
 
 def check(vehID):
     print("vehicles", traci.vehicle.getIDList())
@@ -138,6 +121,13 @@ def checkOffRoad(vehID):
            ))
 
 
+traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg",
+             '--ignore-route-errors',
+             '--vehroute-output', 'vehroutes.xml',
+             '--additional-files',
+             'input_additional.add.xml,input_additional2.add.xml'])
+for i in range(3):
+    print("step", step())
 vehID = "horiz"
 check(vehID)
 traci.vehicle.subscribe(vehID)
@@ -460,4 +450,3 @@ print("noRouteGiven routeID: %s edges: %s" % (
     traci.vehicle.getRoute("noRouteGiven")))
 # done
 traci.close()
-sumoProcess.wait()

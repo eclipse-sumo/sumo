@@ -117,23 +117,6 @@ public:
     static const MSLane* getLaneChecking(const std::string& edgeID, int laneIndex, double pos);
     static std::pair<MSLane*, double> convertCartesianToRoadMap(Position pos);
 
-    static SUMOTime getCurrentTime();
-
-    static SUMOTime getDeltaT();
-
-    static TraCIBoundary getNetBoundary();
-
-    static int getMinExpectedNumber();
-
-    static TraCIStage findRoute(const std::string& from, const std::string& to, const std::string& typeID, const SUMOTime depart, const int routingMode);
-
-    static std::vector<TraCIStage> findIntermodalRoute(const std::string& from, const std::string& to, const std::string& modes,
-            const SUMOTime depart, const int routingMode, const double speed, const double walkFactor,
-            const double departPos, const double arrivalPos, const double departPosLat,
-            const std::string& pType, const std::string& vehType);
-
-    static std::string getParameter(const std::string& objectID, const std::string& key);
-
     static void findObjectShape(int domain, const std::string& id, PositionVector& shape);
 
     static void collectObjectsInRange(int domain, const PositionVector& shape, double range, std::set<std::string>& into);

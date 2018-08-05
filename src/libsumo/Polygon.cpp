@@ -109,11 +109,11 @@ Polygon::setColor(const std::string& polygonID, const TraCIColor& c) {
 
 
 void
-Polygon::add(const std::string& polygonID, const TraCIPositionVector& shape, const TraCIColor& c, bool fill, const std::string& type, int layer) {
+Polygon::add(const std::string& polygonID, const TraCIPositionVector& shape, const TraCIColor& color, bool fill, const std::string& polygonType, int layer) {
     ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
     PositionVector pShape = Helper::makePositionVector(shape);
-    RGBColor col = Helper::makeRGBColor(c);
-    if (!shapeCont.addPolygon(polygonID, type, col, (double)layer, Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE, Shape::DEFAULT_RELATIVEPATH, pShape, false, fill)) {
+    RGBColor col = Helper::makeRGBColor(color);
+    if (!shapeCont.addPolygon(polygonID, polygonType, col, (double)layer, Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE, Shape::DEFAULT_RELATIVEPATH, pShape, false, fill)) {
         throw TraCIException("Could not add polygon '" + polygonID + "'");
     }
 }

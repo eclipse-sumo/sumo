@@ -36,6 +36,57 @@ def simulationStep(step=0):
     simulation.step(step)
 %}
 
+/* There is currently no TraCIPosition used as input so this is only for future usage
+%typemap(in) const libsumo::TraCIPosition& (libsumo::TraCIPosition pos) {
+    const Py_ssize_t size = PySequence_Size($input);
+    if (size == 2 || size == 3) {
+        pos.x = PyFloat_AsDouble(PySequence_GetItem($input, 0));
+        pos.y = PyFloat_AsDouble(PySequence_GetItem($input, 1));
+        pos.z = (size == 3 ? PyFloat_AsDouble(PySequence_GetItem($input, 2)) : 0.);
+    } else {
+    // TODO error handling
+    }
+    $1 = &pos;
+}
+*/
+
+%typemap(in) const libsumo::TraCIPositionVector& (libsumo::TraCIPositionVector shape) {
+    const Py_ssize_t size = PySequence_Size($input);
+    for (Py_ssize_t i = 0; i < size; i++) {
+        PyObject* posTuple = PySequence_GetItem($input, i);
+        const Py_ssize_t posSize = PySequence_Size(posTuple);
+        libsumo::TraCIPosition pos;
+        if (posSize == 2 || posSize == 3) {
+            PyObject* item = PySequence_GetItem(posTuple, 0);
+            pos.x = PyFloat_Check(item) ? PyFloat_AsDouble(item) : PyLong_AsDouble(item);
+            item = PySequence_GetItem(posTuple, 1);
+            pos.y = PyFloat_Check(item) ? PyFloat_AsDouble(item) : PyLong_AsDouble(item);
+			pos.z = 0.;
+			if (posSize == 3) {
+                item = PySequence_GetItem(posTuple, 2);
+                pos.z = PyFloat_Check(item) ? PyFloat_AsDouble(item) : PyLong_AsDouble(item);
+			}
+        } else {
+        // TODO error handling
+        }
+        shape.push_back(pos);
+    }
+    $1 = &shape;
+}
+
+%typemap(in) const libsumo::TraCIColor& (libsumo::TraCIColor col) {
+    const Py_ssize_t size = PySequence_Size($input);
+    if (size == 3 || size == 4) {
+        col.r = (unsigned char)PyLong_AsLong(PySequence_GetItem($input, 0));
+        col.g = (unsigned char)PyLong_AsLong(PySequence_GetItem($input, 1));
+        col.b = (unsigned char)PyLong_AsLong(PySequence_GetItem($input, 2));
+        col.a = (unsigned char)(size == 4 ? PyLong_AsLong(PySequence_GetItem($input, 3)) : 255);
+    } else {
+    // TODO error handling
+    }
+    $1 = &col;
+}
+
 %typemap(in) const std::vector<int>& (std::vector<int> vars) {
     const Py_ssize_t size = PySequence_Size($input);
     for (Py_ssize_t i = 0; i < size; i++) {
@@ -70,9 +121,9 @@ def simulationStep(step=0):
         }
         const libsumo::TraCIStringList* const theStringList = dynamic_cast<const libsumo::TraCIStringList*>(theVal);
         if (theStringList != nullptr) {
-            const int size = (int)theStringList->value.size();
+            const Py_ssize_t size = theStringList->value.size();
             PyObject* tuple = PyTuple_New(size);
-            for (int i = 0; i < size; i++) {
+            for (Py_ssize_t i = 0; i < size; i++) {
                 PyTuple_SetItem(tuple, i, PyUnicode_FromString(theStringList->value[i].c_str()));
             }
             PyDict_SetItem($result, PyInt_FromLong(theKey), tuple);
@@ -95,6 +146,14 @@ def simulationStep(step=0):
     }
 };
 
+%typemap(out) libsumo::TraCIColor {
+    $result = PyTuple_Pack(4, PyLong_FromLong($1.r), PyLong_FromLong($1.g), PyLong_FromLong($1.b), PyLong_FromLong($1.a));
+};
+
+%typemap(out) libsumo::TraCIRoadPosition {
+    $result = PyTuple_Pack(3, PyUnicode_FromString($1.edgeID.c_str()), PyFloat_FromDouble($1.pos), PyLong_FromLong($1.laneIndex));
+};
+
 %typemap(out) std::vector<libsumo::TraCIConnection> {
     $result = PyList_New($1.size());
     int index = 0;
@@ -107,6 +166,18 @@ def simulationStep(step=0):
                                                          PyUnicode_FromString(iter->state.c_str()),
                                                          PyUnicode_FromString(iter->direction.c_str()),
                                                          PyFloat_FromDouble(iter->length)));
+    }
+};
+
+%typemap(out) std::vector<libsumo::TraCIVehicleData> {
+    $result = PyList_New($1.size());
+    int index = 0;
+    for (auto iter = $1.begin(); iter != $1.end(); ++iter) {
+        PyList_SetItem($result, index++, PyTuple_Pack(5, PyUnicode_FromString(iter->id.c_str()),
+                                                         PyFloat_FromDouble(iter->length),
+                                                         PyFloat_FromDouble(iter->entryTime),
+                                                         PyFloat_FromDouble(iter->leaveTime),
+                                                         PyUnicode_FromString(iter->typeID.c_str())));
     }
 };
 

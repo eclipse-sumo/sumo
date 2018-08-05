@@ -87,7 +87,7 @@ public:
 
     static SUMOTime getDeltaT();
 
-    static TraCIBoundary getNetBoundary();
+    static TraCIPositionVector getNetBoundary();
 
     static TraCIPosition convert2D(const std::string& edgeID, double pos, int laneIndex = 0, bool toGeo = false);
 

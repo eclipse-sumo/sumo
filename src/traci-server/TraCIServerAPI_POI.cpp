@@ -106,7 +106,7 @@ TraCIServerAPI_POI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
                 if (!server.readTypeCheckingPosition2D(inputStorage, pos)) {
                     return server.writeErrorStatusCmd(CMD_SET_POI_VARIABLE, "The position must be given using an accoring type.", outputStorage);
                 }
-                libsumo::POI::setPosition(id, pos);
+                libsumo::POI::setPosition(id, pos.x, pos.y);
             }
             break;
             case ADD: {
@@ -132,7 +132,7 @@ TraCIServerAPI_POI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
                     return server.writeErrorStatusCmd(CMD_SET_POI_VARIABLE, "The fourth PoI parameter must be the position.", outputStorage);
                 }
                 //
-                if (!libsumo::POI::add(id, pos, col, type, layer)) {
+                if (!libsumo::POI::add(id, pos.x, pos.y, col, type, layer)) {
                     return server.writeErrorStatusCmd(CMD_SET_POI_VARIABLE, "Could not add PoI.", outputStorage);
                 }
             }

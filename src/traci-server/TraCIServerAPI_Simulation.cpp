@@ -136,11 +136,11 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
                 break;
             case VAR_NET_BOUNDING_BOX: {
                 server.getWrapperStorage().writeUnsignedByte(TYPE_BOUNDINGBOX);
-                libsumo::TraCIBoundary tb = libsumo::Simulation::getNetBoundary();
-                server.getWrapperStorage().writeDouble(tb.xMin);
-                server.getWrapperStorage().writeDouble(tb.yMin);
-                server.getWrapperStorage().writeDouble(tb.xMax);
-                server.getWrapperStorage().writeDouble(tb.yMax);
+                libsumo::TraCIPositionVector tb = libsumo::Simulation::getNetBoundary();
+                server.getWrapperStorage().writeDouble(tb[0].x);
+                server.getWrapperStorage().writeDouble(tb[0].y);
+                server.getWrapperStorage().writeDouble(tb[1].x);
+                server.getWrapperStorage().writeDouble(tb[1].y);
                 break;
             }
             case POSITION_CONVERSION:

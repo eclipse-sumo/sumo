@@ -295,16 +295,16 @@ Simulation::getDeltaT() {
 }
 
 
-TraCIBoundary
+TraCIPositionVector
 Simulation::getNetBoundary() {
     Boundary b = GeoConvHelper::getFinal().getConvBoundary();
-    TraCIBoundary tb;
-    tb.xMin = b.xmin();
-    tb.xMax = b.xmax();
-    tb.yMin = b.ymin();
-    tb.yMax = b.ymax();
-    tb.zMin = b.zmin();
-    tb.zMax = b.zmax();
+    TraCIPositionVector tb({ TraCIPosition(), TraCIPosition() });
+    tb[0].x = b.xmin();
+    tb[1].x = b.xmax();
+    tb[0].y = b.ymin();
+    tb[1].y = b.ymax();
+    tb[0].z = b.zmin();
+    tb[1].z = b.zmax();
     return tb;
 }
 

@@ -95,10 +95,10 @@ POI::setType(const std::string& poiID, const std::string& type) {
 
 
 void
-POI::setPosition(const std::string& poiID, const TraCIPosition& pos) {
+POI::setPosition(const std::string& poiID, double x, double y) {
     // try to retrieve so that the correct error is generated for unknown poiIDs
     getPoI(poiID);
-    MSNet::getInstance()->getShapeContainer().movePOI(poiID, Helper::makePosition(pos));
+    MSNet::getInstance()->getShapeContainer().movePOI(poiID, Position(x, y));
 }
 
 
@@ -109,9 +109,9 @@ POI::setColor(const std::string& poiID, const TraCIColor& c) {
 
 
 bool
-POI::add(const std::string& poiID, const TraCIPosition& pos, const TraCIColor& c, const std::string& type, int layer) {
+POI::add(const std::string& poiID, double x, double y, const TraCIColor& color, const std::string& poiType, int layer) {
     ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
-    return shapeCont.addPOI(poiID, type, Helper::makeRGBColor(c), Helper::makePosition(pos), false, "", 0, 0, (double)layer,
+    return shapeCont.addPOI(poiID, poiType, Helper::makeRGBColor(color), Position(x, y), false, "", 0, 0, (double)layer,
                             Shape::DEFAULT_ANGLE,
                             Shape::DEFAULT_IMG_FILE,
                             Shape::DEFAULT_RELATIVEPATH,

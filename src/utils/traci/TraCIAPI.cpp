@@ -406,19 +406,19 @@ TraCIAPI::getDouble(int cmd, int var, const std::string& id, tcpip::Storage* add
 }
 
 
-libsumo::TraCIBoundary
+libsumo::TraCIPositionVector
 TraCIAPI::getBoundingBox(int cmd, int var, const std::string& id, tcpip::Storage* add) {
     tcpip::Storage inMsg;
     send_commandGetVariable(cmd, var, id, add);
     processGET(inMsg, cmd, TYPE_BOUNDINGBOX);
-    libsumo::TraCIBoundary b;
-    b.xMin = inMsg.readDouble();
-    b.yMin = inMsg.readDouble();
-    b.zMin = 0;
-    b.xMax = inMsg.readDouble();
-    b.yMax = inMsg.readDouble();
-    b.zMax = 0;
-    return b;
+    libsumo::TraCIPositionVector tb({ libsumo::TraCIPosition(), libsumo::TraCIPosition() });
+    tb[0].x = inMsg.readDouble();
+    tb[0].y = inMsg.readDouble();
+    tb[0].z = 0.;
+    tb[1].x = inMsg.readDouble();
+    tb[1].y = inMsg.readDouble();
+    tb[1].z = 0.;
+    return tb;
 }
 
 
@@ -821,7 +821,7 @@ TraCIAPI::GUIScope::getSchema(const std::string& viewID) const {
     return myParent.getString(CMD_GET_GUI_VARIABLE, VAR_VIEW_SCHEMA, viewID);
 }
 
-libsumo::TraCIBoundary
+libsumo::TraCIPositionVector
 TraCIAPI::GUIScope::getBoundary(const std::string& viewID) const {
     return myParent.getBoundingBox(CMD_GET_GUI_VARIABLE, VAR_VIEW_BOUNDARY, viewID);
 }
@@ -1574,7 +1574,7 @@ TraCIAPI::SimulationScope::getDeltaT() const {
     return myParent.getSUMOTime(CMD_GET_SIM_VARIABLE, VAR_DELTA_T, "");
 }
 
-libsumo::TraCIBoundary
+libsumo::TraCIPositionVector
 TraCIAPI::SimulationScope::getNetBoundary() const {
     return myParent.getBoundingBox(CMD_GET_SIM_VARIABLE, VAR_NET_BOUNDING_BOX, "");
 }

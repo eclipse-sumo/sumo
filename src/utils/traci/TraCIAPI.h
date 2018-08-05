@@ -92,7 +92,7 @@ public:
     int getInt(int cmd, int var, const std::string& id, tcpip::Storage* add = 0);
     double getFloat(int cmd, int var, const std::string& id, tcpip::Storage* add = 0);
     double getDouble(int cmd, int var, const std::string& id, tcpip::Storage* add = 0);
-    libsumo::TraCIBoundary getBoundingBox(int cmd, int var, const std::string& id, tcpip::Storage* add = 0);
+    libsumo::TraCIPositionVector getBoundingBox(int cmd, int var, const std::string& id, tcpip::Storage* add = 0);
     libsumo::TraCIPositionVector getPolygon(int cmd, int var, const std::string& id, tcpip::Storage* add = 0);
     libsumo::TraCIPosition getPosition(int cmd, int var, const std::string& id, tcpip::Storage* add = 0);
     libsumo::TraCIPosition getPosition3D(int cmd, int var, const std::string& id, tcpip::Storage* add = 0);
@@ -226,7 +226,7 @@ public:
         double getZoom(const std::string& viewID = DEFAULT_VIEW) const;
         libsumo::TraCIPosition getOffset(const std::string& viewID = DEFAULT_VIEW) const;
         std::string getSchema(const std::string& viewID = DEFAULT_VIEW) const;
-        libsumo::TraCIBoundary getBoundary(const std::string& viewID = DEFAULT_VIEW) const;
+        libsumo::TraCIPositionVector getBoundary(const std::string& viewID = DEFAULT_VIEW) const;
         void setZoom(const std::string& viewID, double zoom) const;
         void setOffset(const std::string& viewID, double x, double y) const;
         void setSchema(const std::string& viewID, const std::string& schemeName) const;
@@ -510,7 +510,7 @@ public:
         int getEndingTeleportNumber() const;
         std::vector<std::string> getEndingTeleportIDList() const;
         SUMOTime getDeltaT() const;
-        libsumo::TraCIBoundary getNetBoundary() const;
+        libsumo::TraCIPositionVector getNetBoundary() const;
         int getMinExpectedNumber() const;
 
     private:

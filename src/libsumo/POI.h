@@ -60,8 +60,8 @@ public:
 
     static void setType(const std::string& poiID, const std::string& setType);
     static void setColor(const std::string& poiID, const TraCIColor& c);
-    static void setPosition(const std::string& poiID, const TraCIPosition& pos);
-    static bool add(const std::string& poiID, const TraCIPosition& pos, const TraCIColor& c, const std::string& type, int layer);
+    static void setPosition(const std::string& poiID, double x, double y);
+    static bool add(const std::string& poiID, double x, double y, const TraCIColor& color, const std::string& poiType = "", int layer = 0);
     static bool remove(const std::string& poiID, int layer = 0);
 
     static void setParameter(const std::string& poiID, const std::string& param, const std::string& value);
