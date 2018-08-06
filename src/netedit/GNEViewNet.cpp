@@ -539,9 +539,6 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glEnable(GL_DEPTH_TEST);
 
-    // reset AC Under Cursor
-    myACUnderCursor = nullptr;
-
     // visualize rectangular selection
     if (mySelectingArea.selectingUsingRectangle) {
         glPushMatrix();
