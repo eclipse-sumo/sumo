@@ -1188,9 +1188,9 @@ GNENet::retrieveAttributeCarrier(GUIGlID id, bool failHard) {
             return ac;
         }
     } else if (failHard) {
-        return nullptr;
-    } else {
         throw ProcessError("Attempted to retrieve non-existant GUIGlObject");
+    } else {
+        return nullptr;
     }
 }
 
