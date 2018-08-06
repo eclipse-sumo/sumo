@@ -512,6 +512,7 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
         glPopName();
     }
     if(!s.drawForSelecting && (myNet->getViewNet()->getACUnderCursor() == this)) {
+        glPushMatrix();
         const double myHalfLaneWidth = myNBEdge.getLaneWidth(myLanes.front()->getIndex()) / 2;
         // build contour using shapes of first and last lane shapes
         PositionVector contourFront = myLanes.front()->getShape();
@@ -533,6 +534,7 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::drawLine(resampledShape, getDottedcontourColors(resampledShape.size()));
         //restore line width
         glLineWidth(1);
+        glPopMatrix();
     }
     glPopMatrix();
 }
