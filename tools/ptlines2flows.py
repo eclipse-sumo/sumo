@@ -279,7 +279,8 @@ def createRoutes(options, trpMap, stopNames):
                 int(float(period)), lineRef, options.flowattrs))
             if name is not None:
                 foutflows.write('        <param key="name" value=%s/>\n' % quoteattr(name))
-            foutflows.write('        <param key="completeness" value=%s/>\n' % quoteattr(completeness))
+            if completeness is not None:
+                foutflows.write('        <param key="completeness" value=%s/>\n' % quoteattr(completeness))
             foutflows.write('    </flow>\n')
         foutflows.write('</routes>\n')
 
