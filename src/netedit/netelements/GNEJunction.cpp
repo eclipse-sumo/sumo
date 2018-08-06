@@ -225,8 +225,11 @@ GNEJunction::getCenteringBoundary() const {
 
 void
 GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
+/*
     // first call function mouseOverObject  (to check if this object is under cursor)
+    // @note currently disabled. It will be implemented in an different ticket of #2905
     mouseOverObject(s);
+*/
     // declare variables
     GLfloat color[4];
     double exaggeration = isAttributeCarrierSelected() ? s.selectionScale : 1;

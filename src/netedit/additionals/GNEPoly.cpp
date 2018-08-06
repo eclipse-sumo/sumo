@@ -267,8 +267,11 @@ GNEPoly::getCenteringBoundary() const {
 
 void
 GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
+/*
     // first call function mouseOverObject  (to check if this object is under cursor)
+    // @note currently disabled. It will be implemented in an different ticket of #2905
     mouseOverObject(s);
+*/
     // simply use GUIPolygon::drawGL
     GUIPolygon::drawGL(s);
     int circleResolution = GNEAttributeCarrier::getCircleResolution(s);
