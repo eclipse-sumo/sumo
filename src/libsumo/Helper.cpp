@@ -220,20 +220,18 @@ Helper::makeRGBColor(const TraCIColor& c) {
 
 
 TraCIPosition
-Helper::makeTraCIPosition(const Position& position) {
+Helper::makeTraCIPosition(const Position& position, const bool includeZ) {
     TraCIPosition p;
     p.x = position.x();
     p.y = position.y();
-    p.z = position.z();
+    p.z = includeZ ? position.z() : Position::INVALID.z();
     return p;
 }
 
 
 Position
 Helper::makePosition(const TraCIPosition& tpos) {
-    Position p;
-    p.set(tpos.x, tpos.y, tpos.z);
-    return p;
+    return Position(tpos.x, tpos.y, tpos.z);
 }
 
 
@@ -776,7 +774,7 @@ Helper::SubscriptionWrapper::wrapStringList(const std::string& objID, const int 
 
 
 bool
-Helper::SubscriptionWrapper::wrapPosition(const std::string& objID, const int variable, const TraCIPosition& value, const bool /* includeZ */) {
+Helper::SubscriptionWrapper::wrapPosition(const std::string& objID, const int variable, const TraCIPosition& value) {
     myActiveResults[objID][variable] = std::make_shared<TraCIPosition>(value);
     return true;
 }

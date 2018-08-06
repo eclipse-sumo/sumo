@@ -54,7 +54,7 @@ public:
     static std::vector<std::string> getIDList();
     static int getIDCount();
     static std::string getType(const std::string& poiID);
-    static TraCIPosition getPosition(const std::string& poiID);
+    static TraCIPosition getPosition(const std::string& poiID, const bool includeZ = false);
     static TraCIColor getColor(const std::string& poiID);
     static std::string getParameter(const std::string& poiID, const std::string& param);
 

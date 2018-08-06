@@ -671,7 +671,6 @@ public:
         std::string getTypeID(const std::string& vehicleID) const;
         std::string getRouteID(const std::string& vehicleID) const;
         int getRouteIndex(const std::string& vehicleID) const;
-        std::vector<std::string> getEdges(const std::string& vehicleID) const; /*< deprecated in favour of getRoute */
         std::vector<std::string> getRoute(const std::string& vehicleID) const;
         libsumo::TraCIColor getColor(const std::string& vehicleID) const;
         double getLanePosition(const std::string& vehicleID) const;

@@ -51,7 +51,7 @@ public:
     static std::vector<std::string> getIDList();
     static int getIDCount();
     static double getSpeed(const std::string& personID);
-    static TraCIPosition getPosition(const std::string& personID);
+    static TraCIPosition getPosition(const std::string& personID, const bool includeZ = false);
     static std::string getRoadID(const std::string& personID);
     static std::string getTypeID(const std::string& personID);
     static double getWaitingTime(const std::string& personID);

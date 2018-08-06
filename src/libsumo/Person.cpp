@@ -69,13 +69,8 @@ Person::getIDCount() {
 
 
 TraCIPosition
-Person::getPosition(const std::string& personID) {
-    MSTransportable* p = getPerson(personID);
-    TraCIPosition pos;
-    pos.x = p->getPosition().x();
-    pos.y = p->getPosition().y();
-    pos.z = p->getPosition().z();
-    return pos;
+Person::getPosition(const std::string& personID, const bool includeZ) {
+    return Helper::makeTraCIPosition(getPerson(personID)->getPosition(), includeZ);
 }
 
 
@@ -654,7 +649,7 @@ Person::handleVariable(const std::string& objID, const int variable, VariableWra
     case VAR_POSITION:
         return wrapper->wrapPosition(objID, variable, getPosition(objID));
     case VAR_POSITION3D:
-        return wrapper->wrapPosition(objID, variable, getPosition(objID), true);
+        return wrapper->wrapPosition(objID, variable, getPosition(objID, true));
     case VAR_ANGLE:
         return wrapper->wrapDouble(objID, variable, getAngle(objID));
     case VAR_SPEED:

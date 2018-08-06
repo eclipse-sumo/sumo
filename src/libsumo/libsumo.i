@@ -135,7 +135,11 @@ def simulationStep(step=0):
 };
 
 %typemap(out) libsumo::TraCIPosition {
-    $result = PyTuple_Pack(3, PyFloat_FromDouble($1.x), PyFloat_FromDouble($1.y), PyFloat_FromDouble($1.z));
+    if ($1.z != - 1024 * 1024 * 1024) { // see Position::INVALID
+        $result = PyTuple_Pack(3, PyFloat_FromDouble($1.x), PyFloat_FromDouble($1.y), PyFloat_FromDouble($1.z));
+    } else {
+        $result = PyTuple_Pack(2, PyFloat_FromDouble($1.x), PyFloat_FromDouble($1.y));
+    }
 };
 
 %typemap(out) libsumo::TraCIPositionVector {
@@ -241,8 +245,8 @@ def simulationStep(step=0):
 #include <libsumo/Route.h>
 #include <libsumo/Simulation.h>
 #include <libsumo/TrafficLight.h>
-#include <libsumo/Vehicle.h>
 #include <libsumo/VehicleType.h>
+#include <libsumo/Vehicle.h>
 %}
 
 // Process symbols in header
@@ -259,8 +263,8 @@ def simulationStep(step=0):
 %include "Route.h"
 %include "Simulation.h"
 %include "TrafficLight.h"
-%include "Vehicle.h"
 %include "VehicleType.h"
+%include "Vehicle.h"
 
 #ifdef SWIGPYTHON
 %pythoncode %{

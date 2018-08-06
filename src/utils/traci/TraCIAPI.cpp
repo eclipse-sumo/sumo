@@ -2173,10 +2173,6 @@ TraCIAPI::VehicleScope::getRouteIndex(const std::string& vehicleID) const {
     return myParent.getInt(CMD_GET_VEHICLE_VARIABLE, VAR_ROUTE_INDEX, vehicleID);
 }
 
-std::vector<std::string>
-TraCIAPI::VehicleScope::getEdges(const std::string& vehicleID) const {
-    return getRoute(vehicleID);
-}
 
 std::vector<std::string>
 TraCIAPI::VehicleScope::getRoute(const std::string& vehicleID) const {

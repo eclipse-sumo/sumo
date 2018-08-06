@@ -72,13 +72,8 @@ POI::getColor(const std::string& poiID) {
 
 
 TraCIPosition
-POI::getPosition(const std::string& poiID) {
-    TraCIPosition pos;
-    PointOfInterest* p = getPoI(poiID);
-    pos.x = p->x();
-    pos.y = p->y();
-    pos.z = p->z();
-    return pos;
+POI::getPosition(const std::string& poiID, const bool includeZ) {
+    return Helper::makeTraCIPosition(*getPoI(poiID), includeZ);
 }
 
 
@@ -219,7 +214,7 @@ POI::handleVariable(const std::string& objID, const int variable, VariableWrappe
     case VAR_POSITION:
         return wrapper->wrapPosition(objID, variable, getPosition(objID));
     case VAR_POSITION3D:
-        return wrapper->wrapPosition(objID, variable, getPosition(objID), true);
+        return wrapper->wrapPosition(objID, variable, getPosition(objID, true));
     default:
         return false;
     }

@@ -96,16 +96,16 @@ def check(vehID):
     print("waiting time", traci.vehicle.getWaitingTime(vehID))
     print("accumulated waiting time", traci.vehicle.getAccumulatedWaitingTime(vehID))
     print("driving dist", traci.vehicle.getDrivingDistance(vehID, "4fi", 2.))
-    print(
-        "driving dist 2D", traci.vehicle.getDrivingDistance2D(vehID, 100., 100.))
+    print("driving dist 2D", traci.vehicle.getDrivingDistance2D(vehID, 100., 100.))
     print("line", traci.vehicle.getLine(vehID))
     print("via", traci.vehicle.getVia(vehID))
     print("lane change state right", traci.vehicle.getLaneChangeState(vehID, -1))
     print("lane change state left", traci.vehicle.getLaneChangeState(vehID, 1))
-    print("lane change able right", traci.vehicle.couldChangeLane(vehID, -1))
-    print("lane change able left", traci.vehicle.couldChangeLane(vehID, 1))
-    print("lane change wish right", traci.vehicle.wantsAndCouldChangeLane(vehID, -1))
-    print("lane change wish left", traci.vehicle.wantsAndCouldChangeLane(vehID, 1))
+    if not traci.isLibsumo():
+        print("lane change able right", traci.vehicle.couldChangeLane(vehID, -1))
+        print("lane change able left", traci.vehicle.couldChangeLane(vehID, 1))
+        print("lane change wish right", traci.vehicle.wantsAndCouldChangeLane(vehID, -1))
+        print("lane change wish left", traci.vehicle.wantsAndCouldChangeLane(vehID, 1))
 
 
 def checkOffRoad(vehID):
@@ -161,14 +161,17 @@ traci.vehicle.setMaxSpeedLat(vehID, 1.5)
 traci.vehicle.setColor(vehID, (255, 0, 0, 255))
 traci.vehicle.setLine(vehID, "S46")
 traci.vehicle.setVia(vehID, ["3o", "4o"])
-traci.vehicle.setAdaptedTraveltime(vehID, 0, 1000, "1o", 55)
-traci.vehicle.setEffort(vehID, 0, 1000, "1o", 54)
+traci.vehicle.setAdaptedTraveltime(vehID, "1o", 55, 0, 1000)
+traci.vehicle.setEffort(vehID, "1o", 54, 0, 1000)
+if not traci.isLibsumo():
+    # legacy API
+    traci.vehicle.setAdaptedTraveltime(vehID, 0, 1000, "1o", 55)
+    traci.vehicle.setEffort(vehID, 0, 1000, "1o", 54)
 traci.vehicle.setParameter(vehID, "foo", "bar")
 traci.vehicle.setParameter(vehID, "laneChangeModel.lcStrategic", "2.0")
 traci.vehicle.setSignals(vehID, 12)
 traci.vehicle.setRoutingMode(vehID, traci.constants.ROUTING_MODE_AGGREGATED)
-traci.vehicle.setStop(
-    vehID, "2fi", pos=50.0, laneIndex=0, duration=2000, flags=1)
+traci.vehicle.setStop(vehID, "2fi", pos=50.0, laneIndex=0, duration=2000, flags=1)
 sys.stderr.flush()
 
 check(vehID)

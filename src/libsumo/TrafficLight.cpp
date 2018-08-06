@@ -289,9 +289,9 @@ TrafficLight::handleVariable(const std::string& objID, const int variable, Varia
     case TL_CURRENT_PROGRAM:
         return wrapper->wrapString(objID, variable, getProgram(objID));
     case TL_PHASE_DURATION:
-        return wrapper->wrapInt(objID, variable, getPhaseDuration(objID));
+        return wrapper->wrapInt(objID, variable, (int)getPhaseDuration(objID));
     case TL_NEXT_SWITCH:
-        return wrapper->wrapInt(objID, variable, getNextSwitch(objID));
+        return wrapper->wrapInt(objID, variable, (int)getNextSwitch(objID));
     case TL_CONTROLLED_JUNCTIONS:
         return wrapper->wrapStringList(objID, variable, getControlledJunctions(objID));
     default:

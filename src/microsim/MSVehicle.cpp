@@ -2907,7 +2907,7 @@ MSVehicle::canReverse() const {
             && (myStops.empty() || myStops.front().edge != myCurrEdge)
        ) {
         // ensure that the vehicle is fully on bidi edges that allow reversal
-        if ((myRoute->end() - myCurrEdge) <= myFurtherLanes.size()) {
+        if ((int)(myRoute->end() - myCurrEdge) <= (int)myFurtherLanes.size()) {
             return false;
         }
         int view = 2;

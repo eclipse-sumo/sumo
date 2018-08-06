@@ -60,8 +60,8 @@ Junction::getIDCount() {
 
 
 TraCIPosition
-Junction::getPosition(const std::string& junctionID) {
-    return Helper::makeTraCIPosition(getJunction(junctionID)->getPosition());
+Junction::getPosition(const std::string& junctionID, const bool includeZ) {
+    return Helper::makeTraCIPosition(getJunction(junctionID)->getPosition(), includeZ);
 }
 
 

@@ -52,7 +52,7 @@ class Junction {
 public:
     static std::vector<std::string> getIDList();
     static int getIDCount();
-    static TraCIPosition getPosition(const std::string& junctionID);
+    static TraCIPosition getPosition(const std::string& junctionID, const bool includeZ=false);
     static TraCIPositionVector getShape(const std::string& junctionID);
 
     static void subscribe(const std::string& objID, const std::vector<int>& vars = std::vector<int>(), SUMOTime beginTime = 0, SUMOTime endTime = ((2 ^ 31) - 1));

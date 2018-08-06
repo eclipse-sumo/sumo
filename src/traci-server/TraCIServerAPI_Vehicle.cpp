@@ -97,7 +97,7 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                 }
                 // retrieve
                 server.getWrapperStorage().writeUnsignedByte(TYPE_DOUBLE);
-                server.getWrapperStorage().writeDouble(libsumo::Vehicle::getAdaptedTraveltime(id, edgeID, time));
+                server.getWrapperStorage().writeDouble(libsumo::Vehicle::getAdaptedTraveltime(id, time, edgeID));
                 break;
             }
             case VAR_EDGE_EFFORT: {
@@ -118,7 +118,7 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                     return server.writeErrorStatusCmd(CMD_GET_VEHICLE_VARIABLE, "Retrieval of effort requires the referenced edge as second parameter.", outputStorage);
                 }
                 server.getWrapperStorage().writeUnsignedByte(TYPE_DOUBLE);
-                server.getWrapperStorage().writeDouble(libsumo::Vehicle::getEffort(id, edgeID, time));
+                server.getWrapperStorage().writeDouble(libsumo::Vehicle::getEffort(id, time, edgeID));
                 break;
             }
             case VAR_BEST_LANES: {

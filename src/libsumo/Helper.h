@@ -106,7 +106,7 @@ public:
 
     /// @brief helper functions
     static TraCIPositionVector makeTraCIPositionVector(const PositionVector& positionVector);
-    static TraCIPosition makeTraCIPosition(const Position& position);
+    static TraCIPosition makeTraCIPosition(const Position& position, const bool includeZ = false);
     static Position makePosition(const TraCIPosition& position);
 
     static PositionVector makePositionVector(const TraCIPositionVector& vector);
@@ -178,7 +178,7 @@ public:
         bool wrapInt(const std::string& objID, const int variable, const int value);
         bool wrapString(const std::string& objID, const int variable, const std::string& value);
         bool wrapStringList(const std::string& objID, const int variable, const std::vector<std::string>& value);
-        bool wrapPosition(const std::string& objID, const int variable, const TraCIPosition& value, const bool includeZ=false);
+        bool wrapPosition(const std::string& objID, const int variable, const TraCIPosition& value);
         bool wrapColor(const std::string& objID, const int variable, const TraCIColor& value);
     private:
         SubscriptionResults myResults;

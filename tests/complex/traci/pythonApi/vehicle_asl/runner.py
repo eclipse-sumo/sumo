@@ -18,8 +18,13 @@ from __future__ import print_function
 from __future__ import absolute_import
 import os
 import sys
-sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
-import traci  # noqa
+
+SUMO_HOME = os.path.join(os.path.dirname(__file__), "..", "..", "..", "..", "..")
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", SUMO_HOME), "tools"))
+if len(sys.argv) > 1:
+    import libsumo as traci  # noqa
+else:
+    import traci  # noqa
 import sumolib  # noqa
 
 sumoBinary = os.environ["SUMO_BINARY"]
