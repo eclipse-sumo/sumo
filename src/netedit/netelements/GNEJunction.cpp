@@ -275,7 +275,24 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                     glPushMatrix();
                     glTranslated(myNBNode.getPosition().x(), myNBNode.getPosition().y(), getType() + 0.05);
                     if (!s.drawForSelecting || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo(myNBNode.getPosition()) <= (circleWidthSquared + 2))) {
-                        GLHelper::drawFilledCircle(circleWidth, circleResolution);                    
+                        std::vector<Position> pos = GLHelper::drawFilledCircleReturnVertices(circleWidth, circleResolution);  
+                        if(myNet->getViewNet()->getACUnderCursor() == this) {
+                            glTranslated(0, 0, getType() + 0.01);
+                            glLineWidth(3);
+                            std::vector<RGBColor> colors;
+                            bool black = true;
+                            for (int i = 0; i < pos.size(); i++) {
+                                if(black) {
+                                    colors.push_back(RGBColor::BLACK);
+                                    black = false;
+                                } else {
+                                    colors.push_back(RGBColor::WHITE);
+                                    black = true;
+                                }
+                            }
+                            GLHelper::drawLine(pos, colors);
+                            glLineWidth(1);
+                        }
                     } else {
                         GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
                     }
