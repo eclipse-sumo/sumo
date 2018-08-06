@@ -264,6 +264,25 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                 } else {
                     GLHelper::drawFilledPolyTesselated(shape, true);
                 }
+                if((myNet->getViewNet()->getACUnderCursor() == this) && !drawBubble) {
+                    // resample junction shape
+                    PositionVector resampledShape = shape.resample(1);
+                    glTranslated(0, 0, getType() + 0.01);
+                    glLineWidth(3);
+                    std::vector<RGBColor> colors;
+                    bool black = true;
+                    for (int i = 0; i < resampledShape.size(); i++) {
+                        if(black) {
+                            colors.push_back(RGBColor::BLACK);
+                            black = false;
+                        } else {
+                            colors.push_back(RGBColor::WHITE);
+                            black = true;
+                        }
+                    }
+                    GLHelper::drawLine(resampledShape, colors);
+                    glLineWidth(1);
+                }
                 glPopMatrix();
             }
         }
