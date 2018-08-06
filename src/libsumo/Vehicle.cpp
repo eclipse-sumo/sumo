@@ -748,7 +748,7 @@ Vehicle::setStop(const std::string& vehicleID,
         if (startPos < 0) {
             throw TraCIException("Position on lane must not be negative.");
         }
-        if (endPos < startPos) {
+        if (pos < startPos) {
             throw TraCIException("End position on lane must be after start position.");
         }
         // get the actual lane that is referenced by laneIndex
@@ -761,7 +761,7 @@ Vehicle::setStop(const std::string& vehicleID,
             throw TraCIException("No lane with index '" + toString(laneIndex) + "' on road '" + edgeID + "'.");
         }
         // Forward command to vehicle
-        if (!veh->addTraciStop(allLanes[laneIndex], startPos, endPos, duration, until, parking, triggered, containerTriggered, error)) {
+        if (!veh->addTraciStop(allLanes[laneIndex], startPos, pos, duration, until, parking, triggered, containerTriggered, error)) {
             throw TraCIException(error);
         }
     }
