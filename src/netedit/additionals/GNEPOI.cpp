@@ -449,4 +449,10 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
     updateGeometry();
 }
 
+
+void 
+GNEPOI::mouseOverObject(const GUIVisualizationSettings& s) const {
+
+}
+
 /****************************************************************************/

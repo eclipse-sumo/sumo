@@ -267,6 +267,8 @@ GNEPoly::getCenteringBoundary() const {
 
 void
 GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
+    // first call function mouseOverObject  (to check if this object is under cursor)
+    mouseOverObject(s);
     // simply use GUIPolygon::drawGL
     GUIPolygon::drawGL(s);
     int circleResolution = GNEAttributeCarrier::getCircleResolution(s);
@@ -337,6 +339,19 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
                 glPopMatrix();
             }
         }
+    }
+    // check if dotted contour has to be drawn
+    if(myNet->getViewNet()->getACUnderCursor() == this) {
+        // resample junction shape
+        PositionVector resampledShape = getShape().resample(1);
+        // draw contour over shape
+        glTranslated(0, 0, getType() + 0.1);
+        // set custom line width
+        glLineWidth(3);
+        // draw contour
+        GLHelper::drawLine(resampledShape, getDottedcontourColors(resampledShape.size()));
+        //restore line width
+        glLineWidth(1);
     }
     // pop name
     glPopName();
@@ -789,5 +804,16 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
     updateGeometry();
 }
 
+
+void 
+GNEPoly::mouseOverObject(const GUIVisualizationSettings& s) const {
+    // only continue if there isn't already a AC under cursor
+    if(myNet->getViewNet()->getACUnderCursor() == nullptr) {
+        // check if cursor is within the shape
+        if(getShape().around(myNet->getViewNet()->getPositionInformation())) {
+            myNet->getViewNet()->setACUnderCursor(this);
+        }
+    }
+}
 
 /****************************************************************************/

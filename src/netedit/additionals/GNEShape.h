@@ -171,7 +171,7 @@ private:
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
 
     /// @brief method for check if mouse is over objects
-    void mouseOverObject(const GUIVisualizationSettings& s) const;
+    virtual void mouseOverObject(const GUIVisualizationSettings& s) const = 0;
 
     /// @brief Invalidated copy constructor.
     GNEShape(const GNEShape&) = delete;

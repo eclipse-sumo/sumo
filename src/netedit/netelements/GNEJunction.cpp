@@ -225,7 +225,7 @@ GNEJunction::getCenteringBoundary() const {
 
 void
 GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
-    // first call funciton mouseOverObject  (to check if this object is under cursor)
+    // first call function mouseOverObject  (to check if this object is under cursor)
     mouseOverObject(s);
     // declare variables
     GLfloat color[4];
@@ -264,12 +264,17 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                 } else {
                     GLHelper::drawFilledPolyTesselated(shape, true);
                 }
+                // check if dotted contour has to be drawn
                 if((myNet->getViewNet()->getACUnderCursor() == this) && !drawBubble) {
                     // resample junction shape
                     PositionVector resampledShape = shape.resample(1);
+                    // draw contour over shape
                     glTranslated(0, 0, getType() + 0.01);
+                    // set custom line width
                     glLineWidth(3);
+                    // draw contour
                     GLHelper::drawLine(resampledShape, getDottedcontourColors(resampledShape.size()));
+                    //restore line width
                     glLineWidth(1);
                 }
                 glPopMatrix();
@@ -284,10 +289,15 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                     glTranslated(myNBNode.getPosition().x(), myNBNode.getPosition().y(), getType() + 0.05);
                     if (!s.drawForSelecting || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo(myNBNode.getPosition()) <= (circleWidthSquared + 2))) {
                         std::vector<Position> vertices = GLHelper::drawFilledCircleReturnVertices(circleWidth, circleResolution);  
+                        // check if dotted contour has to be drawn
                         if(myNet->getViewNet()->getACUnderCursor() == this) {
+                            // draw contour over shape
                             glTranslated(0, 0, getType() + 0.01);
+                            // set custom line width
                             glLineWidth(3);
+                            // draw contour
                             GLHelper::drawLine(vertices, getDottedcontourColors(vertices.size()));
+                            //restore line width
                             glLineWidth(1);
                         }
                     } else {
