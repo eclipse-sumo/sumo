@@ -141,7 +141,7 @@ private:
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
     /// @brief method for check if mouse is over objects
-    void mouseOverObject() const;
+    void mouseOverObject(const GUIVisualizationSettings& s) const;
 
     /// @brief draw TLS Link Number
     void drawTLSLinkNo(const GUIVisualizationSettings& s) const;

@@ -225,6 +225,8 @@ GNEJunction::getCenteringBoundary() const {
 
 void
 GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
+    // first call funciton mouseOverObject  (to check if this object is under cursor)
+    mouseOverObject(s);
     // declare variables
     GLfloat color[4];
     double exaggeration = isAttributeCarrierSelected() ? s.selectionScale : 1;
@@ -1043,8 +1045,28 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void 
-GNEJunction::mouseOverObject() const {
+GNEJunction::mouseOverObject(const GUIVisualizationSettings& s) const {
+    if(myNet->getViewNet()->getACUnderCursor() == nullptr) {
+        // obtain current x-y coordinates
+        Position mousePos = myNet->getViewNet()->getPositionInformation();
+        // check if junction are drawn as buuble or as polygon
+        const bool drawShape = myNBNode.getShape().size() > 0 && s.drawJunctionShape;
+        const bool drawBubble = (((!drawShape || myNBNode.getShape().area() < 4) && s.drawJunctionShape) || myNet->getViewNet()->showJunctionAsBubbles());
+        // declare values for circles
+        double exaggeration = isAttributeCarrierSelected() ? s.selectionScale : 1;
+        exaggeration *= s.junctionSize.getExaggeration(s);
+        double circleWidth = BUBBLE_RADIUS * exaggeration;
+        double circleWidthSquared = circleWidth * circleWidth;
+        if(drawBubble) {
+            if (myNet->getViewNet()->getPositionInformation().distanceSquaredTo(myNBNode.getPosition()) <= circleWidthSquared) {
+                myNet->getViewNet()->setACUnderCursor(this);
+                std::cout << "ENCONTRADO" << std::endl;
+            }
+        } else if (drawShape) {
+            myNBNode.getShape().i
+        }
 
+    }
 }
 
 

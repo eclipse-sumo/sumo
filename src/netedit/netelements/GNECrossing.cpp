@@ -405,7 +405,7 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void 
-GNECrossing::mouseOverObject() const {
+GNECrossing::mouseOverObject(const GUIVisualizationSettings& s) const {
 
 }
 

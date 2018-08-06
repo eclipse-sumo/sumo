@@ -896,7 +896,7 @@ GNEAdditional::checkAdditionalChildRestriction() const {
 
 
 void 
-GNEAdditional::mouseOverObject() const {
+GNEAdditional::mouseOverObject(const GUIVisualizationSettings& s) const {
 
 }
 

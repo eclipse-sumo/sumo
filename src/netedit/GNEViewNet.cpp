@@ -1228,14 +1228,14 @@ GNEViewNet::getMenuCheckShowGrid() const {
 }
 
 
-GNEAttributeCarrier* 
+const GNEAttributeCarrier* 
 GNEViewNet::getACUnderCursor() const {
     return myACUnderCursor;
 }
 
 
 void 
-GNEViewNet::setACUnderCursor(GNEAttributeCarrier* AC) {
+GNEViewNet::setACUnderCursor(const GNEAttributeCarrier* AC) {
     myACUnderCursor = AC;
 }
 

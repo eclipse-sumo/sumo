@@ -1165,7 +1165,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void 
-GNEEdge::mouseOverObject() const {
+GNEEdge::mouseOverObject(const GUIVisualizationSettings& s) const {
 
 }
 
