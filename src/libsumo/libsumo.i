@@ -213,19 +213,18 @@ def simulationStep(step=0):
     try {
         $action
     } catch (libsumo::TraCIException &e) {
+        const std::string s = std::string("Error: ") + e.what();
 #ifdef SWIGPYTHON
-        PyObject *err = SWIG_NewPointerObj(new libsumo::TraCIException(e), SWIGTYPE_p_libsumo__TraCIException, 1);
-        PyErr_SetObject(SWIG_Python_ExceptionType(SWIGTYPE_p_libsumo__TraCIException), err);
+        PyErr_SetObject(SWIG_Python_ExceptionType(SWIGTYPE_p_libsumo__TraCIException), PyUnicode_FromString(s.c_str()));
         SWIG_fail;
 #else
-        const std::string s = std::string("TraCI error: ") + e.what();
-        SWIG_exception(SWIG_RuntimeError, s.c_str());
+        SWIG_exception(SWIG_ValueError, s.c_str());
 #endif
     } catch (std::runtime_error &e) {
         const std::string s = std::string("SUMO error: ") + e.what();
         SWIG_exception(SWIG_RuntimeError, s.c_str());
     } catch (...) {
-        SWIG_exception(SWIG_RuntimeError, "unknown exception");
+        SWIG_exception(SWIG_UnknownError, "unknown exception");
     }
 }
 

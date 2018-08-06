@@ -418,10 +418,14 @@ traci.vehicle.setEmissionClass(electricVeh, "Energy/unknown")
 try:
     print(traci.vehicle.getParameter(electricVeh, "device.foo.bar"))
 except traci.TraCIException as e:
+    if traci.isLibsumo():
+        print(e, file=sys.stderr)
     print("recovering from exception (%s)" % e)
 try:
     print(traci.vehicle.getParameter(electricVeh, "device.battery.foobar"))
 except traci.TraCIException as e:
+    if traci.isLibsumo():
+        print(e, file=sys.stderr)
     print("recovering from exception (%s)" % e)
 
 for i in range(10):
