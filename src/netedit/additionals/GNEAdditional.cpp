@@ -894,4 +894,10 @@ GNEAdditional::checkAdditionalChildRestriction() const {
     throw ProcessError("Calling non-implemented function checkAdditionalChildRestriction during saving of " + toString(getTag()) + ". It muss be reimplemented in child class");
 }
 
+
+void 
+GNEAdditional::mouseOverObject() const {
+
+}
+
 /****************************************************************************/

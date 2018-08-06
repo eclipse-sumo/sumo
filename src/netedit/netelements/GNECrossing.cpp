@@ -403,4 +403,10 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value) {
     updateGeometry();
 }
 
+
+void 
+GNECrossing::mouseOverObject() const {
+
+}
+
 /****************************************************************************/

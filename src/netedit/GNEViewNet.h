@@ -333,6 +333,12 @@ public:
     /// @brief get grid button
     FXMenuCheck* getMenuCheckShowGrid() const;
 
+    /// @brief get AttributeCarrier under cursor
+    GNEAttributeCarrier* getACUnderCursor() const;
+
+    /// @brief set attributeCarrier under cursor
+    void setACUnderCursor(GNEAttributeCarrier* AC);
+
     /// @brief check if lock icon should be visible
     bool showLockIcon() const;
 
@@ -698,6 +704,9 @@ private:
 
     /// @brief a reference to the undolist maintained in the application
     GNEUndoList* myUndoList;
+
+    /// @brief current AttributeCarrier under Mouse position
+    GNEAttributeCarrier *myACUnderCursor;
 
     /// @name variables for edit shapes
     /// @{

@@ -1042,6 +1042,12 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
 }
 
 
+void 
+GNEJunction::mouseOverObject() const {
+
+}
+
+
 double
 GNEJunction::getColorValue(const GUIVisualizationSettings& s, bool bubble) const {
     switch (s.junctionColorer.getActive()) {

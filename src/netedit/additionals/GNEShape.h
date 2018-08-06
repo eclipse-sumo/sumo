@@ -170,6 +170,9 @@ private:
     /// @brief set attribute after validation
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
 
+    /// @brief method for check if mouse is over objects
+    void mouseOverObject() const;
+
     /// @brief Invalidated copy constructor.
     GNEShape(const GNEShape&) = delete;
 

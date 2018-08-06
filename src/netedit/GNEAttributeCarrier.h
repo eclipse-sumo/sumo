@@ -729,6 +729,9 @@ private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
 
+    /// @brief method for check if mouse is over objects
+    virtual void mouseOverObject() const = 0;
+
     /// @brief fill Attribute Carriers
     static void fillAttributeCarriers();
 
