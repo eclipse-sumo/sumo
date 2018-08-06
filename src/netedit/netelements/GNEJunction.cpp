@@ -1046,6 +1046,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 void 
 GNEJunction::mouseOverObject(const GUIVisualizationSettings& s) const {
+    // only continue if there isn't already a AC under cursor
     if(myNet->getViewNet()->getACUnderCursor() == nullptr) {
         // obtain current x-y coordinates
         Position mousePos = myNet->getViewNet()->getPositionInformation();
@@ -1058,14 +1059,16 @@ GNEJunction::mouseOverObject(const GUIVisualizationSettings& s) const {
         double circleWidth = BUBBLE_RADIUS * exaggeration;
         double circleWidthSquared = circleWidth * circleWidth;
         if(drawBubble) {
+            // check if cursor is whithin the circle
             if (myNet->getViewNet()->getPositionInformation().distanceSquaredTo(myNBNode.getPosition()) <= circleWidthSquared) {
                 myNet->getViewNet()->setACUnderCursor(this);
-                std::cout << "ENCONTRADO" << std::endl;
             }
         } else if (drawShape) {
-            myNBNode.getShape().i
+            // check if cursor is within the shape
+            if(myNBNode.getShape().around(mousePos)) {
+                myNet->getViewNet()->setACUnderCursor(this);
+            }
         }
-
     }
 }
 
