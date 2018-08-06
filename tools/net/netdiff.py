@@ -361,7 +361,8 @@ def create_plain(netfile, netconvert):
     prefix = netfile[:-8]
     call([netconvert,
           "--sumo-net-file", netfile,
-          "--plain-output-prefix", prefix])
+          "--plain-output-prefix", prefix,
+          "--roundabouts.guess", "false"])
     return prefix
 
 
