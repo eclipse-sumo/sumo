@@ -56,7 +56,7 @@ class Storage:
 
     def readShape(self):
         length = self.read("!B")[0]
-        return [self.read("!dd") for i in range(length)]
+        return tuple([self.read("!dd") for i in range(length)])
 
     def ready(self):
         return self._pos < len(self._content)

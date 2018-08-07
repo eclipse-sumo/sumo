@@ -215,15 +215,6 @@ public:
     bool readTypeCheckingPosition2D(tcpip::Storage& inputStorage, libsumo::TraCIPosition& into);
 
 
-    /** @brief Reads the value type and a 2D bounding box, verifying the type
-     *
-     * @param[in, changed] inputStorage The storage to read from
-     * @param[out] into Holder of the read value
-     * @return Whether a 2D bounding box was given (by data type)
-     */
-    bool readTypeCheckingBoundary(tcpip::Storage& inputStorage, Boundary& into);
-
-
     /** @brief Reads the value type and a byte, verifying the type
      *
      * @param[in, changed] inputStorage The storage to read from

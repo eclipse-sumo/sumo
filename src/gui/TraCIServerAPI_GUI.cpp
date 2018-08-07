@@ -83,8 +83,9 @@ TraCIServerAPI_GUI::processGet(TraCIServer& server, tcpip::Storage& inputStorage
                 break;
             }
             case VAR_VIEW_BOUNDARY: {
-                tempMsg.writeUnsignedByte(TYPE_BOUNDINGBOX);
+                tempMsg.writeUnsignedByte(TYPE_POLYGON);
                 Boundary b = v->getVisibleBoundary();
+                tempMsg.writeByte(2);
                 tempMsg.writeDouble(b.xmin());
                 tempMsg.writeDouble(b.ymin());
                 tempMsg.writeDouble(b.xmax());
@@ -159,11 +160,11 @@ TraCIServerAPI_GUI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
         }
         break;
         case VAR_VIEW_BOUNDARY: {
-            Boundary b;
-            if (!server.readTypeCheckingBoundary(inputStorage, b)) {
+            PositionVector p;
+            if (!server.readTypeCheckingPolygon(inputStorage, p)) {
                 return server.writeErrorStatusCmd(CMD_SET_GUI_VARIABLE, "The boundary must be specified by a bounding box.", outputStorage);
             }
-            v->centerTo(b);
+            v->centerTo(Boundary(p[0].x(), p[0].y(), p[1].x(), p[1].y()));
             break;
         }
         case VAR_SCREENSHOT: {

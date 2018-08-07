@@ -142,7 +142,7 @@ TraCIServer::wrapStringList(const std::string& /* objID */, const int /* variabl
 
 bool
 TraCIServer::wrapPosition(const std::string& objID, const int variable, const libsumo::TraCIPosition& value) {
-    const bool includeZ = (value.z != Position::INVALID.z());
+    const bool includeZ = variable == VAR_POSITION3D;
     myWrapperStorage.writeUnsignedByte(includeZ ? POSITION_3D : POSITION_2D);
     myWrapperStorage.writeDouble(value.x);
     myWrapperStorage.writeDouble(value.y);
@@ -1515,20 +1515,6 @@ TraCIServer::readTypeCheckingPosition2D(tcpip::Storage& inputStorage, libsumo::T
     into.x = inputStorage.readDouble();
     into.y = inputStorage.readDouble();
     into.z = 0;
-    return true;
-}
-
-
-bool
-TraCIServer::readTypeCheckingBoundary(tcpip::Storage& inputStorage, Boundary& into) {
-    if (inputStorage.readUnsignedByte() != TYPE_BOUNDINGBOX) {
-        return false;
-    }
-    const double xmin = inputStorage.readDouble();
-    const double ymin = inputStorage.readDouble();
-    const double xmax = inputStorage.readDouble();
-    const double ymax = inputStorage.readDouble();
-    into.set(xmin, ymin, xmax, ymax);
     return true;
 }
 

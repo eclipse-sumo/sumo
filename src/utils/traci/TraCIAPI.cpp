@@ -389,36 +389,11 @@ TraCIAPI::getInt(int cmd, int var, const std::string& id, tcpip::Storage* add) {
 
 
 double
-TraCIAPI::getFloat(int cmd, int var, const std::string& id, tcpip::Storage* add) {
-    tcpip::Storage inMsg;
-    send_commandGetVariable(cmd, var, id, add);
-    processGET(inMsg, cmd, TYPE_FLOAT);
-    return inMsg.readFloat();
-}
-
-
-double
 TraCIAPI::getDouble(int cmd, int var, const std::string& id, tcpip::Storage* add) {
     tcpip::Storage inMsg;
     send_commandGetVariable(cmd, var, id, add);
     processGET(inMsg, cmd, TYPE_DOUBLE);
     return inMsg.readDouble();
-}
-
-
-libsumo::TraCIPositionVector
-TraCIAPI::getBoundingBox(int cmd, int var, const std::string& id, tcpip::Storage* add) {
-    tcpip::Storage inMsg;
-    send_commandGetVariable(cmd, var, id, add);
-    processGET(inMsg, cmd, TYPE_BOUNDINGBOX);
-    libsumo::TraCIPositionVector tb({ libsumo::TraCIPosition(), libsumo::TraCIPosition() });
-    tb[0].x = inMsg.readDouble();
-    tb[0].y = inMsg.readDouble();
-    tb[0].z = 0.;
-    tb[1].x = inMsg.readDouble();
-    tb[1].y = inMsg.readDouble();
-    tb[1].z = 0.;
-    return tb;
 }
 
 
@@ -823,7 +798,7 @@ TraCIAPI::GUIScope::getSchema(const std::string& viewID) const {
 
 libsumo::TraCIPositionVector
 TraCIAPI::GUIScope::getBoundary(const std::string& viewID) const {
-    return myParent.getBoundingBox(CMD_GET_GUI_VARIABLE, VAR_VIEW_BOUNDARY, viewID);
+    return myParent.getPolygon(CMD_GET_GUI_VARIABLE, VAR_VIEW_BOUNDARY, viewID);
 }
 
 
@@ -860,11 +835,14 @@ TraCIAPI::GUIScope::setSchema(const std::string& viewID, const std::string& sche
 void
 TraCIAPI::GUIScope::setBoundary(const std::string& viewID, double xmin, double ymin, double xmax, double ymax) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(TYPE_BOUNDINGBOX);
+    content.writeUnsignedByte(TYPE_POLYGON);
+    content.writeByte(2);
     content.writeDouble(xmin);
     content.writeDouble(ymin);
+    content.writeDouble(0.);
     content.writeDouble(xmax);
     content.writeDouble(ymax);
+    content.writeDouble(0.);
     myParent.send_commandSetValue(CMD_SET_GUI_VARIABLE, VAR_VIEW_BOUNDARY, viewID, content);
     tcpip::Storage inMsg;
     myParent.check_resultState(inMsg, CMD_SET_GUI_VARIABLE);
@@ -1576,7 +1554,7 @@ TraCIAPI::SimulationScope::getDeltaT() const {
 
 libsumo::TraCIPositionVector
 TraCIAPI::SimulationScope::getNetBoundary() const {
-    return myParent.getBoundingBox(CMD_GET_SIM_VARIABLE, VAR_NET_BOUNDING_BOX, "");
+    return myParent.getPolygon(CMD_GET_SIM_VARIABLE, VAR_NET_BOUNDING_BOX, "");
 }
 
 

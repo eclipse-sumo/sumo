@@ -313,8 +313,6 @@
 // ****************************************
 // DATA TYPES
 // ****************************************
-// Boundary Box (4 doubles)
-#define TYPE_BOUNDINGBOX 0x05
 // Polygon (2*n doubles)
 #define TYPE_POLYGON 0x06
 // unsigned byte
@@ -323,8 +321,6 @@
 #define TYPE_BYTE 0x08
 // 32 bit signed integer
 #define TYPE_INTEGER 0x09
-// float
-#define TYPE_FLOAT 0x0A
 // double
 #define TYPE_DOUBLE 0x0B
 // 8 bit ASCII string
@@ -349,12 +345,12 @@
 // result type: error
 #define RTYPE_ERR 0xFF
 
-// return value for invalid queries (especially vehicle is not on the road)
-#define INVALID_DOUBLE_VALUE -1001.
-// return value for invalid queries (especially vehicle is not on the road)
-#define INVALID_INT_VALUE -1
-// maximum value for client ordering (2 ^ 30 - 1)
-#define MAX_ORDER 1073741823
+// return value for invalid queries (especially vehicle is not on the road), see Position::INVALID
+#define INVALID_DOUBLE_VALUE -1073741824.
+// return value for invalid queries (especially vehicle is not on the road), see Position::INVALID
+#define INVALID_INT_VALUE -1073741824
+// maximum value for client ordering (2 ^ 30)
+#define MAX_ORDER 1073741824
 
 // ****************************************
 // TRAFFIC LIGHT PHASES

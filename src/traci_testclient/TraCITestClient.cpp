@@ -469,11 +469,6 @@ TraCITestClient::setValueTypeDependant(tcpip::Storage& into, std::ifstream& defF
         into.writeUnsignedByte(TYPE_UBYTE);
         into.writeUnsignedByte(valI);
         return 1 + 1;
-    } else if (dataTypeS == "<float>") {
-        defFile >> valF;
-        into.writeUnsignedByte(TYPE_FLOAT);
-        into.writeFloat(float(valF));
-        return 4 + 1;
     } else if (dataTypeS == "<double>") {
         defFile >> valF;
         into.writeUnsignedByte(TYPE_DOUBLE);
@@ -576,26 +571,9 @@ TraCITestClient::readAndReportTypeDependent(tcpip::Storage& inMsg, int valueData
     } else if (valueDataType == TYPE_INTEGER) {
         int integer = inMsg.readInt();
         answerLog << " Int value: " << integer << std::endl;
-    } else if (valueDataType == TYPE_FLOAT) {
-        float floatv = inMsg.readFloat();
-        if (floatv < 0.1 && floatv > 0) {
-            answerLog.setf(std::ios::scientific, std::ios::floatfield);
-        }
-        answerLog << " float value: " << floatv << std::endl;
-        answerLog.setf(std::ios::fixed , std::ios::floatfield); // use decimal format
-        answerLog.setf(std::ios::showpoint); // print decimal point
-        answerLog << std::setprecision(2);
     } else if (valueDataType == TYPE_DOUBLE) {
         double doublev = inMsg.readDouble();
         answerLog << " Double value: " << doublev << std::endl;
-    } else if (valueDataType == TYPE_BOUNDINGBOX) {
-        double lowerLeftX = inMsg.readDouble();
-        double lowerLeftY = inMsg.readDouble();
-        double upperRightX = inMsg.readDouble();
-        double upperRightY = inMsg.readDouble();
-        answerLog << " BoundaryBoxValue: lowerLeft x=" << lowerLeftX
-                  << " y=" << lowerLeftY << " upperRight x=" << upperRightX
-                  << " y=" << upperRightY << std::endl;
     } else if (valueDataType == TYPE_POLYGON) {
         int length = inMsg.readUnsignedByte();
         answerLog << " PolygonValue: ";

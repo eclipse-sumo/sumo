@@ -68,7 +68,7 @@ _RETURN_VALUE_FUNC = {tc.VAR_TIME_STEP: Storage.readInt,
                       tc.VAR_TELEPORT_ENDING_VEHICLES_NUMBER: Storage.readInt,
                       tc.VAR_TELEPORT_ENDING_VEHICLES_IDS: Storage.readStringList,
                       tc.VAR_DELTA_T: Storage.readInt,
-                      tc.VAR_NET_BOUNDING_BOX: lambda result: (result.read("!dd"), result.read("!dd"))}
+                      tc.VAR_NET_BOUNDING_BOX: Storage.readShape}
 
 
 class SimulationDomain(Domain):

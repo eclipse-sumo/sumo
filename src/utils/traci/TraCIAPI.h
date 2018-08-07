@@ -90,9 +90,7 @@ public:
     int getUnsignedByte(int cmd, int var, const std::string& id, tcpip::Storage* add = 0);
     int getByte(int cmd, int var, const std::string& id, tcpip::Storage* add = 0);
     int getInt(int cmd, int var, const std::string& id, tcpip::Storage* add = 0);
-    double getFloat(int cmd, int var, const std::string& id, tcpip::Storage* add = 0);
     double getDouble(int cmd, int var, const std::string& id, tcpip::Storage* add = 0);
-    libsumo::TraCIPositionVector getBoundingBox(int cmd, int var, const std::string& id, tcpip::Storage* add = 0);
     libsumo::TraCIPositionVector getPolygon(int cmd, int var, const std::string& id, tcpip::Storage* add = 0);
     libsumo::TraCIPosition getPosition(int cmd, int var, const std::string& id, tcpip::Storage* add = 0);
     libsumo::TraCIPosition getPosition3D(int cmd, int var, const std::string& id, tcpip::Storage* add = 0);

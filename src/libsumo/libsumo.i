@@ -18,7 +18,7 @@
 
 // adding dummy init and close for easier traci -> libsumo transfer
 %pythoncode %{
-from traci import constants, exceptions
+from traci import constants, exceptions, vehicle
 
 def isLibsumo():
     return True
@@ -143,10 +143,10 @@ def simulationStep(step=0):
 };
 
 %typemap(out) libsumo::TraCIPositionVector {
-    $result = PyList_New($1.size());
+    $result = PyTuple_New($1.size());
     int index = 0;
     for (auto iter = $1.begin(); iter != $1.end(); ++iter) {
-        PyList_SetItem($result, index++, PyTuple_Pack(2, PyFloat_FromDouble(iter->x), PyFloat_FromDouble(iter->y)));
+        PyTuple_SetItem($result, index++, PyTuple_Pack(2, PyFloat_FromDouble(iter->x), PyFloat_FromDouble(iter->y)));
     }
 };
 
@@ -267,8 +267,15 @@ def simulationStep(step=0):
 
 #ifdef SWIGPYTHON
 %pythoncode %{
+def wrapAsClassMethod(func, module):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        func(module, *args, **kwargs)
+    return wrapper
+
 exceptions.TraCIException = TraCIException
 vehicle.addFull = vehicle.add
-vehicle.isStopped = lambda vehID: (vehicle.getStopState(vehID) & 1) == 1
+#vehicle.isStopped = lambda vehID: (vehicle.getStopState(vehID) & 1) == 1
+vehicle.isStopped = wrapAsClassMethod(vehicle.isStopped, libsumo.vehicle)
 %}
 #endif
