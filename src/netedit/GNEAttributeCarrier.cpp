@@ -960,7 +960,7 @@ GNEAttributeCarrier::isGenericParametersValid(const std::string &value) {
         // Check that parsed parameters are exactly two
         if(parsedParameters.size() == 2 ) {
             // check that key and value contains valid characters
-            if(!isValidID(parsedParameters.front()) || !isValidName(parsedParameters.back())) {
+            if(!SUMOXMLDefinitions::isValidNetID(parsedParameters.front()) || !isValidName(parsedParameters.back())) {
                 return false;
             }
         } else {

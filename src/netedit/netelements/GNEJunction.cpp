@@ -1074,7 +1074,7 @@ GNEJunction::setGenericParametersStr(const std::string &value) {
             parsedParameters.push_back(stParam.next());
         }
         // Check that parsed parameters are exactly two and contains valid chracters
-        if(parsedParameters.size() == 2 && isValidID(parsedParameters.front()) && isValidName(parsedParameters.back())) {
+        if(parsedParameters.size() == 2 && SUMOXMLDefinitions::isValidNetID(parsedParameters.front()) && isValidName(parsedParameters.back())) {
             myNBNode.setParameter(parsedParameters.front(), parsedParameters.back());
         }
     }

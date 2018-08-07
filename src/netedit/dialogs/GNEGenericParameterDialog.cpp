@@ -129,7 +129,7 @@ GNEGenericParameterDialog::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
             // change key of Generic Parameter
             myGenericParameters->at(i).first = myGenericParameterRows.at(i).keyField->getText().text();
             // change color of text field depending if key is valid or empty
-            if(myGenericParameters->at(i).first.empty() || GNEAttributeCarrier::isValidID(myGenericParameters->at(i).first)) {
+            if(myGenericParameters->at(i).first.empty() || SUMOXMLDefinitions::isValidNetID(myGenericParameters->at(i).first)) {
                 myGenericParameterRows.at(i).keyField->setTextColor(FXRGB(0, 0, 0));
             } else {
                 myGenericParameterRows.at(i).keyField->setTextColor(FXRGB(255, 0, 0));
@@ -352,7 +352,7 @@ GNEGenericParameterDialog::onCmdAccept(FXObject*, FXSelector, void*) {
                 WRITE_WARNING("Closed FXMessageBox of type 'warning' with 'OK'");
             }
             return 1;
-        } else if(!GNEAttributeCarrier::isValidID(i->first)) {
+        } else if(!SUMOXMLDefinitions::isValidNetID(i->first)) {
             // write warning if netedit is running in testing mode
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
                 WRITE_WARNING("Opening FXMessageBox of type 'warning'");
@@ -456,7 +456,7 @@ GNEGenericParameterDialog::GenericParameterRow::enableRow(const std::string &par
     frameParent->show();
     // restore color and enable key field
     keyField->setText(parameter.c_str());
-    if(parameter.empty() || GNEAttributeCarrier::isValidID(parameter)) {
+    if(parameter.empty() || SUMOXMLDefinitions::isValidNetID(parameter)) {
         keyField->setTextColor(FXRGB(0, 0, 0));
     } else {
         keyField->setTextColor(FXRGB(255, 0, 0));
@@ -536,7 +536,7 @@ GNEGenericParameterDialog::GNEGenericParameterHandler::myStartElement(int elemen
                         std::string key = attrs.getString(SUMO_ATTR_KEY);
                         std::string value = attrs.getString(SUMO_ATTR_VALUE);
                         // check that parsed values are correct
-                        if(!GNEAttributeCarrier::isValidID(key)) {
+                        if(!SUMOXMLDefinitions::isValidNetID(key)) {
                             if(key.size() == 0) {
                                 WRITE_WARNING("Key of Generic Parameter cannot be empty");
                             } else {
