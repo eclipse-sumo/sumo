@@ -1,6 +1,9 @@
 # checks using basic vtype distribution
 vtype_basic
 
+# checks using  vtype distribution with existing types
+vtypeDist_useExisting
+
 # checks using basic route distribution
 route_basic
 
