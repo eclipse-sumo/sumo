@@ -64,6 +64,8 @@ def get_allowed(allow, disallow):
         return SUMO_VEHICLE_CLASSES
     elif disallow is None:
         return allow.split()
+    elif disallow == "all":
+        return ()
     else:
         disallow = disallow.split()
         return tuple([c for c in SUMO_VEHICLE_CLASSES if c not in disallow])
