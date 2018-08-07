@@ -513,8 +513,9 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
     }
     if(!s.drawForSelecting && (myNet->getViewNet()->getACUnderCursor() == this)) {
         // draw dotted contor around the first and last lane
-        const double myHalfLaneWidth = myNBEdge.getLaneWidth(myLanes.front()->getIndex()) / 2;
-        GLHelper::drawShapeDottedContour(GLO_JUNCTION, myLanes.front()->getShape(), myHalfLaneWidth, myLanes.back()->getShape(), -1 * myHalfLaneWidth);
+        const double myHalfLaneWidthFront = myNBEdge.getLaneWidth(myLanes.front()->getIndex()) / 2;
+        const double myHalfLaneWidthBack = myNBEdge.getLaneWidth(myLanes.back()->getIndex()) / 2;
+        GLHelper::drawShapeDottedContour(GLO_JUNCTION, myLanes.front()->getShape(), myHalfLaneWidthFront, myLanes.back()->getShape(), -1 * myHalfLaneWidthBack);
     }
     glPopMatrix();
 }
