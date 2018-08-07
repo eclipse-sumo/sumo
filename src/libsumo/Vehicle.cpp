@@ -610,7 +610,7 @@ Vehicle::getLength(const std::string& vehicleID) {
 
 double
 Vehicle::getAccel(const std::string& vehicleID) {
-    return getVehicleType(vehicleID).getLength();
+    return getVehicleType(vehicleID).getCarFollowModel().getMaxAccel();
 }
 
 
@@ -638,6 +638,7 @@ double Vehicle::getActionStepLength(const std::string& vehicleID) {
 double Vehicle::getLastActionTime(const std::string& vehicleID) {
     return STEPS2TIME(getVehicle(vehicleID)->getLastActionTime());
 }
+
 
 double
 Vehicle::getTau(const std::string& vehicleID) {
@@ -745,7 +746,10 @@ Vehicle::setStop(const std::string& vehicleID,
         }
     } else {
         // check
-        if (startPos < 0) {
+        if (startPos == INVALID_DOUBLE_VALUE) {
+            startPos = pos - POSITION_EPS;
+        }
+        if (startPos < 0.) {
             throw TraCIException("Position on lane must not be negative.");
         }
         if (pos < startPos) {
@@ -959,10 +963,10 @@ Vehicle::add(const std::string& vehicleID,
 
 
 void
-Vehicle::moveToXY(const std::string& vehicleID, const std::string& edgeID, const int laneIndex, const double x, const double y, double angle, const int keepRouteFlag) {
+Vehicle::moveToXY(const std::string& vehicleID, const std::string& edgeID, const int laneIndex, const double x, const double y, double angle, const int keepRoute) {
     MSVehicle* veh = getVehicle(vehicleID);
-    bool keepRoute = (keepRouteFlag == 1) && veh->getID() != "VTD_EGO";
-    bool mayLeaveNetwork = (keepRouteFlag == 2);
+    const bool doKeepRoute = (keepRoute == 1) && veh->getID() != "VTD_EGO";
+    const bool mayLeaveNetwork = (keepRoute == 2);
     // process
     const std::string origID = edgeID + "_" + toString(laneIndex);
     // @todo add an interpretation layer for OSM derived origID values (without lane index)
@@ -996,7 +1000,7 @@ Vehicle::moveToXY(const std::string& vehicleID, const std::string& edgeID, const
     bool found;
     double maxRouteDistance = 100;
     /* EGO vehicle is known to have a fixed route. @todo make this into a parameter of the TraCI call */
-    if (keepRoute) {
+    if (doKeepRoute) {
         // case a): vehicle is on its earlier route
         //  we additionally assume it is moving forward (SUMO-limit);
         //  note that the route ("edges") is not changed in this case

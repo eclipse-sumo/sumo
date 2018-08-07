@@ -80,7 +80,7 @@ public:
     static double getElectricityConsumption(const std::string& vehicleID);
     static int getPersonNumber(const std::string& vehicleID);
     static std::vector<std::string> getPersonIDList(const std::string& vehicleID);
-    static std::pair<std::string, double> getLeader(const std::string& vehicleID, double dist);
+    static std::pair<std::string, double> getLeader(const std::string& vehicleID, double dist=0.);
     static double getWaitingTime(const std::string& vehicleID);
     static double getAccumulatedWaitingTime(const std::string& vehicleID);
     static double getAdaptedTraveltime(const std::string& vehicleID, int time, const std::string& edgeID);
@@ -164,7 +164,7 @@ public:
     static void rerouteEffort(const std::string& vehicleID);
     static void setSignals(const std::string& vehicleID, int signals);
     static void moveTo(const std::string& vehicleID, const std::string& laneID, double position);
-    static void moveToXY(const std::string& vehicleID, const std::string& edgeID, const int laneIndex, const double x, const double y, double angle, const int keepRouteFlag);
+    static void moveToXY(const std::string& vehicleID, const std::string& edgeID, const int laneIndex, const double x, const double y, double angle=INVALID_DOUBLE_VALUE, const int keepRoute=1);
     static void remove(const std::string& vehicleID, char reason = REMOVE_VAPORIZED);
     static void setLine(const std::string& vehicleID, const std::string& line);
     static void setVia(const std::string& vehicleID, const std::vector<std::string>& via);

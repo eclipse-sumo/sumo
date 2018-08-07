@@ -363,14 +363,10 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                         return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The fifth stop parameter must be a byte indicating its parking/triggered status.", outputStorage);
                     }
                 }
-                double startPos = pos - POSITION_EPS;
+                double startPos = INVALID_DOUBLE_VALUE;
                 if (compoundSize >= 6) {
-                    double tmp;
-                    if (!server.readTypeCheckingDouble(inputStorage, tmp)) {
+                    if (!server.readTypeCheckingDouble(inputStorage, startPos)) {
                         return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The sixth stop parameter must be the start position along the edge given as a double.", outputStorage);
-                    }
-                    if (tmp != INVALID_DOUBLE_VALUE) {
-                        startPos = tmp;
                     }
                 }
                 int until = -1;

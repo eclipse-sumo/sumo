@@ -268,5 +268,7 @@ def simulationStep(step=0):
 #ifdef SWIGPYTHON
 %pythoncode %{
 exceptions.TraCIException = TraCIException
+vehicle.addFull = vehicle.add
+vehicle.isStopped = lambda vehID: (vehicle.getStopState(vehID) & 1) == 1
 %}
 #endif
