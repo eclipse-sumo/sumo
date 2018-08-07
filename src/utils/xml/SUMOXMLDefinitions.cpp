@@ -529,6 +529,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "rectangularLaneCut",     SUMO_ATTR_RECTANGULAR_LANE_CUT },
     { "walkingareas",           SUMO_ATTR_WALKINGAREAS },
     { "lefthand",               SUMO_ATTR_LEFTHAND },
+    { "limitTurnSpeed",         SUMO_ATTR_LIMIT_TURN_SPEED },
 
     { "actorConfig",            SUMO_ATTR_ACTORCONFIG },
     { "vehicle",                SUMO_ATTR_VEHICLE },

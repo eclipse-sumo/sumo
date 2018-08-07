@@ -78,8 +78,9 @@ NIImporter_SUMO::NIImporter_SUMO(NBNetBuilder& nb)
       myCornerDetail(0),
       myLinkDetail(-1),
       myRectLaneCut(false),
-      myWalkingAreas(false) {
-}
+      myWalkingAreas(false),
+      myLimitTurnSpeed(-1)
+{ }
 
 
 NIImporter_SUMO::~NIImporter_SUMO() {
@@ -294,6 +295,9 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
     if (oc.isDefault("walkingareas")) {
         oc.set("walkingareas", toString(myWalkingAreas));
     }
+    if (oc.isDefault("junctions.limit-turn-speed")) {
+        oc.set("junctions.limit-turn-speed", toString(myLimitTurnSpeed));
+    }
     if (!deprecatedVehicleClassesSeen.empty()) {
         WRITE_WARNING("Deprecated vehicle class(es) '" + toString(deprecatedVehicleClassesSeen) + "' in input network.");
         deprecatedVehicleClassesSeen.clear();
@@ -390,6 +394,7 @@ NIImporter_SUMO::myStartElement(int element,
             myLinkDetail = attrs.getOpt<int>(SUMO_ATTR_LINKDETAIL, 0, ok, -1);
             myRectLaneCut = attrs.getOpt<bool>(SUMO_ATTR_RECTANGULAR_LANE_CUT, 0, ok, false);
             myWalkingAreas = attrs.getOpt<bool>(SUMO_ATTR_WALKINGAREAS, 0, ok, false);
+            myLimitTurnSpeed = attrs.getOpt<double>(SUMO_ATTR_LIMIT_TURN_SPEED, 0, ok, -1);
             break;
         }
         case SUMO_TAG_EDGE:

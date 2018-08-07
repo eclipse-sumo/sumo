@@ -371,6 +371,9 @@ private:
     /// @brief whether walkingareas must be built
     bool myWalkingAreas;
 
+    /// @brief whether turning speed was limited in the network
+    double myLimitTurnSpeed;
+
     /// @brief loaded roundabout edges
     std::vector<std::vector<std::string> > myRoundabouts;
 

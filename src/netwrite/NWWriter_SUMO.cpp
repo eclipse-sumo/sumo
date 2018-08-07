@@ -77,6 +77,9 @@ NWWriter_SUMO::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     if (oc.getBool("crossings.guess") || oc.getBool("walkingareas")) {
         attrs[SUMO_ATTR_WALKINGAREAS] = "true";
     }
+    if (oc.getFloat("junctions.limit-turn-speed") > 0) {
+        attrs[SUMO_ATTR_LIMIT_TURN_SPEED] = toString(oc.getFloat("junctions.limit-turn-speed"));
+    }
     device.writeXMLHeader("net", "net_file.xsd", attrs); // street names may contain non-ascii chars
     device.lf();
     // get involved container
