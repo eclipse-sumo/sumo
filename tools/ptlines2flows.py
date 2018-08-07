@@ -159,6 +159,7 @@ def createTrips(options):
                 continue
 
             lineRefOrig = line.line.replace(" ", "_")
+            lineRefOrig = lineRefOrig.replace(";", "+")
             lineRef = "%s:%s" % (lineRefOrig, lineCount[lineRefOrig])
             lineCount[lineRefOrig] += 1
             tripID = "%s_%s_%s" % (trp_nr, line.type, lineRef)
