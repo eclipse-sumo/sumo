@@ -199,6 +199,10 @@ GNEDetectorExit::drawGL(const GUIVisualizationSettings& s) const {
     if(!s.drawForSelecting) {
         drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
     }
+    // check if dotted contour has to be drawn
+    if(!s.drawForSelecting && (myViewNet->getACUnderCursor() == this)) {
+        GLHelper::drawShapeDottedContour(getType(), myShape[0], 3.4, 5, myShapeRotations[0], 0, 2);
+    }
     // pop gl identificator
     glPopName();
 }
