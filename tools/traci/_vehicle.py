@@ -1340,25 +1340,6 @@ class VehicleDomain(Domain):
         self._connection._sendIntCmd(
             tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_SPEEDSETMODE, vehID, sm)
 
-    def add(self, vehID, routeID, depart=tc.DEPARTFLAG_NOW, pos=0, speed=0,
-            lane=tc.DEPARTFLAG_LANE_FIRST_ALLOWED, typeID="DEFAULT_VEHTYPE"):
-        """
-        Add a new vehicle (old style)
-        """
-        self._connection._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.ADD, vehID,
-                                       (1 + 4 + 1 + 4 + len(typeID) + 1 + 4 + len(routeID) +
-                                        1 + 4 + 1 + 8 + 1 + 8 + 1 + 1))
-        if depart > 0:
-            depart *= 1000
-        self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 6)
-        self._connection._packString(typeID)
-        self._connection._packString(routeID)
-        self._connection._string += struct.pack("!Bi", tc.TYPE_INTEGER, depart)
-        self._connection._string += struct.pack("!BdBd",
-                                                tc.TYPE_DOUBLE, pos, tc.TYPE_DOUBLE, speed)
-        self._connection._string += struct.pack("!Bb", tc.TYPE_BYTE, lane)
-        self._connection._sendExact()
-
     def addFull(self, vehID, routeID, typeID="DEFAULT_VEHTYPE", depart=None,
                 departLane="first", departPos="base", departSpeed="0",
                 arrivalLane="current", arrivalPos="max", arrivalSpeed="current",
@@ -1380,6 +1361,8 @@ class VehicleDomain(Domain):
             tc.CMD_SET_VEHICLE_VARIABLE, tc.ADD_FULL, vehID, len(messageString))
         self._connection._string += messageString
         self._connection._sendExact()
+
+    add = addFull
 
     def remove(self, vehID, reason=tc.REMOVE_VAPORIZED):
         '''Remove vehicle with the given ID for the give reason.
@@ -1408,8 +1391,6 @@ class VehicleDomain(Domain):
         self._connection._string += struct.pack("!Bd", tc.TYPE_DOUBLE, angle)
         self._connection._string += struct.pack("!BB", tc.TYPE_BYTE, keepRoute)
         self._connection._sendExact()
-
-    moveToVTD = moveToXY  # deprecated method name for backwards compatibility
 
     def subscribe(self, objectID, varIDs=(tc.VAR_ROAD_ID, tc.VAR_LANEPOSITION), begin=0, end=2**31 - 1):
         """subscribe(string, list(integer), int, int) -> None
