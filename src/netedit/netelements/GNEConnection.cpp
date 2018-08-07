@@ -300,6 +300,10 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::setColor(GLHelper::getColor().changedBrightness(51));;
             GLHelper::drawLine(myInternalJunctionMarker);
         }
+        // check if dotted contour has to be drawn
+        if(!s.drawForSelecting && (myNet->getViewNet()->getACUnderCursor() == this)) {
+            GLHelper::drawShapeDottedContour(getType(), myShape, 0.25);
+        }
         // Pop name
         glPopName();
         // Pop draw matrix 1
