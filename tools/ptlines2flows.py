@@ -224,9 +224,9 @@ def formatTime(seconds):
 
 def createRoutes(options, trpMap, stopNames):
     print("creating routes...")
-    stopsUntil = {}
+    stopsUntil = collections.defaultdict(list)
     for stop in sumolib.output.parse_fast(options.stopinfos, 'stopinfo', ['id', 'ended', 'busStop']):
-        stopsUntil[(stop.id, stop.busStop)] = float(stop.ended)
+        stopsUntil[(stop.id, stop.busStop)].append(float(stop.ended))
 
     ft = formatTime if options.hrtime else lambda x: x
 
@@ -262,8 +262,11 @@ def createRoutes(options, trpMap, stopNames):
             if vehicle.stop is not None:
                 for stop in stops:
                     if (id, stop.busStop) in stopsUntil:
+                        until = stopsUntil[(id, stop.busStop)]
                         stopname = ' <!-- %s -->' % stopNames[stop.busStop] if stop.busStop in stopNames else ''
-                        untilZeroBased = stopsUntil[(id, stop.busStop)] - actualDepart[id]
+                        untilZeroBased = until[0] - actualDepart[id]
+                        if len(until) > 1:
+                            stopsUntil[(id, stop.busStop)] = until[1:]
                         foutflows.write(
                             '        <stop busStop="%s" duration="%s" until="%s"%s/>%s\n' % (
                                 stop.busStop, stop.duration, ft(untilZeroBased), parking, stopname))
