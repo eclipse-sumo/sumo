@@ -95,7 +95,7 @@ netedit.modifyAttribute(5, "500")
 netedit.modifyAttribute(5, "32.5")
 
 # Change parameter 5 with a different value
-netedit.modifyBoolAttribute(7)
+netedit.modifyBoolAttribute(9)
 
 # Check undos and redos
 netedit.undo(match, 17)

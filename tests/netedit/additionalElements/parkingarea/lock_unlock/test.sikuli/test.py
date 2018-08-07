@@ -50,7 +50,7 @@ netedit.inspectMode()
 netedit.leftClick(match, 350, 270)
 
 # block additional
-netedit.modifyBoolAttribute(11)
+netedit.modifyBoolAttribute(13)
 
 # change to move mode
 netedit.moveMode()
@@ -65,7 +65,7 @@ netedit.inspectMode()
 netedit.leftClick(match, 350, 270)
 
 # unblock additional
-netedit.modifyBoolAttribute(11)
+netedit.modifyBoolAttribute(13)
 
 # change to move mode
 netedit.moveMode()

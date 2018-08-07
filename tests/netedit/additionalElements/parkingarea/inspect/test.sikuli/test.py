@@ -149,7 +149,7 @@ netedit.modifyAttribute(9, "500")
 netedit.modifyAttribute(9, "32.5")
 
 # Change parameter 5 with a different value
-netedit.modifyBoolAttribute(11)
+netedit.modifyBoolAttribute(13)
 
 # Leave start and end positions empty
 netedit.modifyAttribute(2, "")
