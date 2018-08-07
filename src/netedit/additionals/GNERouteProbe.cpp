@@ -221,8 +221,15 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
         drawLockIcon(0.4);
     }
 
-    // Finish draw
+    // draw name
     drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
+
+    // check if dotted contour has to be drawn
+    if(!s.drawForSelecting && (myViewNet->getACUnderCursor() == this)) {
+        GLHelper::drawShapeDottedContour(getType(), myShape[0], 2, 2, myShapeRotations[0], (-2.56) - myRelativePositionY, -1.6);
+    }
+
+    // pop name
     glPopName();
 }
 
