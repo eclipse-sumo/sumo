@@ -177,6 +177,10 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
     if (s.addFullName.show && (myAdditionalName != "") && !s.drawForSelecting) {
         GLHelper::drawText(myAdditionalName, mySignPos, GLO_MAX - getType(), s.addFullName.scaledSize(s.scale), s.addFullName.color, myBlockIconRotation);
     }
+    // check if dotted contour has to be drawn
+    if(!s.drawForSelecting && (myViewNet->getACUnderCursor() == this)) {
+        GLHelper::drawShapeDottedContour(getType(), myShape, myWidth * exaggeration);
+    }
     // Pop name matrix
     glPopName();
 }

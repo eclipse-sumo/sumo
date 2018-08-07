@@ -142,8 +142,14 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
         glTranslated(0, myLength/2, 0.1);
         drawLockIcon();
     }
-    // pop matrix and name
+    // pop draw matrix
     glPopMatrix();
+    // check if dotted contour has to be drawn
+    if(!s.drawForSelecting && (myViewNet->getACUnderCursor() == this)) {
+        GLHelper::drawShapeDottedContour(getType(), Position(myX, myY), myWidth, myLength, myAngle, 0, myLength/2);
+    }
+
+    // pop name
     glPopName();
 }
 
