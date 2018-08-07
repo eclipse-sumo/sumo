@@ -387,12 +387,12 @@ protected:
     /// @brief position and rotation of every simbol over lane
     std::vector<std::pair<Position, double> > mySymbolsPositionAndRotation;
 
+    /// @brief Matrix with the Vertex's positions of connections between parents an their childs
+    std::vector<PositionVector> myChildConnectionPositions;
+
     /// @}
 
 private:
-    /// @brief Matrix with the Vertex's positions of connections between parents an their childs
-    std::vector<std::vector<Position> > myChildConnectionPositions;
-
     /**@brief check restriction with the number of childs
      * @throw ProcessError if itis called without be reimplemented in child class
      */

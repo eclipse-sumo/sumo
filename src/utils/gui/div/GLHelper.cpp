@@ -454,7 +454,7 @@ GLHelper::drawTriangleAtEnd(const Position& p1, const Position& p2,
 
 
 const std::vector<RGBColor>&
-GLHelper::getDottedcontourColors(int size) {
+GLHelper::getDottedcontourColors(const int size) {
     // check if more colors has to be added
     while(myDottedcontourColors.size() < size) {
         if(myDottedcontourColors.empty() || myDottedcontourColors.back() == RGBColor::WHITE) {
@@ -468,19 +468,22 @@ GLHelper::getDottedcontourColors(int size) {
 
 
 void 
-GLHelper::drawShapeDottedContour(const int type, const PositionVector &shape, double width) {
+GLHelper::drawShapeDottedContour(const int type, const PositionVector &shape, const double width) {
     glPushMatrix();
     // build contour using shapes of first and last lane shapes
     PositionVector contourFront = shape;
-    PositionVector contourback = contourFront;
-    contourFront.move2side(width);
-    contourback.move2side(-width);
-    contourback = contourback.reverse();
-    for (auto i : contourback) {
-        contourFront.push_back(i);
+    // only add an contourback if width is greather of 0
+    if(width > 0) {
+        PositionVector contourback = contourFront;
+        contourFront.move2side(width);
+        contourback.move2side(-width);
+        contourback = contourback.reverse();
+        for (auto i : contourback) {
+            contourFront.push_back(i);
+        }
+        contourFront.push_back(shape.front());
     }
-    contourFront.push_back(shape.front());
-    // resample junction shape
+    // resample shape
     PositionVector resampledShape = contourFront.resample(1);
     // draw contour over shape
     glTranslated(0, 0, type + 2);
@@ -512,7 +515,7 @@ GLHelper::drawShapeDottedContour(const int type, const PositionVector &shape) {
 
 
 void 
-GLHelper::drawShapeDottedContour(const int type, const PositionVector &frontShape, double offsetFrontShape, const PositionVector &backShape, double offsetBackShape) {
+GLHelper::drawShapeDottedContour(const int type, const PositionVector &frontShape, const double offsetFrontShape, const PositionVector &backShape, const double offsetBackShape) {
     glPushMatrix();
     // build contour using shapes of first and last lane shapes
     PositionVector contourFront = frontShape;
@@ -524,7 +527,7 @@ GLHelper::drawShapeDottedContour(const int type, const PositionVector &frontShap
         contourFront.push_back(i);
     }
     contourFront.push_back(frontShape.front());
-    // resample junction shape
+    // resample shape
     PositionVector resampledShape = contourFront.resample(1);
     // draw contour over shape
     glTranslated(0, 0, type + 2);
@@ -532,6 +535,30 @@ GLHelper::drawShapeDottedContour(const int type, const PositionVector &frontShap
     glLineWidth(3);
     // draw contour
     GLHelper::drawLine(resampledShape, getDottedcontourColors(resampledShape.size()));
+    //restore line width
+    glLineWidth(1);
+    glPopMatrix();
+}
+
+
+void 
+GLHelper::drawShapeDottedContour(const int type, const Position &center, const double width, const double height) {
+    glPushMatrix();
+    // create shape around center 
+    PositionVector shape;
+    shape.push_back(center + Position(width/2, height/2));
+    shape.push_back(center + Position(width/-2, height/2));
+    shape.push_back(center + Position(width/-2, height/-2));
+    shape.push_back(center + Position(width/2, height/-2));
+    shape.push_back(center + Position(width/2, height/2));
+    // resample shape
+    shape = shape.resample(1);
+    // draw contour over shape
+    glTranslated(0, 0, type + 2);
+    // set custom line width
+    glLineWidth(3);
+    // draw contour
+    GLHelper::drawLine(shape, getDottedcontourColors(shape.size()));
     //restore line width
     glLineWidth(1);
     glPopMatrix();

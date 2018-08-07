@@ -148,7 +148,6 @@ GNEDetectorE3::drawGL(const GUIVisualizationSettings& s) const {
 
     // Pop logo matrix
     glPopMatrix();
-
     if(!s.drawForSelecting) {
         // Show Lock icon depending of the Edit mode
         drawLockIcon(0.4);
@@ -159,7 +158,14 @@ GNEDetectorE3::drawGL(const GUIVisualizationSettings& s) const {
     if(!s.drawForSelecting) {
         drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
     }
-
+    // check if dotted contour has to be drawn
+    if(!s.drawForSelecting && (myViewNet->getACUnderCursor() == this)) {
+        GLHelper::drawShapeDottedContour(getType(), myPosition, 2, 2);
+        // make a position vector with the connections and draw it
+        for (auto i : myChildConnectionPositions) {
+            GLHelper::drawShapeDottedContour(getType(), i, 0);
+        }
+    }
     // Pop name
     glPopName();
 }

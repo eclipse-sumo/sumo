@@ -276,16 +276,19 @@ public:
                                   double tLength, double tWidth);
 
     /// @brief get dotted contour colors (black and white). Vector will be automatically increased if current size is minor than size
-    static const std::vector<RGBColor> &getDottedcontourColors(int size);
+    static const std::vector<RGBColor> &getDottedcontourColors(const int size);
 
     /// @brief draw a dotted contour around the given Non closed shape with certain width
-    static void drawShapeDottedContour(const int type, const PositionVector &shape, double width);
+    static void drawShapeDottedContour(const int type, const PositionVector &shape, const double width);
 
     /// @brief draw a dotted contour around the given closed shape with certain width
     static void drawShapeDottedContour(const int type, const PositionVector &shape);
 
     /// @brief draw a dotted contour around the given non closed shapes with certain width
-    static void drawShapeDottedContour(const int type, const PositionVector &frontShape, double offsetFrontShape, const PositionVector &backShape, double offsetBackShape);
+    static void drawShapeDottedContour(const int type, const PositionVector &frontShape, const double offsetFrontShape, const PositionVector &backShape, const double offsetBackShape);
+
+    /// @brief draw a dotted contour around the given Position with certain width and height
+    static void drawShapeDottedContour(const int type, const Position &center, const double width, const double height);
 
     /// @brief Sets the gl-color to this value
     static void setColor(const RGBColor& c);
