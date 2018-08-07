@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Aug  1 12:33:50 2018 by Eclipse SUMO netconvert Version 4179c84
+<!-- generated on Tue Aug  7 10:49:45 2018 by Eclipse SUMO netconvert Version 549516c
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -27,6 +27,7 @@ SPDX-License-Identifier: EPL-2.0
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
         <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="-1"/>
         <rectangular-lane-cut value="false"/>
         <walkingareas value="false"/>
     </processing>
@@ -40,7 +41,7 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <busStop id="-stopF" name="stopF" lane="-f_0" startPos="20.00" endPos="90.00" friendlyPos="true"/>
-    <busStop id="stopF" name="stopF" lane="f_0" startPos="10.00" endPos="80.00" friendlyPos="true"/>
-    <busStop id="stopH" name="stopH" lane="h_0" startPos="20.00" endPos="70.00" friendlyPos="true"/>
+    <busStop id="-stopF" name="foo" lane="-f_0" startPos="20.00" endPos="90.00" friendlyPos="true"/>
+    <busStop id="stopF" name="foo" lane="f_0" startPos="10.00" endPos="80.00" friendlyPos="true"/>
+    <busStop id="stopH" name="bar" lane="h_0" startPos="20.00" endPos="70.00" friendlyPos="true"/>
 </additional>
