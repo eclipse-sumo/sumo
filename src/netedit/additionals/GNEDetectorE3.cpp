@@ -161,7 +161,7 @@ GNEDetectorE3::drawGL(const GUIVisualizationSettings& s) const {
     // check if dotted contour has to be drawn
     if(!s.drawForSelecting && (myViewNet->getACUnderCursor() == this)) {
         GLHelper::drawShapeDottedContour(getType(), myPosition, 2, 2);
-        // make a position vector with the connections and draw it
+        // draw shape dotte contour aroud alld connections between child and parents
         for (auto i : myChildConnectionPositions) {
             GLHelper::drawShapeDottedContour(getType(), i, 0);
         }

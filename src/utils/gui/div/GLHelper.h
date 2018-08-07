@@ -288,7 +288,7 @@ public:
     static void drawShapeDottedContour(const int type, const PositionVector &frontShape, const double offsetFrontShape, const PositionVector &backShape, const double offsetBackShape);
 
     /// @brief draw a dotted contour around the given Position with certain width and height
-    static void drawShapeDottedContour(const int type, const Position &center, const double width, const double height);
+    static void drawShapeDottedContour(const int type, const Position &center, const double width, const double height, const double rotation = 0, const double offsetX = 0, const double offsetY = 0);
 
     /// @brief Sets the gl-color to this value
     static void setColor(const RGBColor& c);

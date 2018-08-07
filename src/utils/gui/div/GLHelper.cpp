@@ -541,22 +541,26 @@ GLHelper::drawShapeDottedContour(const int type, const PositionVector &frontShap
 }
 
 
-void 
-GLHelper::drawShapeDottedContour(const int type, const Position &center, const double width, const double height) {
+void
+GLHelper::drawShapeDottedContour(const int type, const Position &center, const double width, const double height, const double rotation, const double offsetX, const double offsetY) {
     glPushMatrix();
     // create shape around center 
     PositionVector shape;
-    shape.push_back(center + Position(width/2, height/2));
-    shape.push_back(center + Position(width/-2, height/2));
-    shape.push_back(center + Position(width/-2, height/-2));
-    shape.push_back(center + Position(width/2, height/-2));
-    shape.push_back(center + Position(width/2, height/2));
+    shape.push_back(Position(width/2, height/2));
+    shape.push_back(Position(width/-2, height/2));
+    shape.push_back(Position(width/-2, height/-2));
+    shape.push_back(Position(width/2, height/-2));
+    shape.push_back(Position(width/2, height/2));
     // resample shape
     shape = shape.resample(1);
     // draw contour over shape
-    glTranslated(0, 0, type + 2);
+    glTranslated(center.x(), center.y(), type + 2);
     // set custom line width
     glLineWidth(3);
+    // rotate
+    glRotated(rotation, 0, 0, 1);
+    // translate offset
+    glTranslated(offsetX, offsetY, 0);
     // draw contour
     GLHelper::drawLine(shape, getDottedcontourColors(shape.size()));
     //restore line width
