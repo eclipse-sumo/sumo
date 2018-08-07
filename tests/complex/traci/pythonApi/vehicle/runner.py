@@ -210,14 +210,18 @@ print("speedmode", traci.vehicle.getSpeedMode(vehID))
 print("lanechangemode", traci.vehicle.getLaneChangeMode(vehID))
 print("slope", traci.vehicle.getSlope(vehID))
 print("leader", traci.vehicle.getLeader("2"))
-traci.vehicle.subscribeLeader("2")
+if not traci.isLibsumo():
+    traci.vehicle.subscribeLeader("2")
 for i in range(6):
     print("step", step())
     print(traci.vehicle.getSubscriptionResults("2"))
     print(traci.vehicle.getSubscriptionResults(vehID))
 traci.vehicle.remove("1")
 try:
-    traci.vehicle.add("anotherOne", "horizontal", pos=-1)
+    if traci.isLibsumo():
+        traci.vehicle.add("anotherOne", "horizontal", departPos="-1")
+    else:
+        traci.vehicle.add("anotherOne", "horizontal", pos=-1)
 except traci.TraCIException as e:
     print(e)
 try:
@@ -230,24 +234,23 @@ print(traci.vehicle.getSubscriptionResults(vehID))
 print("step", step())
 print(traci.vehicle.getSubscriptionResults(vehID))
 print("speed before moveToXY", traci.vehicle.getSpeed(vehID))
-traci.vehicle.moveToVTD(vehID, "1o", 0, 482.49, 501.31,
-                        0)  # test deprecated method name
+traci.vehicle.moveToXY(vehID, "1o", 0, 482.49, 501.31, 0)
 print("step", step())
 print("speed after moveToVTD", traci.vehicle.getSpeed(vehID))
 print(traci.vehicle.getSubscriptionResults(vehID))
 print("step", step())
 print(traci.vehicle.getSubscriptionResults(vehID))
 # test different departure options
-traci.vehicle.add("departInThePast", "horizontal", depart=5)
+traci.vehicle.add("departInThePast", "horizontal", depart="5")
 print("step", step())
 print("vehicles", traci.vehicle.getIDList())
-traci.vehicle.add("departInTheFuture", "horizontal", depart=30)
+traci.vehicle.add("departInTheFuture", "horizontal", depart="30")
 for i in range(9):
     print("step", step())
     print("vehicles", traci.vehicle.getIDList())
 # XXX this doesn't work. see #1721
 traci.vehicle.add(
-    "departTriggered", "horizontal", depart=traci.vehicle.DEPART_TRIGGERED)
+    "departTriggered", "horizontal", depart="triggered")
 print("step", step())
 print("vehicles", traci.vehicle.getIDList())
 # test for setting a route with busstops
