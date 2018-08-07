@@ -303,7 +303,7 @@ GNECalibrator::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_OUTPUT:
             return isValidFilename(value);
         case SUMO_ATTR_ROUTEPROBE:
-            if (isValidID(value) && (myViewNet->getNet()->retrieveAdditional(SUMO_TAG_ROUTEPROBE, value, false) != nullptr)) {
+            if (SUMOXMLDefinitions::isValidNetID(value) && (myViewNet->getNet()->retrieveAdditional(SUMO_TAG_ROUTEPROBE, value, false) != nullptr)) {
                 return true;
             } else {
                 return false;

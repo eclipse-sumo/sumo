@@ -769,25 +769,37 @@ StringBijection<LateralAlignment> SUMOXMLDefinitions::LateralAlignments(
 StringBijection<LaneChangeAction> SUMOXMLDefinitions::LaneChangeActions(
     SUMOXMLDefinitions::laneChangeActionValues, LCA_BLOCKED);
 
+
 std::string
 SUMOXMLDefinitions::getJunctionIDFromInternalEdge(const std::string internalEdge) {
     assert(internalEdge[0] == ':');
     return internalEdge.substr(1, internalEdge.rfind('_') - 1);
 }
 
+
 std::string
 SUMOXMLDefinitions::getEdgeIDFromLane(const std::string laneID) {
     return laneID.substr(0, laneID.rfind('_'));
 }
 
+
 bool
-SUMOXMLDefinitions::isValidID(const std::string& value) {
-    if(value.size() == 0) {
-        return false;
-    } else {
-        return value.find_first_of(" \t\n\r@$%^&|\\{}*'\";:<>") == std::string::npos;
-    }
+SUMOXMLDefinitions::isValidNetID(const std::string& value) {
+    return value.size() > 0 && value.find_first_of(" \t\n\r|\\'\";,:!<>&*?") == std::string::npos;
 }
+
+
+bool
+SUMOXMLDefinitions::isValidVehicleID(const std::string& value) {
+    return value.size() > 0 && value.find_first_of(" \t\n\r|\\'\";,!<>&*?") == std::string::npos;
+}
+
+
+bool
+SUMOXMLDefinitions::isValidTypeID(const std::string& value) {
+    return value.size() > 0 && value.find_first_of(" \t\n\r|\\'\";,<>&*?") == std::string::npos;
+}
+
 
 /****************************************************************************/
 

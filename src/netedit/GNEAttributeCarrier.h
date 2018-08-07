@@ -491,9 +491,6 @@ public:
     /// @brief parse a string of booleans (1 0 1 1....) using AND operation
     static bool parseStringToANDBool(const std::string& string);
 
-    /// @brief return true if value is a valid sumo ID
-    static bool isValidID(const std::string& value);
-
     /// @brief return true if value is a valid list of sumo ID (Empty isn't valid)
     static bool isValidListOfIDs(const std::string& value);
 
@@ -553,7 +550,7 @@ public:
                 if (parsedAttribute.empty()) {
                     errorFormat = "ID cannot be empty; ";
                     parsedOk = false;
-                } else if (isValidID(parsedAttribute) == false) {
+                } else if (SUMOXMLDefinitions::isValidNetID(parsedAttribute) == false) {
                     errorFormat = "'" + parsedAttribute + "' contains invalid characters; ";
                     parsedOk = false;
                 }
@@ -673,7 +670,7 @@ public:
                 errorFormat = "Is not a part of defined set of Gui Vehicle Shapes; ";
             }
             // set extra check for RouteProbes
-            if ((attribute == SUMO_ATTR_ROUTEPROBE) && !isValidID(parsedAttribute)) {
+            if ((attribute == SUMO_ATTR_ROUTEPROBE) && !SUMOXMLDefinitions::isValidNetID(parsedAttribute)) {
                 errorFormat = "RouteProbe ID contains invalid characters; ";
                 parsedOk = false;
             }

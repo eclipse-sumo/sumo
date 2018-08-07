@@ -424,7 +424,7 @@ NBEdge::init(int noLanes, bool tryIgnoreNodePositions, const std::string& origID
     if (myFrom == 0 || myTo == 0) {
         throw ProcessError("At least one of edge's '" + myID + "' nodes is not known.");
     }
-    if (!SUMOXMLDefinitions::isValidID(myID)) {
+    if (!SUMOXMLDefinitions::isValidNetID(myID)) {
         throw ProcessError("Invalid edge id '" + myID + "'.");
     }
     // revisit geometry

@@ -950,7 +950,7 @@ bool
 GNEJunction::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            return isValidID(value) && (myNet->retrieveJunction(value, false) == 0);
+            return SUMOXMLDefinitions::isValidNetID(value) && (myNet->retrieveJunction(value, false) == 0);
         case SUMO_ATTR_TYPE:
             return SUMOXMLDefinitions::NodeTypes.hasString(value);
         case SUMO_ATTR_POSITION: {

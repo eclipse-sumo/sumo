@@ -250,7 +250,7 @@ NBNode::NBNode(const std::string& id, const Position& position,
     myDisplacementError(0),
     myIsBentPriority(false) 
 { 
-    if (!SUMOXMLDefinitions::isValidID(myID)) {
+    if (!SUMOXMLDefinitions::isValidNetID(myID)) {
         throw ProcessError("Invalid node id '" + myID + "'.");
     }
 }
@@ -270,7 +270,7 @@ NBNode::NBNode(const std::string& id, const Position& position, NBDistrict* dist
     myDisplacementError(0),
     myIsBentPriority(false) 
 { 
-    if (!SUMOXMLDefinitions::isValidID(myID)) {
+    if (!SUMOXMLDefinitions::isValidNetID(myID)) {
         throw ProcessError("Invalid node id '" + myID + "'.");
     }
 }

@@ -132,7 +132,7 @@ GNERouteProbReroute::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             return isValidAdditionalID(value);
         case SUMO_ATTR_ROUTE:
-            return isValidID(value);
+            return SUMOXMLDefinitions::isValidVehicleID(value);
         case SUMO_ATTR_PROB:
             return canParse<double>(value);
         default:

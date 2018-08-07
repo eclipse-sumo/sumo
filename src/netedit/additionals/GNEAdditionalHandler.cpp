@@ -402,7 +402,7 @@ GNEAdditionalHandler::parseGenericParameter(const SUMOSAXAttributes& attrs) {
                 WRITE_WARNING("Error parsing key from generic parameter. Key cannot be empty");
                 ok = false;
             }
-            if(!GNEAttributeCarrier::isValidID(key)) {
+            if (!SUMOXMLDefinitions::isValidTypeID(key)) {
                 WRITE_WARNING("Error parsing key from generic parameter. Key contains invalid characters");
                 ok = false;
             }

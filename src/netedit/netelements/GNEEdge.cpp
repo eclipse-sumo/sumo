@@ -960,10 +960,10 @@ bool
 GNEEdge::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            return isValidID(value) && (myNet->retrieveEdge(value, false) == 0);
+            return SUMOXMLDefinitions::isValidNetID(value) && (myNet->retrieveEdge(value, false) == 0);
         case SUMO_ATTR_FROM: {
             // check that is a valid ID and is different of ID of junction destiny
-            if (isValidID(value) && (value != myGNEJunctionDestiny->getMicrosimID())) {
+            if (SUMOXMLDefinitions::isValidNetID(value) && (value != myGNEJunctionDestiny->getMicrosimID())) {
                 GNEJunction* junctionFrom = myNet->retrieveJunction(value, false);
                 // check that there isn't already another edge with the same From and To Edge
                 if ((junctionFrom != nullptr) && (myNet->retrieveEdge(junctionFrom, myGNEJunctionDestiny, false) == nullptr)) {
@@ -977,7 +977,7 @@ GNEEdge::isValid(SumoXMLAttr key, const std::string& value) {
         }
         case SUMO_ATTR_TO: {
             // check that is a valid ID and is different of ID of junction Source
-            if (isValidID(value) && (value != myGNEJunctionSource->getMicrosimID())) {
+            if (SUMOXMLDefinitions::isValidNetID(value) && (value != myGNEJunctionSource->getMicrosimID())) {
                 GNEJunction* junctionTo = myNet->retrieveJunction(value, false);
                 // check that there isn't already another edge with the same From and To Edge
                 if ((junctionTo != nullptr) && (myNet->retrieveEdge(myGNEJunctionSource, junctionTo, false) == nullptr)) {

@@ -626,7 +626,7 @@ bool
 GNEPoly::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            return isValidID(value) && (myNet->retrievePolygon(value, false) == 0);
+            return SUMOXMLDefinitions::isValidNetID(value) && (myNet->retrievePolygon(value, false) == 0);
         case SUMO_ATTR_SHAPE:
         case SUMO_ATTR_GEOSHAPE: {
             bool ok = true;

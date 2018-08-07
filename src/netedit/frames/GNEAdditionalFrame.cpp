@@ -373,7 +373,7 @@ GNEAdditionalFrame::AdditionalAttributeSingle::onCmdSetAttribute(FXObject*, FXSe
         }
     } else if (myAdditionalAttr == SUMO_ATTR_ROUTEPROBE) {
         // check if filename format is valid
-        if (GNEAttributeCarrier::isValidID(myTextFieldStrings->getText().text()) == false) {
+        if (!SUMOXMLDefinitions::isValidNetID(myTextFieldStrings->getText().text())) {
             myInvalidValue = "RouteProbe ID contains invalid characters";
         }
     } else if (myAdditionalAttr == SUMO_ATTR_NAME) {

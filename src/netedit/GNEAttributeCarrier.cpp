@@ -801,12 +801,6 @@ GNEAttributeCarrier::getID() const {
 }
 
 
-bool
-GNEAttributeCarrier::isValidID(const std::string& value) {
-    return SUMOXMLDefinitions::isValidID(value);
-}
-
-
 bool 
 GNEAttributeCarrier::isValidListOfIDs(const std::string& value) {
     std::vector<std::string> typeIDs = parse<std::vector<std::string>>(value);
@@ -815,7 +809,7 @@ GNEAttributeCarrier::isValidListOfIDs(const std::string& value) {
     } else {
         // check that gives IDs are validd
         for(auto i : typeIDs) {
-            if(!isValidID(i)) {
+            if (!SUMOXMLDefinitions::isValidNetID(i)) {
                 return false;
             }
         }

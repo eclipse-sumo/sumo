@@ -301,10 +301,9 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* und
 
 bool
 GNEPOI::isValid(SumoXMLAttr key, const std::string& value) {
-    switch (key) 
-    {
+    switch (key) {
         case SUMO_ATTR_ID:
-            return isValidID(value) && (myNet->retrievePOI(value, false) == 0);
+            return SUMOXMLDefinitions::isValidNetID(value) && (myNet->retrievePOI(value, false) == 0);
         case SUMO_ATTR_COLOR:
             return canParse<RGBColor>(value);
         case SUMO_ATTR_LANE:

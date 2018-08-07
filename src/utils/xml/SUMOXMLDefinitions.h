@@ -1204,8 +1204,14 @@ public:
     /// @name Helper functions for ID-string manipulations
     /// @{
     
-    /// @brief whether the given string is a valid object id
-    static bool isValidID(const std::string& value); 
+    /// @brief whether the given string is a valid id for a network element
+    static bool isValidNetID(const std::string& value);
+
+    /// @brief whether the given string is a valid id for a vehicle or flow
+    static bool isValidVehicleID(const std::string& value);
+
+    /// @brief whether the given string is a valid id for an edge or vehicle type
+    static bool isValidTypeID(const std::string& value);
 
     /// @brief return the junction id when given an edge of type internal, crossing or WalkingArea
     static std::string getJunctionIDFromInternalEdge(const std::string internalEdge);

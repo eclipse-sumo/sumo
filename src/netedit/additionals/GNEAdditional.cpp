@@ -771,7 +771,7 @@ GNEAdditional::getAdditionalID() const {
 
 bool
 GNEAdditional::isValidAdditionalID(const std::string& newID) const {
-    if (isValidID(newID) && (myViewNet->getNet()->retrieveAdditional(getTag(), newID, false) == nullptr)) {
+    if (SUMOXMLDefinitions::isValidNetID(newID) && (myViewNet->getNet()->retrieveAdditional(getTag(), newID, false) == nullptr)) {
         return true;
     } else {
         return false;
@@ -783,7 +783,7 @@ void
 GNEAdditional::changeAdditionalID(const std::string& newID) {
     if (myViewNet->getNet()->retrieveAdditional(getTag(), newID, false) != nullptr) {
         throw InvalidArgument("An Additional with tag " + toString(getTag()) + " and ID = " + newID + " already exists");
-    } else if (isValidID(newID) == false) {
+    } else if (!SUMOXMLDefinitions::isValidNetID(newID)) {
         throw InvalidArgument("Additional ID " + newID + " contains invalid characters");
     } else {
         // Save old ID

@@ -219,9 +219,9 @@ GNECalibratorFlow::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             return isValidAdditionalID(value);
         case SUMO_ATTR_TYPE:
-            return isValidID(value) && (myViewNet->getNet()->retrieveAdditional(SUMO_TAG_VTYPE, value, false) != nullptr);
+            return SUMOXMLDefinitions::isValidTypeID(value) && (myViewNet->getNet()->retrieveAdditional(SUMO_TAG_VTYPE, value, false) != nullptr);
         case SUMO_ATTR_ROUTE:
-            return isValidID(value) && (myViewNet->getNet()->retrieveAdditional(SUMO_TAG_ROUTE, value, false) != nullptr);
+            return SUMOXMLDefinitions::isValidVehicleID(value) && (myViewNet->getNet()->retrieveAdditional(SUMO_TAG_ROUTE, value, false) != nullptr);
         case SUMO_ATTR_VEHSPERHOUR:
             if(value.empty()) {
                 // speed and vehsPerHour cannot be empty at the same time

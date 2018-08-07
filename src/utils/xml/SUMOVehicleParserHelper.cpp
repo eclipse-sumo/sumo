@@ -52,6 +52,9 @@ SUMOVehicleParameter*
 SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes& attrs, const SUMOTime beginDefault, const SUMOTime endDefault) {
     bool ok = true;
     std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
+    if (!SUMOXMLDefinitions::isValidVehicleID(id)) {
+        throw ProcessError("Invalid flow id '" + id + "'.");
+    }
     if (attrs.hasAttribute(SUMO_ATTR_PERIOD) && attrs.hasAttribute(SUMO_ATTR_VEHSPERHOUR)) {
         throw ProcessError("At most one of '" + attrs.getName(SUMO_ATTR_PERIOD) +
                            "' and '" + attrs.getName(SUMO_ATTR_VEHSPERHOUR) +
@@ -191,6 +194,9 @@ SUMOVehicleParserHelper::parseVehicleAttributes(const SUMOSAXAttributes& attrs,
         id = attrs.getOpt<std::string>(SUMO_ATTR_ID, 0, ok, "");
     } else {
         id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
+        if (!SUMOXMLDefinitions::isValidVehicleID(id)) {
+            throw ProcessError("Invalid vehicle id '" + id + "'.");
+        }
     }
     SUMOVehicleParameter* ret = new SUMOVehicleParameter();
     ret->id = id;
@@ -344,6 +350,9 @@ SUMOVTypeParameter*
 SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const std::string& file, const SumoXMLTag defaultCFModel) {
     bool ok = true;
     std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
+    if (!SUMOXMLDefinitions::isValidTypeID(id)) {
+        throw ProcessError("Invalid vType id '" + id + "'.");
+    }
     SUMOVehicleClass vClass = SVC_PASSENGER;
     if (attrs.hasAttribute(SUMO_ATTR_VCLASS)) {
         vClass = parseVehicleClass(attrs, id);
@@ -827,6 +836,7 @@ SUMOVehicleParserHelper::processActionStepLength(double given) {
     }
     return result;
 }
+
 
 /****************************************************************************/
 
