@@ -134,7 +134,9 @@ NBEdge*
 NBRailwayTopologyAnalyzer::addBidiEdge(NBNetBuilder& nb, NBEdge* edge, bool update) {
     assert(edge->getLaneSpreadFunction() == LANESPREAD_CENTER);
     assert(!edge->isBidiRail());
-    const std::string id2 = "-" + edge->getID();
+    const std::string id2 = (edge->getID()[0] == '-' 
+            ? edge->getID().substr(1) 
+            : "-" + edge->getID());
     if (nb.getEdgeCont().retrieve(id2) == nullptr) {
         NBEdge* e2 = new NBEdge(id2, edge->getToNode(), edge->getFromNode(), 
                 edge, edge->getGeometry().reverse());
@@ -191,7 +193,10 @@ NBRailwayTopologyAnalyzer::getBrokenRailNodes(NBNetBuilder& nb, bool verbose) {
                 if (e->getID()[0] == '-') {
                     std::swap(primary, secondary);
                 }
-                bidiEdges.insert(primary);
+                if (bidiEdges.count(secondary) == 0) {
+                    // avoid duplicate when both ids start with '-'
+                    bidiEdges.insert(primary);
+                }
             }
         }
     }

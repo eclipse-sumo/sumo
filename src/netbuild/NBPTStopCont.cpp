@@ -120,7 +120,9 @@ NBPTStopCont::generateBidiStops(NBEdgeCont& ec) {
         if (edge != 0 && edge->isBidiRail()) {
             NBEdge* bidiEdge = edge->getTurnDestination(true);
             assert(bidiEdge != 0);
-            const std::string id = "-" + stop->getID();
+            const std::string id = (stop->getID()[0] == '-' 
+                    ? stop->getID().substr(1) 
+                    : "-" + stop->getID());
             if (myPTStops.count(id) > 0) {
                 WRITE_WARNING("Could not create reverse-direction stop '" 
                         + id + "' for superposed edge '" + bidiEdge->getID() + "'"); 

@@ -12,6 +12,9 @@ switches
 # add bidirectional edges at disconnected stops
 stops
 
+# add bidirectional edges at disconnected stops (like test 'stops' but every direction reversed)
+stops_reversed
+
 # no edges must be added before stops because the buffer_stop heuristc already fixes the network
 # 
 stops_buffer
