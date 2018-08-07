@@ -114,7 +114,7 @@ void
 NIXMLPTHandler::addPTStop(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "busStop", ok);
-    const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_ID, id.c_str(), ok, "");
+    const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), ok, "");
     const std::string laneID = attrs.get<std::string>(SUMO_ATTR_LANE, id.c_str(), ok);
     const double startPos = attrs.get<double>(SUMO_ATTR_STARTPOS, id.c_str(), ok);
     const double endPos = attrs.get<double>(SUMO_ATTR_ENDPOS, id.c_str(), ok);
@@ -147,8 +147,8 @@ NIXMLPTHandler::addAccess(const SUMOSAXAttributes& attrs) {
     }
     bool ok = true;
     const std::string lane = attrs.get<std::string>(SUMO_ATTR_LANE, "access", ok);
-    const double pos = attrs.get<double>(SUMO_ATTR_STARTPOS, "access", ok);
-    const double length = attrs.getOpt<double>(SUMO_ATTR_STARTPOS, "access", ok, -1);
+    const double pos = attrs.get<double>(SUMO_ATTR_POSITION, "access", ok);
+    const double length = attrs.getOpt<double>(SUMO_ATTR_LENGTH, "access", ok, -1);
     myCurrentStop->addAccess(lane, pos, length);
 }
 
