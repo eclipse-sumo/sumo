@@ -104,7 +104,6 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
     if (s.drawCrossingsAndWalkingareas 
             && myShapeRotations.size() > 0 && myShapeLengths.size() > 0
             && s.scale > 3.0) {
-
         if (s.editMode != GNE_MODE_TLS) {
             // first declare what shape will be drawed
             PositionVector shape = myForceDrawCustomShape ?  myCrossing->customShape : myCrossing->shape;
@@ -175,6 +174,10 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
         // link indices must be drawn in all edit modes if isn't being drawn for selecting
         if (s.drawLinkTLIndex.show && !s.drawForSelecting) {
             drawTLSLinkNo(s);
+        }
+        // check if dotted contour has to be drawn
+        if(!s.drawForSelecting && (myNet->getViewNet()->getACUnderCursor() == this)) {
+            GLHelper::drawShapeDottedContour(getType(), myCrossing->shape, myCrossing->width * 0.5);
         }
     }
 }
