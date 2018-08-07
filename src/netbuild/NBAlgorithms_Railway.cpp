@@ -572,7 +572,7 @@ NBRailwayTopologyAnalyzer::reverseEdges(NBNetBuilder& nb) {
                 e->setGeometry(e->getGeometry().reverse());
                 reversedIDs.insert(e->getID());
             }
-            seqLengths[seq.size()]++;
+            seqLengths[(int)seq.size()]++;
             numReversed++;
         }
     }
@@ -719,9 +719,9 @@ NBRailwayTopologyAnalyzer::addBidiEdgesBetweenSwitches(NBNetBuilder& nb) {
                         for (NBEdge* e : edgeSeq) {
                             addBidiEdge(nb, e);
                         }
-                        seqLengths[edgeSeq.size()]++;
+                        seqLengths[(int)edgeSeq.size()]++;
                         numSeqs++;
-                        numAdded += edgeSeq.size();
+                        numAdded += (int)edgeSeq.size();
                     } else {
                         //std::cout << " sequence ended at junction " << next->getID() 
                         //    << " in=" << inRail2.size() 
@@ -749,11 +749,11 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForStops(NBNetBuilder& nb) {
     for (NBEdge* edge : nb.getEdgeCont().getAllEdges()) {
         tracks.push_back(new Track(edge));
     }
-    const int numEdges = tracks.size();
+    const int numEdges = (int)tracks.size();
     for (NBEdge* edge : nb.getEdgeCont().getAllEdges()) {
         tracks.push_back(new Track(edge, (int)tracks.size(), edge->getID() + "_reverse"));
     }
-    const int numBidiEdges = tracks.size();
+    const int numBidiEdges = (int)tracks.size();
     // add special tracks for starting end ending in both directions
     std::map<NBEdge*, std::pair<Track*, Track*> > stopTracks;
     for (NBEdge* edge : nb.getEdgeCont().getAllEdges()) {
