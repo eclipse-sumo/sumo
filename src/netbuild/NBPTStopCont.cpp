@@ -330,7 +330,8 @@ NBPTStopCont::postprocess(std::set<std::string>& usedStops) {
 
 void
 NBPTStopCont::alignIdSigns() {
-    for (auto& i : myPTStops) {
+    PTStopsCont stops = myPTStops;
+    for (auto& i : stops) {
         const std::string& stopId = i.second->getID();
         const char edgeSign = i.second->getEdgeId().at(0);
         const char stopSign = stopId.at(0);
@@ -340,7 +341,8 @@ NBPTStopCont::alignIdSigns() {
             } else {
                 i.second->setMyPTStopId(stopId.substr(1, stopId.length()));
             }
-            // TODO the map should be modified as well to hold the correct id
+            myPTStops.erase(stopId);
+            myPTStops[i.second->getID()] = i.second;
         }
     }
 }
