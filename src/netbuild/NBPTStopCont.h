@@ -99,6 +99,8 @@ private:
     NBPTStop* assignAndCreatNewPTStopAsNeeded(NBPTStop* pStop, NBEdgeCont& cont);
     double computeCrossProductEdgePosition(const NBEdge* edge, const Position& closestPlatform) const;
 
+    static std::string getReverseID(const std::string& id);
+
 public:
     static NBEdge* getReverseEdge(NBEdge* edge);
 

@@ -120,9 +120,7 @@ NBPTStopCont::generateBidiStops(NBEdgeCont& ec) {
         if (edge != 0 && edge->isBidiRail()) {
             NBEdge* bidiEdge = edge->getTurnDestination(true);
             assert(bidiEdge != 0);
-            const std::string id = (stop->getID()[0] == '-' 
-                    ? stop->getID().substr(1) 
-                    : "-" + stop->getID());
+            const std::string id = getReverseID(stop->getID());
             if (myPTStops.count(id) > 0) {
                 if (myPTStops[id]->getEdgeId() != bidiEdge->getID()) {
                     WRITE_WARNING("Could not create reverse-direction stop for superposed edge '" + bidiEdge->getID() 
@@ -164,10 +162,13 @@ NBPTStopCont::getReverseStop(NBPTStop* pStop, NBEdgeCont& cont) {
     NBEdge* edge = cont.getByID(edgeId);
     NBEdge* reverse = NBPTStopCont::getReverseEdge(edge);
     if (reverse != nullptr) {
-        Position* pos = new Position(pStop->getPosition());
-        NBPTStop* ret = new NBPTStop("-" + pStop->getID(), *pos, reverse->getID(), reverse->getID(),
-                                     pStop->getLength(), pStop->getName(), pStop->getPermissions());
-        return ret;
+        const std::string reverseID = getReverseID(pStop->getID());
+        if (myPTStops.count(reverseID) == 0) {
+            return new NBPTStop(reverseID, pStop->getPosition(), reverse->getID(), reverse->getID(),
+                    pStop->getLength(), pStop->getName(), pStop->getPermissions());
+        } else {
+            return myPTStops[reverseID];
+        }
     }
     return nullptr;
 }
@@ -330,6 +331,10 @@ NBPTStopCont::postprocess(std::set<std::string>& usedStops) {
     }
 }
 
+std::string 
+NBPTStopCont::getReverseID(const std::string& id) {
+    return id.size() > 0 && id[0] == '-' ? id.substr(1) : "-" + id;
+}
 
 void
 NBPTStopCont::alignIdSigns() {
@@ -339,11 +344,7 @@ NBPTStopCont::alignIdSigns() {
         const char edgeSign = i.second->getEdgeId().at(0);
         const char stopSign = stopId.at(0);
         if (edgeSign != stopSign && (edgeSign == '-' || stopSign == '-')) {
-            if (edgeSign == '-') {
-                i.second->setMyPTStopId("-" + stopId);
-            } else {
-                i.second->setMyPTStopId(stopId.substr(1, stopId.length()));
-            }
+            i.second->setMyPTStopId(getReverseID(stopId));
             myPTStops.erase(stopId);
             myPTStops[i.second->getID()] = i.second;
         }
