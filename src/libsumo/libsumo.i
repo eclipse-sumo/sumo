@@ -18,7 +18,7 @@
 
 // adding dummy init and close for easier traci -> libsumo transfer
 %pythoncode %{
-from traci import constants, exceptions, vehicle
+from traci import constants, exceptions, _vehicle
 
 def isLibsumo():
     return True
@@ -268,14 +268,14 @@ def simulationStep(step=0):
 #ifdef SWIGPYTHON
 %pythoncode %{
 def wrapAsClassMethod(func, module):
-    @wraps(func)
     def wrapper(*args, **kwargs):
         func(module, *args, **kwargs)
     return wrapper
 
 exceptions.TraCIException = TraCIException
 vehicle.addFull = vehicle.add
-#vehicle.isStopped = lambda vehID: (vehicle.getStopState(vehID) & 1) == 1
-vehicle.isStopped = wrapAsClassMethod(vehicle.isStopped, libsumo.vehicle)
+vehicle.addLegacy = wrapAsClassMethod(_vehicle.VehicleDomain.addLegacy, vehicle)
+vehicle.isStopped = wrapAsClassMethod(_vehicle.VehicleDomain.isStopped, vehicle)
+vehicle.setBusStop = wrapAsClassMethod(_vehicle.VehicleDomain.setBusStop, vehicle)
 %}
 #endif

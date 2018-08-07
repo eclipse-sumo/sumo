@@ -25,8 +25,12 @@ SUMO_HOME = os.path.join(os.path.dirname(__file__), "..", "..", "..", "..", ".."
 sys.path.append(os.path.join(os.environ.get("SUMO_HOME", SUMO_HOME), "tools"))
 if len(sys.argv) > 1:
     import libsumo as traci  # noqa
+    traci.vehicle.addFull = traci.vehicle.add
+    traci.vehicle.add = traci.vehicle.addLegacy
 else:
     import traci  # noqa
+    traci._vehicle.VehicleDomain.addFull = traci._vehicle.VehicleDomain.add
+    traci._vehicle.VehicleDomain.add = traci._vehicle.VehicleDomain.addLegacy
 import sumolib  # noqa
 
 
@@ -218,10 +222,7 @@ for i in range(6):
     print(traci.vehicle.getSubscriptionResults(vehID))
 traci.vehicle.remove("1")
 try:
-    if traci.isLibsumo():
-        traci.vehicle.add("anotherOne", "horizontal", departPos="-1")
-    else:
-        traci.vehicle.add("anotherOne", "horizontal", pos=-1)
+    traci.vehicle.add("anotherOne", "horizontal", pos=-1)
 except traci.TraCIException as e:
     print(e)
 try:
@@ -250,7 +251,7 @@ for i in range(9):
     print("vehicles", traci.vehicle.getIDList())
 # XXX this doesn't work. see #1721
 traci.vehicle.add(
-    "departTriggered", "horizontal", depart=traci.vehicle.DEPART_TRIGGERED)
+    "departTriggered", "horizontal", "triggered")
 print("step", step())
 print("vehicles", traci.vehicle.getIDList())
 # test for setting a route with busstops
