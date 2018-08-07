@@ -208,6 +208,19 @@ GNEVariableSpeedSign::drawGL(const GUIVisualizationSettings& s) const {
         drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
     }
 
+    // check if dotted contour has to be drawn
+    if(!s.drawForSelecting && (myViewNet->getACUnderCursor() == this)) {
+        GLHelper::drawShapeDottedContour(getType(), myPosition, 2, 2);
+        // draw shape dotte contour aroud alld connections between child and parents
+        for (auto i : myChildConnectionPositions) {
+            GLHelper::drawShapeDottedContour(getType(), i, 0);
+        }
+        // draw rerouter symbol over all lanes
+        for (auto i : mySymbolsPositionAndRotation) {
+            GLHelper::drawShapeDottedContour(getType(), i.first, 2.6, 2.6, -1 * i.second, 0, -1.5);
+        }
+    }
+
     // Pop name
     glPopName();
 }
