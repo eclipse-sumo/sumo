@@ -721,9 +721,6 @@ public:
     /// @brief function to calculate circle resolution for all circles drawn in drawGL(...) functions
     static int getCircleResolution(const GUIVisualizationSettings& settings);
 
-    /// @brief get dotted contour colors (black and white). Vector will be automatically increased if current size is minor than size
-    const std::vector<RGBColor> &getDottedcontourColors(int size) const;
-
 protected:
     /// @brief boolean to check if this AC is selected (instead of GUIGlObjectStorage)
     bool mySelected;
@@ -743,9 +740,6 @@ private:
 
     /// @brief map with the tags values
     static std::map<SumoXMLTag, TagValues> myAllowedTags;
-
-    /// @brief static vector with a list of alternated black/white colors (used for contourns)
-    static std::vector<RGBColor> myDottedcontourColors;
 
     /// @brief Invalidated copy constructor.
     GNEAttributeCarrier(const GNEAttributeCarrier&) = delete;

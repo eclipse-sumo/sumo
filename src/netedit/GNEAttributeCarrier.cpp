@@ -41,7 +41,6 @@
 // ===========================================================================
 
 std::map<SumoXMLTag, GNEAttributeCarrier::TagValues> GNEAttributeCarrier::myAllowedTags;
-std::vector<RGBColor> GNEAttributeCarrier::myDottedcontourColors;
 
 const std::string GNEAttributeCarrier::FEATURE_LOADED = "loaded";
 const std::string GNEAttributeCarrier::FEATURE_GUESSED = "guessed";
@@ -954,20 +953,6 @@ GNEAttributeCarrier::getCircleResolution(const GUIVisualizationSettings& setting
     } else {
         return 8;
     }
-}
-
-
-const std::vector<RGBColor> &
-GNEAttributeCarrier::getDottedcontourColors(int size) const {
-    // check if more colors has to be added
-    while(myDottedcontourColors.size() < size) {
-        if(myDottedcontourColors.empty() || myDottedcontourColors.back() == RGBColor::WHITE) {
-            myDottedcontourColors.push_back(RGBColor::BLACK);
-        } else {
-            myDottedcontourColors.push_back(RGBColor::WHITE);
-        }
-    }
-    return myDottedcontourColors;
 }
 
 

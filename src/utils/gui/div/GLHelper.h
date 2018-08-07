@@ -275,6 +275,18 @@ public:
     static void drawTriangleAtEnd(const Position& p1, const Position& p2,
                                   double tLength, double tWidth);
 
+    /// @brief get dotted contour colors (black and white). Vector will be automatically increased if current size is minor than size
+    static const std::vector<RGBColor> &getDottedcontourColors(int size);
+
+    /// @brief draw a dotted contour around the given Non closed shape with certain width
+    static void drawShapeDottedContour(const int type, const PositionVector &shape, double width);
+
+    /// @brief draw a dotted contour around the given closed shape with certain width
+    static void drawShapeDottedContour(const int type, const PositionVector &shape);
+
+    /// @brief draw a dotted contour around the given non closed shapes with certain width
+    static void drawShapeDottedContour(const int type, const PositionVector &frontShape, double offsetFrontShape, const PositionVector &backShape, double offsetBackShape);
+
     /// @brief Sets the gl-color to this value
     static void setColor(const RGBColor& c);
 
@@ -332,6 +344,8 @@ private:
     static struct FONScontext* myFont;
     static double myFontSize;
 
+    /// @brief static vector with a list of alternated black/white colors (used for contourns)
+    static std::vector<RGBColor> myDottedcontourColors;
 };
 
 

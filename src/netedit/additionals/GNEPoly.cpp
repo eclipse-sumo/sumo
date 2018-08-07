@@ -345,16 +345,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
     }
     // check if dotted contour has to be drawn
     if(myNet->getViewNet()->getACUnderCursor() == this) {
-        // resample junction shape
-        PositionVector resampledShape = getShape().resample(1);
-        // draw contour over shape
-        glTranslated(0, 0, getType() + 0.1);
-        // set custom line width
-        glLineWidth(3);
-        // draw contour
-        GLHelper::drawLine(resampledShape, getDottedcontourColors(resampledShape.size()));
-        //restore line width
-        glLineWidth(1);
+        GLHelper::drawShapeDottedContour(getType(), getShape());
     }
     // pop name
     glPopName();

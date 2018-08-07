@@ -512,29 +512,9 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
         glPopName();
     }
     if(!s.drawForSelecting && (myNet->getViewNet()->getACUnderCursor() == this)) {
-        glPushMatrix();
+        // draw dotted contor around the first and last lane
         const double myHalfLaneWidth = myNBEdge.getLaneWidth(myLanes.front()->getIndex()) / 2;
-        // build contour using shapes of first and last lane shapes
-        PositionVector contourFront = myLanes.front()->getShape();
-        contourFront.move2side(myHalfLaneWidth);
-        PositionVector contourback = myLanes.back()->getShape();
-        contourback.move2side(-myHalfLaneWidth);
-        contourback = contourback.reverse();
-        for (auto i : contourback) {
-            contourFront.push_back(i);
-        }
-        contourFront.push_back(myLanes.front()->getShape().front());
-        // resample junction shape
-        PositionVector resampledShape = contourFront.resample(1);
-        // draw contour over shape
-        glTranslated(0, 0, getType() + 2);
-        // set custom line width
-        glLineWidth(3);
-        // draw contour
-        GLHelper::drawLine(resampledShape, getDottedcontourColors(resampledShape.size()));
-        //restore line width
-        glLineWidth(1);
-        glPopMatrix();
+        GLHelper::drawShapeDottedContour(GLO_JUNCTION, myLanes.front()->getShape(), myHalfLaneWidth, myLanes.back()->getShape(), -1 * myHalfLaneWidth);
     }
     glPopMatrix();
 }

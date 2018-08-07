@@ -269,16 +269,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                 }
                 // check if dotted contour has to be drawn
                 if((myNet->getViewNet()->getACUnderCursor() == this) && !drawBubble) {
-                    // resample junction shape
-                    PositionVector resampledShape = shape.resample(1);
-                    // draw contour over shape
-                    glTranslated(0, 0, getType() + 0.01);
-                    // set custom line width
-                    glLineWidth(3);
-                    // draw contour
-                    GLHelper::drawLine(resampledShape, getDottedcontourColors(resampledShape.size()));
-                    //restore line width
-                    glLineWidth(1);
+                    GLHelper::drawShapeDottedContour(getType(), shape);
                 }
                 glPopMatrix();
             }
@@ -294,14 +285,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                         std::vector<Position> vertices = GLHelper::drawFilledCircleReturnVertices(circleWidth, circleResolution);  
                         // check if dotted contour has to be drawn
                         if(myNet->getViewNet()->getACUnderCursor() == this) {
-                            // draw contour over shape
-                            glTranslated(0, 0, getType() + 0.01);
-                            // set custom line width
-                            glLineWidth(3);
-                            // draw contour
-                            GLHelper::drawLine(vertices, getDottedcontourColors(vertices.size()));
-                            //restore line width
-                            glLineWidth(1);
+                            GLHelper::drawShapeDottedContour(getType(), vertices);
                         }
                     } else {
                         GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);

@@ -342,28 +342,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::drawBoxLines(getShape(), myShapeRotations, myShapeLengths, halfWidth2);
         }
         if(!s.drawForSelecting && (myNet->getViewNet()->getACUnderCursor() == this)) {
-            glPushMatrix();
-            // build contour using shapes of first and last lane shapes
-            PositionVector contourFront = myParentEdge.getNBEdge()->getLaneStruct(myIndex).shape;
-            PositionVector contourback = contourFront;
-            contourFront.move2side(halfWidth);
-            contourback.move2side(-halfWidth);
-            contourback = contourback.reverse();
-            for (auto i : contourback) {
-                contourFront.push_back(i);
-            }
-            contourFront.push_back(myParentEdge.getNBEdge()->getLaneStruct(myIndex).shape.front());
-            // resample junction shape
-            PositionVector resampledShape = contourFront.resample(1);
-            // draw contour over shape
-            glTranslated(0, 0, getType() + 2);
-            // set custom line width
-            glLineWidth(3);
-            // draw contour
-            GLHelper::drawLine(resampledShape, getDottedcontourColors(resampledShape.size()));
-            //restore line width
-            glLineWidth(1);
-            glPopMatrix();
+            GLHelper::drawShapeDottedContour(getType(), myParentEdge.getNBEdge()->getLaneStruct(myIndex).shape, halfWidth);
         }
         // Pop draw matrix 1
         glPopMatrix();
