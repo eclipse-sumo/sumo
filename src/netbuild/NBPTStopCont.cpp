@@ -124,8 +124,11 @@ NBPTStopCont::generateBidiStops(NBEdgeCont& ec) {
                     ? stop->getID().substr(1) 
                     : "-" + stop->getID());
             if (myPTStops.count(id) > 0) {
-                WRITE_WARNING("Could not create reverse-direction stop '" 
-                        + id + "' for superposed edge '" + bidiEdge->getID() + "'"); 
+                if (myPTStops[id]->getEdgeId() != bidiEdge->getID()) {
+                    WRITE_WARNING("Could not create reverse-direction stop for superposed edge '" + bidiEdge->getID() 
+                            + "' (origStop '" + i->first + "'). Stop id '" + id 
+                            + "' already in use by stop on edge '" + myPTStops[id]->getEdgeId() + "'."); 
+                }
                 continue;
             }
             NBPTStop* bidiStop = new NBPTStop(id, 
