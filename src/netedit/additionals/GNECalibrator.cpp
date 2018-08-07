@@ -107,7 +107,7 @@ GNECalibrator::updateGeometry() {
         // Get shape of lane parent
         myShape.push_back(myLane->getShape().positionAtOffset(myPositionOverLane));
         // Save rotation (angle) of the vector constructed by points f and s
-        myShapeRotations.push_back(myLane->getShape().rotationDegreeAtOffset(myPositionOverLane * -1));
+        myShapeRotations.push_back(myLane->getShape().rotationDegreeAtOffset(myPositionOverLane) * -1);
     } else if (myEdge) {
         for (auto i : myEdge->getLanes()) {
             // Get shape of lane parent
@@ -198,8 +198,15 @@ GNECalibrator::drawGL(const GUIVisualizationSettings& s) const {
             }
         }
         glPopMatrix();
+         // check if dotted contour has to be drawn
+        if(!s.drawForSelecting && (myViewNet->getACUnderCursor() == this)) {
+            GLHelper::drawShapeDottedContour(getType(), pos, 2.8, 6, rot, 0, 3);
+        }
     }
+    // draw name
     drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
+
+    // pop name
     glPopName();
 }
 
