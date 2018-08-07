@@ -1193,8 +1193,8 @@ MSPModel_Striping::PState::PState(MSPerson* person, MSPerson::MSPersonStage_Walk
             myWalkingAreaPath = getArbitraryPath(route.front());
         }
     } else {
-        const bool mayStartForward = canTraverse(FORWARD, route);
-        const bool mayStartBackward = canTraverse(BACKWARD, route);
+        const bool mayStartForward = canTraverse(FORWARD, route) != UNDEFINED_DIRECTION;
+        const bool mayStartBackward = canTraverse(BACKWARD, route) != UNDEFINED_DIRECTION;
         if DEBUGCOND(*this) {
             std::cout << "  initialize dir for " << myPerson->getID() << " forward=" << mayStartForward << " backward=" << mayStartBackward << "\n";
         }

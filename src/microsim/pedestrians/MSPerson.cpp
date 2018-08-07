@@ -213,26 +213,44 @@ MSPerson::MSPersonStage_Walking::walkDistance() const {
         }
     }
     // determine walking direction for depart and arrival
-    bool departFwd = true;
-    bool arriveFwd = true;
-    if (myRoute.front() == myRoute.back()) {
+    const int departFwdArrivalDir = MSPModel::canTraverse(MSPModel::FORWARD, myRoute);
+    const int departBwdArrivalDir = MSPModel::canTraverse(MSPModel::BACKWARD, myRoute);
+    const bool mayStartForward = departFwdArrivalDir != MSPModel::UNDEFINED_DIRECTION;
+    const bool mayStartBackward = departBwdArrivalDir != MSPModel::UNDEFINED_DIRECTION;
+    const double lengthFwd = (length - myDepartPos - (
+                departFwdArrivalDir == MSPModel::BACKWARD 
+                ? myArrivalPos
+                : myRoute.back()->getLength() - myArrivalPos));
+    const double lengthBwd = (length - (myRoute.front()->getLength() - myDepartPos) - (
+                departBwdArrivalDir == MSPModel::BACKWARD 
+                ? myArrivalPos
+                : myRoute.back()->getLength() - myArrivalPos));
+
+    if (myRoute.size() == 1) {
         if (myDepartPos > myArrivalPos) {
-            departFwd = false;
-            arriveFwd = false;
+            length = lengthBwd;
+        } else {
+            length = lengthFwd;
         }
     } else {
-        // disconnected defaults to forward
-        if ((myRoute.front()->getFromJunction() == myRoute[1]->getToJunction())
-                || (myRoute.front()->getFromJunction() == myRoute[1]->getFromJunction())) {
-            departFwd = false;
-        }
-        if ((myRoute.back()->getToJunction() == myRoute[myRoute.size() - 2]->getFromJunction())
-                || (myRoute.back()->getToJunction() == myRoute[myRoute.size() - 2]->getToJunction())) {
-            arriveFwd = false;
+        if (mayStartForward && mayStartBackward) {
+            length = lengthFwd < lengthBwd ? lengthFwd : lengthBwd;
+        } else if (mayStartForward) {
+            length = lengthFwd;
+        } else if (mayStartBackward) {
+            length = lengthBwd;
+        } else {
+            length = lengthFwd;
         }
     }
-    length -= (departFwd ? myDepartPos : myRoute.front()->getLength() - myDepartPos);
-    length -= (arriveFwd ? myRoute.back()->getLength() - myArrivalPos : myArrivalPos);
+    //std::cout << SIMTIME << " route=" << toString(myRoute) 
+    //    << " depPos=" << myDepartPos << " arPos=" << myArrivalPos
+    //    << " dFwdADir=" << departFwdArrivalDir 
+    //    << " dBwdADir=" << departBwdArrivalDir 
+    //    << " lengthFwd=" << lengthFwd
+    //    << " lengthBwd=" << lengthBwd
+    //    << "\n";
+    
     return MAX2(POSITION_EPS, length);
 }
 

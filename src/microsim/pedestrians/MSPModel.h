@@ -110,8 +110,10 @@ public:
     /// @brief the offset for computing person positions when walking on edges without a sidewalk
     static const double SIDEWALK_OFFSET;
 
-    /// @brief return whether the route may traversed with the given starting direction
-    static bool canTraverse(int dir, const ConstMSEdgeVector& route);
+    /* @brief return the arrival direction if the route may be traversed with the given starting direction.
+     * returns UNDEFINED_DIRECTION if the route cannot be traversed
+     */
+    static int canTraverse(int dir, const ConstMSEdgeVector& route);
 
     /// @brief whether movements on intersections are modelled
     virtual bool usingInternalLanes() = 0;
