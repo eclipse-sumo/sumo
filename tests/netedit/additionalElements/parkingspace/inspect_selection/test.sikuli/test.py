@@ -86,10 +86,10 @@ netedit.modifyAttribute(3, "500")
 netedit.modifyAttribute(3, "32.5")
 
 # Change parameter 5 with a different value
-netedit.modifyAttribute(5, "parkingAreaNewParent")
+netedit.modifyAttribute(7, "parkingAreaNewParent")
 
 # Change parameter 6 with a different value
-netedit.modifyBoolAttribute(6)
+netedit.modifyBoolAttribute(8)
 
 # Check undos and redos
 netedit.undo(match, 17)

@@ -94,16 +94,16 @@ netedit.modifyAttribute(2, "-4.25")
 netedit.modifyAttribute(2, "1.00")
 
 # Change parameter 7 with a non valid value (dummy)
-netedit.modifyAttribute(7, "dummyParent")
+netedit.modifyAttribute(9, "dummyParent")
 
 # Change parameter 7 with a non valid value (empty)
-netedit.modifyAttribute(7, "")
+netedit.modifyAttribute(9, "")
 
 # Change parameter 7 with a valid value
-netedit.modifyAttribute(7, "parkingArea_gneE2_0_1")
+netedit.modifyAttribute(9, "parkingArea_gneE2_0_1")
 
 # Change parameter 7 with a different value
-netedit.modifyBoolAttribute(8)
+netedit.modifyBoolAttribute(10)
 
 # inspect the other space
 netedit.leftClick(match, 400, 300)
