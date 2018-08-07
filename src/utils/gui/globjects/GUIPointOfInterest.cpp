@@ -37,6 +37,13 @@
 
 
 // ===========================================================================
+// static members
+// ===========================================================================
+
+std::vector<Position> GUIPointOfInterest::vertices;
+
+
+// ===========================================================================
 // method definitions
 // ===========================================================================
 
@@ -90,6 +97,9 @@ GUIPointOfInterest::getCenteringBoundary() const {
 void
 GUIPointOfInterest::drawGL(const GUIVisualizationSettings& s) const {
     const double exaggeration = s.poiSize.getExaggeration(s);
+    // first clear vertices
+    vertices.clear();
+    // only continue if scale is valid
     if (s.scale * (1.3 / 3.0) *exaggeration < s.poiSize.minSize) {
         return;
     }
@@ -116,7 +126,8 @@ GUIPointOfInterest::drawGL(const GUIVisualizationSettings& s) const {
         if(s.drawForSelecting) {
             GLHelper::drawFilledCircle((double) 1.3 * exaggeration, 8);
         } else {
-            GLHelper::drawFilledCircle((double) 1.3 * exaggeration, 16);
+            // draw filled circle saving vertices
+            vertices = GLHelper::drawFilledCircleReturnVertices((double) 1.3 * exaggeration, 16);
         }
     }
     glPopMatrix();

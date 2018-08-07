@@ -203,20 +203,33 @@ GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
     GUIPointOfInterest::drawGL(s);
     // draw lock icon if isn't in selecting mode
     if(!s.drawForSelecting) {
-        drawLockIcon(*this, getShapeLayer() + 0.1, 0.2);
+        drawLockIcon(*this, getType() + 0.1, 0.2);
     }
+    // push matrix
+    glPushName(getGlID());
     // draw an orange square mode if there is an image(see #4036)
     if (!getShapeImgFile().empty() && OptionsCont::getOptions().getBool("gui-testing")) {
-        glPushName(getGlID());
         // Add a draw matrix for drawing logo
         glPushMatrix();
         glTranslated(x(), y(), getType() + 0.01);
         GLHelper::setColor(RGBColor::ORANGE);
         GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
         glPopMatrix();
-        // Pop name
-        glPopName();
+
     }
+    // check if dotted contour has to be drawn
+    if(myNet->getViewNet()->getACUnderCursor() == this) {
+        if (getShapeImgFile() != DEFAULT_IMG_FILE) {
+            GLHelper::drawShapeDottedContour(getType(), *this, 2*myHalfImgWidth * s.poiSize.getExaggeration(s), 2*myHalfImgHeight * s.poiSize.getExaggeration(s));
+        } else {
+            glPushMatrix();
+            glTranslated(x(), y(), getType() + 0.01);
+            GLHelper::drawShapeDottedContour(getType(), vertices);
+            glPopMatrix();
+        }
+    }
+    // Pop name
+    glPopName();
 }
 
 

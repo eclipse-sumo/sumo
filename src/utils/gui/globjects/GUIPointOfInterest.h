@@ -112,6 +112,10 @@ public:
     void drawGL(const GUIVisualizationSettings& s) const;
     //@}
 
+protected:
+    /// @brief after every iteration of drawgl, position of vertices that make the circle are saved here
+    static std::vector<Position> vertices;
+
 };
 
 
