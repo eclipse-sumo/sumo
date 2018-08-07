@@ -341,6 +341,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
             glTranslated(0, 0, -.1);
             GLHelper::drawBoxLines(getShape(), myShapeRotations, myShapeLengths, halfWidth2);
         }
+        // check if dotted contour has to be drawn
         if(!s.drawForSelecting && (myNet->getViewNet()->getACUnderCursor() == this)) {
             GLHelper::drawShapeDottedContour(getType(), myParentEdge.getNBEdge()->getLaneStruct(myIndex).shape, halfWidth);
         }
