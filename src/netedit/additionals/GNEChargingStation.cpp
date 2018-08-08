@@ -68,6 +68,9 @@ GNEChargingStation::~GNEChargingStation() {}
 
 void
 GNEChargingStation::updateGeometry() {
+    // first remove object from net grid
+    myViewNet->getNet()->removeGLObjectFromNet(this);
+
     // Get value of option "lefthand"
     double offsetSign = OptionsCont::getOptions().getBool("lefthand") ? -1 : 1;
 
@@ -89,8 +92,8 @@ GNEChargingStation::updateGeometry() {
     // Set block icon rotation, and using their rotation for sign
     setBlockIconRotation(myLane);
 
-    // Refresh element (neccesary to avoid grabbing problems)
-    myViewNet->getNet()->refreshElement(this);
+    // add object into net again
+    myViewNet->getNet()->addGLObjectIntoNet(this);
 }
 
 

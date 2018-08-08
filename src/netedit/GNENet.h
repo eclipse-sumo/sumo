@@ -460,8 +460,11 @@ public:
     /// @brief Set the viewNet to be notified of network changes
     void setViewNet(GNEViewNet* viewNet);
 
-    /// @brief refreshes boundary information for o and update
-    void refreshElement(GUIGlObject* o);
+    /// @brief add GL Object into net
+    void addGLObjectIntoNet(GUIGlObject* o);
+
+    /// @brief add GL Object into net
+    void removeGLObjectFromNet(GUIGlObject* o);
 
     /// @brief updates the map and reserves new id
     void renameEdge(GNEEdge* edge, const std::string& newID);

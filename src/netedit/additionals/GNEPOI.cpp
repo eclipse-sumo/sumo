@@ -97,17 +97,24 @@ void
 GNEPOI::moveGeometry(const Position& oldPos, const Position& offset) {
     if (!myBlockMovement) {
         if (myGNELane) {
+            // first remove object from net grid
+            myNet->removeGLObjectFromNet(this);
             // Calculate new position using old position
             Position newPosition = oldPos;
             newPosition.add(offset);
             myPosOverLane = myGNELane->getShape().nearest_offset_to_point2D(newPosition, false);
+            // add object into net again
+            myNet->addGLObjectIntoNet(this);
             // Update geometry
             updateGeometry();
         } else {
+            // first remove object from net grid
+            myNet->removeGLObjectFromNet(this);
             // restore old position, apply offset and refresh element
             set(oldPos);
             add(offset);
-            myNet->refreshElement(this);
+            // add object into net again
+            myNet->addGLObjectIntoNet(this);
         }
     }
 }
@@ -139,14 +146,16 @@ GNEPOI::getLane() const {
 
 void
 GNEPOI::updateGeometry() {
+    // first remove object from net grid
+    myNet->removeGLObjectFromNet(this);
     if (myGNELane) {
         // obtain fixed position over lane
         double fixedPositionOverLane = myPosOverLane > myGNELane->getLaneShapeLength() ? myGNELane->getLaneShapeLength() : myPosOverLane < 0 ? 0 : myPosOverLane;
         // set new position regarding to lane
         set(myGNELane->getShape().positionAtOffset(fixedPositionOverLane, -myPosLat));
     }
-    // refresh element to avoid grabbings problem
-    myNet->refreshElement(this);
+    // add object into net again
+    myNet->addGLObjectIntoNet(this);
 }
 
 

@@ -69,6 +69,9 @@ GNEDetectorE2::~GNEDetectorE2() {
 
 void
 GNEDetectorE2::updateGeometry() {
+    // first remove object from net grid
+    myViewNet->getNet()->removeGLObjectFromNet(this);
+
     // Clear all containers
     myShapeRotations.clear();
     myShapeLengths.clear();
@@ -135,8 +138,8 @@ GNEDetectorE2::updateGeometry() {
     // Set block icon rotation, and using their rotation for draw logo
     setBlockIconRotation(myLane);
 
-    // Refresh element (neccesary to avoid grabbing problems)
-    myViewNet->getNet()->refreshElement(this);
+    // add object into net again
+    myViewNet->getNet()->addGLObjectIntoNet(this);
 }
 
 

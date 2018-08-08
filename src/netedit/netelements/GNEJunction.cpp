@@ -1104,9 +1104,11 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_POSITION: {
             // set new position in NBNode
             bool ok;
+            // first remove object from net grid
+            myNet->removeGLObjectFromNet(this);
             moveJunctionGeometry(GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, false)[0]);
-            // Refresh element to avoid grabbing problems
-            myNet->refreshElement(this);
+            // add object into net again
+            myNet->addGLObjectIntoNet(this);
             break;
         }
         case GNE_ATTR_MODIFICATION_STATUS:
@@ -1121,11 +1123,13 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
             myLogicStatus = value;
             break;
         case SUMO_ATTR_SHAPE: {
+            // first remove object from net grid
+            myNet->removeGLObjectFromNet(this);
             bool ok;
             const PositionVector shape = GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, true);
             myNBNode.setCustomShape(shape);
-            // Refresh element to avoid grabbing problems
-            myNet->refreshElement(this);
+            // add object into net again
+            myNet->addGLObjectIntoNet(this);
             break;
         }
         case SUMO_ATTR_RADIUS: {

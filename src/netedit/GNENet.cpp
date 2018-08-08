@@ -1164,11 +1164,17 @@ GNENet::retrieveShapes(bool onlySelected) {
 }
 
 
-void
-GNENet::refreshElement(GUIGlObject* o) {
-    myGrid.removeAdditionalGLObject(o);
+void 
+GNENet::addGLObjectIntoNet(GUIGlObject* o) {
     myGrid.addAdditionalGLObject(o);
     update();
+}
+
+
+void 
+GNENet::removeGLObjectFromNet(GUIGlObject* o) {
+    myGrid.removeAdditionalGLObject(o);
+
 }
 
 
@@ -2416,7 +2422,8 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
     // update rtree if necessary
     if (!oc.getBool("offset.disable-normalization")) {
         for (auto it : myAttributeCarriers.edges) {
-            refreshElement(it.second);
+            // refresh edge geometry
+            it.second->updateGeometry();
         }
     }
     // Clear current inspected ACs in inspectorFrame if a previous net was loaded
@@ -2483,7 +2490,6 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
         it.second->setLogicValid(true, 0);
         // updated shape
         it.second->updateGeometry();
-        refreshElement(it.second);
     }
 
     myNeedRecompute = false;

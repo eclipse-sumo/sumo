@@ -118,6 +118,8 @@ GNEEdge::~GNEEdge() {
 
 void
 GNEEdge::updateGeometry() {
+    // first remove object from net grid
+    myNet->removeGLObjectFromNet(this);
     // Update geometry of lanes
     for (auto i : myLanes) {
         i->updateGeometry();
@@ -130,8 +132,8 @@ GNEEdge::updateGeometry() {
     for (auto i : myFirstAdditionalParents) {
         i->updateGeometry();
     }
-    // refresh element
-    myNet->refreshElement(this);
+    // add object into net again
+    myNet->addGLObjectIntoNet(this);
 }
 
 
@@ -267,6 +269,8 @@ GNEEdge::moveVertexShape(const int index, const Position& oldPos, const Position
 
 void
 GNEEdge::moveEntireShape(const PositionVector& oldShape, const Position& offset) {
+    // first remove object from net grid
+    myNet->removeGLObjectFromNet(this);
     // make a copy of the old shape to change it
     PositionVector modifiedShape = oldShape;
     // change all points of the inner geometry using offset
@@ -275,8 +279,8 @@ GNEEdge::moveEntireShape(const PositionVector& oldShape, const Position& offset)
     }
     // restore modified shape
     setGeometry(modifiedShape, true);
-    // refresh element
-    myNet->refreshElement(this);
+    // add object into net again
+    myNet->addGLObjectIntoNet(this);
 }
 
 
@@ -594,11 +598,15 @@ GNEEdge::resetEndpoint(const Position& pos, GNEUndoList* undoList) {
 
 void
 GNEEdge::setGeometry(PositionVector geom, bool inner) {
+    // first remove object from net grid
+    myNet->removeGLObjectFromNet(this);
+    // set new geometry
     myNBEdge.setGeometry(geom, inner);
+    // add object into net again
+    myNet->addGLObjectIntoNet(this);
     updateGeometry();
     myGNEJunctionSource->invalidateShape();
     myGNEJunctionDestiny->invalidateShape();
-    myNet->refreshElement(this);
 
 }
 
@@ -1396,7 +1404,6 @@ GNEEdge::removeLane(GNELane* lane, bool recomputeConnections) {
         i->remakeGNEConnections();
     }
     // Update element
-    myNet->refreshElement(this);
     updateGeometry();
 }
 
@@ -1420,7 +1427,8 @@ GNEEdge::addConnection(NBEdge::Connection nbCon, bool selectAfterCreation) {
         // update geometry
         con->updateGeometry();
     }
-    myNet->refreshElement(this); // actually we only do this to force a redraw
+    // actually we only do this to force a redraw
+    updateGeometry();
 }
 
 
@@ -1447,7 +1455,8 @@ GNEEdge::removeConnection(NBEdge::Connection nbCon) {
                 WRITE_WARNING("Deleting unreferenced " + toString(con->getTag()) + " '" + con->getID() + "' in removeConnection()");
             }
             delete con;
-            myNet->refreshElement(this); // actually we only do this to force a redraw
+            // actually we only do this to force a redraw
+            updateGeometry();
         } else if (con->getShape().size() > 0) {
             myNet->getVisualisationSpeedUp().removeAdditionalGLObject(con);
         }

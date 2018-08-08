@@ -182,8 +182,7 @@ GNEPoly::commitShapeChange(const PositionVector& oldShape, GNEUndoList* undoList
 
 void
 GNEPoly::updateGeometry() {
-    // simply refresh element in net
-    myNet->refreshElement(this);
+    // nothing to do
 }
 
 void
@@ -794,6 +793,8 @@ GNEPoly::setGenericParametersStr(const std::string &value) {
 
 void
 GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
+    // first remove object from net grid
+    myNet->removeGLObjectFromNet(this);
     switch (key) {
         case SUMO_ATTR_ID: {
             std::string oldID = myID;
@@ -900,8 +901,8 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
-    // After setting attribute always update Geometry
-    updateGeometry();
+    // add object into net again
+    myNet->addGLObjectIntoNet(this);
 }
 
 

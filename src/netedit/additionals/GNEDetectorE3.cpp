@@ -71,6 +71,9 @@ GNEDetectorE3::~GNEDetectorE3() {}
 
 void
 GNEDetectorE3::updateGeometry() {
+    // first remove object from net grid
+    myViewNet->getNet()->removeGLObjectFromNet(this);
+
     // Clear shape
     myShape.clear();
 
@@ -89,8 +92,8 @@ GNEDetectorE3::updateGeometry() {
     // Update connection's geometry
     updateChildConnections();
 
-    // Refresh element (neccesary to avoid grabbing problems)
-    myViewNet->getNet()->refreshElement(this);
+    // add object into net again
+    myViewNet->getNet()->addGLObjectIntoNet(this);
 }
 
 

@@ -71,6 +71,9 @@ GNERerouter::~GNERerouter() {
 
 void
 GNERerouter::updateGeometry() {
+    // first remove object from net grid
+    myViewNet->getNet()->removeGLObjectFromNet(this);
+
     // Clear shape
     myShape.clear();
 
@@ -89,8 +92,8 @@ GNERerouter::updateGeometry() {
     // update connection positions
     updateChildConnections();
 
-    // Refresh element (neccesary to avoid grabbing problems)
-    myViewNet->getNet()->refreshElement(this);
+    // add object into net again
+    myViewNet->getNet()->addGLObjectIntoNet(this);
 }
 
 

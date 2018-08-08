@@ -65,6 +65,8 @@ GNECrossing::~GNECrossing() {}
 
 void
 GNECrossing::updateGeometry() {
+    // first remove object from net grid
+    myNet->removeGLObjectFromNet(this);
     // Clear Shape rotations and segments
     myShapeRotations.clear();
     myShapeLengths.clear();
@@ -84,6 +86,8 @@ GNECrossing::updateGeometry() {
             }
         }
     }
+    // add object into net again
+    myNet->addGLObjectIntoNet(this);
 }
 
 
@@ -475,7 +479,6 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_WIDTH:
             // Change width an refresh element
             myCrossing->customWidth = parse<double>(value);
-            myNet->refreshElement(this);
             break;
         case SUMO_ATTR_PRIORITY:
             myCrossing->priority = parse<bool>(value);
@@ -488,11 +491,13 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_CUSTOMSHAPE: {
             bool ok;
+            // first remove object from net grid
+            myNet->removeGLObjectFromNet(this);
             myCrossing->customShape = GeomConvHelper::parseShapeReporting(value, "user-supplied shape", 0, ok, true);
+            // add object into net again
+            myNet->addGLObjectIntoNet(this);
             // Check if custom shaped has to be drawn
             myForceDrawCustomShape = myCrossing->customShape.size() > 0;
-            updateGeometry();
-            myNet->refreshElement(this);
             break;
         }
         case GNE_ATTR_SELECTED:

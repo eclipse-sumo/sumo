@@ -91,10 +91,13 @@ GNEParkingSpace::commitGeometryMoving(const Position & oldPos, GNEUndoList * und
 
 void
 GNEParkingSpace::updateGeometry() {
+    // first remove object from net grid
+    myViewNet->getNet()->removeGLObjectFromNet(this);
+    // clear shape and set new position
     myShape.clear();
     myShape.push_back(Position(myX, myY));
-    // Refresh element (neccesary to avoid grabbing problems)
-    myViewNet->getNet()->refreshElement(this);
+    // add object into net again
+    myViewNet->getNet()->addGLObjectIntoNet(this);
 }
 
 
