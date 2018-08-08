@@ -27,7 +27,7 @@ else:
     import traci  # noqa
 import sumolib  # noqa
 
-sumoBinary = os.environ["SUMO_BINARY"]
+sumoBinary = sumolib.checkBinary('sumo')
 # ~ sumoBinary = sumolib.checkBinary("sumo-gui")
 cmd = [
     sumoBinary,

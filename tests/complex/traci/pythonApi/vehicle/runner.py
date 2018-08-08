@@ -105,11 +105,10 @@ def check(vehID):
     print("via", traci.vehicle.getVia(vehID))
     print("lane change state right", traci.vehicle.getLaneChangeState(vehID, -1))
     print("lane change state left", traci.vehicle.getLaneChangeState(vehID, 1))
-    if not traci.isLibsumo():
-        print("lane change able right", traci.vehicle.couldChangeLane(vehID, -1))
-        print("lane change able left", traci.vehicle.couldChangeLane(vehID, 1))
-        print("lane change wish right", traci.vehicle.wantsAndCouldChangeLane(vehID, -1))
-        print("lane change wish left", traci.vehicle.wantsAndCouldChangeLane(vehID, 1))
+    print("lane change able right", traci.vehicle.couldChangeLane(vehID, -1))
+    print("lane change able left", traci.vehicle.couldChangeLane(vehID, 1))
+    print("lane change wish right", traci.vehicle.wantsAndCouldChangeLane(vehID, -1))
+    print("lane change wish left", traci.vehicle.wantsAndCouldChangeLane(vehID, 1))
 
 
 def checkOffRoad(vehID):

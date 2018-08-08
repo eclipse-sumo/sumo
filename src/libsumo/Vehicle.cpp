@@ -1424,13 +1424,13 @@ Vehicle::setAccel(const std::string& vehicleID, double accel) {
 
 void
 Vehicle::setDecel(const std::string& vehicleID, double decel) {
-    getVehicle(vehicleID)->getSingularType().setDecel(decel);
+    VehicleType::setDecel(getVehicle(vehicleID)->getSingularType().getID(), decel);
 }
 
 
 void
 Vehicle::setEmergencyDecel(const std::string& vehicleID, double decel) {
-    getVehicle(vehicleID)->getSingularType().setEmergencyDecel(decel);
+    VehicleType::setEmergencyDecel(getVehicle(vehicleID)->getSingularType().getID(), decel);
 }
 
 
