@@ -42,6 +42,7 @@
         <xsd:attribute name="lefthand" type="boolType"/>
         <xsd:attribute name="rectangularLaneCut" type="boolType"/>
         <xsd:attribute name="walkingareas" type="boolType"/>
+        <xsd:attribute name="limitTurnSpeed" type="xsd:float"/>
     </xsd:complexType>
 
     <xsd:complexType name="edgeType">
