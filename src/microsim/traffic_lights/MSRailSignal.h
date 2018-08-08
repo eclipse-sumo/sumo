@@ -232,6 +232,8 @@ protected:
     /// @brief The current phase
     MSPhaseDefinition myCurrentPhase;
 
+    static int myNumWarnings;
+
 };
 
 

@@ -42,9 +42,15 @@
 // minimum block size in germany is 37.5m (LZB)
 // larger countries (USA, Russia) might see blocks beyond 20km)
 #define MAX_BLOCK_LENGTH 20000
+#define MAX_SIGNAL_WARNINGS 10
 
 //#define DEBUG_SUCCEEDINGBLOCKS
 #define DEBUG_COND (getID() == "disabled")
+
+// ===========================================================================
+// static value definitions
+// ===========================================================================
+int MSRailSignal::myNumWarnings(0);
 
 class ApproachingVehicleInformation;
 // ===========================================================================
@@ -155,7 +161,12 @@ MSRailSignal::init(NLDetectorBuilder&) {
                             noRailSignalLocal = false;
                         } else {
                             if (outGoingLanes.size() > 1) {
-                                WRITE_WARNING("Rail lane '" + currentLane->getID() + "' has more than one outgoing lane but does not have a rail signal at its end");
+                                if (myNumWarnings < MAX_SIGNAL_WARNINGS) {
+                                    WRITE_WARNING("Rail lane '" + currentLane->getID() + "' has more than one outgoing lane but does not have a rail signal at its end");
+                                } else if (myNumWarnings == MAX_SIGNAL_WARNINGS) {
+                                    WRITE_WARNING("Suppressing further signal warnings ...");
+                                }
+                                myNumWarnings++;
                             }
                             const MSLane* nextLane = outGoingLanes.front();
                             succeedingBlock.push_back(nextLane);
