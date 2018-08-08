@@ -2602,7 +2602,10 @@ GNEViewNet::deleteSelectedAdditionals() {
         std::string plural = additionals.size() == 1 ? ("") : ("s");
         myUndoList->p_begin("delete selected additional" + plural);
         for (auto i : additionals) {
-            getViewParent()->getAdditionalFrame()->removeAdditional(i);
+            // due there are additionals that are removed when their parent is removed, we need to check if yet exists before removing
+            if(myNet->retrieveAdditional(i->getTag(), i->getID(), false) != nullptr) {
+                getViewParent()->getAdditionalFrame()->removeAdditional(i);
+            }
         }
         myUndoList->p_end();
     }
