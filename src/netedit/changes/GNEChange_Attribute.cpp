@@ -49,7 +49,7 @@ GNEChange_Attribute::GNEChange_Attribute(GNENetElement* netElement,
     myKey(key),
     myOrigValue(customOrigValue ? origValue : netElement->getAttribute(key)),
     myNewValue(value),
-    myNetElement(nullptr),
+    myNetElement(netElement),
     myAdditional(nullptr),
     myShape(nullptr) {
     myAC->incRef("GNEChange_Attribute " + toString(myKey));
@@ -117,13 +117,15 @@ GNEChange_Attribute::undo() {
     }
     // set original value
     myAC->setAttribute(myKey, myOrigValue);
-    // check if netElements, additional or shapes has to be saved
-    if (myNetElement) {
-        myNetElement->getNet()->requiereSaveNet(true);
-    } else if (myAdditional) {
-        myAdditional->getViewNet()->getNet()->requiereSaveAdditionals(true);
-    } else if (myShape) {
-        myShape->getNet()->requiereSaveShapes(true);
+    // check if netElements, additional or shapes has to be saved (only if key isn't GNE_ATTR_SELECTED)
+    if(myKey != GNE_ATTR_SELECTED) {
+        if (myNetElement) {
+            myNetElement->getNet()->requiereSaveNet(true);
+        } else if (myAdditional) {
+            myAdditional->getViewNet()->getNet()->requiereSaveAdditionals(true);
+        } else if (myShape) {
+            myShape->getNet()->requiereSaveShapes(true);
+        }
     }
 }
 
@@ -136,13 +138,15 @@ GNEChange_Attribute::redo() {
     }
     // set new value
     myAC->setAttribute(myKey, myNewValue);
-    // check if netElements, additional or shapes has to be saved
-    if (myNetElement) {
-        myNetElement->getNet()->requiereSaveNet(true);
-    } else if (myAdditional) {
-        myAdditional->getViewNet()->getNet()->requiereSaveAdditionals(true);
-    } else if (myShape) {
-        myShape->getNet()->requiereSaveShapes(true);
+    // check if netElements, additional or shapes has to be saved (only if key isn't GNE_ATTR_SELECTED)
+    if(myKey != GNE_ATTR_SELECTED) {
+        if (myNetElement) {
+            myNetElement->getNet()->requiereSaveNet(true);
+        } else if (myAdditional) {
+            myAdditional->getViewNet()->getNet()->requiereSaveAdditionals(true);
+        } else if (myShape) {
+            myShape->getNet()->requiereSaveShapes(true);
+        }
     }
 }
 
