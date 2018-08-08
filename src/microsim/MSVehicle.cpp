@@ -1677,7 +1677,7 @@ MSVehicle::basePos(const MSEdge* edge) const {
     if (hasStops()
             && myStops.front().edge == myRoute->begin()
             && (&myStops.front().lane->getEdge()) == *myStops.front().edge) {
-        result = MIN2(result, myStops.front().getEndPos(*this));
+        result = MIN2(result, MAX2(0.0, myStops.front().getEndPos(*this)));
     }
     return result;
 }
