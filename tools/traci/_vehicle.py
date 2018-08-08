@@ -588,9 +588,9 @@ class VehicleDomain(Domain):
     def getLastActionTime(self, vehID):
         """getLastActionTime(string) -> double
 
-        Returns the time of last action poitn for this vehicle.
+        Returns the time of last action point for this vehicle.
         """
-        return self._getUniversal(tc.VAR_ACTIONSTEPLENGTH, vehID)
+        return self._getUniversal(tc.VAR_LASTACTIONTIME, vehID)
 
     def getImperfection(self, vehID):
         """getImperfection(string) -> double

@@ -42,7 +42,7 @@ decel 4.5
 emergencyDecel 4.5
 apparentDecel 4.5
 actionStepLength 1.0
-lastActionTime 1.0
+lastActionTime 2.0
 imperfection 0.5
 tau 1.0
 vClass passenger
@@ -119,7 +119,7 @@ decel 5.1
 emergencyDecel 5.2
 apparentDecel 5.3
 actionStepLength 1.0
-lastActionTime 1.0
+lastActionTime 6.0
 imperfection 0.1
 tau 1.1
 vClass bicycle
@@ -196,7 +196,7 @@ decel 4.5
 emergencyDecel 4.5
 apparentDecel 4.5
 actionStepLength 1.0
-lastActionTime 1.0
+lastActionTime 0.0
 imperfection 0.5
 tau 1.0
 vClass passenger
@@ -281,7 +281,7 @@ decel 4.5
 emergencyDecel 4.5
 apparentDecel 4.5
 actionStepLength 1.0
-lastActionTime 1.0
+lastActionTime 12.0
 imperfection 0.5
 tau 1.0
 vClass passenger
@@ -590,7 +590,7 @@ decel 4.5
 emergencyDecel 4.5
 apparentDecel 4.5
 actionStepLength 1.0
-lastActionTime 1.0
+lastActionTime 127.0
 imperfection 0.5
 tau 1.0
 vClass passenger
@@ -719,7 +719,7 @@ decel 4.5
 emergencyDecel 4.5
 apparentDecel 4.5
 actionStepLength 1.0
-lastActionTime 1.0
+lastActionTime 0.0
 imperfection 0.5
 tau 1.0
 vClass passenger
@@ -788,7 +788,7 @@ decel 4.5
 emergencyDecel 4.5
 apparentDecel 4.5
 actionStepLength 1.0
-lastActionTime 1.0
+lastActionTime 0.0
 imperfection 0.5
 tau 1.0
 vClass passenger
@@ -857,7 +857,7 @@ decel 4.5
 emergencyDecel 4.5
 apparentDecel 4.5
 actionStepLength 1.0
-lastActionTime 1.0
+lastActionTime 0.0
 imperfection 0.5
 tau 1.0
 vClass passenger
@@ -926,7 +926,7 @@ decel 4.5
 emergencyDecel 4.5
 apparentDecel 4.5
 actionStepLength 1.0
-lastActionTime 1.0
+lastActionTime 0.0
 imperfection 0.5
 tau 1.0
 vClass passenger
