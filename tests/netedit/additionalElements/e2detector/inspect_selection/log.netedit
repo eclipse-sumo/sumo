@@ -20,14 +20,15 @@ Warning: Setting new attribute length '7' into e2Detector 'E2_B'
 Warning: Value '-30' for attribute freq of e2Detector isn't valid
 Warning: Setting new attribute freq '50' into e2Detector 'E2_A'
 Warning: Setting new attribute freq '50' into e2Detector 'E2_B'
-Warning: Value '%%%&&%$%$' for attribute name of e2Detector isn't valid
+Warning: Value '%%%;:..&&%$%$' for attribute name of e2Detector isn't valid
 Warning: Setting new attribute name 'customName' into e2Detector 'E2_A'
 Warning: Setting new attribute name 'customName' into e2Detector 'E2_B'
 Warning: Value '&&&&&&&&' for attribute file of e2Detector isn't valid
 Warning: Setting new attribute file 'myOwnFilename.txt' into e2Detector 'E2_A'
 Warning: Setting new attribute file 'myOwnFilename.txt' into e2Detector 'E2_B'
-Warning: Setting new attribute vTypes 'Type%%%%%1 Typ$2 Type3' into e2Detector 'E2_A'
-Warning: Setting new attribute vTypes 'Type%%%%%1 Typ$2 Type3' into e2Detector 'E2_B'
+Warning: Please note that using ';' and ',' as XML list separators is deprecated.
+ From 1.0 onwards, only ' ' will be accepted.
+Warning: Value 'Type%%%%%1 T;;yp$2 Type3' for attribute vTypes of e2Detector isn't valid
 Warning: Setting new attribute vTypes 'Type1 Type2 Type3' into e2Detector 'E2_A'
 Warning: Setting new attribute vTypes 'Type1 Type2 Type3' into e2Detector 'E2_B'
 Warning: Value '-5' for attribute timeThreshold of e2Detector isn't valid
@@ -59,9 +60,6 @@ Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute timeThreshold '2.00' into e2Detector 'E2_B'
 Warning: Setting previous attribute timeThreshold '1.00' into e2Detector 'E2_A'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute vTypes 'Type%%%%%1 Typ$2 Type3' into e2Detector 'E2_B'
-Warning: Setting previous attribute vTypes 'Type%%%%%1 Typ$2 Type3' into e2Detector 'E2_A'
-Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute vTypes '' into e2Detector 'E2_B'
 Warning: Setting previous attribute vTypes '' into e2Detector 'E2_A'
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -73,6 +71,12 @@ Warning: Setting previous attribute name 'A' into e2Detector 'E2_A'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute freq '100.00' into e2Detector 'E2_B'
 Warning: Setting previous attribute freq '100.00' into e2Detector 'E2_A'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute length '5.00' into e2Detector 'E2_B'
+Warning: Setting previous attribute length '5.00' into e2Detector 'E2_A'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute length '7' into e2Detector 'E2_A'
+Warning: Setting new attribute length '7' into e2Detector 'E2_B'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute freq '50' into e2Detector 'E2_A'
 Warning: Setting new attribute freq '50' into e2Detector 'E2_B'
@@ -82,9 +86,6 @@ Warning: Setting new attribute name 'customName' into e2Detector 'E2_B'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute file 'myOwnFilename.txt' into e2Detector 'E2_A'
 Warning: Setting new attribute file 'myOwnFilename.txt' into e2Detector 'E2_B'
-Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute vTypes 'Type%%%%%1 Typ$2 Type3' into e2Detector 'E2_A'
-Warning: Setting new attribute vTypes 'Type%%%%%1 Typ$2 Type3' into e2Detector 'E2_B'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute vTypes 'Type1 Type2 Type3' into e2Detector 'E2_A'
 Warning: Setting new attribute vTypes 'Type1 Type2 Type3' into e2Detector 'E2_B'

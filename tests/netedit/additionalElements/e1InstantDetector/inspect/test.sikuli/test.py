@@ -74,7 +74,7 @@ netedit.modifyAttribute(2, "400")
 netedit.modifyAttribute(2, "20")
 
 # Change parameter 3 with an non valid value
-netedit.modifyAttribute(3, "%%%&&%$%$")
+netedit.modifyAttribute(3, "%%%;:..&&%$%$")
 
 # Change parameter 3 with a duplicated value
 netedit.modifyAttribute(3, "customName")
@@ -83,7 +83,7 @@ netedit.modifyAttribute(3, "customName")
 netedit.modifyAttribute(4, "")
 
 # Change parameter 4 with an non valid value
-netedit.modifyAttribute(4, "%%%&&%$%$")
+netedit.modifyAttribute(4, "%%%;:..&&%$%$")
 
 # Change parameter 4 with a duplicated value
 netedit.modifyAttribute(4, "instantInductionLoop_gneE2_1_1.txt")
@@ -92,7 +92,7 @@ netedit.modifyAttribute(4, "instantInductionLoop_gneE2_1_1.txt")
 netedit.modifyAttribute(4, "myOwnOutput.txt")
 
 # Change parameter 5 with a invalid value
-netedit.modifyAdditionalDefaultValue(5, "Type%%%%%1 Typ$2 Type3")
+netedit.modifyAdditionalDefaultValue(5, "Type%%%%%1 T;;yp$2 Type3")
 
 # Change parameter 5 with a valid value
 netedit.modifyAdditionalDefaultValue(5, "Type1 Type2 Type3")

@@ -17,13 +17,15 @@ Warning: Setting new attribute pos '400' into e1Detector 'correctID'
 Warning: Setting new attribute pos '20' into e1Detector 'correctID'
 Warning: Value '-100' for attribute freq of e1Detector isn't valid
 Warning: Setting new attribute freq '120' into e1Detector 'correctID'
-Warning: Value '%%%&&%$%$' for attribute name of e1Detector isn't valid
+Warning: Value '%%%;:..&&%$%$' for attribute name of e1Detector isn't valid
 Warning: Setting new attribute name 'customName' into e1Detector 'correctID'
 Warning: Setting new attribute file '' into e1Detector 'correctID'
-Warning: Value '%%%&&%$%$' for attribute file of e1Detector isn't valid
+Warning: Value '%%%;:..&&%$%$' for attribute file of e1Detector isn't valid
 Warning: Setting new attribute file 'e1Detector_gneE2_1_1.txt' into e1Detector 'correctID'
 Warning: Setting new attribute file 'myOwnOutput.txt' into e1Detector 'correctID'
-Warning: Setting new attribute vTypes 'Type%%%%%1 Typ$2 Type3' into e1Detector 'correctID'
+Warning: Please note that using ';' and ',' as XML list separators is deprecated.
+ From 1.0 onwards, only ' ' will be accepted.
+Warning: Value 'Type%%%%%1 T;;yp$2 Type3' for attribute vTypes of e1Detector isn't valid
 Warning: Setting new attribute vTypes 'Type1 Type2 Type3' into e1Detector 'correctID'
 Warning: Setting new attribute friendlyPos 'true' into e1Detector 'correctID'
 Warning: Setting new attribute blockMovement 'true' into e1Detector 'correctID'
@@ -31,8 +33,6 @@ Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute blockMovement '0' into e1Detector 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute friendlyPos '0' into e1Detector 'correctID'
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute vTypes 'Type%%%%%1 Typ$2 Type3' into e1Detector 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute vTypes '' into e1Detector 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -55,6 +55,10 @@ Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute lane 'gneE2_1' into e1Detector 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute lane 'gneE0_0' into e1Detector 'correctID'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute lane 'gneE2_1' into e1Detector 'correctID'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute lane 'gneE0_0' into e1Detector 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute lane 'gneE2_1' into e1Detector 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
@@ -75,8 +79,6 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute file 'e1Detector_gneE2_1_1.txt' into e1Detector 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute file 'myOwnOutput.txt' into e1Detector 'correctID'
-Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute vTypes 'Type%%%%%1 Typ$2 Type3' into e1Detector 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute vTypes 'Type1 Type2 Type3' into e1Detector 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed

@@ -15,7 +15,7 @@ Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 2 Addi
 Warning: Value '-30' for attribute freq of routeProbe isn't valid
 Warning: Setting new attribute freq '50' into routeProbe 'routeProbe_01'
 Warning: Setting new attribute freq '50' into routeProbe 'routeProbe_02'
-Warning: Value '%%%&&%$%$' for attribute name of routeProbe isn't valid
+Warning: Value '%%%;:..&&%$%$' for attribute name of routeProbe isn't valid
 Warning: Setting new attribute name 'customName' into routeProbe 'routeProbe_01'
 Warning: Setting new attribute name 'customName' into routeProbe 'routeProbe_02'
 Warning: Value '$$$$$$$$' for attribute file of routeProbe isn't valid

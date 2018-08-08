@@ -68,7 +68,7 @@ netedit.modifyAttribute(2, "-50")
 netedit.modifyAttribute(2, "150")
 
 # Change parameter 3 with an non valid value
-netedit.modifyAttribute(3, "%%%&&%$%$")
+netedit.modifyAttribute(3, "%%%;:..&&%$%$")
 
 # Change parameter 3 with a duplicated value
 netedit.modifyAttribute(3, "customName")

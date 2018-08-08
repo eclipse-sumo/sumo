@@ -15,13 +15,15 @@ Warning: Setting new attribute lane 'gneE2_0' into instantInductionLoop 'correct
 Warning: Setting new attribute pos '-5' into instantInductionLoop 'correctID'
 Warning: Setting new attribute pos '400' into instantInductionLoop 'correctID'
 Warning: Setting new attribute pos '20' into instantInductionLoop 'correctID'
-Warning: Value '%%%&&%$%$' for attribute name of instantInductionLoop isn't valid
+Warning: Value '%%%;:..&&%$%$' for attribute name of instantInductionLoop isn't valid
 Warning: Setting new attribute name 'customName' into instantInductionLoop 'correctID'
 Warning: Setting new attribute file '' into instantInductionLoop 'correctID'
-Warning: Value '%%%&&%$%$' for attribute file of instantInductionLoop isn't valid
+Warning: Value '%%%;:..&&%$%$' for attribute file of instantInductionLoop isn't valid
 Warning: Setting new attribute file 'instantInductionLoop_gneE2_1_1.txt' into instantInductionLoop 'correctID'
 Warning: Setting new attribute file 'myOwnOutput.txt' into instantInductionLoop 'correctID'
-Warning: Setting new attribute vTypes 'Type%%%%%1 Typ$2 Type3' into instantInductionLoop 'correctID'
+Warning: Please note that using ';' and ',' as XML list separators is deprecated.
+ From 1.0 onwards, only ' ' will be accepted.
+Warning: Value 'Type%%%%%1 T;;yp$2 Type3' for attribute vTypes of instantInductionLoop isn't valid
 Warning: Setting new attribute vTypes 'Type1 Type2 Type3' into instantInductionLoop 'correctID'
 Warning: Setting new attribute friendlyPos 'true' into instantInductionLoop 'correctID'
 Warning: Setting new attribute blockMovement 'true' into instantInductionLoop 'correctID'
@@ -29,8 +31,6 @@ Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute blockMovement '0' into instantInductionLoop 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute friendlyPos '0' into instantInductionLoop 'correctID'
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute vTypes 'Type%%%%%1 Typ$2 Type3' into instantInductionLoop 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute vTypes '' into instantInductionLoop 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -51,6 +51,10 @@ Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute lane 'gneE2_1' into instantInductionLoop 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute lane 'gneE0_0' into instantInductionLoop 'correctID'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute lane 'gneE2_1' into instantInductionLoop 'correctID'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute lane 'gneE0_0' into instantInductionLoop 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute lane 'gneE2_1' into instantInductionLoop 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
@@ -69,8 +73,6 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute file 'instantInductionLoop_gneE2_1_1.txt' into instantInductionLoop 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute file 'myOwnOutput.txt' into instantInductionLoop 'correctID'
-Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute vTypes 'Type%%%%%1 Typ$2 Type3' into instantInductionLoop 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute vTypes 'Type1 Type2 Type3' into instantInductionLoop 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed

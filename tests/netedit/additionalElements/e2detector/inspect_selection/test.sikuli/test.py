@@ -50,7 +50,7 @@ netedit.modifyAttribute(1, "-30")
 netedit.modifyAttribute(1, "50")
 
 # set invalid name
-netedit.modifyAttribute(2, "%%%&&%$%$")
+netedit.modifyAttribute(2, "%%%;:..&&%$%$")
 
 # set valid name
 netedit.modifyAttribute(2, "customName")
@@ -62,7 +62,7 @@ netedit.modifyAttribute(3, "&&&&&&&&")
 netedit.modifyAttribute(3, "myOwnFilename.txt")
 
 # Change parameter 4 with a invalid value
-netedit.modifyAdditionalDefaultValue(4, "Type%%%%%1 Typ$2 Type3")
+netedit.modifyAdditionalDefaultValue(4, "Type%%%%%1 T;;yp$2 Type3")
 
 # Change parameter 4 with a valid value
 netedit.modifyAdditionalDefaultValue(4, "Type1 Type2 Type3")

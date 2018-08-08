@@ -38,7 +38,7 @@ netedit.inspectMode()
 netedit.leftClick(match, 150, 240)
 
 # Change parameter 0 with an non valid value
-netedit.modifyAttribute(0, "%%%&&%$%$")
+netedit.modifyAttribute(0, "%%%;:..&&%$%$")
 
 # Change parameter 0 with a duplicated value
 netedit.modifyAttribute(0, "customName")
@@ -47,7 +47,7 @@ netedit.modifyAttribute(0, "customName")
 netedit.modifyAttribute(1, "")
 
 # Change parameter 1 with an non valid value
-netedit.modifyAttribute(1, "%%%&&%$%$")
+netedit.modifyAttribute(1, "%%%;:..&&%$%$")
 
 # Change parameter 1 with a duplicated value
 netedit.modifyAttribute(1, "instantInductionLoop_gneE2_1_1.txt")
@@ -56,7 +56,7 @@ netedit.modifyAttribute(1, "instantInductionLoop_gneE2_1_1.txt")
 netedit.modifyAttribute(1, "myOwnOutput.txt")
 
 # Change parameter 2 with a invalid value
-netedit.modifyAdditionalDefaultValue(2, "Type%%%%%1 Typ$2 Type3")
+netedit.modifyAdditionalDefaultValue(2, "Type%%%%%1 T;;yp$2 Type3")
 
 # Change parameter 2 with a valid value
 netedit.modifyAdditionalDefaultValue(2, "Type1 Type2 Type3")

@@ -83,7 +83,7 @@ netedit.modifyAdditionalDefaultValue(4, "customName")
 netedit.leftClick(match, 200, 230)
 
 # change routeprobe with a invalid routeProbe
-netedit.modifyAdditionalDefaultValue(5, "%%$···$%")
+netedit.modifyAdditionalDefaultValue(5, "%%$;;;···$%")
 
 # create calibrator with a different routeProbe in other lane
 netedit.leftClick(match, 200, 230)
@@ -101,7 +101,7 @@ netedit.modifyAdditionalDefaultValue(5, "routeProbe")
 netedit.leftClick(match, 200, 230)
 
 # change output with an invalid value
-netedit.modifyAdditionalDefaultValue(6, "%%%%###!!!")
+netedit.modifyAdditionalDefaultValue(6, "%%%%##;;#!!!")
 
 # create calibrator with a valid parameter in other lane
 netedit.leftClick(match, 200, 230)

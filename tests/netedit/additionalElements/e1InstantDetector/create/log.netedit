@@ -8,7 +8,8 @@ Warning: Invalid input parameter of instantInductionLoop: Name contains invalid 
 Warning: Adding instantInductionLoop 'instantInductionLoop_gneE0_0_1' in GNEChange_Additional
 Warning: Invalid input parameter of instantInductionLoop: input contains invalid characters for a filename
 Warning: Adding instantInductionLoop 'instantInductionLoop_gneE0_0_2' in GNEChange_Additional
-Warning: Invalid input parameter of instantInductionLoop: Ids contains invalid characters
+Warning: Please note that using ';' and ',' as XML list separators is deprecated.
+ From 1.0 onwards, only ' ' will be accepted.
 Warning: Adding instantInductionLoop 'instantInductionLoop_gneE0_0_3' in GNEChange_Additional
 Warning: Adding instantInductionLoop 'instantInductionLoop_gneE0_0_4' in GNEChange_Additional
 Warning: Adding instantInductionLoop 'instantInductionLoop_gneE0_0_5' in GNEChange_Additional

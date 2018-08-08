@@ -83,7 +83,7 @@ netedit.modifyAttribute(3, "-100")
 netedit.modifyAttribute(3, "120")
 
 # Change parameter 4 with an non valid value
-netedit.modifyAttribute(4, "%%%&&%$%$")
+netedit.modifyAttribute(4, "%%%;:..&&%$%$")
 
 # Change parameter 4 with a duplicated value
 netedit.modifyAttribute(4, "customName")
@@ -92,7 +92,7 @@ netedit.modifyAttribute(4, "customName")
 netedit.modifyAttribute(5, "")
 
 # Change parameter 5 with an non valid value
-netedit.modifyAttribute(5, "%%%&&%$%$")
+netedit.modifyAttribute(5, "%%%;:..&&%$%$")
 
 # Change parameter 5 with a duplicated value
 netedit.modifyAttribute(5, "e1Detector_gneE2_1_1.txt")
@@ -104,7 +104,7 @@ netedit.modifyAttribute(5, "myOwnOutput.txt")
 netedit.modifyAdditionalDefaultValue(6, "")
 
 # Change parameter 6 with a invalid value
-netedit.modifyAdditionalDefaultValue(6, "Type%%%%%1 Typ$2 Type3")
+netedit.modifyAdditionalDefaultValue(6, "Type%%%%%1 T;;yp$2 Type3")
 
 # Change parameter 6 with a valid value
 netedit.modifyAdditionalDefaultValue(6, "Type1 Type2 Type3")

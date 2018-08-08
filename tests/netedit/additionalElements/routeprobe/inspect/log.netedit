@@ -12,7 +12,7 @@ Warning: Value 'dummyEdge' for attribute edge of routeProbe isn't valid
 Warning: Setting new attribute edge 'gneE0' into routeProbe 'correctID'
 Warning: Value '-50' for attribute freq of routeProbe isn't valid
 Warning: Setting new attribute freq '150' into routeProbe 'correctID'
-Warning: Value '%%%&&%$%$' for attribute name of routeProbe isn't valid
+Warning: Value '%%%;:..&&%$%$' for attribute name of routeProbe isn't valid
 Warning: Setting new attribute name 'customName' into routeProbe 'correctID'
 Warning: Value '$$$$$$$$' for attribute file of routeProbe isn't valid
 Warning: Setting new attribute file 'OwnOutput.txt' into routeProbe 'correctID'

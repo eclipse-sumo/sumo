@@ -77,7 +77,7 @@ netedit.modifyAdditionalDefaultValue(4, "myOwnFile.txt")
 netedit.leftClick(match, 300, 100)
 
 # set invalid vehicle types (invalid IDs)
-netedit.modifyAdditionalDefaultValue(5, "%%$$$ %%$$")
+netedit.modifyAdditionalDefaultValue(5, "%%;$$$ %%$$ type.3")
 
 # try to create E3 with invalid vehicle types
 netedit.leftClick(match, 400, 100)
