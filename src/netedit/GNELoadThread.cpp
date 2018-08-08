@@ -211,7 +211,7 @@ GNELoadThread::fillOptions(OptionsCont& oc) {
     oc.doRegister("new", new Option_Bool(false)); // !!!
     oc.addDescription("new", "Input", "Start with a new network");
 
-    oc.doRegister("sumo-additionals-file", new Option_String());
+    oc.doRegister("sumo-additionals-file", 'a', new Option_String());
     oc.addDescription("sumo-additionals-file", "Input", "file in which additionals are loaded");
 
     oc.doRegister("additionals-output", new Option_String());
