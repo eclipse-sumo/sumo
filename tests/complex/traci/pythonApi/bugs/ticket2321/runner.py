@@ -17,25 +17,25 @@
 from __future__ import print_function
 from __future__ import absolute_import
 import os
-import subprocess
 import sys
-sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
-import traci  # noqa
+
+SUMO_HOME = os.path.join(os.path.dirname(__file__), "..", "..", "..", "..", "..", "..")
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", SUMO_HOME), "tools"))
+if len(sys.argv) > 1:
+    import libsumo as traci  # noqa
+    traci.vehicle.addFull = traci.vehicle.add
+    traci.vehicle.add = traci.vehicle.addLegacy
+else:
+    import traci  # noqa
+    traci._vehicle.VehicleDomain.addFull = traci._vehicle.VehicleDomain.add
+    traci._vehicle.VehicleDomain.add = traci._vehicle.VehicleDomain.addLegacy
 import sumolib  # noqa
 
-sumoBinary = os.environ["SUMO_BINARY"]
-PORT = sumolib.miscutils.getFreeSocketPort()
-sumoProcess = subprocess.Popen([sumoBinary,
-                                '-c', 'sumo.sumocfg',
-                                '-S', '-Q',
-                                '--remote-port', str(PORT)], stdout=sys.stdout)
-
-
+traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg"])
 firstPos = None
 endPos = None
 
 vehID = "v0"
-traci.init(PORT)
 traci.simulationStep()
 traci.route.add("r0", ["SC", "CN"])
 traci.vehicle.add(vehID, "r0")
@@ -67,4 +67,3 @@ while traci.simulation.getMinExpectedNumber() > 0:
         pass
 
 traci.close()
-sumoProcess.wait()
