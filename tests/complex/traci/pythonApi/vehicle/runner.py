@@ -35,7 +35,7 @@ import sumolib  # noqa
 
 
 def step():
-    s = traci.simulation.getCurrentTime() / 1000
+    s = traci.simulation.getTime()
     traci.simulationStep()
     return s
 
@@ -305,7 +305,7 @@ print("triptest route:", traci.vehicle.getRoute("triptest"))
 parkingVeh = "parking"
 traci.vehicle.add(parkingVeh, "horizontal")
 traci.vehicle.setStop(parkingVeh, "2fi", pos=20.0, laneIndex=0, duration=10000,
-                      flags=traci.vehicle.STOP_PARKING)
+                      flags=traci.constants.STOP_PARKING)
 for i in range(20):
     print("step", step())
     checkOffRoad(parkingVeh)
@@ -313,7 +313,7 @@ for i in range(20):
 parkingVeh = "parking2"
 traci.vehicle.add(parkingVeh, "horizontal")
 traci.vehicle.setStop(parkingVeh, "2fi", pos=20.0, laneIndex=0, duration=10000,
-                      flags=traci.vehicle.STOP_PARKING)
+                      flags=traci.constants.STOP_PARKING)
 for i in range(8):
     print("step", step())
 traci.vehicle.moveTo(parkingVeh, "1o_0", 40)

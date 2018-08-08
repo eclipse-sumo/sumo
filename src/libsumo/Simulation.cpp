@@ -147,6 +147,13 @@ Simulation::getCurrentTime() {
     return MSNet::getInstance()->getCurrentTimeStep();
 }
 
+
+double
+Simulation::getTime() {
+    return SIMTIME;
+}
+
+
 int
 Simulation::getLoadedNumber() {
     return (int)Helper::getVehicleStateChanges(MSNet::VEHICLE_STATE_BUILT).size();

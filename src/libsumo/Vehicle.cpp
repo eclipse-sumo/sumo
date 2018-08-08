@@ -133,6 +133,12 @@ Vehicle::getPosition(const std::string& vehicleID, const bool includeZ) {
 }
 
 
+TraCIPosition
+Vehicle::getPosition3D(const std::string& vehicleID) {
+    return getPosition(vehicleID, true);
+}
+
+
 double
 Vehicle::getAngle(const std::string& vehicleID) {
     MSVehicle* veh = getVehicle(vehicleID);

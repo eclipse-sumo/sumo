@@ -35,14 +35,13 @@ def _readBestLanes(result):
         result.read("!B")
         laneID = result.readString()
         length, occupation, offset = result.read("!BdBdBb")[1::2]
-        allowsContinuation = result.read("!BB")[1]
+        allowsContinuation = bool(result.read("!BB")[1])
         nextLanesNo = result.read("!Bi")[1]
         nextLanes = []
         for j in range(nextLanesNo):
             nextLanes.append(result.readString())
-        lanes.append(
-            [laneID, length, occupation, offset, allowsContinuation, nextLanes])
-    return lanes
+        lanes.append((laneID, length, occupation, offset, allowsContinuation, tuple(nextLanes)))
+    return tuple(lanes)
 
 
 def _readLeader(result):
@@ -64,7 +63,7 @@ def _readNextTLS(result):
         tlsID = result.readString()
         tlsIndex, dist, state = result.read("!BiBdBB")[1::2]
         nextTLS.append((tlsID, tlsIndex, dist, chr(state)))
-    return nextTLS
+    return tuple(nextTLS)
 
 def _readNextStops(result):
     result.read("!iB")  # numCompounds, TYPE_INT
@@ -84,7 +83,7 @@ def _readNextStops(result):
         result.read("!B")
         until = result.readInt()
         nextStop.append((lane, endPos, stoppingPlaceID, stopFlags, duration, until))
-    return nextStop
+    return tuple(nextStop)
 
 _RETURN_VALUE_FUNC = {tc.VAR_SPEED: Storage.readDouble,
                       tc.VAR_SPEED_WITHOUT_TRACI: Storage.readDouble,

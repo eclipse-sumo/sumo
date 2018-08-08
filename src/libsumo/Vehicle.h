@@ -60,6 +60,7 @@ public:
     static double getAcceleration(const std::string& vehicleID);
     static double getSpeedWithoutTraCI(const std::string& vehicleID);
     static TraCIPosition getPosition(const std::string& vehicleID, const bool includeZ = false);
+    static TraCIPosition getPosition3D(const std::string& vehicleID);
     static double getAngle(const std::string& vehicleID);
     static double getSlope(const std::string& vehicleID);
     static std::string getRoadID(const std::string& vehicleID);

@@ -185,6 +185,43 @@ def simulationStep(step=0):
     }
 };
 
+%typemap(out) std::vector<libsumo::TraCIBestLanesData> {
+    $result = PyTuple_New($1.size());
+    int index = 0;
+    for (auto iter = $1.begin(); iter != $1.end(); ++iter) {
+	    const int size = (int)iter->continuationLanes.size();
+        auto nextLanes = PyTuple_New(size);
+        for (int i = 0; i < size; i++) {
+            PyTuple_SetItem(nextLanes, i, PyUnicode_FromString(iter->continuationLanes[i].c_str()));
+		}
+        PyTuple_SetItem($result, index++, PyTuple_Pack(6, PyUnicode_FromString(iter->laneID.c_str()),
+                                                          PyFloat_FromDouble(iter->length),
+                                                          PyFloat_FromDouble(iter->occupation),
+                                                          PyFloat_FromDouble(iter->bestLaneOffset),
+                                                          PyBool_FromLong(iter->allowsContinuation),
+                                                          nextLanes));
+    }
+};
+
+%typemap(out) std::vector<libsumo::TraCINextTLSData> {
+    $result = PyTuple_New($1.size());
+    int index = 0;
+    for (auto iter = $1.begin(); iter != $1.end(); ++iter) {
+        PyTuple_SetItem($result, index++, PyTuple_Pack(4, PyUnicode_FromString(iter->id.c_str()),
+                                                          PyLong_FromLong(iter->tlIndex),
+                                                          PyFloat_FromDouble(iter->dist),
+                                                          PyUnicode_FromStringAndSize(&iter->state, 1)));
+    }
+};
+
+%typemap(out) std::pair<int, int> {
+    $result = PyTuple_Pack(2, PyLong_FromLong($1.first), PyLong_FromLong($1.second));
+};
+
+%typemap(out) std::pair<std::string, double> {
+    $result = PyTuple_Pack(2, PyUnicode_FromString($1.first.c_str()), PyFloat_FromDouble($1.second));
+};
+
 %exceptionclass libsumo::TraCIException;
 
 #endif
@@ -269,7 +306,7 @@ def simulationStep(step=0):
 %pythoncode %{
 def wrapAsClassMethod(func, module):
     def wrapper(*args, **kwargs):
-        func(module, *args, **kwargs)
+        return func(module, *args, **kwargs)
     return wrapper
 
 exceptions.TraCIException = TraCIException
@@ -277,5 +314,6 @@ vehicle.addFull = vehicle.add
 vehicle.addLegacy = wrapAsClassMethod(_vehicle.VehicleDomain.addLegacy, vehicle)
 vehicle.isStopped = wrapAsClassMethod(_vehicle.VehicleDomain.isStopped, vehicle)
 vehicle.setBusStop = wrapAsClassMethod(_vehicle.VehicleDomain.setBusStop, vehicle)
+vehicle.setParkingAreaStop = wrapAsClassMethod(_vehicle.VehicleDomain.setParkingAreaStop, vehicle)
 %}
 #endif

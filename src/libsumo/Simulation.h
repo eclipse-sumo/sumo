@@ -59,6 +59,7 @@ public:
     static void step(const SUMOTime time = 0);
 
     static SUMOTime getCurrentTime();
+    static double getTime();
 
     static int getLoadedNumber();
     static std::vector<std::string> getLoadedIDList();

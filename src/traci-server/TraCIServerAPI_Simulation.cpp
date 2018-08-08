@@ -52,6 +52,10 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
     server.initWrapper(RESPONSE_GET_SIM_VARIABLE, variable, id);
     try {
         switch (variable) {
+            case VAR_TIME:
+                server.getWrapperStorage().writeUnsignedByte(TYPE_DOUBLE);
+                server.getWrapperStorage().writeDouble(SIMTIME);
+                break;
             case VAR_TIME_STEP:
                 server.getWrapperStorage().writeUnsignedByte(TYPE_INTEGER);
                 server.getWrapperStorage().writeInt((int)libsumo::Simulation::getCurrentTime());

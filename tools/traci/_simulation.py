@@ -42,7 +42,8 @@ def _readStage(result):
     return Stage(stageType, line, destStop, edges, travelTime, cost, intended, depart)
 
 
-_RETURN_VALUE_FUNC = {tc.VAR_TIME_STEP: Storage.readInt,
+_RETURN_VALUE_FUNC = {tc.VAR_TIME: Storage.readDouble,
+                      tc.VAR_TIME_STEP: Storage.readInt,
                       tc.VAR_LOADED_VEHICLES_NUMBER: Storage.readInt,
                       tc.VAR_LOADED_VEHICLES_IDS: Storage.readStringList,
                       tc.VAR_DEPARTED_VEHICLES_NUMBER: Storage.readInt,
@@ -78,6 +79,13 @@ class SimulationDomain(Domain):
                         tc.CMD_SUBSCRIBE_SIM_VARIABLE, tc.RESPONSE_SUBSCRIBE_SIM_VARIABLE,
                         tc.CMD_SUBSCRIBE_SIM_CONTEXT, tc.RESPONSE_SUBSCRIBE_SIM_CONTEXT,
                         _RETURN_VALUE_FUNC)
+
+    def getTime(self):
+        """getTime() -> double
+
+        Returns the current simulation time in s.
+        """
+        return self._getUniversal(tc.VAR_TIME)
 
     def getCurrentTime(self):
         """getCurrentTime() -> integer

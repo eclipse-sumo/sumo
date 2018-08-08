@@ -811,6 +811,9 @@
 // current acceleration (get: vehicle)
 #define VAR_ACCELERATION 0x72
 
+// current time in seconds (get: simulation)
+#define VAR_TIME 0x66
+
 // current time step (get: simulation)
 #define VAR_TIME_STEP 0x70
 
