@@ -12,8 +12,8 @@ Warning: Setting new attribute genericParameter 'key1=|key2=|key3=' into busStop
 Warning: Setting new attribute genericParameter '' into busStop 'busStop_gneE2_1_0'
 Warning: Generic Parameters wit the same key aren't allowed (key1duplicated=value1,key1duplicated=value2)
 Warning: Setting new attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into busStop 'busStop_gneE2_1_0'
-Warning: Invalid format of Generic Parameter (keyInvalid%%$$=value1)
-Warning: Invalid format of Generic Parameter (key1=valueInvalid%%$$$%)
+Warning: Invalid format of Generic Parameter (keyInvalid.;%%$$=value1)
+Warning: Invalid format of Generic Parameter (key1=valueInvalid%;%$$$%)
 Warning: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' into busStop 'busStop_gneE2_1_0'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into busStop 'busStop_gneE2_1_0'

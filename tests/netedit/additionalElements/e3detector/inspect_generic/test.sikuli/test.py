@@ -80,10 +80,10 @@ netedit.modifyAttribute(9, "key1duplicated=value1|key1duplicated=value2|key3=val
 netedit.modifyAttribute(9, "key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated")
 
 # Change generic parameters with an invalid value (invalid key characters)
-netedit.modifyAttribute(9, "keyInvalid%%$$=value1|key2=value2|key3=value3")
+netedit.modifyAttribute(9, "keyInvalid.;%%$$=value1|key2=value2|key3=value3")
 
 # Change generic parameters with a invalid value (invalid value characters)
-netedit.modifyAttribute(9, "key1=valueInvalid%%$$$%|key2=value2|key3=value3")
+netedit.modifyAttribute(9, "key1=valueInvalid%;%$$$%|key2=value2|key3=value3")
 
 # Change generic parameters with a valid value
 netedit.modifyAttribute(9, "keyFinal1=value1|keyFinal2=value2|keyFinal3=value3")
