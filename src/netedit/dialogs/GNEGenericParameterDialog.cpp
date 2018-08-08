@@ -211,7 +211,8 @@ GNEGenericParameterDialog::onCmdLoadGenericParameters(FXObject*, FXSelector, voi
         // save current number of generic parameters
         int numberOfGenericParametersbeforeLoad = (int)myGenericParameters->size();
         // Create additional handler and run parser
-        if (!XMLSubSys::runParser(GNEGenericParameterHandler(this, file), file, false)) {
+        GNEGenericParameterHandler handler(this, file);
+        if (!XMLSubSys::runParser(handler, file, false)) {
             WRITE_MESSAGE("Loading of Generic Parameters From " + file + " failed.");
         }
         // show loaded attributes
