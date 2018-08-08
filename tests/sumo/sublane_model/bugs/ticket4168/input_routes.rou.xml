@@ -1,6 +1,6 @@
 <routes>
     <!-- vType definitions -->
-    <vType id="ACC car" color="1,1,0" vClass="passenger" maxSpeed="50" speedFactor="1.0" speedDev="0.1" actionStepLength="0.1" 
+    <vType id="ACC_car" color="1,1,0" vClass="passenger" maxSpeed="50" speedFactor="1.0" speedDev="0.1" actionStepLength="0.1" 
    	       length="4.7"  minGap="2.0"      
    	       accel="2.0" 
    	       decel="3.5" 
@@ -18,8 +18,8 @@
     <route id="r1" edges="onramp longEdge2 longEdge3 exit" />
     
     <!-- Exemplary flow definitions -->
-    <flow id="ACC1" type="ACC car"  route="r0" begin="0" probability="0.4" end="3600" departPos="last" departLane="best" departSpeed="max"/>
-    <flow id="ACC2" type="ACC car"  route="r1" begin="0" probability="0.1" end="3600" departPos="last" departLane="best" departSpeed="max"/>
+    <flow id="ACC1" type="ACC_car"  route="r0" begin="0" probability="0.4" end="3600" departPos="last" departLane="best" departSpeed="max"/>
+    <flow id="ACC2" type="ACC_car"  route="r1" begin="0" probability="0.1" end="3600" departPos="last" departLane="best" departSpeed="max"/>
  
     
 </routes>
