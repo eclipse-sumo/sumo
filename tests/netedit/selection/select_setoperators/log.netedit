@@ -42,8 +42,6 @@ Warning: Created connection 'from8_2to3_2' in retrieveGNEConnection()
 Warning: Created connection 'from8_2to1_2' in retrieveGNEConnection()
 Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into junction 'A'
-Warning: net has to be saved
-Warning: Current saving Status: net unsaved, additionals unsaved, shapes unsaved
 Warning: Setting new attribute selected 'true' into edge '1'
 Warning: Setting new attribute selected 'true' into junction 'B'
 Warning: Setting new attribute selected 'true' into edge '2'
@@ -377,6 +375,8 @@ Warning: Setting new attribute selected 'false' into poly 'poly_0'
 Warning: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 16 connections, 4 Additionals, 0 Crossings, 0 Polygons, 4 POIs
 Warning: Key DEL (delete) pressed
 Warning: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '6'
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals unsaved, shapes unsaved
 Warning: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '8'
 Warning: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '5'
 Warning: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '7'

@@ -35,9 +35,7 @@ Warning: Setting new attribute relativePath 'true' into poi 'newID'
 Warning: Setting new attribute angle '-12' into poi 'newID'
 Warning: Setting new attribute angle '500' into poi 'newID'
 Warning: Setting new attribute angle '30' into poi 'newID'
-Warning: Setting new attribute blockMovement 'true' into poi 'newID'
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute blockMovement '0' into poi 'newID'
+Warning: Invalid format of Generic Parameter ( i)
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute angle '500.00' into poi 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -78,6 +76,7 @@ Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding poi 'POI_0' into viewNet
 Warning: Keys Ctrl + Y (Redo) pressed
@@ -113,7 +112,6 @@ Warning: Setting new attribute angle '500' into poi 'newID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute angle '30' into poi 'newID'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute blockMovement 'true' into poi 'newID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Keys Ctrl + Y (Redo) pressed

@@ -10,13 +10,13 @@ Warning: net has to be saved
 Warning: Current saving Status: net unsaved, additionals saved, shapes unsaved
 Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into edge 'gneE1'
-Warning: net has to be saved
-Warning: Current saving Status: net unsaved, additionals saved, shapes unsaved
 Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Key DEL (delete) pressed
 Warning: Removing poiLane 'POI_0' from viewNet
 Warning: Removing poiLane 'POI_1' from viewNet
 Warning: Removing connection 'gneE0_0->gneE1_0' from edge 'gneE0'
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals saved, shapes unsaved
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
 Warning: Removing connection 'gneE1_0->gneE0_0' from edge 'gneE1'

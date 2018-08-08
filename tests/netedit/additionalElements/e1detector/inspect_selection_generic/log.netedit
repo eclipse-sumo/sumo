@@ -12,8 +12,6 @@ Warning: net has to be saved
 Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into junction 'gneJ0'
-Warning: net has to be saved
-Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Warning: Setting new attribute selected 'true' into edge 'gneE1'
 Warning: Setting new attribute selected 'true' into junction 'gneJ1'
 Warning: Setting new attribute selected 'true' into edge 'gneE0'
@@ -31,8 +29,8 @@ Warning: Setting new attribute genericParameter '' into e1Detector 'E1_B'
 Warning: Generic Parameters wit the same key aren't allowed (key1duplicated=value1,key1duplicated=value2)
 Warning: Setting new attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into e1Detector 'E1_A'
 Warning: Setting new attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into e1Detector 'E1_B'
-Warning: Invalid format of Generic Parameter (keyInvalid%%$$=value1)
-Warning: Invalid format of Generic Parameter (key1=valueInvalid%%$$$%)
+Warning: Invalid format of Generic Parameter (keyInvalid.;%%$$=value1)
+Warning: Invalid format of Generic Parameter (key1=valueInvalid%;%$$$%)
 Warning: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' into e1Detector 'E1_A'
 Warning: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' into e1Detector 'E1_B'
 Warning: Keys Ctrl + Z (Undo) pressed

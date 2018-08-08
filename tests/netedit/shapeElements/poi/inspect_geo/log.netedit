@@ -39,9 +39,7 @@ Error: Shape of a(n) user-supplied GEO position is broken: the position is neith
 Error: Shape of a(n) user-supplied GEO position is broken: the shape is empty.
 Warning: Setting new attribute geoPosition '3.73,74.30' into poi 'newID'
 Warning: Setting new attribute geo 'true' into poi 'newID'
-Warning: Setting new attribute blockMovement 'true' into poi 'newID'
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute blockMovement '0' into poi 'newID'
+Warning: Invalid format of Generic Parameter ( i)
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute geo '0' into poi 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -85,6 +83,7 @@ Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding poi 'POI_0' into viewNet
 Warning: Keys Ctrl + Y (Redo) pressed
@@ -124,7 +123,6 @@ Warning: Setting new attribute geoPosition '3.73,74.30' into poi 'newID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute geo 'true' into poi 'newID'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute blockMovement 'true' into poi 'newID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Keys Ctrl + Y (Redo) pressed

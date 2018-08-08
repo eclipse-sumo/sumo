@@ -2,11 +2,11 @@ Warning: net has to be saved
 Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into edge 'gneE17'
-Warning: net has to be saved
-Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Key DEL (delete) pressed
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE17'
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ18'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE17'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ17'
