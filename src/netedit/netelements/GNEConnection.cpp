@@ -79,8 +79,12 @@ GNEConnection::~GNEConnection() {
 
 void
 GNEConnection::updateGeometry() {
-    const bool init = myShape.size() == 0;
+    // first only remove connection of net if shape isn't empty
+    if (myShape.size() != 0) {
+        myNet->removeGLObjectFromNet(this);
+    }
     // Clear containers
+    myShape.clear();
     myShapeRotations.clear();
     myShapeLengths.clear();
     // Get shape of from and to lanes
@@ -140,10 +144,10 @@ GNEConnection::updateGeometry() {
             myShapeRotations.push_back((double) atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double)M_PI);
         }
     }
-    if (!init) {
-        myNet->getVisualisationSpeedUp().removeAdditionalGLObject(this);
+    // only add connection in view if shape isn't empty
+    if (myShape.size() != 0) {
+        myNet->addGLObjectIntoNet(this);
     }
-    myNet->getVisualisationSpeedUp().addAdditionalGLObject(this);
 }
 
 
@@ -582,7 +586,16 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_CUSTOMSHAPE: {
             bool ok;
+            const bool init = (myShape.size() == 0);
+            if (!init) {
+                // first remove object from net grid
+                myNet->removeGLObjectFromNet(this);
+            }
             nbCon.customShape = GeomConvHelper::parseShapeReporting(value, "user-supplied shape", 0, ok, true);
+            if (!init) {
+                // add object into net again
+                myNet->addGLObjectIntoNet(this);
+            }
             updateGeometry();
             myNet->getViewNet()->update();
             break;

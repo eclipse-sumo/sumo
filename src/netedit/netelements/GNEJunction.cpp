@@ -263,13 +263,13 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                 if (exaggeration > 1) {
                     shape.scaleRelative(exaggeration);
                 }
-                if (s.scale * exaggeration * myMaxSize < 40.) {
+                if ((s.drawForSelecting) || (s.scale * exaggeration * myMaxSize < 40.)) {
                     GLHelper::drawFilledPoly(shape, true);
                 } else {
                     GLHelper::drawFilledPolyTesselated(shape, true);
                 }
                 // check if dotted contour has to be drawn
-                if((myNet->getViewNet()->getACUnderCursor() == this) && !drawBubble) {
+                if(!s.drawForSelecting && (myNet->getViewNet()->getACUnderCursor() == this) && !drawBubble) {
                     GLHelper::drawShapeDottedContour(getType(), shape);
                 }
                 glPopMatrix();
@@ -285,7 +285,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                     if (!s.drawForSelecting || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo(myNBNode.getPosition()) <= (circleWidthSquared + 2))) {
                         std::vector<Position> vertices = GLHelper::drawFilledCircleReturnVertices(circleWidth, circleResolution);  
                         // check if dotted contour has to be drawn
-                        if(myNet->getViewNet()->getACUnderCursor() == this) {
+                        if(!s.drawForSelecting && myNet->getViewNet()->getACUnderCursor() == this) {
                             GLHelper::drawShapeDottedContour(getType(), vertices);
                         }
                     } else {
