@@ -75,6 +75,9 @@ public:
     void setMyPTStopId(std::string id);
     void addAccess(std::string laneID, double offset, double length);
 
+    /// @brief remove all access definitions
+    void clearAccess();
+
     /// @brief register line that services this stop (for displaying)
     void addLine(const std::string& line);
 

@@ -223,9 +223,22 @@ NBPTStop::setMyPTStopId(std::string id) {
     myPTStopId = id;
 }
 
+void 
+NBPTStop::clearAccess() {
+    myAccesses.clear();
+}
 
 void 
 NBPTStop::addAccess(std::string laneID, double offset, double length) {
+    const std::string newEdgeID = SUMOXMLDefinitions::getEdgeIDFromLane(laneID);
+    // avoid duplicate access
+    for (auto it = myAccesses.begin(); it != myAccesses.end();) {
+        if (SUMOXMLDefinitions::getEdgeIDFromLane(std::get<0>(*it)) == newEdgeID) {
+            it = myAccesses.erase(it);
+        } else {
+            it++;
+        }
+    }
     myAccesses.push_back(std::make_tuple(laneID, offset, length));
 }
 
