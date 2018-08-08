@@ -1062,7 +1062,6 @@ Vehicle::moveToXY(const std::string& vehicleID, const std::string& edgeID, const
         Helper::setRemoteControlled(veh, pos, lane, lanePos, lanePosLat, angle, routeOffset, edges, MSNet::getInstance()->getCurrentTimeStep());
         if (!veh->isOnRoad()) {
             MSNet::getInstance()->getInsertionControl().alreadyDeparted(veh);
-
         }
     } else {
         if (lane == 0) {

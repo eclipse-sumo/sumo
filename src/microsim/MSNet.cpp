@@ -522,14 +522,12 @@ MSNet::simulationStep() {
     // execute endOfTimestepEvents
     myEndOfTimestepEvents->execute(myStep);
 
-    if (TraCIServer::getInstance() != 0) {
-        if (myLogExecutionTime) {
-            myTraCIStepDuration -= SysUtils::getCurrentMillis();
-        }
-        libsumo::Helper::postProcessRemoteControl();
-        if (myLogExecutionTime) {
-            myTraCIStepDuration += SysUtils::getCurrentMillis();
-        }
+    if (myLogExecutionTime) {
+        myTraCIStepDuration -= SysUtils::getCurrentMillis();
+    }
+    libsumo::Helper::postProcessRemoteControl();
+    if (myLogExecutionTime) {
+        myTraCIStepDuration += SysUtils::getCurrentMillis();
     }
     // update and write (if needed) detector values
     writeOutput();

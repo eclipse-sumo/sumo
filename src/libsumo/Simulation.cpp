@@ -118,12 +118,6 @@ Simulation::subscribeContext(const std::string& objID, int domain, double range,
 }
 
 
-const SubscriptionResults
-Simulation::getSubscriptionResults() {
-    return mySubscriptionResults;
-}
-
-
 const TraCIResults
 Simulation::getSubscriptionResults(const std::string& objID) {
     return mySubscriptionResults[objID];
