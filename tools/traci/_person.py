@@ -42,8 +42,6 @@ _RETURN_VALUE_FUNC = {tc.ID_LIST: Storage.readStringList,
 
 
 class PersonDomain(Domain):
-    DEPART_NOW = -3
-
     def __init__(self):
         Domain.__init__(self, "person", tc.CMD_GET_PERSON_VARIABLE, tc.CMD_SET_PERSON_VARIABLE,
                         tc.CMD_SUBSCRIBE_PERSON_VARIABLE, tc.RESPONSE_SUBSCRIBE_PERSON_VARIABLE,
@@ -202,7 +200,7 @@ class PersonDomain(Domain):
             self.removeStage(personID, 1)
         self.removeStage(personID, 0)
 
-    def add(self, personID, edgeID, pos, depart=DEPART_NOW, typeID="DEFAULT_PEDTYPE"):
+    def add(self, personID, edgeID, pos, depart=tc.DEPARTFLAG_NOW, typeID="DEFAULT_PEDTYPE"):
         """add(string, string, double, int, string)
         Inserts a new person to the simulation at the given edge, position and
         time (in s). This function should be followed by appending Stages or the person

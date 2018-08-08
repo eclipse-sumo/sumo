@@ -119,7 +119,7 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
         // TODO: remove declaration of p after completion
         const bool shouldExist = variable != ADD;
         MSTransportable* p = c.get(id);
-        if (p == 0 && shouldExist) {
+        if (p == nullptr && shouldExist) {
             return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "Person '" + id + "' is not known", outputStorage);
         }
         // process
@@ -132,7 +132,7 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
                 // set the speed for all (walking) stages
                 libsumo::Person::setSpeed(id, speed);
                 // modify the vType so that stages added later are also affected
-                TraCIServerAPI_VehicleType::setVariable(CMD_SET_VEHICLE_VARIABLE, variable, libsumo::Person::getSingularVType(id), server, inputStorage, outputStorage);
+                TraCIServerAPI_VehicleType::setVariable(CMD_SET_VEHICLE_VARIABLE, variable, p->getSingularType().getID(), server, inputStorage, outputStorage);
             }
             break;
             case VAR_TYPE: {
@@ -141,6 +141,14 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
                     return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "The vehicle type id must be given as a string.", outputStorage);
                 }
                 libsumo::Person::setType(id, vTypeID);
+                break;
+            }
+            case VAR_COLOR: {
+                libsumo::TraCIColor col;
+                if (!server.readTypeCheckingColor(inputStorage, col)) {
+                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The color must be given using the according type.", outputStorage);
+                }
+                libsumo::Person::setColor(id, col);
                 break;
             }
             case ADD: {
@@ -317,7 +325,7 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
             break;
             default:
                 try {
-                    if (!TraCIServerAPI_VehicleType::setVariable(CMD_SET_PERSON_VARIABLE, variable, libsumo::Person::getSingularVType(id), server, inputStorage, outputStorage)) {
+                    if (!TraCIServerAPI_VehicleType::setVariable(CMD_SET_PERSON_VARIABLE, variable, p->getSingularType().getID(), server, inputStorage, outputStorage)) {
                         return false;
                     }
                 } catch (ProcessError& e) {

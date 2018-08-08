@@ -687,8 +687,8 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The color must be given using the according type.", outputStorage);
                 }
                 libsumo::Vehicle::setColor(id, col);
+                break;
             }
-            break;
             case ADD: {
                 if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Adding a vehicle requires a compound object.", outputStorage);
@@ -948,8 +948,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             break;
             default: {
                 try {
-                    const MSVehicleType& type = v->getSingularType();
-                    if (!TraCIServerAPI_VehicleType::setVariable(CMD_SET_VEHICLE_VARIABLE, variable, type.getID(), server, inputStorage, outputStorage)) {
+                    if (!TraCIServerAPI_VehicleType::setVariable(CMD_SET_VEHICLE_VARIABLE, variable, v->getSingularType().getID(), server, inputStorage, outputStorage)) {
                         return false;
                     }
                 } catch (ProcessError& e) {

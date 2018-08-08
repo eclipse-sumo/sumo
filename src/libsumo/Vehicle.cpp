@@ -98,6 +98,7 @@ Vehicle::getIDCount() {
     return (int)getIDList().size();
 }
 
+
 double
 Vehicle::getSpeed(const std::string& vehicleID) {
     MSVehicle* veh = getVehicle(vehicleID);
@@ -515,6 +516,7 @@ Vehicle::getAllowedSpeed(const std::string& vehicleID) {
         return INVALID_DOUBLE_VALUE;
     }
 }
+
 
 double
 Vehicle::getSpeedFactor(const std::string& vehicleID) {
@@ -1155,6 +1157,7 @@ Vehicle::updateBestLanes(const std::string& vehicleID) {
     veh->updateBestLanes(true);
 }
 
+
 void
 Vehicle::setAdaptedTraveltime(const std::string& vehicleID, const std::string& edgeID,
                               double time, double begSeconds, double endSeconds) {
@@ -1338,15 +1341,18 @@ Vehicle::setColor(const std::string& vehicleID, const TraCIColor& col) {
     p.parametersSet |= VEHPARS_COLOR_SET;
 }
 
+
 void
 Vehicle::setSpeedFactor(const std::string& vehicleID, double factor) {
     getVehicle(vehicleID)->setChosenSpeedFactor(factor);
 }
 
+
 void
 Vehicle::setLine(const std::string& vehicleID, const std::string& line) {
     getVehicle(vehicleID)->getParameter().line = line;
 }
+
 
 void
 Vehicle::setVia(const std::string& vehicleID, const std::vector<std::string>& via) {

@@ -15,7 +15,7 @@ angle 270.0
 road 2fi
 type pType2@horiz
 lanePos 240.866399025
-color (255, 255, 0, 255)
+color (0, 0, 255, 255)
 length 2.0
 MinGap 2.22
 width 1.11
@@ -40,7 +40,7 @@ angle 270.0
 road 2fi
 type pType2@horiz
 lanePos 244.696980779
-color (255, 255, 0, 255)
+color (0, 0, 255, 255)
 length 2.0
 MinGap 2.22
 width 1.11

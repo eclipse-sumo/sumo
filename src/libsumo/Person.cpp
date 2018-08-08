@@ -29,7 +29,10 @@
 #include <traci-server/TraCIConstants.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/common/StringTokenizer.h>
+#include <utils/common/SUMOTime.h>
+#include <utils/emissions/PollutantsInterface.h>
 #include <utils/vehicle/PedestrianRouter.h>
+#include <utils/xml/SUMOVehicleParserHelper.h>
 #include "VehicleType.h"
 #include "Person.h"
 
@@ -181,6 +184,123 @@ Person::getParameter(const std::string& personID, const std::string& param) {
 }
 
 
+std::string
+Person::getEmissionClass(const std::string& personID) {
+    return PollutantsInterface::getName(getPerson(personID)->getVehicleType().getEmissionClass());
+}
+
+
+std::string
+Person::getShapeClass(const std::string& personID) {
+    return getVehicleShapeName(getPerson(personID)->getVehicleType().getGuiShape());
+}
+
+
+double
+Person::getLength(const std::string& personID) {
+    return getPerson(personID)->getVehicleType().getLength();
+}
+
+
+double
+Person::getSpeedFactor(const std::string& personID) {
+    return getPerson(personID)->getVehicleType().getSpeedFactor().getParameter()[0];
+}
+
+
+double
+Person::getAccel(const std::string& personID) {
+    return getPerson(personID)->getVehicleType().getCarFollowModel().getMaxAccel();
+}
+
+
+double
+Person::getDecel(const std::string& personID) {
+    return getPerson(personID)->getVehicleType().getCarFollowModel().getMaxDecel();
+}
+
+
+double Person::getEmergencyDecel(const std::string& personID) {
+    return getPerson(personID)->getVehicleType().getCarFollowModel().getEmergencyDecel();
+}
+
+
+double Person::getApparentDecel(const std::string& personID) {
+    return getPerson(personID)->getVehicleType().getCarFollowModel().getApparentDecel();
+}
+
+
+double Person::getActionStepLength(const std::string& personID) {
+    return getPerson(personID)->getVehicleType().getActionStepLengthSecs();
+}
+
+
+double
+Person::getTau(const std::string& personID) {
+    return getPerson(personID)->getVehicleType().getCarFollowModel().getHeadwayTime();
+}
+
+
+double
+Person::getImperfection(const std::string& personID) {
+    return getPerson(personID)->getVehicleType().getCarFollowModel().getImperfection();
+}
+
+
+double
+Person::getSpeedDeviation(const std::string& personID) {
+    return getPerson(personID)->getVehicleType().getSpeedFactor().getParameter()[1];
+}
+
+
+std::string
+Person::getVehicleClass(const std::string& personID) {
+    return toString(getPerson(personID)->getVehicleType().getVehicleClass());
+}
+
+
+double
+Person::getMinGap(const std::string& personID) {
+    return getPerson(personID)->getVehicleType().getMinGap();
+}
+
+
+double
+Person::getMinGapLat(const std::string& personID) {
+    return getPerson(personID)->getVehicleType().getMinGapLat();
+}
+
+
+double
+Person::getMaxSpeed(const std::string& personID) {
+    return getPerson(personID)->getVehicleType().getMaxSpeed();
+}
+
+
+double
+Person::getMaxSpeedLat(const std::string& personID) {
+    return getPerson(personID)->getVehicleType().getMaxSpeedLat();
+}
+
+
+std::string
+Person::getLateralAlignment(const std::string& personID) {
+    return toString(getPerson(personID)->getVehicleType().getPreferredLateralAlignment());
+}
+
+
+double
+Person::getWidth(const std::string& personID) {
+    return getPerson(personID)->getVehicleType().getWidth();
+}
+
+
+double
+Person::getHeight(const std::string& personID) {
+    return getPerson(personID)->getVehicleType().getHeight();
+}
+
+
 
 
 void
@@ -226,10 +346,10 @@ Person::add(const std::string& personID, const std::string& edgeID, double pos, 
         throw TraCIException("Invalid edge '" + edgeID + "' for person: '" + personID + "'");
     }
 
-    if (depart < 0) {
-        const int proc = (int) - depart;
+    if (departInSecs < 0.) {
+        const int proc = (int)-departInSecs;
         if (proc >= static_cast<int>(DEPART_DEF_MAX)) {
-            throw TraCIException("Invalid departure time.");
+            throw TraCIException("Invalid departure time." + toString(depart) + " " + toString(proc));
         }
         vehicleParams.departProcedure = (DepartDefinition)proc;
         vehicleParams.depart = MSNet::getInstance()->getCurrentTimeStep();
@@ -550,27 +670,123 @@ Person::setParameter(const std::string& personID, const std::string& key, const 
 
 void
 Person::setLength(const std::string& personID, double length) {
-    VehicleType::getVType(getSingularVType(personID))->setLength(length);
+    getPerson(personID)->getSingularType().setLength(length);
 }
+
+
+void
+Person::setMaxSpeed(const std::string& personID, double speed) {
+    getPerson(personID)->getSingularType().setMaxSpeed(speed);
+}
+
+
+void
+Person::setVehicleClass(const std::string& personID, const std::string& clazz) {
+    getPerson(personID)->getSingularType().setVClass(getVehicleClassID(clazz));
+}
+
+
+void
+Person::setShapeClass(const std::string& personID, const std::string& clazz) {
+    getPerson(personID)->getSingularType().setShape(getVehicleShapeID(clazz));
+}
+
+
+void
+Person::setEmissionClass(const std::string& personID, const std::string& clazz) {
+    getPerson(personID)->getSingularType().setEmissionClass(PollutantsInterface::getClassByName(clazz));
+}
+
 
 void
 Person::setWidth(const std::string& personID, double width) {
-    VehicleType::getVType(getSingularVType(personID))->setWidth(width);
+    getPerson(personID)->getSingularType().setWidth(width);
 }
+
 
 void
 Person::setHeight(const std::string& personID, double height) {
-    VehicleType::getVType(getSingularVType(personID))->setHeight(height);
+    getPerson(personID)->getSingularType().setHeight(height);
 }
+
 
 void
 Person::setMinGap(const std::string& personID, double minGap) {
-    VehicleType::getVType(getSingularVType(personID))->setMinGap(minGap);
+    getPerson(personID)->getSingularType().setMinGap(minGap);
 }
+
+
+void
+Person::setAccel(const std::string& personID, double accel) {
+    getPerson(personID)->getSingularType().setAccel(accel);
+}
+
+
+void
+Person::setDecel(const std::string& personID, double decel) {
+    getPerson(personID)->getSingularType().setDecel(decel);
+}
+
+
+void
+Person::setEmergencyDecel(const std::string& personID, double decel) {
+    getPerson(personID)->getSingularType().setEmergencyDecel(decel);
+}
+
+
+void
+Person::setApparentDecel(const std::string& personID, double decel) {
+    getPerson(personID)->getSingularType().setApparentDecel(decel);
+}
+
+
+void
+Person::setImperfection(const std::string& personID, double imperfection) {
+    getPerson(personID)->getSingularType().setImperfection(imperfection);
+}
+
+
+void
+Person::setTau(const std::string& personID, double tau) {
+    getPerson(personID)->getSingularType().setTau(tau);
+}
+
+
+void
+Person::setMinGapLat(const std::string& personID, double minGapLat) {
+    getPerson(personID)->getSingularType().setMinGapLat(minGapLat);
+}
+
+
+void
+Person::setMaxSpeedLat(const std::string& personID, double speed) {
+    getPerson(personID)->getSingularType().setMaxSpeedLat(speed);
+}
+
+
+void
+Person::setLateralAlignment(const std::string& personID, const std::string& latAlignment) {
+    getPerson(personID)->getSingularType().setPreferredLateralAlignment(SUMOXMLDefinitions::LateralAlignments.get(latAlignment));
+}
+
+
+void
+Person::setSpeedFactor(const std::string& personID, double factor) {
+    getPerson(personID)->getSingularType().setSpeedFactor(factor);
+}
+
+
+void
+Person::setActionStepLength(const std::string& personID, double actionStepLength, bool resetActionOffset) {
+    getPerson(personID)->getSingularType().setActionStepLength(SUMOVehicleParserHelper::processActionStepLength(actionStepLength), resetActionOffset);
+}
+
 
 void
 Person::setColor(const std::string& personID, const TraCIColor& c) {
-    VehicleType::getVType(getSingularVType(personID))->setColor(RGBColor(c.r, c.g, c.b, c.a));
+    const SUMOVehicleParameter& p = getPerson(personID)->getParameter();
+    p.color.set(c.r, c.g, c.b, c.a);
+    p.parametersSet |= VEHPARS_COLOR_SET;
 }
 
 
@@ -618,12 +834,6 @@ Person::getPerson(const std::string& personID) {
         throw TraCIException("Person '" + personID + "' is not known");
     }
     return p;
-}
-
-
-std::string
-Person::getSingularVType(const std::string& personID) {
-    return getPerson(personID)->getSingularType().getID();
 }
 
 

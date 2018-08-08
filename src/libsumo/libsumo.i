@@ -18,7 +18,7 @@
 
 // adding dummy init and close for easier traci -> libsumo transfer
 %pythoncode %{
-from traci import constants, exceptions, _vehicle
+from traci import constants, exceptions, _vehicle, _person
 
 def isLibsumo():
     return True
@@ -275,7 +275,6 @@ def simulationStep(step=0):
 #include <libsumo/LaneArea.h>
 #include <libsumo/Lane.h>
 #include <libsumo/MultiEntryExit.h>
-#include <libsumo/Person.h>
 #include <libsumo/POI.h>
 #include <libsumo/Polygon.h>
 #include <libsumo/Route.h>
@@ -283,6 +282,7 @@ def simulationStep(step=0):
 #include <libsumo/TrafficLight.h>
 #include <libsumo/VehicleType.h>
 #include <libsumo/Vehicle.h>
+#include <libsumo/Person.h>
 %}
 
 // Process symbols in header
@@ -293,7 +293,6 @@ def simulationStep(step=0):
 %include "LaneArea.h"
 %include "Lane.h"
 %include "MultiEntryExit.h"
-%include "Person.h"
 %include "POI.h"
 %include "Polygon.h"
 %include "Route.h"
@@ -301,6 +300,7 @@ def simulationStep(step=0):
 %include "TrafficLight.h"
 %include "VehicleType.h"
 %include "Vehicle.h"
+%include "Person.h"
 
 #ifdef SWIGPYTHON
 %pythoncode %{
@@ -315,5 +315,6 @@ vehicle.addLegacy = wrapAsClassMethod(_vehicle.VehicleDomain.addLegacy, vehicle)
 vehicle.isStopped = wrapAsClassMethod(_vehicle.VehicleDomain.isStopped, vehicle)
 vehicle.setBusStop = wrapAsClassMethod(_vehicle.VehicleDomain.setBusStop, vehicle)
 vehicle.setParkingAreaStop = wrapAsClassMethod(_vehicle.VehicleDomain.setParkingAreaStop, vehicle)
+person.removeStages = wrapAsClassMethod(_person.PersonDomain.removeStages, person)
 %}
 #endif

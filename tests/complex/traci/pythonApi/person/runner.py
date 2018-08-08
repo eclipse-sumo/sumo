@@ -104,7 +104,9 @@ for i in range(3):
 check(personID)
 try:
     check("bla")
-except traci.TraCIException:
+except traci.TraCIException as e:
+    if traci.isLibsumo():
+        print(e, file=sys.stderr)
     print("recovering from exception after asking for unknown person")
 print("step", step())
 
@@ -112,10 +114,9 @@ traci.person.removeStages("newPerson")
 traci.person.appendDrivingStage("newPerson", "1o", "B42")
 
 traci.route.add("r0", ["3si", "1o"])
-traci.vehicle.add("veh0", "r0", traci.vehicle.DEPART_TRIGGERED, pos=230)
+traci.vehicle.add("veh0", "r0", traci.constants.DEPARTFLAG_TRIGGERED, pos=230)
 traci.vehicle.setLine("veh0", "B42")
-traci.vehicle.setStop(
-    "veh0", "3si", 235, laneIndex=2, startPos=230, duration=1000)
+traci.vehicle.setStop("veh0", "3si", 235, laneIndex=2, startPos=230, duration=1000)
 
 print("getIDList", traci.person.getIDList())
 print("numVehs=%s, numPersons=%s, minExpected=%s" % (
@@ -163,11 +164,15 @@ print(traci.person.getNextEdge(personID))
 # retrieve invalid stages
 try:
     print(traci.person.getStage(personID, 3))
-except traci.TraCIException:
+except traci.TraCIException as e:
+    if traci.isLibsumo():
+        print(e, file=sys.stderr)
     print("recovering from exception after asking for invalid stage index")
 try:
     print(traci.person.getStage(personID, -2))
-except traci.TraCIException:
+except traci.TraCIException as e:
+    if traci.isLibsumo():
+        print(e, file=sys.stderr)
     print("recovering from exception after asking for invalid stage index")
 
 # changing walk edges in the middle of a walk
