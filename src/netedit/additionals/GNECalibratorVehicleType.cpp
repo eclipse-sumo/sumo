@@ -284,7 +284,7 @@ GNECalibratorVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_WIDTH:
             return canParse<double>(value);
         case SUMO_ATTR_IMGFILE:
-            return isValidFilename(value);
+            return SUMOXMLDefinitions::isValidFilename(value);
         case SUMO_ATTR_IMPATIENCE:
             return canParse<double>(value);
         case SUMO_ATTR_LANE_CHANGE_MODEL:

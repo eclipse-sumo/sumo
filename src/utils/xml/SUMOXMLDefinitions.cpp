@@ -27,9 +27,10 @@
 #include <config.h>
 
 #include <cassert>
-#include "SUMOXMLDefinitions.h"
 #include <utils/common/StringBijection.h>
+#include <utils/xml/SUMOSAXAttributes.h>
 
+#include "SUMOXMLDefinitions.h"
 
 // ===========================================================================
 // definitions
@@ -801,6 +802,53 @@ SUMOXMLDefinitions::isValidTypeID(const std::string& value) {
     return value.size() > 0 && value.find_first_of(" \t\n\r|\\'\";,<>&*?") == std::string::npos;
 }
 
+
+bool 
+SUMOXMLDefinitions::isValidAttribute(const std::string& value) {
+    return value.find_first_of("\t\n\r@$%^&/|\\{}*'\";:<>") == std::string::npos;
+}
+
+
+bool
+SUMOXMLDefinitions::isValidFilename(const std::string& value) {
+    return (value.find_first_of("\t\n\r@$%^&|\\{}*'\";:<>") == std::string::npos);
+}
+
+
+bool 
+SUMOXMLDefinitions::isValidListOfNetIDs(const std::string& value) {
+    std::vector<std::string> typeIDs;
+    SUMOSAXAttributes::parseStringVector(value, typeIDs);
+    if(typeIDs.empty()) {
+        return false;
+    } else {
+        // check that gives IDs are valid
+        for(auto i : typeIDs) {
+            if (!SUMOXMLDefinitions::isValidNetID(i)) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
+
+
+bool 
+SUMOXMLDefinitions::isValidListOfTypeID(const std::string& value) {
+    std::vector<std::string> typeIDs;
+    SUMOSAXAttributes::parseStringVector(value, typeIDs);
+    if(typeIDs.empty()) {
+        return false;
+    } else {
+        // check that gives IDs are valid
+        for(auto i : typeIDs) {
+            if (!SUMOXMLDefinitions::isValidTypeID(i)) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
 
 /****************************************************************************/
 

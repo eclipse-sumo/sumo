@@ -802,40 +802,6 @@ GNEAttributeCarrier::getID() const {
     return getAttribute(SUMO_ATTR_ID);
 }
 
-
-bool 
-GNEAttributeCarrier::isValidListOfIDs(const std::string& value) {
-    std::vector<std::string> typeIDs = parse<std::vector<std::string>>(value);
-    if(typeIDs.empty()) {
-        return false;
-    } else {
-        // check that gives IDs are validd
-        for(auto i : typeIDs) {
-            if (!SUMOXMLDefinitions::isValidNetID(i)) {
-                return false;
-            }
-        }
-        return true;
-    }
-}
-
-
-bool
-GNEAttributeCarrier::isValidName(const std::string& value) {
-    if(value.size() == 0) {
-        return true;
-    } else {
-        return value.find_first_of("\t\n\r@$%^&/|\\{}*'\";:<>") == std::string::npos;
-    }
-}
-
-
-bool
-GNEAttributeCarrier::isValidFilename(const std::string& value) {
-    // @note Only characteres that aren't permited in a file path or belong to XML sintax
-    return (value.find_first_of("\t\n\r@$%^&|\\{}*'\";:<>") == std::string::npos);
-}
-
 // ===========================================================================
 // static methods
 // ===========================================================================
@@ -960,7 +926,7 @@ GNEAttributeCarrier::isGenericParametersValid(const std::string &value) {
         // Check that parsed parameters are exactly two
         if(parsedParameters.size() == 2 ) {
             // check that key and value contains valid characters
-            if(!SUMOXMLDefinitions::isValidNetID(parsedParameters.front()) || !isValidName(parsedParameters.back())) {
+            if(!SUMOXMLDefinitions::isValidNetID(parsedParameters.front()) || !SUMOXMLDefinitions::isValidAttribute(parsedParameters.back())) {
                 return false;
             }
         } else {

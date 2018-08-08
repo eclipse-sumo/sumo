@@ -301,9 +301,9 @@ GNERerouter::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_POSITION:
             return canParse<Position>(value);
         case SUMO_ATTR_NAME:
-            return isValidName(value);
+            return SUMOXMLDefinitions::isValidAttribute(value);
         case SUMO_ATTR_FILE:
-            return isValidFilename(value);
+            return SUMOXMLDefinitions::isValidFilename(value);
         case SUMO_ATTR_PROB:
             return canParse<double>(value) && (parse<double>(value) >= 0) && (parse<double>(value) <= 1);
         case SUMO_ATTR_HALTING_TIME_THRESHOLD:
@@ -312,7 +312,7 @@ GNERerouter::isValid(SumoXMLAttr key, const std::string& value) {
             if(value.empty()) {
                 return true;
             } else {
-                return isValidListOfIDs(value);
+                return SUMOXMLDefinitions::isValidListOfTypeID(value);
             }
         case SUMO_ATTR_OFF:
             return canParse<bool>(value);

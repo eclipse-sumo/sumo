@@ -412,7 +412,7 @@ GNEAdditionalHandler::parseGenericParameter(const SUMOSAXAttributes& attrs) {
         }
         // circumventing empty string test
         const std::string val = attrs.hasAttribute(SUMO_ATTR_VALUE) ? attrs.getString(SUMO_ATTR_VALUE) : "";
-        if(!GNEAttributeCarrier::isValidName(val)) {
+        if(!SUMOXMLDefinitions::isValidAttribute(val)) {
             WRITE_WARNING("Error parsing value from generic parameter. Value contains invalid characters");
             ok = false;
         }

@@ -346,7 +346,7 @@ GNEPolygonFrame::ShapeAttributeSingle::onCmdSetAttribute(FXObject*, FXSelector, 
     } else if (attrValues.isFilename()) {
         std::string file = myTextFieldStrings->getText().text();
         // check if filename format is valid
-        if (GNEAttributeCarrier::isValidFilename(file) == false) {
+        if (SUMOXMLDefinitions::isValidFilename(file) == false) {
             myInvalidValue = "input contains invalid characters for a filename";
         } else if (myShapeAttr == SUMO_ATTR_IMGFILE) {
             if (!file.empty()) {

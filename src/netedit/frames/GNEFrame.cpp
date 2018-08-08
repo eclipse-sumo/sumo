@@ -673,7 +673,7 @@ GNEFrame::GenericParametersEditor::onCmdSetGenericParameter(FXObject*, FXSelecto
             parsedParameters.push_back(stParam.next());
         }
         // Check that parsed parameters are exactly two and contains valid chracters
-        if(parsedParameters.size() == 2 && SUMOXMLDefinitions::isValidNetID(parsedParameters.front()) && GNEAttributeCarrier::isValidName(parsedParameters.back())) {
+        if(parsedParameters.size() == 2 && SUMOXMLDefinitions::isValidNetID(parsedParameters.front()) && SUMOXMLDefinitions::isValidAttribute(parsedParameters.back())) {
             myGenericParameters->push_back(std::make_pair(parsedParameters.front(), parsedParameters.back()));
         }
     }

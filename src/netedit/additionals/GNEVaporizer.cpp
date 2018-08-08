@@ -292,7 +292,7 @@ GNEVaporizer::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
         case SUMO_ATTR_NAME:
-            return isValidName(value);
+            return SUMOXMLDefinitions::isValidAttribute(value);
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_GENERIC:

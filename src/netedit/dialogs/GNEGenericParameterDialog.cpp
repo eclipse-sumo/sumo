@@ -139,7 +139,7 @@ GNEGenericParameterDialog::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
             // change value of Generic Parameter
             myGenericParameters->at(i).second = myGenericParameterRows.at(i).valueField->getText().text();
             // change color of text field depending if attribute is valid
-            if(GNEAttributeCarrier::isValidName(myGenericParameters->at(i).second)) {
+            if(SUMOXMLDefinitions::isValidAttribute(myGenericParameters->at(i).second)) {
                 myGenericParameterRows.at(i).valueField->setTextColor(FXRGB(0, 0, 0));
             } else {
                 myGenericParameterRows.at(i).valueField->setTextColor(FXRGB(255, 0, 0));
@@ -365,7 +365,7 @@ GNEGenericParameterDialog::onCmdAccept(FXObject*, FXSelector, void*) {
                 WRITE_WARNING("Closed FXMessageBox of type 'warning' with 'OK'");
             }
             return 1;
-        } else if(!GNEAttributeCarrier::isValidName(i->second)) {
+        } else if(!SUMOXMLDefinitions::isValidAttribute(i->second)) {
             // write warning if netedit is running in testing mode
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
                 WRITE_WARNING("Opening FXMessageBox of type 'warning'");
@@ -465,7 +465,7 @@ GNEGenericParameterDialog::GenericParameterRow::enableRow(const std::string &par
     keyField->enable();
     // restore color and enable value field
     valueField->setText(value.c_str());
-    if(GNEAttributeCarrier::isValidName(value)) {
+    if(SUMOXMLDefinitions::isValidAttribute(value)) {
         valueField->setTextColor(FXRGB(0, 0, 0));
     } else {
         valueField->setTextColor(FXRGB(255, 0, 0));
@@ -543,7 +543,7 @@ GNEGenericParameterDialog::GNEGenericParameterHandler::myStartElement(int elemen
                             } else {
                                 WRITE_WARNING("Key '" + key + "' of Generic Parameter contains invalid characters");
                             }
-                        } else if(!GNEAttributeCarrier::isValidName(value)) {
+                        } else if(!SUMOXMLDefinitions::isValidAttribute(value)) {
                             WRITE_WARNING("Value '" + value + "'of Generic Parameter contains invalid characters");
                         } else {
                             // add generic parameter to vector of myGenericParameterDialogParent

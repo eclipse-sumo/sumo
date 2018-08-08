@@ -1215,6 +1215,18 @@ public:
     /// @brief whether the given string is a valid id for an edge or vehicle type
     static bool isValidTypeID(const std::string& value);
 
+    /// @brief whether the given string is a valid attribute for a certain key (for example, a name)
+    static bool isValidAttribute(const std::string& value);
+
+    /// @brief whether the given string is a valid attribute for a filename (for example, a name)
+    static bool isValidFilename(const std::string& value);
+
+    /// @brief whether the given string is a valid list of id for a network (empty aren't allowed)
+    static bool isValidListOfNetIDs(const std::string& value);
+
+    /// @brief whether the given string is a valid lsit of id for an edge or vehicle type (empty aren't allowed)
+    static bool isValidListOfTypeID(const std::string& value);
+
     /// @brief return the junction id when given an edge of type internal, crossing or WalkingArea
     static std::string getJunctionIDFromInternalEdge(const std::string internalEdge);
 

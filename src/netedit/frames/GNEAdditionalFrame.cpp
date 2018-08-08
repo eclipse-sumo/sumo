@@ -363,7 +363,7 @@ GNEAdditionalFrame::AdditionalAttributeSingle::onCmdSetAttribute(FXObject*, FXSe
         }
     } else if (attrValues.isFilename()) {
         // check if filename format is valid
-        if (GNEAttributeCarrier::isValidFilename(myTextFieldStrings->getText().text()) == false) {
+        if (SUMOXMLDefinitions::isValidFilename(myTextFieldStrings->getText().text()) == false) {
             myInvalidValue = "input contains invalid characters for a filename";
         }
     } else if (attrValues.isVClass() && attrValues.isList()) {
@@ -378,13 +378,13 @@ GNEAdditionalFrame::AdditionalAttributeSingle::onCmdSetAttribute(FXObject*, FXSe
         }
     } else if (myAdditionalAttr == SUMO_ATTR_NAME) {
         // check if filename format is valid
-        if (GNEAttributeCarrier::isValidName(myTextFieldStrings->getText().text()) == false) {
+        if (SUMOXMLDefinitions::isValidAttribute(myTextFieldStrings->getText().text()) == false) {
             myInvalidValue = "Name contains invalid characters";
         }
     } else if (myAdditionalAttr == SUMO_ATTR_VTYPES) {
         // check if filename format is valid
-        if (GNEAttributeCarrier::isValidListOfIDs(myTextFieldStrings->getText().text()) == false) {
-            myInvalidValue = "Ids contains invalid characters";
+        if (SUMOXMLDefinitions::isValidListOfTypeID(myTextFieldStrings->getText().text()) == false) {
+            myInvalidValue = "Ids contains invalid characters for vehicle type ids";
         }
     }
     // change color of text field depending of myCurrentValueValid

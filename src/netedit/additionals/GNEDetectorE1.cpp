@@ -283,14 +283,14 @@ GNEDetectorE1::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_FREQUENCY:
             return (canParse<double>(value) && (parse<double>(value) >= 0));
         case SUMO_ATTR_NAME:
-            return isValidName(value);
+            return SUMOXMLDefinitions::isValidAttribute(value);
         case SUMO_ATTR_FILE:
-            return isValidFilename(value);
+            return SUMOXMLDefinitions::isValidFilename(value);
         case SUMO_ATTR_VTYPES:
             if(value.empty()) {
                 return true;
             } else {
-                return isValidListOfIDs(value);
+                return SUMOXMLDefinitions::isValidListOfTypeID(value);
             }
         case SUMO_ATTR_FRIENDLY_POS:
             return canParse<bool>(value);

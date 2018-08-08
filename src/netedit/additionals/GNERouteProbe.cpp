@@ -308,9 +308,9 @@ GNERouteProbe::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
         case SUMO_ATTR_NAME:
-            return isValidName(value);
+            return SUMOXMLDefinitions::isValidAttribute(value);
         case SUMO_ATTR_FILE:
-            return isValidFilename(value);
+            return SUMOXMLDefinitions::isValidFilename(value);
         case SUMO_ATTR_FREQUENCY:
             if(value.empty()) {
                 return true;

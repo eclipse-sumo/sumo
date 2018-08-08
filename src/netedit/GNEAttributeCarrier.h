@@ -522,15 +522,6 @@ public:
     /// @brief parse a string of booleans (1 0 1 1....) using AND operation
     static bool parseStringToANDBool(const std::string& string);
 
-    /// @brief return true if value is a valid list of sumo ID (Empty isn't valid)
-    static bool isValidListOfIDs(const std::string& value);
-
-    /// @brief return true if value is a valid sumo ID
-    static bool isValidName(const std::string& value);
-
-    /// @brief return true if value is a valid file value
-    static bool isValidFilename(const std::string& value);
-
     /// @brief default value for invalid positions (used by POIs and Polygons)
     static const double INVALID_POSITION;
 
@@ -671,7 +662,7 @@ public:
             }
             // set extra check for filename values
             if (attrProperties.isFilename()) {
-                if(isValidFilename(parsedAttribute) == false) {
+                if(SUMOXMLDefinitions::isValidFilename(parsedAttribute) == false) {
                     errorFormat = "Filename contains invalid characters; ";
                     parsedOk = false;
                 } else if (parsedAttribute.empty()) {
@@ -680,7 +671,7 @@ public:
                 }
             }
             // set extra check for name values
-            if ((attribute == SUMO_ATTR_NAME) && !isValidName(parsedAttribute)) {
+            if ((attribute == SUMO_ATTR_NAME) && !SUMOXMLDefinitions::isValidAttribute(parsedAttribute)) {
                 errorFormat = "name contains invalid characters; ";
                 parsedOk = false;
             }
