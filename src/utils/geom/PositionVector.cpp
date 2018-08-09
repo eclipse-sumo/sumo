@@ -1404,12 +1404,17 @@ PositionVector::offsetAtIndex2D(int index) const {
 
 
 double
-PositionVector::getMaxGrade() const {
+PositionVector::getMaxGrade(double& maxJump) const {
     double result = 0;
     for (int i = 1; i < (int)size(); ++i) {
         const Position& p1 = (*this)[i - 1];
         const Position& p2 = (*this)[i];
-        result = MAX2(result, (double)fabs((p1.z() - p2.z()) / p1.distanceTo2D(p2)));
+        const double distZ = fabs(p1.z() - p2.z());
+        const double dist2D = p1.distanceTo2D(p2);
+        result = MAX2(result, distZ / dist2D);
+        if (dist2D == 0) {
+            maxJump = MAX2(maxJump, distZ);
+        }
     }
     return result;
 }

@@ -382,8 +382,10 @@ public:
     /// @brief return the offset at the given index
     double offsetAtIndex2D(int index) const;
 
-    /// @brief return the maximum grade of all segments as a fraction of zRange/length2D
-    double getMaxGrade() const;
+    /* @brief return the maximum grade of all segments as a fraction of zRange/length2D
+     * @param[out] maxJump The maximum vertical jump (with grade infinity)
+     */
+    double getMaxGrade(double &maxJump) const;
 
 private:
     /// @brief return whether the line segments defined by Line p11,p12 and Line p21,p22 intersect
