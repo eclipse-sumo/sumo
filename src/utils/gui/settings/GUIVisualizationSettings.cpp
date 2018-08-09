@@ -421,10 +421,12 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.addColor(RGBColor::GREEN, (double)(5 / 3.6));
     scheme.addColor(RGBColor::BLUE, (double)(10 / 3.6));
     personColorer.addScheme(scheme);
-    scheme = GUIColorScheme("by mode", RGBColor::YELLOW); // walking
-    scheme.addColor(RGBColor::BLUE, (double)(1)); // riding
-    scheme.addColor(RGBColor::RED, (double)(2)); // stopped
-    scheme.addColor(RGBColor::GREEN, (double)(3)); // waiting for ride
+    scheme = GUIColorScheme("by mode", RGBColor::GREY, "waiting for insertion", true);
+    scheme.addColor(RGBColor::RED, (double)(1), "stopped");
+    scheme.addColor(RGBColor::GREEN, (double)(2), "walking");
+    scheme.addColor(RGBColor::BLUE, (double)(3), "riding");
+    scheme.addColor(RGBColor::CYAN, (double)(4), "accessing trainStop");
+    scheme.addColor(RGBColor::YELLOW, (double)(5), "waiting for ride");
     personColorer.addScheme(scheme);
     scheme = GUIColorScheme("by waiting time", RGBColor::BLUE);
     scheme.addColor(RGBColor::CYAN, (double)30);
@@ -448,10 +450,12 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.addColor(RGBColor::GREEN, (double)(5 / 3.6));
     scheme.addColor(RGBColor::BLUE, (double)(10 / 3.6));
     containerColorer.addScheme(scheme);
-    scheme = GUIColorScheme("by mode", RGBColor::YELLOW); // walking
-    scheme.addColor(RGBColor::BLUE, (double)(1)); // riding
-    scheme.addColor(RGBColor::RED, (double)(2)); // stopped
-    scheme.addColor(RGBColor::GREEN, (double)(3)); // waiting for ride
+    scheme = GUIColorScheme("by mode", RGBColor::GREY, "waiting for insertion", true);
+    scheme.addColor(RGBColor::RED, (double)(1), "stopped");
+    scheme.addColor(RGBColor::GREEN, (double)(2), "tranship"); // walking
+    scheme.addColor(RGBColor::BLUE, (double)(3), "transport");
+    scheme.addColor(RGBColor::CYAN, (double)(4), "accessing trainStop");
+    scheme.addColor(RGBColor::YELLOW, (double)(5), "waiting for transport");
     containerColorer.addScheme(scheme);
     scheme = GUIColorScheme("by waiting time", RGBColor::BLUE);
     scheme.addColor(RGBColor::CYAN, (double)30);

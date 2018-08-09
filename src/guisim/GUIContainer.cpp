@@ -315,7 +315,7 @@ GUIContainer::getColorValue(int activeScheme) const {
             return getSpeed();
         case 5:
             if (isWaiting4Vehicle()) {
-                return 3;
+                return 5;
             } else {
                 return (double)getCurrentStageType();
             }
