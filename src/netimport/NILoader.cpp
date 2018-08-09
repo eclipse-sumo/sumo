@@ -108,6 +108,9 @@ NILoader::load(OptionsCont& oc) {
             WRITE_MESSAGE(" Removed " + toString(removed) + " traffic lights before loading plain-XML");
         }
     }
+    if (oc.getBool("railway.signals.discard")) {
+        myNetBuilder.getNodeCont().discardRailSignals();
+    }
     loadXML(oc);
     // check the loaded structures
     if (myNetBuilder.getNodeCont().size() == 0) {

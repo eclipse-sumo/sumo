@@ -299,6 +299,10 @@ public:
      */
     void discardTrafficLights(NBTrafficLightLogicCont& tlc, bool geometryLike, bool guessSignals);
 
+    /* @brief discards rail signals
+     */
+    void discardRailSignals(); 
+
     /// @brief mark a node as being created form a split
     void markAsSplit(const NBNode* node) {
         mySplit.insert(node);

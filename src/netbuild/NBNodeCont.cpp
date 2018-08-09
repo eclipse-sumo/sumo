@@ -1549,6 +1549,17 @@ NBNodeCont::discardTrafficLights(NBTrafficLightLogicCont& tlc, bool geometryLike
 }
 
 
+void
+NBNodeCont::discardRailSignals() {
+    for (auto& item : myNodes) {
+        NBNode* node = item.second;
+        if (node->getType() == NODETYPE_RAIL_SIGNAL) {
+            node->reinit(node->getPosition(), NODETYPE_PRIORITY);
+        }
+    }
+}
+
+
 int
 NBNodeCont::remapIDs(bool numericaIDs, bool reservedIDs, const std::string& prefix) {
     std::vector<std::string> avoid = getAllNames();
