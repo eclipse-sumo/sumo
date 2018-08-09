@@ -119,4 +119,5 @@ bike_public_walk
 
 # see #4314
 walk
+intermodal_train_bus_walk
 errors
