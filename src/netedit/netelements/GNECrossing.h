@@ -160,9 +160,6 @@ protected:
     /// @}
 
 private:
-    /// @brief flag used for force draw custom shape
-    bool myForceDrawCustomShape;
-
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     void setAttribute(SumoXMLAttr key, const std::string& value);
 

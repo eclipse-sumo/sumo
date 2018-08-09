@@ -53,8 +53,8 @@
 GNECrossing::GNECrossing(GNEJunction* parentJunction, NBNode::Crossing* crossing) :
     GNENetElement(parentJunction->getNet(), crossing->id, GLO_CROSSING, SUMO_TAG_CROSSING),
     myParentJunction(parentJunction),
-    myCrossing(crossing),
-    myForceDrawCustomShape(crossing->customShape.size() > 0) {
+    myCrossing(crossing)
+{
     // Update geometry
     updateGeometry();
 }
@@ -65,15 +65,13 @@ GNECrossing::~GNECrossing() {}
 
 void
 GNECrossing::updateGeometry() {
-    // first remove object from net grid
-    myNet->removeGLObjectFromNet(this);
     // Clear Shape rotations and segments
     myShapeRotations.clear();
     myShapeLengths.clear();
     // only rebuild shape if junction's shape isn't in Buuble mode
     if (myParentJunction->getNBNode()->getShape().size() > 0) {
         // Obtain segments of size and calculate it
-        PositionVector shape = myForceDrawCustomShape ?  myCrossing->customShape : myCrossing->shape;
+        PositionVector shape = myCrossing->customShape.size() > 0 ?  myCrossing->customShape : myCrossing->shape;
         int segments = (int)shape.size() - 1;
         if (segments >= 0) {
             myShapeRotations.reserve(segments);
@@ -86,8 +84,6 @@ GNECrossing::updateGeometry() {
             }
         }
     }
-    // add object into net again
-    myNet->addGLObjectIntoNet(this);
 }
 
 
@@ -111,7 +107,7 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
             && s.scale > 3.0) {
         if (s.editMode != GNE_MODE_TLS) {
             // first declare what shape will be drawed
-            PositionVector shape = myForceDrawCustomShape ?  myCrossing->customShape : myCrossing->shape;
+            PositionVector shape = myCrossing->customShape.size() > 0 ? myCrossing->customShape : myCrossing->shape;
             // push first draw matrix
             glPushMatrix();
             // push name
@@ -491,13 +487,8 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_CUSTOMSHAPE: {
             bool ok;
-            // first remove object from net grid
-            myNet->removeGLObjectFromNet(this);
             myCrossing->customShape = GeomConvHelper::parseShapeReporting(value, "user-supplied shape", 0, ok, true);
-            // add object into net again
-            myNet->addGLObjectIntoNet(this);
-            // Check if custom shaped has to be drawn
-            myForceDrawCustomShape = myCrossing->customShape.size() > 0;
+            updateGeometry();
             break;
         }
         case GNE_ATTR_SELECTED:
