@@ -109,7 +109,6 @@ RORoute::writeXMLDefinition(OutputDevice& dev, const ROVehicle* const veh,
     if (withExitTimes) {
         std::vector<double> exitTimes;
         double time = STEPS2TIME(veh->getDepartureTime());
-        bool addSep = false;
         for (const ROEdge* roe : myRoute) {
             time += roe->getTravelTime(veh, time);
             if (!roe->isInternal() && !roe->isTazConnector()) {
