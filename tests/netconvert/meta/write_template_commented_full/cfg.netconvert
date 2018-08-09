@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Aug  3 15:51:14 2018 by Eclipse SUMO netconvert Version d96136b
+<!-- generated on Thu Aug  9 07:49:30 2018 by Eclipse SUMO netconvert Version ae59476
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -195,10 +195,10 @@
     </projection>
 
     <tls_building>
-        <!-- Does not instatiate traffic lights loaded from other formats than XML -->
+        <!-- Does not instatiate traffic lights loaded from other formats than plain-XML -->
         <tls.discard-loaded value="false" type="BOOL"/>
 
-        <!-- Does not instatiate traffic lights at geometry-like nodes loaded from other formats than XML -->
+        <!-- Does not instatiate traffic lights at geometry-like nodes loaded from other formats than plain-XML -->
         <tls.discard-simple value="false" type="BOOL"/>
 
         <!-- Interprets STR as list of junctions to be controlled by TLS -->
@@ -512,6 +512,9 @@
 
         <!-- The minimum lane width for determining start or end of variable-width lanes -->
         <opendrive.min-width value="1.8" type="FLOAT"/>
+
+        <!-- Discard all railway signal information loaded from other formats than plain-xml -->
+        <railway.signals.discard value="false" type="BOOL"/>
 
         <!-- Omits internal links -->
         <no-internal-links value="false" type="BOOL"/>

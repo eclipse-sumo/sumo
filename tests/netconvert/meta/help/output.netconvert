@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version 1daeae3
+Eclipse SUMO netconvert Version ae59476
  Copyright (C) 2001-2018 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
   SUMO.
@@ -112,10 +112,11 @@ Projection Options:
 
 TLS Building Options:
   --tls.discard-loaded                 Does not instatiate traffic lights
-                                         loaded from other formats than XML
+                                         loaded from other formats than
+                                         plain-XML
   --tls.discard-simple                 Does not instatiate traffic lights at
                                          geometry-like nodes loaded from other
-                                         formats than XML
+                                         formats than plain-XML
   --tls.set STR                        Interprets STR as list of junctions to
                                          be controlled by TLS
   --tls.unset STR                      Interprets STR as list of junctions to
@@ -306,6 +307,9 @@ Processing Options:
                                          allow so
   --opendrive.min-width FLOAT          The minimum lane width for determining
                                          start or end of variable-width lanes
+  --railway.signals.discard            Discard all railway signal information
+                                         loaded from other formats than
+                                         plain-xml
   --no-internal-links                  Omits internal links
   --numerical-ids                      Remaps alphanumerical IDs of nodes and
                                          edges to ensure that all IDs are

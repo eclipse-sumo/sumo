@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Aug  3 15:51:10 2018 by Eclipse SUMO netconvert Version d96136b
+<!-- generated on Thu Aug  9 07:49:27 2018 by Eclipse SUMO netconvert Version ae59476
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -77,8 +77,8 @@
     </projection>
 
     <tls_building>
-        <tls.discard-loaded value="false" type="BOOL" help="Does not instatiate traffic lights loaded from other formats than XML"/>
-        <tls.discard-simple value="false" type="BOOL" help="Does not instatiate traffic lights at geometry-like nodes loaded from other formats than XML"/>
+        <tls.discard-loaded value="false" type="BOOL" help="Does not instatiate traffic lights loaded from other formats than plain-XML"/>
+        <tls.discard-simple value="false" type="BOOL" help="Does not instatiate traffic lights at geometry-like nodes loaded from other formats than plain-XML"/>
         <tls.set value="" synonymes="explicite-tls" type="STR" help="Interprets STR as list of junctions to be controlled by TLS"/>
         <tls.unset value="" synonymes="explicite-no-tls" type="STR" help="Interprets STR as list of junctions to be not controlled by TLS"/>
         <tls.guess value="false" synonymes="guess-tls" type="BOOL" help="Turns on TLS guessing"/>
@@ -191,6 +191,7 @@
         <opendrive.curve-resolution value="2" type="FLOAT" help="The geometry resolution in m when importing curved geometries as line segments."/>
         <opendrive.advance-stopline value="12" type="FLOAT" help="Allow stop lines to be built beyond the start of the junction if the geometries allow so"/>
         <opendrive.min-width value="1.8" type="FLOAT" help="The minimum lane width for determining start or end of variable-width lanes"/>
+        <railway.signals.discard value="false" type="BOOL" help="Discard all railway signal information loaded from other formats than plain-xml"/>
         <no-internal-links value="false" type="BOOL" help="Omits internal links"/>
         <numerical-ids value="false" type="BOOL" help="Remaps alphanumerical IDs of nodes and edges to ensure that all IDs are integers"/>
         <reserved-ids value="" type="FILE" help="Ensures that generated ids do not included any of the typed IDs from FILE (SUMO-GUI selection file format)"/>
