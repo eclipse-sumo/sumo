@@ -28,6 +28,7 @@ def parse_args():
     optParser = OptionParser()
     optParser.add_option("-o", "--outfile", help="prefix of output file")
     optParser.add_option("-l", "--length", type=float, default=10., help="length of generated solitary edges")
+    optParser.add_option("-w", "--width", type=float, default=8., help="width of generated solitary edges")
     #optParser.add_option("-d", "--cluster-dist", type=float, default=500., help="length of generated edges")
     options, args = optParser.parse_args()
     try:
@@ -58,7 +59,8 @@ def main(options):
                 to_id = edge_id + '_to'
                 out_n.write('    <node id="%s" x="%s" y="%s"/>\n' % (from_id, x - l2, y))
                 out_n.write('    <node id="%s" x="%s" y="%s"/>\n' % (to_id, x + l2, y))
-                out_e.write('    <edge id="%s" from="%s" to="%s" allow="pedestrian"/>\n' % (edge_id, from_id, to_id))
+                out_e.write('    <edge id="%s" from="%s" to="%s" allow="pedestrian" width="%s"/>\n' % (
+                    edge_id, from_id, to_id, options.width))
             out_e.write('</edges>\n')
             out_n.write('</nodes>\n')
 
