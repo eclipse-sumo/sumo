@@ -344,8 +344,48 @@ ROEdge::getSuccessors(SUMOVehicleClass vClass) const {
             }
         }
         myClassesSuccessorMap[vClass].insert(myClassesSuccessorMap[vClass].begin(),
-                                             followers.begin(), followers.end());
+            followers.begin(), followers.end());
         return myClassesSuccessorMap[vClass];
+    }
+}
+
+
+const ROConstEdgePairVector&
+ROEdge::getViaSuccessors(SUMOVehicleClass vClass) const {
+    if (vClass == SVC_IGNORING || !RONet::getInstance()->hasPermissions() || isTazConnector()) {
+        return myFollowingViaEdges;
+    }
+#ifdef HAVE_FOX
+    FXMutexLock locker(myLock);
+#endif
+    std::map<SUMOVehicleClass, ROConstEdgePairVector>::const_iterator i = myClassesViaSuccessorMap.find(vClass);
+    if (i != myClassesViaSuccessorMap.end()) {
+        // can use cached value
+        return i->second;
+    } else {
+        // this vClass is requested for the first time. rebuild all successors
+        std::set<std::pair<const ROEdge*, const ROEdge*> > followers;
+        for (std::vector<ROLane*>::const_iterator it = myLanes.begin(); it != myLanes.end(); ++it) {
+            ROLane* lane = *it;
+            if ((lane->getPermissions() & vClass) != 0) {
+                const std::vector<const ROLane*>& outgoing = lane->getOutgoingLanes();
+                for (std::vector<const ROLane*>::const_iterator it2 = outgoing.begin(); it2 != outgoing.end(); ++it2) {
+                    const ROLane* next = *it2;
+                    if ((next->getPermissions() & vClass) != 0) {
+                        followers.insert(std::make_pair(&next->getEdge(), &next->getEdge()));
+                    }
+                }
+            }
+        }
+        // also add district edges (they are not connected at the lane level
+        for (const ROEdge* e : myFollowingEdges) {
+            if (e->isTazConnector()) {
+                followers.insert(std::make_pair(e, e));
+            }
+        }
+        myClassesViaSuccessorMap[vClass].insert(myClassesViaSuccessorMap[vClass].begin(),
+            followers.begin(), followers.end());
+        return myClassesViaSuccessorMap[vClass];
     }
 
 }
@@ -357,6 +397,7 @@ ROEdge::isConnectedTo(const ROEdge* const e, const ROVehicle* const vehicle) con
     const ROEdgeVector& followers = getSuccessors(vClass);
     return std::find(followers.begin(), followers.end(), e) != followers.end();
 }
+
 
 /****************************************************************************/
 

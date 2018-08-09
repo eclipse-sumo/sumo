@@ -54,6 +54,7 @@ class ROEdge;
 
 typedef std::vector<ROEdge*> ROEdgeVector;
 typedef std::vector<const ROEdge*> ConstROEdgeVector;
+typedef std::vector<std::pair<const ROEdge*, const ROEdge*> > ROConstEdgePairVector;
 
 
 // ===========================================================================
@@ -318,10 +319,16 @@ public:
 
 
     /** @brief Returns the following edges, restricted by vClass
-     * @param[in] vClass The vClass for which to restrict the successors
-     * @return The eligible following edges
-     */
+    * @param[in] vClass The vClass for which to restrict the successors
+    * @return The eligible following edges
+    */
     const ROEdgeVector& getSuccessors(SUMOVehicleClass vClass) const;
+
+    /** @brief Returns the following edges including vias, restricted by vClass
+    * @param[in] vClass The vClass for which to restrict the successors
+    * @return The eligible following edges
+    */
+    const ROConstEdgePairVector& getViaSuccessors(SUMOVehicleClass vClass) const;
 
 
     /** @brief Returns the number of edges connected to this edge
@@ -521,6 +528,8 @@ protected:
     /// @brief List of edges that may be approached from this edge
     ROEdgeVector myFollowingEdges;
 
+    ROConstEdgePairVector myFollowingViaEdges;
+
     /// @brief List of edges that approached this edge
     ROEdgeVector myApproachingEdges;
 
@@ -544,6 +553,9 @@ protected:
 
     /// @brief The successors available for a given vClass
     mutable std::map<SUMOVehicleClass, ROEdgeVector> myClassesSuccessorMap;
+
+    /// @brief The successors with vias available for a given vClass
+    mutable std::map<SUMOVehicleClass, ROConstEdgePairVector> myClassesViaSuccessorMap;
 
 #ifdef HAVE_FOX
     /// The mutex used to avoid concurrent updates of myClassesSuccessorMap
