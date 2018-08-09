@@ -18,7 +18,11 @@ from __future__ import absolute_import
 import sys
 import re
 import datetime
-import xml.etree.cElementTree as ET
+try:
+    import xml.etree.cElementTree as ET
+except ImportError as e:
+    print("recovering from ImportError '%s'" % e)
+    import xml.etree.ElementTree as ET
 from collections import namedtuple, OrderedDict
 from keyword import iskeyword
 from functools import reduce
