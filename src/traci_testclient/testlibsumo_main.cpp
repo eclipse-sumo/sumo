@@ -19,7 +19,10 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
+#include <iostream>
 #include <libsumo/Simulation.h>
+#include <utils/common/ToString.h>
+
 
 
 // ===========================================================================
@@ -27,7 +30,12 @@
 // ===========================================================================
 int
 main(int argc, char** argv) {
-	libsumo::Simulation::load(std::vector<std::string>());
+    std::vector<std::string> options;
+    for (int i = 1; i < argc; i++) {
+        options.push_back(argv[i]);
+    }
+	libsumo::Simulation::load(options);
+    std::cout << "Simulation loaded\n";
 }
 
 
