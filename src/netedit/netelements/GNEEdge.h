@@ -138,9 +138,6 @@ public:
     /// @brief Returns the street's geometry
     Boundary getBoundary() const;
 
-    /// @brief return true if edge is inverted (Angle between origin and destiny junction is -PI/2 <= angle < PI/2
-    bool isInverted() const;
-
     /// @name inherited from GUIGlObject
     /// @{
     /**@brief Returns an own popup-menu

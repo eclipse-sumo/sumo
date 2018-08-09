@@ -205,25 +205,29 @@ GNEEdge::commitShapeEndChange(const Position& oldPos, GNEUndoList* undoList) {
 
 int
 GNEEdge::getVertexIndex(const Position& pos, bool createIfNoExist) {
-    PositionVector innerGeometry = myNBEdge.getInnerGeometry();
+    PositionVector entireGeometry = myNBEdge.getGeometry();
+    double offset = entireGeometry.nearest_offset_to_point2D(pos, true);
+    if (offset == GeomHelper::INVALID_OFFSET) {
+        return -1;
+    }
+    Position newPos = entireGeometry.positionAtOffset2D(offset);
+
     // first check if vertex already exists in the inner geometry
-    for (auto i : innerGeometry) {
-        if (i.distanceTo2D(pos) < SNAP_RADIUS) {
-            return innerGeometry.indexOfClosest(i);
+    for (int i = 0; i < (int)entireGeometry.size(); i++) {
+        if (entireGeometry[i].distanceTo2D(newPos) < SNAP_RADIUS) {
+            if (i == 0 || i == (int)(entireGeometry.size() - 1)) {
+                return -1;
+            }
+            // index refers to inner geometry
+            return i - 1;
         }
     }
     // if vertex doesn't exist, insert it
     if (createIfNoExist) {
-        if (innerGeometry.size() == 0) {
-            innerGeometry.push_back(pos);
-            setGeometry(innerGeometry, true);
-            return 0;
-        } else {
-            PositionVector entireGeometry = myNBEdge.getGeometry();
-            int index = entireGeometry.insertAtClosest(pos);
-            setGeometry(entireGeometry, false);
-            return (index - 1);
-        }
+        int index = entireGeometry.insertAtClosest(newPos);
+        setGeometry(entireGeometry, false);
+        // index refers to inner geometry
+        return (index - 1);
     } else {
         return -1;
     }
@@ -232,11 +236,7 @@ GNEEdge::getVertexIndex(const Position& pos, bool createIfNoExist) {
 
 int
 GNEEdge::getVertexIndex(const double offset, bool createIfNoExist) {
-    if (offset < myNBEdge.getGeometry().length()) {
-        return getVertexIndex(myNBEdge.getGeometry().positionAtOffset2D(offset), createIfNoExist);
-    } else {
-        return -1;
-    }
+    return getVertexIndex(myNBEdge.getGeometry().positionAtOffset2D(offset), createIfNoExist);
 }
 
 
@@ -355,12 +355,6 @@ GNEEdge::getBoundary() const {
     }
     ret.grow(10); // !!! magic value
     return ret;
-}
-
-bool
-GNEEdge::isInverted() const {
-    double angleBetweenOriginAndDestiny = myNBEdge.getGeometry().beginEndAngle();
-    return (angleBetweenOriginAndDestiny < -1.5707) || (angleBetweenOriginAndDestiny > 1.5707);
 }
 
 

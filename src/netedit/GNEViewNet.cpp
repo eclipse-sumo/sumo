@@ -388,7 +388,7 @@ GNEViewNet::stopEditCustomShape() {
 
 
 void
-GNEViewNet::begingMoveSelection(GNEAttributeCarrier* originAC, const Position& originPosition) {
+GNEViewNet::beginMoveSelection(GNEAttributeCarrier* originAC, const Position& originPosition) {
     // enable moving selection
     myMovingSelection = true;
     // obtain Junctions and edges selected
@@ -436,43 +436,21 @@ GNEViewNet::begingMoveSelection(GNEAttributeCarrier* originAC, const Position& o
             // saved old position of Edges which both junction isn't noJunctionsSelected
             for (auto i : noJunctionsSelected) {
                 myOriginShapesMovedPartialShapes[i].originalShape = i->getNBEdge()->getInnerGeometry();
-                // XXX this doesn't make sense. See #3708
-                // a better solution would be to not move edge geometry when a suitable origin point could not be found
-                //myOriginShapesMovedPartialShapes[i].inverted = (i->isInverted() != clickedEdge->isInverted());
-                myOriginShapesMovedPartialShapes[i].inverted = true;
             }
             // obtain index shape of clicked edge and move it
-            myOriginShapesMovedPartialShapes[clickedEdge].originalPosition = originPosition;
-            myOriginShapesMovedPartialShapes[clickedEdge].index = clickedEdge->getVertexIndex(originPosition);
-            myOriginShapesMovedPartialShapes[clickedEdge].inverted = false;
-            // declare auxilar positionVector from Source To Destiny Junctions
-            PositionVector segmentClickedEdge;
-            // segmentA has two points, the first and last positions of edge
-            segmentClickedEdge.push_back(clickedEdge->getGNEJunctionSource()->getPositionInView());
-            segmentClickedEdge.push_back(clickedEdge->getGNEJunctionDestiny()->getPositionInView());
-            // Obtain the offset (legA) over of segment regarding clicked position
-            double offsetSegmentClickedEdge = segmentClickedEdge.nearest_offset_to_point2D(originPosition, false);
-            double distanceToOffsetSegmentClickedEdge = segmentClickedEdge.positionAtOffset(offsetSegmentClickedEdge).distanceTo(originPosition);
-            // check if direction of distanceToOffsetSegmentClickedEdge has to be changed
-            if (!segmentClickedEdge.positionAtOffset(offsetSegmentClickedEdge, distanceToOffsetSegmentClickedEdge).almostSame(originPosition)) {
-                distanceToOffsetSegmentClickedEdge *= -1;
-            }
-            // move index of rest of edges using offsetSegmentFSTDJ and distanceToOffsetSegmentFSTDJ as references
+            int index = clickedEdge->getVertexIndex(originPosition);
+            assert(index >= 0);
+            myOriginShapesMovedPartialShapes[clickedEdge].index = index;
+            Position originPositionOnClicked = clickedEdge->getNBEdge()->getInnerGeometry()[index];
+            myOriginShapesMovedPartialShapes[clickedEdge].originalPosition = originPositionOnClicked;
+            // find/create point to move for other edges
             for (auto i : noJunctionsSelected) {
-                // don't move index of clicked edge, because was already moved
                 if (i != clickedEdge) {
-                    // calculate segment between first and las position of selected edge
-                    PositionVector segmentSelectedEdge;
-                    segmentSelectedEdge.push_back(i->getGNEJunctionSource()->getPositionInView());
-                    segmentSelectedEdge.push_back(i->getGNEJunctionDestiny()->getPositionInView());
-                    // get reference depending of this edge is the opposite edge of another alreaday inserted
-                    if (myOriginShapesMovedPartialShapes[i].inverted) {
-                        myOriginShapesMovedPartialShapes[i].originalPosition = segmentSelectedEdge.positionAtOffset(segmentSelectedEdge.length() - offsetSegmentClickedEdge, -1 * distanceToOffsetSegmentClickedEdge);
-                    } else {
-                        myOriginShapesMovedPartialShapes[i].originalPosition = segmentSelectedEdge.positionAtOffset(offsetSegmentClickedEdge, distanceToOffsetSegmentClickedEdge);
+                    int index = i->getVertexIndex(originPositionOnClicked);
+                    myOriginShapesMovedPartialShapes[i].index = index;
+                    if (index >= 0) {
+                        myOriginShapesMovedPartialShapes[i].originalPosition = i->getNBEdge()->getInnerGeometry()[index]; 
                     }
-                    // obtain index to change
-                    myOriginShapesMovedPartialShapes[i].index = i->getVertexIndex(myOriginShapesMovedPartialShapes[i].originalPosition);
                 }
             }
         }
@@ -722,7 +700,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                     myMoveSingleElementValues.movingOriginalPosition = myMovedItems.poiToMove->getPositionInView();
                 } else if (myObjectsUnderCursor.junction) {
                     if (myObjectsUnderCursor.junction->isAttributeCarrierSelected()) {
-                        begingMoveSelection(myObjectsUnderCursor.junction, getPositionInformation());
+                        beginMoveSelection(myObjectsUnderCursor.junction, getPositionInformation());
                     } else {
                         myMovedItems.junctionToMove = myObjectsUnderCursor.junction;
                     }
@@ -734,7 +712,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                             myObjectsUnderCursor.swapLane2Edge();
                         }
                     if (myObjectsUnderCursor.edge->isAttributeCarrierSelected()) {
-                        begingMoveSelection(myObjectsUnderCursor.edge, getPositionInformation());
+                        beginMoveSelection(myObjectsUnderCursor.edge, getPositionInformation());
                     } else if(myObjectsUnderCursor.shiftKeyPressed()) {
                         myObjectsUnderCursor.edge->editEndpoint(getPositionInformation(), myUndoList);
                     } else {

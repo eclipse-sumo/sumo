@@ -373,7 +373,7 @@ public:
     void stopEditCustomShape();
 
     /// @brief begin move selection
-    void begingMoveSelection(GNEAttributeCarrier* originAC, const Position& originPosition);
+    void beginMoveSelection(GNEAttributeCarrier* originAC, const Position& originPosition);
 
     /// @brief move selection
     void moveSelection(const Position& offset);
@@ -647,7 +647,6 @@ private:
         PositionVector originalShape;
         int index;
         Position originalPosition;
-        bool inverted;
     };
 
     std::map<GNEEdge*, MovingEdges> myOriginShapesMovedPartialShapes;
