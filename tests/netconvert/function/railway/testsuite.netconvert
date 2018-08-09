@@ -5,3 +5,4 @@ all-bidi
 
 # test for option railway.topology.repair
 repair
+signals
