@@ -128,7 +128,7 @@ public:
         ~crossingParameters();
 
         /// @brief enable crossing parameters and set the default value of parameters
-        void enableCrossingParameters();
+        void enableCrossingParameters(bool hasTLS);
 
         /// @brief disable crossing parameters and clear parameters
         void disableCrossingParameters();

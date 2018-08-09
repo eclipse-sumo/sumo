@@ -216,20 +216,25 @@ GNECrossingFrame::crossingParameters::~crossingParameters() {}
 
 
 void
-GNECrossingFrame::crossingParameters::enableCrossingParameters() {
+GNECrossingFrame::crossingParameters::enableCrossingParameters(bool hasTLS) {
     // obtain Tag Values
     const auto &tagProperties = GNEAttributeCarrier::getTagProperties(SUMO_TAG_CROSSING);
     // Enable all elements of the crossing frames
     myCrossingEdgesLabel->enable();
     myCrossingEdges->enable();
     myCrossingPriorityLabel->enable();
-    myCrossingPriorityCheckButton->enable();
+    if (hasTLS) {
+        myCrossingPriorityCheckButton->disable();
+    } else {
+        myCrossingPriorityCheckButton->enable();
+    }
     myCrossingWidthLabel->enable();
     myCrossingWidth->enable();
     myHelpCrossingAttribute->enable();
     // set values of parameters
     onCmdSetAttribute(0, 0, 0);
-    myCrossingPriorityCheckButton->setCheck(GNEAttributeCarrier::parse<bool>(tagProperties.getDefaultValue(SUMO_ATTR_PRIORITY)));
+    myCrossingPriorityCheckButton->setCheck(hasTLS ? true : 
+            GNEAttributeCarrier::parse<bool>(tagProperties.getDefaultValue(SUMO_ATTR_PRIORITY)));
     myCrossingWidth->setText(tagProperties.getDefaultValue(SUMO_ATTR_WIDTH).c_str());
     myCrossingWidth->setTextColor(FXRGB(0, 0, 0));
 }
@@ -508,7 +513,7 @@ GNECrossingFrame::addCrossing(GNENetElement* netElement) {
         myCurrentJunctionLabel->setText((std::string("Current Junction: ") + currentJunction->getID()).c_str());
         // Enable edge selector and crossing parameters
         myEdgeSelector->enableEdgeSelector(currentJunction);
-        myCrossingParameters->enableCrossingParameters();
+        myCrossingParameters->enableCrossingParameters(currentJunction->getNBNode()->isTLControlled());
         // clears selected edges
         myCrossingParameters->clearEdges();
     } else if (selectedEdge != NULL) {
