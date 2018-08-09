@@ -65,6 +65,7 @@ def _readNextTLS(result):
         nextTLS.append((tlsID, tlsIndex, dist, chr(state)))
     return tuple(nextTLS)
 
+
 def _readNextStops(result):
     result.read("!iB")  # numCompounds, TYPE_INT
     numStops = result.read("!i")[0]
@@ -84,6 +85,7 @@ def _readNextStops(result):
         until = result.readInt()
         nextStop.append((lane, endPos, stoppingPlaceID, stopFlags, duration, until))
     return tuple(nextStop)
+
 
 _RETURN_VALUE_FUNC = {tc.VAR_SPEED: Storage.readDouble,
                       tc.VAR_SPEED_WITHOUT_TRACI: Storage.readDouble,
@@ -1087,7 +1089,6 @@ class VehicleDomain(Domain):
         self._connection._sendIntCmd(
             tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_ROUTING_MODE, vehID, routingMode)
 
-
     def rerouteTraveltime(self, vehID, currentTravelTimes=True):
         """rerouteTraveltime(string, bool) -> None Reroutes a vehicle. If
         currentTravelTimes is True (default) then the current traveltime of the
@@ -1470,7 +1471,8 @@ class VehicleDomain(Domain):
     def addSubscriptionFilterLCManeuver(self):
         """addSubscriptionFilterLCManeuver() -> None
 
-        Restricts vehicles returned by the last modified vehicle context subscription to neighbor and ego-lane leader and follower of the ego.
+        Restricts vehicles returned by the last modified vehicle context subscription to neighbor and ego-lane leader
+        and follower of the ego.
         Combine with: lanes-filter to restrict to one direction; distance filters; vClass/vType filter.
         """
         self._connection._addSubscriptionFilter(tc.FILTER_TYPE_LC_MANEUVER)

@@ -74,7 +74,8 @@ catchupFollower="catchupFollowerVTypeID" /><verbosity value="200" ></verbosity>
         self.cfg_body2 = '<vTypeMapFile file="vtype2.map"></vTypeMapFile>'
         self.cfg_body3 = '<vTypeMapFile file="vtype3.map"></vTypeMapFile>'
         self.cfg_body4 = '<vTypeMapFile file="FileThatDoesntExist"></vTypeMapFile>'
-        self.cfg_body5 = '<vTypeMap original="original_type1" leader="leader_type1" follower="follower_type1" catchup ="catchup_type1" catchupFollower ="catchupFollower_type1"/>'
+        self.cfg_body5 = '<vTypeMap original="original_type1" leader="leader_type1" follower="follower_type1" ' + \
+                         'catchup ="catchup_type1" catchupFollower ="catchupFollower_type1"/>'
 
         # start a sumo instance
         self.sumocfg = os.path.join(self.testDir, "sumo.sumocfg")

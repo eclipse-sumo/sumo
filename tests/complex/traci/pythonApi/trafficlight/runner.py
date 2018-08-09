@@ -82,4 +82,3 @@ print("set ryg", traci.trafficlight.getRedYellowGreenState(tlsID))
 print("program", traci.trafficlight.getProgram(tlsID))
 
 traci.close()
-

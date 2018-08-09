@@ -36,9 +36,9 @@ while traci.simulation.getMinExpectedNumber() > 0:
     timeS = traci.simulation.getCurrentTime() / 1000
     for vehID in traci.simulation.getDepartedIDList():
         traci.vehicle.rerouteTraveltime(vehID)
-        print("step=%s rerouted=%s" % (timeS, vehID)) 
-    #print("step=%s", timeS)
-    #for edgeID in traci.edge.getIDList():
+        print("step=%s rerouted=%s" % (timeS, vehID))
+    # print("step=%s", timeS)
+    # for edgeID in traci.edge.getIDList():
     #    print("   edge=%s tt=%s" % (edgeID,
     #        traci.edge.getAdaptedTraveltime(edgeID, timeS)))
     traci.simulationStep()

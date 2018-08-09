@@ -23,6 +23,7 @@ sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..'))
 from sumolib.output import parse  # noqa
 from sumolib.miscutils import Statistics, geh  # noqa
 
+
 def get_options(args=None):
     optParser = optparse.OptionParser()
     optParser.add_option("--relative", action="store_true",
@@ -40,6 +41,7 @@ def get_options(args=None):
 
     return options
 
+
 def write_diff(options):
 
     diffStats = defaultdict(Statistics)
@@ -47,7 +49,7 @@ def write_diff(options):
     with open(options.out, 'w') as f:
         f.write("<meandata>\n")
         for interval_old, interval_new in zip(
-                parse(options.orig, 'interval', heterogeneous=True), 
+                parse(options.orig, 'interval', heterogeneous=True),
                 parse(options.new, 'interval', heterogeneous=True)):
             f.write('    <interval begin="%s" end="%s">\n' %
                     (interval_old.begin, interval_old.end))

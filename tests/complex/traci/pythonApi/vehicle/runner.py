@@ -39,6 +39,7 @@ def step():
     traci.simulationStep()
     return s
 
+
 def check(vehID):
     print("vehicles", traci.vehicle.getIDList())
     print("vehicle count", traci.vehicle.getIDCount())

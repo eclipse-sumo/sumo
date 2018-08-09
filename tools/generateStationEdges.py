@@ -29,7 +29,7 @@ def parse_args():
     optParser.add_option("-o", "--outfile", help="prefix of output file")
     optParser.add_option("-l", "--length", type=float, default=10., help="length of generated solitary edges")
     optParser.add_option("-w", "--width", type=float, default=8., help="width of generated solitary edges")
-    #optParser.add_option("-d", "--cluster-dist", type=float, default=500., help="length of generated edges")
+    # optParser.add_option("-d", "--cluster-dist", type=float, default=500., help="length of generated edges")
     options, args = optParser.parse_args()
     try:
         options.netfile, options.stopfile = args
@@ -38,7 +38,6 @@ def parse_args():
     if options.outfile is None:
         options.outfile = options.stopfile[:-4] + ".access"
     return options
-
 
 
 def main(options):
@@ -52,7 +51,7 @@ def main(options):
             out_n.write('<nodes>\n')
             for stop in sumolib.xml.parse(options.stopfile, 'busStop', heterogeneous=True):
                 edge_id = stop.id + "_access"
-                x,y = sumolib.geomhelper.positionAtShapeOffset(
+                x, y = sumolib.geomhelper.positionAtShapeOffset(
                         net.getLane(stop.lane).getShape(),
                         (float(stop.startPos) + float(stop.endPos)) / 2)
                 from_id = edge_id + '_from'

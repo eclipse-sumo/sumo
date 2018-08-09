@@ -50,8 +50,8 @@ def check(vehID, steps=1):
 
 
 traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg",
-                                 '--fcd-output', 'fcd.xml',
-                                 '--fcd-output.signals'])
+             '--fcd-output', 'fcd.xml',
+             '--fcd-output.signals'])
 vehID = "v0"
 traci.simulationStep()
 traci.route.add("beg", ["beg"])

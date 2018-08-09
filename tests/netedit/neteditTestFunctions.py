@@ -291,9 +291,9 @@ def getReferenceMatch(neProcess, waitTime):
     print("Finding reference")
     try:
         referenceMatch = wait(referenceImage, waitTime)
-    except:
+    except BaseException:
         referenceMatch = None
-    if (referenceMatch != None):
+    if (referenceMatch is not None):
         # print debug information
         print("TestFunctions: 'reference.png' found. Position: " + str(referenceMatch.getTarget().x) + ' - ' +
               str(referenceMatch.getTarget().y))

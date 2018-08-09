@@ -121,7 +121,7 @@ class Builder(object):
         self.tmp = None
         if local:
             now = data.get("testOutputDir",
-                    datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S"))
+                           datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S"))
             for base in ['', os.path.expanduser('~/Sumo')]:
                 try:
                     self.tmp = os.path.abspath(os.path.join(base, now))

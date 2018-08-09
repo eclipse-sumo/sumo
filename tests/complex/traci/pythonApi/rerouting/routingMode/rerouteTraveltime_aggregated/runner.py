@@ -38,9 +38,9 @@ while traci.simulation.getMinExpectedNumber() > 0:
     for vehID in traci.simulation.getDepartedIDList():
         traci.vehicle.setRoutingMode(vehID, traci.constants.ROUTING_MODE_AGGREGATED)
         traci.vehicle.rerouteTraveltime(vehID)
-        print("step=%s rerouted=%s" % (timeS, vehID)) 
-    #print("step=%s", timeS)
-    #for edgeID in traci.edge.getIDList():
+        print("step=%s rerouted=%s" % (timeS, vehID))
+    # print("step=%s", timeS)
+    # for edgeID in traci.edge.getIDList():
     #    print("   edge=%s tt=%s" % (edgeID,
     #        traci.edge.getAdaptedTraveltime(edgeID, timeS)))
     traci.simulationStep()

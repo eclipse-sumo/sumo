@@ -34,7 +34,6 @@ netedit.changeAdditional("parkingArea")
 # create parkingArea in mode "reference left"
 netedit.leftClick(match, 220, 250)
 
-
 # set name
 netedit.modifyAdditionalDefaultValue(2, "·$·%···$")
 
@@ -46,9 +45,6 @@ netedit.modifyAdditionalDefaultValue(2, "parkingArea")
 
 # create parkingArea in mode "reference left"
 netedit.leftClick(match, 240, 250)
-
-
-
 
 # set invalid roadSideCapacity (dummy)
 netedit.modifyAdditionalDefaultValue(3, "dummyRoadSideCapacity")

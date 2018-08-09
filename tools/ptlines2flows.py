@@ -45,8 +45,8 @@ def get_options(args=None):
     optParser.add_option(
         "-r", "--routes-file", dest="routes", default="vehroutes.xml", help="file from '--vehroute-output'")
     optParser.add_option("-t", "--trips-file", dest="trips", default="trips.trips.xml", help="output trips file")
-    optParser.add_option("-p", "--period", type=float, default=600, 
-            help="the default service period (in seconds) to use if none is specified in the ptlines file")
+    optParser.add_option("-p", "--period", type=float, default=600,
+                         help="the default service period (in seconds) to use if none is specified in the ptlines file")
     optParser.add_option("-b", "--begin", type=float, default=0, help="start time")
     optParser.add_option("-e", "--end", type=float, default=3600, help="end time")
     optParser.add_option("--min-stops", type=int, default=2,
@@ -119,16 +119,15 @@ def createTrips(options):
 
         departTimes = [options.begin for line in sumolib.output.parse_fast(options.ptlines, 'ptLine', ['id'])]
         if options.randomBegin:
-            departTimes = sorted([options.begin 
-                + int(random.random() * options.period) for t in departTimes])
+            departTimes = sorted([options.begin
+                                 + int(random.random() * options.period) for t in departTimes])
 
         lineCount = collections.defaultdict(int)
         typeCount = collections.defaultdict(int)
         numLines = 0
         numStops = 0
         numSkipped = 0
-        for trp_nr, line in enumerate(sumolib.output.parse(
-            options.ptlines, 'ptLine', heterogeneous=True)):
+        for trp_nr, line in enumerate(sumolib.output.parse(options.ptlines, 'ptLine', heterogeneous=True)):
             stop_ids = []
             if not line.hasAttribute("period"):
                 line.setAttribute("period", options.period)
