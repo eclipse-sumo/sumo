@@ -901,14 +901,24 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
         }
         case SUMO_ATTR_TLID: {
             undoList->p_begin("change " + toString(SUMO_TAG_TRAFFIC_LIGHT) + " id");
-            // junction is already controlled, remove from previous tls
             const std::set<NBTrafficLightDefinition*> copyOfTls = myNBNode.getControllingTLS();
             assert(copyOfTls.size() > 0);
             NBTrafficLightDefinition* currentTLS = *copyOfTls.begin();
+            NBTrafficLightDefinition* currentTLSCopy = 0;
+            const bool currentIsSingle = currentTLS->getNodes().size() == 1;
+            const bool currentIsLoaded = dynamic_cast<NBLoadedSUMOTLDef*>(currentTLS) != 0;
+            if (currentIsLoaded) {
+                currentTLSCopy = new NBLoadedSUMOTLDef(currentTLS, 
+                        dynamic_cast<NBLoadedSUMOTLDef*>(currentTLS)->getLogic());
+            }
+            // remove from previous tls
+            for (auto it : copyOfTls) {
+                undoList->add(new GNEChange_TLS(this, it, false), true);
+            }
             NBTrafficLightLogicCont& tlCont = myNet->getTLLogicCont();
+            // programs to which the current node shall be added
             const std::map<std::string, NBTrafficLightDefinition*> programs = tlCont.getPrograms(value);
             if (programs.size() > 0) {
-                // add to existing tls definitions
                 for (auto it : programs) {
                     NBTrafficLightDefinition* oldTLS = it.second;
                     if (dynamic_cast<NBOwnTLDef*>(oldTLS) != 0) {
@@ -919,16 +929,13 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
                                 dynamic_cast<NBLoadedSUMOTLDef*>(oldTLS)->usingSignalGroups()) {
                             // keep the old program and add all-red state for the added links
                             NBLoadedSUMOTLDef* newTLSJoined = new NBLoadedSUMOTLDef(oldTLS, dynamic_cast<NBLoadedSUMOTLDef*>(oldTLS)->getLogic());
-                            newTLSJoined->joinLogic(currentTLS);
+                            newTLSJoined->joinLogic(currentTLSCopy);
                             undoList->add(new GNEChange_TLS(this, newTLSJoined, true, true), true);
                         } else {
                             undoList->add(new GNEChange_TLS(this, 0, true, false, value), true);
                         }
                         NBTrafficLightDefinition* newTLS = *myNBNode.getControllingTLS().begin();
                         // switch from old to new definition
-                        for (auto it : copyOfTls) {
-                            undoList->add(new GNEChange_TLS(this, it, false), true);
-                        }
                         const std::vector<NBNode*> copyOfNodes = oldTLS->getNodes();
                         for (auto it_node : copyOfNodes) {
                             GNEJunction* oldJunction = myNet->retrieveJunction(it_node->getID());
@@ -938,9 +945,19 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
                     }
                 }
             } else {
-                // create new traffic light
-                undoList->add(new GNEChange_TLS(this, 0, true, false, value), true);
+                if (currentIsSingle && currentIsLoaded) {
+                    // rename the traffic light but keep everything else
+                    NBTrafficLightLogic* renamedLogic = dynamic_cast<NBLoadedSUMOTLDef*>(currentTLSCopy)->getLogic();
+                    renamedLogic->setID(value);
+                    NBLoadedSUMOTLDef* renamedTLS = new NBLoadedSUMOTLDef(currentTLSCopy, renamedLogic);
+                    renamedTLS->setID(value);
+                    undoList->add(new GNEChange_TLS(this, renamedTLS, true, true), true);
+                } else {
+                    // create new traffic light
+                    undoList->add(new GNEChange_TLS(this, 0, true, false, value), true);
+                }
             }
+            delete currentTLSCopy;
             undoList->p_end();
             break;
         }
