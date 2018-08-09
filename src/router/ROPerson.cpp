@@ -92,11 +92,11 @@ ROPerson::addTrip(const ROEdge* const from, const ROEdge* const to, const SVCPer
 
 
 void
-ROPerson::addRide(const ROEdge* const from, const ROEdge* const to, const std::string& lines, const std::string& destStop) {
+ROPerson::addRide(const ROEdge* const from, const ROEdge* const to, const std::string& lines, double arrivalPos, const std::string& destStop) {
     if (myPlan.empty() || myPlan.back()->isStop()) {
         myPlan.push_back(new PersonTrip());
     }
-    myPlan.back()->addTripItem(new Ride(from, to, lines, -1., destStop));
+    myPlan.back()->addTripItem(new Ride(from, to, lines, -1., arrivalPos, destStop));
 }
 
 
@@ -200,11 +200,11 @@ ROPerson::computeIntermodal(const RORouterProvider& provider, PersonTrip* const 
                     trip->addTripItem(new Walk(it->edges, it->cost, trip->getDepartPos(false), trip->getArrivalPos(false), it->destStop));
                 }
             } else if (veh != 0 && it->line == veh->getID()) {
-                trip->addTripItem(new Ride(it->edges.front(), it->edges.back(), veh->getID(), it->cost, it->destStop));
+                trip->addTripItem(new Ride(it->edges.front(), it->edges.back(), veh->getID(), it->cost, trip->getArrivalPos(), it->destStop));
                 veh->getRouteDefinition()->addLoadedAlternative(new RORoute(veh->getID() + "_RouteDef", it->edges));
                 carUsed = true;
             } else {
-                trip->addTripItem(new Ride(0, 0, it->line, it->cost, it->destStop, it->intended, TIME2STEPS(it->depart)));
+                trip->addTripItem(new Ride(0, 0, it->line, it->cost, trip->getArrivalPos(), it->destStop, it->intended, TIME2STEPS(it->depart)));
             }
         }
     }

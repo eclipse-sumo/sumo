@@ -161,6 +161,7 @@ RORouteHandler::myStartElement(int element,
                 throw ProcessError("The start edge for person '" + pid + "' is not known.");
             }
             ROEdge* to = 0;
+            const SUMOVehicleParameter::Stop* stop = 0;
             const std::string toID = attrs.getOpt<std::string>(SUMO_ATTR_TO, pid.c_str(), ok, "");
             const std::string busStopID = attrs.getOpt<std::string>(SUMO_ATTR_BUS_STOP, pid.c_str(), ok, "");
             if (toID != "") {
@@ -169,7 +170,7 @@ RORouteHandler::myStartElement(int element,
                     throw ProcessError("The to edge '" + toID + "' within a ride of person '" + pid + "' is not known.");
                 }
             } else if (busStopID != "") {
-                const SUMOVehicleParameter::Stop* stop = myNet.getStoppingPlace(busStopID, SUMO_TAG_BUS_STOP);
+                stop = myNet.getStoppingPlace(busStopID, SUMO_TAG_BUS_STOP);
                 if (stop == nullptr) {
                     throw ProcessError("Unknown bus stop '" + busStopID + "' within a ride of '" + myVehicleParameter->id + "'.");
                 }
@@ -177,8 +178,10 @@ RORouteHandler::myStartElement(int element,
             } else {
                 throw ProcessError("The to edge '' within a ride of '" + myVehicleParameter->id + "' is not known.");
             }
+            double arrivalPos = attrs.getOpt<double>(SUMO_ATTR_ARRIVALPOS, myVehicleParameter->id.c_str(), ok,
+                    stop == 0 ? -NUMERICAL_EPS : stop->endPos);
             const std::string desc = attrs.get<std::string>(SUMO_ATTR_LINES, pid.c_str(), ok);
-            myActivePerson->addRide(from, to, desc, busStopID);
+            myActivePerson->addRide(from, to, desc, arrivalPos, busStopID);
             break;
         }
         case SUMO_TAG_CONTAINER:
@@ -719,7 +722,11 @@ RORouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
         ok = false;
     }
 
-    double departPos = 0.;
+    double departPos = myActivePerson->getParameter().departPos;
+    if (!myActivePerson->getPlan().empty()) {
+        departPos = myActivePerson->getPlan().back()->getDestinationPos();
+    }
+
     double arrivalPos = 0.;
     if (attrs.hasAttribute(SUMO_ATTR_DEPARTPOS)) {
         WRITE_WARNING("The attribute departPos is no longer supported for walks, please use the person attribute, the arrivalPos of the previous step or explicit stops.");

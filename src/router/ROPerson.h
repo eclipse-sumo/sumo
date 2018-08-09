@@ -65,7 +65,7 @@ public:
                  const std::string& vTypes, const double departPos, const double arrivalPos, const std::string& busStop,
                  double walkFactor);
 
-    void addRide(const ROEdge* const from, const ROEdge* const to, const std::string& lines, const std::string& destStop);
+    void addRide(const ROEdge* const from, const ROEdge* const to, const std::string& lines, double arrivalPos, const std::string& destStop);
 
     void addWalk(const ConstROEdgeVector& edges, const double duration, const double speed,
                  const double departPos, const double arrivalPos, const std::string& busStop);
@@ -87,6 +87,7 @@ public:
         }
         virtual const ROEdge* getOrigin() const = 0;
         virtual const ROEdge* getDestination() const = 0;
+        virtual const double getDestinationPos() const = 0;
         virtual void saveVehicles(OutputDevice& /* os */, OutputDevice* const /* typeos */, bool /* asAlternatives */, OptionsCont& /* options */) const {}
         virtual void saveAsXML(OutputDevice& os, const bool extended) const = 0;
         virtual bool isStop() const {
@@ -110,6 +111,9 @@ public:
         }
         const ROEdge* getDestination() const {
             return edge;
+        }
+        const double getDestinationPos() const {
+            return stopDesc.endPos;
         }
         void saveAsXML(OutputDevice& os, const bool /* extended */) const {
             stopDesc.write(os);
@@ -142,6 +146,7 @@ public:
 
         virtual const ROEdge* getOrigin() const = 0;
         virtual const ROEdge* getDestination() const = 0;
+        virtual const double getDestinationPos() const = 0;
         virtual void saveAsXML(OutputDevice& os, const bool extended) const = 0;
     protected:
         double cost;
@@ -154,19 +159,25 @@ public:
     class Ride : public TripItem {
     public:
         Ride(const ROEdge* const _from, const ROEdge* const _to,
-             const std::string& _lines, const double _cost, const std::string& _destStop = "", const std::string& _intended = "", const SUMOTime _depart = -1) : 
+             const std::string& _lines, const double _cost, const double arrivalPos, 
+             const std::string& _destStop = "", const std::string& _intended = "", const SUMOTime _depart = -1) : 
             TripItem(_cost), 
             from(_from), to(_to), 
             lines(_lines), 
             destStop(_destStop),
             intended(_intended), 
-            depart(_depart) {}
+            depart(_depart),
+            arr(arrivalPos)
+        {}
 
         const ROEdge* getOrigin() const {
             return from;
         }
         const ROEdge* getDestination() const {
             return to;
+        }
+        const double getDestinationPos() const {
+            return arr;
         }
         void saveAsXML(OutputDevice& os, const bool extended) const;
 
@@ -177,6 +188,7 @@ public:
         const std::string destStop;
         const std::string intended;
         const SUMOTime depart;
+        const double arr;
 
     private:
         /// @brief Invalidated assignment operator
@@ -203,6 +215,9 @@ public:
         }
         const ROEdge* getDestination() const {
             return edges.back();
+        }
+        const double getDestinationPos() const {
+            return arr;
         }
         void saveAsXML(OutputDevice& os, const bool extended) const;
 
@@ -253,6 +268,13 @@ public:
         }
         const ROEdge* getDestination() const {
             return to;
+        }
+        const double getDestinationPos() const {
+            if (myTripItems.empty()) {
+                return getArrivalPos(true);
+            } else {
+                return myTripItems.back()->getDestinationPos();
+            }
         }
         double getDepartPos(bool replaceDefault = true) const {
             return dep == std::numeric_limits<double>::infinity() && replaceDefault ? 0 : dep;
