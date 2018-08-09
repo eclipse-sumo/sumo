@@ -297,6 +297,9 @@ private:
     /// @brief The object's operation to perform for travel times
     Operation myTTOperation;
 
+    /// @brief the handler for routing errors
+    MsgHandler* const myErrorMsgHandler;
+
     /// @brief whether to supress warning/error if no route was found
     bool mySilent;
 
@@ -309,9 +312,6 @@ private:
     std::vector<EdgeInfo*> myFound;
 
     EdgeInfoByEffortComparator myComparator;
-
-    /// @brief the handler for routing errors
-    MsgHandler* const myErrorMsgHandler;
 };
 
 
