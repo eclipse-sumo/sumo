@@ -383,7 +383,7 @@ GNEAdditional::checkAdditionalChildsOverlapping() const {
     std::sort(sortedChilds.begin(), sortedChilds.end());
     // make sure that number of sorted childs is the same as the additional childs
     if(sortedChilds.size() == myAdditionalChilds.size()) {
-        if(sortedChilds.size() == 1) {
+        if(sortedChilds.size() <= 1) {
             return true;
         } else {
             // check overlapping
