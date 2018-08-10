@@ -171,7 +171,7 @@ GNERerouterIntervalDialog::GNERerouterIntervalDialog(GNEAdditional* rerouterInte
 
     FXHorizontalFrame* buttonAndLabelRouteProbReroute = new FXHorizontalFrame(columnRight, GUIDesignAuxiliarHorizontalFrame);
     myAddRouteProbReroute = new FXButton(buttonAndLabelRouteProbReroute, "", GUIIconSubSys::getIcon(ICON_ADD), this, MID_GNE_REROUTEDIALOG_ADD_ROUTEPROBREROUTE, GUIDesignButtonIcon);
-    new FXLabel(buttonAndLabelRouteProbReroute, ("Add new " + toString(SUMO_TAG_ROUTE_PROB_REROUTE) + "s").c_str(), 0, GUIDesignLabelThick);
+    FXLabel * routeProbRerouteLabel = new FXLabel(buttonAndLabelRouteProbReroute, ("Add new " + toString(SUMO_TAG_ROUTE_PROB_REROUTE) + "s").c_str(), 0, GUIDesignLabelThick);
     myRouteProbRerouteTable = new FXTable(columnRight, this, MID_GNE_REROUTEDIALOG_TABLE_ROUTEPROBREROUTE, GUIDesignTableAdditionals);
     myRouteProbRerouteTable->setSelBackColor(FXRGBA(255, 255, 255, 255));
     myRouteProbRerouteTable->setSelTextColor(FXRGBA(0, 0, 0, 255));
@@ -187,6 +187,12 @@ GNERerouterIntervalDialog::GNERerouterIntervalDialog(GNEAdditional* rerouterInte
     if(rerouterInterval->getViewNet()->getNet()->getAdditionalByType(SUMO_TAG_PARKING_AREA).size() == 0) {
         parkingAreaRerouteButton->disable();
         parkingAreaRerouteLabel->setText(("There isn't " + toString(SUMO_TAG_PARKING_AREA) + "s in net").c_str());
+    }
+
+    // disable add routeProbReroute Button and change label if the rerouter has multiple edges (random routes can only work from one edge)
+    if(rerouterInterval->getFirstAdditionalParent()->getEdgeChilds().size()> 1) {
+        myAddRouteProbReroute->disable();
+        routeProbRerouteLabel->setText("Rerouter has more than one edge");
     }
 
     // update tables
