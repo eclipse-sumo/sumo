@@ -1475,17 +1475,6 @@ GNENet::joinSelectedJunctions(GNEUndoList* undoList) {
 
     // start with the join selected junctions
     undoList->p_begin("Join selected " + toString(SUMO_TAG_JUNCTION) + "s");
-
-    // first remove all crossing of the involved junctions and edges
-    for (auto i : selectedJunctions) {
-
-        while (i->getGNECrossings().size() > 0) {
-            deleteCrossing(i->getGNECrossings().front(), undoList);
-        }
-    }
-
-    // #3128 this is not undone when calling 'undo'
-    myNetBuilder->getNodeCont().registerJoinedCluster(cluster);
     GNEJunction* joined = createJunction(pos, undoList);
     joined->setAttribute(SUMO_ATTR_TYPE, toString(nodeType), undoList); // i.e. rail crossing
     if (setTL) {
@@ -1493,6 +1482,22 @@ GNENet::joinSelectedJunctions(GNEUndoList* undoList) {
         // XXX ticket831
         //joined-><getTrafficLight>->setAttribute(SUMO_ATTR_TYPE, toString(type), undoList);
     }
+
+    // #3128 this is not undone when calling 'undo'
+    myNetBuilder->getNodeCont().registerJoinedCluster(cluster);
+
+    // first remove all crossing of the involved junctions and edges 
+    // (otherwise edge removal will trigger discarding)
+    std::vector<NBNode::Crossing> oldCrossings;
+    for (auto i : selectedJunctions) {
+        while (i->getGNECrossings().size() > 0) {
+            GNECrossing* crossing = i->getGNECrossings().front();
+            oldCrossings.push_back(*crossing->getNBCrossing());
+            NBNode::Crossing* nbc = crossing->getNBCrossing();
+            deleteCrossing(crossing, undoList);
+        }
+    }
+
     // preserve old connections
     for (auto it : selectedJunctions) {
         it->setLogicValid(false, undoList);
@@ -1501,16 +1506,37 @@ GNENet::joinSelectedJunctions(GNEUndoList* undoList) {
     for (auto it : allIncoming) {
         undoList->p_add(new GNEChange_Attribute(myAttributeCarriers.edges[it->getID()], SUMO_ATTR_TO, joined->getID()));
     }
+
+    EdgeSet edgesWithin;
     for (auto it : allOutgoing) {
         // delete edges within the cluster
         GNEEdge* e = myAttributeCarriers.edges[it->getID()];
         assert(e != 0);
         if (e->getGNEJunctionDestiny() == joined) {
+            edgesWithin.insert(it);
             deleteEdge(e, undoList, false);
         } else {
             undoList->p_add(new GNEChange_Attribute(myAttributeCarriers.edges[it->getID()], SUMO_ATTR_FROM, joined->getID()));
         }
     }
+
+    // remap all crossing of the involved junctions and edges
+    for (auto nbc : oldCrossings) {
+        bool keep = true;
+        for (NBEdge* e : nbc.edges) {
+            if (edgesWithin.count(e) != 0) {
+                keep = false;
+                break;
+            }
+        };
+        if (keep) {
+            undoList->add(new GNEChange_Crossing(joined, nbc.edges, nbc.width, 
+                        nbc.priority || joined->getNBNode()->isTLControlled(),
+                        nbc.customTLIndex, nbc.customTLIndex2, nbc.customShape, 
+                        false, true), true);
+        }
+    }
+
     // delete original junctions
     for (auto it : selectedJunctions) {
         deleteJunction(it, undoList);
