@@ -55,7 +55,6 @@
 // ===========================================================================
 NBNetBuilder::NBNetBuilder() :
     myEdgeCont(myTypeCont),
-    myHaveLoadedNetworkWithoutInternalEdges(false),
     myNetworkHaveCrossings(false) {
 }
 
@@ -385,9 +384,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         }
     }
 
-    if (oc.isDefault("no-internal-links") && !myNetworkHaveCrossings && myHaveLoadedNetworkWithoutInternalEdges) {
-        oc.set("no-internal-links", "true");
-    } else if (!mayAddOrRemove && myNetworkHaveCrossings) {
+    if (!mayAddOrRemove && myNetworkHaveCrossings) {
         // crossings added via netedit
         oc.resetWritable();
         oc.set("no-internal-links", "false");
