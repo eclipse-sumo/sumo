@@ -10,6 +10,9 @@ source
 # find reachable edges from source restricted by vClass
 source_vclass
 
+# find reachable edges from source restricted by vClass
+source_vclass_invalid
+
 # find edges that can reach the given destination
 destination
 
