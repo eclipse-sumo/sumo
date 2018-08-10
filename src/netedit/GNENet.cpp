@@ -1493,7 +1493,6 @@ GNENet::joinSelectedJunctions(GNEUndoList* undoList) {
         while (i->getGNECrossings().size() > 0) {
             GNECrossing* crossing = i->getGNECrossings().front();
             oldCrossings.push_back(*crossing->getNBCrossing());
-            NBNode::Crossing* nbc = crossing->getNBCrossing();
             deleteCrossing(crossing, undoList);
         }
     }
