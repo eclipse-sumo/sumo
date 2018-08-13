@@ -50,11 +50,10 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GNECrossing::GNECrossing(GNEJunction* parentJunction, NBNode::Crossing* crossing) :
-    GNENetElement(parentJunction->getNet(), crossing->id, GLO_CROSSING, SUMO_TAG_CROSSING),
+GNECrossing::GNECrossing(GNEJunction* parentJunction, const std::string &crossingID) :
+    GNENetElement(parentJunction->getNet(), crossingID, GLO_CROSSING, SUMO_TAG_CROSSING),
     myParentJunction(parentJunction),
-    myCrossing(crossing)
-{
+    myNBCrossingID(crossingID) {
     // Update geometry
     updateGeometry();
 }
@@ -65,13 +64,15 @@ GNECrossing::~GNECrossing() {}
 
 void
 GNECrossing::updateGeometry() {
+    // obtain NBCrossing
+    NBNode::Crossing* crossing = myParentJunction->getNBNode()->getCrossing(myNBCrossingID);
     // Clear Shape rotations and segments
     myShapeRotations.clear();
     myShapeLengths.clear();
     // only rebuild shape if junction's shape isn't in Buuble mode
     if (myParentJunction->getNBNode()->getShape().size() > 0) {
         // Obtain segments of size and calculate it
-        PositionVector shape = myCrossing->customShape.size() > 0 ?  myCrossing->customShape : myCrossing->shape;
+        PositionVector shape = crossing->customShape.size() > 0 ?  crossing->customShape : crossing->shape;
         int segments = (int)shape.size() - 1;
         if (segments >= 0) {
             myShapeRotations.reserve(segments);
@@ -87,6 +88,16 @@ GNECrossing::updateGeometry() {
 }
 
 
+void 
+GNECrossing::updateID(std::string newJunctionID) {
+    for(int i = (int)(myParentJunction->getID().size()+1); i < (int)myNBCrossingID.size(); i++) {
+        newJunctionID.push_back(myNBCrossingID.at(i));
+    }
+    myNBCrossingID = newJunctionID;
+    myNBCrossingID.insert(myNBCrossingID.begin(), ':');
+}
+
+
 GNEJunction*
 GNECrossing::getParentJunction() const {
     return myParentJunction;
@@ -95,7 +106,7 @@ GNECrossing::getParentJunction() const {
 
 NBNode::Crossing*
 GNECrossing::getNBCrossing() const {
-    return myCrossing;
+    return myParentJunction->getNBNode()->getCrossing(myNBCrossingID);
 }
 
 
@@ -105,9 +116,11 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
     if (s.drawCrossingsAndWalkingareas 
             && myShapeRotations.size() > 0 && myShapeLengths.size() > 0
             && s.scale > 3.0) {
+        // obtain NBCrossing
+        NBNode::Crossing* crossing = myParentJunction->getNBNode()->getCrossing(myNBCrossingID);
         if (s.editMode != GNE_MODE_TLS) {
             // first declare what shape will be drawed
-            PositionVector shape = myCrossing->customShape.size() > 0 ? myCrossing->customShape : myCrossing->shape;
+            PositionVector shape = crossing->customShape.size() > 0 ? crossing->customShape : crossing->shape;
             // push first draw matrix
             glPushMatrix();
             // push name
@@ -117,9 +130,9 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
             // set color depending of selection and priority
             if (isAttributeCarrierSelected()) {
                 glColor3d(0.118, 0.565, 1.000);
-            } else if (!myCrossing->valid) {
+            } else if (!crossing->valid) {
                 glColor3d(1.0, 0.1, 0.1);
-            } else if (myCrossing->priority) {
+            } else if (crossing->priority) {
                 glColor3d(0.9, 0.9, 0.9);
             } else {
                 glColor3d(0.1, 0.1, 0.1);
@@ -129,7 +142,7 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
             // set default values
             double length = 0.5;
             double spacing = 1.0;
-            double halfWidth = myCrossing->width * 0.5;
+            double halfWidth = crossing->width * 0.5;
             // push second draw matrix
             glPushMatrix();
             // draw on top of of the white area between the rails
@@ -178,19 +191,21 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
         }
         // check if dotted contour has to be drawn
         if(!s.drawForSelecting && (myNet->getViewNet()->getACUnderCursor() == this)) {
-            GLHelper::drawShapeDottedContour(getType(), myCrossing->shape, myCrossing->width * 0.5);
+            GLHelper::drawShapeDottedContour(getType(), crossing->shape, crossing->width * 0.5);
         }
     }
 }
 
 void
 GNECrossing::drawTLSLinkNo(const GUIVisualizationSettings& s) const {
+    // obtain NBCrossing
+    NBNode::Crossing* crossing = myParentJunction->getNBNode()->getCrossing(myNBCrossingID);
     glPushMatrix();
     glTranslated(0, 0, GLO_JUNCTION + 0.5);
-    PositionVector shape = myCrossing->shape;
+    PositionVector shape = crossing->shape;
     shape.extrapolate(0.5); // draw on top of the walking area
-    int linkNo = myCrossing->tlLinkIndex;
-    int linkNo2 = myCrossing->tlLinkIndex2 > 0 ? myCrossing->tlLinkIndex2 : linkNo;
+    int linkNo = crossing->tlLinkIndex;
+    int linkNo2 = crossing->tlLinkIndex2 > 0 ? crossing->tlLinkIndex2 : linkNo;
     GLHelper::drawTextAtEnd(toString(linkNo2), shape, 0, s.drawLinkTLIndex.size, s.drawLinkTLIndex.color);
     GLHelper::drawTextAtEnd(toString(linkNo), shape.reverse(), 0, s.drawLinkTLIndex.size, s.drawLinkTLIndex.color);
     glPopMatrix();
@@ -223,7 +238,7 @@ GNECrossing::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 
 Boundary
 GNECrossing::getCenteringBoundary() const {
-    Boundary b = myCrossing->shape.getBoxBoundary();
+    Boundary b = myParentJunction->getNBNode()->getCrossing(myNBCrossingID)->shape.getBoxBoundary();
     b.grow(10);
     return b;
 }
@@ -231,21 +246,25 @@ GNECrossing::getCenteringBoundary() const {
 
 std::string
 GNECrossing::getAttribute(SumoXMLAttr key) const {
+    // special case for IDs
+    if(key == SUMO_ATTR_ID) {
+        return myNBCrossingID;
+    }
+    // obtain NBCrossing
+    NBNode::Crossing* crossing = myParentJunction->getNBNode()->getCrossing(myNBCrossingID);
     switch (key) {
-        case SUMO_ATTR_ID:
-            return getMicrosimID();
         case SUMO_ATTR_WIDTH:
-            return toString(myCrossing->customWidth);
+            return toString(crossing->customWidth);
         case SUMO_ATTR_PRIORITY:
-            return myCrossing->priority ? "true" : "false";
+            return crossing->priority ? "true" : "false";
         case SUMO_ATTR_EDGES:
-            return toString(myCrossing->edges);
+            return toString(crossing->edges);
         case SUMO_ATTR_TLLINKINDEX:
-            return toString(myCrossing->customTLIndex);
+            return toString(crossing->customTLIndex);
         case SUMO_ATTR_TLLINKINDEX2:
-            return toString(myCrossing->customTLIndex2);
+            return toString(crossing->customTLIndex2);
         case SUMO_ATTR_CUSTOMSHAPE:
-            return toString(myCrossing->customShape);
+            return toString(crossing->customShape);
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_GENERIC:
@@ -261,6 +280,8 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
     if (value == getAttribute(key)) {
         return; //avoid needless changes, later logic relies on the fact that attributes have changed
     }
+    // obtain NBCrossing
+    NBNode::Crossing* crossing = myParentJunction->getNBNode()->getCrossing(myNBCrossingID);
     switch (key) {
         case SUMO_ATTR_ID:
             throw InvalidArgument("Modifying attribute '" + toString(key) + "' of " + toString(getTag()) + " isn't allowed");
@@ -282,6 +303,8 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
 
 bool
 GNECrossing::isValid(SumoXMLAttr key, const std::string& value) {
+    // obtain NBCrossing
+    NBNode::Crossing* crossing = myParentJunction->getNBNode()->getCrossing(myNBCrossingID);
     switch (key) {
         case SUMO_ATTR_ID:
             return false;
@@ -295,7 +318,7 @@ GNECrossing::isValid(SumoXMLAttr key, const std::string& value) {
                 }
                 std::sort(nbEdges.begin(), nbEdges.end());
                 // 
-                EdgeVector originalEdges = myCrossing->edges;
+                EdgeVector originalEdges = crossing->edges;
                 std::sort(originalEdges.begin(), originalEdges.end());
                 // return true if we're setting the same edges
                 if(toString(nbEdges) == toString(originalEdges)) {
@@ -312,7 +335,7 @@ GNECrossing::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<bool>(value);
         case SUMO_ATTR_TLLINKINDEX:
         case SUMO_ATTR_TLLINKINDEX2:
-            return (myCrossing->tlID != "" && canParse<int>(value) 
+            return (crossing->tlID != "" && canParse<int>(value) 
                     && ((parse<double>(value) > 0) || ((parse<double>(value) == -1) && (key == SUMO_ATTR_TLLINKINDEX2)))  // kann 0 sein (oder -1 -> es ist nicht verwendet)
                     && myParentJunction->getNBNode()->getControllingTLS().size() > 0
                     && (*myParentJunction->getNBNode()->getControllingTLS().begin())->getMaxValidIndex() >= parse<int>(value));
@@ -333,8 +356,10 @@ GNECrossing::isValid(SumoXMLAttr key, const std::string& value) {
 
 bool 
 GNECrossing::addGenericParameter(const std::string &key, const std::string &value) {
-    if(!myCrossing->knowsParameter(key)) {
-        myCrossing->setParameter(key, value);
+    // obtain NBCrossing
+    NBNode::Crossing* crossing = myParentJunction->getNBNode()->getCrossing(myNBCrossingID);
+    if(!crossing->knowsParameter(key)) {
+        crossing->setParameter(key, value);
         return true;
     } else {
         return false;
@@ -344,8 +369,10 @@ GNECrossing::addGenericParameter(const std::string &key, const std::string &valu
 
 bool 
 GNECrossing::removeGenericParameter(const std::string &key) {
-    if(myCrossing->knowsParameter(key)) {
-        myCrossing->unsetParameter(key);
+    // obtain NBCrossing
+    NBNode::Crossing* crossing = myParentJunction->getNBNode()->getCrossing(myNBCrossingID);
+    if(crossing->knowsParameter(key)) {
+        crossing->unsetParameter(key);
         return true;
     } else {
         return false;
@@ -355,10 +382,12 @@ GNECrossing::removeGenericParameter(const std::string &key) {
 
 bool 
 GNECrossing::updateGenericParameter(const std::string &oldKey, const std::string &newKey) {
-    if(myCrossing->knowsParameter(oldKey) && !myCrossing->knowsParameter(newKey)) {
-        std::string value = myCrossing->getParameter(oldKey);
-        myCrossing->unsetParameter(oldKey);
-        myCrossing->setParameter(newKey, value);
+    // obtain NBCrossing
+    NBNode::Crossing* crossing = myParentJunction->getNBNode()->getCrossing(myNBCrossingID);
+    if(crossing->knowsParameter(oldKey) && !crossing->knowsParameter(newKey)) {
+        std::string value = crossing->getParameter(oldKey);
+        crossing->unsetParameter(oldKey);
+        crossing->setParameter(newKey, value);
         return true;
     } else {
         return false;
@@ -368,8 +397,10 @@ GNECrossing::updateGenericParameter(const std::string &oldKey, const std::string
 
 bool 
 GNECrossing::updateGenericParameterValue(const std::string &key, const std::string &newValue) {
-    if(myCrossing->knowsParameter(key)) {
-        myCrossing->setParameter(key, newValue);
+    // obtain NBCrossing
+    NBNode::Crossing* crossing = myParentJunction->getNBNode()->getCrossing(myNBCrossingID);
+    if(crossing->knowsParameter(key)) {
+        crossing->setParameter(key, newValue);
         return true;
     } else {
         return false;
@@ -379,9 +410,11 @@ GNECrossing::updateGenericParameterValue(const std::string &key, const std::stri
 
 std::string 
 GNECrossing::getGenericParametersStr() const {
+    // obtain NBCrossing
+    NBNode::Crossing* crossing = myParentJunction->getNBNode()->getCrossing(myNBCrossingID);
     std::string result;
     // Generate an string using the following structure: "key1=value1|key2=value2|...
-    for (auto i : myCrossing->getParametersMap()) {
+    for (auto i : crossing->getParametersMap()) {
         result += i.first + "=" + i.second + "|";
     }
     // remove the last "|"
@@ -394,9 +427,11 @@ GNECrossing::getGenericParametersStr() const {
 
 std::vector<std::pair<std::string, std::string> > 
 GNECrossing::getGenericParameters() const {
+        // obtain NBCrossing
+    NBNode::Crossing* crossing = myParentJunction->getNBNode()->getCrossing(myNBCrossingID);
     std::vector<std::pair<std::string, std::string> >  result;
     // iterate over parameters map and fill result
-    for (auto i : myCrossing->getParametersMap()) {
+    for (auto i : crossing->getParametersMap()) {
         result.push_back(std::make_pair(i.first, i.second));
     }
     return result;
@@ -405,8 +440,10 @@ GNECrossing::getGenericParameters() const {
 
 void 
 GNECrossing::setGenericParametersStr(const std::string &value) {
+    // obtain NBCrossing
+    NBNode::Crossing* crossing = myParentJunction->getNBNode()->getCrossing(myNBCrossingID);
     // clear parameters
-    myCrossing->clearParameter();
+    crossing->clearParameter();
     // separate value in a vector of string using | as separator
     std::vector<std::string> parsedValues;
     StringTokenizer stValues(value, "|", true);
@@ -422,7 +459,7 @@ GNECrossing::setGenericParametersStr(const std::string &value) {
         }
         // Check that parsed parameters are exactly two and contains valid chracters
         if(parsedParameters.size() == 2 && SUMOXMLDefinitions::isValidNetID(parsedParameters.front()) && SUMOXMLDefinitions::isValidAttribute(parsedParameters.back())) {
-            myCrossing->setParameter(parsedParameters.front(), parsedParameters.back());
+            crossing->setParameter(parsedParameters.front(), parsedParameters.back());
         }
     }
 }
@@ -430,7 +467,9 @@ GNECrossing::setGenericParametersStr(const std::string &value) {
 
 bool
 GNECrossing::checkEdgeBelong(GNEEdge* edge) const {
-    if (std::find(myCrossing->edges.begin(), myCrossing->edges.end(), edge->getNBEdge()) !=  myCrossing->edges.end()) {
+    // obtain NBCrossing
+    NBNode::Crossing* crossing = myParentJunction->getNBNode()->getCrossing(myNBCrossingID);
+    if (std::find(crossing->edges.begin(), crossing->edges.end(), edge->getNBEdge()) !=  crossing->edges.end()) {
         return true;
     } else {
         return false;
@@ -454,6 +493,8 @@ GNECrossing::checkEdgeBelong(const std::vector<GNEEdge*>& edges) const {
 
 void
 GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value) {
+    // obtain NBCrossing
+    NBNode::Crossing* crossing = myParentJunction->getNBNode()->getCrossing(myNBCrossingID);
     switch (key) {
         case SUMO_ATTR_ID:
             throw InvalidArgument("Modifying attribute '" + toString(key) + "' of " + toString(getTag()) + " isn't allowed");
@@ -461,33 +502,33 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value) {
             // obtain GNEEdges
             std::vector<GNEEdge*> edges = parse<std::vector<GNEEdge*> >(myNet, value);
             // remove NBEdges of crossing
-            myCrossing->edges.clear();
+            crossing->edges.clear();
             // set NBEdge of every GNEEdge into Crossing Edges
             for (auto i : edges) {
-                myCrossing->edges.push_back(i->getNBEdge());
+                crossing->edges.push_back(i->getNBEdge());
             }
             // sort new edges
-            std::sort(myCrossing->edges.begin(), myCrossing->edges.end());
+            std::sort(crossing->edges.begin(), crossing->edges.end());
             // update geometry of parent junction
             myParentJunction->updateGeometry();
             break;
         }
         case SUMO_ATTR_WIDTH:
             // Change width an refresh element
-            myCrossing->customWidth = parse<double>(value);
+            crossing->customWidth = parse<double>(value);
             break;
         case SUMO_ATTR_PRIORITY:
-            myCrossing->priority = parse<bool>(value);
+            crossing->priority = parse<bool>(value);
             break;
         case SUMO_ATTR_TLLINKINDEX:
-            myCrossing->customTLIndex = parse<int>(value);
+            crossing->customTLIndex = parse<int>(value);
             break;
         case SUMO_ATTR_TLLINKINDEX2:
-            myCrossing->customTLIndex2 = parse<int>(value);
+            crossing->customTLIndex2 = parse<int>(value);
             break;
         case SUMO_ATTR_CUSTOMSHAPE: {
             bool ok;
-            myCrossing->customShape = GeomConvHelper::parseShapeReporting(value, "user-supplied shape", 0, ok, true);
+            crossing->customShape = GeomConvHelper::parseShapeReporting(value, "user-supplied shape", 0, ok, true);
             updateGeometry();
             break;
         }

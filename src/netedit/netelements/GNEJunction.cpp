@@ -783,7 +783,7 @@ GNEJunction::retrieveGNECrossing(NBNode::Crossing* crossing, bool createIfNoExis
     }
     if (createIfNoExist) {
         // create new GNECrossing
-        GNECrossing* createdGNECrossing = new GNECrossing(this, crossing);
+        GNECrossing* createdGNECrossing = new GNECrossing(this, crossing->id);
         // show extra information for tests
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Created " + toString(createdGNECrossing->getTag()) + " '" + createdGNECrossing->getID() + "' in retrieveGNECrossing()");

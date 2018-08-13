@@ -49,13 +49,16 @@ public:
      * @param[in] parentJunction GNEJunction in which this crossing is placed
      * @param[in] crossing Node::Crossing
      */
-    GNECrossing(GNEJunction* parentJunction, NBNode::Crossing* crossing);
+    GNECrossing(GNEJunction* parentJunction, const std::string &NBCrossingID);
 
     /// @brief Destructor
-    virtual ~GNECrossing();
+    ~GNECrossing();
 
     /// @brief update pre-computed geometry information
     void updateGeometry();
+
+    /// @brief update internal ID (used when ID of junction parent is changed)
+    void updateID(std::string newJunctionID);
 
     /// @brief get parent Junction
     GNEJunction* getParentJunction() const;
@@ -147,8 +150,8 @@ protected:
     /// @brief the parent junction of this crossing
     GNEJunction* myParentJunction;
 
-    /// @brief the data for this crossing
-    NBNode::Crossing* myCrossing;
+    /// @brief edges of crossing
+    std::string myNBCrossingID;
 
     /// @name computed only once (for performance) in updateGeometry()
     /// @{
