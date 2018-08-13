@@ -137,6 +137,7 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac, bool ignoreOptio
         switch (ac->getTag()) {
             case SUMO_TAG_EDGE: {
                 GNEEdge* edge = dynamic_cast<GNEEdge*>(ac);
+                assert(edge);
                 if (edge->getVertexIndex(clickedPosition, false) != -1) {
                     edge->deleteGeometryPoint(clickedPosition);
                 }
@@ -144,6 +145,7 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac, bool ignoreOptio
             }
             case SUMO_TAG_POLY: {
                 GNEPoly* polygon = dynamic_cast<GNEPoly*>(ac);
+                assert(polygon);
                 if (polygon->getVertexIndex(clickedPosition, false) != -1) {
                     polygon->deleteGeometryPoint(clickedPosition);
                 }
@@ -158,6 +160,7 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac, bool ignoreOptio
         switch (ac->getTag()) {
             case SUMO_TAG_JUNCTION: {
                 GNEJunction* junction = dynamic_cast<GNEJunction*>(ac);
+                assert(junction);
                 // obtain number of additionals of junction's childs
                 int numberOfAdditionals = 0;
                 for (auto i : junction->getGNEEdges()) {
@@ -193,6 +196,7 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac, bool ignoreOptio
             }
             case SUMO_TAG_EDGE: {
                 GNEEdge* edge = dynamic_cast<GNEEdge*>(ac);
+                assert(edge);
                 // check if click was over a geometry point or over a shape's edge
                 if (edge->getVertexIndex(clickedPosition, false) != -1) {
                     edge->deleteGeometryPoint(clickedPosition);
@@ -246,6 +250,7 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac, bool ignoreOptio
             }
             case SUMO_TAG_LANE: {
                 GNELane* lane = dynamic_cast<GNELane*>(ac);
+                assert(lane);
                 // Check if lane can be deleted
                 if (myDeleteOptions->forceDeleteAdditionals() || ignoreOptions) {
                     // when deleting a single lane, keep all unaffected connections as they were
@@ -272,20 +277,28 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac, bool ignoreOptio
                 break;
             }
             case SUMO_TAG_CROSSING: {
-                myViewNet->getNet()->deleteCrossing(dynamic_cast<GNECrossing*>(ac), myViewNet->getUndoList());
+                GNECrossing* crossing = dynamic_cast<GNECrossing*>(ac);
+                assert(crossing);
+                myViewNet->getNet()->deleteCrossing(crossing, myViewNet->getUndoList());
                 break;
             }
             case SUMO_TAG_CONNECTION: {
-                myViewNet->getNet()->deleteConnection(dynamic_cast<GNEConnection*>(ac), myViewNet->getUndoList());
+                GNEConnection* connection = dynamic_cast<GNEConnection*>(ac);
+                assert(connection);
+                myViewNet->getNet()->deleteConnection(connection, myViewNet->getUndoList());
                 break;
             }
             default: {
                 // obtain tag property (only for improve code legibility)
                 const auto &tagValue = GNEAttributeCarrier::getTagProperties(ac->getTag());
                 if(tagValue.isAdditional()) {
-                    myViewNet->getViewParent()->getAdditionalFrame()->removeAdditional(dynamic_cast<GNEAdditional*>(ac));
+                    GNEAdditional* additional = dynamic_cast<GNEAdditional*>(ac);
+                    assert(additional);
+                    myViewNet->getViewParent()->getAdditionalFrame()->removeAdditional(additional);
                 } else if(tagValue.isShape()) {
-                    myViewNet->getNet()->deleteShape(dynamic_cast<GNEShape*>(ac), myViewNet->getUndoList());
+                    GNEShape* shape = dynamic_cast<GNEShape*>(ac);
+                    assert(shape);
+                    myViewNet->getNet()->deleteShape(shape, myViewNet->getUndoList());
                 }
                 break;
             }
@@ -293,6 +306,12 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac, bool ignoreOptio
     }
     // update view to show changes
     myViewNet->update();
+}
+
+
+GNEDeleteFrame::DeleteOptions *
+GNEDeleteFrame::getDeleteOptions() const {
+    return myDeleteOptions;
 }
 
 /****************************************************************************/

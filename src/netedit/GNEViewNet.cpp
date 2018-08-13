@@ -754,7 +754,14 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                     }
                     // check if we are deleting a selection or an single attribute carrier
                     if (myObjectsUnderCursor.attributeCarrier->isAttributeCarrierSelected()) {
-                        myViewParent->getDeleteFrame()->removeSelectedAttributeCarriers();
+                        // before delete al selected attribute carriers, check if we clicked over a geometry point
+                        if(myViewParent->getDeleteFrame()->getDeleteOptions()->deleteOnlyGeometryPoints() &&
+                           ((myObjectsUnderCursor.edge && (myObjectsUnderCursor.edge->getVertexIndex(getPositionInformation(), false) != -1)) || 
+                           (myObjectsUnderCursor.poly && (myObjectsUnderCursor.poly->getVertexIndex(getPositionInformation(), false) != -1)))) {
+                            myViewParent->getDeleteFrame()->removeAttributeCarrier(myObjectsUnderCursor.attributeCarrier);
+                        } else {
+                            myViewParent->getDeleteFrame()->removeSelectedAttributeCarriers();
+                        }
                     } else {
                         myViewParent->getDeleteFrame()->removeAttributeCarrier(myObjectsUnderCursor.attributeCarrier);
                     }

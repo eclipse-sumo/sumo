@@ -94,8 +94,8 @@ public:
      */
     void removeAttributeCarrier(GNEAttributeCarrier* ac, bool ignoreOptions = false);
 
-    /// @brief update current label
-    void updateCurrentLabel(GNEAttributeCarrier* ac);
+    /// @brief get delete options
+    DeleteOptions *getDeleteOptions() const;
 
 private:
     /// @brief modul for delete options
