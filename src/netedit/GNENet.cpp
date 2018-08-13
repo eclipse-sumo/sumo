@@ -2254,11 +2254,15 @@ GNENet::insertEdge(GNEEdge* edge) {
 
 GNEJunction*
 GNENet::registerJunction(GNEJunction* junction) {
+    // increase reference
     junction->incRef("GNENet::registerJunction");
     junction->setResponsible(false);
     myAttributeCarriers.junctions[junction->getMicrosimID()] = junction;
+    // add it into grid
     myGrid.add(junction->getBoundary());
     myGrid.addAdditionalGLObject(junction);
+    // update geometry
+    junction->updateGeometry();
     // check if junction is selected
     if(junction->isAttributeCarrierSelected()) {
         junction->selectAttributeCarrier(false);
@@ -2433,6 +2437,17 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
         }
     }
 
+    // removes all junctions of grid
+    auto copyOfJunctions = myAttributeCarriers.junctions;
+    for (auto it : copyOfJunctions) {
+        myGrid.removeAdditionalGLObject(it.second);
+    }
+    
+    // remove all edges from grid
+    for (const auto &it : myAttributeCarriers.edges) {
+        myGrid.removeAdditionalGLObject(it.second);
+    }
+
     myNetBuilder->compute(oc, liveExplicitTurnarounds, volatileOptions);
     // update ids if necessary
     if (oc.getBool("numerical-ids") || oc.isSet("reserved-ids")) {
@@ -2464,65 +2479,78 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
     // Remove from container
     myGrid.reset();
     myGrid.add(GeoConvHelper::getFinal().getConvBoundary());
+
     // if volatile options are true
     if (volatileOptions) {
         assert(myViewNet != 0);
-        // clear all Polys of grid
-        for (const auto& i : myPolygons) {
-            myGrid.removeAdditionalGLObject(dynamic_cast<GUIGlObject*>(i.second));
-        }
 
-        // clear all POIs of grid
-        for (const auto& i : myPOIs) {
-            myGrid.removeAdditionalGLObject(dynamic_cast<GUIGlObject*>(i.second));
-        }
+        // clear undo list (This will be remove additionals and shapes)
+        myViewNet->getUndoList()->clear();
 
-        // clear all additionals of grid
-        auto copyOfAdditionals = myAttributeCarriers.additionals;
-        for (const auto& it : copyOfAdditionals) {
-            for (const auto& j : it.second) {
-                myGrid.removeAdditionalGLObject(j.second);
-            }
-        }
-
-        // remove all edges of grid and net
+        // remove all edges of net (It was already removed from grid)
         auto copyOfEdges = myAttributeCarriers.edges;
         for (auto it : copyOfEdges) {
-            myGrid.removeAdditionalGLObject(it.second);
             myAttributeCarriers.edges.erase(it.second->getMicrosimID());
         }
 
-        // removes all junctions of grid and net
+        // removes all junctions of net  (It was already removed from grid)
         auto copyOfJunctions = myAttributeCarriers.junctions;
         for (auto it : copyOfJunctions) {
-            myGrid.removeAdditionalGLObject(it.second);
             myAttributeCarriers.junctions.erase(it.second->getMicrosimID());
         }
 
-        // clear undo list
-        myViewNet->getUndoList()->clear();
-
-        // clear additionals (must be do it separated)
+        // clear rest of additionals and shapes that weren't removed during cleaning of undo list
+        for (const auto& it : myAttributeCarriers.additionals) {
+            for (const auto& j : it.second) {
+                // only remove drawable additionals
+                if(GNEAttributeCarrier::getTagProperties(j.second->getTag()).isDrawable()) {
+                    myGrid.removeAdditionalGLObject(j.second);
+                }
+            }
+        }
         myAttributeCarriers.additionals.clear();
 
-        // clear shape containers
+        // clear rest of polygons that weren't removed during cleaning of undo list
+        for (const auto& it : myPolygons) {
+            myGrid.removeAdditionalGLObject(dynamic_cast<GUIGlObject*>(it.second));
+        }
         myPolygons.clear();
+
+        // clear rest of POIs that weren't removed during cleaning of undo list
+        for (const auto& it : myPOIs) {
+            myGrid.removeAdditionalGLObject(dynamic_cast<GUIGlObject*>(it.second));
+        }
         myPOIs.clear();
 
-        // init again junction an edges
+        // init again junction an edges (Additionals and shapes will be loaded after the end of this function)
         initJunctionsAndEdges();
+
+    } else {
+        // remake connections
+        for (auto it : myAttributeCarriers.edges) {
+            it.second->remakeGNEConnections();
+        }
+
+        // iterate over junctions of net
+        for (const auto& it : myAttributeCarriers.junctions) {
+            // undolist may not yet exist but is also not needed when just marking junctions as valid
+            it.second->setLogicValid(true, 0);
+            // insert junction in grid again
+            myGrid.addAdditionalGLObject(it.second);
+            // updated geometry
+            it.second->updateGeometry();
+        }
+
+        // iterate over all edges of net
+        for (const auto &it : myAttributeCarriers.edges) {
+            // insert edge in grid again
+            myGrid.addAdditionalGLObject(it.second);
+            // update geometry
+            it.second->updateGeometry();
+        }
     }
 
-    // update precomputed geometries
-    initGNEConnections();
-
-    for (const auto& it : myAttributeCarriers.junctions) {
-        // undolist may not yet exist but is also not needed when just marking junctions as valid
-        it.second->setLogicValid(true, 0);
-        // updated shape
-        it.second->updateGeometry();
-    }
-
+    // net recomputed, then return false;
     myNeedRecompute = false;
 }
 

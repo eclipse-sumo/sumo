@@ -52,18 +52,20 @@ GNEChange_Shape::~GNEChange_Shape() {
     assert(myShape);
     myShape->decRef("GNEChange_Shape");
     if (myShape->unreferenced()) {
-        // make sure that shape are removed of ShapeContainer (net)
+        // make sure that shape are removed of ShapeContainer (net) AND grid
         if (myNet->retrievePolygon(myShape->getID(), false) != nullptr) {
             // show extra information for tests
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
                 WRITE_WARNING("Removing " + toString(myShape->getTag()) + " '" + myShape->getID() + "' from net in ~GNEChange_Shape()");
             }
+            myNet->removeGLObjectFromNet(dynamic_cast<GUIGlObject*>(myShape));
             myNet->myPolygons.remove(myShape->getID(), false);
         } else if(myNet->retrievePOI(myShape->getID(), false) != nullptr) {
             // show extra information for tests
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
                 WRITE_WARNING("Removing " + toString(myShape->getTag()) + " '" + myShape->getID() + "' from net in ~GNEChange_Shape()");
             }
+            myNet->removeGLObjectFromNet(dynamic_cast<GUIGlObject*>(myShape));
             myNet->myPOIs.remove(myShape->getID(), false);
         }
         // show extra information for tests
