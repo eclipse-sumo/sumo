@@ -26,9 +26,11 @@
 #include <netedit/GNEAttributeCarrier.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
 #include <netedit/netelements/GNENetElement.h>
 #include <netedit/additionals/GNEAdditional.h>
 #include <netedit/additionals/GNEShape.h>
+#include <netedit/frames/GNESelectorFrame.h>
 
 #include "GNEChange_Attribute.h"
 
@@ -49,39 +51,45 @@ GNEChange_Attribute::GNEChange_Attribute(GNENetElement* netElement,
     myKey(key),
     myOrigValue(customOrigValue ? origValue : netElement->getAttribute(key)),
     myNewValue(value),
+    myNet(netElement->getNet()),
     myNetElement(netElement),
     myAdditional(nullptr),
     myShape(nullptr) {
+    assert(myAC && (myNetElement || myAdditional || myShape));
     myAC->incRef("GNEChange_Attribute " + toString(myKey));
 }
 
 
-GNEChange_Attribute::GNEChange_Attribute(GNEAdditional* additionals,
+GNEChange_Attribute::GNEChange_Attribute(GNEAdditional* additional,
         SumoXMLAttr key, const std::string& value,
         bool customOrigValue, const std::string& origValue) :
     GNEChange(0, true),
-    myAC(additionals),
+    myAC(additional),
     myKey(key),
-    myOrigValue(customOrigValue ? origValue : additionals->getAttribute(key)),
+    myOrigValue(customOrigValue ? origValue : additional->getAttribute(key)),
     myNewValue(value),
+    myNet(additional->getViewNet()->getNet()),
     myNetElement(nullptr),
-    myAdditional(additionals),
+    myAdditional(additional),
     myShape(nullptr) {
+    assert(myAC && (myNetElement || myAdditional || myShape));
     myAC->incRef("GNEChange_Attribute " + toString(myKey));
 }
 
 
-GNEChange_Attribute::GNEChange_Attribute(GNEShape* shapes,
+GNEChange_Attribute::GNEChange_Attribute(GNEShape* shape,
         SumoXMLAttr key, const std::string& value,
         bool customOrigValue, const std::string& origValue) :
     GNEChange(0, true),
-    myAC(shapes),
+    myAC(shape),
     myKey(key),
-    myOrigValue(customOrigValue ? origValue : shapes->getAttribute(key)),
+    myOrigValue(customOrigValue ? origValue : shape->getAttribute(key)),
     myNewValue(value),
+    myNet(shape->getNet()),
     myNetElement(nullptr),
     myAdditional(nullptr),
-    myShape(shapes) {
+    myShape(shape) {
+    assert(myAC && (myNetElement || myAdditional || myShape));
     myAC->incRef("GNEChange_Attribute " + toString(myKey));
 }
 
@@ -98,9 +106,9 @@ GNEChange_Attribute::~GNEChange_Attribute() {
         if (myShape) {
             // remove shape using pecify functions
             if (myShape->getTag() == SUMO_TAG_POLY) {
-                myShape->getNet()->removePolygon(myShape->getID());
+                myNet->removePolygon(myShape->getID());
             } else if ((myShape->getTag() == SUMO_TAG_POI) || (myShape->getTag() == SUMO_TAG_POILANE)) {
-                myShape->getNet()->removePOI(myShape->getID());
+                myNet->removePOI(myShape->getID());
             }
         } else {
             delete myAC;
@@ -120,12 +128,16 @@ GNEChange_Attribute::undo() {
     // check if netElements, additional or shapes has to be saved (only if key isn't GNE_ATTR_SELECTED)
     if(myKey != GNE_ATTR_SELECTED) {
         if (myNetElement) {
-            myNetElement->getNet()->requiereSaveNet(true);
+            myNet->requiereSaveNet(true);
         } else if (myAdditional) {
-            myAdditional->getViewNet()->getNet()->requiereSaveAdditionals(true);
+            myNet->requiereSaveAdditionals(true);
         } else if (myShape) {
-            myShape->getNet()->requiereSaveShapes(true);
+            myNet->requiereSaveShapes(true);
         }
+    } else {
+        // update lockGL object types
+        myNet->getViewNet()->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->updateLockGLObjectTypes();
+        myNet->getViewNet()->update();
     }
 }
 
@@ -141,12 +153,16 @@ GNEChange_Attribute::redo() {
     // check if netElements, additional or shapes has to be saved (only if key isn't GNE_ATTR_SELECTED)
     if(myKey != GNE_ATTR_SELECTED) {
         if (myNetElement) {
-            myNetElement->getNet()->requiereSaveNet(true);
+            myNet->requiereSaveNet(true);
         } else if (myAdditional) {
-            myAdditional->getViewNet()->getNet()->requiereSaveAdditionals(true);
+            myNet->requiereSaveAdditionals(true);
         } else if (myShape) {
-            myShape->getNet()->requiereSaveShapes(true);
+            myNet->requiereSaveShapes(true);
         }
+    } else {
+        // update lockGL object types
+        myNet->getViewNet()->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->updateLockGLObjectTypes();
+        myNet->getViewNet()->update();
     }
 }
 

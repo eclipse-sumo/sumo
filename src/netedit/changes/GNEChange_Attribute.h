@@ -35,6 +35,7 @@ class GNEAttributeCarrier;
 class GNENetElement;
 class GNEAdditional;
 class GNEShape;
+class GNENet;
 
 // ===========================================================================
 // class definitions
@@ -65,7 +66,7 @@ public:
      * @param[in] value The new value
      * @param[in] testingMode flag to indicate if netedit is running in testing mode
      */
-    GNEChange_Attribute(GNEAdditional* additionals,
+    GNEChange_Attribute(GNEAdditional* additional,
                         const SumoXMLAttr key,
                         const std::string& value,
                         bool customOrigValue = false,
@@ -77,7 +78,7 @@ public:
      * @param[in] value The new value
      * @param[in] testingMode flag to indicate if netedit is running in testing mode
      */
-    GNEChange_Attribute(GNEShape* shapes,
+    GNEChange_Attribute(GNEShape* shape,
                         const SumoXMLAttr key,
                         const std::string& value,
                         bool customOrigValue = false,
@@ -118,6 +119,9 @@ private:
 
     /// @brief the original value
     std::string myNewValue;
+
+    /// @brief pointer to Net (used to simplify code)
+    GNENet* myNet;
 
     /// @brief used if AC is an net element
     GNENetElement* myNetElement;
