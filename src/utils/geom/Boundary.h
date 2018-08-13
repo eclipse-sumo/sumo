@@ -136,8 +136,11 @@ public:
     /// Output operator
     friend std::ostream& operator<<(std::ostream& os, const Boundary& b);
 
-    /// @brief Comparison operator
+    /// @brief Comparison operator equal
     bool operator==(const Boundary& b) const;
+
+    /// @brief Comparison operator not equal
+    bool operator!=(const Boundary& b) const;
 
 private:
     /// The boundaries

@@ -1174,7 +1174,6 @@ GNENet::addGLObjectIntoNet(GUIGlObject* o) {
 void 
 GNENet::removeGLObjectFromNet(GUIGlObject* o) {
     myGrid.removeAdditionalGLObject(o);
-
 }
 
 

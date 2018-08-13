@@ -250,6 +250,9 @@ GNELoadThread::fillOptions(OptionsCont& oc) {
     oc.doRegister("gui-testing-debug", new Option_Bool(false));
     oc.addDescription("gui-testing-debug", "Visualisation", "Enable output messages during GUI-Testing");
 
+    oc.doRegister("gui-testing-debug-gl", new Option_Bool(false));
+    oc.addDescription("gui-testing-debug-gl", "Visualisation", "Enable output messages during GUI-Testing specific of gl functions");
+
     SystemFrame::addReportOptions(oc); // this subtopic is filled here, too
 
     NIFrame::fillOptions();

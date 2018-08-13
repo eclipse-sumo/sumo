@@ -344,6 +344,12 @@ Boundary::operator==(const Boundary& b) const {
 }
 
 
+bool 
+Boundary::operator!=(const Boundary& b) const {
+    return !(*this == b);
+}
+
+
 void
 Boundary::set(double xmin, double ymin, double xmax, double ymax) {
     myXmin = xmin;

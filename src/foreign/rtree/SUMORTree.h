@@ -27,6 +27,7 @@
 #include <utils/gui/settings/GUIVisualizationSettings.h>
 #include <utils/geom/Boundary.h>
 #include <utils/foxtools/MFXMutex.h>
+#include <utils/options/OptionsCont.h>
 
 #include "RTree.h"
 
@@ -122,6 +123,19 @@ public:
     void addAdditionalGLObject(GUIGlObject *o) {
         AbstractMutex::ScopedLocker locker(myLock);
         Boundary b = o->getCenteringBoundary();
+
+        // show information in gui testing debug gl mode
+        if (OptionsCont::getOptions().getBool("gui-testing-debug-gl")) {
+            if(myTreeDebug.count(o) != 0) {
+                throw ProcessError("GUIGlObject " + o->getMicrosimID() + " was already inserted");
+            } else if ((b.getWidth() == 0) || (b.getHeight() == 0)) {
+                throw ProcessError("boundary of GUIGlObject " + o->getMicrosimID() + " has an invalid size");
+            } else {
+                myTreeDebug[o] = b;
+                std::cout << "Inserted object " << o->getMicrosimID() << " into tree with boundary " << toString(b) << std::endl;
+            }
+        }
+
         const float cmin[2] = {(float) b.xmin(), (float) b.ymin()};
         const float cmax[2] = {(float) b.xmax(), (float) b.ymax()};
         Insert(cmin, cmax, o);
@@ -134,6 +148,19 @@ public:
     void removeAdditionalGLObject(GUIGlObject *o) {
         AbstractMutex::ScopedLocker locker(myLock);
         Boundary b = o->getCenteringBoundary();
+
+        // show information in gui testing debug gl mode
+        if (OptionsCont::getOptions().getBool("gui-testing-debug-gl")) {
+            if(myTreeDebug.count(o) == 0) {
+                throw ProcessError("GUIGlObject " + o->getMicrosimID() + " wasn't inserted");
+            } else if (b != myTreeDebug.at(o)) {
+                throw ProcessError("add boundary of GUIGlObject " + o->getMicrosimID() + " is different of remove boundary");
+            } else {
+                myTreeDebug.erase(o);
+                std::cout << "removed object " << o->getMicrosimID() << " from tree " << std::endl;
+            }
+        }
+
         const float cmin[2] = {(float) b.xmin(), (float) b.ymin()};
         const float cmax[2] = {(float) b.xmax(), (float) b.ymax()};
         Remove(cmin, cmax, o);
@@ -144,6 +171,12 @@ protected:
     /// @brief A mutex avoiding parallel change and traversal of the tree
     mutable MFXMutex myLock;
 
+private:
+    
+    /**@brief Map only used for check that SUMORTree works as expected, only is used if option "gui-testing-debug-gl" is enabled.
+     * @note Warning: DO NOT USE in release mode and use it in debug mode carefully, due it produces a slowdown.
+     */
+    std::map<GUIGlObject*, Boundary> myTreeDebug;
 };
 
 
