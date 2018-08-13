@@ -243,10 +243,11 @@ std::vector<GNEAttributeCarrier*>
 GNESelectorFrame::getMatches(SumoXMLTag ACTag, SumoXMLAttr ACAttr, char compOp, double val, const std::string& expr) {
     std::vector<GNEAttributeCarrier*> result;
     std::vector<GNEAttributeCarrier*> allACbyTag = myViewNet->getNet()->retrieveAttributeCarriers(ACTag);
+    const auto &tagValue = GNEAttributeCarrier::getTagProperties(ACTag);
     for (auto it : allACbyTag) {
         if (expr == "") {
             result.push_back(it);
-        } else if (GNEAttributeCarrier::getTagProperties(ACTag).getAttribute(ACAttr).isNumerical()) {
+        } else if (tagValue.hasAttribute(ACAttr) && tagValue.getAttribute(ACAttr).isNumerical()) {
             double acVal;
             std::istringstream buf(it->getAttribute(ACAttr));
             buf >> acVal;
@@ -599,6 +600,8 @@ GNESelectorFrame::MatchAttribute::onCmdSelMBTag(FXObject*, FXSelector, void*) {
         for (auto it : tagValue) {
             myMatchAttrComboBox->appendItem(toString(it.first).c_str());
         }
+        // Add extra attribute "generic"
+        myMatchAttrComboBox->appendItem(toString(GNE_ATTR_GENERIC).c_str());
         // check if item can block movement
         if(tagValue.canBlockMovement()) {
             myMatchAttrComboBox->appendItem(toString(GNE_ATTR_BLOCK_MOVEMENT).c_str());
@@ -635,6 +638,8 @@ GNESelectorFrame::MatchAttribute::onCmdSelMBAttribute(FXObject*, FXSelector, voi
     auto tagPropertiesCopy = GNEAttributeCarrier::getTagProperties(myCurrentTag);
     // obtain tag property (only for improve code legibility)
     const auto &tagValue = GNEAttributeCarrier::getTagProperties(myCurrentTag);
+    // add an extra AttributeValues to allow select ACs using as criterium "generic parameters"
+    tagPropertiesCopy.addAttribute(GNE_ATTR_GENERIC, GNEAttributeCarrier::AttrProperty::ATTRPROPERTY_STRING, "", "");
     // add extra attribute if item can block movement
     if(tagValue.canBlockMovement()) {
         // add an extra AttributeValues to allow select ACs using as criterium "block movement"
@@ -648,7 +653,8 @@ GNESelectorFrame::MatchAttribute::onCmdSelMBAttribute(FXObject*, FXSelector, voi
     // add extra attribute if item can close shape
     if(tagValue.canCloseShape()) {
         // add an extra AttributeValues to allow select ACs using as criterium "close shape"
-        tagPropertiesCopy.addAttribute(GNE_ATTR_CLOSE_SHAPE, GNEAttributeCarrier::AttrProperty::ATTRPROPERTY_BOOL, "", "true");    }
+        tagPropertiesCopy.addAttribute(GNE_ATTR_CLOSE_SHAPE, GNEAttributeCarrier::AttrProperty::ATTRPROPERTY_BOOL, "", "true");    
+    }
     // add extra attribute if item can have parent
     if(tagValue.hasParent()) {
         // add an extra AttributeValues to allow select ACs using as criterium "parent"
@@ -677,11 +683,12 @@ long
 GNESelectorFrame::MatchAttribute::onCmdSelMBString(FXObject*, FXSelector, void*) {
     // obtain expresion
     std::string expr(myMatchString->getText().text());
+    const auto &tagValue = GNEAttributeCarrier::getTagProperties(myCurrentTag);
     bool valid = true;
     if (expr == "") {
         // the empty expression matches all objects
         mySelectorFrameParent->handleIDs(mySelectorFrameParent->getMatches(myCurrentTag, myCurrentAttribute, '@', 0, expr));
-    } else if (GNEAttributeCarrier::getTagProperties(myCurrentTag).getAttribute(myCurrentAttribute).isNumerical()) {
+    } else if (tagValue.hasAttribute(myCurrentAttribute) && tagValue.getAttribute(myCurrentAttribute).isNumerical()) {
         // The expression must have the form
         //  <val matches if attr < val
         //  >val matches if attr > val
@@ -693,11 +700,10 @@ GNESelectorFrame::MatchAttribute::onCmdSelMBString(FXObject*, FXSelector, void*)
         } else {
             compOp = '=';
         }
-        try {
+        // check if value can be parsed to double
+        if(GNEAttributeCarrier::canParse<double>(expr.c_str())) {
             mySelectorFrameParent->handleIDs(mySelectorFrameParent->getMatches(myCurrentTag, myCurrentAttribute, compOp, GNEAttributeCarrier::parse<double>(expr.c_str()), expr));
-        } catch (EmptyData&) {
-            valid = false;
-        } catch (NumberFormatException&) {
+        } else {
             valid = false;
         }
     } else {
