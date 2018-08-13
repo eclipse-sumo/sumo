@@ -4,7 +4,7 @@
     <vehicle id="ego" type="1" depart="0" departPos="0" arrivalPos="70" departSpeed="max" color="1,0,0">
         <route edges="NC CE"/>
         <param key="has.ssm.device" value="true"/>
-        <param key="device.ssm.measures" value="PET"/>
+        <param key="device.ssm.measures" value="PET BR SGAP TGAP"/>
     </vehicle>
     
     <vehicle id="foe" type="1" depart="1" departPos="0" arrivalPos="70" departSpeed="max">
