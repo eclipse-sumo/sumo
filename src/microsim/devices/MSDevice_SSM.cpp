@@ -1599,10 +1599,10 @@ MSDevice_SSM::classifyEncounter(const FoeInfo* foeInfo, EncounterApproachInfo& e
                 // Foe is on the same non-internal lane
                 if (e->ego->getPositionOnLane() > e->foe->getPositionOnLane()) {
                     type = ENCOUNTER_TYPE_FOLLOWING_LEADER;
-                    eInfo.foeConflictEntryDist = e->ego->getBackPositionOnLane() - e->foe->getBackPositionOnLane();
+                    eInfo.foeConflictEntryDist = e->ego->getBackPositionOnLane() - e->foe->getPositionOnLane();
                 } else {
                     type = ENCOUNTER_TYPE_FOLLOWING_FOLLOWER;
-                    eInfo.egoConflictEntryDist = e->foe->getBackPositionOnLane() - e->ego->getBackPositionOnLane();
+                    eInfo.egoConflictEntryDist = e->foe->getBackPositionOnLane() - e->ego->getPositionOnLane();
                 }
 #ifdef DEBUG_SSM
                 std::cout << "-> Encounter type: Lead/follow-situation on non-internal lane '" << egoLane->getID() << "'" << std::endl;
