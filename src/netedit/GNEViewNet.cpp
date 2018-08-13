@@ -2615,7 +2615,9 @@ GNEViewNet::deleteSelectedCrossings() {
         std::string plural = crossings.size() == 1 ? ("") : ("s");
         myUndoList->p_begin("delete selected " + toString(SUMO_TAG_CROSSING) + "s");
         for (auto i : crossings) {
-            myNet->deleteCrossing(i, myUndoList);
+            if(myNet->retrieveCrossing(i->getID(), false)) {
+                myNet->deleteCrossing(i, myUndoList);
+            }
         }
         myUndoList->p_end();
     }

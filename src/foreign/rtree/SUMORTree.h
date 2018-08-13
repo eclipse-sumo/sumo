@@ -154,7 +154,7 @@ public:
             if(myTreeDebug.count(o) == 0) {
                 throw ProcessError("GUIGlObject " + o->getMicrosimID() + " wasn't inserted");
             } else if (b != myTreeDebug.at(o)) {
-                throw ProcessError("add boundary of GUIGlObject " + o->getMicrosimID() + " is different of remove boundary");
+                 throw ProcessError("add boundary of GUIGlObject " + o->getMicrosimID() + " is different of remove boundary");
             } else {
                 myTreeDebug.erase(o);
                 std::cout << "removed object " << o->getMicrosimID() << " from tree " << std::endl;

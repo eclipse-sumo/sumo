@@ -72,7 +72,8 @@ GNEJunction::GNEJunction(NBNode& nbn, GNENet* net, bool loaded) :
     myAmResponsible(false),
     myHasValidLogic(loaded),
     myAmTLSSelected(false) {
-    updateGeometry();
+    // give a temporal value for boundary
+    myBoundary = Boundary(myNBNode.getPosition().x() - 2, myNBNode.getPosition().y() - 2, myNBNode.getPosition().x() + 2, myNBNode.getPosition().y() + 2);
 }
 
 
@@ -101,6 +102,8 @@ GNEJunction::~GNEJunction() {
 
 void
 GNEJunction::updateGeometry() {
+    // first remove object from net grid
+    myNet->removeGLObjectFromNet(this);
     // calculate boundary using EXTENT as size
     const double EXTENT = 2;
     myBoundary = Boundary(myNBNode.getPosition().x() - EXTENT, myNBNode.getPosition().y() - EXTENT,
@@ -110,6 +113,8 @@ GNEJunction::updateGeometry() {
         myBoundary.add(myNBNode.getShape().getBoxBoundary());
     }
     myMaxSize = MAX2(myBoundary.getWidth(), myBoundary.getHeight());
+    // add object into net again
+    myNet->addGLObjectIntoNet(this);
     // rebuild GNECrossings
     // (but don't rebuild the crossings in NBNode because they are already finished)
     rebuildGNECrossings(false);
@@ -1119,13 +1124,9 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         }
         case SUMO_ATTR_POSITION: {
-            // set new position in NBNode
+            // set new position in NBNode (note: Junctions don't need to refresh it in the RTREE due the variable myBoundary
             bool ok;
-            // first remove object from net grid
-            myNet->removeGLObjectFromNet(this);
             moveJunctionGeometry(GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, false)[0]);
-            // add object into net again
-            myNet->addGLObjectIntoNet(this);
             break;
         }
         case GNE_ATTR_MODIFICATION_STATUS:
@@ -1140,13 +1141,9 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
             myLogicStatus = value;
             break;
         case SUMO_ATTR_SHAPE: {
-            // first remove object from net grid
-            myNet->removeGLObjectFromNet(this);
             bool ok;
             const PositionVector shape = GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, true);
             myNBNode.setCustomShape(shape);
-            // add object into net again
-            myNet->addGLObjectIntoNet(this);
             break;
         }
         case SUMO_ATTR_RADIUS: {
