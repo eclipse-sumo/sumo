@@ -1,17 +1,17 @@
 Warning: Adding e3Detector 'E3_0' in GNEChange_Additional
 Warning: Additionals has to be saved
 Warning: Current saving Status: net saved, additionals unsaved, shapes saved
+Warning: Adding detEntry 'E3_0detEntry0' in GNEChange_Additional
 Warning: Adding detExit 'E3_0detExit0' in GNEChange_Additional
 Warning: Inserting generic parameter 'keyB1|valueB1' into additional detExit.
 Warning: Inserting generic parameter 'keyB2|valueB2' into additional detExit.
 Warning: Inserting generic parameter 'keyB3|valueB3' into additional detExit.
-Warning: Adding detEntry 'E3_0detEntry0' in GNEChange_Additional
 Warning: Adding e3Detector 'E3_1' in GNEChange_Additional
+Warning: Adding detEntry 'E3_1detEntry0' in GNEChange_Additional
 Warning: Adding detExit 'E3_1detExit0' in GNEChange_Additional
 Warning: Inserting generic parameter 'keyB1|valueB1' into additional detExit.
 Warning: Inserting generic parameter 'keyB2|valueB2' into additional detExit.
 Warning: Inserting generic parameter 'keyB3|valueB3' into additional detExit.
-Warning: Adding detEntry 'E3_1detEntry0' in GNEChange_Additional
 Warning: net has to be saved
 Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
@@ -68,21 +68,21 @@ Warning: Setting previous attribute selected '0' into junction 'gneJ1'
 Warning: Setting previous attribute selected '0' into edge 'gneE1'
 Warning: Setting previous attribute selected '0' into junction 'gneJ0'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Removing detEntry 'E3_1detEntry0' in GNEChange_Additional
 Warning: Removing detExit 'E3_1detExit0' in GNEChange_Additional
 Warning: Removed inspected element from Inspected ACs. 1 ACs remains.
+Warning: Removing detEntry 'E3_1detEntry0' in GNEChange_Additional
 Warning: Removing e3Detector 'E3_1' in GNEChange_Additional
-Warning: Removing detEntry 'E3_0detEntry0' in GNEChange_Additional
 Warning: Removing detExit 'E3_0detExit0' in GNEChange_Additional
 Warning: Removed inspected element from Inspected ACs. 0 ACs remains.
+Warning: Removing detEntry 'E3_0detEntry0' in GNEChange_Additional
 Warning: Removing e3Detector 'E3_0' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding e3Detector 'E3_0' in GNEChange_Additional
-Warning: Adding detExit 'E3_0detExit0' in GNEChange_Additional
 Warning: Adding detEntry 'E3_0detEntry0' in GNEChange_Additional
+Warning: Adding detExit 'E3_0detExit0' in GNEChange_Additional
 Warning: Adding e3Detector 'E3_1' in GNEChange_Additional
-Warning: Adding detExit 'E3_1detExit0' in GNEChange_Additional
 Warning: Adding detEntry 'E3_1detEntry0' in GNEChange_Additional
+Warning: Adding detExit 'E3_1detExit0' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute selected 'true' into junction 'gneJ0'
 Warning: Setting new attribute selected 'true' into edge 'gneE1'
@@ -112,13 +112,13 @@ Warning: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=valu
 Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-Warning: Deleting unreferenced detEntry 'E3_1detEntry0'
+Warning: Deleting unreferenced detExit 'E3_1detExit0'
 Warning: Additionals has to be saved
 Warning: Current saving Status: net saved, additionals unsaved, shapes saved
-Warning: Deleting unreferenced detExit 'E3_1detExit0'
+Warning: Deleting unreferenced detEntry 'E3_1detEntry0'
 Warning: Deleting unreferenced e3Detector 'E3_1'
-Warning: Deleting unreferenced detEntry 'E3_0detEntry0'
 Warning: Deleting unreferenced detExit 'E3_0detExit0'
+Warning: Deleting unreferenced detEntry 'E3_0detEntry0'
 Warning: Deleting unreferenced e3Detector 'E3_0'
 Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
