@@ -193,7 +193,7 @@ public:
     };
 
     struct WalkingAreaCustomShape {
-        std::set<const NBEdge*> edges;
+        std::set<const NBEdge*, ComparatorIdLess> edges;
         PositionVector shape;
     };
 
@@ -637,6 +637,10 @@ public:
     /// @brief return this junctions pedestrian walking areas
     inline const std::vector<WalkingArea>& getWalkingAreas() const {
         return myWalkingAreas;
+    }
+
+    const std::vector<WalkingAreaCustomShape>& getWalkingAreaCustomShapes() const {
+        return myWalkingAreaCustomShapes;
     }
 
     /// @brief return the crossing with the given id
