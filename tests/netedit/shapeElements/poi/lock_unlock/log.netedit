@@ -5,6 +5,8 @@ Warning: Adding poi 'POI_0' into viewNet
 Warning: Shapes has to be saved
 Warning: Current saving Status: net saved, additionals saved, shapes unsaved
 Warning: Adding poi 'POI_1' into viewNet
+Warning: Please note that using ';' and ',' as XML list separators is deprecated.
+ From 1.0 onwards, only ' ' will be accepted.
 Warning: Setting new attribute blockMovement 'true' into poi 'POI_0'
 Warning: Setting new attribute blockMovement 'true' into poi 'POI_1'
 Warning: Setting new attribute blockMovement 'false' into poi 'POI_0'

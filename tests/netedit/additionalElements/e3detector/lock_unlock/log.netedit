@@ -10,6 +10,8 @@ Warning: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Warning: Selected additional 'detExit' in AdditionalSelector
 Warning: Adding detExit 'e3Detector_0detExit0' in GNEChange_Additional
 Warning: Setting new attribute pos '22.00,5.00' into e3Detector 'e3Detector_0'
+Warning: Please note that using ';' and ',' as XML list separators is deprecated.
+ From 1.0 onwards, only ' ' will be accepted.
 Warning: Setting new attribute blockMovement 'true' into e3Detector 'e3Detector_0'
 Warning: Setting new attribute blockMovement 'false' into e3Detector 'e3Detector_0'
 Warning: Setting new attribute pos '27.00,5.00' into e3Detector 'e3Detector_0'

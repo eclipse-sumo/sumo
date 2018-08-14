@@ -9,6 +9,8 @@ Warning: Selected additional 'detEntry' in AdditionalSelector
 Warning: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Warning: Selected additional 'detExit' in AdditionalSelector
 Warning: Adding detExit 'e3Detector_0detExit0' in GNEChange_Additional
+Warning: Please note that using ';' and ',' as XML list separators is deprecated.
+ From 1.0 onwards, only ' ' will be accepted.
 Warning: Invalid format of Generic Parameter (dummyGenericParameters)
 Warning: Invalid format of Generic Parameter (key1)
 Warning: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into e3Detector 'e3Detector_0'

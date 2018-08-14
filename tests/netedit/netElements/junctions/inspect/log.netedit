@@ -72,6 +72,8 @@ Warning: Created connection 'fromgneE7_0togneE4_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE9_0to-gneE17_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE9_0togneE10_0' in retrieveGNEConnection()
+Warning: Please note that using ';' and ',' as XML list separators is deprecated.
+ From 1.0 onwards, only ' ' will be accepted.
 Warning: Value 'gneJ1' for attribute id of junction isn't valid
 Warning: Value '' for attribute id of junction isn't valid
 Warning: Setting new attribute id 'OwnID' into junction 'gneJ0'

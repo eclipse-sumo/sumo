@@ -66,6 +66,8 @@ Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Addi
 Warning: Setting new attribute selected 'true' into poiLane 'POI_9'
 Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Please note that using ';' and ',' as XML list separators is deprecated.
+ From 1.0 onwards, only ' ' will be accepted.
 Warning: Setting new attribute posLat '0.00' into poiLane 'POI_1'
 Warning: Setting new attribute posLat '0.00' into poiLane 'POI_10'
 Warning: Setting new attribute posLat '0.00' into poiLane 'POI_11'
@@ -494,12 +496,12 @@ Warning: Setting previous attribute imgFile '' into poiLane 'POI_5'
 Warning: Setting previous attribute imgFile '' into poiLane 'POI_4'
 Warning: Setting previous attribute imgFile '' into poiLane 'POI_3'
 Warning: Setting previous attribute imgFile '' into poiLane 'POI_2'
-Warning: Setting previous attribute imgFile 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.14Aug065349.320/netedit.gui/shapeElements/poilane/inspect_selection_geo\berlin_icon.ico' into poiLane 'POI_17'
-Warning: Setting previous attribute imgFile 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.14Aug065349.320/netedit.gui/shapeElements/poilane/inspect_selection_geo\berlin_icon.ico' into poiLane 'POI_16'
-Warning: Setting previous attribute imgFile 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.14Aug065349.320/netedit.gui/shapeElements/poilane/inspect_selection_geo\berlin_icon.ico' into poiLane 'POI_15'
-Warning: Setting previous attribute imgFile 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.14Aug065349.320/netedit.gui/shapeElements/poilane/inspect_selection_geo\berlin_icon.ico' into poiLane 'POI_14'
-Warning: Setting previous attribute imgFile 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.14Aug065349.320/netedit.gui/shapeElements/poilane/inspect_selection_geo\berlin_icon.ico' into poiLane 'POI_13'
-Warning: Setting previous attribute imgFile 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.14Aug065349.320/netedit.gui/shapeElements/poilane/inspect_selection_geo\berlin_icon.ico' into poiLane 'POI_12'
+Warning: Setting previous attribute imgFile 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.14Aug180020.196/netedit.gui/shapeElements/poilane/inspect_selection_geo\berlin_icon.ico' into poiLane 'POI_17'
+Warning: Setting previous attribute imgFile 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.14Aug180020.196/netedit.gui/shapeElements/poilane/inspect_selection_geo\berlin_icon.ico' into poiLane 'POI_16'
+Warning: Setting previous attribute imgFile 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.14Aug180020.196/netedit.gui/shapeElements/poilane/inspect_selection_geo\berlin_icon.ico' into poiLane 'POI_15'
+Warning: Setting previous attribute imgFile 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.14Aug180020.196/netedit.gui/shapeElements/poilane/inspect_selection_geo\berlin_icon.ico' into poiLane 'POI_14'
+Warning: Setting previous attribute imgFile 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.14Aug180020.196/netedit.gui/shapeElements/poilane/inspect_selection_geo\berlin_icon.ico' into poiLane 'POI_13'
+Warning: Setting previous attribute imgFile 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.14Aug180020.196/netedit.gui/shapeElements/poilane/inspect_selection_geo\berlin_icon.ico' into poiLane 'POI_12'
 Warning: Setting previous attribute imgFile '' into poiLane 'POI_11'
 Warning: Setting previous attribute imgFile '' into poiLane 'POI_10'
 Warning: Setting previous attribute imgFile '' into poiLane 'POI_1'

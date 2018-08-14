@@ -219,11 +219,11 @@ Warning: Setting previous attribute relativePath '0' into poi 'POI_03'
 Warning: Setting previous attribute relativePath '0' into poi 'POI_02'
 Warning: Setting previous attribute relativePath '0' into poi 'POI_01'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute imgFile 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.14Aug065349.320/netedit.gui/shapeElements/poi/inspect_selection\berlin_icon.ico' into poi 'POI_13'
-Warning: Setting previous attribute imgFile 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.14Aug065349.320/netedit.gui/shapeElements/poi/inspect_selection\berlin_icon.ico' into poi 'POI_12'
-Warning: Setting previous attribute imgFile 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.14Aug065349.320/netedit.gui/shapeElements/poi/inspect_selection\berlin_icon.ico' into poi 'POI_11'
-Warning: Setting previous attribute imgFile 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.14Aug065349.320/netedit.gui/shapeElements/poi/inspect_selection\berlin_icon.ico' into poi 'POI_10'
-Warning: Setting previous attribute imgFile 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.14Aug065349.320/netedit.gui/shapeElements/poi/inspect_selection\berlin_icon.ico' into poi 'POI_09'
+Warning: Setting previous attribute imgFile 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.14Aug180020.196/netedit.gui/shapeElements/poi/inspect_selection\berlin_icon.ico' into poi 'POI_13'
+Warning: Setting previous attribute imgFile 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.14Aug180020.196/netedit.gui/shapeElements/poi/inspect_selection\berlin_icon.ico' into poi 'POI_12'
+Warning: Setting previous attribute imgFile 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.14Aug180020.196/netedit.gui/shapeElements/poi/inspect_selection\berlin_icon.ico' into poi 'POI_11'
+Warning: Setting previous attribute imgFile 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.14Aug180020.196/netedit.gui/shapeElements/poi/inspect_selection\berlin_icon.ico' into poi 'POI_10'
+Warning: Setting previous attribute imgFile 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.14Aug180020.196/netedit.gui/shapeElements/poi/inspect_selection\berlin_icon.ico' into poi 'POI_09'
 Warning: Setting previous attribute imgFile '' into poi 'POI_08'
 Warning: Setting previous attribute imgFile '' into poi 'POI_07'
 Warning: Setting previous attribute imgFile '' into poi 'POI_06'
@@ -378,6 +378,8 @@ Warning: Removing poi 'POI_03' from viewNet
 Warning: Removed inspected element from Inspected ACs. 2 ACs remains.
 Warning: Removing poi 'POI_02' from viewNet
 Warning: Removed inspected element from Inspected ACs. 1 ACs remains.
+Warning: Please note that using ';' and ',' as XML list separators is deprecated.
+ From 1.0 onwards, only ' ' will be accepted.
 Warning: Removing poi 'POI_01' from viewNet
 Warning: Removed inspected element from Inspected ACs. 0 ACs remains.
 Warning: Removing poly 'poly_0' from viewNet

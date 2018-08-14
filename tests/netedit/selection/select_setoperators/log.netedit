@@ -551,91 +551,87 @@ Warning: Setting new attribute selected 'true' into detExit 'e3Detector_0detExit
 Warning: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 2 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into e3Detector 'e3Detector_1'
 Warning: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 3 Additionals, 0 Crossings, 1 Polygons, 0 POIs
-Warning: Setting new attribute selected 'true' into detEntry 'e3Detector_1detEntry0'
+Warning: Setting new attribute selected 'true' into e3Detector 'e3Detector_2'
 Warning: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 4 Additionals, 0 Crossings, 1 Polygons, 0 POIs
-Warning: Setting new attribute selected 'true' into e3Detector 'e3Detector_2'
-Warning: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 5 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into detExit 'e3Detector_2detExit0'
+Warning: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 5 Additionals, 0 Crossings, 1 Polygons, 0 POIs
+Warning: Setting new attribute selected 'true' into e3Detector 'e3Detector_3'
 Warning: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 6 Additionals, 0 Crossings, 1 Polygons, 0 POIs
-Warning: Setting new attribute selected 'true' into e3Detector 'e3Detector_3'
-Warning: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 7 Additionals, 0 Crossings, 1 Polygons, 0 POIs
-Warning: Setting new attribute selected 'true' into detEntry 'e3Detector_3detEntry0'
-Warning: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 8 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into poly 'poly_0'
-Warning: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 8 Additionals, 0 Crossings, 1 Polygons, 0 POIs
-Warning: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 8 Additionals, 0 Crossings, 1 Polygons, 0 POIs
+Warning: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 6 Additionals, 0 Crossings, 1 Polygons, 0 POIs
+Warning: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 6 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into junction 'A'
-Warning: Current selection: 2 Junctions, 8 Edges, 0 Lanes, 0 connections, 8 Additionals, 0 Crossings, 1 Polygons, 0 POIs
+Warning: Current selection: 2 Junctions, 8 Edges, 0 Lanes, 0 connections, 6 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into edge '1'
-Warning: Current selection: 2 Junctions, 8 Edges, 0 Lanes, 0 connections, 8 Additionals, 0 Crossings, 1 Polygons, 0 POIs
+Warning: Current selection: 2 Junctions, 8 Edges, 0 Lanes, 0 connections, 6 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into junction 'B'
-Warning: Current selection: 3 Junctions, 8 Edges, 0 Lanes, 0 connections, 8 Additionals, 0 Crossings, 1 Polygons, 0 POIs
+Warning: Current selection: 3 Junctions, 8 Edges, 0 Lanes, 0 connections, 6 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into edge '2'
-Warning: Current selection: 3 Junctions, 8 Edges, 0 Lanes, 0 connections, 8 Additionals, 0 Crossings, 1 Polygons, 0 POIs
+Warning: Current selection: 3 Junctions, 8 Edges, 0 Lanes, 0 connections, 6 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into junction 'C'
-Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 0 connections, 8 Additionals, 0 Crossings, 1 Polygons, 0 POIs
+Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 0 connections, 6 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into edge '3'
-Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 0 connections, 8 Additionals, 0 Crossings, 1 Polygons, 0 POIs
+Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 0 connections, 6 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into junction 'Center'
-Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 0 connections, 8 Additionals, 0 Crossings, 1 Polygons, 0 POIs
+Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 0 connections, 6 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into edge '5'
-Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 0 connections, 8 Additionals, 0 Crossings, 1 Polygons, 0 POIs
+Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 0 connections, 6 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into connection 'from5_1to4_1'
-Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 1 connections, 8 Additionals, 0 Crossings, 1 Polygons, 0 POIs
+Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 1 connections, 6 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into connection 'from5_1to2_1'
-Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 2 connections, 8 Additionals, 0 Crossings, 1 Polygons, 0 POIs
+Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 2 connections, 6 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into connection 'from5_2to2_2'
-Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 3 connections, 8 Additionals, 0 Crossings, 1 Polygons, 0 POIs
+Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 3 connections, 6 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into connection 'from5_2to3_2'
-Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 4 connections, 8 Additionals, 0 Crossings, 1 Polygons, 0 POIs
+Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 4 connections, 6 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into edge '6'
-Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 4 connections, 8 Additionals, 0 Crossings, 1 Polygons, 0 POIs
+Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 4 connections, 6 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into connection 'from6_1to3_1'
-Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 5 connections, 8 Additionals, 0 Crossings, 1 Polygons, 0 POIs
+Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 5 connections, 6 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into connection 'from6_1to1_1'
-Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 6 connections, 8 Additionals, 0 Crossings, 1 Polygons, 0 POIs
+Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 6 connections, 6 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into connection 'from6_2to1_2'
-Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 7 connections, 8 Additionals, 0 Crossings, 1 Polygons, 0 POIs
+Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 7 connections, 6 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into connection 'from6_2to4_2'
-Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 8 connections, 8 Additionals, 0 Crossings, 1 Polygons, 0 POIs
+Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 8 connections, 6 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into edge '7'
-Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 8 connections, 8 Additionals, 0 Crossings, 1 Polygons, 0 POIs
+Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 8 connections, 6 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into connection 'from7_1to1_1'
-Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 9 connections, 8 Additionals, 0 Crossings, 1 Polygons, 0 POIs
+Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 9 connections, 6 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into connection 'from7_1to4_1'
-Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 10 connections, 8 Additionals, 0 Crossings, 1 Polygons, 0 POIs
+Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 10 connections, 6 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into connection 'from7_2to4_2'
-Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 11 connections, 8 Additionals, 0 Crossings, 1 Polygons, 0 POIs
+Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 11 connections, 6 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into connection 'from7_2to2_2'
-Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 12 connections, 8 Additionals, 0 Crossings, 1 Polygons, 0 POIs
+Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 12 connections, 6 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into edge '8'
-Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 12 connections, 8 Additionals, 0 Crossings, 1 Polygons, 0 POIs
+Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 12 connections, 6 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into connection 'from8_1to2_1'
-Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 13 connections, 8 Additionals, 0 Crossings, 1 Polygons, 0 POIs
+Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 13 connections, 6 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into connection 'from8_1to3_1'
-Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 14 connections, 8 Additionals, 0 Crossings, 1 Polygons, 0 POIs
+Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 14 connections, 6 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into connection 'from8_2to3_2'
-Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 15 connections, 8 Additionals, 0 Crossings, 1 Polygons, 0 POIs
+Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 15 connections, 6 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into connection 'from8_2to1_2'
-Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 16 connections, 8 Additionals, 0 Crossings, 1 Polygons, 0 POIs
+Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 16 connections, 6 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into junction 'D'
-Warning: Current selection: 5 Junctions, 8 Edges, 0 Lanes, 16 connections, 8 Additionals, 0 Crossings, 1 Polygons, 0 POIs
+Warning: Current selection: 5 Junctions, 8 Edges, 0 Lanes, 16 connections, 6 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into edge '4'
-Warning: Current selection: 5 Junctions, 8 Edges, 0 Lanes, 16 connections, 8 Additionals, 0 Crossings, 1 Polygons, 0 POIs
+Warning: Current selection: 5 Junctions, 8 Edges, 0 Lanes, 16 connections, 6 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into e3Detector 'e3Detector_0'
-Warning: Current selection: 5 Junctions, 8 Edges, 0 Lanes, 16 connections, 8 Additionals, 0 Crossings, 1 Polygons, 0 POIs
+Warning: Current selection: 5 Junctions, 8 Edges, 0 Lanes, 16 connections, 6 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into e3Detector 'e3Detector_1'
-Warning: Current selection: 5 Junctions, 8 Edges, 0 Lanes, 16 connections, 8 Additionals, 0 Crossings, 1 Polygons, 0 POIs
+Warning: Current selection: 5 Junctions, 8 Edges, 0 Lanes, 16 connections, 6 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into e3Detector 'e3Detector_2'
-Warning: Current selection: 5 Junctions, 8 Edges, 0 Lanes, 16 connections, 8 Additionals, 0 Crossings, 1 Polygons, 0 POIs
+Warning: Current selection: 5 Junctions, 8 Edges, 0 Lanes, 16 connections, 6 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into e3Detector 'e3Detector_3'
-Warning: Current selection: 5 Junctions, 8 Edges, 0 Lanes, 16 connections, 8 Additionals, 0 Crossings, 1 Polygons, 0 POIs
+Warning: Current selection: 5 Junctions, 8 Edges, 0 Lanes, 16 connections, 6 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into detEntry 'e3Detector_0detEntry0'
-Warning: Current selection: 5 Junctions, 8 Edges, 0 Lanes, 16 connections, 9 Additionals, 0 Crossings, 1 Polygons, 0 POIs
+Warning: Current selection: 5 Junctions, 8 Edges, 0 Lanes, 16 connections, 7 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into detEntry 'e3Detector_1detEntry0'
-Warning: Current selection: 5 Junctions, 8 Edges, 0 Lanes, 16 connections, 9 Additionals, 0 Crossings, 1 Polygons, 0 POIs
+Warning: Current selection: 5 Junctions, 8 Edges, 0 Lanes, 16 connections, 8 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into detEntry 'e3Detector_2detEntry0'
-Warning: Current selection: 5 Junctions, 8 Edges, 0 Lanes, 16 connections, 10 Additionals, 0 Crossings, 1 Polygons, 0 POIs
+Warning: Current selection: 5 Junctions, 8 Edges, 0 Lanes, 16 connections, 9 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into detEntry 'e3Detector_3detEntry0'
 Warning: Current selection: 5 Junctions, 8 Edges, 0 Lanes, 16 connections, 10 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into detExit 'e3Detector_0detExit0'
@@ -684,19 +680,15 @@ Warning: Setting new attribute selected 'false' into detExit 'e3Detector_0detExi
 Warning: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 16 connections, 10 Additionals, 0 Crossings, 1 Polygons, 4 POIs
 Warning: Setting new attribute selected 'false' into e3Detector 'e3Detector_1'
 Warning: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 16 connections, 9 Additionals, 0 Crossings, 1 Polygons, 4 POIs
-Warning: Setting new attribute selected 'false' into detEntry 'e3Detector_1detEntry0'
-Warning: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 16 connections, 8 Additionals, 0 Crossings, 1 Polygons, 4 POIs
 Warning: Setting new attribute selected 'false' into e3Detector 'e3Detector_2'
-Warning: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 16 connections, 7 Additionals, 0 Crossings, 1 Polygons, 4 POIs
+Warning: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 16 connections, 8 Additionals, 0 Crossings, 1 Polygons, 4 POIs
 Warning: Setting new attribute selected 'false' into detExit 'e3Detector_2detExit0'
-Warning: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 16 connections, 6 Additionals, 0 Crossings, 1 Polygons, 4 POIs
+Warning: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 16 connections, 7 Additionals, 0 Crossings, 1 Polygons, 4 POIs
 Warning: Setting new attribute selected 'false' into e3Detector 'e3Detector_3'
-Warning: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 16 connections, 5 Additionals, 0 Crossings, 1 Polygons, 4 POIs
-Warning: Setting new attribute selected 'false' into detEntry 'e3Detector_3detEntry0'
-Warning: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 16 connections, 4 Additionals, 0 Crossings, 1 Polygons, 4 POIs
+Warning: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 16 connections, 6 Additionals, 0 Crossings, 1 Polygons, 4 POIs
 Warning: Setting new attribute selected 'false' into poly 'poly_0'
-Warning: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 16 connections, 4 Additionals, 0 Crossings, 0 Polygons, 4 POIs
-Warning: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 16 connections, 4 Additionals, 0 Crossings, 0 Polygons, 4 POIs
+Warning: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 16 connections, 6 Additionals, 0 Crossings, 0 Polygons, 4 POIs
+Warning: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 16 connections, 6 Additionals, 0 Crossings, 0 Polygons, 4 POIs
 Warning: Key DEL (delete) pressed
 Warning: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '6'
 Warning: net has to be saved
@@ -781,7 +773,9 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'modified' into 
 Warning: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '7'
 Warning: Removing connection '8_2->1_2' from edge '8'
 Warning: Removing detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
+Warning: Removing detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
 Warning: Removing detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
+Warning: Removing detEntry 'e3Detector_3detEntry0' in GNEChange_Additional
 Warning: Removing detExit 'e3Detector_1detExit0' in GNEChange_Additional
 Warning: Removing detExit 'e3Detector_3detExit0' in GNEChange_Additional
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '1'
@@ -817,7 +811,6 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into j
 Warning: Removing edge '2' from net
 Warning: Setting new attribute type 'priority' into junction 'B'
 Warning: Removing junction 'B' from net
-Warning: Removing detEntry 'e3Detector_3detEntry0' in GNEChange_Additional
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '3'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'C'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '8'
@@ -833,7 +826,6 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into j
 Warning: Removing edge '3' from net
 Warning: Setting new attribute type 'priority' into junction 'C'
 Warning: Removing junction 'C' from net
-Warning: Removing detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '4'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'D'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '8'
@@ -867,7 +859,6 @@ Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' i
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '8'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'D'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '4'
-Warning: Adding detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
 Warning: Adding junction 'C' into net
 Warning: Setting previous attribute type 'dead_end' into junction 'C'
 Warning: Adding edge '3' from net
@@ -883,7 +874,6 @@ Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' i
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '8'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'C'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '3'
-Warning: Adding detEntry 'e3Detector_3detEntry0' in GNEChange_Additional
 Warning: Adding junction 'B' into net
 Warning: Setting previous attribute type 'dead_end' into junction 'B'
 Warning: Adding edge '2' from net
@@ -919,7 +909,9 @@ Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' in
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '1'
 Warning: Adding detExit 'e3Detector_3detExit0' in GNEChange_Additional
 Warning: Adding detExit 'e3Detector_1detExit0' in GNEChange_Additional
+Warning: Adding detEntry 'e3Detector_3detEntry0' in GNEChange_Additional
 Warning: Adding detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
+Warning: Adding detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
 Warning: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Warning: Adding a previously selected connection '8_2->1_2' into edge '8'
 Warning: Created connection 'from8_2to1_2' in retrieveGNEConnection()
@@ -1115,7 +1107,9 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'modified' into 
 Warning: Removing connection '8_2->1_2' from edge '8'
 Warning: Deleting unreferenced connection 'from8_2to1_2' in removeConnection()
 Warning: Removing detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
+Warning: Removing detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
 Warning: Removing detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
+Warning: Removing detEntry 'e3Detector_3detEntry0' in GNEChange_Additional
 Warning: Removing detExit 'e3Detector_1detExit0' in GNEChange_Additional
 Warning: Removing detExit 'e3Detector_3detExit0' in GNEChange_Additional
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '1'
@@ -1151,7 +1145,6 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into j
 Warning: Removing edge '2' from net
 Warning: Setting new attribute type 'priority' into junction 'B'
 Warning: Removing junction 'B' from net
-Warning: Removing detEntry 'e3Detector_3detEntry0' in GNEChange_Additional
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '3'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'C'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '8'
@@ -1167,7 +1160,6 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into j
 Warning: Removing edge '3' from net
 Warning: Setting new attribute type 'priority' into junction 'C'
 Warning: Removing junction 'C' from net
-Warning: Removing detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '4'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'D'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '8'

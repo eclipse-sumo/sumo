@@ -46,6 +46,8 @@ Warning: Value 'dummyShape' for attribute shape of edge isn't valid
 Warning: Key F5 (Compute) pressed
 Warning: Setting new attribute shape '13.112,16.22 34.19,16.11' into edge 'gneE2'
 Warning: Key F5 (Compute) pressed
+Warning: Please note that using ';' and ',' as XML list separators is deprecated.
+ From 1.0 onwards, only ' ' will be accepted.
 Warning: Value '' for attribute length of edge isn't valid
 Warning: Value '' for attribute length of edge isn't valid
 Warning: Value '-12' for attribute length of edge isn't valid

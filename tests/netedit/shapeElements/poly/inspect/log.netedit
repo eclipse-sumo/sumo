@@ -9,6 +9,8 @@ Warning: Current saving Status: net saved, additionals saved, shapes unsaved
 Warning: Key ENTER pressed
 Warning: Key ENTER pressed
 Warning: Adding poly 'poly_1' into viewNet
+Warning: Please note that using ';' and ',' as XML list separators is deprecated.
+ From 1.0 onwards, only ' ' will be accepted.
 Warning: Value 'poly_1' for attribute id of poly isn't valid
 Warning: Value '' for attribute id of poly isn't valid
 Warning: Value 'ID with spaces' for attribute id of poly isn't valid
