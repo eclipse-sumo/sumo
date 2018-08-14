@@ -369,11 +369,12 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::AttributeInput(GNEInspector
 
 
 void
-GNEInspectorFrame::AttributesEditor::AttributeInput::showAttribute(SumoXMLTag ACTag, SumoXMLAttr ACAttr, const std::string& value, bool multiple) {
+GNEInspectorFrame::AttributesEditor::AttributeInput::showAttribute(SumoXMLTag ACTag, SumoXMLAttr ACAttr, const std::string& value) {
     // Set actual Tag, Attribute and multiple
     myTag = ACTag;
     myAttr = ACAttr;
-    myMultiple = multiple;
+    // set multiple 
+    myMultiple = GNEAttributeCarrier::parse<std::vector<std::string>>(value).size() > 1;
     // obtain attribute property (only for improve code legibility)
     const auto &attrValue = GNEAttributeCarrier::getTagProperties(myTag).getAttribute(myAttr);
     // enable all input values
@@ -780,7 +781,6 @@ GNEInspectorFrame::AttributesEditor::AttributesEditor(GNEInspectorFrame* inspect
 void 
 GNEInspectorFrame::AttributesEditor::showAttributeEditor() {
     if(myInspectorFrameParent->getInspectedACs().size() > 0) {
-        bool multiple = myInspectorFrameParent->getInspectedACs().size() > 1;
         // Gets tag (only for simplify code)
         SumoXMLTag ACFrontTag = myInspectorFrameParent->getInspectedACs().front()->getTag();
         //  check if current AC is a Junction without TLSs (needed to hidde TLS options)
@@ -809,7 +809,7 @@ GNEInspectorFrame::AttributesEditor::showAttributeEditor() {
                 // first show AttributesEditor
                 show();
                 // show attribute
-                myVectorOfAttributeInputs[it.second.getPositionListed()]->showAttribute(ACFrontTag, it.first, oss.str(), multiple);
+                myVectorOfAttributeInputs[it.second.getPositionListed()]->showAttribute(ACFrontTag, it.first, oss.str());
             }
         }
     }

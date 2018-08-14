@@ -70,7 +70,7 @@ public:
             AttributeInput(GNEInspectorFrame::AttributesEditor* attributeEditorParent);
 
             /// @brief show attribute of ac
-            void showAttribute(SumoXMLTag ACTag, SumoXMLAttr ACAttribute, const std::string& value, bool multiple);
+            void showAttribute(SumoXMLTag ACTag, SumoXMLAttr ACAttribute, const std::string& value);
 
             /// @brief show attribute
             void hideAttribute();
@@ -114,7 +114,7 @@ public:
             /// @brief current Attr
             SumoXMLAttr myAttr;
 
-            /// @brief flag to check if input element is multiple
+            /// @brief flag to check if input element contains multiple values
             bool myMultiple;
 
             /// @brief pointer to attribute label
