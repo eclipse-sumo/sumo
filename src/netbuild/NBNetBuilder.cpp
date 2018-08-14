@@ -283,12 +283,19 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
 
     // guess ramps (after guessing tls because ramps should not be build at traffic lights)
     if (mayAddOrRemove) {
-        if ((oc.exists("ramps.guess") && oc.getBool("ramps.guess")) || (oc.exists("ramps.set") && oc.isSet("ramps.set"))) {
+        const bool modifyRamps = (oc.exists("ramps.guess") && oc.getBool("ramps.guess")) 
+            || (oc.exists("ramps.set") && oc.isSet("ramps.set"));
+        if (modifyRamps 
+                || (oc.exists("ramps.guess-acceleration-lanes") && oc.getBool("ramps.guess-acceleration-lanes"))) {
             before = SysUtils::getCurrentMillis();
-            PROGRESS_BEGIN_MESSAGE("Guessing and setting on-/off-ramps");
+            if (modifyRamps) {
+                PROGRESS_BEGIN_MESSAGE("Guessing and setting on-/off-ramps");
+            }
             NBNodesEdgesSorter::sortNodesEdges(myNodeCont);
             NBRampsComputer::computeRamps(*this, oc);
-            PROGRESS_TIME_MESSAGE(before);
+            if (modifyRamps) {
+                PROGRESS_TIME_MESSAGE(before);
+            }
         }
     }
     // guess sidewalks

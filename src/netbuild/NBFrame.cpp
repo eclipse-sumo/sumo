@@ -454,6 +454,9 @@ NBFrame::fillOptions(bool forNetgen) {
         oc.addSynonyme("ramps.guess", "guess-ramps", true);
         oc.addDescription("ramps.guess", "Ramp Guessing", "Enable ramp-guessing");
 
+        oc.doRegister("ramps.guess-acceleration-lanes", new Option_Bool(true));
+        oc.addDescription("ramps.guess-acceleration-lanes", "Ramp Guessing", "Guess on-ramps and mark acceleration lanes if they exist but do not add new lanes");
+
         oc.doRegister("ramps.max-ramp-speed", new Option_Float(-1));
         oc.addSynonyme("ramps.max-ramp-speed", "ramp-guess.max-ramp-speed", true);
         oc.addDescription("ramps.max-ramp-speed", "Ramp Guessing", "Treat edges with speed > FLOAT as no ramps");
