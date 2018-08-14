@@ -125,7 +125,7 @@ public:
         Boundary b = o->getCenteringBoundary();
 
         // show information in gui testing debug gl mode
-        if (OptionsCont::getOptions().getBool("gui-testing-debug-gl")) {
+        if (OptionsCont::getOptions().exists("gui-testing-debug-gl") && OptionsCont::getOptions().getBool("gui-testing-debug-gl")) {
             if(myTreeDebug.count(o) != 0) {
                 throw ProcessError("GUIGlObject " + o->getMicrosimID() + " was already inserted");
             } else if ((b.getWidth() == 0) || (b.getHeight() == 0)) {
@@ -150,7 +150,7 @@ public:
         Boundary b = o->getCenteringBoundary();
 
         // show information in gui testing debug gl mode
-        if (OptionsCont::getOptions().getBool("gui-testing-debug-gl")) {
+        if (OptionsCont::getOptions().exists("gui-testing-debug-gl") && OptionsCont::getOptions().getBool("gui-testing-debug-gl")) {
             if(myTreeDebug.count(o) == 0) {
                 throw ProcessError("GUIGlObject " + o->getMicrosimID() + " wasn't inserted");
             } else if (b != myTreeDebug.at(o)) {
