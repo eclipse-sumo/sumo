@@ -92,6 +92,7 @@
 //#define DEBUG_IGNORE_RED
 //#define DEBUG_ACTIONSTEPS
 //#define DEBUG_NEXT_TURN
+//#define DEBUG_TRACI
 //#define DEBUG_COND (getID() == "blocker")
 //#define DEBUG_COND (true)
 #define DEBUG_COND (isSelected())
@@ -2633,12 +2634,26 @@ MSVehicle::processLinkAproaches(double& vSafe, double& vSafeMin, double& vSafeMi
 double
 MSVehicle::processTraCISpeedControl(double vSafe, double vNext) {
     if (myInfluencer != 0) {
+#ifdef DEBUG_TRACI
+        if DEBUG_COND {
+            std::cout << SIMTIME << " MSVehicle::processTraCISpeedControl() for vehicle '" << getID() << "'"
+                    << " vSafe=" << vSafe << " (init)vNext=" << vNext;
+        }
+#endif
         if (myInfluencer->isRemoteControlled()) {
             vNext = myInfluencer->implicitSpeedRemote(this, myState.mySpeed);
         }
         const double vMax = getVehicleType().getCarFollowModel().maxNextSpeed(myState.mySpeed, this);
-        const double vMin = MAX2(0., getVehicleType().getCarFollowModel().minNextSpeed(myState.mySpeed, this));
+        double vMin = getVehicleType().getCarFollowModel().minNextSpeed(myState.mySpeed, this);
+        if (MSGlobals::gSemiImplicitEulerUpdate) {
+            vMin = MAX2(0., vMin);
+        }
         vNext = myInfluencer->influenceSpeed(MSNet::getInstance()->getCurrentTimeStep(), vNext, vSafe, vMin, vMax);
+#ifdef DEBUG_TRACI
+        if DEBUG_COND {
+            std::cout << " (processed)vNext=" << vNext << std::endl;
+        }
+#endif
     }
     return vNext;
 }
