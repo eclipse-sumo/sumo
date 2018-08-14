@@ -29,4 +29,4 @@ quit_noSave
 quit_saveAll
 
 # provoke an error with sikulix
-sikulix_error
+#sikulix_error
