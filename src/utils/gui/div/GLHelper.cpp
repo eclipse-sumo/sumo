@@ -456,7 +456,7 @@ GLHelper::drawTriangleAtEnd(const Position& p1, const Position& p2,
 const std::vector<RGBColor>&
 GLHelper::getDottedcontourColors(const int size) {
     // check if more colors has to be added
-    while(myDottedcontourColors.size() < size) {
+    while((int)myDottedcontourColors.size() < size) {
         if(myDottedcontourColors.empty() || myDottedcontourColors.back() == RGBColor::WHITE) {
             myDottedcontourColors.push_back(RGBColor::BLACK);
         } else {
