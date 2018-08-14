@@ -77,13 +77,13 @@ netedit.modifyAttribute(7, "dummyAngle")
 netedit.modifyAttribute(7, "180")
 
 # change block move
-netedit.modifyBoolAttribute(9)
+netedit.modifyBoolAttribute(12)
 
 # change block shape
-netedit.modifyBoolAttribute(10)
+netedit.modifyBoolAttribute(13)
 
 # change close
-netedit.modifyBoolAttribute(11)
+netedit.modifyBoolAttribute(14)
 
 # go to select mode
 netedit.selectMode()

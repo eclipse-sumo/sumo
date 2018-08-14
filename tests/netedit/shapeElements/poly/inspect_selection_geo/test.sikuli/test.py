@@ -80,13 +80,13 @@ netedit.modifyAttribute(7, "180")
 netedit.modifyBoolAttribute(9)
 
 # change block move
-netedit.modifyBoolAttribute(11)
+netedit.modifyBoolAttribute(13)
 
 # change block shape
-netedit.modifyBoolAttribute(12)
+netedit.modifyBoolAttribute(14)
 
 # change close
-netedit.modifyBoolAttribute(13)
+netedit.modifyBoolAttribute(15)
 
 # go to select mode
 netedit.selectMode()

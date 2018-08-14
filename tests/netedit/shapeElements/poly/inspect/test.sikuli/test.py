@@ -120,13 +120,13 @@ netedit.modifyAttribute(9, "365")
 netedit.modifyAttribute(9, "10")
 
 # Change boolean parameter 11
-netedit.modifyShapeDefaultBoolValue(11)
+netedit.modifyShapeDefaultBoolValue(13)
 
 # Change boolean parameter 12
-netedit.modifyShapeDefaultBoolValue(12)
+netedit.modifyShapeDefaultBoolValue(14)
 
 # Change boolean parameter 13
-netedit.modifyShapeDefaultBoolValue(13)
+netedit.modifyShapeDefaultBoolValue(15)
 
 # Check undos and redos
 netedit.undo(match, 23)

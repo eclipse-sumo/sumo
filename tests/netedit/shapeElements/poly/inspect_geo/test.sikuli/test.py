@@ -128,13 +128,13 @@ netedit.modifyAttribute(
 netedit.modifyShapeDefaultBoolValue(12)
 
 # Change boolean parameter 11
-netedit.modifyShapeDefaultBoolValue(14)
+netedit.modifyShapeDefaultBoolValue(16)
 
 # Change boolean parameter 12
-netedit.modifyShapeDefaultBoolValue(15)
+netedit.modifyShapeDefaultBoolValue(17)
 
 # Change boolean parameter 13
-netedit.modifyShapeDefaultBoolValue(16)
+netedit.modifyShapeDefaultBoolValue(18)
 
 # Check undos and redos
 netedit.undo(match, 25)
