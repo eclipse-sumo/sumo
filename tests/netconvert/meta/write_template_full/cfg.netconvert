@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Aug 14 16:31:15 2018 by Eclipse SUMO netconvert Version 89dbb8c
+<!-- generated on Tue Aug 14 17:13:38 2018 by Eclipse SUMO netconvert Version b94dbc6
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -110,6 +110,7 @@
 
     <ramp_guessing>
         <ramps.guess value="false" synonymes="guess-ramps" type="BOOL" help="Enable ramp-guessing"/>
+        <ramps.guess-acceleration-lanes value="true" type="BOOL" help="Guess on-ramps and mark acceleration lanes if they exist but do not add new lanes"/>
         <ramps.max-ramp-speed value="-1" synonymes="ramp-guess.max-ramp-speed" type="FLOAT" help="Treat edges with speed &gt; FLOAT as no ramps"/>
         <ramps.min-highway-speed value="21.9444" synonymes="ramp-guess.min-highway-speed" type="FLOAT" help="Treat edges with speed &lt; FLOAT as no highways"/>
         <ramps.ramp-length value="100" synonymes="ramp-guess.ramp-length" type="FLOAT" help="Use FLOAT as ramp-length"/>

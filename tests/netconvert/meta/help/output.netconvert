@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version 89dbb8c
+Eclipse SUMO netconvert Version b94dbc6
  Copyright (C) 2001-2018 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
   SUMO.
@@ -177,6 +177,9 @@ TLS Building Options:
 
 Ramp Guessing Options:
   --ramps.guess                        Enable ramp-guessing
+  --ramps.guess-acceleration-lanes     Guess on-ramps and mark acceleration
+                                         lanes if they exist but do not add new
+                                         lanes
   --ramps.max-ramp-speed FLOAT         Treat edges with speed > FLOAT as no
                                          ramps
   --ramps.min-highway-speed FLOAT      Treat edges with speed < FLOAT as no

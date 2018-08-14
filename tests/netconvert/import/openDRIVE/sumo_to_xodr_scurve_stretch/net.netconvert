@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jun 21 14:19:53 2018 by Eclipse SUMO netconvert Version 1e1904d
+<!-- generated on Tue Aug 14 17:31:48 2018 by Eclipse SUMO netconvert Version b94dbc6
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -26,6 +26,7 @@ SPDX-License-Identifier: EPL-2.0
         <lefthand value="false"/>
         <junctions.corner-detail value="0"/>
         <junctions.scurve-stretch value="1"/>
+        <junctions.limit-turn-speed value="-1"/>
         <rectangular-lane-cut value="true"/>
         <walkingareas value="false"/>
     </processing>
@@ -100,7 +101,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="s2_2" index="2" speed="30.00" length="395.85" shape="1396.00,1.60 1000.15,1.60"/>
     </edge>
     <edge id="s2-AddedOnRampEdge" from="4" to="s2-AddedOnRampNode" priority="-1">
-        <lane id="s2-AddedOnRampEdge_0" index="0" speed="30.00" length="84.92" shape="1488.92,11.20 1404.00,11.20"/>
+        <lane id="s2-AddedOnRampEdge_0" index="0" speed="30.00" length="84.92" acceleration="1" shape="1488.92,11.20 1404.00,11.20"/>
         <lane id="s2-AddedOnRampEdge_1" index="1" speed="30.00" length="84.92" shape="1488.92,8.00 1404.00,8.00"/>
         <lane id="s2-AddedOnRampEdge_2" index="2" speed="30.00" length="84.92" shape="1488.92,4.80 1404.00,4.80"/>
         <lane id="s2-AddedOnRampEdge_3" index="3" speed="30.00" length="84.92" shape="1488.92,1.60 1404.00,1.60"/>

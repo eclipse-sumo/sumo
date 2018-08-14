@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Apr 19 14:42:54 2018 by Eclipse SUMO netconvert Version d7544a1
+<!-- generated on Tue Aug 14 17:37:29 2018 by Eclipse SUMO netconvert Version b94dbc6
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -26,6 +26,7 @@ SPDX-License-Identifier: EPL-2.0
         <opposites.guess value="true"/>
         <lefthand value="false"/>
         <junctions.corner-detail value="0"/>
+        <junctions.limit-turn-speed value="-1"/>
         <rectangular-lane-cut value="false"/>
         <walkingareas value="false"/>
     </processing>
@@ -58,7 +59,7 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
 
     <junction id="E" type="dead_end" x="200.00" y="0.00" incLanes="VODUGES_beg_0" intLanes="" shape="200.00,-3.20 200.00,0.00 200.00,3.20"/>
-    <junction id="W" type="priority" x="0.00" y="0.00" incLanes="-VODUGES_beg_0 anotherone_0" intLanes="" shape="0.00,0.00 0.00,3.20 0.00,0.00 0.00,3.20">
+    <junction id="W" type="priority" x="0.00" y="0.00" incLanes="-VODUGES_beg_0 anotherone_0" intLanes="" shape="0.00,3.20 0.00,0.00 0.00,-3.20">
         <request index="0" response="0" foes="0"/>
     </junction>
 
