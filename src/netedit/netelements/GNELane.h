@@ -69,8 +69,11 @@ public:
     /// @brief returns a vector with the outgoing GNEConnections of this lane
     std::vector<GNEConnection*> getGNEOutcomingConnections();
 
-    // update IDs of incoming connections of this lane
+    /// @brief update IDs of incoming connections of this lane
     void updateConnectionIDs();
+
+    /// @brief get lenght geometry factor
+    double getLengthGeometryFactor() const;
 
     /// @name inherited from GUIGlObject
     /// @{

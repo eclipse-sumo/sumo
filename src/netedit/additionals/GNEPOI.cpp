@@ -152,7 +152,7 @@ GNEPOI::updateGeometry() {
         // obtain fixed position over lane
         double fixedPositionOverLane = myPosOverLane > myGNELane->getLaneShapeLength() ? myGNELane->getLaneShapeLength() : myPosOverLane < 0 ? 0 : myPosOverLane;
         // set new position regarding to lane
-        set(myGNELane->getShape().positionAtOffset(fixedPositionOverLane, -myPosLat));
+        set(myGNELane->getShape().positionAtOffset(fixedPositionOverLane * myGNELane->getLengthGeometryFactor(), -myPosLat));
     }
     // add object into net again
     myNet->addGLObjectIntoNet(this);

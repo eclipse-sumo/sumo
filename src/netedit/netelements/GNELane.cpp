@@ -1285,4 +1285,15 @@ GNELane::updateConnectionIDs() {
     }
 }
 
+
+double 
+GNELane::getLengthGeometryFactor() const {
+     // factor should not be 0
+    if(myParentEdge.getNBEdge()->getFinalLength() > 0) {
+        return MAX2(POSITION_EPS, (myParentEdge.getNBEdge()->getLaneShape(myIndex).length() / myParentEdge.getNBEdge()->getFinalLength()));
+    } else {
+        return POSITION_EPS;
+    };
+}
+
 /****************************************************************************/

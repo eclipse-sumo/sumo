@@ -114,8 +114,8 @@ GNEAccess::updateGeometry() {
         fixedPositionOverLane = parse<double>(myPositionOverLane);
     }
     // obtain position
-    myShape[0] = myLane->getShape().positionAtOffset(fixedPositionOverLane);
-
+    myShape[0] = myLane->getShape().positionAtOffset(fixedPositionOverLane * myLane->getLengthGeometryFactor());
+    
     // Save rotation (angle) of the vector constructed by points f and s
     myShapeRotations.push_back(myLane->getShape().rotationDegreeAtOffset(fixedPositionOverLane) * -1);
 

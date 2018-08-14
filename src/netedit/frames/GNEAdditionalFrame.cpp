@@ -1310,7 +1310,8 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GNEAdditional* addi
         }
         else if (pointed_lane) {
             // Obtain position of the mouse over lane
-            double positionOfTheMouseOverLane = pointed_lane->getShape().nearest_offset_to_point2D(currentPosition);
+            double positionOfTheMouseOverLane = pointed_lane->getShape().nearest_offset_to_point2D(currentPosition) / pointed_lane->getLengthGeometryFactor();
+            std::cout << pointed_lane->getLengthGeometryFactor() << std::endl;
             // If element has a StartPosition and EndPosition over lane, extract attributes
             if (tagValue.hasAttribute(SUMO_ATTR_STARTPOS) && tagValue.hasAttribute(SUMO_ATTR_ENDPOS)) {
                 // First check that current length is valid

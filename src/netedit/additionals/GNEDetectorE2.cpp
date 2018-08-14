@@ -100,7 +100,7 @@ GNEDetectorE2::updateGeometry() {
     }
 
     // Cut shape using as delimitators fixed start position and fixed end position
-    myShape = myShape.getSubpart(startPosFixed, endPosFixed);
+    myShape = myShape.getSubpart(startPosFixed * myLane->getLengthGeometryFactor(), endPosFixed * myLane->getLengthGeometryFactor());
     
     // Get number of parts of the shape
     int numberOfSegments = (int)myShape.size() - 1;
