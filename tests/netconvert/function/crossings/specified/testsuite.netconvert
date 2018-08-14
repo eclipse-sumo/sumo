@@ -69,6 +69,9 @@ sumonet_customshape
 # custom walking area shapes
 4_arm_3_neighboring_split_customshape
 
+# test custom walking area shapes and shifting the network
+4_arm_3_neighboring_split_customshape_shifted
+
 # reimport .net.xml and keep the crossings and walkingareas with custom shape
 sumonet_custom_washape
 4_arm_mixed_priority
