@@ -3,6 +3,7 @@ Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into edge 'gneE17'
 Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Key DEL (delete) pressed
 Warning: Removing connection '-gneE17_0->gneE17_0' from edge '-gneE17'
 Warning: net has to be saved
@@ -15,12 +16,14 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into j
 Warning: Removing edge 'gneE17' from net
 Warning: Setting new attribute selected 'true' into edge '-gneE17'
 Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Key DEL (delete) pressed
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ17'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE17'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ18'
 Warning: Removing edge '-gneE17' from net
 Warning: Setting new attribute selected 'true' into edge '-gneE16'
+Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Key DEL (delete) pressed
 Warning: Removing connection 'gneE16_0->-gneE16_0' from edge 'gneE16'
@@ -32,12 +35,14 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into j
 Warning: Removing edge '-gneE16' from net
 Warning: Setting new attribute selected 'true' into edge 'gneE16'
 Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Key DEL (delete) pressed
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ19'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE16'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ20'
 Warning: Removing edge 'gneE16' from net
 Warning: Setting new attribute selected 'true' into edge '-gneE23'
+Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Key DEL (delete) pressed
 Warning: Removing connection 'gneE23_0->-gneE23_0' from edge 'gneE23'
@@ -49,12 +54,14 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into j
 Warning: Removing edge '-gneE23' from net
 Warning: Setting new attribute selected 'true' into edge 'gneE23'
 Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Key DEL (delete) pressed
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ23'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE23'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ24'
 Warning: Removing edge 'gneE23' from net
 Warning: Setting new attribute selected 'true' into edge '-gneE19'
+Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Key DEL (delete) pressed
 Warning: Removing connection 'gneE19_0->-gneE19_0' from edge 'gneE19'
@@ -66,12 +73,14 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into j
 Warning: Removing edge '-gneE19' from net
 Warning: Setting new attribute selected 'true' into edge 'gneE19'
 Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Key DEL (delete) pressed
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ11'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE19'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ12'
 Warning: Removing edge 'gneE19' from net
 Warning: Setting new attribute selected 'true' into edge 'gneE20'
+Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Key DEL (delete) pressed
 Warning: Removing connection '-gneE20_0->gneE20_0' from edge '-gneE20'
@@ -82,6 +91,7 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into e
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ13'
 Warning: Removing edge 'gneE20' from net
 Warning: Setting new attribute selected 'true' into edge '-gneE20'
+Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Key DEL (delete) pressed
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ13'

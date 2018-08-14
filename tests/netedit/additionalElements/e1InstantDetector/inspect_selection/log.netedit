@@ -6,11 +6,17 @@ Warning: net has to be saved
 Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into junction 'gneJ0'
+Warning: Current selection: 1 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into edge 'gneE1'
+Warning: Current selection: 1 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into junction 'gneJ1'
+Warning: Current selection: 2 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into edge 'gneE0'
+Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into instantInductionLoop 'E1Instant_A'
+Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into instantInductionLoop 'E1Instant_B'
+Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 2 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 2 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Value '%%%;:..&&%$%$' for attribute name of instantInductionLoop isn't valid
 Warning: Setting new attribute name 'customName' into instantInductionLoop 'E1Instant_A'

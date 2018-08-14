@@ -90,25 +90,25 @@ Warning: net has to be saved
 Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Warning: Setting new attribute type 'priority' into junction 'gneJ20'
 Warning: Removing crossing from junction 'gneJ13'
-Warning: Deleting unreferenced crossing ':gneJ13_c0' in rebuildGNECrossings()
+Warning: Deleting unreferenced crossing ':gneJ13_c2' in rebuildGNECrossings()
 Warning: Removing crossing from junction 'gneJ13'
 Warning: Deleting unreferenced crossing ':gneJ13_c1' in rebuildGNECrossings()
 Warning: Removing crossing from junction 'gneJ13'
-Warning: Deleting unreferenced crossing ':gneJ13_c2' in rebuildGNECrossings()
+Warning: Deleting unreferenced crossing ':gneJ13_c0' in rebuildGNECrossings()
 Warning: Removing crossing from junction 'gneJ17'
-Warning: Deleting unreferenced crossing ':gneJ17_c0' in rebuildGNECrossings()
+Warning: Deleting unreferenced crossing ':gneJ17_c2' in rebuildGNECrossings()
 Warning: Removing crossing from junction 'gneJ17'
 Warning: Deleting unreferenced crossing ':gneJ17_c1' in rebuildGNECrossings()
 Warning: Removing crossing from junction 'gneJ17'
-Warning: Deleting unreferenced crossing ':gneJ17_c2' in rebuildGNECrossings()
+Warning: Deleting unreferenced crossing ':gneJ17_c0' in rebuildGNECrossings()
 Warning: Removing crossing from junction 'gneJ19'
-Warning: Deleting unreferenced crossing ':gneJ19_c0' in rebuildGNECrossings()
-Warning: Removing crossing from junction 'gneJ19'
-Warning: Deleting unreferenced crossing ':gneJ19_c1' in rebuildGNECrossings()
+Warning: Deleting unreferenced crossing ':gneJ19_c3' in rebuildGNECrossings()
 Warning: Removing crossing from junction 'gneJ19'
 Warning: Deleting unreferenced crossing ':gneJ19_c2' in rebuildGNECrossings()
 Warning: Removing crossing from junction 'gneJ19'
-Warning: Deleting unreferenced crossing ':gneJ19_c3' in rebuildGNECrossings()
+Warning: Deleting unreferenced crossing ':gneJ19_c1' in rebuildGNECrossings()
+Warning: Removing crossing from junction 'gneJ19'
+Warning: Deleting unreferenced crossing ':gneJ19_c0' in rebuildGNECrossings()
 Warning: Removing connection 'gneE9_1->gneE10_1' from edge 'gneE9'
 Warning: Deleting unreferenced connection 'fromgneE9_1togneE10_1' in removeConnection()
 Warning: Removing connection 'gneE9_1->-gneE17_1' from edge 'gneE9'
@@ -401,6 +401,7 @@ Warning: Closed FXMessageBox 'Join non-selected junction' with 'Yes'
 Warning: Deleting unreferenced junction 'gneJ20' in GNEChange_Attribute
 Warning: Deleting NBNode of 'gneJ20' in GNEJunction destructor
 Warning: Setting new attribute selected 'true' into junction 'gneJ19'
+Warning: Current selection: 3 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Adding junction 'gneJ21' into net
 Warning: Setting new attribute type 'priority' into junction 'gneJ21'
 Warning: Removing crossing from junction 'gneJ13'
@@ -991,12 +992,12 @@ Warning: Deleting unreferenced connection 'fromgneE9_1to-gneE13_1' in GNEEdge de
 Warning: Deleting unreferenced connection 'fromgneE9_1togneE18_1' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'fromgneE9_1togneE10_1' in GNEEdge destructor
 Warning: Deleting unreferenced junction '_gneJ13_gneJ17_gneJ19' in GNENet destructor
-Warning: Deleting unreferenced crossing ':gneJ21_c0' in GNEJunction destructor
-Warning: Deleting unreferenced crossing ':gneJ21_c1' in GNEJunction destructor
-Warning: Deleting unreferenced crossing ':gneJ21_c5' in GNEJunction destructor
-Warning: Deleting unreferenced crossing ':gneJ21_c3' in GNEJunction destructor
-Warning: Deleting unreferenced crossing ':gneJ21_c2' in GNEJunction destructor
-Warning: Deleting unreferenced crossing ':gneJ21_c4' in GNEJunction destructor
+Warning: Deleting unreferenced crossing ':_gneJ13_gneJ17_gneJ19_c0' in GNEJunction destructor
+Warning: Deleting unreferenced crossing ':_gneJ13_gneJ17_gneJ19_c1' in GNEJunction destructor
+Warning: Deleting unreferenced crossing ':_gneJ13_gneJ17_gneJ19_c2' in GNEJunction destructor
+Warning: Deleting unreferenced crossing ':_gneJ13_gneJ17_gneJ19_c3' in GNEJunction destructor
+Warning: Deleting unreferenced crossing ':_gneJ13_gneJ17_gneJ19_c4' in GNEJunction destructor
+Warning: Deleting unreferenced crossing ':_gneJ13_gneJ17_gneJ19_c5' in GNEJunction destructor
 Warning: Deleting unreferenced junction 'gneJ11' in GNENet destructor
 Warning: Deleting unreferenced crossing ':gneJ11_c0' in GNEJunction destructor
 Warning: Deleting unreferenced crossing ':gneJ11_c1' in GNEJunction destructor
@@ -1006,9 +1007,9 @@ Warning: Deleting unreferenced crossing ':gneJ12_c0' in GNEJunction destructor
 Warning: Deleting unreferenced junction 'gneJ14' in GNENet destructor
 Warning: Deleting unreferenced crossing ':gneJ14_c0' in GNEJunction destructor
 Warning: Deleting unreferenced junction 'gneJ15' in GNENet destructor
+Warning: Deleting unreferenced crossing ':gneJ15_c0' in GNEJunction destructor
 Warning: Deleting unreferenced crossing ':gneJ15_c1' in GNEJunction destructor
 Warning: Deleting unreferenced crossing ':gneJ15_c2' in GNEJunction destructor
-Warning: Deleting unreferenced crossing ':gneJ15_c0' in GNEJunction destructor
 Warning: Deleting unreferenced junction 'gneJ16' in GNENet destructor
 Warning: Deleting unreferenced crossing ':gneJ16_c0' in GNEJunction destructor
 Warning: Deleting unreferenced junction 'gneJ18' in GNENet destructor

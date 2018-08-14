@@ -44,22 +44,39 @@ Warning: Created connection 'from8_2to1_2' in retrieveGNEConnection()
 Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into edge '1'
+Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into edge '2'
+Warning: Current selection: 0 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into edge '3'
+Warning: Current selection: 0 Junctions, 3 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into edge '4'
+Warning: Current selection: 0 Junctions, 4 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into edge '5'
+Warning: Current selection: 0 Junctions, 5 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into edge '6'
+Warning: Current selection: 0 Junctions, 6 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into edge '7'
+Warning: Current selection: 0 Junctions, 7 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into edge '8'
+Warning: Current selection: 0 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into junction 'Center'
+Warning: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into busStop 'busStop_3_1_0'
+Warning: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into detEntry 'e3Detector_0detEntry0'
+Warning: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 2 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into detEntry 'e3Detector_1detEntry0'
+Warning: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 3 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into detExit 'e3Detector_1detExit0'
+Warning: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 4 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into detEntry 'e3Detector_2detEntry0'
+Warning: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 5 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into detExit 'e3Detector_2detExit0'
+Warning: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 6 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into detEntry 'e3Detector_3detEntry0'
+Warning: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 7 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into poly 'poly_0'
+Warning: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 7 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 7 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Key DEL (delete) pressed
 Warning: Removing detEntry 'e3Detector_0detEntry0' in GNEChange_Additional

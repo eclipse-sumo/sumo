@@ -22,27 +22,49 @@ Warning: net has to be saved
 Warning: Current saving Status: net unsaved, additionals saved, shapes unsaved
 Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into junction 'gneJ0'
+Warning: Current selection: 1 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into edge 'gneE1'
+Warning: Current selection: 1 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into junction 'gneJ1'
+Warning: Current selection: 2 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into edge 'gneE0'
+Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into poiLane 'POI_0'
+Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into poiLane 'POI_1'
+Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into poiLane 'POI_10'
+Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into poiLane 'POI_11'
+Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into poiLane 'POI_12'
+Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into poiLane 'POI_13'
+Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into poiLane 'POI_14'
+Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into poiLane 'POI_15'
+Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into poiLane 'POI_16'
+Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into poiLane 'POI_17'
+Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into poiLane 'POI_2'
+Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into poiLane 'POI_3'
+Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into poiLane 'POI_4'
+Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into poiLane 'POI_5'
+Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into poiLane 'POI_6'
+Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into poiLane 'POI_7'
+Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into poiLane 'POI_8'
+Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into poiLane 'POI_9'
+Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute posLat '0.00' into poiLane 'POI_1'
 Warning: Setting new attribute posLat '0.00' into poiLane 'POI_10'
@@ -472,12 +494,12 @@ Warning: Setting previous attribute imgFile '' into poiLane 'POI_5'
 Warning: Setting previous attribute imgFile '' into poiLane 'POI_4'
 Warning: Setting previous attribute imgFile '' into poiLane 'POI_3'
 Warning: Setting previous attribute imgFile '' into poiLane 'POI_2'
-Warning: Setting previous attribute imgFile 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.3_from_08Aug103752.1788/netedit.gui/shapeElements/poilane/inspect_selection_geo\berlin_icon.ico' into poiLane 'POI_17'
-Warning: Setting previous attribute imgFile 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.3_from_08Aug103752.1788/netedit.gui/shapeElements/poilane/inspect_selection_geo\berlin_icon.ico' into poiLane 'POI_16'
-Warning: Setting previous attribute imgFile 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.3_from_08Aug103752.1788/netedit.gui/shapeElements/poilane/inspect_selection_geo\berlin_icon.ico' into poiLane 'POI_15'
-Warning: Setting previous attribute imgFile 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.3_from_08Aug103752.1788/netedit.gui/shapeElements/poilane/inspect_selection_geo\berlin_icon.ico' into poiLane 'POI_14'
-Warning: Setting previous attribute imgFile 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.3_from_08Aug103752.1788/netedit.gui/shapeElements/poilane/inspect_selection_geo\berlin_icon.ico' into poiLane 'POI_13'
-Warning: Setting previous attribute imgFile 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.3_from_08Aug103752.1788/netedit.gui/shapeElements/poilane/inspect_selection_geo\berlin_icon.ico' into poiLane 'POI_12'
+Warning: Setting previous attribute imgFile 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.14Aug065349.320/netedit.gui/shapeElements/poilane/inspect_selection_geo\berlin_icon.ico' into poiLane 'POI_17'
+Warning: Setting previous attribute imgFile 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.14Aug065349.320/netedit.gui/shapeElements/poilane/inspect_selection_geo\berlin_icon.ico' into poiLane 'POI_16'
+Warning: Setting previous attribute imgFile 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.14Aug065349.320/netedit.gui/shapeElements/poilane/inspect_selection_geo\berlin_icon.ico' into poiLane 'POI_15'
+Warning: Setting previous attribute imgFile 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.14Aug065349.320/netedit.gui/shapeElements/poilane/inspect_selection_geo\berlin_icon.ico' into poiLane 'POI_14'
+Warning: Setting previous attribute imgFile 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.14Aug065349.320/netedit.gui/shapeElements/poilane/inspect_selection_geo\berlin_icon.ico' into poiLane 'POI_13'
+Warning: Setting previous attribute imgFile 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.14Aug065349.320/netedit.gui/shapeElements/poilane/inspect_selection_geo\berlin_icon.ico' into poiLane 'POI_12'
 Warning: Setting previous attribute imgFile '' into poiLane 'POI_11'
 Warning: Setting previous attribute imgFile '' into poiLane 'POI_10'
 Warning: Setting previous attribute imgFile '' into poiLane 'POI_1'

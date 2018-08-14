@@ -6,11 +6,17 @@ Warning: net has to be saved
 Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into junction 'gneJ0'
+Warning: Current selection: 1 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into edge 'gneE1'
+Warning: Current selection: 1 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into junction 'gneJ1'
+Warning: Current selection: 2 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into edge 'gneE0'
+Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into routeProbe 'routeProbe_01'
+Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into routeProbe 'routeProbe_02'
+Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 2 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 2 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Value '-30' for attribute freq of routeProbe isn't valid
 Warning: Setting new attribute freq '50' into routeProbe 'routeProbe_01'
@@ -38,18 +44,30 @@ Warning: Setting previous attribute freq '120.00' into routeProbe 'routeProbe_02
 Warning: Setting previous attribute freq '100.00' into routeProbe 'routeProbe_01'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute selected '0' into routeProbe 'routeProbe_02'
+Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting previous attribute selected '0' into routeProbe 'routeProbe_01'
+Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting previous attribute selected '0' into edge 'gneE0'
+Warning: Current selection: 2 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting previous attribute selected '0' into junction 'gneJ1'
+Warning: Current selection: 1 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting previous attribute selected '0' into edge 'gneE1'
+Warning: Current selection: 1 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting previous attribute selected '0' into junction 'gneJ0'
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute selected 'true' into junction 'gneJ0'
+Warning: Current selection: 1 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into edge 'gneE1'
+Warning: Current selection: 1 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into junction 'gneJ1'
+Warning: Current selection: 2 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into edge 'gneE0'
+Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into routeProbe 'routeProbe_01'
+Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into routeProbe 'routeProbe_02'
+Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 2 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute freq '50' into routeProbe 'routeProbe_01'
 Warning: Setting new attribute freq '50' into routeProbe 'routeProbe_02'

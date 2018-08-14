@@ -93,8 +93,8 @@ Warning: Deleting unreferenced junction 'A' in GNENet destructor
 Warning: Deleting unreferenced junction 'B' in GNENet destructor
 Warning: Deleting unreferenced junction 'C' in GNENet destructor
 Warning: Deleting unreferenced junction 'Center' in GNENet destructor
-Warning: Deleting unreferenced crossing ':Center_c1' in GNEJunction destructor
 Warning: Deleting unreferenced crossing ':Center_c0' in GNEJunction destructor
+Warning: Deleting unreferenced crossing ':Center_c1' in GNEJunction destructor
 Warning: Deleting unreferenced junction 'D' in GNENet destructor
 Warning: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor

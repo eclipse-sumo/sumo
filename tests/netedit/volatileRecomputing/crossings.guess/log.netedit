@@ -58,6 +58,7 @@ Warning: Created crossing ':gneJ6_c0' in retrieveGNECrossing()
 Warning: Created crossing ':gneJ7_c0' in retrieveGNECrossing()
 Warning: Created crossing ':gneJ8_c0' in retrieveGNECrossing()
 Warning: Created crossing ':gneJ9_c0' in retrieveGNECrossing()
+Warning: Additionals saved
 Warning: Created connection 'from-gneE10_1to-gneE9_1' in retrieveGNEConnection()
 Warning: Created connection 'from-gneE10_1to-gneE17_1' in retrieveGNEConnection()
 Warning: Created connection 'from-gneE11_1to-gneE10_1' in retrieveGNEConnection()
@@ -114,7 +115,6 @@ Warning: Created connection 'fromgneE7_1togneE4_1' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE8_1togneE9_1' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE9_1to-gneE17_1' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE9_1togneE10_1' in retrieveGNEConnection()
-Warning: Additionals saved
 Warning: Deleting unreferenced edge '-gneE10' in GNENet destructor
 Warning: Deleting unreferenced lane '-gneE10_0' in GNEEdge destructor
 Warning: Deleting unreferenced lane '-gneE10_1' in GNEEdge destructor
