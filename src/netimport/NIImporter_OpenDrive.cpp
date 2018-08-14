@@ -90,6 +90,7 @@ StringBijection<int>::Entry NIImporter_OpenDrive::openDriveTags[] = {
     { "width",            NIImporter_OpenDrive::OPENDRIVE_TAG_WIDTH },
     { "speed",            NIImporter_OpenDrive::OPENDRIVE_TAG_SPEED },
     { "elevation",        NIImporter_OpenDrive::OPENDRIVE_TAG_ELEVATION },
+    { "geoReference",     NIImporter_OpenDrive::OPENDRIVE_TAG_GEOREFERENCE },
 
     { "",                 NIImporter_OpenDrive::OPENDRIVE_TAG_NOTHING }
 };
@@ -1759,6 +1760,32 @@ NIImporter_OpenDrive::myStartElement(int element,
     }
     myElementStack.push_back(element);
 }
+
+
+void NIImporter_OpenDrive::characters(const XMLCh* const chars,
+                               const XERCES3_SIZE_t length) {
+    if (myElementStack.size() > 0 && myElementStack.back() == OPENDRIVE_TAG_GEOREFERENCE) {
+        std::string cdata = TplConvert::_2str(chars, (int)length);
+        int startI = cdata.find("+proj");
+        if (startI != std::string::npos) {
+            std::string proj = cdata.substr(startI);
+            GeoConvHelper* result = 0;
+            Boundary convBoundary;
+            Boundary origBoundary;
+            Position networkOffset(0, 0);
+            // XXX read values from the header
+            convBoundary.add(Position(0,0));
+            origBoundary.add(Position(0,0));
+            try {
+                result = new GeoConvHelper(proj, networkOffset, origBoundary, convBoundary);
+                GeoConvHelper::setLoaded(*result);
+            } catch (ProcessError& e) {
+                WRITE_ERROR("Could not set projection. (" + std::string(e.what()) + ")");
+            }
+        }
+    }
+}
+
 
 
 void

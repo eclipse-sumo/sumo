@@ -627,6 +627,7 @@ NBNetBuilder::transformCoordinate(Position& from, bool includeInBoundary, GeoCon
     bool ok = true;
     if (GeoConvHelper::getNumLoaded() > 1 
             && GeoConvHelper::getLoaded().usingGeoProjection() 
+            && from_srs != 0
             && from_srs->usingGeoProjection()
             && *from_srs != GeoConvHelper::getLoaded()) {
         from_srs->cartesian2geo(from);

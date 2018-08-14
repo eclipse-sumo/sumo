@@ -104,7 +104,8 @@ protected:
         OPENDRIVE_TAG_LANELINK,
         OPENDRIVE_TAG_WIDTH,
         OPENDRIVE_TAG_SPEED,
-        OPENDRIVE_TAG_ELEVATION
+        OPENDRIVE_TAG_ELEVATION,
+        OPENDRIVE_TAG_GEOREFERENCE
     };
 
 
@@ -497,6 +498,15 @@ protected:
      * @see GenericSAXHandler::myStartElement
      */
     void myStartElement(int element, const SUMOSAXAttributes& attrs);
+
+    /** @brief Called on the occurence of character data
+     *
+     * If this occurs inside a single tag it sets the option named
+     *  by the tag to the value given by the character data.
+     *  This is considered deprecated in favor of attributes.
+     * @todo Describe better
+     */
+    void characters(const XMLCh* const chars, const XERCES3_SIZE_t length);
 
 
     /** @brief Called when a closing tag occurs
