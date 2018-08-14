@@ -53,6 +53,9 @@ public:
 
     /// @name FOX-callbacks
     /// @{
+    /// @brief event for painting Dialog Box (used to avoid invalid resizes)
+    long onCmdPaint(FXObject*, FXSelector, void*);
+
     /// @brief event when user change an attribute
     long onCmdSetAttribute(FXObject*, FXSelector, void*);
 

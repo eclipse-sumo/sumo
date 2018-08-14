@@ -226,6 +226,9 @@
 /// @brief Group box design extended over frame
 #define GUIDesignGroupBoxFrame              (LAYOUT_FILL_X | FRAME_GROOVE | GROUPBOX_TITLE_CENTER)
 
+/// @brief Group box design for elements of width 100
+#define GUIDesignGroupBoxFrame100           (LAYOUT_FIX_WIDTH | FRAME_GROOVE | GROUPBOX_TITLE_CENTER), 0, 0, 112, 0, 4, 4, 4, 4, 4, 4
+
 /// @brief FXMatrix used to pack values in Viewsettings
 #define GUIDesignMatrixViewSettings         (LAYOUT_FILL_X | LAYOUT_BOTTOM | LAYOUT_LEFT | MATRIX_BY_COLUMNS), 0, 0, 0, 0, 10, 10, 10, 10, 5, 5
 
@@ -399,6 +402,12 @@
 /// @{
 /// @brief design for standard dialog box with close button (for example, about dialog)
 #define GUIDesignDialogBox                      (DECOR_CLOSE | DECOR_TITLE)
+
+/// @brief design for standard dialog box that can be stretched (But not shrinked)
+#define GUIDesignDialogBoxStretchable            (DECOR_CLOSE | DECOR_TITLE | DECOR_STRETCHABLE)
+
+/// @brief design for standard dialog box that can be schinked (But not stretched)
+#define GUIDesignDialogBoxShrinkable             (DECOR_CLOSE | DECOR_TITLE | DECOR_SHRINKABLE)
 
 /// @brief design for standard dialog box (for example, about dialog)
 #define GUIDesignDialogBoxResizable             (DECOR_CLOSE | DECOR_TITLE | DECOR_RESIZE)

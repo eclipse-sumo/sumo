@@ -54,6 +54,7 @@ FXDEFMAP(GNEGenericParameterDialog) GNEGenericParameterDialogMap[] = {
     FXMAPFUNC(SEL_TIMEOUT,  FXDialogBox::ID_CANCEL,                     GNEGenericParameterDialog::onCmdCancel),
     FXMAPFUNC(SEL_COMMAND,  FXDialogBox::ID_CANCEL,                     GNEGenericParameterDialog::onCmdCancel),
     FXMAPFUNC(SEL_CLOSE,    0,                                          GNEGenericParameterDialog::onCmdCancel),
+    FXMAPFUNC(SEL_PAINT,    0,                                          GNEGenericParameterDialog::onCmdPaint),
 };
 
 // Object implementation
@@ -71,7 +72,7 @@ const int GNEGenericParameterDialog::myGenericParameterColumnWidth = 227;
 // ===========================================================================
 
 GNEGenericParameterDialog::GNEGenericParameterDialog(GNEViewNet *viewNet, std::vector<std::pair<std::string, std::string> > *genericParameters) :
-    FXDialogBox(viewNet->getApp(), "Edit generic parameters", GUIDesignDialogBox),
+    FXDialogBox(viewNet->getApp(), "Edit generic parameters", GUIDesignDialogBoxStretchable),
     myViewNet(viewNet),
     myGenericParameters(genericParameters),
     myCopyOfGenericParameters(*myGenericParameters) {
@@ -84,10 +85,11 @@ GNEGenericParameterDialog::GNEGenericParameterDialog(GNEViewNet *viewNet, std::v
     FXHorizontalFrame* horizontalFrameGenericParametersAndOptions = new FXHorizontalFrame(mainFrame, GUIDesignHorizontalFrame);
     // create for frames for parameters
     for(int i = 0; i < 5; i++) {
-        myGenericParametersColumns.push_back(new FXVerticalFrame(horizontalFrameGenericParametersAndOptions, GUIDesignAuxiliarVerticalFrame));
+        myGenericParametersColumns.push_back(new FXVerticalFrame(horizontalFrameGenericParametersAndOptions, GUIDesignAuxiliarFrame));
         FXHorizontalFrame *horizontalFrameLabels = new FXHorizontalFrame(myGenericParametersColumns.back(), GUIDesignAuxiliarHorizontalFrame);
-        new FXLabel(horizontalFrameLabels, "key", 0, GUIDesignLabelThick100);
-        new FXLabel(horizontalFrameLabels, "value", 0, GUIDesignLabelThick100);
+        new FXLabel(horizontalFrameLabels, "key", 0, GUIDesignLabelCenterThick);
+        new FXLabel(horizontalFrameLabels, "value", 0, GUIDesignLabelCenterThick);
+        new FXLabel(horizontalFrameLabels, "", 0, GUIDesignLabelIcon32x32Thicked);
         myGenericParametersColumns.back()->hide();
     }
     // create rows for all generic parameters in groups of 20 elements
@@ -97,7 +99,7 @@ GNEGenericParameterDialog::GNEGenericParameterDialog(GNEViewNet *viewNet, std::v
     // show always first column
     myGenericParametersColumns.at(0)->show();
     // create groupbox for options
-    FXGroupBox* genericParametersGroupBox = new FXGroupBox(horizontalFrameGenericParametersAndOptions, "Options", GUIDesignGroupBoxFrame);
+    FXGroupBox* genericParametersGroupBox = new FXGroupBox(horizontalFrameGenericParametersAndOptions, "Options", GUIDesignGroupBoxFrame100);
     mySortButton = new FXButton(genericParametersGroupBox, "Sort", GUIIconSubSys::getIcon(ICON_RELOAD), this, MID_GNE_GENERICPARAMETERS_SORT, GUIDesignButtonRectangular100x23);
     myClearButton = new FXButton(genericParametersGroupBox, "Clear", GUIIconSubSys::getIcon(ICON_CLEANJUNCTIONS), this, MID_GNE_GENERICPARAMETERS_CLEAR, GUIDesignButtonRectangular100x23);
     myLoadButton = new FXButton(genericParametersGroupBox, "Load", GUIIconSubSys::getIcon(ICON_OPEN_CONFIG), this, MID_GNE_GENERICPARAMETERS_LOAD, GUIDesignButtonRectangular100x23);
@@ -118,6 +120,14 @@ GNEGenericParameterDialog::GNEGenericParameterDialog(GNEViewNet *viewNet, std::v
 
 
 GNEGenericParameterDialog::~GNEGenericParameterDialog() {
+}
+
+
+long 
+GNEGenericParameterDialog::onCmdPaint(FXObject* o, FXSelector s, void* p) {
+    // maintain always the same width
+    resize(getWidth(), 544);
+    return FXWindow::onPaint(o, s, p);
 }
 
 
@@ -430,8 +440,8 @@ GNEGenericParameterDialog::onCmdReset(FXObject*, FXSelector, void*) {
 GNEGenericParameterDialog::GenericParameterRow::GenericParameterRow(GNEGenericParameterDialog *genericParametersEditor, FXVerticalFrame* _frameParent) : 
     frameParent(_frameParent) {
     horizontalFrame = new FXHorizontalFrame(frameParent, GUIDesignAuxiliarHorizontalFrame);
-    keyField = new FXTextField(horizontalFrame, GUIDesignTextFieldNCol, genericParametersEditor, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFielWidth100);
-    valueField = new FXTextField(horizontalFrame, GUIDesignTextFieldNCol, genericParametersEditor, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFielWidth100);
+    keyField = new FXTextField(horizontalFrame, GUIDesignTextFieldNCol, genericParametersEditor, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    valueField = new FXTextField(horizontalFrame, GUIDesignTextFieldNCol, genericParametersEditor, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     button = new FXButton(horizontalFrame, "", GUIIconSubSys::getIcon(ICON_REMOVE), genericParametersEditor, MID_GNE_REMOVE_ATTRIBUTE, GUIDesignButtonIcon);
     // by defaults rows are disabled
     disableRow();
@@ -590,6 +600,7 @@ GNEGenericParameterDialog::updateValues() {
 
  void 
 GNEGenericParameterDialog::resizeGenericParameterDialog() {
+    /*
     // save index of the last shown column (to avoid Flick)
     int indexColumn = 0;
     for (int i = 0; i < myGenericParametersColumns.size(); i++) {
@@ -599,6 +610,7 @@ GNEGenericParameterDialog::resizeGenericParameterDialog() {
     }
     // resize dialog
     resize(myGenericParameterDialogWidth + (indexColumn * myGenericParameterColumnWidth), getHeight());
+    */
  }
 
 /****************************************************************************/
