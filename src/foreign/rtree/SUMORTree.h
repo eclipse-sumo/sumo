@@ -25,9 +25,9 @@
 
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/settings/GUIVisualizationSettings.h>
+#include <utils/gui/div/GUIIOGlobals.h>
 #include <utils/geom/Boundary.h>
 #include <utils/foxtools/MFXMutex.h>
-#include <utils/options/OptionsCont.h>
 
 #include "RTree.h"
 
@@ -125,7 +125,7 @@ public:
         Boundary b = o->getCenteringBoundary();
 
         // show information in gui testing debug gl mode
-        if (OptionsCont::getOptions().exists("gui-testing-debug-gl") && OptionsCont::getOptions().getBool("gui-testing-debug-gl")) {
+        if (gDebugGLFunctions) {
             if(myTreeDebug.count(o) != 0) {
                 throw ProcessError("GUIGlObject " + o->getMicrosimID() + " was already inserted");
             } else if ((b.getWidth() == 0) || (b.getHeight() == 0)) {
@@ -150,7 +150,7 @@ public:
         Boundary b = o->getCenteringBoundary();
 
         // show information in gui testing debug gl mode
-        if (OptionsCont::getOptions().exists("gui-testing-debug-gl") && OptionsCont::getOptions().getBool("gui-testing-debug-gl")) {
+        if (gDebugGLFunctions) {
             if(myTreeDebug.count(o) == 0) {
                 throw ProcessError("GUIGlObject " + o->getMicrosimID() + " wasn't inserted");
             } else if (b != myTreeDebug.at(o)) {

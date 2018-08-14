@@ -37,6 +37,8 @@
  */
 extern FXString gCurrentFolder;
 
+extern bool gDebugGLFunctions;
+
 
 #endif
 
