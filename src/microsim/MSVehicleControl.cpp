@@ -266,6 +266,9 @@ MSVehicleControl::removeVType(const MSVehicleType* vehType) {
     assert(vehType != 0);
     assert(myVTypeDict.find(vehType->getID()) != myVTypeDict.end());
     myVTypeDict.erase(vehType->getID());
+    if (myVTypeToDist.find(vehType->getID()) != myVTypeToDist.end()) {
+        myVTypeToDist.erase(vehType->getID());
+    }
     delete vehType;
 }
 
@@ -274,6 +277,15 @@ bool
 MSVehicleControl::addVTypeDistribution(const std::string& id, RandomDistributor<MSVehicleType*>* vehTypeDistribution) {
     if (checkVType(id)) {
         myVTypeDistDict[id] = vehTypeDistribution;
+        std::vector<MSVehicleType*> vehTypes = vehTypeDistribution->getVals();
+        for (auto vehType : vehTypes) {
+            if (myVTypeToDist.find(vehType->getID()) != myVTypeToDist.end()) {
+                myVTypeToDist[vehType->getID()].insert(id);
+            }
+            else {
+                myVTypeToDist[vehType->getID()] = { id };
+            }
+        }
         return true;
     }
     return false;
@@ -320,6 +332,16 @@ MSVehicleControl::insertVTypeIDs(std::vector<std::string>& into) const {
     for (VTypeDistDictType::const_iterator i = myVTypeDistDict.begin(); i != myVTypeDistDict.end(); ++i) {
         into.push_back((*i).first);
     }
+}
+
+
+std::set<std::string>
+MSVehicleControl::getVTypeDistributionMembership(const std::string& id) const {
+    std::map<std::string, std::set<std::string>>::const_iterator it = myVTypeToDist.find(id);
+    if (it == myVTypeToDist.end()) {
+        return std::set<std::string>();
+    }
+    return it->second;
 }
 
 
