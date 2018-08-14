@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jun 28 08:57:49 2018 by Eclipse SUMO netgenerate Version 3ef3414
+<!-- generated on Tue Aug 14 16:31:18 2018 by Eclipse SUMO netgenerate Version 89dbb8c
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -26,243 +26,243 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="0.27" junctionCornerDetail="5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="0.27" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="97.09,99.27" convBoundary="0.00,0.00,197.09,198.54" origBoundary="-97.09,-99.27,100.00,99.27" projParameter="!"/>
 
     <edge id=":B1_0" function="internal">
-        <lane id=":B1_0_0" index="0" speed="13.89" length="2.34" shape="198.46,98.12 198.61,98.79 198.67,99.27 198.61,99.75 198.46,100.42"/>
+        <lane id=":B1_0_0" index="0" speed="5.57" length="2.34" shape="198.46,98.12 198.61,98.79 198.67,99.27 198.61,99.75 198.46,100.42"/>
     </edge>
     <edge id=":B1_1" function="internal">
-        <lane id=":B1_1_0" index="0" speed="13.89" length="2.71" shape="198.46,98.12 197.97,99.48 197.29,100.06 196.92,99.98"/>
+        <lane id=":B1_1_0" index="0" speed="3.55" length="2.71" shape="198.46,98.12 197.97,99.48 197.29,100.06 196.92,99.98"/>
     </edge>
     <edge id=":B1_4" function="internal">
-        <lane id=":B1_4_0" index="0" speed="13.89" length="1.96" shape="196.92,99.98 196.42,99.86 195.35,98.89"/>
+        <lane id=":B1_4_0" index="0" speed="3.55" length="1.96" shape="196.92,99.98 196.42,99.86 195.35,98.89"/>
     </edge>
     <edge id=":B1_2" function="internal">
         <lane id=":B1_2_0" index="0" speed="13.89" length="0.78" shape="195.35,99.65 195.40,99.43 195.42,99.27 195.40,99.11 195.35,98.89"/>
     </edge>
     <edge id=":B1_3" function="internal">
-        <lane id=":B1_3_0" index="0" speed="13.89" length="1.96" shape="195.35,99.65 196.42,98.68 196.92,98.57"/>
+        <lane id=":B1_3_0" index="0" speed="3.55" length="1.96" shape="195.35,99.65 196.42,98.68 196.92,98.57"/>
     </edge>
     <edge id=":B1_5" function="internal">
-        <lane id=":B1_5_0" index="0" speed="13.89" length="2.71" shape="196.92,98.57 197.29,98.48 197.97,99.06 198.46,100.42"/>
+        <lane id=":B1_5_0" index="0" speed="3.55" length="2.71" shape="196.92,98.57 197.29,98.48 197.97,99.06 198.46,100.42"/>
     </edge>
     <edge id=":B10_0" function="internal">
         <lane id=":B10_0_0" index="0" speed="13.89" length="0.78" shape="62.61,7.26 62.38,7.29 62.23,7.33 62.08,7.41 61.89,7.53"/>
     </edge>
     <edge id=":B10_1" function="internal">
-        <lane id=":B10_1_0" index="0" speed="13.89" length="1.96" shape="62.61,7.26 61.32,6.61 61.04,6.18"/>
+        <lane id=":B10_1_0" index="0" speed="3.55" length="1.96" shape="62.61,7.26 61.32,6.61 61.04,6.18"/>
     </edge>
     <edge id=":B10_4" function="internal">
-        <lane id=":B10_4_0" index="0" speed="13.89" length="2.71" shape="61.04,6.18 60.83,5.87 61.13,5.02 62.22,4.09"/>
+        <lane id=":B10_4_0" index="0" speed="3.55" length="2.71" shape="61.04,6.18 60.83,5.87 61.13,5.02 62.22,4.09"/>
     </edge>
     <edge id=":B10_2" function="internal">
-        <lane id=":B10_2_0" index="0" speed="13.89" length="2.34" shape="60.08,4.90 60.65,4.52 61.08,4.30 61.54,4.18 62.22,4.09"/>
+        <lane id=":B10_2_0" index="0" speed="5.57" length="2.34" shape="60.08,4.90 60.65,4.52 61.08,4.30 61.54,4.18 62.22,4.09"/>
     </edge>
     <edge id=":B10_3" function="internal">
-        <lane id=":B10_3_0" index="0" speed="13.89" length="2.71" shape="60.08,4.90 61.52,4.88 62.30,5.31 62.35,5.68"/>
+        <lane id=":B10_3_0" index="0" speed="3.55" length="2.71" shape="60.08,4.90 61.52,4.88 62.30,5.31 62.35,5.68"/>
     </edge>
     <edge id=":B10_5" function="internal">
-        <lane id=":B10_5_0" index="0" speed="13.89" length="1.96" shape="62.35,5.68 62.43,6.19 61.89,7.53"/>
+        <lane id=":B10_5_0" index="0" speed="3.55" length="1.96" shape="62.35,5.68 62.43,6.19 61.89,7.53"/>
     </edge>
     <edge id=":B11_0" function="internal">
         <lane id=":B11_0_0" index="0" speed="13.89" length="0.78" shape="109.32,1.78 109.10,1.70 108.95,1.66 108.79,1.66 108.56,1.68"/>
     </edge>
     <edge id=":B11_1" function="internal">
-        <lane id=":B11_1_0" index="0" speed="13.89" length="1.96" shape="109.32,1.78 108.48,0.60 108.43,0.09"/>
+        <lane id=":B11_1_0" index="0" speed="3.55" length="1.96" shape="109.32,1.78 108.48,0.60 108.43,0.09"/>
     </edge>
     <edge id=":B11_4" function="internal">
-        <lane id=":B11_4_0" index="0" speed="13.89" length="2.71" shape="108.43,0.09 108.39,-0.29 109.05,-0.89 110.45,-1.22"/>
+        <lane id=":B11_4_0" index="0" speed="3.55" length="2.71" shape="108.43,0.09 108.39,-0.29 109.05,-0.89 110.45,-1.22"/>
     </edge>
     <edge id=":B11_2" function="internal">
-        <lane id=":B11_2_0" index="0" speed="13.89" length="2.34" shape="108.17,-1.49 108.86,-1.57 109.34,-1.56 109.80,-1.45 110.45,-1.22"/>
+        <lane id=":B11_2_0" index="0" speed="5.57" length="2.34" shape="108.17,-1.49 108.86,-1.57 109.34,-1.56 109.80,-1.45 110.45,-1.22"/>
     </edge>
     <edge id=":B11_3" function="internal">
-        <lane id=":B11_3_0" index="0" speed="13.89" length="2.71" shape="108.17,-1.49 109.46,-0.84 109.95,-0.10 109.83,0.26"/>
+        <lane id=":B11_3_0" index="0" speed="3.55" length="2.71" shape="108.17,-1.49 109.46,-0.84 109.95,-0.10 109.83,0.26"/>
     </edge>
     <edge id=":B11_5" function="internal">
-        <lane id=":B11_5_0" index="0" speed="13.89" length="1.96" shape="109.83,0.26 109.65,0.74 108.56,1.68"/>
+        <lane id=":B11_5_0" index="0" speed="3.55" length="1.96" shape="109.83,0.26 109.65,0.74 108.56,1.68"/>
     </edge>
     <edge id=":B12_0" function="internal">
         <lane id=":B12_0_0" index="0" speed="13.89" length="0.78" shape="153.23,18.62 153.07,18.45 152.95,18.35 152.81,18.27 152.60,18.19"/>
     </edge>
     <edge id=":B12_1" function="internal">
-        <lane id=":B12_1_0" index="0" speed="13.89" length="1.96" shape="153.23,18.62 153.03,17.20 153.22,16.72"/>
+        <lane id=":B12_1_0" index="0" speed="3.55" length="1.96" shape="153.23,18.62 153.03,17.20 153.22,16.72"/>
     </edge>
     <edge id=":B12_4" function="internal">
-        <lane id=":B12_4_0" index="0" speed="13.89" length="2.71" shape="153.22,16.72 153.36,16.37 154.23,16.13 155.62,16.50"/>
+        <lane id=":B12_4_0" index="0" speed="3.55" length="2.71" shape="153.22,16.72 153.36,16.37 154.23,16.13 155.62,16.50"/>
     </edge>
     <edge id=":B12_2" function="internal">
-        <lane id=":B12_2_0" index="0" speed="13.89" length="2.34" shape="153.73,15.20 154.37,15.45 154.79,15.68 155.16,15.99 155.62,16.50"/>
+        <lane id=":B12_2_0" index="0" speed="5.57" length="2.34" shape="153.73,15.20 154.37,15.45 154.79,15.68 155.16,15.99 155.62,16.50"/>
     </edge>
     <edge id=":B12_3" function="internal">
-        <lane id=":B12_3_0" index="0" speed="13.89" length="2.71" shape="153.73,15.20 154.57,16.37 154.66,17.26 154.38,17.52"/>
+        <lane id=":B12_3_0" index="0" speed="3.55" length="2.71" shape="153.73,15.20 154.57,16.37 154.66,17.26 154.38,17.52"/>
     </edge>
     <edge id=":B12_5" function="internal">
-        <lane id=":B12_5_0" index="0" speed="13.89" length="1.96" shape="154.38,17.52 154.00,17.87 152.60,18.19"/>
+        <lane id=":B12_5_0" index="0" speed="3.55" length="1.96" shape="154.38,17.52 154.00,17.87 152.60,18.19"/>
     </edge>
     <edge id=":B13_0" function="internal">
         <lane id=":B13_0_0" index="0" speed="13.89" length="0.78" shape="184.28,53.95 184.22,53.72 184.16,53.58 184.07,53.44 183.92,53.27"/>
     </edge>
     <edge id=":B13_1" function="internal">
-        <lane id=":B13_1_0" index="0" speed="13.89" length="1.96" shape="184.28,53.95 184.76,52.59 185.16,52.26"/>
+        <lane id=":B13_1_0" index="0" speed="3.55" length="1.96" shape="184.28,53.95 184.76,52.59 185.16,52.26"/>
     </edge>
     <edge id=":B13_4" function="internal">
-        <lane id=":B13_4_0" index="0" speed="13.89" length="2.71" shape="185.16,52.26 185.45,52.01 186.32,52.21 187.38,53.18"/>
+        <lane id=":B13_4_0" index="0" speed="3.55" length="2.71" shape="185.16,52.26 185.45,52.01 186.32,52.21 187.38,53.18"/>
     </edge>
     <edge id=":B13_2" function="internal">
-        <lane id=":B13_2_0" index="0" speed="13.89" length="2.34" shape="186.31,51.15 186.76,51.67 187.03,52.07 187.21,52.51 187.38,53.18"/>
+        <lane id=":B13_2_0" index="0" speed="5.57" length="2.34" shape="186.31,51.15 186.76,51.67 187.03,52.07 187.21,52.51 187.38,53.18"/>
     </edge>
     <edge id=":B13_3" function="internal">
-        <lane id=":B13_3_0" index="0" speed="13.89" length="2.71" shape="186.31,51.15 186.51,52.58 186.18,53.41 185.81,53.50"/>
+        <lane id=":B13_3_0" index="0" speed="3.55" length="2.71" shape="186.31,51.15 186.51,52.58 186.18,53.41 185.81,53.50"/>
     </edge>
     <edge id=":B13_5" function="internal">
-        <lane id=":B13_5_0" index="0" speed="13.89" length="1.96" shape="185.81,53.50 185.31,53.64 183.92,53.27"/>
+        <lane id=":B13_5_0" index="0" speed="3.55" length="1.96" shape="185.81,53.50 185.31,53.64 183.92,53.27"/>
     </edge>
     <edge id=":B2_0" function="internal">
-        <lane id=":B2_0_0" index="0" speed="13.89" length="2.34" shape="187.38,145.36 187.21,146.03 187.03,146.47 186.76,146.87 186.31,147.39"/>
+        <lane id=":B2_0_0" index="0" speed="5.57" length="2.34" shape="187.38,145.36 187.21,146.03 187.03,146.47 186.76,146.87 186.31,147.39"/>
     </edge>
     <edge id=":B2_1" function="internal">
-        <lane id=":B2_1_0" index="0" speed="13.89" length="2.71" shape="187.38,145.36 186.32,146.33 185.45,146.53 185.16,146.29"/>
+        <lane id=":B2_1_0" index="0" speed="3.55" length="2.71" shape="187.38,145.36 186.32,146.33 185.45,146.53 185.16,146.29"/>
     </edge>
     <edge id=":B2_4" function="internal">
-        <lane id=":B2_4_0" index="0" speed="13.89" length="1.96" shape="185.16,146.29 184.76,145.95 184.28,144.59"/>
+        <lane id=":B2_4_0" index="0" speed="3.55" length="1.96" shape="185.16,146.29 184.76,145.95 184.28,144.59"/>
     </edge>
     <edge id=":B2_2" function="internal">
         <lane id=":B2_2_0" index="0" speed="13.89" length="0.78" shape="183.92,145.27 184.07,145.10 184.16,144.97 184.22,144.82 184.28,144.59"/>
     </edge>
     <edge id=":B2_3" function="internal">
-        <lane id=":B2_3_0" index="0" speed="13.89" length="1.96" shape="183.92,145.27 185.31,144.90 185.81,145.04"/>
+        <lane id=":B2_3_0" index="0" speed="3.55" length="1.96" shape="183.92,145.27 185.31,144.90 185.81,145.04"/>
     </edge>
     <edge id=":B2_5" function="internal">
-        <lane id=":B2_5_0" index="0" speed="13.89" length="2.71" shape="185.81,145.04 186.18,145.14 186.51,145.97 186.31,147.39"/>
+        <lane id=":B2_5_0" index="0" speed="3.55" length="2.71" shape="185.81,145.04 186.18,145.14 186.51,145.97 186.31,147.39"/>
     </edge>
     <edge id=":B3_0" function="internal">
-        <lane id=":B3_0_0" index="0" speed="13.89" length="2.34" shape="155.62,182.04 155.16,182.55 154.79,182.86 154.37,183.09 153.73,183.34"/>
+        <lane id=":B3_0_0" index="0" speed="5.57" length="2.34" shape="155.62,182.04 155.16,182.55 154.79,182.86 154.37,183.09 153.73,183.34"/>
     </edge>
     <edge id=":B3_1" function="internal">
-        <lane id=":B3_1_0" index="0" speed="13.89" length="2.71" shape="155.62,182.04 154.23,182.41 153.36,182.18 153.22,181.83"/>
+        <lane id=":B3_1_0" index="0" speed="3.55" length="2.71" shape="155.62,182.04 154.23,182.41 153.36,182.18 153.22,181.83"/>
     </edge>
     <edge id=":B3_4" function="internal">
-        <lane id=":B3_4_0" index="0" speed="13.89" length="1.96" shape="153.22,181.83 153.03,181.35 153.23,179.92"/>
+        <lane id=":B3_4_0" index="0" speed="3.55" length="1.96" shape="153.22,181.83 153.03,181.35 153.23,179.92"/>
     </edge>
     <edge id=":B3_2" function="internal">
         <lane id=":B3_2_0" index="0" speed="13.89" length="0.78" shape="152.60,180.35 152.81,180.27 152.95,180.19 153.07,180.09 153.23,179.92"/>
     </edge>
     <edge id=":B3_3" function="internal">
-        <lane id=":B3_3_0" index="0" speed="13.89" length="1.96" shape="152.60,180.35 154.00,180.68 154.38,181.03"/>
+        <lane id=":B3_3_0" index="0" speed="3.55" length="1.96" shape="152.60,180.35 154.00,180.68 154.38,181.03"/>
     </edge>
     <edge id=":B3_5" function="internal">
-        <lane id=":B3_5_0" index="0" speed="13.89" length="2.71" shape="154.38,181.03 154.66,181.28 154.57,182.17 153.73,183.34"/>
+        <lane id=":B3_5_0" index="0" speed="3.55" length="2.71" shape="154.38,181.03 154.66,181.28 154.57,182.17 153.73,183.34"/>
     </edge>
     <edge id=":B4_0" function="internal">
-        <lane id=":B4_0_0" index="0" speed="13.89" length="2.34" shape="110.45,199.76 109.80,199.99 109.34,200.10 108.86,200.11 108.17,200.04"/>
+        <lane id=":B4_0_0" index="0" speed="5.57" length="2.34" shape="110.45,199.76 109.80,199.99 109.34,200.10 108.86,200.11 108.17,200.04"/>
     </edge>
     <edge id=":B4_1" function="internal">
-        <lane id=":B4_1_0" index="0" speed="13.89" length="2.71" shape="110.45,199.76 109.05,199.44 108.39,198.83 108.43,198.45"/>
+        <lane id=":B4_1_0" index="0" speed="3.55" length="2.71" shape="110.45,199.76 109.05,199.44 108.39,198.83 108.43,198.45"/>
     </edge>
     <edge id=":B4_4" function="internal">
-        <lane id=":B4_4_0" index="0" speed="13.89" length="1.96" shape="108.43,198.45 108.48,197.94 109.32,196.77"/>
+        <lane id=":B4_4_0" index="0" speed="3.55" length="1.96" shape="108.43,198.45 108.48,197.94 109.32,196.77"/>
     </edge>
     <edge id=":B4_2" function="internal">
         <lane id=":B4_2_0" index="0" speed="13.89" length="0.78" shape="108.56,196.86 108.79,196.88 108.95,196.88 109.10,196.84 109.32,196.77"/>
     </edge>
     <edge id=":B4_3" function="internal">
-        <lane id=":B4_3_0" index="0" speed="13.89" length="1.96" shape="108.56,196.86 109.65,197.80 109.83,198.28"/>
+        <lane id=":B4_3_0" index="0" speed="3.55" length="1.96" shape="108.56,196.86 109.65,197.80 109.83,198.28"/>
     </edge>
     <edge id=":B4_5" function="internal">
-        <lane id=":B4_5_0" index="0" speed="13.89" length="2.71" shape="109.83,198.28 109.95,198.64 109.46,199.39 108.17,200.04"/>
+        <lane id=":B4_5_0" index="0" speed="3.55" length="2.71" shape="109.83,198.28 109.95,198.64 109.46,199.39 108.17,200.04"/>
     </edge>
     <edge id=":B5_0" function="internal">
-        <lane id=":B5_0_0" index="0" speed="13.89" length="2.34" shape="62.22,194.46 61.54,194.36 61.08,194.24 60.65,194.02 60.08,193.64"/>
+        <lane id=":B5_0_0" index="0" speed="5.57" length="2.34" shape="62.22,194.46 61.54,194.36 61.08,194.24 60.65,194.02 60.08,193.64"/>
     </edge>
     <edge id=":B5_1" function="internal">
-        <lane id=":B5_1_0" index="0" speed="13.89" length="2.71" shape="62.22,194.46 61.13,193.52 60.83,192.67 61.04,192.36"/>
+        <lane id=":B5_1_0" index="0" speed="3.55" length="2.71" shape="62.22,194.46 61.13,193.52 60.83,192.67 61.04,192.36"/>
     </edge>
     <edge id=":B5_4" function="internal">
-        <lane id=":B5_4_0" index="0" speed="13.89" length="1.96" shape="61.04,192.36 61.32,191.93 62.61,191.28"/>
+        <lane id=":B5_4_0" index="0" speed="3.55" length="1.96" shape="61.04,192.36 61.32,191.93 62.61,191.28"/>
     </edge>
     <edge id=":B5_2" function="internal">
         <lane id=":B5_2_0" index="0" speed="13.89" length="0.78" shape="61.89,191.01 62.08,191.14 62.23,191.21 62.38,191.25 62.61,191.28"/>
     </edge>
     <edge id=":B5_3" function="internal">
-        <lane id=":B5_3_0" index="0" speed="13.89" length="1.96" shape="61.89,191.01 62.43,192.35 62.35,192.86"/>
+        <lane id=":B5_3_0" index="0" speed="3.55" length="1.96" shape="61.89,191.01 62.43,192.35 62.35,192.86"/>
     </edge>
     <edge id=":B5_5" function="internal">
-        <lane id=":B5_5_0" index="0" speed="13.89" length="2.71" shape="62.35,192.86 62.30,193.23 61.52,193.66 60.08,193.64"/>
+        <lane id=":B5_5_0" index="0" speed="3.55" length="2.71" shape="62.35,192.86 62.30,193.23 61.52,193.66 60.08,193.64"/>
     </edge>
     <edge id=":B6_0" function="internal">
-        <lane id=":B6_0_0" index="0" speed="13.89" length="2.34" shape="21.98,167.35 21.42,166.95 21.07,166.62 20.79,166.23 20.46,165.63"/>
+        <lane id=":B6_0_0" index="0" speed="5.57" length="2.34" shape="21.98,167.35 21.42,166.95 21.07,166.62 20.79,166.23 20.46,165.63"/>
     </edge>
     <edge id=":B6_1" function="internal">
-        <lane id=":B6_1_0" index="0" speed="13.89" length="2.71" shape="21.98,167.35 21.45,166.01 21.58,165.12 21.91,164.94"/>
+        <lane id=":B6_1_0" index="0" speed="3.55" length="2.71" shape="21.98,167.35 21.45,166.01 21.58,165.12 21.91,164.94"/>
     </edge>
     <edge id=":B6_4" function="internal">
-        <lane id=":B6_4_0" index="0" speed="13.89" length="1.96" shape="21.91,164.94 22.36,164.69 23.80,164.71"/>
+        <lane id=":B6_4_0" index="0" speed="3.55" length="1.96" shape="21.91,164.94 22.36,164.69 23.80,164.71"/>
     </edge>
     <edge id=":B6_2" function="internal">
         <lane id=":B6_2_0" index="0" speed="13.89" length="0.78" shape="23.29,164.14 23.40,164.34 23.50,164.47 23.61,164.58 23.80,164.71"/>
     </edge>
     <edge id=":B6_3" function="internal">
-        <lane id=":B6_3_0" index="0" speed="13.89" length="1.96" shape="23.29,164.14 23.14,165.58 22.84,165.99"/>
+        <lane id=":B6_3_0" index="0" speed="3.55" length="1.96" shape="23.29,164.14 23.14,165.58 22.84,165.99"/>
     </edge>
     <edge id=":B6_5" function="internal">
-        <lane id=":B6_5_0" index="0" speed="13.89" length="2.71" shape="22.84,165.99 22.62,166.30 21.73,166.32 20.46,165.63"/>
+        <lane id=":B6_5_0" index="0" speed="3.55" length="2.71" shape="22.84,165.99 22.62,166.30 21.73,166.32 20.46,165.63"/>
     </edge>
     <edge id=":B7_0" function="internal">
-        <lane id=":B7_0_0" index="0" speed="13.89" length="2.34" shape="-1.05,124.64 -1.36,124.03 -1.53,123.58 -1.59,123.10 -1.60,122.41"/>
+        <lane id=":B7_0_0" index="0" speed="5.57" length="2.34" shape="-1.05,124.64 -1.36,124.03 -1.53,123.58 -1.59,123.10 -1.60,122.41"/>
     </edge>
     <edge id=":B7_1" function="internal">
-        <lane id=":B7_1_0" index="0" speed="13.89" length="2.71" shape="-1.05,124.64 -0.90,123.21 -0.38,122.48 0.00,122.48"/>
+        <lane id=":B7_1_0" index="0" speed="3.55" length="2.71" shape="-1.05,124.64 -0.90,123.21 -0.38,122.48 0.00,122.48"/>
     </edge>
     <edge id=":B7_4" function="internal">
-        <lane id=":B7_4_0" index="0" speed="13.89" length="1.96" shape="0.00,122.48 0.52,122.47 1.78,123.16"/>
+        <lane id=":B7_4_0" index="0" speed="3.55" length="1.96" shape="0.00,122.48 0.52,122.47 1.78,123.16"/>
     </edge>
     <edge id=":B7_2" function="internal">
         <lane id=":B7_2_0" index="0" speed="13.89" length="0.78" shape="1.60,122.41 1.60,122.64 1.62,122.80 1.68,122.95 1.78,123.16"/>
     </edge>
     <edge id=":B7_3" function="internal">
-        <lane id=":B7_3_0" index="0" speed="13.89" length="1.96" shape="1.60,122.41 0.80,123.61 0.34,123.84"/>
+        <lane id=":B7_3_0" index="0" speed="3.55" length="1.96" shape="1.60,122.41 0.80,123.61 0.34,123.84"/>
     </edge>
     <edge id=":B7_5" function="internal">
-        <lane id=":B7_5_0" index="0" speed="13.89" length="2.71" shape="0.34,123.84 0.00,124.01 -0.80,123.61 -1.60,122.41"/>
+        <lane id=":B7_5_0" index="0" speed="3.55" length="2.71" shape="0.34,123.84 0.00,124.01 -0.80,123.61 -1.60,122.41"/>
     </edge>
     <edge id=":B8_0" function="internal">
-        <lane id=":B8_0_0" index="0" speed="13.89" length="2.34" shape="-1.60,76.13 -1.59,75.44 -1.53,74.96 -1.36,74.51 -1.05,73.90"/>
+        <lane id=":B8_0_0" index="0" speed="5.57" length="2.34" shape="-1.60,76.13 -1.59,75.44 -1.53,74.96 -1.36,74.51 -1.05,73.90"/>
     </edge>
     <edge id=":B8_1" function="internal">
-        <lane id=":B8_1_0" index="0" speed="13.89" length="2.71" shape="-1.60,76.13 -0.80,74.93 0.00,74.53 0.34,74.70"/>
+        <lane id=":B8_1_0" index="0" speed="3.55" length="2.71" shape="-1.60,76.13 -0.80,74.93 0.00,74.53 0.34,74.70"/>
     </edge>
     <edge id=":B8_4" function="internal">
-        <lane id=":B8_4_0" index="0" speed="13.89" length="1.96" shape="0.34,74.70 0.80,74.93 1.60,76.13"/>
+        <lane id=":B8_4_0" index="0" speed="3.55" length="1.96" shape="0.34,74.70 0.80,74.93 1.60,76.13"/>
     </edge>
     <edge id=":B8_2" function="internal">
         <lane id=":B8_2_0" index="0" speed="13.89" length="0.78" shape="1.78,75.38 1.68,75.59 1.62,75.74 1.60,75.90 1.60,76.13"/>
     </edge>
     <edge id=":B8_3" function="internal">
-        <lane id=":B8_3_0" index="0" speed="13.89" length="1.96" shape="1.78,75.38 0.52,76.08 0.00,76.07"/>
+        <lane id=":B8_3_0" index="0" speed="3.55" length="1.96" shape="1.78,75.38 0.52,76.08 0.00,76.07"/>
     </edge>
     <edge id=":B8_5" function="internal">
-        <lane id=":B8_5_0" index="0" speed="13.89" length="2.71" shape="0.00,76.07 -0.38,76.06 -0.90,75.33 -1.05,73.90"/>
+        <lane id=":B8_5_0" index="0" speed="3.55" length="2.71" shape="0.00,76.07 -0.38,76.06 -0.90,75.33 -1.05,73.90"/>
     </edge>
     <edge id=":B9_0" function="internal">
         <lane id=":B9_0_0" index="0" speed="13.89" length="0.78" shape="23.80,33.83 23.61,33.96 23.50,34.07 23.40,34.20 23.29,34.40"/>
     </edge>
     <edge id=":B9_1" function="internal">
-        <lane id=":B9_1_0" index="0" speed="13.89" length="1.96" shape="23.80,33.83 22.36,33.85 21.91,33.60"/>
+        <lane id=":B9_1_0" index="0" speed="3.55" length="1.96" shape="23.80,33.83 22.36,33.85 21.91,33.60"/>
     </edge>
     <edge id=":B9_4" function="internal">
-        <lane id=":B9_4_0" index="0" speed="13.89" length="2.71" shape="21.91,33.60 21.58,33.42 21.45,32.53 21.98,31.19"/>
+        <lane id=":B9_4_0" index="0" speed="3.55" length="2.71" shape="21.91,33.60 21.58,33.42 21.45,32.53 21.98,31.19"/>
     </edge>
     <edge id=":B9_2" function="internal">
-        <lane id=":B9_2_0" index="0" speed="13.89" length="2.34" shape="20.46,32.91 20.79,32.31 21.07,31.92 21.42,31.59 21.98,31.19"/>
+        <lane id=":B9_2_0" index="0" speed="5.57" length="2.34" shape="20.46,32.91 20.79,32.31 21.07,31.92 21.42,31.59 21.98,31.19"/>
     </edge>
     <edge id=":B9_3" function="internal">
-        <lane id=":B9_3_0" index="0" speed="13.89" length="2.71" shape="20.46,32.91 21.73,32.22 22.62,32.24 22.84,32.55"/>
+        <lane id=":B9_3_0" index="0" speed="3.55" length="2.71" shape="20.46,32.91 21.73,32.22 22.62,32.24 22.84,32.55"/>
     </edge>
     <edge id=":B9_5" function="internal">
-        <lane id=":B9_5_0" index="0" speed="13.89" length="1.96" shape="22.84,32.55 23.14,32.97 23.29,34.40"/>
+        <lane id=":B9_5_0" index="0" speed="3.55" length="1.96" shape="22.84,32.55 23.14,32.97 23.29,34.40"/>
     </edge>
 
     <edge id="B10B11" from="B10" to="B11" priority="-1">

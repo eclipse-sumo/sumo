@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jun 28 08:28:31 2018 by Eclipse SUMO netconvert Version 3ef3414
+<!-- generated on Tue Aug 14 16:31:22 2018 by Eclipse SUMO netconvert Version 89dbb8c
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -31,7 +31,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="0.27" junctionCornerDetail="5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="0.27" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="500.00,500.00" convBoundary="0.00,0.00,1000.00,1000.00" origBoundary="-500.00,-500.00,500.00,500.00" projParameter="!"/>
 
@@ -41,67 +41,67 @@ SPDX-License-Identifier: EPL-2.0
     <type id="d" priority="1" numLanes="1" speed="2.90" allow="pedestrian"/>
 
     <edge id=":0_0" function="internal">
-        <lane id=":0_0_0" index="0" allow="bicycle" speed="12.50" length="10.69" shape="492.00,511.10 491.81,506.94 491.23,503.98 490.26,502.19 488.90,501.60"/>
+        <lane id=":0_0_0" index="0" allow="bicycle" speed="6.47" length="10.69" shape="492.00,511.10 491.81,506.94 491.23,503.98 490.26,502.19 488.90,501.60"/>
     </edge>
     <edge id=":0_1" function="internal">
         <lane id=":0_1_0" index="0" allow="bicycle" speed="12.50" length="22.47" shape="495.20,511.10 495.70,503.60 496.80,497.67 497.90,492.90 498.40,488.90"/>
     </edge>
     <edge id=":0_2" function="internal">
-        <lane id=":0_2_0" index="0" allow="bicycle" speed="12.50" length="10.24" shape="498.40,511.10 499.19,505.54 501.57,501.58"/>
+        <lane id=":0_2_0" index="0" allow="bicycle" speed="8.72" length="10.24" shape="498.40,511.10 499.19,505.54 501.57,501.58"/>
     </edge>
     <edge id=":0_12" function="internal">
-        <lane id=":0_12_0" index="0" speed="12.50" length="10.24" shape="501.57,501.58 505.54,499.19 511.10,498.40"/>
+        <lane id=":0_12_0" index="0" speed="8.72" length="10.24" shape="501.57,501.58 505.54,499.19 511.10,498.40"/>
     </edge>
     <edge id=":0_3" function="internal">
         <lane id=":0_3_0" index="0" allow="bicycle" speed="12.50" length="23.28" shape="511.10,508.00 503.46,507.00 497.54,504.80 492.85,502.60 488.90,501.60"/>
     </edge>
     <edge id=":0_4" function="internal">
-        <lane id=":0_4_0" index="0" allow="bicycle" speed="12.50" length="11.72" shape="511.10,504.80 505.54,503.81 501.58,500.83 501.10,499.83"/>
+        <lane id=":0_4_0" index="0" allow="bicycle" speed="9.24" length="11.72" shape="511.10,504.80 505.54,503.81 501.58,500.83 501.10,499.83"/>
     </edge>
     <edge id=":0_5" function="internal">
-        <lane id=":0_5_0" index="0" allow="bicycle" speed="12.50" length="2.34" shape="511.10,501.60 509.90,500.80 509.50,500.00"/>
+        <lane id=":0_5_0" index="0" allow="bicycle" speed="3.55" length="2.34" shape="511.10,501.60 509.90,500.80 509.50,500.00"/>
     </edge>
     <edge id=":0_13" function="internal">
-        <lane id=":0_13_0" index="0" speed="12.50" length="11.40" shape="501.10,499.83 499.19,495.86 498.40,488.90"/>
+        <lane id=":0_13_0" index="0" speed="9.24" length="11.40" shape="501.10,499.83 499.19,495.86 498.40,488.90"/>
     </edge>
     <edge id=":0_14" function="internal">
-        <lane id=":0_14_0" index="0" speed="12.50" length="2.34" shape="509.50,500.00 509.90,499.20 511.10,498.40"/>
+        <lane id=":0_14_0" index="0" speed="3.55" length="2.34" shape="509.50,500.00 509.90,499.20 511.10,498.40"/>
     </edge>
     <edge id=":0_6" function="internal">
-        <lane id=":0_6_0" index="0" allow="bicycle" speed="12.50" length="10.69" shape="508.00,488.90 508.19,493.06 508.77,496.02 509.74,497.81 511.10,498.40"/>
+        <lane id=":0_6_0" index="0" allow="bicycle" speed="6.47" length="10.69" shape="508.00,488.90 508.19,493.06 508.77,496.02 509.74,497.81 511.10,498.40"/>
     </edge>
     <edge id=":0_7" function="internal">
-        <lane id=":0_7_0" index="0" allow="bicycle" speed="12.50" length="10.31" shape="504.80,488.90 503.81,494.46 501.01,498.19"/>
+        <lane id=":0_7_0" index="0" allow="bicycle" speed="9.24" length="10.31" shape="504.80,488.90 503.81,494.46 501.01,498.19"/>
     </edge>
     <edge id=":0_8" function="internal">
-        <lane id=":0_8_0" index="0" allow="bicycle" speed="12.50" length="2.34" shape="501.60,488.90 500.80,490.10 500.00,490.50"/>
+        <lane id=":0_8_0" index="0" allow="bicycle" speed="3.55" length="2.34" shape="501.60,488.90 500.80,490.10 500.00,490.50"/>
     </edge>
     <edge id=":0_15" function="internal">
-        <lane id=":0_15_0" index="0" speed="12.50" length="12.81" shape="501.01,498.19 500.83,498.42 495.86,500.81 488.90,501.60"/>
+        <lane id=":0_15_0" index="0" speed="9.24" length="12.81" shape="501.01,498.19 500.83,498.42 495.86,500.81 488.90,501.60"/>
     </edge>
     <edge id=":0_16" function="internal">
-        <lane id=":0_16_0" index="0" speed="12.50" length="2.34" shape="500.00,490.50 499.20,490.10 498.40,488.90"/>
+        <lane id=":0_16_0" index="0" speed="3.55" length="2.34" shape="500.00,490.50 499.20,490.10 498.40,488.90"/>
     </edge>
     <edge id=":0_9" function="internal">
-        <lane id=":0_9_0" index="0" allow="bicycle" speed="12.50" length="10.69" shape="488.90,492.00 493.06,491.81 496.02,491.23 497.81,490.26 498.40,488.90"/>
+        <lane id=":0_9_0" index="0" allow="bicycle" speed="6.47" length="10.69" shape="488.90,492.00 493.06,491.81 496.02,491.23 497.81,490.26 498.40,488.90"/>
     </edge>
     <edge id=":0_10" function="internal">
         <lane id=":0_10_0" index="0" allow="bicycle" speed="12.50" length="22.47" shape="488.90,495.20 496.40,495.70 502.33,496.80 507.10,497.90 511.10,498.40"/>
     </edge>
     <edge id=":0_11" function="internal">
-        <lane id=":0_11_0" index="0" allow="bicycle" speed="12.50" length="2.34" shape="488.90,498.40 490.10,499.20 490.50,500.00"/>
+        <lane id=":0_11_0" index="0" allow="bicycle" speed="3.55" length="2.34" shape="488.90,498.40 490.10,499.20 490.50,500.00"/>
     </edge>
     <edge id=":0_17" function="internal">
-        <lane id=":0_17_0" index="0" speed="12.50" length="2.34" shape="490.50,500.00 490.10,500.80 488.90,501.60"/>
+        <lane id=":0_17_0" index="0" speed="3.55" length="2.34" shape="490.50,500.00 490.10,500.80 488.90,501.60"/>
     </edge>
     <edge id=":1_0" function="internal">
-        <lane id=":1_0_0" index="0" speed="11.11" length="4.67" shape="0.00,501.60 -1.20,500.80 -1.60,500.00 -1.20,499.20 0.00,498.40"/>
+        <lane id=":1_0_0" index="0" speed="3.55" length="4.67" shape="0.00,501.60 -1.20,500.80 -1.60,500.00 -1.20,499.20 0.00,498.40"/>
     </edge>
     <edge id=":2_0" function="internal">
-        <lane id=":2_0_0" index="0" speed="11.11" length="4.67" shape="1000.00,498.40 1001.20,499.20 1001.60,500.00 1001.20,500.80 1000.00,501.60"/>
+        <lane id=":2_0_0" index="0" speed="3.55" length="4.67" shape="1000.00,498.40 1001.20,499.20 1001.60,500.00 1001.20,500.80 1000.00,501.60"/>
     </edge>
     <edge id=":3_0" function="internal">
-        <lane id=":3_0_0" index="0" speed="11.11" length="4.67" shape="498.40,0.00 499.20,-1.20 500.00,-1.60 500.80,-1.20 501.60,0.00"/>
+        <lane id=":3_0_0" index="0" speed="3.55" length="4.67" shape="498.40,0.00 499.20,-1.20 500.00,-1.60 500.80,-1.20 501.60,0.00"/>
     </edge>
     <edge id=":m1_0" function="internal">
         <lane id=":m1_0_0" index="0" speed="12.50" length="8.27" shape="246.00,495.20 248.46,494.70 250.00,493.60 251.54,492.50 254.00,492.00"/>

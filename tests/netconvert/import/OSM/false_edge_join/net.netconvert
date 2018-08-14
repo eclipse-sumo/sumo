@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jul 10 16:18:41 2018 by Eclipse SUMO netconvert Version 9084e33
+<!-- generated on Tue Aug 14 16:31:32 2018 by Eclipse SUMO netconvert Version 89dbb8c
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -37,7 +37,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="0.27" junctionCornerDetail="5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="0.27" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-284813.20,-4153237.07" convBoundary="0.00,0.00,912.43,3806.83" origBoundary="-77.435438,37.501147,-77.424417,37.535409" projParameter="+proj=utm +zone=18 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -98,10 +98,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":445851270_0_2" index="2" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="29.10" length="15.59" shape="323.07,3504.84 326.66,3501.83 328.85,3499.48 330.98,3497.04 334.36,3493.79"/>
     </edge>
     <edge id=":445851270_3" function="internal">
-        <lane id=":445851270_3_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="26.85" length="15.61" shape="323.07,3504.84 327.19,3501.99 330.53,3500.14 333.55,3498.76 336.71,3497.33"/>
+        <lane id=":445851270_3_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="20.92" length="15.61" shape="323.07,3504.84 327.19,3501.99 330.53,3500.14 333.55,3498.76 336.71,3497.33"/>
     </edge>
     <edge id=":450601519_0" function="internal">
-        <lane id=":450601519_0_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="24.60" length="6.45" shape="292.20,3527.13 293.99,3525.57 294.47,3524.83 293.62,3524.90 291.45,3525.78"/>
+        <lane id=":450601519_0_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="4.08" length="6.45" shape="292.20,3527.13 293.99,3525.57 294.47,3524.83 293.62,3524.90 291.45,3525.78"/>
     </edge>
     <edge id=":450601528_0" function="internal">
         <lane id=":450601528_0_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="29.10" length="0.29" shape="622.39,2591.51 622.32,2591.84"/>
@@ -109,44 +109,44 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":450601528_0_2" index="2" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="29.10" length="0.29" shape="616.13,2590.19 616.08,2590.43"/>
     </edge>
     <edge id=":450601590_0" function="internal">
-        <lane id=":450601590_0_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="26.85" length="7.88" shape="516.13,3081.90 515.19,3083.95 513.88,3085.10 512.66,3086.26 512.01,3088.35"/>
+        <lane id=":450601590_0_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="17.92" length="7.88" shape="516.13,3081.90 515.19,3083.95 513.88,3085.10 512.66,3086.26 512.01,3088.35"/>
     </edge>
     <edge id=":450601590_1" function="internal">
-        <lane id=":450601590_1_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="29.10" length="7.20" shape="516.13,3081.90 515.02,3088.57"/>
-        <lane id=":450601590_1_1" index="1" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="29.10" length="7.20" shape="513.00,3081.23 511.82,3088.34"/>
-        <lane id=":450601590_1_2" index="2" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="29.10" length="7.20" shape="509.87,3080.57 508.63,3088.11"/>
+        <lane id=":450601590_1_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="20.82" length="7.20" shape="516.13,3081.90 515.02,3088.57"/>
+        <lane id=":450601590_1_1" index="1" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="21.48" length="7.20" shape="513.00,3081.23 511.82,3088.34"/>
+        <lane id=":450601590_1_2" index="2" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="22.11" length="7.20" shape="509.87,3080.57 508.63,3088.11"/>
     </edge>
     <edge id=":49613629_0" function="internal">
         <lane id=":49613629_0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="20.10" length="15.21" shape="231.51,3596.38 228.21,3581.50"/>
         <lane id=":49613629_0_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="20.10" length="15.21" shape="234.63,3595.65 231.34,3580.83"/>
     </edge>
     <edge id=":49613629_2" function="internal">
-        <lane id=":49613629_2_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="16.75" length="4.29" shape="234.63,3595.65 234.74,3592.72 235.35,3591.50"/>
+        <lane id=":49613629_2_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="9.39" length="4.29" shape="234.63,3595.65 234.74,3592.72 235.35,3591.50"/>
     </edge>
     <edge id=":49613629_8" function="internal">
-        <lane id=":49613629_8_0" index="0" speed="16.75" length="13.18" shape="235.35,3591.50 236.37,3589.45 239.51,3585.84 244.16,3581.88"/>
+        <lane id=":49613629_8_0" index="0" speed="9.39" length="13.18" shape="235.35,3591.50 236.37,3589.45 239.51,3585.84 244.16,3581.88"/>
     </edge>
     <edge id=":49613629_3" function="internal">
-        <lane id=":49613629_3_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="16.75" length="11.70" shape="246.10,3584.43 243.38,3586.86 241.60,3589.30 240.76,3591.75 240.86,3594.20"/>
+        <lane id=":49613629_3_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="7.78" length="11.70" shape="246.10,3584.43 243.38,3586.86 241.60,3589.30 240.76,3591.75 240.86,3594.20"/>
     </edge>
     <edge id=":49613629_4" function="internal">
-        <lane id=":49613629_4_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="16.75" length="19.82" shape="246.10,3584.43 240.68,3587.63 236.41,3588.10 233.30,3585.83 231.34,3580.83"/>
+        <lane id=":49613629_4_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="7.66" length="19.82" shape="246.10,3584.43 240.68,3587.63 236.41,3588.10 233.30,3585.83 231.34,3580.83"/>
     </edge>
     <edge id=":49613629_5" function="internal">
-        <lane id=":49613629_5_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="16.75" length="9.16" shape="237.59,3579.47 238.52,3582.01 239.92,3583.26 241.80,3583.22 244.16,3581.88"/>
+        <lane id=":49613629_5_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="5.43" length="9.16" shape="237.59,3579.47 238.52,3582.01 239.92,3583.26 241.80,3583.22 244.16,3581.88"/>
     </edge>
     <edge id=":49613629_6" function="internal">
         <lane id=":49613629_6_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="20.10" length="15.11" shape="237.59,3579.47 240.86,3594.20"/>
         <lane id=":49613629_6_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="20.10" length="15.11" shape="234.47,3580.15 237.75,3594.92"/>
     </edge>
     <edge id=":49613631_0" function="internal">
-        <lane id=":49613631_0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.40" length="9.25" shape="306.29,3545.83 304.40,3544.08 302.42,3543.30 300.35,3543.51 298.19,3544.70"/>
+        <lane id=":49613631_0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="6.13" length="9.25" shape="306.29,3545.83 304.40,3544.08 302.42,3543.30 300.35,3543.51 298.19,3544.70"/>
     </edge>
     <edge id=":49613631_1" function="internal">
-        <lane id=":49613631_1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.40" length="14.38" shape="306.29,3545.83 304.23,3542.44 303.80,3539.24 304.99,3536.25 307.81,3533.46"/>
+        <lane id=":49613631_1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="7.30" length="14.38" shape="306.29,3545.83 304.23,3542.44 303.80,3539.24 304.99,3536.25 307.81,3533.46"/>
     </edge>
     <edge id=":49613631_2" function="internal">
-        <lane id=":49613631_2_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.40" length="9.04" shape="309.72,3536.03 307.95,3537.78 307.20,3539.66 307.47,3541.67 308.76,3543.80"/>
+        <lane id=":49613631_2_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="5.92" length="9.04" shape="309.72,3536.03 307.95,3537.78 307.20,3539.66 307.47,3541.67 308.76,3543.80"/>
     </edge>
     <edge id=":49613631_3" function="internal">
         <lane id=":49613631_3_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.40" length="14.43" shape="309.72,3536.03 298.19,3544.70"/>
@@ -155,7 +155,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":49613631_4_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.40" length="14.47" shape="296.25,3542.15 307.81,3533.46"/>
     </edge>
     <edge id=":49613631_5" function="internal">
-        <lane id=":49613631_5_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.40" length="14.28" shape="296.25,3542.15 299.60,3540.29 302.81,3539.95 305.86,3541.12 308.76,3543.80"/>
+        <lane id=":49613631_5_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="7.45" length="14.28" shape="296.25,3542.15 299.60,3540.29 302.81,3539.95 305.86,3541.12 308.76,3543.80"/>
     </edge>
 
     <edge id="--15" from="450601519" to="-7" name="74A" priority="12" type="highway.motorway_link">

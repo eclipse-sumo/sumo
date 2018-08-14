@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 07/23/18 17:43:29 by Eclipse SUMO netconvert Version cca791664f
+<!-- generated on Tue Aug 14 16:31:34 2018 by Eclipse SUMO netconvert Version 89dbb8c
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -32,7 +32,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="0.27" junctionCornerDetail="5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="0.27" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-422408.05,-6194362.61" convBoundary="0.00,0.00,58.36,498.49" origBoundary="-4.240568,55.888473,-4.239705,55.892959" projParameter="+proj=utm +zone=30 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -70,7 +70,7 @@ SPDX-License-Identifier: EPL-2.0
     <type id="railway.tram" priority="15" numLanes="1" speed="13.89" allow="tram" oneway="1"/>
 
     <edge id=":1596765647_0" function="internal">
-        <lane id=":1596765647_0_0" index="0" allow="rail rail_electric" speed="83.33" length="2.80" shape="5.30,35.05 4.86,32.28"/>
+        <lane id=":1596765647_0_0" index="0" allow="rail rail_electric" speed="41.17" length="2.80" shape="5.30,35.05 4.86,32.28"/>
     </edge>
     <edge id=":1596765684_0" function="internal">
         <lane id=":1596765684_0_0" index="0" allow="rail rail_electric" speed="83.33" length="2.99" shape="17.99,80.05 18.85,82.91"/>
@@ -79,7 +79,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":1596765709_0_0" index="0" allow="rail rail_electric" speed="83.33" length="22.43" shape="26.62,108.31 33.37,129.70"/>
     </edge>
     <edge id=":1596765709_1" function="internal">
-        <lane id=":1596765709_1_0" index="0" allow="rail rail_electric" speed="83.33" length="22.42" shape="26.62,108.31 27.69,113.09 28.62,119.32 29.40,125.58 30.02,130.46"/>
+        <lane id=":1596765709_1_0" index="0" allow="rail rail_electric" speed="27.34" length="22.42" shape="26.62,108.31 27.69,113.09 28.62,119.32 29.40,125.58 30.02,130.46"/>
     </edge>
     <edge id=":1596765735_0" function="internal">
         <lane id=":1596765735_0_0" index="0" allow="rail rail_electric" speed="83.33" length="2.99" shape="34.89,134.51 35.79,137.36"/>
@@ -88,13 +88,13 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":1596765757_0_0" index="0" allow="rail rail_electric" speed="83.33" length="31.44" shape="40.92,153.62 50.09,183.69"/>
     </edge>
     <edge id=":1596765757_1" function="internal">
-        <lane id=":1596765757_1_0" index="0" allow="rail rail_electric" speed="83.33" length="31.44" shape="40.92,153.62 42.35,159.76 44.09,169.00 45.73,178.26 46.82,184.49"/>
+        <lane id=":1596765757_1_0" index="0" allow="rail rail_electric" speed="37.52" length="31.44" shape="40.92,153.62 42.35,159.76 44.09,169.00 45.73,178.26 46.82,184.49"/>
     </edge>
     <edge id=":1596765849_0" function="internal">
         <lane id=":1596765849_0_0" index="0" allow="rail rail_electric" speed="83.33" length="31.93" shape="58.31,245.98 57.77,277.90"/>
     </edge>
     <edge id=":1596765849_1" function="internal">
-        <lane id=":1596765849_1_0" index="0" allow="rail rail_electric" speed="83.33" length="31.93" shape="54.95,246.11 55.62,252.48 56.61,262.00 57.48,271.53 57.77,277.90"/>
+        <lane id=":1596765849_1_0" index="0" allow="rail rail_electric" speed="36.32" length="31.93" shape="54.95,246.11 55.62,252.48 56.61,262.00 57.48,271.53 57.77,277.90"/>
     </edge>
     <edge id=":1596765862_0" function="internal">
         <lane id=":1596765862_0_0" index="0" allow="rail rail_electric" speed="83.33" length="2.81" shape="56.85,301.91 56.74,304.71"/>
@@ -103,13 +103,13 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":1596765895_0_0" index="0" allow="rail rail_electric" speed="83.33" length="26.67" shape="56.72,305.44 55.69,332.09"/>
     </edge>
     <edge id=":1596765895_1" function="internal">
-        <lane id=":1596765895_1_0" index="0" allow="rail rail_electric" speed="83.33" length="26.69" shape="53.27,305.52 53.95,311.06 54.80,318.79 55.49,326.53 55.69,332.09"/>
+        <lane id=":1596765895_1_0" index="0" allow="rail rail_electric" speed="29.46" length="26.69" shape="53.27,305.52 53.95,311.06 54.80,318.79 55.49,326.53 55.69,332.09"/>
     </edge>
     <edge id=":1596765923_0" function="internal">
         <lane id=":1596765923_0_0" index="0" allow="rail rail_electric" speed="83.33" length="2.75" shape="54.87,353.33 54.77,356.07"/>
     </edge>
     <edge id=":1596765963_0" function="internal">
-        <lane id=":1596765963_0_0" index="0" allow="rail rail_electric" speed="83.33" length="2.79" shape="53.30,394.28 53.33,393.46 53.33,392.89 53.29,392.32 53.23,391.50"/>
+        <lane id=":1596765963_0_0" index="0" allow="rail rail_electric" speed="11.34" length="2.79" shape="53.30,394.28 53.33,393.46 53.33,392.89 53.29,392.32 53.23,391.50"/>
     </edge>
 
     <edge id="146404892#0" from="1596766027" to="1596765963" priority="15" type="railway.rail" spreadType="center" shape="49.54,498.49 50.54,462.56 52.20,421.43 52.71,408.75 53.35,392.98">
