@@ -339,7 +339,8 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::AttributeInput(GNEInspector
     FXHorizontalFrame(attributeEditorParent, GUIDesignAuxiliarHorizontalFrame),
     myAttributesEditorParent(attributeEditorParent),
     myTag(SUMO_TAG_NOTHING),
-    myAttr(SUMO_ATTR_NOTHING) {
+    myAttr(SUMO_ATTR_NOTHING),
+    myMultiple(false) {
     // Create and hide label
     myLabel = new FXLabel(this, "attributeLabel", 0, GUIDesignLabelAttribute);
     myLabel->hide();
@@ -368,10 +369,11 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::AttributeInput(GNEInspector
 
 
 void
-GNEInspectorFrame::AttributesEditor::AttributeInput::showAttribute(SumoXMLTag ACTag, SumoXMLAttr ACAttr, const std::string& value) {
-    // Set actual Tag and attribute
+GNEInspectorFrame::AttributesEditor::AttributeInput::showAttribute(SumoXMLTag ACTag, SumoXMLAttr ACAttr, const std::string& value, bool multiple) {
+    // Set actual Tag, Attribute and multiple
     myTag = ACTag;
     myAttr = ACAttr;
+    myMultiple = multiple;
     // obtain attribute property (only for improve code legibility)
     const auto &attrValue = GNEAttributeCarrier::getTagProperties(myTag).getAttribute(myAttr);
     // enable all input values
@@ -415,7 +417,7 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::showAttribute(SumoXMLTag AC
             myTextFieldStrings->setText(value.c_str());
             myTextFieldStrings->setTextColor(FXRGB(0, 0, 0));
             myTextFieldStrings->show();
-        } else {
+        } else if (!myMultiple) {
             // fill comboBox
             myChoicesCombo->clearItems();
             for (auto it : attrValue.getDiscreteValues()) {
@@ -431,6 +433,17 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::showAttribute(SumoXMLTag AC
                 myChoicesCombo->disable();
             } else {
                 myChoicesCombo->enable();
+            }
+        } else {
+            // represent combinable choices in multiple selections always with a textfield instead with a comboBox
+            myTextFieldStrings->setText(value.c_str());
+            myTextFieldStrings->setTextColor(FXRGB(0, 0, 0));
+            myTextFieldStrings->show();
+            // enable or disable depending if attribute is editable
+            if(attrValue.isNonEditable()) {
+                myTextFieldStrings->disable();
+            } else {
+                myTextFieldStrings->enable();
             }
         }
     } else if (attrValue.isFloat() || attrValue.isTime()) {
@@ -469,6 +482,8 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::showAttribute(SumoXMLTag AC
     }
     // Show AttributeInput
     show();
+    // recalc after show elements
+    recalc();
 }
 
 
@@ -485,6 +500,8 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::hideAttribute() {
     myColorEditor->hide();
     // hide AttributeInput
     hide();
+    // recalc after hide all elements
+    recalc();
 }
 
  
@@ -605,9 +622,12 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::onCmdSetAttribute(FXObject*
              attrValues.isCombinable()) {
             // Get value obtained using AttributesEditor
             newVal = myTextFieldStrings->getText().text();
-        } else {
+        } else if (!myMultiple) {
             // Get value of ComboBox
             newVal = myChoicesCombo->getText().text();
+        } else {
+            // due this is a multiple selection, obtain value of myTextFieldStrings instead of comboBox
+            newVal = myTextFieldStrings->getText().text();
         }
     } else if (attrValues.isFloat() || attrValues.isTime()) {
         // Check if default value of attribute must be set
@@ -760,6 +780,7 @@ GNEInspectorFrame::AttributesEditor::AttributesEditor(GNEInspectorFrame* inspect
 void 
 GNEInspectorFrame::AttributesEditor::showAttributeEditor() {
     if(myInspectorFrameParent->getInspectedACs().size() > 0) {
+        bool multiple = myInspectorFrameParent->getInspectedACs().size() > 1;
         // Gets tag (only for simplify code)
         SumoXMLTag ACFrontTag = myInspectorFrameParent->getInspectedACs().front()->getTag();
         //  check if current AC is a Junction without TLSs (needed to hidde TLS options)
@@ -788,7 +809,7 @@ GNEInspectorFrame::AttributesEditor::showAttributeEditor() {
                 // first show AttributesEditor
                 show();
                 // show attribute
-                myVectorOfAttributeInputs[it.second.getPositionListed()]->showAttribute(ACFrontTag, it.first, oss.str());
+                myVectorOfAttributeInputs[it.second.getPositionListed()]->showAttribute(ACFrontTag, it.first, oss.str(), multiple);
             }
         }
     }
