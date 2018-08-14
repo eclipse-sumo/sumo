@@ -1404,10 +1404,8 @@ NBEdgeCont::checkGrade(double threshold) const {
         for (int i = 0; i < (int)edge->getNumLanes(); i++) {
             double maxJump = 0;
             const double grade = edge->getLaneShape(i).getMaxGrade(maxJump);
-            if (std::isinf(grade)) {
-                if (maxJump > 0.01) {
-                    WRITE_WARNING("Edge '" + edge->getID() + "' has a vertical jump of " + toString(maxJump) + "m.");
-                }
+            if (maxJump > 0.01) {
+                WRITE_WARNING("Edge '" + edge->getID() + "' has a vertical jump of " + toString(maxJump) + "m.");
             } else if (grade > threshold) {
                 WRITE_WARNING("Edge '" + edge->getID() + "' has a grade of " + toString(grade * 100) + "%.");
                 break;
@@ -1418,10 +1416,8 @@ NBEdgeCont::checkGrade(double threshold) const {
             const NBEdge::Connection& c = *it_con;
             double maxJump = 0;
             const double grade = MAX2(c.shape.getMaxGrade(maxJump), c.viaShape.getMaxGrade(maxJump));
-            if (std::isinf(grade)) {
-                if (maxJump > 0.01) {
-                    WRITE_WARNING("Connection '" + c.getDescription(edge) + "' has a vertical jump of " + toString(maxJump) + "m.");
-                }
+            if (maxJump > 0.01) {
+                WRITE_WARNING("Connection '" + c.getDescription(edge) + "' has a vertical jump of " + toString(maxJump) + "m.");
             } else if (grade > threshold) {
                 WRITE_WARNING("Connection '" + c.getDescription(edge) + "' has a grade of " + toString(grade * 100) + "%.");
                 break;

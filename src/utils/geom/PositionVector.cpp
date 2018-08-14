@@ -1411,9 +1411,10 @@ PositionVector::getMaxGrade(double& maxJump) const {
         const Position& p2 = (*this)[i];
         const double distZ = fabs(p1.z() - p2.z());
         const double dist2D = p1.distanceTo2D(p2);
-        result = MAX2(result, distZ / dist2D);
         if (dist2D == 0) {
             maxJump = MAX2(maxJump, distZ);
+        } else {
+            result = MAX2(result, distZ / dist2D);
         }
     }
     return result;
