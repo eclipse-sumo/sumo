@@ -227,9 +227,9 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.addDescription("junctions.join-turns", "Processing",
                       "Builds common edges for turning connections with common from- and to-edge. This causes discrepancies between geometrical length and assigned length due to averaging but enables lane-changing while turning");
 
-    oc.doRegister("junctions.limit-turn-speed", new Option_Float(-1));
+    oc.doRegister("junctions.limit-turn-speed", new Option_Float(5.5));
     oc.addDescription("junctions.limit-turn-speed", "Processing",
-                      "Limits speed on junctions to a lateral acceleration of at most FLOAT m/s^2)");
+                      "Limits speed on junctions to an average lateral acceleration of at most FLOAT m/s^2)");
 
     oc.doRegister("junctions.small-radius", new Option_Float(1.5));
     oc.addDescription("junctions.small-radius", "Processing",
