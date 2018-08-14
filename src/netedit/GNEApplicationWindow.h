@@ -276,6 +276,9 @@ public:
     /// @brief called if the user hits an edit-mode hotkey
     long onCmdSetMode(FXObject* sender, FXSelector sel, void* ptr);
 
+    /// @brief called if the user hints ctrl + T
+    long onCmdOpenSUMOGUI(FXObject* sender, FXSelector sel, void* ptr);
+
     /// @brief called if the user hits esc
     long onCmdAbort(FXObject* sender, FXSelector sel, void* ptr);
 

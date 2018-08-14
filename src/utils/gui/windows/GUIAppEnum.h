@@ -128,6 +128,8 @@ enum {
     MID_EDIT_BREAKPOINTS,
     /// @brief Open in netedit
     MID_NETEDIT,
+    /// @brief Open in SUMO GUI
+    MID_SUMOGUI,
     /// @}
 
 
