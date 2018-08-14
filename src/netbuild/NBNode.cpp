@@ -312,6 +312,9 @@ void
 NBNode::reshiftPosition(double xoff, double yoff) {
     myPosition.add(xoff, yoff, 0);
     myPoly.add(xoff, yoff, 0);
+    for (auto& wacs : myWalkingAreaCustomShapes) {
+        wacs.shape.add(xoff, yoff, 0);
+    }
 }
 
 

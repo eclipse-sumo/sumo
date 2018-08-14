@@ -576,6 +576,7 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes& attrs) {
         if (myCurrentLane->customShape) {
             WalkingAreaParsedCustomShape wacs;
             wacs.shape = myCurrentLane->shape;
+            NBNetBuilder::transformCoordinates(wacs.shape, true, myLocation);
             myWACustomShapes[myCurrentEdge->id] = wacs;
         }
         return;
