@@ -334,6 +334,7 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, NBNodeCont& nc, NB
     for (std::map<std::string, NBNode*>::const_iterator it_node = nc.begin(); it_node != nc.end(); ++it_node) {
         for (const auto& wacs : it_node->second->getWalkingAreaCustomShapes()) {
             cdevice.openTag(SUMO_TAG_WALKINGAREA);
+            cdevice.writeAttr(SUMO_ATTR_NODE, it_node->first);
             cdevice.writeAttr(SUMO_ATTR_EDGES, joinNamedToString(wacs.edges, " "));
             cdevice.writeAttr(SUMO_ATTR_SHAPE, wacs.shape);
             cdevice.closeTag();
