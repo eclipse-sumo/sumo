@@ -66,10 +66,18 @@ public:
      * @param[in] lane The lane the stop is placed on
      * @param[in] begPos Begin position of the stop on the lane
      * @param[in] endPos End position of the stop on the lane
+     *
+     * @param[in] fareToken fare token that can be collected at this station
+     * @param[in] startToken fare token that can be used to start at this station
+     * @param[in] fareZone fare zone of this station
      */
     MSStoppingPlace(const std::string& id,
                     const std::vector<std::string>& lines, MSLane& lane,
-                    double begPos, double endPos, const std::string name = "");
+                    double begPos, double endPos,
+                    const std::string name = "",
+                    char fareToken = '\0',
+                    char startToken = '\0',
+                    int fareZone = 0);
 
 
     /// @brief Destructor
@@ -223,6 +231,14 @@ protected:
 
     /// @brief The name of the stopping place
     const std::string myName;
+    
+    ///@brief The fare token that can be collected at this stop
+    const char myFareToken;
+    ///@brief The fare token used when starting public transport at this stop
+    const char myStartToken;
+    ///@brief Fare zone of this stop
+    const int myFareZone;
+    
 public:
     const std::string& getMyName() const;
 protected:

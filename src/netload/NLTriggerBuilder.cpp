@@ -188,6 +188,11 @@ NLTriggerBuilder::parseAndBuildStoppingPlace(MSNet& net, const SUMOSAXAttributes
     // get the positions
     double frompos = attrs.getOpt<double>(SUMO_ATTR_STARTPOS, id.c_str(), ok, 0);
     double topos = attrs.getOpt<double>(SUMO_ATTR_ENDPOS, id.c_str(), ok, lane->getLength());
+    //get fare information at this stop
+    int fareZone           = attrs.getOpt<int>(SUMO_ATTR_FAREZONE,id.c_str(),ok,0);
+    std::string fareToken  = attrs.getOpt<std::string>(SUMO_ATTR_FARETOKEN,id.c_str(),ok,"");
+    std::string startToken = attrs.getOpt<std::string>(SUMO_ATTR_STARTTOKEN,id.c_str(),ok,"");
+    
     const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
     if (!ok || !myHandler->checkStopPos(frompos, topos, lane->getLength(), POSITION_EPS, friendlyPos)) {
         throw InvalidArgument("Invalid position for " + toString(element) + " '" + id + "'.");
