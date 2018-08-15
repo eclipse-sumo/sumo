@@ -49,6 +49,7 @@
 /bin/osgPlugins*
 /bin/TraaS.jar
 /bin/RelWithDebInfo
+/bin/libsumo.py
 # docs dir, make artifacts
 /docs/doxygen
 /docs/examples
