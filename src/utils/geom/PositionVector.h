@@ -157,7 +157,6 @@ public:
     const Position& operator[](int index) const;
 
     /// @brief returns the position at the given index
-    /// @ToDo !!! exceptions?
     Position& operator[](int index);
 
     /// @brief Returns the position at the given length
@@ -368,7 +367,6 @@ public:
      * @param[in] length the length of the orthogonal
      */
     PositionVector getOrthogonal(const Position& p, double extend, bool before, double length = 1.0) const;
-
 
     /// @brief returned vector that is smoothed at the front (within dist)
     PositionVector smoothedZFront(double dist = std::numeric_limits<double>::max()) const;
