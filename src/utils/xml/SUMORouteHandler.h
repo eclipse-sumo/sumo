@@ -194,6 +194,9 @@ protected:
     /// @brief the default car following model
     SumoXMLTag myDefaultCFModel;
 
+    /// @brief the default speed deviation
+    double myDefaultSpeedDev;
+
 private:
     /// @brief Invalidated copy constructor
     SUMORouteHandler(const SUMORouteHandler& s);

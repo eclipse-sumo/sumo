@@ -323,6 +323,9 @@ MSFrame::fillOptions() {
     oc.addDescription("default.carfollowmodel", "Processing", "Select default car following model (Krauss, IDM, ...)");
     oc.addSynonyme("default.carfollowmodel", "carfollow.model", false);
 
+    oc.doRegister("default.speeddev", new Option_Float(-1));
+    oc.addDescription("default.speeddev", "Processing", "Select default speed deviation. A negative value implies vClass specific defaults (0.1 for the default passenger class");
+
     // pedestrian model
     oc.doRegister("pedestrian.model", new Option_String("striping"));
     oc.addDescription("pedestrian.model", "Processing", "Select among pedestrian models ['nonInteracting', 'striping', 'remote']");

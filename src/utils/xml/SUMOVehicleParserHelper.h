@@ -86,12 +86,14 @@ public:
      * @param[in] attr The SAX-attributes to get vehicle parameter from
      * @param[in] file The name of the file being parsed (for resolving paths)
      * @param[in] defaultCFModel The XML tag of the default car following model (SUMO_TAG_NOTHING means no default)
+     * @param[in] defaultSpeedDev The default speed deviation (negative values denote class specific hard coded defaults)
      * @exception ProcessError If an attribute's value is invalid
      * @see SUMOVTypeParameter
      * @note: the caller is responsible for deleting the returned pointer
      */
     static SUMOVTypeParameter* beginVTypeParsing(const SUMOSAXAttributes& attrs, const std::string& file,
-            const SumoXMLTag defaultCFModel);
+            const SumoXMLTag defaultCFModel,
+            const double defaultSpeedDev);
 
 
     /** @brief Parses an element embedded in vtype definition

@@ -347,7 +347,9 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs,
 
 
 SUMOVTypeParameter*
-SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const std::string& file, const SumoXMLTag defaultCFModel) {
+SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const std::string& file, 
+        const SumoXMLTag defaultCFModel,
+        const double defaultSpeedDev) {
     bool ok = true;
     std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
     if (!SUMOXMLDefinitions::isValidTypeID(id)) {
@@ -380,6 +382,8 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
     if (attrs.hasAttribute(SUMO_ATTR_SPEEDDEV)) {
         vtype->speedFactor.getParameter()[1] = attrs.get<double>(SUMO_ATTR_SPEEDDEV, vtype->id.c_str(), ok);
         vtype->parametersSet |= VTYPEPARS_SPEEDFACTOR_SET;
+    } else if (defaultSpeedDev >= 0) {
+        vtype->speedFactor.getParameter()[1] = defaultSpeedDev;
     }
     // validate speed distribution
     std::string error;
