@@ -208,25 +208,26 @@ GNELoadThread::fillOptions(OptionsCont& oc) {
     oc.addOptionSubTopic("Railway");
     oc.addOptionSubTopic("Processing");
     oc.addOptionSubTopic("Building Defaults");
+    oc.addOptionSubTopic("Netedit");
     oc.addOptionSubTopic("Visualisation");
 
     oc.doRegister("new", new Option_Bool(false)); // !!!
     oc.addDescription("new", "Input", "Start with a new network");
 
     oc.doRegister("sumo-additionals-file", 'a', new Option_String());
-    oc.addDescription("sumo-additionals-file", "Input", "file in which additionals are loaded");
+    oc.addDescription("sumo-additionals-file", "Netedit", "file in which additionals are loaded");
 
     oc.doRegister("additionals-output", new Option_String());
-    oc.addDescription("additionals-output", "Output", "file in which additionals must be saved");
+    oc.addDescription("additionals-output", "Netedit", "file in which additionals must be saved");
 
     oc.doRegister("sumo-shapes-file", new Option_String());
-    oc.addDescription("sumo-shapes-file", "Input", "file in which shapes are loaded");
+    oc.addDescription("sumo-shapes-file", "Netedit", "file in which shapes are loaded");
 
     oc.doRegister("shapes-output", new Option_String());
-    oc.addDescription("shapes-output", "Output", "file in which shapes must be saved");
+    oc.addDescription("shapes-output", "Netedit", "file in which shapes must be saved");
 
     oc.doRegister("TLSPrograms-output", new Option_String());
-    oc.addDescription("TLSPrograms-output", "Output", "file in which TLS Programs must be saved");
+    oc.addDescription("TLSPrograms-output", "Netedit", "file in which TLS Programs must be saved");
 
     oc.doRegister("disable-laneIcons", new Option_Bool(false));
     oc.addDescription("disable-laneIcons", "Visualisation", "Disable icons of special lanes");
