@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Aug 15 14:23:33 2018 by Eclipse SUMO netconvert Version 7cc56db
+<!-- generated on Wed Aug 15 14:39:07 2018 by Eclipse SUMO netconvert Version eb20902
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -148,11 +148,7 @@
         <railway.access-factor value="1.5" synonymes="osm.stop-output.footway-access-factor" type="FLOAT" help="The walking length of the access is computed as air-line distance multiplied by FLOAT"/>
     </railway>
 
-    <processing>
-        <lanes-from-capacity.norm value="1800" synonymes="capacity-norm" type="FLOAT" help="The factor for flow to no. lanes conversion"/>
-        <speed-in-kmh value="false" type="BOOL" help="vmax is parsed as given in km/h (some)"/>
-        <construction-date value="" type="STR" help="Use YYYY-MM-DD date to determine the readiness of features under construction"/>
-        <plain.extend-edge-shape value="false" synonymes="xml.keep-shape" type="BOOL" help="If edge shapes do not end at the node positions, extend them"/>
+    <formats>
         <matsim.keep-length value="false" type="BOOL" help="The edge lengths given in the MATSIM-file will be kept"/>
         <matsim.lanes-from-capacity value="false" type="BOOL" help="The lane number will be computed from the capacity"/>
         <shapefile.street-id value="" synonymes="arcview.street-id" type="STR" help="Read edge ids from column STR"/>
@@ -194,6 +190,13 @@
         <opendrive.curve-resolution value="2" type="FLOAT" help="The geometry resolution in m when importing curved geometries as line segments."/>
         <opendrive.advance-stopline value="12" type="FLOAT" help="Allow stop lines to be built beyond the start of the junction if the geometries allow so"/>
         <opendrive.min-width value="1.8" type="FLOAT" help="The minimum lane width for determining start or end of variable-width lanes"/>
+    </formats>
+
+    <processing>
+        <lanes-from-capacity.norm value="1800" synonymes="capacity-norm" type="FLOAT" help="The factor for flow to no. lanes conversion"/>
+        <speed-in-kmh value="false" type="BOOL" help="vmax is parsed as given in km/h (some)"/>
+        <construction-date value="" type="STR" help="Use YYYY-MM-DD date to determine the readiness of features under construction"/>
+        <plain.extend-edge-shape value="false" synonymes="xml.keep-shape" type="BOOL" help="If edge shapes do not end at the node positions, extend them"/>
         <no-internal-links value="false" type="BOOL" help="Omits internal links"/>
         <numerical-ids value="false" type="BOOL" help="Remaps alphanumerical IDs of nodes and edges to ensure that all IDs are integers"/>
         <reserved-ids value="" type="FILE" help="Ensures that generated ids do not included any of the typed IDs from FILE (SUMO-GUI selection file format)"/>

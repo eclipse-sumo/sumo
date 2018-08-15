@@ -1,7 +1,7 @@
 # Format matches Extraction version: V6.5 
 # <?xml version="1.0" encoding="UTF-8"?>
 # 
-# <!-- generated on 01/22/18 12:28:59 by SUMO netconvert Version v0_31_0+1647-6d8dc768ae
+# <!-- generated on Wed Aug 15 14:39:22 2018 by Eclipse SUMO netconvert Version eb20902
 # This data file and the accompanying materials
 # are made available under the terms of the Eclipse Public License v2.0
 # which accompanies this distribution, and is available at
@@ -31,8 +31,11 @@
 #         <ramps.guess value="true"/>
 #     </ramp_guessing>
 # 
-#     <processing>
+#     <formats>
 #         <osm.all-attributes value="true"/>
+#     </formats>
+# 
+#     <processing>
 #         <numerical-ids value="true"/>
 #         <junctions.join value="true"/>
 #     </processing>

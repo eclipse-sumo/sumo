@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version 7cc56db
+Eclipse SUMO netconvert Version eb20902
  Copyright (C) 2001-2018 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
   SUMO.
@@ -236,15 +236,7 @@ Railway Options:
                                          computed as air-line distance
                                          multiplied by FLOAT
 
-Processing Options:
-  --lanes-from-capacity.norm FLOAT     The factor for flow to no. lanes
-                                         conversion
-  --speed-in-kmh                       vmax is parsed as given in km/h (some)
-  --construction-date STR              Use YYYY-MM-DD date to determine the
-                                         readiness of features under
-                                         construction
-  --plain.extend-edge-shape            If edge shapes do not end at the node
-                                         positions, extend them
+Formats Options:
   --matsim.keep-length                 The edge lengths given in the
                                          MATSIM-file will be kept
   --matsim.lanes-from-capacity         The lane number will be computed from
@@ -312,6 +304,16 @@ Processing Options:
                                          allow so
   --opendrive.min-width FLOAT          The minimum lane width for determining
                                          start or end of variable-width lanes
+
+Processing Options:
+  --lanes-from-capacity.norm FLOAT     The factor for flow to no. lanes
+                                         conversion
+  --speed-in-kmh                       vmax is parsed as given in km/h (some)
+  --construction-date STR              Use YYYY-MM-DD date to determine the
+                                         readiness of features under
+                                         construction
+  --plain.extend-edge-shape            If edge shapes do not end at the node
+                                         positions, extend them
   --no-internal-links                  Omits internal links
   --numerical-ids                      Remaps alphanumerical IDs of nodes and
                                          edges to ensure that all IDs are

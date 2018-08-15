@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Aug 15 14:23:33 2018 by Eclipse SUMO netconvert Version 7cc56db
+<!-- generated on Wed Aug 15 14:39:12 2018 by Eclipse SUMO netconvert Version eb20902
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -380,19 +380,7 @@
 
     </railway>
 
-    <processing>
-        <!-- The factor for flow to no. lanes conversion -->
-        <lanes-from-capacity.norm value="1800" synonymes="capacity-norm" type="FLOAT"/>
-
-        <!-- vmax is parsed as given in km/h (some) -->
-        <speed-in-kmh value="false" type="BOOL"/>
-
-        <!-- Use YYYY-MM-DD date to determine the readiness of features under construction -->
-        <construction-date value="" type="STR"/>
-
-        <!-- If edge shapes do not end at the node positions, extend them -->
-        <plain.extend-edge-shape value="false" synonymes="xml.keep-shape" type="BOOL"/>
-
+    <formats>
         <!-- The edge lengths given in the MATSIM-file will be kept -->
         <matsim.keep-length value="false" type="BOOL"/>
 
@@ -515,6 +503,21 @@
 
         <!-- The minimum lane width for determining start or end of variable-width lanes -->
         <opendrive.min-width value="1.8" type="FLOAT"/>
+
+    </formats>
+
+    <processing>
+        <!-- The factor for flow to no. lanes conversion -->
+        <lanes-from-capacity.norm value="1800" synonymes="capacity-norm" type="FLOAT"/>
+
+        <!-- vmax is parsed as given in km/h (some) -->
+        <speed-in-kmh value="false" type="BOOL"/>
+
+        <!-- Use YYYY-MM-DD date to determine the readiness of features under construction -->
+        <construction-date value="" type="STR"/>
+
+        <!-- If edge shapes do not end at the node positions, extend them -->
+        <plain.extend-edge-shape value="false" synonymes="xml.keep-shape" type="BOOL"/>
 
         <!-- Omits internal links -->
         <no-internal-links value="false" type="BOOL"/>
