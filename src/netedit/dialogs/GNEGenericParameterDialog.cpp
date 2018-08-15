@@ -52,6 +52,7 @@ FXDEFMAP(GNEGenericParameterDialog) GNEGenericParameterDialogMap[] = {
 FXDEFMAP(GNEGenericParameterDialog::GenericParametersValues) GenericParametersValuesMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,                      GNEGenericParameterDialog::GenericParametersValues::onCmdSetAttribute),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_REMOVE_ATTRIBUTE,                   GNEGenericParameterDialog::GenericParametersValues::onCmdButtonPress),
+    FXMAPFUNC(SEL_PAINT,    0,                                          GNEGenericParameterDialog::GenericParametersValues::onPaint),
 };
 
 FXDEFMAP(GNEGenericParameterDialog::GenericParametersOptions) GenericParametersOptionsMap[] = {
@@ -81,7 +82,7 @@ GNEGenericParameterDialog::GenericParametersValues::GenericParametersValues(FXHo
     myGenericParameterDialogParent(genericParameterDialogParent) {
     // create labels for keys and values
     FXHorizontalFrame *horizontalFrameLabels = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(horizontalFrameLabels, "key", 0, GUIDesignLabelCenterThick);
+    myKeyLabel = new FXLabel(horizontalFrameLabels, "key", 0, GUIDesignLabelThick100);
     new FXLabel(horizontalFrameLabels, "value", 0, GUIDesignLabelCenterThick);
     // create scroll windows
     FXScrollWindow* scrollWindow = new FXScrollWindow(this, LAYOUT_FILL);
@@ -147,6 +148,17 @@ GNEGenericParameterDialog::GenericParametersValues::clearGenericParameters() {
     myGenericParameters->clear();
     updateValues();
 }
+
+
+long 
+GNEGenericParameterDialog::GenericParametersValues::onPaint(FXObject* o, FXSelector f ,void* p) {
+    // size of key label has to be updated in every interation
+    if(myGenericParameterRows.size() > 0) {
+        myKeyLabel->setWidth(myGenericParameterRows.front()->keyField->getWidth());
+    }
+    return FXGroupBox::onPaint(o, f, p);
+}
+
 
 long
 GNEGenericParameterDialog::GenericParametersValues::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {

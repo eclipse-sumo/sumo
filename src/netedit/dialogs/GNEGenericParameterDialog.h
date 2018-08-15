@@ -81,6 +81,9 @@ public:
 
         /// @name FOX-callbacks
         /// @{
+        /// @brief on paint function (reimplemented from FXGroupBox)
+        long onPaint(FXObject* o, FXSelector f ,void* p);
+
         /// @brief event when user change an attribute
         long onCmdSetAttribute(FXObject*, FXSelector, void*);
 
@@ -134,6 +137,9 @@ public:
 
         /// @brief pointer to Shape Frame Parent
         GNEGenericParameterDialog *myGenericParameterDialogParent;
+
+        /// @brief label for key (its neccesary because has to be resized in every onPaint() iteration)
+        FXLabel* myKeyLabel;
 
         /// @brief vertical frame in which rows are placed
         FXVerticalFrame *myVerticalFrameRow;
