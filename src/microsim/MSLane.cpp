@@ -1623,6 +1623,10 @@ MSLane::executeMovements(SUMOTime t, std::vector<MSLane*>& lanesWithVehiclesToIn
                 }
             } // else look for a (waiting) vehicle that isn't stopped?
         }
+    } else {
+        // avoid numerical instability
+        myBruttoVehicleLengthSum = 0;
+        myNettoVehicleLengthSum = 0;
     }
     if (MSGlobals::gLateralResolution > 0) {
         // trigger sorting of vehicles as their order may have changed
