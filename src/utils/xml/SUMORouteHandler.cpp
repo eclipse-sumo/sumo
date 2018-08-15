@@ -51,9 +51,7 @@ SUMORouteHandler::SUMORouteHandler(const std::string& file, const std::string& e
     myCurrentVType(0),
     myBeginDefault(string2time(OptionsCont::getOptions().getString("begin"))),
     myEndDefault(string2time(OptionsCont::getOptions().getString("end"))),
-    myFirstDepart(-1), myInsertStopEdgesAt(-1), 
-    myDefaultCFModel(SUMO_TAG_NOTHING),
-    myDefaultSpeedDev(-1)
+    myFirstDepart(-1), myInsertStopEdgesAt(-1)
 { }
 
 
@@ -115,7 +113,7 @@ SUMORouteHandler::myStartElement(int element,
             break;
         case SUMO_TAG_VTYPE:
             // XXX: Where is this deleted? Delegated to subclasses?! MSRouteHandler takes care of this, in case of RORouteHandler this is not obvious. Consider introduction of a shared_ptr
-            myCurrentVType = SUMOVehicleParserHelper::beginVTypeParsing(attrs, getFileName(), myDefaultCFModel, myDefaultSpeedDev);
+            myCurrentVType = SUMOVehicleParserHelper::beginVTypeParsing(attrs, getFileName());
             break;
         case SUMO_TAG_VTYPE_DISTRIBUTION:
             openVehicleTypeDistribution(attrs);

@@ -75,9 +75,6 @@ MSRouteHandler::MSRouteHandler(const std::string& file,
     myAmLoadingState(false) 
 {
     myActiveRoute.reserve(100);
-    // check for valid value has been performed in MSFrame
-    myDefaultCFModel = SUMOXMLDefinitions::CarFollowModels.get(OptionsCont::getOptions().getString("carfollow.model"));
-    myDefaultSpeedDev = OptionsCont::getOptions().getFloat("default.speeddev");
 }
 
 

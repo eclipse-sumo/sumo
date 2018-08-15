@@ -347,9 +347,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs,
 
 
 SUMOVTypeParameter*
-SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const std::string& file, 
-        const SumoXMLTag defaultCFModel,
-        const double defaultSpeedDev) {
+SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const std::string& file) {
     bool ok = true;
     std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
     if (!SUMOXMLDefinitions::isValidTypeID(id)) {
@@ -382,8 +380,6 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
     if (attrs.hasAttribute(SUMO_ATTR_SPEEDDEV)) {
         vtype->speedFactor.getParameter()[1] = attrs.get<double>(SUMO_ATTR_SPEEDDEV, vtype->id.c_str(), ok);
         vtype->parametersSet |= VTYPEPARS_SPEEDFACTOR_SET;
-    } else if (defaultSpeedDev >= 0) {
-        vtype->speedFactor.getParameter()[1] = defaultSpeedDev;
     }
     // validate speed distribution
     std::string error;
@@ -470,8 +466,6 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
             WRITE_ERROR("Unknown car following model '" + cfmS + "' when parsing vType '" + vtype->id + "'");
             throw ProcessError();
         }
-    } else if (defaultCFModel != SUMO_TAG_NOTHING) {
-        vtype->cfModel = defaultCFModel;
     }
     if (attrs.hasAttribute(SUMO_ATTR_PERSON_CAPACITY)) {
         vtype->personCapacity = attrs.get<int>(SUMO_ATTR_PERSON_CAPACITY, vtype->id.c_str(), ok);
@@ -507,7 +501,7 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
             throw ProcessError();
         }
     }
-    parseVTypeEmbedded(*vtype, vtype->wasSet(VTYPEPARS_CAR_FOLLOW_MODEL) ? vtype->cfModel : defaultCFModel, attrs, true);
+    parseVTypeEmbedded(*vtype, vtype->cfModel, attrs, true);
     parseLCParams(*vtype, vtype->lcModel, attrs);
     parseJMParams(*vtype, attrs);
     if (!ok) {

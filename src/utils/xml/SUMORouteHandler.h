@@ -191,12 +191,6 @@ protected:
     /// @brief where stop edges can be inserted into the current route (-1 means no insertion)
     int myInsertStopEdgesAt;
 
-    /// @brief the default car following model
-    SumoXMLTag myDefaultCFModel;
-
-    /// @brief the default speed deviation
-    double myDefaultSpeedDev;
-
 private:
     /// @brief Invalidated copy constructor
     SUMORouteHandler(const SUMORouteHandler& s);
