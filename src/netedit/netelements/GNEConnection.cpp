@@ -406,8 +406,8 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
                     } else {
                         WRITE_ERROR("Could not set attribute '" + toString(key) + "' (tls is broken)");
                     }
-                    undoList->p_end();
                 }
+                undoList->p_end();
             }
             break;
         default:
