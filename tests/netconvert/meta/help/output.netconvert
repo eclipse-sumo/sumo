@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version 37accb9
+Eclipse SUMO netconvert Version e85cf09
  Copyright (C) 2001-2018 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
   SUMO.
@@ -168,17 +168,6 @@ Processing Options:
                                          by FLOAT
   --speed.minimum FLOAT                Modifies all edge speeds to at least
                                          FLOAT
-  --sidewalks.guess                    Guess pedestrian sidewalks based on edge
-                                         speed
-  --sidewalks.guess.max-speed FLOAT    Add sidewalks for edges with a speed
-                                         equal or below the given limit
-  --sidewalks.guess.min-speed FLOAT    Add sidewalks for edges with a speed
-                                         above the given limit
-  --sidewalks.guess.from-permissions   Add sidewalks for edges that allow
-                                         pedestrians on any of their lanes
-                                         regardless of speed
-  --sidewalks.guess.exclude STR        Do not guess sidewalks for the given
-                                         list of edges
 
 Building Defaults Options:
   -L, --default.lanenumber INT         The default number of lanes in an edge
@@ -356,6 +345,19 @@ Junctions Options:
   --check-lane-foes.all                Allow driving onto a multi-lane road if
                                          there are foes on other lanes
                                          (everywhere)
+
+Pedestrian Options:
+  --sidewalks.guess                    Guess pedestrian sidewalks based on edge
+                                         speed
+  --sidewalks.guess.max-speed FLOAT    Add sidewalks for edges with a speed
+                                         equal or below the given limit
+  --sidewalks.guess.min-speed FLOAT    Add sidewalks for edges with a speed
+                                         above the given limit
+  --sidewalks.guess.from-permissions   Add sidewalks for edges that allow
+                                         pedestrians on any of their lanes
+                                         regardless of speed
+  --sidewalks.guess.exclude STR        Do not guess sidewalks for the given
+                                         list of edges
   --crossings.guess                    Guess pedestrian crossings based on the
                                          presence of sidewalks
   --crossings.guess.speed-threshold FLOAT  At uncontrolled nodes, do not build

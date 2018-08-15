@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Aug 15 15:51:17 2018 by Eclipse SUMO netconvert Version 37accb9
+<!-- generated on Wed Aug 15 16:00:55 2018 by Eclipse SUMO netconvert Version e85cf09
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -279,21 +279,6 @@
         <!-- Modifies all edge speeds to at least FLOAT -->
         <speed.minimum value="0" type="FLOAT"/>
 
-        <!-- Guess pedestrian sidewalks based on edge speed -->
-        <sidewalks.guess value="false" type="BOOL"/>
-
-        <!-- Add sidewalks for edges with a speed equal or below the given limit -->
-        <sidewalks.guess.max-speed value="13.89" type="FLOAT"/>
-
-        <!-- Add sidewalks for edges with a speed above the given limit -->
-        <sidewalks.guess.min-speed value="5.8" type="FLOAT"/>
-
-        <!-- Add sidewalks for edges that allow pedestrians on any of their lanes regardless of speed -->
-        <sidewalks.guess.from-permissions value="false" type="BOOL"/>
-
-        <!-- Do not guess sidewalks for the given list of edges -->
-        <sidewalks.guess.exclude value="" type="STR"/>
-
     </processing>
 
     <building_defaults>
@@ -552,6 +537,24 @@
         <!-- Allow driving onto a multi-lane road if there are foes on other lanes (everywhere) -->
         <check-lane-foes.all value="false" type="BOOL"/>
 
+    </junctions>
+
+    <pedestrian>
+        <!-- Guess pedestrian sidewalks based on edge speed -->
+        <sidewalks.guess value="false" type="BOOL"/>
+
+        <!-- Add sidewalks for edges with a speed equal or below the given limit -->
+        <sidewalks.guess.max-speed value="13.89" type="FLOAT"/>
+
+        <!-- Add sidewalks for edges with a speed above the given limit -->
+        <sidewalks.guess.min-speed value="5.8" type="FLOAT"/>
+
+        <!-- Add sidewalks for edges that allow pedestrians on any of their lanes regardless of speed -->
+        <sidewalks.guess.from-permissions value="false" type="BOOL"/>
+
+        <!-- Do not guess sidewalks for the given list of edges -->
+        <sidewalks.guess.exclude value="" type="STR"/>
+
         <!-- Guess pedestrian crossings based on the presence of sidewalks -->
         <crossings.guess value="false" type="BOOL"/>
 
@@ -561,7 +564,7 @@
         <!-- Always build walking areas even if there are no crossings -->
         <walkingareas value="false" type="BOOL"/>
 
-    </junctions>
+    </pedestrian>
 
     <railway>
         <!-- Discard all railway signal information loaded from other formats than plain-xml -->
