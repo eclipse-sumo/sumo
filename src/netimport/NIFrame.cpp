@@ -146,10 +146,6 @@ NIFrame::fillOptions() {
     oc.doRegister("ignore-errors.edge-type", new Option_Bool(false));
     oc.addDescription("ignore-errors.edge-type", "Report", "Continue on unknown edge types");
 
-    oc.doRegister("lanes-from-capacity.norm", new Option_Float((double) 1800));
-    oc.addSynonyme("lanes-from-capacity.norm", "capacity-norm");
-    oc.addDescription("lanes-from-capacity.norm", "Processing", "The factor for flow to no. lanes conversion");
-
     oc.doRegister("speed-in-kmh", new Option_Bool(false));
     oc.addDescription("speed-in-kmh", "Processing", "vmax is parsed as given in km/h (some)");
 
@@ -286,6 +282,11 @@ NIFrame::fillOptions() {
 
     oc.doRegister("visum.verbose-warnings", new Option_Bool(false));
     oc.addDescription("visum.verbose-warnings", "Formats", "Prints all warnings, some of which are due to VISUM misbehaviour");
+
+    oc.doRegister("visum.lanes-from-capacity.norm", new Option_Float((double) 1800));
+    oc.addSynonyme("visum.lanes-from-capacity.norm", "capacity-norm", true);
+    oc.addSynonyme("visum.lanes-from-capacity.norm", "lanes-from-capacity.norm");
+    oc.addDescription("visum.lanes-from-capacity.norm", "Formats", "The factor for flow to no. lanes conversion");
 
 
     // register opendrive options
