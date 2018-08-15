@@ -1,4 +1,4 @@
-Eclipse SUMO Version c536a4b
+Eclipse SUMO Version e32b1a9
  Copyright (C) 2001-2018 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -117,8 +117,6 @@ Processing Options:
                                          handling lateral positioning within a
                                          lane (with -1 all vehicles drive at the
                                          center of their lane
-  --carfollow.model STR                Select default car following model
-                                         (Krauss, IDM, ...)
   -s, --route-steps TIME               Load routes for the next number of
                                          seconds ahead
   --no-internal-links                  Disable (junction) internal links
@@ -184,6 +182,8 @@ Processing Options:
                                          settings override the default. Must be
                                          a multiple of the simulation
                                          step-length.
+  --default.carfollowmodel STR         Select default car following model
+                                         (Krauss, IDM, ...)
   --pedestrian.model STR               Select among pedestrian models
                                          ['nonInteracting', 'striping',
                                          'remote']

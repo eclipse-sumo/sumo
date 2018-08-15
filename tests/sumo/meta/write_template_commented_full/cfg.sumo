@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jun 20 08:17:39 2018 by Eclipse SUMO Version c536a4b
+<!-- generated on Wed Aug 15 08:23:54 2018 by Eclipse SUMO Version e32b1a9
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -201,9 +201,6 @@
         <!-- Defines the resolution in m when handling lateral positioning within a lane (with -1 all vehicles drive at the center of their lane -->
         <lateral-resolution value="-1" type="FLOAT"/>
 
-        <!-- Select default car following model (Krauss, IDM, ...) -->
-        <carfollow.model value="Krauss" synonymes="carfollowing.model" type="STR"/>
-
         <!-- Load routes for the next number of seconds ahead -->
         <route-steps value="200" synonymes="s" type="TIME"/>
 
@@ -275,6 +272,9 @@
 
         <!-- Length of the default interval length between action points for the car-following and lane-change models (in seconds). If not specified, the simulation step-length is used per default. Vehicle- or VType-specific settings override the default. Must be a multiple of the simulation step-length. -->
         <default.action-step-length value="0" type="FLOAT"/>
+
+        <!-- Select default car following model (Krauss, IDM, ...) -->
+        <default.carfollowmodel value="Krauss" synonymes="carfollow.model" type="STR"/>
 
         <!-- Select among pedestrian models [&apos;nonInteracting&apos;, &apos;striping&apos;, &apos;remote&apos;] -->
         <pedestrian.model value="striping" type="STR"/>

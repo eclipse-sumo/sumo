@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jun 20 08:17:39 2018 by Eclipse SUMO Version c536a4b
+<!-- generated on Wed Aug 15 08:23:54 2018 by Eclipse SUMO Version e32b1a9
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -79,7 +79,6 @@
     <processing>
         <step-method.ballistic value="false" type="BOOL" help="Whether to use ballistic method for the positional update of vehicles (default is a semi-implicit Euler method)."/>
         <lateral-resolution value="-1" type="FLOAT" help="Defines the resolution in m when handling lateral positioning within a lane (with -1 all vehicles drive at the center of their lane"/>
-        <carfollow.model value="Krauss" synonymes="carfollowing.model" type="STR" help="Select default car following model (Krauss, IDM, ...)"/>
         <route-steps value="200" synonymes="s" type="TIME" help="Load routes for the next number of seconds ahead"/>
         <no-internal-links value="false" type="BOOL" help="Disable (junction) internal links"/>
         <ignore-junction-blocker value="-1" type="TIME" help="Ignore vehicles which block the junction after they have been standing for SECONDS (-1 means never ignore)"/>
@@ -104,6 +103,7 @@
         <tls.all-off value="false" type="BOOL" help="Switches off all traffic lights."/>
         <time-to-impatience value="300" type="TIME" help="Specify how long a vehicle may wait until impatience grows from 0 to 1, defaults to 300, non-positive values disable impatience growth"/>
         <default.action-step-length value="0" type="FLOAT" help="Length of the default interval length between action points for the car-following and lane-change models (in seconds). If not specified, the simulation step-length is used per default. Vehicle- or VType-specific settings override the default. Must be a multiple of the simulation step-length."/>
+        <default.carfollowmodel value="Krauss" synonymes="carfollow.model" type="STR" help="Select default car following model (Krauss, IDM, ...)"/>
         <pedestrian.model value="striping" type="STR" help="Select among pedestrian models [&apos;nonInteracting&apos;, &apos;striping&apos;, &apos;remote&apos;]"/>
         <pedestrian.striping.stripe-width value="0.64" type="FLOAT" help="Width of parallel stripes for segmenting a sidewalk (meters) for use with model &apos;striping&apos;"/>
         <pedestrian.striping.dawdling value="0.2" type="FLOAT" help="factor for random slow-downs [0,1] for use with model &apos;striping&apos;"/>
