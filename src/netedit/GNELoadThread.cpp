@@ -205,6 +205,7 @@ GNELoadThread::fillOptions(OptionsCont& oc) {
     oc.addOptionSubTopic("Ramp Guessing");
     oc.addOptionSubTopic("Edge Removal");
     oc.addOptionSubTopic("Unregulated Nodes");
+    oc.addOptionSubTopic("Railway");
     oc.addOptionSubTopic("Processing");
     oc.addOptionSubTopic("Building Defaults");
     oc.addOptionSubTopic("Visualisation");

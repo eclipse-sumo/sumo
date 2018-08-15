@@ -393,6 +393,14 @@ public:
      **/
     std::vector<std::string> getSynonymes(const std::string& name) const;
 
+    /** @brief Returns the option description 
+     *
+     * @param[in] name The name of the option to return the description of
+     * @return description
+     * @exception InvalidArgument If the named option does not exist
+     **/
+    const std::string& getDescription(const std::string& name) const;
+
 
     /** @brief Returns the information whether the named option may be set
      *

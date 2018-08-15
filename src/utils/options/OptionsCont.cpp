@@ -287,6 +287,12 @@ OptionsCont::getSynonymes(const std::string& name) const {
 }
 
 
+const std::string&
+OptionsCont::getDescription(const std::string& name) const {
+    return getSecure(name)->getDescription();
+}
+
+
 std::ostream&
 operator<<(std::ostream& os, const OptionsCont& oc) {
     std::vector<std::string> done;

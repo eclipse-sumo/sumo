@@ -57,7 +57,9 @@ FXIMPLEMENT(GUIDialog_Options::InputFloat, FXHorizontalFrame, InputFloatMap, ARR
 // ===========================================================================
 GUIDialog_Options::GUIDialog_Options(FXWindow* parent,  const char* titleName, int width, int height) :
     FXDialogBox(parent, titleName, GUIDesignDialogBox, 0, 0, width, height) {
+    //new FXToolTip(getApp(), TOOLTIP_VARIABLE); // not working
     OptionsCont& oc = OptionsCont::getOptions();
+    new FXStatusBar(this, GUIDesignStatusBar);
     FXVerticalFrame* contentFrame = new FXVerticalFrame(this, GUIDesignContentsFrame);
 
     FXTabBook* tabbook = new FXTabBook(contentFrame, 0, 0, GUIDesignTabBook);
@@ -101,7 +103,7 @@ GUIDialog_Options::InputString::InputString(FXComposite* parent, const std::stri
     FXHorizontalFrame(parent, LAYOUT_FILL_X),
     myName(name) {
     OptionsCont& oc = OptionsCont::getOptions();
-    new FXLabel(this, name.c_str());
+    new FXLabel(this, (name + "\t\t" + oc.getDescription(name)).c_str());
     myTextField = new FXTextField(this, 100, this, MID_GNE_SET_ATTRIBUTE, TEXTFIELD_NORMAL | LAYOUT_RIGHT, 0, 0, 0, 0, 4, 2, 0, 2);
     myTextField->setText(oc.getString(name).c_str());
 }
@@ -120,7 +122,7 @@ GUIDialog_Options::InputBool::InputBool(FXComposite* parent, const std::string& 
     FXHorizontalFrame(parent, LAYOUT_FILL_X),
     myName(name) {
     OptionsCont& oc = OptionsCont::getOptions();
-    new FXLabel(this, name.c_str());
+    new FXLabel(this, (name + "\t\t" + oc.getDescription(name)).c_str());
     myCheck = new FXMenuCheck(this, "", this, MID_GNE_SET_ATTRIBUTE);
     myCheck->setCheck(oc.getBool(name));
 }
@@ -139,7 +141,7 @@ GUIDialog_Options::InputInt::InputInt(FXComposite* parent, const std::string& na
     FXHorizontalFrame(parent, LAYOUT_FILL_X),
     myName(name) {
     OptionsCont& oc = OptionsCont::getOptions();
-    new FXLabel(this, name.c_str());
+    new FXLabel(this, (name + "\t\t" + oc.getDescription(name)).c_str());
     myTextField = new FXTextField(this, 100, this, MID_GNE_SET_ATTRIBUTE, TEXTFIELD_INTEGER | LAYOUT_RIGHT, 0, 0, 0, 0, 4, 2, 0, 2);
     myTextField->setText(toString(oc.getInt(name)).c_str());
 }
@@ -158,7 +160,7 @@ GUIDialog_Options::InputFloat::InputFloat(FXComposite* parent, const std::string
     FXHorizontalFrame(parent, LAYOUT_FILL_X),
     myName(name) {
     OptionsCont& oc = OptionsCont::getOptions();
-    new FXLabel(this, name.c_str());
+    new FXLabel(this, (name + "\t\t" + oc.getDescription(name)).c_str());
     myTextField = new FXTextField(this, 100, this, MID_GNE_SET_ATTRIBUTE, TEXTFIELD_REAL | LAYOUT_RIGHT, 0, 0, 0, 0, 4, 2, 0, 2);
     myTextField->setText(toString(oc.getFloat(name)).c_str());
 }
