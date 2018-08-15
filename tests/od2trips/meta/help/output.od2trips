@@ -1,4 +1,4 @@
-Eclipse SUMO od2trips Version 27b98ce
+Eclipse SUMO od2trips Version 7cc56db
  Copyright (C) 2001-2018 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 Importer of O/D-matrices for the microscopic, multi-modal traffic simulation
   SUMO.
@@ -57,7 +57,6 @@ Processing Options:
   --prefix STR                     Defines the prefix for vehicle names
   --timeline STR                   Uses STR as a timeline definition
   --timeline.day-in-hours          Uses STR as a 24h-timeline definition
-  --ignore-errors                  Continue on broken input
   --no-step-log                    Disable console output of current time step
 
 Defaults Options:
@@ -83,6 +82,7 @@ Report Options:
   --message-log FILE               Writes all non-error messages to FILE
                                      (implies verbose)
   --error-log FILE                 Writes all warnings and errors to FILE
+  --ignore-errors                  Continue on broken input
 
 Random Number Options:
   --random                         Initialises the random number generator with

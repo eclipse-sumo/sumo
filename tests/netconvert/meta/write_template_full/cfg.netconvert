@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Aug 15 13:36:14 2018 by Eclipse SUMO netconvert Version fce2f3d
+<!-- generated on Wed Aug 15 14:23:33 2018 by Eclipse SUMO netconvert Version 7cc56db
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -149,10 +149,6 @@
     </railway>
 
     <processing>
-        <ignore-errors value="false" synonymes="dismiss-loading-errors" type="BOOL" help="Continue on broken input"/>
-        <ignore-errors.connections value="false" type="BOOL" help="Continue on invalid connections"/>
-        <show-errors.connections-first-try value="false" type="BOOL" help="Show errors in connections at parsing"/>
-        <ignore-errors.edge-type value="false" type="BOOL" help="Continue on unknown edge types"/>
         <lanes-from-capacity.norm value="1800" synonymes="capacity-norm" type="FLOAT" help="The factor for flow to no. lanes conversion"/>
         <speed-in-kmh value="false" type="BOOL" help="vmax is parsed as given in km/h (some)"/>
         <construction-date value="" type="STR" help="Use YYYY-MM-DD date to determine the readiness of features under construction"/>
@@ -276,6 +272,10 @@
         <log value="" synonymes="l log-file" type="FILE" help="Writes all messages to FILE (implies verbose)"/>
         <message-log value="" type="FILE" help="Writes all non-error messages to FILE (implies verbose)"/>
         <error-log value="" type="FILE" help="Writes all warnings and errors to FILE"/>
+        <ignore-errors value="false" synonymes="dismiss-loading-errors" type="BOOL" help="Continue on broken input"/>
+        <ignore-errors.connections value="false" type="BOOL" help="Continue on invalid connections"/>
+        <show-errors.connections-first-try value="false" type="BOOL" help="Show errors in connections at parsing"/>
+        <ignore-errors.edge-type value="false" type="BOOL" help="Continue on unknown edge types"/>
     </report>
 
     <random_number>

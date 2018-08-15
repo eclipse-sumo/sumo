@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Apr 20 12:52:20 2018 by Eclipse SUMO od2trips Version 27b98ce
+<!-- generated on Wed Aug 15 14:29:15 2018 by Eclipse SUMO od2trips Version 7cc56db
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/od2tripsConfiguration.xsd">
@@ -102,9 +102,6 @@
         <!-- Uses STR as a 24h-timeline definition -->
         <timeline.day-in-hours value="false" type="BOOL"/>
 
-        <!-- Continue on broken input -->
-        <ignore-errors value="false" synonymes="dismiss-loading-errors" type="BOOL"/>
-
         <!-- Disable console output of current time step -->
         <no-step-log value="false" type="BOOL"/>
 
@@ -161,6 +158,9 @@
 
         <!-- Writes all warnings and errors to FILE -->
         <error-log value="" type="FILE"/>
+
+        <!-- Continue on broken input -->
+        <ignore-errors value="false" synonymes="dismiss-loading-errors" type="BOOL"/>
 
     </report>
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Aug 15 13:36:14 2018 by Eclipse SUMO netconvert Version fce2f3d
+<!-- generated on Wed Aug 15 14:23:33 2018 by Eclipse SUMO netconvert Version 7cc56db
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -381,18 +381,6 @@
     </railway>
 
     <processing>
-        <!-- Continue on broken input -->
-        <ignore-errors value="false" synonymes="dismiss-loading-errors" type="BOOL"/>
-
-        <!-- Continue on invalid connections -->
-        <ignore-errors.connections value="false" type="BOOL"/>
-
-        <!-- Show errors in connections at parsing -->
-        <show-errors.connections-first-try value="false" type="BOOL"/>
-
-        <!-- Continue on unknown edge types -->
-        <ignore-errors.edge-type value="false" type="BOOL"/>
-
         <!-- The factor for flow to no. lanes conversion -->
         <lanes-from-capacity.norm value="1800" synonymes="capacity-norm" type="FLOAT"/>
 
@@ -749,6 +737,18 @@
 
         <!-- Writes all warnings and errors to FILE -->
         <error-log value="" type="FILE"/>
+
+        <!-- Continue on broken input -->
+        <ignore-errors value="false" synonymes="dismiss-loading-errors" type="BOOL"/>
+
+        <!-- Continue on invalid connections -->
+        <ignore-errors.connections value="false" type="BOOL"/>
+
+        <!-- Show errors in connections at parsing -->
+        <show-errors.connections-first-try value="false" type="BOOL"/>
+
+        <!-- Continue on unknown edge types -->
+        <ignore-errors.edge-type value="false" type="BOOL"/>
 
     </report>
 

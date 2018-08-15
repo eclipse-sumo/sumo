@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 07/06/18 13:00:25 by Eclipse SUMO duarouter Version UNKNOWN
+<!-- generated on Wed Aug 15 14:26:55 2018 by Eclipse SUMO duarouter Version 7cc56db
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
@@ -87,9 +87,6 @@
     </output>
 
     <processing>
-        <!-- Continue if a route could not be build -->
-        <ignore-errors value="false" synonymes="continue-on-unbuild" type="BOOL"/>
-
         <!-- Assume input is unsorted -->
         <unsorted-input value="false" synonymes="unsorted" type="BOOL"/>
 
@@ -248,6 +245,9 @@
 
         <!-- Writes all warnings and errors to FILE -->
         <error-log value="" type="FILE"/>
+
+        <!-- Continue if a route could not be build -->
+        <ignore-errors value="false" synonymes="continue-on-unbuild" type="BOOL"/>
 
         <!-- Defines how often statistics shall be printed -->
         <stats-period value="-1" type="INT"/>

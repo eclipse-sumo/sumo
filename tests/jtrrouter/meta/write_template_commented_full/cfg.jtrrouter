@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 07/06/18 13:00:53 by Eclipse SUMO jtrrouter Version UNKNOWN
+<!-- generated on Wed Aug 15 14:27:01 2018 by Eclipse SUMO jtrrouter Version 7cc56db
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/jtrrouterConfiguration.xsd">
@@ -69,9 +69,6 @@
     </output>
 
     <processing>
-        <!-- Continue if a route could not be build -->
-        <ignore-errors value="false" synonymes="continue-on-unbuild" type="BOOL"/>
-
         <!-- Assume input is unsorted -->
         <unsorted-input value="false" synonymes="unsorted" type="BOOL"/>
 
@@ -194,6 +191,9 @@
 
         <!-- Writes all warnings and errors to FILE -->
         <error-log value="" type="FILE"/>
+
+        <!-- Continue if a route could not be build -->
+        <ignore-errors value="false" synonymes="continue-on-unbuild" type="BOOL"/>
 
         <!-- Defines how often statistics shall be printed -->
         <stats-period value="-1" type="INT"/>
