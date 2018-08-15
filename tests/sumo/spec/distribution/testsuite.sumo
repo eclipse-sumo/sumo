@@ -31,6 +31,9 @@ speed_basic
 # tests the effect of using speedDev > 0
 speedDev
 
+# tests setting speeddev by option
+speedDev_option
+
 # tests the effect of using speedFactor distributions
 speedFactorNormc
 
