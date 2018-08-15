@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Aug 15 13:33:30 2018 by Eclipse SUMO netconvert Version f70d640
+<!-- generated on Wed Aug 15 13:36:14 2018 by Eclipse SUMO netconvert Version fce2f3d
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -41,6 +41,12 @@
 
         <!-- Read XML-type defs from FILE -->
         <type-files value="" synonymes="t types xml-type-files xml-types" type="FILE"/>
+
+        <!-- Reads public transport stops from FILE -->
+        <ptstop-files value="" type="FILE"/>
+
+        <!-- Reads public transport lines from FILE -->
+        <ptline-files value="" type="FILE"/>
 
         <!-- Read shapefiles (ArcView, Tiger, ...) from files starting with &apos;FILE&apos; -->
         <shapefile-prefix value="" synonymes="arcview shapefile tiger" type="FILE"/>
@@ -92,12 +98,6 @@
 
         <!-- Write time values as hour:minute:second or day:hour:minute:second rathern than seconds -->
         <human-readable-time value="false" synonymes="H" type="BOOL"/>
-
-        <!-- Reads public transport stops from FILE -->
-        <ptstop-files value="" type="FILE"/>
-
-        <!-- Reads public transport lines from FILE -->
-        <ptline-files value="" type="FILE"/>
 
         <!-- The generated net will be written to FILE -->
         <output-file value="" synonymes="o output sumo-output" type="FILE"/>
