@@ -165,140 +165,140 @@ NIFrame::fillOptions() {
 
     // register matsim options
     oc.doRegister("matsim.keep-length", new Option_Bool(false));
-    oc.addDescription("matsim.keep-length", "Processing", "The edge lengths given in the MATSIM-file will be kept");
+    oc.addDescription("matsim.keep-length", "Formats", "The edge lengths given in the MATSIM-file will be kept");
 
     oc.doRegister("matsim.lanes-from-capacity", new Option_Bool(false));
-    oc.addDescription("matsim.lanes-from-capacity", "Processing", "The lane number will be computed from the capacity");
+    oc.addDescription("matsim.lanes-from-capacity", "Formats", "The lane number will be computed from the capacity");
 
 
     // register shapefile options
     oc.doRegister("shapefile.street-id", new Option_String());
     oc.addSynonyme("shapefile.street-id", "arcview.street-id", true);
-    oc.addDescription("shapefile.street-id", "Processing", "Read edge ids from column STR");
+    oc.addDescription("shapefile.street-id", "Formats", "Read edge ids from column STR");
 
     oc.doRegister("shapefile.from-id", new Option_String());
     oc.addSynonyme("shapefile.from-id", "arcview.from-id", true);
-    oc.addDescription("shapefile.from-id", "Processing", "Read from-node ids from column STR");
+    oc.addDescription("shapefile.from-id", "Formats", "Read from-node ids from column STR");
 
     oc.doRegister("shapefile.to-id", new Option_String());
     oc.addSynonyme("shapefile.to-id", "arcview.to-id", true);
-    oc.addDescription("shapefile.to-id", "Processing", "Read to-node ids from column STR");
+    oc.addDescription("shapefile.to-id", "Formats", "Read to-node ids from column STR");
 
     oc.doRegister("shapefile.type-id", new Option_String());
     oc.addSynonyme("shapefile.type-id", "arcview.type-id", true);
-    oc.addDescription("shapefile.type-id", "Processing", "Read type ids from column STR");
+    oc.addDescription("shapefile.type-id", "Formats", "Read type ids from column STR");
 
     oc.doRegister("shapefile.laneNumber", new Option_String());
-    oc.addDescription("shapefile.laneNumber", "Processing", "Read lane number from column STR");
+    oc.addDescription("shapefile.laneNumber", "Formats", "Read lane number from column STR");
 
     oc.doRegister("shapefile.speed", new Option_String());
-    oc.addDescription("shapefile.speed", "Processing", "Read speed from column STR");
+    oc.addDescription("shapefile.speed", "Formats", "Read speed from column STR");
 
     oc.doRegister("shapefile.name", new Option_String());
-    oc.addDescription("shapefile.name", "Processing", "Read (non-unique) name from column STR");
+    oc.addDescription("shapefile.name", "Formats", "Read (non-unique) name from column STR");
 
     oc.doRegister("shapefile.node-join-dist", new Option_Float(0));
-    oc.addDescription("shapefile.node-join-dist", "Processing", "Distance threshold for determining whether distinct shapes are connected (used when from-id and to-id are not available)");
+    oc.addDescription("shapefile.node-join-dist", "Formats", "Distance threshold for determining whether distinct shapes are connected (used when from-id and to-id are not available)");
 
     oc.doRegister("shapefile.add-params", new Option_String());
-    oc.addDescription("shapefile.add-params", "Processing", "Add the list of field names as edge params");
+    oc.addDescription("shapefile.add-params", "Formats", "Add the list of field names as edge params");
 
     oc.doRegister("shapefile.use-defaults-on-failure", new Option_Bool(false));
     oc.addSynonyme("shapefile.use-defaults-on-failure", "arcview.use-defaults-on-failure", true);
-    oc.addDescription("shapefile.use-defaults-on-failure", "Processing", "Uses edge type defaults on problems");
+    oc.addDescription("shapefile.use-defaults-on-failure", "Formats", "Uses edge type defaults on problems");
 
     oc.doRegister("shapefile.all-bidirectional", new Option_Bool(false));
     oc.addSynonyme("shapefile.all-bidirectional", "shapefile.all-bidi");
     oc.addSynonyme("shapefile.all-bidirectional", "arcview.all-bidi", true);
-    oc.addDescription("shapefile.all-bidirectional", "Processing", "Insert edges in both directions");
+    oc.addDescription("shapefile.all-bidirectional", "Formats", "Insert edges in both directions");
 
     oc.doRegister("shapefile.guess-projection", new Option_Bool(false));
     oc.addSynonyme("shapefile.guess-projection", "arcview.guess-projection", true);
-    oc.addDescription("shapefile.guess-projection", "Processing", "Guess the proper projection");
+    oc.addDescription("shapefile.guess-projection", "Formats", "Guess the proper projection");
 
 
     // register vissim options
     oc.doRegister("vissim.join-distance", new Option_Float(5.0f));
     oc.addSynonyme("vissim.join-distance", "vissim.offset", true);
-    oc.addDescription("vissim.join-distance", "Processing", "Structure join offset");
+    oc.addDescription("vissim.join-distance", "Formats", "Structure join offset");
 
     oc.doRegister("vissim.default-speed", new Option_Float(50.0f));
-    oc.addDescription("vissim.default-speed", "Processing", "Use FLOAT as default speed");
+    oc.addDescription("vissim.default-speed", "Formats", "Use FLOAT as default speed");
 
     oc.doRegister("vissim.speed-norm", new Option_Float(1.0f));
-    oc.addDescription("vissim.speed-norm", "Processing", "Factor for edge velocity");
+    oc.addDescription("vissim.speed-norm", "Formats", "Factor for edge velocity");
 
     oc.doRegister("vissim.report-unset-speeds", new Option_Bool(false));
-    oc.addDescription("vissim.report-unset-speeds", "Processing", "Writes lanes without an explicit speed set");
+    oc.addDescription("vissim.report-unset-speeds", "Formats", "Writes lanes without an explicit speed set");
 
 
     // register visum options
     oc.doRegister("visum.use-type-priority", new Option_Bool(false));
-    oc.addDescription("visum.use-type-priority", "Processing", "Uses priorities from types");
+    oc.addDescription("visum.use-type-priority", "Formats", "Uses priorities from types");
 
     oc.doRegister("visum.use-type-laneno", new Option_Bool(false));
-    oc.addDescription("visum.use-type-laneno", "Processing", "Uses lane numbers from types");
+    oc.addDescription("visum.use-type-laneno", "Formats", "Uses lane numbers from types");
 
     oc.doRegister("visum.use-type-speed", new Option_Bool(false));
-    oc.addDescription("visum.use-type-speed", "Processing", "Uses speeds from types");
+    oc.addDescription("visum.use-type-speed", "Formats", "Uses speeds from types");
 
     oc.doRegister("visum.connector-speeds", new Option_Float(100.));
-    oc.addDescription("visum.connector-speeds", "Processing", "Sets connector speed");
+    oc.addDescription("visum.connector-speeds", "Formats", "Sets connector speed");
 
     oc.doRegister("visum.connectors-lane-number", new Option_Integer(3));
     oc.addSynonyme("visum.connectors-lane-number", "visum.connector-laneno", true);
-    oc.addDescription("visum.connectors-lane-number", "Processing", "Sets connector lane number");
+    oc.addDescription("visum.connectors-lane-number", "Formats", "Sets connector lane number");
 
     oc.doRegister("visum.no-connectors", new Option_Bool(false));
-    oc.addDescription("visum.no-connectors", "Processing", "Excludes connectors");
+    oc.addDescription("visum.no-connectors", "Formats", "Excludes connectors");
 
     oc.doRegister("visum.recompute-lane-number", new Option_Bool(false));
     oc.addSynonyme("visum.recompute-lane-number", "visum.recompute-laneno", true);
-    oc.addDescription("visum.recompute-lane-number", "Processing", "Computes the number of lanes from the edges' capacities");
+    oc.addDescription("visum.recompute-lane-number", "Formats", "Computes the number of lanes from the edges' capacities");
 
     oc.doRegister("visum.verbose-warnings", new Option_Bool(false));
-    oc.addDescription("visum.verbose-warnings", "Processing", "Prints all warnings, some of which are due to VISUM misbehaviour");
+    oc.addDescription("visum.verbose-warnings", "Formats", "Prints all warnings, some of which are due to VISUM misbehaviour");
 
 
     // register osm options
     oc.doRegister("osm.skip-duplicates-check", new Option_Bool(false));
-    oc.addDescription("osm.skip-duplicates-check", "Processing", "Skips the check for duplicate nodes and edges");
+    oc.addDescription("osm.skip-duplicates-check", "Formats", "Skips the check for duplicate nodes and edges");
 
     oc.doRegister("osm.elevation", new Option_Bool(false));
-    oc.addDescription("osm.elevation", "Processing", "Imports elevation data");
+    oc.addDescription("osm.elevation", "Formats", "Imports elevation data");
 
     oc.doRegister("osm.layer-elevation", new Option_Float(0));
-    oc.addDescription("osm.layer-elevation", "Processing", "Reconstruct (relative) elevation based on layer data. Each layer is raised by FLOAT m");
+    oc.addDescription("osm.layer-elevation", "Formats", "Reconstruct (relative) elevation based on layer data. Each layer is raised by FLOAT m");
 
     oc.doRegister("osm.layer-elevation.max-grade", new Option_Float(10));
-    oc.addDescription("osm.layer-elevation.max-grade", "Processing", "Maximum grade threshold in % at 50km/h when reconstrucing elevation based on layer data. The value is scaled according to road speed.");
+    oc.addDescription("osm.layer-elevation.max-grade", "Formats", "Maximum grade threshold in % at 50km/h when reconstrucing elevation based on layer data. The value is scaled according to road speed.");
 
     oc.doRegister("osm.oneway-spread-right", new Option_Bool(false));
-    oc.addDescription("osm.oneway-spread-right", "Processing", "Whether one-way roads should be spread to the side instead of centered");
+    oc.addDescription("osm.oneway-spread-right", "Formats", "Whether one-way roads should be spread to the side instead of centered");
 
     oc.doRegister("osm.stop-output.length", new Option_Float(25));
-    oc.addDescription("osm.stop-output.length", "Processing", "The default length of a public transport stop in FLOAT m");
+    oc.addDescription("osm.stop-output.length", "Formats", "The default length of a public transport stop in FLOAT m");
     oc.doRegister("osm.stop-output.length.bus", new Option_Float(15));
-    oc.addDescription("osm.stop-output.length.bus", "Processing", "The default length of a bus stop in FLOAT m");
+    oc.addDescription("osm.stop-output.length.bus", "Formats", "The default length of a bus stop in FLOAT m");
     oc.doRegister("osm.stop-output.length.tram", new Option_Float(25));
-    oc.addDescription("osm.stop-output.length.tram", "Processing", "The default length of a tram stop in FLOAT m");
+    oc.addDescription("osm.stop-output.length.tram", "Formats", "The default length of a tram stop in FLOAT m");
     oc.doRegister("osm.stop-output.length.train", new Option_Float(200));
-    oc.addDescription("osm.stop-output.length.train", "Processing", "The default length of a train stop in FLOAT m");
+    oc.addDescription("osm.stop-output.length.train", "Formats", "The default length of a train stop in FLOAT m");
 
     oc.doRegister("osm.all-attributes", new Option_Bool(false));
-    oc.addDescription("osm.all-attributes", "Processing", "Whether additional attributes shall be imported");
+    oc.addDescription("osm.all-attributes", "Formats", "Whether additional attributes shall be imported");
 
     // register opendrive options
     oc.doRegister("opendrive.import-all-lanes", new Option_Bool(false));
-    oc.addDescription("opendrive.import-all-lanes", "Processing", "Imports all lane types");
+    oc.addDescription("opendrive.import-all-lanes", "Formats", "Imports all lane types");
     oc.doRegister("opendrive.ignore-widths", new Option_Bool(false));
-    oc.addDescription("opendrive.ignore-widths", "Processing", "Whether lane widths shall be ignored.");
+    oc.addDescription("opendrive.ignore-widths", "Formats", "Whether lane widths shall be ignored.");
     oc.doRegister("opendrive.curve-resolution", new Option_Float(2.0));
-    oc.addDescription("opendrive.curve-resolution", "Processing", "The geometry resolution in m when importing curved geometries as line segments.");
+    oc.addDescription("opendrive.curve-resolution", "Formats", "The geometry resolution in m when importing curved geometries as line segments.");
     oc.doRegister("opendrive.advance-stopline", new Option_Float(12.0));
-    oc.addDescription("opendrive.advance-stopline", "Processing", "Allow stop lines to be built beyond the start of the junction if the geometries allow so");
+    oc.addDescription("opendrive.advance-stopline", "Formats", "Allow stop lines to be built beyond the start of the junction if the geometries allow so");
     oc.doRegister("opendrive.min-width", new Option_Float(1.8));
-    oc.addDescription("opendrive.min-width", "Processing", "The minimum lane width for determining start or end of variable-width lanes");
+    oc.addDescription("opendrive.min-width", "Formats", "The minimum lane width for determining start or end of variable-width lanes");
 
     // register some additional options
     oc.doRegister("tls.discard-loaded", new Option_Bool(false));

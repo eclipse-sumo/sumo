@@ -207,6 +207,7 @@ GNELoadThread::fillOptions(OptionsCont& oc) {
     oc.addOptionSubTopic("Unregulated Nodes");
     oc.addOptionSubTopic("Railway");
     oc.addOptionSubTopic("Processing");
+    oc.addOptionSubTopic("Formats");
     oc.addOptionSubTopic("Building Defaults");
     oc.addOptionSubTopic("Netedit");
     oc.addOptionSubTopic("Visualisation");
