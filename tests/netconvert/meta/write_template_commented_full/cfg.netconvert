@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Aug 15 14:41:39 2018 by Eclipse SUMO netconvert Version 0d2ee1f
+<!-- generated on Wed Aug 15 15:51:17 2018 by Eclipse SUMO netconvert Version 37accb9
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -185,6 +185,147 @@
 
     </projection>
 
+    <processing>
+        <!-- vmax is parsed as given in km/h (some) -->
+        <speed-in-kmh value="false" type="BOOL"/>
+
+        <!-- Use YYYY-MM-DD date to determine the readiness of features under construction -->
+        <construction-date value="" type="STR"/>
+
+        <!-- If edge shapes do not end at the node positions, extend them -->
+        <plain.extend-edge-shape value="false" synonymes="xml.keep-shape" type="BOOL"/>
+
+        <!-- Remaps alphanumerical IDs of nodes and edges to ensure that all IDs are integers -->
+        <numerical-ids value="false" type="BOOL"/>
+
+        <!-- Ensures that generated ids do not included any of the typed IDs from FILE (SUMO-GUI selection file format) -->
+        <reserved-ids value="" type="FILE"/>
+
+        <!-- Removes vehicle class restrictions from imported edges -->
+        <dismiss-vclasses value="false" type="BOOL"/>
+
+        <!-- Splits edges across geometry nodes -->
+        <geometry.split value="false" synonymes="split-geometry" type="BOOL"/>
+
+        <!-- Replace nodes which only define edge geometry by geometry points (joins edges) -->
+        <geometry.remove value="false" synonymes="R remove-geometry" type="BOOL"/>
+
+        <!-- Ensure that the given list of edges is not modified -->
+        <geometry.remove.keep-edges.explicit value="" type="STR"/>
+
+        <!-- Ensure that the edges in FILE are not modified (Each id on a single line. Selection files from SUMO-GUI are also supported) -->
+        <geometry.remove.keep-edges.input-file value="" type="FILE"/>
+
+        <!-- splits geometry to restrict segment length -->
+        <geometry.max-segment-length value="0" type="FLOAT"/>
+
+        <!-- reduces too similar geometry points -->
+        <geometry.min-dist value="-1" type="FLOAT"/>
+
+        <!-- Warn about edge geometries with an angle above DEGREES in successive segments -->
+        <geometry.max-angle value="99" type="FLOAT"/>
+
+        <!-- Warn about edge geometries with a turning radius less than METERS at the start or end -->
+        <geometry.min-radius value="9" type="FLOAT"/>
+
+        <!-- Straighten edge geometries to avoid turning radii less than geometry.min-radius -->
+        <geometry.min-radius.fix value="false" type="BOOL"/>
+
+        <!-- Warn if the junction shape is to far away from the original node position -->
+        <geometry.junction-mismatch-threshold value="20" type="FLOAT"/>
+
+        <!-- Warn if edges overlap by more than the given threshold value -->
+        <geometry.check-overlap value="0" type="FLOAT"/>
+
+        <!-- Ignore overlapping edges if they are separated vertically by the given threshold. -->
+        <geometry.check-overlap.vertical-threshold value="4" type="FLOAT"/>
+
+        <!-- Warn about edge geometries with a grade in % above FLOAT. The threshold applies to roads with a speed limit of 50km/h and is scaled according to road speed. -->
+        <geometry.max-grade value="10" type="FLOAT"/>
+
+        <!-- Turn off normalizing node positions -->
+        <offset.disable-normalization value="false" synonymes="disable-normalize-node-positions" type="BOOL"/>
+
+        <!-- Adds FLOAT to net x-positions -->
+        <offset.x value="0" synonymes="x-offset-to-apply" type="FLOAT"/>
+
+        <!-- Adds FLOAT to net y-positions -->
+        <offset.y value="0" synonymes="y-offset-to-apply" type="FLOAT"/>
+
+        <!-- Flips the y-coordinate along zero -->
+        <flip-y-axis value="false" synonymes="flip-y" type="BOOL"/>
+
+        <!-- Enable roundabout-guessing -->
+        <roundabouts.guess value="true" synonymes="guess-roundabouts" type="BOOL"/>
+
+        <!-- Enable guessing of opposite direction lanes usable for overtaking -->
+        <opposites.guess value="false" type="BOOL"/>
+
+        <!-- Ensure that opposite edges have the same length -->
+        <opposites.guess.fix-lengths value="false" type="BOOL"/>
+
+        <!-- Assumes left-hand traffic on the network -->
+        <lefthand value="false" type="BOOL"/>
+
+        <!-- Merges edges which connect the same nodes and are close to each other (recommended for VISSIM import) -->
+        <edges.join value="false" type="BOOL"/>
+
+        <!-- Modifies all edge speeds by adding FLOAT -->
+        <speed.offset value="0" type="FLOAT"/>
+
+        <!-- Modifies all edge speeds by multiplying by FLOAT -->
+        <speed.factor value="1" type="FLOAT"/>
+
+        <!-- Modifies all edge speeds to at least FLOAT -->
+        <speed.minimum value="0" type="FLOAT"/>
+
+        <!-- Guess pedestrian sidewalks based on edge speed -->
+        <sidewalks.guess value="false" type="BOOL"/>
+
+        <!-- Add sidewalks for edges with a speed equal or below the given limit -->
+        <sidewalks.guess.max-speed value="13.89" type="FLOAT"/>
+
+        <!-- Add sidewalks for edges with a speed above the given limit -->
+        <sidewalks.guess.min-speed value="5.8" type="FLOAT"/>
+
+        <!-- Add sidewalks for edges that allow pedestrians on any of their lanes regardless of speed -->
+        <sidewalks.guess.from-permissions value="false" type="BOOL"/>
+
+        <!-- Do not guess sidewalks for the given list of edges -->
+        <sidewalks.guess.exclude value="" type="STR"/>
+
+    </processing>
+
+    <building_defaults>
+        <!-- The default number of lanes in an edge -->
+        <default.lanenumber value="1" synonymes="L lanenumber" type="INT"/>
+
+        <!-- The default width of lanes -->
+        <default.lanewidth value="-1" synonymes="lanewidth" type="FLOAT"/>
+
+        <!-- The default speed on an edge (in m/s) -->
+        <default.speed value="13.89" synonymes="S speed" type="FLOAT"/>
+
+        <!-- The default priority of an edge -->
+        <default.priority value="-1" synonymes="P priority" type="INT"/>
+
+        <!-- The default width of added sidewalks -->
+        <default.sidewalk-width value="2" type="FLOAT"/>
+
+        <!-- The default width of a pedestrian crossing -->
+        <default.crossing-width value="4" type="FLOAT"/>
+
+        <!-- The default for disallowed vehicle classes -->
+        <default.disallow value="" type="STR"/>
+
+        <!-- Whether junctions should be kept clear by default -->
+        <default.junctions.keep-clear value="true" type="BOOL"/>
+
+        <!-- The default turning radius of intersections -->
+        <default.junctions.radius value="4" type="FLOAT"/>
+
+    </building_defaults>
+
     <tls_building>
         <!-- Does not instatiate traffic lights loaded from other formats than plain-XML -->
         <tls.discard-loaded value="false" type="BOOL"/>
@@ -359,6 +500,69 @@
 
     </unregulated_nodes>
 
+    <junctions>
+        <!-- Omits internal links -->
+        <no-internal-links value="false" type="BOOL"/>
+
+        <!-- Disables building turnarounds -->
+        <no-turnarounds value="false" type="BOOL"/>
+
+        <!-- Disables building turnarounds at tls-controlled junctions -->
+        <no-turnarounds.tls value="false" synonymes="no-tls-turnarounds" type="BOOL"/>
+
+        <!-- Disables building turnarounds except at dead end junctions -->
+        <no-turnarounds.except-deadend value="false" type="BOOL"/>
+
+        <!-- Disables building connections to left -->
+        <no-left-connections value="false" type="BOOL"/>
+
+        <!-- Joins junctions that are close to each other (recommended for OSM import) -->
+        <junctions.join value="false" type="BOOL"/>
+
+        <!-- Determines the maximal distance for joining junctions (defaults to 10) -->
+        <junctions.join-dist value="10" type="FLOAT"/>
+
+        <!-- Interprets STR as list of junctions to exclude from joining -->
+        <junctions.join-exclude value="" type="STR"/>
+
+        <!-- Generate INT intermediate points to smooth out intersection corners -->
+        <junctions.corner-detail value="5" type="INT"/>
+
+        <!-- Generate INT intermediate points to smooth out lanes within the intersection -->
+        <junctions.internal-link-detail value="5" type="INT"/>
+
+        <!-- Generate longer intersections to allow for smooth s-curves when the number of lanes changes -->
+        <junctions.scurve-stretch value="0" type="FLOAT"/>
+
+        <!-- Builds common edges for turning connections with common from- and to-edge. This causes discrepancies between geometrical length and assigned length due to averaging but enables lane-changing while turning -->
+        <junctions.join-turns value="false" type="BOOL"/>
+
+        <!-- Limits speed on junctions to an average lateral acceleration of at most FLOAT m/s^2) -->
+        <junctions.limit-turn-speed value="5.5" type="FLOAT"/>
+
+        <!-- Default radius for junctions that do not require wide vehicle turns -->
+        <junctions.small-radius value="1.5" type="FLOAT"/>
+
+        <!-- Forces rectangular cuts between lanes and intersections -->
+        <rectangular-lane-cut value="false" type="BOOL"/>
+
+        <!-- Allow driving onto a multi-lane road if there are foes on other lanes (at roundabouts) -->
+        <check-lane-foes.roundabout value="true" type="BOOL"/>
+
+        <!-- Allow driving onto a multi-lane road if there are foes on other lanes (everywhere) -->
+        <check-lane-foes.all value="false" type="BOOL"/>
+
+        <!-- Guess pedestrian crossings based on the presence of sidewalks -->
+        <crossings.guess value="false" type="BOOL"/>
+
+        <!-- At uncontrolled nodes, do not build crossings across edges with a speed above the threshold -->
+        <crossings.guess.speed-threshold value="13.89" type="FLOAT"/>
+
+        <!-- Always build walking areas even if there are no crossings -->
+        <walkingareas value="false" type="BOOL"/>
+
+    </junctions>
+
     <railway>
         <!-- Discard all railway signal information loaded from other formats than plain-xml -->
         <railway.signals.discard value="false" type="BOOL"/>
@@ -489,6 +693,9 @@
         <!-- Prints all warnings, some of which are due to VISUM misbehaviour -->
         <visum.verbose-warnings value="false" type="BOOL"/>
 
+        <!-- The factor for flow to no. lanes conversion -->
+        <visum.lanes-from-capacity.norm value="1800" synonymes="capacity-norm lanes-from-capacity.norm" type="FLOAT"/>
+
         <!-- Imports all lane types -->
         <opendrive.import-all-lanes value="false" type="BOOL"/>
 
@@ -505,210 +712,6 @@
         <opendrive.min-width value="1.8" type="FLOAT"/>
 
     </formats>
-
-    <processing>
-        <!-- The factor for flow to no. lanes conversion -->
-        <lanes-from-capacity.norm value="1800" synonymes="capacity-norm" type="FLOAT"/>
-
-        <!-- vmax is parsed as given in km/h (some) -->
-        <speed-in-kmh value="false" type="BOOL"/>
-
-        <!-- Use YYYY-MM-DD date to determine the readiness of features under construction -->
-        <construction-date value="" type="STR"/>
-
-        <!-- If edge shapes do not end at the node positions, extend them -->
-        <plain.extend-edge-shape value="false" synonymes="xml.keep-shape" type="BOOL"/>
-
-        <!-- Omits internal links -->
-        <no-internal-links value="false" type="BOOL"/>
-
-        <!-- Remaps alphanumerical IDs of nodes and edges to ensure that all IDs are integers -->
-        <numerical-ids value="false" type="BOOL"/>
-
-        <!-- Ensures that generated ids do not included any of the typed IDs from FILE (SUMO-GUI selection file format) -->
-        <reserved-ids value="" type="FILE"/>
-
-        <!-- Removes vehicle class restrictions from imported edges -->
-        <dismiss-vclasses value="false" type="BOOL"/>
-
-        <!-- Disables building turnarounds -->
-        <no-turnarounds value="false" type="BOOL"/>
-
-        <!-- Disables building turnarounds at tls-controlled junctions -->
-        <no-turnarounds.tls value="false" synonymes="no-tls-turnarounds" type="BOOL"/>
-
-        <!-- Disables building turnarounds except at dead end junctions -->
-        <no-turnarounds.except-deadend value="false" type="BOOL"/>
-
-        <!-- Disables building connections to left -->
-        <no-left-connections value="false" type="BOOL"/>
-
-        <!-- Splits edges across geometry nodes -->
-        <geometry.split value="false" synonymes="split-geometry" type="BOOL"/>
-
-        <!-- Replace nodes which only define edge geometry by geometry points (joins edges) -->
-        <geometry.remove value="false" synonymes="R remove-geometry" type="BOOL"/>
-
-        <!-- Ensure that the given list of edges is not modified -->
-        <geometry.remove.keep-edges.explicit value="" type="STR"/>
-
-        <!-- Ensure that the edges in FILE are not modified (Each id on a single line. Selection files from SUMO-GUI are also supported) -->
-        <geometry.remove.keep-edges.input-file value="" type="FILE"/>
-
-        <!-- splits geometry to restrict segment length -->
-        <geometry.max-segment-length value="0" type="FLOAT"/>
-
-        <!-- reduces too similar geometry points -->
-        <geometry.min-dist value="-1" type="FLOAT"/>
-
-        <!-- Warn about edge geometries with an angle above DEGREES in successive segments -->
-        <geometry.max-angle value="99" type="FLOAT"/>
-
-        <!-- Warn about edge geometries with a turning radius less than METERS at the start or end -->
-        <geometry.min-radius value="9" type="FLOAT"/>
-
-        <!-- Straighten edge geometries to avoid turning radii less than geometry.min-radius -->
-        <geometry.min-radius.fix value="false" type="BOOL"/>
-
-        <!-- Warn if the junction shape is to far away from the original node position -->
-        <geometry.junction-mismatch-threshold value="20" type="FLOAT"/>
-
-        <!-- Warn if edges overlap by more than the given threshold value -->
-        <geometry.check-overlap value="0" type="FLOAT"/>
-
-        <!-- Ignore overlapping edges if they are separated vertically by the given threshold. -->
-        <geometry.check-overlap.vertical-threshold value="4" type="FLOAT"/>
-
-        <!-- Warn about edge geometries with a grade in % above FLOAT. The threshold applies to roads with a speed limit of 50km/h and is scaled according to road speed. -->
-        <geometry.max-grade value="10" type="FLOAT"/>
-
-        <!-- Turn off normalizing node positions -->
-        <offset.disable-normalization value="false" synonymes="disable-normalize-node-positions" type="BOOL"/>
-
-        <!-- Adds FLOAT to net x-positions -->
-        <offset.x value="0" synonymes="x-offset-to-apply" type="FLOAT"/>
-
-        <!-- Adds FLOAT to net y-positions -->
-        <offset.y value="0" synonymes="y-offset-to-apply" type="FLOAT"/>
-
-        <!-- Flips the y-coordinate along zero -->
-        <flip-y-axis value="false" synonymes="flip-y" type="BOOL"/>
-
-        <!-- Enable roundabout-guessing -->
-        <roundabouts.guess value="true" synonymes="guess-roundabouts" type="BOOL"/>
-
-        <!-- Enable guessing of opposite direction lanes usable for overtaking -->
-        <opposites.guess value="false" type="BOOL"/>
-
-        <!-- Ensure that opposite edges have the same length -->
-        <opposites.guess.fix-lengths value="false" type="BOOL"/>
-
-        <!-- Assumes left-hand traffic on the network -->
-        <lefthand value="false" type="BOOL"/>
-
-        <!-- Merges edges which connect the same nodes and are close to each other (recommended for VISSIM import) -->
-        <edges.join value="false" type="BOOL"/>
-
-        <!-- Joins junctions that are close to each other (recommended for OSM import) -->
-        <junctions.join value="false" type="BOOL"/>
-
-        <!-- Determines the maximal distance for joining junctions (defaults to 10) -->
-        <junctions.join-dist value="10" type="FLOAT"/>
-
-        <!-- Interprets STR as list of junctions to exclude from joining -->
-        <junctions.join-exclude value="" type="STR"/>
-
-        <!-- Modifies all edge speeds by adding FLOAT -->
-        <speed.offset value="0" type="FLOAT"/>
-
-        <!-- Modifies all edge speeds by multiplying by FLOAT -->
-        <speed.factor value="1" type="FLOAT"/>
-
-        <!-- Modifies all edge speeds to at least FLOAT -->
-        <speed.minimum value="0" type="FLOAT"/>
-
-        <!-- Generate INT intermediate points to smooth out intersection corners -->
-        <junctions.corner-detail value="5" type="INT"/>
-
-        <!-- Generate INT intermediate points to smooth out lanes within the intersection -->
-        <junctions.internal-link-detail value="5" type="INT"/>
-
-        <!-- Generate longer intersections to allow for smooth s-curves when the number of lanes changes -->
-        <junctions.scurve-stretch value="0" type="FLOAT"/>
-
-        <!-- Builds common edges for turning connections with common from- and to-edge. This causes discrepancies between geometrical length and assigned length due to averaging but enables lane-changing while turning -->
-        <junctions.join-turns value="false" type="BOOL"/>
-
-        <!-- Limits speed on junctions to an average lateral acceleration of at most FLOAT m/s^2) -->
-        <junctions.limit-turn-speed value="5.5" type="FLOAT"/>
-
-        <!-- Default radius for junctions that do not require wide vehicle turns -->
-        <junctions.small-radius value="1.5" type="FLOAT"/>
-
-        <!-- Forces rectangular cuts between lanes and intersections -->
-        <rectangular-lane-cut value="false" type="BOOL"/>
-
-        <!-- Allow driving onto a multi-lane road if there are foes on other lanes (at roundabouts) -->
-        <check-lane-foes.roundabout value="true" type="BOOL"/>
-
-        <!-- Allow driving onto a multi-lane road if there are foes on other lanes (everywhere) -->
-        <check-lane-foes.all value="false" type="BOOL"/>
-
-        <!-- Guess pedestrian sidewalks based on edge speed -->
-        <sidewalks.guess value="false" type="BOOL"/>
-
-        <!-- Add sidewalks for edges with a speed equal or below the given limit -->
-        <sidewalks.guess.max-speed value="13.89" type="FLOAT"/>
-
-        <!-- Add sidewalks for edges with a speed above the given limit -->
-        <sidewalks.guess.min-speed value="5.8" type="FLOAT"/>
-
-        <!-- Add sidewalks for edges that allow pedestrians on any of their lanes regardless of speed -->
-        <sidewalks.guess.from-permissions value="false" type="BOOL"/>
-
-        <!-- Do not guess sidewalks for the given list of edges -->
-        <sidewalks.guess.exclude value="" type="STR"/>
-
-        <!-- Guess pedestrian crossings based on the presence of sidewalks -->
-        <crossings.guess value="false" type="BOOL"/>
-
-        <!-- At uncontrolled nodes, do not build crossings across edges with a speed above the threshold -->
-        <crossings.guess.speed-threshold value="13.89" type="FLOAT"/>
-
-        <!-- Always build walking areas even if there are no crossings -->
-        <walkingareas value="false" type="BOOL"/>
-
-    </processing>
-
-    <building_defaults>
-        <!-- The default number of lanes in an edge -->
-        <default.lanenumber value="1" synonymes="L lanenumber" type="INT"/>
-
-        <!-- The default width of lanes -->
-        <default.lanewidth value="-1" synonymes="lanewidth" type="FLOAT"/>
-
-        <!-- The default speed on an edge (in m/s) -->
-        <default.speed value="13.89" synonymes="S speed" type="FLOAT"/>
-
-        <!-- The default priority of an edge -->
-        <default.priority value="-1" synonymes="P priority" type="INT"/>
-
-        <!-- The default width of added sidewalks -->
-        <default.sidewalk-width value="2" type="FLOAT"/>
-
-        <!-- The default width of a pedestrian crossing -->
-        <default.crossing-width value="4" type="FLOAT"/>
-
-        <!-- The default for disallowed vehicle classes -->
-        <default.disallow value="" type="STR"/>
-
-        <!-- Whether junctions should be kept clear by default -->
-        <default.junctions.keep-clear value="true" type="BOOL"/>
-
-        <!-- The default turning radius of intersections -->
-        <default.junctions.radius value="4" type="FLOAT"/>
-
-    </building_defaults>
 
     <report>
         <!-- Switches to verbose output -->

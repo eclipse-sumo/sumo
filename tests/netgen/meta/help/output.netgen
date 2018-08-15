@@ -1,4 +1,4 @@
-Eclipse SUMO netgenerate Version 89dbb8c
+Eclipse SUMO netgenerate Version feccab3
  Copyright (C) 2001-2018 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 Synthetic network generator for the microscopic, multi-modal traffic simulation
   SUMO.
@@ -118,6 +118,57 @@ Output Options:
                                          whenever the angular change  between
                                          straight segments exceeds FLOAT degrees
 
+Processing Options:
+  --turn-lanes INT                     Generate INT left-turn lanes
+  --turn-lanes.length FLOAT            Set the length of generated turning
+                                         lanes to FLOAT
+  --numerical-ids                      Remaps alphanumerical IDs of nodes and
+                                         edges to ensure that all IDs are
+                                         integers
+  --reserved-ids FILE                  Ensures that generated ids do not
+                                         included any of the typed IDs from FILE
+                                         (SUMO-GUI selection file format)
+  --offset.disable-normalization       Turn off normalizing node positions
+  --offset.x FLOAT                     Adds FLOAT to net x-positions
+  --offset.y FLOAT                     Adds FLOAT to net y-positions
+  --flip-y-axis                        Flips the y-coordinate along zero
+  --roundabouts.guess                  Enable roundabout-guessing
+  --opposites.guess                    Enable guessing of opposite direction
+                                         lanes usable for overtaking
+  --opposites.guess.fix-lengths        Ensure that opposite edges have the same
+                                         length
+  --lefthand                           Assumes left-hand traffic on the network
+  --edges.join                         Merges edges which connect the same
+                                         nodes and are close to each other
+                                         (recommended for VISSIM import)
+  --sidewalks.guess                    Guess pedestrian sidewalks based on edge
+                                         speed
+  --sidewalks.guess.max-speed FLOAT    Add sidewalks for edges with a speed
+                                         equal or below the given limit
+  --sidewalks.guess.min-speed FLOAT    Add sidewalks for edges with a speed
+                                         above the given limit
+  --sidewalks.guess.from-permissions   Add sidewalks for edges that allow
+                                         pedestrians on any of their lanes
+                                         regardless of speed
+  --sidewalks.guess.exclude STR        Do not guess sidewalks for the given
+                                         list of edges
+
+Building Defaults Options:
+  -L, --default.lanenumber INT         The default number of lanes in an edge
+  --default.lanewidth FLOAT            The default width of lanes
+  -S, --default.speed FLOAT            The default speed on an edge (in m/s)
+  -P, --default.priority INT           The default priority of an edge
+  --default.sidewalk-width FLOAT       The default width of added sidewalks
+  --default.crossing-width FLOAT       The default width of a pedestrian
+                                         crossing
+  --default.disallow STR               The default for disallowed vehicle
+                                         classes
+  --default.junctions.keep-clear       Whether junctions should be kept clear
+                                         by default
+  --default.junctions.radius FLOAT     The default turning radius of
+                                         intersections
+  -j, --default-junction-type STR      [traffic_light|priority|right_before_left|traffic_light_right_on_red|priority_stop|allway_stop|...] Determines junction type (see wiki/Networks/PlainXML#Node_types)
+
 TLS Building Options:
   --tls.set STR                        Interprets STR as list of junctions to
                                          be controlled by TLS
@@ -201,36 +252,14 @@ Unregulated Nodes Options:
   --keep-nodes-unregulated.explicit STR  Do not regulate nodes in STR
   --keep-nodes-unregulated.district-nodes  Do not regulate district nodes
 
-Processing Options:
-  --turn-lanes INT                     Generate INT left-turn lanes
-  --turn-lanes.length FLOAT            Set the length of generated turning
-                                         lanes to FLOAT
+Junctions Options:
   --no-internal-links                  Omits internal links
-  --numerical-ids                      Remaps alphanumerical IDs of nodes and
-                                         edges to ensure that all IDs are
-                                         integers
-  --reserved-ids FILE                  Ensures that generated ids do not
-                                         included any of the typed IDs from FILE
-                                         (SUMO-GUI selection file format)
   --no-turnarounds                     Disables building turnarounds
   --no-turnarounds.tls                 Disables building turnarounds at
                                          tls-controlled junctions
   --no-turnarounds.except-deadend      Disables building turnarounds except at
                                          dead end junctions
   --no-left-connections                Disables building connections to left
-  --offset.disable-normalization       Turn off normalizing node positions
-  --offset.x FLOAT                     Adds FLOAT to net x-positions
-  --offset.y FLOAT                     Adds FLOAT to net y-positions
-  --flip-y-axis                        Flips the y-coordinate along zero
-  --roundabouts.guess                  Enable roundabout-guessing
-  --opposites.guess                    Enable guessing of opposite direction
-                                         lanes usable for overtaking
-  --opposites.guess.fix-lengths        Ensure that opposite edges have the same
-                                         length
-  --lefthand                           Assumes left-hand traffic on the network
-  --edges.join                         Merges edges which connect the same
-                                         nodes and are close to each other
-                                         (recommended for VISSIM import)
   --junctions.join                     Joins junctions that are close to each
                                          other (recommended for OSM import)
   --junctions.join-dist FLOAT          Determines the maximal distance for
@@ -262,17 +291,6 @@ Processing Options:
   --check-lane-foes.all                Allow driving onto a multi-lane road if
                                          there are foes on other lanes
                                          (everywhere)
-  --sidewalks.guess                    Guess pedestrian sidewalks based on edge
-                                         speed
-  --sidewalks.guess.max-speed FLOAT    Add sidewalks for edges with a speed
-                                         equal or below the given limit
-  --sidewalks.guess.min-speed FLOAT    Add sidewalks for edges with a speed
-                                         above the given limit
-  --sidewalks.guess.from-permissions   Add sidewalks for edges that allow
-                                         pedestrians on any of their lanes
-                                         regardless of speed
-  --sidewalks.guess.exclude STR        Do not guess sidewalks for the given
-                                         list of edges
   --crossings.guess                    Guess pedestrian crossings based on the
                                          presence of sidewalks
   --crossings.guess.speed-threshold FLOAT  At uncontrolled nodes, do not build
@@ -280,22 +298,6 @@ Processing Options:
                                          above the threshold
   --walkingareas                       Always build walking areas even if there
                                          are no crossings
-
-Building Defaults Options:
-  -L, --default.lanenumber INT         The default number of lanes in an edge
-  --default.lanewidth FLOAT            The default width of lanes
-  -S, --default.speed FLOAT            The default speed on an edge (in m/s)
-  -P, --default.priority INT           The default priority of an edge
-  --default.sidewalk-width FLOAT       The default width of added sidewalks
-  --default.crossing-width FLOAT       The default width of a pedestrian
-                                         crossing
-  --default.disallow STR               The default for disallowed vehicle
-                                         classes
-  --default.junctions.keep-clear       Whether junctions should be kept clear
-                                         by default
-  --default.junctions.radius FLOAT     The default turning radius of
-                                         intersections
-  -j, --default-junction-type STR      [traffic_light|priority|right_before_left|traffic_light_right_on_red|priority_stop|allway_stop|...] Determines junction type (see wiki/Networks/PlainXML#Node_types)
 
 Report Options:
   -v, --verbose                        Switches to verbose output
