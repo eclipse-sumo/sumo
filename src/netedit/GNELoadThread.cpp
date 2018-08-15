@@ -208,6 +208,7 @@ GNELoadThread::fillOptions(OptionsCont& oc) {
     oc.addOptionSubTopic("Edge Removal");
     oc.addOptionSubTopic("Unregulated Nodes");
     oc.addOptionSubTopic("Junctions");
+    oc.addOptionSubTopic("Pedestrian");
     oc.addOptionSubTopic("Railway");
     oc.addOptionSubTopic("Formats");
     oc.addOptionSubTopic("Netedit");

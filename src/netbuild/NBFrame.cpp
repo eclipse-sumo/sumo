@@ -261,35 +261,35 @@ NBFrame::fillOptions(bool forNetgen) {
                       "Allow driving onto a multi-lane road if there are foes on other lanes (everywhere)");
 
     oc.doRegister("sidewalks.guess", new Option_Bool(false));
-    oc.addDescription("sidewalks.guess", "Processing",
+    oc.addDescription("sidewalks.guess", "Pedestrian",
                       "Guess pedestrian sidewalks based on edge speed");
 
     oc.doRegister("sidewalks.guess.max-speed", new Option_Float((double) 13.89));
-    oc.addDescription("sidewalks.guess.max-speed", "Processing",
+    oc.addDescription("sidewalks.guess.max-speed", "Pedestrian",
                       "Add sidewalks for edges with a speed equal or below the given limit");
 
     oc.doRegister("sidewalks.guess.min-speed", new Option_Float((double) 5.8));
-    oc.addDescription("sidewalks.guess.min-speed", "Processing",
+    oc.addDescription("sidewalks.guess.min-speed", "Pedestrian",
                       "Add sidewalks for edges with a speed above the given limit");
 
     oc.doRegister("sidewalks.guess.from-permissions", new Option_Bool(false));
-    oc.addDescription("sidewalks.guess.from-permissions", "Processing",
+    oc.addDescription("sidewalks.guess.from-permissions", "Pedestrian",
                       "Add sidewalks for edges that allow pedestrians on any of their lanes regardless of speed");
 
     oc.doRegister("sidewalks.guess.exclude", new Option_String());
-    oc.addDescription("sidewalks.guess.exclude", "Processing",
+    oc.addDescription("sidewalks.guess.exclude", "Pedestrian",
                       "Do not guess sidewalks for the given list of edges");
 
     oc.doRegister("crossings.guess", new Option_Bool(false));
-    oc.addDescription("crossings.guess", "Junctions",
+    oc.addDescription("crossings.guess", "Pedestrian",
                       "Guess pedestrian crossings based on the presence of sidewalks");
 
     oc.doRegister("crossings.guess.speed-threshold", new Option_Float(13.89));
-    oc.addDescription("crossings.guess.speed-threshold", "Junctions",
+    oc.addDescription("crossings.guess.speed-threshold", "Pedestrian",
                       "At uncontrolled nodes, do not build crossings across edges with a speed above the threshold");
 
     oc.doRegister("walkingareas", new Option_Bool(false));
-    oc.addDescription("walkingareas", "Junctions", "Always build walking areas even if there are no crossings");
+    oc.addDescription("walkingareas", "Pedestrian", "Always build walking areas even if there are no crossings");
 
     // tls setting options
     // explicit tls
