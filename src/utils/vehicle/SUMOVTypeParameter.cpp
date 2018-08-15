@@ -223,6 +223,8 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
         if (defaultSpeedDev >= 0) {
             speedFactor.getParameter()[1] = defaultSpeedDev;
         }
+    } else {
+        speedFactor.getParameter()[1] = 0;
     }
 }
 

@@ -39,6 +39,7 @@
 #include <utils/common/SystemFrame.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/ToString.h>
+#include <utils/common/StdDefs.h>
 #include <utils/xml/XMLSubSys.h>
 #include <traci-server/TraCIServer.h>
 
@@ -55,6 +56,7 @@ main(int argc, char** argv) {
     // give some application descriptions
     oc.setApplicationDescription("A microscopic, multi-modal traffic simulation.");
     oc.setApplicationName("sumo", "Eclipse SUMO Version " VERSION_STRING);
+    gSimulation = true;
     int ret = 0;
     try {
         // initialise subsystems

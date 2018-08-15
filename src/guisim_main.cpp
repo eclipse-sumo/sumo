@@ -60,6 +60,7 @@ main(int argc, char** argv) {
     // give some application descriptions
     oc.setApplicationDescription("GUI version of the microscopic, multi-modal traffic simulation SUMO.");
     oc.setApplicationName("sumo-gui", "Eclipse SUMO GUI Version " VERSION_STRING);
+    gSimulation = true;
     int ret = 0;
     try {
         // initialise subsystems
