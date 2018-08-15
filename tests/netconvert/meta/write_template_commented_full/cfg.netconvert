@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Aug 14 17:13:38 2018 by Eclipse SUMO netconvert Version b94dbc6
+<!-- generated on Wed Aug 15 13:33:30 2018 by Eclipse SUMO netconvert Version f70d640
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -146,15 +146,6 @@
 
         <!-- Writes parking areas to FILE -->
         <parking-output value="" type="FILE"/>
-
-        <!-- The search radius for finding suitable road accesses for rail stops -->
-        <osm.stop-output.footway-access-distance value="150" type="FLOAT"/>
-
-        <!-- The maximum roud accesses registered per rail stops -->
-        <osm.stop-output.footway-max-accesses value="5" type="INT"/>
-
-        <!-- The walking length of the access is computed as air-line distance multiplied by FLOAT -->
-        <osm.stop-output.footway-access-factor value="1.5" type="FLOAT"/>
 
         <!-- Analyse topology of the railway network -->
         <railway.topology.output value="" type="FILE"/>
@@ -368,6 +359,27 @@
 
     </unregulated_nodes>
 
+    <railway>
+        <!-- Discard all railway signal information loaded from other formats than plain-xml -->
+        <railway.signals.discard value="false" type="BOOL"/>
+
+        <!-- Repair topology of the railway network -->
+        <railway.topology.repair value="false" type="BOOL"/>
+
+        <!-- Make all rails usable in both direction -->
+        <railway.topology.all-bidi value="false" type="BOOL"/>
+
+        <!-- The search radius for finding suitable road accesses for rail stops -->
+        <railway.access-distance value="150" synonymes="osm.stop-output.footway-access-distance" type="FLOAT"/>
+
+        <!-- The maximum roud accesses registered per rail stops -->
+        <railway.max-accesses value="5" synonymes="osm.stop-output.footway-max-accesses" type="INT"/>
+
+        <!-- The walking length of the access is computed as air-line distance multiplied by FLOAT -->
+        <railway.access-factor value="1.5" synonymes="osm.stop-output.footway-access-factor" type="FLOAT"/>
+
+    </railway>
+
     <processing>
         <!-- Continue on broken input -->
         <ignore-errors value="false" synonymes="dismiss-loading-errors" type="BOOL"/>
@@ -516,9 +528,6 @@
         <!-- The minimum lane width for determining start or end of variable-width lanes -->
         <opendrive.min-width value="1.8" type="FLOAT"/>
 
-        <!-- Discard all railway signal information loaded from other formats than plain-xml -->
-        <railway.signals.discard value="false" type="BOOL"/>
-
         <!-- Omits internal links -->
         <no-internal-links value="false" type="BOOL"/>
 
@@ -581,12 +590,6 @@
 
         <!-- Warn about edge geometries with a grade in % above FLOAT. The threshold applies to roads with a speed limit of 50km/h and is scaled according to road speed. -->
         <geometry.max-grade value="10" type="FLOAT"/>
-
-        <!-- Repair topology of the railway network -->
-        <railway.topology.repair value="false" type="BOOL"/>
-
-        <!-- Make all rails usable in both direction -->
-        <railway.topology.all-bidi value="false" type="BOOL"/>
 
         <!-- Turn off normalizing node positions -->
         <offset.disable-normalization value="false" synonymes="disable-normalize-node-positions" type="BOOL"/>

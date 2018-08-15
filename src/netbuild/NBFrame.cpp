@@ -152,11 +152,25 @@ NBFrame::fillOptions(bool forNetgen) {
         oc.doRegister("geometry.max-grade", new Option_Float(10));
         oc.addDescription("geometry.max-grade", "Processing", "Warn about edge geometries with a grade in % above FLOAT. The threshold applies to roads with a speed limit of 50km/h and is scaled according to road speed.");
 
+        // railway processing options
+
         oc.doRegister("railway.topology.repair", new Option_Bool(false));
-        oc.addDescription("railway.topology.repair", "Processing", "Repair topology of the railway network");
+        oc.addDescription("railway.topology.repair", "Railway", "Repair topology of the railway network");
 
         oc.doRegister("railway.topology.all-bidi", new Option_Bool(false));
-        oc.addDescription("railway.topology.all-bidi", "Processing", "Make all rails usable in both direction");
+        oc.addDescription("railway.topology.all-bidi", "Railway", "Make all rails usable in both direction");
+
+        oc.doRegister("railway.access-distance", new Option_Float(150.f));
+        oc.addDescription("railway.access-distance", "Railway", "The search radius for finding suitable road accesses for rail stops");
+        oc.addSynonyme("railway.access-distance", "osm.stop-output.footway-access-distance", true);
+
+        oc.doRegister("railway.max-accesses", new Option_Integer(5));
+        oc.addDescription("railway.max-accesses", "Railway", "The maximum roud accesses registered per rail stops");
+        oc.addSynonyme("railway.max-accesses", "osm.stop-output.footway-max-accesses", true);
+
+        oc.doRegister("railway.access-factor", new Option_Float(1.5));
+        oc.addDescription("railway.access-factor", "Railway", "The walking length of the access is computed as air-line distance multiplied by FLOAT");
+        oc.addSynonyme("railway.access-factor", "osm.stop-output.footway-access-factor", true);
     }
 
     oc.doRegister("offset.disable-normalization", new Option_Bool(false));

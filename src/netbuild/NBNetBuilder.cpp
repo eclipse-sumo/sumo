@@ -544,9 +544,9 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         before = SysUtils::getCurrentMillis();
         const int numBidiStops = myPTStopCont.generateBidiStops(myEdgeCont);
         PROGRESS_BEGIN_MESSAGE("Find accesses for pt rail stops");
-        double maxRadius = oc.getFloat("osm.stop-output.footway-access-distance");
-        double accessFactor = oc.getFloat("osm.stop-output.footway-access-factor");
-        int maxCount = oc.getInt("osm.stop-output.footway-max-accesses");
+        double maxRadius = oc.getFloat("railway.access-distance");
+        double accessFactor = oc.getFloat("railway.access-factor");
+        int maxCount = oc.getInt("railway.max-accesses");
         myPTStopCont.findAccessEdgesForRailStops(myEdgeCont, maxRadius, maxCount, accessFactor);
         PROGRESS_TIME_MESSAGE(before);
         if (numBidiStops > 0) {

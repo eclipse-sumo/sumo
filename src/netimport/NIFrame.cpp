@@ -309,7 +309,7 @@ NIFrame::fillOptions() {
 
     // register railway options
     oc.doRegister("railway.signals.discard", new Option_Bool(false));
-    oc.addDescription("railway.signals.discard", "Processing", "Discard all railway signal information loaded from other formats than plain-xml");
+    oc.addDescription("railway.signals.discard", "Railway", "Discard all railway signal information loaded from other formats than plain-xml");
 }
 
 

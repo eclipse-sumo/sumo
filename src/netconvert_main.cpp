@@ -65,6 +65,7 @@ fillOptions() {
     oc.addOptionSubTopic("Ramp Guessing");
     oc.addOptionSubTopic("Edge Removal");
     oc.addOptionSubTopic("Unregulated Nodes");
+    oc.addOptionSubTopic("Railway");
     oc.addOptionSubTopic("Processing");
     oc.addOptionSubTopic("Building Defaults");
     SystemFrame::addReportOptions(oc); // this subtopic is filled here, too

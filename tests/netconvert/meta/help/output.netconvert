@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version b94dbc6
+Eclipse SUMO netconvert Version f70d640
  Copyright (C) 2001-2018 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
   SUMO.
@@ -79,14 +79,6 @@ Output Options:
   --ptline-clean-up                    Clean-up pt stops that are not served by
                                          any line
   --parking-output FILE                Writes parking areas to FILE
-  --osm.stop-output.footway-access-distance FLOAT  The search radius for
-                                         finding suitable road accesses for rail
-                                         stops
-  --osm.stop-output.footway-max-accesses INT  The maximum roud accesses
-                                         registered per rail stops
-  --osm.stop-output.footway-access-factor FLOAT  The walking length of the
-                                         access is computed as air-line distance
-                                         multiplied by FLOAT
   --railway.topology.output FILE       Analyse topology of the railway network
   --opendrive-output.straight-threshold FLOAT  Builds parameterized curves
                                          whenever the angular change  between
@@ -230,6 +222,20 @@ Unregulated Nodes Options:
   --keep-nodes-unregulated.explicit STR  Do not regulate nodes in STR
   --keep-nodes-unregulated.district-nodes  Do not regulate district nodes
 
+Railway Options:
+  --railway.signals.discard            Discard all railway signal information
+                                         loaded from other formats than
+                                         plain-xml
+  --railway.topology.repair            Repair topology of the railway network
+  --railway.topology.all-bidi          Make all rails usable in both direction
+  --railway.access-distance FLOAT      The search radius for finding suitable
+                                         road accesses for rail stops
+  --railway.max-accesses INT           The maximum roud accesses registered per
+                                         rail stops
+  --railway.access-factor FLOAT        The walking length of the access is
+                                         computed as air-line distance
+                                         multiplied by FLOAT
+
 Processing Options:
   --ignore-errors                      Continue on broken input
   --ignore-errors.connections          Continue on invalid connections
@@ -310,9 +316,6 @@ Processing Options:
                                          allow so
   --opendrive.min-width FLOAT          The minimum lane width for determining
                                          start or end of variable-width lanes
-  --railway.signals.discard            Discard all railway signal information
-                                         loaded from other formats than
-                                         plain-xml
   --no-internal-links                  Omits internal links
   --numerical-ids                      Remaps alphanumerical IDs of nodes and
                                          edges to ensure that all IDs are
@@ -361,8 +364,6 @@ Processing Options:
                                          in % above FLOAT. The threshold applies
                                          to roads with a speed limit of 50km/h
                                          and is scaled according to road speed.
-  --railway.topology.repair            Repair topology of the railway network
-  --railway.topology.all-bidi          Make all rails usable in both direction
   --offset.disable-normalization       Turn off normalizing node positions
   --offset.x FLOAT                     Adds FLOAT to net x-positions
   --offset.y FLOAT                     Adds FLOAT to net y-positions

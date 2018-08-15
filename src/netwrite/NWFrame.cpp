@@ -111,15 +111,6 @@ NWFrame::fillOptions(bool forNetgen) {
         oc.doRegister("parking-output", new Option_FileName());
         oc.addDescription("parking-output", "Output", "Writes parking areas to FILE");
 
-        oc.doRegister("osm.stop-output.footway-access-distance", new Option_Float(150.f));
-        oc.addDescription("osm.stop-output.footway-access-distance", "Output", "The search radius for finding suitable road accesses for rail stops");
-
-        oc.doRegister("osm.stop-output.footway-max-accesses", new Option_Integer(5));
-        oc.addDescription("osm.stop-output.footway-max-accesses", "Output", "The maximum roud accesses registered per rail stops");
-
-        oc.doRegister("osm.stop-output.footway-access-factor", new Option_Float(1.5));
-        oc.addDescription("osm.stop-output.footway-access-factor", "Output", "The walking length of the access is computed as air-line distance multiplied by FLOAT");
-
         oc.doRegister("railway.topology.output", new Option_FileName());
         oc.addDescription("railway.topology.output", "Output", "Analyse topology of the railway network");
     }
