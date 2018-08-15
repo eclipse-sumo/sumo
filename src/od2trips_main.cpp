@@ -146,7 +146,7 @@ fillOptions() {
 
     oc.doRegister("ignore-errors", new Option_Bool(false)); // !!! describe, document
     oc.addSynonyme("ignore-errors", "dismiss-loading-errors", true);
-    oc.addDescription("ignore-errors", "Processing", "Continue on broken input");
+    oc.addDescription("ignore-errors", "Report", "Continue on broken input");
 
     oc.doRegister("no-step-log", new Option_Bool(false));
     oc.addDescription("no-step-log", "Processing", "Disable console output of current time step");

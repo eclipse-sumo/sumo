@@ -135,16 +135,16 @@ NIFrame::fillOptions() {
     // register basic processing options
     oc.doRegister("ignore-errors", new Option_Bool(false));
     oc.addSynonyme("ignore-errors", "dismiss-loading-errors", true);
-    oc.addDescription("ignore-errors", "Processing", "Continue on broken input");
+    oc.addDescription("ignore-errors", "Report", "Continue on broken input");
 
     oc.doRegister("ignore-errors.connections", new Option_Bool(false));
-    oc.addDescription("ignore-errors.connections", "Processing", "Continue on invalid connections");
+    oc.addDescription("ignore-errors.connections", "Report", "Continue on invalid connections");
 
     oc.doRegister("show-errors.connections-first-try", new Option_Bool(false));
-    oc.addDescription("show-errors.connections-first-try", "Processing", "Show errors in connections at parsing");
+    oc.addDescription("show-errors.connections-first-try", "Report", "Show errors in connections at parsing");
 
     oc.doRegister("ignore-errors.edge-type", new Option_Bool(false));
-    oc.addDescription("ignore-errors.edge-type", "Processing", "Continue on unknown edge types");
+    oc.addDescription("ignore-errors.edge-type", "Report", "Continue on unknown edge types");
 
     oc.doRegister("lanes-from-capacity.norm", new Option_Float((double) 1800));
     oc.addSynonyme("lanes-from-capacity.norm", "capacity-norm");

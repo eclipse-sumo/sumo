@@ -85,7 +85,7 @@ ROFrame::fillOptions(OptionsCont& oc) {
     // register the processing options
     oc.doRegister("ignore-errors", new Option_Bool(false));
     oc.addSynonyme("ignore-errors", "continue-on-unbuild", true);
-    oc.addDescription("ignore-errors", "Processing", "Continue if a route could not be build");
+    oc.addDescription("ignore-errors", "Report", "Continue if a route could not be build");
 
     oc.doRegister("unsorted-input", new Option_Bool(false));
     oc.addSynonyme("unsorted-input", "unsorted");
