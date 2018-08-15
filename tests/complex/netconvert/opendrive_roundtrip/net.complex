@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Aug 14 16:35:59 2018 by Eclipse SUMO netconvert Version 89dbb8c
+<!-- generated on Wed Aug 15 16:12:41 2018 by Eclipse SUMO netconvert Version abbc805
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -12,14 +12,14 @@
         <tls.left-green.time value="0"/>
     </tls_building>
 
-    <processing>
+    <junctions>
         <rectangular-lane-cut value="true"/>
-    </processing>
+    </junctions>
 
 </configuration>
 -->
 
-<net version="0.27" junctionCornerDetail="5" rectangularLaneCut="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.0" junctionCornerDetail="5" rectangularLaneCut="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="0.02,-0.28" convBoundary="0.00,0.00,1737.70,765.99" origBoundary="-0.02,0.28,1740.72,766.26" projParameter="!"/>
 

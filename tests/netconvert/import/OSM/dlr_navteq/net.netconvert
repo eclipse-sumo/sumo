@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Aug 14 16:31:33 2018 by Eclipse SUMO netconvert Version 89dbb8c
+<!-- generated on Wed Aug 15 16:12:40 2018 by Eclipse SUMO netconvert Version abbc805
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -24,6 +24,13 @@ SPDX-License-Identifier: EPL-2.0
         <proj.utm value="true"/>
     </projection>
 
+    <processing>
+        <numerical-ids value="true"/>
+        <reserved-ids value="edge_ids.txt"/>
+        <geometry.remove value="true"/>
+        <roundabouts.guess value="true"/>
+    </processing>
+
     <tls_building>
         <tls.discard-simple value="true"/>
         <tls.join value="true"/>
@@ -34,14 +41,13 @@ SPDX-License-Identifier: EPL-2.0
         <ramps.guess value="true"/>
     </ramp_guessing>
 
-    <processing>
-        <osm.all-attributes value="true"/>
-        <numerical-ids value="true"/>
-        <reserved-ids value="edge_ids.txt"/>
-        <geometry.remove value="true"/>
-        <roundabouts.guess value="true"/>
+    <junctions>
         <junctions.join value="true"/>
-    </processing>
+    </junctions>
+
+    <formats>
+        <osm.all-attributes value="true"/>
+    </formats>
 
     <report>
         <verbose value="true"/>
@@ -51,7 +57,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="0.27" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.0" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-398348.81,-5809187.02" convBoundary="0.00,0.00,2075.68,948.77" origBoundary="13.453860,52.423643,13.575739,52.459757" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 

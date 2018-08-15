@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Aug 14 16:31:32 2018 by Eclipse SUMO netconvert Version 89dbb8c
+<!-- generated on Wed Aug 15 16:12:39 2018 by Eclipse SUMO netconvert Version abbc805
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -25,14 +25,17 @@ SPDX-License-Identifier: EPL-2.0
         <proj.utm value="true"/>
     </projection>
 
+    <processing>
+        <geometry.remove value="true"/>
+    </processing>
+
     <ramp_guessing>
         <ramps.set value="-338412122"/>
     </ramp_guessing>
 
-    <processing>
+    <formats>
         <osm.stop-output.length value="200"/>
-        <geometry.remove value="true"/>
-    </processing>
+    </formats>
 
     <report>
         <xml-validation value="never"/>
@@ -41,7 +44,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="0.27" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.0" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-389060.19,-5815081.48" convBoundary="0.00,0.00,1267.18,1579.73" origBoundary="13.366597,52.474606,13.384884,52.488946" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Aug 14 16:36:07 2018 by Eclipse SUMO netconvert Version 89dbb8c
+<!-- generated on Wed Aug 15 16:12:51 2018 by Eclipse SUMO netconvert Version abbc805
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <osm-files value="/scr2/texttest_tmp/tools.14Aug163606.21753/tools/import/OSM/build_passenger/osm.xml"/>
+        <osm-files value="/scr2/texttest_tmp/tools.15Aug161250.13022/tools/import/OSM/build_passenger/osm.xml"/>
     </input>
 
     <output>
-        <output-file value="/scr2/texttest_tmp/tools.14Aug163606.21753/tools/import/OSM/build_passenger/net.net.xml"/>
+        <output-file value="/scr2/texttest_tmp/tools.15Aug161250.13022/tools/import/OSM/build_passenger/net.net.xml"/>
         <output.street-names value="true"/>
         <output.original-names value="true"/>
     </output>
@@ -16,6 +16,11 @@
     <projection>
         <proj.utm value="true"/>
     </projection>
+
+    <processing>
+        <geometry.remove value="true"/>
+        <roundabouts.guess value="true"/>
+    </processing>
 
     <tls_building>
         <tls.discard-simple value="true"/>
@@ -31,12 +36,10 @@
         <keep-edges.by-vclass value="passenger"/>
     </edge_removal>
 
-    <processing>
-        <geometry.remove value="true"/>
-        <roundabouts.guess value="true"/>
+    <junctions>
         <junctions.join value="true"/>
         <junctions.corner-detail value="5"/>
-    </processing>
+    </junctions>
 
     <report>
         <verbose value="true"/>
@@ -45,7 +48,7 @@
 </configuration>
 -->
 
-<net version="0.27" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.0" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-398348.81,-5809189.04" convBoundary="0.00,0.00,2640.77,946.75" origBoundary="13.453860,52.423643,13.575739,52.459735" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 

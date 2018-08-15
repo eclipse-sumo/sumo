@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Aug 14 16:31:32 2018 by Eclipse SUMO netconvert Version 89dbb8c
+<!-- generated on Wed Aug 15 16:12:39 2018 by Eclipse SUMO netconvert Version abbc805
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -17,17 +17,20 @@ SPDX-License-Identifier: EPL-2.0
         <write-license value="true"/>
         <output-file value="net.net.xml"/>
         <ptstop-output value="additional.xml"/>
-        <osm.stop-output.footway-access-distance value="100"/>
-        <osm.stop-output.footway-max-accesses value="4"/>
     </output>
 
     <projection>
         <proj.utm value="true"/>
     </projection>
 
-    <processing>
+    <railway>
+        <railway.access-distance value="100"/>
+        <railway.max-accesses value="4"/>
+    </railway>
+
+    <formats>
         <osm.stop-output.length value="200"/>
-    </processing>
+    </formats>
 
     <report>
         <xml-validation value="never"/>
@@ -36,7 +39,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="0.27" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.0" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-403383.92,-5808103.04" convBoundary="0.00,0.00,5215.39,3375.47" origBoundary="13.578494,52.415505,13.656099,52.445099" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 

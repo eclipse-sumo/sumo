@@ -1,19 +1,18 @@
 Loading configuration... done.
-***Starting server on port 52548 ***
-Loading net-file from 'data/cross.net.xml'... done (1ms).
-Loading additional-files from 'data/cross.det.xml'... done (0ms).
+***Starting server on port 57994 ***
+Loading net-file from 'data/cross.net.xml'... done (3ms).
+Loading additional-files from 'data/cross.det.xml'... done (1ms).
 Loading done.
 Simulation started with time: 0.00
-Simulation ended at time: 3740.00
+Simulation ended at time: 3741.00
 Reason: TraCI requested termination.
 Performance: 
- Duration: 787ms
- Real time factor: 4752.22
- UPS: 136016.518424
+ Duration: 1709ms
+ Real time factor: 2189
+ UPS: 63046.811001
 Vehicles: 
  Inserted: 768
  Running: 0
  Waiting: 0
 
-Could not connect to TraCI server at localhost:52548 [Errno 111] Connection refused
  Retrying in 1 seconds
