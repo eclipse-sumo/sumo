@@ -625,12 +625,6 @@ GNEFrame::GenericParametersEditor::onCmdSetGenericParameter(FXObject*, FXSelecto
     while (st.hasNext()) {
         parsedValues.push_back(st.next());
     }
-    // first check if we have more than 100 values
-    if(parsedValues.size() > GNEAttributeCarrier::MAXNUMBER_GENERICPARAMETERS) {
-        WRITE_WARNING("Maximun number of Generic Parameters editables in Netedit reached. Only " + toString(GNEAttributeCarrier::MAXNUMBER_GENERICPARAMETERS) + " are allowed.");
-        myTextFieldGenericParameter->setTextColor(FXRGB(255, 0, 0));
-        return 1;
-    }
     // first check if parsed generic parameters are valid
     for(auto i : parsedValues) {
         if(!GNEAttributeCarrier::isGenericParametersValid(i)) {

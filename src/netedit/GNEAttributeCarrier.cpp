@@ -48,7 +48,6 @@ const std::string GNEAttributeCarrier::FEATURE_GUESSED = "guessed";
 const std::string GNEAttributeCarrier::FEATURE_MODIFIED = "modified";
 const std::string GNEAttributeCarrier::FEATURE_APPROVED = "approved";
 const double GNEAttributeCarrier::INVALID_POSITION = -1000000;
-const int GNEAttributeCarrier::MAXNUMBER_GENERICPARAMETERS = 100;
 
 
 // ===========================================================================
@@ -911,10 +910,6 @@ GNEAttributeCarrier::isGenericParametersValid(const std::string &value) {
     StringTokenizer stValues(value, "|", true);
     while (stValues.hasNext()) {
         parsedValues.push_back(stValues.next());
-    }
-    // check number of parsed values (cannot be greather than MAXNUMBER_GENERICPARAMETERS)
-    if(parsedValues.size() > MAXNUMBER_GENERICPARAMETERS) {
-        return false;
     }
     // check that parsed values (A=B)can be parsed in generic parameters 
     for(auto i : parsedValues) {

@@ -38,13 +38,72 @@ class GNEViewNet;
 
 /**
  * @class GNEGenericParameterDialog
- * @brief Dialog for edit rerouters
+ * @brief Dialog for edit generic parameters
  */
 class GNEGenericParameterDialog : public FXDialogBox {
     /// @brief FOX-declaration
     FXDECLARE(GNEGenericParameterDialog)
 
 public:
+
+    // ===========================================================================
+    // class GenericParametersOptions
+    // ===========================================================================
+
+    class GenericParametersOptions : protected FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEGenericParameterDialog::GenericParametersOptions)
+
+    public:
+        /// @brief constructor
+        GenericParametersOptions(FXHorizontalFrame *frame, GNEGenericParameterDialog *genericParameterDialogParent);
+
+        /// @brief destructor
+        ~GenericParametersOptions();
+
+        /// @name FOX-callbacks
+        /// @{
+        /// @brief event when user press load generic parameters button
+        long onCmdLoadGenericParameters(FXObject*, FXSelector, void*);
+
+        /// @brief event when user press save generic parameters button
+        long onCmdSaveGenericParameters(FXObject*, FXSelector, void*);
+
+        /// @brief event when user press clear generic parameters button
+        long onCmdClearGenericParameters(FXObject*, FXSelector, void*);
+
+        /// @brief event when user press sort generic parameters button
+        long onCmdSortGenericParameters(FXObject*, FXSelector, void*);
+
+        /// @brief event when user press help generic parameters button
+        long onCmdHelpGenericParameter(FXObject*, FXSelector, void*);
+
+        /// @}
+
+    protected:
+        /// @brief FOX needs this
+        GenericParametersOptions() {}
+
+    private:
+        /// @brief pointer to Shape Frame Parent
+        GNEGenericParameterDialog *myGenericParameterDialogParent;
+
+        /// @brief sort button
+        FXButton *mySortButton;
+
+        /// @brief clear button
+        FXButton *myClearButton;
+
+        /// @brief load button
+        FXButton *myLoadButton;
+
+        /// @brief save button
+        FXButton *mySaveButton;
+
+        /// @brief help button
+        FXButton* myHelpButton;
+    };
+
     /// @brief Constructor
     GNEGenericParameterDialog(GNEViewNet* viewNet, std::vector<std::pair<std::string, std::string> > *genericParameters);
 
@@ -53,29 +112,11 @@ public:
 
     /// @name FOX-callbacks
     /// @{
-    /// @brief event for painting Dialog Box (used to avoid invalid resizes)
-    long onCmdPaint(FXObject*, FXSelector, void*);
-
     /// @brief event when user change an attribute
     long onCmdSetAttribute(FXObject*, FXSelector, void*);
 
     /// @brief event when user press a remove (or add) button
     long onCmdButtonPress(FXObject*, FXSelector, void*);
-
-    /// @brief event when user press load generic parameters button
-    long onCmdLoadGenericParameters(FXObject*, FXSelector, void*);
-
-    /// @brief event when user press save generic parameters button
-    long onCmdSaveGenericParameters(FXObject*, FXSelector, void*);
-
-    /// @brief event when user press clear generic parameters button
-    long onCmdClearGenericParameters(FXObject*, FXSelector, void*);
-
-    /// @brief event when user press sort generic parameters button
-    long onCmdSortGenericParameters(FXObject*, FXSelector, void*);
-
-    /// @brief event when user press help generic parameters button
-    long onCmdHelpGenericParameter(FXObject*, FXSelector, void*);
 
     /// @brief event after press accept button
     long onCmdAccept(FXObject*, FXSelector, void*);
@@ -171,20 +212,8 @@ private:
         bool myMaximumNumberOfAttributesShown;
     };
 
-    /// @brief sort button
-    FXButton *mySortButton;
-
-    /// @brief clear button
-    FXButton *myClearButton;
-
-    /// @brief load button
-    FXButton *myLoadButton;
-
-    /// @brief save button
-    FXButton *mySaveButton;
-
-    /// @brief help button
-    FXButton* myHelpButton;
+    /// @brief pointer to generic parameters options
+    GenericParametersOptions *myGenericParametersOptions;
 
     /// @brief vector with the GenericParameterRows
     std::vector<GenericParameterRow> myGenericParameterRows;
@@ -192,20 +221,10 @@ private:
     // @brief copy of current edited Generic Parameters (used for reset)
     const std::vector<std::pair<std::string, std::string> > myCopyOfGenericParameters;
 
-    /// @brief vector with the vertical frames
-    std::vector<FXVerticalFrame*> myGenericParametersColumns;
-
-    /// @brief size of dialog a Generic Attributes columns
-    static const int myGenericParameterDialogWidth;
-
-    /// @brief size of Generic Attributes column
-    static const int myGenericParameterColumnWidth;
+    FXScrollWindow *myScrollWindow;
 
     /// @brief update values
     void updateValues();
-
-    /// @brief resize Generic Parameter Dialog
-    void resizeGenericParameterDialog();
 
     /// @brief Invalidated copy constructor.
     GNEGenericParameterDialog(const GNEGenericParameterDialog&) = delete;

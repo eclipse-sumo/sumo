@@ -475,9 +475,6 @@ public:
     /// @brief check if given string can be parsed to a map/list of generic parameters
     static bool isGenericParametersValid(const std::string &value);
 
-    /// @brief maximun number of generic parameters (currently 100)
-    static const int MAXNUMBER_GENERICPARAMETERS;
-
     /// @brief true if a value of type T can be parsed from string
     template<typename T>
     static bool canParse(const std::string& string) {
