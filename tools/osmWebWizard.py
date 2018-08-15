@@ -53,15 +53,15 @@ typemaps = {
 
 vehicleParameters = {
     "passenger":  ["--vehicle-class", "passenger",  "--vclass", "passenger",  "--prefix", "veh",   "--min-distance",
-                   "300",  "--trip-attributes", 'speedDev="0.1" departLane="best"', "--validate"],
+                   "300",  "--trip-attributes", 'departLane="best"', "--validate"],
     "truck":      ["--vehicle-class", "truck",      "--vclass", "truck",      "--prefix", "truck", "--min-distance",
-                   "600",  "--trip-attributes", 'speedDev="0.1" departLane="best"', "--validate"],
+                   "600",  "--trip-attributes", 'departLane="best"', "--validate"],
     "bus":        ["--vehicle-class", "bus",        "--vclass", "bus",        "--prefix", "bus",   "--min-distance",
                    "600",  "--trip-attributes",                'departLane="best"', "--validate"],
     "motorcycle": ["--vehicle-class", "motorcycle", "--vclass", "motorcycle", "--prefix", "moto",  "--max-distance",
-                   "1200", "--trip-attributes", 'speedDev="0.1" departLane="best"', "--validate"],
+                   "1200", "--trip-attributes", 'departLane="best"', "--validate"],
     "bicycle":    ["--vehicle-class", "bicycle",    "--vclass", "bicycle",    "--prefix", "bike",  "--max-distance",
-                   "8000", "--trip-attributes", 'speedDev="0.1" departLane="best"', "--validate"],
+                   "8000", "--trip-attributes", 'departLane="best"', "--validate"],
     "tram":       ["--vehicle-class", "tram",       "--vclass", "tram",       "--prefix", "tram",  "--min-distance",
                    "1200", "--trip-attributes",                'departLane="best"', "--validate"],
     "rail_urban": ["--vehicle-class", "rail_urban", "--vclass", "rail_urban", "--prefix", "urban", "--min-distance",
@@ -70,9 +70,9 @@ vehicleParameters = {
                    "2400", "--trip-attributes",                'departLane="best"', "--validate"],
     "ship":       ["--vehicle-class", "ship",       "--vclass", "ship",       "--prefix", "ship", "--validate"],
     "pedestrian": ["--vehicle-class", "pedestrian", "--pedestrians", "--prefix", "ped",   "--max-distance",
-                   "2000", "--trip-attributes", 'speedDev="0.1"', ],
+                   "2000", ],
     "persontrips": ["--vehicle-class", "pedestrian", "--persontrips", "--prefix", "ped",
-                    "--trip-attributes", 'speedDev="0.1" modes="public"', ],
+                    "--trip-attributes", 'modes="public"', ],
 }
 
 vehicleNames = {
