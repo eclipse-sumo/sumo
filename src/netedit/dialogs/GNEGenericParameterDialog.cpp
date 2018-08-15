@@ -40,8 +40,6 @@
 // ===========================================================================
 
 FXDEFMAP(GNEGenericParameterDialog) GNEGenericParameterDialogMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,                      GNEGenericParameterDialog::onCmdSetAttribute),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_REMOVE_ATTRIBUTE,                   GNEGenericParameterDialog::onCmdButtonPress),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALDIALOG_BUTTONACCEPT,      GNEGenericParameterDialog::onCmdAccept),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALDIALOG_BUTTONCANCEL,      GNEGenericParameterDialog::onCmdCancel),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALDIALOG_BUTTONRESET,       GNEGenericParameterDialog::onCmdReset),
@@ -49,6 +47,11 @@ FXDEFMAP(GNEGenericParameterDialog) GNEGenericParameterDialogMap[] = {
     FXMAPFUNC(SEL_TIMEOUT,  FXDialogBox::ID_CANCEL,                     GNEGenericParameterDialog::onCmdCancel),
     FXMAPFUNC(SEL_COMMAND,  FXDialogBox::ID_CANCEL,                     GNEGenericParameterDialog::onCmdCancel),
     FXMAPFUNC(SEL_CLOSE,    0,                                          GNEGenericParameterDialog::onCmdCancel),
+};
+
+FXDEFMAP(GNEGenericParameterDialog::GenericParametersValues) GenericParametersValuesMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,                      GNEGenericParameterDialog::GenericParametersValues::onCmdSetAttribute),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_REMOVE_ATTRIBUTE,                   GNEGenericParameterDialog::GenericParametersValues::onCmdButtonPress),
 };
 
 FXDEFMAP(GNEGenericParameterDialog::GenericParametersOptions) GenericParametersOptionsMap[] = {
@@ -61,11 +64,204 @@ FXDEFMAP(GNEGenericParameterDialog::GenericParametersOptions) GenericParametersO
 
 // Object implementation
 FXIMPLEMENT(GNEGenericParameterDialog, FXDialogBox, GNEGenericParameterDialogMap, ARRAYNUMBER(GNEGenericParameterDialogMap))
+FXIMPLEMENT(GNEGenericParameterDialog::GenericParametersValues, FXGroupBox, GenericParametersValuesMap, ARRAYNUMBER(GenericParametersValuesMap))
 FXIMPLEMENT(GNEGenericParameterDialog::GenericParametersOptions, FXGroupBox, GenericParametersOptionsMap, ARRAYNUMBER(GenericParametersOptionsMap))
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
+
+// ---------------------------------------------------------------------------
+// GNEGenericParameterDialog::GenericParametersValues - methods
+// ---------------------------------------------------------------------------
+
+GNEGenericParameterDialog::GenericParametersValues::GenericParametersValues(FXHorizontalFrame *frame, GNEGenericParameterDialog *genericParameterDialogParent, std::vector<std::pair<std::string, std::string> > *genericParameters) :
+    FXGroupBox(frame, "GenericParameters", GUIDesignGroupBoxFrame),
+    myGenericParameters(genericParameters),
+    myGenericParameterDialogParent(genericParameterDialogParent) {
+
+    myScrollWindow = new FXScrollWindow(this);
+
+    // update values
+    updateValues();
+}
+
+
+GNEGenericParameterDialog::GenericParametersValues::~GenericParametersValues() {}
+
+
+void 
+GNEGenericParameterDialog::GenericParametersValues::updateValues() {
+/*
+    int index = 0; 
+    // enanble rows
+    for (auto i = myGenericParameters->begin(); i != myGenericParameters->end(); i++) {
+        if(index < GNEAttributeCarrier::MAXNUMBER_GENERICPARAMETERS) {
+            myGenericParameterRows.at(index).enableRow(i->first, i->second);
+            index++;
+        }
+    }
+    // disable rest of rows
+    for (int i = index; i < myGenericParameterRows.size(); i++) {
+        myGenericParameterRows.at(i).disableRow();
+    }
+    // check if add button can be enabled
+    if(index < GNEAttributeCarrier::MAXNUMBER_GENERICPARAMETERS) {
+        myGenericParameterRows.at(index).toogleAddButton();
+    }
+*/
+}
+
+
+long
+GNEGenericParameterDialog::GenericParametersValues::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
+    // find what value was changed
+    for (int i = 0;  i < myGenericParameterRows.size(); i++) {
+        if(myGenericParameterRows.at(i).keyField == obj) {
+            // change key of Generic Parameter
+            myGenericParameters->at(i).first = myGenericParameterRows.at(i).keyField->getText().text();
+            // change color of text field depending if key is valid or empty
+            if(myGenericParameters->at(i).first.empty() || SUMOXMLDefinitions::isValidNetID(myGenericParameters->at(i).first)) {
+                myGenericParameterRows.at(i).keyField->setTextColor(FXRGB(0, 0, 0));
+            } else {
+                myGenericParameterRows.at(i).keyField->setTextColor(FXRGB(255, 0, 0));
+                myGenericParameterRows.at(i).keyField->killFocus();
+            }
+        } else if(myGenericParameterRows.at(i).valueField == obj) {
+            // change value of Generic Parameter
+            myGenericParameters->at(i).second = myGenericParameterRows.at(i).valueField->getText().text();
+            // change color of text field depending if attribute is valid
+            if(SUMOXMLDefinitions::isValidAttribute(myGenericParameters->at(i).second)) {
+                myGenericParameterRows.at(i).valueField->setTextColor(FXRGB(0, 0, 0));
+            } else {
+                myGenericParameterRows.at(i).valueField->setTextColor(FXRGB(255, 0, 0));
+                myGenericParameterRows.at(i).valueField->killFocus();
+            }
+        }
+    }
+    return 1;
+}
+
+
+long 
+GNEGenericParameterDialog::GenericParametersValues::onCmdButtonPress(FXObject* obj, FXSelector, void*) {
+    // find what button was pressed
+    for (int i = 0;  i < (int)myGenericParameterRows.size(); i++) {
+        if(myGenericParameterRows.at(i).button == obj) {
+            // add a new parameter if add button was pressed, and remove it in other case
+            if(myGenericParameterRows.at(i).isButtonInAddMode()) {
+                myGenericParameters->push_back(std::make_pair("", ""));
+                myGenericParameterRows.at(i).enableRow(myGenericParameters->back().first, myGenericParameters->back().second);
+                // toogle add button in the next row
+                if((i+1) < myGenericParameterRows.size()) {
+                    myGenericParameterRows.at(i+1).toogleAddButton();
+                    // check if a new column of Rows has to be show
+                    if(myGenericParameterRows.at(i).frameParent != myGenericParameterRows.at(i+1).frameParent) {
+                        myGenericParameterRows.at(i+1).frameParent->show();
+                    }
+                }
+            } else if(i < myGenericParameters->size()) {
+                // remove generic parameter
+                myGenericParameters->erase(myGenericParameters->begin() + i);
+                // disable add button of the next generic parameter
+                if(myGenericParameters->size() < myGenericParameterRows.size()) {
+                    myGenericParameterRows.at(myGenericParameters->size()).disableRow();
+                    // check if a current column of Rows has to be hidden
+                    if((myGenericParameters->size() > 1) && 
+                       (myGenericParameterRows.at(myGenericParameters->size()).frameParent != myGenericParameterRows.at(myGenericParameters->size()-1).frameParent)) {
+                        myGenericParameterRows.at(myGenericParameters->size()).frameParent->hide();
+                    }
+                }
+                // enable add button in the next empty row
+                if(myGenericParameters->size() < myGenericParameterRows.size()) {
+                    myGenericParameterRows.at(myGenericParameters->size()).toogleAddButton();
+                }
+            }
+            // update values
+            updateValues();
+        }
+    }
+    return 1;
+}
+
+
+GNEGenericParameterDialog::GenericParametersValues::GenericParameterRow::GenericParameterRow(GNEGenericParameterDialog *genericParametersEditor, FXVerticalFrame* _frameParent) : 
+    frameParent(_frameParent) {
+    horizontalFrame = new FXHorizontalFrame(frameParent, GUIDesignAuxiliarHorizontalFrame);
+    keyField = new FXTextField(horizontalFrame, GUIDesignTextFieldNCol, genericParametersEditor, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    valueField = new FXTextField(horizontalFrame, GUIDesignTextFieldNCol, genericParametersEditor, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    button = new FXButton(horizontalFrame, "", GUIIconSubSys::getIcon(ICON_REMOVE), genericParametersEditor, MID_GNE_REMOVE_ATTRIBUTE, GUIDesignButtonIcon);
+    // by defaults rows are disabled
+    disableRow();
+}
+
+
+void 
+GNEGenericParameterDialog::GenericParametersValues::GenericParameterRow::disableRow() {
+    // hide all (including frame parent)
+    frameParent->hide();
+    keyField->setText("");
+    keyField->disable();
+    valueField->setText("");
+    valueField->disable();
+    button->disable();
+    button->setIcon(GUIIconSubSys::getIcon(ICON_REMOVE));
+}
+
+
+void 
+GNEGenericParameterDialog::GenericParametersValues::GenericParameterRow::enableRow(const std::string &parameter, const std::string &value) const {
+    // show Horizontal Frame parent
+    frameParent->show();
+    // restore color and enable key field
+    keyField->setText(parameter.c_str());
+    if(parameter.empty() || SUMOXMLDefinitions::isValidNetID(parameter)) {
+        keyField->setTextColor(FXRGB(0, 0, 0));
+    } else {
+        keyField->setTextColor(FXRGB(255, 0, 0));
+    }
+    keyField->enable();
+    // restore color and enable value field
+    valueField->setText(value.c_str());
+    if(SUMOXMLDefinitions::isValidAttribute(value)) {
+        valueField->setTextColor(FXRGB(0, 0, 0));
+    } else {
+        valueField->setTextColor(FXRGB(255, 0, 0));
+    }
+    valueField->enable();
+    // enable button and set icon remove
+    button->enable();
+    button->setIcon(GUIIconSubSys::getIcon(ICON_REMOVE));
+}
+
+
+void 
+GNEGenericParameterDialog::GenericParametersValues::GenericParameterRow::toogleAddButton() {
+    // show Horizontal Frame parent
+    frameParent->show();
+    // clear and disable parameter and value fields
+    keyField->setText("");
+    keyField->disable();
+    valueField->setText("");
+    valueField->disable();
+    // enable remove button and set "add" icon and focus
+    button->enable();
+    button->setIcon(GUIIconSubSys::getIcon(ICON_ADD));
+    button->setFocus();
+}
+
+
+bool
+GNEGenericParameterDialog::GenericParametersValues::GenericParameterRow::isButtonInAddMode() const {
+    return (button->getIcon() == GUIIconSubSys::getIcon(ICON_ADD));
+}
+
+
+void 
+GNEGenericParameterDialog::GenericParametersValues::GenericParameterRow::copyValues(const GenericParameterRow & other) {
+    keyField->setText(other.keyField->getText());
+    valueField->setText(other.valueField->getText());
+}
 
 // ---------------------------------------------------------------------------
 // GNEGenericParameterDialog::GenericParametersOptions - methods
@@ -100,16 +296,16 @@ GNEGenericParameterDialog::GenericParametersOptions::onCmdLoadGenericParameters(
         gCurrentFolder = opendialog.getDirectory();
         std::string file = opendialog.getFilename().text();
         // save current number of generic parameters
-        int numberOfGenericParametersbeforeLoad = (int)myGenericParameterDialogParent->myGenericParameters->size();
+        int numberOfGenericParametersbeforeLoad = (int)myGenericParameterDialogParent->myGenericParametersValues->getGenericParameters()->size();
         // Create additional handler and run parser
         GNEGenericParameterHandler handler(myGenericParameterDialogParent, file);
         if (!XMLSubSys::runParser(handler, file, false)) {
             WRITE_MESSAGE("Loading of Generic Parameters From " + file + " failed.");
         }
         // show loaded attributes
-        WRITE_MESSAGE("Loaded " + toString((int)myGenericParameterDialogParent->myGenericParameters->size() - numberOfGenericParametersbeforeLoad) + " Generic Parameters.");
+        WRITE_MESSAGE("Loaded " + toString((int)myGenericParameterDialogParent->myGenericParametersValues->getGenericParameters()->size() - numberOfGenericParametersbeforeLoad) + " Generic Parameters.");
         // update values
-        myGenericParameterDialogParent->updateValues();
+        myGenericParameterDialogParent->myGenericParametersValues->updateValues();
     }
     return 1;
 }
@@ -129,7 +325,7 @@ GNEGenericParameterDialog::GenericParametersOptions::onCmdSaveGenericParameters(
         OutputDevice& device = OutputDevice::getDevice(file.text());
         device.writeXMLHeader("genericParameter", "genericparameter_file.xsd");
         // iterate over all generic parameters and save it in the filename
-        for (auto i = myGenericParameterDialogParent->myGenericParameters->begin(); i != myGenericParameterDialogParent->myGenericParameters->end(); i++) {
+        for (auto i = myGenericParameterDialogParent->myGenericParametersValues->getGenericParameters()->begin(); i != myGenericParameterDialogParent->myGenericParametersValues->getGenericParameters()->end(); i++) {
             device.openTag(SUMO_TAG_PARAM);
             device.writeAttr(SUMO_ATTR_KEY, i->first);
             device.writeAttr(SUMO_ATTR_VALUE, i->second);
@@ -143,13 +339,8 @@ GNEGenericParameterDialog::GenericParametersOptions::onCmdSaveGenericParameters(
 
 long 
 GNEGenericParameterDialog::GenericParametersOptions::onCmdClearGenericParameters(FXObject*, FXSelector, void*) {
-    // simply clear all parameters and disble all rows
-    myGenericParameterDialogParent->myGenericParameters->clear();
-    for (auto i : myGenericParameterDialogParent->myGenericParameterRows) {
-        i.disableRow();
-    }
-    // update values
-    myGenericParameterDialogParent->updateValues();
+    // simply clear generic parameters from GenericParametersValues
+    myGenericParameterDialogParent->myGenericParametersValues->clearGenericParameters();
     return 1;
 }
 
@@ -159,7 +350,7 @@ GNEGenericParameterDialog::GenericParametersOptions::onCmdSortGenericParameters(
     std::vector<std::pair<std::string, std::string> > genericParametersNoEmpty;
     std::vector<std::string> valuesEmpty;
     // first extract empty values
-    for (auto i = myGenericParameterDialogParent->myGenericParameters->begin(); i != myGenericParameterDialogParent->myGenericParameters->end(); i++) {
+    for (auto i = myGenericParameterDialogParent->myGenericParametersValues->getGenericParameters()->begin(); i != myGenericParameterDialogParent->myGenericParametersValues->getGenericParameters()->end(); i++) {
         if(!i->first.empty()) {
             genericParametersNoEmpty.push_back(*i);
         } else if (i->first.empty() && !i->second.empty()) {
@@ -173,13 +364,13 @@ GNEGenericParameterDialog::GenericParametersOptions::onCmdSortGenericParameters(
         genericParametersNoEmpty.push_back(std::make_pair("", i));
     }
     // fill genericParametersNoEmpty with empty values
-    while (genericParametersNoEmpty.size() < myGenericParameterDialogParent->myGenericParameters->size()) {
+    while (genericParametersNoEmpty.size() < myGenericParameterDialogParent->myGenericParametersValues->getGenericParameters()->size()) {
         genericParametersNoEmpty.push_back(std::make_pair("", ""));
     }
-    // finally replace myGenericParameters with genericParametersNoEmpty
-    (*myGenericParameterDialogParent->myGenericParameters) = genericParametersNoEmpty;
+    // finally replace generic parameters in myGenericParametersValues with genericParametersNoEmpty
+    myGenericParameterDialogParent->myGenericParametersValues->setGenericParameters(genericParametersNoEmpty);
     // update values
-    myGenericParameterDialogParent->updateValues();
+    myGenericParameterDialogParent->myGenericParametersValues->updateValues();
     return 1;
 }
 
@@ -232,16 +423,18 @@ GNEGenericParameterDialog::GenericParametersOptions::onCmdHelpGenericParameter(F
 GNEGenericParameterDialog::GNEGenericParameterDialog(GNEViewNet *viewNet, std::vector<std::pair<std::string, std::string> > *genericParameters) :
     FXDialogBox(viewNet->getApp(), "Edit generic parameters", GUIDesignDialogBoxStretchable),
     myViewNet(viewNet),
-    myGenericParameters(genericParameters),
-    myCopyOfGenericParameters(*myGenericParameters) {
-    assert(myGenericParameters);
+    myCopyOfGenericParameters(*genericParameters) {
+    assert(genericParameters);
     // set vehicle icon for this dialog
     setIcon(GUIIconSubSys::getIcon(ICON_APP_TABLE));
     // create main frame
     FXVerticalFrame* mainFrame = new FXVerticalFrame(this, GUIDesignAuxiliarFrame);
     // create frame for Generic Parameters and options
     FXHorizontalFrame* horizontalFrameGenericParametersAndOptions = new FXHorizontalFrame(mainFrame, GUIDesignHorizontalFrame);
-    myScrollWindow = new FXScrollWindow(horizontalFrameGenericParametersAndOptions);
+
+    // create generic parameters values
+    myGenericParametersValues = new GenericParametersValues(horizontalFrameGenericParametersAndOptions, this, genericParameters);
+
 /**
     // create for frames for parameters
     for(int i = 0; i < 5; i++) {
@@ -266,8 +459,6 @@ GNEGenericParameterDialog::GNEGenericParameterDialog(GNEViewNet *viewNet, std::v
     myCancelButton = new FXButton(buttonsFrame, "cancel\t\tclose", GUIIconSubSys::getIcon(ICON_CANCEL), this, MID_GNE_ADDITIONALDIALOG_BUTTONCANCEL, GUIDesignButtonCancel);
     myResetButton = new FXButton(buttonsFrame,  "reset\t\tclose",  GUIIconSubSys::getIcon(ICON_RESET), this, MID_GNE_ADDITIONALDIALOG_BUTTONRESET,  GUIDesignButtonReset);
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
-    // update values
-    updateValues();
 }
 
 
@@ -275,81 +466,9 @@ GNEGenericParameterDialog::~GNEGenericParameterDialog() {}
 
 
 long
-GNEGenericParameterDialog::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
-    // find what value was changed
-    for (int i = 0;  i < myGenericParameterRows.size(); i++) {
-        if(myGenericParameterRows.at(i).keyField == obj) {
-            // change key of Generic Parameter
-            myGenericParameters->at(i).first = myGenericParameterRows.at(i).keyField->getText().text();
-            // change color of text field depending if key is valid or empty
-            if(myGenericParameters->at(i).first.empty() || SUMOXMLDefinitions::isValidNetID(myGenericParameters->at(i).first)) {
-                myGenericParameterRows.at(i).keyField->setTextColor(FXRGB(0, 0, 0));
-            } else {
-                myGenericParameterRows.at(i).keyField->setTextColor(FXRGB(255, 0, 0));
-                myGenericParameterRows.at(i).keyField->killFocus();
-            }
-        } else if(myGenericParameterRows.at(i).valueField == obj) {
-            // change value of Generic Parameter
-            myGenericParameters->at(i).second = myGenericParameterRows.at(i).valueField->getText().text();
-            // change color of text field depending if attribute is valid
-            if(SUMOXMLDefinitions::isValidAttribute(myGenericParameters->at(i).second)) {
-                myGenericParameterRows.at(i).valueField->setTextColor(FXRGB(0, 0, 0));
-            } else {
-                myGenericParameterRows.at(i).valueField->setTextColor(FXRGB(255, 0, 0));
-                myGenericParameterRows.at(i).valueField->killFocus();
-            }
-        }
-    }
-    return 1;
-}
-
-
-long 
-GNEGenericParameterDialog::onCmdButtonPress(FXObject* obj, FXSelector, void*) {
-    // find what button was pressed
-    for (int i = 0;  i < (int)myGenericParameterRows.size(); i++) {
-        if(myGenericParameterRows.at(i).button == obj) {
-            // add a new parameter if add button was pressed, and remove it in other case
-            if(myGenericParameterRows.at(i).isButtonInAddMode()) {
-                myGenericParameters->push_back(std::make_pair("", ""));
-                myGenericParameterRows.at(i).enableRow(myGenericParameters->back().first, myGenericParameters->back().second);
-                // toogle add button in the next row
-                if((i+1) < myGenericParameterRows.size()) {
-                    myGenericParameterRows.at(i+1).toogleAddButton();
-                    // check if a new column of Rows has to be show
-                    if(myGenericParameterRows.at(i).frameParent != myGenericParameterRows.at(i+1).frameParent) {
-                        myGenericParameterRows.at(i+1).frameParent->show();
-                    }
-                }
-            } else if(i < myGenericParameters->size()) {
-                // remove generic parameter
-                myGenericParameters->erase(myGenericParameters->begin() + i);
-                // disable add button of the next generic parameter
-                if(myGenericParameters->size() < myGenericParameterRows.size()) {
-                    myGenericParameterRows.at(myGenericParameters->size()).disableRow();
-                    // check if a current column of Rows has to be hidden
-                    if((myGenericParameters->size() > 1) && 
-                       (myGenericParameterRows.at(myGenericParameters->size()).frameParent != myGenericParameterRows.at(myGenericParameters->size()-1).frameParent)) {
-                        myGenericParameterRows.at(myGenericParameters->size()).frameParent->hide();
-                    }
-                }
-                // enable add button in the next empty row
-                if(myGenericParameters->size() < myGenericParameterRows.size()) {
-                    myGenericParameterRows.at(myGenericParameters->size()).toogleAddButton();
-                }
-            }
-            // update values
-            updateValues();
-        }
-    }
-    return 1;
-}
-
-
-long
 GNEGenericParameterDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     // check if all edited generic parameters are valid
-    for (auto i = myGenericParameters->begin(); i != myGenericParameters->end(); i++) {
+    for (auto i = myGenericParametersValues->getGenericParameters()->begin(); i != myGenericParametersValues->getGenericParameters()->end(); i++) {
         if(i->first.empty()) {
             // write warning if netedit is running in testing mode
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
@@ -389,7 +508,7 @@ GNEGenericParameterDialog::onCmdAccept(FXObject*, FXSelector, void*) {
         }
     }
     // now check if there is duplicates generic parameters
-    std::vector<std::pair<std::string, std::string> > sortedGenericParameters = (*myGenericParameters);
+    std::vector<std::pair<std::string, std::string> > sortedGenericParameters = myGenericParametersValues->getCopyOfGenericParameters();
     std::sort(sortedGenericParameters.begin(), sortedGenericParameters.end());
     for (auto i = sortedGenericParameters.begin(); i != sortedGenericParameters.end(); i++) {
         if(((i+1) != sortedGenericParameters.end()) && (i->first) == (i+1)->first) {
@@ -415,7 +534,7 @@ GNEGenericParameterDialog::onCmdAccept(FXObject*, FXSelector, void*) {
 long
 GNEGenericParameterDialog::onCmdCancel(FXObject*, FXSelector, void*) {
     // restore copy of generic parameters
-    (*myGenericParameters) = myCopyOfGenericParameters;
+    myGenericParametersValues->setGenericParameters(myCopyOfGenericParameters);
     // Stop Modal
     getApp()->stopModal(this, FALSE);
     return 1;
@@ -424,94 +543,9 @@ GNEGenericParameterDialog::onCmdCancel(FXObject*, FXSelector, void*) {
 
 long
 GNEGenericParameterDialog::onCmdReset(FXObject*, FXSelector, void*) {
-    // restore copy of generic parameters
-    (*myGenericParameters) = myCopyOfGenericParameters;
-    // disable all rows
-    for (auto i : myGenericParameterRows) {
-        i.disableRow();
-    }
-    // update values
-    updateValues();
+    // simply restore copy of generic parameters and continue editing
+    myGenericParametersValues->setGenericParameters(myCopyOfGenericParameters);
     return 1;
-}
-
-
-GNEGenericParameterDialog::GenericParameterRow::GenericParameterRow(GNEGenericParameterDialog *genericParametersEditor, FXVerticalFrame* _frameParent) : 
-    frameParent(_frameParent) {
-    horizontalFrame = new FXHorizontalFrame(frameParent, GUIDesignAuxiliarHorizontalFrame);
-    keyField = new FXTextField(horizontalFrame, GUIDesignTextFieldNCol, genericParametersEditor, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    valueField = new FXTextField(horizontalFrame, GUIDesignTextFieldNCol, genericParametersEditor, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    button = new FXButton(horizontalFrame, "", GUIIconSubSys::getIcon(ICON_REMOVE), genericParametersEditor, MID_GNE_REMOVE_ATTRIBUTE, GUIDesignButtonIcon);
-    // by defaults rows are disabled
-    disableRow();
-}
-
-
-void 
-GNEGenericParameterDialog::GenericParameterRow::disableRow() {
-    // hide all (including frame parent)
-    frameParent->hide();
-    keyField->setText("");
-    keyField->disable();
-    valueField->setText("");
-    valueField->disable();
-    button->disable();
-    button->setIcon(GUIIconSubSys::getIcon(ICON_REMOVE));
-}
-
-
-void 
-GNEGenericParameterDialog::GenericParameterRow::enableRow(const std::string &parameter, const std::string &value) const {
-    // show Horizontal Frame parent
-    frameParent->show();
-    // restore color and enable key field
-    keyField->setText(parameter.c_str());
-    if(parameter.empty() || SUMOXMLDefinitions::isValidNetID(parameter)) {
-        keyField->setTextColor(FXRGB(0, 0, 0));
-    } else {
-        keyField->setTextColor(FXRGB(255, 0, 0));
-    }
-    keyField->enable();
-    // restore color and enable value field
-    valueField->setText(value.c_str());
-    if(SUMOXMLDefinitions::isValidAttribute(value)) {
-        valueField->setTextColor(FXRGB(0, 0, 0));
-    } else {
-        valueField->setTextColor(FXRGB(255, 0, 0));
-    }
-    valueField->enable();
-    // enable button and set icon remove
-    button->enable();
-    button->setIcon(GUIIconSubSys::getIcon(ICON_REMOVE));
-}
-
-
-void 
-GNEGenericParameterDialog::GenericParameterRow::toogleAddButton() {
-    // show Horizontal Frame parent
-    frameParent->show();
-    // clear and disable parameter and value fields
-    keyField->setText("");
-    keyField->disable();
-    valueField->setText("");
-    valueField->disable();
-    // enable remove button and set "add" icon and focus
-    button->enable();
-    button->setIcon(GUIIconSubSys::getIcon(ICON_ADD));
-    button->setFocus();
-}
-
-
-bool
-GNEGenericParameterDialog::GenericParameterRow::isButtonInAddMode() const {
-    return (button->getIcon() == GUIIconSubSys::getIcon(ICON_ADD));
-}
-
-
-void 
-GNEGenericParameterDialog::GenericParameterRow::copyValues(const GenericParameterRow & other) {
-    keyField->setText(other.keyField->getText());
-    valueField->setText(other.valueField->getText());
 }
 
 
@@ -554,7 +588,7 @@ GNEGenericParameterDialog::GNEGenericParameterHandler::myStartElement(int elemen
                         WRITE_WARNING("Value '" + value + "'of Generic Parameter contains invalid characters");
                     } else {
                         // add generic parameter to vector of myGenericParameterDialogParent
-                        myGenericParameterDialogParent->myGenericParameters->push_back(std::make_pair(key, value));
+                        myGenericParameterDialogParent->myGenericParametersValues->addGenericParameter(std::make_pair(key, value));
                     }
                 }
                 break;
@@ -565,26 +599,6 @@ GNEGenericParameterDialog::GNEGenericParameterHandler::myStartElement(int elemen
 }
 
 
-void 
-GNEGenericParameterDialog::updateValues() {
-/*
-    int index = 0; 
-    // enanble rows
-    for (auto i = myGenericParameters->begin(); i != myGenericParameters->end(); i++) {
-        if(index < GNEAttributeCarrier::MAXNUMBER_GENERICPARAMETERS) {
-            myGenericParameterRows.at(index).enableRow(i->first, i->second);
-            index++;
-        }
-    }
-    // disable rest of rows
-    for (int i = index; i < myGenericParameterRows.size(); i++) {
-        myGenericParameterRows.at(i).disableRow();
-    }
-    // check if add button can be enabled
-    if(index < GNEAttributeCarrier::MAXNUMBER_GENERICPARAMETERS) {
-        myGenericParameterRows.at(index).toogleAddButton();
-    }
-*/
-}
+
 
 /****************************************************************************/

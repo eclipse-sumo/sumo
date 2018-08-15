@@ -47,6 +47,120 @@ class GNEGenericParameterDialog : public FXDialogBox {
 public:
 
     // ===========================================================================
+    // class GenericParametersValues
+    // ===========================================================================
+
+    class GenericParametersValues : protected FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEGenericParameterDialog::GenericParametersValues)
+
+    public:
+        /// @brief constructor
+        GenericParametersValues(FXHorizontalFrame *frame, GNEGenericParameterDialog *genericParameterDialogParent, std::vector<std::pair<std::string, std::string> > *genericParameters);
+
+        /// @brief destructor
+        ~GenericParametersValues();
+
+        /// @brief update values
+        void updateValues();
+
+        const std::vector<std::pair<std::string, std::string> > *getGenericParameters() const {
+            return myGenericParameters;
+        }
+
+        std::vector<std::pair<std::string, std::string> > getCopyOfGenericParameters() const {
+            return *myGenericParameters;
+        }
+
+        void setGenericParameters(const std::vector<std::pair<std::string, std::string> > &newGenericParameters) {
+            *myGenericParameters = newGenericParameters;
+
+            // disable all rows
+            for (auto i : myGenericParameterRows) {
+                i.disableRow();
+            }
+            // update values
+            updateValues();
+        }
+
+        void addGenericParameter(std::pair<std::string, std::string> newGenericParameter) const {
+            return myGenericParameters->push_back(newGenericParameter);
+        }
+
+        void clearGenericParameters() {
+            myGenericParameters->clear();
+
+            for (auto i : myGenericParameterRows) {
+                i.disableRow();
+            }
+
+            updateValues();
+        }
+
+        /// @name FOX-callbacks
+        /// @{
+        /// @brief event when user change an attribute
+        long onCmdSetAttribute(FXObject*, FXSelector, void*);
+
+        /// @brief event when user press a remove (or add) button
+        long onCmdButtonPress(FXObject*, FXSelector, void*);
+
+        /// @}
+
+    protected:
+        /// @brief FOX needs this
+        GenericParametersValues() {}
+
+    private:
+        /// @brief struct for generic parameters Row
+         struct GenericParameterRow {
+            /// @brief constructor
+            GenericParameterRow(GNEGenericParameterDialog * genericParametersEditor, FXVerticalFrame* _frameParent);
+
+            /// @brief disable row
+            void disableRow();
+
+            /// @brief enable rlow
+            void enableRow(const std::string &parameter, const std::string &value) const;
+
+            /// @brief toogle add button
+            void toogleAddButton();
+
+            /// @brief check if remove button is in mode "add"
+            bool isButtonInAddMode() const;
+
+            /// @brief copy values of other parameter Row
+            void copyValues(const GenericParameterRow & other);
+
+            /// @brief frame parent in whith this GenericParameterRow is laced
+            FXVerticalFrame* frameParent;
+
+            /// @brief TextField for parameter
+            FXTextField *keyField;
+
+            /// @brief TextField for value
+            FXTextField *valueField;
+
+            /// @brief Button for add or remove row
+            FXButton *button;
+        private:
+            /// @brief frame in which elements of GenericParameterRow are placed
+            FXHorizontalFrame* horizontalFrame;
+        };
+
+        /// @brief pointer to Shape Frame Parent
+        GNEGenericParameterDialog *myGenericParameterDialogParent;
+
+        /// @brief vector with the GenericParameterRows
+        std::vector<GenericParameterRow> myGenericParameterRows;
+
+        /// @brief edited generic parameters
+        std::vector<std::pair<std::string, std::string> > *myGenericParameters;
+
+        FXScrollWindow *myScrollWindow;
+    };
+
+    // ===========================================================================
     // class GenericParametersOptions
     // ===========================================================================
 
@@ -112,12 +226,6 @@ public:
 
     /// @name FOX-callbacks
     /// @{
-    /// @brief event when user change an attribute
-    long onCmdSetAttribute(FXObject*, FXSelector, void*);
-
-    /// @brief event when user press a remove (or add) button
-    long onCmdButtonPress(FXObject*, FXSelector, void*);
-
     /// @brief event after press accept button
     long onCmdAccept(FXObject*, FXSelector, void*);
 
@@ -135,9 +243,6 @@ protected:
     /// @pointer to viewNet
     GNEViewNet* myViewNet;
 
-    /// @brief edited generic parameters
-    std::vector<std::pair<std::string, std::string> > *myGenericParameters;
-
     /// @brief accept button
     FXButton* myAcceptButton;
 
@@ -148,42 +253,6 @@ protected:
     FXButton* myResetButton;
 
 private:
-    /// @brief struct for generic parameters Row
-    struct GenericParameterRow {
-        /// @brief constructor
-        GenericParameterRow(GNEGenericParameterDialog * genericParametersEditor, FXVerticalFrame* _frameParent);
-
-        /// @brief disable row
-        void disableRow();
-
-        /// @brief enable rlow
-        void enableRow(const std::string &parameter, const std::string &value) const;
-
-        /// @brief toogle add button
-        void toogleAddButton();
-
-        /// @brief check if remove button is in mode "add"
-        bool isButtonInAddMode() const;
-
-        /// @brief copy values of other parameter Row
-        void copyValues(const GenericParameterRow & other);
-
-        /// @brief frame parent in whith this GenericParameterRow is laced
-        FXVerticalFrame* frameParent;
-
-        /// @brief TextField for parameter
-        FXTextField *keyField;
-
-        /// @brief TextField for value
-        FXTextField *valueField;
-
-        /// @brief Button for add or remove row
-        FXButton *button;
-    private:
-        /// @brief frame in which elements of GenericParameterRow are placed
-        FXHorizontalFrame* horizontalFrame;
-    };
-
     /// @class GNEGenericParameterHandler
     /// @brief load generic parameters from a filename
     class GNEGenericParameterHandler : public SUMOSAXHandler {
@@ -212,19 +281,14 @@ private:
         bool myMaximumNumberOfAttributesShown;
     };
 
+    /// @brief pointer to generic parameters values
+    GenericParametersValues *myGenericParametersValues;
+
     /// @brief pointer to generic parameters options
     GenericParametersOptions *myGenericParametersOptions;
 
-    /// @brief vector with the GenericParameterRows
-    std::vector<GenericParameterRow> myGenericParameterRows;
-
     // @brief copy of current edited Generic Parameters (used for reset)
     const std::vector<std::pair<std::string, std::string> > myCopyOfGenericParameters;
-
-    FXScrollWindow *myScrollWindow;
-
-    /// @brief update values
-    void updateValues();
 
     /// @brief Invalidated copy constructor.
     GNEGenericParameterDialog(const GNEGenericParameterDialog&) = delete;
