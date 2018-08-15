@@ -162,6 +162,34 @@ NIFrame::fillOptions() {
     oc.addSynonyme("plain.extend-edge-shape", "xml.keep-shape", true);
     oc.addDescription("plain.extend-edge-shape", "Processing", "If edge shapes do not end at the node positions, extend them");
 
+    // register osm options
+    oc.doRegister("osm.skip-duplicates-check", new Option_Bool(false));
+    oc.addDescription("osm.skip-duplicates-check", "Formats", "Skips the check for duplicate nodes and edges");
+
+    oc.doRegister("osm.elevation", new Option_Bool(false));
+    oc.addDescription("osm.elevation", "Formats", "Imports elevation data");
+
+    oc.doRegister("osm.layer-elevation", new Option_Float(0));
+    oc.addDescription("osm.layer-elevation", "Formats", "Reconstruct (relative) elevation based on layer data. Each layer is raised by FLOAT m");
+
+    oc.doRegister("osm.layer-elevation.max-grade", new Option_Float(10));
+    oc.addDescription("osm.layer-elevation.max-grade", "Formats", "Maximum grade threshold in % at 50km/h when reconstrucing elevation based on layer data. The value is scaled according to road speed.");
+
+    oc.doRegister("osm.oneway-spread-right", new Option_Bool(false));
+    oc.addDescription("osm.oneway-spread-right", "Formats", "Whether one-way roads should be spread to the side instead of centered");
+
+    oc.doRegister("osm.stop-output.length", new Option_Float(25));
+    oc.addDescription("osm.stop-output.length", "Formats", "The default length of a public transport stop in FLOAT m");
+    oc.doRegister("osm.stop-output.length.bus", new Option_Float(15));
+    oc.addDescription("osm.stop-output.length.bus", "Formats", "The default length of a bus stop in FLOAT m");
+    oc.doRegister("osm.stop-output.length.tram", new Option_Float(25));
+    oc.addDescription("osm.stop-output.length.tram", "Formats", "The default length of a tram stop in FLOAT m");
+    oc.doRegister("osm.stop-output.length.train", new Option_Float(200));
+    oc.addDescription("osm.stop-output.length.train", "Formats", "The default length of a train stop in FLOAT m");
+
+    oc.doRegister("osm.all-attributes", new Option_Bool(false));
+    oc.addDescription("osm.all-attributes", "Formats", "Whether additional attributes shall be imported");
+
 
     // register matsim options
     oc.doRegister("matsim.keep-length", new Option_Bool(false));
@@ -259,34 +287,6 @@ NIFrame::fillOptions() {
     oc.doRegister("visum.verbose-warnings", new Option_Bool(false));
     oc.addDescription("visum.verbose-warnings", "Formats", "Prints all warnings, some of which are due to VISUM misbehaviour");
 
-
-    // register osm options
-    oc.doRegister("osm.skip-duplicates-check", new Option_Bool(false));
-    oc.addDescription("osm.skip-duplicates-check", "Formats", "Skips the check for duplicate nodes and edges");
-
-    oc.doRegister("osm.elevation", new Option_Bool(false));
-    oc.addDescription("osm.elevation", "Formats", "Imports elevation data");
-
-    oc.doRegister("osm.layer-elevation", new Option_Float(0));
-    oc.addDescription("osm.layer-elevation", "Formats", "Reconstruct (relative) elevation based on layer data. Each layer is raised by FLOAT m");
-
-    oc.doRegister("osm.layer-elevation.max-grade", new Option_Float(10));
-    oc.addDescription("osm.layer-elevation.max-grade", "Formats", "Maximum grade threshold in % at 50km/h when reconstrucing elevation based on layer data. The value is scaled according to road speed.");
-
-    oc.doRegister("osm.oneway-spread-right", new Option_Bool(false));
-    oc.addDescription("osm.oneway-spread-right", "Formats", "Whether one-way roads should be spread to the side instead of centered");
-
-    oc.doRegister("osm.stop-output.length", new Option_Float(25));
-    oc.addDescription("osm.stop-output.length", "Formats", "The default length of a public transport stop in FLOAT m");
-    oc.doRegister("osm.stop-output.length.bus", new Option_Float(15));
-    oc.addDescription("osm.stop-output.length.bus", "Formats", "The default length of a bus stop in FLOAT m");
-    oc.doRegister("osm.stop-output.length.tram", new Option_Float(25));
-    oc.addDescription("osm.stop-output.length.tram", "Formats", "The default length of a tram stop in FLOAT m");
-    oc.doRegister("osm.stop-output.length.train", new Option_Float(200));
-    oc.addDescription("osm.stop-output.length.train", "Formats", "The default length of a train stop in FLOAT m");
-
-    oc.doRegister("osm.all-attributes", new Option_Bool(false));
-    oc.addDescription("osm.all-attributes", "Formats", "Whether additional attributes shall be imported");
 
     // register opendrive options
     oc.doRegister("opendrive.import-all-lanes", new Option_Bool(false));
