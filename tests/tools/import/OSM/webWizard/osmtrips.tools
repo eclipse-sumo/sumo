@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2018-07-25 02:40:41.643000 by $Id$
-  options: <doubleminus>testing
+<!-- generated on 2018-08-15 12:41:47.981514 by $Id$
+  options: <doubleminus>test-output test
 -->
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vType id="ped_pedestrian" vClass="pedestrian" speedDev="0.1"/>
+    <vType id="ped_pedestrian" vClass="pedestrian"/>
     <person id="ped0" depart="0.00" type="ped_pedestrian">
         <personTrip from="335703513#0" to="-15973619#0" modes="public"/>
     </person>
