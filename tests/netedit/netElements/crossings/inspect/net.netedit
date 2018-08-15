@@ -1,31 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 14.08.2018 20:15:53 by Eclipse SUMO netedit Version 7d8cd284aa
+<!-- generated on 15.08.2018 20:28:31 by Eclipse SUMO netedit Version 7d8cd284aa
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.14Aug180020.196/netedit.gui/netElements/crossings/inspect\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.15Aug181211.2488/netedit.gui/netElements/crossings/inspect\input_net.net.xml"/>
     </input>
 
     <output>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.14Aug180020.196/netedit.gui/netElements/crossings/inspect\additionals.xml"/>
-        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.14Aug180020.196/netedit.gui/netElements/crossings/inspect\shapes.xml"/>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.14Aug180020.196/netedit.gui/netElements/crossings/inspect\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.15Aug181211.2488/netedit.gui/netElements/crossings/inspect\net.net.xml"/>
     </output>
 
     <processing>
-        <no-internal-links value="false"/>
-        <no-turnarounds value="true"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="false"/>
+        <no-turnarounds value="true"/>
         <junctions.corner-detail value="5"/>
         <junctions.limit-turn-speed value="-1"/>
         <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
         <walkingareas value="false"/>
-    </processing>
+    </pedestrian>
+
+    <netedit>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.15Aug181211.2488/netedit.gui/netElements/crossings/inspect\additionals.xml"/>
+        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.15Aug181211.2488/netedit.gui/netElements/crossings/inspect\shapes.xml"/>
+    </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.14Aug180020.196/netedit.gui/netElements/crossings/inspect\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.15Aug181211.2488/netedit.gui/netElements/crossings/inspect\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -34,13 +43,13 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.14Aug180020.196/netedit.gui/netElements/crossings/inspect\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.15Aug181211.2488/netedit.gui/netElements/crossings/inspect\log.txt"/>
     </report>
 
 </configuration>
 -->
 
-<net version="0.27" junctionCornerDetail="5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.0" junctionCornerDetail="5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="50.00,50.00" convBoundary="0.00,0.00,100.00,100.00" origBoundary="-50.00,-50.00,50.00,50.00" projParameter="!"/>
 
