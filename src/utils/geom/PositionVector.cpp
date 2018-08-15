@@ -128,6 +128,9 @@ PositionVector::overlapsWith(const AbstractPoly& poly, double offset) const {
 double
 PositionVector::getOverlapWith(const PositionVector& poly, double zThreshold) const {
     double result = 0;
+    if ((size() == 0) || (poly.size() == 0)) {
+        return result;
+    }
     // this points within poly
     for (const_iterator i = begin(); i != end() - 1; i++) {
         if (poly.around(*i)) {
@@ -223,7 +226,9 @@ PositionVector::operator[](int index) {
 
 Position
 PositionVector::positionAtOffset(double pos, double lateralOffset) const {
-    assert(size() != 0);
+    if(size() == 0) {
+        return Position::INVALID;
+    }
     const_iterator i = begin();
     double seenLength = 0;
     do {
@@ -243,6 +248,9 @@ PositionVector::positionAtOffset(double pos, double lateralOffset) const {
 
 Position
 PositionVector::positionAtOffset2D(double pos, double lateralOffset) const {
+    if(size() == 0) {
+        return Position::INVALID;
+    }
     const_iterator i = begin();
     double seenLength = 0;
     do {
@@ -258,6 +266,9 @@ PositionVector::positionAtOffset2D(double pos, double lateralOffset) const {
 
 double
 PositionVector::rotationAtOffset(double pos) const {
+    if(size() == 0) {
+        return INVALID_DOUBLE;
+    }
     if (pos < 0) {
         pos += length();
     }
@@ -272,7 +283,7 @@ PositionVector::rotationAtOffset(double pos) const {
         }
         seenLength += nextLength;
     } while (++i != end() - 1);
-    const Position& p1 = (*this)[-2];
+    const Position& p1 = this->at(-2);
     const Position& p2 = back();
     return p1.angleTo2D(p2);
 }
@@ -286,6 +297,9 @@ PositionVector::rotationDegreeAtOffset(double pos) const {
 
 double
 PositionVector::slopeDegreeAtOffset(double pos) const {
+    if(size() == 0) {
+        return INVALID_DOUBLE;
+    }
     const_iterator i = begin();
     double seenLength = 0;
     do {
@@ -297,7 +311,7 @@ PositionVector::slopeDegreeAtOffset(double pos) const {
         }
         seenLength += nextLength;
     } while (++i != end() - 1);
-    const Position& p1 = (*this)[-2];
+    const Position& p1 = this->at(-2);
     const Position& p2 = back();
     return RAD2DEG(atan2(p2.z() - p1.z(), p1.distanceTo2D(p2)));
 }
@@ -372,6 +386,9 @@ PositionVector::getPolygonCenter() const {
 
 Position
 PositionVector::getCentroid() const {
+    if(size() == 0) {
+        return Position::INVALID;
+    }
     PositionVector tmp = *this;
     if (!isClosed()) { // make sure its closed
         tmp.push_back(tmp[0]);
@@ -413,7 +430,7 @@ void
 PositionVector::scaleRelative(double factor) {
     Position centroid = getCentroid();
     for (int i = 0; i < static_cast<int>(size()); i++) {
-        (*this)[i] = centroid + (((*this)[i] - centroid) * factor);
+        (*this)[i] = centroid + ((this->at(i) - centroid) * factor);
     }
 }
 
@@ -422,7 +439,7 @@ void
 PositionVector::scaleAbsolute(double offset) {
     Position centroid = getCentroid();
     for (int i = 0; i < static_cast<int>(size()); i++) {
-        (*this)[i] = centroid + (((*this)[i] - centroid) + offset);
+        (*this)[i] = centroid + ((this->at(i) - centroid) + offset);
     }
 }
 
@@ -430,14 +447,18 @@ PositionVector::scaleAbsolute(double offset) {
 Position
 PositionVector::getLineCenter() const {
     if (size() == 1) {
-        return (*this)[0];
+        return this->at(0);
+    } else {
+        return positionAtOffset(double((length() / 2.)));
     }
-    return positionAtOffset(double((length() / 2.)));
 }
 
 
 double
 PositionVector::length() const {
+    if(size() == 0) {
+        return 0;
+    }
     double len = 0;
     for (const_iterator i = begin(); i != end() - 1; i++) {
         len += (*i).distanceTo(*(i + 1));
@@ -448,6 +469,9 @@ PositionVector::length() const {
 
 double
 PositionVector::length2D() const {
+    if(size() == 0) {
+        return 0;
+    }
     double len = 0;
     for (const_iterator i = begin(); i != end() - 1; i++) {
         len += (*i).distanceTo2D(*(i + 1));
@@ -511,7 +535,7 @@ PositionVector::splitAt(double where, bool use2D) const {
         WRITE_WARNING("Splitting vector close to end (pos: " + toString(where) + ", length: " + toString(len) + ")");
     }
     PositionVector first, second;
-    first.push_back((*this)[0]);
+    first.push_back(this->at(0));
     double seen = 0;
     const_iterator it = begin() + 1;
     double next = use2D ? first.back().distanceTo2D(*it) : first.back().distanceTo(*it);
@@ -565,7 +589,7 @@ PositionVector::sortAsPolyCWByAngle() {
 
 void
 PositionVector::add(double xoff, double yoff, double zoff) {
-    for (int i = 0; i < static_cast<int>(size()); i++) {
+    for (int i = 0; i < (int)size(); i++) {
         (*this)[i].add(xoff, yoff, zoff);
     }
 }
@@ -579,7 +603,7 @@ PositionVector::add(const Position& offset) {
 
 void
 PositionVector::mirrorX() {
-    for (int i = 0; i < static_cast<int>(size()); i++) {
+    for (int i = 0; i < (int)size(); i++) {
         (*this)[i].mul(1, -1);
     }
 }
@@ -604,8 +628,7 @@ PositionVector::increasing_x_y_sorter::increasing_x_y_sorter() {}
 
 
 int
-PositionVector::increasing_x_y_sorter::operator()(const Position& p1,
-        const Position& p2) const {
+PositionVector::increasing_x_y_sorter::operator()(const Position& p1, const Position& p2) const {
     if (p1.x() != p2.x()) {
         return p1.x() < p2.x();
     }
@@ -621,7 +644,7 @@ PositionVector::isLeft(const Position& P0, const Position& P1,  const Position& 
 
 void
 PositionVector::append(const PositionVector& v, double sameThreshold) {
-    if (size() > 0 && v.size() > 0 && back().distanceTo(v[0]) < sameThreshold) {
+    if ((size() > 0) && (v.size() > 0) && (back().distanceTo(v[0]) < sameThreshold)) {
         copy(v.begin() + 1, v.end(), back_inserter(*this));
     } else {
         copy(v.begin(), v.end(), back_inserter(*this));
@@ -671,6 +694,9 @@ PositionVector::getSubpart(double beginOffset, double endOffset) const {
 
 PositionVector
 PositionVector::getSubpart2D(double beginOffset, double endOffset) const {
+    if(size() == 0) {
+        return PositionVector();
+    }
     PositionVector ret;
     Position begPos = front();
     if (beginOffset > POSITION_EPS) {
@@ -711,6 +737,9 @@ PositionVector::getSubpart2D(double beginOffset, double endOffset) const {
 
 PositionVector
 PositionVector::getSubpartByIndex(int beginIndex, int count) const {
+    if(size() == 0) {
+        return PositionVector();
+    }
     if (beginIndex < 0) {
         beginIndex += (int)size();
     }
@@ -719,7 +748,7 @@ PositionVector::getSubpartByIndex(int beginIndex, int count) const {
     assert(beginIndex + count <= (int)size());
     PositionVector result;
     for (int i = beginIndex; i < beginIndex + count; ++i) {
-        result.push_back((*this)[i]);
+        result.push_back(this->at(i));
     }
     return result;
 }
@@ -727,12 +756,18 @@ PositionVector::getSubpartByIndex(int beginIndex, int count) const {
 
 double
 PositionVector::beginEndAngle() const {
+    if(size() == 0) {
+        return INVALID_DOUBLE;
+    }
     return front().angleTo2D(back());
 }
 
 
 double
 PositionVector::nearest_offset_to_point2D(const Position& p, bool perpendicular) const {
+    if(size() == 0) {
+        return INVALID_DOUBLE;
+    }
     double minDist = std::numeric_limits<double>::max();
     double nearestPos = GeomHelper::INVALID_OFFSET;
     double seen = 0;
@@ -766,6 +801,9 @@ PositionVector::nearest_offset_to_point2D(const Position& p, bool perpendicular)
 
 Position
 PositionVector::transformToVectorCoordinates(const Position& p, bool extend) const {
+    if(size() == 0) {
+        return Position::INVALID;
+    }
     // @toDo this duplicates most of the code in nearest_offset_to_point2D. It should be refactored
     if (extend) {
         PositionVector extended = *this;
@@ -813,12 +851,14 @@ PositionVector::transformToVectorCoordinates(const Position& p, bool extend) con
 
 int
 PositionVector::indexOfClosest(const Position& p) const {
-    assert(size() > 0);
+    if (size() == 0) {
+        return -1;
+    }
     double minDist = std::numeric_limits<double>::max();
     double dist;
     int closest = 0;
     for (int i = 0; i < (int)size(); i++) {
-        dist = p.distanceTo((*this)[i]);
+        dist = p.distanceTo(this->at(i));
         if (dist < minDist) {
             closest = i;
             minDist = dist;
@@ -830,11 +870,14 @@ PositionVector::indexOfClosest(const Position& p) const {
 
 int
 PositionVector::insertAtClosest(const Position& p) {
+    if (size() == 0) {
+        return -1;
+    }
     double minDist = std::numeric_limits<double>::max();
     int insertionIndex = 1;
     for (int i = 0; i < (int)size() - 1; i++) {
-        const double length = GeomHelper::nearest_offset_on_line_to_point2D((*this)[i], (*this)[i + 1], p, false);
-        const Position& outIntersection = PositionVector::positionAtOffset2D((*this)[i], (*this)[i + 1], length);
+        const double length = GeomHelper::nearest_offset_on_line_to_point2D(this->at(i), this->at(i + 1), p, false);
+        const Position& outIntersection = PositionVector::positionAtOffset2D(this->at(i), this->at(i + 1), length);
         const double dist = p.distanceTo2D(outIntersection);
         if (dist < minDist) {
             insertionIndex = i + 1;
@@ -854,7 +897,7 @@ PositionVector::removeClosest(const Position& p) {
     double minDist = std::numeric_limits<double>::max();
     int removalIndex = 0;
     for (int i = 0; i < (int)size(); i++) {
-        const double dist = p.distanceTo2D((*this)[i]);
+        const double dist = p.distanceTo2D(this->at(i));
         if (dist < minDist) {
             removalIndex = i;
             minDist = dist;
@@ -868,6 +911,9 @@ PositionVector::removeClosest(const Position& p) {
 std::vector<double>
 PositionVector::intersectsAtLengths2D(const PositionVector& other) const {
     std::vector<double> ret;
+    if (other.size() == 0) {
+        return ret;
+    }
     for (const_iterator i = other.begin(); i != other.end() - 1; i++) {
         std::vector<double> atSegment = intersectsAtLengths2D(*i, *(i + 1));
         copy(atSegment.begin(), atSegment.end(), back_inserter(ret));
@@ -879,6 +925,9 @@ PositionVector::intersectsAtLengths2D(const PositionVector& other) const {
 std::vector<double>
 PositionVector::intersectsAtLengths2D(const Position& lp1, const Position& lp2) const {
     std::vector<double> ret;
+    if (size() == 0) {
+        return ret;
+    }
     double pos = 0;
     for (const_iterator i = begin(); i != end() - 1; i++) {
         const Position& p1 = *i;
@@ -895,20 +944,21 @@ PositionVector::intersectsAtLengths2D(const Position& lp1, const Position& lp2) 
 
 void
 PositionVector::extrapolate(const double val, const bool onlyFirst, const bool onlyLast) {
-    assert(size() > 1);
-    Position& p1 = (*this)[0];
-    Position& p2 = (*this)[1];
-    const Position offset = (p2 - p1) * (val / p1.distanceTo(p2));
-    if (!onlyLast) {
-        p1.sub(offset);
-    }
-    if (!onlyFirst) {
-        if (size() == 2) {
-            p2.add(offset);
-        } else {
-            const Position& e1 = (*this)[-2];
-            Position& e2 = (*this)[-1];
-            e2.sub((e1 - e2) * (val / e1.distanceTo(e2)));
+    if(size() > 0) {
+        Position& p1 = this->at(0);
+        Position& p2 = this->at(1);
+        const Position offset = (p2 - p1) * (val / p1.distanceTo(p2));
+        if (!onlyLast) {
+            p1.sub(offset);
+        }
+        if (!onlyFirst) {
+            if (size() == 2) {
+                p2.add(offset);
+            } else {
+                const Position& e1 = this->at(-2);
+                Position& e2 = this->at(-1);
+                e2.sub((e1 - e2) * (val / e1.distanceTo(e2)));
+            }
         }
     }
 }
@@ -916,19 +966,21 @@ PositionVector::extrapolate(const double val, const bool onlyFirst, const bool o
 
 void
 PositionVector::extrapolate2D(const double val, const bool onlyFirst) {
-    assert(size() > 1);
-    Position& p1 = (*this)[0];
-    Position& p2 = (*this)[1];
-    assert(p1.distanceTo2D(p2) > 0);
-    const Position offset = (p2 - p1) * (val / p1.distanceTo2D(p2));
-    p1.sub(offset);
-    if (!onlyFirst) {
-        if (size() == 2) {
-            p2.add(offset);
-        } else {
-            const Position& e1 = (*this)[-2];
-            Position& e2 = (*this)[-1];
-            e2.sub((e1 - e2) * (val / e1.distanceTo2D(e2)));
+    if(size() > 0) {
+        Position& p1 = this->at(0);
+        Position& p2 = this->at(1);
+        if(p1.distanceTo2D(p2) > 0) {
+            const Position offset = (p2 - p1) * (val / p1.distanceTo2D(p2));
+            p1.sub(offset);
+            if (!onlyFirst) {
+                if (size() == 2) {
+                    p2.add(offset);
+                } else {
+                    const Position& e1 = this->at(-2);
+                    Position& e2 = this->at(-1);
+                    e2.sub((e1 - e2) * (val / e1.distanceTo2D(e2)));
+                }
+            }
         }
     }
 }
@@ -963,21 +1015,21 @@ PositionVector::move2side(double amount) {
     PositionVector shape;
     for (int i = 0; i < static_cast<int>(size()); i++) {
         if (i == 0) {
-            const Position& from = (*this)[i];
-            const Position& to = (*this)[i + 1];
+            const Position& from = this->at(i);
+            const Position& to = this->at(i + 1);
             if (from != to) {
                 shape.push_back(from - sideOffset(from, to, amount));
             }
         } else if (i == static_cast<int>(size()) - 1) {
-            const Position& from = (*this)[i - 1];
-            const Position& to = (*this)[i];
+            const Position& from = this->at(i - 1);
+            const Position& to = this->at(i);
             if (from != to) {
                 shape.push_back(to - sideOffset(from, to, amount));
             }
         } else {
-            const Position& from = (*this)[i - 1];
-            const Position& me = (*this)[i];
-            const Position& to = (*this)[i + 1];
+            const Position& from = this->at(i - 1);
+            const Position& me = this->at(i);
+            const Position& to = this->at(i + 1);
             PositionVector fromMe(from, me);
             fromMe.extrapolate2D(me.distanceTo2D(to));
             const double extrapolateDev = fromMe[1].distanceTo2D(to);
@@ -1011,17 +1063,19 @@ PositionVector::move2side(double amount) {
 
 double
 PositionVector::angleAt2D(int pos) const {
-    assert((int)size() > pos + 1);
-    return (*this)[pos].angleTo2D((*this)[pos + 1]);
+    if ((int)size() > pos + 1) {
+        return this->at(pos).angleTo2D(this->at(pos + 1));
+    } else {
+        return INVALID_DOUBLE;
+    }
 }
 
 
 void
 PositionVector::closePolygon() {
-    if (size() == 0 || (*this)[0] == back()) {
-        return;
+    if ((size() != 0) && (this->at(0) != back())) {
+        push_back(this->at(0));
     }
-    push_back((*this)[0]);
 }
 
 
@@ -1093,7 +1147,7 @@ PositionVector::insert_noDoublePos(const std::vector<Position>::iterator& at, co
 
 bool
 PositionVector::isClosed() const {
-    return size() >= 2 && (*this)[0] == back();
+    return (size() >= 2) && (this->at(0) == back());
 }
 
 
@@ -1255,9 +1309,9 @@ PositionVector::rotate2D(double angle) {
     const double s = sin(angle);
     const double c = cos(angle);
     for (int i = 0; i < (int)size(); i++) {
-        const double x = (*this)[i].x();
-        const double y = (*this)[i].y();
-        const double z = (*this)[i].z();
+        const double x = this->at(i).x();
+        const double y = this->at(i).y();
+        const double z = this->at(i).z();
         const double xnew = x * c - y * s;
         const double ynew = x * s + y * c;
         (*this)[i].set(xnew, ynew, z);
@@ -1332,9 +1386,12 @@ PositionVector::getOrthogonal(const Position& p, double extend, bool before, dou
 PositionVector
 PositionVector::smoothedZFront(double dist) const {
     PositionVector result = *this;
-    const double z0 = (*this)[0].z();
+    if(size() == 0) {
+        return result;
+    }
+    const double z0 = this->at(0).z();
     // the z-delta of the first segment
-    const double dz = (*this)[1].z() - z0;
+    const double dz = this->at(1).z() - z0;
     // if the shape only has 2 points it is as smooth as possible already
     if (size() > 2 && dz != 0) {
         dist = MIN2(dist, length());
@@ -1342,7 +1399,7 @@ PositionVector::smoothedZFront(double dist) const {
         Position pDist = positionAtOffset(dist);
         int iLast = indexOfClosest(pDist);
         // prevent close spacing to reduce impact of rounding errors in z-axis
-        if (pDist.distanceTo2D((*this)[iLast]) > POSITION_EPS * 20) {
+        if (pDist.distanceTo2D(this->at(iLast)) > POSITION_EPS * 20) {
             iLast = result.insertAtClosest(pDist);
         }
         double dist2 = result.offsetAtIndex2D(iLast);
@@ -1379,6 +1436,9 @@ PositionVector::interpolateZ(double zStart, double zEnd) const {
 PositionVector
 PositionVector::resample(double maxLength) const {
     PositionVector result;
+    if(maxLength == 0) {
+        return result;
+    }
     const double length = length2D();
     if (length < POSITION_EPS) {
         return result;
@@ -1397,7 +1457,7 @@ PositionVector::offsetAtIndex2D(int index) const {
     }
     double seen = 0;
     for (int i = 1; i <= index; ++i) {
-        seen += (*this)[i].distanceTo2D((*this)[i - 1]);
+        seen += this->at(i).distanceTo2D(this->at(i - 1));
     }
     return seen;
 }
@@ -1407,8 +1467,8 @@ double
 PositionVector::getMaxGrade(double& maxJump) const {
     double result = 0;
     for (int i = 1; i < (int)size(); ++i) {
-        const Position& p1 = (*this)[i - 1];
-        const Position& p2 = (*this)[i];
+        const Position& p1 = this->at(i - 1);
+        const Position& p2 = this->at(i);
         const double distZ = fabs(p1.z() - p2.z());
         const double dist2D = p1.distanceTo2D(p2);
         if (dist2D == 0) {
