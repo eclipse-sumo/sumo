@@ -231,10 +231,10 @@ GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
     if(myNet->getViewNet()->getACUnderCursor() == this) {
         if (getShapeImgFile() != DEFAULT_IMG_FILE) {
             GLHelper::drawShapeDottedContour(getType(), *this, 2*myHalfImgWidth * s.poiSize.getExaggeration(s), 2*myHalfImgHeight * s.poiSize.getExaggeration(s));
-        } else {
+        } else if (myPOIVertices.size() > 0) {
             glPushMatrix();
             glTranslated(x(), y(), getType() + 0.01);
-            GLHelper::drawShapeDottedContour(getType(), vertices);
+            GLHelper::drawShapeDottedContour(getType(), myPOIVertices);
             glPopMatrix();
         }
     }

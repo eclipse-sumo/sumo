@@ -113,8 +113,8 @@ public:
     //@}
 
 protected:
-    /// @brief after every iteration of drawgl, position of vertices that make the circle are saved here
-    static std::vector<Position> vertices;
+    /// @brief after every iteration of drawgl, position of vertices that make the circle are saved here. It used to drawn a dotted contour in Netedit)
+    static std::vector<Position> myPOIVertices;
 
 };
 

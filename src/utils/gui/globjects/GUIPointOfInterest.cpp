@@ -40,7 +40,7 @@
 // static members
 // ===========================================================================
 
-std::vector<Position> GUIPointOfInterest::vertices;
+std::vector<Position> GUIPointOfInterest::myPOIVertices;
 
 
 // ===========================================================================
@@ -98,7 +98,7 @@ void
 GUIPointOfInterest::drawGL(const GUIVisualizationSettings& s) const {
     const double exaggeration = s.poiSize.getExaggeration(s);
     // first clear vertices
-    vertices.clear();
+    myPOIVertices.clear();
     // only continue if scale is valid
     if (s.scale * (1.3 / 3.0) *exaggeration < s.poiSize.minSize) {
         return;
@@ -127,7 +127,7 @@ GUIPointOfInterest::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::drawFilledCircle((double) 1.3 * exaggeration, 8);
         } else {
             // draw filled circle saving vertices
-            vertices = GLHelper::drawFilledCircleReturnVertices((double) 1.3 * exaggeration, 16);
+            myPOIVertices = GLHelper::drawFilledCircleReturnVertices((double) 1.3 * exaggeration, 16);
         }
     }
     glPopMatrix();
