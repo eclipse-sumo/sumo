@@ -64,38 +64,20 @@ public:
         /// @brief update values
         void updateValues();
 
-        const std::vector<std::pair<std::string, std::string> > *getGenericParameters() const {
-            return myGenericParameters;
-        }
+        /// @brief get current edited generic parameters
+        const std::vector<std::pair<std::string, std::string> > *getGenericParameters() const;
 
-        std::vector<std::pair<std::string, std::string> > getCopyOfGenericParameters() const {
-            return *myGenericParameters;
-        }
+        /// @brief get a copy of current edited generic parameters
+        std::vector<std::pair<std::string, std::string> > getCopyOfGenericParameters() const;
 
-        void setGenericParameters(const std::vector<std::pair<std::string, std::string> > &newGenericParameters) {
-            *myGenericParameters = newGenericParameters;
+        /// @brief set generic parameters
+        void setGenericParameters(const std::vector<std::pair<std::string, std::string> > &newGenericParameters);
 
-            // disable all rows
-            for (auto i : myGenericParameterRows) {
-                i.disableRow();
-            }
-            // update values
-            updateValues();
-        }
+        /// @brief add a single generic parameter
+        void addGenericParameter(std::pair<std::string, std::string> newGenericParameter);
 
-        void addGenericParameter(std::pair<std::string, std::string> newGenericParameter) const {
-            return myGenericParameters->push_back(newGenericParameter);
-        }
-
-        void clearGenericParameters() {
-            myGenericParameters->clear();
-
-            for (auto i : myGenericParameterRows) {
-                i.disableRow();
-            }
-
-            updateValues();
-        }
+        /// @brief clear all generic parameters
+        void clearGenericParameters();
 
         /// @name FOX-callbacks
         /// @{
@@ -112,10 +94,15 @@ public:
         GenericParametersValues() {}
 
     private:
-        /// @brief struct for generic parameters Row
-         struct GenericParameterRow {
+        /// @brief class for generic parameters Row
+        class GenericParameterRow {
+
+        public:
             /// @brief constructor
-            GenericParameterRow(GNEGenericParameterDialog * genericParametersEditor, FXVerticalFrame* _frameParent);
+            GenericParameterRow(GenericParametersValues * genericParametersValues, FXVerticalFrame *verticalFrameParent);
+
+            /// @brief destructor
+            ~GenericParameterRow();
 
             /// @brief disable row
             void disableRow();
@@ -131,9 +118,6 @@ public:
 
             /// @brief copy values of other parameter Row
             void copyValues(const GenericParameterRow & other);
-
-            /// @brief frame parent in whith this GenericParameterRow is laced
-            FXVerticalFrame* frameParent;
 
             /// @brief TextField for parameter
             FXTextField *keyField;
@@ -151,13 +135,14 @@ public:
         /// @brief pointer to Shape Frame Parent
         GNEGenericParameterDialog *myGenericParameterDialogParent;
 
+        /// @brief vertical frame in which rows are placed
+        FXVerticalFrame *myVerticalFrameRow;
+
         /// @brief vector with the GenericParameterRows
-        std::vector<GenericParameterRow> myGenericParameterRows;
+        std::vector<GenericParameterRow*> myGenericParameterRows;
 
         /// @brief edited generic parameters
         std::vector<std::pair<std::string, std::string> > *myGenericParameters;
-
-        FXScrollWindow *myScrollWindow;
     };
 
     // ===========================================================================
@@ -199,6 +184,35 @@ public:
         GenericParametersOptions() {}
 
     private:
+
+        /// @class GNEGenericParameterHandler
+        /// @brief load generic parameters from a filename
+        class GNEGenericParameterHandler : public SUMOSAXHandler {
+        public:
+            /// @brief Constructor
+            GNEGenericParameterHandler(GNEGenericParameterDialog* genericParameterDialogParent, const std::string& file);
+
+            /// @brief Destructor
+            ~GNEGenericParameterHandler();
+
+            /// @name inherited from GenericSAXHandler
+            /// @{
+            /**@brief Called on the opening of a tag;
+             * @param[in] element ID of the currently opened element
+             * @param[in] attrs Attributes within the currently opened element
+             * @exception ProcessError If something fails
+             * @see GenericSAXHandler::myStartElement
+             */
+            void myStartElement(int element, const SUMOSAXAttributes& attrs);
+
+        private:
+            /// @brief pointer to genericParameterDialog parent
+            GNEGenericParameterDialog* myGenericParameterDialogParent;
+
+            /// @brief flag to check if Warning with the maximum number of attributes was shown
+            bool myMaximumNumberOfAttributesShown;
+        };
+
         /// @brief pointer to Shape Frame Parent
         GNEGenericParameterDialog *myGenericParameterDialogParent;
 
@@ -253,34 +267,7 @@ protected:
     FXButton* myResetButton;
 
 private:
-    /// @class GNEGenericParameterHandler
-    /// @brief load generic parameters from a filename
-    class GNEGenericParameterHandler : public SUMOSAXHandler {
-    public:
-        /// @brief Constructor
-        GNEGenericParameterHandler(GNEGenericParameterDialog* genericParameterDialogParent, const std::string& file);
-
-        /// @brief Destructor
-        ~GNEGenericParameterHandler();
-
-        /// @name inherited from GenericSAXHandler
-        /// @{
-        /**@brief Called on the opening of a tag;
-         * @param[in] element ID of the currently opened element
-         * @param[in] attrs Attributes within the currently opened element
-         * @exception ProcessError If something fails
-         * @see GenericSAXHandler::myStartElement
-         */
-        void myStartElement(int element, const SUMOSAXAttributes& attrs);
-
-    private:
-        /// @brief pointer to genericParameterDialog parent
-        GNEGenericParameterDialog* myGenericParameterDialogParent;
-
-        /// @brief flag to check if Warning with the maximum number of attributes was shown
-        bool myMaximumNumberOfAttributesShown;
-    };
-
+    
     /// @brief pointer to generic parameters values
     GenericParametersValues *myGenericParametersValues;
 

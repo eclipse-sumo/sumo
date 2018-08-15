@@ -226,6 +226,9 @@
 /// @brief Group box design extended over frame
 #define GUIDesignGroupBoxFrame              (LAYOUT_FILL_X | FRAME_GROOVE | GROUPBOX_TITLE_CENTER)
 
+/// @brief Group box design extended over frame (X and Y)
+#define GUIDesignGroupBoxFrameFill          (LAYOUT_FILL_X | LAYOUT_FILL_Y | FRAME_GROOVE | GROUPBOX_TITLE_CENTER)
+
 /// @brief Group box design for elements of width 100
 #define GUIDesignGroupBoxFrame100           (LAYOUT_FIX_WIDTH | FRAME_GROOVE | GROUPBOX_TITLE_CENTER), 0, 0, 112, 0, 4, 4, 4, 4, 4, 4
 
@@ -404,16 +407,25 @@
 #define GUIDesignDialogBox                      (DECOR_CLOSE | DECOR_TITLE)
 
 /// @brief design for standard dialog box that can be stretched (But not shrinked)
-#define GUIDesignDialogBoxStretchable            (DECOR_CLOSE | DECOR_TITLE | DECOR_STRETCHABLE)
+#define GUIDesignDialogBoxStretchable           (DECOR_CLOSE | DECOR_TITLE | DECOR_STRETCHABLE)
 
 /// @brief design for standard dialog box that can be schinked (But not stretched)
-#define GUIDesignDialogBoxShrinkable             (DECOR_CLOSE | DECOR_TITLE | DECOR_SHRINKABLE)
+#define GUIDesignDialogBoxShrinkable            (DECOR_CLOSE | DECOR_TITLE | DECOR_SHRINKABLE)
 
 /// @brief design for standard dialog box (for example, about dialog)
 #define GUIDesignDialogBoxResizable             (DECOR_CLOSE | DECOR_TITLE | DECOR_RESIZE)
 
 /// @brief design for dialog box with specift width and height     (for example, additional dialogs)
 #define GUIDesignDialogBoxExplicit              (DECOR_CLOSE | DECOR_TITLE | LAYOUT_EXPLICIT)
+
+/// @brief design for dialog box with specift width and height that can be stretched (But not shrinked)
+#define GUIDesignDialogBoxExplicitStretchable   (DECOR_CLOSE | DECOR_TITLE | LAYOUT_EXPLICIT | DECOR_STRETCHABLE)
+
+/// @brief design for dialog box with specift width and height that can be schinked (But not stretched)
+#define GUIDesignDialogBoxExplicitShrinkable    (DECOR_CLOSE | DECOR_TITLE | LAYOUT_EXPLICIT | DECOR_SHRINKABLE)
+
+/// @brief design for dialog box with specift width and height and resizable
+#define GUIDesignDialogBoxExplicitResizable     (DECOR_CLOSE | DECOR_TITLE | LAYOUT_EXPLICIT | DECOR_RESIZE)
 /// @}
 
 
