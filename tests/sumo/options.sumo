@@ -1,1 +1,2 @@
 --xml-validation never --write-license
+--default.speeddev 0
