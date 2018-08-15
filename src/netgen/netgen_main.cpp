@@ -71,12 +71,12 @@ fillOptions() {
     oc.addOptionSubTopic("Spider Network");
     oc.addOptionSubTopic("Random Network");
     oc.addOptionSubTopic("Output");
-    oc.addOptionSubTopic("TLS Building");
-    //oc.addOptionSubTopic("Ramp Guessing");
-    oc.addOptionSubTopic("Edge Removal");
-    oc.addOptionSubTopic("Unregulated Nodes");
     oc.addOptionSubTopic("Processing");
     oc.addOptionSubTopic("Building Defaults");
+    oc.addOptionSubTopic("TLS Building");
+    oc.addOptionSubTopic("Edge Removal");
+    oc.addOptionSubTopic("Unregulated Nodes");
+    oc.addOptionSubTopic("Junctions");
     SystemFrame::addReportOptions(oc); // this subtopic is filled here, too
 
     NGFrame::fillOptions();

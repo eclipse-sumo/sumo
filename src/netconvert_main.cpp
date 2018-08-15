@@ -61,14 +61,15 @@ fillOptions() {
     oc.addOptionSubTopic("Input");
     oc.addOptionSubTopic("Output");
     GeoConvHelper::addProjectionOptions(oc);
+    oc.addOptionSubTopic("Processing");
+    oc.addOptionSubTopic("Building Defaults");
     oc.addOptionSubTopic("TLS Building");
     oc.addOptionSubTopic("Ramp Guessing");
     oc.addOptionSubTopic("Edge Removal");
     oc.addOptionSubTopic("Unregulated Nodes");
+    oc.addOptionSubTopic("Junctions");
     oc.addOptionSubTopic("Railway");
     oc.addOptionSubTopic("Formats");
-    oc.addOptionSubTopic("Processing");
-    oc.addOptionSubTopic("Building Defaults");
     SystemFrame::addReportOptions(oc); // this subtopic is filled here, too
 
     NIFrame::fillOptions();

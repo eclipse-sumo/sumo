@@ -82,7 +82,7 @@ NBFrame::fillOptions(bool forNetgen) {
 
     // register the data processing options
     oc.doRegister("no-internal-links", new Option_Bool(false)); // !!! not described
-    oc.addDescription("no-internal-links", "Processing", "Omits internal links");
+    oc.addDescription("no-internal-links", "Junctions", "Omits internal links");
 
     oc.doRegister("numerical-ids", new Option_Bool(false));
     oc.addDescription("numerical-ids", "Processing", "Remaps alphanumerical IDs of nodes and edges to ensure that all IDs are integers");
@@ -97,17 +97,17 @@ NBFrame::fillOptions(bool forNetgen) {
     }
 
     oc.doRegister("no-turnarounds", new Option_Bool(false));
-    oc.addDescription("no-turnarounds", "Processing", "Disables building turnarounds");
+    oc.addDescription("no-turnarounds", "Junctions", "Disables building turnarounds");
 
     oc.doRegister("no-turnarounds.tls", new Option_Bool(false));
     oc.addSynonyme("no-turnarounds.tls", "no-tls-turnarounds", true);
-    oc.addDescription("no-turnarounds.tls", "Processing", "Disables building turnarounds at tls-controlled junctions");
+    oc.addDescription("no-turnarounds.tls", "Junctions", "Disables building turnarounds at tls-controlled junctions");
 
     oc.doRegister("no-turnarounds.except-deadend", new Option_Bool(false));
-    oc.addDescription("no-turnarounds.except-deadend", "Processing", "Disables building turnarounds except at dead end junctions");
+    oc.addDescription("no-turnarounds.except-deadend", "Junctions", "Disables building turnarounds except at dead end junctions");
 
     oc.doRegister("no-left-connections", new Option_Bool(false));
-    oc.addDescription("no-left-connections", "Processing", "Disables building connections to left");
+    oc.addDescription("no-left-connections", "Junctions", "Disables building connections to left");
 
     if (!forNetgen) {
         oc.doRegister("geometry.split", new Option_Bool(false)); // !!!not described
@@ -207,16 +207,16 @@ NBFrame::fillOptions(bool forNetgen) {
                       "Merges edges which connect the same nodes and are close to each other (recommended for VISSIM import)");
 
     oc.doRegister("junctions.join", new Option_Bool(false));
-    oc.addDescription("junctions.join", "Processing",
+    oc.addDescription("junctions.join", "Junctions",
                       "Joins junctions that are close to each other (recommended for OSM import)");
 
     oc.doRegister("junctions.join-dist", new Option_Float(10));
-    oc.addDescription("junctions.join-dist", "Processing",
+    oc.addDescription("junctions.join-dist", "Junctions",
                       "Determines the maximal distance for joining junctions (defaults to 10)");
 
     if (!forNetgen) {
         oc.doRegister("junctions.join-exclude", new Option_String());
-        oc.addDescription("junctions.join-exclude", "Processing", "Interprets STR as list of junctions to exclude from joining");
+        oc.addDescription("junctions.join-exclude", "Junctions", "Interprets STR as list of junctions to exclude from joining");
 
         oc.doRegister("speed.offset", new Option_Float(0));
         oc.addDescription("speed.offset", "Processing", "Modifies all edge speeds by adding FLOAT");
@@ -229,35 +229,35 @@ NBFrame::fillOptions(bool forNetgen) {
     }
 
     oc.doRegister("junctions.corner-detail", new Option_Integer(5));
-    oc.addDescription("junctions.corner-detail", "Processing", "Generate INT intermediate points to smooth out intersection corners");
+    oc.addDescription("junctions.corner-detail", "Junctions", "Generate INT intermediate points to smooth out intersection corners");
 
     oc.doRegister("junctions.internal-link-detail", new Option_Integer(5));
-    oc.addDescription("junctions.internal-link-detail", "Processing", "Generate INT intermediate points to smooth out lanes within the intersection");
+    oc.addDescription("junctions.internal-link-detail", "Junctions", "Generate INT intermediate points to smooth out lanes within the intersection");
 
     oc.doRegister("junctions.scurve-stretch", new Option_Float(0));
-    oc.addDescription("junctions.scurve-stretch", "Processing", "Generate longer intersections to allow for smooth s-curves when the number of lanes changes");
+    oc.addDescription("junctions.scurve-stretch", "Junctions", "Generate longer intersections to allow for smooth s-curves when the number of lanes changes");
 
     oc.doRegister("junctions.join-turns", new Option_Bool(false));
-    oc.addDescription("junctions.join-turns", "Processing",
+    oc.addDescription("junctions.join-turns", "Junctions",
                       "Builds common edges for turning connections with common from- and to-edge. This causes discrepancies between geometrical length and assigned length due to averaging but enables lane-changing while turning");
 
     oc.doRegister("junctions.limit-turn-speed", new Option_Float(5.5));
-    oc.addDescription("junctions.limit-turn-speed", "Processing",
+    oc.addDescription("junctions.limit-turn-speed", "Junctions",
                       "Limits speed on junctions to an average lateral acceleration of at most FLOAT m/s^2)");
 
     oc.doRegister("junctions.small-radius", new Option_Float(1.5));
-    oc.addDescription("junctions.small-radius", "Processing",
+    oc.addDescription("junctions.small-radius", "Junctions",
                       "Default radius for junctions that do not require wide vehicle turns");
 
     oc.doRegister("rectangular-lane-cut", new Option_Bool(false));
-    oc.addDescription("rectangular-lane-cut", "Processing", "Forces rectangular cuts between lanes and intersections");
+    oc.addDescription("rectangular-lane-cut", "Junctions", "Forces rectangular cuts between lanes and intersections");
 
     oc.doRegister("check-lane-foes.roundabout", new Option_Bool(true));
-    oc.addDescription("check-lane-foes.roundabout", "Processing",
+    oc.addDescription("check-lane-foes.roundabout", "Junctions",
                       "Allow driving onto a multi-lane road if there are foes on other lanes (at roundabouts)");
 
     oc.doRegister("check-lane-foes.all", new Option_Bool(false));
-    oc.addDescription("check-lane-foes.all", "Processing",
+    oc.addDescription("check-lane-foes.all", "Junctions",
                       "Allow driving onto a multi-lane road if there are foes on other lanes (everywhere)");
 
     oc.doRegister("sidewalks.guess", new Option_Bool(false));
@@ -281,15 +281,15 @@ NBFrame::fillOptions(bool forNetgen) {
                       "Do not guess sidewalks for the given list of edges");
 
     oc.doRegister("crossings.guess", new Option_Bool(false));
-    oc.addDescription("crossings.guess", "Processing",
+    oc.addDescription("crossings.guess", "Junctions",
                       "Guess pedestrian crossings based on the presence of sidewalks");
 
     oc.doRegister("crossings.guess.speed-threshold", new Option_Float(13.89));
-    oc.addDescription("crossings.guess.speed-threshold", "Processing",
+    oc.addDescription("crossings.guess.speed-threshold", "Junctions",
                       "At uncontrolled nodes, do not build crossings across edges with a speed above the threshold");
 
     oc.doRegister("walkingareas", new Option_Bool(false));
-    oc.addDescription("walkingareas", "Processing", "Always build walking areas even if there are no crossings");
+    oc.addDescription("walkingareas", "Junctions", "Always build walking areas even if there are no crossings");
 
     // tls setting options
     // explicit tls
