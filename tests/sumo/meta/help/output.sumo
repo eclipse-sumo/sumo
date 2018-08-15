@@ -1,4 +1,4 @@
-Eclipse SUMO Version e32b1a9
+Eclipse SUMO Version cd8e277
  Copyright (C) 2001-2018 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -184,6 +184,10 @@ Processing Options:
                                          step-length.
   --default.carfollowmodel STR         Select default car following model
                                          (Krauss, IDM, ...)
+  --default.speeddev FLOAT             Select default speed deviation. A
+                                         negative value implies vClass specific
+                                         defaults (0.1 for the default passenger
+                                         class
   --pedestrian.model STR               Select among pedestrian models
                                          ['nonInteracting', 'striping',
                                          'remote']
