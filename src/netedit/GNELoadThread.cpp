@@ -106,6 +106,9 @@ GNELoadThread::run() {
         return 0;
     }
     XMLSubSys::setValidation(oc.getString("xml-validation"), oc.getString("xml-validation.net"));
+    // check if Debug has to be enabled
+    gDebugFunctions = oc.getBool("gui-testing-debug");
+    // check if GL Debug has to be enabled
     gDebugGLFunctions = oc.getBool("gui-testing-debug-gl");
     // this netbuilder instance becomes the responsibility of the GNENet
     NBNetBuilder* netBuilder = new NBNetBuilder();
@@ -305,6 +308,7 @@ GNELoadThread::initOptions() {
             WRITE_ERROR(e.what());
         }
         WRITE_ERROR("Failed to parse options.");
+        return false;
     }
 }
 
