@@ -74,7 +74,7 @@ public:
      * @param[in] s The following edge
      * @see ROEdge::addFollower
      */
-    void addSuccessor(ROEdge* s, std::string dir = "");
+    void addSuccessor(ROEdge* s, ROEdge* via = nullptr, std::string dir = "");
 
 
     /** @brief adds the information about the percentage of using a certain follower
