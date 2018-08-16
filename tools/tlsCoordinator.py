@@ -66,7 +66,7 @@ def get_options(args=None):
     optParser.add_option("-v", "--verbose", action="store_true",
                          default=False, help="tell me what you are doing")
     optParser.add_option("--speed-factor", type="float",
-                         default=0.9, help="avg ration of vehicle speed in relation to the speed limit")
+                         default=0.8, help="avg ration of vehicle speed in relation to the speed limit")
     optParser.add_option("-e", "--evaluate", action="store_true",
                          default=False, help="run the scenario and print duration statistics")
     (options, args) = optParser.parse_args(args=args)
