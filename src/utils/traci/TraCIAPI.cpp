@@ -625,16 +625,16 @@ TraCIAPI::EdgeScope::getIDCount() const {
 double
 TraCIAPI::EdgeScope::getAdaptedTraveltime(const std::string& edgeID, double time) const {
     tcpip::Storage content;
-    content.writeByte(TYPE_INTEGER);
-    content.writeInt((int)time);
+    content.writeByte(TYPE_DOUBLE);
+    content.writeDouble(time);
     return myParent.getDouble(CMD_GET_EDGE_VARIABLE, VAR_EDGE_TRAVELTIME, edgeID, &content);
 }
 
 double
 TraCIAPI::EdgeScope::getEffort(const std::string& edgeID, double time) const {
     tcpip::Storage content;
-    content.writeByte(TYPE_INTEGER);
-    content.writeInt((int)time);
+    content.writeByte(TYPE_DOUBLE);
+    content.writeDouble(time);
     return myParent.getDouble(CMD_GET_EDGE_VARIABLE, VAR_EDGE_EFFORT, edgeID, &content);
 }
 
@@ -722,15 +722,15 @@ TraCIAPI::EdgeScope::getLaneNumber(const std::string& edgeID) const {
 
 
 void
-TraCIAPI::EdgeScope::adaptTraveltime(const std::string& edgeID, double time, int beginSeconds, int endSeconds) const {
+TraCIAPI::EdgeScope::adaptTraveltime(const std::string& edgeID, double time, double beginSeconds, double endSeconds) const {
     tcpip::Storage content;
     content.writeByte(TYPE_COMPOUND);
     if (endSeconds != std::numeric_limits<double>::max()) {
         content.writeInt(3);
-        content.writeByte(TYPE_INTEGER);
-        content.writeInt(beginSeconds);
-        content.writeByte(TYPE_INTEGER);
-        content.writeInt(endSeconds);
+        content.writeByte(TYPE_DOUBLE);
+        content.writeDouble(beginSeconds);
+        content.writeByte(TYPE_DOUBLE);
+        content.writeDouble(endSeconds);
     } else {
         content.writeInt(1);
     }
@@ -741,16 +741,17 @@ TraCIAPI::EdgeScope::adaptTraveltime(const std::string& edgeID, double time, int
     myParent.check_resultState(inMsg, CMD_SET_EDGE_VARIABLE);
 }
 
+
 void
-TraCIAPI::EdgeScope::setEffort(const std::string& edgeID, double effort, int beginSeconds, int endSeconds) const {
+TraCIAPI::EdgeScope::setEffort(const std::string& edgeID, double effort, double beginSeconds, double endSeconds) const {
     tcpip::Storage content;
     content.writeByte(TYPE_COMPOUND);
     if (endSeconds != std::numeric_limits<double>::max()) {
         content.writeInt(3);
-        content.writeByte(TYPE_INTEGER);
-        content.writeInt(beginSeconds);
-        content.writeByte(TYPE_INTEGER);
-        content.writeInt(endSeconds);
+        content.writeByte(TYPE_DOUBLE);
+        content.writeDouble(beginSeconds);
+        content.writeByte(TYPE_DOUBLE);
+        content.writeDouble(endSeconds);
     } else {
         content.writeInt(1);
     }
