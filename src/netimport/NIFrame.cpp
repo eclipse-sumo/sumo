@@ -300,6 +300,8 @@ NIFrame::fillOptions() {
     oc.addDescription("opendrive.advance-stopline", "Formats", "Allow stop lines to be built beyond the start of the junction if the geometries allow so");
     oc.doRegister("opendrive.min-width", new Option_Float(1.8));
     oc.addDescription("opendrive.min-width", "Formats", "The minimum lane width for determining start or end of variable-width lanes");
+    oc.doRegister("opendrive.internal-shapes", new Option_Bool(false));
+    oc.addDescription("opendrive.internal-shapes", "Formats", "Import internal lane shapes");
 
     // register some additional options
     oc.doRegister("tls.discard-loaded", new Option_Bool(false));

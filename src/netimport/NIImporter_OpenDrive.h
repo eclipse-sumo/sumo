@@ -390,6 +390,7 @@ protected:
         bool all;
         std::string origID;
         int origLane;
+        PositionVector shape;
     };
 
 
@@ -543,6 +544,7 @@ private:
     static bool myImportAllTypes;
     static bool myImportWidths;
     static double myMinWidth;
+    static bool myImportInternalShapes;
 
 
 protected:

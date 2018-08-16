@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Aug 16 16:21:59 2018 by Eclipse SUMO netconvert Version d8ad5b8
+<!-- generated on Thu Aug 16 17:09:58 2018 by Eclipse SUMO netconvert Version 1811d44
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -725,6 +725,9 @@
 
         <!-- The minimum lane width for determining start or end of variable-width lanes -->
         <opendrive.min-width value="1.8" type="FLOAT"/>
+
+        <!-- Import internal lane shapes -->
+        <opendrive.internal-shapes value="false" type="BOOL"/>
 
     </formats>
 

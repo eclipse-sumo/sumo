@@ -146,6 +146,7 @@ StringBijection<int>::Entry NIImporter_OpenDrive::openDriveAttrs[] = {
 bool NIImporter_OpenDrive::myImportAllTypes;
 bool NIImporter_OpenDrive::myImportWidths;
 double NIImporter_OpenDrive::myMinWidth;
+bool NIImporter_OpenDrive::myImportInternalShapes;
 
 // ===========================================================================
 // method definitions
@@ -163,6 +164,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     myImportAllTypes = oc.getBool("opendrive.import-all-lanes");
     myImportWidths = !oc.getBool("opendrive.ignore-widths");
     myMinWidth = oc.getFloat("opendrive.min-width");
+    myImportInternalShapes = oc.getBool("opendrive.internal-shapes");
     NBTypeCont& tc = nb.getTypeCont();
     // build the handler
     std::map<std::string, OpenDriveEdge*> edges;
@@ -586,7 +588,11 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             std::cout << "addCon3 from=" << from->getID() << "_" << fromLane << " to=" << to->getID() << "_" << toLane << "\n";
         }
 #endif
-        from->addLane2LaneConnection(fromLane, to, toLane, NBEdge::L2L_USER);
+        from->addLane2LaneConnection(fromLane, to, toLane, NBEdge::L2L_USER, false, false, true, 
+                NBEdge::UNSPECIFIED_CONTPOS, 
+                NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE,
+                NBEdge::UNSPECIFIED_SPEED,
+                (*i).shape);
 
         if ((*i).origID != "" && saveOrigIDs) {
             // @todo: this is the most silly way to determine the connection
@@ -731,7 +737,8 @@ NIImporter_OpenDrive::buildConnectionsToOuter(const Connection& c, const std::ma
     seen.insert(c);
     const std::set<Connection>& conts = dest->connections;
     for (std::set<Connection>::const_iterator i = conts.begin(); i != conts.end(); ++i) {
-        if (innerEdges.find((*i).toEdge) != innerEdges.end()) {
+        auto innerEdgesIt = innerEdges.find((*i).toEdge);
+        if (innerEdgesIt != innerEdges.end()) {
             std::vector<Connection> t;
             if (seen.count(*i) == 0) {
                 buildConnectionsToOuter(*i, innerEdges, t, seen);
@@ -742,6 +749,9 @@ NIImporter_OpenDrive::buildConnectionsToOuter(const Connection& c, const std::ma
                     cn.fromLane = c.fromLane;
                     cn.fromCP = c.fromCP;
                     cn.all = c.all; // @todo "all" is a hack trying to avoid the "from is zero" problem;
+                    if (myImportInternalShapes) {
+                        cn.shape = innerEdgesIt->second->geom + c.shape;
+                    }
                     into.push_back(cn);
                 }
             } else {
@@ -756,6 +766,15 @@ NIImporter_OpenDrive::buildConnectionsToOuter(const Connection& c, const std::ma
                 cn.all = c.all;
                 cn.origID = c.toEdge;
                 cn.origLane = c.toLane;
+                if (myImportInternalShapes) {
+                    cn.shape = dest->geom;
+                    try {
+                        cn.shape.move2side(dest->laneSections.front().lanesByDir[OPENDRIVE_TAG_RIGHT].front().width / 2);
+                    } catch (InvalidArgument& e) {
+                        WRITE_WARNING("Could not import internal lane shape from edge '" + c.fromEdge + "' to edge '" + c.toEdge);
+                        cn.shape.clear();
+                    }
+                }
                 into.push_back(cn);
             }
         }
