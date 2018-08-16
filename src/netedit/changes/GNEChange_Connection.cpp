@@ -59,21 +59,17 @@ void
 GNEChange_Connection::undo() {
     if (myForward) {
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Removing " + toString(SUMO_TAG_CONNECTION) + " '" +
-                          myEdge->getNBEdge()->getLaneID(myNBEdgeConnection.fromLane) + "->" + myNBEdgeConnection.toEdge->getLaneID(myNBEdgeConnection.toLane) + "' from " +
-                          toString(SUMO_TAG_EDGE) + " '" + myEdge->getID() + "'");
-        }
+        WRITE_DEBUG("Removing " + toString(SUMO_TAG_CONNECTION) + " '" +
+                    myEdge->getNBEdge()->getLaneID(myNBEdgeConnection.fromLane) + "->" + myNBEdgeConnection.toEdge->getLaneID(myNBEdgeConnection.toLane) + "' from " +
+                    toString(SUMO_TAG_EDGE) + " '" + myEdge->getID() + "'");
         // remove connection from edge
         myEdge->removeConnection(myNBEdgeConnection);
     } else {
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            std::string selected = mySelected ? ("a previously selected ") : ("");
-            WRITE_WARNING("Adding " + selected + toString(SUMO_TAG_CONNECTION) + " '" +
-                          myEdge->getNBEdge()->getLaneID(myNBEdgeConnection.fromLane) + "->" + myNBEdgeConnection.toEdge->getLaneID(myNBEdgeConnection.toLane) + "' into " +
-                          toString(SUMO_TAG_EDGE) + " '" + myEdge->getID() + "'");
-        }
+        std::string selected = mySelected ? ("a previously selected ") : ("");
+        WRITE_DEBUG("Adding " + selected + toString(SUMO_TAG_CONNECTION) + " '" +
+                    myEdge->getNBEdge()->getLaneID(myNBEdgeConnection.fromLane) + "->" + myNBEdgeConnection.toEdge->getLaneID(myNBEdgeConnection.toLane) + "' into " +
+                    toString(SUMO_TAG_EDGE) + " '" + myEdge->getID() + "'");
         // add connection into edge
         myEdge->addConnection(myNBEdgeConnection, mySelected);
     }
@@ -90,21 +86,17 @@ void
 GNEChange_Connection::redo() {
     if (myForward) {
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            std::string selected = mySelected ? ("a previously selected ") : ("");
-            WRITE_WARNING("Adding " + selected + toString(SUMO_TAG_CONNECTION) + " '" +
-                          myEdge->getNBEdge()->getLaneID(myNBEdgeConnection.fromLane) + "->" + myNBEdgeConnection.toEdge->getLaneID(myNBEdgeConnection.toLane) + "' into " +
-                          toString(SUMO_TAG_EDGE) + " '" + myEdge->getID() + "'");
-        }
+        std::string selected = mySelected ? ("a previously selected ") : ("");
+        WRITE_DEBUG("Adding " + selected + toString(SUMO_TAG_CONNECTION) + " '" +
+                    myEdge->getNBEdge()->getLaneID(myNBEdgeConnection.fromLane) + "->" + myNBEdgeConnection.toEdge->getLaneID(myNBEdgeConnection.toLane) + "' into " +
+                    toString(SUMO_TAG_EDGE) + " '" + myEdge->getID() + "'");
         // add connection into edge
         myEdge->addConnection(myNBEdgeConnection, mySelected);
     } else {
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Removing " + toString(SUMO_TAG_CONNECTION) + " '" +
-                          myEdge->getNBEdge()->getLaneID(myNBEdgeConnection.fromLane) + "->" + myNBEdgeConnection.toEdge->getLaneID(myNBEdgeConnection.toLane) + "' from " +
-                          toString(SUMO_TAG_EDGE) + " '" + myEdge->getID() + "'");
-        }
+        WRITE_DEBUG("Removing " + toString(SUMO_TAG_CONNECTION) + " '" +
+                    myEdge->getNBEdge()->getLaneID(myNBEdgeConnection.fromLane) + "->" + myNBEdgeConnection.toEdge->getLaneID(myNBEdgeConnection.toLane) + "' from " +
+                    toString(SUMO_TAG_EDGE) + " '" + myEdge->getID() + "'");
         // remove connection from edge
         myEdge->removeConnection(myNBEdgeConnection);
     }

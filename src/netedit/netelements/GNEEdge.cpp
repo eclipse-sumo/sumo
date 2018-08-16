@@ -93,9 +93,7 @@ GNEEdge::~GNEEdge() {
         i->decRef("GNEEdge::~GNEEdge");
         if (i->unreferenced()) {
             // show extra information for tests
-            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Deleting unreferenced " + toString(i->getTag()) + " '" + i->getID() + "' in GNEEdge destructor");
-            }
+            WRITE_DEBUG("Deleting unreferenced " + toString(i->getTag()) + " '" + i->getID() + "' in GNEEdge destructor");
             delete i;
         }
     }
@@ -104,9 +102,7 @@ GNEEdge::~GNEEdge() {
         i->decRef("GNEEdge::~GNEEdge");
         if (i->unreferenced()) {
             // show extra information for tests
-            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Deleting unreferenced " + toString(i->getTag()) + " '" + i->getID() + "' in GNEEdge destructor");
-            }
+            WRITE_DEBUG("Deleting unreferenced " + toString(i->getTag()) + " '" + i->getID() + "' in GNEEdge destructor");
             delete i;
         }
     }
@@ -631,9 +627,7 @@ GNEEdge::remakeGNEConnections() {
         it->decRef();
         if (it->unreferenced()) {
             // show extra information for tests
-            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Deleting unreferenced " + toString(it->getTag()) + " '" + it->getID() + "' in rebuildGNEConnections()");
-            }
+            WRITE_DEBUG("Deleting unreferenced " + toString(it->getTag()) + " '" + it->getID() + "' in rebuildGNEConnections()");
             delete it;
         }
     }
@@ -655,9 +649,7 @@ GNEEdge::clearGNEConnections() {
         // Delete GNEConnectionToErase if is unreferenced
         if (i->unreferenced()) {
             // show extra information for tests
-            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Deleting unreferenced " + toString(i->getTag()) + " '" + i->getID() + "' in clearGNEConnections()");
-            }
+            WRITE_DEBUG("Deleting unreferenced " + toString(i->getTag()) + " '" + i->getID() + "' in clearGNEConnections()");
             delete i;
         }
     }
@@ -1374,9 +1366,7 @@ GNEEdge::removeLane(GNELane* lane, bool recomputeConnections) {
     // Delete lane if is unreferenced
     if (lane->unreferenced()) {
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Deleting unreferenced " + toString(lane->getTag()) + " '" + lane->getID() + "' in removeLane()");
-        }
+        WRITE_DEBUG("Deleting unreferenced " + toString(lane->getTag()) + " '" + lane->getID() + "' in removeLane()");
         delete lane;
     }
     // udate indices
@@ -1445,9 +1435,7 @@ GNEEdge::removeConnection(NBEdge::Connection nbCon) {
         }
         if (con->unreferenced()) {
             // show extra information for tests
-            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Deleting unreferenced " + toString(con->getTag()) + " '" + con->getID() + "' in removeConnection()");
-            }
+            WRITE_DEBUG("Deleting unreferenced " + toString(con->getTag()) + " '" + con->getID() + "' in removeConnection()");
             delete con;
             // actually we only do this to force a redraw
             updateGeometry();
@@ -1469,9 +1457,7 @@ GNEEdge::retrieveGNEConnection(int fromLane, NBEdge* to, int toLane, bool create
         // create new connection. Will be added to the rTree on first geometry computation
         GNEConnection* createdConnection = new GNEConnection(myLanes[fromLane], myNet->retrieveEdge(to->getID())->getLanes()[toLane]);
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Created " + toString(createdConnection->getTag()) + " '" + createdConnection->getID() + "' in retrieveGNEConnection()");
-        }
+        WRITE_DEBUG("Created " + toString(createdConnection->getTag()) + " '" + createdConnection->getID() + "' in retrieveGNEConnection()");
         return createdConnection;
     } else {
         return nullptr;

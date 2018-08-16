@@ -55,23 +55,17 @@ GNEChange_Shape::~GNEChange_Shape() {
         // make sure that shape are removed of ShapeContainer (net) AND grid
         if (myNet->retrievePolygon(myShape->getID(), false) != nullptr) {
             // show extra information for tests
-            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Removing " + toString(myShape->getTag()) + " '" + myShape->getID() + "' from net in ~GNEChange_Shape()");
-            }
+            WRITE_DEBUG("Removing " + toString(myShape->getTag()) + " '" + myShape->getID() + "' from net in ~GNEChange_Shape()");
             myNet->removeGLObjectFromNet(dynamic_cast<GUIGlObject*>(myShape));
             myNet->myPolygons.remove(myShape->getID(), false);
         } else if(myNet->retrievePOI(myShape->getID(), false) != nullptr) {
             // show extra information for tests
-            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Removing " + toString(myShape->getTag()) + " '" + myShape->getID() + "' from net in ~GNEChange_Shape()");
-            }
+            WRITE_DEBUG("Removing " + toString(myShape->getTag()) + " '" + myShape->getID() + "' from net in ~GNEChange_Shape()");
             myNet->removeGLObjectFromNet(dynamic_cast<GUIGlObject*>(myShape));
             myNet->myPOIs.remove(myShape->getID(), false);
         }
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("delete " + toString(myShape->getTag()) + " '" + myShape->getID() + "' in ~GNEChange_Shape()");
-        }
+        WRITE_DEBUG("delete " + toString(myShape->getTag()) + " '" + myShape->getID() + "' in ~GNEChange_Shape()");
         delete myShape;
     }
 }
@@ -81,16 +75,12 @@ void
 GNEChange_Shape::undo() {
     if (myForward) {
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Removing " + toString(myShape->getTag()) + " '" + myShape->getID() + "' from viewNet");
-        }
+        WRITE_DEBUG("Removing " + toString(myShape->getTag()) + " '" + myShape->getID() + "' from viewNet");
         // remove shape from net
         myNet->removeShape(myShape);
     } else {
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Adding " + toString(myShape->getTag()) + " '" + myShape->getID() + "' into viewNet");
-        }
+        WRITE_DEBUG("Adding " + toString(myShape->getTag()) + " '" + myShape->getID() + "' into viewNet");
         // Add shape in net
         myNet->insertShape(myShape);
     }
@@ -105,16 +95,12 @@ void
 GNEChange_Shape::redo() {
     if (myForward) {
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Adding " + toString(myShape->getTag()) + " '" + myShape->getID() + "' into viewNet");
-        }
+        WRITE_DEBUG("Adding " + toString(myShape->getTag()) + " '" + myShape->getID() + "' into viewNet");
         // Add shape in net
         myNet->insertShape(myShape);
     } else {
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Removing " + toString(myShape->getTag()) + " '" + myShape->getID() + "' from viewNet");
-        }
+        WRITE_DEBUG("Removing " + toString(myShape->getTag()) + " '" + myShape->getID() + "' from viewNet");
         // remove shape from net
         myNet->removeShape(myShape);
     }

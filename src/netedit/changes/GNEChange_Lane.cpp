@@ -70,18 +70,14 @@ GNEChange_Lane::~GNEChange_Lane() {
     myEdge->decRef("GNEChange_Lane");
     if (myEdge->unreferenced()) {
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Deleting unreferenced " + toString(myEdge->getTag()) + " '" + myEdge->getID() + "' in GNEChange_Lane");
-        }
+        WRITE_DEBUG("Deleting unreferenced " + toString(myEdge->getTag()) + " '" + myEdge->getID() + "' in GNEChange_Lane");
         delete myEdge;
     }
     if (myLane) {
         myLane->decRef("GNEChange_Lane");
         if (myLane->unreferenced()) {
             // show extra information for tests
-            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Deleting unreferenced " + toString(myLane->getTag()) + " '" + myLane->getID() + "' in GNEChange_Lane");
-            }
+            WRITE_DEBUG("Deleting unreferenced " + toString(myLane->getTag()) + " '" + myLane->getID() + "' in GNEChange_Lane");
             delete myLane;
         }
     }
@@ -92,12 +88,10 @@ void
 GNEChange_Lane::undo() {
     if (myForward) {
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            if (myLane != nullptr) {
-                WRITE_WARNING("Removing " + toString(myLane->getTag()) + " '" + myLane->getID() + "' from " + toString(SUMO_TAG_EDGE));
-            } else {
-                WRITE_WARNING("Removing nullptr " + toString(SUMO_TAG_LANE) + " from " + toString(SUMO_TAG_EDGE));
-            }
+        if (myLane != nullptr) {
+            WRITE_DEBUG("Removing " + toString(myLane->getTag()) + " '" + myLane->getID() + "' from " + toString(SUMO_TAG_EDGE));
+        } else {
+            WRITE_DEBUG("Removing nullptr " + toString(SUMO_TAG_LANE) + " from " + toString(SUMO_TAG_EDGE));
         }
         // remove lane from edge
         myEdge->removeLane(myLane, false);
@@ -111,12 +105,10 @@ GNEChange_Lane::undo() {
         }
     } else {
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            if (myLane != nullptr) {
-                WRITE_WARNING("Adding " + toString(myLane->getTag()) + " '" + myLane->getID() + "' into " + toString(SUMO_TAG_EDGE));
-            } else {
-                WRITE_WARNING("Adding nullptr " + toString(SUMO_TAG_LANE) + " into " + toString(SUMO_TAG_EDGE));
-            }
+        if (myLane != nullptr) {
+            WRITE_DEBUG("Adding " + toString(myLane->getTag()) + " '" + myLane->getID() + "' into " + toString(SUMO_TAG_EDGE));
+        } else {
+            WRITE_DEBUG("Adding nullptr " + toString(SUMO_TAG_LANE) + " into " + toString(SUMO_TAG_EDGE));
         }
         // add lane and their attributes to edge
         // (lane removal is reverted, no need to recompute connections)
@@ -143,12 +135,10 @@ void
 GNEChange_Lane::redo() {
     if (myForward) {
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            if (myLane != nullptr) {
-                WRITE_WARNING("Adding " + toString(myLane->getTag()) + " '" + myLane->getID() + "' into " + toString(SUMO_TAG_EDGE));
-            } else {
-                WRITE_WARNING("Adding nullptr " + toString(SUMO_TAG_LANE) + " into " + toString(SUMO_TAG_EDGE));
-            }
+        if (myLane != nullptr) {
+            WRITE_DEBUG("Adding " + toString(myLane->getTag()) + " '" + myLane->getID() + "' into " + toString(SUMO_TAG_EDGE));
+        } else {
+            WRITE_DEBUG("Adding nullptr " + toString(SUMO_TAG_LANE) + " into " + toString(SUMO_TAG_EDGE));
         }
         // add lane and their attributes to edge
         myEdge->addLane(myLane, myLaneAttrs, myRecomputeConnections);
@@ -162,12 +152,10 @@ GNEChange_Lane::redo() {
         }
     } else {
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            if (myLane != nullptr) {
-                WRITE_WARNING("Removing " + toString(myLane->getTag()) + " '" + myLane->getID() + "' from " + toString(SUMO_TAG_EDGE));
-            } else {
-                WRITE_WARNING("Removing nullptr " + toString(SUMO_TAG_LANE) + " from " + toString(SUMO_TAG_EDGE));
-            }
+        if (myLane != nullptr) {
+            WRITE_DEBUG("Removing " + toString(myLane->getTag()) + " '" + myLane->getID() + "' from " + toString(SUMO_TAG_EDGE));
+        } else {
+            WRITE_DEBUG("Removing nullptr " + toString(SUMO_TAG_LANE) + " from " + toString(SUMO_TAG_EDGE));
         }
         // remove lane from edge
         myEdge->removeLane(myLane, myRecomputeConnections);

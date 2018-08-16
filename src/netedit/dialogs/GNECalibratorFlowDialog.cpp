@@ -172,10 +172,7 @@ GNECalibratorFlowDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     std::string tagString = toString(myEditedAdditional->getTag());
     if (myCalibratorFlowValid == false) {
         // write warning if netedit is running in testing mode
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Opening FXMessageBox of type 'warning'");
-        }
-
+        WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
         // open warning dialog box
         FXMessageBox::warning(getApp(), MBOX_OK,
                               ("Error " + operation1 + " " + parentTagString + "'s " + tagString).c_str(), "%s",
@@ -183,24 +180,18 @@ GNECalibratorFlowDialog::onCmdAccept(FXObject*, FXSelector, void*) {
                                " because parameter " + toString(myInvalidAttr) +
                                " is invalid.").c_str());
         // write warning if netedit is running in testing mode
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Closed FXMessageBox of type 'warning' with 'OK'");
-        }
+        WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
         return 0;
     } else if(!myEditedAdditional->getFirstAdditionalParent()->checkAdditionalChildsOverlapping()) {
         // write warning if netedit is running in testing mode
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Opening FXMessageBox of type 'warning'");
-        }
+        WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
         // open warning dialog box
         FXMessageBox::warning(getApp(), MBOX_OK,
                               ("Error " + operation1 + " " + parentTagString + "'s " + tagString).c_str(), "%s",
                               (parentTagString + "'s " + tagString + " cannot be " + operation2 +
                                " because there is overlapping with another " + tagString + ".").c_str());
         // write warning if netedit is running in testing mode
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Closed FXMessageBox of type 'warning' with 'OK'");
-        }
+        WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
         return 0;
     } else {
         // accept changes before closing dialog

@@ -333,8 +333,7 @@ GNESelectorFrame::LockGLObjectTypes::updateLockGLObjectTypes() {
     myTypeEntries[GLO_POLYGON].count->setText(toString(mySelectorFrameParent->getViewNet()->getNet()->retrieveShapes(SUMO_TAG_POLY, true).size()).c_str());
     myTypeEntries[GLO_POI].count->setText(toString(mySelectorFrameParent->getViewNet()->getNet()->retrieveShapes(SUMO_TAG_POI, true).size()).c_str());
     // show information in debug mode
-    if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-    WRITE_WARNING("Current selection: " +
+    WRITE_DEBUG("Current selection: " +
         toString(mySelectorFrameParent->getViewNet()->getNet()->retrieveJunctions(true).size()) + " Junctions, " +
         toString(mySelectorFrameParent->getViewNet()->getNet()->retrieveEdges(true).size()) + " Edges, " +
         toString(mySelectorFrameParent->getViewNet()->getNet()->retrieveLanes(true).size()) + " Lanes, " +
@@ -343,7 +342,6 @@ GNESelectorFrame::LockGLObjectTypes::updateLockGLObjectTypes() {
         toString(mySelectorFrameParent->getViewNet()->getNet()->retrieveCrossings(true).size()) + " Crossings, " +
         toString(mySelectorFrameParent->getViewNet()->getNet()->retrieveShapes(SUMO_TAG_POLY, true).size()) + " Polygons, " +
         toString(mySelectorFrameParent->getViewNet()->getNet()->retrieveShapes(SUMO_TAG_POI, true).size()) + " POIs");
-    }
 }
 
 
@@ -770,9 +768,7 @@ GNESelectorFrame::MatchAttribute::onCmdHelp(FXObject*, FXSelector, void*) {
     new FXButton(myHorizontalFrameOKButton, "OK\t\tclose", GUIIconSubSys::getIcon(ICON_ACCEPT), additionalNeteditAttributesHelpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
     new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
     // Write Warning in console if we're in testing mode
-    if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-        WRITE_WARNING("Opening help dialog of selector frame");
-    }
+    WRITE_DEBUG("Opening help dialog of selector frame");
     // create Dialog
     additionalNeteditAttributesHelpDialog->create();
     // show in the given position
@@ -782,9 +778,7 @@ GNESelectorFrame::MatchAttribute::onCmdHelp(FXObject*, FXSelector, void*) {
     // open as modal dialog (will block all windows until stop() or stopModal() is called)
     getApp()->runModalFor(additionalNeteditAttributesHelpDialog);
     // Write Warning in console if we're in testing mode
-    if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-        WRITE_WARNING("Close help dialog of selector frame");
-    }
+    WRITE_DEBUG("Close help dialog of selector frame");
     return 1;
 }
 
@@ -914,15 +908,11 @@ GNESelectorFrame::SelectionOperation::onCmdSave(FXObject*, FXSelector, void*) {
         dev.close();
     } catch (IOError& e) {
         // write warning if netedit is running in testing mode
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Opening FXMessageBox 'error storing selection'");
-        }
+        WRITE_DEBUG("Opening FXMessageBox 'error storing selection'");
         // open message box error
         FXMessageBox::error(this, MBOX_OK, "Storing Selection failed", "%s", e.what());
         // write warning if netedit is running in testing mode
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Closed FXMessageBox 'error storing selection' with 'OK'");
-        }
+        WRITE_DEBUG("Closed FXMessageBox 'error storing selection' with 'OK'");
     }
     return 1;
 }

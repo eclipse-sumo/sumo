@@ -151,34 +151,26 @@ bool
 GNETLSEditorFrame::isTLSSaved() {
     if(myTLSModifications->checkHaveModifications()) {
         // write warning if netedit is running in testing mode
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Opening question FXMessageBox 'save TLS'");
-        }
+        WRITE_DEBUG("Opening question FXMessageBox 'save TLS'");
         // open question box
         FXuint answer = FXMessageBox::question(this, MBOX_YES_NO_CANCEL,
                                                 "Save TLS Changes", "%s",
                                                 "There is unsaved changes in current edited traffic light.\nDo you want to save it before changing mode?");
         if (answer == MBOX_CLICKED_YES) { //1:yes, 2:no, 4:esc/cancel
             // write warning if netedit is running in testing mode
-            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Closed FXMessageBox 'save TLS' with 'YES'");
-            }
+            WRITE_DEBUG("Closed FXMessageBox 'save TLS' with 'YES'");
             // save modifications
             onCmdOK(0,0,0);
             return true;
         } else if (answer == MBOX_CLICKED_NO) {
             // write warning if netedit is running in testing mode
-            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Closed FXMessageBox 'save TLS' with 'No'");
-            }
+            WRITE_DEBUG("Closed FXMessageBox 'save TLS' with 'No'");
             // cancel modifications
             onCmdCancel(0,0,0);
             return true;
         } else {
             // write warning if netedit is running in testing mode
-            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Closed FXMessageBox 'save TLS' with 'Cancel'");
-            }
+            WRITE_DEBUG("Closed FXMessageBox 'save TLS' with 'Cancel'");
             // abort changing mode
             return false;
         }
@@ -256,17 +248,13 @@ GNETLSEditorFrame::onCmdDefCreate(FXObject*, FXSelector, void*) {
         editJunction(junction);
     } else {
         // write warning if netedit is running in testing mode
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Opening warning FXMessageBox 'invalid TLS'");
-        }
+        WRITE_DEBUG("Opening warning FXMessageBox 'invalid TLS'");
         // open question box
         FXMessageBox::warning(this, MBOX_OK,
                               "TLS cannot be created", "%s",
                               "Traffic Light cannot be created because junction must have\n at least one incoming edge and one outgoing edge.");
         // write warning if netedit is running in testing mode
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Closed FXMessageBox 'invalid TLS'");
-        }
+        WRITE_DEBUG("Closed FXMessageBox 'invalid TLS'");
     }
     return 1;
 }
@@ -1153,18 +1141,14 @@ GNETLSEditorFrame::TLSFile::checkTLSValids() {
     // check if there is definitions loaded with an uncontrolled junction asociated
     if(definitionsJunctionsWithoutTL.size() > 0) {
         // write warning if netedit is running in testing mode
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Opening question FXMessageBox 'create TLS in uncontrolled junctions'");
-        }
+        WRITE_DEBUG("Opening question FXMessageBox 'create TLS in uncontrolled junctions'");
         // open question box
         FXuint answer = FXMessageBox::question(myTLSEditorParent, MBOX_YES_NO_CANCEL,
                                                 "Create TLS", "%s",
                                                 ("There is " + toString(definitionsJunctionsWithoutTL.size()) + " TLS without controlled junction.\nDo you want to create TLSs in uncontrolled Junctions?").c_str());
         if (answer == MBOX_CLICKED_YES) { //1:yes, 2:no, 4:esc/cancel
             // write warning if netedit is running in testing mode
-            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Closed FXMessageBox 'create TLS in uncontrolled junctions' with 'Yes'");
-            }
+            WRITE_DEBUG("Closed FXMessageBox 'create TLS in uncontrolled junctions' with 'Yes'");
             // convert Junctions in TLS
             for (auto i : definitionsJunctionsWithoutTL) {
                 GNEJunction *junction = myTLSEditorParent->getViewNet()->getNet()->retrieveJunction(i->getID());
@@ -1172,9 +1156,7 @@ GNETLSEditorFrame::TLSFile::checkTLSValids() {
             }
         } else if (answer == MBOX_CLICKED_NO) {
             // write warning if netedit is running in testing mode
-            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Closed FXMessageBox 'create TLS in uncontrolled junctions' with 'No'");
-            }
+            WRITE_DEBUG("Closed FXMessageBox 'create TLS in uncontrolled junctions' with 'No'");
             // delete loaded TLSs without associated controlled Junction
             for (auto i : definitionsJunctionsWithoutTL) {
                 myLoadedTLS.erase(std::find(myLoadedTLS.begin(), myLoadedTLS.end(), i));
@@ -1182,9 +1164,7 @@ GNETLSEditorFrame::TLSFile::checkTLSValids() {
             }
         } else {
             // write warning if netedit is running in testing mode
-            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Closed FXMessageBox 'create TLS in uncontrolled junctions' with 'Cancel'");
-            }
+            WRITE_DEBUG("Closed FXMessageBox 'create TLS in uncontrolled junctions' with 'Cancel'");
             // return false to abort loading of TLSs
             return false;
         }

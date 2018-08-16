@@ -99,9 +99,7 @@ GNEChange_Attribute::~GNEChange_Attribute() {
     myAC->decRef("GNEChange_Attribute " + toString(myKey));
     if (myAC->unreferenced()) {
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Deleting unreferenced " + toString(myAC->getTag()) + " '" + myAC->getID() + "' in GNEChange_Attribute");
-        }
+        WRITE_DEBUG("Deleting unreferenced " + toString(myAC->getTag()) + " '" + myAC->getID() + "' in GNEChange_Attribute");
         // Check if attribute carrier is a shape
         if (myShape) {
             // remove shape using pecify functions
@@ -120,9 +118,7 @@ GNEChange_Attribute::~GNEChange_Attribute() {
 void
 GNEChange_Attribute::undo() {
     // show extra information for tests
-    if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-        WRITE_WARNING("Setting previous attribute " + toString(myKey) + " '" + myOrigValue + "' into " + toString(myAC->getTag()) + " '" + myAC->getID() + "'");
-    }
+    WRITE_DEBUG("Setting previous attribute " + toString(myKey) + " '" + myOrigValue + "' into " + toString(myAC->getTag()) + " '" + myAC->getID() + "'");
     // set original value
     myAC->setAttribute(myKey, myOrigValue);
     // check if netElements, additional or shapes has to be saved (only if key isn't GNE_ATTR_SELECTED)
@@ -145,9 +141,7 @@ GNEChange_Attribute::undo() {
 void
 GNEChange_Attribute::redo() {
     // show extra information for tests
-    if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-        WRITE_WARNING("Setting new attribute " + toString(myKey) + " '" + myNewValue + "' into " + toString(myAC->getTag()) + " '" + myAC->getID() + "'");
-    }
+    WRITE_DEBUG("Setting new attribute " + toString(myKey) + " '" + myNewValue + "' into " + toString(myAC->getTag()) + " '" + myAC->getID() + "'");
     // set new value
     myAC->setAttribute(myKey, myNewValue);
     // check if netElements, additional or shapes has to be saved (only if key isn't GNE_ATTR_SELECTED)

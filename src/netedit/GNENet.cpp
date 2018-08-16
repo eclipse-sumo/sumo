@@ -158,18 +158,14 @@ GNENet::~GNENet() {
     for (auto it : myAttributeCarriers.edges) {
         it.second->decRef("GNENet::~GNENet");
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Deleting unreferenced " + toString(it.second->getTag()) + " '" + it.second->getID() + "' in GNENet destructor");
-        }
+        WRITE_DEBUG("Deleting unreferenced " + toString(it.second->getTag()) + " '" + it.second->getID() + "' in GNENet destructor");
         delete it.second;
     }
     // Drop junctions
     for (auto it : myAttributeCarriers.junctions) {
         it.second->decRef("GNENet::~GNENet");
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Deleting unreferenced " + toString(it.second->getTag()) + " '" + it.second->getID() + "' in GNENet destructor");
-        }
+        WRITE_DEBUG("Deleting unreferenced " + toString(it.second->getTag()) + " '" + it.second->getID() + "' in GNENet destructor");
         delete it.second;
     }
     // Drop Additionals (Only used for additionals that were inserted without using GNEChange_Additional)
@@ -178,16 +174,12 @@ GNENet::~GNENet() {
             // decrease reference manually (because it was increased manually in GNEAdditionalHandler)
             j.second->decRef();
             // show extra information for tests
-            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Deleting unreferenced " + toString(j.second->getTag()) + " '" + j.second->getID() + "' in GNENet destructor");
-            }
+            WRITE_DEBUG("Deleting unreferenced " + toString(j.second->getTag()) + " '" + j.second->getID() + "' in GNENet destructor");
             delete j.second;
         }
     }
     // show extra information for tests
-    if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-        WRITE_WARNING("Deleting net builder in GNENet destructor");
-    }
+    WRITE_DEBUG("Deleting net builder in GNENet destructor");
     delete myNetBuilder;
 }
 
@@ -850,8 +842,8 @@ GNENet::checkJunctionPosition(const Position& pos) {
 
 void 
 GNENet::requiereSaveNet(bool value) {
-    if ((myNetSaved == true) && OptionsCont::getOptions().getBool("gui-testing-debug")) {
-        WRITE_WARNING("net has to be saved");
+    if ((myNetSaved == true) && gDebugFunctions) {
+        WRITE_DEBUG("net has to be saved");
         std::string additionalsSaved = (myAdditionalsSaved?"saved":"unsaved");
         std::string shapeSaved = (myShapesSaved?"saved":"unsaved");
         WRITE_DEBUG("Current saving Status: net unsaved, additionals " + additionalsSaved + ", shapes " + shapeSaved);
@@ -1438,9 +1430,7 @@ GNENet::joinSelectedJunctions(GNEUndoList* undoList) {
     for (auto i : myAttributeCarriers.junctions) {
         if ((i.second->getPositionInView() == pos) && (cluster.find(i.second->getNBNode()) == cluster.end())) {
             // show warning in gui testing debug mode
-            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Opening FXMessageBox 'Join non-selected junction'");
-            }
+            WRITE_DEBUG("Opening FXMessageBox 'Join non-selected junction'");
             // Ask confirmation to user
             FXuint answer = FXMessageBox::question(getApp(), MBOX_YES_NO,
                                                    ("Position of joined " + toString(SUMO_TAG_JUNCTION)).c_str(), "%s",
@@ -1448,17 +1438,15 @@ GNENet::joinSelectedJunctions(GNEUndoList* undoList) {
                                                     + ".\nIt will be joined with the other selected " + toString(SUMO_TAG_JUNCTION) + "s. Continue?").c_str());
             if (answer != 1) { // 1:yes, 2:no, 4:esc
                 // write warning if netedit is running in testing mode
-                if ((answer == 2) && (OptionsCont::getOptions().getBool("gui-testing-debug"))) {
-                    WRITE_WARNING("Closed FXMessageBox 'Join non-selected junction' with 'No'");
-                } else if ((answer == 4) && (OptionsCont::getOptions().getBool("gui-testing-debug"))) {
-                    WRITE_WARNING("Closed FXMessageBox 'Join non-selected junction' with 'ESC'");
+                if ((answer == 2) && gDebugFunctions) {
+                    WRITE_DEBUG("Closed FXMessageBox 'Join non-selected junction' with 'No'");
+                } else if ((answer == 4) && gDebugFunctions) {
+                    WRITE_DEBUG("Closed FXMessageBox 'Join non-selected junction' with 'ESC'");
                 }
                 return false;
             } else {
                 // write warning if netedit is running in testing mode
-                if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                    WRITE_WARNING("Closed FXMessageBox 'Join non-selected junction' with 'Yes'");
-                }
+                WRITE_DEBUG("Closed FXMessageBox 'Join non-selected junction' with 'Yes'");
                 // select conflicted junction an join all again
                 i.second->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
                 return joinSelectedJunctions(undoList);
@@ -1569,31 +1557,27 @@ GNENet::cleanInvalidCrossings(GNEUndoList* undoList) {
 
     if (myInvalidCrossings.empty()) {
         // show warning in gui testing debug mode
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Opening FXMessageBox 'No crossing to remove'");
-        }
+        WRITE_DEBUG("Opening FXMessageBox 'No crossing to remove'");
         // open a dialog informing that there isn't crossing to remove
         FXMessageBox::warning(getApp(), MBOX_OK,
                               ("Clear " + toString(SUMO_TAG_CROSSING) + "s").c_str(), "%s",
                               ("There is no invalid " + toString(SUMO_TAG_CROSSING) + "s to remove").c_str());
         // show warning in gui testing debug mode
-        WRITE_WARNING("Closed FXMessageBox 'No crossing to remove' with 'OK'");
+        WRITE_DEBUG("Closed FXMessageBox 'No crossing to remove' with 'OK'");
     } else {
         std::string plural = myInvalidCrossings.size() == 1 ? ("") : ("s");
         // show warning in gui testing debug mode
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Opening FXMessageBox 'clear crossings'");
-        }
+        WRITE_DEBUG("Opening FXMessageBox 'clear crossings'");
         // Ask confirmation to user
         FXuint answer = FXMessageBox::question(getApp(), MBOX_YES_NO,
                                                ("Clear " + toString(SUMO_TAG_CROSSING) + "s").c_str(), "%s",
                                                ("Clear " + toString(SUMO_TAG_CROSSING) + plural + " will be removed. Continue?").c_str());
         if (answer != 1) { // 1:yes, 2:no, 4:esc
             // write warning if netedit is running in testing mode
-            if ((answer == 2) && (OptionsCont::getOptions().getBool("gui-testing-debug"))) {
-                WRITE_WARNING("Closed FXMessageBox 'clear crossings' with 'No'");
-            } else if ((answer == 4) && (OptionsCont::getOptions().getBool("gui-testing-debug"))) {
-                WRITE_WARNING("Closed FXMessageBox 'clear crossings' with 'ESC'");
+            if (answer == 2) {
+                WRITE_DEBUG("Closed FXMessageBox 'clear crossings' with 'No'");
+            } else if (answer == 4) {
+                WRITE_DEBUG("Closed FXMessageBox 'clear crossings' with 'ESC'");
             }
         } else {
             undoList->p_begin("Clean " + toString(SUMO_TAG_CROSSING) + "s");
@@ -1862,11 +1846,11 @@ GNENet::updateAdditionalID(const std::string& oldID, GNEAdditional* additional) 
 
 void
 GNENet::requiereSaveAdditionals(bool value) {
-    if ((myAdditionalsSaved == true) && OptionsCont::getOptions().getBool("gui-testing-debug")) {
-        WRITE_WARNING("Additionals has to be saved");
+    if ((myAdditionalsSaved == true) && gDebugFunctions) {
+        WRITE_DEBUG("Additionals has to be saved");
         std::string netSaved = (myNetSaved?"saved":"unsaved");
         std::string shapeSaved = (myShapesSaved?"saved":"unsaved");
-        WRITE_WARNING("Current saving Status: net " + netSaved + ", additionals unsaved, shapes " + shapeSaved);
+        WRITE_DEBUG("Current saving Status: net " + netSaved + ", additionals unsaved, shapes " + shapeSaved);
     }
     myAdditionalsSaved = !value;
     if (myViewNet != nullptr) {
@@ -1915,9 +1899,7 @@ GNENet::saveAdditionals(const std::string& filename) {
     // change value of flag
     myAdditionalsSaved = true;
     // show debug information
-    if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-        WRITE_WARNING("Additionals saved");
-    }
+    WRITE_DEBUG("Additionals saved");
 }
 
 
@@ -2075,7 +2057,7 @@ GNENet::changeShapeID(GNEShape* s, const std::string& OldID) {
 
 void
 GNENet::requiereSaveShapes(bool value) {
-    if ((myShapesSaved == true) && OptionsCont::getOptions().getBool("gui-testing-debug")) {
+    if ((myShapesSaved == true) && gDebugFunctions) {
         WRITE_WARNING("Shapes has to be saved");
         std::string netSaved = (myNetSaved?"saved":"unsaved");
         std::string additionalsSaved = (myAdditionalsSaved?"saved":"unsaved");
@@ -2107,9 +2089,7 @@ GNENet::saveShapes(const std::string& filename) {
     // change flag to true
     myShapesSaved = true;
     // show debug information
-    if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-        WRITE_WARNING("Shapes saved");
-    }
+    WRITE_DEBUG("Shapes saved");
 }
 
 
@@ -2121,7 +2101,7 @@ GNENet::getNumberOfShapes() const {
 
 void 
 GNENet::requiereSaveTLSPrograms() {
-    if ((myTLSProgramsSaved == true) && OptionsCont::getOptions().getBool("gui-testing-debug")) {
+    if ((myTLSProgramsSaved == true) && gDebugFunctions) {
         WRITE_WARNING("TLSPrograms has to be saved");
     }
     myTLSProgramsSaved = false;
@@ -2140,9 +2120,7 @@ GNENet::saveTLSPrograms(const std::string& filename) {
     // change flag to true
     myTLSProgramsSaved = true;
     // show debug information
-    if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-        WRITE_WARNING("TLSPrograms saved");
-    }
+    WRITE_DEBUG("TLSPrograms saved");
 }
 
 

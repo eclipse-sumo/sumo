@@ -834,9 +834,7 @@ GNEFrame::openHelpAttributesDialog(SumoXMLTag elementTag) const {
     new FXButton(myHorizontalFrameOKButton, "OK\t\tclose", GUIIconSubSys::getIcon(ICON_ACCEPT), attributesHelpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
     new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
     // Write Warning in console if we're in testing mode
-    if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-        WRITE_WARNING("Opening HelpAttributes dialog for tag '" + toString(elementTag) + "' showing " + toString(attrs.getNumberOfAttributes()) + " attributes");
-    }
+    WRITE_DEBUG("Opening HelpAttributes dialog for tag '" + toString(elementTag) + "' showing " + toString(attrs.getNumberOfAttributes()) + " attributes");
     // create Dialog
     attributesHelpDialog->create();
     // show in the given position
@@ -846,9 +844,7 @@ GNEFrame::openHelpAttributesDialog(SumoXMLTag elementTag) const {
     // open as modal dialog (will block all windows until stop() or stopModal() is called)
     getApp()->runModalFor(attributesHelpDialog);
     // Write Warning in console if we're in testing mode
-    if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-        WRITE_WARNING("Closing HelpAttributes dialog for tag '" + toString(elementTag) + "'");
-    }
+    WRITE_DEBUG("Closing HelpAttributes dialog for tag '" + toString(elementTag) + "'");
 }
 
 /****************************************************************************/

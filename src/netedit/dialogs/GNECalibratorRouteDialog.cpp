@@ -102,9 +102,7 @@ long
 GNECalibratorRouteDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     if (myCalibratorRouteValid == false) {
         // write warning if netedit is running in testing mode
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Opening FXMessageBox of type 'warning'");
-        }
+        WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
         std::string operation1 = myUpdatingElement ? ("updating") : ("creating");
         std::string operation2 = myUpdatingElement ? ("updated") : ("created");
         std::string tagString = toString(myEditedAdditional->getTag());
@@ -113,9 +111,7 @@ GNECalibratorRouteDialog::onCmdAccept(FXObject*, FXSelector, void*) {
                               ("Error " + operation1 + " " + tagString).c_str(), "%s",
                               (tagString + " cannot be " + operation2 + " because parameter " + toString(myInvalidAttr) + " is invalid.").c_str());
         // write warning if netedit is running in testing mode
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Closed FXMessageBox of type 'warning' with 'OK'");
-        }
+        WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
         return 0;
     } else {
         // accept changes before closing dialog

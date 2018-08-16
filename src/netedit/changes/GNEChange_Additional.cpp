@@ -77,9 +77,7 @@ GNEChange_Additional::~GNEChange_Additional() {
     myAdditional->decRef("GNEChange_Additional");
     if (myAdditional->unreferenced()) {
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Deleting unreferenced " + toString(myAdditional->getTag()) + " '" + myAdditional->getID() + "'");
-        }
+        WRITE_DEBUG("Deleting unreferenced " + toString(myAdditional->getTag()) + " '" + myAdditional->getID() + "'");
         // make sure that additional isn't in net before removing
         if (myNet->retrieveAdditional(myAdditional->getTag(), myAdditional->getID(), false)) {
             myNet->deleteAdditional(myAdditional);
@@ -93,9 +91,7 @@ void
 GNEChange_Additional::undo() {
     if (myForward) {
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Removing " + toString(myAdditional->getTag()) + " '" + myAdditional->getID() + "' in GNEChange_Additional");
-        }
+        WRITE_DEBUG("Removing " + toString(myAdditional->getTag()) + " '" + myAdditional->getID() + "' in GNEChange_Additional");
         // delete additional of test
         myNet->deleteAdditional(myAdditional);
         // 1 - If additional own a lane parent, remove it from lane
@@ -124,9 +120,7 @@ GNEChange_Additional::undo() {
         }
     } else {
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Adding " + toString(myAdditional->getTag()) + " '" + myAdditional->getID() + "' in GNEChange_Additional");
-        }
+        WRITE_DEBUG("Adding " + toString(myAdditional->getTag()) + " '" + myAdditional->getID() + "' in GNEChange_Additional");
         // insert additional of test
         myNet->insertAdditional(myAdditional);
         // 1 - If additional own a Lane parent, add it to lane
@@ -167,9 +161,7 @@ void
 GNEChange_Additional::redo() {
     if (myForward) {
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Adding " + toString(myAdditional->getTag()) + " '" + myAdditional->getID() + "' in GNEChange_Additional");
-        }
+        WRITE_DEBUG("Adding " + toString(myAdditional->getTag()) + " '" + myAdditional->getID() + "' in GNEChange_Additional");
         // insert additional into net
         myNet->insertAdditional(myAdditional);
         // 1 - If additional own a Lane parent, add it to lane
@@ -198,9 +190,7 @@ GNEChange_Additional::redo() {
         }
     } else {
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Removing " + toString(myAdditional->getTag()) + " '" + myAdditional->getID() + "' in GNEChange_Additional");
-        }
+        WRITE_DEBUG("Removing " + toString(myAdditional->getTag()) + " '" + myAdditional->getID() + "' in GNEChange_Additional");
         // delete additional of test
         myNet->deleteAdditional(myAdditional);
         // 1 - If additional own a lane parent, remove it from lane

@@ -275,9 +275,7 @@ GNEInspectorFrame::removeInspectedAC(GNEAttributeCarrier *ac) {
             // erase AC from inspected ACs
             myInspectedACs.erase(i);
             // Write Warning in console if we're in testing mode
-            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Removed inspected element from Inspected ACs. " + toString(myInspectedACs.size()) + " ACs remains.");
-            }
+            WRITE_DEBUG("Removed inspected element from Inspected ACs. " + toString(myInspectedACs.size()) + " ACs remains.");
             // Inspect multi selection again
             inspectMultisection(myInspectedACs);
         }
@@ -725,9 +723,7 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::onCmdSetAttribute(FXObject*
             myTextFieldStrings->setTextColor(FXRGB(255, 0, 0));
         }
         // Write Warning in console if we're in testing mode
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Value '" + newVal + "' for attribute " + toString(myAttr) + " of " + toString(myTag) + " isn't valid");
-        }
+        WRITE_DEBUG("Value '" + newVal + "' for attribute " + toString(myAttr) + " of " + toString(myTag) + " isn't valid");
     }
     return 1;
 }

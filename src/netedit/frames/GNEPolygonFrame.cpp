@@ -167,9 +167,7 @@ GNEPolygonFrame::ShapeSelector::onCmdselectAttributeCarrier(FXObject*, FXSelecto
             myShapeMatchBox->setTextColor(FXRGB(0, 0, 0));
             setCurrentShape(i);
             // Write Warning in console if we're in testing mode
-            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING(("Selected shape '" + myShapeMatchBox->getText() + "' in ShapeSelector").text());
-            }
+            WRITE_DEBUG(("Selected shape '" + myShapeMatchBox->getText() + "' in ShapeSelector").text());
             return 1;
         }
     }
@@ -177,9 +175,7 @@ GNEPolygonFrame::ShapeSelector::onCmdselectAttributeCarrier(FXObject*, FXSelecto
     setCurrentShape(SUMO_TAG_NOTHING);
     myShapeMatchBox->setTextColor(FXRGB(255, 0, 0));
     // Write Warning in console if we're in testing mode
-    if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-        WRITE_WARNING("Selected invalid shape in ShapeSelector");
-    }
+    WRITE_DEBUG("Selected invalid shape in ShapeSelector");
     return 1;
 }
 
@@ -494,9 +490,7 @@ GNEPolygonFrame::ShapeAttributes::showWarningMessage(std::string extra) const {
     // set message in status bar
     myPolygonFrameParent->getViewNet()->setStatusBarText(errorMessage);
     // Write Warning in console if we're in testing mode
-    if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-        WRITE_WARNING(errorMessage);
-    }
+    WRITE_DEBUG(errorMessage);
 }
 
 
@@ -651,9 +645,7 @@ GNEPolygonFrame::NeteditAttributes::onCmdHelp(FXObject*, FXSelector, void*) {
     new FXButton(myHorizontalFrameOKButton, "OK\t\tclose", GUIIconSubSys::getIcon(ICON_ACCEPT), polygonNeteditAttributesHelpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
     new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
     // Write Warning in console if we're in testing mode
-    if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-        WRITE_WARNING("Opening NeteditAttributes dialog for tag '"/** Finish + toString(currentTag) **/);
-    }
+    WRITE_DEBUG("Opening NeteditAttributes dialog for tag '"/** Finish + toString(currentTag) **/);
     // create Dialog
     polygonNeteditAttributesHelpDialog->create();
     // show in the given position
@@ -663,9 +655,7 @@ GNEPolygonFrame::NeteditAttributes::onCmdHelp(FXObject*, FXSelector, void*) {
     // open as modal dialog (will block all windows until stop() or stopModal() is called)
     getApp()->runModalFor(polygonNeteditAttributesHelpDialog);
     // Write Warning in console if we're in testing mode
-    if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-        WRITE_WARNING("Closing NeteditAttributes dialog for tag '"/** Finish + toString(currentTag) **/);
-    }
+    WRITE_DEBUG("Closing NeteditAttributes dialog for tag '"/** Finish + toString(currentTag) **/);
     return 1;
 }
 

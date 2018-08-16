@@ -155,16 +155,12 @@ long
 GNEVariableSpeedSignDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     if (myStepsValids == false) {
         // write warning if netedit is running in testing mode
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Opening FXMessageBox of type 'warning'");
-        }
+        WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
         // open warning Box
         FXMessageBox::warning(getApp(), MBOX_OK, ("Error updating " + toString(SUMO_TAG_VSS) + " " + toString(SUMO_TAG_STEP)).c_str(), "%s",
                               (toString(SUMO_TAG_VSS) + " " + toString(SUMO_TAG_STEP) + "cannot be updated because there are invalid values").c_str());
         // write warning if netedit is running in testing mode
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Closed FXMessageBox of type 'warning' with 'OK'");
-        }
+        WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
         return 0;
     } else {
         // accept changes before closing dialog

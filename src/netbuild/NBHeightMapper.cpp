@@ -259,7 +259,7 @@ NBHeightMapper::loadShapeFile(const std::string& file) {
 #else
     GDALClose(ds);
 #endif
-    OCTDestroyCoordinateTransformation(toWGS84);
+    OCTDestroyCoordinateTransformation(reinterpret_cast<OGRCoordinateTransformationH>(toWGS84));
     OGRCleanupAll();
     return numFeatures;
 #else

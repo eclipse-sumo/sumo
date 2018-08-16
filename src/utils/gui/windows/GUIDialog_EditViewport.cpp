@@ -165,10 +165,8 @@ GUIDialog_EditViewport::onCmdOk(FXObject*, FXSelector, void*) {
                                 , myRotation->getValue()
                                );
     // write information of current zoom status
-    if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-        WRITE_WARNING("Current Viewport values: " + toString(myXOff->getValue()) + ", " + toString(myYOff->getValue()) + ", " + toString(myZOff->getValue()) +
-                      ". Zoom = '" + toString(myZoom->getValue()) + "'");
-    }
+    WRITE_DEBUG("Current Viewport values: " + toString(myXOff->getValue()) + ", " + toString(myYOff->getValue()) + ", " + toString(myZOff->getValue()) +
+                ". Zoom = '" + toString(myZoom->getValue()) + "'");
     saveWindowPos();
     hide();
     return 1;

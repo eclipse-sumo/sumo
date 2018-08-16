@@ -433,9 +433,7 @@ GNEGenericParameterDialog::GenericParametersOptions::onCmdHelpGenericParameter(F
     new FXButton(myHorizontalFrameOKButton, "OK\t\tclose", GUIIconSubSys::getIcon(ICON_ACCEPT), GenericParameterHelpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
     new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
     // Write Warning in console if we're in testing mode
-    if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-        WRITE_WARNING("Opening Generic Parameter help dialog");
-    }
+    WRITE_DEBUG("Opening Generic Parameter help dialog");
     // create Dialog
     GenericParameterHelpDialog->create();
     // show in the given position
@@ -445,9 +443,7 @@ GNEGenericParameterDialog::GenericParametersOptions::onCmdHelpGenericParameter(F
     // open as modal dialog (will block all windows until stop() or stopModal() is called)
     getApp()->runModalFor(GenericParameterHelpDialog);
     // Write Warning in console if we're in testing mode
-    if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-        WRITE_WARNING("Closing Generic Parameter help dialog");
-    }
+    WRITE_DEBUG("Closing Generic Parameter help dialog");
     return 1;
 }
 
@@ -541,39 +537,28 @@ GNEGenericParameterDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     for (auto i = myGenericParametersValues->getGenericParameters()->begin(); i != myGenericParametersValues->getGenericParameters()->end(); i++) {
         if(i->first.empty()) {
             // write warning if netedit is running in testing mode
-            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Opening FXMessageBox of type 'warning'");
-            }
+            WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
             // open warning Box
             FXMessageBox::warning(getApp(), MBOX_OK, "Empty Generic Parameter key", "%s", "Generic Parameters with empty keys aren't allowed");
             // write warning if netedit is running in testing mode
-            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Closed FXMessageBox of type 'warning' with 'OK'");
-            }
+            WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
             return 1;
         } else if(!SUMOXMLDefinitions::isValidNetID(i->first)) {
             // write warning if netedit is running in testing mode
-            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Opening FXMessageBox of type 'warning'");
-            }
+            WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
             // open warning Box
             FXMessageBox::warning(getApp(), MBOX_OK, "Invalid Generic Parameter key", "%s", "There are keys of Generic Parameters with invalid characters");
             // write warning if netedit is running in testing mode
-            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Closed FXMessageBox of type 'warning' with 'OK'");
-            }
+            WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
             return 1;
         } else if(!SUMOXMLDefinitions::isValidAttribute(i->second)) {
             // write warning if netedit is running in testing mode
-            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Opening FXMessageBox of type 'warning'");
-            }
+            WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
             // open warning Box
             FXMessageBox::warning(getApp(), MBOX_OK, "Invalid Generic Parameter value", "%s", "There are values of Generic Parameters with invalid characters");
             // write warning if netedit is running in testing mode
-            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Closed FXMessageBox of type 'warning' with 'OK'");
-            }
+            WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
+
             return 1;
         }
     }
@@ -583,15 +568,11 @@ GNEGenericParameterDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     for (auto i = sortedGenericParameters.begin(); i != sortedGenericParameters.end(); i++) {
         if(((i+1) != sortedGenericParameters.end()) && (i->first) == (i+1)->first) {
             // write warning if netedit is running in testing mode
-            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Opening FXMessageBox of type 'warning'");
-            }
+            WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
             // open warning Box
             FXMessageBox::warning(getApp(), MBOX_OK, "Duplicated Generic Parameters", "%s", "Generic Parameters with the same Key aren't allowed");
             // write warning if netedit is running in testing mode
-            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Closed FXMessageBox of type 'warning' with 'OK'");
-            }
+            WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
             return 1;
         }
     }

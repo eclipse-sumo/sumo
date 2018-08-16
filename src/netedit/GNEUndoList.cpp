@@ -118,9 +118,7 @@ GNEUndoList::p_abortLastCommandGroup() {
 void
 GNEUndoList::undo() {
     //std::cout << undoName().text() << "\n";
-    if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-        WRITE_WARNING("Keys Ctrl + Z (Undo) pressed");
-    }
+    WRITE_DEBUG("Keys Ctrl + Z (Undo) pressed");
     FXUndoList::undo();
     myParent->updateControls();
 }
@@ -130,9 +128,7 @@ void
 GNEUndoList::redo() {
     //std::cout << redoName().text() << "\n";
     //std::cout << undoName().text() << "\n";
-    if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-        WRITE_WARNING("Keys Ctrl + Y (Redo) pressed");
-    }
+    WRITE_DEBUG("Keys Ctrl + Y (Redo) pressed");
     FXUndoList::redo();
     myParent->updateControls();
 }

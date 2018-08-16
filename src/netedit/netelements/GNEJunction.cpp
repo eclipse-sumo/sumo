@@ -83,18 +83,14 @@ GNEJunction::~GNEJunction() {
         it->decRef();
         if (it->unreferenced()) {
             // show extra information for tests
-            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Deleting unreferenced " + toString(it->getTag()) + " '" + it->getID() + "' in GNEJunction destructor");
-            }
+            WRITE_DEBUG("Deleting unreferenced " + toString(it->getTag()) + " '" + it->getID() + "' in GNEJunction destructor");
             delete it;
         }
     }
 
     if (myAmResponsible) {
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Deleting NBNode of '" + getID() + "' in GNEJunction destructor");
-        }
+        WRITE_DEBUG("Deleting NBNode of '" + getID() + "' in GNEJunction destructor");
         delete &myNBNode;
     }
 }
@@ -160,9 +156,7 @@ GNEJunction::rebuildGNECrossings(bool rebuildNBNodeCrossings) {
             }
             if (it->unreferenced()) {
                 // show extra information for tests
-                if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                    WRITE_WARNING("Deleting unreferenced " + toString(it->getTag()) + " '" + it->getID() + "' in rebuildGNECrossings()");
-                }
+                WRITE_DEBUG("Deleting unreferenced " + toString(it->getTag()) + " '" + it->getID() + "' in rebuildGNECrossings()");
                 delete it;
             }
         }
@@ -790,9 +784,7 @@ GNEJunction::retrieveGNECrossing(NBNode::Crossing* crossing, bool createIfNoExis
         // create new GNECrossing
         GNECrossing* createdGNECrossing = new GNECrossing(this, crossing->id);
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Created " + toString(createdGNECrossing->getTag()) + " '" + createdGNECrossing->getID() + "' in retrieveGNECrossing()");
-        }
+        WRITE_DEBUG("Created " + toString(createdGNECrossing->getTag()) + " '" + createdGNECrossing->getID() + "' in retrieveGNECrossing()");
         return createdGNECrossing;
     } else {
         return nullptr;
@@ -896,7 +888,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
                 // make a copy because we will modify the original
                 const std::set<NBTrafficLightDefinition*> copyOfTls = myNBNode.getControllingTLS();
                 for (auto it : copyOfTls) {
-                    undoList->add(new GNEChange_TLS(this, it, false, OptionsCont::getOptions().getBool("gui-testing-debug")), true);
+                    undoList->add(new GNEChange_TLS(this, it, false, false), true);
                 }
             }
             // must be the final step, otherwise we do not know which traffic lights to remove via GNEChange_TLS
