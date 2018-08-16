@@ -418,7 +418,7 @@ GNEAdditionalHandler::parseGenericParameter(const SUMOSAXAttributes& attrs) {
         }
         // set parameter in last inserted additional
         if(ok) {
-            WRITE_WARNING("Inserting generic parameter '" + key + "|" + val + "' into additional " + toString(myLastInsertedAdditional->getTag()) + ".");
+            WRITE_DEBUG("Inserting generic parameter '" + key + "|" + val + "' into additional " + toString(myLastInsertedAdditional->getTag()) + ".");
             myLastInsertedAdditional->setParameter(key, val);
         }
     }

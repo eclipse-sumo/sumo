@@ -142,7 +142,7 @@ private:
     FXHiliteStyle* myStyles;
 
     /// @brief The instances of message retriever encapsulations
-    OutputDevice* myErrorRetriever, *myDebugRetriever, *myMessageRetriever, *myWarningRetriever;
+    OutputDevice* myErrorRetriever, *myDebugRetriever, *myGLDebugRetriever, *myMessageRetriever, *myWarningRetriever;
 };
 
 

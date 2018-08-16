@@ -44,19 +44,14 @@ public:
     /// @brief Constructor
     AbstractMutex() { }
 
-
     /// @brief Destructor
     virtual ~AbstractMutex() { }
-
 
     /// @brief Locks the mutex
     virtual void lock() = 0;
 
-
     /// @brief Unlocks the mutex
     virtual void unlock() = 0;
-
-
 
     /** @class ScopedLocker
      * @brief A mutex encapsulator which locks/unlocks the given mutex on construction/destruction, respectively
@@ -90,8 +85,6 @@ public:
 
         /// Invalidated assignment operator.
         ScopedLocker& operator=(const ScopedLocker&);
-
-
     };
 
 

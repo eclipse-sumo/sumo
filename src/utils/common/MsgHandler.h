@@ -59,7 +59,9 @@ public:
         /// The message is an error
         MT_ERROR,
         /// The message is an debug
-        MT_DEBUG
+        MT_DEBUG,
+        /// The message is an debug
+        MT_GLDEBUG
     };
 
     /// @brief Returns the instance to add normal messages to
@@ -73,6 +75,9 @@ public:
 
     /// @brief Returns the instance to add debug to
     static MsgHandler* getDebugInstance();
+
+    /// @brief Returns the instance to add GLdebug to
+    static MsgHandler* getGLDebugInstance();
 
     ///@brief init output options
     static void initOutputOptions();
@@ -141,6 +146,9 @@ protected:
                 case MT_DEBUG:
                     return "Debug: " + msg;
                     break;
+                case MT_GLDEBUG:
+                    return "GLDebug: " + msg;
+                    break;
                 default:
                     break;
             }
@@ -156,8 +164,11 @@ private:
     /// @brief destructor
     ~MsgHandler();
 
-    /// @brief The instance to handle errors
+    /// @brief The instance to handle debug
     static MsgHandler* myDebugInstance;
+
+    /// @brief The instance to handle glDebug
+    static MsgHandler* myGLDebugInstance;
 
     /// @brief The instance to handle errors
     static MsgHandler* myErrorInstance;
@@ -207,7 +218,7 @@ private:
 #define PROGRESS_FAILED_MESSAGE() MsgHandler::getMessageInstance()->endProcessMsg("failed.");
 #define WRITE_ERROR(msg)   MsgHandler::getErrorInstance()->inform(msg);
 #define WRITE_DEBUG(msg) if(gDebugFunctions){MsgHandler::getDebugInstance()->inform(msg);};
-#define WRITE_GLDEBUG(msg) if(gDebugGLFunctions){MsgHandler::getDebugInstance()->inform(msg);};
+#define WRITE_GLDEBUG(msg) if(gDebugGLFunctions){MsgHandler::getGLDebugInstance()->inform(msg);};
 
 #endif
 

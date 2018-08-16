@@ -56,6 +56,7 @@ GNELoadThread::GNELoadThread(FXApp* app, MFXInterThreadEventClient* mw, MFXEvent
     FXSingleEventThread(app, mw), myParent(mw), myEventQue(eq),
     myEventThrow(ev) {
     myDebugRetriever = new MsgRetrievingFunction<GNELoadThread>(this, &GNELoadThread::retrieveMessage, MsgHandler::MT_DEBUG);
+    myGLDebugRetriever = new MsgRetrievingFunction<GNELoadThread>(this, &GNELoadThread::retrieveMessage, MsgHandler::MT_GLDEBUG);
     myErrorRetriever = new MsgRetrievingFunction<GNELoadThread>(this, &GNELoadThread::retrieveMessage, MsgHandler::MT_ERROR);
     myMessageRetriever = new MsgRetrievingFunction<GNELoadThread>(this, &GNELoadThread::retrieveMessage, MsgHandler::MT_MESSAGE);
     myWarningRetriever = new MsgRetrievingFunction<GNELoadThread>(this, &GNELoadThread::retrieveMessage, MsgHandler::MT_WARNING);
@@ -65,6 +66,7 @@ GNELoadThread::GNELoadThread(FXApp* app, MFXInterThreadEventClient* mw, MFXEvent
 
 GNELoadThread::~GNELoadThread() {
     delete myDebugRetriever;
+    delete myGLDebugRetriever;
     delete myErrorRetriever;
     delete myMessageRetriever;
     delete myWarningRetriever;
@@ -76,6 +78,7 @@ GNELoadThread::run() {
     // register message callbacks
     MsgHandler::getMessageInstance()->addRetriever(myMessageRetriever);
     MsgHandler::getDebugInstance()->addRetriever(myDebugRetriever);
+    MsgHandler::getGLDebugInstance()->addRetriever(myGLDebugRetriever);
     MsgHandler::getErrorInstance()->addRetriever(myErrorRetriever);
     MsgHandler::getWarningInstance()->addRetriever(myWarningRetriever);
 
@@ -98,6 +101,7 @@ GNELoadThread::run() {
         submitEndAndCleanup(net);
         return 0;
     }
+    MsgHandler::getGLDebugInstance()->clear();
     MsgHandler::getDebugInstance()->clear();
     MsgHandler::getErrorInstance()->clear();
     MsgHandler::getWarningInstance()->clear();
@@ -188,6 +192,7 @@ void
 GNELoadThread::submitEndAndCleanup(GNENet* net, const std::string& guiSettingsFile, const bool viewportFromRegistry) {
     // remove message callbacks
     MsgHandler::getDebugInstance()->removeRetriever(myDebugRetriever);
+    MsgHandler::getGLDebugInstance()->removeRetriever(myGLDebugRetriever);
     MsgHandler::getErrorInstance()->removeRetriever(myErrorRetriever);
     MsgHandler::getWarningInstance()->removeRetriever(myWarningRetriever);
     MsgHandler::getMessageInstance()->removeRetriever(myMessageRetriever);

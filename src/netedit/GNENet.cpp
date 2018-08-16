@@ -842,7 +842,7 @@ GNENet::checkJunctionPosition(const Position& pos) {
 
 void 
 GNENet::requiereSaveNet(bool value) {
-    if ((myNetSaved == true) && gDebugFunctions) {
+    if (myNetSaved == true) {
         WRITE_DEBUG("net has to be saved");
         std::string additionalsSaved = (myAdditionalsSaved?"saved":"unsaved");
         std::string shapeSaved = (myShapesSaved?"saved":"unsaved");
@@ -1438,9 +1438,9 @@ GNENet::joinSelectedJunctions(GNEUndoList* undoList) {
                                                     + ".\nIt will be joined with the other selected " + toString(SUMO_TAG_JUNCTION) + "s. Continue?").c_str());
             if (answer != 1) { // 1:yes, 2:no, 4:esc
                 // write warning if netedit is running in testing mode
-                if ((answer == 2) && gDebugFunctions) {
+                if (answer == 2) {
                     WRITE_DEBUG("Closed FXMessageBox 'Join non-selected junction' with 'No'");
-                } else if ((answer == 4) && gDebugFunctions) {
+                } else if (answer == 4) {
                     WRITE_DEBUG("Closed FXMessageBox 'Join non-selected junction' with 'ESC'");
                 }
                 return false;
@@ -1846,7 +1846,7 @@ GNENet::updateAdditionalID(const std::string& oldID, GNEAdditional* additional) 
 
 void
 GNENet::requiereSaveAdditionals(bool value) {
-    if ((myAdditionalsSaved == true) && gDebugFunctions) {
+    if (myAdditionalsSaved == true) {
         WRITE_DEBUG("Additionals has to be saved");
         std::string netSaved = (myNetSaved?"saved":"unsaved");
         std::string shapeSaved = (myShapesSaved?"saved":"unsaved");
@@ -2057,11 +2057,11 @@ GNENet::changeShapeID(GNEShape* s, const std::string& OldID) {
 
 void
 GNENet::requiereSaveShapes(bool value) {
-    if ((myShapesSaved == true) && gDebugFunctions) {
-        WRITE_WARNING("Shapes has to be saved");
+    if (myShapesSaved == true) {
+        WRITE_DEBUG("Shapes has to be saved");
         std::string netSaved = (myNetSaved?"saved":"unsaved");
         std::string additionalsSaved = (myAdditionalsSaved?"saved":"unsaved");
-        WRITE_WARNING("Current saving Status: net " + netSaved + ", additionals " + additionalsSaved + ", shapes unsaved");
+        WRITE_DEBUG("Current saving Status: net " + netSaved + ", additionals " + additionalsSaved + ", shapes unsaved");
     }
     myShapesSaved = !value;
     if(myShapesSaved) {
@@ -2101,8 +2101,8 @@ GNENet::getNumberOfShapes() const {
 
 void 
 GNENet::requiereSaveTLSPrograms() {
-    if ((myTLSProgramsSaved == true) && gDebugFunctions) {
-        WRITE_WARNING("TLSPrograms has to be saved");
+    if (myTLSProgramsSaved == true) {
+        WRITE_DEBUG("TLSPrograms has to be saved");
     }
     myTLSProgramsSaved = false;
     myViewNet->getViewParent()->getGNEAppWindows()->enableSaveTLSProgramsMenu();
@@ -2472,7 +2472,7 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
         }
 
         // removes all junctions of net  (It was already removed from grid)
-        auto copyOfJunctions = myAttributeCarriers.junctions;
+        copyOfJunctions = myAttributeCarriers.junctions;
         for (auto it : copyOfJunctions) {
             myAttributeCarriers.junctions.erase(it.second->getMicrosimID());
         }

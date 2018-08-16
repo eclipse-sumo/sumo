@@ -23,6 +23,7 @@
 // ===========================================================================
 #include <config.h>
 
+#include <utils/common/MsgHandler.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/settings/GUIVisualizationSettings.h>
 #include <utils/gui/div/GUIIOGlobals.h>
@@ -74,7 +75,9 @@ public:
 
 
     /// @brief Destructor
+    // show information in gui testing debug gl mode
     virtual ~SUMORTree() {
+        WRITE_GLDEBUG("Number of objects in SUMORTree during call destructor: " + toString(myTreeDebug.size()));
     }
 
 
@@ -132,7 +135,8 @@ public:
                 throw ProcessError("boundary of GUIGlObject " + o->getMicrosimID() + " has an invalid size");
             } else {
                 myTreeDebug[o] = b;
-                std::cout << "Inserted object " << o->getMicrosimID() << " into tree with boundary " << toString(b) << std::endl;
+                // write GL Debug
+                WRITE_GLDEBUG("Inserted object " + o->getMicrosimID() + " into SUMORTree with boundary " + toString(b));
             }
         }
 
@@ -157,7 +161,7 @@ public:
                  throw ProcessError("add boundary of GUIGlObject " + o->getMicrosimID() + " is different of remove boundary");
             } else {
                 myTreeDebug.erase(o);
-                std::cout << "removed object " << o->getMicrosimID() << " from tree " << std::endl;
+                WRITE_GLDEBUG("Removed object " + o->getMicrosimID() + " from SUMORTree with boundary " + toString(b));
             }
         }
 

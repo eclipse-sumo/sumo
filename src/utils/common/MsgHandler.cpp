@@ -40,6 +40,7 @@
 // ===========================================================================
 
 MsgHandler* MsgHandler::myDebugInstance = 0;
+MsgHandler* MsgHandler::myGLDebugInstance = 0;
 MsgHandler* MsgHandler::myErrorInstance = 0;
 MsgHandler* MsgHandler::myWarningInstance = 0;
 MsgHandler* MsgHandler::myMessageInstance = 0;
@@ -84,6 +85,15 @@ MsgHandler::getDebugInstance() {
         myDebugInstance = new MsgHandler(MT_DEBUG);
     }
     return myDebugInstance;
+}
+
+
+MsgHandler*
+MsgHandler::getGLDebugInstance() {
+    if (myGLDebugInstance == 0) {
+        myGLDebugInstance = new MsgHandler(MT_GLDEBUG);
+    }
+    return myGLDebugInstance;
 }
 
 
@@ -240,6 +250,8 @@ MsgHandler::cleanupOnEnd() {
     myErrorInstance = 0;
     delete myDebugInstance;
     myDebugInstance = 0;
+    delete myGLDebugInstance;
+    myGLDebugInstance = 0;
     if (myLock != 0) {
         myLock->unlock();
     }

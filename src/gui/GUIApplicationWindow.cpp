@@ -1309,6 +1309,7 @@ GUIApplicationWindow::eventOccurred() {
             case EVENT_WARNING_OCCURRED:
             case EVENT_ERROR_OCCURRED:
             case EVENT_DEBUG_OCCURRED:
+            case EVENT_GLDEBUG_OCCURRED:
             case EVENT_STATUS_OCCURRED:
                 handleEvent_Message(e);
                 break;

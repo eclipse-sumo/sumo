@@ -59,6 +59,9 @@ public:
             case MsgHandler::MT_DEBUG:
                 myType = EVENT_DEBUG_OCCURRED;
                 break;
+            case MsgHandler::MT_GLDEBUG:
+                myType = EVENT_GLDEBUG_OCCURRED;
+                break;
             default:
                 throw 1;
         }

@@ -51,6 +51,9 @@ enum GUIEventType {
     /// @brief send when a debug occured
     EVENT_DEBUG_OCCURRED,
 
+    /// @brief send when a gldebug occured
+    EVENT_GLDEBUG_OCCURRED,
+
     /// @brief send when a status change occured
     EVENT_STATUS_OCCURRED,
 

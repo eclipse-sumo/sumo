@@ -1004,6 +1004,7 @@ GNEApplicationWindow::eventOccurred() {
             case EVENT_WARNING_OCCURRED:
             case EVENT_ERROR_OCCURRED:
             case EVENT_DEBUG_OCCURRED:
+            case EVENT_GLDEBUG_OCCURRED:
                 handleEvent_Message(e);
                 break;
             default:
@@ -1305,7 +1306,7 @@ GNEApplicationWindow::onCmdSetMode(FXObject*, FXSelector sel, void*) {
 
 
 long
-GNEApplicationWindow::onCmdOpenSUMOGUI(FXObject*, FXSelector sel, void*) {
+GNEApplicationWindow::onCmdOpenSUMOGUI(FXObject*, FXSelector, void*) {
     if (mySubWindows.empty()) {
         return 1;
     }
@@ -1999,10 +2000,10 @@ GNEApplicationWindow::continueWithUnsavedChanges() {
             }
         } else {
             // write warning if netedit is running in testing mode
-            if (answer == 2 && gDebugFunctions) {
-                WRITE_WARNING("Closed FXMessageBox 'Confirm closing network' with 'No'");
-            } else if (answer == 4 && gDebugFunctions) {
-                WRITE_WARNING("Closed FXMessageBox 'Confirm closing network' with 'ESC'");
+            if (answer == 2) {
+                WRITE_DEBUG("Closed FXMessageBox 'Confirm closing network' with 'No'");
+            } else if (answer == 4) {
+                WRITE_DEBUG("Closed FXMessageBox 'Confirm closing network' with 'ESC'");
             }
             // return false to stop closing/reloading
             return false;
