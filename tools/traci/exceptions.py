@@ -24,7 +24,7 @@ class TraCIException(Exception):
 
     """Exception class for all TraCI errors which keep the connection intact"""
 
-    def __init__(self, command, errorType, desc):
+    def __init__(self, desc, command=None, errorType=None):
         Exception.__init__(self, desc)
         self._command = command
         self._type = errorType

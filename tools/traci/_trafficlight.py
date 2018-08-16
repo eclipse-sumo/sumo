@@ -212,7 +212,7 @@ class TrafficLightDomain(Domain):
         """
         fullState = list(self.getRedYellowGreenState(tlsID))
         if tlsLinkIndex >= len(fullState):
-            raise TraCIException(None, None, "Invalid tlsLinkIndex %s for tls '%s' with maximum index %s." % (
+            raise TraCIException("Invalid tlsLinkIndex %s for tls '%s' with maximum index %s." % (
                 tlsLinkIndex, tlsID, len(fullState) - 1))
         else:
             fullState[tlsLinkIndex] = state

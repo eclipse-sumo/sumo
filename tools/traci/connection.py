@@ -102,7 +102,7 @@ class Connection:
             if prefix[2] or err:
                 self._string = bytes()
                 self._queue = []
-                raise TraCIException(prefix[1], _RESULTS[prefix[2]], err)
+                raise TraCIException(err, prefix[1], _RESULTS[prefix[2]])
             elif prefix[1] != command:
                 raise FatalTraCIError("Received answer %s for command %s." % (prefix[1],
                                                                               command))
@@ -176,7 +176,7 @@ class Connection:
         if isVariableSubscription:
             while numVars > 0:
                 varID = result.read("!B")[0]
-                status, varType = result.read("!BB")
+                status, _ = result.read("!BB")
                 if status:
                     print("Error!", result.readString())
                 elif response in self._subscriptionMapping:
@@ -266,13 +266,13 @@ class Connection:
             # filter with float parameter
             assert(type(params) is float)
             length = 1 + 1 + 1 + 1 + 8  # length + CMD + FILTER_ID + floattype + float
-            self._string += struct.pack("!BBBd", length, command, filterType, tc.TYPE_FLOAT, params)
+            self._string += struct.pack("!BBBd", length, command, filterType, tc.TYPE_DOUBLE, params)
         elif filterType in (tc.FILTER_TYPE_VCLASS, tc.FILTER_TYPE_VTYPE):
             # filter with list(string) parameter
             try:
                 l = len(params)
             except Exception:
-                raise TraCIException("Filter type %s requires identifier list as parameter." % str(filterType))
+                raise TraCIException("Filter type %s requires identifier list as parameter." % filterType)
             length = 1 + 1 + 1 + 1 + 4  # length + CMD + FILTER_ID + TYPE_STRINGLIST + length(stringlist)
             for s in params:
                 length += 4 + len(s)  # length(s) + s

@@ -229,8 +229,7 @@ class EdgeDomain(Domain):
                                                     tc.TYPE_DOUBLE, time)
             self._connection._sendExact()
         else:
-            raise TraCIException(
-                "Both, begin time and end time must be specified")
+            raise TraCIException("Both, begin time and end time must be specified")
 
     def setEffort(self, edgeID, effort, begin=None, end=None):
         """setEffort(string, double, double, double) -> None
@@ -256,8 +255,7 @@ class EdgeDomain(Domain):
                                                     tc.TYPE_DOUBLE, effort)
             self._connection._sendExact()
         else:
-            raise TraCIException(
-                "Both, begin time and end time must be specified")
+            raise TraCIException("Both, begin time and end time must be specified")
 
     def setMaxSpeed(self, edgeID, speed):
         """setMaxSpeed(string, double) -> None
