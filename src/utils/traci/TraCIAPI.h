@@ -755,6 +755,10 @@ public:
         void slowDown(const std::string& vehicleID, double speed, double duration) const;
         void setSpeed(const std::string& vehicleID, double speed) const;
         void setSpeedMode(const std::string& vehicleID, int mode) const;
+        void setStop(const std::string vehicleID, const std::string edgeID, const double endPos=1.,
+                const int laneIndex=0, const int duration=std::numeric_limits<int>::max(),
+                const int flags=0, const double startPos=std::numeric_limits<int>::min(),
+                const int until=-1) const;
         void setType(const std::string& vehicleID, const std::string& typeID) const;
         void remove(const std::string& vehicleID, char reason = REMOVE_VAPORIZED) const;
         void setColor(const std::string& vehicleID, const libsumo::TraCIColor& c) const;

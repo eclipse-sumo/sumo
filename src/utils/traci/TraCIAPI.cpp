@@ -2718,6 +2718,31 @@ TraCIAPI::VehicleScope::setSpeedMode(const std::string& vehicleID, int mode) con
 }
 
 void
+TraCIAPI::VehicleScope::setStop(const std::string vehicleID, const std::string edgeID, const double endPos, const int laneIndex,
+        const int duration, const int flags, const double startPos, const int until) const {
+    tcpip::Storage content;
+    content.writeUnsignedByte(TYPE_COMPOUND);
+    content.writeInt(7);
+    content.writeUnsignedByte(TYPE_STRING);
+    content.writeString(edgeID);
+    content.writeUnsignedByte(TYPE_DOUBLE);
+    content.writeDouble(endPos);
+    content.writeUnsignedByte(TYPE_UBYTE);
+    content.writeUnsignedByte(laneIndex);
+    content.writeUnsignedByte(TYPE_INTEGER);
+    content.writeInt(duration);
+    content.writeUnsignedByte(TYPE_INTEGER);
+    content.writeInt(flags);
+    content.writeUnsignedByte(TYPE_DOUBLE);
+    content.writeDouble(startPos);
+    content.writeUnsignedByte(TYPE_INTEGER);
+    content.writeInt(until);
+    myParent.send_commandSetValue(CMD_SET_VEHICLE_VARIABLE, CMD_STOP, vehicleID, content);
+    tcpip::Storage inMsg;
+    myParent.check_resultState(inMsg, CMD_SET_VEHICLE_VARIABLE);
+}
+
+void
 TraCIAPI::VehicleScope::setType(const std::string& vehicleID, const std::string& typeID) const {
     tcpip::Storage content;
     content.writeUnsignedByte(TYPE_STRING);
