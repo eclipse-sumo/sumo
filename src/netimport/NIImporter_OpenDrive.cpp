@@ -768,8 +768,17 @@ NIImporter_OpenDrive::buildConnectionsToOuter(const Connection& c, const std::ma
                 cn.origLane = c.toLane;
                 if (myImportInternalShapes) {
                     cn.shape = dest->geom;
+                    double offset = 0;
+                    for (const auto& rightLane : dest->laneSections.front().lanesByDir[OPENDRIVE_TAG_RIGHT]) {
+                        if (rightLane.predecessor < c.fromLane) {
+                            offset += rightLane.width;
+                        } else if (rightLane.predecessor == c.fromLane) {
+                            offset += rightLane.width / 2;
+                            break;
+                        }
+                    }
                     try {
-                        cn.shape.move2side(dest->laneSections.front().lanesByDir[OPENDRIVE_TAG_RIGHT].front().width / 2);
+                        cn.shape.move2side(offset);
                     } catch (InvalidArgument& e) {
                         WRITE_WARNING("Could not import internal lane shape from edge '" + c.fromEdge + "' to edge '" + c.toEdge);
                         cn.shape.clear();
