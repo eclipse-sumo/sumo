@@ -54,9 +54,8 @@ TraCIServerAPI_Edge::processGet(TraCIServer& server, tcpip::Storage& inputStorag
         if (!libsumo::Edge::handleVariable(id, variable, &server)) {
             switch (variable) {
                 case VAR_EDGE_TRAVELTIME: {
-                    // time
-                    int time = 0;
-                    if (!server.readTypeCheckingInt(inputStorage, time)) {
+                    double time = 0.;
+                    if (!server.readTypeCheckingDouble(inputStorage, time)) {
                         return server.writeErrorStatusCmd(CMD_GET_EDGE_VARIABLE,
                             "The message must contain the time definition.", outputStorage);
                     }
@@ -65,9 +64,8 @@ TraCIServerAPI_Edge::processGet(TraCIServer& server, tcpip::Storage& inputStorag
                     break;
                 }
                 case VAR_EDGE_EFFORT: {
-                    // time
-                    int time = 0;
-                    if (!server.readTypeCheckingInt(inputStorage, time)) {
+                    double time = 0.;
+                    if (!server.readTypeCheckingDouble(inputStorage, time)) {
                         return server.writeErrorStatusCmd(CMD_GET_EDGE_VARIABLE,
                             "The message must contain the time definition.", outputStorage);
                     }
@@ -118,7 +116,6 @@ TraCIServerAPI_Edge::processSet(TraCIServer& server, tcpip::Storage& inputStorag
     try {
         // process
         switch (variable) {
-
             case LANE_ALLOWED: {
                 // read and set allowed vehicle classes
                 std::vector<std::string> classes;
@@ -128,8 +125,8 @@ TraCIServerAPI_Edge::processSet(TraCIServer& server, tcpip::Storage& inputStorag
                                                       outputStorage);
                 }
                 libsumo::Edge::setAllowedVehicleClasses(id, classes);
+                break;
             }
-            break;
             case LANE_DISALLOWED: {
                 // read and set disallowed vehicle classes
                 std::vector<std::string> classes;
@@ -139,25 +136,24 @@ TraCIServerAPI_Edge::processSet(TraCIServer& server, tcpip::Storage& inputStorag
                                                       outputStorage);
                 }
                 libsumo::Edge::setDisallowedVehicleClasses(id, classes);
+                break;
             }
-            break;
             case VAR_EDGE_TRAVELTIME: {
                 // read and set travel time
                 if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
                     return server.writeErrorStatusCmd(CMD_SET_EDGE_VARIABLE,
                                                       "Setting travel time requires a compound object.", outputStorage);
                 }
-                int parameterCount = inputStorage.readInt();
+                const int parameterCount = inputStorage.readInt();
                 if (parameterCount == 3) {
                     // bound by time
-                    int begTime = 0, endTime = 0;
-                    double value = 0;
-                    if (!server.readTypeCheckingInt(inputStorage, begTime)) {
+                    double begTime = 0., endTime = 0., value = 0.;
+                    if (!server.readTypeCheckingDouble(inputStorage, begTime)) {
                         return server.writeErrorStatusCmd(CMD_SET_EDGE_VARIABLE,
                                                           "The first variable must be the begin time given as int.",
                                                           outputStorage);
                     }
-                    if (!server.readTypeCheckingInt(inputStorage, endTime)) {
+                    if (!server.readTypeCheckingDouble(inputStorage, endTime)) {
                         return server.writeErrorStatusCmd(CMD_SET_EDGE_VARIABLE,
                                                           "The second variable must be the end time given as int.",
                                                           outputStorage);
@@ -175,14 +171,14 @@ TraCIServerAPI_Edge::processSet(TraCIServer& server, tcpip::Storage& inputStorag
                         return server.writeErrorStatusCmd(CMD_SET_EDGE_VARIABLE,
                                                           "The variable must be the value given as double", outputStorage);
                     }
-                    libsumo::Edge::adaptTraveltime(id, value, 0, double(SUMOTime_MAX));
+                    libsumo::Edge::adaptTraveltime(id, value, 0., std::numeric_limits<double>::max());
                 } else {
                     return server.writeErrorStatusCmd(CMD_SET_EDGE_VARIABLE,
                                                       "Setting travel time requires either begin time, end time, and value, or only value as parameter.",
                                                       outputStorage);
                 }
+                break;
             }
-            break;
             case VAR_EDGE_EFFORT: {
                 // read and set effort
                 if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
@@ -190,17 +186,16 @@ TraCIServerAPI_Edge::processSet(TraCIServer& server, tcpip::Storage& inputStorag
                                                       "Setting effort requires a compound object.",
                                                       outputStorage);
                 }
-                int parameterCount = inputStorage.readInt();
+                const int parameterCount = inputStorage.readInt();
                 if (parameterCount == 3) {
                     // bound by time
-                    int begTime = 0, endTime = 0;
-                    double value = 0;
-                    if (!server.readTypeCheckingInt(inputStorage, begTime)) {
+                    double begTime = 0., endTime = 0., value = 0.;
+                    if (!server.readTypeCheckingDouble(inputStorage, begTime)) {
                         return server.writeErrorStatusCmd(CMD_SET_EDGE_VARIABLE,
                                                           "The first variable must be the begin time given as int.",
                                                           outputStorage);
                     }
-                    if (!server.readTypeCheckingInt(inputStorage, endTime)) {
+                    if (!server.readTypeCheckingDouble(inputStorage, endTime)) {
                         return server.writeErrorStatusCmd(CMD_SET_EDGE_VARIABLE,
                                                           "The second variable must be the end time given as int.",
                                                           outputStorage);
@@ -213,29 +208,29 @@ TraCIServerAPI_Edge::processSet(TraCIServer& server, tcpip::Storage& inputStorag
                     libsumo::Edge::setEffort(id, value, begTime, endTime);
                 } else if (parameterCount == 1) {
                     // unbound
-                    double value = 0;
+                    double value = 0.;
                     if (!server.readTypeCheckingDouble(inputStorage, value)) {
                         return server.writeErrorStatusCmd(CMD_SET_EDGE_VARIABLE,
                                                           "The variable must be the value given as double", outputStorage);
                     }
-                    libsumo::Edge::setEffort(id, value, 0., double(SUMOTime_MAX));
+                    libsumo::Edge::setEffort(id, value, 0., std::numeric_limits<double>::max());
                 } else {
                     return server.writeErrorStatusCmd(CMD_SET_EDGE_VARIABLE,
                                                       "Setting effort requires either begin time, end time, and value, or only value as parameter.",
                                                       outputStorage);
                 }
+                break;
             }
-            break;
             case VAR_MAXSPEED: {
                 // read and set max. speed
-                double value = 0;
+                double value = 0.;
                 if (!server.readTypeCheckingDouble(inputStorage, value)) {
                     return server.writeErrorStatusCmd(CMD_SET_EDGE_VARIABLE, "The speed must be given as a double.",
                                                       outputStorage);
                 }
                 libsumo::Edge::setMaxSpeed(id, value);
+                break;
             }
-            break;
             case VAR_PARAMETER: {
                 if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
                     return server.writeErrorStatusCmd(CMD_SET_EDGE_VARIABLE,
@@ -257,9 +252,8 @@ TraCIServerAPI_Edge::processSet(TraCIServer& server, tcpip::Storage& inputStorag
                                                       outputStorage);
                 }
                 libsumo::Edge::setParameter(id, name, value);
-
+                break;
             }
-            break;
             default:
                 break;
         }
