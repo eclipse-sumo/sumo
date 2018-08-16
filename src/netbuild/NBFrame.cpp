@@ -245,6 +245,19 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.addDescription("junctions.limit-turn-speed", "Junctions",
                       "Limits speed on junctions to an average lateral acceleration of at most FLOAT m/s^2)");
 
+    oc.doRegister("junctions.limit-turn-speed.min-angle", new Option_Float(15));
+    oc.addDescription("junctions.limit-turn-speed.min-angle", "Junctions",
+                      "Do not limit turn speed for angular changes below FLOAT (degrees). The value is subtracted from the geometric angle before computing the turning radius.");
+
+    oc.doRegister("junctions.limit-turn-speed.warn.straight", new Option_Float(5));
+    oc.addDescription("junctions.limit-turn-speed.warn.straight", "Junctions",
+                      "Warn about turn speed limits that reduce the speed of straight connections by more than FLOAT");
+
+    oc.doRegister("junctions.limit-turn-speed.warn.turn", new Option_Float(15));
+    oc.addDescription("junctions.limit-turn-speed.warn.turn", "Junctions",
+                      "Warn about turn speed limits that reduce the speed of turning connections (no u-turns) by more than FLOAT");
+
+
     oc.doRegister("junctions.small-radius", new Option_Float(1.5));
     oc.addDescription("junctions.small-radius", "Junctions",
                       "Default radius for junctions that do not require wide vehicle turns");

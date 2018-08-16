@@ -1451,6 +1451,9 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
     const int numPoints = OptionsCont::getOptions().getInt("junctions.internal-link-detail");
     const bool joinTurns = OptionsCont::getOptions().getBool("junctions.join-turns");
     const double limitTurnSpeed = OptionsCont::getOptions().getFloat("junctions.limit-turn-speed");
+    const double limitTurnSpeedMinAngle = DEG2RAD(OptionsCont::getOptions().getFloat("junctions.limit-turn-speed.min-angle"));
+    const double limitTurnSpeedWarnStraight = OptionsCont::getOptions().getFloat("junctions.limit-turn-speed.warn.straight");
+    const double limitTurnSpeedWarnTurn = OptionsCont::getOptions().getFloat("junctions.limit-turn-speed.warn.turn");
     std::string innerID = ":" + n.getID();
     NBEdge* toEdge = 0;
     int edgeIndex = linkIndex;
@@ -1613,23 +1616,33 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
             con.vmax = (myLanes[con.fromLane].speed + con.toEdge->getLanes()[con.toLane].speed) / (double) 2.0;
             if (limitTurnSpeed > 0) {
                 // see [Odhams and Cole, Models of Driver Speed Choice in Curves, 2004]
-                const double angle = fabs(GeomHelper::angleDiff(
+                const double angleRaw = fabs(GeomHelper::angleDiff(
                             getLaneShape(con.fromLane).angleAt2D(-2),
                             con.toEdge->getLaneShape(con.toLane).angleAt2D(0)));
+                const double angle = MAX2(0.0, angleRaw - limitTurnSpeedMinAngle);
                 const double length = shape.length2D();
                 // do not trust the radius of tiny junctions
                 // formula adapted from [Odhams, Andre and Cole, David, Models of Driver Speed Choice in Curves, 2004]
                 if (angle > 0 && length > 1) {
                     // permit higher turning speed on wide lanes
                     const double radius = length / angle + getLaneWidth(con.fromLane) / 4;
-                    con.vmax = MIN2(con.vmax, sqrt(limitTurnSpeed * radius));
+                    const double limit = sqrt(limitTurnSpeed * radius);
+                    const double reduction = con.vmax - limit;
+                    if ((dir == LINKDIR_STRAIGHT && reduction > limitTurnSpeedWarnStraight)
+                            || (dir != LINKDIR_TURN && reduction > limitTurnSpeedWarnTurn)) {
+                        WRITE_WARNING("Speed of " + std::string(dir == LINKDIR_STRAIGHT ? "straight" : "turning") + " connection '" 
+                                + con.getDescription(this) 
+                                + "' reduced by " + toString(reduction) + " due to turning radius of " + toString(radius) 
+                                + " (length=" + toString(length) + " angle=" + toString(RAD2DEG(angleRaw)) + ")");
+                    }
+                    con.vmax = MIN2(con.vmax, limit);
                     // value is saved in <net> attribute. Must be set again when importing from .con.xml
                     // con.speed = con.vmax;
                 }
                 assert(con.vmax > 0);
-                //if (con.vmax < 5) {
-                //    std::cout << con.getDescription(this) << " angle=" << RAD2DEG(angle) << " length=" << length << " radius=" << length / angle 
-                //        << " vmaxTurn=" << limitTurnSpeed * sqrt(length / angle) << " vmax=" << con.vmax << "\n";
+                //if (getID() == "-1017000.0.00") {
+                //    std::cout << con.getDescription(this) << " angleRaw=" << angleRaw << " angle=" << RAD2DEG(angle) << " length=" << length << " radius=" << length / angle 
+                //        << " vmaxTurn=" << sqrt(limitTurnSpeed * length / angle) << " vmax=" << con.vmax << "\n";
                 //}
             }
         } else {
