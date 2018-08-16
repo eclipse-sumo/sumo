@@ -36,6 +36,7 @@
 #include <utils/common/WrappingCommand.h>
 #include <utils/common/StaticCommand.h>
 #include <utils/common/StringUtils.h>
+#include <utils/xml/SUMOSAXAttributes.h>
 #include <utils/vehicle/DijkstraRouter.h>
 #include <utils/vehicle/AStarRouter.h>
 #include <utils/vehicle/CHRouter.h>
@@ -510,6 +511,25 @@ MSDevice_Routing::setParameter(const std::string& key, const std::string& value)
         throw InvalidArgument("Setting parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
     }
 }
+
+
+void
+MSDevice_Routing::saveState(OutputDevice& out) const {
+    out.openTag(SUMO_TAG_DEVICE);
+    out.writeAttr(SUMO_ATTR_ID, getID());
+    std::vector<std::string> internals;
+    internals.push_back(toString(myPeriod));
+    out.writeAttr(SUMO_ATTR_STATE, toString(internals));
+    out.closeTag();
+}
+
+
+void
+MSDevice_Routing::loadState(const SUMOSAXAttributes& attrs) {
+    std::istringstream bis(attrs.getString(SUMO_ATTR_STATE));
+    bis >> myPeriod;
+}
+
 
 
 
