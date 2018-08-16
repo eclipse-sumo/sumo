@@ -3552,7 +3552,7 @@ NBEdge::getViaSuccessors(SUMOVehicleClass vClass) const {
     // @todo cache successors instead of recomputing them every time
     myViaSuccessors.clear();
     for (const Connection& con : myConnections) {
-        auto pair = std::make_pair<const NBEdge*, const NBEdge*>(con.toEdge, nullptr);
+        std::pair<const NBEdge*, const NBEdge*> pair(con.toEdge, nullptr);
         if (con.fromLane >= 0 && con.toLane >=0 && con.toEdge != nullptr &&
                 (getPermissions(con.fromLane)
                  & con.toEdge->getPermissions(con.toLane) & vClass) != 0
