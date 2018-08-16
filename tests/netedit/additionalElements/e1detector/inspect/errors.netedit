@@ -1,3 +1,125 @@
-java version "1.8.0_171"
-Java(TM) SE Runtime Environment (build 1.8.0_171-b11)
-Java HotSpot(TM) 64-Bit Server VM (build 25.171-b11, mixed mode)
+java version "1.8.0_181"
+Java(TM) SE Runtime Environment (build 1.8.0_181-b13)
+Java HotSpot(TM) 64-Bit Server VM (build 25.181-b13, mixed mode)
+Debug: net has to be saved
+Debug: Current saving Status: net unsaved, additionals saved, shapes saved
+Debug: Selected additional 'e1Detector' in AdditionalSelector
+Debug: Adding e1Detector 'e1Detector_gneE2_1_0' in GNEChange_Additional
+Debug: Additionals has to be saved
+Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Adding e1Detector 'e1Detector_gneE2_1_1' in GNEChange_Additional
+Debug: Value 'e1Detector_gneE2_1_1' for attribute id of e1Detector isn't valid
+Debug: Value 'Id with spaces' for attribute id of e1Detector isn't valid
+Debug: Setting new attribute id 'correctID' into e1Detector 'e1Detector_gneE2_1_0'
+Debug: Value 'dummy lane' for attribute lane of e1Detector isn't valid
+Debug: Setting new attribute lane 'gneE0_0' into e1Detector 'correctID'
+Debug: Setting new attribute lane 'gneE2_1' into e1Detector 'correctID'
+Debug: Setting new attribute lane 'gneE2_0' into e1Detector 'correctID'
+Debug: Setting new attribute pos '-5' into e1Detector 'correctID'
+Debug: Setting new attribute pos '400' into e1Detector 'correctID'
+Debug: Setting new attribute pos '20' into e1Detector 'correctID'
+Debug: Value '-100' for attribute freq of e1Detector isn't valid
+Debug: Setting new attribute freq '120' into e1Detector 'correctID'
+Debug: Value '%%%;:..&&%$%$' for attribute name of e1Detector isn't valid
+Debug: Setting new attribute name 'customName' into e1Detector 'correctID'
+Debug: Setting new attribute file '' into e1Detector 'correctID'
+Debug: Value '%%%;:..&&%$%$' for attribute file of e1Detector isn't valid
+Debug: Setting new attribute file 'e1Detector_gneE2_1_1.txt' into e1Detector 'correctID'
+Debug: Setting new attribute file 'myOwnOutput.txt' into e1Detector 'correctID'
+Debug: Value 'Type%%%%%1 T;;yp$2 Type3' for attribute vTypes of e1Detector isn't valid
+Debug: Setting new attribute vTypes 'Type1 Type2 Type3' into e1Detector 'correctID'
+Debug: Setting new attribute friendlyPos 'true' into e1Detector 'correctID'
+Debug: Setting new attribute blockMovement 'true' into e1Detector 'correctID'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute blockMovement '0' into e1Detector 'correctID'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute friendlyPos '0' into e1Detector 'correctID'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute vTypes '' into e1Detector 'correctID'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute file 'e1Detector_gneE2_1_1.txt' into e1Detector 'correctID'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute file '' into e1Detector 'correctID'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute file 'e1Detector_gneE2_1_0.xml' into e1Detector 'correctID'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute name '' into e1Detector 'correctID'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute freq '900.00' into e1Detector 'correctID'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute pos '400.00' into e1Detector 'correctID'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute pos '-5.00' into e1Detector 'correctID'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute pos '17.00' into e1Detector 'correctID'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute lane 'gneE2_1' into e1Detector 'correctID'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute lane 'gneE0_0' into e1Detector 'correctID'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute lane 'gneE2_1' into e1Detector 'correctID'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute lane 'gneE0_0' into e1Detector 'correctID'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute lane 'gneE2_1' into e1Detector 'correctID'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute lane 'gneE2_0' into e1Detector 'correctID'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute pos '-5' into e1Detector 'correctID'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute pos '400' into e1Detector 'correctID'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute pos '20' into e1Detector 'correctID'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute freq '120' into e1Detector 'correctID'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute name 'customName' into e1Detector 'correctID'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute file '' into e1Detector 'correctID'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute file 'e1Detector_gneE2_1_1.txt' into e1Detector 'correctID'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute file 'myOwnOutput.txt' into e1Detector 'correctID'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute vTypes 'Type1 Type2 Type3' into e1Detector 'correctID'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute friendlyPos 'true' into e1Detector 'correctID'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute blockMovement 'true' into e1Detector 'correctID'
+Debug: Additionals saved
+Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
+Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
+Debug: Created connection 'fromgneE2_1togneE3_1' in retrieveGNEConnection()
+Debug: Created connection 'fromgneE3_1togneE2_1' in retrieveGNEConnection()
+Debug: Created crossing ':gneJ0_c0' in retrieveGNECrossing()
+Debug: Created crossing ':gneJ0_c1' in retrieveGNECrossing()
+Debug: Created crossing ':gneJ1_c0' in retrieveGNECrossing()
+Debug: Created crossing ':gneJ1_c1' in retrieveGNECrossing()
+Debug: Deleting unreferenced e1Detector 'e1Detector_gneE2_1_1'
+Debug: Additionals has to be saved
+Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Deleting unreferenced e1Detector 'correctID'
+Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
+Debug: Deleting unreferenced edge 'gneE1' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
+Debug: Deleting unreferenced edge 'gneE2' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE2_0' in GNEEdge destructor
+Debug: Deleting unreferenced lane 'gneE2_1' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE2_1togneE3_1' in GNEEdge destructor
+Debug: Deleting unreferenced edge 'gneE3' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE3_0' in GNEEdge destructor
+Debug: Deleting unreferenced lane 'gneE3_1' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE3_1togneE2_1' in GNEEdge destructor
+Debug: Deleting unreferenced junction 'gneJ0' in GNENet destructor
+Debug: Deleting unreferenced crossing ':gneJ0_c0' in GNEJunction destructor
+Debug: Deleting unreferenced crossing ':gneJ0_c1' in GNEJunction destructor
+Debug: Deleting unreferenced junction 'gneJ1' in GNENet destructor
+Debug: Deleting unreferenced crossing ':gneJ1_c0' in GNEJunction destructor
+Debug: Deleting unreferenced crossing ':gneJ1_c1' in GNEJunction destructor
+Debug: Deleting unreferenced junction 'gneJ2' in GNENet destructor
+Debug: Deleting unreferenced junction 'gneJ3' in GNENet destructor
+Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
+Debug: Deleting net builder in GNENet destructor

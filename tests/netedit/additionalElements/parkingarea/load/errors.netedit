@@ -1,3 +1,76 @@
-java version "1.8.0_171"
-Java(TM) SE Runtime Environment (build 1.8.0_171-b11)
-Java HotSpot(TM) 64-Bit Server VM (build 25.171-b11, mixed mode)
+java version "1.8.0_181"
+Java(TM) SE Runtime Environment (build 1.8.0_181-b13)
+Java HotSpot(TM) 64-Bit Server VM (build 25.181-b13, mixed mode)
+Debug: Adding parkingArea 'parkingArea_00' in GNEChange_Additional
+Debug: Additionals has to be saved
+Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Adding parkingArea 'parkingArea_03' in GNEChange_Additional
+Debug: Adding parkingArea 'parkingArea_04' in GNEChange_Additional
+Debug: Adding parkingArea 'parkingArea_07' in GNEChange_Additional
+Debug: Adding parkingArea 'parkingArea_08' in GNEChange_Additional
+Debug: Adding parkingArea 'parkingArea_11' in GNEChange_Additional
+Debug: Adding parkingArea 'parkingArea_12' in GNEChange_Additional
+Debug: Adding parkingArea 'parkingArea_13' in GNEChange_Additional
+Debug: Adding parkingArea 'parkingArea_14' in GNEChange_Additional
+Debug: Adding parkingArea 'parkingArea_15' in GNEChange_Additional
+Debug: Adding parkingArea 'parkingArea_16' in GNEChange_Additional
+Debug: Adding parkingArea 'parkingArea_17' in GNEChange_Additional
+Debug: Adding parkingArea 'parkingArea_18' in GNEChange_Additional
+Debug: Adding parkingArea 'parkingArea_19' in GNEChange_Additional
+Debug: Adding parkingArea 'parkingArea_20' in GNEChange_Additional
+Debug: Adding parkingArea 'parkingArea_21' in GNEChange_Additional
+Debug: Adding parkingArea 'parkingArea_22' in GNEChange_Additional
+Debug: Adding parkingArea 'parkingArea_23' in GNEChange_Additional
+Debug: Adding parkingArea 'parkingArea_24' in GNEChange_Additional
+Debug: Adding parkingArea 'parkingArea_25' in GNEChange_Additional
+Debug: Adding parkingArea 'parkingArea_26' in GNEChange_Additional
+Debug: Adding parkingArea 'parkingArea_27' in GNEChange_Additional
+Debug: Adding parkingArea 'parkingArea_28' in GNEChange_Additional
+Debug: Adding parkingArea 'parkingArea_29' in GNEChange_Additional
+Debug: Adding parkingArea 'parkingArea_30' in GNEChange_Additional
+Debug: Adding parkingArea 'parkingArea_31' in GNEChange_Additional
+Debug: Adding parkingArea 'parkingArea_32' in GNEChange_Additional
+Debug: net has to be saved
+Debug: Current saving Status: net unsaved, additionals unsaved, shapes saved
+Debug: Additionals saved
+Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
+Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
+Debug: Deleting unreferenced parkingArea 'parkingArea_32'
+Debug: Additionals has to be saved
+Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Deleting unreferenced parkingArea 'parkingArea_31'
+Debug: Deleting unreferenced parkingArea 'parkingArea_30'
+Debug: Deleting unreferenced parkingArea 'parkingArea_29'
+Debug: Deleting unreferenced parkingArea 'parkingArea_28'
+Debug: Deleting unreferenced parkingArea 'parkingArea_27'
+Debug: Deleting unreferenced parkingArea 'parkingArea_26'
+Debug: Deleting unreferenced parkingArea 'parkingArea_25'
+Debug: Deleting unreferenced parkingArea 'parkingArea_24'
+Debug: Deleting unreferenced parkingArea 'parkingArea_23'
+Debug: Deleting unreferenced parkingArea 'parkingArea_22'
+Debug: Deleting unreferenced parkingArea 'parkingArea_21'
+Debug: Deleting unreferenced parkingArea 'parkingArea_20'
+Debug: Deleting unreferenced parkingArea 'parkingArea_19'
+Debug: Deleting unreferenced parkingArea 'parkingArea_18'
+Debug: Deleting unreferenced parkingArea 'parkingArea_17'
+Debug: Deleting unreferenced parkingArea 'parkingArea_16'
+Debug: Deleting unreferenced parkingArea 'parkingArea_15'
+Debug: Deleting unreferenced parkingArea 'parkingArea_14'
+Debug: Deleting unreferenced parkingArea 'parkingArea_13'
+Debug: Deleting unreferenced parkingArea 'parkingArea_12'
+Debug: Deleting unreferenced parkingArea 'parkingArea_11'
+Debug: Deleting unreferenced parkingArea 'parkingArea_08'
+Debug: Deleting unreferenced parkingArea 'parkingArea_07'
+Debug: Deleting unreferenced parkingArea 'parkingArea_04'
+Debug: Deleting unreferenced parkingArea 'parkingArea_03'
+Debug: Deleting unreferenced parkingArea 'parkingArea_00'
+Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
+Debug: Deleting unreferenced edge 'gneE1' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
+Debug: Deleting unreferenced junction 'gneJ0' in GNENet destructor
+Debug: Deleting unreferenced junction 'gneJ1' in GNENet destructor
+Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
+Debug: Deleting net builder in GNENet destructor

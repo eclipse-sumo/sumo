@@ -1,5 +1,223 @@
-java version "1.8.0_171"
-Java(TM) SE Runtime Environment (build 1.8.0_171-b11)
-Java HotSpot(TM) 64-Bit Server VM (build 25.171-b11, mixed mode)
+java version "1.8.0_181"
+Java(TM) SE Runtime Environment (build 1.8.0_181-b13)
+Java HotSpot(TM) 64-Bit Server VM (build 25.181-b13, mixed mode)
+Debug: net has to be saved
+Debug: Current saving Status: net unsaved, additionals saved, shapes saved
+Debug: Selected shape 'poly' in ShapeSelector
+Debug: Key ENTER pressed
+Debug: Key ENTER pressed
+Debug: Adding poly 'poly_0' into viewNet
+Debug: Key ENTER pressed
+Debug: Key ENTER pressed
+Debug: Invalid input parameter of poly: 'color' doesn't have a valid 'RBGColor' format
+Debug: Key ENTER pressed
+Debug: Key ENTER pressed
+Debug: Adding poly 'poly_1' into viewNet
+Debug: Key ENTER pressed
+Debug: Key ENTER pressed
+Debug: Adding poly 'poly_2' into viewNet
+Debug: Key ENTER pressed
+Debug: Key ENTER pressed
+Debug: Adding poly 'poly_3' into viewNet
+Debug: Key ENTER pressed
+Debug: Key ENTER pressed
+Debug: Adding poly 'poly_4' into viewNet
+Debug: Key ENTER pressed
+Debug: Key ENTER pressed
+Debug: Adding poly 'poly_5' into viewNet
+Debug: Key ENTER pressed
+Debug: Key ENTER pressed
+Debug: Invalid input parameter of poly: input contains invalid characters for a filename
 Error: Could not load 'paris.ico'.
 Loading failed!
+Debug: Key ENTER pressed
+Debug: Key ENTER pressed
+Debug: Invalid input parameter of poly: doesn't exist image 'paris.ico'
+Debug: Key ENTER pressed
+Debug: Key ENTER pressed
+Debug: Adding poly 'poly_6' into viewNet
+Debug: Key ENTER pressed
+Debug: Key ENTER pressed
+Debug: Adding poly 'poly_7' into viewNet
+Debug: Key ENTER pressed
+Debug: Key ENTER pressed
+Debug: Invalid input parameter of poly: 'angle' doesn't have a valid 'float' format
+Debug: Key ENTER pressed
+Debug: Key ENTER pressed
+Debug: Adding poly 'poly_8' into viewNet
+Debug: Key ENTER pressed
+Debug: Key ENTER pressed
+Debug: Adding poly 'poly_9' into viewNet
+Debug: Key ENTER pressed
+Debug: Key ENTER pressed
+Debug: Adding poly 'poly_10' into viewNet
+Debug: Key ENTER pressed
+Debug: Key ENTER pressed
+Debug: Adding poly 'poly_11' into viewNet
+Debug: Setting new attribute blockMovement '1' into poly 'poly_11'
+Debug: Key ENTER pressed
+Debug: Key ENTER pressed
+Debug: Adding poly 'poly_12' into viewNet
+Debug: Setting new attribute blockMovement '1' into poly 'poly_12'
+Debug: Setting new attribute blockShape '1' into poly 'poly_12'
+Debug: Key ENTER pressed
+Debug: Key ENTER pressed
+Debug: Adding poly 'poly_13' into viewNet
+Debug: Setting new attribute blockMovement '1' into poly 'poly_13'
+Debug: Key ENTER pressed
+Debug: Key ENTER pressed
+Debug: Adding poly 'poly_14' into viewNet
+Debug: Setting new attribute blockMovement '1' into poly 'poly_14'
+Debug: Key ENTER pressed
+Debug: Key ENTER pressed
+Debug: Adding poly 'poly_15' into viewNet
+Debug: Setting new attribute blockMovement '1' into poly 'poly_15'
+Debug: Key ENTER pressed
+Debug: Key ENTER pressed
+Debug: Adding poly 'poly_16' into viewNet
+Debug: Setting new attribute blockMovement '1' into poly 'poly_16'
+Debug: Key ENTER pressed
+Debug: Key ENTER pressed
+Debug: Adding poly 'poly_17' into viewNet
+Debug: Setting new attribute blockMovement '1' into poly 'poly_17'
+Debug: Key ENTER pressed
+Debug: Key ENTER pressed
+Debug: Adding poly 'poly_18' into viewNet
+Debug: Setting new attribute blockMovement '1' into poly 'poly_18'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute blockMovement '0' into poly 'poly_18'
+Debug: Removing poly 'poly_18' from viewNet
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute blockMovement '0' into poly 'poly_17'
+Debug: Removing poly 'poly_17' from viewNet
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute blockMovement '0' into poly 'poly_16'
+Debug: Removing poly 'poly_16' from viewNet
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute blockMovement '0' into poly 'poly_15'
+Debug: Removing poly 'poly_15' from viewNet
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute blockMovement '0' into poly 'poly_14'
+Debug: Removing poly 'poly_14' from viewNet
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute blockMovement '0' into poly 'poly_13'
+Debug: Removing poly 'poly_13' from viewNet
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute blockShape '0' into poly 'poly_12'
+Debug: Setting previous attribute blockMovement '0' into poly 'poly_12'
+Debug: Removing poly 'poly_12' from viewNet
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute blockMovement '0' into poly 'poly_11'
+Debug: Removing poly 'poly_11' from viewNet
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing poly 'poly_10' from viewNet
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing poly 'poly_9' from viewNet
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing poly 'poly_8' from viewNet
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing poly 'poly_7' from viewNet
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing poly 'poly_6' from viewNet
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing poly 'poly_5' from viewNet
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing poly 'poly_4' from viewNet
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing poly 'poly_3' from viewNet
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing poly 'poly_2' from viewNet
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding poly 'poly_2' into viewNet
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding poly 'poly_3' into viewNet
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding poly 'poly_4' into viewNet
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding poly 'poly_5' into viewNet
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding poly 'poly_6' into viewNet
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding poly 'poly_7' into viewNet
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding poly 'poly_8' into viewNet
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding poly 'poly_9' into viewNet
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding poly 'poly_10' into viewNet
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding poly 'poly_11' into viewNet
+Debug: Setting new attribute blockMovement '1' into poly 'poly_11'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding poly 'poly_12' into viewNet
+Debug: Setting new attribute blockMovement '1' into poly 'poly_12'
+Debug: Setting new attribute blockShape '1' into poly 'poly_12'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding poly 'poly_13' into viewNet
+Debug: Setting new attribute blockMovement '1' into poly 'poly_13'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding poly 'poly_14' into viewNet
+Debug: Setting new attribute blockMovement '1' into poly 'poly_14'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding poly 'poly_15' into viewNet
+Debug: Setting new attribute blockMovement '1' into poly 'poly_15'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding poly 'poly_16' into viewNet
+Debug: Setting new attribute blockMovement '1' into poly 'poly_16'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding poly 'poly_17' into viewNet
+Debug: Setting new attribute blockMovement '1' into poly 'poly_17'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding poly 'poly_18' into viewNet
+Debug: Setting new attribute blockMovement '1' into poly 'poly_18'
+Debug: Shapes saved
+Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
+Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
+Debug: Removing poly 'poly_18' from net in ~GNEChange_Shape()
+Debug: delete poly 'poly_18' in ~GNEChange_Shape()
+Debug: Removing poly 'poly_17' from net in ~GNEChange_Shape()
+Debug: delete poly 'poly_17' in ~GNEChange_Shape()
+Debug: Removing poly 'poly_16' from net in ~GNEChange_Shape()
+Debug: delete poly 'poly_16' in ~GNEChange_Shape()
+Debug: Removing poly 'poly_15' from net in ~GNEChange_Shape()
+Debug: delete poly 'poly_15' in ~GNEChange_Shape()
+Debug: Removing poly 'poly_14' from net in ~GNEChange_Shape()
+Debug: delete poly 'poly_14' in ~GNEChange_Shape()
+Debug: Removing poly 'poly_13' from net in ~GNEChange_Shape()
+Debug: delete poly 'poly_13' in ~GNEChange_Shape()
+Debug: Removing poly 'poly_12' from net in ~GNEChange_Shape()
+Debug: delete poly 'poly_12' in ~GNEChange_Shape()
+Debug: Removing poly 'poly_11' from net in ~GNEChange_Shape()
+Debug: delete poly 'poly_11' in ~GNEChange_Shape()
+Debug: Removing poly 'poly_10' from net in ~GNEChange_Shape()
+Debug: delete poly 'poly_10' in ~GNEChange_Shape()
+Debug: Removing poly 'poly_9' from net in ~GNEChange_Shape()
+Debug: delete poly 'poly_9' in ~GNEChange_Shape()
+Debug: Removing poly 'poly_8' from net in ~GNEChange_Shape()
+Debug: delete poly 'poly_8' in ~GNEChange_Shape()
+Debug: Removing poly 'poly_7' from net in ~GNEChange_Shape()
+Debug: delete poly 'poly_7' in ~GNEChange_Shape()
+Debug: Removing poly 'poly_6' from net in ~GNEChange_Shape()
+Debug: delete poly 'poly_6' in ~GNEChange_Shape()
+Debug: Removing poly 'poly_5' from net in ~GNEChange_Shape()
+Debug: delete poly 'poly_5' in ~GNEChange_Shape()
+Debug: Removing poly 'poly_4' from net in ~GNEChange_Shape()
+Debug: delete poly 'poly_4' in ~GNEChange_Shape()
+Debug: Removing poly 'poly_3' from net in ~GNEChange_Shape()
+Debug: delete poly 'poly_3' in ~GNEChange_Shape()
+Debug: Removing poly 'poly_2' from net in ~GNEChange_Shape()
+Debug: delete poly 'poly_2' in ~GNEChange_Shape()
+Debug: Removing poly 'poly_1' from net in ~GNEChange_Shape()
+Debug: delete poly 'poly_1' in ~GNEChange_Shape()
+Debug: Removing poly 'poly_0' from net in ~GNEChange_Shape()
+Debug: delete poly 'poly_0' in ~GNEChange_Shape()
+Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
+Debug: Deleting unreferenced edge 'gneE1' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
+Debug: Deleting unreferenced junction 'gneJ0' in GNENet destructor
+Debug: Deleting unreferenced junction 'gneJ1' in GNENet destructor
+Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
+Debug: Deleting net builder in GNENet destructor

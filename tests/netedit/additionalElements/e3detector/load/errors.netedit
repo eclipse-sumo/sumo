@@ -1,3 +1,116 @@
-java version "1.8.0_171"
-Java(TM) SE Runtime Environment (build 1.8.0_171-b11)
-Java HotSpot(TM) 64-Bit Server VM (build 25.171-b11, mixed mode)
+java version "1.8.0_181"
+Java(TM) SE Runtime Environment (build 1.8.0_181-b13)
+Java HotSpot(TM) 64-Bit Server VM (build 25.181-b13, mixed mode)
+Debug: Adding e3Detector 'e3Detector_00' in GNEChange_Additional
+Debug: Additionals has to be saved
+Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Adding detEntry 'e3Detector_00detEntry0' in GNEChange_Additional
+Debug: Adding detExit 'e3Detector_00detExit0' in GNEChange_Additional
+Debug: Adding e3Detector 'e3Detector_04' in GNEChange_Additional
+Debug: Adding detEntry 'e3Detector_04detEntry0' in GNEChange_Additional
+Debug: Adding detExit 'e3Detector_04detExit0' in GNEChange_Additional
+Debug: Adding e3Detector 'e3Detector_08' in GNEChange_Additional
+Debug: Adding detEntry 'e3Detector_08detEntry0' in GNEChange_Additional
+Debug: Adding detExit 'e3Detector_08detExit0' in GNEChange_Additional
+Debug: Adding e3Detector 'e3Detector_09' in GNEChange_Additional
+Debug: Adding detEntry 'e3Detector_09detEntry0' in GNEChange_Additional
+Debug: Adding detExit 'e3Detector_09detExit0' in GNEChange_Additional
+Debug: Adding e3Detector 'e3Detector_10' in GNEChange_Additional
+Debug: Adding detEntry 'e3Detector_10detEntry0' in GNEChange_Additional
+Debug: Adding detExit 'e3Detector_10detExit0' in GNEChange_Additional
+Debug: Adding e3Detector 'e3Detector_11' in GNEChange_Additional
+Debug: Adding detEntry 'e3Detector_11detEntry0' in GNEChange_Additional
+Debug: Adding detExit 'e3Detector_11detExit0' in GNEChange_Additional
+Debug: Adding e3Detector 'e3Detector_12' in GNEChange_Additional
+Debug: Adding detEntry 'e3Detector_12detEntry0' in GNEChange_Additional
+Debug: Adding detExit 'e3Detector_12detExit0' in GNEChange_Additional
+Debug: Adding e3Detector 'e3Detector_13' in GNEChange_Additional
+Debug: Adding detEntry 'e3Detector_13detEntry0' in GNEChange_Additional
+Debug: Adding detExit 'e3Detector_13detExit0' in GNEChange_Additional
+Debug: Adding e3Detector 'e3Detector_14' in GNEChange_Additional
+Debug: Adding detEntry 'e3Detector_14detEntry0' in GNEChange_Additional
+Debug: Adding detExit 'e3Detector_14detExit0' in GNEChange_Additional
+Debug: Adding e3Detector 'e3Detector_15' in GNEChange_Additional
+Debug: Adding detEntry 'e3Detector_15detEntry0' in GNEChange_Additional
+Debug: Adding detExit 'e3Detector_15detExit0' in GNEChange_Additional
+Debug: Adding e3Detector 'e3Detector_16' in GNEChange_Additional
+Debug: Adding detEntry 'e3Detector_16detEntry0' in GNEChange_Additional
+Debug: Adding detExit 'e3Detector_16detExit0' in GNEChange_Additional
+Debug: Adding e3Detector 'e3Detector_17' in GNEChange_Additional
+Debug: Adding detEntry 'e3Detector_17detEntry0' in GNEChange_Additional
+Debug: Adding detExit 'e3Detector_17detExit0' in GNEChange_Additional
+Debug: Adding e3Detector 'e3Detector_18' in GNEChange_Additional
+Debug: Adding detEntry 'e3Detector_18detEntry0' in GNEChange_Additional
+Debug: Adding detExit 'e3Detector_18detExit0' in GNEChange_Additional
+Debug: Adding e3Detector 'e3Detector_19' in GNEChange_Additional
+Debug: Adding detEntry 'e3Detector_19detEntry0' in GNEChange_Additional
+Debug: Adding detExit 'e3Detector_19detExit0' in GNEChange_Additional
+Debug: Adding e3Detector 'e3Detector_20' in GNEChange_Additional
+Debug: Adding detEntry 'e3Detector_20detEntry0' in GNEChange_Additional
+Debug: Adding detExit 'e3Detector_20detExit0' in GNEChange_Additional
+Debug: Adding e3Detector 'e3Detector_21' in GNEChange_Additional
+Debug: Adding e3Detector 'e3Detector_22' in GNEChange_Additional
+Debug: net has to be saved
+Debug: Current saving Status: net unsaved, additionals unsaved, shapes saved
+Debug: Additionals saved
+Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
+Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
+Debug: Deleting unreferenced e3Detector 'e3Detector_22'
+Debug: Additionals has to be saved
+Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Deleting unreferenced e3Detector 'e3Detector_21'
+Debug: Deleting unreferenced detExit 'e3Detector_20detExit0'
+Debug: Deleting unreferenced detEntry 'e3Detector_20detEntry0'
+Debug: Deleting unreferenced e3Detector 'e3Detector_20'
+Debug: Deleting unreferenced detExit 'e3Detector_19detExit0'
+Debug: Deleting unreferenced detEntry 'e3Detector_19detEntry0'
+Debug: Deleting unreferenced e3Detector 'e3Detector_19'
+Debug: Deleting unreferenced detExit 'e3Detector_18detExit0'
+Debug: Deleting unreferenced detEntry 'e3Detector_18detEntry0'
+Debug: Deleting unreferenced e3Detector 'e3Detector_18'
+Debug: Deleting unreferenced detExit 'e3Detector_17detExit0'
+Debug: Deleting unreferenced detEntry 'e3Detector_17detEntry0'
+Debug: Deleting unreferenced e3Detector 'e3Detector_17'
+Debug: Deleting unreferenced detExit 'e3Detector_16detExit0'
+Debug: Deleting unreferenced detEntry 'e3Detector_16detEntry0'
+Debug: Deleting unreferenced e3Detector 'e3Detector_16'
+Debug: Deleting unreferenced detExit 'e3Detector_15detExit0'
+Debug: Deleting unreferenced detEntry 'e3Detector_15detEntry0'
+Debug: Deleting unreferenced e3Detector 'e3Detector_15'
+Debug: Deleting unreferenced detExit 'e3Detector_14detExit0'
+Debug: Deleting unreferenced detEntry 'e3Detector_14detEntry0'
+Debug: Deleting unreferenced e3Detector 'e3Detector_14'
+Debug: Deleting unreferenced detExit 'e3Detector_13detExit0'
+Debug: Deleting unreferenced detEntry 'e3Detector_13detEntry0'
+Debug: Deleting unreferenced e3Detector 'e3Detector_13'
+Debug: Deleting unreferenced detExit 'e3Detector_12detExit0'
+Debug: Deleting unreferenced detEntry 'e3Detector_12detEntry0'
+Debug: Deleting unreferenced e3Detector 'e3Detector_12'
+Debug: Deleting unreferenced detExit 'e3Detector_11detExit0'
+Debug: Deleting unreferenced detEntry 'e3Detector_11detEntry0'
+Debug: Deleting unreferenced e3Detector 'e3Detector_11'
+Debug: Deleting unreferenced detExit 'e3Detector_10detExit0'
+Debug: Deleting unreferenced detEntry 'e3Detector_10detEntry0'
+Debug: Deleting unreferenced e3Detector 'e3Detector_10'
+Debug: Deleting unreferenced detExit 'e3Detector_09detExit0'
+Debug: Deleting unreferenced detEntry 'e3Detector_09detEntry0'
+Debug: Deleting unreferenced e3Detector 'e3Detector_09'
+Debug: Deleting unreferenced detExit 'e3Detector_08detExit0'
+Debug: Deleting unreferenced detEntry 'e3Detector_08detEntry0'
+Debug: Deleting unreferenced e3Detector 'e3Detector_08'
+Debug: Deleting unreferenced detExit 'e3Detector_04detExit0'
+Debug: Deleting unreferenced detEntry 'e3Detector_04detEntry0'
+Debug: Deleting unreferenced e3Detector 'e3Detector_04'
+Debug: Deleting unreferenced detExit 'e3Detector_00detExit0'
+Debug: Deleting unreferenced detEntry 'e3Detector_00detEntry0'
+Debug: Deleting unreferenced e3Detector 'e3Detector_00'
+Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
+Debug: Deleting unreferenced edge 'gneE1' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
+Debug: Deleting unreferenced junction 'gneJ0' in GNENet destructor
+Debug: Deleting unreferenced junction 'gneJ1' in GNENet destructor
+Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
+Debug: Deleting net builder in GNENet destructor

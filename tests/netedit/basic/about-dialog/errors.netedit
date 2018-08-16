@@ -1,3 +1,10 @@
-java version "1.8.0_171"
-Java(TM) SE Runtime Environment (build 1.8.0_171-b11)
-Java HotSpot(TM) 64-Bit Server VM (build 25.171-b11, mixed mode)
+java version "1.8.0_181"
+Java(TM) SE Runtime Environment (build 1.8.0_181-b13)
+Java HotSpot(TM) 64-Bit Server VM (build 25.181-b13, mixed mode)
+Debug: net has to be saved
+Debug: Current saving Status: net unsaved, additionals saved, shapes saved
+Debug: Opening about dialog
+Debug: Modules:  Proj GUI GDAL FFmpeg OSG GL2PS SWIG GRPC
+Debug: Closed about dialog
+Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
+Debug: Deleting net builder in GNENet destructor

@@ -1,8 +1,158 @@
-java version "1.8.0_171"
-Java(TM) SE Runtime Environment (build 1.8.0_171-b11)
-Java HotSpot(TM) 64-Bit Server VM (build 25.171-b11, mixed mode)
+java version "1.8.0_181"
+Java(TM) SE Runtime Environment (build 1.8.0_181-b13)
+Java HotSpot(TM) 64-Bit Server VM (build 25.181-b13, mixed mode)
+Debug: net has to be saved
+Debug: Current saving Status: net unsaved, additionals saved, shapes saved
+Debug: Selected shape 'poly' in ShapeSelector
+Debug: Key ENTER pressed
+Debug: Key ENTER pressed
+Debug: Adding poly 'poly_0' into viewNet
+Debug: Key ENTER pressed
+Debug: Key ENTER pressed
+Debug: Adding poly 'poly_1' into viewNet
+Debug: Value 'poly_1' for attribute id of poly isn't valid
+Debug: Value '' for attribute id of poly isn't valid
+Debug: Value 'ID with spaces' for attribute id of poly isn't valid
+Debug: Setting new attribute id 'newID' into poly 'poly_0'
 Error: Shape of a(n) user-supplied position is broken: the position is neither x,y nor x,y,z.
+Debug: Value 'dummyShape' for attribute shape of poly isn't valid
+Debug: Value '' for attribute shape of poly isn't valid
+Debug: Setting new attribute shape '12.00,8.00' into poly 'newID'
+Debug: Setting new attribute shape '12.00,8.00 9.00,13.00 12.00,18.00 7.00,15.00 2.00,18.00 5.00,13.00 2.00,8.00 7.00,11.00 12.00,8.00' into poly 'newID'
+Debug: Value 'dummyColor' for attribute color of poly isn't valid
+Debug: Setting new attribute color '255,255,500' into poly 'newID'
+Debug: Setting new attribute color 'blue' into poly 'newID'
+Debug: Setting new attribute color '125,60,200' into poly 'newID'
+Debug: Setting new attribute fill 'true' into poly 'newID'
+Debug: Value 'dummyLayer' for attribute layer of poly isn't valid
+Debug: Setting new attribute layer '-2' into poly 'newID'
+Debug: Setting new attribute layer '2' into poly 'newID'
+Debug: Setting new attribute type 'myOwnType' into poly 'newID'
 Error: Could not load '%$$%%%%%'.
 Unknown file extension '' for image '%$$%%%%%'!
+Debug: Value '%$$%%%%%' for attribute imgFile of poly isn't valid
 Error: Could not load 'paris.ico'.
 Loading failed!
+Debug: Value 'paris.ico' for attribute imgFile of poly isn't valid
+Debug: Setting new attribute imgFile 'berlin_icon.ico' into poly 'newID'
+Debug: Setting new attribute relativePath 'true' into poly 'newID'
+Debug: Setting new attribute angle '-5' into poly 'newID'
+Debug: Setting new attribute angle '365' into poly 'newID'
+Debug: Setting new attribute angle '10' into poly 'newID'
+Debug: Setting new attribute geoShape '-13.00,8.00 -8.00,13.00 -13.00,18.00 -18.00,23.00 -23.00,18.00 -28.00,13.00 -23.00,8.00 -18.00,3.00 -13.00,8.00' into poly 'newID'
+Debug: Setting new attribute geo 'true' into poly 'newID'
+Debug: Setting new attribute blockMovement 'true' into poly 'newID'
+Debug: Setting new attribute blockShape 'true' into poly 'newID'
+Debug: Setting new attribute closedShape 'false' into poly 'newID'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute closedShape '1' into poly 'newID'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute blockShape '0' into poly 'newID'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute blockMovement '0' into poly 'newID'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute geo '0' into poly 'newID'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute geoShape '10.511140,0.000072 10.511113,0.000117 10.511140,0.000162 10.511095,0.000135 10.511050,0.000162 10.511077,0.000117 10.511050,0.000072 10.511095,0.000099 10.511140,0.000072' into poly 'newID'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute angle '365.00' into poly 'newID'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute angle '-5.00' into poly 'newID'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute angle '0.00' into poly 'newID'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute relativePath '0' into poly 'newID'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute imgFile '' into poly 'newID'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute type '' into poly 'newID'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute layer '-2.00' into poly 'newID'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute layer 'default' into poly 'newID'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute fill '0' into poly 'newID'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute color 'blue' into poly 'newID'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute color '255,255,244' into poly 'newID'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute color 'red' into poly 'newID'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute shape '12.00,8.00' into poly 'newID'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute shape '12.00,8.00 12.00,18.00 2.00,18.00 2.00,8.00 12.00,8.00' into poly 'newID'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute id 'poly_0' into poly 'newID'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing poly 'poly_1' from viewNet
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing poly 'poly_0' from viewNet
+Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding poly 'poly_0' into viewNet
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding poly 'poly_1' into viewNet
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute id 'newID' into poly 'poly_0'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute shape '12.00,8.00' into poly 'newID'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute shape '12.00,8.00 9.00,13.00 12.00,18.00 7.00,15.00 2.00,18.00 5.00,13.00 2.00,8.00 7.00,11.00 12.00,8.00' into poly 'newID'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute color '255,255,500' into poly 'newID'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute color 'blue' into poly 'newID'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute color '125,60,200' into poly 'newID'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute fill 'true' into poly 'newID'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute layer '-2' into poly 'newID'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute layer '2' into poly 'newID'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute type 'myOwnType' into poly 'newID'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute imgFile 'berlin_icon.ico' into poly 'newID'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute relativePath 'true' into poly 'newID'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute angle '-5' into poly 'newID'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute angle '365' into poly 'newID'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute angle '10' into poly 'newID'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute geoShape '-13.00,8.00 -8.00,13.00 -13.00,18.00 -18.00,23.00 -23.00,18.00 -28.00,13.00 -23.00,8.00 -18.00,3.00 -13.00,8.00' into poly 'newID'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute geo 'true' into poly 'newID'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute blockMovement 'true' into poly 'newID'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute blockShape 'true' into poly 'newID'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute closedShape 'false' into poly 'newID'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Shapes saved
+Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
+Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
+Debug: Removing poly 'poly_1' from net in ~GNEChange_Shape()
+Debug: delete poly 'poly_1' in ~GNEChange_Shape()
+Debug: Removing poly 'newID' from net in ~GNEChange_Shape()
+Debug: delete poly 'newID' in ~GNEChange_Shape()
+Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
+Debug: Deleting unreferenced edge 'gneE1' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
+Debug: Deleting unreferenced junction 'gneJ0' in GNENet destructor
+Debug: Deleting unreferenced junction 'gneJ1' in GNENet destructor
+Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
+Debug: Deleting net builder in GNENet destructor

@@ -1,51 +1,10 @@
-Warning: Adding laneCalibrator 'calibratorRoutes' in GNEChange_Additional
-Warning: Additionals has to be saved
-Warning: Current saving Status: net saved, additionals unsaved, shapes saved
-Warning: Adding route 'route01' in GNEChange_Additional
 Warning: Essential unique string attribute 'id' of route is missing; route cannot be created
 Warning: Format of essential unique string attribute 'id' of route is invalid; ID cannot be empty; route cannot be created
 Warning: There is another route with the same ID='route01'.
-Warning: Adding route 'route02' in GNEChange_Additional
 Warning: Essential list of unique strings attribute 'edges' of route with ID 'route03' is missing; route cannot be created
 Warning: Error parsing parameter edges. edge 'dummyEdge1' doesn't exist.
 Warning: Routes needs at least one edge.
 Warning: Error parsing parameter edges. edge 'dummyEdge1' doesn't exist.
 Warning: Routes needs at least one edge.
-Warning: Adding route 'route06' in GNEChange_Additional
-Warning: Adding route 'route07' in GNEChange_Additional
-Warning: Adding route 'route08' in GNEChange_Additional
-Warning: Adding route 'route09' in GNEChange_Additional
-Warning: Adding route 'route10' in GNEChange_Additional
-Warning: Adding route 'route11' in GNEChange_Additional
-Warning: Adding route 'routeWithoutCalibrator' in GNEChange_Additional
-Warning: Adding vType 'typeWithoutCalibrator' in GNEChange_Additional
 Warning: A flow must be declared within the definition of a calibrator.
 Warning: flow cannot be created; their route with ID = 'typeWithoutCalibrator' doesn't exist
-Warning: net has to be saved
-Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
-Warning: Additionals saved
-Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
-Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-Warning: Deleting unreferenced vType 'typeWithoutCalibrator'
-Warning: Additionals has to be saved
-Warning: Current saving Status: net saved, additionals unsaved, shapes saved
-Warning: Deleting unreferenced route 'routeWithoutCalibrator'
-Warning: Deleting unreferenced route 'route11'
-Warning: Deleting unreferenced route 'route10'
-Warning: Deleting unreferenced route 'route09'
-Warning: Deleting unreferenced route 'route08'
-Warning: Deleting unreferenced route 'route07'
-Warning: Deleting unreferenced route 'route06'
-Warning: Deleting unreferenced route 'route02'
-Warning: Deleting unreferenced route 'route01'
-Warning: Deleting unreferenced laneCalibrator 'calibratorRoutes'
-Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor
-Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
-Warning: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
-Warning: Deleting unreferenced edge 'gneE1' in GNENet destructor
-Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
-Warning: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
-Warning: Deleting unreferenced junction 'gneJ0' in GNENet destructor
-Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
-Warning: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
-Warning: Deleting net builder in GNENet destructor

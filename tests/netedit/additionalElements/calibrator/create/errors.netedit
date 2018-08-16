@@ -1,3 +1,69 @@
-java version "1.8.0_171"
-Java(TM) SE Runtime Environment (build 1.8.0_171-b11)
-Java HotSpot(TM) 64-Bit Server VM (build 25.171-b11, mixed mode)
+java version "1.8.0_181"
+Java(TM) SE Runtime Environment (build 1.8.0_181-b13)
+Java HotSpot(TM) 64-Bit Server VM (build 25.181-b13, mixed mode)
+Debug: net has to be saved
+Debug: Current saving Status: net unsaved, additionals saved, shapes saved
+Debug: Selected additional 'calibrator' in AdditionalSelector
+Debug: Adding calibrator 'calibrator_gneE0_0' in GNEChange_Additional
+Debug: Additionals has to be saved
+Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Invalid input parameter of calibrator: 'pos' doesn't have a valid 'float' format
+Debug: Invalid input parameter of calibrator: 'pos' cannot be negative
+Debug: Adding calibrator 'calibrator_gneE0_1' in GNEChange_Additional
+Debug: Invalid input parameter of calibrator: 'freq' doesn't have a valid 'time' format
+Debug: Invalid input parameter of calibrator: 'freq' cannot be negative
+Debug: Adding calibrator 'calibrator_gneE1_2' in GNEChange_Additional
+Debug: Invalid input parameter of calibrator: Name contains invalid characters
+Debug: Adding calibrator 'calibrator_gneE1_3' in GNEChange_Additional
+Debug: Invalid input parameter of calibrator: RouteProbe ID contains invalid characters
+Debug: Invalid input parameter of calibrator: RouteProbe ID contains invalid characters
+Debug: Adding calibrator 'calibrator_gneE1_4' in GNEChange_Additional
+Debug: Invalid input parameter of calibrator: input contains invalid characters for a filename
+Debug: Adding calibrator 'calibrator_gneE1_5' in GNEChange_Additional
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing calibrator 'calibrator_gneE1_5' in GNEChange_Additional
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing calibrator 'calibrator_gneE1_4' in GNEChange_Additional
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing calibrator 'calibrator_gneE1_3' in GNEChange_Additional
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing calibrator 'calibrator_gneE1_2' in GNEChange_Additional
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing calibrator 'calibrator_gneE0_1' in GNEChange_Additional
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing calibrator 'calibrator_gneE0_0' in GNEChange_Additional
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding calibrator 'calibrator_gneE0_0' in GNEChange_Additional
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding calibrator 'calibrator_gneE0_1' in GNEChange_Additional
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding calibrator 'calibrator_gneE1_2' in GNEChange_Additional
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding calibrator 'calibrator_gneE1_3' in GNEChange_Additional
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding calibrator 'calibrator_gneE1_4' in GNEChange_Additional
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding calibrator 'calibrator_gneE1_5' in GNEChange_Additional
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Additionals saved
+Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
+Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
+Debug: Deleting unreferenced calibrator 'calibrator_gneE1_5'
+Debug: Additionals has to be saved
+Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Deleting unreferenced calibrator 'calibrator_gneE1_4'
+Debug: Deleting unreferenced calibrator 'calibrator_gneE1_3'
+Debug: Deleting unreferenced calibrator 'calibrator_gneE1_2'
+Debug: Deleting unreferenced calibrator 'calibrator_gneE0_1'
+Debug: Deleting unreferenced calibrator 'calibrator_gneE0_0'
+Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
+Debug: Deleting unreferenced edge 'gneE1' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
+Debug: Deleting unreferenced junction 'gneJ0' in GNENet destructor
+Debug: Deleting unreferenced junction 'gneJ1' in GNENet destructor
+Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
+Debug: Deleting net builder in GNENet destructor

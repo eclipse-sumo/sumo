@@ -1,3 +1,158 @@
-java version "1.8.0_171"
-Java(TM) SE Runtime Environment (build 1.8.0_171-b11)
-Java HotSpot(TM) 64-Bit Server VM (build 25.171-b11, mixed mode)
+java version "1.8.0_181"
+Java(TM) SE Runtime Environment (build 1.8.0_181-b13)
+Java HotSpot(TM) 64-Bit Server VM (build 25.181-b13, mixed mode)
+Debug: net has to be saved
+Debug: Current saving Status: net unsaved, additionals saved, shapes saved
+Debug: Current Viewport values: 25.00, 25.00, 25.00. Zoom = '280.00'
+Debug: Selected additional 'e3Detector' in AdditionalSelector
+Debug: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
+Debug: Additionals has to be saved
+Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Adding e3Detector 'e3Detector_1' in GNEChange_Additional
+Debug: Selected additional 'detEntry' in AdditionalSelector
+Debug: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
+Debug: Adding detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
+Debug: Selected additional 'detExit' in AdditionalSelector
+Debug: Adding detExit 'e3Detector_0detExit0' in GNEChange_Additional
+Debug: Adding detExit 'e3Detector_1detExit0' in GNEChange_Additional
+Debug: Value 'e3Detector_1' for attribute id of e3Detector isn't valid
+Debug: Value 'Id with spaces' for attribute id of e3Detector isn't valid
+Debug: Setting new attribute id 'correctID' into e3Detector 'e3Detector_0'
+Debug: Setting new attribute id 'correctIDdetEntry0' into detEntry 'e3Detector_0detEntry0'
+Debug: Setting new attribute id 'correctIDdetExit0' into detExit 'e3Detector_0detExit0'
+Debug: Value 'dummy position' for attribute pos of e3Detector isn't valid
+Debug: Setting new attribute pos '0,0' into e3Detector 'correctID'
+Debug: Setting new attribute pos '25,25' into e3Detector 'correctID'
+Debug: Value '-100' for attribute freq of e3Detector isn't valid
+Debug: Setting new attribute freq '120' into e3Detector 'correctID'
+Debug: Value '%%%;:..&&%$%$' for attribute name of e3Detector isn't valid
+Debug: Setting new attribute name 'customName' into e3Detector 'correctID'
+Debug: Value '%%%%%&%&&' for attribute file of e3Detector isn't valid
+Debug: Setting new attribute file '' into e3Detector 'correctID'
+Debug: Setting new attribute file 'e3Detector_1.txt' into e3Detector 'correctID'
+Debug: Setting new attribute file 'myOwnOutput.txt' into e3Detector 'correctID'
+Debug: Value 'Type%%%%%1 T;;yp$2 Type3' for attribute vTypes of e3Detector isn't valid
+Debug: Setting new attribute vTypes 'Type1 Type2 Type3' into e3Detector 'correctID'
+Debug: Value '-5' for attribute timeThreshold of e3Detector isn't valid
+Debug: Setting new attribute timeThreshold '4' into e3Detector 'correctID'
+Debug: Value '-12.1' for attribute speedThreshold of e3Detector isn't valid
+Debug: Setting new attribute speedThreshold '6.3' into e3Detector 'correctID'
+Debug: Setting new attribute blockMovement 'true' into e3Detector 'correctID'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute blockMovement '0' into e3Detector 'correctID'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute speedThreshold '1.39' into e3Detector 'correctID'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute timeThreshold '1.00' into e3Detector 'correctID'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute vTypes '' into e3Detector 'correctID'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute file 'e3Detector_1.txt' into e3Detector 'correctID'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute file '' into e3Detector 'correctID'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute file 'e3Detector_0.xml' into e3Detector 'correctID'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute name '' into e3Detector 'correctID'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute freq '900.00' into e3Detector 'correctID'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute pos '0.00,0.00' into e3Detector 'correctID'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute pos '22.00,29.00' into e3Detector 'correctID'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute id 'e3Detector_0detExit0' into detExit 'correctIDdetExit0'
+Debug: Setting previous attribute id 'e3Detector_0detEntry0' into detEntry 'correctIDdetEntry0'
+Debug: Setting previous attribute id 'e3Detector_0' into e3Detector 'correctID'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing detExit 'e3Detector_1detExit0' in GNEChange_Additional
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing detExit 'e3Detector_0detExit0' in GNEChange_Additional
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing e3Detector 'e3Detector_1' in GNEChange_Additional
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing e3Detector 'e3Detector_0' in GNEChange_Additional
+Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding e3Detector 'e3Detector_1' in GNEChange_Additional
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding detExit 'e3Detector_0detExit0' in GNEChange_Additional
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding detExit 'e3Detector_1detExit0' in GNEChange_Additional
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute id 'correctID' into e3Detector 'e3Detector_0'
+Debug: Setting new attribute id 'correctIDdetEntry0' into detEntry 'e3Detector_0detEntry0'
+Debug: Setting new attribute id 'correctIDdetExit0' into detExit 'e3Detector_0detExit0'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute pos '0,0' into e3Detector 'correctID'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute pos '25,25' into e3Detector 'correctID'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute freq '120' into e3Detector 'correctID'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute name 'customName' into e3Detector 'correctID'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute file '' into e3Detector 'correctID'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute file 'e3Detector_1.txt' into e3Detector 'correctID'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute file 'myOwnOutput.txt' into e3Detector 'correctID'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute vTypes 'Type1 Type2 Type3' into e3Detector 'correctID'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute timeThreshold '4' into e3Detector 'correctID'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute speedThreshold '6.3' into e3Detector 'correctID'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute blockMovement 'true' into e3Detector 'correctID'
+Debug: Additionals saved
+Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
+Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
+Debug: Created connection 'fromgneE2_1togneE3_1' in retrieveGNEConnection()
+Debug: Created connection 'fromgneE3_1togneE2_1' in retrieveGNEConnection()
+Debug: Created crossing ':gneJ0_c0' in retrieveGNECrossing()
+Debug: Created crossing ':gneJ0_c1' in retrieveGNECrossing()
+Debug: Created crossing ':gneJ1_c0' in retrieveGNECrossing()
+Debug: Created crossing ':gneJ1_c1' in retrieveGNECrossing()
+Debug: Deleting unreferenced detExit 'e3Detector_1detExit0'
+Debug: Additionals has to be saved
+Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Deleting unreferenced detExit 'correctIDdetExit0'
+Debug: Deleting unreferenced detEntry 'e3Detector_1detEntry0'
+Debug: Deleting unreferenced detEntry 'correctIDdetEntry0'
+Debug: Deleting unreferenced e3Detector 'e3Detector_1'
+Debug: Deleting unreferenced e3Detector 'correctID'
+Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
+Debug: Deleting unreferenced edge 'gneE1' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
+Debug: Deleting unreferenced edge 'gneE2' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE2_0' in GNEEdge destructor
+Debug: Deleting unreferenced lane 'gneE2_1' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE2_1togneE3_1' in GNEEdge destructor
+Debug: Deleting unreferenced edge 'gneE3' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE3_0' in GNEEdge destructor
+Debug: Deleting unreferenced lane 'gneE3_1' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE3_1togneE2_1' in GNEEdge destructor
+Debug: Deleting unreferenced junction 'gneJ0' in GNENet destructor
+Debug: Deleting unreferenced crossing ':gneJ0_c0' in GNEJunction destructor
+Debug: Deleting unreferenced crossing ':gneJ0_c1' in GNEJunction destructor
+Debug: Deleting unreferenced junction 'gneJ1' in GNENet destructor
+Debug: Deleting unreferenced crossing ':gneJ1_c0' in GNEJunction destructor
+Debug: Deleting unreferenced crossing ':gneJ1_c1' in GNEJunction destructor
+Debug: Deleting unreferenced junction 'gneJ2' in GNENet destructor
+Debug: Deleting unreferenced junction 'gneJ3' in GNENet destructor
+Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
+Debug: Deleting net builder in GNENet destructor

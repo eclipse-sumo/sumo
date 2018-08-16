@@ -16,7 +16,7 @@ TestFunctions: 'reference.png' found. Position: 304 - 140
 [log] ( Alt )  TYPE "o"
 [log]  TYPE "#F5."
 [log]  TYPE "i"
-[log] CLICK on L(484,340)@S(0)[0,0 1280x720] (235 msec)
+[log] CLICK on L(484,340)@S(0)[0,0 1600x900] (234 msec)
 TestFunctions: Clicked over position 484 - 340
 [log]  TYPE "#F12."
 [log]  TYPE "#TAB."
@@ -24,7 +24,7 @@ TestFunctions: Clicked over position 484 - 340
 [log] ( Ctrl )  TYPE "a"
 [log]  TYPE "#ENTER."
 [log]  TYPE "#F5."
-[log] CLICK on L(484,390)@S(0)[0,0 1280x720] (234 msec)
+[log] CLICK on L(484,390)@S(0)[0,0 1600x900] (266 msec)
 TestFunctions: Clicked over position 484 - 390
 [log]  TYPE "#F12."
 [log]  TYPE "#TAB."
@@ -33,7 +33,7 @@ TestFunctions: Clicked over position 484 - 390
 [log] ( Ctrl )  TYPE "a"
 [log]  TYPE "#ENTER."
 [log]  TYPE "#F5."
-[log] CLICK on L(754,340)@S(0)[0,0 1280x720] (234 msec)
+[log] CLICK on L(754,340)@S(0)[0,0 1600x900] (250 msec)
 TestFunctions: Clicked over position 754 - 340
 [log]  TYPE "#F12."
 [log]  TYPE "#TAB."
@@ -42,7 +42,7 @@ TestFunctions: Clicked over position 754 - 340
 [log] ( Ctrl )  TYPE "a"
 [log]  TYPE "#ENTER."
 [log]  TYPE "#F5."
-[log] CLICK on L(754,390)@S(0)[0,0 1280x720] (234 msec)
+[log] CLICK on L(754,390)@S(0)[0,0 1600x900] (234 msec)
 TestFunctions: Clicked over position 754 - 390
 [log]  TYPE "#F12."
 [log]  TYPE "#TAB."
@@ -51,7 +51,7 @@ TestFunctions: Clicked over position 754 - 390
 [log]  TYPE "#ENTER."
 [log]  TYPE "#F5."
 [log]  TYPE "i"
-[log] CLICK on L(304,140)@S(0)[0,0 1280x720] (235 msec)
+[log] CLICK on L(304,140)@S(0)[0,0 1600x900] (234 msec)
 TestFunctions: Clicked over position 304 - 140
 [log] ( Ctrl )  TYPE "z"
 [log] ( Ctrl )  TYPE "z"
@@ -59,7 +59,7 @@ TestFunctions: Clicked over position 304 - 140
 [log] ( Ctrl )  TYPE "z"
 [log]  TYPE "#F5."
 [log]  TYPE "i"
-[log] CLICK on L(304,140)@S(0)[0,0 1280x720] (235 msec)
+[log] CLICK on L(304,140)@S(0)[0,0 1600x900] (234 msec)
 TestFunctions: Clicked over position 304 - 140
 [log] ( Ctrl )  TYPE "y"
 [log] ( Ctrl )  TYPE "y"
@@ -69,4 +69,4 @@ TestFunctions: Clicked over position 304 - 140
 [log] ( Ctrl+Shift )  TYPE "d"
 [log] ( Ctrl )  TYPE "s"
 [log] ( Ctrl )  TYPE "q"
-TestFunctions: Netedit closed successfully
+TestFunctions: Error closing Netedit

@@ -1,3 +1,160 @@
-java version "1.8.0_171"
-Java(TM) SE Runtime Environment (build 1.8.0_171-b11)
-Java HotSpot(TM) 64-Bit Server VM (build 25.171-b11, mixed mode)
+java version "1.8.0_181"
+Java(TM) SE Runtime Environment (build 1.8.0_181-b13)
+Java HotSpot(TM) 64-Bit Server VM (build 25.181-b13, mixed mode)
+Debug: net has to be saved
+Debug: Current saving Status: net unsaved, additionals saved, shapes saved
+Debug: Selected additional 'parkingArea' in AdditionalSelector
+Debug: Adding parkingArea 'parkingArea_gneE2_0_0' in GNEChange_Additional
+Debug: Additionals has to be saved
+Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Adding parkingArea 'parkingArea_gneE2_0_1' in GNEChange_Additional
+Debug: Selected additional 'space' in AdditionalSelector
+Debug: Adding space 'parkingArea_gneE2_0_0space0' in GNEChange_Additional
+Debug: Adding space 'parkingArea_gneE2_0_0space1' in GNEChange_Additional
+Debug: Value '' for attribute x of space isn't valid
+Debug: Value '' for attribute x of space isn't valid
+Debug: Setting new attribute x '-3.5' into space 'parkingArea_gneE2_0_0space0'
+Debug: Setting new attribute x '3' into space 'parkingArea_gneE2_0_0space0'
+Debug: Value '' for attribute y of space isn't valid
+Debug: Value '' for attribute y of space isn't valid
+Debug: Setting new attribute y '-3' into space 'parkingArea_gneE2_0_0space0'
+Debug: Setting new attribute y '2.5' into space 'parkingArea_gneE2_0_0space0'
+Debug: Setting new attribute z '-4.25' into space 'parkingArea_gneE2_0_0space0'
+Debug: Setting new attribute z '1.00' into space 'parkingArea_gneE2_0_0space0'
+Debug: Setting new attribute parentItem 'parkingArea_gneE2_0_1' into space 'parkingArea_gneE2_0_0space0'
+Debug: Setting new attribute blockMovement 'true' into space 'parkingArea_gneE2_0_0space0'
+Debug: Value '-5' for attribute width of space isn't valid
+Debug: Setting new attribute width '0' into space 'parkingArea_gneE2_0_0space1'
+Debug: Setting new attribute width '2.3' into space 'parkingArea_gneE2_0_0space1'
+Debug: Value '-6' for attribute length of space isn't valid
+Debug: Setting new attribute length '0' into space 'parkingArea_gneE2_0_0space1'
+Debug: Setting new attribute length '3.4' into space 'parkingArea_gneE2_0_0space1'
+Debug: Setting new attribute angle '-6' into space 'parkingArea_gneE2_0_0space1'
+Debug: Setting new attribute angle '500' into space 'parkingArea_gneE2_0_0space1'
+Debug: Setting new attribute angle '32.5' into space 'parkingArea_gneE2_0_0space1'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute angle '500.00' into space 'parkingArea_gneE2_0_0space1'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute angle '-6.00' into space 'parkingArea_gneE2_0_0space1'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute angle '0.00' into space 'parkingArea_gneE2_0_0space1'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute length '0.00' into space 'parkingArea_gneE2_0_0space1'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute length '5.00' into space 'parkingArea_gneE2_0_0space1'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute width '0.00' into space 'parkingArea_gneE2_0_0space1'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute width '3.20' into space 'parkingArea_gneE2_0_0space1'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute blockMovement '0' into space 'parkingArea_gneE2_0_0space0'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute parentItem 'parkingArea_gneE2_0_0' into space 'parkingArea_gneE2_0_0space0'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute z '-4.25' into space 'parkingArea_gneE2_0_0space0'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute z '0.00' into space 'parkingArea_gneE2_0_0space0'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute y '-3.00' into space 'parkingArea_gneE2_0_0space0'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute y '2.00' into space 'parkingArea_gneE2_0_0space0'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute x '-3.50' into space 'parkingArea_gneE2_0_0space0'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute x '17.00' into space 'parkingArea_gneE2_0_0space0'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing space 'parkingArea_gneE2_0_0space1' in GNEChange_Additional
+Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing space 'parkingArea_gneE2_0_0space0' in GNEChange_Additional
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing parkingArea 'parkingArea_gneE2_0_1' in GNEChange_Additional
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing parkingArea 'parkingArea_gneE2_0_0' in GNEChange_Additional
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding parkingArea 'parkingArea_gneE2_0_0' in GNEChange_Additional
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding parkingArea 'parkingArea_gneE2_0_1' in GNEChange_Additional
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding space 'parkingArea_gneE2_0_0space0' in GNEChange_Additional
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding space 'parkingArea_gneE2_0_0space1' in GNEChange_Additional
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute x '-3.5' into space 'parkingArea_gneE2_0_0space0'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute x '3' into space 'parkingArea_gneE2_0_0space0'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute y '-3' into space 'parkingArea_gneE2_0_0space0'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute y '2.5' into space 'parkingArea_gneE2_0_0space0'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute z '-4.25' into space 'parkingArea_gneE2_0_0space0'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute z '1.00' into space 'parkingArea_gneE2_0_0space0'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute parentItem 'parkingArea_gneE2_0_1' into space 'parkingArea_gneE2_0_0space0'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute blockMovement 'true' into space 'parkingArea_gneE2_0_0space0'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute width '0' into space 'parkingArea_gneE2_0_0space1'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute width '2.3' into space 'parkingArea_gneE2_0_0space1'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute length '0' into space 'parkingArea_gneE2_0_0space1'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute length '3.4' into space 'parkingArea_gneE2_0_0space1'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute angle '-6' into space 'parkingArea_gneE2_0_0space1'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute angle '500' into space 'parkingArea_gneE2_0_0space1'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute angle '32.5' into space 'parkingArea_gneE2_0_0space1'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Additionals saved
+Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
+Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
+Debug: Created connection 'fromgneE2_1togneE3_1' in retrieveGNEConnection()
+Debug: Created connection 'fromgneE3_1togneE2_1' in retrieveGNEConnection()
+Debug: Created crossing ':gneJ0_c0' in retrieveGNECrossing()
+Debug: Created crossing ':gneJ0_c1' in retrieveGNECrossing()
+Debug: Created crossing ':gneJ1_c0' in retrieveGNECrossing()
+Debug: Created crossing ':gneJ1_c1' in retrieveGNECrossing()
+Debug: Deleting unreferenced space 'parkingArea_gneE2_0_0space1'
+Debug: Additionals has to be saved
+Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Deleting unreferenced space 'parkingArea_gneE2_0_0space0'
+Debug: Deleting unreferenced parkingArea 'parkingArea_gneE2_0_1'
+Debug: Deleting unreferenced parkingArea 'parkingArea_gneE2_0_0'
+Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
+Debug: Deleting unreferenced edge 'gneE1' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
+Debug: Deleting unreferenced edge 'gneE2' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE2_0' in GNEEdge destructor
+Debug: Deleting unreferenced lane 'gneE2_1' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE2_1togneE3_1' in GNEEdge destructor
+Debug: Deleting unreferenced edge 'gneE3' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE3_0' in GNEEdge destructor
+Debug: Deleting unreferenced lane 'gneE3_1' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE3_1togneE2_1' in GNEEdge destructor
+Debug: Deleting unreferenced junction 'gneJ0' in GNENet destructor
+Debug: Deleting unreferenced crossing ':gneJ0_c0' in GNEJunction destructor
+Debug: Deleting unreferenced crossing ':gneJ0_c1' in GNEJunction destructor
+Debug: Deleting unreferenced junction 'gneJ1' in GNENet destructor
+Debug: Deleting unreferenced crossing ':gneJ1_c0' in GNEJunction destructor
+Debug: Deleting unreferenced crossing ':gneJ1_c1' in GNEJunction destructor
+Debug: Deleting unreferenced junction 'gneJ2' in GNENet destructor
+Debug: Deleting unreferenced junction 'gneJ3' in GNENet destructor
+Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
+Debug: Deleting net builder in GNENet destructor

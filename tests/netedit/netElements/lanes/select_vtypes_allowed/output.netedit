@@ -5,6 +5,7 @@ TestFunctions: Netedit opened successfully
 Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 140
 [log]  TYPE "s"
+[log]  TYPE "#F12."
 [log] ( Shift )  TYPE "#TAB."
 [log] ( Shift )  TYPE "#TAB."
 [log] ( Shift )  TYPE "#TAB."
@@ -687,4 +688,4 @@ TestFunctions: 'reference.png' found. Position: 304 - 140
 [log]  TYPE "#DEL."
 [log] ( Ctrl )  TYPE "s"
 [log] ( Ctrl )  TYPE "q"
-TestFunctions: Netedit closed successfully
+TestFunctions: Error closing Netedit

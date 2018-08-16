@@ -1,3 +1,95 @@
-java version "1.8.0_171"
-Java(TM) SE Runtime Environment (build 1.8.0_171-b11)
-Java HotSpot(TM) 64-Bit Server VM (build 25.171-b11, mixed mode)
+java version "1.8.0_181"
+Java(TM) SE Runtime Environment (build 1.8.0_181-b13)
+Java HotSpot(TM) 64-Bit Server VM (build 25.181-b13, mixed mode)
+Debug: net has to be saved
+Debug: Current saving Status: net unsaved, additionals saved, shapes saved
+Debug: Selected additional 'parkingArea' in AdditionalSelector
+Debug: Adding parkingArea 'parkingArea_gneE0_0_0' in GNEChange_Additional
+Debug: Additionals has to be saved
+Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Selected additional 'space' in AdditionalSelector
+Debug: Invalid input parameter of space: A parkingArea must be selected before insertion of space.
+Debug: Adding space 'parkingArea_gneE0_0_0space0' in GNEChange_Additional
+Debug: Invalid input parameter of space: 'z' doesn't have a valid 'float' format
+Debug: Invalid input parameter of space: 'z' doesn't have a valid 'float' format
+Debug: Adding space 'parkingArea_gneE0_0_0space1' in GNEChange_Additional
+Debug: Adding space 'parkingArea_gneE0_0_0space2' in GNEChange_Additional
+Debug: Invalid input parameter of space: 'width' doesn't have a valid 'float' format
+Debug: Invalid input parameter of space: 'width' doesn't have a valid 'float' format
+Debug: Invalid input parameter of space: 'width' cannot be negative
+Debug: Adding space 'parkingArea_gneE0_0_0space3' in GNEChange_Additional
+Debug: Invalid input parameter of space: 'length' doesn't have a valid 'float' format
+Debug: Invalid input parameter of space: 'length' doesn't have a valid 'float' format
+Debug: Invalid input parameter of space: 'length' cannot be negative
+Debug: Adding space 'parkingArea_gneE0_0_0space4' in GNEChange_Additional
+Debug: Invalid input parameter of space: 'angle' doesn't have a valid 'float' format
+Debug: Invalid input parameter of space: 'angle' doesn't have a valid 'float' format
+Debug: Adding space 'parkingArea_gneE0_0_0space5' in GNEChange_Additional
+Debug: Adding space 'parkingArea_gneE0_0_0space6' in GNEChange_Additional
+Debug: Adding space 'parkingArea_gneE0_0_0space7' in GNEChange_Additional
+Debug: Adding space 'parkingArea_gneE0_0_0space8' in GNEChange_Additional
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing space 'parkingArea_gneE0_0_0space8' in GNEChange_Additional
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing space 'parkingArea_gneE0_0_0space7' in GNEChange_Additional
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing space 'parkingArea_gneE0_0_0space6' in GNEChange_Additional
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing space 'parkingArea_gneE0_0_0space5' in GNEChange_Additional
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing space 'parkingArea_gneE0_0_0space4' in GNEChange_Additional
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing space 'parkingArea_gneE0_0_0space3' in GNEChange_Additional
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing space 'parkingArea_gneE0_0_0space2' in GNEChange_Additional
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing space 'parkingArea_gneE0_0_0space1' in GNEChange_Additional
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing space 'parkingArea_gneE0_0_0space0' in GNEChange_Additional
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing parkingArea 'parkingArea_gneE0_0_0' in GNEChange_Additional
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding parkingArea 'parkingArea_gneE0_0_0' in GNEChange_Additional
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding space 'parkingArea_gneE0_0_0space0' in GNEChange_Additional
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding space 'parkingArea_gneE0_0_0space1' in GNEChange_Additional
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding space 'parkingArea_gneE0_0_0space2' in GNEChange_Additional
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding space 'parkingArea_gneE0_0_0space3' in GNEChange_Additional
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding space 'parkingArea_gneE0_0_0space4' in GNEChange_Additional
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding space 'parkingArea_gneE0_0_0space5' in GNEChange_Additional
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding space 'parkingArea_gneE0_0_0space6' in GNEChange_Additional
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding space 'parkingArea_gneE0_0_0space7' in GNEChange_Additional
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding space 'parkingArea_gneE0_0_0space8' in GNEChange_Additional
+Debug: Additionals saved
+Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
+Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
+Debug: Deleting unreferenced space 'parkingArea_gneE0_0_0space8'
+Debug: Additionals has to be saved
+Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Deleting unreferenced space 'parkingArea_gneE0_0_0space7'
+Debug: Deleting unreferenced space 'parkingArea_gneE0_0_0space6'
+Debug: Deleting unreferenced space 'parkingArea_gneE0_0_0space5'
+Debug: Deleting unreferenced space 'parkingArea_gneE0_0_0space4'
+Debug: Deleting unreferenced space 'parkingArea_gneE0_0_0space3'
+Debug: Deleting unreferenced space 'parkingArea_gneE0_0_0space2'
+Debug: Deleting unreferenced space 'parkingArea_gneE0_0_0space1'
+Debug: Deleting unreferenced space 'parkingArea_gneE0_0_0space0'
+Debug: Deleting unreferenced parkingArea 'parkingArea_gneE0_0_0'
+Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
+Debug: Deleting unreferenced edge 'gneE1' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
+Debug: Deleting unreferenced junction 'gneJ0' in GNENet destructor
+Debug: Deleting unreferenced junction 'gneJ1' in GNENet destructor
+Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
+Debug: Deleting net builder in GNENet destructor

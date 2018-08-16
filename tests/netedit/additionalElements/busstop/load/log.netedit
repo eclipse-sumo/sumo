@@ -1,6 +1,3 @@
-Warning: Adding busStop 'busStop_00' in GNEChange_Additional
-Warning: Additionals has to be saved
-Warning: Current saving Status: net saved, additionals unsaved, shapes saved
 Warning: Essential unique string attribute 'id' of busStop is missing; busStop cannot be created
 Warning: Essential unique string attribute 'lane' of busStop is missing; busStop cannot be created
 Warning: Essential unique string attribute 'id' of busStop is missing; busStop cannot be created
@@ -8,53 +5,9 @@ Warning: Format of essential unique string attribute 'id' of busStop is invalid;
 Warning: There is another busStop with the same ID='busStop_00'.
 Warning: Essential unique string attribute 'lane' of busStop with ID 'busStop_01' is missing; busStop cannot be created
 Warning: The lane 'dummyLane' to use within the busStop 'busStop_02' is not known.
-Warning: Adding busStop 'busStop_03' in GNEChange_Additional
-Warning: Adding busStop 'busStop_04' in GNEChange_Additional
 Warning: Invalid position for busStop with ID = 'busStop_05'.
 Warning: Invalid position for busStop with ID = 'busStop_06'.
-Warning: Adding busStop 'busStop_07' in GNEChange_Additional
-Warning: Adding busStop 'busStop_08' in GNEChange_Additional
 Warning: Invalid position for busStop with ID = 'busStop_09'.
 Warning: Invalid position for busStop with ID = 'busStop_10'.
-Warning: Adding busStop 'busStop_11' in GNEChange_Additional
 Warning: Please note that using ';' and ',' as XML list separators is deprecated.
  From 1.0 onwards, only ' ' will be accepted.
-Warning: Adding busStop 'busStop_12' in GNEChange_Additional
-Warning: Adding busStop 'busStop_13' in GNEChange_Additional
-Warning: Adding busStop 'busStop_14' in GNEChange_Additional
-Warning: Adding busStop 'busStop_15' in GNEChange_Additional
-Warning: Adding busStop 'busStop_16' in GNEChange_Additional
-Warning: Adding busStop 'busStop_17' in GNEChange_Additional
-Warning: Adding busStop 'busStop_18' in GNEChange_Additional
-Warning: Adding busStop 'busStop_19' in GNEChange_Additional
-Warning: net has to be saved
-Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
-Warning: Additionals saved
-Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
-Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-Warning: Deleting unreferenced busStop 'busStop_19'
-Warning: Additionals has to be saved
-Warning: Current saving Status: net saved, additionals unsaved, shapes saved
-Warning: Deleting unreferenced busStop 'busStop_18'
-Warning: Deleting unreferenced busStop 'busStop_17'
-Warning: Deleting unreferenced busStop 'busStop_16'
-Warning: Deleting unreferenced busStop 'busStop_15'
-Warning: Deleting unreferenced busStop 'busStop_14'
-Warning: Deleting unreferenced busStop 'busStop_13'
-Warning: Deleting unreferenced busStop 'busStop_12'
-Warning: Deleting unreferenced busStop 'busStop_11'
-Warning: Deleting unreferenced busStop 'busStop_08'
-Warning: Deleting unreferenced busStop 'busStop_07'
-Warning: Deleting unreferenced busStop 'busStop_04'
-Warning: Deleting unreferenced busStop 'busStop_03'
-Warning: Deleting unreferenced busStop 'busStop_00'
-Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor
-Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
-Warning: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
-Warning: Deleting unreferenced edge 'gneE1' in GNENet destructor
-Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
-Warning: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
-Warning: Deleting unreferenced junction 'gneJ0' in GNENet destructor
-Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
-Warning: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
-Warning: Deleting net builder in GNENet destructor

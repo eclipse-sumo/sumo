@@ -1,3 +1,74 @@
-java version "1.8.0_171"
-Java(TM) SE Runtime Environment (build 1.8.0_171-b11)
-Java HotSpot(TM) 64-Bit Server VM (build 25.171-b11, mixed mode)
+java version "1.8.0_181"
+Java(TM) SE Runtime Environment (build 1.8.0_181-b13)
+Java HotSpot(TM) 64-Bit Server VM (build 25.181-b13, mixed mode)
+Debug: Adding chargingStation 'chargingStation_0' in GNEChange_Additional
+Debug: Additionals has to be saved
+Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Adding chargingStation 'chargingStation_3' in GNEChange_Additional
+Debug: Adding chargingStation 'chargingStation_4' in GNEChange_Additional
+Debug: Adding chargingStation 'chargingStation_7' in GNEChange_Additional
+Debug: Adding chargingStation 'chargingStation_8' in GNEChange_Additional
+Debug: Adding chargingStation 'chargingStation_11' in GNEChange_Additional
+Debug: Adding chargingStation 'chargingStation_12' in GNEChange_Additional
+Debug: Adding chargingStation 'chargingStation_13' in GNEChange_Additional
+Debug: Adding chargingStation 'chargingStation_14' in GNEChange_Additional
+Debug: Adding chargingStation 'chargingStation_15' in GNEChange_Additional
+Debug: Adding chargingStation 'chargingStation_16' in GNEChange_Additional
+Debug: Adding chargingStation 'chargingStation_17' in GNEChange_Additional
+Debug: Adding chargingStation 'chargingStation_18' in GNEChange_Additional
+Debug: Adding chargingStation 'chargingStation_19' in GNEChange_Additional
+Debug: Adding chargingStation 'chargingStation_20' in GNEChange_Additional
+Debug: Adding chargingStation 'chargingStation_21' in GNEChange_Additional
+Debug: Adding chargingStation 'chargingStation_22' in GNEChange_Additional
+Debug: Adding chargingStation 'chargingStation_23' in GNEChange_Additional
+Debug: Adding chargingStation 'chargingStation_24' in GNEChange_Additional
+Debug: Adding chargingStation 'chargingStation_25' in GNEChange_Additional
+Debug: Adding chargingStation 'chargingStation_26' in GNEChange_Additional
+Debug: Adding chargingStation 'chargingStation_27' in GNEChange_Additional
+Debug: Adding chargingStation 'chargingStation_28' in GNEChange_Additional
+Debug: Adding chargingStation 'chargingStation_29' in GNEChange_Additional
+Debug: Adding chargingStation 'chargingStation_30' in GNEChange_Additional
+Debug: Adding chargingStation 'chargingStation_31' in GNEChange_Additional
+Debug: net has to be saved
+Debug: Current saving Status: net unsaved, additionals unsaved, shapes saved
+Debug: Additionals saved
+Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
+Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
+Debug: Deleting unreferenced chargingStation 'chargingStation_31'
+Debug: Additionals has to be saved
+Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Deleting unreferenced chargingStation 'chargingStation_30'
+Debug: Deleting unreferenced chargingStation 'chargingStation_29'
+Debug: Deleting unreferenced chargingStation 'chargingStation_28'
+Debug: Deleting unreferenced chargingStation 'chargingStation_27'
+Debug: Deleting unreferenced chargingStation 'chargingStation_26'
+Debug: Deleting unreferenced chargingStation 'chargingStation_25'
+Debug: Deleting unreferenced chargingStation 'chargingStation_24'
+Debug: Deleting unreferenced chargingStation 'chargingStation_23'
+Debug: Deleting unreferenced chargingStation 'chargingStation_22'
+Debug: Deleting unreferenced chargingStation 'chargingStation_21'
+Debug: Deleting unreferenced chargingStation 'chargingStation_20'
+Debug: Deleting unreferenced chargingStation 'chargingStation_19'
+Debug: Deleting unreferenced chargingStation 'chargingStation_18'
+Debug: Deleting unreferenced chargingStation 'chargingStation_17'
+Debug: Deleting unreferenced chargingStation 'chargingStation_16'
+Debug: Deleting unreferenced chargingStation 'chargingStation_15'
+Debug: Deleting unreferenced chargingStation 'chargingStation_14'
+Debug: Deleting unreferenced chargingStation 'chargingStation_13'
+Debug: Deleting unreferenced chargingStation 'chargingStation_12'
+Debug: Deleting unreferenced chargingStation 'chargingStation_11'
+Debug: Deleting unreferenced chargingStation 'chargingStation_8'
+Debug: Deleting unreferenced chargingStation 'chargingStation_7'
+Debug: Deleting unreferenced chargingStation 'chargingStation_4'
+Debug: Deleting unreferenced chargingStation 'chargingStation_3'
+Debug: Deleting unreferenced chargingStation 'chargingStation_0'
+Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
+Debug: Deleting unreferenced edge 'gneE1' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
+Debug: Deleting unreferenced junction 'gneJ0' in GNENet destructor
+Debug: Deleting unreferenced junction 'gneJ1' in GNENet destructor
+Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
+Debug: Deleting net builder in GNENet destructor

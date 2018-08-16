@@ -1,3 +1,55 @@
-java version "1.8.0_171"
-Java(TM) SE Runtime Environment (build 1.8.0_171-b11)
-Java HotSpot(TM) 64-Bit Server VM (build 25.171-b11, mixed mode)
+java version "1.8.0_181"
+Java(TM) SE Runtime Environment (build 1.8.0_181-b13)
+Java HotSpot(TM) 64-Bit Server VM (build 25.181-b13, mixed mode)
+Debug: net has to be saved
+Debug: Current saving Status: net unsaved, additionals saved, shapes saved
+Debug: Selected additional 'parkingArea' in AdditionalSelector
+Debug: Adding parkingArea 'parkingArea_gneE0_0_0' in GNEChange_Additional
+Debug: Additionals has to be saved
+Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Setting new attribute startPos '23.00' into parkingArea 'parkingArea_gneE0_0_0'
+Debug: Setting new attribute endPos '33.00' into parkingArea 'parkingArea_gneE0_0_0'
+Debug: Setting new attribute blockMovement 'true' into parkingArea 'parkingArea_gneE0_0_0'
+Debug: Setting new attribute blockMovement 'false' into parkingArea 'parkingArea_gneE0_0_0'
+Debug: Setting new attribute startPos '30.00' into parkingArea 'parkingArea_gneE0_0_0'
+Debug: Setting new attribute endPos '40.00' into parkingArea 'parkingArea_gneE0_0_0'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute endPos '33.00' into parkingArea 'parkingArea_gneE0_0_0'
+Debug: Setting previous attribute startPos '23.00' into parkingArea 'parkingArea_gneE0_0_0'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute blockMovement '1' into parkingArea 'parkingArea_gneE0_0_0'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute blockMovement '0' into parkingArea 'parkingArea_gneE0_0_0'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute endPos '22.00' into parkingArea 'parkingArea_gneE0_0_0'
+Debug: Setting previous attribute startPos '12.00' into parkingArea 'parkingArea_gneE0_0_0'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing parkingArea 'parkingArea_gneE0_0_0' in GNEChange_Additional
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding parkingArea 'parkingArea_gneE0_0_0' in GNEChange_Additional
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute startPos '23.00' into parkingArea 'parkingArea_gneE0_0_0'
+Debug: Setting new attribute endPos '33.00' into parkingArea 'parkingArea_gneE0_0_0'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute blockMovement 'true' into parkingArea 'parkingArea_gneE0_0_0'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute blockMovement 'false' into parkingArea 'parkingArea_gneE0_0_0'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute startPos '30.00' into parkingArea 'parkingArea_gneE0_0_0'
+Debug: Setting new attribute endPos '40.00' into parkingArea 'parkingArea_gneE0_0_0'
+Debug: Additionals saved
+Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
+Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
+Debug: Deleting unreferenced parkingArea 'parkingArea_gneE0_0_0'
+Debug: Additionals has to be saved
+Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
+Debug: Deleting unreferenced edge 'gneE1' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
+Debug: Deleting unreferenced junction 'gneJ0' in GNENet destructor
+Debug: Deleting unreferenced junction 'gneJ1' in GNENet destructor
+Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
+Debug: Deleting net builder in GNENet destructor

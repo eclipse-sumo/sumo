@@ -1,3 +1,176 @@
-java version "1.8.0_171"
-Java(TM) SE Runtime Environment (build 1.8.0_171-b11)
-Java HotSpot(TM) 64-Bit Server VM (build 25.171-b11, mixed mode)
+java version "1.8.0_181"
+Java(TM) SE Runtime Environment (build 1.8.0_181-b13)
+Java HotSpot(TM) 64-Bit Server VM (build 25.181-b13, mixed mode)
+Debug: Adding e3Detector 'e3Detector_A' in GNEChange_Additional
+Debug: Additionals has to be saved
+Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Adding detEntry 'e3Detector_AdetEntry0' in GNEChange_Additional
+Debug: Adding detExit 'e3Detector_AdetExit0' in GNEChange_Additional
+Debug: Adding e3Detector 'e3Detector_B' in GNEChange_Additional
+Debug: Adding detEntry 'e3Detector_BdetEntry0' in GNEChange_Additional
+Debug: Adding detExit 'e3Detector_BdetExit0' in GNEChange_Additional
+Debug: net has to be saved
+Debug: Current saving Status: net unsaved, additionals unsaved, shapes saved
+Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Debug: Setting new attribute selected 'true' into junction 'gneJ0'
+Debug: Current selection: 1 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Debug: Setting new attribute selected 'true' into edge 'gneE1'
+Debug: Current selection: 1 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Debug: Setting new attribute selected 'true' into junction 'gneJ1'
+Debug: Current selection: 2 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Debug: Setting new attribute selected 'true' into edge 'gneE0'
+Debug: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Debug: Setting new attribute selected 'true' into e3Detector 'e3Detector_A'
+Debug: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Debug: Setting new attribute selected 'true' into e3Detector 'e3Detector_B'
+Debug: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 2 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Debug: Setting new attribute selected 'true' into detEntry 'e3Detector_AdetEntry0'
+Debug: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 3 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Debug: Setting new attribute selected 'true' into detEntry 'e3Detector_BdetEntry0'
+Debug: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 4 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Debug: Setting new attribute selected 'true' into detExit 'e3Detector_AdetExit0'
+Debug: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 5 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Debug: Setting new attribute selected 'true' into detExit 'e3Detector_BdetExit0'
+Debug: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 6 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Debug: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 6 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Debug: Value '-30' for attribute freq of e3Detector isn't valid
+Debug: Setting new attribute freq '50' into e3Detector 'e3Detector_A'
+Debug: Setting new attribute freq '50' into e3Detector 'e3Detector_B'
+Debug: Value '%%%;:..&&%$%$' for attribute name of e3Detector isn't valid
+Debug: Setting new attribute name 'customName' into e3Detector 'e3Detector_A'
+Debug: Setting new attribute name 'customName' into e3Detector 'e3Detector_B'
+Debug: Value '&&&&&&&&' for attribute file of e3Detector isn't valid
+Debug: Setting new attribute file 'myOwnFilename.txt' into e3Detector 'e3Detector_A'
+Debug: Setting new attribute file 'myOwnFilename.txt' into e3Detector 'e3Detector_B'
+Debug: Value 'Type%%%%%1 T;;yp$2 Type3' for attribute vTypes of e3Detector isn't valid
+Debug: Setting new attribute vTypes 'Type1 Type2 Type3' into e3Detector 'e3Detector_A'
+Debug: Setting new attribute vTypes 'Type1 Type2 Type3' into e3Detector 'e3Detector_B'
+Debug: Value '-5' for attribute timeThreshold of e3Detector isn't valid
+Debug: Setting new attribute timeThreshold '11.3' into e3Detector 'e3Detector_A'
+Debug: Setting new attribute timeThreshold '11.3' into e3Detector 'e3Detector_B'
+Debug: Value '-3' for attribute speedThreshold of e3Detector isn't valid
+Debug: Setting new attribute speedThreshold '4' into e3Detector 'e3Detector_A'
+Debug: Setting new attribute speedThreshold '4' into e3Detector 'e3Detector_B'
+Debug: Setting new attribute blockMovement 'true' into e3Detector 'e3Detector_A'
+Debug: Setting new attribute blockMovement 'true' into e3Detector 'e3Detector_B'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute blockMovement '0' into e3Detector 'e3Detector_B'
+Debug: Setting previous attribute blockMovement '0' into e3Detector 'e3Detector_A'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute speedThreshold '3.39' into e3Detector 'e3Detector_B'
+Debug: Setting previous attribute speedThreshold '1.39' into e3Detector 'e3Detector_A'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute timeThreshold '2.00' into e3Detector 'e3Detector_B'
+Debug: Setting previous attribute timeThreshold '1.00' into e3Detector 'e3Detector_A'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute vTypes '' into e3Detector 'e3Detector_B'
+Debug: Setting previous attribute vTypes '' into e3Detector 'e3Detector_A'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute file 'e3Detector_00.txt' into e3Detector 'e3Detector_B'
+Debug: Setting previous attribute file 'e3Detector_00.txt' into e3Detector 'e3Detector_A'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute name 'B' into e3Detector 'e3Detector_B'
+Debug: Setting previous attribute name 'A' into e3Detector 'e3Detector_A'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute freq '120.00' into e3Detector 'e3Detector_B'
+Debug: Setting previous attribute freq '100.00' into e3Detector 'e3Detector_A'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute selected '0' into detExit 'e3Detector_BdetExit0'
+Debug: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 5 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Debug: Setting previous attribute selected '0' into detExit 'e3Detector_AdetExit0'
+Debug: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 4 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Debug: Setting previous attribute selected '0' into detEntry 'e3Detector_BdetEntry0'
+Debug: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 3 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Debug: Setting previous attribute selected '0' into detEntry 'e3Detector_AdetEntry0'
+Debug: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 2 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Debug: Setting previous attribute selected '0' into e3Detector 'e3Detector_B'
+Debug: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Debug: Setting previous attribute selected '0' into e3Detector 'e3Detector_A'
+Debug: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Debug: Setting previous attribute selected '0' into edge 'gneE0'
+Debug: Current selection: 2 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Debug: Setting previous attribute selected '0' into junction 'gneJ1'
+Debug: Current selection: 1 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Debug: Setting previous attribute selected '0' into edge 'gneE1'
+Debug: Current selection: 1 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Debug: Setting previous attribute selected '0' into junction 'gneJ0'
+Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing detExit 'e3Detector_BdetExit0' in GNEChange_Additional
+Debug: Removing detEntry 'e3Detector_BdetEntry0' in GNEChange_Additional
+Debug: Removing e3Detector 'e3Detector_B' in GNEChange_Additional
+Debug: Removed inspected element from Inspected ACs. 1 ACs remains.
+Debug: Removing detExit 'e3Detector_AdetExit0' in GNEChange_Additional
+Debug: Removing detEntry 'e3Detector_AdetEntry0' in GNEChange_Additional
+Debug: Removing e3Detector 'e3Detector_A' in GNEChange_Additional
+Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding e3Detector 'e3Detector_A' in GNEChange_Additional
+Debug: Adding detEntry 'e3Detector_AdetEntry0' in GNEChange_Additional
+Debug: Adding detExit 'e3Detector_AdetExit0' in GNEChange_Additional
+Debug: Adding e3Detector 'e3Detector_B' in GNEChange_Additional
+Debug: Adding detEntry 'e3Detector_BdetEntry0' in GNEChange_Additional
+Debug: Adding detExit 'e3Detector_BdetExit0' in GNEChange_Additional
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute selected 'true' into junction 'gneJ0'
+Debug: Current selection: 1 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Debug: Setting new attribute selected 'true' into edge 'gneE1'
+Debug: Current selection: 1 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Debug: Setting new attribute selected 'true' into junction 'gneJ1'
+Debug: Current selection: 2 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Debug: Setting new attribute selected 'true' into edge 'gneE0'
+Debug: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Debug: Setting new attribute selected 'true' into e3Detector 'e3Detector_A'
+Debug: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Debug: Setting new attribute selected 'true' into e3Detector 'e3Detector_B'
+Debug: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 2 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Debug: Setting new attribute selected 'true' into detEntry 'e3Detector_AdetEntry0'
+Debug: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 3 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Debug: Setting new attribute selected 'true' into detEntry 'e3Detector_BdetEntry0'
+Debug: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 4 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Debug: Setting new attribute selected 'true' into detExit 'e3Detector_AdetExit0'
+Debug: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 5 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Debug: Setting new attribute selected 'true' into detExit 'e3Detector_BdetExit0'
+Debug: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 6 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute freq '50' into e3Detector 'e3Detector_A'
+Debug: Setting new attribute freq '50' into e3Detector 'e3Detector_B'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute name 'customName' into e3Detector 'e3Detector_A'
+Debug: Setting new attribute name 'customName' into e3Detector 'e3Detector_B'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute file 'myOwnFilename.txt' into e3Detector 'e3Detector_A'
+Debug: Setting new attribute file 'myOwnFilename.txt' into e3Detector 'e3Detector_B'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute vTypes 'Type1 Type2 Type3' into e3Detector 'e3Detector_A'
+Debug: Setting new attribute vTypes 'Type1 Type2 Type3' into e3Detector 'e3Detector_B'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute timeThreshold '11.3' into e3Detector 'e3Detector_A'
+Debug: Setting new attribute timeThreshold '11.3' into e3Detector 'e3Detector_B'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute speedThreshold '4' into e3Detector 'e3Detector_A'
+Debug: Setting new attribute speedThreshold '4' into e3Detector 'e3Detector_B'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute blockMovement 'true' into e3Detector 'e3Detector_A'
+Debug: Setting new attribute blockMovement 'true' into e3Detector 'e3Detector_B'
+Debug: Additionals saved
+Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
+Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
+Debug: Deleting unreferenced detExit 'e3Detector_BdetExit0'
+Debug: Additionals has to be saved
+Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Deleting unreferenced detEntry 'e3Detector_BdetEntry0'
+Debug: Deleting unreferenced e3Detector 'e3Detector_B'
+Debug: Deleting unreferenced detExit 'e3Detector_AdetExit0'
+Debug: Deleting unreferenced detEntry 'e3Detector_AdetEntry0'
+Debug: Deleting unreferenced e3Detector 'e3Detector_A'
+Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
+Debug: Deleting unreferenced edge 'gneE1' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
+Debug: Deleting unreferenced junction 'gneJ0' in GNENet destructor
+Debug: Deleting unreferenced junction 'gneJ1' in GNENet destructor
+Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
+Debug: Deleting net builder in GNENet destructor

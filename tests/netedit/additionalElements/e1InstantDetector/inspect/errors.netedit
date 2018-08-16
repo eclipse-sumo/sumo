@@ -1,3 +1,119 @@
-java version "1.8.0_171"
-Java(TM) SE Runtime Environment (build 1.8.0_171-b11)
-Java HotSpot(TM) 64-Bit Server VM (build 25.171-b11, mixed mode)
+java version "1.8.0_181"
+Java(TM) SE Runtime Environment (build 1.8.0_181-b13)
+Java HotSpot(TM) 64-Bit Server VM (build 25.181-b13, mixed mode)
+Debug: net has to be saved
+Debug: Current saving Status: net unsaved, additionals saved, shapes saved
+Debug: Selected additional 'instantInductionLoop' in AdditionalSelector
+Debug: Adding instantInductionLoop 'instantInductionLoop_gneE2_1_0' in GNEChange_Additional
+Debug: Additionals has to be saved
+Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Adding instantInductionLoop 'instantInductionLoop_gneE2_1_1' in GNEChange_Additional
+Debug: Value 'instantInductionLoop_gneE2_1_1' for attribute id of instantInductionLoop isn't valid
+Debug: Value 'Id with spaces' for attribute id of instantInductionLoop isn't valid
+Debug: Setting new attribute id 'correctID' into instantInductionLoop 'instantInductionLoop_gneE2_1_0'
+Debug: Value 'dummy lane' for attribute lane of instantInductionLoop isn't valid
+Debug: Setting new attribute lane 'gneE0_0' into instantInductionLoop 'correctID'
+Debug: Setting new attribute lane 'gneE2_1' into instantInductionLoop 'correctID'
+Debug: Setting new attribute lane 'gneE2_0' into instantInductionLoop 'correctID'
+Debug: Setting new attribute pos '-5' into instantInductionLoop 'correctID'
+Debug: Setting new attribute pos '400' into instantInductionLoop 'correctID'
+Debug: Setting new attribute pos '20' into instantInductionLoop 'correctID'
+Debug: Value '%%%;:..&&%$%$' for attribute name of instantInductionLoop isn't valid
+Debug: Setting new attribute name 'customName' into instantInductionLoop 'correctID'
+Debug: Setting new attribute file '' into instantInductionLoop 'correctID'
+Debug: Value '%%%;:..&&%$%$' for attribute file of instantInductionLoop isn't valid
+Debug: Setting new attribute file 'instantInductionLoop_gneE2_1_1.txt' into instantInductionLoop 'correctID'
+Debug: Setting new attribute file 'myOwnOutput.txt' into instantInductionLoop 'correctID'
+Debug: Value 'Type%%%%%1 T;;yp$2 Type3' for attribute vTypes of instantInductionLoop isn't valid
+Debug: Setting new attribute vTypes 'Type1 Type2 Type3' into instantInductionLoop 'correctID'
+Debug: Setting new attribute friendlyPos 'true' into instantInductionLoop 'correctID'
+Debug: Setting new attribute blockMovement 'true' into instantInductionLoop 'correctID'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute blockMovement '0' into instantInductionLoop 'correctID'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute friendlyPos '0' into instantInductionLoop 'correctID'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute vTypes '' into instantInductionLoop 'correctID'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute file 'instantInductionLoop_gneE2_1_1.txt' into instantInductionLoop 'correctID'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute file '' into instantInductionLoop 'correctID'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute file 'instantInductionLoop_gneE2_1_0.xml' into instantInductionLoop 'correctID'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute name '' into instantInductionLoop 'correctID'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute pos '400.00' into instantInductionLoop 'correctID'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute pos '-5.00' into instantInductionLoop 'correctID'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute pos '17.00' into instantInductionLoop 'correctID'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute lane 'gneE2_1' into instantInductionLoop 'correctID'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute lane 'gneE0_0' into instantInductionLoop 'correctID'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute lane 'gneE2_1' into instantInductionLoop 'correctID'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute lane 'gneE0_0' into instantInductionLoop 'correctID'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute lane 'gneE2_1' into instantInductionLoop 'correctID'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute lane 'gneE2_0' into instantInductionLoop 'correctID'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute pos '-5' into instantInductionLoop 'correctID'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute pos '400' into instantInductionLoop 'correctID'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute pos '20' into instantInductionLoop 'correctID'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute name 'customName' into instantInductionLoop 'correctID'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute file '' into instantInductionLoop 'correctID'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute file 'instantInductionLoop_gneE2_1_1.txt' into instantInductionLoop 'correctID'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute file 'myOwnOutput.txt' into instantInductionLoop 'correctID'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute vTypes 'Type1 Type2 Type3' into instantInductionLoop 'correctID'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute friendlyPos 'true' into instantInductionLoop 'correctID'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute blockMovement 'true' into instantInductionLoop 'correctID'
+Debug: Additionals saved
+Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
+Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
+Debug: Created connection 'fromgneE2_1togneE3_1' in retrieveGNEConnection()
+Debug: Created connection 'fromgneE3_1togneE2_1' in retrieveGNEConnection()
+Debug: Created crossing ':gneJ0_c0' in retrieveGNECrossing()
+Debug: Created crossing ':gneJ0_c1' in retrieveGNECrossing()
+Debug: Created crossing ':gneJ1_c0' in retrieveGNECrossing()
+Debug: Created crossing ':gneJ1_c1' in retrieveGNECrossing()
+Debug: Deleting unreferenced instantInductionLoop 'instantInductionLoop_gneE2_1_1'
+Debug: Additionals has to be saved
+Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Deleting unreferenced instantInductionLoop 'correctID'
+Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
+Debug: Deleting unreferenced edge 'gneE1' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
+Debug: Deleting unreferenced edge 'gneE2' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE2_0' in GNEEdge destructor
+Debug: Deleting unreferenced lane 'gneE2_1' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE2_1togneE3_1' in GNEEdge destructor
+Debug: Deleting unreferenced edge 'gneE3' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE3_0' in GNEEdge destructor
+Debug: Deleting unreferenced lane 'gneE3_1' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE3_1togneE2_1' in GNEEdge destructor
+Debug: Deleting unreferenced junction 'gneJ0' in GNENet destructor
+Debug: Deleting unreferenced crossing ':gneJ0_c0' in GNEJunction destructor
+Debug: Deleting unreferenced crossing ':gneJ0_c1' in GNEJunction destructor
+Debug: Deleting unreferenced junction 'gneJ1' in GNENet destructor
+Debug: Deleting unreferenced crossing ':gneJ1_c0' in GNEJunction destructor
+Debug: Deleting unreferenced crossing ':gneJ1_c1' in GNEJunction destructor
+Debug: Deleting unreferenced junction 'gneJ2' in GNENet destructor
+Debug: Deleting unreferenced junction 'gneJ3' in GNENet destructor
+Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
+Debug: Deleting net builder in GNENet destructor

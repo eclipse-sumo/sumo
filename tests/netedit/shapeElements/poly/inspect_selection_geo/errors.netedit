@@ -1,5 +1,502 @@
-java version "1.8.0_171"
-Java(TM) SE Runtime Environment (build 1.8.0_171-b11)
-Java HotSpot(TM) 64-Bit Server VM (build 25.171-b11, mixed mode)
+java version "1.8.0_181"
+Java(TM) SE Runtime Environment (build 1.8.0_181-b13)
+Java HotSpot(TM) 64-Bit Server VM (build 25.181-b13, mixed mode)
+Debug: Adding poly 'poly_0' into viewNet
+Debug: Adding poly 'poly_1' into viewNet
+Debug: Adding poly 'poly_12' into viewNet
+Debug: Adding poly 'poly_2' into viewNet
+Debug: Adding poly 'poly_3' into viewNet
+Debug: Adding poly 'poly_4' into viewNet
+Debug: Adding poly 'poly_5' into viewNet
+Debug: Adding poly 'poly_6' into viewNet
+Debug: Adding poly 'poly_7' into viewNet
+Debug: Adding poly 'poly_8' into viewNet
+Debug: Adding poly 'poly_9' into viewNet
+Debug: net has to be saved
+Debug: Current saving Status: net unsaved, additionals saved, shapes unsaved
+Debug: Current Viewport values: 0.00, 0.00, 100.00. Zoom = '53.20'
+Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Debug: Setting new attribute selected 'true' into junction 'gneJ0'
+Debug: Current selection: 1 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Debug: Setting new attribute selected 'true' into edge 'gneE3'
+Debug: Current selection: 1 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Debug: Setting new attribute selected 'true' into edge 'gneE4'
+Debug: Current selection: 1 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Debug: Setting new attribute selected 'true' into junction 'gneJ1'
+Debug: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Debug: Setting new attribute selected 'true' into edge 'gneE0'
+Debug: Current selection: 2 Junctions, 3 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Debug: Setting new attribute selected 'true' into edge 'gneE8'
+Debug: Current selection: 2 Junctions, 4 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Debug: Setting new attribute selected 'true' into junction 'gneJ2'
+Debug: Current selection: 3 Junctions, 4 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Debug: Setting new attribute selected 'true' into edge 'gneE1'
+Debug: Current selection: 3 Junctions, 5 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Debug: Setting new attribute selected 'true' into edge 'gneE7'
+Debug: Current selection: 3 Junctions, 6 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Debug: Setting new attribute selected 'true' into junction 'gneJ3'
+Debug: Current selection: 4 Junctions, 6 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Debug: Setting new attribute selected 'true' into edge 'gneE2'
+Debug: Current selection: 4 Junctions, 7 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Debug: Setting new attribute selected 'true' into edge 'gneE6'
+Debug: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Debug: Setting new attribute selected 'true' into poly 'poly_0'
+Debug: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
+Debug: Setting new attribute selected 'true' into poly 'poly_1'
+Debug: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 2 Polygons, 0 POIs
+Debug: Setting new attribute selected 'true' into poly 'poly_12'
+Debug: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 3 Polygons, 0 POIs
+Debug: Setting new attribute selected 'true' into poly 'poly_2'
+Debug: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 4 Polygons, 0 POIs
+Debug: Setting new attribute selected 'true' into poly 'poly_3'
+Debug: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 5 Polygons, 0 POIs
+Debug: Setting new attribute selected 'true' into poly 'poly_4'
+Debug: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 6 Polygons, 0 POIs
+Debug: Setting new attribute selected 'true' into poly 'poly_5'
+Debug: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 7 Polygons, 0 POIs
+Debug: Setting new attribute selected 'true' into poly 'poly_6'
+Debug: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 8 Polygons, 0 POIs
+Debug: Setting new attribute selected 'true' into poly 'poly_7'
+Debug: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 9 Polygons, 0 POIs
+Debug: Setting new attribute selected 'true' into poly 'poly_8'
+Debug: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 10 Polygons, 0 POIs
+Debug: Setting new attribute selected 'true' into poly 'poly_9'
+Debug: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
+Debug: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
+Debug: Value 'Jren' for attribute color of poly isn't valid
+Debug: Setting new attribute color 'green' into poly 'poly_1'
+Debug: Setting new attribute fill 'true' into poly 'poly_0'
+Debug: Setting new attribute fill 'true' into poly 'poly_1'
+Debug: Setting new attribute fill 'true' into poly 'poly_12'
+Debug: Setting new attribute fill 'true' into poly 'poly_2'
+Debug: Setting new attribute fill 'true' into poly 'poly_3'
+Debug: Setting new attribute fill 'true' into poly 'poly_4'
+Debug: Setting new attribute fill 'true' into poly 'poly_5'
+Debug: Setting new attribute fill 'true' into poly 'poly_6'
+Debug: Setting new attribute fill 'true' into poly 'poly_7'
+Debug: Setting new attribute fill 'true' into poly 'poly_8'
+Debug: Setting new attribute fill 'true' into poly 'poly_9'
+Debug: Value 'dummyLayer' for attribute layer of poly isn't valid
+Debug: Setting new attribute layer '1' into poly 'poly_0'
+Debug: Setting new attribute layer '1' into poly 'poly_1'
+Debug: Setting new attribute layer '1' into poly 'poly_12'
+Debug: Setting new attribute layer '1' into poly 'poly_2'
+Debug: Setting new attribute layer '1' into poly 'poly_3'
+Debug: Setting new attribute layer '1' into poly 'poly_4'
+Debug: Setting new attribute layer '1' into poly 'poly_5'
+Debug: Setting new attribute layer '1' into poly 'poly_6'
+Debug: Setting new attribute layer '1' into poly 'poly_7'
+Debug: Setting new attribute layer '1' into poly 'poly_8'
+Debug: Setting new attribute layer '1' into poly 'poly_9'
+Debug: Setting new attribute type 'common type' into poly 'poly_0'
+Debug: Setting new attribute type 'common type' into poly 'poly_1'
+Debug: Setting new attribute type 'common type' into poly 'poly_12'
+Debug: Setting new attribute type 'common type' into poly 'poly_2'
+Debug: Setting new attribute type 'common type' into poly 'poly_3'
+Debug: Setting new attribute type 'common type' into poly 'poly_4'
+Debug: Setting new attribute type 'common type' into poly 'poly_5'
+Debug: Setting new attribute type 'common type' into poly 'poly_6'
+Debug: Setting new attribute type 'common type' into poly 'poly_7'
+Debug: Setting new attribute type 'common type' into poly 'poly_8'
+Debug: Setting new attribute type 'common type' into poly 'poly_9'
 Error: Could not load 'paris.ico'.
 Loading failed!
+Debug: Value 'paris.ico' for attribute imgFile of poly isn't valid
+Debug: Setting new attribute imgFile '' into poly 'poly_4'
+Debug: Setting new attribute imgFile 'berlin_icon.ico' into poly 'poly_0'
+Debug: Setting new attribute imgFile 'berlin_icon.ico' into poly 'poly_1'
+Debug: Setting new attribute imgFile 'berlin_icon.ico' into poly 'poly_12'
+Debug: Setting new attribute imgFile 'berlin_icon.ico' into poly 'poly_2'
+Debug: Setting new attribute imgFile 'berlin_icon.ico' into poly 'poly_3'
+Debug: Setting new attribute imgFile 'berlin_icon.ico' into poly 'poly_4'
+Debug: Setting new attribute imgFile 'berlin_icon.ico' into poly 'poly_5'
+Debug: Setting new attribute imgFile 'berlin_icon.ico' into poly 'poly_6'
+Debug: Setting new attribute imgFile 'berlin_icon.ico' into poly 'poly_7'
+Debug: Setting new attribute imgFile 'berlin_icon.ico' into poly 'poly_8'
+Debug: Setting new attribute imgFile 'berlin_icon.ico' into poly 'poly_9'
+Debug: Setting new attribute relativePath 'true' into poly 'poly_0'
+Debug: Setting new attribute relativePath 'true' into poly 'poly_1'
+Debug: Setting new attribute relativePath 'true' into poly 'poly_12'
+Debug: Setting new attribute relativePath 'true' into poly 'poly_2'
+Debug: Setting new attribute relativePath 'true' into poly 'poly_3'
+Debug: Setting new attribute relativePath 'true' into poly 'poly_4'
+Debug: Setting new attribute relativePath 'true' into poly 'poly_5'
+Debug: Setting new attribute relativePath 'true' into poly 'poly_6'
+Debug: Setting new attribute relativePath 'true' into poly 'poly_7'
+Debug: Setting new attribute relativePath 'true' into poly 'poly_8'
+Debug: Setting new attribute relativePath 'true' into poly 'poly_9'
+Debug: Setting new attribute angle '0.00' into poly 'poly_6'
+Debug: Setting new attribute angle '180' into poly 'poly_0'
+Debug: Setting new attribute angle '180' into poly 'poly_1'
+Debug: Setting new attribute angle '180' into poly 'poly_12'
+Debug: Setting new attribute angle '180' into poly 'poly_2'
+Debug: Setting new attribute angle '180' into poly 'poly_3'
+Debug: Setting new attribute angle '180' into poly 'poly_4'
+Debug: Setting new attribute angle '180' into poly 'poly_5'
+Debug: Setting new attribute angle '180' into poly 'poly_6'
+Debug: Setting new attribute angle '180' into poly 'poly_7'
+Debug: Setting new attribute angle '180' into poly 'poly_8'
+Debug: Setting new attribute angle '180' into poly 'poly_9'
+Debug: Setting new attribute geo 'true' into poly 'poly_0'
+Debug: Setting new attribute geo 'true' into poly 'poly_1'
+Debug: Setting new attribute geo 'true' into poly 'poly_12'
+Debug: Setting new attribute geo 'true' into poly 'poly_2'
+Debug: Setting new attribute geo 'true' into poly 'poly_3'
+Debug: Setting new attribute geo 'true' into poly 'poly_4'
+Debug: Setting new attribute geo 'true' into poly 'poly_5'
+Debug: Setting new attribute geo 'true' into poly 'poly_6'
+Debug: Setting new attribute geo 'true' into poly 'poly_7'
+Debug: Setting new attribute geo 'true' into poly 'poly_8'
+Debug: Setting new attribute geo 'true' into poly 'poly_9'
+Debug: Setting new attribute blockMovement 'true' into poly 'poly_0'
+Debug: Setting new attribute blockMovement 'true' into poly 'poly_1'
+Debug: Setting new attribute blockMovement 'true' into poly 'poly_12'
+Debug: Setting new attribute blockMovement 'true' into poly 'poly_2'
+Debug: Setting new attribute blockMovement 'true' into poly 'poly_3'
+Debug: Setting new attribute blockMovement 'true' into poly 'poly_4'
+Debug: Setting new attribute blockMovement 'true' into poly 'poly_5'
+Debug: Setting new attribute blockMovement 'true' into poly 'poly_6'
+Debug: Setting new attribute blockMovement 'true' into poly 'poly_7'
+Debug: Setting new attribute blockMovement 'true' into poly 'poly_8'
+Debug: Setting new attribute blockMovement 'true' into poly 'poly_9'
+Debug: Setting new attribute blockShape 'true' into poly 'poly_0'
+Debug: Setting new attribute blockShape 'true' into poly 'poly_1'
+Debug: Setting new attribute blockShape 'true' into poly 'poly_12'
+Debug: Setting new attribute blockShape 'true' into poly 'poly_2'
+Debug: Setting new attribute blockShape 'true' into poly 'poly_3'
+Debug: Setting new attribute blockShape 'true' into poly 'poly_4'
+Debug: Setting new attribute blockShape 'true' into poly 'poly_5'
+Debug: Setting new attribute blockShape 'true' into poly 'poly_6'
+Debug: Setting new attribute blockShape 'true' into poly 'poly_7'
+Debug: Setting new attribute blockShape 'true' into poly 'poly_8'
+Debug: Setting new attribute blockShape 'true' into poly 'poly_9'
+Debug: Setting new attribute closedShape 'true' into poly 'poly_0'
+Debug: Setting new attribute closedShape 'true' into poly 'poly_1'
+Debug: Setting new attribute closedShape 'true' into poly 'poly_12'
+Debug: Setting new attribute closedShape 'true' into poly 'poly_2'
+Debug: Setting new attribute closedShape 'true' into poly 'poly_3'
+Debug: Setting new attribute closedShape 'true' into poly 'poly_4'
+Debug: Setting new attribute closedShape 'true' into poly 'poly_5'
+Debug: Setting new attribute closedShape 'true' into poly 'poly_6'
+Debug: Setting new attribute closedShape 'true' into poly 'poly_7'
+Debug: Setting new attribute closedShape 'true' into poly 'poly_8'
+Debug: Setting new attribute closedShape 'true' into poly 'poly_9'
+Debug: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
+Debug: Setting new attribute selected 'false' into junction 'gneJ0'
+Debug: Current selection: 3 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
+Debug: Setting new attribute selected 'false' into junction 'gneJ1'
+Debug: Current selection: 2 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
+Debug: Setting new attribute selected 'false' into junction 'gneJ2'
+Debug: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
+Debug: Setting new attribute selected 'false' into junction 'gneJ3'
+Debug: Current selection: 0 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
+Debug: Setting new attribute selected 'false' into edge 'gneE0'
+Debug: Current selection: 0 Junctions, 7 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
+Debug: Setting new attribute selected 'false' into edge 'gneE1'
+Debug: Current selection: 0 Junctions, 6 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
+Debug: Setting new attribute selected 'false' into edge 'gneE2'
+Debug: Current selection: 0 Junctions, 5 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
+Debug: Setting new attribute selected 'false' into edge 'gneE3'
+Debug: Current selection: 0 Junctions, 4 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
+Debug: Setting new attribute selected 'false' into edge 'gneE4'
+Debug: Current selection: 0 Junctions, 3 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
+Debug: Setting new attribute selected 'false' into edge 'gneE6'
+Debug: Current selection: 0 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
+Debug: Setting new attribute selected 'false' into edge 'gneE7'
+Debug: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
+Debug: Setting new attribute selected 'false' into edge 'gneE8'
+Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
+Debug: Setting new attribute selected 'false' into poly 'poly_0'
+Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 10 Polygons, 0 POIs
+Debug: Setting new attribute selected 'false' into poly 'poly_1'
+Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 9 Polygons, 0 POIs
+Debug: Setting new attribute selected 'false' into poly 'poly_12'
+Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 8 Polygons, 0 POIs
+Debug: Setting new attribute selected 'false' into poly 'poly_2'
+Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 7 Polygons, 0 POIs
+Debug: Setting new attribute selected 'false' into poly 'poly_3'
+Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 6 Polygons, 0 POIs
+Debug: Setting new attribute selected 'false' into poly 'poly_4'
+Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 5 Polygons, 0 POIs
+Debug: Setting new attribute selected 'false' into poly 'poly_5'
+Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 4 Polygons, 0 POIs
+Debug: Setting new attribute selected 'false' into poly 'poly_6'
+Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 3 Polygons, 0 POIs
+Debug: Setting new attribute selected 'false' into poly 'poly_7'
+Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 2 Polygons, 0 POIs
+Debug: Setting new attribute selected 'false' into poly 'poly_8'
+Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
+Debug: Setting new attribute selected 'false' into poly 'poly_9'
+Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute selected '1' into poly 'poly_9'
+Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
+Debug: Setting previous attribute selected '1' into poly 'poly_8'
+Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 2 Polygons, 0 POIs
+Debug: Setting previous attribute selected '1' into poly 'poly_7'
+Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 3 Polygons, 0 POIs
+Debug: Setting previous attribute selected '1' into poly 'poly_6'
+Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 4 Polygons, 0 POIs
+Debug: Setting previous attribute selected '1' into poly 'poly_5'
+Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 5 Polygons, 0 POIs
+Debug: Setting previous attribute selected '1' into poly 'poly_4'
+Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 6 Polygons, 0 POIs
+Debug: Setting previous attribute selected '1' into poly 'poly_3'
+Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 7 Polygons, 0 POIs
+Debug: Setting previous attribute selected '1' into poly 'poly_2'
+Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 8 Polygons, 0 POIs
+Debug: Setting previous attribute selected '1' into poly 'poly_12'
+Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 9 Polygons, 0 POIs
+Debug: Setting previous attribute selected '1' into poly 'poly_1'
+Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 10 Polygons, 0 POIs
+Debug: Setting previous attribute selected '1' into poly 'poly_0'
+Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
+Debug: Setting previous attribute selected '1' into edge 'gneE8'
+Debug: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
+Debug: Setting previous attribute selected '1' into edge 'gneE7'
+Debug: Current selection: 0 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
+Debug: Setting previous attribute selected '1' into edge 'gneE6'
+Debug: Current selection: 0 Junctions, 3 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
+Debug: Setting previous attribute selected '1' into edge 'gneE4'
+Debug: Current selection: 0 Junctions, 4 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
+Debug: Setting previous attribute selected '1' into edge 'gneE3'
+Debug: Current selection: 0 Junctions, 5 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
+Debug: Setting previous attribute selected '1' into edge 'gneE2'
+Debug: Current selection: 0 Junctions, 6 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
+Debug: Setting previous attribute selected '1' into edge 'gneE1'
+Debug: Current selection: 0 Junctions, 7 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
+Debug: Setting previous attribute selected '1' into edge 'gneE0'
+Debug: Current selection: 0 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
+Debug: Setting previous attribute selected '1' into junction 'gneJ3'
+Debug: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
+Debug: Setting previous attribute selected '1' into junction 'gneJ2'
+Debug: Current selection: 2 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
+Debug: Setting previous attribute selected '1' into junction 'gneJ1'
+Debug: Current selection: 3 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
+Debug: Setting previous attribute selected '1' into junction 'gneJ0'
+Debug: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute closedShape '1' into poly 'poly_9'
+Debug: Setting previous attribute closedShape '1' into poly 'poly_8'
+Debug: Setting previous attribute closedShape '1' into poly 'poly_7'
+Debug: Setting previous attribute closedShape '1' into poly 'poly_6'
+Debug: Setting previous attribute closedShape '1' into poly 'poly_5'
+Debug: Setting previous attribute closedShape '1' into poly 'poly_4'
+Debug: Setting previous attribute closedShape '1' into poly 'poly_3'
+Debug: Setting previous attribute closedShape '1' into poly 'poly_2'
+Debug: Setting previous attribute closedShape '0' into poly 'poly_12'
+Debug: Setting previous attribute closedShape '1' into poly 'poly_1'
+Debug: Setting previous attribute closedShape '1' into poly 'poly_0'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute blockShape '0' into poly 'poly_9'
+Debug: Setting previous attribute blockShape '0' into poly 'poly_8'
+Debug: Setting previous attribute blockShape '0' into poly 'poly_7'
+Debug: Setting previous attribute blockShape '0' into poly 'poly_6'
+Debug: Setting previous attribute blockShape '0' into poly 'poly_5'
+Debug: Setting previous attribute blockShape '0' into poly 'poly_4'
+Debug: Setting previous attribute blockShape '0' into poly 'poly_3'
+Debug: Setting previous attribute blockShape '0' into poly 'poly_2'
+Debug: Setting previous attribute blockShape '0' into poly 'poly_12'
+Debug: Setting previous attribute blockShape '0' into poly 'poly_1'
+Debug: Setting previous attribute blockShape '0' into poly 'poly_0'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute blockMovement '0' into poly 'poly_9'
+Debug: Setting previous attribute blockMovement '0' into poly 'poly_8'
+Debug: Setting previous attribute blockMovement '0' into poly 'poly_7'
+Debug: Setting previous attribute blockMovement '0' into poly 'poly_6'
+Debug: Setting previous attribute blockMovement '0' into poly 'poly_5'
+Debug: Setting previous attribute blockMovement '0' into poly 'poly_4'
+Debug: Setting previous attribute blockMovement '0' into poly 'poly_3'
+Debug: Setting previous attribute blockMovement '0' into poly 'poly_2'
+Debug: Setting previous attribute blockMovement '0' into poly 'poly_12'
+Debug: Setting previous attribute blockMovement '0' into poly 'poly_1'
+Debug: Setting previous attribute blockMovement '0' into poly 'poly_0'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute geo '0' into poly 'poly_9'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute geo '0' into poly 'poly_8'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute geo '0' into poly 'poly_7'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute geo '0' into poly 'poly_6'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute geo '0' into poly 'poly_5'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute geo '0' into poly 'poly_4'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute geo '0' into poly 'poly_3'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute geo '0' into poly 'poly_2'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute geo '0' into poly 'poly_12'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute geo '0' into poly 'poly_1'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute geo '0' into poly 'poly_0'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute geo 'true' into poly 'poly_0'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute geo 'true' into poly 'poly_1'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute geo 'true' into poly 'poly_12'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute geo 'true' into poly 'poly_2'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute geo 'true' into poly 'poly_3'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute geo 'true' into poly 'poly_4'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute geo 'true' into poly 'poly_5'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute geo 'true' into poly 'poly_6'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute geo 'true' into poly 'poly_7'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute geo 'true' into poly 'poly_8'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute geo 'true' into poly 'poly_9'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute blockMovement 'true' into poly 'poly_0'
+Debug: Setting new attribute blockMovement 'true' into poly 'poly_1'
+Debug: Setting new attribute blockMovement 'true' into poly 'poly_12'
+Debug: Setting new attribute blockMovement 'true' into poly 'poly_2'
+Debug: Setting new attribute blockMovement 'true' into poly 'poly_3'
+Debug: Setting new attribute blockMovement 'true' into poly 'poly_4'
+Debug: Setting new attribute blockMovement 'true' into poly 'poly_5'
+Debug: Setting new attribute blockMovement 'true' into poly 'poly_6'
+Debug: Setting new attribute blockMovement 'true' into poly 'poly_7'
+Debug: Setting new attribute blockMovement 'true' into poly 'poly_8'
+Debug: Setting new attribute blockMovement 'true' into poly 'poly_9'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute blockShape 'true' into poly 'poly_0'
+Debug: Setting new attribute blockShape 'true' into poly 'poly_1'
+Debug: Setting new attribute blockShape 'true' into poly 'poly_12'
+Debug: Setting new attribute blockShape 'true' into poly 'poly_2'
+Debug: Setting new attribute blockShape 'true' into poly 'poly_3'
+Debug: Setting new attribute blockShape 'true' into poly 'poly_4'
+Debug: Setting new attribute blockShape 'true' into poly 'poly_5'
+Debug: Setting new attribute blockShape 'true' into poly 'poly_6'
+Debug: Setting new attribute blockShape 'true' into poly 'poly_7'
+Debug: Setting new attribute blockShape 'true' into poly 'poly_8'
+Debug: Setting new attribute blockShape 'true' into poly 'poly_9'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute closedShape 'true' into poly 'poly_0'
+Debug: Setting new attribute closedShape 'true' into poly 'poly_1'
+Debug: Setting new attribute closedShape 'true' into poly 'poly_12'
+Debug: Setting new attribute closedShape 'true' into poly 'poly_2'
+Debug: Setting new attribute closedShape 'true' into poly 'poly_3'
+Debug: Setting new attribute closedShape 'true' into poly 'poly_4'
+Debug: Setting new attribute closedShape 'true' into poly 'poly_5'
+Debug: Setting new attribute closedShape 'true' into poly 'poly_6'
+Debug: Setting new attribute closedShape 'true' into poly 'poly_7'
+Debug: Setting new attribute closedShape 'true' into poly 'poly_8'
+Debug: Setting new attribute closedShape 'true' into poly 'poly_9'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute selected 'false' into junction 'gneJ0'
+Debug: Current selection: 3 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
+Debug: Setting new attribute selected 'false' into junction 'gneJ1'
+Debug: Current selection: 2 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
+Debug: Setting new attribute selected 'false' into junction 'gneJ2'
+Debug: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
+Debug: Setting new attribute selected 'false' into junction 'gneJ3'
+Debug: Current selection: 0 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
+Debug: Setting new attribute selected 'false' into edge 'gneE0'
+Debug: Current selection: 0 Junctions, 7 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
+Debug: Setting new attribute selected 'false' into edge 'gneE1'
+Debug: Current selection: 0 Junctions, 6 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
+Debug: Setting new attribute selected 'false' into edge 'gneE2'
+Debug: Current selection: 0 Junctions, 5 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
+Debug: Setting new attribute selected 'false' into edge 'gneE3'
+Debug: Current selection: 0 Junctions, 4 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
+Debug: Setting new attribute selected 'false' into edge 'gneE4'
+Debug: Current selection: 0 Junctions, 3 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
+Debug: Setting new attribute selected 'false' into edge 'gneE6'
+Debug: Current selection: 0 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
+Debug: Setting new attribute selected 'false' into edge 'gneE7'
+Debug: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
+Debug: Setting new attribute selected 'false' into edge 'gneE8'
+Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
+Debug: Setting new attribute selected 'false' into poly 'poly_0'
+Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 10 Polygons, 0 POIs
+Debug: Setting new attribute selected 'false' into poly 'poly_1'
+Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 9 Polygons, 0 POIs
+Debug: Setting new attribute selected 'false' into poly 'poly_12'
+Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 8 Polygons, 0 POIs
+Debug: Setting new attribute selected 'false' into poly 'poly_2'
+Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 7 Polygons, 0 POIs
+Debug: Setting new attribute selected 'false' into poly 'poly_3'
+Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 6 Polygons, 0 POIs
+Debug: Setting new attribute selected 'false' into poly 'poly_4'
+Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 5 Polygons, 0 POIs
+Debug: Setting new attribute selected 'false' into poly 'poly_5'
+Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 4 Polygons, 0 POIs
+Debug: Setting new attribute selected 'false' into poly 'poly_6'
+Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 3 Polygons, 0 POIs
+Debug: Setting new attribute selected 'false' into poly 'poly_7'
+Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 2 Polygons, 0 POIs
+Debug: Setting new attribute selected 'false' into poly 'poly_8'
+Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
+Debug: Setting new attribute selected 'false' into poly 'poly_9'
+Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Debug: Shapes saved
+Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
+Debug: Created connection 'fromgneE1_0togneE2_0' in retrieveGNEConnection()
+Debug: Created connection 'fromgneE2_0togneE3_0' in retrieveGNEConnection()
+Debug: Created connection 'fromgneE3_0togneE0_0' in retrieveGNEConnection()
+Debug: Created connection 'fromgneE4_0togneE6_0' in retrieveGNEConnection()
+Debug: Created connection 'fromgneE6_0togneE7_0' in retrieveGNEConnection()
+Debug: Created connection 'fromgneE7_0togneE8_0' in retrieveGNEConnection()
+Debug: Created connection 'fromgneE8_0togneE4_0' in retrieveGNEConnection()
+Debug: Removing poly 'poly_9' from net in ~GNEChange_Shape()
+Debug: delete poly 'poly_9' in ~GNEChange_Shape()
+Debug: Removing poly 'poly_8' from net in ~GNEChange_Shape()
+Debug: delete poly 'poly_8' in ~GNEChange_Shape()
+Debug: Removing poly 'poly_7' from net in ~GNEChange_Shape()
+Debug: delete poly 'poly_7' in ~GNEChange_Shape()
+Debug: Removing poly 'poly_6' from net in ~GNEChange_Shape()
+Debug: delete poly 'poly_6' in ~GNEChange_Shape()
+Debug: Removing poly 'poly_5' from net in ~GNEChange_Shape()
+Debug: delete poly 'poly_5' in ~GNEChange_Shape()
+Debug: Removing poly 'poly_4' from net in ~GNEChange_Shape()
+Debug: delete poly 'poly_4' in ~GNEChange_Shape()
+Debug: Removing poly 'poly_3' from net in ~GNEChange_Shape()
+Debug: delete poly 'poly_3' in ~GNEChange_Shape()
+Debug: Removing poly 'poly_2' from net in ~GNEChange_Shape()
+Debug: delete poly 'poly_2' in ~GNEChange_Shape()
+Debug: Removing poly 'poly_12' from net in ~GNEChange_Shape()
+Debug: delete poly 'poly_12' in ~GNEChange_Shape()
+Debug: Removing poly 'poly_1' from net in ~GNEChange_Shape()
+Debug: delete poly 'poly_1' in ~GNEChange_Shape()
+Debug: Removing poly 'poly_0' from net in ~GNEChange_Shape()
+Debug: delete poly 'poly_0' in ~GNEChange_Shape()
+Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
+Debug: Deleting unreferenced edge 'gneE1' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE1_0togneE2_0' in GNEEdge destructor
+Debug: Deleting unreferenced edge 'gneE2' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE2_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE2_0togneE3_0' in GNEEdge destructor
+Debug: Deleting unreferenced edge 'gneE3' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE3_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE3_0togneE0_0' in GNEEdge destructor
+Debug: Deleting unreferenced edge 'gneE4' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE4_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE4_0togneE6_0' in GNEEdge destructor
+Debug: Deleting unreferenced edge 'gneE6' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE6_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE6_0togneE7_0' in GNEEdge destructor
+Debug: Deleting unreferenced edge 'gneE7' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE7_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE7_0togneE8_0' in GNEEdge destructor
+Debug: Deleting unreferenced edge 'gneE8' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE8_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE8_0togneE4_0' in GNEEdge destructor
+Debug: Deleting unreferenced junction 'gneJ0' in GNENet destructor
+Debug: Deleting unreferenced junction 'gneJ1' in GNENet destructor
+Debug: Deleting unreferenced junction 'gneJ2' in GNENet destructor
+Debug: Deleting unreferenced junction 'gneJ3' in GNENet destructor
+Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
+Debug: Deleting net builder in GNENet destructor

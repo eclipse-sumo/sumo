@@ -1,3 +1,177 @@
-java version "1.8.0_171"
-Java(TM) SE Runtime Environment (build 1.8.0_171-b11)
-Java HotSpot(TM) 64-Bit Server VM (build 25.171-b11, mixed mode)
+java version "1.8.0_181"
+Java(TM) SE Runtime Environment (build 1.8.0_181-b13)
+Java HotSpot(TM) 64-Bit Server VM (build 25.181-b13, mixed mode)
+Debug: net has to be saved
+Debug: Current saving Status: net unsaved, additionals saved, shapes saved
+Debug: Current Viewport values: 25.00, 0.00, 25.00. Zoom = '280.00'
+Debug: Selected additional 'e3Detector' in AdditionalSelector
+Debug: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
+Debug: Additionals has to be saved
+Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Adding e3Detector 'e3Detector_1' in GNEChange_Additional
+Debug: Invalid input parameter of e3Detector: 'freq' cannot be negative
+Debug: Adding e3Detector 'e3Detector_2' in GNEChange_Additional
+Debug: Invalid input parameter of e3Detector: Name contains invalid characters
+Debug: Adding e3Detector 'e3Detector_3' in GNEChange_Additional
+Debug: Invalid input parameter of e3Detector: input contains invalid characters for a filename
+Debug: Adding e3Detector 'e3Detector_4' in GNEChange_Additional
+Debug: Adding e3Detector 'e3Detector_5' in GNEChange_Additional
+Debug: Invalid input parameter of e3Detector: 'timeThreshold' cannot be negative
+Debug: Adding e3Detector 'e3Detector_6' in GNEChange_Additional
+Debug: Invalid input parameter of e3Detector: 'speedThreshold' cannot be negative
+Debug: Adding e3Detector 'e3Detector_7' in GNEChange_Additional
+Debug: Adding e3Detector 'e3Detector_8' in GNEChange_Additional
+Debug: Selected additional 'detEntry' in AdditionalSelector
+Debug: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
+Debug: Adding detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
+Debug: Adding detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
+Debug: Adding detEntry 'e3Detector_3detEntry0' in GNEChange_Additional
+Debug: Adding detEntry 'e3Detector_4detEntry0' in GNEChange_Additional
+Debug: Adding detEntry 'e3Detector_5detEntry0' in GNEChange_Additional
+Debug: Adding detEntry 'e3Detector_7detEntry0' in GNEChange_Additional
+Debug: Adding detEntry 'e3Detector_8detEntry0' in GNEChange_Additional
+Debug: Selected additional 'detExit' in AdditionalSelector
+Debug: Adding detExit 'e3Detector_1detExit0' in GNEChange_Additional
+Debug: Adding detExit 'e3Detector_2detExit0' in GNEChange_Additional
+Debug: Adding detExit 'e3Detector_3detExit0' in GNEChange_Additional
+Debug: Adding detExit 'e3Detector_4detExit0' in GNEChange_Additional
+Debug: Adding detExit 'e3Detector_6detExit0' in GNEChange_Additional
+Debug: Adding detExit 'e3Detector_7detExit0' in GNEChange_Additional
+Debug: Adding detExit 'e3Detector_8detExit0' in GNEChange_Additional
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing detExit 'e3Detector_8detExit0' in GNEChange_Additional
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing detExit 'e3Detector_7detExit0' in GNEChange_Additional
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing detExit 'e3Detector_6detExit0' in GNEChange_Additional
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing detExit 'e3Detector_4detExit0' in GNEChange_Additional
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing detExit 'e3Detector_3detExit0' in GNEChange_Additional
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing detExit 'e3Detector_2detExit0' in GNEChange_Additional
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing detExit 'e3Detector_1detExit0' in GNEChange_Additional
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing detEntry 'e3Detector_8detEntry0' in GNEChange_Additional
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing detEntry 'e3Detector_7detEntry0' in GNEChange_Additional
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing detEntry 'e3Detector_5detEntry0' in GNEChange_Additional
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing detEntry 'e3Detector_4detEntry0' in GNEChange_Additional
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing detEntry 'e3Detector_3detEntry0' in GNEChange_Additional
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing e3Detector 'e3Detector_8' in GNEChange_Additional
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing e3Detector 'e3Detector_7' in GNEChange_Additional
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing e3Detector 'e3Detector_6' in GNEChange_Additional
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing e3Detector 'e3Detector_5' in GNEChange_Additional
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing e3Detector 'e3Detector_4' in GNEChange_Additional
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing e3Detector 'e3Detector_3' in GNEChange_Additional
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing e3Detector 'e3Detector_2' in GNEChange_Additional
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing e3Detector 'e3Detector_1' in GNEChange_Additional
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding e3Detector 'e3Detector_1' in GNEChange_Additional
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding e3Detector 'e3Detector_2' in GNEChange_Additional
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding e3Detector 'e3Detector_3' in GNEChange_Additional
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding e3Detector 'e3Detector_4' in GNEChange_Additional
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding e3Detector 'e3Detector_5' in GNEChange_Additional
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding e3Detector 'e3Detector_6' in GNEChange_Additional
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding e3Detector 'e3Detector_7' in GNEChange_Additional
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding e3Detector 'e3Detector_8' in GNEChange_Additional
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding detEntry 'e3Detector_3detEntry0' in GNEChange_Additional
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding detEntry 'e3Detector_4detEntry0' in GNEChange_Additional
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding detEntry 'e3Detector_5detEntry0' in GNEChange_Additional
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding detEntry 'e3Detector_7detEntry0' in GNEChange_Additional
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding detEntry 'e3Detector_8detEntry0' in GNEChange_Additional
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding detExit 'e3Detector_1detExit0' in GNEChange_Additional
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding detExit 'e3Detector_2detExit0' in GNEChange_Additional
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding detExit 'e3Detector_3detExit0' in GNEChange_Additional
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding detExit 'e3Detector_4detExit0' in GNEChange_Additional
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding detExit 'e3Detector_6detExit0' in GNEChange_Additional
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding detExit 'e3Detector_7detExit0' in GNEChange_Additional
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding detExit 'e3Detector_8detExit0' in GNEChange_Additional
+Debug: Additionals saved
+Debug: Created connection 'fromgneE0_6togneE1_0' in retrieveGNEConnection()
+Debug: Created connection 'fromgneE1_0togneE0_6' in retrieveGNEConnection()
+Debug: Deleting unreferenced detExit 'e3Detector_8detExit0'
+Debug: Additionals has to be saved
+Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Deleting unreferenced detExit 'e3Detector_7detExit0'
+Debug: Deleting unreferenced detExit 'e3Detector_6detExit0'
+Debug: Deleting unreferenced detExit 'e3Detector_4detExit0'
+Debug: Deleting unreferenced detExit 'e3Detector_3detExit0'
+Debug: Deleting unreferenced detExit 'e3Detector_2detExit0'
+Debug: Deleting unreferenced detExit 'e3Detector_1detExit0'
+Debug: Deleting unreferenced detEntry 'e3Detector_8detEntry0'
+Debug: Deleting unreferenced detEntry 'e3Detector_7detEntry0'
+Debug: Deleting unreferenced detEntry 'e3Detector_5detEntry0'
+Debug: Deleting unreferenced detEntry 'e3Detector_4detEntry0'
+Debug: Deleting unreferenced detEntry 'e3Detector_3detEntry0'
+Debug: Deleting unreferenced detEntry 'e3Detector_2detEntry0'
+Debug: Deleting unreferenced detEntry 'e3Detector_1detEntry0'
+Debug: Deleting unreferenced detEntry 'e3Detector_0detEntry0'
+Debug: Deleting unreferenced e3Detector 'e3Detector_8'
+Debug: Deleting unreferenced e3Detector 'e3Detector_7'
+Debug: Deleting unreferenced e3Detector 'e3Detector_6'
+Debug: Deleting unreferenced e3Detector 'e3Detector_5'
+Debug: Deleting unreferenced e3Detector 'e3Detector_4'
+Debug: Deleting unreferenced e3Detector 'e3Detector_3'
+Debug: Deleting unreferenced e3Detector 'e3Detector_2'
+Debug: Deleting unreferenced e3Detector 'e3Detector_1'
+Debug: Deleting unreferenced e3Detector 'e3Detector_0'
+Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
+Debug: Deleting unreferenced lane 'gneE0_1' in GNEEdge destructor
+Debug: Deleting unreferenced lane 'gneE0_2' in GNEEdge destructor
+Debug: Deleting unreferenced lane 'gneE0_3' in GNEEdge destructor
+Debug: Deleting unreferenced lane 'gneE0_4' in GNEEdge destructor
+Debug: Deleting unreferenced lane 'gneE0_5' in GNEEdge destructor
+Debug: Deleting unreferenced lane 'gneE0_6' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE0_6togneE1_0' in GNEEdge destructor
+Debug: Deleting unreferenced edge 'gneE1' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE1_0togneE0_6' in GNEEdge destructor
+Debug: Deleting unreferenced junction 'gneJ0' in GNENet destructor
+Debug: Deleting unreferenced junction 'gneJ1' in GNENet destructor
+Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
+Debug: Deleting net builder in GNENet destructor

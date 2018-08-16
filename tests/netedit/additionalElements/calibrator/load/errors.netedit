@@ -1,3 +1,52 @@
-java version "1.8.0_171"
-Java(TM) SE Runtime Environment (build 1.8.0_171-b11)
-Java HotSpot(TM) 64-Bit Server VM (build 25.171-b11, mixed mode)
+java version "1.8.0_181"
+Java(TM) SE Runtime Environment (build 1.8.0_181-b13)
+Java HotSpot(TM) 64-Bit Server VM (build 25.181-b13, mixed mode)
+Debug: Adding calibrator 'calibrator01' in GNEChange_Additional
+Debug: Additionals has to be saved
+Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Adding calibrator 'calibrator02' in GNEChange_Additional
+Debug: Adding calibrator 'calibrator05' in GNEChange_Additional
+Debug: Adding calibrator 'calibrator09' in GNEChange_Additional
+Debug: Adding calibrator 'calibrator10' in GNEChange_Additional
+Debug: Adding calibrator 'calibrator11' in GNEChange_Additional
+Debug: Adding calibrator 'calibrator12' in GNEChange_Additional
+Debug: Adding calibrator 'calibrator13' in GNEChange_Additional
+Debug: Adding calibrator 'calibrator14' in GNEChange_Additional
+Debug: Adding calibrator 'calibrator15' in GNEChange_Additional
+Debug: Adding calibrator 'calibrator16' in GNEChange_Additional
+Debug: Adding calibrator 'calibrator17' in GNEChange_Additional
+Debug: Adding calibrator 'calibrator18' in GNEChange_Additional
+Debug: Adding calibrator 'calibrator19' in GNEChange_Additional
+Debug: Adding calibrator 'calibrator20' in GNEChange_Additional
+Debug: net has to be saved
+Debug: Current saving Status: net unsaved, additionals unsaved, shapes saved
+Debug: Additionals saved
+Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
+Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
+Debug: Deleting unreferenced calibrator 'calibrator20'
+Debug: Additionals has to be saved
+Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Deleting unreferenced calibrator 'calibrator19'
+Debug: Deleting unreferenced calibrator 'calibrator18'
+Debug: Deleting unreferenced calibrator 'calibrator17'
+Debug: Deleting unreferenced calibrator 'calibrator16'
+Debug: Deleting unreferenced calibrator 'calibrator15'
+Debug: Deleting unreferenced calibrator 'calibrator14'
+Debug: Deleting unreferenced calibrator 'calibrator13'
+Debug: Deleting unreferenced calibrator 'calibrator12'
+Debug: Deleting unreferenced calibrator 'calibrator11'
+Debug: Deleting unreferenced calibrator 'calibrator10'
+Debug: Deleting unreferenced calibrator 'calibrator09'
+Debug: Deleting unreferenced calibrator 'calibrator05'
+Debug: Deleting unreferenced calibrator 'calibrator02'
+Debug: Deleting unreferenced calibrator 'calibrator01'
+Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
+Debug: Deleting unreferenced edge 'gneE1' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
+Debug: Deleting unreferenced junction 'gneJ0' in GNENet destructor
+Debug: Deleting unreferenced junction 'gneJ1' in GNENet destructor
+Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
+Debug: Deleting net builder in GNENet destructor
