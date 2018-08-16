@@ -19,26 +19,28 @@ Warning: Value '-5' for attribute length of e2Detector isn't valid
 Warning: Setting new attribute length '5' into e2Detector 'correctID'
 Warning: Value '-100' for attribute freq of e2Detector isn't valid
 Warning: Setting new attribute freq '120' into e2Detector 'correctID'
-Warning: Value '%%%&&%$%$' for attribute name of e2Detector isn't valid
+Warning: Value '%%%;:..&&%$%$' for attribute name of e2Detector isn't valid
 Warning: Setting new attribute name 'customName' into e2Detector 'correctID'
-Warning: Value '%%%&%%%&&' for attribute file of e2Detector isn't valid
+Warning: Value '%;;%%&%%%&&' for attribute file of e2Detector isn't valid
 Warning: Setting new attribute file '' into e2Detector 'correctID'
 Warning: Setting new attribute file 'E2Detector_gneE2_1_1.txt' into e2Detector 'correctID'
 Warning: Setting new attribute file 'myOwnOutput.txt' into e2Detector 'correctID'
-Warning: Value 'Type%%%%%1 Typ$2 Type3' for attribute vTypes of e2Detector isn't valid
+Warning: Please note that using ';' and ',' as XML list separators is deprecated.
+ From 1.0 onwards, only ' ' will be accepted.
+Warning: Value 'Type%%%%%1 T;;yp$2 Type3' for attribute vTypes of e2Detector isn't valid
 Warning: Setting new attribute vTypes 'Type1 Type2 Type3' into e2Detector 'correctID'
 Warning: Value '-5' for attribute timeThreshold of e2Detector isn't valid
 Warning: Setting new attribute timeThreshold '4' into e2Detector 'correctID'
 Warning: Value '-12.1' for attribute speedThreshold of e2Detector isn't valid
 Warning: Setting new attribute speedThreshold '6.3' into e2Detector 'correctID'
-Warning: Value '-8' for attribute jamThreshold of e2Detector isn't valid
+Warning: Value '-11.1' for attribute jamThreshold of e2Detector isn't valid
+Warning: Setting new attribute jamThreshold '7.3' into e2Detector 'correctID'
 Warning: Setting new attribute jamThreshold '12.5' into e2Detector 'correctID'
 Warning: Setting new attribute friendlyPos 'true' into e2Detector 'correctID'
-Warning: Setting new attribute blockMovement 'true' into e2Detector 'correctID'
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute blockMovement '0' into e2Detector 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute friendlyPos '0' into e2Detector 'correctID'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute jamThreshold '7.30' into e2Detector 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute jamThreshold '10.00' into e2Detector 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -120,11 +122,11 @@ Warning: Setting new attribute timeThreshold '4' into e2Detector 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute speedThreshold '6.3' into e2Detector 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute jamThreshold '7.3' into e2Detector 'correctID'
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute jamThreshold '12.5' into e2Detector 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute friendlyPos 'true' into e2Detector 'correctID'
-Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute blockMovement 'true' into e2Detector 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Keys Ctrl + Y (Redo) pressed

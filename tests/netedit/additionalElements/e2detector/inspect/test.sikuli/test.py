@@ -136,17 +136,20 @@ netedit.modifyAttribute(9, "6.3")
 # Change parameter 10 with a non valid value
 netedit.modifyAttribute(10, "dummyJamThreshold")
 
-# Change boolean parameter 12
-netedit.modifyBoolAttribute(14)
+# Change parameter 9 with a non valid value
+netedit.modifyAttribute(10, "-11.1")
+
+# Change parameter 9 with a valid value
+netedit.modifyAttribute(10, "7.3")
 
 # Change parameter 10 with a valid value
 netedit.modifyAttribute(10, "12.5")
 
-# Change boolean parameter 11
+# Change boolean parameter 12
 netedit.modifyBoolAttribute(11)
 
-# Change boolean parameter 13
-netedit.modifyBoolAttribute(15)
+# Change boolean parameter block movement
+netedit.modifyBoolAttribute(16)
 
 # Check undos and redos
 netedit.undo(match, 26)

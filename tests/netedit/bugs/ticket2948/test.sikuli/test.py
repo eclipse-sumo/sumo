@@ -57,7 +57,7 @@ netedit.inspectMode()
 netedit.leftClick(match, 400, 150)
 
 # Set all Junctions as traffic lighs
-netedit.modifyAttribute(1, "traffic_light")
+netedit.modifyAttribute(0, "traffic_light")
 
 # inspect set of edges
 netedit.leftClick(match, 480, 160)
