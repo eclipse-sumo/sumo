@@ -1,8 +1,4 @@
-Warning: Inserting generic parameter 'key1|value1' into additional busStop.
 Warning: Error parsing key from generic parameter. Key doesn't exist
 Warning: Error parsing key from generic parameter. Key contains invalid characters
-Warning: Inserting generic parameter 'key1|value4' into additional busStop.
-Warning: Inserting generic parameter 'key2|' into additional busStop.
 Warning: Error parsing value from generic parameter. Value contains invalid characters
-Warning: Inserting generic parameter 'key4|value5' into additional busStop.
 Warning: Error parsing key from generic parameter. Key doesn't exist

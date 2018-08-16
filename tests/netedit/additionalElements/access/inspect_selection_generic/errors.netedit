@@ -5,8 +5,14 @@ Debug: Adding busStop 'busStopA' in GNEChange_Additional
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, shapes saved
 Debug: Adding access 'busStopAaccess0' in GNEChange_Additional
+Debug: Inserting generic parameter 'keyA1|valueA1' into additional access.
+Debug: Inserting generic parameter 'keyA2|valueA2' into additional access.
+Debug: Inserting generic parameter 'keyA3|valueA3' into additional access.
 Debug: Adding busStop 'busStopB' in GNEChange_Additional
 Debug: Adding access 'busStopBaccess0' in GNEChange_Additional
+Debug: Inserting generic parameter 'keyB1|valueB1' into additional access.
+Debug: Inserting generic parameter 'keyB2|valueB2' into additional access.
+Debug: Inserting generic parameter 'keyB3|valueB3' into additional access.
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs

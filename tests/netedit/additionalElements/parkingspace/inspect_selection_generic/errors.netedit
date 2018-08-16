@@ -5,10 +5,19 @@ Debug: Adding parkingArea 'parkingArea_gneE0_0_0' in GNEChange_Additional
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, shapes saved
 Debug: Adding space 'parkingArea_gneE0_0_0space0' in GNEChange_Additional
+Debug: Inserting generic parameter 'keyA1|valueA1' into additional space.
+Debug: Inserting generic parameter 'keyA2|valueA2' into additional space.
+Debug: Inserting generic parameter 'keyA3|valueA3' into additional space.
 Debug: Adding parkingArea 'parkingArea_gneE0_0_1' in GNEChange_Additional
 Debug: Adding space 'parkingArea_gneE0_0_1space0' in GNEChange_Additional
+Debug: Inserting generic parameter 'keyB1|valueB1' into additional space.
+Debug: Inserting generic parameter 'keyB2|valueB2' into additional space.
+Debug: Inserting generic parameter 'keyB3|valueB3' into additional space.
 Debug: Adding parkingArea 'parkingAreaNewParent' in GNEChange_Additional
 Debug: Adding space 'parkingAreaNewParentspace0' in GNEChange_Additional
+Debug: Inserting generic parameter 'keyC1|valueC1' into additional space.
+Debug: Inserting generic parameter 'keyC2|valueC2' into additional space.
+Debug: Inserting generic parameter 'keyC3|valueC3' into additional space.
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs

@@ -5,9 +5,15 @@ Debug: Adding e3Detector 'E3_0' in GNEChange_Additional
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, shapes saved
 Debug: Adding detEntry 'E3_0detEntry0' in GNEChange_Additional
+Debug: Inserting generic parameter 'keyB1|valueB1' into additional detEntry.
+Debug: Inserting generic parameter 'keyB2|valueB2' into additional detEntry.
+Debug: Inserting generic parameter 'keyB3|valueB3' into additional detEntry.
 Debug: Adding detExit 'E3_0detExit0' in GNEChange_Additional
 Debug: Adding e3Detector 'E3_1' in GNEChange_Additional
 Debug: Adding detEntry 'E3_1detEntry0' in GNEChange_Additional
+Debug: Inserting generic parameter 'keyB1|valueB1' into additional detEntry.
+Debug: Inserting generic parameter 'keyB2|valueB2' into additional detEntry.
+Debug: Inserting generic parameter 'keyB3|valueB3' into additional detEntry.
 Debug: Adding detExit 'E3_1detExit0' in GNEChange_Additional
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, shapes saved

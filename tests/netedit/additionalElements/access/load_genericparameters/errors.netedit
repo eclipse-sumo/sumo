@@ -5,6 +5,10 @@ Debug: Adding busStop 'busStop' in GNEChange_Additional
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, shapes saved
 Debug: Adding access 'busStopaccess0' in GNEChange_Additional
+Debug: Inserting generic parameter 'key1|value1' into additional access.
+Debug: Inserting generic parameter 'key1|value4' into additional access.
+Debug: Inserting generic parameter 'key2|' into additional access.
+Debug: Inserting generic parameter 'key4|value5' into additional access.
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Debug: Additionals saved
