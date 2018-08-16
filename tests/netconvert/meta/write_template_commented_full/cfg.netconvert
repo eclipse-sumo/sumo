@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Aug 16 15:51:47 2018 by Eclipse SUMO netconvert Version c310b0a
+<!-- generated on Thu Aug 16 16:21:59 2018 by Eclipse SUMO netconvert Version d8ad5b8
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -527,6 +527,9 @@
 
         <!-- Do not limit turn speed for angular changes below FLOAT (degrees). The value is subtracted from the geometric angle before computing the turning radius. -->
         <junctions.limit-turn-speed.min-angle value="15" type="FLOAT"/>
+
+        <!-- Do not limit turn speed for angular changes below FLOAT (degrees) on railway edges. The value is subtracted from the geometric angle before computing the turning radius. -->
+        <junctions.limit-turn-speed.min-angle.railway value="35" type="FLOAT"/>
 
         <!-- Warn about turn speed limits that reduce the speed of straight connections by more than FLOAT -->
         <junctions.limit-turn-speed.warn.straight value="5" type="FLOAT"/>

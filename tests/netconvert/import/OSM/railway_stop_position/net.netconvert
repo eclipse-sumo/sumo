@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Aug 16 15:51:58 2018 by Eclipse SUMO netconvert Version c310b0a
+<!-- generated on Thu Aug 16 16:22:11 2018 by Eclipse SUMO netconvert Version d8ad5b8
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -77,7 +77,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":-67442_1_0" index="0" allow="rail rail_electric" speed="63.89" length="15.08" shape="843.27,3105.70 846.53,3103.88 850.05,3102.53 853.68,3101.41 857.28,3100.26"/>
     </edge>
     <edge id=":1509953396_0" function="internal">
-        <lane id=":1509953396_0_0" index="0" allow="rail rail_electric" speed="16.26" length="3.18" shape="1152.32,2892.00 1151.61,2892.62 1151.09,2893.02 1150.53,2893.33 1149.66,2893.71"/>
+        <lane id=":1509953396_0_0" index="0" allow="rail rail_electric" speed="44.44" length="3.18" shape="1152.32,2892.00 1151.61,2892.62 1151.09,2893.02 1150.53,2893.33 1149.66,2893.71"/>
     </edge>
     <edge id=":1509953396_1" function="internal">
         <lane id=":1509953396_1_0" index="0" allow="rail rail_electric" speed="44.44" length="3.17" shape="1149.83,2893.96 1150.60,2893.42 1151.12,2893.03 1151.61,2892.62 1152.32,2892.00"/>
@@ -140,7 +140,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":33618767_1_0" index="0" allow="rail rail_electric" speed="36.11" length="2.34" shape="1253.64,551.31 1253.75,551.99 1253.82,552.46 1253.86,552.94 1253.89,553.63"/>
     </edge>
     <edge id=":4371828433_0" function="internal">
-        <lane id=":4371828433_0_0" index="0" allow="rail rail_electric" speed="11.30" length="3.66" shape="2588.00,1659.31 2587.68,1660.34 2587.39,1661.03 2586.97,1661.64 2586.27,1662.47"/>
+        <lane id=":4371828433_0_0" index="0" allow="rail rail_electric" speed="27.78" length="3.66" shape="2588.00,1659.31 2587.68,1660.34 2587.39,1661.03 2586.97,1661.64 2586.27,1662.47"/>
     </edge>
     <edge id=":4371828433_1" function="internal">
         <lane id=":4371828433_1_0" index="0" allow="rail rail_electric" speed="0.10" length="0.10" shape="2586.27,1662.47 2586.27,1662.47"/>
@@ -164,7 +164,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":465615035_0_0" index="0" allow="rail rail_electric" speed="55.55" length="2.85" shape="1048.34,2944.36 1049.03,2943.87 1049.50,2943.53 1049.95,2943.17 1050.61,2942.63"/>
     </edge>
     <edge id=":706888666_0" function="internal">
-        <lane id=":706888666_0_0" index="0" allow="rail rail_electric" speed="2.77" length="1.61" shape="961.28,3023.27 960.87,3023.70 960.77,3023.88 960.97,3023.80 961.47,3023.46"/>
+        <lane id=":706888666_0_0" index="0" allow="rail rail_electric" speed="2.86" length="1.61" shape="961.28,3023.27 960.87,3023.70 960.77,3023.88 960.97,3023.80 961.47,3023.46"/>
     </edge>
     <edge id=":706888666_1" function="internal">
         <lane id=":706888666_1_0" index="0" allow="rail rail_electric" speed="44.44" length="2.70" shape="959.25,3025.02 961.47,3023.46"/>

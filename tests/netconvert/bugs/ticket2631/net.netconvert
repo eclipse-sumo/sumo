@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Aug 16 15:52:06 2018 by Eclipse SUMO netconvert Version c310b0a
+<!-- generated on Thu Aug 16 16:22:18 2018 by Eclipse SUMO netconvert Version d8ad5b8
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -32,10 +32,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":C_0_0" index="0" allow="rail" speed="13.89" length="6.20" shape="998.40,101.50 998.40,95.30"/>
     </edge>
     <edge id=":C_1" function="internal">
-        <lane id=":C_1_0" index="0" allow="rail" speed="5.04" length="5.00" shape="998.40,101.50 998.59,100.14 999.17,99.18 1000.14,98.59 1001.50,98.40"/>
+        <lane id=":C_1_0" index="0" allow="rail" speed="5.75" length="5.00" shape="998.40,101.50 998.59,100.14 999.17,99.18 1000.14,98.59 1001.50,98.40"/>
     </edge>
     <edge id=":C_2" function="internal">
-        <lane id=":C_2_0" index="0" allow="rail" speed="5.04" length="5.00" shape="995.30,98.40 996.66,98.21 997.62,97.63 998.21,96.66 998.40,95.30"/>
+        <lane id=":C_2_0" index="0" allow="rail" speed="5.75" length="5.00" shape="995.30,98.40 996.66,98.21 997.62,97.63 998.21,96.66 998.40,95.30"/>
     </edge>
     <edge id=":C_3" function="internal">
         <lane id=":C_3_0" index="0" allow="rail" speed="33.33" length="6.20" shape="995.30,98.40 1001.50,98.40"/>

@@ -11,7 +11,5 @@ Warning: No way found for reference '136039791' in relation '5974249'
 Warning: Ignoring restriction relation '5974249' with unknown from-way.
 Warning: Ignoring restriction relation '5974249' with unknown to-way.
 Warning: Ignoring restriction relation '5974249' with unknown via.
-Warning: Speed of straight connection '223017774#1_0->254150069_0' reduced by 28.18 due to turning radius of 48.07 (length=3.18 angle=18.86)
 Warning: Connection '313088548_0->254150073#1_0' is only 0.09 short.
-Warning: Speed of straight connection '-67388_0->223017774#0_0' reduced by 16.47 due to turning radius of 23.23 (length=3.66 angle=24.34)
-Warning: Speed of turning connection '56392724_0->56392722#2_0' reduced by 61.12 due to turning radius of 1.39 (length=1.61 angle=170.23)
+Warning: Speed of turning connection '56392724_0->56392722#2_0' reduced by 61.03 due to turning radius of 1.48 (length=1.61 angle=170.23)

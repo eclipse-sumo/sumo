@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version c310b0a
+Eclipse SUMO netconvert Version d8ad5b8
  Copyright (C) 2001-2018 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
   SUMO.
@@ -340,6 +340,11 @@ Junctions Options:
                                          The value is subtracted from the
                                          geometric angle before computing the
                                          turning radius.
+  --junctions.limit-turn-speed.min-angle.railway FLOAT  Do not limit turn speed
+                                         for angular changes below FLOAT
+                                         (degrees) on railway edges. The value
+                                         is subtracted from the geometric angle
+                                         before computing the turning radius.
   --junctions.limit-turn-speed.warn.straight FLOAT  Warn about turn speed
                                          limits that reduce the speed of
                                          straight connections by more than FLOAT

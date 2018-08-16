@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Aug 16 15:52:04 2018 by Eclipse SUMO netconvert Version c310b0a
+<!-- generated on Thu Aug 16 16:22:16 2018 by Eclipse SUMO netconvert Version d8ad5b8
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -3108,13 +3108,13 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":1789928382_5_0" index="0" disallow="pedestrian" speed="3.65" length="4.67" shape="4454.24,1000.27 4454.78,1001.60 4454.67,1002.49 4453.89,1002.93 4452.45,1002.92"/>
     </edge>
     <edge id=":1789928382_6" function="internal">
-        <lane id=":1789928382_6_0" index="0" disallow="pedestrian" speed="5.52" length="6.26" shape="4451.57,1008.51 4452.72,1006.58 4453.25,1005.01 4453.16,1003.79 4452.45,1002.92"/>
+        <lane id=":1789928382_6_0" index="0" disallow="pedestrian" speed="6.31" length="6.26" shape="4451.57,1008.51 4452.72,1006.58 4453.25,1005.01 4453.16,1003.79 4452.45,1002.92"/>
     </edge>
     <edge id=":1789928382_7" function="internal">
         <lane id=":1789928382_7_0" index="0" allow="tram" speed="27.78" length="13.59" shape="4451.57,1008.51 4453.57,1005.59 4455.33,1002.84 4456.95,1000.01 4458.54,996.86"/>
     </edge>
     <edge id=":1789928382_8" function="internal">
-        <lane id=":1789928382_8_0" index="0" disallow="pedestrian" speed="6.67" length="9.29" shape="4451.57,1008.51 4453.78,1005.60 4455.66,1003.72 4457.20,1002.86 4458.41,1003.03"/>
+        <lane id=":1789928382_8_0" index="0" disallow="pedestrian" speed="7.71" length="9.29" shape="4451.57,1008.51 4453.78,1005.60 4455.66,1003.72 4457.20,1002.86 4458.41,1003.03"/>
     </edge>
     <edge id=":1832089444_0" function="internal">
         <lane id=":1832089444_0_0" index="0" disallow="pedestrian" speed="8.33" length="9.40" shape="3389.38,197.96 3384.79,189.75"/>
