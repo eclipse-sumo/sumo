@@ -28,6 +28,7 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <utils/gui/div/GUIIOGlobals.h>
 
 
 // ===========================================================================
@@ -56,24 +57,30 @@ public:
         /// The message is a warning
         MT_WARNING,
         /// The message is an error
-        MT_ERROR
+        MT_ERROR,
+        /// The message is an debug
+        MT_DEBUG
     };
 
-    /// Returns the instance to add normal messages to
+    /// @brief Returns the instance to add normal messages to
     static MsgHandler* getMessageInstance();
 
-    /// Returns the instance to add warnings to
+    /// @brief Returns the instance to add warnings to
     static MsgHandler* getWarningInstance();
 
-    /// Returns the instance to add errors to
+    /// @brief Returns the instance to add errors to
     static MsgHandler* getErrorInstance();
 
+    /// @brief Returns the instance to add debug to
+    static MsgHandler* getDebugInstance();
+
+    ///@brief init output options
     static void initOutputOptions();
 
-    /// Removes pending handler
+    /// @brief Removes pending handler
     static void cleanupOnEnd();
 
-    /// adds a new error to the list
+    /// @brief adds a new error to the list
     void inform(std::string msg, bool addType = true);
 
     /** @brief Begins a process information
@@ -85,26 +92,25 @@ public:
      */
     void beginProcessMsg(std::string msg, bool addType = true);
 
-    /// Ends a process information
+    /// @brief Ends a process information
     void endProcessMsg(std::string msg);
 
-    /// Clears information whether an error occurred previously
+    /// @brief Clears information whether an error occurred previously
     void clear();
 
-    /// Adds a further retriever to the instance responsible for a certain msg type
+    /// @brief Adds a further retriever to the instance responsible for a certain msg type
     void addRetriever(OutputDevice* retriever);
 
-    /// Removes the retriever from the handler
+    /// @brief Removes the retriever from the handler
     void removeRetriever(OutputDevice* retriever);
 
-    /// Returns whether the given output device retrieves messages from the handler
+    /// @brief Returns whether the given output device retrieves messages from the handler
     bool isRetriever(OutputDevice* retriever) const;
 
-    /// Returns the information whether any messages were added
+    /// @brief Returns the information whether any messages were added
     bool wasInformed() const;
 
-    /** @brief Sets the lock to use
-        The lock will not be deleted */
+    /// @brief Sets the lock to use The lock will not be deleted
     static void assignLock(AbstractMutex* lock);
 
     /** @brief Generic output operator
@@ -113,14 +119,14 @@ public:
     template <class T>
     MsgHandler& operator<<(const T& t) {
         // inform all other receivers
-        for (RetrieverVector::iterator i = myRetrievers.begin(); i != myRetrievers.end(); i++) {
-            (*(*i)) << t;
+        for (auto i : myRetrievers) {
+            (*i) << t;
         }
         return *this;
     }
 
 protected:
-    /// Builds the string which includes the mml-message type
+    /// @brief Builds the string which includes the mml-message type
     inline std::string build(const std::string& msg, bool addType) {
         if (addType) {
             switch (myType) {
@@ -132,6 +138,9 @@ protected:
                 case MT_ERROR:
                     return "Error: " + msg;
                     break;
+                case MT_DEBUG:
+                    return "Debug: " + msg;
+                    break;
                 default:
                     break;
             }
@@ -141,49 +150,49 @@ protected:
 
 
 private:
-    /// standard constructor
+    /// @brief standard constructor
     MsgHandler(MsgType type);
 
-    /// destructor
+    /// @brief destructor
     ~MsgHandler();
 
-private:
-    /// The instance to handle errors
+    /// @brief The instance to handle errors
+    static MsgHandler* myDebugInstance;
+
+    /// @brief The instance to handle errors
     static MsgHandler* myErrorInstance;
 
-    /// The instance to handle warnings
+    /// @brief The instance to handle warnings
     static MsgHandler* myWarningInstance;
 
-    /// The instance to handle normal messages
+    /// @brief The instance to handle normal messages
     static MsgHandler* myMessageInstance;
 
-    /// Information whether a process information is printed to cout
+    /// @brief Information whether a process information is printed to cout
     static bool myAmProcessingProcess;
 
-    /** @brief The lock if any has to be used
-        The lock will not be deleted */
+    /// @brief The lock if any has to be used. The lock will not be deleted
     static AbstractMutex* myLock;
 
 private:
-    /// The type of the instance
+    /// @brief The type of the instance
     MsgType myType;
 
-    /// information wehther an error occurred at all
+    /// @brief information wehther an error occurred at all
     bool myWasInformed;
 
-    /// Definition of the list of retrievers to inform
+    /// @brief Definition of the list of retrievers to inform
     typedef std::vector<OutputDevice*> RetrieverVector;
 
-    /// The list of retrievers that shall be informed about new messages or errors
+    /// @brief The list of retrievers that shall be informed about new messages or errors
     RetrieverVector myRetrievers;
 
 private:
-    /** invalid copy constructor */
-    MsgHandler(const MsgHandler& s);
+    /// @brief invalid copy constructor
+    MsgHandler(const MsgHandler& s) = delete;
 
-    /** invalid assignment operator */
-    MsgHandler& operator=(const MsgHandler& s);
-
+    /// @brief invalid assignment operator
+    MsgHandler& operator=(const MsgHandler& s) = delete;
 };
 
 
@@ -197,6 +206,8 @@ private:
 #define PROGRESS_TIME_MESSAGE(before) MsgHandler::getMessageInstance()->endProcessMsg("done (" + toString(SysUtils::getCurrentMillis() - before) + "ms).");
 #define PROGRESS_FAILED_MESSAGE() MsgHandler::getMessageInstance()->endProcessMsg("failed.");
 #define WRITE_ERROR(msg)   MsgHandler::getErrorInstance()->inform(msg);
+#define WRITE_DEBUG(msg) if(gDebugFunctions){MsgHandler::getDebugInstance()->inform(msg);};
+#define WRITE_GLDEBUG(msg) if(gDebugGLFunctions){MsgHandler::getDebugInstance()->inform(msg);};
 
 #endif
 

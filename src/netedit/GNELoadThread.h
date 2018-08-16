@@ -92,7 +92,7 @@ protected:
     std::string myFile;
 
     /// @brief @brief The instances of message retriever encapsulations Needed to be deleted from the handler later on
-    OutputDevice* myErrorRetriever, *myMessageRetriever, *myWarningRetriever;
+    OutputDevice* myErrorRetriever, *myMessageRetriever, *myWarningRetriever, *myDebugRetriever;
 
     /// @brief event Queue
     MFXEventQue<GUIEvent*>& myEventQue;

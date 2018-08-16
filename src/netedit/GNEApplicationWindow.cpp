@@ -1007,6 +1007,7 @@ GNEApplicationWindow::eventOccurred() {
             case EVENT_MESSAGE_OCCURRED:
             case EVENT_WARNING_OCCURRED:
             case EVENT_ERROR_OCCURRED:
+            case EVENT_DEBUG_OCCURRED:
                 handleEvent_Message(e);
                 break;
             default:

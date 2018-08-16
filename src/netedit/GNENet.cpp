@@ -854,7 +854,7 @@ GNENet::requiereSaveNet(bool value) {
         WRITE_WARNING("net has to be saved");
         std::string additionalsSaved = (myAdditionalsSaved?"saved":"unsaved");
         std::string shapeSaved = (myShapesSaved?"saved":"unsaved");
-        WRITE_WARNING("Current saving Status: net unsaved, additionals " + additionalsSaved + ", shapes " + shapeSaved);
+        WRITE_DEBUG("Current saving Status: net unsaved, additionals " + additionalsSaved + ", shapes " + shapeSaved);
     }
     myNetSaved = !value;
 }

@@ -56,6 +56,9 @@ public:
             case MsgHandler::MT_ERROR:
                 myType = EVENT_ERROR_OCCURRED;
                 break;
+            case MsgHandler::MT_DEBUG:
+                myType = EVENT_DEBUG_OCCURRED;
+                break;
             default:
                 throw 1;
         }

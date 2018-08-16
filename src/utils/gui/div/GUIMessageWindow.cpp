@@ -156,6 +156,10 @@ GUIMessageWindow::appendMsg(GUIEventType eType, const std::string& msg) {
     // build the styled message
     FXint style = 1;
     switch (eType) {
+        case EVENT_DEBUG_OCCURRED:
+            // color: blue
+            style = 0;
+            break;
         case EVENT_ERROR_OCCURRED:
             // color: red
             style = 2;
@@ -232,9 +236,11 @@ GUIMessageWindow::registerMsgHandlers() {
         // initialize only if registration is requested
         myMessageRetriever = new MsgOutputDevice(this, EVENT_MESSAGE_OCCURRED);
         myErrorRetriever = new MsgOutputDevice(this, EVENT_ERROR_OCCURRED);
+        myDebugRetriever = new MsgOutputDevice(this, EVENT_DEBUG_OCCURRED);
         myWarningRetriever = new MsgOutputDevice(this, EVENT_WARNING_OCCURRED);
     }
     MsgHandler::getMessageInstance()->addRetriever(myMessageRetriever);
+    MsgHandler::getDebugInstance()->addRetriever(myDebugRetriever);
     MsgHandler::getErrorInstance()->addRetriever(myErrorRetriever);
     MsgHandler::getWarningInstance()->addRetriever(myWarningRetriever);
 }
@@ -243,6 +249,7 @@ GUIMessageWindow::registerMsgHandlers() {
 void
 GUIMessageWindow::unregisterMsgHandlers() {
     MsgHandler::getMessageInstance()->removeRetriever(myMessageRetriever);
+    MsgHandler::getDebugInstance()->removeRetriever(myDebugRetriever);
     MsgHandler::getErrorInstance()->removeRetriever(myErrorRetriever);
     MsgHandler::getWarningInstance()->removeRetriever(myWarningRetriever);
 }
