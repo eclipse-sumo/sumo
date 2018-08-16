@@ -490,7 +490,7 @@ GLHelper::drawShapeDottedContour(const int type, const PositionVector &shape, co
     // set custom line width
     glLineWidth(3);
     // draw contour
-    drawLine(resampledShape, getDottedcontourColors(resampledShape.size()));
+    drawLine(resampledShape, getDottedcontourColors((int)resampledShape.size()));
     //restore line width
     glLineWidth(1);
     glPopMatrix();
@@ -507,7 +507,7 @@ GLHelper::drawShapeDottedContour(const int type, const PositionVector &shape) {
     // set custom line width
     glLineWidth(3);
     // draw contour
-    GLHelper::drawLine(resampledShape, GLHelper::getDottedcontourColors(resampledShape.size()));
+    GLHelper::drawLine(resampledShape, GLHelper::getDottedcontourColors((int)resampledShape.size()));
     //restore line width
     glLineWidth(1);
     glPopMatrix();
@@ -534,7 +534,7 @@ GLHelper::drawShapeDottedContour(const int type, const PositionVector &frontShap
     // set custom line width
     glLineWidth(3);
     // draw contour
-    GLHelper::drawLine(resampledShape, getDottedcontourColors(resampledShape.size()));
+    GLHelper::drawLine(resampledShape, getDottedcontourColors((int)resampledShape.size()));
     //restore line width
     glLineWidth(1);
     glPopMatrix();
@@ -562,7 +562,7 @@ GLHelper::drawShapeDottedContour(const int type, const Position &center, const d
     // translate offset
     glTranslated(offsetX, offsetY, 0);
     // draw contour
-    GLHelper::drawLine(shape, getDottedcontourColors(shape.size()));
+    GLHelper::drawLine(shape, getDottedcontourColors((int)shape.size()));
     //restore line width
     glLineWidth(1);
     glPopMatrix();
