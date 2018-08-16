@@ -140,11 +140,11 @@ class StepListener(object):
     __metaclass__ = abc.ABCMeta
 
     @abc.abstractmethod
-    def step(self, s=0):
+    def step(self, t=0):
         """step(int) -> bool
 
         After adding a StepListener 'listener' with traci.addStepListener(listener),
-        TraCI will call listener.step(s) after each call to traci.simulationStep(s)
+        TraCI will call listener.step(t) after each call to traci.simulationStep(t)
         The return value indicates whether the stepListener wants to stay active.
         """
         return True
