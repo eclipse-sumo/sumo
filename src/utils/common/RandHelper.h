@@ -28,6 +28,7 @@
 #include <cassert>
 #include <vector>
 #include <random>
+#include <sstream>
 #include <iostream>
 
 //#define DEBUG_RANDCALLS
@@ -154,6 +155,25 @@ public:
     getRandomFrom(const std::vector<T>& v, std::mt19937* rng = 0) {
         assert(v.size() > 0);
         return v[rand((int)v.size(), rng)];
+    }
+
+    /// @brief save rng state to string
+    static std::string saveState(std::mt19937* rng = 0) {
+        if (rng == 0) {
+            rng = &myRandomNumberGenerator;
+        }
+        std::ostringstream oss;
+        oss << (*rng);
+        return oss.str();
+    }
+
+    /// @brief load rng state from string
+    static void loadState(const std::string& state, std::mt19937* rng = 0) {
+        if (rng == 0) {
+            rng = &myRandomNumberGenerator;
+        }
+        std::istringstream iss(state);
+        iss >> (*rng);
     }
 
 

@@ -157,6 +157,11 @@ public:
      */
     void saveState(OutputDevice& out);
 
+    /// @brief retrieve internal RNG
+    std::mt19937* getFlowRNG() {
+        return &myFlowRNG;
+    }
+
 private:
     /** @brief Tries to emit the vehicle
      *

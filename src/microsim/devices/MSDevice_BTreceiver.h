@@ -76,6 +76,9 @@ public:
     }
 
 
+    static std::mt19937* getRNG() {
+        return &sRecognitionRNG;
+    }
 
 public:
     /// @brief Destructor.

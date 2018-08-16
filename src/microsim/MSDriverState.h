@@ -85,6 +85,11 @@ public:
     /// @brief Obtain the current state of the process
     double getState() const;
 
+
+    static std::mt19937* getRNG() {
+        return &myRNG;
+    }
+
 private:
     /** @brief The current state of the process
      */

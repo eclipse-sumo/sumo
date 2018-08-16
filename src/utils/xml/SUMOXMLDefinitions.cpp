@@ -156,6 +156,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "colorScheme",                SUMO_TAG_COLORSCHEME },
     { "scalingScheme",              SUMO_TAG_SCALINGSCHEME },
     { "entry",                      SUMO_TAG_ENTRY },
+    { "rngState",                   SUMO_TAG_RNGSTATE },
     { "vehicleTransfer",            SUMO_TAG_VEHICLETRANSFER },
     { "device",                     SUMO_TAG_DEVICE },
     // Cars
@@ -597,6 +598,16 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
 
     { "xmlns:xsi", SUMO_ATTR_XMLNS },
     { "xsi:noNamespaceSchemaLocation", SUMO_ATTR_SCHEMA_LOCATION },
+
+    //@name RNG state saving attributes
+    // @{
+    { "default",           SUMO_ATTR_RNG_DEFAULT },
+    { "routeHandler",      SUMO_ATTR_RNG_ROUTEHANDLER },
+    { "insertionControl",  SUMO_ATTR_RNG_INSERTIONCONTROL },
+    { "device",            SUMO_ATTR_RNG_DEVICE },
+    { "device.btreceiver", SUMO_ATTR_RNG_DEVICE_BT },
+    { "driverState",       SUMO_ATTR_RNG_DRIVERSTATE },
+    // @}
 
     // Other
     { "",                       SUMO_ATTR_NOTHING } //< must be the last one

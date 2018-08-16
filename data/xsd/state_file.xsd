@@ -6,6 +6,7 @@
     <xsd:element name="snapshot">
         <xsd:complexType>
 			<xsd:choice maxOccurs="unbounded">
+				<xsd:element name="rngState" type="rngStateType" minOccurs="0"/>
 				<xsd:element name="delay" type="delayStateType" minOccurs="1"/>
 				<xsd:element name="vTypeDistribution" type="vTypeDistributionStateType" minOccurs="0"/>
 				<xsd:element name="routeDistribution" type="routeDistributionStateType" minOccurs="0"/>
@@ -21,6 +22,15 @@
 			<xsd:attribute name="time" type="nonNegativeFloatType"/>
         </xsd:complexType>
     </xsd:element>
+
+    <xsd:complexType name="rngStateType">
+        <xsd:attribute name="default" type="xsd:string" use="required"/>
+        <xsd:attribute name="routeHandler" type="xsd:string" use="optional"/>
+        <xsd:attribute name="insertionControl" type="xsd:string" use="optional"/>
+        <xsd:attribute name="device" type="xsd:string" use="optional"/>
+        <xsd:attribute name="device.btreceiver" type="xsd:string" use="optional"/>
+        <xsd:attribute name="driverState" type="xsd:string" use="optional"/>
+    </xsd:complexType>
 
     <xsd:complexType name="delayStateType">
         <xsd:attribute name="number" type="xsd:int" use="required"/>

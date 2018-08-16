@@ -106,6 +106,9 @@ private:
     /// @brief vehicles that shall be removed when loading state
     std::set<std::string> myVehiclesToRemove;
 
+private:
+    /// @brief save the state of random number generators
+    static void saveRNGs(OutputDevice& out);
 
 private:
     /// @brief Invalidated copy constructor
