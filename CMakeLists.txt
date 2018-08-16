@@ -1,8 +1,18 @@
 #Options:
-# -DCMAKE_BUILD_TYPE:STRING=Debug (default Release)
-
 option(CHECK_OPTIONAL_LIBS "Try to download / enable all optional libraries" true)
 option(MULTITHREADED_BUILD "Use all available cores for building" true)
+
+# Set a default build type if none was specified
+# you may use -DCMAKE_BUILD_TYPE:STRING=Debug from the command line
+set(default_build_type "Release")
+
+if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
+  message(STATUS "Setting build type to '${default_build_type}' as none was specified.")
+  set(CMAKE_BUILD_TYPE "${default_build_type}" CACHE
+      STRING "Choose the type of build." FORCE)
+  # Set the possible values of build type for cmake-gui
+  set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "Debug" "Release")
+endif()
 
 project(SUMO)
 set(PACKAGE_VERSION "git")
@@ -12,30 +22,20 @@ cmake_policy(SET CMP0054 NEW)
 
 set(CMAKE_COLOR_MAKEFILE ON)
 
-if (NOT CMAKE_BUILD_TYPE)
-    set (CMAKE_BUILD_TYPE Release)
-endif (NOT CMAKE_BUILD_TYPE)
-message(STATUS "CMAKE_BUILD_TYPE: " ${CMAKE_BUILD_TYPE})
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/build/cmake_modules/")
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR
         "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
-    set(warnings "-Wall -pedantic -Wextra")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -pedantic -Wextra")
 elseif (MSVC)
-    if ("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
-        set(warnings "/W3")
-    else ()
-        #  set(warnings "/W4 /WX /EHsc")
-        # enabling /WX is not possible due to warnings in external headers
-        # /Wall brings MSVC to complete halt
-        set(warnings "/W4 /EHsc")
-    endif ()
+    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /W3")
+    # set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /W4 /WX /EHsc")
+    # enabling /WX is not possible due to warnings in external headers
+    # /Wall brings MSVC to complete halt
+    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /W4 /EHsc")
     if (MULTITHREADED_BUILD)
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /MP")
     endif ()
 endif ()
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${warnings}")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${warnings}")
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
