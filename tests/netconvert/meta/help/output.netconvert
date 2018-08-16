@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version e85cf09
+Eclipse SUMO netconvert Version c310b0a
  Copyright (C) 2001-2018 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
   SUMO.
@@ -335,6 +335,18 @@ Junctions Options:
   --junctions.limit-turn-speed FLOAT   Limits speed on junctions to an average
                                          lateral acceleration of at most FLOAT
                                          m/s^2)
+  --junctions.limit-turn-speed.min-angle FLOAT  Do not limit turn speed for
+                                         angular changes below FLOAT (degrees).
+                                         The value is subtracted from the
+                                         geometric angle before computing the
+                                         turning radius.
+  --junctions.limit-turn-speed.warn.straight FLOAT  Warn about turn speed
+                                         limits that reduce the speed of
+                                         straight connections by more than FLOAT
+  --junctions.limit-turn-speed.warn.turn FLOAT  Warn about turn speed limits
+                                         that reduce the speed of turning
+                                         connections (no u-turns) by more than
+                                         FLOAT
   --junctions.small-radius FLOAT       Default radius for junctions that do not
                                          require wide vehicle turns
   --rectangular-lane-cut               Forces rectangular cuts between lanes

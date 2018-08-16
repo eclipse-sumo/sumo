@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Aug 15 16:12:50 2018 by Eclipse SUMO netconvert Version abbc805
+<!-- generated on Thu Aug 16 15:52:06 2018 by Eclipse SUMO netconvert Version c310b0a
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -29,20 +29,20 @@ SPDX-License-Identifier: EPL-2.0
     <location netOffset="43.24,-44.37" convBoundary="0.00,0.00,299.61,35.08" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
     <edge id=":gneJ0_0" function="internal">
-        <lane id=":gneJ0_0_0" index="0" disallow="rail" speed="5.97" length="8.08" shape="168.51,15.98 167.87,13.90 166.73,12.42 165.09,11.54 162.93,11.26"/>
+        <lane id=":gneJ0_0_0" index="0" disallow="rail" speed="6.54" length="8.08" shape="168.51,15.98 167.87,13.90 166.73,12.42 165.09,11.54 162.93,11.26"/>
     </edge>
     <edge id=":gneJ0_1" function="internal">
-        <lane id=":gneJ0_1_0" index="0" disallow="rail" speed="7.32" length="12.70" shape="171.67,15.48 170.67,12.21 168.88,9.89 166.29,8.50 162.91,8.06"/>
+        <lane id=":gneJ0_1_0" index="0" disallow="rail" speed="8.04" length="12.70" shape="171.67,15.48 170.67,12.21 168.88,9.89 166.29,8.50 162.91,8.06"/>
     </edge>
     <edge id=":gneJ0_2" function="internal">
         <lane id=":gneJ0_2_0" index="0" disallow="rail" speed="13.89" length="12.47" shape="175.31,4.89 162.88,4.86"/>
         <lane id=":gneJ0_2_1" index="1" disallow="rail" speed="13.89" length="12.47" shape="175.38,1.69 162.86,1.66"/>
     </edge>
     <edge id=":gneJ1_0" function="internal">
-        <lane id=":gneJ1_0_0" index="0" disallow="rail" speed="5.94" length="6.41" shape="83.99,11.88 82.33,12.10 80.93,12.72 79.80,13.75 78.93,15.18"/>
+        <lane id=":gneJ1_0_0" index="0" disallow="rail" speed="6.68" length="6.41" shape="83.99,11.88 82.33,12.10 80.93,12.72 79.80,13.75 78.93,15.18"/>
     </edge>
     <edge id=":gneJ1_1" function="internal">
-        <lane id=":gneJ1_1_0" index="0" disallow="rail" speed="7.28" length="10.07" shape="83.97,8.68 81.36,9.02 79.16,10.00 77.38,11.61 76.01,13.86"/>
+        <lane id=":gneJ1_1_0" index="0" disallow="rail" speed="8.22" length="10.07" shape="83.97,8.68 81.36,9.02 79.16,10.00 77.38,11.61 76.01,13.86"/>
     </edge>
     <edge id=":gneJ1_2" function="internal">
         <lane id=":gneJ1_2_0" index="0" disallow="rail" speed="13.89" length="9.26" shape="83.94,5.48 74.69,5.60"/>

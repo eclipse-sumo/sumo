@@ -1882,9 +1882,13 @@ Warning: The traffic light '4363312288' does not control any links; it will not 
 Warning: Could not build program '0' for traffic light '4363312288'
 Warning: The traffic light 'GS_5473650726' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light 'GS_5473650726'
+Warning: Speed of straight connection '10597134#1_0->421641064_0' reduced by 7.53 due to turning radius of 7.36 (length=18.77 angle=178.93)
 Warning: Connection '101699692#1_0->101694131#0_0' is only 0.08 short.
 Warning: Connection '101699692#1_0->153522302#0_0' is only 0.08 short.
 Warning: Intersecting left turns at junction '1769589042' from lane '4610472#2_1' and lane '-34848160#0_1'. (increase junction radius to avoid this)
+Warning: Speed of straight connection '-23813206#1_1->-23813206#0_1' reduced by 9.97 due to turning radius of 2.79 (length=5.70 angle=179.05)
+Warning: Speed of turning connection '27079979#2_0->377634136#1_0' reduced by 20.89 due to turning radius of 1.35 (length=1.50 angle=172.12)
+Warning: Speed of straight connection '167272512#5_0->167272512#6_0' reduced by 7.12 due to turning radius of 8.32 (length=19.30 angle=161.98)
 Warning: Intersecting left turns at junction 'cluster_160514854_283035794' from lane '23755950#3_1' and lane '-4611696#1_1'. (increase junction radius to avoid this)
 Warning: Intersecting left turns at junction 'cluster_1673527224_1673527227_21487161_303436603_3781110311_3781110312_3918673901_3918673903_3918673904_4603453181_4603453187_51974030' from lane '42103020_3' and lane '388702047#4_1'. (increase junction radius to avoid this)
 Warning: Intersecting left turns at junction 'cluster_1769589073_4603453626' from lane '541295974_1' and lane '389705415#1_2'. (increase junction radius to avoid this)
@@ -1930,34 +1934,29 @@ Warning: busStop '30731700' on lane '167272531#9_0' is too short for vehicle 'pt
 Warning: busStop '1668497956' on lane '153537614#2_0' is too short for vehicle 'pt_tram_M1:2.0'.
 Warning: busStop '3869306762' on lane '111251382#2_1' is too short for vehicle 'pt_bus_147:0.0'.
 Warning: busStop '2071423352' on lane '295250361_0' is too short for vehicle 'pt_subway_U6:0.0'.
-Warning: Teleporting vehicle 'veh39'; waited too long (jam), lane='136571494#6_1', time=500.00.
-Warning: Vehicle 'veh39' ends teleporting on edge '562707499', time 500.00.
-Warning: Teleporting vehicle 'veh18'; waited too long (yield), lane='136571494#6_1', time=821.00.
-Warning: Vehicle 'veh18' ends teleporting on edge '562707499', time 821.00.
-Warning: Teleporting vehicle 'veh116'; waited too long (jam), lane='606078065_4', time=845.00.
-Warning: Vehicle 'veh116' ends teleporting on edge '156364553#0', time 845.00.
-Warning: Teleporting vehicle 'pt_bus_N8:1.0'; waited too long (jam), lane='156364553#0_4', time=897.00.
-Warning: Vehicle 'pt_bus_N8:1.0' ends teleporting on edge '156364553#1', time 897.00.
-Warning: Teleporting vehicle 'veh191'; waited too long (wrong lane), lane='156364553#0_3', time=1085.00.
-Warning: Vehicle 'veh191' ends teleporting on edge '-156364553#0', time 1085.00.
-Warning: Teleporting vehicle 'veh30'; waited too long (jam), lane='136571494#6_1', time=1127.00.
-Warning: Vehicle 'veh30' ends teleporting on edge '562707499', time 1127.00.
-Warning: Teleporting vehicle 'veh142'; waited too long (jam), lane='606078065_4', time=1397.00.
-Warning: Vehicle 'veh142' ends teleporting on edge '156364553#0', time 1397.00.
-Warning: Teleporting vehicle 'veh65'; waited too long (jam), lane='136571494#6_1', time=1450.00.
-Warning: Vehicle 'veh65' ends teleporting on edge '562707499', time 1450.00.
-Warning: Teleporting vehicle 'veh154'; waited too long (jam), lane='156364553#1_4', time=1564.00.
-Warning: Vehicle 'veh154' ends teleporting on edge '606078066#0', time 1564.00.
-Warning: Teleporting vehicle 'veh82'; waited too long (jam), lane='136571494#6_1', time=1771.00.
-Warning: Vehicle 'veh82' ends teleporting on edge '562707499', time 1771.00.
-Warning: Teleporting vehicle 'veh56'; waited too long (jam), lane='136571494#6_1', time=2091.00.
-Warning: Vehicle 'veh56' ends teleporting on edge '562707499', time 2091.00.
-Warning: Teleporting vehicle 'veh42'; waited too long (jam), lane='136571494#6_1', time=2441.00.
-Warning: Vehicle 'veh42' ends teleporting on edge '562707499', time 2441.00.
-Warning: Person 'ped72' aborted waiting for M1:1 at busStop '963600646'.
+Warning: Teleporting vehicle 'veh18'; waited too long (yield), lane='136571494#6_1', time=538.00.
+Warning: Vehicle 'veh18' ends teleporting on edge '562707499', time 538.00.
+Warning: Teleporting vehicle 'veh30'; waited too long (yield), lane='136571494#6_1', time=844.00.
+Warning: Vehicle 'veh30' ends teleporting on edge '562707499', time 844.00.
+Warning: Teleporting vehicle 'pt_bus_N8:1.0'; waited too long (jam), lane='156364553#1_4', time=1092.00.
+Warning: Vehicle 'pt_bus_N8:1.0' ends teleporting on edge '606078066#0', time 1092.00.
+Warning: Teleporting vehicle 'veh120'; waited too long (jam), lane='606078065_4', time=1103.00.
+Warning: Vehicle 'veh120' ends teleporting on edge '156364553#0', time 1103.00.
+Warning: Teleporting vehicle 'veh65'; waited too long (jam), lane='136571494#6_1', time=1148.00.
+Warning: Vehicle 'veh65' ends teleporting on edge '562707499', time 1148.00.
+Warning: Teleporting vehicle 'veh82'; waited too long (jam), lane='136571494#6_1', time=1471.00.
+Warning: Vehicle 'veh82' ends teleporting on edge '562707499', time 1471.00.
+Warning: Teleporting vehicle 'pt_bus_M48:0.1'; waited too long (jam), lane='156364553#0_4', time=1707.00.
+Warning: Vehicle 'pt_bus_M48:0.1' ends teleporting on edge '156364553#1', time 1707.00.
+Warning: Teleporting vehicle 'veh42'; waited too long (yield), lane='136571494#6_1', time=1792.00.
+Warning: Vehicle 'veh42' ends teleporting on edge '562707499', time 1792.00.
+Warning: Teleporting vehicle 'veh56'; waited too long (jam), lane='136571494#6_1', time=2097.00.
+Warning: Vehicle 'veh56' ends teleporting on edge '562707499', time 2097.00.
+Warning: Person 'ped67' aborted waiting for M4:3 at busStop '30731508'.
 Warning: Person 'ped49' aborted waiting for M5:0 at busStop '1633759766'.
-Warning: Person 'ped69' aborted waiting for M5:2 at busStop '1633759766'.
-Warning: Person 'ped37' aborted waiting for M5:2 at busStop '1633759766'.
 Warning: Person 'ped126' aborted waiting for M4:1 at busStop '1633759766'.
 Warning: Person 'ped41' aborted waiting for M4:1 at busStop '1633759766'.
+Warning: Person 'ped37' aborted waiting for M5:2 at busStop '1633759766'.
+Warning: Person 'ped69' aborted waiting for M5:2 at busStop '1633759766'.
 Warning: Person 'ped178' aborted waiting for 248:0 at busStop '3867910417'.
+Warning: Person 'ped115' aborted waiting for 12:0 at busStop '247600965'.

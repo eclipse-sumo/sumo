@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Aug 15 16:12:26 2018 by Eclipse SUMO netgenerate Version abbc805
+<!-- generated on Thu Aug 16 15:52:10 2018 by Eclipse SUMO netgenerate Version c310b0a
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -39,22 +39,22 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":12_0_0" index="0" speed="13.89" length="10.70" shape="235.53,187.21 233.97,184.61 233.31,182.46 232.87,180.19 231.97,177.22"/>
     </edge>
     <edge id=":12_1" function="internal">
-        <lane id=":12_1_0" index="0" speed="5.22" length="9.62" shape="227.60,181.54 230.54,182.33 232.25,181.87 232.73,180.17 231.97,177.22"/>
+        <lane id=":12_1_0" index="0" speed="5.49" length="9.62" shape="227.60,181.54 230.54,182.33 232.25,181.87 232.73,180.17 231.97,177.22"/>
     </edge>
     <edge id=":2_0" function="internal">
         <lane id=":2_0_0" index="0" speed="13.89" length="7.57" shape="106.60,137.69 106.01,135.53 105.45,134.10 104.77,132.71 103.81,130.67"/>
     </edge>
     <edge id=":2_1" function="internal">
-        <lane id=":2_1_0" index="0" speed="4.49" length="6.25" shape="106.60,137.69 106.37,135.72 106.81,134.56 107.93,134.20 109.72,134.65"/>
+        <lane id=":2_1_0" index="0" speed="4.72" length="6.25" shape="106.60,137.69 106.37,135.72 106.81,134.56 107.93,134.20 109.72,134.65"/>
     </edge>
     <edge id=":8_0" function="internal">
-        <lane id=":8_0_0" index="0" speed="5.25" length="9.47" shape="363.30,368.80 366.23,368.55 367.70,367.53 367.71,365.74 366.26,363.18"/>
+        <lane id=":8_0_0" index="0" speed="5.53" length="9.47" shape="363.30,368.80 366.23,368.55 367.70,367.53 367.71,365.74 366.26,363.18"/>
     </edge>
     <edge id=":8_1" function="internal">
         <lane id=":8_1_0" index="0" speed="13.89" length="16.98" shape="363.30,368.80 367.37,368.80 371.80,368.47 376.17,367.76 380.04,366.60"/>
     </edge>
     <edge id=":8_2" function="internal">
-        <lane id=":8_2_0" index="0" speed="9.73" length="15.79" shape="363.30,368.80 368.51,369.27 372.66,370.27 375.74,371.78 377.74,373.81"/>
+        <lane id=":8_2_0" index="0" speed="11.33" length="15.79" shape="363.30,368.80 368.51,369.27 372.66,370.27 375.74,371.78 377.74,373.81"/>
     </edge>
 
     <edge id="11" from="1" to="10" priority="-1">

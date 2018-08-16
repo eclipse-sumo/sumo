@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Aug 15 16:12:49 2018 by Eclipse SUMO netconvert Version abbc805
+<!-- generated on Thu Aug 16 15:52:05 2018 by Eclipse SUMO netconvert Version c310b0a
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -31,16 +31,16 @@ SPDX-License-Identifier: EPL-2.0
     <location netOffset="95.49,0.00" convBoundary="0.00,0.00,1390.99,190.99" origBoundary="-95.49,0.00,1295.49,190.99" projParameter="!"/>
 
     <edge id=":dl_0" function="internal">
-        <lane id=":dl_0_0" index="0" speed="11.29" length="5.85" shape="78.91,1.45 80.56,0.91 81.69,0.44 82.83,0.12 84.54,0.00"/>
+        <lane id=":dl_0_0" index="0" speed="13.89" length="5.85" shape="78.91,1.45 80.56,0.91 81.69,0.44 82.83,0.12 84.54,0.00"/>
     </edge>
     <edge id=":dr_0" function="internal">
-        <lane id=":dr_0_0" index="0" speed="11.29" length="5.85" shape="1306.45,0.00 1308.16,0.12 1309.30,0.44 1310.42,0.91 1312.08,1.45"/>
+        <lane id=":dr_0_0" index="0" speed="13.89" length="5.85" shape="1306.45,0.00 1308.16,0.12 1309.30,0.44 1310.42,0.91 1312.08,1.45"/>
     </edge>
     <edge id=":tl_0" function="internal">
-        <lane id=":tl_0_0" index="0" speed="11.30" length="5.87" shape="84.55,190.99 82.84,190.87 81.69,190.55 80.57,190.08 78.91,189.54"/>
+        <lane id=":tl_0_0" index="0" speed="13.89" length="5.87" shape="84.55,190.99 82.84,190.87 81.69,190.55 80.57,190.08 78.91,189.54"/>
     </edge>
     <edge id=":tr_0" function="internal">
-        <lane id=":tr_0_0" index="0" speed="11.30" length="5.87" shape="1312.08,189.54 1310.42,190.08 1309.29,190.55 1308.15,190.87 1306.44,190.99"/>
+        <lane id=":tr_0_0" index="0" speed="13.89" length="5.87" shape="1312.08,189.54 1310.42,190.08 1309.29,190.55 1308.15,190.87 1306.44,190.99"/>
     </edge>
 
     <edge id="1" from="dl" to="dr" priority="-1" spreadType="center">

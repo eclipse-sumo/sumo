@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Aug 15 16:12:43 2018 by Eclipse SUMO netconvert Version abbc805
+<!-- generated on Thu Aug 16 15:52:00 2018 by Eclipse SUMO netconvert Version c310b0a
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -34,52 +34,52 @@ SPDX-License-Identifier: EPL-2.0
     <location netOffset="-13039.00,-18241.00" convBoundary="0.00,0.00,255.00,96.00" origBoundary="13039.00,18241.00,13294.00,18337.00" projParameter="!"/>
 
     <edge id=":15031750_0" function="internal">
-        <lane id=":15031750_0_0" index="0" speed="6.05" length="9.12" shape="218.40,64.61 215.95,64.24 213.96,64.75 212.43,66.15 211.34,68.42"/>
+        <lane id=":15031750_0_0" index="0" speed="6.56" length="9.12" shape="218.40,64.61 215.95,64.24 213.96,64.75 212.43,66.15 211.34,68.42"/>
     </edge>
     <edge id=":15031750_1" function="internal">
         <lane id=":15031750_1_0" index="0" speed="13.89" length="14.42" shape="218.40,64.61 204.56,60.52"/>
     </edge>
     <edge id=":15031750_2" function="internal">
-        <lane id=":15031750_2_0" index="0" speed="3.55" length="2.34" shape="218.40,64.61 217.48,63.49 217.33,62.61"/>
+        <lane id=":15031750_2_0" index="0" speed="3.65" length="2.34" shape="218.40,64.61 217.48,63.49 217.33,62.61"/>
     </edge>
     <edge id=":15031750_9" function="internal">
-        <lane id=":15031750_9_0" index="0" speed="3.55" length="2.34" shape="217.33,62.61 217.94,61.96 219.32,61.54"/>
+        <lane id=":15031750_9_0" index="0" speed="3.65" length="2.34" shape="217.33,62.61 217.94,61.96 219.32,61.54"/>
     </edge>
     <edge id=":15031750_3" function="internal">
         <lane id=":15031750_3_0" index="0" speed="13.89" length="14.47" shape="205.45,57.45 219.32,61.54"/>
     </edge>
     <edge id=":15031750_4" function="internal">
-        <lane id=":15031750_4_0" index="0" speed="7.33" length="6.01" shape="205.45,57.45 209.03,59.06 210.44,60.59"/>
+        <lane id=":15031750_4_0" index="0" speed="7.96" length="6.01" shape="205.45,57.45 209.03,59.06 210.44,60.59"/>
     </edge>
     <edge id=":15031750_5" function="internal">
-        <lane id=":15031750_5_0" index="0" speed="3.55" length="2.34" shape="205.45,57.45 206.38,58.55 206.54,59.43"/>
+        <lane id=":15031750_5_0" index="0" speed="3.65" length="2.34" shape="205.45,57.45 206.38,58.55 206.54,59.43"/>
     </edge>
     <edge id=":15031750_10" function="internal">
-        <lane id=":15031750_10_0" index="0" speed="7.33" length="8.28" shape="210.44,60.59 211.21,61.43 211.98,64.55 211.34,68.42"/>
+        <lane id=":15031750_10_0" index="0" speed="7.96" length="8.28" shape="210.44,60.59 211.21,61.43 211.98,64.55 211.34,68.42"/>
     </edge>
     <edge id=":15031750_11" function="internal">
-        <lane id=":15031750_11_0" index="0" speed="3.55" length="2.34" shape="206.54,59.43 205.94,60.09 204.56,60.52"/>
+        <lane id=":15031750_11_0" index="0" speed="3.65" length="2.34" shape="206.54,59.43 205.94,60.09 204.56,60.52"/>
     </edge>
     <edge id=":15031750_6" function="internal">
-        <lane id=":15031750_6_0" index="0" speed="5.96" length="9.03" shape="208.29,67.46 208.69,65.01 208.20,63.04 206.83,61.54 204.56,60.52"/>
+        <lane id=":15031750_6_0" index="0" speed="6.45" length="9.03" shape="208.29,67.46 208.69,65.01 208.20,63.04 206.83,61.54 204.56,60.52"/>
     </edge>
     <edge id=":15031750_7" function="internal">
-        <lane id=":15031750_7_0" index="0" speed="7.39" length="14.24" shape="208.29,67.46 209.98,63.92 212.38,61.76 215.49,60.96 219.32,61.54"/>
+        <lane id=":15031750_7_0" index="0" speed="8.05" length="14.24" shape="208.29,67.46 209.98,63.92 212.38,61.76 215.49,60.96 219.32,61.54"/>
     </edge>
     <edge id=":15031750_8" function="internal">
-        <lane id=":15031750_8_0" index="0" speed="3.55" length="2.55" shape="208.29,67.46 209.41,66.56 210.30,66.42 210.45,66.57"/>
+        <lane id=":15031750_8_0" index="0" speed="3.65" length="2.55" shape="208.29,67.46 209.41,66.56 210.30,66.42 210.45,66.57"/>
     </edge>
     <edge id=":15031750_12" function="internal">
-        <lane id=":15031750_12_0" index="0" speed="3.55" length="2.12" shape="210.45,66.57 210.94,67.04 211.34,68.42"/>
+        <lane id=":15031750_12_0" index="0" speed="3.65" length="2.12" shape="210.45,66.57 210.94,67.04 211.34,68.42"/>
     </edge>
     <edge id=":15031754_0" function="internal">
-        <lane id=":15031754_0_0" index="0" speed="3.55" length="4.67" shape="-0.44,1.54 -1.37,0.44 -1.54,-0.44 -0.93,-1.10 0.44,-1.54"/>
+        <lane id=":15031754_0_0" index="0" speed="3.65" length="4.67" shape="-0.44,1.54 -1.37,0.44 -1.54,-0.44 -0.93,-1.10 0.44,-1.54"/>
     </edge>
     <edge id=":15031788_0" function="internal">
-        <lane id=":15031788_0_0" index="0" speed="3.55" length="4.67" shape="255.46,72.47 256.38,73.58 256.53,74.46 255.92,75.11 254.54,75.53"/>
+        <lane id=":15031788_0_0" index="0" speed="3.65" length="4.67" shape="255.46,72.47 256.38,73.58 256.53,74.46 255.92,75.11 254.54,75.53"/>
     </edge>
     <edge id=":15031789_0" function="internal">
-        <lane id=":15031789_0_0" index="0" speed="3.55" length="4.67" shape="202.53,96.48 201.40,97.38 200.52,97.53 199.88,96.90 199.47,95.52"/>
+        <lane id=":15031789_0_0" index="0" speed="3.65" length="4.67" shape="202.53,96.48 201.40,97.38 200.52,97.53 199.88,96.90 199.47,95.52"/>
     </edge>
 
     <edge id="-15033077" from="15031754" to="15031750" priority="-1">

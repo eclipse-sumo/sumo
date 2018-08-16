@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Aug 15 16:12:50 2018 by Eclipse SUMO netconvert Version abbc805
+<!-- generated on Thu Aug 16 15:52:05 2018 by Eclipse SUMO netconvert Version c310b0a
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -41,7 +41,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":N_merge_0_1" index="1" speed="33.33" length="8.22" shape="120.47,262.63 114.21,267.97"/>
     </edge>
     <edge id=":N_merge_2" function="internal">
-        <lane id=":N_merge_2_0" index="0" speed="21.14" length="8.23" shape="124.33,267.18 122.64,268.94 121.46,270.12 120.22,271.24 118.37,272.84"/>
+        <lane id=":N_merge_2_0" index="0" speed="25.00" length="8.23" shape="124.33,267.18 122.64,268.94 121.46,270.12 120.22,271.24 118.37,272.84"/>
     </edge>
 
     <edge id="main" from="N_main_start" to="N_merge" priority="10" length="404.00" shape="421.87,0.00 414.17,6.69 398.18,20.57 373.61,41.87 359.76,53.76 357.58,55.64 345.68,65.89 343.06,68.21 336.86,73.70 321.87,86.63 316.79,91.02 311.37,95.70 309.79,97.05 282.73,120.34 255.39,143.84 241.81,155.61 223.34,171.71 206.44,186.44 202.88,189.55 189.59,201.17 177.29,211.89 173.83,214.90 152.06,233.47 129.88,252.50 116.12,264.24">

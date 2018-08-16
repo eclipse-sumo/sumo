@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Aug 15 16:12:43 2018 by Eclipse SUMO netconvert Version abbc805
+<!-- generated on Thu Aug 16 15:52:00 2018 by Eclipse SUMO netconvert Version c310b0a
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -38,16 +38,16 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":15030102_0_1" index="1" speed="13.89" length="9.39" shape="231.95,150.09 239.81,155.23"/>
     </edge>
     <edge id=":15030102_2" function="internal">
-        <lane id=":15030102_2_0" index="0" speed="5.63" length="7.77" shape="231.95,150.09 234.14,151.76 235.47,153.32 235.93,154.79 235.52,156.15"/>
+        <lane id=":15030102_2_0" index="0" speed="6.10" length="7.77" shape="231.95,150.09 234.14,151.76 235.47,153.32 235.93,154.79 235.52,156.15"/>
     </edge>
     <edge id=":15030102_3" function="internal">
-        <lane id=":15030102_3_0" index="0" speed="5.61" length="7.78" shape="232.83,154.42 233.90,153.48 235.42,153.30 237.39,153.89 239.81,155.23"/>
+        <lane id=":15030102_3_0" index="0" speed="6.07" length="7.78" shape="232.83,154.42 233.90,153.48 235.42,153.30 237.39,153.89 239.81,155.23"/>
     </edge>
     <edge id=":15030102_4" function="internal">
-        <lane id=":15030102_4_0" index="0" speed="3.55" length="4.67" shape="232.83,154.42 234.15,153.84 235.04,153.94 235.50,154.70 235.52,156.15"/>
+        <lane id=":15030102_4_0" index="0" speed="3.65" length="4.67" shape="232.83,154.42 234.15,153.84 235.04,153.94 235.50,154.70 235.52,156.15"/>
     </edge>
     <edge id=":15034045_0" function="internal">
-        <lane id=":15034045_0_0" index="0" speed="3.55" length="4.67" shape="227.35,168.87 226.02,169.44 225.13,169.35 224.68,168.58 224.65,167.13"/>
+        <lane id=":15034045_0_0" index="0" speed="3.65" length="4.67" shape="227.35,168.87 226.02,169.44 225.13,169.35 224.68,168.58 224.65,167.13"/>
     </edge>
 
     <edge id="-152850000" from="15034045" to="15030102" priority="-1">
