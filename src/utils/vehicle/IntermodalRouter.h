@@ -63,12 +63,13 @@ private:
 public:
     struct TripItem {
         TripItem(const std::string& _line = "") :
-            line(_line), intended(_line), depart(-1), cost(0.) {}
+            line(_line), intended(_line), depart(-1), traveltime(0.), cost(0.) {}
         std::string line;
         std::string destStop;
         std::string intended; // intended public transport vehicle id
         double depart; // intended public transport departure
         std::vector<const E*> edges;
+        double traveltime;
         double cost;
     };
 
@@ -107,6 +108,8 @@ public:
         if (success) {
             std::string lastLine = "";
             double time = STEPS2TIME(msTime);
+            double effort = 0.;
+            const _IntermodalEdge* prev = nullptr;
             for (const _IntermodalEdge* iEdge : intoEdges) {
                 if (iEdge->includeInRoute(false)) {
                     if (iEdge->getLine() == "!stop") {
@@ -131,9 +134,16 @@ public:
                         }
                     }
                 }
+                if (prev != nullptr) {
+                    myInternalRouter->updateViaCost(prev, iEdge, &trip, time, effort);
+                }
                 const double edgeEffort = myInternalRouter->getEffort(iEdge, &trip, time);
-                time += edgeEffort;
+                effort += edgeEffort;
+                const double edgeTime = myInternalRouter->getTravelTime(iEdge, &trip, time, edgeEffort);
+                time += edgeTime;
+                prev = iEdge;
                 if (!into.empty()) {
+                    into.back().traveltime += edgeTime;
                     into.back().cost += edgeEffort;
                 }
             }

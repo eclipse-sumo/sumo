@@ -157,12 +157,14 @@ MSEdge::closeBuilding() {
         const MSLinkCont& lc = (*i)->getLinkCont();
         for (MSLinkCont::const_iterator j = lc.begin(); j != lc.end(); ++j) {
             (*j)->initParallelLinks();
-            MSLane* toL = (*j)->getLane();
+            MSLane* const toL = (*j)->getLane();
+            MSLane* const viaL = (*j)->getViaLane();
             if (toL != 0) {
                 MSEdge& to = toL->getEdge();
                 //
                 if (std::find(mySuccessors.begin(), mySuccessors.end(), &to) == mySuccessors.end()) {
                     mySuccessors.push_back(&to);
+                    myViaSuccessors.push_back(std::make_pair(&to, (viaL == nullptr ? nullptr : &viaL->getEdge())));
                 }
                 if (std::find(to.myPredecessors.begin(), to.myPredecessors.end(), this) == to.myPredecessors.end()) {
                     to.myPredecessors.push_back(this);
@@ -176,9 +178,8 @@ MSEdge::closeBuilding() {
                     myAmFringe = false;
                 }
             }
-            toL = (*j)->getViaLane();
-            if (toL != 0) {
-                MSEdge& to = toL->getEdge();
+            if (viaL != nullptr) {
+                MSEdge& to = viaL->getEdge();
                 if (std::find(to.myPredecessors.begin(), to.myPredecessors.end(), this) == to.myPredecessors.end()) {
                     to.myPredecessors.push_back(this);
                 }
@@ -905,8 +906,9 @@ MSEdge::transportable_by_position_sorter::operator()(const MSTransportable* cons
 
 
 void
-MSEdge::addSuccessor(MSEdge* edge) {
+MSEdge::addSuccessor(MSEdge* edge, const MSEdge* via) {
     mySuccessors.push_back(edge);
+    myViaSuccessors.push_back(std::make_pair(edge, via));
     if (isTazConnector() && edge->getFromJunction() != 0) {
         myTazBoundary.add(edge->getFromJunction()->getPosition());
     }
@@ -952,6 +954,43 @@ MSEdge::getSuccessors(SUMOVehicleClass vClass) const {
     }
 #endif
     return i->second;
+}
+
+
+const MSConstEdgePairVector&
+MSEdge::getViaSuccessors(SUMOVehicleClass vClass) const {
+    if (vClass == SVC_IGNORING || !MSNet::getInstance()->hasPermissions() || myFunction == EDGEFUNC_CONNECTOR) {
+        return myViaSuccessors;
+    }
+#ifdef HAVE_FOX
+    if (MSDevice_Routing::isParallel()) {
+        MSDevice_Routing::lock();
+    }
+#endif
+    auto i = myClassesViaSuccessorMap.find(vClass);
+    if (i != myClassesViaSuccessorMap.end()) {
+        // can use cached value
+        return i->second;
+    }
+    // instantiate vector
+    MSConstEdgePairVector& result = myClassesViaSuccessorMap[vClass];
+    // this vClass is requested for the first time. rebuild all successors
+    for (const MSEdge* e : mySuccessors) {
+        if (e->isTazConnector()) {
+            result.push_back(std::make_pair(e, e));
+        } else {
+            const std::vector<MSLane*>* allowed = allowedLanes(e, vClass);
+            if (allowed != nullptr && allowed->size() > 0) {
+                result.push_back(std::make_pair(e, e));
+            }
+        }
+    }
+#ifdef HAVE_FOX
+    if (MSDevice_Routing::isParallel()) {
+        MSDevice_Routing::unlock();
+    }
+#endif
+    return result;
 }
 
 

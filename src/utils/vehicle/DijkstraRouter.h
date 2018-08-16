@@ -74,7 +74,7 @@ public:
     public:
         /// Constructor
         EdgeInfo(const E* const e)
-            : edge(e), effort(std::numeric_limits<double>::max()), leaveTime(0), prev(0), visited(false) {}
+            : edge(e), effort(std::numeric_limits<double>::max()), leaveTime(0.), prev(nullptr), via(nullptr), visited(false) {}
 
         /// The current edge
         const E* const edge;
@@ -88,11 +88,15 @@ public:
         /// The previous edge
         const EdgeInfo* prev;
 
+        /// The optional internal edge corresponding to prev
+        const E* via;
+
         /// The previous edge
         bool visited;
 
         inline void reset() {
             effort = std::numeric_limits<double>::max();
+            via = nullptr;
             visited = false;
         }
 
@@ -214,18 +218,25 @@ public:
             }
             std::cout << "\n";
 #endif
-            const double effortDelta = this->getEffort(minEdge, vehicle, minimumInfo->leaveTime);
-            const double effort = minimumInfo->effort + effortDelta;
-            const double leaveTime = minimumInfo->leaveTime + getTravelTime(minEdge, vehicle, minimumInfo->leaveTime, effortDelta);
+            const E* viaEdge = minimumInfo->via;
+            double effort = minimumInfo->effort;
+            double leaveTime = minimumInfo->leaveTime;
+            while (viaEdge != nullptr && viaEdge != minEdge) {
+                const double viaEffortDelta = this->getEffort(viaEdge, vehicle, leaveTime);
+                leaveTime += getTravelTime(viaEdge, vehicle, leaveTime, viaEffortDelta);
+                effort += viaEffortDelta;
+                viaEdge = viaEdge->getViaSuccessors().front().first;
+            }
+            const double effortDelta = this->getEffort(minEdge, vehicle, leaveTime);
+            leaveTime += getTravelTime(minEdge, vehicle, minimumInfo->leaveTime, effortDelta);
+            effort += effortDelta;
             assert(effort >= minimumInfo->effort);
             assert(leaveTime >= minimumInfo->leaveTime);
             // check all ways from the node with the minimal length
-            const std::vector<E*>& successors = minEdge->getSuccessors(vClass);
-            for (typename std::vector<E*>::const_iterator it = successors.begin(); it != successors.end(); ++it) {
-                const E* const follower = *it;
-                EdgeInfo* const followerInfo = &(myEdgeInfos[follower->getNumericalID()]);
+            for (const std::pair<const E*, const E*>& follower : minEdge->getViaSuccessors(vClass)) {
+                EdgeInfo* const followerInfo = &(myEdgeInfos[follower.first->getNumericalID()]);
                 // check whether it can be used
-                if (PF::operator()(follower, vehicle)) {
+                if (PF::operator()(follower.first, vehicle)) {
                     continue;
                 }
                 const double oldEffort = followerInfo->effort;
@@ -233,6 +244,7 @@ public:
                     followerInfo->effort = effort;
                     followerInfo->leaveTime = leaveTime;
                     followerInfo->prev = minimumInfo;
+                    followerInfo->via = follower.second;
                     if (oldEffort == std::numeric_limits<double>::max()) {
                         myFrontierList.push_back(followerInfo);
                         push_heap(myFrontierList.begin(), myFrontierList.end(), myComparator);
@@ -246,7 +258,7 @@ public:
         }
         this->endQuery(num_visited);
 #ifdef DijkstraRouter_DEBUG_QUERY_PERF
-        std::cout << "visited " + toString(num_visited) + " edges (unsuccesful path length: " + toString(into.size()) + ")\n";
+        std::cout << "visited " + toString(num_visited) + " edges (unsuccessful path length: " + toString(into.size()) + ")\n";
 #endif
         if (to != 0 && !mySilent) {
             myErrorMsgHandler->inform("No connection between edge '" + from->getID() + "' and edge '" + to->getID() + "' found.");
@@ -255,18 +267,39 @@ public:
     }
 
 
+    void updateViaCost(const E* const prev, const E* const e, const V* const v, double& time, double& effort) const {
+        for (const std::pair<const E*, const E*>& follower : prev->getViaSuccessors()) {
+            if (follower.first == e) {
+                const E* viaEdge = follower.second;
+                while (viaEdge != nullptr && viaEdge != e) {
+                    const double viaEffortDelta = this->getEffort(viaEdge, v, time);
+                    time += getTravelTime(viaEdge, v, time, viaEffortDelta);
+                    effort += viaEffortDelta;
+                    viaEdge = viaEdge->getViaSuccessors().front().first;
+                }
+                break;
+            }
+        }
+    }
+
+
     double recomputeCosts(const std::vector<const E*>& edges, const V* const v, SUMOTime msTime) const {
-        double costs = 0;
-        double t = STEPS2TIME(msTime);
+        double effort = 0.;
+        double time = STEPS2TIME(msTime);
+        const E* prev = nullptr;
         for (const E* const e : edges) {
             if (PF::operator()(e, v)) {
                 return -1;
             }
-            const double effortDelta = this->getEffort(e, v, t);
-            costs += effortDelta;
-            t += getTravelTime(e, v, t, effortDelta);
+            if (prev != nullptr) {
+                updateViaCost(prev, e, v, time, effort);
+            }
+            const double effortDelta = this->getEffort(e, v, time);
+            effort += effortDelta;
+            time += getTravelTime(e, v, time, effortDelta);
+            prev = e;
         }
-        return costs;
+        return effort;
     }
 
     /// Builds the path from marked edges

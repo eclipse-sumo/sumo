@@ -870,7 +870,7 @@ public:
     LinkState getIncomingLinkState() const;
 
     /// @brief get the list of outgoing lanes
-    std::vector<const MSLane*> getOutgoingLanes() const;
+    const std::map<const MSLane*, const MSEdge*> getOutgoingViaLanes() const;
 
     /// @name Current state retrieval
     //@{

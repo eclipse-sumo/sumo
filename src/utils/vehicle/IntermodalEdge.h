@@ -64,25 +64,39 @@ public:
         return myNumericalID;
     }
 
-    void addSuccessor(IntermodalEdge* s) {
+    void addSuccessor(IntermodalEdge* const s, IntermodalEdge* const via=nullptr) {
         myFollowingEdges.push_back(s);
+        myFollowingViaEdges.push_back(std::make_pair(s, via));
     }
 
-    void setSuccessors(const std::vector<IntermodalEdge*>& edges) {
-        myFollowingEdges = edges;
-    }
-
-    void clearSuccessors() {
+    void transferSuccessors(IntermodalEdge* to) {
+        to->myFollowingEdges = myFollowingEdges;
+        to->myFollowingViaEdges = myFollowingViaEdges;
         myFollowingEdges.clear();
+        myFollowingViaEdges.clear();
     }
 
     void removeSuccessor(const IntermodalEdge* const edge) {
         myFollowingEdges.erase(std::find(myFollowingEdges.begin(), myFollowingEdges.end(), edge));
+        for (auto it = myFollowingViaEdges.begin(); it != myFollowingViaEdges.end();) {
+            if (it->first == edge) {
+                it = myFollowingViaEdges.erase(it);
+            } else {
+                ++it;
+            }
+        }
     }
 
-    virtual const std::vector<IntermodalEdge*>& getSuccessors(SUMOVehicleClass /*vClass*/) const {
+    virtual const std::vector<IntermodalEdge*>& getSuccessors(SUMOVehicleClass vClass=SVC_IGNORING) const {
+        UNUSED_PARAMETER(vClass);
         // the network is already tailored. No need to check for permissions here
         return myFollowingEdges;
+    }
+
+    virtual const std::vector<std::pair<const IntermodalEdge*, const IntermodalEdge*> >& getViaSuccessors(SUMOVehicleClass vClass=SVC_IGNORING) const {
+        UNUSED_PARAMETER(vClass);
+        // the network is already tailored. No need to check for permissions here
+        return myFollowingViaEdges;
     }
 
     virtual bool prohibits(const IntermodalTrip<E, N, V>* const /* trip */) const {
@@ -125,6 +139,9 @@ public:
 protected:
     /// @brief List of edges that may be approached from this edge
     std::vector<IntermodalEdge*> myFollowingEdges;
+
+    /// @brief List of edges that may be approached from this edge with optional internal vias
+    std::vector<std::pair<const IntermodalEdge*, const IntermodalEdge*> > myFollowingViaEdges;
 
 private:
     /// @brief the index in myEdges

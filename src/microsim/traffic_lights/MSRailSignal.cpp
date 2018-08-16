@@ -144,13 +144,11 @@ MSRailSignal::init(NLDetectorBuilder&) {
                     }
                     if (noRailSignalLocal) { //if currentLane is not ending at a railSignal
                         //get the next lane
-                        std::vector<const MSLane*> outGoingLanes = currentLane->getOutgoingLanes();
+                        std::vector<const MSLane*> outGoingLanes;
                         // ignore outgoing lanes for non-rail classes
-                        for (auto it = outGoingLanes.begin(); it != outGoingLanes.end();) {
-                            if (((*it)->getPermissions() & SVC_RAIL_CLASSES) == 0) {
-                                it = outGoingLanes.erase(it);
-                            } else {
-                                it++;
+                        for (auto it : currentLane->getOutgoingViaLanes()) {
+                            if ((it.first->getPermissions() & SVC_RAIL_CLASSES) != 0) {
+                                outGoingLanes.push_back(it.first);
                             }
                         }
                         if (outGoingLanes.size() == 0) {    //if the current lane has no outgoing lanes (deadend)

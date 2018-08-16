@@ -105,7 +105,7 @@ public:
      * @param[in] s The edge to add
      * @todo What about vehicle-type aware connections?
      */
-    virtual void addSuccessor(ROEdge* s, std::string dir = "");
+    virtual void addSuccessor(ROEdge* s, ROEdge* via=nullptr, std::string dir = "");
 
 
     /** @brief Sets the function of the edge
@@ -311,24 +311,17 @@ public:
     int getNumSuccessors() const;
 
 
-    /** @brief Returns the following edges
-     */
-    const ROEdgeVector& getSuccessors() const {
-        return myFollowingEdges;
-    }
-
-
     /** @brief Returns the following edges, restricted by vClass
     * @param[in] vClass The vClass for which to restrict the successors
     * @return The eligible following edges
     */
-    const ROEdgeVector& getSuccessors(SUMOVehicleClass vClass) const;
+    const ROEdgeVector& getSuccessors(SUMOVehicleClass vClass=SVC_IGNORING) const;
 
     /** @brief Returns the following edges including vias, restricted by vClass
     * @param[in] vClass The vClass for which to restrict the successors
     * @return The eligible following edges
     */
-    const ROConstEdgePairVector& getViaSuccessors(SUMOVehicleClass vClass) const;
+    const ROConstEdgePairVector& getViaSuccessors(SUMOVehicleClass vClass=SVC_IGNORING) const;
 
 
     /** @brief Returns the number of edges connected to this edge

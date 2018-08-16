@@ -40,6 +40,8 @@ class NBEdge;
 /// @brief container for (sorted) edges
 typedef std::vector<NBEdge*> EdgeVector;
 
+typedef std::vector<std::pair<const NBEdge*, const NBEdge*> > NBConstEdgePairVector;
+
 /// @brief container for unique edges
 typedef std::set<NBEdge*> EdgeSet;
 

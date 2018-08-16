@@ -3528,21 +3528,39 @@ NBEdge::setOrigID(const std::string origID) {
     }
 }
 
+
 const EdgeVector& 
 NBEdge::getSuccessors(SUMOVehicleClass vClass) const {
-    // @todo cache sucessors instead of recomputing them every time
-    mySuccesors.clear();
+    // @todo cache successors instead of recomputing them every time
+    mySuccessors.clear();
     //std::cout << "getSuccessors edge=" << getID() << " svc=" << toString(vClass) << " cons=" << myConnections.size() << "\n";
     for (const Connection& con : myConnections) {
         if (con.fromLane >= 0 && con.toLane >=0 && con.toEdge != nullptr && 
                 (getPermissions(con.fromLane) 
                  & con.toEdge->getPermissions(con.toLane) & vClass) != 0
-                && find(mySuccesors.begin(), mySuccesors.end(), con.toEdge) == mySuccesors.end()) {
-            mySuccesors.push_back(con.toEdge);
+                && find(mySuccessors.begin(), mySuccessors.end(), con.toEdge) == mySuccessors.end()) {
+            mySuccessors.push_back(con.toEdge);
             //std::cout << "   succ=" << con.toEdge->getID() << "\n";
         }
     }
-    return mySuccesors;
+    return mySuccessors;
+}
+
+
+const NBConstEdgePairVector&
+NBEdge::getViaSuccessors(SUMOVehicleClass vClass) const {
+    // @todo cache successors instead of recomputing them every time
+    myViaSuccessors.clear();
+    for (const Connection& con : myConnections) {
+        auto pair = std::make_pair<const NBEdge*, const NBEdge*>(con.toEdge, nullptr);
+        if (con.fromLane >= 0 && con.toLane >=0 && con.toEdge != nullptr &&
+                (getPermissions(con.fromLane)
+                 & con.toEdge->getPermissions(con.toLane) & vClass) != 0
+                && find(myViaSuccessors.begin(), myViaSuccessors.end(), pair) == myViaSuccessors.end()) {
+            myViaSuccessors.push_back(pair);
+        }
+    }
+    return myViaSuccessors;
 }
 
 

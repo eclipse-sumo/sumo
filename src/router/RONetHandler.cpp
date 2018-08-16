@@ -270,17 +270,15 @@ RONetHandler::parseConnection(const SUMOSAXAttributes& attrs) {
     }
     if (myIgnoreInternal || viaID == "") {
         from->getLanes()[fromLane]->addOutgoingLane(to->getLanes()[toLane]);
-        from->addSuccessor(to, dir);
+        from->addSuccessor(to, nullptr, dir);
     }  else {
         ROEdge* const via = myNet.getEdge(viaID.substr(0, viaID.rfind('_')));
-        const int viaLane = TplConvert::_str2int(viaID.substr(via->getID().length() + 1));
         if (via == nullptr) {
             throw ProcessError("unknown via-edge '" + viaID + "' in connection");
         }
-        from->getLanes()[fromLane]->addOutgoingLane(via->getLanes()[viaLane]);
-        from->addSuccessor(via, dir);
-        via->getLanes()[viaLane]->addOutgoingLane(to->getLanes()[toLane]);
-        via->addSuccessor(to, dir);
+        from->getLanes()[fromLane]->addOutgoingLane(to->getLanes()[toLane], via);
+        from->addSuccessor(to, via, dir);
+        via->addSuccessor(to, nullptr, dir);
     }
 }
 

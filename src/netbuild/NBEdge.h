@@ -1277,7 +1277,12 @@ public:
 
     /** @brief Returns the following edges for the given vClass
      */
-    const EdgeVector& getSuccessors(SUMOVehicleClass vClass) const;
+    const EdgeVector& getSuccessors(SUMOVehicleClass vClass=SVC_IGNORING) const;
+
+
+    /** @brief Returns the following edges for the given vClass
+     */
+    const NBConstEdgePairVector& getViaSuccessors(SUMOVehicleClass vClass=SVC_IGNORING) const;
 
 
     //@}
@@ -1538,7 +1543,10 @@ private:
     int myIndex;
 
     // @brief a static list of successor edges. Set by NBEdgeCont and requires reset when the network changes
-    mutable EdgeVector mySuccesors;
+    mutable EdgeVector mySuccessors;
+
+    // @brief a static list of successor edges. Set by NBEdgeCont and requires reset when the network changes
+    mutable NBConstEdgePairVector myViaSuccessors;
 
 public:
     /// @class tls_disable_finder

@@ -168,20 +168,20 @@ public:
             std::cout << "  building connections from " << sidewalk->getID() << "\n";
 #endif
             if (haveSeenWalkingArea) {
-                const std::vector<const L*> outgoing = sidewalk->getOutgoingLanes();
+                const std::map<const L*, const E*> outgoing = sidewalk->getOutgoingViaLanes();
                 // if one of the outgoing lanes is a walking area it must be used.
                 // All other connections shall be ignored
                 // if it has no outgoing walking area, it probably is a walking area itself
                 bool hasWalkingArea = false;
-                for (const L* target : outgoing) {
-                    if (target->getEdge().isWalkingArea()) {
+                for (const auto& target : outgoing) {
+                    if (target.first->getEdge().isWalkingArea()) {
                         hasWalkingArea = true;
                         break;
                     }
                 }
-                for (const L* target : outgoing) {
-                    const E* const targetEdge = &(target->getEdge());
-                    const bool used = (target == getSidewalk<E, L>(targetEdge)
+                for (const auto& target : outgoing) {
+                    const E* const targetEdge = &(target.first->getEdge());
+                    const bool used = (target.first == getSidewalk<E, L>(targetEdge)
                                        && (!hasWalkingArea || targetEdge->isWalkingArea()));
 #ifdef IntermodalRouter_DEBUG_NETWORK
                     const L* potTarget = getSidewalk<E, L>(targetEdge);
@@ -326,9 +326,9 @@ public:
             if (e->isInternal() || sidewalk == 0) {
                 return 0;
             }
-            for (const L* target : sidewalk->getOutgoingLanes()) {
-                if (target->getEdge().isWalkingArea()) {
-                    return getBothDirections(&target->getEdge()).first;
+            for (const auto& target : sidewalk->getOutgoingViaLanes()) {
+                if (target.first->getEdge().isWalkingArea()) {
+                    return getBothDirections(&target.first->getEdge()).first;
                 }
             }
             return 0;
@@ -345,10 +345,11 @@ public:
         }
         for (const auto& edgePair : myCarLookup) {
             _IntermodalEdge* const carEdge = edgePair.second;
-            for (const E* const suc : edgePair.first->getSuccessors()) {
-                _IntermodalEdge* const sucCarEdge = getCarEdge(suc);
+            for (const auto& suc : edgePair.first->getViaSuccessors()) {
+                _IntermodalEdge* const sucCarEdge = getCarEdge(suc.first);
+                _IntermodalEdge* const sucViaEdge = getCarEdge(suc.second);
                 if (sucCarEdge != nullptr) {
-                    carEdge->addSuccessor(sucCarEdge);
+                    carEdge->addSuccessor(sucCarEdge, sucViaEdge);
                 }
             }
             if ((myCarWalkTransfer & ALL_JUNCTIONS) != 0) {
@@ -378,7 +379,7 @@ public:
     _IntermodalEdge* getCarEdge(const E* e) const {
         typename std::map<const E*, _IntermodalEdge*>::const_iterator it = myCarLookup.find(e);
         if (it == myCarLookup.end()) {
-            return 0;
+            return nullptr;
         }
         return it->second;
     }
@@ -611,8 +612,7 @@ private:
         _IntermodalEdge* beforeSplit = splitList[splitIndex];
         if (needSplit) {
             addEdge(afterSplit);
-            afterSplit->setSuccessors(beforeSplit->getSuccessors(SVC_IGNORING));
-            beforeSplit->clearSuccessors();
+            beforeSplit->transferSuccessors(afterSplit);
             beforeSplit->addSuccessor(afterSplit);
             if (forward) {
                 afterSplit->setLength(beforeSplit->getLength() - relPos);

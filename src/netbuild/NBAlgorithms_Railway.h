@@ -66,7 +66,8 @@ public:
             {}
 
         void addSuccessor(Track* track);
-        const std::vector<Track*>& getSuccessors(SUMOVehicleClass svc) const;
+        const std::vector<Track*>& getSuccessors(SUMOVehicleClass svc=SVC_IGNORING) const;
+        const std::vector<std::pair<const Track*, const Track*> >& getViaSuccessors(SUMOVehicleClass svc=SVC_IGNORING) const;
 
         const std::string& getID() const { 
             return id;
@@ -81,8 +82,10 @@ public:
         const int index;
         const std::string id;
         std::vector<Track*> successors;
+        std::vector<std::pair<const Track*, const Track*> > viaSuccessors;
         SVCPermissions minPermissions;
         mutable std::map<SUMOVehicleClass, std::vector<Track*> > svcSuccessors;
+        mutable std::map<SUMOVehicleClass, std::vector<std::pair<const Track*, const Track*> > > svcViaSuccessors;
     };
     static double getTravelTimeStatic(const Track* const track, const NBVehicle* const veh, double time);
 
