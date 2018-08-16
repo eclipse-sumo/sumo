@@ -1452,8 +1452,10 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
     const bool joinTurns = OptionsCont::getOptions().getBool("junctions.join-turns");
     const double limitTurnSpeed = OptionsCont::getOptions().getFloat("junctions.limit-turn-speed");
     const double limitTurnSpeedMinAngle = DEG2RAD(OptionsCont::getOptions().getFloat("junctions.limit-turn-speed.min-angle"));
+    const double limitTurnSpeedMinAngleRail = DEG2RAD(OptionsCont::getOptions().getFloat("junctions.limit-turn-speed.min-angle.railway"));
     const double limitTurnSpeedWarnStraight = OptionsCont::getOptions().getFloat("junctions.limit-turn-speed.warn.straight");
     const double limitTurnSpeedWarnTurn = OptionsCont::getOptions().getFloat("junctions.limit-turn-speed.warn.turn");
+    const bool fromRail = isRailway(getPermissions());
     std::string innerID = ":" + n.getID();
     NBEdge* toEdge = 0;
     int edgeIndex = linkIndex;
@@ -1619,7 +1621,7 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
                 const double angleRaw = fabs(GeomHelper::angleDiff(
                             getLaneShape(con.fromLane).angleAt2D(-2),
                             con.toEdge->getLaneShape(con.toLane).angleAt2D(0)));
-                const double angle = MAX2(0.0, angleRaw - limitTurnSpeedMinAngle);
+                const double angle = MAX2(0.0, angleRaw - (fromRail ? limitTurnSpeedMinAngleRail : limitTurnSpeedMinAngle));
                 const double length = shape.length2D();
                 // do not trust the radius of tiny junctions
                 // formula adapted from [Odhams, Andre and Cole, David, Models of Driver Speed Choice in Curves, 2004]

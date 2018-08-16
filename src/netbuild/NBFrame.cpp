@@ -249,6 +249,10 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.addDescription("junctions.limit-turn-speed.min-angle", "Junctions",
                       "Do not limit turn speed for angular changes below FLOAT (degrees). The value is subtracted from the geometric angle before computing the turning radius.");
 
+    oc.doRegister("junctions.limit-turn-speed.min-angle.railway", new Option_Float(35));
+    oc.addDescription("junctions.limit-turn-speed.min-angle.railway", "Junctions",
+                      "Do not limit turn speed for angular changes below FLOAT (degrees) on railway edges. The value is subtracted from the geometric angle before computing the turning radius.");
+
     oc.doRegister("junctions.limit-turn-speed.warn.straight", new Option_Float(5));
     oc.addDescription("junctions.limit-turn-speed.warn.straight", "Junctions",
                       "Warn about turn speed limits that reduce the speed of straight connections by more than FLOAT");
