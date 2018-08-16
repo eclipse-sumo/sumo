@@ -322,13 +322,13 @@ public:
      */
     static GUINet* getGUIInstance();
 
+    /// @brief creates a wrapper for the given logic 
+    void createTLWrapper(MSTrafficLightLogic* tll);
+
 
 private:
     /// @brief Initialises the tl-logic map and wrappers
     void initTLMap();
-
-    /// @brief creates a wrapper for the given logic and returns the GlID
-    GUIGlID createTLWrapper(MSTrafficLightLogic* tll);
 
     friend class GUIOSGBuilder;
 

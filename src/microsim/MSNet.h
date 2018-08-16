@@ -63,6 +63,7 @@ class MSVehicle;
 class MSRoute;
 class MSLane;
 class MSTLLogicControl;
+class MSTrafficLightLogic;
 class MSDetectorControl;
 class ShapeContainer;
 class BinaryInputDevice;
@@ -476,6 +477,8 @@ public:
     /// @brief write charging station output
     void writeChargingStationOutput() const;
 
+    /// @brief creates a wrapper for the given logic (see GUINet)
+    virtual void createTLWrapper(MSTrafficLightLogic*) {};
 
     /// @name Notification about vehicle state changes
     /// @{

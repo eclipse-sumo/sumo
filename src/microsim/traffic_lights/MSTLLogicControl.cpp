@@ -161,6 +161,7 @@ MSTLLogicControl::TLSLogicVariants::setStateInstantiatingOnline(MSTLLogicControl
                                               MSNet::getInstance()->getCurrentTimeStep() + DELTA_T,
                                               std::map<std::string, std::string>());
         addLogic("online", logic, true, true);
+        MSNet::getInstance()->createTLWrapper(logic);
     } else {
         MSPhaseDefinition nphase(DELTA_T, state);
         *(dynamic_cast<MSSimpleTrafficLightLogic*>(logic)->getPhases()[0]) = nphase;
