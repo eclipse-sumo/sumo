@@ -39,3 +39,6 @@ ticket4298
 
 # Indirekt left turner ignores foes on lanes intersecting its first internal lane part before internal junction.
 ticket4299
+
+# collision on junction with link leader from the same source lane who is only partially on the junction
+ticket4430
