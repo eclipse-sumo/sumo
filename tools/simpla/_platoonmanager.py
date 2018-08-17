@@ -193,7 +193,7 @@ class PlatoonManager(traci.StepListener):
 
         This updates the vehicles' states with information from the simulation
         '''
-        self._subscriptionResults = traci.vehicle.getSubscriptionResults()
+        self._subscriptionResults = traci.vehicle.getAllSubscriptionResults()
         for veh in self._connectedVehicles.values():
             veh.state.speed = self._subscriptionResults[veh.getID()][tc.VAR_SPEED]
             veh.state.edgeID = self._subscriptionResults[veh.getID()][tc.VAR_ROAD_ID]
