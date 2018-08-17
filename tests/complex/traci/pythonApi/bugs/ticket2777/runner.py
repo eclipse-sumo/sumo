@@ -57,7 +57,7 @@ check(vehID)
 try:
     print("%s setStop for %s" %
           (traci.simulation.getCurrentTime() / 1000.0, vehID))
-    traci.vehicle.setStop(vehID, "beg", pos=1.0, laneIndex=0, duration=5000)
+    traci.vehicle.setStop(vehID, "beg", pos=1.0, laneIndex=0, duration=5)
 except traci.TraCIException:
     pass
 check(vehID, 10)
@@ -68,7 +68,7 @@ check(vehID)
 try:
     print("%s setStop for %s" %
           (traci.simulation.getCurrentTime() / 1000.0, vehID))
-    traci.vehicle.setStop(vehID, "end", pos=1.0, laneIndex=0, duration=5000)
+    traci.vehicle.setStop(vehID, "end", pos=1.0, laneIndex=0, duration=5)
 except traci.TraCIException:
     pass
 check(vehID, 10)
@@ -79,7 +79,7 @@ check(vehID)
 try:
     print("%s setStop for %s" %
           (traci.simulation.getCurrentTime() / 1000.0, vehID))
-    traci.vehicle.setStop(vehID, "middle", pos=1.0, laneIndex=0, duration=5000)
+    traci.vehicle.setStop(vehID, "middle", pos=1.0, laneIndex=0, duration=5)
 except traci.TraCIException:
     pass
 check(vehID, 10)
@@ -90,7 +90,7 @@ check(vehID)
 try:
     print("%s setStop for %s" %
           (traci.simulation.getCurrentTime() / 1000.0, vehID))
-    traci.vehicle.setStop(vehID, "middle", pos=1.0, laneIndex=0, duration=5000)
+    traci.vehicle.setStop(vehID, "middle", pos=1.0, laneIndex=0, duration=5)
 except traci.TraCIException:
     pass
 check(vehID, 10)

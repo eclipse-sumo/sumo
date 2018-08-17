@@ -176,7 +176,7 @@ traci.vehicle.setParameter(vehID, "foo", "bar")
 traci.vehicle.setParameter(vehID, "laneChangeModel.lcStrategic", "2.0")
 traci.vehicle.setSignals(vehID, 12)
 traci.vehicle.setRoutingMode(vehID, traci.constants.ROUTING_MODE_AGGREGATED)
-traci.vehicle.setStop(vehID, "2fi", pos=50.0, laneIndex=0, duration=2000, flags=1)
+traci.vehicle.setStop(vehID, "2fi", pos=50.0, laneIndex=0, duration=2, flags=1)
 sys.stderr.flush()
 
 check(vehID)
@@ -193,8 +193,7 @@ try:
 except traci.TraCIException:
     print("recovering from exception after asking for unknown vehicle")
 traci.vehicle.add("1", "horizontal")
-traci.vehicle.setStop(
-    "1", "2fi", pos=50.0, laneIndex=0, duration=1000, flags=1)
+traci.vehicle.setStop("1", "2fi", pos=50.0, laneIndex=0, duration=1, flags=1)
 check("1")
 traci.vehicle.changeTarget("1", "4fi")
 print("routeID", traci.vehicle.getRouteID(vehID))
@@ -287,7 +286,7 @@ for i in range(14):
 # test for adding a veh and a busstop
 busVeh = "bus"
 traci.vehicle.add(busVeh, "horizontal")
-traci.vehicle.setBusStop(busVeh, "busstop1", duration=2000)
+traci.vehicle.setBusStop(busVeh, "busstop1", duration=2)
 for i in range(14):
     print("step", step())
     print("vehicle '%s' lane=%s lanePos=%s stopped=%s" % (busVeh,
@@ -305,7 +304,7 @@ print("triptest route:", traci.vehicle.getRoute("triptest"))
 # test returned values of parking vehicle
 parkingVeh = "parking"
 traci.vehicle.add(parkingVeh, "horizontal")
-traci.vehicle.setStop(parkingVeh, "2fi", pos=20.0, laneIndex=0, duration=10000,
+traci.vehicle.setStop(parkingVeh, "2fi", pos=20.0, laneIndex=0, duration=10,
                       flags=traci.constants.STOP_PARKING)
 for i in range(20):
     print("step", step())
@@ -313,7 +312,7 @@ for i in range(20):
 # test moveTo of parking vehicle
 parkingVeh = "parking2"
 traci.vehicle.add(parkingVeh, "horizontal")
-traci.vehicle.setStop(parkingVeh, "2fi", pos=20.0, laneIndex=0, duration=10000,
+traci.vehicle.setStop(parkingVeh, "2fi", pos=20.0, laneIndex=0, duration=10,
                       flags=traci.constants.STOP_PARKING)
 for i in range(8):
     print("step", step())
@@ -334,7 +333,7 @@ for i in range(3):
 # test modifying a teleporting vehicle
 tele = "collider"
 traci.vehicle.add("victim", "horizontal")
-traci.vehicle.setStop("victim", "2fi", pos=5.0, laneIndex=0, duration=10000)
+traci.vehicle.setStop("victim", "2fi", pos=5.0, laneIndex=0, duration=10)
 # block the next lane to avoid instant insertion after teleport
 traci.vehicle.add("block_2si", "horizontal")
 traci.vehicle.moveTo("block_2si", "2si_1", 205)

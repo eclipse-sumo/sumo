@@ -87,6 +87,14 @@ class SimulationDomain(Domain):
         """
         return self._getUniversal(tc.VAR_TIME)
 
+    def step(self, time=0.):
+        """step(double) -> None
+        Make a simulation step and simulate up to the given sim time (in seconds).
+        If the given value is 0 or absent, exactly one step is performed.
+        Values smaller than or equal to the current sim time result in no action.
+        """
+        return self._connection.simulationStep(time*1000)
+
     def getCurrentTime(self):
         """getCurrentTime() -> integer
 

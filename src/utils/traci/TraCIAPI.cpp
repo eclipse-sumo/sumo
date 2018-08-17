@@ -120,7 +120,7 @@ TraCIAPI::closeSocket() {
 
 
 void
-TraCIAPI::send_commandSimulationStep(SUMOTime time) const {
+TraCIAPI::send_commandSimulationStep(int time) const {
     tcpip::Storage outMsg;
     // command length
     outMsg.writeUnsignedByte(1 + 1 + 4);
@@ -352,15 +352,6 @@ TraCIAPI::processGET(tcpip::Storage& inMsg, int command, int expectedType, bool 
 }
 
 
-SUMOTime
-TraCIAPI::getSUMOTime(int cmd, int var, const std::string& id, tcpip::Storage* add) {
-    tcpip::Storage inMsg;
-    send_commandGetVariable(cmd, var, id, add);
-    processGET(inMsg, cmd, TYPE_INTEGER);
-    return inMsg.readInt();
-}
-
-
 int
 TraCIAPI::getUnsignedByte(int cmd, int var, const std::string& id, tcpip::Storage* add) {
     tcpip::Storage inMsg;
@@ -570,7 +561,7 @@ TraCIAPI::readContextSubscription(int cmdId, tcpip::Storage& inMsg) {
 
 
 void
-TraCIAPI::simulationStep(SUMOTime time) {
+TraCIAPI::simulationStep(int time) {
     send_commandSimulationStep(time);
     tcpip::Storage inMsg;
     check_resultState(inMsg, CMD_SIMSTEP);
@@ -1493,9 +1484,14 @@ TraCIAPI::RouteScope::add(const std::string& routeID, const std::vector<std::str
 // ---------------------------------------------------------------------------
 // TraCIAPI::SimulationScope-methods
 // ---------------------------------------------------------------------------
-SUMOTime
+int
 TraCIAPI::SimulationScope::getCurrentTime() const {
-    return myParent.getSUMOTime(CMD_GET_SIM_VARIABLE, VAR_TIME_STEP, "");
+    return myParent.getInt(CMD_GET_SIM_VARIABLE, VAR_TIME_STEP, "");
+}
+
+double
+TraCIAPI::SimulationScope::getTime() const {
+    return myParent.getDouble(CMD_GET_SIM_VARIABLE, VAR_TIME, "");
 }
 
 int
@@ -1548,9 +1544,9 @@ TraCIAPI::SimulationScope::getEndingTeleportIDList() const {
     return myParent.getStringVector(CMD_GET_SIM_VARIABLE, VAR_TELEPORT_ENDING_VEHICLES_IDS, "");
 }
 
-SUMOTime
+double
 TraCIAPI::SimulationScope::getDeltaT() const {
-    return myParent.getSUMOTime(CMD_GET_SIM_VARIABLE, VAR_DELTA_T, "");
+    return myParent.getDouble(CMD_GET_SIM_VARIABLE, VAR_DELTA_T, "");
 }
 
 libsumo::TraCIPositionVector
@@ -2527,6 +2523,7 @@ TraCIAPI::VehicleScope::remove(const std::string& vehicleID, char reason) const 
 
 }
 
+
 void
 TraCIAPI::VehicleScope::changeTarget(const std::string& vehicleID, const std::string& edgeID) const {
     tcpip::Storage content;
@@ -2536,6 +2533,50 @@ TraCIAPI::VehicleScope::changeTarget(const std::string& vehicleID, const std::st
     tcpip::Storage inMsg;
     myParent.check_resultState(inMsg, CMD_SET_VEHICLE_VARIABLE);
 }
+
+
+void
+TraCIAPI::VehicleScope::changeLane(const std::string& vehicleID, int laneIndex, double duration) const {
+    tcpip::Storage content;
+    content.writeUnsignedByte(TYPE_COMPOUND);
+    content.writeInt(2);
+    content.writeUnsignedByte(TYPE_BYTE);
+    content.writeByte(laneIndex);
+    content.writeUnsignedByte(TYPE_DOUBLE);
+    content.writeDouble(duration);
+    myParent.send_commandSetValue(CMD_SET_VEHICLE_VARIABLE, CMD_CHANGELANE, vehicleID, content);
+    tcpip::Storage inMsg;
+    myParent.check_resultState(inMsg, CMD_SET_VEHICLE_VARIABLE);
+}
+
+
+void
+TraCIAPI::VehicleScope::changeLaneRelative(const std::string& vehicleID, int laneChange, double duration) const {
+    tcpip::Storage content;
+    content.writeUnsignedByte(TYPE_COMPOUND);
+    content.writeInt(3);
+    content.writeUnsignedByte(TYPE_BYTE);
+    content.writeByte(laneChange);
+    content.writeUnsignedByte(TYPE_DOUBLE);
+    content.writeDouble(duration);
+    content.writeUnsignedByte(TYPE_BYTE);
+    content.writeByte(1);
+    myParent.send_commandSetValue(CMD_SET_VEHICLE_VARIABLE, CMD_CHANGELANE, vehicleID, content);
+    tcpip::Storage inMsg;
+    myParent.check_resultState(inMsg, CMD_SET_VEHICLE_VARIABLE);
+}
+
+
+void
+TraCIAPI::VehicleScope::changeSublane(const std::string& vehicleID, double latDist) const {
+    tcpip::Storage content;
+    content.writeUnsignedByte(TYPE_DOUBLE);
+    content.writeDouble(latDist);
+    myParent.send_commandSetValue(CMD_SET_VEHICLE_VARIABLE, CMD_CHANGESUBLANE, vehicleID, content);
+    tcpip::Storage inMsg;
+    myParent.check_resultState(inMsg, CMD_SET_VEHICLE_VARIABLE);
+}
+
 
 void
 TraCIAPI::VehicleScope::setRouteID(const std::string& vehicleID, const std::string& routeID) const {
@@ -2566,10 +2607,6 @@ void
 TraCIAPI::VehicleScope::rerouteTraveltime(const std::string& vehicleID, bool currentTravelTimes) const {
     if (currentTravelTimes) {
         // updated edge weights with current network traveltimes (at most once per simulation step)
-        SUMOTime time = myParent.simulation.getCurrentTime();
-        if (time != LAST_TRAVEL_TIME_UPDATE) {
-            LAST_TRAVEL_TIME_UPDATE = time;
-        }
         std::vector<std::string> edges = myParent.edge.getIDList();
         for (std::vector<std::string>::iterator it = edges.begin(); it != edges.end(); ++it) {
             myParent.edge.adaptTraveltime(*it, myParent.edge.getTraveltime(*it));
@@ -2607,14 +2644,14 @@ TraCIAPI::VehicleScope::moveToXY(const std::string& vehicleID, const std::string
 
 
 void
-TraCIAPI::VehicleScope::slowDown(const std::string& vehicleID, double speed, SUMOTime duration) const {
+TraCIAPI::VehicleScope::slowDown(const std::string& vehicleID, double speed, double duration) const {
     tcpip::Storage content;
     content.writeUnsignedByte(TYPE_COMPOUND);
     content.writeInt(2);
     content.writeUnsignedByte(TYPE_DOUBLE);
     content.writeDouble(speed);
-    content.writeUnsignedByte(TYPE_INTEGER);
-    content.writeInt((int)duration);
+    content.writeUnsignedByte(TYPE_DOUBLE);
+    content.writeDouble(duration);
     myParent.send_commandSetValue(CMD_SET_VEHICLE_VARIABLE, CMD_SLOWDOWN, vehicleID, content);
     tcpip::Storage inMsg;
     myParent.check_resultState(inMsg, CMD_SET_VEHICLE_VARIABLE);

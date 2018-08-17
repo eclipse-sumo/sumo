@@ -80,9 +80,9 @@ def _readNextStops(result):
         result.read("!B")
         stopFlags = result.readInt()
         result.read("!B")
-        duration = result.readInt()
+        duration = result.readDouble()
         result.read("!B")
-        until = result.readInt()
+        until = result.readDouble()
         nextStop.append((lane, endPos, stoppingPlaceID, stopFlags, duration, until))
     return tuple(nextStop)
 
@@ -836,56 +836,58 @@ class VehicleDomain(Domain):
         self._connection._packString(parkingAreaID)
         self._connection._sendExact()
 
-    def setStop(self, vehID, edgeID, pos=1., laneIndex=0, duration=2**31 - 1,
-                flags=tc.STOP_DEFAULT, startPos=tc.INVALID_DOUBLE_VALUE, until=-1):
-        """setStop(string, string, double, integer, integer, integer, double, integer) -> None
+    def setStop(self, vehID, edgeID, pos=1., laneIndex=0, duration=tc.INVALID_DOUBLE_VALUE,
+                flags=tc.STOP_DEFAULT, startPos=tc.INVALID_DOUBLE_VALUE, until=tc.INVALID_DOUBLE_VALUE):
+        """setStop(string, string, double, integer, double, integer, double, double) -> None
 
         Adds or modifies a stop with the given parameters. The duration and the until attribute are
-        in milliseconds.
+        in seconds.
         """
+        if type(duration) is int and duration >= 1000:
+            warnings.warn("API change now handles duration as floating point seconds", stacklevel=2)
         self._connection._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.CMD_STOP,
                                        vehID, (1 + 4 + 1 + 4 + len(edgeID) + 1 + 8 + 1 + 1 +
-                                               1 + 4 + 1 + 1 + 1 + 8 + 1 + 4))
+                                               1 + 8 + 1 + 1 + 1 + 8 + 1 + 8))
         self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 7)
         self._connection._packString(edgeID)
-        self._connection._string += struct.pack("!BdBBBiBB", tc.TYPE_DOUBLE, pos,
-                                                tc.TYPE_BYTE, laneIndex, tc.TYPE_INTEGER, duration, tc.TYPE_BYTE, flags)
-        self._connection._string += struct.pack("!BdBi",
-                                                tc.TYPE_DOUBLE, startPos, tc.TYPE_INTEGER, until)
+        self._connection._string += struct.pack("!BdBBBdBB", tc.TYPE_DOUBLE, pos,
+                                                tc.TYPE_BYTE, laneIndex, tc.TYPE_DOUBLE, duration, tc.TYPE_BYTE, flags)
+        self._connection._string += struct.pack("!BdBd",
+                                                tc.TYPE_DOUBLE, startPos, tc.TYPE_DOUBLE, until)
         self._connection._sendExact()
 
-    def setBusStop(self, vehID, stopID, duration=2**31 - 1, until=-1, flags=tc.STOP_DEFAULT):
-        """setBusStop(string, string, integer, integer, integer) -> None
+    def setBusStop(self, vehID, stopID, duration=tc.INVALID_DOUBLE_VALUE, until=tc.INVALID_DOUBLE_VALUE, flags=tc.STOP_DEFAULT):
+        """setBusStop(string, string, double, double, integer) -> None
 
         Adds or modifies a bus stop with the given parameters. The duration and the until attribute are
-        in milliseconds.
+        in seconds.
         """
         self.setStop(vehID, stopID, duration=duration,
                      until=until, flags=flags | tc.STOP_BUS_STOP)
 
-    def setContainerStop(self, vehID, stopID, duration=2**31 - 1, until=-1, flags=tc.STOP_DEFAULT):
-        """setContainerStop(string, string, integer, integer, integer) -> None
+    def setContainerStop(self, vehID, stopID, duration=tc.INVALID_DOUBLE_VALUE, until=tc.INVALID_DOUBLE_VALUE, flags=tc.STOP_DEFAULT):
+        """setContainerStop(string, string, double, double, integer) -> None
 
         Adds or modifies a container stop with the given parameters. The duration and the until attribute are
-        in milliseconds.
+        in seconds.
         """
         self.setStop(vehID, stopID, duration=duration, until=until,
                      flags=flags | tc.STOP_CONTAINER_STOP)
 
-    def setChargingStationStop(self, vehID, stopID, duration=2**31 - 1, until=-1, flags=tc.STOP_DEFAULT):
-        """setChargingStationStop(string, string, integer, integer, integer) -> None
+    def setChargingStationStop(self, vehID, stopID, duration=tc.INVALID_DOUBLE_VALUE, until=tc.INVALID_DOUBLE_VALUE, flags=tc.STOP_DEFAULT):
+        """setChargingStationStop(string, string, double, double, integer) -> None
 
         Adds or modifies a stop at a chargingStation with the given parameters. The duration and the until attribute are
-        in milliseconds.
+        in seconds.
         """
         self.setStop(vehID, stopID, duration=duration, until=until,
                      flags=flags | tc.STOP_CHARGING_STATION)
 
-    def setParkingAreaStop(self, vehID, stopID, duration=2**31 - 1, until=-1, flags=tc.STOP_PARKING):
-        """setParkingAreaStop(string, string, integer, integer, integer) -> None
+    def setParkingAreaStop(self, vehID, stopID, duration=tc.INVALID_DOUBLE_VALUE, until=tc.INVALID_DOUBLE_VALUE, flags=tc.STOP_PARKING):
+        """setParkingAreaStop(string, string, double, double, integer) -> None
 
         Adds or modifies a stop at a parkingArea with the given parameters. The duration and the until attribute are
-        in milliseconds.
+        in seconds.
         """
         self.setStop(vehID, stopID, duration=duration, until=until,
                      flags=flags | tc.STOP_PARKING_AREA)
@@ -901,15 +903,17 @@ class VehicleDomain(Domain):
         self._connection._sendExact()
 
     def changeLane(self, vehID, laneIndex, duration):
-        """changeLane(string, int, int) -> None
+        """changeLane(string, int, double) -> None
 
         Forces a lane change to the lane with the given index; if successful,
         the lane will be chosen for the given amount of time (in ms).
         """
+        if type(duration) is int and duration >= 1000:
+            warnings.warn("API change now handles duration as floating point seconds", stacklevel=2)
         self._connection._beginMessage(
-            tc.CMD_SET_VEHICLE_VARIABLE, tc.CMD_CHANGELANE, vehID, 1 + 4 + 1 + 1 + 1 + 4 + 1 + 1)
+            tc.CMD_SET_VEHICLE_VARIABLE, tc.CMD_CHANGELANE, vehID, 1 + 4 + 1 + 1 + 1 + 8)
         self._connection._string += struct.pack(
-            "!BiBBBiBB", tc.TYPE_COMPOUND, 3, tc.TYPE_BYTE, laneIndex, tc.TYPE_INTEGER, duration, tc.TYPE_BYTE, 0)
+            "!BiBBBd", tc.TYPE_COMPOUND, 2, tc.TYPE_BYTE, laneIndex, tc.TYPE_DOUBLE, duration)
         self._connection._sendExact()
 
     def changeLaneRelative(self, vehID, left, duration):
@@ -918,14 +922,16 @@ class VehicleDomain(Domain):
         Forces a relative lane change; if successful,
         the lane will be chosen for the given amount of time (in ms).
         """
+        if type(duration) is int and duration >= 1000:
+            warnings.warn("API change now handles duration as floating point seconds", stacklevel=2)
         if left > 0:
             laneIndex = left
         else:
             laneIndex = 0
         self._connection._beginMessage(
-            tc.CMD_SET_VEHICLE_VARIABLE, tc.CMD_CHANGELANE, vehID, 1 + 4 + 1 + 1 + 1 + 4 + 1 + 1)
+            tc.CMD_SET_VEHICLE_VARIABLE, tc.CMD_CHANGELANE, vehID, 1 + 4 + 1 + 1 + 1 + 8 + 1 + 1)
         self._connection._string += struct.pack(
-            "!BiBBBiBB", tc.TYPE_COMPOUND, 3, tc.TYPE_BYTE, laneIndex, tc.TYPE_INTEGER, duration, tc.TYPE_BYTE, 1)
+            "!BiBBBdBB", tc.TYPE_COMPOUND, 3, tc.TYPE_BYTE, laneIndex, tc.TYPE_DOUBLE, duration, tc.TYPE_BYTE, 1)
         self._connection._sendExact()
 
     def changeSublane(self, vehID, latDist):
@@ -938,15 +944,17 @@ class VehicleDomain(Domain):
             tc.CMD_SET_VEHICLE_VARIABLE, tc.CMD_CHANGESUBLANE, vehID, latDist)
 
     def slowDown(self, vehID, speed, duration):
-        """slowDown(string, double, int) -> None
+        """slowDown(string, double, double) -> None
 
         Changes the speed smoothly to the given value over the given amount
-        of time in ms (can also be used to increase speed).
+        of time in seconds (can also be used to increase speed).
         """
+        if type(duration) is int and duration >= 1000:
+            warnings.warn("API change now handles duration as floating point seconds", stacklevel=2)
         self._connection._beginMessage(
-            tc.CMD_SET_VEHICLE_VARIABLE, tc.CMD_SLOWDOWN, vehID, 1 + 4 + 1 + 8 + 1 + 4)
+            tc.CMD_SET_VEHICLE_VARIABLE, tc.CMD_SLOWDOWN, vehID, 1 + 4 + 1 + 8 + 1 + 8)
         self._connection._string += struct.pack(
-            "!BiBdBi", tc.TYPE_COMPOUND, 2, tc.TYPE_DOUBLE, speed, tc.TYPE_INTEGER, duration)
+            "!BiBdBd", tc.TYPE_COMPOUND, 2, tc.TYPE_DOUBLE, speed, tc.TYPE_DOUBLE, duration)
         self._connection._sendExact()
 
     def changeTarget(self, vehID, edgeID):
@@ -1383,6 +1391,8 @@ class VehicleDomain(Domain):
             tc.CMD_SET_VEHICLE_VARIABLE, tc.ADD_FULL, vehID, len(messageString))
         self._connection._string += messageString
         self._connection._sendExact()
+
+    addFull = add
 
     def remove(self, vehID, reason=tc.REMOVE_VAPORIZED):
         '''Remove vehicle with the given ID for the give reason.

@@ -396,6 +396,7 @@ Vehicle::getNextTLS(const std::string& vehicleID) {
     return result;
 }
 
+
 std::vector<TraCINextStopData>
 Vehicle::getNextStops(const std::string& vehicleID) {
     std::vector<TraCINextStopData> result;
@@ -419,13 +420,14 @@ Vehicle::getNextStops(const std::string& vehicleID) {
                 (it->containerstop != 0 ? 32 : 0) +
                 (it->chargingStation != 0 ? 64 : 0) +
                 (it->parkingarea != 0 ? 128 : 0));
-            nsd.duration = it->pars.duration;
-            nsd.until = it->pars.until;
+            nsd.duration = STEPS2TIME(it->pars.duration);
+            nsd.until = STEPS2TIME(it->pars.until);
             result.push_back(nsd);
         }
     }
     return result;
 }
+
 
 int
 Vehicle::getStopState(const std::string& vehicleID) {
@@ -717,10 +719,10 @@ Vehicle::setStop(const std::string& vehicleID,
                  const std::string& edgeID,
                  double pos,
                  int laneIndex,
-                 SUMOTime duration,
+                 double duration,
                  int flags,
                  double startPos,
-                 SUMOTime until) {
+                 double until) {
     MSVehicle* veh = getVehicle(vehicleID);
     // optional stop flags
     bool parking = false;
@@ -743,11 +745,13 @@ Vehicle::setStop(const std::string& vehicleID,
     if ((flags & 64) != 0) {
         stoppingPlaceType = SUMO_TAG_PARKING_AREA;
     }
+    const SUMOTime durationSteps = duration == INVALID_DOUBLE_VALUE ? SUMOTime_MAX : TIME2STEPS(duration);
+    const SUMOTime untilStep = until == INVALID_DOUBLE_VALUE ? -1 : TIME2STEPS(until);
 
     std::string error;
     if (stoppingPlaceType != SUMO_TAG_NOTHING) {
         // Forward command to vehicle
-        if (!veh->addTraciStopAtStoppingPlace(edgeID, duration, until, parking, triggered, containerTriggered, stoppingPlaceType, error)) {
+        if (!veh->addTraciStopAtStoppingPlace(edgeID, durationSteps, untilStep, parking, triggered, containerTriggered, stoppingPlaceType, error)) {
             throw TraCIException(error);
         }
     } else {
@@ -771,7 +775,7 @@ Vehicle::setStop(const std::string& vehicleID,
             throw TraCIException("No lane with index '" + toString(laneIndex) + "' on road '" + edgeID + "'.");
         }
         // Forward command to vehicle
-        if (!veh->addTraciStop(allLanes[laneIndex], startPos, pos, duration, until, parking, triggered, containerTriggered, error)) {
+        if (!veh->addTraciStop(allLanes[laneIndex], startPos, pos, durationSteps, untilStep, parking, triggered, containerTriggered, error)) {
             throw TraCIException(error);
         }
     }
@@ -833,15 +837,15 @@ Vehicle::changeTarget(const std::string& vehicleID, const std::string& edgeID) {
 
 
 void
-Vehicle::changeLane(const std::string& vehicleID, int laneIndex, SUMOTime duration) {
+Vehicle::changeLane(const std::string& vehicleID, int laneIndex, double duration) {
     std::vector<std::pair<SUMOTime, int> > laneTimeLine;
     laneTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep(), laneIndex));
-    laneTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep() + duration, laneIndex));
+    laneTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep() + TIME2STEPS(duration), laneIndex));
     getVehicle(vehicleID)->getInfluencer().setLaneTimeLine(laneTimeLine);
 }
 
 void
-Vehicle::changeLaneRelative(const std::string& vehicleID, int laneChange, SUMOTime duration) {
+Vehicle::changeLaneRelative(const std::string& vehicleID, int laneChange, double duration) {
     std::vector<std::pair<SUMOTime, int> > laneTimeLine;
     int laneIndex;
     // Check in which direction the lane change should be performed 0: for right, >0 to left
@@ -852,7 +856,7 @@ Vehicle::changeLaneRelative(const std::string& vehicleID, int laneChange, SUMOTi
         laneIndex = getVehicle(vehicleID)->getLaneIndex() -1;
     }
     laneTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep(), laneIndex));
-    laneTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep() + duration, laneIndex));
+    laneTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep() + TIME2STEPS(duration), laneIndex));
     getVehicle(vehicleID)->getInfluencer().setLaneTimeLine(laneTimeLine);
 }
 
@@ -1071,11 +1075,11 @@ Vehicle::moveToXY(const std::string& vehicleID, const std::string& edgeID, const
 }
 
 void
-Vehicle::slowDown(const std::string& vehicleID, double speed, SUMOTime duration) {
+Vehicle::slowDown(const std::string& vehicleID, double speed, double duration) {
     MSVehicle* veh = getVehicle(vehicleID);
     std::vector<std::pair<SUMOTime, double> > speedTimeLine;
     speedTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep(), veh->getSpeed()));
-    speedTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep() + duration, speed));
+    speedTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep() + TIME2STEPS(duration), speed));
     veh->getInfluencer().setSpeedTimeLine(speedTimeLine);
 }
 

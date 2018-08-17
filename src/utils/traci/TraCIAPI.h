@@ -78,15 +78,13 @@ public:
     /// @}
 
     /// @brief Advances by one step (or up to the given time)
-    void simulationStep(SUMOTime time = 0);
+    void simulationStep(int time = 0);
 
     /// @brief Let sumo load a simulation using the given command line like options.
     void load(const std::vector<std::string>& args);
 
     /// @name Atomar getter
     /// @{
-
-    SUMOTime getSUMOTime(int cmd, int var, const std::string& id, tcpip::Storage* add = 0);
     int getUnsignedByte(int cmd, int var, const std::string& id, tcpip::Storage* add = 0);
     int getByte(int cmd, int var, const std::string& id, tcpip::Storage* add = 0);
     int getInt(int cmd, int var, const std::string& id, tcpip::Storage* add = 0);
@@ -496,7 +494,8 @@ public:
         SimulationScope(TraCIAPI& parent) : TraCIScopeWrapper(parent, CMD_GET_SIM_VARIABLE, CMD_SET_SIM_VARIABLE, CMD_SUBSCRIBE_SIM_VARIABLE, CMD_SUBSCRIBE_SIM_CONTEXT) {}
         virtual ~SimulationScope() {}
 
-        SUMOTime getCurrentTime() const;
+        int getCurrentTime() const;
+        double getTime() const;
         int getLoadedNumber() const;
         std::vector<std::string> getLoadedIDList() const;
         int getDepartedNumber() const;
@@ -507,7 +506,7 @@ public:
         std::vector<std::string> getStartingTeleportIDList() const;
         int getEndingTeleportNumber() const;
         std::vector<std::string> getEndingTeleportIDList() const;
-        SUMOTime getDeltaT() const;
+        double getDeltaT() const;
         libsumo::TraCIPositionVector getNetBoundary() const;
         int getMinExpectedNumber() const;
 
@@ -632,8 +631,7 @@ public:
      */
     class VehicleScope : public TraCIScopeWrapper {
     public:
-        VehicleScope(TraCIAPI& parent) : TraCIScopeWrapper(parent, CMD_GET_VEHICLE_VARIABLE, CMD_SET_VEHICLE_VARIABLE, CMD_SUBSCRIBE_VEHICLE_VARIABLE, CMD_SUBSCRIBE_VEHICLE_CONTEXT),
-        LAST_TRAVEL_TIME_UPDATE(-1) {}
+        VehicleScope(TraCIAPI& parent) : TraCIScopeWrapper(parent, CMD_GET_VEHICLE_VARIABLE, CMD_SET_VEHICLE_VARIABLE, CMD_SUBSCRIBE_VEHICLE_VARIABLE, CMD_SUBSCRIBE_VEHICLE_CONTEXT) {}
         virtual ~VehicleScope() {}
 
         enum VehicleSignal {
@@ -743,12 +741,15 @@ public:
                  int personNumber = 0) const;
 
         void changeTarget(const std::string& vehicleID, const std::string& edgeID) const;
+        void changeLane(const std::string& vehicleID, int laneIndex, double duration) const;
+        void changeLaneRelative(const std::string& vehicleID, int laneChange, double duration) const;
+        void changeSublane(const std::string& vehicleID, double latDist) const;
         void setRouteID(const std::string& vehicleID, const std::string& routeID) const;
         void setRoute(const std::string& vehicleID, const std::vector<std::string>& edge) const;
         void rerouteTraveltime(const std::string& vehicleID, bool currentTravelTimes = true) const;
         void moveTo(const std::string& vehicleID, const std::string& laneID, double position) const;
         void moveToXY(const std::string& vehicleID, const std::string& edgeID, const int lane, const double x, const double y, const double angle, const int keepRoute) const;
-        void slowDown(const std::string& vehicleID, double speed, SUMOTime duration) const;
+        void slowDown(const std::string& vehicleID, double speed, double duration) const;
         void setSpeed(const std::string& vehicleID, double speed) const;
         void setSpeedMode(const std::string& vehicleID, int mode) const;
         void setType(const std::string& vehicleID, const std::string& typeID) const;
@@ -769,8 +770,6 @@ public:
         /// @}
 
     private:
-        mutable SUMOTime LAST_TRAVEL_TIME_UPDATE;
-
         /// @brief invalidated copy constructor
         VehicleScope(const VehicleScope& src);
 
@@ -869,7 +868,7 @@ protected:
 
     /** @brief Sends a SimulationStep command
      */
-    void send_commandSimulationStep(SUMOTime time) const;
+    void send_commandSimulationStep(int time) const;
 
 
     /** @brief Sends a Close command

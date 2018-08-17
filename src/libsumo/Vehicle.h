@@ -117,10 +117,10 @@ public:
                         const std::string& edgeID,
                         double pos = 1.,
                         int laneIndex = 0,
-                        SUMOTime duration = 4294967295u, // 2^32-1
+                        double duration = INVALID_DOUBLE_VALUE,
                         int flags = STOP_DEFAULT,
                         double startPos = INVALID_DOUBLE_VALUE,
-                        SUMOTime until = -1);
+                        double until = INVALID_DOUBLE_VALUE);
 
     static void rerouteParkingArea(const std::string& vehicleID,
                                    const std::string& parkingAreaID);
@@ -144,11 +144,11 @@ public:
                     int personNumber = 0);
 
     static void changeTarget(const std::string& vehicleID, const std::string& edgeID);
-    static void changeLane(const std::string& vehicleID, int laneIndex, SUMOTime duration);
-    static void changeLaneRelative(const std::string& vehicleID, int laneChange, SUMOTime duration);
+    static void changeLane(const std::string& vehicleID, int laneIndex, double duration);
+    static void changeLaneRelative(const std::string& vehicleID, int laneChange, double duration);
     static void changeSublane(const std::string& vehicleID, double latDist);
 
-    static void slowDown(const std::string& vehicleID, double speed, SUMOTime duration);
+    static void slowDown(const std::string& vehicleID, double speed, double duration);
     static void setSpeed(const std::string& vehicleID, double speed);
     static void setSpeedMode(const std::string& vehicleID, int speedMode);
     static void setLaneChangeMode(const std::string& vehicleID, int laneChangeMode);

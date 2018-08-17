@@ -51,9 +51,9 @@ for i in range(10000):
         speed = traci.vehicle.getSpeed(follow)
         tstop = 2*remDist / speed
         
-        print("Commanding slow down for vehicle '%s' at time %s. Remaining distance: %s, speed: %s"%(follow, traci.simulation.getCurrentTime()/1000., remDist, speed))
+        print("Commanding slow down for vehicle '%s' at time %s. Remaining distance: %s, speed: %s"%(follow, traci.simulation.getTime(), remDist, speed))
         
-        traci.vehicle.slowDown(follow, 0, tstop*1000)
+        traci.vehicle.slowDown(follow, 0, tstop)
         break
         
 while traci.simulation.getMinExpectedNumber() > 0:

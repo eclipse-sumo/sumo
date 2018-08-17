@@ -56,9 +56,9 @@ public:
     static void close();
 
     /// @brief Advances by one step (or up to the given time)
-    static void step(const SUMOTime time = 0);
+    static void step(const double time = 0.);
 
-    static SUMOTime getCurrentTime();
+    static int getCurrentTime();
     static double getTime();
 
     static int getLoadedNumber();
@@ -86,7 +86,7 @@ public:
 
     static int getBusStopWaiting(const std::string& id);
 
-    static SUMOTime getDeltaT();
+    static double getDeltaT();
 
     static TraCIPositionVector getNetBoundary();
 
@@ -103,13 +103,13 @@ public:
 
     static int getMinExpectedNumber();
 
-    static TraCIStage findRoute(const std::string& fromEdge, const std::string& toEdge, const std::string& vType = "", const SUMOTime depart = -1, const int routingMode = 0);
+    static TraCIStage findRoute(const std::string& fromEdge, const std::string& toEdge, const std::string& vType = "", const double depart = -1., const int routingMode = 0);
 
     /* @note: default arrivalPos is not -1 because this would lead to very short walks when moving against the edge direction, 
      * instead the middle of the edge is used. DepartPos is treated differently so that 1-edge walks do not have length 0.
      */
     static std::vector<TraCIStage> findIntermodalRoute(const std::string& fromEdge, const std::string& toEdge, const std::string& modes = "",
-            SUMOTime depart=-1, const int routingMode=0, double speed = -1., double walkFactor = -1.,
+            double depart=-1., const int routingMode=0, double speed = -1., double walkFactor = -1.,
             double departPos = 0, double arrivalPos = INVALID_DOUBLE_VALUE, const double departPosLat = 0,
             const std::string& pType = "", const std::string& vType = "", const std::string& destStop = "");
 

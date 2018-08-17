@@ -116,7 +116,7 @@ traci.person.appendDrivingStage("newPerson", "1o", "B42")
 traci.route.add("r0", ["3si", "1o"])
 traci.vehicle.add("veh0", "r0", traci.constants.DEPARTFLAG_TRIGGERED, pos=230)
 traci.vehicle.setLine("veh0", "B42")
-traci.vehicle.setStop("veh0", "3si", 235, laneIndex=2, startPos=230, duration=1000)
+traci.vehicle.setStop("veh0", "3si", 235, laneIndex=2, startPos=230, duration=1)
 
 print("getIDList", traci.person.getIDList())
 print("numVehs=%s, numPersons=%s, minExpected=%s" % (

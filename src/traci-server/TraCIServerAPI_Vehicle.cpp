@@ -187,10 +187,10 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                     server.getWrapperStorage().writeString(it->stoppingPlaceID);
                     server.getWrapperStorage().writeUnsignedByte(TYPE_INTEGER);
                     server.getWrapperStorage().writeInt(it->stopFlags);
-                    server.getWrapperStorage().writeUnsignedByte(TYPE_INTEGER);
-                    server.getWrapperStorage().writeInt((int)it->duration);
-                    server.getWrapperStorage().writeUnsignedByte(TYPE_INTEGER);
-                    server.getWrapperStorage().writeInt((int)it->until);
+                    server.getWrapperStorage().writeUnsignedByte(TYPE_DOUBLE);
+                    server.getWrapperStorage().writeDouble(it->duration);
+                    server.getWrapperStorage().writeUnsignedByte(TYPE_DOUBLE);
+                    server.getWrapperStorage().writeDouble(it->until);
                 }
                 break;
             }
@@ -351,9 +351,9 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The third stop parameter must be the lane index given as a byte.", outputStorage);
                 }
                 // waitTime
-                int waitTime = -1;
-                if (!server.readTypeCheckingInt(inputStorage, waitTime)) {
-                    return server.writeErrorStatusCmd(CMD_GET_VEHICLE_VARIABLE, "The fourth stop parameter must be the waiting time given as an integer.", outputStorage);
+                double duration = INVALID_DOUBLE_VALUE;
+                if (!server.readTypeCheckingDouble(inputStorage, duration)) {
+                    return server.writeErrorStatusCmd(CMD_GET_VEHICLE_VARIABLE, "The fourth stop parameter must be the stopping duration given as a double.", outputStorage);
                 }
                 int stopFlags = 0;
                 if (compoundSize >= 5) {
@@ -367,13 +367,13 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                         return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The sixth stop parameter must be the start position along the edge given as a double.", outputStorage);
                     }
                 }
-                int until = -1;
+                double until = INVALID_DOUBLE_VALUE;
                 if (compoundSize >= 7) {
-                    if (!server.readTypeCheckingInt(inputStorage, until)) {
-                        return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The seventh stop parameter must be the minimum departure time given as integer.", outputStorage);
+                    if (!server.readTypeCheckingDouble(inputStorage, until)) {
+                        return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The seventh stop parameter must be the minimum departure time given as a double.", outputStorage);
                     }
                 }
-                libsumo::Vehicle::setStop(id, edgeID, pos, laneIndex, waitTime, stopFlags, startPos, until);
+                libsumo::Vehicle::setStop(id, edgeID, pos, laneIndex, duration, stopFlags, startPos, until);
             }
             break;
             case CMD_REROUTE_TO_PARKING: {
@@ -418,9 +418,9 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The first lane change parameter must be the lane index given as a byte.", outputStorage);
                 }
                 // duration
-                int duration = 0;
-                if (!server.readTypeCheckingInt(inputStorage, duration)) {
-                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The second lane change parameter must be the duration given as an integer.", outputStorage);
+                double duration = 0.;
+                if (!server.readTypeCheckingDouble(inputStorage, duration)) {
+                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The second lane change parameter must be the duration given as a double.", outputStorage);
                 }
                 // relativelanechange
                 int relative = 0;
@@ -436,8 +436,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
 
                 if (relative < 1) {
                     libsumo::Vehicle::changeLane(id, laneIndex, duration);
-                }
-                else {
+                } else {
                     libsumo::Vehicle::changeLaneRelative(id, laneIndex, duration);
                 }
             }
@@ -464,14 +463,14 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 if (newSpeed < 0) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Speed must not be negative", outputStorage);
                 }
-                int duration = 0;
-                if (!server.readTypeCheckingInt(inputStorage, duration)) {
-                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The second slow down parameter must be the duration given as an integer.", outputStorage);
+                double duration = 0.;
+                if (!server.readTypeCheckingDouble(inputStorage, duration)) {
+                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The second slow down parameter must be the duration given as a double.", outputStorage);
                 }
-                if (duration < 0 || MSNet::getInstance()->getCurrentTimeStep() + (SUMOTime)duration > SUMOTime_MAX - DELTA_T) {
+                if (duration < 0 || SIMTIME + duration > STEPS2TIME(SUMOTime_MAX - DELTA_T)) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Invalid time interval", outputStorage);
                 }
-                libsumo::Vehicle::slowDown(id, newSpeed, (SUMOTime)duration);
+                libsumo::Vehicle::slowDown(id, newSpeed, duration);
             }
             break;
             case CMD_CHANGETARGET: {

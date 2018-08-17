@@ -76,16 +76,17 @@ Simulation::isLoaded() {
 
 
 void
-Simulation::step(const SUMOTime time) {
+Simulation::step(const double time) {
     Helper::clearVehicleStates();
-    if (time == 0) {
+    const SUMOTime t = TIME2STEPS(time);
+    if (t == 0) {
         MSNet::getInstance()->simulationStep();
     } else {
-        while (MSNet::getInstance()->getCurrentTimeStep() < time) {
+        while (MSNet::getInstance()->getCurrentTimeStep() < t) {
             MSNet::getInstance()->simulationStep();
         }
     }
-    Helper::handleSubscriptions(time);
+    Helper::handleSubscriptions(t);
 }
 
 
@@ -103,9 +104,9 @@ Simulation::close() {
 LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(Simulation, SIM)
 
 
-SUMOTime
+int
 Simulation::getCurrentTime() {
-    return MSNet::getInstance()->getCurrentTimeStep();
+    return (int)MSNet::getInstance()->getCurrentTimeStep();
 }
 
 
@@ -257,9 +258,9 @@ Simulation::getBusStopWaiting(const std::string& id) {
 }
 
 
-SUMOTime
+double
 Simulation::getDeltaT() {
-    return DELTA_T;
+    return TS;
 }
 
 
@@ -401,7 +402,7 @@ Simulation::getDistanceRoad(const std::string& edgeID1, double pos1, const std::
 
 
 TraCIStage
-Simulation::findRoute(const std::string& from, const std::string& to, const std::string& typeID, const SUMOTime depart, const int routingMode) {
+Simulation::findRoute(const std::string& from, const std::string& to, const std::string& typeID, const double depart, const int routingMode) {
     TraCIStage result(MSTransportable::DRIVING);
     const MSEdge* const fromEdge = MSEdge::dictionary(from);
     if (fromEdge == 0) {
@@ -426,7 +427,7 @@ Simulation::findRoute(const std::string& from, const std::string& to, const std:
         }
     }
     ConstMSEdgeVector edges;
-    const SUMOTime dep = depart < 0 ? MSNet::getInstance()->getCurrentTimeStep() : depart;
+    const SUMOTime dep = depart < 0 ? MSNet::getInstance()->getCurrentTimeStep() : TIME2STEPS(depart);
     SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = routingMode == ROUTING_MODE_AGGREGATED ? MSDevice_Routing::getRouterTT() : MSNet::getInstance()->getRouterTT();
     router.compute(fromEdge, toEdge, vehicle, dep, edges);
     for (const MSEdge* e : edges) {
@@ -442,7 +443,7 @@ Simulation::findRoute(const std::string& from, const std::string& to, const std:
 
 std::vector<TraCIStage>
 Simulation::findIntermodalRoute(const std::string& from, const std::string& to,
-                                const std::string& modes, SUMOTime depart, const int routingMode, double speed, double walkFactor,
+                                const std::string& modes, double depart, const int routingMode, double speed, double walkFactor,
                                 double departPos, double arrivalPos, const double departPosLat,
                                 const std::string& pType, const std::string& vType, const std::string& destStop) {
     UNUSED_PARAMETER(routingMode);
@@ -489,8 +490,9 @@ Simulation::findIntermodalRoute(const std::string& from, const std::string& to,
     }
     // interpret default arguments
     const MSVehicleType* pedType = vehControl.hasVType(pType) ? vehControl.getVType(pType) : vehControl.getVType(DEFAULT_PEDTYPE_ID);
+    SUMOTime departStep = TIME2STEPS(depart);
     if (depart < 0) {
-        depart = MSNet::getInstance()->getCurrentTimeStep();
+        departStep = MSNet::getInstance()->getCurrentTimeStep();
     }
     if (speed < 0) {
         speed =  pedType->getMaxSpeed();
@@ -530,7 +532,7 @@ Simulation::findIntermodalRoute(const std::string& from, const std::string& to,
         }
         std::vector<MSNet::MSIntermodalRouter::TripItem> items;
         if (MSNet::getInstance()->getIntermodalRouter().compute(fromEdge, toEdge, departPos, arrivalPos, destStop,
-                    speed * walkFactor, vehicle, modeSet, depart, items)) {
+                    speed * walkFactor, vehicle, modeSet, departStep, items)) {
             double cost = 0;
             for (std::vector<MSNet::MSIntermodalRouter::TripItem>::iterator it = items.begin(); it != items.end(); ++it) {
                 if (!it->edges.empty()) {

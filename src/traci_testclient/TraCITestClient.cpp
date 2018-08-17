@@ -108,7 +108,7 @@ TraCITestClient::run(std::string fileName, int port, std::string host) {
             std::string time;
             defFile >> time;
             for (int i = 0; i < repNo; i++) {
-                commandSimulationStep(string2time(time));
+                commandSimulationStep((int)string2time(time));
             }
         } else if (lineCommand.compare("getvariable") == 0) {
             // trigger command GetXXXVariable
@@ -175,7 +175,7 @@ TraCITestClient::run(std::string fileName, int port, std::string host) {
 
 // ---------- Commands handling
 void
-TraCITestClient::commandSimulationStep(SUMOTime time) {
+TraCITestClient::commandSimulationStep(int time) {
     try {
         send_commandSimulationStep(time);
         answerLog << std::endl << "-> Command sent: <SimulationStep>:" << std::endl;

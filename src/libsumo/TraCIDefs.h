@@ -80,8 +80,6 @@ CLASS::getContextSubscriptionResults(const std::string& objID) { \
 // ===========================================================================
 // class and type definitions
 // ===========================================================================
-typedef long long int SUMOTime; // <utils/common/SUMOTime.h>
-
 namespace libsumo {
 /**
 * @class TraCIException
@@ -284,6 +282,7 @@ struct TraCINextTLSData {
     char state;
 };
 
+
 struct TraCINextStopData {
     /// @brief The lane to stop at
     std::string lane;
@@ -294,10 +293,11 @@ struct TraCINextStopData {
     /// @brief Stop flags
     int stopFlags;
     /// @brief The stopping duration
-    SUMOTime duration;
+    double duration;
     /// @brief The time at which the vehicle may continue its journey
-    SUMOTime until;
+    double until;
 };
+
 
 struct TraCIBestLanesData {
     /// @brief The id of the lane

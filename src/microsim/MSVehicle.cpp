@@ -4928,7 +4928,6 @@ MSVehicle::addTraciStop(MSLane* const lane, const double startPos, const double 
             return true;
         }
     }
-
     SUMOVehicleParameter::Stop newStop;
     newStop.lane = lane->getID();
     newStop.startPos = startPos;
