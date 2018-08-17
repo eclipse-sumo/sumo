@@ -66,9 +66,22 @@ ShapeHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
                 if (myLastParameterised != 0) {
                     bool ok = true;
                     const std::string key = attrs.get<std::string>(SUMO_ATTR_KEY, 0, ok);
-                    // circumventing empty string test
-                    const std::string val = attrs.hasAttribute(SUMO_ATTR_VALUE) ? attrs.getString(SUMO_ATTR_VALUE) : "";
-                    myLastParameterised->setParameter(key, val);
+                    // continue if key awas sucesfully loaded
+                    if(ok) {
+                        // circumventing empty string value
+                        const std::string val = attrs.hasAttribute(SUMO_ATTR_VALUE) ? attrs.getString(SUMO_ATTR_VALUE) : "";
+                        // show warnings if values are invalid
+                        if(key.empty()) {
+                            WRITE_WARNING("Error parsing key from shape generic parameter. Key cannot be empty");
+                        } else if (!SUMOXMLDefinitions::isValidTypeID(key)) {
+                            WRITE_WARNING("Error parsing key from shape generic parameter. Key contains invalid characters");
+                        } else if (!SUMOXMLDefinitions::isValidAttribute(val)) {
+                            WRITE_WARNING("Error parsing value from shape generic parameter. Value contains invalid characters");
+                        } else {
+                            WRITE_DEBUG("Inserting generic parameter '" + key + "|" + val + "' into shape.");
+                            myLastParameterised->setParameter(key, val);
+                        }
+                    }
                 }
             default:
                 break;

@@ -399,21 +399,21 @@ GNEAdditionalHandler::parseGenericParameter(const SUMOSAXAttributes& attrs) {
             // obtain key
             key = attrs.get<std::string>(SUMO_ATTR_KEY, 0, ok);
             if (key.empty()) {
-                WRITE_WARNING("Error parsing key from generic parameter. Key cannot be empty");
+                WRITE_WARNING("Error parsing key from additional generic parameter. Key cannot be empty");
                 ok = false;
             }
             if (!SUMOXMLDefinitions::isValidTypeID(key)) {
-                WRITE_WARNING("Error parsing key from generic parameter. Key contains invalid characters");
+                WRITE_WARNING("Error parsing key from additional generic parameter. Key contains invalid characters");
                 ok = false;
             }
         } else {
-            WRITE_WARNING("Error parsing key from generic parameter. Key doesn't exist");
+            WRITE_WARNING("Error parsing key from additional generic parameter. Key doesn't exist");
             ok = false;
         }
         // circumventing empty string test
         const std::string val = attrs.hasAttribute(SUMO_ATTR_VALUE) ? attrs.getString(SUMO_ATTR_VALUE) : "";
         if(!SUMOXMLDefinitions::isValidAttribute(val)) {
-            WRITE_WARNING("Error parsing value from generic parameter. Value contains invalid characters");
+            WRITE_WARNING("Error parsing value from additional generic parameter. Value contains invalid characters");
             ok = false;
         }
         // set parameter in last inserted additional
