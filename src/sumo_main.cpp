@@ -35,6 +35,7 @@
 #include <netload/NLBuilder.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsIO.h>
+#include <utils/iodevices/OutputDevice.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/SystemFrame.h>
 #include <utils/common/UtilExceptions.h>
@@ -68,6 +69,7 @@ main(int argc, char** argv) {
             MSNet* net = NLBuilder::init();
             if (net != nullptr) {
                 state = net->simulate(string2time(oc.getString("begin")), string2time(oc.getString("end")));
+                OutputDevice::closeAll();
                 delete net;
             } else {
                 break;
