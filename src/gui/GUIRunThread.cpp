@@ -193,7 +193,8 @@ GUIRunThread::makeStep() {
                     WRITE_MESSAGE("Reason: " + MSNet::getStateMessage(state));
                     e = new GUIEvent_SimulationEnded(state, myNet->getCurrentTimeStep() - DELTA_T);
                     // ensure that files are closed (deleteSim is called a bit later by the gui thread)
-                    OutputDevice::closeAll();
+                    // MSNet destructor may trigger MsgHandler (via routing device cleanup). Closing output devices here is not safe
+                    // OutputDevice::closeAll();
                     myHaveSignaledEnd = true;
                 }
                 break;

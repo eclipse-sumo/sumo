@@ -69,8 +69,8 @@ main(int argc, char** argv) {
             MSNet* net = NLBuilder::init();
             if (net != nullptr) {
                 state = net->simulate(string2time(oc.getString("begin")), string2time(oc.getString("end")));
-                OutputDevice::closeAll();
                 delete net;
+                OutputDevice::closeAll();
             } else {
                 break;
             }
