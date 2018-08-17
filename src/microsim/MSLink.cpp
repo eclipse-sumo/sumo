@@ -1017,8 +1017,9 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                         std::cout << " leader=" << leader->getID() << " contLane=" << contLane << " cannotIgnore=" << cannotIgnore << "\n";
                     }
                     // if the foe is already moving off the intersection, we may
-                    // advance up to the crossing point unless we have the same target
-                    const bool stopAsap = leader->isFrontOnLane(foeLane) ? cannotIgnore : sameTarget;
+                    // advance up to the crossing point unless we have the same target or same source
+                    // (for sameSource, the crossing point indicates the point of divergence)
+                    const bool stopAsap = leader->isFrontOnLane(foeLane) ? cannotIgnore : (sameTarget || sameSource);
                     result.push_back(LinkLeader(leader, gap, stopAsap ? -1 : distToCrossing, fromLeft));
                 }
 
