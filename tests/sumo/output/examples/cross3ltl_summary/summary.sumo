@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sat Jun 30 00:10:47 2018 by Eclipse SUMO Version 4bc4520
+<!-- generated on Fri Aug 17 18:05:38 2018 by Eclipse SUMO Version 6229c1b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -22,6 +22,10 @@ SPDX-License-Identifier: EPL-2.0
         <begin value="0"/>
         <end value="1000"/>
     </time>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
 
     <report>
         <xml-validation value="never"/>
@@ -993,13 +997,13 @@ SPDX-License-Identifier: EPL-2.0
     <step time="957.00" loaded="344" inserted="324" running="149" waiting="20" ended="175" meanWaitingTime="11.79" meanTravelTime="331.88" halting="40" meanSpeed="6.96" meanSpeedRelative="0.59"/>
     <step time="958.00" loaded="344" inserted="324" running="149" waiting="20" ended="175" meanWaitingTime="11.79" meanTravelTime="331.88" halting="40" meanSpeed="6.95" meanSpeedRelative="0.60"/>
     <step time="959.00" loaded="344" inserted="325" running="149" waiting="19" ended="176" meanWaitingTime="11.78" meanTravelTime="331.18" halting="43" meanSpeed="6.78" meanSpeedRelative="0.58"/>
-    <step time="960.00" loaded="348" inserted="325" running="149" waiting="23" ended="176" meanWaitingTime="11.78" meanTravelTime="331.18" halting="45" meanSpeed="6.82" meanSpeedRelative="0.59"/>
+    <step time="960.00" loaded="348" inserted="325" running="149" waiting="23" ended="176" meanWaitingTime="11.78" meanTravelTime="331.18" halting="44" meanSpeed="6.82" meanSpeedRelative="0.59"/>
     <step time="961.00" loaded="348" inserted="325" running="149" waiting="23" ended="176" meanWaitingTime="11.78" meanTravelTime="331.18" halting="47" meanSpeed="6.81" meanSpeedRelative="0.59"/>
     <step time="962.00" loaded="348" inserted="326" running="150" waiting="22" ended="176" meanWaitingTime="11.75" meanTravelTime="331.18" halting="48" meanSpeed="6.72" meanSpeedRelative="0.58"/>
     <step time="963.00" loaded="348" inserted="327" running="151" waiting="21" ended="176" meanWaitingTime="12.00" meanTravelTime="331.18" halting="48" meanSpeed="6.64" meanSpeedRelative="0.57"/>
     <step time="964.00" loaded="348" inserted="327" running="151" waiting="21" ended="176" meanWaitingTime="12.00" meanTravelTime="331.18" halting="47" meanSpeed="6.64" meanSpeedRelative="0.58"/>
     <step time="965.00" loaded="348" inserted="327" running="151" waiting="21" ended="176" meanWaitingTime="12.00" meanTravelTime="331.18" halting="46" meanSpeed="6.63" meanSpeedRelative="0.57"/>
-    <step time="966.00" loaded="348" inserted="328" running="152" waiting="20" ended="176" meanWaitingTime="12.26" meanTravelTime="331.18" halting="46" meanSpeed="6.53" meanSpeedRelative="0.56"/>
+    <step time="966.00" loaded="348" inserted="328" running="152" waiting="20" ended="176" meanWaitingTime="12.26" meanTravelTime="331.18" halting="46" meanSpeed="6.52" meanSpeedRelative="0.56"/>
     <step time="967.00" loaded="348" inserted="328" running="152" waiting="20" ended="176" meanWaitingTime="12.26" meanTravelTime="331.18" halting="44" meanSpeed="6.62" meanSpeedRelative="0.57"/>
     <step time="968.00" loaded="348" inserted="328" running="152" waiting="20" ended="176" meanWaitingTime="12.26" meanTravelTime="331.18" halting="44" meanSpeed="6.65" meanSpeedRelative="0.57"/>
     <step time="969.00" loaded="348" inserted="329" running="153" waiting="19" ended="176" meanWaitingTime="12.49" meanTravelTime="331.18" halting="45" meanSpeed="6.62" meanSpeedRelative="0.57"/>
@@ -1008,29 +1012,29 @@ SPDX-License-Identifier: EPL-2.0
     <step time="972.00" loaded="352" inserted="331" running="155" waiting="21" ended="176" meanWaitingTime="12.69" meanTravelTime="331.18" halting="42" meanSpeed="6.55" meanSpeedRelative="0.57"/>
     <step time="973.00" loaded="352" inserted="332" running="156" waiting="20" ended="176" meanWaitingTime="12.72" meanTravelTime="331.18" halting="38" meanSpeed="6.54" meanSpeedRelative="0.57"/>
     <step time="974.00" loaded="352" inserted="332" running="156" waiting="20" ended="176" meanWaitingTime="12.72" meanTravelTime="331.18" halting="38" meanSpeed="6.53" meanSpeedRelative="0.56"/>
-    <step time="975.00" loaded="352" inserted="332" running="156" waiting="20" ended="176" meanWaitingTime="12.72" meanTravelTime="331.18" halting="38" meanSpeed="6.54" meanSpeedRelative="0.57"/>
-    <step time="976.00" loaded="352" inserted="333" running="157" waiting="19" ended="176" meanWaitingTime="12.73" meanTravelTime="331.18" halting="37" meanSpeed="6.50" meanSpeedRelative="0.56"/>
-    <step time="977.00" loaded="352" inserted="334" running="157" waiting="18" ended="177" meanWaitingTime="12.96" meanTravelTime="330.80" halting="38" meanSpeed="6.38" meanSpeedRelative="0.55"/>
+    <step time="975.00" loaded="352" inserted="332" running="156" waiting="20" ended="176" meanWaitingTime="12.72" meanTravelTime="331.18" halting="38" meanSpeed="6.53" meanSpeedRelative="0.57"/>
+    <step time="976.00" loaded="352" inserted="333" running="157" waiting="19" ended="176" meanWaitingTime="12.73" meanTravelTime="331.18" halting="37" meanSpeed="6.49" meanSpeedRelative="0.56"/>
+    <step time="977.00" loaded="352" inserted="334" running="157" waiting="18" ended="177" meanWaitingTime="12.96" meanTravelTime="330.80" halting="38" meanSpeed="6.37" meanSpeedRelative="0.55"/>
     <step time="978.00" loaded="352" inserted="334" running="157" waiting="18" ended="177" meanWaitingTime="12.96" meanTravelTime="330.80" halting="36" meanSpeed="6.41" meanSpeedRelative="0.55"/>
-    <step time="979.00" loaded="352" inserted="334" running="156" waiting="18" ended="178" meanWaitingTime="12.96" meanTravelTime="330.41" halting="37" meanSpeed="6.38" meanSpeedRelative="0.55"/>
-    <step time="980.00" loaded="356" inserted="336" running="158" waiting="20" ended="178" meanWaitingTime="13.15" meanTravelTime="330.41" halting="40" meanSpeed="6.32" meanSpeedRelative="0.54"/>
+    <step time="979.00" loaded="352" inserted="334" running="156" waiting="18" ended="178" meanWaitingTime="12.96" meanTravelTime="330.41" halting="37" meanSpeed="6.37" meanSpeedRelative="0.55"/>
+    <step time="980.00" loaded="356" inserted="336" running="158" waiting="20" ended="178" meanWaitingTime="13.15" meanTravelTime="330.41" halting="40" meanSpeed="6.31" meanSpeedRelative="0.54"/>
     <step time="981.00" loaded="356" inserted="336" running="157" waiting="20" ended="179" meanWaitingTime="13.15" meanTravelTime="329.89" halting="37" meanSpeed="6.32" meanSpeedRelative="0.54"/>
-    <step time="982.00" loaded="356" inserted="336" running="157" waiting="20" ended="179" meanWaitingTime="13.15" meanTravelTime="329.89" halting="39" meanSpeed="6.37" meanSpeedRelative="0.55"/>
-    <step time="983.00" loaded="356" inserted="337" running="157" waiting="19" ended="180" meanWaitingTime="13.35" meanTravelTime="329.36" halting="42" meanSpeed="6.26" meanSpeedRelative="0.54"/>
-    <step time="984.00" loaded="356" inserted="337" running="157" waiting="19" ended="180" meanWaitingTime="13.35" meanTravelTime="329.36" halting="44" meanSpeed="6.27" meanSpeedRelative="0.54"/>
-    <step time="985.00" loaded="356" inserted="337" running="156" waiting="19" ended="181" meanWaitingTime="13.35" meanTravelTime="328.73" halting="44" meanSpeed="6.27" meanSpeedRelative="0.54"/>
-    <step time="986.00" loaded="356" inserted="338" running="157" waiting="18" ended="181" meanWaitingTime="13.57" meanTravelTime="328.73" halting="44" meanSpeed="6.23" meanSpeedRelative="0.53"/>
-    <step time="987.00" loaded="356" inserted="338" running="157" waiting="18" ended="181" meanWaitingTime="13.57" meanTravelTime="328.73" halting="43" meanSpeed="6.21" meanSpeedRelative="0.53"/>
-    <step time="988.00" loaded="356" inserted="339" running="158" waiting="17" ended="181" meanWaitingTime="13.58" meanTravelTime="328.73" halting="43" meanSpeed="6.20" meanSpeedRelative="0.53"/>
-    <step time="989.00" loaded="356" inserted="340" running="159" waiting="16" ended="181" meanWaitingTime="13.77" meanTravelTime="328.73" halting="43" meanSpeed="6.19" meanSpeedRelative="0.53"/>
-    <step time="990.00" loaded="360" inserted="341" running="160" waiting="19" ended="181" meanWaitingTime="13.73" meanTravelTime="328.73" halting="41" meanSpeed="6.25" meanSpeedRelative="0.53"/>
-    <step time="991.00" loaded="360" inserted="342" running="161" waiting="18" ended="181" meanWaitingTime="13.73" meanTravelTime="328.73" halting="37" meanSpeed="6.29" meanSpeedRelative="0.54"/>
-    <step time="992.00" loaded="360" inserted="343" running="162" waiting="17" ended="181" meanWaitingTime="13.92" meanTravelTime="328.73" halting="34" meanSpeed="6.34" meanSpeedRelative="0.54"/>
-    <step time="993.00" loaded="360" inserted="343" running="162" waiting="17" ended="181" meanWaitingTime="13.92" meanTravelTime="328.73" halting="30" meanSpeed="6.43" meanSpeedRelative="0.55"/>
-    <step time="994.00" loaded="360" inserted="343" running="162" waiting="17" ended="181" meanWaitingTime="13.92" meanTravelTime="328.73" halting="26" meanSpeed="6.49" meanSpeedRelative="0.55"/>
-    <step time="995.00" loaded="360" inserted="343" running="162" waiting="17" ended="181" meanWaitingTime="13.92" meanTravelTime="328.73" halting="26" meanSpeed="6.59" meanSpeedRelative="0.56"/>
-    <step time="996.00" loaded="360" inserted="343" running="162" waiting="17" ended="181" meanWaitingTime="13.92" meanTravelTime="328.73" halting="27" meanSpeed="6.72" meanSpeedRelative="0.57"/>
-    <step time="997.00" loaded="360" inserted="343" running="162" waiting="17" ended="181" meanWaitingTime="13.92" meanTravelTime="328.73" halting="28" meanSpeed="6.68" meanSpeedRelative="0.57"/>
-    <step time="998.00" loaded="360" inserted="343" running="162" waiting="17" ended="181" meanWaitingTime="13.92" meanTravelTime="328.73" halting="28" meanSpeed="6.71" meanSpeedRelative="0.57"/>
-    <step time="999.00" loaded="360" inserted="343" running="162" waiting="17" ended="181" meanWaitingTime="13.92" meanTravelTime="328.73" halting="30" meanSpeed="6.72" meanSpeedRelative="0.57"/>
+    <step time="982.00" loaded="356" inserted="336" running="157" waiting="20" ended="179" meanWaitingTime="13.15" meanTravelTime="329.89" halting="38" meanSpeed="6.36" meanSpeedRelative="0.55"/>
+    <step time="983.00" loaded="356" inserted="337" running="157" waiting="19" ended="180" meanWaitingTime="13.35" meanTravelTime="329.36" halting="40" meanSpeed="6.25" meanSpeedRelative="0.54"/>
+    <step time="984.00" loaded="356" inserted="337" running="157" waiting="19" ended="180" meanWaitingTime="13.35" meanTravelTime="329.36" halting="41" meanSpeed="6.27" meanSpeedRelative="0.54"/>
+    <step time="985.00" loaded="356" inserted="337" running="156" waiting="19" ended="181" meanWaitingTime="13.35" meanTravelTime="328.73" halting="41" meanSpeed="6.28" meanSpeedRelative="0.54"/>
+    <step time="986.00" loaded="356" inserted="338" running="157" waiting="18" ended="181" meanWaitingTime="13.57" meanTravelTime="328.73" halting="41" meanSpeed="6.24" meanSpeedRelative="0.53"/>
+    <step time="987.00" loaded="356" inserted="338" running="157" waiting="18" ended="181" meanWaitingTime="13.57" meanTravelTime="328.73" halting="41" meanSpeed="6.22" meanSpeedRelative="0.53"/>
+    <step time="988.00" loaded="356" inserted="339" running="158" waiting="17" ended="181" meanWaitingTime="13.58" meanTravelTime="328.73" halting="41" meanSpeed="6.21" meanSpeedRelative="0.53"/>
+    <step time="989.00" loaded="356" inserted="340" running="159" waiting="16" ended="181" meanWaitingTime="13.77" meanTravelTime="328.73" halting="43" meanSpeed="6.21" meanSpeedRelative="0.53"/>
+    <step time="990.00" loaded="360" inserted="341" running="160" waiting="19" ended="181" meanWaitingTime="13.73" meanTravelTime="328.73" halting="39" meanSpeed="6.25" meanSpeedRelative="0.53"/>
+    <step time="991.00" loaded="360" inserted="342" running="161" waiting="18" ended="181" meanWaitingTime="13.73" meanTravelTime="328.73" halting="36" meanSpeed="6.27" meanSpeedRelative="0.53"/>
+    <step time="992.00" loaded="360" inserted="343" running="162" waiting="17" ended="181" meanWaitingTime="13.92" meanTravelTime="328.73" halting="32" meanSpeed="6.31" meanSpeedRelative="0.54"/>
+    <step time="993.00" loaded="360" inserted="343" running="162" waiting="17" ended="181" meanWaitingTime="13.92" meanTravelTime="328.73" halting="28" meanSpeed="6.42" meanSpeedRelative="0.55"/>
+    <step time="994.00" loaded="360" inserted="343" running="162" waiting="17" ended="181" meanWaitingTime="13.92" meanTravelTime="328.73" halting="23" meanSpeed="6.47" meanSpeedRelative="0.55"/>
+    <step time="995.00" loaded="360" inserted="343" running="162" waiting="17" ended="181" meanWaitingTime="13.92" meanTravelTime="328.73" halting="20" meanSpeed="6.56" meanSpeedRelative="0.56"/>
+    <step time="996.00" loaded="360" inserted="343" running="162" waiting="17" ended="181" meanWaitingTime="13.92" meanTravelTime="328.73" halting="22" meanSpeed="6.67" meanSpeedRelative="0.57"/>
+    <step time="997.00" loaded="360" inserted="343" running="162" waiting="17" ended="181" meanWaitingTime="13.92" meanTravelTime="328.73" halting="22" meanSpeed="6.63" meanSpeedRelative="0.56"/>
+    <step time="998.00" loaded="360" inserted="343" running="162" waiting="17" ended="181" meanWaitingTime="13.92" meanTravelTime="328.73" halting="24" meanSpeed="6.68" meanSpeedRelative="0.57"/>
+    <step time="999.00" loaded="360" inserted="343" running="162" waiting="17" ended="181" meanWaitingTime="13.92" meanTravelTime="328.73" halting="27" meanSpeed="6.69" meanSpeedRelative="0.57"/>
 </summary>

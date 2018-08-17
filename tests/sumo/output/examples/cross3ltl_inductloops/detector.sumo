@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sat Jun 30 00:10:47 2018 by Eclipse SUMO Version 4bc4520
+<!-- generated on Fri Aug 17 18:05:38 2018 by Eclipse SUMO Version 6229c1b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -22,6 +22,10 @@ SPDX-License-Identifier: EPL-2.0
         <begin value="0"/>
         <end value="1000"/>
     </time>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
 
     <report>
         <xml-validation value="never"/>
@@ -15843,7 +15847,7 @@ SPDX-License-Identifier: EPL-2.0
     <interval begin="987.00" end="988.00" id="4o_0" nVehContrib="0" flow="0.00" occupancy="38.00" speed="-1.00" length="-1.00" nVehEntered="1"/>
     <interval begin="988.00" end="989.00" id="1si_0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="988.00" end="989.00" id="1si_1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="988.00" end="989.00" id="1si_2" nVehContrib="1" flow="3600.00" occupancy="23.76" speed="5.00" length="5.00" nVehEntered="0"/>
+    <interval begin="988.00" end="989.00" id="1si_2" nVehContrib="1" flow="3600.00" occupancy="23.04" speed="5.04" length="5.00" nVehEntered="0"/>
     <interval begin="988.00" end="989.00" id="2si_0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="988.00" end="989.00" id="2si_1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="988.00" end="989.00" id="2si_2" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
@@ -15859,11 +15863,11 @@ SPDX-License-Identifier: EPL-2.0
     <interval begin="988.00" end="989.00" id="4o_0" nVehContrib="1" flow="3600.00" occupancy="9.00" speed="10.64" length="5.00" nVehEntered="0"/>
     <interval begin="989.00" end="990.00" id="1si_0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="989.00" end="990.00" id="1si_1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="989.00" end="990.00" id="1si_2" nVehContrib="0" flow="0.00" occupancy="18.16" speed="-1.00" length="-1.00" nVehEntered="1"/>
+    <interval begin="989.00" end="990.00" id="1si_2" nVehContrib="0" flow="0.00" occupancy="22.73" speed="-1.00" length="-1.00" nVehEntered="1"/>
     <interval begin="989.00" end="990.00" id="2si_0" nVehContrib="1" flow="3600.00" occupancy="38.24" speed="13.08" length="5.00" nVehEntered="1"/>
     <interval begin="989.00" end="990.00" id="2si_1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="989.00" end="990.00" id="2si_2" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="989.00" end="990.00" id="3si_0" nVehContrib="0" flow="0.00" occupancy="89.22" speed="-1.00" length="-1.00" nVehEntered="1"/>
+    <interval begin="989.00" end="990.00" id="3si_0" nVehContrib="0" flow="0.00" occupancy="83.28" speed="-1.00" length="-1.00" nVehEntered="1"/>
     <interval begin="989.00" end="990.00" id="3si_1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="989.00" end="990.00" id="3si_2" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="989.00" end="990.00" id="4si_0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
@@ -15875,11 +15879,11 @@ SPDX-License-Identifier: EPL-2.0
     <interval begin="989.00" end="990.00" id="4o_0" nVehContrib="0" flow="0.00" occupancy="38.05" speed="-1.00" length="-1.00" nVehEntered="1"/>
     <interval begin="990.00" end="991.00" id="1si_0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="990.00" end="991.00" id="1si_1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="990.00" end="991.00" id="1si_2" nVehContrib="1" flow="3600.00" occupancy="53.67" speed="6.96" length="5.00" nVehEntered="0"/>
+    <interval begin="990.00" end="991.00" id="1si_2" nVehContrib="1" flow="3600.00" occupancy="53.59" speed="6.55" length="5.00" nVehEntered="0"/>
     <interval begin="990.00" end="991.00" id="2si_0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="990.00" end="991.00" id="2si_1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="990.00" end="991.00" id="2si_2" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="990.00" end="991.00" id="3si_0" nVehContrib="1" flow="3600.00" occupancy="52.74" speed="3.52" length="5.00" nVehEntered="0"/>
+    <interval begin="990.00" end="991.00" id="3si_0" nVehContrib="1" flow="3600.00" occupancy="60.08" speed="3.49" length="5.00" nVehEntered="0"/>
     <interval begin="990.00" end="991.00" id="3si_1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="990.00" end="991.00" id="3si_2" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="990.00" end="991.00" id="4si_0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
@@ -15892,14 +15896,14 @@ SPDX-License-Identifier: EPL-2.0
     <interval begin="991.00" end="992.00" id="1si_0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="991.00" end="992.00" id="1si_1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="991.00" end="992.00" id="1si_2" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="991.00" end="992.00" id="2si_0" nVehContrib="0" flow="0.00" occupancy="14.92" speed="-1.00" length="-1.00" nVehEntered="1"/>
+    <interval begin="991.00" end="992.00" id="2si_0" nVehContrib="0" flow="0.00" occupancy="7.08" speed="-1.00" length="-1.00" nVehEntered="1"/>
     <interval begin="991.00" end="992.00" id="2si_1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="991.00" end="992.00" id="2si_2" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="991.00" end="992.00" id="3si_0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="991.00" end="992.00" id="3si_1" nVehContrib="0" flow="0.00" occupancy="67.68" speed="-1.00" length="-1.00" nVehEntered="1"/>
+    <interval begin="991.00" end="992.00" id="3si_1" nVehContrib="0" flow="0.00" occupancy="66.90" speed="-1.00" length="-1.00" nVehEntered="1"/>
     <interval begin="991.00" end="992.00" id="3si_2" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="991.00" end="992.00" id="4si_0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="991.00" end="992.00" id="4si_1" nVehContrib="1" flow="3600.00" occupancy="36.22" speed="13.80" length="5.00" nVehEntered="1"/>
+    <interval begin="991.00" end="992.00" id="4si_1" nVehContrib="1" flow="3600.00" occupancy="36.48" speed="13.70" length="5.00" nVehEntered="1"/>
     <interval begin="991.00" end="992.00" id="4si_2" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="991.00" end="992.00" id="1o_0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="991.00" end="992.00" id="2o_0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
@@ -15907,12 +15911,12 @@ SPDX-License-Identifier: EPL-2.0
     <interval begin="991.00" end="992.00" id="4o_0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="992.00" end="993.00" id="1si_0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="992.00" end="993.00" id="1si_1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="992.00" end="993.00" id="1si_2" nVehContrib="0" flow="0.00" occupancy="97.14" speed="-1.00" length="-1.00" nVehEntered="1"/>
-    <interval begin="992.00" end="993.00" id="2si_0" nVehContrib="1" flow="3600.00" occupancy="25.85" speed="12.26" length="5.00" nVehEntered="0"/>
+    <interval begin="992.00" end="993.00" id="1si_2" nVehContrib="0" flow="0.00" occupancy="69.90" speed="-1.00" length="-1.00" nVehEntered="1"/>
+    <interval begin="992.00" end="993.00" id="2si_0" nVehContrib="1" flow="3600.00" occupancy="34.35" speed="12.07" length="5.00" nVehEntered="0"/>
     <interval begin="992.00" end="993.00" id="2si_1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="992.00" end="993.00" id="2si_2" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="992.00" end="993.00" id="3si_0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="992.00" end="993.00" id="3si_1" nVehContrib="1" flow="3600.00" occupancy="53.94" speed="4.11" length="5.00" nVehEntered="0"/>
+    <interval begin="992.00" end="993.00" id="3si_1" nVehContrib="1" flow="3600.00" occupancy="65.01" speed="3.79" length="5.00" nVehEntered="0"/>
     <interval begin="992.00" end="993.00" id="3si_2" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="992.00" end="993.00" id="4si_0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="992.00" end="993.00" id="4si_1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
@@ -15924,14 +15928,14 @@ SPDX-License-Identifier: EPL-2.0
     <interval begin="993.00" end="994.00" id="1si_0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="993.00" end="994.00" id="1si_1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="993.00" end="994.00" id="1si_2" nVehContrib="0" flow="0.00" occupancy="100.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="993.00" end="994.00" id="2si_0" nVehContrib="0" flow="0.00" occupancy="1.25" speed="-1.00" length="-1.00" nVehEntered="1"/>
+    <interval begin="993.00" end="994.00" id="2si_0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="993.00" end="994.00" id="2si_1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="993.00" end="994.00" id="2si_2" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="993.00" end="994.00" id="3si_0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="993.00" end="994.00" id="3si_1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="993.00" end="994.00" id="3si_2" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="993.00" end="994.00" id="4si_0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="993.00" end="994.00" id="4si_1" nVehContrib="0" flow="0.00" occupancy="36.18" speed="-1.00" length="-1.00" nVehEntered="1"/>
+    <interval begin="993.00" end="994.00" id="4si_1" nVehContrib="1" flow="3600.00" occupancy="37.81" speed="13.22" length="5.00" nVehEntered="1"/>
     <interval begin="993.00" end="994.00" id="4si_2" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="993.00" end="994.00" id="1o_0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="993.00" end="994.00" id="2o_0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
@@ -15939,15 +15943,15 @@ SPDX-License-Identifier: EPL-2.0
     <interval begin="993.00" end="994.00" id="4o_0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="994.00" end="995.00" id="1si_0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="994.00" end="995.00" id="1si_1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="994.00" end="995.00" id="1si_2" nVehContrib="1" flow="3600.00" occupancy="62.87" speed="1.92" length="5.00" nVehEntered="0"/>
-    <interval begin="994.00" end="995.00" id="2si_0" nVehContrib="1" flow="3600.00" occupancy="53.26" speed="9.17" length="5.00" nVehEntered="0"/>
+    <interval begin="994.00" end="995.00" id="1si_2" nVehContrib="1" flow="3600.00" occupancy="7.52" speed="2.82" length="5.00" nVehEntered="0"/>
+    <interval begin="994.00" end="995.00" id="2si_0" nVehContrib="1" flow="3600.00" occupancy="48.80" speed="10.25" length="5.00" nVehEntered="1"/>
     <interval begin="994.00" end="995.00" id="2si_1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="994.00" end="995.00" id="2si_2" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="994.00" end="995.00" id="3si_0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="994.00" end="995.00" id="3si_1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="994.00" end="995.00" id="3si_2" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="994.00" end="995.00" id="4si_0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="994.00" end="995.00" id="4si_1" nVehContrib="1" flow="3600.00" occupancy="1.87" speed="13.14" length="5.00" nVehEntered="0"/>
+    <interval begin="994.00" end="995.00" id="4si_1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="994.00" end="995.00" id="4si_2" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="994.00" end="995.00" id="1o_0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="994.00" end="995.00" id="2o_0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
@@ -15963,7 +15967,7 @@ SPDX-License-Identifier: EPL-2.0
     <interval begin="995.00" end="996.00" id="3si_1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="995.00" end="996.00" id="3si_2" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="995.00" end="996.00" id="4si_0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="995.00" end="996.00" id="4si_1" nVehContrib="0" flow="0.00" occupancy="15.09" speed="-1.00" length="-1.00" nVehEntered="1"/>
+    <interval begin="995.00" end="996.00" id="4si_1" nVehContrib="0" flow="0.00" occupancy="15.61" speed="-1.00" length="-1.00" nVehEntered="1"/>
     <interval begin="995.00" end="996.00" id="4si_2" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="995.00" end="996.00" id="1o_0" nVehContrib="1" flow="3600.00" occupancy="45.13" speed="11.08" length="5.00" nVehEntered="1"/>
     <interval begin="995.00" end="996.00" id="2o_0" nVehContrib="1" flow="3600.00" occupancy="45.55" speed="10.98" length="5.00" nVehEntered="1"/>
@@ -15978,9 +15982,9 @@ SPDX-License-Identifier: EPL-2.0
     <interval begin="996.00" end="997.00" id="3si_0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="996.00" end="997.00" id="3si_1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="996.00" end="997.00" id="3si_2" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="996.00" end="997.00" id="4si_0" nVehContrib="0" flow="0.00" occupancy="28.20" speed="-1.00" length="-1.00" nVehEntered="1"/>
-    <interval begin="996.00" end="997.00" id="4si_1" nVehContrib="1" flow="3600.00" occupancy="22.85" speed="13.18" length="5.00" nVehEntered="0"/>
-    <interval begin="996.00" end="997.00" id="4si_2" nVehContrib="0" flow="0.00" occupancy="51.42" speed="-1.00" length="-1.00" nVehEntered="1"/>
+    <interval begin="996.00" end="997.00" id="4si_0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
+    <interval begin="996.00" end="997.00" id="4si_1" nVehContrib="1" flow="3600.00" occupancy="22.34" speed="13.18" length="5.00" nVehEntered="0"/>
+    <interval begin="996.00" end="997.00" id="4si_2" nVehContrib="0" flow="0.00" occupancy="2.04" speed="-1.00" length="-1.00" nVehEntered="1"/>
     <interval begin="996.00" end="997.00" id="1o_0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="996.00" end="997.00" id="2o_0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="996.00" end="997.00" id="3o_0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
@@ -15988,14 +15992,14 @@ SPDX-License-Identifier: EPL-2.0
     <interval begin="997.00" end="998.00" id="1si_0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="997.00" end="998.00" id="1si_1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="997.00" end="998.00" id="1si_2" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="997.00" end="998.00" id="2si_0" nVehContrib="1" flow="3600.00" occupancy="31.80" speed="7.78" length="5.00" nVehEntered="0"/>
+    <interval begin="997.00" end="998.00" id="2si_0" nVehContrib="1" flow="3600.00" occupancy="30.99" speed="7.88" length="5.00" nVehEntered="0"/>
     <interval begin="997.00" end="998.00" id="2si_1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="997.00" end="998.00" id="2si_2" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="997.00" end="998.00" id="3si_0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="997.00" end="998.00" id="3si_1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="997.00" end="998.00" id="3si_2" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="997.00" end="998.00" id="4si_0" nVehContrib="0" flow="0.00" occupancy="100.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="997.00" end="998.00" id="4si_1" nVehContrib="0" flow="0.00" occupancy="14.69" speed="-1.00" length="-1.00" nVehEntered="1"/>
+    <interval begin="997.00" end="998.00" id="4si_0" nVehContrib="0" flow="0.00" occupancy="95.78" speed="-1.00" length="-1.00" nVehEntered="1"/>
+    <interval begin="997.00" end="998.00" id="4si_1" nVehContrib="0" flow="0.00" occupancy="18.38" speed="-1.00" length="-1.00" nVehEntered="1"/>
     <interval begin="997.00" end="998.00" id="4si_2" nVehContrib="0" flow="0.00" occupancy="100.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="997.00" end="998.00" id="1o_0" nVehContrib="1" flow="3600.00" occupancy="49.85" speed="10.03" length="5.00" nVehEntered="1"/>
     <interval begin="997.00" end="998.00" id="2o_0" nVehContrib="1" flow="3600.00" occupancy="46.76" speed="10.69" length="5.00" nVehEntered="1"/>
@@ -16010,27 +16014,27 @@ SPDX-License-Identifier: EPL-2.0
     <interval begin="998.00" end="999.00" id="3si_0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="998.00" end="999.00" id="3si_1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="998.00" end="999.00" id="3si_2" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="998.00" end="999.00" id="4si_0" nVehContrib="1" flow="3600.00" occupancy="41.03" speed="2.95" length="5.00" nVehEntered="0"/>
-    <interval begin="998.00" end="999.00" id="4si_1" nVehContrib="1" flow="3600.00" occupancy="23.66" speed="13.04" length="5.00" nVehEntered="0"/>
-    <interval begin="998.00" end="999.00" id="4si_2" nVehContrib="1" flow="3600.00" occupancy="94.49" speed="2.03" length="5.00" nVehEntered="0"/>
+    <interval begin="998.00" end="999.00" id="4si_0" nVehContrib="1" flow="3600.00" occupancy="83.69" speed="2.79" length="5.00" nVehEntered="0"/>
+    <interval begin="998.00" end="999.00" id="4si_1" nVehContrib="1" flow="3600.00" occupancy="19.91" speed="13.06" length="5.00" nVehEntered="0"/>
+    <interval begin="998.00" end="999.00" id="4si_2" nVehContrib="0" flow="0.00" occupancy="100.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="998.00" end="999.00" id="1o_0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="998.00" end="999.00" id="2o_0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="998.00" end="999.00" id="3o_0" nVehContrib="1" flow="3600.00" occupancy="45.95" speed="10.88" length="5.00" nVehEntered="1"/>
+    <interval begin="998.00" end="999.00" id="3o_0" nVehContrib="1" flow="3600.00" occupancy="48.71" speed="10.27" length="5.00" nVehEntered="1"/>
     <interval begin="998.00" end="999.00" id="4o_0" nVehContrib="1" flow="3600.00" occupancy="47.71" speed="10.48" length="5.00" nVehEntered="1"/>
     <interval begin="999.00" end="1000.00" id="1si_0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="999.00" end="1000.00" id="1si_1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="999.00" end="1000.00" id="1si_2" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="999.00" end="1000.00" id="2si_0" nVehContrib="0" flow="0.00" occupancy="77.70" speed="-1.00" length="-1.00" nVehEntered="1"/>
+    <interval begin="999.00" end="1000.00" id="2si_0" nVehContrib="0" flow="0.00" occupancy="95.79" speed="-1.00" length="-1.00" nVehEntered="1"/>
     <interval begin="999.00" end="1000.00" id="2si_1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="999.00" end="1000.00" id="2si_2" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="999.00" end="1000.00" id="3si_0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="999.00" end="1000.00" id="3si_1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="999.00" end="1000.00" id="3si_2" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="999.00" end="1000.00" id="4si_0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="999.00" end="1000.00" id="4si_1" nVehContrib="0" flow="0.00" occupancy="36.38" speed="-1.00" length="-1.00" nVehEntered="1"/>
-    <interval begin="999.00" end="1000.00" id="4si_2" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="999.00" end="1000.00" id="1o_0" nVehContrib="1" flow="3600.00" occupancy="48.40" speed="10.33" length="5.00" nVehEntered="1"/>
-    <interval begin="999.00" end="1000.00" id="2o_0" nVehContrib="1" flow="3600.00" occupancy="47.96" speed="10.43" length="5.00" nVehEntered="1"/>
+    <interval begin="999.00" end="1000.00" id="4si_1" nVehContrib="1" flow="3600.00" occupancy="37.68" speed="13.27" length="5.00" nVehEntered="1"/>
+    <interval begin="999.00" end="1000.00" id="4si_2" nVehContrib="1" flow="3600.00" occupancy="2.68" speed="2.44" length="5.00" nVehEntered="0"/>
+    <interval begin="999.00" end="1000.00" id="1o_0" nVehContrib="0" flow="0.00" occupancy="19.72" speed="-1.00" length="-1.00" nVehEntered="1"/>
+    <interval begin="999.00" end="1000.00" id="2o_0" nVehContrib="1" flow="3600.00" occupancy="47.33" speed="10.56" length="5.00" nVehEntered="1"/>
     <interval begin="999.00" end="1000.00" id="3o_0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="999.00" end="1000.00" id="4o_0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
 </detector>
