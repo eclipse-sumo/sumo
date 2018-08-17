@@ -366,9 +366,9 @@ class VehicleDomain(Domain):
         .
         """
         self._connection._beginMessage(tc.CMD_GET_VEHICLE_VARIABLE,
-                                       tc.VAR_EDGE_TRAVELTIME, vehID, 1 + 4 + 1 + 4 + 1 + 4 + len(edgeID))
+                                       tc.VAR_EDGE_TRAVELTIME, vehID, 1 + 4 + 1 + 8 + 1 + 4 + len(edgeID))
         self._connection._string += struct.pack(
-            "!BiBi", tc.TYPE_COMPOUND, 2, tc.TYPE_INTEGER, time)
+            "!BiBd", tc.TYPE_COMPOUND, 2, tc.TYPE_DOUBLE, time)
         self._connection._packString(edgeID)
         return self._connection._checkResult(tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_EDGE_TRAVELTIME, vehID).readDouble()
 
@@ -378,9 +378,9 @@ class VehicleDomain(Domain):
         .
         """
         self._connection._beginMessage(tc.CMD_GET_VEHICLE_VARIABLE,
-                                       tc.VAR_EDGE_EFFORT, vehID, 1 + 4 + 1 + 4 + 1 + 4 + len(edgeID))
+                                       tc.VAR_EDGE_EFFORT, vehID, 1 + 4 + 1 + 8 + 1 + 4 + len(edgeID))
         self._connection._string += struct.pack(
-            "!BiBi", tc.TYPE_COMPOUND, 2, tc.TYPE_INTEGER, time)
+            "!BiBd", tc.TYPE_COMPOUND, 2, tc.TYPE_DOUBLE, time)
         self._connection._packString(edgeID)
         return self._connection._checkResult(tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_EDGE_EFFORT, vehID).readDouble()
 
@@ -1000,7 +1000,7 @@ class VehicleDomain(Domain):
         self._connection._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_UPDATE_BESTLANES, vehID)
 
     def setAdaptedTraveltime(self, vehID, edgeID, time=None, begTime=None, endTime=None):
-        """setAdaptedTraveltime(string, string, double, int, int) -> None
+        """setAdaptedTraveltime(string, string, double, double, double) -> None
         Inserts the information about the travel time of edge "edgeID" valid
         from begin time to end time into the vehicle's internal edge weights
         container.
@@ -1032,15 +1032,15 @@ class VehicleDomain(Domain):
             self._connection._sendExact()
         else:
             self._connection._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_EDGE_TRAVELTIME,
-                                           vehID, 1 + 4 + 1 + 4 + 1 + 4 + 1 + 4 + len(edgeID) + 1 + 8)
-            self._connection._string += struct.pack("!BiBiBi", tc.TYPE_COMPOUND, 4, tc.TYPE_INTEGER, begTime,
-                                                    tc.TYPE_INTEGER, endTime)
+                                           vehID, 1 + 4 + 1 + 8 + 1 + 8 + 1 + 4 + len(edgeID) + 1 + 8)
+            self._connection._string += struct.pack("!BiBdBd", tc.TYPE_COMPOUND, 4, tc.TYPE_DOUBLE, begTime,
+                                                    tc.TYPE_DOUBLE, endTime)
             self._connection._packString(edgeID)
             self._connection._string += struct.pack("!Bd", tc.TYPE_DOUBLE, time)
             self._connection._sendExact()
 
     def setEffort(self, vehID, edgeID, effort=None, begTime=None, endTime=None):
-        """setEffort(string, string, double, int, int) -> None
+        """setEffort(string, string, double, double, double) -> None
         Inserts the information about the effort of edge "edgeID" valid from
         begin time to end time into the vehicle's internal edge weights
         container.
@@ -1072,9 +1072,9 @@ class VehicleDomain(Domain):
             self._connection._sendExact()
         else:
             self._connection._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_EDGE_EFFORT,
-                                           vehID, 1 + 4 + 1 + 4 + 1 + 4 + 1 + 4 + len(edgeID) + 1 + 8)
-            self._connection._string += struct.pack("!BiBiBi", tc.TYPE_COMPOUND, 4, tc.TYPE_INTEGER, begTime,
-                                                    tc.TYPE_INTEGER, endTime)
+                                           vehID, 1 + 4 + 1 + 8 + 1 + 8 + 1 + 4 + len(edgeID) + 1 + 8)
+            self._connection._string += struct.pack("!BiBdBd", tc.TYPE_COMPOUND, 4, tc.TYPE_DOUBLE, begTime,
+                                                    tc.TYPE_DOUBLE, endTime)
             self._connection._packString(edgeID)
             self._connection._string += struct.pack("!Bd", tc.TYPE_DOUBLE, effort)
             self._connection._sendExact()

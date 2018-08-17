@@ -85,9 +85,8 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                 if (inputStorage.readInt() != 2) {
                     return server.writeErrorStatusCmd(CMD_GET_VEHICLE_VARIABLE, "Retrieval of travel time requires time and edge as parameter.", outputStorage);
                 }
-                // time
-                int time = 0;
-                if (!server.readTypeCheckingInt(inputStorage, time)) {
+                double time = 0.;
+                if (!server.readTypeCheckingDouble(inputStorage, time)) {
                     return server.writeErrorStatusCmd(CMD_GET_VEHICLE_VARIABLE, "Retrieval of travel time requires the referenced time as first parameter.", outputStorage);
                 }
                 // edge
@@ -107,9 +106,8 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                 if (inputStorage.readInt() != 2) {
                     return server.writeErrorStatusCmd(CMD_GET_VEHICLE_VARIABLE, "Retrieval of effort requires time and edge as parameter.", outputStorage);
                 }
-                // time
-                int time = 0;
-                if (!server.readTypeCheckingInt(inputStorage, time)) {
+                double time = 0.;
+                if (!server.readTypeCheckingDouble(inputStorage, time)) {
                     return server.writeErrorStatusCmd(CMD_GET_VEHICLE_VARIABLE, "Retrieval of effort requires the referenced time as first parameter.", outputStorage);
                 }
                 // edge
@@ -514,16 +512,16 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 }
                 int parameterCount = inputStorage.readInt();
                 std::string edgeID;
-                int begTime = 0;
-                int endTime = -1;
+                double begTime = 0.;
+                double endTime = std::numeric_limits<double>::max();
                 double value = INVALID_DOUBLE_VALUE;
                 if (parameterCount == 4) {
                     // begin time
-                    if (!server.readTypeCheckingInt(inputStorage, begTime)) {
+                    if (!server.readTypeCheckingDouble(inputStorage, begTime)) {
                         return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Setting travel time using 4 parameters requires the begin time as first parameter.", outputStorage);
                     }
                     // begin time
-                    if (!server.readTypeCheckingInt(inputStorage, endTime)) {
+                    if (!server.readTypeCheckingDouble(inputStorage, endTime)) {
                         return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Setting travel time using 4 parameters requires the end time as second parameter.", outputStorage);
                     }
                     // edge
@@ -551,7 +549,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 } else {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Setting travel time requires 1, 2, or 4 parameters.", outputStorage);
                 }
-                libsumo::Vehicle::setAdaptedTraveltime(id, edgeID, value, (double)begTime, endTime == -1 ? std::numeric_limits<double>::max() : (double)endTime);
+                libsumo::Vehicle::setAdaptedTraveltime(id, edgeID, value, begTime, endTime);
             }
             break;
             case VAR_EDGE_EFFORT: {
@@ -560,16 +558,16 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 }
                 int parameterCount = inputStorage.readInt();
                 std::string edgeID;
-                int begTime = 0;
-                int endTime = -1;
+                double begTime = 0.;
+                double endTime = std::numeric_limits<double>::max();
                 double value = INVALID_DOUBLE_VALUE;
                 if (parameterCount == 4) {
                     // begin time
-                    if (!server.readTypeCheckingInt(inputStorage, begTime)) {
+                    if (!server.readTypeCheckingDouble(inputStorage, begTime)) {
                         return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Setting effort using 4 parameters requires the begin time as first parameter.", outputStorage);
                     }
                     // begin time
-                    if (!server.readTypeCheckingInt(inputStorage, endTime)) {
+                    if (!server.readTypeCheckingDouble(inputStorage, endTime)) {
                         return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Setting effort using 4 parameters requires the end time as second parameter.", outputStorage);
                     }
                     // edge
@@ -597,7 +595,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Setting effort requires 1, 2, or 4 parameters.", outputStorage);
                 }
                 // retrieve
-                libsumo::Vehicle::setEffort(id, edgeID, value, (double)begTime, endTime == -1 ? std::numeric_limits<double>::max() : (double)endTime);
+                libsumo::Vehicle::setEffort(id, edgeID, value, begTime, endTime);
             }
             break;
             case CMD_REROUTE_TRAVELTIME: {

@@ -296,21 +296,19 @@ Vehicle::getAccumulatedWaitingTime(const std::string& vehicleID) {
 
 
 double
-Vehicle::getAdaptedTraveltime(const std::string& vehicleID, int time, const std::string& edgeID) {
-    MSVehicle* veh = getVehicle(vehicleID);
+Vehicle::getAdaptedTraveltime(const std::string& vehicleID, double time, const std::string& edgeID) {
     MSEdge* edge = Helper::getEdge(edgeID);
-    double value = INVALID_DOUBLE_VALUE;;
-    veh->getWeightsStorage().retrieveExistingTravelTime(edge, time, value);
+    double value = INVALID_DOUBLE_VALUE;
+    getVehicle(vehicleID)->getWeightsStorage().retrieveExistingTravelTime(edge, time, value);
     return value;
 }
 
 
 double
-Vehicle::getEffort(const std::string& vehicleID, int time, const std::string& edgeID) {
-    MSVehicle* veh = getVehicle(vehicleID);
+Vehicle::getEffort(const std::string& vehicleID, double time, const std::string& edgeID) {
     MSEdge* edge = Helper::getEdge(edgeID);
-    double value = INVALID_DOUBLE_VALUE;;
-    veh->getWeightsStorage().retrieveExistingEffort(edge, time, value);
+    double value = INVALID_DOUBLE_VALUE;
+    getVehicle(vehicleID)->getWeightsStorage().retrieveExistingEffort(edge, time, value);
     return value;
 }
 
