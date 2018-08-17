@@ -112,11 +112,11 @@ MSAbstractLaneChangeModel::MSAbstractLaneChangeModel(MSVehicle& v, const LaneCha
     myLastFollowerSecureGap(0.),
     myLastOrigLeaderGap(0.),
     myLastOrigLeaderSecureGap(0.),
+    myDontResetLCGaps(false),
     myMaxSpeedLatStanding(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_MAXSPEEDLATSTANDING, v.getVehicleType().getMaxSpeedLat())),
     myMaxSpeedLatFactor(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_MAXSPEEDLATFACTOR, 1)),
     myLastLaneChangeOffset(0),
-    myAmOpposite(false),
-    myDontResetLCGaps(false) {
+    myAmOpposite(false) {
 }
 
 

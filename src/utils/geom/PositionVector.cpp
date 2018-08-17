@@ -213,12 +213,12 @@ PositionVector::operator[](int index) const {
         - A [-1] returns 'd' because 4 - 1 = 3
         - A [-100] thrown an exception because (4-100) < 0
     */
-    if ((index >= 0) && (index < size())) {
+    if (index >= 0 && index < (int)size()) {
         return at(index);
-    } else if(((int)size() + index) < size()) {
+    } else if (index < 0 && -index <= (int)size()) {
         return at((int)size() + index);
     } else {
-        throw ProcessError("Index out of range in Bracket operator of PositionVector");
+        throw ProcessError("Index out of range in bracket operator of PositionVector");
     }
 }
 
@@ -232,12 +232,12 @@ PositionVector::operator[](int index) {
         - A [-1] returns 'd' because 4 - 1 = 3
         - A [-100] thrown an exception because (4-100) < 0
     */
-    if ((index >= 0) && (index < size())) {
+    if (index >= 0 && index < (int)size()) {
         return at(index);
-    } else if(((int)size() + index) < size()) {
+    } else if (index < 0 && -index <= (int)size()) {
         return at((int)size() + index);
     } else {
-        throw ProcessError("Index out of range in Bracket operator of PositionVector");
+        throw ProcessError("Index out of range in bracket operator of PositionVector");
     }
 }
 

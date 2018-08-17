@@ -217,7 +217,7 @@ private:
     void resetCooperating();
 
     /// @brief whether the given connections must be check for lane conflicts due to the vClasses involved
-    bool checkLaneFoesByClass(const NBEdge* from, const NBEdge::Connection& con,
+    bool checkLaneFoesByClass(const NBEdge::Connection& con,
                               const NBEdge* prohibitorFrom,  const NBEdge::Connection& prohibitorCon) const;
 
     /** @brief return whether the given laneToLane connections prohibit each other
