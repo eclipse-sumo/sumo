@@ -136,6 +136,7 @@ OutputDevice::closeAll() {
     }
     for (std::vector<OutputDevice*>::iterator i = nonErrorDevices.begin(); i != nonErrorDevices.end(); ++i) {
         try {
+            //std::cout << "  close '" << (*i)->getFilename() << "'\n";
             (*i)->close();
         } catch (const IOError& e) {
             WRITE_ERROR("Error on closing output devices.");
@@ -174,8 +175,10 @@ OutputDevice::realString(const double v, const int precision) {
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-OutputDevice::OutputDevice(const bool binary, const int defaultIndentation)
-    : myAmBinary(binary) {
+OutputDevice::OutputDevice(const bool binary, const int defaultIndentation, const std::string& filename) : 
+    myAmBinary(binary),
+    myFilename(filename)
+{
     if (binary) {
         myFormatter = new BinaryFormatter();
     } else {
@@ -194,6 +197,11 @@ OutputDevice::ok() {
     return getOStream().good();
 }
 
+
+const std::string& 
+OutputDevice::getFilename() {
+    return myFilename;
+}
 
 void
 OutputDevice::close() {

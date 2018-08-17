@@ -64,6 +64,7 @@ OutputDevice_Network::OutputDevice_Network(const std::string& host,
 #endif
         }
     }
+    myFilename = host + ":" + toString(port);
 }
 
 

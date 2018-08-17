@@ -137,7 +137,7 @@ public:
     /// @{
 
     /// @brief Constructor
-    OutputDevice(const bool binary = false, const int defaultIndentation = 0);
+    OutputDevice(const bool binary = false, const int defaultIndentation = 0, const std::string& filename = "");
 
 
     /// @brief Destructor
@@ -149,6 +149,8 @@ public:
      */
     virtual bool ok();
 
+    /// @brief get filename or suitable description of this device
+    const std::string& getFilename();
 
     /** @brief Closes the device and removes it from the dictionary
      */
@@ -349,6 +351,9 @@ private:
     OutputFormatter* myFormatter;
 
     const bool myAmBinary;
+
+protected:
+    std::string myFilename;
 
 public:
     /// @brief Invalidated copy constructor.
