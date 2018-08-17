@@ -66,20 +66,21 @@ inline GUI_RTREE_QUAL::Rect GUI_RTREE_QUAL::CombineRect(Rect* a_rectA, Rect* a_r
  * This class specialises the used RT-tree implementation from "rttree.h" and
  *  extends it by a mutex for avoiding parallel change and traversal of the tree.
  */
-class SUMORTree : private GUI_RTREE_QUAL, public Boundary
-{
+class SUMORTree : private GUI_RTREE_QUAL, public Boundary {
 public:
     /// @brief Constructor
     SUMORTree() : GUI_RTREE_QUAL(&GUIGlObject::drawGL) {
     }
 
-
     /// @brief Destructor
-    // show information in gui testing debug gl mode
     virtual ~SUMORTree() {
+        // check if lock is locked before insert objects
+        if(myLock.locked()) {
+            ProcessError("Mutex of SUMORTree is locked during call destructor (Lock value = " + toString(myLock.lockCount())+ ")");
+        }
+        // show information in gui testing debug gl mode
         WRITE_GLDEBUG("Number of objects in SUMORTree during call destructor: " + toString(myTreeDebug.size()));
     }
-
 
     /** @brief Insert entry
      * @param a_min Min of bounding rect
@@ -92,7 +93,6 @@ public:
         GUI_RTREE_QUAL::Insert(a_min, a_max, a_dataId);
     }
 
-
     /** @brief Remove entry
      * @param a_min Min of bounding rect
      * @param a_max Max of bounding rect
@@ -103,7 +103,6 @@ public:
         AbstractMutex::ScopedLocker locker(myLock);
         GUI_RTREE_QUAL::Remove(a_min, a_max, a_dataId);
     }
-
 
     /** @brief Find all within search rectangle
      * @param a_min Min of search bounding rect
@@ -119,14 +118,18 @@ public:
         return GUI_RTREE_QUAL::Search(a_min, a_max, c);
     }
 
-
     /** @brief Adds an additional object (detector/shape/trigger) for visualisation
      * @param[in] o The object to add
      */
     void addAdditionalGLObject(GUIGlObject *o) {
+        // check if lock is locked before insert objects
+        if(myLock.locked()) {
+            ProcessError("Mutex of SUMORTree is locked before object insertion (Lock value = " + toString(myLock.lockCount())+ ")");
+        }
+        // lock mutex
         AbstractMutex::ScopedLocker locker(myLock);
+        // obtain boundary of object
         Boundary b = o->getCenteringBoundary();
-
         // show information in gui testing debug gl mode
         if (gDebugGLFunctions) {
             if(myTreeDebug.count(o) != 0) {
@@ -136,23 +139,27 @@ public:
             } else {
                 myTreeDebug[o] = b;
                 // write GL Debug
-                WRITE_GLDEBUG("Inserted object " + o->getMicrosimID() + " into SUMORTree with boundary " + toString(b));
+                WRITE_GLDEBUG("Inserted " + o->getFullName() + " into SUMORTree with boundary " + toString(b));
             }
         }
-
+        // insert it in Tree
         const float cmin[2] = {(float) b.xmin(), (float) b.ymin()};
         const float cmax[2] = {(float) b.xmax(), (float) b.ymax()};
         Insert(cmin, cmax, o);
     }
 
-
     /** @brief Removes an additional object (detector/shape/trigger) from being visualised
      * @param[in] o The object to remove
      */
     void removeAdditionalGLObject(GUIGlObject *o) {
+        // check if lock is locked remove insert objects
+        if(myLock.locked()) {
+            ProcessError("Mutex of SUMORTree is locked before object remove (Lock value = " + toString(myLock.lockCount())+ ")");
+        }
+        // lock mutex
         AbstractMutex::ScopedLocker locker(myLock);
+        // obtain boundary of object
         Boundary b = o->getCenteringBoundary();
-
         // show information in gui testing debug gl mode
         if (gDebugGLFunctions) {
             if(myTreeDebug.count(o) == 0) {
@@ -161,22 +168,20 @@ public:
                  throw ProcessError("add boundary of GUIGlObject " + o->getMicrosimID() + " is different of remove boundary");
             } else {
                 myTreeDebug.erase(o);
-                WRITE_GLDEBUG("Removed object " + o->getMicrosimID() + " from SUMORTree with boundary " + toString(b));
+                WRITE_GLDEBUG("Removed object " + o->getFullName() + " from SUMORTree with boundary " + toString(b));
             }
         }
-
+        // remove it from Tree
         const float cmin[2] = {(float) b.xmin(), (float) b.ymin()};
         const float cmax[2] = {(float) b.xmax(), (float) b.ymax()};
         Remove(cmin, cmax, o);
     }
-
 
 protected:
     /// @brief A mutex avoiding parallel change and traversal of the tree
     mutable MFXMutex myLock;
 
 private:
-    
     /**@brief Map only used for check that SUMORTree works as expected, only is used if option "gui-testing-debug-gl" is enabled.
      * @note Warning: DO NOT USE in release mode and use it in debug mode carefully, due it produces a slowdown.
      */
