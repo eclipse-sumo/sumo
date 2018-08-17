@@ -4,7 +4,11 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.181-b13, mixed mode)
 Debug: Adding poly 'poly_0' into viewNet
 Debug: Shapes has to be saved
 Debug: Current saving Status: net saved, additionals saved, shapes unsaved
+Debug: Inserting generic parameter 'key1|value1' into shape.
 Error: Attribute 'key' is missing in definition of a param.
+Debug: Inserting generic parameter 'key1|value4' into shape.
+Debug: Inserting generic parameter 'key2|' into shape.
+Debug: Inserting generic parameter 'key4|value5' into shape.
 Error: Attribute 'key' is missing in definition of a param.
 Error: Loading of shapes failed.
 Debug: net has to be saved
