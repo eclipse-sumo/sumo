@@ -907,7 +907,7 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void 
-GNEPoly::mouseOverObject(const GUIVisualizationSettings& s) const {
+GNEPoly::mouseOverObject(const GUIVisualizationSettings&) const {
     // only continue if there isn't already a AC under cursor
     if(myNet->getViewNet()->getACUnderCursor() == nullptr) {
         // check if cursor is within the shape
@@ -916,5 +916,6 @@ GNEPoly::mouseOverObject(const GUIVisualizationSettings& s) const {
         }
     }
 }
+
 
 /****************************************************************************/

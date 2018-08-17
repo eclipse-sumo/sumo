@@ -87,7 +87,7 @@ public:
         }
         virtual const ROEdge* getOrigin() const = 0;
         virtual const ROEdge* getDestination() const = 0;
-        virtual const double getDestinationPos() const = 0;
+        virtual double getDestinationPos() const = 0;
         virtual void saveVehicles(OutputDevice& /* os */, OutputDevice* const /* typeos */, bool /* asAlternatives */, OptionsCont& /* options */) const {}
         virtual void saveAsXML(OutputDevice& os, const bool extended) const = 0;
         virtual bool isStop() const {
@@ -112,7 +112,7 @@ public:
         const ROEdge* getDestination() const {
             return edge;
         }
-        const double getDestinationPos() const {
+        double getDestinationPos() const {
             return stopDesc.endPos;
         }
         void saveAsXML(OutputDevice& os, const bool /* extended */) const {
@@ -146,7 +146,7 @@ public:
 
         virtual const ROEdge* getOrigin() const = 0;
         virtual const ROEdge* getDestination() const = 0;
-        virtual const double getDestinationPos() const = 0;
+        virtual double getDestinationPos() const = 0;
         virtual void saveAsXML(OutputDevice& os, const bool extended) const = 0;
     protected:
         double cost;
@@ -176,7 +176,7 @@ public:
         const ROEdge* getDestination() const {
             return to;
         }
-        const double getDestinationPos() const {
+        double getDestinationPos() const {
             return arr;
         }
         void saveAsXML(OutputDevice& os, const bool extended) const;
@@ -216,7 +216,7 @@ public:
         const ROEdge* getDestination() const {
             return edges.back();
         }
-        const double getDestinationPos() const {
+        double getDestinationPos() const {
             return arr;
         }
         void saveAsXML(OutputDevice& os, const bool extended) const;
@@ -269,7 +269,7 @@ public:
         const ROEdge* getDestination() const {
             return to;
         }
-        const double getDestinationPos() const {
+        double getDestinationPos() const {
             if (myTripItems.empty()) {
                 return getArrivalPos(true);
             } else {

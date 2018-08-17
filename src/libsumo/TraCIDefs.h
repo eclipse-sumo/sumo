@@ -95,6 +95,7 @@ public:
 /// @{
 
 struct TraCIResult {
+    virtual ~TraCIResult() {}
     virtual std::string getString() {
         return "";
     }

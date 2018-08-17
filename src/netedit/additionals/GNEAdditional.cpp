@@ -387,7 +387,7 @@ GNEAdditional::checkAdditionalChildsOverlapping() const {
             return true;
         } else {
             // check overlapping
-            for (int i = 0; i < (sortedChilds.size() - 1); i++) {
+            for (int i = 0; i < (int)sortedChilds.size() - 1; i++) {
                 if(sortedChilds.at(i).first.second > sortedChilds.at(i+1).first.first) {
                     return false;
                 }
@@ -994,8 +994,8 @@ GNEAdditional::setGenericParametersStr(const std::string &value) {
 
 
 void 
-GNEAdditional::mouseOverObject(const GUIVisualizationSettings& s) const {
-
+GNEAdditional::mouseOverObject(const GUIVisualizationSettings&) const {
 }
+
 
 /****************************************************************************/

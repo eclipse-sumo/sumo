@@ -1,4 +1,5 @@
 %module libsumo
+#pragma SWIG nowarn=511
 
 #ifdef SWIGPYTHON
 %rename(edge) Edge;

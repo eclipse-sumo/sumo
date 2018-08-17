@@ -2216,7 +2216,7 @@ GNEAdditionalHandler::checkOverlappingRerouterIntervals(GNEAdditional *rerouter,
     // sort childs
     std::sort(sortedIntervals.begin(), sortedIntervals.end());
     // check overlapping after sorting
-    for (int i = 0; i < (sortedIntervals.size() - 1); i++) {
+    for (int i = 0; i < (int)sortedIntervals.size() - 1; i++) {
         if(sortedIntervals.at(i).second > sortedIntervals.at(i+1).first) {
             return false;
         }
