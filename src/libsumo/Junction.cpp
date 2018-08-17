@@ -81,40 +81,7 @@ Junction::getJunction(const std::string& id) {
 }
 
 
-void
-Junction::subscribe(const std::string& objID, const std::vector<int>& vars, SUMOTime beginTime, SUMOTime endTime) {
-    libsumo::Helper::subscribe(CMD_SUBSCRIBE_JUNCTION_VARIABLE, objID, vars, beginTime, endTime);
-}
-
-
-void
-Junction::subscribeContext(const std::string& objID, int domain, double range, const std::vector<int>& vars, SUMOTime beginTime, SUMOTime endTime) {
-    libsumo::Helper::subscribe(CMD_SUBSCRIBE_JUNCTION_CONTEXT, objID, vars, beginTime, endTime, domain, range);
-}
-
-
-const SubscriptionResults
-Junction::getSubscriptionResults() {
-    return mySubscriptionResults;
-}
-
-
-const TraCIResults
-Junction::getSubscriptionResults(const std::string& objID) {
-    return mySubscriptionResults[objID];
-}
-
-
-const ContextSubscriptionResults
-Junction::getContextSubscriptionResults() {
-    return myContextSubscriptionResults;
-}
-
-
-const SubscriptionResults
-Junction::getContextSubscriptionResults(const std::string& objID) {
-    return myContextSubscriptionResults[objID];
-}
+LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(Junction, JUNCTION)
 
 
 NamedRTree*

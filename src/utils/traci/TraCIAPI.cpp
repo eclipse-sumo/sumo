@@ -205,7 +205,7 @@ TraCIAPI::send_commandSetValue(int domID, int varID, const std::string& objID, t
 
 
 void
-TraCIAPI::send_commandSubscribeObjectVariable(int domID, const std::string& objID, SUMOTime beginTime, SUMOTime endTime,
+TraCIAPI::send_commandSubscribeObjectVariable(int domID, const std::string& objID, double beginTime, double endTime,
         const std::vector<int>& vars) const {
     if (mySocket == 0) {
         throw tcpip::SocketException("Socket is not initialised");
@@ -214,12 +214,12 @@ TraCIAPI::send_commandSubscribeObjectVariable(int domID, const std::string& objI
     // command length (domID, objID, beginTime, endTime, length, vars)
     int varNo = (int) vars.size();
     outMsg.writeUnsignedByte(0);
-    outMsg.writeInt(5 + 1 + 4 + 4 + 4 + (int) objID.length() + 1 + varNo);
+    outMsg.writeInt(5 + 1 + 8 + 8 + 4 + (int) objID.length() + 1 + varNo);
     // command id
     outMsg.writeUnsignedByte(domID);
     // time
-    outMsg.writeInt((int)beginTime);
-    outMsg.writeInt((int)endTime);
+    outMsg.writeDouble(beginTime);
+    outMsg.writeDouble(endTime);
     // object id
     outMsg.writeString(objID);
     // command id
@@ -233,7 +233,7 @@ TraCIAPI::send_commandSubscribeObjectVariable(int domID, const std::string& objI
 
 
 void
-TraCIAPI::send_commandSubscribeObjectContext(int domID, const std::string& objID, SUMOTime beginTime, SUMOTime endTime,
+TraCIAPI::send_commandSubscribeObjectContext(int domID, const std::string& objID, double beginTime, double endTime,
         int domain, double range, const std::vector<int>& vars) const {
     if (mySocket == 0) {
         throw tcpip::SocketException("Socket is not initialised");
@@ -242,12 +242,12 @@ TraCIAPI::send_commandSubscribeObjectContext(int domID, const std::string& objID
     // command length (domID, objID, beginTime, endTime, length, vars)
     int varNo = (int) vars.size();
     outMsg.writeUnsignedByte(0);
-    outMsg.writeInt(5 + 1 + 4 + 4 + 4 + (int) objID.length() + 1 + 8 + 1 + varNo);
+    outMsg.writeInt(5 + 1 + 8 + 8 + 4 + (int) objID.length() + 1 + 8 + 1 + varNo);
     // command id
     outMsg.writeUnsignedByte(domID);
     // time
-    outMsg.writeInt((int)beginTime);
-    outMsg.writeInt((int)endTime);
+    outMsg.writeDouble(beginTime);
+    outMsg.writeDouble(endTime);
     // object id
     outMsg.writeString(objID);
     // domain and range
@@ -3035,7 +3035,7 @@ TraCIAPI::TraCIScopeWrapper::setParameter(const std::string& objectID, const std
 
 
 void
-TraCIAPI::TraCIScopeWrapper::subscribe(const std::string& objID, const std::vector<int>& vars, SUMOTime beginTime, SUMOTime endTime) const {
+TraCIAPI::TraCIScopeWrapper::subscribe(const std::string& objID, const std::vector<int>& vars, double beginTime, double endTime) const {
     myParent.send_commandSubscribeObjectVariable(mySubscribeID, objID, beginTime, endTime, vars);
     tcpip::Storage inMsg;
     myParent.check_resultState(inMsg, mySubscribeID);
@@ -3047,7 +3047,7 @@ TraCIAPI::TraCIScopeWrapper::subscribe(const std::string& objID, const std::vect
 
 
 void
-TraCIAPI::TraCIScopeWrapper::subscribeContext(const std::string& objID, int domain, double range, const std::vector<int>& vars, SUMOTime beginTime, SUMOTime endTime) const {
+TraCIAPI::TraCIScopeWrapper::subscribeContext(const std::string& objID, int domain, double range, const std::vector<int>& vars, double beginTime, double endTime) const {
     myParent.send_commandSubscribeObjectContext(myContextSubscribeID, objID, beginTime, endTime, domain, range, vars);
     tcpip::Storage inMsg;
     myParent.check_resultState(inMsg, myContextSubscribeID);
@@ -3057,7 +3057,7 @@ TraCIAPI::TraCIScopeWrapper::subscribeContext(const std::string& objID, int doma
 
 
 const libsumo::SubscriptionResults
-TraCIAPI::TraCIScopeWrapper::getSubscriptionResults() const {
+TraCIAPI::TraCIScopeWrapper::getAllSubscriptionResults() const {
     return mySubscriptionResults;
 }
 
@@ -3073,7 +3073,7 @@ TraCIAPI::TraCIScopeWrapper::getSubscriptionResults(const std::string& objID) co
 
 
 const libsumo::ContextSubscriptionResults
-TraCIAPI::TraCIScopeWrapper::getContextSubscriptionResults() const {
+TraCIAPI::TraCIScopeWrapper::getAllContextSubscriptionResults() const {
     return myContextSubscriptionResults;
 }
 

@@ -222,40 +222,7 @@ TrafficLight::setParameter(const std::string& tlsID, const std::string& paramNam
 }
 
 
-void
-TrafficLight::subscribe(const std::string& objID, const std::vector<int>& vars, SUMOTime beginTime, SUMOTime endTime) {
-    libsumo::Helper::subscribe(CMD_SUBSCRIBE_TL_VARIABLE, objID, vars, beginTime, endTime);
-}
-
-
-void
-TrafficLight::subscribeContext(const std::string& objID, int domain, double range, const std::vector<int>& vars, SUMOTime beginTime, SUMOTime endTime) {
-    libsumo::Helper::subscribe(CMD_SUBSCRIBE_TL_CONTEXT, objID, vars, beginTime, endTime, domain, range);
-}
-
-
-const SubscriptionResults
-TrafficLight::getSubscriptionResults() {
-    return mySubscriptionResults;
-}
-
-
-const TraCIResults
-TrafficLight::getSubscriptionResults(const std::string& objID) {
-    return mySubscriptionResults[objID];
-}
-
-
-const ContextSubscriptionResults
-TrafficLight::getContextSubscriptionResults() {
-    return myContextSubscriptionResults;
-}
-
-
-const SubscriptionResults
-TrafficLight::getContextSubscriptionResults(const std::string& objID) {
-    return myContextSubscriptionResults[objID];
-}
+LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(TrafficLight, TL)
 
 
 MSTLLogicControl::TLSLogicVariants&

@@ -41,12 +41,46 @@
 #define DEFAULT_VIEW "View #0"
 #define PRECISION 2
 
+#define LIBSUMO_SUBSCRIPTION_API \
+static void subscribe(const std::string& objID, const std::vector<int>& vars = std::vector<int>(), double beginTime = INVALID_DOUBLE_VALUE, double endTime = INVALID_DOUBLE_VALUE); \
+static void subscribeContext(const std::string& objID, int domain, double range, const std::vector<int>& vars = std::vector<int>(), double beginTime = INVALID_DOUBLE_VALUE, double endTime = INVALID_DOUBLE_VALUE); \
+static const SubscriptionResults getAllSubscriptionResults(); \
+static const TraCIResults getSubscriptionResults(const std::string& objID); \
+static const ContextSubscriptionResults getAllContextSubscriptionResults(); \
+static const SubscriptionResults getContextSubscriptionResults(const std::string& objID);
+
+#define LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(CLASS, DOMAIN) \
+void \
+CLASS::subscribe(const std::string& objID, const std::vector<int>& vars, double beginTime, double endTime) { \
+    libsumo::Helper::subscribe(CMD_SUBSCRIBE_##DOMAIN##_VARIABLE, objID, vars, beginTime, endTime); \
+} \
+void \
+CLASS::subscribeContext(const std::string& objID, int domain, double range, const std::vector<int>& vars, double beginTime, double endTime) { \
+    libsumo::Helper::subscribe(CMD_SUBSCRIBE_##DOMAIN##_CONTEXT, objID, vars, beginTime, endTime, domain, range); \
+} \
+const SubscriptionResults \
+CLASS::getAllSubscriptionResults() { \
+    return mySubscriptionResults; \
+} \
+const TraCIResults \
+CLASS::getSubscriptionResults(const std::string& objID) { \
+    return mySubscriptionResults[objID]; \
+} \
+const ContextSubscriptionResults \
+CLASS::getAllContextSubscriptionResults() { \
+    return myContextSubscriptionResults; \
+} \
+const SubscriptionResults \
+CLASS::getContextSubscriptionResults(const std::string& objID) { \
+    return myContextSubscriptionResults[objID]; \
+}
+
+
 
 // ===========================================================================
 // class and type definitions
 // ===========================================================================
 typedef long long int SUMOTime; // <utils/common/SUMOTime.h>
-#define SUMOTime_MAX std::numeric_limits<SUMOTime>::max()
 
 namespace libsumo {
 /**

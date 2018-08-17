@@ -116,9 +116,11 @@ std::map<std::string, MSPerson*> Helper::myRemoteControlledPersons;
 // ===========================================================================
 void
 Helper::subscribe(const int commandId, const std::string& id, const std::vector<int>& variables,
-                  const SUMOTime beginTime, const SUMOTime endTime, const int contextDomain, const double range) {
+                  const double beginTime, const double endTime, const int contextDomain, const double range) {
     std::vector<std::vector<unsigned char> > parameters;
-    libsumo::Subscription s(commandId, id, variables, parameters, beginTime, endTime, contextDomain, range);
+    const SUMOTime begin = beginTime == INVALID_DOUBLE_VALUE ? 0 : TIME2STEPS(beginTime);
+    const SUMOTime end = endTime == INVALID_DOUBLE_VALUE ? SUMOTime_MAX : TIME2STEPS(endTime);
+    libsumo::Subscription s(commandId, id, variables, parameters, begin, end, contextDomain, range);
     mySubscriptions.push_back(s);
     handleSingleSubscription(s);
 }

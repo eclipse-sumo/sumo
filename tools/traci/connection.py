@@ -180,8 +180,7 @@ class Connection:
                 if status:
                     print("Error!", result.readString())
                 elif response in self._subscriptionMapping:
-                    self._subscriptionMapping[response].add(
-                        objectID, varID, result)
+                    self._subscriptionMapping[response].add(objectID, varID, result)
                 else:
                     raise FatalTraCIError(
                         "Cannot handle subscription response %02x for %s." % (response, objectID))
@@ -208,7 +207,7 @@ class Connection:
 
     def _subscribe(self, cmdID, begin, end, objID, varIDs, parameters=None):
         self._queue.append(cmdID)
-        length = 1 + 1 + 4 + 4 + 4 + len(objID) + 1 + len(varIDs)
+        length = 1 + 1 + 8 + 8 + 4 + len(objID) + 1 + len(varIDs)
         if parameters:
             for v in varIDs:
                 if v in parameters:
@@ -217,7 +216,7 @@ class Connection:
             self._string += struct.pack("!B", length)
         else:
             self._string += struct.pack("!Bi", 0, length + 4)
-        self._string += struct.pack("!Biii",
+        self._string += struct.pack("!Bddi",
                                     cmdID, begin, end, len(objID)) + objID.encode("latin1")
         self._string += struct.pack("!B", len(varIDs))
         for v in varIDs:
@@ -236,12 +235,12 @@ class Connection:
 
     def _subscribeContext(self, cmdID, begin, end, objID, domain, dist, varIDs):
         self._queue.append(cmdID)
-        length = 1 + 1 + 4 + 4 + 4 + len(objID) + 1 + 8 + 1 + len(varIDs)
+        length = 1 + 1 + 8 + 8 + 4 + len(objID) + 1 + 8 + 1 + len(varIDs)
         if length <= 255:
             self._string += struct.pack("!B", length)
         else:
             self._string += struct.pack("!Bi", 0, length + 4)
-        self._string += struct.pack("!Biii",
+        self._string += struct.pack("!Bddi",
                                     cmdID, begin, end, len(objID)) + objID.encode("latin1")
         self._string += struct.pack("!BdB", domain, dist, len(varIDs))
         for v in varIDs:

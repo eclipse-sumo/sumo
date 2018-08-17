@@ -27,6 +27,7 @@
 #include <vector>
 #include <memory>
 #include <libsumo/TraCIDefs.h>
+#include <traci-server/TraCIConstants.h>
 
 
 // ===========================================================================
@@ -76,17 +77,12 @@ public:
     static void setAllowedVehicleClasses(const std::string& id, std::vector<std::string> vector);
     static void setDisallowedVehicleClasses(const std::string& id, std::vector<std::string> classes);
     static void setAllowedSVCPermissions(const std::string& id, int permissions);
-    static void adaptTraveltime(const std::string& id, double value, double begTime=0., double endTime=SUMOTime_MAX);
-    static void setEffort(const std::string& id, double value, double begTime = 0., double endTime = SUMOTime_MAX);
+    static void adaptTraveltime(const std::string& id, double value, double begTime=0., double endTime=std::numeric_limits<double>::max());
+    static void setEffort(const std::string& id, double value, double begTime = 0., double endTime = std::numeric_limits<double>::max());
     static void setMaxSpeed(const std::string& id, double value);
     static void setParameter(const std::string& id, const std::string& name, const std::string& value);
 
-    static void subscribe(const std::string& objID, const std::vector<int>& vars=std::vector<int>(), SUMOTime beginTime=0, SUMOTime endTime=((2^31)-1));
-    static void subscribeContext(const std::string& objID, int domain, double range, const std::vector<int>& vars=std::vector<int>(), SUMOTime beginTime=0, SUMOTime endTime=((2^31)-1));
-    static const SubscriptionResults getSubscriptionResults();
-    static const TraCIResults getSubscriptionResults(const std::string& objID);
-    static const ContextSubscriptionResults getContextSubscriptionResults();
-    static const SubscriptionResults getContextSubscriptionResults(const std::string& objID);
+    LIBSUMO_SUBSCRIPTION_API
 
     /** @brief Saves the shape of the requested object in the given container
     *  @param id The id of the edge to retrieve

@@ -81,40 +81,7 @@ MultiEntryExit::getLastStepHaltingNumber(const std::string& detID) {
 }
 
 
-void
-MultiEntryExit::subscribe(const std::string& objID, const std::vector<int>& vars, SUMOTime beginTime, SUMOTime endTime) {
-    libsumo::Helper::subscribe(CMD_SUBSCRIBE_MULTIENTRYEXIT_VARIABLE, objID, vars, beginTime, endTime);
-}
-
-
-void
-MultiEntryExit::subscribeContext(const std::string& objID, int domain, double range, const std::vector<int>& vars, SUMOTime beginTime, SUMOTime endTime) {
-    libsumo::Helper::subscribe(CMD_SUBSCRIBE_MULTIENTRYEXIT_CONTEXT, objID, vars, beginTime, endTime, domain, range);
-}
-
-
-const SubscriptionResults
-MultiEntryExit::getSubscriptionResults() {
-    return mySubscriptionResults;
-}
-
-
-const TraCIResults
-MultiEntryExit::getSubscriptionResults(const std::string& objID) {
-    return mySubscriptionResults[objID];
-}
-
-
-const ContextSubscriptionResults
-MultiEntryExit::getContextSubscriptionResults() {
-    return myContextSubscriptionResults;
-}
-
-
-const SubscriptionResults
-MultiEntryExit::getContextSubscriptionResults(const std::string& objID) {
-    return myContextSubscriptionResults[objID];
-}
+LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(MultiEntryExit, MULTIENTRYEXIT)
 
 
 MSE3Collector*

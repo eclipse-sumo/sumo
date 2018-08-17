@@ -24,6 +24,7 @@
 #include <config.h>
 
 #include <vector>
+#include <traci-server/TraCIConstants.h>
 
 
 // ===========================================================================
@@ -33,8 +34,8 @@ class NamedRTree;
 class MSInductLoop;
 class PositionVector;
 namespace libsumo {
-struct TraCIVehicleData;
-class VariableWrapper;
+    struct TraCIVehicleData;
+    class VariableWrapper;
 }
 
 
@@ -60,12 +61,7 @@ public:
     static double getTimeSinceDetection(const std::string& detID);
     static std::vector<libsumo::TraCIVehicleData> getVehicleData(const std::string& detID);
 
-    static void subscribe(const std::string& objID, const std::vector<int>& vars = std::vector<int>(), SUMOTime beginTime = 0, SUMOTime endTime = ((2 ^ 31) - 1));
-    static void subscribeContext(const std::string& objID, int domain, double range, const std::vector<int>& vars = std::vector<int>(), SUMOTime beginTime = 0, SUMOTime endTime = ((2 ^ 31) - 1));
-    static const SubscriptionResults getSubscriptionResults();
-    static const TraCIResults getSubscriptionResults(const std::string& objID);
-    static const ContextSubscriptionResults getContextSubscriptionResults();
-    static const SubscriptionResults getContextSubscriptionResults(const std::string& objID);
+    LIBSUMO_SUBSCRIPTION_API
 
     /** @brief Returns a tree filled with inductive loop instances
      * @return The rtree of inductive loops

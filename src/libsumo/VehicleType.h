@@ -24,6 +24,7 @@
 // ===========================================================================
 #include <string>
 #include <libsumo/TraCIDefs.h>
+#include <traci-server/TraCIConstants.h>
 
 
 #define LIBSUMO_VEHICLE_TYPE_GETTER \
@@ -102,12 +103,7 @@ public:
     static void setSpeedDeviation(const std::string& typeID, double deviation);
     static void setParameter(const std::string& id, const std::string& name, const std::string& value);
 
-    static void subscribe(const std::string& objID, const std::vector<int>& vars = std::vector<int>(), SUMOTime beginTime = 0, SUMOTime endTime = ((2 ^ 31) - 1));
-    static void subscribeContext(const std::string& objID, int domain, double range, const std::vector<int>& vars = std::vector<int>(), SUMOTime beginTime = 0, SUMOTime endTime = ((2 ^ 31) - 1));
-    static const SubscriptionResults getSubscriptionResults();
-    static const TraCIResults getSubscriptionResults(const std::string& objID);
-    static const ContextSubscriptionResults getContextSubscriptionResults();
-    static const SubscriptionResults getContextSubscriptionResults(const std::string& objID);
+    LIBSUMO_SUBSCRIPTION_API
 
     static std::shared_ptr<VariableWrapper> makeWrapper();
 

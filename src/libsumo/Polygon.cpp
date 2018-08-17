@@ -153,40 +153,7 @@ Polygon::setParameter(std::string& id, std::string& name, std::string& value) {
 }
 
 
-void
-Polygon::subscribe(const std::string& objID, const std::vector<int>& vars, SUMOTime beginTime, SUMOTime endTime) {
-    libsumo::Helper::subscribe(CMD_SUBSCRIBE_POLYGON_VARIABLE, objID, vars, beginTime, endTime);
-}
-
-
-void
-Polygon::subscribeContext(const std::string& objID, int domain, double range, const std::vector<int>& vars, SUMOTime beginTime, SUMOTime endTime) {
-    libsumo::Helper::subscribe(CMD_SUBSCRIBE_POLYGON_CONTEXT, objID, vars, beginTime, endTime, domain, range);
-}
-
-
-const SubscriptionResults
-Polygon::getSubscriptionResults() {
-    return mySubscriptionResults;
-}
-
-
-const TraCIResults
-Polygon::getSubscriptionResults(const std::string& objID) {
-    return mySubscriptionResults[objID];
-}
-
-
-const ContextSubscriptionResults
-Polygon::getContextSubscriptionResults() {
-    return myContextSubscriptionResults;
-}
-
-
-const SubscriptionResults
-Polygon::getContextSubscriptionResults(const std::string& objID) {
-    return myContextSubscriptionResults[objID];
-}
+LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(Polygon, POLYGON)
 
 
 NamedRTree*

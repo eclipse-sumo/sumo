@@ -346,40 +346,7 @@ Lane::setParameter(const std::string& laneID, const std::string& key, const std:
 }
 
 
-void
-Lane::subscribe(const std::string& objID, const std::vector<int>& vars, SUMOTime beginTime, SUMOTime endTime) {
-    libsumo::Helper::subscribe(CMD_SUBSCRIBE_LANE_VARIABLE, objID, vars, beginTime, endTime);
-}
-
-
-void
-Lane::subscribeContext(const std::string& objID, int domain, double range, const std::vector<int>& vars, SUMOTime beginTime, SUMOTime endTime) {
-    libsumo::Helper::subscribe(CMD_SUBSCRIBE_LANE_CONTEXT, objID, vars, beginTime, endTime, domain, range);
-}
-
-
-const SubscriptionResults
-Lane::getSubscriptionResults() {
-    return mySubscriptionResults;
-}
-
-
-const TraCIResults
-Lane::getSubscriptionResults(const std::string& objID) {
-    return mySubscriptionResults[objID];
-}
-
-
-const ContextSubscriptionResults
-Lane::getContextSubscriptionResults() {
-    return myContextSubscriptionResults;
-}
-
-
-const SubscriptionResults
-Lane::getContextSubscriptionResults(const std::string& objID) {
-    return myContextSubscriptionResults[objID];
-}
+LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(Lane, LANE)
 
 
 const MSLane*

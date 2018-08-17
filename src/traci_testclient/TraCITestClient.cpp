@@ -132,18 +132,18 @@ TraCITestClient::run(std::string fileName, int port, std::string host) {
         } else if (lineCommand.compare("subscribevariable") == 0) {
             // trigger command SubscribeXXXVariable
             int domID, varNo;
-            std::string beginTime, endTime;
+            double beginTime, endTime;
             std::string objID;
             defFile >> domID >> objID >> beginTime >> endTime >> varNo;
-            commandSubscribeObjectVariable(domID, objID, string2time(beginTime), string2time(endTime), varNo, defFile);
+            commandSubscribeObjectVariable(domID, objID, beginTime, endTime, varNo, defFile);
         }  else if (lineCommand.compare("subscribecontext") == 0) {
             // trigger command SubscribeXXXVariable
             int domID, varNo, domain;
             double range;
-            std::string beginTime, endTime;
+            double beginTime, endTime;
             std::string objID;
             defFile >> domID >> objID >> beginTime >> endTime >> domain >> range >> varNo;
-            commandSubscribeContextVariable(domID, objID, string2time(beginTime), string2time(endTime), domain, range, varNo, defFile);
+            commandSubscribeContextVariable(domID, objID, beginTime, endTime, domain, range, varNo, defFile);
         }  else if (lineCommand.compare("setvalue") == 0) {
             // trigger command SetXXXValue
             int domID, varID;
@@ -277,7 +277,7 @@ TraCITestClient::commandSetValue(int domID, int varID, const std::string& objID,
 
 
 void
-TraCITestClient::commandSubscribeObjectVariable(int domID, const std::string& objID, SUMOTime beginTime, SUMOTime endTime, int varNo, std::ifstream& defFile) {
+TraCITestClient::commandSubscribeObjectVariable(int domID, const std::string& objID, double beginTime, double endTime, int varNo, std::ifstream& defFile) {
     std::vector<int> vars;
     for (int i = 0; i < varNo; ++i) {
         int var;
@@ -301,7 +301,7 @@ TraCITestClient::commandSubscribeObjectVariable(int domID, const std::string& ob
 
 
 void
-TraCITestClient::commandSubscribeContextVariable(int domID, const std::string& objID, SUMOTime beginTime, SUMOTime endTime,
+TraCITestClient::commandSubscribeContextVariable(int domID, const std::string& objID, double beginTime, double endTime,
         int domain, double range, int varNo, std::ifstream& defFile) {
     std::vector<int> vars;
     for (int i = 0; i < varNo; ++i) {

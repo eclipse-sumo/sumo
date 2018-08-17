@@ -333,40 +333,7 @@ Edge::setParameter(const std::string& id, const std::string& name, const std::st
 }
 
 
-void
-Edge::subscribe(const std::string& objID, const std::vector<int>& vars, SUMOTime beginTime, SUMOTime endTime) {
-    libsumo::Helper::subscribe(CMD_SUBSCRIBE_EDGE_VARIABLE, objID, vars, beginTime, endTime);
-}
-
-
-void
-Edge::subscribeContext(const std::string& objID, int domain, double range, const std::vector<int>& vars, SUMOTime beginTime, SUMOTime endTime) {
-    libsumo::Helper::subscribe(CMD_SUBSCRIBE_EDGE_CONTEXT, objID, vars, beginTime, endTime, domain, range);
-}
-
-
-const SubscriptionResults
-Edge::getSubscriptionResults() {
-    return mySubscriptionResults;
-}
-
-
-const TraCIResults
-Edge::getSubscriptionResults(const std::string& objID) {
-    return mySubscriptionResults[objID];
-}
-
-
-const ContextSubscriptionResults
-Edge::getContextSubscriptionResults() {
-    return myContextSubscriptionResults;
-}
-
-
-const SubscriptionResults
-Edge::getContextSubscriptionResults(const std::string& objID) {
-    return myContextSubscriptionResults[objID];
-}
+LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(Edge, EDGE)
 
 
 void

@@ -339,40 +339,7 @@ VehicleType::setParameter(const std::string& typeID, const std::string& name, co
 }
 
 
-void
-VehicleType::subscribe(const std::string& objID, const std::vector<int>& vars, SUMOTime beginTime, SUMOTime endTime) {
-    libsumo::Helper::subscribe(CMD_SUBSCRIBE_VEHICLETYPE_VARIABLE, objID, vars, beginTime, endTime);
-}
-
-
-void
-VehicleType::subscribeContext(const std::string& objID, int domain, double range, const std::vector<int>& vars, SUMOTime beginTime, SUMOTime endTime) {
-    libsumo::Helper::subscribe(CMD_SUBSCRIBE_VEHICLETYPE_CONTEXT, objID, vars, beginTime, endTime, domain, range);
-}
-
-
-const SubscriptionResults
-VehicleType::getSubscriptionResults() {
-    return mySubscriptionResults;
-}
-
-
-const TraCIResults
-VehicleType::getSubscriptionResults(const std::string& objID) {
-    return mySubscriptionResults[objID];
-}
-
-
-const ContextSubscriptionResults
-VehicleType::getContextSubscriptionResults() {
-    return myContextSubscriptionResults;
-}
-
-
-const SubscriptionResults
-VehicleType::getContextSubscriptionResults(const std::string& objID) {
-    return myContextSubscriptionResults[objID];
-}
+LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(VehicleType, VEHICLETYPE)
 
 
 MSVehicleType*

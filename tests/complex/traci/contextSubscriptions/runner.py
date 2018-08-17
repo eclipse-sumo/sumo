@@ -64,8 +64,8 @@ def runSingle(traciEndTime, viewRange, module, objID):
     while not step > traciEndTime:
         responses = traci.simulationStep()
         near1 = set()
-        if objID in module.getContextSubscriptionResults():
-            for v in module.getContextSubscriptionResults()[objID]:
+        if objID in module.getAllContextSubscriptionResults():
+            for v in module.getContextSubscriptionResults(objID):
                 # print(objID, "context:", v)
                 near1.add(v)
         vehs = traci.vehicle.getIDList()

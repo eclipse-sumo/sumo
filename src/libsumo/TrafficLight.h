@@ -27,6 +27,7 @@
 
 #include <vector>
 #include <libsumo/TraCIDefs.h>
+#include <traci-server/TraCIConstants.h>
 #ifndef SWIGJAVA
 #ifndef SWIGPYTHON
 #include <microsim/traffic_lights/MSTLLogicControl.h>
@@ -73,12 +74,7 @@ public:
     static void setCompleteRedYellowGreenDefinition(const std::string& tlsID, const TraCILogic& logic);
     static void setParameter(const std::string& tlsID, const std::string& paramName, const std::string& value);
 
-    static void subscribe(const std::string& objID, const std::vector<int>& vars = std::vector<int>(), SUMOTime beginTime = 0, SUMOTime endTime = ((2 ^ 31) - 1));
-    static void subscribeContext(const std::string& objID, int domain, double range, const std::vector<int>& vars = std::vector<int>(), SUMOTime beginTime = 0, SUMOTime endTime = ((2 ^ 31) - 1));
-    static const SubscriptionResults getSubscriptionResults();
-    static const TraCIResults getSubscriptionResults(const std::string& objID);
-    static const ContextSubscriptionResults getContextSubscriptionResults();
-    static const SubscriptionResults getContextSubscriptionResults(const std::string& objID);
+    LIBSUMO_SUBSCRIPTION_API
 
     static std::shared_ptr<VariableWrapper> makeWrapper();
 

@@ -174,12 +174,7 @@ public:
 
     LIBSUMO_VEHICLE_TYPE_SETTER
 
-    static void subscribe(const std::string& objID, const std::vector<int>& vars = std::vector<int>({ VAR_ROAD_ID, VAR_LANEPOSITION }), SUMOTime beginTime = 0, SUMOTime endTime = ((2 ^ 31) - 1));
-    static void subscribeContext(const std::string& objID, int domain, double range, const std::vector<int>& vars = std::vector<int>(), SUMOTime beginTime = 0, SUMOTime endTime = ((2 ^ 31) - 1));
-    static const SubscriptionResults getSubscriptionResults();
-    static const TraCIResults getSubscriptionResults(const std::string& objID);
-    static const ContextSubscriptionResults getContextSubscriptionResults();
-    static const SubscriptionResults getContextSubscriptionResults(const std::string& objID);
+    LIBSUMO_SUBSCRIPTION_API
 
     /** @brief Saves the shape of the requested object in the given container
     *  @param id The id of the poi to retrieve

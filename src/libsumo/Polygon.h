@@ -26,6 +26,7 @@
 #include <string>
 #include <vector>
 #include <libsumo/TraCIDefs.h>
+#include <traci-server/TraCIConstants.h>
 
 
 // ===========================================================================
@@ -60,12 +61,7 @@ public:
     static void setFilled(std::string polygonID, bool filled);
     static void setParameter(std::string& name, std::string& value, std::string& string);
 
-    static void subscribe(const std::string& objID, const std::vector<int>& vars = std::vector<int>(), SUMOTime beginTime = 0, SUMOTime endTime = ((2 ^ 31) - 1));
-    static void subscribeContext(const std::string& objID, int domain, double range, const std::vector<int>& vars = std::vector<int>(), SUMOTime beginTime = 0, SUMOTime endTime = ((2 ^ 31) - 1));
-    static const SubscriptionResults getSubscriptionResults();
-    static const TraCIResults getSubscriptionResults(const std::string& objID);
-    static const ContextSubscriptionResults getContextSubscriptionResults();
-    static const SubscriptionResults getContextSubscriptionResults(const std::string& objID);
+    LIBSUMO_SUBSCRIPTION_API
 
     /** @brief Returns a tree filled with polygon instances
      * @return The rtree of polygons

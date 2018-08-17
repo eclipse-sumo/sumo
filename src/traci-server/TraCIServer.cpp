@@ -1253,8 +1253,10 @@ TraCIServer::processSingleSubscription(const libsumo::Subscription& s, tcpip::St
 
 bool
 TraCIServer::addObjectVariableSubscription(const int commandId, const bool hasContext) {
-    const SUMOTime beginTime = myInputStorage.readInt();
-    const SUMOTime endTime = myInputStorage.readInt();
+    const double beginTime = myInputStorage.readDouble();
+    const double endTime = myInputStorage.readDouble();
+    const SUMOTime begin = beginTime == INVALID_DOUBLE_VALUE ? 0 : TIME2STEPS(beginTime);
+    const SUMOTime end = endTime == INVALID_DOUBLE_VALUE ? SUMOTime_MAX : TIME2STEPS(endTime);
     const std::string id = myInputStorage.readString();
     const int domain = hasContext ? myInputStorage.readUnsignedByte() : 0;
     const double range = hasContext ? myInputStorage.readDouble() : 0.;
@@ -1275,7 +1277,7 @@ TraCIServer::addObjectVariableSubscription(const int commandId, const bool hasCo
         return true;
     }
     // process subscription
-    libsumo::Subscription s(commandId, id, variables, parameters, beginTime, endTime, domain, range);
+    libsumo::Subscription s(commandId, id, variables, parameters, begin, end, domain, range);
     initialiseSubscription(s);
     return true;
 }

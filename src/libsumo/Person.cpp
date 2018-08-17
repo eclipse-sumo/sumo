@@ -790,40 +790,7 @@ Person::setColor(const std::string& personID, const TraCIColor& c) {
 }
 
 
-void
-Person::subscribe(const std::string& objID, const std::vector<int>& vars, SUMOTime beginTime, SUMOTime endTime) {
-    libsumo::Helper::subscribe(CMD_SUBSCRIBE_PERSON_VARIABLE, objID, vars, beginTime, endTime);
-}
-
-
-void
-Person::subscribeContext(const std::string& objID, int domain, double range, const std::vector<int>& vars, SUMOTime beginTime, SUMOTime endTime) {
-    libsumo::Helper::subscribe(CMD_SUBSCRIBE_PERSON_CONTEXT, objID, vars, beginTime, endTime, domain, range);
-}
-
-
-const SubscriptionResults
-Person::getSubscriptionResults() {
-    return mySubscriptionResults;
-}
-
-
-const TraCIResults
-Person::getSubscriptionResults(const std::string& objID) {
-    return mySubscriptionResults[objID];
-}
-
-
-const ContextSubscriptionResults
-Person::getContextSubscriptionResults() {
-    return myContextSubscriptionResults;
-}
-
-
-const SubscriptionResults
-Person::getContextSubscriptionResults(const std::string& objID) {
-    return myContextSubscriptionResults[objID];
-}
+LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(Person, PERSON)
 
 
 MSPerson*

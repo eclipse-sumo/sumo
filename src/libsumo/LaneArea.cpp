@@ -118,40 +118,7 @@ LaneArea::getLastStepHaltingNumber(const std::string& detID) {
 }
 
 
-void
-LaneArea::subscribe(const std::string& objID, const std::vector<int>& vars, SUMOTime beginTime, SUMOTime endTime) {
-    libsumo::Helper::subscribe(CMD_SUBSCRIBE_LANEAREA_VARIABLE, objID, vars, beginTime, endTime);
-}
-
-
-void
-LaneArea::subscribeContext(const std::string& objID, int domain, double range, const std::vector<int>& vars, SUMOTime beginTime, SUMOTime endTime) {
-    libsumo::Helper::subscribe(CMD_SUBSCRIBE_LANEAREA_CONTEXT, objID, vars, beginTime, endTime, domain, range);
-}
-
-
-const SubscriptionResults
-LaneArea::getSubscriptionResults() {
-    return mySubscriptionResults;
-}
-
-
-const TraCIResults
-LaneArea::getSubscriptionResults(const std::string& objID) {
-    return mySubscriptionResults[objID];
-}
-
-
-const ContextSubscriptionResults
-LaneArea::getContextSubscriptionResults() {
-    return myContextSubscriptionResults;
-}
-
-
-const SubscriptionResults
-LaneArea::getContextSubscriptionResults(const std::string& objID) {
-    return myContextSubscriptionResults[objID];
-}
+LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(LaneArea, LANEAREA)
 
 
 MSE2Collector*

@@ -127,13 +127,13 @@ public:
         /// @brief set generic paramter
         void setParameter(const std::string& objectID, const std::string& key, const std::string& value) const;
 
-        void subscribe(const std::string& objID, const std::vector<int>& vars, SUMOTime beginTime, SUMOTime endTime) const;
-        void subscribeContext(const std::string& objID, int domain, double range, const std::vector<int>& vars, SUMOTime beginTime, SUMOTime endTime) const;
+        void subscribe(const std::string& objID, const std::vector<int>& vars, double beginTime, double endTime) const;
+        void subscribeContext(const std::string& objID, int domain, double range, const std::vector<int>& vars, double beginTime, double endTime) const;
 
-        const libsumo::SubscriptionResults getSubscriptionResults() const;
+        const libsumo::SubscriptionResults getAllSubscriptionResults() const;
         const libsumo::TraCIResults getSubscriptionResults(const std::string& objID) const;
 
-        const libsumo::ContextSubscriptionResults getContextSubscriptionResults() const;
+        const libsumo::ContextSubscriptionResults getAllContextSubscriptionResults() const;
         const libsumo::SubscriptionResults getContextSubscriptionResults(const std::string& objID) const;
 
         // the following are only for internal use
@@ -906,7 +906,7 @@ protected:
      * @param[in] endTime The end time step of subscriptions
      * @param[in] vars The variables to subscribe
      */
-    void send_commandSubscribeObjectVariable(int domID, const std::string& objID, SUMOTime beginTime, SUMOTime endTime, const std::vector<int>& vars) const;
+    void send_commandSubscribeObjectVariable(int domID, const std::string& objID, double beginTime, double endTime, const std::vector<int>& vars) const;
 
 
     /** @brief Sends a SubscribeContext request
@@ -918,7 +918,7 @@ protected:
      * @param[in] range The range around the obj to investigate
      * @param[in] vars The variables to subscribe
      */
-    void send_commandSubscribeObjectContext(int domID, const std::string& objID, SUMOTime beginTime, SUMOTime endTime,
+    void send_commandSubscribeObjectContext(int domID, const std::string& objID, double beginTime, double endTime,
                                             int domain, double range, const std::vector<int>& vars) const;
     /// @}
 

@@ -133,40 +133,7 @@ InductionLoop::getDetector(const std::string& id) {
 }
 
 
-void
-InductionLoop::subscribe(const std::string& objID, const std::vector<int>& vars, SUMOTime beginTime, SUMOTime endTime) {
-    libsumo::Helper::subscribe(CMD_SUBSCRIBE_INDUCTIONLOOP_VARIABLE, objID, vars, beginTime, endTime);
-}
-
-
-void
-InductionLoop::subscribeContext(const std::string& objID, int domain, double range, const std::vector<int>& vars, SUMOTime beginTime, SUMOTime endTime) {
-    libsumo::Helper::subscribe(CMD_SUBSCRIBE_INDUCTIONLOOP_CONTEXT, objID, vars, beginTime, endTime, domain, range);
-}
-
-
-const SubscriptionResults
-InductionLoop::getSubscriptionResults() {
-    return mySubscriptionResults;
-}
-
-
-const TraCIResults
-InductionLoop::getSubscriptionResults(const std::string& objID) {
-    return mySubscriptionResults[objID];
-}
-
-
-const ContextSubscriptionResults
-InductionLoop::getContextSubscriptionResults() {
-    return myContextSubscriptionResults;
-}
-
-
-const SubscriptionResults
-InductionLoop::getContextSubscriptionResults(const std::string& objID) {
-    return myContextSubscriptionResults[objID];
-}
+LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(InductionLoop, INDUCTIONLOOP)
 
 
 NamedRTree*

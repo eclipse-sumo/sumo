@@ -129,40 +129,7 @@ POI::setParameter(const std::string& poiID, const std::string& param, const std:
 }
 
 
-void
-POI::subscribe(const std::string& objID, const std::vector<int>& vars, SUMOTime beginTime, SUMOTime endTime) {
-    libsumo::Helper::subscribe(CMD_SUBSCRIBE_POI_VARIABLE, objID, vars, beginTime, endTime);
-}
-
-
-void
-POI::subscribeContext(const std::string& objID, int domain, double range, const std::vector<int>& vars, SUMOTime beginTime, SUMOTime endTime) {
-    libsumo::Helper::subscribe(CMD_SUBSCRIBE_POI_CONTEXT, objID, vars, beginTime, endTime, domain, range);
-}
-
-
-const SubscriptionResults
-POI::getSubscriptionResults() {
-    return mySubscriptionResults;
-}
-
-
-const TraCIResults
-POI::getSubscriptionResults(const std::string& objID) {
-    return mySubscriptionResults[objID];
-}
-
-
-const ContextSubscriptionResults
-POI::getContextSubscriptionResults() {
-    return myContextSubscriptionResults;
-}
-
-
-const SubscriptionResults
-POI::getContextSubscriptionResults(const std::string& objID) {
-    return myContextSubscriptionResults[objID];
-}
+LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(POI, POI)
 
 
 PointOfInterest*
