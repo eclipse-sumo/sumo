@@ -76,7 +76,7 @@
 //#define DEBUG_LANE_SORTER
 //#define DEBUG_NO_CONNECTION
 
-#define DEBUG_COND (true)
+#define DEBUG_COND (false)
 //#define DEBUG_COND2(obj) ((obj != 0 && (obj)->getID() == "disabled"))
 #define DEBUG_COND2(obj) ((obj != 0 && (obj)->isSelected()))
 
@@ -1522,6 +1522,16 @@ MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, MSVe
                   + (latGap == 0 ? "" : "', latGap=" + toString(latGap))
                   + ", time=" + time2string(MSNet::getInstance()->getCurrentTimeStep())
                   + " stage=" + stage + ".");
+#ifdef DEBUG_COLLISIONS
+    if (DEBUG_COND2(collider)) {
+        toRemove.erase(collider);
+        toTeleport.erase(collider);
+    }
+    if (DEBUG_COND2(victim)) {
+        toRemove.erase(victim);
+        toTeleport.erase(victim);
+    }
+#endif
     MSNet::getInstance()->informVehicleStateListener(victim, MSNet::VEHICLE_STATE_COLLISION);
     MSNet::getInstance()->informVehicleStateListener(collider, MSNet::VEHICLE_STATE_COLLISION);
     MSNet::getInstance()->getVehicleControl().registerCollision();
