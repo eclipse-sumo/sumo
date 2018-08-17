@@ -115,9 +115,9 @@ GNELoadThread::run() {
     }
     XMLSubSys::setValidation(oc.getString("xml-validation"), oc.getString("xml-validation.net"));
     // check if Debug has to be enabled
-    gDebugFunctions = oc.getBool("gui-testing-debug");
+    MsgHandler::enableDebugMessages(oc.getBool("gui-testing-debug"));
     // check if GL Debug has to be enabled
-    gDebugGLFunctions = oc.getBool("gui-testing-debug-gl");
+    MsgHandler::enableDebugGLMessages(oc.getBool("gui-testing-debug-gl"));
     // this netbuilder instance becomes the responsibility of the GNENet
     NBNetBuilder* netBuilder = new NBNetBuilder();
 

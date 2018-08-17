@@ -32,11 +32,5 @@
 // by default Current Folder is empty
 FXString gCurrentFolder;
 
-// by default Debug is disabled
-bool gDebugFunctions(false);
-
-// by default debug FL is disabled
-bool gDebugGLFunctions(false);
-
 /****************************************************************************/
 

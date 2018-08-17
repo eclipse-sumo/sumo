@@ -79,6 +79,22 @@ public:
     /// @brief Returns the instance to add GLdebug to
     static MsgHandler* getGLDebugInstance();
 
+    /// @brief enable/disable debug messages
+    static void enableDebugMessages(bool enable);
+
+    /// @brief enable/disable gl-debug messages
+    static void enableDebugGLMessages(bool enable);
+
+    /// @brief check whether to enable/disable debug messages
+    static inline bool writeDebugMessages() {
+        return myWriteDebugMessages;
+    }
+
+    /// @brief check whether to enable/disable gl-debug messages
+    static inline bool writeDebugGLMessages() {
+        return myWriteDebugGLMessages;
+    }
+
     ///@brief init output options
     static void initOutputOptions();
 
@@ -204,7 +220,17 @@ private:
 
     /// @brief invalid assignment operator
     MsgHandler& operator=(const MsgHandler& s) = delete;
+
+    /** @brief Flag to enable or disable debug GL Functions
+     *
+     * This value is used to show more internal information throught warning messages about certain operations
+     */
+    static bool myWriteDebugMessages;
+    static bool myWriteDebugGLMessages;
 };
+
+
+
 
 
 // ===========================================================================
@@ -217,8 +243,8 @@ private:
 #define PROGRESS_TIME_MESSAGE(before) MsgHandler::getMessageInstance()->endProcessMsg("done (" + toString(SysUtils::getCurrentMillis() - before) + "ms).");
 #define PROGRESS_FAILED_MESSAGE() MsgHandler::getMessageInstance()->endProcessMsg("failed.");
 #define WRITE_ERROR(msg)   MsgHandler::getErrorInstance()->inform(msg);
-#define WRITE_DEBUG(msg) if(gDebugFunctions){MsgHandler::getDebugInstance()->inform(msg);};
-#define WRITE_GLDEBUG(msg) if(gDebugGLFunctions){MsgHandler::getGLDebugInstance()->inform(msg);};
+#define WRITE_DEBUG(msg) if(MsgHandler::writeDebugMessages()){MsgHandler::getDebugInstance()->inform(msg);};
+#define WRITE_GLDEBUG(msg) if(MsgHandler::writeDebugGLMessages()){MsgHandler::getGLDebugInstance()->inform(msg);};
 
 #endif
 

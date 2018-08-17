@@ -46,6 +46,8 @@ MsgHandler* MsgHandler::myWarningInstance = 0;
 MsgHandler* MsgHandler::myMessageInstance = 0;
 bool MsgHandler::myAmProcessingProcess = false;
 AbstractMutex* MsgHandler::myLock = 0;
+bool MsgHandler::myWriteDebugMessages(false);
+bool MsgHandler::myWriteDebugGLMessages(false);
 
 
 // ===========================================================================
@@ -96,6 +98,16 @@ MsgHandler::getGLDebugInstance() {
     return myGLDebugInstance;
 }
 
+
+void 
+MsgHandler::enableDebugMessages(bool enable) {
+    myWriteDebugMessages = enable;
+}
+
+void 
+MsgHandler::enableDebugGLMessages(bool enable) {
+    myWriteDebugGLMessages = enable;
+}
 
 void
 MsgHandler::inform(std::string msg, bool addType) {

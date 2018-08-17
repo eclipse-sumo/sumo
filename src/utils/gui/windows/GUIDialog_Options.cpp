@@ -26,6 +26,7 @@
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/common/ToString.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/div/GUIIOGlobals.h>
 
@@ -137,10 +138,10 @@ GUIDialog_Options::InputBool::onCmdSetOption(FXObject*, FXSelector, void*) {
     oc.set(myName, myCheck->getCheck() ? "true" : "false");
     // special checks for Debug flags
     if((myName == "gui-testing-debug") && oc.isSet("gui-testing-debug")) {
-        gDebugFunctions = oc.getBool("gui-testing-debug");
+        MsgHandler::enableDebugMessages(oc.getBool("gui-testing-debug"));
     }
     if((myName == "gui-testing-debug-gl") && oc.isSet("gui-testing-debug-gl")) {
-        gDebugGLFunctions = oc.getBool("gui-testing-debug-gl");
+        MsgHandler::enableDebugGLMessages(oc.getBool("gui-testing-debug-gl"));
     }
     return 1;
 }

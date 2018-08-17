@@ -38,20 +38,6 @@
 extern FXString gCurrentFolder;
 
 
-/** @brief Flag to enable or disable debug GL Functions
- *
- * This value is used to check reliability of GL Functions as Insert/remove elements of RTREE
- */
-extern bool gDebugGLFunctions;
-
-
-/** @brief Flag to enable or disable debug GL Functions
- *
- * This value is used to show more internal information throught warning messages about certain operations
- */
-extern bool gDebugFunctions;
-
-
 #endif
 
 /****************************************************************************/
