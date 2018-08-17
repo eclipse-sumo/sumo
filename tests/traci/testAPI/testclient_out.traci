@@ -78,6 +78,10 @@ testAPI:
     getIDList: det1
     getVehicleData:
   simulation:
+    getDistance2D_air: 500.00
+    getDistance2D_driving: 3368.41
+    getDistanceRoad_air: 500.00
+    getDistanceRoad_driving: 3370.76
     getCurrentTime: 7000
     parkingArea param: 5
     subscribe to road and pos of vehicle '1':

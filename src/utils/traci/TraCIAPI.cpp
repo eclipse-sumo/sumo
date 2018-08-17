@@ -1561,6 +1561,46 @@ TraCIAPI::SimulationScope::getMinExpectedNumber() const {
 }
 
 
+double
+TraCIAPI::SimulationScope::getDistance2D(double x1, double y1, double x2, double y2, bool isGeo, bool isDriving) {
+    tcpip::Storage content;
+    content.writeByte(TYPE_COMPOUND);
+    content.writeInt(3);
+    content.writeByte(isGeo ? POSITION_LON_LAT : POSITION_2D);
+    content.writeDouble(x1);
+    content.writeDouble(y1);
+    content.writeByte(isGeo ? POSITION_LON_LAT : POSITION_2D);
+    content.writeDouble(x2);
+    content.writeDouble(y2);
+    content.writeByte(isDriving ? REQUEST_DRIVINGDIST : REQUEST_AIRDIST);
+    myParent.send_commandGetVariable(CMD_GET_SIM_VARIABLE, DISTANCE_REQUEST, "", &content);
+    tcpip::Storage inMsg;
+    myParent.processGET(inMsg, CMD_GET_SIM_VARIABLE, TYPE_DOUBLE);
+    return inMsg.readDouble();
+}
+
+
+double
+TraCIAPI::SimulationScope::getDistanceRoad(const std::string& edgeID1, double pos1, const std::string& edgeID2, double pos2, bool isDriving) {
+    tcpip::Storage content;
+    content.writeByte(TYPE_COMPOUND);
+    content.writeInt(3);
+    content.writeByte(POSITION_ROADMAP);
+    content.writeString(edgeID1);
+    content.writeDouble(pos1);
+    content.writeByte(0); // lane
+    content.writeByte(POSITION_ROADMAP);
+    content.writeString(edgeID2);
+    content.writeDouble(pos2);
+    content.writeByte(0); // lane
+    content.writeByte(isDriving ? REQUEST_DRIVINGDIST : REQUEST_AIRDIST);
+    myParent.send_commandGetVariable(CMD_GET_SIM_VARIABLE, DISTANCE_REQUEST, "", &content);
+    tcpip::Storage inMsg;
+    myParent.processGET(inMsg, CMD_GET_SIM_VARIABLE, TYPE_DOUBLE);
+    return inMsg.readDouble();
+}
+
+
 // ---------------------------------------------------------------------------
 // TraCIAPI::TrafficLightScope-methods
 // ---------------------------------------------------------------------------

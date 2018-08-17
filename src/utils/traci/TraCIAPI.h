@@ -509,6 +509,9 @@ public:
         double getDeltaT() const;
         libsumo::TraCIPositionVector getNetBoundary() const;
         int getMinExpectedNumber() const;
+        double getDistance2D(double x1, double y1, double x2, double y2, bool isGeo = false, bool isDriving = false);
+        double getDistanceRoad(const std::string& edgeID1, double pos1, const std::string& edgeID2, double pos2, bool isDriving = false);
+
 
     private:
         /// @brief invalidated copy constructor
