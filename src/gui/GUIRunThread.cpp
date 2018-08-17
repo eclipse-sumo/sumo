@@ -192,6 +192,8 @@ GUIRunThread::makeStep() {
                     WRITE_MESSAGE("Simulation ended at time: " + time2string(myNet->getCurrentTimeStep()));
                     WRITE_MESSAGE("Reason: " + MSNet::getStateMessage(state));
                     e = new GUIEvent_SimulationEnded(state, myNet->getCurrentTimeStep() - DELTA_T);
+                    // ensure that files are closed (deleteSim is called a bit later by the gui thread)
+                    OutputDevice::closeAll();
                     myHaveSignaledEnd = true;
                 }
                 break;
