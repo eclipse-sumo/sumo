@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Mon May 28 09:13:01 2018
+TraCITestClient output file. Date: Fri Aug 17 11:43:32 2018
 
 
 -> Command sent: <SimulationStep>:
@@ -82,11 +82,11 @@ testAPI:
     parkingArea param: 5
     subscribe to road and pos of vehicle '1':
     subscription results:
-      roadID=e_u1 pos=7.38
+      roadID=e_u1 pos=7.37825
     subscribe to vehicles around edge 'e_u1':
     context subscription results:
-      vehicle=1 pos=11.29
-      vehicle=2 pos=19.00
+      vehicle=1 pos=11.2878
+      vehicle=2 pos=19.0044
   person:
     getIDList: p0
     getRoadID: e_m3
@@ -110,8 +110,8 @@ testAPI:
     state: ggGGrrr
     program: 0
     phase: 0
-    phaseDuration: 12000
-    nextSwitch: 12000
+    phaseDuration: 12.00
+    nextSwitch: 12.00
     controlledLanes: e_vo0_0 e_vo0_1 e_vu0_0 e_vu0_1 e_m3_0 e_m3_1 e_m3_2
     controlledLinks:
       index=0 link=0 fromLane=e_vo0_0 viaLane=:n_m4_0_0 toLane=e_m4_1
@@ -124,18 +124,18 @@ testAPI:
     completeDefinition:
       subID=0 type=0 phase=0
       params=
-         phase=ggGGrrr dur=12000 minDur=12000 maxDur=12000
-         phase=ggyyrrr dur=20000 minDur=20000 maxDur=20000
-         phase=GGrrrrr dur=6000 minDur=6000 maxDur=6000
-         phase=yyrrrrr dur=20000 minDur=20000 maxDur=20000
-         phase=rrrrGGG dur=12000 minDur=12000 maxDur=12000
-         phase=rrrryyy dur=20000 minDur=20000 maxDur=20000
+         phase=ggGGrrr dur=12.00 minDur=12.00 maxDur=12.00
+         phase=ggyyrrr dur=20.00 minDur=20.00 maxDur=20.00
+         phase=GGrrrrr dur=6.00 minDur=6.00 maxDur=6.00
+         phase=yyrrrrr dur=20.00 minDur=20.00 maxDur=20.00
+         phase=rrrrGGG dur=12.00 minDur=12.00 maxDur=12.00
+         phase=rrrryyy dur=20.00 minDur=20.00 maxDur=20.00
       subID=custom type=0 phase=3
       params=
-         phase=rrrrrrr dur=5 minDur=5 maxDur=5
-         phase=ggggggg dur=10 minDur=5 maxDur=15
-         phase=GGGGGGG dur=3 minDur=3 maxDur=3
-         phase=yyyyyyy dur=3 minDur=3 maxDur=3
+         phase=rrrrrrr dur=5.00 minDur=5.00 maxDur=5.00
+         phase=ggggggg dur=10.00 minDur=5.00 maxDur=15.00
+         phase=GGGGGGG dur=3.00 minDur=3.00 maxDur=3.00
+         phase=yyyyyyy dur=3.00 minDur=3.00 maxDur=3.00
     state=ggggggg
     stateSet=gGyruoO
     program: online

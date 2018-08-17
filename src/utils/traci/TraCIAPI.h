@@ -540,13 +540,13 @@ public:
         std::vector<std::vector<libsumo::TraCILink> > getControlledLinks(const std::string& tlsID) const;
         std::string getProgram(const std::string& tlsID) const;
         int getPhase(const std::string& tlsID) const;
-        int getPhaseDuration(const std::string& tlsID) const;
-        int getNextSwitch(const std::string& tlsID) const;
+        double getPhaseDuration(const std::string& tlsID) const;
+        double getNextSwitch(const std::string& tlsID) const;
 
         void setRedYellowGreenState(const std::string& tlsID, const std::string& state) const;
         void setPhase(const std::string& tlsID, int index) const;
         void setProgram(const std::string& tlsID, const std::string& programID) const;
-        void setPhaseDuration(const std::string& tlsID, int phaseDuration) const;
+        void setPhaseDuration(const std::string& tlsID, double phaseDuration) const;
         void setCompleteRedYellowGreenDefinition(const std::string& tlsID, const libsumo::TraCILogic& logic) const;
 
     private:

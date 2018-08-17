@@ -80,11 +80,11 @@ def _readLogics(result):
         phases = []
         for j in range(nbPhases):
             result.read("!B")                   # Type of Duration
-            duration = result.read("!i")[0]     # Duration
+            duration = result.read("!d")[0]     # Duration
             result.read("!B")                   # Type of Duration1
-            duration1 = result.read("!i")[0]    # Duration1
+            duration1 = result.read("!d")[0]    # Duration1
             result.read("!B")                   # Type of Duration2
-            duration2 = result.read("!i")[0]    # Duration2
+            duration2 = result.read("!d")[0]    # Duration2
             result.read("!B")                   # Type of Phase Definition
             phaseDef = result.readString()      # Phase Definition
             phase = Phase(duration, duration1, duration2, phaseDef)
@@ -118,8 +118,8 @@ _RETURN_VALUE_FUNC = {tc.TL_RED_YELLOW_GREEN_STATE: Storage.readString,
                       tc.TL_CONTROLLED_LINKS: _readLinks,
                       tc.TL_CURRENT_PROGRAM: Storage.readString,
                       tc.TL_CURRENT_PHASE: Storage.readInt,
-                      tc.TL_NEXT_SWITCH: Storage.readInt,
-                      tc.TL_PHASE_DURATION: Storage.readInt}
+                      tc.TL_NEXT_SWITCH: Storage.readDouble,
+                      tc.TL_PHASE_DURATION: Storage.readDouble}
 
 
 class TrafficLightDomain(Domain):
@@ -179,14 +179,14 @@ class TrafficLightDomain(Domain):
         return self._getUniversal(tc.TL_CURRENT_PHASE, tlsID)
 
     def getNextSwitch(self, tlsID):
-        """getNextSwitch(string) -> integer
+        """getNextSwitch(string) -> double
 
         .
         """
         return self._getUniversal(tc.TL_NEXT_SWITCH, tlsID)
 
     def getPhaseDuration(self, tlsID):
-        """getPhaseDuration(string) -> integer
+        """getPhaseDuration(string) -> double
 
         .
         """
@@ -235,12 +235,12 @@ class TrafficLightDomain(Domain):
             tc.CMD_SET_TL_VARIABLE, tc.TL_PROGRAM, tlsID, programID)
 
     def setPhaseDuration(self, tlsID, phaseDuration):
-        """setPhaseDuration(string, integer or float) -> None
+        """setPhaseDuration(string, double) -> None
 
         Set the phase duration of the current phase in seconds.
         """
-        self._connection._sendIntCmd(
-            tc.CMD_SET_TL_VARIABLE, tc.TL_PHASE_DURATION, tlsID, int(1000 * phaseDuration))
+        self._connection._sendDoubleCmd(
+            tc.CMD_SET_TL_VARIABLE, tc.TL_PHASE_DURATION, tlsID, phaseDuration)
 
     def setCompleteRedYellowGreenDefinition(self, tlsID, tls):
         """setCompleteRedYellowGreenDefinition(string, ) -> None
@@ -251,7 +251,7 @@ class TrafficLightDomain(Domain):
             len(tls._subID) + 1 + 4 + 1 + 4 + 1 + 4 + 1 + 4  # tls parameter
         itemNo = 1 + 1 + 1 + 1 + 1
         for p in tls._phases:
-            length += 1 + 4 + 1 + 4 + 1 + 4 + 1 + 4 + len(p._phaseDef)
+            length += 1 + 8 + 1 + 8 + 1 + 8 + 1 + 4 + len(p._phaseDef)
             itemNo += 4
         self._connection._beginMessage(
             tc.CMD_SET_TL_VARIABLE, tc.TL_COMPLETE_PROGRAM_RYG, tlsID, length)
@@ -270,9 +270,8 @@ class TrafficLightDomain(Domain):
         self._connection._string += struct.pack("!Bi",
                                                 tc.TYPE_INTEGER, len(tls._phases))
         for p in tls._phases:
-            self._connection._string += struct.pack("!BiBiBi", tc.TYPE_INTEGER,
-                                                    p._duration, tc.TYPE_INTEGER, p._duration1, tc.TYPE_INTEGER,
-                                                    p._duration2)
+            self._connection._string += struct.pack("!BdBdBd", tc.TYPE_DOUBLE, p._duration,
+                                                    tc.TYPE_DOUBLE, p._duration1, tc.TYPE_DOUBLE, p._duration2)
             self._connection._packString(p._phaseDef)
         self._connection._sendExact()
 

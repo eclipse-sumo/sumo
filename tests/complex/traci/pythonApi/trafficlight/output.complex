@@ -13,44 +13,44 @@ type: 0
 subParameter: 0
 currentPhaseIndex: 0
 Phase:
-duration: 31000
-minDuration: 31000
-maxDuration: 31000
+duration: 31.0
+minDuration: 31.0
+maxDuration: 31.0
 phaseDef: GGggrrrrGGggrrrr
 Phase:
-duration: 4000
-minDuration: 4000
-maxDuration: 4000
+duration: 4.0
+minDuration: 4.0
+maxDuration: 4.0
 phaseDef: yyggrrrryyggrrrr
 Phase:
-duration: 6000
-minDuration: 6000
-maxDuration: 6000
+duration: 6.0
+minDuration: 6.0
+maxDuration: 6.0
 phaseDef: rrGGrrrrrrGGrrrr
 Phase:
-duration: 4000
-minDuration: 4000
-maxDuration: 4000
+duration: 4.0
+minDuration: 4.0
+maxDuration: 4.0
 phaseDef: rryyrrrrrryyrrrr
 Phase:
-duration: 31000
-minDuration: 31000
-maxDuration: 31000
+duration: 31.0
+minDuration: 31.0
+maxDuration: 31.0
 phaseDef: rrrrGGggrrrrGGgg
 Phase:
-duration: 4000
-minDuration: 4000
-maxDuration: 4000
+duration: 4.0
+minDuration: 4.0
+maxDuration: 4.0
 phaseDef: rrrryyggrrrryygg
 Phase:
-duration: 6000
-minDuration: 6000
-maxDuration: 6000
+duration: 6.0
+minDuration: 6.0
+maxDuration: 6.0
 phaseDef: rrrrrrGGrrrrrrGG
 Phase:
-duration: 4000
-minDuration: 4000
-maxDuration: 4000
+duration: 4.0
+minDuration: 4.0
+maxDuration: 4.0
 phaseDef: rrrrrryyrrrrrryy
 , Logic:
 subID: custom
@@ -58,41 +58,41 @@ type: 0
 subParameter: 0
 currentPhaseIndex: 4
 Phase:
-duration: 30
-minDuration: 0
-maxDuration: 0
+duration: 30.0
+minDuration: 0.0
+maxDuration: 0.0
 phaseDef: rrrrGGggrrrrGGgg
 Phase:
-duration: 10
-minDuration: 0
-maxDuration: 0
+duration: 10.0
+minDuration: 0.0
+maxDuration: 0.0
 phaseDef: rrrrGGggrrrrGGgg
 Phase:
-duration: 40
-minDuration: 0
-maxDuration: 0
+duration: 40.0
+minDuration: 0.0
+maxDuration: 0.0
 phaseDef: rrrrGGggrrrrGGgg
 Phase:
-duration: 20
-minDuration: 0
-maxDuration: 0
+duration: 20.0
+minDuration: 0.0
+maxDuration: 0.0
 phaseDef: rrrrGGggrrrrGGgg
 Phase:
-duration: 20
-minDuration: 0
-maxDuration: 0
+duration: 20.0
+minDuration: 0.0
+maxDuration: 0.0
 phaseDef: rrrrGGggrrrrGGgg
 Phase:
-duration: 20
-minDuration: 0
-maxDuration: 0
+duration: 20.0
+minDuration: 0.0
+maxDuration: 0.0
 phaseDef: rrrrGGggrrrrGGgg
 ]
 lanes ('4si_0', '4si_1', '4si_2', '4si_2', '2si_0', '2si_1', '2si_2', '2si_2', '3si_0', '3si_1', '3si_2', '3si_2', '1si_0', '1si_1', '1si_2', '1si_2')
 links [[('4si_0', '1o_0', '')], [('4si_1', '3o_0', '')], [('4si_2', '2o_0', '')], [('4si_2', '4o_0', '')], [('2si_0', '4o_0', '')], [('2si_1', '1o_0', '')], [('2si_2', '3o_0', '')], [('2si_2', '2o_0', '')], [('3si_0', '2o_0', '')], [('3si_1', '4o_0', '')], [('3si_2', '1o_0', '')], [('3si_2', '3o_0', '')], [('1si_0', '3o_0', '')], [('1si_1', '2o_0', '')], [('1si_2', '4o_0', '')], [('1si_2', '1o_0', '')]]
 program custom
 phase 4
-switch 26000
+switch 26.0
 numDefs=2 numPhases=[8, 6]
 {0: ('0',)}
 step 3
@@ -110,44 +110,44 @@ type: 0
 subParameter: 0
 currentPhaseIndex: 0
 Phase:
-duration: 31000
-minDuration: 31000
-maxDuration: 31000
+duration: 31.0
+minDuration: 31.0
+maxDuration: 31.0
 phaseDef: GGggrrrrGGggrrrr
 Phase:
-duration: 4000
-minDuration: 4000
-maxDuration: 4000
+duration: 4.0
+minDuration: 4.0
+maxDuration: 4.0
 phaseDef: yyggrrrryyggrrrr
 Phase:
-duration: 6000
-minDuration: 6000
-maxDuration: 6000
+duration: 6.0
+minDuration: 6.0
+maxDuration: 6.0
 phaseDef: rrGGrrrrrrGGrrrr
 Phase:
-duration: 4000
-minDuration: 4000
-maxDuration: 4000
+duration: 4.0
+minDuration: 4.0
+maxDuration: 4.0
 phaseDef: rryyrrrrrryyrrrr
 Phase:
-duration: 31000
-minDuration: 31000
-maxDuration: 31000
+duration: 31.0
+minDuration: 31.0
+maxDuration: 31.0
 phaseDef: rrrrGGggrrrrGGgg
 Phase:
-duration: 4000
-minDuration: 4000
-maxDuration: 4000
+duration: 4.0
+minDuration: 4.0
+maxDuration: 4.0
 phaseDef: rrrryyggrrrryygg
 Phase:
-duration: 6000
-minDuration: 6000
-maxDuration: 6000
+duration: 6.0
+minDuration: 6.0
+maxDuration: 6.0
 phaseDef: rrrrrrGGrrrrrrGG
 Phase:
-duration: 4000
-minDuration: 4000
-maxDuration: 4000
+duration: 4.0
+minDuration: 4.0
+maxDuration: 4.0
 phaseDef: rrrrrryyrrrrrryy
 , Logic:
 subID: custom
@@ -155,34 +155,34 @@ type: 0
 subParameter: 0
 currentPhaseIndex: 4
 Phase:
-duration: 30
-minDuration: 0
-maxDuration: 0
+duration: 30.0
+minDuration: 0.0
+maxDuration: 0.0
 phaseDef: rrrrGGggrrrrGGgg
 Phase:
-duration: 10
-minDuration: 0
-maxDuration: 0
+duration: 10.0
+minDuration: 0.0
+maxDuration: 0.0
 phaseDef: rrrrGGggrrrrGGgg
 Phase:
-duration: 40
-minDuration: 0
-maxDuration: 0
+duration: 40.0
+minDuration: 0.0
+maxDuration: 0.0
 phaseDef: rrrrGGggrrrrGGgg
 Phase:
-duration: 20
-minDuration: 0
-maxDuration: 0
+duration: 20.0
+minDuration: 0.0
+maxDuration: 0.0
 phaseDef: rrrrGGggrrrrGGgg
 Phase:
-duration: 20
-minDuration: 0
-maxDuration: 0
+duration: 20.0
+minDuration: 0.0
+maxDuration: 0.0
 phaseDef: rrrrGGggrrrrGGgg
 Phase:
-duration: 20
-minDuration: 0
-maxDuration: 0
+duration: 20.0
+minDuration: 0.0
+maxDuration: 0.0
 phaseDef: rrrrGGggrrrrGGgg
 , Logic:
 subID: online
@@ -190,15 +190,15 @@ type: 0
 subParameter: 0
 currentPhaseIndex: 0
 Phase:
-duration: 1000
-minDuration: 1000
-maxDuration: 1000
+duration: 1.0
+minDuration: 1.0
+maxDuration: 1.0
 phaseDef: rrrruGggrrrrGGgg
 ]
 lanes ('4si_0', '4si_1', '4si_2', '4si_2', '2si_0', '2si_1', '2si_2', '2si_2', '3si_0', '3si_1', '3si_2', '3si_2', '1si_0', '1si_1', '1si_2', '1si_2')
 links [[('4si_0', '1o_0', '')], [('4si_1', '3o_0', '')], [('4si_2', '2o_0', '')], [('4si_2', '4o_0', '')], [('2si_0', '4o_0', '')], [('2si_1', '1o_0', '')], [('2si_2', '3o_0', '')], [('2si_2', '2o_0', '')], [('3si_0', '2o_0', '')], [('3si_1', '4o_0', '')], [('3si_2', '1o_0', '')], [('3si_2', '3o_0', '')], [('1si_0', '3o_0', '')], [('1si_1', '2o_0', '')], [('1si_2', '4o_0', '')], [('1si_2', '1o_0', '')]]
 program online
 phase 0
-switch 7000
+switch 7.0
 set ryg gGyruOorrrrrrrrr
 program online

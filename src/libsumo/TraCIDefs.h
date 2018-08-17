@@ -203,11 +203,11 @@ typedef std::map<std::string, SubscriptionResults> ContextSubscriptionResults;
 
 class TraCIPhase {
 public:
-    TraCIPhase(const SUMOTime _duration, const SUMOTime _duration1, const SUMOTime _duration2, const std::string& _phase)
+    TraCIPhase(const double _duration, const double _duration1, const double _duration2, const std::string& _phase)
         : duration(_duration), duration1(_duration1), duration2(_duration2), phase(_phase) {}
     ~TraCIPhase() {}
 
-    SUMOTime duration, duration1, duration2;
+    double duration, duration1, duration2;
     std::string phase;
 };
 

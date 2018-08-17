@@ -74,14 +74,14 @@ TraCIServerAPI_TrafficLight::processGet(TraCIServer& server, tcpip::Storage& inp
                     tempContent.writeInt((int)logic.phases.size());
                     ++cnt;
                     for (const libsumo::TraCIPhase& phase : logic.phases) {
-                        tempContent.writeUnsignedByte(TYPE_INTEGER);
-                        tempContent.writeInt((int)phase.duration);
+                        tempContent.writeUnsignedByte(TYPE_DOUBLE);
+                        tempContent.writeDouble(phase.duration);
                         ++cnt;
-                        tempContent.writeUnsignedByte(TYPE_INTEGER);
-                        tempContent.writeInt((int)phase.duration1);
+                        tempContent.writeUnsignedByte(TYPE_DOUBLE);
+                        tempContent.writeDouble(phase.duration1);
                         ++cnt; // not implemented
-                        tempContent.writeUnsignedByte(TYPE_INTEGER);
-                        tempContent.writeInt((int)phase.duration2);
+                        tempContent.writeUnsignedByte(TYPE_DOUBLE);
+                        tempContent.writeDouble(phase.duration2);
                         ++cnt; // not implemented
                         tempContent.writeUnsignedByte(TYPE_STRING);
                         tempContent.writeString(phase.phase);
@@ -226,9 +226,9 @@ TraCIServerAPI_TrafficLight::processSet(TraCIServer& server, tcpip::Storage& inp
             }
             break;
             case TL_PHASE_DURATION: {
-                int duration = 0;
-                if (!server.readTypeCheckingInt(inputStorage, duration)) {
-                    return server.writeErrorStatusCmd(CMD_SET_TL_VARIABLE, "The phase duration must be given as an integer.", outputStorage);
+                double duration = 0.;
+                if (!server.readTypeCheckingDouble(inputStorage, duration)) {
+                    return server.writeErrorStatusCmd(CMD_SET_TL_VARIABLE, "The phase duration must be given as a double.", outputStorage);
                 }
                 libsumo::TrafficLight::setPhaseDuration(id, duration);
             }
@@ -266,15 +266,15 @@ TraCIServerAPI_TrafficLight::processSet(TraCIServer& server, tcpip::Storage& inp
                     return server.writeErrorStatusCmd(CMD_SET_TL_VARIABLE, "set program: 5. parameter (phase number) must be an int.", outputStorage);
                 }
                 for (int j = 0; j < numPhases; ++j) {
-                    int duration = 0, minDuration = 0, maxDuration = 0;
-                    if (!server.readTypeCheckingInt(inputStorage, duration)) {
-                        return server.writeErrorStatusCmd(CMD_SET_TL_VARIABLE, "set program: 6.1. parameter (duration) must be an int.", outputStorage);
+                    double duration = 0., minDuration = 0., maxDuration = 0.;
+                    if (!server.readTypeCheckingDouble(inputStorage, duration)) {
+                        return server.writeErrorStatusCmd(CMD_SET_TL_VARIABLE, "set program: 6.1. parameter (duration) must be a double.", outputStorage);
                     }
-                    if (!server.readTypeCheckingInt(inputStorage, minDuration)) {
-                        return server.writeErrorStatusCmd(CMD_SET_TL_VARIABLE, "set program: 6.2. parameter (min duration) must be an int.", outputStorage);
+                    if (!server.readTypeCheckingDouble(inputStorage, minDuration)) {
+                        return server.writeErrorStatusCmd(CMD_SET_TL_VARIABLE, "set program: 6.2. parameter (min duration) must be a double.", outputStorage);
                     }
-                    if (!server.readTypeCheckingInt(inputStorage, maxDuration)) {
-                        return server.writeErrorStatusCmd(CMD_SET_TL_VARIABLE, "set program: 6.3. parameter (max duration) must be an int.", outputStorage);
+                    if (!server.readTypeCheckingDouble(inputStorage, maxDuration)) {
+                        return server.writeErrorStatusCmd(CMD_SET_TL_VARIABLE, "set program: 6.3. parameter (max duration) must be a double.", outputStorage);
                     }
                     std::string state;
                     if (!server.readTypeCheckingString(inputStorage, state)) {
