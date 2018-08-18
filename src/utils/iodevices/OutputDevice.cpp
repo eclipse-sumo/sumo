@@ -124,7 +124,7 @@ OutputDevice::getDeviceByOption(const std::string& optionName) {
 
 
 void
-OutputDevice::closeAll() {
+OutputDevice::closeAll(bool keepErrorRetrievers) {
     std::vector<OutputDevice*> errorDevices;
     std::vector<OutputDevice*> nonErrorDevices;
     for (std::map<std::string, OutputDevice*>::iterator i = myOutputDevices.begin(); i != myOutputDevices.end(); ++i) {
@@ -143,12 +143,14 @@ OutputDevice::closeAll() {
             WRITE_ERROR(e.what());
         }
     }
-    for (std::vector<OutputDevice*>::iterator i = errorDevices.begin(); i != errorDevices.end(); ++i) {
-        try {
-            (*i)->close();
-        } catch (const IOError& e) {
-            std::cerr << "Error on closing error output devices." << std::endl;
-            std::cerr << e.what() << std::endl;
+    if (!keepErrorRetrievers) {
+        for (std::vector<OutputDevice*>::iterator i = errorDevices.begin(); i != errorDevices.end(); ++i) {
+            try {
+                (*i)->close();
+            } catch (const IOError& e) {
+                std::cerr << "Error on closing error output devices." << std::endl;
+                std::cerr << e.what() << std::endl;
+            }
         }
     }
 }
@@ -212,6 +214,7 @@ OutputDevice::close() {
             break;
         }
     }
+    //MsgHandler::removeRetrieverFromAllInstances(this);
     delete this;
 }
 

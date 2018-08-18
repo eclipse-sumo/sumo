@@ -216,6 +216,15 @@ MsgHandler::isRetriever(OutputDevice* retriever) const {
 }
 
 
+void 
+MsgHandler::removeRetrieverFromAllInstances(OutputDevice* out) {
+    myDebugInstance->removeRetriever(out);
+    myGLDebugInstance->removeRetriever(out);
+    myErrorInstance->removeRetriever(out);
+    myWarningInstance->removeRetriever(out);
+    myMessageInstance->removeRetriever(out);
+}
+
 void
 MsgHandler::initOutputOptions() {
     // initialize console properly

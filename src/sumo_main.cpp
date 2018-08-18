@@ -70,7 +70,6 @@ main(int argc, char** argv) {
             if (net != nullptr) {
                 state = net->simulate(string2time(oc.getString("begin")), string2time(oc.getString("end")));
                 delete net;
-                OutputDevice::closeAll();
             } else {
                 break;
             }

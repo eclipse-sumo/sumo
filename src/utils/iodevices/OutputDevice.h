@@ -119,7 +119,7 @@ public:
 
     /**  Closes all registered devices
      */
-    static void closeAll();
+    static void closeAll(bool keepErrorRetrievers=false);
     /// @}
 
 

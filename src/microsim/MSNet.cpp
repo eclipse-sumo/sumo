@@ -616,6 +616,7 @@ MSNet::clearAll() {
         t->cleanup();
     }
     libsumo::Helper::cleanup();
+    OutputDevice::closeAll(true);
 }
 
 
