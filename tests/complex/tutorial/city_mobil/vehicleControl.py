@@ -212,7 +212,7 @@ def doStep():
         print("step", setting.step)
     traci.simulationStep()
     moveNodes = []
-    for veh, subs in traci.vehicle.getSubscriptionResults().items():
+    for veh, subs in traci.vehicle.getAllSubscriptionResults().items():
         moveNodes.append(
             (veh, subs[tc.VAR_ROAD_ID], subs[tc.VAR_LANEPOSITION]))
     departed = traci.simulation.getSubscriptionResults(
