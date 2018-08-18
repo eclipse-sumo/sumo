@@ -105,6 +105,7 @@ void
 MSDevice::cleanupAll() {
     MSDevice_Routing::cleanup();
     MSDevice_Tripinfo::cleanup();
+    MSDevice_FCD::cleanup();
 }
 
 void

@@ -27,3 +27,6 @@ person_by_param
 
 # correctly compute positions when vehicle is on a short lane
 short_lane
+
+# only write fcd output on some edges
+edge_filter

@@ -18,6 +18,7 @@ copy_test_path:settings.xml
 copy_test_path:input_state.xml
 copy_test_path:input_meso_state.xml
 copy_test_path:lookuptable
+copy_test_path:input_selection.txt
 copy_test_path_merge:data
 
 [collate_file]

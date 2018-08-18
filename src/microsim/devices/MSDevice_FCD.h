@@ -81,6 +81,13 @@ public:
         return "fcd";
     }
 
+    static const std::set<const MSEdge*>& getEdgeFilter() {
+        return myEdgeFilter;
+    }
+
+    /// @brief resets the edge filter
+    static void cleanup();
+
 private:
     /** @brief Constructor
      *
@@ -90,7 +97,12 @@ private:
     MSDevice_FCD(SUMOVehicle& holder, const std::string& id);
 
 
+    /// @brief spatial filter for FCD output
+    static std::set<const MSEdge*> myEdgeFilter;
+    static bool myEdgeFilterInitialized;
 
+    /// @brief initialize edge filter (once)
+    static void initEdgeFilter();
 
 private:
     /// @brief Invalidated copy constructor.
