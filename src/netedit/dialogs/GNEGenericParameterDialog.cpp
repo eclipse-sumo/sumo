@@ -107,7 +107,7 @@ GNEGenericParameterDialog::GenericParametersValues::updateValues() {
         myGenericParameterRows.push_back(new GenericParameterRow(this, myVerticalFrameRow));
     }
     // fill rows
-    for(int i = 0; i < myGenericParameters->size(); i++) {
+    for (int i = 0; i < (int)myGenericParameters->size(); i++) {
         myGenericParameterRows.at(i)->enableRow(myGenericParameters->at(i).first, myGenericParameters->at(i).second);
     }
     // set last myGenericParameterRows with the add button
@@ -163,7 +163,7 @@ GNEGenericParameterDialog::GenericParametersValues::onPaint(FXObject* o, FXSelec
 long
 GNEGenericParameterDialog::GenericParametersValues::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
     // find what value was changed
-    for (int i = 0;  i < myGenericParameterRows.size(); i++) {
+    for (int i = 0; i < (int)myGenericParameterRows.size(); i++) {
         if(myGenericParameterRows.at(i)->keyField == obj) {
             // change key of Generic Parameter
             myGenericParameters->at(i).first = myGenericParameterRows.at(i)->keyField->getText().text();
@@ -202,7 +202,7 @@ GNEGenericParameterDialog::GenericParametersValues::onCmdButtonPress(FXObject* o
     } else {
         // in other case, button press was a "remove button". Find id and remove the Generic Parameter
         for (int i = 0;  i < (int)myGenericParameterRows.size(); i++) {
-            if((myGenericParameterRows.at(i)->button == obj) && (i < myGenericParameters->size())) {
+            if (myGenericParameterRows.at(i)->button == obj && i < (int)myGenericParameters->size()) {
                 // remove generic parameter
                 myGenericParameters->erase(myGenericParameters->begin() + i);
                 // update values and finish

@@ -1031,8 +1031,7 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void 
-GNELane::mouseOverObject(const GUIVisualizationSettings& s) const {
-
+GNELane::mouseOverObject(const GUIVisualizationSettings&) const {
 }
 
 
