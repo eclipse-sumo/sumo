@@ -382,7 +382,7 @@ print(traci.vehicle.getSubscriptionResults(vehID))
 
 parkingAreaVeh = "pav"
 traci.vehicle.add(parkingAreaVeh, "horizontal")
-traci.vehicle.setParkingAreaStop(parkingAreaVeh, "parkingArea1", duration=2000)
+traci.vehicle.setParkingAreaStop(parkingAreaVeh, "parkingArea1", duration=2)
 for i in range(18):
     print("step", step())
     print("pav edge=%s pos=%s stopState=%s" %
