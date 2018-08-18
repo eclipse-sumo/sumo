@@ -129,6 +129,7 @@ for i in range(10):
     print(traci.person.getSubscriptionResults(personID))
 
 print("riding in vehicle: '%s'" % traci.vehicle.getParameter("veh0", "device.person.IDList"))
+print("riding in vehicle (direct): '%s'" % traci.vehicle.getPersonIDList("veh0"))
 print("persons on edge %s at time %s: %s" % (
     traci.person.getRoadID("newPerson"),
     traci.simulation.getCurrentTime() / 1000.0,

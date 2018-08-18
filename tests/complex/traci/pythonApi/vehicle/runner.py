@@ -306,6 +306,7 @@ parkingVeh = "parking"
 traci.vehicle.add(parkingVeh, "horizontal")
 traci.vehicle.setStop(parkingVeh, "2fi", pos=20.0, laneIndex=0, duration=10,
                       flags=traci.constants.STOP_PARKING)
+print("nextStop:", traci.vehicle.getNextStops(parkingVeh))
 for i in range(20):
     print("step", step())
     checkOffRoad(parkingVeh)

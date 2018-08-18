@@ -1,4 +1,5 @@
 Loading configuration... done.
+ Retrying in 1 seconds
 step 0
 step 1
 step 2
@@ -77,6 +78,7 @@ step 15
 step 16
 {0: ('detour', 'detour2', 'horiz', 'newPerson', 'tripTest')}
 riding in vehicle: 'newPerson'
+riding in vehicle (direct): 'newPerson'
 persons on edge :0_10 at time 17.0: ('newPerson',)
 'detour' on road :0_w2
 'detour2' on road :0_w2

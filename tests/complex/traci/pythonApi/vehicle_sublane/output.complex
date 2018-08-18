@@ -1,4 +1,5 @@
 Loading configuration... done.
+ Retrying in 1 seconds
 step 0.0
 step 1.0
 step 2.0
@@ -459,6 +460,7 @@ vehicle 'bus' lane=2fi_0 lanePos=39.0590849913 stopped=False
 step 77.0
 vehicle 'bus' lane=2fi_0 lanePos=45.2277343389 stopped=False
 triptest route: ('3si', '2o', '2fi', '2si', '4o', '4fi', '4si')
+nextStop: (('2fi_0', 20.0, '', 3, 10.0, -0.001),)
 step 78.0
 ('veh', 'parking', 'speed', 0.0, 'pos', (1000.0, 501.65000000000003), 'pos3d', (1000.0, 501.65000000000003, 0.0), 'angle', 55.96766302073293, 'road', '2fi', 'lane', '2fi_0', 'lanePos', 0.0, 'CO2', 2624.722222222222)
 step 79.0
