@@ -104,6 +104,18 @@ Simulation::close() {
 LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(Simulation, SIM)
 
 
+void
+Simulation::subscribe(const std::vector<int>& vars, double beginTime, double endTime) {
+    libsumo::Helper::subscribe(CMD_SUBSCRIBE_SIM_VARIABLE, "", vars, beginTime, endTime);
+}
+
+
+const TraCIResults
+Simulation::getSubscriptionResults() {
+    return mySubscriptionResults[""];
+}
+
+
 int
 Simulation::getCurrentTime() {
     return (int)MSNet::getInstance()->getCurrentTimeStep();
@@ -305,7 +317,7 @@ Simulation::convert3D(const std::string& edgeID, double pos, int laneIndex, bool
     if (toGeo) {
         GeoConvHelper::getFinal().cartesian2geo(result);
     }
-    return Helper::makeTraCIPosition(result);
+    return Helper::makeTraCIPosition(result, true);
 }
 
 

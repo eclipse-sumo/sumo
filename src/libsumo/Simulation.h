@@ -119,6 +119,8 @@ public:
     static void saveState(const std::string& fileName);
 
     LIBSUMO_SUBSCRIPTION_API
+    static void subscribe(const std::vector<int>& vars = std::vector<int>(), double beginTime = INVALID_DOUBLE_VALUE, double endTime = INVALID_DOUBLE_VALUE);
+    static const TraCIResults getSubscriptionResults();
 
     static std::shared_ptr<VariableWrapper> makeWrapper();
 
