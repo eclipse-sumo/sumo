@@ -6,6 +6,8 @@ rerouteTraveltime_adaptEdgeWeight_varyWithTime
 
 # adapt vehicle specific custom edge weights
 rerouteTraveltime_adaptVehicleEdgeWeight
+rerouteParkingArea_intermediate
+rerouteParkingArea_end
 
 # tests for behavior when using setRoutingMode
 routingMode
