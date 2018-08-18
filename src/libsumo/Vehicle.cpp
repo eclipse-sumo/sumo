@@ -1587,7 +1587,7 @@ Vehicle::handleVariable(const std::string& objID, const int variable, VariableWr
         return wrapper->wrapDouble(objID, variable, getElectricityConsumption(objID));
     case VAR_PERSON_NUMBER:
         return wrapper->wrapInt(objID, variable, getPersonNumber(objID));
-    case VAR_PERSON_IDS:
+    case LAST_STEP_PERSON_ID_LIST:
         return wrapper->wrapStringList(objID, variable, getPersonIDList(objID));
     case VAR_WAITING_TIME:
         return wrapper->wrapDouble(objID, variable, getWaitingTime(objID));

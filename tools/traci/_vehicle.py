@@ -110,7 +110,7 @@ _RETURN_VALUE_FUNC = {tc.VAR_SPEED: Storage.readDouble,
                       tc.VAR_NOISEEMISSION: Storage.readDouble,
                       tc.VAR_ELECTRICITYCONSUMPTION: Storage.readDouble,
                       tc.VAR_PERSON_NUMBER: Storage.readInt,
-                      tc.VAR_PERSON_IDS: Storage.readStringList,
+                      tc.LAST_STEP_PERSON_ID_LIST: Storage.readStringList,
                       tc.VAR_EDGE_TRAVELTIME: Storage.readDouble,
                       tc.VAR_EDGE_EFFORT: Storage.readDouble,
                       tc.VAR_ROUTE_VALID: lambda result: bool(result.read("!i")[0]),
@@ -358,7 +358,7 @@ class VehicleDomain(Domain):
         Returns the list of persons which includes those defined using attribute 'personNumber'
         as well as <person>-objects which are riding in this vehicle.
         """
-        return self._getUniversal(tc.VAR_PERSON_IDS, vehID)
+        return self._getUniversal(tc.LAST_STEP_PERSON_ID_LIST, vehID)
 
     def getAdaptedTraveltime(self, vehID, time, edgeID):
         """getAdaptedTraveltime(string, double, string) -> double

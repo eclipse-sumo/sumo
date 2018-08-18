@@ -2463,7 +2463,7 @@ TraCIAPI::VehicleScope::getPersonNumber(const std::string& vehicleID) const {
 
 std::vector<std::string>
 TraCIAPI::VehicleScope::getPersonIDList(const std::string& vehicleID) const {
-    return myParent.getStringVector(CMD_GET_VEHICLE_VARIABLE, VAR_PERSON_IDS, vehicleID);
+    return myParent.getStringVector(CMD_GET_VEHICLE_VARIABLE, LAST_STEP_PERSON_ID_LIST, vehicleID);
 }
 
 double

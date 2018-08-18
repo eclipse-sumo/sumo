@@ -536,7 +536,7 @@
 // last step jam length in meters
 #define JAM_LENGTH_METERS 0x19
 
-// last step person list (get: edges)
+// last step person list (get: edges, vehicles)
 #define LAST_STEP_PERSON_ID_LIST 0x1a
 
 
@@ -783,9 +783,6 @@
 
 // current person number (get: vehicle)
 #define VAR_PERSON_NUMBER 0x67
-
-// current person ids (get: vehicle)
-#define VAR_PERSON_IDS 0xc3
 
 // number of persons waiting at a defined bus stop (get: simulation)
 #define VAR_BUS_STOP_WAITING 0x67
