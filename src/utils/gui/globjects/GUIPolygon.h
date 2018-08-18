@@ -111,6 +111,10 @@ public:
         myLineWidth = lineWidth;
     }
 
+protected:
+    /// @brief set color
+    void setColor(const GUIVisualizationSettings& s) const;
+
 private:
     /// The mutex used to avoid concurrent updates of the shape
     mutable MFXMutex myLock;

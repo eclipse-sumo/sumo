@@ -271,6 +271,8 @@ public:
     /// @name shapes visualization settings
     //@{
 
+    /// @brief The POI colorer
+    GUIColorer poiColorer;
     // Setting bundles for controling the size of the drawn POIs
     GUIVisualizationSizeSettings poiSize;
     // Setting bundles for optional drawing poi names
@@ -278,6 +280,8 @@ public:
     // Setting bundles for optional drawing poi types
     GUIVisualizationTextSettings poiType;
 
+    /// @brief The polygon colorer
+    GUIColorer polyColorer;
     // Setting bundles for controling the size of the drawn polygons
     GUIVisualizationSizeSettings polySize;
     // Setting bundles for optional drawing polygon names

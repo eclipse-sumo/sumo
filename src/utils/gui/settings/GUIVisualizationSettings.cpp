@@ -498,6 +498,19 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.setAllowsNegativeValues(true);
     junctionColorer.addScheme(scheme);
 
+    /// add POI coloring schemes
+    poiColorer.addScheme(GUIColorScheme("given POI color", RGBColor::RED, "", true));
+    scheme = GUIColorScheme("by selection", RGBColor(179, 179, 179, 255), "unselected", true);
+    scheme.addColor(RGBColor(0, 102, 204, 255), 1, "selected");
+    poiColorer.addScheme(scheme);
+    poiColorer.addScheme(GUIColorScheme("uniform", RGBColor::RED, "", true));
+
+    /// add polygon coloring schemes
+    polyColorer.addScheme(GUIColorScheme("given polygon color", RGBColor::ORANGE, "", true));
+    scheme = GUIColorScheme("by selection", RGBColor(179, 179, 179, 255), "unselected", true);
+    scheme.addColor(RGBColor(0, 102, 204, 255), 1, "selected");
+    polyColorer.addScheme(scheme);
+    polyColorer.addScheme(GUIColorScheme("uniform", RGBColor::ORANGE, "", true));
 
     /// add lane scaling schemes
     {
@@ -807,6 +820,20 @@ GUIVisualizationSettings::initNeteditDefaults() {
     scheme.setAllowsNegativeValues(true);
     junctionColorer.addScheme(scheme);
 
+    /// add POI coloring schemes
+    poiColorer.addScheme(GUIColorScheme("given POI color", RGBColor::RED, "", true));
+    scheme = GUIColorScheme("by selection", RGBColor(179, 179, 179, 255), "unselected", true);
+    scheme.addColor(RGBColor(0, 102, 204, 255), 1, "selected");
+    poiColorer.addScheme(scheme);
+    poiColorer.addScheme(GUIColorScheme("uniform", RGBColor::RED, "", true));
+
+    /// add polygon coloring schemes
+    polyColorer.addScheme(GUIColorScheme("given polygon color", RGBColor::ORANGE, "", true));
+    scheme = GUIColorScheme("by selection", RGBColor(179, 179, 179, 255), "unselected", true);
+    scheme.addColor(RGBColor(0, 102, 204, 255), 1, "selected");
+    polyColorer.addScheme(scheme);
+    polyColorer.addScheme(GUIColorScheme("uniform", RGBColor::ORANGE, "", true));
+
     /// add edge scaling schemes
     {
         GUIScaleScheme scheme = GUIScaleScheme("default", 1, "uniform", true);
@@ -921,15 +948,15 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     personName.print(dev, "personName");
     personColorer.save(dev);
     dev.closeTag();
-    // persons
+    // containers
     dev.openTag(SUMO_TAG_VIEWSETTINGS_CONTAINERS);
     dev.writeAttr("containerMode", containerColorer.getActive());
     dev.writeAttr("containerQuality", containerQuality);
-    personSize.print(dev, "container");
+    containerSize.print(dev, "container");
     dev.lf();
     dev << "                ";
-    personName.print(dev, "containerName");
-    personColorer.save(dev);
+    containerName.print(dev, "containerName");
+    containerColorer.save(dev);
     dev.closeTag();
     // junctions
     dev.openTag(SUMO_TAG_VIEWSETTINGS_JUNCTIONS);
@@ -966,12 +993,14 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     poiSize.print(dev, "poi");
     poiName.print(dev, "poiName");
     poiType.print(dev, "poiType");
+    poiColorer.save(dev);
     dev.closeTag();
     // polys
     dev.openTag(SUMO_TAG_VIEWSETTINGS_POLYS);
     polySize.print(dev, "poly");
     polyName.print(dev, "polyName");
     polyType.print(dev, "polyType");
+    polyColorer.save(dev);
     dev.closeTag();
     // legend
     dev.openTag(SUMO_TAG_VIEWSETTINGS_LEGEND);
@@ -1106,6 +1135,12 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
         return false;
     }
     if (!(junctionColorer == v2.junctionColorer)) {
+        return false;
+    }
+    if (!(poiColorer == v2.poiColorer)) {
+        return false;
+    }
+    if (!(polyColorer == v2.polyColorer)) {
         return false;
     }
     if (drawLinkTLIndex != v2.drawLinkTLIndex) {

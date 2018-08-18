@@ -105,12 +105,7 @@ GUIPointOfInterest::drawGL(const GUIVisualizationSettings& s) const {
     }
     glPushName(getGlID());
     glPushMatrix();
-    // set color depending of selection
-    if (gSelected.isSelected(GLO_POI, getGlID())) {
-        GLHelper::setColor(RGBColor(0, 0, 204));
-    } else {
-        GLHelper::setColor(getShapeColor());
-    }
+    setColor(s);
     glTranslated(x(), y(), getShapeLayer());
     glRotated(-getShapeNaviDegree(), 0, 0, 1);
 
@@ -140,6 +135,23 @@ GUIPointOfInterest::drawGL(const GUIVisualizationSettings& s) const {
         }
     }
     glPopName();
+}
+
+
+void
+GUIPointOfInterest::setColor(const GUIVisualizationSettings& s) const {
+    const GUIColorer& c = s.poiColorer;
+    const int active = c.getActive();
+    if (s.netedit && active != 1 && gSelected.isSelected(GLO_POI, getGlID())) {
+        // override with special colors (unless the color scheme is based on selection)
+        GLHelper::setColor(RGBColor(0, 0, 204));
+    } else if (active == 0) {
+        GLHelper::setColor(getShapeColor());
+    } else if (active == 1) {
+        GLHelper::setColor(c.getScheme().getColor(gSelected.isSelected(GLO_POI, getGlID())));
+    } else {
+        GLHelper::setColor(c.getScheme().getColor(0));
+    }
 }
 
 /****************************************************************************/

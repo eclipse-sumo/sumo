@@ -309,6 +309,20 @@ private:
     std::vector<FXButton*> myJunctionButtons;
     FXCheckButton* myJunctionColorInterpolation;
 
+    FXComboBox* myPOIColorMode, *myPOIShapeDetail;
+    FXVerticalFrame* myPOIColorSettingFrame;
+    std::vector<FXColorWell*> myPOIColors;
+    std::vector<FXRealSpinner*> myPOIThresholds;
+    std::vector<FXButton*> myPOIButtons;
+    FXCheckButton* myPOIColorInterpolation;
+
+    FXComboBox* myPolyColorMode, *myPolyShapeDetail;
+    FXVerticalFrame* myPolyColorSettingFrame;
+    std::vector<FXColorWell*> myPolyColors;
+    std::vector<FXRealSpinner*> myPolyThresholds;
+    std::vector<FXButton*> myPolyButtons;
+    FXCheckButton* myPolyColorInterpolation;
+
     FXCheckButton* myShowLane2Lane;
     FXCheckButton* myDrawJunctionShape;
     FXCheckButton* myDrawCrossingsAndWalkingAreas;
