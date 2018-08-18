@@ -75,6 +75,8 @@ def main(options):
 
     data = defaultdict(lambda : ([], [], [])) # vehID -> (times, speeds, distances) 
     for timestep in parse(options.fcdfile, 'timestep'):
+        if timestep.vehicle is None:
+            continue
         for vehicle in timestep.vehicle:
             prevTime = 0
             prevSpeed = 0
