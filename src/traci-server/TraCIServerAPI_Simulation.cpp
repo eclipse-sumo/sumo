@@ -195,7 +195,7 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
                 if (!server.readTypeCheckingInt(inputStorage, routingMode)) {
                     return server.writeErrorStatusCmd(CMD_GET_SIM_VARIABLE, "Retrieval of a route requires an integer as fifth parameter.", outputStorage);
                 }
-                writeStage(server.getWrapperStorage(), libsumo::Simulation::findRoute(from, to, vtype, TIME2STEPS(depart), routingMode));
+                writeStage(server.getWrapperStorage(), libsumo::Simulation::findRoute(from, to, vtype, depart, routingMode));
                 break;
             }
             case FIND_INTERMODAL_ROUTE: {
@@ -247,7 +247,7 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
                 if (!server.readTypeCheckingString(inputStorage, destStop)) {
                     return server.writeErrorStatusCmd(CMD_GET_SIM_VARIABLE, "Retrieval of a route requires a string as thirteenth parameter.", outputStorage);
                 }
-                const std::vector<libsumo::TraCIStage> result = libsumo::Simulation::findIntermodalRoute(from, to, modes, TIME2STEPS(depart), routingMode, speed, walkFactor, departPos, arrivalPos, departPosLat, ptype, vtype, destStop);
+                const std::vector<libsumo::TraCIStage> result = libsumo::Simulation::findIntermodalRoute(from, to, modes, depart, routingMode, speed, walkFactor, departPos, arrivalPos, departPosLat, ptype, vtype, destStop);
                 server.getWrapperStorage().writeUnsignedByte(TYPE_COMPOUND);
                 server.getWrapperStorage().writeInt((int)result.size());
                 for (const libsumo::TraCIStage s : result) {

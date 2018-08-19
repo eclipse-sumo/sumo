@@ -975,13 +975,13 @@ MSEdge::getViaSuccessors(SUMOVehicleClass vClass) const {
     // instantiate vector
     MSConstEdgePairVector& result = myClassesViaSuccessorMap[vClass];
     // this vClass is requested for the first time. rebuild all successors
-    for (const MSEdge* e : mySuccessors) {
-        if (e->isTazConnector()) {
-            result.push_back(std::make_pair(e, e));
+    for (const auto& viaPair : myViaSuccessors) {
+        if (viaPair.first->isTazConnector()) {
+            result.push_back(viaPair);
         } else {
-            const std::vector<MSLane*>* allowed = allowedLanes(e, vClass);
+            const std::vector<MSLane*>* allowed = allowedLanes(viaPair.first, vClass);
             if (allowed != nullptr && allowed->size() > 0) {
-                result.push_back(std::make_pair(e, e));
+                result.push_back(viaPair);
             }
         }
     }

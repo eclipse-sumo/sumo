@@ -155,7 +155,7 @@ public:
             time += edgeEffort;
             std::cout << iEdge->getID() << "(" << iEdge->getLine() << "): " << edgeEffort << std::endl;
         }
-        std::cout << TIME2STEPS(msTime) << " trip from " << from->getID() << " to " << to->getID()
+        std::cout << TIME2STEPS(msTime) << " trip from " << from->getID() << " to " << (to != nullptr ? to->getID() : stopID)
                   << " departPos=" << trip.departPos
                   << " arrivalPos=" << trip.arrivalPos
                   << " edges=" << toString(intoEdges)
