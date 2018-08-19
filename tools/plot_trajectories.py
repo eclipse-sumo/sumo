@@ -25,8 +25,8 @@ import os
 from collections import defaultdict
 from optparse import OptionParser
 import matplotlib.pyplot as plt
+from xml.sax import handler, parse
 
-from sumolib.xml import parse
 
 def getOptions(args=None):
     optParser = OptionParser()
@@ -56,6 +56,42 @@ def write_csv(data, fname):
                 f.write(" ".join(map(str, x)) + "\n")
             f.write('\n')
 
+
+class FCDReader(handler.ContentHandler):
+    def __init__(self, options):
+        self._time = None
+        self.routes = defaultdict(list) # vehID -> recorded edges
+        self.data = defaultdict(lambda : ([], [], [])) # vehID -> (times, speeds, distances) 
+        self._options = options
+
+    def startElement(self, name, attrs):
+        if name == 'timestep':
+            self._time = float(attrs["time"])
+        if name == 'vehicle':
+            vehID = attrs["id"]
+            speed = float(attrs["speed"])
+            lane = attrs["lane"]
+            prevTime = self._time
+            prevSpeed = speed
+            prevDist = 0
+            if vehID in self.data:
+                prevTime = self.data[vehID][0][-1]
+                prevSpeed = self.data[vehID][1][-1]
+                prevDist = self.data[vehID][2][-1]
+            self.data[vehID][0].append(self._time)
+            self.data[vehID][1].append(speed)
+
+            if self._options.ballistic:
+                avgSpeed = (speed + prevSpeed) / 2
+            else:
+                avgSpeed = speed
+
+            self.data[vehID][2].append(prevDist + (self._time - prevTime) * avgSpeed)
+            edge = lane[0:lane.rfind('_')]
+            if len(self.routes[vehID]) == 0 or self.routes[vehID][-1] != edge:
+                self.routes[vehID].append(edge)
+
+
 def main(options):
     plt.figure(figsize=(14, 9), dpi=100)
 
@@ -77,38 +113,13 @@ def main(options):
     else:
         sys.exit("unsupported plot type '%s'" % options.ttype)
 
-    routes = defaultdict(list) # vehID -> recorded edges
-    data = defaultdict(lambda : ([], [], [])) # vehID -> (times, speeds, distances) 
-    for timestep in parse(options.fcdfile, 'timestep'):
-        if timestep.vehicle is None:
-            continue
-        for vehicle in timestep.vehicle:
-            time = float(timestep.time)
-            speed = float(vehicle.speed)
-            prevTime = time
-            prevSpeed = speed
-            prevDist = 0
-            if vehicle.id in data:
-                prevTime = data[vehicle.id][0][-1]
-                prevSpeed = data[vehicle.id][1][-1]
-                prevDist = data[vehicle.id][2][-1]
-            data[vehicle.id][0].append(time)
-            data[vehicle.id][1].append(speed)
+    fcdReader = FCDReader(options)
+    parse(options.fcdfile, fcdReader)
 
-            if options.ballistic:
-                avgSpeed = (speed + prevSpeed) / 2
-            else:
-                avgSpeed = speed
-            data[vehicle.id][2].append(prevDist + (time - prevTime) * avgSpeed)
-            edge = vehicle.lane[0:vehicle.lane.rfind('_')]
-            if len(routes[vehicle.id]) == 0 or routes[vehicle.id][-1] != edge:
-                routes[vehicle.id].append(edge)
-
-
-    for vehID, d in data.items():
+    for vehID, d in fcdReader.data.items():
         if options.filterRoute is not None:
             skip = False
-            route = routes[vehID]
+            route = fcdReader.routes[vehID]
             for required in options.filterRoute:
                 if not required in route:
                     if vehID == "cg3_cg1_35.47":
@@ -121,7 +132,7 @@ def main(options):
 
     plt.savefig(options.output)
     if options.csv_output is not None:
-        write_csv(data, options.csv_output)
+        write_csv(fcdReader.data, options.csv_output)
     if options.show:
         plt.show()
 
