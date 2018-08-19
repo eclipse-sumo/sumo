@@ -264,6 +264,50 @@ def parse_fast(xmlfile, element_name, attrnames, warn=False, optional=False):
                 yield Record(*m.groups())
 
 
+def parse_fast_nested(xmlfile, element_name, attrnames, element_name2, attrnames2, warn=False, optional=False):
+    """
+    Parses the given attrnames from all elements with element_name
+    @Note: The element must be on its own line and the attributes must appear in
+    the given order.
+    @Example: parse_fast('plain.edg.xml', 'edge', ['id', 'speed'])
+    """
+    prefixedAttrnames = [_prefix_keyword(a, warn) for a in attrnames]
+    prefixedAttrnames2 = [_prefix_keyword(a, warn) for a in attrnames2]
+
+    if optional:
+        pattern = ''.join(['<%s' % element_name] +
+                          ['(\\s+%s="(?P<%s>[^"]*?)")?' % a for a in zip(attrnames, prefixedAttrnames)])
+        pattern2 = ''.join(['<%s' % element_name2] +
+                          ['(\\s+%s="(?P<%s>[^"]*?)")?' % a for a in zip(attrnames2, prefixedAttrnames2)])
+    else:
+        pattern = '.*'.join(['<%s' % element_name] +
+                            ['%s="([^"]*)"' % attr for attr in attrnames])
+        pattern2 = '.*'.join(['<%s' % element_name2] +
+                            ['%s="([^"]*)"' % attr for attr in attrnames2])
+
+    Record = namedtuple(_prefix_keyword(element_name, warn), prefixedAttrnames)
+    Record2 = namedtuple(_prefix_keyword(element_name2, warn), prefixedAttrnames2)
+
+    reprog = re.compile(pattern)
+    reprog2 = re.compile(pattern2)
+
+    record = None
+    for line in open(xmlfile):
+        m = reprog.search(line)
+        if m:
+            if optional:
+                record = Record(**m.groupdict())
+            else:
+                record = Record(*m.groups())
+        else:
+            m2 = reprog2.search(line)
+            if m2:
+                if optional:
+                    yield record, Record2(**m2.groupdict())
+                else:
+                    yield record, Record2(*m2.groups())
+
+
 def writeHeader(outf, script, root=None, schemaPath=None):
     outf.write("""<?xml version="1.0" encoding="UTF-8"?>
 <!-- generated on %s by %s
