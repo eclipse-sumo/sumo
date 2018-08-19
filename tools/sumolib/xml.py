@@ -238,14 +238,7 @@ def average(elements, attrname):
     else:
         raise Exception("average of 0 elements is not defined")
 
-
-def parse_fast(xmlfile, element_name, attrnames, warn=False, optional=False):
-    """
-    Parses the given attrnames from all elements with element_name
-    @Note: The element must be on its own line and the attributes must appear in
-    the given order.
-    @Example: parse_fast('plain.edg.xml', 'edge', ['id', 'speed'])
-    """
+def _createRecordAndPattern(element_name, attrnames, warn, optional):
     prefixedAttrnames = [_prefix_keyword(a, warn) for a in attrnames]
     if optional:
         pattern = ''.join(['<%s' % element_name] +
@@ -255,6 +248,17 @@ def parse_fast(xmlfile, element_name, attrnames, warn=False, optional=False):
                             ['%s="([^"]*)"' % attr for attr in attrnames])
     Record = namedtuple(_prefix_keyword(element_name, warn), prefixedAttrnames)
     reprog = re.compile(pattern)
+    return Record, reprog
+
+
+def parse_fast(xmlfile, element_name, attrnames, warn=False, optional=False):
+    """
+    Parses the given attrnames from all elements with element_name
+    @Note: The element must be on its own line and the attributes must appear in
+    the given order.
+    @Example: parse_fast('plain.edg.xml', 'edge', ['id', 'speed'])
+    """
+    Record, reprog = _createRecordAndPattern(element_name, attrnames, warn, optional)
     for line in open(xmlfile):
         m = reprog.search(line)
         if m:
@@ -267,30 +271,13 @@ def parse_fast(xmlfile, element_name, attrnames, warn=False, optional=False):
 def parse_fast_nested(xmlfile, element_name, attrnames, element_name2, attrnames2, warn=False, optional=False):
     """
     Parses the given attrnames from all elements with element_name
+    And attrnames2 from element_name2 where element_name2 is a child element of element_name
     @Note: The element must be on its own line and the attributes must appear in
     the given order.
-    @Example: parse_fast('plain.edg.xml', 'edge', ['id', 'speed'])
+    @Example: parse_fast_nested('fcd.xml', 'timestep', ['time'], 'vehicle', ['id', 'speed', 'lane']):
     """
-    prefixedAttrnames = [_prefix_keyword(a, warn) for a in attrnames]
-    prefixedAttrnames2 = [_prefix_keyword(a, warn) for a in attrnames2]
-
-    if optional:
-        pattern = ''.join(['<%s' % element_name] +
-                          ['(\\s+%s="(?P<%s>[^"]*?)")?' % a for a in zip(attrnames, prefixedAttrnames)])
-        pattern2 = ''.join(['<%s' % element_name2] +
-                          ['(\\s+%s="(?P<%s>[^"]*?)")?' % a for a in zip(attrnames2, prefixedAttrnames2)])
-    else:
-        pattern = '.*'.join(['<%s' % element_name] +
-                            ['%s="([^"]*)"' % attr for attr in attrnames])
-        pattern2 = '.*'.join(['<%s' % element_name2] +
-                            ['%s="([^"]*)"' % attr for attr in attrnames2])
-
-    Record = namedtuple(_prefix_keyword(element_name, warn), prefixedAttrnames)
-    Record2 = namedtuple(_prefix_keyword(element_name2, warn), prefixedAttrnames2)
-
-    reprog = re.compile(pattern)
-    reprog2 = re.compile(pattern2)
-
+    Record, reprog = _createRecordAndPattern(element_name, attrnames, warn, optional)
+    Record2, reprog2 = _createRecordAndPattern(element_name2, attrnames2, warn, optional)
     record = None
     for line in open(xmlfile):
         m2 = reprog2.search(line)
