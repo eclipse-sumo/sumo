@@ -218,11 +218,21 @@ MsgHandler::isRetriever(OutputDevice* retriever) const {
 
 void 
 MsgHandler::removeRetrieverFromAllInstances(OutputDevice* out) {
-    myDebugInstance->removeRetriever(out);
-    myGLDebugInstance->removeRetriever(out);
-    myErrorInstance->removeRetriever(out);
-    myWarningInstance->removeRetriever(out);
-    myMessageInstance->removeRetriever(out);
+    if (myDebugInstance != nullptr) {
+        myDebugInstance->removeRetriever(out);
+    }
+    if (myGLDebugInstance != nullptr) {
+        myGLDebugInstance->removeRetriever(out);
+    }
+    if (myErrorInstance != nullptr) {
+        myErrorInstance->removeRetriever(out);
+    }
+    if (myWarningInstance != nullptr) {
+        myWarningInstance->removeRetriever(out);
+    }
+    if (myMessageInstance != nullptr) {
+        myMessageInstance->removeRetriever(out);
+    }
 }
 
 void

@@ -214,7 +214,7 @@ OutputDevice::close() {
             break;
         }
     }
-    //MsgHandler::removeRetrieverFromAllInstances(this);
+    MsgHandler::removeRetrieverFromAllInstances(this);
     delete this;
 }
 
