@@ -75,21 +75,25 @@ class FCDReader(handler.ContentHandler):
             prevSpeed = speed
             prevDist = 0
             if vehID in self.data:
-                prevTime = self.data[vehID][0][-1]
-                prevSpeed = self.data[vehID][1][-1]
-                prevDist = self.data[vehID][2][-1]
-            self.data[vehID][0].append(self._time)
-            self.data[vehID][1].append(speed)
+                vehData = self.data[vehID]
+                prevTime = vehData[0][-1]
+                prevSpeed = vehData[1][-1]
+                prevDist = vehData[2][-1]
+            else:
+                vehData = self.data[vehID]
+            vehData[0].append(self._time)
+            vehData[1].append(speed)
 
             if self._options.ballistic:
                 avgSpeed = (speed + prevSpeed) / 2
             else:
                 avgSpeed = speed
 
-            self.data[vehID][2].append(prevDist + (self._time - prevTime) * avgSpeed)
+            vehData[2].append(prevDist + (self._time - prevTime) * avgSpeed)
             edge = lane[0:lane.rfind('_')]
-            if len(self.routes[vehID]) == 0 or self.routes[vehID][-1] != edge:
-                self.routes[vehID].append(edge)
+            vehRoute = self.routes[vehID]
+            if len(vehRoute) == 0 or vehRoute[-1] != edge:
+                vehRoute.append(edge)
 
 
 def main(options):
