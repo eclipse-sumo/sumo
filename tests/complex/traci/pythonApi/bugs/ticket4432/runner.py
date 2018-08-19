@@ -33,29 +33,41 @@ sumo = sumolib.checkBinary('sumo')
 def countWrittenTrips(fname):
     return len(list(sumolib.xml.parse_fast(fname, 'tripinfo', ['id'])))
 
+def lastLine(fname):
+    lines = open(fname).readlines()
+    return None if len(lines) == 0 else lines[-1]
+
 opts = [
     '-n', 'input_net.net.xml',
     '-r', 'input_routes.rou.xml',
     '--no-step-log',
+    '--duration-log.statistics',
     '-S', '-Q',
     ]
 
-traci.start([sumo] + opts + ['--tripinfo-output', 'tripinfos.xml'])
+
+traci.start(['sumo'] + opts + ['--tripinfo-output', 'tripinfos.xml', '-l', 'log']
+        #+ ['--save-configuration', 'debug.sumocfg']
+        )
 
 
 while traci.simulation.getMinExpectedNumber() > 0:
     traci.simulationStep();
 
 print("tripinfos at last step: %s" % countWrittenTrips('tripinfos.xml'))
-traci.load(opts + ['--tripinfo-output', 'tripinfos2.xml'])
+print("logfile at last step: %s" % lastLine('log'))
+traci.load(opts + ['--tripinfo-output', 'tripinfos2.xml', '-l', 'log2'])
 print("tripinfos after load: %s" % countWrittenTrips('tripinfos.xml'))
+print("logfile after load: %s" % lastLine('log'))
 
 while traci.simulation.getMinExpectedNumber() > 0:
     traci.simulationStep();
 print("tripinfos2 at last step: %s" % countWrittenTrips('tripinfos2.xml'))
+print("logfile2 at last step: %s" % lastLine('log2'))
 
 traci.close();
 print("tripinfos2 after close: %s" % countWrittenTrips('tripinfos2.xml'))
+print("logfile2 after close: %s" % lastLine('log2'))
 
 # done
 traci.close()
