@@ -36,12 +36,16 @@ def getOptions(args=None):
     optParser.add_option("-o", "--output", help="outputfile for saving plots", default="plot.png")
     optParser.add_option("--csv-output", dest="csv_output", help="write plot as csv", metavar="FILE")
     optParser.add_option("-b", "--ballistic", action="store_true", default=False, help="perform ballistic integration of distance")
+    optParser.add_option("--filter-route", dest="filterRoute", help="only export trajectories that pass the given list of edges (regardless of gaps)")
     optParser.add_option("-v", "--verbose", action="store_true", default=False, help="tell me what you are doing")
 
     options, args = optParser.parse_args(args=args)
     if len(args) != 1:
         sys.exit("mandatory argument FCD_FILE missing")
     options.fcdfile = args[0]
+
+    if options.filterRoute is not None:
+        options.filterRoute = options.filterRoute.split(',')
     return options
 
 def write_csv(data, fname):
@@ -73,16 +77,17 @@ def main(options):
     else:
         sys.exit("unsupported plot type '%s'" % options.ttype)
 
+    routes = defaultdict(list) # vehID -> recorded edges
     data = defaultdict(lambda : ([], [], [])) # vehID -> (times, speeds, distances) 
     for timestep in parse(options.fcdfile, 'timestep'):
         if timestep.vehicle is None:
             continue
         for vehicle in timestep.vehicle:
-            prevTime = 0
-            prevSpeed = 0
-            prevDist = 0
             time = float(timestep.time)
             speed = float(vehicle.speed)
+            prevTime = time
+            prevSpeed = speed
+            prevDist = 0
             if vehicle.id in data:
                 prevTime = data[vehicle.id][0][-1]
                 prevSpeed = data[vehicle.id][1][-1]
@@ -95,9 +100,23 @@ def main(options):
             else:
                 avgSpeed = speed
             data[vehicle.id][2].append(prevDist + (time - prevTime) * avgSpeed)
+            edge = vehicle.lane[0:vehicle.lane.rfind('_')]
+            if len(routes[vehicle.id]) == 0 or routes[vehicle.id][-1] != edge:
+                routes[vehicle.id].append(edge)
 
 
-    for d in data.values():
+    for vehID, d in data.items():
+        if options.filterRoute is not None:
+            skip = False
+            route = routes[vehID]
+            for required in options.filterRoute:
+                if not required in route:
+                    if vehID == "cg3_cg1_35.47":
+                        print("skip cg3_cg1_35.47 due to required '%s' (route=%s)" % (required, route))
+                    skip = True
+                    break;
+            if skip:
+                continue
         plt.plot(d[xdata], d[ydata])
 
     plt.savefig(options.output)
