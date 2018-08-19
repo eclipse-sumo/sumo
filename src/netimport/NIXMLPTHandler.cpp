@@ -101,7 +101,7 @@ NIXMLPTHandler::myEndElement(int element) {
             myCurrentStop = 0;
             break;
         case SUMO_TAG_PT_LINE:
-            myCurrentLine->setMyNumOfStops(myCurrentLine->getStops().size() / myCurrentCompletion);
+            myCurrentLine->setMyNumOfStops((int)(myCurrentLine->getStops().size() / myCurrentCompletion));
             myCurrentLine = 0;
             break;
         default:

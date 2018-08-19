@@ -184,6 +184,9 @@ public:
         SubscriptionResults myResults;
         ContextSubscriptionResults myContextResults;
         SubscriptionResults& myActiveResults;
+    private:
+        /// @brief Invalidated assignment operator
+        SubscriptionWrapper& operator=(const SubscriptionWrapper& s) = delete;
     };
 
 private:

@@ -619,8 +619,8 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void 
-GNEConnection::mouseOverObject(const GUIVisualizationSettings& s) const {
-
+GNEConnection::mouseOverObject(const GUIVisualizationSettings&) const {
 }
+
 
 /****************************************************************************/

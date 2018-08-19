@@ -145,8 +145,8 @@ GNEShape::getHierarchyName() const {
 
 
 void 
-GNEShape::mouseOverObject(const GUIVisualizationSettings& s) const {
-
+GNEShape::mouseOverObject(const GUIVisualizationSettings&) const {
 }
+
 
 /****************************************************************************/

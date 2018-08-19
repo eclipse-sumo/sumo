@@ -280,8 +280,6 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
     if (value == getAttribute(key)) {
         return; //avoid needless changes, later logic relies on the fact that attributes have changed
     }
-    // obtain NBCrossing
-    NBNode::Crossing* crossing = myParentJunction->getNBNode()->getCrossing(myNBCrossingID);
     switch (key) {
         case SUMO_ATTR_ID:
             throw InvalidArgument("Modifying attribute '" + toString(key) + "' of " + toString(getTag()) + " isn't allowed");
@@ -551,8 +549,8 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void 
-GNECrossing::mouseOverObject(const GUIVisualizationSettings& s) const {
-
+GNECrossing::mouseOverObject(const GUIVisualizationSettings&) const {
 }
+
 
 /****************************************************************************/
