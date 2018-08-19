@@ -84,8 +84,8 @@ MSDevice_FCD::~MSDevice_FCD() {
 void 
 MSDevice_FCD::initEdgeFilter() {
     myEdgeFilterInitialized = true;
-    if (OptionsCont::getOptions().isSet("fcd-output.edge-filter.input-file")) {
-        const std::string file = OptionsCont::getOptions().getString("fcd-output.edge-filter.input-file");
+    if (OptionsCont::getOptions().isSet("fcd-output.filter-edges.input-file")) {
+        const std::string file = OptionsCont::getOptions().getString("fcd-output.filter-edges.input-file");
         std::ifstream strm(file.c_str());
         if (!strm.good()) {
             throw ProcessError("Could not load names of edges for filtering fcd-output from '" + file + "'.");

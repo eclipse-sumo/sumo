@@ -1,4 +1,4 @@
-Eclipse SUMO Version b11e2bd
+Eclipse SUMO Version 63dc31b
  Copyright (C) 2001-2018 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -56,7 +56,7 @@ Output Options:
                                          geo-coordinates (lon/lat)
   --fcd-output.signals                 Add the vehicle signal state to the FCD
                                          output (brake lights etc.)
-  --fcd-output.edge-filter.input-file FILE  Restrict fcd output to the edge
+  --fcd-output.filter-edges.input-file FILE  Restrict fcd output to the edge
                                          selection from the given input file
   --full-output FILE                   Save a lot of information for each
                                          timestep (very redundant)

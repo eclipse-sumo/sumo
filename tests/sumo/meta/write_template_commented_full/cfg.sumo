@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sun Aug 19 01:42:10 2018 by Eclipse SUMO Version b11e2bd
+<!-- generated on Sun Aug 19 02:07:43 2018 by Eclipse SUMO Version 63dc31b
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -100,7 +100,7 @@
         <fcd-output.signals value="false" type="BOOL"/>
 
         <!-- Restrict fcd output to the edge selection from the given input file -->
-        <fcd-output.edge-filter.input-file value="" type="FILE"/>
+        <fcd-output.filter-edges.input-file value="" type="FILE"/>
 
         <!-- Save a lot of information for each timestep (very redundant) -->
         <full-output value="" type="FILE"/>
