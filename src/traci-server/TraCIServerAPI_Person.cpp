@@ -166,15 +166,15 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
                 if (!server.readTypeCheckingString(inputStorage, edgeID)) {
                     return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "Second parameter (edge) requires a string.", outputStorage);
                 }
-                int depart;
-                if (!server.readTypeCheckingInt(inputStorage, depart)) {
-                    return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "Third parameter (depart) requires an integer.", outputStorage);
+                double depart;
+                if (!server.readTypeCheckingDouble(inputStorage, depart)) {
+                    return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "Third parameter (depart) requires a double.", outputStorage);
                 }
                 double pos;
                 if (!server.readTypeCheckingDouble(inputStorage, pos)) {
                     return server.writeErrorStatusCmd(CMD_SET_PERSON_VARIABLE, "Fourth parameter (position) requires a double.", outputStorage);
                 }
-                libsumo::Person::add(id, edgeID, pos, STEPS2TIME(depart), vTypeID);
+                libsumo::Person::add(id, edgeID, pos, depart, vTypeID);
             }
             break;
             case APPEND_STAGE: {

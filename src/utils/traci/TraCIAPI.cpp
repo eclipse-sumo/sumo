@@ -2918,9 +2918,6 @@ TraCIAPI::PersonScope::rerouteTraveltime(const std::string& personID) const {
 
 void
 TraCIAPI::PersonScope::add(const std::string& personID, const std::string& edgeID, double pos, double depart, const std::string typeID) {
-    if (depart > 0) {
-        depart *= 1000;
-    }
     tcpip::Storage content;
     content.writeUnsignedByte(TYPE_COMPOUND);
     content.writeInt(4);
@@ -2928,8 +2925,8 @@ TraCIAPI::PersonScope::add(const std::string& personID, const std::string& edgeI
     content.writeString(typeID);
     content.writeUnsignedByte(TYPE_STRING);
     content.writeString(edgeID);
-    content.writeUnsignedByte(TYPE_INTEGER);
-    content.writeInt((int)depart);
+    content.writeUnsignedByte(TYPE_DOUBLE);
+    content.writeDouble(depart);
     content.writeUnsignedByte(TYPE_DOUBLE);
     content.writeDouble(pos);
     myParent.send_commandSetValue(CMD_SET_PERSON_VARIABLE, ADD, personID, content);
