@@ -293,19 +293,19 @@ def parse_fast_nested(xmlfile, element_name, attrnames, element_name2, attrnames
 
     record = None
     for line in open(xmlfile):
-        m = reprog.search(line)
-        if m:
+        m2 = reprog2.search(line)
+        if m2:
             if optional:
-                record = Record(**m.groupdict())
+                yield record, Record2(**m2.groupdict())
             else:
-                record = Record(*m.groups())
+                yield record, Record2(*m2.groups())
         else:
-            m2 = reprog2.search(line)
-            if m2:
+            m = reprog.search(line)
+            if m:
                 if optional:
-                    yield record, Record2(**m2.groupdict())
+                    record = Record(**m.groupdict())
                 else:
-                    yield record, Record2(*m2.groups())
+                    record = Record(*m.groups())
 
 
 def writeHeader(outf, script, root=None, schemaPath=None):
