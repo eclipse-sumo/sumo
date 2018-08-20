@@ -10,7 +10,7 @@
 /// @file    MSCFModel_Rail.cpp
 /// @author  Gregor L\"ammel
 /// @author  Leander Flamm
-/// @date    Tue, 12 Jul 2018
+/// @date    Tue, 08 Feb 2017
 /// @version $Id$
 ///
 // <description missing>
