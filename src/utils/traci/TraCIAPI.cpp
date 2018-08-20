@@ -2727,12 +2727,12 @@ TraCIAPI::VehicleScope::setStop(const std::string vehicleID, const std::string e
     content.writeString(edgeID);
     content.writeUnsignedByte(TYPE_DOUBLE);
     content.writeDouble(endPos);
-    content.writeUnsignedByte(TYPE_UBYTE);
-    content.writeUnsignedByte(laneIndex);
+    content.writeUnsignedByte(TYPE_BYTE);
+    content.writeByte(laneIndex);
     content.writeUnsignedByte(TYPE_INTEGER);
     content.writeInt(duration);
-    content.writeUnsignedByte(TYPE_INTEGER);
-    content.writeInt(flags);
+    content.writeUnsignedByte(TYPE_BYTE);
+    content.writeByte(flags);
     content.writeUnsignedByte(TYPE_DOUBLE);
     content.writeDouble(startPos);
     content.writeUnsignedByte(TYPE_INTEGER);
