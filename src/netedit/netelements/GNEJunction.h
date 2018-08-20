@@ -250,6 +250,9 @@ public:
     /// @brief get GNECrossing if exist, and if not create it if create is enabled
     GNECrossing* retrieveGNECrossing(NBNode::Crossing* crossing, bool createIfNoExist = true);
 
+    /// @brief mark connections as deprecated
+    void markConnectionsDeprecated(bool includingNeighbours);
+
 private:
     /// @brief A reference to the represented junction
     NBNode& myNBNode;
