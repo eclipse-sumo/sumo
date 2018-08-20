@@ -584,7 +584,7 @@ public:
     SUMOAbstractRouter<MSEdge, SUMOVehicle>& getRouterEffort(
         const MSEdgeVector& prohibited = MSEdgeVector()) const;
     MSPedestrianRouter& getPedestrianRouter(const MSEdgeVector& prohibited = MSEdgeVector()) const;
-    MSIntermodalRouter& getIntermodalRouter(const MSEdgeVector& prohibited = MSEdgeVector()) const;
+    MSIntermodalRouter& getIntermodalRouter(const int routingMode=0, const MSEdgeVector& prohibited = MSEdgeVector()) const;
 
     static void adaptIntermodalRouter(MSIntermodalRouter& router);
 
@@ -742,7 +742,7 @@ protected:
     mutable SUMOAbstractRouter<MSEdge, SUMOVehicle>* myRouterTT;
     mutable SUMOAbstractRouter<MSEdge, SUMOVehicle>* myRouterEffort;
     mutable MSPedestrianRouter* myPedestrianRouter;
-    mutable MSIntermodalRouter* myIntermodalRouter;
+    mutable std::map<int, MSIntermodalRouter*> myIntermodalRouter;
 
 
     /// @brief An RTree structure holding lane IDs

@@ -175,8 +175,7 @@ MSNet::MSNet(MSVehicleControl* vc, MSEventControl* beginOfTimestepEvents,
     myHasElevation(false),
     myRouterTT(0),
     myRouterEffort(0),
-    myPedestrianRouter(0),
-    myIntermodalRouter(0) {
+    myPedestrianRouter(0) {
     if (myInstance != 0) {
         throw ProcessError("A network was already constructed.");
     }
@@ -275,9 +274,11 @@ MSNet::~MSNet() {
     delete myEdgeWeights;
     delete myRouterTT;
     delete myRouterEffort;
-    if (myPedestrianRouter != nullptr) {
-        delete myPedestrianRouter;
+    delete myPedestrianRouter;
+    for (auto& router : myIntermodalRouter) {
+        delete router.second;
     }
+    myIntermodalRouter.clear();
     myLanesRTree.second.RemoveAll();
     clearAll();
     if (MSGlobals::gUseMesoSim) {
@@ -912,8 +913,8 @@ MSNet::getPedestrianRouter(const MSEdgeVector& prohibited) const {
 
 
 MSNet::MSIntermodalRouter&
-MSNet::getIntermodalRouter(const MSEdgeVector& prohibited) const {
-    if (myIntermodalRouter == 0) {
+MSNet::getIntermodalRouter(const int routingMode, const MSEdgeVector& prohibited) const {
+    if (myIntermodalRouter.count(routingMode) == 0) {
         int carWalk = 0;
         for (const std::string& opt : OptionsCont::getOptions().getStringVector("persontrip.transfer.car-walk")) {
             if (opt == "parkingAreas") {
@@ -924,10 +925,10 @@ MSNet::getIntermodalRouter(const MSEdgeVector& prohibited) const {
                 carWalk |= MSIntermodalRouter::Network::ALL_JUNCTIONS;
             }
         }
-        myIntermodalRouter = new MSIntermodalRouter(MSNet::adaptIntermodalRouter, carWalk);
+        myIntermodalRouter[routingMode] = new MSIntermodalRouter(MSNet::adaptIntermodalRouter, carWalk);
     }
-    myIntermodalRouter->prohibit(prohibited);
-    return *myIntermodalRouter;
+    myIntermodalRouter[routingMode]->prohibit(prohibited);
+    return *myIntermodalRouter[routingMode];
 }
 
 

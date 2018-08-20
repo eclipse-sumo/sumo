@@ -458,7 +458,6 @@ Simulation::findIntermodalRoute(const std::string& from, const std::string& to,
                                 const std::string& modes, double depart, const int routingMode, double speed, double walkFactor,
                                 double departPos, double arrivalPos, const double departPosLat,
                                 const std::string& pType, const std::string& vType, const std::string& destStop) {
-    UNUSED_PARAMETER(routingMode);
     UNUSED_PARAMETER(departPosLat);
     std::vector<TraCIStage> result;
     const MSEdge* const fromEdge = MSEdge::dictionary(from);
@@ -527,6 +526,7 @@ Simulation::findIntermodalRoute(const std::string& from, const std::string& to,
         throw TraCIException("Invalid arrival position " + toString(arrivalPos) + " for edge '" + to + "'.");
     }
     double minCost = std::numeric_limits<double>::max();
+    MSNet::MSIntermodalRouter& router = MSNet::getInstance()->getIntermodalRouter(routingMode);
     for (SUMOVehicleParameter* vehPar : pars) {
         std::vector<TraCIStage> resultCand;
         SUMOVehicle* vehicle = nullptr;
@@ -543,8 +543,8 @@ Simulation::findIntermodalRoute(const std::string& from, const std::string& to,
             }
         }
         std::vector<MSNet::MSIntermodalRouter::TripItem> items;
-        if (MSNet::getInstance()->getIntermodalRouter().compute(fromEdge, toEdge, departPos, arrivalPos, destStop,
-                    speed * walkFactor, vehicle, modeSet, departStep, items)) {
+        if (router.compute(fromEdge, toEdge, departPos, arrivalPos, destStop,
+                           speed * walkFactor, vehicle, modeSet, departStep, items)) {
             double cost = 0;
             for (std::vector<MSNet::MSIntermodalRouter::TripItem>::iterator it = items.begin(); it != items.end(); ++it) {
                 if (!it->edges.empty()) {
