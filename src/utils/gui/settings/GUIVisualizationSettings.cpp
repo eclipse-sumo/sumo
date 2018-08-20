@@ -412,10 +412,10 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     vehicleColorer.addScheme(GUIColorScheme("random", RGBColor::YELLOW, "", true));
 
     /// add person coloring schemes
-    personColorer.addScheme(GUIColorScheme("given person/type color", RGBColor::YELLOW, "", true));
-    personColorer.addScheme(GUIColorScheme("uniform", RGBColor::YELLOW, "", true));
-    personColorer.addScheme(GUIColorScheme("given/assigned person color", RGBColor::YELLOW, "", true));
-    personColorer.addScheme(GUIColorScheme("given/assigned type color", RGBColor::YELLOW, "", true));
+    personColorer.addScheme(GUIColorScheme("given person/type color", RGBColor::BLUE, "", true));
+    personColorer.addScheme(GUIColorScheme("uniform", RGBColor::BLUE, "", true));
+    personColorer.addScheme(GUIColorScheme("given/assigned person color", RGBColor::BLUE, "", true));
+    personColorer.addScheme(GUIColorScheme("given/assigned type color", RGBColor::BLUE, "", true));
     scheme = GUIColorScheme("by speed", RGBColor::RED);
     scheme.addColor(RGBColor::YELLOW, (double)(2.5 / 3.6));
     scheme.addColor(RGBColor::GREEN, (double)(5 / 3.6));
