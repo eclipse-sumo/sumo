@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sun Aug 19 02:07:43 2018 by Eclipse SUMO Version 63dc31b
+<!-- generated on Mon Aug 20 09:16:56 2018 by Eclipse SUMO Version 62765b5
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -319,7 +319,7 @@
         <persontrip.transfer.car-walk value="parkingAreas" type="STR"/>
 
         <!-- The probability for a vehicle to have a &apos;rerouting&apos; device -->
-        <device.rerouting.probability value="0" type="FLOAT"/>
+        <device.rerouting.probability value="-1" type="FLOAT"/>
 
         <!-- Assign a &apos;rerouting&apos; device to named vehicles -->
         <device.rerouting.explicit value="" synonymes="device.rerouting.knownveh" type="STR"/>
@@ -403,7 +403,7 @@
         <phemlight-path value="./PHEMlight/" type="FILE"/>
 
         <!-- The probability for a vehicle to have a &apos;emissions&apos; device -->
-        <device.emissions.probability value="0" type="FLOAT"/>
+        <device.emissions.probability value="-1" type="FLOAT"/>
 
         <!-- Assign a &apos;emissions&apos; device to named vehicles -->
         <device.emissions.explicit value="" synonymes="device.emissions.knownveh" type="STR"/>
@@ -415,7 +415,7 @@
 
     <communication>
         <!-- The probability for a vehicle to have a &apos;btreceiver&apos; device -->
-        <device.btreceiver.probability value="0" type="FLOAT"/>
+        <device.btreceiver.probability value="-1" type="FLOAT"/>
 
         <!-- Assign a &apos;btreceiver&apos; device to named vehicles -->
         <device.btreceiver.explicit value="" synonymes="device.btreceiver.knownveh" type="STR"/>
@@ -433,7 +433,7 @@
         <device.btreceiver.offtime value="0.64" type="FLOAT"/>
 
         <!-- The probability for a vehicle to have a &apos;btsender&apos; device -->
-        <device.btsender.probability value="0" type="FLOAT"/>
+        <device.btsender.probability value="-1" type="FLOAT"/>
 
         <!-- Assign a &apos;btsender&apos; device to named vehicles -->
         <device.btsender.explicit value="" synonymes="device.btsender.knownveh" type="STR"/>
@@ -445,7 +445,7 @@
 
     <battery>
         <!-- The probability for a vehicle to have a &apos;battery&apos; device -->
-        <device.battery.probability value="0" type="FLOAT"/>
+        <device.battery.probability value="-1" type="FLOAT"/>
 
         <!-- Assign a &apos;battery&apos; device to named vehicles -->
         <device.battery.explicit value="" synonymes="device.battery.knownveh" type="STR"/>
@@ -457,7 +457,7 @@
 
     <example_device>
         <!-- The probability for a vehicle to have a &apos;example&apos; device -->
-        <device.example.probability value="0" type="FLOAT"/>
+        <device.example.probability value="-1" type="FLOAT"/>
 
         <!-- Assign a &apos;example&apos; device to named vehicles -->
         <device.example.explicit value="" synonymes="device.example.knownveh" type="STR"/>
@@ -472,7 +472,7 @@
 
     <ssm_device>
         <!-- The probability for a vehicle to have a &apos;ssm&apos; device -->
-        <device.ssm.probability value="0" type="FLOAT"/>
+        <device.ssm.probability value="-1" type="FLOAT"/>
 
         <!-- Assign a &apos;ssm&apos; device to named vehicles -->
         <device.ssm.explicit value="" synonymes="device.ssm.knownveh" type="STR"/>
@@ -502,7 +502,7 @@
 
     <toc_device>
         <!-- The probability for a vehicle to have a &apos;toc&apos; device -->
-        <device.toc.probability value="0" type="FLOAT"/>
+        <device.toc.probability value="-1" type="FLOAT"/>
 
         <!-- Assign a &apos;toc&apos; device to named vehicles -->
         <device.toc.explicit value="" synonymes="device.toc.knownveh" type="STR"/>
@@ -535,7 +535,7 @@
 
     <driver_state_device>
         <!-- The probability for a vehicle to have a &apos;driverstate&apos; device -->
-        <device.driverstate.probability value="0" type="FLOAT"/>
+        <device.driverstate.probability value="-1" type="FLOAT"/>
 
         <!-- Assign a &apos;driverstate&apos; device to named vehicles -->
         <device.driverstate.explicit value="" synonymes="device.driverstate.knownveh" type="STR"/>
@@ -571,7 +571,7 @@
 
     <bluelight_device>
         <!-- The probability for a vehicle to have a &apos;bluelight&apos; device -->
-        <device.bluelight.probability value="0" type="FLOAT"/>
+        <device.bluelight.probability value="-1" type="FLOAT"/>
 
         <!-- Assign a &apos;bluelight&apos; device to named vehicles -->
         <device.bluelight.explicit value="" synonymes="device.bluelight.knownveh" type="STR"/>
@@ -586,7 +586,7 @@
 
     <fcd_device>
         <!-- The probability for a vehicle to have a &apos;fcd&apos; device -->
-        <device.fcd.probability value="0" type="FLOAT"/>
+        <device.fcd.probability value="-1" type="FLOAT"/>
 
         <!-- Assign a &apos;fcd&apos; device to named vehicles -->
         <device.fcd.explicit value="" synonymes="device.fcd.knownveh" type="STR"/>
@@ -689,6 +689,9 @@
 
         <!-- The aggregation period for value tracker windows -->
         <tracker-interval value="1" type="FLOAT"/>
+
+        <!-- Start with an OpenSceneGraph view instead of the regular 2D view -->
+        <osg-view value="false" type="BOOL"/>
 
         <!-- Enable ovelay for screen recognition -->
         <gui-testing value="false" type="BOOL"/>

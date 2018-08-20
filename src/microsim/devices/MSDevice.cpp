@@ -110,7 +110,7 @@ MSDevice::cleanupAll() {
 
 void
 MSDevice::insertDefaultAssignmentOptions(const std::string& deviceName, const std::string& optionsTopic, OptionsCont& oc) {
-    oc.doRegister("device." + deviceName + ".probability", new Option_Float(0.));//!!! describe
+    oc.doRegister("device." + deviceName + ".probability", new Option_Float(-1.0));// (default: no need to call RNG)
     oc.addDescription("device." + deviceName + ".probability", optionsTopic, "The probability for a vehicle to have a '" + deviceName + "' device");
 
     oc.doRegister("device." + deviceName + ".explicit", new Option_String());//!!! describe
@@ -131,7 +131,7 @@ MSDevice::equippedByDefaultAssignmentOptions(const OptionsCont& oc, const std::s
         numberGiven = true;
         haveByNumber = MSNet::getInstance()->getVehicleControl().getQuota(oc.getFloat("device." + deviceName + ".probability")) == 1;
     } else {
-        if (oc.exists("device." + deviceName + ".probability") && oc.getFloat("device." + deviceName + ".probability") != 0) {
+        if (oc.exists("device." + deviceName + ".probability") && oc.getFloat("device." + deviceName + ".probability") >= 0) {
             numberGiven = true;
             haveByNumber = RandHelper::rand(&myEquipmentRNG) <= oc.getFloat("device." + deviceName + ".probability");
         }
