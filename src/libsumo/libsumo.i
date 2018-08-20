@@ -241,6 +241,7 @@ def simulationStep(step=0):
 %include "std_string.i"
 %include "std_vector.i"
 %template(StringVector) std::vector<std::string>;
+%template(TraCIPhaseVector) std::vector<libsumo::TraCIPhase>;
 %template(TraCIStageVector) std::vector<libsumo::TraCIStage>;
 
 // exception handling

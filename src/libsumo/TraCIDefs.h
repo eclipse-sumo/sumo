@@ -202,6 +202,7 @@ typedef std::map<std::string, SubscriptionResults> ContextSubscriptionResults;
 
 class TraCIPhase {
 public:
+    TraCIPhase() {}
     TraCIPhase(const double _duration, const double _duration1, const double _duration2, const std::string& _phase)
         : duration(_duration), duration1(_duration1), duration2(_duration2), phase(_phase) {}
     ~TraCIPhase() {}
@@ -214,8 +215,8 @@ public:
 class TraCILogic {
 public:
     TraCILogic() {}
-    TraCILogic(const std::string& _subID, int _type, int _currentPhaseIndex)
-        : subID(_subID), type(_type), currentPhaseIndex(_currentPhaseIndex) {}
+    TraCILogic(const std::string& _subID, int _type, int _currentPhaseIndex, const std::vector<TraCIPhase>& _phases = std::vector<TraCIPhase>())
+        : subID(_subID), type(_type), currentPhaseIndex(_currentPhaseIndex), phases(_phases) {}
     ~TraCILogic() {}
 
     std::string subID;

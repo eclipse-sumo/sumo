@@ -912,12 +912,9 @@ TraCITestClient::testAPI() {
             answerLog << "      index=" << i << " link=" << j << " fromLane=" << links[i][j].fromLane << " viaLane=" << links[i][j].viaLane << " toLane=" << links[i][j].toLane << "\n";
         }
     }
-    libsumo::TraCILogic newLogic("custom", 0, 3);
-    newLogic.phases.push_back(libsumo::TraCIPhase(5, 5, 5, "rrrrrrr"));
-    newLogic.phases.push_back(libsumo::TraCIPhase(10, 5, 15, "ggggggg"));
-    newLogic.phases.push_back(libsumo::TraCIPhase(3, 3, 3, "GGGGGGG"));
-    newLogic.phases.push_back(libsumo::TraCIPhase(3, 3, 3, "yyyyyyy"));
-    trafficlights.setCompleteRedYellowGreenDefinition("n_m4", newLogic);
+    std::vector<libsumo::TraCIPhase> phases({ libsumo::TraCIPhase(5, 5, 5, "rrrrrrr"), libsumo::TraCIPhase(10, 5, 15, "ggggggg"),
+                                              libsumo::TraCIPhase(3, 3, 3, "GGGGGGG"), libsumo::TraCIPhase(3, 3, 3, "yyyyyyy") });
+    trafficlights.setCompleteRedYellowGreenDefinition("n_m4", libsumo::TraCILogic("custom", 0, 3, phases));
 
     std::vector<libsumo::TraCILogic> logics = trafficlights.getCompleteRedYellowGreenDefinition("n_m4");
     answerLog << "    completeDefinition:\n";
