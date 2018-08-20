@@ -449,6 +449,10 @@
 #define ROUTING_MODE_DEFAULT 0x00
 // use aggregated travel times from device.rerouting
 #define ROUTING_MODE_AGGREGATED 0x01
+// use loaded efforts
+#define ROUTING_MODE_EFFORT 0x02
+// use combined costs
+#define ROUTING_MODE_COMBINED 0x03
 
 // ****************************************
 // FILTER TYPES (for context subscription filters)
