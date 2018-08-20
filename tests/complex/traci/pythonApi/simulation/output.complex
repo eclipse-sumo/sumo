@@ -36,7 +36,7 @@ min#expected 6
 teleportStart ()
 #teleportEnd 0
 teleportEnd ()
-deltaT 1000
+deltaT 1
 boundary ((0.0, 0.0), (3500.0, 3904.56))
 convertRoad2D (-1.22, 3903.52)
 convertRoad3D (-1.22, 3903.52, 2.0)
@@ -56,7 +56,7 @@ getParameter 0.00
 getParameter parkingArea.capacity 6
 getParameter parkingArea.occupancy 0
 getBusStopWaiting 0
-findRoute Stage(stageType=3, line='', destStop='', edges=('o', '2o'), travelTime=738.4, cost=738.4, intended='', depart=-1.0)
+findRoute Stage(stageType=3, line='', destStop='', edges=('o', '2o'), travelTime=738.7359712230216, cost=738.7359712230216, intended='', depart=-1.0)
 findRoute with routing mode Stage(stageType=3, line='', destStop='', edges=('o', '2o'), travelTime=1455.254240391145, cost=1455.254240391145, intended='', depart=-1.0)
 findIntermodalRoute [Stage(stageType=2, line='', destStop='', edges=('footpath', 'footpath2'), travelTime=144.00000000000003, cost=144.00000000000003, intended='', depart=-1.0)]
 findIntermodalRoute (walk)
