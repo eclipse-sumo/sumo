@@ -117,7 +117,16 @@ public_walk_human_readable_time
 # Copy of car_public_walk
 bike_public_walk
 
+# back and forth using walkingarea
+walk_walkingareas
+
+# back and forth using normal vehicle connections
+walk_normal_connections
+
+# walk back and forth with implicit connectivity
+walk_no_connections
+
 # see #4314
-walk
+walk_strange_network
 intermodal_train_bus_walk
 errors
