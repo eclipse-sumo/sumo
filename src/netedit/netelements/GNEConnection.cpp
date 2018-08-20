@@ -552,7 +552,7 @@ GNEConnection::setGenericParametersStr(const std::string &value) {
             parsedParameters.push_back(stParam.next());
         }
         // Check that parsed parameters are exactly two and contains valid chracters
-        if(parsedParameters.size() == 2 && SUMOXMLDefinitions::isValidNetID(parsedParameters.front()) && SUMOXMLDefinitions::isValidAttribute(parsedParameters.back())) {
+        if(parsedParameters.size() == 2 && SUMOXMLDefinitions::isValidGenericParameterKey(parsedParameters.front()) && SUMOXMLDefinitions::isValidGenericParameterValue(parsedParameters.back())) {
             getNBEdgeConnection().setParameter(parsedParameters.front(), parsedParameters.back());
         }
     }

@@ -1236,8 +1236,14 @@ public:
     /// @brief whether the given string is a valid list of id for a network (empty aren't allowed)
     static bool isValidListOfNetIDs(const std::string& value);
 
-    /// @brief whether the given string is a valid lsit of id for an edge or vehicle type (empty aren't allowed)
+    /// @brief whether the given string is a valid list of ids for an edge or vehicle type (empty aren't allowed)
     static bool isValidListOfTypeID(const std::string& value);
+
+    /// @brief whether the given string is a valid key for a generic parameter
+    static bool isValidGenericParameterKey(const std::string& value);
+
+    /// @brief whether the given string is a valid value for a generic parameter
+    static bool isValidGenericParameterValue(const std::string& value);
 
     /// @brief return the junction id when given an edge of type internal, crossing or WalkingArea
     static std::string getJunctionIDFromInternalEdge(const std::string internalEdge);

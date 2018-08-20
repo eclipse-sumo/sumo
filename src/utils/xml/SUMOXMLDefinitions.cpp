@@ -798,19 +798,19 @@ SUMOXMLDefinitions::getEdgeIDFromLane(const std::string laneID) {
 
 bool
 SUMOXMLDefinitions::isValidNetID(const std::string& value) {
-    return value.size() > 0 && value.find_first_of(" \t\n\r|\\'\";,:!<>&*?") == std::string::npos;
+    return (value.size() > 0) && value.find_first_of(" \t\n\r|\\'\";,:!<>&*?") == std::string::npos;
 }
 
 
 bool
 SUMOXMLDefinitions::isValidVehicleID(const std::string& value) {
-    return value.size() > 0 && value.find_first_of(" \t\n\r|\\'\";,!<>&*?") == std::string::npos;
+    return (value.size() > 0) && value.find_first_of(" \t\n\r|\\'\";,!<>&*?") == std::string::npos;
 }
 
 
 bool
 SUMOXMLDefinitions::isValidTypeID(const std::string& value) {
-    return value.size() > 0 && value.find_first_of(" \t\n\r|\\'\";,<>&*?") == std::string::npos;
+    return (value.size() > 0) && value.find_first_of(" \t\n\r|\\'\";,<>&*?") == std::string::npos;
 }
 
 
@@ -859,6 +859,20 @@ SUMOXMLDefinitions::isValidListOfTypeID(const std::string& value) {
         }
         return true;
     }
+}
+
+
+bool 
+SUMOXMLDefinitions::isValidGenericParameterKey(const std::string& value) {
+    // Generic parameters should be freedom as possible (But key cannot be empty)
+    return (value.size() > 0) && value.find_first_of("\'\"<>") == std::string::npos;
+}
+
+
+bool 
+SUMOXMLDefinitions::isValidGenericParameterValue(const std::string& value) {
+    // Generic parameters should be freedom as possible
+    return value.find_first_of("\'\"<>") == std::string::npos;
 }
 
 /****************************************************************************/

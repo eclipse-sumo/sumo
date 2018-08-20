@@ -168,7 +168,7 @@ GNEGenericParameterDialog::GenericParametersValues::onCmdSetAttribute(FXObject* 
             // change key of Generic Parameter
             myGenericParameters->at(i).first = myGenericParameterRows.at(i)->keyField->getText().text();
             // change color of text field depending if key is valid or empty
-            if(myGenericParameters->at(i).first.empty() || SUMOXMLDefinitions::isValidNetID(myGenericParameters->at(i).first)) {
+            if(myGenericParameters->at(i).first.empty() || SUMOXMLDefinitions::isValidGenericParameterKey(myGenericParameters->at(i).first)) {
                 myGenericParameterRows.at(i)->keyField->setTextColor(FXRGB(0, 0, 0));
             } else {
                 myGenericParameterRows.at(i)->keyField->setTextColor(FXRGB(255, 0, 0));
@@ -178,7 +178,7 @@ GNEGenericParameterDialog::GenericParametersValues::onCmdSetAttribute(FXObject* 
             // change value of Generic Parameter
             myGenericParameters->at(i).second = myGenericParameterRows.at(i)->valueField->getText().text();
             // change color of text field depending if attribute is valid
-            if(SUMOXMLDefinitions::isValidAttribute(myGenericParameters->at(i).second)) {
+            if(SUMOXMLDefinitions::isValidGenericParameterValue(myGenericParameters->at(i).second)) {
                 myGenericParameterRows.at(i)->valueField->setTextColor(FXRGB(0, 0, 0));
             } else {
                 myGenericParameterRows.at(i)->valueField->setTextColor(FXRGB(255, 0, 0));
@@ -252,7 +252,7 @@ void
 GNEGenericParameterDialog::GenericParametersValues::GenericParameterRow::enableRow(const std::string &parameter, const std::string &value) const {
     // restore color and enable key field
     keyField->setText(parameter.c_str());
-    if(parameter.empty() || SUMOXMLDefinitions::isValidNetID(parameter)) {
+    if(parameter.empty() || SUMOXMLDefinitions::isValidGenericParameterKey(parameter)) {
         keyField->setTextColor(FXRGB(0, 0, 0));
     } else {
         keyField->setTextColor(FXRGB(255, 0, 0));
@@ -260,7 +260,7 @@ GNEGenericParameterDialog::GenericParametersValues::GenericParameterRow::enableR
     keyField->enable();
     // restore color and enable value field
     valueField->setText(value.c_str());
-    if(SUMOXMLDefinitions::isValidAttribute(value)) {
+    if(SUMOXMLDefinitions::isValidGenericParameterValue(value)) {
         valueField->setTextColor(FXRGB(0, 0, 0));
     } else {
         valueField->setTextColor(FXRGB(255, 0, 0));
@@ -477,13 +477,13 @@ GNEGenericParameterDialog::GenericParametersOptions::GNEGenericParameterHandler:
                     std::string key = attrs.getString(SUMO_ATTR_KEY);
                     std::string value = attrs.getString(SUMO_ATTR_VALUE);
                     // check that parsed values are correct
-                    if(!SUMOXMLDefinitions::isValidNetID(key)) {
+                    if(!SUMOXMLDefinitions::isValidGenericParameterKey(key)) {
                         if(key.size() == 0) {
                             WRITE_WARNING("Key of Generic Parameter cannot be empty");
                         } else {
                             WRITE_WARNING("Key '" + key + "' of Generic Parameter contains invalid characters");
                         }
-                    } else if(!SUMOXMLDefinitions::isValidAttribute(value)) {
+                    } else if(!SUMOXMLDefinitions::isValidGenericParameterValue(value)) {
                         WRITE_WARNING("Value '" + value + "'of Generic Parameter contains invalid characters");
                     } else {
                         // add generic parameter to vector of myGenericParameterDialogParent
@@ -543,7 +543,7 @@ GNEGenericParameterDialog::onCmdAccept(FXObject*, FXSelector, void*) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
             return 1;
-        } else if(!SUMOXMLDefinitions::isValidNetID(i->first)) {
+        } else if(!SUMOXMLDefinitions::isValidGenericParameterKey(i->first)) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
             // open warning Box
@@ -551,7 +551,7 @@ GNEGenericParameterDialog::onCmdAccept(FXObject*, FXSelector, void*) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
             return 1;
-        } else if(!SUMOXMLDefinitions::isValidAttribute(i->second)) {
+        } else if(!SUMOXMLDefinitions::isValidGenericParameterValue(i->second)) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
             // open warning Box
