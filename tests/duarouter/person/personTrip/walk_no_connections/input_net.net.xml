@@ -43,7 +43,5 @@
 
     <junction id="1" type="dead_end" x="0.00" y="0.00" incLanes="-a_0" intLanes="" shape="0.00,0.00 0.00,2.00 0.00,0.00"/>
     <junction id="2" type="dead_end" x="100.00" y="0.00" incLanes="a_0" intLanes="" shape="100.00,0.00 100.00,-2.00 100.00,0.00"/>
-    <junction id="gneJ3" type="dead_end" x="100.00" y="0.00" incLanes="" intLanes="" shape="100.00,0.00"/>
-    <junction id="gneJ4" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,0.00"/>
 
 </net>
