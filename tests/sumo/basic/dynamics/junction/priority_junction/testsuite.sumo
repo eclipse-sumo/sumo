@@ -8,7 +8,4 @@ ego_follower_low_decel
 across_nohindrance
 
 # the low priority vehicle should not cause braking on the main road at impatience 0
-across_nohindrance_jmSigmaMinor
-
-# the low priority vehicle should not cause braking on the main road at impatience 0
 across_nohindrance_sigma0
