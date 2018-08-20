@@ -96,12 +96,12 @@ public:
     }
 
     /// @brief get the map of outgoing lanes to via edges
-    const std::map<const ROLane*, const ROEdge*>& getOutgoingViaLanes() const {
+    const std::vector<std::pair<const ROLane*, const ROEdge*> >& getOutgoingViaLanes() const {
         return myOutgoingLanes;
     }
 
     void addOutgoingLane(ROLane* lane, ROEdge* via=nullptr) {
-        myOutgoingLanes[lane] = via;
+        myOutgoingLanes.push_back(std::make_pair(lane, via));
     }
 
     /// @brief get the state of the link from the logical predecessor to this lane (ignored for routing)
@@ -126,7 +126,7 @@ private:
     /// @brief The encoding of allowed vehicle classes
     SVCPermissions myPermissions;
 
-    std::map<const ROLane*, const ROEdge*> myOutgoingLanes;
+    std::vector<std::pair<const ROLane*, const ROEdge*> > myOutgoingLanes;
 
 
 private:

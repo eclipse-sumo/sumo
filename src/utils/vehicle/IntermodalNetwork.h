@@ -168,7 +168,7 @@ public:
             std::cout << "  building connections from " << sidewalk->getID() << "\n";
 #endif
             if (haveSeenWalkingArea) {
-                const std::map<const L*, const E*> outgoing = sidewalk->getOutgoingViaLanes();
+                const std::vector<std::pair<const L*, const E*> > outgoing = sidewalk->getOutgoingViaLanes();
                 // if one of the outgoing lanes is a walking area it must be used.
                 // All other connections shall be ignored
                 // if it has no outgoing walking area, it probably is a walking area itself

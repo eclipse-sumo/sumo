@@ -2395,12 +2395,12 @@ MSLane::getIncomingLinkState() const {
 }
 
 
-const std::map<const MSLane*, const MSEdge*>
+const std::vector<std::pair<const MSLane*, const MSEdge*> >
 MSLane::getOutgoingViaLanes() const {
-    std::map<const MSLane*, const MSEdge*> result;
+    std::vector<std::pair<const MSLane*, const MSEdge*> > result;
     for (const MSLink* link : myLinks) {
         assert(link->getLane() != nullptr);
-        result[link->getLane()] = link->getViaLane() == nullptr ? nullptr : &link->getViaLane()->getEdge();
+        result.push_back(std::make_pair(link->getLane(), link->getViaLane() == nullptr ? nullptr : &link->getViaLane()->getEdge()));
     }
     return result;
 }

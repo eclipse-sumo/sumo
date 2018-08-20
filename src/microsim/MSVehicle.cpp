@@ -775,7 +775,7 @@ MSVehicle::replaceRoute(const MSRoute* newRoute, const std::string& info, bool o
     } else {
         MSRouteIterator newCurrEdge = find(edges.begin() + offset, edges.end(), *myCurrEdge);;
         if (myLane->getEdge().isInternal() && (
-                    (newCurrEdge + 1) == edges.end() || (*(newCurrEdge + 1)) != &((*myLane->getOutgoingViaLanes().begin()).first->getEdge()))) {
+                    (newCurrEdge + 1) == edges.end() || (*(newCurrEdge + 1)) != &(myLane->getOutgoingViaLanes().front().first->getEdge()))) {
             return false;
         }
         myCurrEdge = newCurrEdge;
