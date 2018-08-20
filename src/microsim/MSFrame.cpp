@@ -36,6 +36,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/ToString.h>
+#include <utils/common/TplConvert.h>
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/xml/SUMOVehicleParserHelper.h>
@@ -330,6 +331,9 @@ MSFrame::fillOptions() {
     oc.doRegister("default.speeddev", new Option_Float(-1));
     oc.addDescription("default.speeddev", "Processing", "Select default speed deviation. A negative value implies vClass specific defaults (0.1 for the default passenger class");
 
+    oc.doRegister("default.emergencyDecel", new Option_String("default"));
+    oc.addDescription("default.emergencyDecel", "Processing", "Select default emergencyDecel value among 'decel', 'default', FLOAT which sets the value either to the same as the deceleration value, a vClass-class specific default or the given FLOAT in m/s^2");
+
     // pedestrian model
     oc.doRegister("pedestrian.model", new Option_String("striping"));
     oc.addDescription("pedestrian.model", "Processing", "Select among pedestrian models ['nonInteracting', 'striping', 'remote']");
@@ -602,6 +606,17 @@ MSFrame::checkOptions() {
     if (!SUMOXMLDefinitions::CarFollowModels.hasString(oc.getString("carfollow.model"))) {
         WRITE_ERROR("Unknown model '" + oc.getString("carfollow.model")  + "' for option 'carfollow.model'.");
         ok = false;
+    }
+    if (oc.isSet("default.emergencyDecel")) {
+        const std::string val = oc.getString("default.emergencyDecel");
+        if (val != "default" && val != "decel") {
+            try {
+                TplConvert::_2double(val.c_str());
+            } catch (NumberFormatException) {
+                WRITE_ERROR("Invalid value '" + val + "' for option 'default.emergencyDecel'. Must be a FLOAT or 'default' or 'decel'");
+                ok = false;
+            }
+        }
     }
     ok &= MSDevice::checkOptions(oc);
     ok &= SystemFrame::checkOptions();

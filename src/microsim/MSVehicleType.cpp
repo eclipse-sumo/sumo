@@ -27,8 +27,10 @@
 
 #include <cassert>
 #include <utils/iodevices/BinaryInputDevice.h>
+#include <utils/options/OptionsCont.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/RandHelper.h>
+#include <utils/common/TplConvert.h>
 #include <utils/vehicle/SUMOVTypeParameter.h>
 #include <microsim/cfmodels/MSCFModel_Rail.h>
 #include "MSNet.h"
@@ -277,17 +279,26 @@ MSVehicleType*
 MSVehicleType::build(SUMOVTypeParameter& from) {
     MSVehicleType* vtype = new MSVehicleType(from);
     const double decel = from.getCFParam(SUMO_ATTR_DECEL, SUMOVTypeParameter::getDefaultDecel(from.vehicleClass));
-    // by default decel and apparentDecel are identical (alternatively, defaults could be used)
-    //const double emergencyDecel = from.getCFParam(SUMO_ATTR_EMERGENCYDECEL, SUMOVTypeParameter::getDefaultEmergencyDecel(from.vehicleClass));
-    const double emergencyDecel = from.getCFParam(SUMO_ATTR_EMERGENCYDECEL, decel);
+
+    double defaultEmergencyDecel;
+    const std::string defaultEmergencyDecelOption = OptionsCont::getOptions().getString("default.emergencyDecel");
+    if (defaultEmergencyDecelOption == "default") {
+        defaultEmergencyDecel = MAX2(decel, SUMOVTypeParameter::getDefaultEmergencyDecel(from.vehicleClass));
+    } else if (defaultEmergencyDecelOption == "decel") {
+        defaultEmergencyDecel = decel;
+    } else {
+        // value already checked in MSFrame::checkOptions
+        defaultEmergencyDecel = TplConvert::_2double(defaultEmergencyDecelOption.c_str());
+    }
+    const double emergencyDecel = from.getCFParam(SUMO_ATTR_EMERGENCYDECEL, defaultEmergencyDecel);
     // by default decel and apparentDecel are identical
     const double apparentDecel = from.getCFParam(SUMO_ATTR_APPARENTDECEL, decel);
 
     if (emergencyDecel < decel) {
-        WRITE_WARNING("Value of 'emergencyDecel' is should be higher than 'decel' for vType '" + from.id + "'.");
+        WRITE_WARNING("Value of 'emergencyDecel' (" + toString(emergencyDecel) + ") should be higher than 'decel' (" + toString(decel) + ") for vType '" + from.id + "'.");
     }
     if (emergencyDecel < apparentDecel) {
-        WRITE_WARNING("Value of 'emergencyDecel' lower than 'apparentDecel' for vType '" + from.id + "' may cause collisions.");
+        WRITE_WARNING("Value of 'emergencyDecel' (" + toString(emergencyDecel) + ") is lower than 'apparentDecel' (" + toString(apparentDecel) + ") for vType '" + from.id + "' may cause collisions.");
     }
 
     switch (from.cfModel) {

@@ -448,11 +448,11 @@ double
 SUMOVTypeParameter::getDefaultEmergencyDecel(const SUMOVehicleClass vc) {
     switch (vc) {
         case SVC_PEDESTRIAN:
-            return 3.;
-        case SVC_BICYCLE:
             return 5.;
+        case SVC_BICYCLE:
+            return 7.;
         case SVC_MOPED:
-            return 8.;
+            return 10.;
         case SVC_MOTORCYCLE:
             return 10.;
         case SVC_TRUCK:
@@ -464,17 +464,17 @@ SUMOVTypeParameter::getDefaultEmergencyDecel(const SUMOVehicleClass vc) {
         case SVC_COACH:
             return 7.;
         case SVC_TRAM:
-            return 5.;
+            return 7.;
         case SVC_RAIL_URBAN:
-            return 5.;
+            return 7.;
         case SVC_RAIL:
-            return 4;
+            return 5;
         case SVC_RAIL_ELECTRIC:
-            return 4;
+            return 5;
         case SVC_SHIP:
             return 1;
         default:
-            return 9;//7.5;
+            return 9;
     }
 }
 

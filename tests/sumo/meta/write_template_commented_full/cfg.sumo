@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Aug 20 09:16:56 2018 by Eclipse SUMO Version 62765b5
+<!-- generated on Mon Aug 20 11:21:57 2018 by Eclipse SUMO Version 04b1740
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -281,6 +281,9 @@
 
         <!-- Select default speed deviation. A negative value implies vClass specific defaults (0.1 for the default passenger class -->
         <default.speeddev value="-1" type="FLOAT"/>
+
+        <!-- Select default emergencyDecel value among &apos;decel&apos;, &apos;default&apos;, FLOAT which sets the value either to the same as the deceleration value, a vClass-class specific default or the given FLOAT in m/s^2 -->
+        <default.emergencyDecel value="default" type="STR"/>
 
         <!-- Select among pedestrian models [&apos;nonInteracting&apos;, &apos;striping&apos;, &apos;remote&apos;] -->
         <pedestrian.model value="striping" type="STR"/>
