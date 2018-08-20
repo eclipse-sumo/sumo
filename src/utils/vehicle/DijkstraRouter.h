@@ -198,6 +198,13 @@ public:
             // use the node with the minimal length
             EdgeInfo* const minimumInfo = myFrontierList.front();
             const E* const minEdge = minimumInfo->edge;
+#ifdef DijkstraRouter_DEBUG_QUERY
+            std::cout << "DEBUG: hit '" << minEdge->getID() << "' Eff: " << minimumInfo->effort << ", Leave: " << minimumInfo->leaveTime << " Q: ";
+            for (typename std::vector<EdgeInfo*>::iterator it = myFrontierList.begin(); it != myFrontierList.end(); it++) {
+                std::cout << (*it)->effort << "," << (*it)->edge->getID() << " ";
+            }
+            std::cout << "\n";
+#endif
             // check whether the destination node was already reached
             if (minEdge == to) {
                 buildPathFrom(minimumInfo, into);
@@ -211,13 +218,6 @@ public:
             myFrontierList.pop_back();
             myFound.push_back(minimumInfo);
             minimumInfo->visited = true;
-#ifdef DijkstraRouter_DEBUG_QUERY
-            std::cout << "DEBUG: hit '" << minEdge->getID() << "' Eff: " << minimumInfo->effort << ", TT: " << minimumInfo->leaveTime << " Q: ";
-            for (typename std::vector<EdgeInfo*>::iterator it = myFrontierList.begin(); it != myFrontierList.end(); it++) {
-                std::cout << (*it)->effort << "," << (*it)->edge->getID() << " ";
-            }
-            std::cout << "\n";
-#endif
             const E* viaEdge = minimumInfo->via;
             double effort = minimumInfo->effort;
             double leaveTime = minimumInfo->leaveTime;
