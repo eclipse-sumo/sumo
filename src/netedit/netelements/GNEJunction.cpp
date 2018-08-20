@@ -1119,6 +1119,12 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
             // set new position in NBNode (note: Junctions don't need to refresh it in the RTREE due the variable myBoundary
             bool ok;
             moveJunctionGeometry(GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, false)[0]);
+            // mark all connections related with this junction of this junction as deprecated
+            for (auto i : myGNEIncomingEdges) {
+                for (auto j : i->getGNEConnections()) {
+                    j->markConnectionGeometryDeprecated();
+                }
+            }
             break;
         }
         case GNE_ATTR_MODIFICATION_STATUS:
@@ -1136,6 +1142,12 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
             bool ok;
             const PositionVector shape = GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, true);
             myNBNode.setCustomShape(shape);
+            // mark all connections related with this junction of this junction as deprecated
+            for (auto i : myGNEIncomingEdges) {
+                for (auto j : i->getGNEConnections()) {
+                    j->markConnectionGeometryDeprecated();
+                }
+            }
             break;
         }
         case SUMO_ATTR_RADIUS: {

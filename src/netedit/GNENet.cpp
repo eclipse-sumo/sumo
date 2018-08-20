@@ -1308,7 +1308,7 @@ GNENet::computeEverything(GNEApplicationWindow* window, bool force, bool volatil
         }
     }
 
-    // compute
+    // compute and update
     OptionsCont& oc = OptionsCont::getOptions();
     computeAndUpdate(oc, volatileOptions);
 
@@ -2416,8 +2416,7 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
     }
 
     // removes all junctions of grid
-    auto copyOfJunctions = myAttributeCarriers.junctions;
-    for (auto it : copyOfJunctions) {
+    for (const auto &it : myAttributeCarriers.junctions) {
         myGrid.removeAdditionalGLObject(it.second);
     }
     
@@ -2472,7 +2471,7 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
         }
 
         // removes all junctions of net  (It was already removed from grid)
-        copyOfJunctions = myAttributeCarriers.junctions;
+        auto copyOfJunctions = myAttributeCarriers.junctions;
         for (auto it : copyOfJunctions) {
             myAttributeCarriers.junctions.erase(it.second->getMicrosimID());
         }

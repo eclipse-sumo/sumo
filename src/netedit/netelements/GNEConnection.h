@@ -82,7 +82,10 @@ public:
     LinkState getLinkState() const;
 
     /// @brief get Position vector calculated in updateGeometry()
-    PositionVector getShape() const;
+    const PositionVector &getShape() const;
+
+    /// @brief check that connection's Geometry has to be updated
+    void markConnectionGeometryDeprecated();
 
     /// @brief update internal ID of Connection
     void updateID();
@@ -177,6 +180,9 @@ protected:
 
     /// @brief the shape of the connection
     PositionVector myShape;
+
+    /// @brief flag to indicate that connection's shape has to be updated
+    bool myShapeDeprecated;
 
     /// @name computed only once (for performance) in updateGeometry()
     /// @{

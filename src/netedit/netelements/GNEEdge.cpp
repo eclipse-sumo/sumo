@@ -120,6 +120,10 @@ GNEEdge::updateGeometry() {
     for (auto i : myLanes) {
         i->updateGeometry();
     }
+    // Update geometry of connections (note: only the previous marked as deprecated will be updated)
+    for (auto i : myGNEConnections) {
+        i->updateGeometry();
+    }
     // Update geometry of additionals childs vinculated to this edge
     for (auto i : myAdditionalChilds) {
         i->updateGeometry();
@@ -621,9 +625,13 @@ GNEEdge::remakeGNEConnections() {
             // include reference to created GNEConnection
             retrievedGNEConnection->incRef("GNEEdge::remakeGNEConnections");
         }
+        // mark it as deprecated
+        retrievedGNEConnection->markConnectionGeometryDeprecated();
     }
     // delete non retrieved GNEConnections
     for (auto it : myGNEConnections) {
+        // remove it from Tree
+        myNet->removeGLObjectFromNet(it);
         it->decRef();
         if (it->unreferenced()) {
             // show extra information for tests
@@ -1428,6 +1436,8 @@ GNEEdge::removeConnection(NBEdge::Connection nbCon) {
     if (con != nullptr) {
         con->decRef("GNEEdge::removeConnection");
         myGNEConnections.erase(std::find(myGNEConnections.begin(), myGNEConnections.end(), con));
+        // remove it from Tree
+        myNet->removeGLObjectFromNet(con);
         // check if connection is selected
         if(con->isAttributeCarrierSelected()) {
             con->unselectAttributeCarrier();
@@ -1457,6 +1467,8 @@ GNEEdge::retrieveGNEConnection(int fromLane, NBEdge* to, int toLane, bool create
         GNEConnection* createdConnection = new GNEConnection(myLanes[fromLane], myNet->retrieveEdge(to->getID())->getLanes()[toLane]);
         // show extra information for tests
         WRITE_DEBUG("Created " + toString(createdConnection->getTag()) + " '" + createdConnection->getID() + "' in retrieveGNEConnection()");
+        // insert it in Tree
+        myNet->addGLObjectIntoNet(createdConnection);
         return createdConnection;
     } else {
         return nullptr;
