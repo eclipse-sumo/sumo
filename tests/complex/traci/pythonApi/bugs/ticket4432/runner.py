@@ -46,7 +46,7 @@ opts = [
     ]
 
 
-traci.start(['sumo'] + opts + ['--tripinfo-output', 'tripinfos.xml', '-l', 'log']
+traci.start([sumo] + opts + ['--tripinfo-output', 'tripinfos.xml', '-l', 'log']
         #+ ['--save-configuration', 'debug.sumocfg']
         )
 
@@ -57,6 +57,7 @@ while traci.simulation.getMinExpectedNumber() > 0:
 print("tripinfos at last step: %s" % countWrittenTrips('tripinfos.xml'))
 print("logfile at last step: %s" % lastLine('log'))
 traci.load(opts + ['--tripinfo-output', 'tripinfos2.xml', '-l', 'log2'])
+traci.simulationStep()
 print("tripinfos after load: %s" % countWrittenTrips('tripinfos.xml'))
 print("logfile after load: %s" % lastLine('log'))
 
