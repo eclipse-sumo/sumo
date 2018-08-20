@@ -21,13 +21,9 @@ import subprocess
 import random
 import shutil
 
-if 'SUMO_HOME' in os.environ:
-    tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
-    sys.path.append(tools)
-else:
-    sys.exit("please declare environment variable 'SUMO_HOME'")
-
-from sumolib import checkBinary  # noqa
+SUMO_HOME = os.path.join(os.path.dirname(__file__), "..", "..", "..", "..", "..", "..")
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", SUMO_HOME), "tools"))
+import sumolib  # noqa
 
 types = ["static", "actuated", "sotl_phase", "sotl_platoon", "sotl_request", "sotl_wave", "sotl_marching", "swarm"]
 flow1def = "0;2000;600".split(";")
@@ -92,13 +88,7 @@ def main():
     except OSError:
         pass
 
-    sumoHome = os.path.abspath(
-        os.path.join(os.path.dirname(__file__), '..', '..', '..', '..'))
-    if "SUMO_HOME" in os.environ:
-        sumoHome = os.environ["SUMO_HOME"]
-    sumo = os.environ.get(
-        "SUMO_BINARY", os.path.join(sumoHome, 'bin', 'sumo'))
-    assert(sumo)
+    sumo = sumolib.checkBinary('sumo')
 
     for f1 in range(int(flow1def[0]), int(flow1def[1]), int(flow1def[2])):
         pWE = float(f1) / 3600  # [veh/s]
@@ -117,6 +107,7 @@ def main():
                         # '--no-duration-log',
                         # '--verbose',
                         # '--duration-log.statistics',
+                        '--default.speeddev', '0',
                         '--net-file', 'input_net.net.xml',
                         '--route-files', 'input_routes.rou.xml',
                         '--additional-files', 'input_additional.add.xml',
