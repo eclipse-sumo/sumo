@@ -7,15 +7,15 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    StopEdge.h
+/// @file    EffortCalculator.h
 /// @author  Michael Behrisch
-/// @date    Mon, 03 March 2014
+/// @date    2018-08-21
 /// @version $Id$
 ///
-// The StopEdge is a special intermodal edge representing bus and train stops
+// The EffortCalculator is an interface for additional edge effort calculators
 /****************************************************************************/
-#ifndef StopEdge_h
-#define StopEdge_h
+#ifndef EffortCalculator_h
+#define EffortCalculator_h
 
 
 // ===========================================================================
@@ -23,22 +23,16 @@
 // ===========================================================================
 #include <config.h>
 
-#include "IntermodalEdge.h"
-
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/// @brief the stop edge type representing bus and train stops
-template<class E, class L, class N, class V>
-class StopEdge : public IntermodalEdge<E, L, N, V> {
+/// @brief the effort calculator interface
+class EffortCalculator {
 public:
-    StopEdge(const std::string id, int numericalID, const E* edge) :
-        IntermodalEdge<E, L, N, V>(id, numericalID, edge, "!stop") { }
-
-    bool includeInRoute(bool /* allEdges */) const {
-        return true;
-    }
+    virtual void init(const std::vector<std::string>& edges) = 0;
+    virtual double getEffort(const int edge) const = 0;
+    virtual void update(const int edge, const int prev, const double length) = 0;
 };
 
 

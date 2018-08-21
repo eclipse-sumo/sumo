@@ -72,8 +72,11 @@ public:
         const std::string& getID() const { 
             return id;
         }
-        int getNumericalID() const { 
+        int getNumericalID() const {
             return index;
+        }
+        double getLength() const {
+            return 0.;
         }
 
         NBEdge* edge;

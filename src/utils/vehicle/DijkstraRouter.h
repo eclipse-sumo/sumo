@@ -36,6 +36,7 @@
 #include <utils/common/ToString.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StdDefs.h>
+#include "EffortCalculator.h"
 #include "SUMOAbstractRouter.h"
 
 //#define DijkstraRouter_DEBUG_QUERY
@@ -120,10 +121,10 @@ public:
 
     /// Constructor
     DijkstraRouter(const std::vector<E*>& edges, bool unbuildIsWarning, typename BASE::Operation effortOperation,
-                   typename BASE::Operation ttOperation = nullptr, bool silent = false) :
+        typename BASE::Operation ttOperation = nullptr, bool silent = false, EffortCalculator* calc=nullptr) :
                    BASE("DijkstraRouter", effortOperation, ttOperation),
         myErrorMsgHandler(unbuildIsWarning ?  MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()),
-        mySilent(silent) {
+        mySilent(silent), myExternalEffort(calc) {
         for (typename std::vector<E*>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
             myEdgeInfos.push_back(EdgeInfo(*i));
         }
@@ -133,7 +134,7 @@ public:
     virtual ~DijkstraRouter() { }
 
     virtual SUMOAbstractRouter<E, V>* clone() {
-        return new DijkstraRouter<E, V, BASE>(myEdgeInfos, myErrorMsgHandler == MsgHandler::getWarningInstance(), this->myOperation, this->myTTOperation, mySilent);
+        return new DijkstraRouter<E, V, BASE>(myEdgeInfos, myErrorMsgHandler == MsgHandler::getWarningInstance(), this->myOperation, this->myTTOperation, mySilent, myExternalEffort);
     }
 
     void init() {
@@ -223,6 +224,9 @@ public:
             const double effortDelta = this->getEffort(minEdge, vehicle, leaveTime);
             leaveTime += this->getTravelTime(minEdge, vehicle, minimumInfo->leaveTime, effortDelta);
             effort += effortDelta;
+            if (myExternalEffort != nullptr) {
+                myExternalEffort->update(minEdge->getNumericalID(), minimumInfo->prev->edge->getNumericalID(), minEdge->getLength());
+            }
             assert(effort >= minimumInfo->effort);
             assert(leaveTime >= minimumInfo->leaveTime);
             // check all ways from the node with the minimal length
@@ -276,10 +280,11 @@ public:
 
 private:
     DijkstraRouter(const std::vector<EdgeInfo>& edgeInfos, bool unbuildIsWarning, 
-                   typename BASE::Operation effortOperation, typename BASE::Operation ttOperation, bool silent) :
+        typename BASE::Operation effortOperation, typename BASE::Operation ttOperation, bool silent, EffortCalculator* calc) :
         BASE("DijkstraRouter", effortOperation, ttOperation),
         myErrorMsgHandler(unbuildIsWarning ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()),
-        mySilent(silent) {
+        mySilent(silent),
+        myExternalEffort(calc) {
         for (const EdgeInfo& ei : edgeInfos) {
             myEdgeInfos.push_back(EdgeInfo(ei.edge));
         }
@@ -291,6 +296,8 @@ private:
 
     /// @brief whether to supress warning/error if no route was found
     bool mySilent;
+
+    EffortCalculator* const myExternalEffort;
 
     /// The container of edge information
     std::vector<EdgeInfo> myEdgeInfos;

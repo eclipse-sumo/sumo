@@ -511,6 +511,7 @@ Simulation::findIntermodalRoute(const std::string& from, const std::string& to,
     if (walkFactor < 0) {
         walkFactor = OptionsCont::getOptions().getFloat("persontrip.walkfactor");
     }
+    const double externalFactor = TplConvert::_str2double(pedType->getParameter().getParameter("externalEffortFactor", "1.0"));
     if (departPos < 0) {
         departPos += fromEdge->getLength();
     }
@@ -544,7 +545,7 @@ Simulation::findIntermodalRoute(const std::string& from, const std::string& to,
         }
         std::vector<MSNet::MSIntermodalRouter::TripItem> items;
         if (router.compute(fromEdge, toEdge, departPos, arrivalPos, destStop,
-                           speed * walkFactor, vehicle, modeSet, departStep, items)) {
+                           speed * walkFactor, vehicle, modeSet, departStep, items, externalFactor)) {
             double cost = 0;
             for (std::vector<MSNet::MSIntermodalRouter::TripItem>::iterator it = items.begin(); it != items.end(); ++it) {
                 if (!it->edges.empty()) {

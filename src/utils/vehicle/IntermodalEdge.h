@@ -120,15 +120,7 @@ public:
         return 0.;
     }
 
-    static inline double getEffortAggregated(const IntermodalEdge* const /* edge */, const IntermodalTrip<E, N, V>* const /* trip */, double /* time */) {
-        return 0.;
-    }
-
     static inline double getEffortStatic(const IntermodalEdge* const edge, const IntermodalTrip<E, N, V>* const trip, double time) {
-        return edge == nullptr || !edge->hasEffort() ? 0. : edge->getEffort(trip, time);
-    }
-
-    static inline double getEffortCombined(const IntermodalEdge* const edge, const IntermodalTrip<E, N, V>* const trip, double time) {
         return edge == nullptr || !edge->hasEffort() ? 0. : edge->getEffort(trip, time);
     }
 
