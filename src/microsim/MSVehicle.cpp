@@ -2497,6 +2497,9 @@ MSVehicle::processLinkAproaches(double& vSafe, double& vSafeMin, double& vSafeMi
             if (yellow && canBrake && !ignoreRedLink) {
                 vSafe = (*i).myVLinkWait;
                 myHaveToWaitOnNextLink = true;
+#ifdef DEBUG_CHECKREWINDLINKLANES
+                if (DEBUG_COND) std::cout << SIMTIME << " veh=" << getID() << " haveToWait (yellow)\n";
+#endif
                 link->removeApproaching(this);
                 break;
             }
@@ -2539,6 +2542,9 @@ MSVehicle::processLinkAproaches(double& vSafe, double& vSafeMin, double& vSafeMi
                 if (!determinedFoePresence) {
                     vSafe = (*i).myVLinkWait;
                     myHaveToWaitOnNextLink = true;
+#ifdef DEBUG_CHECKREWINDLINKLANES
+                    if (DEBUG_COND) std::cout << SIMTIME << " veh=" << getID() << " haveToWait (minor)\n";
+#endif
                     if (ls == LINKSTATE_EQUAL) {
                         link->removeApproaching(this);
                     }
@@ -2564,6 +2570,9 @@ MSVehicle::processLinkAproaches(double& vSafe, double& vSafeMin, double& vSafeMi
                 if (vSafe < getCarFollowModel().getMaxDecel() && vSafe <= (*i).myVLinkWait && vSafe < getCarFollowModel().maxNextSpeed(getSpeed(), this)) {
                     // this vehicle is probably not gonna drive across the next junction (heuristic)
                     myHaveToWaitOnNextLink = true;
+#ifdef DEBUG_CHECKREWINDLINKLANES
+                    if (DEBUG_COND) std::cout << SIMTIME << " veh=" << getID() << " haveToWait (very slow)\n";
+#endif
                 }
             } else if (link->getState() == LINKSTATE_ZIPPER) {
                 vSafeZipper = MIN2(vSafeZipper,
@@ -2571,6 +2580,9 @@ MSVehicle::processLinkAproaches(double& vSafe, double& vSafeMin, double& vSafeMi
             } else {
                 vSafe = (*i).myVLinkWait;
                 myHaveToWaitOnNextLink = true;
+#ifdef DEBUG_CHECKREWINDLINKLANES
+                if (DEBUG_COND) std::cout << SIMTIME << " veh=" << getID() << " haveToWait (closed)\n";
+#endif
                 if (ls == LINKSTATE_EQUAL) {
                     link->removeApproaching(this);
                 }
@@ -2586,6 +2598,9 @@ MSVehicle::processLinkAproaches(double& vSafe, double& vSafeMin, double& vSafeMi
             vSafe = (*i).myVLinkWait;
             if (vSafe < getSpeed()) {
                 myHaveToWaitOnNextLink = true;
+#ifdef DEBUG_CHECKREWINDLINKLANES
+                if (DEBUG_COND) std::cout << SIMTIME << " veh=" << getID() << " haveToWait (no request, braking)\n";
+#endif
             }
             break;
         }
@@ -2613,6 +2628,9 @@ MSVehicle::processLinkAproaches(double& vSafe, double& vSafeMin, double& vSafeMi
         vSafe = MIN2(vSafe, getCarFollowModel().stopSpeed(this, getSpeed(), vSafeMinDist));
         vSafeMin = 0;
         myHaveToWaitOnNextLink = true;
+#ifdef DEBUG_CHECKREWINDLINKLANES
+        if (DEBUG_COND) std::cout << SIMTIME << " veh=" << getID() << " haveToWait (vSafe=" << vSafe << " < vSafeMin=" << vSafeMin << ")\n";
+#endif
 
 #ifdef DEBUG_EXEC_MOVE
         if (DEBUG_COND) {
