@@ -726,8 +726,8 @@ public:
      * @param[in] permissions The new permissions
      * @param[in] transientID The id of the permission-modification or the special value PERMANENT
      */
-    void setPermissions(SVCPermissions permissions, long transientID);
-    void resetPermissions(long transientID);
+    void setPermissions(SVCPermissions permissions, long long transientID);
+    void resetPermissions(long long transientID);
 
 
     inline bool allowsVehicleClass(SUMOVehicleClass vclass) const {
@@ -1268,7 +1268,7 @@ protected:
     std::vector<std::string> myNeighs;
 
     // @brief transient changes in permissions
-    std::map<long, SVCPermissions> myPermissionChanges;
+    std::map<long long, SVCPermissions> myPermissionChanges;
 
     /// definition of the static dictionary type
     typedef std::map< std::string, MSLane* > DictType;

@@ -3183,7 +3183,7 @@ MSLane::initCollisionOptions(const OptionsCont& oc) {
 
 
 void
-MSLane::setPermissions(SVCPermissions permissions, long transientID) {
+MSLane::setPermissions(SVCPermissions permissions, long long transientID) {
     if (transientID == CHANGE_PERMISSIONS_PERMANENT) {
         myPermissions = permissions;
         myOriginalPermissions = permissions;
@@ -3195,15 +3195,15 @@ MSLane::setPermissions(SVCPermissions permissions, long transientID) {
 
 
 void
-MSLane::resetPermissions(long transientID) {
+MSLane::resetPermissions(long long transientID) {
     myPermissionChanges.erase(transientID);
     if (myPermissionChanges.empty()) {
         myPermissions = myOriginalPermissions;
     } else {
         // combine all permission changes
         myPermissions = SVCAll;
-        for (std::map<long, SVCPermissions>::iterator it = myPermissionChanges.begin(); it != myPermissionChanges.end(); ++it) {
-            myPermissions &= it->second;
+        for (const auto& item : myPermissionChanges) {
+            myPermissions &= item.second;
         }
     }
 }

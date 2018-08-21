@@ -779,7 +779,7 @@ NIImporter_OpenDrive::buildConnectionsToOuter(const Connection& c, const std::ma
                     }
                     try {
                         cn.shape.move2side(offset);
-                    } catch (InvalidArgument& e) {
+                    } catch (InvalidArgument&) {
                         WRITE_WARNING("Could not import internal lane shape from edge '" + c.fromEdge + "' to edge '" + c.toEdge);
                         cn.shape.clear();
                     }

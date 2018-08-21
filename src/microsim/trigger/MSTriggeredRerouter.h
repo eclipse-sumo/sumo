@@ -90,7 +90,7 @@ public:
      */
     struct RerouteInterval {
         /// unique ID for this interval
-        long id;
+        long long id;
         /// The begin time these definitions are valid
         SUMOTime begin;
         /// The end time these definitions are valid

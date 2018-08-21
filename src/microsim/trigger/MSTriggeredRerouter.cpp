@@ -256,7 +256,7 @@ MSTriggeredRerouter::myEndElement(int element) {
         myCurrentRouteProb.clear();
         myCurrentParkProb.clear();
         myIntervals.push_back(ri);
-        myIntervals.back().id = (intptr_t)&myIntervals.back();
+        myIntervals.back().id = (long long)&myIntervals.back();
         if (!(ri.closed.empty() && ri.closedLanes.empty()) && ri.permissions != SVCAll) {
             MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(
                 new WrappingCommand<MSTriggeredRerouter>(this, &MSTriggeredRerouter::setPermissions), ri.begin);
