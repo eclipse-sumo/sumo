@@ -2719,7 +2719,7 @@ TraCIAPI::VehicleScope::setSpeedMode(const std::string& vehicleID, int mode) con
 
 void
 TraCIAPI::VehicleScope::setStop(const std::string vehicleID, const std::string edgeID, const double endPos, const int laneIndex,
-        const double duration, const int flags, const double startPos, const int until) const {
+        const double duration, const int flags, const double startPos, const double until) const {
     tcpip::Storage content;
     content.writeUnsignedByte(TYPE_COMPOUND);
     content.writeInt(7);
@@ -2735,8 +2735,8 @@ TraCIAPI::VehicleScope::setStop(const std::string vehicleID, const std::string e
     content.writeByte(flags);
     content.writeUnsignedByte(TYPE_DOUBLE);
     content.writeDouble(startPos);
-    content.writeUnsignedByte(TYPE_INTEGER);
-    content.writeInt(until);
+    content.writeUnsignedByte(TYPE_DOUBLE);
+    content.writeDouble(until);
     myParent.send_commandSetValue(CMD_SET_VEHICLE_VARIABLE, CMD_STOP, vehicleID, content);
     tcpip::Storage inMsg;
     myParent.check_resultState(inMsg, CMD_SET_VEHICLE_VARIABLE);

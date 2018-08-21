@@ -758,7 +758,7 @@ public:
         void setStop(const std::string vehicleID, const std::string edgeID, const double endPos=1.,
                 const int laneIndex=0, const double duration=std::numeric_limits<double>::max(),
                 const int flags=0, const double startPos=std::numeric_limits<int>::min(),
-                const int until=-1) const;
+                const double until=-1) const;
         void setType(const std::string& vehicleID, const std::string& typeID) const;
         void remove(const std::string& vehicleID, char reason = REMOVE_VAPORIZED) const;
         void setColor(const std::string& vehicleID, const libsumo::TraCIColor& c) const;
