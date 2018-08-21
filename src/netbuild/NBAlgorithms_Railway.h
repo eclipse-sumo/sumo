@@ -86,6 +86,8 @@ public:
         SVCPermissions minPermissions;
         mutable std::map<SUMOVehicleClass, std::vector<Track*> > svcSuccessors;
         mutable std::map<SUMOVehicleClass, std::vector<std::pair<const Track*, const Track*> > > svcViaSuccessors;
+
+        Track& operator=(const Track&) = delete;
     };
     static double getTravelTimeStatic(const Track* const track, const NBVehicle* const veh, double time);
 
