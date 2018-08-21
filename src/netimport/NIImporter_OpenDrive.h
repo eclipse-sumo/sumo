@@ -500,14 +500,15 @@ protected:
      */
     void myStartElement(int element, const SUMOSAXAttributes& attrs);
 
-    /** @brief Called on the occurence of character data
+    /**
+     * @brief Callback method for characters to implement by derived classes
      *
-     * If this occurs inside a single tag it sets the option named
-     *  by the tag to the value given by the character data.
-     *  This is considered deprecated in favor of attributes.
-     * @todo Describe better
+     * Called by "endElement" (see there).
+     * @param[in] element The opened element, given as a int
+     * @param[in] chars The complete embedded character string
+     * @exceptions ProcessError These method may throw a ProcessError if something fails
      */
-    void characters(const XMLCh* const chars, const XERCES3_SIZE_t length);
+    void myCharacters(int element, const std::string& chars);
 
 
     /** @brief Called when a closing tag occurs

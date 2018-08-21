@@ -1790,10 +1790,9 @@ NIImporter_OpenDrive::myStartElement(int element,
 }
 
 
-void NIImporter_OpenDrive::characters(const XMLCh* const chars,
-                               const XERCES3_SIZE_t length) {
+void
+NIImporter_OpenDrive::myCharacters(int, const std::string& cdata) {
     if (myElementStack.size() > 0 && myElementStack.back() == OPENDRIVE_TAG_GEOREFERENCE) {
-        std::string cdata = TplConvert::_2str(chars, (int)length);
         int startI = cdata.find("+proj");
         if (startI != std::string::npos) {
             std::string proj = cdata.substr(startI);
@@ -1813,7 +1812,6 @@ void NIImporter_OpenDrive::characters(const XMLCh* const chars,
         }
     }
 }
-
 
 
 void
