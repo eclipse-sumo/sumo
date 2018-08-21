@@ -166,7 +166,7 @@ template<class E, class V>
 class SUMOAbstractRouterPermissions : public SUMOAbstractRouter<E, V> {
 public:
     /// Constructor
-    SUMOAbstractRouterPermissions(const std::string& type, Operation operation = nullptr, Operation ttOperation = nullptr) :
+    SUMOAbstractRouterPermissions(const std::string& type, typename SUMOAbstractRouter<E, V>::Operation operation = nullptr, typename SUMOAbstractRouter<E, V>::Operation ttOperation = nullptr) :
         SUMOAbstractRouter<E, V>(type, operation, ttOperation) {
     }
 

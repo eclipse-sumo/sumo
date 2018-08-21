@@ -133,7 +133,7 @@ public:
     virtual ~DijkstraRouter() { }
 
     virtual SUMOAbstractRouter<E, V>* clone() {
-        return new DijkstraRouter<E, V, BASE>(myEdgeInfos, myErrorMsgHandler == MsgHandler::getWarningInstance(), this->myOperation, myTTOperation, mySilent);
+        return new DijkstraRouter<E, V, BASE>(myEdgeInfos, myErrorMsgHandler == MsgHandler::getWarningInstance(), this->myOperation, this->myTTOperation, mySilent);
     }
 
     void init() {
@@ -216,12 +216,12 @@ public:
             double leaveTime = minimumInfo->leaveTime;
             while (viaEdge != nullptr && viaEdge != minEdge) {
                 const double viaEffortDelta = this->getEffort(viaEdge, vehicle, leaveTime);
-                leaveTime += getTravelTime(viaEdge, vehicle, leaveTime, viaEffortDelta);
+                leaveTime += this->getTravelTime(viaEdge, vehicle, leaveTime, viaEffortDelta);
                 effort += viaEffortDelta;
                 viaEdge = viaEdge->getViaSuccessors().front().first;
             }
             const double effortDelta = this->getEffort(minEdge, vehicle, leaveTime);
-            leaveTime += getTravelTime(minEdge, vehicle, minimumInfo->leaveTime, effortDelta);
+            leaveTime += this->getTravelTime(minEdge, vehicle, minimumInfo->leaveTime, effortDelta);
             effort += effortDelta;
             assert(effort >= minimumInfo->effort);
             assert(leaveTime >= minimumInfo->leaveTime);
