@@ -11,6 +11,7 @@ Debug: Adding junction 'gneJ1' into net
 Debug: Adding edge 'gneE0' from net
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
+Debug: invalidating (removing) connections of edge 'gneE0' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
 Debug: Setting new attribute shape '100.00,-100.00' into edge 'gneE0'
 Debug: Key F5 (Compute) pressed
@@ -19,6 +20,7 @@ Debug: Setting previous attribute shape '' into edge 'gneE0'
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
+Debug: invalidating (removing) connections of edge 'gneE0' due it were guessed
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
 Debug: Removing edge 'gneE0' from net
 Debug: Removing junction 'gneJ1' from net
@@ -29,6 +31,7 @@ Debug: Adding junction 'gneJ1' into net
 Debug: Adding edge 'gneE0' from net
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
+Debug: invalidating (removing) connections of edge 'gneE0' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute shape '100.00,-100.00' into edge 'gneE0'

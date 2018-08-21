@@ -30,9 +30,11 @@ Debug: Removing connection 'gneE1_2->gneE0_2' from edge 'gneE1'
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE1'
+Debug: invalidating (removing) connections of edge 'gneE1' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
 Debug: Removing connection 'gneE0_2->gneE1_2' from edge 'gneE0'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
+Debug: invalidating (removing) connections of edge 'gneE0' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
 Debug: Removing edge 'gneE0' from net
 Debug: Removing rerouter 'rerouter_0' in GNEChange_Additional
@@ -48,6 +50,7 @@ Debug: Removing containerStop 'containerStop_gneE1_1_0' in GNEChange_Additional
 Debug: Removing chargingStation 'chargingStation_gneE1_2_0' in GNEChange_Additional
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE1'
+Debug: invalidating (removing) connections of edge 'gneE1' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
 Debug: Removing edge 'gneE1' from net
 Debug: Removing junction 'gneJ1' from net
@@ -56,6 +59,7 @@ Debug: Adding junction 'gneJ1' into net
 Debug: Adding edge 'gneE1' from net
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE1'
+Debug: invalidating (removing) connections of edge 'gneE1' due it were guessed
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
 Debug: Adding chargingStation 'chargingStation_gneE1_2_0' in GNEChange_Additional
 Debug: Adding containerStop 'containerStop_gneE1_1_0' in GNEChange_Additional
@@ -71,10 +75,12 @@ Debug: Adding rerouter 'rerouter_0' in GNEChange_Additional
 Debug: Adding edge 'gneE0' from net
 Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'gneJ1'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge 'gneE0'
+Debug: declaring connections of edge 'gneE0' as loaded (It will not be removed)
 Debug: Adding connection 'gneE0_2->gneE1_2' into edge 'gneE0'
 Debug: Created connection 'fromgneE0_2togneE1_2' in retrieveGNEConnection()
 Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'gneJ0'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge 'gneE1'
+Debug: declaring connections of edge 'gneE1' as loaded (It will not be removed)
 Debug: Adding connection 'gneE1_2->gneE0_2' into edge 'gneE1'
 Debug: Created connection 'fromgneE1_2togneE0_2' in retrieveGNEConnection()
 Debug: Adding instantInductionLoop 'instantInductionLoop_1' in GNEChange_Additional

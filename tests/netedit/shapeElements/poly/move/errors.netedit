@@ -7,6 +7,8 @@ Debug: Selected shape 'poly' in ShapeSelector
 Debug: Key ENTER pressed
 Debug: Key ENTER pressed
 Debug: Adding poly 'poly_0' into viewNet
+Debug: Shapes has to be saved
+Debug: Current saving Status: net saved, additionals saved, shapes unsaved
 Debug: Key ENTER pressed
 Debug: Key ENTER pressed
 Debug: Adding poly 'poly_1' into viewNet

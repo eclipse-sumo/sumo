@@ -36,23 +36,27 @@ Debug: Adding junction 'gneJ1' into net
 Debug: Adding edge 'gneE0' from net
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
+Debug: invalidating (removing) connections of edge 'gneE0' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
 Debug: Adding junction 'gneJ2' into net
 Debug: Adding edge 'gneE1' from net
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE1'
+Debug: invalidating (removing) connections of edge 'gneE1' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ2'
 Debug: Adding junction 'gneJ3' into net
 Debug: Adding junction 'gneJ4' into net
 Debug: Adding edge 'gneE2' from net
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ3'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE2'
+Debug: invalidating (removing) connections of edge 'gneE2' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ4'
 Debug: Adding junction 'gneJ5' into net
 Debug: Adding junction 'gneJ6' into net
 Debug: Adding edge 'gneE3' from net
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ5'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE3'
+Debug: invalidating (removing) connections of edge 'gneE3' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ6'
 Debug: Deleting unreferenced edge '1' in GNENet destructor
 Debug: Deleting unreferenced lane '1_0' in GNEEdge destructor

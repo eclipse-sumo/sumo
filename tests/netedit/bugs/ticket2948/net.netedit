@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 16.08.2018 12:59:59 by Eclipse SUMO netedit Version 7d8cd284aa
+<!-- generated on 20.08.2018 15:48:35 by Eclipse SUMO netedit Version 62765b51aa
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -8,7 +8,7 @@
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.6_from_15Aug181211.2800/netedit.gui/bugs/ticket2948\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.20Aug131023.1664/netedit.gui/bugs/ticket2948\net.net.xml"/>
     </output>
 
     <processing>
@@ -20,12 +20,12 @@
     </junctions>
 
     <netedit>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.6_from_15Aug181211.2800/netedit.gui/bugs/ticket2948\additionals.xml"/>
-        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.6_from_15Aug181211.2800/netedit.gui/bugs/ticket2948\shapes.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.20Aug131023.1664/netedit.gui/bugs/ticket2948\additionals.xml"/>
+        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.20Aug131023.1664/netedit.gui/bugs/ticket2948\shapes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.6_from_15Aug181211.2800/netedit.gui/bugs/ticket2948\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.20Aug131023.1664/netedit.gui/bugs/ticket2948\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -34,7 +34,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.6_from_15Aug181211.2800/netedit.gui/bugs/ticket2948\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.20Aug131023.1664/netedit.gui/bugs/ticket2948\log.txt"/>
     </report>
 
 </configuration>
@@ -45,10 +45,10 @@
     <location netOffset="0.00,0.00" convBoundary="47.00,25.00,87.00,65.00" origBoundary="10000000000.00,10000000000.00,-10000000000.00,-10000000000.00" projParameter="!"/>
 
     <edge id=":gneJ1_0" function="internal">
-        <lane id=":gneJ1_0_0" index="0" speed="5.61" length="7.74" shape="88.60,61.80 88.30,63.90 87.40,65.40 85.90,66.30 83.80,66.60"/>
+        <lane id=":gneJ1_0_0" index="0" speed="6.08" length="7.74" shape="88.60,61.80 88.30,63.90 87.40,65.40 85.90,66.30 83.80,66.60"/>
     </edge>
     <edge id=":gneJ1_1" function="internal">
-        <lane id=":gneJ1_1_0" index="0" speed="3.67" length="2.58" shape="83.80,63.40 84.50,63.30 85.00,63.00 85.30,62.50 85.40,61.80"/>
+        <lane id=":gneJ1_1_0" index="0" speed="3.90" length="2.58" shape="83.80,63.40 84.50,63.30 85.00,63.00 85.30,62.50 85.40,61.80"/>
     </edge>
     <edge id=":gneJ2_0" function="internal">
         <lane id=":gneJ2_0_0" index="0" speed="20.00" length="0.10" shape="85.40,45.00 85.40,45.00"/>
@@ -57,10 +57,10 @@
         <lane id=":gneJ2_1_0" index="0" speed="20.00" length="0.10" shape="88.60,45.00 88.60,45.00"/>
     </edge>
     <edge id=":gneJ3_0" function="internal">
-        <lane id=":gneJ3_0_0" index="0" speed="3.67" length="2.58" shape="85.40,28.20 85.30,27.50 85.00,27.00 84.50,26.70 83.80,26.60"/>
+        <lane id=":gneJ3_0_0" index="0" speed="3.90" length="2.58" shape="85.40,28.20 85.30,27.50 85.00,27.00 84.50,26.70 83.80,26.60"/>
     </edge>
     <edge id=":gneJ3_1" function="internal">
-        <lane id=":gneJ3_1_0" index="0" speed="5.61" length="7.74" shape="83.80,23.40 85.90,23.70 87.40,24.60 88.30,26.10 88.60,28.20"/>
+        <lane id=":gneJ3_1_0" index="0" speed="6.08" length="7.74" shape="83.80,23.40 85.90,23.70 87.40,24.60 88.30,26.10 88.60,28.20"/>
     </edge>
     <edge id=":gneJ4_0" function="internal">
         <lane id=":gneJ4_0_0" index="0" speed="20.00" length="0.10" shape="67.00,26.60 67.00,26.60"/>
@@ -69,10 +69,10 @@
         <lane id=":gneJ4_1_0" index="0" speed="20.00" length="0.10" shape="67.00,23.40 67.00,23.40"/>
     </edge>
     <edge id=":gneJ5_0" function="internal">
-        <lane id=":gneJ5_0_0" index="0" speed="5.61" length="7.74" shape="45.40,28.20 45.70,26.10 46.60,24.60 48.10,23.70 50.20,23.40"/>
+        <lane id=":gneJ5_0_0" index="0" speed="6.08" length="7.74" shape="45.40,28.20 45.70,26.10 46.60,24.60 48.10,23.70 50.20,23.40"/>
     </edge>
     <edge id=":gneJ5_1" function="internal">
-        <lane id=":gneJ5_1_0" index="0" speed="3.67" length="2.58" shape="50.20,26.60 49.50,26.70 49.00,27.00 48.70,27.50 48.60,28.20"/>
+        <lane id=":gneJ5_1_0" index="0" speed="3.90" length="2.58" shape="50.20,26.60 49.50,26.70 49.00,27.00 48.70,27.50 48.60,28.20"/>
     </edge>
 
     <edge id="-gneE0" from="gneJ1" to="gneJ0" priority="-1">

@@ -10,6 +10,7 @@ Debug: Adding junction 'gneJ3' into net
 Debug: Adding edge 'gneE2' from net
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ2'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE2'
+Debug: invalidating (removing) connections of edge 'gneE2' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ3'
 Debug: Key F5 (Compute) pressed
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
@@ -22,6 +23,8 @@ Debug: Selected shape 'poly' in ShapeSelector
 Debug: Key ENTER pressed
 Debug: Key ENTER pressed
 Debug: Adding poly 'poly_0' into viewNet
+Debug: Shapes has to be saved
+Debug: Current saving Status: net unsaved, additionals unsaved, shapes unsaved
 Debug: Opening FXMessageBox 'Confirm closing network'
 Debug: Opening FXMessageBox 'Save additionals before exit'
 Debug: Closed FXMessageBox 'Save additionals before exit' with 'Yes'

@@ -336,6 +336,9 @@ Warning: Connection '199425792_0->199425790#2_0' is only 0.06 short.
 Warning: Connection '199425793_0->321754182#1_0' is only 0.10 short.
 Warning: Intersecting left turns at junction '25662705' from lane '243854725#0_1' and lane '-243854725#1_1'. (increase junction radius to avoid this)
 Warning: Intersecting left turns at junction '27411228' from lane '23809678#2_1' and lane '-24241762#0_1'. (increase junction radius to avoid this)
+Warning: Invalid pedestrian topology: crossing ':2091651012_c1' across '24243101#1' has no target.
+Warning: Invalid pedestrian topology: crossing ':98976234_c2' across '-84960597#0' has no target.
+Warning: Discarding invalid crossing ':98976234_c0' at junction '98976234' with edges '153537606#1 84960597#0' (no walkingarea found).
 Warning: Ambiguity in turnarounds computation at junction '1130114721'.
 Warning: Ambiguity in turnarounds computation at junction '1206481791'.
 Warning: Ambiguity in turnarounds computation at junction '1206481808'.
@@ -674,3 +677,6 @@ Warning: Connection '199425792_0->199425790#2_0' is only 0.06 short.
 Warning: Connection '199425793_0->321754182#1_0' is only 0.10 short.
 Warning: Intersecting left turns at junction '25662705' from lane '243854725#0_1' and lane '-243854725#1_1'. (increase junction radius to avoid this)
 Warning: Intersecting left turns at junction '27411228' from lane '23809678#2_1' and lane '-24241762#0_1'. (increase junction radius to avoid this)
+Warning: Invalid pedestrian topology: crossing ':2091651012_c1' across '24243101#1' has no target.
+Warning: Invalid pedestrian topology: crossing ':98976234_c2' across '-84960597#0' has no target.
+Warning: Discarding invalid crossing ':98976234_c0' at junction '98976234' with edges '153537606#1 84960597#0' (no walkingarea found).

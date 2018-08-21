@@ -161,7 +161,7 @@ public:
         // obtain boundary of object
         Boundary b = o->getCenteringBoundary();
         // show information in gui testing debug gl mode
-        if (MsgHandler::writeDebugMessages()) {
+        if (MsgHandler::writeDebugGLMessages()) {
             if(myTreeDebug.count(o) == 0) {
                 throw ProcessError("GUIGlObject " + o->getMicrosimID() + " wasn't inserted");
             } else if (b != myTreeDebug.at(o)) {

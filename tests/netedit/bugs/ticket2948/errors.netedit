@@ -12,71 +12,99 @@ Debug: Adding junction 'gneJ1' into net
 Debug: Adding edge 'gneE0' from net
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
+Debug: invalidating (removing) connections of edge 'gneE0' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
 Debug: Adding edge '-gneE0' from net
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
+Debug: invalidating (removing) connections of edge 'gneE0' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE0'
+Debug: invalidating (removing) connections of edge '-gneE0' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
 Debug: Adding junction 'gneJ2' into net
 Debug: Adding edge 'gneE1' from net
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
+Debug: invalidating (removing) connections of edge 'gneE0' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE1'
+Debug: invalidating (removing) connections of edge 'gneE1' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ2'
 Debug: Adding edge '-gneE1' from net
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE1'
+Debug: invalidating (removing) connections of edge 'gneE1' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ2'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
+Debug: invalidating (removing) connections of edge 'gneE0' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE1'
+Debug: invalidating (removing) connections of edge '-gneE1' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
 Debug: Adding junction 'gneJ3' into net
 Debug: Adding edge 'gneE2' from net
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE1'
+Debug: invalidating (removing) connections of edge 'gneE1' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ2'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE2'
+Debug: invalidating (removing) connections of edge 'gneE2' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ3'
 Debug: Adding edge '-gneE2' from net
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE2'
+Debug: invalidating (removing) connections of edge 'gneE2' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ3'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE1'
+Debug: invalidating (removing) connections of edge 'gneE1' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE2'
+Debug: invalidating (removing) connections of edge '-gneE2' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ2'
 Debug: Adding junction 'gneJ4' into net
 Debug: Adding edge 'gneE3' from net
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE2'
+Debug: invalidating (removing) connections of edge 'gneE2' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ3'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE3'
+Debug: invalidating (removing) connections of edge 'gneE3' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ4'
 Debug: Adding edge '-gneE3' from net
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE3'
+Debug: invalidating (removing) connections of edge 'gneE3' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ4'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE2'
+Debug: invalidating (removing) connections of edge 'gneE2' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE3'
+Debug: invalidating (removing) connections of edge '-gneE3' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ3'
 Debug: Adding junction 'gneJ5' into net
 Debug: Adding edge 'gneE4' from net
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE3'
+Debug: invalidating (removing) connections of edge 'gneE3' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ4'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE4'
+Debug: invalidating (removing) connections of edge 'gneE4' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ5'
 Debug: Adding edge '-gneE4' from net
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE4'
+Debug: invalidating (removing) connections of edge 'gneE4' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ5'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE3'
+Debug: invalidating (removing) connections of edge 'gneE3' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE4'
+Debug: invalidating (removing) connections of edge '-gneE4' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ4'
 Debug: Adding junction 'gneJ6' into net
 Debug: Adding edge 'gneE5' from net
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE4'
+Debug: invalidating (removing) connections of edge 'gneE4' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ5'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE5'
+Debug: invalidating (removing) connections of edge 'gneE5' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ6'
 Debug: Adding edge '-gneE5' from net
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE5'
+Debug: invalidating (removing) connections of edge 'gneE5' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ6'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE4'
+Debug: invalidating (removing) connections of edge 'gneE4' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE5'
+Debug: invalidating (removing) connections of edge '-gneE5' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ5'
 Debug: Key ESC (abort) pressed
 Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
@@ -250,86 +278,114 @@ Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additi
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ5'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE5'
+Debug: invalidating (removing) connections of edge '-gneE5' due it were guessed
 Debug: Deleting unreferenced connection 'from-gneE5_0to-gneE4_0' in clearGNEConnections()
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE4'
+Debug: invalidating (removing) connections of edge 'gneE4' due it were guessed
 Debug: Deleting unreferenced connection 'fromgneE4_0togneE5_0' in clearGNEConnections()
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ6'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE5'
+Debug: invalidating (removing) connections of edge 'gneE5' due it were guessed
 Debug: Removing edge '-gneE5' from net
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ6'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE5'
+Debug: invalidating (removing) connections of edge 'gneE5' due it were guessed
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ5'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE4'
+Debug: invalidating (removing) connections of edge 'gneE4' due it were guessed
 Debug: Removing edge 'gneE5' from net
 Debug: Removing junction 'gneJ6' from net
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ4'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE4'
+Debug: invalidating (removing) connections of edge '-gneE4' due it were guessed
 Debug: Deleting unreferenced connection 'from-gneE4_0to-gneE3_0' in clearGNEConnections()
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE3'
+Debug: invalidating (removing) connections of edge 'gneE3' due it were guessed
 Debug: Deleting unreferenced connection 'fromgneE3_0togneE4_0' in clearGNEConnections()
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ5'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE4'
+Debug: invalidating (removing) connections of edge 'gneE4' due it were guessed
 Debug: Removing edge '-gneE4' from net
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ5'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE4'
+Debug: invalidating (removing) connections of edge 'gneE4' due it were guessed
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ4'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE3'
+Debug: invalidating (removing) connections of edge 'gneE3' due it were guessed
 Debug: Removing edge 'gneE4' from net
 Debug: Removing junction 'gneJ5' from net
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ3'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE3'
+Debug: invalidating (removing) connections of edge '-gneE3' due it were guessed
 Debug: Deleting unreferenced connection 'from-gneE3_0to-gneE2_0' in clearGNEConnections()
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE2'
+Debug: invalidating (removing) connections of edge 'gneE2' due it were guessed
 Debug: Deleting unreferenced connection 'fromgneE2_0togneE3_0' in clearGNEConnections()
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ4'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE3'
+Debug: invalidating (removing) connections of edge 'gneE3' due it were guessed
 Debug: Removing edge '-gneE3' from net
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ4'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE3'
+Debug: invalidating (removing) connections of edge 'gneE3' due it were guessed
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ3'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE2'
+Debug: invalidating (removing) connections of edge 'gneE2' due it were guessed
 Debug: Removing edge 'gneE3' from net
 Debug: Removing junction 'gneJ4' from net
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ2'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE2'
+Debug: invalidating (removing) connections of edge '-gneE2' due it were guessed
 Debug: Deleting unreferenced connection 'from-gneE2_0to-gneE1_0' in clearGNEConnections()
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE1'
+Debug: invalidating (removing) connections of edge 'gneE1' due it were guessed
 Debug: Deleting unreferenced connection 'fromgneE1_0togneE2_0' in clearGNEConnections()
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ3'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE2'
+Debug: invalidating (removing) connections of edge 'gneE2' due it were guessed
 Debug: Removing edge '-gneE2' from net
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ3'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE2'
+Debug: invalidating (removing) connections of edge 'gneE2' due it were guessed
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ2'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE1'
+Debug: invalidating (removing) connections of edge 'gneE1' due it were guessed
 Debug: Removing edge 'gneE2' from net
 Debug: Removing junction 'gneJ3' from net
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE1'
+Debug: invalidating (removing) connections of edge '-gneE1' due it were guessed
 Debug: Deleting unreferenced connection 'from-gneE1_0to-gneE0_0' in clearGNEConnections()
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
+Debug: invalidating (removing) connections of edge 'gneE0' due it were guessed
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in clearGNEConnections()
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ2'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE1'
+Debug: invalidating (removing) connections of edge 'gneE1' due it were guessed
 Debug: Removing edge '-gneE1' from net
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ2'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE1'
+Debug: invalidating (removing) connections of edge 'gneE1' due it were guessed
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
+Debug: invalidating (removing) connections of edge 'gneE0' due it were guessed
 Debug: Removing edge 'gneE1' from net
 Debug: Removing junction 'gneJ2' from net
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE0'
+Debug: invalidating (removing) connections of edge '-gneE0' due it were guessed
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
+Debug: invalidating (removing) connections of edge 'gneE0' due it were guessed
 Debug: Removing edge '-gneE0' from net
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
+Debug: invalidating (removing) connections of edge 'gneE0' due it were guessed
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
 Debug: Removing edge 'gneE0' from net
 Debug: Removing junction 'gneJ1' from net
@@ -340,76 +396,104 @@ Debug: Adding junction 'gneJ1' into net
 Debug: Adding edge 'gneE0' from net
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
+Debug: invalidating (removing) connections of edge 'gneE0' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
 Debug: Adding edge '-gneE0' from net
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
+Debug: invalidating (removing) connections of edge 'gneE0' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE0'
+Debug: invalidating (removing) connections of edge '-gneE0' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Adding junction 'gneJ2' into net
 Debug: Adding edge 'gneE1' from net
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
+Debug: invalidating (removing) connections of edge 'gneE0' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE1'
+Debug: invalidating (removing) connections of edge 'gneE1' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ2'
 Debug: Adding edge '-gneE1' from net
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE1'
+Debug: invalidating (removing) connections of edge 'gneE1' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ2'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
+Debug: invalidating (removing) connections of edge 'gneE0' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE1'
+Debug: invalidating (removing) connections of edge '-gneE1' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Adding junction 'gneJ3' into net
 Debug: Adding edge 'gneE2' from net
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE1'
+Debug: invalidating (removing) connections of edge 'gneE1' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ2'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE2'
+Debug: invalidating (removing) connections of edge 'gneE2' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ3'
 Debug: Adding edge '-gneE2' from net
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE2'
+Debug: invalidating (removing) connections of edge 'gneE2' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ3'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE1'
+Debug: invalidating (removing) connections of edge 'gneE1' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE2'
+Debug: invalidating (removing) connections of edge '-gneE2' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ2'
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Adding junction 'gneJ4' into net
 Debug: Adding edge 'gneE3' from net
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE2'
+Debug: invalidating (removing) connections of edge 'gneE2' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ3'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE3'
+Debug: invalidating (removing) connections of edge 'gneE3' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ4'
 Debug: Adding edge '-gneE3' from net
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE3'
+Debug: invalidating (removing) connections of edge 'gneE3' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ4'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE2'
+Debug: invalidating (removing) connections of edge 'gneE2' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE3'
+Debug: invalidating (removing) connections of edge '-gneE3' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ3'
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Adding junction 'gneJ5' into net
 Debug: Adding edge 'gneE4' from net
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE3'
+Debug: invalidating (removing) connections of edge 'gneE3' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ4'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE4'
+Debug: invalidating (removing) connections of edge 'gneE4' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ5'
 Debug: Adding edge '-gneE4' from net
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE4'
+Debug: invalidating (removing) connections of edge 'gneE4' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ5'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE3'
+Debug: invalidating (removing) connections of edge 'gneE3' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE4'
+Debug: invalidating (removing) connections of edge '-gneE4' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ4'
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Adding junction 'gneJ6' into net
 Debug: Adding edge 'gneE5' from net
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE4'
+Debug: invalidating (removing) connections of edge 'gneE4' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ5'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE5'
+Debug: invalidating (removing) connections of edge 'gneE5' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ6'
 Debug: Adding edge '-gneE5' from net
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE5'
+Debug: invalidating (removing) connections of edge 'gneE5' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ6'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE4'
+Debug: invalidating (removing) connections of edge 'gneE4' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE5'
+Debug: invalidating (removing) connections of edge '-gneE5' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ5'
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute selected 'true' into junction 'gneJ0'

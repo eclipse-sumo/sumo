@@ -1,6 +1,4 @@
 Error: Attribute 'imgFile' in definition of poi 'POI_0' is empty.
-Warning: Shapes has to be saved
-Warning: Current saving Status: net saved, additionals saved, shapes unsaved
 Error: Attribute 'color' in definition of poi 'POI_14' is empty.
 Error: Attribute 'layer' in definition of poi 'POI_17' is not of type float.
 Error: Either (x, y), (lon, lat) or (lane, pos) must be specified for PoI 'POI_19'.
@@ -10,5 +8,5 @@ Error: Attribute 'y' in definition of poi 'POI_22' is not of type float.
 Error: Attribute 'width' in definition of poi 'POI_25' is not of type float.
 Error: Attribute 'height' in definition of poi 'POI_5' is not of type float.
 Error: Loading of shapes failed.
-Error: Could not load 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Aug133416.3012/netedit.gui/shapeElements/poi/load\paris.ico'.
+Error: Could not load 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.20Aug131023.1664/netedit.gui/shapeElements/poi/load\paris.ico'.
 Loading failed!

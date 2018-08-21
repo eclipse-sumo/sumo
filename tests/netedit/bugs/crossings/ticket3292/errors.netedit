@@ -32,10 +32,10 @@ Debug: Created crossing ':Center_c1' in retrieveGNECrossing()
 Debug: Key F5 (Compute) pressed
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: removing crossing from junction 'Center'
-Debug: Deleting unreferenced crossing ':Center_c1' in rebuildGNECrossings()
+Debug: Deleting unreferenced crossing in rebuildGNECrossings()
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: removing crossing from junction 'Center'
-Debug: Deleting unreferenced crossing ':Center_c0' in rebuildGNECrossings()
+Debug: Deleting unreferenced crossing in rebuildGNECrossings()
 Debug: Changed flag netBuilder::haveNetworkCrossings from 'true' to 'false'
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Adding crossing into junction 'Center'

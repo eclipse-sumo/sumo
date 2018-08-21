@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 15.08.2018 20:11:36 by Eclipse SUMO netedit Version 7d8cd284aa
+<!-- generated on 21.08.2018 21:10:23 by Eclipse SUMO netedit Version 62765b51aa
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.15Aug181211.2488\netedit.gui\basic\open_net_shortcut\input_net_loadedmanually.net.xml"/>
+        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Aug182048.3540\netedit.gui\basic\open_net_shortcut\input_net_loadedmanually.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.15Aug181211.2488\netedit.gui\basic\open_net_shortcut\net.net.xml"/>
+        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Aug182048.3540\netedit.gui\basic\open_net_shortcut\net.net.xml"/>
     </output>
 
     <processing>
@@ -322,8 +322,8 @@
     <connection from="8" to=":Center_w0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="5" to=":Center_w0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="7" to=":Center_w0" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":Center_w1" to=":Center_c1" fromLane="0" toLane="0" tl="Center" linkIndex="21" dir="s" state="M"/>
-    <connection from=":Center_w2" to=":Center_c0" fromLane="0" toLane="0" tl="Center" linkIndex="20" dir="s" state="M"/>
+    <connection from=":Center_w1" to=":Center_c1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":Center_w2" to=":Center_c0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":D_w0" to="8" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="4" to=":D_w0" fromLane="0" toLane="0" dir="s" state="M"/>
 </net>

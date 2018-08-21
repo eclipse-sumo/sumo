@@ -12,9 +12,11 @@ Debug: Removing connection '-gneE17_0->gneE17_0' from edge '-gneE17'
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals saved, shapes saved
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE17'
+Debug: invalidating (removing) connections of edge '-gneE17' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ18'
 Debug: Removing connection 'gneE17_0->-gneE17_0' from edge 'gneE17'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE17'
+Debug: invalidating (removing) connections of edge 'gneE17' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ17'
 Debug: Removing edge 'gneE17' from net
 Debug: Setting new attribute selected 'true' into edge '-gneE17'
@@ -23,6 +25,7 @@ Debug: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additi
 Debug: Key DEL (delete) pressed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ17'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE17'
+Debug: invalidating (removing) connections of edge '-gneE17' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ18'
 Debug: Removing edge '-gneE17' from net
 Debug: Setting new attribute selected 'true' into edge '-gneE16'
@@ -31,9 +34,11 @@ Debug: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additi
 Debug: Key DEL (delete) pressed
 Debug: Removing connection 'gneE16_0->-gneE16_0' from edge 'gneE16'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE16'
+Debug: invalidating (removing) connections of edge 'gneE16' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ20'
 Debug: Removing connection '-gneE16_0->gneE16_0' from edge '-gneE16'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE16'
+Debug: invalidating (removing) connections of edge '-gneE16' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ19'
 Debug: Removing edge '-gneE16' from net
 Debug: Setting new attribute selected 'true' into edge 'gneE16'
@@ -42,6 +47,7 @@ Debug: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additi
 Debug: Key DEL (delete) pressed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ19'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE16'
+Debug: invalidating (removing) connections of edge 'gneE16' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ20'
 Debug: Removing edge 'gneE16' from net
 Debug: Setting new attribute selected 'true' into edge '-gneE23'
@@ -50,9 +56,11 @@ Debug: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additi
 Debug: Key DEL (delete) pressed
 Debug: Removing connection 'gneE23_0->-gneE23_0' from edge 'gneE23'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE23'
+Debug: invalidating (removing) connections of edge 'gneE23' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ24'
 Debug: Removing connection '-gneE23_0->gneE23_0' from edge '-gneE23'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE23'
+Debug: invalidating (removing) connections of edge '-gneE23' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ23'
 Debug: Removing edge '-gneE23' from net
 Debug: Setting new attribute selected 'true' into edge 'gneE23'
@@ -61,6 +69,7 @@ Debug: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additi
 Debug: Key DEL (delete) pressed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ23'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE23'
+Debug: invalidating (removing) connections of edge 'gneE23' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ24'
 Debug: Removing edge 'gneE23' from net
 Debug: Setting new attribute selected 'true' into edge '-gneE19'
@@ -69,9 +78,11 @@ Debug: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additi
 Debug: Key DEL (delete) pressed
 Debug: Removing connection 'gneE19_0->-gneE19_0' from edge 'gneE19'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE19'
+Debug: invalidating (removing) connections of edge 'gneE19' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ12'
 Debug: Removing connection '-gneE19_0->gneE19_0' from edge '-gneE19'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE19'
+Debug: invalidating (removing) connections of edge '-gneE19' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ11'
 Debug: Removing edge '-gneE19' from net
 Debug: Setting new attribute selected 'true' into edge 'gneE19'
@@ -80,6 +91,7 @@ Debug: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additi
 Debug: Key DEL (delete) pressed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ11'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE19'
+Debug: invalidating (removing) connections of edge 'gneE19' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ12'
 Debug: Removing edge 'gneE19' from net
 Debug: Setting new attribute selected 'true' into edge 'gneE20'
@@ -88,9 +100,11 @@ Debug: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additi
 Debug: Key DEL (delete) pressed
 Debug: Removing connection '-gneE20_0->gneE20_0' from edge '-gneE20'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE20'
+Debug: invalidating (removing) connections of edge '-gneE20' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ14'
 Debug: Removing connection 'gneE20_0->-gneE20_0' from edge 'gneE20'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE20'
+Debug: invalidating (removing) connections of edge 'gneE20' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ13'
 Debug: Removing edge 'gneE20' from net
 Debug: Setting new attribute selected 'true' into edge '-gneE20'
@@ -99,6 +113,7 @@ Debug: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additi
 Debug: Key DEL (delete) pressed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ13'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE20'
+Debug: invalidating (removing) connections of edge '-gneE20' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ14'
 Debug: Removing edge '-gneE20' from net
 Debug: Created connection 'from-gneE14_0togneE14_0' in retrieveGNEConnection()

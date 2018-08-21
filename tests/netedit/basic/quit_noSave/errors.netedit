@@ -11,6 +11,8 @@ Debug: Selected shape 'poly' in ShapeSelector
 Debug: Key ENTER pressed
 Debug: Key ENTER pressed
 Debug: Adding poly 'poly_0' into viewNet
+Debug: Shapes has to be saved
+Debug: Current saving Status: net saved, additionals unsaved, shapes unsaved
 Debug: Opening FXMessageBox 'Save additionals before exit'
 Debug: Closed FXMessageBox 'Save additionals before exit' with 'Quit'
 Debug: Opening FXMessageBox 'Save shapes before exit'

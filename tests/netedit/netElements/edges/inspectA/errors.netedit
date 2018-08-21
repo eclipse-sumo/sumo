@@ -22,19 +22,25 @@ Debug: Value 'gneJ2' for attribute from of edge isn't valid
 Debug: Removing connection 'gneE3_1->correct_ID_1' from edge 'gneE3'
 Debug: Removing connection 'gneE3_0->gneE8_0' from edge 'gneE3'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE3'
+Debug: invalidating (removing) connections of edge 'gneE3' due it were guessed
 Debug: Removing connection 'gneE9_0->correct_ID_1' from edge 'gneE9'
 Debug: Removing connection 'gneE9_0->correct_ID_0' from edge 'gneE9'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE9'
+Debug: invalidating (removing) connections of edge 'gneE9' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ2'
 Debug: Setting new attribute from 'gneJ0' into edge 'correct_ID'
 Debug: Removing connection 'gneE8_0->gneE0_0' from edge 'gneE8'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE8'
+Debug: invalidating (removing) connections of edge 'gneE8' due it were guessed
 Debug: Removing connection 'gneE1_0->gneE0_0' from edge 'gneE1'
 Debug: Removing connection 'gneE1_0->gneE9_0' from edge 'gneE1'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE1'
+Debug: invalidating (removing) connections of edge 'gneE1' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE8'
+Debug: invalidating (removing) connections of edge 'gneE8' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE1'
+Debug: invalidating (removing) connections of edge 'gneE1' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
 Debug: Setting new attribute shapeStart '0.00,0.00' into edge 'correct_ID'
 Debug: Key F5 (Compute) pressed
@@ -60,6 +66,7 @@ Debug: Deleting unreferenced connection 'fromgneE8_0tocorrect_ID_1' in removeCon
 Debug: Removing connection 'gneE8_0->gneE0_0' from edge 'gneE8'
 Debug: Deleting unreferenced connection 'fromgneE8_0togneE0_0' in removeConnection()
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE8'
+Debug: invalidating (removing) connections of edge 'gneE8' due it were guessed
 Debug: Removing connection 'gneE1_0->gneE0_0' from edge 'gneE1'
 Debug: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in removeConnection()
 Debug: Removing connection 'gneE1_0->gneE9_0' from edge 'gneE1'
@@ -67,15 +74,20 @@ Debug: Deleting unreferenced connection 'fromgneE1_0togneE9_0' in removeConnecti
 Debug: Removing connection 'gneE1_0->correct_ID_0' from edge 'gneE1'
 Debug: Deleting unreferenced connection 'fromgneE1_0tocorrect_ID_0' in removeConnection()
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE1'
+Debug: invalidating (removing) connections of edge 'gneE1' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
 Debug: Setting new attribute from 'gneJ2' into edge 'correct_ID'
 Debug: Removing connection 'gneE3_0->gneE8_0' from edge 'gneE3'
 Debug: Deleting unreferenced connection 'fromgneE3_0togneE8_0' in removeConnection()
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE3'
+Debug: invalidating (removing) connections of edge 'gneE3' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE9'
+Debug: invalidating (removing) connections of edge 'gneE9' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ2'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE3'
+Debug: invalidating (removing) connections of edge 'gneE3' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE9'
+Debug: invalidating (removing) connections of edge 'gneE9' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ2'
 Debug: Setting new attribute shapeStart '0.00,20.00' into edge 'correct_ID'
 Debug: Key F5 (Compute) pressed
@@ -91,26 +103,34 @@ Debug: Deleting unreferenced connection 'fromgneE5_0togneE3_1' in removeConnecti
 Debug: Removing connection 'gneE5_0->gneE3_0' from edge 'gneE5'
 Debug: Deleting unreferenced connection 'fromgneE5_0togneE3_0' in removeConnection()
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE5'
+Debug: invalidating (removing) connections of edge 'gneE5' due it were guessed
 Debug: Removing connection 'correct_ID_1->gneE3_1' from edge 'correct_ID'
 Debug: Deleting unreferenced connection 'fromcorrect_ID_1togneE3_1' in removeConnection()
 Debug: Removing connection 'correct_ID_0->gneE4_0' from edge 'correct_ID'
 Debug: Deleting unreferenced connection 'fromcorrect_ID_0togneE4_0' in removeConnection()
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'correct_ID'
+Debug: invalidating (removing) connections of edge 'correct_ID' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ3'
 Debug: Setting new attribute to 'gneJ1' into edge 'correct_ID'
 Debug: Removing connection 'gneE4_0->gneE1_0' from edge 'gneE4'
 Debug: Deleting unreferenced connection 'fromgneE4_0togneE1_0' in removeConnection()
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE4'
+Debug: invalidating (removing) connections of edge 'gneE4' due it were guessed
 Debug: Removing connection 'gneE0_0->gneE1_0' from edge 'gneE0'
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in removeConnection()
 Debug: Removing connection 'gneE0_0->gneE5_0' from edge 'gneE0'
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE5_0' in removeConnection()
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
+Debug: invalidating (removing) connections of edge 'gneE0' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'correct_ID'
+Debug: invalidating (removing) connections of edge 'correct_ID' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE4'
+Debug: invalidating (removing) connections of edge 'gneE4' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
+Debug: invalidating (removing) connections of edge 'gneE0' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'correct_ID'
+Debug: invalidating (removing) connections of edge 'correct_ID' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
 Debug: Setting new attribute shapeEnd '50.00,0.00' into edge 'correct_ID'
 Debug: Key F5 (Compute) pressed
@@ -125,16 +145,19 @@ Debug: Value 'gneJ0' for attribute to of edge isn't valid
 Debug: Removing connection 'gneE4_0->gneE1_0' from edge 'gneE4'
 Debug: Deleting unreferenced connection 'fromgneE4_0togneE1_0' in removeConnection()
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE4'
+Debug: invalidating (removing) connections of edge 'gneE4' due it were guessed
 Debug: Removing connection 'gneE0_0->gneE1_0' from edge 'gneE0'
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in removeConnection()
 Debug: Removing connection 'gneE0_0->gneE5_0' from edge 'gneE0'
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE5_0' in removeConnection()
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
+Debug: invalidating (removing) connections of edge 'gneE0' due it were guessed
 Debug: Removing connection 'correct_ID_1->gneE5_0' from edge 'correct_ID'
 Debug: Deleting unreferenced connection 'fromcorrect_ID_1togneE5_0' in removeConnection()
 Debug: Removing connection 'correct_ID_0->gneE1_0' from edge 'correct_ID'
 Debug: Deleting unreferenced connection 'fromcorrect_ID_0togneE1_0' in removeConnection()
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'correct_ID'
+Debug: invalidating (removing) connections of edge 'correct_ID' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
 Debug: Setting new attribute to 'gneJ3' into edge 'correct_ID'
 Debug: Removing connection 'gneE5_0->gneE3_1' from edge 'gneE5'
@@ -142,10 +165,14 @@ Debug: Deleting unreferenced connection 'fromgneE5_0togneE3_1' in removeConnecti
 Debug: Removing connection 'gneE5_0->gneE3_0' from edge 'gneE5'
 Debug: Deleting unreferenced connection 'fromgneE5_0togneE3_0' in removeConnection()
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE5'
+Debug: invalidating (removing) connections of edge 'gneE5' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'correct_ID'
+Debug: invalidating (removing) connections of edge 'correct_ID' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ3'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE5'
+Debug: invalidating (removing) connections of edge 'gneE5' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'correct_ID'
+Debug: invalidating (removing) connections of edge 'correct_ID' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ3'
 Debug: Setting new attribute shapeEnd '50.00,20.00' into edge 'correct_ID'
 Debug: Key F5 (Compute) pressed
@@ -169,30 +196,38 @@ Debug: Deleting unreferenced connection 'fromgneE3_1tocorrect_ID_1' in removeCon
 Debug: Removing connection 'gneE3_0->gneE8_0' from edge 'gneE3'
 Debug: Deleting unreferenced connection 'fromgneE3_0togneE8_0' in removeConnection()
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE3'
+Debug: invalidating (removing) connections of edge 'gneE3' due it were guessed
 Debug: Removing connection 'gneE9_0->correct_ID_1' from edge 'gneE9'
 Debug: Deleting unreferenced connection 'fromgneE9_0tocorrect_ID_1' in removeConnection()
 Debug: Removing connection 'gneE9_0->correct_ID_0' from edge 'gneE9'
 Debug: Deleting unreferenced connection 'fromgneE9_0tocorrect_ID_0' in removeConnection()
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE9'
+Debug: invalidating (removing) connections of edge 'gneE9' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ2'
 Debug: Removing connection 'gneE5_0->gneE3_1' from edge 'gneE5'
 Debug: Deleting unreferenced connection 'fromgneE5_0togneE3_1' in removeConnection()
 Debug: Removing connection 'gneE5_0->gneE3_0' from edge 'gneE5'
 Debug: Deleting unreferenced connection 'fromgneE5_0togneE3_0' in removeConnection()
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE5'
+Debug: invalidating (removing) connections of edge 'gneE5' due it were guessed
 Debug: Removing connection 'correct_ID_1->gneE3_1' from edge 'correct_ID'
 Debug: Deleting unreferenced connection 'fromcorrect_ID_1togneE3_1' in removeConnection()
 Debug: Removing connection 'correct_ID_0->gneE4_0' from edge 'correct_ID'
 Debug: Deleting unreferenced connection 'fromcorrect_ID_0togneE4_0' in removeConnection()
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'correct_ID'
+Debug: invalidating (removing) connections of edge 'correct_ID' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ3'
 Debug: Removing lane 'correct_ID_1' from edge
 Debug: Value '-6' for attribute numLanes of edge isn't valid
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE3'
+Debug: invalidating (removing) connections of edge 'gneE3' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE9'
+Debug: invalidating (removing) connections of edge 'gneE9' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ2'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE5'
+Debug: invalidating (removing) connections of edge 'gneE5' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'correct_ID'
+Debug: invalidating (removing) connections of edge 'correct_ID' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ3'
 Debug: Adding nullptr lane into edge
 Debug: Adding nullptr lane into edge
@@ -222,35 +257,43 @@ Debug: Deleting unreferenced lane 'correct_ID_1' in removeLane()
 Debug: Deleting unreferenced connection 'fromgneE9_0tocorrect_ID_1' in rebuildGNEConnections()
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ3'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'correct_ID'
+Debug: invalidating (removing) connections of edge 'correct_ID' due it were guessed
 Debug: Deleting unreferenced connection 'fromcorrect_ID_0togneE4_0' in clearGNEConnections()
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE5'
+Debug: invalidating (removing) connections of edge 'gneE5' due it were guessed
 Debug: Deleting unreferenced connection 'fromgneE5_0togneE3_0' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'fromgneE5_0togneE3_1' in clearGNEConnections()
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ2'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE9'
+Debug: invalidating (removing) connections of edge 'gneE9' due it were guessed
 Debug: Deleting unreferenced connection 'fromgneE9_0tocorrect_ID_0' in clearGNEConnections()
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE3'
+Debug: invalidating (removing) connections of edge 'gneE3' due it were guessed
 Debug: Deleting unreferenced connection 'fromgneE3_0togneE8_0' in clearGNEConnections()
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Adding lane 'correct_ID_1' into edge
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ3'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'correct_ID'
+Debug: invalidating (removing) connections of edge 'correct_ID' due it were guessed
 Debug: Adding connection 'correct_ID_0->gneE4_0' into edge 'correct_ID'
 Debug: Created connection 'fromcorrect_ID_0togneE4_0' in retrieveGNEConnection()
 Debug: Adding connection 'correct_ID_1->gneE3_1' into edge 'correct_ID'
 Debug: Created connection 'fromcorrect_ID_1togneE3_1' in retrieveGNEConnection()
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE5'
+Debug: invalidating (removing) connections of edge 'gneE5' due it were guessed
 Debug: Adding connection 'gneE5_0->gneE3_0' into edge 'gneE5'
 Debug: Created connection 'fromgneE5_0togneE3_0' in retrieveGNEConnection()
 Debug: Adding connection 'gneE5_0->gneE3_1' into edge 'gneE5'
 Debug: Created connection 'fromgneE5_0togneE3_1' in retrieveGNEConnection()
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ2'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE9'
+Debug: invalidating (removing) connections of edge 'gneE9' due it were guessed
 Debug: Adding connection 'gneE9_0->correct_ID_0' into edge 'gneE9'
 Debug: Created connection 'fromgneE9_0tocorrect_ID_0' in retrieveGNEConnection()
 Debug: Adding connection 'gneE9_0->correct_ID_1' into edge 'gneE9'
 Debug: Created connection 'fromgneE9_0tocorrect_ID_1' in retrieveGNEConnection()
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE3'
+Debug: invalidating (removing) connections of edge 'gneE3' due it were guessed
 Debug: Adding connection 'gneE3_0->gneE8_0' into edge 'gneE3'
 Debug: Created connection 'fromgneE3_0togneE8_0' in retrieveGNEConnection()
 Debug: Adding connection 'gneE3_1->correct_ID_1' into edge 'gneE3'
@@ -271,14 +314,18 @@ Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute shapeEnd '50.00,0.00' into edge 'correct_ID'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ3'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'correct_ID'
+Debug: invalidating (removing) connections of edge 'correct_ID' due it were guessed
 Debug: Deleting unreferenced connection 'fromcorrect_ID_0togneE4_0' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'fromcorrect_ID_1togneE3_1' in clearGNEConnections()
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE5'
+Debug: invalidating (removing) connections of edge 'gneE5' due it were guessed
 Debug: Deleting unreferenced connection 'fromgneE5_0togneE3_0' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'fromgneE5_0togneE3_1' in clearGNEConnections()
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ3'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'correct_ID'
+Debug: invalidating (removing) connections of edge 'correct_ID' due it were guessed
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE5'
+Debug: invalidating (removing) connections of edge 'gneE5' due it were guessed
 Debug: Adding connection 'gneE5_0->gneE3_0' into edge 'gneE5'
 Debug: Created connection 'fromgneE5_0togneE3_0' in retrieveGNEConnection()
 Debug: Adding connection 'gneE5_0->gneE3_1' into edge 'gneE5'
@@ -286,11 +333,13 @@ Debug: Created connection 'fromgneE5_0togneE3_1' in retrieveGNEConnection()
 Debug: Setting previous attribute to 'gneJ1' into edge 'correct_ID'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'correct_ID'
+Debug: invalidating (removing) connections of edge 'correct_ID' due it were guessed
 Debug: Adding connection 'correct_ID_0->gneE1_0' into edge 'correct_ID'
 Debug: Created connection 'fromcorrect_ID_0togneE1_0' in retrieveGNEConnection()
 Debug: Adding connection 'correct_ID_1->gneE5_0' into edge 'correct_ID'
 Debug: Created connection 'fromcorrect_ID_1togneE5_0' in retrieveGNEConnection()
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
+Debug: invalidating (removing) connections of edge 'gneE0' due it were guessed
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE5_0' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in clearGNEConnections()
 Debug: Adding connection 'gneE0_0->gneE5_0' into edge 'gneE0'
@@ -298,6 +347,7 @@ Debug: Created connection 'fromgneE0_0togneE5_0' in retrieveGNEConnection()
 Debug: Adding connection 'gneE0_0->gneE1_0' into edge 'gneE0'
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE4'
+Debug: invalidating (removing) connections of edge 'gneE4' due it were guessed
 Debug: Deleting unreferenced connection 'fromgneE4_0togneE1_0' in clearGNEConnections()
 Debug: Adding connection 'gneE4_0->gneE1_0' into edge 'gneE4'
 Debug: Created connection 'fromgneE4_0togneE1_0' in retrieveGNEConnection()
@@ -305,21 +355,27 @@ Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute shapeEnd '50.00,20.00' into edge 'correct_ID'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'correct_ID'
+Debug: invalidating (removing) connections of edge 'correct_ID' due it were guessed
 Debug: Deleting unreferenced connection 'fromcorrect_ID_0togneE1_0' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'fromcorrect_ID_1togneE5_0' in clearGNEConnections()
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
+Debug: invalidating (removing) connections of edge 'gneE0' due it were guessed
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE5_0' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in clearGNEConnections()
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE4'
+Debug: invalidating (removing) connections of edge 'gneE4' due it were guessed
 Debug: Deleting unreferenced connection 'fromgneE4_0togneE1_0' in clearGNEConnections()
 Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'gneJ1'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'correct_ID'
+Debug: invalidating (removing) connections of edge 'correct_ID' due it were guessed
 Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge 'gneE0'
+Debug: declaring connections of edge 'gneE0' as loaded (It will not be removed)
 Debug: Adding connection 'gneE0_0->gneE5_0' into edge 'gneE0'
 Debug: Created connection 'fromgneE0_0togneE5_0' in retrieveGNEConnection()
 Debug: Adding connection 'gneE0_0->gneE1_0' into edge 'gneE0'
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge 'gneE4'
+Debug: declaring connections of edge 'gneE4' as loaded (It will not be removed)
 Debug: Adding connection 'gneE4_0->gneE1_0' into edge 'gneE4'
 Debug: Created connection 'fromgneE4_0togneE1_0' in retrieveGNEConnection()
 Debug: Setting previous attribute to 'gneJ3' into edge 'correct_ID'
@@ -327,11 +383,13 @@ Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into
 Debug: Deleting unreferenced connection 'fromgneE5_0togneE3_0' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'fromgneE5_0togneE3_1' in clearGNEConnections()
 Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge 'correct_ID'
+Debug: declaring connections of edge 'correct_ID' as loaded (It will not be removed)
 Debug: Adding connection 'correct_ID_0->gneE4_0' into edge 'correct_ID'
 Debug: Created connection 'fromcorrect_ID_0togneE4_0' in retrieveGNEConnection()
 Debug: Adding connection 'correct_ID_1->gneE3_1' into edge 'correct_ID'
 Debug: Created connection 'fromcorrect_ID_1togneE3_1' in retrieveGNEConnection()
 Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge 'gneE5'
+Debug: declaring connections of edge 'gneE5' as loaded (It will not be removed)
 Debug: Adding connection 'gneE5_0->gneE3_0' into edge 'gneE5'
 Debug: Created connection 'fromgneE5_0togneE3_0' in retrieveGNEConnection()
 Debug: Adding connection 'gneE5_0->gneE3_1' into edge 'gneE5'
@@ -340,19 +398,24 @@ Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute shapeStart '0.00,0.00' into edge 'correct_ID'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ2'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE9'
+Debug: invalidating (removing) connections of edge 'gneE9' due it were guessed
 Debug: Deleting unreferenced connection 'fromgneE9_0tocorrect_ID_0' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'fromgneE9_0tocorrect_ID_1' in clearGNEConnections()
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE3'
+Debug: invalidating (removing) connections of edge 'gneE3' due it were guessed
 Debug: Deleting unreferenced connection 'fromgneE3_0togneE8_0' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'fromgneE3_1tocorrect_ID_1' in clearGNEConnections()
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ2'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE9'
+Debug: invalidating (removing) connections of edge 'gneE9' due it were guessed
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE3'
+Debug: invalidating (removing) connections of edge 'gneE3' due it were guessed
 Debug: Adding connection 'gneE3_0->gneE8_0' into edge 'gneE3'
 Debug: Created connection 'fromgneE3_0togneE8_0' in retrieveGNEConnection()
 Debug: Setting previous attribute from 'gneJ0' into edge 'correct_ID'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE1'
+Debug: invalidating (removing) connections of edge 'gneE1' due it were guessed
 Debug: Deleting unreferenced connection 'fromgneE1_0togneE9_0' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in clearGNEConnections()
 Debug: Adding connection 'gneE1_0->correct_ID_0' into edge 'gneE1'
@@ -362,6 +425,7 @@ Debug: Created connection 'fromgneE1_0togneE9_0' in retrieveGNEConnection()
 Debug: Adding connection 'gneE1_0->gneE0_0' into edge 'gneE1'
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE8'
+Debug: invalidating (removing) connections of edge 'gneE8' due it were guessed
 Debug: Deleting unreferenced connection 'fromgneE8_0togneE0_0' in clearGNEConnections()
 Debug: Adding connection 'gneE8_0->gneE0_0' into edge 'gneE8'
 Debug: Created connection 'fromgneE8_0togneE0_0' in retrieveGNEConnection()
@@ -371,30 +435,36 @@ Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute shapeStart '0.00,20.00' into edge 'correct_ID'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE1'
+Debug: invalidating (removing) connections of edge 'gneE1' due it were guessed
 Debug: Deleting unreferenced connection 'fromgneE1_0tocorrect_ID_0' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'fromgneE1_0togneE9_0' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in clearGNEConnections()
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE8'
+Debug: invalidating (removing) connections of edge 'gneE8' due it were guessed
 Debug: Deleting unreferenced connection 'fromgneE8_0togneE0_0' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'fromgneE8_0tocorrect_ID_1' in clearGNEConnections()
 Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'gneJ0'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge 'gneE1'
+Debug: declaring connections of edge 'gneE1' as loaded (It will not be removed)
 Debug: Adding connection 'gneE1_0->gneE9_0' into edge 'gneE1'
 Debug: Created connection 'fromgneE1_0togneE9_0' in retrieveGNEConnection()
 Debug: Adding connection 'gneE1_0->gneE0_0' into edge 'gneE1'
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge 'gneE8'
+Debug: declaring connections of edge 'gneE8' as loaded (It will not be removed)
 Debug: Adding connection 'gneE8_0->gneE0_0' into edge 'gneE8'
 Debug: Created connection 'fromgneE8_0togneE0_0' in retrieveGNEConnection()
 Debug: Setting previous attribute from 'gneJ2' into edge 'correct_ID'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'gneJ2'
 Debug: Deleting unreferenced connection 'fromgneE3_0togneE8_0' in clearGNEConnections()
 Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge 'gneE9'
+Debug: declaring connections of edge 'gneE9' as loaded (It will not be removed)
 Debug: Adding connection 'gneE9_0->correct_ID_0' into edge 'gneE9'
 Debug: Created connection 'fromgneE9_0tocorrect_ID_0' in retrieveGNEConnection()
 Debug: Adding connection 'gneE9_0->correct_ID_1' into edge 'gneE9'
 Debug: Created connection 'fromgneE9_0tocorrect_ID_1' in retrieveGNEConnection()
 Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge 'gneE3'
+Debug: declaring connections of edge 'gneE3' as loaded (It will not be removed)
 Debug: Adding connection 'gneE3_0->gneE8_0' into edge 'gneE3'
 Debug: Created connection 'fromgneE3_0togneE8_0' in retrieveGNEConnection()
 Debug: Adding connection 'gneE3_1->correct_ID_1' into edge 'gneE3'
@@ -410,42 +480,54 @@ Debug: Deleting unreferenced connection 'gneE3_1 -> correct_ID_1' in removeConne
 Debug: Removing connection 'gneE3_0->gneE8_0' from edge 'gneE3'
 Debug: Deleting unreferenced connection 'gneE3_0 -> gneE8_0' in removeConnection()
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE3'
+Debug: invalidating (removing) connections of edge 'gneE3' due it were guessed
 Debug: Removing connection 'gneE9_0->correct_ID_1' from edge 'gneE9'
 Debug: Deleting unreferenced connection 'gneE9_0 -> correct_ID_1' in removeConnection()
 Debug: Removing connection 'gneE9_0->correct_ID_0' from edge 'gneE9'
 Debug: Deleting unreferenced connection 'gneE9_0 -> correct_ID_0' in removeConnection()
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE9'
+Debug: invalidating (removing) connections of edge 'gneE9' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ2'
 Debug: Setting new attribute from 'gneJ0' into edge 'correct_ID'
 Debug: Removing connection 'gneE8_0->gneE0_0' from edge 'gneE8'
 Debug: Deleting unreferenced connection 'fromgneE8_0togneE0_0' in removeConnection()
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE8'
+Debug: invalidating (removing) connections of edge 'gneE8' due it were guessed
 Debug: Removing connection 'gneE1_0->gneE0_0' from edge 'gneE1'
 Debug: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in removeConnection()
 Debug: Removing connection 'gneE1_0->gneE9_0' from edge 'gneE1'
 Debug: Deleting unreferenced connection 'fromgneE1_0togneE9_0' in removeConnection()
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE1'
+Debug: invalidating (removing) connections of edge 'gneE1' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE8'
+Debug: invalidating (removing) connections of edge 'gneE8' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE1'
+Debug: invalidating (removing) connections of edge 'gneE1' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
 Debug: Setting new attribute shapeStart '0.00,0.00' into edge 'correct_ID'
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Removing connection 'gneE8_0->correct_ID_1' from edge 'gneE8'
 Debug: Removing connection 'gneE8_0->gneE0_0' from edge 'gneE8'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE8'
+Debug: invalidating (removing) connections of edge 'gneE8' due it were guessed
 Debug: Removing connection 'gneE1_0->gneE0_0' from edge 'gneE1'
 Debug: Removing connection 'gneE1_0->gneE9_0' from edge 'gneE1'
 Debug: Removing connection 'gneE1_0->correct_ID_0' from edge 'gneE1'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE1'
+Debug: invalidating (removing) connections of edge 'gneE1' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
 Debug: Setting new attribute from 'gneJ2' into edge 'correct_ID'
 Debug: Removing connection 'gneE3_0->gneE8_0' from edge 'gneE3'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE3'
+Debug: invalidating (removing) connections of edge 'gneE3' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE9'
+Debug: invalidating (removing) connections of edge 'gneE9' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ2'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE3'
+Debug: invalidating (removing) connections of edge 'gneE3' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE9'
+Debug: invalidating (removing) connections of edge 'gneE9' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ2'
 Debug: Setting new attribute shapeStart '0.00,20.00' into edge 'correct_ID'
 Debug: Keys Ctrl + Y (Redo) pressed
@@ -454,46 +536,61 @@ Debug: Deleting unreferenced connection 'fromgneE5_0togneE3_1' in removeConnecti
 Debug: Removing connection 'gneE5_0->gneE3_0' from edge 'gneE5'
 Debug: Deleting unreferenced connection 'fromgneE5_0togneE3_0' in removeConnection()
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE5'
+Debug: invalidating (removing) connections of edge 'gneE5' due it were guessed
 Debug: Removing connection 'correct_ID_1->gneE3_1' from edge 'correct_ID'
 Debug: Deleting unreferenced connection 'correct_ID_1 -> gneE3_1' in removeConnection()
 Debug: Removing connection 'correct_ID_0->gneE4_0' from edge 'correct_ID'
 Debug: Deleting unreferenced connection 'correct_ID_0 -> gneE4_0' in removeConnection()
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'correct_ID'
+Debug: invalidating (removing) connections of edge 'correct_ID' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ3'
 Debug: Setting new attribute to 'gneJ1' into edge 'correct_ID'
 Debug: Removing connection 'gneE4_0->gneE1_0' from edge 'gneE4'
 Debug: Deleting unreferenced connection 'fromgneE4_0togneE1_0' in removeConnection()
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE4'
+Debug: invalidating (removing) connections of edge 'gneE4' due it were guessed
 Debug: Removing connection 'gneE0_0->gneE1_0' from edge 'gneE0'
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in removeConnection()
 Debug: Removing connection 'gneE0_0->gneE5_0' from edge 'gneE0'
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE5_0' in removeConnection()
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
+Debug: invalidating (removing) connections of edge 'gneE0' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'correct_ID'
+Debug: invalidating (removing) connections of edge 'correct_ID' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE4'
+Debug: invalidating (removing) connections of edge 'gneE4' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
+Debug: invalidating (removing) connections of edge 'gneE0' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'correct_ID'
+Debug: invalidating (removing) connections of edge 'correct_ID' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
 Debug: Setting new attribute shapeEnd '50.00,0.00' into edge 'correct_ID'
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Removing connection 'gneE4_0->gneE1_0' from edge 'gneE4'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE4'
+Debug: invalidating (removing) connections of edge 'gneE4' due it were guessed
 Debug: Removing connection 'gneE0_0->gneE1_0' from edge 'gneE0'
 Debug: Removing connection 'gneE0_0->gneE5_0' from edge 'gneE0'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
+Debug: invalidating (removing) connections of edge 'gneE0' due it were guessed
 Debug: Removing connection 'correct_ID_1->gneE5_0' from edge 'correct_ID'
 Debug: Removing connection 'correct_ID_0->gneE1_0' from edge 'correct_ID'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'correct_ID'
+Debug: invalidating (removing) connections of edge 'correct_ID' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
 Debug: Setting new attribute to 'gneJ3' into edge 'correct_ID'
 Debug: Removing connection 'gneE5_0->gneE3_1' from edge 'gneE5'
 Debug: Removing connection 'gneE5_0->gneE3_0' from edge 'gneE5'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE5'
+Debug: invalidating (removing) connections of edge 'gneE5' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'correct_ID'
+Debug: invalidating (removing) connections of edge 'correct_ID' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ3'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE5'
+Debug: invalidating (removing) connections of edge 'gneE5' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'correct_ID'
+Debug: invalidating (removing) connections of edge 'correct_ID' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ3'
 Debug: Setting new attribute shapeEnd '50.00,20.00' into edge 'correct_ID'
 Debug: Keys Ctrl + Y (Redo) pressed
@@ -512,24 +609,32 @@ Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Removing connection 'gneE3_1->correct_ID_1' from edge 'gneE3'
 Debug: Removing connection 'gneE3_0->gneE8_0' from edge 'gneE3'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE3'
+Debug: invalidating (removing) connections of edge 'gneE3' due it were guessed
 Debug: Removing connection 'gneE9_0->correct_ID_1' from edge 'gneE9'
 Debug: Removing connection 'gneE9_0->correct_ID_0' from edge 'gneE9'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE9'
+Debug: invalidating (removing) connections of edge 'gneE9' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ2'
 Debug: Removing connection 'gneE5_0->gneE3_1' from edge 'gneE5'
 Debug: Removing connection 'gneE5_0->gneE3_0' from edge 'gneE5'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE5'
+Debug: invalidating (removing) connections of edge 'gneE5' due it were guessed
 Debug: Removing connection 'correct_ID_1->gneE3_1' from edge 'correct_ID'
 Debug: Removing connection 'correct_ID_0->gneE4_0' from edge 'correct_ID'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'correct_ID'
+Debug: invalidating (removing) connections of edge 'correct_ID' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ3'
 Debug: Removing lane 'correct_ID_1' from edge
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE3'
+Debug: invalidating (removing) connections of edge 'gneE3' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE9'
+Debug: invalidating (removing) connections of edge 'gneE9' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ2'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE5'
+Debug: invalidating (removing) connections of edge 'gneE5' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'correct_ID'
+Debug: invalidating (removing) connections of edge 'correct_ID' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ3'
 Debug: Adding nullptr lane into edge
 Debug: Adding nullptr lane into edge

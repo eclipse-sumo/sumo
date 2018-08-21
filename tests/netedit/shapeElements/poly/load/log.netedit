@@ -1,5 +1,3 @@
-Warning: Shapes has to be saved
-Warning: Current saving Status: net saved, additionals saved, shapes unsaved
 Error: Attribute 'id' is missing in definition of a poly.
 Error: Polygon 'poly_0' already exists.
 Error: Attribute 'color' in definition of poly 'poly_3' is empty.
@@ -10,7 +8,7 @@ Error: Polygon's shape cannot be empty.
 Error: Attribute 'shape' in definition of poly 'poly_12' is not of type PositionVector.
 Error: Polygon's shape cannot be empty.
 Error: Attribute 'type' in definition of poly 'poly_18' is empty.
-Error: Could not load 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Aug133416.3012/netedit.gui/shapeElements/poly/load\paris.ico'.
+Error: Could not load 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.20Aug131023.1664/netedit.gui/shapeElements/poly/load\paris.ico'.
 Loading failed!
 Error: Attribute 'imgFile' in definition of poly 'poly_21' is empty.
 Error: Attribute 'angle' in definition of poly 'poly_23' is not of type float.

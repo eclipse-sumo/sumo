@@ -32,6 +32,7 @@ Debug: Created crossing ':Center_c0' in retrieveGNECrossing()
 Debug: Created crossing ':Center_c1' in retrieveGNECrossing()
 Debug: Current Viewport values: 50.00, 50.00, 50.00. Zoom = '240.00'
 Debug: Setting new attribute edges '3 7 1' into crossing ':Center_c1'
+Debug: Created crossing ':Center_c1' in retrieveGNECrossing()
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals saved, shapes saved
 Debug: Key F5 (Compute) pressed
@@ -48,20 +49,25 @@ Debug: Setting previous attribute width '4.00' into crossing ':Center_c0'
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute priority 'false' into crossing ':Center_c0'
 Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute edges '4 8' into crossing ':Center_c0'
+Debug: Setting previous attribute edges '4 8' into crossing ':Center_c1'
 Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute edges '3 7' into crossing ':Center_c1'
+Debug: Setting previous attribute edges '3 7' into crossing ':Center_c0'
+Debug: Created crossing ':Center_c0' in retrieveGNECrossing()
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Key F5 (Compute) pressed
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute edges '3 7 1' into crossing ':Center_c1'
+Debug: Created crossing ':Center_c1' in retrieveGNECrossing()
+Debug: Deleting unreferenced crossing in rebuildGNECrossings()
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute edges '3' into crossing ':Center_c0'
 Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute priority 'true' into crossing ':Center_c0'
+Debug: Setting new attribute priority 'true' into crossing ':Center_c1'
 Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute width '4' into crossing ':Center_c0'
+Debug: Setting new attribute width '4' into crossing ':Center_c1'
 Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Deleting unreferenced crossing ':Center_c0' in GNEChange_Attribute
+Debug: Deleting unreferenced crossing ':Center_c0' in GNEChange_Attribute
 Debug: Deleting unreferenced edge '1' in GNENet destructor
 Debug: Deleting unreferenced lane '1_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '1_1' in GNEEdge destructor

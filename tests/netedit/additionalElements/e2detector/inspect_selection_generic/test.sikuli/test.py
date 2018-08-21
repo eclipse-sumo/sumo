@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
+neteditProcess, match = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
 # go to select mode
 netedit.selectMode()
@@ -59,10 +59,10 @@ netedit.modifyAttribute(10, "key1duplicated=value1|key1duplicated=value2|key3=va
 netedit.modifyAttribute(10, "key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated")
 
 # Change generic parameters with an invalid value (invalid key characters)
-netedit.modifyAttribute(10, "keyInvalid.;%%$$=value1|key2=value2|key3=value3")
+netedit.modifyAttribute(10, "keyInvalid.;%>%$$=value1|key2=value2|key3=value3")
 
 # Change generic parameters with a invalid value (invalid value characters)
-netedit.modifyAttribute(10, "key1=valueInvalid%;%$$$%|key2=value2|key3=value3")
+netedit.modifyAttribute(10, "key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3")
 
 # Change generic parameters with a valid value
 netedit.modifyAttribute(10, "keyFinal1=value1|keyFinal2=value2|keyFinal3=value3")

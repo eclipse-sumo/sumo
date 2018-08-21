@@ -20,10 +20,14 @@ import subprocess
 from sikuli import Key, Region, Settings, click, drag, dropAt, hover, keyDown, keyUp, paste, wait, type
 
 # define delay before every operation
-DELAY = 0.1
+DELAY_KEY = 0.1
+DELAY_MOUSE = 1
 DELAY_QUESTION = 1
 DELAY_REFERENCE = 30
 DELAY_QUIT = 3
+DELAY_UNDOREDO = 1
+DELAY_VOLATILE = 4
+DELAY_SAVE = 2
 
 Settings.MoveMouseDelay = 0.2
 Settings.DelayBeforeDrop = 0.2
@@ -44,7 +48,7 @@ referenceImage = os.path.join("imageResources", "reference.png")
 
 def typeEscape():
     # wait before every operation
-    wait(DELAY)
+    wait(DELAY_KEY)
     # type ESC key (Sikulix Function)
     type(Key.ESC)
 
@@ -56,7 +60,7 @@ def typeEscape():
 
 def typeEnter():
     # wait before every operation
-    wait(DELAY)
+    wait(DELAY_KEY)
     # type enter key (Sikulix Function)
     type(Key.ENTER)
 
@@ -67,7 +71,7 @@ def typeEnter():
 
 
 def typeSpace():
-    wait(DELAY)
+    wait(DELAY_KEY)
     # type space key (Sikulix Function)
     type(Key.SPACE)
 
@@ -79,7 +83,7 @@ def typeSpace():
 
 def typeTab():
     # wait before every operation
-    wait(DELAY)
+    wait(DELAY_KEY)
     # type tab key (Sikulix Function)
     type(Key.TAB)
 
@@ -91,7 +95,7 @@ def typeTab():
 
 def typeInvertTab():
     # wait before every operation
-    wait(DELAY)
+    wait(DELAY_KEY)
     # type Tab and Shift at the same time (Sikulix Function)
     type(Key.TAB, Key.SHIFT)
 
@@ -103,7 +107,7 @@ def typeInvertTab():
 
 def typeKey(key):
     # wait before every operation
-    wait(DELAY)
+    wait(DELAY_KEY)
     # type keys (Sikulix Function)
     type(key)
 
@@ -115,7 +119,7 @@ def typeKey(key):
 
 def typeTwoKeys(key1, key2):
     # wait before every operation
-    wait(DELAY)
+    wait(DELAY_KEY)
     # type two keys at the same time (Sikulix Function)
     type(key1, key2)
 
@@ -127,7 +131,7 @@ def typeTwoKeys(key1, key2):
 
 def pasteIntoTextField(value, removePreviousContents=True):
     # wait before every operation
-    wait(DELAY)
+    wait(DELAY_KEY)
     # remove previous content
     if(removePreviousContents):
         typeTwoKeys("a", Key.CTRL)
@@ -143,7 +147,7 @@ def pasteIntoTextField(value, removePreviousContents=True):
 
 def leftClick(match, positionx, positiony):
     # wait before every operation
-    wait(DELAY)
+    wait(DELAY_MOUSE)
     # obtain clicked position
     clickedPosition = match.getTarget().offset(positionx, positiony)
     # click respect to offset
@@ -160,7 +164,7 @@ def leftClickShift(match, positionx, positiony):
     # Leave Shift key pressed (Sikulix function)
     keyDown(Key.SHIFT)
     # wait before every operation
-    wait(DELAY)
+    wait(DELAY_MOUSE)
     # obtain clicked position
     clickedPosition = match.getTarget().offset(positionx, positiony)
     # click respect to offset
@@ -179,7 +183,7 @@ def leftClickControl(match, positionx, positiony):
     # Leave Shift key pressed (Sikulix function)
     keyDown(Key.CTRL)
     # wait before every operation
-    wait(DELAY)
+    wait(DELAY_MOUSE)
     # obtain clicked position
     clickedPosition = match.getTarget().offset(positionx, positiony)
     # click respect to offset
@@ -196,9 +200,9 @@ def leftClickControl(match, positionx, positiony):
 
 def dragDrop(match, x1, y1, x2, y2):
     # wait before every operation
-    wait(DELAY)
+    wait(DELAY_KEY)
     drag(match.getTarget().offset(x1, y1))
-    wait(DELAY)
+    wait(DELAY_MOUSE)
     dropAt(match.getTarget().offset(x2, y2))
 
 #################################################
@@ -341,6 +345,8 @@ def setupAndStart(testRoot, extraParameters=[], debugInformation=True, searchRef
 
 def rebuildNetwork():
     typeKey(Key.F5)
+    # wait for output
+    wait(DELAY_VOLATILE)
 
 
 """
@@ -353,6 +359,8 @@ def rebuildNetworkWithVolatileOptions(question=True):
     # confirm recompute
     if question is True:
         waitQuestion('y')
+        # wait for output
+        wait(DELAY_VOLATILE)
     else:
         waitQuestion('n')
 
@@ -396,6 +404,7 @@ def undo(match, number):
     leftClick(match, 0, 0)
     for x in range(0, number):
         typeTwoKeys("z", Key.CTRL)
+        wait(DELAY_UNDOREDO)
 
 
 """
@@ -410,6 +419,7 @@ def redo(match, number):
     leftClick(match, 0, 0)
     for x in range(0, number):
         typeTwoKeys("y", Key.CTRL)
+        wait(DELAY_UNDOREDO)
 
 
 """
@@ -474,6 +484,8 @@ def quit(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
             wait(DELAY_QUESTION)
             if saveNet:
                 waitQuestion("s")
+                # wait for log 
+                wait(DELAY_SAVE)
             else:
                 waitQuestion("q")
 
