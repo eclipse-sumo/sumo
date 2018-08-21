@@ -646,6 +646,9 @@ public:
     /// @brief return the crossing with the given id
     Crossing* getCrossing(const std::string& id) const;
 
+    /// @brief return the crossing with the given Edges
+    Crossing* getCrossing(const EdgeVector& edges, bool hardFail = true) const;
+
     /* @brief set tl indices of this nodes crossing starting at the given index
      * @return Whether a custom index was used
      */

@@ -2856,6 +2856,23 @@ NBNode::getCrossing(const std::string& id) const {
 }
 
 
+NBNode::Crossing* 
+NBNode::getCrossing(const EdgeVector& edges, bool hardFail) const {
+    EdgeSet edgeSet(edges.begin(), edges.end());
+    for (auto it : myCrossings) {
+        EdgeSet edgeSet2(it->edges.begin(), it->edges.end());
+        if (edgeSet == edgeSet2) {
+            return it;
+        }
+    }
+    if(!hardFail) {
+        return NULL;
+    } else {
+        throw ProcessError("Request for unknown crossing for the given Edges");
+    }
+}
+
+
 bool
 NBNode::setCrossingTLIndices(const std::string& tlID, int startIndex) {
     bool usedCustom = false;

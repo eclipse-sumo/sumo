@@ -49,7 +49,7 @@ public:
      * @param[in] parentJunction GNEJunction in which this crossing is placed
      * @param[in] crossing Node::Crossing
      */
-    GNECrossing(GNEJunction* parentJunction, const std::string &NBCrossingID);
+    GNECrossing(GNEJunction* parentJunction, std::vector<NBEdge*> edges);
 
     /// @brief Destructor
     ~GNECrossing();
@@ -62,6 +62,9 @@ public:
 
     /// @brief get parent Junction
     GNEJunction* getParentJunction() const;
+
+    /// @brief get crossingEdges
+    const std::vector<NBEdge*> &getCrossingEdges() const;
 
     ///@brief get referente to NBode::Crossing
     NBNode::Crossing* getNBCrossing() const;
@@ -150,8 +153,11 @@ protected:
     /// @brief the parent junction of this crossing
     GNEJunction* myParentJunction;
 
-    /// @brief edges of crossing
-    std::string myNBCrossingID;
+    /// @brief Crossing Edges (It works as ID because a junction can only ONE Crossing with the same edges)
+    std::vector<NBEdge*> myCrossingEdges;
+
+    /// @brief crossingShape
+    PositionVector myShape;
 
     /// @name computed only once (for performance) in updateGeometry()
     /// @{

@@ -113,7 +113,7 @@ GNEJunction::updateGeometry() {
     myNet->addGLObjectIntoNet(this);
     // rebuild GNECrossings
     // (but don't rebuild the crossings in NBNode because they are already finished)
-    rebuildGNECrossings(false);
+    rebuildGNECrossings(true);
 }
 
 
@@ -125,17 +125,24 @@ GNEJunction::rebuildGNECrossings(bool rebuildNBNodeCrossings) {
             // build new NBNode::Crossings and walking areas
             myNBNode.buildCrossingsAndWalkingAreas();
         }
+        // extract ALL crossing of Tree (Due after rebuild some IDs can referenciate another GNECrossing)
+        for (auto i : myGNECrossings) {
+            myNet->removeGLObjectFromNet(i);
+        }
+
         // create a vector to keep retrieved and created crossings
         std::vector<GNECrossing*> retrievedCrossings;
         // iterate over NBNode::Crossings of GNEJunction
-        for (auto c : myNBNode.getCrossingsIncludingInvalid()) {
+        for (auto NBc : myNBNode.getCrossingsIncludingInvalid()) {
             // retrieve existent GNECrossing, or create it
-            GNECrossing* retrievedGNECrossing = retrieveGNECrossing(c);
+            GNECrossing* retrievedGNECrossing = retrieveGNECrossing(NBc);
             retrievedCrossings.push_back(retrievedGNECrossing);
-            // check if previously this GNECrossings exists, and if true, remove it from myGNECrossings
+            // check if previously this GNECrossings exists, and if true, remove it from myGNECrossings and insert in tree again
             std::vector<GNECrossing*>::iterator retrievedExists = std::find(myGNECrossings.begin(), myGNECrossings.end(), retrievedGNECrossing);
             if (retrievedExists != myGNECrossings.end()) {
                 myGNECrossings.erase(retrievedExists);
+                // insert retrieved crossing in tree again
+                myNet->addGLObjectIntoNet(retrievedGNECrossing);
                 // update geometry of retrieved crossing
                 retrievedGNECrossing->updateGeometry();
             } else {
@@ -147,7 +154,7 @@ GNEJunction::rebuildGNECrossings(bool rebuildNBNodeCrossings) {
                 retrievedGNECrossing->selectAttributeCarrier();
             }
         }
-        // delete non retrieved GNECrossings
+        // delete non retrieved GNECrossings (we don't need to extract if from Tree two times)
         for (auto it : myGNECrossings) {
             it->decRef();
             // check if crossing is selected
@@ -156,7 +163,7 @@ GNEJunction::rebuildGNECrossings(bool rebuildNBNodeCrossings) {
             }
             if (it->unreferenced()) {
                 // show extra information for tests
-                WRITE_DEBUG("Deleting unreferenced " + toString(it->getTag()) + " '" + it->getID() + "' in rebuildGNECrossings()");
+                WRITE_DEBUG("Deleting unreferenced " + toString(it->getTag()) + " in rebuildGNECrossings()");
                 delete it;
             }
         }
@@ -748,14 +755,16 @@ GNEJunction::removeEdgeFromCrossings(GNEEdge* edge, GNEUndoList* undoList) {
     // obtain a copy of GNECrossing of junctions
     auto copyOfGNECrossings = myGNECrossings;
     // iterate over copy of GNECrossings
-    for (auto c : copyOfGNECrossings) {
+    for (int i = 0; i < (int)myGNECrossings.size(); i++) {
+        auto c = myGNECrossings.at(i);
         // obtain the set of edges vinculated with the crossing (due it works as ID)
-        EdgeSet edgeSet(c->getNBCrossing()->edges.begin(), c->getNBCrossing()->edges.end());
+        EdgeSet edgeSet(c->getCrossingEdges().begin(), c->getCrossingEdges().end());
         // If this edge is part of the set of edges of crossing
         if (edgeSet.count(edge->getNBEdge()) == 1) {
             // delete crossing if this is their last edge
-            if ((c->getNBCrossing()->edges.size() == 1) && (c->getNBCrossing()->edges.front() == edge->getNBEdge())) {
+            if ((c->getCrossingEdges().size() == 1) && (c->getCrossingEdges().front() == edge->getNBEdge())) {
                 myNet->deleteCrossing(c, undoList);
+                i = 0;
             } else {
                 // remove this edge of the edge's attribute of crossing (note: This can invalidate the crossing)
                 std::vector<std::string> edges = GNEAttributeCarrier::parse<std::vector<std::string>>(c->getAttribute(SUMO_ATTR_EDGES));
@@ -775,16 +784,22 @@ GNEJunction::isLogicValid() {
 
 GNECrossing*
 GNEJunction::retrieveGNECrossing(NBNode::Crossing* crossing, bool createIfNoExist) {
+    // iterate over all crossing
     for (auto i : myGNECrossings) {
-        if (i->getNBCrossing() == crossing) {
+        // if found, return it
+        if (i->getCrossingEdges() == crossing->edges) {
             return i;
         }
     }
     if (createIfNoExist) {
         // create new GNECrossing
-        GNECrossing* createdGNECrossing = new GNECrossing(this, crossing->id);
+        GNECrossing* createdGNECrossing = new GNECrossing(this, crossing->edges);
         // show extra information for tests
         WRITE_DEBUG("Created " + toString(createdGNECrossing->getTag()) + " '" + createdGNECrossing->getID() + "' in retrieveGNECrossing()");
+        // insert it in Tree
+        myNet->addGLObjectIntoNet(createdGNECrossing);
+        // update geometry after creating
+        createdGNECrossing->updateGeometry();
         return createdGNECrossing;
     } else {
         return nullptr;

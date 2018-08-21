@@ -182,9 +182,11 @@ GNENetElement::getPopUpID() const {
 std::string 
 GNENetElement::getHierarchyName() const {
     if(getTag() == SUMO_TAG_LANE) {
-        return toString(getTag()) + " " + getAttribute(SUMO_ATTR_INDEX);
+        return toString(SUMO_TAG_LANE) + " " + getAttribute(SUMO_ATTR_INDEX);
     } else if(getTag() == SUMO_TAG_CONNECTION) {
         return getAttribute(SUMO_ATTR_FROM_LANE) + " -> " + getAttribute(SUMO_ATTR_TO_LANE);
+    } else if(getTag() == SUMO_TAG_CROSSING) {
+        return toString(SUMO_TAG_CROSSING) + " " + getAttribute(SUMO_ATTR_ID);
     } else {
         return toString(getTag());
     }
