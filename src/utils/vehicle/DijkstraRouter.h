@@ -51,20 +51,16 @@
  * The template parameters are:
  * @param E The edge class to use (MSEdge/ROEdge)
  * @param V The vehicle class to use (MSVehicle/ROVehicle)
- * @param PF The prohibition function to use (prohibited_withPermissions/noProhibitions)
- * @param EC The class to retrieve the effort for an edge from
+ * @param BASE The base class to use (SUMOAbstractRouterPermissions/SUMOAbstractRouter)
  *
  * The router is edge-based. It must know the number of edges for internal reasons
  *  and whether a missing connection between two given edges (unbuild route) shall
  *  be reported as an error or as a warning.
  *
  */
-template<class E, class V, class PF>
-class DijkstraRouter : public SUMOAbstractRouter<E, V>, public PF {
-
+template<class E, class V, class BASE>
+class DijkstraRouter : public BASE {
 public:
-    typedef double(* Operation)(const E* const, const V* const, double);
-
     /**
      * @class EdgeInfo
      * A definition about a route's edge with the effort needed to reach it and
@@ -123,8 +119,9 @@ public:
 
 
     /// Constructor
-    DijkstraRouter(const std::vector<E*>& edges, bool unbuildIsWarning, Operation effortOperation, Operation ttOperation = nullptr, bool silent = false) :
-        SUMOAbstractRouter<E, V>(effortOperation, "DijkstraRouter"), myTTOperation(ttOperation),
+    DijkstraRouter(const std::vector<E*>& edges, bool unbuildIsWarning, typename BASE::Operation effortOperation,
+                   typename BASE::Operation ttOperation = nullptr, bool silent = false) :
+                   BASE("DijkstraRouter", effortOperation, ttOperation),
         myErrorMsgHandler(unbuildIsWarning ?  MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()),
         mySilent(silent) {
         for (typename std::vector<E*>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
@@ -136,11 +133,7 @@ public:
     virtual ~DijkstraRouter() { }
 
     virtual SUMOAbstractRouter<E, V>* clone() {
-        return new DijkstraRouter<E, V, PF>(myEdgeInfos, myErrorMsgHandler == MsgHandler::getWarningInstance(), this->myOperation, myTTOperation, mySilent);
-    }
-
-    inline double getTravelTime(const E* const e, const V* const v, const double t, const double effort) const {
-        return myTTOperation == nullptr ? effort : (*myTTOperation)(e, v, t);
+        return new DijkstraRouter<E, V, BASE>(myEdgeInfos, myErrorMsgHandler == MsgHandler::getWarningInstance(), this->myOperation, myTTOperation, mySilent);
     }
 
     void init() {
@@ -162,11 +155,11 @@ public:
                          SUMOTime msTime, std::vector<const E*>& into) {
         assert(from != 0 && (vehicle == 0 || to != 0));
         // check whether from and to can be used
-        if (PF::operator()(from, vehicle)) {
+        if (this->isProhibited(from, vehicle)) {
             myErrorMsgHandler->inform("Vehicle '" + vehicle->getID() + "' is not allowed on source edge '" + from->getID() + "'.");
             return false;
         }
-        if (PF::operator()(to, vehicle)) {
+        if (this->isProhibited(to, vehicle)) {
             myErrorMsgHandler->inform("Vehicle '" + vehicle->getID() + "' is not allowed on destination edge '" + to->getID() + "'.");
             return false;
         }
@@ -236,7 +229,7 @@ public:
             for (const std::pair<const E*, const E*>& follower : minEdge->getViaSuccessors(vClass)) {
                 EdgeInfo* const followerInfo = &(myEdgeInfos[follower.first->getNumericalID()]);
                 // check whether it can be used
-                if (PF::operator()(follower.first, vehicle)) {
+                if (this->isProhibited(follower.first, vehicle)) {
                     continue;
                 }
                 const double oldEffort = followerInfo->effort;
@@ -267,41 +260,6 @@ public:
     }
 
 
-    void updateViaCost(const E* const prev, const E* const e, const V* const v, double& time, double& effort) const {
-        for (const std::pair<const E*, const E*>& follower : prev->getViaSuccessors()) {
-            if (follower.first == e) {
-                const E* viaEdge = follower.second;
-                while (viaEdge != nullptr && viaEdge != e) {
-                    const double viaEffortDelta = this->getEffort(viaEdge, v, time);
-                    time += getTravelTime(viaEdge, v, time, viaEffortDelta);
-                    effort += viaEffortDelta;
-                    viaEdge = viaEdge->getViaSuccessors().front().first;
-                }
-                break;
-            }
-        }
-    }
-
-
-    double recomputeCosts(const std::vector<const E*>& edges, const V* const v, SUMOTime msTime) const {
-        double effort = 0.;
-        double time = STEPS2TIME(msTime);
-        const E* prev = nullptr;
-        for (const E* const e : edges) {
-            if (PF::operator()(e, v)) {
-                return -1;
-            }
-            if (prev != nullptr) {
-                updateViaCost(prev, e, v, time, effort);
-            }
-            const double effortDelta = this->getEffort(e, v, time);
-            effort += effortDelta;
-            time += getTravelTime(e, v, time, effortDelta);
-            prev = e;
-        }
-        return effort;
-    }
-
     /// Builds the path from marked edges
     void buildPathFrom(const EdgeInfo* rbegin, std::vector<const E*>& edges) {
         std::vector<const E*> tmp;
@@ -317,8 +275,9 @@ public:
     }
 
 private:
-    DijkstraRouter(const std::vector<EdgeInfo>& edgeInfos, bool unbuildIsWarning, Operation effortOperation, Operation ttOperation, bool silent) :
-        SUMOAbstractRouter<E, V>(effortOperation, "DijkstraRouter"), myTTOperation(ttOperation),
+    DijkstraRouter(const std::vector<EdgeInfo>& edgeInfos, bool unbuildIsWarning, 
+                   typename BASE::Operation effortOperation, typename BASE::Operation ttOperation, bool silent) :
+        BASE("DijkstraRouter", effortOperation, ttOperation),
         myErrorMsgHandler(unbuildIsWarning ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()),
         mySilent(silent) {
         for (const EdgeInfo& ei : edgeInfos) {
@@ -327,9 +286,6 @@ private:
     }
 
 private:
-    /// @brief The object's operation to perform for travel times
-    Operation myTTOperation;
-
     /// @brief the handler for routing errors
     MsgHandler* const myErrorMsgHandler;
 

@@ -371,7 +371,7 @@ private:
     static SUMOAbstractRouter<MSEdge, SUMOVehicle>* myRouter;
 
     /// @brief The router to use by rerouter elements
-    static AStarRouter<MSEdge, SUMOVehicle, prohibited_withPermissions<MSEdge, SUMOVehicle> >* myRouterWithProhibited;
+    static AStarRouter<MSEdge, SUMOVehicle, SUMOAbstractRouterPermissions<MSEdge, SUMOVehicle> >* myRouterWithProhibited;
 
     /// @brief Whether to disturb edge weights dynamically
     static double myRandomizeWeightsFactor;

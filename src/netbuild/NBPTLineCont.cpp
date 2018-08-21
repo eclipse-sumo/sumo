@@ -318,7 +318,7 @@ NBPTLineCont::fixBidiStops(const NBEdgeCont& ec) {
     types["ferry"] = SVC_SHIP;
 
     SUMOAbstractRouter<NBEdge, NBVehicle>* router;
-    router = new DijkstraRouter<NBEdge, NBVehicle, noProhibitions<NBEdge, NBVehicle> >(
+    router = new DijkstraRouter<NBEdge, NBVehicle, SUMOAbstractRouter<NBEdge, NBVehicle> >(
             ec.getAllEdges(), true, &NBEdge::getTravelTimeStatic, nullptr, true);
 
     for (NBPTLine* line : myPTLines) {

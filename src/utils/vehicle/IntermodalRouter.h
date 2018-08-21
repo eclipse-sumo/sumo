@@ -58,7 +58,8 @@ private:
     typedef void(*CreateNetCallback)(IntermodalRouter <E, L, N, V>&);
     typedef IntermodalEdge<E, L, N, V> _IntermodalEdge;
     typedef IntermodalTrip<E, N, V> _IntermodalTrip;
-    typedef DijkstraRouter<IntermodalEdge<E, L, N, V>, IntermodalTrip<E, N, V>, prohibited_withPermissions<IntermodalEdge<E, L, N, V>, IntermodalTrip<E, N, V> > > _InternalRouter;
+    typedef SUMOAbstractRouterPermissions<IntermodalEdge<E, L, N, V>, IntermodalTrip<E, N, V> > _InternalRouter;
+    typedef DijkstraRouter<IntermodalEdge<E, L, N, V>, IntermodalTrip<E, N, V>, SUMOAbstractRouterPermissions<IntermodalEdge<E, L, N, V>, IntermodalTrip<E, N, V> > > _InternalDijkstra;
 
 public:
     struct TripItem {
@@ -74,10 +75,10 @@ public:
     };
 
     /// Constructor
-    IntermodalRouter(CreateNetCallback callback, int carWalkTransfer) :
-        SUMOAbstractRouter<E, _IntermodalTrip>(0, "IntermodalRouter"),
-        myAmClone(false), myInternalRouter(0), myIntermodalNet(0),
-        myCallback(callback), myCarWalkTransfer(carWalkTransfer) {
+    IntermodalRouter(CreateNetCallback callback, const int carWalkTransfer, const int routingMode=0) :
+        SUMOAbstractRouter<E, _IntermodalTrip>("IntermodalRouter"),
+        myAmClone(false), myInternalRouter(nullptr), myIntermodalNet(nullptr),
+        myCallback(callback), myCarWalkTransfer(carWalkTransfer), myRoutingMode(routingMode) {
     }
 
     /// Destructor
@@ -173,10 +174,6 @@ public:
         throw ProcessError("Do not use this method");
     }
 
-    double recomputeCosts(const std::vector<const E*>&, const _IntermodalTrip* const, SUMOTime) const {
-        throw ProcessError("Do not use this method");
-    }
-
     void prohibit(const std::vector<E*>& toProhibit) {
         createNet();
         std::vector<_IntermodalEdge*> toProhibitPE;
@@ -218,16 +215,29 @@ public:
 
 private:
     IntermodalRouter(Network* net):
-        SUMOAbstractRouter<E, _IntermodalTrip>(0, "PedestrianRouter"), myAmClone(true),
-        myInternalRouter(new _InternalRouter(net->getAllEdges(), true, &_IntermodalEdge::getTravelTimeStatic)),
-        myIntermodalNet(net), myCarWalkTransfer(0) {}
+        SUMOAbstractRouter<E, _IntermodalTrip>("IntermodalRouterClone"), myAmClone(true),
+        myInternalRouter(new _InternalDijkstra(net->getAllEdges(), true, &_IntermodalEdge::getTravelTimeStatic)),
+        myIntermodalNet(net), myCarWalkTransfer(0), myRoutingMode(0) {}
 
     inline void createNet() {
         if (myIntermodalNet == nullptr) {
             myIntermodalNet = new Network(E::getAllEdges(), false, myCarWalkTransfer);
             myIntermodalNet->addCarEdges(E::getAllEdges());
             myCallback(*this);
-            myInternalRouter = new _InternalRouter(myIntermodalNet->getAllEdges(), true, &_IntermodalEdge::getTravelTimeStatic);
+            switch (myRoutingMode) {
+            case 0:
+                myInternalRouter = new _InternalDijkstra(myIntermodalNet->getAllEdges(), true, &_IntermodalEdge::getTravelTimeStatic);
+                break;
+            case 1:
+                myInternalRouter = new _InternalDijkstra(myIntermodalNet->getAllEdges(), true, &_IntermodalEdge::getEffortAggregated, &_IntermodalEdge::getTravelTimeStatic);
+                break;
+            case 2:
+                myInternalRouter = new _InternalDijkstra(myIntermodalNet->getAllEdges(), true, &_IntermodalEdge::getEffortStatic, &_IntermodalEdge::getTravelTimeStatic);
+                break;
+            case 3:
+                myInternalRouter = new _InternalDijkstra(myIntermodalNet->getAllEdges(), true, &_IntermodalEdge::getEffortCombined, &_IntermodalEdge::getTravelTimeStatic);
+                break;
+            }
         }
     }
 
@@ -237,6 +247,7 @@ private:
     Network* myIntermodalNet;
     CreateNetCallback myCallback;
     const int myCarWalkTransfer;
+    const int myRoutingMode;
 
 
 private:

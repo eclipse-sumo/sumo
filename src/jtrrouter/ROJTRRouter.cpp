@@ -34,7 +34,7 @@
 // ===========================================================================
 ROJTRRouter::ROJTRRouter(bool unbuildIsWarningOnly, bool acceptAllDestinations,
                          int maxEdges, bool ignoreClasses, bool allowLoops) :
-    SUMOAbstractRouter<ROEdge, ROVehicle>(0, "JTRRouter"),
+    SUMOAbstractRouter<ROEdge, ROVehicle>("JTRRouter", &ROEdge::getTravelTimeStatic),
     myUnbuildIsWarningOnly(unbuildIsWarningOnly),
     myAcceptAllDestination(acceptAllDestinations), myMaxEdges(maxEdges),
     myIgnoreClasses(ignoreClasses), myAllowLoops(allowLoops) {
@@ -79,18 +79,6 @@ ROJTRRouter::compute(const ROEdge* from, const ROEdge* to,
     }
     return true;
 }
-
-
-double
-ROJTRRouter::recomputeCosts(const ConstROEdgeVector& edges, const ROVehicle* const v, SUMOTime msTime) const {
-    const double time = STEPS2TIME(msTime);
-    double costs = 0;
-    for (ConstROEdgeVector::const_iterator i = edges.begin(); i != edges.end(); ++i) {
-        costs += (*i)->getTravelTime(v, time);
-    }
-    return costs;
-}
-
 
 
 /****************************************************************************/
