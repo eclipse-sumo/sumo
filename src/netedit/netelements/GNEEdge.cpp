@@ -652,6 +652,8 @@ GNEEdge::clearGNEConnections() {
         if(i->isAttributeCarrierSelected()) {
             i->unselectAttributeCarrier();
         }
+        // remove it from Tree
+        myNet->removeGLObjectFromNet(i);
         // Dec reference of connection
         i->decRef("GNEEdge::clearGNEConnections");
         // Delete GNEConnectionToErase if is unreferenced
@@ -1229,9 +1231,11 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_MODIFICATION_STATUS:
             myConnectionStatus = value;
             if (value == FEATURE_GUESSED) {
+                WRITE_DEBUG("invalidating (removing) connections of edge '" + getID() + "' due it were guessed");
                 myNBEdge.invalidateConnections(true);
                 clearGNEConnections();
             } else if (value != FEATURE_GUESSED) {
+                WRITE_DEBUG("declaring connections of edge '" + getID() + "' as loaded (It will not be removed)");
                 myNBEdge.declareConnectionsAsLoaded();
             }
             break;
@@ -1448,8 +1452,6 @@ GNEEdge::removeConnection(NBEdge::Connection nbCon) {
             delete con;
             // actually we only do this to force a redraw
             updateGeometry();
-        } else if (con->getShape().size() > 0) {
-            myNet->getVisualisationSpeedUp().removeAdditionalGLObject(con);
         }
     }
 }
