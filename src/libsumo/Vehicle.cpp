@@ -1113,7 +1113,7 @@ void
 Vehicle::setType(const std::string& vehicleID, const std::string& typeID) {
     MSVehicleType* vehicleType = MSNet::getInstance()->getVehicleControl().getVType(typeID);
     if (vehicleType == 0) {
-        throw TraCIException("Vehicle type '" + vehicleID + "' is not known");
+        throw TraCIException("Vehicle type '" + typeID + "' is not known");
     }
     getVehicle(vehicleID)->replaceVehicleType(vehicleType);
 }
