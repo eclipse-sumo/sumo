@@ -1835,6 +1835,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
     myNextTurn.second = LINKDIR_NODIR;
     bool encounteredTurn = false;
     double seenNonInternal = 0;
+    double seenInternal = myLane->isInternal() ? seen : 0;
     double vLinkPass = MIN2(cfModel.estimateSpeedAfterDistance(seen, v, cfModel.getMaxAccel()), laneMaxV); // upper bound
     int view = 0;
     DriveProcessItem* lastLink = 0;
@@ -2195,8 +2196,15 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
             hadNonInternal = true;
             ++view;
         }
+#ifdef DEBUG_PLAN_MOVE
+        if (DEBUG_COND) {
+            std::cout << "   checkAbort setRequest=" << setRequest << " v=" << v << " seen=" << seen << " dist=" << dist 
+                << " seenNonInternal=" << seenNonInternal 
+                << " seenInternal=" << seenInternal << " length=" << vehicleLength << "\n";
+        }
+#endif
         // we need to look ahead far enough to see available space for checkRewindLinkLanes
-        if ((!setRequest || v <= 0 || seen > dist) && hadNonInternal && seenNonInternal > vehicleLength * CRLL_LOOK_AHEAD) {
+        if ((!setRequest || v <= 0 || seen > dist) && hadNonInternal && seenNonInternal > MAX2(vehicleLength * CRLL_LOOK_AHEAD, vehicleLength + seenInternal)) {
             break;
         }
         // get the following lane
@@ -2210,7 +2218,11 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         //  the vehicle shall be not faster when reaching the next lane than allowed
         const double va = cfModel.freeSpeed(this, getSpeed(), seen, laneMaxV);
         v = MIN2(va, v);
-        seenNonInternal += lane->getEdge().isInternal() ? 0 : lane->getLength();
+        if (lane->getEdge().isInternal()) {
+            seenInternal += lane->getLength();
+        } else {
+            seenNonInternal += lane->getLength();
+        }
         // do not restrict results to the current vehicle to allow caching for the current time step
         leaderLane = opposite ? lane->getOpposite() : lane;
         if (leaderLane == 0) {
