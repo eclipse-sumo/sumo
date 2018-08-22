@@ -411,6 +411,9 @@ NBPTLineCont::getCost(const NBEdgeCont& ec, SUMOAbstractRouter<NBEdge, NBVehicle
         const NBPTStop* from, const NBPTStop* to, const NBVehicle* veh) {
     NBEdge* fromEdge = ec.getByID(from->getEdgeId());
     NBEdge* toEdge = ec.getByID(to->getEdgeId());
+    if (fromEdge == 0 || toEdge == 0) {
+        return std::numeric_limits<double>::max();
+    }
     std::vector<const NBEdge*> route;
     router.compute(fromEdge, toEdge, veh, 0, route);
     if (route.size() == 0) {
