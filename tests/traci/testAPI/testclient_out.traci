@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Fri Aug 17 11:43:32 2018
+TraCITestClient output file. Date: Wed Aug 22 14:49:10 2018
 
 
 -> Command sent: <SimulationStep>:
@@ -72,6 +72,8 @@ testAPI:
     getAccumulatedWaitingTime: 0.00
     getShapeClass: bicycle
     getLeader: 2, 494.88
+    getLaneChangeState (left): 1073741824, 1073741824
+    getLaneChangeState (right): 1073741824, 1073741824
     remove:
     getIDCount: 2
   inductionloop:

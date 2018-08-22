@@ -2377,7 +2377,24 @@ TraCIAPI::VehicleScope::getLeader(const std::string& vehicleID, double dist) con
     const std::string leaderID = inMsg.readString();
     inMsg.readUnsignedByte();
     const double gap = inMsg.readDouble();
-    return make_pair(leaderID, gap);
+    return std::make_pair(leaderID, gap);
+}
+
+
+std::pair<int, int>
+TraCIAPI::VehicleScope::getLaneChangeState(const std::string& vehicleID, int direction) const {
+    tcpip::Storage content;
+    content.writeByte(TYPE_INTEGER);
+    content.writeInt(direction);
+    myParent.send_commandGetVariable(CMD_GET_VEHICLE_VARIABLE, CMD_CHANGELANE, vehicleID, &content);
+    tcpip::Storage inMsg;
+    myParent.processGET(inMsg, CMD_GET_VEHICLE_VARIABLE, TYPE_COMPOUND);
+    inMsg.readInt(); // components
+    inMsg.readUnsignedByte();
+    const int stateWithoutTraCI = inMsg.readInt();
+    inMsg.readUnsignedByte();
+    const int state = inMsg.readInt();
+    return std::make_pair(stateWithoutTraCI, state);
 }
 
 
