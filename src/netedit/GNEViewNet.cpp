@@ -736,6 +736,8 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                         myMovingSelection = true;
                     } else {
                         myMovedItems.additionalToMove = myObjectsUnderCursor.additional;
+                        // start geometry moving
+                        myMovedItems.additionalToMove->startGeometryMoving();
                         // Save original Position of Element
                         myMoveSingleElementValues.movingOriginalPosition = myMovedItems.additionalToMove->getPositionInView();
                     }

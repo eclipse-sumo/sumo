@@ -221,6 +221,13 @@ GNEAdditional::openAdditionalDialog() {
 }
 
 
+void 
+GNEAdditional::startGeometryMoving() {
+    // save current shape
+    myMovingShape = myShape;
+}
+
+
 GNEViewNet*
 GNEAdditional::getViewNet() const {
     return myViewNet;

@@ -122,6 +122,9 @@ public:
 
     /// @name Functions related with geometry of element
     /// @{
+    /// @brief begin movement (used when user click over additional to start a movement, to avoid problems with problems with GL Tree)
+    void startGeometryMoving();
+
     /**@brief change the position of the element geometry without saving in undoList
     * @param[in] oldPos position before start movement
     * @param[in] offset movement offset regardings to oldPos
@@ -308,6 +311,9 @@ protected:
      * @note must be configured in updateGeometry(bool updateGrid)
      */
     PositionVector myShape;
+
+    /// @brief variable used to save shape bevore moving (used to avoid inconsistences in GL Tree)
+    PositionVector myMovingShape;
 
     /// @brief name of additional
     std::string myAdditionalName;
