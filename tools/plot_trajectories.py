@@ -17,11 +17,14 @@ This script plots fcd data for each vehicle using either
 - distance vs speed
 - time vs speed
 - time vs distance
+
+Individual trajectories can be clicked in interactive mode to print the vehicle Id on the console
 """
 from __future__ import absolute_import
 from __future__ import print_function
 import sys
 import os
+import math
 from collections import defaultdict
 from optparse import OptionParser
 import matplotlib.pyplot as plt
@@ -37,6 +40,7 @@ def getOptions(args=None):
     optParser.add_option("--csv-output", dest="csv_output", help="write plot as csv", metavar="FILE")
     optParser.add_option("-b", "--ballistic", action="store_true", default=False, help="perform ballistic integration of distance")
     optParser.add_option("--filter-route", dest="filterRoute", help="only export trajectories that pass the given list of edges (regardless of gaps)")
+    optParser.add_option("--pick-distance", dest="pickDist", type="float", default=1,  help="pick lines within the given distance in interactive plot mode")
     optParser.add_option("-v", "--verbose", action="store_true", default=False, help="tell me what you are doing")
 
     options, args = optParser.parse_args(args=args)
@@ -56,8 +60,12 @@ def write_csv(data, fname):
                 f.write(" ".join(map(str, x)) + "\n")
             f.write('\n')
 
+def onpick(event):
+    print(event.label)
+
 def main(options):
-    plt.figure(figsize=(14, 9), dpi=100)
+    fig = plt.figure(figsize=(14, 9), dpi=100)
+    fig.canvas.mpl_connect('pick_event', onpick)
 
     xdata = 2
     ydata = 1
@@ -101,6 +109,14 @@ def main(options):
         if len(routes[vehicle.id]) == 0 or routes[vehicle.id][-1] != edge:
             routes[vehicle.id].append(edge)
 
+    def line_picker(line, mouseevent):
+        if mouseevent.xdata is None:
+            return False, dict()
+        for x,y in zip(line.get_xdata(), line.get_ydata()):
+            if (x - mouseevent.xdata) ** 2 + (y - mouseevent.ydata) ** 2 < options.pickDist:
+                return True, dict(label=line.get_label())
+        return False, dict()
+
 
     for vehID, d in data.items():
         if options.filterRoute is not None:
@@ -114,7 +130,8 @@ def main(options):
                     break;
             if skip:
                 continue
-        plt.plot(d[xdata], d[ydata])
+        plt.plot(d[xdata], d[ydata], picker=line_picker, label=vehID)
+
 
     plt.savefig(options.output)
     if options.csv_output is not None:
