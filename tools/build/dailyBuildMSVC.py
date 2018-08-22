@@ -36,6 +36,12 @@ import status
 import version
 import wix
 
+BINARIES = ("activitygen", "emissionsDrivingCycle", "emissionsMap",
+            "dfrouter", "duarouter", "jtrrouter", "marouter",
+            "netconvert", "netedit", "netgenerate",
+            "od2trips", "polyconvert", "sumo", "sumo-gui",
+            "TraCITestClient")
+
 
 def repositoryUpdate(options, repoLogFile):
     if options.no_update:
@@ -63,10 +69,7 @@ def runTests(options, env, gitrev, debugSuffix=""):
     shutil.rmtree(env["TEXTTEST_TMP"], True)
     if not os.path.exists(env["SUMO_REPORT"]):
         os.makedirs(env["SUMO_REPORT"])
-    for name in ["activitygen", "emissionsDrivingCycle", "emissionsMap",
-                 "dfrouter", "duarouter", "jtrrouter", "marouter",
-                 "netconvert", "netedit", "netgenerate",
-                 "od2trips", "polyconvert", "sumo", "sumo-gui"]:
+    for name in BINARIES:
         image = name + debugSuffix + ".exe"
         subprocess.call(["taskkill", "/f", "/im", image])
         binary = os.path.join(options.rootDir, options.binDir, image)
@@ -96,6 +99,8 @@ def runTests(options, env, gitrev, debugSuffix=""):
                             stdout=log, stderr=subprocess.STDOUT, shell=True)
     subprocess.call([ttBin, "-b", env["FILEPREFIX"], "-coll"], env=env,
                     stdout=log, stderr=subprocess.STDOUT, shell=True)
+    for name in BINARIES:
+        subprocess.call(["taskkill", "/f", "/im", name + debugSuffix + ".exe"])
     log.close()
 
 
