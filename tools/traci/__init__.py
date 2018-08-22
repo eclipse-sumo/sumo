@@ -16,6 +16,8 @@
 # @date    2008-10-09
 # @version $Id$
 
+# pylint: disable=E1101
+
 from __future__ import print_function
 from __future__ import absolute_import
 import socket
