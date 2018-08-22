@@ -115,7 +115,7 @@ GNECalibratorVehicleType::commitGeometryMoving(const Position&, GNEUndoList*) {
 
 
 void 
-GNECalibratorVehicleType::updateGeometry() {
+GNECalibratorVehicleType::updateGeometry(bool /*updateGrid*/) {
     // Currently this additional doesn't own a Geometry
 }
 

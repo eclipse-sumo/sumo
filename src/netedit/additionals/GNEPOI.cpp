@@ -145,17 +145,21 @@ GNEPOI::getLane() const {
 
 
 void
-GNEPOI::updateGeometry() {
-    // first remove object from grid grid
-    myNet->removeGLObjectFromNet(this);
+GNEPOI::updateGeometry(bool updateGrid) {
+    // first check if object has to be removed from grid (SUMOTree)
+    if(updateGrid) {
+        myNet->removeGLObjectFromNet(this);
+    }
     if (myGNELane) {
         // obtain fixed position over lane
         double fixedPositionOverLane = myPosOverLane > myGNELane->getLaneShapeLength() ? myGNELane->getLaneShapeLength() : myPosOverLane < 0 ? 0 : myPosOverLane;
         // set new position regarding to lane
         set(myGNELane->getShape().positionAtOffset(fixedPositionOverLane * myGNELane->getLengthGeometryFactor(), -myPosLat));
     }
-    // add object into grid again
-    myNet->addGLObjectIntoNet(this);
+    // last step is to check if object has to be added into grid (SUMOTree) again
+    if(updateGrid) {
+        myNet->addGLObjectIntoNet(this);
+    }
 }
 
 

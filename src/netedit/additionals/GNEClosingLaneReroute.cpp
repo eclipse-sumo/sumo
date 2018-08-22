@@ -69,7 +69,7 @@ GNEClosingLaneReroute::commitGeometryMoving(const Position&, GNEUndoList*) {
 
 
 void 
-GNEClosingLaneReroute::updateGeometry() {
+GNEClosingLaneReroute::updateGeometry(bool /*updateGrid*/) {
     // Currently this additional doesn't own a Geometry
 }
 

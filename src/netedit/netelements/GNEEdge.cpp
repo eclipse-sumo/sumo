@@ -113,9 +113,11 @@ GNEEdge::~GNEEdge() {
 
 
 void
-GNEEdge::updateGeometry() {
-    // first remove object from net grid
-    myNet->removeGLObjectFromNet(this);
+GNEEdge::updateGeometry(bool updateGrid) {
+    // first check if object has to be removed from grid (SUMOTree)
+    if(updateGrid) {
+        myNet->removeGLObjectFromNet(this);
+    }
     // Update geometry of lanes
     for (auto i : myLanes) {
         i->updateGeometry();
@@ -132,8 +134,10 @@ GNEEdge::updateGeometry() {
     for (auto i : myFirstAdditionalParents) {
         i->updateGeometry();
     }
-    // add object into net again
-    myNet->addGLObjectIntoNet(this);
+    // last step is to check if object has to be added into grid (SUMOTree) again
+    if(updateGrid) {
+        myNet->addGLObjectIntoNet(this);
+    }
 }
 
 

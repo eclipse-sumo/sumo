@@ -49,7 +49,7 @@ public:
 
     /// @brief update pre-computed geometry information
     /// @note: must be called when geometry changes (i.e. lane moved) and implemented in ALL childrens
-    void updateGeometry();
+    void updateGeometry(bool updateGrid = true);
 
     /// Returns the street's geometry
     Boundary getBoundary() const;
@@ -81,7 +81,7 @@ public:
     /// @brief get LinkState
     LinkState getLinkState() const;
 
-    /// @brief get Position vector calculated in updateGeometry()
+    /// @brief get Position vector calculated in updateGeometry(bool updateGrid)
     const PositionVector &getShape() const;
 
     /// @brief check that connection's Geometry has to be updated
@@ -184,7 +184,7 @@ protected:
     /// @brief flag to indicate that connection's shape has to be updated
     bool myShapeDeprecated;
 
-    /// @name computed only once (for performance) in updateGeometry()
+    /// @name computed only once (for performance) in updateGeometry(bool updateGrid)
     /// @{
     /// @brief The rotations of the shape parts
     std::vector<double> myShapeRotations;

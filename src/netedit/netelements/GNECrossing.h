@@ -55,7 +55,7 @@ public:
     ~GNECrossing();
 
     /// @brief update pre-computed geometry information
-    void updateGeometry();
+    void updateGeometry(bool updateGrid = true);
 
     /// @brief update internal ID (used when ID of junction parent is changed)
     void updateID(std::string newJunctionID);
@@ -159,7 +159,7 @@ protected:
     /// @brief crossingShape
     PositionVector myShape;
 
-    /// @name computed only once (for performance) in updateGeometry()
+    /// @name computed only once (for performance) in updateGeometry(bool updateGrid)
     /// @{
     /// The rotations of the shape parts
     std::vector<double> myShapeRotations;

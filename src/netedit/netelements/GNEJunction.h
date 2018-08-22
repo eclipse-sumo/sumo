@@ -139,7 +139,7 @@ public:
     void selectTLS(bool selected);
 
     /// @brief Update the boundary of the junction
-    void updateGeometry();
+    void updateGeometry(bool updateGrid = true);
 
     /**@brief change the position of the element geometry without saving in undoList
     * @param[in] oldPos old position before start moving

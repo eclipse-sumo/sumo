@@ -66,7 +66,7 @@ GNERerouterInterval::commitGeometryMoving(const Position&, GNEUndoList*) {
 
 
 void 
-GNERerouterInterval::updateGeometry() {
+GNERerouterInterval::updateGeometry(bool /*updateGrid*/) {
     // Currently this additional doesn't own a Geometry
 }
 

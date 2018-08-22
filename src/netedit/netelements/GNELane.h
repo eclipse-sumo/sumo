@@ -121,7 +121,7 @@ public:
 
     /// @brief update pre-computed geometry information
     //  @note: must be called when geometry changes (i.e. junction moved)
-    void updateGeometry();
+    void updateGeometry(bool updateGrid = true);
 
     /// @brief returns the index of the lane
     int getIndex() const;
@@ -225,7 +225,7 @@ protected:
     /// @brief The index of this lane
     int myIndex;
 
-    /// @name computed only once (for performance) in updateGeometry()
+    /// @name computed only once (for performance) in updateGeometry(bool updateGrid)
     /// @{
     /// @brief The rotations of the shape parts
     std::vector<double> myShapeRotations;

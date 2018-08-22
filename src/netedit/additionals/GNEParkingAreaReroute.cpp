@@ -68,7 +68,7 @@ GNEParkingAreaReroute::commitGeometryMoving(const Position&, GNEUndoList*) {
 
 
 void 
-GNEParkingAreaReroute::updateGeometry() {
+GNEParkingAreaReroute::updateGeometry(bool /*updateGrid*/) {
     // Currently this additional doesn't own a Geometry
 }
 

@@ -143,7 +143,7 @@ GNEPoly::moveEntireShape(const PositionVector& oldShape, const Position& offset)
         for (auto& i : myShape) {
             i.add(offset);
         }
-        //  update Geometry after moving
+        // update Geometry after moving
         updateGeometry();
     }
 }
@@ -183,7 +183,7 @@ GNEPoly::commitShapeChange(const PositionVector& oldShape, GNEUndoList* undoList
 
 
 void
-GNEPoly::updateGeometry() {
+GNEPoly::updateGeometry(bool /*updateGrid*/) {
     // nothing to do
 }
 

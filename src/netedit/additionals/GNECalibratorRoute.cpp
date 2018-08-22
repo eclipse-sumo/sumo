@@ -87,7 +87,7 @@ GNECalibratorRoute::commitGeometryMoving(const Position&, GNEUndoList*) {
 
 
 void 
-GNECalibratorRoute::updateGeometry() {
+GNECalibratorRoute::updateGeometry(bool /*updateGrid*/) {
     // Currently this additional doesn't own a Geometry
 }
 

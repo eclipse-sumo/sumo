@@ -76,7 +76,7 @@ GNEVariableSpeedSignStep::commitGeometryMoving(const Position&, GNEUndoList*) {
 
 
 void 
-GNEVariableSpeedSignStep::updateGeometry() {
+GNEVariableSpeedSignStep::updateGeometry(bool /*updateGrid*/) {
     // Currently this additional doesn't own a Geometry
 }
 

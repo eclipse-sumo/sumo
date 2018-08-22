@@ -105,7 +105,7 @@ GNECalibratorFlow::commitGeometryMoving(const Position&, GNEUndoList*) {
 
 
 void 
-GNECalibratorFlow::updateGeometry() {
+GNECalibratorFlow::updateGeometry(bool /*updateGrid*/) {
     // Currently this additional doesn't own a Geometry
 }
 

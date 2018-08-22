@@ -97,9 +97,11 @@ GNEJunction::~GNEJunction() {
 
 
 void
-GNEJunction::updateGeometry() {
-    // first remove object from net grid
-    myNet->removeGLObjectFromNet(this);
+GNEJunction::updateGeometry(bool updateGrid) {
+    // first check if object has to be removed from grid (SUMOTree)
+    if(updateGrid) {
+        myNet->removeGLObjectFromNet(this);
+    }
     // calculate boundary using EXTENT as size
     const double EXTENT = 2;
     myBoundary = Boundary(myNBNode.getPosition().x() - EXTENT, myNBNode.getPosition().y() - EXTENT,
@@ -109,10 +111,11 @@ GNEJunction::updateGeometry() {
         myBoundary.add(myNBNode.getShape().getBoxBoundary());
     }
     myMaxSize = MAX2(myBoundary.getWidth(), myBoundary.getHeight());
-    // add object into net again
-    myNet->addGLObjectIntoNet(this);
+    // last step is to check if object has to be added into grid (SUMOTree) again
+    if(updateGrid) {
+        myNet->addGLObjectIntoNet(this);
+    }
     // rebuild GNECrossings
-    // (but don't rebuild the crossings in NBNode because they are already finished)
     rebuildGNECrossings(true);
 }
 

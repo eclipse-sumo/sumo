@@ -96,9 +96,11 @@ GNECalibrator::commitGeometryMoving(const Position&, GNEUndoList*) {
 
 
 void
-GNECalibrator::updateGeometry() {
-    // first remove object from net grid
-    myViewNet->getNet()->removeGLObjectFromNet(this);
+GNECalibrator::updateGeometry(bool updateGrid) {
+    // first check if object has to be removed from grid (SUMOTree)
+    if(updateGrid) {
+        myViewNet->getNet()->removeGLObjectFromNet(this);
+    }
     // Clear all containers
     myShapeRotations.clear();
     myShapeLengths.clear();
@@ -120,8 +122,10 @@ GNECalibrator::updateGeometry() {
     } else {
         throw ProcessError("Both myEdge and myLane aren't defined");
     }
-    // add object into net again
-    myViewNet->getNet()->addGLObjectIntoNet(this);
+    // last step is to check if object has to be added into grid (SUMOTree) again
+    if(updateGrid) {
+        myViewNet->getNet()->addGLObjectIntoNet(this);
+    }
 }
 
 

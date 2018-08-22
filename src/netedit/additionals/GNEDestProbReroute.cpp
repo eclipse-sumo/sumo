@@ -66,7 +66,7 @@ GNEDestProbReroute::commitGeometryMoving(const Position&, GNEUndoList*) {
 }
 
 void 
-GNEDestProbReroute::updateGeometry() {
+GNEDestProbReroute::updateGeometry(bool /*updateGrid*/) {
     // Currently this additional doesn't own a Geometry
 }
 

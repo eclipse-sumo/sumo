@@ -633,7 +633,7 @@ GNELane::getBoundary() const {
 
 
 void
-GNELane::updateGeometry() {
+GNELane::updateGeometry(bool updateGrid) {
     // Clear containers
     myShapeRotations.clear();
     myShapeLengths.clear();
@@ -655,25 +655,25 @@ GNELane::updateGeometry() {
         }
     }
     for (auto i : myAdditionalChilds) {
-        i->updateGeometry();
+        i->updateGeometry(updateGrid);
     }
     for (auto i : myFirstAdditionalParents) {
-        i->updateGeometry();
+        i->updateGeometry(updateGrid);
     }
     for (auto i : myShapes) {
-        i->updateGeometry();
+        i->updateGeometry(updateGrid);
     }
     // In Move mode, connections aren't updated
     if (myNet->getViewNet() && myNet->getViewNet()->getCurrentEditMode() != GNE_MODE_MOVE) {
         // Update incoming connections of this lane
         auto incomingConnections = getGNEIncomingConnections();
         for (auto i : incomingConnections) {
-            i->updateGeometry();
+            i->updateGeometry(updateGrid);
         }
         // Update outgoings connections of this lane
         auto outGoingConnections = getGNEOutcomingConnections();
         for (auto i : outGoingConnections) {
-            i->updateGeometry();
+            i->updateGeometry(updateGrid);
         }
     }
     // If lane has enought length for show textures of restricted lanes

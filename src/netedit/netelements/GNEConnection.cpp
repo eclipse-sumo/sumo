@@ -76,12 +76,14 @@ GNEConnection::~GNEConnection() {
 
 
 void
-GNEConnection::updateGeometry() {
+GNEConnection::updateGeometry(bool updateGrid) {
     // Get shape of from and to lanes
     NBEdge::Connection& nbCon = getNBEdgeConnection();
     if(myShapeDeprecated) {
-        // first remove connection from tree
-        myNet->removeGLObjectFromNet(this);
+        // first check if object has to be removed from grid (SUMOTree)
+        if(updateGrid) {
+            myNet->removeGLObjectFromNet(this);
+        }
         // Clear containers
         myShape.clear();
         myShapeRotations.clear();
@@ -145,11 +147,14 @@ GNEConnection::updateGeometry() {
                 myShapeRotations.push_back((double) atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double)M_PI);
             }
         }
-        // add connection again into tree
-        myNet->addGLObjectIntoNet(this);
 
         // mark connection as non-deprecated
         myShapeDeprecated = false;
+
+        // last step is to check if object has to be added into grid (SUMOTree) again
+        if(updateGrid) {
+            myNet->addGLObjectIntoNet(this);
+        }
     }
 }
 

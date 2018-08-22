@@ -135,7 +135,7 @@ public:
     virtual void commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) = 0;
 
     /// @brief update pre-computed geometry information
-    virtual void updateGeometry() = 0;
+    virtual void updateGeometry(bool updateGrid = true) = 0;
 
     /// @brief Returns position of additional in view
     virtual Position getPositionInView() const = 0;
@@ -305,14 +305,14 @@ protected:
     GNEViewNet* myViewNet;
 
     /**@brief The shape of the additional element
-     * @note must be configured in updateGeometry()
+     * @note must be configured in updateGeometry(bool updateGrid)
      */
     PositionVector myShape;
 
     /// @brief name of additional
     std::string myAdditionalName;
 
-    /// @name computed only once (for performance) in updateGeometry()
+    /// @name computed only once (for performance) in updateGeometry(bool updateGrid)
     /// @{
     /// The rotations of the shape parts
     std::vector<double> myShapeRotations;
@@ -344,7 +344,7 @@ protected:
 
     /// @name members and functions relative to block icon
     /// @{
-    /// @brief set Rotation of block Icon (must be called in updateGeometry() function)
+    /// @brief set Rotation of block Icon (must be called in updateGeometry(bool updateGrid) function)
     void setBlockIconRotation(GNELane* additionalLane = nullptr);
 
     /// @brief draw lock icon
