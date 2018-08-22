@@ -80,7 +80,7 @@ GNEConnection::updateGeometry() {
     // Get shape of from and to lanes
     NBEdge::Connection& nbCon = getNBEdgeConnection();
     if(myShapeDeprecated) {
-        // first remove connection from net
+        // first remove connection from tree
         myNet->removeGLObjectFromNet(this);
         // Clear containers
         myShape.clear();
@@ -145,7 +145,7 @@ GNEConnection::updateGeometry() {
                 myShapeRotations.push_back((double) atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double)M_PI);
             }
         }
-        // add connection again
+        // add connection again into tree
         myNet->addGLObjectIntoNet(this);
 
         // mark connection as non-deprecated
