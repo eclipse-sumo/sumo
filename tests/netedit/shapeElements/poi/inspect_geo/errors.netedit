@@ -1,146 +1,43 @@
 java version "1.8.0_181"
 Java(TM) SE Runtime Environment (build 1.8.0_181-b13)
 Java HotSpot(TM) 64-Bit Server VM (build 25.181-b13, mixed mode)
+GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-22.00,22.00,22.00
+GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
+GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-22.00,22.00,22.00
+GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 28.00,-22.00,72.00,22.00
+GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00,72.00,22.00
+GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 28.00,-22.00,72.00,22.00
+GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
+GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals saved, shapes saved
 Debug: Selected shape 'poi' in ShapeSelector
 Debug: Adding poi 'POI_0' into viewNet
+GLDebug: Inserted poi:POI_0 into SUMORTree with boundary -1.00,15.00,5.00,21.00
+Debug: Shapes has to be saved
+Debug: Current saving Status: net saved, additionals saved, shapes unsaved
 Debug: Adding poi 'POI_1' into viewNet
+GLDebug: Inserted poi:POI_1 into SUMORTree with boundary 4.00,15.00,10.00,21.00
 Debug: Value 'POI_1' for attribute id of poi isn't valid
 Debug: Value '' for attribute id of poi isn't valid
 Debug: Value 'ID with spaces' for attribute id of poi isn't valid
 Debug: Setting new attribute id 'newID' into poi 'POI_0'
+GLDebug: Removed object poi:POI_0 from SUMORTree with boundary -1.00,15.00,5.00,21.00
+GLDebug: Inserted poi:POI_0 into SUMORTree with boundary -1.00,15.00,5.00,21.00
 Error: Shape of a(n) user-supplied position is broken: the position is neither x,y nor x,y,z.
 Debug: Value 'dummyPosition' for attribute pos of poi isn't valid
 Debug: Setting new attribute pos '20.40,7.50' into poi 'newID'
-Debug: Value 'dummyColor' for attribute color of poi isn't valid
-Debug: Setting new attribute color '255,255,500' into poi 'newID'
-Debug: Setting new attribute color 'blue' into poi 'newID'
-Debug: Setting new attribute color '125,60,200' into poi 'newID'
-Debug: Setting new attribute type 'myOwnType' into poi 'newID'
-Debug: Value 'dummyLayer' for attribute layer of poi isn't valid
-Debug: Setting new attribute layer '-2' into poi 'newID'
-Debug: Setting new attribute layer '2' into poi 'newID'
-Debug: Value '-2' for attribute width of poi isn't valid
-Debug: Setting new attribute width '5' into poi 'newID'
-Debug: Value '-3' for attribute height of poi isn't valid
-Debug: Setting new attribute height '5' into poi 'newID'
-Error: Could not load '%$$%%%%%'.
-Unknown file extension '' for image '%$$%%%%%'!
-Debug: Value '%$$%%%%%' for attribute imgFile of poi isn't valid
-Error: Could not load 'paris.ico'.
-Loading failed!
-Debug: Value 'paris.ico' for attribute imgFile of poi isn't valid
-Debug: Setting new attribute imgFile 'berlin_icon.ico' into poi 'newID'
-Debug: Setting new attribute relativePath 'true' into poi 'newID'
-Debug: Setting new attribute angle '-12' into poi 'newID'
-Debug: Setting new attribute angle '500' into poi 'newID'
-Debug: Setting new attribute angle '30' into poi 'newID'
-Error: Shape of a(n) user-supplied GEO position is broken: the position is neither x,y nor x,y,z.
-Error: Shape of a(n) user-supplied GEO position is broken: the shape is empty.
-Debug: Setting new attribute geoPosition '3.73,74.30' into poi 'newID'
-Debug: Setting new attribute geo 'true' into poi 'newID'
-Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute geo '0' into poi 'newID'
-Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute geoPosition '10.511215,0.000068' into poi 'newID'
-Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute angle '500.00' into poi 'newID'
-Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute angle '-12.00' into poi 'newID'
-Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute angle '0.00' into poi 'newID'
-Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute relativePath '0' into poi 'newID'
-Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute imgFile '' into poi 'newID'
-Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute height '1.00' into poi 'newID'
-Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute width '1.00' into poi 'newID'
-Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute layer '-2.00' into poi 'newID'
-Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute layer 'default' into poi 'newID'
-Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute type '' into poi 'newID'
-Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute color 'blue' into poi 'newID'
-Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute color '255,255,244' into poi 'newID'
-Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute color 'red' into poi 'newID'
-Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute pos '2.00,18.00' into poi 'newID'
-Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute id 'POI_0' into poi 'newID'
-Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Removing poi 'POI_1' from viewNet
-Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Removing poi 'POI_0' from viewNet
-Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
-Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Adding poi 'POI_0' into viewNet
-Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Adding poi 'POI_1' into viewNet
-Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute id 'newID' into poi 'POI_0'
-Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute pos '20.40,7.50' into poi 'newID'
-Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute color '255,255,500' into poi 'newID'
-Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute color 'blue' into poi 'newID'
-Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute color '125,60,200' into poi 'newID'
-Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute type 'myOwnType' into poi 'newID'
-Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute layer '-2' into poi 'newID'
-Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute layer '2' into poi 'newID'
-Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute width '5' into poi 'newID'
-Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute height '5' into poi 'newID'
-Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute imgFile 'berlin_icon.ico' into poi 'newID'
-Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute relativePath 'true' into poi 'newID'
-Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute angle '-12' into poi 'newID'
-Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute angle '500' into poi 'newID'
-Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute angle '30' into poi 'newID'
-Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute geoPosition '3.73,74.30' into poi 'newID'
-Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute geo 'true' into poi 'newID'
-Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Shapes saved
-Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
-Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Removing poi 'POI_1' from net in ~GNEChange_Shape()
+GLDebug: Removed object poi:POI_1 from SUMORTree with boundary 4.00,15.00,10.00,21.00
 Debug: delete poi 'POI_1' in ~GNEChange_Shape()
-Debug: Removing poi 'newID' from net in ~GNEChange_Shape()
-Debug: delete poi 'newID' in ~GNEChange_Shape()
 Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
-Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
 Debug: Deleting unreferenced edge 'gneE1' in GNENet destructor
 Debug: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
-Debug: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Debug: Deleting unreferenced junction 'gneJ1' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting net builder in GNENet destructor
+GLDebug: Number of objects in SUMORTree during call destructor: 5
+Error: add boundary of GUIGlObject POI_0 is different of remove boundary
+Quitting (on error).

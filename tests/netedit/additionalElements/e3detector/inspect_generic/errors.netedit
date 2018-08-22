@@ -65,7 +65,21 @@ GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary 2.00,9.00
 Debug: Setting new attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into e3Detector 'e3Detector_0'
 GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary 2.00,9.00,42.00,49.00
 GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary 2.00,9.00,42.00,49.00
+Debug: Setting new attribute genericParameter 'key2=value2|key3=value3|keyInvalid.;%>%$$=value1' into e3Detector 'e3Detector_0'
+GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary 2.00,9.00,42.00,49.00
+GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary 2.00,9.00,42.00,49.00
+Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into e3Detector 'e3Detector_0'
+GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary 2.00,9.00,42.00,49.00
+GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary 2.00,9.00,42.00,49.00
 Debug: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' into e3Detector 'e3Detector_0'
+GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary 2.00,9.00,42.00,49.00
+GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary 2.00,9.00,42.00,49.00
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into e3Detector 'e3Detector_0'
+GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary 2.00,9.00,42.00,49.00
+GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary 2.00,9.00,42.00,49.00
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute genericParameter 'key2=value2|key3=value3|keyInvalid.;%>%$$=value1' into e3Detector 'e3Detector_0'
 GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary 2.00,9.00,42.00,49.00
 GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary 2.00,9.00,42.00,49.00
 Debug: Keys Ctrl + Z (Undo) pressed
@@ -88,42 +102,6 @@ Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute genericParameter '' into e3Detector 'e3Detector_0'
 GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary 2.00,9.00,42.00,49.00
 GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary 2.00,9.00,42.00,49.00
-Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Removing detExit 'e3Detector_0detExit0' in GNEChange_Additional
-GLDebug: Removed object exitDetector:e3Detector_0detExit0 from SUMORTree with boundary 2.00,-1.60,42.00,38.40
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary 2.00,9.00,42.00,49.00
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary 2.00,9.00,42.00,49.00
-Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Removing detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
-GLDebug: Removed object entryDetector:e3Detector_0detEntry0 from SUMORTree with boundary 2.00,4.80,42.00,44.80
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary 2.00,9.00,42.00,49.00
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary 2.00,9.00,42.00,49.00
-Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
-GLDebug: Inserted entryDetector:e3Detector_0detEntry0 into SUMORTree with boundary 2.00,4.80,42.00,44.80
-GLDebug: Removed object entryDetector:e3Detector_0detEntry0 from SUMORTree with boundary 2.00,4.80,42.00,44.80
-GLDebug: Inserted entryDetector:e3Detector_0detEntry0 into SUMORTree with boundary 2.00,4.80,42.00,44.80
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary 2.00,9.00,42.00,49.00
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary 2.00,9.00,42.00,49.00
-GLDebug: Removed object entryDetector:e3Detector_0detEntry0 from SUMORTree with boundary 2.00,4.80,42.00,44.80
-GLDebug: Inserted entryDetector:e3Detector_0detEntry0 into SUMORTree with boundary 2.00,4.80,42.00,44.80
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary 2.00,9.00,42.00,49.00
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary 2.00,9.00,42.00,49.00
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary 2.00,9.00,42.00,49.00
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary 2.00,9.00,42.00,49.00
-Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Adding detExit 'e3Detector_0detExit0' in GNEChange_Additional
-GLDebug: Inserted exitDetector:e3Detector_0detExit0 into SUMORTree with boundary 2.00,-1.60,42.00,38.40
-GLDebug: Removed object exitDetector:e3Detector_0detExit0 from SUMORTree with boundary 2.00,-1.60,42.00,38.40
-GLDebug: Inserted exitDetector:e3Detector_0detExit0 into SUMORTree with boundary 2.00,-1.60,42.00,38.40
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary 2.00,9.00,42.00,49.00
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary 2.00,9.00,42.00,49.00
-GLDebug: Removed object exitDetector:e3Detector_0detExit0 from SUMORTree with boundary 2.00,-1.60,42.00,38.40
-GLDebug: Inserted exitDetector:e3Detector_0detExit0 into SUMORTree with boundary 2.00,-1.60,42.00,38.40
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary 2.00,9.00,42.00,49.00
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary 2.00,9.00,42.00,49.00
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary 2.00,9.00,42.00,49.00
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary 2.00,9.00,42.00,49.00
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into e3Detector 'e3Detector_0'
 GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary 2.00,9.00,42.00,49.00
@@ -138,6 +116,14 @@ GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary 2.0
 GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary 2.00,9.00,42.00,49.00
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into e3Detector 'e3Detector_0'
+GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary 2.00,9.00,42.00,49.00
+GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary 2.00,9.00,42.00,49.00
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute genericParameter 'key2=value2|key3=value3|keyInvalid.;%>%$$=value1' into e3Detector 'e3Detector_0'
+GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary 2.00,9.00,42.00,49.00
+GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary 2.00,9.00,42.00,49.00
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into e3Detector 'e3Detector_0'
 GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary 2.00,9.00,42.00,49.00
 GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary 2.00,9.00,42.00,49.00
 Debug: Keys Ctrl + Y (Redo) pressed

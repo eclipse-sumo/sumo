@@ -47,7 +47,21 @@ GLDebug: Inserted parkingSpace:parkingArea_gneE2_0_0space0 into SUMORTree with b
 Debug: Setting new attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into space 'parkingArea_gneE2_0_0space0'
 GLDebug: Removed object parkingSpace:parkingArea_gneE2_0_0space0 from SUMORTree with boundary -3.00,-18.00,37.00,22.00
 GLDebug: Inserted parkingSpace:parkingArea_gneE2_0_0space0 into SUMORTree with boundary -3.00,-18.00,37.00,22.00
+Debug: Setting new attribute genericParameter 'key2=value2|key3=value3|keyInvalid.;%>%$$=value1' into space 'parkingArea_gneE2_0_0space0'
+GLDebug: Removed object parkingSpace:parkingArea_gneE2_0_0space0 from SUMORTree with boundary -3.00,-18.00,37.00,22.00
+GLDebug: Inserted parkingSpace:parkingArea_gneE2_0_0space0 into SUMORTree with boundary -3.00,-18.00,37.00,22.00
+Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into space 'parkingArea_gneE2_0_0space0'
+GLDebug: Removed object parkingSpace:parkingArea_gneE2_0_0space0 from SUMORTree with boundary -3.00,-18.00,37.00,22.00
+GLDebug: Inserted parkingSpace:parkingArea_gneE2_0_0space0 into SUMORTree with boundary -3.00,-18.00,37.00,22.00
 Debug: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' into space 'parkingArea_gneE2_0_0space0'
+GLDebug: Removed object parkingSpace:parkingArea_gneE2_0_0space0 from SUMORTree with boundary -3.00,-18.00,37.00,22.00
+GLDebug: Inserted parkingSpace:parkingArea_gneE2_0_0space0 into SUMORTree with boundary -3.00,-18.00,37.00,22.00
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into space 'parkingArea_gneE2_0_0space0'
+GLDebug: Removed object parkingSpace:parkingArea_gneE2_0_0space0 from SUMORTree with boundary -3.00,-18.00,37.00,22.00
+GLDebug: Inserted parkingSpace:parkingArea_gneE2_0_0space0 into SUMORTree with boundary -3.00,-18.00,37.00,22.00
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute genericParameter 'key2=value2|key3=value3|keyInvalid.;%>%$$=value1' into space 'parkingArea_gneE2_0_0space0'
 GLDebug: Removed object parkingSpace:parkingArea_gneE2_0_0space0 from SUMORTree with boundary -3.00,-18.00,37.00,22.00
 GLDebug: Inserted parkingSpace:parkingArea_gneE2_0_0space0 into SUMORTree with boundary -3.00,-18.00,37.00,22.00
 Debug: Keys Ctrl + Z (Undo) pressed
@@ -70,29 +84,6 @@ Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute genericParameter '' into space 'parkingArea_gneE2_0_0space0'
 GLDebug: Removed object parkingSpace:parkingArea_gneE2_0_0space0 from SUMORTree with boundary -3.00,-18.00,37.00,22.00
 GLDebug: Inserted parkingSpace:parkingArea_gneE2_0_0space0 into SUMORTree with boundary -3.00,-18.00,37.00,22.00
-Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Removing space 'parkingArea_gneE2_0_0space0' in GNEChange_Additional
-Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
-GLDebug: Removed object parkingSpace:parkingArea_gneE2_0_0space0 from SUMORTree with boundary -3.00,-18.00,37.00,22.00
-GLDebug: Removed object parkingArea:parkingArea_gneE2_0_0 from SUMORTree with boundary -3.00,-9.60,47.00,30.40
-GLDebug: Inserted parkingArea:parkingArea_gneE2_0_0 into SUMORTree with boundary -3.00,-9.60,47.00,30.40
-Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Removing parkingArea 'parkingArea_gneE2_0_0' in GNEChange_Additional
-GLDebug: Removed object parkingArea:parkingArea_gneE2_0_0 from SUMORTree with boundary -3.00,-9.60,47.00,30.40
-Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Adding parkingArea 'parkingArea_gneE2_0_0' in GNEChange_Additional
-GLDebug: Inserted parkingArea:parkingArea_gneE2_0_0 into SUMORTree with boundary -3.00,-9.60,47.00,30.40
-GLDebug: Removed object parkingArea:parkingArea_gneE2_0_0 from SUMORTree with boundary -3.00,-9.60,47.00,30.40
-GLDebug: Inserted parkingArea:parkingArea_gneE2_0_0 into SUMORTree with boundary -3.00,-9.60,47.00,30.40
-GLDebug: Removed object parkingArea:parkingArea_gneE2_0_0 from SUMORTree with boundary -3.00,-9.60,47.00,30.40
-GLDebug: Inserted parkingArea:parkingArea_gneE2_0_0 into SUMORTree with boundary -3.00,-9.60,47.00,30.40
-Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Adding space 'parkingArea_gneE2_0_0space0' in GNEChange_Additional
-GLDebug: Inserted parkingSpace:parkingArea_gneE2_0_0space0 into SUMORTree with boundary -3.00,-18.00,37.00,22.00
-GLDebug: Removed object parkingSpace:parkingArea_gneE2_0_0space0 from SUMORTree with boundary -3.00,-18.00,37.00,22.00
-GLDebug: Inserted parkingSpace:parkingArea_gneE2_0_0space0 into SUMORTree with boundary -3.00,-18.00,37.00,22.00
-GLDebug: Removed object parkingArea:parkingArea_gneE2_0_0 from SUMORTree with boundary -3.00,-9.60,47.00,30.40
-GLDebug: Inserted parkingArea:parkingArea_gneE2_0_0 into SUMORTree with boundary -3.00,-9.60,47.00,30.40
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into space 'parkingArea_gneE2_0_0space0'
 GLDebug: Removed object parkingSpace:parkingArea_gneE2_0_0space0 from SUMORTree with boundary -3.00,-18.00,37.00,22.00
@@ -107,6 +98,14 @@ GLDebug: Removed object parkingSpace:parkingArea_gneE2_0_0space0 from SUMORTree 
 GLDebug: Inserted parkingSpace:parkingArea_gneE2_0_0space0 into SUMORTree with boundary -3.00,-18.00,37.00,22.00
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into space 'parkingArea_gneE2_0_0space0'
+GLDebug: Removed object parkingSpace:parkingArea_gneE2_0_0space0 from SUMORTree with boundary -3.00,-18.00,37.00,22.00
+GLDebug: Inserted parkingSpace:parkingArea_gneE2_0_0space0 into SUMORTree with boundary -3.00,-18.00,37.00,22.00
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute genericParameter 'key2=value2|key3=value3|keyInvalid.;%>%$$=value1' into space 'parkingArea_gneE2_0_0space0'
+GLDebug: Removed object parkingSpace:parkingArea_gneE2_0_0space0 from SUMORTree with boundary -3.00,-18.00,37.00,22.00
+GLDebug: Inserted parkingSpace:parkingArea_gneE2_0_0space0 into SUMORTree with boundary -3.00,-18.00,37.00,22.00
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into space 'parkingArea_gneE2_0_0space0'
 GLDebug: Removed object parkingSpace:parkingArea_gneE2_0_0space0 from SUMORTree with boundary -3.00,-18.00,37.00,22.00
 GLDebug: Inserted parkingSpace:parkingArea_gneE2_0_0space0 into SUMORTree with boundary -3.00,-18.00,37.00,22.00
 Debug: Keys Ctrl + Y (Redo) pressed

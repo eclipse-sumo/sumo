@@ -849,7 +849,7 @@ Debug: Setting previous attribute imgFile '' into poly 'poly_0'
 GLDebug: Removed object polygon:poly_0 from SUMORTree with boundary -42.00,18.00,-28.00,32.00
 GLDebug: Inserted polygon:poly_0 into SUMORTree with boundary -42.00,18.00,-28.00,32.00
 Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute imgFile 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.21Aug182048.3540/netedit.gui/shapeElements/poly/inspect_selection\berlin_icon.ico' into poly 'poly_4'
+Debug: Setting previous attribute imgFile 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.22Aug100027.3720/netedit.gui/shapeElements/poly/inspect_selection\berlin_icon.ico' into poly 'poly_4'
 GLDebug: Removed object polygon:poly_4 from SUMORTree with boundary 18.00,-2.00,32.00,12.00
 GLDebug: Inserted polygon:poly_4 into SUMORTree with boundary 18.00,-2.00,32.00,12.00
 Debug: Keys Ctrl + Z (Undo) pressed

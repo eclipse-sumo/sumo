@@ -26,8 +26,9 @@ DELAY_QUESTION = 1
 DELAY_REFERENCE = 30
 DELAY_QUIT = 3
 DELAY_UNDOREDO = 1
-DELAY_VOLATILE = 4
-DELAY_SAVE = 2
+DELAY_VOLATILE = 6
+DELAY_SAVE = 4
+DELAY_REMOVESELECTION = 5
 
 Settings.MoveMouseDelay = 0.2
 Settings.DelayBeforeDrop = 0.2
@@ -1028,6 +1029,8 @@ def deleteMode():
 
 def deleteUsingSuprKey():
     typeKey(Key.DELETE)
+    # wait for GL Debug
+    wait(DELAY_REMOVESELECTION)
 
 
 """

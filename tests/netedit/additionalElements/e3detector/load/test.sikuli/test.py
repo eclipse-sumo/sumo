@@ -25,11 +25,20 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, match = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
+# wait for GL Tests
+wait(5)
+
 # save additionals
 netedit.saveAdditionals()
 
+# wait for GL Tests
+wait(5)
+
 # save network
 netedit.saveNetwork()
+
+# wait for GL Tests
+wait(5)
 
 # quit netedit
 netedit.quit(neteditProcess)

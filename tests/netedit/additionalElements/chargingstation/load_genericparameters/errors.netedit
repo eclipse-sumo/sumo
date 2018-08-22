@@ -19,10 +19,10 @@ GLDebug: Removed object chargingStation:chargingStation_0 from SUMORTree with bo
 GLDebug: Inserted chargingStation:chargingStation_0 into SUMORTree with boundary -15.00,-21.60,30.00,18.40
 Debug: Inserting generic parameter 'key1|value1' into additional chargingStation.
 Error: '<' character cannot be used in attribute value 'key'; use &lt; instead
- In file 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.21Aug182048.3540/netedit.gui/additionalElements/chargingstation/load_genericparameters\input_additionals.add.xml'
+ In file 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.22Aug100027.3720/netedit.gui/additionalElements/chargingstation/load_genericparameters\input_additionals.add.xml'
  At line/column 13/17.
 
-Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.21Aug182048.3540/netedit.gui/additionalElements/chargingstation/load_genericparameters\input_additionals.add.xml failed.
+Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.22Aug100027.3720/netedit.gui/additionalElements/chargingstation/load_genericparameters\input_additionals.add.xml failed.
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Debug: Additionals saved

@@ -52,7 +52,21 @@ GLDebug: Inserted access:busStop_gneE2_1_0access0 into SUMORTree with boundary 1
 Debug: Setting new attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into access 'busStop_gneE2_1_0access0'
 GLDebug: Removed object access:busStop_gneE2_1_0access0 from SUMORTree with boundary 1.00,-1.60,70.00,38.40
 GLDebug: Inserted access:busStop_gneE2_1_0access0 into SUMORTree with boundary 1.00,-1.60,70.00,38.40
+Debug: Setting new attribute genericParameter 'key2=value2|key3=value3|keyInvalid.;%>%$$=value1' into access 'busStop_gneE2_1_0access0'
+GLDebug: Removed object access:busStop_gneE2_1_0access0 from SUMORTree with boundary 1.00,-1.60,70.00,38.40
+GLDebug: Inserted access:busStop_gneE2_1_0access0 into SUMORTree with boundary 1.00,-1.60,70.00,38.40
+Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into access 'busStop_gneE2_1_0access0'
+GLDebug: Removed object access:busStop_gneE2_1_0access0 from SUMORTree with boundary 1.00,-1.60,70.00,38.40
+GLDebug: Inserted access:busStop_gneE2_1_0access0 into SUMORTree with boundary 1.00,-1.60,70.00,38.40
 Debug: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' into access 'busStop_gneE2_1_0access0'
+GLDebug: Removed object access:busStop_gneE2_1_0access0 from SUMORTree with boundary 1.00,-1.60,70.00,38.40
+GLDebug: Inserted access:busStop_gneE2_1_0access0 into SUMORTree with boundary 1.00,-1.60,70.00,38.40
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into access 'busStop_gneE2_1_0access0'
+GLDebug: Removed object access:busStop_gneE2_1_0access0 from SUMORTree with boundary 1.00,-1.60,70.00,38.40
+GLDebug: Inserted access:busStop_gneE2_1_0access0 into SUMORTree with boundary 1.00,-1.60,70.00,38.40
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute genericParameter 'key2=value2|key3=value3|keyInvalid.;%>%$$=value1' into access 'busStop_gneE2_1_0access0'
 GLDebug: Removed object access:busStop_gneE2_1_0access0 from SUMORTree with boundary 1.00,-1.60,70.00,38.40
 GLDebug: Inserted access:busStop_gneE2_1_0access0 into SUMORTree with boundary 1.00,-1.60,70.00,38.40
 Debug: Keys Ctrl + Z (Undo) pressed
@@ -75,35 +89,6 @@ Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute genericParameter '' into access 'busStop_gneE2_1_0access0'
 GLDebug: Removed object access:busStop_gneE2_1_0access0 from SUMORTree with boundary 1.00,-1.60,70.00,38.40
 GLDebug: Inserted access:busStop_gneE2_1_0access0 into SUMORTree with boundary 1.00,-1.60,70.00,38.40
-Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Removing access 'busStop_gneE2_1_0access0' in GNEChange_Additional
-Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
-GLDebug: Removed object access:busStop_gneE2_1_0access0 from SUMORTree with boundary 1.00,-1.60,70.00,38.40
-GLDebug: Removed object busStop:busStop_gneE2_1_0 from SUMORTree with boundary 7.00,-3.20,57.00,36.80
-GLDebug: Inserted busStop:busStop_gneE2_1_0 into SUMORTree with boundary 7.00,-3.20,57.00,36.80
-GLDebug: Removed object busStop:busStop_gneE2_1_0 from SUMORTree with boundary 7.00,-3.20,57.00,36.80
-GLDebug: Inserted busStop:busStop_gneE2_1_0 into SUMORTree with boundary 7.00,-3.20,57.00,36.80
-Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Removing busStop 'busStop_gneE2_1_0' in GNEChange_Additional
-GLDebug: Removed object busStop:busStop_gneE2_1_0 from SUMORTree with boundary 7.00,-3.20,57.00,36.80
-Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Adding busStop 'busStop_gneE2_1_0' in GNEChange_Additional
-GLDebug: Inserted busStop:busStop_gneE2_1_0 into SUMORTree with boundary 7.00,-3.20,57.00,36.80
-GLDebug: Removed object busStop:busStop_gneE2_1_0 from SUMORTree with boundary 7.00,-3.20,57.00,36.80
-GLDebug: Inserted busStop:busStop_gneE2_1_0 into SUMORTree with boundary 7.00,-3.20,57.00,36.80
-GLDebug: Removed object busStop:busStop_gneE2_1_0 from SUMORTree with boundary 7.00,-3.20,57.00,36.80
-GLDebug: Inserted busStop:busStop_gneE2_1_0 into SUMORTree with boundary 7.00,-3.20,57.00,36.80
-Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Adding access 'busStop_gneE2_1_0access0' in GNEChange_Additional
-GLDebug: Inserted access:busStop_gneE2_1_0access0 into SUMORTree with boundary 1.00,-1.60,70.00,38.40
-GLDebug: Removed object access:busStop_gneE2_1_0access0 from SUMORTree with boundary 1.00,-1.60,70.00,38.40
-GLDebug: Inserted access:busStop_gneE2_1_0access0 into SUMORTree with boundary 1.00,-1.60,70.00,38.40
-GLDebug: Removed object busStop:busStop_gneE2_1_0 from SUMORTree with boundary 7.00,-3.20,57.00,36.80
-GLDebug: Inserted busStop:busStop_gneE2_1_0 into SUMORTree with boundary 7.00,-3.20,57.00,36.80
-GLDebug: Removed object access:busStop_gneE2_1_0access0 from SUMORTree with boundary 1.00,-1.60,70.00,38.40
-GLDebug: Inserted access:busStop_gneE2_1_0access0 into SUMORTree with boundary 1.00,-1.60,70.00,38.40
-GLDebug: Removed object busStop:busStop_gneE2_1_0 from SUMORTree with boundary 7.00,-3.20,57.00,36.80
-GLDebug: Inserted busStop:busStop_gneE2_1_0 into SUMORTree with boundary 7.00,-3.20,57.00,36.80
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into access 'busStop_gneE2_1_0access0'
 GLDebug: Removed object access:busStop_gneE2_1_0access0 from SUMORTree with boundary 1.00,-1.60,70.00,38.40
@@ -118,6 +103,14 @@ GLDebug: Removed object access:busStop_gneE2_1_0access0 from SUMORTree with boun
 GLDebug: Inserted access:busStop_gneE2_1_0access0 into SUMORTree with boundary 1.00,-1.60,70.00,38.40
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into access 'busStop_gneE2_1_0access0'
+GLDebug: Removed object access:busStop_gneE2_1_0access0 from SUMORTree with boundary 1.00,-1.60,70.00,38.40
+GLDebug: Inserted access:busStop_gneE2_1_0access0 into SUMORTree with boundary 1.00,-1.60,70.00,38.40
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute genericParameter 'key2=value2|key3=value3|keyInvalid.;%>%$$=value1' into access 'busStop_gneE2_1_0access0'
+GLDebug: Removed object access:busStop_gneE2_1_0access0 from SUMORTree with boundary 1.00,-1.60,70.00,38.40
+GLDebug: Inserted access:busStop_gneE2_1_0access0 into SUMORTree with boundary 1.00,-1.60,70.00,38.40
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into access 'busStop_gneE2_1_0access0'
 GLDebug: Removed object access:busStop_gneE2_1_0access0 from SUMORTree with boundary 1.00,-1.60,70.00,38.40
 GLDebug: Inserted access:busStop_gneE2_1_0access0 into SUMORTree with boundary 1.00,-1.60,70.00,38.40
 Debug: Keys Ctrl + Y (Redo) pressed

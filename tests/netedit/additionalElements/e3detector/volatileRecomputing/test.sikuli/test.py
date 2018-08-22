@@ -28,11 +28,17 @@ neteditProcess, match = netedit.setupAndStart(neteditTestRoot, ['--sidewalks.gue
 # Recompute with volatile options
 netedit.rebuildNetworkWithVolatileOptions()
 
+# Extra wait for GL Test
+wait(8)
+
 # save additionals
 netedit.saveAdditionals()
 
 # save network
 netedit.saveNetwork()
+
+# Extra wait for GL Test
+wait(5)
 
 # quit netedit
 netedit.quit(neteditProcess)

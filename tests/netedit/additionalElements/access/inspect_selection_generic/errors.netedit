@@ -117,12 +117,38 @@ GLDebug: Inserted access:busStopAaccess0 into SUMORTree with boundary -20.00,-18
 Debug: Setting new attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into access 'busStopBaccess0'
 GLDebug: Removed object access:busStopBaccess0 from SUMORTree with boundary 0.00,-21.60,70.00,18.40
 GLDebug: Inserted access:busStopBaccess0 into SUMORTree with boundary 0.00,-21.60,70.00,18.40
+Debug: Setting new attribute genericParameter 'key2=value2|key3=value3|keyInvalid.;%>%$$=value1' into access 'busStopAaccess0'
+GLDebug: Removed object access:busStopAaccess0 from SUMORTree with boundary -20.00,-18.40,60.00,21.60
+GLDebug: Inserted access:busStopAaccess0 into SUMORTree with boundary -20.00,-18.40,60.00,21.60
+Debug: Setting new attribute genericParameter 'key2=value2|key3=value3|keyInvalid.;%>%$$=value1' into access 'busStopBaccess0'
+GLDebug: Removed object access:busStopBaccess0 from SUMORTree with boundary 0.00,-21.60,70.00,18.40
+GLDebug: Inserted access:busStopBaccess0 into SUMORTree with boundary 0.00,-21.60,70.00,18.40
+Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into access 'busStopAaccess0'
+GLDebug: Removed object access:busStopAaccess0 from SUMORTree with boundary -20.00,-18.40,60.00,21.60
+GLDebug: Inserted access:busStopAaccess0 into SUMORTree with boundary -20.00,-18.40,60.00,21.60
+Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into access 'busStopBaccess0'
+GLDebug: Removed object access:busStopBaccess0 from SUMORTree with boundary 0.00,-21.60,70.00,18.40
+GLDebug: Inserted access:busStopBaccess0 into SUMORTree with boundary 0.00,-21.60,70.00,18.40
 Debug: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' into access 'busStopAaccess0'
 GLDebug: Removed object access:busStopAaccess0 from SUMORTree with boundary -20.00,-18.40,60.00,21.60
 GLDebug: Inserted access:busStopAaccess0 into SUMORTree with boundary -20.00,-18.40,60.00,21.60
 Debug: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' into access 'busStopBaccess0'
 GLDebug: Removed object access:busStopBaccess0 from SUMORTree with boundary 0.00,-21.60,70.00,18.40
 GLDebug: Inserted access:busStopBaccess0 into SUMORTree with boundary 0.00,-21.60,70.00,18.40
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into access 'busStopBaccess0'
+GLDebug: Removed object access:busStopBaccess0 from SUMORTree with boundary 0.00,-21.60,70.00,18.40
+GLDebug: Inserted access:busStopBaccess0 into SUMORTree with boundary 0.00,-21.60,70.00,18.40
+Debug: Setting previous attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into access 'busStopAaccess0'
+GLDebug: Removed object access:busStopAaccess0 from SUMORTree with boundary -20.00,-18.40,60.00,21.60
+GLDebug: Inserted access:busStopAaccess0 into SUMORTree with boundary -20.00,-18.40,60.00,21.60
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute genericParameter 'key2=value2|key3=value3|keyInvalid.;%>%$$=value1' into access 'busStopBaccess0'
+GLDebug: Removed object access:busStopBaccess0 from SUMORTree with boundary 0.00,-21.60,70.00,18.40
+GLDebug: Inserted access:busStopBaccess0 into SUMORTree with boundary 0.00,-21.60,70.00,18.40
+Debug: Setting previous attribute genericParameter 'key2=value2|key3=value3|keyInvalid.;%>%$$=value1' into access 'busStopAaccess0'
+GLDebug: Removed object access:busStopAaccess0 from SUMORTree with boundary -20.00,-18.40,60.00,21.60
+GLDebug: Inserted access:busStopAaccess0 into SUMORTree with boundary -20.00,-18.40,60.00,21.60
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into access 'busStopBaccess0'
 GLDebug: Removed object access:busStopBaccess0 from SUMORTree with boundary 0.00,-21.60,70.00,18.40
@@ -158,140 +184,6 @@ GLDebug: Inserted access:busStopBaccess0 into SUMORTree with boundary 0.00,-21.6
 Debug: Setting previous attribute genericParameter 'keyA1=valueA1|keyA2=valueA2|keyA3=valueA3' into access 'busStopAaccess0'
 GLDebug: Removed object access:busStopAaccess0 from SUMORTree with boundary -20.00,-18.40,60.00,21.60
 GLDebug: Inserted access:busStopAaccess0 into SUMORTree with boundary -20.00,-18.40,60.00,21.60
-Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute selected '0' into access 'busStopBaccess0'
-GLDebug: Removed object access:busStopBaccess0 from SUMORTree with boundary 0.00,-21.60,70.00,18.40
-GLDebug: Inserted access:busStopBaccess0 into SUMORTree with boundary 0.00,-21.60,70.00,18.40
-Debug: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 3 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Debug: Setting previous attribute selected '0' into access 'busStopAaccess0'
-GLDebug: Removed object access:busStopAaccess0 from SUMORTree with boundary -20.00,-18.40,60.00,21.60
-GLDebug: Inserted access:busStopAaccess0 into SUMORTree with boundary -20.00,-18.40,60.00,21.60
-Debug: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 2 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Debug: Setting previous attribute selected '0' into busStop 'busStopB'
-GLDebug: Removed object busStop:busStopB from SUMORTree with boundary 3.00,-23.20,53.00,16.80
-GLDebug: Inserted busStop:busStopB into SUMORTree with boundary 3.00,-23.20,53.00,16.80
-Debug: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Debug: Setting previous attribute selected '0' into busStop 'busStopA'
-GLDebug: Removed object busStop:busStopA from SUMORTree with boundary -3.00,-16.80,47.00,23.20
-GLDebug: Inserted busStop:busStopA into SUMORTree with boundary -3.00,-16.80,47.00,23.20
-Debug: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Debug: Setting previous attribute selected '0' into edge 'gneE0'
-GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-31.60,80.00,30.00
-GLDebug: Removed object busStop:busStopB from SUMORTree with boundary 3.00,-23.20,53.00,16.80
-GLDebug: Inserted busStop:busStopB into SUMORTree with boundary 3.00,-23.20,53.00,16.80
-GLDebug: Removed object access:busStopBaccess0 from SUMORTree with boundary 0.00,-21.60,70.00,18.40
-GLDebug: Inserted access:busStopBaccess0 into SUMORTree with boundary 0.00,-21.60,70.00,18.40
-GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
-Debug: Current selection: 2 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Debug: Setting previous attribute selected '0' into junction 'gneJ1'
-GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00,72.00,22.00
-GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 28.00,-22.00,72.00,22.00
-Debug: Current selection: 1 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Debug: Setting previous attribute selected '0' into edge 'gneE1'
-GLDebug: Removed object edge:gneE1 from SUMORTree with boundary -30.00,-30.00,80.00,31.60
-GLDebug: Removed object busStop:busStopA from SUMORTree with boundary -3.00,-16.80,47.00,23.20
-GLDebug: Inserted busStop:busStopA into SUMORTree with boundary -3.00,-16.80,47.00,23.20
-GLDebug: Removed object access:busStopAaccess0 from SUMORTree with boundary -20.00,-18.40,60.00,21.60
-GLDebug: Inserted access:busStopAaccess0 into SUMORTree with boundary -20.00,-18.40,60.00,21.60
-GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
-Debug: Current selection: 1 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Debug: Setting previous attribute selected '0' into junction 'gneJ0'
-GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
-GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-22.00,22.00,22.00
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Removing access 'busStopBaccess0' in GNEChange_Additional
-Debug: Removed inspected element from Inspected ACs. 1 ACs remains.
-GLDebug: Removed object access:busStopBaccess0 from SUMORTree with boundary 0.00,-21.60,70.00,18.40
-GLDebug: Removed object busStop:busStopB from SUMORTree with boundary 3.00,-23.20,53.00,16.80
-GLDebug: Inserted busStop:busStopB into SUMORTree with boundary 3.00,-23.20,53.00,16.80
-GLDebug: Removed object busStop:busStopB from SUMORTree with boundary 3.00,-23.20,53.00,16.80
-GLDebug: Inserted busStop:busStopB into SUMORTree with boundary 3.00,-23.20,53.00,16.80
-Debug: Removing busStop 'busStopB' in GNEChange_Additional
-GLDebug: Removed object busStop:busStopB from SUMORTree with boundary 3.00,-23.20,53.00,16.80
-Debug: Removing access 'busStopAaccess0' in GNEChange_Additional
-Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
-GLDebug: Removed object access:busStopAaccess0 from SUMORTree with boundary -20.00,-18.40,60.00,21.60
-GLDebug: Removed object busStop:busStopA from SUMORTree with boundary -3.00,-16.80,47.00,23.20
-GLDebug: Inserted busStop:busStopA into SUMORTree with boundary -3.00,-16.80,47.00,23.20
-GLDebug: Removed object busStop:busStopA from SUMORTree with boundary -3.00,-16.80,47.00,23.20
-GLDebug: Inserted busStop:busStopA into SUMORTree with boundary -3.00,-16.80,47.00,23.20
-Debug: Removing busStop 'busStopA' in GNEChange_Additional
-GLDebug: Removed object busStop:busStopA from SUMORTree with boundary -3.00,-16.80,47.00,23.20
-Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Adding busStop 'busStopA' in GNEChange_Additional
-GLDebug: Inserted busStop:busStopA into SUMORTree with boundary -3.00,-16.80,47.00,23.20
-GLDebug: Removed object busStop:busStopA from SUMORTree with boundary -3.00,-16.80,47.00,23.20
-GLDebug: Inserted busStop:busStopA into SUMORTree with boundary -3.00,-16.80,47.00,23.20
-GLDebug: Removed object busStop:busStopA from SUMORTree with boundary -3.00,-16.80,47.00,23.20
-GLDebug: Inserted busStop:busStopA into SUMORTree with boundary -3.00,-16.80,47.00,23.20
-Debug: Adding access 'busStopAaccess0' in GNEChange_Additional
-GLDebug: Inserted access:busStopAaccess0 into SUMORTree with boundary -20.00,-18.40,60.00,21.60
-GLDebug: Removed object access:busStopAaccess0 from SUMORTree with boundary -20.00,-18.40,60.00,21.60
-GLDebug: Inserted access:busStopAaccess0 into SUMORTree with boundary -20.00,-18.40,60.00,21.60
-GLDebug: Removed object busStop:busStopA from SUMORTree with boundary -3.00,-16.80,47.00,23.20
-GLDebug: Inserted busStop:busStopA into SUMORTree with boundary -3.00,-16.80,47.00,23.20
-GLDebug: Removed object access:busStopAaccess0 from SUMORTree with boundary -20.00,-18.40,60.00,21.60
-GLDebug: Inserted access:busStopAaccess0 into SUMORTree with boundary -20.00,-18.40,60.00,21.60
-GLDebug: Removed object busStop:busStopA from SUMORTree with boundary -3.00,-16.80,47.00,23.20
-GLDebug: Inserted busStop:busStopA into SUMORTree with boundary -3.00,-16.80,47.00,23.20
-Debug: Adding busStop 'busStopB' in GNEChange_Additional
-GLDebug: Inserted busStop:busStopB into SUMORTree with boundary 3.00,-23.20,53.00,16.80
-GLDebug: Removed object busStop:busStopB from SUMORTree with boundary 3.00,-23.20,53.00,16.80
-GLDebug: Inserted busStop:busStopB into SUMORTree with boundary 3.00,-23.20,53.00,16.80
-GLDebug: Removed object busStop:busStopB from SUMORTree with boundary 3.00,-23.20,53.00,16.80
-GLDebug: Inserted busStop:busStopB into SUMORTree with boundary 3.00,-23.20,53.00,16.80
-Debug: Adding access 'busStopBaccess0' in GNEChange_Additional
-GLDebug: Inserted access:busStopBaccess0 into SUMORTree with boundary 0.00,-21.60,70.00,18.40
-GLDebug: Removed object access:busStopBaccess0 from SUMORTree with boundary 0.00,-21.60,70.00,18.40
-GLDebug: Inserted access:busStopBaccess0 into SUMORTree with boundary 0.00,-21.60,70.00,18.40
-GLDebug: Removed object busStop:busStopB from SUMORTree with boundary 3.00,-23.20,53.00,16.80
-GLDebug: Inserted busStop:busStopB into SUMORTree with boundary 3.00,-23.20,53.00,16.80
-GLDebug: Removed object access:busStopBaccess0 from SUMORTree with boundary 0.00,-21.60,70.00,18.40
-GLDebug: Inserted access:busStopBaccess0 into SUMORTree with boundary 0.00,-21.60,70.00,18.40
-GLDebug: Removed object busStop:busStopB from SUMORTree with boundary 3.00,-23.20,53.00,16.80
-GLDebug: Inserted busStop:busStopB into SUMORTree with boundary 3.00,-23.20,53.00,16.80
-Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute selected 'true' into junction 'gneJ0'
-GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
-GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-22.00,22.00,22.00
-Debug: Current selection: 1 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Debug: Setting new attribute selected 'true' into edge 'gneE1'
-GLDebug: Removed object edge:gneE1 from SUMORTree with boundary -30.00,-30.00,80.00,31.60
-GLDebug: Removed object busStop:busStopA from SUMORTree with boundary -3.00,-16.80,47.00,23.20
-GLDebug: Inserted busStop:busStopA into SUMORTree with boundary -3.00,-16.80,47.00,23.20
-GLDebug: Removed object access:busStopAaccess0 from SUMORTree with boundary -20.00,-18.40,60.00,21.60
-GLDebug: Inserted access:busStopAaccess0 into SUMORTree with boundary -20.00,-18.40,60.00,21.60
-GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
-Debug: Current selection: 1 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Debug: Setting new attribute selected 'true' into junction 'gneJ1'
-GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00,72.00,22.00
-GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 28.00,-22.00,72.00,22.00
-Debug: Current selection: 2 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Debug: Setting new attribute selected 'true' into edge 'gneE0'
-GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-31.60,80.00,30.00
-GLDebug: Removed object busStop:busStopB from SUMORTree with boundary 3.00,-23.20,53.00,16.80
-GLDebug: Inserted busStop:busStopB into SUMORTree with boundary 3.00,-23.20,53.00,16.80
-GLDebug: Removed object access:busStopBaccess0 from SUMORTree with boundary 0.00,-21.60,70.00,18.40
-GLDebug: Inserted access:busStopBaccess0 into SUMORTree with boundary 0.00,-21.60,70.00,18.40
-GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
-Debug: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Debug: Setting new attribute selected 'true' into busStop 'busStopA'
-GLDebug: Removed object busStop:busStopA from SUMORTree with boundary -3.00,-16.80,47.00,23.20
-GLDebug: Inserted busStop:busStopA into SUMORTree with boundary -3.00,-16.80,47.00,23.20
-Debug: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Debug: Setting new attribute selected 'true' into busStop 'busStopB'
-GLDebug: Removed object busStop:busStopB from SUMORTree with boundary 3.00,-23.20,53.00,16.80
-GLDebug: Inserted busStop:busStopB into SUMORTree with boundary 3.00,-23.20,53.00,16.80
-Debug: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 2 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Debug: Setting new attribute selected 'true' into access 'busStopAaccess0'
-GLDebug: Removed object access:busStopAaccess0 from SUMORTree with boundary -20.00,-18.40,60.00,21.60
-GLDebug: Inserted access:busStopAaccess0 into SUMORTree with boundary -20.00,-18.40,60.00,21.60
-Debug: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 3 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Debug: Setting new attribute selected 'true' into access 'busStopBaccess0'
-GLDebug: Removed object access:busStopBaccess0 from SUMORTree with boundary 0.00,-21.60,70.00,18.40
-GLDebug: Inserted access:busStopBaccess0 into SUMORTree with boundary 0.00,-21.60,70.00,18.40
-Debug: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 4 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into access 'busStopAaccess0'
 GLDebug: Removed object access:busStopAaccess0 from SUMORTree with boundary -20.00,-18.40,60.00,21.60
@@ -318,6 +210,20 @@ Debug: Setting new attribute genericParameter 'key1=valueDuplicated|key2=valueDu
 GLDebug: Removed object access:busStopAaccess0 from SUMORTree with boundary -20.00,-18.40,60.00,21.60
 GLDebug: Inserted access:busStopAaccess0 into SUMORTree with boundary -20.00,-18.40,60.00,21.60
 Debug: Setting new attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into access 'busStopBaccess0'
+GLDebug: Removed object access:busStopBaccess0 from SUMORTree with boundary 0.00,-21.60,70.00,18.40
+GLDebug: Inserted access:busStopBaccess0 into SUMORTree with boundary 0.00,-21.60,70.00,18.40
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute genericParameter 'key2=value2|key3=value3|keyInvalid.;%>%$$=value1' into access 'busStopAaccess0'
+GLDebug: Removed object access:busStopAaccess0 from SUMORTree with boundary -20.00,-18.40,60.00,21.60
+GLDebug: Inserted access:busStopAaccess0 into SUMORTree with boundary -20.00,-18.40,60.00,21.60
+Debug: Setting new attribute genericParameter 'key2=value2|key3=value3|keyInvalid.;%>%$$=value1' into access 'busStopBaccess0'
+GLDebug: Removed object access:busStopBaccess0 from SUMORTree with boundary 0.00,-21.60,70.00,18.40
+GLDebug: Inserted access:busStopBaccess0 into SUMORTree with boundary 0.00,-21.60,70.00,18.40
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into access 'busStopAaccess0'
+GLDebug: Removed object access:busStopAaccess0 from SUMORTree with boundary -20.00,-18.40,60.00,21.60
+GLDebug: Inserted access:busStopAaccess0 into SUMORTree with boundary -20.00,-18.40,60.00,21.60
+Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into access 'busStopBaccess0'
 GLDebug: Removed object access:busStopBaccess0 from SUMORTree with boundary 0.00,-21.60,70.00,18.40
 GLDebug: Inserted access:busStopBaccess0 into SUMORTree with boundary 0.00,-21.60,70.00,18.40
 Debug: Keys Ctrl + Y (Redo) pressed

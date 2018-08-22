@@ -21,10 +21,10 @@ Debug: Inserting generic parameter 'key1|value1' into additional e1Detector.
 Debug: Inserting generic parameter 'key1|value4' into additional e1Detector.
 Debug: Inserting generic parameter 'key2|' into additional e1Detector.
 Error: '<' character cannot be used in attribute value 'value'; use &lt; instead
- In file 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.21Aug182048.3540/netedit.gui/additionalElements/e1detector/load_genericparameters\input_additionals.add.xml'
+ In file 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.22Aug100027.3720/netedit.gui/additionalElements/e1detector/load_genericparameters\input_additionals.add.xml'
  At line/column 21/32.
 
-Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.21Aug182048.3540/netedit.gui/additionalElements/e1detector/load_genericparameters\input_additionals.add.xml failed.
+Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.22Aug100027.3720/netedit.gui/additionalElements/e1detector/load_genericparameters\input_additionals.add.xml failed.
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Debug: Additionals saved

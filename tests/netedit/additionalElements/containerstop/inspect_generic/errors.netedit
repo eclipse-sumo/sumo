@@ -48,7 +48,21 @@ GLDebug: Inserted containerStop:containerStop_gneE2_1_0 into SUMORTree with boun
 Debug: Setting new attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into containerStop 'containerStop_gneE2_1_0'
 GLDebug: Removed object containerStop:containerStop_gneE2_1_0 from SUMORTree with boundary -8.00,-3.20,42.00,36.80
 GLDebug: Inserted containerStop:containerStop_gneE2_1_0 into SUMORTree with boundary -8.00,-3.20,42.00,36.80
+Debug: Setting new attribute genericParameter 'key2=value2|key3=value3|keyInvalid.;%>%$$=value1' into containerStop 'containerStop_gneE2_1_0'
+GLDebug: Removed object containerStop:containerStop_gneE2_1_0 from SUMORTree with boundary -8.00,-3.20,42.00,36.80
+GLDebug: Inserted containerStop:containerStop_gneE2_1_0 into SUMORTree with boundary -8.00,-3.20,42.00,36.80
+Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into containerStop 'containerStop_gneE2_1_0'
+GLDebug: Removed object containerStop:containerStop_gneE2_1_0 from SUMORTree with boundary -8.00,-3.20,42.00,36.80
+GLDebug: Inserted containerStop:containerStop_gneE2_1_0 into SUMORTree with boundary -8.00,-3.20,42.00,36.80
 Debug: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' into containerStop 'containerStop_gneE2_1_0'
+GLDebug: Removed object containerStop:containerStop_gneE2_1_0 from SUMORTree with boundary -8.00,-3.20,42.00,36.80
+GLDebug: Inserted containerStop:containerStop_gneE2_1_0 into SUMORTree with boundary -8.00,-3.20,42.00,36.80
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into containerStop 'containerStop_gneE2_1_0'
+GLDebug: Removed object containerStop:containerStop_gneE2_1_0 from SUMORTree with boundary -8.00,-3.20,42.00,36.80
+GLDebug: Inserted containerStop:containerStop_gneE2_1_0 into SUMORTree with boundary -8.00,-3.20,42.00,36.80
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute genericParameter 'key2=value2|key3=value3|keyInvalid.;%>%$$=value1' into containerStop 'containerStop_gneE2_1_0'
 GLDebug: Removed object containerStop:containerStop_gneE2_1_0 from SUMORTree with boundary -8.00,-3.20,42.00,36.80
 GLDebug: Inserted containerStop:containerStop_gneE2_1_0 into SUMORTree with boundary -8.00,-3.20,42.00,36.80
 Debug: Keys Ctrl + Z (Undo) pressed
@@ -71,31 +85,6 @@ Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute genericParameter '' into containerStop 'containerStop_gneE2_1_0'
 GLDebug: Removed object containerStop:containerStop_gneE2_1_0 from SUMORTree with boundary -8.00,-3.20,42.00,36.80
 GLDebug: Inserted containerStop:containerStop_gneE2_1_0 into SUMORTree with boundary -8.00,-3.20,42.00,36.80
-Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Removing containerStop 'containerStop_gneE2_1_1' in GNEChange_Additional
-GLDebug: Removed object containerStop:containerStop_gneE2_1_1 from SUMORTree with boundary 12.00,-3.20,62.00,36.80
-GLDebug: Removed object containerStop:containerStop_gneE2_1_0 from SUMORTree with boundary -8.00,-3.20,42.00,36.80
-GLDebug: Inserted containerStop:containerStop_gneE2_1_0 into SUMORTree with boundary -8.00,-3.20,42.00,36.80
-Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Removing containerStop 'containerStop_gneE2_1_0' in GNEChange_Additional
-Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
-GLDebug: Removed object containerStop:containerStop_gneE2_1_0 from SUMORTree with boundary -8.00,-3.20,42.00,36.80
-Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Adding containerStop 'containerStop_gneE2_1_0' in GNEChange_Additional
-GLDebug: Inserted containerStop:containerStop_gneE2_1_0 into SUMORTree with boundary -8.00,-3.20,42.00,36.80
-GLDebug: Removed object containerStop:containerStop_gneE2_1_0 from SUMORTree with boundary -8.00,-3.20,42.00,36.80
-GLDebug: Inserted containerStop:containerStop_gneE2_1_0 into SUMORTree with boundary -8.00,-3.20,42.00,36.80
-GLDebug: Removed object containerStop:containerStop_gneE2_1_0 from SUMORTree with boundary -8.00,-3.20,42.00,36.80
-GLDebug: Inserted containerStop:containerStop_gneE2_1_0 into SUMORTree with boundary -8.00,-3.20,42.00,36.80
-Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Adding containerStop 'containerStop_gneE2_1_1' in GNEChange_Additional
-GLDebug: Inserted containerStop:containerStop_gneE2_1_1 into SUMORTree with boundary 12.00,-3.20,62.00,36.80
-GLDebug: Removed object containerStop:containerStop_gneE2_1_1 from SUMORTree with boundary 12.00,-3.20,62.00,36.80
-GLDebug: Inserted containerStop:containerStop_gneE2_1_1 into SUMORTree with boundary 12.00,-3.20,62.00,36.80
-GLDebug: Removed object containerStop:containerStop_gneE2_1_0 from SUMORTree with boundary -8.00,-3.20,42.00,36.80
-GLDebug: Inserted containerStop:containerStop_gneE2_1_0 into SUMORTree with boundary -8.00,-3.20,42.00,36.80
-GLDebug: Removed object containerStop:containerStop_gneE2_1_1 from SUMORTree with boundary 12.00,-3.20,62.00,36.80
-GLDebug: Inserted containerStop:containerStop_gneE2_1_1 into SUMORTree with boundary 12.00,-3.20,62.00,36.80
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into containerStop 'containerStop_gneE2_1_0'
 GLDebug: Removed object containerStop:containerStop_gneE2_1_0 from SUMORTree with boundary -8.00,-3.20,42.00,36.80
@@ -110,6 +99,14 @@ GLDebug: Removed object containerStop:containerStop_gneE2_1_0 from SUMORTree wit
 GLDebug: Inserted containerStop:containerStop_gneE2_1_0 into SUMORTree with boundary -8.00,-3.20,42.00,36.80
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into containerStop 'containerStop_gneE2_1_0'
+GLDebug: Removed object containerStop:containerStop_gneE2_1_0 from SUMORTree with boundary -8.00,-3.20,42.00,36.80
+GLDebug: Inserted containerStop:containerStop_gneE2_1_0 into SUMORTree with boundary -8.00,-3.20,42.00,36.80
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute genericParameter 'key2=value2|key3=value3|keyInvalid.;%>%$$=value1' into containerStop 'containerStop_gneE2_1_0'
+GLDebug: Removed object containerStop:containerStop_gneE2_1_0 from SUMORTree with boundary -8.00,-3.20,42.00,36.80
+GLDebug: Inserted containerStop:containerStop_gneE2_1_0 into SUMORTree with boundary -8.00,-3.20,42.00,36.80
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into containerStop 'containerStop_gneE2_1_0'
 GLDebug: Removed object containerStop:containerStop_gneE2_1_0 from SUMORTree with boundary -8.00,-3.20,42.00,36.80
 GLDebug: Inserted containerStop:containerStop_gneE2_1_0 into SUMORTree with boundary -8.00,-3.20,42.00,36.80
 Debug: Keys Ctrl + Y (Redo) pressed

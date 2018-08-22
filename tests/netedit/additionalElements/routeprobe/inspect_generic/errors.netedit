@@ -42,7 +42,21 @@ GLDebug: Inserted routeProbe:routeProbe_gneE3_0 into SUMORTree with boundary 29.
 Debug: Setting new attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into routeProbe 'routeProbe_gneE3_0'
 GLDebug: Removed object routeProbe:routeProbe_gneE3_0 from SUMORTree with boundary 29.50,4.80,69.50,44.80
 GLDebug: Inserted routeProbe:routeProbe_gneE3_0 into SUMORTree with boundary 29.50,4.80,69.50,44.80
+Debug: Setting new attribute genericParameter 'key2=value2|key3=value3|keyInvalid.;%>%$$=value1' into routeProbe 'routeProbe_gneE3_0'
+GLDebug: Removed object routeProbe:routeProbe_gneE3_0 from SUMORTree with boundary 29.50,4.80,69.50,44.80
+GLDebug: Inserted routeProbe:routeProbe_gneE3_0 into SUMORTree with boundary 29.50,4.80,69.50,44.80
+Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into routeProbe 'routeProbe_gneE3_0'
+GLDebug: Removed object routeProbe:routeProbe_gneE3_0 from SUMORTree with boundary 29.50,4.80,69.50,44.80
+GLDebug: Inserted routeProbe:routeProbe_gneE3_0 into SUMORTree with boundary 29.50,4.80,69.50,44.80
 Debug: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' into routeProbe 'routeProbe_gneE3_0'
+GLDebug: Removed object routeProbe:routeProbe_gneE3_0 from SUMORTree with boundary 29.50,4.80,69.50,44.80
+GLDebug: Inserted routeProbe:routeProbe_gneE3_0 into SUMORTree with boundary 29.50,4.80,69.50,44.80
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into routeProbe 'routeProbe_gneE3_0'
+GLDebug: Removed object routeProbe:routeProbe_gneE3_0 from SUMORTree with boundary 29.50,4.80,69.50,44.80
+GLDebug: Inserted routeProbe:routeProbe_gneE3_0 into SUMORTree with boundary 29.50,4.80,69.50,44.80
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute genericParameter 'key2=value2|key3=value3|keyInvalid.;%>%$$=value1' into routeProbe 'routeProbe_gneE3_0'
 GLDebug: Removed object routeProbe:routeProbe_gneE3_0 from SUMORTree with boundary 29.50,4.80,69.50,44.80
 GLDebug: Inserted routeProbe:routeProbe_gneE3_0 into SUMORTree with boundary 29.50,4.80,69.50,44.80
 Debug: Keys Ctrl + Z (Undo) pressed
@@ -65,22 +79,6 @@ Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute genericParameter '' into routeProbe 'routeProbe_gneE3_0'
 GLDebug: Removed object routeProbe:routeProbe_gneE3_0 from SUMORTree with boundary 29.50,4.80,69.50,44.80
 GLDebug: Inserted routeProbe:routeProbe_gneE3_0 into SUMORTree with boundary 29.50,4.80,69.50,44.80
-Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Removing routeProbe 'routeProbe_gneE3_0' in GNEChange_Additional
-Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
-GLDebug: Removed object routeProbe:routeProbe_gneE3_0 from SUMORTree with boundary 29.50,4.80,69.50,44.80
-GLDebug: Removed object edge:gneE3 from SUMORTree with boundary -30.00,-10.00,80.00,54.80
-GLDebug: Inserted edge:gneE3 into SUMORTree with boundary -30.00,-10.00,80.00,54.80
-Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Adding routeProbe 'routeProbe_gneE3_0' in GNEChange_Additional
-GLDebug: Inserted routeProbe:routeProbe_gneE3_0 into SUMORTree with boundary 29.50,4.80,69.50,44.80
-GLDebug: Removed object routeProbe:routeProbe_gneE3_0 from SUMORTree with boundary 29.50,4.80,69.50,44.80
-GLDebug: Inserted routeProbe:routeProbe_gneE3_0 into SUMORTree with boundary 29.50,4.80,69.50,44.80
-GLDebug: Removed object edge:gneE3 from SUMORTree with boundary -30.00,-10.00,80.00,54.80
-GLDebug: Removed object routeProbe:routeProbe_gneE3_0 from SUMORTree with boundary 29.50,4.80,69.50,44.80
-GLDebug: Inserted routeProbe:routeProbe_gneE3_0 into SUMORTree with boundary 29.50,4.80,69.50,44.80
-GLDebug: Inserted edge:gneE3 into SUMORTree with boundary -30.00,-10.00,80.00,54.80
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into routeProbe 'routeProbe_gneE3_0'
 GLDebug: Removed object routeProbe:routeProbe_gneE3_0 from SUMORTree with boundary 29.50,4.80,69.50,44.80
@@ -98,10 +96,17 @@ Debug: Setting new attribute genericParameter 'key1=valueDuplicated|key2=valueDu
 GLDebug: Removed object routeProbe:routeProbe_gneE3_0 from SUMORTree with boundary 29.50,4.80,69.50,44.80
 GLDebug: Inserted routeProbe:routeProbe_gneE3_0 into SUMORTree with boundary 29.50,4.80,69.50,44.80
 Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' into routeProbe 'routeProbe_gneE3_0'
+Debug: Setting new attribute genericParameter 'key2=value2|key3=value3|keyInvalid.;%>%$$=value1' into routeProbe 'routeProbe_gneE3_0'
 GLDebug: Removed object routeProbe:routeProbe_gneE3_0 from SUMORTree with boundary 29.50,4.80,69.50,44.80
 GLDebug: Inserted routeProbe:routeProbe_gneE3_0 into SUMORTree with boundary 29.50,4.80,69.50,44.80
 Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into routeProbe 'routeProbe_gneE3_0'
+GLDebug: Removed object routeProbe:routeProbe_gneE3_0 from SUMORTree with boundary 29.50,4.80,69.50,44.80
+GLDebug: Inserted routeProbe:routeProbe_gneE3_0 into SUMORTree with boundary 29.50,4.80,69.50,44.80
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' into routeProbe 'routeProbe_gneE3_0'
+GLDebug: Removed object routeProbe:routeProbe_gneE3_0 from SUMORTree with boundary 29.50,4.80,69.50,44.80
+GLDebug: Inserted routeProbe:routeProbe_gneE3_0 into SUMORTree with boundary 29.50,4.80,69.50,44.80
 Debug: Additionals saved
 GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
 GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00,72.00,22.00

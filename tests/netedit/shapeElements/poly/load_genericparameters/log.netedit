@@ -1,7 +1,6 @@
 Error: Attribute 'key' is missing in definition of a param.
-Warning: Error parsing key from shape generic parameter. Key contains invalid characters
 Error: '<' character cannot be used in attribute value 'value'; use &lt; instead
- In file 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.20Aug131023.1664/netedit.gui/shapeElements/poly/load_genericparameters\input_shapes.add.xml'
+ In file 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.22Aug100027.3720/netedit.gui/shapeElements/poly/load_genericparameters\input_shapes.add.xml'
  At line/column 21/32.
 
 Error: Loading of shapes failed.
