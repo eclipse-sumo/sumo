@@ -119,7 +119,7 @@ GNERerouter::moveGeometry(const Position& oldPos, const Position& offset) {
     // restore old position, apply offset and update Geometry
     myPosition = oldPos;
     myPosition.add(offset);
-    updateGeometry();
+    updateGeometry(true);
 }
 
 
@@ -407,7 +407,7 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value) {
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
     // After setting attribute always update Geometry
-    updateGeometry();
+    updateGeometry(true);
 }
 
 /****************************************************************************/

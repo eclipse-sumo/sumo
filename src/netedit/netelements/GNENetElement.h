@@ -68,7 +68,7 @@ public:
     /**@brief update pre-computed geometry information
      * @note: must be called when geometry changes (i.e. lane moved) and implemented in ALL childrens
      */
-    virtual void updateGeometry(bool updateGrid = true) = 0;
+    virtual void updateGeometry(bool updateGrid) = 0;
 
     /// @brief get Net in which this element is placed
     GNENet* getNet() const;

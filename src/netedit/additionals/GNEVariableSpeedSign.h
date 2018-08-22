@@ -73,7 +73,7 @@ public:
     void commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList);
 
     /// @brief update pre-computed geometry information
-    void updateGeometry(bool updateGrid = true);
+    void updateGeometry(bool updateGrid);
 
     /// @brief Returns position of additional in view
     Position getPositionInView() const;

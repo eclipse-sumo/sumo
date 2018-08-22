@@ -730,7 +730,7 @@ GNELane::addShapeChild(GNEShape* shape) {
     if (std::find(myShapes.begin(), myShapes.end(), shape) == myShapes.end()) {
         myShapes.push_back(shape);
         // update Geometry of shape after add
-        shape->updateGeometry();
+        shape->updateGeometry(true);
     } else {
         throw ProcessError(toString(shape->getTag()) + " with ID='" + shape->getID() + "' was already inserted in lane with ID='" + getID() + "'");
     }
@@ -984,13 +984,9 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_ALLOW:
             edge->setPermissions(parseVehicleClasses(value), myIndex);
-            updateGeometry();
-            myNet->getViewNet()->update();
             break;
         case SUMO_ATTR_DISALLOW:
             edge->setPermissions(invertPermissions(parseVehicleClasses(value)), myIndex);
-            updateGeometry();
-            myNet->getViewNet()->update();
             break;
         case SUMO_ATTR_WIDTH:
             if (value.empty()) {
@@ -998,8 +994,6 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value) {
             } else {
                 edge->setLaneWidth(myIndex, parse<double>(value));
             }
-            updateGeometry();
-            myNet->getViewNet()->update();
             break;
         case SUMO_ATTR_ENDOFFSET:
             edge->setEndOffset(myIndex, parse<double>(value));
@@ -1026,7 +1020,7 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value) {
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
     // After setting attribute always update Geometry
-    updateGeometry();
+    updateGeometry(true);
 }
 
 

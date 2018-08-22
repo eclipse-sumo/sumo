@@ -521,7 +521,7 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value) {
             // change myCrossingEdges by the new edges
             myCrossingEdges = crossing->edges;
             // update geometry of parent junction
-            myParentJunction->updateGeometry();
+            myParentJunction->updateGeometry(true);
             break;
         }
         case SUMO_ATTR_WIDTH:
@@ -539,8 +539,12 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_CUSTOMSHAPE: {
             bool ok;
+            // first remove object from grid
+            myNet->removeGLObjectFromGrid(this);
+            // set custom shape
             crossing->customShape = GeomConvHelper::parseShapeReporting(value, "user-supplied shape", 0, ok, true);
-            updateGeometry();
+            // insert object in grid again
+            myNet->removeGLObjectFromGrid(this);
             break;
         }
         case GNE_ATTR_SELECTED:
@@ -557,7 +561,7 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value) {
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
     // Crossing are a special case and we need ot update geometry of junction instead of crossing
-    myParentJunction->updateGeometry();
+    myParentJunction->updateGeometry(true);
 }
 
 

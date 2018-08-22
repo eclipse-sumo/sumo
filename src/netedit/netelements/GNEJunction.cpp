@@ -147,7 +147,7 @@ GNEJunction::rebuildGNECrossings(bool rebuildNBNodeCrossings) {
                 // insert retrieved crossing in tree again
                 myNet->addGLObjectIntoGrid(retrievedGNECrossing);
                 // update geometry of retrieved crossing
-                retrievedGNECrossing->updateGeometry();
+                retrievedGNECrossing->updateGeometry(true);
             } else {
                 // include reference to created GNECrossing
                 retrievedGNECrossing->incRef();
@@ -522,15 +522,15 @@ GNEJunction::updateShapesAndGeometries() {
     // Iterate over affected Junctions
     for (auto i : affectedJunctions) {
         // Update geometry of Junction
-        i->updateGeometry();
+        i->updateGeometry(true);
     }
     // Iterate over affected Edges
     for (auto i : affectedEdges) {
         // Update edge geometry
-        i->updateGeometry();
+        i->updateGeometry(true);
     }
     // Finally update geometry of this junction
-    updateGeometry();
+    updateGeometry(true);
     // Update view to show the new shapes
     if (myNet->getViewNet()) {
         myNet->getViewNet()->update();
@@ -802,7 +802,7 @@ GNEJunction::retrieveGNECrossing(NBNode::Crossing* crossing, bool createIfNoExis
         // insert it in Tree
         myNet->addGLObjectIntoGrid(createdGNECrossing);
         // update geometry after creating
-        createdGNECrossing->updateGeometry();
+        createdGNECrossing->updateGeometry(true);
         return createdGNECrossing;
     } else {
         return nullptr;
@@ -1203,7 +1203,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
     // After setting attribute always update Geometry
-    updateGeometry();
+    updateGeometry(true);
 }
 
 

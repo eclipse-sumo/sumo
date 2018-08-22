@@ -94,7 +94,7 @@ GNEDetector::moveGeometry(const Position& oldPos, const Position& offset) {
     newPosition.add(offset);
     myPositionOverLane = myLane->getShape().nearest_offset_to_point2D(newPosition, false);
     // Update geometry
-    updateGeometry();
+    updateGeometry(true);
 }
 
 

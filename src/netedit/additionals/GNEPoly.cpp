@@ -144,7 +144,7 @@ GNEPoly::moveEntireShape(const PositionVector& oldShape, const Position& offset)
             i.add(offset);
         }
         // update Geometry after moving
-        updateGeometry();
+        updateGeometry(true);
     }
 }
 
@@ -444,7 +444,7 @@ GNEPoly::openPolygon(bool allowUndo) {
             // disable simplified shape flag
             mySimplifiedShape = false;
             // update geometry to avoid grabbing Problems
-            updateGeometry();
+            updateGeometry(true);
         }
     } else {
         WRITE_WARNING("Polygon already opened")
@@ -466,7 +466,7 @@ GNEPoly::closePolygon(bool allowUndo) {
             // disable simplified shape flag
             mySimplifiedShape = false;
             // update geometry to avoid grabbing Problems
-            updateGeometry();
+            updateGeometry(true);
         }
     } else {
         WRITE_WARNING("Polygon already closed")
@@ -510,7 +510,7 @@ GNEPoly::changeFirstGeometryPoint(int oldIndex, bool allowUndo) {
             // disable simplified shape flag
             mySimplifiedShape = false;
             // update geometry to avoid grabbing Problems
-            updateGeometry();
+            updateGeometry(true);
         }
     }
 }
@@ -544,7 +544,7 @@ GNEPoly::simplifyShape(bool allowUndo) {
             // Check if new shape is closed
             myClosedShape = (myShape.front() == myShape.back());
             // update geometry to avoid grabbing Problems
-            updateGeometry();
+            updateGeometry(true);
         }
         // change flag after setting simplified shape
         mySimplifiedShape = true;
@@ -821,7 +821,7 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             mySimplifiedShape = false;
             // update geometry of shape edited element
             if (myNetElementShapeEdited) {
-                myNetElementShapeEdited->updateGeometry();
+                myNetElementShapeEdited->updateGeometry(true);
             }
             break;
         }
@@ -840,7 +840,7 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             mySimplifiedShape = false;
             // update geometry of shape edited element
             if (myNetElementShapeEdited) {
-                myNetElementShapeEdited->updateGeometry();
+                myNetElementShapeEdited->updateGeometry(true);
             }
             break;
         }

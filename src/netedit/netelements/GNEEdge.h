@@ -73,7 +73,7 @@ public:
     /**@brief update pre-computed geometry information
      * @note if current editing mode is Move, connection's geometry will not be updated
      */
-    void updateGeometry(bool updateGrid = true);
+    void updateGeometry(bool updateGrid);
 
     /// @name functions for edit start and end positions of shapes
     /// @{

@@ -2144,7 +2144,7 @@ GNENet::insertAdditional(GNEAdditional* additional) {
             additional->selectAttributeCarrier(false);
         }
         // update geometry after insertion of additionals
-        additional->updateGeometry();
+        additional->updateGeometry(true);
         // additionals has to be saved
         requiereSaveAdditionals(true);
     } else {
@@ -2240,7 +2240,7 @@ GNENet::registerJunction(GNEJunction* junction) {
     myGrid.add(junction->getBoundary());
     myGrid.addAdditionalGLObject(junction);
     // update geometry
-    junction->updateGeometry();
+    junction->updateGeometry(true);
     // check if junction is selected
     if(junction->isAttributeCarrierSelected()) {
         junction->selectAttributeCarrier(false);
@@ -2400,7 +2400,7 @@ GNENet::initGNEConnections() {
         it.second->remakeGNEConnections();
     }
     for (auto it : myAttributeCarriers.edges) {
-        it.second->updateGeometry();
+        it.second->updateGeometry(true);
     }
 }
 
@@ -2446,7 +2446,7 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
     if (!oc.getBool("offset.disable-normalization")) {
         for (auto it : myAttributeCarriers.edges) {
             // refresh edge geometry
-            it.second->updateGeometry();
+            it.second->updateGeometry(true);
         }
     }
     // Clear current inspected ACs in inspectorFrame if a previous net was loaded
@@ -2515,7 +2515,7 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
             // insert junction in grid again
             myGrid.addAdditionalGLObject(it.second);
             // updated geometry
-            it.second->updateGeometry();
+            it.second->updateGeometry(true);
         }
 
         // iterate over all edges of net
@@ -2523,7 +2523,7 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
             // insert edge in grid again
             myGrid.addAdditionalGLObject(it.second);
             // update geometry
-            it.second->updateGeometry();
+            it.second->updateGeometry(true);
         }
     }
 

@@ -382,7 +382,7 @@ GNEChargingStation::setAttribute(SumoXMLAttr key, const std::string& value) {
             throw InvalidArgument(toString(getTag()) + "attribute '" + toString(key) + "' not allowed");
     }
     // After setting attribute always update Geometry
-    updateGeometry();
+    updateGeometry(true);
 }
 
 

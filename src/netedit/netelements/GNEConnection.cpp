@@ -617,8 +617,6 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value) {
                 // add object into net again
                 myNet->addGLObjectIntoGrid(this);
             }
-            updateGeometry();
-            myNet->getViewNet()->update();
             break;
         }
         case GNE_ATTR_SELECTED:
@@ -635,7 +633,7 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value) {
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
     // After setting attribute always update Geometry
-    updateGeometry();
+    updateGeometry(true);
 }
 
 

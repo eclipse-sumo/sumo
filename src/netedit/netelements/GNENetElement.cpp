@@ -60,7 +60,7 @@ GNENetElement::addAdditionalParent(GNEAdditional* additional) {
     } else {
         myFirstAdditionalParents.push_back(additional);
         // update geometry is needed for stacked additionals (routeProbes and Vaporicers)
-        updateGeometry();
+        updateGeometry(true);
     }
 }
 
@@ -73,8 +73,8 @@ GNENetElement::removeAdditionalParent(GNEAdditional* additional) {
         throw ProcessError(toString(additional->getTag()) + " with ID='" + additional->getID() + "' doesn't exist in " + toString(getTag()) + " with ID='" + getID() + "'");
     } else {
         myFirstAdditionalParents.erase(it);
-        // update geometry is needed for stacked additionals (routeProbes and Vaporicers)
-        updateGeometry();
+        // update geometry is needed for stacked additionals (routeProbes and Vaporizers)
+        updateGeometry(true);
     }
 }
 
@@ -87,7 +87,7 @@ GNENetElement::addAdditionalChild(GNEAdditional* additional) {
     } else {
         myAdditionalChilds.push_back(additional);
         // update geometry is needed for stacked additionals (routeProbes and Vaporicers)
-        updateGeometry();
+        updateGeometry(true);
     }
 }
 
@@ -100,8 +100,8 @@ GNENetElement::removeAdditionalChild(GNEAdditional* additional) {
         throw ProcessError(toString(additional->getTag()) + " with ID='" + additional->getID() + "' doesn't exist in " + toString(getTag()) + " with ID='" + getID() + "'");
     } else {
         myAdditionalChilds.erase(it);
-        // update geometry is needed for stacked additionals (routeProbes and Vaporicers)
-        updateGeometry();
+        // update geometry is needed for stacked additionals (routeProbes and Vaporizers)
+        updateGeometry(true);
     }
 }
 

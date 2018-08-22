@@ -91,7 +91,7 @@ public:
     /// @name inherited from GNEShape
     /// @{
     /// @brief update pre-computed geometry information
-    void updateGeometry(bool updateGrid = true);
+    void updateGeometry(bool updateGrid);
 
     /**@brief writte shape element into a xml file
     * @param[in] device device in which write parameters of additional element

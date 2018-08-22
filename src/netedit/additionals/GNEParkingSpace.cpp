@@ -76,7 +76,7 @@ GNEParkingSpace::moveGeometry(const Position & oldPos, const Position & offset) 
     pos.add(offset);
     myX = pos.x();
     myY = pos.y();
-    updateGeometry();
+    updateGeometry(true);
 }
 
 
@@ -307,7 +307,7 @@ GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value) {
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
     // After setting attribute always update Geometry
-    updateGeometry();
+    updateGeometry(true);
 }
 
 

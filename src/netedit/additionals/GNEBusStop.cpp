@@ -373,14 +373,7 @@ GNEBusStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
     // After setting attribute always update Geometry
-    updateGeometry();
+    updateGeometry(true);
 }
-
-/*
-void 
-GNEBusStop::addAccess(GNELane* lane, double pos, bool friendlyPos, double length) {
-    myAccess.push_back(Access(lane, pos, friendlyPos, length));
-}
-*/
 
 /****************************************************************************/

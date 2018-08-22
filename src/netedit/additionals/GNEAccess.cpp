@@ -74,7 +74,7 @@ GNEAccess::moveGeometry(const Position& oldPos, const Position& offset) {
     newPosition.add(offset);
     myPositionOverLane = toString(myLane->getShape().nearest_offset_to_point2D(newPosition, false));
     // Update geometry
-    updateGeometry();
+    updateGeometry(true);
 }
 
 
@@ -355,7 +355,7 @@ GNEAccess::setAttribute(SumoXMLAttr key, const std::string& value) {
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
     // After setting attribute always update Geometry
-    updateGeometry();
+    updateGeometry(true);
 }
 
 /****************************************************************************/

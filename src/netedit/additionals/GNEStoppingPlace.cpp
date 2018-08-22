@@ -108,7 +108,7 @@ GNEStoppingPlace::moveGeometry(const Position& oldPos, const Position& offset) {
             myStartPosition = toString(newStoppingPlaceCenter);
         }
         // Update geometry
-        updateGeometry();
+        updateGeometry(true);
     }
 }
 

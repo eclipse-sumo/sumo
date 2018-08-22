@@ -121,7 +121,7 @@ public:
 
     /// @brief update pre-computed geometry information
     //  @note: must be called when geometry changes (i.e. junction moved)
-    void updateGeometry(bool updateGrid = true);
+    void updateGeometry(bool updateGrid);
 
     /// @brief returns the index of the lane
     int getIndex() const;

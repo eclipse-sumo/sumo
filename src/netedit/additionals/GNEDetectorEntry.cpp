@@ -94,7 +94,7 @@ GNEDetectorEntry::updateGeometry(bool updateGrid) {
     }
 
     // update E3 parent Geometry
-    myFirstAdditionalParent->updateGeometry();
+    myFirstAdditionalParent->updateGeometry(updateGrid);
 }
 
 
@@ -321,7 +321,7 @@ GNEDetectorEntry::setAttribute(SumoXMLAttr key, const std::string& value) {
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
     // After setting attribute always update Geometry
-    updateGeometry();
+    updateGeometry(true);
 }
 
 /****************************************************************************/

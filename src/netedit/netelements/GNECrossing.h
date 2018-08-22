@@ -55,7 +55,7 @@ public:
     ~GNECrossing();
 
     /// @brief update pre-computed geometry information
-    void updateGeometry(bool updateGrid = true);
+    void updateGeometry(bool updateGrid);
 
     /// @brief update internal ID (used when ID of junction parent is changed)
     void updateID(std::string newJunctionID);

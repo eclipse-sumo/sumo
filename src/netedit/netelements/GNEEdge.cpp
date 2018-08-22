@@ -82,7 +82,7 @@ GNEEdge::GNEEdge(NBEdge& nbe, GNENet* net, bool wasSplit, bool loaded):
     }
     // update Lane geometries
     for (auto i : myLanes) {
-        i->updateGeometry();
+        i->updateGeometry(true);
     }
 }
 
@@ -120,19 +120,19 @@ GNEEdge::updateGeometry(bool updateGrid) {
     }
     // Update geometry of lanes
     for (auto i : myLanes) {
-        i->updateGeometry();
+        i->updateGeometry(updateGrid);
     }
     // Update geometry of connections (note: only the previous marked as deprecated will be updated)
     for (auto i : myGNEConnections) {
-        i->updateGeometry();
+        i->updateGeometry(updateGrid);
     }
     // Update geometry of additionals childs vinculated to this edge
     for (auto i : myAdditionalChilds) {
-        i->updateGeometry();
+        i->updateGeometry(updateGrid);
     }
     // Update geometry of additional parents vinculated to this edge
     for (auto i : myFirstAdditionalParents) {
-        i->updateGeometry();
+        i->updateGeometry(updateGrid);
     }
     // last step is to check if object has to be added into grid (SUMOTree) again
     if(updateGrid) {
@@ -167,7 +167,7 @@ GNEEdge::moveShapeStart(const Position& oldPos, const Position& offset) {
     Position shapeStartEdited = oldPos;
     shapeStartEdited.add(offset);
     setShapeStartPos(shapeStartEdited);
-    updateGeometry();
+    updateGeometry(true);
 }
 
 
@@ -177,7 +177,7 @@ GNEEdge::moveShapeEnd(const Position& oldPos, const Position& offset) {
     Position shapeEndEdited = oldPos;
     shapeEndEdited.add(offset);
     setShapeEndPos(shapeEndEdited);
-    updateGeometry();
+    updateGeometry(true);
 }
 
 
@@ -602,7 +602,7 @@ GNEEdge::setGeometry(PositionVector geom, bool inner) {
     myNBEdge.setGeometry(geom, inner);
     // add object into net again
     myNet->addGLObjectIntoGrid(this);
-    updateGeometry();
+    updateGeometry(true);
     myGNEJunctionSource->invalidateShape();
     myGNEJunctionDestiny->invalidateShape();
 
@@ -901,9 +901,9 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
             myGNEJunctionSource->invalidateShape();
             undoList->p_end();
             // update geometries of all implicated junctions
-            oldGNEJunctionSource->updateGeometry();
-            myGNEJunctionSource->updateGeometry();
-            myGNEJunctionDestiny->updateGeometry();
+            oldGNEJunctionSource->updateGeometry(true);
+            myGNEJunctionSource->updateGeometry(true);
+            myGNEJunctionDestiny->updateGeometry(true);
             break;
         }
         case SUMO_ATTR_TO: {
@@ -920,9 +920,9 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
             myGNEJunctionDestiny->invalidateShape();
             undoList->p_end();
             // update geometries of all implicated junctions
-            oldGNEJunctionDestiny->updateGeometry();
-            myGNEJunctionDestiny->updateGeometry();
-            myGNEJunctionSource->updateGeometry();
+            oldGNEJunctionDestiny->updateGeometry(true);
+            myGNEJunctionDestiny->updateGeometry(true);
+            myGNEJunctionSource->updateGeometry(true);
             break;
         }
         case SUMO_ATTR_ID:
@@ -1283,7 +1283,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
     // After setting attribute always update Geometry
-    updateGeometry();
+    updateGeometry(true);
 }
 
 
@@ -1361,7 +1361,7 @@ GNEEdge::addLane(GNELane* lane, const NBEdge::Lane& laneAttrs, bool recomputeCon
     // add object again 
     myNet->addGLObjectIntoGrid(this);
     // Update geometry with the new lane
-    updateGeometry();
+    updateGeometry(true);
 }
 
 
@@ -1411,7 +1411,7 @@ GNEEdge::removeLane(GNELane* lane, bool recomputeConnections) {
     // add object again 
     myNet->addGLObjectIntoGrid(this);
     // Update element
-    updateGeometry();
+    updateGeometry(true);
 }
 
 
@@ -1432,10 +1432,10 @@ GNEEdge::addConnection(NBEdge::Connection nbCon, bool selectAfterCreation) {
             con->selectAttributeCarrier();
         }
         // update geometry
-        con->updateGeometry();
+        con->updateGeometry(true);
     }
     // actually we only do this to force a redraw
-    updateGeometry();
+    updateGeometry(true);
 }
 
 
@@ -1463,7 +1463,7 @@ GNEEdge::removeConnection(NBEdge::Connection nbCon) {
             WRITE_DEBUG("Deleting unreferenced " + toString(con->getTag()) + " '" + con->getID() + "' in removeConnection()");
             delete con;
             // actually we only do this to force a redraw
-            updateGeometry();
+            updateGeometry(true);
         }
     }
 }

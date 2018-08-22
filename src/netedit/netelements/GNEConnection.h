@@ -49,7 +49,7 @@ public:
 
     /// @brief update pre-computed geometry information
     /// @note: must be called when geometry changes (i.e. lane moved) and implemented in ALL childrens
-    void updateGeometry(bool updateGrid = true);
+    void updateGeometry(bool updateGrid);
 
     /// Returns the street's geometry
     Boundary getBoundary() const;

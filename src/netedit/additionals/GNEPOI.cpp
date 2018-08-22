@@ -106,7 +106,7 @@ GNEPOI::moveGeometry(const Position& oldPos, const Position& offset) {
             // add object into grid again
             myNet->addGLObjectIntoGrid(this);
             // Update geometry
-            updateGeometry();
+            updateGeometry(true);
         } else {
             // first remove object from grid grid
             myNet->removeGLObjectFromGrid(this);
@@ -505,7 +505,7 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             myGNELane->removeShapeChild(this);
             myGNELane = myNet->retrieveLane(value);
             myGNELane->addShapeChild(this);
-            updateGeometry();
+            updateGeometry(true);
             break;
         case SUMO_ATTR_POSITION: {
             // first remove object from grid due position is used for boundary
@@ -601,7 +601,7 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             throw InvalidArgument(toString(getTag()) + " attribute '" + toString(key) + "' not allowed");
     }
     // After setting attribute always update Geometry
-    updateGeometry();
+    updateGeometry(true);
 }
 
 

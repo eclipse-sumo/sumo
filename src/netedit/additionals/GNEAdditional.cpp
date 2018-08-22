@@ -273,7 +273,7 @@ GNEAdditional::addAdditionalChild(GNEAdditional* additional) {
             sortAdditionalChilds();
         }
         // update geometry (for set geometry of lines between Parents and Childs)
-        updateGeometry();
+        updateGeometry(true);
     }
 }
 
@@ -291,7 +291,7 @@ GNEAdditional::removeAdditionalChild(GNEAdditional* additional) {
             sortAdditionalChilds();
         }
         // update geometry (for remove geometry of lines between Parents and Childs)
-        updateGeometry();
+        updateGeometry(true);
     }
 }
 
@@ -805,7 +805,7 @@ GNEAdditional::changeEdge(GNEEdge* oldEdge, const std::string& newEdgeID) {
         oldEdge->removeAdditionalChild(this);
         GNEEdge* newEdge = myViewNet->getNet()->retrieveEdge(newEdgeID);
         newEdge->addAdditionalChild(this);
-        updateGeometry();
+        updateGeometry(true);
         return newEdge;
     }
 }
@@ -819,7 +819,7 @@ GNEAdditional::changeLane(GNELane* oldLane, const std::string& newLaneID) {
         oldLane->removeAdditionalChild(this);
         GNELane* newLane = myViewNet->getNet()->retrieveLane(newLaneID);
         newLane->addAdditionalChild(this);
-        updateGeometry();
+        updateGeometry(true);
         return newLane;
     }
 }
@@ -836,7 +836,7 @@ GNEAdditional::changeFirstAdditionalParent(const std::string& newAdditionalParen
         myFirstAdditionalParent = myViewNet->getNet()->retrieveAdditional(myFirstAdditionalParent->getTag(), newAdditionalParentID);
         // add this additional int the childs of parent additional
         myFirstAdditionalParent->addAdditionalChild(this);
-        updateGeometry();
+        updateGeometry(true);
     }
 }
 
@@ -852,7 +852,7 @@ GNEAdditional::changeSecondAdditionalParent(const std::string& newAdditionalPare
         mySecondAdditionalParent = myViewNet->getNet()->retrieveAdditional(mySecondAdditionalParent->getTag(), newAdditionalParentID);
         // add this additional int the childs of parent additional
         mySecondAdditionalParent->addAdditionalChild(this);
-        updateGeometry();
+        updateGeometry(true);
     }
 }
 
