@@ -64,7 +64,7 @@ void
 GNECrossing::updateGeometry(bool updateGrid) {
     // first check if object has to be removed from grid (SUMOTree)
     if(updateGrid) {
-        myNet->removeGLObjectFromNet(this);
+        myNet->removeGLObjectFromGrid(this);
     }
     // rebuild crossing and walking areas form node parent
     auto crossing = myParentJunction->getNBNode()->getCrossing(myCrossingEdges);
@@ -89,7 +89,7 @@ GNECrossing::updateGeometry(bool updateGrid) {
     }
     // last step is to check if object has to be added into grid (SUMOTree) again
     if(updateGrid) {
-        myNet->addGLObjectIntoNet(this);
+        myNet->addGLObjectIntoGrid(this);
     }
 }
 

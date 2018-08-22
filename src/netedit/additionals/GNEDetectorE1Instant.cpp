@@ -64,7 +64,7 @@ void
 GNEDetectorE1Instant::updateGeometry(bool updateGrid) {
     // first check if object has to be removed from grid (SUMOTree)
     if(updateGrid) {
-        myViewNet->getNet()->removeGLObjectFromNet(this);
+        myViewNet->getNet()->removeGLObjectFromGrid(this);
     }
 
     // Clear all containers
@@ -98,7 +98,7 @@ GNEDetectorE1Instant::updateGeometry(bool updateGrid) {
 
     // last step is to check if object has to be added into grid (SUMOTree) again
     if(updateGrid) {
-        myViewNet->getNet()->addGLObjectIntoNet(this);
+        myViewNet->getNet()->addGLObjectIntoGrid(this);
     }
 }
 

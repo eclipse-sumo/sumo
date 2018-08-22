@@ -1157,14 +1157,14 @@ GNENet::retrieveShapes(bool onlySelected) {
 
 
 void 
-GNENet::addGLObjectIntoNet(GUIGlObject* o) {
+GNENet::addGLObjectIntoGrid(GUIGlObject* o) {
     myGrid.addAdditionalGLObject(o);
     update();
 }
 
 
 void 
-GNENet::removeGLObjectFromNet(GUIGlObject* o) {
+GNENet::removeGLObjectFromGrid(GUIGlObject* o) {
     myGrid.removeAdditionalGLObject(o);
 }
 

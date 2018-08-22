@@ -98,23 +98,23 @@ GNEPOI::moveGeometry(const Position& oldPos, const Position& offset) {
     if (!myBlockMovement) {
         if (myGNELane) {
             // first remove object from grid grid
-            myNet->removeGLObjectFromNet(this);
+            myNet->removeGLObjectFromGrid(this);
             // Calculate new position using old position
             Position newPosition = oldPos;
             newPosition.add(offset);
             myPosOverLane = myGNELane->getShape().nearest_offset_to_point2D(newPosition, false);
             // add object into grid again
-            myNet->addGLObjectIntoNet(this);
+            myNet->addGLObjectIntoGrid(this);
             // Update geometry
             updateGeometry();
         } else {
             // first remove object from grid grid
-            myNet->removeGLObjectFromNet(this);
+            myNet->removeGLObjectFromGrid(this);
             // restore old position, apply offset and refresh element
             set(oldPos);
             add(offset);
             // add object into grid again
-            myNet->addGLObjectIntoNet(this);
+            myNet->addGLObjectIntoGrid(this);
         }
     }
 }
@@ -148,7 +148,7 @@ void
 GNEPOI::updateGeometry(bool updateGrid) {
     // first check if object has to be removed from grid (SUMOTree)
     if(updateGrid) {
-        myNet->removeGLObjectFromNet(this);
+        myNet->removeGLObjectFromGrid(this);
     }
     if (myGNELane) {
         // obtain fixed position over lane
@@ -158,7 +158,7 @@ GNEPOI::updateGeometry(bool updateGrid) {
     }
     // last step is to check if object has to be added into grid (SUMOTree) again
     if(updateGrid) {
-        myNet->addGLObjectIntoNet(this);
+        myNet->addGLObjectIntoGrid(this);
     }
 }
 
@@ -509,7 +509,7 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_POSITION: {
             // first remove object from grid due position is used for boundary
-            myNet->removeGLObjectFromNet(this);
+            myNet->removeGLObjectFromGrid(this);
             if(myGNELane) {
                 myPosOverLane = parse<double>(value);
             } else {
@@ -520,26 +520,26 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
                 GeoConvHelper::getFinal().cartesian2geo(myGEOPosition);
             }
             // add object into grid again
-            myNet->addGLObjectIntoNet(this);
+            myNet->addGLObjectIntoGrid(this);
             break;
         }
         case SUMO_ATTR_POSITION_LAT:
             // first remove object from grid due position is used for boundary
-            myNet->removeGLObjectFromNet(this);
+            myNet->removeGLObjectFromGrid(this);
             myPosLat = parse<double>(value);
             // add object into grid again
-            myNet->addGLObjectIntoNet(this);
+            myNet->addGLObjectIntoGrid(this);
             break;
         case SUMO_ATTR_GEOPOSITION: {
             // first remove object from grid due position is used for boundary
-            myNet->removeGLObjectFromNet(this);
+            myNet->removeGLObjectFromGrid(this);
             bool ok = true;
             myGEOPosition = GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, false)[0];
             // set cartesian Position
             set(myGEOPosition);
             GeoConvHelper::getFinal().x2cartesian_const(*this);
             // add object into grid again
-            myNet->addGLObjectIntoNet(this);
+            myNet->addGLObjectIntoGrid(this);
             break;
         }
         case SUMO_ATTR_GEO:
@@ -557,29 +557,29 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_IMGFILE:
             // first remove object from grid due img file affect to boundary
-            myNet->removeGLObjectFromNet(this);
+            myNet->removeGLObjectFromGrid(this);
             setShapeImgFile(value);
             // all textures must be refresh
             GUITexturesHelper::clearTextures();
             // add object into grid again
-            myNet->addGLObjectIntoNet(this);
+            myNet->addGLObjectIntoGrid(this);
             break;
         case SUMO_ATTR_RELATIVEPATH:
             setShapeRelativePath(parse<bool>(value));
             break;
         case SUMO_ATTR_WIDTH:
             // first remove object from grid due position is used for boundary
-            myNet->removeGLObjectFromNet(this);
+            myNet->removeGLObjectFromGrid(this);
             setWidth(parse<double>(value));
             // add object into grid again
-            myNet->addGLObjectIntoNet(this);
+            myNet->addGLObjectIntoGrid(this);
             break;
         case SUMO_ATTR_HEIGHT:
             // first remove object from grid due position is used for boundary
-            myNet->removeGLObjectFromNet(this);
+            myNet->removeGLObjectFromGrid(this);
             setHeight(parse<double>(value));
             // add object into grid again
-            myNet->addGLObjectIntoNet(this);
+            myNet->addGLObjectIntoGrid(this);
             break;
         case SUMO_ATTR_ANGLE:
             setShapeNaviDegree(parse<double>(value));

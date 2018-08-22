@@ -100,7 +100,7 @@ void
 GNEJunction::updateGeometry(bool updateGrid) {
     // first check if object has to be removed from grid (SUMOTree)
     if(updateGrid) {
-        myNet->removeGLObjectFromNet(this);
+        myNet->removeGLObjectFromGrid(this);
     }
     // calculate boundary using EXTENT as size
     const double EXTENT = 2;
@@ -113,7 +113,7 @@ GNEJunction::updateGeometry(bool updateGrid) {
     myMaxSize = MAX2(myBoundary.getWidth(), myBoundary.getHeight());
     // last step is to check if object has to be added into grid (SUMOTree) again
     if(updateGrid) {
-        myNet->addGLObjectIntoNet(this);
+        myNet->addGLObjectIntoGrid(this);
     }
     // rebuild GNECrossings
     rebuildGNECrossings(true);
@@ -130,7 +130,7 @@ GNEJunction::rebuildGNECrossings(bool rebuildNBNodeCrossings) {
         }
         // extract ALL crossing of Tree (Due after rebuild some IDs can referenciate another GNECrossing)
         for (auto i : myGNECrossings) {
-            myNet->removeGLObjectFromNet(i);
+            myNet->removeGLObjectFromGrid(i);
         }
 
         // create a vector to keep retrieved and created crossings
@@ -145,7 +145,7 @@ GNEJunction::rebuildGNECrossings(bool rebuildNBNodeCrossings) {
             if (retrievedExists != myGNECrossings.end()) {
                 myGNECrossings.erase(retrievedExists);
                 // insert retrieved crossing in tree again
-                myNet->addGLObjectIntoNet(retrievedGNECrossing);
+                myNet->addGLObjectIntoGrid(retrievedGNECrossing);
                 // update geometry of retrieved crossing
                 retrievedGNECrossing->updateGeometry();
             } else {
@@ -800,7 +800,7 @@ GNEJunction::retrieveGNECrossing(NBNode::Crossing* crossing, bool createIfNoExis
         // show extra information for tests
         WRITE_DEBUG("Created " + toString(createdGNECrossing->getTag()) + " '" + createdGNECrossing->getID() + "' in retrieveGNECrossing()");
         // insert it in Tree
-        myNet->addGLObjectIntoNet(createdGNECrossing);
+        myNet->addGLObjectIntoGrid(createdGNECrossing);
         // update geometry after creating
         createdGNECrossing->updateGeometry();
         return createdGNECrossing;

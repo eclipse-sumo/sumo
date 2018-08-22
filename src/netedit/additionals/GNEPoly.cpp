@@ -392,7 +392,7 @@ GNEPoly::deleteGeometryPoint(const Position& pos, bool allowUndo) {
             myNet->getViewNet()->getUndoList()->p_end();
         } else {
             // first remove object from grid due shape is used for boundary
-            myNet->removeGLObjectFromNet(this);
+            myNet->removeGLObjectFromGrid(this);
             // set new shape
             myShape = modifiedShape;
             // Check if new shape is closed
@@ -400,7 +400,7 @@ GNEPoly::deleteGeometryPoint(const Position& pos, bool allowUndo) {
             // disable simplified shape flag
             mySimplifiedShape = false;
             // add object into grid again
-            myNet->addGLObjectIntoNet(this);
+            myNet->addGLObjectIntoGrid(this);
         }
     } else {
         WRITE_WARNING("Number of remaining points insufficient")
@@ -798,7 +798,7 @@ GNEPoly::setGenericParametersStr(const std::string &value) {
 void
 GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
     // first remove object from grid due almost modificactions affects to boundary
-    myNet->removeGLObjectFromNet(this);
+    myNet->removeGLObjectFromGrid(this);
     switch (key) {
         case SUMO_ATTR_ID: {
             std::string oldID = myID;
@@ -906,7 +906,7 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
     // add object into grid again
-    myNet->addGLObjectIntoNet(this);
+    myNet->addGLObjectIntoGrid(this);
 }
 
 

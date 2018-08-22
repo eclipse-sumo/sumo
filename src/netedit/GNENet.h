@@ -461,10 +461,10 @@ public:
     void setViewNet(GNEViewNet* viewNet);
 
     /// @brief add GL Object into net
-    void addGLObjectIntoNet(GUIGlObject* o);
+    void addGLObjectIntoGrid(GUIGlObject* o);
 
     /// @brief add GL Object into net
-    void removeGLObjectFromNet(GUIGlObject* o);
+    void removeGLObjectFromGrid(GUIGlObject* o);
 
     /// @brief updates the map and reserves new id
     void renameEdge(GNEEdge* edge, const std::string& newID);

@@ -82,7 +82,7 @@ GNEConnection::updateGeometry(bool updateGrid) {
     if(myShapeDeprecated) {
         // first check if object has to be removed from grid (SUMOTree)
         if(updateGrid) {
-            myNet->removeGLObjectFromNet(this);
+            myNet->removeGLObjectFromGrid(this);
         }
         // Clear containers
         myShape.clear();
@@ -153,7 +153,7 @@ GNEConnection::updateGeometry(bool updateGrid) {
 
         // last step is to check if object has to be added into grid (SUMOTree) again
         if(updateGrid) {
-            myNet->addGLObjectIntoNet(this);
+            myNet->addGLObjectIntoGrid(this);
         }
     }
 }
@@ -610,12 +610,12 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value) {
             const bool init = (myShape.size() == 0);
             if (!init) {
                 // first remove object from net grid
-                myNet->removeGLObjectFromNet(this);
+                myNet->removeGLObjectFromGrid(this);
             }
             nbCon.customShape = GeomConvHelper::parseShapeReporting(value, "user-supplied shape", 0, ok, true);
             if (!init) {
                 // add object into net again
-                myNet->addGLObjectIntoNet(this);
+                myNet->addGLObjectIntoGrid(this);
             }
             updateGeometry();
             myNet->getViewNet()->update();

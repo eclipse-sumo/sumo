@@ -56,12 +56,12 @@ GNEChange_Shape::~GNEChange_Shape() {
         if (myNet->retrievePolygon(myShape->getID(), false) != nullptr) {
             // show extra information for tests
             WRITE_DEBUG("Removing " + toString(myShape->getTag()) + " '" + myShape->getID() + "' from net in ~GNEChange_Shape()");
-            myNet->removeGLObjectFromNet(dynamic_cast<GUIGlObject*>(myShape));
+            myNet->removeGLObjectFromGrid(dynamic_cast<GUIGlObject*>(myShape));
             myNet->myPolygons.remove(myShape->getID(), false);
         } else if(myNet->retrievePOI(myShape->getID(), false) != nullptr) {
             // show extra information for tests
             WRITE_DEBUG("Removing " + toString(myShape->getTag()) + " '" + myShape->getID() + "' from net in ~GNEChange_Shape()");
-            myNet->removeGLObjectFromNet(dynamic_cast<GUIGlObject*>(myShape));
+            myNet->removeGLObjectFromGrid(dynamic_cast<GUIGlObject*>(myShape));
             myNet->myPOIs.remove(myShape->getID(), false);
         }
         // show extra information for tests

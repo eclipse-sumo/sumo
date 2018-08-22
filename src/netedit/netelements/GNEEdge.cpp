@@ -116,7 +116,7 @@ void
 GNEEdge::updateGeometry(bool updateGrid) {
     // first check if object has to be removed from grid (SUMOTree)
     if(updateGrid) {
-        myNet->removeGLObjectFromNet(this);
+        myNet->removeGLObjectFromGrid(this);
     }
     // Update geometry of lanes
     for (auto i : myLanes) {
@@ -136,7 +136,7 @@ GNEEdge::updateGeometry(bool updateGrid) {
     }
     // last step is to check if object has to be added into grid (SUMOTree) again
     if(updateGrid) {
-        myNet->addGLObjectIntoNet(this);
+        myNet->addGLObjectIntoGrid(this);
     }
 }
 
@@ -274,7 +274,7 @@ GNEEdge::moveVertexShape(const int index, const Position& oldPos, const Position
 void
 GNEEdge::moveEntireShape(const PositionVector& oldShape, const Position& offset) {
     // first remove object from net grid
-    myNet->removeGLObjectFromNet(this);
+    myNet->removeGLObjectFromGrid(this);
     // make a copy of the old shape to change it
     PositionVector modifiedShape = oldShape;
     // change all points of the inner geometry using offset
@@ -284,7 +284,7 @@ GNEEdge::moveEntireShape(const PositionVector& oldShape, const Position& offset)
     // restore modified shape
     setGeometry(modifiedShape, true);
     // add object into net again
-    myNet->addGLObjectIntoNet(this);
+    myNet->addGLObjectIntoGrid(this);
 }
 
 
@@ -597,11 +597,11 @@ GNEEdge::resetEndpoint(const Position& pos, GNEUndoList* undoList) {
 void
 GNEEdge::setGeometry(PositionVector geom, bool inner) {
     // first remove object from net grid
-    myNet->removeGLObjectFromNet(this);
+    myNet->removeGLObjectFromGrid(this);
     // set new geometry
     myNBEdge.setGeometry(geom, inner);
     // add object into net again
-    myNet->addGLObjectIntoNet(this);
+    myNet->addGLObjectIntoGrid(this);
     updateGeometry();
     myGNEJunctionSource->invalidateShape();
     myGNEJunctionDestiny->invalidateShape();
@@ -635,7 +635,7 @@ GNEEdge::remakeGNEConnections() {
     // delete non retrieved GNEConnections
     for (auto it : myGNEConnections) {
         // remove it from Tree
-        myNet->removeGLObjectFromNet(it);
+        myNet->removeGLObjectFromGrid(it);
         it->decRef();
         if (it->unreferenced()) {
             // show extra information for tests
@@ -657,7 +657,7 @@ GNEEdge::clearGNEConnections() {
             i->unselectAttributeCarrier();
         }
         // remove it from Tree
-        myNet->removeGLObjectFromNet(i);
+        myNet->removeGLObjectFromGrid(i);
         // Dec reference of connection
         i->decRef("GNEEdge::clearGNEConnections");
         // Delete GNEConnectionToErase if is unreferenced
@@ -1315,7 +1315,7 @@ GNEEdge::setNumLanes(int numLanes, GNEUndoList* undoList) {
 void
 GNEEdge::addLane(GNELane* lane, const NBEdge::Lane& laneAttrs, bool recomputeConnections) {
     // boundary of edge depends of number of lanes. We need to extract if before add or remove lane
-    myNet->removeGLObjectFromNet(this);
+    myNet->removeGLObjectFromGrid(this);
     const int index = lane ? lane->getIndex() : myNBEdge.getNumLanes();
     // the laneStruct must be created first to ensure we have some geometry
     // unless the connections are fully recomputed, existing indices must be shifted
@@ -1359,7 +1359,7 @@ GNEEdge::addLane(GNELane* lane, const NBEdge::Lane& laneAttrs, bool recomputeCon
         i->remakeGNEConnections();
     }
     // add object again 
-    myNet->addGLObjectIntoNet(this);
+    myNet->addGLObjectIntoGrid(this);
     // Update geometry with the new lane
     updateGeometry();
 }
@@ -1368,7 +1368,7 @@ GNEEdge::addLane(GNELane* lane, const NBEdge::Lane& laneAttrs, bool recomputeCon
 void
 GNEEdge::removeLane(GNELane* lane, bool recomputeConnections) {
     // boundary of edge depends of number of lanes. We need to extract if before add or remove lane
-    myNet->removeGLObjectFromNet(this);
+    myNet->removeGLObjectFromGrid(this);
     if (myLanes.size() == 0) {
         throw ProcessError("Should not remove the last " + toString(SUMO_TAG_LANE) + " from an " + toString(getTag()));
     }
@@ -1409,7 +1409,7 @@ GNEEdge::removeLane(GNELane* lane, bool recomputeConnections) {
         i->remakeGNEConnections();
     }
     // add object again 
-    myNet->addGLObjectIntoNet(this);
+    myNet->addGLObjectIntoGrid(this);
     // Update element
     updateGeometry();
 }
@@ -1453,7 +1453,7 @@ GNEEdge::removeConnection(NBEdge::Connection nbCon) {
         con->decRef("GNEEdge::removeConnection");
         myGNEConnections.erase(std::find(myGNEConnections.begin(), myGNEConnections.end(), con));
         // remove it from Tree
-        myNet->removeGLObjectFromNet(con);
+        myNet->removeGLObjectFromGrid(con);
         // check if connection is selected
         if(con->isAttributeCarrierSelected()) {
             con->unselectAttributeCarrier();
@@ -1482,7 +1482,7 @@ GNEEdge::retrieveGNEConnection(int fromLane, NBEdge* to, int toLane, bool create
         // show extra information for tests
         WRITE_DEBUG("Created " + toString(createdConnection->getTag()) + " '" + createdConnection->getID() + "' in retrieveGNEConnection()");
         // insert it in Tree
-        myNet->addGLObjectIntoNet(createdConnection);
+        myNet->addGLObjectIntoGrid(createdConnection);
         return createdConnection;
     } else {
         return nullptr;
