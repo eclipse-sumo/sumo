@@ -279,18 +279,7 @@ MSVehicleType*
 MSVehicleType::build(SUMOVTypeParameter& from) {
     MSVehicleType* vtype = new MSVehicleType(from);
     const double decel = from.getCFParam(SUMO_ATTR_DECEL, SUMOVTypeParameter::getDefaultDecel(from.vehicleClass));
-
-    double defaultEmergencyDecel;
-    const std::string defaultEmergencyDecelOption = OptionsCont::getOptions().getString("default.emergencyDecel");
-    if (defaultEmergencyDecelOption == "default") {
-        defaultEmergencyDecel = MAX2(decel, SUMOVTypeParameter::getDefaultEmergencyDecel(from.vehicleClass));
-    } else if (defaultEmergencyDecelOption == "decel") {
-        defaultEmergencyDecel = decel;
-    } else {
-        // value already checked in MSFrame::checkOptions
-        defaultEmergencyDecel = TplConvert::_2double(defaultEmergencyDecelOption.c_str());
-    }
-    const double emergencyDecel = from.getCFParam(SUMO_ATTR_EMERGENCYDECEL, defaultEmergencyDecel);
+    const double emergencyDecel = from.getCFParam(SUMO_ATTR_EMERGENCYDECEL, SUMOVTypeParameter::getDefaultEmergencyDecel(from.vehicleClass, decel));
     // by default decel and apparentDecel are identical
     const double apparentDecel = from.getCFParam(SUMO_ATTR_APPARENTDECEL, decel);
 

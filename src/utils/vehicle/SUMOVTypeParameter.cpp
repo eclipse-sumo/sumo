@@ -445,36 +445,46 @@ SUMOVTypeParameter::getDefaultDecel(const SUMOVehicleClass vc) {
 
 
 double
-SUMOVTypeParameter::getDefaultEmergencyDecel(const SUMOVehicleClass vc) {
-    switch (vc) {
-        case SVC_PEDESTRIAN:
-            return 5.;
-        case SVC_BICYCLE:
-            return 7.;
-        case SVC_MOPED:
-            return 10.;
-        case SVC_MOTORCYCLE:
-            return 10.;
-        case SVC_TRUCK:
-            return 7.;
-        case SVC_TRAILER:
-            return 7.;
-        case SVC_BUS:
-            return 7.;
-        case SVC_COACH:
-            return 7.;
-        case SVC_TRAM:
-            return 7.;
-        case SVC_RAIL_URBAN:
-            return 7.;
-        case SVC_RAIL:
-            return 5;
-        case SVC_RAIL_ELECTRIC:
-            return 5;
-        case SVC_SHIP:
-            return 1;
-        default:
-            return 9;
+SUMOVTypeParameter::getDefaultEmergencyDecel(const SUMOVehicleClass vc, double decel) {
+    const std::string defaultEmergencyDecelOption = OptionsCont::getOptions().getString("default.emergencyDecel");
+    if (defaultEmergencyDecelOption == "default") {
+        double vcDecel;
+        switch (vc) {
+            case SVC_PEDESTRIAN:
+                vcDecel = 5.;
+            case SVC_BICYCLE:
+                vcDecel = 7.;
+            case SVC_MOPED:
+                vcDecel = 10.;
+            case SVC_MOTORCYCLE:
+                vcDecel = 10.;
+            case SVC_TRUCK:
+                vcDecel = 7.;
+            case SVC_TRAILER:
+                vcDecel = 7.;
+            case SVC_BUS:
+                vcDecel = 7.;
+            case SVC_COACH:
+                vcDecel = 7.;
+            case SVC_TRAM:
+                vcDecel = 7.;
+            case SVC_RAIL_URBAN:
+                vcDecel = 7.;
+            case SVC_RAIL:
+                vcDecel = 5;
+            case SVC_RAIL_ELECTRIC:
+                vcDecel = 5;
+            case SVC_SHIP:
+                vcDecel = 1;
+            default:
+                vcDecel = 9;
+        }
+        return MAX2(decel, vcDecel);
+    } else if (defaultEmergencyDecelOption == "decel") {
+        return decel;
+    } else {
+        // value already checked in MSFrame::checkOptions
+        return MAX2(decel, TplConvert::_2double(defaultEmergencyDecelOption.c_str()));
     }
 }
 
