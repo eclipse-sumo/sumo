@@ -654,12 +654,15 @@ GNELane::updateGeometry(bool updateGrid) {
             myShapeRotations.push_back((double) atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double)M_PI);
         }
     }
+    // update additional childs
     for (auto i : myAdditionalChilds) {
         i->updateGeometry(updateGrid);
     }
+    // update additionals with this lane as chid
     for (auto i : myFirstAdditionalParents) {
         i->updateGeometry(updateGrid);
     }
+    // update POIs associated to this lane
     for (auto i : myShapes) {
         i->updateGeometry(updateGrid);
     }

@@ -482,7 +482,7 @@ GNEJunction::moveGeometry(const Position& oldPos, const Position& offset) {
     if (!abort) {
         Position newPosition = oldPos;
         newPosition.add(offset);
-        moveJunctionGeometry(newPosition);
+        moveJunctionGeometry(newPosition, true);
     }
 }
 
@@ -495,13 +495,13 @@ GNEJunction::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList)
         undoList->p_end();
     } else {
         // tried to set an invalid position, revert back to the previous one
-        moveJunctionGeometry(oldPos);
+        moveJunctionGeometry(oldPos, true);
     }
 }
 
 
 void
-GNEJunction::updateShapesAndGeometries() {
+GNEJunction::updateShapesAndGeometries(bool updateGrid) {
     // First declare three sets with all affected GNEJunctions, GNEEdges and GNEConnections
     std::set<GNEJunction*> affectedJunctions;
     std::set<GNEEdge*> affectedEdges;
@@ -522,15 +522,15 @@ GNEJunction::updateShapesAndGeometries() {
     // Iterate over affected Junctions
     for (auto i : affectedJunctions) {
         // Update geometry of Junction
-        i->updateGeometry(true);
+        i->updateGeometry(updateGrid);
     }
     // Iterate over affected Edges
     for (auto i : affectedEdges) {
         // Update edge geometry
-        i->updateGeometry(true);
+        i->updateGeometry(updateGrid);
     }
     // Finally update geometry of this junction
-    updateGeometry(true);
+    updateGeometry(updateGrid);
     // Update view to show the new shapes
     if (myNet->getViewNet()) {
         myNet->getViewNet()->update();
@@ -1150,7 +1150,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_POSITION: {
             // set new position in NBNode (note: Junctions don't need to refresh it in the RTREE due the variable myBoundary
             bool ok;
-            moveJunctionGeometry(GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, false)[0]);
+            moveJunctionGeometry(GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, false)[0], true);
             // mark this connections and all of the junction's Neighbours as deprecated
             markConnectionsDeprecated(true);
             break;
@@ -1291,7 +1291,7 @@ GNEJunction::getColorValue(const GUIVisualizationSettings& s, bool bubble) const
 
 
 void
-GNEJunction::moveJunctionGeometry(const Position& pos) {
+GNEJunction::moveJunctionGeometry(const Position& pos, bool updateGrid) {
     const Position orig = myNBNode.getPosition();
     myNBNode.reinit(pos, myNBNode.getType());
     // set new position of adjacent edges
@@ -1299,7 +1299,7 @@ GNEJunction::moveJunctionGeometry(const Position& pos) {
         myNet->retrieveEdge(i->getID())->updateJunctionPosition(this, orig);
     }
     // Update shapes without include connections, because the aren't showed in Move mode
-    updateShapesAndGeometries();
+    updateShapesAndGeometries(updateGrid);
 }
 
 

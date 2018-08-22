@@ -122,15 +122,18 @@ GNEEdge::updateGeometry(bool updateGrid) {
     for (auto i : myLanes) {
         i->updateGeometry(updateGrid);
     }
-    // Update geometry of connections (note: only the previous marked as deprecated will be updated)
-    for (auto i : myGNEConnections) {
-        i->updateGeometry(updateGrid);
+    // Update geometry of connections (Only if updateGrid is enabled, because in move mode connections are hidden
+    // (note: only the previous marked as deprecated will be updated)
+    if(updateGrid) {
+        for (auto i : myGNEConnections) {
+            i->updateGeometry(updateGrid);
+        }
     }
     // Update geometry of additionals childs vinculated to this edge
     for (auto i : myAdditionalChilds) {
         i->updateGeometry(updateGrid);
     }
-    // Update geometry of additional parents vinculated to this edge
+    // Update geometry of additional parents that have this edge as parent
     for (auto i : myFirstAdditionalParents) {
         i->updateGeometry(updateGrid);
     }

@@ -153,7 +153,7 @@ public:
      * @note this include the adyacent nodes connected by edges
      * @note if this function is called during 'Move' mode, connections will not be updated to improve efficiency
      */
-    void updateShapesAndGeometries();
+    void updateShapesAndGeometries(bool updateGrid);
 
     /// @name inherited from GNEAttributeCarrier
     /// @{
@@ -301,7 +301,7 @@ private:
     * @param[in] pos The new position
     * @note: those operations are not added to the undoList.
     */
-    void moveJunctionGeometry(const Position& pos);
+    void moveJunctionGeometry(const Position& pos, bool updateGrid);
 
     /// @brief sets junction color depending on circumstances
     void setColor(const GUIVisualizationSettings& s, bool bubble) const;
