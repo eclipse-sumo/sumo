@@ -38,6 +38,7 @@ def traciLoop(port, traciEndTime, index, orderOdd):
     time.sleep(orderTime * index)  # assure ordering of outputs
     print("Starting process %s" % (index))
     sys.stdout.flush()
+    time.sleep(orderTime * index)  # assure ordering of outputs
     step = 1
     try:
         traci.init(port)
@@ -89,4 +90,5 @@ if __name__ == '__main__':
     sys.stdout.flush()
     runSingle(50, 99, 2)
     print(" Run 2")
+    sys.stdout.flush()
     runSingle(50, 99, 2, True)

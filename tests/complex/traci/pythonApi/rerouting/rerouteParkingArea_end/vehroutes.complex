@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sat Aug 18 18:15:11 2018 by Eclipse SUMO Version abc1cfe
+<!-- generated on 08/22/18 12:29:45 by Eclipse SUMO Version UNKNOWN
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -15,6 +15,7 @@
 
     <processing>
         <time-to-teleport value="-1"/>
+        <default.speeddev value="0"/>
     </processing>
 
     <report>
@@ -23,14 +24,14 @@
     </report>
 
     <traci_server>
-        <remote-port value="59012"/>
+        <remote-port value="61167"/>
     </traci_server>
 
 </configuration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="ego" depart="triggered" arrivalPos="55.00" arrival="36.00">
+    <vehicle id="ego" depart="triggered" arrivalPos="55.00" arrival="37.00">
         <routeDistribution>
             <route replacedOnEdge="" reason="device.rerouting" replacedAtTime="0.00" probability="0" edges="A0A1 A1A2 A1A2"/>
             <route replacedOnEdge="A0A1" reason="TraCI:rerouteParkingArea" replacedAtTime="1.00" probability="0" edges="A0A1 A1A2"/>
@@ -39,7 +40,7 @@
         <stop parkingArea="parkB1B2" duration="10.00"/>
     </vehicle>
 
-    <person id="p0" depart="0.00" arrival="185.00">
+    <person id="p0" depart="0.00" arrival="177.00">
         <ride from="A0A1" to="B1B2" busStop="parkB1B2" lines="ego"/>
         <walk edges="B1B2 B2B3 A3B3"/>
     </person>
