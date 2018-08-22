@@ -103,7 +103,7 @@ GNEPOI::moveGeometry(const Position& oldPos, const Position& offset) {
             Position newPosition = oldPos;
             newPosition.add(offset);
             myPosOverLane = myGNELane->getShape().nearest_offset_to_point2D(newPosition, false);
-            // add object into net again
+            // add object into grid again
             myNet->addGLObjectIntoNet(this);
             // Update geometry
             updateGeometry();
@@ -113,7 +113,7 @@ GNEPOI::moveGeometry(const Position& oldPos, const Position& offset) {
             // restore old position, apply offset and refresh element
             set(oldPos);
             add(offset);
-            // add object into net again
+            // add object into grid again
             myNet->addGLObjectIntoNet(this);
         }
     }
@@ -154,7 +154,7 @@ GNEPOI::updateGeometry() {
         // set new position regarding to lane
         set(myGNELane->getShape().positionAtOffset(fixedPositionOverLane * myGNELane->getLengthGeometryFactor(), -myPosLat));
     }
-    // add object into net again
+    // add object into grid again
     myNet->addGLObjectIntoNet(this);
 }
 
@@ -515,7 +515,7 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
                 myGEOPosition = *this;
                 GeoConvHelper::getFinal().cartesian2geo(myGEOPosition);
             }
-            // add object into net again
+            // add object into grid again
             myNet->addGLObjectIntoNet(this);
             break;
         }
@@ -523,7 +523,7 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             // first remove object from grid due position is used for boundary
             myNet->removeGLObjectFromNet(this);
             myPosLat = parse<double>(value);
-            // add object into net again
+            // add object into grid again
             myNet->addGLObjectIntoNet(this);
             break;
         case SUMO_ATTR_GEOPOSITION: {
@@ -534,7 +534,7 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             // set cartesian Position
             set(myGEOPosition);
             GeoConvHelper::getFinal().x2cartesian_const(*this);
-            // add object into net again
+            // add object into grid again
             myNet->addGLObjectIntoNet(this);
             break;
         }
@@ -557,7 +557,7 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             setShapeImgFile(value);
             // all textures must be refresh
             GUITexturesHelper::clearTextures();
-            // add object into net again
+            // add object into grid again
             myNet->addGLObjectIntoNet(this);
             break;
         case SUMO_ATTR_RELATIVEPATH:
@@ -567,14 +567,14 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             // first remove object from grid due position is used for boundary
             myNet->removeGLObjectFromNet(this);
             setWidth(parse<double>(value));
-            // add object into net again
+            // add object into grid again
             myNet->addGLObjectIntoNet(this);
             break;
         case SUMO_ATTR_HEIGHT:
             // first remove object from grid due position is used for boundary
             myNet->removeGLObjectFromNet(this);
             setHeight(parse<double>(value));
-            // add object into net again
+            // add object into grid again
             myNet->addGLObjectIntoNet(this);
             break;
         case SUMO_ATTR_ANGLE:
