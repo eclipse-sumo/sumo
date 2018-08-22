@@ -81,7 +81,8 @@ GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, cons
 GNEPOI::~GNEPOI() {}
 
 
-void GNEPOI::writeShape(OutputDevice& device) {
+void 
+GNEPOI::writeShape(OutputDevice& device) {
     if(myGNELane) {
         // obtain fixed position over lane
         double fixedPositionOverLane = myPosOverLane > myGNELane->getShape().length() ? myGNELane->getShape().length() : myPosOverLane < 0 ? 0 : myPosOverLane;
@@ -97,24 +98,16 @@ void
 GNEPOI::moveGeometry(const Position& oldPos, const Position& offset) {
     if (!myBlockMovement) {
         if (myGNELane) {
-            // first remove object from grid grid
-            myNet->removeGLObjectFromGrid(this);
             // Calculate new position using old position
             Position newPosition = oldPos;
             newPosition.add(offset);
             myPosOverLane = myGNELane->getShape().nearest_offset_to_point2D(newPosition, false);
-            // add object into grid again
-            myNet->addGLObjectIntoGrid(this);
             // Update geometry
-            updateGeometry(true);
+            updateGeometry(false);
         } else {
-            // first remove object from grid grid
-            myNet->removeGLObjectFromGrid(this);
             // restore old position, apply offset and refresh element
             set(oldPos);
             add(offset);
-            // add object into grid again
-            myNet->addGLObjectIntoGrid(this);
         }
     }
 }
@@ -123,6 +116,10 @@ GNEPOI::moveGeometry(const Position& oldPos, const Position& offset) {
 void
 GNEPOI::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
     if (!myBlockMovement) {
+        // restore original Position before moving (to avoid problems in GL Tree)
+        Position myNewPosition(*this);
+        set(oldPos);
+        // commit new position allowing undo/redo
         if (myGNELane) {
             // restore old position before commit new position
             double originalPosOverLane = myGNELane->getShape().nearest_offset_to_point2D(oldPos, false);
@@ -131,7 +128,7 @@ GNEPOI::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
             undoList->p_end();
         } else {
             undoList->p_begin("position of " + toString(getTag()));
-            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(getPositionInView()), true, toString(oldPos)));
+            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myNewPosition), true, toString(oldPos)));
             undoList->p_end();
         }
     }
