@@ -74,7 +74,7 @@ GNEAccess::moveGeometry(const Position& oldPos, const Position& offset) {
     newPosition.add(offset);
     myPositionOverLane = toString(myLane->getShape().nearest_offset_to_point2D(newPosition, false));
     // Update geometry
-    updateGeometry(true);
+    updateGeometry(false);
 }
 
 
@@ -83,6 +83,9 @@ GNEAccess::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
     if (!myBlockMovement) {
         // restore old position before commit new position
         double originalPosOverLane = myLane->getShape().nearest_offset_to_point2D(oldPos, false);
+        // restore original shape before moving (to avoid problems in GL Tree)
+        myShape = myMovingShape;
+        // commit new position allowing undo/redo
         undoList->p_begin("position of " + toString(getTag()));
         undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, myPositionOverLane, true, toString(originalPosOverLane)));
         undoList->p_end();

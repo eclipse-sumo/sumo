@@ -76,12 +76,15 @@ GNEParkingSpace::moveGeometry(const Position & oldPos, const Position & offset) 
     pos.add(offset);
     myX = pos.x();
     myY = pos.y();
-    updateGeometry(true);
+    updateGeometry(false);
 }
 
 
 void 
 GNEParkingSpace::commitGeometryMoving(const Position & oldPos, GNEUndoList * undoList) {
+    // restore original shape before moving (to avoid problems in GL Tree)
+    myShape = myMovingShape;
+    // commit new position allowing undo/redo
     undoList->p_begin("position of " + toString(getTag()));
     undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_X, toString(myX), true, toString(oldPos.x())));
     undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_Y, toString(myY), true, toString(oldPos.y())));
