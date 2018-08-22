@@ -156,6 +156,8 @@ GNEPoly::commitShapeChange(const PositionVector& oldShape, GNEUndoList* undoList
         myCurrentMovingVertexIndex = -1;
         // restore original shape into shapeToCommit
         PositionVector shapeToCommit = myShape;
+        // restore old shape in polygon (to avoid problems with RTree)
+        myShape = oldShape;
         // first check if double points has to be removed
         shapeToCommit.removeDoublePoints(myHintSize);
         if (shapeToCommit.size() != myShape.size()) {
@@ -168,12 +170,12 @@ GNEPoly::commitShapeChange(const PositionVector& oldShape, GNEUndoList* undoList
         }
         // only use GNEChange_Attribute if we aren't editing a junction's shape
         if (myNetElementShapeEdited == nullptr) {
-            myShape = oldShape;
             // commit new shape
             undoList->p_begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + toString(getTag()));
             undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(shapeToCommit)));
             undoList->p_end();
         } else {
+            // set new shape calling private setAttribute function
             setAttribute(SUMO_ATTR_SHAPE, toString(shapeToCommit));
         }
     }
@@ -389,14 +391,16 @@ GNEPoly::deleteGeometryPoint(const Position& pos, bool allowUndo) {
             setAttribute(SUMO_ATTR_SHAPE, toString(modifiedShape), myNet->getViewNet()->getUndoList());
             myNet->getViewNet()->getUndoList()->p_end();
         } else {
+            // first remove object from grid due shape is used for boundary
+            myNet->removeGLObjectFromNet(this);
             // set new shape
             myShape = modifiedShape;
             // Check if new shape is closed
             myClosedShape = (myShape.front() == myShape.back());
             // disable simplified shape flag
             mySimplifiedShape = false;
-            // update geometry to avoid grabbing Problems
-            updateGeometry();
+            // add object into grid again
+            myNet->addGLObjectIntoNet(this);
         }
     } else {
         WRITE_WARNING("Number of remaining points insufficient")
@@ -793,7 +797,7 @@ GNEPoly::setGenericParametersStr(const std::string &value) {
 
 void
 GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
-    // first remove object from net grid
+    // first remove object from grid due almost modificactions affects to boundary
     myNet->removeGLObjectFromNet(this);
     switch (key) {
         case SUMO_ATTR_ID: {
@@ -901,7 +905,7 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
-    // add object into net again
+    // add object into grid again
     myNet->addGLObjectIntoNet(this);
 }
 
