@@ -1765,6 +1765,7 @@ MSVehicle::planMove(const SUMOTime t, const MSLeaderInfo& ahead, const double le
         }
 #endif
         checkRewindLinkLanes(lengthsInFront, myLFLinkLanes);
+        setApproachingForAllLinks(myLFLinkLanes);
         myNextDriveItem = myLFLinkLanes.begin();
 #ifdef DEBUG_PLAN_MOVE
         if (DEBUG_COND) {
@@ -3702,6 +3703,11 @@ MSVehicle::checkRewindLinkLanes(const double lengthsInFront, DriveItemVector& lf
             }
         }
     }
+}
+
+
+void
+MSVehicle::setApproachingForAllLinks(DriveItemVector& lfLinks) const {
     for (DriveItemVector::iterator i = lfLinks.begin(); i != lfLinks.end(); ++i) {
         if ((*i).myLink != 0) {
             if ((*i).myLink->getState() == LINKSTATE_ALLWAY_STOP) {
@@ -3725,7 +3731,6 @@ MSVehicle::checkRewindLinkLanes(const double lengthsInFront, DriveItemVector& lf
         }
     }
 }
-
 
 void
 MSVehicle::activateReminders(const MSMoveReminder::Notification reason, const MSLane* enteredLane) {

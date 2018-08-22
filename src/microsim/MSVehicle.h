@@ -1856,8 +1856,11 @@ protected:
     /// @todo: documentation
     void planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVector& lfLinks, double& myStopDist, std::pair<double, LinkDirection>& myNextTurn) const;
 
-    /// @todo: documentation
+    /// @brief runs heuristic for keeping the intersection clear in case of downstream jamming
     void checkRewindLinkLanes(const double lengthsInFront, DriveItemVector& lfLinks) const;
+
+    /// @brief registers computed approach information with all links
+    void setApproachingForAllLinks(DriveItemVector& lfLinks) const;
 
     /// @brief unregister approach from all upcoming links
     void removeApproachingInformation(DriveItemVector& lfLinks) const;
