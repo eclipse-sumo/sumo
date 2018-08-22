@@ -1,4 +1,4 @@
-Eclipse SUMO Version 04b1740
+Eclipse SUMO Version d6fb2e0
  Copyright (C) 2001-2018 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -190,7 +190,7 @@ Processing Options:
                                          negative value implies vClass specific
                                          defaults (0.1 for the default passenger
                                          class
-  --default.emergencyDecel STR         Select default emergencyDecel value
+  --default.emergencydecel STR         Select default emergencydecel value
                                          among 'decel', 'default', FLOAT which
                                          sets the value either to the same as
                                          the deceleration value, a vClass-class
@@ -485,8 +485,6 @@ GUI Only Options:
                                          position
   --tracker-interval FLOAT             The aggregation period for value tracker
                                          windows
-  --osg-view                           Start with an OpenSceneGraph view
-                                         instead of the regular 2D view
   --gui-testing                        Enable ovelay for screen recognition
   --gui-testing-debug                  Enable output messages during
                                          GUI-Testing

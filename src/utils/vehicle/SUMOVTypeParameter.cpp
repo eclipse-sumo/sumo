@@ -446,7 +446,7 @@ SUMOVTypeParameter::getDefaultDecel(const SUMOVehicleClass vc) {
 
 double
 SUMOVTypeParameter::getDefaultEmergencyDecel(const SUMOVehicleClass vc, double decel) {
-    const std::string defaultEmergencyDecelOption = OptionsCont::getOptions().getString("default.emergencyDecel");
+    const std::string defaultEmergencyDecelOption = OptionsCont::getOptions().getString("default.emergencydecel");
     if (defaultEmergencyDecelOption == "default") {
         double vcDecel;
         switch (vc) {

@@ -331,8 +331,8 @@ MSFrame::fillOptions() {
     oc.doRegister("default.speeddev", new Option_Float(-1));
     oc.addDescription("default.speeddev", "Processing", "Select default speed deviation. A negative value implies vClass specific defaults (0.1 for the default passenger class");
 
-    oc.doRegister("default.emergencyDecel", new Option_String("decel"));
-    oc.addDescription("default.emergencyDecel", "Processing", "Select default emergencyDecel value among 'decel', 'default', FLOAT which sets the value either to the same as the deceleration value, a vClass-class specific default or the given FLOAT in m/s^2");
+    oc.doRegister("default.emergencydecel", new Option_String("decel"));
+    oc.addDescription("default.emergencydecel", "Processing", "Select default emergencydecel value among 'decel', 'default', FLOAT which sets the value either to the same as the deceleration value, a vClass-class specific default or the given FLOAT in m/s^2");
 
     // pedestrian model
     oc.doRegister("pedestrian.model", new Option_String("striping"));
@@ -607,13 +607,13 @@ MSFrame::checkOptions() {
         WRITE_ERROR("Unknown model '" + oc.getString("carfollow.model")  + "' for option 'carfollow.model'.");
         ok = false;
     }
-    if (oc.isSet("default.emergencyDecel")) {
-        const std::string val = oc.getString("default.emergencyDecel");
+    if (oc.isSet("default.emergencydecel")) {
+        const std::string val = oc.getString("default.emergencydecel");
         if (val != "default" && val != "decel") {
             try {
                 TplConvert::_2double(val.c_str());
             } catch (NumberFormatException) {
-                WRITE_ERROR("Invalid value '" + val + "' for option 'default.emergencyDecel'. Must be a FLOAT or 'default' or 'decel'");
+                WRITE_ERROR("Invalid value '" + val + "' for option 'default.emergencydecel'. Must be a FLOAT or 'default' or 'decel'");
                 ok = false;
             }
         }
