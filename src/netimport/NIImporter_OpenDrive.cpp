@@ -1791,11 +1791,10 @@ NIImporter_OpenDrive::myStartElement(int element,
 
 
 void
-NIImporter_OpenDrive::myCharacters(int, const std::string& cdata) {
-    if (myElementStack.size() > 0 && myElementStack.back() == OPENDRIVE_TAG_GEOREFERENCE) {
-        int startI = cdata.find("+proj");
-        if (startI != std::string::npos) {
-            std::string proj = cdata.substr(startI);
+NIImporter_OpenDrive::myCharacters(int element, const std::string& cdata) {
+    if (element == OPENDRIVE_TAG_GEOREFERENCE) {
+        const std::string proj = cdata.substr(cdata.find("+proj"));
+        if (proj != "") {
             GeoConvHelper* result = 0;
             Boundary convBoundary;
             Boundary origBoundary;
