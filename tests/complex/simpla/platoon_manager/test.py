@@ -206,7 +206,7 @@ catchup="connected_pCatchup" catchupFollower="connected_pCatchupFollower" />
         for w in expected_warnings:
             self.assertIn(w, warnings_list)
         self.assertListEqual([], list(set(warnings_list).difference(expected_warnings)))
-        traci.simulationStep(1000)
+        traci.simulationStep(1.)
         self.assertEqual(rp.WARNING_LOG[-1][0], "1.0")
         self.assertEqual(
             rp.WARNING_LOG[-1][1], "WARNING: Step lengths that differ from SUMO's simulation step length are not " +
@@ -339,17 +339,17 @@ catchup="connected_pCatchup" catchupFollower="connected_pCatchupFollower" />
             traci.simulationStep()
 
         self.assertFalse(veh1.state.laneID == veh2.state.laneID)
-        t0 = traci.simulation.getCurrentTime()
-        self.assertEqual(t0, 71400)
+        t0 = traci.simulation.getTime()
+        self.assertEqual(t0, 71.4)
 
-        expected_split_time = t0 + mgr._DeltaT * 1000 + cfg.PLATOON_SPLIT_TIME * 1000
+        expected_split_time = t0 + mgr._DeltaT + cfg.PLATOON_SPLIT_TIME
 
-        while traci.simulation.getCurrentTime() <= expected_split_time:
+        while traci.simulation.getTime() <= expected_split_time:
             traci.simulationStep()
 
         self.assertAlmostEqual(veh2._timeUntilSplit, 0.0, 9)
 
-        while traci.simulation.getCurrentTime() <= expected_split_time + 1000:
+        while traci.simulation.getTime() <= expected_split_time + 1.:
             traci.simulationStep()
 
         self.assertEqual(

@@ -61,7 +61,7 @@ class GapController(traci.StepListener):
         self._minimalLeaderHorizon = 50
 
         # step-length of simulation
-        self._TS = traci.simulation.getDeltaT() / 1000.
+        self._TS = traci.simulation.getDeltaT()
         # last received speed info
         self._leaderSpeed = None
         self._egoSpeed = None

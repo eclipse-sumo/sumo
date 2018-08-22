@@ -71,7 +71,7 @@ class PlatoonManager(traci.StepListener):
                 self._addVehicle(vehID)
 
         # integration step-length
-        self._DeltaT = traci.simulation.getDeltaT() / 1000.
+        self._DeltaT = traci.simulation.getDeltaT()
 
         # rate for executing the platoon logic
         if(1. / cfg.CONTROL_RATE < self._DeltaT):
