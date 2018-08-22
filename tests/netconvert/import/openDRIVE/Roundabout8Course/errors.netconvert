@@ -6,7 +6,3 @@ Warning: Lane '114.21.21_1' is not connected from any incoming edge at junction 
 Warning: Lane '115.21.21_1' is not connected from any incoming edge at junction '115.37.00'.
 Warning: Lane '116.21.21_1' is not connected from any incoming edge at junction '116.37.00'.
 Warning: Lane '117.21.21_1' is not connected from any incoming edge at junction '117.37.00'.
-Warning: Speed of straight connection '-108.0.00_1->-113.0.00_1' reduced by 5.89 due to turning radius of 11.64 (length=11.90 angle=78.54)
-Warning: Speed of straight connection '-101.0.00_1->-108.0.00_1' reduced by 5.89 due to turning radius of 11.64 (length=11.90 angle=78.54)
-Warning: Speed of straight connection '-119.0.00_1->-101.0.00_1' reduced by 5.89 due to turning radius of 11.64 (length=11.90 angle=78.54)
-Warning: Speed of straight connection '-113.0.00_1->-119.0.00_1' reduced by 5.89 due to turning radius of 11.64 (length=11.90 angle=78.54)

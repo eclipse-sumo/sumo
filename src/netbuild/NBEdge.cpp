@@ -1630,10 +1630,16 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
                     const double radius = length / angle + getLaneWidth(con.fromLane) / 4;
                     const double limit = sqrt(limitTurnSpeed * radius);
                     const double reduction = con.vmax - limit;
-                    if ((dir == LINKDIR_STRAIGHT && reduction > limitTurnSpeedWarnStraight)
-                            || (dir != LINKDIR_TURN && reduction > limitTurnSpeedWarnTurn)) {
-                        WRITE_WARNING("Speed of " + std::string(dir == LINKDIR_STRAIGHT ? "straight" : "turning") + " connection '" 
-                                + con.getDescription(this) 
+                    // always treat connctions at roundabout as turns when warning
+                    const bool atRoundabout = getJunctionPriority(myTo) == ROUNDABOUT || con.toEdge->getJunctionPriority(myFrom) == ROUNDABOUT;
+                    int dir2 = atRoundabout ? LINKDIR_LEFT : dir;
+                    if ((dir2 == LINKDIR_STRAIGHT && reduction > limitTurnSpeedWarnStraight)
+                            || (dir2 != LINKDIR_TURN && reduction > limitTurnSpeedWarnTurn)) {
+                        std::string dirType = std::string(dir == LINKDIR_STRAIGHT ? "straight" : "turning");
+                        if (atRoundabout) {
+                            dirType = "roundabout";
+                        }
+                        WRITE_WARNING("Speed of " + dirType + " connection '" + con.getDescription(this) 
                                 + "' reduced by " + toString(reduction) + " due to turning radius of " + toString(radius) 
                                 + " (length=" + toString(length) + " angle=" + toString(RAD2DEG(angleRaw)) + ")");
                     }

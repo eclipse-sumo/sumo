@@ -13,7 +13,6 @@ Warning: Found sharp turn with radius 4.20 at the start of edge '245105013'.
 Warning: Found sharp turn with radius 6.42 at the start of edge '47765615#1'.
 Warning: Found sharp turn with radius 2.03 at the start of edge '70214888#3'.
 Warning: Found angle of 138.44 degrees at edge '71960638#0', segment 5
-Warning: Speed of straight connection '141968844#5_1->141968844#0_1' reduced by 7.24 due to turning radius of 8.05 (length=9.45 angle=89.62)
 Warning: Speed of turning connection '-142575658#1_1->-143308562#5_1' reduced by 15.72 due to turning radius of 7.67 (length=9.06 angle=90.55)
 Warning: Speed of turning connection '143308562#5_1->-142575658#0_1' reduced by 15.65 due to turning radius of 7.84 (length=9.09 angle=88.95)
 Warning: Speed of turning connection '-142575673#0_1->-142575679#5_1' reduced by 15.68 due to turning radius of 7.78 (length=9.02 angle=89.04)
@@ -37,8 +36,6 @@ Warning: Speed of turning connection '143308521#9_1->158236729#1_0' reduced by 1
 Warning: Speed of turning connection '158236729#0_0->-143308521#9_1' reduced by 18.69 due to turning radius of 7.23 (length=6.26 angle=90.75)
 Warning: Speed of turning connection '158236729#0_0->143308521#10_1' reduced by 17.29 due to turning radius of 10.82 (length=9.29 angle=88.14)
 Warning: Speed of turning connection '-142575690#1_1->-142575659#2_1' reduced by 15.89 due to turning radius of 7.29 (length=9.66 angle=100.32)
-Warning: Speed of straight connection '141968844#2_1->141968844#3_1' reduced by 9.02 due to turning radius of 4.31 (length=8.96 angle=161.31)
-Warning: Speed of straight connection '141968844#3_1->141968844#4_1' reduced by 5.14 due to turning radius of 13.92 (length=7.31 angle=46.92)
 Warning: Speed of turning connection '-143308562#0_1->143308521#4_1' reduced by 15.83 due to turning radius of 7.43 (length=9.41 angle=96.33)
 Warning: Speed of turning connection '143308521#2_1->143308562#0_1' reduced by 15.18 due to turning radius of 9.02 (length=9.67 angle=82.42)
 Warning: Speed of turning connection '-143308521#9_1->142575693#0_1' reduced by 15.62 due to turning radius of 7.93 (length=8.91 angle=86.57)
