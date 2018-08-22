@@ -1824,7 +1824,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
     const std::vector<MSLane*>& bestLaneConts = getBestLanesContinuation();
 #ifdef DEBUG_PLAN_MOVE
     if (DEBUG_COND) {
-        std::cout << "   bestLaneConts=" << toString(bestLaneConts) << "\n";
+        std::cout << "   dist=" << dist << " bestLaneConts=" << toString(bestLaneConts) << "\n";
     }
 #endif
     assert(bestLaneConts.size() > 0);
@@ -3499,13 +3499,20 @@ MSVehicle::checkRewindLinkLanes(const double lengthsInFront, DriveItemVector& lf
     if (MSGlobals::gUsingInternalLanes && !myLane->getEdge().isRoundabout() && !getLaneChangeModel().isOpposite()) {
         bool hadVehicle = false;
         double seenSpace = -lengthsInFront;
-
+#ifdef DEBUG_CHECKREWINDLINKLANES
+        if (DEBUG_COND) std::cout << "\nCHECK_REWIND_LINKLANES\n" << " veh=" << getID() << " lengthsInFront=" << lengthsInFront << "\n";;
+#endif
         bool foundStopped = false;
         // compute available space until a stopped vehicle is found
         // this is the sum of non-interal lane length minus in-between vehicle lenghts
         for (int i = 0; i < (int)lfLinks.size(); ++i) {
             // skip unset links
             DriveProcessItem& item = lfLinks[i];
+#ifdef DEBUG_CHECKREWINDLINKLANES
+                if (DEBUG_COND) std::cout << SIMTIME
+                            << " link=" << (item.myLink == 0 ? "NULL" : item.myLink->getViaLaneOrLane()->getID())
+                            << " foundStopped=" << foundStopped;
+#endif
             if (item.myLink == 0 || foundStopped) {
                 if (!foundStopped) {
                     item.availableSpace += seenSpace;
@@ -3513,6 +3520,9 @@ MSVehicle::checkRewindLinkLanes(const double lengthsInFront, DriveItemVector& lf
                     item.availableSpace = seenSpace;
                 }
                 item.hadVehicle = hadVehicle;
+#ifdef DEBUG_CHECKREWINDLINKLANES
+                if (DEBUG_COND) std::cout << " avail=" << item.availableSpace << "\n";
+#endif
                 continue;
             }
             // get the next lane, determine whether it is an internal lane
@@ -3532,8 +3542,6 @@ MSVehicle::checkRewindLinkLanes(const double lengthsInFront, DriveItemVector& lf
                 item.hadVehicle = hadVehicle;
 #ifdef DEBUG_CHECKREWINDLINKLANES
                 if (DEBUG_COND) std::cout
-                            << SIMTIME
-                            << " veh=" << getID()
                             << " approached=" << approachedLane->getID()
                             << " approachedBrutto=" << approachedLane->getBruttoVehLenSum()
                             << " avail=" << item.availableSpace
@@ -3549,6 +3557,9 @@ MSVehicle::checkRewindLinkLanes(const double lengthsInFront, DriveItemVector& lf
             if (last == 0 || last == this) {
                 seenSpace += approachedLane->getLength();
                 item.availableSpace = seenSpace;
+#ifdef DEBUG_CHECKREWINDLINKLANES
+                if (DEBUG_COND) std::cout << " last=" << Named::getIDSecure(last) << " laneLength=" << approachedLane->getLength() << " avail=" << item.availableSpace << "\n";
+#endif
             } else if (!last->isFrontOnLane(approachedLane)) {
                 /// XXX backward compatibility: why should partial occupators be treated differently here?
                 /// XXX MAX2 redundant?
@@ -3562,13 +3573,11 @@ MSVehicle::checkRewindLinkLanes(const double lengthsInFront, DriveItemVector& lf
                 }
 #ifdef DEBUG_CHECKREWINDLINKLANES
                 if (DEBUG_COND) std::cout
-                            << SIMTIME
-                            << " veh=" << getID()
                             << " approached=" << approachedLane->getID()
                             << " lastPoc=" << last->getID()
                             << " avail=" << item.availableSpace
                             << " seenSpace=" << seenSpace
-                            << " foundStopped=" << foundStopped
+                            << " lastHasToWait=" << last->myHaveToWaitOnNextLink
                             << "\n";
 #endif
             } else {
@@ -3590,8 +3599,6 @@ MSVehicle::checkRewindLinkLanes(const double lengthsInFront, DriveItemVector& lf
                 hadVehicle = true;
 #ifdef DEBUG_CHECKREWINDLINKLANES
                 if (DEBUG_COND) std::cout
-                            << SIMTIME
-                            << " veh=" << getID()
                             << " approached=" << approachedLane->getID()
                             << " last=" << last->getID()
                             << " lastHasToWait=" << last->myHaveToWaitOnNextLink
