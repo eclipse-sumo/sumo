@@ -578,14 +578,14 @@ class PlatoonManager(traci.StepListener):
                 if leader.state.edgeID == veh.state.edgeID:
                     # leader is on the same edge, advise follower to use the same lane
                     try:
-                        traci.vehicle.changeLane(veh.getID(), leader.state.laneIX, int(self._controlInterval * 1000))
+                        traci.vehicle.changeLane(veh.getID(), leader.state.laneIX, self._controlInterval)
                     except traci.exceptions.TraCIException as e:
                         if rp.VERBOSITY >= 1:
                             warn("Lanechange advice for vehicle'%s' failed. Message:\n%s" % (veh.getID(), e.message))
                 else:
                     # leader is on another edge, just stay on the current and hope it is the right one
                     try:
-                        traci.vehicle.changeLane(veh.getID(), veh.state.laneIX, int(self._controlInterval * 1000))
+                        traci.vehicle.changeLane(veh.getID(), veh.state.laneIX, self._controlInterval)
                     except traci.exceptions.TraCIException as e:
                         if rp.VERBOSITY >= 1:
                             warn("Lanechange advice for vehicle'%s' failed. Message:\n%s" % (veh.getID(), e.message))

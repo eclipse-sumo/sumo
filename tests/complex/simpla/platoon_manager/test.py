@@ -241,10 +241,10 @@ catchup="connected_pCatchup" catchupFollower="connected_pCatchupFollower" />
 #         simpla._config.load(self.SIMPLA_CFG)
 #         simpla._mgr = simpla._platoonmanager.PlatoonManager()
 
-        self.assertListEqual([], traci.vehicle.getIDList())
+        self.assertTupleEqual((), traci.vehicle.getIDList())
 
         traci.simulationStep()
-        self.assertListEqual(['connected.1'], traci.vehicle.getIDList())
+        self.assertTupleEqual(('connected.1',), traci.vehicle.getIDList())
         self.assertListEqual(['connected.1'], [vehID for vehID in mgr._connectedVehicles.keys()])
 
         self.assertEqual(rp.REPORT_LOG[-1][0], "0.1")

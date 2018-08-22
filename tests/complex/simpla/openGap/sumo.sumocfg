@@ -13,6 +13,10 @@
         <end value="60"/>
     </time>
 
+    <processing>
+        <default.speeddev value="0" /> 
+    </processing>
+
     <report>
         <no-step-log value="true"/>
     </report>

@@ -843,7 +843,7 @@ class VehicleDomain(Domain):
         Adds or modifies a stop with the given parameters. The duration and the until attribute are
         in seconds.
         """
-        if type(duration) is int and duration >= 1000:
+        if type(duration) is int and duration >= 1000 and duration % 1000 == 0:
             warnings.warn("API change now handles duration as floating point seconds", stacklevel=2)
         self._connection._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.CMD_STOP,
                                        vehID, (1 + 4 + 1 + 4 + len(edgeID) + 1 + 8 + 1 + 1 +
