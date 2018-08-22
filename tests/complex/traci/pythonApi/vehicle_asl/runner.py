@@ -51,30 +51,30 @@ vehID = "v0"
 traci.vehicle.setLaneChangeMode(vehID, 0b0100000000)
 traci.vehicle.changeLane(vehID, 1, 0)
 for i in range(10):
-    step = traci.simulation.getCurrentTime()
-    traci.simulationStep(step + 1000)
+    step = traci.simulation.getTime()
+    traci.simulationStep(step + 1.)
 traci.vehicle.setSpeed(vehID, 0)
 for i in range(10):
-    step = traci.simulation.getCurrentTime()
-    traci.simulationStep(step + 1000)
+    step = traci.simulation.getTime()
+    traci.simulationStep(step + 1.)
 traci.vehicle.setSpeed(vehID, -1)
 for i in range(10):
-    step = traci.simulation.getCurrentTime()
-    traci.simulationStep(step + 1000)
+    step = traci.simulation.getTime()
+    traci.simulationStep(step + 1.)
 # step to in between action steps
-step = traci.simulation.getCurrentTime()
-traci.simulationStep(step + 500)
+step = traci.simulation.getTime()
+traci.simulationStep(step + .5)
 traci.vehicle.changeLane(vehID, 0, 0)
 for i in range(10):
-    step = traci.simulation.getCurrentTime()
-    traci.simulationStep(step + 1000)
+    step = traci.simulation.getTime()
+    traci.simulationStep(step + 1.)
 traci.vehicle.setSpeed(vehID, 0)
 for i in range(10):
-    step = traci.simulation.getCurrentTime()
-    traci.simulationStep(step + 1000)
+    step = traci.simulation.getTime()
+    traci.simulationStep(step + 1.)
 traci.vehicle.setSpeed(vehID, -1)
 for i in range(10):
-    step = traci.simulation.getCurrentTime()
-    traci.simulationStep(step + 1000)
+    step = traci.simulation.getTime()
+    traci.simulationStep(step + 1.)
 
 traci.close()

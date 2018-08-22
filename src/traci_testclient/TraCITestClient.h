@@ -69,7 +69,7 @@ protected:
     /** @brief Sends and validates a simulation step command
      * @param[in] time The time step to send
      */
-    void commandSimulationStep(int time);
+    void commandSimulationStep(double time);
 
 
     /** @brief Sends and validates a Close command

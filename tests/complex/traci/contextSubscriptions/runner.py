@@ -20,20 +20,12 @@ import os
 import sys
 import math
 
-sumoHome = os.path.abspath(
-    os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..'))
-sys.path.append(os.path.join(sumoHome, "tools"))
+SUMO_HOME = os.path.join(os.path.dirname(__file__), "..", "..", "..", "..")
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", SUMO_HOME), "tools"))
 import sumolib  # noqa
 import traci  # noqa
 
-DELTA_T = 1000
-
-if sys.argv[1] == "sumo":
-    sumoCall = [os.environ.get(
-        "SUMO_BINARY", os.path.join(sumoHome, 'bin', 'sumo'))]
-else:
-    sumoCall = [os.environ.get(
-        "GUISIM_BINARY", os.path.join(sumoHome, 'bin', 'sumo-gui')), '-S', '-Q']
+sumoCall = [sumolib.checkBinary(sys.argv[1]), '-S', '-Q']
 
 
 def dist2(v, w):
@@ -123,8 +115,7 @@ def runSingle(traciEndTime, viewRange, module, objID):
         print("Error: Unsubscribe did not work")
     else:
         print("Ok: Unsubscribe successful")
-    print("Print ended at step %s" %
-          (traci.simulation.getCurrentTime() / DELTA_T))
+    print("Print ended at step %s" % traci.simulation.getTime())
     traci.close()
     sys.stdout.flush()
     print("uncheck: seen %s vehicles via subscription, %s in surrounding" %

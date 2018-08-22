@@ -40,6 +40,6 @@ vehID = "v0"
 traci.vehicle.add(vehID, "r0")
 traci.vehicle.subscribeContext(vehID, tc.CMD_GET_VEHICLE_VARIABLE,
                                dist=20, begin=0, end=99999999)
-traci.simulationStep(10000)
+traci.simulationStep(10.)
 traci.close()
 sumoProcess.wait()

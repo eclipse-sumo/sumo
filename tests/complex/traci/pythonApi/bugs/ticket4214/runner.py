@@ -36,6 +36,6 @@ cmd = [
     '--no-step-log', ]
 
 traci.start(cmd)
-traci.simulationStep(1000)
+traci.simulationStep(1.)
 print("step", traci.simulation.getCurrentTime())
 traci.close()

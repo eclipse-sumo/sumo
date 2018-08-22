@@ -875,7 +875,7 @@ protected:
 
     /** @brief Sends a SimulationStep command
      */
-    void send_commandSimulationStep(int time) const;
+    void send_commandSimulationStep(double time) const;
 
 
     /** @brief Sends a Close command

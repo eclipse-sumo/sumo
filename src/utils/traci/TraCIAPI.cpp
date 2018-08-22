@@ -120,13 +120,13 @@ TraCIAPI::closeSocket() {
 
 
 void
-TraCIAPI::send_commandSimulationStep(int time) const {
+TraCIAPI::send_commandSimulationStep(double time) const {
     tcpip::Storage outMsg;
     // command length
-    outMsg.writeUnsignedByte(1 + 1 + 4);
+    outMsg.writeUnsignedByte(1 + 1 + 8);
     // command id
     outMsg.writeUnsignedByte(CMD_SIMSTEP);
-    outMsg.writeInt((int)time);
+    outMsg.writeDouble(time);
     // send request message
     mySocket->sendExact(outMsg);
 }

@@ -21,6 +21,7 @@ from __future__ import absolute_import
 import socket
 import struct
 import sys
+import warnings
 
 try:
     import traciemb
@@ -309,15 +310,16 @@ class Connection:
         self._packStringList(args)
         self._sendExact()
 
-    def simulationStep(self, step=0):
+    def simulationStep(self, step=0.):
         """
-        Make a simulation step and simulate up to the given millisecond in sim time.
+        Make a simulation step and simulate up to the given second in sim time.
         If the given value is 0 or absent, exactly one step is performed.
         Values smaller than or equal to the current sim time result in no action.
         """
+        if type(step) is int and step >= 1000:
+            warnings.warn("API change now handles step as floating point seconds", stacklevel=2)
         self._queue.append(tc.CMD_SIMSTEP)
-        self._string += struct.pack("!BBi", 1 +
-                                    1 + 4, tc.CMD_SIMSTEP, step)
+        self._string += struct.pack("!BBd", 1 + 1 + 8, tc.CMD_SIMSTEP, step)
         result = self._sendExact()
         for subscriptionResults in self._subscriptionMapping.values():
             subscriptionResults.reset()

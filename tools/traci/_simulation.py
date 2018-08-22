@@ -17,6 +17,7 @@
 from __future__ import absolute_import
 import struct
 import collections
+import warnings
 from . import constants as tc
 from .domain import Domain
 from .storage import Storage
@@ -93,13 +94,15 @@ class SimulationDomain(Domain):
         If the given value is 0 or absent, exactly one step is performed.
         Values smaller than or equal to the current sim time result in no action.
         """
-        return self._connection.simulationStep(time*1000)
+        return self._connection.simulationStep(time)
 
     def getCurrentTime(self):
         """getCurrentTime() -> integer
 
         Returns the current simulation time in ms.
         """
+        # we should raise the awareness by removing the DeprecationWarning category below after 1.0
+        warnings.warn("getCurrentTime is deprecated, please use getTime which returns floating point seconds", DeprecationWarning, stacklevel=2)
         return self._getUniversal(tc.VAR_TIME_STEP)
 
     def getLoadedNumber(self):

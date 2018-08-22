@@ -817,12 +817,12 @@ TraCIServer::dispatchCommand() {
                 break;
             }
             case CMD_SIMSTEP: {
-                SUMOTime nextT = myInputStorage.readInt();
+                const double nextT = myInputStorage.readDouble();
                 if (myAmEmbedded) {
-                    if (nextT == 0) {
+                    if (nextT == 0.) {
                         myTargetTime += DELTA_T;
                     } else {
-                        myTargetTime = nextT;
+                        myTargetTime = TIME2STEPS(nextT);
                     }
                     for (std::map<MSNet::VehicleState, std::vector<std::string> >::iterator i = myVehicleStateChanges.begin(); i != myVehicleStateChanges.end(); ++i) {
                         (*i).second.clear();
@@ -832,10 +832,10 @@ TraCIServer::dispatchCommand() {
                     }
                     postProcessSimulationStep();
                 } else {
-                    if (nextT == 0) {
+                    if (nextT == 0.) {
                         myCurrentSocket->second->targetTime += DELTA_T;
                     } else {
-                        myCurrentSocket->second->targetTime = nextT;
+                        myCurrentSocket->second->targetTime = TIME2STEPS(nextT);
                     }
 #ifdef DEBUG_MULTI_CLIENTS
                     std::cout << "       commandId == CMD_SIMSTEP"
