@@ -1385,8 +1385,8 @@ TraCIServer::addSubscriptionFilterNoOpposite() {
 
 void
 TraCIServer::addSubscriptionFilterDownstreamDistance(double dist) {
-    std::cout << "Adding downstream dist filter (dist=" << toString(dist) << ")" << std::endl;
     if (myLastContextSubscription != nullptr) {
+        std::cout << "Adding downstream dist filter (dist=" << toString(dist) << ")" << std::endl;
         myLastContextSubscription->activeFilters = myLastContextSubscription->activeFilters | libsumo::SUBS_FILTER_DOWNSTREAM_DIST;
         myLastContextSubscription->filterDownstreamDist = dist;
     }
@@ -1394,8 +1394,8 @@ TraCIServer::addSubscriptionFilterDownstreamDistance(double dist) {
 
 void
 TraCIServer::addSubscriptionFilterUpstreamDistance(double dist) {
-    std::cout << "Adding upstream dist filter (dist=" << toString(dist) << ")" << std::endl;
     if (myLastContextSubscription != nullptr) {
+        std::cout << "Adding upstream dist filter (dist=" << toString(dist) << ")" << std::endl;
         myLastContextSubscription->activeFilters = myLastContextSubscription->activeFilters | libsumo::SUBS_FILTER_UPSTREAM_DIST;
         myLastContextSubscription->filterUpstreamDist = dist;
     }
@@ -1403,32 +1403,32 @@ TraCIServer::addSubscriptionFilterUpstreamDistance(double dist) {
 
 void
 TraCIServer::addSubscriptionFilterCFManeuver() {
-    std::cout << "Adding CF-maneuver filter" << std::endl;
     if (myLastContextSubscription != nullptr) {
+        std::cout << "Adding CF-maneuver filter" << std::endl;
         myLastContextSubscription->activeFilters = myLastContextSubscription->activeFilters | libsumo::SUBS_FILTER_CF_MANEUVER;
     }
 }
 
 void
 TraCIServer::addSubscriptionFilterLCManeuver() {
-    std::cout << "Adding LC-maneuver filter" << std::endl;
     if (myLastContextSubscription != nullptr) {
+        std::cout << "Adding LC-maneuver filter" << std::endl;
         myLastContextSubscription->activeFilters = myLastContextSubscription->activeFilters | libsumo::SUBS_FILTER_LC_MANEUVER;
     }
 }
 
 void
 TraCIServer::addSubscriptionFilterTurnManeuver() {
-    std::cout << "Adding turn-maneuver filter" << std::endl;
     if (myLastContextSubscription != nullptr) {
+        std::cout << "Adding turn-maneuver filter" << std::endl;
         myLastContextSubscription->activeFilters = myLastContextSubscription->activeFilters | libsumo::SUBS_FILTER_TURN_MANEUVER;
     }
 }
 
 void
 TraCIServer::addSubscriptionFilterVClass(SVCPermissions vClasses) {
-    std::cout << "Adding vClass filter (vClasses=" << toString(vClasses) << ")" << std::endl;
     if (myLastContextSubscription != nullptr) {
+        std::cout << "Adding vClass filter (vClasses=" << toString(vClasses) << ")" << std::endl;
         myLastContextSubscription->activeFilters = myLastContextSubscription->activeFilters | libsumo::SUBS_FILTER_VCLASS;
         myLastContextSubscription->filterVClasses = vClasses;
     }
@@ -1436,8 +1436,8 @@ TraCIServer::addSubscriptionFilterVClass(SVCPermissions vClasses) {
 
 void
 TraCIServer::addSubscriptionFilterVType(std::vector<std::string> vTypes) {
-    std::cout << "Adding vType filter (vTypes=" << toString(vTypes) << ")" << std::endl;
     if (myLastContextSubscription != nullptr) {
+        std::cout << "Adding vType filter (vTypes=" << toString(vTypes) << ")" << std::endl;
         myLastContextSubscription->activeFilters = myLastContextSubscription->activeFilters | libsumo::SUBS_FILTER_VTYPE;
         myLastContextSubscription->filterVTypes = vTypes;
     }
