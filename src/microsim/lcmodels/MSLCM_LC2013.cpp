@@ -1723,6 +1723,7 @@ MSLCM_LC2013::_wantsChange(
     }
     // --------
     if (changeToBest && bestLaneOffset == curr.bestLaneOffset
+            && relativeGain >= 0
             && (right ? mySpeedGainProbability < 0 : mySpeedGainProbability > 0)) {
         // change towards the correct lane, speedwise it does not hurt
         req = ret | lca | LCA_STRATEGIC;
