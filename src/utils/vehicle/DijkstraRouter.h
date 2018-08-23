@@ -225,7 +225,7 @@ public:
             leaveTime += this->getTravelTime(minEdge, vehicle, minimumInfo->leaveTime, effortDelta);
             effort += effortDelta;
             if (myExternalEffort != nullptr && num_visited > 1 ) {
-                myExternalEffort->update(minEdge->getNumericalID(), minimumInfo->prev->edge->getNumericalID());
+                myExternalEffort->update(minEdge, minimumInfo->prev->edge);
             }
             assert(effort >= minimumInfo->effort);
             assert(leaveTime >= minimumInfo->leaveTime);

@@ -30,10 +30,11 @@
 /// @brief the effort calculator interface
 template<class E>
 class EffortCalculator {
+  
 public:
     virtual void init(const std::vector<E*>& edges) = 0;
-    virtual double getEffort(const int edge) const = 0;
-    virtual void update(const int edge, const int prev) = 0;
+    virtual double getEffort( E const * edge) const = 0;
+    virtual void update( E const *  edge, E const *  prev) = 0;
 };
 
 
