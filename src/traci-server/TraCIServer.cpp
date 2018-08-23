@@ -1167,6 +1167,7 @@ TraCIServer::processSingleSubscription(const libsumo::Subscription& s, tcpip::St
         PositionVector shape;
         libsumo::Helper::findObjectShape(s.commandId, s.id, shape);
         libsumo::Helper::collectObjectsInRange(s.contextDomain, shape, s.range, objIDs);
+        libsumo::Helper::applySubscriptionFilters(s, objIDs);
     } else {
         objIDs.insert(s.id);
     }

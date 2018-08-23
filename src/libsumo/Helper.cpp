@@ -145,7 +145,7 @@ Helper::handleSingleSubscription(const Subscription& s) {
         PositionVector shape;
         findObjectShape(s.commandId, s.id, shape);
         collectObjectsInRange(s.contextDomain, shape, s.range, objIDs);
-        applyFilters(s, objIDs);
+        applySubscriptionFilters(s, objIDs);
     } else {
         objIDs.insert(s.id);
     }
@@ -413,7 +413,7 @@ Helper::collectObjectsInRange(int domain, const PositionVector& shape, double ra
 
 
 void
-Helper::applyFilters(const Subscription& s, std::set<std::string>& objIDs) {
+Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& objIDs) {
     if (s.activeFilters == 0) {
         // No filters set
         return;
