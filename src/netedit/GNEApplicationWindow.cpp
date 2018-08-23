@@ -582,6 +582,9 @@ GNEApplicationWindow::fillMenuBar() {
     new FXMenuCommand(myEditMenu,
                       "Edit Viewport...\tCtrl+I\tOpens a dialog for editing viewing are, zoom and rotation.",
                       0, this, MID_EDITVIEWPORT);
+    new FXMenuCommand(myEditMenu,
+                      "Toggle Grid...\tCtrl+G\tToggles background grid (and snap-to-grid functionality).",
+                      0, this, MID_GNE_HOTKEY_TOOGLE_GRID);
     new FXMenuSeparator(myEditMenu);
     new FXMenuCommand(myEditMenu,
                       "Open in SUMO GUI...\tCtrl+T\tOpens the SUMO GUI application with the current network.",
