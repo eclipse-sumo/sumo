@@ -76,11 +76,9 @@ GLDebug: Inserted access:busStopaccess0 into SUMORTree with boundary -20.00,41.6
 GLDebug: Removed object busStop:busStop from SUMORTree with boundary -3.00,43.20,47.00,83.20
 GLDebug: Inserted busStop:busStop into SUMORTree with boundary -3.00,43.20,47.00,83.20
 Debug: Inserting generic parameter 'key1|value1' into additional access.
-Error: '<' character cannot be used in attribute value 'key'; use &lt; instead
- In file 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.22Aug100027.3720/netedit.gui/additionalElements/access/load_genericparameters\input_additionals.add.xml'
- At line/column 13/18.
-
-Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.22Aug100027.3720/netedit.gui/additionalElements/access/load_genericparameters\input_additionals.add.xml failed.
+Debug: Inserting generic parameter 'key1|value4' into additional access.
+Debug: Inserting generic parameter 'key2|' into additional access.
+Debug: Inserting generic parameter 'key4|value5' into additional access.
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Debug: Additionals saved

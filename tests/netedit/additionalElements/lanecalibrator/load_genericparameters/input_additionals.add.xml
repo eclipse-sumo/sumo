@@ -8,7 +8,7 @@
 		<param value="value2"/>
 		
 		<!-- invalid key -->
-		<param key="$·<>$·;$%%,··" value="value3"/>
+		<param key="$$key with spaces%%" value="value3"/>
 		
 		<!-- duplicated key -->
 		<param key="key1" value="value4"/>
@@ -17,7 +17,7 @@
 		<param key="key2"/>
 		
 		<!-- invalid value -->
-		<param key="key3" value=";.%<>%$$;$$%"/>
+		<param key="key3" value="$$value with spaces%%"/>
 		
 		<!-- invalid value -->
 		<param key="key4" value="value5"/>

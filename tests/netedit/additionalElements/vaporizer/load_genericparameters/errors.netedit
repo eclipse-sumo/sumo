@@ -72,11 +72,9 @@ GLDebug: Removed object vaporizer:1 from SUMORTree with boundary 27.50,41.60,67.
 GLDebug: Inserted vaporizer:1 into SUMORTree with boundary 27.50,41.60,67.50,81.60
 GLDebug: Inserted edge:1 into SUMORTree with boundary -30.00,30.00,80.00,91.60
 Debug: Inserting generic parameter 'key1|value1' into additional vaporizer.
-Error: '<' character cannot be used in attribute value 'key'; use &lt; instead
- In file 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.22Aug100027.3720/netedit.gui/additionalElements/vaporizer/load_genericparameters\input_additionals.add.xml'
- At line/column 12/18.
-
-Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.22Aug100027.3720/netedit.gui/additionalElements/vaporizer/load_genericparameters\input_additionals.add.xml failed.
+Debug: Inserting generic parameter 'key1|value4' into additional vaporizer.
+Debug: Inserting generic parameter 'key2|' into additional vaporizer.
+Debug: Inserting generic parameter 'key4|value5' into additional vaporizer.
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Debug: Additionals saved

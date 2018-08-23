@@ -27,13 +27,12 @@ Debug: Shapes has to be saved
 Debug: Current saving Status: net saved, additionals saved, shapes unsaved
 Debug: Inserting generic parameter 'key1|value1' into shape.
 Error: Attribute 'key' is missing in definition of a param.
-Debug: Inserting generic parameter '$?;;>$?$%%??|value3' into shape.
+Debug: Inserting generic parameter '$$key with spaces%%|value3' into shape.
 Debug: Inserting generic parameter 'key1|value4' into shape.
 Debug: Inserting generic parameter 'key2|' into shape.
-Error: '<' character cannot be used in attribute value 'value'; use &lt; instead
- In file 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.22Aug100027.3720/netedit.gui/shapeElements/poly/load_genericparameters\input_shapes.add.xml'
- At line/column 21/32.
-
+Debug: Inserting generic parameter 'key3|$$value with spaces%%' into shape.
+Debug: Inserting generic parameter 'key4|value5' into shape.
+Error: Attribute 'key' is missing in definition of a param.
 Error: Loading of shapes failed.
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals saved, shapes unsaved
