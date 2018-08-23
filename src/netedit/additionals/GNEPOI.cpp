@@ -82,6 +82,16 @@ GNEPOI::~GNEPOI() {}
 
 
 void 
+GNEPOI::startGeometryMoving() {
+}
+
+
+void 
+GNEPOI::endGeometryMoving() {
+
+}
+
+void 
 GNEPOI::writeShape(OutputDevice& device) {
     if(myGNELane) {
         // obtain fixed position over lane

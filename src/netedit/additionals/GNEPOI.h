@@ -88,6 +88,14 @@ public:
     /// @brief Destructor
     ~GNEPOI();
 
+    /// @name functions for edit geometry
+    /// @{
+    /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with problems with GL Tree)
+    void startGeometryMoving();
+
+    /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with problems with GL Tree)
+    void endGeometryMoving();
+
     /**@brief change the position of the element geometry without saving in undoList
     * @param[in] newPosition new position of geometry
     * @note should't be called in drawGL(...) functions to avoid smoothness issues
@@ -99,6 +107,7 @@ public:
     * @param[in] undoList The undoList on which to register changes
     */
     void commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList);
+    /// @}
 
     /// @name inherited from GNEShape
     /// @{

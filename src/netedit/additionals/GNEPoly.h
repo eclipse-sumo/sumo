@@ -69,6 +69,14 @@ public:
     /// @brief Destructor
     ~GNEPoly();
 
+    /// @name functions for edit geometry
+    /// @{
+    /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with problems with GL Tree)
+    void startGeometryMoving();
+
+    /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with problems with GL Tree)
+    void endGeometryMoving();
+
     /**@brief change position of a vertex of shape without commiting change
     * @param[in] index index of Vertex shape
     * @param[in] newPos The new position of vertex
@@ -87,6 +95,7 @@ public:
     * @param[in] undoList The undoList on which to register changes
     */
     void commitShapeChange(const PositionVector& oldShape, GNEUndoList* undoList);
+    /// @}
 
     /// @name inherited from GNEShape
     /// @{

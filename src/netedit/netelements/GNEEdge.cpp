@@ -212,18 +212,17 @@ GNEEdge::commitShapeEndChange(const Position& oldPos, GNEUndoList* undoList) {
 
 void 
 GNEEdge::startGeometryMoving() {
-
+    // Save entire edge shape
     myMovingShape = myNBEdge.getGeometry();
-
-    // Update geometry of lanes
+    // Save current shape of lanes (and their childs)
     for (auto i : myLanes) {
         i->startGeometryMoving();
     }
-    // Update geometry of additionals childs vinculated to this edge
+    // Save current shape of additionals childs vinculated to this edge
     for (auto i : myAdditionalChilds) {
         i->startGeometryMoving();
     }
-    // Update geometry of additional parents that have this edge as parent
+    // Save current shape of additional parents that have this edge as parent
     for (auto i : myFirstAdditionalParents) {
         i->startGeometryMoving();
     }
@@ -232,20 +231,24 @@ GNEEdge::startGeometryMoving() {
 
 void 
 GNEEdge::endGeometryMoving() {
-
-    myNBEdge.setGeometry(myMovingShape, false);
-
-    // Update geometry of lanes
-    for (auto i : myLanes) {
-        i->endGeometryMoving();
-    }
-    // Update geometry of additionals childs vinculated to this edge
-    for (auto i : myAdditionalChilds) {
-        i->endGeometryMoving();
-    }
-    // Update geometry of additional parents that have this edge as parent
-    for (auto i : myFirstAdditionalParents) {
-        i->endGeometryMoving();
+    // restore shape
+    if(myMovingShape.size() == 0) {
+        throw ProcessError("Moving Shape isn't empty");
+    } else {
+        // restore entire edge shape
+        myNBEdge.setGeometry(myMovingShape, false);
+        // Save current shape of lanes (and their childs)
+        for (auto i : myLanes) {
+            i->endGeometryMoving();
+        }
+        // Save shape of additionals childs vinculated to this edge
+        for (auto i : myAdditionalChilds) {
+            i->endGeometryMoving();
+        }
+        // Save shape of additional parents that have this edge as parent
+        for (auto i : myFirstAdditionalParents) {
+            i->endGeometryMoving();
+        }
     }
 }
 

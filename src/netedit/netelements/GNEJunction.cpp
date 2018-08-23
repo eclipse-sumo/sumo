@@ -469,6 +469,75 @@ GNEJunction::selectTLS(bool selected) {
 }
 
 
+void 
+GNEJunction::startGeometryMoving() {
+    // First declare three sets with all affected GNEJunctions, GNEEdges and GNEConnections
+    std::set<GNEJunction*> affectedJunctions;
+    std::set<GNEEdge*> affectedEdges;
+    // Iterate over GNEEdges
+    for (auto i : myGNEEdges) {
+        // Add source and destiny junctions
+        affectedJunctions.insert(i->getGNEJunctionSource());
+        affectedJunctions.insert(i->getGNEJunctionDestiny());
+        // Obtain neighbors of Junction source
+        for (auto j : i->getGNEJunctionSource()->getGNEEdges()) {
+            affectedEdges.insert(j);
+        }
+        // Obtain neighbors of Junction destiny
+        for (auto j : i->getGNEJunctionDestiny()->getGNEEdges()) {
+            affectedEdges.insert(j);
+        }
+    }
+    // Iterate over affected Junctions
+    for (auto i : affectedJunctions) {
+        // start geometry moving in edges
+        i->startGeometryMoving();
+    }
+    // Iterate over affected Edges
+    for (auto i : affectedEdges) {
+        // start geometry moving in edges
+        i->startGeometryMoving();
+    }
+    // Finally save position
+    myMovingPosition = myNBNode.getPosition();
+}
+
+
+void 
+GNEJunction::endGeometryMoving() {
+// First declare three sets with all affected GNEJunctions, GNEEdges and GNEConnections
+    std::set<GNEJunction*> affectedJunctions;
+    std::set<GNEEdge*> affectedEdges;
+    // Iterate over GNEEdges
+    for (auto i : myGNEEdges) {
+        // Add source and destiny junctions
+        affectedJunctions.insert(i->getGNEJunctionSource());
+        affectedJunctions.insert(i->getGNEJunctionDestiny());
+        // Obtain neighbors of Junction source
+        for (auto j : i->getGNEJunctionSource()->getGNEEdges()) {
+            affectedEdges.insert(j);
+        }
+        // Obtain neighbors of Junction destiny
+        for (auto j : i->getGNEJunctionDestiny()->getGNEEdges()) {
+            affectedEdges.insert(j);
+        }
+    }
+    // Iterate over affected Junctions
+    for (auto i : affectedJunctions) {
+        // end geometry moving in edges
+        i->endGeometryMoving();
+    }
+    // Iterate over affected Edges
+    for (auto i : affectedEdges) {
+        // end geometry moving in edges
+        i->endGeometryMoving();
+    }
+    // Finally save position
+    moveJunctionGeometry(myMovingPosition, false);
+    myMovingPosition = Position::INVALID;
+}
+
+
 void
 GNEJunction::moveGeometry(const Position& oldPos, const Position& offset) {
     // Abort moving if there is another junction in the exactly target position

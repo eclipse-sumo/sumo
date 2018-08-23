@@ -87,6 +87,18 @@ GNEPoly::GNEPoly(GNENet* net, const std::string& id, const std::string& type, co
 GNEPoly::~GNEPoly() {}
 
 
+void 
+GNEPoly::startGeometryMoving() {
+    // nothing to do (will be used in future implementations)
+}
+
+
+void 
+GNEPoly::endGeometryMoving() {
+    // nothing to do (will be used in future implementations)
+}
+
+
 int
 GNEPoly::moveVertexShape(const int index, const Position& oldPos, const Position& offset) {
     // only move shape if block movement block shape are disabled

@@ -141,6 +141,15 @@ public:
     /// @brief Update the boundary of the junction
     void updateGeometry(bool updateGrid);
 
+    /// @name functions related with geometry movement
+    /// @{
+
+    /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with problems with GL Tree)
+    void startGeometryMoving();
+
+    /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with problems with GL Tree)
+    void endGeometryMoving();
+
     /**@brief change the position of the element geometry without saving in undoList
     * @param[in] oldPos old position before start moving
     */
@@ -154,6 +163,7 @@ public:
      * @note if this function is called during 'Move' mode, connections will not be updated to improve efficiency
      */
     void updateShapesAndGeometries(bool updateGrid);
+    /// @}
 
     /// @name inherited from GNEAttributeCarrier
     /// @{
@@ -271,6 +281,9 @@ private:
 
     /// @brief The represented junction's boundary
     Boundary myBoundary;
+
+    /// @brief Position used for move geometry
+    Position myMovingPosition;
 
     /// @brief whether this junction is the first junction for a newly creatededge
     /// @see GNEApplicationWindow::createEdgeSource)

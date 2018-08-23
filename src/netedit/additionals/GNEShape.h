@@ -87,6 +87,15 @@ public:
     /// @brief draw lock icon
     void drawLockIcon(const Position& pos, double layer, double size = 0.5) const;
 
+    /// @name functions for edit geometry
+    /// @{
+    /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with problems with GL Tree)
+    virtual void startGeometryMoving() = 0;
+
+    /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with problems with GL Tree)
+    virtual void endGeometryMoving() = 0;
+    /// @}
+
     /// @name inherited from GUIPolygon/GUIPointOfInterest
     /// @{
 

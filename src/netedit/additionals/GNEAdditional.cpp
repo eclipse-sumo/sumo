@@ -223,14 +223,14 @@ GNEAdditional::openAdditionalDialog() {
 
 void 
 GNEAdditional::startGeometryMoving() {
-    // save current shape
+    // save current shape (used for boundary)
     myMovingShape = myShape;
 }
 
 
 void 
 GNEAdditional::endGeometryMoving() {
-    // restore shape
+    // restore additional shape (used for boundary)
     if(myMovingShape.size() == 0) {
         throw ProcessError("Moving Shape isn't empty");
     } else {

@@ -1295,23 +1295,20 @@ GNELane::getLengthGeometryFactor() const {
 
 void 
 GNELane::startGeometryMoving() {
-    // save current shape
+    // save current lane's shape
     myMovingShape = myParentEdge.getNBEdge()->getLaneStruct(myIndex).shape;
-
-    // update additional childs
+    // Save current shape of additional childs
     for (auto i : myAdditionalChilds) {
         i->startGeometryMoving();
     }
-    // update additionals with this lane as chid
+    // Save current shape of additionals with this lane as chid
     for (auto i : myFirstAdditionalParents) {
         i->startGeometryMoving();
     }
-    // update POIs associated to this lane
-    /*
+    // Save current shape of POIs associated to this lane
     for (auto i : myShapes) {
         i->startGeometryMoving();
     }
-    */
 }
 
 
@@ -1324,21 +1321,18 @@ GNELane::endGeometryMoving() {
         myParentEdge.getNBEdge()->getLaneStruct(myIndex).shape = myMovingShape;
         myMovingShape.clear();
     }
-
-        // update additional childs
+    // restore shape of additionals with this lane as chid
     for (auto i : myAdditionalChilds) {
         i->endGeometryMoving();
     }
-    // update additionals with this lane as chid
+    // Restore shape of additionals with this lane as chid
     for (auto i : myFirstAdditionalParents) {
         i->endGeometryMoving();
     }
-    // update POIs associated to this lane
-    /*
+    // Restore shape of POIs associated to this lane
     for (auto i : myShapes) {
-        i->startGeometryMoving();
+        i->endGeometryMoving();
     }
-    */
 }
 
 /****************************************************************************/
