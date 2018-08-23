@@ -1793,21 +1793,26 @@ NIImporter_OpenDrive::myStartElement(int element,
 void
 NIImporter_OpenDrive::myCharacters(int element, const std::string& cdata) {
     if (element == OPENDRIVE_TAG_GEOREFERENCE) {
-        const std::string proj = cdata.substr(cdata.find("+proj"));
-        if (proj != "") {
-            GeoConvHelper* result = 0;
-            Boundary convBoundary;
-            Boundary origBoundary;
-            Position networkOffset(0, 0);
-            // XXX read values from the header
-            convBoundary.add(Position(0,0));
-            origBoundary.add(Position(0,0));
-            try {
-                result = new GeoConvHelper(proj, networkOffset, origBoundary, convBoundary);
-                GeoConvHelper::setLoaded(*result);
-            } catch (ProcessError& e) {
-                WRITE_ERROR("Could not set projection. (" + std::string(e.what()) + ")");
+        int i = cdata.find("+proj");
+        if (i != std::string::npos) {
+            const std::string proj = cdata.substr(i);
+            if (proj != "") {
+                GeoConvHelper* result = 0;
+                Boundary convBoundary;
+                Boundary origBoundary;
+                Position networkOffset(0, 0);
+                // XXX read values from the header
+                convBoundary.add(Position(0,0));
+                origBoundary.add(Position(0,0));
+                try {
+                    result = new GeoConvHelper(proj, networkOffset, origBoundary, convBoundary);
+                    GeoConvHelper::setLoaded(*result);
+                } catch (ProcessError& e) {
+                    WRITE_ERROR("Could not set projection. (" + std::string(e.what()) + ")");
+                }
             }
+        } else {
+            WRITE_WARNING("geoReference format '" + cdata + "' currently not supported");
         }
     }
 }
