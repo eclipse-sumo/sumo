@@ -834,7 +834,7 @@ GNEApplicationWindow::onCmdOpenShapes(FXObject*, FXSelector, void*) {
             WRITE_MESSAGE("Loading of shapes failed.");
         }
         // enable validation for shapes
-        XMLSubSys::setValidation("enable", "auto");
+        XMLSubSys::setValidation("auto", "auto");
         update();
         myUndoList->p_end();
     }
