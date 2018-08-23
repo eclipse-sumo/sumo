@@ -502,10 +502,13 @@ GUISUMOAbstractView::displayLegend() {
     glLoadIdentity();
 
     // draw the scale bar
+    const double z = -1;
     glDisable(GL_TEXTURE_2D);
     glDisable(GL_ALPHA_TEST);
     glDisable(GL_BLEND);
     glEnable(GL_DEPTH_TEST);
+    glPushMatrix();
+    glTranslated(0, 0, z);
 
     double len = (double) pixelSize / (double)(getWidth() - 1) * (double) 2.0;
     glColor3d(0, 0, 0);
@@ -523,14 +526,15 @@ GUISUMOAbstractView::displayLegend() {
     glVertex2d(-.98 + len, -1. + o);
     glVertex2d(-.98 + len, -1. + o2);
     glEnd();
+    glPopMatrix();
 
     const double fontHeight = 0.1 * 300. / getHeight();
     const double fontWidth = 0.1 * 300. / getWidth();
     // draw 0
-    GLHelper::drawText("0", Position(-.99, -0.99 + o2 + oo), 0.1, fontHeight, RGBColor::BLACK, 0, FONS_ALIGN_LEFT, fontWidth);
+    GLHelper::drawText("0", Position(-.99, -0.99 + o2 + oo), z, fontHeight, RGBColor::BLACK, 0, FONS_ALIGN_LEFT, fontWidth);
 
     // draw current scale
-    GLHelper::drawText((text.substr(0, noDigits) + "m").c_str(), Position(-.99 + len, -0.99 + o2 + oo), 0.1, fontHeight, RGBColor::BLACK, 0, FONS_ALIGN_LEFT, fontWidth);
+    GLHelper::drawText((text.substr(0, noDigits) + "m").c_str(), Position(-.99 + len, -0.99 + o2 + oo), z, fontHeight, RGBColor::BLACK, 0, FONS_ALIGN_LEFT, fontWidth);
 
     // restore matrices
     glMatrixMode(GL_PROJECTION);
