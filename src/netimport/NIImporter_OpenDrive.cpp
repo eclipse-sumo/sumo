@@ -527,7 +527,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             centerLine.push_back(Position(o.length / 2, 0));
             double roadHdg = e->geom.rotationAtOffset(o.s);
             centerLine.rotate2D(roadHdg + o.hdg);
-            Position ref = e->geom.positionAtOffset2D(o.s, o.t);
+            Position ref = e->geom.positionAtOffset2D(o.s, -o.t);
             //PointOfInterest poiRef("ref_" + o.id, "", RGBColor::CYAN, ref, false, "", 0, 0, Shape::DEFAULT_LAYER + 2);
             //poiRef.writeXML(dev, false);
             centerLine.add(ref);
@@ -1859,9 +1859,9 @@ NIImporter_OpenDrive::myStartElement(int element,
                     o.id = baseID + "#" + toString(index++);
                     const double a = x / length;
                     o.width = wStart * (1 - a) + wEnd * a; 
-                    o.s += dist;
                     o.t = tStart * (1 - a) + tEnd * a; 
                     myCurrentEdge.objects.push_back(o);
+                    o.s += dist;
                 }
             }
         }
