@@ -224,7 +224,7 @@ public:
             const double effortDelta = this->getEffort(minEdge, vehicle, leaveTime);
             leaveTime += this->getTravelTime(minEdge, vehicle, minimumInfo->leaveTime, effortDelta);
             effort += effortDelta;
-            if (myExternalEffort != nullptr) {
+            if (myExternalEffort != nullptr && num_visited > 1 ) {
                 myExternalEffort->update(minEdge->getNumericalID(), minimumInfo->prev->edge->getNumericalID());
             }
             assert(effort >= minimumInfo->effort);
