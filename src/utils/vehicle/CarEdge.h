@@ -94,11 +94,11 @@ public:
         }
     }
 
-    bool prohibits(const IntermodalTrip<E, N, V>* const trip) const {
+    bool prohibits(const IntermodalTrip<E, N, V, _IntermodalEdge>* const trip) const {
         return trip->vehicle == 0 || this->getEdge()->prohibits(trip->vehicle);
     }
 
-    double getTravelTime(const IntermodalTrip<E, N, V>* const trip, double time) const {
+    double getTravelTime(const IntermodalTrip<E, N, V, _IntermodalEdge>* const trip, double time) const {
         const double travelTime = E::getTravelTimeStatic(this->getEdge(), trip->vehicle, time);
         double distTravelled = this->getLength();
         // checking arrivalPos first to have it correct for identical depart and arrival edge

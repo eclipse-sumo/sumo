@@ -51,16 +51,17 @@
  * The router for pedestrians (on a bidirectional network of sidewalks and crossings)
  */
 template<class E, class L, class N, class V>
-class IntermodalRouter : public SUMOAbstractRouter<E, IntermodalTrip<E, N, V> > {
+class IntermodalRouter : public SUMOAbstractRouter<E, IntermodalTrip<E, N, V, IntermodalEdge<E, L, N, V> > > {
 public:
     typedef IntermodalNetwork<E, L, N, V> Network;
 
 private:
-    typedef void(*CreateNetCallback)(IntermodalRouter <E, L, N, V>&);
     typedef IntermodalEdge<E, L, N, V> _IntermodalEdge;
-    typedef IntermodalTrip<E, N, V> _IntermodalTrip;
-    typedef SUMOAbstractRouterPermissions<IntermodalEdge<E, L, N, V>, IntermodalTrip<E, N, V> > _InternalRouter;
-    typedef DijkstraRouter<IntermodalEdge<E, L, N, V>, IntermodalTrip<E, N, V>, SUMOAbstractRouterPermissions<IntermodalEdge<E, L, N, V>, IntermodalTrip<E, N, V> > > _InternalDijkstra;
+    typedef EffortCalculator<_IntermodalEdge> _EffortCalculator;
+    typedef void(*CreateNetCallback)(IntermodalRouter <E, L, N, V>&);
+    typedef IntermodalTrip<E, N, V, _IntermodalEdge> _IntermodalTrip;
+    typedef SUMOAbstractRouterPermissions<IntermodalEdge<E, L, N, V>, IntermodalTrip<E, N, V, _IntermodalEdge> > _InternalRouter;
+    typedef DijkstraRouter<IntermodalEdge<E, L, N, V>, IntermodalTrip<E, N, V, _IntermodalEdge>, SUMOAbstractRouterPermissions<IntermodalEdge<E, L, N, V>, IntermodalTrip<E, N, V, _IntermodalEdge> > > _InternalDijkstra;
 
 public:
     struct TripItem {
@@ -76,7 +77,7 @@ public:
     };
 
     /// Constructor
-    IntermodalRouter(CreateNetCallback callback, const int carWalkTransfer, const int routingMode = 0, EffortCalculator* calc = nullptr) :
+    IntermodalRouter(CreateNetCallback callback, const int carWalkTransfer, const int routingMode = 0, _EffortCalculator* calc = nullptr) :
         SUMOAbstractRouter<E, _IntermodalTrip>("IntermodalRouter"),
         myAmClone(false), myInternalRouter(nullptr), myIntermodalNet(nullptr),
         myCallback(callback), myCarWalkTransfer(carWalkTransfer), myRoutingMode(routingMode),
@@ -246,11 +247,7 @@ private:
                 break;
             case 3:
                 if (myExternalEffort != nullptr) {
-                    std::vector<std::string> edgeIDs;
-                    for (const auto e : myIntermodalNet->getAllEdges()) {
-                        edgeIDs.push_back(e->getID());
-                    }
-                    myExternalEffort->init(edgeIDs);
+                    myExternalEffort->init(myIntermodalNet->getAllEdges());
                 }
                 myInternalRouter = new _InternalDijkstra(myIntermodalNet->getAllEdges(), true, &getCombined, &_IntermodalEdge::getTravelTimeStatic, false, myExternalEffort);
                 break;
@@ -265,7 +262,7 @@ private:
     CreateNetCallback myCallback;
     const int myCarWalkTransfer;
     const int myRoutingMode;
-    EffortCalculator* const myExternalEffort;
+    _EffortCalculator* const myExternalEffort;
 
 
 private:

@@ -45,11 +45,11 @@
  * The router for pedestrians (on a bidirectional network of sidewalks and crossings)
  */
 template<class E, class L, class N, class V>
-class PedestrianRouter : public SUMOAbstractRouter<E, IntermodalTrip<E, N, V> > {
+class PedestrianRouter : public SUMOAbstractRouter<E, IntermodalTrip<E, N, V, IntermodalEdge<E, L, N, V> > > {
 private:
     typedef IntermodalEdge<E, L, N, V> _IntermodalEdge;
     typedef IntermodalNetwork<E, L, N, V> _IntermodalNetwork;
-    typedef IntermodalTrip<E, N, V> _IntermodalTrip;
+    typedef IntermodalTrip<E, N, V, _IntermodalEdge> _IntermodalTrip;
     typedef DijkstraRouter<_IntermodalEdge, _IntermodalTrip, SUMOAbstractRouterPermissions<_IntermodalEdge, _IntermodalTrip > > _InternalRouter;
 
 public:

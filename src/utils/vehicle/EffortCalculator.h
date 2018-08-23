@@ -28,11 +28,12 @@
 // class definitions
 // ===========================================================================
 /// @brief the effort calculator interface
+template<class E>
 class EffortCalculator {
 public:
-    virtual void init(const std::vector<std::string>& edges) = 0;
+    virtual void init(const std::vector<E*>& edges) = 0;
     virtual double getEffort(const int edge) const = 0;
-    virtual void update(const int edge, const int prev, const double length) = 0;
+    virtual void update(const int edge, const int prev) = 0;
 };
 
 

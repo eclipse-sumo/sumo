@@ -56,7 +56,7 @@ public:
         return true;
     }
 
-    bool prohibits(const IntermodalTrip<E, N, V>* const trip) const {
+    bool prohibits(const IntermodalTrip<E, N, V, IntermodalEdge<E, L, N, V> >* const trip) const {
         return (trip->modeSet & SVC_BUS) == 0;
     }
 
@@ -71,7 +71,7 @@ public:
         mySchedules.insert(std::make_pair(STEPS2TIME(begin), Schedule(id, begin, end, period, travelTimeSec)));
     }
 
-    double getTravelTime(const IntermodalTrip<E, N, V>* const /* trip */, double time) const {
+    double getTravelTime(const IntermodalTrip<E, N, V, IntermodalEdge<E, L, N, V> >* const /* trip */, double time) const {
         double minArrivalSec = std::numeric_limits<double>::max();
         for (typename std::multimap<double, Schedule>::const_iterator it = mySchedules.begin(); it != mySchedules.end(); ++it) {
             const Schedule& s = it->second;

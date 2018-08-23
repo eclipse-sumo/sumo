@@ -121,7 +121,7 @@ public:
 
     /// Constructor
     DijkstraRouter(const std::vector<E*>& edges, bool unbuildIsWarning, typename BASE::Operation effortOperation,
-        typename BASE::Operation ttOperation = nullptr, bool silent = false, EffortCalculator* calc=nullptr) :
+        typename BASE::Operation ttOperation = nullptr, bool silent = false, EffortCalculator<E>* calc=nullptr) :
                    BASE("DijkstraRouter", effortOperation, ttOperation),
         myErrorMsgHandler(unbuildIsWarning ?  MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()),
         mySilent(silent), myExternalEffort(calc) {
@@ -225,7 +225,7 @@ public:
             leaveTime += this->getTravelTime(minEdge, vehicle, minimumInfo->leaveTime, effortDelta);
             effort += effortDelta;
             if (myExternalEffort != nullptr) {
-                myExternalEffort->update(minEdge->getNumericalID(), minimumInfo->prev->edge->getNumericalID(), minEdge->getLength());
+                myExternalEffort->update(minEdge->getNumericalID(), minimumInfo->prev->edge->getNumericalID());
             }
             assert(effort >= minimumInfo->effort);
             assert(leaveTime >= minimumInfo->leaveTime);
@@ -280,7 +280,7 @@ public:
 
 private:
     DijkstraRouter(const std::vector<EdgeInfo>& edgeInfos, bool unbuildIsWarning, 
-        typename BASE::Operation effortOperation, typename BASE::Operation ttOperation, bool silent, EffortCalculator* calc) :
+        typename BASE::Operation effortOperation, typename BASE::Operation ttOperation, bool silent, EffortCalculator<E>* calc) :
         BASE("DijkstraRouter", effortOperation, ttOperation),
         myErrorMsgHandler(unbuildIsWarning ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()),
         mySilent(silent),
@@ -297,7 +297,7 @@ private:
     /// @brief whether to supress warning/error if no route was found
     bool mySilent;
 
-    EffortCalculator* const myExternalEffort;
+    EffortCalculator<E>* const myExternalEffort;
 
     /// The container of edge information
     std::vector<EdgeInfo> myEdgeInfos;

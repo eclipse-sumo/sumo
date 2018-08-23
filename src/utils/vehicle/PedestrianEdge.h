@@ -47,7 +47,7 @@ public:
         return allEdges || (!this->getEdge()->isCrossing() && !this->getEdge()->isWalkingArea() && !this->getEdge()->isInternal());
     }
 
-    bool prohibits(const IntermodalTrip<E, N, V>* const trip) const {
+    bool prohibits(const IntermodalTrip<E, N, V, IntermodalEdge<E, L, N, V> >* const trip) const {
         if (trip->node == 0) {
             // network only includes IntermodalEdges
             return false;
@@ -58,7 +58,7 @@ public:
         }
     }
 
-    virtual double getTravelTime(const IntermodalTrip<E, N, V>* const trip, double time) const {
+    virtual double getTravelTime(const IntermodalTrip<E, N, V, IntermodalEdge<E, L, N, V> >* const trip, double time) const {
         double length = this->getLength();
         if (this->getEdge() == trip->from && !myForward && trip->departPos < myStartPos) {
             length = trip->departPos - (myStartPos - this->getLength());
