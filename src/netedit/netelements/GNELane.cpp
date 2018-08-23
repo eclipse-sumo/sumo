@@ -1292,4 +1292,53 @@ GNELane::getLengthGeometryFactor() const {
     };
 }
 
+
+void 
+GNELane::startGeometryMoving() {
+    // save current shape
+    myMovingShape = myParentEdge.getNBEdge()->getLaneStruct(myIndex).shape;
+
+    // update additional childs
+    for (auto i : myAdditionalChilds) {
+        i->startGeometryMoving();
+    }
+    // update additionals with this lane as chid
+    for (auto i : myFirstAdditionalParents) {
+        i->startGeometryMoving();
+    }
+    // update POIs associated to this lane
+    /*
+    for (auto i : myShapes) {
+        i->startGeometryMoving();
+    }
+    */
+}
+
+
+void 
+GNELane::endGeometryMoving() {
+    // restore shape
+    if(myMovingShape.size() == 0) {
+        throw ProcessError("Moving Shape isn't empty");
+    } else {
+        myParentEdge.getNBEdge()->getLaneStruct(myIndex).shape = myMovingShape;
+        myMovingShape.clear();
+    }
+
+        // update additional childs
+    for (auto i : myAdditionalChilds) {
+        i->endGeometryMoving();
+    }
+    // update additionals with this lane as chid
+    for (auto i : myFirstAdditionalParents) {
+        i->endGeometryMoving();
+    }
+    // update POIs associated to this lane
+    /*
+    for (auto i : myShapes) {
+        i->startGeometryMoving();
+    }
+    */
+}
+
 /****************************************************************************/

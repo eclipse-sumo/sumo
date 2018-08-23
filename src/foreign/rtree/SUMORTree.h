@@ -165,7 +165,7 @@ public:
             if(myTreeDebug.count(o) == 0) {
                 throw ProcessError("GUIGlObject " + o->getMicrosimID() + " wasn't inserted");
             } else if (b != myTreeDebug.at(o)) {
-                 throw ProcessError("add boundary of GUIGlObject " + o->getMicrosimID() + " is different of remove boundary");
+                 throw ProcessError("add boundary of GUIGlObject " + o->getMicrosimID() + " is different of remove boundary (" + toString(b) + " != " + toString(myTreeDebug.at(o)) + ")");
             } else {
                 myTreeDebug.erase(o);
                 WRITE_GLDEBUG("Removed object " + o->getFullName() + " from SUMORTree with boundary " + toString(b));

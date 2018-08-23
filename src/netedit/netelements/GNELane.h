@@ -75,6 +75,15 @@ public:
     /// @brief get lenght geometry factor
     double getLengthGeometryFactor() const;
 
+    /// @name functions for edit geometry
+    /// @{
+    /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with problems with GL Tree)
+    void startGeometryMoving();
+
+    /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with problems with GL Tree)
+    void endGeometryMoving();
+    /// @}
+
     /// @name inherited from GUIGlObject
     /// @{
     // @brief Returns the name of the parent object (if any)
@@ -221,6 +230,9 @@ protected:
 
     /// @brief The Edge that to which this lane belongs
     GNEEdge& myParentEdge;
+
+    /// @brief variable used to save shape bevore moving (used to avoid inconsistences in GL Tree)
+    PositionVector myMovingShape;
 
     /// @brief The index of this lane
     int myIndex;

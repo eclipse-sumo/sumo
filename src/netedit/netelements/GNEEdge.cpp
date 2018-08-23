@@ -210,6 +210,46 @@ GNEEdge::commitShapeEndChange(const Position& oldPos, GNEUndoList* undoList) {
 }
 
 
+void 
+GNEEdge::startGeometryMoving() {
+
+    myMovingShape = myNBEdge.getGeometry();
+
+    // Update geometry of lanes
+    for (auto i : myLanes) {
+        i->startGeometryMoving();
+    }
+    // Update geometry of additionals childs vinculated to this edge
+    for (auto i : myAdditionalChilds) {
+        i->startGeometryMoving();
+    }
+    // Update geometry of additional parents that have this edge as parent
+    for (auto i : myFirstAdditionalParents) {
+        i->startGeometryMoving();
+    }
+}
+
+
+void 
+GNEEdge::endGeometryMoving() {
+
+    myNBEdge.setGeometry(myMovingShape, false);
+
+    // Update geometry of lanes
+    for (auto i : myLanes) {
+        i->endGeometryMoving();
+    }
+    // Update geometry of additionals childs vinculated to this edge
+    for (auto i : myAdditionalChilds) {
+        i->endGeometryMoving();
+    }
+    // Update geometry of additional parents that have this edge as parent
+    for (auto i : myFirstAdditionalParents) {
+        i->endGeometryMoving();
+    }
+}
+
+
 int
 GNEEdge::getVertexIndex(const Position& pos, bool createIfNoExist) {
     PositionVector entireGeometry = myNBEdge.getGeometry();
@@ -232,7 +272,7 @@ GNEEdge::getVertexIndex(const Position& pos, bool createIfNoExist) {
     // if vertex doesn't exist, insert it
     if (createIfNoExist) {
         int index = entireGeometry.insertAtClosest(newPos);
-        setGeometry(entireGeometry, false);
+        setGeometry(entireGeometry, false, true);
         // index refers to inner geometry
         return (index - 1);
     } else {
@@ -262,8 +302,8 @@ GNEEdge::moveVertexShape(const int index, const Position& oldPos, const Position
             edgeGeometry[index].add(offset);
             // restore Z value
             edgeGeometry[index].setz(zValue);
-            // update edge's geometry
-            setGeometry(edgeGeometry, true);
+            // update edge's geometry without updating RTree (To avoid unnecesary changes in RTree)
+            setGeometry(edgeGeometry, true, false);
             return index;
         } else {
             throw InvalidArgument("Index greater than shape size");
@@ -285,7 +325,7 @@ GNEEdge::moveEntireShape(const PositionVector& oldShape, const Position& offset)
         i.add(offset);
     }
     // restore modified shape
-    setGeometry(modifiedShape, true);
+    setGeometry(modifiedShape, true, true);
     // add object into net again
     myNet->addGLObjectIntoGrid(this);
 }
@@ -309,8 +349,11 @@ GNEEdge::commitShapeChange(const PositionVector& oldShape, GNEUndoList* undoList
     if (innerShapeToCommit.size() != myNBEdge.getInnerGeometry().size()) {
         WRITE_WARNING("Merged shape's point")
     }
-    // restore old geometry to allow change attribute
-    setGeometry(oldShape, true);
+    // finish geometry moving
+    endGeometryMoving();
+    updateGeometry(false);
+    // restore old geometry to allow change attribute (And restore shape if during movement a new point was created
+    setGeometry(oldShape, true, true);
     // commit new shape
     undoList->p_begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + toString(getTag()));
     undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(innerShapeToCommit)));
@@ -331,7 +374,7 @@ GNEEdge::deleteGeometryPoint(const Position& pos, bool allowUndo) {
         myNet->getViewNet()->getUndoList()->p_end();
     } else {
         // set new shape
-        setGeometry(modifiedShape, true);
+        setGeometry(modifiedShape, true, true);
     }
 }
 
@@ -346,7 +389,7 @@ GNEEdge::updateJunctionPosition(GNEJunction* junction, const Position& origPos) 
     } else {
         geom[-1].add(delta);
     }
-    setGeometry(geom, false);
+    setGeometry(geom, false, true);
 }
 
 
@@ -598,17 +641,20 @@ GNEEdge::resetEndpoint(const Position& pos, GNEUndoList* undoList) {
 
 
 void
-GNEEdge::setGeometry(PositionVector geom, bool inner) {
-    // first remove object from net grid
-    myNet->removeGLObjectFromGrid(this);
+GNEEdge::setGeometry(PositionVector geom, bool inner, bool updateGrid) {
+    if(updateGrid) {
+        // first remove object from net grid
+        myNet->removeGLObjectFromGrid(this);
+    }
     // set new geometry
     myNBEdge.setGeometry(geom, inner);
-    // add object into net again
-    myNet->addGLObjectIntoGrid(this);
-    updateGeometry(true);
+    if(updateGrid) {
+        // add object into net again
+        myNet->addGLObjectIntoGrid(this);
+    }
+    updateGeometry(updateGrid);
     myGNEJunctionSource->invalidateShape();
     myGNEJunctionDestiny->invalidateShape();
-
 }
 
 
@@ -1210,7 +1256,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_SHAPE:
             bool ok;
             myOrigShape = GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, true);
-            setGeometry(myOrigShape, true);
+            setGeometry(myOrigShape, true, true);
             break;
         case SUMO_ATTR_SPREADTYPE:
             myNBEdge.setLaneSpreadFunction(SUMOXMLDefinitions::LaneSpreadFunctions.get(value));
@@ -1657,7 +1703,7 @@ GNEEdge::setShapeStartPos(const Position &pos) {
     geom.erase(geom.begin());
     geom.push_front_noDoublePos(pos);
     // restore modified shape
-    setGeometry(geom, false);
+    setGeometry(geom, false, true);
 }
 
 
@@ -1668,7 +1714,7 @@ GNEEdge::setShapeEndPos(const Position &pos) {
     geom.pop_back();
     geom.push_back_noDoublePos(pos);
     // restore modified shape
-    setGeometry(geom, false);
+    setGeometry(geom, false, true);
 }
 
 /****************************************************************************/

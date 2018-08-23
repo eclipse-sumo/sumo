@@ -96,6 +96,15 @@ public:
     void commitShapeEndChange(const Position& oldPos, GNEUndoList* undoList);
     /// @}
 
+    /// @name functions for edit geometry
+    /// @{
+    /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with problems with GL Tree)
+    void startGeometryMoving();
+
+    /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with problems with GL Tree)
+    void endGeometryMoving();
+    /// @}
+
     /**@brief return index of a vertex of shape, or of a new vertex if position is over an shape's edge
     * @param pos position of new/existent vertex
     * @param createIfNoExist enable or disable creation of new verte if there isn't another vertex in position
@@ -238,7 +247,7 @@ public:
      * @param[in] geom The new geometry
      * @param[in] inner Whether geom is only the inner points
      */
-    void setGeometry(PositionVector geom, bool inner);
+    void setGeometry(PositionVector geom, bool inner, bool updateGrid);
 
     /// @brief remake connections
     void remakeGNEConnections();
@@ -301,6 +310,9 @@ public:
 protected:
     /// @brief the underlying NBEdge
     NBEdge& myNBEdge;
+
+    /// @brief variable used to save shape bevore moving (used to avoid inconsistences in GL Tree)
+    PositionVector myMovingShape;
 
     /// @brief pointer to GNEJunction source
     GNEJunction* myGNEJunctionSource;

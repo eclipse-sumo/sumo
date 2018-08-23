@@ -228,6 +228,18 @@ GNEAdditional::startGeometryMoving() {
 }
 
 
+void 
+GNEAdditional::endGeometryMoving() {
+    // restore shape
+    if(myMovingShape.size() == 0) {
+        throw ProcessError("Moving Shape isn't empty");
+    } else {
+        myShape = myMovingShape;
+        myMovingShape.clear();
+    }
+}
+
+
 GNEViewNet*
 GNEAdditional::getViewNet() const {
     return myViewNet;

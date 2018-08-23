@@ -729,6 +729,8 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                             // obtain index of vertex to move and moving reference
                             myMoveSingleElementValues.movingIndexShape = myMovedItems.edgeToMove->getVertexIndex(getPositionInformation());
                             myMoveSingleElementValues.movingOriginalPosition = getPositionInformation();
+                            // start moving AFTER getvertex Index
+                            myMovedItems.edgeToMove->startGeometryMoving();
                         }
                     }
                 } else if (myObjectsUnderCursor.additional) {
