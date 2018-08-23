@@ -145,6 +145,7 @@ Helper::handleSingleSubscription(const Subscription& s) {
         PositionVector shape;
         findObjectShape(s.commandId, s.id, shape);
         collectObjectsInRange(s.contextDomain, shape, s.range, objIDs);
+        applyFilters(s, objIDs);
     } else {
         objIDs.insert(s.id);
     }
@@ -406,6 +407,51 @@ Helper::collectObjectsInRange(int domain, const PositionVector& shape, double ra
         break;
         default:
             break;
+    }
+}
+
+
+
+void
+Helper::applyFilters(const Subscription& s, std::set<std::string>& objIDs) {
+    if (s.activeFilters == 0) {
+        // No filters set
+        return;
+    }
+
+    // Whether vehicles on opposite lanes shall be taken into account
+    bool disregardOppositeDirection = s.activeFilters & SUBS_FILTER_NOOPPOSITE;
+
+    if (s.activeFilters & SUBS_FILTER_CF_MANEUVER) {
+        // Only return leader and follower in context subscription result + other maneuver relevant vehicles
+    }
+    if (s.activeFilters & SUBS_FILTER_LC_MANEUVER) {
+        // Only return leader and follower on ego and neighboring lane in context subscription result + other maneuver relevant vehicles
+    }
+    if (s.activeFilters & SUBS_FILTER_TURN_MANEUVER) {
+        // Only return foes on upcoming junction in context subscription result + other maneuver relevant vehicles
+    }
+
+    if (s.activeFilters & SUBS_FILTER_VCLASS) {
+        // Only return vehicles of the given vClass in context subscription result
+        // s.filterVClasses
+    }
+    if (s.activeFilters & SUBS_FILTER_VTYPE) {
+        // Only return vehicles of the given vType in context subscription result
+        // s.filterVTypes;
+    }
+
+    if (s.activeFilters & SUBS_FILTER_DOWNSTREAM_DIST) {
+        // Specify maximal downstream distance for vehicles in context subscription result
+        // s.filterDownstreamDist
+    }
+    if (s.activeFilters & SUBS_FILTER_UPSTREAM_DIST) {
+        // Specify maximal downstream distance for vehicles in context subscription result
+        // s.filterUpstreamDist
+    }
+    if (s.activeFilters & SUBS_FILTER_LANES) {
+        // Filter by list of lanes relative to ego vehicle
+        // s.filterLanes;
     }
 }
 

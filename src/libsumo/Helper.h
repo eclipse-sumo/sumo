@@ -121,6 +121,12 @@ public:
 
     static void collectObjectsInRange(int domain, const PositionVector& shape, double range, std::set<std::string>& into);
 
+    /// @brief Filter the given ID-Set according to the filters set by the subscription
+    /// @param[in] s Subscription which holds the filter specification to be applied
+    /// @param[in/out] objIDs Set of object IDs that is to be filtered. Result is stored in place.
+    /// @note Currently this assumes that the objects are vehicles.
+    static void applyFilters(const Subscription& s, std::set<std::string>& objIDs);
+
     static void setRemoteControlled(MSVehicle* v, Position xyPos, MSLane* l, double pos, double posLat, double angle,
                                     int edgeOffset, ConstMSEdgeVector route, SUMOTime t);
 
