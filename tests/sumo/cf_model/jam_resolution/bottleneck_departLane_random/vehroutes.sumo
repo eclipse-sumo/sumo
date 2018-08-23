@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Oct 20 16:35:35 2017 by SUMO Version svn
+<!-- generated on Thu Aug 23 15:41:05 2018 by Eclipse SUMO Version f7a5932
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -15,12 +15,17 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <vehroute-output value="vehroutes.xml"/>
     </output>
 
     <time>
         <end value="1440"/>
     </time>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
 
     <report>
         <xml-validation value="never"/>
@@ -2984,15 +2989,11 @@ SPDX-License-Identifier: EPL-2.0
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.743" depart="1163.00" departLane="1" departPos="0.00" departSpeed="0.74" arrival="1228.00">
+    <vehicle id="high.747" depart="1165.00" departLane="0" departPos="0.00" departSpeed="0.74" arrival="1228.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.719" depart="1119.00" departLane="0" departPos="0.00" departSpeed="5.28" arrival="1229.00">
-        <route edges="start middle jam bottleneck end"/>
-    </vehicle>
-
-    <vehicle id="high.754" depart="1169.00" departLane="1" departPos="0.00" departSpeed="1.74" arrival="1231.00">
+    <vehicle id="high.754" depart="1169.00" departLane="1" departPos="0.00" departSpeed="1.74" arrival="1230.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
@@ -3000,7 +3001,7 @@ SPDX-License-Identifier: EPL-2.0
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.750" depart="1174.00" departLane="1" departPos="0.00" departSpeed="8.19" arrival="1234.00">
+    <vehicle id="high.750" depart="1174.00" departLane="1" departPos="0.00" departSpeed="8.19" arrival="1233.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
@@ -3008,11 +3009,11 @@ SPDX-License-Identifier: EPL-2.0
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.758" depart="1180.00" departLane="1" departPos="17.77" departSpeed="21.19" arrival="1237.00">
+    <vehicle id="high.758" depart="1180.00" departLane="1" departPos="17.77" departSpeed="21.19" arrival="1236.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.747" depart="1165.00" departLane="0" departPos="0.00" departSpeed="0.74" arrival="1239.00">
+    <vehicle id="high.743" depart="1163.00" departLane="1" departPos="0.00" departSpeed="0.74" arrival="1238.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
@@ -3020,11 +3021,11 @@ SPDX-License-Identifier: EPL-2.0
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.726" depart="1123.00" departLane="0" departPos="0.00" departSpeed="3.25" arrival="1242.00">
+    <vehicle id="high.719" depart="1119.00" departLane="0" departPos="0.00" departSpeed="5.28" arrival="1241.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.763" depart="1185.00" departLane="1" departPos="36.49" departSpeed="13.27" arrival="1243.00">
+    <vehicle id="high.763" depart="1185.00" departLane="1" departPos="36.49" departSpeed="13.27" arrival="1244.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
@@ -3032,67 +3033,67 @@ SPDX-License-Identifier: EPL-2.0
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.723" depart="1128.00" departLane="0" departPos="0.00" departSpeed="3.36" arrival="1246.00">
+    <vehicle id="high.757" depart="1179.00" departLane="0" departPos="0.00" departSpeed="0.04" arrival="1247.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.757" depart="1179.00" departLane="0" departPos="0.00" departSpeed="0.04" arrival="1249.00">
+    <vehicle id="high.762" depart="1186.00" departLane="1" departPos="0.00" departSpeed="3.00" arrival="1249.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.762" depart="1186.00" departLane="1" departPos="0.00" departSpeed="3.00" arrival="1251.00">
+    <vehicle id="high.726" depart="1123.00" departLane="0" departPos="0.00" departSpeed="3.25" arrival="1251.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.730" depart="1131.00" departLane="0" departPos="0.00" departSpeed="2.50" arrival="1253.00">
+    <vehicle id="high.766" depart="1188.00" departLane="1" departPos="0.00" departSpeed="3.06" arrival="1253.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.766" depart="1188.00" departLane="1" departPos="0.00" departSpeed="3.06" arrival="1254.00">
+    <vehicle id="high.723" depart="1128.00" departLane="0" departPos="0.00" departSpeed="3.36" arrival="1255.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.771" depart="1194.00" departLane="1" departPos="15.94" departSpeed="11.49" arrival="1256.00">
+    <vehicle id="high.771" depart="1194.00" departLane="1" departPos="15.94" departSpeed="11.49" arrival="1257.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.734" depart="1133.00" departLane="0" departPos="0.00" departSpeed="0.96" arrival="1258.00">
+    <vehicle id="high.730" depart="1131.00" departLane="0" departPos="0.00" departSpeed="2.50" arrival="1259.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.769" depart="1191.00" departLane="1" departPos="0.00" departSpeed="2.24" arrival="1259.00">
+    <vehicle id="high.769" depart="1191.00" departLane="1" departPos="0.00" departSpeed="2.24" arrival="1261.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.740" depart="1140.00" departLane="0" departPos="15.91" departSpeed="0.43" arrival="1261.00">
+    <vehicle id="high.734" depart="1133.00" departLane="0" departPos="0.00" departSpeed="0.96" arrival="1262.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.735" depart="1136.00" departLane="0" departPos="0.00" departSpeed="2.35" arrival="1262.00">
+    <vehicle id="high.774" depart="1195.00" departLane="1" departPos="0.00" departSpeed="2.50" arrival="1264.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.774" depart="1195.00" departLane="1" departPos="0.00" departSpeed="2.50" arrival="1265.00">
+    <vehicle id="high.740" depart="1140.00" departLane="0" departPos="15.91" departSpeed="0.43" arrival="1265.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.772" depart="1197.00" departLane="1" departPos="0.00" departSpeed="2.50" arrival="1267.00">
+    <vehicle id="high.772" depart="1197.00" departLane="1" departPos="0.00" departSpeed="2.50" arrival="1268.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.773" depart="1199.00" departLane="1" departPos="0.00" departSpeed="2.50" arrival="1269.00">
+    <vehicle id="high.735" depart="1136.00" departLane="0" departPos="0.00" departSpeed="2.35" arrival="1269.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.776" depart="1201.00" departLane="1" departPos="0.00" departSpeed="2.50" arrival="1271.00">
+    <vehicle id="high.773" depart="1199.00" departLane="1" departPos="0.00" departSpeed="2.50" arrival="1271.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.775" depart="1222.00" departLane="1" departPos="0.00" departSpeed="2.14" arrival="1272.00">
+    <vehicle id="high.738" depart="1140.00" departLane="0" departPos="0.00" departSpeed="0.05" arrival="1272.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.738" depart="1140.00" departLane="0" departPos="0.00" departSpeed="0.05" arrival="1274.00">
+    <vehicle id="high.776" depart="1201.00" departLane="1" departPos="0.00" departSpeed="2.50" arrival="1274.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
@@ -3100,371 +3101,359 @@ SPDX-License-Identifier: EPL-2.0
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.749" depart="1171.00" departLane="0" departPos="0.00" departSpeed="1.04" arrival="1277.00">
+    <vehicle id="high.775" depart="1222.00" departLane="1" departPos="0.00" departSpeed="2.14" arrival="1277.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.755" depart="1174.00" departLane="0" departPos="0.00" departSpeed="4.57" arrival="1278.00">
+    <vehicle id="high.749" depart="1171.00" departLane="0" departPos="0.00" departSpeed="1.04" arrival="1278.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.752" depart="1175.00" departLane="1" departPos="0.00" departSpeed="4.38" arrival="1279.00">
+    <vehicle id="high.777" depart="1228.00" departLane="1" departPos="0.00" departSpeed="1.15" arrival="1280.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.777" depart="1229.00" departLane="1" departPos="0.00" departSpeed="1.15" arrival="1280.00">
+    <vehicle id="high.755" depart="1174.00" departLane="0" departPos="0.00" departSpeed="4.57" arrival="1281.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.759" depart="1178.00" departLane="1" departPos="0.00" departSpeed="4.69" arrival="1282.00">
+    <vehicle id="high.779" depart="1231.00" departLane="1" departPos="0.00" departSpeed="5.04" arrival="1283.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.780" depart="1232.00" departLane="1" departPos="0.00" departSpeed="2.10" arrival="1283.00">
+    <vehicle id="high.752" depart="1175.00" departLane="1" departPos="0.00" departSpeed="4.38" arrival="1284.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.779" depart="1234.00" departLane="0" departPos="0.00" departSpeed="0.91" arrival="1285.00">
+    <vehicle id="high.781" depart="1233.00" departLane="1" departPos="0.00" departSpeed="6.41" arrival="1286.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.783" depart="1237.00" departLane="1" departPos="0.00" departSpeed="4.56" arrival="1287.00">
+    <vehicle id="high.780" depart="1235.00" departLane="1" departPos="0.00" departSpeed="8.47" arrival="1288.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.784" depart="1239.00" departLane="1" departPos="0.00" departSpeed="5.69" arrival="1288.00">
+    <vehicle id="high.785" depart="1236.00" departLane="1" departPos="0.00" departSpeed="4.72" arrival="1290.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.781" depart="1241.00" departLane="1" departPos="0.00" departSpeed="7.39" arrival="1290.00">
+    <vehicle id="high.759" depart="1178.00" departLane="1" departPos="0.00" departSpeed="4.69" arrival="1292.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.785" depart="1243.00" departLane="1" departPos="0.00" departSpeed="9.95" arrival="1292.00">
+    <vehicle id="high.787" depart="1238.00" departLane="1" departPos="0.00" departSpeed="5.93" arrival="1294.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.761" depart="1186.00" departLane="0" departPos="21.16" departSpeed="4.05" arrival="1293.00">
+    <vehicle id="high.788" depart="1240.00" departLane="1" departPos="0.00" departSpeed="7.74" arrival="1296.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.788" depart="1244.00" departLane="1" departPos="0.00" departSpeed="6.67" arrival="1295.00">
+    <vehicle id="high.789" depart="1241.00" departLane="1" departPos="0.00" departSpeed="3.48" arrival="1298.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.791" depart="1246.00" departLane="1" departPos="0.00" departSpeed="8.99" arrival="1297.00">
+    <vehicle id="high.790" depart="1243.00" departLane="1" departPos="0.00" departSpeed="3.64" arrival="1300.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.760" depart="1183.00" departLane="1" departPos="0.00" departSpeed="1.14" arrival="1298.00">
+    <vehicle id="high.792" depart="1245.00" departLane="1" departPos="0.00" departSpeed="4.12" arrival="1302.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.792" depart="1251.00" departLane="1" departPos="34.47" departSpeed="19.17" arrival="1300.00">
+    <vehicle id="high.761" depart="1186.00" departLane="0" departPos="21.16" departSpeed="4.05" arrival="1304.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.802" depart="1254.00" departLane="1" departPos="45.32" departSpeed="16.67" arrival="1302.00">
+    <vehicle id="high.794" depart="1247.00" departLane="1" departPos="0.00" departSpeed="5.02" arrival="1306.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.751" depart="1176.00" departLane="0" departPos="0.00" departSpeed="2.34" arrival="1304.00">
+    <vehicle id="high.802" depart="1255.00" departLane="1" departPos="94.83" departSpeed="12.63" arrival="1307.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.808" depart="1257.00" departLane="1" departPos="72.31" departSpeed="13.59" arrival="1305.00">
+    <vehicle id="high.796" depart="1251.00" departLane="1" departPos="0.00" departSpeed="8.43" arrival="1309.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.795" depart="1250.00" departLane="0" departPos="0.00" departSpeed="1.76" arrival="1308.00">
+    <vehicle id="high.760" depart="1183.00" departLane="1" departPos="0.00" departSpeed="1.14" arrival="1311.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.800" depart="1253.00" departLane="1" departPos="0.00" departSpeed="0.42" arrival="1309.00">
+    <vehicle id="high.808" depart="1257.00" departLane="1" departPos="44.34" departSpeed="17.64" arrival="1313.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.801" depart="1256.00" departLane="1" departPos="0.00" departSpeed="2.67" arrival="1311.00">
+    <vehicle id="high.799" depart="1254.00" departLane="1" departPos="0.00" departSpeed="5.87" arrival="1315.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.765" depart="1181.00" departLane="0" departPos="0.00" departSpeed="0.09" arrival="1314.00">
+    <vehicle id="high.806" depart="1256.00" departLane="1" departPos="0.00" departSpeed="7.65" arrival="1318.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.806" depart="1258.00" departLane="1" departPos="0.00" departSpeed="1.21" arrival="1315.00">
+    <vehicle id="high.805" depart="1261.00" departLane="1" departPos="31.38" departSpeed="16.36" arrival="1319.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.768" depart="1192.00" departLane="0" departPos="0.00" departSpeed="1.16" arrival="1317.00">
+    <vehicle id="high.804" depart="1257.00" departLane="1" departPos="0.00" departSpeed="3.30" arrival="1321.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.804" depart="1261.00" departLane="1" departPos="0.00" departSpeed="5.18" arrival="1319.00">
+    <vehicle id="high.751" depart="1176.00" departLane="0" departPos="0.00" departSpeed="2.34" arrival="1324.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.809" depart="1263.00" departLane="1" departPos="0.00" departSpeed="5.54" arrival="1321.00">
+    <vehicle id="high.810" depart="1260.00" departLane="1" departPos="0.00" departSpeed="1.11" arrival="1325.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.770" depart="1221.00" departLane="0" departPos="0.00" departSpeed="1.71" arrival="1323.00">
+    <vehicle id="high.765" depart="1181.00" departLane="0" departPos="0.00" departSpeed="0.09" arrival="1327.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.778" depart="1229.00" departLane="0" departPos="0.00" departSpeed="3.40" arrival="1324.00">
+    <vehicle id="high.819" depart="1266.00" departLane="1" departPos="8.61" departSpeed="14.11" arrival="1329.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.811" depart="1265.00" departLane="1" departPos="0.00" departSpeed="2.50" arrival="1326.00">
+    <vehicle id="high.812" depart="1265.00" departLane="1" departPos="0.00" departSpeed="0.51" arrival="1331.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.810" depart="1267.00" departLane="1" departPos="0.00" departSpeed="2.50" arrival="1328.00">
+    <vehicle id="high.768" depart="1192.00" departLane="0" departPos="0.00" departSpeed="1.16" arrival="1333.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.815" depart="1269.00" departLane="1" departPos="0.00" departSpeed="2.50" arrival="1330.00">
+    <vehicle id="high.770" depart="1221.00" departLane="0" departPos="0.00" departSpeed="1.71" arrival="1334.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.813" depart="1271.00" departLane="1" departPos="0.00" departSpeed="2.50" arrival="1332.00">
+    <vehicle id="high.813" depart="1268.00" departLane="1" departPos="0.00" departSpeed="2.50" arrival="1336.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.782" depart="1235.00" departLane="0" departPos="0.00" departSpeed="2.30" arrival="1334.00">
+    <vehicle id="high.778" depart="1229.00" departLane="0" departPos="0.00" departSpeed="1.37" arrival="1337.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.787" depart="1238.00" departLane="0" departPos="0.00" departSpeed="2.79" arrival="1335.00">
+    <vehicle id="high.815" depart="1270.00" departLane="1" departPos="0.00" departSpeed="2.26" arrival="1340.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.786" depart="1241.00" departLane="0" departPos="0.00" departSpeed="3.28" arrival="1337.00">
+    <vehicle id="high.783" depart="1232.00" departLane="0" departPos="0.00" departSpeed="0.81" arrival="1341.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.790" depart="1243.00" departLane="0" departPos="0.00" departSpeed="3.05" arrival="1338.00">
+    <vehicle id="high.816" depart="1273.00" departLane="1" departPos="0.00" departSpeed="2.50" arrival="1343.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.817" depart="1273.00" departLane="1" departPos="0.00" departSpeed="2.50" arrival="1339.00">
+    <vehicle id="high.782" depart="1235.00" departLane="0" departPos="0.00" departSpeed="3.42" arrival="1344.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.789" depart="1245.00" departLane="0" departPos="0.00" departSpeed="2.35" arrival="1340.00">
+    <vehicle id="high.817" depart="1275.00" departLane="1" departPos="0.00" departSpeed="2.50" arrival="1347.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.816" depart="1275.00" departLane="1" departPos="0.00" departSpeed="2.50" arrival="1342.00">
+    <vehicle id="high.784" depart="1238.00" departLane="0" departPos="0.00" departSpeed="0.13" arrival="1348.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.793" depart="1247.00" departLane="1" departPos="0.00" departSpeed="5.24" arrival="1343.00">
+    <vehicle id="high.818" depart="1277.00" departLane="1" departPos="0.00" departSpeed="2.50" arrival="1351.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.818" depart="1277.00" departLane="1" departPos="0.00" departSpeed="2.50" arrival="1346.00">
+    <vehicle id="high.786" depart="1241.00" departLane="0" departPos="0.00" departSpeed="1.51" arrival="1352.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.819" depart="1290.00" departLane="1" departPos="0.00" departSpeed="0.44" arrival="1348.00">
+    <vehicle id="high.821" depart="1279.00" departLane="1" departPos="0.00" departSpeed="2.50" arrival="1354.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.827" depart="1293.00" departLane="1" departPos="0.00" departSpeed="0.58" arrival="1350.00">
+    <vehicle id="high.791" depart="1244.00" departLane="0" departPos="0.00" departSpeed="5.76" arrival="1355.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.825" depart="1296.00" departLane="1" departPos="0.00" departSpeed="3.31" arrival="1352.00">
+    <vehicle id="high.822" depart="1297.00" departLane="1" departPos="0.00" departSpeed="0.06" arrival="1357.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.824" depart="1298.00" departLane="1" departPos="0.00" departSpeed="3.14" arrival="1353.00">
+    <vehicle id="high.826" depart="1300.00" departLane="1" departPos="0.00" departSpeed="1.22" arrival="1358.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.828" depart="1300.00" departLane="1" departPos="0.00" departSpeed="2.61" arrival="1355.00">
+    <vehicle id="high.829" depart="1303.00" departLane="1" departPos="0.00" departSpeed="5.19" arrival="1360.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.794" depart="1249.00" departLane="1" departPos="0.00" departSpeed="6.71" arrival="1356.00">
+    <vehicle id="high.823" depart="1281.00" departLane="1" departPos="0.00" departSpeed="2.25" arrival="1362.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.822" depart="1302.00" departLane="1" departPos="0.00" departSpeed="1.04" arrival="1358.00">
+    <vehicle id="high.793" depart="1246.00" departLane="0" departPos="0.00" departSpeed="5.11" arrival="1364.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.840" depart="1309.00" departLane="1" departPos="23.67" departSpeed="16.64" arrival="1361.00">
+    <vehicle id="high.830" depart="1305.00" departLane="1" departPos="0.00" departSpeed="6.64" arrival="1365.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.799" depart="1251.00" departLane="0" departPos="19.22" departSpeed="6.70" arrival="1362.00">
+    <vehicle id="high.828" depart="1307.00" departLane="1" departPos="0.00" departSpeed="8.92" arrival="1367.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.829" depart="1307.00" departLane="1" departPos="0.00" departSpeed="6.10" arrival="1365.00">
+    <vehicle id="high.797" depart="1249.00" departLane="1" departPos="0.00" departSpeed="6.39" arrival="1369.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.838" depart="1315.00" departLane="1" departPos="26.17" departSpeed="20.42" arrival="1366.00">
+    <vehicle id="high.833" depart="1308.00" departLane="1" departPos="0.00" departSpeed="5.17" arrival="1370.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.841" depart="1316.00" departLane="1" departPos="18.42" departSpeed="20.68" arrival="1368.00">
+    <vehicle id="high.831" depart="1310.00" departLane="1" departPos="0.00" departSpeed="6.44" arrival="1372.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.798" depart="1248.00" departLane="0" departPos="0.00" departSpeed="6.88" arrival="1370.00">
+    <vehicle id="high.834" depart="1312.00" departLane="1" departPos="0.00" departSpeed="4.48" arrival="1374.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.796" depart="1251.00" departLane="0" departPos="0.00" departSpeed="2.94" arrival="1372.00">
+    <vehicle id="high.835" depart="1314.00" departLane="1" departPos="0.00" departSpeed="5.57" arrival="1376.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.844" depart="1318.00" departLane="1" departPos="23.70" departSpeed="20.66" arrival="1373.00">
+    <vehicle id="high.836" depart="1316.00" departLane="1" departPos="0.00" departSpeed="7.21" arrival="1378.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.797" depart="1254.00" departLane="0" departPos="0.00" departSpeed="5.54" arrival="1375.00">
+    <vehicle id="high.803" depart="1255.00" departLane="0" departPos="28.78" departSpeed="8.06" arrival="1380.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.842" depart="1319.00" departLane="1" departPos="16.20" departSpeed="22.25" arrival="1377.00">
+    <vehicle id="high.839" depart="1318.00" departLane="1" departPos="0.00" departSpeed="9.71" arrival="1382.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.803" depart="1257.00" departLane="0" departPos="0.00" departSpeed="3.06" arrival="1378.00">
+    <vehicle id="high.844" depart="1322.00" departLane="1" departPos="23.14" departSpeed="11.74" arrival="1384.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.839" depart="1316.00" departLane="1" departPos="0.00" departSpeed="0.36" arrival="1381.00">
+    <vehicle id="high.845" depart="1323.00" departLane="1" departPos="15.63" departSpeed="11.88" arrival="1386.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.807" depart="1260.00" departLane="0" departPos="0.00" departSpeed="2.50" arrival="1382.00">
+    <vehicle id="high.843" depart="1321.00" departLane="1" departPos="0.00" departSpeed="3.18" arrival="1388.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.846" depart="1320.00" departLane="1" departPos="0.00" departSpeed="4.96" arrival="1385.00">
+    <vehicle id="high.849" depart="1324.00" departLane="1" departPos="0.00" departSpeed="3.66" arrival="1389.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.805" depart="1263.00" departLane="0" departPos="0.00" departSpeed="0.63" arrival="1386.00">
+    <vehicle id="high.798" depart="1252.00" departLane="1" departPos="0.00" departSpeed="4.68" arrival="1391.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.848" depart="1322.00" departLane="1" departPos="0.00" departSpeed="6.29" arrival="1388.00">
+    <vehicle id="high.852" depart="1326.00" departLane="1" departPos="0.00" departSpeed="4.18" arrival="1394.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.834" depart="1313.00" departLane="1" departPos="17.15" departSpeed="15.22" arrival="1389.00">
+    <vehicle id="high.851" depart="1330.00" departLane="1" departPos="12.04" departSpeed="10.39" arrival="1395.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.845" depart="1324.00" departLane="1" departPos="0.00" departSpeed="8.28" arrival="1392.00">
+    <vehicle id="high.854" depart="1333.00" departLane="1" departPos="22.27" departSpeed="12.54" arrival="1397.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.812" depart="1268.00" departLane="0" departPos="0.00" departSpeed="2.50" arrival="1393.00">
+    <vehicle id="high.795" depart="1248.00" departLane="0" departPos="0.00" departSpeed="3.57" arrival="1399.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.856" depart="1328.00" departLane="1" departPos="16.00" departSpeed="15.24" arrival="1396.00">
+    <vehicle id="high.847" depart="1327.00" departLane="0" departPos="0.00" departSpeed="0.13" arrival="1400.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.814" depart="1271.00" departLane="0" departPos="0.00" departSpeed="2.50" arrival="1397.00">
+    <vehicle id="high.850" depart="1332.00" departLane="1" departPos="0.00" departSpeed="0.11" arrival="1402.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.850" depart="1330.00" departLane="1" departPos="20.56" departSpeed="13.08" arrival="1399.00">
+    <vehicle id="high.853" depart="1336.00" departLane="1" departPos="0.00" departSpeed="1.91" arrival="1404.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.821" depart="1290.00" departLane="0" departPos="0.00" departSpeed="1.27" arrival="1401.00">
+    <vehicle id="high.801" depart="1250.00" departLane="0" departPos="0.00" departSpeed="0.67" arrival="1406.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.853" depart="1328.00" departLane="1" departPos="0.00" departSpeed="0.26" arrival="1403.00">
+    <vehicle id="high.859" depart="1339.00" departLane="1" departPos="0.00" departSpeed="3.22" arrival="1408.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.852" depart="1332.00" departLane="1" departPos="0.00" departSpeed="1.26" arrival="1404.00">
+    <vehicle id="high.860" depart="1341.00" departLane="1" departPos="0.00" departSpeed="3.16" arrival="1410.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.857" depart="1335.00" departLane="1" departPos="0.00" departSpeed="2.50" arrival="1406.00">
+    <vehicle id="high.861" depart="1343.00" departLane="1" departPos="0.00" departSpeed="2.50" arrival="1412.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.849" depart="1325.00" departLane="1" departPos="0.00" departSpeed="4.53" arrival="1408.00">
+    <vehicle id="high.800" depart="1255.00" departLane="0" departPos="0.00" departSpeed="0.70" arrival="1414.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.855" depart="1337.00" departLane="1" departPos="0.00" departSpeed="2.50" arrival="1410.00">
+    <vehicle id="high.864" depart="1345.00" departLane="1" departPos="0.00" departSpeed="2.50" arrival="1416.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.820" depart="1297.00" departLane="0" departPos="0.00" departSpeed="1.38" arrival="1412.00">
+    <vehicle id="high.857" depart="1340.00" departLane="0" departPos="0.00" departSpeed="0.60" arrival="1418.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.854" depart="1339.00" departLane="1" departPos="0.00" departSpeed="2.50" arrival="1414.00">
+    <vehicle id="high.858" depart="1350.00" departLane="1" departPos="0.00" departSpeed="0.07" arrival="1420.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.859" depart="1341.00" departLane="1" departPos="0.00" departSpeed="2.50" arrival="1416.00">
+    <vehicle id="high.866" depart="1370.00" departLane="1" departPos="0.00" departSpeed="0.04" arrival="1422.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.860" depart="1356.00" departLane="1" departPos="0.00" departSpeed="1.03" arrival="1418.00">
+    <vehicle id="high.863" depart="1373.00" departLane="1" departPos="0.00" departSpeed="1.15" arrival="1423.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.823" depart="1301.00" departLane="0" departPos="0.00" departSpeed="3.64" arrival="1419.00">
+    <vehicle id="high.807" depart="1258.00" departLane="0" departPos="0.00" departSpeed="2.12" arrival="1426.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.861" depart="1359.00" departLane="1" departPos="0.00" departSpeed="4.81" arrival="1421.00">
+    <vehicle id="high.867" depart="1376.00" departLane="1" departPos="0.00" departSpeed="5.06" arrival="1427.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.836" depart="1303.00" departLane="0" departPos="0.00" departSpeed="1.01" arrival="1423.00">
+    <vehicle id="high.869" depart="1378.00" departLane="1" departPos="0.00" departSpeed="6.41" arrival="1430.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.862" depart="1355.00" departLane="0" departPos="0.00" departSpeed="0.16" arrival="1425.00">
+    <vehicle id="high.875" depart="1380.00" departLane="1" departPos="0.00" departSpeed="8.51" arrival="1431.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.864" depart="1363.00" departLane="1" departPos="0.00" departSpeed="4.74" arrival="1427.00">
+    <vehicle id="high.873" depart="1384.00" departLane="1" departPos="16.93" departSpeed="9.06" arrival="1432.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.826" depart="1305.00" departLane="1" departPos="0.00" departSpeed="4.83" arrival="1429.00">
+    <vehicle id="high.876" depart="1386.00" departLane="1" departPos="15.51" departSpeed="11.09" arrival="1435.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.865" depart="1365.00" departLane="1" departPos="0.00" departSpeed="5.95" arrival="1431.00">
+    <vehicle id="high.811" depart="1263.00" departLane="1" departPos="0.00" departSpeed="4.98" arrival="1436.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
-    <vehicle id="high.830" depart="1306.00" departLane="0" departPos="0.00" departSpeed="3.24" arrival="1433.00">
-        <route edges="start middle jam bottleneck end"/>
-    </vehicle>
-
-    <vehicle id="high.832" depart="1309.00" departLane="1" departPos="0.00" departSpeed="3.75" arrival="1434.00">
-        <route edges="start middle jam bottleneck end"/>
-    </vehicle>
-
-    <vehicle id="high.869" depart="1367.00" departLane="1" departPos="0.00" departSpeed="7.78" arrival="1436.00">
-        <route edges="start middle jam bottleneck end"/>
-    </vehicle>
-
-    <vehicle id="high.833" depart="1311.00" departLane="1" departPos="0.00" departSpeed="4.44" arrival="1437.00">
+    <vehicle id="high.878" depart="1383.00" departLane="1" departPos="0.00" departSpeed="0.08" arrival="1439.00">
         <route edges="start middle jam bottleneck end"/>
     </vehicle>
 
