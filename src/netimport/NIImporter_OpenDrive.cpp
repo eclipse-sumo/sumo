@@ -1124,6 +1124,7 @@ NIImporter_OpenDrive::geomFromSpiral(const OpenDriveEdge& e, const OpenDriveGeom
         if (cDot == 0 || g.length == 0) {
             WRITE_WARNING("Could not compute spiral geometry for edge '" + e.id + "' (cDot=" + toString(cDot) + " length=" + toString(g.length) + ").");
             ret.push_back(Position(g.x, g.y));
+            return ret;
         }
         double sStart = curveStart / cDot;
         double sEnd = curveEnd / cDot;
