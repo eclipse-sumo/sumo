@@ -43,14 +43,14 @@ def run():
     """execute the TraCI control loop"""
 
     # Keep follower behind the ToC_vehicle
-    traci.vehicle.changeLane("follower", 0, 200000)
+    traci.vehicle.changeLane("follower", 0, 200)
 
     step = 0
     while step < 500:
         traci.simulationStep()
         if step == 10:
             requestToC(ToC_vehicle, timeTillMRM)
-            t = traci.simulation.getCurrentTime() / 1000.
+            t = traci.simulation.getTime()
             print("Requested ToC of veh0 at t=%s (until t=%s)" % (t, t + timeTillMRM))
         printToCParams(ToC_vehicle, True)
         step += 1
