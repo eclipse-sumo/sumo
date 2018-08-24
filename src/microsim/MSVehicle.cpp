@@ -2552,7 +2552,7 @@ MSVehicle::processLinkAproaches(double& vSafe, double& vSafeMin, double& vSafeMi
             if (opened && !influencerPrio && !link->havePriority() && !link->lastWasContMajor() && !link->isCont() && !ignoreRedLink) {
                 double visibilityDistance = link->getFoeVisibilityDistance();
                 double determinedFoePresence = i->myDistance <= visibilityDistance;
-                if (!determinedFoePresence) {
+                if (!determinedFoePresence && (canBrake || !yellow)) {
                     vSafe = (*i).myVLinkWait;
                     myHaveToWaitOnNextLink = true;
 #ifdef DEBUG_CHECKREWINDLINKLANES
