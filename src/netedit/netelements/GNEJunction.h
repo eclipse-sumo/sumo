@@ -267,6 +267,9 @@ private:
     /// @brief A reference to the represented junction
     NBNode& myNBNode;
 
+    /// @brief junction boundary
+    Boundary myJunctionBoundary;
+
     /// @brief vector with the GNEEdges vinculated with this junction
     std::vector<GNEEdge*> myGNEEdges;
 
@@ -278,8 +281,6 @@ private:
 
     /// @brief The maximum size (in either x-, or y-dimension) for determining whether to draw or not
     double myMaxSize;
-
-    Boundary myJunctionBoundary;
 
     /// @brief whether this junction is the first junction for a newly creatededge
     /// @see GNEApplicationWindow::createEdgeSource)

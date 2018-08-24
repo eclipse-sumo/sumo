@@ -231,8 +231,8 @@ protected:
     /// @brief The Edge that to which this lane belongs
     GNEEdge& myParentEdge;
 
-    /// @brief variable used to save shape bevore moving (used to avoid inconsistences in GL Tree)
-    PositionVector myMovingShape;
+    /// @brief boundary used during moving of elements
+    Boundary myMovingGeometryBoundary;
 
     /// @brief The index of this lane
     int myIndex;

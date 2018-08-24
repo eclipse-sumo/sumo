@@ -212,17 +212,17 @@ GNEEdge::commitShapeEndChange(const Position& oldPos, GNEUndoList* undoList) {
 
 void 
 GNEEdge::startGeometryMoving() {
-    // Save boundary
-    myBoundary = getCenteringBoundary();
-    // Save current shape of lanes (and their childs)
+    // save current centering boundary
+    myMovingGeometryBoundary = getCenteringBoundary();
+    // Save current centering boundary of lanes (and their childs)
     for (auto i : myLanes) {
         i->startGeometryMoving();
     }
-    // Save current shape of additionals childs vinculated to this edge
+    // Save current centering boundary of additionals childs vinculated to this edge
     for (auto i : myAdditionalChilds) {
         i->startGeometryMoving();
     }
-    // Save current shape of additional parents that have this edge as parent
+    // Save current centering boundary of additional parents that have this edge as parent
     for (auto i : myFirstAdditionalParents) {
         i->startGeometryMoving();
     }
@@ -231,23 +231,29 @@ GNEEdge::startGeometryMoving() {
 
 void 
 GNEEdge::endGeometryMoving() {
-    // last step is to check if object has to be added into grid (SUMOTree) again
-    myNet->removeGLObjectFromGrid(this);
-    myBoundary.reset();
-    updateGeometry(false);
-    // Save current shape of lanes (and their childs)
-    for (auto i : myLanes) {
-        i->endGeometryMoving();
+    // check that endGeometryMoving was called only once
+    if(myMovingGeometryBoundary.isInitialised()) {
+        // Remove object from net 
+        myNet->removeGLObjectFromGrid(this);
+        // reset myMovingGeometryBoundary
+        myMovingGeometryBoundary.reset();
+        // update geometry without updating grid
+        updateGeometry(false);
+        // Restore centering boundary of lanes (and their childs)
+        for (auto i : myLanes) {
+            i->endGeometryMoving();
+        }
+        // Restore centering boundary of additionals childs vinculated to this edge
+        for (auto i : myAdditionalChilds) {
+            i->endGeometryMoving();
+        }
+        // Restore centering boundary of additional parents that have this edge as parent
+        for (auto i : myFirstAdditionalParents) {
+            i->endGeometryMoving();
+        }
+        // add object into grid again (using the new centering boundary)
+        myNet->addGLObjectIntoGrid(this);
     }
-    // Save shape of additionals childs vinculated to this edge
-    for (auto i : myAdditionalChilds) {
-        i->endGeometryMoving();
-    }
-    // Save shape of additional parents that have this edge as parent
-    for (auto i : myFirstAdditionalParents) {
-        i->endGeometryMoving();
-    }
-    myNet->addGLObjectIntoGrid(this);
 }
 
 
@@ -411,8 +417,9 @@ GNEEdge::getBoundary() const {
 
 Boundary
 GNEEdge::getCenteringBoundary() const {
-    if(myBoundary.WasInitialised()) {
-        return myBoundary; 
+    // Return Boundary depending if myMovingGeometryBoundary is initialised (important for move geometry)
+    if(myMovingGeometryBoundary.isInitialised()) {
+        return myMovingGeometryBoundary; 
     }  else {
         Boundary b = getBoundary();
         b.grow(20);
@@ -597,7 +604,6 @@ GNEEdge::getSplitPos(const Position& clickPos) {
 
 void
 GNEEdge::editEndpoint(Position pos, GNEUndoList* undoList) {
-
     if ((myNBEdge.getGeometry().front() != myGNEJunctionSource->getPositionInView()) && (myNBEdge.getGeometry().front().distanceTo(pos) < SNAP_RADIUS)) {
         undoList->p_begin("remove endpoint");
         setAttribute(GNE_ATTR_SHAPE_START, "", undoList);

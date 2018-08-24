@@ -602,13 +602,10 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 
 Boundary
 GNELane::getCenteringBoundary() const {
-    if(myBoundary.WasInitialised()) {
-        return myBoundary; 
-    }  else {
-        Boundary b = getShape().getBoxBoundary();
-        b.grow(10);
-        return b;
-    }
+    // Lanes don't use myMovingGeometryBoundary
+    Boundary b = getShape().getBoxBoundary();
+    b.grow(10);
+    return b;
 }
 
 
@@ -1299,20 +1296,16 @@ GNELane::getLengthGeometryFactor() const {
 
 void 
 GNELane::startGeometryMoving() {
-    // save current lane's shape
-    myMovingShape = myParentEdge.getNBEdge()->getLaneStruct(myIndex).shape;
-    if(myMovingShape.size() == 0) {
-        throw ProcessError("Moving Shape is empty");
-    }
-    // Save current shape of additional childs
+    // Lanes don't need to save the current Centering Boundary, due they are parts of an Edge
+    // Save current centering boundary of additional childs
     for (auto i : myAdditionalChilds) {
         i->startGeometryMoving();
     }
-    // Save current shape of additionals with this lane as chid
+    // Save current centering boundary of additionals with this lane as chid
     for (auto i : myFirstAdditionalParents) {
         i->startGeometryMoving();
     }
-    // Save current shape of POIs associated to this lane
+    // Save current centering boundary of POIs associated to this lane
     for (auto i : myShapes) {
         i->startGeometryMoving();
     }
@@ -1321,23 +1314,18 @@ GNELane::startGeometryMoving() {
 
 void 
 GNELane::endGeometryMoving() {
-    // restore shape
-    if(myMovingShape.size() == 0) {
-        throw ProcessError("Moving Shape is empty");
-    } else {
-        myParentEdge.getNBEdge()->getLaneStruct(myIndex).shape = myMovingShape;
-        // restore shape of additionals with this lane as chid
-        for (auto i : myAdditionalChilds) {
-            i->endGeometryMoving();
-        }
-        // Restore shape of additionals with this lane as chid
-        for (auto i : myFirstAdditionalParents) {
-            i->endGeometryMoving();
-        }
-        // Restore shape of POIs associated to this lane
-        for (auto i : myShapes) {
-            i->endGeometryMoving();
-        }
+    // Lanes don't need to save the current Centering Boundary, due they are parts of an Edge
+    // Restore centering boundary of additionals with this lane as chid
+    for (auto i : myAdditionalChilds) {
+        i->endGeometryMoving();
+    }
+    // Restore centering boundary of additionals with this lane as chid
+    for (auto i : myFirstAdditionalParents) {
+        i->endGeometryMoving();
+    }
+    // Restore centering boundary of POIs associated to this lane
+    for (auto i : myShapes) {
+        i->endGeometryMoving();
     }
 }
 

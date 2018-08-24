@@ -227,8 +227,9 @@ GNEJunction::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 
 Boundary
 GNEJunction::getCenteringBoundary() const {
-    if(myBoundary.WasInitialised()) {
-        return myBoundary;
+    // Return Boundary depending if myMovingGeometryBoundary is initialised (important for move geometry)
+    if(myMovingGeometryBoundary.isInitialised()) {
+        return myMovingGeometryBoundary;
     } else {
         Boundary b = myJunctionBoundary;
         b.grow(20);
@@ -475,8 +476,8 @@ GNEJunction::selectTLS(bool selected) {
 
 void 
 GNEJunction::startGeometryMoving(bool extendToNeighbors) {
-    // Save boundary
-    myBoundary = getCenteringBoundary();
+    // save current centering boundary
+    myMovingGeometryBoundary = getCenteringBoundary();
     // First declare three sets with all affected GNEJunctions, GNEEdges and GNEConnections
     std::set<GNEJunction*> affectedJunctions;
     std::set<GNEEdge*> affectedEdges;
@@ -497,6 +498,7 @@ GNEJunction::startGeometryMoving(bool extendToNeighbors) {
     // Iterate over affected Junctions only if extendToNeighbors is enabled
     if(extendToNeighbors) {
         for (auto i : affectedJunctions) {
+            // don't include this junction (to avoid start more than one times)
             if( i != this) {
                 // start geometry moving in edges
                 i->startGeometryMoving(false);
@@ -513,9 +515,11 @@ GNEJunction::startGeometryMoving(bool extendToNeighbors) {
 
 void 
 GNEJunction::endGeometryMoving(bool extendToNeighbors) {
-    // last step is to check if object has to be added into grid (SUMOTree) again
+    // Remove object from net 
     myNet->removeGLObjectFromGrid(this);
-    myBoundary.reset();
+    // reset myMovingGeometryBoundary
+    myMovingGeometryBoundary.reset();
+    // update geometry without updating grid
     updateGeometry(false);
     // First declare three sets with all affected GNEJunctions, GNEEdges and GNEConnections
     std::set<GNEJunction*> affectedJunctions;
@@ -537,6 +541,7 @@ GNEJunction::endGeometryMoving(bool extendToNeighbors) {
     // Iterate over affected Junctions
     if(extendToNeighbors) {
         for (auto i : affectedJunctions) {
+            // don't include this junction (to avoid end it more than one times)
             if (i != this) {
                 // end geometry moving in edges
                 i->endGeometryMoving(false);
@@ -548,6 +553,7 @@ GNEJunction::endGeometryMoving(bool extendToNeighbors) {
         // end geometry moving in edges
         i->endGeometryMoving();
     }
+    // add object into grid again (using the new centering boundary)
     myNet->addGLObjectIntoGrid(this);
 }
 

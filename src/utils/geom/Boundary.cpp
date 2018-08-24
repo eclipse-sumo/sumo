@@ -214,7 +214,7 @@ Boundary::crosses(const Position& p1, const Position& p2) const {
 
 
 bool 
-Boundary::WasInitialised() const {
+Boundary::isInitialised() const {
     return myWasInitialised;
 }
 

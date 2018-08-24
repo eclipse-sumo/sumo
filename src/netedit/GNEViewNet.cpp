@@ -922,6 +922,7 @@ GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
         myMovedItems.poiToMove->commitGeometryMoving(myMoveSingleElementValues.movingOriginalPosition, myUndoList);
         myMovedItems.poiToMove = 0;
     } else if (myMovedItems.junctionToMove) {
+        // finish Junction movement
         myMovedItems.junctionToMove->endGeometryMoving();
         // position is already up to date but we must register with myUndoList
         if (!mergeJunctions(myMovedItems.junctionToMove, myMoveSingleElementValues.movingOriginalPosition)) {

@@ -315,7 +315,8 @@ protected:
      */
     PositionVector myShape;
 
-    Boundary myBoundary;
+    /// @brief boundary used during moving of elements
+    Boundary myMovingGeometryBoundary;
 
     /// @brief name of additional
     std::string myAdditionalName;

@@ -64,7 +64,8 @@ GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlOb
     myBlockMovement(blockMovement),
     myFirstAdditionalParent(nullptr),
     mySecondAdditionalParent(nullptr),
-    myBlockIconRotation(0.) {
+    myBlockIconRotation(0.),
+    myMovingGeometryBoundary() {
 }
 
 
@@ -223,19 +224,24 @@ GNEAdditional::openAdditionalDialog() {
 
 void 
 GNEAdditional::startGeometryMoving() {
-    // save current shape (used for boundary)
-    myBoundary = getCenteringBoundary();
+    // save current centering boundary
+    myMovingGeometryBoundary = getCenteringBoundary();
 }
 
 
 void 
 GNEAdditional::endGeometryMoving() {
-    // last step is to check if object has to be added into grid (SUMOTree) again
-    myViewNet->getNet()->removeGLObjectFromGrid(this);
-    myBoundary.reset();
-    updateGeometry(false);
-    // last step is to check if object has to be added into grid (SUMOTree) again
-    myViewNet->getNet()->addGLObjectIntoGrid(this);
+    // check that endGeometryMoving was called only once
+    if(myMovingGeometryBoundary.isInitialised()) {
+        // Remove object from net 
+        myViewNet->getNet()->removeGLObjectFromGrid(this);
+        // reset myMovingGeometryBoundary
+        myMovingGeometryBoundary.reset();
+        // update geometry without updating grid
+        updateGeometry(false);
+        // add object into grid again (using the new centering boundary)
+        myViewNet->getNet()->addGLObjectIntoGrid(this);
+    }
 }
 
 
@@ -553,9 +559,9 @@ GNEAdditional::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
 
 Boundary
 GNEAdditional::getCenteringBoundary() const {
-    // Return Boundary depending of myBoundary
-    if(myBoundary.WasInitialised()) {
-        return myBoundary;
+    // Return Boundary depending if myMovingGeometryBoundary is initialised (important for move geometry)
+    if(myMovingGeometryBoundary.isInitialised()) {
+        return myMovingGeometryBoundary;
     } else if (myShape.size() > 0) {
         Boundary b = myShape.getBoxBoundary();
         b.grow(20);

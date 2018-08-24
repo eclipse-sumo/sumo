@@ -339,9 +339,6 @@ protected:
     std::string myConnectionStatus;
 
 private:
-    /// @brief The represented junction's boundary
-    Boundary myBoundary;
-
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
