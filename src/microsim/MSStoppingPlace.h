@@ -29,6 +29,7 @@
 #include <map>
 #include <string>
 #include <utils/common/Named.h>
+#include <utils/vehicle/FareToken.h>
 
 
 // ===========================================================================
@@ -75,8 +76,8 @@ public:
                     const std::vector<std::string>& lines, MSLane& lane,
                     double begPos, double endPos,
                     const std::string name = "",
-                    char fareToken = '\0',
-                    char startToken = '\0',
+                    FareToken fareToken = FareToken::None,
+                    FareToken startToken = FareToken::None,
                     int fareZone = 0);
 
 
@@ -196,7 +197,18 @@ public:
 
     /// @brief the distance from the access on the given edge to the stop, -1 on failure
     double getAccessDistance(const MSEdge* edge) const;
-
+    
+    /// @brief Returns fare token that is used for starting a public transport trip at this station
+    FareToken getStartToken() const;
+    
+    /// @brief Returns fare token that can be collected at this station
+    FareToken  getCollectToken() const;
+    
+    /// @brief returns this stations fare zone
+    int getFareZone() const;
+    
+    
+    
 protected:
     /** @brief Computes the last free position on this stop
      *
@@ -233,9 +245,9 @@ protected:
     const std::string myName;
     
     ///@brief The fare token that can be collected at this stop
-    const char myFareToken;
+    const FareToken myFareToken;
     ///@brief The fare token used when starting public transport at this stop
-    const char myStartToken;
+    const FareToken myStartToken;
     ///@brief Fare zone of this stop
     const int myFareZone;
     

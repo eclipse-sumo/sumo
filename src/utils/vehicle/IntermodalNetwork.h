@@ -406,10 +406,17 @@ public:
     * @param[in] pos The relative position on the edge where the stop is located
     * @param[in] category The type of stop
     */
-    void addAccess(const std::string& stopId, const E* stopEdge, const double pos, const double length, const SumoXMLTag category) {
+    void addAccess(const std::string& stopId,
+                   const E* stopEdge,
+                   const double pos,
+                   const double length,
+                   const SumoXMLTag category,
+                   const FareToken startToken = FareToken::None,
+                   const FareToken collectToken = FareToken::None,
+                   int fareZone = 0) {
         assert(stopEdge != 0);
         if (myStopConnections.count(stopId) == 0) {
-            myStopConnections[stopId] = new StopEdge<E, L, N, V>(stopId, myNumericalID++, stopEdge);
+            myStopConnections[stopId] = new StopEdge<E, L, N, V>(stopId, myNumericalID++, stopEdge,fareZone,collectToken,startToken);
             addEdge(myStopConnections[stopId]);
         }
         _IntermodalEdge* const stopConn = myStopConnections[stopId];

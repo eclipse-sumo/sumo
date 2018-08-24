@@ -29,6 +29,7 @@
 #include <vector>
 #include <utils/common/ValueTimeLine.h>
 #include "IntermodalTrip.h"
+#include "FareToken.h"
 
 
 // ===========================================================================
@@ -135,6 +136,20 @@ public:
     virtual bool hasEffort() const {
         return myEfforts != nullptr;
     }
+    
+    
+    virtual int getFareZone() const {
+        return 0;
+    }
+
+    virtual FareToken getFareToken() const {
+        return FareToken ::None;
+    }
+
+    virtual FareToken getStartToken() const {
+     return FareToken ::None ;
+    }
+
 
 protected:
     /// @brief List of edges that may be approached from this edge
