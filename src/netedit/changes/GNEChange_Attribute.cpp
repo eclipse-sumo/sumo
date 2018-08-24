@@ -130,10 +130,6 @@ GNEChange_Attribute::undo() {
         } else if (myShape) {
             myNet->requiereSaveShapes(true);
         }
-    } else {
-        // update lockGL object types
-        myNet->getViewNet()->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->updateLockGLObjectTypes();
-        myNet->getViewNet()->update();
     }
 }
 
@@ -153,10 +149,6 @@ GNEChange_Attribute::redo() {
         } else if (myShape) {
             myNet->requiereSaveShapes(true);
         }
-    } else {
-        // update lockGL object types
-        myNet->getViewNet()->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->updateLockGLObjectTypes();
-        myNet->getViewNet()->update();
     }
 }
 
