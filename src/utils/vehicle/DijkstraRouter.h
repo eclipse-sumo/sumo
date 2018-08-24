@@ -183,6 +183,9 @@ public:
             fromInfo->effort = 0;
             fromInfo->prev = 0;
             fromInfo->leaveTime = STEPS2TIME(msTime);
+            if( myExternalEffort != nullptr ){
+              myExternalEffort->setInitialState(fromInfo->edge);
+            }
             myFrontierList.push_back(fromInfo);
         }
         // loop
