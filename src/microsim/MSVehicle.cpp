@@ -1096,6 +1096,10 @@ MSVehicle::computeAngle() const {
         // Handle special case of vehicle's back reaching out of the network
         if (myFurtherLanes.size() > 0) {
             p2 = myFurtherLanes.back()->geometryPositionAtOffset(0, -myFurtherLanesPosLat.back());
+            if (p2 == Position::INVALID) {
+                // unsuitable lane geometry
+                p2 = myLane->geometryPositionAtOffset(0, posLat);
+            }
         } else {
             p2 = myLane->geometryPositionAtOffset(0, posLat);
         }
