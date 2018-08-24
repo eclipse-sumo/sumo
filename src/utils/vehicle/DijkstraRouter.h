@@ -224,12 +224,12 @@ public:
                 effort += viaEffortDelta;
                 viaEdge = viaEdge->getViaSuccessors().front().first;
             }
+            if (myExternalEffort != nullptr && num_visited > 1 ) {
+              myExternalEffort->update(minEdge, minimumInfo->prev->edge);
+            }
             const double effortDelta = this->getEffort(minEdge, vehicle, leaveTime);
             leaveTime += this->getTravelTime(minEdge, vehicle, minimumInfo->leaveTime, effortDelta);
             effort += effortDelta;
-            if (myExternalEffort != nullptr && num_visited > 1 ) {
-                myExternalEffort->update(minEdge, minimumInfo->prev->edge);
-            }
             assert(effort >= minimumInfo->effort);
             assert(leaveTime >= minimumInfo->leaveTime);
             // check all ways from the node with the minimal length

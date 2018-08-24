@@ -361,7 +361,7 @@
         <xsd:attribute name="lines" type="xsd:string" use="optional"/>
         <xsd:attribute name="fareZone" type="xsd:int" use="optional"/>
         <xsd:attribute name="fareToken" type="xsd:string" use="optional"/>
-        <xsd:attribute name="startFare" type="xsd:string" use="optional"/>
+        <xsd:attribute name="startToken" type="xsd:string" use="optional"/>
     </xsd:complexType>
     
     <xsd:complexType name="containerStopType">
