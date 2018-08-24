@@ -204,6 +204,10 @@ public:
 #endif
             // check whether the destination node was already reached
             if (minEdge == to) {
+              //propagate last external effort state to destination edge
+              if (myExternalEffort != nullptr  ) {
+                myExternalEffort->update(minEdge, minimumInfo->prev->edge);
+              }
                 buildPathFrom(minimumInfo, into);
                 this->endQuery(num_visited);
 #ifdef DijkstraRouter_DEBUG_QUERY_PERF
