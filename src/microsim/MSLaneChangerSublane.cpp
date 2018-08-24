@@ -337,6 +337,13 @@ MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, do
     // (should happen last because primaryLaneChanged() also triggers angle computation)
     // this part of the angle comes from the orientation of our current lane
     double laneAngle = vehicle->getLane()->getShape().rotationAtOffset(vehicle->getLane()->interpolateLanePosToGeometryPos(vehicle->getPositionOnLane())) ;
+    if (vehicle->getLane()->getShape().length2D() == 0) {
+        if (vehicle->getFurtherLanes().size() == 0) {
+            laneAngle = vehicle->getAngle();
+        } else {
+            laneAngle = vehicle->getFurtherLanes().front()->getShape().rotationAtOffset(-NUMERICAL_EPS);
+        }
+    }
     // this part of the angle comes from the vehicle's lateral movement
     double changeAngle = 0;
     // avoid flicker
