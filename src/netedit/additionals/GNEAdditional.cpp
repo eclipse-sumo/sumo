@@ -224,19 +224,18 @@ GNEAdditional::openAdditionalDialog() {
 void 
 GNEAdditional::startGeometryMoving() {
     // save current shape (used for boundary)
-    myMovingShape = myShape;
+    myBoundary = getCenteringBoundary();
 }
 
 
 void 
 GNEAdditional::endGeometryMoving() {
-    // restore additional shape (used for boundary)
-    if(myMovingShape.size() == 0) {
-        throw ProcessError("Moving Shape isn't empty");
-    } else {
-        myShape = myMovingShape;
-        myMovingShape.clear();
-    }
+    // last step is to check if object has to be added into grid (SUMOTree) again
+    myViewNet->getNet()->removeGLObjectFromGrid(this);
+    myBoundary.reset();
+    updateGeometry(false);
+    // last step is to check if object has to be added into grid (SUMOTree) again
+    myViewNet->getNet()->addGLObjectIntoGrid(this);
 }
 
 
@@ -554,8 +553,10 @@ GNEAdditional::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
 
 Boundary
 GNEAdditional::getCenteringBoundary() const {
-    // Return Boundary depenpding of myShape
-    if (myShape.size() > 0) {
+    // Return Boundary depending of myBoundary
+    if(myBoundary.WasInitialised()) {
+        return myBoundary;
+    } else if (myShape.size() > 0) {
         Boundary b = myShape.getBoxBoundary();
         b.grow(20);
         return b;

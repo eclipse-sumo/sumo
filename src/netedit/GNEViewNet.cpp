@@ -703,6 +703,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                         beginMoveSelection(myObjectsUnderCursor.junction, getPositionInformation());
                     } else {
                         myMovedItems.junctionToMove = myObjectsUnderCursor.junction;
+                        myMovedItems.junctionToMove->startGeometryMoving();
                     }
                     // Save original Position of Element
                     myMoveSingleElementValues.movingOriginalPosition = myObjectsUnderCursor.junction->getPositionInView();
@@ -921,6 +922,7 @@ GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
         myMovedItems.poiToMove->commitGeometryMoving(myMoveSingleElementValues.movingOriginalPosition, myUndoList);
         myMovedItems.poiToMove = 0;
     } else if (myMovedItems.junctionToMove) {
+        myMovedItems.junctionToMove->endGeometryMoving();
         // position is already up to date but we must register with myUndoList
         if (!mergeJunctions(myMovedItems.junctionToMove, myMoveSingleElementValues.movingOriginalPosition)) {
             myMovedItems.junctionToMove->commitGeometryMoving(myMoveSingleElementValues.movingOriginalPosition, myUndoList);
@@ -938,6 +940,7 @@ GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
         }
         myMovedItems.edgeToMove = 0;
     } else if (myMovedItems.additionalToMove) {
+        myMovedItems.additionalToMove->endGeometryMoving();
         myMovedItems.additionalToMove->commitGeometryMoving(myMoveSingleElementValues.movingOriginalPosition, myUndoList);
         myMovedItems.additionalToMove = 0;
     } else if (mySelectingArea.selectingUsingRectangle) {

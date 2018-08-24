@@ -145,10 +145,10 @@ public:
     /// @{
 
     /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with problems with GL Tree)
-    void startGeometryMoving();
+    void startGeometryMoving(bool extendToNeighbors = true);
 
     /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with problems with GL Tree)
-    void endGeometryMoving();
+    void endGeometryMoving(bool extendToNeighbors = true);
 
     /**@brief change the position of the element geometry without saving in undoList
     * @param[in] oldPos old position before start moving
@@ -279,11 +279,7 @@ private:
     /// @brief The maximum size (in either x-, or y-dimension) for determining whether to draw or not
     double myMaxSize;
 
-    /// @brief The represented junction's boundary
-    Boundary myBoundary;
-
-    /// @brief Position used for move geometry
-    Position myMovingPosition;
+    Boundary myJunctionBoundary;
 
     /// @brief whether this junction is the first junction for a newly creatededge
     /// @see GNEApplicationWindow::createEdgeSource)

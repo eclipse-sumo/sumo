@@ -195,6 +195,8 @@ protected:
     /// @brief the net to inform about updates
     GNENet* myNet;
 
+    Boundary myBoundary;
+
     /// @brief flag to block movement
     bool myBlockMovement;
 

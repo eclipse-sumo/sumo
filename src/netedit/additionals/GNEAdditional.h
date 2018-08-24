@@ -315,8 +315,7 @@ protected:
      */
     PositionVector myShape;
 
-    /// @brief variable used to save shape bevore moving (used to avoid inconsistences in GL Tree)
-    PositionVector myMovingShape;
+    Boundary myBoundary;
 
     /// @brief name of additional
     std::string myAdditionalName;

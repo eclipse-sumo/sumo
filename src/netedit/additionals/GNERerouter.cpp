@@ -125,8 +125,6 @@ GNERerouter::moveGeometry(const Position& oldPos, const Position& offset) {
 
 void
 GNERerouter::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
-    // restore original shape before moving (to avoid problems in GL Tree)
-    myShape = myMovingShape;
     // commit new position allowing undo/redo
     undoList->p_begin("position of " + toString(getTag()));
     undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPosition), true, toString(oldPos)));

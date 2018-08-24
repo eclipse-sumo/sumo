@@ -119,8 +119,6 @@ GNEStoppingPlace::commitGeometryMoving(const Position& oldPos, GNEUndoList* undo
     if(!myStartPosition.empty() || !myEndPosition.empty()) {
         // calculate old stopping place center
         double oldStoppingPlaceCenterOffset = myLane->getShape().nearest_offset_to_point2D(oldPos, false);
-        // restore original shape before moving (to avoid problems in GL Tree)
-        myShape = myMovingShape;
         undoList->p_begin("position of " + toString(getTag()));
         // change myStartPosition or myEndPosition depending if they are defined
         if(!myStartPosition.empty() && !myEndPosition.empty()) {

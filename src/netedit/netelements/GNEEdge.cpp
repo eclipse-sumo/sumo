@@ -212,8 +212,8 @@ GNEEdge::commitShapeEndChange(const Position& oldPos, GNEUndoList* undoList) {
 
 void 
 GNEEdge::startGeometryMoving() {
-    // Save entire edge shape
-    myMovingShape = myNBEdge.getGeometry();
+    // Save boundary
+    myBoundary = getCenteringBoundary();
     // Save current shape of lanes (and their childs)
     for (auto i : myLanes) {
         i->startGeometryMoving();
@@ -231,25 +231,23 @@ GNEEdge::startGeometryMoving() {
 
 void 
 GNEEdge::endGeometryMoving() {
-    // restore shape
-    if(myMovingShape.size() == 0) {
-        throw ProcessError("Moving Shape isn't empty");
-    } else {
-        // restore entire edge shape
-        myNBEdge.setGeometry(myMovingShape, false);
-        // Save current shape of lanes (and their childs)
-        for (auto i : myLanes) {
-            i->endGeometryMoving();
-        }
-        // Save shape of additionals childs vinculated to this edge
-        for (auto i : myAdditionalChilds) {
-            i->endGeometryMoving();
-        }
-        // Save shape of additional parents that have this edge as parent
-        for (auto i : myFirstAdditionalParents) {
-            i->endGeometryMoving();
-        }
+    // last step is to check if object has to be added into grid (SUMOTree) again
+    myNet->removeGLObjectFromGrid(this);
+    myBoundary.reset();
+    updateGeometry(false);
+    // Save current shape of lanes (and their childs)
+    for (auto i : myLanes) {
+        i->endGeometryMoving();
     }
+    // Save shape of additionals childs vinculated to this edge
+    for (auto i : myAdditionalChilds) {
+        i->endGeometryMoving();
+    }
+    // Save shape of additional parents that have this edge as parent
+    for (auto i : myFirstAdditionalParents) {
+        i->endGeometryMoving();
+    }
+    myNet->addGLObjectIntoGrid(this);
 }
 
 
@@ -383,7 +381,7 @@ GNEEdge::deleteGeometryPoint(const Position& pos, bool allowUndo) {
 
 
 void
-GNEEdge::updateJunctionPosition(GNEJunction* junction, const Position& origPos) {
+GNEEdge::updateJunctionPosition(GNEJunction* junction, const Position& origPos, bool updateGrid) {
     Position delta = junction->getNBNode()->getPosition() - origPos;
     PositionVector geom = myNBEdge.getGeometry();
     // geometry endpoint need not equal junction position hence we modify it with delta
@@ -392,7 +390,7 @@ GNEEdge::updateJunctionPosition(GNEJunction* junction, const Position& origPos) 
     } else {
         geom[-1].add(delta);
     }
-    setGeometry(geom, false, true);
+    setGeometry(geom, false, updateGrid);
 }
 
 
@@ -413,9 +411,13 @@ GNEEdge::getBoundary() const {
 
 Boundary
 GNEEdge::getCenteringBoundary() const {
-    Boundary b = getBoundary();
-    b.grow(20);
-    return b;
+    if(myBoundary.WasInitialised()) {
+        return myBoundary; 
+    }  else {
+        Boundary b = getBoundary();
+        b.grow(20);
+        return b;
+    }
 }
 
 

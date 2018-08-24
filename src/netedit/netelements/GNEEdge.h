@@ -142,7 +142,7 @@ public:
     void deleteGeometryPoint(const Position& pos, bool allowUndo = true);
 
     /// @brief update edge geometry after junction move
-    void updateJunctionPosition(GNEJunction* junction, const Position& origPos);
+    void updateJunctionPosition(GNEJunction* junction, const Position& origPos, bool updateGrid);
 
     /// @brief Returns the street's geometry
     Boundary getBoundary() const;
@@ -339,6 +339,9 @@ protected:
     std::string myConnectionStatus;
 
 private:
+    /// @brief The represented junction's boundary
+    Boundary myBoundary;
+
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
 

@@ -602,9 +602,13 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 
 Boundary
 GNELane::getCenteringBoundary() const {
-    Boundary b = getShape().getBoxBoundary();
-    b.grow(10);
-    return b;
+    if(myBoundary.WasInitialised()) {
+        return myBoundary; 
+    }  else {
+        Boundary b = getShape().getBoxBoundary();
+        b.grow(10);
+        return b;
+    }
 }
 
 
@@ -1297,6 +1301,9 @@ void
 GNELane::startGeometryMoving() {
     // save current lane's shape
     myMovingShape = myParentEdge.getNBEdge()->getLaneStruct(myIndex).shape;
+    if(myMovingShape.size() == 0) {
+        throw ProcessError("Moving Shape is empty");
+    }
     // Save current shape of additional childs
     for (auto i : myAdditionalChilds) {
         i->startGeometryMoving();
@@ -1316,22 +1323,21 @@ void
 GNELane::endGeometryMoving() {
     // restore shape
     if(myMovingShape.size() == 0) {
-        throw ProcessError("Moving Shape isn't empty");
+        throw ProcessError("Moving Shape is empty");
     } else {
         myParentEdge.getNBEdge()->getLaneStruct(myIndex).shape = myMovingShape;
-        myMovingShape.clear();
-    }
-    // restore shape of additionals with this lane as chid
-    for (auto i : myAdditionalChilds) {
-        i->endGeometryMoving();
-    }
-    // Restore shape of additionals with this lane as chid
-    for (auto i : myFirstAdditionalParents) {
-        i->endGeometryMoving();
-    }
-    // Restore shape of POIs associated to this lane
-    for (auto i : myShapes) {
-        i->endGeometryMoving();
+        // restore shape of additionals with this lane as chid
+        for (auto i : myAdditionalChilds) {
+            i->endGeometryMoving();
+        }
+        // Restore shape of additionals with this lane as chid
+        for (auto i : myFirstAdditionalParents) {
+            i->endGeometryMoving();
+        }
+        // Restore shape of POIs associated to this lane
+        for (auto i : myShapes) {
+            i->endGeometryMoving();
+        }
     }
 }
 

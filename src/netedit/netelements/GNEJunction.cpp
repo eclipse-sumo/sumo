@@ -73,7 +73,7 @@ GNEJunction::GNEJunction(NBNode& nbn, GNENet* net, bool loaded) :
     myHasValidLogic(loaded),
     myAmTLSSelected(false) {
     // give a temporal value for boundary
-    myBoundary = Boundary(myNBNode.getPosition().x() - 2, myNBNode.getPosition().y() - 2, myNBNode.getPosition().x() + 2, myNBNode.getPosition().y() + 2);
+    myJunctionBoundary = Boundary(myNBNode.getPosition().x() - 2, myNBNode.getPosition().y() - 2, myNBNode.getPosition().x() + 2, myNBNode.getPosition().y() + 2);
 }
 
 
@@ -104,13 +104,13 @@ GNEJunction::updateGeometry(bool updateGrid) {
     }
     // calculate boundary using EXTENT as size
     const double EXTENT = 2;
-    myBoundary = Boundary(myNBNode.getPosition().x() - EXTENT, myNBNode.getPosition().y() - EXTENT,
+    myJunctionBoundary = Boundary(myNBNode.getPosition().x() - EXTENT, myNBNode.getPosition().y() - EXTENT,
                           myNBNode.getPosition().x() + EXTENT, myNBNode.getPosition().y() + EXTENT);
     // if junctio own a extra shape, add it to boundary
     if (myNBNode.getShape().size() > 0) {
-        myBoundary.add(myNBNode.getShape().getBoxBoundary());
+        myJunctionBoundary.add(myNBNode.getShape().getBoxBoundary());
     }
-    myMaxSize = MAX2(myBoundary.getWidth(), myBoundary.getHeight());
+    myMaxSize = MAX2(myJunctionBoundary.getWidth(), myJunctionBoundary.getHeight());
     // last step is to check if object has to be added into grid (SUMOTree) again
     if(updateGrid) {
         myNet->addGLObjectIntoGrid(this);
@@ -227,9 +227,13 @@ GNEJunction::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 
 Boundary
 GNEJunction::getCenteringBoundary() const {
-    Boundary b = myBoundary;
-    b.grow(20);
-    return b;
+    if(myBoundary.WasInitialised()) {
+        return myBoundary;
+    } else {
+        Boundary b = myJunctionBoundary;
+        b.grow(20);
+        return b;
+    }
 }
 
 
@@ -328,7 +332,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
 
 Boundary
 GNEJunction::getBoundary() const {
-    return myBoundary;
+    return myJunctionBoundary;
 }
 
 
@@ -470,7 +474,49 @@ GNEJunction::selectTLS(bool selected) {
 
 
 void 
-GNEJunction::startGeometryMoving() {
+GNEJunction::startGeometryMoving(bool extendToNeighbors) {
+    // Save boundary
+    myBoundary = getCenteringBoundary();
+    // First declare three sets with all affected GNEJunctions, GNEEdges and GNEConnections
+    std::set<GNEJunction*> affectedJunctions;
+    std::set<GNEEdge*> affectedEdges;
+    // Iterate over GNEEdges
+    for (auto i : myGNEEdges) {
+        // Add source and destiny junctions
+        affectedJunctions.insert(i->getGNEJunctionSource());
+        affectedJunctions.insert(i->getGNEJunctionDestiny());
+        // Obtain neighbors of Junction source
+        for (auto j : i->getGNEJunctionSource()->getGNEEdges()) {
+            affectedEdges.insert(j);
+        }
+        // Obtain neighbors of Junction destiny
+        for (auto j : i->getGNEJunctionDestiny()->getGNEEdges()) {
+            affectedEdges.insert(j);
+        }
+    }
+    // Iterate over affected Junctions only if extendToNeighbors is enabled
+    if(extendToNeighbors) {
+        for (auto i : affectedJunctions) {
+            if( i != this) {
+                // start geometry moving in edges
+                i->startGeometryMoving(false);
+            }
+        }
+    }
+    // Iterate over affected Edges
+    for (auto i : affectedEdges) {
+        // start geometry moving in edges
+        i->startGeometryMoving();
+    }
+}
+
+
+void 
+GNEJunction::endGeometryMoving(bool extendToNeighbors) {
+    // last step is to check if object has to be added into grid (SUMOTree) again
+    myNet->removeGLObjectFromGrid(this);
+    myBoundary.reset();
+    updateGeometry(false);
     // First declare three sets with all affected GNEJunctions, GNEEdges and GNEConnections
     std::set<GNEJunction*> affectedJunctions;
     std::set<GNEEdge*> affectedEdges;
@@ -489,52 +535,20 @@ GNEJunction::startGeometryMoving() {
         }
     }
     // Iterate over affected Junctions
-    for (auto i : affectedJunctions) {
-        // start geometry moving in edges
-        i->startGeometryMoving();
-    }
-    // Iterate over affected Edges
-    for (auto i : affectedEdges) {
-        // start geometry moving in edges
-        i->startGeometryMoving();
-    }
-    // Finally save position
-    myMovingPosition = myNBNode.getPosition();
-}
-
-
-void 
-GNEJunction::endGeometryMoving() {
-// First declare three sets with all affected GNEJunctions, GNEEdges and GNEConnections
-    std::set<GNEJunction*> affectedJunctions;
-    std::set<GNEEdge*> affectedEdges;
-    // Iterate over GNEEdges
-    for (auto i : myGNEEdges) {
-        // Add source and destiny junctions
-        affectedJunctions.insert(i->getGNEJunctionSource());
-        affectedJunctions.insert(i->getGNEJunctionDestiny());
-        // Obtain neighbors of Junction source
-        for (auto j : i->getGNEJunctionSource()->getGNEEdges()) {
-            affectedEdges.insert(j);
+    if(extendToNeighbors) {
+        for (auto i : affectedJunctions) {
+            if (i != this) {
+                // end geometry moving in edges
+                i->endGeometryMoving(false);
+            }
         }
-        // Obtain neighbors of Junction destiny
-        for (auto j : i->getGNEJunctionDestiny()->getGNEEdges()) {
-            affectedEdges.insert(j);
-        }
-    }
-    // Iterate over affected Junctions
-    for (auto i : affectedJunctions) {
-        // end geometry moving in edges
-        i->endGeometryMoving();
     }
     // Iterate over affected Edges
     for (auto i : affectedEdges) {
         // end geometry moving in edges
         i->endGeometryMoving();
     }
-    // Finally save position
-    moveJunctionGeometry(myMovingPosition, false);
-    myMovingPosition = Position::INVALID;
+    myNet->addGLObjectIntoGrid(this);
 }
 
 
@@ -551,7 +565,7 @@ GNEJunction::moveGeometry(const Position& oldPos, const Position& offset) {
     if (!abort) {
         Position newPosition = oldPos;
         newPosition.add(offset);
-        moveJunctionGeometry(newPosition, true);
+        moveJunctionGeometry(newPosition, false);
     }
 }
 
@@ -588,10 +602,12 @@ GNEJunction::updateShapesAndGeometries(bool updateGrid) {
             affectedEdges.insert(j);
         }
     }
-    // Iterate over affected Junctions
-    for (auto i : affectedJunctions) {
-        // Update geometry of Junction
-        i->updateGeometry(updateGrid);
+    // Iterate over affected Junctions only if updateGrid is enabled
+    if(updateGrid) {
+        for (auto i : affectedJunctions) {
+            // Update geometry of Junction
+            i->updateGeometry(updateGrid);
+        }
     }
     // Iterate over affected Edges
     for (auto i : affectedEdges) {
@@ -1217,7 +1233,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         }
         case SUMO_ATTR_POSITION: {
-            // set new position in NBNode (note: Junctions don't need to refresh it in the RTREE due the variable myBoundary
+            // set new position in NBNode (note: Junctions don't need to refresh it in the RTREE due the variable myJunctionBoundary
             bool ok;
             moveJunctionGeometry(GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, false)[0], true);
             // mark this connections and all of the junction's Neighbours as deprecated
@@ -1365,7 +1381,7 @@ GNEJunction::moveJunctionGeometry(const Position& pos, bool updateGrid) {
     myNBNode.reinit(pos, myNBNode.getType());
     // set new position of adjacent edges
     for (auto i : getNBNode()->getEdges()) {
-        myNet->retrieveEdge(i->getID())->updateJunctionPosition(this, orig);
+        myNet->retrieveEdge(i->getID())->updateJunctionPosition(this, orig, updateGrid);
     }
     // Update shapes without include connections, because the aren't showed in Move mode
     updateShapesAndGeometries(updateGrid);

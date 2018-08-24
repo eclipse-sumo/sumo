@@ -39,8 +39,7 @@
 GNENetElement::GNENetElement(GNENet* net, const std::string& id, GUIGlObjectType type, SumoXMLTag tag) :
     GUIGlObject(type, id),
     GNEAttributeCarrier(tag),
-    myNet(net)
-{ }
+    myNet(net) { }
 
 
 GNENetElement::~GNENetElement() {}

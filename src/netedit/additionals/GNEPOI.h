@@ -218,7 +218,7 @@ protected:
     Position myGEOPosition;
 
     /// @brief GNElane in which this POILane is placed (Only used by POIs placed over lanes)
-    GNELane * myGNELane;
+    GNELane* myGNELane;
 
 private:
     /// @brief set attribute after validation

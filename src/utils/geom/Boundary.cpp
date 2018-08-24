@@ -213,6 +213,12 @@ Boundary::crosses(const Position& p1, const Position& p2) const {
 }
 
 
+bool 
+Boundary::WasInitialised() const {
+    return myWasInitialised;
+}
+
+
 double
 Boundary::distanceTo2D(const Position& p) const {
     const double leftDist = myXmin - p.x();

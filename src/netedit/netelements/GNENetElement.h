@@ -191,6 +191,8 @@ protected:
     /// @brief the net to inform about updates
     GNENet* myNet;
 
+    Boundary myBoundary;
+
     /// @brief list of Additional parents of this NetElement
     std::vector<GNEAdditional*> myFirstAdditionalParents;
 
