@@ -244,6 +244,7 @@ NGNet::toNB() const {
     }
     // add splits depending on turn-lane options
     const int turnLanes = OptionsCont::getOptions().getInt("turn-lanes");
+    const bool lefthand =  OptionsCont::getOptions().getBool("lefthand");
     if (turnLanes > 0) {
         const double turnLaneLength = OptionsCont::getOptions().getFloat("turn-lanes.length");
         NBEdgeCont& ec = myNetBuilder.getEdgeCont();
@@ -265,8 +266,9 @@ NGNet::toNB() const {
             split.node = new NBNode(e->getID() + "." + toString(split.pos), e->getGeometry().positionAtOffset(split.pos));
             split.idBefore = e->getID();
             split.idAfter = split.node->getID();
+            split.offsetFactor = lefthand ? -1 : 1;
             if (turnLaneLength <= e->getLength() / 2) {
-                split.offset = -0.5 * turnLanes * e->getLaneWidth(0);
+                split.offset = -0.5 * split.offsetFactor * turnLanes * e->getLaneWidth(0);
                 if (e->getFromNode()->geometryLike()) {
                     // shift the reverse direction explicitly as it will not get a turn lane
                     NBEdge* reverse = 0;

@@ -519,6 +519,7 @@ NBEdgeCont::processSplits(NBEdge* e, std::vector<Split> splits,
             start.lanes.push_back(lane);
         }
         start.offset = splits.front().offset;
+        start.offsetFactor = splits.front().offsetFactor;
         splits.insert(splits.begin(), start);
     }
     i = splits.begin();
@@ -528,14 +529,14 @@ NBEdgeCont::processSplits(NBEdge* e, std::vector<Split> splits,
             double offset = (*i).offset;
             if (maxLeft < noLanesMax) {
                 if (e->getLaneSpreadFunction() == LANESPREAD_RIGHT) {
-                    offset += SUMO_const_laneWidthAndOffset * (noLanesMax - 1 - maxLeft);
+                    offset += (*i).offsetFactor * SUMO_const_laneWidthAndOffset * (noLanesMax - 1 - maxLeft);
                 } else {
-                    offset += SUMO_const_halfLaneAndOffset * (noLanesMax - 1 - maxLeft);
+                    offset += (*i).offsetFactor * SUMO_const_halfLaneAndOffset * (noLanesMax - 1 - maxLeft);
                 }
             }
             int maxRight = (*i).lanes.front();
             if (maxRight > 0 && e->getLaneSpreadFunction() == LANESPREAD_CENTER) {
-                offset -= SUMO_const_halfLaneAndOffset * maxRight;
+                offset -= (*i).offsetFactor * SUMO_const_halfLaneAndOffset * maxRight;
             }
             //std::cout << " processSplits " << origID << " splitOffset=" << (*i).offset << " offset=" << offset << "\n";
             if (offset != 0) {

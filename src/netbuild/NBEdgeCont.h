@@ -204,7 +204,7 @@ public:
      * @brief A structure which describes changes of lane number or speed along the road
      */
     struct Split {
-        Split() : offset(0) {}
+        Split() : offset(0), offsetFactor(1) {}
         /// @brief The lanes after this change
         std::vector<int> lanes;
         /// @brief The position of this change
@@ -221,6 +221,8 @@ public:
         std::string nameID;
         /// @brief lateral offset to edge geometry
         double offset;
+        /// @brief direction in which to apply the offset (used by netgenerate for lefthand networks)
+        int offsetFactor;
     };
 
     void processSplits(NBEdge* e, std::vector<Split> splits, 
