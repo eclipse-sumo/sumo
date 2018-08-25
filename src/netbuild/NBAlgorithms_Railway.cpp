@@ -210,6 +210,8 @@ NBRailwayTopologyAnalyzer::getBrokenRailNodes(NBNetBuilder& nb, bool verbose) {
                 NBEdge* secondary = e->getTurnDestination(true);
                 if (e->getID()[0] == '-') {
                     std::swap(primary, secondary);
+                } else if (primary->getID()[0] != '-' && secondary->getID()[0] != '-' && secondary->getID() < primary->getID()) {
+                    std::swap(primary, secondary);
                 }
                 if (bidiEdges.count(secondary) == 0) {
                     // avoid duplicate when both ids start with '-'
