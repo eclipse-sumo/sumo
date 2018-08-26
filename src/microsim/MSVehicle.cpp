@@ -2642,19 +2642,17 @@ MSVehicle::processLinkAproaches(double& vSafe, double& vSafeMin, double& vSafeMi
         // cannot drive across a link so we need to stop before it
         // XXX: (Leo) This often called stopSpeed with vSafeMinDist==0 (for the ballistic update), since vSafe can become negative
         //      For the Euler update the term '+ NUMERICAL_EPS' prevented a call here... Recheck, consider of -INVALID_SPEED instead of 0 to indicate absence of vSafeMin restrictions. Refs. #2577
+#ifdef DEBUG_EXEC_MOVE
+        if (DEBUG_COND) {
+            std::cout << "vSafeMin Problem? vSafe=" << vSafe << " vSafeMin=" << vSafeMin << " vSafeMinDist=" << vSafeMinDist << std::endl;
+        }
+#endif
         vSafe = MIN2(vSafe, getCarFollowModel().stopSpeed(this, getSpeed(), vSafeMinDist));
         vSafeMin = 0;
         myHaveToWaitOnNextLink = true;
 #ifdef DEBUG_CHECKREWINDLINKLANES
         if (DEBUG_COND) std::cout << SIMTIME << " veh=" << getID() << " haveToWait (vSafe=" << vSafe << " < vSafeMin=" << vSafeMin << ")\n";
 #endif
-
-#ifdef DEBUG_EXEC_MOVE
-        if (DEBUG_COND) {
-            std::cout << "vSafeMin Problem?" << std::endl;
-        }
-#endif
-
     }
 
     // vehicles inside a roundabout should maintain their requests
