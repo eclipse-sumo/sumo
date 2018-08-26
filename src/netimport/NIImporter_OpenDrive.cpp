@@ -1794,7 +1794,7 @@ NIImporter_OpenDrive::myStartElement(int element,
 void
 NIImporter_OpenDrive::myCharacters(int element, const std::string& cdata) {
     if (element == OPENDRIVE_TAG_GEOREFERENCE) {
-        int i = cdata.find("+proj");
+        size_t i = cdata.find("+proj");
         if (i != std::string::npos) {
             const std::string proj = cdata.substr(i);
             if (proj != "") {
