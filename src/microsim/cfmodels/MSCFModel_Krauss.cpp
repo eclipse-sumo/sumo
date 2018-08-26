@@ -85,7 +85,7 @@ MSCFModel_Krauss::followSpeed(const MSVehicle* const veh, double speed, double g
     }
 
     const double vsafe = maximumSafeFollowSpeed(gap, speed, predSpeed, predMaxDecel);
-    const double vmin = minNextSpeed(speed);
+    const double vmin = minNextSpeedEmergency(speed);
     const double vmax = maxNextSpeed(speed, veh);
     if (MSGlobals::gSemiImplicitEulerUpdate) {
         return MIN2(vsafe, vmax);

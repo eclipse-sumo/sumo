@@ -86,7 +86,7 @@ MSCFModel_ACC::finalizeSpeed(MSVehicle* const veh, double vPos) const {
    //  vSafe does not incorporate speed reduction due to interaction
    //  on lane changing
 //   const double vMin = getSpeedAfterMaxDecel(oldV);
-   const double vMin = minNextSpeed(oldV);
+   const double vMin = minNextSpeed(oldV); // maybe minNextSpeedEmergency() ? Why is a custom finalizeSpeed function needed anyway?
    const double vMax = MAX2(vMin, MIN3(veh->getLane()->getVehicleMaxSpeed(veh), maxNextSpeed(oldV, veh), vSafe));
 #ifdef _DEBUG
    //if (vMin > vMax) {

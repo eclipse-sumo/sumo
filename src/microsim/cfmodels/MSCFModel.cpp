@@ -44,6 +44,7 @@
 //#define DEBUG_EMERGENCYDECEL
 //#define DEBUG_COND (true)
 #define DEBUG_COND (veh->isSelected())
+//#define DEBUG_COND2 (SIMTIME == 176)
 
 
 
@@ -164,7 +165,9 @@ MSCFModel::finalizeSpeed(MSVehicle* const veh, double vPos) const {
     // process stops (includes update of stopping state)
     const double vStop = MIN2(vPos, veh->processNextStop(vPos)); 
     // apply deceleration bounds
-    const double vMin = minNextSpeed(oldV, veh);
+    const double vMinEmergency = minNextSpeedEmergency(oldV, veh);
+    // vPos contains the uppper bound on safe speed. allow emergency braking here
+    const double vMin = MIN2(minNextSpeed(oldV, veh), MAX2(vPos, vMinEmergency));
     // aMax: Maximal admissible acceleration until the next action step, such that the vehicle's maximal
     // desired speed on the current lane will not be exceeded when the
     // acceleration is maintained until the next action step.
@@ -233,14 +236,24 @@ MSCFModel::maxNextSpeed(double speed, const MSVehicle* const /*veh*/) const {
 double
 MSCFModel::minNextSpeed(double speed, const MSVehicle* const /*veh*/) const {
     if (MSGlobals::gSemiImplicitEulerUpdate) {
-//        return MAX2(speed - ACCEL2SPEED(getMaxDecel()), 0.);
+        return MAX2(speed - ACCEL2SPEED(myDecel), 0.);
+    } else {
+        // NOTE: ballistic update allows for negative speeds to indicate a stop within the next timestep
+        return speed - ACCEL2SPEED(myDecel);
+    }
+}
+
+
+double
+MSCFModel::minNextSpeedEmergency(double speed, const MSVehicle* const /*veh*/) const {
+    if (MSGlobals::gSemiImplicitEulerUpdate) {
         return MAX2(speed - ACCEL2SPEED(myEmergencyDecel), 0.);
     } else {
         // NOTE: ballistic update allows for negative speeds to indicate a stop within the next timestep
-//        return speed - ACCEL2SPEED(getMaxDecel());
         return speed - ACCEL2SPEED(myEmergencyDecel);
     }
 }
+
 
 
 double
@@ -257,7 +270,7 @@ MSCFModel::freeSpeed(const MSVehicle* const veh, double speed, double seen, doub
 double
 MSCFModel::insertionFollowSpeed(const MSVehicle* const /* v */, double speed, double gap2pred, double predSpeed, double predMaxDecel) const {
     if (MSGlobals::gSemiImplicitEulerUpdate) {
-        return maximumSafeFollowSpeed(gap2pred, speed, predSpeed, predMaxDecel);
+        return maximumSafeFollowSpeed(gap2pred, speed, predSpeed, predMaxDecel, true);
     } else {
         // NOTE: Even for ballistic update, the current speed is irrelevant at insertion, therefore passing 0. (Leo)
         return maximumSafeFollowSpeed(gap2pred, 0., predSpeed, predMaxDecel, true);
@@ -835,11 +848,6 @@ MSCFModel::maximumSafeStopSpeedBallistic(double g /*gap*/, double v /*currentSpe
 /** Returns the SK-vsafe. */
 double
 MSCFModel::maximumSafeFollowSpeed(double gap, double egoSpeed, double predSpeed, double predMaxDecel, bool onInsertion) const {
-#ifdef DEBUG_EMERGENCYDECEL
-            if (true) {
-                std::cout << "\n" << SIMTIME << " maximumSafeFollowSpeed()" << std::endl;
-            }
-#endif
     // the speed is safe if allows the ego vehicle to come to a stop behind the leader even if
     // the leaders starts braking hard until stopped
     // unfortunately it is not sufficient to compare stopping distances if the follower can brake harder than the leader
@@ -869,7 +877,7 @@ MSCFModel::maximumSafeFollowSpeed(double gap, double egoSpeed, double predSpeed,
     const double headway = myHeadwayTime;
     double x = maximumSafeStopSpeed(gap + brakeGap(predSpeed, MAX2(myDecel, predMaxDecel), 0), egoSpeed, onInsertion, headway);
 
-    if (myDecel != myEmergencyDecel) {
+    if (myDecel != myEmergencyDecel && !onInsertion) {
         double origSafeDecel = SPEED2ACCEL(egoSpeed - x);
         if (origSafeDecel > myDecel + NUMERICAL_EPS) {
             // Braking harder than myDecel was requested -> calculate required emergency deceleration.
@@ -878,7 +886,7 @@ MSCFModel::maximumSafeFollowSpeed(double gap, double egoSpeed, double predSpeed,
             // such that braking harder than myDecel is required.
 
 #ifdef DEBUG_EMERGENCYDECEL
-            if (true) {
+            if (DEBUG_COND2) {
                 std::cout << SIMTIME << " initial vsafe=" << x
                         << " egoSpeed=" << egoSpeed << " (origSafeDecel=" << origSafeDecel << ")"
                         << " predSpeed=" << predSpeed << " (predDecel=" << predMaxDecel << ")"
@@ -894,7 +902,7 @@ MSCFModel::maximumSafeFollowSpeed(double gap, double egoSpeed, double predSpeed,
             }
 
 #ifdef DEBUG_EMERGENCYDECEL
-            if (true) {
+            if (DEBUG_COND2) {
                 std::cout << "     -> corrected emergency deceleration: " << safeDecel << std::endl;
             }
 #endif
@@ -919,22 +927,28 @@ MSCFModel::calculateEmergencyDeceleration(double gap, double egoSpeed, double pr
     const double b1 = 0.5*egoSpeed*egoSpeed/(gap + predBrakeDist);
 
 #ifdef DEBUG_EMERGENCYDECEL
-    std::cout << SIMTIME << " calculateEmergencyDeceleration()"
+    if (DEBUG_COND2) {
+        std::cout << SIMTIME << " calculateEmergencyDeceleration()"
             << " gap=" << gap << " egoSpeed=" << egoSpeed << " predSpeed=" << predSpeed
             << " predBrakeDist=" << predBrakeDist
             << " b1=" << b1
             << std::endl;
+    }
 #endif
 
     if (b1 <= predMaxDecel) {
         // Case 1) applies
 #ifdef DEBUG_EMERGENCYDECEL
+    if (DEBUG_COND2) {
         std::cout << "       case 1 ..." << std::endl;
+    }
 #endif
         return b1;
     }
 #ifdef DEBUG_EMERGENCYDECEL
-    std::cout << "       case 2 ...";
+    if (DEBUG_COND2) {
+        std::cout << "       case 2 ...";
+    }
 #endif
 
     // Case 2) applies
@@ -946,7 +960,9 @@ MSCFModel::calculateEmergencyDeceleration(double gap, double egoSpeed, double pr
     const double b2 = 0.5*(egoSpeed*egoSpeed - predSpeed*predSpeed)/gap;
 
 #ifdef DEBUG_EMERGENCYDECEL
-    std::cout << " b2=" << b2 << std::endl;
+    if (DEBUG_COND2) {
+        std::cout << " b2=" << b2 << std::endl;
+    }
 #endif
     return b2;
 }

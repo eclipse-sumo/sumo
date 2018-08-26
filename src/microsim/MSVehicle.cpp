@@ -550,7 +550,7 @@ MSVehicle::Influencer::implicitSpeedRemote(const MSVehicle* veh, double oldSpeed
         }
     }
     if (DIST2SPEED(dist) > veh->getCarFollowModel().maxNextSpeed(oldSpeed, veh)
-            || DIST2SPEED(dist) < veh->getCarFollowModel().minNextSpeed(oldSpeed, veh)) {
+            || DIST2SPEED(dist) < veh->getCarFollowModel().minNextSpeedEmergency(oldSpeed, veh)) {
         // implausible movement, keep old speed
         return oldSpeed;
     } else {
@@ -2094,6 +2094,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                     << " stopDist=" << stopDist
                     << " vLinkWait=" << vLinkWait
                     << " brakeDist=" << brakeDist
+                    << " seen=" << seen
                     << "\n";
         }
 #endif

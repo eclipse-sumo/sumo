@@ -155,6 +155,13 @@ double MSCFModel_Rail::minNextSpeed(double speed, const MSVehicle* const veh) co
 
 }
 
+
+double
+MSCFModel_Rail::minNextSpeedEmergency(double speed, const MSVehicle* const veh) const {
+    return minNextSpeed(speed, veh);
+}
+
+
 double MSCFModel_Rail::getInterpolatedValueFromLookUpMap(double speed, const LookUpMap* lookUpMap) const {
     speed = speed * 3.6; // lookup values in km/h
     std::map<double, double>::const_iterator low, prev;

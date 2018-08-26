@@ -45,6 +45,8 @@ public:
 
     virtual double minNextSpeed(double speed, const MSVehicle* const veh) const;
 
+    virtual double minNextSpeedEmergency(double speed, const MSVehicle* const veh = 0) const;
+
     double getSpeedAfterMaxDecel(double v) const;
 
     MSCFModel::VehicleVariables* createVehicleVariables() const;

@@ -287,6 +287,17 @@ public:
      */
     virtual double minNextSpeed(double speed, const MSVehicle* const veh = 0) const;
 
+    /** @brief Returns the minimum speed after emergency braking, given the current speed
+     * (depends on the numerical update scheme and its step width)
+     * Note that it wouldn't have to depend on the numerical update
+     * scheme if the semantics would rely on acceleration instead of velocity.
+     *
+     * @param[in] speed The vehicle's current speed
+     * @param[in] speed The vehicle itself, for obtaining other values, if needed as e.g. road conditions.
+     * @return The minimum possible speed for the next step
+     */
+    virtual double minNextSpeedEmergency(double speed, const MSVehicle* const veh = 0) const;
+
 
     /** @brief Returns the distance the vehicle needs to halt including driver's reaction time tau (i.e. desired headway),
      * assuming that during the reaction time, the speed remains constant
