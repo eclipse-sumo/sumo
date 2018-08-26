@@ -68,17 +68,6 @@ MSCFModel_KraussOrig1::followSpeed(const MSVehicle* const veh, double speed, dou
 
 
 double
-MSCFModel_KraussOrig1::insertionFollowSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel) const {
-    if (MSGlobals::gSemiImplicitEulerUpdate) {
-        return followSpeed(veh, speed, gap2pred, predSpeed, predMaxDecel);
-    } else {
-        // ballistic update
-        return maximumSafeFollowSpeed(gap2pred, 0., predSpeed, predMaxDecel, true);
-    }
-}
-
-
-double
 MSCFModel_KraussOrig1::stopSpeed(const MSVehicle* const veh, const double speed, double gap) const {
     if (MSGlobals::gSemiImplicitEulerUpdate) {
         return MIN2(vsafe(gap, 0., 0.), maxNextSpeed(speed, veh));
