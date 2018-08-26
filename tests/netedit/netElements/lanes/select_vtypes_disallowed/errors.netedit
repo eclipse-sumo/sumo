@@ -6,7 +6,6 @@ Debug: Current saving Status: net unsaved, additionals saved, shapes saved
 Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into lane 'gneE13_1'
 Debug: Current selection: 0 Junctions, 0 Edges, 1 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Debug: Current selection: 0 Junctions, 0 Edges, 1 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Key DEL (delete) pressed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE12'
 Debug: invalidating (removing) connections of edge 'gneE12' due it were guessed
@@ -18,7 +17,6 @@ Debug: invalidating (removing) connections of edge 'gneE13' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ3'
 Debug: Removing lane 'gneE13_1' from edge
 Debug: Setting new attribute selected 'true' into lane 'gneE14_1'
-Debug: Current selection: 0 Junctions, 0 Edges, 1 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Current selection: 0 Junctions, 0 Edges, 1 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Key DEL (delete) pressed
 Debug: Removing connection '-gneE14_1->gneE14_1' from edge '-gneE14'
@@ -32,7 +30,6 @@ Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into jun
 Debug: Removing lane 'gneE14_1' from edge
 Debug: Setting new attribute selected 'true' into lane '-gneE14_1'
 Debug: Current selection: 0 Junctions, 0 Edges, 1 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Debug: Current selection: 0 Junctions, 0 Edges, 1 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Key DEL (delete) pressed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE14'
 Debug: invalidating (removing) connections of edge 'gneE14' due it were guessed
@@ -42,7 +39,6 @@ Debug: invalidating (removing) connections of edge '-gneE14' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ5'
 Debug: Removing lane '-gneE14_1' from edge
 Debug: Setting new attribute selected 'true' into lane '-gneE15_1'
-Debug: Current selection: 0 Junctions, 0 Edges, 1 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Current selection: 0 Junctions, 0 Edges, 1 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Key DEL (delete) pressed
 Debug: Removing connection 'gneE15_1->-gneE15_1' from edge 'gneE15'
@@ -56,7 +52,6 @@ Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into jun
 Debug: Removing lane '-gneE15_1' from edge
 Debug: Setting new attribute selected 'true' into lane 'gneE15_1'
 Debug: Current selection: 0 Junctions, 0 Edges, 1 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Debug: Current selection: 0 Junctions, 0 Edges, 1 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Key DEL (delete) pressed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE15'
 Debug: invalidating (removing) connections of edge '-gneE15' due it were guessed
@@ -66,7 +61,6 @@ Debug: invalidating (removing) connections of edge 'gneE15' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ8'
 Debug: Removing lane 'gneE15_1' from edge
 Debug: Setting new attribute selected 'true' into lane '-gneE22_1'
-Debug: Current selection: 0 Junctions, 0 Edges, 1 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Current selection: 0 Junctions, 0 Edges, 1 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Key DEL (delete) pressed
 Debug: Removing connection 'gneE22_1->-gneE22_1' from edge 'gneE22'
@@ -80,7 +74,6 @@ Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into jun
 Debug: Removing lane '-gneE22_1' from edge
 Debug: Setting new attribute selected 'true' into lane 'gneE22_1'
 Debug: Current selection: 0 Junctions, 0 Edges, 1 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Debug: Current selection: 0 Junctions, 0 Edges, 1 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Key DEL (delete) pressed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE22'
 Debug: invalidating (removing) connections of edge '-gneE22' due it were guessed
@@ -90,7 +83,6 @@ Debug: invalidating (removing) connections of edge 'gneE22' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ22'
 Debug: Removing lane 'gneE22_1' from edge
 Debug: Setting new attribute selected 'true' into lane '-gneE18_1'
-Debug: Current selection: 0 Junctions, 0 Edges, 1 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Current selection: 0 Junctions, 0 Edges, 1 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Key DEL (delete) pressed
 Debug: Removing connection 'gneE18_1->-gneE18_1' from edge 'gneE18'
@@ -104,7 +96,6 @@ Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into jun
 Debug: Removing lane '-gneE18_1' from edge
 Debug: Setting new attribute selected 'true' into lane 'gneE18_1'
 Debug: Current selection: 0 Junctions, 0 Edges, 1 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Debug: Current selection: 0 Junctions, 0 Edges, 1 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Key DEL (delete) pressed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE18'
 Debug: invalidating (removing) connections of edge '-gneE18' due it were guessed
@@ -114,7 +105,6 @@ Debug: invalidating (removing) connections of edge 'gneE18' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ10'
 Debug: Removing lane 'gneE18_1' from edge
 Debug: Setting new attribute selected 'true' into lane 'gneE17_1'
-Debug: Current selection: 0 Junctions, 0 Edges, 1 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Current selection: 0 Junctions, 0 Edges, 1 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Key DEL (delete) pressed
 Debug: Removing connection '-gneE17_1->gneE17_1' from edge '-gneE17'
@@ -128,7 +118,6 @@ Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into jun
 Debug: Removing lane 'gneE17_1' from edge
 Debug: Setting new attribute selected 'true' into lane '-gneE17_1'
 Debug: Current selection: 0 Junctions, 0 Edges, 1 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Debug: Current selection: 0 Junctions, 0 Edges, 1 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Key DEL (delete) pressed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE17'
 Debug: invalidating (removing) connections of edge 'gneE17' due it were guessed
@@ -138,7 +127,6 @@ Debug: invalidating (removing) connections of edge '-gneE17' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ18'
 Debug: Removing lane '-gneE17_1' from edge
 Debug: Setting new attribute selected 'true' into lane '-gneE16_1'
-Debug: Current selection: 0 Junctions, 0 Edges, 1 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Current selection: 0 Junctions, 0 Edges, 1 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Key DEL (delete) pressed
 Debug: Removing connection 'gneE16_1->-gneE16_1' from edge 'gneE16'
@@ -152,7 +140,6 @@ Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into jun
 Debug: Removing lane '-gneE16_1' from edge
 Debug: Setting new attribute selected 'true' into lane 'gneE16_1'
 Debug: Current selection: 0 Junctions, 0 Edges, 1 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Debug: Current selection: 0 Junctions, 0 Edges, 1 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Key DEL (delete) pressed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE16'
 Debug: invalidating (removing) connections of edge '-gneE16' due it were guessed
@@ -162,7 +149,6 @@ Debug: invalidating (removing) connections of edge 'gneE16' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ20'
 Debug: Removing lane 'gneE16_1' from edge
 Debug: Setting new attribute selected 'true' into lane '-gneE23_1'
-Debug: Current selection: 0 Junctions, 0 Edges, 1 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Current selection: 0 Junctions, 0 Edges, 1 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Key DEL (delete) pressed
 Debug: Removing connection 'gneE23_1->-gneE23_1' from edge 'gneE23'
@@ -176,7 +162,6 @@ Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into jun
 Debug: Removing lane '-gneE23_1' from edge
 Debug: Setting new attribute selected 'true' into lane 'gneE23_1'
 Debug: Current selection: 0 Junctions, 0 Edges, 1 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Debug: Current selection: 0 Junctions, 0 Edges, 1 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Key DEL (delete) pressed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE23'
 Debug: invalidating (removing) connections of edge '-gneE23' due it were guessed
@@ -186,7 +171,6 @@ Debug: invalidating (removing) connections of edge 'gneE23' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ24'
 Debug: Removing lane 'gneE23_1' from edge
 Debug: Setting new attribute selected 'true' into lane '-gneE19_1'
-Debug: Current selection: 0 Junctions, 0 Edges, 1 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Current selection: 0 Junctions, 0 Edges, 1 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Key DEL (delete) pressed
 Debug: Removing connection 'gneE19_1->-gneE19_1' from edge 'gneE19'
@@ -200,7 +184,6 @@ Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into jun
 Debug: Removing lane '-gneE19_1' from edge
 Debug: Setting new attribute selected 'true' into lane 'gneE19_1'
 Debug: Current selection: 0 Junctions, 0 Edges, 1 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Debug: Current selection: 0 Junctions, 0 Edges, 1 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Key DEL (delete) pressed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE19'
 Debug: invalidating (removing) connections of edge '-gneE19' due it were guessed
@@ -210,7 +193,6 @@ Debug: invalidating (removing) connections of edge 'gneE19' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ12'
 Debug: Removing lane 'gneE19_1' from edge
 Debug: Setting new attribute selected 'true' into lane 'gneE20_1'
-Debug: Current selection: 0 Junctions, 0 Edges, 1 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Current selection: 0 Junctions, 0 Edges, 1 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Key DEL (delete) pressed
 Debug: Removing connection '-gneE20_1->gneE20_1' from edge '-gneE20'
@@ -224,7 +206,6 @@ Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into jun
 Debug: Removing lane 'gneE20_1' from edge
 Debug: Setting new attribute selected 'true' into lane '-gneE20_1'
 Debug: Current selection: 0 Junctions, 0 Edges, 1 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Debug: Current selection: 0 Junctions, 0 Edges, 1 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Key DEL (delete) pressed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE20'
 Debug: invalidating (removing) connections of edge 'gneE20' due it were guessed
@@ -234,7 +215,6 @@ Debug: invalidating (removing) connections of edge '-gneE20' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ14'
 Debug: Removing lane '-gneE20_1' from edge
 Debug: Setting new attribute selected 'true' into lane '-gneE21_1'
-Debug: Current selection: 0 Junctions, 0 Edges, 1 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Current selection: 0 Junctions, 0 Edges, 1 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Key DEL (delete) pressed
 Debug: Removing connection 'gneE21_1->-gneE21_1' from edge 'gneE21'
@@ -248,7 +228,6 @@ Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into jun
 Debug: Removing lane '-gneE21_1' from edge
 Debug: Setting new attribute selected 'true' into lane 'gneE21_1'
 Debug: Current selection: 0 Junctions, 0 Edges, 1 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Debug: Current selection: 0 Junctions, 0 Edges, 1 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Key DEL (delete) pressed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE21'
 Debug: invalidating (removing) connections of edge '-gneE21' due it were guessed
@@ -258,7 +237,6 @@ Debug: invalidating (removing) connections of edge 'gneE21' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ16'
 Debug: Removing lane 'gneE21_1' from edge
 Debug: Setting new attribute selected 'true' into lane '-gneE24_1'
-Debug: Current selection: 0 Junctions, 0 Edges, 1 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Current selection: 0 Junctions, 0 Edges, 1 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Key DEL (delete) pressed
 Debug: Removing connection 'gneE24_1->-gneE24_1' from edge 'gneE24'
@@ -272,7 +250,6 @@ Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into jun
 Debug: Removing lane '-gneE24_1' from edge
 Debug: Setting new attribute selected 'true' into lane 'gneE24_1'
 Debug: Current selection: 0 Junctions, 0 Edges, 1 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Debug: Current selection: 0 Junctions, 0 Edges, 1 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Key DEL (delete) pressed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE24'
 Debug: invalidating (removing) connections of edge '-gneE24' due it were guessed
@@ -282,7 +259,6 @@ Debug: invalidating (removing) connections of edge 'gneE24' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ26'
 Debug: Removing lane 'gneE24_1' from edge
 Debug: Setting new attribute selected 'true' into lane '-gneE25_1'
-Debug: Current selection: 0 Junctions, 0 Edges, 1 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Current selection: 0 Junctions, 0 Edges, 1 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Key DEL (delete) pressed
 Debug: Removing connection 'gneE25_1->-gneE25_1' from edge 'gneE25'
@@ -296,7 +272,6 @@ Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into jun
 Debug: Removing lane '-gneE25_1' from edge
 Debug: Setting new attribute selected 'true' into lane 'gneE25_1'
 Debug: Current selection: 0 Junctions, 0 Edges, 1 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Debug: Current selection: 0 Junctions, 0 Edges, 1 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Key DEL (delete) pressed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE25'
 Debug: invalidating (removing) connections of edge '-gneE25' due it were guessed
@@ -306,59 +281,32 @@ Debug: invalidating (removing) connections of edge 'gneE25' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ28'
 Debug: Removing lane 'gneE25_1' from edge
 Debug: Setting new attribute selected 'true' into lane '-gneE14_0'
-Debug: Current selection: 0 Junctions, 0 Edges, 1 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into lane '-gneE15_0'
-Debug: Current selection: 0 Junctions, 0 Edges, 2 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into lane '-gneE16_0'
-Debug: Current selection: 0 Junctions, 0 Edges, 3 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into lane '-gneE17_0'
-Debug: Current selection: 0 Junctions, 0 Edges, 4 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into lane '-gneE18_0'
-Debug: Current selection: 0 Junctions, 0 Edges, 5 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into lane '-gneE19_0'
-Debug: Current selection: 0 Junctions, 0 Edges, 6 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into lane '-gneE20_0'
-Debug: Current selection: 0 Junctions, 0 Edges, 7 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into lane '-gneE21_0'
-Debug: Current selection: 0 Junctions, 0 Edges, 8 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into lane '-gneE22_0'
-Debug: Current selection: 0 Junctions, 0 Edges, 9 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into lane '-gneE23_0'
-Debug: Current selection: 0 Junctions, 0 Edges, 10 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into lane '-gneE24_0'
-Debug: Current selection: 0 Junctions, 0 Edges, 11 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into lane '-gneE25_0'
-Debug: Current selection: 0 Junctions, 0 Edges, 12 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into lane 'gneE12_0'
-Debug: Current selection: 0 Junctions, 0 Edges, 13 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into lane 'gneE12_1'
-Debug: Current selection: 0 Junctions, 0 Edges, 14 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into lane 'gneE13_0'
-Debug: Current selection: 0 Junctions, 0 Edges, 15 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into lane 'gneE14_0'
-Debug: Current selection: 0 Junctions, 0 Edges, 16 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into lane 'gneE15_0'
-Debug: Current selection: 0 Junctions, 0 Edges, 17 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into lane 'gneE16_0'
-Debug: Current selection: 0 Junctions, 0 Edges, 18 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into lane 'gneE17_0'
-Debug: Current selection: 0 Junctions, 0 Edges, 19 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into lane 'gneE18_0'
-Debug: Current selection: 0 Junctions, 0 Edges, 20 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into lane 'gneE19_0'
-Debug: Current selection: 0 Junctions, 0 Edges, 21 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into lane 'gneE20_0'
-Debug: Current selection: 0 Junctions, 0 Edges, 22 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into lane 'gneE21_0'
-Debug: Current selection: 0 Junctions, 0 Edges, 23 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into lane 'gneE22_0'
-Debug: Current selection: 0 Junctions, 0 Edges, 24 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into lane 'gneE23_0'
-Debug: Current selection: 0 Junctions, 0 Edges, 25 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into lane 'gneE24_0'
-Debug: Current selection: 0 Junctions, 0 Edges, 26 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into lane 'gneE25_0'
-Debug: Current selection: 0 Junctions, 0 Edges, 27 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Current selection: 0 Junctions, 0 Edges, 27 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Key DEL (delete) pressed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE14'
@@ -536,97 +484,4 @@ Debug: Deleting unreferenced edge '-gneE24' in GNEChange_Attribute
 Debug: Deleting unreferenced lane '-gneE24_0' in GNEEdge destructor
 Debug: Deleting unreferenced edge 'gneE24' in GNEChange_Attribute
 Debug: Deleting unreferenced lane 'gneE24_0' in GNEEdge destructor
-Debug: Deleting unreferenced lane '-gneE24_1' in GNEChange_Attribute
-Debug: Deleting unreferenced lane 'gneE21_1' in GNEChange_Attribute
-Debug: Deleting unreferenced edge '-gneE21' in GNEChange_Attribute
-Debug: Deleting unreferenced lane '-gneE21_0' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'gneE21' in GNEChange_Attribute
-Debug: Deleting unreferenced lane 'gneE21_0' in GNEEdge destructor
-Debug: Deleting unreferenced lane '-gneE21_1' in GNEChange_Attribute
-Debug: Deleting unreferenced lane '-gneE20_1' in GNEChange_Attribute
-Debug: Deleting unreferenced edge 'gneE20' in GNEChange_Attribute
-Debug: Deleting unreferenced lane 'gneE20_0' in GNEEdge destructor
-Debug: Deleting unreferenced edge '-gneE20' in GNEChange_Attribute
-Debug: Deleting unreferenced lane '-gneE20_0' in GNEEdge destructor
-Debug: Deleting unreferenced lane 'gneE20_1' in GNEChange_Attribute
-Debug: Deleting unreferenced lane 'gneE19_1' in GNEChange_Attribute
-Debug: Deleting unreferenced edge '-gneE19' in GNEChange_Attribute
-Debug: Deleting unreferenced lane '-gneE19_0' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'gneE19' in GNEChange_Attribute
-Debug: Deleting unreferenced lane 'gneE19_0' in GNEEdge destructor
-Debug: Deleting unreferenced lane '-gneE19_1' in GNEChange_Attribute
-Debug: Deleting unreferenced lane 'gneE23_1' in GNEChange_Attribute
-Debug: Deleting unreferenced edge '-gneE23' in GNEChange_Attribute
-Debug: Deleting unreferenced lane '-gneE23_0' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'gneE23' in GNEChange_Attribute
-Debug: Deleting unreferenced lane 'gneE23_0' in GNEEdge destructor
-Debug: Deleting unreferenced lane '-gneE23_1' in GNEChange_Attribute
-Debug: Deleting unreferenced lane 'gneE16_1' in GNEChange_Attribute
-Debug: Deleting unreferenced edge '-gneE16' in GNEChange_Attribute
-Debug: Deleting unreferenced lane '-gneE16_0' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'gneE16' in GNEChange_Attribute
-Debug: Deleting unreferenced lane 'gneE16_0' in GNEEdge destructor
-Debug: Deleting unreferenced lane '-gneE16_1' in GNEChange_Attribute
-Debug: Deleting unreferenced lane '-gneE17_1' in GNEChange_Attribute
-Debug: Deleting unreferenced edge 'gneE17' in GNEChange_Attribute
-Debug: Deleting unreferenced lane 'gneE17_0' in GNEEdge destructor
-Debug: Deleting unreferenced edge '-gneE17' in GNEChange_Attribute
-Debug: Deleting unreferenced lane '-gneE17_0' in GNEEdge destructor
-Debug: Deleting unreferenced lane 'gneE17_1' in GNEChange_Attribute
-Debug: Deleting unreferenced lane 'gneE18_1' in GNEChange_Attribute
-Debug: Deleting unreferenced edge '-gneE18' in GNEChange_Attribute
-Debug: Deleting unreferenced lane '-gneE18_0' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'gneE18' in GNEChange_Attribute
-Debug: Deleting unreferenced lane 'gneE18_0' in GNEEdge destructor
-Debug: Deleting unreferenced lane '-gneE18_1' in GNEChange_Attribute
-Debug: Deleting unreferenced lane 'gneE22_1' in GNEChange_Attribute
-Debug: Deleting unreferenced edge '-gneE22' in GNEChange_Attribute
-Debug: Deleting unreferenced lane '-gneE22_0' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'gneE22' in GNEChange_Attribute
-Debug: Deleting unreferenced lane 'gneE22_0' in GNEEdge destructor
-Debug: Deleting unreferenced lane '-gneE22_1' in GNEChange_Attribute
-Debug: Deleting unreferenced lane 'gneE15_1' in GNEChange_Attribute
-Debug: Deleting unreferenced edge '-gneE15' in GNEChange_Attribute
-Debug: Deleting unreferenced lane '-gneE15_0' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'gneE15' in GNEChange_Attribute
-Debug: Deleting unreferenced lane 'gneE15_0' in GNEEdge destructor
-Debug: Deleting unreferenced lane '-gneE15_1' in GNEChange_Attribute
-Debug: Deleting unreferenced lane '-gneE14_1' in GNEChange_Attribute
-Debug: Deleting unreferenced edge 'gneE14' in GNEChange_Attribute
-Debug: Deleting unreferenced lane 'gneE14_0' in GNEEdge destructor
-Debug: Deleting unreferenced edge '-gneE14' in GNEChange_Attribute
-Debug: Deleting unreferenced lane '-gneE14_0' in GNEEdge destructor
-Debug: Deleting unreferenced lane 'gneE14_1' in GNEChange_Attribute
-Debug: Deleting unreferenced edge 'gneE13' in GNEChange_Attribute
-Debug: Deleting unreferenced lane 'gneE13_0' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'gneE12' in GNEChange_Attribute
-Debug: Deleting unreferenced lane 'gneE12_0' in GNEEdge destructor
-Debug: Deleting unreferenced lane 'gneE13_1' in GNEChange_Attribute
-Debug: Deleting unreferenced junction 'gneJ10' in GNENet destructor
-Debug: Deleting unreferenced junction 'gneJ11' in GNENet destructor
-Debug: Deleting unreferenced junction 'gneJ12' in GNENet destructor
-Debug: Deleting unreferenced junction 'gneJ13' in GNENet destructor
-Debug: Deleting unreferenced junction 'gneJ14' in GNENet destructor
-Debug: Deleting unreferenced junction 'gneJ15' in GNENet destructor
-Debug: Deleting unreferenced junction 'gneJ16' in GNENet destructor
-Debug: Deleting unreferenced junction 'gneJ17' in GNENet destructor
-Debug: Deleting unreferenced junction 'gneJ18' in GNENet destructor
-Debug: Deleting unreferenced junction 'gneJ19' in GNENet destructor
-Debug: Deleting unreferenced junction 'gneJ2' in GNENet destructor
-Debug: Deleting unreferenced junction 'gneJ20' in GNENet destructor
-Debug: Deleting unreferenced junction 'gneJ21' in GNENet destructor
-Debug: Deleting unreferenced junction 'gneJ22' in GNENet destructor
-Debug: Deleting unreferenced junction 'gneJ23' in GNENet destructor
-Debug: Deleting unreferenced junction 'gneJ24' in GNENet destructor
-Debug: Deleting unreferenced junction 'gneJ25' in GNENet destructor
-Debug: Deleting unreferenced junction 'gneJ26' in GNENet destructor
-Debug: Deleting unreferenced junction 'gneJ27' in GNENet destructor
-Debug: Deleting unreferenced junction 'gneJ28' in GNENet destructor
-Debug: Deleting unreferenced junction 'gneJ3' in GNENet destructor
-Debug: Deleting unreferenced junction 'gneJ4' in GNENet destructor
-Debug: Deleting unreferenced junction 'gneJ5' in GNENet destructor
-Debug: Deleting unreferenced junction 'gneJ7' in GNENet destructor
-Debug: Deleting unreferenced junction 'gneJ8' in GNENet destructor
-Debug: Deleting unreferenced junction 'gneJ9' in GNENet destructor
-Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
-Debug: Deleting net builder in GNENet destructor
+Debug: Deleting unreferenced lane '-gneE2

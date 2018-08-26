@@ -52,95 +52,72 @@ Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additi
 Debug: Setting new attribute selected 'true' into junction 'gneJ0'
 GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,8.00,22.00,52.00
 GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,8.00,22.00,52.00
-Debug: Current selection: 1 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into edge 'gneE3'
 GLDebug: Removed object edge:gneE3 from SUMORTree with boundary -30.00,0.00,60.00,61.60
 GLDebug: Inserted edge:gneE3 into SUMORTree with boundary -30.00,0.00,60.00,61.60
-Debug: Current selection: 1 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into edge 'gneE4'
 GLDebug: Removed object edge:gneE4 from SUMORTree with boundary -30.00,-30.00,31.60,60.00
 GLDebug: Inserted edge:gneE4 into SUMORTree with boundary -30.00,-30.00,31.60,60.00
-Debug: Current selection: 1 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into junction 'gneJ1'
 GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
 GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary -22.00,-22.00,22.00,22.00
-Debug: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into edge 'gneE0'
 GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -31.60,-30.00,30.00,60.00
 GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -31.60,-30.00,30.00,60.00
-Debug: Current selection: 2 Junctions, 3 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into edge 'gneE8'
 GLDebug: Removed object edge:gneE8 from SUMORTree with boundary -30.00,-30.00,60.00,31.60
 GLDebug: Inserted edge:gneE8 into SUMORTree with boundary -30.00,-30.00,60.00,31.60
-Debug: Current selection: 2 Junctions, 4 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into junction 'gneJ2'
 GLDebug: Removed object junction:gneJ2 from SUMORTree with boundary 8.00,-22.00,52.00,22.00
 GLDebug: Inserted junction:gneJ2 into SUMORTree with boundary 8.00,-22.00,52.00,22.00
-Debug: Current selection: 3 Junctions, 4 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into edge 'gneE1'
 GLDebug: Removed object edge:gneE1 from SUMORTree with boundary -30.00,-31.60,60.00,30.00
 GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-31.60,60.00,30.00
-Debug: Current selection: 3 Junctions, 5 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into edge 'gneE7'
 GLDebug: Removed object edge:gneE7 from SUMORTree with boundary -1.60,-30.00,60.00,60.00
 GLDebug: Inserted edge:gneE7 into SUMORTree with boundary -1.60,-30.00,60.00,60.00
-Debug: Current selection: 3 Junctions, 6 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into junction 'gneJ3'
 GLDebug: Removed object junction:gneJ3 from SUMORTree with boundary 8.00,8.00,52.00,52.00
 GLDebug: Inserted junction:gneJ3 into SUMORTree with boundary 8.00,8.00,52.00,52.00
-Debug: Current selection: 4 Junctions, 6 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into edge 'gneE2'
 GLDebug: Removed object edge:gneE2 from SUMORTree with boundary 0.00,-30.00,61.60,60.00
 GLDebug: Inserted edge:gneE2 into SUMORTree with boundary 0.00,-30.00,61.60,60.00
-Debug: Current selection: 4 Junctions, 7 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into edge 'gneE6'
 GLDebug: Removed object edge:gneE6 from SUMORTree with boundary -30.00,-1.60,60.00,60.00
 GLDebug: Inserted edge:gneE6 into SUMORTree with boundary -30.00,-1.60,60.00,60.00
-Debug: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into poly 'poly_0'
 GLDebug: Removed object polygon:poly_0 from SUMORTree with boundary -42.00,18.00,-28.00,32.00
 GLDebug: Inserted polygon:poly_0 into SUMORTree with boundary -42.00,18.00,-28.00,32.00
-Debug: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into poly 'poly_1'
 GLDebug: Removed object polygon:poly_1 from SUMORTree with boundary -22.00,18.00,-8.00,32.00
 GLDebug: Inserted polygon:poly_1 into SUMORTree with boundary -22.00,18.00,-8.00,32.00
-Debug: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 2 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into poly 'poly_12'
 GLDebug: Removed object polygon:poly_12 from SUMORTree with boundary -42.00,-42.00,-28.00,-28.00
 GLDebug: Inserted polygon:poly_12 into SUMORTree with boundary -42.00,-42.00,-28.00,-28.00
-Debug: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 3 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into poly 'poly_2'
 GLDebug: Removed object polygon:poly_2 from SUMORTree with boundary -2.00,18.00,12.00,32.00
 GLDebug: Inserted polygon:poly_2 into SUMORTree with boundary -2.00,18.00,12.00,32.00
-Debug: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 4 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into poly 'poly_3'
 GLDebug: Removed object polygon:poly_3 from SUMORTree with boundary 18.00,18.00,32.00,32.00
 GLDebug: Inserted polygon:poly_3 into SUMORTree with boundary 18.00,18.00,32.00,32.00
-Debug: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 5 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into poly 'poly_4'
 GLDebug: Removed object polygon:poly_4 from SUMORTree with boundary 18.00,-2.00,32.00,12.00
 GLDebug: Inserted polygon:poly_4 into SUMORTree with boundary 18.00,-2.00,32.00,12.00
-Debug: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 6 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into poly 'poly_5'
 GLDebug: Removed object polygon:poly_5 from SUMORTree with boundary 18.00,-22.00,32.00,-8.00
 GLDebug: Inserted polygon:poly_5 into SUMORTree with boundary 18.00,-22.00,32.00,-8.00
-Debug: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 7 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into poly 'poly_6'
 GLDebug: Removed object polygon:poly_6 from SUMORTree with boundary 18.00,-42.00,32.00,-28.00
 GLDebug: Inserted polygon:poly_6 into SUMORTree with boundary 18.00,-42.00,32.00,-28.00
-Debug: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 8 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into poly 'poly_7'
 GLDebug: Removed object polygon:poly_7 from SUMORTree with boundary -2.00,-42.00,12.00,-28.00
 GLDebug: Inserted polygon:poly_7 into SUMORTree with boundary -2.00,-42.00,12.00,-28.00
-Debug: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 9 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into poly 'poly_8'
 GLDebug: Removed object polygon:poly_8 from SUMORTree with boundary -22.00,-42.00,-8.00,-28.00
 GLDebug: Inserted polygon:poly_8 into SUMORTree with boundary -22.00,-42.00,-8.00,-28.00
-Debug: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 10 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into poly 'poly_9'
 GLDebug: Removed object polygon:poly_9 from SUMORTree with boundary -42.00,-2.00,-28.00,12.00
 GLDebug: Inserted polygon:poly_9 into SUMORTree with boundary -42.00,-2.00,-28.00,12.00
-Debug: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
 Debug: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
 Debug: Value 'Jren' for attribute color of poly isn't valid
 Debug: Setting new attribute color 'green' into poly 'poly_1'
@@ -490,189 +467,143 @@ Debug: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additi
 Debug: Setting new attribute selected 'false' into junction 'gneJ0'
 GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,8.00,22.00,52.00
 GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,8.00,22.00,52.00
-Debug: Current selection: 3 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
 Debug: Setting new attribute selected 'false' into junction 'gneJ1'
 GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
 GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary -22.00,-22.00,22.00,22.00
-Debug: Current selection: 2 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
 Debug: Setting new attribute selected 'false' into junction 'gneJ2'
 GLDebug: Removed object junction:gneJ2 from SUMORTree with boundary 8.00,-22.00,52.00,22.00
 GLDebug: Inserted junction:gneJ2 into SUMORTree with boundary 8.00,-22.00,52.00,22.00
-Debug: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
 Debug: Setting new attribute selected 'false' into junction 'gneJ3'
 GLDebug: Removed object junction:gneJ3 from SUMORTree with boundary 8.00,8.00,52.00,52.00
 GLDebug: Inserted junction:gneJ3 into SUMORTree with boundary 8.00,8.00,52.00,52.00
-Debug: Current selection: 0 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
 Debug: Setting new attribute selected 'false' into edge 'gneE0'
 GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -31.60,-30.00,30.00,60.00
 GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -31.60,-30.00,30.00,60.00
-Debug: Current selection: 0 Junctions, 7 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
 Debug: Setting new attribute selected 'false' into edge 'gneE1'
 GLDebug: Removed object edge:gneE1 from SUMORTree with boundary -30.00,-31.60,60.00,30.00
 GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-31.60,60.00,30.00
-Debug: Current selection: 0 Junctions, 6 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
 Debug: Setting new attribute selected 'false' into edge 'gneE2'
 GLDebug: Removed object edge:gneE2 from SUMORTree with boundary 0.00,-30.00,61.60,60.00
 GLDebug: Inserted edge:gneE2 into SUMORTree with boundary 0.00,-30.00,61.60,60.00
-Debug: Current selection: 0 Junctions, 5 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
 Debug: Setting new attribute selected 'false' into edge 'gneE3'
 GLDebug: Removed object edge:gneE3 from SUMORTree with boundary -30.00,0.00,60.00,61.60
 GLDebug: Inserted edge:gneE3 into SUMORTree with boundary -30.00,0.00,60.00,61.60
-Debug: Current selection: 0 Junctions, 4 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
 Debug: Setting new attribute selected 'false' into edge 'gneE4'
 GLDebug: Removed object edge:gneE4 from SUMORTree with boundary -30.00,-30.00,31.60,60.00
 GLDebug: Inserted edge:gneE4 into SUMORTree with boundary -30.00,-30.00,31.60,60.00
-Debug: Current selection: 0 Junctions, 3 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
 Debug: Setting new attribute selected 'false' into edge 'gneE6'
 GLDebug: Removed object edge:gneE6 from SUMORTree with boundary -30.00,-1.60,60.00,60.00
 GLDebug: Inserted edge:gneE6 into SUMORTree with boundary -30.00,-1.60,60.00,60.00
-Debug: Current selection: 0 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
 Debug: Setting new attribute selected 'false' into edge 'gneE7'
 GLDebug: Removed object edge:gneE7 from SUMORTree with boundary -1.60,-30.00,60.00,60.00
 GLDebug: Inserted edge:gneE7 into SUMORTree with boundary -1.60,-30.00,60.00,60.00
-Debug: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
 Debug: Setting new attribute selected 'false' into edge 'gneE8'
 GLDebug: Removed object edge:gneE8 from SUMORTree with boundary -30.00,-30.00,60.00,31.60
 GLDebug: Inserted edge:gneE8 into SUMORTree with boundary -30.00,-30.00,60.00,31.60
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
 Debug: Setting new attribute selected 'false' into poly 'poly_0'
 GLDebug: Removed object polygon:poly_0 from SUMORTree with boundary -42.00,18.00,-28.00,32.00
 GLDebug: Inserted polygon:poly_0 into SUMORTree with boundary -42.00,18.00,-28.00,32.00
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 10 Polygons, 0 POIs
 Debug: Setting new attribute selected 'false' into poly 'poly_1'
 GLDebug: Removed object polygon:poly_1 from SUMORTree with boundary -22.00,18.00,-8.00,32.00
 GLDebug: Inserted polygon:poly_1 into SUMORTree with boundary -22.00,18.00,-8.00,32.00
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 9 Polygons, 0 POIs
 Debug: Setting new attribute selected 'false' into poly 'poly_12'
 GLDebug: Removed object polygon:poly_12 from SUMORTree with boundary -42.00,-42.00,-28.00,-28.00
 GLDebug: Inserted polygon:poly_12 into SUMORTree with boundary -42.00,-42.00,-28.00,-28.00
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 8 Polygons, 0 POIs
 Debug: Setting new attribute selected 'false' into poly 'poly_2'
 GLDebug: Removed object polygon:poly_2 from SUMORTree with boundary -2.00,18.00,12.00,32.00
 GLDebug: Inserted polygon:poly_2 into SUMORTree with boundary -2.00,18.00,12.00,32.00
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 7 Polygons, 0 POIs
 Debug: Setting new attribute selected 'false' into poly 'poly_3'
 GLDebug: Removed object polygon:poly_3 from SUMORTree with boundary 18.00,18.00,32.00,32.00
 GLDebug: Inserted polygon:poly_3 into SUMORTree with boundary 18.00,18.00,32.00,32.00
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 6 Polygons, 0 POIs
 Debug: Setting new attribute selected 'false' into poly 'poly_4'
 GLDebug: Removed object polygon:poly_4 from SUMORTree with boundary 18.00,-2.00,32.00,12.00
 GLDebug: Inserted polygon:poly_4 into SUMORTree with boundary 18.00,-2.00,32.00,12.00
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 5 Polygons, 0 POIs
 Debug: Setting new attribute selected 'false' into poly 'poly_5'
 GLDebug: Removed object polygon:poly_5 from SUMORTree with boundary 18.00,-22.00,32.00,-8.00
 GLDebug: Inserted polygon:poly_5 into SUMORTree with boundary 18.00,-22.00,32.00,-8.00
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 4 Polygons, 0 POIs
 Debug: Setting new attribute selected 'false' into poly 'poly_6'
 GLDebug: Removed object polygon:poly_6 from SUMORTree with boundary 18.00,-42.00,32.00,-28.00
 GLDebug: Inserted polygon:poly_6 into SUMORTree with boundary 18.00,-42.00,32.00,-28.00
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 3 Polygons, 0 POIs
 Debug: Setting new attribute selected 'false' into poly 'poly_7'
 GLDebug: Removed object polygon:poly_7 from SUMORTree with boundary -2.00,-42.00,12.00,-28.00
 GLDebug: Inserted polygon:poly_7 into SUMORTree with boundary -2.00,-42.00,12.00,-28.00
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 2 Polygons, 0 POIs
 Debug: Setting new attribute selected 'false' into poly 'poly_8'
 GLDebug: Removed object polygon:poly_8 from SUMORTree with boundary -22.00,-42.00,-8.00,-28.00
 GLDebug: Inserted polygon:poly_8 into SUMORTree with boundary -22.00,-42.00,-8.00,-28.00
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Debug: Setting new attribute selected 'false' into poly 'poly_9'
 GLDebug: Removed object polygon:poly_9 from SUMORTree with boundary -42.00,-2.00,-28.00,12.00
 GLDebug: Inserted polygon:poly_9 into SUMORTree with boundary -42.00,-2.00,-28.00,12.00
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute selected '1' into poly 'poly_9'
 GLDebug: Removed object polygon:poly_9 from SUMORTree with boundary -42.00,-2.00,-28.00,12.00
 GLDebug: Inserted polygon:poly_9 into SUMORTree with boundary -42.00,-2.00,-28.00,12.00
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Debug: Setting previous attribute selected '1' into poly 'poly_8'
 GLDebug: Removed object polygon:poly_8 from SUMORTree with boundary -22.00,-42.00,-8.00,-28.00
 GLDebug: Inserted polygon:poly_8 into SUMORTree with boundary -22.00,-42.00,-8.00,-28.00
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 2 Polygons, 0 POIs
 Debug: Setting previous attribute selected '1' into poly 'poly_7'
 GLDebug: Removed object polygon:poly_7 from SUMORTree with boundary -2.00,-42.00,12.00,-28.00
 GLDebug: Inserted polygon:poly_7 into SUMORTree with boundary -2.00,-42.00,12.00,-28.00
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 3 Polygons, 0 POIs
 Debug: Setting previous attribute selected '1' into poly 'poly_6'
 GLDebug: Removed object polygon:poly_6 from SUMORTree with boundary 18.00,-42.00,32.00,-28.00
 GLDebug: Inserted polygon:poly_6 into SUMORTree with boundary 18.00,-42.00,32.00,-28.00
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 4 Polygons, 0 POIs
 Debug: Setting previous attribute selected '1' into poly 'poly_5'
 GLDebug: Removed object polygon:poly_5 from SUMORTree with boundary 18.00,-22.00,32.00,-8.00
 GLDebug: Inserted polygon:poly_5 into SUMORTree with boundary 18.00,-22.00,32.00,-8.00
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 5 Polygons, 0 POIs
 Debug: Setting previous attribute selected '1' into poly 'poly_4'
 GLDebug: Removed object polygon:poly_4 from SUMORTree with boundary 18.00,-2.00,32.00,12.00
 GLDebug: Inserted polygon:poly_4 into SUMORTree with boundary 18.00,-2.00,32.00,12.00
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 6 Polygons, 0 POIs
 Debug: Setting previous attribute selected '1' into poly 'poly_3'
 GLDebug: Removed object polygon:poly_3 from SUMORTree with boundary 18.00,18.00,32.00,32.00
 GLDebug: Inserted polygon:poly_3 into SUMORTree with boundary 18.00,18.00,32.00,32.00
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 7 Polygons, 0 POIs
 Debug: Setting previous attribute selected '1' into poly 'poly_2'
 GLDebug: Removed object polygon:poly_2 from SUMORTree with boundary -2.00,18.00,12.00,32.00
 GLDebug: Inserted polygon:poly_2 into SUMORTree with boundary -2.00,18.00,12.00,32.00
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 8 Polygons, 0 POIs
 Debug: Setting previous attribute selected '1' into poly 'poly_12'
 GLDebug: Removed object polygon:poly_12 from SUMORTree with boundary -42.00,-42.00,-28.00,-28.00
 GLDebug: Inserted polygon:poly_12 into SUMORTree with boundary -42.00,-42.00,-28.00,-28.00
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 9 Polygons, 0 POIs
 Debug: Setting previous attribute selected '1' into poly 'poly_1'
 GLDebug: Removed object polygon:poly_1 from SUMORTree with boundary -22.00,18.00,-8.00,32.00
 GLDebug: Inserted polygon:poly_1 into SUMORTree with boundary -22.00,18.00,-8.00,32.00
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 10 Polygons, 0 POIs
 Debug: Setting previous attribute selected '1' into poly 'poly_0'
 GLDebug: Removed object polygon:poly_0 from SUMORTree with boundary -42.00,18.00,-28.00,32.00
 GLDebug: Inserted polygon:poly_0 into SUMORTree with boundary -42.00,18.00,-28.00,32.00
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
 Debug: Setting previous attribute selected '1' into edge 'gneE8'
 GLDebug: Removed object edge:gneE8 from SUMORTree with boundary -30.00,-30.00,60.00,31.60
 GLDebug: Inserted edge:gneE8 into SUMORTree with boundary -30.00,-30.00,60.00,31.60
-Debug: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
 Debug: Setting previous attribute selected '1' into edge 'gneE7'
 GLDebug: Removed object edge:gneE7 from SUMORTree with boundary -1.60,-30.00,60.00,60.00
 GLDebug: Inserted edge:gneE7 into SUMORTree with boundary -1.60,-30.00,60.00,60.00
-Debug: Current selection: 0 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
 Debug: Setting previous attribute selected '1' into edge 'gneE6'
 GLDebug: Removed object edge:gneE6 from SUMORTree with boundary -30.00,-1.60,60.00,60.00
 GLDebug: Inserted edge:gneE6 into SUMORTree with boundary -30.00,-1.60,60.00,60.00
-Debug: Current selection: 0 Junctions, 3 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
 Debug: Setting previous attribute selected '1' into edge 'gneE4'
 GLDebug: Removed object edge:gneE4 from SUMORTree with boundary -30.00,-30.00,31.60,60.00
 GLDebug: Inserted edge:gneE4 into SUMORTree with boundary -30.00,-30.00,31.60,60.00
-Debug: Current selection: 0 Junctions, 4 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
 Debug: Setting previous attribute selected '1' into edge 'gneE3'
 GLDebug: Removed object edge:gneE3 from SUMORTree with boundary -30.00,0.00,60.00,61.60
 GLDebug: Inserted edge:gneE3 into SUMORTree with boundary -30.00,0.00,60.00,61.60
-Debug: Current selection: 0 Junctions, 5 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
 Debug: Setting previous attribute selected '1' into edge 'gneE2'
 GLDebug: Removed object edge:gneE2 from SUMORTree with boundary 0.00,-30.00,61.60,60.00
 GLDebug: Inserted edge:gneE2 into SUMORTree with boundary 0.00,-30.00,61.60,60.00
-Debug: Current selection: 0 Junctions, 6 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
 Debug: Setting previous attribute selected '1' into edge 'gneE1'
 GLDebug: Removed object edge:gneE1 from SUMORTree with boundary -30.00,-31.60,60.00,30.00
 GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-31.60,60.00,30.00
-Debug: Current selection: 0 Junctions, 7 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
 Debug: Setting previous attribute selected '1' into edge 'gneE0'
 GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -31.60,-30.00,30.00,60.00
 GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -31.60,-30.00,30.00,60.00
-Debug: Current selection: 0 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
 Debug: Setting previous attribute selected '1' into junction 'gneJ3'
 GLDebug: Removed object junction:gneJ3 from SUMORTree with boundary 8.00,8.00,52.00,52.00
 GLDebug: Inserted junction:gneJ3 into SUMORTree with boundary 8.00,8.00,52.00,52.00
-Debug: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
 Debug: Setting previous attribute selected '1' into junction 'gneJ2'
 GLDebug: Removed object junction:gneJ2 from SUMORTree with boundary 8.00,-22.00,52.00,22.00
 GLDebug: Inserted junction:gneJ2 into SUMORTree with boundary 8.00,-22.00,52.00,22.00
-Debug: Current selection: 2 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
 Debug: Setting previous attribute selected '1' into junction 'gneJ1'
 GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
 GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary -22.00,-22.00,22.00,22.00
-Debug: Current selection: 3 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
 Debug: Setting previous attribute selected '1' into junction 'gneJ0'
 GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,8.00,22.00,52.00
 GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,8.00,22.00,52.00
-Debug: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute closedShape '1' into poly 'poly_9'
 GLDebug: Removed object polygon:poly_9 from SUMORTree with boundary -42.00,-2.00,-28.00,12.00
@@ -969,95 +900,72 @@ Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute selected 'false' into junction 'gneJ0'
 GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,8.00,22.00,52.00
 GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,8.00,22.00,52.00
-Debug: Current selection: 3 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
 Debug: Setting new attribute selected 'false' into junction 'gneJ1'
 GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
 GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary -22.00,-22.00,22.00,22.00
-Debug: Current selection: 2 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
 Debug: Setting new attribute selected 'false' into junction 'gneJ2'
 GLDebug: Removed object junction:gneJ2 from SUMORTree with boundary 8.00,-22.00,52.00,22.00
 GLDebug: Inserted junction:gneJ2 into SUMORTree with boundary 8.00,-22.00,52.00,22.00
-Debug: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
 Debug: Setting new attribute selected 'false' into junction 'gneJ3'
 GLDebug: Removed object junction:gneJ3 from SUMORTree with boundary 8.00,8.00,52.00,52.00
 GLDebug: Inserted junction:gneJ3 into SUMORTree with boundary 8.00,8.00,52.00,52.00
-Debug: Current selection: 0 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
 Debug: Setting new attribute selected 'false' into edge 'gneE0'
 GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -31.60,-30.00,30.00,60.00
 GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -31.60,-30.00,30.00,60.00
-Debug: Current selection: 0 Junctions, 7 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
 Debug: Setting new attribute selected 'false' into edge 'gneE1'
 GLDebug: Removed object edge:gneE1 from SUMORTree with boundary -30.00,-31.60,60.00,30.00
 GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-31.60,60.00,30.00
-Debug: Current selection: 0 Junctions, 6 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
 Debug: Setting new attribute selected 'false' into edge 'gneE2'
 GLDebug: Removed object edge:gneE2 from SUMORTree with boundary 0.00,-30.00,61.60,60.00
 GLDebug: Inserted edge:gneE2 into SUMORTree with boundary 0.00,-30.00,61.60,60.00
-Debug: Current selection: 0 Junctions, 5 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
 Debug: Setting new attribute selected 'false' into edge 'gneE3'
 GLDebug: Removed object edge:gneE3 from SUMORTree with boundary -30.00,0.00,60.00,61.60
 GLDebug: Inserted edge:gneE3 into SUMORTree with boundary -30.00,0.00,60.00,61.60
-Debug: Current selection: 0 Junctions, 4 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
 Debug: Setting new attribute selected 'false' into edge 'gneE4'
 GLDebug: Removed object edge:gneE4 from SUMORTree with boundary -30.00,-30.00,31.60,60.00
 GLDebug: Inserted edge:gneE4 into SUMORTree with boundary -30.00,-30.00,31.60,60.00
-Debug: Current selection: 0 Junctions, 3 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
 Debug: Setting new attribute selected 'false' into edge 'gneE6'
 GLDebug: Removed object edge:gneE6 from SUMORTree with boundary -30.00,-1.60,60.00,60.00
 GLDebug: Inserted edge:gneE6 into SUMORTree with boundary -30.00,-1.60,60.00,60.00
-Debug: Current selection: 0 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
 Debug: Setting new attribute selected 'false' into edge 'gneE7'
 GLDebug: Removed object edge:gneE7 from SUMORTree with boundary -1.60,-30.00,60.00,60.00
 GLDebug: Inserted edge:gneE7 into SUMORTree with boundary -1.60,-30.00,60.00,60.00
-Debug: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
 Debug: Setting new attribute selected 'false' into edge 'gneE8'
 GLDebug: Removed object edge:gneE8 from SUMORTree with boundary -30.00,-30.00,60.00,31.60
 GLDebug: Inserted edge:gneE8 into SUMORTree with boundary -30.00,-30.00,60.00,31.60
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
 Debug: Setting new attribute selected 'false' into poly 'poly_0'
 GLDebug: Removed object polygon:poly_0 from SUMORTree with boundary -42.00,18.00,-28.00,32.00
 GLDebug: Inserted polygon:poly_0 into SUMORTree with boundary -42.00,18.00,-28.00,32.00
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 10 Polygons, 0 POIs
 Debug: Setting new attribute selected 'false' into poly 'poly_1'
 GLDebug: Removed object polygon:poly_1 from SUMORTree with boundary -22.00,18.00,-8.00,32.00
 GLDebug: Inserted polygon:poly_1 into SUMORTree with boundary -22.00,18.00,-8.00,32.00
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 9 Polygons, 0 POIs
 Debug: Setting new attribute selected 'false' into poly 'poly_12'
 GLDebug: Removed object polygon:poly_12 from SUMORTree with boundary -42.00,-42.00,-28.00,-28.00
 GLDebug: Inserted polygon:poly_12 into SUMORTree with boundary -42.00,-42.00,-28.00,-28.00
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 8 Polygons, 0 POIs
 Debug: Setting new attribute selected 'false' into poly 'poly_2'
 GLDebug: Removed object polygon:poly_2 from SUMORTree with boundary -2.00,18.00,12.00,32.00
 GLDebug: Inserted polygon:poly_2 into SUMORTree with boundary -2.00,18.00,12.00,32.00
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 7 Polygons, 0 POIs
 Debug: Setting new attribute selected 'false' into poly 'poly_3'
 GLDebug: Removed object polygon:poly_3 from SUMORTree with boundary 18.00,18.00,32.00,32.00
 GLDebug: Inserted polygon:poly_3 into SUMORTree with boundary 18.00,18.00,32.00,32.00
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 6 Polygons, 0 POIs
 Debug: Setting new attribute selected 'false' into poly 'poly_4'
 GLDebug: Removed object polygon:poly_4 from SUMORTree with boundary 18.00,-2.00,32.00,12.00
 GLDebug: Inserted polygon:poly_4 into SUMORTree with boundary 18.00,-2.00,32.00,12.00
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 5 Polygons, 0 POIs
 Debug: Setting new attribute selected 'false' into poly 'poly_5'
 GLDebug: Removed object polygon:poly_5 from SUMORTree with boundary 18.00,-22.00,32.00,-8.00
 GLDebug: Inserted polygon:poly_5 into SUMORTree with boundary 18.00,-22.00,32.00,-8.00
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 4 Polygons, 0 POIs
 Debug: Setting new attribute selected 'false' into poly 'poly_6'
 GLDebug: Removed object polygon:poly_6 from SUMORTree with boundary 18.00,-42.00,32.00,-28.00
 GLDebug: Inserted polygon:poly_6 into SUMORTree with boundary 18.00,-42.00,32.00,-28.00
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 3 Polygons, 0 POIs
 Debug: Setting new attribute selected 'false' into poly 'poly_7'
 GLDebug: Removed object polygon:poly_7 from SUMORTree with boundary -2.00,-42.00,12.00,-28.00
 GLDebug: Inserted polygon:poly_7 into SUMORTree with boundary -2.00,-42.00,12.00,-28.00
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 2 Polygons, 0 POIs
 Debug: Setting new attribute selected 'false' into poly 'poly_8'
 GLDebug: Removed object polygon:poly_8 from SUMORTree with boundary -22.00,-42.00,-8.00,-28.00
 GLDebug: Inserted polygon:poly_8 into SUMORTree with boundary -22.00,-42.00,-8.00,-28.00
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Debug: Setting new attribute selected 'false' into poly 'poly_9'
 GLDebug: Removed object polygon:poly_9 from SUMORTree with boundary -42.00,-2.00,-28.00,12.00
 GLDebug: Inserted polygon:poly_9 into SUMORTree with boundary -42.00,-2.00,-28.00,12.00
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Shapes saved
 GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,8.00,22.00,52.00
 GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary -22.00,-22.00,22.00,22.00

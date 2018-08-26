@@ -414,7 +414,6 @@ Debug: Closed FXMessageBox 'Join non-selected junction' with 'Yes'
 Debug: Deleting unreferenced junction 'gneJ20' in GNEChange_Attribute
 Debug: Deleting NBNode of 'gneJ20' in GNEJunction destructor
 Debug: Setting new attribute selected 'true' into junction 'gneJ19'
-Debug: Current selection: 3 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Adding junction 'gneJ21' into net
 Debug: Setting new attribute type 'priority' into junction 'gneJ21'
 Debug: Removing crossing from junction 'gneJ13'

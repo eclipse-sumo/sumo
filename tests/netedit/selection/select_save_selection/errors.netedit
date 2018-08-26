@@ -13,9 +13,7 @@ Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals saved, shapes unsaved
 Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into edge 'gneE0'
-Debug: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into edge 'gneE1'
-Debug: Current selection: 0 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Current selection: 0 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()

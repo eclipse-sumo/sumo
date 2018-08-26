@@ -37,15 +37,12 @@ Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additi
 Debug: Setting new attribute selected 'true' into junction 'gneJ0'
 GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
 GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-22.00,22.00,22.00
-Debug: Current selection: 1 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into edge 'gneE1'
 GLDebug: Removed object edge:gneE1 from SUMORTree with boundary -30.00,-30.00,80.00,31.60
 GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
-Debug: Current selection: 1 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into junction 'gneJ1'
 GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00,72.00,22.00
 GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 28.00,-22.00,72.00,22.00
-Debug: Current selection: 2 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into edge 'gneE0'
 GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-31.60,80.00,30.00
 GLDebug: Removed object parkingArea:parkingAreaA from SUMORTree with boundary -15.00,-28.20,30.00,11.80
@@ -53,15 +50,12 @@ GLDebug: Inserted parkingArea:parkingAreaA into SUMORTree with boundary -15.00,-
 GLDebug: Removed object parkingArea:parkingAreaB from SUMORTree with boundary -5.00,-29.20,40.00,10.80
 GLDebug: Inserted parkingArea:parkingAreaB into SUMORTree with boundary -5.00,-29.20,40.00,10.80
 GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
-Debug: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into parkingArea 'parkingAreaA'
 GLDebug: Removed object parkingArea:parkingAreaA from SUMORTree with boundary -15.00,-28.20,30.00,11.80
 GLDebug: Inserted parkingArea:parkingAreaA into SUMORTree with boundary -15.00,-28.20,30.00,11.80
-Debug: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into parkingArea 'parkingAreaB'
 GLDebug: Removed object parkingArea:parkingAreaB from SUMORTree with boundary -5.00,-29.20,40.00,10.80
 GLDebug: Inserted parkingArea:parkingAreaB into SUMORTree with boundary -5.00,-29.20,40.00,10.80
-Debug: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 2 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 2 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into parkingArea 'parkingAreaA'
 GLDebug: Removed object parkingArea:parkingAreaA from SUMORTree with boundary -15.00,-28.20,30.00,11.80

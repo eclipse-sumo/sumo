@@ -6,7 +6,6 @@ Debug: Current saving Status: net unsaved, additionals saved, shapes saved
 Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into edge 'gneE17'
 Debug: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Debug: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Key DEL (delete) pressed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE17'
 Debug: invalidating (removing) connections of edge '-gneE17' due it were guessed
@@ -19,7 +18,6 @@ Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into jun
 Debug: Removing edge 'gneE17' from net
 Debug: Setting new attribute selected 'true' into edge '-gneE17'
 Debug: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Debug: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Key DEL (delete) pressed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ17'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE17'
@@ -27,7 +25,6 @@ Debug: invalidating (removing) connections of edge '-gneE17' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ18'
 Debug: Removing edge '-gneE17' from net
 Debug: Setting new attribute selected 'true' into edge '-gneE16'
-Debug: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Key DEL (delete) pressed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE16'
@@ -39,7 +36,6 @@ Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into jun
 Debug: Removing edge '-gneE16' from net
 Debug: Setting new attribute selected 'true' into edge 'gneE16'
 Debug: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Debug: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Key DEL (delete) pressed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ19'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE16'
@@ -47,7 +43,6 @@ Debug: invalidating (removing) connections of edge 'gneE16' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ20'
 Debug: Removing edge 'gneE16' from net
 Debug: Setting new attribute selected 'true' into edge '-gneE23'
-Debug: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Key DEL (delete) pressed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE23'
@@ -59,7 +54,6 @@ Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into jun
 Debug: Removing edge '-gneE23' from net
 Debug: Setting new attribute selected 'true' into edge 'gneE23'
 Debug: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Debug: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Key DEL (delete) pressed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ23'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE23'
@@ -67,7 +61,6 @@ Debug: invalidating (removing) connections of edge 'gneE23' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ24'
 Debug: Removing edge 'gneE23' from net
 Debug: Setting new attribute selected 'true' into edge '-gneE19'
-Debug: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Key DEL (delete) pressed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE19'
@@ -79,7 +72,6 @@ Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into jun
 Debug: Removing edge '-gneE19' from net
 Debug: Setting new attribute selected 'true' into edge 'gneE19'
 Debug: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Debug: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Key DEL (delete) pressed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ11'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE19'
@@ -87,7 +79,6 @@ Debug: invalidating (removing) connections of edge 'gneE19' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ12'
 Debug: Removing edge 'gneE19' from net
 Debug: Setting new attribute selected 'true' into edge 'gneE20'
-Debug: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Key DEL (delete) pressed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE20'
@@ -98,7 +89,6 @@ Debug: invalidating (removing) connections of edge 'gneE20' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ13'
 Debug: Removing edge 'gneE20' from net
 Debug: Setting new attribute selected 'true' into edge '-gneE20'
-Debug: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Key DEL (delete) pressed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ13'
