@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sun Aug 26 22:36:39 2018 by Eclipse SUMO Version 430e1a6
+<!-- generated on Sun Aug 26 22:38:18 2018 by Eclipse SUMO Version 80ef8e6
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -71,13 +71,13 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="4" x="104.95" y="56.50" angle="0.00" type="DEFAULT_VEHTYPE" speed="8.84" pos="56.50" lane="SC_3" slope="0.00"/>
     </timestep>
     <timestep time="17.00">
-        <vehicle id="4" x="104.95" y="60.00" angle="0.00" type="DEFAULT_VEHTYPE" speed="3.50" pos="60.00" lane="SC_3" slope="0.00"/>
+        <vehicle id="4" x="104.95" y="60.84" angle="0.00" type="DEFAULT_VEHTYPE" speed="4.34" pos="60.84" lane="SC_3" slope="0.00"/>
     </timestep>
     <timestep time="18.00">
-        <vehicle id="4" x="104.95" y="61.58" angle="0.00" type="DEFAULT_VEHTYPE" speed="1.58" pos="61.58" lane="SC_3" slope="0.00"/>
+        <vehicle id="4" x="104.95" y="61.66" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.82" pos="61.66" lane="SC_3" slope="0.00"/>
     </timestep>
     <timestep time="19.00">
-        <vehicle id="4" x="104.95" y="61.84" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.26" pos="61.84" lane="SC_3" slope="0.00"/>
+        <vehicle id="4" x="104.95" y="61.84" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.19" pos="61.84" lane="SC_3" slope="0.00"/>
     </timestep>
     <timestep time="20.00">
         <vehicle id="4" x="104.95" y="61.89" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.04" pos="61.89" lane="SC_3" slope="0.00"/>
