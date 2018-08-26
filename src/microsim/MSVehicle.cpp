@@ -2481,6 +2481,7 @@ MSVehicle::processLinkAproaches(double& vSafe, double& vSafeMin, double& vSafeMi
     double vSafeZipper = std::numeric_limits<double>::max();
 
     myHaveToWaitOnNextLink = false;
+    bool canBrakeVSafeMin = false;
 
     // Get safe velocities from DriveProcessItems.
     assert(myLFLinkLanes.size() != 0 || isRemoteControlled());
@@ -2570,6 +2571,11 @@ MSVehicle::processLinkAproaches(double& vSafe, double& vSafeMin, double& vSafeMi
                     // past the point of no return. we need to drive fast enough
                     // to make it across the link. However, minor slowdowns
                     // should be permissible to follow leading traffic safely
+                    // basically, this code prevents dawdling
+                    // (it's harder to do this later using
+                    // SUMO_ATTR_JM_SIGMA_MINOR because we don't know whether the
+                    // vehicle is already too close to stop at that part of the code)
+                    //
                     // XXX: There is a problem in subsecond simulation: If we cannot
                     // make it across the minor link in one step, new traffic
                     // could appear on a major foe link and cause a collision. Refs. #1845, #2123
@@ -2579,6 +2585,7 @@ MSVehicle::processLinkAproaches(double& vSafe, double& vSafeMin, double& vSafeMi
                     } else {
                         vSafeMin = MIN2((double) DIST2SPEED(2 * vSafeMinDist + NUMERICAL_EPS) - getSpeed(), (*i).myVLinkPass);
                     }
+                    canBrakeVSafeMin = canBrake;
                 }
             }
             // have waited; may pass if opened...
@@ -2639,7 +2646,6 @@ MSVehicle::processLinkAproaches(double& vSafe, double& vSafeMin, double& vSafeMi
 
     if ((MSGlobals::gSemiImplicitEulerUpdate && vSafe + NUMERICAL_EPS < vSafeMin)
             || (!MSGlobals::gSemiImplicitEulerUpdate && (vSafe + NUMERICAL_EPS < vSafeMin && vSafeMin != 0))) { // this might be good for the euler case as well
-        // cannot drive across a link so we need to stop before it
         // XXX: (Leo) This often called stopSpeed with vSafeMinDist==0 (for the ballistic update), since vSafe can become negative
         //      For the Euler update the term '+ NUMERICAL_EPS' prevented a call here... Recheck, consider of -INVALID_SPEED instead of 0 to indicate absence of vSafeMin restrictions. Refs. #2577
 #ifdef DEBUG_EXEC_MOVE
@@ -2647,12 +2653,22 @@ MSVehicle::processLinkAproaches(double& vSafe, double& vSafeMin, double& vSafeMi
             std::cout << "vSafeMin Problem? vSafe=" << vSafe << " vSafeMin=" << vSafeMin << " vSafeMinDist=" << vSafeMinDist << std::endl;
         }
 #endif
-        vSafe = MIN2(vSafe, getCarFollowModel().stopSpeed(this, getSpeed(), vSafeMinDist));
-        vSafeMin = 0;
-        myHaveToWaitOnNextLink = true;
+        if (canBrakeVSafeMin) {
+            // cannot drive across a link so we need to stop before it
+            vSafe = MIN2(vSafe, getCarFollowModel().stopSpeed(this, getSpeed(), vSafeMinDist));
+            vSafeMin = 0;
+            myHaveToWaitOnNextLink = true;
 #ifdef DEBUG_CHECKREWINDLINKLANES
-        if (DEBUG_COND) std::cout << SIMTIME << " veh=" << getID() << " haveToWait (vSafe=" << vSafe << " < vSafeMin=" << vSafeMin << ")\n";
+            if (DEBUG_COND) std::cout << SIMTIME << " veh=" << getID() << " haveToWait (vSafe=" << vSafe << " < vSafeMin=" << vSafeMin << ")\n";
 #endif
+        } else {
+            // if the link is yellow or visibility distance is large
+            // then we might not make it across the link in one step anyway..
+            // Possibly, the lane after the intersection has a lower speed limit so
+            // we really need to drive slower already
+            // -> keep driving without dawdling
+            vSafeMin = vSafe;
+        }
     }
 
     // vehicles inside a roundabout should maintain their requests
