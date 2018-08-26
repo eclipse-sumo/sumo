@@ -950,6 +950,11 @@ MSLane::forceVehicleInsertion(MSVehicle* veh, double pos, MSMoveReminder::Notifi
 double
 MSLane::safeInsertionSpeed(const MSVehicle* veh, double seen, const MSLeaderInfo& leaders, double speed) {
     double nspeed = speed;
+#ifdef DEBUG_INSERTION
+    if (DEBUG_COND2(veh)) {
+        std::cout << SIMTIME << " safeInsertionSpeed veh=" << veh->getID() << " speed=" << speed << "\n";
+    }
+#endif
     for (int i = 0; i < leaders.numSublanes(); ++i) {
         const MSVehicle* leader = leaders[i];
         if (leader != 0) {
@@ -959,6 +964,11 @@ MSLane::safeInsertionSpeed(const MSVehicle* veh, double seen, const MSLeaderInfo
             }
             nspeed = MIN2(nspeed,
                           veh->getCarFollowModel().insertionFollowSpeed(veh, speed, gap, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel()));
+#ifdef DEBUG_INSERTION
+            if (DEBUG_COND2(veh)) {
+                std::cout << "    leader=" << leader->getID() << " nspeed=" << nspeed << "\n";
+            }
+#endif
         }
     }
     return nspeed;
