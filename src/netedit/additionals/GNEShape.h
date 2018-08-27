@@ -195,7 +195,8 @@ protected:
     /// @brief the net to inform about updates
     GNENet* myNet;
 
-    Boundary myBoundary;
+    /// @brief boundary used during moving of elements
+    Boundary myMovingGeometryBoundary;
 
     /// @brief flag to block movement
     bool myBlockMovement;

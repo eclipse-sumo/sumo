@@ -83,12 +83,24 @@ GNEPOI::~GNEPOI() {}
 
 void 
 GNEPOI::startGeometryMoving() {
+    // save current centering boundary
+    myMovingGeometryBoundary = getCenteringBoundary();
 }
 
 
 void 
 GNEPOI::endGeometryMoving() {
-
+    // check that endGeometryMoving was called only once
+    if(myMovingGeometryBoundary.isInitialised()) {
+        // Remove object from net 
+        myNet->removeGLObjectFromGrid(this);
+        // reset myMovingGeometryBoundary
+        myMovingGeometryBoundary.reset();
+        // update geometry without updating grid
+        updateGeometry(false);
+        // add object into grid again (using the new centering boundary)
+        myNet->addGLObjectIntoGrid(this);
+    }
 }
 
 void 
@@ -215,7 +227,12 @@ GNEPOI::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 
 Boundary
 GNEPOI::getCenteringBoundary() const {
-    return GUIPointOfInterest::getCenteringBoundary();
+    // Return Boundary depending if myMovingGeometryBoundary is initialised (important for move geometry)
+    if(myMovingGeometryBoundary.isInitialised()) {
+        return myMovingGeometryBoundary; 
+    }  else {
+        return GUIPointOfInterest::getCenteringBoundary();
+    }
 }
 
 
