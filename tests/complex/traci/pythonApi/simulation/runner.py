@@ -158,4 +158,10 @@ for step in range(12):
         print("detected emergency stop")
         checkVehicleStates()
     print(traci.simulation.getSubscriptionResults())
+
+try:
+    print("check whether GUI is present", traci.gui.hasView("blub"))
+except traci.TraCIException as e:
+    if traci.isLibsumo():
+        print(e, file=sys.stderr)
 traci.close()

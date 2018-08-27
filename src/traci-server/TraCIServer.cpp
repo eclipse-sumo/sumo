@@ -915,7 +915,11 @@ TraCIServer::dispatchCommand() {
                 success = addSubscriptionFilter();
                 break;
             default:
-                writeStatusCmd(commandId, RTYPE_NOTIMPLEMENTED, "Command not implemented in sumo");
+                if (commandId == CMD_GET_GUI_VARIABLE || commandId == CMD_SET_GUI_VARIABLE) {
+                    writeStatusCmd(commandId, RTYPE_NOTIMPLEMENTED, "GUI is not running, command not implemented in command line sumo");
+                } else {
+                    writeStatusCmd(commandId, RTYPE_NOTIMPLEMENTED, "Command not implemented in sumo");
+                }
         }
     }
     if (!success) {
