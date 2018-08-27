@@ -1807,6 +1807,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
     const double maxV = cfModel.maxNextSpeed(myState.mySpeed, this);
     const bool opposite = getLaneChangeModel().isOpposite();
     double laneMaxV = myLane->getVehicleMaxSpeed(this);
+    const double vMinComfortable = cfModel.minNextSpeed(getSpeed(), this);
     double lateralShift = 0;
     if (isRailway((SVCPermissions)getVehicleType().getVehicleClass())) {
         // speed limits must hold for the whole length of the train
@@ -1814,6 +1815,8 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
             laneMaxV = MIN2(laneMaxV, l->getVehicleMaxSpeed(this));
         }
     }
+    //  speed limits are not emergencies (e.g. when the limit changes suddenly due to TraCI or a variableSpeedSignal)
+    laneMaxV = MAX2(laneMaxV, vMinComfortable);
     if (myInfluencer && !myInfluencer->considerSafeVelocity()) {
         laneMaxV = std::numeric_limits<double>::max();
     }
@@ -1918,7 +1921,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
             const double endPos = stop.getEndPos(*this) + NUMERICAL_EPS;
             myStopDist = seen + endPos - lane->getLength();
             // regular stops are not emergencies
-            const double stopSpeed = MAX2(cfModel.stopSpeed(this, getSpeed(), myStopDist), cfModel.minNextSpeed(getSpeed(), this));
+            const double stopSpeed = MAX2(cfModel.stopSpeed(this, getSpeed(), myStopDist), vMinComfortable);
             if (lastLink != 0) {
                 lastLink->adaptLeaveSpeed(cfModel.stopSpeed(this, vLinkPass, endPos));
             }
@@ -2223,7 +2226,8 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         // the link was passed
         // compute the velocity to use when the link is not blocked by other vehicles
         //  the vehicle shall be not faster when reaching the next lane than allowed
-        const double va = cfModel.freeSpeed(this, getSpeed(), seen, laneMaxV);
+        //  speed limits are not emergencies (e.g. when the limit changes suddenly due to TraCI or a variableSpeedSignal)
+        const double va = MAX2(cfModel.freeSpeed(this, getSpeed(), seen, laneMaxV), vMinComfortable);
         v = MIN2(va, v);
         if (lane->getEdge().isInternal()) {
             seenInternal += lane->getLength();
