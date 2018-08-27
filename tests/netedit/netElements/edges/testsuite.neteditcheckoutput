@@ -5,11 +5,8 @@ create
 # delete edge
 delete
 
-# inspect edge A (Due a high number of parameters, this test must be divided in two different test)
-inspectA
-
-# inspect edge B (Due a high number of parameters, this test must be divided in two different test)
-inspectB
+# inspect edge
+inspect
 
 # load edge
 load
