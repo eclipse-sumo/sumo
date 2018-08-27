@@ -13,6 +13,9 @@ delete_sidewalks
 # inspect crossing
 inspect
 
+# inspect crossing with sidewalks
+inspect_sidewalks
+
 # load big net with crossigns
 load_big
 

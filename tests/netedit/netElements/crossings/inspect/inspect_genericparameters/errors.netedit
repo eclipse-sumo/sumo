@@ -1,0 +1,128 @@
+java version "1.8.0_181"
+Java(TM) SE Runtime Environment (build 1.8.0_181-b13)
+Java HotSpot(TM) 64-Bit Server VM (build 25.181-b13, mixed mode)
+Debug: net has to be saved
+Debug: Current saving Status: net unsaved, additionals saved, shapes saved
+Debug: Key F5 (Compute) pressed
+Debug: Created connection 'from1_1to5_1' in retrieveGNEConnection()
+Debug: Created connection 'from2_1to6_1' in retrieveGNEConnection()
+Debug: Created connection 'from3_1to7_1' in retrieveGNEConnection()
+Debug: Created connection 'from4_1to8_1' in retrieveGNEConnection()
+Debug: Created connection 'from5_0to4_0' in retrieveGNEConnection()
+Debug: Created connection 'from5_0to2_0' in retrieveGNEConnection()
+Debug: Created connection 'from5_1to2_1' in retrieveGNEConnection()
+Debug: Created connection 'from5_1to3_1' in retrieveGNEConnection()
+Debug: Created connection 'from5_1to1_1' in retrieveGNEConnection()
+Debug: Created connection 'from6_0to3_0' in retrieveGNEConnection()
+Debug: Created connection 'from6_0to1_0' in retrieveGNEConnection()
+Debug: Created connection 'from6_1to1_1' in retrieveGNEConnection()
+Debug: Created connection 'from6_1to4_1' in retrieveGNEConnection()
+Debug: Created connection 'from6_1to2_1' in retrieveGNEConnection()
+Debug: Created connection 'from7_0to1_0' in retrieveGNEConnection()
+Debug: Created connection 'from7_0to4_0' in retrieveGNEConnection()
+Debug: Created connection 'from7_1to4_1' in retrieveGNEConnection()
+Debug: Created connection 'from7_1to2_1' in retrieveGNEConnection()
+Debug: Created connection 'from7_1to3_1' in retrieveGNEConnection()
+Debug: Created connection 'from8_0to2_0' in retrieveGNEConnection()
+Debug: Created connection 'from8_0to3_0' in retrieveGNEConnection()
+Debug: Created connection 'from8_1to3_1' in retrieveGNEConnection()
+Debug: Created connection 'from8_1to1_1' in retrieveGNEConnection()
+Debug: Created connection 'from8_1to4_1' in retrieveGNEConnection()
+Debug: Created crossing ':Center_c0' in retrieveGNECrossing()
+Debug: Created crossing ':Center_c1' in retrieveGNECrossing()
+Debug: Current Viewport values: 50.00, 50.00, 50.00. Zoom = '240.00'
+Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into crossing ':Center_c1'
+Debug: net has to be saved
+Debug: Current saving Status: net unsaved, additionals saved, shapes saved
+Debug: Setting new attribute genericParameter 'key1=|key2=|key3=' into crossing ':Center_c1'
+Debug: Setting new attribute genericParameter '' into crossing ':Center_c1'
+Debug: Setting new attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into crossing ':Center_c1'
+Debug: Setting new attribute genericParameter 'key2=value2|key3=value3|keyInvalid.;%>%$$=value1' into crossing ':Center_c1'
+Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into crossing ':Center_c1'
+Debug: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' into crossing ':Center_c1'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into crossing ':Center_c1'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute genericParameter 'key2=value2|key3=value3|keyInvalid.;%>%$$=value1' into crossing ':Center_c1'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into crossing ':Center_c1'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute genericParameter '' into crossing ':Center_c1'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute genericParameter 'key1=|key2=|key3=' into crossing ':Center_c1'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute genericParameter 'key1=value1|key2=value2|key3=value3' into crossing ':Center_c1'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute genericParameter '' into crossing ':Center_c1'
+Debug: Key F5 (Compute) pressed
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into crossing ':Center_c1'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute genericParameter 'key1=|key2=|key3=' into crossing ':Center_c1'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute genericParameter '' into crossing ':Center_c1'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into crossing ':Center_c1'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute genericParameter 'key2=value2|key3=value3|keyInvalid.;%>%$$=value1' into crossing ':Center_c1'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into crossing ':Center_c1'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' into crossing ':Center_c1'
+Debug: Deleting unreferenced edge '1' in GNENet destructor
+Debug: Deleting unreferenced lane '1_0' in GNEEdge destructor
+Debug: Deleting unreferenced lane '1_1' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'from1_1to5_1' in GNEEdge destructor
+Debug: Deleting unreferenced edge '2' in GNENet destructor
+Debug: Deleting unreferenced lane '2_0' in GNEEdge destructor
+Debug: Deleting unreferenced lane '2_1' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'from2_1to6_1' in GNEEdge destructor
+Debug: Deleting unreferenced edge '3' in GNENet destructor
+Debug: Deleting unreferenced lane '3_0' in GNEEdge destructor
+Debug: Deleting unreferenced lane '3_1' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'from3_1to7_1' in GNEEdge destructor
+Debug: Deleting unreferenced edge '4' in GNENet destructor
+Debug: Deleting unreferenced lane '4_0' in GNEEdge destructor
+Debug: Deleting unreferenced lane '4_1' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'from4_1to8_1' in GNEEdge destructor
+Debug: Deleting unreferenced edge '5' in GNENet destructor
+Debug: Deleting unreferenced lane '5_0' in GNEEdge destructor
+Debug: Deleting unreferenced lane '5_1' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'from5_0to4_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'from5_0to2_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'from5_1to2_1' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'from5_1to3_1' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'from5_1to1_1' in GNEEdge destructor
+Debug: Deleting unreferenced edge '6' in GNENet destructor
+Debug: Deleting unreferenced lane '6_0' in GNEEdge destructor
+Debug: Deleting unreferenced lane '6_1' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'from6_0to3_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'from6_0to1_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'from6_1to1_1' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'from6_1to4_1' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'from6_1to2_1' in GNEEdge destructor
+Debug: Deleting unreferenced edge '7' in GNENet destructor
+Debug: Deleting unreferenced lane '7_0' in GNEEdge destructor
+Debug: Deleting unreferenced lane '7_1' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'from7_0to1_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'from7_0to4_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'from7_1to4_1' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'from7_1to2_1' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'from7_1to3_1' in GNEEdge destructor
+Debug: Deleting unreferenced edge '8' in GNENet destructor
+Debug: Deleting unreferenced lane '8_0' in GNEEdge destructor
+Debug: Deleting unreferenced lane '8_1' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'from8_0to2_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'from8_0to3_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'from8_1to3_1' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'from8_1to1_1' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'from8_1to4_1' in GNEEdge destructor
+Debug: Deleting unreferenced junction 'A' in GNENet destructor
+Debug: Deleting unreferenced junction 'B' in GNENet destructor
+Debug: Deleting unreferenced junction 'C' in GNENet destructor
+Debug: Deleting unreferenced junction 'Center' in GNENet destructor
+Debug: Deleting unreferenced crossing ':Center_c0' in GNEJunction destructor
+Debug: Deleting unreferenced crossing ':Center_c1' in GNEJunction destructor
+Debug: Deleting unreferenced junction 'D' in GNENet destructor
+Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
+Debug: Deleting net builder in GNENet destructor
