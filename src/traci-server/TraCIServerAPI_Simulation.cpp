@@ -127,8 +127,8 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
                 writeVehicleStateIDs(server, server.getWrapperStorage(), MSNet::VEHICLE_STATE_EMERGENCYSTOP);
                 break;
             case VAR_DELTA_T:
-                server.getWrapperStorage().writeUnsignedByte(TYPE_INTEGER);
-                server.getWrapperStorage().writeInt((int)libsumo::Simulation::getDeltaT());
+                server.getWrapperStorage().writeUnsignedByte(TYPE_DOUBLE);
+                server.getWrapperStorage().writeDouble(libsumo::Simulation::getDeltaT());
                 break;
             case VAR_MIN_EXPECTED_VEHICLES:
                 server.getWrapperStorage().writeUnsignedByte(TYPE_INTEGER);

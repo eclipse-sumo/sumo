@@ -629,6 +629,8 @@ Simulation::makeWrapper() {
 bool
 Simulation::handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper) {
     switch (variable) {
+    case VAR_TIME:
+        return wrapper->wrapDouble(objID, variable, getTime());
     case VAR_TIME_STEP:
         return wrapper->wrapInt(objID, variable, (int)getCurrentTime());
     case VAR_LOADED_VEHICLES_NUMBER:
@@ -676,7 +678,7 @@ Simulation::handleVariable(const std::string& objID, const int variable, Variabl
     case VAR_EMERGENCYSTOPPING_VEHICLES_IDS:
         return wrapper->wrapStringList(objID, variable, getEmergencyStoppingVehiclesIDList());
     case VAR_DELTA_T:
-        return wrapper->wrapInt(objID, variable, (int)getDeltaT());
+        return wrapper->wrapDouble(objID, variable, getDeltaT());
     case VAR_MIN_EXPECTED_VEHICLES:
         return wrapper->wrapInt(objID, variable, getMinExpectedNumber());
     case VAR_BUS_STOP_WAITING:

@@ -69,7 +69,7 @@ _RETURN_VALUE_FUNC = {tc.VAR_TIME: Storage.readDouble,
                       tc.VAR_TELEPORT_STARTING_VEHICLES_IDS: Storage.readStringList,
                       tc.VAR_TELEPORT_ENDING_VEHICLES_NUMBER: Storage.readInt,
                       tc.VAR_TELEPORT_ENDING_VEHICLES_IDS: Storage.readStringList,
-                      tc.VAR_DELTA_T: Storage.readInt,
+                      tc.VAR_DELTA_T: Storage.readDouble,
                       tc.VAR_NET_BOUNDING_BOX: Storage.readShape}
 
 
