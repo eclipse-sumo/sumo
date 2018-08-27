@@ -1760,10 +1760,6 @@ GNENet::getTLLogicCont() {
 void
 GNENet::renameJunction(GNEJunction* junction, const std::string& newID) {
     std::string oldID = junction->getID();
-    // rename all IDS of junction's crossings before rename Junction
-    for (auto i : junction->getGNECrossings()) {
-        i->updateID(newID);
-    }
     myAttributeCarriers.junctions.erase(junction->getNBNode()->getID());
     myNetBuilder->getNodeCont().rename(junction->getNBNode(), newID);
     junction->setMicrosimID(newID);

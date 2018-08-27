@@ -94,18 +94,6 @@ GNECrossing::updateGeometry(bool updateGrid) {
 }
 
 
-void 
-GNECrossing::updateID(std::string newJunctionID) {
-    /*
-    for(int i = (int)(myParentJunction->getID().size()+1); i < (int)myNBCrossingID.size(); i++) {
-        newJunctionID.push_back(myNBCrossingID.at(i));
-    }
-    myNBCrossingID = newJunctionID;
-    myNBCrossingID.insert(myNBCrossingID.begin(), ':');
-    */
-}
-
-
 GNEJunction*
 GNECrossing::getParentJunction() const {
     return myParentJunction;
