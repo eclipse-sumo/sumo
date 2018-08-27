@@ -878,7 +878,7 @@ MSCFModel::maximumSafeFollowSpeed(double gap, double egoSpeed, double predSpeed,
     const double headway = myHeadwayTime;
     double x = maximumSafeStopSpeed(gap + brakeGap(predSpeed, MAX2(myDecel, predMaxDecel), 0), egoSpeed, onInsertion, headway);
 
-    if (myDecel != myEmergencyDecel && !onInsertion) {
+    if (myDecel != myEmergencyDecel && !onInsertion && !MSGlobals::gComputeLC) {
         double origSafeDecel = SPEED2ACCEL(egoSpeed - x);
         if (origSafeDecel > myDecel + NUMERICAL_EPS) {
             // Braking harder than myDecel was requested -> calculate required emergency deceleration.

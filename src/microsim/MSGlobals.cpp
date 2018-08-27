@@ -59,5 +59,7 @@ bool MSGlobals::gSemiImplicitEulerUpdate;
 SUMOTime MSGlobals::gWaitingTimeMemory;
 
 SUMOTime MSGlobals::gActionStepLength;
+
+bool MSGlobals::gComputeLC;
 /****************************************************************************/
 
