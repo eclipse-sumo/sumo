@@ -454,7 +454,7 @@ public:
     MSLink* getParallelLink(int direction) const;
 
     //// @brief @return whether the foe vehicle is a leader for ego
-    bool isLeader(const MSVehicle* ego, const MSVehicle* foe) const;
+    bool isLeader(const MSVehicle* ego, const MSVehicle* foe, bool updateLeader=true) const;
 
     /// @brief return whether the fromLane of this link is an internal lane
     bool fromInternalLane() const;

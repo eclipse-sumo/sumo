@@ -132,7 +132,7 @@ public:
 
     /* @brief @return whether the foe vehicle is a leader for ego
      * @note vehicles are added to myLinkLeaders when first seen as a foe */
-    bool isLeader(const MSVehicle* ego, const MSVehicle* foe);
+    bool isLeader(const MSVehicle* ego, const MSVehicle* foe, bool updateLeader);
 
 protected:
     /// @brief Tye type of this junction

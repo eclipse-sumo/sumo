@@ -97,7 +97,7 @@ MSJunction::passedJunction(const MSVehicle* vehicle) {
 
 
 bool
-MSJunction::isLeader(const MSVehicle* ego, const MSVehicle* foe) {
+MSJunction::isLeader(const MSVehicle* ego, const MSVehicle* foe, bool updateLeader) {
 #ifdef DEBUG_LINKLEADER
     if DEBUG_COND {
         std::cout << SIMTIME << " MSJunction::isLeader " << getID()
@@ -117,7 +117,9 @@ MSJunction::isLeader(const MSVehicle* ego, const MSVehicle* foe) {
     }
     if (myLinkLeaders.find(ego) == myLinkLeaders.end() || myLinkLeaders[ego].count(foe) == 0) {
         // we are not yet the leader for foe, thus foe will be our leader
-        myLinkLeaders[foe].insert(ego);
+        if (updateLeader) {
+            myLinkLeaders[foe].insert(ego);
+        }
 #ifdef DEBUG_LINKLEADER
     if DEBUG_COND {
         std::cout << "       foe (" << foe->getID() << ") is the leader!" << std::endl;

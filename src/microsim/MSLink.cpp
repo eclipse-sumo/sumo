@@ -1162,9 +1162,9 @@ MSLink::passedJunction(const MSVehicle* vehicle) const {
 
 
 bool
-MSLink::isLeader(const MSVehicle* ego, const MSVehicle* foe) const {
+MSLink::isLeader(const MSVehicle* ego, const MSVehicle* foe, bool updateLeader) const {
     if (myJunction != 0) {
-        return myJunction->isLeader(ego, foe);
+        return myJunction->isLeader(ego, foe, updateLeader);
     } else {
         // unregulated junction
         return false;
