@@ -342,7 +342,8 @@ GNECrossing::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_TLLINKINDEX:
         case SUMO_ATTR_TLLINKINDEX2:
             return (crossing->tlID != "" && canParse<int>(value) 
-                    && ((parse<double>(value) > 0) || ((parse<double>(value) == -1) && (key == SUMO_ATTR_TLLINKINDEX2)))  // kann 0 sein (oder -1 -> es ist nicht verwendet)
+                    // -1 means that tlLinkIndex2 takes on the same value as tlLinkIndex when setting idnices
+                    && ((parse<double>(value) >= 0) || ((parse<double>(value) == -1) && (key == SUMO_ATTR_TLLINKINDEX2)))
                     && myParentJunction->getNBNode()->getControllingTLS().size() > 0
                     && (*myParentJunction->getNBNode()->getControllingTLS().begin())->getMaxValidIndex() >= parse<int>(value));
         case SUMO_ATTR_CUSTOMSHAPE: {
@@ -521,9 +522,13 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_TLLINKINDEX:
             crossing->customTLIndex = parse<int>(value);
+            // make new value visible immediately
+            crossing->tlLinkIndex = crossing->customTLIndex;
             break;
         case SUMO_ATTR_TLLINKINDEX2:
             crossing->customTLIndex2 = parse<int>(value);
+            // make new value visible immediately
+            crossing->tlLinkIndex2 = crossing->customTLIndex2;
             break;
         case SUMO_ATTR_CUSTOMSHAPE: {
             bool ok;
