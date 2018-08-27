@@ -199,7 +199,8 @@ MSCFModel::finalizeSpeed(MSVehicle* const veh, double vPos) const {
 
 #ifdef DEBUG_FINALIZE_SPEED
     if DEBUG_COND {
-        std::cout << "veh '" << veh->getID() << "' oldV=" << oldV
+        std::cout << std::setprecision(gPrecision)
+            << "veh '" << veh->getID() << "' oldV=" << oldV
             << " vMin=" << vMin 
             << " vMax=" << vMax 
             << " vPos" << vStop 
