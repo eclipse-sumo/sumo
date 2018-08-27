@@ -45,6 +45,7 @@
 //#define DEBUG_COND (true)
 #define DEBUG_COND (veh->isSelected())
 //#define DEBUG_COND2 (SIMTIME == 176)
+//#define DEBUG_COND2 (gDebugFlag1)
 
 
 
@@ -901,6 +902,8 @@ MSCFModel::maximumSafeFollowSpeed(double gap, double egoSpeed, double predSpeed,
             if(MSGlobals::gSemiImplicitEulerUpdate) {
                 x = MAX2(x,0.);
             }
+            // don't brake harder than originally planned (possible due to euler/ballistic mismatch)
+            x = MIN2(origSafeDecel, x);
 
 #ifdef DEBUG_EMERGENCYDECEL
             if (DEBUG_COND2) {
