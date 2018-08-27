@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Mar 12 15:47:53 2018 by SUMO Version v0_32_0+0710-21c9bbb
+<!-- generated on Mon Aug 27 12:57:10 2018 by Eclipse SUMO Version cac3710
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -22,6 +22,10 @@ SPDX-License-Identifier: EPL-2.0
     <time>
         <begin value="25"/>
     </time>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
 
     <report>
         <xml-validation value="never"/>
@@ -68,13 +72,13 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="ego" x="104.95" y="86.62" angle="0.00" type="egoType" speed="9.84" pos="86.62" lane="SC_0" slope="0.00"/>
     </timestep>
     <timestep time="41.00">
-        <vehicle id="ego" x="104.95" y="91.95" angle="0.00" type="egoType" speed="5.34" pos="0.00" lane=":C_11_0" slope="0.00"/>
+        <vehicle id="ego" x="104.95" y="91.95" angle="0.00" type="egoType" speed="5.33" pos="91.95" lane="SC_0" slope="0.00"/>
     </timestep>
     <timestep time="42.00">
-        <vehicle id="ego" x="104.95" y="99.89" angle="0.00" type="egoType" speed="7.94" pos="7.94" lane=":C_11_0" slope="0.00"/>
+        <vehicle id="ego" x="104.95" y="96.95" angle="0.00" type="egoType" speed="5.00" pos="5.00" lane=":C_11_0" slope="0.00"/>
     </timestep>
     <timestep time="43.00">
-        <vehicle id="ego" x="104.95" y="110.42" angle="0.00" type="egoType" speed="10.54" pos="2.37" lane="CN_0" slope="0.00"/>
+        <vehicle id="ego" x="104.95" y="104.55" angle="0.00" type="egoType" speed="7.60" pos="12.60" lane=":C_11_0" slope="0.00"/>
     </timestep>
     <timestep time="44.00"/>
 </fcd-export>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Nov  2 10:46:10 2017 by SUMO Version v0_31_0-860-g677ac9f
+<!-- generated on Mon Aug 27 12:57:05 2018 by Eclipse SUMO Version cac3710
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -15,8 +15,13 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <vehroute-output value="vehroutes.xml"/>
     </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
 
     <report>
         <xml-validation value="never"/>
@@ -28,8 +33,8 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
-    <interval begin="0.00" end="253.00" id="ed">
-        <edge id="beg" sampledSeconds="2889.75" traveltime="43.16" overlapTraveltime="43.68" density="28.66" occupancy="7.12" waitingTime="10.00" speed="9.24" departed="67" arrived="0" entered="0" left="67" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="end" sampledSeconds="5642.49" traveltime="83.93" overlapTraveltime="84.31" density="20.30" occupancy="10.11" waitingTime="0.00" speed="13.09" departed="0" arrived="67" entered="67" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+    <interval begin="0.00" end="274.00" id="ed">
+        <edge id="beg" sampledSeconds="3503.25" traveltime="52.40" overlapTraveltime="52.96" density="32.08" occupancy="7.98" waitingTime="25.00" speed="7.62" departed="67" arrived="0" entered="0" left="67" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="end" sampledSeconds="5625.08" traveltime="83.65" overlapTraveltime="84.03" density="18.69" occupancy="9.30" waitingTime="0.00" speed="13.13" departed="0" arrived="67" entered="67" left="0" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
 </meandata>
