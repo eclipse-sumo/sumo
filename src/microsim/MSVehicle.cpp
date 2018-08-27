@@ -1917,7 +1917,8 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
             const Stop& stop = *myStops.begin();
             const double endPos = stop.getEndPos(*this) + NUMERICAL_EPS;
             myStopDist = seen + endPos - lane->getLength();
-            const double stopSpeed = cfModel.stopSpeed(this, getSpeed(), myStopDist);
+            // regular stops are not emergencies
+            const double stopSpeed = MAX2(cfModel.stopSpeed(this, getSpeed(), myStopDist), cfModel.minNextSpeed(getSpeed(), this));
             if (lastLink != 0) {
                 lastLink->adaptLeaveSpeed(cfModel.stopSpeed(this, vLinkPass, endPos));
             }
