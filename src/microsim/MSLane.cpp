@@ -2169,7 +2169,7 @@ MSLane::getLeaderOnConsecutive(double dist, double seen, double speed, const MSV
         std::cout << "   getLeaderOnConsecutive lane=" << getID() << " ego=" << veh.getID() << " seen=" << seen << " dist=" << dist << " conts=" << toString(bestLaneConts) << "\n";
     }
 #endif
-    if (seen > dist) {
+    if (seen > dist && !isInternal()) {
         return std::make_pair(static_cast<MSVehicle*>(0), -1);
     }
     int view = 1;
@@ -2205,7 +2205,15 @@ MSLane::getLeaderOnConsecutive(double dist, double seen, double speed, const MSV
             break;
         }
         // check for link leaders
+#ifdef DEBUG_CONTEXT
+        if (DEBUG_COND2(&veh)) {
+            gDebugFlag1 = true;
+        }
+#endif
         const MSLink::LinkLeaders linkLeaders = (*link)->getLeaderInfo(&veh, seen);
+#ifdef DEBUG_CONTEXT
+        gDebugFlag1 = false;
+#endif
         nextLane->releaseVehicles();
         if (linkLeaders.size() > 0) {
             // XXX if there is more than one link leader we should return the most important
@@ -2246,13 +2254,18 @@ MSLane::getLeaderOnConsecutive(double dist, double seen, double speed, const MSV
         if (!nextInternal) {
             view++;
         }
-    } while (seen <= dist);
+    } while (seen <= dist && !nextLane->isInternal());
     return std::make_pair(static_cast<MSVehicle*>(0), -1);
 }
 
 
 std::pair<MSVehicle* const, double>
 MSLane::getCriticalLeader(double dist, double seen, double speed, const MSVehicle& veh) const {
+#ifdef DEBUG_CONTEXT
+    if (DEBUG_COND2(&veh)) {
+        std::cout << SIMTIME << " getCriticalLeader. lane=" << getID() << " veh=" << veh.getID() << "\n";
+    }
+#endif
     const std::vector<MSLane*>& bestLaneConts = veh.getBestLanesContinuation(this);
     std::pair<MSVehicle*, double> result = std::make_pair(static_cast<MSVehicle*>(0), -1);
     double safeSpeed = std::numeric_limits<double>::max();
@@ -2278,6 +2291,11 @@ MSLane::getCriticalLeader(double dist, double seen, double speed, const MSVehicl
                 // XXX ignoring the fact that the link leader may alread by following us
                 // XXX ignoring the fact that we may drive up to the crossing point
                 const double tmpSpeed = veh.getSafeFollowSpeed((*it).vehAndGap, seen, nextLane, (*it).distToCrossing);
+#ifdef DEBUG_CONTEXT
+                if (DEBUG_COND2(&veh)) {
+                    std::cout << "    linkLeader=" << leader->getID() << " gap=" << result.second << " tmpSpeed=" << tmpSpeed << " safeSpeed=" << safeSpeed << "\n";
+                }
+#endif
                 if (tmpSpeed < safeSpeed) {
                     safeSpeed = tmpSpeed;
                     result = (*it).vehAndGap;

@@ -548,7 +548,8 @@ MSLaneChanger::getRealLeader(const ChangerIt& target) const {
         double seen = myCandi->lane->getLength() - veh(myCandi)->getPositionOnLane();
         double speed = veh(myCandi)->getSpeed();
         double dist = veh(myCandi)->getCarFollowModel().brakeGap(speed) + veh(myCandi)->getVehicleType().getMinGap();
-        if (seen > dist) {
+        // always check for link leaders while on an internal lane
+        if (seen > dist && !myCandi->lane->isInternal()) {
 #ifdef DEBUG_SURROUNDING_VEHICLES
             if (DEBUG_COND) {
                 std::cout << "  found no leader within dist=" << dist << "\n";
