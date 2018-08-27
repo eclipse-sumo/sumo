@@ -5,6 +5,9 @@ high_flow1
 # very high flow on 2 lanes
 high_flow2
 
+# the same inputs as high_flow2, should also have the same results
+high_flow2_emergencyDecel
+
 # very high flow on 2 lanes
 high_flow3
 
