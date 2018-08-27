@@ -126,7 +126,8 @@ GNEConnection::updateGeometry(bool updateGrid) {
             myShape.push_back(laneShapeFrom.positionAtOffset(MAX2(0.0, laneShapeFrom.length() - 1)));
             myShape.push_back(laneShapeTo.positionAtOffset(MIN2(1.0, laneShapeFrom.length())));
         }
-        if (nbCon.haveVia && nbCon.shape.size() != 0) {
+        // check if internal junction marker must be calculated
+        if (nbCon.haveVia && (nbCon.shape.size() != 0)) {
             // create marker for interal junction waiting position (contPos)
             const double orthoLength = 0.5;
             Position pos = nbCon.shape.back();
@@ -134,6 +135,8 @@ GNEConnection::updateGeometry(bool updateGrid) {
             if (myInternalJunctionMarker.length() < orthoLength) {
                 myInternalJunctionMarker.extrapolate(orthoLength - myInternalJunctionMarker.length());
             }
+        } else {
+            myInternalJunctionMarker.clear();
         }
         // Obtain lengths and shape rotations
         int segments = (int) myShape.size() - 1;
@@ -323,8 +326,11 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
             // draw a list of lines
             GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, 0.2);
             glTranslated(0, 0, 0.1);
-            GLHelper::setColor(GLHelper::getColor().changedBrightness(51));;
-            GLHelper::drawLine(myInternalJunctionMarker);
+            GLHelper::setColor(GLHelper::getColor().changedBrightness(51));
+            // check if internal junction marker has to be drawn
+            if(myInternalJunctionMarker.size() > 0) {
+                GLHelper::drawLine(myInternalJunctionMarker);
+            }
         }
         // check if dotted contour has to be drawn
         if(!s.drawForSelecting && (myNet->getViewNet()->getACUnderCursor() == this)) {
