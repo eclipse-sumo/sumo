@@ -67,7 +67,7 @@
 //#define DEBUG_INSERTION
 //#define DEBUG_PLAN_MOVE
 //#define DEBUG_EXEC_MOVE
-//#define DEBUG_CONTEXT
+#define DEBUG_CONTEXT
 //#define DEBUG_OPPOSITE
 //#define DEBUG_VEHICLE_CONTAINER
 //#define DEBUG_COLLISIONS
@@ -2183,7 +2183,7 @@ MSLane::getLeaderOnConsecutive(double dist, double seen, double speed, const MSV
             std::cout << "    predGap=" << gap << " partials=" << toString(myPartialVehicles) << "\n";
         }
 #endif
-        // make sure pred is really a leader and doing continous lane-changing behind ego
+        // make sure pred is really a leader and not doing continous lane-changing behind ego
         if (gap > 0) {
             return std::pair<MSVehicle* const, double>(pred, gap);
         }
@@ -2216,14 +2216,40 @@ MSLane::getLeaderOnConsecutive(double dist, double seen, double speed, const MSV
 #endif
         nextLane->releaseVehicles();
         if (linkLeaders.size() > 0) {
-            // XXX if there is more than one link leader we should return the most important
-            // one (gap, decel) but this is hard to know at this point
+            std::pair<MSVehicle* , double> result;
+            double shortestGap = std::numeric_limits<double>::max();
+            for (auto ll : linkLeaders) {
+                double gap = ll.vehAndGap.second;
+                MSVehicle* lVeh = ll.vehAndGap.first;
+                if (lVeh != 0) {
+                    // leader is a vehicle, not a pedestrian
+                    gap += lVeh->getCarFollowModel().brakeGap(lVeh->getSpeed(), lVeh->getCarFollowModel().getMaxDecel(), 0);
+                }
 #ifdef DEBUG_CONTEXT
-            if (DEBUG_COND2(&veh)) {
-                std::cout << "    found linkLeader after nextLane=" << nextLane->getID() << "\n";
-            }
+                if (DEBUG_COND2(&veh)) {
+                    std::cout << "      linkLeader candidate " << Named::getIDSecure(lVeh) 
+                        << " isLeader=" << ((*link)->isLeader(&veh, lVeh))
+                        << " gap=" << ll.vehAndGap.second
+                        << " gap+brakeing=" << gap
+                        << "\n";
+                }
 #endif
-            return linkLeaders[0].vehAndGap;
+                if (lVeh != 0 && !(*link)->isLeader(&veh, lVeh, false)) {
+                    continue;
+                }
+                if (gap < shortestGap) {
+                    shortestGap = gap;
+                    result = ll.vehAndGap;
+                }
+            }
+            if (shortestGap != std::numeric_limits<double>::max()) {
+#ifdef DEBUG_CONTEXT
+                if (DEBUG_COND2(&veh)) {
+                    std::cout << "    found linkLeader after nextLane=" << nextLane->getID() << "\n";
+                }
+#endif
+                return result;
+            }
         }
         bool nextInternal = (*link)->getViaLane() != 0;
         nextLane = (*link)->getViaLaneOrLane();
@@ -2254,7 +2280,7 @@ MSLane::getLeaderOnConsecutive(double dist, double seen, double speed, const MSV
         if (!nextInternal) {
             view++;
         }
-    } while (seen <= dist && !nextLane->isInternal());
+    } while (seen <= dist || nextLane->isInternal());
     return std::make_pair(static_cast<MSVehicle*>(0), -1);
 }
 
