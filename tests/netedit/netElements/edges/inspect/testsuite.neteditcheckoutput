@@ -8,6 +8,9 @@ inspect_from
 inspect_to
 
 # edit speed
+inspect_speed
+
+# edit priority
 inspect_priority
 
 # edit numLanes
@@ -51,4 +54,3 @@ inspect_bidirail
 
 # edit generic parameters
 inspect_genericparameters
-

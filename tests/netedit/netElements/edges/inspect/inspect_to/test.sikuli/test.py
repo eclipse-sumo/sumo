@@ -25,9 +25,11 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
 
+# recompute
+netedit.rebuildNetwork()
+
 # go to inspect mode
 netedit.inspectMode()
-
 # inspect edge
 netedit.leftClick(match, 250, 180)
 

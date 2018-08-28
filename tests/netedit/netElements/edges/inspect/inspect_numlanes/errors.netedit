@@ -11,29 +11,50 @@ Debug: Adding busStop 'busStop5' in GNEChange_Additional
 Debug: Adding busStop 'busStop6' in GNEChange_Additional
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, shapes saved
+Debug: Key F5 (Compute) pressed
+Debug: Created connection 'fromgneE0_0togneE5_0' in retrieveGNEConnection()
+Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
+Debug: Created connection 'fromgneE1_0togneE9_0' in retrieveGNEConnection()
+Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
+Debug: Created connection 'fromgneE2_0togneE4_0' in retrieveGNEConnection()
+Debug: Created connection 'fromgneE2_1togneE3_1' in retrieveGNEConnection()
+Debug: Created connection 'fromgneE3_0togneE8_0' in retrieveGNEConnection()
+Debug: Created connection 'fromgneE3_1togneE2_1' in retrieveGNEConnection()
+Debug: Created connection 'fromgneE4_0togneE1_0' in retrieveGNEConnection()
+Debug: Created connection 'fromgneE5_0togneE3_0' in retrieveGNEConnection()
+Debug: Created connection 'fromgneE5_0togneE3_1' in retrieveGNEConnection()
+Debug: Created connection 'fromgneE8_0togneE0_0' in retrieveGNEConnection()
+Debug: Created connection 'fromgneE9_0togneE2_0' in retrieveGNEConnection()
+Debug: Created connection 'fromgneE9_0togneE2_1' in retrieveGNEConnection()
 Debug: Removing connection 'gneE3_1->gneE2_1' from edge 'gneE3'
+Debug: Deleting unreferenced connection 'fromgneE3_1togneE2_1' in removeConnection()
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Debug: Removing connection 'gneE3_0->gneE8_0' from edge 'gneE3'
+Debug: Deleting unreferenced connection 'fromgneE3_0togneE8_0' in removeConnection()
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE3'
 Debug: invalidating (removing) connections of edge 'gneE3' due it were guessed
 Debug: Removing connection 'gneE9_0->gneE2_1' from edge 'gneE9'
+Debug: Deleting unreferenced connection 'fromgneE9_0togneE2_1' in removeConnection()
 Debug: Removing connection 'gneE9_0->gneE2_0' from edge 'gneE9'
+Debug: Deleting unreferenced connection 'fromgneE9_0togneE2_0' in removeConnection()
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE9'
 Debug: invalidating (removing) connections of edge 'gneE9' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ2'
 Debug: Removing connection 'gneE5_0->gneE3_1' from edge 'gneE5'
+Debug: Deleting unreferenced connection 'fromgneE5_0togneE3_1' in removeConnection()
 Debug: Removing connection 'gneE5_0->gneE3_0' from edge 'gneE5'
+Debug: Deleting unreferenced connection 'fromgneE5_0togneE3_0' in removeConnection()
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE5'
 Debug: invalidating (removing) connections of edge 'gneE5' due it were guessed
 Debug: Removing connection 'gneE2_1->gneE3_1' from edge 'gneE2'
+Debug: Deleting unreferenced connection 'fromgneE2_1togneE3_1' in removeConnection()
 Debug: Removing connection 'gneE2_0->gneE4_0' from edge 'gneE2'
+Debug: Deleting unreferenced connection 'fromgneE2_0togneE4_0' in removeConnection()
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE2'
 Debug: invalidating (removing) connections of edge 'gneE2' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ3'
 Debug: Removing lane 'gneE2_1' from edge
-Debug: Created connection 'fromgneE8_0togneE0_0' in retrieveGNEConnection()
-Debug: Created connection 'fromgneE4_0togneE1_0' in retrieveGNEConnection()
 Debug: Value '-6' for attribute numLanes of edge isn't valid
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE3'
 Debug: invalidating (removing) connections of edge 'gneE3' due it were guessed
@@ -49,10 +70,6 @@ Debug: Adding nullptr lane into edge
 Debug: Adding nullptr lane into edge
 Debug: Adding nullptr lane into edge
 Debug: Key F5 (Compute) pressed
-Debug: Created connection 'fromgneE0_0togneE5_0' in retrieveGNEConnection()
-Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
-Debug: Created connection 'fromgneE1_0togneE9_0' in retrieveGNEConnection()
-Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE2_0togneE4_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE2_3togneE3_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE3_0togneE8_0' in retrieveGNEConnection()

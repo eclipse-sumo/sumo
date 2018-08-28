@@ -11,11 +11,6 @@ Debug: Adding busStop 'busStop5' in GNEChange_Additional
 Debug: Adding busStop 'busStop6' in GNEChange_Additional
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, shapes saved
-Debug: Setting new attribute priority '-1' into edge 'gneE2'
-Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, shapes saved
-Debug: Setting new attribute priority '-6' into edge 'gneE2'
-Debug: Setting new attribute priority '-1' into edge 'gneE2'
 Debug: Key F5 (Compute) pressed
 Debug: Created connection 'fromgneE0_0togneE5_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
@@ -31,6 +26,12 @@ Debug: Created connection 'fromgneE5_0togneE3_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE8_0togneE0_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE2_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE2_1' in retrieveGNEConnection()
+Debug: Setting new attribute priority '-1' into edge 'gneE2'
+Debug: net has to be saved
+Debug: Current saving Status: net unsaved, additionals unsaved, shapes saved
+Debug: Setting new attribute priority '-6' into edge 'gneE2'
+Debug: Setting new attribute priority '-1' into edge 'gneE2'
+Debug: Key F5 (Compute) pressed
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute priority '-6' into edge 'gneE2'
 Debug: Key F5 (Compute) pressed

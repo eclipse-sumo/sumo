@@ -25,6 +25,9 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
 
+# recompute
+netedit.rebuildNetwork()
+
 # go to inspect mode
 netedit.inspectMode()
 
