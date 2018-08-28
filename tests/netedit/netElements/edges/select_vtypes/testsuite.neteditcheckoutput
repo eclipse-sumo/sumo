@@ -1,0 +1,3 @@
+# all test check also the undo-redo of modifications and save the edge into a file
+# select vehicle type allowed
+select_vtypes_allowed
