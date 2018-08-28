@@ -927,6 +927,9 @@ Vehicle::add(const std::string& vehicleID,
             vehicleParams.parametersSet |= VEHPARS_FORCE_REROUTE;
         }
     }
+    if (fromTaz != "" || toTaz != "") {
+        vehicleParams.parametersSet |= VEHPARS_FORCE_REROUTE;
+    }
     std::string error;
     if (!SUMOVehicleParameter::parseDepart(depart, "vehicle", vehicleID, vehicleParams.depart, vehicleParams.departProcedure, error)) {
         throw TraCIException(error);
