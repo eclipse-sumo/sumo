@@ -216,7 +216,7 @@ public:
     if( edgeType == "!access" ) {
       
       auto accessEdge = dynamic_cast<_AccessEdge const *>(edge);
-      updateFareState(state,*accessEdge);
+      updateFareState(state,*accessEdge, *prev);
       return;
     }
     
@@ -270,24 +270,36 @@ private:
           case FareToken ::K:
             return prices.shortTrip;
           case FareToken ::KL:
-            return prices.shortTripLeipzig;
-          case FareToken ::KH:
-            return prices.shortTripHalle;
-          case FareToken ::KHU:
-            return prices.shortTripHalle;
+          case FareToken ::KLZ:
           case FareToken ::KLU:
             return prices.shortTripLeipzig;
+          case FareToken ::KH:
+          case FareToken ::KHU:
+          case FareToken ::KHZ:
+            return prices.shortTripHalle;
           case FareToken::Free:
             return 0;
-          case FareToken::ZU  :
+          case FareToken::ZU:
           case FareToken::None:
             assert(false);
             
         }
-
+        return std::numeric_limits<double>::max();
       }
 
       
+      
+  void output(_IntermodalEdge const * edge) const override
+  {
+    std::cout<<"Final fare state:"<<std::endl;
+    FareState const  & my = myFareStates[edge->getNumericalID()];
+    std::cout<<"Tariftoken"<<FareUtil::tokenToString(my.myFareToken)<<std::endl;
+    std::cout<<"Zones "<<my.myCounter.numZones()<<std::endl;
+    std::cout<<"stations: "<<my.myVisistedStops<<std::endl;
+  }
+  
+  
+  
   /** Collects faretoken at stopedge and determines new fare state **/
   inline void updateFareState( FareState const & currentFareState, _StopEdge const & e );
 
@@ -295,7 +307,7 @@ private:
   inline void updateFareState( FareState const & currentFareState, _PedestrianEdge const & e );
   
   /**Destroys short-trip prices if it is the second time accessing public transport **/
-  inline void updateFareState( FareState const & currentFareState, _AccessEdge const & e);
+  inline void updateFareState( FareState const & currentFareState, _AccessEdge const & e , _IntermodalEdge const & prev);
   
   /**Only propagates the fare state w/o any changes **/
   inline void updateFareState( FareState const & currentFareState, _IntermodalEdge const & e);
@@ -324,7 +336,10 @@ void FareModul::updateFareState( FareState const & currentFareState, _StopEdge c
   stateAtE = currentFareState;
   
   stateAtE.myCounter.addZone( e.getFareZone() );
-
+  
+  stateAtE.myVisistedStops++;
+  
+  
   switch (token)
   {
     case FareToken ::Free:
@@ -334,7 +349,7 @@ void FareModul::updateFareState( FareState const & currentFareState, _StopEdge c
       break;
 
     case FareToken::Z :
-      if( currentFareState.myCounter.numZones() > 6 )
+      if( stateAtE.myCounter.numZones() > 6 )
         stateAtE.myFareToken = FareToken::M;
       break;
 
@@ -342,7 +357,7 @@ void FareModul::updateFareState( FareState const & currentFareState, _StopEdge c
     case FareToken::T2 :
     case FareToken::T3 :
       if( collectedToken == FareToken::Z )
-        stateAtE.myFareToken = currentFareState.myTravelledDistance<=4 ? FareToken::K : FareToken::Z;
+        stateAtE.myFareToken = stateAtE.myTravelledDistance<=4 ? FareToken::K : FareToken::Z;
       break;
     case FareToken::U :
       if( collectedToken == FareToken::H)
@@ -358,9 +373,11 @@ void FareModul::updateFareState( FareState const & currentFareState, _StopEdge c
         stateAtE.myFareToken = FareToken::Z;
 
     case FareToken::KH:
-      if( currentFareState.myVisistedStops <= 4 ){
-        if( collectedToken != FareToken::H)
+      if( stateAtE.myVisistedStops <= 4 ){
+        if( collectedToken == FareToken::U)
           stateAtE.myFareToken = FareToken::KHU;
+        if( collectedToken == FareToken::Z)
+          stateAtE.myFareToken = FareToken::KHZ;
       }
       else
       {
@@ -373,9 +390,11 @@ void FareModul::updateFareState( FareState const & currentFareState, _StopEdge c
       }
       break;
     case FareToken::KL:
-      if( currentFareState.myVisistedStops <= 4 ){
-        if( collectedToken != FareToken::L)
+      if( stateAtE.myVisistedStops <= 4 ){
+        if( collectedToken == FareToken::U)
           stateAtE.myFareToken = FareToken::KLU;
+        if( collectedToken == FareToken::Z )
+          stateAtE.myFareToken = FareToken::KLZ;
       }
       else
       {
@@ -388,7 +407,7 @@ void FareModul::updateFareState( FareState const & currentFareState, _StopEdge c
       }
       break;
     case FareToken::K:
-      if( currentFareState.myTravelledDistance > 4  )
+      if( stateAtE.myTravelledDistance > 4  )
       {
         if( collectedToken == FareToken::U )
           stateAtE.myFareToken = FareToken ::U;
@@ -400,17 +419,23 @@ void FareModul::updateFareState( FareState const & currentFareState, _StopEdge c
       break;
     case FareToken::KHU :
     case FareToken::KLU :
-      if(currentFareState.myVisistedStops > 4 )
+      if(stateAtE.myVisistedStops > 4 )
       {
         if( collectedToken == FareToken::U )
         stateAtE.myFareToken = FareToken::U;
       }
-      else
+      break;
+    
+    case FareToken::KLZ:
+    case FareToken::KHZ:
+      if(stateAtE.myVisistedStops > 4 )
       {
-        stateAtE.myFareToken = FareToken::Z;
+        if( collectedToken == FareToken::Z )
+          stateAtE.myFareToken = FareToken::Z;
       }
       break;
     case FareToken::ZU :
+      assert(false);
       if( collectedToken == FareToken::U ){
         stateAtE.myFareToken=FareToken::U;
       }
@@ -424,8 +449,7 @@ void FareModul::updateFareState( FareState const & currentFareState, _StopEdge c
       assert(false);
       break;
   }
-  stateAtE.myVisistedStops++;
-};
+}
 
 
 void FareModul::updateFareState(FareState const & currentFareState, _PedestrianEdge const & e)
@@ -464,7 +488,7 @@ void FareModul::updateFareState(FareState const & currentFareState, _IntermodalE
 
 }
 
-void FareModul::updateFareState(FareState const & currentFareState, const _AccessEdge &e) {
+void FareModul::updateFareState(FareState const & currentFareState, const _AccessEdge &e, const _IntermodalEdge & prev) {
   
   FareToken const & token = currentFareState.myFareToken;
   
@@ -472,29 +496,37 @@ void FareModul::updateFareState(FareState const & currentFareState, const _Acces
   
   stateAtE = currentFareState;
   
-  switch (token){
+  if( prev.getLine() == "!ped" )
+  {
+    switch (token){
     
-    case FareToken::Free ://we have not yet taken public transport
-      break;
-    case  FareToken::K :
-      stateAtE.myFareToken = FareToken::Z;
-      break;
-    case  FareToken::KH :
-      stateAtE.myFareToken = FareToken::H;
-      break;
-    case  FareToken::KL :
-      stateAtE.myFareToken = FareToken::L;
-      break;
-    case  FareToken::KLU :
-      stateAtE.myFareToken = FareToken::ZU;
-      break;
-    case  FareToken::KHU:
-      stateAtE.myFareToken = FareToken::ZU;
-      break;
-    default:
-      return;
+      case FareToken::Free ://we have not yet taken public transport
+        break;
+      case  FareToken::K :
+        //    stateAtE.myFareToken = FareToken::Z;
+        break;
+      case  FareToken::KH :
+        //    stateAtE.myFareToken = FareToken::H;
+        break;
+      case  FareToken::KL :
+        //    stateAtE.myFareToken = FareToken::L;
+        break;
+      case  FareToken::KLU :
+        //   stateAtE.myFareToken = FareToken::U;
+        break;
+      case  FareToken::KHU:
+        //   stateAtE.myFareToken = FareToken::U;
+        break;
+      case  FareToken::KLZ :
+        //  stateAtE.myFareToken = FareToken::Z;
+        break;
+      case  FareToken::KHZ:
+        //  stateAtE.myFareToken = FareToken::Z;
+        break;
+      default:
+        return;
+    }
   }
-  
 
 }
 

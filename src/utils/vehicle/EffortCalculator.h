@@ -45,6 +45,9 @@ public:
     /** Set the effort of the first edge in the query to zero **/
     virtual void setInitialState(E const *edge)  = 0;
     
+    /** basic output facility to inform about effort at this edge **/
+    virtual void output(E const *edge) const = 0 ;
+    
 };
 
 

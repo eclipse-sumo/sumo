@@ -21,7 +21,9 @@ enum class FareToken : int
   K    =  12,
   KHU  =  13,
   KLU  =  14,
-  ZU   =  15   //Artificial state for after leaving short trip khu or klu since a pedestrian edge does not allow us
+  KHZ  =  15,
+  KLZ  =  16,
+  ZU   =  17   //Artificial state for after leaving short trip khu or klu since a pedestrian edge does not allow us
               //to distinguish between z or u zones
 };
 
@@ -63,7 +65,12 @@ namespace FareUtil {
         return "KHU";
       case FareToken::KLU:
         return "KLU";
+      case FareToken ::KHZ:
+        return "KHZ";
+      case FareToken ::KLZ:
+        return  "KLZ";
     }
+    return ""; //surpress compiler warning
   }
   
   inline FareToken stringToToken(std::string str)
@@ -87,8 +94,11 @@ namespace FareUtil {
     if (str == "Free") return FareToken::Free;
     if (str == "KHU") return FareToken::KHU;
     if (str == "KLU") return FareToken::KLU;
+    if (str == "KHZ") return FareToken::KHZ;
+    if (str == "KLZ") return FareToken::KLZ;
     if (str == "NOTFOUND") return FareToken::None;
     assert(false);
+    return FareToken::None;
   }
   
 }
