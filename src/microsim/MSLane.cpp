@@ -2359,7 +2359,7 @@ MSLane::getCriticalLeader(double dist, double seen, double speed, const MSVehicl
         if (!nextInternal) {
             view++;
         }
-    } while (seen <= dist);
+    } while (seen <= dist || nextLane->isInternal());
     return result;
 }
 

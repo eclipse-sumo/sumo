@@ -832,15 +832,27 @@ MSLaneChanger::checkChange(
     if (blocked == 0 && (state & LCA_WANTS_LANECHANGE) != 0 && neighLead.first != 0) {
         // do a more careful (but expensive) check to ensure that a
         // safety-critical leader is not being overlooked
+        // while changing on an intersection, it is not sufficient to abort the
+        // search with a leader on the current lane because all linkLeaders must
+        // be considered as well
         const double seen = myCandi->lane->getLength() - vehicle->getPositionOnLane();
         const double speed = vehicle->getSpeed();
         const double dist = vehicle->getCarFollowModel().brakeGap(speed) + vehicle->getVehicleType().getMinGap();
-        if (seen < dist) {
+        if (seen < dist || myCandi->lane->isInternal()) {
             std::pair<MSVehicle* const, double> neighLead2 = targetLane->getCriticalLeader(dist, seen, speed, *vehicle);
-            if (neighLead2.first != 0 && neighLead2.first != neighLead.first
-                    && (neighLead2.second < vehicle->getCarFollowModel().getSecureGap(
-                            vehicle->getSpeed(), neighLead2.first->getSpeed(), neighLead2.first->getCarFollowModel().getMaxDecel()))) {
-                state |= blockedByLeader;
+            if (neighLead2.first != 0 && neighLead2.first != neighLead.first) {
+                const double secureGap = vehicle->getCarFollowModel().getSecureGap(vehicle->getSpeed(),
+                        neighLead2.first->getSpeed(), neighLead2.first->getCarFollowModel().getMaxDecel());
+                const double secureGap2 = secureGap * vehicle->getLaneChangeModel().getSafetyFactor();
+#ifdef DEBUG_SURROUNDING_VEHICLES
+                if (DEBUG_COND) {
+                    std::cout << SIMTIME << "   found critical leader=" << neighLead2.first->getID() 
+                        << " gap=" << neighLead2.second << " secGap=" << secureGap << " secGap2=" << secureGap2 << "\n";
+                }
+#endif
+                if (neighLead2.second < secureGap2) {
+                    state |= blockedByLeader;
+                }
             }
         }
     }
