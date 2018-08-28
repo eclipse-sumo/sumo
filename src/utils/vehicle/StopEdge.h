@@ -38,10 +38,11 @@ public:
     StopEdge(const std::string id,
              int numericalID,
              const E* edge) :
+        IntermodalEdge<E, L, N, V>(id, numericalID, edge, "!stop"),
         myFareZone(0),
         myFareToken(FareToken::None),
-        myStartToken(FareToken::None),
-        IntermodalEdge<E, L, N, V>(id, numericalID, edge, "!stop") { }
+        myStartToken(FareToken::None)
+        { }
         
   ///@brief Constructor with fare information
     StopEdge(const std::string id,
@@ -50,10 +51,10 @@ public:
              int fareZone,
              FareToken fareToken,
              FareToken startToken) :
+        IntermodalEdge<E, L, N, V>(id, numericalID, edge, "!stop"),
         myFareZone(fareZone),
         myFareToken(fareToken),
-        myStartToken(startToken),
-        IntermodalEdge<E, L, N, V>(id, numericalID, edge, "!stop") {
+        myStartToken(startToken){
     }
         
         
