@@ -8,6 +8,9 @@ delete
 # inspect edge
 inspect
 
+# inspect selected edges
+inspect_selected
+
 # load edge
 load
 

@@ -1,0 +1,44 @@
+# edit speed
+inspect_speed
+
+# edit priority
+inspect_priority
+
+# edit numLanes
+inspect_numlanes
+
+# edit type
+inspect_type
+
+# edit allow
+inspect_allow
+
+# edit disallow
+inspect_disallow
+
+# edit length
+inspect_length
+
+# edit spreadtype
+inspect_spreadtype
+
+# edit name
+inspect_name
+
+# edit width
+inspect_width
+
+# edit endoffset
+inspect_endoffset
+
+# edit shapestart
+inspect_shapestart
+
+# edit shapeend
+inspect_shapeend
+
+# edit bidirail
+inspect_bidirail
+
+# edit generic parameters
+inspect_genericparameters
