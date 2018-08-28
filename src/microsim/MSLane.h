@@ -94,20 +94,27 @@ public:
     ///        that may be of importance for the car-following dynamics along that lane. The relevant types of vehicles are:
     ///        1) vehicles with their front on the lane (myVehicles),
     ///        2) vehicles intersecting the lane but with front on another lane (myPartialVehicles)
+    ///
+    ///        In the context of retrieving linkLeaders during lane changing a third group of vehicles is checked:
+    ///        3) vehicles processed during lane changing (myTmpVehicles)
     class AnyVehicleIterator {
     public:
         AnyVehicleIterator(
             const MSLane* lane,
             int i1,
             int i2,
+            int i3,
             const int i1End,
             const int i2End,
+            const int i3End,
             bool downstream = true) :
             myLane(lane),
             myI1(i1),
             myI2(i2),
+            myI3(i3),
             myI1End(i1End),
             myI2End(i2End),
+            myI3End(i3End),
             myDownstream(downstream),
             myDirection(downstream ? 1 : -1) {
         }
@@ -115,8 +122,10 @@ public:
         bool operator== (AnyVehicleIterator const& other) const {
             return (myI1 == other.myI1
                     && myI2 == other.myI2
+                    && myI3 == other.myI3
                     && myI1End == other.myI1End
-                    && myI2End == other.myI2End);
+                    && myI2End == other.myI2End
+                    && myI3End == other.myI3End);
         }
 
         bool operator!= (AnyVehicleIterator const& other) const {
@@ -140,10 +149,14 @@ public:
         int myI1;
         /// @brief index for myPartialVehicles
         int myI2;
+        /// @brief index for myTmpVehicles
+        int myI3;
         /// @brief end index for myVehicles
         int myI1End;
         /// @brief end index for myPartialVehicles
         int myI2End;
+        /// @brief end index for myTmpVehicles
+        int myI3End;
         /// @brief iteration direction
         bool myDownstream;
         /// @brief index delta
@@ -390,22 +403,25 @@ public:
 
     /// @brief begin iterator for iterating over all vehicles touching this lane in downstream direction
     AnyVehicleIterator anyVehiclesBegin() const {
-        return AnyVehicleIterator(this, 0, 0, (int)myVehicles.size(), (int)myPartialVehicles.size(), true);
+        return AnyVehicleIterator(this, 0, 0, 0,
+                (int)myVehicles.size(), (int)myPartialVehicles.size(), (int)myTmpVehicles.size(), true);
     }
 
     /// @brief end iterator for iterating over all vehicles touching this lane in downstream direction
     AnyVehicleIterator anyVehiclesEnd() const {
-        return AnyVehicleIterator(this, (int)myVehicles.size(), (int)myPartialVehicles.size(), (int)myVehicles.size(), (int)myPartialVehicles.size(), true);
+        return AnyVehicleIterator(this, (int)myVehicles.size(), (int)myPartialVehicles.size(), (int)myTmpVehicles.size(),
+                (int)myVehicles.size(), (int)myPartialVehicles.size(), (int)myTmpVehicles.size(), true);
     }
 
     /// @brief begin iterator for iterating over all vehicles touching this lane in upstream direction
     AnyVehicleIterator anyVehiclesUpstreamBegin() const {
-        return AnyVehicleIterator(this, (int)myVehicles.size() - 1, (int)myPartialVehicles.size() - 1, -1, -1, false);
+        return AnyVehicleIterator(this, (int)myVehicles.size() - 1, (int)myPartialVehicles.size() - 1, (int)myTmpVehicles.size() - 1,
+                -1, -1, -1, false);
     }
 
     /// @brief end iterator for iterating over all vehicles touching this lane in upstream direction
     AnyVehicleIterator anyVehiclesUpstreamEnd() const {
-        return AnyVehicleIterator(this, -1, -1, -1, -1, false);
+        return AnyVehicleIterator(this, -1, -1, -1, -1, -1, -1, false);
     }
 
     /** @brief Allows to use the container for microsimulation again

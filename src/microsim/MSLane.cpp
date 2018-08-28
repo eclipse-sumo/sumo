@@ -99,6 +99,8 @@ MSLane::AnyVehicleIterator::operator++() {
     if (nextIsMyVehicles()) {
         if (myI1 != myI1End) {
             myI1 += myDirection;
+        } else if (myI3 != myI3End) {
+            myI3 += myDirection;
         }
         // else: already at end
     } else {
@@ -114,6 +116,8 @@ MSLane::AnyVehicleIterator::operator*() {
     if (nextIsMyVehicles()) {
         if (myI1 != myI1End) {
             return myLane->myVehicles[myI1];
+        } else if (myI3 != myI3End) {
+            return myLane->myTmpVehicles[myI3];
         } else {
             return 0;
         }
@@ -129,7 +133,7 @@ MSLane::AnyVehicleIterator::nextIsMyVehicles() const {
     //        << " myI1=" << myI1
     //        << " myI2=" << myI2
     //        << "\n";
-    if (myI1 == myI1End) {
+    if (myI1 == myI1End && myI3 == myI3End) {
         if (myI2 != myI2End) {
             return false;
         } else {
@@ -139,13 +143,15 @@ MSLane::AnyVehicleIterator::nextIsMyVehicles() const {
         if (myI2 == myI2End) {
             return true;
         } else {
+            MSVehicle* cand = myI1 == myI1End ? myLane->myTmpVehicles[myI3] : myLane->myVehicles[myI1];
             //if (DEBUG_COND2(myLane)) std::cout << "              "
-            //        << " veh1=" << myLane->myVehicles[myI1]->getID()
+            //        << " veh1=" << candFull->getID()
+            //        << " isTmp=" << (myI1 == myI1End)
             //        << " veh2=" << myLane->myPartialVehicles[myI2]->getID()
-            //        << " pos1=" << myLane->myVehicles[myI1]->getPositionOnLane(myLane)
+            //        << " pos1=" << cand->getPositionOnLane(myLane)
             //        << " pos2=" << myLane->myPartialVehicles[myI2]->getPositionOnLane(myLane)
             //        << "\n";
-            if (myLane->myVehicles[myI1]->getPositionOnLane(myLane) < myLane->myPartialVehicles[myI2]->getPositionOnLane(myLane)) {
+            if (cand->getPositionOnLane() < myLane->myPartialVehicles[myI2]->getPositionOnLane(myLane)) {
                 return myDownstream;
             } else {
                 return !myDownstream;
