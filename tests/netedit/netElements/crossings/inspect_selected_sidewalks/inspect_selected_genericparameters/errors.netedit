@@ -23,43 +23,67 @@ Debug: Created connection 'from8_2to1_2' in retrieveGNEConnection()
 Debug: Created crossing ':Center_c0' in retrieveGNECrossing()
 Debug: Created crossing ':Center_c1' in retrieveGNECrossing()
 Debug: Current Viewport values: 50.00, 50.00, 50.00. Zoom = '240.00'
-Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into crossing ':Center_c1'
+Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 1 Crossings, 0 Polygons, 0 POIs
+Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 2 Crossings, 0 Polygons, 0 POIs
+Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into crossing ':Center_c0'
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals saved, shapes saved
+Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into crossing ':Center_c1'
+Debug: Setting new attribute genericParameter 'key1=|key2=|key3=' into crossing ':Center_c0'
 Debug: Setting new attribute genericParameter 'key1=|key2=|key3=' into crossing ':Center_c1'
+Debug: Setting new attribute genericParameter '' into crossing ':Center_c0'
 Debug: Setting new attribute genericParameter '' into crossing ':Center_c1'
+Debug: Setting new attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into crossing ':Center_c0'
 Debug: Setting new attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into crossing ':Center_c1'
+Debug: Setting new attribute genericParameter 'key2=value2|key3=value3|keyInvalid.;%>%$$=value1' into crossing ':Center_c0'
 Debug: Setting new attribute genericParameter 'key2=value2|key3=value3|keyInvalid.;%>%$$=value1' into crossing ':Center_c1'
+Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into crossing ':Center_c0'
 Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into crossing ':Center_c1'
+Debug: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' into crossing ':Center_c0'
 Debug: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' into crossing ':Center_c1'
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into crossing ':Center_c1'
+Debug: Setting previous attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into crossing ':Center_c0'
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute genericParameter 'key2=value2|key3=value3|keyInvalid.;%>%$$=value1' into crossing ':Center_c1'
+Debug: Setting previous attribute genericParameter 'key2=value2|key3=value3|keyInvalid.;%>%$$=value1' into crossing ':Center_c0'
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into crossing ':Center_c1'
+Debug: Setting previous attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into crossing ':Center_c0'
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute genericParameter '' into crossing ':Center_c1'
+Debug: Setting previous attribute genericParameter '' into crossing ':Center_c0'
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute genericParameter 'key1=|key2=|key3=' into crossing ':Center_c1'
+Debug: Setting previous attribute genericParameter 'key1=|key2=|key3=' into crossing ':Center_c0'
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute genericParameter 'key1=value1|key2=value2|key3=value3' into crossing ':Center_c1'
+Debug: Setting previous attribute genericParameter 'key1=value1|key2=value2|key3=value3' into crossing ':Center_c0'
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute genericParameter '' into crossing ':Center_c1'
+Debug: Setting previous attribute genericParameter '' into crossing ':Center_c0'
 Debug: Key F5 (Compute) pressed
 Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into crossing ':Center_c0'
 Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into crossing ':Center_c1'
 Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute genericParameter 'key1=|key2=|key3=' into crossing ':Center_c0'
 Debug: Setting new attribute genericParameter 'key1=|key2=|key3=' into crossing ':Center_c1'
 Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute genericParameter '' into crossing ':Center_c0'
 Debug: Setting new attribute genericParameter '' into crossing ':Center_c1'
 Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into crossing ':Center_c0'
 Debug: Setting new attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into crossing ':Center_c1'
 Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute genericParameter 'key2=value2|key3=value3|keyInvalid.;%>%$$=value1' into crossing ':Center_c0'
 Debug: Setting new attribute genericParameter 'key2=value2|key3=value3|keyInvalid.;%>%$$=value1' into crossing ':Center_c1'
 Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into crossing ':Center_c0'
 Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into crossing ':Center_c1'
 Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' into crossing ':Center_c0'
 Debug: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' into crossing ':Center_c1'
 Debug: Deleting unreferenced edge '1' in GNENet destructor
 Debug: Deleting unreferenced lane '1_0' in GNEEdge destructor

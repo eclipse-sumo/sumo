@@ -31,6 +31,15 @@ netedit.rebuildNetwork()
 # zoom in central node
 netedit.setZoom("50", "50", "50")
 
+# go to select mode
+netedit.selectMode()
+
+# select first crossing
+netedit.leftClick(match, 250, 225)
+
+# select second crossing
+netedit.leftClick(match, 415, 225)
+
 # go to inspect mode
 netedit.inspectMode()
 
@@ -38,7 +47,7 @@ netedit.inspectMode()
 netedit.leftClick(match, 250, 225)
 
 # Change priority
-netedit.modifyBoolAttribute(1)
+netedit.modifyBoolAttribute(0)
 
 # rebuild network
 netedit.rebuildNetwork()
