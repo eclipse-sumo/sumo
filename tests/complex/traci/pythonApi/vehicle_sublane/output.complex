@@ -40,7 +40,7 @@ speedFactor 1.0
 allowedSpeed 11.11
 accel 2.6
 decel 4.5
-emergencyDecel 4.5
+emergencyDecel 9.0
 apparentDecel 4.5
 actionStepLength 1.0
 lastActionTime 2.0
@@ -194,7 +194,7 @@ speedFactor 1.0
 allowedSpeed -1073741824.0
 accel 2.6
 decel 4.5
-emergencyDecel 4.5
+emergencyDecel 9.0
 apparentDecel 4.5
 actionStepLength 1.0
 lastActionTime 0.0
@@ -279,7 +279,7 @@ speedFactor 1.0
 allowedSpeed 11.11
 accel 2.6
 decel 4.5
-emergencyDecel 4.5
+emergencyDecel 9.0
 apparentDecel 4.5
 actionStepLength 1.0
 lastActionTime 12.0
@@ -589,7 +589,7 @@ speedFactor 1.0
 allowedSpeed 13.89
 accel 2.6
 decel 4.5
-emergencyDecel 4.5
+emergencyDecel 9.0
 apparentDecel 4.5
 actionStepLength 1.0
 lastActionTime 127.0
@@ -718,7 +718,7 @@ speedFactor 1.0
 allowedSpeed -1073741824.0
 accel 2.6
 decel 4.5
-emergencyDecel 4.5
+emergencyDecel 9.0
 apparentDecel 4.5
 actionStepLength 1.0
 lastActionTime 0.0
@@ -787,7 +787,7 @@ speedFactor 1.0
 allowedSpeed -1073741824.0
 accel 2.6
 decel 4.5
-emergencyDecel 4.5
+emergencyDecel 9.0
 apparentDecel 4.5
 actionStepLength 1.0
 lastActionTime 0.0
@@ -856,7 +856,7 @@ speedFactor 1.0
 allowedSpeed -1073741824.0
 accel 2.6
 decel 4.5
-emergencyDecel 4.5
+emergencyDecel 9.0
 apparentDecel 4.5
 actionStepLength 1.0
 lastActionTime 0.0
@@ -925,7 +925,7 @@ speedFactor 1.0
 allowedSpeed -1073741824.0
 accel 2.6
 decel 4.5
-emergencyDecel 4.5
+emergencyDecel 9.0
 apparentDecel 4.5
 actionStepLength 1.0
 lastActionTime 0.0
