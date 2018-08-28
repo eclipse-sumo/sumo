@@ -23,12 +23,17 @@ Debug: Created connection 'from8_2to1_2' in retrieveGNEConnection()
 Debug: Created crossing ':Center_c0' in retrieveGNECrossing()
 Debug: Created crossing ':Center_c1' in retrieveGNECrossing()
 Debug: Current Viewport values: 50.00, 50.00, 50.00. Zoom = '240.00'
-Debug: Value '-1' for attribute linkIndex2 of crossing isn't valid
 Debug: Value '-3' for attribute linkIndex2 of crossing isn't valid
-Debug: Value '6' for attribute linkIndex2 of crossing isn't valid
-Debug: Value '1' for attribute linkIndex2 of crossing isn't valid
+Debug: Setting new attribute linkIndex2 '6' into crossing ':Center_c1'
+Debug: net has to be saved
+Debug: Current saving Status: net unsaved, additionals saved, shapes saved
+Debug: Setting new attribute linkIndex2 '1' into crossing ':Center_c1'
 Debug: Key F5 (Compute) pressed
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute linkIndex2 '6' into crossing ':Center_c1'
 Debug: Key F5 (Compute) pressed
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute linkIndex2 '1' into crossing ':Center_c1'
 Debug: Deleting unreferenced edge '1' in GNENet destructor
 Debug: Deleting unreferenced lane '1_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '1_1' in GNEEdge destructor
