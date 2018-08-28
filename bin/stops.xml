@@ -29,8 +29,8 @@
 -->
 <!--http://sumo.dlr.de/xsd/additional_file.xsd-->
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="xmlDef.xsd">
-    <busStop id="busStopA" name="A" lane="A1A0_1" startPos="444.80"  endPos="474.80" fareZone="110" fareToken="L" startToken="KL" />
-    <busStop id="busStopB" name="B" lane="B1A1_1" startPos="884.80"  endPos="904.80" fareZone="156" fareToken="H" startToken="KH" />
+    <busStop id="busStopA" name="A" lane="A1A0_1" startPos="444.80"  endPos="474.80" fareZone="NOTFOUND" fareToken="NOTFOUND" startToken="NOTFOUND" />
+    <busStop id="busStopB" name="B" lane="B1A1_1" startPos="884.80"  endPos="904.80" fareZone="110" fareToken="L" startToken="KL" />
     <busStop id="busStopC" name="C" lane="A0B0_1" startPos="884.80"  endPos="904.80" fareZone="132" fareToken="Z" startToken="K" />
     <busStop id="busStopD" name="D" lane="B0B1_1" startPos="470.00"  endPos="480.00" fareZone="147" fareToken="Z" startToken="K"/>
     <busStop id="stopA_E" name="A" lane="railWE_0" startPos="250.00" endPos="350.00" fareZone="147" fareToken="Z" startToken="K">

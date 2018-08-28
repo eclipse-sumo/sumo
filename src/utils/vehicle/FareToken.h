@@ -73,6 +73,9 @@ namespace FareUtil {
     if (str == "T1") return FareToken::T1;
     if (str == "T2") return FareToken::T2;
     if (str == "T3") return FareToken::T3;
+    if (str == "1") return FareToken::T1;
+    if (str == "2") return FareToken::T2;
+    if (str == "3") return FareToken::T3;
     if (str == "U") return FareToken::U;
     if (str == "Z") return FareToken::Z;
     if (str == "M") return FareToken::M;
@@ -84,6 +87,7 @@ namespace FareUtil {
     if (str == "Free") return FareToken::Free;
     if (str == "KHU") return FareToken::KHU;
     if (str == "KLU") return FareToken::KLU;
+    if (str == "NOTFOUND") return FareToken::None;
     assert(false);
   }
   

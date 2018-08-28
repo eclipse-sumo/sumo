@@ -224,7 +224,8 @@ public:
     
   }
   
-  /** Implementation of EffortCalculator **/
+  /** Implementation of EffortCalculator
+   *  _IntermodalEdge should be an Connector Edge  **/
   void setInitialState(_IntermodalEdge const * edge) override
   {
     assert( edge->getLine() == "!connector");
@@ -307,14 +308,6 @@ private:
 
 void FareModul::updateFareState( FareState const & currentFareState, _StopEdge const & e )
 {
-
-  FareToken const & token = currentFareState.myFareToken;
-  
-  FareState & stateAtE = myFareStates[e.getNumericalID()];
-  
-  stateAtE = currentFareState;
-  
-  stateAtE.myCounter.addZone( e.getFareZone() );
   
   FareToken  collectedToken = e.getFareToken();
   
@@ -323,6 +316,14 @@ void FareModul::updateFareState( FareState const & currentFareState, _StopEdge c
     std::cout<<"Progagating fare state for stop w/o a price!"<<std::endl;
     return;
   }
+  
+  FareToken const & token = currentFareState.myFareToken;
+  
+  FareState & stateAtE = myFareStates[e.getNumericalID()];
+  
+  stateAtE = currentFareState;
+  
+  stateAtE.myCounter.addZone( e.getFareZone() );
 
   switch (token)
   {
@@ -418,14 +419,19 @@ void FareModul::updateFareState( FareState const & currentFareState, _StopEdge c
       }
 
       break;
-
+    case FareToken::None:
+      std::cout<<"Reached invalid position in fareToken selection!"<<std::endl;
+      assert(false);
+      break;
   }
   stateAtE.myVisistedStops++;
 };
 
 
 void FareModul::updateFareState(FareState const & currentFareState, _PedestrianEdge const & e)
-{ //only propagates the fare state
+{
+  
+  //only propagates the fare state
   FareState & stateAtE = myFareStates[e.getNumericalID()];
   
   stateAtE = currentFareState;
@@ -436,6 +442,10 @@ void FareModul::updateFareState(FareState const & currentFareState, _PedestrianE
 
 void FareModul::updateFareState(FareState const & currentFareState, _PublicTransportEdge const & e ) {
   
+  
+  if( currentFareState.myFareToken == FareToken::None )
+    return;
+  
   FareState & stateAtE = myFareStates[e.getNumericalID()];
   
   stateAtE = currentFareState;
@@ -444,6 +454,9 @@ void FareModul::updateFareState(FareState const & currentFareState, _PublicTrans
 }
 
 void FareModul::updateFareState(FareState const & currentFareState, _IntermodalEdge const & e ) {
+  
+  if( currentFareState.myFareToken == FareToken::None )
+    return;
 
   FareState & stateAtE = myFareStates[e.getNumericalID()];
 
