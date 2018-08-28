@@ -519,6 +519,7 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             std::string oldID = myID;
             myID = value;
             myNet->changeShapeID(this, oldID);
+            setMicrosimID(value);
             break;
         }
         case SUMO_ATTR_COLOR:
