@@ -2283,7 +2283,7 @@ MSVehicle::adaptToLeaders(const MSLeaderInfo& ahead, double latOffset,
     */
     for (int sublane = rightmost; sublane <= leftmost; ++sublane) {
         const MSVehicle* pred = ahead[sublane];
-        if (pred != 0) {
+        if (pred != 0 && pred != this) {
             // @todo avoid multiple adaptations to the same leader
             const double predBack = pred->getBackPositionOnLane(lane);
             const double gap = (lastLink == 0

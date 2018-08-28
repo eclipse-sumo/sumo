@@ -1385,7 +1385,9 @@ MSLane::detectCollisionBetween(SUMOTime timestep, const std::string& stage, MSVe
     }
 
     // No self-collisions! (This is assumed to be ensured at caller side)
-    assert(collider != victim);
+    if (collider == victim) {
+        return false;
+    }
 
     const bool colliderOpposite = collider->getLaneChangeModel().isOpposite();
     const bool bothOpposite = victim->getLaneChangeModel().isOpposite() && colliderOpposite;
