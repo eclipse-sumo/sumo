@@ -31,6 +31,15 @@ netedit.rebuildNetwork()
 # zoom in central node
 netedit.setZoom("50", "50", "50")
 
+# go to select mode
+netedit.selectMode()
+
+# select first crossing
+netedit.leftClick(match, 250, 225)
+
+# select second crossing
+netedit.leftClick(match, 415, 225)
+
 # go to inspect mode
 netedit.inspectMode()
 
@@ -38,13 +47,13 @@ netedit.inspectMode()
 netedit.leftClick(match, 250, 225)
 
 # Change shape with a non valid value
-netedit.modifyAttribute(2, "dummyWidth")
+netedit.modifyAttribute(1, "dummyWidth")
 
 # Change shape with a non valid value
-netedit.modifyAttribute(2, "-5")
+netedit.modifyAttribute(1, "-5")
 
 # Change shape with a valid value
-netedit.modifyAttribute(2, "8.1")
+netedit.modifyAttribute(1, "8.1")
 
 # rebuild network
 netedit.rebuildNetwork()

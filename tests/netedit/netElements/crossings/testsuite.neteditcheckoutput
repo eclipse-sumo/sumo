@@ -16,6 +16,12 @@ inspect
 # inspect crossing with sidewalks
 inspect_sidewalks
 
+# inspect selected crossing
+inspect_selected
+
+# inspect selected crossing with sidewalks
+inspect_selected_sidewalks
+
 # load big net with crossigns
 load_big
 

@@ -15,11 +15,15 @@ TestFunctions: 'reference.png' found. Position: 304 - 140
 [log]  TYPE "#TAB."
 [log] ( Ctrl )  TYPE "a"
 [log] ( Alt )  TYPE "o"
+[log]  TYPE "s"
+[log] CLICK on L(554,365)@S(0)[0,0 1600x900] (234 msec)
+TestFunctions: Clicked over position 554 - 365
+[log] CLICK on L(719,365)@S(0)[0,0 1600x900] (235 msec)
+TestFunctions: Clicked over position 719 - 365
 [log]  TYPE "i"
 [log] CLICK on L(554,365)@S(0)[0,0 1600x900] (234 msec)
 TestFunctions: Clicked over position 554 - 365
 [log]  TYPE "#F12."
-[log]  TYPE "#TAB."
 [log]  TYPE "#TAB."
 [log]  TYPE " "
 [log]  TYPE "#F5."

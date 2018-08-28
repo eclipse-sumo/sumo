@@ -31,6 +31,15 @@ netedit.rebuildNetwork()
 # zoom in central node
 netedit.setZoom("50", "50", "50")
 
+# go to select mode
+netedit.selectMode()
+
+# select first crossing
+netedit.leftClick(match, 250, 225)
+
+# select second crossing
+netedit.leftClick(match, 415, 225)
+
 # go to inspect mode
 netedit.inspectMode()
 
@@ -38,16 +47,13 @@ netedit.inspectMode()
 netedit.leftClick(match, 250, 225)
 
 # Change linkindex2 with a non valid value
-netedit.modifyAttribute(4, "dummylinkIndex")
+netedit.modifyAttribute(3, "dummylinkIndex")
 
 # Change linkindex2 with a non valid value
-netedit.modifyAttribute(4, "-3")
-
-# Change linkindex2 with a non valid value
-netedit.modifyAttribute(4, "6")
+netedit.modifyAttribute(3, "-3")
 
 # Change linkindex2 with a valid value
-netedit.modifyAttribute(4, "1")
+netedit.modifyAttribute(3, "1")
 
 # rebuild network
 netedit.rebuildNetwork()
