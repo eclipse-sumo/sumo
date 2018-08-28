@@ -501,25 +501,25 @@ void FareModul::updateFareState(FareState const & currentFareState, const _Acces
       case FareToken::Free ://we have not yet taken public transport
         break;
       case  FareToken::K :
-        //    stateAtE.myFareToken = FareToken::Z;
+            stateAtE.myFareToken = FareToken::Z;
         break;
       case  FareToken::KH :
-        //    stateAtE.myFareToken = FareToken::H;
+            stateAtE.myFareToken = FareToken::H;
         break;
       case  FareToken::KL :
-        //    stateAtE.myFareToken = FareToken::L;
+            stateAtE.myFareToken = FareToken::L;
         break;
       case  FareToken::KLU :
-        //   stateAtE.myFareToken = FareToken::U;
+           stateAtE.myFareToken = FareToken::U;
         break;
       case  FareToken::KHU:
-        //   stateAtE.myFareToken = FareToken::U;
+           stateAtE.myFareToken = FareToken::U;
         break;
       case  FareToken::KLZ :
-        //  stateAtE.myFareToken = FareToken::Z;
+          stateAtE.myFareToken = FareToken::Z;
         break;
       case  FareToken::KHZ:
-        //  stateAtE.myFareToken = FareToken::Z;
+          stateAtE.myFareToken = FareToken::Z;
         break;
       default:
         return;
