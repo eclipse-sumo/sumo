@@ -2903,7 +2903,7 @@ MSLane::getFollowersOnConsecutive(const MSVehicle* ego, double backOffset,
             std::cout << "  veh=" << veh->getID() << " lane=" << veh->getLane()->getID() << " pos=" << veh->getPositionOnLane(this) << "\n";
         }
 #endif
-        if (veh != ego && veh->getPositionOnLane(this) <= egoPos) {
+        if (veh != ego && veh->getPositionOnLane(this) < egoPos) {
             //const double latOffset = veh->getLane()->getRightSideOnEdge() - getRightSideOnEdge();
             const double latOffset = veh->getLatOffset(this);
             const double dist = backOffset - veh->getPositionOnLane(this) - veh->getVehicleType().getMinGap();
