@@ -421,9 +421,9 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                         sumoLane.permissions = tc.getPermissions(odLane.type);
                         sumoLane.width = myImportWidths && odLane.width != NBEdge::UNSPECIFIED_WIDTH ? odLane.width : tc.getWidth(odLane.type);
                         if (sumoLane.width < myMinWidth
-                                && sumoLane.permissions != SVC_BICYCLE
-                                && sumoLane.permissions != SVC_PEDESTRIAN
+                                && (sumoLane.permissions & SVC_PASSENGER) != 0
                                 && sumoLane.width < tc.getWidth(odLane.type)) {
+                            // avoid narrow passenger car lanes (especially at sections with varying width)
                             sumoLane.permissions = SVC_EMERGENCY | SVC_AUTHORITY;
                         }
                     }
@@ -470,9 +470,9 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                         sumoLane.permissions = tc.getPermissions(odLane.type);
                         sumoLane.width = myImportWidths && odLane.width != NBEdge::UNSPECIFIED_WIDTH ? odLane.width : tc.getWidth(odLane.type);
                         if (sumoLane.width < myMinWidth
-                                && sumoLane.permissions != SVC_BICYCLE
-                                && sumoLane.permissions != SVC_PEDESTRIAN
+                                && (sumoLane.permissions & SVC_PASSENGER) != 0
                                 && sumoLane.width < tc.getWidth(odLane.type)) {
+                            // avoid narrow passenger car lanes (especially at sections with varying width)
                             sumoLane.permissions = SVC_EMERGENCY | SVC_AUTHORITY;
                         }
                     }
