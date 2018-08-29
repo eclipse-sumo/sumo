@@ -1359,8 +1359,10 @@ GNENet::computeJunction(GNEJunction* junction) {
     // recompute tl-logics
     OptionsCont& oc = OptionsCont::getOptions();
     NBTrafficLightLogicCont& tllCont = getTLLogicCont();
-    // iterate over traffic lights definitions
-    for (auto it : junction->getNBNode()->getControllingTLS()) {
+    // iterate over traffic lights definitions. Make a copy because invalid
+    // definitions will be removed (and would otherwise destroy the iterator)
+    const std::set<NBTrafficLightDefinition*> tlsDefs = junction->getNBNode()->getControllingTLS();
+    for (auto it : tlsDefs) {
         it->setParticipantsInformation();
         it->setTLControllingInformation();
         tllCont.computeSingleLogic(oc, it);
