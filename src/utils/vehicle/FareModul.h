@@ -219,7 +219,7 @@ public:
     }
     
     updateFareState(state,*edge);
-    
+  
   }
   
   /** Implementation of EffortCalculator
@@ -289,7 +289,7 @@ private:
       
   void output(_IntermodalEdge const * edge) const override
   {
-    std::cout<<"Final fare state:"<<std::endl;
+    std::cout<<"Final fare state at edge of type: "<<edge->getLine()<<std::endl;
     FareState const  & my = myFareStates[edge->getNumericalID()];
     std::cout<<"Tariftoken"<<FareUtil::tokenToString(my.myFareToken)<<std::endl;
     std::cout<<"Zones "<<my.myCounter.numZones()<<std::endl;
@@ -355,7 +355,7 @@ void FareModul::updateFareState( FareState const & currentFareState, _StopEdge c
     case FareToken::T2 :
     case FareToken::T3 :
       if( collectedToken == FareToken::Z )
-        stateAtE.myFareToken = stateAtE.myTravelledDistance<=4 ? FareToken::K : FareToken::Z;
+        stateAtE.myFareToken = stateAtE.myTravelledDistance<=4000 ? FareToken::K : FareToken::Z;
       break;
     case FareToken::U :
       if( collectedToken == FareToken::H)
@@ -405,7 +405,7 @@ void FareModul::updateFareState( FareState const & currentFareState, _StopEdge c
       }
       break;
     case FareToken::K:
-      if( stateAtE.myTravelledDistance > 4  )
+      if( stateAtE.myTravelledDistance > 4000  )
       {
         if( collectedToken == FareToken::U )
           stateAtE.myFareToken = FareToken ::U;
