@@ -140,6 +140,11 @@ def get_options(args=None):
             options.vtypeID = "%s_%s" % (options.tripprefix, options.vehicle_class)
         else:
             options.vtypeID = options.vehicle_class
+
+        if 'type=' in options.tripattrs:
+            print("Error: trip-attribute 'type' cannot be used together with option --vehicle-class", file=sys.stderr)
+            sys.exit(1)
+
     return options
 
 
