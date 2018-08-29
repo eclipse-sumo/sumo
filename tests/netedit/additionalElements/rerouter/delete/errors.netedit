@@ -36,13 +36,13 @@ Debug: Selected additional 'rerouter' in AdditionalSelector
 Debug: Adding rerouter 'rerouter_3' in GNEChange_Additional
 GLDebug: Inserted rerouter:rerouter_3 into SUMORTree with boundary -0.10,0.00,1.00,0.10
 GLDebug: Removed object rerouter:rerouter_3 from SUMORTree with boundary -0.10,0.00,1.00,0.10
-GLDebug: Inserted rerouter:rerouter_3 into SUMORTree with boundary 1.00,-15.00,41.00,25.00
+GLDebug: Inserted rerouter:rerouter_3 into SUMORTree with boundary 1.00,-16.00,41.00,24.00
 GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-31.60,80.00,30.00
-GLDebug: Removed object rerouter:rerouter_3 from SUMORTree with boundary 1.00,-15.00,41.00,25.00
-GLDebug: Inserted rerouter:rerouter_3 into SUMORTree with boundary 1.00,-15.00,41.00,25.00
+GLDebug: Removed object rerouter:rerouter_3 from SUMORTree with boundary 1.00,-16.00,41.00,24.00
+GLDebug: Inserted rerouter:rerouter_3 into SUMORTree with boundary 1.00,-16.00,41.00,24.00
 GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
 Debug: Removing rerouter 'rerouter_3' in GNEChange_Additional
-GLDebug: Removed object rerouter:rerouter_3 from SUMORTree with boundary 1.00,-15.00,41.00,25.00
+GLDebug: Removed object rerouter:rerouter_3 from SUMORTree with boundary 1.00,-16.00,41.00,24.00
 GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-31.60,80.00,30.00
 GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
 Debug: Removing rerouter 'rerouter_1' in GNEChange_Additional
@@ -123,18 +123,18 @@ GLDebug: Inserted rerouter:rerouter_1 into SUMORTree with boundary 4.07,-15.54,4
 GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Adding rerouter 'rerouter_3' in GNEChange_Additional
-GLDebug: Inserted rerouter:rerouter_3 into SUMORTree with boundary 1.00,-15.00,41.00,25.00
-GLDebug: Removed object rerouter:rerouter_3 from SUMORTree with boundary 1.00,-15.00,41.00,25.00
-GLDebug: Inserted rerouter:rerouter_3 into SUMORTree with boundary 1.00,-15.00,41.00,25.00
+GLDebug: Inserted rerouter:rerouter_3 into SUMORTree with boundary 1.00,-16.00,41.00,24.00
+GLDebug: Removed object rerouter:rerouter_3 from SUMORTree with boundary 1.00,-16.00,41.00,24.00
+GLDebug: Inserted rerouter:rerouter_3 into SUMORTree with boundary 1.00,-16.00,41.00,24.00
 GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-31.60,80.00,30.00
-GLDebug: Removed object rerouter:rerouter_3 from SUMORTree with boundary 1.00,-15.00,41.00,25.00
-GLDebug: Inserted rerouter:rerouter_3 into SUMORTree with boundary 1.00,-15.00,41.00,25.00
+GLDebug: Removed object rerouter:rerouter_3 from SUMORTree with boundary 1.00,-16.00,41.00,24.00
+GLDebug: Inserted rerouter:rerouter_3 into SUMORTree with boundary 1.00,-16.00,41.00,24.00
 GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
 Debug: Opening FXMessageBox 'Force deletion needed'
 Debug: Closed FXMessageBox 'Force deletion needed' with 'OK'
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Removing rerouter 'rerouter_3' in GNEChange_Additional
-GLDebug: Removed object rerouter:rerouter_3 from SUMORTree with boundary 1.00,-15.00,41.00,25.00
+GLDebug: Removed object rerouter:rerouter_3 from SUMORTree with boundary 1.00,-16.00,41.00,24.00
 GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-31.60,80.00,30.00
 GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
 Debug: Keys Ctrl + Y (Redo) pressed
