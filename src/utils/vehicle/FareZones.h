@@ -1,6 +1,11 @@
-//
-// Created by bzfeuler on 24.08.18.
-//
+/****************************************************************************/
+/// @file    FareModul.h
+/// @author Ricardo Euler
+/// @date    Thu, 17 August 2018
+/// @version $Id$
+///
+// Fare Modul for calculating prices during intermodal routing
+/****************************************************************************/
 
 #ifndef SUMO_FAREZONES_H
 #define SUMO_FAREZONES_H
