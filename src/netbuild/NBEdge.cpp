@@ -748,7 +748,6 @@ NBEdge::computeEdgeShape() {
     // recompute edge's length as the average of lane lenghts
     double avgLength = 0;
     for (int i = 0; i < (int)myLanes.size(); i++) {
-        assert(myLanes[i].shape.length() > 0);
         avgLength += myLanes[i].shape.length();
     }
     myLength = avgLength / (double) myLanes.size();
