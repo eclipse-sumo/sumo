@@ -532,818 +532,899 @@ Warning: Teleporting vehicle '800' after earlier collision, lane='SC_0, time=452
 Warning: Vehicle '800' teleports beyond arrival edge 'SC', time 452.00.
 Warning: Vehicle '662'; collision with vehicle '685', lane='WC1_0', gap=-0.20', latGap=-1.80, time=459.00 stage=move.
 Warning: Vehicle '662'; collision with vehicle '468', lane='WC1_0', gap=-1.71', latGap=-0.90, time=459.00 stage=laneChange.
-Warning: Vehicle '872'; collision with vehicle '899', lane='SC_0', gap=-4.70', latGap=-0.11, time=462.00 stage=move.
-Warning: Vehicle '916'; collision with vehicle '667', lane='SC_1', gap=-3.67', latGap=-0.90, time=462.00 stage=move.
 Warning: Vehicle '484'; collision with vehicle '195', lane='NC_1', gap=-2.10', latGap=-1.80, time=464.00 stage=move.
-Warning: Vehicle '212'; collision with vehicle '875', lane='SC_1', gap=-2.77', latGap=-1.43, time=466.00 stage=move.
 Warning: Vehicle '322'; collision with vehicle '314', lane='NC_1', gap=-1.34', latGap=-0.90, time=468.00 stage=move.
+Warning: Vehicle '673'; collision with vehicle '890', lane='SC_1', gap=-3.13', latGap=-0.80, time=469.00 stage=laneChange.
 Warning: Teleporting vehicle '468' after earlier collision, lane='WC1_0, time=470.00.
 Warning: Teleporting vehicle '662' after earlier collision, lane='WC1_0, time=470.00.
 Warning: Vehicle '468' ends teleporting on edge 'WC', time 470.00.
 Warning: Teleporting vehicle '685' after earlier collision, lane='WC_0, time=471.00.
 Warning: Vehicle '685' ends teleporting on edge 'CS', time 471.00.
 Warning: Vehicle '338'; collision with vehicle '322', lane='NC_0', gap=-6.99', latGap=-0.90, time=472.00 stage=move.
+Warning: Vehicle '219'; collision with vehicle '928', lane='SC_1', gap=-0.05', latGap=-0.38, time=472.00 stage=move.
 Warning: Vehicle '702'; collision with vehicle '668', lane='WC_0', gap=-2.41', latGap=-0.30, time=472.00 stage=move.
-Warning: Teleporting vehicle '899' after earlier collision, lane='SC_0, time=473.00.
-Warning: Vehicle '899' teleports beyond arrival edge 'SC', time 473.00.
-Warning: Teleporting vehicle '916' after earlier collision, lane='SC_0, time=473.00.
-Warning: Teleporting vehicle '872' after earlier collision, lane='SC_0, time=473.00.
-Warning: Vehicle '872' teleports beyond arrival edge 'SC', time 473.00.
-Warning: Teleporting vehicle '667' after earlier collision, lane='SC_1, time=473.00.
 Warning: Vehicle '346'; collision with vehicle '322', lane='NC_0', gap=-4.80', latGap=-0.90, time=473.00 stage=move.
-Warning: Vehicle '916' ends teleporting on edge 'CE', time 473.00.
-Warning: Vehicle '667' ends teleporting on edge 'CS', time 475.00.
 Warning: Teleporting vehicle '484' after earlier collision, lane='NC_0, time=476.00.
 Warning: Vehicle '484' teleports beyond arrival edge 'NC', time 476.00.
-Warning: Teleporting vehicle '212' after earlier collision, lane='SC_0, time=477.00.
-Warning: Vehicle '212' teleports beyond arrival edge 'SC', time 477.00.
-Warning: Teleporting vehicle '875' after earlier collision, lane='SC_1, time=477.00.
 Warning: Vehicle '727'; collision with vehicle '702', lane='WC_0', gap=-2.20', latGap=-0.30, time=477.00 stage=move.
 Warning: Vehicle '662' ends teleporting on edge 'WC', time 477.00.
-Warning: Vehicle '875' ends teleporting on edge 'CN', time 477.00.
 Warning: Vehicle '416'; collision with vehicle '380', lane='NC_1', gap=-4.50', latGap=-0.15, time=478.00 stage=move.
 Warning: Teleporting vehicle '314' after earlier collision, lane='NC_1, time=479.00.
-Warning: Vehicle '314' ends teleporting on edge 'CS', time 479.00.
 Warning: Teleporting vehicle '322' after earlier collision, lane='NC_0, time=480.00.
 Warning: Vehicle '322' teleports beyond arrival edge 'NC', time 480.00.
-Warning: Vehicle '931'; collision with vehicle '928', lane='SC1_0', gap=-6.63', latGap=-1.80, time=480.00 stage=move.
-Warning: Vehicle '928'; collision with vehicle '934', lane='SC1_0', gap=-6.06', latGap=-1.65, time=480.00 stage=move.
+Warning: Teleporting vehicle '890' after earlier collision, lane='SC_2, time=480.00.
 Warning: Vehicle '739'; collision with vehicle '479', lane='NC1_0', gap=-1.60', latGap=-1.20, time=480.00 stage=move.
+Warning: Vehicle '314' ends teleporting on edge 'CS', time 480.00.
+Warning: Vehicle '890' ends teleporting on edge 'CW', time 480.00.
+Warning: Vehicle '931'; collision with vehicle '956', lane='SC_1', gap=-5.78', latGap=-0.90, time=481.00 stage=move.
 Warning: Vehicle '397'; collision with vehicle '195', lane='NC_1', gap=-1.90', latGap=-1.20, time=481.00 stage=move.
-Warning: Vehicle '957'; collision with vehicle '934', lane='SC_0', gap=-7.10', latGap=-1.53, time=482.00 stage=move.
 Warning: Teleporting vehicle '338' after earlier collision, lane='NC_0, time=483.00.
 Warning: Teleporting vehicle '668' after earlier collision, lane='WC_1, time=483.00.
 Warning: Teleporting vehicle '702' after earlier collision, lane='WC_1, time=483.00.
 Warning: Vehicle '338' ends teleporting on edge 'CW', time 483.00.
-Warning: Vehicle '668' ends teleporting on edge 'CE', time 483.00.
-Warning: Vehicle '702' ends teleporting on edge 'CE', time 483.00.
 Warning: Teleporting vehicle '346' after earlier collision, lane='NC_0, time=484.00.
-Warning: Vehicle '346' ends teleporting on edge 'CW', time 487.00.
+Warning: Teleporting vehicle '219' after earlier collision, lane='SC_0, time=484.00.
+Warning: Vehicle '219' teleports beyond arrival edge 'SC', time 484.00.
+Warning: Teleporting vehicle '928' after earlier collision, lane='SC_2, time=484.00.
+Warning: Vehicle '668' ends teleporting on edge 'CE', time 484.00.
+Warning: Vehicle '702' ends teleporting on edge 'CE', time 484.00.
+Warning: Vehicle '928' ends teleporting on edge 'CS', time 484.00.
+Warning: Vehicle '346' ends teleporting on edge 'CW', time 486.00.
 Warning: Teleporting vehicle '727' after earlier collision, lane='WC_1, time=488.00.
-Warning: Vehicle '727' ends teleporting on edge 'CE', time 488.00.
 Warning: Teleporting vehicle '416' after earlier collision, lane='NC_2, time=489.00.
 Warning: Teleporting vehicle '380' after earlier collision, lane='NC_0, time=489.00.
+Warning: Vehicle '727' ends teleporting on edge 'CE', time 489.00.
 Warning: Vehicle '416' ends teleporting on edge 'CN', time 489.00.
 Warning: Vehicle '380' ends teleporting on edge 'CW', time 489.00.
-Warning: Teleporting vehicle '931' after earlier collision, lane=':gneJ3_0_1, time=491.00.
-Warning: Teleporting vehicle '928' after earlier collision, lane='SC_2, time=491.00.
 Warning: Teleporting vehicle '479' after earlier collision, lane='NC_2, time=491.00.
-Warning: Vehicle '931' ends teleporting on edge 'SC', time 491.00.
-Warning: Vehicle '928' ends teleporting on edge 'CS', time 491.00.
 Warning: Vehicle '479' ends teleporting on edge 'CN', time 491.00.
-Warning: Teleporting vehicle '934' after earlier collision, lane='SC_0, time=492.00.
-Warning: Vehicle '934' teleports beyond arrival edge 'SC', time 492.00.
+Warning: Teleporting vehicle '931' after earlier collision, lane='SC_1, time=492.00.
+Warning: Teleporting vehicle '956' after earlier collision, lane='SC_2, time=492.00.
 Warning: Teleporting vehicle '739' after earlier collision, lane='NC1_0, time=492.00.
-Warning: Teleporting vehicle '957' after earlier collision, lane='SC_1, time=493.00.
+Warning: Vehicle '931' ends teleporting on edge 'CN', time 492.00.
+Warning: Vehicle '956' ends teleporting on edge 'CW', time 492.00.
 Warning: Teleporting vehicle '397' after earlier collision, lane='NC_0, time=493.00.
 Warning: Vehicle '397' teleports beyond arrival edge 'NC', time 493.00.
-Warning: Vehicle '957' ends teleporting on edge 'CN', time 493.00.
 Warning: Vehicle '476'; collision with vehicle '733', lane='WC_0', gap=-0.71', latGap=-0.90, time=495.00 stage=move.
-Warning: Vehicle '739' ends teleporting on edge 'NC', time 495.00.
-Warning: Vehicle '500'; collision with vehicle '483', lane='NC_2', gap=-0.52', latGap=-0.15, time=498.00 stage=move.
-Warning: Vehicle '956'; collision with vehicle '314', lane='SC_1', gap=-4.07', latGap=-0.15, time=499.00 stage=laneChange.
-Warning: Vehicle '500'; collision with vehicle '487', lane='NC_2', gap=-4.70', latGap=-0.90, time=501.00 stage=move.
+Warning: Vehicle '962'; collision with vehicle '762', lane='SC_1', gap=-7.40', latGap=-1.26, time=495.00 stage=laneChange.
+Warning: Vehicle '514'; collision with vehicle '489', lane='NC_2', gap=-0.72', latGap=-0.30, time=497.00 stage=move.
+Warning: Vehicle '650'; collision with vehicle '266', lane='NC_0', gap=-0.37', latGap=-1.80, time=497.00 stage=move.
+Warning: Vehicle '195'; collision with vehicle '745', lane='NC_1', gap=-6.30', latGap=-1.15, time=497.00 stage=move.
+Warning: Vehicle '745' performs emergency stop at the end of lane 'NC_0' for unknown reasons (decel=-13.00, offset=0.30), time=498.00.
+Warning: Vehicle '263'; collision with vehicle '962', lane='SC_1', gap=-0.95', latGap=-0.25, time=498.00 stage=laneChange.
+Warning: Vehicle '650'; collision with vehicle '482', lane='NC_0', gap=-3.70', latGap=-1.05, time=499.00 stage=move.
+Warning: Vehicle '536'; collision with vehicle '650', lane=':gneJ1_0_0', gap=-2.28', latGap=-1.05, time=501.00 stage=move.
+Warning: Vehicle '536'; collision with vehicle '487', lane='NC1_0', gap=-3.88', latGap=-0.60, time=505.00 stage=laneChange.
+Warning: Teleporting vehicle '962' after earlier collision, lane='SC_2, time=506.00.
+Warning: Teleporting vehicle '762' after earlier collision, lane='SC_0, time=506.00.
 Warning: Teleporting vehicle '733' after earlier collision, lane='WC_0, time=506.00.
 Warning: Vehicle '733' teleports beyond arrival edge 'WC', time 506.00.
 Warning: Teleporting vehicle '476' after earlier collision, lane='WC_0, time=506.00.
 Warning: Vehicle '476' teleports beyond arrival edge 'WC', time 506.00.
-Warning: Vehicle '804'; collision with vehicle '813', lane='WC1_0', gap=-4.70', latGap=-0.30, time=507.00 stage=laneChange.
-Warning: Vehicle '831'; collision with vehicle '804', lane='WC1_0', gap=-1.65', latGap=-1.05, time=507.00 stage=insertion.
-Warning: Teleporting vehicle '483' after earlier collision, lane='NC_2, time=509.00.
-Warning: Vehicle '632'; collision with vehicle '754', lane='SC_0', gap=-4.05', latGap=-1.53, time=509.00 stage=move.
-Warning: Vehicle '483' ends teleporting on edge 'CE', time 509.00.
-Warning: Teleporting vehicle '500' after earlier collision, lane='NC_2, time=510.00.
-Warning: Vehicle '500' ends teleporting on edge 'CE', time 510.00.
-Warning: Teleporting vehicle '956' after earlier collision, lane='SC_2, time=511.00.
-Warning: Teleporting vehicle '314' after earlier collision, lane='SC_0, time=511.00.
-Warning: Vehicle '314' teleports beyond arrival edge 'SC', time 511.00.
-Warning: Vehicle '308'; collision with vehicle '632', lane='SC_0', gap=-4.15', latGap=-1.20, time=511.00 stage=move.
-Warning: Vehicle '956' ends teleporting on edge 'CW', time 511.00.
-Warning: Teleporting vehicle '487' after earlier collision, lane='NC_2, time=512.00.
-Warning: Vehicle '320'; collision with vehicle '308', lane='SC_0', gap=-0.91', latGap=-1.80, time=512.00 stage=move.
-Warning: Vehicle '487' ends teleporting on edge 'CE', time 512.00.
-Warning: Vehicle '670'; collision with vehicle '320', lane='SC1_0', gap=-1.67', latGap=-1.80, time=513.00 stage=move.
+Warning: Vehicle '739' teleports beyond arrival edge 'NC', time 506.00.
+Warning: Vehicle '962' ends teleporting on edge 'CW', time 506.00.
+Warning: Vehicle '762' ends teleporting on edge 'CW', time 506.00.
+Warning: Teleporting vehicle '489' after earlier collision, lane='NC_2, time=508.00.
+Warning: Teleporting vehicle '514' after earlier collision, lane='NC_2, time=508.00.
+Warning: Teleporting vehicle '266' after earlier collision, lane='NC_0, time=508.00.
+Warning: Vehicle '266' teleports beyond arrival edge 'NC', time 508.00.
+Warning: Teleporting vehicle '650' after earlier collision, lane='NC_0, time=508.00.
+Warning: Vehicle '650' teleports beyond arrival edge 'NC', time 508.00.
+Warning: Vehicle '489' ends teleporting on edge 'CE', time 508.00.
+Warning: Vehicle '514' ends teleporting on edge 'CE', time 508.00.
+Warning: Teleporting vehicle '745' after earlier collision, lane='NC_0, time=509.00.
+Warning: Vehicle '745' teleports beyond arrival edge 'NC', time 509.00.
+Warning: Teleporting vehicle '263' after earlier collision, lane='SC_0, time=509.00.
+Warning: Vehicle '263' teleports beyond arrival edge 'SC', time 509.00.
+Warning: Teleporting vehicle '482' after earlier collision, lane='NC_0, time=511.00.
+Warning: Vehicle '482' ends teleporting on edge 'CW', time 511.00.
+Warning: Teleporting vehicle '536' after earlier collision, lane=':gneJ1_0_0, time=512.00.
+Warning: Vehicle '632'; collision with vehicle '320', lane='SC1_0', gap=-7.40', latGap=-1.05, time=513.00 stage=laneChange.
+Warning: Vehicle '308'; collision with vehicle '632', lane='SC1_0', gap=-1.20', latGap=-1.65, time=514.00 stage=move.
 Warning: Vehicle '289'; collision with vehicle '749', lane='WC_1', gap=-5.81', latGap=-1.20, time=514.00 stage=move.
-Warning: Vehicle '324'; collision with vehicle '308', lane='SC_0', gap=-7.48', latGap=-1.35, time=515.00 stage=move.
 Warning: Vehicle '289'; collision with vehicle '741', lane='WC_1', gap=-0.75', latGap=-0.80, time=515.00 stage=move.
-Warning: Vehicle '330'; collision with vehicle '308', lane='SC_0', gap=-5.22', latGap=-1.35, time=516.00 stage=move.
-Warning: Teleporting vehicle '813' after earlier collision, lane='WC1_0, time=518.00.
-Warning: Teleporting vehicle '804' after earlier collision, lane='WC1_0, time=518.00.
-Warning: Teleporting vehicle '831' after earlier collision, lane='WC1_0, time=518.00.
-Warning: Vehicle '224'; collision with vehicle '289', lane='WC_0', gap=-3.25', latGap=-1.05, time=518.00 stage=move.
-Warning: Vehicle '813' ends teleporting on edge 'WC', time 518.00.
-Warning: Vehicle '944'; collision with vehicle '766', lane='WC1_0', gap=-5.39', latGap=-1.05, time=519.00 stage=laneChange.
-Warning: Teleporting vehicle '632' after earlier collision, lane='SC_0, time=520.00.
-Warning: Vehicle '632' teleports beyond arrival edge 'SC', time 520.00.
-Warning: Teleporting vehicle '754' after earlier collision, lane='SC_1, time=520.00.
-Warning: Vehicle '754' ends teleporting on edge 'CW', time 520.00.
-Warning: Teleporting vehicle '308' after earlier collision, lane='SC_0, time=522.00.
-Warning: Vehicle '308' teleports beyond arrival edge 'SC', time 522.00.
-Warning: Teleporting vehicle '320' after earlier collision, lane='SC_0, time=523.00.
-Warning: Vehicle '320' teleports beyond arrival edge 'SC', time 523.00.
-Warning: Teleporting vehicle '670' after earlier collision, lane='SC1_0, time=525.00.
+Warning: Teleporting vehicle '487' after earlier collision, lane=':gneJ1_0_2, time=516.00.
+Warning: Vehicle '330'; collision with vehicle '324', lane='SC_0', gap=-0.16', latGap=-0.75, time=516.00 stage=move.
+Warning: Vehicle '324'; collision with vehicle '314', lane='SC_0', gap=-0.97', latGap=-0.90, time=516.00 stage=move.
+Warning: Vehicle '487' ends teleporting on edge 'NC', time 516.00.
+Warning: Vehicle '670'; collision with vehicle '320', lane=':gneJ3_0_0', gap=-5.40', latGap=-1.55, time=518.00 stage=move.
+Warning: Vehicle '804'; collision with vehicle '269', lane='WC_0', gap=-1.40', latGap=-0.30, time=518.00 stage=move.
+Warning: Vehicle '670' performs emergency stop at the end of lane ':gneJ3_0_0' because there is no connection to the next edge (decel=-7.80, offset=2.50), time=519.00.
+Warning: Vehicle '1008'; collision with vehicle '670', lane='SC1_0', gap=-5.94', latGap=-1.55, time=520.00 stage=laneChange.
+Warning: Vehicle '1008' performs emergency stop at the end of lane ':gneJ3_0_0' because there is no connection to the next edge (decel=-9.42, offset=3.36), time=521.00.
+Warning: Teleporting vehicle '320' after earlier collision, lane='SC_0, time=524.00.
+Warning: Vehicle '320' teleports beyond arrival edge 'SC', time 524.00.
+Warning: Teleporting vehicle '632' after earlier collision, lane='SC_0, time=524.00.
+Warning: Vehicle '632' teleports beyond arrival edge 'SC', time 524.00.
+Warning: Teleporting vehicle '308' after earlier collision, lane='SC1_0, time=525.00.
 Warning: Teleporting vehicle '749' after earlier collision, lane='WC_1, time=525.00.
-Warning: Vehicle '804' ends teleporting on edge 'WC', time 525.00.
 Warning: Vehicle '749' ends teleporting on edge 'CE', time 525.00.
 Warning: Teleporting vehicle '289' after earlier collision, lane='WC_0, time=526.00.
 Warning: Vehicle '289' teleports beyond arrival edge 'WC', time 526.00.
-Warning: Teleporting vehicle '324' after earlier collision, lane='SC_0, time=526.00.
-Warning: Vehicle '324' teleports beyond arrival edge 'SC', time 526.00.
 Warning: Teleporting vehicle '741' after earlier collision, lane='WC_1, time=526.00.
-Warning: Vehicle '670' ends teleporting on edge 'SC', time 526.00.
+Warning: Teleporting vehicle '314' after earlier collision, lane='SC_0, time=527.00.
+Warning: Vehicle '314' teleports beyond arrival edge 'SC', time 527.00.
+Warning: Teleporting vehicle '324' after earlier collision, lane='SC_0, time=527.00.
+Warning: Vehicle '324' teleports beyond arrival edge 'SC', time 527.00.
 Warning: Teleporting vehicle '330' after earlier collision, lane='SC_0, time=527.00.
 Warning: Vehicle '330' teleports beyond arrival edge 'SC', time 527.00.
-Warning: Vehicle '831' ends teleporting on edge 'WC', time 527.00.
 Warning: Vehicle '741' ends teleporting on edge 'CE', time 527.00.
-Warning: Teleporting vehicle '224' after earlier collision, lane='WC_0, time=529.00.
-Warning: Vehicle '224' teleports beyond arrival edge 'WC', time 529.00.
-Warning: Vehicle '1032'; collision with vehicle '1029', lane='SC_0', gap=-3.77', latGap=-0.37, time=529.00 stage=move.
-Warning: Teleporting vehicle '766' after earlier collision, lane=':gneJ0_0_0, time=530.00.
-Warning: Teleporting vehicle '944' after earlier collision, lane='WC1_0, time=530.00.
-Warning: Vehicle '766' ends teleporting on edge 'WC', time 531.00.
-Warning: Vehicle '944' ends teleporting on edge 'WC', time 531.00.
-Warning: Vehicle '1046'; collision with vehicle '1057', lane=':gneJ3_0_0', gap=-3.65', latGap=-1.26, time=534.00 stage=move.
-Warning: Vehicle '1043'; collision with vehicle '1045', lane='SC_2', gap=-1.37', latGap=-0.45, time=534.00 stage=move.
-Warning: Vehicle '1045'; collision with vehicle '1025', lane='SC_2', gap=-0.73', latGap=-0.45, time=534.00 stage=move.
-Warning: Vehicle '797'; collision with vehicle '300', lane='WC1_0', gap=-2.71', latGap=-1.20, time=535.00 stage=move.
-Warning: Teleporting vehicle '1029' after earlier collision, lane='SC_1, time=540.00.
-Warning: Teleporting vehicle '1032' after earlier collision, lane='SC_1, time=540.00.
-Warning: Vehicle '1029' ends teleporting on edge 'CN', time 540.00.
-Warning: Vehicle '1065'; collision with vehicle '1045', lane='SC_1', gap=-1.45', latGap=-0.75, time=541.00 stage=move.
-Warning: Vehicle '1032' ends teleporting on edge 'CN', time 541.00.
-Warning: Teleporting vehicle '1046' after earlier collision, lane=':gneJ3_0_0, time=545.00.
-Warning: Teleporting vehicle '1025' after earlier collision, lane='SC_2, time=545.00.
-Warning: Teleporting vehicle '1043' after earlier collision, lane='SC_2, time=545.00.
-Warning: Vehicle '1025' ends teleporting on edge 'CW', time 545.00.
-Warning: Vehicle '1043' ends teleporting on edge 'CS', time 545.00.
-Warning: Teleporting vehicle '1045' after earlier collision, lane='SC_1, time=546.00.
-Warning: Teleporting vehicle '1057' after earlier collision, lane='SC_1, time=546.00.
-Warning: Teleporting vehicle '797' after earlier collision, lane='WC1_0, time=546.00.
-Warning: Vehicle '1045' ends teleporting on edge 'CN', time 546.00.
-Warning: Vehicle '797' ends teleporting on edge 'WC', time 546.00.
-Warning: Teleporting vehicle '300' after earlier collision, lane='WC_0, time=547.00.
-Warning: Vehicle '300' teleports beyond arrival edge 'WC', time 547.00.
-Warning: Vehicle '1078'; collision with vehicle '1065', lane='SC_0', gap=-6.60', latGap=-0.19, time=547.00 stage=move.
-Warning: Vehicle '1065'; collision with vehicle '1031', lane='SC_1', gap=-0.12', latGap=-0.65, time=547.00 stage=laneChange.
-Warning: Vehicle '1057' ends teleporting on edge 'CN', time 547.00.
-Warning: Vehicle '338'; collision with vehicle '797', lane='WC_1', gap=-1.51', latGap=-1.35, time=550.00 stage=move.
-Warning: Vehicle '1046' ends teleporting on edge 'SC', time 550.00.
-Warning: Vehicle '346'; collision with vehicle '797', lane='WC_1', gap=-6.21', latGap=-1.05, time=552.00 stage=move.
-Warning: Vehicle '1089'; collision with vehicle '1078', lane='SC_1', gap=-0.83', latGap=-0.44, time=552.00 stage=move.
-Warning: Vehicle '269'; collision with vehicle '820', lane='WC_1', gap=-4.08', latGap=-0.05, time=552.00 stage=move.
-Warning: Teleporting vehicle '1065' after earlier collision, lane='SC_0, time=553.00.
-Warning: Vehicle '908'; collision with vehicle '917', lane=':gneJ0_0_1', gap=-2.69', latGap=-0.60, time=554.00 stage=move.
-Warning: Vehicle '785'; collision with vehicle '1103', lane='SC_0', gap=-2.16', latGap=-0.31, time=554.00 stage=move.
+Warning: Teleporting vehicle '804' after earlier collision, lane='WC_1, time=529.00.
+Warning: Vehicle '308' ends teleporting on edge 'SC', time 529.00.
+Warning: Vehicle '804' ends teleporting on edge 'CE', time 529.00.
+Warning: Teleporting vehicle '670' after earlier collision, lane=':gneJ3_0_0, time=530.00.
+Warning: Teleporting vehicle '1008' after earlier collision, lane=':gneJ3_0_0, time=532.00.
+Warning: Vehicle '670' ends teleporting on edge 'SC', time 532.00.
+Warning: Vehicle '1008' ends teleporting on edge 'SC', time 532.00.
+Warning: Vehicle '1031'; collision with vehicle '1029', lane='SC_1', gap=-1.54', latGap=-0.66, time=534.00 stage=move.
+Warning: Vehicle '766'; collision with vehicle '356', lane='WC_1', gap=-3.75', latGap=-1.05, time=535.00 stage=move.
+Warning: Vehicle '1032'; collision with vehicle '670', lane='SC_2', gap=-1.84', latGap=-1.25, time=535.00 stage=move.
+Warning: Vehicle '536' ends teleporting on edge 'NC', time 543.00.
+Warning: Teleporting vehicle '1029' after earlier collision, lane='SC_1, time=545.00.
+Warning: Vehicle '1029' ends teleporting on edge 'CN', time 545.00.
+Warning: Teleporting vehicle '766' after earlier collision, lane='WC_0, time=546.00.
+Warning: Teleporting vehicle '670' after earlier collision, lane='SC_2, time=546.00.
+Warning: Vehicle '670' teleports beyond arrival edge 'SC', time 546.00.
+Warning: Teleporting vehicle '1031' after earlier collision, lane='SC_0, time=546.00.
+Warning: Vehicle '1031' teleports beyond arrival edge 'SC', time 546.00.
+Warning: Teleporting vehicle '1032' after earlier collision, lane='SC_1, time=546.00.
+Warning: Teleporting vehicle '356' after earlier collision, lane='WC_1, time=546.00.
+Warning: Vehicle '766' ends teleporting on edge 'CS', time 546.00.
+Warning: Vehicle '1032' ends teleporting on edge 'CN', time 546.00.
+Warning: Vehicle '356' ends teleporting on edge 'CN', time 546.00.
+Warning: Vehicle '540'; collision with vehicle '480', lane='NC_1', gap=-1.19', latGap=-0.30, time=550.00 stage=move.
+Warning: Vehicle '543'; collision with vehicle '540', lane='NC_1', gap=-0.29', latGap=-0.90, time=552.00 stage=move.
+Warning: Vehicle '539'; collision with vehicle '483', lane='NC_2', gap=-3.50', latGap=-0.90, time=552.00 stage=move.
 Warning: Teleporting vehicle '200'; waited too long (wrong lane), lane='EC_0', time=555.00.
-Warning: Vehicle '1103'; collision with vehicle '767', lane='SC_0', gap=-2.76', latGap=-0.31, time=555.00 stage=move.
 Warning: Vehicle '200' ends teleporting on edge 'CW', time 555.00.
 Warning: Teleporting vehicle '189'; waited too long (wrong lane), lane='EC_0', time=556.00.
 Warning: Vehicle '189' ends teleporting on edge 'CS', time 556.00.
-Warning: Vehicle '1108'; collision with vehicle '1089', lane='SC_2', gap=-4.58', latGap=-0.53, time=557.00 stage=move.
-Warning: Teleporting vehicle '1031' after earlier collision, lane='SC_2, time=558.00.
-Warning: Vehicle '1031' teleports beyond arrival edge 'SC', time 558.00.
-Warning: Teleporting vehicle '1078' after earlier collision, lane='SC_0, time=558.00.
-Warning: Vehicle '1078' ends teleporting on edge 'CE', time 558.00.
 Warning: Vehicle '135'; collision with vehicle '284', lane=':gneJ2_0_1', gap=-4.80', latGap=-1.35, time=559.00 stage=move.
-Warning: Teleporting vehicle '269' after earlier collision, lane='WC_2, time=560.00.
-Warning: Vehicle '269' teleports beyond arrival edge 'WC', time 560.00.
-Warning: Teleporting vehicle '338' after earlier collision, lane='WC_0, time=561.00.
-Warning: Vehicle '338' teleports beyond arrival edge 'WC', time 561.00.
-Warning: Teleporting vehicle '797' after earlier collision, lane='WC_1, time=561.00.
-Warning: Teleporting vehicle '346' after earlier collision, lane='WC_0, time=563.00.
-Warning: Vehicle '346' teleports beyond arrival edge 'WC', time 563.00.
-Warning: Teleporting vehicle '1089' after earlier collision, lane='SC_2, time=563.00.
-Warning: Vehicle '1089' ends teleporting on edge 'CS', time 563.00.
-Warning: Teleporting vehicle '820' after earlier collision, lane='WC_0, time=564.00.
-Warning: Vehicle '820' ends teleporting on edge 'CS', time 564.00.
-Warning: Teleporting vehicle '917' after earlier collision, lane=':gneJ0_0_0, time=565.00.
-Warning: Teleporting vehicle '908' after earlier collision, lane=':gneJ0_0_0, time=565.00.
-Warning: Teleporting vehicle '785' after earlier collision, lane='SC_0, time=565.00.
-Warning: Vehicle '785' teleports beyond arrival edge 'SC', time 565.00.
-Warning: Teleporting vehicle '767' after earlier collision, lane='SC_0, time=566.00.
-Warning: Vehicle '767' teleports beyond arrival edge 'SC', time 566.00.
-Warning: Teleporting vehicle '1103' after earlier collision, lane='SC_1, time=566.00.
-Warning: Vehicle '1103' ends teleporting on edge 'CN', time 566.00.
-Warning: Teleporting vehicle '1108' after earlier collision, lane='SC_1, time=568.00.
-Warning: Vehicle '1108' ends teleporting on edge 'CN', time 568.00.
+Warning: Teleporting vehicle '540' after earlier collision, lane='NC_0, time=561.00.
+Warning: Vehicle '540' teleports beyond arrival edge 'NC', time 561.00.
+Warning: Teleporting vehicle '480' after earlier collision, lane='NC_1, time=561.00.
+Warning: Vehicle '480' ends teleporting on edge 'CS', time 561.00.
+Warning: Teleporting vehicle '483' after earlier collision, lane='NC_2, time=563.00.
+Warning: Teleporting vehicle '543' after earlier collision, lane='NC_2, time=563.00.
+Warning: Vehicle '483' ends teleporting on edge 'CE', time 563.00.
+Warning: Vehicle '543' ends teleporting on edge 'CN', time 563.00.
+Warning: Teleporting vehicle '539' after earlier collision, lane='NC_2, time=564.00.
+Warning: Vehicle '911'; collision with vehicle '962', lane='WC_1', gap=-1.59', latGap=-0.60, time=568.00 stage=move.
 Warning: Teleporting vehicle '135' after earlier collision, lane=':gneJ2_0_0, time=570.00.
 Warning: Teleporting vehicle '284' after earlier collision, lane='EC_1, time=570.00.
-Warning: Vehicle '918'; collision with vehicle '889', lane='WC_0', gap=-0.25', latGap=-1.05, time=570.00 stage=move.
+Warning: Vehicle '820'; collision with vehicle '923', lane='WC_0', gap=-4.70', latGap=-0.40, time=570.00 stage=laneChange.
 Warning: Vehicle '284' ends teleporting on edge 'CW', time 570.00.
-Warning: Vehicle '954'; collision with vehicle '388', lane='WC_0', gap=-3.83', latGap=-0.30, time=571.00 stage=move.
-Warning: Vehicle '941'; collision with vehicle '918', lane='WC_0', gap=-1.93', latGap=-0.90, time=571.00 stage=move.
-Warning: Vehicle '820'; collision with vehicle '189', lane='SC_1', gap=-3.32', latGap=-0.30, time=571.00 stage=move.
-Warning: Vehicle '914'; collision with vehicle '846', lane='WC1_0', gap=-6.23', latGap=-1.43, time=571.00 stage=move.
 Warning: Vehicle '135' ends teleporting on edge 'EC', time 571.00.
-Warning: Vehicle '847'; collision with vehicle '914', lane='WC1_0', gap=-0.32', latGap=-1.43, time=572.00 stage=move.
-Warning: Vehicle '453'; collision with vehicle '444', lane='EC_1', gap=-4.15', latGap=-0.90, time=574.00 stage=move.
-Warning: Vehicle '1147'; collision with vehicle '189', lane='SC_1', gap=-7.35', latGap=-1.35, time=576.00 stage=move.
-Warning: Vehicle '344'; collision with vehicle '1147', lane='SC_1', gap=-0.95', latGap=-0.15, time=576.00 stage=move.
-Warning: Teleporting vehicle '889' after earlier collision, lane='WC_0, time=581.00.
-Warning: Vehicle '889' ends teleporting on edge 'CS', time 581.00.
-Warning: Teleporting vehicle '918' after earlier collision, lane='WC_0, time=582.00.
-Warning: Teleporting vehicle '941' after earlier collision, lane='WC_0, time=582.00.
-Warning: Vehicle '941' teleports beyond arrival edge 'WC', time 582.00.
-Warning: Teleporting vehicle '388' after earlier collision, lane='WC_0, time=582.00.
-Warning: Teleporting vehicle '820' after earlier collision, lane='SC_0, time=582.00.
-Warning: Vehicle '820' teleports beyond arrival edge 'SC', time 582.00.
-Warning: Teleporting vehicle '189' after earlier collision, lane='SC_1, time=582.00.
-Warning: Vehicle '189' teleports beyond arrival edge 'SC', time 582.00.
-Warning: Teleporting vehicle '954' after earlier collision, lane='WC_1, time=582.00.
-Warning: Teleporting vehicle '846' after earlier collision, lane='WC_2, time=582.00.
-Warning: Vehicle '918' ends teleporting on edge 'CS', time 582.00.
-Warning: Vehicle '846' ends teleporting on edge 'CW', time 582.00.
-Warning: Teleporting vehicle '847' after earlier collision, lane='WC1_0, time=583.00.
-Warning: Teleporting vehicle '914' after earlier collision, lane='WC_2, time=583.00.
-Warning: Vehicle '1139'; collision with vehicle '802', lane='SC_1', gap=-3.40', latGap=-0.48, time=583.00 stage=move.
-Warning: Vehicle '914' ends teleporting on edge 'CN', time 583.00.
+Warning: Vehicle '453'; collision with vehicle '444', lane='EC_1', gap=-4.30', latGap=-0.90, time=574.00 stage=move.
+Warning: Teleporting vehicle '911' after earlier collision, lane='WC_0, time=579.00.
+Warning: Teleporting vehicle '962' after earlier collision, lane='WC_1, time=579.00.
+Warning: Vehicle '962' teleports beyond arrival edge 'WC', time 579.00.
+Warning: Vehicle '911' ends teleporting on edge 'CS', time 579.00.
+Warning: Teleporting vehicle '923' after earlier collision, lane='WC_0, time=581.00.
+Warning: Teleporting vehicle '820' after earlier collision, lane='WC_0, time=581.00.
+Warning: Vehicle '923' ends teleporting on edge 'CS', time 581.00.
+Warning: Vehicle '820' ends teleporting on edge 'CS', time 581.00.
 Warning: Teleporting vehicle '444' after earlier collision, lane='EC_2, time=585.00.
 Warning: Vehicle '444' ends teleporting on edge 'CS', time 585.00.
 Warning: Teleporting vehicle '453' after earlier collision, lane='EC_1, time=586.00.
-Warning: Vehicle '1151'; collision with vehicle '1168', lane='SC1_0', gap=-4.48', latGap=-1.43, time=586.00 stage=move.
-Warning: Vehicle '520'; collision with vehicle '480', lane='NC_1', gap=-2.05', latGap=-1.80, time=586.00 stage=move.
 Warning: Vehicle '453' ends teleporting on edge 'CW', time 586.00.
-Warning: Teleporting vehicle '1147' after earlier collision, lane='SC_0, time=587.00.
-Warning: Teleporting vehicle '344' after earlier collision, lane='SC_0, time=587.00.
-Warning: Vehicle '344' teleports beyond arrival edge 'SC', time 587.00.
 Warning: Vehicle '135'; collision with vehicle '434', lane='EC_1', gap=-3.40', latGap=-0.28, time=588.00 stage=laneChange.
-Warning: Vehicle '532'; collision with vehicle '531', lane='NC1_0', gap=-4.20', latGap=-1.80, time=589.00 stage=move.
-Warning: Vehicle '532'; collision with vehicle '1029', lane='NC1_0', gap=-0.81', latGap=-0.15, time=589.00 stage=laneChange.
-Warning: Vehicle '806'; collision with vehicle '1139', lane='SC_1', gap=-3.90', latGap=-0.12, time=592.00 stage=laneChange.
+Warning: Vehicle '539' ends teleporting on edge 'CE', time 589.00.
 Warning: Vehicle '434'; collision with vehicle '429', lane='EC_1', gap=-1.30', latGap=-0.40, time=592.00 stage=laneChange.
-Warning: Teleporting vehicle '195' after earlier collision, lane='NC_0, time=593.00.
-Warning: Vehicle '195' teleports beyond arrival edge 'NC', time 593.00.
-Warning: Vehicle '954' ends teleporting on edge 'CE', time 593.00.
-Warning: Vehicle '1065' ends teleporting on edge 'CE', time 594.00.
-Warning: Teleporting vehicle '1139' after earlier collision, lane='SC_2, time=595.00.
-Warning: Vehicle '1139' ends teleporting on edge 'CW', time 595.00.
-Warning: Vehicle '1147' ends teleporting on edge 'CE', time 596.00.
-Warning: Teleporting vehicle '1151' after earlier collision, lane=':gneJ3_0_1, time=597.00.
-Warning: Teleporting vehicle '480' after earlier collision, lane='NC_1, time=597.00.
-Warning: Vehicle '1151' ends teleporting on edge 'SC', time 597.00.
-Warning: Vehicle '480' ends teleporting on edge 'CS', time 597.00.
-Warning: Teleporting vehicle '520' after earlier collision, lane='NC_0, time=598.00.
-Warning: Vehicle '917' ends teleporting on edge 'CS', time 598.00.
-Warning: Vehicle '908' ends teleporting on edge 'CS', time 598.00.
-Warning: Vehicle '520' ends teleporting on edge 'CW', time 598.00.
-Warning: Teleporting vehicle '1168' after earlier collision, lane='SC_2, time=599.00.
 Warning: Teleporting vehicle '434' after earlier collision, lane='EC_0, time=599.00.
 Warning: Teleporting vehicle '135' after earlier collision, lane='EC_2, time=599.00.
 Warning: Vehicle '135' teleports beyond arrival edge 'EC', time 599.00.
-Warning: Vehicle '797' ends teleporting on edge 'CE', time 599.00.
-Warning: Vehicle '1168' ends teleporting on edge 'CS', time 599.00.
 Warning: Vehicle '434' ends teleporting on edge 'CN', time 599.00.
-Warning: Teleporting vehicle '531' after earlier collision, lane='NC_0, time=600.00.
-Warning: Vehicle '531' teleports beyond arrival edge 'NC', time 600.00.
-Warning: Teleporting vehicle '1029' after earlier collision, lane='NC1_0, time=600.00.
-Warning: Teleporting vehicle '532' after earlier collision, lane='NC1_0, time=600.00.
-Warning: Vehicle '1029' ends teleporting on edge 'NC', time 600.00.
-Warning: Vehicle '532' ends teleporting on edge 'NC', time 600.00.
-Warning: Vehicle '538'; collision with vehicle '532', lane='NC_1', gap=-2.63', latGap=-1.35, time=601.00 stage=move.
-Warning: Teleporting vehicle '806' after earlier collision, lane='SC_0, time=603.00.
 Warning: Teleporting vehicle '429' after earlier collision, lane='EC_1, time=603.00.
-Warning: Vehicle '388' ends teleporting on edge 'CE', time 603.00.
-Warning: Vehicle '806' ends teleporting on edge 'CN', time 603.00.
 Warning: Vehicle '429' ends teleporting on edge 'CW', time 603.00.
-Warning: Vehicle '539'; collision with vehicle '538', lane='NC_2', gap=-2.20', latGap=-1.35, time=605.00 stage=move.
-Warning: Vehicle '516'; collision with vehicle '514', lane='NC_2', gap=-0.10', latGap=-0.80, time=605.00 stage=move.
-Warning: Vehicle '536'; collision with vehicle '539', lane='NC1_0', gap=-7.10', latGap=-1.80, time=605.00 stage=move.
-Warning: Vehicle '517'; collision with vehicle '508', lane='EC_2', gap=-2.74', latGap=-0.15, time=606.00 stage=move.
-Warning: Vehicle '571'; collision with vehicle '275', lane='EC_0', gap=-0.72', latGap=-0.90, time=606.00 stage=move.
-Warning: Vehicle '847' ends teleporting on edge 'WC', time 606.00.
-Warning: Vehicle '987'; collision with vehicle '982', lane='WC_1', gap=-2.41', latGap=-0.60, time=607.00 stage=move.
-Warning: Teleporting vehicle '538' after earlier collision, lane='NC_2, time=612.00.
-Warning: Teleporting vehicle '532' after earlier collision, lane='NC_1, time=612.00.
-Warning: Vehicle '532' ends teleporting on edge 'CS', time 612.00.
-Warning: Vehicle '538' ends teleporting on edge 'CE', time 613.00.
-Warning: Teleporting vehicle '536' after earlier collision, lane=':gneJ1_0_0, time=616.00.
-Warning: Teleporting vehicle '514' after earlier collision, lane='NC_2, time=616.00.
-Warning: Teleporting vehicle '539' after earlier collision, lane='NC_2, time=616.00.
-Warning: Vehicle '536' ends teleporting on edge 'NC', time 616.00.
-Warning: Vehicle '514' ends teleporting on edge 'CE', time 616.00.
-Warning: Teleporting vehicle '517' after earlier collision, lane='EC_2, time=617.00.
-Warning: Teleporting vehicle '275' after earlier collision, lane='EC_0, time=617.00.
-Warning: Teleporting vehicle '516' after earlier collision, lane='NC_2, time=617.00.
-Warning: Teleporting vehicle '571' after earlier collision, lane='EC_1, time=617.00.
-Warning: Vehicle '540'; collision with vehicle '547', lane='NC1_0', gap=-6.49', latGap=-1.35, time=617.00 stage=laneChange.
-Warning: Vehicle '517' ends teleporting on edge 'CS', time 617.00.
-Warning: Vehicle '275' ends teleporting on edge 'CN', time 617.00.
-Warning: Vehicle '571' ends teleporting on edge 'CW', time 617.00.
-Warning: Teleporting vehicle '987' after earlier collision, lane='WC_2, time=618.00.
-Warning: Teleporting vehicle '508' after earlier collision, lane=':C_7_0, time=618.00.
-Warning: Teleporting vehicle '982' after earlier collision, lane='WC_1, time=618.00.
-Warning: Vehicle '539' ends teleporting on edge 'CE', time 618.00.
-Warning: Vehicle '987' ends teleporting on edge 'CN', time 618.00.
-Warning: Vehicle '399'; collision with vehicle '337', lane='WC1_0', gap=-4.90', latGap=-0.90, time=619.00 stage=laneChange.
-Warning: Vehicle '399'; collision with vehicle '1007', lane=':gneJ0_0_1', gap=-3.40', latGap=-0.15, time=620.00 stage=move.
-Warning: Vehicle '473'; collision with vehicle '524', lane='EC1_0', gap=-6.60', latGap=-1.80, time=620.00 stage=move.
-Warning: Vehicle '591'; collision with vehicle '586', lane='EC_1', gap=-4.82', latGap=-1.45, time=621.00 stage=move.
-Warning: Vehicle '532'; collision with vehicle '918', lane='SC_1', gap=-0.30', latGap=-1.80, time=621.00 stage=move.
-Warning: Vehicle '363'; collision with vehicle '532', lane='SC_0', gap=-7.19', latGap=-0.90, time=621.00 stage=move.
-Warning: Vehicle '508' ends teleporting on edge 'CE', time 621.00.
-Warning: Vehicle '560'; collision with vehicle '543', lane='NC_2', gap=-0.56', latGap=-0.90, time=623.00 stage=move.
-Warning: Vehicle '591'; collision with vehicle '299', lane='EC_1', gap=-7.46', latGap=-0.10, time=624.00 stage=laneChange.
-Warning: Vehicle '540'; collision with vehicle '573', lane=':gneJ1_0_0', gap=-3.69', latGap=-1.10, time=626.00 stage=move.
-Warning: Vehicle '573'; collision with vehicle '382', lane='NC_0', gap=-2.30', latGap=-1.55, time=626.00 stage=move.
-Warning: Teleporting vehicle '540' after earlier collision, lane=':gneJ1_0_0, time=628.00.
-Warning: Teleporting vehicle '547' after earlier collision, lane=':gneJ1_0_0, time=628.00.
-Warning: Teleporting vehicle '399' after earlier collision, lane=':gneJ0_0_0, time=630.00.
-Warning: Teleporting vehicle '337' after earlier collision, lane=':gneJ0_0_0, time=630.00.
-Warning: Vehicle '522'; collision with vehicle '363', lane='SC_0', gap=-4.63', latGap=-0.45, time=630.00 stage=move.
-Warning: Vehicle '982' ends teleporting on edge 'CE', time 630.00.
-Warning: Teleporting vehicle '1007' after earlier collision, lane=':gneJ0_0_2, time=631.00.
-Warning: Teleporting vehicle '473' after earlier collision, lane=':gneJ2_0_0, time=631.00.
-Warning: Vehicle '399' ends teleporting on edge 'WC', time 631.00.
-Warning: Vehicle '337' ends teleporting on edge 'WC', time 631.00.
-Warning: Vehicle '1007' ends teleporting on edge 'WC', time 631.00.
-Warning: Teleporting vehicle '586' after earlier collision, lane='EC_2, time=632.00.
-Warning: Teleporting vehicle '524' after earlier collision, lane='EC_2, time=632.00.
-Warning: Teleporting vehicle '532' after earlier collision, lane='SC_0, time=632.00.
-Warning: Vehicle '532' teleports beyond arrival edge 'SC', time 632.00.
-Warning: Teleporting vehicle '363' after earlier collision, lane='SC_0, time=632.00.
-Warning: Vehicle '363' teleports beyond arrival edge 'SC', time 632.00.
-Warning: Teleporting vehicle '918' after earlier collision, lane='SC_1, time=632.00.
-Warning: Vehicle '918' teleports beyond arrival edge 'SC', time 632.00.
-Warning: Vehicle '540' ends teleporting on edge 'NC', time 632.00.
-Warning: Vehicle '586' ends teleporting on edge 'CS', time 632.00.
-Warning: Teleporting vehicle '591' after earlier collision, lane='EC_2, time=633.00.
-Warning: Teleporting vehicle '543' after earlier collision, lane='NC_2, time=634.00.
-Warning: Teleporting vehicle '560' after earlier collision, lane='NC_2, time=634.00.
-Warning: Vehicle '516' ends teleporting on edge 'CE', time 634.00.
-Warning: Vehicle '543' ends teleporting on edge 'CN', time 634.00.
-Warning: Teleporting vehicle '299' after earlier collision, lane='EC_0, time=635.00.
-Warning: Vehicle '299' ends teleporting on edge 'CS', time 635.00.
-Warning: Teleporting vehicle '382' after earlier collision, lane='NC_0, time=637.00.
-Warning: Teleporting vehicle '573' after earlier collision, lane='NC_1, time=637.00.
-Warning: Vehicle '587'; collision with vehicle '515', lane='EC1_0', gap=-5.58', latGap=-1.35, time=637.00 stage=laneChange.
-Warning: Vehicle '382' ends teleporting on edge 'CW', time 637.00.
-Warning: Vehicle '573' ends teleporting on edge 'CS', time 637.00.
-Warning: Vehicle '568'; collision with vehicle '593', lane='NC1_0', gap=-5.09', latGap=-1.20, time=638.00 stage=laneChange.
-Warning: Vehicle '453'; collision with vehicle '1056', lane='WC_1', gap=-1.31', latGap=-1.05, time=639.00 stage=move.
-Warning: Vehicle '1017'; collision with vehicle '453', lane='WC1_0', gap=-6.79', latGap=-1.80, time=639.00 stage=move.
-Warning: Vehicle '284'; collision with vehicle '1017', lane='WC1_0', gap=-1.20', latGap=-1.80, time=640.00 stage=move.
-Warning: Vehicle '284'; collision with vehicle '1090', lane='WC1_0', gap=-0.61', latGap=-1.31, time=640.00 stage=laneChange.
-Warning: Vehicle '524' ends teleporting on edge 'CE', time 640.00.
-Warning: Teleporting vehicle '522' after earlier collision, lane='SC_0, time=641.00.
-Warning: Vehicle '522' teleports beyond arrival edge 'SC', time 641.00.
-Warning: Vehicle '473' ends teleporting on edge 'EC', time 641.00.
-Warning: Vehicle '1103'; collision with vehicle '624', lane='NC_1', gap=-2.77', latGap=-1.10, time=643.00 stage=move.
-Warning: Vehicle '591' ends teleporting on edge 'CE', time 644.00.
-Warning: Vehicle '742'; collision with vehicle '1103', lane='NC_1', gap=-1.93', latGap=-0.15, time=645.00 stage=move.
-Warning: Vehicle '1103'; collision with vehicle '705', lane='NC_1', gap=-2.10', latGap=-0.00, time=645.00 stage=move.
-Warning: Vehicle '560' ends teleporting on edge 'CE', time 645.00.
-Warning: Teleporting vehicle '587' after earlier collision, lane=':gneJ2_0_0, time=648.00.
-Warning: Teleporting vehicle '515' after earlier collision, lane='EC_0, time=648.00.
-Warning: Vehicle '587' ends teleporting on edge 'EC', time 648.00.
-Warning: Vehicle '515' ends teleporting on edge 'CN', time 648.00.
-Warning: Teleporting vehicle '593' after earlier collision, lane=':gneJ1_0_1, time=649.00.
-Warning: Teleporting vehicle '568' after earlier collision, lane=':gneJ1_0_2, time=649.00.
-Warning: Teleporting vehicle '1056' after earlier collision, lane='WC_1, time=650.00.
-Warning: Vehicle '1056' teleports beyond arrival edge 'WC', time 650.00.
-Warning: Teleporting vehicle '453' after earlier collision, lane='WC_0, time=650.00.
-Warning: Vehicle '453' teleports beyond arrival edge 'WC', time 650.00.
-Warning: Teleporting vehicle '1017' after earlier collision, lane='WC_0, time=650.00.
-Warning: Vehicle '1017' teleports beyond arrival edge 'WC', time 650.00.
-Warning: Teleporting vehicle '1090' after earlier collision, lane='WC1_0, time=651.00.
-Warning: Teleporting vehicle '284' after earlier collision, lane='WC1_0, time=651.00.
-Warning: Vehicle '284' ends teleporting on edge 'WC', time 651.00.
-Warning: Vehicle '1062'; collision with vehicle '1003', lane='WC_1', gap=-0.60', latGap=-1.05, time=653.00 stage=move.
-Warning: Teleporting vehicle '624' after earlier collision, lane='NC_1, time=654.00.
-Warning: Vehicle '568' ends teleporting on edge 'NC', time 654.00.
-Warning: Vehicle '624' ends teleporting on edge 'CS', time 654.00.
-Warning: Vehicle '558'; collision with vehicle '309', lane='EC_1', gap=-0.36', latGap=-0.45, time=655.00 stage=move.
-Warning: Teleporting vehicle '742' after earlier collision, lane='NC_0, time=656.00.
-Warning: Vehicle '742' teleports beyond arrival edge 'NC', time 656.00.
-Warning: Teleporting vehicle '705' after earlier collision, lane='NC_0, time=657.00.
-Warning: Vehicle '705' teleports beyond arrival edge 'NC', time 657.00.
-Warning: Vehicle '547' ends teleporting on edge 'NC', time 658.00.
-Warning: Vehicle '626'; collision with vehicle '1103', lane='NC_1', gap=-4.51', latGap=-0.90, time=660.00 stage=move.
-Warning: Teleporting vehicle '1003' after earlier collision, lane='WC_1, time=664.00.
-Warning: Vehicle '1103'; collision with vehicle '806', lane='NC_1', gap=-3.29', latGap=-0.15, time=664.00 stage=move.
-Warning: Teleporting vehicle '1062' after earlier collision, lane='WC_2, time=665.00.
-Warning: Vehicle '1062' ends teleporting on edge 'CW', time 665.00.
-Warning: Teleporting vehicle '309' after earlier collision, lane='EC_1, time=666.00.
-Warning: Teleporting vehicle '558' after earlier collision, lane='EC_2, time=666.00.
-Warning: Vehicle '309' ends teleporting on edge 'CW', time 666.00.
-Warning: Vehicle '558' ends teleporting on edge 'CS', time 666.00.
-Warning: Vehicle '627'; collision with vehicle '381', lane='NC_1', gap=-6.50', latGap=-0.05, time=667.00 stage=laneChange.
-Warning: Vehicle '626'; collision with vehicle '356', lane='NC_1', gap=-3.24', latGap=-0.15, time=668.00 stage=move.
-Warning: Vehicle '1003' ends teleporting on edge 'CE', time 669.00.
-Warning: Teleporting vehicle '626' after earlier collision, lane='NC_2, time=671.00.
-Warning: Vehicle '626' ends teleporting on edge 'CE', time 671.00.
-Warning: Teleporting vehicle '806' after earlier collision, lane='NC_0, time=675.00.
-Warning: Vehicle '806' teleports beyond arrival edge 'NC', time 675.00.
-Warning: Vehicle '557'; collision with vehicle '1085', lane='WC_1', gap=-3.30', latGap=-1.05, time=675.00 stage=move.
-Warning: Vehicle '747'; collision with vehicle '678', lane='NC_0', gap=-0.63', latGap=-0.15, time=675.00 stage=move.
-Warning: Vehicle '334'; collision with vehicle '627', lane='NC_0', gap=-6.85', latGap=-1.20, time=677.00 stage=move.
-Warning: Vehicle '1154'; collision with vehicle '1140', lane='WC1_0', gap=-6.20', latGap=-1.65, time=677.00 stage=move.
-Warning: Vehicle '593' ends teleporting on edge 'NC', time 677.00.
-Warning: Vehicle '1154' performs emergency stop at the end of lane ':gneJ0_0_2' because there is no connection to the next edge (decel=-5.20, offset=0.69), time=678.00.
-Warning: Teleporting vehicle '627' after earlier collision, lane='NC_0, time=678.00.
-Warning: Teleporting vehicle '381' after earlier collision, lane='NC_1, time=678.00.
-Warning: Vehicle '398'; collision with vehicle '1099', lane='NC_1', gap=-4.52', latGap=-0.65, time=678.00 stage=laneChange.
-Warning: Vehicle '627' ends teleporting on edge 'CW', time 678.00.
-Warning: Vehicle '381' ends teleporting on edge 'CE', time 678.00.
-Warning: Teleporting vehicle '356' after earlier collision, lane='NC_0, time=679.00.
-Warning: Vehicle '356' teleports beyond arrival edge 'NC', time 679.00.
-Warning: Vehicle '701'; collision with vehicle '1103', lane='NC_2', gap=-4.50', latGap=-0.30, time=679.00 stage=move.
-Warning: Vehicle '1151'; collision with vehicle '398', lane='NC_1', gap=-3.10', latGap=-0.65, time=679.00 stage=move.
-Warning: Vehicle '1099' performs emergency stop at the end of lane 'NC_0' for unknown reasons (decel=-8.38, offset=0.23), time=680.00.
-Warning: Vehicle '1090' ends teleporting on edge 'WC', time 680.00.
-Warning: Teleporting vehicle '1085' after earlier collision, lane='WC_1, time=686.00.
-Warning: Vehicle '1085' teleports beyond arrival edge 'WC', time 686.00.
-Warning: Teleporting vehicle '557' after earlier collision, lane='WC_0, time=686.00.
-Warning: Vehicle '557' teleports beyond arrival edge 'WC', time 686.00.
-Warning: Teleporting vehicle '678' after earlier collision, lane='NC_1, time=686.00.
-Warning: Teleporting vehicle '747' after earlier collision, lane='NC_1, time=686.00.
-Warning: Vehicle '678' ends teleporting on edge 'CS', time 686.00.
-Warning: Vehicle '747' ends teleporting on edge 'CS', time 686.00.
-Warning: Vehicle '916'; collision with vehicle '760', lane='EC_0', gap=-1.50', latGap=-0.15, time=688.00 stage=move.
-Warning: Vehicle '847'; collision with vehicle '920', lane='SC_1', gap=-2.24', latGap=-0.90, time=688.00 stage=move.
-Warning: Vehicle '760' performs emergency stop at the end of lane 'EC_0' for unknown reasons (decel=-8.70, offset=3.82), time=689.00.
-Warning: Teleporting vehicle '1154' after earlier collision, lane=':gneJ0_0_2, time=689.00.
-Warning: Teleporting vehicle '1140' after earlier collision, lane='WC_2, time=689.00.
-Warning: Teleporting vehicle '398' after earlier collision, lane='NC_2, time=689.00.
-Warning: Teleporting vehicle '334' after earlier collision, lane='NC_0, time=689.00.
-Warning: Vehicle '334' teleports beyond arrival edge 'NC', time 689.00.
-Warning: Vehicle '402'; collision with vehicle '847', lane='SC_1', gap=-2.88', latGap=-1.05, time=689.00 stage=move.
-Warning: Vehicle '500'; collision with vehicle '708', lane='EC1_0', gap=-1.79', latGap=-0.45, time=689.00 stage=move.
-Warning: Vehicle '1154' ends teleporting on edge 'WC', time 689.00.
-Warning: Vehicle '1140' ends teleporting on edge 'CN', time 689.00.
-Warning: Vehicle '398' ends teleporting on edge 'CE', time 689.00.
-Warning: Teleporting vehicle '701' after earlier collision, lane='NC_1, time=690.00.
-Warning: Vehicle '500'; collision with vehicle '475', lane='EC1_0', gap=-0.62', latGap=-0.30, time=690.00 stage=move.
-Warning: Vehicle '366'; collision with vehicle '500', lane='EC1_0', gap=-6.31', latGap=-1.05, time=690.00 stage=move.
-Warning: Vehicle '923'; collision with vehicle '1169', lane='SC_2', gap=-1.02', latGap=-0.90, time=690.00 stage=laneChange.
-Warning: Vehicle '701' ends teleporting on edge 'CS', time 690.00.
-Warning: Teleporting vehicle '1099' after earlier collision, lane='NC_0, time=691.00.
-Warning: Vehicle '1099' teleports beyond arrival edge 'NC', time 691.00.
-Warning: Teleporting vehicle '1151' after earlier collision, lane='NC_0, time=691.00.
-Warning: Vehicle '1151' teleports beyond arrival edge 'NC', time 691.00.
-Warning: Vehicle '706'; collision with vehicle '721', lane='NC_0', gap=-1.61', latGap=-0.45, time=691.00 stage=move.
-Warning: Vehicle '721'; collision with vehicle '357', lane='NC_0', gap=-3.08', latGap=-1.05, time=691.00 stage=move.
-Warning: Vehicle '799'; collision with vehicle '706', lane='NC_0', gap=-0.30', latGap=-0.45, time=693.00 stage=move.
-Warning: Vehicle '487'; collision with vehicle '760', lane='EC_1', gap=-6.18', latGap=-0.30, time=698.00 stage=move.
-Warning: Teleporting vehicle '916' after earlier collision, lane='EC_0, time=699.00.
-Warning: Vehicle '916' teleports beyond arrival edge 'EC', time 699.00.
-Warning: Teleporting vehicle '920' after earlier collision, lane='SC_1, time=699.00.
-Warning: Teleporting vehicle '847' after earlier collision, lane='SC_0, time=699.00.
-Warning: Vehicle '847' teleports beyond arrival edge 'SC', time 699.00.
-Warning: Vehicle '920' ends teleporting on edge 'CS', time 699.00.
-Warning: Teleporting vehicle '760' after earlier collision, lane='EC_0, time=700.00.
-Warning: Vehicle '760' teleports beyond arrival edge 'EC', time 700.00.
-Warning: Teleporting vehicle '402' after earlier collision, lane='SC_0, time=700.00.
-Warning: Vehicle '402' teleports beyond arrival edge 'SC', time 700.00.
-Warning: Vehicle '656'; collision with vehicle '516', lane='EC1_0', gap=-4.00', latGap=-0.30, time=700.00 stage=move.
-Warning: Vehicle '303'; collision with vehicle '516', lane='EC1_0', gap=-4.00', latGap=-0.90, time=700.00 stage=move.
-Warning: Teleporting vehicle '923' after earlier collision, lane='SC_1, time=701.00.
-Warning: Vehicle '923' teleports beyond arrival edge 'SC', time 701.00.
-Warning: Teleporting vehicle '1169' after earlier collision, lane='SC_2, time=701.00.
-Warning: Teleporting vehicle '475' after earlier collision, lane='EC1_0, time=701.00.
-Warning: Teleporting vehicle '366' after earlier collision, lane='EC1_0, time=701.00.
-Warning: Teleporting vehicle '500' after earlier collision, lane='EC1_0, time=701.00.
-Warning: Vehicle '1169' ends teleporting on edge 'CW', time 701.00.
-Warning: Vehicle '475' ends teleporting on edge 'EC', time 701.00.
-Warning: Teleporting vehicle '708' after earlier collision, lane='EC_0, time=702.00.
-Warning: Vehicle '708' teleports beyond arrival edge 'EC', time 702.00.
-Warning: Teleporting vehicle '357' after earlier collision, lane='NC_0, time=702.00.
-Warning: Vehicle '357' teleports beyond arrival edge 'NC', time 702.00.
-Warning: Teleporting vehicle '706' after earlier collision, lane='NC_0, time=702.00.
-Warning: Vehicle '706' ends teleporting on edge 'CW', time 702.00.
-Warning: Teleporting vehicle '721' after earlier collision, lane='NC_1, time=703.00.
-Warning: Vehicle '366' ends teleporting on edge 'EC', time 703.00.
-Warning: Vehicle '721' ends teleporting on edge 'CS', time 703.00.
-Warning: Teleporting vehicle '799' after earlier collision, lane='NC_1, time=704.00.
-Warning: Vehicle '500' ends teleporting on edge 'EC', time 704.00.
-Warning: Vehicle '799' ends teleporting on edge 'CS', time 704.00.
-Warning: Vehicle '487'; collision with vehicle '351', lane='EC_0', gap=-1.95', latGap=-0.90, time=705.00 stage=move.
-Warning: Vehicle '483'; collision with vehicle '487', lane='EC_0', gap=-2.75', latGap=-0.15, time=706.00 stage=move.
-Warning: Vehicle '1124'; collision with vehicle '1010', lane='SC_1', gap=-6.40', latGap=-1.05, time=707.00 stage=move.
-Warning: Teleporting vehicle '487' after earlier collision, lane='EC_0, time=709.00.
-Warning: Vehicle '487' teleports beyond arrival edge 'EC', time 709.00.
-Warning: Vehicle '714'; collision with vehicle '689', lane='NC_1', gap=-2.95', latGap=-0.15, time=709.00 stage=move.
-Warning: Vehicle '798'; collision with vehicle '483', lane='EC_0', gap=-3.30', latGap=-0.05, time=710.00 stage=move.
-Warning: Teleporting vehicle '303' after earlier collision, lane='EC1_0, time=711.00.
-Warning: Teleporting vehicle '656' after earlier collision, lane='EC1_0, time=711.00.
-Warning: Vehicle '303' ends teleporting on edge 'EC', time 711.00.
-Warning: Vehicle '656' ends teleporting on edge 'EC', time 711.00.
-Warning: Teleporting vehicle '516' after earlier collision, lane='EC_0, time=712.00.
-Warning: Vehicle '516' teleports beyond arrival edge 'EC', time 712.00.
-Warning: Vehicle '798'; collision with vehicle '713', lane='EC_0', gap=-7.41', latGap=-0.80, time=712.00 stage=move.
-Warning: Vehicle '713' performs emergency stop at the end of lane 'EC_0' for unknown reasons (decel=-11.76, offset=4.50), time=713.00.
-Warning: Vehicle '636'; collision with vehicle '483', lane='EC_0', gap=-3.90', latGap=-0.80, time=714.00 stage=move.
-Warning: Vehicle '797'; collision with vehicle '798', lane='EC_1', gap=-6.75', latGap=-0.80, time=716.00 stage=move.
-Warning: Teleporting vehicle '351' after earlier collision, lane='EC_0, time=717.00.
-Warning: Vehicle '351' teleports beyond arrival edge 'EC', time 717.00.
-Warning: Teleporting vehicle '483' after earlier collision, lane='EC_0, time=717.00.
-Warning: Vehicle '483' teleports beyond arrival edge 'EC', time 717.00.
-Warning: Teleporting vehicle '1124' after earlier collision, lane='SC_0, time=718.00.
-Warning: Vehicle '1124' teleports beyond arrival edge 'SC', time 718.00.
-Warning: Teleporting vehicle '1010' after earlier collision, lane='SC_0, time=719.00.
-Warning: Vehicle '1010' teleports beyond arrival edge 'SC', time 719.00.
-Warning: Teleporting vehicle '714' after earlier collision, lane='NC_2, time=720.00.
-Warning: Teleporting vehicle '689' after earlier collision, lane='NC_0, time=720.00.
-Warning: Vehicle '689' ends teleporting on edge 'CW', time 720.00.
-Warning: Vehicle '388'; collision with vehicle '798', lane='EC_1', gap=-6.37', latGap=-0.80, time=721.00 stage=move.
-Warning: Vehicle '714' ends teleporting on edge 'CE', time 721.00.
-Warning: Teleporting vehicle '798' after earlier collision, lane='EC_0, time=722.00.
-Warning: Vehicle '798' teleports beyond arrival edge 'EC', time 722.00.
-Warning: Vehicle '1003'; collision with vehicle '1036', lane='EC_1', gap=-4.42', latGap=-1.15, time=722.00 stage=move.
-Warning: Vehicle '539'; collision with vehicle '636', lane='EC_1', gap=-0.07', latGap=-0.40, time=722.00 stage=move.
-Warning: Teleporting vehicle '713' after earlier collision, lane='EC_0, time=724.00.
-Warning: Vehicle '713' teleports beyond arrival edge 'EC', time 724.00.
-Warning: Teleporting vehicle '636' after earlier collision, lane='EC_0, time=726.00.
-Warning: Vehicle '636' teleports beyond arrival edge 'EC', time 726.00.
-Warning: Teleporting vehicle '797' after earlier collision, lane='EC_0, time=728.00.
-Warning: Vehicle '797' teleports beyond arrival edge 'EC', time 728.00.
-Warning: Vehicle '898'; collision with vehicle '884', lane='NC_2', gap=-2.23', latGap=-1.30, time=729.00 stage=move.
-Warning: Vehicle '689'; collision with vehicle '481', lane='WC_1', gap=-0.13', latGap=-1.55, time=731.00 stage=move.
-Warning: Vehicle '936'; collision with vehicle '884', lane='NC_2', gap=-1.69', latGap=-0.90, time=732.00 stage=move.
-Warning: Teleporting vehicle '388' after earlier collision, lane='EC_0, time=733.00.
-Warning: Vehicle '388' teleports beyond arrival edge 'EC', time 733.00.
-Warning: Teleporting vehicle '1036' after earlier collision, lane='EC_0, time=733.00.
-Warning: Vehicle '1036' teleports beyond arrival edge 'EC', time 733.00.
-Warning: Teleporting vehicle '1003' after earlier collision, lane='EC_0, time=733.00.
-Warning: Vehicle '1003' teleports beyond arrival edge 'EC', time 733.00.
-Warning: Vehicle '722'; collision with vehicle '1103', lane='NC_1', gap=-4.51', latGap=-0.85, time=733.00 stage=move.
-Warning: Teleporting vehicle '539' after earlier collision, lane='EC_0, time=734.00.
-Warning: Vehicle '539' teleports beyond arrival edge 'EC', time 734.00.
-Warning: Vehicle '689'; collision with vehicle '386', lane='WC_1', gap=-4.89', latGap=-1.20, time=734.00 stage=move.
-Warning: Vehicle '384'; collision with vehicle '959', lane='SC_1', gap=-1.63', latGap=-1.80, time=735.00 stage=move.
-Warning: Vehicle '593'; collision with vehicle '384', lane='SC_1', gap=-2.83', latGap=-1.80, time=737.00 stage=move.
-Warning: Vehicle '649'; collision with vehicle '689', lane='WC_1', gap=-3.72', latGap=-1.35, time=738.00 stage=move.
-Warning: Teleporting vehicle '898' after earlier collision, lane='NC_2, time=740.00.
-Warning: Vehicle '384'; collision with vehicle '753', lane='SC_1', gap=-5.94', latGap=-1.80, time=740.00 stage=move.
-Warning: Vehicle '898' ends teleporting on edge 'CN', time 740.00.
-Warning: Teleporting vehicle '884' after earlier collision, lane='NC_2, time=741.00.
-Warning: Vehicle '689'; collision with vehicle '814', lane='WC_1', gap=-1.93', latGap=-1.35, time=741.00 stage=move.
-Warning: Vehicle '884' ends teleporting on edge 'CN', time 741.00.
-Warning: Teleporting vehicle '481' after earlier collision, lane='WC_1, time=742.00.
-Warning: Teleporting vehicle '689' after earlier collision, lane='WC_0, time=742.00.
-Warning: Vehicle '689' teleports beyond arrival edge 'WC', time 742.00.
-Warning: Vehicle '814'; collision with vehicle '706', lane='WC_1', gap=-1.42', latGap=-0.45, time=742.00 stage=move.
-Warning: Vehicle '481' ends teleporting on edge 'CW', time 742.00.
-Warning: Teleporting vehicle '936' after earlier collision, lane='NC_2, time=743.00.
-Warning: Vehicle '936' ends teleporting on edge 'CE', time 743.00.
-Warning: Teleporting vehicle '722' after earlier collision, lane='NC_0, time=744.00.
-Warning: Vehicle '722' ends teleporting on edge 'CW', time 745.00.
-Warning: Teleporting vehicle '386' after earlier collision, lane='WC_0, time=746.00.
-Warning: Vehicle '386' teleports beyond arrival edge 'WC', time 746.00.
-Warning: Teleporting vehicle '959' after earlier collision, lane='SC_1, time=746.00.
-Warning: Teleporting vehicle '384' after earlier collision, lane='SC_0, time=746.00.
-Warning: Vehicle '384' teleports beyond arrival edge 'SC', time 746.00.
-Warning: Vehicle '959' ends teleporting on edge 'CW', time 746.00.
-Warning: Teleporting vehicle '593' after earlier collision, lane='SC_0, time=748.00.
-Warning: Vehicle '593' teleports beyond arrival edge 'SC', time 748.00.
-Warning: Teleporting vehicle '649' after earlier collision, lane='WC_0, time=749.00.
-Warning: Vehicle '649' teleports beyond arrival edge 'WC', time 749.00.
-Warning: Vehicle '816'; collision with vehicle '809', lane='EC1_0', gap=-4.70', latGap=-0.85, time=750.00 stage=laneChange.
-Warning: Vehicle '822'; collision with vehicle '816', lane='EC1_0', gap=-1.65', latGap=-0.30, time=750.00 stage=insertion.
-Warning: Teleporting vehicle '706' after earlier collision, lane='WC_0, time=753.00.
-Warning: Vehicle '706' teleports beyond arrival edge 'WC', time 753.00.
-Warning: Teleporting vehicle '814' after earlier collision, lane='WC_0, time=753.00.
-Warning: Vehicle '814' teleports beyond arrival edge 'WC', time 753.00.
-Warning: Teleporting vehicle '753' after earlier collision, lane='SC_0, time=753.00.
-Warning: Vehicle '753' teleports beyond arrival edge 'SC', time 753.00.
-Warning: Vehicle '473'; collision with vehicle '430', lane='NC1_0', gap=-7.37', latGap=-0.05, time=753.00 stage=laneChange.
-Warning: Vehicle '430' performs emergency stop at the end of lane ':gneJ1_0_0' because there is no connection to the next edge (decel=-5.88, offset=1.01), time=754.00.
-Warning: Vehicle '722'; collision with vehicle '456', lane='WC_1', gap=-1.69', latGap=-0.45, time=758.00 stage=move.
-Warning: Vehicle '959'; collision with vehicle '722', lane='WC_1', gap=-2.93', latGap=-1.35, time=759.00 stage=move.
-Warning: Vehicle '474'; collision with vehicle '959', lane='WC_1', gap=-0.01', latGap=-1.80, time=760.00 stage=move.
-Warning: Teleporting vehicle '809' after earlier collision, lane='EC1_0, time=761.00.
-Warning: Teleporting vehicle '816' after earlier collision, lane='EC1_0, time=761.00.
-Warning: Teleporting vehicle '822' after earlier collision, lane='EC1_0, time=761.00.
-Warning: Vehicle '822' ends teleporting on edge 'EC', time 761.00.
-Warning: Teleporting vehicle '473' after earlier collision, lane=':gneJ1_0_0, time=764.00.
-Warning: Vehicle '473' ends teleporting on edge 'NC', time 764.00.
-Warning: Teleporting vehicle '430' after earlier collision, lane=':gneJ1_0_0, time=765.00.
-Warning: Vehicle '816' ends teleporting on edge 'EC', time 765.00.
-Warning: Vehicle '430' ends teleporting on edge 'NC', time 765.00.
-Warning: Vehicle '888'; collision with vehicle '1175', lane='NC1_0', gap=-7.10', latGap=-1.80, time=767.00 stage=move.
-Warning: Teleporting vehicle '456' after earlier collision, lane='WC_0, time=769.00.
-Warning: Vehicle '456' teleports beyond arrival edge 'WC', time 769.00.
-Warning: Teleporting vehicle '722' after earlier collision, lane='WC_0, time=769.00.
-Warning: Vehicle '722' teleports beyond arrival edge 'WC', time 769.00.
-Warning: Teleporting vehicle '959' after earlier collision, lane='WC_0, time=770.00.
-Warning: Vehicle '959' teleports beyond arrival edge 'WC', time 770.00.
-Warning: Teleporting vehicle '474' after earlier collision, lane='WC_0, time=771.00.
-Warning: Vehicle '474' teleports beyond arrival edge 'WC', time 771.00.
-Warning: Teleporting vehicle '888' after earlier collision, lane=':gneJ1_0_1, time=778.00.
-Warning: Vehicle '809' ends teleporting on edge 'CW', time 778.00.
-Warning: Vehicle '888' ends teleporting on edge 'NC', time 780.00.
-Warning: Vehicle '545'; collision with vehicle '1038', lane='SC_1', gap=-0.75', latGap=-0.30, time=827.00 stage=move.
-Warning: Vehicle '566'; collision with vehicle '545', lane='SC_1', gap=-5.37', latGap=-1.80, time=837.00 stage=move.
-Warning: Teleporting vehicle '1038' after earlier collision, lane='SC_1, time=838.00.
-Warning: Teleporting vehicle '545' after earlier collision, lane='SC_0, time=838.00.
-Warning: Vehicle '545' teleports beyond arrival edge 'SC', time 838.00.
-Warning: Vehicle '1038' ends teleporting on edge 'CW', time 838.00.
-Warning: Teleporting vehicle '566' after earlier collision, lane='SC_0, time=848.00.
-Warning: Vehicle '566' teleports beyond arrival edge 'SC', time 848.00.
-Warning: Vehicle '630'; collision with vehicle '802', lane='SC_2', gap=-2.28', latGap=-1.20, time=848.00 stage=move.
-Warning: Vehicle '1038'; collision with vehicle '605', lane='WC_1', gap=-0.36', latGap=-0.35, time=850.00 stage=move.
-Warning: Teleporting vehicle '630' after earlier collision, lane='SC_1, time=859.00.
-Warning: Vehicle '630' teleports beyond arrival edge 'SC', time 859.00.
-Warning: Teleporting vehicle '605' after earlier collision, lane='WC_1, time=861.00.
-Warning: Vehicle '605' teleports beyond arrival edge 'WC', time 861.00.
-Warning: Teleporting vehicle '1038' after earlier collision, lane='WC_0, time=861.00.
-Warning: Vehicle '1038' teleports beyond arrival edge 'WC', time 861.00.
-Warning: Teleporting vehicle '802'; waited too long (yield), lane='SC_2', time=900.00.
-Warning: Vehicle '802' skips stop on lane 'SC_0' time=900.00.
-Warning: Vehicle '802' ends teleporting on edge 'CW', time 900.00.
-Warning: Vehicle '802'; collision with vehicle '827', lane='WC_1', gap=-0.88', latGap=-1.35, time=913.00 stage=move.
-Warning: Vehicle '802'; collision with vehicle '1193', lane='WC_1', gap=-3.37', latGap=-1.35, time=916.00 stage=move.
-Warning: Teleporting vehicle '827' after earlier collision, lane='WC_1, time=924.00.
-Warning: Teleporting vehicle '802' after earlier collision, lane='WC_0, time=924.00.
-Warning: Vehicle '802' teleports beyond arrival edge 'WC', time 924.00.
-Warning: Vehicle '827' ends teleporting on edge 'CE', time 924.00.
-Warning: Teleporting vehicle '1193' after earlier collision, lane='WC_0, time=927.00.
-Warning: Vehicle '1193' teleports beyond arrival edge 'WC', time 927.00.
-Warning: Teleporting vehicle '1103'; waited too long (jam), lane='NC_2', time=944.00.
-Warning: Vehicle '1103' teleports beyond arrival edge 'NC', time 944.00.
-Warning: Vehicle '1103' skips stop on lane 'NC_0' time=944.00.
-Warning: Teleporting vehicle '369'; waited too long (wrong lane), lane='EC_1', time=1070.00.
-Warning: Teleporting vehicle '622'; waited too long (jam), lane=':gneJ2_0_1', time=1070.00.
-Warning: Vehicle '369' ends teleporting on edge 'CS', time 1070.00.
-Warning: Teleporting vehicle '376'; waited too long (wrong lane), lane='EC_0', time=1071.00.
-Warning: Teleporting vehicle '947'; waited too long (jam), lane='NC1_0', time=1071.00.
-Warning: Vehicle '376' ends teleporting on edge 'CS', time 1071.00.
-Warning: Vehicle '947' ends teleporting on edge 'NC', time 1071.00.
-Warning: Vehicle '653'; collision with vehicle '421', lane='EC1_0', gap=-0.53', latGap=-1.27, time=1072.00 stage=move.
-Warning: Vehicle '657'; collision with vehicle '421', lane='EC1_0', gap=-0.53', latGap=-0.08, time=1072.00 stage=move.
-Warning: Vehicle '421'; collision with vehicle '398', lane='EC1_0', gap=-5.67', latGap=-1.20, time=1072.00 stage=move.
-Warning: Vehicle '657'; collision with vehicle '909', lane='EC1_0', gap=-1.00', latGap=-1.42, time=1072.00 stage=laneChange.
-Warning: Vehicle '421'; collision with vehicle '691', lane='EC1_0', gap=-5.77', latGap=-1.20, time=1072.00 stage=laneChange.
-Warning: Teleporting vehicle '375'; waited too long (yield), lane='EC_1', time=1074.00.
-Warning: Vehicle '375' ends teleporting on edge 'CW', time 1074.00.
-Warning: Teleporting vehicle '691' after earlier collision, lane='EC_2, time=1083.00.
-Warning: Teleporting vehicle '398' after earlier collision, lane='EC_0, time=1083.00.
-Warning: Vehicle '398' teleports beyond arrival edge 'EC', time 1083.00.
-Warning: Teleporting vehicle '909' after earlier collision, lane='EC1_0, time=1083.00.
-Warning: Teleporting vehicle '657' after earlier collision, lane='EC1_0, time=1083.00.
-Warning: Teleporting vehicle '653' after earlier collision, lane='EC1_0, time=1083.00.
-Warning: Vehicle '622' ends teleporting on edge 'EC', time 1083.00.
-Warning: Vehicle '691' ends teleporting on edge 'CS', time 1083.00.
-Warning: Teleporting vehicle '421' after earlier collision, lane='EC_0, time=1084.00.
-Warning: Vehicle '421' teleports beyond arrival edge 'EC', time 1084.00.
-Warning: Vehicle '824'; collision with vehicle '695', lane='EC_2', gap=-0.47', latGap=-0.15, time=1090.00 stage=laneChange.
-Warning: Vehicle '731'; collision with vehicle '719', lane='EC_1', gap=-2.72', latGap=-0.30, time=1091.00 stage=move.
-Warning: Vehicle '731' performs emergency stop at the end of lane 'EC_0' for unknown reasons (decel=-9.00, offset=1.52), time=1092.00.
-Warning: Vehicle '776'; collision with vehicle '731', lane='EC_1', gap=-2.71', latGap=-1.05, time=1092.00 stage=move.
-Warning: Vehicle '825'; collision with vehicle '731', lane='EC_1', gap=-4.35', latGap=-1.80, time=1096.00 stage=move.
-Warning: Vehicle '895'; collision with vehicle '828', lane='EC_2', gap=-0.95', latGap=-0.90, time=1098.00 stage=move.
-Warning: Vehicle '902'; collision with vehicle '895', lane='EC_1', gap=-2.84', latGap=-0.90, time=1099.00 stage=move.
-Warning: Vehicle '909' ends teleporting on edge 'CW', time 1100.00.
-Warning: Vehicle '657' ends teleporting on edge 'CN', time 1100.00.
-Warning: Vehicle '653' ends teleporting on edge 'CN', time 1100.00.
-Warning: Teleporting vehicle '695' after earlier collision, lane='EC_2, time=1101.00.
-Warning: Teleporting vehicle '824' after earlier collision, lane='EC_2, time=1101.00.
-Warning: Vehicle '695' ends teleporting on edge 'CE', time 1101.00.
-Warning: Vehicle '824' ends teleporting on edge 'CS', time 1101.00.
-Warning: Teleporting vehicle '719' after earlier collision, lane='EC_0, time=1102.00.
-Warning: Vehicle '719' ends teleporting on edge 'CN', time 1102.00.
-Warning: Teleporting vehicle '731' after earlier collision, lane='EC_0, time=1103.00.
-Warning: Vehicle '731' teleports beyond arrival edge 'EC', time 1103.00.
-Warning: Teleporting vehicle '776' after earlier collision, lane='EC_0, time=1103.00.
-Warning: Vehicle '776' ends teleporting on edge 'CN', time 1103.00.
-Warning: Teleporting vehicle '825' after earlier collision, lane='EC_0, time=1108.00.
-Warning: Vehicle '825' ends teleporting on edge 'CN', time 1108.00.
-Warning: Teleporting vehicle '828' after earlier collision, lane='EC_2, time=1109.00.
-Warning: Teleporting vehicle '895' after earlier collision, lane='EC_1, time=1109.00.
-Warning: Vehicle '828' ends teleporting on edge 'CE', time 1109.00.
-Warning: Vehicle '895' ends teleporting on edge 'CW', time 1109.00.
-Warning: Teleporting vehicle '902' after earlier collision, lane='EC_0, time=1110.00.
-Warning: Vehicle '902' ends teleporting on edge 'CN', time 1111.00.
-Warning: Vehicle '772'; collision with vehicle '906', lane='EC1_0', gap=-6.04', latGap=-0.90, time=1137.00 stage=move.
-Warning: Teleporting vehicle '772' after earlier collision, lane=':gneJ2_0_2, time=1148.00.
-Warning: Teleporting vehicle '906' after earlier collision, lane='EC_2, time=1148.00.
-Warning: Vehicle '1106'; collision with vehicle '393', lane='WC_1', gap=-0.10', latGap=-0.30, time=1148.00 stage=laneChange.
-Warning: Vehicle '772' ends teleporting on edge 'EC', time 1148.00.
-Warning: Vehicle '906' ends teleporting on edge 'CS', time 1148.00.
-Warning: Vehicle '801'; collision with vehicle '393', lane='WC_1', gap=-1.64', latGap=-1.35, time=1150.00 stage=move.
-Warning: Teleporting vehicle '1106' after earlier collision, lane='WC_1, time=1159.00.
-Warning: Vehicle '1106' teleports beyond arrival edge 'WC', time 1159.00.
-Warning: Teleporting vehicle '393' after earlier collision, lane='WC_0, time=1159.00.
-Warning: Vehicle '393' teleports beyond arrival edge 'WC', time 1159.00.
-Warning: Teleporting vehicle '801' after earlier collision, lane='WC_0, time=1161.00.
-Warning: Vehicle '801' teleports beyond arrival edge 'WC', time 1161.00.
-Warning: Teleporting vehicle '572'; waited too long (jam), lane='CN_0', time=1189.00.
-Warning: Vehicle '572' ends teleporting on edge 'NC', time 1238.00.
-Warning: Teleporting vehicle '1015'; waited too long (wrong lane), lane='WC_1', time=1351.00.
-Warning: Teleporting vehicle '900'; waited too long (jam), lane='NC1_0', time=1373.00.
-Warning: Teleporting vehicle '385'; waited too long (yield), lane='EC_0', time=1374.00.
-Warning: Teleporting vehicle '511'; waited too long (jam), lane=':N_0_0', time=1381.00.
-Warning: Vehicle '645'; collision with vehicle '960', lane='EC1_0', gap=-5.46', latGap=-1.65, time=1381.00 stage=move.
-Warning: Vehicle '936'; collision with vehicle '960', lane=':gneJ2_0_0', gap=-3.79', latGap=-0.90, time=1385.00 stage=move.
-Warning: Vehicle '1015' ends teleporting on edge 'CN', time 1388.00.
-Warning: Vehicle '385' ends teleporting on edge 'CN', time 1389.00.
-Warning: Teleporting vehicle '645' after earlier collision, lane=':gneJ2_0_0, time=1392.00.
-Warning: Teleporting vehicle '960' after earlier collision, lane='EC_0, time=1393.00.
-Warning: Vehicle '960' teleports beyond arrival edge 'EC', time 1393.00.
-Warning: Vehicle '645' ends teleporting on edge 'EC', time 1393.00.
-Warning: Teleporting vehicle '936' after earlier collision, lane=':gneJ2_0_0, time=1396.00.
-Warning: Vehicle '936' ends teleporting on edge 'EC', time 1396.00.
-Warning: Vehicle '900' ends teleporting on edge 'CW', time 1414.00.
-Warning: Vehicle '964'; collision with vehicle '932', lane='EC_1', gap=-4.50', latGap=-0.15, time=1435.00 stage=move.
-Warning: Vehicle '827'; collision with vehicle '791', lane='EC1_0', gap=-4.70', latGap=-0.90, time=1435.00 stage=laneChange.
-Warning: Vehicle '972'; collision with vehicle '932', lane='EC_1', gap=-7.22', latGap=-0.53, time=1437.00 stage=move.
-Warning: Teleporting vehicle '791' after earlier collision, lane=':gneJ2_0_0, time=1446.00.
-Warning: Teleporting vehicle '827' after earlier collision, lane=':gneJ2_0_0, time=1446.00.
-Warning: Teleporting vehicle '932' after earlier collision, lane='EC_1, time=1446.00.
-Warning: Vehicle '791' ends teleporting on edge 'EC', time 1446.00.
-Warning: Vehicle '827' ends teleporting on edge 'EC', time 1446.00.
-Warning: Vehicle '932' ends teleporting on edge 'CW', time 1446.00.
-Warning: Teleporting vehicle '964' after earlier collision, lane='EC_0, time=1447.00.
-Warning: Vehicle '964' ends teleporting on edge 'CN', time 1447.00.
-Warning: Teleporting vehicle '972' after earlier collision, lane='EC_2, time=1448.00.
-Warning: Vehicle '972' ends teleporting on edge 'CS', time 1448.00.
-Warning: Vehicle '943'; collision with vehicle '1033', lane='EC_0', gap=-2.80', latGap=-0.15, time=1457.00 stage=move.
-Warning: Teleporting vehicle '1033' after earlier collision, lane='EC_0, time=1468.00.
-Warning: Teleporting vehicle '943' after earlier collision, lane='EC_1, time=1468.00.
-Warning: Vehicle '943' ends teleporting on edge 'CW', time 1468.00.
-Warning: Vehicle '511' teleports beyond arrival edge 'NC', time 1477.00.
-Warning: Vehicle '1013'; collision with vehicle '1040', lane='EC1_0', gap=-6.13', latGap=-1.43, time=1496.00 stage=laneChange.
-Warning: Teleporting vehicle '1040' after earlier collision, lane=':gneJ2_0_0, time=1507.00.
-Warning: Teleporting vehicle '1013' after earlier collision, lane=':gneJ2_0_0, time=1507.00.
-Warning: Vehicle '1040' ends teleporting on edge 'EC', time 1507.00.
-Warning: Teleporting vehicle '1083'; waited too long (yield), lane='NC_2', time=1514.00.
-Warning: Vehicle '1165'; collision with vehicle '1158', lane='EC1_0', gap=-3.62', latGap=-0.30, time=1520.00 stage=laneChange.
-Warning: Vehicle '1158'; collision with vehicle '1131', lane=':gneJ2_0_1', gap=-4.70', latGap=-0.15, time=1521.00 stage=move.
-Warning: Teleporting vehicle '1135'; waited too long (wrong lane), lane='NC_1', time=1526.00.
-Warning: Teleporting vehicle '1158' after earlier collision, lane=':gneJ2_0_2, time=1531.00.
-Warning: Teleporting vehicle '1165' after earlier collision, lane='EC1_0, time=1531.00.
-Warning: Vehicle '1165' ends teleporting on edge 'EC', time 1531.00.
-Warning: Teleporting vehicle '1131' after earlier collision, lane=':gneJ2_0_2, time=1532.00.
-Warning: Vehicle '1153'; collision with vehicle '1144', lane='EC1_0', gap=-4.10', latGap=-1.35, time=1535.00 stage=laneChange.
-Warning: Teleporting vehicle '1153' after earlier collision, lane=':gneJ2_0_2, time=1546.00.
-Warning: Teleporting vehicle '1144' after earlier collision, lane=':gneJ2_0_0, time=1546.00.
-Warning: Vehicle '1158' ends teleporting on edge 'CS', time 1548.00.
-Warning: Vehicle '1131' ends teleporting on edge 'CE', time 1549.00.
-Warning: Vehicle '1153' ends teleporting on edge 'CS', time 1563.00.
-Warning: Vehicle '1144' ends teleporting on edge 'CN', time 1563.00.
-Warning: Vehicle '1083' teleports beyond arrival edge 'CN', time 1604.00.
-Warning: Vehicle '1135' teleports beyond arrival edge 'CN', time 1616.00.
-Warning: Vehicle '1013' ends teleporting on edge 'NC', time 1630.00.
-Warning: Teleporting vehicle '949'; waited too long (jam), lane='NC1_0', time=1677.00.
-Warning: Vehicle '949' ends teleporting on edge 'NC', time 1677.00.
-Warning: Teleporting vehicle '992'; waited too long (jam), lane='NC1_0', time=1678.00.
-Warning: Vehicle '1033' ends teleporting on edge 'NC', time 1678.00.
-Warning: Teleporting vehicle '1047'; waited too long (jam), lane=':N_0_0', time=1684.00.
-Warning: Teleporting vehicle '1175'; waited too long (jam), lane='NC_1', time=1717.00.
-Warning: Vehicle '1175' teleports beyond arrival edge 'NC', time 1717.00.
-Warning: Vehicle '1175' skips stop on lane 'NC_0' time=1717.00.
-Warning: Vehicle '992' ends teleporting on edge 'NC', time 1717.00.
-Warning: Vehicle '1047' ends teleporting on edge 'NC1', time 1728.00.
-Warning: Vehicle '1009'; collision with vehicle '974', lane='NC_1', gap=-2.40', latGap=-0.05, time=1734.00 stage=move.
-Warning: Vehicle '1066'; collision with vehicle '1070', lane='NC_1', gap=-2.97', latGap=-0.50, time=1735.00 stage=move.
-Warning: Vehicle '816'; collision with vehicle '425', lane='NC1_0', gap=-5.43', latGap=-1.05, time=1736.00 stage=laneChange.
-Warning: Vehicle '995'; collision with vehicle '1066', lane='NC_1', gap=-0.41', latGap=-0.80, time=1739.00 stage=move.
-Warning: Teleporting vehicle '974' after earlier collision, lane='NC_1, time=1745.00.
-Warning: Teleporting vehicle '1009' after earlier collision, lane='NC_0, time=1745.00.
-Warning: Vehicle '974' ends teleporting on edge 'CS', time 1745.00.
-Warning: Vehicle '1009' ends teleporting on edge 'CW', time 1745.00.
-Warning: Teleporting vehicle '1066' after earlier collision, lane='NC_1, time=1747.00.
-Warning: Teleporting vehicle '1070' after earlier collision, lane='NC_0, time=1747.00.
-Warning: Vehicle '1070' teleports beyond arrival edge 'NC', time 1747.00.
-Warning: Vehicle '1066' ends teleporting on edge 'CS', time 1747.00.
-Warning: Teleporting vehicle '816' after earlier collision, lane=':gneJ1_0_0, time=1748.00.
-Warning: Teleporting vehicle '425' after earlier collision, lane=':gneJ1_0_0, time=1748.00.
-Warning: Vehicle '816' ends teleporting on edge 'NC', time 1748.00.
-Warning: Vehicle '425' ends teleporting on edge 'NC', time 1748.00.
-Warning: Teleporting vehicle '995' after earlier collision, lane='NC_0, time=1751.00.
-Warning: Vehicle '995' teleports beyond arrival edge 'NC', time 1751.00.
-Warning: Vehicle '710'; collision with vehicle '588', lane='NC1_0', gap=-5.60', latGap=-1.80, time=1752.00 stage=move.
-Warning: Vehicle '841'; collision with vehicle '588', lane=':gneJ1_0_1', gap=-3.50', latGap=-1.80, time=1754.00 stage=move.
-Warning: Vehicle '913'; collision with vehicle '385', lane='NC1_0', gap=-1.90', latGap=-1.05, time=1761.00 stage=laneChange.
-Warning: Teleporting vehicle '710' after earlier collision, lane=':gneJ1_0_0, time=1764.00.
-Warning: Vehicle '710' ends teleporting on edge 'NC', time 1764.00.
-Warning: Teleporting vehicle '841' after earlier collision, lane=':gneJ1_0_0, time=1765.00.
-Warning: Vehicle '841' ends teleporting on edge 'NC', time 1765.00.
-Warning: Vehicle '1184'; collision with vehicle '1171', lane=':gneJ2_0_0', gap=-1.80', latGap=-1.05, time=1766.00 stage=move.
-Warning: Teleporting vehicle '385' after earlier collision, lane=':gneJ1_0_0, time=1772.00.
-Warning: Teleporting vehicle '913' after earlier collision, lane='NC1_0, time=1772.00.
-Warning: Vehicle '385' ends teleporting on edge 'NC', time 1772.00.
-Warning: Vehicle '913' ends teleporting on edge 'NC', time 1772.00.
-Warning: Teleporting vehicle '1184' after earlier collision, lane=':gneJ2_0_0, time=1777.00.
-Warning: Teleporting vehicle '1171' after earlier collision, lane='EC_0, time=1777.00.
-Warning: Vehicle '1171' ends teleporting on edge 'CN', time 1777.00.
-Warning: Vehicle '385'; collision with vehicle '1118', lane='NC_1', gap=-2.60', latGap=-0.80, time=1782.00 stage=move.
-Warning: Vehicle '1121'; collision with vehicle '385', lane='NC_1', gap=-2.65', latGap=-1.20, time=1791.00 stage=move.
-Warning: Teleporting vehicle '385' after earlier collision, lane='NC_0, time=1793.00.
-Warning: Vehicle '385' teleports beyond arrival edge 'NC', time 1793.00.
-Warning: Teleporting vehicle '1118' after earlier collision, lane='NC_2, time=1793.00.
-Warning: Vehicle '1118' ends teleporting on edge 'CN', time 1793.00.
-Warning: Vehicle '1184' ends teleporting on edge 'CN', time 1794.00.
-Warning: Vehicle '1126'; collision with vehicle '1121', lane='NC_2', gap=-1.18', latGap=-0.80, time=1798.00 stage=move.
-Warning: Teleporting vehicle '1121' after earlier collision, lane='NC_2, time=1802.00.
-Warning: Vehicle '1121' ends teleporting on edge 'CE', time 1802.00.
-Warning: Vehicle '1164'; collision with vehicle '1126', lane='NC_1', gap=-3.88', latGap=-0.05, time=1808.00 stage=move.
-Warning: Teleporting vehicle '1126' after earlier collision, lane='NC_2, time=1810.00.
-Warning: Vehicle '1126' ends teleporting on edge 'CE', time 1810.00.
-Warning: Teleporting vehicle '1164' after earlier collision, lane='NC_1, time=1819.00.
-Warning: Vehicle '1164' ends teleporting on edge 'CS', time 1819.00.
-Warning: Teleporting vehicle '588' after earlier collision, lane='NC_0, time=1914.00.
-Warning: Vehicle '588' teleports beyond arrival edge 'NC', time 1914.00.
-Warning: Teleporting vehicle '1109'; waited too long (yield), lane='EC_1', time=2074.00.
-Warning: Teleporting vehicle '445'; waited too long (wrong lane), lane='EC_0', time=2074.00.
-Warning: Vehicle '1109' ends teleporting on edge 'CW', time 2074.00.
-Warning: Vehicle '445' ends teleporting on edge 'CS', time 2074.00.
+Warning: Vehicle '482'; collision with vehicle '917', lane=':gneJ0_0_0', gap=-2.90', latGap=-0.80, time=605.00 stage=move.
+Warning: Vehicle '473'; collision with vehicle '410', lane='EC_1', gap=-0.71', latGap=-1.80, time=608.00 stage=move.
+Warning: Vehicle '524'; collision with vehicle '473', lane='EC1_0', gap=-1.69', latGap=-1.80, time=608.00 stage=move.
+Warning: Vehicle '524'; collision with vehicle '564', lane='EC1_0', gap=-0.49', latGap=-0.60, time=608.00 stage=laneChange.
+Warning: Teleporting vehicle '482' after earlier collision, lane=':gneJ0_0_0, time=616.00.
+Warning: Teleporting vehicle '917' after earlier collision, lane='WC_0, time=616.00.
+Warning: Vehicle '482' ends teleporting on edge 'WC', time 616.00.
+Warning: Vehicle '917' ends teleporting on edge 'CS', time 616.00.
+Warning: Teleporting vehicle '473' after earlier collision, lane='EC_0, time=619.00.
+Warning: Teleporting vehicle '410' after earlier collision, lane='EC_1, time=619.00.
+Warning: Teleporting vehicle '564' after earlier collision, lane='EC1_0, time=619.00.
+Warning: Teleporting vehicle '524' after earlier collision, lane='EC1_0, time=619.00.
+Warning: Vehicle '473' ends teleporting on edge 'CN', time 619.00.
+Warning: Vehicle '410' ends teleporting on edge 'CW', time 619.00.
+Warning: Vehicle '564' ends teleporting on edge 'EC', time 619.00.
+Warning: Vehicle '918'; collision with vehicle '200', lane='WC1_0', gap=-3.21', latGap=-1.35, time=620.00 stage=laneChange.
+Warning: Vehicle '524' ends teleporting on edge 'EC', time 620.00.
+Warning: Vehicle '515'; collision with vehicle '325', lane='EC_1', gap=-2.52', latGap=-0.11, time=621.00 stage=move.
+Warning: Vehicle '874'; collision with vehicle '986', lane='WC_1', gap=-0.70', latGap=-0.80, time=622.00 stage=laneChange.
+Warning: Vehicle '550'; collision with vehicle '299', lane='EC_1', gap=-1.28', latGap=-1.15, time=623.00 stage=move.
+Warning: Vehicle '999'; collision with vehicle '874', lane='WC_1', gap=-6.99', latGap=-0.80, time=624.00 stage=move.
+Warning: Vehicle '273'; collision with vehicle '954', lane='WC_1', gap=-0.23', latGap=-0.90, time=625.00 stage=move.
+Warning: Vehicle '1003'; collision with vehicle '874', lane='WC_0', gap=-1.33', latGap=-0.55, time=627.00 stage=move.
+Warning: Vehicle '520'; collision with vehicle '273', lane='WC_0', gap=-3.43', latGap=-1.80, time=627.00 stage=move.
+Warning: Teleporting vehicle '200' after earlier collision, lane=':gneJ0_0_0, time=631.00.
+Warning: Vehicle '200' ends teleporting on edge 'WC', time 631.00.
+Warning: Teleporting vehicle '918' after earlier collision, lane=':gneJ0_0_0, time=632.00.
+Warning: Teleporting vehicle '325' after earlier collision, lane='EC_1, time=632.00.
+Warning: Teleporting vehicle '515' after earlier collision, lane='EC_0, time=632.00.
+Warning: Vehicle '918' ends teleporting on edge 'WC', time 632.00.
+Warning: Vehicle '325' ends teleporting on edge 'CW', time 632.00.
+Warning: Vehicle '515' ends teleporting on edge 'CN', time 632.00.
+Warning: Teleporting vehicle '874' after earlier collision, lane='WC_0, time=633.00.
+Warning: Vehicle '874' teleports beyond arrival edge 'WC', time 633.00.
+Warning: Teleporting vehicle '986' after earlier collision, lane='WC_2, time=634.00.
+Warning: Teleporting vehicle '299' after earlier collision, lane='EC_1, time=634.00.
+Warning: Teleporting vehicle '550' after earlier collision, lane='EC_0, time=634.00.
+Warning: Vehicle '986' ends teleporting on edge 'CN', time 634.00.
+Warning: Vehicle '299' ends teleporting on edge 'CS', time 634.00.
+Warning: Vehicle '550' ends teleporting on edge 'CN', time 634.00.
+Warning: Teleporting vehicle '999' after earlier collision, lane='WC_2, time=636.00.
+Warning: Teleporting vehicle '954' after earlier collision, lane='WC_1, time=636.00.
+Warning: Vehicle '954' ends teleporting on edge 'CE', time 636.00.
+Warning: Teleporting vehicle '273' after earlier collision, lane='WC_0, time=637.00.
+Warning: Vehicle '273' teleports beyond arrival edge 'WC', time 637.00.
+Warning: Vehicle '999' ends teleporting on edge 'CN', time 637.00.
+Warning: Teleporting vehicle '1003' after earlier collision, lane='WC_1, time=638.00.
+Warning: Teleporting vehicle '520' after earlier collision, lane='WC_0, time=639.00.
+Warning: Vehicle '520' teleports beyond arrival edge 'WC', time 639.00.
+Warning: Vehicle '591'; collision with vehicle '586', lane='EC_2', gap=-2.80', latGap=-0.45, time=640.00 stage=move.
+Warning: Vehicle '1003' ends teleporting on edge 'CE', time 640.00.
+Warning: Vehicle '367'; collision with vehicle '359', lane=':gneJ2_0_0', gap=-3.32', latGap=-1.43, time=642.00 stage=move.
+Warning: Vehicle '609'; collision with vehicle '367', lane='EC1_0', gap=-1.58', latGap=-0.90, time=642.00 stage=laneChange.
+Warning: Vehicle '609'; collision with vehicle '716', lane='EC1_0', gap=-0.89', latGap=-1.05, time=642.00 stage=insertion.
+Warning: Teleporting vehicle '586' after earlier collision, lane='EC_2, time=651.00.
+Warning: Teleporting vehicle '591' after earlier collision, lane='EC_2, time=651.00.
+Warning: Vehicle '1056'; collision with vehicle '1034', lane='WC_1', gap=-0.22', latGap=-0.90, time=652.00 stage=move.
+Warning: Vehicle '586' ends teleporting on edge 'CS', time 652.00.
+Warning: Teleporting vehicle '367' after earlier collision, lane=':gneJ2_0_0, time=653.00.
+Warning: Teleporting vehicle '359' after earlier collision, lane='EC_0, time=653.00.
+Warning: Vehicle '359' teleports beyond arrival edge 'EC', time 653.00.
+Warning: Teleporting vehicle '716' after earlier collision, lane='EC1_0, time=653.00.
+Warning: Teleporting vehicle '609' after earlier collision, lane='EC1_0, time=653.00.
+Warning: Vehicle '367' ends teleporting on edge 'EC', time 653.00.
+Warning: Vehicle '1062'; collision with vehicle '1055', lane='WC_1', gap=-1.55', latGap=-0.80, time=655.00 stage=move.
+Warning: Vehicle '609' ends teleporting on edge 'EC', time 655.00.
+Warning: Vehicle '591' ends teleporting on edge 'CE', time 657.00.
+Warning: Vehicle '478'; collision with vehicle '620', lane='EC1_0', gap=-5.96', latGap=-1.80, time=658.00 stage=move.
+Warning: Vehicle '356'; collision with vehicle '678', lane='NC_1', gap=-3.48', latGap=-0.90, time=661.00 stage=move.
+Warning: Vehicle '1029'; collision with vehicle '356', lane='NC_0', gap=-3.00', latGap=-0.90, time=662.00 stage=move.
+Warning: Teleporting vehicle '269' after earlier collision, lane='WC_2, time=663.00.
+Warning: Vehicle '269' teleports beyond arrival edge 'WC', time 663.00.
+Warning: Teleporting vehicle '1034' after earlier collision, lane='WC_0, time=663.00.
+Warning: Teleporting vehicle '1056' after earlier collision, lane='WC_0, time=663.00.
+Warning: Vehicle '1056' teleports beyond arrival edge 'WC', time 663.00.
+Warning: Vehicle '1034' ends teleporting on edge 'CS', time 663.00.
+Warning: Vehicle '356'; collision with vehicle '704', lane='NC_0', gap=-3.61', latGap=-0.90, time=664.00 stage=move.
+Warning: Vehicle '1029'; collision with vehicle '706', lane='NC_0', gap=-4.54', latGap=-0.75, time=665.00 stage=move.
+Warning: Teleporting vehicle '1055' after earlier collision, lane='WC_2, time=666.00.
+Warning: Vehicle '1055' ends teleporting on edge 'CN', time 666.00.
+Warning: Teleporting vehicle '1062' after earlier collision, lane='WC_2, time=667.00.
+Warning: Vehicle '1062' ends teleporting on edge 'CW', time 667.00.
+Warning: Vehicle '704'; collision with vehicle '977', lane='NC_0', gap=-1.73', latGap=-0.90, time=668.00 stage=move.
+Warning: Teleporting vehicle '478' after earlier collision, lane=':gneJ2_0_0, time=669.00.
+Warning: Vehicle '716' teleports beyond arrival edge 'EC', time 669.00.
+Warning: Teleporting vehicle '620' after earlier collision, lane='EC_2, time=670.00.
+Warning: Vehicle '704'; collision with vehicle '255', lane='NC_0', gap=-3.92', latGap=-0.90, time=670.00 stage=move.
+Warning: Vehicle '620' ends teleporting on edge 'CS', time 670.00.
+Warning: Vehicle '559'; collision with vehicle '369', lane='EC_1', gap=-0.52', latGap=-1.05, time=671.00 stage=move.
+Warning: Teleporting vehicle '356' after earlier collision, lane='NC_0, time=672.00.
+Warning: Vehicle '356' teleports beyond arrival edge 'NC', time 672.00.
+Warning: Teleporting vehicle '678' after earlier collision, lane='NC_1, time=672.00.
+Warning: Vehicle '609'; collision with vehicle '281', lane='EC_2', gap=-4.18', latGap=-0.45, time=672.00 stage=laneChange.
+Warning: Vehicle '281'; collision with vehicle '367', lane='EC_2', gap=-0.52', latGap=-0.90, time=672.00 stage=laneChange.
+Warning: Vehicle '760'; collision with vehicle '614', lane='EC1_0', gap=-1.30', latGap=-0.90, time=672.00 stage=laneChange.
+Warning: Vehicle '678' ends teleporting on edge 'CS', time 672.00.
+Warning: Teleporting vehicle '1029' after earlier collision, lane='NC_0, time=673.00.
+Warning: Vehicle '1029' teleports beyond arrival edge 'NC', time 673.00.
+Warning: Vehicle '255'; collision with vehicle '722', lane='NC_0', gap=-3.77', latGap=-0.30, time=673.00 stage=move.
+Warning: Vehicle '1129'; collision with vehicle '1154', lane='WC1_0', gap=-7.25', latGap=-0.30, time=674.00 stage=laneChange.
+Warning: Teleporting vehicle '704' after earlier collision, lane='NC_0, time=675.00.
+Warning: Vehicle '1073'; collision with vehicle '1090', lane='WC_1', gap=-6.91', latGap=-0.85, time=675.00 stage=move.
+Warning: Vehicle '761'; collision with vehicle '547', lane='NC_0', gap=-0.40', latGap=-0.30, time=675.00 stage=move.
+Warning: Vehicle '547'; collision with vehicle '473', lane='NC_0', gap=-5.07', latGap=-0.30, time=675.00 stage=move.
+Warning: Vehicle '704' ends teleporting on edge 'CW', time 675.00.
+Warning: Teleporting vehicle '706' after earlier collision, lane='NC_0, time=676.00.
+Warning: Vehicle '706' ends teleporting on edge 'CW', time 676.00.
+Warning: Vehicle '547'; collision with vehicle '742', lane='NC_0', gap=-3.74', latGap=-0.30, time=677.00 stage=move.
+Warning: Vehicle '547'; collision with vehicle '334', lane='NC_0', gap=-7.15', latGap=-0.30, time=679.00 stage=move.
+Warning: Teleporting vehicle '977' after earlier collision, lane='NC_0, time=680.00.
+Warning: Vehicle '977' teleports beyond arrival edge 'NC', time 680.00.
+Warning: Vehicle '275'; collision with vehicle '761', lane='NC_0', gap=-4.65', latGap=-0.30, time=680.00 stage=move.
+Warning: Teleporting vehicle '369' after earlier collision, lane='EC_1, time=682.00.
+Warning: Teleporting vehicle '559' after earlier collision, lane='EC_0, time=682.00.
+Warning: Vehicle '559' teleports beyond arrival edge 'EC', time 682.00.
+Warning: Vehicle '334' performs emergency stop at the end of lane 'NC_0' for unknown reasons (decel=-5.83, offset=0.92), time=682.00.
+Warning: Teleporting vehicle '255' after earlier collision, lane='NC_0, time=682.00.
+Warning: Vehicle '255' teleports beyond arrival edge 'NC', time 682.00.
+Warning: Vehicle '275'; collision with vehicle '515', lane='NC_0', gap=-6.75', latGap=-1.80, time=682.00 stage=move.
+Warning: Teleporting vehicle '614' after earlier collision, lane=':gneJ2_0_0, time=683.00.
+Warning: Teleporting vehicle '367' after earlier collision, lane='EC_2, time=683.00.
+Warning: Vehicle '367' teleports beyond arrival edge 'EC', time 683.00.
+Warning: Teleporting vehicle '609' after earlier collision, lane='EC_2, time=683.00.
+Warning: Teleporting vehicle '281' after earlier collision, lane='EC_1, time=683.00.
+Warning: Vehicle '281' teleports beyond arrival edge 'EC', time 683.00.
+Warning: Teleporting vehicle '760' after earlier collision, lane='EC1_0, time=683.00.
+Warning: Vehicle '478' ends teleporting on edge 'EC', time 683.00.
+Warning: Vehicle '614' ends teleporting on edge 'EC', time 683.00.
+Warning: Vehicle '609' ends teleporting on edge 'CS', time 683.00.
+Warning: Vehicle '760' ends teleporting on edge 'EC', time 683.00.
+Warning: Teleporting vehicle '1129' after earlier collision, lane=':gneJ0_0_0, time=685.00.
+Warning: Teleporting vehicle '1154' after earlier collision, lane=':gneJ0_0_2, time=685.00.
+Warning: Teleporting vehicle '722' after earlier collision, lane='NC_0, time=685.00.
+Warning: Vehicle '627'; collision with vehicle '761', lane='NC_0', gap=-0.20', latGap=-1.30, time=685.00 stage=move.
+Warning: Vehicle '369' ends teleporting on edge 'CS', time 685.00.
+Warning: Vehicle '1129' ends teleporting on edge 'WC', time 685.00.
+Warning: Vehicle '722' ends teleporting on edge 'CW', time 685.00.
+Warning: Teleporting vehicle '1090' after earlier collision, lane='WC_0, time=686.00.
+Warning: Teleporting vehicle '1073' after earlier collision, lane='WC_0, time=686.00.
+Warning: Vehicle '1073' teleports beyond arrival edge 'WC', time 686.00.
+Warning: Teleporting vehicle '547' after earlier collision, lane='NC_0, time=686.00.
+Warning: Vehicle '547' teleports beyond arrival edge 'NC', time 686.00.
+Warning: Teleporting vehicle '761' after earlier collision, lane='NC_0, time=686.00.
+Warning: Vehicle '761' teleports beyond arrival edge 'NC', time 686.00.
+Warning: Vehicle '747'; collision with vehicle '627', lane='NC_1', gap=-3.31', latGap=-0.65, time=686.00 stage=move.
+Warning: Vehicle '1175'; collision with vehicle '1124', lane='WC1_0', gap=-4.95', latGap=-1.20, time=686.00 stage=laneChange.
+Warning: Vehicle '1154' ends teleporting on edge 'WC', time 686.00.
+Warning: Vehicle '1090' ends teleporting on edge 'CS', time 686.00.
+Warning: Teleporting vehicle '473' after earlier collision, lane='NC_0, time=688.00.
+Warning: Vehicle '473' teleports beyond arrival edge 'NC', time 688.00.
+Warning: Teleporting vehicle '742' after earlier collision, lane='NC_0, time=689.00.
+Warning: Vehicle '742' teleports beyond arrival edge 'NC', time 689.00.
+Warning: Vehicle '1124'; collision with vehicle '1074', lane=':gneJ0_0_0', gap=-6.40', latGap=-1.55, time=689.00 stage=move.
+Warning: Vehicle '1078'; collision with vehicle '790', lane='SC_1', gap=-3.70', latGap=-0.05, time=690.00 stage=laneChange.
+Warning: Teleporting vehicle '275' after earlier collision, lane='NC_0, time=692.00.
+Warning: Vehicle '275' teleports beyond arrival edge 'NC', time 692.00.
+Warning: Teleporting vehicle '334' after earlier collision, lane='NC_0, time=693.00.
+Warning: Vehicle '334' teleports beyond arrival edge 'NC', time 693.00.
+Warning: Vehicle '764'; collision with vehicle '656', lane='EC1_0', gap=-4.90', latGap=-0.30, time=693.00 stage=laneChange.
+Warning: Vehicle '764' performs emergency stop at the end of lane ':gneJ2_0_0' because there is no connection to the next edge (decel=-7.60, offset=1.37), time=694.00.
+Warning: Teleporting vehicle '515' after earlier collision, lane='NC_0, time=695.00.
+Warning: Vehicle '515' teleports beyond arrival edge 'NC', time 695.00.
+Warning: Teleporting vehicle '1124' after earlier collision, lane=':gneJ0_0_0, time=697.00.
+Warning: Teleporting vehicle '627' after earlier collision, lane='NC_0, time=697.00.
+Warning: Teleporting vehicle '747' after earlier collision, lane='NC_1, time=697.00.
+Warning: Teleporting vehicle '1175' after earlier collision, lane='WC1_0, time=697.00.
+Warning: Vehicle '627' ends teleporting on edge 'CW', time 697.00.
+Warning: Vehicle '747' ends teleporting on edge 'CS', time 697.00.
+Warning: Vehicle '1175' ends teleporting on edge 'WC', time 697.00.
+Warning: Vehicle '1124' ends teleporting on edge 'WC', time 699.00.
+Warning: Teleporting vehicle '790' after earlier collision, lane='SC_2, time=701.00.
+Warning: Teleporting vehicle '1074' after earlier collision, lane=':gneJ0_0_0, time=701.00.
+Warning: Teleporting vehicle '1078' after earlier collision, lane='SC_0, time=701.00.
+Warning: Vehicle '790' ends teleporting on edge 'CW', time 701.00.
+Warning: Vehicle '1174'; collision with vehicle '1179', lane='WC1_0', gap=-3.41', latGap=-0.80, time=702.00 stage=laneChange.
+Warning: Vehicle '1078' ends teleporting on edge 'CE', time 703.00.
+Warning: Teleporting vehicle '656' after earlier collision, lane='EC_0, time=704.00.
+Warning: Vehicle '656' teleports beyond arrival edge 'EC', time 704.00.
+Warning: Vehicle '1074' ends teleporting on edge 'WC', time 704.00.
+Warning: Teleporting vehicle '764' after earlier collision, lane=':gneJ2_0_0, time=705.00.
+Warning: Vehicle '764' ends teleporting on edge 'EC', time 705.00.
+Warning: Vehicle '500'; collision with vehicle '636', lane='EC1_0', gap=-2.15', latGap=-1.80, time=707.00 stage=move.
+Warning: Vehicle '636'; collision with vehicle '789', lane='EC_1', gap=-1.70', latGap=-0.70, time=709.00 stage=move.
+Warning: Vehicle '701'; collision with vehicle '865', lane='NC_2', gap=-3.74', latGap=-1.05, time=709.00 stage=move.
+Warning: Vehicle '797'; collision with vehicle '636', lane='EC_1', gap=-6.68', latGap=-1.80, time=711.00 stage=move.
+Warning: Vehicle '516'; collision with vehicle '797', lane='EC1_0', gap=-0.82', latGap=-1.80, time=711.00 stage=move.
+Warning: Teleporting vehicle '195'; waited too long (jam), lane='NC_1', time=712.00.
+Warning: Vehicle '195' teleports beyond arrival edge 'NC', time 712.00.
+Warning: Vehicle '195' skips stop on lane 'NC_0' time=712.00.
+Warning: Teleporting vehicle '1179' after earlier collision, lane=':gneJ0_0_2, time=713.00.
+Warning: Teleporting vehicle '1174' after earlier collision, lane=':gneJ0_0_0, time=713.00.
+Warning: Vehicle '351'; collision with vehicle '393', lane='EC_1', gap=-2.45', latGap=-1.35, time=713.00 stage=move.
+Warning: Vehicle '1179' ends teleporting on edge 'WC', time 713.00.
+Warning: Vehicle '539'; collision with vehicle '797', lane=':gneJ2_0_0', gap=-5.05', latGap=-1.80, time=714.00 stage=move.
+Warning: Vehicle '539' performs emergency stop at the end of lane ':gneJ2_0_0' because there is no connection to the next edge (decel=-9.99, offset=3.05), time=715.00.
+Warning: Vehicle '1174' ends teleporting on edge 'WC', time 715.00.
+Warning: Teleporting vehicle '636' after earlier collision, lane='EC_0, time=719.00.
+Warning: Vehicle '636' teleports beyond arrival edge 'EC', time 719.00.
+Warning: Teleporting vehicle '500' after earlier collision, lane='EC1_0, time=719.00.
+Warning: Vehicle '500' ends teleporting on edge 'EC', time 719.00.
+Warning: Teleporting vehicle '865' after earlier collision, lane='NC_1, time=720.00.
+Warning: Teleporting vehicle '701' after earlier collision, lane='NC_1, time=720.00.
+Warning: Vehicle '865' ends teleporting on edge 'CS', time 720.00.
+Warning: Vehicle '701' ends teleporting on edge 'CS', time 720.00.
+Warning: Teleporting vehicle '789' after earlier collision, lane='EC_0, time=721.00.
+Warning: Vehicle '789' teleports beyond arrival edge 'EC', time 721.00.
+Warning: Teleporting vehicle '797' after earlier collision, lane='EC_0, time=722.00.
+Warning: Vehicle '797' teleports beyond arrival edge 'EC', time 722.00.
+Warning: Teleporting vehicle '516' after earlier collision, lane='EC1_0, time=722.00.
+Warning: Vehicle '848'; collision with vehicle '775', lane='NC_0', gap=-2.07', latGap=-0.90, time=722.00 stage=move.
+Warning: Vehicle '775'; collision with vehicle '593', lane='NC_1', gap=-1.22', latGap=-0.30, time=722.00 stage=move.
+Warning: Vehicle '516' ends teleporting on edge 'EC', time 722.00.
+Warning: Vehicle '622'; collision with vehicle '539', lane=':gneJ2_0_1', gap=-7.00', latGap=-0.80, time=723.00 stage=move.
+Warning: Vehicle '705'; collision with vehicle '848', lane='NC_0', gap=-2.63', latGap=-0.90, time=723.00 stage=move.
+Warning: Teleporting vehicle '393' after earlier collision, lane='EC_1, time=724.00.
+Warning: Teleporting vehicle '351' after earlier collision, lane='EC_0, time=724.00.
+Warning: Vehicle '351' teleports beyond arrival edge 'EC', time 724.00.
+Warning: Vehicle '393' ends teleporting on edge 'CW', time 724.00.
+Warning: Teleporting vehicle '539' after earlier collision, lane=':gneJ2_0_0, time=726.00.
+Warning: Vehicle '539' ends teleporting on edge 'EC', time 726.00.
+Warning: Vehicle '657'; collision with vehicle '798', lane='EC1_0', gap=-6.00', latGap=-1.05, time=728.00 stage=move.
+Warning: Vehicle '657' performs emergency stop at the end of lane ':gneJ2_0_0' because there is no connection to the next edge (decel=-10.40, offset=4.70), time=729.00.
+Warning: Vehicle '1112'; collision with vehicle '657', lane='EC1_0', gap=-0.20', latGap=-1.80, time=730.00 stage=move.
+Warning: Vehicle '1036'; collision with vehicle '798', lane=':gneJ2_0_0', gap=-5.60', latGap=-1.20, time=732.00 stage=move.
+Warning: Teleporting vehicle '775' after earlier collision, lane='NC_0, time=733.00.
+Warning: Teleporting vehicle '848' after earlier collision, lane='NC_0, time=733.00.
+Warning: Teleporting vehicle '593' after earlier collision, lane='NC_1, time=733.00.
+Warning: Vehicle '775' ends teleporting on edge 'CW', time 733.00.
+Warning: Vehicle '848' ends teleporting on edge 'CW', time 733.00.
+Warning: Vehicle '593' ends teleporting on edge 'CS', time 733.00.
+Warning: Teleporting vehicle '622' after earlier collision, lane=':gneJ2_0_1, time=734.00.
+Warning: Teleporting vehicle '705' after earlier collision, lane='NC_0, time=734.00.
+Warning: Vehicle '705' teleports beyond arrival edge 'NC', time 734.00.
+Warning: Vehicle '393'; collision with vehicle '481', lane='WC_1', gap=-7.21', latGap=-0.80, time=734.00 stage=move.
+Warning: Vehicle '648'; collision with vehicle '421', lane='EC1_0', gap=-4.30', latGap=-1.05, time=736.00 stage=move.
+Warning: Vehicle '689'; collision with vehicle '787', lane='NC1_0', gap=-3.10', latGap=-1.35, time=737.00 stage=laneChange.
+Warning: Vehicle '787'; collision with vehicle '799', lane=':gneJ1_0_0', gap=-3.40', latGap=-0.45, time=738.00 stage=move.
+Warning: Teleporting vehicle '657' after earlier collision, lane=':gneJ2_0_0, time=740.00.
+Warning: Teleporting vehicle '798' after earlier collision, lane='EC_0, time=740.00.
+Warning: Vehicle '798' teleports beyond arrival edge 'EC', time 740.00.
+Warning: Teleporting vehicle '1112' after earlier collision, lane='EC1_0, time=741.00.
+Warning: Vehicle '1112' ends teleporting on edge 'EC', time 741.00.
+Warning: Teleporting vehicle '1036' after earlier collision, lane=':gneJ2_0_0, time=743.00.
+Warning: Vehicle '1111'; collision with vehicle '388', lane='EC1_0', gap=-4.10', latGap=-1.27, time=743.00 stage=move.
+Warning: Vehicle '1036' ends teleporting on edge 'EC', time 743.00.
+Warning: Teleporting vehicle '481' after earlier collision, lane='WC_1, time=745.00.
+Warning: Teleporting vehicle '393' after earlier collision, lane='WC_0, time=745.00.
+Warning: Vehicle '393' teleports beyond arrival edge 'WC', time 745.00.
+Warning: Vehicle '481' ends teleporting on edge 'CW', time 745.00.
+Warning: Teleporting vehicle '648' after earlier collision, lane='EC1_0, time=747.00.
+Warning: Vehicle '648' ends teleporting on edge 'EC', time 747.00.
+Warning: Teleporting vehicle '787' after earlier collision, lane=':gneJ1_0_0, time=748.00.
+Warning: Teleporting vehicle '421' after earlier collision, lane='EC_0, time=748.00.
+Warning: Vehicle '421' teleports beyond arrival edge 'EC', time 748.00.
+Warning: Teleporting vehicle '689' after earlier collision, lane=':gneJ1_0_0, time=749.00.
+Warning: Teleporting vehicle '799' after earlier collision, lane='NC_1, time=749.00.
+Warning: Vehicle '787' ends teleporting on edge 'NC', time 749.00.
+Warning: Vehicle '689' ends teleporting on edge 'NC', time 749.00.
+Warning: Vehicle '799' ends teleporting on edge 'CS', time 749.00.
+Warning: Vehicle '622' ends teleporting on edge 'CW', time 751.00.
+Warning: Vehicle '1175'; collision with vehicle '999', lane='NC1_0', gap=-5.90', latGap=-1.20, time=752.00 stage=move.
+Warning: Teleporting vehicle '388' after earlier collision, lane='EC_0, time=754.00.
+Warning: Vehicle '388' teleports beyond arrival edge 'EC', time 754.00.
+Warning: Teleporting vehicle '1111' after earlier collision, lane='EC1_0, time=754.00.
+Warning: Vehicle '999'; collision with vehicle '385', lane='NC_1', gap=-6.10', latGap=-0.15, time=755.00 stage=move.
+Warning: Vehicle '744'; collision with vehicle '666', lane='EC1_0', gap=-1.00', latGap=-0.90, time=756.00 stage=move.
+Warning: Vehicle '729'; collision with vehicle '666', lane='EC1_0', gap=-5.70', latGap=-0.90, time=756.00 stage=move.
+Warning: Vehicle '657' ends teleporting on edge 'CN', time 757.00.
+Warning: Vehicle '622'; collision with vehicle '649', lane='WC_1', gap=-0.61', latGap=-0.90, time=759.00 stage=move.
+Warning: Vehicle '689'; collision with vehicle '622', lane=':gneJ0_0_0', gap=-0.51', latGap=-1.80, time=761.00 stage=move.
+Warning: Vehicle '689' performs emergency stop at the end of lane ':gneJ0_0_0' because there is no connection to the next edge (decel=-13.86, offset=2.77), time=762.00.
+Warning: Teleporting vehicle '1175' after earlier collision, lane=':gneJ1_0_0, time=763.00.
+Warning: Vehicle '1175' ends teleporting on edge 'NC', time 763.00.
+Warning: Teleporting vehicle '999' after earlier collision, lane='NC_0, time=764.00.
+Warning: Vehicle '999' teleports beyond arrival edge 'NC', time 764.00.
+Warning: Teleporting vehicle '729' after earlier collision, lane=':gneJ2_0_2, time=767.00.
+Warning: Teleporting vehicle '385' after earlier collision, lane='NC_0, time=767.00.
+Warning: Vehicle '385' teleports beyond arrival edge 'NC', time 767.00.
+Warning: Teleporting vehicle '744' after earlier collision, lane='EC1_0, time=767.00.
+Warning: Vehicle '1111' ends teleporting on edge 'EC', time 767.00.
+Warning: Vehicle '729' ends teleporting on edge 'EC', time 767.00.
+Warning: Vehicle '744' ends teleporting on edge 'EC', time 767.00.
+Warning: Teleporting vehicle '666' after earlier collision, lane='EC_2, time=768.00.
+Warning: Vehicle '666' ends teleporting on edge 'CS', time 768.00.
+Warning: Teleporting vehicle '649' after earlier collision, lane='WC_0, time=770.00.
+Warning: Vehicle '649' teleports beyond arrival edge 'WC', time 770.00.
+Warning: Teleporting vehicle '622' after earlier collision, lane='WC_0, time=770.00.
+Warning: Vehicle '622' teleports beyond arrival edge 'WC', time 770.00.
+Warning: Vehicle '719'; collision with vehicle '1111', lane='EC_1', gap=-5.65', latGap=-0.55, time=770.00 stage=move.
+Warning: Teleporting vehicle '673'; waited too long (yield), lane='SC_1', time=771.00.
+Warning: Vehicle '673' skips stop on lane 'SC_0' time=771.00.
+Warning: Vehicle '673' ends teleporting on edge 'CN', time 771.00.
+Warning: Teleporting vehicle '689' after earlier collision, lane=':gneJ0_0_0, time=772.00.
+Warning: Vehicle '689' ends teleporting on edge 'WC', time 772.00.
+Warning: Vehicle '395'; collision with vehicle '493', lane='WC_1', gap=-4.05', latGap=-1.80, time=780.00 stage=move.
+Warning: Teleporting vehicle '719' after earlier collision, lane='EC_0, time=781.00.
+Warning: Teleporting vehicle '1111' after earlier collision, lane='EC_1, time=781.00.
+Warning: Vehicle '1111' teleports beyond arrival edge 'EC', time 781.00.
+Warning: Vehicle '825'; collision with vehicle '801', lane='EC_1', gap=-0.01', latGap=-0.05, time=781.00 stage=move.
+Warning: Vehicle '395'; collision with vehicle '418', lane='WC_1', gap=-4.91', latGap=-1.80, time=781.00 stage=move.
+Warning: Vehicle '719' ends teleporting on edge 'CN', time 781.00.
+Warning: Vehicle '895'; collision with vehicle '825', lane='EC_1', gap=-3.89', latGap=-1.05, time=783.00 stage=move.
+Warning: Vehicle '1089'; collision with vehicle '1108', lane='SC_2', gap=-4.45', latGap=-0.10, time=785.00 stage=move.
+Warning: Vehicle '1089'; collision with vehicle '1103', lane='SC_1', gap=-3.82', latGap=-0.40, time=785.00 stage=move.
+Warning: Vehicle '902'; collision with vehicle '825', lane='EC_0', gap=-2.35', latGap=-0.90, time=786.00 stage=move.
+Warning: Vehicle '923'; collision with vehicle '1108', lane='SC_1', gap=-3.55', latGap=-0.80, time=786.00 stage=move.
+Warning: Vehicle '913'; collision with vehicle '825', lane='EC_0', gap=-5.43', latGap=-0.90, time=787.00 stage=move.
+Warning: Vehicle '1117'; collision with vehicle '1084', lane='SC1_0', gap=-7.15', latGap=-1.05, time=787.00 stage=laneChange.
+Warning: Teleporting vehicle '493' after earlier collision, lane='WC_1, time=791.00.
+Warning: Teleporting vehicle '395' after earlier collision, lane='WC_0, time=791.00.
+Warning: Vehicle '395' teleports beyond arrival edge 'WC', time 791.00.
+Warning: Teleporting vehicle '801' after earlier collision, lane='EC_1, time=792.00.
+Warning: Vehicle '772'; collision with vehicle '776', lane='EC_1', gap=-2.78', latGap=-0.90, time=792.00 stage=move.
+Warning: Vehicle '493' ends teleporting on edge 'CE', time 792.00.
+Warning: Teleporting vehicle '825' after earlier collision, lane='EC_0, time=793.00.
+Warning: Teleporting vehicle '418' after earlier collision, lane='WC_0, time=793.00.
+Warning: Vehicle '418' teleports beyond arrival edge 'WC', time 793.00.
+Warning: Vehicle '883'; collision with vehicle '902', lane='EC_0', gap=-1.36', latGap=-0.90, time=793.00 stage=move.
+Warning: Vehicle '801' ends teleporting on edge 'CW', time 793.00.
+Warning: Teleporting vehicle '895' after earlier collision, lane='EC_1, time=794.00.
+Warning: Vehicle '825' ends teleporting on edge 'CN', time 794.00.
+Warning: Vehicle '895' ends teleporting on edge 'CW', time 794.00.
+Warning: Vehicle '828'; collision with vehicle '824', lane=':gneJ2_0_2', gap=-2.02', latGap=-0.75, time=795.00 stage=move.
+Warning: Teleporting vehicle '1089' after earlier collision, lane='SC_2, time=796.00.
+Warning: Teleporting vehicle '1108' after earlier collision, lane='SC_1, time=796.00.
+Warning: Teleporting vehicle '1103' after earlier collision, lane='SC_1, time=796.00.
+Warning: Vehicle '1089' ends teleporting on edge 'CS', time 796.00.
+Warning: Vehicle '1108' ends teleporting on edge 'CN', time 796.00.
+Warning: Teleporting vehicle '902' after earlier collision, lane='EC_0, time=797.00.
+Warning: Vehicle '1103' ends teleporting on edge 'CN', time 797.00.
+Warning: Teleporting vehicle '913' after earlier collision, lane='EC_0, time=798.00.
+Warning: Teleporting vehicle '1117' after earlier collision, lane=':gneJ3_0_0, time=798.00.
+Warning: Teleporting vehicle '1084' after earlier collision, lane=':gneJ3_0_0, time=798.00.
+Warning: Vehicle '903'; collision with vehicle '883', lane='EC_0', gap=-3.40', latGap=-1.80, time=798.00 stage=move.
+Warning: Vehicle '1117' ends teleporting on edge 'SC', time 798.00.
+Warning: Vehicle '1084' ends teleporting on edge 'SC', time 799.00.
+Warning: Vehicle '480'; collision with vehicle '189', lane='SC1_0', gap=-7.50', latGap=-1.80, time=800.00 stage=laneChange.
+Warning: Vehicle '902' ends teleporting on edge 'CN', time 800.00.
+Warning: Vehicle '913' ends teleporting on edge 'CN', time 801.00.
+Warning: Teleporting vehicle '772' after earlier collision, lane='EC_2, time=803.00.
+Warning: Vehicle '772' ends teleporting on edge 'CE', time 803.00.
+Warning: Teleporting vehicle '776' after earlier collision, lane='EC_0, time=804.00.
+Warning: Vehicle '776' ends teleporting on edge 'CN', time 804.00.
+Warning: Teleporting vehicle '883' after earlier collision, lane='EC_0, time=805.00.
+Warning: Vehicle '883' teleports beyond arrival edge 'EC', time 805.00.
+Warning: Teleporting vehicle '824' after earlier collision, lane=':gneJ2_0_2, time=806.00.
+Warning: Teleporting vehicle '828' after earlier collision, lane=':gneJ2_0_2, time=806.00.
+Warning: Vehicle '824' ends teleporting on edge 'EC', time 806.00.
+Warning: Vehicle '828' ends teleporting on edge 'EC', time 808.00.
+Warning: Teleporting vehicle '903' after earlier collision, lane='EC_0, time=809.00.
+Warning: Vehicle '903' ends teleporting on edge 'CN', time 809.00.
+Warning: Vehicle '828'; collision with vehicle '912', lane='EC_2', gap=-4.18', latGap=-0.45, time=810.00 stage=move.
+Warning: Vehicle '912'; collision with vehicle '691', lane='EC_2', gap=-0.52', latGap=-0.30, time=810.00 stage=move.
+Warning: Teleporting vehicle '189' after earlier collision, lane=':gneJ3_0_0, time=811.00.
+Warning: Teleporting vehicle '480' after earlier collision, lane=':gneJ3_0_0, time=812.00.
+Warning: Vehicle '189' ends teleporting on edge 'SC', time 812.00.
+Warning: Vehicle '444'; collision with vehicle '923', lane=':gneJ3_0_1', gap=-1.45', latGap=-0.90, time=813.00 stage=move.
+Warning: Vehicle '820'; collision with vehicle '444', lane='SC1_0', gap=-4.70', latGap=-0.45, time=814.00 stage=laneChange.
+Warning: Teleporting vehicle '691' after earlier collision, lane='EC_2, time=821.00.
+Warning: Teleporting vehicle '828' after earlier collision, lane='EC_2, time=821.00.
+Warning: Teleporting vehicle '912' after earlier collision, lane='EC_1, time=821.00.
+Warning: Vehicle '932'; collision with vehicle '877', lane='EC1_0', gap=-5.80', latGap=-1.20, time=821.00 stage=laneChange.
+Warning: Vehicle '912' ends teleporting on edge 'CW', time 821.00.
+Warning: Vehicle '949'; collision with vehicle '946', lane=':gneJ1_0_1', gap=-3.50', latGap=-0.75, time=822.00 stage=move.
+Warning: Vehicle '940'; collision with vehicle '939', lane=':gneJ1_0_0', gap=-3.50', latGap=-0.05, time=822.00 stage=move.
+Warning: Vehicle '691' ends teleporting on edge 'CS', time 822.00.
+Warning: Vehicle '828' ends teleporting on edge 'CE', time 822.00.
+Warning: Vehicle '906'; collision with vehicle '877', lane=':gneJ2_0_1', gap=-6.16', latGap=-1.80, time=823.00 stage=move.
+Warning: Teleporting vehicle '444' after earlier collision, lane=':gneJ3_0_0, time=824.00.
+Warning: Teleporting vehicle '820' after earlier collision, lane=':gneJ3_0_0, time=825.00.
+Warning: Vehicle '480' ends teleporting on edge 'SC', time 825.00.
+Warning: Vehicle '444' ends teleporting on edge 'SC', time 825.00.
+Warning: Vehicle '820' ends teleporting on edge 'SC', time 826.00.
+Warning: Teleporting vehicle '877' after earlier collision, lane=':gneJ2_0_0, time=832.00.
+Warning: Teleporting vehicle '932' after earlier collision, lane='EC1_0, time=832.00.
+Warning: Vehicle '912'; collision with vehicle '616', lane='WC_1', gap=-0.06', latGap=-1.35, time=832.00 stage=move.
+Warning: Vehicle '955'; collision with vehicle '1004', lane='NC_1', gap=-3.58', latGap=-0.80, time=832.00 stage=move.
+Warning: Teleporting vehicle '946' after earlier collision, lane=':gneJ1_0_2, time=833.00.
+Warning: Teleporting vehicle '939' after earlier collision, lane=':gneJ1_0_0, time=833.00.
+Warning: Teleporting vehicle '940' after earlier collision, lane=':gneJ1_0_0, time=833.00.
+Warning: Teleporting vehicle '949' after earlier collision, lane=':gneJ1_0_0, time=833.00.
+Warning: Vehicle '946' ends teleporting on edge 'NC', time 833.00.
+Warning: Teleporting vehicle '906' after earlier collision, lane=':gneJ2_0_2, time=834.00.
+Warning: Vehicle '939' ends teleporting on edge 'NC', time 834.00.
+Warning: Vehicle '1027'; collision with vehicle '1004', lane='NC_1', gap=-3.86', latGap=-1.05, time=836.00 stage=move.
+Warning: Vehicle '955'; collision with vehicle '719', lane='NC_1', gap=-4.32', latGap=-0.05, time=837.00 stage=move.
+Warning: Vehicle '1010'; collision with vehicle '865', lane='SC1_0', gap=-7.20', latGap=-1.80, time=840.00 stage=laneChange.
+Warning: Teleporting vehicle '616' after earlier collision, lane='WC_1, time=843.00.
+Warning: Teleporting vehicle '1004' after earlier collision, lane='NC_1, time=843.00.
+Warning: Teleporting vehicle '955' after earlier collision, lane='NC_0, time=843.00.
+Warning: Vehicle '955' teleports beyond arrival edge 'NC', time 843.00.
+Warning: Teleporting vehicle '912' after earlier collision, lane='WC_0, time=843.00.
+Warning: Vehicle '912' teleports beyond arrival edge 'WC', time 843.00.
+Warning: Vehicle '616' ends teleporting on edge 'CE', time 843.00.
+Warning: Vehicle '1004' ends teleporting on edge 'CS', time 844.00.
+Warning: Vehicle '490'; collision with vehicle '1027', lane='NC_1', gap=-0.74', latGap=-1.20, time=846.00 stage=move.
+Warning: Vehicle '913'; collision with vehicle '946', lane='NC_2', gap=-4.70', latGap=-0.45, time=846.00 stage=laneChange.
+Warning: Vehicle '776'; collision with vehicle '913', lane='NC_1', gap=-1.33', latGap=-0.90, time=846.00 stage=laneChange.
+Warning: Vehicle '1009'; collision with vehicle '386', lane='WC_1', gap=-1.48', latGap=-1.35, time=847.00 stage=move.
+Warning: Vehicle '940' ends teleporting on edge 'CW', time 847.00.
+Warning: Vehicle '949' ends teleporting on edge 'CW', time 847.00.
+Warning: Teleporting vehicle '1027' after earlier collision, lane='NC_0, time=848.00.
+Warning: Vehicle '1027' teleports beyond arrival edge 'NC', time 848.00.
+Warning: Vehicle '957'; collision with vehicle '1108', lane='NC_1', gap=-0.63', latGap=-1.80, time=848.00 stage=move.
+Warning: Teleporting vehicle '719' after earlier collision, lane='NC_0, time=849.00.
+Warning: Vehicle '719' teleports beyond arrival edge 'NC', time 849.00.
+Warning: Vehicle '806'; collision with vehicle '957', lane=':gneJ1_0_0', gap=-3.40', latGap=-1.35, time=849.00 stage=move.
+Warning: Vehicle '913'; collision with vehicle '511', lane='NC_1', gap=-6.86', latGap=-0.90, time=849.00 stage=move.
+Warning: Vehicle '903'; collision with vehicle '957', lane='NC1_0', gap=-0.73', latGap=-1.20, time=849.00 stage=move.
+Warning: Vehicle '903'; collision with vehicle '1107', lane='NC1_0', gap=-2.31', latGap=-1.58, time=849.00 stage=laneChange.
+Warning: Vehicle '877' ends teleporting on edge 'CN', time 849.00.
+Warning: Vehicle '932' ends teleporting on edge 'CW', time 849.00.
+Warning: Teleporting vehicle '1010' after earlier collision, lane=':gneJ3_0_0, time=851.00.
+Warning: Vehicle '906' ends teleporting on edge 'CS', time 851.00.
+Warning: Vehicle '1010' ends teleporting on edge 'SC', time 851.00.
+Warning: Teleporting vehicle '865' after earlier collision, lane=':gneJ3_0_0, time=852.00.
+Warning: Vehicle '865' ends teleporting on edge 'SC', time 852.00.
+Warning: Teleporting vehicle '946' after earlier collision, lane='NC_2, time=857.00.
+Warning: Teleporting vehicle '913' after earlier collision, lane='NC_1, time=857.00.
+Warning: Vehicle '913' teleports beyond arrival edge 'NC', time 857.00.
+Warning: Teleporting vehicle '490' after earlier collision, lane='NC_0, time=857.00.
+Warning: Vehicle '490' teleports beyond arrival edge 'NC', time 857.00.
+Warning: Teleporting vehicle '776' after earlier collision, lane='NC_0, time=857.00.
+Warning: Vehicle '776' teleports beyond arrival edge 'NC', time 857.00.
+Warning: Vehicle '946' ends teleporting on edge 'CE', time 857.00.
+Warning: Teleporting vehicle '386' after earlier collision, lane='WC_0, time=858.00.
+Warning: Vehicle '386' teleports beyond arrival edge 'WC', time 858.00.
+Warning: Teleporting vehicle '1009' after earlier collision, lane='WC_0, time=858.00.
+Warning: Vehicle '1009' teleports beyond arrival edge 'WC', time 858.00.
+Warning: Vehicle '940'; collision with vehicle '900', lane='WC_1', gap=-6.52', latGap=-0.60, time=858.00 stage=move.
+Warning: Teleporting vehicle '1108' after earlier collision, lane='NC_0, time=859.00.
+Warning: Vehicle '1108' teleports beyond arrival edge 'NC', time 859.00.
+Warning: Teleporting vehicle '957' after earlier collision, lane='NC_0, time=859.00.
+Warning: Vehicle '957' teleports beyond arrival edge 'NC', time 859.00.
+Warning: Teleporting vehicle '1107' after earlier collision, lane='NC1_0, time=860.00.
+Warning: Vehicle '1107' ends teleporting on edge 'NC', time 860.00.
+Warning: Teleporting vehicle '806' after earlier collision, lane=':gneJ1_0_0, time=861.00.
+Warning: Teleporting vehicle '903' after earlier collision, lane='NC1_0, time=861.00.
+Warning: Vehicle '806' ends teleporting on edge 'NC', time 861.00.
+Warning: Teleporting vehicle '511' after earlier collision, lane='NC_0, time=862.00.
+Warning: Vehicle '511' teleports beyond arrival edge 'NC', time 862.00.
+Warning: Vehicle '903' ends teleporting on edge 'NC', time 862.00.
+Warning: Vehicle '1082'; collision with vehicle '903', lane='NC_2', gap=-1.63', latGap=-1.80, time=863.00 stage=move.
+Warning: Vehicle '809'; collision with vehicle '900', lane='WC_1', gap=-7.36', latGap=-0.60, time=868.00 stage=move.
+Warning: Teleporting vehicle '900' after earlier collision, lane='WC_0, time=869.00.
+Warning: Vehicle '900' teleports beyond arrival edge 'WC', time 869.00.
+Warning: Teleporting vehicle '940' after earlier collision, lane='WC_0, time=869.00.
+Warning: Vehicle '940' teleports beyond arrival edge 'WC', time 869.00.
+Warning: Teleporting vehicle '903' after earlier collision, lane='NC_2, time=874.00.
+Warning: Vehicle '903' teleports beyond arrival edge 'NC', time 874.00.
+Warning: Teleporting vehicle '1082' after earlier collision, lane='NC_1, time=874.00.
+Warning: Vehicle '1082' ends teleporting on edge 'CS', time 874.00.
+Warning: Teleporting vehicle '809' after earlier collision, lane='WC_0, time=879.00.
+Warning: Vehicle '809' teleports beyond arrival edge 'WC', time 879.00.
+Warning: Vehicle '964'; collision with vehicle '448', lane='EC_1', gap=-4.44', latGap=-0.80, time=886.00 stage=laneChange.
+Warning: Vehicle '1013'; collision with vehicle '964', lane='EC_0', gap=-2.55', latGap=-1.20, time=889.00 stage=move.
+Warning: Vehicle '1094'; collision with vehicle '1013', lane='EC_1', gap=-0.10', latGap=-0.90, time=890.00 stage=move.
+Warning: Vehicle '1094'; collision with vehicle '972', lane='EC_2', gap=-2.20', latGap=-0.30, time=890.00 stage=move.
+Warning: Teleporting vehicle '448' after earlier collision, lane='EC_2, time=897.00.
+Warning: Teleporting vehicle '964' after earlier collision, lane='EC_0, time=897.00.
+Warning: Vehicle '448' ends teleporting on edge 'CE', time 897.00.
+Warning: Vehicle '964' ends teleporting on edge 'CN', time 897.00.
+Warning: Vehicle '1023'; collision with vehicle '991', lane='EC_1', gap=-0.90', latGap=-0.40, time=899.00 stage=move.
+Warning: Teleporting vehicle '1094' after earlier collision, lane='EC_1, time=901.00.
+Warning: Teleporting vehicle '972' after earlier collision, lane='EC_2, time=901.00.
+Warning: Teleporting vehicle '1013' after earlier collision, lane='EC_0, time=901.00.
+Warning: Vehicle '1033'; collision with vehicle '1023', lane='EC_1', gap=-2.19', latGap=-1.55, time=901.00 stage=move.
+Warning: Vehicle '1094' ends teleporting on edge 'CW', time 901.00.
+Warning: Vehicle '972' ends teleporting on edge 'CS', time 901.00.
+Warning: Vehicle '1013' ends teleporting on edge 'CN', time 901.00.
+Warning: Teleporting vehicle '991' after earlier collision, lane='EC_0, time=910.00.
+Warning: Teleporting vehicle '1023' after earlier collision, lane='EC_2, time=911.00.
+Warning: Vehicle '1023' ends teleporting on edge 'CS', time 911.00.
+Warning: Vehicle '991' ends teleporting on edge 'CN', time 912.00.
+Warning: Teleporting vehicle '1033' after earlier collision, lane='EC_0, time=913.00.
+Warning: Vehicle '1094'; collision with vehicle '973', lane='WC_1', gap=-0.78', latGap=-0.90, time=913.00 stage=move.
+Warning: Vehicle '1033' ends teleporting on edge 'CN', time 913.00.
+Warning: Vehicle '1121'; collision with vehicle '455', lane='NC_1', gap=-4.49', latGap=-0.65, time=914.00 stage=move.
+Warning: Vehicle '1194'; collision with vehicle '1094', lane='WC_1', gap=-0.72', latGap=-0.90, time=922.00 stage=move.
+Warning: Teleporting vehicle '973' after earlier collision, lane='WC_0, time=924.00.
+Warning: Vehicle '973' teleports beyond arrival edge 'WC', time 924.00.
+Warning: Teleporting vehicle '1094' after earlier collision, lane='WC_0, time=924.00.
+Warning: Vehicle '1094' teleports beyond arrival edge 'WC', time 924.00.
+Warning: Teleporting vehicle '1121' after earlier collision, lane='NC_2, time=926.00.
+Warning: Vehicle '1080'; collision with vehicle '791', lane='WC_1', gap=-3.88', latGap=-0.90, time=926.00 stage=move.
+Warning: Vehicle '1121' ends teleporting on edge 'CE', time 926.00.
+Warning: Vehicle '456'; collision with vehicle '1194', lane='WC_1', gap=-3.28', latGap=-0.90, time=929.00 stage=move.
+Warning: Teleporting vehicle '1194' after earlier collision, lane='WC_0, time=933.00.
+Warning: Vehicle '1194' teleports beyond arrival edge 'WC', time 933.00.
+Warning: Vehicle '1145'; collision with vehicle '456', lane=':gneJ0_0_0', gap=-3.75', latGap=-1.35, time=936.00 stage=move.
+Warning: Teleporting vehicle '791' after earlier collision, lane='WC_1, time=937.00.
+Warning: Teleporting vehicle '1080' after earlier collision, lane='WC_0, time=937.00.
+Warning: Vehicle '1080' teleports beyond arrival edge 'WC', time 937.00.
+Warning: Vehicle '791' ends teleporting on edge 'CE', time 937.00.
+Warning: Teleporting vehicle '456' after earlier collision, lane='WC_0, time=940.00.
+Warning: Vehicle '456' teleports beyond arrival edge 'WC', time 940.00.
+Warning: Teleporting vehicle '1145' after earlier collision, lane=':gneJ0_0_0, time=947.00.
+Warning: Vehicle '1145' ends teleporting on edge 'WC', time 947.00.
+Warning: Vehicle '936'; collision with vehicle '811', lane='EC_1', gap=-1.50', latGap=-1.05, time=956.00 stage=move.
+Warning: Vehicle '811' performs emergency stop at the end of lane 'EC_0' for unknown reasons (decel=-8.70, offset=3.82), time=957.00.
+Warning: Vehicle '936'; collision with vehicle '398', lane='EC_1', gap=-2.40', latGap=-1.05, time=959.00 stage=move.
+Warning: Vehicle '398' performs emergency stop at the end of lane 'EC_0' for unknown reasons (decel=-10.28, offset=4.50), time=960.00.
+Warning: Teleporting vehicle '936' after earlier collision, lane='EC_0, time=967.00.
+Warning: Vehicle '936' teleports beyond arrival edge 'EC', time 967.00.
+Warning: Teleporting vehicle '811' after earlier collision, lane='EC_0, time=968.00.
+Warning: Vehicle '811' teleports beyond arrival edge 'EC', time 968.00.
+Warning: Teleporting vehicle '398' after earlier collision, lane='EC_0, time=971.00.
+Warning: Vehicle '398' teleports beyond arrival edge 'EC', time 971.00.
+Warning: Vehicle '947'; collision with vehicle '608', lane='EC1_0', gap=-4.40', latGap=-0.45, time=981.00 stage=laneChange.
+Warning: Teleporting vehicle '608' after earlier collision, lane=':gneJ2_0_0, time=992.00.
+Warning: Teleporting vehicle '947' after earlier collision, lane='EC1_0, time=992.00.
+Warning: Vehicle '608' ends teleporting on edge 'EC', time 992.00.
+Warning: Vehicle '947' ends teleporting on edge 'EC', time 992.00.
+Warning: Vehicle '1131'; collision with vehicle '1187', lane='EC1_0', gap=-6.90', latGap=-0.90, time=996.00 stage=laneChange.
+Warning: Vehicle '1153'; collision with vehicle '1131', lane=':gneJ2_0_2', gap=-4.70', latGap=-0.90, time=999.00 stage=move.
+Warning: Teleporting vehicle '1131' after earlier collision, lane=':gneJ2_0_2, time=1007.00.
+Warning: Teleporting vehicle '1187' after earlier collision, lane=':gneJ2_0_1, time=1007.00.
+Warning: Vehicle '1153'; collision with vehicle '1190', lane='EC1_0', gap=-4.70', latGap=-1.35, time=1007.00 stage=laneChange.
+Warning: Vehicle '1131' ends teleporting on edge 'EC', time 1007.00.
+Warning: Vehicle '1187' ends teleporting on edge 'EC', time 1007.00.
+Warning: Vehicle '1195'; collision with vehicle '1190', lane=':gneJ2_0_2', gap=-4.70', latGap=-1.35, time=1009.00 stage=move.
+Warning: Teleporting vehicle '1153' after earlier collision, lane=':gneJ2_0_2, time=1010.00.
+Warning: Vehicle '1153' ends teleporting on edge 'EC', time 1010.00.
+Warning: Teleporting vehicle '1190' after earlier collision, lane=':gneJ2_0_2, time=1018.00.
+Warning: Vehicle '1190' ends teleporting on edge 'EC', time 1018.00.
+Warning: Teleporting vehicle '1195' after earlier collision, lane=':gneJ2_0_1, time=1020.00.
+Warning: Vehicle '1121'; collision with vehicle '1184', lane=':gneJ2_0_0', gap=-0.30', latGap=-1.80, time=1022.00 stage=move.
+Warning: Teleporting vehicle '1121' after earlier collision, lane=':gneJ2_0_0, time=1033.00.
+Warning: Teleporting vehicle '1184' after earlier collision, lane='EC_0, time=1033.00.
+Warning: Vehicle '1184' ends teleporting on edge 'CN', time 1033.00.
+Warning: Vehicle '1195' ends teleporting on edge 'CW', time 1037.00.
+Warning: Vehicle '1121' ends teleporting on edge 'EC', time 1044.00.
+Warning: Teleporting vehicle '923'; waited too long (jam), lane='SC_1', time=1087.00.
+Warning: Vehicle '923' teleports beyond arrival edge 'SC', time 1087.00.
+Warning: Vehicle '923' skips stop on lane 'SC_0' time=1087.00.
+Warning: Vehicle '642'; collision with vehicle '584', lane='SC1_0', gap=-6.77', latGap=-1.80, time=1096.00 stage=laneChange.
+Warning: Vehicle '642' performs emergency stop at the end of lane ':gneJ3_0_0' because there is no connection to the next edge (decel=-8.42, offset=1.38), time=1097.00.
+Warning: Vehicle '779'; collision with vehicle '778', lane='WC_1', gap=-1.43', latGap=-0.43, time=1106.00 stage=move.
+Warning: Teleporting vehicle '584' after earlier collision, lane=':gneJ3_0_0, time=1107.00.
+Warning: Vehicle '584' ends teleporting on edge 'SC', time 1107.00.
+Warning: Teleporting vehicle '642' after earlier collision, lane=':gneJ3_0_0, time=1108.00.
+Warning: Vehicle '642' ends teleporting on edge 'SC', time 1108.00.
+Warning: Vehicle '972'; collision with vehicle '1022', lane='SC1_0', gap=-4.29', latGap=-1.80, time=1112.00 stage=move.
+Warning: Teleporting vehicle '778' after earlier collision, lane='WC_1, time=1117.00.
+Warning: Vehicle '778' teleports beyond arrival edge 'WC', time 1117.00.
+Warning: Vehicle '752'; collision with vehicle '497', lane='SC_0', gap=-0.23', latGap=-1.65, time=1119.00 stage=move.
+Warning: Vehicle '497' performs emergency stop at the end of lane 'SC_0' for unknown reasons (decel=-10.39, offset=4.50), time=1120.00.
+Warning: Vehicle '752' performs emergency stop at the end of lane 'SC_0' for unknown reasons (decel=-7.82, offset=2.48), time=1121.00.
+Warning: Vehicle '643'; collision with vehicle '752', lane='SC_0', gap=-3.04', latGap=-1.05, time=1121.00 stage=move.
+Warning: Teleporting vehicle '972' after earlier collision, lane=':gneJ3_0_0, time=1123.00.
+Warning: Vehicle '972' ends teleporting on edge 'SC', time 1123.00.
+Warning: Teleporting vehicle '1022' after earlier collision, lane='SC_0, time=1124.00.
+Warning: Vehicle '1022' teleports beyond arrival edge 'SC', time 1124.00.
+Warning: Vehicle '567'; collision with vehicle '497', lane='SC_1', gap=-4.78', latGap=-0.05, time=1124.00 stage=move.
+Warning: Vehicle '740'; collision with vehicle '567', lane='SC_1', gap=-4.24', latGap=-1.05, time=1126.00 stage=move.
+Warning: Teleporting vehicle '497' after earlier collision, lane='SC_0, time=1131.00.
+Warning: Vehicle '497' teleports beyond arrival edge 'SC', time 1131.00.
+Warning: Teleporting vehicle '752' after earlier collision, lane='SC_0, time=1132.00.
+Warning: Vehicle '752' teleports beyond arrival edge 'SC', time 1132.00.
+Warning: Teleporting vehicle '643' after earlier collision, lane='SC_0, time=1132.00.
+Warning: Vehicle '643' teleports beyond arrival edge 'SC', time 1132.00.
+Warning: Vehicle '679'; collision with vehicle '566', lane='SC1_0', gap=-3.83', latGap=-0.90, time=1132.00 stage=move.
+Warning: Vehicle '850'; collision with vehicle '567', lane='SC_0', gap=-0.38', latGap=-0.05, time=1133.00 stage=move.
+Warning: Teleporting vehicle '567' after earlier collision, lane='SC_0, time=1135.00.
+Warning: Vehicle '567' teleports beyond arrival edge 'SC', time 1135.00.
+Warning: Vehicle '545'; collision with vehicle '850', lane='SC_1', gap=-4.00', latGap=-0.65, time=1135.00 stage=move.
+Warning: Teleporting vehicle '740' after earlier collision, lane='SC_0, time=1138.00.
+Warning: Vehicle '740' teleports beyond arrival edge 'SC', time 1138.00.
+Warning: Teleporting vehicle '679' after earlier collision, lane=':gneJ3_0_0, time=1143.00.
+Warning: Vehicle '679' ends teleporting on edge 'SC', time 1143.00.
+Warning: Vehicle '1040'; collision with vehicle '692', lane='EC_1', gap=-2.77', latGap=-0.30, time=1144.00 stage=move.
+Warning: Teleporting vehicle '850' after earlier collision, lane='SC_0, time=1145.00.
+Warning: Vehicle '850' teleports beyond arrival edge 'SC', time 1145.00.
+Warning: Teleporting vehicle '566' after earlier collision, lane='SC_0, time=1145.00.
+Warning: Vehicle '566' teleports beyond arrival edge 'SC', time 1145.00.
+Warning: Vehicle '1151'; collision with vehicle '1168', lane='SC1_0', gap=-7.42', latGap=-1.20, time=1145.00 stage=move.
+Warning: Vehicle '1097'; collision with vehicle '1151', lane='SC1_0', gap=-1.32', latGap=-1.05, time=1146.00 stage=move.
+Warning: Teleporting vehicle '545' after earlier collision, lane='SC_0, time=1147.00.
+Warning: Vehicle '545' teleports beyond arrival edge 'SC', time 1147.00.
+Warning: Vehicle '663'; collision with vehicle '779', lane='WC_1', gap=-7.43', latGap=-0.75, time=1148.00 stage=move.
+Warning: Teleporting vehicle '692' after earlier collision, lane='EC_1, time=1155.00.
+Warning: Vehicle '1130'; collision with vehicle '1100', lane='EC_1', gap=-4.58', latGap=-1.35, time=1155.00 stage=move.
+Warning: Vehicle '692' ends teleporting on edge 'CW', time 1155.00.
+Warning: Teleporting vehicle '1151' after earlier collision, lane='SC_1, time=1156.00.
+Warning: Vehicle '1151' ends teleporting on edge 'CN', time 1156.00.
+Warning: Teleporting vehicle '1168' after earlier collision, lane='SC_2, time=1157.00.
+Warning: Teleporting vehicle '1097' after earlier collision, lane='SC1_0, time=1157.00.
+Warning: Vehicle '1168' ends teleporting on edge 'CS', time 1157.00.
+Warning: Vehicle '1169'; collision with vehicle '1162', lane='SC1_0', gap=-4.66', latGap=-0.45, time=1158.00 stage=move.
+Warning: Teleporting vehicle '663' after earlier collision, lane='WC_0, time=1159.00.
+Warning: Vehicle '663' teleports beyond arrival edge 'WC', time 1159.00.
+Warning: Vehicle '1097' ends teleporting on edge 'SC', time 1159.00.
+Warning: Vehicle '638'; collision with vehicle '779', lane='WC_1', gap=-6.04', latGap=-1.35, time=1161.00 stage=move.
+Warning: Vehicle '1157'; collision with vehicle '1188', lane='SC_1', gap=-4.70', latGap=-0.82, time=1162.00 stage=move.
+Warning: Teleporting vehicle '1100' after earlier collision, lane='EC_1, time=1166.00.
+Warning: Vehicle '1100' teleports beyond arrival edge 'EC', time 1166.00.
+Warning: Teleporting vehicle '1130' after earlier collision, lane='EC_0, time=1166.00.
+Warning: Vehicle '1130' teleports beyond arrival edge 'EC', time 1166.00.
+Warning: Teleporting vehicle '1169' after earlier collision, lane=':gneJ3_0_2, time=1169.00.
+Warning: Vehicle '1169' ends teleporting on edge 'SC', time 1169.00.
+Warning: Teleporting vehicle '1162' after earlier collision, lane='SC_0, time=1170.00.
+Warning: Vehicle '1162' ends teleporting on edge 'CE', time 1171.00.
+Warning: Teleporting vehicle '638' after earlier collision, lane='WC_0, time=1172.00.
+Warning: Vehicle '638' teleports beyond arrival edge 'WC', time 1172.00.
+Warning: Teleporting vehicle '1188' after earlier collision, lane='SC_2, time=1173.00.
+Warning: Teleporting vehicle '1157' after earlier collision, lane='SC_2, time=1173.00.
+Warning: Vehicle '1188' ends teleporting on edge 'CS', time 1173.00.
+Warning: Vehicle '1157' ends teleporting on edge 'CS', time 1173.00.
+Warning: Vehicle '815'; collision with vehicle '1102', lane='SC_1', gap=-3.00', latGap=-0.60, time=1182.00 stage=move.
+Warning: Vehicle '922'; collision with vehicle '770', lane='EC_1', gap=-3.94', latGap=-0.90, time=1183.00 stage=move.
+Warning: Teleporting vehicle '1102' after earlier collision, lane='SC_0, time=1193.00.
+Warning: Vehicle '1102' teleports beyond arrival edge 'SC', time 1193.00.
+Warning: Teleporting vehicle '815' after earlier collision, lane='SC_0, time=1193.00.
+Warning: Vehicle '815' teleports beyond arrival edge 'SC', time 1193.00.
+Warning: Teleporting vehicle '770' after earlier collision, lane='EC_1, time=1194.00.
+Warning: Teleporting vehicle '922' after earlier collision, lane='EC_0, time=1194.00.
+Warning: Vehicle '922' teleports beyond arrival edge 'EC', time 1194.00.
+Warning: Vehicle '779'; collision with vehicle '885', lane='WC_1', gap=-3.38', latGap=-1.35, time=1194.00 stage=move.
+Warning: Vehicle '770' ends teleporting on edge 'CS', time 1194.00.
+Warning: Vehicle '959'; collision with vehicle '885', lane='WC_0', gap=-2.30', latGap=-1.35, time=1198.00 stage=move.
+Warning: Vehicle '975'; collision with vehicle '960', lane='EC_1', gap=-1.96', latGap=-1.80, time=1198.00 stage=move.
+Warning: Vehicle '960'; collision with vehicle '998', lane='EC_1', gap=-4.26', latGap=-1.35, time=1200.00 stage=move.
+Warning: Vehicle '998'; collision with vehicle '723', lane='EC_1', gap=-2.26', latGap=-1.35, time=1201.00 stage=move.
+Warning: Teleporting vehicle '885' after earlier collision, lane='WC_0, time=1206.00.
+Warning: Vehicle '885' teleports beyond arrival edge 'WC', time 1206.00.
+Warning: Vehicle '1169'; collision with vehicle '959', lane='WC_0', gap=-0.97', latGap=-1.80, time=1208.00 stage=move.
+Warning: Vehicle '692'; collision with vehicle '1169', lane=':gneJ0_0_0', gap=-5.34', latGap=-1.35, time=1208.00 stage=move.
+Warning: Teleporting vehicle '959' after earlier collision, lane='WC_0, time=1209.00.
+Warning: Vehicle '959' teleports beyond arrival edge 'WC', time 1209.00.
+Warning: Teleporting vehicle '960' after earlier collision, lane='EC_0, time=1209.00.
+Warning: Vehicle '960' teleports beyond arrival edge 'EC', time 1209.00.
+Warning: Teleporting vehicle '975' after earlier collision, lane='EC_0, time=1209.00.
+Warning: Vehicle '975' teleports beyond arrival edge 'EC', time 1209.00.
+Warning: Vehicle '998'; collision with vehicle '1039', lane='EC_1', gap=-3.94', latGap=-0.90, time=1210.00 stage=move.
+Warning: Teleporting vehicle '723' after earlier collision, lane='EC_1, time=1212.00.
+Warning: Teleporting vehicle '998' after earlier collision, lane='EC_0, time=1212.00.
+Warning: Vehicle '998' teleports beyond arrival edge 'EC', time 1212.00.
+Warning: Vehicle '723' ends teleporting on edge 'CW', time 1212.00.
+Warning: Teleporting vehicle '455'; waited too long (yield), lane='NC_1', time=1213.00.
+Warning: Vehicle '455' skips stop on lane 'NC_0' time=1213.00.
+Warning: Vehicle '455' ends teleporting on edge 'CS', time 1213.00.
+Warning: Vehicle '1169'; collision with vehicle '1038', lane='WC_0', gap=-1.32', latGap=-1.35, time=1216.00 stage=move.
+Warning: Vehicle '588'; collision with vehicle '1013', lane='NC1_0', gap=-6.80', latGap=-1.80, time=1218.00 stage=laneChange.
+Warning: Teleporting vehicle '1169' after earlier collision, lane='WC_0, time=1219.00.
+Warning: Vehicle '1169' teleports beyond arrival edge 'WC', time 1219.00.
+Warning: Teleporting vehicle '692' after earlier collision, lane=':gneJ0_0_0, time=1219.00.
+Warning: Vehicle '692' ends teleporting on edge 'WC', time 1219.00.
+Warning: Teleporting vehicle '1039' after earlier collision, lane='EC_0, time=1222.00.
+Warning: Vehicle '1039' teleports beyond arrival edge 'EC', time 1222.00.
+Warning: Teleporting vehicle '1038' after earlier collision, lane='WC_0, time=1228.00.
+Warning: Vehicle '1038' teleports beyond arrival edge 'WC', time 1228.00.
+Warning: Teleporting vehicle '1013' after earlier collision, lane=':gneJ1_0_0, time=1229.00.
+Warning: Vehicle '1013' ends teleporting on edge 'NC', time 1229.00.
+Warning: Teleporting vehicle '588' after earlier collision, lane=':gneJ1_0_0, time=1230.00.
+Warning: Vehicle '588' ends teleporting on edge 'NC', time 1230.00.
+Warning: Vehicle '878'; collision with vehicle '1033', lane='NC1_0', gap=-7.25', latGap=-1.80, time=1232.00 stage=laneChange.
+Warning: Teleporting vehicle '779' after earlier collision, lane='WC_0, time=1240.00.
+Warning: Vehicle '779' teleports beyond arrival edge 'WC', time 1240.00.
+Warning: Teleporting vehicle '1033' after earlier collision, lane=':gneJ1_0_0, time=1244.00.
+Warning: Teleporting vehicle '878' after earlier collision, lane=':gneJ1_0_0, time=1244.00.
+Warning: Vehicle '1033' ends teleporting on edge 'NC', time 1244.00.
+Warning: Vehicle '878' ends teleporting on edge 'NC', time 1244.00.
+Warning: Vehicle '784'; collision with vehicle '1184', lane='NC_1', gap=-1.65', latGap=-0.30, time=1250.00 stage=move.
+Warning: Vehicle '621'; collision with vehicle '1184', lane='NC_1', gap=-1.65', latGap=-0.45, time=1250.00 stage=move.
+Warning: Teleporting vehicle '1184' after earlier collision, lane='NC_0, time=1261.00.
+Warning: Vehicle '1184' teleports beyond arrival edge 'NC', time 1261.00.
+Warning: Teleporting vehicle '784' after earlier collision, lane='NC_0, time=1261.00.
+Warning: Vehicle '784' teleports beyond arrival edge 'NC', time 1261.00.
+Warning: Teleporting vehicle '621' after earlier collision, lane='NC_0, time=1262.00.
+Warning: Vehicle '621' teleports beyond arrival edge 'NC', time 1262.00.
+Warning: Vehicle '1054'; collision with vehicle '819', lane='EC_1', gap=-4.74', latGap=-1.80, time=1276.00 stage=move.
+Warning: Vehicle '1079'; collision with vehicle '1054', lane='EC_1', gap=-3.17', latGap=-0.80, time=1277.00 stage=move.
+Warning: Vehicle '1054'; collision with vehicle '1081', lane='EC_1', gap=-2.21', latGap=-1.35, time=1279.00 stage=move.
+Warning: Vehicle '1081'; collision with vehicle '817', lane='EC_1', gap=-3.32', latGap=-1.35, time=1280.00 stage=move.
+Warning: Vehicle '819'; collision with vehicle '1105', lane='EC_1', gap=-4.62', latGap=-1.80, time=1282.00 stage=move.
+Warning: Vehicle '1079'; collision with vehicle '1136', lane='EC1_0', gap=-5.85', latGap=-0.80, time=1285.00 stage=move.
+Warning: Teleporting vehicle '819' after earlier collision, lane='EC_1, time=1287.00.
+Warning: Teleporting vehicle '1054' after earlier collision, lane='EC_0, time=1287.00.
+Warning: Vehicle '1054' teleports beyond arrival edge 'EC', time 1287.00.
+Warning: Vehicle '1148'; collision with vehicle '1105', lane='EC_1', gap=-3.94', latGap=-1.80, time=1287.00 stage=move.
+Warning: Vehicle '819' ends teleporting on edge 'CW', time 1287.00.
+Warning: Teleporting vehicle '1079' after earlier collision, lane='EC_0, time=1288.00.
+Warning: Vehicle '1079' teleports beyond arrival edge 'EC', time 1288.00.
+Warning: Vehicle '854'; collision with vehicle '1136', lane=':gneJ2_0_0', gap=-0.80', latGap=-1.35, time=1289.00 stage=move.
+Warning: Teleporting vehicle '817' after earlier collision, lane='EC_1, time=1291.00.
+Warning: Teleporting vehicle '1081' after earlier collision, lane='EC_0, time=1291.00.
+Warning: Vehicle '1081' teleports beyond arrival edge 'EC', time 1291.00.
+Warning: Vehicle '817' ends teleporting on edge 'CS', time 1291.00.
+Warning: Teleporting vehicle '1136' after earlier collision, lane='EC_0, time=1297.00.
+Warning: Vehicle '1136' teleports beyond arrival edge 'EC', time 1297.00.
+Warning: Teleporting vehicle '1148' after earlier collision, lane='EC_0, time=1298.00.
+Warning: Vehicle '1148' teleports beyond arrival edge 'EC', time 1298.00.
+Warning: Teleporting vehicle '854' after earlier collision, lane=':gneJ2_0_0, time=1300.00.
+Warning: Vehicle '854' ends teleporting on edge 'EC', time 1300.00.
+Warning: Teleporting vehicle '1105' after earlier collision, lane='EC_0, time=1305.00.
+Warning: Vehicle '1105' teleports beyond arrival edge 'EC', time 1305.00.
+Warning: Vehicle '837'; collision with vehicle '904', lane='EC_1', gap=-6.73', latGap=-1.80, time=1306.00 stage=move.
+Warning: Vehicle '904' performs emergency stop at the end of lane 'EC_0' for unknown reasons (decel=-12.96, offset=1.73), time=1307.00.
+Warning: Teleporting vehicle '837' after earlier collision, lane='EC_1, time=1317.00.
+Warning: Vehicle '837' ends teleporting on edge 'CS', time 1317.00.
+Warning: Vehicle '1086'; collision with vehicle '904', lane='EC_1', gap=-0.53', latGap=-1.80, time=1377.00 stage=move.
+Warning: Teleporting vehicle '1086' after earlier collision, lane='EC_0, time=1388.00.
+Warning: Vehicle '1086' teleports beyond arrival edge 'EC', time 1388.00.
+Warning: Teleporting vehicle '1040'; waited too long (jam), lane='EC_2', time=1445.00.
+Warning: Vehicle '1040' teleports beyond arrival edge 'EC', time 1445.00.
+Warning: Vehicle '1040' skips stop on lane 'EC_0' time=1445.00.
+Warning: Teleporting vehicle '821'; waited too long (wrong lane), lane='EC_0', time=1543.00.
+Warning: Vehicle '821' ends teleporting on edge 'CS', time 1543.00.
+Warning: Teleporting vehicle '904'; waited too long (jam), lane='EC_1', time=1608.00.
+Warning: Vehicle '904' teleports beyond arrival edge 'EC', time 1608.00.
+Warning: Vehicle '904' skips stop on lane 'EC_0' time=1608.00.
