@@ -655,9 +655,7 @@ GNEAttributeCarrier::parse(const std::string& string) {
 
 template<> std::vector<std::string>
 GNEAttributeCarrier::parse(const std::string& string) {
-    std::vector<std::string> parsedValues;
-    SUMOSAXAttributes::parseStringVector(string, parsedValues);
-    return parsedValues;
+    return StringTokenizer(string, " ").getVector();
 }
 
 
