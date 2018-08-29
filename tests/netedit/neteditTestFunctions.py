@@ -1333,7 +1333,7 @@ def selectionToogleEdges():
     # focus current frame
     focusOnFrame()
     # go to check box "select edges"
-    for x in range(0, 3):
+    for x in range(0, 2):
         typeInvertTab()
     # type space to enable or disable edge selection
     typeSpace()
