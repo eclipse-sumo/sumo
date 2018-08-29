@@ -1082,8 +1082,12 @@ GNEAttributeCarrier::fillAttributeCarriers() {
         myAllowedTags[currentTag] = TagValues(TAGPROPERTY_NETELEMENT | TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE, 3, ICON_LANE);
         // set values of attributes
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_ID,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
-            "ID of lane (Automatic)", 
+            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_NONEDITABLE,
+            "ID of lane (Automatic, non editable)", 
+            "");
+        myAllowedTags[currentTag].addAttribute(SUMO_ATTR_INDEX,
+            ATTRPROPERTY_INT | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_NONEDITABLE,
+            "The enumeration index of the lane (0 is the rightmost lane, <NUMBER_LANES>-1 is the leftmost one)", 
             "");
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_SPEED,
             ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE,
@@ -1115,10 +1119,6 @@ GNEAttributeCarrier::fillAttributeCarriers() {
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_CUSTOMSHAPE,
             ATTRPROPERTY_STRING | ATTRPROPERTY_POSITION | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE,
             "If the shape is given it overrides the computation based on edge shape", 
-            "");
-        myAllowedTags[currentTag].addAttribute(SUMO_ATTR_INDEX,
-            ATTRPROPERTY_INT | ATTRPROPERTY_NONEDITABLE,
-            "The enumeration index of the lane (0 is the rightmost lane, <NUMBER_LANES>-1 is the leftmost one)", 
             "");
     }
     currentTag = SUMO_TAG_CROSSING;
