@@ -1113,7 +1113,8 @@ NBNodeCont::analyzeCluster(NodeSet cluster, std::string& id, Position& pos,
             if (hasTLS) {
                 nodeType = NODETYPE_TRAFFIC_LIGHT;;
             } else {
-                if (nodeType != NODETYPE_NOJUNCTION && otherType != NODETYPE_NOJUNCTION) {
+                if ((nodeType != NODETYPE_PRIORITY && (nodeType != NODETYPE_NOJUNCTION || otherType != NODETYPE_PRIORITY)) 
+                        || (otherType != NODETYPE_NOJUNCTION && otherType != NODETYPE_UNKNOWN && otherType != NODETYPE_PRIORITY)) { 
                     WRITE_WARNING("Ambiguous node type for node cluster '" + id + "' (" + toString(nodeType) + "," + toString(otherType) + ") set to '" + toString(NODETYPE_PRIORITY) + "'");
                 }
                 nodeType = NODETYPE_PRIORITY;
