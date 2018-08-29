@@ -76,7 +76,7 @@ private:
  */
 struct FareState
 {
-  
+  template<class E, class L, class N, class V>
   friend class FareModul;
   
 public:
@@ -145,14 +145,15 @@ struct Prices
 /**
  * The fare modul responsible for calculating prices
  */
-class FareModul : public EffortCalculator<IntermodalEdge<MSEdge, MSLane, MSJunction, SUMOVehicle>>
+template<class E, class L, class N, class V>
+class FareModul : public EffortCalculator<IntermodalEdge<E, L, N, V>>
 {
 protected:
-  typedef IntermodalEdge<MSEdge, MSLane, MSJunction, SUMOVehicle> _IntermodalEdge;
-  typedef StopEdge<MSEdge, MSLane, MSJunction, SUMOVehicle> _StopEdge;
-  typedef PublicTransportEdge<MSEdge, MSLane, MSJunction, SUMOVehicle> _PublicTransportEdge;
-  typedef PedestrianEdge<MSEdge, MSLane, MSJunction, SUMOVehicle> _PedestrianEdge;
-  typedef AccessEdge<MSEdge, MSLane, MSJunction, SUMOVehicle> _AccessEdge;
+  typedef IntermodalEdge<E, L, N, V> _IntermodalEdge;
+  typedef StopEdge<E, L, N, V> _StopEdge;
+  typedef PublicTransportEdge<E, L, N, V> _PublicTransportEdge;
+  typedef PedestrianEdge<E, L, N, V> _PedestrianEdge;
+  typedef AccessEdge<E, L, N, V> _AccessEdge;
 public:
   
   /** Constructor ***/
@@ -317,8 +318,8 @@ private:
   
 };
 
-
-void FareModul::updateFareState( FareState const & currentFareState, _StopEdge const & e )
+template<class E, class L, class N, class V>
+void FareModul<E,L,N,V>::updateFareState( FareState const & currentFareState, _StopEdge const & e )
 {
   
   FareToken  collectedToken = e.getFareToken();
@@ -451,8 +452,8 @@ void FareModul::updateFareState( FareState const & currentFareState, _StopEdge c
   }
 }
 
-
-void FareModul::updateFareState(FareState const & currentFareState, _PedestrianEdge const & e)
+template<class E, class L, class N, class V>
+void FareModul<E,L,N,V>::updateFareState(FareState const & currentFareState, _PedestrianEdge const & e)
 {
   
   //only propagates the fare state
@@ -463,8 +464,8 @@ void FareModul::updateFareState(FareState const & currentFareState, _PedestrianE
 }
 
 
-
-void FareModul::updateFareState(FareState const & currentFareState, _PublicTransportEdge const & e ) {
+template<class E, class L, class N, class V>
+void FareModul<E,L,N,V>::updateFareState(FareState const & currentFareState, _PublicTransportEdge const & e ) {
   
   
   if( currentFareState.myFareToken == FareToken::None )
@@ -477,7 +478,8 @@ void FareModul::updateFareState(FareState const & currentFareState, _PublicTrans
   stateAtE.myTravelledDistance += e.getLength();
 }
 
-void FareModul::updateFareState(FareState const & currentFareState, _IntermodalEdge const & e ) {
+template<class E, class L, class N, class V>
+void FareModul<E,L,N,V>::updateFareState(FareState const & currentFareState, _IntermodalEdge const & e ) {
   
   if( currentFareState.myFareToken == FareToken::None )
     return;
@@ -488,7 +490,8 @@ void FareModul::updateFareState(FareState const & currentFareState, _IntermodalE
 
 }
 
-void FareModul::updateFareState(FareState const & currentFareState, const _AccessEdge &e, const _IntermodalEdge & prev) {
+template<class E, class L, class N, class V>
+void FareModul<E,L,N,V>::updateFareState(FareState const & currentFareState, const _AccessEdge &e, const _IntermodalEdge & prev) {
   
   FareToken const & token = currentFareState.myFareToken;
   

@@ -928,7 +928,7 @@ MSNet::getIntermodalRouter(const int routingMode, const MSEdgeVector& prohibited
         }
         if (routingMode == ROUTING_MODE_COMBINED) {
             // replace nullptr here by your EffortCalculator
-            myIntermodalRouter[routingMode] = new MSIntermodalRouter(MSNet::adaptIntermodalRouter, carWalk, routingMode, new FareModul( ) );
+            myIntermodalRouter[routingMode] = new MSIntermodalRouter(MSNet::adaptIntermodalRouter, carWalk, routingMode, new FareModul<MSEdge,MSLane,MSJunction,SUMOVehicle>( ) );
         } else {
             myIntermodalRouter[routingMode] = new MSIntermodalRouter(MSNet::adaptIntermodalRouter, carWalk, routingMode);
         }
