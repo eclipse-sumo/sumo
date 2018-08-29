@@ -1016,7 +1016,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "street name (need not be unique, used for visualization)", 
             "");
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_WIDTH,
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE,
             "Lane width for all lanes of this edge in meters (used for visualization)", 
             "default");
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_ENDOFFSET,
@@ -1105,7 +1105,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             SumoVehicleClassStrings.getStrings());
         //myAllowedTags[currentTag].addAttribute(SUMO_ATTR_PREFER, );
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_WIDTH,
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE,
             "Width in meters (used for visualization)", 
             "default");
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_ENDOFFSET,

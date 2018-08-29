@@ -779,7 +779,7 @@ GNELane::getAttribute(SumoXMLAttr key) const {
             return getVehicleClassNames(invertPermissions(edge->getPermissions(myIndex)));
         case SUMO_ATTR_WIDTH:
             if (edge->getLaneStruct(myIndex).width == NBEdge::UNSPECIFIED_WIDTH) {
-                return "";
+                return "default";
             } else {
                 return toString(edge->getLaneStruct(myIndex).width);
             }
@@ -845,7 +845,7 @@ GNELane::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_DISALLOW:
             return canParseVehicleClasses(value);
         case SUMO_ATTR_WIDTH:
-            if (value.empty()) {
+            if (value.empty() || (value == "default")) {
                 return true;
             } else {
                 return canParse<double>(value) && ((parse<double>(value) > 0) || (parse<double>(value) == NBEdge::UNSPECIFIED_WIDTH));
@@ -993,7 +993,7 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value) {
             edge->setPermissions(invertPermissions(parseVehicleClasses(value)), myIndex);
             break;
         case SUMO_ATTR_WIDTH:
-            if (value.empty()) {
+            if (value.empty() || (value == "default")) {
                 edge->setLaneWidth(myIndex, NBEdge::UNSPECIFIED_WIDTH);
             } else {
                 edge->setLaneWidth(myIndex, parse<double>(value));
