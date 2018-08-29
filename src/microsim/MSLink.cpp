@@ -723,7 +723,7 @@ MSLink::lastWasContMajor() const {
             assert(pred2 != 0);
             MSLink* predLink = MSLinkContHelper::getConnectingLink(*pred2, *pred);
             assert(predLink != 0);
-            return predLink->havePriority();
+            return predLink->havePriority() || predLink->haveYellow();
         }
     }
 }
