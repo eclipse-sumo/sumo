@@ -696,11 +696,12 @@ void
 GUILane::drawBikeMarkings() const {
     // draw bike lane markings onto the intersection
     glColor3d(1, 1, 1);
-    int e = (int) getShape().size() - 1;
-    double mw = (myHalfLaneWidth + SUMO_const_laneOffset);
+    const int e = (int) getShape().size() - 1;
+    const double markWidth = 0.1;
+    const double mw = myHalfLaneWidth;
     for (int i = 0; i < e; ++i) {
         glPushMatrix();
-        glTranslated(getShape()[i].x(), getShape()[i].y(), GLO_JUNCTION + 0.1);
+        glTranslated(getShape()[i].x(), getShape()[i].y(), GLO_JUNCTION + 0.4);
         glRotated(myShapeRotations[i], 0, 0, 1);
         for (double t = 0; t < myShapeLengths[i]; t += 0.5) {
             // left and right marking
@@ -708,8 +709,8 @@ GUILane::drawBikeMarkings() const {
                 glBegin(GL_QUADS);
                 glVertex2d(side * mw, -t);
                 glVertex2d(side * mw, -t - 0.35);
-                glVertex2d(side * (mw + SUMO_const_laneOffset), -t - 0.35);
-                glVertex2d(side * (mw + SUMO_const_laneOffset), -t);
+                glVertex2d(side * (mw + markWidth), -t - 0.35);
+                glVertex2d(side * (mw + markWidth), -t);
                 glEnd();
             }
         }
