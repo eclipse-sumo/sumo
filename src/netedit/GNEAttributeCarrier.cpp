@@ -1032,8 +1032,8 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "Custom position in which shape end (by default position of junction from)", 
             "");
         myAllowedTags[currentTag].addAttribute(GNE_ATTR_BIDIR,
-            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE, // virtual attribute to check of this edge is part of a bidirectional railway
-            "Enable or disable bidireccional edge", 
+            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_NONEDITABLE, // virtual attribute to check of this edge is part of a bidirectional railway (cannot be edited)
+            "Show if edge is bidireccional", 
             "0");
     }
     currentTag = SUMO_TAG_JUNCTION;
