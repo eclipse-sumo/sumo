@@ -1117,7 +1117,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "Enable or disable lane as acceleration lane", 
             "0");
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_CUSTOMSHAPE,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITION | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITION | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_UNIQUE,
             "If the shape is given it overrides the computation based on edge shape", 
             "");
     }
