@@ -34,6 +34,8 @@ public:
   
   inline  void addZone(int zoneNumber)
   {
+    if( zoneNumber == 0 )
+      return;
     uint64_t repNum = fareZoneToRep[ zoneNumber ];
     //assert power of 2
     assert( bitcount(repNum) == 1 );
