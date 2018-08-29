@@ -7,8 +7,8 @@ delete
 # inspect
 inspect
 
-# inspect
-inspect_selection
+# inspect selected
+inspect_selected
 
 # load
 load
