@@ -1,26 +1,27 @@
 Loading configuration... done.
 Success.
 Loading configuration... done.
-***Starting server on port 41578 ***
+***Starting server on port 41681 ***
 Loading net-file from 'data/../pedcrossing.net.xml'... done (1ms).
-Loading additional-files from 'data/pedcrossing.tll.xml'... done (4ms).
+Loading additional-files from 'data/pedcrossing.tll.xml'... done (2ms).
 Loading done.
 Simulation started with time: 0.00
  Retrying in 1 seconds
 ped0 pushes the button
 ped1 pushes the button
 ped2 pushes the button
-ped2 pushes the button
-ped6 pushes the button
+ped5 pushes the button
+ped7 pushes the button
 ped8 pushes the button
+ped9 pushes the button
+ped10 pushes the button
 ped10 pushes the button
 ped11 pushes the button
 ped12 pushes the button
 ped14 pushes the button
 ped15 pushes the button
-ped15 pushes the button
 ped19 pushes the button
-ped20 pushes the button
+ped19 pushes the button
 ped22 pushes the button
 ped23 pushes the button
 ped26 pushes the button
@@ -40,24 +41,24 @@ ped44 pushes the button
 ped46 pushes the button
 ped47 pushes the button
 ped49 pushes the button
-ped50 pushes the button
-ped50 pushes the button
+ped49 pushes the button
+ped51 pushes the button
 ped52 pushes the button
 ped54 pushes the button
 ped55 pushes the button
-ped55 pushes the button
+ped56 pushes the button
 ped58 pushes the button
 ped59 pushes the button
-ped61 pushes the button
-ped60 pushes the button
+ped59 pushes the button
+ped62 pushes the button
 ped63 pushes the button
-ped64 pushes the button
+ped63 pushes the button
 ped65 pushes the button
 ped66 pushes the button
 ped68 pushes the button
 ped69 pushes the button
 ped71 pushes the button
-ped72 pushes the button
+ped71 pushes the button
 ped73 pushes the button
 ped74 pushes the button
 ped75 pushes the button
@@ -70,15 +71,15 @@ ped84 pushes the button
 ped84 pushes the button
 ped86 pushes the button
 ped88 pushes the button
-ped88 pushes the button
+ped91 pushes the button
 ped93 pushes the button
 ped92 pushes the button
-Simulation ended at time: 3623.00
+Simulation ended at time: 3624.00
 Reason: TraCI requested termination.
 Performance: 
- Duration: 1562ms
- Real time factor: 2319.46
- UPS: 11838.028169
+ Duration: 1087ms
+ Real time factor: 3333.95
+ UPS: 16886.844526
 Vehicles: 
  Inserted: 742
  Running: 0
@@ -87,7 +88,9 @@ Persons:
  Inserted: 94
  Running: 0
 
-DijkstraRouter answered 1125 queries and explored 6.67 edges on average.
-DijkstraRouter spent 2ms answering queries (0.00ms on average).
+DijkstraRouter answered 1074 queries and explored 6.65 edges on average.
+DijkstraRouter spent 0ms answering queries (0.00ms on average).
+DijkstraRouter answered 94 queries and explored 11.00 edges on average.
+DijkstraRouter spent 0ms answering queries (0.00ms on average).
 DijkstraRouter answered 742 queries and explored 2.00 edges on average.
-DijkstraRouter spent 3ms answering queries (0.00ms on average).
+DijkstraRouter spent 0ms answering queries (0.00ms on average).
