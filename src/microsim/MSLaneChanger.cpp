@@ -810,7 +810,14 @@ MSLaneChanger::checkChange(
                             ceil(vehicle->getSpeed() / vehicle->getCarFollowModel().getMaxDecel()));
         if (leader.first != 0) {
             const double brakeGap = vehicle->getCarFollowModel().brakeGap(vehicle->getSpeed());
-            if (brakeGap > leader.second) {
+            // returned gap value is relative to backPosition
+            const double gap = leader.second - vehicle->getVehicleType().getLengthWithGap();
+#ifdef DEBUG_CHECK_CHANGE
+                if (DEBUG_COND) {
+                    std::cout << SIMTIME << "  pedestrian on road " + leader.first->getID() << " gap=" << gap << " brakeGap=" << brakeGap << "\n";
+                }
+#endif
+            if (brakeGap > gap) {
                 blocked |= blockedByLeader;
 #ifdef DEBUG_CHECK_CHANGE
                 if (DEBUG_COND) {
