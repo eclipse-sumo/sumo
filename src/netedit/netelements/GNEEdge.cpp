@@ -1091,7 +1091,7 @@ GNEEdge::isValid(SumoXMLAttr key, const std::string& value) {
                 return canParse<double>(value) && ((parse<double>(value) > 0) || (parse<double>(value) == NBEdge::UNSPECIFIED_WIDTH));
             }
         case SUMO_ATTR_ENDOFFSET:
-            return canParse<double>(value);
+            return canParse<double>(value) && (parse<double>(value) >= 0);
         case GNE_ATTR_SHAPE_START: {
             bool ok;
             if (value != "") {
