@@ -1,7 +1,4 @@
 # all test check also the undo-redo of modifications and save the lane into a file
-# create lane
-create
-
 # delete lane
 delete
 
