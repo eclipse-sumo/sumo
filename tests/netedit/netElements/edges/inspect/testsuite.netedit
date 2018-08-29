@@ -49,8 +49,5 @@ inspect_shapestart
 # edit shapeend
 inspect_shapeend
 
-# edit bidirail
-inspect_bidirail
-
 # edit generic parameters
 inspect_genericparameters
