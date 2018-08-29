@@ -257,7 +257,7 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.addDescription("junctions.limit-turn-speed.warn.straight", "Junctions",
                       "Warn about turn speed limits that reduce the speed of straight connections by more than FLOAT");
 
-    oc.doRegister("junctions.limit-turn-speed.warn.turn", new Option_Float(15));
+    oc.doRegister("junctions.limit-turn-speed.warn.turn", new Option_Float(22));
     oc.addDescription("junctions.limit-turn-speed.warn.turn", "Junctions",
                       "Warn about turn speed limits that reduce the speed of turning connections (no u-turns) by more than FLOAT");
 
