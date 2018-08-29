@@ -101,7 +101,7 @@ public class SumoTraciConnection {
 	private String additional_file;
 	private String gui_settings;
 	
-	String sumoEXE = "/opt/sumo/sumo-0.15.0/bin/sumo";
+	String sumoEXE = "/opt/sumo/sumo-0.32.0/bin/sumo";
 	private CommandProcessor cp;
 	
 	private Process sumoProcess;
@@ -111,6 +111,10 @@ public class SumoTraciConnection {
 	private List<String> args = new ArrayList<String>();
 	
 	private boolean remote = false;
+	
+	public SumoTraciConnection(String sumo_bin) {
+		this.sumoEXE=sumo_bin;
+	}
 	
 	public SumoTraciConnection(String sumo_bin, String net_file, String route_file) {
 		this.sumoEXE=sumo_bin;
@@ -264,7 +268,7 @@ public class SumoTraciConnection {
 				args.add(this.gui_settings);
 			}
 			
-		}else{
+		}else if(this.net_file != null){
 			args.add("--net-file");
 			args.add(this.net_file);
 		}
@@ -363,7 +367,7 @@ public class SumoTraciConnection {
 	
 	public synchronized void do_timestep() throws Exception{this.do_timestep(0);}
 	
-	public synchronized void do_timestep(int targetTime) throws Exception{
+	public synchronized void do_timestep(double targetTime) throws Exception{
 		
 		if (isClosed())
 			throw new IllegalStateException("connection is closed");
