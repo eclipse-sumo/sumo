@@ -26,10 +26,8 @@ Debug: Created connection 'fromgneE5_0togneE3_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE8_0togneE0_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE2_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE2_1' in retrieveGNEConnection()
-Debug: Value 'default' for attribute width of edge isn't valid
-Debug: Value 'default' for attribute width of edge isn't valid
+Debug: Value 'dummyWidth' for attribute width of edge isn't valid
 Debug: Value '-2' for attribute width of edge isn't valid
-Debug: Value 'default' for attribute width of edge isn't valid
 Debug: Setting new attribute width '4' into lane 'gneE2_0'
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, shapes saved
@@ -37,9 +35,9 @@ Debug: Setting new attribute width '4' into lane 'gneE2_1'
 Debug: Setting new attribute width '4' into edge 'gneE2'
 Debug: Key F5 (Compute) pressed
 Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute width '' into edge 'gneE2'
-Debug: Setting previous attribute width '' into lane 'gneE2_1'
-Debug: Setting previous attribute width '' into lane 'gneE2_0'
+Debug: Setting previous attribute width 'default' into edge 'gneE2'
+Debug: Setting previous attribute width 'default' into lane 'gneE2_1'
+Debug: Setting previous attribute width 'default' into lane 'gneE2_0'
 Debug: Key F5 (Compute) pressed
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute width '4' into lane 'gneE2_0'
