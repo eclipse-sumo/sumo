@@ -13,6 +13,7 @@
 
     <processing>
         <no-turnarounds value="true"/>
+        <junctions.limit-turn-speed value="0"/>
     </processing>
 
 </configuration>
