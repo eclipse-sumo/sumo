@@ -114,6 +114,7 @@ NBRailwayTopologyAnalyzer::repairTopology(NBNetBuilder& nb) {
     addBidiEdgesForBufferStops(nb);
     addBidiEdgesBetweenSwitches(nb);
     addBidiEdgesForStops(nb);
+    addBidiEdgesForStraightConnectivity(nb);
 }
 
 
@@ -352,6 +353,7 @@ NBRailwayTopologyAnalyzer::getRailNodes(NBNetBuilder& nb, bool verbose) {
     }
     return railNodes;
 }
+
 
 bool 
 NBRailwayTopologyAnalyzer::isStraight(const NBNode* node, const NBEdge* e1, const NBEdge* e2) {
@@ -926,15 +928,54 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForStops(NBNetBuilder& nb) {
 }
 
 
-bool 
-NBRailwayTopologyAnalyzer::isConnnected(
-        SUMOAbstractRouter<Track, NBVehicle>& router, 
-        const Track* from, const Track* to, 
-        const NBVehicle* veh) {
-    std::vector<const Track*> route;
-    router.compute(from, to, veh, 0, route);
-    return route.size() != 0;
+void
+NBRailwayTopologyAnalyzer::addBidiEdgesForStraightConnectivity(NBNetBuilder& nb) {
+    int added = 0;
+    for (const auto& e : nb.getEdgeCont()) {
+        NBNode* const from = e.second->getFromNode();
+        NBNode* const to = e.second->getToNode();
+        EdgeVector inRailFrom, outRailFrom, inRailTo, outRailTo;
+        getRailEdges(from, inRailFrom, outRailFrom);
+        getRailEdges(to, inRailTo, outRailTo);
+        bool haveReverse = false;
+        for (const NBEdge* cand : outRailTo) {
+            if (cand->getToNode() == from) {
+                haveReverse = true;
+                break;
+            }
+        }
+        if (haveReverse) {
+            continue;
+        }
+        bool haveStraightFrom = false;
+        for (const NBEdge* fromStraightCand : outRailFrom) {
+            if (fromStraightCand != e.second && isStraight(from, fromStraightCand, e.second)) {
+                haveStraightFrom = true;
+                break;
+            }
+        }
+        if (!haveStraightFrom) {
+            continue;
+        }
+        bool haveStraightTo = false;
+        for (const NBEdge* toStraightCand : inRailTo) {
+            if (toStraightCand != e.second && isStraight(to, toStraightCand, e.second)) {
+                NBEdge* e2 = addBidiEdge(nb, e.second);
+                //std::cout << " add bidiEdge for stop at edge " << edge->getID() << "\n";
+                if (e2 != nullptr) {
+                    added++;
+                    added += extendBidiEdges(nb, to, e.second);
+                    added += extendBidiEdges(nb, from, e2);
+                }
+                break;
+            }
+        }
+    }
+    if (added > 0) {
+        WRITE_MESSAGE("Added " + toString(added) + " bidi-edges to ensure connectivity of straight tracks.");
+    }
 }
+
 
 void 
 NBRailwayTopologyAnalyzer::updateTurns(NBEdge* edge) {

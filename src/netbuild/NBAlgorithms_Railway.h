@@ -127,9 +127,8 @@ private:
     /// @brief add bidi-edges to connect successive public transport stops
     static void addBidiEdgesForStops(NBNetBuilder& nb);
 
-    /// @brief whether the given tracks are connected (strongly or weakly depending on the router)
-    static bool isConnnected(SUMOAbstractRouter<Track, NBVehicle>& router, 
-        const Track* from, const Track* to, const NBVehicle* veh); 
+    /// @brief add bidi-edges to connect straight tracks
+    static void addBidiEdgesForStraightConnectivity(NBNetBuilder& nb);
 
     /// recompute turning directions for both nodes of the given edge
     static void updateTurns(NBEdge* edge);
