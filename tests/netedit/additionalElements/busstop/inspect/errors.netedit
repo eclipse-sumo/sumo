@@ -109,7 +109,7 @@ Debug: Setting previous attribute blockMovement '0' into busStop 'correctID'
 GLDebug: Removed object busStop:correctID from SUMORTree with boundary -20.00,-6.40,70.00,33.60
 GLDebug: Inserted busStop:correctID into SUMORTree with boundary -20.00,-6.40,70.00,33.60
 Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute lines 'line1  line2' into busStop 'correctID'
+Debug: Setting previous attribute lines 'line1, line2' into busStop 'correctID'
 GLDebug: Removed object busStop:correctID from SUMORTree with boundary -20.00,-6.40,70.00,33.60
 GLDebug: Inserted busStop:correctID into SUMORTree with boundary -20.00,-6.40,70.00,33.60
 Debug: Keys Ctrl + Z (Undo) pressed

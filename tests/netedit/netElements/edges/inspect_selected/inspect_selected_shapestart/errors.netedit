@@ -11,6 +11,17 @@ Debug: Adding busStop 'busStop5' in GNEChange_Additional
 Debug: Adding busStop 'busStop6' in GNEChange_Additional
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, shapes saved
+Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Debug: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Debug: Current selection: 0 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Error: Shape of a(n) user-supplied position is broken: the position is neither x,y nor x,y,z.
+Debug: Value 'dummyShapeStart' for attribute shapeStart of edge isn't valid
+Error: Shape of a(n) user-supplied position is broken: the position is neither x,y nor x,y,z.
+Debug: Value '34' for attribute shapeStart of edge isn't valid
+Debug: Setting new attribute shapeStart '14,15.5' into edge 'gneE2'
+Debug: net has to be saved
+Debug: Current saving Status: net unsaved, additionals unsaved, shapes saved
+Debug: Setting new attribute shapeStart '14,15.5' into edge 'gneE3'
 Debug: Key F5 (Compute) pressed
 Debug: Created connection 'fromgneE0_0togneE5_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
@@ -26,18 +37,6 @@ Debug: Created connection 'fromgneE5_0togneE3_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE8_0togneE0_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE2_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE2_1' in retrieveGNEConnection()
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Debug: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Debug: Current selection: 0 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Error: Shape of a(n) user-supplied position is broken: the position is neither x,y nor x,y,z.
-Debug: Value 'dummyShapeStart' for attribute shapeStart of edge isn't valid
-Error: Shape of a(n) user-supplied position is broken: the position is neither x,y nor x,y,z.
-Debug: Value '34' for attribute shapeStart of edge isn't valid
-Debug: Setting new attribute shapeStart '14,15.5' into edge 'gneE2'
-Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, shapes saved
-Debug: Setting new attribute shapeStart '14,15.5' into edge 'gneE3'
-Debug: Key F5 (Compute) pressed
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute shapeStart '' into edge 'gneE3'
 Debug: Setting previous attribute shapeStart '' into edge 'gneE2'

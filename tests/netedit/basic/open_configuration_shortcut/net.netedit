@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 21.08.2018 21:11:17 by Eclipse SUMO netedit Version 62765b51aa
+<!-- generated on 30.08.2018 11:55:57 by Eclipse SUMO netedit Version b980bbd93f
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Aug182048.3540\netedit.gui\basic\open_configuration_shortcut\input_net.nod.xml"/>
-        <edge-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Aug182048.3540\netedit.gui\basic\open_configuration_shortcut\input_net.edg.xml"/>
-        <connection-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Aug182048.3540\netedit.gui\basic\open_configuration_shortcut\input_net.con.xml"/>
+        <node-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.30Aug090335.2848\netedit.gui\basic\open_configuration_shortcut\input_net.nod.xml"/>
+        <edge-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.30Aug090335.2848\netedit.gui\basic\open_configuration_shortcut\input_net.edg.xml"/>
+        <connection-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.30Aug090335.2848\netedit.gui\basic\open_configuration_shortcut\input_net.con.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Aug182048.3540\netedit.gui\basic\open_configuration_shortcut\net.net.xml"/>
+        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.30Aug090335.2848\netedit.gui\basic\open_configuration_shortcut\net.net.xml"/>
     </output>
 
     <processing>
@@ -316,8 +316,8 @@
     <connection from="8" to=":Center_w0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="5" to=":Center_w0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="7" to=":Center_w0" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":Center_w1" to=":Center_c1" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":Center_w2" to=":Center_c0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":Center_w1" to=":Center_c1" fromLane="0" toLane="0" tl="Center" linkIndex="21" dir="s" state="M"/>
+    <connection from=":Center_w2" to=":Center_c0" fromLane="0" toLane="0" tl="Center" linkIndex="20" dir="s" state="M"/>
     <connection from=":D_w0" to="8" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="4" to=":D_w0" fromLane="0" toLane="0" dir="s" state="M"/>
 </net>

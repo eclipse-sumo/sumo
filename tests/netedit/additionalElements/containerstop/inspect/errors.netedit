@@ -109,7 +109,7 @@ Debug: Setting previous attribute blockMovement '0' into containerStop 'correctI
 GLDebug: Removed object containerStop:correctID from SUMORTree with boundary -20.00,-6.40,70.00,33.60
 GLDebug: Inserted containerStop:correctID into SUMORTree with boundary -20.00,-6.40,70.00,33.60
 Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute lines 'line1  line2' into containerStop 'correctID'
+Debug: Setting previous attribute lines 'line1, line2' into containerStop 'correctID'
 GLDebug: Removed object containerStop:correctID from SUMORTree with boundary -20.00,-6.40,70.00,33.60
 GLDebug: Inserted containerStop:correctID into SUMORTree with boundary -20.00,-6.40,70.00,33.60
 Debug: Keys Ctrl + Z (Undo) pressed
