@@ -26,6 +26,9 @@ bus_stop_direction_platform_as_way
 # import bus stops
 bus_stop_position
 
+# import bus stops
+bus_stop_position_numerical_ids
+
 # Area around the ITS in Berlin, Adlershof (13.52494,52.42582,13.53625,52.43026)
 adlershof_dlr
 adlershof_dlr_discard-tls
