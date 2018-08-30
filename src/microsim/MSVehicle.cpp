@@ -2980,6 +2980,12 @@ MSVehicle::canReverse() const {
         if ((int)(myRoute->end() - myCurrEdge) <= (int)myFurtherLanes.size()) {
             return false;
         }
+        // ensure that the turn-around connection exists from the current edge to it's bidi-edge
+        const MSEdgeVector& succ = myLane->getEdge().getSuccessors();
+        if (std::find(succ.begin(), succ.end(), myLane->getEdge().getBidiEdge()) == succ.end()) {
+            return false;
+        }
+
         int view = 2;
         for (MSLane* further : myFurtherLanes) {
             if (!further->getEdge().isInternal()) {
