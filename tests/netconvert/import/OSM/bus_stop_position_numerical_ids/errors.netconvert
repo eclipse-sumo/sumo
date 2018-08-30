@@ -1,8 +1,5 @@
-Warning: Referenced node: '596713378' in relation: '4599283' does not exist. Probably OSM file is incomplete.
-Warning: Referenced node: '3356361110' in relation: '4599283' does not exist. Probably OSM file is incomplete.
-Warning: Referenced node: '3356361111' in relation: '4599283' does not exist. Probably OSM file is incomplete.
-Warning: Referenced node: '29494305' in relation: '4599283' does not exist. Probably OSM file is incomplete.
-Warning: The traffic light '28095437' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light '28095437'
-Warning: The traffic light '3612453893' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light '3612453893'
+Warning: No way found for reference '29267666' in relation '1663189'
+Warning: No way found for reference '158849904' in relation '1663189'
+Warning: Ignoring restriction relation '1663189' with unknown from-way.
+Warning: Ignoring restriction relation '1663189' with unknown to-way.
+Warning: Intersecting left turns at junction '18916104' from lane '412820213_0' and lane '412820207_1'. (increase junction radius to avoid this)
