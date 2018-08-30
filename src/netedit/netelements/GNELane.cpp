@@ -97,7 +97,7 @@ GNELane::drawLinkNo(const GUIVisualizationSettings& s) const {
     }
     // draw all links
     glPushMatrix();
-    glTranslated(0, 0, GLO_LANE + 0.1);
+    glTranslated(0, 0, GLO_JUNCTION + 0.5);
     double w = myParentEdge.getNBEdge()->getLaneWidth(myIndex) / (double) noLinks;
     double x1 = myParentEdge.getNBEdge()->getLaneWidth(myIndex) / 2;
     const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
@@ -121,7 +121,7 @@ GNELane::drawTLSLinkNo(const GUIVisualizationSettings& s) const {
     }
     // draw all links
     glPushMatrix();
-    glTranslated(0, 0, GLO_LANE + 0.1);
+    glTranslated(0, 0, GLO_JUNCTION + 0.5);
     double w = myParentEdge.getNBEdge()->getLaneWidth(myIndex) / (double) noLinks;
     double x1 = myParentEdge.getNBEdge()->getLaneWidth(myIndex) / 2;
     const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
