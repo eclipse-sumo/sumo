@@ -9,7 +9,7 @@ delete
 inspect
 
 # inspect selection
-inspect_selection
+inspect_selected
 
 # load shape
 load
