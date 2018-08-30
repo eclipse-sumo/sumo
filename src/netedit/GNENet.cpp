@@ -1421,7 +1421,7 @@ GNENet::joinSelectedJunctions(GNEUndoList* undoList) {
     Position pos;
     Position oldPos;
     bool setTL;
-    std::string id;
+    std::string id = "cluster";
     TrafficLightType type;
     SumoXMLNodeType nodeType = NODETYPE_UNKNOWN;
     myNetBuilder->getNodeCont().analyzeCluster(cluster, id, pos, setTL, type, nodeType);
