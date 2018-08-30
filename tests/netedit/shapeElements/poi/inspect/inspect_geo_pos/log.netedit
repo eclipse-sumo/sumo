@@ -1,0 +1,3 @@
+Error: Shape of a(n) user-supplied GEO position is broken: the position is neither x,y nor x,y,z.
+Error: Shape of a(n) user-supplied GEO position is broken: the shape is empty.
+Error: Shape of a(n) user-supplied GEO position is broken: not numeric position entry.
