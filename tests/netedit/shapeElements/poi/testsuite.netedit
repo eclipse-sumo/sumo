@@ -5,11 +5,11 @@ create
 # delete poi
 delete
 
-# inspect shape
+# inspect poi
 inspect
 
-# inspect selection
-inspect_selection
+# inspect selected poi
+inspect_selected
 
 # load poi
 load
