@@ -1321,7 +1321,7 @@ NBEdgeCont::guessSidewalks(double width, double minSpeed, double maxSpeed, bool 
 
 
 int
-NBEdgeCont::remapIDs(bool numericaIDs, bool reservedIDs, const std::string& prefix) {
+NBEdgeCont::remapIDs(bool numericaIDs, bool reservedIDs, const std::string& prefix, NBPTStopCont& sc) {
     std::vector<std::string> avoid = getAllNames();
     std::set<std::string> reserve;
     if (reservedIDs) {
@@ -1342,15 +1342,25 @@ NBEdgeCont::remapIDs(bool numericaIDs, bool reservedIDs, const std::string& pref
             toChange.insert(it->second);
         }
     }
+
+    std::map<std::string, std::vector<NBPTStop*> > stopsOnEdge;
+    for (const auto& item : sc.getStops()) {
+        stopsOnEdge[item.second->getEdgeId()].push_back(item.second);
+    }
+
     const bool origNames = OptionsCont::getOptions().getBool("output.original-names");
     for (std::set<NBEdge*, ComparatorIdLess>::iterator it = toChange.begin(); it != toChange.end(); ++it) {
         NBEdge* edge = *it;
-        myEdges.erase(edge->getID());
+        const std::string origID = edge->getID();
+        myEdges.erase(origID);
         if (origNames) {
-            edge->setOrigID(edge->getID());
+            edge->setOrigID(origID);
         }
         edge->setID(idSupplier.getNext());
         myEdges[edge->getID()] = edge;
+        for (NBPTStop* stop : stopsOnEdge[origID]) {
+            stop->setEdgeId(prefix + edge->getID(), *this);
+        }
     }
     if (prefix.empty()) {
         return (int)toChange.size();
