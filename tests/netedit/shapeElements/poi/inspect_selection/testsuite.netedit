@@ -1,0 +1,33 @@
+# all test check also the undo-redo of modifications and save the POI into a file
+# edit POI color
+inspect_selection_color
+
+# edit POI type
+inspect_selection_type
+
+# edit POI layer
+inspect_selection_layer
+
+# edit POI width
+inspect_selection_width
+
+# edit POI height
+inspect_selection_height
+
+# edit POI imgfile
+inspect_selection_imgfile
+
+# edit POI relative path
+inspect_selection_relativepath
+
+# edit POI angle
+inspect_selection_angle
+
+# edit use geo
+inspect_selection_geo_use
+
+# edit POI generic parameters
+inspect_selection_genericparameters
+
+# edit POI block move
+inspect_selection_blockmove

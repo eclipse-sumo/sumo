@@ -11,9 +11,6 @@ inspect
 # inspect selection
 inspect_selection
 
-# inspect selection  in a net with geo attributes
-inspect_selection_geo
-
 # load poi
 load
 
