@@ -13,3 +13,7 @@ slow_fast_slow
 # tests/tools/public_transport/ptlines2flows/reverse_at_stop
 # 
 reverse_at_stop
+
+# train serving a public transport line must reverse direction at a branch stop without having a link
+# Input taken from reverse_at_stop
+reverse_no_link
