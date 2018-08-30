@@ -1,0 +1,30 @@
+# all test check also the undo-redo of modifications and save the POI into a shape file
+# create default
+create_default
+
+# create color
+create_color
+
+# create type
+create_type
+
+# create layer
+create_layer
+
+# create width
+create_width
+
+# create height
+create_height
+
+# create imgfile
+create_imgfile
+
+# create relativepath
+create_relativepath
+
+# create with different angle
+create_angle
+
+# create with different block move
+create_blockmove
