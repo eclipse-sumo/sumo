@@ -379,7 +379,7 @@ NBPTStopCont::findAccessEdgesForRailStops(NBEdgeCont& cont, double maxRadius, in
                 edgCants.push_back(e);
             }
             std::sort(edgCants.begin(), edgCants.end(), [pos](NBEdge * a, NBEdge * b) {
-                return a->getGeometry().distance2D(pos, false) < b->getGeometry().distance2D(pos, false);
+                return a->getLaneShape(0).distance2D(pos, false) < b->getLaneShape(0).distance2D(pos, false);
             });
             int cnt = 0;
             for (auto edge : edgCants) {
