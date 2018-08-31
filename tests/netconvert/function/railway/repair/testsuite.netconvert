@@ -1,5 +1,8 @@
 synthetic
 
+# Copy of synthetic
+synthetic_connectStraight
+
 # tests for extending existing bidi-edges
 extendBidi
 
