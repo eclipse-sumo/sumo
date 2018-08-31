@@ -7,6 +7,4 @@ Warning: Edge 'gneE17' has a grade of 25.00%.
 Warning: Edge 'gneE18' has a grade of 25.00%.
 Warning: Edge 'gneE19' has a grade of 25.00%.
 Warning: Intersecting left turns at junction 'gneJ19' from lane '-gneE19_0' and lane '-gneE16_0'. (increase junction radius to avoid this)
-Warning: Please note that using ';' and ',' as XML list separators is deprecated.
- From 1.0 onwards, only ' ' will be accepted.
 Warning: Intersecting left turns at junction 'gneJ19' from lane '-gneE19_0' and lane '-gneE16_0'. (increase junction radius to avoid this)
