@@ -26,6 +26,7 @@ DELAY_QUESTION = 1
 DELAY_REFERENCE = 30
 DELAY_QUIT = 3
 DELAY_UNDOREDO = 1
+DELAY_SELECT = 3
 DELAY_RECOMPUTE = 4
 DELAY_RECOMPUTE_VOLATILE = 5
 DELAY_REMOVESELECTION = 5
@@ -544,6 +545,8 @@ def openNetworkAs(waitTime=2):
 def saveNetwork():
     # save network using hotkey
     typeTwoKeys("s", Key.CTRL)
+    # wait for debug
+    wait(DELAY_RECOMPUTE)
 
 
 """
@@ -561,6 +564,8 @@ def saveNetworkAs(waitTime=2):
     typeEnter()
     # wait for saving
     wait(waitTime)
+    # wait for debug
+    wait(DELAY_RECOMPUTE)
 
 
 """
@@ -1139,6 +1144,8 @@ def selectDefault():
         typeTab()
     # type enter to select it
     typeEnter()
+    # wait for gl debug
+    wait(DELAY_SELECT)
 
 
 """
@@ -1175,6 +1182,8 @@ def loadSelection():
     filename = os.path.join(textTestSandBox, "selection.txt")
     pasteIntoTextField(filename)
     typeEnter()
+    # wait for gl debug
+    wait(DELAY_SELECT)
 
 
 """
@@ -1207,6 +1216,8 @@ def selectItems(elementClass, elementType, attribute, value):
     pasteIntoTextField(value)
     # type enter to select it
     typeEnter()
+    # wait for gl debug
+    wait(DELAY_SELECT)
 
 
 """
@@ -1216,6 +1227,8 @@ def selectItems(elementClass, elementType, attribute, value):
 
 def deleteSelectedItems():
     typeKey(Key.DELETE)
+    # wait for gl debug
+    wait(DELAY_SELECT)
 
 
 """
@@ -1294,6 +1307,8 @@ def selectionRectangle(match, startX, startY, endX, endY):
     Settings.MoveMouseDelay = 0.2
     # Release Shift key (Sikulix function)
     keyUp(Key.SHIFT)
+    # wait for gl debug
+    wait(DELAY_SELECT)
 
 
 """
@@ -1308,6 +1323,8 @@ def selectionClear(previouslyInserted=False):
         typeTab()
     # type space to select clear option
     typeSpace()
+    # wait for gl debug
+    wait(DELAY_SELECT)
 
 
 """
@@ -1322,6 +1339,8 @@ def selectionInvert():
         typeTab()
     # type space to select invert operation
     typeSpace()
+    # wait for gl debug
+    wait(DELAY_SELECT)
 
 
 """
