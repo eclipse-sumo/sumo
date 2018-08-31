@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 27.08.2018 14:37:20 by Eclipse SUMO netedit Version b980bbd93f
+<!-- generated on 31.08.2018 15:52:46 by Eclipse SUMO netedit Version b980bbd93f
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.27Aug143438.3204/netedit.gui/netElements/crossings/delete_sidewalks/delete_TLS\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.31Aug154618.1292/netedit.gui/netElements/crossings/delete_sidewalks/delete_TLS\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.27Aug143438.3204/netedit.gui/netElements/crossings/delete_sidewalks/delete_TLS\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.31Aug154618.1292/netedit.gui/netElements/crossings/delete_sidewalks/delete_TLS\net.net.xml"/>
     </output>
 
     <processing>
@@ -29,12 +29,12 @@
     </pedestrian>
 
     <netedit>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.27Aug143438.3204/netedit.gui/netElements/crossings/delete_sidewalks/delete_TLS\additionals.xml"/>
-        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.27Aug143438.3204/netedit.gui/netElements/crossings/delete_sidewalks/delete_TLS\shapes.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.31Aug154618.1292/netedit.gui/netElements/crossings/delete_sidewalks/delete_TLS\additionals.xml"/>
+        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.31Aug154618.1292/netedit.gui/netElements/crossings/delete_sidewalks/delete_TLS\shapes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.27Aug143438.3204/netedit.gui/netElements/crossings/delete_sidewalks/delete_TLS\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.31Aug154618.1292/netedit.gui/netElements/crossings/delete_sidewalks/delete_TLS\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -43,7 +43,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.27Aug143438.3204/netedit.gui/netElements/crossings/delete_sidewalks/delete_TLS\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.31Aug154618.1292/netedit.gui/netElements/crossings/delete_sidewalks/delete_TLS\log.txt"/>
     </report>
 
 </configuration>
@@ -53,30 +53,10 @@
 
     <location netOffset="50.00,50.00" convBoundary="0.00,0.00,100.00,100.00" origBoundary="-50.00,-50.00,50.00,50.00" projParameter="!"/>
 
-    <edge id=":A_w0" function="walkingarea">
-        <lane id=":A_w0_0" index="0" allow="pedestrian" speed="1.00" length="14.80" width="2.00" shape="56.40,0.00 58.40,0.00 41.60,0.00 43.60,0.00"/>
-    </edge>
-    <edge id=":B_w0" function="walkingarea">
-        <lane id=":B_w0_0" index="0" allow="pedestrian" speed="1.00" length="14.80" width="2.00" shape="43.60,100.00 41.60,100.00 58.40,100.00 56.40,100.00"/>
-    </edge>
-    <edge id=":C_w0" function="walkingarea">
-        <lane id=":C_w0_0" index="0" allow="pedestrian" speed="1.00" length="14.80" width="2.00" shape="0.00,43.60 0.00,41.60 0.00,58.40 0.00,56.40"/>
-    </edge>
-    <edge id=":D_w0" function="walkingarea">
-        <lane id=":D_w0_0" index="0" allow="pedestrian" speed="1.00" length="14.80" width="2.00" shape="100.00,56.40 100.00,58.40 100.00,41.60 100.00,43.60"/>
-    </edge>
 
     <junction id="A" type="dead_end" x="50.00" y="0.00" incLanes="" intLanes="" shape="50.00,0.00"/>
     <junction id="B" type="dead_end" x="50.00" y="100.00" incLanes="" intLanes="" shape="50.00,100.00"/>
     <junction id="C" type="dead_end" x="0.00" y="50.00" incLanes="" intLanes="" shape="0.00,50.00"/>
     <junction id="D" type="dead_end" x="100.00" y="50.00" incLanes="" intLanes="" shape="100.00,50.00"/>
 
-    <connection from=":A_w0" to="5" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="1" to=":A_w0" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":B_w0" to="6" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="2" to=":B_w0" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":C_w0" to="7" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="3" to=":C_w0" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":D_w0" to="8" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="4" to=":D_w0" fromLane="0" toLane="0" dir="s" state="M"/>
 </net>

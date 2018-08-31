@@ -1,9 +1,3 @@
-# create crossing in an intersection with four arms
-create
-
-# create crossing in a junction with four arms and sidewalks 
-create_sidewalks
-
 # delete crossing
 delete
 
@@ -18,12 +12,3 @@ delete_noredo
 
 # delete junction with TLS
 delete_TLS
-
-# inspect crossing
-inspect
-
-# load big net with crossigns
-load_big
-
-# load small net with crossings
-load_small
