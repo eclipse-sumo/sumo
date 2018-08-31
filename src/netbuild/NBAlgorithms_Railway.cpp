@@ -931,9 +931,16 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForStops(NBNetBuilder& nb) {
 void
 NBRailwayTopologyAnalyzer::addBidiEdgesForStraightConnectivity(NBNetBuilder& nb) {
     int added = 0;
+    std::set<NBNode*> brokenNodes = getBrokenRailNodes(nb);
     for (const auto& e : nb.getEdgeCont()) {
+        if (!isRailway(e.second->getPermissions())) {
+            continue;
+        }
         NBNode* const from = e.second->getFromNode();
         NBNode* const to = e.second->getToNode();
+        if (brokenNodes.count(from) == 0 && brokenNodes.count(to) == 0) {
+            continue;
+        }
         EdgeVector inRailFrom, outRailFrom, inRailTo, outRailTo;
         getRailEdges(from, inRailFrom, outRailFrom);
         getRailEdges(to, inRailTo, outRailTo);
@@ -961,7 +968,7 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForStraightConnectivity(NBNetBuilder& nb)
         for (const NBEdge* toStraightCand : inRailTo) {
             if (toStraightCand != e.second && isStraight(to, toStraightCand, e.second)) {
                 NBEdge* e2 = addBidiEdge(nb, e.second);
-                //std::cout << " add bidiEdge for stop at edge " << edge->getID() << "\n";
+                //std::cout << " add bidiEdge for straight connectivity at edge " << e.second->getID() << " fromBroken=" << brokenNodes.count(from) << " toBroken=" << brokenNodes.count(to) << "\n";
                 if (e2 != nullptr) {
                     added++;
                     added += extendBidiEdges(nb, to, e.second);
