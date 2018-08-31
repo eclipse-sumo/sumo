@@ -874,12 +874,7 @@ GNESelectorFrame::SelectionOperation::onCmdLoad(FXObject*, FXSelector, void*) {
         // change selected attribute in loaded ACs allowing undo/redo
         if (loadedACs.size() > 0) {
             mySelectorFrameParent->getViewNet()->getUndoList()->p_begin("load selection");
-            for (auto i : loadedACs) {
-                // check that AC can be selected
-                if(GNEAttributeCarrier::getTagProperties(i->getTag()).isSelectable()) {
-                    i->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->getViewNet()->getUndoList());
-                }
-            }
+            mySelectorFrameParent->handleIDs(loadedACs);
             mySelectorFrameParent->getViewNet()->getUndoList()->p_end();
         }
         // update list of current selected items
