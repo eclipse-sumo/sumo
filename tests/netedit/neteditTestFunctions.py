@@ -26,8 +26,8 @@ DELAY_QUESTION = 1
 DELAY_REFERENCE = 30
 DELAY_QUIT = 3
 DELAY_UNDOREDO = 1
-DELAY_VOLATILE = 4
-DELAY_SAVE = 4
+DELAY_RECOMPUTE = 4
+DELAY_RECOMPUTE_VOLATILE = 5
 DELAY_REMOVESELECTION = 5
 
 Settings.MoveMouseDelay = 0.2
@@ -347,7 +347,7 @@ def setupAndStart(testRoot, extraParameters=[], debugInformation=True, searchRef
 def rebuildNetwork():
     typeKey(Key.F5)
     # wait for output
-    wait(DELAY_VOLATILE)
+    wait(DELAY_RECOMPUTE)
 
 
 """
@@ -361,7 +361,7 @@ def rebuildNetworkWithVolatileOptions(question=True):
     if question is True:
         waitQuestion('y')
         # wait for output
-        wait(DELAY_VOLATILE)
+        wait(DELAY_RECOMPUTE_VOLATILE)
     else:
         waitQuestion('n')
 
@@ -486,7 +486,7 @@ def quit(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
             if saveNet:
                 waitQuestion("s")
                 # wait for log 
-                wait(DELAY_SAVE)
+                wait(DELAY_RECOMPUTE)
             else:
                 waitQuestion("q")
 
