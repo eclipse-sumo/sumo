@@ -623,6 +623,9 @@ public:
     /// @brief discard all current (and optionally future) crossings
     void discardAllCrossings(bool rejectAll);
 
+    /// @brief discard previously built walkingareas (required for repeated computation by netedit)
+    void discardWalkingareas();
+
     /// @brief get num of crossings from sumo net
     int numCrossingsFromSumoNet() const {
         return myCrossingsLoadedFromSumoNet;

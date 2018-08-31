@@ -453,9 +453,16 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         for (std::map<std::string, NBNode*>::const_iterator i = myNodeCont.begin(); i != myNodeCont.end(); ++i) {
             i->second->buildCrossingsAndWalkingAreas();
         }
-    } else if (oc.getBool("no-internal-links")) {
+    } else {
         for (std::map<std::string, NBNode*>::const_iterator i = myNodeCont.begin(); i != myNodeCont.end(); ++i) {
-            i->second->discardAllCrossings(false);
+            // needed by netedit if the last crossings was deleted from the network 
+            // and walkingareas have been invalidated since the last call to compute()
+            i->second->discardWalkingareas();
+        }
+        if (oc.getBool("no-internal-links")) {
+            for (std::map<std::string, NBNode*>::const_iterator i = myNodeCont.begin(); i != myNodeCont.end(); ++i) {
+                i->second->discardAllCrossings(false);
+            }
         }
     }
     // join traffic lights (after building connections)

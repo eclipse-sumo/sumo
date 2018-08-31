@@ -2251,6 +2251,13 @@ NBNode::discardAllCrossings(bool rejectAll) {
     }
 }
 
+
+void 
+NBNode::discardWalkingareas() {
+    myWalkingAreas.clear();
+}
+
+
 void
 NBNode::buildInnerEdges() {
     // myDisplacementError is computed during this operation. reset first
