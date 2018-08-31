@@ -13,7 +13,7 @@
 #include <unordered_map>
 #include <stdint.h>
 
-static std::unordered_map<uint64_t ,int> repToFareZone{
+static std::unordered_map<uint64_t ,int> repToFareZone = std::unordered_map<uint64_t ,int>{
         {1 ,110},
         {2 ,121},
         {4 ,122},
@@ -77,7 +77,7 @@ static std::unordered_map<uint64_t ,int> repToFareZone{
         {1152921504606846976 ,323},
         {2305843009213693952 ,324} };
 
-static std::unordered_map<int,uint64_t> fareZoneToRep {
+static std::unordered_map<int,uint64_t> fareZoneToRep  = std::unordered_map<int,uint64_t >{
     {110,1 },
     {121,2 },
     {122,4 },

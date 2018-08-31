@@ -128,8 +128,11 @@ private:
 
 struct Prices
 {
+
+  
+  
   /** Prices for zones **/
-  std::vector<double> zonePrices = {1.9,3.4,4.9,6.2,7.7,9.2};
+  std::vector<double> zonePrices = std::vector<double>{1.9,3.4,4.9,6.2,7.7,9.2};
   double  halle = 2.3;
   double leipzig = 2.7;
   double t1 = 1.5;
