@@ -114,7 +114,9 @@ NBRailwayTopologyAnalyzer::repairTopology(NBNetBuilder& nb) {
     addBidiEdgesForBufferStops(nb);
     addBidiEdgesBetweenSwitches(nb);
     addBidiEdgesForStops(nb);
-    addBidiEdgesForStraightConnectivity(nb);
+    if (OptionsCont::getOptions().getBool("railway.topology.repair.connect-straight")) {
+        addBidiEdgesForStraightConnectivity(nb);
+    }
 }
 
 
