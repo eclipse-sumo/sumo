@@ -261,7 +261,9 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     NBTurningDirectionsComputer::computeTurnDirections(myNodeCont);
     PROGRESS_TIME_MESSAGE(before);
     // correct edge geometries to avoid overlap
-    myNodeCont.avoidOverlap();
+    if (oc.exists("geometry.avoid-overlap") && oc.getBool("geometry.avoid-overlap")) {
+        myNodeCont.avoidOverlap();
+    }
 
     // GUESS TLS POSITIONS
     before = SysUtils::getCurrentMillis();

@@ -152,6 +152,9 @@ NBFrame::fillOptions(bool forNetgen) {
         oc.doRegister("geometry.max-grade", new Option_Float(10));
         oc.addDescription("geometry.max-grade", "Processing", "Warn about edge geometries with a grade in % above FLOAT. The threshold applies to roads with a speed limit of 50km/h and is scaled according to road speed.");
 
+        oc.doRegister("geometry.avoid-overlap", new Option_Bool(true));
+        oc.addDescription("geometry.avoid-overlap", "Processing", "Modify edge geometries to avoid overlap at junctions");
+
         // railway processing options
 
         oc.doRegister("railway.topology.repair", new Option_Bool(false));

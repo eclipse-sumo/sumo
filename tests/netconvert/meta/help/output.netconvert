@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version bb21e4e
+Eclipse SUMO netconvert Version 0b587be
  Copyright (C) 2001-2018 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
   SUMO.
@@ -150,6 +150,8 @@ Processing Options:
                                          in % above FLOAT. The threshold applies
                                          to roads with a speed limit of 50km/h
                                          and is scaled according to road speed.
+  --geometry.avoid-overlap             Modify edge geometries to avoid overlap
+                                         at junctions
   --offset.disable-normalization       Turn off normalizing node positions
   --offset.x FLOAT                     Adds FLOAT to net x-positions
   --offset.y FLOAT                     Adds FLOAT to net y-positions
