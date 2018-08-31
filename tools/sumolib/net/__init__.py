@@ -26,6 +26,7 @@ from __future__ import absolute_import
 import os
 import sys
 import math
+import heapq
 from xml.sax import handler, parse
 from copy import copy
 from itertools import *  # noqa
@@ -421,6 +422,27 @@ class Net:
                             for p in l.getShape3D()]
             e.rebuildShape()
 
+    def getShortestPath(self, fromEdge, toEdge, maxCost=1e400):
+        q = [(0, fromEdge, ())]
+        seen = set()
+        dist = {fromEdge: fromEdge.getLength()}
+        while q:
+            cost, e1, path = heapq.heappop(q)
+            if e1 in seen:
+                continue
+            seen.add(e1)
+            path += (e1,)
+            if e1 == toEdge:
+                return path, cost
+            if cost > maxCost:
+                return None, cost
+            for e2 in e1.getOutgoing():
+                if e2 not in seen:
+                    newCost = cost + e2.getLength()
+                    if e2 not in dist or newCost < dist[e2]:
+                        dist[e2] = newCost
+                        heapq.heappush(q, (newCost, e2, path))
+        return None, 1e400
 
 class NetReader(handler.ContentHandler):
 
