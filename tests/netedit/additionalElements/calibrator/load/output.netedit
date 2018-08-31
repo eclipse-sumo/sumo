@@ -7,4 +7,4 @@ TestFunctions: 'reference.png' found. Position: 304 - 140
 [log] ( Ctrl+Shift )  TYPE "d"
 [log] ( Ctrl )  TYPE "s"
 [log] ( Ctrl )  TYPE "q"
-TestFunctions: Error closing Netedit
+TestFunctions: Netedit closed successfully
