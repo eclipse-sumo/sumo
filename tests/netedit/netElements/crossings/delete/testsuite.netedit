@@ -1,5 +1,5 @@
 # delete crossing
-delete
+delete_basic
 
 # delete junction, undo and redo (net must be the same as original)
 delete_junction
