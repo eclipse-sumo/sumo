@@ -130,7 +130,7 @@ traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg",
              '--vehroute-output', 'vehroutes.xml',
              '--additional-files',
              'input_additional.add.xml,input_additional2.add.xml',
-              "--default.speeddev", "0"])
+             "--default.speeddev", "0"])
 for i in range(3):
     print("step", step())
 vehID = "horiz"

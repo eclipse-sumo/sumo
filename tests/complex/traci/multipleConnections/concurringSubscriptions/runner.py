@@ -28,7 +28,7 @@ SUMO_HOME = os.path.join(os.path.dirname(__file__), "..", "..", "..", "..", ".."
 sys.path.append(os.path.join(os.environ.get("SUMO_HOME", SUMO_HOME), "tools"))
 import sumolib  # noqa
 import traci  # noqa
-import traci.constants as tc
+import traci.constants as tc  # noqa
 
 PORT = sumolib.miscutils.getFreeSocketPort()
 DELTA_T = 1000
