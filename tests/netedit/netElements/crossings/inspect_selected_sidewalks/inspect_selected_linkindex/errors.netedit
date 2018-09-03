@@ -34,8 +34,8 @@ Debug: Current saving Status: net unsaved, additionals saved, shapes saved
 Debug: Setting new attribute linkIndex '1' into crossing ':Center_c1'
 Debug: Key F5 (Compute) pressed
 Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute linkIndex '-1' into crossing ':Center_c1'
-Debug: Setting previous attribute linkIndex '-1' into crossing ':Center_c0'
+Debug: Setting previous attribute linkIndex '17' into crossing ':Center_c1'
+Debug: Setting previous attribute linkIndex '16' into crossing ':Center_c0'
 Debug: Key F5 (Compute) pressed
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute linkIndex '1' into crossing ':Center_c0'

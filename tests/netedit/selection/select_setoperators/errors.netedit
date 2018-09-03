@@ -1123,7 +1123,6 @@ Debug: Removing poi 'POI_0' from viewNet
 Debug: Removing poi 'POI_1' from viewNet
 Debug: Removing poi 'POI_2' from viewNet
 Debug: Removing poi 'POI_3' from viewNet
-Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Additionals saved
 Debug: Shapes saved
 Debug: Deleting unreferenced edge '4' in GNEChange_Attribute

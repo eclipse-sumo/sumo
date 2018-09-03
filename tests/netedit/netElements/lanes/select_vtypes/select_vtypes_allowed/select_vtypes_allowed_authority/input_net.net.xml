@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jun 26 14:44:09 2018 by Eclipse SUMO netconvert Version 88bb7b0b92
+<!-- generated on Sun Sep  2 10:34:03 2018 by Eclipse SUMO netconvert Version d6cfaccbb6
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value=".\netedit\netElements\edges\select_vtypes_allowed_3\input_net.nod.xml"/>
-        <edge-files value=".\netedit\netElements\edges\select_vtypes_allowed_3\input_net.edg.xml"/>
-        <connection-files value=".\netedit\netElements\edges\select_vtypes_allowed_3\input_net.con.xml"/>
+        <node-files value=".\netedit\netElements\lanes\select_vtypes\select_vtypes_allowed\select_vtypes_allowed_authority\input_net.nod.xml"/>
+        <edge-files value=".\netedit\netElements\lanes\select_vtypes\select_vtypes_allowed\select_vtypes_allowed_authority\input_net.edg.xml"/>
+        <connection-files value=".\netedit\netElements\lanes\select_vtypes\select_vtypes_allowed\select_vtypes_allowed_authority\input_net.con.xml"/>
     </input>
 
     <output>
-        <output-file value=".\netedit\netElements\edges\select_vtypes_allowed_3\input_net.net.xml"/>
+        <output-file value=".\netedit\netElements\lanes\select_vtypes\select_vtypes_allowed\select_vtypes_allowed_authority\input_net.net.xml"/>
     </output>
 
     <report>
@@ -20,15 +20,15 @@
 </configuration>
 -->
 
-<net version="0.27" junctionCornerDetail="5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.0" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="0.00,-30.00" convBoundary="0.00,0.00,80.00,40.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
     <edge id=":gneJ2_0" function="internal">
-        <lane id=":gneJ2_0_0" index="0" allow="passenger" speed="13.89" length="4.67" shape="0.00,41.60 -1.20,40.80 -1.60,40.00 -1.20,39.20 0.00,38.40"/>
+        <lane id=":gneJ2_0_0" index="0" allow="passenger" speed="3.65" length="4.67" shape="0.00,41.60 -1.20,40.80 -1.60,40.00 -1.20,39.20 0.00,38.40"/>
     </edge>
     <edge id=":gneJ3_0" function="internal">
-        <lane id=":gneJ3_0_0" index="0" speed="13.89" length="4.67" shape="20.00,38.40 21.20,39.20 21.60,40.00 21.20,40.80 20.00,41.60"/>
+        <lane id=":gneJ3_0_0" index="0" speed="3.65" length="4.67" shape="20.00,38.40 21.20,39.20 21.60,40.00 21.20,40.80 20.00,41.60"/>
     </edge>
 
     <edge id="-gneE14" from="gneJ4" to="gneJ5" priority="1">

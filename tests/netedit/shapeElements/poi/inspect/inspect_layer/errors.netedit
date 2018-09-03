@@ -16,11 +16,13 @@ Debug: Adding poi 'POI_0' into viewNet
 GLDebug: Inserted poi:POI_0 into SUMORTree with boundary -1.00,15.00,5.00,21.00
 Debug: Shapes has to be saved
 Debug: Current saving Status: net saved, additionals saved, shapes unsaved
-Debug: Value 'dummyLayer' for attribute layer of poi isn't valid
+Debug: Setting new attribute layer '202.00' into poi 'POI_0'
+GLDebug: Removed object poi:POI_0 from SUMORTree with boundary -1.00,15.00,5.00,21.00
+GLDebug: Inserted poi:POI_0 into SUMORTree with boundary -1.00,15.00,5.00,21.00
 Debug: Setting new attribute layer '-2' into poi 'POI_0'
 GLDebug: Removed object poi:POI_0 from SUMORTree with boundary -1.00,15.00,5.00,21.00
 GLDebug: Inserted poi:POI_0 into SUMORTree with boundary -1.00,15.00,5.00,21.00
-Debug: Setting new attribute layer 'default' into poi 'POI_0'
+Debug: Setting new attribute layer '202.00' into poi 'POI_0'
 GLDebug: Removed object poi:POI_0 from SUMORTree with boundary -1.00,15.00,5.00,21.00
 GLDebug: Inserted poi:POI_0 into SUMORTree with boundary -1.00,15.00,5.00,21.00
 Debug: Setting new attribute layer '2' into poi 'POI_0'
@@ -39,18 +41,19 @@ Debug: Setting previous attribute layer 'default' into poi 'POI_0'
 GLDebug: Removed object poi:POI_0 from SUMORTree with boundary -1.00,15.00,5.00,21.00
 GLDebug: Inserted poi:POI_0 into SUMORTree with boundary -1.00,15.00,5.00,21.00
 Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Removing poi 'POI_0' from viewNet
-Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
+Debug: Setting previous attribute layer 'default' into poi 'POI_0'
 GLDebug: Removed object poi:POI_0 from SUMORTree with boundary -1.00,15.00,5.00,21.00
+GLDebug: Inserted poi:POI_0 into SUMORTree with boundary -1.00,15.00,5.00,21.00
 Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Adding poi 'POI_0' into viewNet
+Debug: Setting new attribute layer '202.00' into poi 'POI_0'
+GLDebug: Removed object poi:POI_0 from SUMORTree with boundary -1.00,15.00,5.00,21.00
 GLDebug: Inserted poi:POI_0 into SUMORTree with boundary -1.00,15.00,5.00,21.00
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute layer '-2' into poi 'POI_0'
 GLDebug: Removed object poi:POI_0 from SUMORTree with boundary -1.00,15.00,5.00,21.00
 GLDebug: Inserted poi:POI_0 into SUMORTree with boundary -1.00,15.00,5.00,21.00
 Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute layer 'default' into poi 'POI_0'
+Debug: Setting new attribute layer '202.00' into poi 'POI_0'
 GLDebug: Removed object poi:POI_0 from SUMORTree with boundary -1.00,15.00,5.00,21.00
 GLDebug: Inserted poi:POI_0 into SUMORTree with boundary -1.00,15.00,5.00,21.00
 Debug: Keys Ctrl + Y (Redo) pressed

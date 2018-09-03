@@ -49,9 +49,24 @@ netedit.selectionRectangle(match, 250, 150, 400, 300)
 netedit.selectionInvert()
 netedit.deleteSelectedItems()
 
+# extra wait for debug
+wait(5)
+
 # check undo and redo
 netedit.undo(match, 1)
-netedit.redo(match, 2)
+
+# extra wait for debug
+wait(5)
+
+netedit.redo(match, 1)
+
+# extra wait for debug
+wait(5)
+
+netedit.redo(match, 1)
+
+# extra wait for debug
+wait(5)
 
 # save additionals
 netedit.saveAdditionals()

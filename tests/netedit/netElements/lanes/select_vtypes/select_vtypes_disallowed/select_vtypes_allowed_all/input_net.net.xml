@@ -1,26 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jun 26 14:44:09 2018 by Eclipse SUMO netconvert Version 88bb7b0b92
+<!-- generated on 03.09.2018 13:23:22 by Eclipse SUMO netedit Version d6cfaccbb6
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value=".\netedit\netElements\edges\select_vtypes_allowed_1\input_net.nod.xml"/>
-        <edge-files value=".\netedit\netElements\edges\select_vtypes_allowed_1\input_net.edg.xml"/>
-        <connection-files value=".\netedit\netElements\edges\select_vtypes_allowed_1\input_net.con.xml"/>
+        <sumo-net-file value="C:\Projects\sumo\tests\netedit\netElements\edges\select_vtypes\select_vtypes_disallowed\select_vtypes_allowed_all\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value=".\netedit\netElements\edges\select_vtypes_allowed_1\input_net.net.xml"/>
+        <output-file value="C:\Projects\sumo\tests\netedit\netElements\edges\select_vtypes\select_vtypes_disallowed\select_vtypes_allowed_all\input_net.net.xml"/>
     </output>
 
-    <report>
-        <verbose value="true"/>
-    </report>
+    <processing>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="-1"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
 
 </configuration>
 -->
 
-<net version="0.27" junctionCornerDetail="5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.0" junctionCornerDetail="5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="0.00,-30.00" convBoundary="0.00,0.00,80.00,40.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
@@ -28,7 +38,7 @@
         <lane id=":gneJ2_0_0" index="0" disallow="passenger" speed="13.89" length="4.67" shape="0.00,41.60 -1.20,40.80 -1.60,40.00 -1.20,39.20 0.00,38.40"/>
     </edge>
     <edge id=":gneJ3_0" function="internal">
-        <lane id=":gneJ3_0_0" index="0" speed="13.89" length="4.67" shape="20.00,38.40 21.20,39.20 21.60,40.00 21.20,40.80 20.00,41.60"/>
+        <lane id=":gneJ3_0_0" index="0" disallow="all" speed="13.89" length="4.67" shape="20.00,38.40 21.20,39.20 21.60,40.00 21.20,40.80 20.00,41.60"/>
     </edge>
 
     <edge id="-gneE14" from="gneJ4" to="gneJ5" priority="1">
@@ -68,7 +78,7 @@
         <lane id="-gneE25_0" index="0" disallow="custom1" speed="13.89" length="20.00" shape="50.00,1.60 30.00,1.60"/>
     </edge>
     <edge id="gneE12" from="gneJ3" to="gneJ2" priority="1">
-        <lane id="gneE12_0" index="0" speed="13.89" length="20.00" shape="20.00,41.60 0.00,41.60"/>
+        <lane id="gneE12_0" index="0" disallow="all" speed="13.89" length="20.00" shape="20.00,41.60 0.00,41.60"/>
     </edge>
     <edge id="gneE13" from="gneJ2" to="gneJ3" priority="1">
         <lane id="gneE13_0" index="0" disallow="passenger" speed="13.89" length="20.00" shape="0.00,38.40 20.00,38.40"/>
