@@ -829,14 +829,18 @@ GNEApplicationWindow::onCmdOpenShapes(FXObject*, FXSelector, void*) {
         GNEShapeHandler handler(file, myNet);
         // disable validation for shapes
         XMLSubSys::setValidation("never", "auto");
+        // begin undo operation
         myUndoList->p_begin("Loading shapes from '" + file + "'");
+        // run parser for shapes
         if (!XMLSubSys::runParser(handler, file, false)) {
             WRITE_MESSAGE("Loading of shapes failed.");
         }
+        // end undoList operation and update view
+        myUndoList->p_end();
+        update();
         // enable validation for shapes
         XMLSubSys::setValidation("auto", "auto");
         update();
-        myUndoList->p_end();
     }
     return 1;
 }
@@ -859,17 +863,15 @@ GNEApplicationWindow::onCmdOpenAdditionals(FXObject*, FXSelector, void*) {
         XMLSubSys::setValidation("never", "auto");
         // Create additional handler
         GNEAdditionalHandler additionalHandler(file, myNet->getViewNet());
-        // Run parser
+        // begin undoList operation
         myUndoList->p_begin("Loading additionals from '" + file + "'");
+        // Run parser for additionals
         if (!XMLSubSys::runParser(additionalHandler, file, false)) {
             WRITE_MESSAGE("Loading of " + file + " failed.");
-            // Abort undo/redo
-            myUndoList->abort();
-        } else {
-            // commit undo/redo operation
-            myUndoList->p_end();
-            update();
         }
+        // end undoList operation and update view
+        myUndoList->p_end();
+        update();
         // restore validation for additionals
         XMLSubSys::setValidation("auto", "auto");
     }
