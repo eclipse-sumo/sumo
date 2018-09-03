@@ -27,8 +27,8 @@ import it.polito.appeal.traci.protocol.Command;
 public class ContextSubscription implements Subscription  {
 
 	public SubscriptionContext context;
-	public int start;
-	public int stop;
+	public double start;
+	public double stop;
 	public String objectID;
 	public SumoDomain contextDomain;
 	public double contextRange;
@@ -50,7 +50,7 @@ public class ContextSubscription implements Subscription  {
 		
 	}
 	
-	public ContextSubscription(SubscriptionContext context, int start, int stop, String objectID, SumoDomain contextDomain, double contextRange){
+	public ContextSubscription(SubscriptionContext context, double start, double stop, String objectID, SumoDomain contextDomain, double contextRange){
 		
 		this.context = context;
 		this.start = start;
@@ -66,8 +66,8 @@ public class ContextSubscription implements Subscription  {
 	public Command getCommand() {
 		
 		Command cmd = new Command(this.context.id);
-		cmd.content().writeInt(this.start);
-		cmd.content().writeInt(this.stop);
+		cmd.content().writeDouble(this.start);
+		cmd.content().writeDouble(this.stop);
 		cmd.content().writeStringASCII(this.objectID);
 		cmd.content().writeUnsignedByte(this.contextDomain.id);
 		cmd.content().writeDouble(this.contextRange);

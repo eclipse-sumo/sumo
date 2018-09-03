@@ -27,8 +27,8 @@ import it.polito.appeal.traci.protocol.Command;
 public class VariableSubscription implements Subscription  {
 
 	SubscribtionVariable sv;
-	public int start;
-	public int stop;
+	public double start;
+	public double stop;
 	public String objectID;
 	public LinkedList<Integer> commands;
 	
@@ -44,7 +44,7 @@ public class VariableSubscription implements Subscription  {
 		
 	}
 	
-	public VariableSubscription(SubscribtionVariable sv, int start, int stop, String objectID){
+	public VariableSubscription(SubscribtionVariable sv, double start, double stop, String objectID){
 		
 		this.sv = sv;
 		this.start = start;
@@ -58,8 +58,8 @@ public class VariableSubscription implements Subscription  {
 	public Command getCommand() {
 		
 		Command cmd = new Command(this.sv.id);
-		cmd.content().writeInt(this.start);
-		cmd.content().writeInt(this.stop);
+		cmd.content().writeDouble(this.start);
+		cmd.content().writeDouble(this.stop);
 		cmd.content().writeStringASCII(this.objectID);
 		cmd.content().writeUnsignedByte(this.commands.size());
 		for(Integer ix : this.commands){cmd.content().writeUnsignedByte(ix);}
