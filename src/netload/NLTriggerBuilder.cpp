@@ -71,6 +71,7 @@ NLTriggerBuilder::setHandler(NLHandler* handler) {
 
 void
 NLTriggerBuilder::buildVaporizer(const SUMOSAXAttributes& attrs) {
+    WRITE_WARNING("Vaporizers are deprecated. Use rerouters instead.");
     bool ok = true;
     // get the id, throw if not given or empty...
     std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
