@@ -813,9 +813,9 @@ MSLaneChanger::checkChange(
             // returned gap value is relative to backPosition
             const double gap = leader.second - vehicle->getVehicleType().getLengthWithGap();
 #ifdef DEBUG_CHECK_CHANGE
-                if (DEBUG_COND) {
-                    std::cout << SIMTIME << "  pedestrian on road " + leader.first->getID() << " gap=" << gap << " brakeGap=" << brakeGap << "\n";
-                }
+            if (DEBUG_COND) {
+                std::cout << SIMTIME << "  pedestrian on road " + leader.first->getID() << " gap=" << gap << " brakeGap=" << brakeGap << "\n";
+            }
 #endif
             if (brakeGap > gap) {
                 blocked |= blockedByLeader;
@@ -849,12 +849,12 @@ MSLaneChanger::checkChange(
             std::pair<MSVehicle* const, double> neighLead2 = targetLane->getCriticalLeader(dist, seen, speed, *vehicle);
             if (neighLead2.first != 0 && neighLead2.first != neighLead.first) {
                 const double secureGap = vehicle->getCarFollowModel().getSecureGap(vehicle->getSpeed(),
-                        neighLead2.first->getSpeed(), neighLead2.first->getCarFollowModel().getMaxDecel());
+                                         neighLead2.first->getSpeed(), neighLead2.first->getCarFollowModel().getMaxDecel());
                 const double secureGap2 = secureGap * vehicle->getLaneChangeModel().getSafetyFactor();
 #ifdef DEBUG_SURROUNDING_VEHICLES
                 if (DEBUG_COND) {
-                    std::cout << SIMTIME << "   found critical leader=" << neighLead2.first->getID() 
-                        << " gap=" << neighLead2.second << " secGap=" << secureGap << " secGap2=" << secureGap2 << "\n";
+                    std::cout << SIMTIME << "   found critical leader=" << neighLead2.first->getID()
+                              << " gap=" << neighLead2.second << " secGap=" << secureGap << " secGap2=" << secureGap2 << "\n";
                 }
 #endif
                 if (neighLead2.second < secureGap2) {
@@ -873,45 +873,45 @@ MSLaneChanger::checkChange(
     if ((state & LCA_BLOCKED) == 0 && (state & LCA_WANTS_LANECHANGE) != 0 && MSGlobals::gLaneChangeDuration > DELTA_T) {
         // Ensure that a continuous lane change manoeuvre can be completed before the next turning movement.
         // Assume lateral position == 0. (If this should change in the future add + laneOffset*vehicle->getLateralPositionOnLane() to distToNeighLane)
-        const double distToNeighLane = 0.5*(vehicle->getLane()->getWidth() + targetLane->getWidth());
+        const double distToNeighLane = 0.5 * (vehicle->getLane()->getWidth() + targetLane->getWidth());
         // Extrapolate the LC duration if operating with speed dependent lateral speed.
         const MSAbstractLaneChangeModel& lcm = vehicle->getLaneChangeModel();
         const double assumedDecel = lcm.getAssumedDecelForLaneChangeDuration();
         const double estimatedLCDuration = lcm.estimateLCDuration(vehicle->getSpeed(), distToNeighLane, assumedDecel);
-        if (estimatedLCDuration==-1) {
+        if (estimatedLCDuration == -1) {
             // Can't guarantee that LC will succeed if vehicle is braking -> assert(lcm.myMaxSpeedLatStanding==0)
 #ifdef DEBUG_CHECK_CHANGE
             if DEBUG_COND {
-                std::cout << SIMTIME << " checkChange() too slow to guarantee completion of continuous lane change."
-                        <<"\nestimatedLCDuration="<<estimatedLCDuration
-                        <<"\ndistToNeighLane="<<distToNeighLane
-                        << std::endl;
-            }
+            std::cout << SIMTIME << " checkChange() too slow to guarantee completion of continuous lane change."
+            << "\nestimatedLCDuration=" << estimatedLCDuration
+            << "\ndistToNeighLane=" << distToNeighLane
+            << std::endl;
+        }
 #endif
-            state |= LCA_INSUFFICIENT_SPEED;
-        } else {
-            // Compute covered distance, when braking for the whole lc duration
-            const double decel = vehicle->getCarFollowModel().getMaxDecel() * estimatedLCDuration;
+        state |= LCA_INSUFFICIENT_SPEED;
+    } else {
+        // Compute covered distance, when braking for the whole lc duration
+        const double decel = vehicle->getCarFollowModel().getMaxDecel() * estimatedLCDuration;
             const double avgSpeed = 0.5 * (
-                    MAX2(0., vehicle->getSpeed() - ACCEL2SPEED(vehicle->getCarFollowModel().getMaxDecel())) +
-                    MAX2(0., vehicle->getSpeed() - decel));
+                                        MAX2(0., vehicle->getSpeed() - ACCEL2SPEED(vehicle->getCarFollowModel().getMaxDecel())) +
+                                        MAX2(0., vehicle->getSpeed() - decel));
             // Distance required for lane change.
             const double space2change = avgSpeed * estimatedLCDuration;
             // Available distance for LC maneuver (distance till next turn)
             double seen = myCandi->lane->getLength() - vehicle->getPositionOnLane();
 #ifdef DEBUG_CHECK_CHANGE
             if DEBUG_COND {
-                std::cout << SIMTIME << " checkChange() checking continuous lane change..."
-                        << "\ndistToNeighLane=" << distToNeighLane
-                        << " estimatedLCDuration=" << estimatedLCDuration
-                        << " space2change=" << space2change
-                        << " avgSpeed=" << avgSpeed
-                        << std::endl;
-            }
+            std::cout << SIMTIME << " checkChange() checking continuous lane change..."
+            << "\ndistToNeighLane=" << distToNeighLane
+            << " estimatedLCDuration=" << estimatedLCDuration
+            << " space2change=" << space2change
+            << " avgSpeed=" << avgSpeed
+            << std::endl;
+        }
 #endif
 
-            // for finding turns it doesn't matter whether we look along the current lane or the target lane
-            const std::vector<MSLane*>& bestLaneConts = vehicle->getBestLanesContinuation();
+        // for finding turns it doesn't matter whether we look along the current lane or the target lane
+        const std::vector<MSLane*>& bestLaneConts = vehicle->getBestLanesContinuation();
             int view = 1;
             MSLane* nextLane = vehicle->getLane();
             MSLinkCont::const_iterator link = MSLane::succLinkSec(*vehicle, view, *nextLane, bestLaneConts);
@@ -920,7 +920,7 @@ MSLaneChanger::checkChange(
                         // the lanes after an internal junction are on different
                         // edges and do not allow lane-changing
                         || (nextLane->getEdge().isInternal() && (*link)->getViaLaneOrLane()->getEdge().isInternal())
-                ) {
+                   ) {
                     state |= LCA_INSUFFICIENT_SPACE;
                     break;
                 }
@@ -1022,9 +1022,9 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, double> leader) {
     ret = vehicle->influenceChangeDecision(ret);
     bool oppositeChangeByTraci = false;
     // Check whether a lane change to the opposite direction was requested via TraCI
-    if ((ret &(LCA_TRACI)) != 0) {
+    if ((ret & (LCA_TRACI)) != 0) {
         oppositeChangeByTraci = true;
-        }
+    }
     const bool isOpposite = vehicle->getLaneChangeModel().isOpposite();
     if (!isOpposite && leader.first == 0 && !oppositeChangeByTraci) {
         // no reason to change unless there is a leader
@@ -1158,14 +1158,14 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, double> leader) {
                 return false;
             }
         }
-    } else if (!oppositeChangeByTraci){
+    } else if (!oppositeChangeByTraci) {
         timeToOvertake = -1;
         // look forward as far as possible
         spaceToOvertake = std::numeric_limits<double>::max();
         leader = source->getOppositeLeader(vehicle, OPPOSITE_OVERTAKING_ONCOMING_LOOKAHEAD, true);
         // -1 will use getMaximumBrakeDist() as look-ahead distance
         neighLead = opposite->getOppositeLeader(vehicle, -1, false);
-    } else{
+    } else {
         timeToOvertake = STEPS2TIME(vehicle->getInfluencer().getLaneTimeLineDuration());//todo discuss concept
         spaceToOvertake =  timeToOvertake * vehicle->getLane()->getVehicleMaxSpeed(vehicle);
     }

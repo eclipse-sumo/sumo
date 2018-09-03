@@ -189,10 +189,10 @@ GUIParameterTableWindow*
 GUIVehicle::getTypeParameterWindow(GUIMainWindow& app,
                                    GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 25 
-                + (int)myType->getParameter().getParametersMap().size()
-                + (int)myType->getParameter().lcParameter.size()
-                + (int)myType->getParameter().jmParameter.size());
+        new GUIParameterTableWindow(app, *this, 25
+                                    + (int)myType->getParameter().getParametersMap().size()
+                                    + (int)myType->getParameter().lcParameter.size()
+                                    + (int)myType->getParameter().jmParameter.size());
     // add items
     ret->mkItem("Type Information:", false, "");
     ret->mkItem("type [id]", false, myType->getID());

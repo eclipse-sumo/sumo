@@ -1296,63 +1296,57 @@ TraCIServer::addSubscriptionFilter() {
 
     // dispatch according to filter type
     switch (filterType) {
-    case FILTER_TYPE_NONE:
-        // Remove all filters
-        removeFilters();
-        break;
-    case FILTER_TYPE_LANES:
-    {
-        // Read relative lanes to consider for context filter
-        int nrLanes = (int)myInputStorage.readByte();
-        std::vector<int> lanes;
-        for (int i=0; i<nrLanes; ++i) {
-            lanes.push_back((int) myInputStorage.readByte());
+        case FILTER_TYPE_NONE:
+            // Remove all filters
+            removeFilters();
+            break;
+        case FILTER_TYPE_LANES: {
+            // Read relative lanes to consider for context filter
+            int nrLanes = (int)myInputStorage.readByte();
+            std::vector<int> lanes;
+            for (int i = 0; i < nrLanes; ++i) {
+                lanes.push_back((int) myInputStorage.readByte());
+            }
+            addSubscriptionFilterLanes(lanes);
         }
-        addSubscriptionFilterLanes(lanes);
-    }
-    break;
-    case FILTER_TYPE_NOOPPOSITE:
-        // Add no-opposite filter
-        addSubscriptionFilterNoOpposite();
         break;
-    case FILTER_TYPE_DOWNSTREAM_DIST:
-    {
-        double dist = myInputStorage.readDouble();
-        addSubscriptionFilterDownstreamDistance(dist);
-    }
-    break;
-    case FILTER_TYPE_UPSTREAM_DIST:
-    {
-        double dist = myInputStorage.readDouble();
-        addSubscriptionFilterUpstreamDistance(dist);
-    }
-    break;
-    case FILTER_TYPE_CF_MANEUVER:
-        addSubscriptionFilterCFManeuver();
+        case FILTER_TYPE_NOOPPOSITE:
+            // Add no-opposite filter
+            addSubscriptionFilterNoOpposite();
+            break;
+        case FILTER_TYPE_DOWNSTREAM_DIST: {
+            double dist = myInputStorage.readDouble();
+            addSubscriptionFilterDownstreamDistance(dist);
+        }
         break;
-    case FILTER_TYPE_LC_MANEUVER:
-    {
-        addSubscriptionFilterLCManeuver();
-    }
+        case FILTER_TYPE_UPSTREAM_DIST: {
+            double dist = myInputStorage.readDouble();
+            addSubscriptionFilterUpstreamDistance(dist);
+        }
         break;
-    case FILTER_TYPE_TURN_MANEUVER:
-        addSubscriptionFilterTurnManeuver();
+        case FILTER_TYPE_CF_MANEUVER:
+            addSubscriptionFilterCFManeuver();
+            break;
+        case FILTER_TYPE_LC_MANEUVER: {
+            addSubscriptionFilterLCManeuver();
+        }
         break;
-    case FILTER_TYPE_VCLASS:
-    {
-        SVCPermissions vClasses = parseVehicleClasses(myInputStorage.readStringList());
-        addSubscriptionFilterVClass(vClasses);
-    }
-    break;
-    case FILTER_TYPE_VTYPE:
-    {
-        std::vector<std::string> vTypes = myInputStorage.readStringList();
-        addSubscriptionFilterVType(vTypes);
-    }
-    break;
-    default:
-        writeStatusCmd(filterType, RTYPE_NOTIMPLEMENTED, "'" + toString(filterType) + "' is no valid filter type code.");
-        success  = false;
+        case FILTER_TYPE_TURN_MANEUVER:
+            addSubscriptionFilterTurnManeuver();
+            break;
+        case FILTER_TYPE_VCLASS: {
+            SVCPermissions vClasses = parseVehicleClasses(myInputStorage.readStringList());
+            addSubscriptionFilterVClass(vClasses);
+        }
+        break;
+        case FILTER_TYPE_VTYPE: {
+            std::vector<std::string> vTypes = myInputStorage.readStringList();
+            addSubscriptionFilterVType(vTypes);
+        }
+        break;
+        default:
+            writeStatusCmd(filterType, RTYPE_NOTIMPLEMENTED, "'" + toString(filterType) + "' is no valid filter type code.");
+            success  = false;
     }
 
     if (success) {
@@ -1570,7 +1564,7 @@ TraCIServer::setTargetTime(SUMOTime targetTime) {
     }
 }
 
-bool 
+bool
 TraCIServer::centralObject(const libsumo::Subscription& s, const std::string& objID) {
     return (s.id == objID && s.commandId + 32 == s.contextDomain);
 }

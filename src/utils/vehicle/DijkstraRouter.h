@@ -121,8 +121,8 @@ public:
 
     /// Constructor
     DijkstraRouter(const std::vector<E*>& edges, bool unbuildIsWarning, typename BASE::Operation effortOperation,
-        typename BASE::Operation ttOperation = nullptr, bool silent = false, EffortCalculator* calc=nullptr) :
-                   BASE("DijkstraRouter", effortOperation, ttOperation),
+                   typename BASE::Operation ttOperation = nullptr, bool silent = false, EffortCalculator* calc = nullptr) :
+        BASE("DijkstraRouter", effortOperation, ttOperation),
         myErrorMsgHandler(unbuildIsWarning ?  MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()),
         mySilent(silent), myExternalEffort(calc) {
         for (typename std::vector<E*>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
@@ -279,8 +279,8 @@ public:
     }
 
 private:
-    DijkstraRouter(const std::vector<EdgeInfo>& edgeInfos, bool unbuildIsWarning, 
-        typename BASE::Operation effortOperation, typename BASE::Operation ttOperation, bool silent, EffortCalculator* calc) :
+    DijkstraRouter(const std::vector<EdgeInfo>& edgeInfos, bool unbuildIsWarning,
+                   typename BASE::Operation effortOperation, typename BASE::Operation ttOperation, bool silent, EffortCalculator* calc) :
         BASE("DijkstraRouter", effortOperation, ttOperation),
         myErrorMsgHandler(unbuildIsWarning ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()),
         mySilent(silent),

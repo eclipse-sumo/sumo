@@ -264,7 +264,7 @@ GUITrafficLightLogicWrapper::drawGL(const GUIVisualizationSettings& s) const {
                 const MSTrafficLightLogic::LaneVector& lanes = myTLLogic.getLanesAt(*it_idx);
                 for (MSTrafficLightLogic::LaneVector::const_iterator it_lane = lanes.begin(); it_lane != lanes.end(); it_lane++) {
                     glPushMatrix();
-                    // split circle in red and yellow 
+                    // split circle in red and yellow
                     Position pos = (*it_lane)->getShape().back();
                     glTranslated(pos.x(), pos.y(), GLO_MAX);
                     double rot = RAD2DEG((*it_lane)->getShape().angleAt2D((int)(*it_lane)->getShape().size() - 2)) - 90;

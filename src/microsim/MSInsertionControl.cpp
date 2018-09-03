@@ -53,8 +53,7 @@ MSInsertionControl::MSInsertionControl(MSVehicleControl& vc,
     myMaxDepartDelay(maxDepartDelay),
     myEagerInsertionCheck(eagerInsertionCheck),
     myMaxVehicleNumber(maxVehicleNumber),
-    myPendingEmitsUpdateTime(SUMOTime_MIN) 
-{
+    myPendingEmitsUpdateTime(SUMOTime_MIN) {
     myMaxRandomDepartOffset = randomDepartOffset;
     RandHelper::initRandGlobal(&myFlowRNG);
 }
@@ -222,8 +221,8 @@ MSInsertionControl::determineCandidates(SUMOTime time) {
                     while (--quota > 0) {
                         SUMOVehicleParameter* quotaPars = new SUMOVehicleParameter(*pars);
                         quotaPars->id = pars->id + "." + toString(i->index);
-                        quotaPars->depart = pars->repetitionProbability > 0 ? time : 
-                            (SUMOTime)(pars->depart + pars->repetitionsDone * pars->repetitionOffset) + computeRandomDepartOffset();
+                        quotaPars->depart = pars->repetitionProbability > 0 ? time :
+                                            (SUMOTime)(pars->depart + pars->repetitionsDone * pars->repetitionOffset) + computeRandomDepartOffset();
                         SUMOVehicle* vehicle = vehControl.buildVehicle(quotaPars, route, vtype, !MSGlobals::gCheckRoutes);
                         vehControl.addVehicle(quotaPars->id, vehicle);
                         add(vehicle);

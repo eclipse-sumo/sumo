@@ -89,12 +89,12 @@ MSContainer::MSContainerStage_Driving::getStageDescription() const {
 
 std::string
 MSContainer::MSContainerStage_Driving::getStageSummary() const {
-    const std::string dest = (getDestinationStop() == 0 ? 
-        " edge '" + getDestination()->getID() + "'" : 
-        " stop '" + getDestinationStop()->getID() + "'");
-    return isWaiting4Vehicle() ? 
-        "waiting for " + joinToString(myLines, ",") + " then transported to " + dest: 
-        "transported to " + dest;
+    const std::string dest = (getDestinationStop() == 0 ?
+                              " edge '" + getDestination()->getID() + "'" :
+                              " stop '" + getDestinationStop()->getID() + "'");
+    return isWaiting4Vehicle() ?
+           "waiting for " + joinToString(myLines, ",") + " then transported to " + dest :
+           "transported to " + dest;
 }
 
 
@@ -261,9 +261,9 @@ MSContainer::MSContainerStage_Tranship::moveToNextEdge(MSTransportable* containe
 
 std::string
 MSContainer::MSContainerStage_Tranship::getStageSummary() const {
-    const std::string dest = (getDestinationStop() == 0 ? 
-        " edge '" + getDestination()->getID() + "'" : 
-        " stop '" + getDestinationStop()->getID() + "'");
+    const std::string dest = (getDestinationStop() == 0 ?
+                              " edge '" + getDestination()->getID() + "'" :
+                              " stop '" + getDestinationStop()->getID() + "'");
     return "transhipped to " + dest;
 }
 

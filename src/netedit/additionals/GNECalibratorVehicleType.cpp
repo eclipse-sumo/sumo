@@ -50,21 +50,21 @@
 // member method definitions
 // ===========================================================================
 
-GNECalibratorVehicleType::GNECalibratorVehicleType(GNEViewNet *viewNet) :
+GNECalibratorVehicleType::GNECalibratorVehicleType(GNEViewNet* viewNet) :
     GNEAdditional(viewNet->getNet()->generateAdditionalID(SUMO_TAG_VTYPE), viewNet, GLO_CALIBRATOR, SUMO_TAG_VTYPE, "", false) {
     // fill calibrator vehicle type with default values
     setDefaultValues();
 }
 
 
-GNECalibratorVehicleType::GNECalibratorVehicleType(GNEViewNet *viewNet, const std::string& id) :
+GNECalibratorVehicleType::GNECalibratorVehicleType(GNEViewNet* viewNet, const std::string& id) :
     GNEAdditional(id, viewNet, GLO_CALIBRATOR, SUMO_TAG_VTYPE, "", false) {
     // fill calibrator vehicle type with default values
     setDefaultValues();
 }
 
 
-GNECalibratorVehicleType::GNECalibratorVehicleType(GNEViewNet *viewNet, std::string vehicleTypeID,
+GNECalibratorVehicleType::GNECalibratorVehicleType(GNEViewNet* viewNet, std::string vehicleTypeID,
         double accel, double decel, double sigma, double tau, double length, double minGap, double maxSpeed,
         double speedFactor, double speedDev, const RGBColor& color, SUMOVehicleClass vClass, const std::string& emissionClass,
         SUMOVehicleShape shape, double width, const std::string& filename, double impatience, const std::string& laneChangeModel,
@@ -102,37 +102,37 @@ GNECalibratorVehicleType::GNECalibratorVehicleType(GNEViewNet *viewNet, std::str
 GNECalibratorVehicleType::~GNECalibratorVehicleType() {}
 
 
-void 
+void
 GNECalibratorVehicleType::moveGeometry(const Position&, const Position&) {
     // This additional cannot be moved
 }
 
 
-void 
+void
 GNECalibratorVehicleType::commitGeometryMoving(const Position&, GNEUndoList*) {
     // This additional cannot be moved
 }
 
 
-void 
+void
 GNECalibratorVehicleType::updateGeometry(bool /*updateGrid*/) {
     // Currently this additional doesn't own a Geometry
 }
 
 
-Position 
+Position
 GNECalibratorVehicleType::getPositionInView() const {
     return Position();
 }
 
 
-std::string 
+std::string
 GNECalibratorVehicleType::getParentName() const {
     return myViewNet->getNet()->getMicrosimID();
 }
 
 
-void 
+void
 GNECalibratorVehicleType::drawGL(const GUIVisualizationSettings&) const {
     // Currently This additional isn't drawn
 }
@@ -270,11 +270,11 @@ GNECalibratorVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_VCLASS:
             return canParseVehicleClasses(value);
         case SUMO_ATTR_EMISSIONCLASS:
-            if((value == "zero") || (value == "LDV") || (value == "LDV_G_EU0") || (value == "LDV_G_EU1") || (value == "LDV_G_EU2") || (value == "LDV_G_EU3") || (value == "LDV_G_EU4") || (value == "LDV_G_EU5") || 
-               (value == "LDV_G_EU6") || (value == "LDV_G_East") || (value == "LDV_D_EU0") || (value == "LDV_D_EU1") || (value == "LDV_D_EU2") || (value == "LDV_D_EU3") || (value == "LDV_D_EU4") || (value == "LDV_D_EU5") || (value == "LDV_D_EU6") || 
-               (value == "PC") || (value == "PC_Alternative") || (value == "PC_G_EU0") || (value == "PC_G_EU1") || (value == "PC_G_EU2") || (value == "PC_G_EU3") || (value == "PC_G_EU4") || (value == "PC_G_EU5") || (value == "PC_G_EU6") || (value == "PC_G_East") || 
-               (value == "PC_D_EU0") || (value == "PC_D_EU1") || (value == "PC_D_EU2") || (value == "PC_D_EU3") || (value == "PC_D_EU4") || (value == "PC_D_EU5") || (value == "PC_D_EU6") || (value == "Bus") || (value == "Coach") || (value == "HDV") || (value == "HDV_G") || 
-               (value == "HDV_D_EU0") || (value == "HDV_D_EU1") || (value == "HDV_D_EU2") || (value == "HDV_D_EU3") || (value == "HDV_D_EU4") || (value == "HDV_D_EU5") || (value == "HDV_D_EU6") || (value == "HDV_D_East")) {
+            if ((value == "zero") || (value == "LDV") || (value == "LDV_G_EU0") || (value == "LDV_G_EU1") || (value == "LDV_G_EU2") || (value == "LDV_G_EU3") || (value == "LDV_G_EU4") || (value == "LDV_G_EU5") ||
+                    (value == "LDV_G_EU6") || (value == "LDV_G_East") || (value == "LDV_D_EU0") || (value == "LDV_D_EU1") || (value == "LDV_D_EU2") || (value == "LDV_D_EU3") || (value == "LDV_D_EU4") || (value == "LDV_D_EU5") || (value == "LDV_D_EU6") ||
+                    (value == "PC") || (value == "PC_Alternative") || (value == "PC_G_EU0") || (value == "PC_G_EU1") || (value == "PC_G_EU2") || (value == "PC_G_EU3") || (value == "PC_G_EU4") || (value == "PC_G_EU5") || (value == "PC_G_EU6") || (value == "PC_G_East") ||
+                    (value == "PC_D_EU0") || (value == "PC_D_EU1") || (value == "PC_D_EU2") || (value == "PC_D_EU3") || (value == "PC_D_EU4") || (value == "PC_D_EU5") || (value == "PC_D_EU6") || (value == "Bus") || (value == "Coach") || (value == "HDV") || (value == "HDV_G") ||
+                    (value == "HDV_D_EU0") || (value == "HDV_D_EU1") || (value == "HDV_D_EU2") || (value == "HDV_D_EU3") || (value == "HDV_D_EU4") || (value == "HDV_D_EU5") || (value == "HDV_D_EU6") || (value == "HDV_D_East")) {
                 return true;
             } else {
                 return false;
@@ -313,13 +313,13 @@ GNECalibratorVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-std::string 
+std::string
 GNECalibratorVehicleType::getPopUpID() const {
     return toString(getTag()) + ": " + getID();
 }
 
 
-std::string 
+std::string
 GNECalibratorVehicleType::getHierarchyName() const {
     return toString(getTag());
 }

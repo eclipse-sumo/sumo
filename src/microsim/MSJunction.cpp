@@ -90,7 +90,7 @@ MSJunction::passedJunction(const MSVehicle* vehicle) {
     myLinkLeaders.erase(vehicle);
 #ifdef DEBUG_LINKLEADER
     if DEBUG_COND {
-        std::cout << SIMTIME << " MSJunction::passedJunction " << getID() << " veh=" << vehicle->getID() << "\n";
+    std::cout << SIMTIME << " MSJunction::passedJunction " << getID() << " veh=" << vehicle->getID() << "\n";
     }
 #endif
 }
@@ -100,18 +100,18 @@ bool
 MSJunction::isLeader(const MSVehicle* ego, const MSVehicle* foe, bool updateLeader) {
 #ifdef DEBUG_LINKLEADER
     if DEBUG_COND {
-        std::cout << SIMTIME << " MSJunction::isLeader " << getID()
-                << " ego=" << ego->getID()
-                << " foe=" << foe->getID()
-                << std::endl;
+    std::cout << SIMTIME << " MSJunction::isLeader " << getID()
+        << " ego=" << ego->getID()
+        << " foe=" << foe->getID()
+        << std::endl;
     }
 #endif
     if (foe->getLane()->getEdge().getToJunction() != this) {
         // foe is already past the junction so is definitely a leader
 #ifdef DEBUG_LINKLEADER
-    if DEBUG_COND {
+        if DEBUG_COND {
         std::cout << "       foe (" << foe->getID() << ") is past the junction (leader)" << std::endl;
-    }
+        }
 #endif
         return true;
     }
@@ -121,16 +121,16 @@ MSJunction::isLeader(const MSVehicle* ego, const MSVehicle* foe, bool updateLead
             myLinkLeaders[foe].insert(ego);
         }
 #ifdef DEBUG_LINKLEADER
-    if DEBUG_COND {
+        if DEBUG_COND {
         std::cout << "       foe (" << foe->getID() << ") is the leader!" << std::endl;
-    }
+        }
 #endif
         return true;
     } else {
 #ifdef DEBUG_LINKLEADER
-    if DEBUG_COND {
+        if DEBUG_COND {
         std::cout << "       ego (" << ego->getID() << ") is the leader!" << std::endl;
-    }
+        }
 #endif
         return false;
     }

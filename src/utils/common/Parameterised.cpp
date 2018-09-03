@@ -102,7 +102,7 @@ Parameterised::clearParameter() {
 }
 
 
-const std::map<std::string, std::string>& 
+const std::map<std::string, std::string>&
 Parameterised::getParametersMap() const {
     return myMap;
 }

@@ -58,7 +58,7 @@ GNEChange_Shape::~GNEChange_Shape() {
             WRITE_DEBUG("Removing " + toString(myShape->getTag()) + " '" + myShape->getID() + "' from net in ~GNEChange_Shape()");
             myNet->removeGLObjectFromGrid(dynamic_cast<GUIGlObject*>(myShape));
             myNet->myPolygons.remove(myShape->getID(), false);
-        } else if(myNet->retrievePOI(myShape->getID(), false) != nullptr) {
+        } else if (myNet->retrievePOI(myShape->getID(), false) != nullptr) {
             // show extra information for tests
             WRITE_DEBUG("Removing " + toString(myShape->getTag()) + " '" + myShape->getID() + "' from net in ~GNEChange_Shape()");
             myNet->removeGLObjectFromGrid(dynamic_cast<GUIGlObject*>(myShape));

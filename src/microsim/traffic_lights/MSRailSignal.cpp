@@ -38,7 +38,7 @@
 #include "MSTLLogicControl.h"
 
 // typical block length in germany on main lines is 3-5km on branch lines up to 7km
-// special branches that are used by one train exclusively could also be up to 20km in length 
+// special branches that are used by one train exclusively could also be up to 20km in length
 // minimum block size in germany is 37.5m (LZB)
 // larger countries (USA, Russia) might see blocks beyond 20km)
 #define MAX_BLOCK_LENGTH 20000
@@ -106,9 +106,9 @@ MSRailSignal::init(NLDetectorBuilder&) {
                 }
                 if (precedentLane == 0) { //if there is no preceeding lane
                     noRailSignal = false;
-                }else if (blockLength >= MAX_BLOCK_LENGTH) { // avoid huge blocks
-                    WRITE_WARNING("Block before rail signal junction '" + getID() + 
-                            "' exceeds maximum length (stopped searching at lane '" + precedentLane->getID() + "' after " + toString(blockLength) + "m).");
+                } else if (blockLength >= MAX_BLOCK_LENGTH) { // avoid huge blocks
+                    WRITE_WARNING("Block before rail signal junction '" + getID() +
+                                  "' exceeds maximum length (stopped searching at lane '" + precedentLane->getID() + "' after " + toString(blockLength) + "m).");
                     noRailSignal = false;
                 } else {
                     const MSJunction* junction = precedentLane->getEdge().getToJunction();
@@ -154,8 +154,8 @@ MSRailSignal::init(NLDetectorBuilder&) {
                         if (outGoingLanes.size() == 0) {    //if the current lane has no outgoing lanes (deadend)
                             noRailSignalLocal = false;
                         } else if (blockLength > MAX_BLOCK_LENGTH) {
-                            WRITE_WARNING("Block after rail signal junction '" + getID() + 
-                                    "' exceeds maximum length (stopped searching at lane '" + currentLane->getID() + "' after " + toString(blockLength) + "m).");
+                            WRITE_WARNING("Block after rail signal junction '" + getID() +
+                                          "' exceeds maximum length (stopped searching at lane '" + currentLane->getID() + "' after " + toString(blockLength) + "m).");
                             noRailSignalLocal = false;
                         } else {
                             if (outGoingLanes.size() > 1) {
@@ -249,7 +249,7 @@ MSRailSignal::getAppropriateState() {
             }
         }
         if (!succeedingBlockOccupied) {
-            // check whether approaching vehicles reserve the block 
+            // check whether approaching vehicles reserve the block
             std::map<const MSLane*, const MSLink*>::iterator it = mySucceedingBlocksIncommingLinks.find(lane);
             if (it != mySucceedingBlocksIncommingLinks.end()) {
                 const MSLink* inCommingLing = it->second;

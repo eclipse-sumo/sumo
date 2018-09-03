@@ -69,8 +69,8 @@ GNEParkingSpace::GNEParkingSpace(GNEViewNet* viewNet, GNEAdditional* parkingArea
 GNEParkingSpace::~GNEParkingSpace() {}
 
 
-void 
-GNEParkingSpace::moveGeometry(const Position & oldPos, const Position & offset) {
+void
+GNEParkingSpace::moveGeometry(const Position& oldPos, const Position& offset) {
     // restore old position, apply offset and update Geometry
     Position pos = oldPos;
     pos.add(offset);
@@ -80,8 +80,8 @@ GNEParkingSpace::moveGeometry(const Position & oldPos, const Position & offset) 
 }
 
 
-void 
-GNEParkingSpace::commitGeometryMoving(const Position & oldPos, GNEUndoList * undoList) {
+void
+GNEParkingSpace::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
     // commit new position allowing undo/redo
     undoList->p_begin("position of " + toString(getTag()));
     undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_X, toString(myX), true, toString(oldPos.x())));
@@ -93,20 +93,20 @@ GNEParkingSpace::commitGeometryMoving(const Position & oldPos, GNEUndoList * und
 void
 GNEParkingSpace::updateGeometry(bool updateGrid) {
     // first check if object has to be removed from grid (SUMOTree)
-    if(updateGrid) {
+    if (updateGrid) {
         myViewNet->getNet()->removeGLObjectFromGrid(this);
     }
     // clear shape and set new position
     myShape.clear();
     myShape.push_back(Position(myX, myY));
     // last step is to check if object has to be added into grid (SUMOTree) again
-    if(updateGrid) {
+    if (updateGrid) {
         myViewNet->getNet()->addGLObjectIntoGrid(this);
     }
 }
 
 
-Position 
+Position
 GNEParkingSpace::getPositionInView() const {
     return Position(myX, myY);
 }
@@ -142,19 +142,19 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
     if (isAttributeCarrierSelected()) {
         GLHelper::setColor(myViewNet->getNet()->selectedAdditionalColor);
     } else {
-        GLHelper::setColor(RGBColor(255,200,200, 255));
+        GLHelper::setColor(RGBColor(255, 200, 200, 255));
     }
     GLHelper::drawBoxLine(Position(0, myLength), 0, myLength, myWidth / 2);
     // Traslate matrix and draw lock icon if isn't being drawn for selecting
     if (!s.drawForSelecting) {
-        glTranslated(0, myLength/2, 0.1);
+        glTranslated(0, myLength / 2, 0.1);
         drawLockIcon();
     }
     // pop draw matrix
     glPopMatrix();
     // check if dotted contour has to be drawn
-    if(!s.drawForSelecting && (myViewNet->getACUnderCursor() == this)) {
-        GLHelper::drawShapeDottedContour(getType(), Position(myX, myY), myWidth, myLength, myAngle, 0, myLength/2);
+    if (!s.drawForSelecting && (myViewNet->getACUnderCursor() == this)) {
+        GLHelper::drawShapeDottedContour(getType(), Position(myX, myY), myWidth, myLength, myAngle, 0, myLength / 2);
     }
 
     // pop name
@@ -249,13 +249,13 @@ GNEParkingSpace::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-std::string 
+std::string
 GNEParkingSpace::getPopUpID() const {
     return toString(getTag());
 }
 
 
-std::string 
+std::string
 GNEParkingSpace::getHierarchyName() const {
     return toString(getTag()) + ": " + getAttribute(SUMO_ATTR_X) + ", " + getAttribute(SUMO_ATTR_Y);
 }
@@ -295,7 +295,7 @@ GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value) {
             changeFirstAdditionalParent(value);
             break;
         case GNE_ATTR_SELECTED:
-            if(parse<bool>(value)) {
+            if (parse<bool>(value)) {
                 selectAttributeCarrier();
             } else {
                 unselectAttributeCarrier();

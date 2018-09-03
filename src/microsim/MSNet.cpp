@@ -166,7 +166,7 @@ MSNet::getInstance(void) {
 
 
 MSNet::MSNet(MSVehicleControl* vc, MSEventControl* beginOfTimestepEvents,
-             MSEventControl* endOfTimestepEvents, 
+             MSEventControl* endOfTimestepEvents,
              MSEventControl* insertionEvents,
              ShapeContainer* shapeCont):
     myVehiclesMoved(0),
@@ -184,8 +184,8 @@ MSNet::MSNet(MSVehicleControl* vc, MSEventControl* beginOfTimestepEvents,
     myMaxTeleports = oc.getInt("max-num-teleports");
     myLogExecutionTime = !oc.getBool("no-duration-log");
     myLogStepNumber = !oc.getBool("no-step-log");
-    myInserter = new MSInsertionControl(*vc, string2time(oc.getString("max-depart-delay")), oc.getBool("eager-insert"), oc.getInt("max-num-vehicles"), 
-            string2time(oc.getString("random-depart-offset")));
+    myInserter = new MSInsertionControl(*vc, string2time(oc.getString("max-depart-delay")), oc.getBool("eager-insert"), oc.getInt("max-num-vehicles"),
+                                        string2time(oc.getString("random-depart-offset")));
     myVehicleControl = vc;
     myDetectorControl = new MSDetectorControl();
     myEdges = 0;
@@ -981,7 +981,7 @@ MSNet::checkElevation() {
 }
 
 
-bool 
+bool
 MSNet::warnOnce(const std::string& typeAndID) {
     if (myWarnedOnce.find(typeAndID) == myWarnedOnce.end()) {
         myWarnedOnce[typeAndID] = true;

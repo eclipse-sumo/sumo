@@ -137,41 +137,41 @@ GNENetElement::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
 }
 
 
-void 
+void
 GNENetElement::selectAttributeCarrier(bool changeFlag) {
-    if(!myNet) {
+    if (!myNet) {
         throw ProcessError("Net cannot be nullptr");
     } else {
         gSelected.select(dynamic_cast<GUIGlObject*>(this)->getGlID());
-        if(changeFlag) {
+        if (changeFlag) {
             mySelected = true;
         }
-    } 
+    }
 }
 
 
-void 
+void
 GNENetElement::unselectAttributeCarrier(bool changeFlag) {
-    if(!myNet) {
+    if (!myNet) {
         throw ProcessError("Net cannot be nullptr");
     } else {
         gSelected.deselect(dynamic_cast<GUIGlObject*>(this)->getGlID());
-        if(changeFlag) {
+        if (changeFlag) {
             mySelected = false;
         }
-    } 
+    }
 }
 
 
-bool 
+bool
 GNENetElement::isAttributeCarrierSelected() const {
     return mySelected;
 }
 
 
-std::string 
+std::string
 GNENetElement::getPopUpID() const {
-    if(getTag() == SUMO_TAG_CONNECTION) {
+    if (getTag() == SUMO_TAG_CONNECTION) {
         return getAttribute(SUMO_ATTR_FROM) + "_" + getAttribute(SUMO_ATTR_FROM_LANE) + " -> " + getAttribute(SUMO_ATTR_TO) + "_" + getAttribute(SUMO_ATTR_TO_LANE);
     } else {
         return toString(getTag()) + ": " + getID();
@@ -179,13 +179,13 @@ GNENetElement::getPopUpID() const {
 }
 
 
-std::string 
+std::string
 GNENetElement::getHierarchyName() const {
-    if(getTag() == SUMO_TAG_LANE) {
+    if (getTag() == SUMO_TAG_LANE) {
         return toString(SUMO_TAG_LANE) + " " + getAttribute(SUMO_ATTR_INDEX);
-    } else if(getTag() == SUMO_TAG_CONNECTION) {
+    } else if (getTag() == SUMO_TAG_CONNECTION) {
         return getAttribute(SUMO_ATTR_FROM_LANE) + " -> " + getAttribute(SUMO_ATTR_TO_LANE);
-    } else if(getTag() == SUMO_TAG_CROSSING) {
+    } else if (getTag() == SUMO_TAG_CROSSING) {
         return toString(SUMO_TAG_CROSSING) + " " + getAttribute(SUMO_ATTR_ID);
     } else {
         return toString(getTag());

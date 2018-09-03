@@ -98,7 +98,7 @@ public:
 
     /// @brief remove route prob reroute
     long onCmdClickedRouteProbReroute(FXObject*, FXSelector, void*);
-    
+
     /// @brief remove parkingAreaReroute
     long onCmdClickedParkingAreaReroute(FXObject*, FXSelector, void*);
 

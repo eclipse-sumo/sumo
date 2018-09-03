@@ -110,35 +110,35 @@ MSDevice_DriverState::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>
 
 
 double
-MSDevice_DriverState::getMinAwareness(const SUMOVehicle& v, const OptionsCont& oc){
+MSDevice_DriverState::getMinAwareness(const SUMOVehicle& v, const OptionsCont& oc) {
     return getFloatParam(v, oc, "driverstate.minAwareness", DriverStateDefaults::minAwareness, false);
 }
 double
-MSDevice_DriverState::getInitialAwareness(const SUMOVehicle& v, const OptionsCont& oc){
+MSDevice_DriverState::getInitialAwareness(const SUMOVehicle& v, const OptionsCont& oc) {
     return getFloatParam(v, oc, "driverstate.initialAwareness", DriverStateDefaults::initialAwareness, false);
 }
 double
-MSDevice_DriverState::getErrorTimeScaleCoefficient(const SUMOVehicle& v, const OptionsCont& oc){
+MSDevice_DriverState::getErrorTimeScaleCoefficient(const SUMOVehicle& v, const OptionsCont& oc) {
     return getFloatParam(v, oc, "driverstate.errorTimeScaleCoefficient", DriverStateDefaults::errorTimeScaleCoefficient, false);
 }
 double
-MSDevice_DriverState::getErrorNoiseIntensityCoefficient(const SUMOVehicle& v, const OptionsCont& oc){
+MSDevice_DriverState::getErrorNoiseIntensityCoefficient(const SUMOVehicle& v, const OptionsCont& oc) {
     return getFloatParam(v, oc, "driverstate.errorNoiseIntensityCoefficient", DriverStateDefaults::errorNoiseIntensityCoefficient, false);
 }
 double
-MSDevice_DriverState::getSpeedDifferenceErrorCoefficient(const SUMOVehicle& v, const OptionsCont& oc){
+MSDevice_DriverState::getSpeedDifferenceErrorCoefficient(const SUMOVehicle& v, const OptionsCont& oc) {
     return getFloatParam(v, oc, "driverstate.speedDifferenceErrorCoefficient", DriverStateDefaults::speedDifferenceErrorCoefficient, false);
 }
 double
-MSDevice_DriverState::getSpeedDifferenceChangePerceptionThreshold(const SUMOVehicle& v, const OptionsCont& oc){
+MSDevice_DriverState::getSpeedDifferenceChangePerceptionThreshold(const SUMOVehicle& v, const OptionsCont& oc) {
     return getFloatParam(v, oc, "driverstate.speedDifferenceChangePerceptionThreshold", DriverStateDefaults::speedDifferenceChangePerceptionThreshold, false);
 }
 double
-MSDevice_DriverState::getHeadwayChangePerceptionThreshold(const SUMOVehicle& v, const OptionsCont& oc){
+MSDevice_DriverState::getHeadwayChangePerceptionThreshold(const SUMOVehicle& v, const OptionsCont& oc) {
     return getFloatParam(v, oc, "driverstate.headwayChangePerceptionThreshold", DriverStateDefaults::headwayChangePerceptionThreshold, false);
 }
 double
-MSDevice_DriverState::getHeadwayErrorCoefficient(const SUMOVehicle& v, const OptionsCont& oc){
+MSDevice_DriverState::getHeadwayErrorCoefficient(const SUMOVehicle& v, const OptionsCont& oc) {
     return getFloatParam(v, oc, "driverstate.headwayErrorCoefficient", DriverStateDefaults::headwayErrorCoefficient, false);
 }
 
@@ -164,8 +164,7 @@ MSDevice_DriverState::MSDevice_DriverState(SUMOVehicle& holder, const std::strin
     mySpeedDifferenceChangePerceptionThreshold(speedDifferenceChangePerceptionThreshold),
     myHeadwayChangePerceptionThreshold(headwayChangePerceptionThreshold),
     myHeadwayErrorCoefficient(headwayErrorCoefficient),
-    myDriverState(nullptr)
-    {
+    myDriverState(nullptr) {
     // Take care! Holder is currently being constructed. Cast occurs before completion.
     myHolderMS = static_cast<MSVehicle*>(&holder);
     // Ensure that the holder receives a driver state as soon as it is created (can't be done here, since myHolderMS is incomplete)
@@ -173,14 +172,14 @@ MSDevice_DriverState::MSDevice_DriverState(SUMOVehicle& holder, const std::strin
 
 #ifdef DEBUG_DSDEVICE
     std::cout << "initialized device '" << id << "' with "
-            << "myMinAwareness=" << myMinAwareness << ", "
-            << "myInitialAwareness=" << myInitialAwareness << ", "
-            << "myErrorTimeScaleCoefficient=" << myErrorTimeScaleCoefficient << ", "
-            << "myErrorNoiseIntensityCoefficient=" << myErrorNoiseIntensityCoefficient << ", "
-            << "mySpeedDifferenceErrorCoefficient=" << mySpeedDifferenceErrorCoefficient << ", "
-            << "mySpeedDifferenceChangePerceptionThreshold=" << mySpeedDifferenceChangePerceptionThreshold << ", "
-            << "myHeadwayChangePerceptionThreshold=" << myHeadwayChangePerceptionThreshold << ", "
-            << "myHeadwayErrorCoefficient=" << myHeadwayErrorCoefficient << std::endl;
+              << "myMinAwareness=" << myMinAwareness << ", "
+              << "myInitialAwareness=" << myInitialAwareness << ", "
+              << "myErrorTimeScaleCoefficient=" << myErrorTimeScaleCoefficient << ", "
+              << "myErrorNoiseIntensityCoefficient=" << myErrorNoiseIntensityCoefficient << ", "
+              << "mySpeedDifferenceErrorCoefficient=" << mySpeedDifferenceErrorCoefficient << ", "
+              << "mySpeedDifferenceChangePerceptionThreshold=" << mySpeedDifferenceChangePerceptionThreshold << ", "
+              << "myHeadwayChangePerceptionThreshold=" << myHeadwayChangePerceptionThreshold << ", "
+              << "myHeadwayErrorCoefficient=" << myHeadwayErrorCoefficient << std::endl;
 #endif
 
 }

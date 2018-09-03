@@ -46,8 +46,7 @@ MSCFModel_SmartSK::MSCFModel_SmartSK(const MSVehicleType* vtype) :
     myTmp2(vtype->getParameter().getCFParam(SUMO_ATTR_TMP2, 1.0)),
     myTmp3(vtype->getParameter().getCFParam(SUMO_ATTR_TMP3, 1.0)),
     myTmp4(vtype->getParameter().getCFParam(SUMO_ATTR_TMP4, 1.0)),
-    myTmp5(vtype->getParameter().getCFParam(SUMO_ATTR_TMP5, 1.0))
-{
+    myTmp5(vtype->getParameter().getCFParam(SUMO_ATTR_TMP5, 1.0)) {
     // the variable tmp1 is the acceleration delay time, e.g. two seconds (or something like this).
     // for use in the upate process, a rule like if (v<myTmp1) vsafe = 0; is needed.
     // To have this, we have to transform myTmp1 (which is a time) into an equivalent speed. This is done by the

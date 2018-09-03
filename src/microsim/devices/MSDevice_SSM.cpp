@@ -431,12 +431,12 @@ MSDevice_SSM::computeGlobalMeasures() {
         }
 
         double leaderSearchDist = 0;
-        std::pair<const MSVehicle*, double> leader(nullptr,0.);
+        std::pair<const MSVehicle*, double> leader(nullptr, 0.);
         if (myComputeSGAP) {
             leaderSearchDist = myThresholds["SGAP"];
         }
         if (myComputeTGAP) {
-            leaderSearchDist = MAX2(leaderSearchDist, myThresholds["TGAP"]*myHolderMS->getSpeed());
+            leaderSearchDist = MAX2(leaderSearchDist, myThresholds["TGAP"] * myHolderMS->getSpeed());
         }
 
         if (leaderSearchDist > 0.) {
@@ -2066,8 +2066,8 @@ MSDevice_SSM::flushGlobalMeasures() {
     std::string egoID = myHolderMS->getID();
 #ifdef DEBUG_SSM
     std::cout << SIMTIME << " flushGlobalMeasures() of vehicle '"
-            << egoID << "'"
-            << "'\ntoGeo=" << myUseGeoCoords << std::endl;
+              << egoID << "'"
+              << "'\ntoGeo=" << myUseGeoCoords << std::endl;
 #endif
     if (myComputeBR || myComputeSGAP || myComputeTGAP) {
         myOutputFile->openTag("globalMeasures");
@@ -2077,7 +2077,9 @@ MSDevice_SSM::flushGlobalMeasures() {
             myOutputFile->openTag("BRSpan").writeAttr("values", myBRspan).closeTag();
 
             if (myMaxBR.second != 0.0) {
-                if (myUseGeoCoords) toGeo(myMaxBR.first.second);
+                if (myUseGeoCoords) {
+                    toGeo(myMaxBR.first.second);
+                }
                 myOutputFile->openTag("maxBR").writeAttr("time", myMaxBR.first.first).writeAttr("position", toString(myMaxBR.first.second)).writeAttr("value", myMaxBR.second).closeTag();
             }
         }
@@ -2085,22 +2087,26 @@ MSDevice_SSM::flushGlobalMeasures() {
         if (myComputeSGAP) {
             myOutputFile->openTag("SGAPSpan").writeAttr("values", makeStringWithNAs(mySGAPspan, INVALID)).closeTag();
             if (myMinSGAP.second != "") {
-                if (myUseGeoCoords) toGeo(myMinSGAP.first.first.second);
+                if (myUseGeoCoords) {
+                    toGeo(myMinSGAP.first.first.second);
+                }
                 myOutputFile->openTag("minSGAP").writeAttr("time", myMinSGAP.first.first.first)
-                        .writeAttr("position", toString(myMinSGAP.first.first.second))
-                        .writeAttr("value", myMinSGAP.first.second)
-                        .writeAttr("leader", myMinSGAP.second).closeTag();
+                .writeAttr("position", toString(myMinSGAP.first.first.second))
+                .writeAttr("value", myMinSGAP.first.second)
+                .writeAttr("leader", myMinSGAP.second).closeTag();
             }
         }
 
         if (myComputeTGAP) {
             myOutputFile->openTag("TGAPSpan").writeAttr("values", makeStringWithNAs(myTGAPspan, INVALID)).closeTag();
             if (myMinTGAP.second != "") {
-                if (myUseGeoCoords) toGeo(myMinTGAP.first.first.second);
+                if (myUseGeoCoords) {
+                    toGeo(myMinTGAP.first.first.second);
+                }
                 myOutputFile->openTag("minTGAP").writeAttr("time", myMinTGAP.first.first.first)
-                        .writeAttr("position", toString(myMinTGAP.first.first.second))
-                        .writeAttr("value", myMinTGAP.first.second)
-                        .writeAttr("leader", myMinTGAP.second).closeTag();
+                .writeAttr("position", toString(myMinTGAP.first.first.second))
+                .writeAttr("value", myMinTGAP.first.second)
+                .writeAttr("leader", myMinTGAP.second).closeTag();
             }
         }
         // close globalMeasures
@@ -2233,10 +2239,9 @@ MSDevice_SSM::MSDevice_SSM(SUMOVehicle& holder, const std::string& id, std::stri
     myExtraTime(extraTime),
     myUseGeoCoords(useGeoCoords),
     myOldestActiveEncounterBegin(INVALID),
-    myMaxBR(std::make_pair(-1, Position(0.,0.)), 0.0),
-    myMinSGAP(std::make_pair(std::make_pair(-1, Position(0.,0.)), std::numeric_limits<double>::max()), ""),
-    myMinTGAP(std::make_pair(std::make_pair(-1, Position(0.,0.)), std::numeric_limits<double>::max()), "")
- {
+    myMaxBR(std::make_pair(-1, Position(0., 0.)), 0.0),
+    myMinSGAP(std::make_pair(std::make_pair(-1, Position(0., 0.)), std::numeric_limits<double>::max()), ""),
+    myMinTGAP(std::make_pair(std::make_pair(-1, Position(0., 0.)), std::numeric_limits<double>::max()), "") {
     // Take care! Holder is currently being constructed. Cast occurs before completion.
     myHolderMS = static_cast<MSVehicle*>(&holder);
 
@@ -2465,7 +2470,7 @@ MSDevice_SSM::findSurroundingVehicles(const MSVehicle& veh, double range, FoeInf
 
                 // First lane of the connection
                 lane = link->getViaLane();
-                if(lane == 0) {
+                if (lane == 0) {
                     // link without internal lane
                     lane = nextNonInternalLane;
                     edge = &(lane->getEdge());

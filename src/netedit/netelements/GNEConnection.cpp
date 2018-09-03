@@ -79,9 +79,9 @@ void
 GNEConnection::updateGeometry(bool updateGrid) {
     // Get shape of from and to lanes
     NBEdge::Connection& nbCon = getNBEdgeConnection();
-    if(myShapeDeprecated) {
+    if (myShapeDeprecated) {
         // first check if object has to be removed from grid (SUMOTree)
-        if(updateGrid) {
+        if (updateGrid) {
             myNet->removeGLObjectFromGrid(this);
         }
         // Clear containers
@@ -109,7 +109,7 @@ GNEConnection::updateGeometry(bool updateGrid) {
             if (nbCon.shape.size() != 0) {
                 myShape = nbCon.shape;
                 // only append via shape if it exists
-                if(nbCon.haveVia) {
+                if (nbCon.haveVia) {
                     myShape.append(nbCon.viaShape);
                 }
             } else {
@@ -155,7 +155,7 @@ GNEConnection::updateGeometry(bool updateGrid) {
         myShapeDeprecated = false;
 
         // last step is to check if object has to be added into grid (SUMOTree) again
-        if(updateGrid) {
+        if (updateGrid) {
             myNet->addGLObjectIntoGrid(this);
         }
     }
@@ -164,10 +164,10 @@ GNEConnection::updateGeometry(bool updateGrid) {
 
 Boundary
 GNEConnection::getBoundary() const {
-    if(myShape.size() == 0) {
+    if (myShape.size() == 0) {
         // we need to use the center of junction parent as boundary if shape is empty
         Position junctionParentPosition = myFromLane->getParentEdge().getGNEJunctionDestiny()->getPositionInView();
-        return Boundary(junctionParentPosition.x() - 0.1, junctionParentPosition.y() - 0.1, 
+        return Boundary(junctionParentPosition.x() - 0.1, junctionParentPosition.y() - 0.1,
                         junctionParentPosition.x() + 0.1, junctionParentPosition.x() + 0.1);
     } else {
         return myShape.getBoxBoundary();
@@ -247,7 +247,7 @@ GNEConnection::getShape() const {
 }
 
 
-void 
+void
 GNEConnection::markConnectionGeometryDeprecated() {
     myShapeDeprecated = true;
 }
@@ -299,7 +299,7 @@ GNEConnection::getCenteringBoundary() const {
 void
 GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
     // Check if connection must be drawed
-    if (!myShapeDeprecated && myNet->getViewNet()->showConnections()) {    
+    if (!myShapeDeprecated && myNet->getViewNet()->showConnections()) {
         // Push draw matrix 1
         glPushMatrix();
         // Push name
@@ -310,11 +310,9 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
         if (isAttributeCarrierSelected() && s.junctionColorer.getActive() != 1) {
             // override with special colors (unless the color scheme is based on selection)
             GLHelper::setColor(GNENet::selectedConnectionColor);
-        } 
-        else if (mySpecialColor != 0) {
+        } else if (mySpecialColor != 0) {
             GLHelper::setColor(*mySpecialColor);
-        }
-        else {
+        } else {
             // Set color depending of the link state
             GLHelper::setColor(GNEInternalLane::colorForLinksState(getLinkState()));
         }
@@ -328,12 +326,12 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
             glTranslated(0, 0, 0.1);
             GLHelper::setColor(GLHelper::getColor().changedBrightness(51));
             // check if internal junction marker has to be drawn
-            if(myInternalJunctionMarker.size() > 0) {
+            if (myInternalJunctionMarker.size() > 0) {
                 GLHelper::drawLine(myInternalJunctionMarker);
             }
         }
         // check if dotted contour has to be drawn
-        if(!s.drawForSelecting && (myNet->getViewNet()->getACUnderCursor() == this)) {
+        if (!s.drawForSelecting && (myNet->getViewNet()->getACUnderCursor() == this)) {
             GLHelper::drawShapeDottedContour(getType(), myShape, 0.25);
         }
         // Pop name
@@ -423,7 +421,7 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
                     if (tllogic != 0) {
                         NBLoadedSUMOTLDef* newDef = new NBLoadedSUMOTLDef(tlDef, tllogic);
                         newDef->addConnection(getEdgeFrom()->getNBEdge(), getEdgeTo()->getNBEdge(),
-                                getLaneFrom()->getIndex(), getLaneTo()->getIndex(), parse<int>(value), false);
+                                              getLaneFrom()->getIndex(), getLaneTo()->getIndex(), parse<int>(value), false);
                         std::vector<NBNode*> nodes = tlDef->getNodes();
                         for (NBNode* node : nodes) {
                             GNEJunction* junction = getNet()->retrieveJunction(node->getID());
@@ -463,9 +461,9 @@ GNEConnection::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_VISIBILITY_DISTANCE:
             return canParse<double>(value) && (parse<double>(value) > 0);
         case SUMO_ATTR_TLLINKINDEX:
-            if (getNBEdgeConnection().uncontrolled == false 
-                    && getEdgeFrom()->getNBEdge()->getToNode()->getControllingTLS().size() > 0 
-                    && canParse<int>(value) 
+            if (getNBEdgeConnection().uncontrolled == false
+                    && getEdgeFrom()->getNBEdge()->getToNode()->getControllingTLS().size() > 0
+                    && canParse<int>(value)
                     && parse<int>(value) >= 0) {
                 NBTrafficLightDefinition* def = *getEdgeFrom()->getNBEdge()->getToNode()->getControllingTLS().begin();
                 return def->getMaxValidIndex() >= parse<int>(value);
@@ -489,9 +487,9 @@ GNEConnection::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-bool 
-GNEConnection::addGenericParameter(const std::string &key, const std::string &value) {
-    if(!getNBEdgeConnection().knowsParameter(key)) {
+bool
+GNEConnection::addGenericParameter(const std::string& key, const std::string& value) {
+    if (!getNBEdgeConnection().knowsParameter(key)) {
         getNBEdgeConnection().setParameter(key, value);
         return true;
     } else {
@@ -500,9 +498,9 @@ GNEConnection::addGenericParameter(const std::string &key, const std::string &va
 }
 
 
-bool 
-GNEConnection::removeGenericParameter(const std::string &key) {
-    if(getNBEdgeConnection().knowsParameter(key)) {
+bool
+GNEConnection::removeGenericParameter(const std::string& key) {
+    if (getNBEdgeConnection().knowsParameter(key)) {
         getNBEdgeConnection().unsetParameter(key);
         return true;
     } else {
@@ -511,9 +509,9 @@ GNEConnection::removeGenericParameter(const std::string &key) {
 }
 
 
-bool 
-GNEConnection::updateGenericParameter(const std::string &oldKey, const std::string &newKey) {
-    if(getNBEdgeConnection().knowsParameter(oldKey) && !getNBEdgeConnection().knowsParameter(newKey)) {
+bool
+GNEConnection::updateGenericParameter(const std::string& oldKey, const std::string& newKey) {
+    if (getNBEdgeConnection().knowsParameter(oldKey) && !getNBEdgeConnection().knowsParameter(newKey)) {
         std::string value = getNBEdgeConnection().getParameter(oldKey);
         getNBEdgeConnection().unsetParameter(oldKey);
         getNBEdgeConnection().setParameter(newKey, value);
@@ -524,9 +522,9 @@ GNEConnection::updateGenericParameter(const std::string &oldKey, const std::stri
 }
 
 
-bool 
-GNEConnection::updateGenericParameterValue(const std::string &key, const std::string &newValue) {
-    if(getNBEdgeConnection().knowsParameter(key)) {
+bool
+GNEConnection::updateGenericParameterValue(const std::string& key, const std::string& newValue) {
+    if (getNBEdgeConnection().knowsParameter(key)) {
         getNBEdgeConnection().setParameter(key, newValue);
         return true;
     } else {
@@ -535,7 +533,7 @@ GNEConnection::updateGenericParameterValue(const std::string &key, const std::st
 }
 
 
-std::string 
+std::string
 GNEConnection::getGenericParametersStr() const {
     std::string result;
     // Generate an string using the following structure: "key1=value1|key2=value2|...
@@ -543,14 +541,14 @@ GNEConnection::getGenericParametersStr() const {
         result += i.first + "=" + i.second + "|";
     }
     // remove the last "|"
-    if(!result.empty()) {
+    if (!result.empty()) {
         result.pop_back();
     }
     return result;
 }
 
 
-std::vector<std::pair<std::string, std::string> > 
+std::vector<std::pair<std::string, std::string> >
 GNEConnection::getGenericParameters() const {
     std::vector<std::pair<std::string, std::string> >  result;
     // iterate over parameters map and fill result
@@ -561,8 +559,8 @@ GNEConnection::getGenericParameters() const {
 }
 
 
-void 
-GNEConnection::setGenericParametersStr(const std::string &value) {
+void
+GNEConnection::setGenericParametersStr(const std::string& value) {
     // clear parameters
     getNBEdgeConnection().clearParameter();
     // separate value in a vector of string using | as separator
@@ -571,15 +569,15 @@ GNEConnection::setGenericParametersStr(const std::string &value) {
     while (stValues.hasNext()) {
         parsedValues.push_back(stValues.next());
     }
-    // check that parsed values (A=B)can be parsed in generic parameters 
-    for(auto i : parsedValues) {
+    // check that parsed values (A=B)can be parsed in generic parameters
+    for (auto i : parsedValues) {
         std::vector<std::string> parsedParameters;
         StringTokenizer stParam(i, "=", true);
         while (stParam.hasNext()) {
             parsedParameters.push_back(stParam.next());
         }
         // Check that parsed parameters are exactly two and contains valid chracters
-        if(parsedParameters.size() == 2 && SUMOXMLDefinitions::isValidGenericParameterKey(parsedParameters.front()) && SUMOXMLDefinitions::isValidGenericParameterValue(parsedParameters.back())) {
+        if (parsedParameters.size() == 2 && SUMOXMLDefinitions::isValidGenericParameterKey(parsedParameters.front()) && SUMOXMLDefinitions::isValidGenericParameterValue(parsedParameters.back())) {
             getNBEdgeConnection().setParameter(parsedParameters.front(), parsedParameters.back());
         }
     }
@@ -626,7 +624,7 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         }
         case GNE_ATTR_SELECTED:
-            if(parse<bool>(value)) {
+            if (parse<bool>(value)) {
                 selectAttributeCarrier();
             } else {
                 unselectAttributeCarrier();
@@ -643,7 +641,7 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value) {
 }
 
 
-void 
+void
 GNEConnection::mouseOverObject(const GUIVisualizationSettings&) const {
 }
 

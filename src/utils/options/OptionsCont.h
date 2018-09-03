@@ -201,7 +201,7 @@ public:
      *
      * @param[in] os The stream to write the header into
      */
-    void writeXMLHeader(std::ostream& os, const bool includeConfig=true) const;
+    void writeXMLHeader(std::ostream& os, const bool includeConfig = true) const;
     /// @}
 
 
@@ -393,7 +393,7 @@ public:
      **/
     std::vector<std::string> getSynonymes(const std::string& name) const;
 
-    /** @brief Returns the option description 
+    /** @brief Returns the option description
      *
      * @param[in] name The name of the option to return the description of
      * @return description

@@ -104,15 +104,15 @@ GeoConvHelper::~GeoConvHelper() {
 bool
 GeoConvHelper::operator==(const GeoConvHelper& o) const {
     return (
-            myProjString == o.myProjString &&
-            myOffset == o.myOffset &&
-            myProjectionMethod == o.myProjectionMethod &&
-            myOrigBoundary == o.myOrigBoundary &&
-            myConvBoundary == o.myConvBoundary &&
-            myGeoScale == o.myGeoScale &&
-            myCos == o.myCos &&
-            mySin == o.mySin &&
-            myUseInverseProjection == o.myUseInverseProjection 
+               myProjString == o.myProjString &&
+               myOffset == o.myOffset &&
+               myProjectionMethod == o.myProjectionMethod &&
+               myOrigBoundary == o.myOrigBoundary &&
+               myConvBoundary == o.myConvBoundary &&
+               myGeoScale == o.myGeoScale &&
+               myCos == o.myCos &&
+               mySin == o.mySin &&
+               myUseInverseProjection == o.myUseInverseProjection
            );
 }
 
@@ -422,7 +422,7 @@ GeoConvHelper::getProjString() const {
     return myProjString;
 }
 
-const std::string 
+const std::string
 GeoConvHelper::getProjStringExpaneded() const {
     if (myProjection == 0) {
         return "";

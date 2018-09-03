@@ -567,7 +567,7 @@ public:
      * @param[in] type type of additional to get. SUMO_TAG_NOTHING will get all additionals
      * @return map with IDs and pointers to additionals.
      */
-    const std::map<std::string, GNEAdditional*> &getAdditionalByType(SumoXMLTag type) const;
+    const std::map<std::string, GNEAdditional*>& getAdditionalByType(SumoXMLTag type) const;
 
     /**@brief Returns the number of additionals of the net
      * @param[in] type type of additional to count. SUMO_TAG_NOTHING will count all additionals
@@ -746,7 +746,7 @@ private:
     bool checkJunctionPosition(const Position& pos);
 
     /// @brief save additionals after confirming invalid objects
-    void saveAdditionalsConfirmed(const std::string& filename); 
+    void saveAdditionalsConfirmed(const std::string& filename);
 
     static void replaceInListAttribute(GNEAttributeCarrier* ac, SumoXMLAttr key, const std::string& which, const std::string& by, GNEUndoList* undoList);
 

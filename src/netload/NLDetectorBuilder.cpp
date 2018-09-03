@@ -66,14 +66,14 @@
 NLDetectorBuilder::E3DetectorDefinition::E3DetectorDefinition(const std::string& id,
         const std::string& device, double haltingSpeedThreshold,
         SUMOTime haltingTimeThreshold, SUMOTime splInterval,
-        const std::string& vTypes, bool openEntry) : 
+        const std::string& vTypes, bool openEntry) :
     myID(id), myDevice(device),
     myHaltingSpeedThreshold(haltingSpeedThreshold),
     myHaltingTimeThreshold(haltingTimeThreshold),
     mySampleInterval(splInterval),
     myVehicleTypes(vTypes),
-    myOpenEntry(openEntry) 
-{}
+    myOpenEntry(openEntry) {
+}
 
 
 NLDetectorBuilder::E3DetectorDefinition::~E3DetectorDefinition() {}

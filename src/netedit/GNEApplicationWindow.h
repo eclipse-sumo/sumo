@@ -187,10 +187,10 @@ public:
     /// @brief called when the command/FXCall close is executed
     long onCmdClose(FXObject*, FXSelector, void*);
 
-    /// @brief Called on menu Edit->Visualization 
+    /// @brief Called on menu Edit->Visualization
     long onCmdEditViewScheme(FXObject*, FXSelector, void*);
 
-    /// @brief Called on menu Edit->Viewport 
+    /// @brief Called on menu Edit->Viewport
     long onCmdEditViewport(FXObject*, FXSelector, void*);
 
     /// @brief called when the command/FXCall locate is executed

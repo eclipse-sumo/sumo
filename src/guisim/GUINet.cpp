@@ -72,7 +72,7 @@ template MFXMutex GLObjectValuePassConnector<std::pair<int, class MSPhaseDefinit
 // member method definitions
 // ===========================================================================
 GUINet::GUINet(MSVehicleControl* vc, MSEventControl* beginOfTimestepEvents,
-               MSEventControl* endOfTimestepEvents, 
+               MSEventControl* endOfTimestepEvents,
                MSEventControl* insertionEvents) :
     MSNet(vc, beginOfTimestepEvents, endOfTimestepEvents, insertionEvents, new GUIShapeContainer(myGrid)),
     GUIGlObject(GLO_NETWORK, ""),

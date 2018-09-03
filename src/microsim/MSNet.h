@@ -139,7 +139,7 @@ public:
      * @see closeBuilding
      */
     MSNet(MSVehicleControl* vc, MSEventControl* beginOfTimestepEvents,
-          MSEventControl* endOfTimestepEvents, 
+          MSEventControl* endOfTimestepEvents,
           MSEventControl* insertionEvents,
           ShapeContainer* shapeCont = 0);
 
@@ -528,7 +528,7 @@ public:
          * @param[in] to The state the vehicle has changed to
          * @param[in] info Additional information on the state change
          */
-        virtual void vehicleStateChanged(const SUMOVehicle* const vehicle, VehicleState to, const std::string& info="") = 0;
+        virtual void vehicleStateChanged(const SUMOVehicle* const vehicle, VehicleState to, const std::string& info = "") = 0;
 
     };
 
@@ -551,7 +551,7 @@ public:
      * @param[in] info Information regarding the replacement
      * @see VehicleStateListener:vehicleStateChanged
      */
-    void informVehicleStateListener(const SUMOVehicle* const vehicle, VehicleState to, const std::string& info="");
+    void informVehicleStateListener(const SUMOVehicle* const vehicle, VehicleState to, const std::string& info = "");
     /// @}
 
 
@@ -584,7 +584,7 @@ public:
     SUMOAbstractRouter<MSEdge, SUMOVehicle>& getRouterEffort(
         const MSEdgeVector& prohibited = MSEdgeVector()) const;
     MSPedestrianRouter& getPedestrianRouter(const MSEdgeVector& prohibited = MSEdgeVector()) const;
-    MSIntermodalRouter& getIntermodalRouter(const int routingMode=0, const MSEdgeVector& prohibited = MSEdgeVector()) const;
+    MSIntermodalRouter& getIntermodalRouter(const int routingMode = 0, const MSEdgeVector& prohibited = MSEdgeVector()) const;
 
     static void adaptIntermodalRouter(MSIntermodalRouter& router);
 
@@ -615,7 +615,7 @@ public:
     }
 
     /// @brief return whether a warning regarding the given object shall be issued
-    bool warnOnce(const std::string& typeAndID); 
+    bool warnOnce(const std::string& typeAndID);
 
 
 protected:

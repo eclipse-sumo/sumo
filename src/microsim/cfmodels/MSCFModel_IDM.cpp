@@ -37,8 +37,8 @@ MSCFModel_IDM::MSCFModel_IDM(const MSVehicleType* vtype, bool idmm) :
     myAdaptationFactor(idmm ? vtype->getParameter().getCFParam(SUMO_ATTR_CF_IDMM_ADAPT_FACTOR, 1.8) : 1.0),
     myAdaptationTime(idmm ? vtype->getParameter().getCFParam(SUMO_ATTR_CF_IDMM_ADAPT_TIME, 600.0) : 0.0),
     myIterations(MAX2(1, int(TS / vtype->getParameter().getCFParam(SUMO_ATTR_CF_IDM_STEPPING, .25) + .5))),
-    myTwoSqrtAccelDecel(double(2 * sqrt(myAccel * myDecel))) 
-{ }
+    myTwoSqrtAccelDecel(double(2 * sqrt(myAccel * myDecel))) {
+}
 
 MSCFModel_IDM::~MSCFModel_IDM() {}
 
@@ -69,7 +69,7 @@ MSCFModel_IDM::stopSpeed(const MSVehicle* const veh, const double speed, double 
     if (gap > 0 && speed < NUMERICAL_EPS) {
         // ensure that stops can be reached:
         result = maximumSafeStopSpeed(gap, speed, false, 0);
-    } 
+    }
     return result;
 }
 

@@ -46,14 +46,14 @@
 // method definitions
 // ===========================================================================
 MSCFModel_Krauss::MSCFModel_Krauss(const MSVehicleType* vtype) :
-    MSCFModel_KraussOrig1(vtype) 
-{ }
+    MSCFModel_KraussOrig1(vtype) {
+}
 
 
 MSCFModel_Krauss::~MSCFModel_Krauss() {}
 
 
-double 
+double
 MSCFModel_Krauss::patchSpeedBeforeLC(const MSVehicle* veh, double vMin, double vMax) const {
     const double sigma = (veh->passingMinor()
                           ? veh->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_SIGMA_MINOR, myDawdle)

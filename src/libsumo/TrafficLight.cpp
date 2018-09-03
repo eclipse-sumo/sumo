@@ -243,26 +243,26 @@ TrafficLight::makeWrapper() {
 bool
 TrafficLight::handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper) {
     switch (variable) {
-    case ID_LIST:
-        return wrapper->wrapStringList(objID, variable, getIDList());
-    case ID_COUNT:
-        return wrapper->wrapInt(objID, variable, getIDCount());
-    case TL_RED_YELLOW_GREEN_STATE:
-        return wrapper->wrapString(objID, variable, getRedYellowGreenState(objID));
-    case TL_CONTROLLED_LANES:
-        return wrapper->wrapStringList(objID, variable, getControlledLanes(objID));
-    case TL_CURRENT_PHASE:
-        return wrapper->wrapInt(objID, variable, getPhase(objID));
-    case TL_CURRENT_PROGRAM:
-        return wrapper->wrapString(objID, variable, getProgram(objID));
-    case TL_PHASE_DURATION:
-        return wrapper->wrapDouble(objID, variable, getPhaseDuration(objID));
-    case TL_NEXT_SWITCH:
-        return wrapper->wrapDouble(objID, variable, getNextSwitch(objID));
-    case TL_CONTROLLED_JUNCTIONS:
-        return wrapper->wrapStringList(objID, variable, getControlledJunctions(objID));
-    default:
-        return false;
+        case ID_LIST:
+            return wrapper->wrapStringList(objID, variable, getIDList());
+        case ID_COUNT:
+            return wrapper->wrapInt(objID, variable, getIDCount());
+        case TL_RED_YELLOW_GREEN_STATE:
+            return wrapper->wrapString(objID, variable, getRedYellowGreenState(objID));
+        case TL_CONTROLLED_LANES:
+            return wrapper->wrapStringList(objID, variable, getControlledLanes(objID));
+        case TL_CURRENT_PHASE:
+            return wrapper->wrapInt(objID, variable, getPhase(objID));
+        case TL_CURRENT_PROGRAM:
+            return wrapper->wrapString(objID, variable, getProgram(objID));
+        case TL_PHASE_DURATION:
+            return wrapper->wrapDouble(objID, variable, getPhaseDuration(objID));
+        case TL_NEXT_SWITCH:
+            return wrapper->wrapDouble(objID, variable, getNextSwitch(objID));
+        case TL_CONTROLLED_JUNCTIONS:
+            return wrapper->wrapStringList(objID, variable, getControlledJunctions(objID));
+        default:
+            return false;
     }
 }
 

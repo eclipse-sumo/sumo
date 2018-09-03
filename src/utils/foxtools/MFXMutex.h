@@ -31,16 +31,16 @@
 #include <utils/common/AbstractMutex.h>
 
 #ifndef WIN32
-    // handle to a mutex
-    typedef void* FXThreadMutex;        
+// handle to a mutex
+typedef void* FXThreadMutex;
 #else
-    #define NOMINMAX
-    #include <windows.h>
-    #undef NOMINMAX
-    // handle to a mutex
-    typedef HANDLE FXThreadMutex;        
+#define NOMINMAX
+#include <windows.h>
+#undef NOMINMAX
+// handle to a mutex
+typedef HANDLE FXThreadMutex;
 #endif
- 
+
 /**
  * Recursive mutual exclusion object.
  * Unlocks on destruction

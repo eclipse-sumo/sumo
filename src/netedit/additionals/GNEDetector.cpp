@@ -81,7 +81,7 @@ GNEDetector::getLane() const {
 }
 
 
-double 
+double
 GNEDetector::getPositionOverLane() const {
     return myPositionOverLane;
 }
@@ -111,7 +111,7 @@ GNEDetector::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList)
 
 Position
 GNEDetector::getPositionInView() const {
-    if(myPositionOverLane < 0) {
+    if (myPositionOverLane < 0) {
         return myLane->getShape().front();
     } else if (myPositionOverLane > myLane->getShape().length()) {
         return myLane->getShape().back();
@@ -127,13 +127,13 @@ GNEDetector::getParentName() const {
 }
 
 
-std::string 
+std::string
 GNEDetector::getPopUpID() const {
     return toString(getTag()) + ": " + getID();
 }
 
 
-std::string 
+std::string
 GNEDetector::getHierarchyName() const {
     return toString(getTag());
 }

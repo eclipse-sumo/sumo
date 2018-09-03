@@ -1674,7 +1674,7 @@ protected:
     void updateTimeLoss(double vNext);
 
     /// @brief whether the vehicle is a train that can reverse its direction at the current point in its route
-    bool canReverse() const; 
+    bool canReverse() const;
 
     /** @brief sets the braking lights on/off
      */
@@ -1913,7 +1913,7 @@ protected:
 
     /// @brief checks for link leaders of the current link as well as the parallel link (if there is one)
     void checkLinkLeaderCurrentAndParallel(const MSLink* link, const MSLane* lane, double seen,
-                         DriveProcessItem* const lastLink, double& v, double& vLinkPass, double& vLinkWait, bool& setRequest) const;
+                                           DriveProcessItem* const lastLink, double& v, double& vLinkPass, double& vLinkWait, bool& setRequest) const;
 
 
     // @brief return the lane on which the back of this vehicle resides

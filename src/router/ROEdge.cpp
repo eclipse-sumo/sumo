@@ -331,9 +331,9 @@ ROEdge::getSuccessors(SUMOVehicleClass vClass) const {
     }
     // this vClass is requested for the first time. rebuild all successors
     std::set<ROEdge*> followers;
-    for (const ROLane* const lane: myLanes) {
+    for (const ROLane* const lane : myLanes) {
         if ((lane->getPermissions() & vClass) != 0) {
-            for (const auto& next: lane->getOutgoingViaLanes()) {
+            for (const auto& next : lane->getOutgoingViaLanes()) {
                 if ((next.first->getPermissions() & vClass) != 0) {
                     followers.insert(&next.first->getEdge());
                 }
@@ -347,7 +347,7 @@ ROEdge::getSuccessors(SUMOVehicleClass vClass) const {
         }
     }
     myClassesSuccessorMap[vClass].insert(myClassesSuccessorMap[vClass].begin(),
-        followers.begin(), followers.end());
+                                         followers.begin(), followers.end());
     return myClassesSuccessorMap[vClass];
 }
 
@@ -367,9 +367,9 @@ ROEdge::getViaSuccessors(SUMOVehicleClass vClass) const {
     }
     // this vClass is requested for the first time. rebuild all successors
     std::set<std::pair<const ROEdge*, const ROEdge*> > followers;
-    for (const ROLane* const lane: myLanes) {
+    for (const ROLane* const lane : myLanes) {
         if ((lane->getPermissions() & vClass) != 0) {
-            for (const auto& next: lane->getOutgoingViaLanes()) {
+            for (const auto& next : lane->getOutgoingViaLanes()) {
                 if ((next.first->getPermissions() & vClass) != 0) {
                     followers.insert(std::make_pair(&next.first->getEdge(), next.second));
                 }
@@ -383,7 +383,7 @@ ROEdge::getViaSuccessors(SUMOVehicleClass vClass) const {
         }
     }
     myClassesViaSuccessorMap[vClass].insert(myClassesViaSuccessorMap[vClass].begin(),
-        followers.begin(), followers.end());
+                                            followers.begin(), followers.end());
     return myClassesViaSuccessorMap[vClass];
 }
 

@@ -63,7 +63,7 @@ public:
 
     public:
         /// @brief constructor
-        AdditionalSelector(GNEAdditionalFrame *additionalFrameParent);
+        AdditionalSelector(GNEAdditionalFrame* additionalFrameParent);
 
         /// @brief destructor
         ~AdditionalSelector();
@@ -86,7 +86,7 @@ public:
 
     private:
         /// @brief pointer to Additional Frame Parent
-        GNEAdditionalFrame * myAdditionalFrameParent;
+        GNEAdditionalFrame* myAdditionalFrameParent;
 
         /// @brief combo box with the list of additional elements
         FXComboBox* myAdditionalMatchBox;
@@ -105,7 +105,7 @@ public:
 
     public:
         /// @brief constructor
-        AdditionalAttributeSingle(AdditionalAttributes *additionalAttributesParent);
+        AdditionalAttributeSingle(AdditionalAttributes* additionalAttributesParent);
 
         /// @brief destructor
         ~AdditionalAttributeSingle();
@@ -204,7 +204,7 @@ public:
         void showWarningMessage(std::string extra = "") const;
 
         /// @brief get additional frame parent
-        GNEAdditionalFrame *getAdditionalFrameParent() const;
+        GNEAdditionalFrame* getAdditionalFrameParent() const;
 
         /// @name FOX-callbacks
         /// @{
@@ -243,7 +243,7 @@ public:
         };
 
         /// @brief constructor
-        NeteditAttributes(GNEAdditionalFrame *additionalFrameParent);
+        NeteditAttributes(GNEAdditionalFrame* additionalFrameParent);
 
         /// @brief destructor
         ~NeteditAttributes();
@@ -318,7 +318,7 @@ public:
     class SelectorParentAdditional : protected FXGroupBox {
     public:
         /// @brief constructor
-        SelectorParentAdditional(GNEAdditionalFrame *additionalFrameParent);
+        SelectorParentAdditional(GNEAdditionalFrame* additionalFrameParent);
 
         /// @brief destructor
         ~SelectorParentAdditional();
@@ -327,7 +327,7 @@ public:
         std::string getIdSelected() const;
 
         /// @brief select manually a element of the list
-        void setIDSelected(const std::string &id);
+        void setIDSelected(const std::string& id);
 
         /// @brief Show list of SelectorParentAdditional
         void showListOfAdditionalParents(SumoXMLTag additionalTypeParent);
@@ -340,7 +340,7 @@ public:
 
     private:
         /// @brief pointer to Additional Frame Parent
-        GNEAdditionalFrame * myAdditionalFrameParent;
+        GNEAdditionalFrame* myAdditionalFrameParent;
 
         /// @brief current additional type parent
         SumoXMLTag myAdditionalTypeParent;
@@ -362,7 +362,7 @@ public:
 
     public:
         /// @brief constructor
-        SelectorParentEdges(GNEAdditionalFrame *additionalFrameParent);
+        SelectorParentEdges(GNEAdditionalFrame* additionalFrameParent);
 
         /// @brief destructor
         ~SelectorParentEdges();
@@ -406,7 +406,7 @@ public:
 
     private:
         /// @brief pointer to additional frame parent
-        GNEAdditionalFrame * myAdditionalFrameParent;
+        GNEAdditionalFrame* myAdditionalFrameParent;
 
         /// @brief CheckBox for selected edges
         FXCheckButton* myUseSelectedEdgesCheckButton;
@@ -434,7 +434,7 @@ public:
 
     public:
         /// @brief constructor
-        SelectorParentLanes(GNEAdditionalFrame *additionalFrameParent);
+        SelectorParentLanes(GNEAdditionalFrame* additionalFrameParent);
 
         /// @brief destructor
         ~SelectorParentLanes();
@@ -478,7 +478,7 @@ public:
 
     private:
         /// @brief pointer to additional frame parent
-        GNEAdditionalFrame * myAdditionalFrameParent;
+        GNEAdditionalFrame* myAdditionalFrameParent;
 
         /// @brief CheckBox for selected lanes
         FXCheckButton* myUseSelectedLanesCheckButton;
@@ -525,13 +525,13 @@ public:
 
 protected:
     /// @brief get additional selector
-    AdditionalSelector *getAdditionalSelector() const;
+    AdditionalSelector* getAdditionalSelector() const;
 
     /// @brief get additional attributes
-    AdditionalAttributes *getAdditionalParameters() const;
+    AdditionalAttributes* getAdditionalParameters() const;
 
     /// @brief get netedit attributes
-    NeteditAttributes *getNeteditAttributes() const;
+    NeteditAttributes* getNeteditAttributes() const;
 
     /// @brief get additional parent selector
     SelectorParentAdditional* getAdditionalParentSelector() const;

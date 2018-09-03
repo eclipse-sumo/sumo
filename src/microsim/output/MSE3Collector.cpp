@@ -45,8 +45,8 @@
 MSE3Collector::MSE3EntryReminder::MSE3EntryReminder(
     const MSCrossSection& crossSection, MSE3Collector& collector) :
     MSMoveReminder(collector.getID() + "_entry", crossSection.myLane),
-    myCollector(collector), myPosition(crossSection.myPosition) 
-{}
+    myCollector(collector), myPosition(crossSection.myPosition) {
+}
 
 bool
 MSE3Collector::MSE3EntryReminder::notifyEnter(SUMOVehicle& veh, Notification reason, const MSLane* enteredLane) {
@@ -77,12 +77,12 @@ MSE3Collector::MSE3EntryReminder::notifyMove(SUMOVehicle& veh, double oldPos,
             const double fractionTimeOnDet = TS - timeBeforeEnter;
             myCollector.enter(veh, entryTime - fractionTimeOnDet, fractionTimeOnDet);
 #ifdef DEBUG_E3_NOTIFY_MOVE
-    if (DEBUG_COND(myCollector) && DEBUG_COND_VEH(veh)) {
-        std::cout << "\n" << SIMTIME
-                << " MSE3EntryReminder::notifyMove() (" << getDescription() << "on lane '" << myLane->getID() << "')"
-                << " vehicle '" << veh.getID() << "'"
-                << " entered. oldPos=" << oldPos << " newPos=" << newPos << " newSpeed=" << newSpeed << "\n";
-    }
+            if (DEBUG_COND(myCollector) && DEBUG_COND_VEH(veh)) {
+                std::cout << "\n" << SIMTIME
+                          << " MSE3EntryReminder::notifyMove() (" << getDescription() << "on lane '" << myLane->getID() << "')"
+                          << " vehicle '" << veh.getID() << "'"
+                          << " entered. oldPos=" << oldPos << " newPos=" << newPos << " newSpeed=" << newSpeed << "\n";
+            }
 #endif
         }
     }
@@ -139,12 +139,12 @@ MSE3Collector::MSE3LeaveReminder::notifyMove(SUMOVehicle& veh, double oldPos,
         const double leaveTimeFront = SIMTIME - TS + timeBeforeLeave;
         myCollector.leaveFront(veh, leaveTimeFront);
 #ifdef DEBUG_E3_NOTIFY_MOVE
-    if (DEBUG_COND(myCollector) && DEBUG_COND_VEH(veh)) {
-        std::cout << "\n" << SIMTIME
-                << " MSE3LeaveReminder::notifyMove() (" << getDescription() << "on lane '" << myLane->getID() << "')"
-                << " vehicle '" << veh.getID() << "'"
-                << " leaveFront. oldPos=" << oldPos << " newPos=" << newPos << " newSpeed=" << newSpeed << "\n";
-    }
+        if (DEBUG_COND(myCollector) && DEBUG_COND_VEH(veh)) {
+            std::cout << "\n" << SIMTIME
+                      << " MSE3LeaveReminder::notifyMove() (" << getDescription() << "on lane '" << myLane->getID() << "')"
+                      << " vehicle '" << veh.getID() << "'"
+                      << " leaveFront. oldPos=" << oldPos << " newPos=" << newPos << " newSpeed=" << newSpeed << "\n";
+        }
 #endif
     }
     const double backPos = newPos - veh.getVehicleType().getLength();
@@ -161,9 +161,9 @@ MSE3Collector::MSE3LeaveReminder::notifyMove(SUMOVehicle& veh, double oldPos,
 #ifdef DEBUG_E3_NOTIFY_MOVE
     if (DEBUG_COND(myCollector) && DEBUG_COND_VEH(veh)) {
         std::cout << "\n" << SIMTIME
-                << " MSE3LeaveReminder::notifyMove() (" << getDescription() << "on lane '" << myLane->getID() << "')"
-                << " vehicle '" << veh.getID() << "'"
-                << " left. oldPos=" << oldPos << " newPos=" << newPos << " newSpeed=" << newSpeed << "\n";
+                  << " MSE3LeaveReminder::notifyMove() (" << getDescription() << "on lane '" << myLane->getID() << "')"
+                  << " vehicle '" << veh.getID() << "'"
+                  << " left. oldPos=" << oldPos << " newPos=" << newPos << " newSpeed=" << newSpeed << "\n";
     }
 #endif
     return false;
@@ -192,12 +192,11 @@ MSE3Collector::MSE3Collector(const std::string& id,
                              double haltingSpeedThreshold,
                              SUMOTime haltingTimeThreshold,
                              const std::string& vTypes,
-                             bool openEntry) : 
+                             bool openEntry) :
     MSDetectorFileOutput(id, vTypes), myEntries(entries), myExits(exits),
     myHaltingTimeThreshold(haltingTimeThreshold), myHaltingSpeedThreshold(haltingSpeedThreshold),
     myCurrentMeanSpeed(0), myCurrentHaltingsNumber(0), myLastResetTime(-1),
-    myOpenEntry(openEntry)
-{
+    myOpenEntry(openEntry) {
     // Set MoveReminders to entries and exits
     for (CrossSectionVectorConstIt crossSec1 = entries.begin(); crossSec1 != entries.end(); ++crossSec1) {
         myEntryReminders.push_back(new MSE3EntryReminder(*crossSec1, *this));

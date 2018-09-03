@@ -54,7 +54,7 @@ FXIMPLEMENT(GNEDialog_AllowDisallow, FXDialogBox, GNEDialog_AllowDisallowMap, AR
 // member method definitions
 // ===========================================================================
 
-GNEDialog_AllowDisallow::GNEDialog_AllowDisallow(GNEViewNet *viewNet, GNEAttributeCarrier *AC) :
+GNEDialog_AllowDisallow::GNEDialog_AllowDisallow(GNEViewNet* viewNet, GNEAttributeCarrier* AC) :
     FXDialogBox(viewNet->getApp(), ("Edit " + toString(SUMO_ATTR_ALLOW) + " " + toString(SUMO_ATTR_VCLASS) + "es").c_str(), GUIDesignDialogBox),
     myViewNet(viewNet),
     myAC(AC) {
@@ -203,7 +203,7 @@ GNEDialog_AllowDisallow::onCmdCancel(FXObject*, FXSelector, void*) {
 
 long
 GNEDialog_AllowDisallow::onCmdReset(FXObject*, FXSelector, void*) {
-    if(myAC->getAttribute(SUMO_ATTR_ALLOW) == "all") {
+    if (myAC->getAttribute(SUMO_ATTR_ALLOW) == "all") {
         // iterate over myVClassMap and set all icons as true
         for (auto i : myVClassMap) {
             i.second.first->setIcon(GUIIconSubSys::getIcon(ICON_ACCEPT));

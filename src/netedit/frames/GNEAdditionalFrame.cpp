@@ -106,7 +106,7 @@ FXIMPLEMENT(GNEAdditionalFrame::SelectorParentLanes,            FXGroupBox,     
 // GNEAdditionalFrame::AdditionalSelector - methods
 // ---------------------------------------------------------------------------
 
-GNEAdditionalFrame::AdditionalSelector::AdditionalSelector(GNEAdditionalFrame *additionalFrameParent) :
+GNEAdditionalFrame::AdditionalSelector::AdditionalSelector(GNEAdditionalFrame* additionalFrameParent) :
     FXGroupBox(additionalFrameParent->myContentFrame, "Additional element", GUIDesignGroupBoxFrame),
     myAdditionalFrameParent(additionalFrameParent),
     myCurrentAdditionalType(SUMO_TAG_NOTHING) {
@@ -145,9 +145,9 @@ GNEAdditionalFrame::AdditionalSelector::setCurrentAdditional(SumoXMLTag actualAd
     // Set new actualAdditionalType
     myCurrentAdditionalType = actualAdditionalType;
     // Check that current additional type is valid
-    if(myCurrentAdditionalType != SUMO_TAG_NOTHING) {
+    if (myCurrentAdditionalType != SUMO_TAG_NOTHING) {
         // obtain tag property (only for improve code legibility)
-        const auto &tagValue = GNEAttributeCarrier::getTagProperties(myCurrentAdditionalType);
+        const auto& tagValue = GNEAttributeCarrier::getTagProperties(myCurrentAdditionalType);
         // first check if additional can block movement, then show neteditParameters
         if (tagValue.canBlockMovement()) {
             myAdditionalFrameParent->getNeteditAttributes()->showNeteditAttributes(false);
@@ -191,13 +191,13 @@ GNEAdditionalFrame::AdditionalSelector::setCurrentAdditional(SumoXMLTag actualAd
         myAdditionalFrameParent->getAdditionalParentSelector()->hideListOfAdditionalParents();
         myAdditionalFrameParent->getEdgeParentsSelector()->hideList();
         myAdditionalFrameParent->getLaneParentsSelector()->hideList();
-     }
+    }
 }
 
 
 long
 GNEAdditionalFrame::AdditionalSelector::onCmdselectAttributeCarrier(FXObject*, FXSelector, void*) {
-    // Check if value of myAdditionalMatchBox correspond of an allowed additional tags 
+    // Check if value of myAdditionalMatchBox correspond of an allowed additional tags
     auto listOfTags = GNEAttributeCarrier::allowedAdditionalTags(false);
     for (auto i : listOfTags) {
         if (toString(i) == myAdditionalMatchBox->getText().text()) {
@@ -220,7 +220,7 @@ GNEAdditionalFrame::AdditionalSelector::onCmdselectAttributeCarrier(FXObject*, F
 // GNEAdditionalFrame::AdditionalAttributeSingle - methods
 // ---------------------------------------------------------------------------
 
-GNEAdditionalFrame::AdditionalAttributeSingle::AdditionalAttributeSingle(AdditionalAttributes *additionalAttributesParent) :
+GNEAdditionalFrame::AdditionalAttributeSingle::AdditionalAttributeSingle(AdditionalAttributes* additionalAttributesParent) :
     FXHorizontalFrame(additionalAttributesParent, GUIDesignAuxiliarHorizontalFrame),
     myAdditionalAttributesParent(additionalAttributesParent),
     myAdditionalAttr(SUMO_ATTR_NOTHING) {
@@ -245,8 +245,8 @@ GNEAdditionalFrame::AdditionalAttributeSingle::showParameter(SumoXMLAttr additio
     myLabel->setText(toString(myAdditionalAttr).c_str());
     myLabel->show();
     // Retrieve attribute properties
-    const auto &attributeProperties = GNEAttributeCarrier::getTagProperties(myAdditionalAttributesParent->myAdditionalFrameParent->myAdditionalSelector->getCurrentAdditionalType()).getAttribute(additionalAttr);
-    if(attributeProperties.isInt()) {
+    const auto& attributeProperties = GNEAttributeCarrier::getTagProperties(myAdditionalAttributesParent->myAdditionalFrameParent->myAdditionalSelector->getCurrentAdditionalType()).getAttribute(additionalAttr);
+    if (attributeProperties.isInt()) {
         myTextFieldInt->setTextColor(FXRGB(0, 0, 0));
         myTextFieldInt->setText(toString(value).c_str());
         myTextFieldInt->show();
@@ -293,7 +293,7 @@ GNEAdditionalFrame::AdditionalAttributeSingle::getAttr() const {
 std::string
 GNEAdditionalFrame::AdditionalAttributeSingle::getValue() const {
     // obtain attribute property (only for improve code legibility)
-    const auto &attrValue = GNEAttributeCarrier::getTagProperties(myAdditionalAttributesParent->getAdditionalFrameParent()->getAdditionalSelector()->getCurrentAdditionalType()).getAttribute(myAdditionalAttr);
+    const auto& attrValue = GNEAttributeCarrier::getTagProperties(myAdditionalAttributesParent->getAdditionalFrameParent()->getAdditionalSelector()->getCurrentAdditionalType()).getAttribute(myAdditionalAttr);
     // return value depending of attribute type
     if (attrValue.isBool()) {
         return (myBoolCheckButton->getCheck() == 1) ? "true" : "false";
@@ -318,7 +318,7 @@ GNEAdditionalFrame::AdditionalAttributeSingle::onCmdSetAttribute(FXObject*, FXSe
     // We assume that current value is valid
     myInvalidValue = "";
     // get attribute Values (only for improve efficiency)
-    const auto &attrValues = GNEAttributeCarrier::getTagProperties(myAdditionalAttributesParent->getAdditionalFrameParent()->getAdditionalSelector()->getCurrentAdditionalType()).getAttribute(myAdditionalAttr);
+    const auto& attrValues = GNEAttributeCarrier::getTagProperties(myAdditionalAttributesParent->getAdditionalFrameParent()->getAdditionalSelector()->getCurrentAdditionalType()).getAttribute(myAdditionalAttr);
     // Check if format of current value of myTextField is correct
     if (attrValues.isInt()) {
         if (GNEAttributeCarrier::canParse<int>(myTextFieldInt->getText().text())) {
@@ -339,7 +339,7 @@ GNEAdditionalFrame::AdditionalAttributeSingle::onCmdSetAttribute(FXObject*, FXSe
             // Check if parsed value is negative
             if (doubleValue < 0) {
                 myInvalidValue = "'" + toString(myAdditionalAttr) + "' cannot be negative";
-            } 
+            }
         } else {
             myInvalidValue = "'" + toString(myAdditionalAttr) + "' doesn't have a valid 'time' format";
         }
@@ -444,7 +444,7 @@ GNEAdditionalFrame::AdditionalAttributes::clearAttributes() {
 void
 GNEAdditionalFrame::AdditionalAttributes::addAttribute(SumoXMLAttr AdditionalAttributeSingle) {
     // obtain attribute property (only for improve code legibility)
-    const auto &attrvalue = GNEAttributeCarrier::getTagProperties(myAdditionalFrameParent->getAdditionalSelector()->getCurrentAdditionalType()).getAttribute(AdditionalAttributeSingle);
+    const auto& attrvalue = GNEAttributeCarrier::getTagProperties(myAdditionalFrameParent->getAdditionalSelector()->getCurrentAdditionalType()).getAttribute(AdditionalAttributeSingle);
     myVectorOfsingleAdditionalParameter.at(attrvalue.getPositionListed())->showParameter(AdditionalAttributeSingle, attrvalue.getDefaultValue());
 }
 
@@ -480,7 +480,7 @@ GNEAdditionalFrame::AdditionalAttributes::showWarningMessage(std::string extra) 
     std::string errorMessage;
     // iterate over standard parameters
     for (auto i : GNEAttributeCarrier::getTagProperties(myAdditionalFrameParent->myAdditionalSelector->getCurrentAdditionalType())) {
-        if(errorMessage.empty()) {
+        if (errorMessage.empty()) {
             // Return string with the error if at least one of the parameter isn't valid
             std::string attributeValue = myVectorOfsingleAdditionalParameter.at(i.second.getPositionListed())->isAttributeValid();
             if (attributeValue.size() != 0) {
@@ -532,7 +532,7 @@ GNEAdditionalFrame::AdditionalAttributes::onCmdHelp(FXObject*, FXSelector, void*
 // GNEAdditionalFrame::NeteditAttributes- methods
 // ---------------------------------------------------------------------------
 
-GNEAdditionalFrame::NeteditAttributes::NeteditAttributes(GNEAdditionalFrame *additionalFrameParent) :
+GNEAdditionalFrame::NeteditAttributes::NeteditAttributes(GNEAdditionalFrame* additionalFrameParent) :
     FXGroupBox(additionalFrameParent->myContentFrame, "Netedit attributes", GUIDesignGroupBoxFrame),
     myActualAdditionalReferencePoint(GNE_ADDITIONALREFERENCEPOINT_LEFT),
     myCurrentLengthValid(true) {
@@ -562,10 +562,10 @@ GNEAdditionalFrame::NeteditAttributes::~NeteditAttributes() {}
 
 
 
-void 
+void
 GNEAdditionalFrame::NeteditAttributes::showNeteditAttributes(bool includeLengthAndReferencePoint) {
     show();
-    if(includeLengthAndReferencePoint) {
+    if (includeLengthAndReferencePoint) {
         myLengthLabel->show();
         myLengthTextField->show();
         myReferencePointMatchBox->show();
@@ -577,7 +577,7 @@ GNEAdditionalFrame::NeteditAttributes::showNeteditAttributes(bool includeLengthA
 }
 
 
-void 
+void
 GNEAdditionalFrame::NeteditAttributes::hideNeteditAttributes() {
     hide();
 }
@@ -737,19 +737,19 @@ GNEAdditionalFrame::getNeteditAttributes() const {
 }
 
 
-GNEAdditionalFrame::SelectorParentAdditional* 
+GNEAdditionalFrame::SelectorParentAdditional*
 GNEAdditionalFrame::getAdditionalParentSelector() const {
     return myFirstAdditionalParentSelector;
 }
 
 
-GNEAdditionalFrame::SelectorParentEdges* 
+GNEAdditionalFrame::SelectorParentEdges*
 GNEAdditionalFrame::getEdgeParentsSelector() const {
     return myEdgeParentsSelector;
 }
 
 
-GNEAdditionalFrame::SelectorParentLanes* 
+GNEAdditionalFrame::SelectorParentLanes*
 GNEAdditionalFrame::getLaneParentsSelector() const {
     return myLaneParentsSelector;
 }
@@ -758,7 +758,7 @@ GNEAdditionalFrame::getLaneParentsSelector() const {
 // GNEAdditionalFrame::SelectorParentAdditional - methods
 // ---------------------------------------------------------------------------
 
-GNEAdditionalFrame::SelectorParentAdditional::SelectorParentAdditional(GNEAdditionalFrame *additionalFrameParent) :
+GNEAdditionalFrame::SelectorParentAdditional::SelectorParentAdditional(GNEAdditionalFrame* additionalFrameParent) :
     FXGroupBox(additionalFrameParent->myContentFrame, "Parent selector", GUIDesignGroupBoxFrame),
     myAdditionalFrameParent(additionalFrameParent),
     myAdditionalTypeParent(SUMO_TAG_NOTHING) {
@@ -785,15 +785,15 @@ GNEAdditionalFrame::SelectorParentAdditional::getIdSelected() const {
 }
 
 
-void 
-GNEAdditionalFrame::SelectorParentAdditional::setIDSelected(const std::string &id) {
+void
+GNEAdditionalFrame::SelectorParentAdditional::setIDSelected(const std::string& id) {
     // first unselect all
     for (int i = 0; i < myFirstAdditionalParentsList->getNumItems(); i++) {
         myFirstAdditionalParentsList->getItem(i)->setSelected(false);
     }
     // select element if correspond to given ID
     for (int i = 0; i < myFirstAdditionalParentsList->getNumItems(); i++) {
-        if(myFirstAdditionalParentsList->getItem(i)->getText().text() == id) {
+        if (myFirstAdditionalParentsList->getItem(i)->getText().text() == id) {
             myFirstAdditionalParentsList->getItem(i)->setSelected(true);
         }
     }
@@ -818,10 +818,10 @@ GNEAdditionalFrame::SelectorParentAdditional::hideListOfAdditionalParents() {
 }
 
 
-void 
+void
 GNEAdditionalFrame::SelectorParentAdditional::refreshListOfAdditionalParents() {
     myFirstAdditionalParentsList->clearItems();
-    if(myAdditionalTypeParent != SUMO_TAG_NOTHING) {
+    if (myAdditionalTypeParent != SUMO_TAG_NOTHING) {
         // fill list with IDs of additionals
         for (auto i : myAdditionalFrameParent->getViewNet()->getNet()->getAdditionalByType(myAdditionalTypeParent)) {
             myFirstAdditionalParentsList->appendItem(i.first.c_str());
@@ -833,7 +833,7 @@ GNEAdditionalFrame::SelectorParentAdditional::refreshListOfAdditionalParents() {
 // GNEAdditionalFrame::SelectorParentEdges - methods
 // ---------------------------------------------------------------------------
 
-GNEAdditionalFrame::SelectorParentEdges::SelectorParentEdges(GNEAdditionalFrame *additionalFrameParent) :
+GNEAdditionalFrame::SelectorParentEdges::SelectorParentEdges(GNEAdditionalFrame* additionalFrameParent) :
     FXGroupBox(additionalFrameParent->myContentFrame, "Edges", GUIDesignGroupBoxFrame),
     myAdditionalFrameParent(additionalFrameParent) {
     // Create menuCheck for selected edges
@@ -982,7 +982,7 @@ GNEAdditionalFrame::SelectorParentEdges::onCmdInvertSelection(FXObject*, FXSelec
 // GNEAdditionalFrame::SelectorParentLanes - methods
 // ---------------------------------------------------------------------------
 
-GNEAdditionalFrame::SelectorParentLanes::SelectorParentLanes(GNEAdditionalFrame *additionalFrameParent) :
+GNEAdditionalFrame::SelectorParentLanes::SelectorParentLanes(GNEAdditionalFrame* additionalFrameParent) :
     FXGroupBox(additionalFrameParent->myContentFrame, "Lanes", GUIDesignGroupBoxFrame),
     myAdditionalFrameParent(additionalFrameParent) {
     // Create CheckBox for selected lanes
@@ -1160,7 +1160,7 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GNEAdditional* addi
     }
     // obtain tag and  tagproperty (only for improve code legibility)
     const SumoXMLTag tag = myAdditionalSelector->getCurrentAdditionalType();
-    const auto &tagValue = GNEAttributeCarrier::getTagProperties(myAdditionalSelector->getCurrentAdditionalType());
+    const auto& tagValue = GNEAttributeCarrier::getTagProperties(myAdditionalSelector->getCurrentAdditionalType());
 
     // Declare map to keep values
     std::map<SumoXMLAttr, std::string> valuesOfElement = myAdditionalParameters->getAttributesAndValues();
@@ -1178,8 +1178,8 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GNEAdditional* addi
     if (tagValue.hasParent()) {
         // if user click over an additional element parent, mark int in AdditionalParentSelector
         if (additionalElement && (additionalElement->getTag() == tagValue.getParentTag())) {
-        valuesOfElement[GNE_ATTR_PARENT] = additionalElement->getID();
-        myFirstAdditionalParentSelector->setIDSelected(additionalElement->getID());
+            valuesOfElement[GNE_ATTR_PARENT] = additionalElement->getID();
+            myFirstAdditionalParentSelector->setIDSelected(additionalElement->getID());
         }
         // stop if currently there isn't a valid selected parent
         if (myFirstAdditionalParentSelector->getIdSelected() != "") {
@@ -1290,15 +1290,13 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GNEAdditional* addi
                         valuesOfElement[SUMO_ATTR_STARTPOS] = toString(setStartPosition(positionOfTheMouseOverEdge, myNeteditParameters->getLength()));
                         valuesOfElement[SUMO_ATTR_ENDPOS] = toString(setEndPosition(pointed_edge->getLanes().at(0)->getLaneShapeLength(), positionOfTheMouseOverEdge, myNeteditParameters->getLength()));
                     }
-                }
-                else {
+                } else {
                     return ADDADDITIONAL_INVALID_ARGUMENTS;
                 }
             }
             // Extract position of lane
             valuesOfElement[SUMO_ATTR_POSITION] = toString(positionOfTheMouseOverEdge);
-        }
-        else if (pointed_lane) {
+        } else if (pointed_lane) {
             // Obtain position of the mouse over lane
             double positionOfTheMouseOverLane = pointed_lane->getShape().nearest_offset_to_point2D(currentPosition) / pointed_lane->getLengthGeometryFactor();
             // If element has a StartPosition and EndPosition over lane, extract attributes
@@ -1309,8 +1307,7 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GNEAdditional* addi
                     if (myNeteditParameters->getActualReferencePoint() == NeteditAttributes::GNE_ADDITIONALREFERENCEPOINT_INVALID) {
                         myAdditionalParameters->showWarningMessage("Current selected reference point isn't valid");
                         return ADDADDITIONAL_INVALID_ARGUMENTS;
-                    }
-                    else {
+                    } else {
                         // set start and end position
                         valuesOfElement[SUMO_ATTR_STARTPOS] = toString(setStartPosition(positionOfTheMouseOverLane, myNeteditParameters->getLength()));
                         valuesOfElement[SUMO_ATTR_ENDPOS] = toString(setEndPosition(pointed_lane->getLaneShapeLength(), positionOfTheMouseOverLane, myNeteditParameters->getLength()));
@@ -1321,8 +1318,7 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GNEAdditional* addi
             }
             // Extract position of lane
             valuesOfElement[SUMO_ATTR_POSITION] = toString(positionOfTheMouseOverLane);
-        }
-        else {
+        } else {
             // get position in map
             valuesOfElement[SUMO_ATTR_POSITION] = toString(currentPosition);
         }
@@ -1402,8 +1398,8 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GNEAdditional* addi
         // Refresh additional Parent Selector (For additionals that have a limited number of childs)
         myFirstAdditionalParentSelector->refreshListOfAdditionalParents();
         // clear selected eddges and lanes
-        myEdgeParentsSelector->onCmdClearSelection(0,0,0);
-        myLaneParentsSelector->onCmdClearSelection(0,0,0);
+        myEdgeParentsSelector->onCmdClearSelection(0, 0, 0);
+        myLaneParentsSelector->onCmdClearSelection(0, 0, 0);
         return ADDADDITIONAL_SUCCESS;
     } else {
         return ADDADDITIONAL_INVALID_ARGUMENTS;

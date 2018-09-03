@@ -51,14 +51,14 @@
 // member method definitions
 // ===========================================================================
 
-GNECalibratorRoute::GNECalibratorRoute(GNEViewNet *viewNet) :
+GNECalibratorRoute::GNECalibratorRoute(GNEViewNet* viewNet) :
     GNEAdditional(viewNet->getNet()->generateAdditionalID(SUMO_TAG_ROUTE), viewNet, GLO_CALIBRATOR, SUMO_TAG_ROUTE, "", false) {
     // fill route type with default values
     setDefaultValues();
 }
 
 
-GNECalibratorRoute::GNECalibratorRoute(GNEViewNet *viewNet, const std::string& routeID, const std::vector<GNEEdge*>& edges, const RGBColor& color) :
+GNECalibratorRoute::GNECalibratorRoute(GNEViewNet* viewNet, const std::string& routeID, const std::vector<GNEEdge*>& edges, const RGBColor& color) :
     GNEAdditional(routeID, viewNet, GLO_CALIBRATOR, SUMO_TAG_ROUTE, "", false),
     myEdges(edges),
     myColor(color) {
@@ -74,37 +74,37 @@ GNECalibratorRoute::getGNEEdges() const {
 }
 
 
-void 
+void
 GNECalibratorRoute::moveGeometry(const Position&, const Position&) {
     // This additional cannot be moved
 }
 
 
-void 
+void
 GNECalibratorRoute::commitGeometryMoving(const Position&, GNEUndoList*) {
     // This additional cannot be moved
 }
 
 
-void 
+void
 GNECalibratorRoute::updateGeometry(bool /*updateGrid*/) {
     // Currently this additional doesn't own a Geometry
 }
 
 
-Position 
+Position
 GNECalibratorRoute::getPositionInView() const {
     return Position();
 }
 
 
-std::string 
+std::string
 GNECalibratorRoute::getParentName() const {
     return myViewNet->getNet()->getMicrosimID();
 }
 
 
-void 
+void
 GNECalibratorRoute::drawGL(const GUIVisualizationSettings&) const {
     // Currently This additional isn't drawn
 }
@@ -167,13 +167,13 @@ GNECalibratorRoute::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-std::string 
+std::string
 GNECalibratorRoute::getPopUpID() const {
     return toString(getTag()) + ": " + getID();
 }
 
 
-std::string 
+std::string
 GNECalibratorRoute::getHierarchyName() const {
     return toString(getTag());
 }
@@ -185,7 +185,7 @@ GNECalibratorRoute::getHierarchyName() const {
 void
 GNECalibratorRoute::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-        case SUMO_ATTR_ID: 
+        case SUMO_ATTR_ID:
             changeAdditionalID(value);
             break;
         case SUMO_ATTR_EDGES:

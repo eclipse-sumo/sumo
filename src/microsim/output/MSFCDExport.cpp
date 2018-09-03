@@ -59,7 +59,7 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
     for (MSVehicleControl::constVehIt it = vc.loadedVehBegin(); it != vc.loadedVehEnd(); ++it) {
         const SUMOVehicle* veh = it->second;
         const MSVehicle* microVeh = dynamic_cast<const MSVehicle*>(veh);
-        if ((veh->isOnRoad() || veh->isParking() || veh->isRemoteControlled()) 
+        if ((veh->isOnRoad() || veh->isParking() || veh->isRemoteControlled())
                 && veh->getDevice(typeid(MSDevice_FCD)) != nullptr
                 // only filter on normal edges
                 && (!filter || MSDevice_FCD::getEdgeFilter().count(veh->getEdge()) > 0)) {

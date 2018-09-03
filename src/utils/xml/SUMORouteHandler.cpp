@@ -51,8 +51,8 @@ SUMORouteHandler::SUMORouteHandler(const std::string& file, const std::string& e
     myCurrentVType(0),
     myBeginDefault(string2time(OptionsCont::getOptions().getString("begin"))),
     myEndDefault(string2time(OptionsCont::getOptions().getString("end"))),
-    myFirstDepart(-1), myInsertStopEdgesAt(-1)
-{ }
+    myFirstDepart(-1), myInsertStopEdgesAt(-1) {
+}
 
 
 SUMORouteHandler::~SUMORouteHandler() {

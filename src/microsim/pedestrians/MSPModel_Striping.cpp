@@ -213,7 +213,7 @@ MSPModel_Striping::usingInternalLanes() {
     return usingInternalLanesStatic();
 }
 
-bool 
+bool
 MSPModel_Striping::usingInternalLanesStatic() {
     return MSGlobals::gUsingInternalLanes && MSNet::getInstance()->hasInternalLinks();
 }
@@ -460,7 +460,7 @@ MSPModel_Striping::getNextLane(const PState& ped, const MSLane* currentLane, con
                     link = MSLinkContHelper::getConnectingLink(*currentLane, *nextLane);
                 } else {
                     link = MSLinkContHelper::getConnectingLink(*nextLane, *currentLane);
-                    if (nextEdge->isCrossing() && link->getTLLogic() == 0 ) {
+                    if (nextEdge->isCrossing() && link->getTLLogic() == 0) {
                         const MSLane* oppositeWalkingArea = nextLane->getLogicalPredecessorLane();
                         link = MSLinkContHelper::getConnectingLink(*oppositeWalkingArea, *nextLane);
                     }
@@ -473,10 +473,10 @@ MSPModel_Striping::getNextLane(const PState& ped, const MSLane* currentLane, con
                               << "' to '" << (nextRouteEdge == 0 ? "NULL" : nextRouteEdge->getID())
                               << "\n";
                 }
-                WRITE_WARNING("Person '" + ped.myPerson->getID() + "' could not find route across junction '" + junction->getID() 
-                        + "' from walkingArea '" + currentEdge->getID()
-                        + "' to edge '" + nextRouteEdge->getID() + "', time=" +
-                        time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
+                WRITE_WARNING("Person '" + ped.myPerson->getID() + "' could not find route across junction '" + junction->getID()
+                              + "' from walkingArea '" + currentEdge->getID()
+                              + "' to edge '" + nextRouteEdge->getID() + "', time=" +
+                              time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
                 // error indicated by nextDir == UNDEFINED_DIRECTION
                 nextLane = nextRouteLane;
             }
@@ -528,10 +528,10 @@ MSPModel_Striping::getNextLane(const PState& ped, const MSLane* currentLane, con
                     std::cout << SIMTIME << " no next lane found for " << currentLane->getID() << " dir=" << ped.myDir << "\n";
                 }
                 if (usingInternalLanesStatic() && currentLane->getLinkCont().size() > 0) {
-                    WRITE_WARNING("Person '" + ped.myPerson->getID() + "' could not find route across junction '" + junction->getID() 
-                            + "' from edge '" + currentEdge->getID()
-                            + "' to edge '" + nextRouteEdge->getID() + "', time=" +
-                            time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
+                    WRITE_WARNING("Person '" + ped.myPerson->getID() + "' could not find route across junction '" + junction->getID()
+                                  + "' from edge '" + currentEdge->getID()
+                                  + "' to edge '" + nextRouteEdge->getID() + "', time=" +
+                                  time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
                 }
             } else if (nextLane->getLength() <= POSITION_EPS) {
                 // internal lane too short
@@ -932,9 +932,9 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
         // check link state
         if DEBUGCOND(p) {
             gDebugFlag1 = true;
-            std::cout << "   link=" << (link == nullptr ? "NULL" : link->getViaLaneOrLane()->getID()) 
-                << " dist=" << dist << " d2=" << dist -p.getMinGap() << " la=" << LOOKAHEAD_SAMEDIR * speed 
-                << " opened=" << (link == nullptr ? "NULL" : toString(link->opened(currentTime - DELTA_T, speed, speed, passingLength, p.getImpatience(currentTime), speed, 0, 0, 0, p.ignoreRed(link)))) << "\n";
+            std::cout << "   link=" << (link == nullptr ? "NULL" : link->getViaLaneOrLane()->getID())
+                      << " dist=" << dist << " d2=" << dist - p.getMinGap() << " la=" << LOOKAHEAD_SAMEDIR* speed
+                      << " opened=" << (link == nullptr ? "NULL" : toString(link->opened(currentTime - DELTA_T, speed, speed, passingLength, p.getImpatience(currentTime), speed, 0, 0, 0, p.ignoreRed(link)))) << "\n";
             gDebugFlag1 = false;
         }
         if (link != 0
@@ -1061,7 +1061,7 @@ MSPModel_Striping::addCrossingVehs(const MSLane* crossing, int stripes, double l
 }
 
 
-MSPModel_Striping::Obstacles 
+MSPModel_Striping::Obstacles
 MSPModel_Striping::getVehicleObstacles(const MSLane* lane, int dir, PState* ped) {
     const int stripes = numStripes(lane);
     Obstacles vehObs(stripes, Obstacle(dir));
@@ -1123,14 +1123,14 @@ MSPModel_Striping::getVehicleObstacles(const MSLane* lane, int dir, PState* ped)
             }
             if (debug) {
                 std::cout << SIMTIME << " ped=" << pID << " veh=" << veh->getID() << " obstacle on lane=" << lane->getID()
-                    << "\n"
-                    << "     ymin=" << vehYmin
-                    << " ymax=" << vehYmax
-                    << " smin=" << PState::stripe(vehYmin)
-                    << " smax=" << PState::stripe(vehYmax)
-                    << " relY=" << pRelY
-                    << " current=" << current
-                    << "\n";
+                          << "\n"
+                          << "     ymin=" << vehYmin
+                          << " ymax=" << vehYmax
+                          << " smin=" << PState::stripe(vehYmin)
+                          << " smax=" << PState::stripe(vehYmax)
+                          << " relY=" << pRelY
+                          << " current=" << current
+                          << "\n";
             }
         }
     }
@@ -1178,8 +1178,7 @@ MSPModel_Striping::PState::PState(MSPerson* person, MSPerson::MSPersonStage_Walk
     myWalkingAreaPath(0),
     myAmJammed(false),
     myRemoteXYPos(Position::INVALID),
-    myAngle(std::numeric_limits<double>::max())
-{
+    myAngle(std::numeric_limits<double>::max()) {
     const MSEdge* currentEdge = &lane->getEdge();
     const ConstMSEdgeVector& route = myStage->getRoute();
     assert(!route.empty());
@@ -1793,8 +1792,8 @@ MSPModel_Striping::PState::mergeObstacles(Obstacles& into, const Obstacles& obs2
         if (dO < dI) {
             into[i] = obs2[i];
         } else if (dO == dI && (
-                    obs2[i].type == OBSTACLE_PED ||
-                    obs2[i].type == OBSTACLE_VEHICLE)) {
+                       obs2[i].type == OBSTACLE_PED ||
+                       obs2[i].type == OBSTACLE_VEHICLE)) {
             into[i] = obs2[i];
         }
     }

@@ -52,7 +52,7 @@
 // member method definitions
 // ===========================================================================
 
-GNEVaporizer::GNEVaporizer(GNEViewNet* viewNet, GNEEdge* edge, double begin, double end, const std::string &name) :
+GNEVaporizer::GNEVaporizer(GNEViewNet* viewNet, GNEEdge* edge, double begin, double end, const std::string& name) :
     GNEAdditional(edge->getID(), viewNet, GLO_VAPORIZER, SUMO_TAG_VAPORIZER, name, false),
     myEdge(edge),
     myBegin(begin),
@@ -67,7 +67,7 @@ GNEVaporizer::~GNEVaporizer() {
 void
 GNEVaporizer::updateGeometry(bool updateGrid) {
     // first check if object has to be removed from grid (SUMOTree)
-    if(updateGrid) {
+    if (updateGrid) {
         myViewNet->getNet()->removeGLObjectFromGrid(this);
     }
 
@@ -104,7 +104,7 @@ GNEVaporizer::updateGeometry(bool updateGrid) {
     setBlockIconRotation(firstLane);
 
     // last step is to check if object has to be added into grid (SUMOTree) again
-    if(updateGrid) {
+    if (updateGrid) {
         myViewNet->getNet()->addGLObjectIntoGrid(this);
     }
 }
@@ -112,7 +112,7 @@ GNEVaporizer::updateGeometry(bool updateGrid) {
 
 Position
 GNEVaporizer::getPositionInView() const {
-    if(myEdge->getLanes().front()->getShape().length() < 2.5) {
+    if (myEdge->getLanes().front()->getShape().length() < 2.5) {
         return myEdge->getLanes().front()->getShape().front();
     } else {
         Position A = myEdge->getLanes().front()->getShape().positionAtOffset(2.5);
@@ -200,7 +200,7 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
     glTranslated((-2.56), (-1.6), 0);
 
     // Draw icon depending of Vaporizer is selected and if isn't being drawn for selecting
-    if(s.drawForSelecting) {
+    if (s.drawForSelecting) {
         GLHelper::setColor(RGBColor::GREEN);
         GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
     } else {
@@ -226,7 +226,7 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
     drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
 
     // check if dotted contour has to be drawn
-    if(!s.drawForSelecting && (myViewNet->getACUnderCursor() == this)) {
+    if (!s.drawForSelecting && (myViewNet->getACUnderCursor() == this)) {
         GLHelper::drawShapeDottedContour(getType(), myShape[0], 2, 2, myShapeRotations[0], -2.56, -1.6);
     }
 
@@ -310,13 +310,13 @@ GNEVaporizer::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-std::string 
+std::string
 GNEVaporizer::getPopUpID() const {
     return toString(getTag());
 }
 
 
-std::string 
+std::string
 GNEVaporizer::getHierarchyName() const {
     return toString(getTag()) + ": " + getAttribute(SUMO_ATTR_BEGIN) + " -> " + getAttribute(SUMO_ATTR_END);
 }
@@ -342,7 +342,7 @@ GNEVaporizer::setAttribute(SumoXMLAttr key, const std::string& value) {
             myAdditionalName = value;
             break;
         case GNE_ATTR_SELECTED:
-            if(parse<bool>(value)) {
+            if (parse<bool>(value)) {
                 selectAttributeCarrier();
             } else {
                 unselectAttributeCarrier();

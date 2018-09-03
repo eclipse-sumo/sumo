@@ -86,10 +86,10 @@ public:
 
 
     /// @brief apply custom speed adaptations within the given speed bounds
-    virtual double patchSpeedBeforeLC(const MSVehicle* veh, double vMin, double vMax) const { 
+    virtual double patchSpeedBeforeLC(const MSVehicle* veh, double vMin, double vMax) const {
         UNUSED_PARAMETER(veh);
         UNUSED_PARAMETER(vMin);
-        return vMax; 
+        return vMax;
     }
 
 

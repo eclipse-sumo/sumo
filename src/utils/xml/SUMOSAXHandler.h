@@ -46,7 +46,7 @@ public:
      *
      * @param[in] file The name of the processed file
      */
-    SUMOSAXHandler(const std::string& file = "", const std::string& expectedRoot="");
+    SUMOSAXHandler(const std::string& file = "", const std::string& expectedRoot = "");
 
 
     /// Destructor

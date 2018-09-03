@@ -56,37 +56,37 @@ GNEClosingLaneReroute::GNEClosingLaneReroute(GNEAdditional* rerouterIntervalPare
 GNEClosingLaneReroute::~GNEClosingLaneReroute() {}
 
 
-void 
+void
 GNEClosingLaneReroute::moveGeometry(const Position&, const Position&) {
     // This additional cannot be moved
 }
 
 
-void 
+void
 GNEClosingLaneReroute::commitGeometryMoving(const Position&, GNEUndoList*) {
     // This additional cannot be moved
 }
 
 
-void 
+void
 GNEClosingLaneReroute::updateGeometry(bool /*updateGrid*/) {
     // Currently this additional doesn't own a Geometry
 }
 
 
-Position 
+Position
 GNEClosingLaneReroute::getPositionInView() const {
     return myFirstAdditionalParent->getPositionInView();
 }
 
 
-std::string 
+std::string
 GNEClosingLaneReroute::getParentName() const {
     return myFirstAdditionalParent->getID();
 }
 
 
-void 
+void
 GNEClosingLaneReroute::drawGL(const GUIVisualizationSettings& /* s */) const {
     // Currently this additional isn't drawn
 }
@@ -150,13 +150,13 @@ GNEClosingLaneReroute::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-std::string 
+std::string
 GNEClosingLaneReroute::getPopUpID() const {
     return toString(getTag());
 }
 
 
-std::string 
+std::string
 GNEClosingLaneReroute::getHierarchyName() const {
     return toString(getTag()) + ": " + myClosedLane->getID();
 }

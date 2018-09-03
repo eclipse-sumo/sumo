@@ -918,7 +918,8 @@ TraCITestClient::testAPI() {
         }
     }
     std::vector<libsumo::TraCIPhase> phases({ libsumo::TraCIPhase(5, 5, 5, "rrrrrrr"), libsumo::TraCIPhase(10, 5, 15, "ggggggg"),
-                                              libsumo::TraCIPhase(3, 3, 3, "GGGGGGG"), libsumo::TraCIPhase(3, 3, 3, "yyyyyyy") });
+                                            libsumo::TraCIPhase(3, 3, 3, "GGGGGGG"), libsumo::TraCIPhase(3, 3, 3, "yyyyyyy")
+                                            });
     trafficlights.setCompleteRedYellowGreenDefinition("n_m4", libsumo::TraCILogic("custom", 0, 3, phases));
 
     std::vector<libsumo::TraCILogic> logics = trafficlights.getCompleteRedYellowGreenDefinition("n_m4");

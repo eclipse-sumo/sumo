@@ -235,7 +235,7 @@ GUIMainWindow::setWindowSizeAndPos() {
     }
 }
 
-void 
+void
 GUIMainWindow::storeWindowSizeAndPos() {
     if (!myAmFullScreen) {
         getApp()->reg().writeIntEntry("SETTINGS", "x", getX());

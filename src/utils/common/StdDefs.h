@@ -109,7 +109,7 @@ ISNAN(T a) {
 /// the precision for floating point outputs
 extern int gPrecision;
 extern int gPrecisionGeo; // for lon,lat
-extern bool gHumanReadableTime; 
+extern bool gHumanReadableTime;
 extern bool gSimulation; // whether the current application is sumo or sumo-gui (as opposed to a router)
 
 

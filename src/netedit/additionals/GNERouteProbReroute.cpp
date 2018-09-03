@@ -38,7 +38,7 @@
 GNERouteProbReroute::GNERouteProbReroute(GNERerouterIntervalDialog* rerouterIntervalDialog) :
     GNEAdditional(rerouterIntervalDialog->getEditedAdditional(), rerouterIntervalDialog->getEditedAdditional()->getViewNet(), GLO_REROUTER, SUMO_TAG_ROUTE_PROB_REROUTE, "", false) {
     // if exist a reroute, set newRoute ID
-    if(rerouterIntervalDialog->getEditedAdditional()->getViewNet()->getNet()->getAdditionalByType(SUMO_TAG_ROUTE).size() > 0) {
+    if (rerouterIntervalDialog->getEditedAdditional()->getViewNet()->getNet()->getAdditionalByType(SUMO_TAG_ROUTE).size() > 0) {
         myNewRouteId = rerouterIntervalDialog->getEditedAdditional()->getViewNet()->getNet()->getAdditionalByType(SUMO_TAG_ROUTE).begin()->first;
     }
     // fill route prob reroute interval with default values
@@ -56,37 +56,37 @@ GNERouteProbReroute::GNERouteProbReroute(GNEAdditional* rerouterIntervalParent, 
 GNERouteProbReroute::~GNERouteProbReroute() {}
 
 
-void 
+void
 GNERouteProbReroute::moveGeometry(const Position&, const Position&) {
     // This additional cannot be moved
 }
 
 
-void 
+void
 GNERouteProbReroute::commitGeometryMoving(const Position&, GNEUndoList*) {
     // This additional cannot be moved
 }
 
 
-void 
+void
 GNERouteProbReroute::updateGeometry(bool /*updateGrid*/) {
     // Currently this additional doesn't own a Geometry
 }
 
 
-Position 
+Position
 GNERouteProbReroute::getPositionInView() const {
     return myFirstAdditionalParent->getPositionInView();
 }
 
 
-std::string 
+std::string
 GNERouteProbReroute::getParentName() const {
     return myFirstAdditionalParent->getID();
 }
 
 
-void 
+void
 GNERouteProbReroute::drawGL(const GUIVisualizationSettings&) const {
     // Currently This additional isn't drawn
 }
@@ -146,13 +146,13 @@ GNERouteProbReroute::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-std::string 
+std::string
 GNERouteProbReroute::getPopUpID() const {
     return toString(getTag());
 }
 
 
-std::string 
+std::string
 GNERouteProbReroute::getHierarchyName() const {
     return toString(getTag()) + ": " + myNewRouteId;
 }

@@ -63,7 +63,7 @@ GNECrossing::~GNECrossing() {}
 void
 GNECrossing::updateGeometry(bool updateGrid) {
     // first check if object has to be removed from grid (SUMOTree)
-    if(updateGrid) {
+    if (updateGrid) {
         myNet->removeGLObjectFromGrid(this);
     }
     // rebuild crossing and walking areas form node parent
@@ -88,7 +88,7 @@ GNECrossing::updateGeometry(bool updateGrid) {
         }
     }
     // last step is to check if object has to be added into grid (SUMOTree) again
-    if(updateGrid) {
+    if (updateGrid) {
         myNet->addGLObjectIntoGrid(this);
     }
 }
@@ -100,7 +100,7 @@ GNECrossing::getParentJunction() const {
 }
 
 
-const std::vector<NBEdge*> &
+const std::vector<NBEdge*>&
 GNECrossing::getCrossingEdges() const {
     return myCrossingEdges;
 }
@@ -116,9 +116,9 @@ void
 GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
     // only draw if option drawCrossingsAndWalkingareas is enabled and size of shape is greather than 0 and zoom is close enough
     if (s.drawCrossingsAndWalkingareas &&
-        (myShapeRotations.size() > 0) &&
-        (myShapeLengths.size() > 0) &&
-        (s.scale > 3.0)) {
+            (myShapeRotations.size() > 0) &&
+            (myShapeLengths.size() > 0) &&
+            (s.scale > 3.0)) {
         auto crossing = myParentJunction->getNBNode()->getCrossing(myCrossingEdges);
         if (s.editMode != GNE_MODE_TLS) {
             // push first draw matrix
@@ -154,7 +154,7 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
                 glTranslated(myShape[i].x(), myShape[i].y(), 0.0);
                 glRotated(myShapeRotations[i], 0, 0, 1);
                 // draw crossing depending if isn't being drawn for selecting
-                if(!s.drawForSelecting) {
+                if (!s.drawForSelecting) {
                     for (double t = 0; t < myShapeLengths[i]; t += spacing) {
                         glBegin(GL_QUADS);
                         glVertex2d(-halfWidth, -t);
@@ -190,7 +190,7 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
             drawTLSLinkNo(s);
         }
         // check if dotted contour has to be drawn
-        if(!s.drawForSelecting && (myNet->getViewNet()->getACUnderCursor() == this)) {
+        if (!s.drawForSelecting && (myNet->getViewNet()->getACUnderCursor() == this)) {
             GLHelper::drawShapeDottedContour(getType(), myShape, crossing->width * 0.5);
         }
     }
@@ -238,9 +238,9 @@ GNECrossing::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 Boundary
 GNECrossing::getCenteringBoundary() const {
     // make sure that shape isn't empty
-    if(myShape.size() == 0) {
+    if (myShape.size() == 0) {
         // we need to use the center of junction parent as boundary if shape is empty
-        return Boundary(myParentJunction->getPositionInView().x() - 0.1, myParentJunction->getPositionInView().y() - 0.1, 
+        return Boundary(myParentJunction->getPositionInView().x() - 0.1, myParentJunction->getPositionInView().y() - 0.1,
                         myParentJunction->getPositionInView().x() + 0.1, myParentJunction->getPositionInView().x() + 0.1);
     } else {
         // use crossing boundary
@@ -257,7 +257,7 @@ GNECrossing::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
             // get attribute requieres a special case
-            if(crossing) {
+            if (crossing) {
                 return crossing->id;
             } else {
                 return "Temporal Unreferenced";
@@ -323,11 +323,11 @@ GNECrossing::isValid(SumoXMLAttr key, const std::string& value) {
                     nbEdges.push_back(i->getNBEdge());
                 }
                 std::sort(nbEdges.begin(), nbEdges.end());
-                // 
+                //
                 EdgeVector originalEdges = crossing->edges;
                 std::sort(originalEdges.begin(), originalEdges.end());
                 // return true if we're setting the same edges
-                if(toString(nbEdges) == toString(originalEdges)) {
+                if (toString(nbEdges) == toString(originalEdges)) {
                     return true;
                 } else {
                     return !myParentJunction->getNBNode()->checkCrossingDuplicated(nbEdges);
@@ -341,7 +341,7 @@ GNECrossing::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<bool>(value);
         case SUMO_ATTR_TLLINKINDEX:
         case SUMO_ATTR_TLLINKINDEX2:
-            return (crossing->tlID != "" && canParse<int>(value) 
+            return (crossing->tlID != "" && canParse<int>(value)
                     // -1 means that tlLinkIndex2 takes on the same value as tlLinkIndex when setting idnices
                     && ((parse<double>(value) >= 0) || ((parse<double>(value) == -1) && (key == SUMO_ATTR_TLLINKINDEX2)))
                     && myParentJunction->getNBNode()->getControllingTLS().size() > 0
@@ -361,10 +361,10 @@ GNECrossing::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-bool 
-GNECrossing::addGenericParameter(const std::string &key, const std::string &value) {
+bool
+GNECrossing::addGenericParameter(const std::string& key, const std::string& value) {
     auto crossing = myParentJunction->getNBNode()->getCrossing(myCrossingEdges);
-    if(!crossing->knowsParameter(key)) {
+    if (!crossing->knowsParameter(key)) {
         crossing->setParameter(key, value);
         return true;
     } else {
@@ -373,10 +373,10 @@ GNECrossing::addGenericParameter(const std::string &key, const std::string &valu
 }
 
 
-bool 
-GNECrossing::removeGenericParameter(const std::string &key) {
+bool
+GNECrossing::removeGenericParameter(const std::string& key) {
     auto crossing = myParentJunction->getNBNode()->getCrossing(myCrossingEdges);
-    if(crossing->knowsParameter(key)) {
+    if (crossing->knowsParameter(key)) {
         crossing->unsetParameter(key);
         return true;
     } else {
@@ -385,10 +385,10 @@ GNECrossing::removeGenericParameter(const std::string &key) {
 }
 
 
-bool 
-GNECrossing::updateGenericParameter(const std::string &oldKey, const std::string &newKey) {
+bool
+GNECrossing::updateGenericParameter(const std::string& oldKey, const std::string& newKey) {
     auto crossing = myParentJunction->getNBNode()->getCrossing(myCrossingEdges);
-    if(crossing->knowsParameter(oldKey) && !crossing->knowsParameter(newKey)) {
+    if (crossing->knowsParameter(oldKey) && !crossing->knowsParameter(newKey)) {
         std::string value = crossing->getParameter(oldKey);
         crossing->unsetParameter(oldKey);
         crossing->setParameter(newKey, value);
@@ -399,10 +399,10 @@ GNECrossing::updateGenericParameter(const std::string &oldKey, const std::string
 }
 
 
-bool 
-GNECrossing::updateGenericParameterValue(const std::string &key, const std::string &newValue) {
+bool
+GNECrossing::updateGenericParameterValue(const std::string& key, const std::string& newValue) {
     auto crossing = myParentJunction->getNBNode()->getCrossing(myCrossingEdges);
-    if(crossing->knowsParameter(key)) {
+    if (crossing->knowsParameter(key)) {
         crossing->setParameter(key, newValue);
         return true;
     } else {
@@ -411,7 +411,7 @@ GNECrossing::updateGenericParameterValue(const std::string &key, const std::stri
 }
 
 
-std::string 
+std::string
 GNECrossing::getGenericParametersStr() const {
     auto crossing = myParentJunction->getNBNode()->getCrossing(myCrossingEdges);
     std::string result;
@@ -420,14 +420,14 @@ GNECrossing::getGenericParametersStr() const {
         result += i.first + "=" + i.second + "|";
     }
     // remove the last "|"
-    if(!result.empty()) {
+    if (!result.empty()) {
         result.pop_back();
     }
     return result;
 }
 
 
-std::vector<std::pair<std::string, std::string> > 
+std::vector<std::pair<std::string, std::string> >
 GNECrossing::getGenericParameters() const {
     auto crossing = myParentJunction->getNBNode()->getCrossing(myCrossingEdges);
     std::vector<std::pair<std::string, std::string> >  result;
@@ -439,8 +439,8 @@ GNECrossing::getGenericParameters() const {
 }
 
 
-void 
-GNECrossing::setGenericParametersStr(const std::string &value) {
+void
+GNECrossing::setGenericParametersStr(const std::string& value) {
     auto crossing = myParentJunction->getNBNode()->getCrossing(myCrossingEdges);
     // clear parameters
     crossing->clearParameter();
@@ -450,15 +450,15 @@ GNECrossing::setGenericParametersStr(const std::string &value) {
     while (stValues.hasNext()) {
         parsedValues.push_back(stValues.next());
     }
-    // check that parsed values (A=B)can be parsed in generic parameters 
-    for(auto i : parsedValues) {
+    // check that parsed values (A=B)can be parsed in generic parameters
+    for (auto i : parsedValues) {
         std::vector<std::string> parsedParameters;
         StringTokenizer stParam(i, "=", true);
         while (stParam.hasNext()) {
             parsedParameters.push_back(stParam.next());
         }
         // Check that parsed parameters are exactly two and contains valid chracters
-        if(parsedParameters.size() == 2 && SUMOXMLDefinitions::isValidGenericParameterKey(parsedParameters.front()) && SUMOXMLDefinitions::isValidGenericParameterValue(parsedParameters.back())) {
+        if (parsedParameters.size() == 2 && SUMOXMLDefinitions::isValidGenericParameterKey(parsedParameters.front()) && SUMOXMLDefinitions::isValidGenericParameterValue(parsedParameters.back())) {
             crossing->setParameter(parsedParameters.front(), parsedParameters.back());
         }
     }
@@ -541,7 +541,7 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         }
         case GNE_ATTR_SELECTED:
-            if(parse<bool>(value)) {
+            if (parse<bool>(value)) {
                 selectAttributeCarrier();
             } else {
                 unselectAttributeCarrier();
@@ -558,7 +558,7 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value) {
 }
 
 
-void 
+void
 GNECrossing::mouseOverObject(const GUIVisualizationSettings&) const {
 }
 

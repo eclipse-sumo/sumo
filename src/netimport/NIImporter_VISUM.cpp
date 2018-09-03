@@ -629,7 +629,7 @@ NIImporter_VISUM::parse_EdgePolys() {
 
 void
 NIImporter_VISUM::parse_Lanes() {
-    // The base number of lanes for the edge was already defined in STRECKE 
+    // The base number of lanes for the edge was already defined in STRECKE
     // this refines lane specific attribute (width) and optionally introduces splits for additional lanes
     // It is permitted for KNOTNR to be 0
     //
@@ -801,8 +801,8 @@ NIImporter_VISUM::parse_NodesToTrafficLights() {
     if (n != 0 && tlIt != myTLS.end()) {
         tlIt->second->addNode(n);
     } else {
-        WRITE_ERROR("Could not assign" + std::string(n == 0 ? " missing" : "") + " node '" + node 
-                + "' to" + std::string(tlIt == myTLS.end() ? " missing" : "") +" traffic light '" + trafficLight + "'");
+        WRITE_ERROR("Could not assign" + std::string(n == 0 ? " missing" : "") + " node '" + node
+                    + "' to" + std::string(tlIt == myTLS.end() ? " missing" : "") + " traffic light '" + trafficLight + "'");
     }
 }
 
@@ -1077,7 +1077,7 @@ NIImporter_VISUM::getWeightedFloat(const std::string& name, const std::string& s
 }
 
 
-double 
+double
 NIImporter_VISUM::getWeightedFloat2(const std::string& name, const std::string& name2, const std::string& suffix) {
     double result = getWeightedFloat(name, suffix);
     if (result != -1) {
@@ -1098,7 +1098,7 @@ NIImporter_VISUM::getWeightedBool(const std::string& name) {
     return false;
 }
 
-SVCPermissions 
+SVCPermissions
 NIImporter_VISUM::getPermissions(const std::string& name, bool warn, SVCPermissions unknown) {
     SVCPermissions result = 0;
     for (std::string v : StringTokenizer(myLineParser.get(name), ",").getVector()) {
@@ -1138,7 +1138,7 @@ NIImporter_VISUM::getNamedNode(const std::string& fieldName) {
     return node;
 }
 
-NBNode* 
+NBNode*
 NIImporter_VISUM::getNamedNodeSecure(const std::string& fieldName, NBNode* fallback) {
     std::string nodeS = NBHelpers::normalIDRepresentation(myLineParser.get(fieldName));
     NBNode* node = myNetBuilder.getNodeCont().retrieve(nodeS);
@@ -1391,10 +1391,10 @@ NIImporter_VISUM::checkNodes(NBNode* from, NBNode* to)  {
     return from != 0 && to != 0 && from != to;
 }
 
-bool 
+bool
 NIImporter_VISUM::isSplitEdge(NBEdge* edge, NBNode* node) {
-    return (edge->getID().length() > node->getID().length() + 1 
-            && (edge->getID().substr(edge->getID().length() - node->getID().length() - 1) == "_" + node->getID())); 
+    return (edge->getID().length() > node->getID().length() + 1
+            && (edge->getID().substr(edge->getID().length() - node->getID().length() - 1) == "_" + node->getID()));
 }
 
 /****************************************************************************/

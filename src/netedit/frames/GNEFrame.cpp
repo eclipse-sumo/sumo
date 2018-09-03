@@ -95,38 +95,38 @@ GNEFrame::ACHierarchy::ACHierarchy(GNEFrame* frameParent) :
 GNEFrame::ACHierarchy::~ACHierarchy() {}
 
 
-void 
+void
 GNEFrame::ACHierarchy::showACHierarchy(GNEAttributeCarrier* AC) {
     myAC = AC;
     // show ACHierarchy and refresh ACHierarchy
-    if(myAC) {
+    if (myAC) {
         show();
         refreshACHierarchy();
     }
 }
 
 
-void 
+void
 GNEFrame::ACHierarchy::hideACHierarchy() {
     myAC = nullptr;
     hide();
 }
 
 
-void 
+void
 GNEFrame::ACHierarchy::refreshACHierarchy() {
     // clear items
     myTreelist->clearItems();
     myTreeItemToACMap.clear();
     myTreeItemsConnections.clear();
     // show ACChilds of myAC
-    if(myAC) {
+    if (myAC) {
         showAttributeCarrierChilds(myAC, showAttributeCarrierParents());
     }
 }
 
 
-long 
+long
 GNEFrame::ACHierarchy::onCmdShowChildMenu(FXObject*, FXSelector, void* eventData) {
     // Obtain event
     FXEvent* e = (FXEvent*)eventData;
@@ -140,9 +140,9 @@ GNEFrame::ACHierarchy::onCmdShowChildMenu(FXObject*, FXSelector, void* eventData
 }
 
 
-long 
+long
 GNEFrame::ACHierarchy::onCmdCenterItem(FXObject*, FXSelector, void*) {
-    GUIGlObject *glObject = dynamic_cast<GUIGlObject*>(myRightClickedAC);
+    GUIGlObject* glObject = dynamic_cast<GUIGlObject*>(myRightClickedAC);
     if (glObject) {
         myFrameParent->getViewNet()->centerTo(glObject->getGlID(), false);
         myFrameParent->getViewNet()->update();
@@ -151,7 +151,7 @@ GNEFrame::ACHierarchy::onCmdCenterItem(FXObject*, FXSelector, void*) {
 }
 
 
-long 
+long
 GNEFrame::ACHierarchy::onCmdInspectItem(FXObject*, FXSelector, void*) {
     if ((myAC != nullptr) && (myRightClickedAC != nullptr)) {
         myFrameParent->getViewNet()->getViewParent()->getInspectorFrame()->inspectChild(myRightClickedAC, myAC);
@@ -160,16 +160,16 @@ GNEFrame::ACHierarchy::onCmdInspectItem(FXObject*, FXSelector, void*) {
 }
 
 
-long 
+long
 GNEFrame::ACHierarchy::onCmdDeleteItem(FXObject*, FXSelector, void*) {
     // check if Inspector frame was opened before removing
-    const std::vector<GNEAttributeCarrier*> &currentInspectedACs= myFrameParent->getViewNet()->getViewParent()->getInspectorFrame()->getInspectedACs();
+    const std::vector<GNEAttributeCarrier*>& currentInspectedACs = myFrameParent->getViewNet()->getViewParent()->getInspectorFrame()->getInspectedACs();
     // Remove Attribute Carrier
     myFrameParent->getViewNet()->getViewParent()->getDeleteFrame()->removeAttributeCarrier(myRightClickedAC);
     myFrameParent->getViewNet()->getViewParent()->getDeleteFrame()->hide();
     // check if inspector frame has to be shown again
-    if(currentInspectedACs.size() == 1) {
-        if(currentInspectedACs.front() != myRightClickedAC) {
+    if (currentInspectedACs.size() == 1) {
+        if (currentInspectedACs.front() != myRightClickedAC) {
             myFrameParent->getViewNet()->getViewParent()->getInspectorFrame()->inspectElement(currentInspectedACs.front());
         } else {
             myFrameParent->getViewNet()->getViewParent()->getInspectorFrame()->inspectElement(nullptr);
@@ -200,14 +200,14 @@ GNEFrame::ACHierarchy::createPopUpMenu(int X, int Y, GNEAttributeCarrier* ac) {
 }
 
 
-FXTreeItem* 
+FXTreeItem*
 GNEFrame::ACHierarchy::showAttributeCarrierParents() {
     // Switch gl type of ac
     switch (myAC->getTag()) {
         case SUMO_TAG_EDGE: {
             // obtain Edge
             GNEEdge* edge = myFrameParent->getViewNet()->getNet()->retrieveEdge(myAC->getID(), false);
-            if(edge) {
+            if (edge) {
                 // insert Junctions of edge in tree (Pararell because a edge has always two Junctions)
                 FXTreeItem* junctionSourceItem = myTreelist->insertItem(nullptr, nullptr, (edge->getGNEJunctionSource()->getHierarchyName() + " origin").c_str(), edge->getGNEJunctionSource()->getIcon(), edge->getGNEJunctionSource()->getIcon());
                 FXTreeItem* junctionDestinyItem = myTreelist->insertItem(nullptr, nullptr, (edge->getGNEJunctionSource()->getHierarchyName() + " destiny").c_str(), edge->getGNEJunctionSource()->getIcon(), edge->getGNEJunctionSource()->getIcon());
@@ -224,7 +224,7 @@ GNEFrame::ACHierarchy::showAttributeCarrierParents() {
         case SUMO_TAG_LANE: {
             // obtain lane
             GNELane* lane = myFrameParent->getViewNet()->getNet()->retrieveLane(myAC->getID(), false);
-            if(lane) {
+            if (lane) {
                 // obtain edge parent
                 GNEEdge* edge = myFrameParent->getViewNet()->getNet()->retrieveEdge(lane->getParentEdge().getID());
                 //inser Junctions of lane of edge in tree (Pararell because a edge has always two Junctions)
@@ -247,7 +247,7 @@ GNEFrame::ACHierarchy::showAttributeCarrierParents() {
         case SUMO_TAG_POILANE: {
             // Obtain POILane
             GNEPOI* POILane = myFrameParent->getViewNet()->getNet()->retrievePOI(myAC->getID(), false);
-            if(POILane) {
+            if (POILane) {
                 // obtain lane parent
                 GNELane* lane = myFrameParent->getViewNet()->getNet()->retrieveLane(POILane->getLane()->getID());
                 // obtain edge parent
@@ -276,7 +276,7 @@ GNEFrame::ACHierarchy::showAttributeCarrierParents() {
         case SUMO_TAG_CROSSING: {
             // obtain Crossing
             GNECrossing* crossing = myFrameParent->getViewNet()->getNet()->retrieveCrossing(myAC->getID(), false);
-            if(crossing) {
+            if (crossing) {
                 // obtain junction
                 GNEJunction* junction = crossing->getParentJunction();
                 // create junction item
@@ -293,7 +293,7 @@ GNEFrame::ACHierarchy::showAttributeCarrierParents() {
         case SUMO_TAG_CONNECTION: {
             // obtain Connection
             GNEConnection* connection = myFrameParent->getViewNet()->getNet()->retrieveConnection(myAC->getID(), false);
-            if(connection) {
+            if (connection) {
                 // create edge from item
                 FXTreeItem* edgeFromItem = myTreelist->insertItem(nullptr, nullptr, connection->getEdgeFrom()->getHierarchyName().c_str(), connection->getEdgeFrom()->getIcon(), connection->getEdgeFrom()->getIcon());
                 edgeFromItem->setExpanded(true);
@@ -315,12 +315,12 @@ GNEFrame::ACHierarchy::showAttributeCarrierParents() {
         }
         default: {
             // obtain tag property (only for improve code legibility)
-            const auto &tagValue = GNEAttributeCarrier::getTagProperties(myAC->getTag());
+            const auto& tagValue = GNEAttributeCarrier::getTagProperties(myAC->getTag());
             // check if is an additional, and in other case return nullptr
-            if(tagValue.isAdditional()) {
+            if (tagValue.isAdditional()) {
                 // Obtain Additional
                 GNEAdditional* additional = myFrameParent->getViewNet()->getNet()->retrieveAdditional(myAC->getTag(), myAC->getID(), false);
-                if(additional) {
+                if (additional) {
                     // first check if additional has another additional as parent (to add it into root)
                     if (tagValue.hasParent()) {
                         GNEAdditional* additionalParent = myFrameParent->getViewNet()->getNet()->retrieveAdditional(tagValue.getParentTag(), additional->getAttribute(GNE_ATTR_PARENT));
@@ -330,7 +330,7 @@ GNEFrame::ACHierarchy::showAttributeCarrierParents() {
                         // Save it in myTreeItemToACMap
                         myTreeItemToACMap[additionalParentItem] = additionalParent;
                     }
-                    if(tagValue.hasAttribute(SUMO_ATTR_EDGE)) {
+                    if (tagValue.hasAttribute(SUMO_ATTR_EDGE)) {
                         // obtain edge parent
                         GNEEdge* edge = myFrameParent->getViewNet()->getNet()->retrieveEdge(additional->getAttribute(SUMO_ATTR_EDGE));
                         //inser Junctions of lane of edge in tree (Pararell because a edge has always two Junctions)
@@ -378,13 +378,13 @@ GNEFrame::ACHierarchy::showAttributeCarrierParents() {
 
 
 void
-GNEFrame::ACHierarchy::showAttributeCarrierChilds(GNEAttributeCarrier *AC, FXTreeItem* itemParent) {
+GNEFrame::ACHierarchy::showAttributeCarrierChilds(GNEAttributeCarrier* AC, FXTreeItem* itemParent) {
     // Switch gl type of ac
     switch (AC->getTag()) {
         case SUMO_TAG_JUNCTION: {
             // retrieve junction
             GNEJunction* junction = myFrameParent->getViewNet()->getNet()->retrieveJunction(AC->getID(), false);
-            if(junction) {
+            if (junction) {
                 // insert junction item
                 FXTreeItem* junctionItem = addACIntoList(AC, itemParent);
                 // insert edges
@@ -401,7 +401,7 @@ GNEFrame::ACHierarchy::showAttributeCarrierChilds(GNEAttributeCarrier *AC, FXTre
         case SUMO_TAG_EDGE: {
             // retrieve edge
             GNEEdge* edge = myFrameParent->getViewNet()->getNet()->retrieveEdge(AC->getID(), false);
-            if(edge) {
+            if (edge) {
                 // insert edge item
                 FXTreeItem* edgeItem = addACIntoList(AC, itemParent);
                 // insert lanes
@@ -418,7 +418,7 @@ GNEFrame::ACHierarchy::showAttributeCarrierChilds(GNEAttributeCarrier *AC, FXTre
         case SUMO_TAG_LANE: {
             // retrieve lane
             GNELane* lane = myFrameParent->getViewNet()->getNet()->retrieveLane(AC->getID(), false);
-            if(lane) {
+            if (lane) {
                 // insert lane item
                 FXTreeItem* laneItem = addACIntoList(AC, itemParent);
                 // insert additionals of lanes
@@ -450,7 +450,7 @@ GNEFrame::ACHierarchy::showAttributeCarrierChilds(GNEAttributeCarrier *AC, FXTre
             }
             break;
         }
-        case SUMO_TAG_POI: 
+        case SUMO_TAG_POI:
         case SUMO_TAG_POLY:
         case SUMO_TAG_CROSSING:
         case SUMO_TAG_CONNECTION: {
@@ -460,10 +460,10 @@ GNEFrame::ACHierarchy::showAttributeCarrierChilds(GNEAttributeCarrier *AC, FXTre
         }
         default: {
             // check if is an additional
-            if(GNEAttributeCarrier::getTagProperties(AC->getTag()).isAdditional()) {
+            if (GNEAttributeCarrier::getTagProperties(AC->getTag()).isAdditional()) {
                 // retrieve additional
-                GNEAdditional *additional = myFrameParent->getViewNet()->getNet()->retrieveAdditional(AC->getTag(), AC->getID(), false);
-                if(additional) {
+                GNEAdditional* additional = myFrameParent->getViewNet()->getNet()->retrieveAdditional(AC->getTag(), AC->getID(), false);
+                if (additional) {
                     // insert additional item
                     FXTreeItem* additionalItem = addACIntoList(AC, itemParent);
                     // insert additionals childs
@@ -479,7 +479,7 @@ GNEFrame::ACHierarchy::showAttributeCarrierChilds(GNEAttributeCarrier *AC, FXTre
 
 
 FXTreeItem*
-GNEFrame::ACHierarchy::addACIntoList(GNEAttributeCarrier *AC, FXTreeItem* itemParent) {
+GNEFrame::ACHierarchy::addACIntoList(GNEAttributeCarrier* AC, FXTreeItem* itemParent) {
     FXTreeItem* item = myTreelist->insertItem(0, itemParent, AC->getHierarchyName().c_str(), AC->getIcon(), AC->getIcon());
     myTreeItemToACMap[item] = AC;
     item->setExpanded(true);
@@ -509,12 +509,12 @@ GNEFrame::GenericParametersEditor::~GenericParametersEditor() {
 
 
 void
-GNEFrame::GenericParametersEditor::showGenericParametersEditor(GNEAttributeCarrier *AC) {
-    if(AC != nullptr) {
+GNEFrame::GenericParametersEditor::showGenericParametersEditor(GNEAttributeCarrier* AC) {
+    if (AC != nullptr) {
         myAC = AC;
         myACs.clear();
         // obtain a copy of generic parameters of AC
-        if(myAC) {
+        if (myAC) {
             *myGenericParameters = myAC->getGenericParameters();
         }
         // refresh GenericParametersEditor
@@ -525,21 +525,21 @@ GNEFrame::GenericParametersEditor::showGenericParametersEditor(GNEAttributeCarri
 }
 
 
-void 
+void
 GNEFrame::GenericParametersEditor::showGenericParametersEditor(std::vector<GNEAttributeCarrier*> ACs) {
-    if(ACs.size() > 0) {
+    if (ACs.size() > 0) {
         myAC = nullptr;
         myACs = ACs;
-        // check if generic parameters are different 
+        // check if generic parameters are different
         bool differentsGenericParameters = false;
         std::string genericParameter = myACs.front()->getAttribute(GNE_ATTR_GENERIC);
         for (auto i : myACs) {
-            if(genericParameter != i->getAttribute(GNE_ATTR_GENERIC)) {
+            if (genericParameter != i->getAttribute(GNE_ATTR_GENERIC)) {
                 differentsGenericParameters = true;
             }
         }
         // set generic Parameters editor
-        if(differentsGenericParameters) {
+        if (differentsGenericParameters) {
             myGenericParameters->clear();
         } else {
             *myGenericParameters = myACs.front()->getGenericParameters();
@@ -560,18 +560,18 @@ GNEFrame::GenericParametersEditor::hideGenericParametersEditor() {
 }
 
 
-void 
+void
 GNEFrame::GenericParametersEditor::refreshGenericParametersEditor() {
     // update text field depending of AC
-    if(myAC) {
+    if (myAC) {
         myTextFieldGenericParameter->setText(getGenericParametersStr().c_str());
         myTextFieldGenericParameter->setTextColor(FXRGB(0, 0, 0));
-    } else if(myACs.size()) {
+    } else if (myACs.size()) {
         // check if generic parameters of all inspected ACs are different
         std::string genericParameter = myACs.front()->getAttribute(GNE_ATTR_GENERIC);
 
         for (auto i : myACs) {
-            if(genericParameter != i->getAttribute(GNE_ATTR_GENERIC)) {
+            if (genericParameter != i->getAttribute(GNE_ATTR_GENERIC)) {
                 genericParameter = "different generic attributes";
             }
         }
@@ -581,7 +581,7 @@ GNEFrame::GenericParametersEditor::refreshGenericParametersEditor() {
 }
 
 
-std::string 
+std::string
 GNEFrame::GenericParametersEditor::getGenericParametersStr() const {
     std::string result;
     // Generate an string using the following structure: "key1=value1|key2=value2|...
@@ -589,19 +589,19 @@ GNEFrame::GenericParametersEditor::getGenericParametersStr() const {
         result += i->first + "=" + i->second + "|";
     }
     // remove the last "|"
-    if(!result.empty()) {
+    if (!result.empty()) {
         result.pop_back();
     }
     return result;
 }
 
 
-long 
+long
 GNEFrame::GenericParametersEditor::onCmdEditGenericParameter(FXObject*, FXSelector, void*) {
     // edit generic parameters using dialog
-    if(GNEGenericParameterDialog(myFrameParent->getViewNet(), myGenericParameters).execute()) {
+    if (GNEGenericParameterDialog(myFrameParent->getViewNet(), myGenericParameters).execute()) {
         // set values edited in Parameter dialog in Edited AC
-        if(myAC) {
+        if (myAC) {
             myAC->setAttribute(GNE_ATTR_GENERIC, getGenericParametersStr(), myFrameParent->getViewNet()->getUndoList());
         } else if (myACs.size() > 0) {
             myFrameParent->getViewNet()->getUndoList()->p_begin("Change multiple generic attributes");
@@ -617,7 +617,7 @@ GNEFrame::GenericParametersEditor::onCmdEditGenericParameter(FXObject*, FXSelect
 }
 
 
-long 
+long
 GNEFrame::GenericParametersEditor::onCmdSetGenericParameter(FXObject*, FXSelector, void*) {
     // separate value in a vector of string using | as separator
     std::vector<std::string> parsedValues;
@@ -626,8 +626,8 @@ GNEFrame::GenericParametersEditor::onCmdSetGenericParameter(FXObject*, FXSelecto
         parsedValues.push_back(st.next());
     }
     // first check if parsed generic parameters are valid
-    for(auto i : parsedValues) {
-        if(!GNEAttributeCarrier::isGenericParametersValid(i)) {
+    for (auto i : parsedValues) {
+        if (!GNEAttributeCarrier::isGenericParametersValid(i)) {
             WRITE_WARNING("Invalid format of Generic Parameter (" + i + ")");
             myTextFieldGenericParameter->setTextColor(FXRGB(255, 0, 0));
             return 1;
@@ -636,10 +636,10 @@ GNEFrame::GenericParametersEditor::onCmdSetGenericParameter(FXObject*, FXSelecto
     // now check if there is duplicated parameters
     std::sort(parsedValues.begin(), parsedValues.end());
     for (auto i = parsedValues.begin(); i != parsedValues.end(); i++) {
-        if(((i+1) != parsedValues.end())) {
+        if (((i + 1) != parsedValues.end())) {
             std::vector<std::string> firstKey, secondKey;
             StringTokenizer stKey1(*i, "=", true);
-            StringTokenizer stKey2(*(i+1), "=", true);
+            StringTokenizer stKey2(*(i + 1), "=", true);
             //parse both keys
             while (stKey1.hasNext()) {
                 firstKey.push_back(stKey1.next());
@@ -648,8 +648,8 @@ GNEFrame::GenericParametersEditor::onCmdSetGenericParameter(FXObject*, FXSelecto
                 secondKey.push_back(stKey2.next());
             }
             // compare both keys and stop if are equal
-            if((firstKey.size() != 2) || (secondKey.size() != 2) || (firstKey.front() == secondKey.front())) {
-                WRITE_WARNING("Generic Parameters wit the same key aren't allowed (" + (*i) + "," + *(i+1) + ")");
+            if ((firstKey.size() != 2) || (secondKey.size() != 2) || (firstKey.front() == secondKey.front())) {
+                WRITE_WARNING("Generic Parameters wit the same key aren't allowed (" + (*i) + "," + * (i + 1) + ")");
                 myTextFieldGenericParameter->setTextColor(FXRGB(255, 0, 0));
                 return 1;
             }
@@ -660,19 +660,19 @@ GNEFrame::GenericParametersEditor::onCmdSetGenericParameter(FXObject*, FXSelecto
     myTextFieldGenericParameter->killFocus();
     // clear current existent generic parameters and set parsed generic parameters
     myGenericParameters->clear();
-    for(auto i : parsedValues) {
+    for (auto i : parsedValues) {
         std::vector<std::string> parsedParameters;
         StringTokenizer stParam(i, "=", true);
         while (stParam.hasNext()) {
             parsedParameters.push_back(stParam.next());
         }
         // Check that parsed parameters are exactly two and contains valid chracters
-        if(parsedParameters.size() == 2 && SUMOXMLDefinitions::isValidGenericParameterKey(parsedParameters.front()) && SUMOXMLDefinitions::isValidGenericParameterValue(parsedParameters.back())) {
+        if (parsedParameters.size() == 2 && SUMOXMLDefinitions::isValidGenericParameterKey(parsedParameters.front()) && SUMOXMLDefinitions::isValidGenericParameterValue(parsedParameters.back())) {
             myGenericParameters->push_back(std::make_pair(parsedParameters.front(), parsedParameters.back()));
         }
     }
     // if we're editing generic attributes of an AttributeCarrier, set it
-    if(myAC) {
+    if (myAC) {
         myAC->setAttribute(GNE_ATTR_GENERIC, getGenericParametersStr(), myFrameParent->getViewNet()->getUndoList());
     } else if (myACs.size() > 0) {
         myFrameParent->getViewNet()->getUndoList()->p_begin("Change multiple generic attributes");
@@ -782,11 +782,11 @@ GNEFrame::getFrameHeaderFont() const {
 
 void
 GNEFrame::openHelpAttributesDialog(SumoXMLTag elementTag) const {
-    FXDialogBox *attributesHelpDialog = new FXDialogBox(myScrollWindowsContents, ("Parameters of " + toString(elementTag)).c_str(), GUIDesignDialogBoxResizable, 0, 0, 0, 0, 10, 10, 10, 38, 4, 4);
+    FXDialogBox* attributesHelpDialog = new FXDialogBox(myScrollWindowsContents, ("Parameters of " + toString(elementTag)).c_str(), GUIDesignDialogBoxResizable, 0, 0, 0, 0, 10, 10, 10, 38, 4, 4);
     // Create FXTable
     FXTable* myTable = new FXTable(attributesHelpDialog, attributesHelpDialog, MID_TABLE, GUIDesignTableNotEditable);
     attributesHelpDialog->setIcon(GUIIconSubSys::getIcon(ICON_MODEINSPECT));
-    const auto &attrs = GNEAttributeCarrier::getTagProperties(elementTag);
+    const auto& attrs = GNEAttributeCarrier::getTagProperties(elementTag);
     int sizeColumnDescription = 0;
     int sizeColumnDefinitions = 0;
     myTable->setVisibleRows((FXint)(attrs.getNumberOfAttributes()));
@@ -800,7 +800,7 @@ GNEFrame::openHelpAttributesDialog(SumoXMLTag elementTag) const {
     // Iterate over vector of additional parameters
     int itemIndex = 0;
     for (auto i : attrs) {
-        // Set attribute 
+        // Set attribute
         FXTableItem* attribute = new FXTableItem(toString(i.first).c_str());
         attribute->setJustify(FXTableItem::CENTER_X);
         myTable->setItem(itemIndex, 0, attribute);

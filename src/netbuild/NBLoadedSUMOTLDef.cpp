@@ -326,7 +326,7 @@ NBLoadedSUMOTLDef::patchIfCrossingsAdded() {
         std::vector<NBTrafficLightLogic::PhaseDefinition> phases = myTLLogic->getPhases();
         // do not rebuilt crossing states there are custom indices and the state string is long enough
         if (phases.size() > 0 && (
-                    (int)(phases.front().state.size()) < noLinksAll || 
+                    (int)(phases.front().state.size()) < noLinksAll ||
                     ((int)(phases.front().state.size()) > noLinksAll && !customIndex))) {
             // collect edges
             EdgeVector fromEdges(size, (NBEdge*)0);
@@ -470,7 +470,7 @@ NBLoadedSUMOTLDef::reconstructLogic() {
                 newLogic->setType(getType());
                 newLogic->setOffset(getOffset());
                 setTLControllingInformation();
-                // reset crossing custom indices 
+                // reset crossing custom indices
                 for (NBNode* n : myControlledNodes) {
                     for (NBNode::Crossing* c : n->getCrossings()) {
                         c->customTLIndex = NBConnection::InvalidTlIndex;
@@ -550,7 +550,7 @@ NBLoadedSUMOTLDef::reconstructLogic() {
 }
 
 
-int 
+int
 NBLoadedSUMOTLDef::getMaxIndex() {
     int maxIndex = -1;
     for (const NBConnection& c : myControlledLinks) {
@@ -566,13 +566,13 @@ NBLoadedSUMOTLDef::getMaxIndex() {
 }
 
 
-int 
+int
 NBLoadedSUMOTLDef::getMaxValidIndex() {
     return myTLLogic->getNumLinks() - 1;
 }
 
 
-bool 
+bool
 NBLoadedSUMOTLDef::hasValidIndices() const {
     for (const NBConnection& c : myControlledLinks) {
         if (c.getTLIndex() == NBConnection::InvalidTlIndex) {
@@ -601,7 +601,7 @@ NBLoadedSUMOTLDef::cleanupStates() {
     return false;
 }
 
-void 
+void
 NBLoadedSUMOTLDef::joinLogic(NBTrafficLightDefinition* def) {
     def->setParticipantsInformation();
     def->compute(OptionsCont::getOptions());
@@ -611,7 +611,7 @@ NBLoadedSUMOTLDef::joinLogic(NBTrafficLightDefinition* def) {
     myOriginalNodes.insert(def->getNodes().begin(), def->getNodes().end());
 }
 
-bool 
+bool
 NBLoadedSUMOTLDef::usingSignalGroups() const {
     // count how often each index is used
     std::map<int, int> indexUsage;

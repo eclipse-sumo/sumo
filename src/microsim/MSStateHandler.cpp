@@ -262,7 +262,7 @@ MSStateHandler::closeVehicle() {
 }
 
 
-void 
+void
 MSStateHandler::saveRNGs(OutputDevice& out) {
     out.openTag(SUMO_TAG_RNGSTATE);
     out.writeAttr(SUMO_ATTR_RNG_DEFAULT, RandHelper::saveState());

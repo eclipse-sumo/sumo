@@ -132,7 +132,7 @@ GNECalibratorFlowDialog::GNECalibratorFlowDialog(GNEAdditional* editedCalibrator
     // 19 create textfield for end
     new FXLabel(columnRightLabel, toString(SUMO_ATTR_END).c_str(), 0, GUIDesignLabelThick);
     myTextFieldEnd = new FXTextField(columnRightValue, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextFieldReal);
-    
+
     // fill comboBox of VTypes
     for (auto i : myEditedAdditional->getViewNet()->getNet()->getAdditionalByType(SUMO_TAG_VTYPE)) {
         myComboBoxVehicleType->appendItem(i.first.c_str());
@@ -182,7 +182,7 @@ GNECalibratorFlowDialog::onCmdAccept(FXObject*, FXSelector, void*) {
         // write warning if netedit is running in testing mode
         WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
         return 0;
-    } else if(!myEditedAdditional->getFirstAdditionalParent()->checkAdditionalChildsOverlapping()) {
+    } else if (!myEditedAdditional->getFirstAdditionalParent()->checkAdditionalChildsOverlapping()) {
         // write warning if netedit is running in testing mode
         WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
         // open warning dialog box
@@ -265,11 +265,11 @@ GNECalibratorFlowDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
         if (myEditedAdditional->isValid(SUMO_ATTR_VEHSPERHOUR, myTextFieldVehsPerHour->getText().text())) {
             myTextFieldVehsPerHour->setTextColor(FXRGB(0, 0, 0));
             myEditedAdditional->setAttribute(SUMO_ATTR_VEHSPERHOUR, myTextFieldVehsPerHour->getText().text(), undoList);
-            if(myInvalidAttr == SUMO_ATTR_VEHSPERHOUR) {
+            if (myInvalidAttr == SUMO_ATTR_VEHSPERHOUR) {
                 myCalibratorFlowValid = true;
                 myInvalidAttr = SUMO_ATTR_NOTHING;
             }
-        }   
+        }
     } else {
         myTextFieldSpeed->setTextColor(FXRGB(255, 0, 0));
         myCalibratorFlowValid = false;

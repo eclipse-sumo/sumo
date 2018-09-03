@@ -77,7 +77,7 @@ GUISettingsHandler::myStartElement(int element,
         break;
         case SUMO_TAG_BREAKPOINT:
             myBreakpoints.push_back(attrs.getSUMOTimeReporting(SUMO_ATTR_VALUE, 0, ok));
-        break;
+            break;
         case SUMO_TAG_VIEWSETTINGS:
             myViewType = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, 0, ok, "default");
             std::transform(myViewType.begin(), myViewType.end(), myViewType.begin(), tolower);

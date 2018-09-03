@@ -101,7 +101,7 @@ public:
     bool compute(const E* from, const E* to, const double departPos, const double arrivalPos,
                  const std::string stopID, const double speed,
                  const V* const vehicle, const SVCPermissions modeSet, const SUMOTime msTime,
-                 std::vector<TripItem>& into, const double externalFactor=0.) {
+                 std::vector<TripItem>& into, const double externalFactor = 0.) {
         createNet();
         _IntermodalTrip trip(from, to, departPos, arrivalPos, speed, msTime, 0, vehicle, modeSet, myExternalEffort, externalFactor);
         std::vector<const _IntermodalEdge*> intoEdges;
@@ -235,25 +235,25 @@ private:
             myIntermodalNet->addCarEdges(E::getAllEdges());
             myCallback(*this);
             switch (myRoutingMode) {
-            case 0:
-                myInternalRouter = new _InternalDijkstra(myIntermodalNet->getAllEdges(), true, &_IntermodalEdge::getTravelTimeStatic);
-                break;
-            case 1:
-                myInternalRouter = new _InternalDijkstra(myIntermodalNet->getAllEdges(), true, &getEffortAggregated, &_IntermodalEdge::getTravelTimeStatic);
-                break;
-            case 2:
-                myInternalRouter = new _InternalDijkstra(myIntermodalNet->getAllEdges(), true, &_IntermodalEdge::getEffortStatic, &_IntermodalEdge::getTravelTimeStatic);
-                break;
-            case 3:
-                if (myExternalEffort != nullptr) {
-                    std::vector<std::string> edgeIDs;
-                    for (const auto e : myIntermodalNet->getAllEdges()) {
-                        edgeIDs.push_back(e->getID());
+                case 0:
+                    myInternalRouter = new _InternalDijkstra(myIntermodalNet->getAllEdges(), true, &_IntermodalEdge::getTravelTimeStatic);
+                    break;
+                case 1:
+                    myInternalRouter = new _InternalDijkstra(myIntermodalNet->getAllEdges(), true, &getEffortAggregated, &_IntermodalEdge::getTravelTimeStatic);
+                    break;
+                case 2:
+                    myInternalRouter = new _InternalDijkstra(myIntermodalNet->getAllEdges(), true, &_IntermodalEdge::getEffortStatic, &_IntermodalEdge::getTravelTimeStatic);
+                    break;
+                case 3:
+                    if (myExternalEffort != nullptr) {
+                        std::vector<std::string> edgeIDs;
+                        for (const auto e : myIntermodalNet->getAllEdges()) {
+                            edgeIDs.push_back(e->getID());
+                        }
+                        myExternalEffort->init(edgeIDs);
                     }
-                    myExternalEffort->init(edgeIDs);
-                }
-                myInternalRouter = new _InternalDijkstra(myIntermodalNet->getAllEdges(), true, &getCombined, &_IntermodalEdge::getTravelTimeStatic, false, myExternalEffort);
-                break;
+                    myInternalRouter = new _InternalDijkstra(myIntermodalNet->getAllEdges(), true, &getCombined, &_IntermodalEdge::getTravelTimeStatic, false, myExternalEffort);
+                    break;
             }
         }
     }

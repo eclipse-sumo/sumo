@@ -61,13 +61,13 @@ MSDevice_Transportable::~MSDevice_Transportable() {
 
 void
 MSDevice_Transportable::notifyMoveInternal(const SUMOVehicle& veh,
-                                      const double /* frontOnLane */,
-                                      const double /* timeOnLane*/,
-                                      const double /* meanSpeedFrontOnLane */,
-                                      const double /*meanSpeedVehicleOnLane */,
-                                      const double /* travelledDistanceFrontOnLane */,
-                                      const double /* travelledDistanceVehicleOnLane */,
-                                      const double /* meanLengthOnLane */) {
+        const double /* frontOnLane */,
+        const double /* timeOnLane*/,
+        const double /* meanSpeedFrontOnLane */,
+        const double /*meanSpeedVehicleOnLane */,
+        const double /* travelledDistanceFrontOnLane */,
+        const double /* travelledDistanceVehicleOnLane */,
+        const double /* meanLengthOnLane */) {
     notifyMove(const_cast<SUMOVehicle&>(veh), -1, -1, -1);
 }
 

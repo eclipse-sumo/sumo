@@ -48,8 +48,7 @@ GNEChange_Lane::GNEChange_Lane(GNEEdge* edge, GNELane* lane, const NBEdge::Lane&
     myEdge(edge),
     myLane(lane),
     myLaneAttrs(laneAttrs),
-    myRecomputeConnections(recomputeConnections)
-{
+    myRecomputeConnections(recomputeConnections) {
     assert(myNet);
     myEdge->incRef("GNEChange_Lane");
     if (myLane) {

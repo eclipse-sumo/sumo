@@ -404,19 +404,19 @@ public:
     /// @brief begin iterator for iterating over all vehicles touching this lane in downstream direction
     AnyVehicleIterator anyVehiclesBegin() const {
         return AnyVehicleIterator(this, 0, 0, 0,
-                (int)myVehicles.size(), (int)myPartialVehicles.size(), (int)myTmpVehicles.size(), true);
+                                  (int)myVehicles.size(), (int)myPartialVehicles.size(), (int)myTmpVehicles.size(), true);
     }
 
     /// @brief end iterator for iterating over all vehicles touching this lane in downstream direction
     AnyVehicleIterator anyVehiclesEnd() const {
         return AnyVehicleIterator(this, (int)myVehicles.size(), (int)myPartialVehicles.size(), (int)myTmpVehicles.size(),
-                (int)myVehicles.size(), (int)myPartialVehicles.size(), (int)myTmpVehicles.size(), true);
+                                  (int)myVehicles.size(), (int)myPartialVehicles.size(), (int)myTmpVehicles.size(), true);
     }
 
     /// @brief begin iterator for iterating over all vehicles touching this lane in upstream direction
     AnyVehicleIterator anyVehiclesUpstreamBegin() const {
         return AnyVehicleIterator(this, (int)myVehicles.size() - 1, (int)myPartialVehicles.size() - 1, (int)myTmpVehicles.size() - 1,
-                -1, -1, -1, false);
+                                  -1, -1, -1, false);
     }
 
     /// @brief end iterator for iterating over all vehicles touching this lane in upstream direction
@@ -772,13 +772,13 @@ public:
     double getStopOffset(const MSVehicle* veh) const;
 
     /// @brief Returns vehicle class specific stopOffsets
-    const std::map<SVCPermissions,double>& getStopOffsets() const {
+    const std::map<SVCPermissions, double>& getStopOffsets() const {
         return myStopOffsets;
     };
 
     /// @brief Set vehicle class specific stopOffsets
-    void setStopOffsets(std::map<SVCPermissions,double> stopOffsets) {
-        myStopOffsets=stopOffsets;
+    void setStopOffsets(std::map<SVCPermissions, double> stopOffsets) {
+        myStopOffsets = stopOffsets;
     };
 
     /// @brief return the sublane followers with the largest missing rear gap among all predecessor lanes (within dist)
@@ -1215,7 +1215,7 @@ protected:
     /// Lane's vClass specific stop offset [m]. The map is either of length 0, which means no
     /// special stopOffset was set, or of length 1, where the key is a bitset representing a subset
     /// of the SUMOVehicleClass Enum and the value is the offset in meters.
-    std::map<SVCPermissions,double> myStopOffsets;
+    std::map<SVCPermissions, double> myStopOffsets;
 
     /// The lane's edge, for routing only.
     MSEdge* const myEdge;

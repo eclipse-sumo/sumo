@@ -37,7 +37,7 @@ class NamedRTree;
 class PointOfInterest;
 class PositionVector;
 namespace libsumo {
-    class VariableWrapper;
+class VariableWrapper;
 }
 
 

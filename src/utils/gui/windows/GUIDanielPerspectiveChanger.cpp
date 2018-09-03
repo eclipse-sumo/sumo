@@ -225,7 +225,7 @@ GUIDanielPerspectiveChanger::onMouseMove(void* data) {
             if (pastDelay) {
                 if (myRotation != 0) {
                     Position diffRot = Position(xdiff, ydiff).rotateAround2D(
-                            DEG2RAD(myRotation), Position(0,0));
+                                           DEG2RAD(myRotation), Position(0, 0));
                     move((int)diffRot.x(), (int)diffRot.y());
                 } else {
                     move(xdiff, ydiff);

@@ -54,15 +54,15 @@
 // member method definitions
 // ===========================================================================
 
-GNERerouter::GNERerouter(const std::string& id, GNEViewNet* viewNet, const Position &pos, const std::vector<GNEEdge*> &edges, const std::string& name, const std::string& filename, double probability, bool off, double timeThreshold, const std::string& vTypes, bool blockMovement) :
+GNERerouter::GNERerouter(const std::string& id, GNEViewNet* viewNet, const Position& pos, const std::vector<GNEEdge*>& edges, const std::string& name, const std::string& filename, double probability, bool off, double timeThreshold, const std::string& vTypes, bool blockMovement) :
     GNEAdditional(id, viewNet, GLO_REROUTER, SUMO_TAG_REROUTER, name, blockMovement, edges),
     myPosition(pos),
     myFilename(filename),
     myProbability(probability),
     myOff(off),
     myTimeThreshold(timeThreshold),
-    myVTypes(vTypes)
-{ }
+    myVTypes(vTypes) {
+}
 
 
 GNERerouter::~GNERerouter() {
@@ -72,7 +72,7 @@ GNERerouter::~GNERerouter() {
 void
 GNERerouter::updateGeometry(bool updateGrid) {
     // first check if object has to be removed from grid (SUMOTree)
-    if(updateGrid) {
+    if (updateGrid) {
         myViewNet->getNet()->removeGLObjectFromGrid(this);
     }
 
@@ -95,7 +95,7 @@ GNERerouter::updateGeometry(bool updateGrid) {
     updateChildConnections();
 
     // last step is to check if object has to be added into grid (SUMOTree) again
-    if(updateGrid) {
+    if (updateGrid) {
         myViewNet->getNet()->addGLObjectIntoGrid(this);
     }
 }
@@ -149,7 +149,7 @@ GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
 
 
     // Draw icon depending of detector is selected and if isn't being drawn for selecting
-    if(s.drawForSelecting) {
+    if (s.drawForSelecting) {
         GLHelper::setColor(RGBColor::RED);
         GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
     } else {
@@ -166,7 +166,7 @@ GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
     glPopMatrix();
 
     // Only lock and childs if isn't being drawn for selecting
-    if(!s.drawForSelecting) {
+    if (!s.drawForSelecting) {
 
         // Show Lock icon depending of the Edit mode
         drawLockIcon(0.4);
@@ -208,7 +208,7 @@ GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
         drawChildConnections();
     }
     // check if dotted contour has to be drawn
-    if(!s.drawForSelecting && (myViewNet->getACUnderCursor() == this)) {
+    if (!s.drawForSelecting && (myViewNet->getACUnderCursor() == this)) {
         GLHelper::drawShapeDottedContour(getType(), myPosition, 2, 2);
         // draw shape dotte contour aroud alld connections between child and parents
         for (auto i : myChildConnectionPositions) {
@@ -223,7 +223,7 @@ GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
     // Draw name
     drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
 
-        // Pop name
+    // Pop name
     glPopName();
 }
 
@@ -317,7 +317,7 @@ GNERerouter::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_HALTING_TIME_THRESHOLD:
             return canParse<double>(value) && (parse<double>(value) >= 0);
         case SUMO_ATTR_VTYPES:
-            if(value.empty()) {
+            if (value.empty()) {
                 return true;
             } else {
                 return SUMOXMLDefinitions::isValidListOfTypeID(value);
@@ -336,13 +336,13 @@ GNERerouter::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-std::string 
+std::string
 GNERerouter::getPopUpID() const {
     return toString(getTag()) + ": " + getID();
 }
 
 
-std::string 
+std::string
 GNERerouter::getHierarchyName() const {
     return toString(getTag());
 }
@@ -395,7 +395,7 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value) {
             myBlockMovement = parse<bool>(value);
             break;
         case GNE_ATTR_SELECTED:
-            if(parse<bool>(value)) {
+            if (parse<bool>(value)) {
                 selectAttributeCarrier();
             } else {
                 unselectAttributeCarrier();

@@ -566,7 +566,7 @@ MSLane::checkFailure(const MSVehicle* aVehicle, double& speed, double& dist, con
         } else if (speed > 0) {
             if (!MSGlobals::gCheckRoutes) {
                 // Check whether vehicle can stop at the given distance when applying emergency braking
-                double emergencyBrakeGap = 0.5*speed*speed/aVehicle->getCarFollowModel().getEmergencyDecel();
+                double emergencyBrakeGap = 0.5 * speed * speed / aVehicle->getCarFollowModel().getEmergencyDecel();
                 if (emergencyBrakeGap <= dist) {
                     // Vehicle may stop in time with emergency deceleration
                     // stil, emit a warning
@@ -1107,7 +1107,7 @@ MSLane::planMovements(SUMOTime t) {
                 << "\n    reservations=" << toString(myManeuverReservations)
                 << "\n";
 #endif
-    assert(MSGlobals::gLateralResolution || myManeuverReservations.size()==0);
+    assert(MSGlobals::gLateralResolution || myManeuverReservations.size() == 0);
     for (; veh != myVehicles.rend(); ++veh) {
 #ifdef DEBUG_PLAN_MOVE
         if (DEBUG_COND2((*veh))) {
@@ -1466,7 +1466,7 @@ MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, MSVe
         // double victimOrigSpeed = victim->getSpeed();
         // double colliderOrigSpeed = collider->getSpeed();
         if (collisionAngle < 45) {
-            // rear-end collisions 
+            // rear-end collisions
             colliderSpeed = MIN2(colliderSpeed, victimSpeed);
         } else if (collisionAngle < 135) {
             // side collision
@@ -1494,8 +1494,8 @@ MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, MSVe
             stop.endPos = stop.startPos;
             collider->addStop(stop, dummyError, 0, true);
         }
-        //std::cout << " collisionAngle=" << collisionAngle 
-        //    << "\n    vPos=" << victim->getPositionOnLane()   << " vStop=" << victimStopPos  << " vSpeed=" << victimOrigSpeed     << " vSpeed2=" << victimSpeed   << " vSpeed3=" << victim->getSpeed()  
+        //std::cout << " collisionAngle=" << collisionAngle
+        //    << "\n    vPos=" << victim->getPositionOnLane()   << " vStop=" << victimStopPos  << " vSpeed=" << victimOrigSpeed     << " vSpeed2=" << victimSpeed   << " vSpeed3=" << victim->getSpeed()
         //    << "\n    cPos=" << collider->getPositionOnLane() << " cStop=" << stop.startPos  << " cSpeed=" << colliderOrigSpeed   << " cSpeed2=" << colliderSpeed << " cSpeed3=" << collider->getSpeed()
         //    << "\n";
     } else {
@@ -1806,14 +1806,14 @@ MSLane::sortManeuverReservations() {
     if (myManeuverReservations.size() > 1) {
 #ifdef DEBUG_CONTEXT
         if DEBUG_COND {
-            std::cout << "sortManeuverReservations on lane " << getID()
-                << "\nBefore sort: " << toString(myManeuverReservations) << std::endl;
+        std::cout << "sortManeuverReservations on lane " << getID()
+            << "\nBefore sort: " << toString(myManeuverReservations) << std::endl;
         }
 #endif
         sort(myManeuverReservations.begin(), myManeuverReservations.end(), vehicle_natural_position_sorter(this));
 #ifdef DEBUG_CONTEXT
         if DEBUG_COND {
-            std::cout << "After sort: " << toString(myManeuverReservations) << std::endl;
+        std::cout << "After sort: " << toString(myManeuverReservations) << std::endl;
         }
 #endif
     }
@@ -2224,7 +2224,7 @@ MSLane::getLeaderOnConsecutive(double dist, double seen, double speed, const MSV
 #endif
         nextLane->releaseVehicles();
         if (linkLeaders.size() > 0) {
-            std::pair<MSVehicle* , double> result;
+            std::pair<MSVehicle*, double> result;
             double shortestGap = std::numeric_limits<double>::max();
             for (auto ll : linkLeaders) {
                 double gap = ll.vehAndGap.second;
@@ -2235,11 +2235,11 @@ MSLane::getLeaderOnConsecutive(double dist, double seen, double speed, const MSV
                 }
 #ifdef DEBUG_CONTEXT
                 if (DEBUG_COND2(&veh)) {
-                    std::cout << "      linkLeader candidate " << Named::getIDSecure(lVeh) 
-                        << " isLeader=" << ((*link)->isLeader(&veh, lVeh))
-                        << " gap=" << ll.vehAndGap.second
-                        << " gap+brakeing=" << gap
-                        << "\n";
+                    std::cout << "      linkLeader candidate " << Named::getIDSecure(lVeh)
+                              << " isLeader=" << ((*link)->isLeader(&veh, lVeh))
+                              << " gap=" << ll.vehAndGap.second
+                              << " gap+brakeing=" << gap
+                              << "\n";
                 }
 #endif
                 if (lVeh != 0 && !(*link)->isLeader(&veh, lVeh, false)) {
@@ -2872,10 +2872,10 @@ MSLane::loadState(std::vector<std::string>& vehIds, MSVehicleControl& vc) {
 
 double
 MSLane::getStopOffset(const MSVehicle* veh) const {
-    if (myStopOffsets.size()==0) {
+    if (myStopOffsets.size() == 0) {
         return 0.;
     }
-    if ((myStopOffsets.begin()->first & veh->getVClass()) != 0){
+    if ((myStopOffsets.begin()->first & veh->getVClass()) != 0) {
         return myStopOffsets.begin()->second;
     } else {
         return 0.;

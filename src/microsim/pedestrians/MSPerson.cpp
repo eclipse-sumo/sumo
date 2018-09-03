@@ -218,13 +218,13 @@ MSPerson::MSPersonStage_Walking::walkDistance() const {
     const bool mayStartForward = departFwdArrivalDir != MSPModel::UNDEFINED_DIRECTION;
     const bool mayStartBackward = departBwdArrivalDir != MSPModel::UNDEFINED_DIRECTION;
     const double lengthFwd = (length - myDepartPos - (
-                departFwdArrivalDir == MSPModel::BACKWARD 
-                ? myArrivalPos
-                : myRoute.back()->getLength() - myArrivalPos));
+                                  departFwdArrivalDir == MSPModel::BACKWARD
+                                  ? myArrivalPos
+                                  : myRoute.back()->getLength() - myArrivalPos));
     const double lengthBwd = (length - (myRoute.front()->getLength() - myDepartPos) - (
-                departBwdArrivalDir == MSPModel::BACKWARD 
-                ? myArrivalPos
-                : myRoute.back()->getLength() - myArrivalPos));
+                                  departBwdArrivalDir == MSPModel::BACKWARD
+                                  ? myArrivalPos
+                                  : myRoute.back()->getLength() - myArrivalPos));
 
     if (myRoute.size() == 1) {
         if (myDepartPos > myArrivalPos) {
@@ -243,14 +243,14 @@ MSPerson::MSPersonStage_Walking::walkDistance() const {
             length = lengthFwd;
         }
     }
-    //std::cout << SIMTIME << " route=" << toString(myRoute) 
+    //std::cout << SIMTIME << " route=" << toString(myRoute)
     //    << " depPos=" << myDepartPos << " arPos=" << myArrivalPos
-    //    << " dFwdADir=" << departFwdArrivalDir 
-    //    << " dBwdADir=" << departBwdArrivalDir 
+    //    << " dFwdADir=" << departFwdArrivalDir
+    //    << " dBwdADir=" << departBwdArrivalDir
     //    << " lengthFwd=" << lengthFwd
     //    << " lengthBwd=" << lengthBwd
     //    << "\n";
-    
+
     return MAX2(POSITION_EPS, length);
 }
 
@@ -349,10 +349,10 @@ MSPerson::MSPersonStage_Walking::getMaxSpeed(const MSPerson* person) const {
 
 std::string
 MSPerson::MSPersonStage_Walking::getStageSummary() const {
-    const std::string dest = (getDestinationStop() == 0 ? 
-        " edge '" + getDestination()->getID() + "'" : 
-        " stop '" + getDestinationStop()->getID() + "'" + (
-            getDestinationStop()->getMyName() != "" ? " (" + getDestinationStop()->getMyName() + ")" : ""));
+    const std::string dest = (getDestinationStop() == 0 ?
+                              " edge '" + getDestination()->getID() + "'" :
+                              " stop '" + getDestinationStop()->getID() + "'" + (
+                                  getDestinationStop()->getMyName() != "" ? " (" + getDestinationStop()->getMyName() + ")" : ""));
     return "walking to " + dest;
 }
 
@@ -361,13 +361,13 @@ MSPerson::MSPersonStage_Walking::getStageSummary() const {
 * MSPerson::MSPersonStage_Driving - methods
 * ----------------------------------------------------------------------- */
 MSPerson::MSPersonStage_Driving::MSPersonStage_Driving(const MSEdge* destination,
-    MSStoppingPlace* toStop, const double arrivalPos, const std::vector<std::string>& lines,
-    const std::string& intendedVeh, SUMOTime intendedDepart) :
+        MSStoppingPlace* toStop, const double arrivalPos, const std::vector<std::string>& lines,
+        const std::string& intendedVeh, SUMOTime intendedDepart) :
     MSTransportable::Stage_Driving(destination, toStop,
-    SUMOVehicleParameter::interpretEdgePos(
-    arrivalPos, destination->getLength(), SUMO_ATTR_ARRIVALPOS, "person riding to " + destination->getID()),
-    lines,
-    intendedVeh, intendedDepart) {
+                                   SUMOVehicleParameter::interpretEdgePos(
+                                       arrivalPos, destination->getLength(), SUMO_ATTR_ARRIVALPOS, "person riding to " + destination->getID()),
+                                   lines,
+                                   intendedVeh, intendedDepart) {
 }
 
 
@@ -410,15 +410,15 @@ MSPerson::MSPersonStage_Driving::getStageDescription() const {
 std::string
 MSPerson::MSPersonStage_Driving::getStageSummary() const {
     const std::string dest = (getDestinationStop() == 0 ?
-        " edge '" + getDestination()->getID() + "'" :
-        " stop '" + getDestinationStop()->getID() + "'" + (
-        getDestinationStop()->getMyName() != "" ? " (" + getDestinationStop()->getMyName() + ")" : ""));
+                              " edge '" + getDestination()->getID() + "'" :
+                              " stop '" + getDestinationStop()->getID() + "'" + (
+                                  getDestinationStop()->getMyName() != "" ? " (" + getDestinationStop()->getMyName() + ")" : ""));
     const std::string intended = myIntendedVehicleID != "" ?
-        " (vehicle " + myIntendedVehicleID + " at time " + time2string(myIntendedDepart) + ")" :
-        "";
+                                 " (vehicle " + myIntendedVehicleID + " at time " + time2string(myIntendedDepart) + ")" :
+                                 "";
     return isWaiting4Vehicle() ?
-        "waiting for " + joinToString(myLines, ",") + intended + " then drive to " + dest :
-        "driving to " + dest;
+           "waiting for " + joinToString(myLines, ",") + intended + " then drive to " + dest :
+           "driving to " + dest;
 }
 
 
@@ -468,11 +468,11 @@ MSPerson::MSPersonStage_Driving::routeOutput(OutputDevice& os) const {
 * MSPerson::MSPersonStage_Access - methods
 * ----------------------------------------------------------------------- */
 MSPerson::MSPersonStage_Access::MSPersonStage_Access(const MSEdge* destination, MSStoppingPlace* toStop,
-    const double arrivalPos, const double dist, const bool isExit) :
+        const double arrivalPos, const double dist, const bool isExit) :
     MSTransportable::Stage(destination, toStop, arrivalPos, ACCESS),
     myDist(dist), myAmExit(isExit) {
     myPath.push_back(destination->getLanes()[0]->geometryPositionAtOffset(myDestinationStop->getAccessPos(destination)));
-    myPath.push_back(toStop->getLane().geometryPositionAtOffset((toStop->getEndLanePosition() + toStop->getBeginLanePosition())/2));
+    myPath.push_back(toStop->getLane().geometryPositionAtOffset((toStop->getEndLanePosition() + toStop->getBeginLanePosition()) / 2));
     if (isExit) {
         myPath = myPath.reverse();
     }
@@ -655,18 +655,18 @@ MSPerson::routeOutput(OutputDevice& os) const {
 void
 MSPerson::reroute(ConstMSEdgeVector& newEdges, double departPos, int firstIndex, int nextIndex) {
     assert(nextIndex > firstIndex);
-    //std::cout << SIMTIME << " reroute person " << getID() 
-    //    << "  newEdges=" << toString(newEdges) 
-    //    << " firstIndex=" << firstIndex 
-    //    << " nextIndex=" << nextIndex 
-    //    << " departPos=" << getEdgePos() 
+    //std::cout << SIMTIME << " reroute person " << getID()
+    //    << "  newEdges=" << toString(newEdges)
+    //    << " firstIndex=" << firstIndex
+    //    << " nextIndex=" << nextIndex
+    //    << " departPos=" << getEdgePos()
     //    << " arrivalPos=" <<  getNextStage(nextIndex - 1)->getArrivalPos()
     //    << "\n";
     MSPerson::MSPersonStage_Walking* newStage = new MSPerson::MSPersonStage_Walking(getID(), newEdges,
             getNextStage(nextIndex - 1)->getDestinationStop(), -1,
             -1,
             departPos,
-            getNextStage(nextIndex - 1)->getArrivalPos(), 
+            getNextStage(nextIndex - 1)->getArrivalPos(),
             0);
     appendStage(newStage, nextIndex);
     // remove stages in reverse order so that proceed will only be called at the last removal

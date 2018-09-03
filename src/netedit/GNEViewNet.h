@@ -448,7 +448,7 @@ private:
     class ObjectsUnderCursor {
     public:
         /// @brief constructor
-        ObjectsUnderCursor(): 
+        ObjectsUnderCursor():
             eventInfo(nullptr),
             glID(0),
             glType(GLO_NETWORK),
@@ -527,7 +527,7 @@ private:
             selectingUsingRectangle(false) {}
 
         /// @brief Process Selection
-        void processSelection(GNEViewNet *viewNet, bool shiftKeyPressed);
+        void processSelection(GNEViewNet* viewNet, bool shiftKeyPressed);
 
         /// @brief whether we have started rectangle-selection
         bool selectingUsingRectangle;
@@ -624,7 +624,7 @@ private:
     /// @brief variable use to save pointers to moved elements
     MovedItems myMovedItems;
 
-    /// @brief variable used to save variables related with movement of single elements 
+    /// @brief variable used to save variables related with movement of single elements
     MoveSingleElementValues myMoveSingleElementValues;
 
     /// @brief variable used to save variables related with selecting areas
@@ -643,7 +643,7 @@ private:
     /// @brief Selected Edges that are being moved < Edge, PositionVector >
     std::map<GNEEdge*, PositionVector> myOriginShapesMovedEntireShapes;
 
-    struct MovingEdges{
+    struct MovingEdges {
         PositionVector originalShape;
         int index;
         Position originalPosition;
@@ -705,7 +705,7 @@ private:
     GNEUndoList* myUndoList;
 
     /// @brief current AttributeCarrier under Mouse position
-    const GNEAttributeCarrier *myACUnderCursor;
+    const GNEAttributeCarrier* myACUnderCursor;
 
     /// @name variables for edit shapes
     /// @{

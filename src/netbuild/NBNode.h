@@ -307,7 +307,7 @@ public:
     void invalidateTLS(NBTrafficLightLogicCont& tlCont, bool removedConnections, bool addedConnections);
 
     /// @brief patches loaded signal plans by modifying lane indices above threshold by the given offset
-    void shiftTLConnectionLaneIndex(NBEdge* edge, int offset, int threshold=-1);
+    void shiftTLConnectionLaneIndex(NBEdge* edge, int offset, int threshold = -1);
     /// @}
 
 
@@ -432,8 +432,8 @@ public:
 
     /// @brief return whether the given laneToLane connection originate from the same edge and are in conflict due to turning across each other
     bool turnFoes(const NBEdge* from, const NBEdge* to, int fromLane,
-                                  const NBEdge* from2, const NBEdge* to2, int fromLane2,
-                                  bool lefthand = false) const;
+                  const NBEdge* from2, const NBEdge* to2, int fromLane2,
+                  bool lefthand = false) const;
 
     /**@brief Returns the information whether "prohibited" flow must let "prohibitor" flow pass
      * @param[in] possProhibitedFrom The maybe prohibited connection's begin
@@ -515,8 +515,8 @@ public:
                    const NBEdge::Connection& c, const NBEdge::Connection& otherC) const;
 
     /// @brief whether the connection must yield if the foe remains on the intersection after its phase ends
-    bool tlsContConflict(const NBEdge* from, const NBEdge::Connection& c, 
-        const NBEdge* foeFrom, const NBEdge::Connection& foe) const;
+    bool tlsContConflict(const NBEdge* from, const NBEdge::Connection& c,
+                         const NBEdge* foeFrom, const NBEdge::Connection& foe) const;
 
 
     /**@brief Compute the shape for an internal lane
@@ -540,7 +540,7 @@ public:
      */
     PositionVector computeSmoothShape(const PositionVector& begShape, const PositionVector& endShape, int numPoints,
                                       bool isTurnaround, double extrapolateBeg, double extrapolateEnd,
-                                      NBNode* recordError = 0, int shapeFlag=0) const;
+                                      NBNode* recordError = 0, int shapeFlag = 0) const;
     /// @brief get bezier control points
     static PositionVector bezierControlPoints(const PositionVector& begShape, const PositionVector& endShape,
             bool isTurnaround, double extrapolateBeg, double extrapolateEnd,

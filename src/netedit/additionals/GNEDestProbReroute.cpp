@@ -54,36 +54,36 @@ GNEDestProbReroute::GNEDestProbReroute(GNEAdditional* rerouterIntervalParent, GN
 GNEDestProbReroute::~GNEDestProbReroute() {}
 
 
-void 
+void
 GNEDestProbReroute::moveGeometry(const Position&, const Position&) {
     // This additional cannot be moved
 }
 
 
-void 
+void
 GNEDestProbReroute::commitGeometryMoving(const Position&, GNEUndoList*) {
     // This additional cannot be moved
 }
 
-void 
+void
 GNEDestProbReroute::updateGeometry(bool /*updateGrid*/) {
     // Currently this additional doesn't own a Geometry
 }
 
 
-Position 
+Position
 GNEDestProbReroute::getPositionInView() const {
     return myFirstAdditionalParent->getPositionInView();
 }
 
 
-std::string 
+std::string
 GNEDestProbReroute::getParentName() const {
     return myFirstAdditionalParent->getID();
 }
 
 
-void 
+void
 GNEDestProbReroute::drawGL(const GUIVisualizationSettings&) const {
     // Currently This additional isn't drawn
 }
@@ -143,13 +143,13 @@ GNEDestProbReroute::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-std::string 
+std::string
 GNEDestProbReroute::getPopUpID() const {
     return toString(getTag());
 }
 
 
-std::string 
+std::string
 GNEDestProbReroute::getHierarchyName() const {
     return toString(getTag()) + ": " + myNewEdgeDestination->getID();
 }

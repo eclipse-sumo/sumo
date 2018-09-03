@@ -130,16 +130,16 @@ GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlOb
 GNEAdditional::~GNEAdditional() {}
 
 
-void 
+void
 GNEAdditional::writeAdditional(OutputDevice& device) const {
     // obtain tag properties
-    const TagValues &tagProperties = getTagProperties(getTag());
+    const TagValues& tagProperties = getTagProperties(getTag());
     // first check if minimum number of childs is correct
     if ((tagProperties.hasMinimumNumberOfChilds() || tagProperties.hasMinimumNumberOfChilds()) && !checkAdditionalChildRestriction()) {
         WRITE_WARNING(toString(getTag()) + " with ID='" + getID() + "' cannot be written");
     } else {
         // Open Tag or synonim Tag
-        if(tagProperties.hasTagSynonym()) {
+        if (tagProperties.hasTagSynonym()) {
             device.openTag(tagProperties.getTagSynonym());
         } else {
             device.openTag(getTag());
@@ -148,15 +148,15 @@ GNEAdditional::writeAdditional(OutputDevice& device) const {
         for (auto i : tagProperties) {
             // obtain attribute
             std::string attribute = getAttribute(i.first);
-            if(i.second.isOptional() && i.second.hasDefaultValue() && !i.second.isCombinable()) {
+            if (i.second.isOptional() && i.second.hasDefaultValue() && !i.second.isCombinable()) {
                 // Only write attributes with default value if is different of original
-                if(i.second.getDefaultValue() != attribute) {
+                if (i.second.getDefaultValue() != attribute) {
                     // check if attribute must be written using a synonim
-                    if(i.second.hasAttrSynonym()) {
+                    if (i.second.hasAttrSynonym()) {
                         device.writeAttr(i.second.getAttrSynonym(), attribute);
                     } else {
                         // SVC permissions uses their own writting function
-                        if(i.second.isSVCPermission()) {
+                        if (i.second.isSVCPermission()) {
                             // disallow attribute musn't be written
                             if (i.first != SUMO_ATTR_DISALLOW) {
                                 writePermissions(device, parseVehicleClasses(attribute));
@@ -168,11 +168,11 @@ GNEAdditional::writeAdditional(OutputDevice& device) const {
                 }
             } else {
                 // Attributes without default values are always writted
-                if(i.second.hasAttrSynonym()) {
+                if (i.second.hasAttrSynonym()) {
                     device.writeAttr(i.second.getAttrSynonym(), attribute);
                 } else {
                     // SVC permissions uses their own writting function
-                    if(i.second.isSVCPermission()) {
+                    if (i.second.isSVCPermission()) {
                         // disallow attribute musn't be written
                         if (i.first != SUMO_ATTR_DISALLOW) {
                             writePermissions(device, parseVehicleClasses(attribute));
@@ -186,14 +186,14 @@ GNEAdditional::writeAdditional(OutputDevice& device) const {
         // save generic parameters
         writeParams(device);
         // iterate over childs and write it in XML (or in a different file)
-        if(tagProperties.canWriteChildsSeparate() && tagProperties.hasAttribute(SUMO_ATTR_FILE) && !getAttribute(SUMO_ATTR_FILE).empty()) {
+        if (tagProperties.canWriteChildsSeparate() && tagProperties.hasAttribute(SUMO_ATTR_FILE) && !getAttribute(SUMO_ATTR_FILE).empty()) {
             // we assume that rerouter values files is placed in the same folder as the additional file
             OutputDevice& deviceChilds = OutputDevice::getDevice(FileHelpers::getFilePath(OptionsCont::getOptions().getString("sumo-additionals-file")) + getAttribute(SUMO_ATTR_FILE));
             deviceChilds.writeXMLHeader("rerouterValue", "additional_file.xsd");
             // save childs in a different filename
             for (auto i : myAdditionalChilds) {
                 // avoid to write two times additionals that haben two parents (Only write as child of first parent)
-                if(i->getSecondAdditionalParent() == nullptr) {
+                if (i->getSecondAdditionalParent() == nullptr) {
                     i->writeAdditional(deviceChilds);
                 } else if (getTag() == getTagProperties(i->getTag()).getParentTag()) {
                     i->writeAdditional(deviceChilds);
@@ -203,7 +203,7 @@ GNEAdditional::writeAdditional(OutputDevice& device) const {
         } else {
             for (auto i : myAdditionalChilds) {
                 // avoid to write two times additionals that haben two parents (Only write as child of first parent)
-                if(i->getSecondAdditionalParent() == nullptr) {
+                if (i->getSecondAdditionalParent() == nullptr) {
                     i->writeAdditional(device);
                 } else if (getTag() == getTagProperties(i->getTag()).getParentTag()) {
                     i->writeAdditional(device);
@@ -222,18 +222,18 @@ GNEAdditional::openAdditionalDialog() {
 }
 
 
-void 
+void
 GNEAdditional::startGeometryMoving() {
     // save current centering boundary
     myMovingGeometryBoundary = getCenteringBoundary();
 }
 
 
-void 
+void
 GNEAdditional::endGeometryMoving() {
     // check that endGeometryMoving was called only once
-    if(myMovingGeometryBoundary.isInitialised()) {
-        // Remove object from net 
+    if (myMovingGeometryBoundary.isInitialised()) {
+        // Remove object from net
         myViewNet->getNet()->removeGLObjectFromGrid(this);
         // reset myMovingGeometryBoundary
         myMovingGeometryBoundary.reset();
@@ -275,7 +275,7 @@ GNEAdditional::getSecondAdditionalParent() const {
 }
 
 
-std::string 
+std::string
 GNEAdditional::generateAdditionalChildID(SumoXMLTag childTag) {
     int counter = 0;
     while (myViewNet->getNet()->retrieveAdditional(childTag, getID() + toString(childTag) + toString(counter), false) != nullptr) {
@@ -293,7 +293,7 @@ GNEAdditional::addAdditionalChild(GNEAdditional* additional) {
     } else {
         myAdditionalChilds.push_back(additional);
         // Check if childs has to be sorted automatically
-        if(getTagProperties(getTag()).canAutomaticSortChilds()) {
+        if (getTagProperties(getTag()).canAutomaticSortChilds()) {
             sortAdditionalChilds();
         }
         // update geometry (for set geometry of lines between Parents and Childs)
@@ -311,7 +311,7 @@ GNEAdditional::removeAdditionalChild(GNEAdditional* additional) {
     } else {
         myAdditionalChilds.erase(it);
         // Check if childs has to be sorted automatically
-        if(getTagProperties(getTag()).canAutomaticSortChilds()) {
+        if (getTagProperties(getTag()).canAutomaticSortChilds()) {
             sortAdditionalChilds();
         }
         // update geometry (for remove geometry of lines between Parents and Childs)
@@ -326,25 +326,25 @@ GNEAdditional::getAdditionalChilds() const {
 }
 
 
-void 
+void
 GNEAdditional::sortAdditionalChilds() {
-    if(getTag() == SUMO_TAG_E3DETECTOR) {
+    if (getTag() == SUMO_TAG_E3DETECTOR) {
         // we need to sort Entry/Exits due additional.xds model
         std::vector<GNEAdditional*> sortedEntryExits;
         // obtain all entrys
         for (auto i : myAdditionalChilds) {
-            if(i->getTag() == SUMO_TAG_DET_ENTRY) {
+            if (i->getTag() == SUMO_TAG_DET_ENTRY) {
                 sortedEntryExits.push_back(i);
             }
         }
         // obtain all exits
         for (auto i : myAdditionalChilds) {
-            if(i->getTag() == SUMO_TAG_DET_EXIT) {
+            if (i->getTag() == SUMO_TAG_DET_EXIT) {
                 sortedEntryExits.push_back(i);
             }
         }
         // change myAdditionalChilds for sortedEntryExits
-        if(sortedEntryExits.size() == myAdditionalChilds.size()) {
+        if (sortedEntryExits.size() == myAdditionalChilds.size()) {
             myAdditionalChilds = sortedEntryExits;
         } else {
             throw ProcessError("Some additional childs were lost during sorting");
@@ -354,15 +354,15 @@ GNEAdditional::sortAdditionalChilds() {
         std::vector<std::pair<std::pair<double, double>, GNEAdditional*> > sortedChilds;
         // iterate over additional childs
         for (auto i : myAdditionalChilds) {
-            sortedChilds.push_back(std::make_pair(std::make_pair(0.,0.), i));
+            sortedChilds.push_back(std::make_pair(std::make_pair(0., 0.), i));
             // set begin/start attribute
-            if(getTagProperties(i->getTag()).hasAttribute(SUMO_ATTR_TIME) && canParse<double>(i->getAttribute(SUMO_ATTR_TIME))) {
+            if (getTagProperties(i->getTag()).hasAttribute(SUMO_ATTR_TIME) && canParse<double>(i->getAttribute(SUMO_ATTR_TIME))) {
                 sortedChilds.back().first.first = parse<double>(i->getAttribute(SUMO_ATTR_TIME));
-            } else if(getTagProperties(i->getTag()).hasAttribute(SUMO_ATTR_BEGIN) && canParse<double>(i->getAttribute(SUMO_ATTR_BEGIN))) {
+            } else if (getTagProperties(i->getTag()).hasAttribute(SUMO_ATTR_BEGIN) && canParse<double>(i->getAttribute(SUMO_ATTR_BEGIN))) {
                 sortedChilds.back().first.first = parse<double>(i->getAttribute(SUMO_ATTR_BEGIN));
             }
             // set end attribute
-            if(getTagProperties(i->getTag()).hasAttribute(SUMO_ATTR_END) && canParse<double>(i->getAttribute(SUMO_ATTR_END))) {
+            if (getTagProperties(i->getTag()).hasAttribute(SUMO_ATTR_END) && canParse<double>(i->getAttribute(SUMO_ATTR_END))) {
                 sortedChilds.back().first.second = parse<double>(i->getAttribute(SUMO_ATTR_END));
             } else {
                 sortedChilds.back().first.second = sortedChilds.back().first.first;
@@ -371,7 +371,7 @@ GNEAdditional::sortAdditionalChilds() {
         // sort childs
         std::sort(sortedChilds.begin(), sortedChilds.end());
         // make sure that number of sorted childs is the same as the additional childs
-        if(sortedChilds.size() == myAdditionalChilds.size()) {
+        if (sortedChilds.size() == myAdditionalChilds.size()) {
             myAdditionalChilds.clear();
             for (auto i : sortedChilds) {
                 myAdditionalChilds.push_back(i.second);
@@ -383,21 +383,21 @@ GNEAdditional::sortAdditionalChilds() {
 }
 
 
-bool 
+bool
 GNEAdditional::checkAdditionalChildsOverlapping() const {
     // declare a vector to keep sorted childs
     std::vector<std::pair<std::pair<double, double>, GNEAdditional*> > sortedChilds;
     // iterate over additional childs
     for (auto i : myAdditionalChilds) {
-        sortedChilds.push_back(std::make_pair(std::make_pair(0.,0.), i));
+        sortedChilds.push_back(std::make_pair(std::make_pair(0., 0.), i));
         // set begin/start attribute
-        if(getTagProperties(i->getTag()).hasAttribute(SUMO_ATTR_TIME) && canParse<double>(i->getAttribute(SUMO_ATTR_TIME))) {
+        if (getTagProperties(i->getTag()).hasAttribute(SUMO_ATTR_TIME) && canParse<double>(i->getAttribute(SUMO_ATTR_TIME))) {
             sortedChilds.back().first.first = parse<double>(i->getAttribute(SUMO_ATTR_TIME));
-        } else if(getTagProperties(i->getTag()).hasAttribute(SUMO_ATTR_BEGIN) && canParse<double>(i->getAttribute(SUMO_ATTR_BEGIN))) {
+        } else if (getTagProperties(i->getTag()).hasAttribute(SUMO_ATTR_BEGIN) && canParse<double>(i->getAttribute(SUMO_ATTR_BEGIN))) {
             sortedChilds.back().first.first = parse<double>(i->getAttribute(SUMO_ATTR_BEGIN));
         }
         // set end attribute
-        if(getTagProperties(i->getTag()).hasAttribute(SUMO_ATTR_END) && canParse<double>(i->getAttribute(SUMO_ATTR_END))) {
+        if (getTagProperties(i->getTag()).hasAttribute(SUMO_ATTR_END) && canParse<double>(i->getAttribute(SUMO_ATTR_END))) {
             sortedChilds.back().first.second = parse<double>(i->getAttribute(SUMO_ATTR_END));
         } else {
             sortedChilds.back().first.second = sortedChilds.back().first.first;
@@ -406,13 +406,13 @@ GNEAdditional::checkAdditionalChildsOverlapping() const {
     // sort childs
     std::sort(sortedChilds.begin(), sortedChilds.end());
     // make sure that number of sorted childs is the same as the additional childs
-    if(sortedChilds.size() == myAdditionalChilds.size()) {
-        if(sortedChilds.size() <= 1) {
+    if (sortedChilds.size() == myAdditionalChilds.size()) {
+        if (sortedChilds.size() <= 1) {
             return true;
         } else {
             // check overlapping
             for (int i = 0; i < (int)sortedChilds.size() - 1; i++) {
-                if(sortedChilds.at(i).first.second > sortedChilds.at(i+1).first.first) {
+                if (sortedChilds.at(i).first.second > sortedChilds.at(i + 1).first.first) {
                     return false;
                 }
             }
@@ -492,7 +492,7 @@ GUIGLObjectPopupMenu*
 GNEAdditional::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
     // obtain tag properties
-    const auto &tagProperties = getTagProperties(getTag());
+    const auto& tagProperties = getTagProperties(getTag());
     // build header
     buildPopupHeader(ret, app);
     // build menu command for center button and copy cursor position to clipboard
@@ -560,7 +560,7 @@ GNEAdditional::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
 Boundary
 GNEAdditional::getCenteringBoundary() const {
     // Return Boundary depending if myMovingGeometryBoundary is initialised (important for move geometry)
-    if(myMovingGeometryBoundary.isInitialised()) {
+    if (myMovingGeometryBoundary.isInitialised()) {
         return myMovingGeometryBoundary;
     } else if (myShape.size() > 0) {
         Boundary b = myShape.getBoxBoundary();
@@ -609,11 +609,11 @@ GNEAdditional::isRouteValid(const std::vector<GNEEdge*>& edges, bool report) {
 }
 
 
-void 
+void
 GNEAdditional::setDefaultValues() {
     // iterate over attributes and set default value
     for (auto i : getTagProperties(getTag())) {
-        if(i.second.hasDefaultValue()) {
+        if (i.second.hasDefaultValue()) {
             setAttribute(i.first, i.second.getDefaultValue());
         }
     }
@@ -720,7 +720,7 @@ GNEAdditional::updateChildConnections() {
     // calculate position for every additional child
     for (auto i : myAdditionalChilds) {
         // check that position is different of position
-        if(i->getPositionInView() != getPositionInView()) {
+        if (i->getPositionInView() != getPositionInView()) {
             std::vector<Position> posConnection;
             double A = std::abs(i->getPositionInView().x() - getPositionInView().x());
             double B = std::abs(i->getPositionInView().y() - getPositionInView().y());
@@ -883,48 +883,48 @@ GNEAdditional::changeSecondAdditionalParent(const std::string& newAdditionalPare
 }
 
 
-void 
+void
 GNEAdditional::selectAttributeCarrier(bool changeFlag) {
-    if(!myViewNet) {
+    if (!myViewNet) {
         throw ProcessError("ViewNet cannot be nullptr");
     } else {
         gSelected.select(dynamic_cast<GUIGlObject*>(this)->getGlID());
-        if(changeFlag) {
+        if (changeFlag) {
             mySelected = true;
         }
-    } 
+    }
 }
 
 
-void 
+void
 GNEAdditional::unselectAttributeCarrier(bool changeFlag) {
-    if(!myViewNet) {
+    if (!myViewNet) {
         throw ProcessError("ViewNet cannot be nullptr");
     } else {
         gSelected.deselect(dynamic_cast<GUIGlObject*>(this)->getGlID());
-        if(changeFlag) {
+        if (changeFlag) {
             mySelected = false;
         }
-    } 
+    }
 }
 
 
-bool 
+bool
 GNEAdditional::isAttributeCarrierSelected() const {
     return mySelected;
 }
 
 
-bool 
+bool
 GNEAdditional::checkAdditionalChildRestriction() const {
     // throw exception because this function mus be implemented in child (see GNEE3Detector)
     throw ProcessError("Calling non-implemented function checkAdditionalChildRestriction during saving of " + toString(getTag()) + ". It muss be reimplemented in child class");
 }
 
 
-bool 
-GNEAdditional::addGenericParameter(const std::string &key, const std::string &value) {
-    if(!knowsParameter(key)) {
+bool
+GNEAdditional::addGenericParameter(const std::string& key, const std::string& value) {
+    if (!knowsParameter(key)) {
         setParameter(key, value);
         return true;
     } else {
@@ -933,9 +933,9 @@ GNEAdditional::addGenericParameter(const std::string &key, const std::string &va
 }
 
 
-bool 
-GNEAdditional::removeGenericParameter(const std::string &key) {
-    if(knowsParameter(key)) {
+bool
+GNEAdditional::removeGenericParameter(const std::string& key) {
+    if (knowsParameter(key)) {
         unsetParameter(key);
         return true;
     } else {
@@ -944,9 +944,9 @@ GNEAdditional::removeGenericParameter(const std::string &key) {
 }
 
 
-bool 
-GNEAdditional::updateGenericParameter(const std::string &oldKey, const std::string &newKey) {
-    if(knowsParameter(oldKey) && !knowsParameter(newKey)) {
+bool
+GNEAdditional::updateGenericParameter(const std::string& oldKey, const std::string& newKey) {
+    if (knowsParameter(oldKey) && !knowsParameter(newKey)) {
         std::string value = getParameter(oldKey);
         unsetParameter(oldKey);
         setParameter(newKey, value);
@@ -957,9 +957,9 @@ GNEAdditional::updateGenericParameter(const std::string &oldKey, const std::stri
 }
 
 
-bool 
-GNEAdditional::updateGenericParameterValue(const std::string &key, const std::string &newValue) {
-    if(knowsParameter(key)) {
+bool
+GNEAdditional::updateGenericParameterValue(const std::string& key, const std::string& newValue) {
+    if (knowsParameter(key)) {
         setParameter(key, newValue);
         return true;
     } else {
@@ -968,7 +968,7 @@ GNEAdditional::updateGenericParameterValue(const std::string &key, const std::st
 }
 
 
-std::string 
+std::string
 GNEAdditional::getGenericParametersStr() const {
     std::string result;
     // Generate an string using the following structure: "key1=value1|key2=value2|...
@@ -976,14 +976,14 @@ GNEAdditional::getGenericParametersStr() const {
         result += i.first + "=" + i.second + "|";
     }
     // remove the last "|"
-    if(!result.empty()) {
+    if (!result.empty()) {
         result.pop_back();
     }
     return result;
 }
 
 
-std::vector<std::pair<std::string, std::string> > 
+std::vector<std::pair<std::string, std::string> >
 GNEAdditional::getGenericParameters() const {
     std::vector<std::pair<std::string, std::string> >  result;
     // iterate over parameters map and fill result
@@ -994,8 +994,8 @@ GNEAdditional::getGenericParameters() const {
 }
 
 
-void 
-GNEAdditional::setGenericParametersStr(const std::string &value) {
+void
+GNEAdditional::setGenericParametersStr(const std::string& value) {
     // clear parameters
     clearParameter();
     // separate value in a vector of string using | as separator
@@ -1004,22 +1004,22 @@ GNEAdditional::setGenericParametersStr(const std::string &value) {
     while (stValues.hasNext()) {
         parsedValues.push_back(stValues.next());
     }
-    // check that parsed values (A=B)can be parsed in generic parameters 
-    for(auto i : parsedValues) {
+    // check that parsed values (A=B)can be parsed in generic parameters
+    for (auto i : parsedValues) {
         std::vector<std::string> parsedParameters;
         StringTokenizer stParam(i, "=", true);
         while (stParam.hasNext()) {
             parsedParameters.push_back(stParam.next());
         }
         // Check that parsed parameters are exactly two and contains valid chracters
-        if(parsedParameters.size() == 2 && SUMOXMLDefinitions::isValidGenericParameterKey(parsedParameters.front()) && SUMOXMLDefinitions::isValidGenericParameterValue(parsedParameters.back())) {
+        if (parsedParameters.size() == 2 && SUMOXMLDefinitions::isValidGenericParameterKey(parsedParameters.front()) && SUMOXMLDefinitions::isValidGenericParameterValue(parsedParameters.back())) {
             setParameter(parsedParameters.front(), parsedParameters.back());
         }
     }
 }
 
 
-void 
+void
 GNEAdditional::mouseOverObject(const GUIVisualizationSettings&) const {
 }
 

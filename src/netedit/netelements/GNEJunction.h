@@ -192,16 +192,16 @@ public:
     /// @{
 
     /// @brief add generic parameter
-    bool addGenericParameter(const std::string &key, const std::string &value);
+    bool addGenericParameter(const std::string& key, const std::string& value);
 
     /// @brief remove generic parameter
-    bool removeGenericParameter(const std::string &key);
+    bool removeGenericParameter(const std::string& key);
 
     /// @brief update generic parameter
-    bool updateGenericParameter(const std::string &oldKey, const std::string &newKey);
+    bool updateGenericParameter(const std::string& oldKey, const std::string& newKey);
 
-    /// @brief update value generic parameter 
-    bool updateGenericParameterValue(const std::string &key, const std::string &newValue);
+    /// @brief update value generic parameter
+    bool updateGenericParameterValue(const std::string& key, const std::string& newValue);
 
     /// @brief return generic parameters in string format
     std::string getGenericParametersStr() const;
@@ -210,7 +210,7 @@ public:
     std::vector<std::pair<std::string, std::string> > getGenericParameters() const;
 
     /// @brief set generic parameters in string format
-    void setGenericParametersStr(const std::string &value);
+    void setGenericParametersStr(const std::string& value);
 
     /// @}
 
@@ -226,15 +226,15 @@ public:
      * so that the previous state can be restored
      * also calls invalidateTLS
      * @param[in] valid The new validity of the junction
-     * @note: this should always be called with an active command group 
+     * @note: this should always be called with an active command group
      */
     void setLogicValid(bool valid, GNEUndoList* undoList, const std::string& status = FEATURE_GUESSED);
 
     /// @brief remove all connections from the given edge
-    void removeConnectionsFrom(GNEEdge* edge, GNEUndoList* undoList, bool updateTLS, int lane=-1);
+    void removeConnectionsFrom(GNEEdge* edge, GNEUndoList* undoList, bool updateTLS, int lane = -1);
 
     /// @brief remove all connections to the given edge
-    void removeConnectionsTo(GNEEdge* edge, GNEUndoList* undoList, bool updateTLS, int lane=-1);
+    void removeConnectionsTo(GNEEdge* edge, GNEUndoList* undoList, bool updateTLS, int lane = -1);
 
     /// @brief prevent re-guessing connections at this junction
     void markAsModified(GNEUndoList* undoList);
@@ -242,14 +242,14 @@ public:
     /* @brief invalidates loaded or edited TLS
      * @param[in] deletedConnection If a valid connection is given a replacement def with this connection removed
      *   but all other information intact will be computed instead of guessing a new tlDef
-     * @note: this should always be called with an active command group 
+     * @note: this should always be called with an active command group
      */
-    void invalidateTLS(GNEUndoList* undoList, 
-            const NBConnection& deletedConnection = NBConnection::InvalidConnection,
-            const NBConnection& addedConnection = NBConnection::InvalidConnection);
+    void invalidateTLS(GNEUndoList* undoList,
+                       const NBConnection& deletedConnection = NBConnection::InvalidConnection,
+                       const NBConnection& addedConnection = NBConnection::InvalidConnection);
 
     /// @brief replace one edge by another in all tls connections
-    void replaceIncomingConnections(GNEEdge* which, GNEEdge* by, GNEUndoList* undoList); 
+    void replaceIncomingConnections(GNEEdge* which, GNEEdge* by, GNEUndoList* undoList);
 
     /// @brief removes the given edge from all pedestrian crossings
     void removeEdgeFromCrossings(GNEEdge* edge, GNEUndoList* undoList);

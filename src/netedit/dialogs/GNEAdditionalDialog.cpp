@@ -89,7 +89,7 @@ GNEAdditionalDialog::openAsModalDialog(FXuint placement) {
 }
 
 
-GNEAdditional* 
+GNEAdditional*
 GNEAdditionalDialog::getEditedAdditional() const {
     return myEditedAdditional;
 }

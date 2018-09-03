@@ -47,8 +47,8 @@
 // ===========================================================================
 RONetHandler::RONetHandler(RONet& net, ROAbstractEdgeBuilder& eb, const bool ignoreInternal)
     : SUMOSAXHandler("sumo-network"),
-    myNet(net), myEdgeBuilder(eb), myIgnoreInternal(ignoreInternal),
-    myCurrentName(), myCurrentEdge(nullptr), myCurrentStoppingPlace(nullptr) {}
+      myNet(net), myEdgeBuilder(eb), myIgnoreInternal(ignoreInternal),
+      myCurrentName(), myCurrentEdge(nullptr), myCurrentStoppingPlace(nullptr) {}
 
 
 RONetHandler::~RONetHandler() {}

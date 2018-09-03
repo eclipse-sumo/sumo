@@ -99,12 +99,12 @@ MsgHandler::getGLDebugInstance() {
 }
 
 
-void 
+void
 MsgHandler::enableDebugMessages(bool enable) {
     myWriteDebugMessages = enable;
 }
 
-void 
+void
 MsgHandler::enableDebugGLMessages(bool enable) {
     myWriteDebugGLMessages = enable;
 }
@@ -216,7 +216,7 @@ MsgHandler::isRetriever(OutputDevice* retriever) const {
 }
 
 
-void 
+void
 MsgHandler::removeRetrieverFromAllInstances(OutputDevice* out) {
     if (myDebugInstance != nullptr) {
         myDebugInstance->removeRetriever(out);
@@ -289,7 +289,7 @@ MsgHandler::cleanupOnEnd() {
 }
 
 
-MsgHandler::MsgHandler(MsgType type) : 
+MsgHandler::MsgHandler(MsgType type) :
     myType(type), myWasInformed(false) {
     if (type == MT_MESSAGE) {
         addRetriever(&OutputDevice::getDevice("stdout"));

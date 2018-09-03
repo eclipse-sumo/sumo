@@ -818,8 +818,7 @@ bool
 MSTriggeredRerouter::vehicleApplies(const SUMOVehicle& veh) const {
     if (myVehicleTypes.empty() || myVehicleTypes.count(veh.getVehicleType().getID()) > 0) {
         return true;
-    }
-    else {
+    } else {
         std::set<std::string> vTypeDists = MSNet::getInstance()->getVehicleControl().getVTypeDistributionMembership(veh.getVehicleType().getID());
         for (auto vTypeDist : vTypeDists) {
             if (myVehicleTypes.count(vTypeDist) > 0) {

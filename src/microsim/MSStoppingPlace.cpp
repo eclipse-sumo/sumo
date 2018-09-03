@@ -95,7 +95,7 @@ MSStoppingPlace::getLastFreePos(const SUMOVehicle& forVehicle) const {
                 //    std::cout << SIMTIME << " fitPosFor " << forVehicle.getID() << " l=" << vehLength << " prev=" << prev << " vehBeg=" << it.first << " vehEnd=" << it.second.first << " found=" << (prev - it.first >= vehLength) << "\n";
                 //}
                 if (prev - it.first >= vehLength && (
-                            it.second.second->isParking() 
+                            it.second.second->isParking()
                             || it.second.second->remainingStopDuration() > TIME2STEPS(10))) {
                     return prev;
                 }
@@ -107,7 +107,7 @@ MSStoppingPlace::getLastFreePos(const SUMOVehicle& forVehicle) const {
     return myLastFreePos;
 }
 
-bool 
+bool
 MSStoppingPlace::fits(double pos, const SUMOVehicle& veh) const {
     // always fit at the default position or if at least half the vehicle length
     // is within the stop range (debatable)
@@ -214,7 +214,7 @@ MSStoppingPlace::getMyName() const {
 }
 
 
-bool 
+bool
 MSStoppingPlace::addAccess(MSLane* lane, const double pos, const double length) {
     // prevent multiple accesss on the same lane
     for (const auto& access : myAccessPos) {

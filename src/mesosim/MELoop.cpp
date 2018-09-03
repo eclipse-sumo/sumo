@@ -293,7 +293,7 @@ MELoop::getSegmentForEdge(const MSEdge& e, double pos) {
 }
 
 
-bool 
+bool
 MELoop::isEnteringRoundabout(const MSEdge& e) {
     for (const MSEdge* succ : e.getSuccessors()) {
         if (succ->isRoundabout()) {

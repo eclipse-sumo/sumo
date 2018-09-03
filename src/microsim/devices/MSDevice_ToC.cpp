@@ -102,8 +102,8 @@ MSDevice_ToC::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into) 
         bool useColoring = useColorScheme(v, oc);
         // build the device
         MSDevice_ToC* device = new MSDevice_ToC(v, "toc_" + v.getID(),
-                manualType, automatedType, responseTime, recoveryRate,
-                initialAwareness, mrmDecel, useColoring);
+                                                manualType, automatedType, responseTime, recoveryRate,
+                                                initialAwareness, mrmDecel, useColoring);
         into.push_back(device);
     }
 }
@@ -149,9 +149,9 @@ MSDevice_ToC::useColorScheme(const SUMOVehicle& v, const OptionsCont& oc) {
 // MSDevice_ToC-methods
 // ---------------------------------------------------------------------------
 MSDevice_ToC::MSDevice_ToC(SUMOVehicle& holder, const std::string& id,
-        std::string manualType, std::string automatedType,
-        SUMOTime responseTime, double recoveryRate, double initialAwareness,
-        double mrmDecel, bool useColoring) :
+                           std::string manualType, std::string automatedType,
+                           SUMOTime responseTime, double recoveryRate, double initialAwareness,
+                           double mrmDecel, bool useColoring) :
     MSDevice(holder, id),
     myManualTypeID(manualType),
     myAutomatedTypeID(automatedType),
@@ -165,8 +165,7 @@ MSDevice_ToC::MSDevice_ToC(SUMOVehicle& holder, const std::string& id,
     myTriggerToCCommand(nullptr),
     myRecoverAwarenessCommand(nullptr),
     myExecuteMRMCommand(nullptr),
-    myPrepareToCCommand(nullptr)
-    {
+    myPrepareToCCommand(nullptr) {
     // Take care! Holder is currently being constructed. Cast occurs before completion.
     myHolderMS = static_cast<MSVehicle*>(&holder);
     // Ensure that the holder receives a driver state as soon as it is created (can't be done here, since myHolderMS is incomplete)
@@ -184,20 +183,20 @@ MSDevice_ToC::MSDevice_ToC(SUMOVehicle& holder, const std::string& id,
         myState = ToCState::MANUAL;
     } else if (holderVTypeID == myAutomatedTypeID) {
         myState = ToCState::AUTOMATED;
-    } else if(manualVTypeIsDist && holderVTypeID.find(myManualTypeID) == 0) {
+    } else if (manualVTypeIsDist && holderVTypeID.find(myManualTypeID) == 0) {
         // Holder type id starts with type distribution name.
         // We assume that this means that it is from the given distribution.
         myState = ToCState::MANUAL;
         myManualTypeID = holderVTypeID;
-    } else if(automatedVTypeIsDist && holderVTypeID.find(myAutomatedTypeID) == 0) {
+    } else if (automatedVTypeIsDist && holderVTypeID.find(myAutomatedTypeID) == 0) {
         // Holder type id starts with type distribution name.
         // We assume that this means that it is from the given distribution.
         myState = ToCState::AUTOMATED;
         myAutomatedTypeID = holderVTypeID;
     } else {
         throw ProcessError("Vehicle type of vehicle '" + holder.getID() + "' ('" + holder.getVehicleType().getID()
-                + "') must coincide with manualType ('" + manualType + "') or automatedType ('" + automatedType
-                + "') specified for its ToC-device (or drawn from the specified vTypeDistributions).");
+                           + "') must coincide with manualType ('" + manualType + "') or automatedType ('" + automatedType
+                           + "') specified for its ToC-device (or drawn from the specified vTypeDistributions).");
     }
 
     // Eventually instantiate given vTypes from distributions
@@ -211,14 +210,14 @@ MSDevice_ToC::MSDevice_ToC(SUMOVehicle& holder, const std::string& id,
 
 #ifdef DEBUG_TOC
     std::cout << "initialized device '" << id << "' with "
-            << "myManualType=" << myManualTypeID << ", "
-            << "myAutomatedType=" << myAutomatedTypeID << ", "
-            << "myResponseTime=" << myResponseTime << ", "
-            << "myRecoveryRate=" << myRecoveryRate << ", "
-            << "myInitialAwareness=" << myInitialAwareness << ", "
-            << "myMRMDecel=" << myMRMDecel << ", "
-            << "myCurrentAwareness=" << myCurrentAwareness << ", "
-            << "myState=" << _2string(myState) << std::endl;
+              << "myManualType=" << myManualTypeID << ", "
+              << "myAutomatedType=" << myAutomatedTypeID << ", "
+              << "myResponseTime=" << myResponseTime << ", "
+              << "myRecoveryRate=" << myRecoveryRate << ", "
+              << "myInitialAwareness=" << myInitialAwareness << ", "
+              << "myMRMDecel=" << myMRMDecel << ", "
+              << "myCurrentAwareness=" << myCurrentAwareness << ", "
+              << "myState=" << _2string(myState) << std::endl;
 #endif
 
     assert(myInitialAwareness <= 1.0 && myInitialAwareness >= 0.0);
@@ -255,11 +254,21 @@ MSDevice_ToC::ensureDriverStateExistence(SUMOTime /* t */) {
 
 MSDevice_ToC::~MSDevice_ToC() {
     // deschedule commands associated to this device
-    if (myTriggerMRMCommand != nullptr) myTriggerMRMCommand->deschedule();
-    if (myTriggerToCCommand != nullptr) myTriggerToCCommand->deschedule();
-    if (myRecoverAwarenessCommand != nullptr) myRecoverAwarenessCommand->deschedule();
-    if (myExecuteMRMCommand != nullptr) myExecuteMRMCommand->deschedule();
-    if (myPrepareToCCommand != nullptr) myPrepareToCCommand->deschedule();
+    if (myTriggerMRMCommand != nullptr) {
+        myTriggerMRMCommand->deschedule();
+    }
+    if (myTriggerToCCommand != nullptr) {
+        myTriggerToCCommand->deschedule();
+    }
+    if (myRecoverAwarenessCommand != nullptr) {
+        myRecoverAwarenessCommand->deschedule();
+    }
+    if (myExecuteMRMCommand != nullptr) {
+        myExecuteMRMCommand->deschedule();
+    }
+    if (myPrepareToCCommand != nullptr) {
+        myPrepareToCCommand->deschedule();
+    }
 }
 
 void
@@ -323,8 +332,8 @@ MSDevice_ToC::requestToC(SUMOTime timeTillMRM) {
 
         // Clear eventually prior scheduled MRM
 //        descheduleMRM();
-        assert(myExecuteMRMCommand==nullptr);
-        assert(myTriggerMRMCommand==nullptr);
+        assert(myExecuteMRMCommand == nullptr);
+        assert(myTriggerMRMCommand == nullptr);
         if (responseTime > timeTillMRM) {
             // Schedule new MRM if driver response time is higher than permitted
             myTriggerMRMCommand = new WrappingCommand<MSDevice_ToC>(this, &MSDevice_ToC::triggerMRM);
@@ -340,7 +349,7 @@ MSDevice_ToC::requestToC(SUMOTime timeTillMRM) {
         // Note that the transition MRM/PREPARING_TOC->AUTOMATED, where a downward ToC is aborted, is handled here as well.
         if (timeTillMRM > 0.) {
             std::stringstream ss;
-            ss << "[t=" << SIMTIME << "] Positive transition time (" << timeTillMRM/1000. << "s.) for upward ToC of vehicle '" << myHolder.getID() << "' is ignored.";
+            ss << "[t=" << SIMTIME << "] Positive transition time (" << timeTillMRM / 1000. << "s.) for upward ToC of vehicle '" << myHolder.getID() << "' is ignored.";
             WRITE_WARNING(ss.str());
         }
         triggerUpwardToC(SIMSTEP + DELTA_T);
@@ -420,12 +429,12 @@ MSDevice_ToC::triggerDownwardToC(SUMOTime /* t */) {
 void
 MSDevice_ToC::descheduleMRM() {
     // Eventually abort scheduled MRM
-    if(myTriggerMRMCommand != nullptr) {
+    if (myTriggerMRMCommand != nullptr) {
         myTriggerMRMCommand->deschedule();
         myTriggerMRMCommand = nullptr;
     }
     // Eventually abort ongoing MRM
-    if(myExecuteMRMCommand != nullptr) {
+    if (myExecuteMRMCommand != nullptr) {
         myExecuteMRMCommand->deschedule();
         myExecuteMRMCommand = nullptr;
     }
@@ -434,7 +443,7 @@ MSDevice_ToC::descheduleMRM() {
 
 void
 MSDevice_ToC::descheduleToC() {
-    if(myTriggerToCCommand != nullptr) {
+    if (myTriggerToCCommand != nullptr) {
         myTriggerToCCommand->deschedule();
         myTriggerToCCommand = nullptr;
     }
@@ -443,7 +452,7 @@ MSDevice_ToC::descheduleToC() {
 void
 MSDevice_ToC::descheduleToCPreparation() {
     // Eventually stop ToC preparation process
-    if(myPrepareToCCommand != nullptr) {
+    if (myPrepareToCCommand != nullptr) {
         myPrepareToCCommand->deschedule();
         myPrepareToCCommand = nullptr;
     }
@@ -452,7 +461,7 @@ MSDevice_ToC::descheduleToCPreparation() {
 void
 MSDevice_ToC::descheduleRecovery() {
     // Eventually stop ToC preparation process
-    if(myRecoverAwarenessCommand != nullptr) {
+    if (myRecoverAwarenessCommand != nullptr) {
         myRecoverAwarenessCommand->deschedule();
         myRecoverAwarenessCommand = nullptr;
     }
@@ -532,17 +541,17 @@ MSDevice_ToC::awarenessRecoveryStep(SUMOTime /* t */) {
 #endif
     // Proceed with awareness recovery
     if (myCurrentAwareness < 1.0) {
-        setAwareness(MIN2(1.0, myCurrentAwareness + TS*myRecoveryRate));
+        setAwareness(MIN2(1.0, myCurrentAwareness + TS * myRecoveryRate));
     }
 
 #ifdef DEBUG_TOC
-     std::cout << SIMTIME << " currentAwareness = " << myCurrentAwareness << std::endl;
+    std::cout << SIMTIME << " currentAwareness = " << myCurrentAwareness << std::endl;
 #endif
 
     const bool awarenessRecoveryCompleted = myCurrentAwareness == 1.0;
     if (awarenessRecoveryCompleted) {
 #ifdef DEBUG_TOC
-     std::cout << SIMTIME << " Awareness recovery completed for veh '" << myHolder.getID() << "'" << std::endl;
+        std::cout << SIMTIME << " Awareness recovery completed for veh '" << myHolder.getID() << "'" << std::endl;
 #endif
         myRecoverAwarenessCommand->deschedule();
         myRecoverAwarenessCommand = nullptr;
@@ -636,7 +645,7 @@ MSDevice_ToC::_2ToCState(const std::string& str) {
     } else if (str == "RECOVERING") {
         return RECOVERING;
     } else {
-        WRITE_WARNING("Unknown ToCState '"+str+"'");
+        WRITE_WARNING("Unknown ToCState '" + str + "'");
         return UNDEFINED;
     }
 }
@@ -657,7 +666,7 @@ MSDevice_ToC::_2string(ToCState state) {
     } else if (state == RECOVERING) {
         return "RECOVERING";
     } else {
-        WRITE_WARNING("Unknown ToCState '"+toString(state)+"'");
+        WRITE_WARNING("Unknown ToCState '" + toString(state) + "'");
         return toString(state);
     }
 }

@@ -407,9 +407,9 @@ NBEdgeCont::rename(NBEdge* edge, const std::string& newID) {
 
 // ----- explicit edge manipulation methods
 
-void 
-NBEdgeCont::processSplits(NBEdge* e, std::vector<Split> splits, 
-        NBNodeCont& nc, NBDistrictCont& dc, NBTrafficLightLogicCont& tlc) {
+void
+NBEdgeCont::processSplits(NBEdge* e, std::vector<Split> splits,
+                          NBNodeCont& nc, NBDistrictCont& dc, NBTrafficLightLogicCont& tlc) {
     if (splits.size() == 0) {
         return;
     }
@@ -450,7 +450,7 @@ NBEdgeCont::processSplits(NBEdge* e, std::vector<Split> splits,
                 firstID = idBefore;
             }
             const bool ok = splitAt(dc, e, exp.pos - seen, exp.node,
-                    idBefore, idAfter, e->getNumLanes(), (int) exp.lanes.size(), exp.speed);
+                                    idBefore, idAfter, e->getNumLanes(), (int) exp.lanes.size(), exp.speed);
             if (!ok) {
                 WRITE_WARNING("Error on parsing a split (edge '" + origID + "').");
             }
@@ -818,7 +818,7 @@ NBEdgeCont::recheckLanes() {
 
 
 void
-NBEdgeCont::appendTurnarounds(bool noTLSControlled, bool onlyDeadends ) {
+NBEdgeCont::appendTurnarounds(bool noTLSControlled, bool onlyDeadends) {
     for (EdgeCont::iterator i = myEdges.begin(); i != myEdges.end(); i++) {
         (*i).second->appendTurnaround(noTLSControlled, onlyDeadends, true);
     }
@@ -833,7 +833,7 @@ NBEdgeCont::appendTurnarounds(const std::set<std::string>& ids, bool noTLSContro
 }
 
 
-void 
+void
 NBEdgeCont::appendRailwayTurnarounds(const NBPTStopCont& sc) {
     std::set<std::string> stopEdgeIDs;
     for (auto& stopItem : sc.getStops()) {
@@ -841,15 +841,15 @@ NBEdgeCont::appendRailwayTurnarounds(const NBPTStopCont& sc) {
     }
     for (auto& item : myEdges) {
         NBEdge* edge = item.second;
-        if (edge->isBidiRail() 
+        if (edge->isBidiRail()
                 && (stopEdgeIDs.count(item.first) > 0 ||
                     stopEdgeIDs.count(edge->getTurnDestination(true)->getID()) > 0)) {
             NBEdge* to = edge->getTurnDestination(true);
             assert(to != 0);
             edge->setConnection(edge->getNumLanes() - 1,
-                    to, to->getNumLanes() - 1, NBEdge::L2L_VALIDATED, false, false, true, 
-                    NBEdge::UNSPECIFIED_CONTPOS, NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE, 
-                    SUMO_const_haltingSpeed);
+                                to, to->getNumLanes() - 1, NBEdge::L2L_VALIDATED, false, false, true,
+                                NBEdge::UNSPECIFIED_CONTPOS, NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE,
+                                SUMO_const_haltingSpeed);
         }
     }
 }
@@ -1438,7 +1438,7 @@ NBEdgeCont::checkGrade(double threshold) const {
 }
 
 
-EdgeVector 
+EdgeVector
 NBEdgeCont::getAllEdges() const {
     EdgeVector result;
     for (auto item : myEdges) {

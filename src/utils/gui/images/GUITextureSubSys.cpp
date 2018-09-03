@@ -177,7 +177,7 @@ void
 GUITextureSubSys::resetTextures() {
     // Reset all textures
     GUITexturesHelper::clearTextures();
-    for (auto &i : myInstance->myTextures) {
+    for (auto& i : myInstance->myTextures) {
         i.second = 0;
     }
 }

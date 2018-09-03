@@ -142,7 +142,7 @@ public:
         }
         const int ret = avcodec_open2(pCodecCtx, pCodec, &param);
         if (ret < 0) {
-            throw std::runtime_error("Failed to open encoder ("+ toString(ret) +")!");
+            throw std::runtime_error("Failed to open encoder (" + toString(ret) + ")!");
         }
 
         myFrame = av_frame_alloc();

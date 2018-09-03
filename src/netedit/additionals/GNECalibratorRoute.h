@@ -46,10 +46,10 @@ class GNECalibratorRoute : public GNEAdditional {
 
 public:
     /// @brief default constructor (used only in GNECalibratorDialog)
-    GNECalibratorRoute(GNEViewNet *viewNet);
+    GNECalibratorRoute(GNEViewNet* viewNet);
 
     /// @brief parameter constructor
-    GNECalibratorRoute(GNEViewNet *viewNet, const std::string& routeID, const std::vector<GNEEdge*>& edges, const RGBColor& color);
+    GNECalibratorRoute(GNEViewNet* viewNet, const std::string& routeID, const std::vector<GNEEdge*>& edges, const RGBColor& color);
 
     /// @brief destructor
     ~GNECalibratorRoute();

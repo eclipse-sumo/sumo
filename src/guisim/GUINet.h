@@ -92,7 +92,7 @@ public:
      * @exception ProcessError If a network was already constructed
      */
     GUINet(MSVehicleControl* vc, MSEventControl* beginOfTimestepEvents,
-           MSEventControl* endOfTimestepEvents, 
+           MSEventControl* endOfTimestepEvents,
            MSEventControl* insertionEvents);
 
 
@@ -322,7 +322,7 @@ public:
      */
     static GUINet* getGUIInstance();
 
-    /// @brief creates a wrapper for the given logic 
+    /// @brief creates a wrapper for the given logic
     void createTLWrapper(MSTrafficLightLogic* tll);
 
 

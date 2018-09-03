@@ -465,8 +465,8 @@ GNEConnectorFrame::getLaneStatus(const std::vector<NBEdge::Connection>& connecti
         } else {
             return CONNECTED;
         }
-    } else if (srcEdge->hasConnectionTo(destEdge, toIndex) 
-            || (srcEdge->getPermissions(fromIndex) & destEdge->getPermissions(toIndex) & ~SVC_PEDESTRIAN) == 0) {
+    } else if (srcEdge->hasConnectionTo(destEdge, toIndex)
+               || (srcEdge->getPermissions(fromIndex) & destEdge->getPermissions(toIndex) & ~SVC_PEDESTRIAN) == 0) {
         return CONFLICTED;
     } else {
         return UNCONNECTED;

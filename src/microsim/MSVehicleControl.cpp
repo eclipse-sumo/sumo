@@ -60,8 +60,7 @@ MSVehicleControl::MSVehicleControl() :
     myWaitingForPerson(0),
     myWaitingForContainer(0),
     myMaxSpeedFactor(1),
-    myMinDeceleration(SUMOVTypeParameter::getDefaultDecel(SVC_IGNORING)) 
-{
+    myMinDeceleration(SUMOVTypeParameter::getDefaultDecel(SVC_IGNORING)) {
     SUMOVTypeParameter defType(DEFAULT_VTYPE_ID, SVC_PASSENGER);
     myVTypeDict[DEFAULT_VTYPE_ID] = MSVehicleType::build(defType);
     SUMOVTypeParameter defPedType(DEFAULT_PEDTYPE_ID, SVC_PEDESTRIAN);
@@ -281,8 +280,7 @@ MSVehicleControl::addVTypeDistribution(const std::string& id, RandomDistributor<
         for (auto vehType : vehTypes) {
             if (myVTypeToDist.find(vehType->getID()) != myVTypeToDist.end()) {
                 myVTypeToDist[vehType->getID()].insert(id);
-            }
-            else {
+            } else {
                 myVTypeToDist[vehType->getID()] = { id };
             }
         }

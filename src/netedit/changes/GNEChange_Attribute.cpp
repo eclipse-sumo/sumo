@@ -122,7 +122,7 @@ GNEChange_Attribute::undo() {
     // set original value
     myAC->setAttribute(myKey, myOrigValue);
     // check if netElements, additional or shapes has to be saved (only if key isn't GNE_ATTR_SELECTED)
-    if(myKey != GNE_ATTR_SELECTED) {
+    if (myKey != GNE_ATTR_SELECTED) {
         if (myNetElement) {
             myNet->requiereSaveNet(true);
         } else if (myAdditional) {
@@ -141,7 +141,7 @@ GNEChange_Attribute::redo() {
     // set new value
     myAC->setAttribute(myKey, myNewValue);
     // check if netElements, additional or shapes has to be saved (only if key isn't GNE_ATTR_SELECTED)
-    if(myKey != GNE_ATTR_SELECTED) {
+    if (myKey != GNE_ATTR_SELECTED) {
         if (myNetElement) {
             myNet->requiereSaveNet(true);
         } else if (myAdditional) {

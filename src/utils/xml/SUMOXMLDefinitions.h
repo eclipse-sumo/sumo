@@ -859,7 +859,7 @@ enum SumoXMLAttr {
     GNE_ATTR_SHAPE_START,
     /// @brief last coordinate of edge shape
     GNE_ATTR_SHAPE_END,
-    /// @brief whether an edge is part of a bidirectional railway 
+    /// @brief whether an edge is part of a bidirectional railway
     GNE_ATTR_BIDIR,
     /// @brief block movement of a graphic element
     GNE_ATTR_BLOCK_MOVEMENT,
@@ -1109,9 +1109,9 @@ enum LaneChangeAction {
     LCA_BLOCKED = LCA_BLOCKED_LEFT | LCA_BLOCKED_RIGHT | LCA_INSUFFICIENT_SPACE | LCA_INSUFFICIENT_SPEED,
     /// @brief reasons of lane change
     LCA_CHANGE_REASONS = (LCA_STRATEGIC | LCA_COOPERATIVE | LCA_SPEEDGAIN | LCA_KEEPRIGHT | LCA_SUBLANE | LCA_TRACI),
-                         // LCA_BLOCKED_BY_CURRENT_LEADER = 1 << 28
-                         // LCA_BLOCKED_BY_CURRENT_FOLLOWER = 1 << 29
-                         /// @}
+    // LCA_BLOCKED_BY_CURRENT_LEADER = 1 << 28
+    // LCA_BLOCKED_BY_CURRENT_FOLLOWER = 1 << 29
+    /// @}
 
     /// @name originally model specific states (migrated here since
     ///       they were duplicated in all current models)
@@ -1128,7 +1128,7 @@ enum LaneChangeAction {
     // !!! never used LCA_KEEP2 = 1 << 25,
     LCA_AMBACKBLOCKER = 1 << 26,
     LCA_AMBACKBLOCKER_STANDING = 1 << 27
-    /// @}
+                                 /// @}
 };
 
 
@@ -1217,7 +1217,7 @@ public:
 
     /// @name Helper functions for ID-string manipulations
     /// @{
-    
+
     /// @brief whether the given string is a valid id for a network element
     static bool isValidNetID(const std::string& value);
 

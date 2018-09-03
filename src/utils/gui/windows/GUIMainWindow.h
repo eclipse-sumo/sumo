@@ -120,7 +120,7 @@ public:
     GUISUMOAbstractView* getActiveView() const;
 
     /// @brief Toggle full screen mode
-    virtual long onCmdFullScreen(FXObject*, FXSelector, void*) { 
+    virtual long onCmdFullScreen(FXObject*, FXSelector, void*) {
         return 1;
     }
 

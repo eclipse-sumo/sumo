@@ -212,7 +212,7 @@ public:
     bool partialWithin(const AbstractPoly& poly, double offset = 0) const;
 
     /// @brief Returns the two lists made when this list vector is splitted at the given point
-    std::pair<PositionVector, PositionVector> splitAt(double where, bool use2D=false) const;
+    std::pair<PositionVector, PositionVector> splitAt(double where, bool use2D = false) const;
 
     //// @brief Output operator
     friend std::ostream& operator<<(std::ostream& os, const PositionVector& geom);
@@ -383,7 +383,7 @@ public:
     /* @brief return the maximum grade of all segments as a fraction of zRange/length2D
      * @param[out] maxJump The maximum vertical jump (with grade infinity)
      */
-    double getMaxGrade(double &maxJump) const;
+    double getMaxGrade(double& maxJump) const;
 
 private:
     /// @brief return whether the line segments defined by Line p11,p12 and Line p21,p22 intersect

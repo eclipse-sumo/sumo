@@ -225,8 +225,8 @@ public:
         int offsetFactor;
     };
 
-    void processSplits(NBEdge* e, std::vector<Split> splits, 
-            NBNodeCont& nc, NBDistrictCont& dc, NBTrafficLightLogicCont& tlc);
+    void processSplits(NBEdge* e, std::vector<Split> splits,
+                       NBNodeCont& nc, NBDistrictCont& dc, NBTrafficLightLogicCont& tlc);
 
 
     /** @brief Splits the edge at the position nearest to the given node

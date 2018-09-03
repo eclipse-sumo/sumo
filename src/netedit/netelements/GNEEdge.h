@@ -218,16 +218,16 @@ public:
     /// @{
 
     /// @brief add generic parameter
-    bool addGenericParameter(const std::string &key, const std::string &value);
+    bool addGenericParameter(const std::string& key, const std::string& value);
 
     /// @brief remove generic parameter
-    bool removeGenericParameter(const std::string &key);
+    bool removeGenericParameter(const std::string& key);
 
     /// @brief update generic parameter
-    bool updateGenericParameter(const std::string &oldKey, const std::string &newKey);
+    bool updateGenericParameter(const std::string& oldKey, const std::string& newKey);
 
-    /// @brief update value generic parameter 
-    bool updateGenericParameterValue(const std::string &key, const std::string &newValue);
+    /// @brief update value generic parameter
+    bool updateGenericParameterValue(const std::string& key, const std::string& newValue);
 
     /// @brief return generic parameters in string format
     std::string getGenericParametersStr() const;
@@ -236,7 +236,7 @@ public:
     std::vector<std::pair<std::string, std::string> > getGenericParameters() const;
 
     /// @brief set generic parameters in string format
-    void setGenericParametersStr(const std::string &value);
+    void setGenericParametersStr(const std::string& value);
 
     /// @}
 
@@ -369,10 +369,10 @@ private:
     void removeEdgeFromCrossings(GNEJunction* junction, GNEUndoList* undoList);
 
     /// @brief change Shape StartPos
-    void setShapeStartPos(const Position &pos);
+    void setShapeStartPos(const Position& pos);
 
     /// @brief change Shape EndPos
-    void setShapeEndPos(const Position &pos);
+    void setShapeEndPos(const Position& pos);
 
     /// @brief invalidated copy constructor
     GNEEdge(const GNEEdge& s) = delete;

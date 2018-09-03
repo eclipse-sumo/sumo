@@ -35,19 +35,19 @@
  */
 class AbstractPoly {
 public:
-    /// @brief constructor 
+    /// @brief constructor
     AbstractPoly() { }
 
-    /// @brief copy constructor 
+    /// @brief copy constructor
     AbstractPoly(const AbstractPoly&) { }
 
-    /// @brief destructor  
+    /// @brief destructor
     virtual ~AbstractPoly() { }
 
     /// @brief Returns whether the AbstractPoly the given coordinate
     virtual bool around(const Position& p, double offset = 0) const = 0;
 
-     /// @brief Returns whether the AbstractPoly overlaps with the given polygon
+    /// @brief Returns whether the AbstractPoly overlaps with the given polygon
     virtual bool overlapsWith(const AbstractPoly& poly, double offset = 0) const = 0;
 
     /// @brief Returns whether the AbstractPoly is partially within the given polygon

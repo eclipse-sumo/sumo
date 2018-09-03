@@ -34,8 +34,8 @@ class NamedRTree;
 class MSInductLoop;
 class PositionVector;
 namespace libsumo {
-    struct TraCIVehicleData;
-    class VariableWrapper;
+struct TraCIVehicleData;
+class VariableWrapper;
 }
 
 

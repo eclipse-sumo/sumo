@@ -134,7 +134,7 @@ public:
 
         /// @brief stopOffsets.second - The stop offset for vehicles stopping at the lane's end.
         ///        Applies if vClass is in in stopOffset.first bitset
-        std::map<int,double> stopOffsets;
+        std::map<int, double> stopOffsets;
 
         /// @brief This lane's width
         double width;
@@ -276,7 +276,7 @@ public:
     /// @brief internal lane computation not yet done
     static const int UNSPECIFIED_INTERNAL_LANE_INDEX;
 
-     /// @brief TLS-controlled despite its node controlled not specified. 
+    /// @brief TLS-controlled despite its node controlled not specified.
     static const bool UNSPECIFIED_CONNECTION_UNCONTROLLED;
 
     /// @brief junction priority values set by setJunctionPriority
@@ -554,7 +554,7 @@ public:
     /** @brief Returns the stopOffset to the end of the edge
      * @return The offset to the end of the edge
      */
-    const std::map<int,double>& getStopOffsets() const {
+    const std::map<int, double>& getStopOffsets() const {
         return myStopOffsets;
     }
 
@@ -566,7 +566,7 @@ public:
     /** @brief Returns the stop offset to the specified lane's end
      * @return The stop offset to the specified lane's end
      */
-    const std::map<int,double>& getStopOffsets(int lane) const;
+    const std::map<int, double>& getStopOffsets(int lane) const;
 
     /// @brief Returns the offset of a traffic signal from the end of this edge
     double getSignalOffset() const {
@@ -1180,7 +1180,7 @@ public:
 
     /// @brief set lane and vehicle class specific stopOffset (negative lane implies set for all lanes)
     /// @return Whether given stop offset was applied.
-    bool setStopOffsets(int lane, std::map<int,double> offsets, bool overwrite = false);
+    bool setStopOffsets(int lane, std::map<int, double> offsets, bool overwrite = false);
 
     /// @brief marks one lane as acceleration lane
     void setAcceleration(int lane, bool accelRamp);
@@ -1242,7 +1242,7 @@ public:
     void resetNodeBorder(const NBNode* node);
 
     /// @brief whether this edge is part of a bidirectional railway
-    bool isBidiRail(bool ignoreSpread=false) const;
+    bool isBidiRail(bool ignoreSpread = false) const;
 
     /// @brief whether this edge is a railway edge that does not continue
     bool isRailDeadEnd() const;
@@ -1277,12 +1277,12 @@ public:
 
     /** @brief Returns the following edges for the given vClass
      */
-    const EdgeVector& getSuccessors(SUMOVehicleClass vClass=SVC_IGNORING) const;
+    const EdgeVector& getSuccessors(SUMOVehicleClass vClass = SVC_IGNORING) const;
 
 
     /** @brief Returns the following edges for the given vClass
      */
-    const NBConstEdgePairVector& getViaSuccessors(SUMOVehicleClass vClass=SVC_IGNORING) const;
+    const NBConstEdgePairVector& getViaSuccessors(SUMOVehicleClass vClass = SVC_IGNORING) const;
 
 
     //@}
@@ -1425,7 +1425,7 @@ private:
     void computeAngle();
 
     /// @brief determine conflict between opposite left turns
-    bool bothLeftIntersect(const NBNode& n, const PositionVector& shape, LinkDirection dir, NBEdge* otherFrom, const NBEdge::Connection& otherCon, int numPoints, double width2) const; 
+    bool bothLeftIntersect(const NBNode& n, const PositionVector& shape, LinkDirection dir, NBEdge* otherFrom, const NBEdge::Connection& otherCon, int numPoints, double width2) const;
 
     /// @brief add a lane of the given width, restricted to the given class and shift existing connections
     void addRestrictedLane(double width, SUMOVehicleClass vclass);
@@ -1494,7 +1494,7 @@ private:
     ///        For the latter case the int is a bit set specifying the vClasses,
     ///        the offset applies to (see SUMOVehicleClass.h), and the double is the
     ///        stopping offset in meters from the lane end
-    std::map<int,double> myStopOffsets;
+    std::map<int, double> myStopOffsets;
 
     /// @brief This width of this edge's lanes
     double myLaneWidth;

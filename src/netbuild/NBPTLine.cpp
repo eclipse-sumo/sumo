@@ -30,8 +30,8 @@ NBPTLine::NBPTLine(const std::string& name, const std::string& type, const std::
     myPTLineId(-1),
     myRef(ref != "" ? ref : name),
     myInterval(interval),
-    myNightService(nightService)
-{ }
+    myNightService(nightService) {
+}
 
 void NBPTLine::addPTStop(NBPTStop* pStop) {
     myPTStops.push_back(pStop);
@@ -59,7 +59,7 @@ void NBPTLine::write(OutputDevice& device, NBEdgeCont& ec) {
     device.writeAttr(SUMO_ATTR_LINE, StringUtils::escapeXML(myRef));
     device.writeAttr(SUMO_ATTR_TYPE, myType);
     if (myInterval > 0) {
-        // write seconds 
+        // write seconds
         device.writeAttr(SUMO_ATTR_PERIOD, 60 * myInterval);
     }
     if (myNightService != "") {

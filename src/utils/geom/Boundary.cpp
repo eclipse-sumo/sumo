@@ -213,7 +213,7 @@ Boundary::crosses(const Position& p1, const Position& p2) const {
 }
 
 
-bool 
+bool
 Boundary::isInitialised() const {
     return myWasInitialised;
 }
@@ -340,17 +340,17 @@ operator<<(std::ostream& os, const Boundary& b) {
 bool
 Boundary::operator==(const Boundary& b) const {
     return (
-            myXmin == b.myXmin &&
-            myXmax == b.myXmax && 
-            myYmin == b.myYmin &&
-            myYmax == b.myYmax && 
-            myZmin == b.myZmin &&
-            myZmax == b.myZmax && 
-            myWasInitialised == b.myWasInitialised);
+               myXmin == b.myXmin &&
+               myXmax == b.myXmax &&
+               myYmin == b.myYmin &&
+               myYmax == b.myYmax &&
+               myZmin == b.myZmin &&
+               myZmax == b.myZmax &&
+               myWasInitialised == b.myWasInitialised);
 }
 
 
-bool 
+bool
 Boundary::operator!=(const Boundary& b) const {
     return !(*this == b);
 }

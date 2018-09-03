@@ -43,11 +43,10 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NGNet::NGNet(NBNetBuilder& nb) : 
+NGNet::NGNet(NBNetBuilder& nb) :
     myLastID(0),
     myAlphaIDs(OptionsCont::getOptions().getBool("alphanumerical-ids")),
-    myNetBuilder(nb)
-{
+    myNetBuilder(nb) {
 }
 
 
@@ -77,11 +76,11 @@ NGNet::findNode(int xID, int yID) {
     return 0;
 }
 
-std::string 
+std::string
 NGNet::alphabeticalCode(int i, int iMax) {
     // lazy mans 26th root to determine number of characters for x-label
     int xn = 1;
-    for (;std::pow(26, xn) < iMax; xn++) {};
+    for (; std::pow(26, xn) < iMax; xn++) {};
     std::string result = "";
     for (int j = 0; j < xn; j++) {
         result = char('A' + (i % 26)) + result;
@@ -171,9 +170,9 @@ NGNet::createSpiderWeb(int numRadDiv, int numCircles, double spaceRad, bool hasC
         const std::string nodeIDStart = alphabeticalCode(ic, numCircles);
         for (ir = 1; ir < numRadDiv + 1; ir++) {
             // create Node
-            const std::string nodeID = (myAlphaIDs ? 
-                    nodeIDStart + toString<int>(ir) :
-                    toString<int>(ir) + "/" + toString<int>(ic));
+            const std::string nodeID = (myAlphaIDs ?
+                                        nodeIDStart + toString<int>(ir) :
+                                        toString<int>(ir) + "/" + toString<int>(ic));
             Node = new NGNode(nodeID, ir, ic);
             Node->setX(radialToX((ic) * spaceRad, (ir - 1) * angle));
             Node->setY(radialToY((ic) * spaceRad, (ir - 1) * angle));
@@ -234,7 +233,7 @@ NGNet::toNB() const {
         for (NBEdge* e : node->getIncomingEdges()) {
             if (node->getConnectionTo(e->getFromNode()) == 0 && RandHelper::rand() <= bidiProb) {
                 NBEdge* back = new NBEdge("-" + e->getID(), node, e->getFromNode(),
-                                          "", myNetBuilder.getTypeCont().getSpeed(""), 
+                                          "", myNetBuilder.getTypeCont().getSpeed(""),
                                           e->getNumLanes(),
                                           e->getPriority(),
                                           myNetBuilder.getTypeCont().getWidth(""), NBEdge::UNSPECIFIED_OFFSET);
@@ -285,10 +284,10 @@ NGNet::toNB() const {
                 }
             }
             splits.push_back(split);
-            ec.processSplits(e, splits, 
-                    myNetBuilder.getNodeCont(),
-                    myNetBuilder.getDistrictCont(),
-                    myNetBuilder.getTLLogicCont());
+            ec.processSplits(e, splits,
+                             myNetBuilder.getNodeCont(),
+                             myNetBuilder.getDistrictCont(),
+                             myNetBuilder.getTLLogicCont());
         }
     }
 }

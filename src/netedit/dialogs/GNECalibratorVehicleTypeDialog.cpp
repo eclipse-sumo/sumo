@@ -57,7 +57,7 @@ GNECalibratorVehicleTypeDialog::GNECalibratorVehicleTypeDialog(GNEAdditional* ed
     myCalibratorVehicleTypeValid(true),
     myInvalidAttr(SUMO_ATTR_NOTHING) {
     // change default header
-    changeAdditionalDialogHeader(updatingElement? "Edit " + toString(myEditedAdditional->getTag()) + " of " : "Create " + toString(myEditedAdditional->getTag()));
+    changeAdditionalDialogHeader(updatingElement ? "Edit " + toString(myEditedAdditional->getTag()) + " of " : "Create " + toString(myEditedAdditional->getTag()));
 
     // Create auxiliar frames for values
     FXHorizontalFrame* columns = new FXHorizontalFrame(myContentFrame, GUIDesignUniformHorizontalFrame);

@@ -39,8 +39,7 @@
 MSCFModel_KraussX::MSCFModel_KraussX(const MSVehicleType* vtype):
     MSCFModel_Krauss(vtype),
     myTmp1(vtype->getParameter().getCFParam(SUMO_ATTR_TMP1, 0.0)),
-    myTmp2(vtype->getParameter().getCFParam(SUMO_ATTR_TMP2, 0.0))
-{
+    myTmp2(vtype->getParameter().getCFParam(SUMO_ATTR_TMP2, 0.0)) {
 }
 
 
@@ -53,7 +52,7 @@ MSCFModel_KraussX::duplicate(const MSVehicleType* vtype) const {
 }
 
 
-double 
+double
 MSCFModel_KraussX::patchSpeedBeforeLC(const MSVehicle* veh, double vMin, double vMax) const {
     return dawdleX(veh->getSpeed(), vMin, vMax);
 }

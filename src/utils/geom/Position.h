@@ -268,7 +268,7 @@ public:
     }
 
     /// @brief rotate this position by rad around origin and return the result
-    Position rotateAround2D(double rad, const Position& origin); 
+    Position rotateAround2D(double rad, const Position& origin);
 
     /// @brief used to indicate that a position is valid
     static const Position INVALID;

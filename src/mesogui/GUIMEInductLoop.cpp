@@ -56,7 +56,7 @@ GUIMEInductLoop::buildDetectorGUIRepresentation() {
 
 // -----------------------------------------------------------------------
 // GUIMEInductLoop::MyWrapper-methods
-// ----------------------------------------------------------------------- 
+// -----------------------------------------------------------------------
 
 GUIMEInductLoop::MyWrapper::MyWrapper(GUIMEInductLoop& detector, double pos)
     : GUIDetectorWrapper(GLO_E1DETECTOR_ME, detector.getID()),

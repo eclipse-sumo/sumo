@@ -123,14 +123,14 @@ Route::makeWrapper() {
 bool
 Route::handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper) {
     switch (variable) {
-    case ID_LIST:
-        return wrapper->wrapStringList(objID, variable, getIDList());
-    case ID_COUNT:
-        return wrapper->wrapInt(objID, variable, getIDCount());
-    case VAR_EDGES:
-        return wrapper->wrapStringList(objID, variable, getEdges(objID));
-    default:
-        return false;
+        case ID_LIST:
+            return wrapper->wrapStringList(objID, variable, getIDList());
+        case ID_COUNT:
+            return wrapper->wrapInt(objID, variable, getIDCount());
+        case VAR_EDGES:
+            return wrapper->wrapStringList(objID, variable, getEdges(objID));
+        default:
+            return false;
     }
 }
 

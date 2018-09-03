@@ -137,7 +137,7 @@ GNERerouterDialog::onCmdAddInterval(FXObject*, FXSelector, void*) {
 }
 
 
-long 
+long
 GNERerouterDialog::onCmdSortIntervals(FXObject*, FXSelector, void*) {
     // Sort variable speed sign steps
     myEditedAdditional->sortAdditionalChilds();
@@ -185,7 +185,7 @@ GNERerouterDialog::updateIntervalTable() {
     myIntervalTable->setColumnWidth(0, 137);
     myIntervalTable->setColumnWidth(1, 136);
     myIntervalTable->setColumnWidth(2, GUIDesignTableIconCellWidth);
-    myIntervalTable->setColumnText(0, toString(SUMO_ATTR_BEGIN).c_str()); 
+    myIntervalTable->setColumnText(0, toString(SUMO_ATTR_BEGIN).c_str());
     myIntervalTable->setColumnText(1, toString(SUMO_ATTR_END).c_str());
     myIntervalTable->setColumnText(2, "");
     myIntervalTable->getRowHeader()->setWidth(0);

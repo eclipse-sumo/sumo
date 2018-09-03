@@ -1005,7 +1005,7 @@ MSEdge::canChangeToOpposite() {
 
 const MSEdge*
 MSEdge::getOppositeEdge() const {
-    if (!myLanes->empty() && myLanes->back()->getOpposite() != nullptr){
+    if (!myLanes->empty() && myLanes->back()->getOpposite() != nullptr) {
         return &(myLanes->back()->getEdge());
     } else {
         return nullptr;

@@ -120,7 +120,7 @@ GNENet::GNENet(NBNetBuilder* netBuilder) :
     myNetSaved(true),
     myAdditionalsSaved(true),
     myShapesSaved(true),
-    myTLSProgramsSaved(true), 
+    myTLSProgramsSaved(true),
     myAllowUndoShapes(true) {
     // set net in gIDStorage
     GUIGlObjectStorage::gIDStorage.setNetObject(this);
@@ -139,7 +139,7 @@ GNENet::GNENet(NBNetBuilder* netBuilder) :
     }
 
     // default vehicle type is always available
-    GNECalibratorVehicleType *defaultVehicleType = new GNECalibratorVehicleType(myViewNet, DEFAULT_VTYPE_ID);
+    GNECalibratorVehicleType* defaultVehicleType = new GNECalibratorVehicleType(myViewNet, DEFAULT_VTYPE_ID);
     myAttributeCarriers.additionals.at(defaultVehicleType->getTag()).insert(std::make_pair(defaultVehicleType->getID(), defaultVehicleType));
     defaultVehicleType->incRef("GNENet::DEFAULT_VEHTYPE");
 }
@@ -223,7 +223,7 @@ GNENet::addPolygon(const std::string& id, const std::string& type, const RGBColo
     if (myPolygons.get(id) == nullptr) {
         // create poly
         GNEPoly* poly = new GNEPoly(this, id, type, shape, geo, fill, color, layer, angle, imgFile, relativePath, false, false);
-        if(myAllowUndoShapes) {
+        if (myAllowUndoShapes) {
             myViewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_POLY));
             myViewNet->getUndoList()->add(new GNEChange_Shape(poly, true), true);
             myViewNet->getUndoList()->p_end();
@@ -250,7 +250,7 @@ GNENet::addPOI(const std::string& id, const std::string& type, const RGBColor& c
             // create POI
             GNEPOI* poi = new GNEPOI(this, id, type, color, pos, geo, layer, angle, imgFile, relativePath, width, height, false);
             if (myPOIs.add(poi->getID(), poi)) {
-                if(myAllowUndoShapes) {
+                if (myAllowUndoShapes) {
                     myViewNet->getUndoList()->p_begin("add " + toString(poi->getTag()));
                     myViewNet->getUndoList()->add(new GNEChange_Shape(poi, true), true);
                     myViewNet->getUndoList()->p_end();
@@ -268,7 +268,7 @@ GNENet::addPOI(const std::string& id, const std::string& type, const RGBColor& c
             GNELane* retrievedLane = retrieveLane(lane);
             GNEPOI* poi = new GNEPOI(this, id, type, color, layer, angle, imgFile, relativePath, retrievedLane, posOverLane, posLat, width, height, false);
             if (myPOIs.add(poi->getID(), poi)) {
-                if(myAllowUndoShapes) {
+                if (myAllowUndoShapes) {
                     myViewNet->getUndoList()->p_begin("add " + toString(poi->getTag()));
                     myViewNet->getUndoList()->add(new GNEChange_Shape(poi, true), true);
                     myViewNet->getUndoList()->p_end();
@@ -463,12 +463,12 @@ GNENet::deleteEdge(GNEEdge* edge, GNEUndoList* undoList, bool recomputeConnectio
         edge->getGNEJunctionSource()->removeConnectionsFrom(edge, undoList, true);
     }
     // if junction source is a TLS and after deletion will have only an edge, remove TLS
-    if(edge->getGNEJunctionSource()->getNBNode()->isTLControlled() && (edge->getGNEJunctionSource()->getGNEOutgoingEdges().size() <= 1)) {
-            edge->getGNEJunctionSource()->setAttribute(SUMO_ATTR_TYPE, toString(NODETYPE_PRIORITY), undoList);
+    if (edge->getGNEJunctionSource()->getNBNode()->isTLControlled() && (edge->getGNEJunctionSource()->getGNEOutgoingEdges().size() <= 1)) {
+        edge->getGNEJunctionSource()->setAttribute(SUMO_ATTR_TYPE, toString(NODETYPE_PRIORITY), undoList);
     }
     // if junction destiny is a TLS and after deletion will have only an edge, remove TLS
-    if(edge->getGNEJunctionDestiny()->getNBNode()->isTLControlled() && (edge->getGNEJunctionDestiny()->getGNEIncomingEdges().size() <= 1)) {
-            edge->getGNEJunctionDestiny()->setAttribute(SUMO_ATTR_TYPE, toString(NODETYPE_PRIORITY), undoList);
+    if (edge->getGNEJunctionDestiny()->getNBNode()->isTLControlled() && (edge->getGNEJunctionDestiny()->getGNEIncomingEdges().size() <= 1)) {
+        edge->getGNEJunctionDestiny()->setAttribute(SUMO_ATTR_TYPE, toString(NODETYPE_PRIORITY), undoList);
     }
     // Delete edge
     undoList->add(new GNEChange_Edge(edge, false), true);
@@ -583,8 +583,8 @@ GNENet::deleteCrossing(GNECrossing* crossing, GNEUndoList* undoList) {
                                          crossing->getNBCrossing()->width, crossing->getNBCrossing()->priority,
                                          crossing->getNBCrossing()->customTLIndex,
                                          crossing->getNBCrossing()->customTLIndex2,
-                                         crossing->getNBCrossing()->customShape, 
-                                         crossing->isAttributeCarrierSelected(), 
+                                         crossing->getNBCrossing()->customShape,
+                                         crossing->isAttributeCarrierSelected(),
                                          false), true);
     // remove crossing requieres always a recompute (due geometry and connections)
     requireRecompute();
@@ -632,8 +632,8 @@ GNENet::restrictLane(SUMOVehicleClass vclass, GNELane* lane, GNEUndoList* undoLi
     // restrict the lane
     if (addRestriction) {
         const double width = (vclass == SVC_PEDESTRIAN || vclass == SVC_BICYCLE
-                ? OptionsCont::getOptions().getFloat("default.sidewalk-width")
-                : OptionsCont::getOptions().getFloat("default.lanewidth"));
+                              ? OptionsCont::getOptions().getFloat("default.sidewalk-width")
+                              : OptionsCont::getOptions().getFloat("default.lanewidth"));
         lane->setAttribute(SUMO_ATTR_ALLOW, toString(vclass), undoList);
         lane->setAttribute(SUMO_ATTR_WIDTH, toString(width), undoList);
         return true;
@@ -840,19 +840,19 @@ GNENet::checkJunctionPosition(const Position& pos) {
 }
 
 
-void 
+void
 GNENet::requiereSaveNet(bool value) {
     if (myNetSaved == true) {
         WRITE_DEBUG("net has to be saved");
-        std::string additionalsSaved = (myAdditionalsSaved?"saved":"unsaved");
-        std::string shapeSaved = (myShapesSaved?"saved":"unsaved");
+        std::string additionalsSaved = (myAdditionalsSaved ? "saved" : "unsaved");
+        std::string shapeSaved = (myShapesSaved ? "saved" : "unsaved");
         WRITE_DEBUG("Current saving Status: net unsaved, additionals " + additionalsSaved + ", shapes " + shapeSaved);
     }
     myNetSaved = !value;
 }
 
 
-bool 
+bool
 GNENet::isNetSaved() const {
     return myNetSaved;
 }
@@ -962,13 +962,13 @@ GNENet::retrievePOI(const std::string& id, bool failHard) const {
 }
 
 
-GNEConnection* 
+GNEConnection*
 GNENet::retrieveConnection(const std::string& id, bool failHard) const {
     // iterate over junctions
     for (auto i : myAttributeCarriers.junctions) {
         // iterate over connections
         for (auto j : i.second->getGNEConnections()) {
-            if(j->getID() == id) {
+            if (j->getID() == id) {
                 return j;
             }
         }
@@ -982,14 +982,14 @@ GNENet::retrieveConnection(const std::string& id, bool failHard) const {
 }
 
 
-std::vector<GNEConnection*> 
+std::vector<GNEConnection*>
 GNENet::retrieveConnections(bool onlySelected) const {
     std::vector<GNEConnection*> result;
     // iterate over junctions
     for (auto i : myAttributeCarriers.junctions) {
         // iterate over connections
         for (auto j : i.second->getGNEConnections()) {
-            if(!onlySelected || j->isAttributeCarrierSelected()) {
+            if (!onlySelected || j->isAttributeCarrierSelected()) {
                 result.push_back(j);
             }
         }
@@ -998,7 +998,7 @@ GNENet::retrieveConnections(bool onlySelected) const {
 }
 
 
-GNECrossing* 
+GNECrossing*
 GNENet::retrieveCrossing(const std::string& id, bool failHard) const {
     // iterate over junctions
     for (auto i : myAttributeCarriers.junctions) {
@@ -1018,14 +1018,14 @@ GNENet::retrieveCrossing(const std::string& id, bool failHard) const {
 }
 
 
-std::vector<GNECrossing*> 
+std::vector<GNECrossing*>
 GNENet::retrieveCrossings(bool onlySelected) const {
     std::vector<GNECrossing*> result;
     // iterate over junctions
     for (auto i : myAttributeCarriers.junctions) {
         // iterate over crossings
         for (auto j : i.second->getGNECrossings()) {
-            if(!onlySelected || j->isAttributeCarrierSelected()) {
+            if (!onlySelected || j->isAttributeCarrierSelected()) {
                 result.push_back(j);
             }
         }
@@ -1039,7 +1039,7 @@ GNENet::retrieveEdges(bool onlySelected) {
     std::vector<GNEEdge*> result;
     // returns edges depending of selection
     for (auto i : myAttributeCarriers.edges) {
-        if(!onlySelected || i.second->isAttributeCarrierSelected()) {
+        if (!onlySelected || i.second->isAttributeCarrierSelected()) {
             result.push_back(i.second);
         }
     }
@@ -1053,7 +1053,7 @@ GNENet::retrieveLanes(bool onlySelected) {
     // returns lanes depending of selection
     for (auto i : myAttributeCarriers.edges) {
         for (auto j : i.second->getLanes()) {
-            if(!onlySelected || j->isAttributeCarrierSelected()) {
+            if (!onlySelected || j->isAttributeCarrierSelected()) {
                 result.push_back(j);
             }
         }
@@ -1100,7 +1100,7 @@ GNENet::retrieveJunctions(bool onlySelected) {
     std::vector<GNEJunction*> result;
     // returns junctions depending of selection
     for (auto i : myAttributeCarriers.junctions) {
-        if(!onlySelected || i.second->isAttributeCarrierSelected()) {
+        if (!onlySelected || i.second->isAttributeCarrierSelected()) {
             result.push_back(i.second);
         }
     }
@@ -1112,21 +1112,21 @@ std::vector<GNEShape*>
 GNENet::retrieveShapes(SumoXMLTag shapeTag, bool onlySelected) {
     std::vector<GNEShape*> result;
     // return dependingn of shape type
-    if(shapeTag == SUMO_TAG_POLY) {
+    if (shapeTag == SUMO_TAG_POLY) {
         // return all polys depending of onlySelected
         for (auto it : getPolygons()) {
-            GNEShape *shape = dynamic_cast<GNEShape*>(it.second);
-            if(!onlySelected || shape->isAttributeCarrierSelected()) {
+            GNEShape* shape = dynamic_cast<GNEShape*>(it.second);
+            if (!onlySelected || shape->isAttributeCarrierSelected()) {
                 result.push_back(shape);
             }
         }
     } else {
         // check if we need to return a POI or POILane
         for (auto it : getPOIs()) {
-            GNEPOI *poi = dynamic_cast<GNEPOI*>(it.second);
-            if(poi && (poi->getTag() == shapeTag)) {
+            GNEPOI* poi = dynamic_cast<GNEPOI*>(it.second);
+            if (poi && (poi->getTag() == shapeTag)) {
                 // return all POIs or POILanes depending of onlySelected
-                if(!onlySelected || poi->isAttributeCarrierSelected()) {
+                if (!onlySelected || poi->isAttributeCarrierSelected()) {
                     result.push_back(poi);
                 }
             }
@@ -1136,19 +1136,19 @@ GNENet::retrieveShapes(SumoXMLTag shapeTag, bool onlySelected) {
 }
 
 
-std::vector<GNEShape*> 
+std::vector<GNEShape*>
 GNENet::retrieveShapes(bool onlySelected) {
     std::vector<GNEShape*> result;
     // return all polygons and POIs
     for (const auto& it : getPolygons()) {
         GNEPoly* poly = dynamic_cast<GNEPoly*>(it.second);
-        if(!onlySelected || poly->isAttributeCarrierSelected()) {
+        if (!onlySelected || poly->isAttributeCarrierSelected()) {
             result.push_back(poly);
         }
     }
     for (const auto& it : getPOIs()) {
         GNEPOI* poi = dynamic_cast<GNEPOI*>(it.second);
-        if(!onlySelected || poi->isAttributeCarrierSelected()) {
+        if (!onlySelected || poi->isAttributeCarrierSelected()) {
             result.push_back(poi);
         }
     }
@@ -1156,14 +1156,14 @@ GNENet::retrieveShapes(bool onlySelected) {
 }
 
 
-void 
+void
 GNENet::addGLObjectIntoGrid(GUIGlObject* o) {
     myGrid.addAdditionalGLObject(o);
     update();
 }
 
 
-void 
+void
 GNENet::removeGLObjectFromGrid(GUIGlObject* o) {
     myGrid.removeAdditionalGLObject(o);
 }
@@ -1195,20 +1195,20 @@ GNENet::retrieveAttributeCarrier(GUIGlID id, bool failHard) {
 std::vector<GNEAttributeCarrier*>
 GNENet::retrieveAttributeCarriers(SumoXMLTag type) {
     std::vector<GNEAttributeCarrier*> result;
-    if(type == SUMO_TAG_NOTHING) {
+    if (type == SUMO_TAG_NOTHING) {
         // return all elements
         for (auto i : myAttributeCarriers.junctions) {
             result.push_back(i.second);
-            for(auto j : i.second->getGNECrossings()) {
+            for (auto j : i.second->getGNECrossings()) {
                 result.push_back(j);
             }
         }
         for (auto i : myAttributeCarriers.edges) {
             result.push_back(i.second);
-            for(auto j : i.second->getLanes()) {
+            for (auto j : i.second->getLanes()) {
                 result.push_back(j);
             }
-            for(auto j : i.second->getGNEConnections()) {
+            for (auto j : i.second->getGNEConnections()) {
                 result.push_back(j);
             }
         }
@@ -1243,22 +1243,22 @@ GNENet::retrieveAttributeCarriers(SumoXMLTag type) {
                 break;
             case SUMO_TAG_LANE:
                 for (auto i : myAttributeCarriers.edges) {
-                    for(auto j : i.second->getLanes()) {
+                    for (auto j : i.second->getLanes()) {
                         result.push_back(j);
                     }
                 }
                 break;
             case SUMO_TAG_CONNECTION:
                 for (auto i : myAttributeCarriers.edges) {
-                    for(auto j : i.second->getGNEConnections()) {
+                    for (auto j : i.second->getGNEConnections()) {
                         result.push_back(j);
                     }
                 }
                 break;
             case SUMO_TAG_CROSSING:
                 for (auto i : myAttributeCarriers.junctions) {
-                    for(auto j : i.second->getGNECrossings()) {
-                       result.push_back(j);
+                    for (auto j : i.second->getGNECrossings()) {
+                        result.push_back(j);
                     }
                 }
                 break;
@@ -1321,7 +1321,7 @@ GNENet::computeEverything(GNEApplicationWindow* window, bool force, bool volatil
         }
 
         // default vehicle type is always available
-        GNECalibratorVehicleType *defaultVehicleType = new GNECalibratorVehicleType(myViewNet, DEFAULT_VTYPE_ID);
+        GNECalibratorVehicleType* defaultVehicleType = new GNECalibratorVehicleType(myViewNet, DEFAULT_VTYPE_ID);
         myAttributeCarriers.additionals.at(defaultVehicleType->getTag()).insert(std::make_pair(defaultVehicleType->getID(), defaultVehicleType));
         defaultVehicleType->incRef("GNENet::DEFAULT_VEHTYPE");
 
@@ -1475,7 +1475,7 @@ GNENet::joinSelectedJunctions(GNEUndoList* undoList) {
     // #3128 this is not undone when calling 'undo'
     myNetBuilder->getNodeCont().registerJoinedCluster(cluster);
 
-    // first remove all crossing of the involved junctions and edges 
+    // first remove all crossing of the involved junctions and edges
     // (otherwise edge removal will trigger discarding)
     std::vector<NBNode::Crossing> oldCrossings;
     for (auto i : selectedJunctions) {
@@ -1518,10 +1518,10 @@ GNENet::joinSelectedJunctions(GNEUndoList* undoList) {
             }
         };
         if (keep) {
-            undoList->add(new GNEChange_Crossing(joined, nbc.edges, nbc.width, 
-                        nbc.priority || joined->getNBNode()->isTLControlled(),
-                        nbc.customTLIndex, nbc.customTLIndex2, nbc.customShape, 
-                        false, true), true);
+            undoList->add(new GNEChange_Crossing(joined, nbc.edges, nbc.width,
+                                                 nbc.priority || joined->getNBNode()->isTLControlled(),
+                                                 nbc.customTLIndex, nbc.customTLIndex2, nbc.customShape,
+                                                 false, true), true);
         }
     }
 
@@ -1530,7 +1530,7 @@ GNENet::joinSelectedJunctions(GNEUndoList* undoList) {
         deleteJunction(it, undoList);
     }
     joined->setAttribute(SUMO_ATTR_ID, id, undoList);
-    
+
 
     // check if joined junction had to change their original position to avoid errors
     if (pos != oldPos) {
@@ -1745,7 +1745,7 @@ GNENet::getSelectedAttributeCarriers() {
     result.reserve(gSelected.getSelected().size());
     for (auto i : gSelected.getSelected()) {
         GNEAttributeCarrier* AC = retrieveAttributeCarrier(i, false);
-        if(AC && AC->isAttributeCarrierSelected()) {
+        if (AC && AC->isAttributeCarrierSelected()) {
             result.push_back(AC);
         }
     }
@@ -1766,7 +1766,7 @@ GNENet::renameJunction(GNEJunction* junction, const std::string& newID) {
     myNetBuilder->getNodeCont().rename(junction->getNBNode(), newID);
     junction->setMicrosimID(newID);
     myAttributeCarriers.junctions[newID] = junction;
-    // build crossings 
+    // build crossings
     junction->getNBNode()->buildCrossings();
 }
 
@@ -1801,7 +1801,7 @@ GNENet::retrieveAdditionals(bool onlySelected) const {
     // returns additionals depending of selection
     for (auto i : myAttributeCarriers.additionals) {
         for (auto j : i.second) {
-            if(!onlySelected || j.second->isAttributeCarrierSelected()) {
+            if (!onlySelected || j.second->isAttributeCarrierSelected()) {
                 result.push_back(j.second);
             }
         }
@@ -1810,7 +1810,7 @@ GNENet::retrieveAdditionals(bool onlySelected) const {
 }
 
 
-const std::map<std::string, GNEAdditional*> &
+const std::map<std::string, GNEAdditional*>&
 GNENet::getAdditionalByType(SumoXMLTag type) const {
     return myAttributeCarriers.additionals.at(type);
 }
@@ -1846,13 +1846,13 @@ void
 GNENet::requiereSaveAdditionals(bool value) {
     if (myAdditionalsSaved == true) {
         WRITE_DEBUG("Additionals has to be saved");
-        std::string netSaved = (myNetSaved?"saved":"unsaved");
-        std::string shapeSaved = (myShapesSaved?"saved":"unsaved");
+        std::string netSaved = (myNetSaved ? "saved" : "unsaved");
+        std::string shapeSaved = (myShapesSaved ? "saved" : "unsaved");
         WRITE_DEBUG("Current saving Status: net " + netSaved + ", additionals unsaved, shapes " + shapeSaved);
     }
     myAdditionalsSaved = !value;
     if (myViewNet != nullptr) {
-        if(myAdditionalsSaved) {
+        if (myAdditionalsSaved) {
             myViewNet->getViewParent()->getGNEAppWindows()->disableSaveAdditionalsMenu();
         } else {
             myViewNet->getViewParent()->getGNEAppWindows()->enableSaveAdditionalsMenu();
@@ -1901,10 +1901,10 @@ GNENet::saveAdditionals(const std::string& filename) {
 }
 
 
-std::string 
+std::string
 GNENet::generateAdditionalID(SumoXMLTag type) const {
     int counter = 0;
-    while (myAttributeCarriers.additionals.at(type).count(toString(type) + "_" + toString(counter)) != 0){
+    while (myAttributeCarriers.additionals.at(type).count(toString(type) + "_" + toString(counter)) != 0) {
         counter++;
     }
     return (toString(type) + "_" + toString(counter));
@@ -1946,7 +1946,7 @@ GNENet::saveAdditionalsConfirmed(const std::string& filename) {
         if (GNEAttributeCarrier::getTagProperties(i.first).isStoppingPlace()) {
             for (auto j : i.second) {
                 // only save stoppingPlaces that doesn't have Additional parents, because they are automatically writed by writeAdditional(...) parent's function
-                if(j.second->getFirstAdditionalParent() == nullptr) {
+                if (j.second->getFirstAdditionalParent() == nullptr) {
                     j.second->writeAdditional(device);
                 }
             }
@@ -1957,7 +1957,7 @@ GNENet::saveAdditionalsConfirmed(const std::string& filename) {
         if (GNEAttributeCarrier::getTagProperties(i.first).isDetector()) {
             for (auto j : i.second) {
                 // only save Detectors that doesn't have Additional parents, because they are automatically writed by writeAdditional(...) parent's function
-                if(j.second->getFirstAdditionalParent() == nullptr) {
+                if (j.second->getFirstAdditionalParent() == nullptr) {
                     j.second->writeAdditional(device);
                 }
             }
@@ -1965,8 +1965,8 @@ GNENet::saveAdditionalsConfirmed(const std::string& filename) {
     }
     // finally write rest of additionals
     for (auto i : myAttributeCarriers.additionals) {
-        const auto &tagValue = GNEAttributeCarrier::getTagProperties(i.first);
-        if(!tagValue.isStoppingPlace() && !tagValue.isDetector() && (i.first != SUMO_TAG_ROUTEPROBE) && (i.first != SUMO_TAG_VTYPE) && (i.first != SUMO_TAG_ROUTE)) {
+        const auto& tagValue = GNEAttributeCarrier::getTagProperties(i.first);
+        if (!tagValue.isStoppingPlace() && !tagValue.isDetector() && (i.first != SUMO_TAG_ROUTEPROBE) && (i.first != SUMO_TAG_VTYPE) && (i.first != SUMO_TAG_ROUTE)) {
             for (auto j : i.second) {
                 // only save additionals that doesn't have Additional parents, because they are automatically writed by writeAdditional(...) parent's function
                 if (j.second->getFirstAdditionalParent() == nullptr) {
@@ -2057,12 +2057,12 @@ void
 GNENet::requiereSaveShapes(bool value) {
     if (myShapesSaved == true) {
         WRITE_DEBUG("Shapes has to be saved");
-        std::string netSaved = (myNetSaved?"saved":"unsaved");
-        std::string additionalsSaved = (myAdditionalsSaved?"saved":"unsaved");
+        std::string netSaved = (myNetSaved ? "saved" : "unsaved");
+        std::string additionalsSaved = (myAdditionalsSaved ? "saved" : "unsaved");
         WRITE_DEBUG("Current saving Status: net " + netSaved + ", additionals " + additionalsSaved + ", shapes unsaved");
     }
     myShapesSaved = !value;
-    if(myShapesSaved) {
+    if (myShapesSaved) {
         myViewNet->getViewParent()->getGNEAppWindows()->disableSaveShapesMenu();
     } else {
         myViewNet->getViewParent()->getGNEAppWindows()->enableSaveShapesMenu();
@@ -2070,7 +2070,7 @@ GNENet::requiereSaveShapes(bool value) {
 }
 
 
-void 
+void
 GNENet::saveShapes(const std::string& filename) {
     // save Shapes
     OutputDevice& device = OutputDevice::getDevice(filename);
@@ -2097,7 +2097,7 @@ GNENet::getNumberOfShapes() const {
 }
 
 
-void 
+void
 GNENet::requiereSaveTLSPrograms() {
     if (myTLSProgramsSaved == true) {
         WRITE_DEBUG("TLSPrograms has to be saved");
@@ -2107,7 +2107,7 @@ GNENet::requiereSaveTLSPrograms() {
 }
 
 
-void 
+void
 GNENet::saveTLSPrograms(const std::string& filename) {
     // open output device
     OutputDevice& device = OutputDevice::getDevice(filename);
@@ -2122,7 +2122,7 @@ GNENet::saveTLSPrograms(const std::string& filename) {
 }
 
 
-int 
+int
 GNENet::getNumberOfTLSPrograms() const {
     return -1;
 }
@@ -2134,11 +2134,11 @@ GNENet::insertAdditional(GNEAdditional* additional) {
     if (myAttributeCarriers.additionals.at(additional->getTag()).count(additional->getID()) == 0) {
         myAttributeCarriers.additionals.at(additional->getTag()).insert(std::make_pair(additional->getID(), additional));
         // only add drawable elements in grid
-        if(additional->getTagProperties(additional->getTag()).isDrawable()) {
+        if (additional->getTagProperties(additional->getTag()).isDrawable()) {
             myGrid.addAdditionalGLObject(additional);
         }
         // check if additional is selected
-        if(additional->isAttributeCarrierSelected()) {
+        if (additional->isAttributeCarrierSelected()) {
             additional->selectAttributeCarrier(false);
         }
         // update geometry after insertion of additionals
@@ -2162,11 +2162,11 @@ GNENet::deleteAdditional(GNEAdditional* additional) {
         // Remove from container
         myAttributeCarriers.additionals.at(additional->getTag()).erase(additional->getID());
         // only remove drawable elements of grid
-        if(additional->getTagProperties(additional->getTag()).isDrawable()) {
+        if (additional->getTagProperties(additional->getTag()).isDrawable()) {
             myGrid.removeAdditionalGLObject(additional);
         }
         // check if additional is selected
-        if(additional->isAttributeCarrierSelected()) {
+        if (additional->isAttributeCarrierSelected()) {
             additional->unselectAttributeCarrier(false);
         }
         // update view
@@ -2240,7 +2240,7 @@ GNENet::registerJunction(GNEJunction* junction) {
     // update geometry
     junction->updateGeometry(true);
     // check if junction is selected
-    if(junction->isAttributeCarrierSelected()) {
+    if (junction->isAttributeCarrierSelected()) {
         junction->selectAttributeCarrier(false);
     }
     // @todo let Boundary class track z-coordinate natively
@@ -2263,7 +2263,7 @@ GNENet::registerEdge(GNEEdge* edge) {
     myGrid.add(edge->getBoundary());
     myGrid.addAdditionalGLObject(edge);
     // check if edge is selected
-    if(edge->isAttributeCarrierSelected()) {
+    if (edge->isAttributeCarrierSelected()) {
         edge->selectAttributeCarrier(false);
     }
     // Add references into GNEJunctions
@@ -2282,7 +2282,7 @@ GNENet::deleteSingleJunction(GNEJunction* junction) {
     // Remove from grid and container
     myGrid.removeAdditionalGLObject(junction);
     // check if junction is selected
-    if(junction->isAttributeCarrierSelected()) {
+    if (junction->isAttributeCarrierSelected()) {
         junction->unselectAttributeCarrier(false);
     }
     myAttributeCarriers.junctions.erase(junction->getMicrosimID());
@@ -2300,7 +2300,7 @@ GNENet::deleteSingleEdge(GNEEdge* edge) {
     // remove edge from visual grid and container
     myGrid.removeAdditionalGLObject(edge);
     // check if junction is selected
-    if(edge->isAttributeCarrierSelected()) {
+    if (edge->isAttributeCarrierSelected()) {
         edge->unselectAttributeCarrier(false);
     }
     myAttributeCarriers.edges.erase(edge->getMicrosimID());
@@ -2330,7 +2330,7 @@ GNENet::insertShape(GNEShape* shape) {
 
     }
     // check if shape has to be selected
-    if(shape->isAttributeCarrierSelected()) {
+    if (shape->isAttributeCarrierSelected()) {
         shape->selectAttributeCarrier(false);
     }
     // POILanes has to be added from lane
@@ -2358,7 +2358,7 @@ GNENet::removeShape(GNEShape* shape) {
         myPOIs.remove(shape->getID(), false);
     }
     // check if shape has to be unselected
-    if(shape->isAttributeCarrierSelected()) {
+    if (shape->isAttributeCarrierSelected()) {
         shape->unselectAttributeCarrier(false);
     }
     // POILanes has to be removed from lane
@@ -2414,12 +2414,12 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
     }
 
     // removes all junctions of grid
-    for (const auto &it : myAttributeCarriers.junctions) {
+    for (const auto& it : myAttributeCarriers.junctions) {
         myGrid.removeAdditionalGLObject(it.second);
     }
-    
+
     // remove all edges from grid
-    for (const auto &it : myAttributeCarriers.edges) {
+    for (const auto& it : myAttributeCarriers.edges) {
         myGrid.removeAdditionalGLObject(it.second);
     }
 
@@ -2478,7 +2478,7 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
         for (const auto& it : myAttributeCarriers.additionals) {
             for (const auto& j : it.second) {
                 // only remove drawable additionals
-                if(GNEAttributeCarrier::getTagProperties(j.second->getTag()).isDrawable()) {
+                if (GNEAttributeCarrier::getTagProperties(j.second->getTag()).isDrawable()) {
                     myGrid.removeAdditionalGLObject(j.second);
                 }
             }
@@ -2517,7 +2517,7 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
         }
 
         // iterate over all edges of net
-        for (const auto &it : myAttributeCarriers.edges) {
+        for (const auto& it : myAttributeCarriers.edges) {
             // insert edge in grid again
             myGrid.addAdditionalGLObject(it.second);
             // update geometry

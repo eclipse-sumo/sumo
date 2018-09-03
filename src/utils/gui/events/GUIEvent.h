@@ -58,12 +58,12 @@ enum GUIEventType {
     EVENT_STATUS_OCCURRED,
 
     /**@brief Send when the simulation is over;
-     * @note The reason and the time step are stored within the event 
+     * @note The reason and the time step are stored within the event
     */
     EVENT_SIMULATION_ENDED,
 
     /**@brief Send when a screenshot is requested;
-     * @brief View and file name are stored within the event 
+     * @brief View and file name are stored within the event
      */
     EVENT_SCREENSHOT,
 
@@ -91,7 +91,7 @@ public:
 
 protected:
     /// @brief constructor
-    GUIEvent(GUIEventType ownType) : 
+    GUIEvent(GUIEventType ownType) :
         myType(ownType) { }
 
     /// @brief the type of the event

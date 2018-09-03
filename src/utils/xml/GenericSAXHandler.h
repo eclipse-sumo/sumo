@@ -90,7 +90,7 @@ public:
     GenericSAXHandler(
         StringBijection<int>::Entry* tags, int terminatorTag,
         StringBijection<int>::Entry* attrs, int terminatorAttr,
-        const std::string& file, const std::string& expectedRoot="");
+        const std::string& file, const std::string& expectedRoot = "");
 
 
     /** @brief Destructor */
@@ -252,7 +252,7 @@ protected:
     virtual void myEndElement(int element);
 
 
-    void setSchemaSeen(const bool schemaSeen=true) {
+    void setSchemaSeen(const bool schemaSeen = true) {
         mySchemaSeen = schemaSeen;
     }
 

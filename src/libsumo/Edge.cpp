@@ -271,7 +271,7 @@ Edge::getLastStepLength(const std::string& id) {
 }
 
 
-int 
+int
 Edge::getLaneNumber(const std::string& id) {
     return (int)getEdge(id)->getLanes().size();
 }

@@ -123,7 +123,7 @@ private:
     private:
         /// @brief pointer to message Windows
         GUIMessageWindow* myMsgWindow;
-        
+
         /// @brief output string stream
         std::ostringstream myStream;
 

@@ -149,9 +149,9 @@ private:
      * @param[in] id The ID of the device
      */
     MSDevice_ToC(SUMOVehicle& holder, const std::string& id,
-            std::string manualType, std::string automatedType,
-            SUMOTime responseTime, double recoveryRate, double initialAwareness,
-            double mrmDecel, bool useColorScheme);
+                 std::string manualType, std::string automatedType,
+                 SUMOTime responseTime, double recoveryRate, double initialAwareness,
+                 double mrmDecel, bool useColorScheme);
 
     /** @brief Initialize vehicle colors for different states
      *  @note  For MANUAL and AUTOMATED, the color of the given types are used,

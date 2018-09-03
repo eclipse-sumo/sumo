@@ -282,7 +282,7 @@ GNEDialog_FixAdditionalPositions::onCmdAccept(FXObject*, FXSelector, void*) {
     } else if (myOptionD->getCheck() == TRUE) {
         std::set<GUIGlID> GLIDsToSelect;
         myViewNet->getUndoList()->p_begin("select invalid additionals");
-         for (auto i : myInvalidStoppingPlaces) {
+        for (auto i : myInvalidStoppingPlaces) {
             i->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
         }
         myViewNet->getUndoList()->p_end();

@@ -58,18 +58,18 @@ public:
     /// routing edge
     class Track {
     public:
-        Track(NBEdge *e, int i=-1, const std::string& _id="") : 
+        Track(NBEdge* e, int i = -1, const std::string& _id = "") :
             edge(e),
             index(i < 0 ? edge->getNumericalID() : i),
             id(_id == "" ? edge->getID() : _id),
-            minPermissions(edge->getPermissions())
-            {}
+            minPermissions(edge->getPermissions()) {
+        }
 
         void addSuccessor(Track* track);
-        const std::vector<Track*>& getSuccessors(SUMOVehicleClass svc=SVC_IGNORING) const;
-        const std::vector<std::pair<const Track*, const Track*> >& getViaSuccessors(SUMOVehicleClass svc=SVC_IGNORING) const;
+        const std::vector<Track*>& getSuccessors(SUMOVehicleClass svc = SVC_IGNORING) const;
+        const std::vector<std::pair<const Track*, const Track*> >& getViaSuccessors(SUMOVehicleClass svc = SVC_IGNORING) const;
 
-        const std::string& getID() const { 
+        const std::string& getID() const {
             return id;
         }
         int getNumericalID() const {
@@ -95,21 +95,21 @@ public:
     static double getTravelTimeStatic(const Track* const track, const NBVehicle* const veh, double time);
 
 private:
-    static std::set<NBNode*> getRailNodes(NBNetBuilder& nb, bool verbose=false);
-    static std::set<NBNode*> getBrokenRailNodes(NBNetBuilder& nb, bool verbose=false);
+    static std::set<NBNode*> getRailNodes(NBNetBuilder& nb, bool verbose = false);
+    static std::set<NBNode*> getBrokenRailNodes(NBNetBuilder& nb, bool verbose = false);
 
     /// @brief filter out rail edges among all edges of a the given node
     static void getRailEdges(const NBNode* node, EdgeVector& inEdges, EdgeVector& outEdges);
 
     static bool isStraight(const NBNode* node, const NBEdge* e1, const NBEdge* e2);
-    static bool hasStraightPair(const NBNode* node, const EdgeVector& edges, const EdgeVector& edges2); 
+    static bool hasStraightPair(const NBNode* node, const EdgeVector& edges, const EdgeVector& edges2);
     static bool allBroken(const NBNode* node, NBEdge* candOut, const EdgeVector& in, const EdgeVector& out);
-    static bool allSharp(const NBNode* node, const EdgeVector& in, const EdgeVector& out, bool countBidiAsSharp=false);
+    static bool allSharp(const NBNode* node, const EdgeVector& in, const EdgeVector& out, bool countBidiAsSharp = false);
     static bool allBidi(const EdgeVector& edges);
     static NBEdge* isBidiSwitch(const NBNode* n);
 
     /// @brief add bidi-edge for the given edge
-    static NBEdge* addBidiEdge(NBNetBuilder& nb, NBEdge* edge, bool update=true);
+    static NBEdge* addBidiEdge(NBNetBuilder& nb, NBEdge* edge, bool update = true);
 
     /// @brief add further bidi-edges near existing bidi-edges
     static int extendBidiEdges(NBNetBuilder& nb);

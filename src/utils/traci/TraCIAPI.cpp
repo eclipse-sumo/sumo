@@ -1050,13 +1050,13 @@ TraCIAPI::LaneScope::getLinks(const std::string& laneID) const {
         double length = inMsg.readDouble();
 
         ret.push_back(libsumo::TraCIConnection(approachedLane,
-                                      hasPrio,
-                                      isOpen,
-                                      hasFoe,
-                                      approachedLaneInternal,
-                                      state,
-                                      direction,
-                                      length));
+                                               hasPrio,
+                                               isOpen,
+                                               hasFoe,
+                                               approachedLaneInternal,
+                                               state,
+                                               direction,
+                                               length));
 
     }
     return ret;
@@ -2736,7 +2736,7 @@ TraCIAPI::VehicleScope::setSpeedMode(const std::string& vehicleID, int mode) con
 
 void
 TraCIAPI::VehicleScope::setStop(const std::string vehicleID, const std::string edgeID, const double endPos, const int laneIndex,
-        const double duration, const int flags, const double startPos, const double until) const {
+                                const double duration, const int flags, const double startPos, const double until) const {
     tcpip::Storage content;
     content.writeUnsignedByte(TYPE_COMPOUND);
     content.writeInt(7);

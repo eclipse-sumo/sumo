@@ -41,15 +41,15 @@
 // method definitions
 // ===========================================================================
 MSCFModel_KraussOrig1::MSCFModel_KraussOrig1(const MSVehicleType* vtype) :
-    MSCFModel(vtype), 
+    MSCFModel(vtype),
     myDawdle(vtype->getParameter().getCFParam(SUMO_ATTR_SIGMA, SUMOVTypeParameter::getDefaultImperfection(vtype->getParameter().vehicleClass))),
-    myTauDecel(myDecel * myHeadwayTime) 
-{}
+    myTauDecel(myDecel * myHeadwayTime) {
+}
 
 
 MSCFModel_KraussOrig1::~MSCFModel_KraussOrig1() {}
 
-double 
+double
 MSCFModel_KraussOrig1::patchSpeedBeforeLC(const MSVehicle* veh, double vMin, double vMax) const {
     UNUSED_PARAMETER(veh);
     const double vDawdle = MAX2(vMin, dawdle(vMax));

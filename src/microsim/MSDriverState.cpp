@@ -92,9 +92,9 @@ double DriverStateDefaults::headwayChangePerceptionThreshold = 0.1;
 // ===========================================================================
 
 OUProcess::OUProcess(double initialState, double timeScale, double noiseIntensity)
-: myState(initialState),
-  myTimeScale(timeScale),
-  myNoiseIntensity(noiseIntensity) {}
+    : myState(initialState),
+      myTimeScale(timeScale),
+      myNoiseIntensity(noiseIntensity) {}
 
 
 OUProcess::~OUProcess() {}
@@ -105,7 +105,7 @@ OUProcess::step(double dt) {
 #ifdef DEBUG_OUPROCESS
     const double oldstate = myState;
 #endif
-    myState = exp(-dt/myTimeScale)*myState + myNoiseIntensity*sqrt(2*dt/myTimeScale)*RandHelper::randNorm(0, 1, &myRNG);
+    myState = exp(-dt / myTimeScale) * myState + myNoiseIntensity * sqrt(2 * dt / myTimeScale) * RandHelper::randNorm(0, 1, &myRNG);
 #ifdef DEBUG_OUPROCESS
     std::cout << "  OU-step (" << dt << " s.): " << oldstate << "->" << myState << std::endl;
 #endif
@@ -119,21 +119,20 @@ OUProcess::getState() const {
 
 
 MSSimpleDriverState::MSSimpleDriverState(MSVehicle* veh) :
-        myVehicle(veh),
-        myAwareness(1.),
-        myMinAwareness(DriverStateDefaults::minAwareness),
-        myError(0., 1.,1.),
-        myErrorTimeScaleCoefficient(DriverStateDefaults::errorTimeScaleCoefficient),
-        myErrorNoiseIntensityCoefficient(DriverStateDefaults::errorNoiseIntensityCoefficient),
-        mySpeedDifferenceErrorCoefficient(DriverStateDefaults::speedDifferenceErrorCoefficient),
-        myHeadwayErrorCoefficient(DriverStateDefaults::headwayErrorCoefficient),
-        myHeadwayChangePerceptionThreshold(DriverStateDefaults::headwayChangePerceptionThreshold),
-        mySpeedDifferenceChangePerceptionThreshold(DriverStateDefaults::speedDifferenceChangePerceptionThreshold),
-        myActionStepLength(TS),
-        myStepDuration(TS),
-        myLastUpdateTime(SIMTIME-TS),
-        myDebugLock(false)
-{
+    myVehicle(veh),
+    myAwareness(1.),
+    myMinAwareness(DriverStateDefaults::minAwareness),
+    myError(0., 1., 1.),
+    myErrorTimeScaleCoefficient(DriverStateDefaults::errorTimeScaleCoefficient),
+    myErrorNoiseIntensityCoefficient(DriverStateDefaults::errorNoiseIntensityCoefficient),
+    mySpeedDifferenceErrorCoefficient(DriverStateDefaults::speedDifferenceErrorCoefficient),
+    myHeadwayErrorCoefficient(DriverStateDefaults::headwayErrorCoefficient),
+    myHeadwayChangePerceptionThreshold(DriverStateDefaults::headwayChangePerceptionThreshold),
+    mySpeedDifferenceChangePerceptionThreshold(DriverStateDefaults::speedDifferenceChangePerceptionThreshold),
+    myActionStepLength(TS),
+    myStepDuration(TS),
+    myLastUpdateTime(SIMTIME - TS),
+    myDebugLock(false) {
 #ifdef DEBUG_DRIVERSTATE
     std::cout << "Constructing driver state for veh '" << veh->getID() << "'." << std::endl;
 #endif
@@ -145,7 +144,7 @@ void
 MSSimpleDriverState::update() {
 #ifdef DEBUG_AWARENESS
     if DEBUG_COND {
-        std::cout << SIMTIME << " veh=" << myVehicle->getID() << ", DriverState::update()"<< std::endl;
+    std::cout << SIMTIME << " veh=" << myVehicle->getID() << ", DriverState::update()" << std::endl;
     }
 #endif
     // Adapt step duration
@@ -156,7 +155,7 @@ MSSimpleDriverState::update() {
     updateAssumedGaps();
 #ifdef DEBUG_AWARENESS
     if DEBUG_COND {
-        std::cout << SIMTIME << " stepDuration=" << myStepDuration << ", error="<< myError.getState() << std::endl;
+    std::cout << SIMTIME << " stepDuration=" << myStepDuration << ", error=" << myError.getState() << std::endl;
     }
 #endif
 }
@@ -172,8 +171,8 @@ MSSimpleDriverState::updateError() {
     if (myAwareness == 1.0 || myAwareness == 0.0) {
         myError.setState(0.);
     } else {
-        myError.setTimeScale(myErrorTimeScaleCoefficient*myAwareness);
-        myError.setNoiseIntensity(myErrorNoiseIntensityCoefficient*(1.-myAwareness));
+        myError.setTimeScale(myErrorTimeScaleCoefficient * myAwareness);
+        myError.setNoiseIntensity(myErrorNoiseIntensityCoefficient * (1. - myAwareness));
         myError.step(myStepDuration);
     }
 }
@@ -184,11 +183,11 @@ MSSimpleDriverState::setAwareness(const double value) {
     assert(value <= 1.);
 #ifdef DEBUG_AWARENESS
     if DEBUG_COND {
-        std::cout << SIMTIME << " veh=" << myVehicle->getID() << ", setAwareness("<<MAX2(value,minAwareness)<<")"<< std::endl;
+    std::cout << SIMTIME << " veh=" << myVehicle->getID() << ", setAwareness(" << MAX2(value, minAwareness) << ")" << std::endl;
     }
 #endif
-    myAwareness = MAX2(value,myMinAwareness);
-    if(myAwareness == 1.) {
+    myAwareness = MAX2(value, myMinAwareness);
+    if (myAwareness == 1.) {
         myError.setState(0.);
     }
 }
@@ -198,22 +197,22 @@ double
 MSSimpleDriverState::getPerceivedHeadway(const double trueGap, const void* objID) {
 #ifdef DEBUG_PERCEPTION_ERRORS
     if DEBUG_COND {
-        if (!debugLocked()) {
+    if (!debugLocked()) {
             std::cout << SIMTIME << " getPerceivedHeadway() for veh '" << myVehicle->getID() << "'\n"
-                    << "    trueGap=" << trueGap << " objID=" << objID << std::endl;
+            << "    trueGap=" << trueGap << " objID=" << objID << std::endl;
         }
     }
 #endif
 
-    const double perceivedGap = trueGap + myHeadwayErrorCoefficient*myError.getState()*trueGap;
+    const double perceivedGap = trueGap + myHeadwayErrorCoefficient * myError.getState() * trueGap;
     const auto assumedGap = myAssumedGap.find(objID);
     if (assumedGap == myAssumedGap.end()
-            || fabs(perceivedGap - assumedGap->second) > myHeadwayChangePerceptionThreshold*trueGap*(1.0-myAwareness)) {
+            || fabs(perceivedGap - assumedGap->second) > myHeadwayChangePerceptionThreshold * trueGap * (1.0 - myAwareness)) {
 
 #ifdef DEBUG_PERCEPTION_ERRORS
         if (!debugLocked()) {
             std::cout << "    new perceived gap (=" << perceivedGap << ") differs significantly from the assumed (="
-                    << (assumedGap == myAssumedGap.end() ? "NA" : toString(assumedGap->second)) << ")" << std::endl;
+                      << (assumedGap == myAssumedGap.end() ? "NA" : toString(assumedGap->second)) << ")" << std::endl;
         }
 #endif
 
@@ -224,9 +223,9 @@ MSSimpleDriverState::getPerceivedHeadway(const double trueGap, const void* objID
 
 #ifdef DEBUG_PERCEPTION_ERRORS
         if DEBUG_COND {
-            if (!debugLocked()) {
+        if (!debugLocked()) {
                 std::cout << "    new perceived gap (=" << perceivedGap << ") does *not* differ significantly from the assumed (="
-                        << (assumedGap->second) << ")" << std::endl;
+                << (assumedGap->second) << ")" << std::endl;
             }
         }
 #endif
@@ -256,23 +255,23 @@ double
 MSSimpleDriverState::getPerceivedSpeedDifference(const double trueSpeedDifference, const double trueGap, const void* objID) {
 #ifdef DEBUG_PERCEPTION_ERRORS
     if DEBUG_COND {
-        if (!debugLocked()) {
+    if (!debugLocked()) {
             std::cout << SIMTIME << " getPerceivedSpeedDifference() for veh '" << myVehicle->getID() << "'\n"
-                    << "    trueGap=" << trueGap << " trueSpeedDifference=" << trueSpeedDifference << " objID=" << objID << std::endl;
+            << "    trueGap=" << trueGap << " trueSpeedDifference=" << trueSpeedDifference << " objID=" << objID << std::endl;
         }
     }
 #endif
-    const double perceivedSpeedDifference = trueSpeedDifference + mySpeedDifferenceErrorCoefficient*myError.getState()*trueGap;
+    const double perceivedSpeedDifference = trueSpeedDifference + mySpeedDifferenceErrorCoefficient * myError.getState() * trueGap;
     const auto lastPerceivedSpeedDifference = myLastPerceivedSpeedDifference.find(objID);
     if (lastPerceivedSpeedDifference == myLastPerceivedSpeedDifference.end()
-            || fabs(perceivedSpeedDifference - lastPerceivedSpeedDifference->second) > mySpeedDifferenceChangePerceptionThreshold*trueGap*(1.0-myAwareness)) {
+            || fabs(perceivedSpeedDifference - lastPerceivedSpeedDifference->second) > mySpeedDifferenceChangePerceptionThreshold * trueGap * (1.0 - myAwareness)) {
 
 #ifdef DEBUG_PERCEPTION_ERRORS
         if DEBUG_COND {
-            if (!debugLocked()) {
+        if (!debugLocked()) {
                 std::cout << "    new perceived speed difference (=" << perceivedSpeedDifference << ") differs significantly from the last perceived (="
-                        << (lastPerceivedSpeedDifference == myLastPerceivedSpeedDifference.end() ? "NA" : toString(lastPerceivedSpeedDifference->second)) << ")"
-                        << std::endl;
+                << (lastPerceivedSpeedDifference == myLastPerceivedSpeedDifference.end() ? "NA" : toString(lastPerceivedSpeedDifference->second)) << ")"
+                << std::endl;
             }
         }
 #endif
@@ -284,7 +283,7 @@ MSSimpleDriverState::getPerceivedSpeedDifference(const double trueSpeedDifferenc
 #ifdef DEBUG_PERCEPTION_ERRORS
         if (!debugLocked()) {
             std::cout << "    new perceived speed difference (=" << perceivedSpeedDifference << ") does *not* differ significantly from the last perceived (="
-                    << (lastPerceivedSpeedDifference->second) << ")" << std::endl;
+                      << (lastPerceivedSpeedDifference->second) << ")" << std::endl;
         }
 #endif
         // new perceived speed difference doesn't differ significantly from the previous

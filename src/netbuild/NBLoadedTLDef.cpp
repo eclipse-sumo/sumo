@@ -655,7 +655,7 @@ NBLoadedTLDef::initNeedsContRelation() const {
 }
 
 
-int 
+int
 NBLoadedTLDef::getMaxIndex() {
     setParticipantsInformation();
     NBTrafficLightLogic* logic = compute(OptionsCont::getOptions());

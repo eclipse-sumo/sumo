@@ -343,7 +343,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::drawBoxLines(getShape(), myShapeRotations, myShapeLengths, halfWidth2);
         }
         // check if dotted contour has to be drawn
-        if(!s.drawForSelecting && (myNet->getViewNet()->getACUnderCursor() == this)) {
+        if (!s.drawForSelecting && (myNet->getViewNet()->getACUnderCursor() == this)) {
             GLHelper::drawShapeDottedContour(getType(), myParentEdge.getNBEdge()->getLaneStruct(myIndex).shape, halfWidth);
         }
         // Pop draw matrix 1
@@ -376,7 +376,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
             }
         }
         // If there are texture of restricted lanes to draw, check if icons can be drawn
-        if (!s.drawForSelecting && !OptionsCont::getOptions().getBool("disable-laneIcons") && (myLaneRestrictedTexturePositions.size() > 0) &&  (s.scale >= 10)) {
+        if (!s.drawForSelecting && !OptionsCont::getOptions().getBool("disable-laneIcons") && (myLaneRestrictedTexturePositions.size() > 0) && (s.scale >= 10)) {
             // Declare default width of icon (3)
             double iconWidth = 1;
             // Obtain width of icon, if width of lane is different
@@ -871,9 +871,9 @@ GNELane::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-bool 
-GNELane::addGenericParameter(const std::string &key, const std::string &value) {
-    if(!myParentEdge.getNBEdge()->getLaneStruct(myIndex).knowsParameter(key)) {
+bool
+GNELane::addGenericParameter(const std::string& key, const std::string& value) {
+    if (!myParentEdge.getNBEdge()->getLaneStruct(myIndex).knowsParameter(key)) {
         myParentEdge.getNBEdge()->getLaneStruct(myIndex).setParameter(key, value);
         return true;
     } else {
@@ -882,9 +882,9 @@ GNELane::addGenericParameter(const std::string &key, const std::string &value) {
 }
 
 
-bool 
-GNELane::removeGenericParameter(const std::string &key) {
-    if(myParentEdge.getNBEdge()->getLaneStruct(myIndex).knowsParameter(key)) {
+bool
+GNELane::removeGenericParameter(const std::string& key) {
+    if (myParentEdge.getNBEdge()->getLaneStruct(myIndex).knowsParameter(key)) {
         myParentEdge.getNBEdge()->getLaneStruct(myIndex).unsetParameter(key);
         return true;
     } else {
@@ -893,9 +893,9 @@ GNELane::removeGenericParameter(const std::string &key) {
 }
 
 
-bool 
-GNELane::updateGenericParameter(const std::string &oldKey, const std::string &newKey) {
-    if(myParentEdge.getNBEdge()->getLaneStruct(myIndex).knowsParameter(oldKey) && !myParentEdge.getNBEdge()->getLaneStruct(myIndex).knowsParameter(newKey)) {
+bool
+GNELane::updateGenericParameter(const std::string& oldKey, const std::string& newKey) {
+    if (myParentEdge.getNBEdge()->getLaneStruct(myIndex).knowsParameter(oldKey) && !myParentEdge.getNBEdge()->getLaneStruct(myIndex).knowsParameter(newKey)) {
         std::string value = myParentEdge.getNBEdge()->getLaneStruct(myIndex).getParameter(oldKey);
         myParentEdge.getNBEdge()->getLaneStruct(myIndex).unsetParameter(oldKey);
         myParentEdge.getNBEdge()->getLaneStruct(myIndex).setParameter(newKey, value);
@@ -906,9 +906,9 @@ GNELane::updateGenericParameter(const std::string &oldKey, const std::string &ne
 }
 
 
-bool 
-GNELane::updateGenericParameterValue(const std::string &key, const std::string &newValue) {
-    if(myParentEdge.getNBEdge()->getLaneStruct(myIndex).knowsParameter(key)) {
+bool
+GNELane::updateGenericParameterValue(const std::string& key, const std::string& newValue) {
+    if (myParentEdge.getNBEdge()->getLaneStruct(myIndex).knowsParameter(key)) {
         myParentEdge.getNBEdge()->getLaneStruct(myIndex).setParameter(key, newValue);
         return true;
     } else {
@@ -917,7 +917,7 @@ GNELane::updateGenericParameterValue(const std::string &key, const std::string &
 }
 
 
-std::string 
+std::string
 GNELane::getGenericParametersStr() const {
     std::string result;
     // Generate an string using the following structure: "key1=value1|key2=value2|...
@@ -925,14 +925,14 @@ GNELane::getGenericParametersStr() const {
         result += i.first + "=" + i.second + "|";
     }
     // remove the last "|"
-    if(!result.empty()) {
+    if (!result.empty()) {
         result.pop_back();
     }
     return result;
 }
 
 
-std::vector<std::pair<std::string, std::string> > 
+std::vector<std::pair<std::string, std::string> >
 GNELane::getGenericParameters() const {
     std::vector<std::pair<std::string, std::string> >  result;
     // iterate over parameters map and fill result
@@ -943,8 +943,8 @@ GNELane::getGenericParameters() const {
 }
 
 
-void 
-GNELane::setGenericParametersStr(const std::string &value) {
+void
+GNELane::setGenericParametersStr(const std::string& value) {
     // clear parameters
     myParentEdge.getNBEdge()->getLaneStruct(myIndex).clearParameter();
     // separate value in a vector of string using | as separator
@@ -953,15 +953,15 @@ GNELane::setGenericParametersStr(const std::string &value) {
     while (stValues.hasNext()) {
         parsedValues.push_back(stValues.next());
     }
-    // check that parsed values (A=B)can be parsed in generic parameters 
-    for(auto i : parsedValues) {
+    // check that parsed values (A=B)can be parsed in generic parameters
+    for (auto i : parsedValues) {
         std::vector<std::string> parsedParameters;
         StringTokenizer stParam(i, "=", true);
         while (stParam.hasNext()) {
             parsedParameters.push_back(stParam.next());
         }
         // Check that parsed parameters are exactly two and contains valid chracters
-        if(parsedParameters.size() == 2 && SUMOXMLDefinitions::isValidGenericParameterKey(parsedParameters.front()) && SUMOXMLDefinitions::isValidGenericParameterValue(parsedParameters.back())) {
+        if (parsedParameters.size() == 2 && SUMOXMLDefinitions::isValidGenericParameterKey(parsedParameters.front()) && SUMOXMLDefinitions::isValidGenericParameterValue(parsedParameters.back())) {
             myParentEdge.getNBEdge()->getLaneStruct(myIndex).setParameter(parsedParameters.front(), parsedParameters.back());
         }
     }
@@ -1011,7 +1011,7 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         }
         case GNE_ATTR_SELECTED:
-            if(parse<bool>(value)) {
+            if (parse<bool>(value)) {
                 selectAttributeCarrier();
             } else {
                 unselectAttributeCarrier();
@@ -1028,7 +1028,7 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value) {
 }
 
 
-void 
+void
 GNELane::mouseOverObject(const GUIVisualizationSettings&) const {
 }
 
@@ -1114,7 +1114,7 @@ GNELane::getColorValue(int activeScheme) const {
                 return 6;
             }
         case 1:
-            return isAttributeCarrierSelected() ||myParentEdge.isAttributeCarrierSelected();
+            return isAttributeCarrierSelected() || myParentEdge.isAttributeCarrierSelected();
         case 2:
             return (double)myPermissions;
         case 3:
@@ -1186,9 +1186,9 @@ GNELane::drawAsWaterway(const GUIVisualizationSettings& s) const {
 
 void
 GNELane::drawDirectionIndicators(double exaggeration, bool spreadSuperposed) const {
-    const double width = (myParentEdge.getNBEdge()->getLaneWidth(myIndex) * exaggeration 
-            * (spreadSuperposed ? 0.4 : 1));
-    const double sideOffset = spreadSuperposed ? width * -0.5: 0;
+    const double width = (myParentEdge.getNBEdge()->getLaneWidth(myIndex) * exaggeration
+                          * (spreadSuperposed ? 0.4 : 1));
+    const double sideOffset = spreadSuperposed ? width * -0.5 : 0;
     glPushMatrix();
     glTranslated(0, 0, GLO_JUNCTION + 0.1);
     int e = (int) getShape().size() - 1;
@@ -1283,10 +1283,10 @@ GNELane::updateConnectionIDs() {
 }
 
 
-double 
+double
 GNELane::getLengthGeometryFactor() const {
-     // factor should not be 0
-    if(myParentEdge.getNBEdge()->getFinalLength() > 0) {
+    // factor should not be 0
+    if (myParentEdge.getNBEdge()->getFinalLength() > 0) {
         return MAX2(POSITION_EPS, (myParentEdge.getNBEdge()->getLaneShape(myIndex).length() / myParentEdge.getNBEdge()->getFinalLength()));
     } else {
         return POSITION_EPS;
@@ -1294,7 +1294,7 @@ GNELane::getLengthGeometryFactor() const {
 }
 
 
-void 
+void
 GNELane::startGeometryMoving() {
     // Lanes don't need to save the current Centering Boundary, due they are parts of an Edge
     // Save current centering boundary of additional childs
@@ -1312,7 +1312,7 @@ GNELane::startGeometryMoving() {
 }
 
 
-void 
+void
 GNELane::endGeometryMoving() {
     // Lanes don't need to save the current Centering Boundary, due they are parts of an Edge
     // Restore centering boundary of additionals with this lane as chid

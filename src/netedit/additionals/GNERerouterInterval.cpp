@@ -53,37 +53,37 @@ GNERerouterInterval::GNERerouterInterval(GNEAdditional* rerouterParent, double b
 
 GNERerouterInterval::~GNERerouterInterval() {}
 
-void 
+void
 GNERerouterInterval::moveGeometry(const Position&, const Position&) {
     // This additional cannot be moved
 }
 
 
-void 
+void
 GNERerouterInterval::commitGeometryMoving(const Position&, GNEUndoList*) {
     // This additional cannot be moved
 }
 
 
-void 
+void
 GNERerouterInterval::updateGeometry(bool /*updateGrid*/) {
     // Currently this additional doesn't own a Geometry
 }
 
 
-Position 
+Position
 GNERerouterInterval::getPositionInView() const {
     return myFirstAdditionalParent->getPositionInView();
 }
 
 
-std::string 
+std::string
 GNERerouterInterval::getParentName() const {
     return myFirstAdditionalParent->getID();
 }
 
 
-void 
+void
 GNERerouterInterval::drawGL(const GUIVisualizationSettings&) const {
     // Currently This additional isn't drawn
 }
@@ -151,13 +151,13 @@ GNERerouterInterval::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-std::string 
+std::string
 GNERerouterInterval::getPopUpID() const {
     return toString(getTag());
 }
 
 
-std::string 
+std::string
 GNERerouterInterval::getHierarchyName() const {
     return toString(getTag()) + ": " + getAttribute(SUMO_ATTR_BEGIN) + " -> " + getAttribute(SUMO_ATTR_END);
 }

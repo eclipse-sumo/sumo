@@ -69,7 +69,7 @@ GUIE2Collector::buildDetectorGUIRepresentation() {
 // GUIE2Collector::MyWrapper-methods
 // -------------------------------------------------------------------------
 
-GUIE2Collector::MyWrapper::MyWrapper(GUIE2Collector& detector) : 
+GUIE2Collector::MyWrapper::MyWrapper(GUIE2Collector& detector) :
     GUIDetectorWrapper(GLO_E2DETECTOR, detector.getID()),
     myDetector(detector) {
     // collect detector shape into one vector (v)
@@ -86,8 +86,8 @@ GUIE2Collector::MyWrapper::MyWrapper(GUIE2Collector& detector) :
     }
     // build geometry
     myFullGeometry = v.getSubpart(
-            lanes.front()->interpolateLanePosToGeometryPos(detector.getStartPos()),
-            lanes.back()->interpolateLanePosToGeometryPos(detector.getStartPos() + detectorLength));
+                         lanes.front()->interpolateLanePosToGeometryPos(detector.getStartPos()),
+                         lanes.back()->interpolateLanePosToGeometryPos(detector.getStartPos() + detectorLength));
     //
     myShapeRotations.reserve(myFullGeometry.size() - 1);
     myShapeLengths.reserve(myFullGeometry.size() - 1);

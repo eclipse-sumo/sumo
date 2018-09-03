@@ -39,18 +39,17 @@
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicleClass vclass) : 
+SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicleClass vclass) :
     id(vtid), length(5./*4.3*/), minGap(2.5), maxSpeed(200. / 3.6),
     actionStepLength(0), defaultProbability(DEFAULT_VEH_PROB),
     speedFactor("normc", 1.0, 0.0, 0.2, 2.0),
     emissionClass(PollutantsInterface::getClassByName(EMPREFIX + "PC_G_EU4", vclass)), color(RGBColor::DEFAULT_COLOR),
     vehicleClass(vclass), impatience(0.0), personCapacity(4), containerCapacity(0), boardingDuration(500),
     loadingDuration(90000), width(1.8), height(1.5), shape(SVS_UNKNOWN), osgFile("car-normal-citrus.obj"),
-    cfModel(SUMO_TAG_CF_KRAUSS), 
+    cfModel(SUMO_TAG_CF_KRAUSS),
     hasDriverState(false), lcModel(LCM_DEFAULT),
     maxSpeedLat(1.0), latAlignment(LATALIGN_CENTER), minGapLat(0.6),
-    parametersSet(0), saved(false), onlyReferenced(false) 
-{
+    parametersSet(0), saved(false), onlyReferenced(false) {
     const OptionsCont& oc = OptionsCont::getOptions();
     if (oc.exists("carfollow.model")) {
         // check for valid value has been performed in MSFrame

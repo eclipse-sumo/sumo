@@ -177,10 +177,9 @@ OutputDevice::realString(const double v, const int precision) {
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-OutputDevice::OutputDevice(const bool binary, const int defaultIndentation, const std::string& filename) : 
+OutputDevice::OutputDevice(const bool binary, const int defaultIndentation, const std::string& filename) :
     myAmBinary(binary),
-    myFilename(filename)
-{
+    myFilename(filename) {
     if (binary) {
         myFormatter = new BinaryFormatter();
     } else {
@@ -200,7 +199,7 @@ OutputDevice::ok() {
 }
 
 
-const std::string& 
+const std::string&
 OutputDevice::getFilename() {
     return myFilename;
 }

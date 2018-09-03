@@ -110,10 +110,10 @@ MSLaneChangerSublane::change() {
     MSVehicle* vehicle = veh(myCandi);
 #ifdef DEBUG_ACTIONSTEPS
     if DEBUG_COND {
-        std::cout << "\nCHANGE" << std::endl;
-    }
+    std::cout << "\nCHANGE" << std::endl;
+}
 #endif
-    assert(vehicle->getLane() == (*myCandi).lane);
+assert(vehicle->getLane() == (*myCandi).lane);
     assert(!vehicle->getLaneChangeModel().isChangingLanes());
     if (/*!myAllowsChanging || vehicle->getLaneChangeModel().alreadyChanged() ||*/ vehicle->isStoppedOnLane()) {
         registerUnchanged(vehicle);

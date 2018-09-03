@@ -350,7 +350,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "lcImpatience",           SUMO_ATTR_LCA_IMPATIENCE },
     { "lcTimeToImpatience",     SUMO_ATTR_LCA_TIME_TO_IMPATIENCE },
     { "lcAccelLat",             SUMO_ATTR_LCA_ACCEL_LAT },
-    { "lcTurnAlignmentDistance",SUMO_ATTR_LCA_TURN_ALIGNMENT_DISTANCE },
+    { "lcTurnAlignmentDistance", SUMO_ATTR_LCA_TURN_ALIGNMENT_DISTANCE },
     { "lcLookaheadLeft",        SUMO_ATTR_LCA_LOOKAHEADLEFT },
     { "lcSpeedGainRight",       SUMO_ATTR_LCA_SPEEDGAINRIGHT },
     { "lcMaxSpeedLatStanding",  SUMO_ATTR_LCA_MAXSPEEDLATSTANDING },
@@ -814,7 +814,7 @@ SUMOXMLDefinitions::isValidTypeID(const std::string& value) {
 }
 
 
-bool 
+bool
 SUMOXMLDefinitions::isValidAttribute(const std::string& value) {
     return value.find_first_of("\t\n\r@$%^&/|\\{}*'\";:<>") == std::string::npos;
 }
@@ -826,15 +826,15 @@ SUMOXMLDefinitions::isValidFilename(const std::string& value) {
 }
 
 
-bool 
+bool
 SUMOXMLDefinitions::isValidListOfNetIDs(const std::string& value) {
     std::vector<std::string> typeIDs;
     SUMOSAXAttributes::parseStringVector(value, typeIDs);
-    if(typeIDs.empty()) {
+    if (typeIDs.empty()) {
         return false;
     } else {
         // check that gives IDs are valid
-        for(auto i : typeIDs) {
+        for (auto i : typeIDs) {
             if (!SUMOXMLDefinitions::isValidNetID(i)) {
                 return false;
             }
@@ -844,15 +844,15 @@ SUMOXMLDefinitions::isValidListOfNetIDs(const std::string& value) {
 }
 
 
-bool 
+bool
 SUMOXMLDefinitions::isValidListOfTypeID(const std::string& value) {
     std::vector<std::string> typeIDs;
     SUMOSAXAttributes::parseStringVector(value, typeIDs);
-    if(typeIDs.empty()) {
+    if (typeIDs.empty()) {
         return false;
     } else {
         // check that gives IDs are valid
-        for(auto i : typeIDs) {
+        for (auto i : typeIDs) {
             if (!SUMOXMLDefinitions::isValidTypeID(i)) {
                 return false;
             }
@@ -862,14 +862,14 @@ SUMOXMLDefinitions::isValidListOfTypeID(const std::string& value) {
 }
 
 
-bool 
+bool
 SUMOXMLDefinitions::isValidGenericParameterKey(const std::string& value) {
     // Generic parameters keys cannot be empty
     return (value.size() > 0);
 }
 
 
-bool 
+bool
 SUMOXMLDefinitions::isValidGenericParameterValue(const std::string& /*value*/) {
     // Generic parameters should not be restricted (characters such as <>'" only
     // reach this function if they are properly escaped in the xml inputs (and

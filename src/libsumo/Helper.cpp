@@ -322,32 +322,32 @@ Helper::clearVehicleStates() {
 void
 Helper::findObjectShape(int domain, const std::string& id, PositionVector& shape) {
     switch (domain) {
-    case CMD_SUBSCRIBE_INDUCTIONLOOP_CONTEXT:
-        InductionLoop::storeShape(id, shape);
-        break;
-    case CMD_SUBSCRIBE_LANE_CONTEXT:
-        Lane::storeShape(id, shape);
-        break;
-    case CMD_SUBSCRIBE_VEHICLE_CONTEXT:
-        Vehicle::storeShape(id, shape);
-        break;
-    case CMD_SUBSCRIBE_PERSON_CONTEXT:
-        Person::storeShape(id, shape);
-        break;
-    case CMD_SUBSCRIBE_POI_CONTEXT:
-        POI::storeShape(id, shape);
-        break;
-    case CMD_SUBSCRIBE_POLYGON_CONTEXT:
-        Polygon::storeShape(id, shape);
-        break;
-    case CMD_SUBSCRIBE_JUNCTION_CONTEXT:
-        Junction::storeShape(id, shape);
-        break;
-    case CMD_SUBSCRIBE_EDGE_CONTEXT:
-        Edge::storeShape(id, shape);
-        break;
-    default:
-        break;
+        case CMD_SUBSCRIBE_INDUCTIONLOOP_CONTEXT:
+            InductionLoop::storeShape(id, shape);
+            break;
+        case CMD_SUBSCRIBE_LANE_CONTEXT:
+            Lane::storeShape(id, shape);
+            break;
+        case CMD_SUBSCRIBE_VEHICLE_CONTEXT:
+            Vehicle::storeShape(id, shape);
+            break;
+        case CMD_SUBSCRIBE_PERSON_CONTEXT:
+            Person::storeShape(id, shape);
+            break;
+        case CMD_SUBSCRIBE_POI_CONTEXT:
+            POI::storeShape(id, shape);
+            break;
+        case CMD_SUBSCRIBE_POLYGON_CONTEXT:
+            Polygon::storeShape(id, shape);
+            break;
+        case CMD_SUBSCRIBE_JUNCTION_CONTEXT:
+            Junction::storeShape(id, shape);
+            break;
+        case CMD_SUBSCRIBE_EDGE_CONTEXT:
+            Edge::storeShape(id, shape);
+            break;
+        default:
+            break;
     }
 }
 

@@ -120,7 +120,7 @@ public:
     double distanceTo2D(const Boundary& b) const;
 
     /**@brief extends the boundary by the given amount
-     * @return a reference to the instance for further use 
+     * @return a reference to the instance for further use
      */
     Boundary& grow(double by);
 

@@ -588,11 +588,11 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             std::cout << "addCon3 from=" << from->getID() << "_" << fromLane << " to=" << to->getID() << "_" << toLane << "\n";
         }
 #endif
-        from->addLane2LaneConnection(fromLane, to, toLane, NBEdge::L2L_USER, false, false, true, 
-                NBEdge::UNSPECIFIED_CONTPOS, 
-                NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE,
-                NBEdge::UNSPECIFIED_SPEED,
-                (*i).shape);
+        from->addLane2LaneConnection(fromLane, to, toLane, NBEdge::L2L_USER, false, false, true,
+                                     NBEdge::UNSPECIFIED_CONTPOS,
+                                     NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE,
+                                     NBEdge::UNSPECIFIED_SPEED,
+                                     (*i).shape);
 
         if ((*i).origID != "" && saveOrigIDs) {
             // @todo: this is the most silly way to determine the connection
@@ -1803,8 +1803,8 @@ NIImporter_OpenDrive::myCharacters(int element, const std::string& cdata) {
                 Boundary origBoundary;
                 Position networkOffset(0, 0);
                 // XXX read values from the header
-                convBoundary.add(Position(0,0));
-                origBoundary.add(Position(0,0));
+                convBoundary.add(Position(0, 0));
+                origBoundary.add(Position(0, 0));
                 try {
                     result = new GeoConvHelper(proj, networkOffset, origBoundary, convBoundary);
                     GeoConvHelper::setLoaded(*result);

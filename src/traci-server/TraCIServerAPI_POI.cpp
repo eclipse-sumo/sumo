@@ -44,17 +44,17 @@ TraCIServerAPI_POI::processGet(TraCIServer& server, tcpip::Storage& inputStorage
     try {
         if (!libsumo::POI::handleVariable(id, variable, &server)) {
             switch (variable) {
-            case VAR_PARAMETER: {
-                std::string paramName = "";
-                if (!server.readTypeCheckingString(inputStorage, paramName)) {
-                    return server.writeErrorStatusCmd(CMD_GET_POI_VARIABLE, "Retrieval of a parameter requires its name.", outputStorage);
+                case VAR_PARAMETER: {
+                    std::string paramName = "";
+                    if (!server.readTypeCheckingString(inputStorage, paramName)) {
+                        return server.writeErrorStatusCmd(CMD_GET_POI_VARIABLE, "Retrieval of a parameter requires its name.", outputStorage);
+                    }
+                    server.getWrapperStorage().writeUnsignedByte(TYPE_STRING);
+                    server.getWrapperStorage().writeString(libsumo::POI::getParameter(id, paramName));
+                    break;
                 }
-                server.getWrapperStorage().writeUnsignedByte(TYPE_STRING);
-                server.getWrapperStorage().writeString(libsumo::POI::getParameter(id, paramName));
-                break;
-            }
-            default:
-                return server.writeErrorStatusCmd(CMD_GET_POI_VARIABLE, "Get PoI Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
+                default:
+                    return server.writeErrorStatusCmd(CMD_GET_POI_VARIABLE, "Get PoI Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
             }
         }
     } catch (libsumo::TraCIException& e) {

@@ -65,7 +65,7 @@ protected:
     /// FOX needs this
     GNEDialogACChooser() {}
 
-    void toggleSelection(int listIndex); 
+    void toggleSelection(int listIndex);
 
 private:
     /// brief get glID for every AC

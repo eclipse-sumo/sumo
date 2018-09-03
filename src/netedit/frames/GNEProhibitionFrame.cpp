@@ -112,7 +112,7 @@ GNEProhibitionFrame::GNEProhibitionFrame(FXHorizontalFrame* horizontalFrameParen
 
     // Create "Cancel" button
     myCancelButton = new FXButton(this, "Cancel\t\tDiscard prohibition modifications (Esc)",
-        GUIIconSubSys::getIcon(ICON_CANCEL), this, MID_CANCEL, GUIDesignButton);
+                                  GUIIconSubSys::getIcon(ICON_CANCEL), this, MID_CANCEL, GUIDesignButton);
     // Create "OK" button
     //mySaveButton = new FXButton(this, "OK\t\tSave prohibition modifications (Enter)",
     //    GUIIconSubSys::getIcon(ICON_ACCEPT), this, MID_OK, GUIDesignButton);
@@ -134,7 +134,7 @@ GNEProhibitionFrame::handleConnectionClick(GNEConnection* conn, bool /* mayDefin
         NBEdge* currentConnFrom = myCurrentConn->getEdgeFrom()->getNBEdge();
         NBEdge* currentConnTo = myCurrentConn->getEdgeTo()->getNBEdge();
 
-        for (auto conn:allConns) {
+        for (auto conn : allConns) {
             if (conn != myCurrentConn) {
                 NBEdge* otherConnFrom = conn->getEdgeFrom()->getNBEdge();
                 NBEdge* otherConnTo = conn->getEdgeTo()->getNBEdge();
@@ -166,7 +166,7 @@ GNEProhibitionFrame::handleConnectionClick(GNEConnection* conn, bool /* mayDefin
     }
 }
 
-void 
+void
 GNEProhibitionFrame::show() {
     GNEFrame::show();
 }
@@ -180,8 +180,7 @@ void
 GNEProhibitionFrame::updateDescription() const {
     if (myCurrentConn == 0) {
         myConnDescriptionLabel->setText("No Connection selected\n");
-    }
-    else {
+    } else {
         myConnDescriptionLabel->setText(("from lane " + myCurrentConn->getLaneFrom()->getMicrosimID() + "\nto lane " + myCurrentConn->getLaneTo()->getMicrosimID()).c_str());
     }
 }

@@ -91,7 +91,7 @@ public:
 
     /** @brief Determines whether a transportable should get a certain device
      **/
-    static bool equippedByParameter(const MSTransportable* t, const std::string& deviceName, bool outputOptionSet); 
+    static bool equippedByParameter(const MSTransportable* t, const std::string& deviceName, bool outputOptionSet);
 
     /// @brief perform cleanup for all devices
     static void cleanupAll();

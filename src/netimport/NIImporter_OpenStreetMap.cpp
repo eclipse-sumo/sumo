@@ -432,7 +432,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
                     width = MAX2(width, SUMO_const_laneWidth);
                 }
                 // ensure pedestrians don't run into trains
-                if (sidewalkWidth == NBEdge::UNSPECIFIED_WIDTH 
+                if (sidewalkWidth == NBEdge::UNSPECIFIED_WIDTH
                         && (permissions & SVC_PEDESTRIAN) != 0
                         && (permissions & SVC_RAIL_CLASSES) != 0) {
                     //std::cout << "patching sidewalk for type '" << newType << "' which allows=" << getVehicleClassNames(permissions) << "\n";
@@ -752,13 +752,13 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(int element, const SUMOSA
                 myToFill[myLastNodeID]->tlsControlled = true;
             } else if (key == "crossing" && value.find("traffic_signals") != std::string::npos) {
                 myToFill[myLastNodeID]->tlsControlled = true;
-            } else if ((key == "noexit" && value == "yes") 
-                    || (key == "railway" && value == "buffer_stop")) {
+            } else if ((key == "noexit" && value == "yes")
+                       || (key == "railway" && value == "buffer_stop")) {
                 myToFill[myLastNodeID]->railwayBufferStop = true;
             } else if (key == "railway" && value.find("crossing") != std::string::npos) {
                 myToFill[myLastNodeID]->railwayCrossing = true;
             } else if (StringUtils::startsWith(key, "railway:signal") && (
-                            value == "block" || value == "entry"  || value == "exit" || value == "intermediate")) {
+                           value == "block" || value == "entry"  || value == "exit" || value == "intermediate")) {
                 myToFill[myLastNodeID]->railwaySignal = true;
             } else if ((key == "public_transport" && value == "stop_position") ||
                        (key == "highway" && value == "bus_stop")) {

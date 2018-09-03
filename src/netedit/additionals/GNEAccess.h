@@ -50,7 +50,7 @@ public:
      * @param[in] friendlyPos enable or disable friendly positions
      * @param[in] block movement enable or disable additional movement
      */
-    GNEAccess(GNEAdditional *busStop, GNELane* lane, GNEViewNet* viewNet, const std::string& pos, const std::string& length, bool friendlyPos, bool blockMovement);
+    GNEAccess(GNEAdditional* busStop, GNELane* lane, GNEViewNet* viewNet, const std::string& pos, const std::string& length, bool friendlyPos, bool blockMovement);
 
     /// @brief Destructor
     ~GNEAccess();
@@ -59,7 +59,7 @@ public:
     bool isAccessPositionFixed() const;
 
     /// @brief get edge in which this Access is placed
-    GNEEdge &getEdge() const;
+    GNEEdge& getEdge() const;
 
     /// @name Functions related with geometry of element
     /// @{

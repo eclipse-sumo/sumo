@@ -59,7 +59,7 @@ GNEDialog_About::GNEDialog_About(FXWindow* parent) :
 
     // write HAVE_ENABLED with the current modules (except Windows) in debug mode
     std::string modules(HAVE_ENABLED);
-    while((modules.size() > 0) && (modules.front() != ' ')) {
+    while ((modules.size() > 0) && (modules.front() != ' ')) {
         modules.erase(modules.begin());
     }
     WRITE_DEBUG(("Modules: " + modules).c_str());

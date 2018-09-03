@@ -115,7 +115,7 @@ GNEEdge::~GNEEdge() {
 void
 GNEEdge::updateGeometry(bool updateGrid) {
     // first check if object has to be removed from grid (SUMOTree)
-    if(updateGrid) {
+    if (updateGrid) {
         myNet->removeGLObjectFromGrid(this);
     }
     // Update geometry of lanes
@@ -124,7 +124,7 @@ GNEEdge::updateGeometry(bool updateGrid) {
     }
     // Update geometry of connections (Only if updateGrid is enabled, because in move mode connections are hidden
     // (note: only the previous marked as deprecated will be updated)
-    if(updateGrid) {
+    if (updateGrid) {
         for (auto i : myGNEConnections) {
             i->updateGeometry(updateGrid);
         }
@@ -138,15 +138,15 @@ GNEEdge::updateGeometry(bool updateGrid) {
         i->updateGeometry(updateGrid);
     }
     // last step is to check if object has to be added into grid (SUMOTree) again
-    if(updateGrid) {
+    if (updateGrid) {
         myNet->addGLObjectIntoGrid(this);
     }
 }
 
 
-bool 
+bool
 GNEEdge::clickedOverShapeStart(const Position& pos) {
-    if(myNBEdge.getGeometry().front() != myGNEJunctionSource->getPositionInView()) {
+    if (myNBEdge.getGeometry().front() != myGNEJunctionSource->getPositionInView()) {
         return (myNBEdge.getGeometry().front().distanceTo2D(pos) < SNAP_RADIUS);
     } else {
         return false;
@@ -154,9 +154,9 @@ GNEEdge::clickedOverShapeStart(const Position& pos) {
 }
 
 
-bool 
+bool
 GNEEdge::clickedOverShapeEnd(const Position& pos) {
-    if(myNBEdge.getGeometry().back() != myGNEJunctionDestiny->getPositionInView()) {
+    if (myNBEdge.getGeometry().back() != myGNEJunctionDestiny->getPositionInView()) {
         return (myNBEdge.getGeometry().back().distanceTo2D(pos) < SNAP_RADIUS);
     } else {
         return false;
@@ -164,7 +164,7 @@ GNEEdge::clickedOverShapeEnd(const Position& pos) {
 }
 
 
-void 
+void
 GNEEdge::moveShapeStart(const Position& oldPos, const Position& offset) {
     // change shape startPosition using oldPosition and offset
     Position shapeStartEdited = oldPos;
@@ -174,7 +174,7 @@ GNEEdge::moveShapeStart(const Position& oldPos, const Position& offset) {
 }
 
 
-void 
+void
 GNEEdge::moveShapeEnd(const Position& oldPos, const Position& offset) {
     // change shape endPosition using oldPosition and offset
     Position shapeEndEdited = oldPos;
@@ -184,7 +184,7 @@ GNEEdge::moveShapeEnd(const Position& oldPos, const Position& offset) {
 }
 
 
-void 
+void
 GNEEdge::commitShapeStartChange(const Position& oldPos, GNEUndoList* undoList) {
     // first save current shape start position
     Position modifiedShapeStartPos = myNBEdge.getGeometry().front();
@@ -197,7 +197,7 @@ GNEEdge::commitShapeStartChange(const Position& oldPos, GNEUndoList* undoList) {
 }
 
 
-void 
+void
 GNEEdge::commitShapeEndChange(const Position& oldPos, GNEUndoList* undoList) {
     // first save current shape end position
     Position modifiedShapeEndPos = myNBEdge.getGeometry().back();
@@ -210,7 +210,7 @@ GNEEdge::commitShapeEndChange(const Position& oldPos, GNEUndoList* undoList) {
 }
 
 
-void 
+void
 GNEEdge::startGeometryMoving() {
     // save current centering boundary
     myMovingGeometryBoundary = getCenteringBoundary();
@@ -229,11 +229,11 @@ GNEEdge::startGeometryMoving() {
 }
 
 
-void 
+void
 GNEEdge::endGeometryMoving() {
     // check that endGeometryMoving was called only once
-    if(myMovingGeometryBoundary.isInitialised()) {
-        // Remove object from net 
+    if (myMovingGeometryBoundary.isInitialised()) {
+        // Remove object from net
         myNet->removeGLObjectFromGrid(this);
         // reset myMovingGeometryBoundary
         myMovingGeometryBoundary.reset();
@@ -418,8 +418,8 @@ GNEEdge::getBoundary() const {
 Boundary
 GNEEdge::getCenteringBoundary() const {
     // Return Boundary depending if myMovingGeometryBoundary is initialised (important for move geometry)
-    if(myMovingGeometryBoundary.isInitialised()) {
-        return myMovingGeometryBoundary; 
+    if (myMovingGeometryBoundary.isInitialised()) {
+        return myMovingGeometryBoundary;
     }  else {
         Boundary b = getBoundary();
         b.grow(20);
@@ -491,7 +491,7 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
             // draw geometry points expect initial and final
             for (int i = 1; i < (int)myNBEdge.getGeometry().size() - 1; i++) {
                 Position pos = myNBEdge.getGeometry()[i];
-                if(!s.drawForSelecting || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo(pos) <= (circleWidthSquared + 2))) {
+                if (!s.drawForSelecting || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo(pos) <= (circleWidthSquared + 2))) {
                     glPushMatrix();
                     glTranslated(pos.x(), pos.y(), GLO_JUNCTION - 0.01);
                     // resolution of drawn circle depending of the zoom (To improve smothness)
@@ -501,7 +501,7 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
             }
             // draw line geometry, start and end points if shapeStart or shape end is edited, and depending of drawForSelecting
             if (myNet->getViewNet()->getCurrentEditMode() == GNE_MODE_MOVE) {
-                if((myNBEdge.getGeometry().front() != myGNEJunctionSource->getPositionInView()) && 
+                if ((myNBEdge.getGeometry().front() != myGNEJunctionSource->getPositionInView()) &&
                         (!s.drawForSelecting || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo(myNBEdge.getGeometry().front()) <= (circleWidthSquared + 2)))) {
                     glPushMatrix();
                     glTranslated(myNBEdge.getGeometry().front().x(), myNBEdge.getGeometry().front().y(), GLO_JUNCTION + 0.01);
@@ -509,7 +509,7 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
                     GLHelper::drawFilledCircle(circleWidth, circleResolution);
                     glPopMatrix();
                     // draw a "s" over last point depending of drawForSelecting
-                    if(!s.drawForSelecting) {
+                    if (!s.drawForSelecting) {
                         glPushMatrix();
                         glTranslated(myNBEdge.getGeometry().front().x(), myNBEdge.getGeometry().front().y(), GLO_JUNCTION + 0.02);
                         GLHelper::drawText("S", Position(), 0, circleWidth, RGBColor::WHITE);
@@ -522,7 +522,7 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
                         glPopMatrix();
                     }
                 }
-                if((myNBEdge.getGeometry().back() != myGNEJunctionDestiny->getPositionInView()) && 
+                if ((myNBEdge.getGeometry().back() != myGNEJunctionDestiny->getPositionInView()) &&
                         (!s.drawForSelecting || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo(myNBEdge.getGeometry().back()) <= (circleWidthSquared + 2)))) {
                     glPushMatrix();
                     glTranslated(myNBEdge.getGeometry().back().x(), myNBEdge.getGeometry().back().y(), GLO_JUNCTION + 0.01);
@@ -530,7 +530,7 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
                     GLHelper::drawFilledCircle(circleWidth, circleResolution);
                     glPopMatrix();
                     // draw a "e" over last point depending of drawForSelecting
-                    if(!s.drawForSelecting) {
+                    if (!s.drawForSelecting) {
                         glPushMatrix();
                         glTranslated(myNBEdge.getGeometry().back().x(), myNBEdge.getGeometry().back().y(), GLO_JUNCTION + 0.02);
                         GLHelper::drawText("E", Position(), 0, circleWidth, RGBColor::WHITE);
@@ -572,7 +572,7 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
         }
         glPopName();
     }
-    if(!s.drawForSelecting && (myNet->getViewNet()->getACUnderCursor() == this)) {
+    if (!s.drawForSelecting && (myNet->getViewNet()->getACUnderCursor() == this)) {
         // draw dotted contor around the first and last lane
         const double myHalfLaneWidthFront = myNBEdge.getLaneWidth(myLanes.front()->getIndex()) / 2;
         const double myHalfLaneWidthBack = myNBEdge.getLaneWidth(myLanes.back()->getIndex()) / 2;
@@ -653,13 +653,13 @@ GNEEdge::resetEndpoint(const Position& pos, GNEUndoList* undoList) {
 
 void
 GNEEdge::setGeometry(PositionVector geom, bool inner, bool updateGrid) {
-    if(updateGrid) {
+    if (updateGrid) {
         // first remove object from net grid
         myNet->removeGLObjectFromGrid(this);
     }
     // set new geometry
     myNBEdge.setGeometry(geom, inner);
-    if(updateGrid) {
+    if (updateGrid) {
         // add object into net again
         myNet->addGLObjectIntoGrid(this);
     }
@@ -713,7 +713,7 @@ GNEEdge::clearGNEConnections() {
     // Drop all existents connections that aren't referenced anymore
     for (auto i : myGNEConnections) {
         // check if connection is selected
-        if(i->isAttributeCarrierSelected()) {
+        if (i->isAttributeCarrierSelected()) {
             i->unselectAttributeCarrier();
         }
         // remove it from Tree
@@ -1122,9 +1122,9 @@ GNEEdge::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-bool 
-GNEEdge::addGenericParameter(const std::string &key, const std::string &value) {
-    if(!myNBEdge.knowsParameter(key)) {
+bool
+GNEEdge::addGenericParameter(const std::string& key, const std::string& value) {
+    if (!myNBEdge.knowsParameter(key)) {
         myNBEdge.setParameter(key, value);
         return true;
     } else {
@@ -1133,9 +1133,9 @@ GNEEdge::addGenericParameter(const std::string &key, const std::string &value) {
 }
 
 
-bool 
-GNEEdge::removeGenericParameter(const std::string &key) {
-    if(myNBEdge.knowsParameter(key)) {
+bool
+GNEEdge::removeGenericParameter(const std::string& key) {
+    if (myNBEdge.knowsParameter(key)) {
         myNBEdge.unsetParameter(key);
         return true;
     } else {
@@ -1144,9 +1144,9 @@ GNEEdge::removeGenericParameter(const std::string &key) {
 }
 
 
-bool 
-GNEEdge::updateGenericParameter(const std::string &oldKey, const std::string &newKey) {
-    if(myNBEdge.knowsParameter(oldKey) && !myNBEdge.knowsParameter(newKey)) {
+bool
+GNEEdge::updateGenericParameter(const std::string& oldKey, const std::string& newKey) {
+    if (myNBEdge.knowsParameter(oldKey) && !myNBEdge.knowsParameter(newKey)) {
         std::string value = myNBEdge.getParameter(oldKey);
         myNBEdge.unsetParameter(oldKey);
         myNBEdge.setParameter(newKey, value);
@@ -1157,9 +1157,9 @@ GNEEdge::updateGenericParameter(const std::string &oldKey, const std::string &ne
 }
 
 
-bool 
-GNEEdge::updateGenericParameterValue(const std::string &key, const std::string &newValue) {
-    if(myNBEdge.knowsParameter(key)) {
+bool
+GNEEdge::updateGenericParameterValue(const std::string& key, const std::string& newValue) {
+    if (myNBEdge.knowsParameter(key)) {
         myNBEdge.setParameter(key, newValue);
         return true;
     } else {
@@ -1168,7 +1168,7 @@ GNEEdge::updateGenericParameterValue(const std::string &key, const std::string &
 }
 
 
-std::string 
+std::string
 GNEEdge::getGenericParametersStr() const {
     std::string result;
     // Generate an string using the following structure: "key1=value1|key2=value2|...
@@ -1176,14 +1176,14 @@ GNEEdge::getGenericParametersStr() const {
         result += i.first + "=" + i.second + "|";
     }
     // remove the last "|"
-    if(!result.empty()) {
+    if (!result.empty()) {
         result.pop_back();
     }
     return result;
 }
 
 
-std::vector<std::pair<std::string, std::string> > 
+std::vector<std::pair<std::string, std::string> >
 GNEEdge::getGenericParameters() const {
     std::vector<std::pair<std::string, std::string> >  result;
     // iterate over parameters map and fill result
@@ -1194,8 +1194,8 @@ GNEEdge::getGenericParameters() const {
 }
 
 
-void 
-GNEEdge::setGenericParametersStr(const std::string &value) {
+void
+GNEEdge::setGenericParametersStr(const std::string& value) {
     // clear parameters
     myNBEdge.clearParameter();
     // separate value in a vector of string using | as separator
@@ -1204,15 +1204,15 @@ GNEEdge::setGenericParametersStr(const std::string &value) {
     while (stValues.hasNext()) {
         parsedValues.push_back(stValues.next());
     }
-    // check that parsed values (A=B)can be parsed in generic parameters 
-    for(auto i : parsedValues) {
+    // check that parsed values (A=B)can be parsed in generic parameters
+    for (auto i : parsedValues) {
         std::vector<std::string> parsedParameters;
         StringTokenizer stParam(i, "=", true);
         while (stParam.hasNext()) {
             parsedParameters.push_back(stParam.next());
         }
         // Check that parsed parameters are exactly two and contains valid chracters
-        if(parsedParameters.size() == 2 && SUMOXMLDefinitions::isValidGenericParameterKey(parsedParameters.front()) && SUMOXMLDefinitions::isValidGenericParameterValue(parsedParameters.back())) {
+        if (parsedParameters.size() == 2 && SUMOXMLDefinitions::isValidGenericParameterKey(parsedParameters.front()) && SUMOXMLDefinitions::isValidGenericParameterValue(parsedParameters.back())) {
             myNBEdge.setParameter(parsedParameters.front(), parsedParameters.back());
         }
     }
@@ -1330,7 +1330,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_BIDIR:
             throw InvalidArgument("Attribute of '" + toString(key) + "' cannot be modified");
         case GNE_ATTR_SELECTED:
-            if(parse<bool>(value)) {
+            if (parse<bool>(value)) {
                 selectAttributeCarrier();
             } else {
                 unselectAttributeCarrier();
@@ -1347,7 +1347,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
 }
 
 
-void 
+void
 GNEEdge::mouseOverObject(const GUIVisualizationSettings&) const {
 }
 
@@ -1391,7 +1391,7 @@ GNEEdge::addLane(GNELane* lane, const NBEdge::Lane& laneAttrs, bool recomputeCon
     }
     lane->incRef("GNEEdge::addLane");
     // check if lane is selected
-    if(lane->isAttributeCarrierSelected()) {
+    if (lane->isAttributeCarrierSelected()) {
         lane->selectAttributeCarrier();
     }
     // we copy all attributes except shape since this is recomputed from edge shape
@@ -1418,7 +1418,7 @@ GNEEdge::addLane(GNELane* lane, const NBEdge::Lane& laneAttrs, bool recomputeCon
     for (auto i : myGNEJunctionDestiny->getGNEEdges()) {
         i->remakeGNEConnections();
     }
-    // add object again 
+    // add object again
     myNet->addGLObjectIntoGrid(this);
     // Update geometry with the new lane
     updateGeometry(true);
@@ -1436,7 +1436,7 @@ GNEEdge::removeLane(GNELane* lane, bool recomputeConnections) {
         lane = myLanes.back();
     }
     // check if lane is selected
-    if(lane->isAttributeCarrierSelected()) {
+    if (lane->isAttributeCarrierSelected()) {
         lane->unselectAttributeCarrier();
     }
     // Delete lane of edge's container
@@ -1468,7 +1468,7 @@ GNEEdge::removeLane(GNELane* lane, bool recomputeConnections) {
     for (auto i : myGNEJunctionDestiny->getGNEEdges()) {
         i->remakeGNEConnections();
     }
-    // add object again 
+    // add object again
     myNet->addGLObjectIntoGrid(this);
     // Update element
     updateGeometry(true);
@@ -1478,9 +1478,9 @@ GNEEdge::removeLane(GNELane* lane, bool recomputeConnections) {
 void
 GNEEdge::addConnection(NBEdge::Connection nbCon, bool selectAfterCreation) {
     // If a new connection was sucesfully created
-    if (myNBEdge.setConnection(nbCon.fromLane, nbCon.toEdge, nbCon.toLane, NBEdge::L2L_USER, true, nbCon.mayDefinitelyPass, 
-                nbCon.keepClear, nbCon.contPos, nbCon.visibility,
-                nbCon.speed, nbCon.customShape, nbCon.uncontrolled)) {
+    if (myNBEdge.setConnection(nbCon.fromLane, nbCon.toEdge, nbCon.toLane, NBEdge::L2L_USER, true, nbCon.mayDefinitelyPass,
+                               nbCon.keepClear, nbCon.contPos, nbCon.visibility,
+                               nbCon.speed, nbCon.customShape, nbCon.uncontrolled)) {
         // Create  or retrieve existent GNEConection
         GNEConnection* con = retrieveGNEConnection(nbCon.fromLane, nbCon.toEdge, nbCon.toLane);
         // add it to GNEConnection container
@@ -1515,7 +1515,7 @@ GNEEdge::removeConnection(NBEdge::Connection nbCon) {
         // remove it from Tree
         myNet->removeGLObjectFromGrid(con);
         // check if connection is selected
-        if(con->isAttributeCarrierSelected()) {
+        if (con->isAttributeCarrierSelected()) {
             con->unselectAttributeCarrier();
         }
         if (con->unreferenced()) {
@@ -1707,8 +1707,8 @@ GNEEdge::smoothElevation(GNEUndoList* undoList) {
 }
 
 
-void 
-GNEEdge::setShapeStartPos(const Position &pos) {
+void
+GNEEdge::setShapeStartPos(const Position& pos) {
     // remove start position and add it the new position
     PositionVector geom = myNBEdge.getGeometry();
     geom.erase(geom.begin());
@@ -1718,8 +1718,8 @@ GNEEdge::setShapeStartPos(const Position &pos) {
 }
 
 
-void 
-GNEEdge::setShapeEndPos(const Position &pos) {
+void
+GNEEdge::setShapeEndPos(const Position& pos) {
     // remove end position and add it the new position
     PositionVector geom = myNBEdge.getGeometry();
     geom.pop_back();

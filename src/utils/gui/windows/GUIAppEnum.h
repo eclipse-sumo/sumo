@@ -681,7 +681,7 @@ enum {
     /// @brief abort drawing polygon
     MID_GNE_PROHIBITIONFRAME_ABORTDRAWING,
     /// @}
-    
+
 
     /// @name GNEEdge messages
     /// @{

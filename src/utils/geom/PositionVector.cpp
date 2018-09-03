@@ -244,7 +244,7 @@ PositionVector::operator[](int index) {
 
 Position
 PositionVector::positionAtOffset(double pos, double lateralOffset) const {
-    if(size() == 0) {
+    if (size() == 0) {
         return Position::INVALID;
     }
     const_iterator i = begin();
@@ -266,7 +266,7 @@ PositionVector::positionAtOffset(double pos, double lateralOffset) const {
 
 Position
 PositionVector::positionAtOffset2D(double pos, double lateralOffset) const {
-    if(size() == 0) {
+    if (size() == 0) {
         return Position::INVALID;
     }
     const_iterator i = begin();
@@ -284,7 +284,7 @@ PositionVector::positionAtOffset2D(double pos, double lateralOffset) const {
 
 double
 PositionVector::rotationAtOffset(double pos) const {
-    if(size() == 0) {
+    if (size() == 0) {
         return INVALID_DOUBLE;
     }
     if (pos < 0) {
@@ -315,7 +315,7 @@ PositionVector::rotationDegreeAtOffset(double pos) const {
 
 double
 PositionVector::slopeDegreeAtOffset(double pos) const {
-    if(size() == 0) {
+    if (size() == 0) {
         return INVALID_DOUBLE;
     }
     const_iterator i = begin();
@@ -404,7 +404,7 @@ PositionVector::getPolygonCenter() const {
 
 Position
 PositionVector::getCentroid() const {
-    if(size() == 0) {
+    if (size() == 0) {
         return Position::INVALID;
     }
     PositionVector tmp = *this;
@@ -474,7 +474,7 @@ PositionVector::getLineCenter() const {
 
 double
 PositionVector::length() const {
-    if(size() == 0) {
+    if (size() == 0) {
         return 0;
     }
     double len = 0;
@@ -487,7 +487,7 @@ PositionVector::length() const {
 
 double
 PositionVector::length2D() const {
-    if(size() == 0) {
+    if (size() == 0) {
         return 0;
     }
     double len = 0;
@@ -567,9 +567,9 @@ PositionVector::splitAt(double where, bool use2D) const {
     if (fabs(where - (seen + next)) > POSITION_EPS || it == end() - 1) {
         // we need to insert a new point because 'where' is not close to an
         // existing point or it is to close to the endpoint
-        const Position p = (use2D 
-                ? positionAtOffset2D(first.back(), *it, where - seen) 
-                : positionAtOffset(first.back(), *it, where - seen));
+        const Position p = (use2D
+                            ? positionAtOffset2D(first.back(), *it, where - seen)
+                            : positionAtOffset(first.back(), *it, where - seen));
         first.push_back(p);
         second.push_back(p);
     } else {
@@ -712,7 +712,7 @@ PositionVector::getSubpart(double beginOffset, double endOffset) const {
 
 PositionVector
 PositionVector::getSubpart2D(double beginOffset, double endOffset) const {
-    if(size() == 0) {
+    if (size() == 0) {
         return PositionVector();
     }
     PositionVector ret;
@@ -755,7 +755,7 @@ PositionVector::getSubpart2D(double beginOffset, double endOffset) const {
 
 PositionVector
 PositionVector::getSubpartByIndex(int beginIndex, int count) const {
-    if(size() == 0) {
+    if (size() == 0) {
         return PositionVector();
     }
     if (beginIndex < 0) {
@@ -774,7 +774,7 @@ PositionVector::getSubpartByIndex(int beginIndex, int count) const {
 
 double
 PositionVector::beginEndAngle() const {
-    if(size() == 0) {
+    if (size() == 0) {
         return INVALID_DOUBLE;
     }
     return front().angleTo2D(back());
@@ -783,7 +783,7 @@ PositionVector::beginEndAngle() const {
 
 double
 PositionVector::nearest_offset_to_point2D(const Position& p, bool perpendicular) const {
-    if(size() == 0) {
+    if (size() == 0) {
         return INVALID_DOUBLE;
     }
     double minDist = std::numeric_limits<double>::max();
@@ -819,7 +819,7 @@ PositionVector::nearest_offset_to_point2D(const Position& p, bool perpendicular)
 
 Position
 PositionVector::transformToVectorCoordinates(const Position& p, bool extend) const {
-    if(size() == 0) {
+    if (size() == 0) {
         return Position::INVALID;
     }
     // @toDo this duplicates most of the code in nearest_offset_to_point2D. It should be refactored
@@ -962,7 +962,7 @@ PositionVector::intersectsAtLengths2D(const Position& lp1, const Position& lp2) 
 
 void
 PositionVector::extrapolate(const double val, const bool onlyFirst, const bool onlyLast) {
-    if(size() > 0) {
+    if (size() > 0) {
         Position& p1 = (*this)[0];
         Position& p2 = (*this)[1];
         const Position offset = (p2 - p1) * (val / p1.distanceTo(p2));
@@ -984,10 +984,10 @@ PositionVector::extrapolate(const double val, const bool onlyFirst, const bool o
 
 void
 PositionVector::extrapolate2D(const double val, const bool onlyFirst) {
-    if(size() > 0) {
+    if (size() > 0) {
         Position& p1 = (*this)[0];
         Position& p2 = (*this)[1];
-        if(p1.distanceTo2D(p2) > 0) {
+        if (p1.distanceTo2D(p2) > 0) {
             const Position offset = (p2 - p1) * (val / p1.distanceTo2D(p2));
             p1.sub(offset);
             if (!onlyFirst) {
@@ -1404,7 +1404,7 @@ PositionVector::getOrthogonal(const Position& p, double extend, bool before, dou
 PositionVector
 PositionVector::smoothedZFront(double dist) const {
     PositionVector result = *this;
-    if(size() == 0) {
+    if (size() == 0) {
         return result;
     }
     const double z0 = (*this)[0].z();
@@ -1454,7 +1454,7 @@ PositionVector::interpolateZ(double zStart, double zEnd) const {
 PositionVector
 PositionVector::resample(double maxLength) const {
     PositionVector result;
-    if(maxLength == 0) {
+    if (maxLength == 0) {
         return result;
     }
     const double length = length2D();

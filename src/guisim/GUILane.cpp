@@ -79,8 +79,7 @@ GUILane::GUILane(const std::string& id, double maxSpeed, double length,
 #ifdef HAVE_OSG
     myGeom(0),
 #endif
-    myAmClosed(false)
-{
+    myAmClosed(false) {
     if (MSGlobals::gUseMesoSim) {
         myShape = splitAtSegments(shape);
         assert(fabs(myShape.length() - shape.length()) < POSITION_EPS);
@@ -496,8 +495,8 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
              || myEdge->getNumericalID() < myEdge->getBidiEdge()->getNumericalID())) {
         // scale tls-controlled lane2lane-arrows along with their junction shapes
         double junctionExaggeration = 1;
-        if (!isInternal 
-                && myEdge->getToJunction()->getType() <= NODETYPE_RAIL_CROSSING 
+        if (!isInternal
+                && myEdge->getToJunction()->getType() <= NODETYPE_RAIL_CROSSING
                 && (s.junctionSize.constantSize || s.junctionSize.exaggeration > 1)) {
             junctionExaggeration = MAX2(1.001, s.junctionSize.getExaggeration(s, 4));
         }
@@ -576,7 +575,7 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
             }
 #endif
             glPopMatrix();
-            // draw details 
+            // draw details
             if ((!isInternal || isCrossing) && (drawDetails || s.drawForSelecting || junctionExaggeration > 1)) {
                 glPushMatrix();
                 glTranslated(0, 0, GLO_JUNCTION); // must draw on top of junction shape
@@ -1226,7 +1225,7 @@ GUILane::isLaneOrEdgeSelected() const {
     return isSelected() || gSelected.isSelected(GLO_EDGE, dynamic_cast<GUIEdge*>(myEdge)->getGlID());
 }
 
-double 
+double
 GUILane::getPendingEmits() const {
     return MSNet::getInstance()->getInsertionControl().getPendingEmits(this);
 }

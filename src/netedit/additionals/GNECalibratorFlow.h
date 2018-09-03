@@ -52,7 +52,7 @@ public:
     GNECalibratorFlow(GNEAdditional* calibratorParent);
 
     /// @brief parameter constructor
-    GNECalibratorFlow(GNEAdditional* calibratorParent, GNEAdditional* vehicleType, GNEAdditional* route, const std::string &vehsPerHour, const std::string &speed,
+    GNECalibratorFlow(GNEAdditional* calibratorParent, GNEAdditional* vehicleType, GNEAdditional* route, const std::string& vehsPerHour, const std::string& speed,
                       const RGBColor& color, const std::string& departLane, const std::string& departPos, const std::string& departSpeed, const std::string& arrivalLane,
                       const std::string& arrivalPos, const std::string& arrivalSpeed, const std::string& line, int personNumber, int containerNumber, bool reroute,
                       const std::string& departPosLat, const std::string& arrivalPosLat, double begin, double end);
@@ -136,7 +136,7 @@ protected:
     std::string myVehsPerHour;
 
     /// @brief flow speed (String instead float because can be empty)
-    std::string mySpeed; 
+    std::string mySpeed;
 
     /// @brief color of flow
     RGBColor myColor;
