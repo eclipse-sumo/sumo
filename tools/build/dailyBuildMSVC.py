@@ -95,7 +95,7 @@ def runTests(options, env, gitrev, debugSuffix=""):
             # Check if sikulixServer is already opened
             # if runSikulixServer.checkStatus() == False:
             #    runSikulixServer.startSikulixServer()
-            subprocess.call([ttBin, "-a", "netedit.gui"] + fullOpt, env=env,
+            subprocess.call([ttBin, "-a", "netedit.daily"] + fullOpt, env=env,
                             stdout=log, stderr=subprocess.STDOUT, shell=True)
     subprocess.call([ttBin, "-b", env["FILEPREFIX"], "-coll"], env=env,
                     stdout=log, stderr=subprocess.STDOUT, shell=True)
