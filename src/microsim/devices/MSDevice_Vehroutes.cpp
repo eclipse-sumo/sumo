@@ -60,15 +60,16 @@ std::map<const SUMOTime, std::map<const std::string, std::string> > MSDevice_Veh
 // ---------------------------------------------------------------------------
 void
 MSDevice_Vehroutes::init() {
-    if (OptionsCont::getOptions().isSet("vehroute-output")) {
+    const OptionsCont& oc = OptionsCont::getOptions();
+    if (oc.isSet("vehroute-output")) {
         OutputDevice::createDeviceByOption("vehroute-output", "routes", "routes_file.xsd");
-        mySaveExits = OptionsCont::getOptions().getBool("vehroute-output.exit-times");
-        myLastRouteOnly = OptionsCont::getOptions().getBool("vehroute-output.last-route");
-        myDUAStyle = OptionsCont::getOptions().getBool("vehroute-output.dua");
-        mySorted = myDUAStyle || OptionsCont::getOptions().getBool("vehroute-output.sorted");
-        myIntendedDepart = OptionsCont::getOptions().getBool("vehroute-output.intended-depart");
-        myRouteLength = OptionsCont::getOptions().getBool("vehroute-output.route-length");
-        mySkipPTLines = OptionsCont::getOptions().getBool("vehroute-output.skip-ptlines");
+        mySaveExits = oc.getBool("vehroute-output.exit-times");
+        myLastRouteOnly = oc.getBool("vehroute-output.last-route");
+        myDUAStyle = oc.getBool("vehroute-output.dua");
+        mySorted = myDUAStyle || oc.getBool("vehroute-output.sorted");
+        myIntendedDepart = oc.getBool("vehroute-output.intended-depart");
+        myRouteLength = oc.getBool("vehroute-output.route-length");
+        mySkipPTLines = oc.getBool("vehroute-output.skip-ptlines");
         MSNet::getInstance()->addVehicleStateListener(&myStateListener);
     }
 }
