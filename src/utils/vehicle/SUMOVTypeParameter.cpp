@@ -444,9 +444,8 @@ SUMOVTypeParameter::getDefaultDecel(const SUMOVehicleClass vc) {
 
 
 double
-SUMOVTypeParameter::getDefaultEmergencyDecel(const SUMOVehicleClass vc, double decel) {
-    const std::string defaultEmergencyDecelOption = OptionsCont::getOptions().getString("default.emergencydecel");
-    if (defaultEmergencyDecelOption == "default") {
+SUMOVTypeParameter::getDefaultEmergencyDecel(const SUMOVehicleClass vc, double decel, double defaultOption) {
+    if (defaultOption == VTYPEPARS_DEFAULT_EMERGENCYDECEL_DEFAULT) {
         double vcDecel;
         switch (vc) {
             case SVC_PEDESTRIAN:
@@ -479,11 +478,11 @@ SUMOVTypeParameter::getDefaultEmergencyDecel(const SUMOVehicleClass vc, double d
                 vcDecel = 9;
         }
         return MAX2(decel, vcDecel);
-    } else if (defaultEmergencyDecelOption == "decel") {
+    } else if (defaultOption == VTYPEPARS_DEFAULT_EMERGENCYDECEL_DECEL) {
         return decel;
     } else {
         // value already checked in MSFrame::checkOptions
-        return MAX2(decel, TplConvert::_2double(defaultEmergencyDecelOption.c_str()));
+        return MAX2(decel, defaultOption);
     }
 }
 

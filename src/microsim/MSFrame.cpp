@@ -669,6 +669,16 @@ MSFrame::setMSGlobals(OptionsCont& oc) {
     double givenDefaultActionStepLength = oc.getFloat("default.action-step-length");
     MSGlobals::gActionStepLength = SUMOVehicleParserHelper::processActionStepLength(givenDefaultActionStepLength);
 
+    const std::string defaultEmergencyDecelOption = OptionsCont::getOptions().getString("default.emergencydecel");
+    if (defaultEmergencyDecelOption == "default") {
+        MSGlobals::gDefaultEmergencyDecel = VTYPEPARS_DEFAULT_EMERGENCYDECEL_DEFAULT;
+    } else if (defaultEmergencyDecelOption == "decel") {
+        MSGlobals::gDefaultEmergencyDecel = VTYPEPARS_DEFAULT_EMERGENCYDECEL_DECEL;
+    } else {
+        // value already checked in checkOptions()
+        MSGlobals::gDefaultEmergencyDecel = TplConvert::_2double(defaultEmergencyDecelOption.c_str());
+    }
+
 #ifdef _DEBUG
     if (oc.isSet("movereminder-output")) {
         MSBaseVehicle::initMoveReminderOutput(oc);

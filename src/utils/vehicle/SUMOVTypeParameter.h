@@ -70,6 +70,8 @@ const int VTYPEPARS_ACTIONSTEPLENGTH_SET = 1 << 23;
 const int VTYPEPARS_HASDRIVERSTATE_SET = 1 << 24;
 
 
+const int VTYPEPARS_DEFAULT_EMERGENCYDECEL_DEFAULT = -1;
+const int VTYPEPARS_DEFAULT_EMERGENCYDECEL_DECEL = -2;
 
 // ===========================================================================
 // struct definitions
@@ -249,7 +251,7 @@ public:
      * @param[in] decel the deceleration of the vehicle type
      * @return the emergency deceleration in m/s^2
      */
-    static double getDefaultEmergencyDecel(const SUMOVehicleClass vc, double decel);
+    static double getDefaultEmergencyDecel(const SUMOVehicleClass vc, double decel, double defaultOption);
 
     /** @brief Returns the default driver's imperfection (sigma or epsilon in Krauss' model) for the given vehicle class
      * This needs to be a function because the actual value is stored in the car following model

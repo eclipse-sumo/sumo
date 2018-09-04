@@ -57,7 +57,7 @@ MSCFModel::MSCFModel(const MSVehicleType* vtype) :
     myAccel(vtype->getParameter().getCFParam(SUMO_ATTR_ACCEL, SUMOVTypeParameter::getDefaultAccel(vtype->getParameter().vehicleClass))),
     myDecel(vtype->getParameter().getCFParam(SUMO_ATTR_DECEL, SUMOVTypeParameter::getDefaultDecel(vtype->getParameter().vehicleClass))),
     myEmergencyDecel(vtype->getParameter().getCFParam(SUMO_ATTR_EMERGENCYDECEL,
-                     SUMOVTypeParameter::getDefaultEmergencyDecel(vtype->getParameter().vehicleClass, myDecel))),
+                     SUMOVTypeParameter::getDefaultEmergencyDecel(vtype->getParameter().vehicleClass, myDecel, MSGlobals::gDefaultEmergencyDecel))),
     myApparentDecel(vtype->getParameter().getCFParam(SUMO_ATTR_APPARENTDECEL, myDecel)),
     myHeadwayTime(vtype->getParameter().getCFParam(SUMO_ATTR_TAU, 1.0)) {
 }
