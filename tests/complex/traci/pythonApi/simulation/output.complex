@@ -36,7 +36,7 @@ min#expected 6
 teleportStart ()
 #teleportEnd 0
 teleportEnd ()
-deltaT 1
+deltaT 1.0
 boundary ((0.0, 0.0), (3500.0, 3904.56))
 convertRoad2D (-1.22, 3903.52)
 convertRoad3D (-1.22, 3903.52, 2.0)
@@ -63,13 +63,13 @@ findIntermodalRoute (walk)
   Stage(stageType=2, line='', destStop='', edges=('o', '2o'), travelTime=2463.3033600000003, cost=2463.3033600000003, intended='', depart=-1.0)
 
 findIntermodalRoute (bike)
-  Stage(stageType=3, line='bicycle', destStop='', edges=('o', '2o'), travelTime=1847.4768000000001, cost=1847.4768000000001, intended='bicycle', depart=-1.0)
+  Stage(stageType=3, line='bicycle', destStop='', edges=('o', '2o'), travelTime=1848.3174000000001, cost=1848.3174000000001, intended='bicycle', depart=-1.0)
 
 findIntermodalRoute (car)
-  Stage(stageType=3, line='car', destStop='', edges=('o', '2o'), travelTime=738.4, cost=738.4, intended='car', depart=-1.0)
+  Stage(stageType=3, line='car', destStop='', edges=('o', '2o'), travelTime=738.7359712230216, cost=738.7359712230216, intended='car', depart=-1.0)
 
 findIntermodalRoute (bike,car,public)
-  Stage(stageType=3, line='car', destStop='', edges=('o', '2o'), travelTime=738.4, cost=738.4, intended='car', depart=-1.0)
+  Stage(stageType=3, line='car', destStop='', edges=('o', '2o'), travelTime=738.7359712230216, cost=738.7359712230216, intended='car', depart=-1.0)
 
 step 0
 {114: (), 116: ()}

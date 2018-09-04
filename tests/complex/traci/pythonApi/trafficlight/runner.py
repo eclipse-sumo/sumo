@@ -80,5 +80,7 @@ check()
 traci.trafficlight.setRedYellowGreenState(tlsID, "gGyruOorrrrrrrrr")
 print("set ryg", traci.trafficlight.getRedYellowGreenState(tlsID))
 print("program", traci.trafficlight.getProgram(tlsID))
+traci.trafficlight.setProgram(tlsID, "off")
+print("ryg", traci.trafficlight.getRedYellowGreenState(tlsID))
 
 traci.close()
