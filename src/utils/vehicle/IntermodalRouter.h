@@ -137,17 +137,12 @@ public:
                         }
                     }
                 }
-                if (prev != nullptr) {
-                    myInternalRouter->updateViaCost(prev, iEdge, &trip, time, effort);
-                }
-                const double edgeEffort = myInternalRouter->getEffort(iEdge, &trip, time);
-                effort += edgeEffort;
-                const double edgeTime = myInternalRouter->getTravelTime(iEdge, &trip, time, edgeEffort);
-                time += edgeTime;
+                const double prevTime = time, prevEffort = effort;
+                myInternalRouter->updateViaCost(prev, iEdge, &trip, time, effort);
                 prev = iEdge;
                 if (!into.empty()) {
-                    into.back().traveltime += edgeTime;
-                    into.back().cost += edgeEffort;
+                    into.back().traveltime += time - prevTime;
+                    into.back().cost += effort - prevEffort;
                 }
             }
         }

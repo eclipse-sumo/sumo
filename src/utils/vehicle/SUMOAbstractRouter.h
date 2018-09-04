@@ -83,18 +83,23 @@ public:
     }
 
     inline void updateViaCost(const E* const prev, const E* const e, const V* const v, double& time, double& effort) const {
-        for (const std::pair<const E*, const E*>& follower : prev->getViaSuccessors()) {
-            if (follower.first == e) {
-                const E* viaEdge = follower.second;
-                while (viaEdge != nullptr && viaEdge != e) {
-                    const double viaEffortDelta = this->getEffort(viaEdge, v, time);
-                    time += getTravelTime(viaEdge, v, time, viaEffortDelta);
-                    effort += viaEffortDelta;
-                    viaEdge = viaEdge->getViaSuccessors().front().first;
+        if (prev != nullptr) {
+            for (const std::pair<const E*, const E*>& follower : prev->getViaSuccessors()) {
+                if (follower.first == e) {
+                    const E* viaEdge = follower.second;
+                    while (viaEdge != nullptr && viaEdge != e) {
+                        const double viaEffortDelta = this->getEffort(viaEdge, v, time);
+                        time += getTravelTime(viaEdge, v, time, viaEffortDelta);
+                        effort += viaEffortDelta;
+                        viaEdge = viaEdge->getViaSuccessors().front().first;
+                    }
+                    break;
                 }
-                break;
             }
         }
+        const double effortDelta = this->getEffort(e, v, time);
+        effort += effortDelta;
+        time += getTravelTime(e, v, time, effortDelta);
     }
 
 
@@ -106,12 +111,7 @@ public:
             if (isProhibited(e, v)) {
                 return -1;
             }
-            if (prev != nullptr) {
-                updateViaCost(prev, e, v, time, effort);
-            }
-            const double effortDelta = this->getEffort(e, v, time);
-            effort += effortDelta;
-            time += getTravelTime(e, v, time, effortDelta);
+            updateViaCost(prev, e, v, time, effort);
             prev = e;
         }
         return effort;
