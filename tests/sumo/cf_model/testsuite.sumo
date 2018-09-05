@@ -33,4 +33,7 @@ collisions
 
 # tests for setting apparentDecel  and emergentDecel to be distinct from decel
 apparentDecel_emergencyDecel
+
+# tests for specific aspects of IDM and IDMM
+IDM
 bugs
