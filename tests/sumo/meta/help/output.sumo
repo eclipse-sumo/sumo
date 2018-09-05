@@ -1,4 +1,4 @@
-Eclipse SUMO Version 430e1a6
+Eclipse SUMO Version v1_0_0+0017-b6697a2
  Copyright (C) 2001-2018 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -138,7 +138,9 @@ Processing Options:
   --collision.check-junctions          Enables collisions checks on junctions
   --collision.mingap-factor FLOAT      Sets the fraction of minGap that must be
                                          maintained to avoid collision
-                                         detection.
+                                         detection. If a negative value is
+                                         given, the carFollowModel parameter is
+                                         used
   --max-num-vehicles INT               Delay vehicle insertion to stay within
                                          the given maximum number
   --max-num-teleports INT              Abort the simulation if the given
@@ -485,6 +487,8 @@ GUI Only Options:
                                          position
   --tracker-interval FLOAT             The aggregation period for value tracker
                                          windows
+  --osg-view                           Start with an OpenSceneGraph view
+                                         instead of the regular 2D view
   --gui-testing                        Enable ovelay for screen recognition
   --gui-testing-debug                  Enable output messages during
                                          GUI-Testing
