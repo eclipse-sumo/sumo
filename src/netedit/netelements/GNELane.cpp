@@ -855,9 +855,13 @@ GNELane::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ACCELERATION:
             return canParse<bool>(value);
         case SUMO_ATTR_CUSTOMSHAPE: {
-            bool ok = true;
-            PositionVector shape = GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, true);
-            return ok;
+            if(value.empty()) {
+                return true;
+            } else {
+                bool ok = true;
+                PositionVector shape = GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, true);
+                return ok && (shape.size() > 1);
+            }
         }
         case SUMO_ATTR_INDEX:
             return canParse<int>(value) && (parse<int>(value) == myIndex);
@@ -1006,8 +1010,12 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value) {
             edge->setAcceleration(myIndex, parse<bool>(value));
             break;
         case SUMO_ATTR_CUSTOMSHAPE: {
-            bool ok;
-            edge->setLaneShape(myIndex, GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, true));
+            if(value.empty()) {
+                edge->setLaneShape(myIndex, PositionVector());
+            } else {
+                bool ok;
+                edge->setLaneShape(myIndex, GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, true));
+            }
             break;
         }
         case GNE_ATTR_SELECTED:
