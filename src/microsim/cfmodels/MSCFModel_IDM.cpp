@@ -26,6 +26,7 @@
 #include "MSCFModel_IDM.h"
 #include <microsim/MSVehicle.h>
 
+//#define DEBUG_V
 
 // ===========================================================================
 // method definitions
@@ -56,6 +57,9 @@ MSCFModel_IDM::finalizeSpeed(MSVehicle* const veh, double vPos) const {
 
 double
 MSCFModel_IDM::followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double /*predMaxDecel*/, const MSVehicle* const /*pred*/) const {
+#ifdef DEBUG_V
+    gDebugFlag1 = veh->isSelected();
+#endif
     return _v(veh, gap2pred, speed, predSpeed, veh->getLane()->getVehicleMaxSpeed(veh));
 }
 
@@ -114,7 +118,17 @@ MSCFModel_IDM::_v(const MSVehicle* const veh, const double gap2pred, const doubl
         }
         gap = MAX2(NUMERICAL_EPS, gap); // avoid singularity
         const double acc = myAccel * (1. - pow(newSpeed / desSpeed, myDelta) - (s * s) / (gap * gap));
+#ifdef DEBUG_V
+        if (gDebugFlag1) {
+            std::cout << " gap=" << gap << " t=" << myHeadwayTime << " t2=" << headwayTime << " s=" << s << " pow=" << pow(newSpeed / desSpeed, myDelta) << " gapDecel=" << (s * s) / (gap * gap) << " a=" << acc;
+        }
+#endif
         newSpeed += ACCEL2SPEED(acc) / myIterations;
+#ifdef DEBUG_V
+        if (gDebugFlag1) {
+            std::cout << " v2=" << newSpeed << "\n";
+        }
+#endif
         //TODO use more realistic position update which takes accelerated motion into account
         gap -= MAX2(0., SPEED2DIST(newSpeed - predSpeed) / myIterations);
     }
