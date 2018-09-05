@@ -283,6 +283,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "laneChangeModel",        SUMO_ATTR_LANE_CHANGE_MODEL },
     { "carFollowModel",         SUMO_ATTR_CAR_FOLLOW_MODEL },
     { "minGap",                 SUMO_ATTR_MINGAP },
+    { "collisionMinGapFactor",  SUMO_ATTR_COLLISION_MINGAP_FACTOR },
     { "boardingDuration",       SUMO_ATTR_BOARDING_DURATION },
     { "loadingDuration",        SUMO_ATTR_LOADING_DURATION },
     // Charging Station

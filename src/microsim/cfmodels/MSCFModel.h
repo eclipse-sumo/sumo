@@ -235,6 +235,12 @@ public:
         return myApparentDecel;
     }
 
+    /** @brief Get the factor of minGap that must be maintained to avoid a collision event
+     */
+    inline double getCollisionMinGapFactor() const {
+        return myCollisionMinGapFactor;
+    }
+
 
     /// @name Virtual methods with default implementation
     /// @{
@@ -589,6 +595,8 @@ protected:
     double myEmergencyDecel;
     /// @brief The vehicle's deceleration as expected by surrounding traffic [m/s^2]
     double myApparentDecel;
+    /// @brief The factor of minGap that must be maintained to avoid a collision event
+    double myCollisionMinGapFactor;
 
     /// @brief The driver's desired time headway (aka reaction time tau) [s]
     double myHeadwayTime;
