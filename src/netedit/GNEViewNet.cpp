@@ -122,12 +122,15 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_TRANSFORM_SIDEWALK,         GNEViewNet::onCmdRestrictLaneSidewalk),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_TRANSFORM_BIKE,             GNEViewNet::onCmdRestrictLaneBikelane),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_TRANSFORM_BUS,              GNEViewNet::onCmdRestrictLaneBuslane),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_TRANSFORM_GREENVERGE,       GNEViewNet::onCmdRestrictLaneGreenVerge),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_ADD_SIDEWALK,               GNEViewNet::onCmdAddRestrictedLaneSidewalk),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_ADD_BIKE,                   GNEViewNet::onCmdAddRestrictedLaneBikelane),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_ADD_BUS,                    GNEViewNet::onCmdAddRestrictedLaneBuslane),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_ADD_GREENVERGE,             GNEViewNet::onCmdAddRestrictedLaneGreenVerge),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_REMOVE_SIDEWALK,            GNEViewNet::onCmdRemoveRestrictedLaneSidewalk),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_REMOVE_BIKE,                GNEViewNet::onCmdRemoveRestrictedLaneBikelane),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_REMOVE_BUS,                 GNEViewNet::onCmdRemoveRestrictedLaneBuslane),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_REMOVE_GREENVERGE,          GNEViewNet::onCmdRemoveRestrictedLaneGreenVerge),
     // addtionals
     FXMAPFUNC(SEL_COMMAND, MID_OPEN_ADDITIONAL_DIALOG,              GNEViewNet::onCmdOpenAdditionalDialog),
     // Polygons
@@ -1818,6 +1821,12 @@ GNEViewNet::onCmdRestrictLaneBuslane(FXObject*, FXSelector, void*) {
 
 
 long
+GNEViewNet::onCmdRestrictLaneGreenVerge(FXObject*, FXSelector, void*) {
+    return restrictLane(SVC_IGNORING);
+}
+
+
+long
 GNEViewNet::onCmdAddRestrictedLaneSidewalk(FXObject*, FXSelector, void*) {
     return addRestrictedLane(SVC_PEDESTRIAN);
 }
@@ -1832,6 +1841,12 @@ GNEViewNet::onCmdAddRestrictedLaneBikelane(FXObject*, FXSelector, void*) {
 long
 GNEViewNet::onCmdAddRestrictedLaneBuslane(FXObject*, FXSelector, void*) {
     return addRestrictedLane(SVC_BUS);
+}
+
+
+long 
+GNEViewNet::onCmdAddRestrictedLaneGreenVerge(FXObject*, FXSelector, void*) {
+    return addRestrictedLane(SVC_IGNORING);
 }
 
 
@@ -1850,6 +1865,12 @@ GNEViewNet::onCmdRemoveRestrictedLaneBikelane(FXObject*, FXSelector, void*) {
 long
 GNEViewNet::onCmdRemoveRestrictedLaneBuslane(FXObject*, FXSelector, void*) {
     return removeRestrictedLane(SVC_BUS);
+}
+
+
+long
+GNEViewNet::onCmdRemoveRestrictedLaneGreenVerge(FXObject*, FXSelector, void*) {
+    return removeRestrictedLane(SVC_IGNORING);
 }
 
 

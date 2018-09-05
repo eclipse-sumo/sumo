@@ -515,16 +515,18 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         FXIcon* pedestrianIcon = GUIIconSubSys::getIcon(ICON_LANEPEDESTRIAN);
         FXIcon* bikeIcon = GUIIconSubSys::getIcon(ICON_LANEBIKE);
         FXIcon* busIcon = GUIIconSubSys::getIcon(ICON_LANEBUS);
+        FXIcon* greenVergeIcon = GUIIconSubSys::getIcon(ICON_LANEGREENVERGE);
         // Create basic commands
         std::string edgeDescPossibleMulti = toString(SUMO_TAG_EDGE);
         const int edgeSelSize = (int)myNet->retrieveEdges(true).size();
-        if (edgeSelSize && edgeSelSize > 1 && myParentEdge.isAttributeCarrierSelected()) {
+        if (edgeSelSize && myParentEdge.isAttributeCarrierSelected() && (edgeSelSize > 1)) {
             edgeDescPossibleMulti = toString(edgeSelSize) + " " + toString(SUMO_TAG_EDGE) + "s";
         }
         // if lane is selected, calculate number of restricted lanes
         bool edgeHasSidewalk = false;
         bool edgeHasBikelane = false;
         bool edgeHasBuslane = false;
+        bool edgeHasGreenVerge = false;
         if (isAttributeCarrierSelected()) {
             auto selectedLanes = myNet->retrieveLanes(true);
             for (auto i : selectedLanes) {
@@ -537,11 +539,15 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
                 if(i->getParentEdge().hasRestrictedLane(SVC_BUS)) {
                     edgeHasBuslane = true;
                 }
+                if(i->getParentEdge().hasRestrictedLane(SVC_IGNORING)) {
+                    edgeHasGreenVerge = true;
+                }
             }
         } else {
             edgeHasSidewalk = myParentEdge.hasRestrictedLane(SVC_PEDESTRIAN);
             edgeHasBikelane = myParentEdge.hasRestrictedLane(SVC_BICYCLE);
             edgeHasBuslane = myParentEdge.hasRestrictedLane(SVC_BUS);
+            edgeHasGreenVerge = myParentEdge.hasRestrictedLane(SVC_IGNORING);
         }
         // create menu pane for edge operations
         FXMenuPane* edgeOperations = new FXMenuPane(ret);
@@ -574,6 +580,7 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         FXMenuCommand* addSidewalk = new FXMenuCommand(addSpecialLanes, "Sidewalk", pedestrianIcon, &parent, MID_GNE_LANE_ADD_SIDEWALK);
         FXMenuCommand* addBikelane = new FXMenuCommand(addSpecialLanes, "Bikelane", bikeIcon, &parent, MID_GNE_LANE_ADD_BIKE);
         FXMenuCommand* addBuslane = new FXMenuCommand(addSpecialLanes, "Buslane", busIcon, &parent, MID_GNE_LANE_ADD_BUS);
+        FXMenuCommand* addGreenVerge = new FXMenuCommand(addSpecialLanes, "Greenverge", greenVergeIcon, &parent, MID_GNE_LANE_ADD_GREENVERGE);
         // Create menu comands for all remove special lanes and disable it
         FXMenuCommand* removeSidewalk = new FXMenuCommand(removeSpecialLanes, "Sidewalk", pedestrianIcon, &parent, MID_GNE_LANE_REMOVE_SIDEWALK);
         removeSidewalk->disable();
@@ -581,10 +588,13 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         removeBikelane->disable();
         FXMenuCommand* removeBuslane = new FXMenuCommand(removeSpecialLanes, "Buslane", busIcon, &parent, MID_GNE_LANE_REMOVE_BUS);
         removeBuslane->disable();
+        FXMenuCommand* removeGreenVerge = new FXMenuCommand(removeSpecialLanes, "Greenverge", greenVergeIcon, &parent, MID_GNE_LANE_REMOVE_GREENVERGE);
+        removeGreenVerge->disable();
         // Create menu comands for all trasform special lanes and disable it
         FXMenuCommand* transformLaneToSidewalk = new FXMenuCommand(transformSlanes, "Sidewalk", pedestrianIcon, &parent, MID_GNE_LANE_TRANSFORM_SIDEWALK);
         FXMenuCommand* transformLaneToBikelane = new FXMenuCommand(transformSlanes, "Bikelane", bikeIcon, &parent, MID_GNE_LANE_TRANSFORM_BIKE);
         FXMenuCommand* transformLaneToBuslane = new FXMenuCommand(transformSlanes, "Buslane", busIcon, &parent, MID_GNE_LANE_TRANSFORM_BUS);
+        FXMenuCommand* transformLaneToGreenVerge = new FXMenuCommand(transformSlanes, "Greenverge", greenVergeIcon, &parent, MID_GNE_LANE_TRANSFORM_GREENVERGE);
         // add menuCascade for lane operations
         FXMenuCascade* cascadeAddSpecialLane = new FXMenuCascade(laneOperations, ("add restricted " + toString(SUMO_TAG_LANE)).c_str(), 0, addSpecialLanes);
         FXMenuCascade* cascadeRemoveSpecialLane = new FXMenuCascade(laneOperations, ("remove restricted " + toString(SUMO_TAG_LANE)).c_str(), 0, removeSpecialLanes);
@@ -605,11 +615,16 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
             addBuslane->disable();
             removeBuslane->enable();
         }
+        if (edgeHasGreenVerge) {
+            transformLaneToGreenVerge->disable();
+            addGreenVerge->disable();
+            removeGreenVerge->enable();
+        }
         // Check if cascade menus must be disabled
-        if (edgeHasSidewalk && edgeHasBikelane && edgeHasBuslane) {
+        if (edgeHasSidewalk && edgeHasBikelane && edgeHasBuslane && edgeHasGreenVerge) {
             cascadeAddSpecialLane->disable();
         }
-        if (!edgeHasSidewalk && !edgeHasBikelane && !edgeHasBuslane) {
+        if (!edgeHasSidewalk && !edgeHasBikelane && !edgeHasBuslane && !edgeHasGreenVerge) {
             cascadeRemoveSpecialLane->disable();
         }
     } else if (editMode == GNE_MODE_TLS) {

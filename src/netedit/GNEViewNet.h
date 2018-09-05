@@ -239,32 +239,41 @@ public:
     long onCmdDuplicateLane(FXObject*, FXSelector, void*);
 
     /// @brief restrict lane to pedestrians
-    long onCmdRestrictLaneSidewalk(FXObject*, FXSelector typeOfTransformation, void*);
+    long onCmdRestrictLaneSidewalk(FXObject*, FXSelector, void*);
 
     /// @brief restrict lane to bikes
-    long onCmdRestrictLaneBikelane(FXObject*, FXSelector typeOfTransformation, void*);
+    long onCmdRestrictLaneBikelane(FXObject*, FXSelector, void*);
 
     /// @brief restrict lane to buslanes
-    long onCmdRestrictLaneBuslane(FXObject*, FXSelector typeOfTransformation, void*);
+    long onCmdRestrictLaneBuslane(FXObject*, FXSelector, void*);
+
+    /// @brief restrict lane to all vehicles
+    long onCmdRestrictLaneGreenVerge(FXObject*, FXSelector, void*);
 
     /// @brief Add restricted lane for pedestrians
-    long onCmdAddRestrictedLaneSidewalk(FXObject*, FXSelector typeOfTransformation, void*);
+    long onCmdAddRestrictedLaneSidewalk(FXObject*, FXSelector, void*);
 
     /// @brief Add restricted lane for bikes
-    long onCmdAddRestrictedLaneBikelane(FXObject*, FXSelector typeOfTransformation, void*);
+    long onCmdAddRestrictedLaneBikelane(FXObject*, FXSelector, void*);
 
     /// @brief Add restricted lane for buses
-    long onCmdAddRestrictedLaneBuslane(FXObject*, FXSelector typeOfTransformation, void*);
+    long onCmdAddRestrictedLaneBuslane(FXObject*, FXSelector, void*);
+
+    /// @brief Add restricted lane for all vehicles
+    long onCmdAddRestrictedLaneGreenVerge(FXObject*, FXSelector, void*);
 
     /// @brief remove restricted lane for pedestrians
-    long onCmdRemoveRestrictedLaneSidewalk(FXObject*, FXSelector typeOfTransformation, void*);
+    long onCmdRemoveRestrictedLaneSidewalk(FXObject*, FXSelector, void*);
 
     /// @brief remove restricted lane for bikes
-    long onCmdRemoveRestrictedLaneBikelane(FXObject*, FXSelector typeOfTransformation, void*);
+    long onCmdRemoveRestrictedLaneBikelane(FXObject*, FXSelector, void*);
 
     /// @brief remove restricted lane for bus
-    long onCmdRemoveRestrictedLaneBuslane(FXObject*, FXSelector typeOfTransformation, void*);
-
+    long onCmdRemoveRestrictedLaneBuslane(FXObject*, FXSelector, void*);
+    
+    /// @brief remove restricted lane for all vehicles
+    long onCmdRemoveRestrictedLaneGreenVerge(FXObject*, FXSelector, void*);
+    
     /// @brief open additional dialog
     long onCmdOpenAdditionalDialog(FXObject*, FXSelector, void*);
 
