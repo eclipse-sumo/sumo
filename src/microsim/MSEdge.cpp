@@ -970,6 +970,11 @@ MSEdge::getViaSuccessors(SUMOVehicleClass vClass) const {
     auto i = myClassesViaSuccessorMap.find(vClass);
     if (i != myClassesViaSuccessorMap.end()) {
         // can use cached value
+#ifdef HAVE_FOX
+        if (MSDevice_Routing::isParallel()) {
+            MSDevice_Routing::unlock();
+        }
+#endif
         return i->second;
     }
     // instantiate vector
