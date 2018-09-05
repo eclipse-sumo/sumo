@@ -769,6 +769,8 @@ enum {
 
     /// @brief duplicate a lane
     MID_GNE_LANE_DUPLICATE,
+    /// @brief remove greenVerge
+    MID_GNE_LANE_RESET_CUSTOMSHAPE,
     /// @brief transform lane to sidewalk
     MID_GNE_LANE_TRANSFORM_SIDEWALK,
     /// @brief transform lane to bikelane

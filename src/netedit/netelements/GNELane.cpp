@@ -527,6 +527,7 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         bool edgeHasBikelane = false;
         bool edgeHasBuslane = false;
         bool edgeHasGreenVerge = false;
+        bool differentLaneShapes = false;
         if (isAttributeCarrierSelected()) {
             auto selectedLanes = myNet->retrieveLanes(true);
             for (auto i : selectedLanes) {
@@ -542,12 +543,16 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
                 if(i->getParentEdge().hasRestrictedLane(SVC_IGNORING)) {
                     edgeHasGreenVerge = true;
                 }
+                if(i->getParentEdge().getNBEdge()->getLaneStruct(i->getIndex()).customShape.size() != 0) {
+                    differentLaneShapes = true;
+                }
             }
         } else {
             edgeHasSidewalk = myParentEdge.hasRestrictedLane(SVC_PEDESTRIAN);
             edgeHasBikelane = myParentEdge.hasRestrictedLane(SVC_BICYCLE);
             edgeHasBuslane = myParentEdge.hasRestrictedLane(SVC_BUS);
             edgeHasGreenVerge = myParentEdge.hasRestrictedLane(SVC_IGNORING);
+            differentLaneShapes = myParentEdge.getNBEdge()->getLaneStruct(myIndex).customShape.size() != 0;
         }
         // create menu pane for edge operations
         FXMenuPane* edgeOperations = new FXMenuPane(ret);
@@ -569,6 +574,9 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         ret->insertMenuPaneChild(laneOperations);
         new FXMenuCascade(ret, "lane operations", 0, laneOperations);
         new FXMenuCommand(laneOperations, "Duplicate lane", 0, &parent, MID_GNE_LANE_DUPLICATE);
+        if(differentLaneShapes) {
+            new FXMenuCommand(laneOperations, "reset custom shape", 0, &parent, MID_GNE_LANE_RESET_CUSTOMSHAPE);
+        }
         // Create panel for lane operations and insert it in ret
         FXMenuPane* addSpecialLanes = new FXMenuPane(laneOperations);
         ret->insertMenuPaneChild(addSpecialLanes);

@@ -119,6 +119,7 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_SMOOTH_ELEVATION,           GNEViewNet::onCmdSmoothEdgesElevation),
     // Lanes
     FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_DUPLICATE,                  GNEViewNet::onCmdDuplicateLane),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_RESET_CUSTOMSHAPE,          GNEViewNet::onCmdResetLaneCustomShape),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_TRANSFORM_SIDEWALK,         GNEViewNet::onCmdRestrictLaneSidewalk),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_TRANSFORM_BIKE,             GNEViewNet::onCmdRestrictLaneBikelane),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_TRANSFORM_BUS,              GNEViewNet::onCmdRestrictLaneBuslane),
@@ -1795,6 +1796,29 @@ GNEViewNet::onCmdDuplicateLane(FXObject*, FXSelector, void*) {
         } else {
             myUndoList->p_begin("duplicate " + toString(SUMO_TAG_LANE));
             myNet->duplicateLane(lane, myUndoList, false);
+            myUndoList->p_end();
+        }
+    }
+    return 1;
+}
+
+
+long 
+GNEViewNet::onCmdResetLaneCustomShape(FXObject*, FXSelector, void*) {
+    GNELane* lane = getLaneAtPopupPosition();
+    if (lane != 0) {
+        // when duplicating an unselected lane, keep all connections as they
+        // are, otherwise recompute them
+        if (lane->isAttributeCarrierSelected()) {
+            myUndoList->p_begin("reset custom lane shapes");
+            std::vector<GNELane*> lanes = myNet->retrieveLanes(true);
+            for (auto it : lanes) {
+                it->setAttribute(SUMO_ATTR_CUSTOMSHAPE, "", myUndoList);
+            }
+            myUndoList->p_end();
+        } else {
+            myUndoList->p_begin("reset custom lane shape");
+            lane->setAttribute(SUMO_ATTR_CUSTOMSHAPE, "", myUndoList);
             myUndoList->p_end();
         }
     }

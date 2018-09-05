@@ -238,6 +238,9 @@ public:
     /// @brief duplicate selected lane
     long onCmdDuplicateLane(FXObject*, FXSelector, void*);
 
+    /// @brief reset custom shapes of selected lanes
+    long onCmdResetLaneCustomShape(FXObject*, FXSelector, void*);
+
     /// @brief restrict lane to pedestrians
     long onCmdRestrictLaneSidewalk(FXObject*, FXSelector, void*);
 
