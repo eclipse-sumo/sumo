@@ -102,18 +102,22 @@ MSCFModel_IDM::_v(const MSVehicle* const veh, const double gap2pred, const doubl
     }
     double newSpeed = egoSpeed;
     double gap = gap2pred;
+    if (respectMinGap) {
+        // gap2pred comes with minGap already subtracted so we need to add it here again
+        gap += myType->getMinGap();
+    }
     for (int i = 0; i < myIterations; i++) {
         const double delta_v = newSpeed - predSpeed;
         double s = MAX2(0., newSpeed * headwayTime + newSpeed * delta_v / myTwoSqrtAccelDecel);
         if (respectMinGap) {
             s += myType->getMinGap();
         }
+        gap = MAX2(NUMERICAL_EPS, gap); // avoid singularity
         const double acc = myAccel * (1. - pow(newSpeed / desSpeed, myDelta) - (s * s) / (gap * gap));
         newSpeed += ACCEL2SPEED(acc) / myIterations;
         //TODO use more realistic position update which takes accelerated motion into account
         gap -= MAX2(0., SPEED2DIST(newSpeed - predSpeed) / myIterations);
     }
-//    return MAX2(getSpeedAfterMaxDecel(egoSpeed), newSpeed);
     return MAX2(0., newSpeed);
 }
 
