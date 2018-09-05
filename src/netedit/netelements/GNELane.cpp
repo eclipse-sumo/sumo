@@ -71,16 +71,14 @@ GNELane::GNELane(GNEEdge& edge, const int index) :
     GNENetElement(edge.getNet(), edge.getNBEdge()->getLaneID(index), GLO_LANE, SUMO_TAG_LANE),
     myParentEdge(edge),
     myIndex(index),
-    mySpecialColor(0),
-    myTLSEditor(0) {
+    mySpecialColor(0) {
 }
 
 GNELane::GNELane() :
     GNENetElement(nullptr, "dummyConstructorGNELane", GLO_LANE, SUMO_TAG_LANE),
     myParentEdge(*static_cast<GNEEdge*>(0)),
     myIndex(-1),
-    mySpecialColor(0),
-    myTLSEditor(0) {
+    mySpecialColor(0) {
 }
 
 
@@ -494,125 +492,128 @@ GNELane::drawMarkings(const GUIVisualizationSettings& /* s */, double scale) con
 
 GUIGLObjectPopupMenu*
 GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
+    // first obtain edit mode (needed because certain Commands depend of current edit mode)
+    const int editMode = parent.getVisualisationSettings()->editMode;
     GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
-    new FXMenuCommand(ret, ("Copy " + toString(SUMO_TAG_EDGE) + " name to clipboard").c_str(), 0, ret, MID_COPY_EDGE_NAME);
-    buildNameCopyPopupEntry(ret);
-    // build selection and show parameters menu
+    // build copy names entry
+    if(editMode != GNE_MODE_TLS) {
+        new FXMenuCommand(ret, "Copy edge parent name to clipboard", 0, ret, MID_COPY_EDGE_NAME);
+        buildNameCopyPopupEntry(ret);
+    }
+    // build selection
     buildSelectionPopupEntry(ret);
-    buildShowParamsPopupEntry(ret);
-    // build position copy entry
-    buildPositionCopyEntry(ret, false);
-    const int editMode = parent.getVisualisationSettings()->editMode;
-    myTLSEditor = 0;
+    if(editMode != GNE_MODE_TLS) {
+        // build show parameters menu
+        buildShowParamsPopupEntry(ret);
+        // build position copy entry
+        buildPositionCopyEntry(ret, false);
+    }
     if (editMode != GNE_MODE_CONNECT && editMode != GNE_MODE_TLS && editMode != GNE_MODE_CREATE_EDGE) {
         // Get icons
         FXIcon* pedestrianIcon = GUIIconSubSys::getIcon(ICON_LANEPEDESTRIAN);
         FXIcon* bikeIcon = GUIIconSubSys::getIcon(ICON_LANEBIKE);
         FXIcon* busIcon = GUIIconSubSys::getIcon(ICON_LANEBUS);
         // Create basic commands
-        const std::string edgeDesc = toString(SUMO_TAG_EDGE);
-        std::string edgeDescPossibleMulti = edgeDesc;
+        std::string edgeDescPossibleMulti = toString(SUMO_TAG_EDGE);
         const int edgeSelSize = (int)myNet->retrieveEdges(true).size();
-        if (edgeSelSize && edgeSelSize > 1) {
-            edgeDescPossibleMulti = toString(edgeSelSize) + " " + edgeDesc + "s";
+        if (edgeSelSize && edgeSelSize > 1 && myParentEdge.isAttributeCarrierSelected()) {
+            edgeDescPossibleMulti = toString(edgeSelSize) + " " + toString(SUMO_TAG_EDGE) + "s";
         }
-        new FXMenuCommand(ret, ("Split " + toString(SUMO_TAG_EDGE) + " here").c_str(), 0, &parent, MID_GNE_EDGE_SPLIT);
-        new FXMenuCommand(ret, ("Split " + toString(SUMO_TAG_EDGE) + "s in both direction here").c_str(), 0, &parent, MID_GNE_EDGE_SPLIT_BIDI);
-        new FXMenuCommand(ret, ("Reverse " + toString(SUMO_TAG_EDGE)).c_str(), 0, &parent, MID_GNE_EDGE_REVERSE);
-        new FXMenuCommand(ret, "Add reverse direction", 0, &parent, MID_GNE_EDGE_ADD_REVERSE);
-        new FXMenuCommand(ret, "Set geometry endpoint here (shift-click)", 0, &parent, MID_GNE_EDGE_EDIT_ENDPOINT);
-        new FXMenuCommand(ret, "Restore geometry endpoint (shift-click)", 0, &parent, MID_GNE_EDGE_RESET_ENDPOINT);
-        new FXMenuCommand(ret, ("Straighten " + edgeDescPossibleMulti).c_str(), 0, &parent, MID_GNE_EDGE_STRAIGHTEN);
-        new FXMenuCommand(ret, ("Smooth " + edgeDescPossibleMulti).c_str(), 0, &parent, MID_GNE_EDGE_SMOOTH);
-        new FXMenuCommand(ret, ("Straighten elevation of " + edgeDescPossibleMulti).c_str(), 0, &parent, MID_GNE_EDGE_STRAIGHTEN_ELEVATION);
-        new FXMenuCommand(ret, ("Smooth elevation of " + edgeDescPossibleMulti).c_str(), 0, &parent, MID_GNE_EDGE_SMOOTH_ELEVATION);
+        // if lane is selected, calculate number of restricted lanes
+        bool edgeHasSidewalk = false;
+        bool edgeHasBikelane = false;
+        bool edgeHasBuslane = false;
         if (isAttributeCarrierSelected()) {
-            std::string pluralLanes = myNet->retrieveLanes(true).size() > 1 ? "s" : "";
-            new FXMenuCommand(ret, ("Duplicate selected " + toString(SUMO_TAG_LANE) + pluralLanes).c_str(), 0, &parent, MID_GNE_LANE_DUPLICATE);
-            // Create panel for lane operations
-            FXMenuPane* addSpecialLanes = new FXMenuPane(ret);
-            ret->insertMenuPaneChild(addSpecialLanes);
-            FXMenuPane* removeSpecialLanes = new FXMenuPane(ret);
-            ret->insertMenuPaneChild(removeSpecialLanes);
-            FXMenuPane* transformSlanes = new FXMenuPane(ret);
-            ret->insertMenuPaneChild(transformSlanes);
-            // Create menu comands for all add special lanes
-            new FXMenuCommand(addSpecialLanes, "Sidewalks", pedestrianIcon, &parent, MID_GNE_LANE_ADD_SIDEWALK);
-            new FXMenuCommand(addSpecialLanes, "Bikelanes", bikeIcon, &parent, MID_GNE_LANE_ADD_BIKE);
-            new FXMenuCommand(addSpecialLanes, "Buslanes", busIcon, &parent, MID_GNE_LANE_ADD_BUS);
-            // Create menu comands for all remove special lanes and disable it
-            new FXMenuCommand(removeSpecialLanes, "Sidewalks", pedestrianIcon, &parent, MID_GNE_LANE_REMOVE_SIDEWALK);
-            new FXMenuCommand(removeSpecialLanes, "Bikelanes", bikeIcon, &parent, MID_GNE_LANE_REMOVE_BIKE);
-            new FXMenuCommand(removeSpecialLanes, "Buslanes", busIcon, &parent, MID_GNE_LANE_REMOVE_BUS);
-            // Create menu comands for all trasform special lanes and disable it
-            new FXMenuCommand(transformSlanes, "Sidewalks", pedestrianIcon, &parent, MID_GNE_LANE_TRANSFORM_SIDEWALK);
-            new FXMenuCommand(transformSlanes, "Bikelanes", bikeIcon, &parent, MID_GNE_LANE_TRANSFORM_BIKE);
-            new FXMenuCommand(transformSlanes, "Buslanes", busIcon, &parent, MID_GNE_LANE_TRANSFORM_BUS);
-            // add menuCascade for lane operations
-            new FXMenuCascade(ret, ("add restricted " + toString(SUMO_TAG_LANE) + "s").c_str(), 0, addSpecialLanes);
-            new FXMenuCascade(ret, ("remove restricted " + toString(SUMO_TAG_LANE) + "s").c_str(), 0, removeSpecialLanes);
-            new FXMenuCascade(ret, ("transform to restricted " + toString(SUMO_TAG_LANE) + "s").c_str(), 0, transformSlanes);
+            auto selectedLanes = myNet->retrieveLanes(true);
+            for (auto i : selectedLanes) {
+                if(i->getParentEdge().hasRestrictedLane(SVC_PEDESTRIAN)) {
+                    edgeHasSidewalk = true;
+                }
+                if(i->getParentEdge().hasRestrictedLane(SVC_BICYCLE)) {
+                    edgeHasBikelane = true;
+                }
+                if(i->getParentEdge().hasRestrictedLane(SVC_BUS)) {
+                    edgeHasBuslane = true;
+                }
+            }
         } else {
-            new FXMenuCommand(ret, ("Duplicate " + toString(SUMO_TAG_LANE)).c_str(), 0, &parent, MID_GNE_LANE_DUPLICATE);
-            // Declare flags
-            bool edgeHasSidewalk = myParentEdge.hasRestrictedLane(SVC_PEDESTRIAN);
-            bool edgeHasBikelane = myParentEdge.hasRestrictedLane(SVC_BICYCLE);
-            bool edgeHasBuslane = myParentEdge.hasRestrictedLane(SVC_BUS);
-            // Create panel for lane operations and insert it in ret
-            FXMenuPane* addSpecialLanes = new FXMenuPane(ret);
-            ret->insertMenuPaneChild(addSpecialLanes);
-            FXMenuPane* removeSpecialLanes = new FXMenuPane(ret);
-            ret->insertMenuPaneChild(removeSpecialLanes);
-            FXMenuPane* transformSlanes = new FXMenuPane(ret);
-            ret->insertMenuPaneChild(transformSlanes);
-            // Create menu comands for all add special lanes
-            FXMenuCommand* addSidewalk = new FXMenuCommand(addSpecialLanes, "Sidewalk", pedestrianIcon, &parent, MID_GNE_LANE_ADD_SIDEWALK);
-            FXMenuCommand* addBikelane = new FXMenuCommand(addSpecialLanes, "Bikelane", bikeIcon, &parent, MID_GNE_LANE_ADD_BIKE);
-            FXMenuCommand* addBuslane = new FXMenuCommand(addSpecialLanes, "Buslane", busIcon, &parent, MID_GNE_LANE_ADD_BUS);
-            // Create menu comands for all remove special lanes and disable it
-            FXMenuCommand* removeSidewalk = new FXMenuCommand(removeSpecialLanes, "Sidewalk", pedestrianIcon, &parent, MID_GNE_LANE_REMOVE_SIDEWALK);
-            removeSidewalk->disable();
-            FXMenuCommand* removeBikelane = new FXMenuCommand(removeSpecialLanes, "Bikelane", bikeIcon, &parent, MID_GNE_LANE_REMOVE_BIKE);
-            removeBikelane->disable();
-            FXMenuCommand* removeBuslane = new FXMenuCommand(removeSpecialLanes, "Buslane", busIcon, &parent, MID_GNE_LANE_REMOVE_BUS);
-            removeBuslane->disable();
-            // Create menu comands for all trasform special lanes and disable it
-            FXMenuCommand* transformLaneToSidewalk = new FXMenuCommand(transformSlanes, "Sidewalk", pedestrianIcon, &parent, MID_GNE_LANE_TRANSFORM_SIDEWALK);
-            FXMenuCommand* transformLaneToBikelane = new FXMenuCommand(transformSlanes, "Bikelane", bikeIcon, &parent, MID_GNE_LANE_TRANSFORM_BIKE);
-            FXMenuCommand* transformLaneToBuslane = new FXMenuCommand(transformSlanes, "Buslane", busIcon, &parent, MID_GNE_LANE_TRANSFORM_BUS);
-            // add menuCascade for lane operations
-            FXMenuCascade* cascadeAddSpecialLane = new FXMenuCascade(ret, ("add restricted " + toString(SUMO_TAG_LANE)).c_str(), 0, addSpecialLanes);
-            FXMenuCascade* cascadeRemoveSpecialLane = new FXMenuCascade(ret, ("remove restricted " + toString(SUMO_TAG_LANE)).c_str(), 0, removeSpecialLanes);
-            new FXMenuCascade(ret, ("transform to restricted " + toString(SUMO_TAG_LANE)).c_str(), 0, transformSlanes);
-            // Enable and disable options depending of current transform of the lane
-            if (edgeHasSidewalk) {
-                transformLaneToSidewalk->disable();
-                addSidewalk->disable();
-                removeSidewalk->enable();
-            }
-            if (edgeHasBikelane) {
-                transformLaneToBikelane->disable();
-                addBikelane->disable();
-                removeBikelane->enable();
-            }
-            if (edgeHasBuslane) {
-                transformLaneToBuslane->disable();
-                addBuslane->disable();
-                removeBuslane->enable();
-            }
-            // Check if cascade menus must be disabled
-            if (edgeHasSidewalk && edgeHasBikelane && edgeHasBuslane) {
-                cascadeAddSpecialLane->disable();
-            }
-            if (!edgeHasSidewalk && !edgeHasBikelane && !edgeHasBuslane) {
-                cascadeRemoveSpecialLane->disable();
-            }
+            edgeHasSidewalk = myParentEdge.hasRestrictedLane(SVC_PEDESTRIAN);
+            edgeHasBikelane = myParentEdge.hasRestrictedLane(SVC_BICYCLE);
+            edgeHasBuslane = myParentEdge.hasRestrictedLane(SVC_BUS);
+        }
+        // create menu pane for edge operations
+        FXMenuPane* edgeOperations = new FXMenuPane(ret);
+        ret->insertMenuPaneChild(edgeOperations);
+        new FXMenuCascade(ret, "edge operations", 0, edgeOperations);
+        // create menu commands for all edge oeprations
+        new FXMenuCommand(edgeOperations, "Split edge here", 0, &parent, MID_GNE_EDGE_SPLIT);
+        new FXMenuCommand(edgeOperations, "Split edge in both direction here", 0, &parent, MID_GNE_EDGE_SPLIT_BIDI);
+        new FXMenuCommand(edgeOperations, "Reverse edge", 0, &parent, MID_GNE_EDGE_REVERSE);
+        new FXMenuCommand(edgeOperations, "Add reverse direction", 0, &parent, MID_GNE_EDGE_ADD_REVERSE);
+        new FXMenuCommand(edgeOperations, "Set geometry endpoint here (shift-click)", 0, &parent, MID_GNE_EDGE_EDIT_ENDPOINT);
+        new FXMenuCommand(edgeOperations, "Restore geometry endpoint (shift-click)", 0, &parent, MID_GNE_EDGE_RESET_ENDPOINT);
+        new FXMenuCommand(edgeOperations, ("Straighten " + edgeDescPossibleMulti).c_str(), 0, &parent, MID_GNE_EDGE_STRAIGHTEN);
+        new FXMenuCommand(edgeOperations, ("Smooth " + edgeDescPossibleMulti).c_str(), 0, &parent, MID_GNE_EDGE_SMOOTH);
+        new FXMenuCommand(edgeOperations, ("Straighten elevation of " + edgeDescPossibleMulti).c_str(), 0, &parent, MID_GNE_EDGE_STRAIGHTEN_ELEVATION);
+        new FXMenuCommand(edgeOperations, ("Smooth elevation of " + edgeDescPossibleMulti).c_str(), 0, &parent, MID_GNE_EDGE_SMOOTH_ELEVATION);
+        // create menu pane for lane operations
+        FXMenuPane* laneOperations = new FXMenuPane(ret);
+        ret->insertMenuPaneChild(laneOperations);
+        new FXMenuCascade(ret, "lane operations", 0, laneOperations);
+        new FXMenuCommand(laneOperations, "Duplicate lane", 0, &parent, MID_GNE_LANE_DUPLICATE);
+        // Create panel for lane operations and insert it in ret
+        FXMenuPane* addSpecialLanes = new FXMenuPane(laneOperations);
+        ret->insertMenuPaneChild(addSpecialLanes);
+        FXMenuPane* removeSpecialLanes = new FXMenuPane(laneOperations);
+        ret->insertMenuPaneChild(removeSpecialLanes);
+        FXMenuPane* transformSlanes = new FXMenuPane(laneOperations);
+        ret->insertMenuPaneChild(transformSlanes);
+        // Create menu comands for all add special lanes
+        FXMenuCommand* addSidewalk = new FXMenuCommand(addSpecialLanes, "Sidewalk", pedestrianIcon, &parent, MID_GNE_LANE_ADD_SIDEWALK);
+        FXMenuCommand* addBikelane = new FXMenuCommand(addSpecialLanes, "Bikelane", bikeIcon, &parent, MID_GNE_LANE_ADD_BIKE);
+        FXMenuCommand* addBuslane = new FXMenuCommand(addSpecialLanes, "Buslane", busIcon, &parent, MID_GNE_LANE_ADD_BUS);
+        // Create menu comands for all remove special lanes and disable it
+        FXMenuCommand* removeSidewalk = new FXMenuCommand(removeSpecialLanes, "Sidewalk", pedestrianIcon, &parent, MID_GNE_LANE_REMOVE_SIDEWALK);
+        removeSidewalk->disable();
+        FXMenuCommand* removeBikelane = new FXMenuCommand(removeSpecialLanes, "Bikelane", bikeIcon, &parent, MID_GNE_LANE_REMOVE_BIKE);
+        removeBikelane->disable();
+        FXMenuCommand* removeBuslane = new FXMenuCommand(removeSpecialLanes, "Buslane", busIcon, &parent, MID_GNE_LANE_REMOVE_BUS);
+        removeBuslane->disable();
+        // Create menu comands for all trasform special lanes and disable it
+        FXMenuCommand* transformLaneToSidewalk = new FXMenuCommand(transformSlanes, "Sidewalk", pedestrianIcon, &parent, MID_GNE_LANE_TRANSFORM_SIDEWALK);
+        FXMenuCommand* transformLaneToBikelane = new FXMenuCommand(transformSlanes, "Bikelane", bikeIcon, &parent, MID_GNE_LANE_TRANSFORM_BIKE);
+        FXMenuCommand* transformLaneToBuslane = new FXMenuCommand(transformSlanes, "Buslane", busIcon, &parent, MID_GNE_LANE_TRANSFORM_BUS);
+        // add menuCascade for lane operations
+        FXMenuCascade* cascadeAddSpecialLane = new FXMenuCascade(laneOperations, ("add restricted " + toString(SUMO_TAG_LANE)).c_str(), 0, addSpecialLanes);
+        FXMenuCascade* cascadeRemoveSpecialLane = new FXMenuCascade(laneOperations, ("remove restricted " + toString(SUMO_TAG_LANE)).c_str(), 0, removeSpecialLanes);
+        new FXMenuCascade(laneOperations, ("transform to restricted " + toString(SUMO_TAG_LANE)).c_str(), 0, transformSlanes);
+        // Enable and disable options depending of current transform of the lane
+        if (edgeHasSidewalk) {
+            transformLaneToSidewalk->disable();
+            addSidewalk->disable();
+            removeSidewalk->enable();
+        }
+        if (edgeHasBikelane) {
+            transformLaneToBikelane->disable();
+            addBikelane->disable();
+            removeBikelane->enable();
+        }
+        if (edgeHasBuslane) {
+            transformLaneToBuslane->disable();
+            addBuslane->disable();
+            removeBuslane->enable();
+        }
+        // Check if cascade menus must be disabled
+        if (edgeHasSidewalk && edgeHasBikelane && edgeHasBuslane) {
+            cascadeAddSpecialLane->disable();
+        }
+        if (!edgeHasSidewalk && !edgeHasBikelane && !edgeHasBuslane) {
+            cascadeRemoveSpecialLane->disable();
         }
     } else if (editMode == GNE_MODE_TLS) {
-        myTLSEditor = static_cast<GNEViewNet&>(parent).getViewParent()->getTLSEditorFrame();
-        if (myTLSEditor->controlsEdge(myParentEdge)) {
+        if (myNet->getViewNet()->getViewParent()->getTLSEditorFrame()->controlsEdge(myParentEdge)) {
             new FXMenuCommand(ret, "Select state for all links from this edge:", 0, 0, 0);
             const std::vector<std::string> names = GNEInternalLane::LinkStateNames.getStrings();
             for (auto it : names) {
@@ -627,12 +628,15 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         mc->handle(&parent, FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), 0);
     }
     // buildShowParamsPopupEntry(ret, false);
-    new FXMenuSeparator(ret);
-    const double pos = getShape().nearest_offset_to_point2D(parent.getPositionInformation());
-    const double height = getShape().positionAtOffset2D(getShape().nearest_offset_to_point2D(parent.getPositionInformation())).z();
-    new FXMenuCommand(ret, ("Shape pos: " + toString(pos)).c_str(), 0, 0, 0);
-    new FXMenuCommand(ret, ("Length pos: " + toString(pos * getLaneParametricLength() / getLaneShapeLength())).c_str(), 0, 0, 0);
-    new FXMenuCommand(ret, ("Height: " + toString(height)).c_str(), 0, 0, 0);
+    // build shape positions menu
+    if(editMode != GNE_MODE_TLS) {
+        new FXMenuSeparator(ret);
+        const double pos = getShape().nearest_offset_to_point2D(parent.getPositionInformation());
+        const double height = getShape().positionAtOffset2D(getShape().nearest_offset_to_point2D(parent.getPositionInformation())).z();
+        new FXMenuCommand(ret, ("Shape pos: " + toString(pos)).c_str(), 0, 0, 0);
+        new FXMenuCommand(ret, ("Length pos: " + toString(pos * getLaneParametricLength() / getLaneShapeLength())).c_str(), 0, 0, 0);
+        new FXMenuCommand(ret, ("Height: " + toString(height)).c_str(), 0, 0, 0);
+    }
     // new FXMenuSeparator(ret);
     // buildPositionCopyEntry(ret, false);
     return ret;
@@ -1266,9 +1270,7 @@ GNELane::getParentName() const {
 
 long
 GNELane::onDefault(FXObject* obj, FXSelector sel, void* data) {
-    if (myTLSEditor != 0) {
-        myTLSEditor->handleMultiChange(this, obj, sel, data);
-    }
+    myNet->getViewNet()->getViewParent()->getTLSEditorFrame()->handleMultiChange(this, obj, sel, data);
     return 1;
 }
 

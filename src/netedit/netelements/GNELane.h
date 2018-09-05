@@ -261,9 +261,6 @@ protected:
     /// @brief The color of the shape parts (cached)
     mutable std::vector<RGBColor> myShapeColors;
 
-    /// @brief the tls-editor for setting multiple links in TLS-mode
-    GNETLSEditorFrame* myTLSEditor;
-
 private:
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
