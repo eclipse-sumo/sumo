@@ -2019,17 +2019,21 @@ GNEViewNet::addRestrictedLane(SUMOVehicleClass vclass) {
             // begin undo operation
             myUndoList->p_begin("Add restrictions for " + toString(vclass));
             // iterate over set of edges
-            for (std::set<GNEEdge*>::iterator it = setOfEdges.begin(); it != setOfEdges.end(); it++) {
-                // add Sidewalk
-                myNet->addSRestrictedLane(vclass, *(*it), myUndoList);
+            for (auto it : setOfEdges) {
+                // add restricted lane
+                myNet->addRestrictedLane(vclass, *it, 0, myUndoList);
             }
             // end undo operation
             myUndoList->p_end();
         } else {
             // If only have a single lane, start undo/redo operation
             myUndoList->p_begin("Add vclass for " + toString(vclass));
-            // Add Sidewalk
-            myNet->addSRestrictedLane(vclass, lane->getParentEdge(), myUndoList);
+            // Add restricted lane
+            if(lane->getIndex() > 0) {
+                myNet->addRestrictedLane(vclass, lane->getParentEdge(), lane->getIndex(), myUndoList);
+            } else {
+                myNet->addRestrictedLane(vclass, lane->getParentEdge(), 0, myUndoList);
+            }
             // end undo/redo operation
             myUndoList->p_end();
         }

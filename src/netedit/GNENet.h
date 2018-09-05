@@ -290,7 +290,7 @@ public:
      * @param[in] edge The edge in which insert restricted lane
      * @param[in] undoList The undolist in which to mark changes
      */
-    bool addSRestrictedLane(SUMOVehicleClass vclass, GNEEdge& edge, GNEUndoList* undoList);
+    bool addRestrictedLane(SUMOVehicleClass vclass, GNEEdge& edge, int index, GNEUndoList* undoList);
 
     /**@brief remove restricted lane
      * @param[in] vclass vehicle class to restrict

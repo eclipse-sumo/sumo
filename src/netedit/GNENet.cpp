@@ -644,17 +644,21 @@ GNENet::restrictLane(SUMOVehicleClass vclass, GNELane* lane, GNEUndoList* undoLi
 
 
 bool
-GNENet::addSRestrictedLane(SUMOVehicleClass vclass, GNEEdge& edge, GNEUndoList* undoList) {
+GNENet::addRestrictedLane(SUMOVehicleClass vclass, GNEEdge& edge, int index, GNEUndoList* undoList) {
     // First check that edge don't have a sidewalk
     for (auto i : edge.getLanes()) {
         if (i->isRestricted(vclass)) {
             return false;
         }
     }
-    // duplicate last lane
-    duplicateLane(edge.getLanes().at(0), undoList, true);
+    // check that index is correct
+    if(index >= edge.getLanes().size()) {
+        return false;
+    }
+    // duplicate selected lane
+    duplicateLane(edge.getLanes().at(index), undoList, true);
     // transform the created (last) lane to a sidewalk
-    return restrictLane(vclass, edge.getLanes()[0], undoList);
+    return restrictLane(vclass, edge.getLanes().at(index), undoList);
 }
 
 
