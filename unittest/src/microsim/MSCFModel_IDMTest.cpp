@@ -66,6 +66,7 @@ class MSCFModel_IDMTest : public testing::Test {
             defs->departLaneProcedure = DEPART_LANE_GIVEN;
             SUMOVTypeParameter typeDefs("t0");
             typeDefs.cfModel = SUMO_TAG_CF_IDM;
+            //typeDefs.cfParameter[SUMO_ATTR_CF_IDM_STEPPING] = "1";
             ConstMSEdgeVector edges;
             MSEdge* edge = new MSEdge("dummy", 0, EDGEFUNC_NORMAL, "", "", -1);
             MSLane* lane = new MSLane("dummy_0", 50 / 3.6, 100, edge, 0, PositionVector(), SUMO_const_laneWidth, SVCAll, 0, false);
@@ -100,13 +101,13 @@ TEST_F(MSCFModel_IDMTest, test_method_getSecureGap) {
     // the value of getSecureGap should be consistent with followSpeed so that
     // strong braking is avoided after lane changing (#4517)
     MSCFModel& m = type->getCarFollowModel();
-    for (double v = 0; v < 40; v += 1) { // follower
-        for (double u = 0; u < 40; u += 1) { // leader
+    for (double v = 0; v < 15; v += 1) { // follower
+        for (double u = 0; u < 25; u += 1) { // leader
             double sg = m.getSecureGap(v, u, m.getMaxDecel());
             double vFollow = m.followSpeed(veh, v, sg, u, m.getMaxDecel(), nullptr);
             double accel = SPEED2ACCEL(vFollow - v);
             //std::cout << v << " " << u << " " << sg << " " << vFollow << " " << accel << "\n";
-            //EXPECT_GT(accel, -4.5);
+            EXPECT_GT(accel, -2.2);
         }
     }
 }
