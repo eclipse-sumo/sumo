@@ -722,6 +722,8 @@ enum {
     MID_GNE_JUNCTION_SPLIT,
     /// @brief edit junction shape
     MID_GNE_JUNCTION_EDIT_SHAPE,
+    /// @brief reset junction shape
+    MID_GNE_JUNCTION_RESET_SHAPE,
     /// @}
 
 

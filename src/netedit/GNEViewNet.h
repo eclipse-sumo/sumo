@@ -283,6 +283,9 @@ public:
     /// @brief edit junction shape
     long onCmdEditJunctionShape(FXObject*, FXSelector, void*);
 
+    /// @brief reset junction shape
+    long onCmdResetJunctionShape(FXObject*, FXSelector, void*);
+
     /// @brief replace node by geometry
     long onCmdReplaceJunction(FXObject*, FXSelector, void*);
 

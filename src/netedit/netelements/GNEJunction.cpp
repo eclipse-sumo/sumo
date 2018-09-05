@@ -193,6 +193,7 @@ GNEJunction::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     const int numEndpoints = (int)myNBNode.getEndPoints().size();
     // create menu commands
     FXMenuCommand* mcCustomShape = new FXMenuCommand(ret, "Set custom junction shape", 0, &parent, MID_GNE_JUNCTION_EDIT_SHAPE);
+    FXMenuCommand* mcResetCustomShape = new FXMenuCommand(ret, "Reset junction shape", 0, &parent, MID_GNE_JUNCTION_RESET_SHAPE);
     FXMenuCommand* mcReplace = new FXMenuCommand(ret, "Replace junction by geometry point", 0, &parent, MID_GNE_JUNCTION_REPLACE);
     FXMenuCommand* mcSplit = new FXMenuCommand(ret, ("Split junction (" + toString(numEndpoints) + " end points)").c_str(), 0, &parent, MID_GNE_JUNCTION_SPLIT);
     FXMenuCommand* mcClearConnections = new FXMenuCommand(ret, "Clear connections", 0, &parent, MID_GNE_JUNCTION_CLEAR_CONNECTIONS);
@@ -208,6 +209,10 @@ GNEJunction::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     // disable mcClearConnections if juction hasn't connections
     if (getGNEConnections().empty()) {
         mcClearConnections->disable();
+    }
+    // disable mcResetCustomShape if junction doesn't have a custom shape
+    if(!myNBNode.hasCustomShape()) {
+        mcResetCustomShape->disable();
     }
     // checkIsRemovable requiers turnarounds to be computed. This is ugly
     if (myNBNode.getIncomingEdges().size() == 2 && myNBNode.getOutgoingEdges().size() == 2) {

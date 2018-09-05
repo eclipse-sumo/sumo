@@ -98,6 +98,7 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_VIEWNET_SHOW_GRID,               GNEViewNet::onCmdShowGrid),
     // Junctions
     FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_EDIT_SHAPE,             GNEViewNet::onCmdEditJunctionShape),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_RESET_SHAPE,            GNEViewNet::onCmdResetJunctionShape),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_REPLACE,                GNEViewNet::onCmdReplaceJunction),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_SPLIT,                  GNEViewNet::onCmdSplitJunction),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_CLEAR_CONNECTIONS,      GNEViewNet::onCmdClearConnections),
@@ -2174,6 +2175,32 @@ GNEViewNet::onCmdEditJunctionShape(FXObject*, FXSelector, void*) {
         PositionVector nodeShape = junction->getNBNode()->getShape();
         nodeShape.closePolygon();
         startEditCustomShape(junction, nodeShape, true);
+    }
+    // destroy pop-up and set focus in view net
+    destroyPopup();
+    setFocus();
+    return 1;
+}
+
+
+long 
+GNEViewNet::onCmdResetJunctionShape(FXObject*, FXSelector, void*) {
+    // Obtain junction under mouse
+    GNEJunction* junction = getJunctionAtPopupPosition();
+    if (junction) {
+        // are, otherwise recompute them
+        if (junction->isAttributeCarrierSelected()) {
+            myUndoList->p_begin("reset custom junction shapes");
+            std::vector<GNEJunction*> junctions = myNet->retrieveJunctions(true);
+            for (auto it : junctions) {
+                it->setAttribute(SUMO_ATTR_SHAPE, "", myUndoList);
+            }
+            myUndoList->p_end();
+        } else {
+            myUndoList->p_begin("reset custom junction shape");
+            junction->setAttribute(SUMO_ATTR_SHAPE, "", myUndoList);
+            myUndoList->p_end();
+        }
     }
     // destroy pop-up and set focus in view net
     destroyPopup();
