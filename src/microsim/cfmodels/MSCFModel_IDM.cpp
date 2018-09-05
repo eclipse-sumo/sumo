@@ -92,6 +92,12 @@ MSCFModel_IDM::interactionGap(const MSVehicle* const veh, double vL) const {
     return MAX2(gap, SPEED2DIST(vNext));
 }
 
+double 
+MSCFModel_IDM::getSecureGap(const double speed, const double leaderSpeed, const double /*leaderMaxDecel*/) const {
+    const double delta_v = speed - leaderSpeed;
+    return MAX2(0.0, speed * myHeadwayTime + speed * delta_v / myTwoSqrtAccelDecel);
+}
+
 
 double
 MSCFModel_IDM::_v(const MSVehicle* const veh, const double gap2pred, const double egoSpeed,

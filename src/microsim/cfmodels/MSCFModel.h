@@ -319,7 +319,7 @@ public:
       * @param[in] leaderSpeed LEADER's speed
       * @param[in] leaderMaxDecel LEADER's max. deceleration rate
       */
-    inline double getSecureGap(const double speed, const double leaderSpeed, const double leaderMaxDecel) const {
+    inline virtual double getSecureGap(const double speed, const double leaderSpeed, const double leaderMaxDecel) const {
         // The solution approach leaderBrakeGap >= followerBrakeGap is not
         // secure when the follower can brake harder than the leader because the paths may still cross.
         // As a workaround we use a value of leaderDecel which errs on the side of caution
