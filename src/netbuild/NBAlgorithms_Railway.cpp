@@ -980,7 +980,6 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForStraightConnectivity(NBNetBuilder& nb)
         if (!haveStraightFrom) {
             continue;
         }
-        bool haveStraightTo = false;
         for (const NBEdge* toStraightCand : inRailTo) {
             if (toStraightCand != e.second && isStraight(to, toStraightCand, e.second)) {
                 NBEdge* e2 = addBidiEdge(nb, e.second);

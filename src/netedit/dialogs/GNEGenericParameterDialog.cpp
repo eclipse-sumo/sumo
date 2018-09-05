@@ -78,8 +78,8 @@ FXIMPLEMENT(GNEGenericParameterDialog::GenericParametersOptions, FXGroupBox, Gen
 
 GNEGenericParameterDialog::GenericParametersValues::GenericParametersValues(FXHorizontalFrame* frame, GNEGenericParameterDialog* genericParameterDialogParent, std::vector<std::pair<std::string, std::string> >* genericParameters) :
     FXGroupBox(frame, "Generic Parameters", GUIDesignGroupBoxFrameFill),
-    myGenericParameters(genericParameters),
-    myGenericParameterDialogParent(genericParameterDialogParent) {
+    myGenericParameterDialogParent(genericParameterDialogParent),
+    myGenericParameters(genericParameters) {
     // create labels for keys and values
     FXHorizontalFrame* horizontalFrameLabels = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     myKeyLabel = new FXLabel(horizontalFrameLabels, "key", 0, GUIDesignLabelThick100);

@@ -178,6 +178,12 @@ protected:
     /// @brief outgoing lane of this connection
     GNELane* myToLane;
 
+    /// @brief Linkstate. @note cached because after 'undo' the connection needs to be drawn while the node logic (NBRequest) has not been recomputed
+    LinkState myLinkState;
+
+    /// @brief optional special color
+    const RGBColor* mySpecialColor;
+
     /// @brief the shape of the connection
     PositionVector myShape;
 
@@ -195,12 +201,6 @@ protected:
     /// @brief waiting position for internal junction
     PositionVector myInternalJunctionMarker;
     /// @}
-
-    /// @brief Linkstate. @note cached because after 'undo' the connection needs to be drawn while the node logic (NBRequest) has not been recomputed
-    LinkState myLinkState;
-
-    /// @brief optional special color
-    const RGBColor* mySpecialColor;
 
 private:
     /// @brief set attribute after validation

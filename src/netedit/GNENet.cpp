@@ -652,7 +652,7 @@ GNENet::addRestrictedLane(SUMOVehicleClass vclass, GNEEdge& edge, int index, GNE
         }
     }
     // check that index is correct
-    if(index >= edge.getLanes().size()) {
+    if (index >= (int)edge.getLanes().size()) {
         return false;
     }
     // duplicate selected lane
