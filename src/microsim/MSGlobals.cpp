@@ -62,6 +62,8 @@ SUMOTime MSGlobals::gActionStepLength;
 
 double MSGlobals::gDefaultEmergencyDecel(-1); // default for unitTest
 
+bool MSGlobals::gUnitTests(false);
+
 bool MSGlobals::gComputeLC;
 /****************************************************************************/
 

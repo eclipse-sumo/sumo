@@ -200,7 +200,9 @@ MSLane::~MSLane() {
 
 void
 MSLane::initRestrictions() {
-    myRestrictions = MSNet::getInstance()->getRestrictions(myEdge->getEdgeType());
+    // simplify unit testing without MSNet instance
+    myRestrictions = MSGlobals::gUnitTests ? nullptr : MSNet::getInstance()->getRestrictions(myEdge->getEdgeType());
+
 }
 
 

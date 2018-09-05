@@ -114,6 +114,9 @@ public:
     /// encoding of the string-option default.emergencydecel
     static double gDefaultEmergencyDecel;
 
+    /// whether unit tests are being run
+    static bool gUnitTests;
+
     /// whether the simulationLoop is in the lane changing phase
     static bool gComputeLC;
 
