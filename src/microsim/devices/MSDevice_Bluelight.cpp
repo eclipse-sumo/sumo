@@ -37,6 +37,7 @@
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSVehicleType.h>
 
+//#define DEBUG_BLUELIGHT
 
 // ===========================================================================
 // method definitions
@@ -70,7 +71,9 @@ MSDevice_Bluelight::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& 
             }
 
         } else {
+#ifdef DEBUG_BLUELIGHT
             std::cout << "vehicle '" << v.getID() << "' does not supply vehicle parameter 'bluelight'. Using default of " << customParameter2 << "\n";
+#endif
         }
         // get custom vType parameter
         double customParameter3 = -1;
@@ -82,7 +85,9 @@ MSDevice_Bluelight::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& 
             }
 
         } else {
+#ifdef DEBUG_BLUELIGHT
             std::cout << "vehicle '" << v.getID() << "' does not supply vType parameter 'bluelight'. Using default of " << customParameter3 << "\n";
+#endif
         }
         MSDevice_Bluelight* device = new MSDevice_Bluelight(v, "bluelight_" + v.getID(),
                 oc.getFloat("device.bluelight.parameter"),
@@ -102,7 +107,9 @@ MSDevice_Bluelight::MSDevice_Bluelight(SUMOVehicle& holder, const std::string& i
     myCustomValue1(customValue1),
     myCustomValue2(customValue2),
     myCustomValue3(customValue3) {
+#ifdef DEBUG_BLUELIGHT
     std::cout << "initialized device '" << id << "' with myCustomValue1=" << myCustomValue1 << ", myCustomValue2=" << myCustomValue2 << ", myCustomValue3=" << myCustomValue3 << "\n";
+#endif
 }
 
 
@@ -113,7 +120,9 @@ MSDevice_Bluelight::~MSDevice_Bluelight() {
 bool
 MSDevice_Bluelight::notifyMove(SUMOVehicle& veh, double /* oldPos */,
                                double /* newPos */, double  newSpeed) {
+#ifdef DEBUG_BLUELIGHT
     std::cout << "device '" << getID() << "' notifyMove: newSpeed=" << newSpeed << "\n";
+#endif
     // check whether another device is present on the vehicle:
     /*MSDevice_Tripinfo* otherDevice = static_cast<MSDevice_Tripinfo*>(veh.getDevice(typeid(MSDevice_Tripinfo)));
     if (otherDevice != 0) {
@@ -176,14 +185,18 @@ MSDevice_Bluelight::notifyMove(SUMOVehicle& veh, double /* oldPos */,
 
 bool
 MSDevice_Bluelight::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
+#ifdef DEBUG_BLUELIGHT
     std::cout << "device '" << getID() << "' notifyEnter: reason=" << reason << " currentEdge=" << veh.getEdge()->getID() << "\n";
+#endif
     return true; // keep the device
 }
 
 
 bool
 MSDevice_Bluelight::notifyLeave(SUMOVehicle& veh, double /*lastPos*/, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
+#ifdef DEBUG_BLUELIGHT
     std::cout << "device '" << getID() << "' notifyLeave: reason=" << reason << " currentEdge=" << veh.getEdge()->getID() << "\n";
+#endif
     return true; // keep the device
 }
 
