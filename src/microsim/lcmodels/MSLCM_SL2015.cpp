@@ -1885,10 +1885,13 @@ MSLCM_SL2015::updateExpectedSublaneSpeeds(const MSLeaderDistanceInfo& ahead, int
     const MSLane* lane = lanes[laneIndex];
     const double vMax = lane->getVehicleMaxSpeed(&myVehicle);
     assert(preb.size() == lanes.size());
-    assert(sublaneOffset + ahead.numSublanes() <= (int)myExpectedSublaneSpeeds.size());
 
     for (int sublane = 0; sublane < (int)ahead.numSublanes(); ++sublane) {
         const int edgeSublane = sublane + sublaneOffset;
+        if (edgeSublane >= (int)myExpectedSublaneSpeeds.size()) {
+            // this may happen if a sibling lane is wider than the changer lane
+            continue;
+        }
         if (lane->allowsVehicleClass(myVehicle.getVehicleType().getVehicleClass())) {
             // lane allowed, find potential leaders and compute safe speeds
             // XXX anticipate future braking if leader has a lower speed than myVehicle
