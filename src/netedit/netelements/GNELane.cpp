@@ -695,7 +695,11 @@ GNELane::getShapeLengths() const {
 
 Boundary
 GNELane::getBoundary() const {
-    return myParentEdge.getNBEdge()->getLaneStruct(myIndex).shape.getBoxBoundary();
+    if(myParentEdge.getNBEdge()->getLaneStruct(myIndex).customShape.size() == 0) {
+        return myParentEdge.getNBEdge()->getLaneStruct(myIndex).shape.getBoxBoundary();
+    } else {
+        return myParentEdge.getNBEdge()->getLaneStruct(myIndex).customShape.getBoxBoundary();
+    }
 }
 
 
@@ -1076,12 +1080,16 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value) {
             edge->setAcceleration(myIndex, parse<bool>(value));
             break;
         case SUMO_ATTR_CUSTOMSHAPE: {
+            // first remove edge parent from net
+            myNet->removeGLObjectFromGrid(&myParentEdge);
             if(value.empty()) {
                 edge->setLaneShape(myIndex, PositionVector());
             } else {
                 bool ok;
                 edge->setLaneShape(myIndex, GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, true));
             }
+            // add edge parent into net again
+            myNet->addGLObjectIntoGrid(&myParentEdge);
             break;
         }
         case GNE_ATTR_SELECTED:
