@@ -203,6 +203,12 @@ GNEPOI::getParentName() const {
 GUIGLObjectPopupMenu*
 GNEPOI::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
+    buildPopupHeader(ret, app);
+    buildCenterPopupEntry(ret);
+    buildNameCopyPopupEntry(ret);
+    // build selection and show parameters menu
+    myNet->getViewNet()->buildSelectionACPopupEntry(ret, this);
+    buildShowParamsPopupEntry(ret);
     if (myGNELane) {
         // build shape header
         buildShapePopupOptions(app, ret, getShapeType());

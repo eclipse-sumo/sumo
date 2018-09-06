@@ -120,6 +120,12 @@ public:
     /// @brief builds the view toolbars
     virtual void buildViewToolBars(GUIGlChildWindow&);
 
+    /** @brief Builds an entry which allows to (de)select the object
+     * @param ret The popup menu to add the entry to
+     * @param AC AttributeCarrier that will be select/unselected
+     */
+    void buildSelectionACPopupEntry(GUIGLObjectPopupMenu* ret, GNEAttributeCarrier *AC);
+
     /// @brief set color scheme
     bool setColorScheme(const std::string& name);
 
@@ -312,6 +318,12 @@ public:
 
     /// @brief toogle show bubbles
     long onCmdToogleShowBubbles(FXObject*, FXSelector, void*);
+
+    /// @brief select AC under cursor
+    long onCmdAddSelected(FXObject*, FXSelector, void*);
+
+    /// @brief unselect AC under cursor
+    long onCmdRemoveSelected(FXObject*, FXSelector, void*);
 
     /// @brief toogle show grid
     long onCmdShowGrid(FXObject*, FXSelector, void*);

@@ -503,7 +503,7 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         buildNameCopyPopupEntry(ret);
     }
     // build selection
-    buildSelectionPopupEntry(ret);
+    myNet->getViewNet()->buildSelectionACPopupEntry(ret, this);
     if(editMode != GNE_MODE_TLS) {
         // build show parameters menu
         buildShowParamsPopupEntry(ret);
