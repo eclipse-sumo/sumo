@@ -722,16 +722,19 @@ GUILane::drawDirectionIndicators(double exaggeration) const {
     glPushMatrix();
     glTranslated(0, 0, GLO_EDGE);
     int e = (int) getShape().size() - 1;
+    const double w = MAX2(POSITION_EPS, myWidth);
+    const double w2 = MAX2(POSITION_EPS, myHalfLaneWidth);
+    const double w4 = MAX2(POSITION_EPS, myQuarterLaneWidth);
     for (int i = 0; i < e; ++i) {
         glPushMatrix();
         glTranslated(getShape()[i].x(), getShape()[i].y(), 0.1);
         glRotated(myShapeRotations[i], 0, 0, 1);
-        for (double t = 0; t < myShapeLengths[i]; t += myWidth) {
-            const double length = MIN2((double)myHalfLaneWidth, myShapeLengths[i] - t) * exaggeration;
+        for (double t = 0; t < myShapeLengths[i]; t += w) {
+            const double length = MIN2(w2, myShapeLengths[i] - t) * exaggeration;
             glBegin(GL_TRIANGLES);
             glVertex2d(0, -t - length);
-            glVertex2d(-myQuarterLaneWidth * exaggeration, -t);
-            glVertex2d(+myQuarterLaneWidth * exaggeration, -t);
+            glVertex2d(-w4 * exaggeration, -t);
+            glVertex2d(+w4 * exaggeration, -t);
             glEnd();
         }
         glPopMatrix();

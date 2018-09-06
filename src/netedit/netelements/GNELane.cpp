@@ -1260,8 +1260,8 @@ GNELane::drawAsWaterway(const GUIVisualizationSettings& s) const {
 
 void
 GNELane::drawDirectionIndicators(double exaggeration, bool spreadSuperposed) const {
-    const double width = (myParentEdge.getNBEdge()->getLaneWidth(myIndex) * exaggeration
-                          * (spreadSuperposed ? 0.4 : 1));
+    const double width = MAX2(NUMERICAL_EPS, (myParentEdge.getNBEdge()->getLaneWidth(myIndex) * exaggeration
+                          * (spreadSuperposed ? 0.4 : 1)));
     const double sideOffset = spreadSuperposed ? width * -0.5 : 0;
     glPushMatrix();
     glTranslated(0, 0, GLO_JUNCTION + 0.1);
