@@ -45,10 +45,10 @@ public:
 
     /// @brief enum with all possible values after try to create an shape using frame
     enum AddShapeResult {
-        ADDSHAPE_SUCCESS,   // Shape was successfully created
-        ADDSHAPE_NEWPOINT,  // New point was sucesfully added to temporal shape
-        ADDSHAPE_INVALID,   // Shape wasn't created
-        ADDSHAPE_NOTHING    // Nothing to do
+        ADDSHAPE_SUCCESS,               // Shape was successfully created
+        ADDSHAPE_UPDATEDTEMPORALSHAPE,  // Added or removed a new point to temporal shape
+        ADDSHAPE_INVALID,               // Shape wasn't created
+        ADDSHAPE_NOTHING                // Nothing to do
     };
 
     /// @brief class declaration
@@ -345,6 +345,12 @@ public:
         /// @brief return true if currently a shape is drawed
         bool isDrawing() const;
 
+        /// @brief enable or disable delete last created point
+        void setDeleteLastCreatedPoint(bool value);
+
+        /// @brief get flag delete last created point
+        bool getDeleteLastCreatedPoint();
+
         /// @name FOX-callbacks
         /// @{
         /// @brief Called when the user press start drawing button
@@ -364,6 +370,9 @@ public:
     private:
         /// @brief frame frame parent
         GNEPolygonFrame* myPolygonFrameParent;
+
+        /// @brief flag to enable/disable delete point mode
+        bool myDeleteLastCreatedPoint;
 
         /// @brief button for start drawing
         FXButton* myStartDrawingButton;

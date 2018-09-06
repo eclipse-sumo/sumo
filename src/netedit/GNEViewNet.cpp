@@ -594,7 +594,12 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
         if (temporalDrawingShape.size() > 0) {
             glPushMatrix();
             glLineWidth(2);
-            GLHelper::setColor(RGBColor::RED);
+            // draw last line depending if shift key (delete last created point) is pressed
+            if(myViewParent->getPolygonFrame()->getDrawingMode()->getDeleteLastCreatedPoint()) {
+                GLHelper::setColor(RGBColor::RED);
+            } else {
+                GLHelper::setColor(RGBColor::GREEN);
+            }
             GLHelper::drawLine(temporalDrawingShape.back(), snapToActiveGrid(getPositionInformation()));
             glPopMatrix();
         }
@@ -886,8 +891,8 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                     GNEPolygonFrame::AddShapeResult result = myViewParent->getPolygonFrame()->processClick(snapToActiveGrid(getPositionInformation()), myObjectsUnderCursor.lane);
                     // view net must be always update
                     update();
-                    // process clickw depending of the result of "add additional"
-                    if ((result != GNEPolygonFrame::ADDSHAPE_NEWPOINT)) {
+                    // process click depending of the result of "process click"
+                    if ((result != GNEPolygonFrame::ADDSHAPE_UPDATEDTEMPORALSHAPE)) {
                         // process click
                         processClick(evt, eventData);
                     }
@@ -963,11 +968,8 @@ GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
 
 
 long GNEViewNet::onRightBtnPress(FXObject* obj, FXSelector sel, void* eventData) {
+    // disable right button press during drawing polygon
     if ((myEditMode == GNE_MODE_POLYGON) && myViewParent->getPolygonFrame()->getDrawingMode()->isDrawing()) {
-        // during drawing of a polygon, right click removes the last created point
-        myViewParent->getPolygonFrame()->getDrawingMode()->removeLastPoint();
-        // update view
-        update();
         return 1;
     } else {
         return GUISUMOAbstractView::onRightBtnPress(obj, sel, eventData);
@@ -976,8 +978,8 @@ long GNEViewNet::onRightBtnPress(FXObject* obj, FXSelector sel, void* eventData)
 
 
 long GNEViewNet::onRightBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
+    // disable right button release during drawing polygon
     if ((myEditMode == GNE_MODE_POLYGON) && myViewParent->getPolygonFrame()->getDrawingMode()->isDrawing()) {
-        // during drawing of a polygon, right click removes the last created point
         return 1;
     } else {
         return GUISUMOAbstractView::onRightBtnRelease(obj, sel, eventData);
@@ -988,6 +990,10 @@ long GNEViewNet::onRightBtnRelease(FXObject* obj, FXSelector sel, void* eventDat
 long
 GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* eventData) {
     GUISUMOAbstractView::onMouseMove(obj, sel, eventData);
+    // change "delete last created point" depending if during movement shift key is pressed
+    if ((myEditMode == GNE_MODE_POLYGON) && myViewParent->getPolygonFrame()->getDrawingMode()->isDrawing()) {
+        myViewParent->getPolygonFrame()->getDrawingMode()->setDeleteLastCreatedPoint(((FXEvent*)eventData)->state & SHIFTMASK);
+    }
     // calculate offset of movement depending of showGrid
     Position offsetMovement;
     if (myVisualizationSettings->showGrid) {
@@ -1043,13 +1049,25 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* eventData) {
 
 long
 GNEViewNet::onKeyPress(FXObject* o, FXSelector sel, void* eventData) {
+    // change "delete last created point" depending of shift key
+    if ((myEditMode == GNE_MODE_POLYGON) && myViewParent->getPolygonFrame()->getDrawingMode()->isDrawing()) {
+        myViewParent->getPolygonFrame()->getDrawingMode()->setDeleteLastCreatedPoint(((FXEvent*)eventData)->state & SHIFTMASK);
+        update();
+    }
     return GUISUMOAbstractView::onKeyPress(o, sel, eventData);
 }
 
 
 long
 GNEViewNet::onKeyRelease(FXObject* o, FXSelector sel, void* eventData) {
-    if (mySelectingArea.selectingUsingRectangle && ((((FXEvent*)eventData)->state & SHIFTMASK) == false)) {
+    bool keyShiftPressed = ((FXEvent*)eventData)->state & SHIFTMASK;
+    // change "delete last created point" depending of shift key
+    if ((myEditMode == GNE_MODE_POLYGON) && myViewParent->getPolygonFrame()->getDrawingMode()->isDrawing()) {
+        myViewParent->getPolygonFrame()->getDrawingMode()->setDeleteLastCreatedPoint(keyShiftPressed);
+        update();
+    }
+    // check if selecting using rectangle has to be disabled
+    if (mySelectingArea.selectingUsingRectangle && !keyShiftPressed) {
         mySelectingArea.selectingUsingRectangle = false;
         update();
     }

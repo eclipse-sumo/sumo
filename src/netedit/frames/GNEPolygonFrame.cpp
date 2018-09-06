@@ -662,7 +662,8 @@ GNEPolygonFrame::NeteditAttributes::onCmdHelp(FXObject*, FXSelector, void*) {
 
 GNEPolygonFrame::DrawingMode::DrawingMode(GNEPolygonFrame* polygonFrameParent) :
     FXGroupBox(polygonFrameParent->myContentFrame, "Drawing", GUIDesignGroupBoxFrame),
-    myPolygonFrameParent(polygonFrameParent) {
+    myPolygonFrameParent(polygonFrameParent),
+    myDeleteLastCreatedPoint(false) {
     // create start and stop buttons
     myStartDrawingButton = new FXButton(this, "Start drawing", 0, this, MID_GNE_POLYGONFRAME_STARTDRAWING, GUIDesignButton);
     myStopDrawingButton = new FXButton(this, "Stop drawing", 0, this, MID_GNE_POLYGONFRAME_STOPDRAWING, GUIDesignButton);
@@ -675,6 +676,8 @@ GNEPolygonFrame::DrawingMode::DrawingMode(GNEPolygonFrame* polygonFrameParent) :
             << "  draws polygon boundary.\n"
             << "- 'Stop drawing' or ENTER\n"
             << "  creates polygon.\n"
+            << "- 'Shift + Click'\n"
+            << "  removes last created point.\n"
             << "- 'Abort drawing' or ESC\n"
             << "  removes drawed polygon.";
     myInformationLabel = new FXLabel(this, information.str().c_str(), 0, GUIDesignLabelFrameInformation);
@@ -783,6 +786,18 @@ GNEPolygonFrame::DrawingMode::isDrawing() const {
 }
 
 
+void 
+GNEPolygonFrame::DrawingMode::setDeleteLastCreatedPoint(bool value) {
+    myDeleteLastCreatedPoint = value;
+}
+
+
+bool 
+GNEPolygonFrame::DrawingMode::getDeleteLastCreatedPoint() {
+    return myDeleteLastCreatedPoint;
+}
+
+
 long
 GNEPolygonFrame::DrawingMode::onCmdStartDrawing(FXObject*, FXSelector, void*) {
     startDrawing();
@@ -887,8 +902,13 @@ GNEPolygonFrame::processClick(const Position& clickedPosition, GNELane* lane) {
         // obtain Shape values
         valuesOfElement = myShapeAttributes->getAttributesAndValues();
         if (myDrawingMode->isDrawing()) {
-            myDrawingMode->addNewPoint(clickedPosition);
-            return ADDSHAPE_NEWPOINT;
+            // add or delete a new point depending of flag "delete last created point"
+            if(myDrawingMode->getDeleteLastCreatedPoint()) {
+                myDrawingMode->removeLastPoint();
+            } else {
+                myDrawingMode->addNewPoint(clickedPosition);
+            }
+            return ADDSHAPE_UPDATEDTEMPORALSHAPE;
         } else {
             // return ADDSHAPE_NOTHING if is drawing isn't enabled
             return ADDSHAPE_NOTHING;
@@ -976,6 +996,7 @@ GNEPolygonFrame::DrawingMode*
 GNEPolygonFrame::getDrawingMode() const {
     return myDrawingMode;
 }
+
 
 bool
 GNEPolygonFrame::addPolygon(const std::map<SumoXMLAttr, std::string>& polyValues) {
