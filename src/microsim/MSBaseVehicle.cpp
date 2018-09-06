@@ -627,7 +627,7 @@ MSBaseVehicle::setDeviceParameter(const std::string& deviceName, const std::stri
 void
 MSBaseVehicle::replaceVehicleType(MSVehicleType* type) {
     assert(type != nullptr);
-    if (myType->isVehicleSpecific()) {
+    if (myType->isVehicleSpecific() && type != myType) {
         MSNet::getInstance()->getVehicleControl().removeVType(myType);
     }
     myType = type;
