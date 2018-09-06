@@ -611,6 +611,9 @@ private:
     /// @brief flag to check if select edges is enabled
     bool mySelectEdges;
 
+    /// @brief flag to check if shift key is pressed (can be changed after Key Press/Released and mouse Move)
+    bool myShiftKeyPressed;
+
     /// @name the state-variables of the create-edge state-machine
     // @{
     /// @brief source junction for new edge 0 if no edge source is selected an existing (or newly created) junction otherwise

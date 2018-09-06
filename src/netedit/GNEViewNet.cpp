@@ -162,6 +162,7 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     myCurrentFrame(0),
     myShowConnections(false),
     mySelectEdges(true),
+    myShiftKeyPressed(false),
     myCreateEdgeSource(0),
     myMovingSelection(false),
     myToolbar(toolBar),
@@ -605,6 +606,19 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
         }
     }
 
+    // in move mode, draw "eraser" icon if shift key is pressed
+/** currently disabled
+    if(!myVisualizationSettings->drawForSelecting && (myEditMode == GNE_MODE_MOVE) && myShiftKeyPressed) {
+        glPushMatrix();
+        glColor3d(1, 1, 1);
+        Position posRelative = screenPos2NetPos(myWindowCursorPositionX, myWindowCursorPositionY);
+        glTranslated(posRelative.x(), posRelative.y(), GLO_MAX);
+        glRotated(-180, 0, 0, 1);
+        GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_ERASER), 0.5);
+        glPopMatrix();
+    }
+**/
+    // draw elements
     glLineWidth(1);
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     const float minB[2] = { (float)bound.xmin(), (float)bound.ymin() };
@@ -699,8 +713,19 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                     myMoveSingleElementValues.movingOriginalPosition = getPositionInformation();
                     // obtain index of vertex to move if shape isn't blocked
                     if ((myMovedItems.polyToMove->isShapeBlocked() == false) && (myMovedItems.polyToMove->isMovementBlocked() == false)) {
-                        // obtain index of vertex to move and moving reference
-                        myMoveSingleElementValues.movingIndexShape = myMovedItems.polyToMove->getVertexIndex(myMoveSingleElementValues.movingOriginalPosition);
+                        // check if we want to remove a Geometry Point
+                        if(myShiftKeyPressed) {
+                            // check if we're clicked over a Geometry Point
+                            myMoveSingleElementValues.movingIndexShape = myMovedItems.polyToMove->getVertexIndex(myMoveSingleElementValues.movingOriginalPosition, false);
+                            if (myMoveSingleElementValues.movingIndexShape != -1) {
+                                myMovedItems.polyToMove->deleteGeometryPoint(myMoveSingleElementValues.movingOriginalPosition);
+                                // after removing Geomtery Point, reset PolyToMove
+                                myMovedItems.polyToMove = nullptr;
+                            }
+                        } else {
+                            // obtain index of vertex to move and moving reference
+                            myMoveSingleElementValues.movingIndexShape = myMovedItems.polyToMove->getVertexIndex(myMoveSingleElementValues.movingOriginalPosition);
+                        }
                     } else {
                         myMoveSingleElementValues.movingIndexShape = -1;
                     }
@@ -990,9 +1015,11 @@ long GNEViewNet::onRightBtnRelease(FXObject* obj, FXSelector sel, void* eventDat
 long
 GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* eventData) {
     GUISUMOAbstractView::onMouseMove(obj, sel, eventData);
+    // update shift key pressed
+    myShiftKeyPressed = ((FXEvent*)eventData)->state & SHIFTMASK;
     // change "delete last created point" depending if during movement shift key is pressed
     if ((myEditMode == GNE_MODE_POLYGON) && myViewParent->getPolygonFrame()->getDrawingMode()->isDrawing()) {
-        myViewParent->getPolygonFrame()->getDrawingMode()->setDeleteLastCreatedPoint(((FXEvent*)eventData)->state & SHIFTMASK);
+        myViewParent->getPolygonFrame()->getDrawingMode()->setDeleteLastCreatedPoint(myShiftKeyPressed);
     }
     // calculate offset of movement depending of showGrid
     Position offsetMovement;
@@ -1049,28 +1076,30 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* eventData) {
 
 long
 GNEViewNet::onKeyPress(FXObject* o, FXSelector sel, void* eventData) {
+    // update shift key pressed
+    myShiftKeyPressed = ((FXEvent*)eventData)->state & SHIFTMASK;
     // change "delete last created point" depending of shift key
     if ((myEditMode == GNE_MODE_POLYGON) && myViewParent->getPolygonFrame()->getDrawingMode()->isDrawing()) {
         myViewParent->getPolygonFrame()->getDrawingMode()->setDeleteLastCreatedPoint(((FXEvent*)eventData)->state & SHIFTMASK);
-        update();
     }
+    update();
     return GUISUMOAbstractView::onKeyPress(o, sel, eventData);
 }
 
 
 long
 GNEViewNet::onKeyRelease(FXObject* o, FXSelector sel, void* eventData) {
-    bool keyShiftPressed = ((FXEvent*)eventData)->state & SHIFTMASK;
+    // update shift key pressed
+    myShiftKeyPressed = ((FXEvent*)eventData)->state & SHIFTMASK;
     // change "delete last created point" depending of shift key
     if ((myEditMode == GNE_MODE_POLYGON) && myViewParent->getPolygonFrame()->getDrawingMode()->isDrawing()) {
-        myViewParent->getPolygonFrame()->getDrawingMode()->setDeleteLastCreatedPoint(keyShiftPressed);
-        update();
+        myViewParent->getPolygonFrame()->getDrawingMode()->setDeleteLastCreatedPoint(myShiftKeyPressed);
     }
     // check if selecting using rectangle has to be disabled
-    if (mySelectingArea.selectingUsingRectangle && !keyShiftPressed) {
+    if (mySelectingArea.selectingUsingRectangle && !myShiftKeyPressed) {
         mySelectingArea.selectingUsingRectangle = false;
-        update();
     }
+    update();
     return GUISUMOAbstractView::onKeyRelease(o, sel, eventData);
 }
 

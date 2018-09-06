@@ -764,13 +764,7 @@ GNEPolygonFrame::DrawingMode::addNewPoint(const Position& P) {
 
 void
 GNEPolygonFrame::DrawingMode::removeLastPoint() {
-    if (myStopDrawingButton->isEnabled()) {
-        if (myTemporalShapeShape.size() > 0) {
-            myTemporalShapeShape.pop_back();
-        }
-    } else {
-        throw ProcessError("Last point cannot be removed if drawing wasn't started");
-    }
+
 }
 
 
