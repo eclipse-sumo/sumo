@@ -67,6 +67,7 @@ junction.xpm \
 lane.xpm \
 lanebike.xpm \
 lanebus.xpm \
+lanegreenverge.xpm \
 lanepedestrian.xpm \
 locate.xpm \
 locate_add.xpm \
