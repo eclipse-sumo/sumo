@@ -364,7 +364,7 @@ GNEPOI::isValid(SumoXMLAttr key, const std::string& value) {
             return (myNet->retrieveLane(value, false) != nullptr);
         case SUMO_ATTR_POSITION:
             if (myGNELane) {
-                canParse<double>(value);
+                return canParse<double>(value);
             } else {
                 bool ok;
                 return GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, false).size() == 1;

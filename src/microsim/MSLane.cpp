@@ -537,8 +537,9 @@ MSLane::insertVehicle(MSVehicle& veh) {
                         return true;
                     }
                 }
+                FALLTHROUGH;
             }
-            // no break! continue with DEPART_POS_FREE
+            // no break! continue with DEPART_POSLAT_FREE
             case DEPART_POSLAT_FREE: {
                 // systematically test all positions until a free lateral position is found
                 double posLatMin = -getWidth() * 0.5 + veh.getVehicleType().getWidth() * 0.5;

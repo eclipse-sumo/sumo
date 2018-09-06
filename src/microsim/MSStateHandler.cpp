@@ -131,6 +131,7 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             if (attrs.hasAttribute(SUMO_ATTR_RNG_DRIVERSTATE)) {
                 RandHelper::loadState(attrs.getString(SUMO_ATTR_RNG_DEFAULT), OUProcess::getRNG());
             }
+            break;
         }
         case SUMO_TAG_DELAY: {
             vc.setState(attrs.getInt(SUMO_ATTR_NUMBER),

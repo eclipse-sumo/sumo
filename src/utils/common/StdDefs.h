@@ -32,6 +32,12 @@
 /* avoiding compiler warning unreferenced parameter */
 #define UNUSED_PARAMETER(x)  ((void)(x))
 
+#ifdef _MSC_VER
+#define FALLTHROUGH /* do nothing */
+#else
+#define FALLTHROUGH __attribute__((fallthrough))
+#endif
+
 /// @brief the maximum number of connections across an intersection
 #define  SUMO_MAX_CONNECTIONS 256
 

@@ -2349,8 +2349,8 @@ MSDevice_SSM::findSurroundingVehicles(const MSVehicle& veh, double range, FoeInf
     //      too early if a leading foe is not traced on its new lane. (see test 'foe_leader_deviating_routes')
 
     // If veh is on an internal edge, the edgeIter points towards the last edge before the junction
-    ConstMSEdgeVector::const_iterator edgeIter = veh.getCurrentRouteEdge();
-    assert(*edgeIter != 0);
+    //ConstMSEdgeVector::const_iterator edgeIter = veh.getCurrentRouteEdge();
+    //assert(*edgeIter != 0);
 
     // Best continuation lanes for the ego vehicle
     const std::vector<MSLane*> egoBestLanes = veh.getBestLanesContinuation();

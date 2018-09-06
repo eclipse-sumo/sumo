@@ -420,19 +420,14 @@ SUMOVTypeParameter::getDefaultDecel(const SUMOVehicleClass vc) {
         case SVC_MOTORCYCLE:
             return 10.;
         case SVC_TRUCK:
-            return 4.;
         case SVC_TRAILER:
-            return 4.;
         case SVC_BUS:
-            return 4.;
         case SVC_COACH:
             return 4.;
         case SVC_TRAM:
-            return 3.;
         case SVC_RAIL_URBAN:
             return 3.;
         case SVC_RAIL:
-            return 1.3;
         case SVC_RAIL_ELECTRIC:
             return 1.3;
         case SVC_SHIP:
@@ -450,32 +445,31 @@ SUMOVTypeParameter::getDefaultEmergencyDecel(const SUMOVehicleClass vc, double d
         switch (vc) {
             case SVC_PEDESTRIAN:
                 vcDecel = 5.;
+                break;
             case SVC_BICYCLE:
                 vcDecel = 7.;
+                break;
             case SVC_MOPED:
-                vcDecel = 10.;
             case SVC_MOTORCYCLE:
                 vcDecel = 10.;
+                break;
             case SVC_TRUCK:
-                vcDecel = 7.;
             case SVC_TRAILER:
-                vcDecel = 7.;
             case SVC_BUS:
-                vcDecel = 7.;
             case SVC_COACH:
-                vcDecel = 7.;
             case SVC_TRAM:
-                vcDecel = 7.;
             case SVC_RAIL_URBAN:
                 vcDecel = 7.;
+                break;
             case SVC_RAIL:
-                vcDecel = 5;
             case SVC_RAIL_ELECTRIC:
-                vcDecel = 5;
+                vcDecel = 5.;
+                break;
             case SVC_SHIP:
-                vcDecel = 1;
+                vcDecel = 1.;
+                break;
             default:
-                vcDecel = 9;
+                vcDecel = 9.;
         }
         return MAX2(decel, vcDecel);
     } else if (defaultOption == VTYPEPARS_DEFAULT_EMERGENCYDECEL_DECEL) {

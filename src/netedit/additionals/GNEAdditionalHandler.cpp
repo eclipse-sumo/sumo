@@ -1405,9 +1405,8 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, S
                 } else {
                     WRITE_WARNING("There is already a " + toString(tag) + " in the edge '" + edge->getID() + "'.");
                 }
-            } else {
-                return nullptr;
             }
+            return nullptr;
         }
         default:
             return nullptr;
