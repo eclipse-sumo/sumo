@@ -140,6 +140,10 @@ MSDevice_Bluelight::notifyMove(SUMOVehicle& veh, double /* oldPos */,
         SUMOVehicle* veh2 = it->second;
         //Vehicle only from edge should react
         if (currentEdgeID == veh2->getEdge()->getID()) {
+            if (veh2->getDevice(typeid(MSDevice_Bluelight)) != nullptr) {
+                // emergency vehicles should not react
+                continue;
+            }
             double distanceDelta = veh.getPosition().distanceTo(veh2->getPosition());
             // the perception of the sound of the siren should be around 25 meters
             // todo only vehicles in front of the emergency vehicle should react
