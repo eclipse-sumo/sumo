@@ -5,7 +5,7 @@ inspect_id
 inspect_pos
 
 # edit attribute type
-inspect_type
+type
 
 # edit attribute shape
 inspect_shape
