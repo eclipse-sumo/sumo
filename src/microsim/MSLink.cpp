@@ -410,7 +410,7 @@ MSLink::removeApproaching(const SUMOVehicle* veh) {
 
 MSLink::ApproachingVehicleInformation
 MSLink::getApproaching(const SUMOVehicle* veh) const {
-    std::map<const SUMOVehicle*, ApproachingVehicleInformation>::const_iterator i = myApproachingVehicles.find(veh);
+    auto i = myApproachingVehicles.find(veh);
     if (i != myApproachingVehicles.end()) {
         return i->second;
     } else {
@@ -544,30 +544,30 @@ bool
 MSLink::blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime, double arrivalSpeed, double leaveSpeed,
                       bool sameTargetLane, double impatience, double decel, SUMOTime waitingTime,
                       std::vector<const SUMOVehicle*>* collectFoes, const SUMOVehicle* ego) const {
-    for (std::map<const SUMOVehicle*, ApproachingVehicleInformation>::const_iterator i = myApproachingVehicles.begin(); i != myApproachingVehicles.end(); ++i) {
+    for (auto it : myApproachingVehicles) {
 #ifdef MSLink_DEBUG_OPENED
         if (gDebugFlag1) {
             if (ego != 0
-                    && ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_IGNORE_FOE_SPEED, 0) >= i->first->getSpeed()
+                    && ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_IGNORE_FOE_SPEED, 0) >= it.first->getSpeed()
                     && ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_IGNORE_FOE_PROB, 0) > 0) {
                 std::cout << "    foe link=" << getViaLaneOrLane()->getID()
-                          << " foeVeh=" << i->first->getID() << " (below ignore speed)"
+                          << " foeVeh=" << it.first->getID() << " (below ignore speed)"
                           << " ignoreFoeProb=" << ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_IGNORE_FOE_PROB, 0)
                           << "\n";
             }
         }
 #endif
-        if (i->first != ego
+        if (it.first != ego
                 && (ego == 0
                     || ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_IGNORE_FOE_PROB, 0) == 0
-                    || ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_IGNORE_FOE_SPEED, 0) < i->first->getSpeed()
+                    || ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_IGNORE_FOE_SPEED, 0) < it.first->getSpeed()
                     || ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_IGNORE_FOE_PROB, 0) < RandHelper::rand())
-                && blockedByFoe(i->first, i->second, arrivalTime, leaveTime, arrivalSpeed, leaveSpeed, sameTargetLane,
+                && blockedByFoe(it.first, it.second, arrivalTime, leaveTime, arrivalSpeed, leaveSpeed, sameTargetLane,
                                 impatience, decel, waitingTime, ego)) {
             if (collectFoes == 0) {
                 return true;
             } else {
-                collectFoes->push_back(i->first);
+                collectFoes->push_back(it.first);
             }
         }
     }
@@ -738,8 +738,8 @@ MSLink::writeApproaching(OutputDevice& od, const std::string fromLaneID) const {
         od.writeAttr(SUMO_ATTR_VIA, via);
         od.writeAttr(SUMO_ATTR_TO, getLane() == 0 ? "" : getLane()->getID());
         std::vector<std::pair<SUMOTime, const SUMOVehicle*> > toSort; // stabilize output
-        for (std::map<const SUMOVehicle*, ApproachingVehicleInformation>::const_iterator it = myApproachingVehicles.begin(); it != myApproachingVehicles.end(); ++it) {
-            toSort.push_back(std::make_pair(it->second.arrivalTime, it->first));
+        for (auto it : myApproachingVehicles) {
+            toSort.push_back(std::make_pair(it.second.arrivalTime, it.first));
         }
         std::sort(toSort.begin(), toSort.end());
         for (std::vector<std::pair<SUMOTime, const SUMOVehicle*> >::const_iterator it = toSort.begin(); it != toSort.end(); ++it) {

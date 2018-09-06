@@ -254,9 +254,8 @@ MSRailSignal::getAppropriateState() {
             if (it != mySucceedingBlocksIncommingLinks.end()) {
                 const MSLink* inCommingLing = it->second;
                 const std::map<const SUMOVehicle*, MSLink::ApproachingVehicleInformation, ComparatorIdLess> approaching = inCommingLing->getApproaching();
-                std::map<const SUMOVehicle*,  MSLink::ApproachingVehicleInformation>::const_iterator apprIt = approaching.begin();
-                for (; apprIt != approaching.end(); apprIt++) {
-                    MSLink::ApproachingVehicleInformation info = apprIt->second;
+                for (auto apprIt : approaching) {
+                    MSLink::ApproachingVehicleInformation info = apprIt.second;
                     if (info.arrivalSpeedBraking > 0) {
                         succeedingBlockOccupied = true;
                         break;
