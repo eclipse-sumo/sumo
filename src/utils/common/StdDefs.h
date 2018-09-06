@@ -34,6 +34,8 @@
 
 #ifdef _MSC_VER
 #define FALLTHROUGH /* do nothing */
+#elif _GNUC_ < 7
+#define FALLTHROUGH /* do nothing */
 #else
 #define FALLTHROUGH __attribute__((fallthrough))
 #endif
