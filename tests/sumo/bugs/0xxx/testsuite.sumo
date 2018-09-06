@@ -88,6 +88,9 @@ ticket803
 ticket806
 ticket807
 
+# collision
+ticket813
+
 # vehicle's route length should not depend on their arrivalSpeed
 ticket814
 ticket836
@@ -116,6 +119,10 @@ ticket881b
 ticket881c
 ticket882
 ticket889
+
+# right before left ordering dependency
+ticket910
+
 ticket925
 ticket929
 ticket941
