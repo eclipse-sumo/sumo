@@ -1002,7 +1002,7 @@ public:
     /// @brief return the corresponding position on the opposite lane
     double getOppositePos(double pos) const;
 
-    /* @brief find leader for a vehicle depending the relative driving direction
+    /* @brief find leader for a vehicle depending on the relative driving direction
      * @param[in] ego The ego vehicle
      * @param[in] dist The look-ahead distance when looking at consecutive lanes
      * @param[in] oppositeDir Whether the lane has the opposite driving direction of ego
