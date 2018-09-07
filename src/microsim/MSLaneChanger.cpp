@@ -1241,12 +1241,20 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, double> leader) {
         laneQ.length = MIN2(laneQ.length, vehicle->nextStopDist() + forwardPos);
         // consider oncoming leaders
         if (leader.first != 0) {
-            laneQ.length = MIN2(laneQ.length, leader.second / 2 + forwardPos);
+            if (!leader.first->getLaneChangeModel().isOpposite()) {
+                laneQ.length = MIN2(laneQ.length, leader.second / 2 + forwardPos);
 #ifdef DEBUG_CHANGE_OPPOSITE
-            if (DEBUG_COND) {
-                std::cout << SIMTIME << " found oncoming leader=" << leader.first->getID() << " gap=" << leader.second << "\n";
-            }
+                if (DEBUG_COND) {
+                    std::cout << SIMTIME << " found oncoming leader=" << leader.first->getID() << " gap=" << leader.second << "\n";
+                }
 #endif
+            } else {
+#ifdef DEBUG_CHANGE_OPPOSITE
+                if (DEBUG_COND) {
+                    std::cout << SIMTIME << " opposite leader=" << leader.first->getID() << " gap=" << leader.second << " is driving against the flow\n";
+                }
+#endif
+            }
             leader.first = 0; // ignore leader after this
         }
 #ifdef DEBUG_CHANGE_OPPOSITE
