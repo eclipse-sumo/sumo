@@ -1446,7 +1446,9 @@ void
 MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, MSVehicle* collider, MSVehicle* victim,
                                double gap, double latGap, std::set<const MSVehicle*, ComparatorIdLess>& toRemove,
                                std::set<const MSVehicle*>& toTeleport) const {
-    std::string prefix = "Vehicle '" + collider->getID() + "'; collision with vehicle '" + victim->getID() ;
+    std::string collisionType = (collider->getLaneChangeModel().isOpposite() != victim->getLaneChangeModel().isOpposite() ?
+            "frontal collision" : "collision");
+    std::string prefix = "Vehicle '" + collider->getID() + "'; " + collisionType + " with vehicle '" + victim->getID() ;
     if (myCollisionStopTime > 0) {
         if (collider->collisionStopTime() >= 0 && victim->collisionStopTime() >= 0) {
             return;
@@ -1507,12 +1509,12 @@ MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, MSVe
             case COLLISION_ACTION_WARN:
                 break;
             case COLLISION_ACTION_TELEPORT:
-                prefix = "Teleporting vehicle '" + collider->getID() + "'; collision with vehicle '" + victim->getID() ;
+                prefix = "Teleporting vehicle '" + collider->getID() + "'; " + collisionType + " with vehicle '" + victim->getID() ;
                 toRemove.insert(collider);
                 toTeleport.insert(collider);
                 break;
             case COLLISION_ACTION_REMOVE: {
-                prefix = "Removing collision participants: vehicle '" + collider->getID() + "', vehicle '" + victim->getID();
+                prefix = "Removing " + collisionType + " participants: vehicle '" + collider->getID() + "', vehicle '" + victim->getID();
                 bool removeCollider = true;
                 bool removeVictim = true;
                 removeVictim = !(victim->hasInfluencer() && victim->getInfluencer().isRemoteAffected(timestep));
@@ -1525,12 +1527,12 @@ MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, MSVe
                 }
                 if (!removeVictim) {
                     if (!removeCollider) {
-                        prefix = "Keeping remote-controlled collision participants: vehicle '" + collider->getID() + "', vehicle '" + victim->getID();
+                        prefix = "Keeping remote-controlled " + collisionType + " participants: vehicle '" + collider->getID() + "', vehicle '" + victim->getID();
                     } else {
-                        prefix = "Removing collision participant: vehicle '" + collider->getID() + "', keeping remote-controlled vehicle '" + victim->getID();
+                        prefix = "Removing " + collisionType + " participant: vehicle '" + collider->getID() + "', keeping remote-controlled vehicle '" + victim->getID();
                     }
                 } else if (!removeCollider) {
-                    prefix = "Keeping remote-controlled collision participant: vehicle '" + collider->getID() + "', removing vehicle '" + victim->getID();
+                    prefix = "Keeping remote-controlled " + collisionType + " participant: vehicle '" + collider->getID() + "', removing vehicle '" + victim->getID();
                 }
                 break;
             }
