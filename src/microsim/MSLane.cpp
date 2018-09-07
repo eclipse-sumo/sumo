@@ -1415,6 +1415,8 @@ MSLane::detectCollisionBetween(SUMOTime timestep, const std::string& stage, MSVe
                   << " victimBackPos=" << victim->getBackPositionOnLane(this)
                   << " colliderLat=" << collider->getCenterOnEdge(this)
                   << " victimLat=" << victim->getCenterOnEdge(this)
+                  << " minGap=" << collider->getVehicleType().getMinGap()
+                  << " minGapFactor=" << minGapFactor
                   << " gap=" << gap
                   << "\n";
     }
