@@ -2284,9 +2284,12 @@ MSVehicle::adaptToLeaders(const MSLeaderInfo& ahead, double latOffset,
         if (pred != 0 && pred != this) {
             // @todo avoid multiple adaptations to the same leader
             const double predBack = pred->getBackPositionOnLane(lane);
-            const double gap = (lastLink == 0
+            double gap = (lastLink == 0
                                 ? predBack - myState.myPos - getVehicleType().getMinGap()
                                 : predBack + seen - lane->getLength() - getVehicleType().getMinGap());
+            if (getLaneChangeModel().isOpposite()) {
+                gap *= -1;
+            }
 #ifdef DEBUG_PLAN_MOVE
             if (DEBUG_COND) {
                 std::cout << "     pred=" << pred->getID() << " predLane=" << pred->getLane()->getID() << " predPos=" << pred->getPositionOnLane() << " gap=" << gap << " predBack=" << predBack << " seen=" << seen << " lane=" << lane->getID() << " myLane=" << myLane->getID() << "\n";
