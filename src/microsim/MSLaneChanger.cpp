@@ -54,6 +54,7 @@
 //#define DEBUG_CHECK_CHANGE
 //#define DEBUG_SURROUNDING_VEHICLES // debug getRealFollower() and getRealLeader()
 //#define DEBUG_CHANGE_OPPOSITE
+//#define DEBUG_CHANGE_OPPOSITE_OVERTAKINGTIME
 //#define DEBUG_ACTIONSTEPS
 //#define DEBUG_STATE
 //#define DEBUG_CANDIDATE
@@ -1109,7 +1110,7 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, double> leader) {
         }
 #ifdef DEBUG_CHANGE_OPPOSITE
         if (DEBUG_COND) {
-            std::cout << "   compute time/space to overtake for columnLeader=" << columnLeader.first->getID() << " gap=" << columnLeader.second << "\n";
+            std::cout << "   compute time/space to overtake for columnLeader=" << columnLeader.first->getID() << " gap=" << columnLeader.second << " egoGap=" << egoGap << "\n";
         }
 #endif
         computeOvertakingTime(vehicle, columnLeader.first, egoGap, timeToOvertake, spaceToOvertake);
@@ -1155,6 +1156,12 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, double> leader) {
                     std::cout << "   cannot changeOpposite due to dangerous oncoming\n";
                 }
 #endif
+
+#ifdef DEBUG_CHANGE_OPPOSITE
+                if (neighLead.first->getLaneChangeModel().isOpposite()) {
+                    std::cout << SIMTIME << " ego=" << vehicle->getID() << " does not changeOpposite due to dangerous oncoming " << neighLead.first->getID() << "  (but the leader is also opposite)\n";
+                }
+#endif
                 return false;
             }
         }
@@ -1162,7 +1169,23 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, double> leader) {
         timeToOvertake = -1;
         // look forward as far as possible
         spaceToOvertake = std::numeric_limits<double>::max();
-        leader = source->getOppositeLeader(vehicle, OPPOSITE_OVERTAKING_ONCOMING_LOOKAHEAD, true);
+        double dist = OPPOSITE_OVERTAKING_ONCOMING_LOOKAHEAD;
+        leader = source->getOppositeLeader(vehicle, dist, true);
+        double gap = leader.second;
+        while (leader.first != nullptr && leader.first->getLaneChangeModel().isOpposite()) {
+            // look beyond leaders that are also driving in the opposite direction until finding an oncoming leader or exhausting the look-ahead distance
+#ifdef DEBUG_CHANGE_OPPOSITE
+            if (DEBUG_COND) {
+                std::cout << SIMTIME << " opposite leader=" << leader.first->getID() << " gap=" << gap << " is driving against the flow\n";
+            }
+#endif
+            dist -= leader.second;
+            leader = source->getOppositeLeader(leader.first, dist, true);
+            if (leader.first != 0) {
+                gap += leader.second;
+            }
+        }
+        leader.second = gap;
         // -1 will use getMaximumBrakeDist() as look-ahead distance
         neighLead = opposite->getOppositeLeader(vehicle, -1, false);
     } else {
@@ -1333,10 +1356,19 @@ MSLaneChanger::computeOvertakingTime(const MSVehicle* vehicle, const MSVehicle* 
     /// XXX ignore speed limit when overtaking through the opposite lane?
     const double timeToMaxSpeed = (vMax - v) / a;
 
+#ifdef DEBUG_CHANGE_OPPOSITE_OVERTAKINGTIME
+    if (DEBUG_COND) {
+        std::cout << "    t=" << t << "  tvMax=" << timeToMaxSpeed << " vMax=" << vMax << "\n";
+    }
+#endif
     if (t <= timeToMaxSpeed) {
         timeToOvertake = t;
         spaceToOvertake = v * t + t * t * a * 0.5;
-        //if (gDebugFlag1) std::cout << "    t below " << timeToMaxSpeed << " vMax=" << vMax << "\n";
+#ifdef DEBUG_CHANGE_OPPOSITE_OVERTAKINGTIME
+        if (DEBUG_COND) {
+            std::cout << "    sto=" << spaceToOvertake << "\n";
+        }
+#endif
     } else {
         // space until max speed is reached
         const double s = v * timeToMaxSpeed + timeToMaxSpeed * timeToMaxSpeed * a * 0.5;
@@ -1344,15 +1376,29 @@ MSLaneChanger::computeOvertakingTime(const MSVehicle* vehicle, const MSVehicle* 
         // s + (t-m) * vMax = g + u*t
         // solve t
         t = (g - s + m * vMax) / (vMax - u);
+        if (t < 0) {
+            // cannot overtake in time
+#ifdef DEBUG_CHANGE_OPPOSITE_OVERTAKINGTIME
+            if (DEBUG_COND) {
+                std::cout << "     t2=" << t << "\n";
+            }
+#endif
+            timeToOvertake = std::numeric_limits<double>::max();
+            spaceToOvertake = std::numeric_limits<double>::max();
+        } else {
+            // allow for a safety time gap
+            t += OPPOSITE_OVERTAKING_SAFE_TIMEGAP;
+            // round to multiples of step length (TS)
+            t = ceil(t / TS) * TS;
 
-        // allow for a safety time gap
-        t += OPPOSITE_OVERTAKING_SAFE_TIMEGAP;
-        // round to multiples of step length (TS)
-        t = ceil(t / TS) * TS;
-
-        timeToOvertake = t;
-        spaceToOvertake = s + (t - m) * vMax;
-        //if (gDebugFlag1) std::cout << "     s=" << s << " m=" << m << " vMax=" << vMax << "\n";
+            timeToOvertake = t;
+            spaceToOvertake = s + (t - m) * vMax;
+#ifdef DEBUG_CHANGE_OPPOSITE_OVERTAKINGTIME
+            if (DEBUG_COND) {
+                std::cout << "     t2=" << t << " s=" << s << " sto=" << spaceToOvertake << " m=" << m << "\n";
+            }
+#endif
+        }
     }
 }
 
