@@ -298,7 +298,7 @@ MSLaneChanger::change() {
 
     // Check for changes to the opposite lane if vehicle is active
     std::pair<MSVehicle* const, double> leader = getRealLeader(myCandi);
-    if (myChanger.size() == 1 || vehicle->getLaneChangeModel().isOpposite()) {
+    if (myChanger.size() == 1 || vehicle->getLaneChangeModel().isOpposite() || (!mayChange(-1) && !mayChange(1))) {
         if (changeOpposite(leader)) {
             return true;
         }
