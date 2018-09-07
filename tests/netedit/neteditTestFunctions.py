@@ -860,6 +860,72 @@ def crossingInvertEdges(useSelectedEdges=False, thereIsSelectedEdges=False):
     # type space to activate button
     typeSpace()
 
+
+#################################################
+# crossings
+#################################################
+
+
+"""
+@brief Change to crossing mode
+"""
+
+
+def connectionMode():
+    typeKey("c")
+
+    
+"""
+@brief show connections (Note: Inspector mode has to be enabled)
+"""
+
+
+def toogleShowConnectionsInspectorMode():
+    # focus current frame
+    focusOnFrame()
+    # go to check box
+    typeInvertTab()
+    # type space to toogle checkbox
+    typeSpace()
+    # focus frame again
+    typeTab()
+    
+
+    
+"""
+@brief Change to crossing mode
+"""
+
+
+def saveConnectionEdit():
+    # focus current frame
+    focusOnFrame()
+    # go to OK button
+    for x in range(0, 3):
+        typeTab()
+    # type space to press button
+    typeSpace()
+    # wait for gl debug
+    wait(DELAY_SELECT)
+
+
+"""
+@brief Change to crossing mode
+"""
+
+
+def saveConnectionEdit():
+    # focus current frame
+    focusOnFrame()
+    #go to cancel button
+    for x in range(0, 2):
+        typeTab()
+    # type space to press button
+    typeSpace()
+    # wait for gl debug
+    wait(DELAY_SELECT)
+    
+    
 #################################################
 # additionals
 #################################################
@@ -1103,7 +1169,7 @@ def toogleSelectEdges():
 
 
 """
-@brief toogle select edges
+@brief toogle show connections (in select mode)
 """
 
 

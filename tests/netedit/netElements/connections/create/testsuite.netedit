@@ -1,0 +1,29 @@
+# create crossings with default values
+create_default
+
+# create crossings with default values but invalid
+create_default_invalid
+
+# create crossing manually
+create_manual
+
+# try to create a duplicated crossing
+create_duplicated
+
+# try to create single crossing (isn't allowed)
+create_single_crossing
+
+# create single crossing
+create_split_crossing
+
+# create crossing with different priority
+create_priority
+
+# create crossing with different width
+create_width
+
+# check clear button
+button_clear
+
+# check invert button
+button_invert
