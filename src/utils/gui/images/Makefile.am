@@ -184,6 +184,7 @@ GNETexture_E3.cpp GNETexture_E3Selected.cpp \
 GNETexture_Lock.cpp GNETexture_LockSelected.cpp \
 GNETexture_Empty.cpp GNETexture_EmptySelected.cpp \
 GNETexture_NotMoving.cpp GNETexture_NotMovingSelected.cpp \
+GNETexture_Eraser.cpp \
 GNETexture_LaneBus.cpp GNETexture_LaneBike.cpp \
 GNETexture_LanePedestrian.cpp GNETexture_TLS.cpp
 
