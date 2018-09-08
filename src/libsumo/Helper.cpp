@@ -119,7 +119,7 @@ Helper::subscribe(const int commandId, const std::string& id, const std::vector<
                   const double beginTime, const double endTime, const int contextDomain, const double range) {
     std::vector<std::vector<unsigned char> > parameters;
     const SUMOTime begin = beginTime == INVALID_DOUBLE_VALUE ? 0 : TIME2STEPS(beginTime);
-    const SUMOTime end = endTime == INVALID_DOUBLE_VALUE ? SUMOTime_MAX : TIME2STEPS(endTime);
+    const SUMOTime end = endTime == INVALID_DOUBLE_VALUE || endTime > STEPS2TIME(SUMOTime_MAX) ? SUMOTime_MAX : TIME2STEPS(endTime);
     libsumo::Subscription s(commandId, id, variables, parameters, begin, end, contextDomain, range);
     mySubscriptions.push_back(s);
     handleSingleSubscription(s);

@@ -1260,7 +1260,7 @@ TraCIServer::addObjectVariableSubscription(const int commandId, const bool hasCo
     const double beginTime = myInputStorage.readDouble();
     const double endTime = myInputStorage.readDouble();
     const SUMOTime begin = beginTime == INVALID_DOUBLE_VALUE ? 0 : TIME2STEPS(beginTime);
-    const SUMOTime end = endTime == INVALID_DOUBLE_VALUE ? SUMOTime_MAX : TIME2STEPS(endTime);
+    const SUMOTime end = endTime == INVALID_DOUBLE_VALUE || endTime > STEPS2TIME(SUMOTime_MAX) ? SUMOTime_MAX : TIME2STEPS(endTime);
     const std::string id = myInputStorage.readString();
     const int domain = hasContext ? myInputStorage.readUnsignedByte() : 0;
     const double range = hasContext ? myInputStorage.readDouble() : 0.;
