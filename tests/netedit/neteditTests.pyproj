@@ -7242,6 +7242,7 @@
     <Content Include="shapeElements\poly\volatileRecomputing\output.netedit" />
     <Content Include="shapeElements\poly\volatileRecomputing\shapes.netedit" />
     <Content Include="shapeElements\testsuite.netedit" />
+    <Content Include="testsuite.netedit" />
     <Content Include="trafficLights\save\errors.netedit" />
     <Content Include="trafficLights\save\gui-settings.xml" />
     <Content Include="trafficLights\save\input_net.con.xml" />
