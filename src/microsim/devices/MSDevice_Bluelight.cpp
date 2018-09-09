@@ -119,9 +119,11 @@ MSDevice_Bluelight::~MSDevice_Bluelight() {
 
 bool
 MSDevice_Bluelight::notifyMove(SUMOVehicle& veh, double /* oldPos */,
-                               double /* newPos */, double  newSpeed) {
+                               double /* newPos */, double newSpeed) {
 #ifdef DEBUG_BLUELIGHT
     std::cout << "device '" << getID() << "' notifyMove: newSpeed=" << newSpeed << "\n";
+#else
+    UNUSED_PARAMETER(newSpeed);
 #endif
     // check whether another device is present on the vehicle:
     /*MSDevice_Tripinfo* otherDevice = static_cast<MSDevice_Tripinfo*>(veh.getDevice(typeid(MSDevice_Tripinfo)));
@@ -191,6 +193,9 @@ bool
 MSDevice_Bluelight::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
 #ifdef DEBUG_BLUELIGHT
     std::cout << "device '" << getID() << "' notifyEnter: reason=" << reason << " currentEdge=" << veh.getEdge()->getID() << "\n";
+#else
+    UNUSED_PARAMETER(veh);
+    UNUSED_PARAMETER(reason);
 #endif
     return true; // keep the device
 }
@@ -200,6 +205,9 @@ bool
 MSDevice_Bluelight::notifyLeave(SUMOVehicle& veh, double /*lastPos*/, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
 #ifdef DEBUG_BLUELIGHT
     std::cout << "device '" << getID() << "' notifyLeave: reason=" << reason << " currentEdge=" << veh.getEdge()->getID() << "\n";
+#else
+    UNUSED_PARAMETER(veh);
+    UNUSED_PARAMETER(reason);
 #endif
     return true; // keep the device
 }
