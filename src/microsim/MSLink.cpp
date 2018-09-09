@@ -70,7 +70,7 @@ MSLink::MSLink(MSLane* predLane, MSLane* succLane, MSLane* via, LinkDirection di
     myLogic(logic),
     myState(state),
     myOffState(state),
-    myLastStateChange(-10e10),
+    myLastStateChange(SUMOTime_MIN),
     myDirection(dir),
     myLength(length),
     myFoeVisibilityDistance(foeVisibilityDistance),
