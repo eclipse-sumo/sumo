@@ -17,7 +17,7 @@ from __future__ import print_function
 import os
 import sys
 import subprocess
-from sikuli import Key, Region, Settings, click, drag, dropAt, hover, keyDown, keyUp, paste, wait, type
+import autopy
 
 # define delay before every operation
 DELAY_KEY = 0.1

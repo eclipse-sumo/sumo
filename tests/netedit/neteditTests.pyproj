@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{a8bf62bc-12df-4c9f-b1e6-c055fce26cf5}</ProjectGuid>
     <ProjectHome />
-    <StartupFile>neteditTestFunctions.py</StartupFile>
+    <StartupFile>autopyTest\findReference.py</StartupFile>
     <SearchPath />
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -7478,6 +7478,8 @@
     <Compile Include="additionalElements\vaporizer\load_genericparameters\test.sikuli\test.py" />
     <Compile Include="additionalElements\vaporizer\volatileRecomputing\test.sikuli\test.py" />
     <Compile Include="additionalElements\variablespeedsign\volatileRecomputing\test.sikuli\test.py" />
+    <Compile Include="autopyTest\findReference.py" />
+    <Compile Include="autopyTest\helloWorld.py" />
     <Compile Include="basic\about-dialog\test.sikuli\test.py" />
     <Compile Include="basic\load_and_save\test.sikuli\test.py" />
     <Compile Include="basic\new_net_1edge\test.sikuli\test.py" />
@@ -8289,6 +8291,7 @@
     <Folder Include="additionalElements\variablespeedsign\move" />
     <Folder Include="additionalElements\variablespeedsign\volatileRecomputing" />
     <Folder Include="additionalElements\variablespeedsign\volatileRecomputing\test.sikuli" />
+    <Folder Include="autopyTest\" />
     <Folder Include="basic" />
     <Folder Include="basic\about-dialog" />
     <Folder Include="basic\about-dialog\test.sikuli" />
