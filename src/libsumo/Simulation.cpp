@@ -590,6 +590,8 @@ Simulation::getParameter(const std::string& objectID, const std::string& key) {
         }
         if (attrName == toString(SUMO_ATTR_TOTALENERGYCHARGED)) {
             return toString(cs->getTotalCharged());
+        } else if (attrName == toString(SUMO_ATTR_NAME)) {
+            return toString(cs->getMyName());
         } else {
             throw TraCIException("Invalid chargingStation parameter '" + attrName + "'");
         }
@@ -603,8 +605,21 @@ Simulation::getParameter(const std::string& objectID, const std::string& key) {
             return toString(pa->getCapacity());
         } else if (attrName == "occupancy") {
             return toString(pa->getOccupancy());
+        } else if (attrName == toString(SUMO_ATTR_NAME)) {
+            return toString(pa->getMyName());
         } else {
             throw TraCIException("Invalid parkingArea parameter '" + attrName + "'");
+        }
+    } else if (StringUtils::startsWith(key, "busStop.")) {
+        const std::string attrName = key.substr(8);
+        MSStoppingPlace* bs = static_cast<MSStoppingPlace*>(MSNet::getInstance()->getStoppingPlace(objectID, SUMO_TAG_BUS_STOP));
+        if (bs == 0) {
+            throw TraCIException("Invalid busStop '" + objectID + "'");
+        }
+        if (attrName == toString(SUMO_ATTR_NAME)) {
+            return toString(bs->getMyName());
+        } else {
+            throw TraCIException("Invalid busStop parameter '" + attrName + "'");
         }
     } else {
         throw TraCIException("Parameter '" + key + "' is not supported.");
