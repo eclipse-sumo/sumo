@@ -1,0 +1,29 @@
+Metadata-Version: 2.1
+Name: autopy
+Version: 1.0.1
+Summary: A simple, cross-platform GUI automation library for Python.
+Home-page: UNKNOWN
+Author: Michael Sanders
+Author-email: michael.sanders@fastmail.com
+License: Apache-2.0
+Keywords: autopy,autopilot,GUI,automation,cross-platform
+Platform: macOS
+Platform: Windows
+Platform: X11
+Classifier: Development Status :: 4 - Beta
+Classifier: Operating System :: MacOS
+Classifier: Operating System :: MacOS :: MacOS X
+Classifier: Environment :: Win32 (MS Windows)
+Classifier: Environment :: X11 Applications
+Classifier: Intended Audience :: Developers
+Classifier: Natural Language :: English
+Classifier: Operating System :: MacOS :: MacOS X
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Programming Language :: Rust
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Programming Language :: Python :: 3
+
+UNKNOWN
+
+
