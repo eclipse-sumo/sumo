@@ -117,7 +117,7 @@ MELoop::checkCar(MEVehicle* veh) {
     if (changeSegment(veh, leaveTime, toSegment, teleporting)) {
         return;
     }
-    if (MSGlobals::gTimeToGridlock > 0 && veh->getWaitingTime() > MSGlobals::gTimeToGridlock && !veh->isStopped()) {
+    if (MSGlobals::gTimeToGridlock > 0 && veh->getWaitingTime() > MSGlobals::gTimeToGridlock) {
         teleportVehicle(veh, toSegment);
         return;
     }
