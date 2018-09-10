@@ -197,15 +197,15 @@ for platform, dllDir in platformDlls:
             write = False
             for f in srcZip.namelist():
                 if f.count('/') == 1:
-                    write = False
+                    write = f.endswith(".md") or os.path.basename(f) in ["AUTHORS", "ChangeLog", "LICENSE"]
                 if f.endswith('/') and f.count('/') == 2:
-                    write = (f.endswith('/bin/') or f.endswith('/examples/') or
+                    write = (f.endswith('/bin/') or
                              f.endswith('/tools/') or f.endswith('/data/') or f.endswith('/docs/'))
                     if f.endswith('/bin/'):
                         binDir = f
                 elif f.endswith('/') and '/docs/' in f and f.count('/') == 3:
                     write = not f.endswith('/doxygen/')
-                elif write or os.path.basename(f) in ["AUTHORS", "COPYING", "README.md"]:
+                elif write:
                     zipf.writestr(f, srcZip.read(f))
             srcZip.close()
             dllPath = os.path.join(options.rootDir, dllDir)
