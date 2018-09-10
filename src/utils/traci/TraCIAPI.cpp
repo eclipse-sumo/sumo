@@ -712,6 +712,12 @@ TraCIAPI::EdgeScope::getLaneNumber(const std::string& edgeID) const {
 }
 
 
+std::string
+TraCIAPI::EdgeScope::getStreetName(const std::string& edgeID) const {
+    return myParent.getString(CMD_GET_EDGE_VARIABLE, VAR_NAME, edgeID);
+}
+
+
 void
 TraCIAPI::EdgeScope::adaptTraveltime(const std::string& edgeID, double time, double beginSeconds, double endSeconds) const {
     tcpip::Storage content;

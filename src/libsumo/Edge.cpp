@@ -278,6 +278,12 @@ Edge::getLaneNumber(const std::string& id) {
 
 
 std::string
+Edge::getStreetName(const std::string& id) {
+    return getEdge(id)->getStreetName();
+}
+
+
+std::string
 Edge::getParameter(const std::string& id, const std::string& paramName) {
     return getEdge(id)->getParameter(paramName, "");
 }
@@ -396,6 +402,8 @@ Edge::handleVariable(const std::string& objID, const int variable, VariableWrapp
             return wrapper->wrapDouble(objID, variable, getLastStepLength(objID));
         case VAR_LANE_INDEX:
             return wrapper->wrapInt(objID, variable, getLaneNumber(objID));
+        case VAR_NAME:
+            return wrapper->wrapString(objID, variable, getStreetName(objID));
         default:
             return false;
     }
