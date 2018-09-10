@@ -222,7 +222,7 @@ if (CHECK_OPTIONAL_LIBS)
         set(ENABLED_FEATURES "${ENABLED_FEATURES} GL2PS")
     endif (GL2PS_FOUND)
 
-    find_package(SWIG)
+    find_package(SWIG 3.0)
     if (SWIG_FOUND)
         if (NOT MSVC)
             set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
