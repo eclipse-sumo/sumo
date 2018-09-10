@@ -288,7 +288,7 @@ protected:
      * @param[in] chargeDelay delay in the charge
      * @exception InvalidArgument If the charging station can not be added to the net (is duplicate)
      */
-    virtual void buildChargingStation(MSNet& net, const std::string& id, MSLane* lane, double frompos, double topos,
+    virtual void buildChargingStation(MSNet& net, const std::string& id, MSLane* lane, double frompos, double topos, const std::string& name,
                                       double chargingPower, double efficiency, bool chargeInTransit, double chargeDelay);
 
     /** @brief builds a microscopic calibrator
