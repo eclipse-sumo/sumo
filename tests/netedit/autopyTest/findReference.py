@@ -2,21 +2,28 @@ import autopy
 import time
 
 
-def find_image_example():
+def find_reference_example():
+    # get reference
     reference = autopy.bitmap.Bitmap.open('reference.png')
-    
-    print(reference)
+
+    # write width and height
     width, height = autopy.screen.size()
     print(width*autopy.screen.scale())
     print(height*autopy.screen.scale())
+
+    # write screen scale
     print(autopy.screen.scale())
 
-    thistuple2 = ((0,0), (width, height))
-
-    for x in range(0, 10):
-        pos = autopy.bitmap.capture_screen().find_bitmap(reference, 0, thistuple2)
+    # 30 second for search  reference
+    for x in range(0, 15):
+        # capture screen and search reference
+        pos = autopy.bitmap.capture_screen().find_bitmap(reference)
+        # check if pos was found
         if pos:
-            print("Found needle at: %s" % str(pos))
-        time.sleep(1)
+            # break loop
+            print("Found reference at position: %s" % str(pos))
+            break
+        # wait two second
+        time.sleep(2)
 
-find_image_example()
+find_reference_example()
