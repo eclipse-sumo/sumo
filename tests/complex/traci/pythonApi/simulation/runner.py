@@ -106,15 +106,23 @@ try:
 except traci.TraCIException as e:
     if traci.isLibsumo():
         print(e, file=sys.stderr)
-print("getParameter", traci.simulation.getParameter("cs1", "chargingStation.totalEnergyCharged"))
+print("getParameter charginStation.totalEnergyCharged", traci.simulation.getParameter("cs1", "chargingStation.totalEnergyCharged"))
+print("getParameter chargingStation.name", traci.simulation.getParameter("cs1", "chargingStation.name"))
+
 print("getParameter parkingArea.capacity", traci.simulation.getParameter("pa1", "parkingArea.capacity"))
 print("getParameter parkingArea.occupancy", traci.simulation.getParameter("pa1", "parkingArea.occupancy"))
+print("getParameter parkingArea.name", traci.simulation.getParameter("pa1", "parkingArea.name"))
+
+print("getParameter busStop.name", traci.simulation.getParameter("bs", "busStop.name"))
+
 try:
     print("getBusStopWaiting", traci.simulation.getBusStopWaiting("foo"))
 except traci.TraCIException as e:
     if traci.isLibsumo():
         print(e, file=sys.stderr)
+
 print("getBusStopWaiting", traci.simulation.getBusStopWaiting("bs"))
+
 try:
     print("findRoute", traci.simulation.findRoute("foo", "fup"))
 except traci.TraCIException as e:
