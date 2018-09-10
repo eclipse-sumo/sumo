@@ -619,19 +619,6 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
             glPopMatrix();
         }
     }
-
-    // in move mode, draw "eraser" icon if shift key is pressed
-/** currently disabled
-    if(!myVisualizationSettings->drawForSelecting && (myEditMode == GNE_MODE_MOVE) && myShiftKeyPressed) {
-        glPushMatrix();
-        glColor3d(1, 1, 1);
-        Position posRelative = screenPos2NetPos(myWindowCursorPositionX, myWindowCursorPositionY);
-        glTranslated(posRelative.x(), posRelative.y(), GLO_MAX);
-        glRotated(-180, 0, 0, 1);
-        GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_ERASER), 0.5);
-        glPopMatrix();
-    }
-**/
     // draw elements
     glLineWidth(1);
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);

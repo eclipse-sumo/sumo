@@ -49,7 +49,6 @@
 #include "GNETexture_LaneBus.cpp"
 #include "GNETexture_LanePedestrian.cpp"
 #include "GNETexture_LaneBike.cpp"
-#include "GNETexture_Eraser.cpp"
 
 
 // ===========================================================================
@@ -85,7 +84,6 @@ GUITextureSubSys::GUITextureSubSys(FXApp* a) :
     myTextures[GNETEXTURE_LANEBIKE] = 0;
     myTextures[GNETEXTURE_LANEBUS] = 0;
     myTextures[GNETEXTURE_LANEPEDESTRIAN] = 0;
-    myTextures[GNETEXTURE_ERASER] = 0;
 }
 
 
@@ -164,9 +162,6 @@ GUITextureSubSys::getTexture(GUITexture which) {
                 break;
             case GNETEXTURE_LANEPEDESTRIAN :
                 myInstance->myTextures[which] = GUITexturesHelper::add(new FXGIFImage(myInstance->myApp, GNETexture_LanePedestrian, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP));
-                break;
-            case GNETEXTURE_ERASER :
-                myInstance->myTextures[which] = GUITexturesHelper::add(new FXGIFImage(myInstance->myApp, GNETexture_Eraser, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP));
                 break;
             default:
                 throw ProcessError("Undefined texture");
