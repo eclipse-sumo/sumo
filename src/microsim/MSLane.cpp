@@ -3222,12 +3222,17 @@ MSLane::getOppositeFollower(const MSVehicle* ego) const {
         return result;
     } else {
         std::pair<MSVehicle* const, double> result = getLeader(ego, getOppositePos(ego->getPositionOnLane() - ego->getVehicleType().getLength()), std::vector<MSLane*>());
-        if (result.second > 0) {
-            // follower can be safely ignored since it is going the other way
-            return std::make_pair(static_cast<MSVehicle*>(0), -1);
-        } else {
-            return result;
+        if (result.first != 0) {
+            if (result.first->getLaneChangeModel().isOpposite()) {
+                result.second -= result.first->getVehicleType().getLength();
+            } else {
+                if (result.second > 0) {
+                    // follower can be safely ignored since it is going the other way
+                    return std::make_pair(static_cast<MSVehicle*>(0), -1);
+                }
+            }
         }
+        return result;
     }
 }
 
