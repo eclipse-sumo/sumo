@@ -18,6 +18,7 @@ import os
 import sys
 import subprocess
 import autopy
+import time
 
 # define delay before every operation
 DELAY_KEY = 0.1
@@ -50,7 +51,7 @@ referenceImage = os.path.join("imageResources", "reference.png")
 
 def typeEscape():
     # wait before every operation
-    wait(DELAY_KEY)
+    time.sleep(DELAY_KEY)
     # type ESC key (Sikulix Function)
     type(Key.ESC)
 
@@ -62,7 +63,7 @@ def typeEscape():
 
 def typeEnter():
     # wait before every operation
-    wait(DELAY_KEY)
+    time.sleep(DELAY_KEY)
     # type enter key (Sikulix Function)
     type(Key.ENTER)
 
@@ -73,7 +74,7 @@ def typeEnter():
 
 
 def typeSpace():
-    wait(DELAY_KEY)
+    time.sleep(DELAY_KEY)
     # type space key (Sikulix Function)
     type(Key.SPACE)
 
@@ -85,7 +86,7 @@ def typeSpace():
 
 def typeTab():
     # wait before every operation
-    wait(DELAY_KEY)
+    time.sleep(DELAY_KEY)
     # type tab key (Sikulix Function)
     type(Key.TAB)
 
@@ -97,7 +98,7 @@ def typeTab():
 
 def typeInvertTab():
     # wait before every operation
-    wait(DELAY_KEY)
+    time.sleep(DELAY_KEY)
     # type Tab and Shift at the same time (Sikulix Function)
     type(Key.TAB, Key.SHIFT)
 
@@ -109,7 +110,7 @@ def typeInvertTab():
 
 def typeKey(key):
     # wait before every operation
-    wait(DELAY_KEY)
+    time.sleep(DELAY_KEY)
     # type keys (Sikulix Function)
     type(key)
 
@@ -121,7 +122,7 @@ def typeKey(key):
 
 def typeTwoKeys(key1, key2):
     # wait before every operation
-    wait(DELAY_KEY)
+    time.sleep(DELAY_KEY)
     # type two keys at the same time (Sikulix Function)
     type(key1, key2)
 
@@ -133,11 +134,11 @@ def typeTwoKeys(key1, key2):
 
 def pasteIntoTextField(value, removePreviousContents=True):
     # wait before every operation
-    wait(DELAY_KEY)
+    time.sleep(DELAY_KEY)
     # remove previous content
     if(removePreviousContents):
         typeTwoKeys("a", Key.CTRL)
-        wait(0.1)
+        time.sleep(0.1)
     # paste string (Sikulix Function)
     paste(value)
 
@@ -149,7 +150,7 @@ def pasteIntoTextField(value, removePreviousContents=True):
 
 def leftClick(match, positionx, positiony):
     # wait before every operation
-    wait(DELAY_MOUSE)
+    time.sleep(DELAY_MOUSE)
     # obtain clicked position
     clickedPosition = match.getTarget().offset(positionx, positiony)
     # click respect to offset
@@ -166,7 +167,7 @@ def leftClickShift(match, positionx, positiony):
     # Leave Shift key pressed (Sikulix function)
     keyDown(Key.SHIFT)
     # wait before every operation
-    wait(DELAY_MOUSE)
+    time.sleep(DELAY_MOUSE)
     # obtain clicked position
     clickedPosition = match.getTarget().offset(positionx, positiony)
     # click respect to offset
@@ -185,7 +186,7 @@ def leftClickControl(match, positionx, positiony):
     # Leave Shift key pressed (Sikulix function)
     keyDown(Key.CTRL)
     # wait before every operation
-    wait(DELAY_MOUSE)
+    time.sleep(DELAY_MOUSE)
     # obtain clicked position
     clickedPosition = match.getTarget().offset(positionx, positiony)
     # click respect to offset
@@ -202,9 +203,9 @@ def leftClickControl(match, positionx, positiony):
 
 def dragDrop(match, x1, y1, x2, y2):
     # wait before every operation
-    wait(DELAY_KEY)
+    time.sleep(DELAY_KEY)
     drag(match.getTarget().offset(x1, y1))
-    wait(DELAY_MOUSE)
+    time.sleep(DELAY_MOUSE)
     dropAt(match.getTarget().offset(x2, y2))
 
 #################################################
@@ -334,7 +335,7 @@ def setupAndStart(testRoot, extraParameters=[], debugInformation=True, searchRef
         # print debug information
         print("TestFunctions: 'searchReference' option disabled. Reference isn't searched")
         # Wait 1 second for Netedit process
-        wait(2)
+        time.sleep(2)
         # focus netedit windows clicking over it
         click(Region(200, 200, 10, 10))
         return NeteditProcess
@@ -348,7 +349,7 @@ def setupAndStart(testRoot, extraParameters=[], debugInformation=True, searchRef
 def rebuildNetwork():
     typeKey(Key.F5)
     # wait for output
-    wait(DELAY_RECOMPUTE)
+    time.sleep(DELAY_RECOMPUTE)
 
 
 """
@@ -362,7 +363,7 @@ def rebuildNetworkWithVolatileOptions(question=True):
     if question is True:
         waitQuestion('y')
         # wait for output
-        wait(DELAY_RECOMPUTE_VOLATILE)
+        time.sleep(DELAY_RECOMPUTE_VOLATILE)
     else:
         waitQuestion('n')
 
@@ -406,7 +407,7 @@ def undo(match, number):
     leftClick(match, 0, 0)
     for x in range(0, number):
         typeTwoKeys("z", Key.CTRL)
-        wait(DELAY_UNDOREDO)
+        time.sleep(DELAY_UNDOREDO)
 
 
 """
@@ -421,7 +422,7 @@ def redo(match, number):
     leftClick(match, 0, 0)
     for x in range(0, number):
         typeTwoKeys("y", Key.CTRL)
-        wait(DELAY_UNDOREDO)
+        time.sleep(DELAY_UNDOREDO)
 
 
 """
@@ -456,7 +457,7 @@ def setZoom(positionX, positionY, zoomLevel):
 
 def waitQuestion(answer):
     # wait 0.5 second to question dialog
-    wait(DELAY_QUESTION)
+    time.sleep(DELAY_QUESTION)
     # Answer can be "y" or "n"
     typeTwoKeys(answer, Key.ALT)
 
@@ -483,18 +484,18 @@ def quit(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
         # Check if net must be saved
         if openNetNonSavedDialog:
             # Wait some seconds
-            wait(DELAY_QUESTION)
+            time.sleep(DELAY_QUESTION)
             if saveNet:
                 waitQuestion("s")
                 # wait for log 
-                wait(DELAY_RECOMPUTE)
+                time.sleep(DELAY_RECOMPUTE)
             else:
                 waitQuestion("q")
 
         # Check if additionals must be saved
         if openAdditionalsNonSavedDialog:
             # Wait some seconds
-            wait(DELAY_QUESTION)
+            time.sleep(DELAY_QUESTION)
             if saveAdditionals:
                 waitQuestion("s")
             else:
@@ -503,14 +504,14 @@ def quit(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
         # Check if additionals must be saved
         if openShapesNonSavedDialog:
             # Wait some seconds
-            wait(DELAY_QUESTION)
+            time.sleep(DELAY_QUESTION)
             if saveShapes:
                 waitQuestion("s")
             else:
                 waitQuestion("q")
 
         # wait some seconds
-        wait(DELAY_QUIT)
+        time.sleep(DELAY_QUIT)
         if NeteditProcess.poll() is not None:
             # print debug information
             print("TestFunctions: Netedit closed successfully")
@@ -534,7 +535,7 @@ def openNetworkAs(waitTime=2):
     pasteIntoTextField(filename)
     typeEnter()
     # wait for saving
-    wait(waitTime)
+    time.sleep(waitTime)
 
 
 """
@@ -546,7 +547,7 @@ def saveNetwork():
     # save network using hotkey
     typeTwoKeys("s", Key.CTRL)
     # wait for debug
-    wait(DELAY_RECOMPUTE)
+    time.sleep(DELAY_RECOMPUTE)
 
 
 """
@@ -563,9 +564,9 @@ def saveNetworkAs(waitTime=2):
     pasteIntoTextField(filename)
     typeEnter()
     # wait for saving
-    wait(waitTime)
+    time.sleep(waitTime)
     # wait for debug
-    wait(DELAY_RECOMPUTE)
+    time.sleep(DELAY_RECOMPUTE)
 
 
 """
@@ -597,7 +598,7 @@ def openAboutDialog(waitingTime=DELAY_QUESTION):
     # type F2 to open about dialog
     typeKey(Key.F2)
     # wait before closing
-    wait(waitingTime)
+    time.sleep(waitingTime)
     # press enter to close dialog (Ok must be focused)
     typeSpace()
 
@@ -616,7 +617,7 @@ def openConfigurationShortcut(waitTime=2):
     pasteIntoTextField(filename)
     typeEnter()
     # wait for loading
-    wait(waitTime)
+    time.sleep(waitTime)
 
 
 """
@@ -633,7 +634,7 @@ def savePlainXML(waitTime=2):
     pasteIntoTextField(filename)
     typeEnter()
     # wait for loading
-    wait(waitTime)
+    time.sleep(waitTime)
 
 #################################################
 # Create nodes and edges
@@ -906,7 +907,7 @@ def saveConnectionEdit():
     # type space to press button
     typeSpace()
     # wait for gl debug
-    wait(DELAY_SELECT)
+    time.sleep(DELAY_SELECT)
 
 
 """
@@ -923,7 +924,7 @@ def saveConnectionEdit():
     # type space to press button
     typeSpace()
     # wait for gl debug
-    wait(DELAY_SELECT)
+    time.sleep(DELAY_SELECT)
     
     
 #################################################
@@ -1101,7 +1102,7 @@ def deleteMode():
 def deleteUsingSuprKey():
     typeKey(Key.DELETE)
     # wait for GL Debug
-    wait(DELAY_REMOVESELECTION)
+    time.sleep(DELAY_REMOVESELECTION)
 
 
 """
@@ -1125,7 +1126,7 @@ def changeAutomaticallyDeleteAdditionals(match):
 
 def waitAutomaticallyDeleteAdditionalsWarning():
     # wait 0.5 second to question dialog
-    wait(DELAY_QUESTION)
+    time.sleep(DELAY_QUESTION)
     # press enter to close dialog
     typeEnter()
 
@@ -1211,7 +1212,7 @@ def selectDefault():
     # type enter to select it
     typeEnter()
     # wait for gl debug
-    wait(DELAY_SELECT)
+    time.sleep(DELAY_SELECT)
 
 
 """
@@ -1249,7 +1250,7 @@ def loadSelection():
     pasteIntoTextField(filename)
     typeEnter()
     # wait for gl debug
-    wait(DELAY_SELECT)
+    time.sleep(DELAY_SELECT)
 
 
 """
@@ -1283,7 +1284,7 @@ def selectItems(elementClass, elementType, attribute, value):
     # type enter to select it
     typeEnter()
     # wait for gl debug
-    wait(DELAY_SELECT)
+    time.sleep(DELAY_SELECT)
 
 
 """
@@ -1294,7 +1295,7 @@ def selectItems(elementClass, elementType, attribute, value):
 def deleteSelectedItems():
     typeKey(Key.DELETE)
     # wait for gl debug
-    wait(DELAY_SELECT)
+    time.sleep(DELAY_SELECT)
 
 
 """
@@ -1374,7 +1375,7 @@ def selectionRectangle(match, startX, startY, endX, endY):
     # Release Shift key (Sikulix function)
     keyUp(Key.SHIFT)
     # wait for gl debug
-    wait(DELAY_SELECT)
+    time.sleep(DELAY_SELECT)
 
 
 """
@@ -1390,7 +1391,7 @@ def selectionClear(previouslyInserted=False):
     # type space to select clear option
     typeSpace()
     # wait for gl debug
-    wait(DELAY_SELECT)
+    time.sleep(DELAY_SELECT)
 
 
 """
@@ -1406,7 +1407,7 @@ def selectionInvert():
     # type space to select invert operation
     typeSpace()
     # wait for gl debug
-    wait(DELAY_SELECT)
+    time.sleep(DELAY_SELECT)
 
 
 """
