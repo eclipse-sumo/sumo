@@ -203,8 +203,11 @@ NLTriggerBuilder::parseAndBuildStoppingPlace(MSNet& net, const SUMOSAXAttributes
 
 void
 NLTriggerBuilder::addAccess(MSNet& /* net */, const SUMOSAXAttributes& attrs) {
+    if (myCurrentStop == nullptr) {
+        throw InvalidArgument("Could not add access outside a stopping place.");
+    }
     // get the lane
-    MSLane* lane = getLane(attrs, "access" , myCurrentStop->getID());
+    MSLane* lane = getLane(attrs, "access", myCurrentStop->getID());
     // get the positions
     bool ok = true;
     double pos = attrs.getOpt<double>(SUMO_ATTR_POSITION, "access", ok, 0);
@@ -214,13 +217,8 @@ NLTriggerBuilder::addAccess(MSNet& /* net */, const SUMOSAXAttributes& attrs) {
         throw InvalidArgument("Invalid position " + toString(pos) + " for access on lane '" + lane->getID() + "' in stop '" + myCurrentStop->getID() + "'.");
     }
     // add bus stop access
-    if (myCurrentStop != 0) {
-        ok = myCurrentStop->addAccess(lane, pos, length);
-        if (!ok) {
-            throw InvalidArgument("Duplicate access on lane '" + lane->getID() + "' for stop '" + myCurrentStop->getID() + "'");
-        }
-    } else {
-        throw InvalidArgument("Could not add access outside a stopping place.");
+    if (!myCurrentStop->addAccess(lane, pos, length)) {
+        throw InvalidArgument("Duplicate access on lane '" + lane->getID() + "' for stop '" + myCurrentStop->getID() + "'");
     }
 }
 
@@ -564,7 +562,6 @@ NLTriggerBuilder::getPosition(const SUMOSAXAttributes& attrs,
     }
     return pos;
 }
-
 
 
 /****************************************************************************/
