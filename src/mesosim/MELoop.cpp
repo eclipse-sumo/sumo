@@ -178,7 +178,7 @@ MELoop::teleportVehicle(MEVehicle* veh, MESegment* const toSegment) {
             veh->setSegment(0, 0);
         }
         // @caution microsim uses current travel time teleport duration
-        const SUMOTime teleArrival = leaveTime + TIME2STEPS(veh->getEdge()->getLength() / veh->getEdge()->getSpeedLimit());
+        const SUMOTime teleArrival = leaveTime + TIME2STEPS(veh->getEdge()->getLength() / MAX2(veh->getEdge()->getSpeedLimit(), NUMERICAL_EPS));
         const bool atDest = veh->moveRoutePointer();
         if (atDest) {
             // teleporting to end of route
