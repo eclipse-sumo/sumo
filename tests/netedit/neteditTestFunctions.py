@@ -146,32 +146,32 @@ def pasteIntoTextField(value, removePreviousContents=True):
 
 
 """
-@brief do left click over a position relative to match (pink square)
+@brief do left click over a position relative to referencePosition (pink square)
 """
 
 
-def leftClick(match, positionx, positiony):
+def leftClick(referencePosition, positionx, positiony):
     # wait before every operation
     time.sleep(DELAY_MOUSE)
     # obtain clicked position
-    clickedPosition = match.getTarget().offset(positionx, positiony)
+    clickedPosition = referencePosition.getTarget().offset(positionx, positiony)
     # click respect to offset
     click(clickedPosition)
     print("TestFunctions: Clicked over position", clickedPosition.x, '-', clickedPosition.y)
 
 
 """
-@brief do left click over a position relative to match (pink square) while shift key is pressed
+@brief do left click over a position relative to referencePosition (pink square) while shift key is pressed
 """
 
 
-def leftClickShift(match, positionx, positiony):
+def leftClickShift(referencePosition, positionx, positiony):
     # Leave Shift key pressed (Sikulix function)
     keyDown(Key.SHIFT)
     # wait before every operation
     time.sleep(DELAY_MOUSE)
     # obtain clicked position
-    clickedPosition = match.getTarget().offset(positionx, positiony)
+    clickedPosition = referencePosition.getTarget().offset(positionx, positiony)
     # click respect to offset
     click(clickedPosition)
     print("TestFunctions: Clicked with Shift key pressed over position", clickedPosition.x, '-', clickedPosition.y)
@@ -180,17 +180,17 @@ def leftClickShift(match, positionx, positiony):
 
 
 """
-@brief do left click over a position relative to match (pink square) while control key is pressed
+@brief do left click over a position relative to referencePosition (pink square) while control key is pressed
 """
 
 
-def leftClickControl(match, positionx, positiony):
+def leftClickControl(referencePosition, positionx, positiony):
     # Leave Shift key pressed (Sikulix function)
     keyDown(autopy.key.Code.CONTROL)
     # wait before every operation
     time.sleep(DELAY_MOUSE)
     # obtain clicked position
-    clickedPosition = match.getTarget().offset(positionx, positiony)
+    clickedPosition = referencePosition.getTarget().offset(positionx, positiony)
     # click respect to offset
     click(clickedPosition)
     print("TestFunctions: Clicked with Control key pressed over position", clickedPosition.x, '-', clickedPosition.y)
@@ -203,12 +203,12 @@ def leftClickControl(match, positionx, positiony):
 """
 
 
-def dragDrop(match, x1, y1, x2, y2):
+def dragDrop(referencePosition, x1, y1, x2, y2):
     # wait before every operation
     time.sleep(DELAY_KEY)
-    drag(match.getTarget().offset(x1, y1))
+    drag(referencePosition.getTarget().offset(x1, y1))
     time.sleep(DELAY_MOUSE)
-    dropAt(match.getTarget().offset(x2, y2))
+    dropAt(referencePosition.getTarget().offset(x2, y2))
 
 #################################################
 # basic functions
@@ -231,7 +231,7 @@ def setup(NeteditTests):
         if os.path.exists(sandBox):
             textTestSandBox = sandBox
         os.remove(envFile)
-    # get reference for match
+    # get reference for referencePosition
     global referenceImage
     referenceImage = os.path.join(
         NeteditTests, "imageResources", "reference.png")
@@ -292,7 +292,7 @@ def Popen(extraParameters, debugInformation):
 
 
 """
-@brief obtain reference match (pink square)
+@brief obtain reference referencePosition (pink square)
 """
 
 
@@ -407,11 +407,11 @@ def focusOnFrame():
 """
 
 
-def undo(match, number):
+def undo(referencePosition, number):
     # needed to avoid errors with undo/redo (Provisionally)
     typeKey("i")
-    # click over match
-    leftClick(match, 0, 0)
+    # click over referencePosition
+    leftClick(referencePosition, 0, 0)
     for x in range(0, number):
         typeTwoKeys("z", autopy.key.Code.CONTROL)
         time.sleep(DELAY_UNDOREDO)
@@ -422,11 +422,11 @@ def undo(match, number):
 """
 
 
-def redo(match, number):
+def redo(referencePosition, number):
     # needed to avoid errors with undo/redo (Provisionally)
     typeKey("i")
-    # click over match
-    leftClick(match, 0, 0)
+    # click over referencePosition
+    leftClick(referencePosition, 0, 0)
     for x in range(0, number):
         typeTwoKeys("y", autopy.key.Code.CONTROL)
         time.sleep(DELAY_UNDOREDO)
@@ -760,11 +760,11 @@ def moveMode():
 """
 
 
-def moveElement(match, startX, startY, endX, endY):
+def moveElement(referencePosition, startX, startY, endX, endY):
     # change mouse move delay
     Settings.MoveMouseDelay = 0.5
     # move element
-    dragDrop(match, startX, startY, endX, endY)
+    dragDrop(referencePosition, startX, startY, endX, endY)
     # set back mouse move delay
     Settings.MoveMouseDelay = 0.2
 
@@ -1117,7 +1117,7 @@ def deleteUsingSuprKey():
 """
 
 
-def changeAutomaticallyDeleteAdditionals(match):
+def changeAutomaticallyDeleteAdditionals(referencePosition):
     # select delete mode again to set mode
     deleteMode()
     # use TAB to go to check box
@@ -1370,13 +1370,13 @@ def modificationModeReplace():
 """
 
 
-def selectionRectangle(match, startX, startY, endX, endY):
+def selectionRectangle(referencePosition, startX, startY, endX, endY):
     # Leave Shift key pressed (Sikulix function)
     keyDown(Key.SHIFT)
     # change mouse move delay
     Settings.MoveMouseDelay = 0.5
     # move element
-    dragDrop(match, startX, startY, endX, endY)
+    dragDrop(referencePosition, startX, startY, endX, endY)
     # set back mouse move delay
     Settings.MoveMouseDelay = 0.2
     # Release Shift key (Sikulix function)
@@ -1494,19 +1494,19 @@ def changeShape(shape):
 """
 
 
-def createSquaredPoly(match, positionx, positiony, size, close):
+def createSquaredPoly(referencePosition, positionx, positiony, size, close):
     # focus current frame
     focusOnFrame()
     # start draw
     typeEnter()
     # create polygon
-    leftClick(match, positionx, positiony)
-    leftClick(match, positionx, positiony - (size / 2))
-    leftClick(match, positionx - (size / 2), positiony - (size / 2))
-    leftClick(match, positionx - (size / 2), positiony)
+    leftClick(referencePosition, positionx, positiony)
+    leftClick(referencePosition, positionx, positiony - (size / 2))
+    leftClick(referencePosition, positionx - (size / 2), positiony - (size / 2))
+    leftClick(referencePosition, positionx - (size / 2), positiony)
     # check if polygon has to be closed
     if (close is True):
-        leftClick(match, positionx, positiony)
+        leftClick(referencePosition, positionx, positiony)
     # finish draw
     typeEnter()
 
@@ -1516,19 +1516,19 @@ def createSquaredPoly(match, positionx, positiony, size, close):
 """
 
 
-def createRectangledPoly(match, positionx, positiony, sizex, sizey, close):
+def createRectangledPoly(referencePosition, positionx, positiony, sizex, sizey, close):
     # focus current frame
     focusOnFrame()
     # start draw
     typeEnter()
     # create polygon
-    leftClick(match, positionx, positiony)
-    leftClick(match, positionx, positiony - (sizey / 2))
-    leftClick(match, positionx - (sizex / 2), positiony - (sizey / 2))
-    leftClick(match, positionx - (sizex / 2), positiony)
+    leftClick(referencePosition, positionx, positiony)
+    leftClick(referencePosition, positionx, positiony - (sizey / 2))
+    leftClick(referencePosition, positionx - (sizex / 2), positiony - (sizey / 2))
+    leftClick(referencePosition, positionx - (sizex / 2), positiony)
     # check if polygon has to be closed
     if (close is True):
-        leftClick(match, positionx, positiony)
+        leftClick(referencePosition, positionx, positiony)
     # finish draw
     typeEnter()
 
@@ -1538,17 +1538,17 @@ def createRectangledPoly(match, positionx, positiony, sizex, sizey, close):
 """
 
 
-def createLinePoly(match, positionx, positiony, sizex, sizey, close):
+def createLinePoly(referencePosition, positionx, positiony, sizex, sizey, close):
     # focus current frame
     focusOnFrame()
     # start draw
     typeEnter()
     # create polygon
-    leftClick(match, positionx, positiony)
-    leftClick(match, positionx - (sizex / 2), positiony - (sizey / 2))
+    leftClick(referencePosition, positionx, positiony)
+    leftClick(referencePosition, positionx - (sizex / 2), positiony - (sizey / 2))
     # check if polygon has to be closed
     if (close is True):
-        leftClick(match, positionx, positiony)
+        leftClick(referencePosition, positionx, positiony)
     # finish draw
     typeEnter()
 

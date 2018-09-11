@@ -23,13 +23,13 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # rebuild network
 netedit.rebuildNetwork()
 
 # inspect central node
-netedit.leftClick(match, 325, 250)
+netedit.leftClick(referencePosition, 325, 250)
 
 # set dummy shape
 netedit.modifyAttribute(4, "dummy shape")
@@ -41,13 +41,13 @@ netedit.modifyAttribute(4, "43.60,60.40 56.40,60.40 52.00,53.00 60.40,56.40 60.4
 netedit.rebuildNetwork()
 
 # Check undo
-netedit.undo(match, 1)
+netedit.undo(referencePosition, 1)
 
 # rebuild network
 netedit.rebuildNetwork()
 
 # Check redo
-netedit.redo(match, 1)
+netedit.redo(referencePosition, 1)
 
 # save additionals
 netedit.saveAdditionals()

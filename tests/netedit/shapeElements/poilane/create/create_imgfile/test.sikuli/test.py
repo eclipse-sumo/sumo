@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
 # go to shape mode
 netedit.shapeMode()
@@ -35,23 +35,23 @@ netedit.changeShape("poiLane")
 netedit.modifyShapeDefaultValue(9, "%%$%$&$%$%$")
 
 # try to create POI
-netedit.leftClick(match, 150, 210)
+netedit.leftClick(referencePosition, 150, 210)
 
 # change imgfile (non exist)
 netedit.modifyShapeDefaultValue(9, "paris.ico")
 
 # try to create POI
-netedit.leftClick(match, 200, 210)
+netedit.leftClick(referencePosition, 200, 210)
 
 # change imgfile (valid)
 netedit.modifyShapeDefaultValue(9, "berlin_icon.ico")
 
 # create POI
-netedit.leftClick(match, 250, 210)
+netedit.leftClick(referencePosition, 250, 210)
 
 # Check undo redo
-netedit.undo(match, 1)
-netedit.redo(match, 1)
+netedit.undo(referencePosition, 1)
+netedit.redo(referencePosition, 1)
 
 # save shapes
 netedit.saveShapes()

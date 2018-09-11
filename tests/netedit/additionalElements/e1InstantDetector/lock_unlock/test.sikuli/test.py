@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to additional mode
 netedit.additionalMode()
@@ -32,19 +32,19 @@ netedit.additionalMode()
 netedit.changeAdditional("instantInductionLoop")
 
 # create E1 Instant
-netedit.leftClick(match, 250, 250)
+netedit.leftClick(referencePosition, 250, 250)
 
 # change to move mode
 netedit.moveMode()
 
 # move E1 Instant to right
-netedit.moveElement(match, 120, 250, 250, 250)
+netedit.moveElement(referencePosition, 120, 250, 250, 250)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect E1 Instant
-netedit.leftClick(match, 350, 250)
+netedit.leftClick(referencePosition, 350, 250)
 
 # block additional
 netedit.modifyBoolAttribute(10)
@@ -53,13 +53,13 @@ netedit.modifyBoolAttribute(10)
 netedit.moveMode()
 
 # try to move E1 Instant to right (must be blocked)
-netedit.moveElement(match, 250, 250, 350, 250)
+netedit.moveElement(referencePosition, 250, 250, 350, 250)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect E1 Instant
-netedit.leftClick(match, 350, 250)
+netedit.leftClick(referencePosition, 350, 250)
 
 # unblock additional
 netedit.modifyBoolAttribute(10)
@@ -68,11 +68,11 @@ netedit.modifyBoolAttribute(10)
 netedit.moveMode()
 
 # move E1 Instant to right (must be allowed)
-netedit.moveElement(match, 250, 250, 350, 250)
+netedit.moveElement(referencePosition, 250, 250, 350, 250)
 
 # Check undos and redos
-netedit.undo(match, 5)
-netedit.redo(match, 5)
+netedit.undo(referencePosition, 5)
+netedit.redo(referencePosition, 5)
 
 # save additionals
 netedit.saveAdditionals()

@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # Rebuild network
 netedit.rebuildNetwork()
@@ -32,11 +32,11 @@ netedit.rebuildNetwork()
 netedit.crossingMode()
 
 # select central node (there is already an Crossing in edges 3-7)
-netedit.leftClick(match, 325, 225)
+netedit.leftClick(referencePosition, 325, 225)
 
 # select two left edges and try to create crossing in edges 3 and 7
-netedit.leftClick(match, 150, 200)
-netedit.leftClick(match, 150, 250)
+netedit.leftClick(referencePosition, 150, 200)
+netedit.leftClick(referencePosition, 150, 250)
 netedit.createCrossing()
 
 # try to create manual crossing

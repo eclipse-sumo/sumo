@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # Rebuild network
 netedit.rebuildNetwork()
@@ -35,17 +35,17 @@ netedit.setZoom("50", "50", "150")
 netedit.createEdgeMode()
 
 # Create an edge in
-netedit.leftClick(match, -80, 50)
-netedit.leftClick(match, 45, 50)
+netedit.leftClick(referencePosition, -80, 50)
+netedit.leftClick(referencePosition, 45, 50)
 
-netedit.leftClick(match, -80, 50)
-netedit.leftClick(match, -78, 215)
+netedit.leftClick(referencePosition, -80, 50)
+netedit.leftClick(referencePosition, -78, 215)
 
-netedit.leftClick(match, 460, 50)
-netedit.leftClick(match, 500, 50)
+netedit.leftClick(referencePosition, 460, 50)
+netedit.leftClick(referencePosition, 500, 50)
 
-netedit.leftClick(match, 500, 50)
-netedit.leftClick(match, 500, 180)
+netedit.leftClick(referencePosition, 500, 50)
+netedit.leftClick(referencePosition, 500, 180)
 
 # save network
 netedit.saveNetwork()

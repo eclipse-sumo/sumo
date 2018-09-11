@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
 # go to shape mode
 netedit.shapeMode()
@@ -35,23 +35,23 @@ netedit.changeShape("poi")
 netedit.modifyShapeDefaultValue(7, "dummyHeight")
 
 # try to create poi
-netedit.leftClick(match, 100, 50)
+netedit.leftClick(referencePosition, 100, 50)
 
 # change height (invalid, negative)
 netedit.modifyShapeDefaultValue(7, "-3")
 
 # try to create poi
-netedit.leftClick(match, 150, 50)
+netedit.leftClick(referencePosition, 150, 50)
 
 # change height (valid)
 netedit.modifyShapeDefaultValue(7, "4.4")
 
 # create poi
-netedit.leftClick(match, 200, 50)
+netedit.leftClick(referencePosition, 200, 50)
 
 # Check undo redo
-netedit.undo(match, 1)
-netedit.redo(match, 1)
+netedit.undo(referencePosition, 1)
+netedit.redo(referencePosition, 1)
 
 # save shapes
 netedit.saveShapes()

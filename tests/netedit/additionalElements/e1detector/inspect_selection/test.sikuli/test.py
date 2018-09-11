@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
 # go to select mode
 netedit.selectMode()
@@ -35,7 +35,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect E1
-netedit.leftClick(match, 150, 240)
+netedit.leftClick(referencePosition, 150, 240)
 
 # Change parameter 0 with a non valid value (non numeral)
 netedit.modifyAttribute(0, "dummyFrequency")
@@ -83,8 +83,8 @@ netedit.modifyBoolAttribute(4)
 netedit.modifyBoolAttribute(8)
 
 # Check undos and redos
-netedit.undo(match, 6)
-netedit.redo(match, 6)
+netedit.undo(referencePosition, 6)
+netedit.redo(referencePosition, 6)
 
 # save additionals
 netedit.saveAdditionals()

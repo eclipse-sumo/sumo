@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
 # go to additional mode
 netedit.additionalMode()
@@ -32,13 +32,13 @@ netedit.additionalMode()
 netedit.changeAdditional("e2Detector")
 
 # create E2 1
-netedit.leftClick(match, 250, 150)
+netedit.leftClick(referencePosition, 250, 150)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first E2
-netedit.leftClick(match, 260, 150)
+netedit.leftClick(referencePosition, 260, 150)
 
 # Change generic parameters with a dummy value
 netedit.modifyAttribute(13, "dummyGenericParameters")
@@ -71,8 +71,8 @@ netedit.modifyAttribute(13, "key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3"
 netedit.modifyAttribute(13, "keyFinal1=value1|keyFinal2=value2|keyFinal3=value3")
 
 # Check undo redo
-netedit.undo(match, 7)
-netedit.redo(match, 7)
+netedit.undo(referencePosition, 7)
+netedit.redo(referencePosition, 7)
 
 # save additionals
 netedit.saveAdditionals()

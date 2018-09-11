@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
 # go to additional mode
 netedit.additionalMode()
@@ -35,16 +35,16 @@ netedit.changeAdditional("containerStop")
 netedit.modifyAdditionalDefaultValue(6, "reference center")
 
 # create containerStop 1 in mode "reference center"
-netedit.leftClick(match, 250, 150)
+netedit.leftClick(referencePosition, 250, 150)
 
 # create containerStop 2 in mode "reference center"
-netedit.leftClick(match, 450, 150)
+netedit.leftClick(referencePosition, 450, 150)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first containerStop
-netedit.leftClick(match, 250, 170)
+netedit.leftClick(referencePosition, 250, 170)
 
 # Change parameter 0 with a non valid value (Duplicated ID)
 netedit.modifyAttribute(0, "containerStop_gneE2_1_1")
@@ -105,8 +105,8 @@ netedit.modifyAttribute(6, "line1 line2")
 netedit.modifyBoolAttribute(10)
 
 # Check undos and redos
-netedit.undo(match, 17)
-netedit.redo(match, 17)
+netedit.undo(referencePosition, 17)
+netedit.redo(referencePosition, 17)
 
 # save additionals
 netedit.saveAdditionals()

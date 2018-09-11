@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
 # apply zoom
 netedit.setZoom("25", "0", "25")
@@ -35,25 +35,25 @@ netedit.additionalMode()
 netedit.changeAdditional("e3Detector")
 
 # create E3 with default parameters
-netedit.leftClick(match, 275, 50)
+netedit.leftClick(referencePosition, 275, 50)
 
 # select Exit detector
 netedit.changeAdditional("detExit")
 
 # try to create Entry without select child
-netedit.leftClick(match, 50, 200)
+netedit.leftClick(referencePosition, 50, 200)
 
 # Create three Entry detectors
-netedit.leftClick(match, 275, 50)
-netedit.leftClick(match, 50, 200)
-netedit.leftClick(match, 275, 50)
-netedit.leftClick(match, 200, 200)
+netedit.leftClick(referencePosition, 275, 50)
+netedit.leftClick(referencePosition, 50, 200)
+netedit.leftClick(referencePosition, 275, 50)
+netedit.leftClick(referencePosition, 200, 200)
 
 # select exit detector
 netedit.changeAdditional("detEntry")
 
-netedit.leftClick(match, 275, 50)
-netedit.leftClick(match, 350, 200)
+netedit.leftClick(referencePosition, 275, 50)
+netedit.leftClick(referencePosition, 350, 200)
 
 # select exit detector
 netedit.changeAdditional("detExit")
@@ -63,11 +63,11 @@ netedit.modifyAdditionalDefaultBoolValue(1)
 
 # create Exit detector with different friendly pos
 netedit.selectAdditionalChild(6, 0)
-netedit.leftClick(match, 500, 200)
+netedit.leftClick(referencePosition, 500, 200)
 
 # Check undo redo
-netedit.undo(match, 5)
-netedit.redo(match, 5)
+netedit.undo(referencePosition, 5)
+netedit.redo(referencePosition, 5)
 
 # save additionals
 netedit.saveAdditionals()

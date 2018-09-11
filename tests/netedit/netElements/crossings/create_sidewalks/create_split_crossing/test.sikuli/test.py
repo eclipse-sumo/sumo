@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # Rebuild network
 netedit.rebuildNetwork()
@@ -32,7 +32,7 @@ netedit.rebuildNetwork()
 netedit.crossingMode()
 
 # select central node
-netedit.leftClick(match, 325, 225)
+netedit.leftClick(referencePosition, 325, 225)
 
 # create split crossing
 netedit.modifyCrossingDefaultValue(2, "4")
@@ -42,9 +42,9 @@ netedit.createCrossing()
 netedit.rebuildNetwork()
 
 # Check undo redo
-netedit.undo(match, 2)
+netedit.undo(referencePosition, 2)
 netedit.rebuildNetwork()
-netedit.redo(match, 2)
+netedit.redo(referencePosition, 2)
 
 # save network
 netedit.saveNetwork()

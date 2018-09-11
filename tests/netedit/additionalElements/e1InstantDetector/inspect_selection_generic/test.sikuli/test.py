@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
 # go to select mode
 netedit.selectMode()
@@ -35,7 +35,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect E1 Instant
-netedit.leftClick(match, 150, 240)
+netedit.leftClick(referencePosition, 150, 240)
 
 # Change generic parameters with a dummy value
 netedit.modifyAttribute(5, "dummyGenericParameters")
@@ -68,8 +68,8 @@ netedit.modifyAttribute(5, "key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3")
 netedit.modifyAttribute(5, "keyFinal1=value1|keyFinal2=value2|keyFinal3=value3")
 
 # Check undo redo
-netedit.undo(match, 7)
-netedit.redo(match, 7)
+netedit.undo(referencePosition, 7)
+netedit.redo(referencePosition, 7)
 
 # save additionals
 netedit.saveAdditionals()

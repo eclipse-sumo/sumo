@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
 # go to additional mode
 netedit.additionalMode()
@@ -38,25 +38,25 @@ netedit.modifyAdditionalDefaultValue(2, "containerStopName")
 netedit.modifyAdditionalDefaultBoolValue(3)
 
 # create containerStop in mode "reference left"
-netedit.leftClick(match, 250, 250)
+netedit.leftClick(referencePosition, 250, 250)
 
 # set own lines
 netedit.modifyAdditionalDefaultValue(4, "lineA lineB")
 
 # create containerStop in mode "reference left"
-netedit.leftClick(match, 240, 250)
+netedit.leftClick(referencePosition, 240, 250)
 
 # change reference to right
 netedit.modifyAdditionalDefaultValue(6, "reference right")
 
 # create containerStop in mode "reference right"
-netedit.leftClick(match, 230, 250)
+netedit.leftClick(referencePosition, 230, 250)
 
 # change reference to center
 netedit.modifyAdditionalDefaultValue(6, "reference center")
 
 # create containerStop in mode "reference center"
-netedit.leftClick(match, 425, 250)
+netedit.leftClick(referencePosition, 425, 250)
 
 # Change length
 netedit.modifyAdditionalDefaultValue(8, "30")
@@ -65,13 +65,13 @@ netedit.modifyAdditionalDefaultValue(8, "30")
 netedit.modifyAdditionalDefaultValue(6, "reference left")
 
 # create a containerStop in mode "reference left"
-netedit.leftClick(match, 500, 250)
+netedit.leftClick(referencePosition, 500, 250)
 
 # change reference to "reference right"
 netedit.modifyAdditionalDefaultValue(6, "reference right")
 
 # create a containerStop in mode "reference right"
-netedit.leftClick(match, 110, 250)
+netedit.leftClick(referencePosition, 110, 250)
 
 # disable friendlyPos
 netedit.modifyAdditionalDefaultBoolValue(3)
@@ -80,17 +80,17 @@ netedit.modifyAdditionalDefaultBoolValue(3)
 netedit.modifyAdditionalDefaultValue(6, "reference left")
 
 # create a containerStop in mode "reference left" without friendlyPos
-netedit.leftClick(match, 120, 215)
+netedit.leftClick(referencePosition, 120, 215)
 
 # change reference to "reference right"
 netedit.modifyAdditionalDefaultValue(6, "reference right")
 
 # create a containerStop in mode "reference right" without friendlyPos
-netedit.leftClick(match, 500, 215)
+netedit.leftClick(referencePosition, 500, 215)
 
 # Check undo redo
-netedit.undo(match, 8)
-netedit.redo(match, 8)
+netedit.undo(referencePosition, 8)
+netedit.redo(referencePosition, 8)
 
 # save additionals
 netedit.saveAdditionals()

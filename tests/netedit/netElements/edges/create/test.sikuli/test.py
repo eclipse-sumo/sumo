@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot, ['--new'])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--new'])
 
 # rebuild network
 netedit.rebuildNetwork()
@@ -32,28 +32,28 @@ netedit.rebuildNetwork()
 netedit.createEdgeMode()
 
 # Create two nodes
-netedit.leftClick(match, 100, 200)
-netedit.leftClick(match, 500, 200)
+netedit.leftClick(referencePosition, 100, 200)
+netedit.leftClick(referencePosition, 500, 200)
 
 # Create another two nodes
-netedit.leftClick(match, 100, 400)
-netedit.leftClick(match, 500, 400)
+netedit.leftClick(referencePosition, 100, 400)
+netedit.leftClick(referencePosition, 500, 400)
 
 # select two-way mode
 netedit.changeTwoWayOption()
 
 # create square
-netedit.leftClick(match, 100, 400)
-netedit.leftClick(match, 100, 200)
-netedit.leftClick(match, 500, 200)
-netedit.leftClick(match, 500, 400)
+netedit.leftClick(referencePosition, 100, 400)
+netedit.leftClick(referencePosition, 100, 200)
+netedit.leftClick(referencePosition, 500, 200)
+netedit.leftClick(referencePosition, 500, 400)
 
 # rebuild network
 netedit.rebuildNetwork()
 
 # Check undo and redo
-netedit.undo(match, 4)
-netedit.redo(match, 4)
+netedit.undo(referencePosition, 4)
+netedit.redo(referencePosition, 4)
 
 # rebuild network
 netedit.rebuildNetwork()

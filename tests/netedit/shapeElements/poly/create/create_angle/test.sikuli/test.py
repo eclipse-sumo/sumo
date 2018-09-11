@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
 # go to shape mode
 netedit.shapeMode()
@@ -35,29 +35,29 @@ netedit.changeShape("poly")
 netedit.modifyShapeDefaultValue(9, "dummyAngle")
 
 # try to create polygon
-netedit.createSquaredPoly(match, 100, 50, 100, True)
+netedit.createSquaredPoly(referencePosition, 100, 50, 100, True)
 
 # change angle (valid, but > 360)
 netedit.modifyShapeDefaultValue(9, "365")
 
 # try to create polygon
-netedit.createSquaredPoly(match, 200, 50, 100, True)
+netedit.createSquaredPoly(referencePosition, 200, 50, 100, True)
 
 # change angle (valid, < 0)
 netedit.modifyShapeDefaultValue(9, "-5")
 
 # create polygon
-netedit.createSquaredPoly(match, 300, 50, 100, True)
+netedit.createSquaredPoly(referencePosition, 300, 50, 100, True)
 
 # change angle (0 < angle < 360)
 netedit.modifyShapeDefaultValue(9, "5")
 
 # create polygon
-netedit.createSquaredPoly(match, 400, 50, 100, True)
+netedit.createSquaredPoly(referencePosition, 400, 50, 100, True)
 
 # Check undo redo
-netedit.undo(match, 3)
-netedit.redo(match, 3)
+netedit.undo(referencePosition, 3)
+netedit.redo(referencePosition, 3)
 
 # save shapes
 netedit.saveShapes()

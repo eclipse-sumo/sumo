@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # zoom in central node
 netedit.setZoom("50", "50", "100")
@@ -36,31 +36,31 @@ netedit.inspectMode()
 
 
 # select first left edge and change their junction
-netedit.leftClick(match, 180, 200)
+netedit.leftClick(referencePosition, 180, 200)
 netedit.modifyAttribute(1, "B")
 netedit.rebuildNetwork()
 
 # select second left edge and change their junction
-netedit.leftClick(match, 180, 250)
+netedit.leftClick(referencePosition, 180, 250)
 netedit.modifyAttribute(2, "A")
 netedit.rebuildNetwork()
 
 # select first right edge and change their junction
-netedit.leftClick(match, 450, 200)
+netedit.leftClick(referencePosition, 450, 200)
 netedit.modifyAttribute(2, "B")
 netedit.rebuildNetwork()
 
 # select second right edge and change their junction
-netedit.leftClick(match, 450, 250)
+netedit.leftClick(referencePosition, 450, 250)
 netedit.modifyAttribute(1, "A")
 netedit.rebuildNetwork()
 
 # Check undo redo
-netedit.undo(match, 4)
+netedit.undo(referencePosition, 4)
 netedit.rebuildNetwork()
 
 # Check redo
-netedit.redo(match, 4)
+netedit.redo(referencePosition, 4)
 netedit.rebuildNetwork()
 
 # save additionals

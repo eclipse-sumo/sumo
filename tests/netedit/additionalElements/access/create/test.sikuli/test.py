@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
 # apply zoom
 netedit.setZoom("25", "0", "25")
@@ -35,21 +35,21 @@ netedit.additionalMode()
 netedit.changeAdditional("busStop")
 
 # create BusStop with default parameters
-netedit.leftClick(match, 275, 250)
+netedit.leftClick(referencePosition, 275, 250)
 
 # select Access detector
 netedit.changeAdditional("access")
 
 # try to create Access without select child
-netedit.leftClick(match, 50, 200)
+netedit.leftClick(referencePosition, 50, 200)
 
 # Create Access detector
 netedit.selectAdditionalChild(7, 0)
-netedit.leftClick(match, 50, 200)
+netedit.leftClick(referencePosition, 50, 200)
 
 # Try to create another Access in the same edge
 netedit.selectAdditionalChild(7, 0)
-netedit.leftClick(match, 200, 200)
+netedit.leftClick(referencePosition, 200, 200)
 
 # set invalid lenght
 netedit.modifyAdditionalDefaultValue(2, "dummyLenght")
@@ -58,7 +58,7 @@ netedit.modifyAdditionalDefaultValue(2, "dummyLenght")
 netedit.modifyAdditionalDefaultValue(2, "-4")
 
 # Try to create Access
-netedit.leftClick(match, 50, 250)
+netedit.leftClick(referencePosition, 50, 250)
 
 # set valid lenght
 netedit.modifyAdditionalDefaultValue(2, "3.5")
@@ -67,12 +67,12 @@ netedit.modifyAdditionalDefaultValue(2, "3.5")
 netedit.modifyAdditionalDefaultBoolValue(3)
 
 # Create access
-netedit.leftClick(match, 50, 250)
-netedit.leftClick(match, 350, 200)
+netedit.leftClick(referencePosition, 50, 250)
+netedit.leftClick(referencePosition, 350, 200)
 
 # Check undo redo
-netedit.undo(match, 3)
-netedit.redo(match, 3)
+netedit.undo(referencePosition, 3)
+netedit.redo(referencePosition, 3)
 
 # save additionals
 netedit.saveAdditionals()

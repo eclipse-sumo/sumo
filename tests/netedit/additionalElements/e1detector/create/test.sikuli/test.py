@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
 # go to additional mode
 netedit.additionalMode()
@@ -32,77 +32,77 @@ netedit.additionalMode()
 netedit.changeAdditional("e1Detector")
 
 # create E1 with default parameters
-netedit.leftClick(match, 200, 250)
+netedit.leftClick(referencePosition, 200, 250)
 
 # set a invalid  frequency (dummy)
 netedit.modifyAdditionalDefaultValue(2, "dummyFrequency")
 
 # try to create E1 with invalid frequency
-netedit.leftClick(match, 250, 250)
+netedit.leftClick(referencePosition, 250, 250)
 
 # set a invalid  frequency
 netedit.modifyAdditionalDefaultValue(2, "-30")
 
 # try to create E1 with invalid frequency
-netedit.leftClick(match, 250, 250)
+netedit.leftClick(referencePosition, 250, 250)
 
 # set a valid frequency
 netedit.modifyAdditionalDefaultValue(2, "150")
 
 # try to create E1 with valid frequency
-netedit.leftClick(match, 250, 250)
+netedit.leftClick(referencePosition, 250, 250)
 
 # set invalid name
 netedit.modifyAdditionalDefaultValue(3, "\"\"\"")
 
 # try to create E1 with invalid name
-netedit.leftClick(match, 300, 250)
+netedit.leftClick(referencePosition, 300, 250)
 
 # set valid name
 netedit.modifyAdditionalDefaultValue(3, "customName")
 
 # create E1 with valid name
-netedit.leftClick(match, 300, 250)
+netedit.leftClick(referencePosition, 300, 250)
 
 # set invalid filename
 netedit.modifyAdditionalDefaultValue(4, "&&&&&&&&")
 
 # try to create E1 with invalid filename
-netedit.leftClick(match, 350, 250)
+netedit.leftClick(referencePosition, 350, 250)
 
 # set valid filename
 netedit.modifyAdditionalDefaultValue(4, "myOwnFilename.txt")
 
 # create E1 with valid filename
-netedit.leftClick(match, 350, 250)
+netedit.leftClick(referencePosition, 350, 250)
 
 # set invalid vehicle types (invalid IDs)
 netedit.modifyAdditionalDefaultValue(5, "%%;$$$ %%$$ type.3")
 
 # try to create E1 with invalid vehicle types
-netedit.leftClick(match, 400, 250)
+netedit.leftClick(referencePosition, 400, 250)
 
 # set valid vehicle type
 netedit.modifyAdditionalDefaultValue(5, "private passenger taxi bus")
 
 # create E1 with valid vehicle types
-netedit.leftClick(match, 400, 250)
+netedit.leftClick(referencePosition, 400, 250)
 
 # Change friendlyPos
 netedit.modifyAdditionalDefaultBoolValue(6)
 
 # create E1 with different split by type
-netedit.leftClick(match, 450, 250)
+netedit.leftClick(referencePosition, 450, 250)
 
 # Change friendlyPos
 netedit.modifyAdditionalDefaultBoolValue(8)
 
 # create E1 with different split by type
-netedit.leftClick(match, 500, 250)
+netedit.leftClick(referencePosition, 500, 250)
 
 # Check undo redo
-netedit.undo(match, 7)
-netedit.redo(match, 7)
+netedit.undo(referencePosition, 7)
+netedit.redo(referencePosition, 7)
 
 # save additionals
 netedit.saveAdditionals()

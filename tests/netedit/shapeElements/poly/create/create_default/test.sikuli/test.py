@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
 # go to shape mode
 netedit.shapeMode()
@@ -32,26 +32,26 @@ netedit.shapeMode()
 netedit.changeShape("poly")
 
 # create polygon with default values
-netedit.createSquaredPoly(match, 100, 50, 100, True)
+netedit.createSquaredPoly(referencePosition, 100, 50, 100, True)
 
 # create open polygon
-netedit.createSquaredPoly(match, 200, 50, 100, False)
+netedit.createSquaredPoly(referencePosition, 200, 50, 100, False)
 
 # create polygon clicking in the same points
-netedit.createSquaredPoly(match, 200, 50, 100, False)
+netedit.createSquaredPoly(referencePosition, 200, 50, 100, False)
 
 # create one-point polygon with area 0
-netedit.createRectangledPoly(match, 300, 50, 0, 0, True)
+netedit.createRectangledPoly(referencePosition, 300, 50, 0, 0, True)
 
 # create open line polygon (area 0)
-netedit.createLinePoly(match, 400, 50, 100, 100, False)
+netedit.createLinePoly(referencePosition, 400, 50, 100, 100, False)
 
 # create close line polygon (area 0)
-netedit.createLinePoly(match, 500, 50, 100, 100, True)
+netedit.createLinePoly(referencePosition, 500, 50, 100, 100, True)
 
 # Check undo redo
-netedit.undo(match, 6)
-netedit.redo(match, 6)
+netedit.undo(referencePosition, 6)
+netedit.redo(referencePosition, 6)
 
 # save shapes
 netedit.saveShapes()

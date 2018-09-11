@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # rebuild network
 netedit.rebuildNetwork()
@@ -32,13 +32,13 @@ netedit.rebuildNetwork()
 netedit.selectMode()
 
 # select node 1
-netedit.leftClick(match, 175, 220)
+netedit.leftClick(referencePosition, 175, 220)
 
 # select node 2
-netedit.leftClick(match, 315, 220)
+netedit.leftClick(referencePosition, 315, 220)
 
 # select node 2
-netedit.leftClick(match, 465, 220)
+netedit.leftClick(referencePosition, 465, 220)
 
 # join selected junctions
 netedit.joinSelectedJunctions()
@@ -47,7 +47,7 @@ netedit.joinSelectedJunctions()
 netedit.rebuildNetwork()
 
 # Undo joining
-netedit.undo(match, 1)
+netedit.undo(referencePosition, 1)
 
 # rebuild network
 netedit.rebuildNetwork()
@@ -56,7 +56,7 @@ netedit.rebuildNetwork()
 netedit.selectMode()
 
 # unselect node 2
-netedit.leftClick(match, 315, 220)
+netedit.leftClick(referencePosition, 315, 220)
 
 # join selected junctions
 netedit.joinSelectedJunctions()
@@ -74,13 +74,13 @@ netedit.waitQuestion('y')
 netedit.rebuildNetwork()
 
 # Undo joining
-netedit.undo(match, 1)
+netedit.undo(referencePosition, 1)
 
 # rebuild network
 netedit.rebuildNetwork()
 
 # redo joining
-netedit.redo(match, 1)
+netedit.redo(referencePosition, 1)
 
 # rebuild network
 netedit.rebuildNetwork()

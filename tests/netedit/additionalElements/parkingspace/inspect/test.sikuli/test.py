@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
 # go to additional mode
 netedit.additionalMode()
@@ -35,27 +35,27 @@ netedit.additionalMode()
 netedit.changeAdditional("parkingArea")
 
 # create parkingArea in mode "reference left"
-netedit.leftClick(match, 250, 180)
+netedit.leftClick(referencePosition, 250, 180)
 
 # create parkingArea in mode "reference left"
-netedit.leftClick(match, 400, 180)
+netedit.leftClick(referencePosition, 400, 180)
 
 # select space
 netedit.changeAdditional("space")
 
 # create first space
 netedit.selectAdditionalChild(9, 0)
-netedit.leftClick(match, 250, 320)
+netedit.leftClick(referencePosition, 250, 320)
 
 # create second space
 netedit.selectAdditionalChild(9, 0)
-netedit.leftClick(match, 400, 320)
+netedit.leftClick(referencePosition, 400, 320)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect space
-netedit.leftClick(match, 250, 300)
+netedit.leftClick(referencePosition, 250, 300)
 
 # Change parameter 0 with a non valid value (dummy)
 netedit.modifyAttribute(0, "dummyX")
@@ -106,7 +106,7 @@ netedit.modifyAttribute(9, "parkingArea_gneE2_0_1")
 netedit.modifyBoolAttribute(10)
 
 # inspect the other space
-netedit.leftClick(match, 400, 300)
+netedit.leftClick(referencePosition, 400, 300)
 
 # Change parameter 3 with a non valid value (dummy)
 netedit.modifyAttribute(3, "dummyWidth")
@@ -145,8 +145,8 @@ netedit.modifyAttribute(5, "500")
 netedit.modifyAttribute(5, "32.5")
 
 # Check undos and redos
-netedit.undo(match, 24)
-netedit.redo(match, 24)
+netedit.undo(referencePosition, 24)
+netedit.redo(referencePosition, 24)
 
 # save additionals
 netedit.saveAdditionals()

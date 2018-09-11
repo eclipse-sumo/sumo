@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to shape mode
 netedit.shapeMode()
@@ -32,20 +32,20 @@ netedit.shapeMode()
 netedit.changeShape("poi")
 
 # create POI
-netedit.leftClick(match, 150, 50)
+netedit.leftClick(referencePosition, 150, 50)
 
 # go to delete mode
 netedit.deleteMode()
 
 # delete created poi
-netedit.leftClick(match, 150, 50)
+netedit.leftClick(referencePosition, 150, 50)
 
 # delete first stacked loaded POI (Second stacked must stay)
-netedit.leftClick(match, 200, 50)
+netedit.leftClick(referencePosition, 200, 50)
 
 # Check undos and redos
-netedit.undo(match, 2)
-netedit.redo(match, 2)
+netedit.undo(referencePosition, 2)
+netedit.redo(referencePosition, 2)
 
 # save shapes
 netedit.saveShapes()

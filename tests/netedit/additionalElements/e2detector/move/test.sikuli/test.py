@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to additional mode
 netedit.additionalMode()
@@ -32,38 +32,38 @@ netedit.additionalMode()
 netedit.changeAdditional("e2Detector")
 
 # create E2
-netedit.leftClick(match, 210, 250)
+netedit.leftClick(referencePosition, 210, 250)
 
 # change to move mode
 netedit.moveMode()
 
 # move E2 to left
-netedit.moveElement(match, 120, 250, 30, 250)
+netedit.moveElement(referencePosition, 120, 250, 30, 250)
 
 # move back
-netedit.moveElement(match, 50, 250, 120, 250)
+netedit.moveElement(referencePosition, 50, 250, 120, 250)
 
 # move E2 to right
-netedit.moveElement(match, 130, 250, 250, 250)
+netedit.moveElement(referencePosition, 130, 250, 250, 250)
 
 # move back
-netedit.moveElement(match, 260, 250, 120, 250)
+netedit.moveElement(referencePosition, 260, 250, 120, 250)
 
 # move E2 to left overpassing lane
-netedit.moveElement(match, 130, 250, -150, 250)
+netedit.moveElement(referencePosition, 130, 250, -150, 250)
 
 # move back
-netedit.moveElement(match, -80, 250, 120, 250)
+netedit.moveElement(referencePosition, -80, 250, 120, 250)
 
 # move E2 to right overpassing lane
-netedit.moveElement(match, 130, 250, 480, 250)
+netedit.moveElement(referencePosition, 130, 250, 480, 250)
 
 # move back to another different position of initial
-netedit.moveElement(match, 500, 250, 300, 250)
+netedit.moveElement(referencePosition, 500, 250, 300, 250)
 
 # Check undos and redos
-netedit.undo(match, 10)
-netedit.redo(match, 10)
+netedit.undo(referencePosition, 10)
+netedit.redo(referencePosition, 10)
 
 # save additionals
 netedit.saveAdditionals()

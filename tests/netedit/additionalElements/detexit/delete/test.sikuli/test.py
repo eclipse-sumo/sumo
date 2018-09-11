@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
 # apply zoom
 netedit.setZoom("25", "0", "25")
@@ -35,57 +35,57 @@ netedit.additionalMode()
 netedit.changeAdditional("e3Detector")
 
 # create E3 1
-netedit.leftClick(match, 100, 50)
+netedit.leftClick(referencePosition, 100, 50)
 
 # create E3 2
-netedit.leftClick(match, 200, 50)
+netedit.leftClick(referencePosition, 200, 50)
 
 # select Exit detector
 netedit.changeAdditional("detExit")
 
 # Create Entry detector for E3 3
 netedit.selectAdditionalChild(6, 2)
-netedit.leftClick(match, 75, 200)
+netedit.leftClick(referencePosition, 75, 200)
 
 # Create Entry detectors for E3 4
 netedit.selectAdditionalChild(6, 3)
-netedit.leftClick(match, 250, 200)
+netedit.leftClick(referencePosition, 250, 200)
 
 # Change to delete
 netedit.deleteMode()
 
 # delete created E3 1
-netedit.leftClick(match, 100, 50)
+netedit.leftClick(referencePosition, 100, 50)
 
 # delete Entry detector of E3 2 (E3 will not be removed)
-netedit.leftClick(match, 250, 200)
+netedit.leftClick(referencePosition, 250, 200)
 
 # delete loaded E3 1
-netedit.leftClick(match, 400, 50)
+netedit.leftClick(referencePosition, 400, 50)
 
 # delete Entry detector of loaded E3 2 (E3 will not be removed)
-netedit.leftClick(match, 550, 200)
+netedit.leftClick(referencePosition, 550, 200)
 
 # delete lane with the last loaded Exit
-netedit.leftClick(match, 400, 300)
+netedit.leftClick(referencePosition, 400, 300)
 
 # Check undo
-netedit.undo(match, 5)
+netedit.undo(referencePosition, 5)
 
 # Change to delete
 netedit.deleteMode()
 
 # disble 'Automatically delete additionals'
-netedit.changeAutomaticallyDeleteAdditionals(match)
+netedit.changeAutomaticallyDeleteAdditionals(referencePosition)
 
 # try to delete lane with the second loaded Exit (doesn't allowed)
-netedit.leftClick(match, 400, 300)
+netedit.leftClick(referencePosition, 400, 300)
 
 # wait warning
 netedit.waitAutomaticallyDeleteAdditionalsWarning()
 
 # check redo
-netedit.redo(match, 5)
+netedit.redo(referencePosition, 5)
 
 # save additionals
 netedit.saveAdditionals()

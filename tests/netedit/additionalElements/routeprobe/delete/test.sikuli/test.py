@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
 # go to additional mode
 netedit.additionalMode()
@@ -32,37 +32,37 @@ netedit.additionalMode()
 netedit.changeAdditional("routeProbe")
 
 # create routeProbe
-netedit.leftClick(match, 380, 200)
+netedit.leftClick(referencePosition, 380, 200)
 
 # Change to delete
 netedit.deleteMode()
 
 # delete loaded routeProbe
-netedit.leftClick(match, 310, 200)
+netedit.leftClick(referencePosition, 310, 200)
 
 # delete created routeProbe (using stack)
-netedit.leftClick(match, 310, 200)
+netedit.leftClick(referencePosition, 310, 200)
 
 # delete lane with the second loaded routeProbe
-netedit.leftClick(match, 280, 250)
+netedit.leftClick(referencePosition, 280, 250)
 
 # Check undo
-netedit.undo(match, 3)
+netedit.undo(referencePosition, 3)
 
 # Change to delete
 netedit.deleteMode()
 
 # disable 'Automatically delete additionals'
-netedit.changeAutomaticallyDeleteAdditionals(match)
+netedit.changeAutomaticallyDeleteAdditionals(referencePosition)
 
 # try to delete lane with the second loaded routeProbe (doesn't allowed)
-netedit.leftClick(match, 280, 250)
+netedit.leftClick(referencePosition, 280, 250)
 
 # wait warning
 netedit.waitAutomaticallyDeleteAdditionalsWarning()
 
 # check redo
-netedit.redo(match, 3)
+netedit.redo(referencePosition, 3)
 
 # save additionals
 netedit.saveAdditionals()

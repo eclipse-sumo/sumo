@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to additional mode
 netedit.additionalMode()
@@ -32,38 +32,38 @@ netedit.additionalMode()
 netedit.changeAdditional("instantInductionLoop")
 
 # create E1 Instant
-netedit.leftClick(match, 250, 250)
+netedit.leftClick(referencePosition, 250, 250)
 
 # change to move mode
 netedit.moveMode()
 
 # move E1 Instant to left
-netedit.moveElement(match, 120, 250, 50, 250)
+netedit.moveElement(referencePosition, 120, 250, 50, 250)
 
 # move back
-netedit.moveElement(match, 50, 250, 120, 250)
+netedit.moveElement(referencePosition, 50, 250, 120, 250)
 
 # move E1 Instant to right
-netedit.moveElement(match, 120, 250, 250, 250)
+netedit.moveElement(referencePosition, 120, 250, 250, 250)
 
 # move back
-netedit.moveElement(match, 250, 250, 120, 250)
+netedit.moveElement(referencePosition, 250, 250, 120, 250)
 
 # move E1 Instant to left overpassing lane
-netedit.moveElement(match, 120, 250, -150, 250)
+netedit.moveElement(referencePosition, 120, 250, -150, 250)
 
 # move back
-netedit.moveElement(match, -100, 250, 120, 250)
+netedit.moveElement(referencePosition, -100, 250, 120, 250)
 
 # move E1 Instant to right overpassing lane
-netedit.moveElement(match, 120, 250, 580, 250)
+netedit.moveElement(referencePosition, 120, 250, 580, 250)
 
 # move back to another different position of initial
-netedit.moveElement(match, 520, 250, 300, 250)
+netedit.moveElement(referencePosition, 520, 250, 300, 250)
 
 # Check undos and redos
-netedit.undo(match, 10)
-netedit.redo(match, 10)
+netedit.undo(referencePosition, 10)
+netedit.redo(referencePosition, 10)
 
 # save additionals
 netedit.saveAdditionals()

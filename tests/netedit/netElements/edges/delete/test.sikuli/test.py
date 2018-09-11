@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # rebuild network
 netedit.rebuildNetwork()
@@ -32,22 +32,22 @@ netedit.rebuildNetwork()
 netedit.deleteMode()
 
 # delete edge
-netedit.leftClick(match, 220, 200)
+netedit.leftClick(referencePosition, 220, 200)
 
 # delete node
-netedit.leftClick(match, 520, 225)
+netedit.leftClick(referencePosition, 520, 225)
 
 # rebuild network
 netedit.rebuildNetwork()
 
 # Check undos
-netedit.undo(match, 2)
+netedit.undo(referencePosition, 2)
 
 # rebuild network
 netedit.rebuildNetwork()
 
 # Check redos
-netedit.redo(match, 2)
+netedit.redo(referencePosition, 2)
 
 # rebuild network
 netedit.rebuildNetwork()

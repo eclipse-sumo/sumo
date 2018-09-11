@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # zoom in central node
 netedit.setZoom("50", "50", "50")
@@ -35,51 +35,51 @@ netedit.rebuildNetwork()
 netedit.crossingMode()
 
 # select central node
-netedit.leftClick(match, 325, 225)
+netedit.leftClick(referencePosition, 325, 225)
 
 # select a single edge edges and create a split crossing
-netedit.leftClick(match, 150, 200)
+netedit.leftClick(referencePosition, 150, 200)
 netedit.createCrossing()
 netedit.rebuildNetwork()
 
 # select a single edge edges and create a split crossing
-netedit.leftClick(match, 150, 250)
+netedit.leftClick(referencePosition, 150, 250)
 netedit.createCrossing()
 netedit.rebuildNetwork()
 
 # select a single edge edges and create a split crossing
-netedit.leftClick(match, 500, 200)
+netedit.leftClick(referencePosition, 500, 200)
 netedit.createCrossing()
 netedit.rebuildNetwork()
 
 # select a single edge edges and create a split crossing
-netedit.leftClick(match, 500, 250)
+netedit.leftClick(referencePosition, 500, 250)
 netedit.createCrossing()
 netedit.rebuildNetwork()
 
 # select a single edge edges and create a split crossing
-netedit.leftClick(match, 250, 70)
+netedit.leftClick(referencePosition, 250, 70)
 netedit.createCrossing()
 netedit.rebuildNetwork()
 
 # select a single edge edges and create a split crossing
-netedit.leftClick(match, 350, 70)
+netedit.leftClick(referencePosition, 350, 70)
 netedit.createCrossing()
 netedit.rebuildNetwork()
 
 # select a single edge edges and create a split crossing
-netedit.leftClick(match, 250, 400)
+netedit.leftClick(referencePosition, 250, 400)
 netedit.createCrossing()
 netedit.rebuildNetwork()
 
 # select a single edge edges and create a split crossing
-netedit.leftClick(match, 350, 400)
+netedit.leftClick(referencePosition, 350, 400)
 netedit.createCrossing()
 netedit.rebuildNetwork()
 
 # Check undo redo
-netedit.undo(match, 8)
-netedit.redo(match, 8)
+netedit.undo(referencePosition, 8)
+netedit.redo(referencePosition, 8)
 
 # save network
 netedit.saveNetwork()

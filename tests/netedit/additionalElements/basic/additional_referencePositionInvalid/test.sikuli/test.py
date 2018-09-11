@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to additional mode
 netedit.additionalMode()
@@ -35,13 +35,13 @@ netedit.changeAdditional("busStop")
 netedit.modifyAdditionalDefaultValue(6, "dummy reference")
 
 # try to create busStop with the dummy reference
-netedit.leftClick(match, 240, 250)
+netedit.leftClick(referencePosition, 240, 250)
 
 # set valid reference
 netedit.modifyAdditionalDefaultValue(6, "reference right")
 
 # create busStop with the valid reference
-netedit.leftClick(match, 300, 250)
+netedit.leftClick(referencePosition, 300, 250)
 
 # save additionals
 netedit.saveAdditionals()

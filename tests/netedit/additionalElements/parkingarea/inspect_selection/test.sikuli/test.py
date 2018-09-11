@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
 # go to select mode
 netedit.selectMode()
@@ -35,7 +35,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect parking areas
-netedit.leftClick(match, 150, 290)
+netedit.leftClick(referencePosition, 150, 290)
 
 # Change parameter 0 with a non valid value (dummy)
 netedit.modifyAttribute(0, "%$%$$&&$$")
@@ -98,8 +98,8 @@ netedit.modifyAttribute(5, "32.5")
 netedit.modifyBoolAttribute(9)
 
 # Check undos and redos
-netedit.undo(match, 17)
-netedit.redo(match, 17)
+netedit.undo(referencePosition, 17)
+netedit.redo(referencePosition, 17)
 
 # save additionals
 netedit.saveAdditionals()

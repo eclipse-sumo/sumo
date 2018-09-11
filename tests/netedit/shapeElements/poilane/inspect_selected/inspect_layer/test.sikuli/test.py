@@ -23,22 +23,22 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
 # go to select mode
 netedit.selectMode()
 
 # select first POILane
-netedit.leftClick(match, 140, 215)
+netedit.leftClick(referencePosition, 140, 215)
 
 # select second POILane
-netedit.leftClick(match, 200, 215)
+netedit.leftClick(referencePosition, 200, 215)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first POILane
-netedit.leftClick(match, 140, 215)
+netedit.leftClick(referencePosition, 140, 215)
 
 # Change parameter 6 with a non valid value
 netedit.modifyAttribute(4, "dummyLayer")
@@ -50,8 +50,8 @@ netedit.modifyAttribute(4, "-2")
 netedit.modifyAttribute(4, "2.5")
 
 # Check undos and redos
-netedit.undo(match, 3)
-netedit.redo(match, 3)
+netedit.undo(referencePosition, 3)
+netedit.redo(referencePosition, 3)
 
 # save shapes
 netedit.saveShapes()

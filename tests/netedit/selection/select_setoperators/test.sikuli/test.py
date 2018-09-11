@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # first rebuild network
 netedit.rebuildNetwork()
@@ -43,7 +43,7 @@ netedit.selectionInvert()
 netedit.selectionClear()
 
 # use a rectangle to select central elements
-netedit.selectionRectangle(match, 250, 150, 400, 300)
+netedit.selectionRectangle(referencePosition, 250, 150, 400, 300)
 
 # invert selection to select only extern nodes and delete it
 netedit.selectionInvert()
@@ -53,17 +53,17 @@ netedit.deleteSelectedItems()
 wait(5)
 
 # check undo and redo
-netedit.undo(match, 1)
+netedit.undo(referencePosition, 1)
 
 # extra wait for debug
 wait(5)
 
-netedit.redo(match, 1)
+netedit.redo(referencePosition, 1)
 
 # extra wait for debug
 wait(5)
 
-netedit.redo(match, 1)
+netedit.redo(referencePosition, 1)
 
 # extra wait for debug
 wait(5)

@@ -23,13 +23,13 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # rebuild network
 netedit.rebuildNetwork()
 
 # inspect central node
-netedit.leftClick(match, 325, 250)
+netedit.leftClick(referencePosition, 325, 250)
 
 # Change generic parameters with a dummy value
 netedit.modifyAttribute(11, "dummyGenericParameters")
@@ -65,13 +65,13 @@ netedit.modifyAttribute(11, "keyFinal1=value1|keyFinal2=value2|keyFinal3=value3"
 netedit.rebuildNetwork()
 
 # Check undo
-netedit.undo(match, 7)
+netedit.undo(referencePosition, 7)
 
 # rebuild network
 netedit.rebuildNetwork()
 
 # Check redo
-netedit.redo(match, 7)
+netedit.redo(referencePosition, 7)
 
 # save additionals
 netedit.saveAdditionals()

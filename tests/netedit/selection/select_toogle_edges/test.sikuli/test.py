@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to additional mode
 netedit.additionalMode()
@@ -32,23 +32,23 @@ netedit.additionalMode()
 netedit.selectMode()
 
 # select edge
-netedit.leftClick(match, 300, 240)
+netedit.leftClick(referencePosition, 300, 240)
 
 # toogle edge selection
 netedit.selectionToogleEdges()
 
 # select lane
-netedit.leftClick(match, 300, 240)
+netedit.leftClick(referencePosition, 300, 240)
 
 # select other lane
-netedit.leftClick(match, 300, 200)
+netedit.leftClick(referencePosition, 300, 200)
 
 # delete using Supr key
 netedit.deleteUsingSuprKey()
 
 # check undo and redo
-netedit.undo(match, 1)
-netedit.redo(match, 1)
+netedit.undo(referencePosition, 1)
+netedit.redo(referencePosition, 1)
 
 # save network
 netedit.saveNetwork()

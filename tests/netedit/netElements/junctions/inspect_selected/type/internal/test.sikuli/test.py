@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # rebuild network
 netedit.rebuildNetwork()
@@ -32,16 +32,16 @@ netedit.rebuildNetwork()
 netedit.selectMode()
 
 # select first edge
-netedit.leftClick(match, 325, 250)
+netedit.leftClick(referencePosition, 325, 250)
 
 # select second edge
-netedit.leftClick(match, 10, 220)
+netedit.leftClick(referencePosition, 10, 220)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect central node
-netedit.leftClick(match, 325, 220)
+netedit.leftClick(referencePosition, 325, 220)
 
 # set invalid value
 netedit.modifyAttribute(0, "dummyType")
@@ -53,13 +53,13 @@ netedit.modifyAttribute(0, "internal")
 netedit.rebuildNetwork()
 
 # Check undo
-netedit.undo(match, 1)
+netedit.undo(referencePosition, 1)
 
 # rebuild network
 netedit.rebuildNetwork()
 
 # Check redo
-netedit.redo(match, 1)
+netedit.redo(referencePosition, 1)
 
 # save additionals
 netedit.saveAdditionals()

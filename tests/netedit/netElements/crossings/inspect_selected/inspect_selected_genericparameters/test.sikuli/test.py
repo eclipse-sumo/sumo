@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # Rebuild network
 netedit.rebuildNetwork()
@@ -35,16 +35,16 @@ netedit.setZoom("50", "50", "50")
 netedit.selectMode()
 
 # select first crossing
-netedit.leftClick(match, 250, 225)
+netedit.leftClick(referencePosition, 250, 225)
 
 # select second crossing
-netedit.leftClick(match, 415, 225)
+netedit.leftClick(referencePosition, 415, 225)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first crossing
-netedit.leftClick(match, 250, 225)
+netedit.leftClick(referencePosition, 250, 225)
 
 # Change generic parameters with a dummy value
 netedit.modifyAttribute(5, "dummyGenericParameters")
@@ -77,9 +77,9 @@ netedit.modifyAttribute(5, "key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3")
 netedit.modifyAttribute(5, "keyFinal1=value1|keyFinal2=value2|keyFinal3=value3")
 
 # Check undo redo
-netedit.undo(match, 7)
+netedit.undo(referencePosition, 7)
 netedit.rebuildNetwork()
-netedit.redo(match, 7)
+netedit.redo(referencePosition, 7)
 
 # save network
 netedit.saveNetwork()

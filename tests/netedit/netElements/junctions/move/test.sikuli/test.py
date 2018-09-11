@@ -23,19 +23,19 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.rebuildNetwork()
 
 # Change to move
 netedit.moveMode()
 
 # move center circular road
-netedit.dragDrop(match, 350, 270, 100, 280)
+netedit.dragDrop(referencePosition, 350, 270, 100, 280)
 netedit.rebuildNetwork()
 
 # move 3-o'clock node of circular road via attributes
 netedit.inspectMode()
-netedit.leftClick(match, 540, 290)
+netedit.leftClick(referencePosition, 540, 290)
 netedit.modifyAttribute(1, "120,20.2")
 
 # save network

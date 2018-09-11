@@ -23,22 +23,22 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
 # go to select mode
 netedit.selectMode()
 
 # select first polygon
-netedit.leftClick(match, 100, 50)
+netedit.leftClick(referencePosition, 100, 50)
 
 # select second polygon
-netedit.leftClick(match, 300, 50)
+netedit.leftClick(referencePosition, 300, 50)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first polygon
-netedit.leftClick(match, 100, 50)
+netedit.leftClick(referencePosition, 100, 50)
 
 # Change parameter 6 with a non valid value (invalid)
 netedit.modifyAttribute(5, "%$$%%%%%")
@@ -50,8 +50,8 @@ netedit.modifyAttribute(5, "paris.ico")
 netedit.modifyAttribute(5, "berlin_icon.ico")
 
 # Check undos and redos
-netedit.undo(match, 2)
-netedit.redo(match, 2)
+netedit.undo(referencePosition, 2)
+netedit.redo(referencePosition, 2)
 
 # save shapes
 netedit.saveShapes()

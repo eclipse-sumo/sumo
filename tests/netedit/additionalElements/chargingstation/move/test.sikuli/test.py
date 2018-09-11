@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to additional mode
 netedit.additionalMode()
@@ -35,38 +35,38 @@ netedit.changeAdditional("chargingStation")
 netedit.modifyAdditionalDefaultValue(9, "reference center")
 
 # create chargingStation in mode "reference center"
-netedit.leftClick(match, 250, 250)
+netedit.leftClick(referencePosition, 250, 250)
 
 # change to move mode
 netedit.moveMode()
 
 # move chargingStation to left
-netedit.moveElement(match, 150, 260, 50, 260)
+netedit.moveElement(referencePosition, 150, 260, 50, 260)
 
 # move back
-netedit.moveElement(match, 50, 260, 150, 260)
+netedit.moveElement(referencePosition, 50, 260, 150, 260)
 
 # move chargingStation to right
-netedit.moveElement(match, 150, 260, 250, 260)
+netedit.moveElement(referencePosition, 150, 260, 250, 260)
 
 # move back
-netedit.moveElement(match, 250, 260, 150, 260)
+netedit.moveElement(referencePosition, 250, 260, 150, 260)
 
 # move chargingStation to left overpassing lane
-netedit.moveElement(match, 150, 260, -100, 260)
+netedit.moveElement(referencePosition, 150, 260, -100, 260)
 
 # move back
-netedit.moveElement(match, -90, 260, 150, 260)
+netedit.moveElement(referencePosition, -90, 260, 150, 260)
 
 # move chargingStation to right overpassing lane
-netedit.moveElement(match, 150, 260, 550, 260)
+netedit.moveElement(referencePosition, 150, 260, 550, 260)
 
 # move back to another different position of initial
-netedit.moveElement(match, 500, 260, 300, 260)
+netedit.moveElement(referencePosition, 500, 260, 300, 260)
 
 # Check undos and redos
-netedit.undo(match, 10)
-netedit.redo(match, 10)
+netedit.undo(referencePosition, 10)
+netedit.redo(referencePosition, 10)
 
 # save additionals
 netedit.saveAdditionals()

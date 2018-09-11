@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
 # go to select mode
 netedit.selectMode()
@@ -35,7 +35,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect routeProbes
-netedit.leftClick(match, 310, 200)
+netedit.leftClick(referencePosition, 310, 200)
 
 # Set invalid freq
 netedit.modifyAttribute(0, "-30")
@@ -62,8 +62,8 @@ netedit.modifyAttribute(3, "-5")
 netedit.modifyAttribute(3, "11.3")
 
 # Check undos and redos
-netedit.undo(match, 5)
-netedit.redo(match, 5)
+netedit.undo(referencePosition, 5)
+netedit.redo(referencePosition, 5)
 
 # save additionals
 netedit.saveAdditionals()

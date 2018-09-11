@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
 # go to additional mode
 netedit.additionalMode()
@@ -32,16 +32,16 @@ netedit.additionalMode()
 netedit.changeAdditional("e2Detector")
 
 # create E2 1
-netedit.leftClick(match, 250, 150)
+netedit.leftClick(referencePosition, 250, 150)
 
 # create E2 2
-netedit.leftClick(match, 450, 150)
+netedit.leftClick(referencePosition, 450, 150)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first E2
-netedit.leftClick(match, 260, 150)
+netedit.leftClick(referencePosition, 260, 150)
 
 # Change parameter 0 with a non valid value (Duplicated ID)
 netedit.modifyAttribute(0, "e2Detector_gneE2_1_1")
@@ -152,8 +152,8 @@ netedit.modifyBoolAttribute(11)
 netedit.modifyBoolAttribute(16)
 
 # Check undos and redos
-netedit.undo(match, 26)
-netedit.redo(match, 26)
+netedit.undo(referencePosition, 26)
+netedit.redo(referencePosition, 26)
 
 # save additionals
 netedit.saveAdditionals()

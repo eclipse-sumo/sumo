@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
 # apply zoom
 netedit.setZoom("25", "25", "25")
@@ -35,25 +35,25 @@ netedit.additionalMode()
 netedit.changeAdditional("e3Detector")
 
 # create E3
-netedit.leftClick(match, 250, 400)
+netedit.leftClick(referencePosition, 250, 400)
 
 # select entry detector
 netedit.changeAdditional("detEntry")
 
 # Create Entry detector E3
-netedit.leftClick(match, 250, 400)
-netedit.leftClick(match, 200, 200)
+netedit.leftClick(referencePosition, 250, 400)
+netedit.leftClick(referencePosition, 200, 200)
 
 # select exit detector and create in the second E3
 netedit.changeAdditional("detExit")
-netedit.leftClick(match, 250, 400)
-netedit.leftClick(match, 400, 200)
+netedit.leftClick(referencePosition, 250, 400)
+netedit.leftClick(referencePosition, 400, 200)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect Entry
-netedit.leftClick(match, 205, 200)
+netedit.leftClick(referencePosition, 205, 200)
 
 # Change generic parameters with a dummy value
 netedit.modifyAttribute(4, "dummyGenericParameters")
@@ -86,8 +86,8 @@ netedit.modifyAttribute(4, "key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3")
 netedit.modifyAttribute(4, "keyFinal1=value1|keyFinal2=value2|keyFinal3=value3")
 
 # Check undo redo
-netedit.undo(match, 8)
-netedit.redo(match, 8)
+netedit.undo(referencePosition, 8)
+netedit.redo(referencePosition, 8)
 
 # save additionals
 netedit.saveAdditionals()

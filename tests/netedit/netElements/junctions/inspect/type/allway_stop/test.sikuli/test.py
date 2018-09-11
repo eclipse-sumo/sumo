@@ -23,13 +23,13 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # rebuild network
 netedit.rebuildNetwork()
 
 # inspect central node
-netedit.leftClick(match, 325, 250)
+netedit.leftClick(referencePosition, 325, 250)
 
 # set invalid value
 netedit.modifyAttribute(2, "dummyType")
@@ -41,13 +41,13 @@ netedit.modifyAttribute(2, "allway_stop")
 netedit.rebuildNetwork()
 
 # Check undo
-netedit.undo(match, 1)
+netedit.undo(referencePosition, 1)
 
 # rebuild network
 netedit.rebuildNetwork()
 
 # Check redo
-netedit.redo(match, 1)
+netedit.redo(referencePosition, 1)
 
 # save additionals
 netedit.saveAdditionals()

@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # recompute
 netedit.rebuildNetwork()
@@ -32,7 +32,7 @@ netedit.rebuildNetwork()
 netedit.inspectMode()
 
 # inspect edge
-netedit.leftClick(match, 250, 180)
+netedit.leftClick(referencePosition, 250, 180)
 
 # Change parameter 0 with a non valid value (empty ID)
 netedit.modifyAttribute(0, "")
@@ -47,13 +47,13 @@ netedit.modifyAttribute(0, "correct_ID")
 netedit.rebuildNetwork()
 
 # Check undo
-netedit.undo(match, 1)
+netedit.undo(referencePosition, 1)
 
 # recompute
 netedit.rebuildNetwork()
 
 # Check redo
-netedit.redo(match, 1)
+netedit.redo(referencePosition, 1)
 
 # save additionals
 netedit.saveAdditionals()

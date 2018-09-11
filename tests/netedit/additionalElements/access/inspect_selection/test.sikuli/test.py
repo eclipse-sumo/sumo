@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
 # go to select mode
 netedit.selectMode()
@@ -35,7 +35,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect Access
-netedit.leftClick(match, 275, 242)
+netedit.leftClick(referencePosition, 275, 242)
 
 # Change lenght (invalid)
 netedit.modifyAttribute(0, "-30")
@@ -49,8 +49,8 @@ netedit.modifyBoolAttribute(1)
 netedit.modifyBoolAttribute(5)
 
 # Check undo redo
-netedit.undo(match, 3)
-netedit.redo(match, 3)
+netedit.undo(referencePosition, 3)
+netedit.redo(referencePosition, 3)
 
 # save additionals
 netedit.saveAdditionals()

@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
 # go to shape mode
 netedit.shapeMode()
@@ -32,13 +32,13 @@ netedit.shapeMode()
 netedit.changeShape("poiLane")
 
 # create POILane
-netedit.leftClick(match, 140, 215)
+netedit.leftClick(referencePosition, 140, 215)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first POILane
-netedit.leftClick(match, 140, 215)
+netedit.leftClick(referencePosition, 140, 215)
 
 # Change parameter 4 with a non valid value (dummy)
 netedit.modifyAttribute(5, "dummyColor")
@@ -53,8 +53,8 @@ netedit.modifyAttribute(5, "blue")
 netedit.modifyAttribute(5, "125,60,200")
 
 # Check undos and redos
-netedit.undo(match, 3)
-netedit.redo(match, 3)
+netedit.undo(referencePosition, 3)
+netedit.redo(referencePosition, 3)
 
 # save shapes
 netedit.saveShapes()

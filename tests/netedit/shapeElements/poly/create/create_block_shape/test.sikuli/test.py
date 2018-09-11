@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
 # go to shape mode
 netedit.shapeMode()
@@ -32,11 +32,11 @@ netedit.shapeMode()
 netedit.modifyShapeDefaultBoolValue(12)
 
 # create polygon
-netedit.createSquaredPoly(match, 100, 50, 100, True)
+netedit.createSquaredPoly(referencePosition, 100, 50, 100, True)
 
 # Check undo redo
-netedit.undo(match, 1)
-netedit.redo(match, 1)
+netedit.undo(referencePosition, 1)
+netedit.redo(referencePosition, 1)
 
 # save shapes
 netedit.saveShapes()

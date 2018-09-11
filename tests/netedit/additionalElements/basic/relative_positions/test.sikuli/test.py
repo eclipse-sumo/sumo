@@ -23,19 +23,19 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect edge
-netedit.leftClick(match, 100, 230)
+netedit.leftClick(referencePosition, 100, 230)
 
 # Change parameter lengt
 netedit.modifyAttribute(12, "25")
 
 # inspect edge
-netedit.leftClick(match, 100, 370)
+netedit.leftClick(referencePosition, 100, 370)
 
 # Change parameter lengt
 netedit.modifyAttribute(12, "25")

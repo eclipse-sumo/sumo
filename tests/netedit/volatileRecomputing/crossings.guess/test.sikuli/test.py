@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot, ['--crossings.guess'])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--crossings.guess'])
 
 # Recompute with volatile options
 netedit.rebuildNetworkWithVolatileOptions()

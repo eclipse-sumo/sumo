@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
 # apply zoom
 netedit.setZoom("25", "25", "25")
@@ -35,34 +35,34 @@ netedit.additionalMode()
 netedit.changeAdditional("e3Detector")
 
 # create E3 1
-netedit.leftClick(match, 250, 100)
+netedit.leftClick(referencePosition, 250, 100)
 
 # create E3 2 (for check duplicated ID)
-netedit.leftClick(match, 450, 100)
+netedit.leftClick(referencePosition, 450, 100)
 
 # select entry detector
 netedit.changeAdditional("detEntry")
 
 # Create Entry detector E3 (for saving)
-netedit.leftClick(match, 250, 100)
-netedit.leftClick(match, 250, 200)
-netedit.leftClick(match, 450, 100)
-netedit.leftClick(match, 450, 200)
+netedit.leftClick(referencePosition, 250, 100)
+netedit.leftClick(referencePosition, 250, 200)
+netedit.leftClick(referencePosition, 450, 100)
+netedit.leftClick(referencePosition, 450, 200)
 
 # select entry detector
 netedit.changeAdditional("detExit")
 
 # Create Exit detector E3 (for saving)
-netedit.leftClick(match, 250, 100)
-netedit.leftClick(match, 250, 450)
-netedit.leftClick(match, 450, 100)
-netedit.leftClick(match, 450, 450)
+netedit.leftClick(referencePosition, 250, 100)
+netedit.leftClick(referencePosition, 250, 450)
+netedit.leftClick(referencePosition, 450, 100)
+netedit.leftClick(referencePosition, 450, 450)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first E3
-netedit.leftClick(match, 250, 100)
+netedit.leftClick(referencePosition, 250, 100)
 
 # Change parameter 0 with a non valid value (Duplicated ID)
 netedit.modifyAttribute(0, "e3Detector_1")
@@ -134,8 +134,8 @@ netedit.modifyAttribute(7, "6.3")
 netedit.modifyBoolAttribute(11)
 
 # Check undos and redos
-netedit.undo(match, 18)
-netedit.redo(match, 18)
+netedit.undo(referencePosition, 18)
+netedit.redo(referencePosition, 18)
 
 # save additionals
 netedit.saveAdditionals()

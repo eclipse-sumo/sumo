@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
 # go to shape mode
 netedit.shapeMode()
@@ -35,23 +35,23 @@ netedit.changeShape("poiLane")
 netedit.modifyShapeDefaultValue(7, "dummyWidth")
 
 # try to create poi
-netedit.leftClick(match, 150, 210)
+netedit.leftClick(referencePosition, 150, 210)
 
 # change width (invalid, negative)
 netedit.modifyShapeDefaultValue(7, "-2")
 
 # try to create poi
-netedit.leftClick(match, 200, 210)
+netedit.leftClick(referencePosition, 200, 210)
 
 # change width (valid)
 netedit.modifyShapeDefaultValue(7, "2.5")
 
 # create poi
-netedit.leftClick(match, 250, 210)
+netedit.leftClick(referencePosition, 250, 210)
 
 # Check undo redo
-netedit.undo(match, 1)
-netedit.redo(match, 1)
+netedit.undo(referencePosition, 1)
+netedit.redo(referencePosition, 1)
 
 # save shapes
 netedit.saveShapes()

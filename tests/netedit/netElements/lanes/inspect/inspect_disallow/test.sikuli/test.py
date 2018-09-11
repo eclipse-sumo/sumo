@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # recompute
 netedit.rebuildNetwork()
@@ -35,7 +35,7 @@ netedit.selectionToogleEdges()
 netedit.inspectMode()
 
 # inspect edge
-netedit.leftClick(match, 250, 180)
+netedit.leftClick(referencePosition, 250, 180)
 
 # Change parameter 2 with an non valid value
 netedit.modifyAttribute(4, "DummyDisallowed")
@@ -58,13 +58,13 @@ netedit.modifyAttribute(4,
 netedit.rebuildNetwork()
 
 # Check undos
-netedit.undo(match, 1)
+netedit.undo(referencePosition, 1)
 
 # recompute
 netedit.rebuildNetwork()
 
 # check redos
-netedit.redo(match, 1)
+netedit.redo(referencePosition, 1)
 
 # save additionals
 netedit.saveAdditionals()

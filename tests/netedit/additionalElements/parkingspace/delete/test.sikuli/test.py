@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
 # go to additional mode
 netedit.additionalMode()
@@ -32,7 +32,7 @@ netedit.additionalMode()
 netedit.changeAdditional("parkingArea")
 
 # create parkingArea in mode "reference left"
-netedit.leftClick(match, 200, 210)
+netedit.leftClick(referencePosition, 200, 210)
 
 # select space
 netedit.changeAdditional("space")
@@ -41,37 +41,37 @@ netedit.changeAdditional("space")
 netedit.selectAdditionalChild(9, 3)
 
 # create space
-netedit.leftClick(match, 250, 150)
+netedit.leftClick(referencePosition, 250, 150)
 
 # Change to delete
 netedit.deleteMode()
 
 # delete created parkingArea
-netedit.leftClick(match, 140, 160)
+netedit.leftClick(referencePosition, 140, 160)
 
 # delete first loaded parkingArea
-netedit.leftClick(match, 360, 130)
+netedit.leftClick(referencePosition, 360, 130)
 
 # delete lane with the second loaded parkingArea
-netedit.leftClick(match, 360, 320)
+netedit.leftClick(referencePosition, 360, 320)
 
 # Check undo
-netedit.undo(match, 3)
+netedit.undo(referencePosition, 3)
 
 # Change to delete
 netedit.deleteMode()
 
 # disable 'Automatically delete additionals'
-netedit.changeAutomaticallyDeleteAdditionals(match)
+netedit.changeAutomaticallyDeleteAdditionals(referencePosition)
 
 # try to delete lane with the second loaded parkingArea (doesn't allowed)
-netedit.leftClick(match, 300, 210)
+netedit.leftClick(referencePosition, 300, 210)
 
 # wait warning
 netedit.waitAutomaticallyDeleteAdditionalsWarning()
 
 # check redo
-netedit.redo(match, 3)
+netedit.redo(referencePosition, 3)
 
 # save additionals
 netedit.saveAdditionals()

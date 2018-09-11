@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
 # go to shape mode
 netedit.shapeMode()
@@ -35,23 +35,23 @@ netedit.changeShape("poi")
 netedit.changeColorUsingDialog(2, 5)
 
 # create poi
-netedit.leftClick(match, 100, 50)
+netedit.leftClick(referencePosition, 100, 50)
 
 # change color manually (invalid)
 netedit.modifyShapeDefaultValue(3, "Vlue")
 
 # try to create POI
-netedit.leftClick(match, 150, 50)
+netedit.leftClick(referencePosition, 150, 50)
 
 # change color manually (valid)
 netedit.modifyShapeDefaultValue(3, "blue")
 
 # create POI
-netedit.leftClick(match, 200, 50)
+netedit.leftClick(referencePosition, 200, 50)
 
 # Check undo redo
-netedit.undo(match, 2)
-netedit.redo(match, 2)
+netedit.undo(referencePosition, 2)
+netedit.redo(referencePosition, 2)
 
 # save shapes
 netedit.saveShapes()

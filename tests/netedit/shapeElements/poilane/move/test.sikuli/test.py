@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to shape mode
 netedit.shapeMode()
@@ -32,7 +32,7 @@ netedit.shapeMode()
 netedit.changeShape("poiLane")
 
 # create poi
-netedit.leftClick(match, 100, 100)
+netedit.leftClick(referencePosition, 100, 100)
 
 # change color to white (To see icon)
 netedit.modifyShapeDefaultValue(3, "white")
@@ -47,20 +47,20 @@ netedit.modifyAttribute(7, "10")
 netedit.modifyShapeDefaultValue(8, "berlin_icon.ico")
 
 # create poi
-netedit.leftClick(match, 100, 350)
+netedit.leftClick(referencePosition, 100, 350)
 
 # go to move mode
 netedit.moveMode()
 
 # move first POILane to left down
-netedit.moveElement(match, -80, 55, 200, 60)
+netedit.moveElement(referencePosition, -80, 55, 200, 60)
 
 # move second POILane to left up
-netedit.moveElement(match, -80, 400, 200, 300)
+netedit.moveElement(referencePosition, -80, 400, 200, 300)
 
 # Check undo redo
-netedit.undo(match, 2)
-netedit.redo(match, 2)
+netedit.undo(referencePosition, 2)
+netedit.redo(referencePosition, 2)
 
 # save shapes
 netedit.saveShapes()

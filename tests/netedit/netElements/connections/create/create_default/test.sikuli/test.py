@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # Rebuild network
 netedit.rebuildNetwork()
@@ -35,10 +35,10 @@ netedit.toogleShowConnectionsInspectorMode()
 netedit.connectionMode()
 
 # select first lane
-netedit.leftClick(match, 600, 190)
+netedit.leftClick(referencePosition, 600, 190)
 
 # select another lane for create a connection
-netedit.leftClick(match, 350, 0)
+netedit.leftClick(referencePosition, 350, 0)
 
 # save changes
 netedit.saveConnectionEdit()
@@ -47,13 +47,13 @@ netedit.saveConnectionEdit()
 netedit.rebuildNetwork()
 
 # Check undo
-netedit.undo(match, 1)
+netedit.undo(referencePosition, 1)
 
 # rebuild 
 netedit.rebuildNetwork()
 
 # Check redo
-netedit.redo(match, 1)
+netedit.redo(referencePosition, 1)
 
 # save network
 netedit.saveNetwork()

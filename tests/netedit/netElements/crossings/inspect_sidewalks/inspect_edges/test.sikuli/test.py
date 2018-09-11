@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # Rebuild network
 netedit.rebuildNetwork()
@@ -35,7 +35,7 @@ netedit.setZoom("50", "50", "50")
 netedit.inspectMode()
 
 # inspect first crossing
-netedit.leftClick(match, 250, 225)
+netedit.leftClick(referencePosition, 250, 225)
 
 # set invalid edge
 netedit.modifyAttribute(0, "dummy Edges")
@@ -47,7 +47,7 @@ netedit.modifyAttribute(0, "3 7 1")
 netedit.rebuildNetwork()
 
 # inspect crossing again after recomputing
-netedit.leftClick(match, 291, 225)
+netedit.leftClick(referencePosition, 291, 225)
 
 # Change Edges with the same edges as another crossing (Duplicate
 # crossings aren't allowed, see Ticket #4043
@@ -57,7 +57,7 @@ netedit.modifyAttribute(0, "4 8")
 netedit.rebuildNetwork()
 
 # inspect crossing again after recomputing
-netedit.leftClick(match, 291, 225)
+netedit.leftClick(referencePosition, 291, 225)
 
 # Change Edges to a single edge
 netedit.modifyAttribute(0, "3")
@@ -66,13 +66,13 @@ netedit.modifyAttribute(0, "3")
 netedit.rebuildNetwork()
 
 # Check undos
-netedit.undo(match, 2)
+netedit.undo(referencePosition, 2)
 
 # rebuild network
 netedit.rebuildNetwork()
 
 # Check redos
-netedit.redo(match, 2)
+netedit.redo(referencePosition, 2)
 
 # save network
 netedit.saveNetwork()

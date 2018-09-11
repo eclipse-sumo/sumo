@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
 # go to additional mode
 netedit.additionalMode()
@@ -32,13 +32,13 @@ netedit.additionalMode()
 netedit.changeAdditional("vaporizer")
 
 # create vaporizer
-netedit.leftClick(match, 250, 120)
+netedit.leftClick(referencePosition, 250, 120)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first vaporizer
-netedit.leftClick(match, 310, 200)
+netedit.leftClick(referencePosition, 310, 200)
 
 # Change parameter 0 with a non valid value (dummy edge)
 netedit.modifyAttribute(0, "dummyEdge")
@@ -71,11 +71,11 @@ netedit.modifyAttribute(2, "2")
 netedit.modifyAttribute(2, "20")
 
 # click over an empty area
-netedit.leftClick(match, 0, 0)
+netedit.leftClick(referencePosition, 0, 0)
 
 # Check undos and redos
-netedit.undo(match, 7)
-netedit.redo(match, 7)
+netedit.undo(referencePosition, 7)
+netedit.redo(referencePosition, 7)
 
 # save additionals
 netedit.saveAdditionals()

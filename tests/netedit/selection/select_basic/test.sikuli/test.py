@@ -23,40 +23,40 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # inspecte edge
-netedit.leftClick(match, 210, 210)
+netedit.leftClick(referencePosition, 210, 210)
 
 # select edge using control
-netedit.leftClickControl(match, 210, 210)
+netedit.leftClickControl(referencePosition, 210, 210)
 
 # unselect edge using control
-netedit.leftClickControl(match, 210, 210)
+netedit.leftClickControl(referencePosition, 210, 210)
 
 # go to select mode
 netedit.selectMode()
 
 # select edge using a simple click
-netedit.leftClickControl(match, 210, 210)
+netedit.leftClickControl(referencePosition, 210, 210)
 
 # toogle edges selection
 netedit.toogleSelectEdges()
 
 # select lane using a simple click
-netedit.leftClickControl(match, 210, 240)
+netedit.leftClickControl(referencePosition, 210, 240)
 
 # unselect lane using a simple click
-netedit.leftClickControl(match, 210, 240)
+netedit.leftClickControl(referencePosition, 210, 240)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # select lane using control + click
-netedit.leftClickControl(match, 210, 240)
+netedit.leftClickControl(referencePosition, 210, 240)
 
 # select lane using control + click in an edge previously selected
-netedit.leftClickControl(match, 210, 210)
+netedit.leftClickControl(referencePosition, 210, 210)
 
 # save network
 netedit.saveNetwork()

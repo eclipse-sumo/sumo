@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # first rebuild network
 netedit.rebuildNetwork()
@@ -35,7 +35,7 @@ netedit.selectMode()
 netedit.toogleShowConnections()
 
 # use a rectangle to check add mode
-netedit.selectionRectangle(match, 50, 50, 500, 400)
+netedit.selectionRectangle(referencePosition, 50, 50, 500, 400)
 
 # clear selection
 netedit.selectionClear()
@@ -44,7 +44,7 @@ netedit.selectionClear()
 netedit.lockSelection(1)
 
 # use a rectangle to check add mode
-netedit.selectionRectangle(match, 50, 50, 500, 400)
+netedit.selectionRectangle(referencePosition, 50, 50, 500, 400)
 
 # clear selection
 netedit.selectionClear()
@@ -53,7 +53,7 @@ netedit.selectionClear()
 netedit.lockSelection(2)
 
 # use a rectangle to check add mode
-netedit.selectionRectangle(match, 50, 50, 500, 400)
+netedit.selectionRectangle(referencePosition, 50, 50, 500, 400)
 
 # clear selection
 netedit.selectionClear()
@@ -62,7 +62,7 @@ netedit.selectionClear()
 netedit.toogleSelectEdges()
 
 # use a rectangle to check add mode
-netedit.selectionRectangle(match, 50, 50, 500, 400)
+netedit.selectionRectangle(referencePosition, 50, 50, 500, 400)
 
 # clear selection
 netedit.selectionClear()
@@ -71,7 +71,7 @@ netedit.selectionClear()
 netedit.lockSelection(3)
 
 # use a rectangle to check add mode
-netedit.selectionRectangle(match, 50, 50, 500, 400)
+netedit.selectionRectangle(referencePosition, 50, 50, 500, 400)
 
 # clear selection
 netedit.selectionClear()
@@ -80,7 +80,7 @@ netedit.selectionClear()
 netedit.lockSelection(4)
 
 # use a rectangle to check add mode
-netedit.selectionRectangle(match, 50, 50, 500, 400)
+netedit.selectionRectangle(referencePosition, 50, 50, 500, 400)
 
 # clear selection
 netedit.selectionClear()
@@ -89,7 +89,7 @@ netedit.selectionClear()
 netedit.lockSelection(5)
 
 # use a rectangle to check add mode
-netedit.selectionRectangle(match, 50, 50, 500, 400)
+netedit.selectionRectangle(referencePosition, 50, 50, 500, 400)
 
 # clear selection
 netedit.selectionClear()
@@ -98,7 +98,7 @@ netedit.selectionClear()
 netedit.lockSelection(6)
 
 # use a rectangle to check add mode
-netedit.selectionRectangle(match, 50, 50, 500, 400)
+netedit.selectionRectangle(referencePosition, 50, 50, 500, 400)
 
 # clear selection
 netedit.selectionClear()
@@ -107,7 +107,7 @@ netedit.selectionClear()
 netedit.lockSelection(7)
 
 # use a rectangle to check add mode
-netedit.selectionRectangle(match, 50, 50, 500, 400)
+netedit.selectionRectangle(referencePosition, 50, 50, 500, 400)
 
 # clear selection
 netedit.selectionClear()
@@ -116,14 +116,14 @@ netedit.selectionClear()
 netedit.lockSelection(8)
 
 # use a rectangle to check add mode
-netedit.selectionRectangle(match, 50, 50, 500, 400)
+netedit.selectionRectangle(referencePosition, 50, 50, 500, 400)
 
 # clear selection
 netedit.selectionClear()
 
 # check undo and redo
-netedit.undo(match, 18)
-netedit.redo(match, 18)
+netedit.undo(referencePosition, 18)
+netedit.redo(referencePosition, 18)
 
 # save additionals
 netedit.saveAdditionals()

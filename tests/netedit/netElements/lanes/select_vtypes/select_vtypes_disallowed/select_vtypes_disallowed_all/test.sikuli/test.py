@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to select mode
 netedit.selectMode()
@@ -37,13 +37,13 @@ netedit.deleteSelectedItems()
 netedit.rebuildNetwork()
 
 # Check undos
-netedit.undo(match, 1)
+netedit.undo(referencePosition, 1)
 
 # recompute
 netedit.rebuildNetwork()
 
 # check redos
-netedit.redo(match, 1)
+netedit.redo(referencePosition, 1)
 
 # save network
 netedit.saveNetwork()

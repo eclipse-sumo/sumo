@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
 # go to additional mode
 netedit.additionalMode()
@@ -32,16 +32,16 @@ netedit.additionalMode()
 netedit.changeAdditional("instantInductionLoop")
 
 # create E1 Instant 1
-netedit.leftClick(match, 250, 150)
+netedit.leftClick(referencePosition, 250, 150)
 
 # create E1 Instant 2
-netedit.leftClick(match, 450, 150)
+netedit.leftClick(referencePosition, 450, 150)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first E1 Instant
-netedit.leftClick(match, 250, 150)
+netedit.leftClick(referencePosition, 250, 150)
 
 # Change parameter 0 with a non valid value (Duplicated ID)
 netedit.modifyAttribute(0, "instantInductionLoop_gneE2_1_1")
@@ -104,8 +104,8 @@ netedit.modifyBoolAttribute(6)
 netedit.modifyBoolAttribute(10)
 
 # Check undos and redos
-netedit.undo(match, 13)
-netedit.redo(match, 13)
+netedit.undo(referencePosition, 13)
+netedit.redo(referencePosition, 13)
 
 # save additionals
 netedit.saveAdditionals()

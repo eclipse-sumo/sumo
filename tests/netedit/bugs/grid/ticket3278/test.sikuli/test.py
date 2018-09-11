@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # Rebuild network
 netedit.rebuildNetwork()
@@ -35,11 +35,11 @@ netedit.setZoom("50", "50", "100")
 netedit.moveMode()
 
 # move back to another different position of initial
-netedit.moveElement(match, -25, 225, 25, 350)
+netedit.moveElement(referencePosition, -25, 225, 25, 350)
 
 # check undo redo
-netedit.undo(match, 1)
-netedit.redo(match, 1)
+netedit.undo(referencePosition, 1)
+netedit.redo(referencePosition, 1)
 
 # save network
 netedit.saveNetwork()

@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot, [], False)
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, [], False)
 
 # Rebuild network
 netedit.rebuildNetwork()

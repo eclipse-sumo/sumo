@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # Rebuild network
 netedit.rebuildNetwork()
@@ -35,7 +35,7 @@ netedit.setZoom("50", "50", "50")
 netedit.inspectMode()
 
 # inspect first crossing
-netedit.leftClick(match, 250, 225)
+netedit.leftClick(referencePosition, 250, 225)
 
 # Change shape with a non valid value
 netedit.modifyAttribute(5, "dummyShape")
@@ -47,13 +47,13 @@ netedit.modifyAttribute(5, "42.60,56.52 48.25,55.65 51.97,53.13 51.86,49.56 49.2
 netedit.rebuildNetwork()
 
 # Check undos
-netedit.undo(match, 1)
+netedit.undo(referencePosition, 1)
 
 # rebuild network
 netedit.rebuildNetwork()
 
 # Check redos
-netedit.redo(match, 1)
+netedit.redo(referencePosition, 1)
 
 # save network
 netedit.saveNetwork()

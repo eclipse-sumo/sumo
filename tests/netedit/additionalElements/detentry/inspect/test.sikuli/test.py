@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
 # apply zoom
 netedit.setZoom("25", "25", "25")
@@ -35,28 +35,28 @@ netedit.additionalMode()
 netedit.changeAdditional("e3Detector")
 
 # create E3
-netedit.leftClick(match, 250, 400)
+netedit.leftClick(referencePosition, 250, 400)
 
 # create second E3
-netedit.leftClick(match, 350, 400)
+netedit.leftClick(referencePosition, 350, 400)
 
 # select entry detector
 netedit.changeAdditional("detEntry")
 
 # Create Entry detector E3
-netedit.leftClick(match, 250, 400)
-netedit.leftClick(match, 200, 200)
+netedit.leftClick(referencePosition, 250, 400)
+netedit.leftClick(referencePosition, 200, 200)
 
 # select exit detector and create in the second E3
 netedit.changeAdditional("detExit")
-netedit.leftClick(match, 350, 400)
-netedit.leftClick(match, 400, 200)
+netedit.leftClick(referencePosition, 350, 400)
+netedit.leftClick(referencePosition, 400, 200)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect Entry
-netedit.leftClick(match, 200, 200)
+netedit.leftClick(referencePosition, 200, 200)
 
 # Change parameter 0 with a non valid value (dummy Lane)
 netedit.modifyAttribute(0, "dummyLane")
@@ -89,8 +89,8 @@ netedit.modifyAttribute(6, "e3Detector_1")
 netedit.modifyBoolAttribute(7)
 
 # Check undos and redos
-netedit.undo(match, 9)
-netedit.redo(match, 9)
+netedit.undo(referencePosition, 9)
+netedit.redo(referencePosition, 9)
 
 # save additionals
 netedit.saveAdditionals()

@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
 # go to shape mode
 netedit.shapeMode()
@@ -32,13 +32,13 @@ netedit.shapeMode()
 netedit.changeShape("poly")
 
 # create first polygon
-netedit.createSquaredPoly(match, 200, 150, 200, True)
+netedit.createSquaredPoly(referencePosition, 200, 150, 200, True)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first polygon
-netedit.leftClick(match, 100, 50)
+netedit.leftClick(referencePosition, 100, 50)
 
 # Change generic parameters with a dummy value
 netedit.modifyAttribute(12, "dummyGenericParameters")
@@ -71,8 +71,8 @@ netedit.modifyAttribute(12, "key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3"
 netedit.modifyAttribute(12, "keyFinal1=value1|keyFinal2=value2|keyFinal3=value3")
 
 # Check undos and redos
-netedit.undo(match, 8)
-netedit.redo(match, 8)
+netedit.undo(referencePosition, 8)
+netedit.redo(referencePosition, 8)
 
 # save shapes
 netedit.saveShapes()

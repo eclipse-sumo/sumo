@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
 # go to additional mode
 netedit.additionalMode()
@@ -35,16 +35,16 @@ netedit.changeAdditional("parkingArea")
 netedit.modifyAdditionalDefaultValue(9, "reference center")
 
 # create parkingArea 1 in mode "reference center"
-netedit.leftClick(match, 250, 150)
+netedit.leftClick(referencePosition, 250, 150)
 
 # create parkingArea 2 in mode "reference center"
-netedit.leftClick(match, 450, 150)
+netedit.leftClick(referencePosition, 450, 150)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first parkingArea
-netedit.leftClick(match, 250, 200)
+netedit.leftClick(referencePosition, 250, 200)
 
 # Change parameter 0 with a non valid value (Duplicated ID)
 netedit.modifyAttribute(0, "parkingArea_gneE2_1_1")
@@ -156,8 +156,8 @@ netedit.modifyAttribute(2, "")
 netedit.modifyAttribute(3, "")
 
 # Check undos and redos
-netedit.undo(match, 26)
-netedit.redo(match, 26)
+netedit.undo(referencePosition, 26)
+netedit.redo(referencePosition, 26)
 
 # save additionals
 netedit.saveAdditionals()

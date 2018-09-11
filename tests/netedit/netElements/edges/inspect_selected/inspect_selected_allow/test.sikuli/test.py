@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # recompute
 netedit.rebuildNetwork()
@@ -32,16 +32,16 @@ netedit.rebuildNetwork()
 netedit.selectMode()
 
 # select first edge
-netedit.leftClick(match, 250, 180)
+netedit.leftClick(referencePosition, 250, 180)
 
 # select second edge
-netedit.leftClick(match, 250, 100)
+netedit.leftClick(referencePosition, 250, 100)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect selected edges
-netedit.leftClick(match, 250, 180)
+netedit.leftClick(referencePosition, 250, 180)
 
 # Change parameter 5 with an non valid value (dummy)
 netedit.modifyAttribute(5, "DummyAllowed")
@@ -62,13 +62,13 @@ netedit.modifyAttribute(5, "authority army vip passenger hov taxi bus coach tram
 netedit.rebuildNetwork()
 
 # Check undos
-netedit.undo(match, 1)
+netedit.undo(referencePosition, 1)
 
 # recompute
 netedit.rebuildNetwork()
 
 # check redos
-netedit.redo(match, 1)
+netedit.redo(referencePosition, 1)
 
 # save additionals
 netedit.saveAdditionals()

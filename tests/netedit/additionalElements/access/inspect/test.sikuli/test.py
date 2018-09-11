@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
 # apply zoom
 netedit.setZoom("25", "20", "25")
@@ -35,24 +35,24 @@ netedit.additionalMode()
 netedit.changeAdditional("busStop")
 
 # create BusStop with default parameters
-netedit.leftClick(match, 375, 250)
+netedit.leftClick(referencePosition, 375, 250)
 
 # select Access detector
 netedit.changeAdditional("access")
 
 # Create Access detector
 netedit.selectAdditionalChild(7, 0)
-netedit.leftClick(match, 200, 50)
+netedit.leftClick(referencePosition, 200, 50)
 
 # Try to create another Access in the same edge
 netedit.selectAdditionalChild(7, 0)
-netedit.leftClick(match, 200, 250)
+netedit.leftClick(referencePosition, 200, 250)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect Access
-netedit.leftClick(match, 208, 260)
+netedit.leftClick(referencePosition, 208, 260)
 
 # Change parameter 0 with a non valid value (dummy Lane)
 netedit.modifyAttribute(0, "dummyLane")
@@ -87,8 +87,8 @@ netedit.modifyBoolAttribute(3)
 netedit.modifyBoolAttribute(7)
 
 # Check undo redo
-netedit.undo(match, 5)
-netedit.redo(match, 5)
+netedit.undo(referencePosition, 5)
+netedit.redo(referencePosition, 5)
 
 # save additionals
 netedit.saveAdditionals()

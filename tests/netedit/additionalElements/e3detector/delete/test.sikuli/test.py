@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
 # apply zoom
 netedit.setZoom("25", "0", "25")
@@ -35,57 +35,57 @@ netedit.additionalMode()
 netedit.changeAdditional("e3Detector")
 
 # create E3 1
-netedit.leftClick(match, 100, 50)
+netedit.leftClick(referencePosition, 100, 50)
 
 # create E3 2
-netedit.leftClick(match, 300, 50)
+netedit.leftClick(referencePosition, 300, 50)
 
 # select entry detector
 netedit.changeAdditional("detEntry")
 
 # Create Entry detectors for E3 2
-netedit.leftClick(match, 300, 50)
-netedit.leftClick(match, 150, 300)
+netedit.leftClick(referencePosition, 300, 50)
+netedit.leftClick(referencePosition, 150, 300)
 
 # select exit detector
 netedit.changeAdditional("detExit")
 
 # Create Exit detectors for E3 2
-netedit.leftClick(match, 300, 50)
-netedit.leftClick(match, 250, 300)
+netedit.leftClick(referencePosition, 300, 50)
+netedit.leftClick(referencePosition, 250, 300)
 
 # Change to delete
 netedit.deleteMode()
 
 # delete created E3 1
-netedit.leftClick(match, 100, 50)
+netedit.leftClick(referencePosition, 100, 50)
 
 # delete created E3 2
-netedit.leftClick(match, 300, 50)
+netedit.leftClick(referencePosition, 300, 50)
 
 # delete loaded E3
-netedit.leftClick(match, 500, 50)
+netedit.leftClick(referencePosition, 500, 50)
 
 # delete lane with the second loaded entry
-netedit.leftClick(match, 400, 300)
+netedit.leftClick(referencePosition, 400, 300)
 
 # Check undo
-netedit.undo(match, 9)
+netedit.undo(referencePosition, 9)
 
 # Change to delete
 netedit.deleteMode()
 
 # disble 'Automatically delete additionals'
-netedit.changeAutomaticallyDeleteAdditionals(match)
+netedit.changeAutomaticallyDeleteAdditionals(referencePosition)
 
 # try to delete lane with the second loaded entry (doesn't allowed)
-netedit.leftClick(match, 400, 300)
+netedit.leftClick(referencePosition, 400, 300)
 
 # wait warning
 netedit.waitAutomaticallyDeleteAdditionalsWarning()
 
 # check redo
-netedit.redo(match, 9)
+netedit.redo(referencePosition, 9)
 
 # save additionals
 netedit.saveAdditionals()

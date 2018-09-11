@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # apply zoom
 netedit.setZoom("25", "0", "25")
@@ -35,33 +35,33 @@ netedit.additionalMode()
 netedit.changeAdditional("e3Detector")
 
 # create E3
-netedit.leftClick(match, 250, 250)
+netedit.leftClick(referencePosition, 250, 250)
 
 # select entry detector
 netedit.changeAdditional("detEntry")
 
 # Create Entry detector (for saving)
-netedit.leftClick(match, 250, 250)
-netedit.leftClick(match, 400, 250)
+netedit.leftClick(referencePosition, 250, 250)
+netedit.leftClick(referencePosition, 400, 250)
 
 # select entry detector
 netedit.changeAdditional("detExit")
 
 # Create detExit detector (for saving)
-netedit.leftClick(match, 250, 250)
-netedit.leftClick(match, 600, 250)
+netedit.leftClick(referencePosition, 250, 250)
+netedit.leftClick(referencePosition, 600, 250)
 
 # change to move mode
 netedit.moveMode()
 
 # move E3 to up
-netedit.moveElement(match, 120, 250, 120, 50)
+netedit.moveElement(referencePosition, 120, 250, 120, 50)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect E3
-netedit.leftClick(match, 250, 100)
+netedit.leftClick(referencePosition, 250, 100)
 
 # block additional
 netedit.modifyBoolAttribute(11)
@@ -70,13 +70,13 @@ netedit.modifyBoolAttribute(11)
 netedit.moveMode()
 
 # try to move E3 to right (must be blocked)
-netedit.moveElement(match, 120, 50, 300, 50)
+netedit.moveElement(referencePosition, 120, 50, 300, 50)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect E3
-netedit.leftClick(match, 250, 100)
+netedit.leftClick(referencePosition, 250, 100)
 
 # unblock additional
 netedit.modifyBoolAttribute(11)
@@ -85,11 +85,11 @@ netedit.modifyBoolAttribute(11)
 netedit.moveMode()
 
 # move E3 to right (must be allowed)
-netedit.moveElement(match, 120, 50, 300, 50)
+netedit.moveElement(referencePosition, 120, 50, 300, 50)
 
 # Check undos and redos
-netedit.undo(match, 8)
-netedit.redo(match, 8)
+netedit.undo(referencePosition, 8)
+netedit.redo(referencePosition, 8)
 
 # save additionals
 netedit.saveAdditionals()

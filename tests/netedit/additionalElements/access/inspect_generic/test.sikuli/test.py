@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
 # apply zoom
 netedit.setZoom("25", "20", "25")
@@ -35,20 +35,20 @@ netedit.additionalMode()
 netedit.changeAdditional("busStop")
 
 # create BusStop with default parameters
-netedit.leftClick(match, 375, 250)
+netedit.leftClick(referencePosition, 375, 250)
 
 # select Access detector
 netedit.changeAdditional("access")
 
 # Create another Access in another edge
 netedit.selectAdditionalChild(7, 0)
-netedit.leftClick(match, 200, 250)
+netedit.leftClick(referencePosition, 200, 250)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect Access
-netedit.leftClick(match, 208, 260)
+netedit.leftClick(referencePosition, 208, 260)
 
 # Change generic parameters with a dummy value
 netedit.modifyAttribute(5, "dummyGenericParameters")
@@ -81,8 +81,8 @@ netedit.modifyAttribute(5, "key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3")
 netedit.modifyAttribute(5, "keyFinal1=value1|keyFinal2=value2|keyFinal3=value3")
 
 # Check undo redo
-netedit.undo(match, 7)
-netedit.redo(match, 7)
+netedit.undo(referencePosition, 7)
+netedit.redo(referencePosition, 7)
 
 # save additionals
 netedit.saveAdditionals()

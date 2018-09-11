@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # recompute
 netedit.rebuildNetwork()
@@ -35,7 +35,7 @@ netedit.selectionToogleEdges()
 netedit.inspectMode()
 
 # inspect edge
-netedit.leftClick(match, 250, 180)
+netedit.leftClick(referencePosition, 250, 180)
 
 # Change generic parameters with a dummy value
 netedit.modifyAttribute(10, "dummyGenericParameters")
@@ -71,13 +71,13 @@ netedit.modifyAttribute(10, "keyFinal1=value1|keyFinal2=value2|keyFinal3=value3"
 netedit.rebuildNetwork()
 
 # Check undos
-netedit.undo(match, 7)
+netedit.undo(referencePosition, 7)
 
 # recompute
 netedit.rebuildNetwork()
 
 # check redos
-netedit.redo(match, 7)
+netedit.redo(referencePosition, 7)
 
 # save additionals
 netedit.saveAdditionals()

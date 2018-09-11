@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to shape mode
 netedit.shapeMode()
@@ -32,7 +32,7 @@ netedit.shapeMode()
 netedit.changeShape("poly")
 
 # create polygon
-netedit.createSquaredPoly(match, 100, 50, 100, True)
+netedit.createSquaredPoly(referencePosition, 100, 50, 100, True)
 
 # save network
 netedit.saveNetwork()

@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to shape mode
 netedit.shapeMode()
@@ -32,13 +32,13 @@ netedit.shapeMode()
 netedit.changeShape("dummyShape")
 
 # try to create an dummy shape
-netedit.leftClick(match, 150, 50)
+netedit.leftClick(referencePosition, 150, 50)
 
 # select valid shape (POI)
 netedit.changeShape("poi")
 
 # create POI
-netedit.leftClick(match, 150, 50)
+netedit.leftClick(referencePosition, 150, 50)
 
 # save shapes
 netedit.saveShapes()

@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to additional mode
 netedit.additionalMode()
@@ -32,7 +32,7 @@ netedit.additionalMode()
 netedit.changeAdditional("busStop")
 
 # create busStop in mode "reference left"
-netedit.leftClick(match, 250, 250)
+netedit.leftClick(referencePosition, 250, 250)
 
 # go to shape mode
 netedit.shapeMode()
@@ -41,7 +41,7 @@ netedit.shapeMode()
 netedit.changeShape("poly")
 
 # create polygon
-netedit.createSquaredPoly(match, 100, 50, 100, True)
+netedit.createSquaredPoly(referencePosition, 100, 50, 100, True)
 
 
 # quit netedit without saving shapes

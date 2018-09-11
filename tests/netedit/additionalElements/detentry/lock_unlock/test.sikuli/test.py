@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # apply zoom
 netedit.setZoom("25", "0", "25")
@@ -35,33 +35,33 @@ netedit.additionalMode()
 netedit.changeAdditional("e3Detector")
 
 # create E3
-netedit.leftClick(match, 250, 50)
+netedit.leftClick(referencePosition, 250, 50)
 
 # select entry detector
 netedit.changeAdditional("detEntry")
 
 # Create Entry detector
-netedit.leftClick(match, 250, 50)
-netedit.leftClick(match, 100, 200)
+netedit.leftClick(referencePosition, 250, 50)
+netedit.leftClick(referencePosition, 100, 200)
 
 # select exit detector
 netedit.changeAdditional("detExit")
 
 # Create Exit detector
-netedit.leftClick(match, 250, 50)
-netedit.leftClick(match, 100, 250)
+netedit.leftClick(referencePosition, 250, 50)
+netedit.leftClick(referencePosition, 100, 250)
 
 # change to move mode
 netedit.moveMode()
 
 # move Entry to right
-netedit.moveElement(match, -75, 190, 150, 190)
+netedit.moveElement(referencePosition, -75, 190, 150, 190)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect Entry
-netedit.leftClick(match, 275, 190)
+netedit.leftClick(referencePosition, 275, 190)
 
 # block additional
 netedit.modifyBoolAttribute(7)
@@ -70,13 +70,13 @@ netedit.modifyBoolAttribute(7)
 netedit.moveMode()
 
 # try to move Entry to right (must be blocked)
-netedit.moveElement(match, 140, 190, 300, 190)
+netedit.moveElement(referencePosition, 140, 190, 300, 190)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect Entry
-netedit.leftClick(match, 275, 190)
+netedit.leftClick(referencePosition, 275, 190)
 
 # unblock additional
 netedit.modifyBoolAttribute(7)
@@ -85,11 +85,11 @@ netedit.modifyBoolAttribute(7)
 netedit.moveMode()
 
 # move Entry to right (must be allowed)
-netedit.moveElement(match, 140, 190, 300, 190)
+netedit.moveElement(referencePosition, 140, 190, 300, 190)
 
 # Check undos and redos
-netedit.undo(match, 7)
-netedit.redo(match, 7)
+netedit.undo(referencePosition, 7)
+netedit.redo(referencePosition, 7)
 
 # save additionals
 netedit.saveAdditionals()

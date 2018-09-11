@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to shape mode
 netedit.shapeMode()
@@ -32,23 +32,23 @@ netedit.shapeMode()
 netedit.changeShape("poly")
 
 # create polygon
-netedit.createSquaredPoly(match, 100, 50, 100, True)
+netedit.createSquaredPoly(referencePosition, 100, 50, 100, True)
 
 # go to delete mode
 netedit.deleteMode()
 
 # delete created polygon
-netedit.leftClick(match, 100, 50)
+netedit.leftClick(referencePosition, 100, 50)
 
 # try to delete second polygon (not possible due isn't fill)
-netedit.leftClick(match, 175, 25)
+netedit.leftClick(referencePosition, 175, 25)
 
 # delete loaded filled polygon
-netedit.leftClick(match, 275, 25)
+netedit.leftClick(referencePosition, 275, 25)
 
 # Check undos and redos
-netedit.undo(match, 3)
-netedit.redo(match, 3)
+netedit.undo(referencePosition, 3)
+netedit.redo(referencePosition, 3)
 
 # save shapes
 netedit.saveShapes()

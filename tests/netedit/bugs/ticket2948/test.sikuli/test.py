@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot, ['--new'])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--new'])
 
 # Change to create edge mode
 netedit.createEdgeMode()
@@ -35,13 +35,13 @@ netedit.changeTwoWayOption()
 netedit.changeChainOption()
 
 # create a circular road
-netedit.leftClick(match, 300, 150)
-netedit.leftClick(match, 400, 150)
-netedit.leftClick(match, 400, 250)
-netedit.leftClick(match, 400, 350)
-netedit.leftClick(match, 300, 350)
-netedit.leftClick(match, 200, 350)
-netedit.leftClick(match, 200, 250)
+netedit.leftClick(referencePosition, 300, 150)
+netedit.leftClick(referencePosition, 400, 150)
+netedit.leftClick(referencePosition, 400, 250)
+netedit.leftClick(referencePosition, 400, 350)
+netedit.leftClick(referencePosition, 300, 350)
+netedit.leftClick(referencePosition, 200, 350)
+netedit.leftClick(referencePosition, 200, 250)
 netedit.cancelEdge()
 
 # go to select mode
@@ -54,13 +54,13 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect set of junctions
-netedit.leftClick(match, 400, 150)
+netedit.leftClick(referencePosition, 400, 150)
 
 # Set all Junctions as traffic lighs
 netedit.modifyAttribute(0, "traffic_light")
 
 # inspect set of edges
-netedit.leftClick(match, 480, 160)
+netedit.leftClick(referencePosition, 480, 160)
 
 # change all speed of edges
 netedit.modifyAttribute(0, "20")
@@ -69,8 +69,8 @@ netedit.modifyAttribute(0, "20")
 netedit.rebuildNetwork()
 
 # Check undo and redo
-netedit.undo(match, 9)
-netedit.redo(match, 9)
+netedit.undo(referencePosition, 9)
+netedit.redo(referencePosition, 9)
 
 # save network
 netedit.saveNetwork()

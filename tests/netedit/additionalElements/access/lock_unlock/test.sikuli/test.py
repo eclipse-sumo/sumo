@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # apply zoom
 netedit.setZoom("25", "0", "25")
@@ -35,20 +35,20 @@ netedit.additionalMode()
 netedit.changeAdditional("busStop")
 
 # create BusStop with default parameters
-netedit.leftClick(match, 275, 250)
+netedit.leftClick(referencePosition, 275, 250)
 
 # select Access detector
 netedit.changeAdditional("access")
 
 # Create Access detector
 netedit.selectAdditionalChild(7, 0)
-netedit.leftClick(match, 50, 200)
+netedit.leftClick(referencePosition, 50, 200)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect Access
-netedit.leftClick(match, 46, 181)
+netedit.leftClick(referencePosition, 46, 181)
 
 # Change block movement
 netedit.modifyBoolAttribute(7)
@@ -57,13 +57,13 @@ netedit.modifyBoolAttribute(7)
 netedit.moveMode()
 
 # try to move Acces
-netedit.moveElement(match, -147, 163, 100, 163)
+netedit.moveElement(referencePosition, -147, 163, 100, 163)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect Access
-netedit.leftClick(match, 46, 181)
+netedit.leftClick(referencePosition, 46, 181)
 
 # Change block movement
 netedit.modifyBoolAttribute(7)
@@ -72,11 +72,11 @@ netedit.modifyBoolAttribute(7)
 netedit.moveMode()
 
 # move Acces
-netedit.moveElement(match, -147, 163, 100, 163)
+netedit.moveElement(referencePosition, -147, 163, 100, 163)
 
 # Check undo redo
-netedit.undo(match, 5)
-netedit.redo(match, 5)
+netedit.undo(referencePosition, 5)
+netedit.redo(referencePosition, 5)
 
 # save additionals
 netedit.saveAdditionals()

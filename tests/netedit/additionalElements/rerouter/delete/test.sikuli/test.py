@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
 # apply zoom
 netedit.setZoom("25", "0", "25")
@@ -38,37 +38,37 @@ netedit.changeAdditional("rerouter")
 netedit.selectAdditionalChild(12, 0)
 
 # create rerouter with default parameters
-netedit.leftClick(match, 200, 100)
+netedit.leftClick(referencePosition, 200, 100)
 
 # go to delete mode
 netedit.deleteMode()
 
 # remove created rerouter
-netedit.leftClick(match, 200, 100)
+netedit.leftClick(referencePosition, 200, 100)
 
 # remove loaded rerouter
-netedit.leftClick(match, 300, 100)
+netedit.leftClick(referencePosition, 300, 100)
 
 # remove edge of rerouter
-netedit.leftClick(match, 300, 200)
+netedit.leftClick(referencePosition, 300, 200)
 
 # Check undo
-netedit.undo(match, 3)
+netedit.undo(referencePosition, 3)
 
 # Change to delete
 netedit.deleteMode()
 
 # disble 'Automatically delete additionals'
-netedit.changeAutomaticallyDeleteAdditionals(match)
+netedit.changeAutomaticallyDeleteAdditionals(referencePosition)
 
 # try to delete edge related to the second loaded rerouter (musn't be allowed)
-netedit.leftClick(match, 300, 200)
+netedit.leftClick(referencePosition, 300, 200)
 
 # wait warning
 netedit.waitAutomaticallyDeleteAdditionalsWarning()
 
 # check redo
-netedit.redo(match, 3)
+netedit.redo(referencePosition, 3)
 
 # save additionals
 netedit.saveAdditionals()

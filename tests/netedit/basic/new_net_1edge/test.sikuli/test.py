@@ -23,18 +23,18 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot, ['--new'])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--new'])
 
 # Change to create mode
 netedit.createEdgeMode()
 
 # Create two nodes
-netedit.leftClick(match, 100, 300)
-netedit.leftClick(match, 500, 300)
+netedit.leftClick(referencePosition, 100, 300)
+netedit.leftClick(referencePosition, 500, 300)
 
 # Check undo and redo
-netedit.undo(match, 1)
-netedit.redo(match, 1)
+netedit.undo(referencePosition, 1)
+netedit.redo(referencePosition, 1)
 
 # save network
 netedit.saveNetwork()

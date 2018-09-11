@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
 # go to additional mode
 netedit.additionalMode()
@@ -32,139 +32,139 @@ netedit.additionalMode()
 netedit.changeAdditional("parkingArea")
 
 # create parkingArea in mode "reference left"
-netedit.leftClick(match, 250, 250)
+netedit.leftClick(referencePosition, 250, 250)
 
 # select space
 netedit.changeAdditional("space")
 
 # try to create space without selecting Parking Area parent
-netedit.leftClick(match, 250, 100)
+netedit.leftClick(referencePosition, 250, 100)
 
 # select parent
 netedit.selectAdditionalChild(9, 0)
 
 # create space
-netedit.leftClick(match, 250, 100)
+netedit.leftClick(referencePosition, 250, 100)
 
 # set invalid z (dummy)
 netedit.selectAdditionalChild(9, 0)
 netedit.modifyAdditionalDefaultValue(2, "dummyZ")
 
 # try to create space
-netedit.leftClick(match, 260, 100)
+netedit.leftClick(referencePosition, 260, 100)
 
 # set invalid z (empty)
 netedit.modifyAdditionalDefaultValue(2, "")
 
 # try to create space
-netedit.leftClick(match, 260, 100)
+netedit.leftClick(referencePosition, 260, 100)
 
 # set valid z (negative)
 netedit.modifyAdditionalDefaultValue(2, "-2")
 
 # create space
-netedit.leftClick(match, 260, 100)
+netedit.leftClick(referencePosition, 260, 100)
 
 # set valid z (negative)
 netedit.selectAdditionalChild(9, 0)
 netedit.modifyAdditionalDefaultValue(2, "3.5")
 
 # create space
-netedit.leftClick(match, 270, 100)
+netedit.leftClick(referencePosition, 270, 100)
 
 # set invalid width (dummy)
 netedit.selectAdditionalChild(9, 0)
 netedit.modifyAdditionalDefaultValue(3, "dummyWidth")
 
 # try to create area
-netedit.leftClick(match, 280, 100)
+netedit.leftClick(referencePosition, 280, 100)
 
 # set invalid width (empty)
 netedit.modifyAdditionalDefaultValue(3, "")
 
 # try to create area
-netedit.leftClick(match, 280, 100)
+netedit.leftClick(referencePosition, 280, 100)
 
 # set invalid width (negative)
 netedit.modifyAdditionalDefaultValue(3, "-3")
 
 # try to create area
-netedit.leftClick(match, 280, 100)
+netedit.leftClick(referencePosition, 280, 100)
 
 # set valid width
 netedit.modifyAdditionalDefaultValue(3, "2.5")
 
 # create area
-netedit.leftClick(match, 280, 100)
+netedit.leftClick(referencePosition, 280, 100)
 
 # set invalid height (dummy)
 netedit.selectAdditionalChild(9, 0)
 netedit.modifyAdditionalDefaultValue(4, "dummyHeight")
 
 # try to create area
-netedit.leftClick(match, 290, 100)
+netedit.leftClick(referencePosition, 290, 100)
 
 # set invalid height (empty)
 netedit.modifyAdditionalDefaultValue(4, "")
 
 # try to create area
-netedit.leftClick(match, 290, 100)
+netedit.leftClick(referencePosition, 290, 100)
 
 # set invalid height (negative)
 netedit.modifyAdditionalDefaultValue(4, "-4")
 
 # try to create area
-netedit.leftClick(match, 290, 100)
+netedit.leftClick(referencePosition, 290, 100)
 
 # set valid height
 netedit.modifyAdditionalDefaultValue(4, "3.1")
 
 # create area
-netedit.leftClick(match, 290, 100)
+netedit.leftClick(referencePosition, 290, 100)
 
 # set invalid angle (dummy)
 netedit.modifyAdditionalDefaultValue(5, "dummyHeight")
 
 # try to create area
 netedit.selectAdditionalChild(9, 0)
-netedit.leftClick(match, 300, 100)
+netedit.leftClick(referencePosition, 300, 100)
 
 # set invalid angle (empty)
 netedit.modifyAdditionalDefaultValue(5, "")
 
 # try to create area
-netedit.leftClick(match, 300, 100)
+netedit.leftClick(referencePosition, 300, 100)
 
 # set valid angle (negative)
 netedit.modifyAdditionalDefaultValue(5, "-4")
 
 # create area
-netedit.leftClick(match, 300, 100)
+netedit.leftClick(referencePosition, 300, 100)
 
 # set valid angle (>360)
 netedit.selectAdditionalChild(9, 0)
 netedit.modifyAdditionalDefaultValue(5, "500")
 
 # create area
-netedit.leftClick(match, 310, 100)
+netedit.leftClick(referencePosition, 310, 100)
 
 # set valid angle
 netedit.selectAdditionalChild(9, 0)
 netedit.modifyAdditionalDefaultValue(5, "120")
 
 # create area
-netedit.leftClick(match, 320, 100)
+netedit.leftClick(referencePosition, 320, 100)
 
 # block movement
 netedit.selectAdditionalChild(9, 0)
 netedit.modifyAdditionalDefaultBoolValue(7)
 
 # create area
-netedit.leftClick(match, 330, 100)
+netedit.leftClick(referencePosition, 330, 100)
 
 # Check undo redo
-netedit.undo(match, 10)
-netedit.redo(match, 10)
+netedit.undo(referencePosition, 10)
+netedit.redo(referencePosition, 10)
 
 # save additionals
 netedit.saveAdditionals()

@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # Rebuild network
 netedit.rebuildNetwork()
@@ -32,11 +32,11 @@ netedit.rebuildNetwork()
 netedit.crossingMode()
 
 # select central node
-netedit.leftClick(match, 325, 225)
+netedit.leftClick(referencePosition, 325, 225)
 
 # Check invert button
-netedit.leftClick(match, 150, 200)
-netedit.leftClick(match, 150, 250)
+netedit.leftClick(referencePosition, 150, 200)
+netedit.leftClick(referencePosition, 150, 250)
 netedit.crossingInvertEdges()
 
 # save network

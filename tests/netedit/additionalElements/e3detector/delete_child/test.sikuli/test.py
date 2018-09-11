@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
 # apply zoom
 netedit.setZoom("25", "0", "25")
@@ -35,25 +35,25 @@ netedit.additionalMode()
 netedit.changeAdditional("e3Detector")
 
 # create E3
-netedit.leftClick(match, 100, 50)
+netedit.leftClick(referencePosition, 100, 50)
 
 # select entry detector
 netedit.changeAdditional("detEntry")
 
 # Create Entry detector for E3
 netedit.selectAdditionalChild(6, 3)
-netedit.leftClick(match, 100, 200)
+netedit.leftClick(referencePosition, 100, 200)
 
 # select Exit detector
 netedit.changeAdditional("detExit")
 
 # Create Exit detector for E3
 netedit.selectAdditionalChild(6, 3)
-netedit.leftClick(match, 250, 200)
+netedit.leftClick(referencePosition, 250, 200)
 
 # Undo creation of E3, Entry and Exit
-netedit.leftClick(match, 0, 0)
-netedit.undo(match, 3)
+netedit.leftClick(referencePosition, 0, 0)
+netedit.undo(referencePosition, 3)
 
 # go to additional mode
 netedit.additionalMode()
@@ -62,25 +62,25 @@ netedit.additionalMode()
 netedit.changeAdditional("e3Detector")
 
 # create E3
-netedit.leftClick(match, 100, 50)
+netedit.leftClick(referencePosition, 100, 50)
 
 # select entry detector
 netedit.changeAdditional("detEntry")
 
 # Create Entry detector for E3
 netedit.selectAdditionalChild(6, 3)
-netedit.leftClick(match, 100, 200)
+netedit.leftClick(referencePosition, 100, 200)
 
 # select Exit detector
 netedit.changeAdditional("detExit")
 
 # Create Exit detector for E3
 netedit.selectAdditionalChild(6, 3)
-netedit.leftClick(match, 250, 200)
+netedit.leftClick(referencePosition, 250, 200)
 
 # Undo creation of Entry and Exit
-netedit.leftClick(match, 0, 0)
-netedit.undo(match, 2)
+netedit.leftClick(referencePosition, 0, 0)
+netedit.undo(referencePosition, 2)
 
 # go to additional mode
 netedit.additionalMode()
@@ -90,27 +90,27 @@ netedit.changeAdditional("detEntry")
 
 # Create Entry detector for E3
 netedit.selectAdditionalChild(6, 3)
-netedit.leftClick(match, 100, 200)
+netedit.leftClick(referencePosition, 100, 200)
 
 # select Exit detector
 netedit.changeAdditional("detExit")
 
 # Create Exit detector for E3
 netedit.selectAdditionalChild(6, 3)
-netedit.leftClick(match, 250, 200)
+netedit.leftClick(referencePosition, 250, 200)
 
 # Change to delete
 netedit.deleteMode()
 
 # Delete the four Entry/exits
-netedit.leftClick(match, 100, 200)
-netedit.leftClick(match, 250, 200)
-netedit.leftClick(match, 450, 200)
-netedit.leftClick(match, 600, 200)
+netedit.leftClick(referencePosition, 100, 200)
+netedit.leftClick(referencePosition, 250, 200)
+netedit.leftClick(referencePosition, 450, 200)
+netedit.leftClick(referencePosition, 600, 200)
 
 # Check undo redo
-netedit.undo(match, 7)
-netedit.redo(match, 7)
+netedit.undo(referencePosition, 7)
+netedit.redo(referencePosition, 7)
 
 # save additionals
 netedit.saveAdditionals()

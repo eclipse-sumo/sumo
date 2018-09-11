@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # Rebuild network
 netedit.rebuildNetwork()
@@ -32,13 +32,13 @@ netedit.rebuildNetwork()
 netedit.deleteMode()
 
 # delete first crossing
-netedit.leftClick(match, 250, 225)
+netedit.leftClick(referencePosition, 250, 225)
 
 # delete second crossing
-netedit.leftClick(match, 400, 225)
+netedit.leftClick(referencePosition, 400, 225)
 
 # check undo redo
-netedit.undo(match, 2)
+netedit.undo(referencePosition, 2)
 
 # save network
 netedit.saveNetwork()

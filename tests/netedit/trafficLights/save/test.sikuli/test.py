@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # Rebuild network
 netedit.rebuildNetwork()
@@ -32,19 +32,19 @@ netedit.rebuildNetwork()
 netedit.selectTLSMode()
 
 # select first junction
-netedit.leftClick(match, 95, 225)
+netedit.leftClick(referencePosition, 95, 225)
 
 # create TLS
 netedit.createTLS()
 
 # select second junction
-netedit.leftClick(match, 325, 225)
+netedit.leftClick(referencePosition, 325, 225)
 
 # create TLS
 netedit.createTLS()
 
 # select thrid junction
-netedit.leftClick(match, 550, 225)
+netedit.leftClick(referencePosition, 550, 225)
 
 # create TLS
 netedit.createTLS()
@@ -52,8 +52,8 @@ netedit.createTLS()
 # TLS has to be saved using shortcut
 
 # check undo redo
-netedit.undo(match, 3)
-netedit.redo(match, 3)
+netedit.undo(referencePosition, 3)
+netedit.redo(referencePosition, 3)
 
 # save network
 netedit.saveNetwork()

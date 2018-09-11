@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # first rebuild network
 netedit.rebuildNetwork()
@@ -32,10 +32,10 @@ netedit.rebuildNetwork()
 netedit.selectMode()
 
 # select manually the junction center
-netedit.leftClick(match, 320, 220)
+netedit.leftClick(referencePosition, 320, 220)
 
 # use a rectangle to check add mode
-netedit.selectionRectangle(match, 250, 150, 400, 300)
+netedit.selectionRectangle(referencePosition, 250, 150, 400, 300)
 
 # clear selection
 netedit.selectionClear()
@@ -44,10 +44,10 @@ netedit.selectionClear()
 netedit.modificationModeRemove()
 
 # select manually the junction center
-netedit.leftClick(match, 320, 220)
+netedit.leftClick(referencePosition, 320, 220)
 
 # use a rectangle to check remove mode
-netedit.selectionRectangle(match, 250, 150, 400, 300)
+netedit.selectionRectangle(referencePosition, 250, 150, 400, 300)
 
 # Select "keep" mode
 netedit.modificationModeKeep()
@@ -56,7 +56,7 @@ netedit.modificationModeKeep()
 netedit.selectionInvert()
 
 # use a rectangle to check keep mode
-netedit.selectionRectangle(match, 250, 150, 400, 300)
+netedit.selectionRectangle(referencePosition, 250, 150, 400, 300)
 
 # Select "replace" mode
 netedit.modificationModeReplace()
@@ -65,11 +65,11 @@ netedit.modificationModeReplace()
 netedit.selectionInvert()
 
 # use a rectangle to check replace mode
-netedit.selectionRectangle(match, 250, 150, 400, 300)
+netedit.selectionRectangle(referencePosition, 250, 150, 400, 300)
 
 # check undo and redo
-netedit.undo(match, 8)
-netedit.redo(match, 8)
+netedit.undo(referencePosition, 8)
+netedit.redo(referencePosition, 8)
 
 # save additionals
 netedit.saveAdditionals()

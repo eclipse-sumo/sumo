@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
 # go to additional mode
 netedit.additionalMode()
@@ -32,16 +32,16 @@ netedit.additionalMode()
 netedit.changeAdditional("routeProbe")
 
 # create routeProbe
-netedit.leftClick(match, 250, 120)
+netedit.leftClick(referencePosition, 250, 120)
 
 # create another routeProbe (for duplicated ID)
-netedit.leftClick(match, 250, 220)
+netedit.leftClick(referencePosition, 250, 220)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first routeProbe
-netedit.leftClick(match, 310, 200)
+netedit.leftClick(referencePosition, 310, 200)
 
 # Change parameter 0 with a non valid value (Duplicated ID)
 netedit.modifyAttribute(0, "routeProbe_3_1")
@@ -89,8 +89,8 @@ netedit.modifyAttribute(5, "-5")
 netedit.modifyAttribute(5, "20")
 
 # Check undos and redos
-netedit.undo(match, 12)
-netedit.redo(match, 12)
+netedit.undo(referencePosition, 12)
+netedit.redo(referencePosition, 12)
 
 # save additionals
 netedit.saveAdditionals()

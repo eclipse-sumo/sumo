@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # zoom in central node
 netedit.setZoom("50", "50", "50")
@@ -35,23 +35,23 @@ netedit.rebuildNetwork()
 netedit.crossingMode()
 
 # select central node
-netedit.leftClick(match, 325, 225)
+netedit.leftClick(referencePosition, 325, 225)
 
 # select two left edges and create crossing in edges 3 and 7
-netedit.leftClick(match, 150, 200)
-netedit.leftClick(match, 150, 250)
+netedit.leftClick(referencePosition, 150, 200)
+netedit.leftClick(referencePosition, 150, 250)
 netedit.createCrossing()
 netedit.rebuildNetwork()
 
 # select two right edges and create crossing in edges 4 and 8
-netedit.leftClick(match, 500, 200)
-netedit.leftClick(match, 500, 250)
+netedit.leftClick(referencePosition, 500, 200)
+netedit.leftClick(referencePosition, 500, 250)
 netedit.createCrossing()
 netedit.rebuildNetwork()
 
 # Check undo redo
-netedit.undo(match, 2)
-netedit.redo(match, 2)
+netedit.undo(referencePosition, 2)
+netedit.redo(referencePosition, 2)
 
 # save network
 netedit.saveNetwork()

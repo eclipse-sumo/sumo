@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
 # go to additional mode
 netedit.additionalMode()
@@ -32,40 +32,40 @@ netedit.additionalMode()
 netedit.changeAdditional("routeProbe")
 
 # create routeProbe (camera will be moved)
-netedit.leftClick(match, 250, 220)
+netedit.leftClick(referencePosition, 250, 220)
 
 # create another routeProbe with the same default attributes (camera will be moved)
-netedit.leftClick(match, 250, 220)
+netedit.leftClick(referencePosition, 250, 220)
 
 # set invalid frequency
 netedit.modifyAdditionalDefaultValue(2, "-20")
 
 # try to create routeProbe
-netedit.leftClick(match, 250, 220)
+netedit.leftClick(referencePosition, 250, 220)
 
 # set valid default frequency
 netedit.modifyAdditionalDefaultValue(2, "120")
 
 # create routeProbe (camera will be moved)
-netedit.leftClick(match, 250, 220)
+netedit.leftClick(referencePosition, 250, 220)
 
 # set invalid name
 netedit.modifyAdditionalDefaultValue(3, "\"\"\"")
 
 # try to create RouteProbe with invalid name
-netedit.leftClick(match, 250, 220)
+netedit.leftClick(referencePosition, 250, 220)
 
 # set valid name
 netedit.modifyAdditionalDefaultValue(3, "customName")
 
 # create RouteProbe with valid name
-netedit.leftClick(match, 250, 220)
+netedit.leftClick(referencePosition, 250, 220)
 
 # set invalid filename
 netedit.modifyAdditionalDefaultValue(4, "&&&&&&&&")
 
 # try to create RouteProbe with invalid filename
-netedit.leftClick(match, 250, 220)
+netedit.leftClick(referencePosition, 250, 220)
 
 # set valid filename
 netedit.modifyAdditionalDefaultValue(4, "myOwnFilename.txt")
@@ -74,17 +74,17 @@ netedit.modifyAdditionalDefaultValue(4, "myOwnFilename.txt")
 netedit.modifyAdditionalDefaultValue(5, "-11")
 
 # try to create routeProbe
-netedit.leftClick(match, 250, 220)
+netedit.leftClick(referencePosition, 250, 220)
 
 # set valid default begin
 netedit.modifyAdditionalDefaultValue(5, "10")
 
 # create routeProbe (camera will be moved)
-netedit.leftClick(match, 250, 220)
+netedit.leftClick(referencePosition, 250, 220)
 
 # Check undo redo
-netedit.undo(match, 6)
-netedit.redo(match, 6)
+netedit.undo(referencePosition, 6)
+netedit.redo(referencePosition, 6)
 
 # save additionals
 netedit.saveAdditionals()

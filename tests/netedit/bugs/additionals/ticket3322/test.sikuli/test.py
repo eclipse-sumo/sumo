@@ -23,25 +23,25 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to delete mode
 netedit.deleteMode()
 
 # delete junction
-netedit.leftClick(match, 340, 300)
+netedit.leftClick(referencePosition, 340, 300)
 
 # Undo
-netedit.undo(match, 1)
+netedit.undo(referencePosition, 1)
 
 # Change to delete
 netedit.deleteMode()
 
 # disable 'Automatically delete additionals'
-netedit.changeAutomaticallyDeleteAdditionals(match)
+netedit.changeAutomaticallyDeleteAdditionals(referencePosition)
 
 # try to delete junction
-netedit.leftClick(match, 340, 300)
+netedit.leftClick(referencePosition, 340, 300)
 
 # wait warning
 netedit.waitAutomaticallyDeleteAdditionalsWarning()

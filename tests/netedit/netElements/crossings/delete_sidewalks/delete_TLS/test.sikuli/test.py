@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # Rebuild network
 netedit.rebuildNetwork()
@@ -32,16 +32,16 @@ netedit.rebuildNetwork()
 netedit.deleteMode()
 
 # delete junction with TLS
-netedit.leftClick(match, 300, 250)
+netedit.leftClick(referencePosition, 300, 250)
 
 # Rebuild network
 netedit.rebuildNetwork()
 
 # check undo
-netedit.undo(match, 1)
+netedit.undo(referencePosition, 1)
 
 # check redo
-netedit.redo(match, 1)
+netedit.redo(referencePosition, 1)
 
 # Rebuild network
 netedit.rebuildNetwork()

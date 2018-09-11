@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # Rebuild network
 netedit.rebuildNetwork()
@@ -32,20 +32,20 @@ netedit.rebuildNetwork()
 netedit.deleteMode()
 
 # delete junction
-netedit.leftClick(match, 300, 250)
+netedit.leftClick(referencePosition, 300, 250)
 
 # wait for output
 wait(6)
 
 # check undo
-netedit.undo(match, 1)
+netedit.undo(referencePosition, 1)
 netedit.rebuildNetwork()
 
 # wait for output
 wait(3)
 
 # check redo
-netedit.redo(match, 1)
+netedit.redo(referencePosition, 1)
 netedit.rebuildNetwork()
 
 # save network

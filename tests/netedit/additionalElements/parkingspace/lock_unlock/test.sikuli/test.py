@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to additional mode
 netedit.additionalMode()
@@ -32,7 +32,7 @@ netedit.additionalMode()
 netedit.changeAdditional("parkingArea")
 
 # create parkingArea in mode "reference left"
-netedit.leftClick(match, 250, 250)
+netedit.leftClick(referencePosition, 250, 250)
 
 # select space
 netedit.changeAdditional("space")
@@ -41,19 +41,19 @@ netedit.changeAdditional("space")
 netedit.selectAdditionalChild(9, 0)
 
 # create space
-netedit.leftClick(match, 250, 120)
+netedit.leftClick(referencePosition, 250, 120)
 
 # change to move mode
 netedit.moveMode()
 
 # move space
-netedit.moveElement(match, 100, 20, 330, 100)
+netedit.moveElement(referencePosition, 100, 20, 330, 100)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect parkingArea
-netedit.leftClick(match, 410, 110)
+netedit.leftClick(referencePosition, 410, 110)
 
 # block space
 netedit.modifyBoolAttribute(10)
@@ -62,13 +62,13 @@ netedit.modifyBoolAttribute(10)
 netedit.moveMode()
 
 # try to move space
-netedit.moveElement(match, 330, 80, 100, 40)
+netedit.moveElement(referencePosition, 330, 80, 100, 40)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect parkingArea
-netedit.leftClick(match, 410, 110)
+netedit.leftClick(referencePosition, 410, 110)
 
 # unblock space
 netedit.modifyBoolAttribute(10)
@@ -77,11 +77,11 @@ netedit.modifyBoolAttribute(10)
 netedit.moveMode()
 
 # move space
-netedit.moveElement(match, 330, 80, 100, 40)
+netedit.moveElement(referencePosition, 330, 80, 100, 40)
 
 # Check undos and redos
-netedit.undo(match, 6)
-netedit.redo(match, 6)
+netedit.undo(referencePosition, 6)
+netedit.redo(referencePosition, 6)
 
 # save additionals
 netedit.saveAdditionals()

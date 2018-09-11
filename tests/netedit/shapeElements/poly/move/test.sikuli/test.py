@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to shape mode
 netedit.shapeMode()
@@ -32,16 +32,16 @@ netedit.shapeMode()
 netedit.changeShape("poly")
 
 # create polygon
-netedit.createSquaredPoly(match, 100, 150, 100, True)
+netedit.createSquaredPoly(referencePosition, 100, 150, 100, True)
 
 # create polygon
-netedit.createSquaredPoly(match, 200, 150, 100, True)
+netedit.createSquaredPoly(referencePosition, 200, 150, 100, True)
 
 # enable block shape
 netedit.modifyShapeDefaultBoolValue(12)
 
 # create polygon blocked
-netedit.createSquaredPoly(match, 300, 150, 100, True)
+netedit.createSquaredPoly(referencePosition, 300, 150, 100, True)
 
 # disable block shape
 netedit.modifyShapeDefaultBoolValue(12)
@@ -50,35 +50,35 @@ netedit.modifyShapeDefaultBoolValue(12)
 netedit.modifyShapeDefaultBoolValue(11)
 
 # create polygon
-netedit.createSquaredPoly(match, 400, 150, 100, True)
+netedit.createSquaredPoly(referencePosition, 400, 150, 100, True)
 
 # enable block shape
 netedit.modifyShapeDefaultBoolValue(12)
 
 # create polygon
-netedit.createSquaredPoly(match, 500, 150, 100, True)
+netedit.createSquaredPoly(referencePosition, 500, 150, 100, True)
 
 # go to move mode
 netedit.moveMode()
 
 # move first polygon (only a existent vertex will be moved
-netedit.moveElement(match, -90, 120, -90, 300)
+netedit.moveElement(referencePosition, -90, 120, -90, 300)
 
 # move second polygon (only a verte will be moved)
-netedit.moveElement(match, 10, 120, 10, 300)
+netedit.moveElement(referencePosition, 10, 120, 10, 300)
 
 # move third polygon (entre shape will be moved)
-netedit.moveElement(match, 130, 120, 130, 300)
+netedit.moveElement(referencePosition, 130, 120, 130, 300)
 
 # move four polygon (will not be moved
-netedit.moveElement(match, 260, 120, 260, 300)
+netedit.moveElement(referencePosition, 260, 120, 260, 300)
 
 # move five polygon (will not be moved
-netedit.moveElement(match, 380, 120, 380, 300)
+netedit.moveElement(referencePosition, 380, 120, 380, 300)
 
 # Check undo redo
-netedit.undo(match, 8)
-netedit.redo(match, 8)
+netedit.undo(referencePosition, 8)
+netedit.redo(referencePosition, 8)
 
 # save shapes
 netedit.saveShapes()

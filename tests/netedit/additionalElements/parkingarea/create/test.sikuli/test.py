@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
 # go to additional mode
 netedit.additionalMode()
@@ -32,145 +32,145 @@ netedit.additionalMode()
 netedit.changeAdditional("parkingArea")
 
 # create parkingArea in mode "reference left"
-netedit.leftClick(match, 220, 250)
+netedit.leftClick(referencePosition, 220, 250)
 
 # set name
 netedit.modifyAdditionalDefaultValue(2, "·$·%···$")
 
 # create parkingArea in mode "reference left"
-netedit.leftClick(match, 240, 250)
+netedit.leftClick(referencePosition, 240, 250)
 
 # set name
 netedit.modifyAdditionalDefaultValue(2, "parkingArea")
 
 # create parkingArea in mode "reference left"
-netedit.leftClick(match, 240, 250)
+netedit.leftClick(referencePosition, 240, 250)
 
 # set invalid roadSideCapacity (dummy)
 netedit.modifyAdditionalDefaultValue(3, "dummyRoadSideCapacity")
 
 # try to create parkingArea in mode "reference left"
-netedit.leftClick(match, 260, 250)
+netedit.leftClick(referencePosition, 260, 250)
 
 # set invalid roadSideCapacity (empty"
 netedit.modifyAdditionalDefaultValue(3, "")
 
 # try to create parkingArea in mode "reference left"
-netedit.leftClick(match, 260, 250)
+netedit.leftClick(referencePosition, 260, 250)
 
 # set invalid roadSideCapacity (negative)
 netedit.modifyAdditionalDefaultValue(3, "-3")
 
 # try to create parkingArea in mode "reference left"
-netedit.leftClick(match, 260, 250)
+netedit.leftClick(referencePosition, 260, 250)
 
 # set invalid roadSideCapacity (double)
 netedit.modifyAdditionalDefaultValue(3, "2.5")
 
 # create parkingArea in mode "reference left"
-netedit.leftClick(match, 260, 250)
+netedit.leftClick(referencePosition, 260, 250)
 
 # set valid roadSideCapacity (int)
 netedit.modifyAdditionalDefaultValue(3, "3")
 
 # create parkingArea in mode "reference left"
-netedit.leftClick(match, 260, 250)
+netedit.leftClick(referencePosition, 260, 250)
 
 # set friendlyPos
 netedit.modifyAdditionalDefaultBoolValue(4)
 
 # create parkingArea in mode "reference left"
-netedit.leftClick(match, 270, 250)
+netedit.leftClick(referencePosition, 270, 250)
 
 # set invalid width (dummy)
 netedit.modifyAdditionalDefaultValue(5, "dummyWidth")
 
 # try to create parkingArea in mode "reference left"
-netedit.leftClick(match, 290, 250)
+netedit.leftClick(referencePosition, 290, 250)
 
 # set invalid width (empty)
 netedit.modifyAdditionalDefaultValue(5, "")
 
 # try to create parkingArea in mode "reference left"
-netedit.leftClick(match, 290, 250)
+netedit.leftClick(referencePosition, 290, 250)
 
 # set invalid width (negative)
 netedit.modifyAdditionalDefaultValue(5, "-3")
 
 # try to create parkingArea in mode "reference left"
-netedit.leftClick(match, 290, 250)
+netedit.leftClick(referencePosition, 290, 250)
 
 # set valid width
 netedit.modifyAdditionalDefaultValue(5, "2.5")
 
 # create parkingArea in mode "reference left"
-netedit.leftClick(match, 290, 250)
+netedit.leftClick(referencePosition, 290, 250)
 
 # set invalid height (dummy)
 netedit.modifyAdditionalDefaultValue(6, "dummyHeight")
 
 # try to create parkingArea in mode "reference left"
-netedit.leftClick(match, 300, 250)
+netedit.leftClick(referencePosition, 300, 250)
 
 # set invalid height (empty)
 netedit.modifyAdditionalDefaultValue(6, "")
 
 # try to create parkingArea in mode "reference left"
-netedit.leftClick(match, 300, 250)
+netedit.leftClick(referencePosition, 300, 250)
 
 # set invalid height (negative)
 netedit.modifyAdditionalDefaultValue(6, "-4")
 
 # try to create parkingArea in mode "reference left"
-netedit.leftClick(match, 300, 250)
+netedit.leftClick(referencePosition, 300, 250)
 
 # set valid height
 netedit.modifyAdditionalDefaultValue(6, "3.1")
 
 # create parkingArea in mode "reference left"
-netedit.leftClick(match, 300, 250)
+netedit.leftClick(referencePosition, 300, 250)
 
 # set invalid angle (dummy)
 netedit.modifyAdditionalDefaultValue(7, "dummyHeight")
 
 # try to create parkingArea in mode "reference left"
-netedit.leftClick(match, 310, 250)
+netedit.leftClick(referencePosition, 310, 250)
 
 # set invalid angle (empty)
 netedit.modifyAdditionalDefaultValue(7, "")
 
 # try to create parkingArea in mode "reference left"
-netedit.leftClick(match, 310, 250)
+netedit.leftClick(referencePosition, 310, 250)
 
 # set valid angle (negative)
 netedit.modifyAdditionalDefaultValue(7, "-4")
 
 # create parkingArea in mode "reference left"
-netedit.leftClick(match, 310, 250)
+netedit.leftClick(referencePosition, 310, 250)
 
 # set valid angle (>360)
 netedit.modifyAdditionalDefaultValue(7, "500")
 
 # create parkingArea in mode "reference left"
-netedit.leftClick(match, 320, 250)
+netedit.leftClick(referencePosition, 320, 250)
 
 # set valid angle
 netedit.modifyAdditionalDefaultValue(7, "120")
 
 # create parkingArea in mode "reference left"
-netedit.leftClick(match, 330, 250)
+netedit.leftClick(referencePosition, 330, 250)
 
 # change reference to right
 netedit.modifyAdditionalDefaultValue(9, "reference right")
 
 # create parkingArea in mode "reference right"
-netedit.leftClick(match, 240, 250)
+netedit.leftClick(referencePosition, 240, 250)
 
 # change reference to center
 netedit.modifyAdditionalDefaultValue(9, "reference center")
 
 # create parkingArea in mode "reference center"
-netedit.leftClick(match, 425, 250)
+netedit.leftClick(referencePosition, 425, 250)
 
 # Change length
 netedit.modifyAdditionalDefaultValue(11, "30")
@@ -179,13 +179,13 @@ netedit.modifyAdditionalDefaultValue(11, "30")
 netedit.modifyAdditionalDefaultValue(9, "reference left")
 
 # create a parkingArea in mode "reference left"
-netedit.leftClick(match, 500, 250)
+netedit.leftClick(referencePosition, 500, 250)
 
 # change reference to "reference right"
 netedit.modifyAdditionalDefaultValue(9, "reference right")
 
 # create a parkingArea in mode "reference right"
-netedit.leftClick(match, 110, 250)
+netedit.leftClick(referencePosition, 110, 250)
 
 # disable friendlyPos
 netedit.modifyAdditionalDefaultBoolValue(3)
@@ -194,17 +194,17 @@ netedit.modifyAdditionalDefaultBoolValue(3)
 netedit.modifyAdditionalDefaultValue(9, "reference left")
 
 # create a parkingArea in mode "reference left" without friendlyPos
-netedit.leftClick(match, 120, 215)
+netedit.leftClick(referencePosition, 120, 215)
 
 # change reference to "reference right"
 netedit.modifyAdditionalDefaultValue(9, "reference right")
 
 # create a parkingArea in mode "reference right" without friendlyPos
-netedit.leftClick(match, 500, 215)
+netedit.leftClick(referencePosition, 500, 215)
 
 # Check undo redo
-netedit.undo(match, 15)
-netedit.redo(match, 15)
+netedit.undo(referencePosition, 15)
+netedit.redo(referencePosition, 15)
 
 # save additionals
 netedit.saveAdditionals()

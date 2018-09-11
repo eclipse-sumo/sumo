@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # apply zoom
 netedit.setZoom("25", "0", "25")
@@ -35,27 +35,27 @@ netedit.additionalMode()
 netedit.changeAdditional("busStop")
 
 # create BusStop with default parameters
-netedit.leftClick(match, 275, 250)
+netedit.leftClick(referencePosition, 275, 250)
 
 # select Access detector
 netedit.changeAdditional("access")
 
 # Create Access detector
 netedit.selectAdditionalChild(7, 0)
-netedit.leftClick(match, 50, 200)
+netedit.leftClick(referencePosition, 50, 200)
 
 # go to move mode
 netedit.moveMode()
 
 # move Acces 1
-netedit.moveElement(match, -147, 163, 100, 163)
+netedit.moveElement(referencePosition, -147, 163, 100, 163)
 
 # move Acces 2
-netedit.moveElement(match, 100, 163, -100, 163)
+netedit.moveElement(referencePosition, 100, 163, -100, 163)
 
 # Check undo redo
-netedit.undo(match, 4)
-netedit.redo(match, 4)
+netedit.undo(referencePosition, 4)
+netedit.redo(referencePosition, 4)
 
 # save additionals
 netedit.saveAdditionals()

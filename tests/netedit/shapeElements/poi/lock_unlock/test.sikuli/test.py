@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to shape mode
 netedit.shapeMode()
@@ -32,7 +32,7 @@ netedit.shapeMode()
 netedit.changeShape("poi")
 
 # create poi
-netedit.leftClick(match, 100, 100)
+netedit.leftClick(referencePosition, 100, 100)
 
 # change color to white (To see icon)
 netedit.modifyShapeDefaultValue(3, "white")
@@ -47,19 +47,19 @@ netedit.modifyAttribute(7, "10")
 netedit.modifyShapeDefaultValue(8, "berlin_icon.ico")
 
 # create poi
-netedit.leftClick(match, 100, 350)
+netedit.leftClick(referencePosition, 100, 350)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first POI
-netedit.leftClick(match, 100, 100)
+netedit.leftClick(referencePosition, 100, 100)
 
 # block POI
 netedit.modifyBoolAttribute(15)
 
 # inspect second POI
-netedit.leftClick(match, 100, 350)
+netedit.leftClick(referencePosition, 100, 350)
 
 # block POI
 netedit.modifyBoolAttribute(15)
@@ -68,22 +68,22 @@ netedit.modifyBoolAttribute(15)
 netedit.moveMode()
 
 # try to move first POI to left down
-netedit.moveElement(match, -78, 50, 200, 60)
+netedit.moveElement(referencePosition, -78, 50, 200, 60)
 
 # try to move second POI to left up
-netedit.moveElement(match, -78, 385, 200, 300)
+netedit.moveElement(referencePosition, -78, 385, 200, 300)
 
 # go to inspect mode again
 netedit.inspectMode()
 
 # inspect first POI
-netedit.leftClick(match, 100, 100)
+netedit.leftClick(referencePosition, 100, 100)
 
 # unblock POI
 netedit.modifyBoolAttribute(15)
 
 # inspect first POI
-netedit.leftClick(match, 100, 350)
+netedit.leftClick(referencePosition, 100, 350)
 
 # unblock POI
 netedit.modifyBoolAttribute(15)
@@ -92,14 +92,14 @@ netedit.modifyBoolAttribute(15)
 netedit.moveMode()
 
 # move first POI to left down
-netedit.moveElement(match, -78, 50, 200, 60)
+netedit.moveElement(referencePosition, -78, 50, 200, 60)
 
 # move second POI to left up
-netedit.moveElement(match, -78, 385, 200, 300)
+netedit.moveElement(referencePosition, -78, 385, 200, 300)
 
 # Check undo redo
-netedit.undo(match, 4)
-netedit.redo(match, 4)
+netedit.undo(referencePosition, 4)
+netedit.redo(referencePosition, 4)
 
 # save shapes
 netedit.saveShapes()

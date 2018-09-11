@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # recompute
 netedit.rebuildNetwork()
@@ -35,7 +35,7 @@ netedit.selectionToogleEdges()
 netedit.inspectMode()
 
 # inspect edge
-netedit.leftClick(match, 250, 180)
+netedit.leftClick(referencePosition, 250, 180)
 
 # Change parameter 6 with an non valid value (dummy)
 netedit.modifyAttribute(8, "dummyShape")
@@ -47,7 +47,7 @@ netedit.modifyAttribute(8, "")
 netedit.rebuildNetwork()
 
 # inspect edge again after recomputing
-netedit.leftClick(match, 250, 180)
+netedit.leftClick(referencePosition, 250, 180)
 
 # Change parameter 6 with a valid value
 netedit.modifyAttribute(6, "13.112,16.22 34.19,16.11")
@@ -56,13 +56,13 @@ netedit.modifyAttribute(6, "13.112,16.22 34.19,16.11")
 netedit.rebuildNetwork()
 
 # Check undos
-netedit.undo(match, 1)
+netedit.undo(referencePosition, 1)
 
 # recompute
 netedit.rebuildNetwork()
 
 # check redos
-netedit.redo(match, 1)
+netedit.redo(referencePosition, 1)
 
 # save additionals
 netedit.saveAdditionals()
