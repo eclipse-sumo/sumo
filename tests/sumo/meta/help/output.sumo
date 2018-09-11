@@ -1,4 +1,4 @@
-Eclipse SUMO Version v1_0_0+0017-b6697a2
+Eclipse SUMO Version v1_0_0+0096-19e3d3b
  Copyright (C) 2001-2018 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -331,7 +331,7 @@ SSM Device Options:
   --device.ssm.deterministic           The 'ssm' devices are set deterministic
                                          using a fraction of 1000
   --device.ssm.measures STR            Specifies which measures will be logged
-                                         (as a space seperated sequence of IDs
+                                         (as a space separated sequence of IDs
                                          in ('TTC', 'DRAC', 'PET')).
   --device.ssm.thresholds STR          Specifies thresholds corresponding to
                                          the specified measures (see
