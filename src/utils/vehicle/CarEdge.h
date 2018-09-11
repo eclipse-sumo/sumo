@@ -116,7 +116,7 @@ public:
     }
 
     double getEndPos() const {
-        return myStartPos + getLength();
+        return myStartPos + this->getLength();
     }
 
 private:

@@ -91,7 +91,7 @@ public:
     }
 
     double getEndPos() const {
-        return myForward ? myStartPos + getLength() : myStartPos - getLength();
+        return myForward ? myStartPos + this->getLength() : myStartPos - this->getLength();
     }
 
 private:
