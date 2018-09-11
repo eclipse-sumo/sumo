@@ -1172,7 +1172,7 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, double> leader) {
         double dist = OPPOSITE_OVERTAKING_ONCOMING_LOOKAHEAD;
         leader = source->getOppositeLeader(vehicle, dist, true);
         double gap = leader.second;
-        while (leader.first != nullptr && leader.first->getLaneChangeModel().isOpposite()) {
+        while (leader.first != nullptr && leader.first->getLaneChangeModel().isOpposite() && dist > 0) {
             // look beyond leaders that are also driving in the opposite direction until finding an oncoming leader or exhausting the look-ahead distance
 #ifdef DEBUG_CHANGE_OPPOSITE
             if (DEBUG_COND) {
