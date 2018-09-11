@@ -543,6 +543,9 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "origin",                 SUMO_ATTR_ORIGIN },
     { "destination",            SUMO_ATTR_DESTINATION },
     { "visible",                SUMO_ATTR_VISIBLE },
+    { "fareToken",              SUMO_ATTR_FARETOKEN },
+    { "fareZone",               SUMO_ATTR_FAREZONE},
+    { "startToken",             SUMO_ATTR_STARTTOKEN},
 
 #ifndef WIN32
     { "commandPosix",   SUMO_ATTR_COMMAND },

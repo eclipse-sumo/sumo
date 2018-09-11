@@ -188,6 +188,16 @@ NLTriggerBuilder::parseAndBuildStoppingPlace(MSNet& net, const SUMOSAXAttributes
     // get the positions
     double frompos = attrs.getOpt<double>(SUMO_ATTR_STARTPOS, id.c_str(), ok, 0);
     double topos = attrs.getOpt<double>(SUMO_ATTR_ENDPOS, id.c_str(), ok, lane->getLength());
+    
+    //get fare information at this stop
+    int fareZone = 0;
+    if( attrs.getOpt<std::string>(SUMO_ATTR_FAREZONE, id.c_str(),ok,"") != "NOTFOUND")
+    {
+     fareZone = attrs.getOpt<int>(SUMO_ATTR_FAREZONE, id.c_str(),ok,0);
+    }
+  FareToken fareToken  = FareUtil::stringToToken(attrs.getOpt<std::string> (SUMO_ATTR_FARETOKEN,id.c_str(),ok,"NOTFOUND")  );
+  FareToken startToken = FareUtil::stringToToken( attrs.getOpt<std::string>(SUMO_ATTR_STARTTOKEN,id.c_str(),ok,"NOTFOUND") );
+    
     const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
     if (!ok || !myHandler->checkStopPos(frompos, topos, lane->getLength(), POSITION_EPS, friendlyPos)) {
         throw InvalidArgument("Invalid position for " + toString(element) + " '" + id + "'.");
@@ -196,7 +206,7 @@ NLTriggerBuilder::parseAndBuildStoppingPlace(MSNet& net, const SUMOSAXAttributes
     std::vector<std::string> lines;
     SUMOSAXAttributes::parseStringVector(attrs.getOpt<std::string>(SUMO_ATTR_LINES, id.c_str(), ok, "", false), lines);
     // build the bus stop
-    buildStoppingPlace(net, id, lines, lane, frompos, topos, element, ptStopName);
+    buildStoppingPlace(net, id, lines, lane, frompos, topos, element, ptStopName, fareZone, fareToken, startToken);
 }
 
 
@@ -431,8 +441,9 @@ NLTriggerBuilder::buildRerouter(MSNet&, const std::string& id,
 
 void
 NLTriggerBuilder::buildStoppingPlace(MSNet& net, std::string id, std::vector<std::string> lines, MSLane* lane,
-                                     double frompos, double topos, const SumoXMLTag element, std::string ptStopName) {
-    myCurrentStop = new MSStoppingPlace(id, lines, *lane, frompos, topos, ptStopName);
+                                     double frompos, double topos, const SumoXMLTag element, std::string ptStopName,
+                                     int fareZone, FareToken collectToken, FareToken startToken  ) {
+    myCurrentStop = new MSStoppingPlace(id, lines, *lane, frompos, topos, ptStopName,collectToken,startToken,fareZone);
     if (!net.addStoppingPlace(element, myCurrentStop)) {
         delete myCurrentStop;
         myCurrentStop = 0;

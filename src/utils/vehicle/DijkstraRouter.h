@@ -183,6 +183,9 @@ public:
             fromInfo->effort = 0;
             fromInfo->prev = 0;
             fromInfo->leaveTime = STEPS2TIME(msTime);
+            if( myExternalEffort != nullptr ){
+              myExternalEffort->setInitialState(fromInfo->edge);
+            }
             myFrontierList.push_back(fromInfo);
         }
         // loop
@@ -201,6 +204,10 @@ public:
 #endif
             // check whether the destination node was already reached
             if (minEdge == to) {
+              //propagate last external effort state to destination edge
+              if (myExternalEffort != nullptr  ) {
+                myExternalEffort->update(minEdge, minimumInfo->prev->edge);
+              }
                 buildPathFrom(minimumInfo, into);
                 this->endQuery(num_visited);
 #ifdef DijkstraRouter_DEBUG_QUERY_PERF
@@ -221,12 +228,12 @@ public:
                 effort += viaEffortDelta;
                 viaEdge = viaEdge->getViaSuccessors().front().first;
             }
+            if (myExternalEffort != nullptr && num_visited > 1 ) {
+              myExternalEffort->update(minEdge, minimumInfo->prev->edge);
+            }
             const double effortDelta = this->getEffort(minEdge, vehicle, leaveTime);
             leaveTime += this->getTravelTime(minEdge, vehicle, minimumInfo->leaveTime, effortDelta);
             effort += effortDelta;
-            if (myExternalEffort != nullptr) {
-                myExternalEffort->update(minEdge->getNumericalID(), minimumInfo->prev->edge->getNumericalID());
-            }
             assert(effort >= minimumInfo->effort);
             assert(leaveTime >= minimumInfo->leaveTime);
             // check all ways from the node with the minimal length
