@@ -2530,7 +2530,7 @@ MSDevice_SSM::findSurroundingVehicles(const MSVehicle& veh, double range, FoeInf
 }
 
 void
-MSDevice_SSM::getUpstreamVehicles(const MSEdge* edge, double pos, double range, double egoDistToConflictLane, const MSLane* const egoConflictLane, FoeInfoMap& foeCollector, std::set<const MSJunction*> seenJunctions) {
+MSDevice_SSM::getUpstreamVehicles(const MSEdge* edge, double pos, double range, double egoDistToConflictLane, const MSLane* const egoConflictLane, FoeInfoMap& foeCollector, std::set<const MSJunction*>& seenJunctions) {
 #ifdef DEBUG_SSM_SURROUNDING
     std::cout << SIMTIME << " getUpstreamVehicles() for edge '" << edge->getID() << "'"
               << " pos = " << pos << " range = " << range
