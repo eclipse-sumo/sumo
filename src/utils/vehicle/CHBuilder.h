@@ -237,7 +237,9 @@ private:
             level(0),
             underlyingTotal(0),
             visited(false),
-            traveltime(std::numeric_limits<double>::max()) {
+            traveltime(std::numeric_limits<double>::max()),
+            depth(0),
+            permissions(SVC_IGNORING) {
         }
 
         /// @brief recompute the contraction priority and report whether it changed
