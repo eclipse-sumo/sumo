@@ -744,7 +744,16 @@ StringBijection<LaneChangeAction>::Entry SUMOXMLDefinitions::laneChangeActionVal
     { "sublane",     LCA_SUBLANE },
     { "traci",       LCA_TRACI },
     { "urgent",      LCA_URGENT },
-    { "blocked",     LCA_BLOCKED } //< must be the last one
+    { "overlapping", LCA_OVERLAPPING }, 
+    { "blocked",     LCA_BLOCKED }, 
+    { "amBL",        LCA_AMBLOCKINGLEADER }, 
+    { "amBF",        LCA_AMBLOCKINGFOLLOWER }, 
+    { "amBB",        LCA_AMBACKBLOCKER }, 
+    { "amBBS",       LCA_AMBACKBLOCKER_STANDING }, 
+    { "MR",          LCA_MRIGHT }, 
+    { "ML",          LCA_MLEFT }, 
+
+    { "unknown",     LCA_UNKNOWN } //< must be the last one
 };
 
 StringBijection<int> SUMOXMLDefinitions::Tags(
@@ -781,7 +790,7 @@ StringBijection<LateralAlignment> SUMOXMLDefinitions::LateralAlignments(
     SUMOXMLDefinitions::lateralAlignmentValues, LATALIGN_LEFT);
 
 StringBijection<LaneChangeAction> SUMOXMLDefinitions::LaneChangeActions(
-    SUMOXMLDefinitions::laneChangeActionValues, LCA_BLOCKED);
+    SUMOXMLDefinitions::laneChangeActionValues, LCA_UNKNOWN);
 
 
 std::string

@@ -223,7 +223,7 @@ MSLCM_LC2013::_patchSpeed(const double min, const double wanted, const double ma
     if (DEBUG_COND) {
         std::cout
                 << "\n" << SIMTIME << std::setprecision(gPrecision)
-                << " patchSpeed state=" << state << " myLCAccelerationAdvices=" << toString(myLCAccelerationAdvices)
+                << " patchSpeed state=" << toString((LaneChangeAction)state) << " myLCAccelerationAdvices=" << toString(myLCAccelerationAdvices)
                 << " \nspeed=" << myVehicle.getSpeed()
                 << " min=" << min
                 << " wanted=" << wanted << std::endl;
