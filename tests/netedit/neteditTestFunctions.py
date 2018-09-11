@@ -32,9 +32,9 @@ DELAY_RECOMPUTE = 4
 DELAY_RECOMPUTE_VOLATILE = 5
 DELAY_REMOVESELECTION = 5
 
-Settings.MoveMouseDelay = 0.2
-Settings.DelayBeforeDrop = 0.2
-Settings.DelayAfterDrag = 0.2
+MoveMouseDelay = 0.2
+DelayBeforeDrop = 0.2
+DelayAfterDrag = 0.2
 
 NeteditApp = os.environ.get("NETEDIT_BINARY", "netedit")
 textTestSandBox = os.environ.get("TEXTTEST_SANDBOX", ".")
@@ -53,7 +53,7 @@ def typeEscape():
     # wait before every operation
     time.sleep(DELAY_KEY)
     # type ESC key (Sikulix Function)
-    type(Key.ESC)
+    autopy.key.tap(autopy.key.Code.ESCAPE, [])
 
 
 """
@@ -65,7 +65,7 @@ def typeEnter():
     # wait before every operation
     time.sleep(DELAY_KEY)
     # type enter key (Sikulix Function)
-    type(Key.ENTER)
+    autopy.key.tap(autopy.key.Code.RETURN, [])
 
 
 """
@@ -76,7 +76,7 @@ def typeEnter():
 def typeSpace():
     time.sleep(DELAY_KEY)
     # type space key (Sikulix Function)
-    type(Key.SPACE)
+    autopy.key.tap(autopy.key.Code.SPACE, [])
 
 
 """
@@ -88,7 +88,7 @@ def typeTab():
     # wait before every operation
     time.sleep(DELAY_KEY)
     # type tab key (Sikulix Function)
-    type(Key.TAB)
+    autopy.key.tap(autopy.key.Code.PAGE_DOWN, [])
 
 
 """
@@ -100,7 +100,7 @@ def typeInvertTab():
     # wait before every operation
     time.sleep(DELAY_KEY)
     # type Tab and Shift at the same time (Sikulix Function)
-    type(Key.TAB, Key.SHIFT)
+    autopy.key.tap(autopy.key.Code.PAGE_UP, [])
 
 
 """
@@ -112,7 +112,7 @@ def typeKey(key):
     # wait before every operation
     time.sleep(DELAY_KEY)
     # type keys (Sikulix Function)
-    type(key)
+    autopy.key.tap(key, [])
 
 
 """
@@ -120,11 +120,13 @@ def typeKey(key):
 """
 
 
-def typeTwoKeys(key1, key2):
+def typeTwoKeys(key1, modificators):
     # wait before every operation
     time.sleep(DELAY_KEY)
     # type two keys at the same time (Sikulix Function)
-    type(key1, key2)
+    autopy.key.toggle(modificators, True, [])
+    autopy.key.tap(key1, [])
+    autopy.key.toggle(modificators, False, [])
 
 
 """
@@ -137,7 +139,7 @@ def pasteIntoTextField(value, removePreviousContents=True):
     time.sleep(DELAY_KEY)
     # remove previous content
     if(removePreviousContents):
-        typeTwoKeys("a", Key.CTRL)
+        typeTwoKeys("a", autopy.key.Code.CONTROL)
         time.sleep(0.1)
     # paste string (Sikulix Function)
     paste(value)
@@ -184,7 +186,7 @@ def leftClickShift(match, positionx, positiony):
 
 def leftClickControl(match, positionx, positiony):
     # Leave Shift key pressed (Sikulix function)
-    keyDown(Key.CTRL)
+    keyDown(autopy.key.Code.CONTROL)
     # wait before every operation
     time.sleep(DELAY_MOUSE)
     # obtain clicked position
@@ -193,7 +195,7 @@ def leftClickControl(match, positionx, positiony):
     click(clickedPosition)
     print("TestFunctions: Clicked with Control key pressed over position", clickedPosition.x, '-', clickedPosition.y)
     # Release Shift key (Sikulix function)
-    keyUp(Key.CTRL)
+    keyUp(autopy.key.Code.CONTROL)
 
 
 """
@@ -295,24 +297,29 @@ def Popen(extraParameters, debugInformation):
 
 
 def getReferenceMatch(neProcess, waitTime):
-    print("Finding reference")
-    try:
-        referenceMatch = wait(referenceImage, waitTime)
-    except BaseException:
-        referenceMatch = None
-    if (referenceMatch is not None):
-        # print debug information
-        print("TestFunctions: 'reference.png' found. Position: " + str(referenceMatch.getTarget().x) + ' - ' +
-              str(referenceMatch.getTarget().y))
-        if (referenceMatch.getTarget().x != 304 or referenceMatch.getTarget().y != 140):
-            print("TestFunctions: Position of 'reference.png' isn't consistent. Check that interface scaling " +
-                  "is 100% (See #3746)")
-        # return reference match
-        return referenceMatch
-    else:
-        neProcess.kill()
-        # print debug information
-        sys.exit("TestFunctions: Killed Netedit process. 'reference.png' not found")
+    # show information
+    print("Finding reference...")
+    # get image reference
+    reference = autopy.bitmap.Bitmap.open('reference.png')
+    # 30 second for search  reference
+    for x in range(0, waitTime/2):
+        # capture screen and search reference
+        pos = autopy.bitmap.capture_screen().find_bitmap(reference)
+        # check if pos was found
+        if pos:
+            # break loop
+            print("TestFunctions: 'reference.png' found. Position: %s" % str(pos))
+            # check that position is consistent (due scaling)
+            if (pos[0] != 304 or pos[1] != 140):
+                print("TestFunctions: Position of 'reference.png' isn't consistent. Check that interface scaling " +
+                      "is 100% (See #3746)")
+            return pos
+        # wait two second
+        time.sleep(2)
+    # reference not found, then kill netedit process
+    neProcess.kill()
+    # print debug information
+    sys.exit("TestFunctions: Killed Netedit process. 'reference.png' not found")
 
 
 """
@@ -338,7 +345,7 @@ def setupAndStart(testRoot, extraParameters=[], debugInformation=True, searchRef
         time.sleep(2)
         # focus netedit windows clicking over it
         click(Region(200, 200, 10, 10))
-        return NeteditProcess
+        return NeteditProcess, None
 
 
 """
@@ -347,7 +354,7 @@ def setupAndStart(testRoot, extraParameters=[], debugInformation=True, searchRef
 
 
 def rebuildNetwork():
-    typeKey(Key.F5)
+    typeKey(F5)
     # wait for output
     time.sleep(DELAY_RECOMPUTE)
 
@@ -358,7 +365,7 @@ def rebuildNetwork():
 
 
 def rebuildNetworkWithVolatileOptions(question=True):
-    typeTwoKeys(Key.F5, Key.SHIFT)
+    typeTwoKeys(F5, Key.SHIFT)
     # confirm recompute
     if question is True:
         waitQuestion('y')
@@ -374,7 +381,7 @@ def rebuildNetworkWithVolatileOptions(question=True):
 
 
 def cleanJunction():
-    typeKey(Key.F6)
+    typeKey(F6)
 
 
 """
@@ -383,7 +390,7 @@ def cleanJunction():
 
 
 def joinSelectedJunctions():
-    typeKey(Key.F7)
+    typeKey(F7)
 
 
 """
@@ -392,7 +399,7 @@ def joinSelectedJunctions():
 
 
 def focusOnFrame():
-    typeKey(Key.F12)
+    typeKey(F12)
 
 
 """
@@ -406,7 +413,7 @@ def undo(match, number):
     # click over match
     leftClick(match, 0, 0)
     for x in range(0, number):
-        typeTwoKeys("z", Key.CTRL)
+        typeTwoKeys("z", autopy.key.Code.CONTROL)
         time.sleep(DELAY_UNDOREDO)
 
 
@@ -421,7 +428,7 @@ def redo(match, number):
     # click over match
     leftClick(match, 0, 0)
     for x in range(0, number):
-        typeTwoKeys("y", Key.CTRL)
+        typeTwoKeys("y", autopy.key.Code.CONTROL)
         time.sleep(DELAY_UNDOREDO)
 
 
@@ -476,10 +483,10 @@ def quit(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
         print("[log] TestFunctions: Netedit already closed")
     else:
         # first move cursor out of magenta square
-        hover(Region(150, 200, 10, 10))
+        autopy.mouse.move(150, 200)
 
         # quit using hotkey
-        typeTwoKeys("q", Key.CTRL)
+        typeTwoKeys("q", autopy.key.Code.CONTROL)
 
         # Check if net must be saved
         if openNetNonSavedDialog:
@@ -528,7 +535,7 @@ def quit(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
 
 def openNetworkAs(waitTime=2):
     # open save network as dialog
-    typeTwoKeys("o", Key.CTRL)
+    typeTwoKeys("o", autopy.key.Code.CONTROL)
     # jump to filename TextField
     typeTwoKeys("f", Key.ALT)
     filename = os.path.join(textTestSandBox, "input_net_loadedmanually.net.xml")
@@ -545,7 +552,7 @@ def openNetworkAs(waitTime=2):
 
 def saveNetwork():
     # save network using hotkey
-    typeTwoKeys("s", Key.CTRL)
+    typeTwoKeys("s", autopy.key.Code.CONTROL)
     # wait for debug
     time.sleep(DELAY_RECOMPUTE)
 
@@ -557,7 +564,7 @@ def saveNetwork():
 
 def saveNetworkAs(waitTime=2):
     # open save network as dialog
-    typeTwoKeys("s", Key.CTRL + Key.SHIFT)
+    typeTwoKeys("s", [autopy.key.Code.CONTROL, Key.SHIFT])
     # jump to filename TextField
     typeTwoKeys("f", Key.ALT)
     filename = os.path.join(textTestSandBox, "net.net.xml")
@@ -576,7 +583,7 @@ def saveNetworkAs(waitTime=2):
 
 def saveAdditionals():
     # save additionals using hotkey
-    typeTwoKeys("d", Key.CTRL + Key.SHIFT)
+    typeTwoKeys("d", autopy.key.Code.CONTROL + Key.SHIFT)
 
 
 """
@@ -586,7 +593,7 @@ def saveAdditionals():
 
 def saveShapes():
     # save additionals using hotkey
-    typeTwoKeys("p", Key.CTRL + Key.SHIFT)
+    typeTwoKeys("p", autopy.key.Code.CONTROL + Key.SHIFT)
 
 
 """
@@ -596,7 +603,7 @@ def saveShapes():
 
 def openAboutDialog(waitingTime=DELAY_QUESTION):
     # type F2 to open about dialog
-    typeKey(Key.F2)
+    typeKey(autopy.key.Code.F2)
     # wait before closing
     time.sleep(waitingTime)
     # press enter to close dialog (Ok must be focused)
@@ -610,7 +617,7 @@ def openAboutDialog(waitingTime=DELAY_QUESTION):
 
 def openConfigurationShortcut(waitTime=2):
     # open configuration dialog
-    typeTwoKeys("o", Key.CTRL + Key.SHIFT)
+    typeTwoKeys("o", autopy.key.Code.CONTROL + Key.SHIFT)
     # jump to filename TextField
     typeTwoKeys("f", Key.ALT)
     filename = os.path.join(textTestSandBox, "input_net.netccfg")
@@ -627,7 +634,7 @@ def openConfigurationShortcut(waitTime=2):
 
 def savePlainXML(waitTime=2):
     # open configuration dialog
-    typeTwoKeys("l", Key.CTRL)
+    typeTwoKeys("l", autopy.key.Code.CONTROL)
     # jump to filename TextField
     typeTwoKeys("f", Key.ALT)
     filename = os.path.join(textTestSandBox, "net")

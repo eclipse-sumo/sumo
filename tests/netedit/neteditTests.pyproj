@@ -7480,7 +7480,7 @@
     <Compile Include="additionalElements\variablespeedsign\volatileRecomputing\test.sikuli\test.py" />
     <Compile Include="autopyTest\findReference.py" />
     <Compile Include="autopyTest\helloWorld.py" />
-    <Compile Include="basic\about-dialog\test.sikuli\test.py" />
+    <Compile Include="basic\about-dialog\test.py" />
     <Compile Include="basic\load_and_save\test.sikuli\test.py" />
     <Compile Include="basic\new_net_1edge\test.sikuli\test.py" />
     <Compile Include="basic\open_configuration\test.sikuli\test.py" />
@@ -8294,7 +8294,6 @@
     <Folder Include="autopyTest\" />
     <Folder Include="basic" />
     <Folder Include="basic\about-dialog" />
-    <Folder Include="basic\about-dialog\test.sikuli" />
     <Folder Include="basic\load_and_save" />
     <Folder Include="basic\load_and_save\test.sikuli" />
     <Folder Include="basic\new_net_1edge" />

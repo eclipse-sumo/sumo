@@ -14,7 +14,6 @@ if test x"$SUMO_BINDIR" = x; then
 fi
 cd $OLDDIR
 export NETEDIT_BINARY="$SUMO_BINDIR/netedit"
-export AUTOPY="python"
 
 if which texttest &> /dev/null; then
   texttest -gui -a netedit.gui "$@"
