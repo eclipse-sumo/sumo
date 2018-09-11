@@ -164,6 +164,8 @@ std::set<MSDevice_SSM*>* MSDevice_SSM::instances = new std::set<MSDevice_SSM*>()
 
 std::set<std::string> MSDevice_SSM::createdOutputFiles;
 
+int MSDevice_SSM::issuedParameterWarnFlags = 0;
+
 const std::set<MSDevice_SSM*>&
 MSDevice_SSM::getInstances() {
     return *instances;
@@ -192,17 +194,19 @@ MSDevice_SSM::insertOptions(OptionsCont& oc) {
     insertDefaultAssignmentOptions("ssm", "SSM Device", oc);
 
     // custom options
-    oc.doRegister("device.ssm.measures", new Option_String(""));
-    oc.addDescription("device.ssm.measures", "SSM Device", "Specifies which measures will be logged (as a space seperated sequence of IDs in ('TTC', 'DRAC', 'PET')).");
-    oc.doRegister("device.ssm.thresholds", new Option_String(""));
+    oc.doRegister("device.ssm.measures", Option::makeUnsetWithDefault<Option_String, std::string>(""));
+    oc.addDescription("device.ssm.measures", "SSM Device", "Specifies which measures will be logged (as a space separated sequence of IDs in ('TTC', 'DRAC', 'PET')).");
+    oc.doRegister("device.ssm.thresholds", Option::makeUnsetWithDefault<Option_String, std::string>(""));
     oc.addDescription("device.ssm.thresholds", "SSM Device", "Specifies thresholds corresponding to the specified measures (see documentation and watch the order!). Only events exceeding the thresholds will be logged.");
-    oc.doRegister("device.ssm.trajectories", new Option_Bool(false));
+    oc.doRegister("device.ssm.trajectories",  Option::makeUnsetWithDefault<Option_Bool, bool>(false));
     oc.addDescription("device.ssm.trajectories", "SSM Device", "Specifies whether trajectories will be logged (if false, only the extremal values and times are reported, this is the default).");
-    oc.doRegister("device.ssm.range", new Option_Float(DEFAULT_RANGE));
+    oc.doRegister("device.ssm.range", Option::makeUnsetWithDefault<Option_Float, double>(DEFAULT_RANGE));
     oc.addDescription("device.ssm.range", "SSM Device", "Specifies the detection range in meters (default is " + toString(DEFAULT_RANGE) + "m.). For vehicles below this distance from the equipped vehicle, SSM values are traced.");
-    oc.doRegister("device.ssm.extratime", new Option_Float(DEFAULT_EXTRA_TIME));
+    oc.doRegister("device.ssm.extratime", Option::makeUnsetWithDefault<Option_Float, double>(DEFAULT_EXTRA_TIME));
     oc.addDescription("device.ssm.extratime", "SSM Device", "Specifies the time in seconds to be logged after a conflict is over (default is " + toString(DEFAULT_EXTRA_TIME) + "secs.). Required >0 if PET is to be calculated for crossing conflicts.");
-    oc.doRegister("device.ssm.geo", new Option_Bool(false));
+    oc.doRegister("device.ssm.file", Option::makeUnsetWithDefault<Option_String, std::string>(""));
+    oc.addDescription("device.ssm.file", "SSM Device", "Give a global default filename for the SSM output.");
+    oc.doRegister("device.ssm.geo", Option::makeUnsetWithDefault<Option_Bool, bool>(false));
     oc.addDescription("device.ssm.geo", "SSM Device", "Whether to use coordinates of the original reference system in output (default is false).");
 }
 
@@ -2680,6 +2684,7 @@ MSDevice_SSM::generateOutput() const {
 // ---------------------------------------------------------------------------
 std::string
 MSDevice_SSM::getOutputFilename(const SUMOVehicle& v, std::string deviceID) {
+    OptionsCont& oc = OptionsCont::getOptions();
     std::string file = deviceID + ".xml";
     if (v.getParameter().knowsParameter("device.ssm.file")) {
         try {
@@ -2694,7 +2699,11 @@ MSDevice_SSM::getOutputFilename(const SUMOVehicle& v, std::string deviceID) {
             WRITE_WARNING("Invalid value '" + v.getVehicleType().getParameter().getParameter("device.ssm.file", file) + "'for vType parameter 'ssm.measures'");
         }
     } else {
-        std::cout << "vehicle '" << v.getID() << "' does not supply vehicle parameter 'device.ssm.file'. Using default of '" << file << "'\n";
+        file = oc.getString("device.ssm.file") == "" ? file : oc.getString("device.ssm.file");
+        if (!oc.isSet("device.ssm.file") && (issuedParameterWarnFlags & SSM_WARN_FILE) == 0) {
+            std::cout << "vehicle '" << v.getID() << "' does not supply vehicle parameter 'device.ssm.file'. Using default of '" << file << "'\n";
+            issuedParameterWarnFlags |= SSM_WARN_FILE;
+        }
     }
     return file;
 }
@@ -2717,9 +2726,10 @@ MSDevice_SSM::useGeoCoords(const SUMOVehicle& v) {
         }
     } else {
         useGeo = oc.getBool("device.ssm.geo");
-#ifdef DEBUG_SSM
-        std::cout << "vehicle '" << v.getID() << "' does not supply vehicle parameter 'device.ssm.geo'. Using default of '" << useGeo << "'\n";
-#endif
+        if (!oc.isSet("device.ssm.geo") && (issuedParameterWarnFlags & SSM_WARN_GEO) == 0) {
+            std::cout << "vehicle '" << v.getID() << "' does not supply vehicle parameter 'device.ssm.geo'. Using default of '" << toString(useGeo) << "'\n";
+            issuedParameterWarnFlags |= SSM_WARN_GEO;
+        }
     }
     return useGeo;
 }
@@ -2743,9 +2753,10 @@ MSDevice_SSM::getDetectionRange(const SUMOVehicle& v) {
         }
     } else {
         range = oc.getFloat("device.ssm.range");
-#ifdef DEBUG_SSM
-        std::cout << "vehicle '" << v.getID() << "' does not supply vehicle parameter 'device.ssm.range'. Using default of '" << range << "'\n";
-#endif
+        if (!oc.isSet("device.ssm.range") && (issuedParameterWarnFlags & SSM_WARN_RANGE) == 0) {
+            std::cout << "vehicle '" << v.getID() << "' does not supply vehicle parameter 'device.ssm.range'. Using default of '" << range << "'\n";
+            issuedParameterWarnFlags |= SSM_WARN_RANGE;
+        }
     }
     return range;
 }
@@ -2769,9 +2780,10 @@ MSDevice_SSM::getExtraTime(const SUMOVehicle& v) {
         }
     } else {
         extraTime = oc.getFloat("device.ssm.extratime");
-#ifdef DEBUG_SSM
-        std::cout << "vehicle '" << v.getID() << "' does not supply vehicle parameter 'device.ssm.extratime'. Using default of '" << extraTime << "'\n";
-#endif
+        if (!oc.isSet("device.ssm.extratime") && (issuedParameterWarnFlags & SSM_WARN_EXTRATIME) == 0) {
+            std::cout << "vehicle '" << v.getID() << "' does not supply vehicle parameter 'device.ssm.extratime'. Using default of '" << extraTime << "'\n";
+            issuedParameterWarnFlags |= SSM_WARN_EXTRATIME;
+        }
     }
     if (extraTime < 0.) {
         extraTime = DEFAULT_EXTRA_TIME;
@@ -2799,9 +2811,10 @@ MSDevice_SSM::requestsTrajectories(const SUMOVehicle& v) {
         }
     } else {
         trajectories = oc.getBool("device.ssm.trajectories");
-#ifdef DEBUG_SSM
-        std::cout << "vehicle '" << v.getID() << "' does not supply vehicle parameter 'device.ssm.trajectories'. Using default of '" << trajectories << "'\n";
-#endif
+        if (!oc.isSet("device.ssm.trajectories") && (issuedParameterWarnFlags & SSM_WARN_TRAJECTORIES) == 0) {
+            std::cout << "vehicle '" << v.getID() << "' does not supply vehicle parameter 'device.ssm.trajectories'. Using default of '" << toString(trajectories) << "'\n";
+            issuedParameterWarnFlags |= SSM_WARN_TRAJECTORIES;
+        }
     }
     return trajectories;
 }
@@ -2827,7 +2840,10 @@ MSDevice_SSM::getMeasuresAndThresholds(const SUMOVehicle& v, std::string deviceI
         }
     } else {
         measures_str = oc.getString("device.ssm.measures");
-        std::cout << "vehicle '" << v.getID() << "' does not supply vehicle parameter 'device.ssm.measures'. Using default of '" << measures_str << "'\n";
+        if (!oc.isSet("device.ssm.measures") && (issuedParameterWarnFlags & SSM_WARN_MEASURES) == 0) {
+            std::cout << "vehicle '" << v.getID() << "' does not supply vehicle parameter 'device.ssm.measures'. Using default of '" << measures_str << "'\n";
+            issuedParameterWarnFlags |= SSM_WARN_THRESHOLDS;
+        }
     }
 
     // Check retrieved measures
@@ -2863,9 +2879,10 @@ MSDevice_SSM::getMeasuresAndThresholds(const SUMOVehicle& v, std::string deviceI
         }
     } else {
         thresholds_str = oc.getString("device.ssm.thresholds");
-#ifdef DEBUG_SSM
-        std::cout << "vehicle '" << v.getID() << "' does not supply vehicle parameter 'device.ssm.thresholds'. Using default of '" << thresholds_str << "'\n";
-#endif
+        if (!oc.isSet("device.ssm.thresholds") && (issuedParameterWarnFlags & SSM_WARN_THRESHOLDS) == 0) {
+            std::cout << "vehicle '" << v.getID() << "' does not supply vehicle parameter 'device.ssm.thresholds'. Using default of '" << thresholds_str << "'\n";
+            issuedParameterWarnFlags |= SSM_WARN_THRESHOLDS;
+        }
     }
 
     // Parse vector of doubles from threshold_str

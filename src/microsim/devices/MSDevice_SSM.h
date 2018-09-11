@@ -670,6 +670,21 @@ private:
     /// @brief remember which files were created already (don't duplicate xml root-elements)
     static std::set<std::string> createdOutputFiles;
 
+
+    /// @brief bitset storing info whether warning has already been issued about unset parameter (warn only once!)
+    static int issuedParameterWarnFlags;
+    enum SSMParameterWarning {
+        SSM_WARN_MEASURES = 1,
+        SSM_WARN_THRESHOLDS = 1 << 1,
+        SSM_WARN_TRAJECTORIES = 1 << 2,
+        SSM_WARN_RANGE = 1 << 3,
+        SSM_WARN_EXTRATIME = 1 << 4,
+        SSM_WARN_FILE = 1 << 5,
+        SSM_WARN_GEO = 1 << 6
+    };
+
+
+
 private:
     /// @brief Invalidated copy constructor.
     MSDevice_SSM(const MSDevice_SSM&);
