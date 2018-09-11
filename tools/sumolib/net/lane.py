@@ -211,6 +211,10 @@ class Lane:
         candidates = reduce(lambda x, y: x + y, [cons for e, cons in self._edge.getIncoming().items()], [])
         return [c.getFromLane() for c in candidates if self == c.getToLane()]
 
+    def allows(self, vClass):
+        """true if this lane allows the given vehicle class"""
+        return vClass in self._allowed
+
     def setNeigh(self, neigh):
         self._neigh = neigh
 
