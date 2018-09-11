@@ -527,7 +527,6 @@ MSLCM_LC2013::informLeader(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
                               << " remainingSeconds=" << remainingSeconds
                               << " currentGap=" << neighLead.second
                               << " brakeGap=" << myVehicle.getCarFollowModel().brakeGap(myVehicle.getSpeed(), myCarFollowModel.getMaxDecel(), 0.)
-                              << " secureGap=" << nv->getCarFollowModel().getSecureGap(nv->getSpeed(), myVehicle.getSpeed(), myVehicle.getCarFollowModel().getMaxDecel())
                               << " targetSpeed=" << targetSpeed
                               << " nextSpeed=" << nextSpeed
                               << "\n";
