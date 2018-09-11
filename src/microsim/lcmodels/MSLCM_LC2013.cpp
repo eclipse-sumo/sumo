@@ -1479,7 +1479,7 @@ MSLCM_LC2013::_wantsChange(
 
     if (amBlockingFollowerPlusNB()
             && (!speedGainInconvenient)
-            //&& ((myOwnState & myLca) != 0) // VARIANT_6 : counterNoHelp
+            && ((myOwnState & myLca) != 0) // VARIANT_6 : counterNoHelp
             && (changeToBest || currentDistAllows(neighDist, abs(bestLaneOffset) + 1, laDist))) {
 
         // VARIANT_2 (nbWhenChangingToHelp)

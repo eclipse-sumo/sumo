@@ -1288,6 +1288,7 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, double> leader) {
     }
     std::pair<MSVehicle* const, double> neighFollow = opposite->getOppositeFollower(vehicle);
     int state = checkChange(direction, opposite, leader, neighLead, neighFollow, preb);
+    //vehicle->getLaneChangeModel().setOwnState(state);
 
     bool changingAllowed = (state & LCA_BLOCKED) == 0;
     // change if the vehicle wants to and is allowed to change

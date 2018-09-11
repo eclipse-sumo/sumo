@@ -1289,14 +1289,16 @@ MSLCM_SL2015::_wantsChangeSublane(
                                   ? -mySpeedGainProbabilityRight / myChangeProbThresholdRight
                                   : -mySpeedGainProbabilityLeft / myChangeProbThresholdLeft);
     if (laneOffset != 0
-            && (amBlockingFollowerPlusNB() ||
+            && ((amBlockingFollowerPlusNB() 
+                // VARIANT_6 : counterNoHelp
+                    && ((myOwnState & myLca) != 0)) 
+                ||
                 // continue previous cooperative change
                 ((myPreviousState & LCA_COOPERATIVE) != 0
                  && !myCanChangeFully
                  // change is in the right direction
                  && (laneOffset * myManeuverDist > 0)))
             && (inconvenience < myCooperativeParam)
-            //&& ((myOwnState & myLca) != 0) // VARIANT_6 : counterNoHelp
             && (changeToBest || currentDistAllows(neighDist, abs(bestLaneOffset) + 1, laDist))) {
 
         // VARIANT_2 (nbWhenChangingToHelp)
