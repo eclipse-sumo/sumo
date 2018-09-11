@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jun  7 08:58:27 2018 by Eclipse SUMO Version aa25bb9
+<!-- generated on Tue Sep 11 16:29:08 2018 by Eclipse SUMO Version v1_0_0+0099-3e104b6
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -21,10 +21,13 @@ SPDX-License-Identifier: EPL-2.0
 
     <processing>
         <max-depart-delay value="1"/>
+        <default.speeddev value="0"/>
     </processing>
 
     <report>
+        <verbose value="true"/>
         <xml-validation value="never"/>
+        <duration-log.statistics value="true"/>
         <no-step-log value="true"/>
     </report>
 
@@ -32,10 +35,10 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
-    <interval begin="0.00" end="1238.00" id="laneData">
+    <interval begin="0.00" end="1218.00" id="laneData">
         <edge id="beg2">
-            <lane id="beg2_0" sampledSeconds="94637.30" traveltime="323.41" overlapTraveltime="323.51" density="25.51" occupancy="12.75" waitingTime="3724.00" speed="9.28" departed="301" arrived="355" entered="0" left="0" laneChangedFrom="271" laneChangedTo="325"/>
-            <lane id="beg2_1" sampledSeconds="106197.87" traveltime="366.57" overlapTraveltime="366.82" density="28.62" occupancy="14.31" waitingTime="2944.00" speed="8.18" departed="295" arrived="241" entered="0" left="0" laneChangedFrom="325" laneChangedTo="271"/>
+            <lane id="beg2_0" sampledSeconds="89163.54" traveltime="299.29" overlapTraveltime="299.41" density="24.43" occupancy="12.21" waitingTime="1384.00" speed="10.03" departed="292" arrived="351" entered="0" left="0" laneChangedFrom="305" laneChangedTo="364"/>
+            <lane id="beg2_1" sampledSeconds="110095.39" traveltime="424.22" overlapTraveltime="424.48" density="30.16" occupancy="15.08" waitingTime="925.00" speed="7.07" departed="279" arrived="220" entered="0" left="0" laneChangedFrom="364" laneChangedTo="305"/>
         </edge>
     </interval>
 </meandata>
