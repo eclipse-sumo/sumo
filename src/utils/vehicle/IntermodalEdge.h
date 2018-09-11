@@ -136,6 +136,14 @@ public:
         return myEfforts != nullptr;
     }
 
+    virtual double getStartPos() const {
+        return 0.;
+    }
+
+    virtual double getEndPos() const {
+        return myLength;
+    }
+
 protected:
     /// @brief List of edges that may be approached from this edge
     std::vector<IntermodalEdge*> myFollowingEdges;

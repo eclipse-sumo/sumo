@@ -73,6 +73,9 @@ public:
         std::vector<const E*> edges;
         double traveltime;
         double cost;
+        double departPos;
+        double arrivalPos;
+        std::string description;
     };
 
     /// Constructor
@@ -131,9 +134,11 @@ public:
                                 into.push_back(TripItem(lastLine));
                                 into.back().depart = iEdge->getIntended(time, into.back().intended);
                             }
+                            into.back().departPos = iEdge->getStartPos();
                         }
                         if (into.back().edges.empty() || into.back().edges.back() != iEdge->getEdge()) {
                             into.back().edges.push_back(iEdge->getEdge());
+                            into.back().arrivalPos = iEdge->getEndPos();
                         }
                     }
                 }

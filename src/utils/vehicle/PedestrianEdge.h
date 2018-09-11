@@ -86,6 +86,14 @@ public:
         return length / trip->speed + tlsDelay;
     }
 
+    double getStartPos() const {
+        return myStartPos;
+    }
+
+    double getEndPos() const {
+        return myForward ? myStartPos + getLength() : myStartPos - getLength();
+    }
+
 private:
     /// @brief  the original edge
     const L* myLane;

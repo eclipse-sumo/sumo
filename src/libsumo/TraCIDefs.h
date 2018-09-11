@@ -338,6 +338,12 @@ public:
     std::string intended;
     /// @brief intended depart time for public transport ride or -1
     double depart;
+    /// @brief position on the lane when starting the stage
+    double departPos;
+    /// @brief position on the lane when ending the stage
+    double arrivalPos;
+    /// @brief arbitrary description string
+    std::string description;
 };
 }
 
