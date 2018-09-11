@@ -249,8 +249,7 @@ NBNode::NBNode(const std::string& id, const Position& position,
     myDiscardAllCrossings(false),
     myCrossingsLoadedFromSumoNet(0),
     myDisplacementError(0),
-    myIsBentPriority(false) 
-{ 
+    myIsBentPriority(false) {
     if (!SUMOXMLDefinitions::isValidNetID(myID)) {
         throw ProcessError("Invalid node id '" + myID + "'.");
     }
@@ -269,8 +268,7 @@ NBNode::NBNode(const std::string& id, const Position& position, NBDistrict* dist
     myDiscardAllCrossings(false),
     myCrossingsLoadedFromSumoNet(0),
     myDisplacementError(0),
-    myIsBentPriority(false) 
-{ 
+    myIsBentPriority(false) {
     if (!SUMOXMLDefinitions::isValidNetID(myID)) {
         throw ProcessError("Invalid node id '" + myID + "'.");
     }
@@ -518,10 +516,10 @@ NBNode::bezierControlPoints(
     if (dist < POSITION_EPS || beg.distanceTo2D(begShape[-2]) < POSITION_EPS || end.distanceTo2D(endShape[1]) < POSITION_EPS) {
 #ifdef DEBUG_SMOOTH_GEOM
         if (DEBUGCOND2(recordError)) std::cout << "   bezierControlPoints failed beg=" << beg << " end=" << end
-                                     << " dist=" << dist
-                                     << " distBegLast=" << beg.distanceTo2D(begShape[-2])
-                                     << " distEndFirst=" << end.distanceTo2D(endShape[1])
-                                     << "\n";
+                                                   << " dist=" << dist
+                                                   << " distBegLast=" << beg.distanceTo2D(begShape[-2])
+                                                   << " distEndFirst=" << end.distanceTo2D(endShape[1])
+                                                   << "\n";
 #endif
         // typically, this node a is a simpleContinuation. see also #2539
         return init;
@@ -549,7 +547,7 @@ NBNode::bezierControlPoints(
                 if (fabs(displacementAngle) <= straightThresh && fabs(angle) <= straightThresh) {
 #ifdef DEBUG_SMOOTH_GEOM
                     if (DEBUGCOND2(recordError)) std::cout << "   bezierControlPoints identified straight line beg=" << beg << " end=" << end
-                                                 << " angle=" << RAD2DEG(angle) << " displacementAngle=" << RAD2DEG(displacementAngle) << "\n";
+                                                               << " angle=" << RAD2DEG(angle) << " displacementAngle=" << RAD2DEG(displacementAngle) << "\n";
 #endif
                     return PositionVector();
                 } else if (bendDeg > 22.5 && pow(bendDeg / 45, 2) / dist > 0.13) {
@@ -557,10 +555,10 @@ NBNode::bezierControlPoints(
                     // (a linear dependency is to restrictive at low displacementAngles and too permisive at high angles)
 #ifdef DEBUG_SMOOTH_GEOM
                     if (DEBUGCOND2(recordError)) std::cout << "   bezierControlPoints found extreme s-curve, falling back to straight line beg=" << beg << " end=" << end
-                                                 << " angle=" << RAD2DEG(angle) << " displacementAngle=" << RAD2DEG(displacementAngle)
-                                                 << " dist=" << dist << " bendDeg=" << bendDeg << " bd2=" << pow(bendDeg / 45, 2)
-                                                 << " displacementError=" << sin(displacementAngle) * dist
-                                                 << " begShape=" << begShape << " endShape=" << endShape << "\n";
+                                                               << " angle=" << RAD2DEG(angle) << " displacementAngle=" << RAD2DEG(displacementAngle)
+                                                               << " dist=" << dist << " bendDeg=" << bendDeg << " bd2=" << pow(bendDeg / 45, 2)
+                                                               << " displacementError=" << sin(displacementAngle) * dist
+                                                               << " begShape=" << begShape << " endShape=" << endShape << "\n";
 #endif
                     ok = false;
                     if (recordError != 0) {
@@ -575,8 +573,8 @@ NBNode::bezierControlPoints(
                     init.push_back(PositionVector::positionAtOffset2D(endShapeBegLine[0], endShapeBegLine[1], off2));
 #ifdef DEBUG_SMOOTH_GEOM
                     if (DEBUGCOND2(recordError)) std::cout << "   bezierControlPoints found s-curve beg=" << beg << " end=" << end
-                                                 << " angle=" << RAD2DEG(angle) << " displacementAngle=" << RAD2DEG(displacementAngle)
-                                                 << " halfDistance=" << halfDistance << "\n";
+                                                               << " angle=" << RAD2DEG(angle) << " displacementAngle=" << RAD2DEG(displacementAngle)
+                                                               << " halfDistance=" << halfDistance << "\n";
 #endif
                 }
             } else {
@@ -589,10 +587,10 @@ NBNode::bezierControlPoints(
                 if (intersect == Position::INVALID) {
 #ifdef DEBUG_SMOOTH_GEOM
                     if (DEBUGCOND2(recordError)) {
-                        std::cout << "   bezierControlPoints failed beg=" << beg << " end=" << end << " intersect=" << intersect 
-                            << " endShapeBegLine=" << endShapeBegLine
-                            << " begShapeEndLineRev=" << begShapeEndLineRev
-                            << "\n";
+                        std::cout << "   bezierControlPoints failed beg=" << beg << " end=" << end << " intersect=" << intersect
+                                  << " endShapeBegLine=" << endShapeBegLine
+                                  << " begShapeEndLineRev=" << begShapeEndLineRev
+                                  << "\n";
                     }
 #endif
                     ok = false;
@@ -610,7 +608,7 @@ NBNode::bezierControlPoints(
                 if (lengthenBeg && lengthenEnd) {
 #ifdef DEBUG_SMOOTH_GEOM
                     if (DEBUGCOND2(recordError)) std::cout << "   bezierControlPoints failed beg=" << beg << " end=" << end << " intersect=" << intersect
-                                                 << " distBeg=" << distBeg << " distEnd=" << distEnd << "\n";
+                                                               << " distBeg=" << distBeg << " distEnd=" << distEnd << "\n";
 #endif
                     if (recordError != 0) {
                         // This should be fixable with minor stretching
@@ -677,8 +675,8 @@ NBNode::computeInternalLaneShape(NBEdge* fromE, const NBEdge::Connection& con, i
             shapeFlag = AVOID_WIDE_LEFT_TURN;
         }
         ret = computeSmoothShape(fromShape, toShape,
-                numPoints, fromE->getTurnDestination() == con.toEdge,
-                extrapolateBeg, extrapolateEnd, recordError, shapeFlag);
+                                 numPoints, fromE->getTurnDestination() == con.toEdge,
+                                 extrapolateBeg, extrapolateEnd, recordError, shapeFlag);
     } else {
         ret = con.customShape;
     }
@@ -692,17 +690,17 @@ NBNode::computeInternalLaneShape(NBEdge* fromE, const NBEdge::Connection& con, i
 }
 
 
-bool 
+bool
 NBNode::isConstantWidthTransition() const {
-    return (myIncomingEdges.size() == 1 
+    return (myIncomingEdges.size() == 1
             && myOutgoingEdges.size() == 1
             && myIncomingEdges[0]->getNumLanes() != myOutgoingEdges[0]->getNumLanes()
             && myIncomingEdges[0]->getTotalWidth() == myOutgoingEdges[0]->getTotalWidth());
 }
 
 void
-NBNode::displaceShapeAtWidthChange(const NBEdge* from, const NBEdge::Connection& con, 
-        PositionVector& fromShape, PositionVector& toShape) const {
+NBNode::displaceShapeAtWidthChange(const NBEdge* from, const NBEdge::Connection& con,
+                                   PositionVector& fromShape, PositionVector& toShape) const {
     if (isConstantWidthTransition()) {
         // displace shapes
         NBEdge* in = myIncomingEdges[0];
@@ -798,13 +796,13 @@ NBNode::needsCont(const NBEdge* fromE, const NBEdge* otherFromE,
     return false;
 }
 
-bool 
-NBNode::tlsContConflict(const NBEdge* from, const NBEdge::Connection& c, 
-        const NBEdge* foeFrom, const NBEdge::Connection& foe) const {
-    return (foe.haveVia && isTLControlled() 
-        && !foeFrom->isTurningDirectionAt(foe.toEdge)
-        && foes(from, c.toEdge, foeFrom, foe.toEdge)
-        && !needsCont(foeFrom, from, foe, c));
+bool
+NBNode::tlsContConflict(const NBEdge* from, const NBEdge::Connection& c,
+                        const NBEdge* foeFrom, const NBEdge::Connection& foe) const {
+    return (foe.haveVia && isTLControlled()
+            && !foeFrom->isTurningDirectionAt(foe.toEdge)
+            && foes(from, c.toEdge, foeFrom, foe.toEdge)
+            && !needsCont(foeFrom, from, foe, c));
 }
 
 
@@ -1533,8 +1531,8 @@ NBNode::rightTurnConflict(const NBEdge* from, const NBEdge* to, int fromLane,
 
 bool
 NBNode::turnFoes(const NBEdge* from, const NBEdge* to, int fromLane,
-                          const NBEdge* from2, const NBEdge* to2, int fromLane2,
-                          bool lefthand) const {
+                 const NBEdge* from2, const NBEdge* to2, int fromLane2,
+                 bool lefthand) const {
     UNUSED_PARAMETER(lefthand);
     if (from != from2 || to == to2 || fromLane == fromLane2) {
         return false;
@@ -1565,7 +1563,7 @@ NBNode::turnFoes(const NBEdge* from, const NBEdge* to, int fromLane,
     }
     /*
     if (result) {
-        std::cout << "turnFoes node=" << getID() 
+        std::cout << "turnFoes node=" << getID()
         << " from=" << from->getLaneID(fromLane)
         << " to=" << to->getID()
         << " from2=" << from2->getLaneID(fromLane2)
@@ -1746,7 +1744,7 @@ NBNode::getDirection(const NBEdge* const incoming, const NBEdge* const outgoing,
             NBContHelper::nextCW(myAllEdges, i);
         }
         while ((*i) != incoming) {
-            if ((*i)->getFromNode() == this 
+            if ((*i)->getFromNode() == this
                     && !incoming->isTurningDirectionAt(*i)
                     && (vehPerm & (*i)->getPermissions()) != 0) {
                 //std::cout << incoming->getID() << " -> " << outgoing->getID() << " partRight because auf " << (*i)->getID() << "\n";
@@ -1769,7 +1767,7 @@ NBNode::getDirection(const NBEdge* const incoming, const NBEdge* const outgoing,
         NBContHelper::nextCCW(myAllEdges, i);
     }
     while ((*i) != incoming) {
-        if ((*i)->getFromNode() == this 
+        if ((*i)->getFromNode() == this
                 && !incoming->isTurningDirectionAt(*i)
                 && (vehPerm & (*i)->getPermissions()) != 0) {
             //std::cout << incoming->getID() << " -> " << outgoing->getID() << " partLeft because auf " << (*i)->getID() << "\n";
@@ -2251,6 +2249,13 @@ NBNode::discardAllCrossings(bool rejectAll) {
     }
 }
 
+
+void
+NBNode::discardWalkingareas() {
+    myWalkingAreas.clear();
+}
+
+
 void
 NBNode::buildInnerEdges() {
     // myDisplacementError is computed during this operation. reset first
@@ -2289,7 +2294,9 @@ NBNode::buildCrossings() {
     const double defaultWidth = OptionsCont::getOptions().getFloat("default.crossing-width");
     for (auto c : myCrossings) {
         c->valid = true;
-        c->tlID = ""; // reset for Netedit, set via setCrossingTLIndices()
+        if (!isTLControlled()) {
+            c->tlID = ""; // reset for Netedit, set via setCrossingTLIndices()
+        }
         c->id = ":" + getID() + "_c" + toString(index++);
         c->width = (c->customWidth == NBEdge::UNSPECIFIED_WIDTH) ? defaultWidth : c->customWidth;
         // reset fields, so repeated computation (Netedit) will sucessfully perform the checks
@@ -2821,7 +2828,7 @@ NBNode::setRoundabout() {
 NBNode::Crossing*
 NBNode::addCrossing(EdgeVector edges, double width, bool priority, int tlIndex, int tlIndex2,
                     const PositionVector& customShape, bool fromSumoNet) {
-    Crossing *c = new Crossing(this, edges, width, priority, tlIndex, tlIndex2, customShape);
+    Crossing* c = new Crossing(this, edges, width, priority, tlIndex, tlIndex2, customShape);
     myCrossings.push_back(c);
     if (fromSumoNet) {
         myCrossingsLoadedFromSumoNet += 1;
@@ -2856,7 +2863,7 @@ NBNode::getCrossing(const std::string& id) const {
 }
 
 
-NBNode::Crossing* 
+NBNode::Crossing*
 NBNode::getCrossing(const EdgeVector& edges, bool hardFail) const {
     EdgeSet edgeSet(edges.begin(), edges.end());
     for (auto it : myCrossings) {
@@ -2865,7 +2872,7 @@ NBNode::getCrossing(const EdgeVector& edges, bool hardFail) const {
             return it;
         }
     }
-    if(!hardFail) {
+    if (!hardFail) {
         return NULL;
     } else {
         throw ProcessError("Request for unknown crossing for the given Edges");
@@ -3029,7 +3036,7 @@ NBNode::sortEdges(bool useNodeShape) {
     EdgeVector& allEdges = myAllEdges;
     EdgeVector& incoming = myIncomingEdges;
     EdgeVector& outgoing = myOutgoingEdges;
-        
+
     // sort the edges by angle (this is the canonical sorting)
     std::sort(allEdges.begin(), allEdges.end(), NBNodesEdgesSorter::edge_by_junction_angle_sorter(this));
     std::sort(incoming.begin(), incoming.end(), NBNodesEdgesSorter::edge_by_junction_angle_sorter(this));
@@ -3062,9 +3069,9 @@ NBNode::sortEdges(bool useNodeShape) {
     if (DEBUGCOND) {
         std::cout << "sortedEdges:\n";
         for (NBEdge* e : allEdges) {
-            std::cout << "  " << e->getID() 
-                << " angleToCenter=" << e->getAngleAtNodeToCenter(this)
-                << " junctionAngle=" << e->getAngleAtNode(this) << "\n";
+            std::cout << "  " << e->getID()
+                      << " angleToCenter=" << e->getAngleAtNodeToCenter(this)
+                      << " junctionAngle=" << e->getAngleAtNode(this) << "\n";
         }
     }
 #endif
@@ -3094,7 +3101,7 @@ NBNode::sortEdges(bool useNodeShape) {
     //        std::cout << "  " << toString((*it)->edges) << "\n";
     //    }
     //}
-    
+
     if (useNodeShape && myAllEdges != allEdgesOriginal) {
         // sorting order changed after node shape was computed.
         computeNodeShape(-1);
@@ -3104,7 +3111,7 @@ NBNode::sortEdges(bool useNodeShape) {
     }
 }
 
-std::vector<Position> 
+std::vector<Position>
 NBNode::getEndPoints() const {
     // using a set would be nicer but we want to have some slack in position identification
     std::vector<Position> result;

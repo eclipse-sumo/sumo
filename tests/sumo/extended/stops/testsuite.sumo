@@ -107,3 +107,6 @@ busstop_stopping_position_assignment_parking
 
 # check consistency of stop positions and depar/arrival position
 departPos_arrivalPos
+
+# long stopping times should not trigger teleport, but teleports should possible after the stop
+long_stop

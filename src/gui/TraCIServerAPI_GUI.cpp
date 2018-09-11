@@ -64,7 +64,7 @@ TraCIServerAPI_GUI::processGet(TraCIServer& server, tcpip::Storage& inputStorage
         tempMsg.writeStringList(ids);
     } else {
         GUISUMOAbstractView* v = getNamedView(id);
-        if (v == 0 && variable != VAR_HAS_VIEW) {
+        if (v == nullptr && variable != VAR_HAS_VIEW) {
             return server.writeErrorStatusCmd(CMD_GET_GUI_VARIABLE, "View '" + id + "' is not known", outputStorage);
         }
         switch (variable) {
@@ -77,11 +77,10 @@ TraCIServerAPI_GUI::processGet(TraCIServer& server, tcpip::Storage& inputStorage
                 tempMsg.writeDouble(v->getChanger().getXPos());
                 tempMsg.writeDouble(v->getChanger().getYPos());
                 break;
-            case VAR_VIEW_SCHEMA: {
+            case VAR_VIEW_SCHEMA:
                 tempMsg.writeUnsignedByte(TYPE_STRING);
                 tempMsg.writeString(v->getVisualisationSettings()->name);
                 break;
-            }
             case VAR_VIEW_BOUNDARY: {
                 tempMsg.writeUnsignedByte(TYPE_POLYGON);
                 Boundary b = v->getVisibleBoundary();
@@ -92,11 +91,10 @@ TraCIServerAPI_GUI::processGet(TraCIServer& server, tcpip::Storage& inputStorage
                 tempMsg.writeDouble(b.ymax());
                 break;
             }
-            case VAR_HAS_VIEW: {
-                tempMsg.writeUnsignedByte(TYPE_UBYTE);
-                tempMsg.writeUnsignedByte(v != nullptr);
+            case VAR_HAS_VIEW:
+                tempMsg.writeUnsignedByte(TYPE_INTEGER);
+                tempMsg.writeInt(v != nullptr ? 1 : 0);
                 break;
-            }
             default:
                 break;
         }

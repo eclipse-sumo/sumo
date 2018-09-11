@@ -86,10 +86,10 @@ public:
 
 
     /// @brief apply custom speed adaptations within the given speed bounds
-    virtual double patchSpeedBeforeLC(const MSVehicle* veh, double vMin, double vMax) const { 
+    virtual double patchSpeedBeforeLC(const MSVehicle* veh, double vMin, double vMax) const {
         UNUSED_PARAMETER(veh);
         UNUSED_PARAMETER(vMin);
-        return vMax; 
+        return vMax;
     }
 
 
@@ -235,6 +235,12 @@ public:
         return myApparentDecel;
     }
 
+    /** @brief Get the factor of minGap that must be maintained to avoid a collision event
+     */
+    inline double getCollisionMinGapFactor() const {
+        return myCollisionMinGapFactor;
+    }
+
 
     /// @name Virtual methods with default implementation
     /// @{
@@ -287,6 +293,17 @@ public:
      */
     virtual double minNextSpeed(double speed, const MSVehicle* const veh = 0) const;
 
+    /** @brief Returns the minimum speed after emergency braking, given the current speed
+     * (depends on the numerical update scheme and its step width)
+     * Note that it wouldn't have to depend on the numerical update
+     * scheme if the semantics would rely on acceleration instead of velocity.
+     *
+     * @param[in] speed The vehicle's current speed
+     * @param[in] speed The vehicle itself, for obtaining other values, if needed as e.g. road conditions.
+     * @return The minimum possible speed for the next step
+     */
+    virtual double minNextSpeedEmergency(double speed, const MSVehicle* const veh = 0) const;
+
 
     /** @brief Returns the distance the vehicle needs to halt including driver's reaction time tau (i.e. desired headway),
      * assuming that during the reaction time, the speed remains constant
@@ -308,7 +325,7 @@ public:
       * @param[in] leaderSpeed LEADER's speed
       * @param[in] leaderMaxDecel LEADER's max. deceleration rate
       */
-    inline double getSecureGap(const double speed, const double leaderSpeed, const double leaderMaxDecel) const {
+    inline virtual double getSecureGap(const double speed, const double leaderSpeed, const double leaderMaxDecel) const {
         // The solution approach leaderBrakeGap >= followerBrakeGap is not
         // secure when the follower can brake harder than the leader because the paths may still cross.
         // As a workaround we use a value of leaderDecel which errs on the side of caution
@@ -578,6 +595,8 @@ protected:
     double myEmergencyDecel;
     /// @brief The vehicle's deceleration as expected by surrounding traffic [m/s^2]
     double myApparentDecel;
+    /// @brief The factor of minGap that must be maintained to avoid a collision event
+    double myCollisionMinGapFactor;
 
     /// @brief The driver's desired time headway (aka reaction time tau) [s]
     double myHeadwayTime;

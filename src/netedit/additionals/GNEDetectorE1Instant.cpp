@@ -63,7 +63,7 @@ GNEDetectorE1Instant::~GNEDetectorE1Instant() {
 void
 GNEDetectorE1Instant::updateGeometry(bool updateGrid) {
     // first check if object has to be removed from grid (SUMOTree)
-    if(updateGrid) {
+    if (updateGrid) {
         myViewNet->getNet()->removeGLObjectFromGrid(this);
     }
 
@@ -97,7 +97,7 @@ GNEDetectorE1Instant::updateGeometry(bool updateGrid) {
     setBlockIconRotation(myLane);
 
     // last step is to check if object has to be added into grid (SUMOTree) again
-    if(updateGrid) {
+    if (updateGrid) {
         myViewNet->getNet()->addGLObjectIntoGrid(this);
     }
 }
@@ -108,7 +108,7 @@ bool GNEDetectorE1Instant::isDetectorPositionFixed() const {
     if (myFriendlyPosition) {
         return true;
     } else {
-        return (myPositionOverLane>= 0) && (myPositionOverLane <= myLane->getParentEdge().getNBEdge()->getFinalLength());
+        return (myPositionOverLane >= 0) && (myPositionOverLane <= myLane->getParentEdge().getNBEdge()->getFinalLength());
     }
 }
 
@@ -204,7 +204,7 @@ GNEDetectorE1Instant::drawGL(const GUIVisualizationSettings& s) const {
     }
 
     // Finish draw if isn't being drawn for selecting
-    if(!s.drawForSelecting) {
+    if (!s.drawForSelecting) {
         drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
     }
     glPopName();
@@ -283,7 +283,7 @@ GNEDetectorE1Instant::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_FILE:
             return SUMOXMLDefinitions::isValidFilename(value);
         case SUMO_ATTR_VTYPES:
-            if(value.empty()) {
+            if (value.empty()) {
                 return true;
             } else {
                 return SUMOXMLDefinitions::isValidListOfTypeID(value);
@@ -333,7 +333,7 @@ GNEDetectorE1Instant::setAttribute(SumoXMLAttr key, const std::string& value) {
             myBlockMovement = parse<bool>(value);
             break;
         case GNE_ATTR_SELECTED:
-            if(parse<bool>(value)) {
+            if (parse<bool>(value)) {
                 selectAttributeCarrier();
             } else {
                 unselectAttributeCarrier();

@@ -1,0 +1,41 @@
+# edit speed
+inspect_selected_speed
+
+# edit priority
+inspect_selected_priority
+
+# edit numLanes
+inspect_selected_numlanes
+
+# edit type
+inspect_selected_type
+
+# edit allow
+inspect_selected_allow
+
+# edit disallow
+inspect_selected_disallow
+
+# edit length
+inspect_selected_length
+
+# edit spreadtype
+inspect_selected_spreadtype
+
+# edit name
+inspect_selected_name
+
+# edit width
+inspect_selected_width
+
+# edit endoffset
+inspect_selected_endoffset
+
+# edit shapestart
+inspect_selected_shapestart
+
+# edit shapeend
+inspect_selected_shapeend
+
+# edit generic parameters
+inspect_selected_genericparameters

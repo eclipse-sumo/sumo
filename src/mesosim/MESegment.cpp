@@ -200,7 +200,7 @@ MESegment::jamThresholdForSpeed(double speed, double jamThresh) const {
 #ifdef DEBUG_JAMTHRESHOLD
     if (true || DEBUG_COND) {
         std::cout << "jamThresholdForSpeed seg=" << getID() << " speed=" << speed << " jamThresh=" << jamThresh << " ffVehs=" << std::ceil(myLength / (-jamThresh * speed * STEPS2TIME(tauWithVehLength(myTau_ff, DEFAULT_VEH_LENGHT_WITH_GAP)))) << " thresh=" << std::ceil(myLength / (-jamThresh * speed * STEPS2TIME(tauWithVehLength(myTau_ff, DEFAULT_VEH_LENGHT_WITH_GAP)))) * DEFAULT_VEH_LENGHT_WITH_GAP
-            << "\n";
+                  << "\n";
     }
 #endif
     return std::ceil(myLength / (-jamThresh * speed * STEPS2TIME(tauWithVehLength(myTau_ff, DEFAULT_VEH_LENGHT_WITH_GAP)))) * DEFAULT_VEH_LENGHT_WITH_GAP;
@@ -433,21 +433,21 @@ MESegment::isOpen(const MEVehicle* veh) const {
 #ifdef DEBUG_OPENED
     if (DEBUG_COND || DEBUG_COND2(veh)) {
         std::cout << SIMTIME << " opened seg=" << getID() << " veh=" << Named::getIDSecure(veh)
-            << " tlsPenalty=" << myTLSPenalty;
+                  << " tlsPenalty=" << myTLSPenalty;
         const MSLink* link = getLink(veh);
         if (link == 0) {
             std::cout << " link=0";
         } else {
             std::cout << " prio=" << link->havePriority()
-                << " override=" << limitedControlOverride(link)
-                << " isOpen=" << link->opened(veh->getEventTime(), veh->getSpeed(), veh->estimateLeaveSpeed(link),
-                            veh->getVehicleType().getLengthWithGap(), veh->getImpatience(),
-                            veh->getVehicleType().getCarFollowModel().getMaxDecel(), veh->getWaitingTime())
-                << " et=" << veh->getEventTime()
-                << " v=" << veh->getSpeed()
-                << " vLeave=" << veh->estimateLeaveSpeed(link)
-                << " impatience=" << veh->getImpatience()
-                << " tWait=" << veh->getWaitingTime();
+                      << " override=" << limitedControlOverride(link)
+                      << " isOpen=" << link->opened(veh->getEventTime(), veh->getSpeed(), veh->estimateLeaveSpeed(link),
+                                                    veh->getVehicleType().getLengthWithGap(), veh->getImpatience(),
+                                                    veh->getVehicleType().getCarFollowModel().getMaxDecel(), veh->getWaitingTime())
+                      << " et=" << veh->getEventTime()
+                      << " v=" << veh->getSpeed()
+                      << " vLeave=" << veh->estimateLeaveSpeed(link)
+                      << " impatience=" << veh->getImpatience()
+                      << " tWait=" << veh->getWaitingTime();
         }
         std::cout << "\n";
     }

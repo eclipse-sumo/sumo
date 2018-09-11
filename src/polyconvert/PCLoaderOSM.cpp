@@ -140,8 +140,8 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
     const bool useName = oc.getBool("osm.use-name");
     const double mergeRelationsThreshold = OptionsCont::getOptions().getFloat("osm.merge-relations");
     // create polygons from relations
-    if (mergeRelationsThreshold >= 0) { 
-        for (PCOSMRelation* rel: relations) {
+    if (mergeRelationsThreshold >= 0) {
+        for (PCOSMRelation* rel : relations) {
             if (!rel->keep || rel->myWays.empty()) {
                 continue;
             }
@@ -174,7 +174,7 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
             remaining.erase(minEdge->id);
             bool ok = true;
             while (!remaining.empty()) {
-                // assemble in an order that greedily reduces jump size 
+                // assemble in an order that greedily reduces jump size
                 double minDist = std::numeric_limits<double>::max();
                 bool minFront = false;
                 for (long long int wayID : remaining) {
@@ -212,7 +212,7 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
                     }
                     if (length > mergeRelationsThreshold) {
                         WRITE_WARNING("Could not import polygon from relation '" + toString(rel->id) +
-                                      "' (name:" + e->name + " reason: found gap of " + toString(minDist) + 
+                                      "' (name:" + e->name + " reason: found gap of " + toString(minDist) +
                                       "m to way '" + toString(minEdge->id) +
                                       "')\n Total length of remaining ways: " + toString(length) + "m.");
                         ok = false;

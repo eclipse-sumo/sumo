@@ -18,8 +18,6 @@ from __future__ import print_function
 from __future__ import absolute_import
 import os
 import sys
-import os
-import sys
 
 SUMO_HOME = os.path.join(os.path.dirname(__file__), "..", "..", "..", "..", "..")
 sys.path.append(os.path.join(os.environ.get("SUMO_HOME", SUMO_HOME), "tools"))
@@ -29,11 +27,11 @@ else:
     import traci  # noqa
 import sumolib  # noqa
 
-traci.start([sumolib.checkBinary('sumo'), 
-    '-c', 'sumo.sumocfg',
-    '-n', 'input_net2.net.xml',
-    '-a', 'input_additional.add.xml'
-    ])
+traci.start([sumolib.checkBinary('sumo'),
+             '-c', 'sumo.sumocfg',
+             '-n', 'input_net2.net.xml',
+             '-a', 'input_additional.add.xml'
+             ])
 
 traci.simulationStep()
 traci.vehicle.rerouteParkingArea("ego", 'parkB1B2')

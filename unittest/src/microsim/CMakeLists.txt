@@ -1,6 +1,7 @@
 add_executable(testmicrosim
         MSEventControlTest.cpp
         MSCFModelTest.cpp
+        MSCFModel_IDMTest.cpp
         )
 add_test(NAME testmicrosim COMMAND $<TARGET_FILE:testmicrosim>)
 set_target_properties(testmicrosim PROPERTIES OUTPUT_NAME_DEBUG testmicrosimD)

@@ -143,7 +143,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         myPTStopCont.alignIdSigns();
         PROGRESS_TIME_MESSAGE(before);
     }
-    
+
     // analyse and fix railway topology
     if (oc.exists("railway.topology.all-bidi") && oc.getBool("railway.topology.all-bidi")) {
         NBTurningDirectionsComputer::computeTurnDirections(myNodeCont, false);
@@ -261,7 +261,9 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     NBTurningDirectionsComputer::computeTurnDirections(myNodeCont);
     PROGRESS_TIME_MESSAGE(before);
     // correct edge geometries to avoid overlap
-    myNodeCont.avoidOverlap();
+    if (oc.exists("geometry.avoid-overlap") && oc.getBool("geometry.avoid-overlap")) {
+        myNodeCont.avoidOverlap();
+    }
 
     // GUESS TLS POSITIONS
     before = SysUtils::getCurrentMillis();
@@ -283,9 +285,9 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
 
     // guess ramps (after guessing tls because ramps should not be build at traffic lights)
     if (mayAddOrRemove) {
-        const bool modifyRamps = (oc.exists("ramps.guess") && oc.getBool("ramps.guess")) 
-            || (oc.exists("ramps.set") && oc.isSet("ramps.set"));
-        if (modifyRamps 
+        const bool modifyRamps = (oc.exists("ramps.guess") && oc.getBool("ramps.guess"))
+                                 || (oc.exists("ramps.set") && oc.isSet("ramps.set"));
+        if (modifyRamps
                 || (oc.exists("ramps.guess-acceleration-lanes") && oc.getBool("ramps.guess-acceleration-lanes"))) {
             before = SysUtils::getCurrentMillis();
             if (modifyRamps) {
@@ -311,7 +313,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     myEdgeCont.recheckPostProcessConnections();
 
     // remap ids if wished
-    int numChangedEdges = myEdgeCont.remapIDs(oc.getBool("numerical-ids"), oc.isSet("reserved-ids"), oc.getString("prefix"));
+    int numChangedEdges = myEdgeCont.remapIDs(oc.getBool("numerical-ids"), oc.isSet("reserved-ids"), oc.getString("prefix"), myPTStopCont);
     int numChangedNodes = myNodeCont.remapIDs(oc.getBool("numerical-ids"), oc.isSet("reserved-ids"), oc.getString("prefix"));
     if (numChangedEdges + numChangedNodes > 0) {
         WRITE_MESSAGE("Remapped " + toString(numChangedEdges) + " edge IDs and " + toString(numChangedNodes) + " node IDs.");
@@ -453,9 +455,16 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         for (std::map<std::string, NBNode*>::const_iterator i = myNodeCont.begin(); i != myNodeCont.end(); ++i) {
             i->second->buildCrossingsAndWalkingAreas();
         }
-    } else if (oc.getBool("no-internal-links")) {
+    } else {
         for (std::map<std::string, NBNode*>::const_iterator i = myNodeCont.begin(); i != myNodeCont.end(); ++i) {
-            i->second->discardAllCrossings(false);
+            // needed by netedit if the last crossings was deleted from the network
+            // and walkingareas have been invalidated since the last call to compute()
+            i->second->discardWalkingareas();
+        }
+        if (oc.getBool("no-internal-links")) {
+            for (std::map<std::string, NBNode*>::const_iterator i = myNodeCont.begin(); i != myNodeCont.end(); ++i) {
+                i->second->discardAllCrossings(false);
+            }
         }
     }
     // join traffic lights (after building connections)
@@ -632,8 +641,8 @@ bool
 NBNetBuilder::transformCoordinate(Position& from, bool includeInBoundary, GeoConvHelper* from_srs) {
     Position orig(from);
     bool ok = true;
-    if (GeoConvHelper::getNumLoaded() > 1 
-            && GeoConvHelper::getLoaded().usingGeoProjection() 
+    if (GeoConvHelper::getNumLoaded() > 1
+            && GeoConvHelper::getLoaded().usingGeoProjection()
             && from_srs != 0
             && from_srs->usingGeoProjection()
             && *from_srs != GeoConvHelper::getLoaded()) {
@@ -691,7 +700,7 @@ NBNetBuilder::transformCoordinates(PositionVector& from, bool includeInBoundary,
 }
 
 
-bool 
+bool
 NBNetBuilder::runningNetedit() {
     // see GNELoadThread::fillOptions
     return OptionsCont::getOptions().exists("new");

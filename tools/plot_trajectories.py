@@ -34,7 +34,8 @@ from sumolib.xml import parse_fast_nested
 def getOptions(args=None):
     optParser = OptionParser()
     optParser.add_option("-t", "--trajectory-type", dest="ttype", default="ds",
-                         help="select one of ('ds','ts', 'td') for plotting distanceVsSpeed (default), timeVsSpeed, timeVsDistance")
+                         help="select one of ('ds','ts', 'td', 'da', 'ta') for plotting" 
+                         + " distanceVsSpeed (default), timeVsSpeed, timeVsDistance, distanceVsAcceleration, timeVsAcceleration")
     optParser.add_option("-s", "--show", action="store_true", default=False, help="show plot directly")
     optParser.add_option("-o", "--output", help="outputfile for saving plots", default="plot.png")
     optParser.add_option("--csv-output", dest="csv_output", help="write plot as csv", metavar="FILE")
@@ -82,11 +83,21 @@ def main(options):
         plt.ylabel("Distance")
         xdata = 0
         ydata = 2
+    elif options.ttype == 'ta':
+        plt.xlabel("Time")
+        plt.ylabel("Acceleration")
+        xdata = 0
+        ydata = 3
+    elif options.ttype == 'da':
+        plt.xlabel("Distance")
+        plt.ylabel("Acceleration")
+        xdata = 2
+        ydata = 3
     else:
         sys.exit("unsupported plot type '%s'" % options.ttype)
 
     routes = defaultdict(list) # vehID -> recorded edges
-    data = defaultdict(lambda : ([], [], [])) # vehID -> (times, speeds, distances) 
+    data = defaultdict(lambda : ([], [], [], [])) # vehID -> (times, speeds, distances, accelerations)
     for timestep, vehicle  in parse_fast_nested(options.fcdfile, 'timestep', ['time'], 'vehicle', ['id', 'speed', 'lane']):
         time = float(timestep.time)
         speed = float(vehicle.speed)
@@ -99,6 +110,10 @@ def main(options):
             prevDist = data[vehicle.id][2][-1]
         data[vehicle.id][0].append(time)
         data[vehicle.id][1].append(speed)
+        if prevTime == time:
+            data[vehicle.id][3].append(0)
+        else:
+            data[vehicle.id][3].append((speed - prevSpeed) / (time - prevTime))
 
         if options.ballistic:
             avgSpeed = (speed + prevSpeed) / 2
@@ -124,8 +139,6 @@ def main(options):
             route = routes[vehID]
             for required in options.filterRoute:
                 if not required in route:
-                    if vehID == "cg3_cg1_35.47":
-                        print("skip cg3_cg1_35.47 due to required '%s' (route=%s)" % (required, route))
                     skip = True
                     break;
             if skip:

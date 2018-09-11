@@ -9,5 +9,3 @@ Warning: Invalid position for containerStop with ID = 'containerStop_05'.
 Warning: Invalid position for containerStop with ID = 'containerStop_06'.
 Warning: Invalid position for containerStop with ID = 'containerStop_09'.
 Warning: Invalid position for containerStop with ID = 'containerStop_10'.
-Warning: Please note that using ';' and ',' as XML list separators is deprecated.
- From 1.0 onwards, only ' ' will be accepted.

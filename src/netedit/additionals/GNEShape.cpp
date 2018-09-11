@@ -100,51 +100,51 @@ GNEShape::drawLockIcon(const Position& pos, double layer, double size) const {
 }
 
 
-void 
+void
 GNEShape::selectAttributeCarrier(bool changeFlag) {
-    if(!myNet) {
+    if (!myNet) {
         throw ProcessError("Net cannot be nullptr");
     } else {
         gSelected.select(dynamic_cast<GUIGlObject*>(this)->getGlID());
-        if(changeFlag) {
+        if (changeFlag) {
             mySelected = true;
         }
-    } 
+    }
 }
 
 
-void 
+void
 GNEShape::unselectAttributeCarrier(bool changeFlag) {
-    if(!myNet) {
+    if (!myNet) {
         throw ProcessError("Net cannot be nullptr");
     } else {
         gSelected.deselect(dynamic_cast<GUIGlObject*>(this)->getGlID());
-        if(changeFlag) {
+        if (changeFlag) {
             mySelected = false;
         }
-    } 
+    }
 }
 
 
-bool 
+bool
 GNEShape::isAttributeCarrierSelected() const {
     return mySelected;
 }
 
 
-std::string 
+std::string
 GNEShape::getPopUpID() const {
     return toString(getTag()) + ": " + getID();
 }
 
 
-std::string 
+std::string
 GNEShape::getHierarchyName() const {
     return toString(getTag());
 }
 
 
-void 
+void
 GNEShape::mouseOverObject(const GUIVisualizationSettings&) const {
 }
 

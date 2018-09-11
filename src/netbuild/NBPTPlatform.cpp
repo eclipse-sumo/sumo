@@ -25,7 +25,7 @@ NBPTPlatform::getPos() const {
 }
 
 
-void 
+void
 NBPTPlatform::reshiftPosition(const double offsetX, const double offsetY) {
     myPos.add(offsetX, offsetY, 0);
 }

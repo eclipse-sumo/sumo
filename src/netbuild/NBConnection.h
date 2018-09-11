@@ -79,7 +79,7 @@ public:
 
     /** @brief  patches lane indices refering to the given edge and above the
      * threshold by the given offset */
-    void shiftLaneIndex(NBEdge* edge, int offset, int threshold=-1);
+    void shiftLaneIndex(NBEdge* edge, int offset, int threshold = -1);
 
     /// @brief checks whether the edges are still valid
     bool check(const NBEdgeCont& ec);

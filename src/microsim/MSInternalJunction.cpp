@@ -82,7 +82,7 @@ MSInternalJunction::postloadInit() {
                     // initializing myLinkFoeInternalLanes in MSRightOfWayJunction
                     // Indirect left turns for bicycles are a special case
                     // because they both intersect on their second part with the first part of the other one
-                    // and only one of the has priority 
+                    // and only one of the has priority
                     myInternalLaneFoes.push_back(*i);
                 }
                 myInternalLaneFoes.push_back((*q)->getViaLane());
@@ -117,7 +117,7 @@ MSInternalJunction::postloadInit() {
 }
 
 
-bool 
+bool
 MSInternalJunction::indirectBicycleTurn(const MSLane* specialLane, const MSLink* thisLink, const MSLane* foeFirstPart, const MSLink* foeLink) const {
     if (specialLane->getPermissions() == SVC_BICYCLE && foeFirstPart->getPermissions() == SVC_BICYCLE
             && thisLink->getDirection() == LINKDIR_LEFT && foeLink->getDirection() == LINKDIR_LEFT

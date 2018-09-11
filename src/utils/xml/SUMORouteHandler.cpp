@@ -51,8 +51,8 @@ SUMORouteHandler::SUMORouteHandler(const std::string& file, const std::string& e
     myCurrentVType(0),
     myBeginDefault(string2time(OptionsCont::getOptions().getString("begin"))),
     myEndDefault(string2time(OptionsCont::getOptions().getString("end"))),
-    myFirstDepart(-1), myInsertStopEdgesAt(-1)
-{ }
+    myFirstDepart(-1), myInsertStopEdgesAt(-1) {
+}
 
 
 SUMORouteHandler::~SUMORouteHandler() {
@@ -185,6 +185,7 @@ SUMORouteHandler::myEndElement(int element) {
             if (myVehicleParameter->repetitionNumber > 0) {
                 myVehicleParameter->repetitionNumber++; // for backwards compatibility
                 // it is a flow, thus no break here
+                FALLTHROUGH;
             } else {
                 closeVehicle();
                 delete myVehicleParameter;

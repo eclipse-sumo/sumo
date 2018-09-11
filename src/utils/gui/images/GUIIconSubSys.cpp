@@ -122,6 +122,7 @@
 #include "lanebike.xpm"
 #include "lanebus.xpm"
 #include "lanepedestrian.xpm"
+#include "lanegreenverge.xpm"
 
 #include "cut.xpm"
 #include "ext.xpm"
@@ -328,6 +329,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[ICON_LANEPEDESTRIAN] = new FXXPMIcon(a, lanepedestrian);
     myIcons[ICON_LANEBUS] = new FXXPMIcon(a, lanebus);
     myIcons[ICON_LANEBIKE] = new FXXPMIcon(a, lanebike);
+    myIcons[ICON_LANEGREENVERGE] = new FXXPMIcon(a, lanegreenverge);
 
     myIcons[ICON_EXT] = new FXXPMIcon(a, ext_xpm);
     myIcons[ICON_CUT_SWELL] = new FXXPMIcon(a, cut_xpm);

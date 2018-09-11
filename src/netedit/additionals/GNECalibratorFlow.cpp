@@ -62,7 +62,7 @@ GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent) :
 }
 
 
-GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEAdditional* vehicleType, GNEAdditional* route, const std::string &vehsPerHour, const std::string &speed,
+GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEAdditional* vehicleType, GNEAdditional* route, const std::string& vehsPerHour, const std::string& speed,
                                      const RGBColor& color, const std::string& departLane, const std::string& departPos, const std::string& departSpeed, const std::string& arrivalLane,
                                      const std::string& arrivalPos, const std::string& arrivalSpeed, const std::string& line, int personNumber, int containerNumber, bool reroute,
                                      const std::string& departPosLat, const std::string& arrivalPosLat, double begin, double end) :
@@ -92,37 +92,37 @@ GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEAdditio
 GNECalibratorFlow::~GNECalibratorFlow() {}
 
 
-void 
+void
 GNECalibratorFlow::moveGeometry(const Position&, const Position&) {
     // This additional cannot be moved
 }
 
 
-void 
+void
 GNECalibratorFlow::commitGeometryMoving(const Position&, GNEUndoList*) {
     // This additional cannot be moved
 }
 
 
-void 
+void
 GNECalibratorFlow::updateGeometry(bool /*updateGrid*/) {
     // Currently this additional doesn't own a Geometry
 }
 
 
-Position 
+Position
 GNECalibratorFlow::getPositionInView() const {
     return myFirstAdditionalParent->getPositionInView();
 }
 
 
-std::string 
+std::string
 GNECalibratorFlow::getParentName() const {
     return myFirstAdditionalParent->getID();
 }
 
 
-void 
+void
 GNECalibratorFlow::drawGL(const GUIVisualizationSettings& /* s */) const {
     // Currently This additional isn't drawn
 }
@@ -226,9 +226,9 @@ GNECalibratorFlow::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ROUTE:
             return SUMOXMLDefinitions::isValidVehicleID(value) && (myViewNet->getNet()->retrieveAdditional(SUMO_TAG_ROUTE, value, false) != nullptr);
         case SUMO_ATTR_VEHSPERHOUR:
-            if(value.empty()) {
+            if (value.empty()) {
                 // speed and vehsPerHour cannot be empty at the same time
-                if(mySpeed.empty()) {
+                if (mySpeed.empty()) {
                     return false;
                 } else {
                     return true;
@@ -239,9 +239,9 @@ GNECalibratorFlow::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
         case SUMO_ATTR_SPEED:
-            if(value.empty()) {
+            if (value.empty()) {
                 // speed and vehsPerHour cannot be empty at the same time
-                if(myVehsPerHour.empty()) {
+                if (myVehsPerHour.empty()) {
                     return false;
                 } else {
                     return true;
@@ -250,7 +250,8 @@ GNECalibratorFlow::isValid(SumoXMLAttr key, const std::string& value) {
                 return (parse<double>(value) >= 0);
             } else {
                 return false;
-            }        case SUMO_ATTR_COLOR:
+            }
+        case SUMO_ATTR_COLOR:
             return canParse<RGBColor>(value);
         case SUMO_ATTR_BEGIN:
             return canParse<double>(value) && (parse<double>(value) >= 0);
@@ -312,13 +313,13 @@ GNECalibratorFlow::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-std::string 
+std::string
 GNECalibratorFlow::getPopUpID() const {
     return toString(getTag());
 }
 
 
-std::string 
+std::string
 GNECalibratorFlow::getHierarchyName() const {
     return toString(getTag()) + ": " + getAttribute(SUMO_ATTR_BEGIN) + " -> " + getAttribute(SUMO_ATTR_END);
 }

@@ -125,6 +125,9 @@ public:
     /// @brief begin movement (used when user click over additional to start a movement, to avoid problems with problems with GL Tree)
     void startGeometryMoving();
 
+    /// @brief begin movement (used when user click over additional to start a movement, to avoid problems with problems with GL Tree)
+    void endGeometryMoving();
+
     /**@brief change the position of the element geometry without saving in undoList
     * @param[in] oldPos position before start movement
     * @param[in] offset movement offset regardings to oldPos
@@ -162,7 +165,7 @@ public:
     /// @brief gererate a new ID for an additional child
     std::string generateAdditionalChildID(SumoXMLTag childTag);
 
-    /// @name members and functions relative to additional's childs 
+    /// @name members and functions relative to additional's childs
     /// @{
 
     /// @brief add additional child to this additional
@@ -174,7 +177,7 @@ public:
     /// @brief return vector of additionals that have as Parent this edge (For example, Calibrators)
     const std::vector<GNEAdditional*>& getAdditionalChilds() const;
 
-     /// @brief sort childs (used by Rerouters and VSS)
+    /// @brief sort childs (used by Rerouters and VSS)
     void sortAdditionalChilds();
 
     /// @brief check if childs are overlapped (Used by Rerouters)
@@ -275,16 +278,16 @@ public:
     /// @{
 
     /// @brief add generic parameter
-    bool addGenericParameter(const std::string &key, const std::string &value);
+    bool addGenericParameter(const std::string& key, const std::string& value);
 
     /// @brief remove generic parameter
-    bool removeGenericParameter(const std::string &key);
+    bool removeGenericParameter(const std::string& key);
 
     /// @brief update generic parameter
-    bool updateGenericParameter(const std::string &oldKey, const std::string &newKey);
+    bool updateGenericParameter(const std::string& oldKey, const std::string& newKey);
 
-    /// @brief update value generic parameter 
-    bool updateGenericParameterValue(const std::string &key, const std::string &newValue);
+    /// @brief update value generic parameter
+    bool updateGenericParameterValue(const std::string& key, const std::string& newValue);
 
     /// @brief return generic parameters in string format
     std::string getGenericParametersStr() const;
@@ -293,7 +296,7 @@ public:
     std::vector<std::pair<std::string, std::string> > getGenericParameters() const;
 
     /// @brief set generic parameters in string format
-    void setGenericParametersStr(const std::string &value);
+    void setGenericParametersStr(const std::string& value);
 
     /// @}
 
@@ -312,8 +315,8 @@ protected:
      */
     PositionVector myShape;
 
-    /// @brief variable used to save shape bevore moving (used to avoid inconsistences in GL Tree)
-    PositionVector myMovingShape;
+    /// @brief boundary used during moving of elements
+    Boundary myMovingGeometryBoundary;
 
     /// @brief name of additional
     std::string myAdditionalName;

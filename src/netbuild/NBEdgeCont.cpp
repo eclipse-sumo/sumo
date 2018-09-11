@@ -407,9 +407,9 @@ NBEdgeCont::rename(NBEdge* edge, const std::string& newID) {
 
 // ----- explicit edge manipulation methods
 
-void 
-NBEdgeCont::processSplits(NBEdge* e, std::vector<Split> splits, 
-        NBNodeCont& nc, NBDistrictCont& dc, NBTrafficLightLogicCont& tlc) {
+void
+NBEdgeCont::processSplits(NBEdge* e, std::vector<Split> splits,
+                          NBNodeCont& nc, NBDistrictCont& dc, NBTrafficLightLogicCont& tlc) {
     if (splits.size() == 0) {
         return;
     }
@@ -450,7 +450,7 @@ NBEdgeCont::processSplits(NBEdge* e, std::vector<Split> splits,
                 firstID = idBefore;
             }
             const bool ok = splitAt(dc, e, exp.pos - seen, exp.node,
-                    idBefore, idAfter, e->getNumLanes(), (int) exp.lanes.size(), exp.speed);
+                                    idBefore, idAfter, e->getNumLanes(), (int) exp.lanes.size(), exp.speed);
             if (!ok) {
                 WRITE_WARNING("Error on parsing a split (edge '" + origID + "').");
             }
@@ -519,6 +519,7 @@ NBEdgeCont::processSplits(NBEdge* e, std::vector<Split> splits,
             start.lanes.push_back(lane);
         }
         start.offset = splits.front().offset;
+        start.offsetFactor = splits.front().offsetFactor;
         splits.insert(splits.begin(), start);
     }
     i = splits.begin();
@@ -528,14 +529,14 @@ NBEdgeCont::processSplits(NBEdge* e, std::vector<Split> splits,
             double offset = (*i).offset;
             if (maxLeft < noLanesMax) {
                 if (e->getLaneSpreadFunction() == LANESPREAD_RIGHT) {
-                    offset += SUMO_const_laneWidthAndOffset * (noLanesMax - 1 - maxLeft);
+                    offset += (*i).offsetFactor * SUMO_const_laneWidthAndOffset * (noLanesMax - 1 - maxLeft);
                 } else {
-                    offset += SUMO_const_halfLaneAndOffset * (noLanesMax - 1 - maxLeft);
+                    offset += (*i).offsetFactor * SUMO_const_halfLaneAndOffset * (noLanesMax - 1 - maxLeft);
                 }
             }
             int maxRight = (*i).lanes.front();
             if (maxRight > 0 && e->getLaneSpreadFunction() == LANESPREAD_CENTER) {
-                offset -= SUMO_const_halfLaneAndOffset * maxRight;
+                offset -= (*i).offsetFactor * SUMO_const_halfLaneAndOffset * maxRight;
             }
             //std::cout << " processSplits " << origID << " splitOffset=" << (*i).offset << " offset=" << offset << "\n";
             if (offset != 0) {
@@ -817,7 +818,7 @@ NBEdgeCont::recheckLanes() {
 
 
 void
-NBEdgeCont::appendTurnarounds(bool noTLSControlled, bool onlyDeadends ) {
+NBEdgeCont::appendTurnarounds(bool noTLSControlled, bool onlyDeadends) {
     for (EdgeCont::iterator i = myEdges.begin(); i != myEdges.end(); i++) {
         (*i).second->appendTurnaround(noTLSControlled, onlyDeadends, true);
     }
@@ -832,7 +833,7 @@ NBEdgeCont::appendTurnarounds(const std::set<std::string>& ids, bool noTLSContro
 }
 
 
-void 
+void
 NBEdgeCont::appendRailwayTurnarounds(const NBPTStopCont& sc) {
     std::set<std::string> stopEdgeIDs;
     for (auto& stopItem : sc.getStops()) {
@@ -840,15 +841,15 @@ NBEdgeCont::appendRailwayTurnarounds(const NBPTStopCont& sc) {
     }
     for (auto& item : myEdges) {
         NBEdge* edge = item.second;
-        if (edge->isBidiRail() 
+        if (edge->isBidiRail()
                 && (stopEdgeIDs.count(item.first) > 0 ||
                     stopEdgeIDs.count(edge->getTurnDestination(true)->getID()) > 0)) {
             NBEdge* to = edge->getTurnDestination(true);
             assert(to != 0);
             edge->setConnection(edge->getNumLanes() - 1,
-                    to, to->getNumLanes() - 1, NBEdge::L2L_VALIDATED, false, false, true, 
-                    NBEdge::UNSPECIFIED_CONTPOS, NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE, 
-                    SUMO_const_haltingSpeed);
+                                to, to->getNumLanes() - 1, NBEdge::L2L_VALIDATED, false, false, true,
+                                NBEdge::UNSPECIFIED_CONTPOS, NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE,
+                                SUMO_const_haltingSpeed);
         }
     }
 }
@@ -1320,7 +1321,7 @@ NBEdgeCont::guessSidewalks(double width, double minSpeed, double maxSpeed, bool 
 
 
 int
-NBEdgeCont::remapIDs(bool numericaIDs, bool reservedIDs, const std::string& prefix) {
+NBEdgeCont::remapIDs(bool numericaIDs, bool reservedIDs, const std::string& prefix, NBPTStopCont& sc) {
     std::vector<std::string> avoid = getAllNames();
     std::set<std::string> reserve;
     if (reservedIDs) {
@@ -1341,15 +1342,25 @@ NBEdgeCont::remapIDs(bool numericaIDs, bool reservedIDs, const std::string& pref
             toChange.insert(it->second);
         }
     }
+
+    std::map<std::string, std::vector<NBPTStop*> > stopsOnEdge;
+    for (const auto& item : sc.getStops()) {
+        stopsOnEdge[item.second->getEdgeId()].push_back(item.second);
+    }
+
     const bool origNames = OptionsCont::getOptions().getBool("output.original-names");
     for (std::set<NBEdge*, ComparatorIdLess>::iterator it = toChange.begin(); it != toChange.end(); ++it) {
         NBEdge* edge = *it;
-        myEdges.erase(edge->getID());
+        const std::string origID = edge->getID();
+        myEdges.erase(origID);
         if (origNames) {
-            edge->setOrigID(edge->getID());
+            edge->setOrigID(origID);
         }
         edge->setID(idSupplier.getNext());
         myEdges[edge->getID()] = edge;
+        for (NBPTStop* stop : stopsOnEdge[origID]) {
+            stop->setEdgeId(prefix + edge->getID(), *this);
+        }
     }
     if (prefix.empty()) {
         return (int)toChange.size();
@@ -1427,7 +1438,7 @@ NBEdgeCont::checkGrade(double threshold) const {
 }
 
 
-EdgeVector 
+EdgeVector
 NBEdgeCont::getAllEdges() const {
     EdgeVector result;
     for (auto item : myEdges) {

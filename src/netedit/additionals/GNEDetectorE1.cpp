@@ -63,7 +63,7 @@ GNEDetectorE1::~GNEDetectorE1() {
 void
 GNEDetectorE1::updateGeometry(bool updateGrid) {
     // first check if object has to be removed from grid (SUMOTree)
-    if(updateGrid) {
+    if (updateGrid) {
         myViewNet->getNet()->removeGLObjectFromGrid(this);
     }
 
@@ -97,7 +97,7 @@ GNEDetectorE1::updateGeometry(bool updateGrid) {
     setBlockIconRotation(myLane);
 
     // last step is to check if object has to be added into grid (SUMOTree) again
-    if(updateGrid) {
+    if (updateGrid) {
         myViewNet->getNet()->addGLObjectIntoGrid(this);
     }
 }
@@ -107,7 +107,7 @@ bool GNEDetectorE1::isDetectorPositionFixed() const {
     if (myFriendlyPosition) {
         return true;
     } else {
-        return (myPositionOverLane>= 0) && (myPositionOverLane <= myLane->getParentEdge().getNBEdge()->getFinalLength());
+        return (myPositionOverLane >= 0) && (myPositionOverLane <= myLane->getParentEdge().getNBEdge()->getFinalLength());
     }
 }
 
@@ -203,12 +203,12 @@ GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
     }
 
     // Finish draw if isn't being drawn for selecting
-    if(!s.drawForSelecting) {
+    if (!s.drawForSelecting) {
         drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
     }
 
     // check if dotted contour has to be drawn
-    if(!s.drawForSelecting && (myViewNet->getACUnderCursor() == this)) {
+    if (!s.drawForSelecting && (myViewNet->getACUnderCursor() == this)) {
         GLHelper::drawShapeDottedContour(getType(), myShape[0], 2, 4, myShapeRotations[0]);
     }
 
@@ -294,7 +294,7 @@ GNEDetectorE1::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_FILE:
             return SUMOXMLDefinitions::isValidFilename(value);
         case SUMO_ATTR_VTYPES:
-            if(value.empty()) {
+            if (value.empty()) {
                 return true;
             } else {
                 return SUMOXMLDefinitions::isValidListOfTypeID(value);
@@ -347,7 +347,7 @@ GNEDetectorE1::setAttribute(SumoXMLAttr key, const std::string& value) {
             myBlockMovement = parse<bool>(value);
             break;
         case GNE_ATTR_SELECTED:
-            if(parse<bool>(value)) {
+            if (parse<bool>(value)) {
                 selectAttributeCarrier();
             } else {
                 unselectAttributeCarrier();

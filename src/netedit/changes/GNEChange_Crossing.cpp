@@ -82,7 +82,7 @@ void GNEChange_Crossing::undo() {
         // show extra information for tests
         WRITE_DEBUG("Adding " + toString(SUMO_TAG_CROSSING) + " into " + toString(myJunctionParent->getTag()) + " '" + myJunctionParent->getID() + "'");
         // add crossing of NBNode
-        NBNode::Crossing *c = myJunctionParent->getNBNode()->addCrossing(myEdges, myWidth, myPriority, myCustomTLIndex, myCustomTLIndex2, myCustomShape);
+        NBNode::Crossing* c = myJunctionParent->getNBNode()->addCrossing(myEdges, myWidth, myPriority, myCustomTLIndex, myCustomTLIndex2, myCustomShape);
         // Check if Flag "haveNetworkCrossings" has to be enabled
         if (myNet->getNetBuilder()->haveNetworkCrossings() == false) {
             myNet->getNetBuilder()->setHaveNetworkCrossings(true);
@@ -92,7 +92,7 @@ void GNEChange_Crossing::undo() {
         // rebuild GNECrossings
         myJunctionParent->rebuildGNECrossings();
         // select if mySelected is enabled
-        if(mySelected) {
+        if (mySelected) {
             myJunctionParent->retrieveGNECrossing(c, false)->selectAttributeCarrier();
         }
         // Update view
@@ -112,7 +112,7 @@ void GNEChange_Crossing::redo() {
         // show extra information for tests
         WRITE_DEBUG("Adding " + toString(SUMO_TAG_CROSSING) + " into " + toString(myJunctionParent->getTag()) + " '" + myJunctionParent->getID() + "'");
         // add crossing of NBNode and update geometry
-        NBNode::Crossing *c = myJunctionParent->getNBNode()->addCrossing(myEdges, myWidth, myPriority, myCustomTLIndex, myCustomTLIndex2, myCustomShape);
+        NBNode::Crossing* c = myJunctionParent->getNBNode()->addCrossing(myEdges, myWidth, myPriority, myCustomTLIndex, myCustomTLIndex2, myCustomShape);
         // Check if Flag "haveNetworkCrossings" has to be enabled
         if (myNet->getNetBuilder()->haveNetworkCrossings() == false) {
             myNet->getNetBuilder()->setHaveNetworkCrossings(true);
@@ -122,7 +122,7 @@ void GNEChange_Crossing::redo() {
         // rebuild GNECrossings
         myJunctionParent->rebuildGNECrossings();
         // select if mySelected is enabled
-        if(mySelected) {
+        if (mySelected) {
             myJunctionParent->retrieveGNECrossing(c, false)->selectAttributeCarrier();
         }
         // Update view

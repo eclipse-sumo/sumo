@@ -53,7 +53,7 @@
 // member method definitions
 // ===========================================================================
 
-GNEDetectorE2::GNEDetectorE2(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double pos, double length, double freq, const std::string& filename, const std::string& vehicleTypes, 
+GNEDetectorE2::GNEDetectorE2(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double pos, double length, double freq, const std::string& filename, const std::string& vehicleTypes,
                              const std::string& name, const double timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, bool blockMovement) :
     GNEDetector(id, viewNet, GLO_E2DETECTOR, SUMO_TAG_E2DETECTOR, lane, pos, freq, filename, vehicleTypes, name, friendlyPos, blockMovement),
     myLength(length),
@@ -70,7 +70,7 @@ GNEDetectorE2::~GNEDetectorE2() {
 void
 GNEDetectorE2::updateGeometry(bool updateGrid) {
     // first check if object has to be removed from grid (SUMOTree)
-    if(updateGrid) {
+    if (updateGrid) {
         myViewNet->getNet()->removeGLObjectFromGrid(this);
     }
 
@@ -83,7 +83,7 @@ GNEDetectorE2::updateGeometry(bool updateGrid) {
 
     // set start position
     double startPosFixed;
-    if(myPositionOverLane < 0) {
+    if (myPositionOverLane < 0) {
         startPosFixed = 0;
     } else if (myPositionOverLane > myLane->getParentEdge().getNBEdge()->getFinalLength()) {
         startPosFixed = myLane->getParentEdge().getNBEdge()->getFinalLength();
@@ -93,7 +93,7 @@ GNEDetectorE2::updateGeometry(bool updateGrid) {
 
     // set end position
     double endPosFixed;
-    if((myPositionOverLane + myLength) < 0) {
+    if ((myPositionOverLane + myLength) < 0) {
         endPosFixed = 0;
     } else if ((myPositionOverLane + myLength) > myLane->getParentEdge().getNBEdge()->getFinalLength()) {
         endPosFixed = myLane->getParentEdge().getNBEdge()->getFinalLength();
@@ -103,7 +103,7 @@ GNEDetectorE2::updateGeometry(bool updateGrid) {
 
     // Cut shape using as delimitators fixed start position and fixed end position
     myShape = myShape.getSubpart(startPosFixed * myLane->getLengthGeometryFactor(), endPosFixed * myLane->getLengthGeometryFactor());
-    
+
     // Get number of parts of the shape
     int numberOfSegments = (int)myShape.size() - 1;
 
@@ -141,25 +141,25 @@ GNEDetectorE2::updateGeometry(bool updateGrid) {
     setBlockIconRotation(myLane);
 
     // last step is to check if object has to be added into grid (SUMOTree) again
-    if(updateGrid) {
+    if (updateGrid) {
         myViewNet->getNet()->addGLObjectIntoGrid(this);
     }
 }
 
 
-double 
+double
 GNEDetectorE2::getLength() const {
     return myLength;
 }
 
 
-bool 
+bool
 GNEDetectorE2::isDetectorPositionFixed() const {
     // with friendly position enabled position are "always fixed"
     if (myFriendlyPosition) {
         return true;
     } else {
-        return (myPositionOverLane>= 0) && ((myPositionOverLane + myLength) <= myLane->getParentEdge().getNBEdge()->getFinalLength());
+        return (myPositionOverLane >= 0) && ((myPositionOverLane + myLength) <= myLane->getParentEdge().getNBEdge()->getFinalLength());
     }
 }
 
@@ -215,11 +215,11 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
     }
 
     // Draw name if isn't being drawn for selecting
-    if(!s.drawForSelecting) {
+    if (!s.drawForSelecting) {
         drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
     }
     // check if dotted contour has to be drawn
-    if(!s.drawForSelecting && (myViewNet->getACUnderCursor() == this)) {
+    if (!s.drawForSelecting && (myViewNet->getACUnderCursor() == this)) {
         GLHelper::drawShapeDottedContour(getType(), myShape, exaggeration);
     }
     // Pop name
@@ -317,7 +317,7 @@ GNEDetectorE2::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_FILE:
             return SUMOXMLDefinitions::isValidFilename(value);
         case SUMO_ATTR_VTYPES:
-            if(value.empty()) {
+            if (value.empty()) {
                 return true;
             } else {
                 return SUMOXMLDefinitions::isValidListOfTypeID(value);
@@ -388,7 +388,7 @@ GNEDetectorE2::setAttribute(SumoXMLAttr key, const std::string& value) {
             myBlockMovement = parse<bool>(value);
             break;
         case GNE_ATTR_SELECTED:
-            if(parse<bool>(value)) {
+            if (parse<bool>(value)) {
                 selectAttributeCarrier();
             } else {
                 unselectAttributeCarrier();

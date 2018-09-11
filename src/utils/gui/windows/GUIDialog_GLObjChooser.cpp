@@ -172,7 +172,7 @@ GUIDialog_GLObjChooser::onCmdFilter(FXObject*, FXSelector, void*) {
 }
 
 
-void 
+void
 GUIDialog_GLObjChooser::refreshList(const std::vector<GUIGlID>& ids) {
     myList->clearItems();
     for (auto i : ids) {
@@ -209,7 +209,7 @@ GUIDialog_GLObjChooser::onCmdToggleSelection(FXObject*, FXSelector, void*) {
 }
 
 
-void 
+void
 GUIDialog_GLObjChooser::toggleSelection(int listIndex) {
     GUIGlID* glID = static_cast<GUIGlID*>(myList->getItemData(listIndex));
     gSelected.toggleSelection(*glID);

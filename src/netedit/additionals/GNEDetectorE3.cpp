@@ -72,7 +72,7 @@ GNEDetectorE3::~GNEDetectorE3() {}
 void
 GNEDetectorE3::updateGeometry(bool updateGrid) {
     // first check if object has to be removed from grid (SUMOTree)
-    if(updateGrid) {
+    if (updateGrid) {
         myViewNet->getNet()->removeGLObjectFromGrid(this);
     }
 
@@ -95,7 +95,7 @@ GNEDetectorE3::updateGeometry(bool updateGrid) {
     updateChildConnections();
 
     // last step is to check if object has to be added into grid (SUMOTree) again
-    if(updateGrid) {
+    if (updateGrid) {
         myViewNet->getNet()->addGLObjectIntoGrid(this);
     }
 }
@@ -118,8 +118,6 @@ GNEDetectorE3::moveGeometry(const Position& oldPos, const Position& offset) {
 
 void
 GNEDetectorE3::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
-    // restore original shape before moving (to avoid problems in GL Tree)
-    myShape = myMovingShape;
     // commit new position allowing undo/redo
     undoList->p_begin("position of " + toString(getTag()));
     undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPosition), true, toString(oldPos)));
@@ -143,7 +141,7 @@ GNEDetectorE3::drawGL(const GUIVisualizationSettings& s) const {
     glTranslated(myShape[0].x(), myShape[0].y(), getType());
 
     // Draw icon depending of detector is selected and if isn't being drawn for selecting
-    if(s.drawForSelecting) {
+    if (s.drawForSelecting) {
         GLHelper::setColor(RGBColor::GREY);
         GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
     } else {
@@ -158,18 +156,18 @@ GNEDetectorE3::drawGL(const GUIVisualizationSettings& s) const {
 
     // Pop logo matrix
     glPopMatrix();
-    if(!s.drawForSelecting) {
+    if (!s.drawForSelecting) {
         // Show Lock icon depending of the Edit mode
         drawLockIcon(0.4);
         // Draw connections
         drawChildConnections();
     }
     // Draw name if isn't being drawn for selecting
-    if(!s.drawForSelecting) {
+    if (!s.drawForSelecting) {
         drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
     }
     // check if dotted contour has to be drawn
-    if(!s.drawForSelecting && (myViewNet->getACUnderCursor() == this)) {
+    if (!s.drawForSelecting && (myViewNet->getACUnderCursor() == this)) {
         GLHelper::drawShapeDottedContour(getType(), myPosition, 2, 2);
         // draw shape dotte contour aroud alld connections between child and parents
         for (auto i : myChildConnectionPositions) {
@@ -259,7 +257,7 @@ GNEDetectorE3::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_FILE:
             return SUMOXMLDefinitions::isValidFilename(value);
         case SUMO_ATTR_VTYPES:
-            if(value.empty()) {
+            if (value.empty()) {
                 return true;
             } else {
                 return SUMOXMLDefinitions::isValidListOfTypeID(value);
@@ -280,7 +278,7 @@ GNEDetectorE3::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-bool 
+bool
 GNEDetectorE3::checkAdditionalChildRestriction() const {
     int numEntrys = 0;
     int numExits = 0;
@@ -293,24 +291,24 @@ GNEDetectorE3::checkAdditionalChildRestriction() const {
         }
     }
     // write warnings
-    if(numEntrys == 0) {
+    if (numEntrys == 0) {
         WRITE_WARNING("An " + toString(SUMO_TAG_E3DETECTOR) + " need at least one " + toString(SUMO_TAG_DET_ENTRY) + " detector");
     }
-     if(numExits == 0) {
+    if (numExits == 0) {
         WRITE_WARNING("An " + toString(SUMO_TAG_E3DETECTOR) + " need at least one " + toString(SUMO_TAG_DET_EXIT) + " detector");
     }
     // return false depending of number of Entrys and Exits
-     return ((numEntrys != 0) && (numExits != 0));
+    return ((numEntrys != 0) && (numExits != 0));
 }
 
 
-std::string 
+std::string
 GNEDetectorE3::getPopUpID() const {
     return toString(getTag()) + ":" + getID();
 }
 
 
-std::string 
+std::string
 GNEDetectorE3::getHierarchyName() const {
     return toString(getTag());
 }
@@ -350,7 +348,7 @@ GNEDetectorE3::setAttribute(SumoXMLAttr key, const std::string& value) {
             myBlockMovement = parse<bool>(value);
             break;
         case GNE_ATTR_SELECTED:
-            if(parse<bool>(value)) {
+            if (parse<bool>(value)) {
                 selectAttributeCarrier();
             } else {
                 unselectAttributeCarrier();

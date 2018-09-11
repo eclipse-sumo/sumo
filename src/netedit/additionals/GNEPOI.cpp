@@ -70,8 +70,8 @@ GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, cons
 
 
 GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color,
-    double layer, double angle, const std::string& imgFile, bool relativePath, GNELane* lane, double posOverLane, double posLat,
-    double width, double height, bool movementBlocked) :
+               double layer, double angle, const std::string& imgFile, bool relativePath, GNELane* lane, double posOverLane, double posLat,
+               double width, double height, bool movementBlocked) :
     GUIPointOfInterest(id, type, color, Position(), false, lane->getID(), posOverLane, posLat, layer, angle, imgFile, relativePath, width, height),
     GNEShape(net, SUMO_TAG_POILANE, movementBlocked, false),
     myGNELane(lane) {
@@ -81,9 +81,31 @@ GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, cons
 GNEPOI::~GNEPOI() {}
 
 
-void 
+void
+GNEPOI::startGeometryMoving() {
+    // save current centering boundary
+    myMovingGeometryBoundary = getCenteringBoundary();
+}
+
+
+void
+GNEPOI::endGeometryMoving() {
+    // check that endGeometryMoving was called only once
+    if (myMovingGeometryBoundary.isInitialised()) {
+        // Remove object from net
+        myNet->removeGLObjectFromGrid(this);
+        // reset myMovingGeometryBoundary
+        myMovingGeometryBoundary.reset();
+        // update geometry without updating grid
+        updateGeometry(false);
+        // add object into grid again (using the new centering boundary)
+        myNet->addGLObjectIntoGrid(this);
+    }
+}
+
+void
 GNEPOI::writeShape(OutputDevice& device) {
-    if(myGNELane) {
+    if (myGNELane) {
         // obtain fixed position over lane
         double fixedPositionOverLane = myPosOverLane > myGNELane->getShape().length() ? myGNELane->getShape().length() : myPosOverLane < 0 ? 0 : myPosOverLane;
         // write POILane using POI::writeXML
@@ -144,7 +166,7 @@ GNEPOI::getLane() const {
 void
 GNEPOI::updateGeometry(bool updateGrid) {
     // first check if object has to be removed from grid (SUMOTree)
-    if(updateGrid) {
+    if (updateGrid) {
         myNet->removeGLObjectFromGrid(this);
     }
     if (myGNELane) {
@@ -154,7 +176,7 @@ GNEPOI::updateGeometry(bool updateGrid) {
         set(myGNELane->getShape().positionAtOffset(fixedPositionOverLane * myGNELane->getLengthGeometryFactor(), -myPosLat));
     }
     // last step is to check if object has to be added into grid (SUMOTree) again
-    if(updateGrid) {
+    if (updateGrid) {
         myNet->addGLObjectIntoGrid(this);
     }
 }
@@ -181,7 +203,13 @@ GNEPOI::getParentName() const {
 GUIGLObjectPopupMenu*
 GNEPOI::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
-    if(myGNELane) {
+    buildPopupHeader(ret, app);
+    buildCenterPopupEntry(ret);
+    buildNameCopyPopupEntry(ret);
+    // build selection and show parameters menu
+    myNet->getViewNet()->buildSelectionACPopupEntry(ret, this);
+    buildShowParamsPopupEntry(ret);
+    if (myGNELane) {
         // build shape header
         buildShapePopupOptions(app, ret, getShapeType());
         // add option for convert to GNEPOI
@@ -205,7 +233,12 @@ GNEPOI::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 
 Boundary
 GNEPOI::getCenteringBoundary() const {
-    return GUIPointOfInterest::getCenteringBoundary();
+    // Return Boundary depending if myMovingGeometryBoundary is initialised (important for move geometry)
+    if (myMovingGeometryBoundary.isInitialised()) {
+        return myMovingGeometryBoundary;
+    }  else {
+        return GUIPointOfInterest::getCenteringBoundary();
+    }
 }
 
 
@@ -213,7 +246,7 @@ void
 GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
     GUIPointOfInterest::drawGL(s);
     // draw lock icon if isn't in selecting mode
-    if(!s.drawForSelecting) {
+    if (!s.drawForSelecting) {
         drawLockIcon(*this, getType() + 0.1, 0.2);
     }
     // push matrix
@@ -229,9 +262,9 @@ GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
 
     }
     // check if dotted contour has to be drawn
-    if(myNet->getViewNet()->getACUnderCursor() == this) {
+    if (myNet->getViewNet()->getACUnderCursor() == this) {
         if (getShapeImgFile() != DEFAULT_IMG_FILE) {
-            GLHelper::drawShapeDottedContour(getType(), *this, 2*myHalfImgWidth * s.poiSize.getExaggeration(s), 2*myHalfImgHeight * s.poiSize.getExaggeration(s));
+            GLHelper::drawShapeDottedContour(getType(), *this, 2 * myHalfImgWidth * s.poiSize.getExaggeration(s), 2 * myHalfImgHeight * s.poiSize.getExaggeration(s));
         } else if (myPOIVertices.size() > 0) {
             glPushMatrix();
             glTranslated(x(), y(), getType() + 0.01);
@@ -254,7 +287,7 @@ GNEPOI::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_LANE:
             return myLane;
         case SUMO_ATTR_POSITION:
-            if(myGNELane) {
+            if (myGNELane) {
                 return toString(myPosOverLane);
             } else {
                 return toString(*this);
@@ -268,7 +301,7 @@ GNEPOI::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_TYPE:
             return getShapeType();
         case SUMO_ATTR_LAYER:
-            if(getShapeLayer() == Shape::DEFAULT_LAYER_POI) {
+            if (getShapeLayer() == Shape::DEFAULT_LAYER_POI) {
                 return "default";
             } else {
                 return toString(getShapeLayer());
@@ -336,8 +369,8 @@ GNEPOI::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_LANE:
             return (myNet->retrieveLane(value, false) != nullptr);
         case SUMO_ATTR_POSITION:
-            if(myGNELane) {
-                canParse<double>(value);
+            if (myGNELane) {
+                return canParse<double>(value);
             } else {
                 bool ok;
                 return GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, false).size() == 1;
@@ -385,9 +418,9 @@ GNEPOI::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-bool 
-GNEPOI::addGenericParameter(const std::string &key, const std::string &value) {
-    if(!knowsParameter(key)) {
+bool
+GNEPOI::addGenericParameter(const std::string& key, const std::string& value) {
+    if (!knowsParameter(key)) {
         setParameter(key, value);
         return true;
     } else {
@@ -396,9 +429,9 @@ GNEPOI::addGenericParameter(const std::string &key, const std::string &value) {
 }
 
 
-bool 
-GNEPOI::removeGenericParameter(const std::string &key) {
-    if(knowsParameter(key)) {
+bool
+GNEPOI::removeGenericParameter(const std::string& key) {
+    if (knowsParameter(key)) {
         unsetParameter(key);
         return true;
     } else {
@@ -407,9 +440,9 @@ GNEPOI::removeGenericParameter(const std::string &key) {
 }
 
 
-bool 
-GNEPOI::updateGenericParameter(const std::string &oldKey, const std::string &newKey) {
-    if(knowsParameter(oldKey) && !knowsParameter(newKey)) {
+bool
+GNEPOI::updateGenericParameter(const std::string& oldKey, const std::string& newKey) {
+    if (knowsParameter(oldKey) && !knowsParameter(newKey)) {
         std::string value = getParameter(oldKey);
         unsetParameter(oldKey);
         setParameter(newKey, value);
@@ -420,9 +453,9 @@ GNEPOI::updateGenericParameter(const std::string &oldKey, const std::string &new
 }
 
 
-bool 
-GNEPOI::updateGenericParameterValue(const std::string &key, const std::string &newValue) {
-    if(knowsParameter(key)) {
+bool
+GNEPOI::updateGenericParameterValue(const std::string& key, const std::string& newValue) {
+    if (knowsParameter(key)) {
         setParameter(key, newValue);
         return true;
     } else {
@@ -431,7 +464,7 @@ GNEPOI::updateGenericParameterValue(const std::string &key, const std::string &n
 }
 
 
-std::string 
+std::string
 GNEPOI::getGenericParametersStr() const {
     std::string result;
     // Generate an string using the following structure: "key1=value1|key2=value2|...
@@ -439,14 +472,14 @@ GNEPOI::getGenericParametersStr() const {
         result += i.first + "=" + i.second + "|";
     }
     // remove the last "|"
-    if(!result.empty()) {
+    if (!result.empty()) {
         result.pop_back();
     }
     return result;
 }
 
 
-std::vector<std::pair<std::string, std::string> > 
+std::vector<std::pair<std::string, std::string> >
 GNEPOI::getGenericParameters() const {
     std::vector<std::pair<std::string, std::string> >  result;
     // iterate over parameters map and fill result
@@ -457,8 +490,8 @@ GNEPOI::getGenericParameters() const {
 }
 
 
-void 
-GNEPOI::setGenericParametersStr(const std::string &value) {
+void
+GNEPOI::setGenericParametersStr(const std::string& value) {
     // clear parameters
     clearParameter();
     // separate value in a vector of string using | as separator
@@ -467,15 +500,15 @@ GNEPOI::setGenericParametersStr(const std::string &value) {
     while (stValues.hasNext()) {
         parsedValues.push_back(stValues.next());
     }
-    // check that parsed values (A=B)can be parsed in generic parameters 
-    for(auto i : parsedValues) {
+    // check that parsed values (A=B)can be parsed in generic parameters
+    for (auto i : parsedValues) {
         std::vector<std::string> parsedParameters;
         StringTokenizer stParam(i, "=", true);
         while (stParam.hasNext()) {
             parsedParameters.push_back(stParam.next());
         }
         // Check that parsed parameters are exactly two and contains valid chracters
-        if(parsedParameters.size() == 2 && SUMOXMLDefinitions::isValidGenericParameterKey(parsedParameters.front()) && SUMOXMLDefinitions::isValidGenericParameterValue(parsedParameters.back())) {
+        if (parsedParameters.size() == 2 && SUMOXMLDefinitions::isValidGenericParameterKey(parsedParameters.front()) && SUMOXMLDefinitions::isValidGenericParameterValue(parsedParameters.back())) {
             setParameter(parsedParameters.front(), parsedParameters.back());
         }
     }
@@ -492,6 +525,7 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             std::string oldID = myID;
             myID = value;
             myNet->changeShapeID(this, oldID);
+            setMicrosimID(value);
             break;
         }
         case SUMO_ATTR_COLOR:
@@ -507,7 +541,7 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_POSITION: {
             // first remove object from grid due position is used for boundary
             myNet->removeGLObjectFromGrid(this);
-            if(myGNELane) {
+            if (myGNELane) {
                 myPosOverLane = parse<double>(value);
             } else {
                 bool ok = true;
@@ -546,7 +580,7 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             setShapeType(value);
             break;
         case SUMO_ATTR_LAYER:
-            if(value == "default") {
+            if (value == "default") {
                 setShapeLayer(Shape::DEFAULT_LAYER_POI);
             } else {
                 setShapeLayer(parse<double>(value));
@@ -585,7 +619,7 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             myBlockMovement = parse<bool>(value);
             break;
         case GNE_ATTR_SELECTED:
-            if(parse<bool>(value)) {
+            if (parse<bool>(value)) {
                 selectAttributeCarrier();
             } else {
                 unselectAttributeCarrier();
@@ -602,7 +636,7 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
 }
 
 
-void 
+void
 GNEPOI::mouseOverObject(const GUIVisualizationSettings&) const {
 }
 

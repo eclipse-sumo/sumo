@@ -122,7 +122,7 @@ GNEChange_Attribute::undo() {
     // set original value
     myAC->setAttribute(myKey, myOrigValue);
     // check if netElements, additional or shapes has to be saved (only if key isn't GNE_ATTR_SELECTED)
-    if(myKey != GNE_ATTR_SELECTED) {
+    if (myKey != GNE_ATTR_SELECTED) {
         if (myNetElement) {
             myNet->requiereSaveNet(true);
         } else if (myAdditional) {
@@ -130,10 +130,6 @@ GNEChange_Attribute::undo() {
         } else if (myShape) {
             myNet->requiereSaveShapes(true);
         }
-    } else {
-        // update lockGL object types
-        myNet->getViewNet()->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->updateLockGLObjectTypes();
-        myNet->getViewNet()->update();
     }
 }
 
@@ -145,7 +141,7 @@ GNEChange_Attribute::redo() {
     // set new value
     myAC->setAttribute(myKey, myNewValue);
     // check if netElements, additional or shapes has to be saved (only if key isn't GNE_ATTR_SELECTED)
-    if(myKey != GNE_ATTR_SELECTED) {
+    if (myKey != GNE_ATTR_SELECTED) {
         if (myNetElement) {
             myNet->requiereSaveNet(true);
         } else if (myAdditional) {
@@ -153,10 +149,6 @@ GNEChange_Attribute::redo() {
         } else if (myShape) {
             myNet->requiereSaveShapes(true);
         }
-    } else {
-        // update lockGL object types
-        myNet->getViewNet()->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->updateLockGLObjectTypes();
-        myNet->getViewNet()->update();
     }
 }
 

@@ -137,7 +137,7 @@ private:
     bool getStringEntry(OGRFeature* poFeature, const std::string& optionName, const char* defaultName, bool prune, std::string& into);
 
     /// @brief return all fields support by the given feature
-    std::vector<std::string> getFieldNames(OGRFeature* poFeature) const; 
+    std::vector<std::string> getFieldNames(OGRFeature* poFeature) const;
 
     /// @brief add list of parameters to edge
     void addParams(NBEdge* edge, OGRFeature* poFeature, const std::vector<std::string>& params) const;

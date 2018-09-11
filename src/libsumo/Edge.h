@@ -36,7 +36,7 @@
 class MSEdge;
 class PositionVector;
 namespace libsumo {
-    class VariableWrapper;
+class VariableWrapper;
 }
 
 
@@ -73,11 +73,12 @@ public:
     static int getLastStepHaltingNumber(const std::string& id);
     static double getLastStepLength(const std::string& id);
     static int getLaneNumber(const std::string& id);
+    static std::string getStreetName(const std::string& id);
     static std::string getParameter(const std::string& id, const std::string& paramName);
     static void setAllowedVehicleClasses(const std::string& id, std::vector<std::string> vector);
     static void setDisallowedVehicleClasses(const std::string& id, std::vector<std::string> classes);
     static void setAllowedSVCPermissions(const std::string& id, int permissions);
-    static void adaptTraveltime(const std::string& id, double value, double begTime=0., double endTime=std::numeric_limits<double>::max());
+    static void adaptTraveltime(const std::string& id, double value, double begTime = 0., double endTime = std::numeric_limits<double>::max());
     static void setEffort(const std::string& id, double value, double begTime = 0., double endTime = std::numeric_limits<double>::max());
     static void setMaxSpeed(const std::string& id, double value);
     static void setParameter(const std::string& id, const std::string& name, const std::string& value);

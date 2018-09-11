@@ -35,7 +35,7 @@
 // ===========================================================================
 
 GNEVariableSpeedSignStep::GNEVariableSpeedSignStep(GNEVariableSpeedSignDialog* variableSpeedSignDialog) :
-    GNEAdditional(variableSpeedSignDialog->getEditedAdditional(), variableSpeedSignDialog->getEditedAdditional()->getViewNet(), GLO_VSS, SUMO_TAG_STEP,"", false) {
+    GNEAdditional(variableSpeedSignDialog->getEditedAdditional(), variableSpeedSignDialog->getEditedAdditional()->getViewNet(), GLO_VSS, SUMO_TAG_STEP, "", false) {
     // fill VSS Step with default values
     setDefaultValues();
     // set time Attribute manually
@@ -63,37 +63,37 @@ GNEVariableSpeedSignStep::getTime() const {
 }
 
 
-void 
+void
 GNEVariableSpeedSignStep::moveGeometry(const Position&, const Position&) {
     // This additional cannot be moved
 }
 
 
-void 
+void
 GNEVariableSpeedSignStep::commitGeometryMoving(const Position&, GNEUndoList*) {
     // This additional cannot be moved
 }
 
 
-void 
+void
 GNEVariableSpeedSignStep::updateGeometry(bool /*updateGrid*/) {
     // Currently this additional doesn't own a Geometry
 }
 
 
-Position 
+Position
 GNEVariableSpeedSignStep::getPositionInView() const {
     return myFirstAdditionalParent->getPositionInView();
 }
 
 
-std::string 
+std::string
 GNEVariableSpeedSignStep::getParentName() const {
     return myFirstAdditionalParent->getID();
 }
 
 
-void 
+void
 GNEVariableSpeedSignStep::drawGL(const GUIVisualizationSettings&) const {
     // Currently This additional isn't drawn
 }
@@ -142,17 +142,17 @@ GNEVariableSpeedSignStep::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             return isValidAdditionalID(value);
         case SUMO_ATTR_TIME:
-            if(canParse<double>(value)) {
-                // Check that 
+            if (canParse<double>(value)) {
+                // Check that
                 double newTime = parse<double>(value);
                 // Only allowed positiv times
-                if(newTime < 0) {
+                if (newTime < 0) {
                     return false;
                 }
                 // check that there isn't duplicate times
                 int counter = 0;
                 for (auto i : myFirstAdditionalParent->getAdditionalChilds()) {
-                    if(parse<double>(i->getAttribute(SUMO_ATTR_TIME)) == newTime) {
+                    if (parse<double>(i->getAttribute(SUMO_ATTR_TIME)) == newTime) {
                         counter++;
                     }
                 }
@@ -170,13 +170,13 @@ GNEVariableSpeedSignStep::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-std::string 
+std::string
 GNEVariableSpeedSignStep::getPopUpID() const {
     return toString(getTag());
 }
 
 
-std::string 
+std::string
 GNEVariableSpeedSignStep::getHierarchyName() const {
     return toString(getTag()) + ": " + getAttribute(SUMO_ATTR_TIME);
 }

@@ -56,7 +56,7 @@
 #include "NBPTLineCont.h"
 #include "NBParking.h"
 
-//#define DEBUG_JOINJUNCTIONS 
+//#define DEBUG_JOINJUNCTIONS
 #define DEBUGNODEID "1311774270"
 //#define DEBUGNODEID "5548037023"
 #define DEBUGCOND(obj) ((obj != 0 && (obj)->getID() == DEBUGNODEID))
@@ -485,7 +485,9 @@ NBNodeCont::generateNodeClusters(double maxDist, NodeClusters& into) const {
             }
             c.insert(n);
 #ifdef DEBUG_JOINJUNCTIONS
-            if (DEBUGCOND(n)) std::cout << "generateNodeClusters: consider n=" << n->getID() << " edges=" << toString(n->getEdges(), ' ') << " with cluster " << joinNamedToString(c, ' ') << " pureRail=" << pureRail << "\n";
+            if (DEBUGCOND(n)) {
+                std::cout << "generateNodeClusters: consider n=" << n->getID() << " edges=" << toString(n->getEdges(), ' ') << " with cluster " << joinNamedToString(c, ' ') << " pureRail=" << pureRail << "\n";
+            }
 #endif
             for (NBEdge* e : n->getEdges()) {
                 NBNode* s = n->hasIncoming(e) ? e->getFromNode() : e->getToNode();
@@ -498,26 +500,28 @@ NBNodeCont::generateNodeClusters(double maxDist, NodeClusters& into) const {
                         }
                     }
                     if (railAndPeds2 && s->getType() != NODETYPE_RAIL_CROSSING) {
-                        // do not join rail/ped nodes unless at a rail crossing 
+                        // do not join rail/ped nodes unless at a rail crossing
                         // (neither nodes nor the traffic lights)
                         continue;
                     }
                 }
-            
+
                 const double length = e->getLoadedLength();
 #ifdef DEBUG_JOINJUNCTIONS
-                if (DEBUGCOND(n)) std::cout << "generateNodeClusters edge=" << e->getID() << " length=" << length << "\n";
+                if (DEBUGCOND(n)) {
+                    std::cout << "generateNodeClusters edge=" << e->getID() << " length=" << length << "\n";
+                }
 #endif
                 const bool bothCrossing = n->getType() == NODETYPE_RAIL_CROSSING && s->getType() == NODETYPE_RAIL_CROSSING;
                 const bool joinPedCrossings = bothCrossing && e->getPermissions() == SVC_PEDESTRIAN;
                 if ( // never join pedestrian stuff (unless at a rail crossing
                     !joinPedCrossings && (
-                            e->getPermissions() == SVC_PEDESTRIAN
-                            // only join edges for regular passenger traffic or edges that are extremely short
-                            || (length > 3 * POSITION_EPS
-                                && (e->getPermissions() & (SVC_PASSENGER | SVC_TRAM)) == 0
-                                && n->getPosition().distanceTo2D(s->getPosition()) > SUMO_const_laneWidth))) {
-                    continue; 
+                        e->getPermissions() == SVC_PEDESTRIAN
+                        // only join edges for regular passenger traffic or edges that are extremely short
+                        || (length > 3 * POSITION_EPS
+                            && (e->getPermissions() & (SVC_PASSENGER | SVC_TRAM)) == 0
+                            && n->getPosition().distanceTo2D(s->getPosition()) > SUMO_const_laneWidth))) {
+                    continue;
                 }
                 // never join rail_crossings with other node types unless the crossing is only for tram
                 if ((n->getType() == NODETYPE_RAIL_CROSSING && s->getType() != NODETYPE_RAIL_CROSSING)
@@ -642,13 +646,12 @@ NBNodeCont::joinJunctions(double maxDist, NBDistrictCont& dc, NBEdgeCont& ec, NB
         pruneClusterFringe(cluster);
         // avoid removal of long edges (must have been added via an alternative path).
         std::set<NBNode*> toRemove;
-        for (std::set<NBNode*>::iterator j = cluster.begin(); j != cluster.end(); ++j) {
-            NBNode* n = *j;
+        for (NBNode* n : cluster) {
             for (NBEdge* edge : n->getOutgoingEdges()) {
                 if (cluster.count(edge->getToNode()) != 0 && edge->getLoadedLength() > maxDist /*&& (edge->getPermissions() & SVC_PASSENGER) != 0*/) {
 #ifdef DEBUG_JOINJUNCTIONS
                     if (DEBUGCOND(n) || DEBUGCOND(edge->getToNode())) {
-                            std::cout << "long edge " << edge->getID() << " (" << edge->getLoadedLength() << ", max=" << maxDist << ")\n";
+                        std::cout << "long edge " << edge->getID() << " (" << edge->getLoadedLength() << ", max=" << maxDist << ")\n";
                     }
 #endif
                     toRemove.insert(n);
@@ -692,18 +695,17 @@ NBNodeCont::joinJunctions(double maxDist, NBDistrictCont& dc, NBEdgeCont& ec, NB
         // compute all connected components of this cluster
         // (may be more than 1 if intermediate nodes were removed)
         NodeClusters components;
-        for (std::set<NBNode*>::iterator j = cluster.begin(); j != cluster.end(); ++j) {
+        for (NBNode* current : cluster) {
             // merge all connected components into newComp
             NodeSet newComp;
-            NBNode* current = *j;
             //std::cout << "checking connectivity for " << current->getID() << "\n";
             newComp.insert(current);
             for (NodeClusters::iterator it_comp = components.begin(); it_comp != components.end();) {
                 NodeClusters::iterator check = it_comp;
                 //std::cout << "   connected with " << toString(*check) << "?\n";
                 bool connected = false;
-                for (std::set<NBNode*>::iterator k = (*check).begin(); k != (*check).end(); ++k) {
-                    if (current->getConnectionTo(*k) != 0 || (*k)->getConnectionTo(current) != 0) {
+                for (NBNode* k : *check) {
+                    if (current->getConnectionTo(k) != 0 || k->getConnectionTo(current) != 0) {
                         //std::cout << "joining with connected component " << toString(*check) << "\n";
                         newComp.insert((*check).begin(), (*check).end());
                         it_comp = components.erase(check);
@@ -730,10 +732,12 @@ NBNodeCont::joinJunctions(double maxDist, NBDistrictCont& dc, NBEdgeCont& ec, NB
 }
 
 
-void 
+void
 NBNodeCont::pruneClusterFringe(NodeSet& cluster) const {
 #ifdef DEBUG_JOINJUNCTIONS
-  if (true) std::cout << "pruning cluster=" << joinNamedToString(cluster, ' ') << "\n";
+    if (true) {
+        std::cout << "pruning cluster=" << joinNamedToString(cluster, ' ') << "\n";
+    }
 #endif
     // iteratively remove the fringe
     bool pruneFringe = true;
@@ -741,8 +745,8 @@ NBNodeCont::pruneClusterFringe(NodeSet& cluster) const {
     // to the cluster for passenger traffic
     while (pruneFringe) {
         pruneFringe = false;
-        for (std::set<NBNode*>::iterator j = cluster.begin(); j != cluster.end();) {
-            std::set<NBNode*>::iterator check = j;
+        for (NodeSet::iterator j = cluster.begin(); j != cluster.end();) {
+            NodeSet::iterator check = j;
             NBNode* n = *check;
             ++j;
 
@@ -779,21 +783,23 @@ NBNodeCont::pruneClusterFringe(NodeSet& cluster) const {
                 }
             }
 #ifdef DEBUG_JOINJUNCTIONS
-            if (DEBUGCOND(n)) std::cout << "  check n=" << n->getID() 
-                << " clusterDist=" << clusterDist
-                    << " cd<th=" << (clusterDist <= pedestrianFringeThreshold)
-                    << " touching=" << touchingCluster
-                    << " out=" << joinNamedToString(outsideNeighbors, ',') 
-                    << " in=" << joinNamedToString(clusterNeighbors, ',') 
-                    << "\n";
+            if (DEBUGCOND(n)) std::cout << "  check n=" << n->getID()
+                                            << " clusterDist=" << clusterDist
+                                            << " cd<th=" << (clusterDist <= pedestrianFringeThreshold)
+                                            << " touching=" << touchingCluster
+                                            << " out=" << joinNamedToString(outsideNeighbors, ',')
+                                            << " in=" << joinNamedToString(clusterNeighbors, ',')
+                                            << "\n";
 #endif
             if (outsideNeighbors.size() <= 1
-                && clusterNeighbors.size() == 1 
-                && !n->isTLControlled()) {
+                    && clusterNeighbors.size() == 1
+                    && !n->isTLControlled()) {
                 cluster.erase(check);
                 pruneFringe = true; // other nodes could belong to the fringe now
 #ifdef DEBUG_JOINJUNCTIONS
-                if (DEBUGCOND(n)) std::cout << "  pruned n=" << n->getID() << "\n";
+                if (DEBUGCOND(n)) {
+                    std::cout << "  pruned n=" << n->getID() << "\n";
+                }
 #endif
             }
         }
@@ -807,7 +813,7 @@ NBNodeCont::feasibleCluster(const NodeSet& cluster, const NBEdgeCont& ec, const 
     // we count the incoming edges of the final junction
     std::map<std::string, double> finalIncomingAngles;
     std::map<std::string, double> finalOutgoingAngles;
-    for (std::set<NBNode*>::const_iterator j = cluster.begin(); j != cluster.end(); ++j) {
+    for (NodeSet::const_iterator j = cluster.begin(); j != cluster.end(); ++j) {
         for (EdgeVector::const_iterator it_edge = (*j)->getIncomingEdges().begin(); it_edge != (*j)->getIncomingEdges().end(); ++it_edge) {
             NBEdge* edge = *it_edge;
             if (cluster.count(edge->getFromNode()) == 0 && (edge->getPermissions() & SVC_PASSENGER) != 0) {
@@ -826,12 +832,12 @@ NBNodeCont::feasibleCluster(const NodeSet& cluster, const NBEdgeCont& ec, const 
     }
 #ifdef DEBUG_JOINJUNCTIONS
     for (NBNode* n : cluster) {
-      if (DEBUGCOND(n)) {
-        std::cout << "feasibleCluster c=" << joinNamedToString(cluster, ',')
-          << "\n inAngles=" << joinToString(finalIncomingAngles, ' ', ':')
-          << "\n outAngles=" << joinToString(finalOutgoingAngles, ' ', ':')
-          << "\n";
-      }
+        if (DEBUGCOND(n)) {
+            std::cout << "feasibleCluster c=" << joinNamedToString(cluster, ',')
+                      << "\n inAngles=" << joinToString(finalIncomingAngles, ' ', ':')
+                      << "\n outAngles=" << joinToString(finalOutgoingAngles, ' ', ':')
+                      << "\n";
+        }
     }
 #endif
     if (finalIncomingAngles.size() > 4) {
@@ -1081,8 +1087,8 @@ NBNodeCont::joinNodeClusters(NodeClusters clusters,
 void
 NBNodeCont::registerJoinedCluster(const NodeSet& cluster) {
     std::set<std::string> ids;
-    for (std::set<NBNode*>::const_iterator j = cluster.begin(); j != cluster.end(); j++) {
-        ids.insert((*j)->getID());
+    for (NBNode* n : cluster) {
+        ids.insert(n->getID());
     }
     myJoinedClusters.push_back(ids);
 }
@@ -1094,26 +1100,27 @@ NBNodeCont::analyzeCluster(NodeSet cluster, std::string& id, Position& pos,
     id += "_" + joinNamedToString(cluster, '_');
     hasTLS = false;
     bool ambiguousType = false;
-    for (std::set<NBNode*>::const_iterator j = cluster.begin(); j != cluster.end(); j++) {
-        pos.add((*j)->getPosition());
+    for (NBNode* j : cluster) {
+        pos.add(j->getPosition());
         // add a traffic light if any of the cluster members was controlled
-        if ((*j)->isTLControlled()) {
+        if (j->isTLControlled()) {
             if (!hasTLS) {
                 // init type
-                type = (*(*j)->getControllingTLS().begin())->getType();
-            } else if (type != (*(*j)->getControllingTLS().begin())->getType()) {
+                type = (*j->getControllingTLS().begin())->getType();
+            } else if (type != (*j->getControllingTLS().begin())->getType()) {
                 ambiguousType = true;
             }
             hasTLS = true;
         }
-        SumoXMLNodeType otherType = (*j)->getType();
+        SumoXMLNodeType otherType = j->getType();
         if (nodeType == NODETYPE_UNKNOWN) {
             nodeType = otherType;
         } else if (nodeType != otherType) {
             if (hasTLS) {
                 nodeType = NODETYPE_TRAFFIC_LIGHT;;
             } else {
-                if (nodeType != NODETYPE_NOJUNCTION && otherType != NODETYPE_NOJUNCTION) {
+                if ((nodeType != NODETYPE_PRIORITY && (nodeType != NODETYPE_NOJUNCTION || otherType != NODETYPE_PRIORITY))
+                        || (otherType != NODETYPE_NOJUNCTION && otherType != NODETYPE_UNKNOWN && otherType != NODETYPE_PRIORITY)) {
                     WRITE_WARNING("Ambiguous node type for node cluster '" + id + "' (" + toString(nodeType) + "," + toString(otherType) + ") set to '" + toString(NODETYPE_PRIORITY) + "'");
                 }
                 nodeType = NODETYPE_PRIORITY;
@@ -1136,13 +1143,13 @@ NBNodeCont::shouldBeTLSControlled(const NodeSet& c) const {
     bool tooFast = false;
     double f = 0;
     std::set<NBEdge*> seen;
-    for (std::set<NBNode*>::const_iterator j = c.begin(); j != c.end(); ++j) {
-        const EdgeVector& edges = (*j)->getEdges();
+    for (NBNode* j : c) {
+        const EdgeVector& edges = j->getEdges();
         for (EdgeVector::const_iterator k = edges.begin(); k != edges.end(); ++k) {
             if (c.find((*k)->getFromNode()) != c.end() && c.find((*k)->getToNode()) != c.end()) {
                 continue;
             }
-            if ((*j)->hasIncoming(*k)) {
+            if (j->hasIncoming(*k)) {
                 ++noIncoming;
                 f += (double)(*k)->getNumLanes() * (*k)->getLaneSpeed(0);
             } else {
@@ -1345,17 +1352,17 @@ NBNodeCont::joinTLS(NBTrafficLightLogicCont& tlc, double maxdist) {
         TrafficLightType type;
         SumoXMLNodeType nodeType = NODETYPE_UNKNOWN;
         analyzeCluster(c, id, dummyPos, dummySetTL, type, nodeType);
-        for (std::set<NBNode*>::iterator j = c.begin(); j != c.end(); ++j) {
-            std::set<NBTrafficLightDefinition*> tls = (*j)->getControllingTLS();
-            (*j)->removeTrafficLights();
+        for (NBNode* j : c) {
+            std::set<NBTrafficLightDefinition*> tls = j->getControllingTLS();
+            j->removeTrafficLights();
             for (std::set<NBTrafficLightDefinition*>::iterator k = tls.begin(); k != tls.end(); ++k) {
-                tlc.removeFully((*j)->getID());
+                tlc.removeFully(j->getID());
             }
         }
         id = "joinedS_" + toString(index++);
         std::vector<NBNode*> nodes;
-        for (NodeSet::iterator j = c.begin(); j != c.end(); j++) {
-            nodes.push_back(*j);
+        for (NBNode* j : c) {
+            nodes.push_back(j);
         }
         NBTrafficLightDefinition* tlDef = new NBOwnTLDef(id, nodes, 0, type);
         if (!tlc.insert(tlDef)) {

@@ -108,14 +108,14 @@ private:
      * @param[in] id The ID of the device
      */
     MSDevice_DriverState(SUMOVehicle& holder, const std::string& id,
-            double minAwareness,
-            double initialAwareness,
-            double errorTimeScaleCoefficient,
-            double errorNoiseIntensityCoefficient,
-            double speedDifferenceErrorCoefficient,
-            double speedDifferenceChangePerceptionThreshold,
-            double headwayChangePerceptionThreshold,
-            double headwayErrorCoefficient);
+                         double minAwareness,
+                         double initialAwareness,
+                         double errorTimeScaleCoefficient,
+                         double errorNoiseIntensityCoefficient,
+                         double speedDifferenceErrorCoefficient,
+                         double speedDifferenceChangePerceptionThreshold,
+                         double headwayChangePerceptionThreshold,
+                         double headwayErrorCoefficient);
 
     /// @brief Initializeses the driver state parameters
     void initDriverState();

@@ -32,10 +32,10 @@
 /// @brief Function-object for stable sorting of objects acting like Named without being derived (SUMOVehicle)
 // @note Numbers of different lenghts will not be ordered by alphanumerical sorting
 struct ComparatorIdLess {
-   template<class T>
-	bool operator()(const T* const a, const T* const b) const {
-		return a->getID() < b->getID();
-	}
+    template<class T>
+    bool operator()(const T* const a, const T* const b) const {
+        return a->getID() < b->getID();
+    }
 };
 
 

@@ -276,8 +276,8 @@ MSFrame::fillOptions() {
     oc.doRegister("collision.check-junctions", new Option_Bool(false));
     oc.addDescription("collision.check-junctions", "Processing", "Enables collisions checks on junctions");
 
-    oc.doRegister("collision.mingap-factor", new Option_Float(1.0));
-    oc.addDescription("collision.mingap-factor", "Processing", "Sets the fraction of minGap that must be maintained to avoid collision detection.");
+    oc.doRegister("collision.mingap-factor", new Option_Float(-1));
+    oc.addDescription("collision.mingap-factor", "Processing", "Sets the fraction of minGap that must be maintained to avoid collision detection. If a negative value is given, the carFollowModel parameter is used");
 
     oc.doRegister("max-num-vehicles", new Option_Integer(-1));
     oc.addDescription("max-num-vehicles", "Processing", "Delay vehicle insertion to stay within the given maximum number");
@@ -331,8 +331,8 @@ MSFrame::fillOptions() {
     oc.doRegister("default.speeddev", new Option_Float(-1));
     oc.addDescription("default.speeddev", "Processing", "Select default speed deviation. A negative value implies vClass specific defaults (0.1 for the default passenger class");
 
-    oc.doRegister("default.emergencydecel", new Option_String("decel"));
-    oc.addDescription("default.emergencydecel", "Processing", "Select default emergencydecel value among 'decel', 'default', FLOAT which sets the value either to the same as the deceleration value, a vClass-class specific default or the given FLOAT in m/s^2");
+    oc.doRegister("default.emergencydecel", new Option_String("default"));
+    oc.addDescription("default.emergencydecel", "Processing", "Select default emergencyDecel value among ('decel', 'default', FLOAT) which sets the value either to the same as the deceleration value, a vClass-class specific default or the given FLOAT in m/s^2");
 
     // pedestrian model
     oc.doRegister("pedestrian.model", new Option_String("striping"));
@@ -668,6 +668,16 @@ MSFrame::setMSGlobals(OptionsCont& oc) {
     }
     double givenDefaultActionStepLength = oc.getFloat("default.action-step-length");
     MSGlobals::gActionStepLength = SUMOVehicleParserHelper::processActionStepLength(givenDefaultActionStepLength);
+
+    const std::string defaultEmergencyDecelOption = OptionsCont::getOptions().getString("default.emergencydecel");
+    if (defaultEmergencyDecelOption == "default") {
+        MSGlobals::gDefaultEmergencyDecel = VTYPEPARS_DEFAULT_EMERGENCYDECEL_DEFAULT;
+    } else if (defaultEmergencyDecelOption == "decel") {
+        MSGlobals::gDefaultEmergencyDecel = VTYPEPARS_DEFAULT_EMERGENCYDECEL_DECEL;
+    } else {
+        // value already checked in checkOptions()
+        MSGlobals::gDefaultEmergencyDecel = TplConvert::_2double(defaultEmergencyDecelOption.c_str());
+    }
 
 #ifdef _DEBUG
     if (oc.isSet("movereminder-output")) {

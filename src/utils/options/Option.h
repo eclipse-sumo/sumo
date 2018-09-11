@@ -246,6 +246,18 @@ public:
     virtual const std::string& getTypeName() const;
 
 
+    /** @brief Create a new Option of the given type with given default value but make it unset
+     *  @note Was implemented to allow warning once if user didn't set the option, refs. #4567
+     *  @see MSDeviceSSM::insertOptions()
+     */
+    template<class OptionType, class ValueType>
+    static OptionType * makeUnsetWithDefault(ValueType def) {
+        OptionType * o = new OptionType(def);
+        o->unSet();
+        return o;
+    }
+
+
 protected:
     /** @brief Marks the information as set
      *

@@ -12,7 +12,7 @@ speedFactor 1.0
 speedDev 0.0
 accel 2.6
 decel 4.5
-emergencyDecel 4.5
+emergencyDecel 9.0
 apparentDecel 4.5
 actionStepLength 1.0
 imperfection 0.5

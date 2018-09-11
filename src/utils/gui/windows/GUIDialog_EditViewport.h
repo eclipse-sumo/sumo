@@ -130,10 +130,10 @@ private:
     double myOldRotation;
 
     /// @brief load button
-    FXButton *myLoadButton;
+    FXButton* myLoadButton;
 
     /// @brief save button
-    FXButton *mySaveButton;
+    FXButton* mySaveButton;
 
     /// @brief The spin dialers used to change the view
     FXRealSpinner* myZoom, *myXOff, *myYOff, *myZOff, *myRotation;

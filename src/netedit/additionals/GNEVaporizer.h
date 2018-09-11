@@ -43,7 +43,7 @@ public:
      * @param[in] end end time of vaporizer
      * @param[in] name Vaporizer name
      */
-    GNEVaporizer(GNEViewNet* viewNet, GNEEdge* edge, double begin, double end, const std::string &name);
+    GNEVaporizer(GNEViewNet* viewNet, GNEEdge* edge, double begin, double end, const std::string& name);
 
     /// @brief Destructor
     ~GNEVaporizer();

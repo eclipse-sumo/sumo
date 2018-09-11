@@ -41,7 +41,7 @@ NGFrame::fillOptions() {
     OptionsCont& oc = OptionsCont::getOptions();
     oc.doRegister("alphanumerical-ids", new Option_Bool(true));
     oc.addDescription("alphanumerical-ids", "Output", "The Ids of generated nodes use an alphanumerical code for easier readability when possible");
-    
+
     // register processing options
     oc.doRegister("turn-lanes", new Option_Integer(0));
     oc.addDescription("turn-lanes", "Processing", "Generate INT left-turn lanes");

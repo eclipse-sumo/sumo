@@ -381,9 +381,9 @@ GNEApplicationWindow::~GNEApplicationWindow() {
     // must delete menus to avoid segfault on removing accelerators
     // (http://www.fox-toolkit.net/faq#TOC-What-happens-when-the-application-s)
     delete myFileMenuShapes,
-    delete myFileMenuAdditionals,
-    delete myFileMenuTLS,
-    delete myFileMenu;
+           delete myFileMenuAdditionals,
+           delete myFileMenuTLS,
+           delete myFileMenu;
     delete myEditMenu;
     delete myLocatorMenu;
     delete myProcessingMenu;
@@ -448,12 +448,12 @@ GNEApplicationWindow::fillMenuBar() {
                       "Load S&hapes...\tCtrl+P\tLoad shapes into the network view.",
                       GUIIconSubSys::getIcon(ICON_OPEN_SHAPES), this, MID_OPEN_SHAPES);
     mySaveShapesMenuCommand = new FXMenuCommand(myFileMenuShapes,
-                      "Save Shapes\tCtrl+Shift+P\tSave shapes elements.",
-                      GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_TOOLBARFILE_SAVESHAPES);
+            "Save Shapes\tCtrl+Shift+P\tSave shapes elements.",
+            GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_TOOLBARFILE_SAVESHAPES);
     mySaveShapesMenuCommand->disable();
     mySaveShapesMenuCommandAs = new FXMenuCommand(myFileMenuShapes,
-                      "Save Shapes As...\t\tSave shapes elements in another files.",
-                      GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_TOOLBARFILE_SAVESHAPES_AS);
+            "Save Shapes As...\t\tSave shapes elements in another files.",
+            GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_TOOLBARFILE_SAVESHAPES_AS);
     mySaveShapesMenuCommandAs->disable();
     new FXMenuCascade(myFileMenu, "Shapes", GUIIconSubSys::getIcon(ICON_MODEPOLYGON), myFileMenuShapes);
     // create Additionals menu options
@@ -462,12 +462,12 @@ GNEApplicationWindow::fillMenuBar() {
                       "Load A&dditionals...\tCtrl+D\tLoad additional elements.",
                       GUIIconSubSys::getIcon(ICON_OPEN_ADDITIONALS), this, MID_OPEN_ADDITIONALS);
     mySaveAdditionalsMenuCommand = new FXMenuCommand(myFileMenuAdditionals,
-                      "Save Additionals\tCtrl+Shift+D\tSave additional elements.",
-                      GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_TOOLBARFILE_SAVEADDITIONALS);
+            "Save Additionals\tCtrl+Shift+D\tSave additional elements.",
+            GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_TOOLBARFILE_SAVEADDITIONALS);
     mySaveAdditionalsMenuCommand->disable();
     mySaveAdditionalsMenuCommandAs = new FXMenuCommand(myFileMenuAdditionals,
-                      "Save Additionals As...\t\tSave additional elements in another file.",
-                      GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_TOOLBARFILE_SAVEADDITIONALS_AS);
+            "Save Additionals As...\t\tSave additional elements in another file.",
+            GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_TOOLBARFILE_SAVEADDITIONALS_AS);
     mySaveAdditionalsMenuCommandAs->disable();
     new FXMenuCascade(myFileMenu, "Additionals", GUIIconSubSys::getIcon(ICON_MODEADDITIONAL), myFileMenuAdditionals);
     // create TLS menu options
@@ -476,8 +476,8 @@ GNEApplicationWindow::fillMenuBar() {
                       "load TLS Programs...\tCtrl+K\tload TLS Programs in all Traffic Lights of the net.",
                       GUIIconSubSys::getIcon(ICON_OPEN_TLSPROGRAMS), this, MID_OPEN_TLSPROGRAMS);
     mySaveTLSProgramsMenuCommand = new FXMenuCommand(myFileMenuTLS,
-                      "Save TLS Programs \tCtrl+Shift+K\tSave TLS Programs of all Traffic Lights of the current net.",
-                      GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS);
+            "Save TLS Programs \tCtrl+Shift+K\tSave TLS Programs of all Traffic Lights of the current net.",
+            GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS);
     mySaveTLSProgramsMenuCommand->disable();
     new FXMenuCommand(myFileMenuTLS,
                       "Save TLS Programs As...\t\tSave TLS Programs of all Traffic Lights of the current net in another file.",
@@ -582,6 +582,9 @@ GNEApplicationWindow::fillMenuBar() {
     new FXMenuCommand(myEditMenu,
                       "Edit Viewport...\tCtrl+I\tOpens a dialog for editing viewing are, zoom and rotation.",
                       0, this, MID_EDITVIEWPORT);
+    new FXMenuCommand(myEditMenu,
+                      "Toggle Grid...\tCtrl+G\tToggles background grid (and snap-to-grid functionality).",
+                      0, this, MID_GNE_HOTKEY_TOOGLE_GRID);
     new FXMenuSeparator(myEditMenu);
     new FXMenuCommand(myEditMenu,
                       "Open in SUMO GUI...\tCtrl+T\tOpens the SUMO GUI application with the current network.",
@@ -826,14 +829,18 @@ GNEApplicationWindow::onCmdOpenShapes(FXObject*, FXSelector, void*) {
         GNEShapeHandler handler(file, myNet);
         // disable validation for shapes
         XMLSubSys::setValidation("never", "auto");
+        // begin undo operation
         myUndoList->p_begin("Loading shapes from '" + file + "'");
+        // run parser for shapes
         if (!XMLSubSys::runParser(handler, file, false)) {
             WRITE_MESSAGE("Loading of shapes failed.");
         }
-        // enable validation for shapes
-        XMLSubSys::setValidation("enable", "auto");
-        update();
+        // end undoList operation and update view
         myUndoList->p_end();
+        update();
+        // enable validation for shapes
+        XMLSubSys::setValidation("auto", "auto");
+        update();
     }
     return 1;
 }
@@ -856,17 +863,15 @@ GNEApplicationWindow::onCmdOpenAdditionals(FXObject*, FXSelector, void*) {
         XMLSubSys::setValidation("never", "auto");
         // Create additional handler
         GNEAdditionalHandler additionalHandler(file, myNet->getViewNet());
-        // Run parser
+        // begin undoList operation
         myUndoList->p_begin("Loading additionals from '" + file + "'");
+        // Run parser for additionals
         if (!XMLSubSys::runParser(additionalHandler, file, false)) {
             WRITE_MESSAGE("Loading of " + file + " failed.");
-            // Abort undo/redo
-            myUndoList->abort();
-        } else {
-            // commit undo/redo operation
-            myUndoList->p_end();
-            update();
         }
+        // end undoList operation and update view
+        myUndoList->p_end();
+        update();
         // restore validation for additionals
         XMLSubSys::setValidation("auto", "auto");
     }
@@ -889,7 +894,7 @@ GNEApplicationWindow::onCmdOpenTLSPrograms(FXObject*, FXSelector, void*) {
         std::string file = opendialog.getFilename().text();
         // Run parser
         myUndoList->p_begin("Loading TLS Programs from '" + file + "'");
-        if(myNet->getViewNet()->getViewParent()->getTLSEditorFrame()->parseTLSPrograms(file) == false) {
+        if (myNet->getViewNet()->getViewParent()->getTLSEditorFrame()->parseTLSPrograms(file) == false) {
             // Abort undo/redo
             myUndoList->abort();
         } else {
@@ -1097,7 +1102,7 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
         myTLSProgramsFile = oc.getString("TLSPrograms-output");
     }
     // after loading net shouldn't be saved
-    if(myNet) {
+    if (myNet) {
         myNet->requiereSaveNet(false);
     }
     update();
@@ -1256,7 +1261,7 @@ GNEApplicationWindow::setShapesFile(const std::string& shapesFile) {
 }
 
 
-void 
+void
 GNEApplicationWindow::setTLSProgramsFile(const std::string& TLSProgramsFile) {
     myTLSProgramsFile = TLSProgramsFile;
 }
@@ -1395,12 +1400,12 @@ GNEApplicationWindow::onCmdEditViewScheme(FXObject*, FXSelector, void*) {
 }
 
 
-long 
+long
 GNEApplicationWindow::onCmdToogleGrid(FXObject*, FXSelector, void*) {
     // only toogle grid if there is a GNEViewNet
     if (getView() != nullptr) {
         // Toogle getMenuCheckShowGrid of GNEViewNet
-        if(getView()->getMenuCheckShowGrid()->getCheck() == 1) {
+        if (getView()->getMenuCheckShowGrid()->getCheck() == 1) {
             getView()->getMenuCheckShowGrid()->setCheck(0);
             // show extra information for tests
             WRITE_DEBUG("Disabled grid throught Ctrl+g hotkey");
@@ -1410,7 +1415,7 @@ GNEApplicationWindow::onCmdToogleGrid(FXObject*, FXSelector, void*) {
             WRITE_WARNING("Enabled grid throught Ctrl+g hotkey");
         }
         // Call manually show grid function
-        getView()->onCmdShowGrid(0,0,0);
+        getView()->onCmdShowGrid(0, 0, 0);
     }
     return 1;
 }
@@ -1950,7 +1955,7 @@ GNEViewNet*
 GNEApplicationWindow::getView() {
     if (mySubWindows.size() != 0) {
         GUIGlChildWindow* childWindows = dynamic_cast<GUIGlChildWindow*>(mySubWindows[0]);
-        if(childWindows != nullptr) {
+        if (childWindows != nullptr) {
             return dynamic_cast<GNEViewNet*>(childWindows->getView());
         } else {
             return nullptr;

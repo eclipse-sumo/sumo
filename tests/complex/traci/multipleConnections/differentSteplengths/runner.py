@@ -33,6 +33,7 @@ PORT = sumolib.miscutils.getFreeSocketPort()
 DELTA_T = 1000
 sumoBinary = sumolib.checkBinary(sys.argv[1])
 
+
 def traciLoop(port, traciEndTime, index, steplength=0):
     orderTime = 0.25
     time.sleep(orderTime * index)  # assure ordering of outputs

@@ -79,8 +79,7 @@ GUILane::GUILane(const std::string& id, double maxSpeed, double length,
 #ifdef HAVE_OSG
     myGeom(0),
 #endif
-    myAmClosed(false)
-{
+    myAmClosed(false) {
     if (MSGlobals::gUseMesoSim) {
         myShape = splitAtSegments(shape);
         assert(fabs(myShape.length() - shape.length()) < POSITION_EPS);
@@ -496,8 +495,8 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
              || myEdge->getNumericalID() < myEdge->getBidiEdge()->getNumericalID())) {
         // scale tls-controlled lane2lane-arrows along with their junction shapes
         double junctionExaggeration = 1;
-        if (!isInternal 
-                && myEdge->getToJunction()->getType() <= NODETYPE_RAIL_CROSSING 
+        if (!isInternal
+                && myEdge->getToJunction()->getType() <= NODETYPE_RAIL_CROSSING
                 && (s.junctionSize.constantSize || s.junctionSize.exaggeration > 1)) {
             junctionExaggeration = MAX2(1.001, s.junctionSize.getExaggeration(s, 4));
         }
@@ -576,7 +575,7 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
             }
 #endif
             glPopMatrix();
-            // draw details 
+            // draw details
             if ((!isInternal || isCrossing) && (drawDetails || s.drawForSelecting || junctionExaggeration > 1)) {
                 glPushMatrix();
                 glTranslated(0, 0, GLO_JUNCTION); // must draw on top of junction shape
@@ -696,11 +695,12 @@ void
 GUILane::drawBikeMarkings() const {
     // draw bike lane markings onto the intersection
     glColor3d(1, 1, 1);
-    int e = (int) getShape().size() - 1;
-    double mw = (myHalfLaneWidth + SUMO_const_laneOffset);
+    const int e = (int) getShape().size() - 1;
+    const double markWidth = 0.1;
+    const double mw = myHalfLaneWidth;
     for (int i = 0; i < e; ++i) {
         glPushMatrix();
-        glTranslated(getShape()[i].x(), getShape()[i].y(), GLO_JUNCTION + 0.1);
+        glTranslated(getShape()[i].x(), getShape()[i].y(), GLO_JUNCTION + 0.4);
         glRotated(myShapeRotations[i], 0, 0, 1);
         for (double t = 0; t < myShapeLengths[i]; t += 0.5) {
             // left and right marking
@@ -708,8 +708,8 @@ GUILane::drawBikeMarkings() const {
                 glBegin(GL_QUADS);
                 glVertex2d(side * mw, -t);
                 glVertex2d(side * mw, -t - 0.35);
-                glVertex2d(side * (mw + SUMO_const_laneOffset), -t - 0.35);
-                glVertex2d(side * (mw + SUMO_const_laneOffset), -t);
+                glVertex2d(side * (mw + markWidth), -t - 0.35);
+                glVertex2d(side * (mw + markWidth), -t);
                 glEnd();
             }
         }
@@ -722,16 +722,19 @@ GUILane::drawDirectionIndicators(double exaggeration) const {
     glPushMatrix();
     glTranslated(0, 0, GLO_EDGE);
     int e = (int) getShape().size() - 1;
+    const double w = MAX2(POSITION_EPS, myWidth);
+    const double w2 = MAX2(POSITION_EPS, myHalfLaneWidth);
+    const double w4 = MAX2(POSITION_EPS, myQuarterLaneWidth);
     for (int i = 0; i < e; ++i) {
         glPushMatrix();
         glTranslated(getShape()[i].x(), getShape()[i].y(), 0.1);
         glRotated(myShapeRotations[i], 0, 0, 1);
-        for (double t = 0; t < myShapeLengths[i]; t += myWidth) {
-            const double length = MIN2((double)myHalfLaneWidth, myShapeLengths[i] - t) * exaggeration;
+        for (double t = 0; t < myShapeLengths[i]; t += w) {
+            const double length = MIN2(w2, myShapeLengths[i] - t) * exaggeration;
             glBegin(GL_TRIANGLES);
             glVertex2d(0, -t - length);
-            glVertex2d(-myQuarterLaneWidth * exaggeration, -t);
-            glVertex2d(+myQuarterLaneWidth * exaggeration, -t);
+            glVertex2d(-w4 * exaggeration, -t);
+            glVertex2d(+w4 * exaggeration, -t);
             glEnd();
         }
         glPopMatrix();
@@ -1225,7 +1228,7 @@ GUILane::isLaneOrEdgeSelected() const {
     return isSelected() || gSelected.isSelected(GLO_EDGE, dynamic_cast<GUIEdge*>(myEdge)->getGlID());
 }
 
-double 
+double
 GUILane::getPendingEmits() const {
     return MSNet::getInstance()->getInsertionControl().getPendingEmits(this);
 }

@@ -347,7 +347,7 @@ Person::add(const std::string& personID, const std::string& edgeID, double pos, 
     }
 
     if (departInSecs < 0.) {
-        const int proc = (int)-departInSecs;
+        const int proc = (int) - departInSecs;
         if (proc >= static_cast<int>(DEPART_DEF_MAX)) {
             throw TraCIException("Invalid departure time." + toString(depart) + " " + toString(proc));
         }
@@ -819,36 +819,36 @@ Person::makeWrapper() {
 bool
 Person::handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper) {
     switch (variable) {
-    case ID_LIST:
-        return wrapper->wrapStringList(objID, variable, getIDList());
-    case ID_COUNT:
-        return wrapper->wrapInt(objID, variable, getIDCount());
-    case VAR_POSITION:
-        return wrapper->wrapPosition(objID, variable, getPosition(objID));
-    case VAR_POSITION3D:
-        return wrapper->wrapPosition(objID, variable, getPosition(objID, true));
-    case VAR_ANGLE:
-        return wrapper->wrapDouble(objID, variable, getAngle(objID));
-    case VAR_SPEED:
-        return wrapper->wrapDouble(objID, variable, getSpeed(objID));
-    case VAR_ROAD_ID:
-        return wrapper->wrapString(objID, variable, getRoadID(objID));
-    case VAR_LANEPOSITION:
-        return wrapper->wrapDouble(objID, variable, getLanePosition(objID));
-    case VAR_COLOR:
-        return wrapper->wrapColor(objID, variable, getColor(objID));
-    case VAR_WAITING_TIME:
-        return wrapper->wrapDouble(objID, variable, getWaitingTime(objID));
-    case VAR_TYPE:
-        return wrapper->wrapString(objID, variable, getTypeID(objID));
-    case VAR_NEXT_EDGE:
-        return wrapper->wrapString(objID, variable, getNextEdge(objID));
-    case VAR_STAGES_REMAINING:
-        return wrapper->wrapInt(objID, variable, getRemainingStages(objID));
-    case VAR_VEHICLE:
-        return wrapper->wrapString(objID, variable, getVehicle(objID));
-    default:
-        return false;
+        case ID_LIST:
+            return wrapper->wrapStringList(objID, variable, getIDList());
+        case ID_COUNT:
+            return wrapper->wrapInt(objID, variable, getIDCount());
+        case VAR_POSITION:
+            return wrapper->wrapPosition(objID, variable, getPosition(objID));
+        case VAR_POSITION3D:
+            return wrapper->wrapPosition(objID, variable, getPosition(objID, true));
+        case VAR_ANGLE:
+            return wrapper->wrapDouble(objID, variable, getAngle(objID));
+        case VAR_SPEED:
+            return wrapper->wrapDouble(objID, variable, getSpeed(objID));
+        case VAR_ROAD_ID:
+            return wrapper->wrapString(objID, variable, getRoadID(objID));
+        case VAR_LANEPOSITION:
+            return wrapper->wrapDouble(objID, variable, getLanePosition(objID));
+        case VAR_COLOR:
+            return wrapper->wrapColor(objID, variable, getColor(objID));
+        case VAR_WAITING_TIME:
+            return wrapper->wrapDouble(objID, variable, getWaitingTime(objID));
+        case VAR_TYPE:
+            return wrapper->wrapString(objID, variable, getTypeID(objID));
+        case VAR_NEXT_EDGE:
+            return wrapper->wrapString(objID, variable, getNextEdge(objID));
+        case VAR_STAGES_REMAINING:
+            return wrapper->wrapInt(objID, variable, getRemainingStages(objID));
+        case VAR_VEHICLE:
+            return wrapper->wrapString(objID, variable, getVehicle(objID));
+        default:
+            return false;
     }
 }
 

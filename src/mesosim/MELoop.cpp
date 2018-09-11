@@ -117,7 +117,7 @@ MELoop::checkCar(MEVehicle* veh) {
     if (changeSegment(veh, leaveTime, toSegment, teleporting)) {
         return;
     }
-    if (MSGlobals::gTimeToGridlock > 0 && veh->getWaitingTime() > MSGlobals::gTimeToGridlock && !veh->isStopped()) {
+    if (MSGlobals::gTimeToGridlock > 0 && veh->getWaitingTime() > MSGlobals::gTimeToGridlock) {
         teleportVehicle(veh, toSegment);
         return;
     }
@@ -178,7 +178,7 @@ MELoop::teleportVehicle(MEVehicle* veh, MESegment* const toSegment) {
             veh->setSegment(0, 0);
         }
         // @caution microsim uses current travel time teleport duration
-        const SUMOTime teleArrival = leaveTime + TIME2STEPS(veh->getEdge()->getLength() / veh->getEdge()->getSpeedLimit());
+        const SUMOTime teleArrival = leaveTime + TIME2STEPS(veh->getEdge()->getLength() / MAX2(veh->getEdge()->getSpeedLimit(), NUMERICAL_EPS));
         const bool atDest = veh->moveRoutePointer();
         if (atDest) {
             // teleporting to end of route
@@ -293,7 +293,7 @@ MELoop::getSegmentForEdge(const MSEdge& e, double pos) {
 }
 
 
-bool 
+bool
 MELoop::isEnteringRoundabout(const MSEdge& e) {
     for (const MSEdge* succ : e.getSuccessors()) {
         if (succ->isRoundabout()) {

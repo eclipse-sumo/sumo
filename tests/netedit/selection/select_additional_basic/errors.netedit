@@ -33,23 +33,14 @@ Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, shapes unsaved
 Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into busStop 'busStop_00'
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into busStop 'busStop_01'
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 2 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into busStop 'busStop_02'
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 3 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into busStop 'busStop_03'
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 4 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into busStop 'busStop_04'
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 5 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into busStop 'busStop_05'
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 6 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into busStop 'busStop_06'
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 7 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into busStop 'busStop_07'
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 8 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into busStop 'busStop_08'
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 9 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 9 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Key DEL (delete) pressed
 Debug: Removing busStop 'busStop_00' in GNEChange_Additional
@@ -63,58 +54,40 @@ Debug: Removing busStop 'busStop_07' in GNEChange_Additional
 Debug: Removing busStop 'busStop_08' in GNEChange_Additional
 Debug: Setting new attribute selected 'true' into busStop 'busStop_IDToRemove1'
 Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Key DEL (delete) pressed
 Debug: Removing busStop 'busStop_IDToRemove1' in GNEChange_Additional
 Debug: Setting new attribute selected 'true' into busStop 'busStop_IDToRemove2'
 Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Key DEL (delete) pressed
 Debug: Removing busStop 'busStop_IDToRemove2' in GNEChange_Additional
 Debug: Setting new attribute selected 'true' into busStop 'busStop_12'
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into busStop 'busStop_13'
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 2 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into busStop 'busStop_14'
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 3 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into busStop 'busStop_15'
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 4 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into busStop 'busStop_16'
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 5 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into busStop 'busStop_17'
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 6 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into busStop 'busStop_18'
 Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 7 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 7 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute selected 'false' into busStop 'busStop_14'
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 6 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute selected 'false' into busStop 'busStop_15'
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 5 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute selected 'false' into busStop 'busStop_16'
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 4 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute selected 'false' into busStop 'busStop_17'
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 3 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute selected 'false' into busStop 'busStop_18'
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 2 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 2 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Key DEL (delete) pressed
 Debug: Removing busStop 'busStop_12' in GNEChange_Additional
 Debug: Removing busStop 'busStop_13' in GNEChange_Additional
 Debug: Setting new attribute selected 'true' into busStop 'busStop_14'
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into busStop 'busStop_15'
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 2 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 2 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Key DEL (delete) pressed
 Debug: Removing busStop 'busStop_14' in GNEChange_Additional
 Debug: Removing busStop 'busStop_15' in GNEChange_Additional
 Debug: Setting new attribute selected 'true' into busStop 'busStop_17'
 Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Key DEL (delete) pressed
 Debug: Removing busStop 'busStop_17' in GNEChange_Additional
 Debug: Setting new attribute selected 'true' into busStop 'busStop_16'
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Key DEL (delete) pressed
 Debug: Removing busStop 'busStop_16' in GNEChange_Additional

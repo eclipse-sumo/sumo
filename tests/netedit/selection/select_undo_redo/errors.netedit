@@ -47,35 +47,20 @@ Debug: Created connection 'from8_2to1_2' in retrieveGNEConnection()
 Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into edge '1'
-Debug: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into edge '2'
-Debug: Current selection: 0 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into edge '3'
-Debug: Current selection: 0 Junctions, 3 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into edge '4'
-Debug: Current selection: 0 Junctions, 4 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into edge '5'
-Debug: Current selection: 0 Junctions, 5 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into edge '6'
-Debug: Current selection: 0 Junctions, 6 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into edge '7'
-Debug: Current selection: 0 Junctions, 7 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into edge '8'
-Debug: Current selection: 0 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into junction 'Center'
-Debug: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into busStop 'busStop_3_1_0'
-Debug: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into detEntry 'e3Detector_1detEntry0'
-Debug: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 2 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into detExit 'e3Detector_1detExit0'
-Debug: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 3 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into detEntry 'e3Detector_2detEntry0'
-Debug: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 4 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into detExit 'e3Detector_2detExit0'
-Debug: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 5 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into poly 'poly_0'
-Debug: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 5 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Debug: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 5 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Debug: Key DEL (delete) pressed
 Debug: Removing detEntry 'e3Detector_1detEntry0' in GNEChange_Additional

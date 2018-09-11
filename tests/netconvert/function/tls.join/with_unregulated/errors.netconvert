@@ -1,7 +1,3 @@
 Warning: Unreachable edge '147676141#0' within tlLogic 'joinedS_0'
 Warning: Unreachable edge '147676141#0' within tlLogic 'joinedS_0'
 Warning: Minor green from edge '147676141#0' to edge '68992992#2' exceeds 19.44m/s. Maybe a left-turn lane is missing.
-Warning: Speed of turning connection '68992992#0_0->147676141#1_0' reduced by 18.00 due to turning radius of 17.37 (length=15.96 angle=70.17)
-Warning: Speed of turning connection '68992992#0_1->137082383#14_1' reduced by 18.96 due to turning radius of 14.14 (length=21.46 angle=107.19)
-Warning: Speed of turning connection '147676141#0_1->68992992#2_1' reduced by 17.26 due to turning radius of 20.13 (length=23.22 angle=83.85)
-Warning: Speed of turning connection '137082383#12_0->68992992#2_0' reduced by 21.59 due to turning radius of 6.96 (length=9.07 angle=99.42)

@@ -66,7 +66,9 @@ message(STATUS "")
 
 set(ENABLED_FEATURES "${CMAKE_HOST_SYSTEM}")
 
+#set(Python_ADDITIONAL_VERSIONS 3.7 3.6 3.5 3.4 3.3 2.7) # it may help in finding the correct python for libsumo
 find_package(PythonInterp REQUIRED)
+message(STATUS "Found Python: " ${PYTHON_EXECUTABLE})
 
 #http://stackoverflow.com/questions/1487752/how-do-i-instruct-cmake-to-look-for-libraries-installed-by-macports
 if (APPLE)
@@ -220,7 +222,7 @@ if (CHECK_OPTIONAL_LIBS)
         set(ENABLED_FEATURES "${ENABLED_FEATURES} GL2PS")
     endif (GL2PS_FOUND)
 
-    find_package(SWIG)
+    find_package(SWIG 3.0)
     if (SWIG_FOUND)
         if (NOT MSVC)
             set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
@@ -242,7 +244,7 @@ include_directories(${CMAKE_BINARY_DIR}/src)
 include_directories(${CMAKE_SOURCE_DIR}/src)
 
 set(commonlibs
-        utils_distribution utils_shapes utils_options utils_gui_div
+        utils_distribution utils_shapes utils_options
         utils_xml utils_geom utils_common utils_importio utils_iodevices foreign_tcpip ${XercesC_LIBRARIES} ${PROJ_LIBRARY})
 if (MSVC)
     set(commonlibs ${commonlibs} ws2_32)

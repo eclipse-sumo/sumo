@@ -55,37 +55,37 @@ GNEClosingReroute::GNEClosingReroute(GNEAdditional* rerouterIntervalParent, GNEE
 GNEClosingReroute::~GNEClosingReroute() {}
 
 
-void 
+void
 GNEClosingReroute::moveGeometry(const Position&, const Position&) {
     // This additional cannot be moved
 }
 
 
-void 
+void
 GNEClosingReroute::commitGeometryMoving(const Position&, GNEUndoList*) {
     // This additional cannot be moved
 }
 
 
-void 
+void
 GNEClosingReroute::updateGeometry(bool /*updateGrid*/) {
     // Currently this additional doesn't own a Geometry
 }
 
 
-Position 
+Position
 GNEClosingReroute::getPositionInView() const {
     return myFirstAdditionalParent->getPositionInView();
 }
 
 
-std::string 
+std::string
 GNEClosingReroute::getParentName() const {
     return myFirstAdditionalParent->getID();
 }
 
 
-void 
+void
 GNEClosingReroute::drawGL(const GUIVisualizationSettings& /* s */) const {
     // Currently this additional isn't drawn
 }
@@ -150,13 +150,13 @@ GNEClosingReroute::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-std::string 
+std::string
 GNEClosingReroute::getPopUpID() const {
     return toString(getTag());
 }
 
 
-std::string 
+std::string
 GNEClosingReroute::getHierarchyName() const {
     return toString(getTag()) + ": " + myClosedEdge->getID();
 }

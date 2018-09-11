@@ -39,18 +39,17 @@
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicleClass vclass) : 
+SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicleClass vclass) :
     id(vtid), length(5./*4.3*/), minGap(2.5), maxSpeed(200. / 3.6),
     actionStepLength(0), defaultProbability(DEFAULT_VEH_PROB),
     speedFactor("normc", 1.0, 0.0, 0.2, 2.0),
     emissionClass(PollutantsInterface::getClassByName(EMPREFIX + "PC_G_EU4", vclass)), color(RGBColor::DEFAULT_COLOR),
     vehicleClass(vclass), impatience(0.0), personCapacity(4), containerCapacity(0), boardingDuration(500),
     loadingDuration(90000), width(1.8), height(1.5), shape(SVS_UNKNOWN), osgFile("car-normal-citrus.obj"),
-    cfModel(SUMO_TAG_CF_KRAUSS), 
+    cfModel(SUMO_TAG_CF_KRAUSS),
     hasDriverState(false), lcModel(LCM_DEFAULT),
     maxSpeedLat(1.0), latAlignment(LATALIGN_CENTER), minGapLat(0.6),
-    parametersSet(0), saved(false), onlyReferenced(false) 
-{
+    parametersSet(0), saved(false), onlyReferenced(false) {
     const OptionsCont& oc = OptionsCont::getOptions();
     if (oc.exists("carfollow.model")) {
         // check for valid value has been performed in MSFrame
@@ -421,19 +420,14 @@ SUMOVTypeParameter::getDefaultDecel(const SUMOVehicleClass vc) {
         case SVC_MOTORCYCLE:
             return 10.;
         case SVC_TRUCK:
-            return 4.;
         case SVC_TRAILER:
-            return 4.;
         case SVC_BUS:
-            return 4.;
         case SVC_COACH:
             return 4.;
         case SVC_TRAM:
-            return 3.;
         case SVC_RAIL_URBAN:
             return 3.;
         case SVC_RAIL:
-            return 1.3;
         case SVC_RAIL_ELECTRIC:
             return 1.3;
         case SVC_SHIP:
@@ -445,46 +439,44 @@ SUMOVTypeParameter::getDefaultDecel(const SUMOVehicleClass vc) {
 
 
 double
-SUMOVTypeParameter::getDefaultEmergencyDecel(const SUMOVehicleClass vc, double decel) {
-    const std::string defaultEmergencyDecelOption = OptionsCont::getOptions().getString("default.emergencydecel");
-    if (defaultEmergencyDecelOption == "default") {
+SUMOVTypeParameter::getDefaultEmergencyDecel(const SUMOVehicleClass vc, double decel, double defaultOption) {
+    if (defaultOption == VTYPEPARS_DEFAULT_EMERGENCYDECEL_DEFAULT) {
         double vcDecel;
         switch (vc) {
             case SVC_PEDESTRIAN:
                 vcDecel = 5.;
+                break;
             case SVC_BICYCLE:
                 vcDecel = 7.;
+                break;
             case SVC_MOPED:
-                vcDecel = 10.;
             case SVC_MOTORCYCLE:
                 vcDecel = 10.;
+                break;
             case SVC_TRUCK:
-                vcDecel = 7.;
             case SVC_TRAILER:
-                vcDecel = 7.;
             case SVC_BUS:
-                vcDecel = 7.;
             case SVC_COACH:
-                vcDecel = 7.;
             case SVC_TRAM:
-                vcDecel = 7.;
             case SVC_RAIL_URBAN:
                 vcDecel = 7.;
+                break;
             case SVC_RAIL:
-                vcDecel = 5;
             case SVC_RAIL_ELECTRIC:
-                vcDecel = 5;
+                vcDecel = 5.;
+                break;
             case SVC_SHIP:
-                vcDecel = 1;
+                vcDecel = 1.;
+                break;
             default:
-                vcDecel = 9;
+                vcDecel = 9.;
         }
         return MAX2(decel, vcDecel);
-    } else if (defaultEmergencyDecelOption == "decel") {
+    } else if (defaultOption == VTYPEPARS_DEFAULT_EMERGENCYDECEL_DECEL) {
         return decel;
     } else {
         // value already checked in MSFrame::checkOptions
-        return MAX2(decel, TplConvert::_2double(defaultEmergencyDecelOption.c_str()));
+        return MAX2(decel, defaultOption);
     }
 }
 

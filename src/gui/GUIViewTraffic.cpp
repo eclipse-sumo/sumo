@@ -452,7 +452,7 @@ GUIViewTraffic::checkSnapshots() {
 }
 
 
-const std::vector<SUMOTime> 
+const std::vector<SUMOTime>
 GUIViewTraffic::retrieveBreakpoints() const {
     return myApp->retrieveBreakpoints();
 }

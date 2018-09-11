@@ -44,6 +44,7 @@
 #include <microsim/MSEdge.h>
 #include <microsim/MSEventControl.h>
 #include <microsim/MSNet.h>
+#include <microsim/MSVehicleControl.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/MSParkingArea.h>
 #include <microsim/MSTransportable.h>
@@ -815,7 +816,17 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
 
 bool
 MSTriggeredRerouter::vehicleApplies(const SUMOVehicle& veh) const {
-    return myVehicleTypes.empty() || myVehicleTypes.count(veh.getVehicleType().getID()) > 0;
+    if (myVehicleTypes.empty() || myVehicleTypes.count(veh.getVehicleType().getID()) > 0) {
+        return true;
+    } else {
+        std::set<std::string> vTypeDists = MSNet::getInstance()->getVehicleControl().getVTypeDistributionMembership(veh.getVehicleType().getID());
+        for (auto vTypeDist : vTypeDists) {
+            if (myVehicleTypes.count(vTypeDist) > 0) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
 /****************************************************************************/
 

@@ -36,7 +36,7 @@
 class MSLane;
 class PositionVector;
 namespace libsumo {
-    class VariableWrapper;
+class VariableWrapper;
 }
 
 

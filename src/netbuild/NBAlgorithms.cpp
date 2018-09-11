@@ -240,7 +240,7 @@ NBNodeTypeComputer::validateRailCrossings(NBNodeCont& nc) {
 }
 
 
-bool 
+bool
 NBNodeTypeComputer::isRailwayNode(NBNode* n) {
     int numRailway = 0;
     int numNonRailway = 0;

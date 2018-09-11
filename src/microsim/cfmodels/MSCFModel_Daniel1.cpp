@@ -41,8 +41,8 @@ MSCFModel_Daniel1::MSCFModel_Daniel1(const MSVehicleType* vtype) :
     myTmp2(vtype->getParameter().getCFParam(SUMO_ATTR_TMP2, 1.0)),
     myTmp3(vtype->getParameter().getCFParam(SUMO_ATTR_TMP3, 1.0)),
     myTmp4(vtype->getParameter().getCFParam(SUMO_ATTR_TMP4, 1.0)),
-    myTmp5(vtype->getParameter().getCFParam(SUMO_ATTR_TMP5, 1.0))
-{ }
+    myTmp5(vtype->getParameter().getCFParam(SUMO_ATTR_TMP5, 1.0)) {
+}
 
 
 MSCFModel_Daniel1::~MSCFModel_Daniel1() {}

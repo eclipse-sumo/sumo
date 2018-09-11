@@ -95,11 +95,11 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     // write optional geo reference
     const GeoConvHelper& gch = GeoConvHelper::getFinal();
     if (gch.usingGeoProjection()) {
-        if (gch.getOffsetBase() == Position(0,0)) {
+        if (gch.getOffsetBase() == Position(0, 0)) {
             device.openTag("geoReference");
-            device.writePreformattedTag(" <![CDATA[\n " 
-                    + gch.getProjString() 
-                    + "\n]]>\n");
+            device.writePreformattedTag(" <![CDATA[\n "
+                                        + gch.getProjString()
+                                        + "\n]]>\n");
             device.closeTag();
         } else {
             WRITE_WARNING("Could not write OpenDRIVE geoReference. Only unshifted Coordinate systems are supported (offset=" + toString(gch.getOffsetBase()) + ")");

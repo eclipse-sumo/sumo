@@ -110,8 +110,7 @@ NIImporter_ArcView::NIImporter_ArcView(const OptionsCont& oc,
       myNodeCont(nc), myEdgeCont(ec), myTypeCont(tc),
       mySpeedInKMH(speedInKMH),
       myRunningEdgeID(0),
-      myRunningNodeID(0)
-{
+      myRunningNodeID(0) {
     UNUSED_PARAMETER(dbf_name);
 }
 
@@ -333,9 +332,9 @@ NIImporter_ArcView::getSpeed(OGRFeature& poFeature, const std::string& edgeid) {
         if (index >= 0 && poFeature.IsFieldSet(index)) {
             const double speed = poFeature.GetFieldAsDouble(index);
             if (speed <= 0) {
-                WRITE_WARNING("invalid value for field: '" 
-                        + myOptions.getString("shapefile.laneNumber") 
-                        + "': '" + std::string(poFeature.GetFieldAsString(index)) + "'");
+                WRITE_WARNING("invalid value for field: '"
+                              + myOptions.getString("shapefile.laneNumber")
+                              + "': '" + std::string(poFeature.GetFieldAsString(index)) + "'");
             } else {
                 return speed;
             }
@@ -372,9 +371,9 @@ NIImporter_ArcView::getLaneNo(OGRFeature& poFeature, const std::string& edgeid,
         if (index >= 0 && poFeature.IsFieldSet(index)) {
             const int laneNumber = poFeature.GetFieldAsInteger(index);
             if (laneNumber <= 0) {
-                WRITE_WARNING("invalid value for field '" 
-                        + myOptions.getString("shapefile.laneNumber") 
-                        + "': '" + std::string(poFeature.GetFieldAsString(index)) + "'");
+                WRITE_WARNING("invalid value for field '"
+                              + myOptions.getString("shapefile.laneNumber")
+                              + "': '" + std::string(poFeature.GetFieldAsString(index)) + "'");
             } else {
                 return laneNumber;
             }
@@ -459,7 +458,7 @@ NIImporter_ArcView::getStringEntry(OGRFeature* poFeature, const std::string& opt
     return true;
 }
 
-std::vector<std::string> 
+std::vector<std::string>
 NIImporter_ArcView::getFieldNames(OGRFeature* poFeature) const {
     std::vector<std::string> fields;
     for (int i = 0; i < poFeature->GetFieldCount(); i++) {

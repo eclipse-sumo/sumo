@@ -290,7 +290,7 @@ public:
      * @param[in] edge The edge in which insert restricted lane
      * @param[in] undoList The undolist in which to mark changes
      */
-    bool addSRestrictedLane(SUMOVehicleClass vclass, GNEEdge& edge, GNEUndoList* undoList);
+    bool addRestrictedLane(SUMOVehicleClass vclass, GNEEdge& edge, int index, GNEUndoList* undoList);
 
     /**@brief remove restricted lane
      * @param[in] vclass vehicle class to restrict
@@ -567,7 +567,7 @@ public:
      * @param[in] type type of additional to get. SUMO_TAG_NOTHING will get all additionals
      * @return map with IDs and pointers to additionals.
      */
-    const std::map<std::string, GNEAdditional*> &getAdditionalByType(SumoXMLTag type) const;
+    const std::map<std::string, GNEAdditional*>& getAdditionalByType(SumoXMLTag type) const;
 
     /**@brief Returns the number of additionals of the net
      * @param[in] type type of additional to count. SUMO_TAG_NOTHING will count all additionals
@@ -746,7 +746,7 @@ private:
     bool checkJunctionPosition(const Position& pos);
 
     /// @brief save additionals after confirming invalid objects
-    void saveAdditionalsConfirmed(const std::string& filename); 
+    void saveAdditionalsConfirmed(const std::string& filename);
 
     static void replaceInListAttribute(GNEAttributeCarrier* ac, SumoXMLAttr key, const std::string& which, const std::string& by, GNEUndoList* undoList);
 

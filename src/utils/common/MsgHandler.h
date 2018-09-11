@@ -96,7 +96,7 @@ public:
     }
 
     /// @brief ensure that that given output device is no longer used as retriever by any instance
-    static void removeRetrieverFromAllInstances(OutputDevice* out); 
+    static void removeRetrieverFromAllInstances(OutputDevice* out);
 
     ///@brief init output options
     static void initOutputOptions();

@@ -24,6 +24,7 @@ wiedemann
 
 # the standard structure for model tests
 kraussX
+ACC
 
 # drive in circles with overtaking
 circle_two_lanes

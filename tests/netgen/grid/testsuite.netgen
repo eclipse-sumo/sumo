@@ -35,5 +35,8 @@ prefix
 # build turning lanes
 turnlanes
 
+# build turning lanes
+turnlanes_lefthand
+
 # Tests processing of errors in input
 errors

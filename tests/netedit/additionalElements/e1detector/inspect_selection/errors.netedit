@@ -31,15 +31,12 @@ Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additi
 Debug: Setting new attribute selected 'true' into junction 'gneJ0'
 GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
 GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-22.00,22.00,22.00
-Debug: Current selection: 1 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into edge 'gneE1'
 GLDebug: Removed object edge:gneE1 from SUMORTree with boundary -30.00,-30.00,80.00,31.60
 GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
-Debug: Current selection: 1 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into junction 'gneJ1'
 GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00,72.00,22.00
 GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 28.00,-22.00,72.00,22.00
-Debug: Current selection: 2 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into edge 'gneE0'
 GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-31.60,80.00,30.00
 GLDebug: Removed object e1Detector:E1_A from SUMORTree with boundary -14.00,-21.60,26.00,18.40
@@ -47,15 +44,12 @@ GLDebug: Inserted e1Detector:E1_A into SUMORTree with boundary -14.00,-21.60,26.
 GLDebug: Removed object e1Detector:E1_B from SUMORTree with boundary -10.00,-21.60,30.00,18.40
 GLDebug: Inserted e1Detector:E1_B into SUMORTree with boundary -10.00,-21.60,30.00,18.40
 GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
-Debug: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into e1Detector 'E1_A'
 GLDebug: Removed object e1Detector:E1_A from SUMORTree with boundary -14.00,-21.60,26.00,18.40
 GLDebug: Inserted e1Detector:E1_A into SUMORTree with boundary -14.00,-21.60,26.00,18.40
-Debug: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into e1Detector 'E1_B'
 GLDebug: Removed object e1Detector:E1_B from SUMORTree with boundary -10.00,-21.60,30.00,18.40
 GLDebug: Inserted e1Detector:E1_B into SUMORTree with boundary -10.00,-21.60,30.00,18.40
-Debug: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 2 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 2 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute freq '900.00' into e1Detector 'E1_A'
 GLDebug: Removed object e1Detector:E1_A from SUMORTree with boundary -14.00,-21.60,26.00,18.40

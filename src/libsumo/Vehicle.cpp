@@ -408,18 +408,26 @@ Vehicle::getNextStops(const std::string& vehicleID) {
             nsd.lane = it->lane->getID();
             nsd.endPos = it->getEndPos(*veh);
             // all optionals, only one can be set
-            if (it->busstop != 0) { nsd.stoppingPlaceID = it->busstop->getID(); }
-            if (it->containerstop != 0) { nsd.stoppingPlaceID = it->containerstop->getID(); }
-            if (it->parkingarea != 0) { nsd.stoppingPlaceID = it->parkingarea->getID(); }
-            if (it->chargingStation != 0) { nsd.stoppingPlaceID = it->chargingStation->getID(); }
+            if (it->busstop != 0) {
+                nsd.stoppingPlaceID = it->busstop->getID();
+            }
+            if (it->containerstop != 0) {
+                nsd.stoppingPlaceID = it->containerstop->getID();
+            }
+            if (it->parkingarea != 0) {
+                nsd.stoppingPlaceID = it->parkingarea->getID();
+            }
+            if (it->chargingStation != 0) {
+                nsd.stoppingPlaceID = it->chargingStation->getID();
+            }
             nsd.stopFlags = (1 +
-                (it->pars.parking ? 2 : 0) +
-                (it->pars.triggered ? 4 : 0) +
-                (it->pars.containerTriggered ? 8 : 0) +
-                (it->busstop != 0 ? 16 : 0) +
-                (it->containerstop != 0 ? 32 : 0) +
-                (it->chargingStation != 0 ? 64 : 0) +
-                (it->parkingarea != 0 ? 128 : 0));
+                             (it->pars.parking ? 2 : 0) +
+                             (it->pars.triggered ? 4 : 0) +
+                             (it->pars.containerTriggered ? 8 : 0) +
+                             (it->busstop != 0 ? 16 : 0) +
+                             (it->containerstop != 0 ? 32 : 0) +
+                             (it->chargingStation != 0 ? 64 : 0) +
+                             (it->parkingarea != 0 ? 128 : 0));
             nsd.duration = STEPS2TIME(it->pars.duration);
             nsd.until = STEPS2TIME(it->pars.until);
             result.push_back(nsd);
@@ -851,9 +859,8 @@ Vehicle::changeLaneRelative(const std::string& vehicleID, int laneChange, double
     // Check in which direction the lane change should be performed 0: for right, >0 to left
     if (laneChange > 0) {
         laneIndex = getVehicle(vehicleID)->getLaneIndex() + laneChange;
-    }
-    else {
-        laneIndex = getVehicle(vehicleID)->getLaneIndex() -1;
+    } else {
+        laneIndex = getVehicle(vehicleID)->getLaneIndex() - 1;
     }
     laneTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep(), laneIndex));
     laneTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep() + TIME2STEPS(duration), laneIndex));
@@ -869,20 +876,20 @@ Vehicle::changeSublane(const std::string& vehicleID, double latDist) {
 
 void
 Vehicle::add(const std::string& vehicleID,
-        const std::string& routeID,
-        const std::string& typeID,
-        const std::string& depart,
-        const std::string& departLane,
-        const std::string& departPos,
-        const std::string& departSpeed,
-        const std::string& arrivalLane,
-        const std::string& arrivalPos,
-        const std::string& arrivalSpeed,
-        const std::string& fromTaz,
-        const std::string& toTaz,
-        const std::string& line,
-        int /*personCapacity*/,
-        int personNumber) {
+             const std::string& routeID,
+             const std::string& typeID,
+             const std::string& depart,
+             const std::string& departLane,
+             const std::string& departPos,
+             const std::string& departSpeed,
+             const std::string& arrivalLane,
+             const std::string& arrivalPos,
+             const std::string& arrivalSpeed,
+             const std::string& fromTaz,
+             const std::string& toTaz,
+             const std::string& line,
+             int /*personCapacity*/,
+             int personNumber) {
     SUMOVehicle* veh = MSNet::getInstance()->getVehicleControl().getVehicle(vehicleID);
     if (veh != 0) {
         throw TraCIException("The vehicle " + vehicleID + " to add already exists.");
@@ -926,6 +933,9 @@ Vehicle::add(const std::string& vehicleID,
         if (std::find(succ.begin(), succ.end(), route->getEdges().back()) == succ.end()) {
             vehicleParams.parametersSet |= VEHPARS_FORCE_REROUTE;
         }
+    }
+    if (fromTaz != "" || toTaz != "") {
+        vehicleParams.parametersSet |= VEHPARS_FORCE_REROUTE;
     }
     std::string error;
     if (!SUMOVehicleParameter::parseDepart(depart, "vehicle", vehicleID, vehicleParams.depart, vehicleParams.departProcedure, error)) {
@@ -1214,8 +1224,8 @@ Vehicle::setEffort(const std::string& vehicleID, const std::string& edgeID,
 void
 Vehicle::rerouteTraveltime(const std::string& vehicleID) {
     MSVehicle* veh = getVehicle(vehicleID);
-    veh->reroute(MSNet::getInstance()->getCurrentTimeStep(), "traci:rerouteTraveltime", 
-            veh->getInfluencer().getRouterTT(), isOnInit(vehicleID));
+    veh->reroute(MSNet::getInstance()->getCurrentTimeStep(), "traci:rerouteTraveltime",
+                 veh->getInfluencer().getRouterTT(), isOnInit(vehicleID));
 }
 
 
@@ -1535,94 +1545,94 @@ Vehicle::makeWrapper() {
 bool
 Vehicle::handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper) {
     switch (variable) {
-    case ID_LIST:
-        return wrapper->wrapStringList(objID, variable, getIDList());
-    case ID_COUNT:
-        return wrapper->wrapInt(objID, variable, getIDCount());
-    case VAR_POSITION:
-        return wrapper->wrapPosition(objID, variable, getPosition(objID));
-    case VAR_POSITION3D:
-        return wrapper->wrapPosition(objID, variable, getPosition(objID, true));
-    case VAR_ANGLE:
-        return wrapper->wrapDouble(objID, variable, getAngle(objID));
-    case VAR_SPEED:
-        return wrapper->wrapDouble(objID, variable, getSpeed(objID));
-    case VAR_ROAD_ID:
-        return wrapper->wrapString(objID, variable, getRoadID(objID));
-    case VAR_SPEED_WITHOUT_TRACI:
-        return wrapper->wrapDouble(objID, variable, getSpeedWithoutTraCI(objID));
-    case VAR_SLOPE:
-        return wrapper->wrapDouble(objID, variable, getSlope(objID));
-    case VAR_LANE_ID:
-        return wrapper->wrapString(objID, variable, getLaneID(objID));
-    case VAR_LANE_INDEX:
-        return wrapper->wrapInt(objID, variable, getLaneIndex(objID));
-    case VAR_TYPE:
-        return wrapper->wrapString(objID, variable, getTypeID(objID));
-    case VAR_ROUTE_ID:
-        return wrapper->wrapString(objID, variable, getRouteID(objID));
-    case VAR_ROUTE_INDEX:
-        return wrapper->wrapInt(objID, variable, getRouteIndex(objID));
-    case VAR_COLOR:
-        return wrapper->wrapColor(objID, variable, getColor(objID));
-    case VAR_LANEPOSITION:
-        return wrapper->wrapDouble(objID, variable, getLanePosition(objID));
-    case VAR_LANEPOSITION_LAT:
-        return wrapper->wrapDouble(objID, variable, getLateralLanePosition(objID));
-    case VAR_CO2EMISSION:
-        return wrapper->wrapDouble(objID, variable, getCO2Emission(objID));
-    case VAR_COEMISSION:
-        return wrapper->wrapDouble(objID, variable, getCOEmission(objID));
-    case VAR_HCEMISSION:
-        return wrapper->wrapDouble(objID, variable, getHCEmission(objID));
-    case VAR_PMXEMISSION:
-        return wrapper->wrapDouble(objID, variable, getPMxEmission(objID));
-    case VAR_NOXEMISSION:
-        return wrapper->wrapDouble(objID, variable, getNOxEmission(objID));
-    case VAR_FUELCONSUMPTION:
-        return wrapper->wrapDouble(objID, variable, getFuelConsumption(objID));
-    case VAR_NOISEEMISSION:
-        return wrapper->wrapDouble(objID, variable, getNoiseEmission(objID));
-    case VAR_ELECTRICITYCONSUMPTION:
-        return wrapper->wrapDouble(objID, variable, getElectricityConsumption(objID));
-    case VAR_PERSON_NUMBER:
-        return wrapper->wrapInt(objID, variable, getPersonNumber(objID));
-    case LAST_STEP_PERSON_ID_LIST:
-        return wrapper->wrapStringList(objID, variable, getPersonIDList(objID));
-    case VAR_WAITING_TIME:
-        return wrapper->wrapDouble(objID, variable, getWaitingTime(objID));
-    case VAR_ACCUMULATED_WAITING_TIME:
-        return wrapper->wrapDouble(objID, variable, getAccumulatedWaitingTime(objID));
-    case VAR_ROUTE_VALID:
-        return wrapper->wrapInt(objID, variable, isRouteValid(objID));
-    case VAR_EDGES:
-        return wrapper->wrapStringList(objID, variable, getRoute(objID));
-    case VAR_SIGNALS:
-        return wrapper->wrapInt(objID, variable, getSignals(objID));
-    case VAR_STOPSTATE:
-        return wrapper->wrapInt(objID, variable, getStopState(objID));
-    case VAR_DISTANCE:
-        return wrapper->wrapDouble(objID, variable, getDistance(objID));
-    case VAR_ALLOWED_SPEED:
-        return wrapper->wrapDouble(objID, variable, getAllowedSpeed(objID));
-    case VAR_SPEED_FACTOR:
-        return wrapper->wrapDouble(objID, variable, getSpeedFactor(objID));
-    case VAR_SPEEDSETMODE:
-        return wrapper->wrapInt(objID, variable, getSpeedMode(objID));
-    case VAR_LANECHANGE_MODE:
-        return wrapper->wrapInt(objID, variable, getLaneChangeMode(objID));
-    case VAR_ROUTING_MODE:
-        return wrapper->wrapInt(objID, variable, getRoutingMode(objID));
-    case VAR_LINE:
-        return wrapper->wrapString(objID, variable, getLine(objID));
-    case VAR_VIA:
-        return wrapper->wrapStringList(objID, variable, getVia(objID));
-    case VAR_ACCELERATION:
-        return wrapper->wrapDouble(objID, variable, getAcceleration(objID));
-    case VAR_LASTACTIONTIME:
-        return wrapper->wrapDouble(objID, variable, getLastActionTime(objID));
-    default:
-        return false;
+        case ID_LIST:
+            return wrapper->wrapStringList(objID, variable, getIDList());
+        case ID_COUNT:
+            return wrapper->wrapInt(objID, variable, getIDCount());
+        case VAR_POSITION:
+            return wrapper->wrapPosition(objID, variable, getPosition(objID));
+        case VAR_POSITION3D:
+            return wrapper->wrapPosition(objID, variable, getPosition(objID, true));
+        case VAR_ANGLE:
+            return wrapper->wrapDouble(objID, variable, getAngle(objID));
+        case VAR_SPEED:
+            return wrapper->wrapDouble(objID, variable, getSpeed(objID));
+        case VAR_ROAD_ID:
+            return wrapper->wrapString(objID, variable, getRoadID(objID));
+        case VAR_SPEED_WITHOUT_TRACI:
+            return wrapper->wrapDouble(objID, variable, getSpeedWithoutTraCI(objID));
+        case VAR_SLOPE:
+            return wrapper->wrapDouble(objID, variable, getSlope(objID));
+        case VAR_LANE_ID:
+            return wrapper->wrapString(objID, variable, getLaneID(objID));
+        case VAR_LANE_INDEX:
+            return wrapper->wrapInt(objID, variable, getLaneIndex(objID));
+        case VAR_TYPE:
+            return wrapper->wrapString(objID, variable, getTypeID(objID));
+        case VAR_ROUTE_ID:
+            return wrapper->wrapString(objID, variable, getRouteID(objID));
+        case VAR_ROUTE_INDEX:
+            return wrapper->wrapInt(objID, variable, getRouteIndex(objID));
+        case VAR_COLOR:
+            return wrapper->wrapColor(objID, variable, getColor(objID));
+        case VAR_LANEPOSITION:
+            return wrapper->wrapDouble(objID, variable, getLanePosition(objID));
+        case VAR_LANEPOSITION_LAT:
+            return wrapper->wrapDouble(objID, variable, getLateralLanePosition(objID));
+        case VAR_CO2EMISSION:
+            return wrapper->wrapDouble(objID, variable, getCO2Emission(objID));
+        case VAR_COEMISSION:
+            return wrapper->wrapDouble(objID, variable, getCOEmission(objID));
+        case VAR_HCEMISSION:
+            return wrapper->wrapDouble(objID, variable, getHCEmission(objID));
+        case VAR_PMXEMISSION:
+            return wrapper->wrapDouble(objID, variable, getPMxEmission(objID));
+        case VAR_NOXEMISSION:
+            return wrapper->wrapDouble(objID, variable, getNOxEmission(objID));
+        case VAR_FUELCONSUMPTION:
+            return wrapper->wrapDouble(objID, variable, getFuelConsumption(objID));
+        case VAR_NOISEEMISSION:
+            return wrapper->wrapDouble(objID, variable, getNoiseEmission(objID));
+        case VAR_ELECTRICITYCONSUMPTION:
+            return wrapper->wrapDouble(objID, variable, getElectricityConsumption(objID));
+        case VAR_PERSON_NUMBER:
+            return wrapper->wrapInt(objID, variable, getPersonNumber(objID));
+        case LAST_STEP_PERSON_ID_LIST:
+            return wrapper->wrapStringList(objID, variable, getPersonIDList(objID));
+        case VAR_WAITING_TIME:
+            return wrapper->wrapDouble(objID, variable, getWaitingTime(objID));
+        case VAR_ACCUMULATED_WAITING_TIME:
+            return wrapper->wrapDouble(objID, variable, getAccumulatedWaitingTime(objID));
+        case VAR_ROUTE_VALID:
+            return wrapper->wrapInt(objID, variable, isRouteValid(objID));
+        case VAR_EDGES:
+            return wrapper->wrapStringList(objID, variable, getRoute(objID));
+        case VAR_SIGNALS:
+            return wrapper->wrapInt(objID, variable, getSignals(objID));
+        case VAR_STOPSTATE:
+            return wrapper->wrapInt(objID, variable, getStopState(objID));
+        case VAR_DISTANCE:
+            return wrapper->wrapDouble(objID, variable, getDistance(objID));
+        case VAR_ALLOWED_SPEED:
+            return wrapper->wrapDouble(objID, variable, getAllowedSpeed(objID));
+        case VAR_SPEED_FACTOR:
+            return wrapper->wrapDouble(objID, variable, getSpeedFactor(objID));
+        case VAR_SPEEDSETMODE:
+            return wrapper->wrapInt(objID, variable, getSpeedMode(objID));
+        case VAR_LANECHANGE_MODE:
+            return wrapper->wrapInt(objID, variable, getLaneChangeMode(objID));
+        case VAR_ROUTING_MODE:
+            return wrapper->wrapInt(objID, variable, getRoutingMode(objID));
+        case VAR_LINE:
+            return wrapper->wrapString(objID, variable, getLine(objID));
+        case VAR_VIA:
+            return wrapper->wrapStringList(objID, variable, getVia(objID));
+        case VAR_ACCELERATION:
+            return wrapper->wrapDouble(objID, variable, getAcceleration(objID));
+        case VAR_LASTACTIONTIME:
+            return wrapper->wrapDouble(objID, variable, getLastActionTime(objID));
+        default:
+            return false;
     }
 }
 

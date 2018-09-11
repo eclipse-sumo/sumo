@@ -40,3 +40,6 @@ add_off0_with_redyellow
 
 # test sub-second offsets and subsecond durations within subsecond simulation
 subsecond
+
+# try to load a programID that already exists
+sub_invalid

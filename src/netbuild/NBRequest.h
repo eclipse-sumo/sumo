@@ -142,11 +142,11 @@ public:
 
     /// @brief whether multple connections from the same edge target the same lane
     bool mergeConflict(const NBEdge* from, const NBEdge::Connection& con,
-                              const NBEdge* prohibitorFrom,  const NBEdge::Connection& prohibitorCon, bool foes) const;
+                       const NBEdge* prohibitorFrom,  const NBEdge::Connection& prohibitorCon, bool foes) const;
 
     /// @brief whether opposite left turns intersect
     bool oppositeLeftTurnConflict(const NBEdge* from, const NBEdge::Connection& con,
-                              const NBEdge* prohibitorFrom,  const NBEdge::Connection& prohibitorCon, bool foes) const;
+                                  const NBEdge* prohibitorFrom,  const NBEdge::Connection& prohibitorCon, bool foes) const;
 
 
 private:
@@ -239,7 +239,7 @@ private:
     /// @brief edges incoming to the junction
     const EdgeVector& myIncoming;
 
-    /// @brief edges outgoing from the junction 
+    /// @brief edges outgoing from the junction
     const EdgeVector& myOutgoing;
 
     /// @brief definition of a container to store boolean informations about a link into

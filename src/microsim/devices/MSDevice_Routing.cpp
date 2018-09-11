@@ -160,7 +160,7 @@ MSDevice_Routing::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& in
     }
 }
 
-void 
+void
 MSDevice_Routing::initWeightUpdate() {
     if (myAdaptationInterval == -1) {
         const OptionsCont& oc = OptionsCont::getOptions();

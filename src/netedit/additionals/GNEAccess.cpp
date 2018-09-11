@@ -54,7 +54,7 @@
 // member method definitions
 // ===========================================================================
 
-GNEAccess::GNEAccess(GNEAdditional *busStop, GNELane* lane, GNEViewNet* viewNet, const std::string& pos, const std::string& length, bool friendlyPos, bool blockMovement) :
+GNEAccess::GNEAccess(GNEAdditional* busStop, GNELane* lane, GNEViewNet* viewNet, const std::string& pos, const std::string& length, bool friendlyPos, bool blockMovement) :
     GNEAdditional(busStop, viewNet, GLO_ACCESS, SUMO_TAG_ACCESS, "", blockMovement),
     myLane(lane),
     myPositionOverLane(pos),
@@ -67,7 +67,7 @@ GNEAccess::~GNEAccess() {
 }
 
 
-void 
+void
 GNEAccess::moveGeometry(const Position& oldPos, const Position& offset) {
     // Calculate new position using old position
     Position newPosition = oldPos;
@@ -78,13 +78,11 @@ GNEAccess::moveGeometry(const Position& oldPos, const Position& offset) {
 }
 
 
-void 
+void
 GNEAccess::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
     if (!myBlockMovement) {
         // restore old position before commit new position
         double originalPosOverLane = myLane->getShape().nearest_offset_to_point2D(oldPos, false);
-        // restore original shape before moving (to avoid problems in GL Tree)
-        myShape = myMovingShape;
         // commit new position allowing undo/redo
         undoList->p_begin("position of " + toString(getTag()));
         undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, myPositionOverLane, true, toString(originalPosOverLane)));
@@ -96,7 +94,7 @@ GNEAccess::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
 void
 GNEAccess::updateGeometry(bool updateGrid) {
     // first check if object has to be removed from grid (SUMOTree)
-    if(updateGrid) {
+    if (updateGrid) {
         myViewNet->getNet()->removeGLObjectFromGrid(this);
     }
 
@@ -109,9 +107,9 @@ GNEAccess::updateGeometry(bool updateGrid) {
 
     // set start position
     double fixedPositionOverLane;
-    if(!canParse<double>(myPositionOverLane)) {
+    if (!canParse<double>(myPositionOverLane)) {
         fixedPositionOverLane = myLane->getParentEdge().getNBEdge()->getFinalLength();
-    } else if(parse<double>(myPositionOverLane) < 0) {
+    } else if (parse<double>(myPositionOverLane) < 0) {
         fixedPositionOverLane = 0;
     } else if (parse<double>(myPositionOverLane) > myLane->getParentEdge().getNBEdge()->getFinalLength()) {
         fixedPositionOverLane = myLane->getParentEdge().getNBEdge()->getFinalLength();
@@ -120,7 +118,7 @@ GNEAccess::updateGeometry(bool updateGrid) {
     }
     // obtain position
     myShape[0] = myLane->getShape().positionAtOffset(fixedPositionOverLane * myLane->getLengthGeometryFactor());
-    
+
     // Save rotation (angle) of the vector constructed by points f and s
     myShapeRotations.push_back(myLane->getShape().rotationDegreeAtOffset(fixedPositionOverLane) * -1);
 
@@ -134,19 +132,19 @@ GNEAccess::updateGeometry(bool updateGrid) {
     setBlockIconRotation(myLane);
 
     // last step is to check if object has to be added into grid (SUMOTree) again
-    if(updateGrid) {
+    if (updateGrid) {
         myViewNet->getNet()->addGLObjectIntoGrid(this);
     }
 }
 
 
-Position 
+Position
 GNEAccess::getPositionInView() const {
-    if(!canParse<double>(myPositionOverLane)) {
+    if (!canParse<double>(myPositionOverLane)) {
         return myLane->getShape().front();
     } else {
         double posOverLane = parse<double>(myPositionOverLane);
-        if(posOverLane < 0) {
+        if (posOverLane < 0) {
             return myLane->getShape().front();
         } else if (posOverLane > myLane->getShape().length()) {
             return myLane->getShape().back();
@@ -157,14 +155,14 @@ GNEAccess::getPositionInView() const {
 }
 
 
-bool 
+bool
 GNEAccess::isAccessPositionFixed() const {
     // with friendly position enabled position are "always fixed"
     if (myFriendlyPosition) {
         return true;
     } else {
-        if(canParse<double>(myPositionOverLane)) {
-            return (parse<double>(myPositionOverLane)>= 0) && ((parse<double>(myPositionOverLane)) <= myLane->getParentEdge().getNBEdge()->getFinalLength());
+        if (canParse<double>(myPositionOverLane)) {
+            return (parse<double>(myPositionOverLane) >= 0) && ((parse<double>(myPositionOverLane)) <= myLane->getParentEdge().getNBEdge()->getFinalLength());
         } else {
             return false;
         }
@@ -200,12 +198,12 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
     }
     glTranslated(myShape[0].x(), myShape[0].y(), GLO_ACCESS);
     // draw circle
-    if(s.drawForSelecting) {
+    if (s.drawForSelecting) {
         GLHelper::drawFilledCircle((double) 0.5 * exaggeration, 8);
     } else {
         std::vector<Position> vertices = GLHelper::drawFilledCircleReturnVertices((double) 0.5 * exaggeration, 16);
         // check if dotted contour has to be drawn
-        if(myViewNet->getACUnderCursor() == this) {
+        if (myViewNet->getACUnderCursor() == this) {
             GLHelper::drawShapeDottedContour(getType(), vertices);
         }
     }
@@ -271,9 +269,9 @@ GNEAccess::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             return isValidAdditionalID(value);
         case SUMO_ATTR_LANE: {
-            GNELane *lane = myViewNet->getNet()->retrieveLane(value, false);
+            GNELane* lane = myViewNet->getNet()->retrieveLane(value, false);
             if (lane != nullptr) {
-                if(myLane->getParentEdge().getID() != lane->getParentEdge().getID()) {
+                if (myLane->getParentEdge().getID() != lane->getParentEdge().getID()) {
                     return GNEAdditionalHandler::accessCanBeCreated(myFirstAdditionalParent, lane->getParentEdge());
                 } else {
                     return true;
@@ -283,13 +281,13 @@ GNEAccess::isValid(SumoXMLAttr key, const std::string& value) {
             }
         }
         case SUMO_ATTR_POSITION:
-            if(value.empty()) {
+            if (value.empty()) {
                 return true;
             } else {
                 return canParse<double>(value);
             }
         case SUMO_ATTR_LENGTH:
-            if(value.empty()) {
+            if (value.empty()) {
                 return true;
             } else {
                 return (canParse<double>(value) && (parse<double>(value) >= 0));
@@ -308,13 +306,13 @@ GNEAccess::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-std::string 
+std::string
 GNEAccess::getPopUpID() const {
     return toString(getTag());
 }
 
 
-std::string 
+std::string
 GNEAccess::getHierarchyName() const {
     return toString(getTag()) + ": " + myLane->getParentEdge().getID();
 }
@@ -345,7 +343,7 @@ GNEAccess::setAttribute(SumoXMLAttr key, const std::string& value) {
             myBlockMovement = parse<bool>(value);
             break;
         case GNE_ATTR_SELECTED:
-            if(parse<bool>(value)) {
+            if (parse<bool>(value)) {
                 selectAttributeCarrier();
             } else {
                 unselectAttributeCarrier();

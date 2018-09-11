@@ -79,8 +79,8 @@ NIImporter_SUMO::NIImporter_SUMO(NBNetBuilder& nb)
       myLinkDetail(-1),
       myRectLaneCut(false),
       myWalkingAreas(false),
-      myLimitTurnSpeed(-1)
-{ }
+      myLimitTurnSpeed(-1) {
+}
 
 
 NIImporter_SUMO::~NIImporter_SUMO() {
@@ -407,7 +407,7 @@ NIImporter_SUMO::myStartElement(int element,
             bool ok = true;
             addStopOffsets(attrs, ok);
         }
-            break;
+        break;
         case SUMO_TAG_NEIGH:
             myCurrentLane->oppositeID = attrs.getString(SUMO_ATTR_LANE);
             break;
@@ -606,18 +606,20 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes& attrs) {
 
 void
 NIImporter_SUMO::addStopOffsets(const SUMOSAXAttributes& attrs, bool& ok) {
-    std::map<SVCPermissions,double> offsets = parseStopOffsets(attrs, ok);
-    if (!ok) return;
-    assert(offsets.size()==1);
+    std::map<SVCPermissions, double> offsets = parseStopOffsets(attrs, ok);
+    if (!ok) {
+        return;
+    }
+    assert(offsets.size() == 1);
     // Admissibility of value will be checked in _loadNetwork(), when lengths are known
-    if (myCurrentLane==0) {
+    if (myCurrentLane == 0) {
         if (myCurrentEdge->stopOffsets.size() != 0) {
             std::stringstream ss;
             ss << "Duplicate definition of stopOffset for edge " << myCurrentEdge->id << ".\nIgnoring duplicate specification.";
             WRITE_WARNING(ss.str());
             return;
         } else {
-            myCurrentEdge->stopOffsets=offsets;
+            myCurrentEdge->stopOffsets = offsets;
         }
     } else {
         if (myCurrentLane->stopOffsets.size() != 0) {
@@ -626,7 +628,7 @@ NIImporter_SUMO::addStopOffsets(const SUMOSAXAttributes& attrs, bool& ok) {
             WRITE_WARNING(ss.str());
             return;
         } else {
-            myCurrentLane->stopOffsets=offsets;
+            myCurrentLane->stopOffsets = offsets;
         }
     }
 }

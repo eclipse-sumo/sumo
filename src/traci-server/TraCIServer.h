@@ -111,7 +111,7 @@ public:
     static void runEmbedded(std::string pyFile);
 #endif
 
-    void vehicleStateChanged(const SUMOVehicle* const vehicle, MSNet::VehicleState to, const std::string& info="");
+    void vehicleStateChanged(const SUMOVehicle* const vehicle, MSNet::VehicleState to, const std::string& info = "");
 
     /// @name Writing Status Messages
     /// @{

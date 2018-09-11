@@ -137,10 +137,10 @@ GUIDialog_Options::InputBool::onCmdSetOption(FXObject*, FXSelector, void*) {
     oc.resetWritable();
     oc.set(myName, myCheck->getCheck() ? "true" : "false");
     // special checks for Debug flags
-    if((myName == "gui-testing-debug") && oc.isSet("gui-testing-debug")) {
+    if ((myName == "gui-testing-debug") && oc.isSet("gui-testing-debug")) {
         MsgHandler::enableDebugMessages(oc.getBool("gui-testing-debug"));
     }
-    if((myName == "gui-testing-debug-gl") && oc.isSet("gui-testing-debug-gl")) {
+    if ((myName == "gui-testing-debug-gl") && oc.isSet("gui-testing-debug-gl")) {
         MsgHandler::enableDebugGLMessages(oc.getBool("gui-testing-debug-gl"));
     }
     return 1;

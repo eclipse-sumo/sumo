@@ -25,7 +25,4 @@ ticket3265
 
 # vehice collides with itself
 ticket3584
-
-# vehicle collides on opposite direction overtaking
-ticket3718
 ticket3791

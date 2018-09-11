@@ -131,6 +131,7 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             if (attrs.hasAttribute(SUMO_ATTR_RNG_DRIVERSTATE)) {
                 RandHelper::loadState(attrs.getString(SUMO_ATTR_RNG_DEFAULT), OUProcess::getRNG());
             }
+            break;
         }
         case SUMO_TAG_DELAY: {
             vc.setState(attrs.getInt(SUMO_ATTR_NUMBER),
@@ -262,7 +263,7 @@ MSStateHandler::closeVehicle() {
 }
 
 
-void 
+void
 MSStateHandler::saveRNGs(OutputDevice& out) {
     out.openTag(SUMO_TAG_RNGSTATE);
     out.writeAttr(SUMO_ATTR_RNG_DEFAULT, RandHelper::saveState());

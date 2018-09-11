@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Aug 22 21:42:11 2018 by Eclipse SUMO Version d6fb2e0
+<!-- generated on Tue Sep 11 12:11:52 2018 by Eclipse SUMO Version v1_0_0+0096-19e3d3b
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -228,8 +228,8 @@
         <!-- Enables collisions checks on junctions -->
         <collision.check-junctions value="false" type="BOOL"/>
 
-        <!-- Sets the fraction of minGap that must be maintained to avoid collision detection. -->
-        <collision.mingap-factor value="1" type="FLOAT"/>
+        <!-- Sets the fraction of minGap that must be maintained to avoid collision detection. If a negative value is given, the carFollowModel parameter is used -->
+        <collision.mingap-factor value="-1" type="FLOAT"/>
 
         <!-- Delay vehicle insertion to stay within the given maximum number -->
         <max-num-vehicles value="-1" type="INT"/>
@@ -282,8 +282,8 @@
         <!-- Select default speed deviation. A negative value implies vClass specific defaults (0.1 for the default passenger class -->
         <default.speeddev value="-1" type="FLOAT"/>
 
-        <!-- Select default emergencydecel value among &apos;decel&apos;, &apos;default&apos;, FLOAT which sets the value either to the same as the deceleration value, a vClass-class specific default or the given FLOAT in m/s^2 -->
-        <default.emergencydecel value="decel" type="STR"/>
+        <!-- Select default emergencyDecel value among (&apos;decel&apos;, &apos;default&apos;, FLOAT) which sets the value either to the same as the deceleration value, a vClass-class specific default or the given FLOAT in m/s^2 -->
+        <default.emergencydecel value="default" type="STR"/>
 
         <!-- Select among pedestrian models [&apos;nonInteracting&apos;, &apos;striping&apos;, &apos;remote&apos;] -->
         <pedestrian.model value="striping" type="STR"/>
@@ -483,23 +483,26 @@
         <!-- The &apos;ssm&apos; devices are set deterministic using a fraction of 1000 -->
         <device.ssm.deterministic value="false" type="BOOL"/>
 
-        <!-- Specifies which measures will be logged (as a space seperated sequence of IDs in (&apos;TTC&apos;, &apos;DRAC&apos;, &apos;PET&apos;)). -->
+        <!-- Specifies which measures will be logged (as a space separated sequence of IDs in (&apos;TTC&apos;, &apos;DRAC&apos;, &apos;PET&apos;)). -->
         <device.ssm.measures value="" type="STR"/>
 
         <!-- Specifies thresholds corresponding to the specified measures (see documentation and watch the order!). Only events exceeding the thresholds will be logged. -->
         <device.ssm.thresholds value="" type="STR"/>
 
         <!-- Specifies whether trajectories will be logged (if false, only the extremal values and times are reported, this is the default). -->
-        <device.ssm.trajectories value="false" type="BOOL"/>
+        <device.ssm.trajectories value="" type="BOOL"/>
 
         <!-- Specifies the detection range in meters (default is 50.00m.). For vehicles below this distance from the equipped vehicle, SSM values are traced. -->
-        <device.ssm.range value="50" type="FLOAT"/>
+        <device.ssm.range value="" type="FLOAT"/>
 
         <!-- Specifies the time in seconds to be logged after a conflict is over (default is 5.00secs.). Required &gt;0 if PET is to be calculated for crossing conflicts. -->
-        <device.ssm.extratime value="5" type="FLOAT"/>
+        <device.ssm.extratime value="" type="FLOAT"/>
+
+        <!-- Give a global default filename for the SSM output. -->
+        <device.ssm.file value="" type="STR"/>
 
         <!-- Whether to use coordinates of the original reference system in output (default is false). -->
-        <device.ssm.geo value="false" type="BOOL"/>
+        <device.ssm.geo value="" type="BOOL"/>
 
     </ssm_device>
 
@@ -692,6 +695,9 @@
 
         <!-- The aggregation period for value tracker windows -->
         <tracker-interval value="1" type="FLOAT"/>
+
+        <!-- Start with an OpenSceneGraph view instead of the regular 2D view -->
+        <osg-view value="false" type="BOOL"/>
 
         <!-- Enable ovelay for screen recognition -->
         <gui-testing value="false" type="BOOL"/>

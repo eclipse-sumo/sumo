@@ -104,7 +104,7 @@ Distribution_Parameterized::toStr(std::streamsize accuracy) const {
 }
 
 
-bool 
+bool
 Distribution_Parameterized::isValid(std::string& error) {
     if (myParameter.size() > 2) {
         if (myParameter[0] > getMax()) {

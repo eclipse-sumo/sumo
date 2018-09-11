@@ -19,9 +19,9 @@ TestFunctions: 'reference.png' found. Position: 304 - 140
 [log]  TYPE "#TAB."
 [log] ( Ctrl )  TYPE "a"
 [log]  TYPE "#ENTER."
-[log] CLICK on L(404,190)@S(0)[0,0 1600x900] (234 msec)
+[log] CLICK on L(404,190)@S(0)[0,0 1600x900] (250 msec)
 TestFunctions: Clicked over position 404 - 190
-[log] CLICK on L(504,190)@S(0)[0,0 1600x900] (250 msec)
+[log] CLICK on L(504,190)@S(0)[0,0 1600x900] (234 msec)
 TestFunctions: Clicked over position 504 - 190
 [log]  TYPE "#F12."
 [log]  TYPE "#TAB."
@@ -39,7 +39,7 @@ TestFunctions: Clicked over position 504 - 190
 [log]  TYPE "#DOWN."
 [log]  TYPE " "
 [log]  TYPE "#TAB."
-[log] CLICK on L(379,340)@S(0)[0,0 1600x900] (250 msec)
+[log] CLICK on L(379,340)@S(0)[0,0 1600x900] (266 msec)
 TestFunctions: Clicked over position 379 - 340
 [log]  TYPE "#F12."
 [log]  TYPE "#TAB."
@@ -54,18 +54,18 @@ TestFunctions: Clicked over position 379 - 340
 [log]  TYPE "#DOWN."
 [log]  TYPE " "
 [log]  TYPE "#TAB."
-[log] CLICK on L(554,340)@S(0)[0,0 1600x900] (235 msec)
+[log] CLICK on L(554,340)@S(0)[0,0 1600x900] (266 msec)
 TestFunctions: Clicked over position 554 - 340
 [log]  TYPE "d"
-[log] CLICK on L(404,190)@S(0)[0,0 1600x900] (235 msec)
+[log] CLICK on L(404,190)@S(0)[0,0 1600x900] (234 msec)
 TestFunctions: Clicked over position 404 - 190
 [log] CLICK on L(554,340)@S(0)[0,0 1600x900] (234 msec)
 TestFunctions: Clicked over position 554 - 340
 [log] CLICK on L(704,190)@S(0)[0,0 1600x900] (235 msec)
 TestFunctions: Clicked over position 704 - 190
-[log] CLICK on L(854,340)@S(0)[0,0 1600x900] (390 msec)
+[log] CLICK on L(854,340)@S(0)[0,0 1600x900] (234 msec)
 TestFunctions: Clicked over position 854 - 340
-[log] CLICK on L(704,440)@S(0)[0,0 1600x900] (235 msec)
+[log] CLICK on L(704,440)@S(0)[0,0 1600x900] (234 msec)
 TestFunctions: Clicked over position 704 - 440
 [log]  TYPE "i"
 [log] CLICK on L(304,140)@S(0)[0,0 1600x900] (235 msec)
@@ -93,4 +93,4 @@ TestFunctions: Clicked over position 304 - 140
 [log] ( Ctrl+Shift )  TYPE "d"
 [log] ( Ctrl )  TYPE "s"
 [log] ( Ctrl )  TYPE "q"
-TestFunctions: Error closing Netedit
+TestFunctions: Netedit closed successfully

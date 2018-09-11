@@ -237,7 +237,7 @@ MSTransportable::Stage_Waiting::abort(MSTransportable* t) {
 }
 
 
-std::string 
+std::string
 MSTransportable::Stage_Waiting::getStageSummary() const {
     std::string timeInfo;
     if (myWaitingUntil >= 0) {
@@ -264,8 +264,8 @@ MSTransportable::Stage_Driving::Stage_Driving(const MSEdge* destination,
     myWaitingEdge(nullptr),
     myStopWaitPos(Position::INVALID),
     myIntendedVehicleID(intendedVeh),
-    myIntendedDepart(intendedDepart)
-{}
+    myIntendedDepart(intendedDepart) {
+}
 
 
 MSTransportable::Stage_Driving::~Stage_Driving() {}
@@ -381,7 +381,7 @@ MSTransportable::Stage_Driving::setVehicle(SUMOVehicle* v) {
                             myVehicle->getRoute().begin(),  myVehicle->getCurrentRouteEdge());
 }
 
-void 
+void
 MSTransportable::Stage_Driving::setDestination(const MSEdge* newDestination, MSStoppingPlace* newDestStop) {
     myDestination = newDestination;
     myDestinationStop = newDestStop;
@@ -579,14 +579,14 @@ MSTransportable::getBoundingBox() const {
 }
 
 
-std::string 
+std::string
 MSTransportable::getStageSummary(int stageIndex) const {
     assert(stageIndex < (int)myPlan->size());
     assert(stageIndex >= 0);
     return (*myPlan)[stageIndex]->getStageSummary();
 }
 
-bool 
+bool
 MSTransportable::hasArrived() const {
     return myStep == myPlan->end();
 }
@@ -619,9 +619,9 @@ MSTransportable::rerouteParkingArea(MSStoppingPlace* orig, MSStoppingPlace* repl
                 ConstMSEdgeVector newEdges;
                 MSNet::getInstance()->getPedestrianRouter().compute(stage->getDestination(), to, departPos, arrivalPos, speed, 0, 0, newEdges);
                 if (newEdges.empty()) {
-                    WRITE_WARNING("Could not reroute person '" + getID() 
-                            + "' when rerouting vehicle '" + stage->getVehicle()->getID()
-                            + "' to new parkingArea '" + replacement->getID() + "'.");
+                    WRITE_WARNING("Could not reroute person '" + getID()
+                                  + "' when rerouting vehicle '" + stage->getVehicle()->getID()
+                                  + "' to new parkingArea '" + replacement->getID() + "'.");
                 } else {
                     //std::cout << SIMTIME << " plan before rerouting " << getID() << ":\n";
                     //for (int stage = 0; stage < p->getNumStages(); stage++) {

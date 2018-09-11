@@ -164,6 +164,8 @@ std::set<MSDevice_SSM*>* MSDevice_SSM::instances = new std::set<MSDevice_SSM*>()
 
 std::set<std::string> MSDevice_SSM::createdOutputFiles;
 
+int MSDevice_SSM::issuedParameterWarnFlags = 0;
+
 const std::set<MSDevice_SSM*>&
 MSDevice_SSM::getInstances() {
     return *instances;
@@ -192,17 +194,19 @@ MSDevice_SSM::insertOptions(OptionsCont& oc) {
     insertDefaultAssignmentOptions("ssm", "SSM Device", oc);
 
     // custom options
-    oc.doRegister("device.ssm.measures", new Option_String(""));
-    oc.addDescription("device.ssm.measures", "SSM Device", "Specifies which measures will be logged (as a space seperated sequence of IDs in ('TTC', 'DRAC', 'PET')).");
-    oc.doRegister("device.ssm.thresholds", new Option_String(""));
+    oc.doRegister("device.ssm.measures", Option::makeUnsetWithDefault<Option_String, std::string>(""));
+    oc.addDescription("device.ssm.measures", "SSM Device", "Specifies which measures will be logged (as a space separated sequence of IDs in ('TTC', 'DRAC', 'PET')).");
+    oc.doRegister("device.ssm.thresholds", Option::makeUnsetWithDefault<Option_String, std::string>(""));
     oc.addDescription("device.ssm.thresholds", "SSM Device", "Specifies thresholds corresponding to the specified measures (see documentation and watch the order!). Only events exceeding the thresholds will be logged.");
-    oc.doRegister("device.ssm.trajectories", new Option_Bool(false));
+    oc.doRegister("device.ssm.trajectories",  Option::makeUnsetWithDefault<Option_Bool, bool>(false));
     oc.addDescription("device.ssm.trajectories", "SSM Device", "Specifies whether trajectories will be logged (if false, only the extremal values and times are reported, this is the default).");
-    oc.doRegister("device.ssm.range", new Option_Float(DEFAULT_RANGE));
+    oc.doRegister("device.ssm.range", Option::makeUnsetWithDefault<Option_Float, double>(DEFAULT_RANGE));
     oc.addDescription("device.ssm.range", "SSM Device", "Specifies the detection range in meters (default is " + toString(DEFAULT_RANGE) + "m.). For vehicles below this distance from the equipped vehicle, SSM values are traced.");
-    oc.doRegister("device.ssm.extratime", new Option_Float(DEFAULT_EXTRA_TIME));
+    oc.doRegister("device.ssm.extratime", Option::makeUnsetWithDefault<Option_Float, double>(DEFAULT_EXTRA_TIME));
     oc.addDescription("device.ssm.extratime", "SSM Device", "Specifies the time in seconds to be logged after a conflict is over (default is " + toString(DEFAULT_EXTRA_TIME) + "secs.). Required >0 if PET is to be calculated for crossing conflicts.");
-    oc.doRegister("device.ssm.geo", new Option_Bool(false));
+    oc.doRegister("device.ssm.file", Option::makeUnsetWithDefault<Option_String, std::string>(""));
+    oc.addDescription("device.ssm.file", "SSM Device", "Give a global default filename for the SSM output.");
+    oc.doRegister("device.ssm.geo", Option::makeUnsetWithDefault<Option_Bool, bool>(false));
     oc.addDescription("device.ssm.geo", "SSM Device", "Whether to use coordinates of the original reference system in output (default is false).");
 }
 
@@ -431,12 +435,12 @@ MSDevice_SSM::computeGlobalMeasures() {
         }
 
         double leaderSearchDist = 0;
-        std::pair<const MSVehicle*, double> leader(nullptr,0.);
+        std::pair<const MSVehicle*, double> leader(nullptr, 0.);
         if (myComputeSGAP) {
             leaderSearchDist = myThresholds["SGAP"];
         }
         if (myComputeTGAP) {
-            leaderSearchDist = MAX2(leaderSearchDist, myThresholds["TGAP"]*myHolderMS->getSpeed());
+            leaderSearchDist = MAX2(leaderSearchDist, myThresholds["TGAP"] * myHolderMS->getSpeed());
         }
 
         if (leaderSearchDist > 0.) {
@@ -2066,8 +2070,8 @@ MSDevice_SSM::flushGlobalMeasures() {
     std::string egoID = myHolderMS->getID();
 #ifdef DEBUG_SSM
     std::cout << SIMTIME << " flushGlobalMeasures() of vehicle '"
-            << egoID << "'"
-            << "'\ntoGeo=" << myUseGeoCoords << std::endl;
+              << egoID << "'"
+              << "'\ntoGeo=" << myUseGeoCoords << std::endl;
 #endif
     if (myComputeBR || myComputeSGAP || myComputeTGAP) {
         myOutputFile->openTag("globalMeasures");
@@ -2077,7 +2081,9 @@ MSDevice_SSM::flushGlobalMeasures() {
             myOutputFile->openTag("BRSpan").writeAttr("values", myBRspan).closeTag();
 
             if (myMaxBR.second != 0.0) {
-                if (myUseGeoCoords) toGeo(myMaxBR.first.second);
+                if (myUseGeoCoords) {
+                    toGeo(myMaxBR.first.second);
+                }
                 myOutputFile->openTag("maxBR").writeAttr("time", myMaxBR.first.first).writeAttr("position", toString(myMaxBR.first.second)).writeAttr("value", myMaxBR.second).closeTag();
             }
         }
@@ -2085,22 +2091,26 @@ MSDevice_SSM::flushGlobalMeasures() {
         if (myComputeSGAP) {
             myOutputFile->openTag("SGAPSpan").writeAttr("values", makeStringWithNAs(mySGAPspan, INVALID)).closeTag();
             if (myMinSGAP.second != "") {
-                if (myUseGeoCoords) toGeo(myMinSGAP.first.first.second);
+                if (myUseGeoCoords) {
+                    toGeo(myMinSGAP.first.first.second);
+                }
                 myOutputFile->openTag("minSGAP").writeAttr("time", myMinSGAP.first.first.first)
-                        .writeAttr("position", toString(myMinSGAP.first.first.second))
-                        .writeAttr("value", myMinSGAP.first.second)
-                        .writeAttr("leader", myMinSGAP.second).closeTag();
+                .writeAttr("position", toString(myMinSGAP.first.first.second))
+                .writeAttr("value", myMinSGAP.first.second)
+                .writeAttr("leader", myMinSGAP.second).closeTag();
             }
         }
 
         if (myComputeTGAP) {
             myOutputFile->openTag("TGAPSpan").writeAttr("values", makeStringWithNAs(myTGAPspan, INVALID)).closeTag();
             if (myMinTGAP.second != "") {
-                if (myUseGeoCoords) toGeo(myMinTGAP.first.first.second);
+                if (myUseGeoCoords) {
+                    toGeo(myMinTGAP.first.first.second);
+                }
                 myOutputFile->openTag("minTGAP").writeAttr("time", myMinTGAP.first.first.first)
-                        .writeAttr("position", toString(myMinTGAP.first.first.second))
-                        .writeAttr("value", myMinTGAP.first.second)
-                        .writeAttr("leader", myMinTGAP.second).closeTag();
+                .writeAttr("position", toString(myMinTGAP.first.first.second))
+                .writeAttr("value", myMinTGAP.first.second)
+                .writeAttr("leader", myMinTGAP.second).closeTag();
             }
         }
         // close globalMeasures
@@ -2233,10 +2243,9 @@ MSDevice_SSM::MSDevice_SSM(SUMOVehicle& holder, const std::string& id, std::stri
     myExtraTime(extraTime),
     myUseGeoCoords(useGeoCoords),
     myOldestActiveEncounterBegin(INVALID),
-    myMaxBR(std::make_pair(-1, Position(0.,0.)), 0.0),
-    myMinSGAP(std::make_pair(std::make_pair(-1, Position(0.,0.)), std::numeric_limits<double>::max()), ""),
-    myMinTGAP(std::make_pair(std::make_pair(-1, Position(0.,0.)), std::numeric_limits<double>::max()), "")
- {
+    myMaxBR(std::make_pair(-1, Position(0., 0.)), 0.0),
+    myMinSGAP(std::make_pair(std::make_pair(-1, Position(0., 0.)), std::numeric_limits<double>::max()), ""),
+    myMinTGAP(std::make_pair(std::make_pair(-1, Position(0., 0.)), std::numeric_limits<double>::max()), "") {
     // Take care! Holder is currently being constructed. Cast occurs before completion.
     myHolderMS = static_cast<MSVehicle*>(&holder);
 
@@ -2344,8 +2353,8 @@ MSDevice_SSM::findSurroundingVehicles(const MSVehicle& veh, double range, FoeInf
     //      too early if a leading foe is not traced on its new lane. (see test 'foe_leader_deviating_routes')
 
     // If veh is on an internal edge, the edgeIter points towards the last edge before the junction
-    ConstMSEdgeVector::const_iterator edgeIter = veh.getCurrentRouteEdge();
-    assert(*edgeIter != 0);
+    //ConstMSEdgeVector::const_iterator edgeIter = veh.getCurrentRouteEdge();
+    //assert(*edgeIter != 0);
 
     // Best continuation lanes for the ego vehicle
     const std::vector<MSLane*> egoBestLanes = veh.getBestLanesContinuation();
@@ -2465,7 +2474,7 @@ MSDevice_SSM::findSurroundingVehicles(const MSVehicle& veh, double range, FoeInf
 
                 // First lane of the connection
                 lane = link->getViaLane();
-                if(lane == 0) {
+                if (lane == 0) {
                     // link without internal lane
                     lane = nextNonInternalLane;
                     edge = &(lane->getEdge());
@@ -2675,6 +2684,7 @@ MSDevice_SSM::generateOutput() const {
 // ---------------------------------------------------------------------------
 std::string
 MSDevice_SSM::getOutputFilename(const SUMOVehicle& v, std::string deviceID) {
+    OptionsCont& oc = OptionsCont::getOptions();
     std::string file = deviceID + ".xml";
     if (v.getParameter().knowsParameter("device.ssm.file")) {
         try {
@@ -2689,7 +2699,11 @@ MSDevice_SSM::getOutputFilename(const SUMOVehicle& v, std::string deviceID) {
             WRITE_WARNING("Invalid value '" + v.getVehicleType().getParameter().getParameter("device.ssm.file", file) + "'for vType parameter 'ssm.measures'");
         }
     } else {
-        std::cout << "vehicle '" << v.getID() << "' does not supply vehicle parameter 'device.ssm.file'. Using default of '" << file << "'\n";
+        file = oc.getString("device.ssm.file") == "" ? file : oc.getString("device.ssm.file");
+        if (!oc.isSet("device.ssm.file") && (issuedParameterWarnFlags & SSM_WARN_FILE) == 0) {
+            std::cout << "vehicle '" << v.getID() << "' does not supply vehicle parameter 'device.ssm.file'. Using default of '" << file << "'\n";
+            issuedParameterWarnFlags |= SSM_WARN_FILE;
+        }
     }
     return file;
 }
@@ -2712,9 +2726,10 @@ MSDevice_SSM::useGeoCoords(const SUMOVehicle& v) {
         }
     } else {
         useGeo = oc.getBool("device.ssm.geo");
-#ifdef DEBUG_SSM
-        std::cout << "vehicle '" << v.getID() << "' does not supply vehicle parameter 'device.ssm.geo'. Using default of '" << useGeo << "'\n";
-#endif
+        if (!oc.isSet("device.ssm.geo") && (issuedParameterWarnFlags & SSM_WARN_GEO) == 0) {
+            std::cout << "vehicle '" << v.getID() << "' does not supply vehicle parameter 'device.ssm.geo'. Using default of '" << toString(useGeo) << "'\n";
+            issuedParameterWarnFlags |= SSM_WARN_GEO;
+        }
     }
     return useGeo;
 }
@@ -2738,9 +2753,10 @@ MSDevice_SSM::getDetectionRange(const SUMOVehicle& v) {
         }
     } else {
         range = oc.getFloat("device.ssm.range");
-#ifdef DEBUG_SSM
-        std::cout << "vehicle '" << v.getID() << "' does not supply vehicle parameter 'device.ssm.range'. Using default of '" << range << "'\n";
-#endif
+        if (!oc.isSet("device.ssm.range") && (issuedParameterWarnFlags & SSM_WARN_RANGE) == 0) {
+            std::cout << "vehicle '" << v.getID() << "' does not supply vehicle parameter 'device.ssm.range'. Using default of '" << range << "'\n";
+            issuedParameterWarnFlags |= SSM_WARN_RANGE;
+        }
     }
     return range;
 }
@@ -2764,9 +2780,10 @@ MSDevice_SSM::getExtraTime(const SUMOVehicle& v) {
         }
     } else {
         extraTime = oc.getFloat("device.ssm.extratime");
-#ifdef DEBUG_SSM
-        std::cout << "vehicle '" << v.getID() << "' does not supply vehicle parameter 'device.ssm.extratime'. Using default of '" << extraTime << "'\n";
-#endif
+        if (!oc.isSet("device.ssm.extratime") && (issuedParameterWarnFlags & SSM_WARN_EXTRATIME) == 0) {
+            std::cout << "vehicle '" << v.getID() << "' does not supply vehicle parameter 'device.ssm.extratime'. Using default of '" << extraTime << "'\n";
+            issuedParameterWarnFlags |= SSM_WARN_EXTRATIME;
+        }
     }
     if (extraTime < 0.) {
         extraTime = DEFAULT_EXTRA_TIME;
@@ -2794,9 +2811,10 @@ MSDevice_SSM::requestsTrajectories(const SUMOVehicle& v) {
         }
     } else {
         trajectories = oc.getBool("device.ssm.trajectories");
-#ifdef DEBUG_SSM
-        std::cout << "vehicle '" << v.getID() << "' does not supply vehicle parameter 'device.ssm.trajectories'. Using default of '" << trajectories << "'\n";
-#endif
+        if (!oc.isSet("device.ssm.trajectories") && (issuedParameterWarnFlags & SSM_WARN_TRAJECTORIES) == 0) {
+            std::cout << "vehicle '" << v.getID() << "' does not supply vehicle parameter 'device.ssm.trajectories'. Using default of '" << toString(trajectories) << "'\n";
+            issuedParameterWarnFlags |= SSM_WARN_TRAJECTORIES;
+        }
     }
     return trajectories;
 }
@@ -2822,7 +2840,10 @@ MSDevice_SSM::getMeasuresAndThresholds(const SUMOVehicle& v, std::string deviceI
         }
     } else {
         measures_str = oc.getString("device.ssm.measures");
-        std::cout << "vehicle '" << v.getID() << "' does not supply vehicle parameter 'device.ssm.measures'. Using default of '" << measures_str << "'\n";
+        if (!oc.isSet("device.ssm.measures") && (issuedParameterWarnFlags & SSM_WARN_MEASURES) == 0) {
+            std::cout << "vehicle '" << v.getID() << "' does not supply vehicle parameter 'device.ssm.measures'. Using default of '" << measures_str << "'\n";
+            issuedParameterWarnFlags |= SSM_WARN_THRESHOLDS;
+        }
     }
 
     // Check retrieved measures
@@ -2858,9 +2879,10 @@ MSDevice_SSM::getMeasuresAndThresholds(const SUMOVehicle& v, std::string deviceI
         }
     } else {
         thresholds_str = oc.getString("device.ssm.thresholds");
-#ifdef DEBUG_SSM
-        std::cout << "vehicle '" << v.getID() << "' does not supply vehicle parameter 'device.ssm.thresholds'. Using default of '" << thresholds_str << "'\n";
-#endif
+        if (!oc.isSet("device.ssm.thresholds") && (issuedParameterWarnFlags & SSM_WARN_THRESHOLDS) == 0) {
+            std::cout << "vehicle '" << v.getID() << "' does not supply vehicle parameter 'device.ssm.thresholds'. Using default of '" << thresholds_str << "'\n";
+            issuedParameterWarnFlags |= SSM_WARN_THRESHOLDS;
+        }
     }
 
     // Parse vector of doubles from threshold_str

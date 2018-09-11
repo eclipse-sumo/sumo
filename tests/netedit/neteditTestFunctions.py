@@ -26,8 +26,9 @@ DELAY_QUESTION = 1
 DELAY_REFERENCE = 30
 DELAY_QUIT = 3
 DELAY_UNDOREDO = 1
-DELAY_VOLATILE = 6
-DELAY_SAVE = 4
+DELAY_SELECT = 3
+DELAY_RECOMPUTE = 4
+DELAY_RECOMPUTE_VOLATILE = 5
 DELAY_REMOVESELECTION = 5
 
 Settings.MoveMouseDelay = 0.2
@@ -347,7 +348,7 @@ def setupAndStart(testRoot, extraParameters=[], debugInformation=True, searchRef
 def rebuildNetwork():
     typeKey(Key.F5)
     # wait for output
-    wait(DELAY_VOLATILE)
+    wait(DELAY_RECOMPUTE)
 
 
 """
@@ -361,7 +362,7 @@ def rebuildNetworkWithVolatileOptions(question=True):
     if question is True:
         waitQuestion('y')
         # wait for output
-        wait(DELAY_VOLATILE)
+        wait(DELAY_RECOMPUTE_VOLATILE)
     else:
         waitQuestion('n')
 
@@ -486,7 +487,7 @@ def quit(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
             if saveNet:
                 waitQuestion("s")
                 # wait for log 
-                wait(DELAY_SAVE)
+                wait(DELAY_RECOMPUTE)
             else:
                 waitQuestion("q")
 
@@ -544,6 +545,8 @@ def openNetworkAs(waitTime=2):
 def saveNetwork():
     # save network using hotkey
     typeTwoKeys("s", Key.CTRL)
+    # wait for debug
+    wait(DELAY_RECOMPUTE)
 
 
 """
@@ -561,6 +564,8 @@ def saveNetworkAs(waitTime=2):
     typeEnter()
     # wait for saving
     wait(waitTime)
+    # wait for debug
+    wait(DELAY_RECOMPUTE)
 
 
 """
@@ -855,6 +860,72 @@ def crossingInvertEdges(useSelectedEdges=False, thereIsSelectedEdges=False):
     # type space to activate button
     typeSpace()
 
+
+#################################################
+# crossings
+#################################################
+
+
+"""
+@brief Change to crossing mode
+"""
+
+
+def connectionMode():
+    typeKey("c")
+
+    
+"""
+@brief show connections (Note: Inspector mode has to be enabled)
+"""
+
+
+def toogleShowConnectionsInspectorMode():
+    # focus current frame
+    focusOnFrame()
+    # go to check box
+    typeInvertTab()
+    # type space to toogle checkbox
+    typeSpace()
+    # focus frame again
+    typeTab()
+    
+
+    
+"""
+@brief Change to crossing mode
+"""
+
+
+def saveConnectionEdit():
+    # focus current frame
+    focusOnFrame()
+    # go to OK button
+    for x in range(0, 3):
+        typeTab()
+    # type space to press button
+    typeSpace()
+    # wait for gl debug
+    wait(DELAY_SELECT)
+
+
+"""
+@brief Change to crossing mode
+"""
+
+
+def saveConnectionEdit():
+    # focus current frame
+    focusOnFrame()
+    #go to cancel button
+    for x in range(0, 2):
+        typeTab()
+    # type space to press button
+    typeSpace()
+    # wait for gl debug
+    wait(DELAY_SELECT)
+    
+    
 #################################################
 # additionals
 #################################################
@@ -1098,7 +1169,7 @@ def toogleSelectEdges():
 
 
 """
-@brief toogle select edges
+@brief toogle show connections (in select mode)
 """
 
 
@@ -1139,6 +1210,8 @@ def selectDefault():
         typeTab()
     # type enter to select it
     typeEnter()
+    # wait for gl debug
+    wait(DELAY_SELECT)
 
 
 """
@@ -1175,6 +1248,8 @@ def loadSelection():
     filename = os.path.join(textTestSandBox, "selection.txt")
     pasteIntoTextField(filename)
     typeEnter()
+    # wait for gl debug
+    wait(DELAY_SELECT)
 
 
 """
@@ -1207,6 +1282,8 @@ def selectItems(elementClass, elementType, attribute, value):
     pasteIntoTextField(value)
     # type enter to select it
     typeEnter()
+    # wait for gl debug
+    wait(DELAY_SELECT)
 
 
 """
@@ -1216,6 +1293,8 @@ def selectItems(elementClass, elementType, attribute, value):
 
 def deleteSelectedItems():
     typeKey(Key.DELETE)
+    # wait for gl debug
+    wait(DELAY_SELECT)
 
 
 """
@@ -1294,6 +1373,8 @@ def selectionRectangle(match, startX, startY, endX, endY):
     Settings.MoveMouseDelay = 0.2
     # Release Shift key (Sikulix function)
     keyUp(Key.SHIFT)
+    # wait for gl debug
+    wait(DELAY_SELECT)
 
 
 """
@@ -1308,6 +1389,8 @@ def selectionClear(previouslyInserted=False):
         typeTab()
     # type space to select clear option
     typeSpace()
+    # wait for gl debug
+    wait(DELAY_SELECT)
 
 
 """
@@ -1322,6 +1405,8 @@ def selectionInvert():
         typeTab()
     # type space to select invert operation
     typeSpace()
+    # wait for gl debug
+    wait(DELAY_SELECT)
 
 
 """
@@ -1333,7 +1418,7 @@ def selectionToogleEdges():
     # focus current frame
     focusOnFrame()
     # go to check box "select edges"
-    for x in range(0, 3):
+    for x in range(0, 2):
         typeInvertTab()
     # type space to enable or disable edge selection
     typeSpace()

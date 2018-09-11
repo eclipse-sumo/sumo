@@ -67,11 +67,11 @@ ShapeHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
                     bool ok = true;
                     const std::string key = attrs.get<std::string>(SUMO_ATTR_KEY, 0, ok);
                     // continue if key awas sucesfully loaded
-                    if(ok) {
+                    if (ok) {
                         // circumventing empty string value
                         const std::string val = attrs.hasAttribute(SUMO_ATTR_VALUE) ? attrs.getString(SUMO_ATTR_VALUE) : "";
                         // show warnings if values are invalid
-                        if(key.empty()) {
+                        if (key.empty()) {
                             WRITE_WARNING("Error parsing key from shape generic parameter. Key cannot be empty");
                         } else if (!SUMOXMLDefinitions::isValidGenericParameterKey(key)) {
                             WRITE_WARNING("Error parsing key from shape generic parameter. Key contains invalid characters");

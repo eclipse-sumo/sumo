@@ -96,22 +96,22 @@ public:
         AttributeValues();
 
         /// @brief parameter constructor
-        AttributeValues(int attributeProperty, int positionListed, const std::string &definition, const std::string &defaultValue, const std::vector<std::string> &discreteValues, SumoXMLAttr synonym);
+        AttributeValues(int attributeProperty, int positionListed, const std::string& definition, const std::string& defaultValue, const std::vector<std::string>& discreteValues, SumoXMLAttr synonym);
 
         /// @brief get position in list (used in frames for listing attributes with certain sort)
         int getPositionListed() const;
 
         /// @brief get default value
-        const std::string &getDefinition() const;
+        const std::string& getDefinition() const;
 
         /// @brief get default value
-        const std::string &getDefaultValue() const;
+        const std::string& getDefaultValue() const;
 
         /// @brief return a description of attribute
         std::string getDescription() const;
 
         /// @brief get discrete values
-        const std::vector<std::string> &getDiscreteValues() const;
+        const std::vector<std::string>& getDiscreteValues() const;
 
         /// @brief get tag synonym
         SumoXMLAttr getAttrSynonym() const;
@@ -232,16 +232,16 @@ public:
         TagValues(int tagProperty, int positionListed, GUIIcon icon, SumoXMLTag tagParent = SUMO_TAG_NOTHING, SumoXMLTag tagSynonym = SUMO_TAG_NOTHING);
 
         /// @brief add attribute (duplicated attributed aren't allowed)
-        void addAttribute(SumoXMLAttr attr, int attributeProperty, const std::string &definition, const std::string &defaultValue, std::vector<std::string> discreteValues = std::vector<std::string>(), SumoXMLAttr synonym = SUMO_ATTR_NOTHING);
+        void addAttribute(SumoXMLAttr attr, int attributeProperty, const std::string& definition, const std::string& defaultValue, std::vector<std::string> discreteValues = std::vector<std::string>(), SumoXMLAttr synonym = SUMO_ATTR_NOTHING);
 
         /// @brief add attribute with synonym (duplicated attributed aren't allowed)
-        void addAttribute(SumoXMLAttr attr, int attributeProperty, const std::string &definition, const std::string &defaultValue, SumoXMLAttr synonym);
+        void addAttribute(SumoXMLAttr attr, int attributeProperty, const std::string& definition, const std::string& defaultValue, SumoXMLAttr synonym);
 
         /// @brief add deprecated Attribute
         void addDeprecatedAttribute(SumoXMLAttr attr);
 
         /// @brief get attribute (throw error if doesn't exist)
-        const AttributeValues &getAttribute(SumoXMLAttr attr) const;
+        const AttributeValues& getAttribute(SumoXMLAttr attr) const;
 
         /// @brief get begin of attribute values (used for iterate)
         std::map<SumoXMLAttr, AttributeValues>::const_iterator begin() const;
@@ -253,7 +253,7 @@ public:
         int getNumberOfAttributes() const;
 
         /// @brief return the default value of the attribute of an element
-        const std::string &getDefaultValue(SumoXMLAttr attr) const;
+        const std::string& getDefaultValue(SumoXMLAttr attr) const;
 
         /// @brief get GUI icon associated to this Tag
         GUIIcon getGUIIcon() const;
@@ -429,7 +429,7 @@ public:
     const std::string getID() const;
 
     /// @brief get Tag Properties
-    static const TagValues &getTagProperties(SumoXMLTag tag);
+    static const TagValues& getTagProperties(SumoXMLTag tag);
 
     /// @brief get all editable for tag elements of all types
     static std::vector<SumoXMLTag> allowedTags(bool onlyDrawables);
@@ -450,16 +450,16 @@ public:
     /// @{
 
     /// @brief add generic parameter
-    virtual bool addGenericParameter(const std::string &key, const std::string &value) = 0;
+    virtual bool addGenericParameter(const std::string& key, const std::string& value) = 0;
 
     /// @brief remove generic parameter
-    virtual bool removeGenericParameter(const std::string &key) = 0;
+    virtual bool removeGenericParameter(const std::string& key) = 0;
 
     /// @brief update generic parameter
-    virtual bool updateGenericParameter(const std::string &oldKey, const std::string &newKey) = 0;
+    virtual bool updateGenericParameter(const std::string& oldKey, const std::string& newKey) = 0;
 
-    /// @brief update value generic parameter 
-    virtual bool updateGenericParameterValue(const std::string &key, const std::string &newValue) = 0;
+    /// @brief update value generic parameter
+    virtual bool updateGenericParameterValue(const std::string& key, const std::string& newValue) = 0;
 
     /// @brief return generic parameters in string format
     virtual std::string getGenericParametersStr() const = 0;
@@ -468,12 +468,12 @@ public:
     virtual std::vector<std::pair<std::string, std::string> > getGenericParameters() const = 0;
 
     /// @brief set generic parameters in string format
-    virtual void setGenericParametersStr(const std::string &value) = 0;
+    virtual void setGenericParametersStr(const std::string& value) = 0;
 
-     /// @}
+    /// @}
 
     /// @brief check if given string can be parsed to a map/list of generic parameters
-    static bool isGenericParametersValid(const std::string &value);
+    static bool isGenericParametersValid(const std::string& value);
 
     /// @brief true if a value of type T can be parsed from string
     template<typename T>
@@ -500,7 +500,7 @@ public:
         try {
             parse<T>(net, value);
         } catch (FormatException& exception) {
-            if(report) {
+            if (report) {
                 WRITE_WARNING(exception.what())
             }
             return false;
@@ -514,7 +514,7 @@ public:
 
     /// @brief parses a list of specific Attribute Carriers into a string of IDs
     template<typename T>
-    static std::string parseIDs(const std::vector<T> &ACs);
+    static std::string parseIDs(const std::vector<T>& ACs);
 
     /// @brief parse a string of booleans (1 0 1 1....) using AND operation
     static bool parseStringToANDBool(const std::string& string);
@@ -527,7 +527,7 @@ public:
     static T parseAttributeFromXML(const SUMOSAXAttributes& attrs, const std::string& objectID, const SumoXMLTag tag, const SumoXMLAttr attribute, bool& abort) {
         bool parsedOk = true;
         // obtain tag properties
-        const auto &tagProperties = getTagProperties(tag);
+        const auto& tagProperties = getTagProperties(tag);
         // first check if attribute is deprecated
         if (tagProperties.isAttributeDeprecated(attribute)) {
             // show warning if deprecateda ttribute is in the SUMOSAXAttributes
@@ -538,7 +538,7 @@ public:
         }
         std::string defaultValue, parsedAttribute;
         // obtain attribute properties (Only for improving efficiency)
-        const auto &attrProperties = tagProperties.getAttribute(attribute);
+        const auto& attrProperties = tagProperties.getAttribute(attribute);
         // set additionalOfWarningMessage
         std::string additionalOfWarningMessage;
         if (objectID != "") {
@@ -547,7 +547,7 @@ public:
             additionalOfWarningMessage = toString(tag);
         }
         // set a special default value for numerical and boolean attributes (To avoid errors parsing)
-        if(attrProperties.isNumerical() || attrProperties.isBool()) {
+        if (attrProperties.isNumerical() || attrProperties.isBool()) {
             defaultValue = "0";
         }
         // first check that attribute exists in XML
@@ -558,7 +558,7 @@ public:
             if (parsedOk && !canParse<T>(parsedAttribute)) {
                 parsedOk = false;
                 // only set default value if this isn't a SVCPermission
-                if(!attrProperties.isVClass()) {
+                if (!attrProperties.isVClass()) {
                     parsedAttribute = defaultValue;
                 }
             }
@@ -647,7 +647,7 @@ public:
                 // search value in the list of discretes values of attribute properties
                 auto finder = std::find(attrProperties.getDiscreteValues().begin(), attrProperties.getDiscreteValues().end(), parsedAttribute);
                 // check if attribute is valid
-                if(finder == attrProperties.getDiscreteValues().end()) {
+                if (finder == attrProperties.getDiscreteValues().end()) {
                     errorFormat = "value is not within the set of allowed values for attribute '" + toString(attribute) + "'";
                     parsedOk = false;
                 }
@@ -659,7 +659,7 @@ public:
             }
             // set extra check for filename values
             if (attrProperties.isFilename()) {
-                if(SUMOXMLDefinitions::isValidFilename(parsedAttribute) == false) {
+                if (SUMOXMLDefinitions::isValidFilename(parsedAttribute) == false) {
                     errorFormat = "Filename contains invalid characters; ";
                     parsedOk = false;
                 } else if (parsedAttribute.empty()) {
@@ -738,9 +738,6 @@ public:
     static int getCircleResolution(const GUIVisualizationSettings& settings);
 
 protected:
-    /// @brief boolean to check if this AC is selected (instead of GUIGlObjectStorage)
-    bool mySelected;
-
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
 
@@ -752,6 +749,9 @@ protected:
 
     /// @brief the xml tag to which this attribute carrier corresponds
     const SumoXMLTag myTag;
+
+    /// @brief boolean to check if this AC is selected (instead of GUIGlObjectStorage)
+    bool mySelected;
 
     /// @brief map with the tags values
     static std::map<SumoXMLTag, TagValues> myAllowedTags;

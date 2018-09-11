@@ -188,6 +188,7 @@ enum GUIIcon {
     ICON_LANEPEDESTRIAN,
     ICON_LANEBUS,
     ICON_LANEBIKE,
+    ICON_LANEGREENVERGE,
     /// @}
 
     /// @name netedit modes icons

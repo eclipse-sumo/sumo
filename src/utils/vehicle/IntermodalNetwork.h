@@ -147,7 +147,9 @@ public:
                     }
                 }
             } else {
-                for (const N* const node : { edge->getFromJunction(), edge->getToJunction() }) {
+                for (const N* const node : {
+                edge->getFromJunction(), edge->getToJunction()
+                }) {
                     if (myWalkingConnectorLookup.count(node) == 0) {
                         addEdge(new _IntermodalEdge(node->getID() + "_walking_connector", myNumericalID++, nullptr, "!connector"));
                         myWalkingConnectorLookup[node] = myEdges.back();
@@ -441,7 +443,9 @@ public:
                 if (carSplit != nullptr && ((category == SUMO_TAG_PARKING_AREA && (myCarWalkTransfer & PARKING_AREAS) != 0) || (category == SUMO_TAG_BUS_STOP && (myCarWalkTransfer & PT_STOPS) != 0))) {
                     // adding access from car to walk
                     _IntermodalEdge* const beforeSplit = myAccessSplits[myCarLookup[stopEdge]][splitIndex];
-                    for (_IntermodalEdge* conn : { fwdSplit, backSplit }) {
+                    for (_IntermodalEdge* conn : {
+                                fwdSplit, backSplit
+                            }) {
                         _AccessEdge* access = new _AccessEdge(myNumericalID++, beforeSplit, conn, length);
                         addEdge(access);
                         beforeSplit->addSuccessor(access);
@@ -604,8 +608,8 @@ private:
     * @param[in] addExit whether we can just enter the stop or exit as well (cars should not exit yet)
     */
     void splitEdge(_IntermodalEdge* const toSplit, int splitIndex,
-        _IntermodalEdge* afterSplit, const double relPos, const double length, const bool needSplit,
-        _IntermodalEdge* const stopConn, const bool forward = true, const bool addExit = true) {
+                   _IntermodalEdge* afterSplit, const double relPos, const double length, const bool needSplit,
+                   _IntermodalEdge* const stopConn, const bool forward = true, const bool addExit = true) {
         std::vector<_IntermodalEdge*>& splitList = myAccessSplits[toSplit];
         if (splitList.empty()) {
             splitList.push_back(toSplit);

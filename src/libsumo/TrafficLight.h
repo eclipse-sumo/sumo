@@ -39,7 +39,7 @@
 // class declarations
 // ===========================================================================
 namespace libsumo {
-    class VariableWrapper;
+class VariableWrapper;
 }
 
 

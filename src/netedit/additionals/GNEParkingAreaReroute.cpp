@@ -37,8 +37,8 @@
 // ===========================================================================
 
 GNEParkingAreaReroute::GNEParkingAreaReroute(GNERerouterIntervalDialog* rerouterIntervalDialog) :
-    GNEAdditional(rerouterIntervalDialog->getEditedAdditional(), 
-                  rerouterIntervalDialog->getEditedAdditional()->getViewNet()->getNet()->getAdditionalByType(SUMO_TAG_PARKING_AREA).begin()->second, 
+    GNEAdditional(rerouterIntervalDialog->getEditedAdditional(),
+                  rerouterIntervalDialog->getEditedAdditional()->getViewNet()->getNet()->getAdditionalByType(SUMO_TAG_PARKING_AREA).begin()->second,
                   rerouterIntervalDialog->getEditedAdditional()->getViewNet(), GLO_REROUTER, SUMO_TAG_PARKING_ZONE_REROUTE, "", false) {
     // fill route type with default values
     setDefaultValues();
@@ -55,37 +55,37 @@ GNEParkingAreaReroute::GNEParkingAreaReroute(GNEAdditional* rerouterIntervalPare
 GNEParkingAreaReroute::~GNEParkingAreaReroute() {}
 
 
-void 
+void
 GNEParkingAreaReroute::moveGeometry(const Position&, const Position&) {
     // This additional cannot be moved
 }
 
 
-void 
+void
 GNEParkingAreaReroute::commitGeometryMoving(const Position&, GNEUndoList*) {
     // This additional cannot be moved
 }
 
 
-void 
+void
 GNEParkingAreaReroute::updateGeometry(bool /*updateGrid*/) {
     // Currently this additional doesn't own a Geometry
 }
 
 
-Position 
+Position
 GNEParkingAreaReroute::getPositionInView() const {
     return myFirstAdditionalParent->getPositionInView();
 }
 
 
-std::string 
+std::string
 GNEParkingAreaReroute::getParentName() const {
     return myFirstAdditionalParent->getID();
 }
 
 
-void 
+void
 GNEParkingAreaReroute::drawGL(const GUIVisualizationSettings& /* s */) const {
     // Currently this additional isn't drawn
 }
@@ -150,13 +150,13 @@ GNEParkingAreaReroute::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-std::string 
+std::string
 GNEParkingAreaReroute::getPopUpID() const {
     return toString(getTag());
 }
 
 
-std::string 
+std::string
 GNEParkingAreaReroute::getHierarchyName() const {
     return toString(getTag()) + ": " + getSecondAdditionalParent()->getID();
 }

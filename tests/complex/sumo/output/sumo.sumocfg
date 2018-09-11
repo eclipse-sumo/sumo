@@ -12,6 +12,11 @@
         <end value="100"/>
     </time>
 
+    <processing>
+        <default.speeddev value="0"/>
+        <default.emergencydecel value="decel"/>
+    </processing>
+
     <report>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>

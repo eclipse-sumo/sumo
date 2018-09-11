@@ -454,18 +454,18 @@
 #define GUIDesignChooserDialog                  (DECOR_ALL), 20, 20, 300, 300
 
 /// @brief design for Chooser buttons
-#define GUIDesignChooserButtons                 (ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | FRAME_THICK | FRAME_RAISED), 0, 0, 150, 23, 2, 2, 2, 2  
+#define GUIDesignChooserButtons                 (ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | FRAME_THICK | FRAME_RAISED), 0, 0, 150, 23, 2, 2, 2, 2
 
 /// @brief design for Chooser TextField
-#define GUIDesignChooserTextField               (LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT | FRAME_THICK | FRAME_SUNKEN), 0, 0, 0, 23, 2, 2, 2, 2  
+#define GUIDesignChooserTextField               (LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT | FRAME_THICK | FRAME_SUNKEN), 0, 0, 0, 23, 2, 2, 2, 2
 
-/// @brief design for Chooser List 
+/// @brief design for Chooser List
 #define GUIDesignChooserListSingle              (LIST_SINGLESELECT | LAYOUT_FILL_X | LAYOUT_FILL_Y | FRAME_SUNKEN | FRAME_THICK), 0, 0, 0, 0
 
-/// @brief design for Chooser List 
+/// @brief design for Chooser List
 #define GUIDesignChooserListMultiple            (LIST_MULTIPLESELECT | LAYOUT_FILL_X | LAYOUT_FILL_Y | FRAME_SUNKEN | FRAME_THICK), 0, 0, 0, 0
 
-/// @brief design for Breakpoint table 
+/// @brief design for Breakpoint table
 #define GUIDesignBreakpointTable                (LAYOUT_FILL_X | LAYOUT_FILL_Y | FRAME_SUNKEN | FRAME_THICK), 0, 0, 0, 0
 
 /// @brief Height of breakpoint Table header

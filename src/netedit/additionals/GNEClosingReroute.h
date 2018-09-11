@@ -124,7 +124,7 @@ public:
 protected:
     /// @brief closed edge
     GNEEdge* myClosedEdge;
-    
+
     // @brief permissions of this Closing Reroute
     SVCPermissions myPermissions;
 

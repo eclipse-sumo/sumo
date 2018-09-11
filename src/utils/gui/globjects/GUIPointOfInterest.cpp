@@ -113,12 +113,12 @@ GUIPointOfInterest::drawGL(const GUIVisualizationSettings& s) const {
         int textureID = GUITexturesHelper::getTextureID(getShapeImgFile());
         if (textureID > 0) {
             GUITexturesHelper::drawTexturedBox(textureID,
-                                                -myHalfImgWidth * exaggeration, -myHalfImgHeight * exaggeration,
-                                                myHalfImgWidth * exaggeration,  myHalfImgHeight * exaggeration);
+                                               -myHalfImgWidth * exaggeration, -myHalfImgHeight * exaggeration,
+                                               myHalfImgWidth * exaggeration,  myHalfImgHeight * exaggeration);
         }
     } else {
         // fallback if no image is defined
-        if(s.drawForSelecting) {
+        if (s.drawForSelecting) {
             GLHelper::drawFilledCircle((double) 1.3 * exaggeration, 8);
         } else {
             // draw filled circle saving vertices
@@ -126,7 +126,7 @@ GUIPointOfInterest::drawGL(const GUIVisualizationSettings& s) const {
         }
     }
     glPopMatrix();
-    if(!s.drawForSelecting) {
+    if (!s.drawForSelecting) {
         const Position namePos = *this;
         drawName(namePos, s.scale, s.poiName, s.angle);
         if (s.poiType.show) {

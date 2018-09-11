@@ -1255,7 +1255,7 @@ GUIVisualizationSettings::getLinkColor(const LinkState& ls) {
     }
 }
 
-double 
+double
 GUIVisualizationSettings::getTextAngle(double objectAngle) const {
     double viewAngle = objectAngle - angle;
     while (viewAngle < 0) {

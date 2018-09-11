@@ -64,7 +64,7 @@ GNEDetectorEntry::~GNEDetectorEntry() {}
 void
 GNEDetectorEntry::updateGeometry(bool updateGrid) {
     // first check if object has to be removed from grid (SUMOTree)
-    if(updateGrid) {
+    if (updateGrid) {
         myViewNet->getNet()->removeGLObjectFromGrid(this);
     }
 
@@ -89,7 +89,7 @@ GNEDetectorEntry::updateGeometry(bool updateGrid) {
     setBlockIconRotation(myLane);
 
     // last step is to check if object has to be added into grid (SUMOTree) again
-    if(updateGrid) {
+    if (updateGrid) {
         myViewNet->getNet()->addGLObjectIntoGrid(this);
     }
 
@@ -103,7 +103,7 @@ bool GNEDetectorEntry::isDetectorPositionFixed() const {
     if (myFriendlyPosition) {
         return true;
     } else {
-        return (myPositionOverLane>= 0) && (myPositionOverLane <= myLane->getParentEdge().getNBEdge()->getFinalLength());
+        return (myPositionOverLane >= 0) && (myPositionOverLane <= myLane->getParentEdge().getNBEdge()->getFinalLength());
     }
 }
 
@@ -143,9 +143,9 @@ GNEDetectorEntry::drawGL(const GUIVisualizationSettings& s) const {
     glVertex2d(1.7, -.5);
     glVertex2d(1.7, .5);
     glEnd();
-    
+
     // draw details if isn't being drawn for selecting
-    if(!s.drawForSelecting) {
+    if (!s.drawForSelecting) {
         // first Arrow
         glTranslated(1.5, 0, 0);
         GLHelper::drawBoxLine(Position(0, 4), 0, 2, .05);
@@ -163,7 +163,7 @@ GNEDetectorEntry::drawGL(const GUIVisualizationSettings& s) const {
     // Pop detector matrix
     glPopMatrix();
 
-    // Check if the distance is enought to draw details 
+    // Check if the distance is enought to draw details
     if (((s.scale * exaggeration) >= 10)) {
         // Push matrix
         glPushMatrix();
@@ -174,7 +174,7 @@ GNEDetectorEntry::drawGL(const GUIVisualizationSettings& s) const {
         //move to logo position
         glTranslated(1.9, 0, 0);
         // draw Entry logo if isn't being drawn for selecting
-        if(s.drawForSelecting) {
+        if (s.drawForSelecting) {
             GLHelper::setColor(s.SUMO_color_E3Entry);
             GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
         } else if (isAttributeCarrierSelected()) {
@@ -187,7 +187,7 @@ GNEDetectorEntry::drawGL(const GUIVisualizationSettings& s) const {
         // Rotate depending of myBlockIconRotation
         glRotated(90, 0, 0, 1);
         // draw Entry text if isn't being drawn for selecting
-        if(s.drawForSelecting) {
+        if (s.drawForSelecting) {
             GLHelper::setColor(s.SUMO_color_E3Entry);
             GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
         } else if (isAttributeCarrierSelected()) {
@@ -198,16 +198,16 @@ GNEDetectorEntry::drawGL(const GUIVisualizationSettings& s) const {
         // pop matrix
         glPopMatrix();
         // Show Lock icon depending of the Edit mode and if isn't being drawn for selecting
-        if(!s.drawForSelecting) {
+        if (!s.drawForSelecting) {
             drawLockIcon(0.4);
         }
     }
     // Draw name if isn't being drawn for selecting
-    if(!s.drawForSelecting) {
+    if (!s.drawForSelecting) {
         drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
     }
     // check if dotted contour has to be drawn
-    if(!s.drawForSelecting && (myViewNet->getACUnderCursor() == this)) {
+    if (!s.drawForSelecting && (myViewNet->getACUnderCursor() == this)) {
         GLHelper::drawShapeDottedContour(getType(), myShape[0], 3.4, 5, myShapeRotations[0], 0, 2);
     }
     // pop gl identificator
@@ -308,7 +308,7 @@ GNEDetectorEntry::setAttribute(SumoXMLAttr key, const std::string& value) {
             changeFirstAdditionalParent(value);
             break;
         case GNE_ATTR_SELECTED:
-            if(parse<bool>(value)) {
+            if (parse<bool>(value)) {
                 selectAttributeCarrier();
             } else {
                 unselectAttributeCarrier();

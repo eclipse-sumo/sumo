@@ -69,7 +69,7 @@ public:
     /// @brief Destructor.
     ~MSDevice_FCD();
 
-    bool notifyEnter(SUMOVehicle& /*veh*/, MSMoveReminder::Notification /*reason*/, const MSLane* /*enteredLane*/ ) {
+    bool notifyEnter(SUMOVehicle& /*veh*/, MSMoveReminder::Notification /*reason*/, const MSLane* /*enteredLane*/) {
         return false;
     }
 

@@ -218,7 +218,7 @@ GNECrossingFrame::crossingParameters::~crossingParameters() {}
 void
 GNECrossingFrame::crossingParameters::enableCrossingParameters(bool hasTLS) {
     // obtain Tag Values
-    const auto &tagProperties = GNEAttributeCarrier::getTagProperties(SUMO_TAG_CROSSING);
+    const auto& tagProperties = GNEAttributeCarrier::getTagProperties(SUMO_TAG_CROSSING);
     // Enable all elements of the crossing frames
     myCrossingEdgesLabel->enable();
     myCrossingEdges->enable();
@@ -233,8 +233,8 @@ GNECrossingFrame::crossingParameters::enableCrossingParameters(bool hasTLS) {
     myHelpCrossingAttribute->enable();
     // set values of parameters
     onCmdSetAttribute(0, 0, 0);
-    myCrossingPriorityCheckButton->setCheck(hasTLS ? true : 
-            GNEAttributeCarrier::parse<bool>(tagProperties.getDefaultValue(SUMO_ATTR_PRIORITY)));
+    myCrossingPriorityCheckButton->setCheck(hasTLS ? true :
+                                            GNEAttributeCarrier::parse<bool>(tagProperties.getDefaultValue(SUMO_ATTR_PRIORITY)));
     myCrossingWidth->setText(tagProperties.getDefaultValue(SUMO_ATTR_WIDTH).c_str());
     myCrossingWidth->setTextColor(FXRGB(0, 0, 0));
 }
@@ -544,7 +544,7 @@ GNECrossingFrame::onCmdCreateCrossing(FXObject*, FXSelector, void*) {
                                           myCrossingParameters->getCrossingWidth(),
                                           myCrossingParameters->getCrossingPriority(),
                                           -1, -1,
-                                          PositionVector::EMPTY, 
+                                          PositionVector::EMPTY,
                                           false, true), true);
             // clear selected edges
             myEdgeSelector->onCmdClearSelection(0, 0, 0);

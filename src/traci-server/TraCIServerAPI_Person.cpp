@@ -46,7 +46,7 @@ TraCIServerAPI_Person::processGet(TraCIServer& server, tcpip::Storage& inputStor
     server.initWrapper(RESPONSE_GET_PERSON_VARIABLE, variable, id);
     try {
         if (!libsumo::Person::handleVariable(id, variable, &server) &&
-            !libsumo::VehicleType::handleVariable(libsumo::Person::getTypeID(id), variable, &server)) {
+                !libsumo::VehicleType::handleVariable(libsumo::Person::getTypeID(id), variable, &server)) {
             switch (variable) {
                 case VAR_EDGES: {
                     int nextStageIndex = 0;

@@ -425,8 +425,8 @@ GUIApplicationWindow::fillMenuBar() {
                       "Edit Selected...\tCtrl+E\tOpens a dialog for editing the list of selected items.",
                       GUIIconSubSys::getIcon(ICON_FLAG), this, MID_EDITCHOSEN);
     mySelectLanesMenuCascade = new FXMenuCascade(myEditMenu,
-                      "Select lanes which allow...\t\tOpens a menu for selecting a vehicle class by which to selected lanes.",
-                      GUIIconSubSys::getIcon(ICON_FLAG), mySelectByPermissions);
+            "Select lanes which allow...\t\tOpens a menu for selecting a vehicle class by which to selected lanes.",
+            GUIIconSubSys::getIcon(ICON_FLAG), mySelectByPermissions);
     new FXMenuSeparator(myEditMenu);
     new FXMenuCommand(myEditMenu,
                       "Edit Breakpoints...\tCtrl+B\tOpens a dialog for editing breakpoints.",
@@ -1016,8 +1016,8 @@ GUIApplicationWindow::onCmdSaveState(FXObject*, FXSelector, void*) {
         return 1;
     }
 
-    FXString file = MFXUtils::assureExtension(opendialog.getFilename(), 
-            opendialog.getPatternText(opendialog.getCurrentPattern()).after('.').before(')'));
+    FXString file = MFXUtils::assureExtension(opendialog.getFilename(),
+                    opendialog.getPatternText(opendialog.getCurrentPattern()).after('.').before(')'));
     MSStateHandler::saveState(file.text(), MSNet::getInstance()->getCurrentTimeStep());
     myStatusbar->getStatusLine()->setText("Simulation saved to " + file);
     return 1;
@@ -1094,7 +1094,7 @@ GUIApplicationWindow::onUpdNeedsSimulation(FXObject* sender, FXSelector, void* p
     bool disable = !myRunThread->simulationAvailable() || myAmLoading;
     sender->handle(this, disable ? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE), ptr);
     // mySelectLanesMenuCascade has to be disabled manually
-    if(disable) {
+    if (disable) {
         mySelectLanesMenuCascade->disable();
     } else {
         mySelectLanesMenuCascade->enable();

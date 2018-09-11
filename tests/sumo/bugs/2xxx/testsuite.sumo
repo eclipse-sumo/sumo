@@ -4,10 +4,6 @@ ticket2087
 ticket2109
 ticket2201
 
-# program crash when overtaking is combined with continuous lanechange
-# 
-ticket2316
-
 # Deadlock when lanechange requested by long vehicle while occupying a junction (Copy of ticket1804)
 ticket2319
 

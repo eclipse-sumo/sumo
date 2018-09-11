@@ -75,6 +75,15 @@ public:
     /// @brief get lenght geometry factor
     double getLengthGeometryFactor() const;
 
+    /// @name functions for edit geometry
+    /// @{
+    /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with problems with GL Tree)
+    void startGeometryMoving();
+
+    /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with problems with GL Tree)
+    void endGeometryMoving();
+    /// @}
+
     /// @name inherited from GUIGlObject
     /// @{
     // @brief Returns the name of the parent object (if any)
@@ -182,16 +191,16 @@ public:
     /// @{
 
     /// @brief add generic parameter
-    bool addGenericParameter(const std::string &key, const std::string &value);
+    bool addGenericParameter(const std::string& key, const std::string& value);
 
     /// @brief remove generic parameter
-    bool removeGenericParameter(const std::string &key);
+    bool removeGenericParameter(const std::string& key);
 
     /// @brief update generic parameter
-    bool updateGenericParameter(const std::string &oldKey, const std::string &newKey);
+    bool updateGenericParameter(const std::string& oldKey, const std::string& newKey);
 
-    /// @brief update value generic parameter 
-    bool updateGenericParameterValue(const std::string &key, const std::string &newValue);
+    /// @brief update value generic parameter
+    bool updateGenericParameterValue(const std::string& key, const std::string& newValue);
 
     /// @brief return generic parameters in string format
     std::string getGenericParametersStr() const;
@@ -200,7 +209,7 @@ public:
     std::vector<std::pair<std::string, std::string> > getGenericParameters() const;
 
     /// @brief set generic parameters in string format
-    void setGenericParametersStr(const std::string &value);
+    void setGenericParametersStr(const std::string& value);
 
     /// @}
 
@@ -221,6 +230,9 @@ protected:
 
     /// @brief The Edge that to which this lane belongs
     GNEEdge& myParentEdge;
+
+    /// @brief boundary used during moving of elements
+    Boundary myMovingGeometryBoundary;
 
     /// @brief The index of this lane
     int myIndex;
@@ -248,9 +260,6 @@ protected:
 
     /// @brief The color of the shape parts (cached)
     mutable std::vector<RGBColor> myShapeColors;
-
-    /// @brief the tls-editor for setting multiple links in TLS-mode
-    GNETLSEditorFrame* myTLSEditor;
 
 private:
     /// @brief set attribute after validation

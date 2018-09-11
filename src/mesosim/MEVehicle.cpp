@@ -267,7 +267,7 @@ MEVehicle::getStoptime(const MESegment* const seg, SUMOTime time) const {
 }
 
 
-double 
+double
 MEVehicle::getCurrentStoppingTimeSeconds() const {
     return STEPS2TIME(getStoptime(mySegment, myLastEntryTime) - myLastEntryTime);
 }
@@ -280,7 +280,7 @@ MEVehicle::getStopEdges() const {
 }
 
 
-void 
+void
 MEVehicle::processStop() {
     assert(isStopped());
     MSEdge* edge = const_cast<MSEdge*>(getEdge());

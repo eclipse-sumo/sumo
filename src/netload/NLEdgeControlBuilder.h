@@ -163,7 +163,7 @@ protected:
     MSEdge* myActiveEdge;
 
     /// @brief The default stop offset for all lanes belonging to the active edge (this is set if the edge was given a stopOffset child)
-    std::map<SVCPermissions,double> myCurrentDefaultStopOffsets;
+    std::map<SVCPermissions, double> myCurrentDefaultStopOffsets;
 
     /// @brief The index of the currently active lane (-1 if none is active)
     int myCurrentLaneIndex;

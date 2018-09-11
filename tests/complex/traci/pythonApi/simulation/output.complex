@@ -1,4 +1,5 @@
 Loading configuration... done.
+ Retrying in 1 seconds
 {114: ('horiz', 'horiz1'), 116: ()}
 step 0
 {114: (), 116: ('horiz',)}
@@ -36,13 +37,13 @@ min#expected 6
 teleportStart ()
 #teleportEnd 0
 teleportEnd ()
-deltaT 1
+deltaT 1.0
 boundary ((0.0, 0.0), (3500.0, 3904.56))
 convertRoad2D (-1.22, 3903.52)
 convertRoad3D (-1.22, 3903.52, 2.0)
 convertRoadGeo (12.014678141843579, 48.121449189819344)
 convertRoadGeoAlt (12.014678141843579, 48.121449189819344, 2.0)
-convert2DGeo (12.02301890546728, 48.09105459770769)
+convert2DGeo (12.023018905467282, 48.09105459770769)
 convertGeo2D (-1619.5653987218393, -9550.720807247795)
 convert2DRoad ('o', 2906.187593990786, 0)
 convertGeoRoad ('o', 1012.1563357397523, 0)
@@ -52,9 +53,12 @@ distanceRoad 5131.87897232
 drivingDistanceRoad 5136.55
 clearing pending
 save simstate
-getParameter 0.00
+getParameter charginStation.totalEnergyCharged 0.00
+getParameter chargingStation.name megaCharger
 getParameter parkingArea.capacity 6
 getParameter parkingArea.occupancy 0
+getParameter parkingArea.name DLR
+getParameter busStop.name Magnusstr.
 getBusStopWaiting 0
 findRoute Stage(stageType=3, line='', destStop='', edges=('o', '2o'), travelTime=738.7359712230216, cost=738.7359712230216, intended='', depart=-1.0)
 findRoute with routing mode Stage(stageType=3, line='', destStop='', edges=('o', '2o'), travelTime=1455.5902116141665, cost=1455.5902116141665, intended='', depart=-1.0)
@@ -63,13 +67,13 @@ findIntermodalRoute (walk)
   Stage(stageType=2, line='', destStop='', edges=('o', '2o'), travelTime=2463.3033600000003, cost=2463.3033600000003, intended='', depart=-1.0)
 
 findIntermodalRoute (bike)
-  Stage(stageType=3, line='bicycle', destStop='', edges=('o', '2o'), travelTime=1847.4768000000001, cost=1847.4768000000001, intended='bicycle', depart=-1.0)
+  Stage(stageType=3, line='bicycle', destStop='', edges=('o', '2o'), travelTime=1848.3174000000001, cost=1848.3174000000001, intended='bicycle', depart=-1.0)
 
 findIntermodalRoute (car)
-  Stage(stageType=3, line='car', destStop='', edges=('o', '2o'), travelTime=738.4, cost=738.4, intended='car', depart=-1.0)
+  Stage(stageType=3, line='car', destStop='', edges=('o', '2o'), travelTime=738.7359712230216, cost=738.7359712230216, intended='car', depart=-1.0)
 
 findIntermodalRoute (bike,car,public)
-  Stage(stageType=3, line='car', destStop='', edges=('o', '2o'), travelTime=738.4, cost=738.4, intended='car', depart=-1.0)
+  Stage(stageType=3, line='car', destStop='', edges=('o', '2o'), travelTime=738.7359712230216, cost=738.7359712230216, intended='car', depart=-1.0)
 
 step 0
 {114: (), 116: ()}

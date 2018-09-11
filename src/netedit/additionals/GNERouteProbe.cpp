@@ -52,7 +52,7 @@
 // member method definitions
 // ===========================================================================
 
-GNERouteProbe::GNERouteProbe(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, const std::string &frequency, const std::string& name, const std::string& filename, double begin) :
+GNERouteProbe::GNERouteProbe(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, const std::string& frequency, const std::string& name, const std::string& filename, double begin) :
     GNEAdditional(id, viewNet, GLO_ROUTEPROBE, SUMO_TAG_ROUTEPROBE, name, false),
     myEdge(edge),
     myFrequency(frequency),
@@ -69,7 +69,7 @@ GNERouteProbe::~GNERouteProbe() {
 void
 GNERouteProbe::updateGeometry(bool updateGrid) {
     // first check if object has to be removed from grid (SUMOTree)
-    if(updateGrid) {
+    if (updateGrid) {
         myViewNet->getNet()->removeGLObjectFromGrid(this);
     }
 
@@ -109,7 +109,7 @@ GNERouteProbe::updateGeometry(bool updateGrid) {
     setBlockIconRotation(firstLane);
 
     // last step is to check if object has to be added into grid (SUMOTree) again
-    if(updateGrid) {
+    if (updateGrid) {
         myViewNet->getNet()->addGLObjectIntoGrid(this);
     }
 }
@@ -117,7 +117,7 @@ GNERouteProbe::updateGeometry(bool updateGrid) {
 
 Position
 GNERouteProbe::getPositionInView() const {
-    if(myEdge->getLanes().front()->getShape().length() < 0.5) {
+    if (myEdge->getLanes().front()->getShape().length() < 0.5) {
         return myEdge->getLanes().front()->getShape().front();
     } else {
         Position A = myEdge->getLanes().front()->getShape().positionAtOffset(0.5);
@@ -206,7 +206,7 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
     glTranslated((-2.56) - myRelativePositionY, (-1.6), 0);
 
     // Draw icon depending of Route Probe is selected and if isn't being drawn for selecting
-    if(s.drawForSelecting) {
+    if (s.drawForSelecting) {
         GLHelper::setColor(RGBColor::YELLOW);
         GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
     } else {
@@ -232,7 +232,7 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
     drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
 
     // check if dotted contour has to be drawn
-    if(!s.drawForSelecting && (myViewNet->getACUnderCursor() == this)) {
+    if (!s.drawForSelecting && (myViewNet->getACUnderCursor() == this)) {
         GLHelper::drawShapeDottedContour(getType(), myShape[0], 2, 2, myShapeRotations[0], (-2.56) - myRelativePositionY, -1.6);
     }
 
@@ -288,13 +288,13 @@ GNERouteProbe::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
 }
 
 
-std::string 
+std::string
 GNERouteProbe::getPopUpID() const {
     return toString(getTag());
 }
 
 
-std::string 
+std::string
 GNERouteProbe::getHierarchyName() const {
     return toString(getTag()) + ": " + getAttribute(SUMO_ATTR_BEGIN);
 }
@@ -319,7 +319,7 @@ GNERouteProbe::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_FILE:
             return SUMOXMLDefinitions::isValidFilename(value);
         case SUMO_ATTR_FREQUENCY:
-            if(value.empty()) {
+            if (value.empty()) {
                 return true;
             } else {
                 return canParse<double>(value) && (parse<double>(value) >= 0);
@@ -358,7 +358,7 @@ GNERouteProbe::setAttribute(SumoXMLAttr key, const std::string& value) {
             myBegin = parse<double>(value);
             break;
         case GNE_ATTR_SELECTED:
-            if(parse<bool>(value)) {
+            if (parse<bool>(value)) {
                 selectAttributeCarrier();
             } else {
                 unselectAttributeCarrier();

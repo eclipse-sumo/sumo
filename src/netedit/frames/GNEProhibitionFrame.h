@@ -113,7 +113,7 @@ private:
     /// @brief the connection which prohibits
     GNEConnection* myCurrentConn;
 
-    /// @brief the set of connections which 
+    /// @brief the set of connections which
     std::set<GNEConnection*> myConcernedConns;
 
     /// @brief color for selected connection whose prohibition shall be shown
@@ -128,10 +128,10 @@ private:
     /// @brief color for connections with precedence
     static RGBColor prohibitingColor;
 
-    /// @brief color for unregulated conflicts 
+    /// @brief color for unregulated conflicts
     static RGBColor unregulatedConflictColor;
 
-    /// @brief color for mutual conflicts 
+    /// @brief color for mutual conflicts
     static RGBColor mutualConflictColor;
 
 private:

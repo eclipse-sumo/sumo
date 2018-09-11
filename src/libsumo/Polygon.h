@@ -35,7 +35,7 @@
 class NamedRTree;
 class SUMOPolygon;
 namespace libsumo {
-    class VariableWrapper;
+class VariableWrapper;
 }
 
 

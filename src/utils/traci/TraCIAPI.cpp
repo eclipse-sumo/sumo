@@ -295,28 +295,28 @@ TraCIAPI::check_resultState(tcpip::Storage& inMsg, int command, bool ignoreComma
         cmdLength = inMsg.readUnsignedByte();
         cmdId = inMsg.readUnsignedByte();
         if (command != cmdId && !ignoreCommandId) {
-            throw tcpip::SocketException("#Error: received status response to command: " + toString(cmdId) + " but expected: " + toString(command));
+            throw libsumo::TraCIException("#Error: received status response to command: " + toString(cmdId) + " but expected: " + toString(command));
         }
         resultType = inMsg.readUnsignedByte();
         msg = inMsg.readString();
     } catch (std::invalid_argument&) {
-        throw tcpip::SocketException("#Error: an exception was thrown while reading result state message");
+        throw libsumo::TraCIException("#Error: an exception was thrown while reading result state message");
     }
     switch (resultType) {
         case RTYPE_ERR:
-            throw tcpip::SocketException(".. Answered with error to command (" + toString(command) + "), [description: " + msg + "]");
+            throw libsumo::TraCIException(".. Answered with error to command (" + toString(command) + "), [description: " + msg + "]");
         case RTYPE_NOTIMPLEMENTED:
-            throw tcpip::SocketException(".. Sent command is not implemented (" + toString(command) + "), [description: " + msg + "]");
+            throw libsumo::TraCIException(".. Sent command is not implemented (" + toString(command) + "), [description: " + msg + "]");
         case RTYPE_OK:
             if (acknowledgement != 0) {
                 (*acknowledgement) = ".. Command acknowledged (" + toString(command) + "), [description: " + msg + "]";
             }
             break;
         default:
-            throw tcpip::SocketException(".. Answered with unknown result code(" + toString(resultType) + ") to command(" + toString(command) + "), [description: " + msg + "]");
+            throw libsumo::TraCIException(".. Answered with unknown result code(" + toString(resultType) + ") to command(" + toString(command) + "), [description: " + msg + "]");
     }
     if ((cmdStart + cmdLength) != (int) inMsg.position()) {
-        throw tcpip::SocketException("#Error: command at position " + toString(cmdStart) + " has wrong length");
+        throw libsumo::TraCIException("#Error: command at position " + toString(cmdStart) + " has wrong length");
     }
 }
 
@@ -330,7 +330,7 @@ TraCIAPI::check_commandGetResult(tcpip::Storage& inMsg, int command, int expecte
     }
     int cmdId = inMsg.readUnsignedByte();
     if (!ignoreCommandId && cmdId != (command + 0x10)) {
-        throw tcpip::SocketException("#Error: received response with command id: " + toString(cmdId) + "but expected: " + toString(command + 0x10));
+        throw libsumo::TraCIException("#Error: received response with command id: " + toString(cmdId) + "but expected: " + toString(command + 0x10));
     }
     if (expectedType >= 0) {
         // not called from the TraCITestClient but from within the TraCIAPI
@@ -338,7 +338,7 @@ TraCIAPI::check_commandGetResult(tcpip::Storage& inMsg, int command, int expecte
         inMsg.readString(); // objectID
         int valueDataType = inMsg.readUnsignedByte();
         if (valueDataType != expectedType) {
-            throw tcpip::SocketException("Expected " + toString(expectedType) + " but got " + toString(valueDataType));
+            throw libsumo::TraCIException("Expected " + toString(expectedType) + " but got " + toString(valueDataType));
         }
     }
     return cmdId;
@@ -526,10 +526,10 @@ TraCIAPI::readVariables(tcpip::Storage& inMsg, const std::string& objectID, int 
                 // TODO Other data types
 
                 default:
-                    throw tcpip::SocketException("Unimplemented subscription type: " + toString(type));
+                    throw libsumo::TraCIException("Unimplemented subscription type: " + toString(type));
             }
         } else {
-            throw tcpip::SocketException("Subscription response error: variableID=" + toString(variableID) + " status=" + toString(status));
+            throw libsumo::TraCIException("Subscription response error: variableID=" + toString(variableID) + " status=" + toString(status));
         }
 
         variableCount--;
@@ -709,6 +709,12 @@ TraCIAPI::EdgeScope::getLastStepVehicleIDs(const std::string& edgeID) const {
 int
 TraCIAPI::EdgeScope::getLaneNumber(const std::string& edgeID) const {
     return myParent.getInt(CMD_GET_EDGE_VARIABLE, VAR_LANE_INDEX, edgeID);
+}
+
+
+std::string
+TraCIAPI::EdgeScope::getStreetName(const std::string& edgeID) const {
+    return myParent.getString(CMD_GET_EDGE_VARIABLE, VAR_NAME, edgeID);
 }
 
 
@@ -1050,13 +1056,13 @@ TraCIAPI::LaneScope::getLinks(const std::string& laneID) const {
         double length = inMsg.readDouble();
 
         ret.push_back(libsumo::TraCIConnection(approachedLane,
-                                      hasPrio,
-                                      isOpen,
-                                      hasFoe,
-                                      approachedLaneInternal,
-                                      state,
-                                      direction,
-                                      length));
+                                               hasPrio,
+                                               isOpen,
+                                               hasFoe,
+                                               approachedLaneInternal,
+                                               state,
+                                               direction,
+                                               length));
 
     }
     return ret;
@@ -2736,7 +2742,7 @@ TraCIAPI::VehicleScope::setSpeedMode(const std::string& vehicleID, int mode) con
 
 void
 TraCIAPI::VehicleScope::setStop(const std::string vehicleID, const std::string edgeID, const double endPos, const int laneIndex,
-        const double duration, const int flags, const double startPos, const double until) const {
+                                const double duration, const int flags, const double startPos, const double until) const {
     tcpip::Storage content;
     content.writeUnsignedByte(TYPE_COMPOUND);
     content.writeInt(7);

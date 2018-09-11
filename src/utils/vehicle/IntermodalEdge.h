@@ -65,7 +65,7 @@ public:
         return myNumericalID;
     }
 
-    void addSuccessor(IntermodalEdge* const s, IntermodalEdge* const via=nullptr) {
+    void addSuccessor(IntermodalEdge* const s, IntermodalEdge* const via = nullptr) {
         myFollowingEdges.push_back(s);
         myFollowingViaEdges.push_back(std::make_pair(s, via));
     }
@@ -88,13 +88,13 @@ public:
         }
     }
 
-    virtual const std::vector<IntermodalEdge*>& getSuccessors(SUMOVehicleClass vClass=SVC_IGNORING) const {
+    virtual const std::vector<IntermodalEdge*>& getSuccessors(SUMOVehicleClass vClass = SVC_IGNORING) const {
         UNUSED_PARAMETER(vClass);
         // the network is already tailored. No need to check for permissions here
         return myFollowingEdges;
     }
 
-    virtual const std::vector<std::pair<const IntermodalEdge*, const IntermodalEdge*> >& getViaSuccessors(SUMOVehicleClass vClass=SVC_IGNORING) const {
+    virtual const std::vector<std::pair<const IntermodalEdge*, const IntermodalEdge*> >& getViaSuccessors(SUMOVehicleClass vClass = SVC_IGNORING) const {
         UNUSED_PARAMETER(vClass);
         // the network is already tailored. No need to check for permissions here
         return myFollowingViaEdges;

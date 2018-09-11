@@ -45,145 +45,145 @@ TraCIServerAPI_TrafficLight::processGet(TraCIServer& server, tcpip::Storage& inp
     try {
         if (!libsumo::TrafficLight::handleVariable(id, variable, &server)) {
             switch (variable) {
-            case TL_COMPLETE_DEFINITION_RYG: {
-                std::vector<libsumo::TraCILogic> logics = libsumo::TrafficLight::getCompleteRedYellowGreenDefinition(id);
-                server.getWrapperStorage().writeUnsignedByte(TYPE_COMPOUND);
-                tcpip::Storage tempContent;
-                int cnt = 0;
-                tempContent.writeUnsignedByte(TYPE_INTEGER);
-                tempContent.writeInt((int)logics.size());
-                ++cnt;
-                for (const libsumo::TraCILogic& logic : logics) {
-                    tempContent.writeUnsignedByte(TYPE_STRING);
-                    tempContent.writeString(logic.subID);
-                    ++cnt;
-                    // type (always 0 by now)
+                case TL_COMPLETE_DEFINITION_RYG: {
+                    std::vector<libsumo::TraCILogic> logics = libsumo::TrafficLight::getCompleteRedYellowGreenDefinition(id);
+                    server.getWrapperStorage().writeUnsignedByte(TYPE_COMPOUND);
+                    tcpip::Storage tempContent;
+                    int cnt = 0;
                     tempContent.writeUnsignedByte(TYPE_INTEGER);
-                    tempContent.writeInt(logic.type);
+                    tempContent.writeInt((int)logics.size());
                     ++cnt;
-                    // subparameter (always 0 by now)
-                    tempContent.writeUnsignedByte(TYPE_COMPOUND);
-                    tempContent.writeInt(0);
-                    ++cnt;
-                    // (current) phase index
-                    tempContent.writeUnsignedByte(TYPE_INTEGER);
-                    tempContent.writeInt(logic.currentPhaseIndex);
-                    ++cnt;
-                    // phase number
-                    tempContent.writeUnsignedByte(TYPE_INTEGER);
-                    tempContent.writeInt((int)logic.phases.size());
-                    ++cnt;
-                    for (const libsumo::TraCIPhase& phase : logic.phases) {
-                        tempContent.writeUnsignedByte(TYPE_DOUBLE);
-                        tempContent.writeDouble(phase.duration);
-                        ++cnt;
-                        tempContent.writeUnsignedByte(TYPE_DOUBLE);
-                        tempContent.writeDouble(phase.duration1);
-                        ++cnt; // not implemented
-                        tempContent.writeUnsignedByte(TYPE_DOUBLE);
-                        tempContent.writeDouble(phase.duration2);
-                        ++cnt; // not implemented
+                    for (const libsumo::TraCILogic& logic : logics) {
                         tempContent.writeUnsignedByte(TYPE_STRING);
-                        tempContent.writeString(phase.phase);
+                        tempContent.writeString(logic.subID);
                         ++cnt;
+                        // type (always 0 by now)
+                        tempContent.writeUnsignedByte(TYPE_INTEGER);
+                        tempContent.writeInt(logic.type);
+                        ++cnt;
+                        // subparameter (always 0 by now)
+                        tempContent.writeUnsignedByte(TYPE_COMPOUND);
+                        tempContent.writeInt(0);
+                        ++cnt;
+                        // (current) phase index
+                        tempContent.writeUnsignedByte(TYPE_INTEGER);
+                        tempContent.writeInt(logic.currentPhaseIndex);
+                        ++cnt;
+                        // phase number
+                        tempContent.writeUnsignedByte(TYPE_INTEGER);
+                        tempContent.writeInt((int)logic.phases.size());
+                        ++cnt;
+                        for (const libsumo::TraCIPhase& phase : logic.phases) {
+                            tempContent.writeUnsignedByte(TYPE_DOUBLE);
+                            tempContent.writeDouble(phase.duration);
+                            ++cnt;
+                            tempContent.writeUnsignedByte(TYPE_DOUBLE);
+                            tempContent.writeDouble(phase.duration1);
+                            ++cnt; // not implemented
+                            tempContent.writeUnsignedByte(TYPE_DOUBLE);
+                            tempContent.writeDouble(phase.duration2);
+                            ++cnt; // not implemented
+                            tempContent.writeUnsignedByte(TYPE_STRING);
+                            tempContent.writeString(phase.phase);
+                            ++cnt;
+                        }
                     }
+                    server.getWrapperStorage().writeInt((int)cnt);
+                    server.getWrapperStorage().writeStorage(tempContent);
+                    break;
                 }
-                server.getWrapperStorage().writeInt((int)cnt);
-                server.getWrapperStorage().writeStorage(tempContent);
-                break;
-            }
-            case TL_CONTROLLED_LINKS: {
-                const std::vector<std::vector<libsumo::TraCILink> > links = libsumo::TrafficLight::getControlledLinks(id);
-                server.getWrapperStorage().writeUnsignedByte(TYPE_COMPOUND);
-                tcpip::Storage tempContent;
-                int cnt = 0;
-                tempContent.writeUnsignedByte(TYPE_INTEGER);
-                tempContent.writeInt((int)links.size());
-                for (const std::vector<libsumo::TraCILink>& sublinks : links) {
+                case TL_CONTROLLED_LINKS: {
+                    const std::vector<std::vector<libsumo::TraCILink> > links = libsumo::TrafficLight::getControlledLinks(id);
+                    server.getWrapperStorage().writeUnsignedByte(TYPE_COMPOUND);
+                    tcpip::Storage tempContent;
+                    int cnt = 0;
                     tempContent.writeUnsignedByte(TYPE_INTEGER);
-                    tempContent.writeInt((int)sublinks.size());
-                    ++cnt;
-                    for (const libsumo::TraCILink& link : sublinks) {
-                        tempContent.writeUnsignedByte(TYPE_STRINGLIST);
-                        tempContent.writeStringList(std::vector<std::string>({ link.fromLane, link.toLane, link.viaLane }));
+                    tempContent.writeInt((int)links.size());
+                    for (const std::vector<libsumo::TraCILink>& sublinks : links) {
+                        tempContent.writeUnsignedByte(TYPE_INTEGER);
+                        tempContent.writeInt((int)sublinks.size());
                         ++cnt;
+                        for (const libsumo::TraCILink& link : sublinks) {
+                            tempContent.writeUnsignedByte(TYPE_STRINGLIST);
+                            tempContent.writeStringList(std::vector<std::string>({ link.fromLane, link.toLane, link.viaLane }));
+                            ++cnt;
+                        }
                     }
+                    server.getWrapperStorage().writeInt(cnt);
+                    server.getWrapperStorage().writeStorage(tempContent);
+                    break;
                 }
-                server.getWrapperStorage().writeInt(cnt);
-                server.getWrapperStorage().writeStorage(tempContent);
-                break;
-            }
-            case VAR_PARAMETER: {
-                std::string paramName = "";
-                if (!server.readTypeCheckingString(inputStorage, paramName)) {
-                    return server.writeErrorStatusCmd(CMD_GET_TL_VARIABLE, "Retrieval of a parameter requires its name.", outputStorage);
-                }
-                server.getWrapperStorage().writeUnsignedByte(TYPE_STRING);
-                server.getWrapperStorage().writeString(libsumo::TrafficLight::getParameter(id, paramName));
-                break;
-            }
-            case TL_EXTERNAL_STATE: {
-                if (!MSNet::getInstance()->getTLSControl().knows(id)) {
-                    throw libsumo::TraCIException("Traffic light '" + id + "' is not known");
-                }
-                MSTrafficLightLogic* tls = MSNet::getInstance()->getTLSControl().get(id).getActive();
-                const std::string& state = tls->getCurrentPhaseDef().getState();
-                const std::map<std::string, std::string>& params = tls->getParametersMap();
-                int num = 0;
-                for (std::map<std::string, std::string>::const_iterator i = params.begin(); i != params.end(); ++i) {
-                    if ("connection:" == (*i).first.substr(0, 11)) {
-                        ++num;
-                    }
-                }
-
-                server.getWrapperStorage().writeUnsignedByte(TYPE_COMPOUND);
-                server.getWrapperStorage().writeUnsignedByte(TYPE_INTEGER);
-                server.getWrapperStorage().writeInt(num * 2);
-                for (std::map<std::string, std::string>::const_iterator i = params.begin(); i != params.end(); ++i) {
-                    if ("connection:" != (*i).first.substr(0, 11)) {
-                        continue;
+                case VAR_PARAMETER: {
+                    std::string paramName = "";
+                    if (!server.readTypeCheckingString(inputStorage, paramName)) {
+                        return server.writeErrorStatusCmd(CMD_GET_TL_VARIABLE, "Retrieval of a parameter requires its name.", outputStorage);
                     }
                     server.getWrapperStorage().writeUnsignedByte(TYPE_STRING);
-                    server.getWrapperStorage().writeString((*i).second); // foreign id
-                    std::string connection = (*i).first.substr(11);
-                    std::string from, to;
-                    const std::string::size_type b = connection.find("->");
-                    if (b == std::string::npos) {
-                        from = connection;
-                    } else {
-                        from = connection.substr(0, b);
-                        to = connection.substr(b + 2);
+                    server.getWrapperStorage().writeString(libsumo::TrafficLight::getParameter(id, paramName));
+                    break;
+                }
+                case TL_EXTERNAL_STATE: {
+                    if (!MSNet::getInstance()->getTLSControl().knows(id)) {
+                        throw libsumo::TraCIException("Traffic light '" + id + "' is not known");
                     }
-                    bool denotesEdge = from.find("_") == std::string::npos;
-                    MSLane* fromLane = 0;
-                    const MSTrafficLightLogic::LaneVectorVector& lanes = tls->getLaneVectors();
-                    MSTrafficLightLogic::LaneVectorVector::const_iterator j = lanes.begin();
-                    for (; j != lanes.end() && fromLane == 0;) {
-                        for (MSTrafficLightLogic::LaneVector::const_iterator k = (*j).begin(); k != (*j).end() && fromLane == 0;) {
-                            if (denotesEdge && (*k)->getEdge().getID() == from) {
-                                fromLane = *k;
-                            } else if (!denotesEdge && (*k)->getID() == from) {
-                                fromLane = *k;
+                    MSTrafficLightLogic* tls = MSNet::getInstance()->getTLSControl().get(id).getActive();
+                    const std::string& state = tls->getCurrentPhaseDef().getState();
+                    const std::map<std::string, std::string>& params = tls->getParametersMap();
+                    int num = 0;
+                    for (std::map<std::string, std::string>::const_iterator i = params.begin(); i != params.end(); ++i) {
+                        if ("connection:" == (*i).first.substr(0, 11)) {
+                            ++num;
+                        }
+                    }
+
+                    server.getWrapperStorage().writeUnsignedByte(TYPE_COMPOUND);
+                    server.getWrapperStorage().writeUnsignedByte(TYPE_INTEGER);
+                    server.getWrapperStorage().writeInt(num * 2);
+                    for (std::map<std::string, std::string>::const_iterator i = params.begin(); i != params.end(); ++i) {
+                        if ("connection:" != (*i).first.substr(0, 11)) {
+                            continue;
+                        }
+                        server.getWrapperStorage().writeUnsignedByte(TYPE_STRING);
+                        server.getWrapperStorage().writeString((*i).second); // foreign id
+                        std::string connection = (*i).first.substr(11);
+                        std::string from, to;
+                        const std::string::size_type b = connection.find("->");
+                        if (b == std::string::npos) {
+                            from = connection;
+                        } else {
+                            from = connection.substr(0, b);
+                            to = connection.substr(b + 2);
+                        }
+                        bool denotesEdge = from.find("_") == std::string::npos;
+                        MSLane* fromLane = 0;
+                        const MSTrafficLightLogic::LaneVectorVector& lanes = tls->getLaneVectors();
+                        MSTrafficLightLogic::LaneVectorVector::const_iterator j = lanes.begin();
+                        for (; j != lanes.end() && fromLane == 0;) {
+                            for (MSTrafficLightLogic::LaneVector::const_iterator k = (*j).begin(); k != (*j).end() && fromLane == 0;) {
+                                if (denotesEdge && (*k)->getEdge().getID() == from) {
+                                    fromLane = *k;
+                                } else if (!denotesEdge && (*k)->getID() == from) {
+                                    fromLane = *k;
+                                }
+                                if (fromLane == 0) {
+                                    ++k;
+                                }
                             }
                             if (fromLane == 0) {
-                                ++k;
+                                ++j;
                             }
                         }
                         if (fromLane == 0) {
-                            ++j;
+                            return server.writeErrorStatusCmd(CMD_GET_TL_VARIABLE, "Could not find edge or lane '" + from + "' in traffic light '" + id + "'.", outputStorage);
                         }
+                        int pos = (int)std::distance(lanes.begin(), j);
+                        server.getWrapperStorage().writeUnsignedByte(TYPE_UBYTE);
+                        server.getWrapperStorage().writeUnsignedByte(state[pos]); // state
                     }
-                    if (fromLane == 0) {
-                        return server.writeErrorStatusCmd(CMD_GET_TL_VARIABLE, "Could not find edge or lane '" + from + "' in traffic light '" + id + "'.", outputStorage);
-                    }
-                    int pos = (int)std::distance(lanes.begin(), j);
-                    server.getWrapperStorage().writeUnsignedByte(TYPE_UBYTE);
-                    server.getWrapperStorage().writeUnsignedByte(state[pos]); // state
+                    break;
                 }
-                break;
-            }
-            default:
-                return server.writeErrorStatusCmd(CMD_GET_TL_VARIABLE, "Get TLS Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
+                default:
+                    return server.writeErrorStatusCmd(CMD_GET_TL_VARIABLE, "Get TLS Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
             }
         }
     } catch (libsumo::TraCIException& e) {

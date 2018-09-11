@@ -36,8 +36,8 @@ Dividing of lanes on approached lanes... done (0ms).
 Processing turnarounds... done (0ms).
 Rechecking of lane endings... 
 done (0ms).
-Computing traffic light control information... done (1ms).
-Computing node logics... done (0ms).
+Computing traffic light control information... done (0ms).
+Computing node logics... done (1ms).
 Computing traffic light logics... done (0ms).
  0 traffic light(s) computed.
 Building inner edges... done (0ms).
@@ -53,5 +53,5 @@ Summary:
   Applied offset     : 0.00,0.00
   Converted boundary : -141.99,-267.85,409.02,87.76
 -----------------------------------------------------
-Writing network... done (3ms).
+Writing network... done (4ms).
 Success.

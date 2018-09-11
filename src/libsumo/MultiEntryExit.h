@@ -32,7 +32,7 @@
 // ===========================================================================
 class MSE3Collector;
 namespace libsumo {
-    class VariableWrapper;
+class VariableWrapper;
 }
 
 

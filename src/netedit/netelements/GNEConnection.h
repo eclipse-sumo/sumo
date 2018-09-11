@@ -82,7 +82,7 @@ public:
     LinkState getLinkState() const;
 
     /// @brief get Position vector calculated in updateGeometry(bool updateGrid)
-    const PositionVector &getShape() const;
+    const PositionVector& getShape() const;
 
     /// @brief check that connection's Geometry has to be updated
     void markConnectionGeometryDeprecated();
@@ -149,16 +149,16 @@ public:
     /// @{
 
     /// @brief add generic parameter
-    bool addGenericParameter(const std::string &key, const std::string &value);
+    bool addGenericParameter(const std::string& key, const std::string& value);
 
     /// @brief remove generic parameter
-    bool removeGenericParameter(const std::string &key);
+    bool removeGenericParameter(const std::string& key);
 
     /// @brief update generic parameter
-    bool updateGenericParameter(const std::string &oldKey, const std::string &newKey);
+    bool updateGenericParameter(const std::string& oldKey, const std::string& newKey);
 
-    /// @brief update value generic parameter 
-    bool updateGenericParameterValue(const std::string &key, const std::string &newValue);
+    /// @brief update value generic parameter
+    bool updateGenericParameterValue(const std::string& key, const std::string& newValue);
 
     /// @brief return generic parameters in string format
     std::string getGenericParametersStr() const;
@@ -167,7 +167,7 @@ public:
     std::vector<std::pair<std::string, std::string> > getGenericParameters() const;
 
     /// @brief set generic parameters in string format
-    void setGenericParametersStr(const std::string &value);
+    void setGenericParametersStr(const std::string& value);
 
     /// @}
 
@@ -177,6 +177,12 @@ protected:
 
     /// @brief outgoing lane of this connection
     GNELane* myToLane;
+
+    /// @brief Linkstate. @note cached because after 'undo' the connection needs to be drawn while the node logic (NBRequest) has not been recomputed
+    LinkState myLinkState;
+
+    /// @brief optional special color
+    const RGBColor* mySpecialColor;
 
     /// @brief the shape of the connection
     PositionVector myShape;
@@ -195,12 +201,6 @@ protected:
     /// @brief waiting position for internal junction
     PositionVector myInternalJunctionMarker;
     /// @}
-
-    /// @brief Linkstate. @note cached because after 'undo' the connection needs to be drawn while the node logic (NBRequest) has not been recomputed
-    LinkState myLinkState;
-
-    /// @brief optional special color
-    const RGBColor* mySpecialColor;
 
 private:
     /// @brief set attribute after validation

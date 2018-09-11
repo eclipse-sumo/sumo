@@ -1626,10 +1626,10 @@ GUIDialog_ViewSettings::NamePanel::NamePanel(
 
 GUIVisualizationTextSettings
 GUIDialog_ViewSettings::NamePanel::getSettings() {
-    return GUIVisualizationTextSettings(myCheck->getCheck() != FALSE, 
-            mySizeDial->getValue(), 
-            MFXUtils::getRGBColor(myColorWell->getRGBA()), 
-            myConstSizeCheck->getCheck() != FALSE);
+    return GUIVisualizationTextSettings(myCheck->getCheck() != FALSE,
+                                        mySizeDial->getValue(),
+                                        MFXUtils::getRGBColor(myColorWell->getRGBA()),
+                                        myConstSizeCheck->getCheck() != FALSE);
 }
 
 
@@ -1689,11 +1689,11 @@ GUIDialog_ViewSettings::loadWindowSize() {
     // ensure window is visible after switching screen resolutions
     const FXint minSize = 400;
     const FXint minTitlebarHeight = 20;
-    setX(MAX2(0, MIN2(getApp()->reg().readIntEntry("VIEWSETTINGS", "x", 150), 
-                    getApp()->getRootWindow()->getWidth() - minSize)));
+    setX(MAX2(0, MIN2(getApp()->reg().readIntEntry("VIEWSETTINGS", "x", 150),
+                      getApp()->getRootWindow()->getWidth() - minSize)));
     setY(MAX2(minTitlebarHeight,
-              MIN2(getApp()->reg().readIntEntry("VIEWSETTINGS", "y", 150), 
-                  getApp()->getRootWindow()->getHeight() - minSize)));
+              MIN2(getApp()->reg().readIntEntry("VIEWSETTINGS", "y", 150),
+                   getApp()->getRootWindow()->getHeight() - minSize)));
     setWidth(MAX2(getApp()->reg().readIntEntry("VIEWSETTINGS", "width", 700), minSize));
     setHeight(MAX2(getApp()->reg().readIntEntry("VIEWSETTINGS", "height", 500), minSize));
 }

@@ -72,8 +72,7 @@ MSRouteHandler::MSRouteHandler(const std::string& file,
     myAddVehiclesDirectly(addVehiclesDirectly),
     myCurrentVTypeDistribution(0),
     myCurrentRouteDistribution(0),
-    myAmLoadingState(false) 
-{
+    myAmLoadingState(false) {
     myActiveRoute.reserve(100);
 }
 
@@ -1129,7 +1128,7 @@ MSRouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
             bool carUsed = false;
             std::vector<MSNet::MSIntermodalRouter::TripItem> result;
             if (MSNet::getInstance()->getIntermodalRouter().compute(from, to, departPos, arrivalPos, bs == nullptr ? "" : bs->getID(),
-                        pedType->getMaxSpeed() * walkFactor, vehicle, modeSet, myVehicleParameter->depart, result)) {
+                    pedType->getMaxSpeed() * walkFactor, vehicle, modeSet, myVehicleParameter->depart, result)) {
                 for (std::vector<MSNet::MSIntermodalRouter::TripItem>::iterator it = result.begin(); it != result.end(); ++it) {
                     if (!it->edges.empty()) {
                         bs = MSNet::getInstance()->getStoppingPlace(it->destStop, SUMO_TAG_BUS_STOP);
@@ -1152,7 +1151,7 @@ MSRouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
                             carUsed = true;
                         } else {
                             myActivePlan->push_back(new MSPerson::MSPersonStage_Driving(
-                                        it->edges.back(), bs, localArrivalPos, std::vector<std::string>({ it->line }), it->intended, TIME2STEPS(it->depart)));
+                                                        it->edges.back(), bs, localArrivalPos, std::vector<std::string>({ it->line }), it->intended, TIME2STEPS(it->depart)));
                         }
                     }
                 }

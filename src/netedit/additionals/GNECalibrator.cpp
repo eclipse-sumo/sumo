@@ -63,8 +63,7 @@ GNECalibrator::GNECalibrator(const std::string& id, GNEViewNet* viewNet, GNEEdge
     myPositionOverLane(pos),
     myFrequency(frequency),
     myOutput(output),
-    myRouteProbe(nullptr)  /** change this in the future **/
-{
+    myRouteProbe(nullptr) { /** change this in the future **/
 }
 
 
@@ -75,8 +74,7 @@ GNECalibrator::GNECalibrator(const std::string& id, GNEViewNet* viewNet, GNELane
     myPositionOverLane(pos),
     myFrequency(frequency),
     myOutput(output),
-    myRouteProbe(nullptr) /** change this in the future **/
-{ 
+    myRouteProbe(nullptr) { /** change this in the future **/
 }
 
 
@@ -98,7 +96,7 @@ GNECalibrator::commitGeometryMoving(const Position&, GNEUndoList*) {
 void
 GNECalibrator::updateGeometry(bool updateGrid) {
     // first check if object has to be removed from grid (SUMOTree)
-    if(updateGrid) {
+    if (updateGrid) {
         myViewNet->getNet()->removeGLObjectFromGrid(this);
     }
     // Clear all containers
@@ -123,7 +121,7 @@ GNECalibrator::updateGeometry(bool updateGrid) {
         throw ProcessError("Both myEdge and myLane aren't defined");
     }
     // last step is to check if object has to be added into grid (SUMOTree) again
-    if(updateGrid) {
+    if (updateGrid) {
         myViewNet->getNet()->addGLObjectIntoGrid(this);
     }
 }
@@ -131,8 +129,8 @@ GNECalibrator::updateGeometry(bool updateGrid) {
 
 Position
 GNECalibrator::getPositionInView() const {
-    PositionVector shape = myLane? myLane->getShape() : myEdge->getLanes().at(0)->getShape();
-    if(myPositionOverLane < 0) {
+    PositionVector shape = myLane ? myLane->getShape() : myEdge->getLanes().at(0)->getShape();
+    if (myPositionOverLane < 0) {
         return shape.front();
     } else if (myPositionOverLane > shape.length()) {
         return shape.back();
@@ -204,8 +202,8 @@ GNECalibrator::drawGL(const GUIVisualizationSettings& s) const {
             }
         }
         glPopMatrix();
-         // check if dotted contour has to be drawn
-        if(!s.drawForSelecting && (myViewNet->getACUnderCursor() == this)) {
+        // check if dotted contour has to be drawn
+        if (!s.drawForSelecting && (myViewNet->getACUnderCursor() == this)) {
             GLHelper::drawShapeDottedContour(getType(), pos, 2.8, 6, rot, 0, 3);
         }
     }
@@ -303,7 +301,7 @@ GNECalibrator::isValid(SumoXMLAttr key, const std::string& value) {
             if (canParse<double>(value)) {
                 // obtain position and check if is valid
                 double newPosition = parse<double>(value);
-                PositionVector shape = myLane? myLane->getShape() : myEdge->getLanes().at(0)->getShape();
+                PositionVector shape = myLane ? myLane->getShape() : myEdge->getLanes().at(0)->getShape();
                 if ((newPosition < 0) || (newPosition > shape.length())) {
                     return false;
                 } else {
@@ -334,13 +332,13 @@ GNECalibrator::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-std::string 
+std::string
 GNECalibrator::getPopUpID() const {
     return toString(getTag()) + ": " + getID();
 }
 
 
-std::string 
+std::string
 GNECalibrator::getHierarchyName() const {
     return toString(getTag());
 }
@@ -377,7 +375,7 @@ GNECalibrator::setAttribute(SumoXMLAttr key, const std::string& value) {
             myRouteProbe = dynamic_cast<GNERouteProbe*>(myViewNet->getNet()->retrieveAdditional(SUMO_TAG_ROUTEPROBE, value));
             break;
         case GNE_ATTR_SELECTED:
-            if(parse<bool>(value)) {
+            if (parse<bool>(value)) {
                 selectAttributeCarrier();
             } else {
                 unselectAttributeCarrier();

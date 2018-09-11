@@ -148,7 +148,7 @@ GUIJunctionWrapper::drawGL(const GUIVisualizationSettings& s) const {
                 // make small junctions more visible when coloring by type
                 if (myJunction.getType() == NODETYPE_RAIL_SIGNAL && s.junctionColorer.getActive() == 2) {
                     glTranslated(myJunction.getPosition().x(), myJunction.getPosition().y(), getType() + 0.05);
-                    GLHelper::drawFilledCircle(2 * exaggeration, 12);                    
+                    GLHelper::drawFilledCircle(2 * exaggeration, 12);
                 }
             }
             glPopName();

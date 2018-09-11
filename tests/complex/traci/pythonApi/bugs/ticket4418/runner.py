@@ -26,7 +26,8 @@ SUMO_HOME = os.path.join(os.path.dirname(__file__), "..", "..", "..", "..", ".."
 sys.path.append(os.path.join(os.environ.get("SUMO_HOME", SUMO_HOME), "tools"))
 
 import traci  # noqa
-import sumolib  
+import sumolib  # noqa
+
 
 def step():
     s = traci.simulation.getTime()
@@ -37,28 +38,26 @@ def step():
 traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg"])
 
 lead = "lead"
-follow = "follow"    
+follow = "follow"
 
-stopPos = 200 
+stopPos = 200
 slowDownDist = 10
 
 for i in range(10000):
     step()
     remDist = stopPos - traci.vehicle.getLanePosition(follow)
     if remDist < slowDownDist:
-        # stop after distance remDist (which is the stop position for the leader (mimics glosa situation in front of traffic light where this problem was observed))
-        # d = v*v/(2*a) => a = v*v/(2*d) => tstop = v/a = 2*d/v        
+        # stop after distance remDist (which is the stop position for the leader
+        # (mimics glosa situation in front of traffic light where this problem was observed))
+        # d = v*v/(2*a) => a = v*v/(2*d) => tstop = v/a = 2*d/v
         speed = traci.vehicle.getSpeed(follow)
         tstop = 2*remDist / speed
-        
-        print("Commanding slow down for vehicle '%s' at time %s. Remaining distance: %s, speed: %s"%(follow, traci.simulation.getTime(), remDist, speed))
-        
+        print("Commanding slow down for vehicle '%s' at time %s. Remaining distance: %s, speed: %s" %
+              (follow, traci.simulation.getTime(), remDist, speed))
         traci.vehicle.slowDown(follow, 0, tstop)
         break
-        
+
 while traci.simulation.getMinExpectedNumber() > 0:
     step()
-    
-    
 # done
 traci.close()

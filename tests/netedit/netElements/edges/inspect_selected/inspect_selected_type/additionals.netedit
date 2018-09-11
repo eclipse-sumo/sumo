@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 27.08.2018 16:12:02 by Eclipse SUMO netedit Version b980bbd93f
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.27Aug160758.1048/netedit.gui/netElements/edges/inspectA/inspect_type\input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.27Aug160758.1048/netedit.gui/netElements/edges/inspectA/inspect_type\net.net.xml"/>
+    </output>
+
+    <processing>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="-1"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <netedit>
+        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.27Aug160758.1048/netedit.gui/netElements/edges/inspectA/inspect_type\input_additionals.add.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.27Aug160758.1048/netedit.gui/netElements/edges/inspectA/inspect_type\additionals.xml"/>
+        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.27Aug160758.1048/netedit.gui/netElements/edges/inspectA/inspect_type\shapes.xml"/>
+    </netedit>
+
+    <visualisation>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.27Aug160758.1048/netedit.gui/netElements/edges/inspectA/inspect_type\gui-settings.xml"/>
+        <window-size value="700,500"/>
+        <window-pos value="50,50"/>
+        <gui-testing value="true"/>
+        <gui-testing-debug value="true"/>
+    </visualisation>
+
+    <report>
+        <no-warnings value="true"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.27Aug160758.1048/netedit.gui/netElements/edges/inspectA/inspect_type\log.txt"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="busStop1" lane="gneE0_0" friendlyPos="1" startPos="37.00" endPos="47.00"/>
+    <busStop id="busStop2" lane="gneE1_0" friendlyPos="1" startPos="3.00" endPos="13.00"/>
+    <busStop id="busStop3" lane="gneE2_0" friendlyPos="1" startPos="37.00" endPos="47.00"/>
+    <busStop id="busStop4" lane="gneE2_1" friendlyPos="1" startPos="37.00" endPos="47.00"/>
+    <busStop id="busStop5" lane="gneE3_0" friendlyPos="1" startPos="3.00" endPos="13.00"/>
+    <busStop id="busStop6" lane="gneE3_1" friendlyPos="1" startPos="3.00" endPos="13.00"/>
+</additional>

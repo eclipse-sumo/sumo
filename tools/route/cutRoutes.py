@@ -277,10 +277,12 @@ def main(options):
             '<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ' +
             'xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">\n')
     if options.additional_input:
-        for busStop in parse(options.additional_input, 'busStop'):
+        for busStop in parse(options.additional_input, ('busStop', 'trainStop')):
             edge = busStop.lane[:-2]
             busStopEdges[busStop.id] = edge
             if options.stops_output and edge in edges:
+                if busStop.access:
+                    busStop.access = [acc for acc in busStop.access if acc.lane[:-2] in edges]
                 busStops.write(busStop.toXML('    '))
     if options.stops_output:
         busStops.write('</additional>\n')

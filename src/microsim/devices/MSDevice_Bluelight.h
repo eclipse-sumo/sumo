@@ -145,10 +145,10 @@ private:
 
 
 private:
-    // @brief collects all vehicleIDs which had to react to the emergency vehicle 
+    // @brief collects all vehicleIDs which had to react to the emergency vehicle
     std::set<std::string> influencedVehicles;
 
-    // @brief collects all VehicleTypes of the vehicles which had to react to the emergency vehicle 
+    // @brief collects all VehicleTypes of the vehicles which had to react to the emergency vehicle
     std::map<std::string, std::string> influencedTypes;
 
     /// @brief a value which is initialised based on a commandline/configuration option

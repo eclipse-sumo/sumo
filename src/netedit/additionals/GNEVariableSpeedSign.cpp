@@ -53,7 +53,7 @@
 // member method definitions
 // ===========================================================================
 
-GNEVariableSpeedSign::GNEVariableSpeedSign(const std::string& id, GNEViewNet* viewNet, const Position &pos, const std::vector<GNELane*> &lanes, const std::string& name, bool blockMovement) :
+GNEVariableSpeedSign::GNEVariableSpeedSign(const std::string& id, GNEViewNet* viewNet, const Position& pos, const std::vector<GNELane*>& lanes, const std::string& name, bool blockMovement) :
     GNEAdditional(id, viewNet, GLO_VSS, SUMO_TAG_VSS, name, blockMovement, lanes),
     myPosition(pos) {
 }
@@ -66,7 +66,7 @@ GNEVariableSpeedSign::~GNEVariableSpeedSign() {
 void
 GNEVariableSpeedSign::updateGeometry(bool updateGrid) {
     // first check if object has to be removed from grid (SUMOTree)
-    if(updateGrid) {
+    if (updateGrid) {
         myViewNet->getNet()->removeGLObjectFromGrid(this);
     }
 
@@ -92,7 +92,7 @@ GNEVariableSpeedSign::updateGeometry(bool updateGrid) {
     updateChildConnections();
 
     // last step is to check if object has to be added into grid (SUMOTree) again
-    if(updateGrid) {
+    if (updateGrid) {
         myViewNet->getNet()->addGLObjectIntoGrid(this);
     }
 }
@@ -122,8 +122,6 @@ GNEVariableSpeedSign::moveGeometry(const Position& oldPos, const Position& offse
 
 void
 GNEVariableSpeedSign::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
-    // restore original shape before moving (to avoid problems in GL Tree)
-    myShape = myMovingShape;
     // commit new position allowing undo/redo
     undoList->p_begin("position of " + toString(getTag()));
     undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPosition), true, toString(oldPos)));
@@ -147,7 +145,7 @@ GNEVariableSpeedSign::drawGL(const GUIVisualizationSettings& s) const {
     glTranslated(myShape[0].x(), myShape[0].y(), getType());
 
     // Draw icon depending of variable speed sign is or if isn't being drawn for selecting
-    if(s.drawForSelecting) {
+    if (s.drawForSelecting) {
         GLHelper::setColor(RGBColor::WHITE);
         GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
     } else {
@@ -164,7 +162,7 @@ GNEVariableSpeedSign::drawGL(const GUIVisualizationSettings& s) const {
     glPopMatrix();
 
     // Only lock and childs if isn't being drawn for selecting
-    if(!s.drawForSelecting) {
+    if (!s.drawForSelecting) {
 
         // Show Lock icon depending of the Edit mode
         drawLockIcon(0.4);
@@ -213,12 +211,12 @@ GNEVariableSpeedSign::drawGL(const GUIVisualizationSettings& s) const {
     glPopMatrix();
 
     // Draw name if isn't being drawn for selecting
-    if(!s.drawForSelecting) {
+    if (!s.drawForSelecting) {
         drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
     }
 
     // check if dotted contour has to be drawn
-    if(!s.drawForSelecting && (myViewNet->getACUnderCursor() == this)) {
+    if (!s.drawForSelecting && (myViewNet->getACUnderCursor() == this)) {
         GLHelper::drawShapeDottedContour(getType(), myPosition, 2, 2);
         // draw shape dotte contour aroud alld connections between child and parents
         for (auto i : myChildConnectionPositions) {
@@ -314,13 +312,13 @@ GNEVariableSpeedSign::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-std::string 
+std::string
 GNEVariableSpeedSign::getPopUpID() const {
     return toString(getTag()) + ": " + getID();
 }
 
 
-std::string 
+std::string
 GNEVariableSpeedSign::getHierarchyName() const {
     return toString(getTag());
 }
@@ -348,7 +346,7 @@ GNEVariableSpeedSign::setAttribute(SumoXMLAttr key, const std::string& value) {
             myBlockMovement = parse<bool>(value);
             break;
         case GNE_ATTR_SELECTED:
-            if(parse<bool>(value)) {
+            if (parse<bool>(value)) {
                 selectAttributeCarrier();
             } else {
                 unselectAttributeCarrier();

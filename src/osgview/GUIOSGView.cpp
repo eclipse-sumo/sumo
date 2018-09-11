@@ -494,7 +494,7 @@ GUIOSGView::copyViewportTo(GUISUMOAbstractView* view) {
     osg::Vec3d lookFrom, lookAt, up;
     myCameraManipulator->getHomePosition(lookFrom, lookAt, up);
     view->setViewportFromToRot(Position(lookFrom[0], lookFrom[1], lookFrom[2]),
-                            Position(lookAt[0], lookAt[1], lookAt[2]), 0);
+                               Position(lookAt[0], lookAt[1], lookAt[2]), 0);
 }
 
 

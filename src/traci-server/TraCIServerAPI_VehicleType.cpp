@@ -51,7 +51,7 @@ TraCIServerAPI_VehicleType::processGet(TraCIServer& server, tcpip::Storage& inpu
                     std::string paramName = "";
                     if (!server.readTypeCheckingString(inputStorage, paramName)) {
                         return server.writeErrorStatusCmd(CMD_GET_VEHICLETYPE_VARIABLE,
-                            "Retrieval of a parameter requires its name.", outputStorage);
+                                                          "Retrieval of a parameter requires its name.", outputStorage);
                     }
                     server.getWrapperStorage().writeUnsignedByte(TYPE_STRING);
                     server.getWrapperStorage().writeString(libsumo::VehicleType::getParameter(id, paramName));
@@ -59,8 +59,8 @@ TraCIServerAPI_VehicleType::processGet(TraCIServer& server, tcpip::Storage& inpu
                 }
                 default:
                     return server.writeErrorStatusCmd(CMD_GET_VEHICLETYPE_VARIABLE,
-                        "Get Vehicle Type Variable: unsupported variable " + toHex(variable, 2)
-                        + " specified", outputStorage);
+                                                      "Get Vehicle Type Variable: unsupported variable " + toHex(variable, 2)
+                                                      + " specified", outputStorage);
             }
         }
     } catch (libsumo::TraCIException& e) {

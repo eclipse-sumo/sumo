@@ -165,16 +165,16 @@ public:
     /// @{
 
     /// @brief add generic parameter
-    virtual bool addGenericParameter(const std::string &key, const std::string &value) = 0;
+    virtual bool addGenericParameter(const std::string& key, const std::string& value) = 0;
 
     /// @brief remove generic parameter
-    virtual bool removeGenericParameter(const std::string &key) = 0;
+    virtual bool removeGenericParameter(const std::string& key) = 0;
 
     /// @brief update generic parameter
-    virtual bool updateGenericParameter(const std::string &oldKey, const std::string &newKey) = 0;
+    virtual bool updateGenericParameter(const std::string& oldKey, const std::string& newKey) = 0;
 
-    /// @brief update value generic parameter 
-    virtual bool updateGenericParameterValue(const std::string &key, const std::string &newValue) = 0;
+    /// @brief update value generic parameter
+    virtual bool updateGenericParameterValue(const std::string& key, const std::string& newValue) = 0;
 
     /// @brief return generic parameters in string format
     virtual std::string getGenericParametersStr() const = 0;
@@ -183,13 +183,16 @@ public:
     virtual std::vector<std::pair<std::string, std::string> > getGenericParameters() const = 0;
 
     /// @brief set generic parameters in string format
-    virtual void setGenericParametersStr(const std::string &value) = 0;
+    virtual void setGenericParametersStr(const std::string& value) = 0;
 
-     /// @}
+    /// @}
 
 protected:
     /// @brief the net to inform about updates
     GNENet* myNet;
+
+    /// @brief boundary used during moving of elements
+    Boundary myMovingGeometryBoundary;
 
     /// @brief list of Additional parents of this NetElement
     std::vector<GNEAdditional*> myFirstAdditionalParents;

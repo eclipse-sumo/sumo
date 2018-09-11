@@ -451,7 +451,7 @@ private:
     static bool addCrossingVehs(const MSLane* crossing, int stripes, double lateral_offset, int dir, Obstacles& crossingVehs);
 
     ///@brief retrieve vehicle obstacles on the given lane
-    static Obstacles getVehicleObstacles(const MSLane* lane, int dir, PState* ped = 0); 
+    static Obstacles getVehicleObstacles(const MSLane* lane, int dir, PState* ped = 0);
 
     static bool usingInternalLanesStatic();
 private:

@@ -421,9 +421,9 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                         sumoLane.permissions = tc.getPermissions(odLane.type);
                         sumoLane.width = myImportWidths && odLane.width != NBEdge::UNSPECIFIED_WIDTH ? odLane.width : tc.getWidth(odLane.type);
                         if (sumoLane.width < myMinWidth
-                                && sumoLane.permissions != SVC_BICYCLE
-                                && sumoLane.permissions != SVC_PEDESTRIAN
+                                && (sumoLane.permissions & SVC_PASSENGER) != 0
                                 && sumoLane.width < tc.getWidth(odLane.type)) {
+                            // avoid narrow passenger car lanes (especially at sections with varying width)
                             sumoLane.permissions = SVC_EMERGENCY | SVC_AUTHORITY;
                         }
                     }
@@ -470,9 +470,9 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                         sumoLane.permissions = tc.getPermissions(odLane.type);
                         sumoLane.width = myImportWidths && odLane.width != NBEdge::UNSPECIFIED_WIDTH ? odLane.width : tc.getWidth(odLane.type);
                         if (sumoLane.width < myMinWidth
-                                && sumoLane.permissions != SVC_BICYCLE
-                                && sumoLane.permissions != SVC_PEDESTRIAN
+                                && (sumoLane.permissions & SVC_PASSENGER) != 0
                                 && sumoLane.width < tc.getWidth(odLane.type)) {
+                            // avoid narrow passenger car lanes (especially at sections with varying width)
                             sumoLane.permissions = SVC_EMERGENCY | SVC_AUTHORITY;
                         }
                     }
@@ -588,11 +588,11 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             std::cout << "addCon3 from=" << from->getID() << "_" << fromLane << " to=" << to->getID() << "_" << toLane << "\n";
         }
 #endif
-        from->addLane2LaneConnection(fromLane, to, toLane, NBEdge::L2L_USER, false, false, true, 
-                NBEdge::UNSPECIFIED_CONTPOS, 
-                NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE,
-                NBEdge::UNSPECIFIED_SPEED,
-                (*i).shape);
+        from->addLane2LaneConnection(fromLane, to, toLane, NBEdge::L2L_USER, false, false, true,
+                                     NBEdge::UNSPECIFIED_CONTPOS,
+                                     NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE,
+                                     NBEdge::UNSPECIFIED_SPEED,
+                                     (*i).shape);
 
         if ((*i).origID != "" && saveOrigIDs) {
             // @todo: this is the most silly way to determine the connection
@@ -1124,6 +1124,7 @@ NIImporter_OpenDrive::geomFromSpiral(const OpenDriveEdge& e, const OpenDriveGeom
         if (cDot == 0 || g.length == 0) {
             WRITE_WARNING("Could not compute spiral geometry for edge '" + e.id + "' (cDot=" + toString(cDot) + " length=" + toString(g.length) + ").");
             ret.push_back(Position(g.x, g.y));
+            return ret;
         }
         double sStart = curveStart / cDot;
         double sEnd = curveEnd / cDot;
@@ -1793,21 +1794,26 @@ NIImporter_OpenDrive::myStartElement(int element,
 void
 NIImporter_OpenDrive::myCharacters(int element, const std::string& cdata) {
     if (element == OPENDRIVE_TAG_GEOREFERENCE) {
-        const std::string proj = cdata.substr(cdata.find("+proj"));
-        if (proj != "") {
-            GeoConvHelper* result = 0;
-            Boundary convBoundary;
-            Boundary origBoundary;
-            Position networkOffset(0, 0);
-            // XXX read values from the header
-            convBoundary.add(Position(0,0));
-            origBoundary.add(Position(0,0));
-            try {
-                result = new GeoConvHelper(proj, networkOffset, origBoundary, convBoundary);
-                GeoConvHelper::setLoaded(*result);
-            } catch (ProcessError& e) {
-                WRITE_ERROR("Could not set projection. (" + std::string(e.what()) + ")");
+        size_t i = cdata.find("+proj");
+        if (i != std::string::npos) {
+            const std::string proj = cdata.substr(i);
+            if (proj != "") {
+                GeoConvHelper* result = 0;
+                Boundary convBoundary;
+                Boundary origBoundary;
+                Position networkOffset(0, 0);
+                // XXX read values from the header
+                convBoundary.add(Position(0, 0));
+                origBoundary.add(Position(0, 0));
+                try {
+                    result = new GeoConvHelper(proj, networkOffset, origBoundary, convBoundary);
+                    GeoConvHelper::setLoaded(*result);
+                } catch (ProcessError& e) {
+                    WRITE_ERROR("Could not set projection. (" + std::string(e.what()) + ")");
+                }
             }
+        } else {
+            WRITE_WARNING("geoReference format '" + cdata + "' currently not supported");
         }
     }
 }

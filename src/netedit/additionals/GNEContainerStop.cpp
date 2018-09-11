@@ -66,7 +66,7 @@ GNEContainerStop::~GNEContainerStop() {}
 void
 GNEContainerStop::updateGeometry(bool updateGrid) {
     // first check if object has to be removed from grid (SUMOTree)
-    if(updateGrid) {
+    if (updateGrid) {
         myViewNet->getNet()->removeGLObjectFromGrid(this);
     }
 
@@ -74,7 +74,7 @@ GNEContainerStop::updateGeometry(bool updateGrid) {
     double offsetSign = OptionsCont::getOptions().getBool("lefthand") ? -1 : 1;
 
     // Update common geometry of stopping place
-    setStoppingPlaceGeometry(myLane->getParentEdge().getNBEdge()->getLaneWidth(myLane->getIndex())/2);
+    setStoppingPlaceGeometry(myLane->getParentEdge().getNBEdge()->getLaneWidth(myLane->getIndex()) / 2);
 
     // Obtain a copy of the shape
     PositionVector tmpShape = myShape;
@@ -92,7 +92,7 @@ GNEContainerStop::updateGeometry(bool updateGrid) {
     setBlockIconRotation(myLane);
 
     // last step is to check if object has to be added into grid (SUMOTree) again
-    if(updateGrid) {
+    if (updateGrid) {
         myViewNet->getNet()->addGLObjectIntoGrid(this);
     }
 }
@@ -119,9 +119,9 @@ GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
     // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
     GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, exaggeration);
     // Check if the distance is enought to draw details and if is being drawn for selecting
-    if(s.drawForSelecting) {
+    if (s.drawForSelecting) {
         // only draw circle depending of distance between sign and mouse cursor
-        if(myViewNet->getPositionInformation().distanceSquaredTo(mySignPos) <= (myCircleWidthSquared + 2)) {
+        if (myViewNet->getPositionInformation().distanceSquaredTo(mySignPos) <= (myCircleWidthSquared + 2)) {
             // Add a draw matrix for details
             glPushMatrix();
             // Start drawing sign traslating matrix to signal position
@@ -192,11 +192,11 @@ GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
     // pop draw matrix
     glPopMatrix();
     // Draw name if isn't being drawn for selecting
-    if(!s.drawForSelecting) {
+    if (!s.drawForSelecting) {
         drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
     }
     // check if dotted contour has to be drawn
-    if(!s.drawForSelecting && (myViewNet->getACUnderCursor() == this)) {
+    if (!s.drawForSelecting && (myViewNet->getACUnderCursor() == this)) {
         GLHelper::drawShapeDottedContour(getType(), myShape, exaggeration);
     }
     // Pop name
@@ -269,11 +269,11 @@ GNEContainerStop::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
         case SUMO_ATTR_STARTPOS:
-            if(value.empty()) {
+            if (value.empty()) {
                 return true;
             } else {
                 if (canParse<double>(value)) {
-                    if(canParse<double>(myEndPosition)) {
+                    if (canParse<double>(myEndPosition)) {
                         // Check that new start Position is smaller that end position
                         return (parse<double>(value) < parse<double>(myEndPosition));
                     } else {
@@ -284,11 +284,11 @@ GNEContainerStop::isValid(SumoXMLAttr key, const std::string& value) {
                 }
             }
         case SUMO_ATTR_ENDPOS:
-            if(value.empty()) {
+            if (value.empty()) {
                 return true;
             } else {
                 if (canParse<double>(value)) {
-                    if(canParse<double>(myStartPosition)) {
+                    if (canParse<double>(myStartPosition)) {
                         // Check that new start Position is smaller that end position
                         return (parse<double>(myStartPosition) < parse<double>(value));
                     } else {
@@ -347,7 +347,7 @@ GNEContainerStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             myBlockMovement = parse<bool>(value);
             break;
         case GNE_ATTR_SELECTED:
-            if(parse<bool>(value)) {
+            if (parse<bool>(value)) {
                 selectAttributeCarrier();
             } else {
                 unselectAttributeCarrier();

@@ -81,7 +81,7 @@ GNEDetector::getLane() const {
 }
 
 
-double 
+double
 GNEDetector::getPositionOverLane() const {
     return myPositionOverLane;
 }
@@ -102,8 +102,6 @@ void
 GNEDetector::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
     // restore old position before commit new position
     double originalPosOverLane = myLane->getShape().nearest_offset_to_point2D(oldPos, false);
-    // restore original shape before moving (to avoid problems in GL Tree)
-    myShape = myMovingShape;
     // commit new position allowing undo/redo
     undoList->p_begin("position of " + toString(getTag()));
     undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPositionOverLane), true, toString(originalPosOverLane)));
@@ -113,7 +111,7 @@ GNEDetector::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList)
 
 Position
 GNEDetector::getPositionInView() const {
-    if(myPositionOverLane < 0) {
+    if (myPositionOverLane < 0) {
         return myLane->getShape().front();
     } else if (myPositionOverLane > myLane->getShape().length()) {
         return myLane->getShape().back();
@@ -129,13 +127,13 @@ GNEDetector::getParentName() const {
 }
 
 
-std::string 
+std::string
 GNEDetector::getPopUpID() const {
     return toString(getTag()) + ": " + getID();
 }
 
 
-std::string 
+std::string
 GNEDetector::getHierarchyName() const {
     return toString(getTag());
 }

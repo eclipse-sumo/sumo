@@ -53,8 +53,7 @@ NIXMLPTHandler::NIXMLPTHandler(NBEdgeCont& ec, NBPTStopCont& sc, NBPTLineCont& l
     myEdgeCont(ec),
     myStopCont(sc),
     myLineCont(lc),
-    myCurrentLine(0)
-{
+    myCurrentLine(0) {
 }
 
 
@@ -63,7 +62,7 @@ NIXMLPTHandler::~NIXMLPTHandler() {}
 
 void
 NIXMLPTHandler::myStartElement(int element,
-                                  const SUMOSAXAttributes& attrs) {
+                               const SUMOSAXAttributes& attrs) {
     switch (element) {
         case SUMO_TAG_BUS_STOP:
         case SUMO_TAG_TRAIN_STOP:

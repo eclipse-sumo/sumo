@@ -54,8 +54,8 @@
 // method definitions
 // ===========================================================================
 
-GNEParkingArea::GNEParkingArea(const std::string& id, GNELane* lane, GNEViewNet* viewNet, const std::string& startPos, const std::string &endPos, const std::string& name, 
-                               bool friendlyPosition, int roadSideCapacity, double width, const std::string &length, double angle, bool blockMovement) :
+GNEParkingArea::GNEParkingArea(const std::string& id, GNELane* lane, GNEViewNet* viewNet, const std::string& startPos, const std::string& endPos, const std::string& name,
+                               bool friendlyPosition, int roadSideCapacity, double width, const std::string& length, double angle, bool blockMovement) :
     GNEStoppingPlace(id, viewNet, GLO_PARKING_AREA, SUMO_TAG_PARKING_AREA, lane, startPos, endPos, name, friendlyPosition, blockMovement),
     myRoadSideCapacity(roadSideCapacity),
     myWidth(width),
@@ -70,7 +70,7 @@ GNEParkingArea::~GNEParkingArea() {}
 void
 GNEParkingArea::updateGeometry(bool updateGrid) {
     // first check if object has to be removed from grid (SUMOTree)
-    if(updateGrid) {
+    if (updateGrid) {
         myViewNet->getNet()->removeGLObjectFromGrid(this);
     }
 
@@ -78,7 +78,7 @@ GNEParkingArea::updateGeometry(bool updateGrid) {
     double offsetSign = OptionsCont::getOptions().getBool("lefthand") ? -1 : 1;
 
     // Update common geometry of stopping place
-    setStoppingPlaceGeometry(myLane->getParentEdge().getNBEdge()->getLaneWidth(myLane->getIndex())/2 + myWidth);
+    setStoppingPlaceGeometry(myLane->getParentEdge().getNBEdge()->getLaneWidth(myLane->getIndex()) / 2 + myWidth);
 
     // Obtain a copy of the shape
     PositionVector tmpShape = myShape;
@@ -96,7 +96,7 @@ GNEParkingArea::updateGeometry(bool updateGrid) {
     setBlockIconRotation(myLane);
 
     // last step is to check if object has to be added into grid (SUMOTree) again
-    if(updateGrid) {
+    if (updateGrid) {
         myViewNet->getNet()->addGLObjectIntoGrid(this);
     }
 }
@@ -123,9 +123,9 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
     // Draw base
     GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, myWidth * exaggeration);
     // Check if the distance is enought to draw details and if is being drawn for selecting
-    if(s.drawForSelecting) {
+    if (s.drawForSelecting) {
         // only draw circle depending of distance between sign and mouse cursor
-        if(myViewNet->getPositionInformation().distanceSquaredTo(mySignPos) <= (myCircleWidthSquared + 2)) {
+        if (myViewNet->getPositionInformation().distanceSquaredTo(mySignPos) <= (myCircleWidthSquared + 2)) {
             // Add a draw matrix for details
             glPushMatrix();
             // Start drawing sign traslating matrix to signal position
@@ -185,7 +185,7 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::drawText(myAdditionalName, mySignPos, GLO_MAX - getType(), s.addFullName.scaledSize(s.scale), s.addFullName.color, myBlockIconRotation);
     }
     // check if dotted contour has to be drawn
-    if(!s.drawForSelecting && (myViewNet->getACUnderCursor() == this)) {
+    if (!s.drawForSelecting && (myViewNet->getACUnderCursor() == this)) {
         GLHelper::drawShapeDottedContour(getType(), myShape, myWidth * exaggeration);
     }
     // Pop name matrix
@@ -275,11 +275,11 @@ GNEParkingArea::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
         case SUMO_ATTR_STARTPOS:
-            if(value.empty()) {
+            if (value.empty()) {
                 return true;
             } else {
                 if (canParse<double>(value)) {
-                    if(canParse<double>(myEndPosition)) {
+                    if (canParse<double>(myEndPosition)) {
                         // Check that new start Position is smaller that end position
                         return (parse<double>(value) < parse<double>(myEndPosition));
                     } else {
@@ -290,11 +290,11 @@ GNEParkingArea::isValid(SumoXMLAttr key, const std::string& value) {
                 }
             }
         case SUMO_ATTR_ENDPOS:
-            if(value.empty()) {
+            if (value.empty()) {
                 return true;
             } else {
                 if (canParse<double>(value)) {
-                    if(canParse<double>(myStartPosition)) {
+                    if (canParse<double>(myStartPosition)) {
                         // Check that new start Position is smaller that end position
                         return (parse<double>(myStartPosition) < parse<double>(value));
                     } else {
@@ -313,7 +313,7 @@ GNEParkingArea::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_WIDTH:
             return canParse<double>(value) && (parse<double>(value) >= 0);
         case SUMO_ATTR_LENGTH:
-            if(value.empty()) {
+            if (value.empty()) {
                 return true;
             } else {
                 return canParse<double>(value) && (parse<double>(value) >= 0);
@@ -372,7 +372,7 @@ GNEParkingArea::setAttribute(SumoXMLAttr key, const std::string& value) {
             myBlockMovement = parse<bool>(value);
             break;
         case GNE_ATTR_SELECTED:
-            if(parse<bool>(value)) {
+            if (parse<bool>(value)) {
                 selectAttributeCarrier();
             } else {
                 unselectAttributeCarrier();

@@ -222,7 +222,8 @@ MSLCM_LC2013::_patchSpeed(const double min, const double wanted, const double ma
 #ifdef DEBUG_PATCH_SPEED
     if (DEBUG_COND) {
         std::cout
-                << "\n" << SIMTIME << " patchSpeed state=" << state << " myLCAccelerationAdvices=" << toString(myLCAccelerationAdvices)
+                << "\n" << SIMTIME << std::setprecision(gPrecision)
+                << " patchSpeed state=" << state << " myLCAccelerationAdvices=" << toString(myLCAccelerationAdvices)
                 << " \nspeed=" << myVehicle.getSpeed()
                 << " min=" << min
                 << " wanted=" << wanted << std::endl;
@@ -1290,16 +1291,16 @@ MSLCM_LC2013::_wantsChange(
 #endif
             }
         }
-        const double overtakeDist = (leader.first == 0 ? -1 : 
-                leader.second + myVehicle.getVehicleType().getLength() + leader.first->getVehicleType().getLengthWithGap());
+        const double overtakeDist = (leader.first == 0 ? -1 :
+                                     leader.second + myVehicle.getVehicleType().getLength() + leader.first->getVehicleType().getLengthWithGap());
         if (leader.first != 0 && leader.first->isStopped() && leader.second < REACT_TO_STOPPED_DISTANCE
                 // current destination leaves enough space to overtake the leader
                 && MIN2(neighDist, currentDist) - posOnLane > overtakeDist
                 // maybe do not overtake on the right at high speed
                 && (!checkOverTakeRight || !right)
                 && (neighLead.first == 0 || !neighLead.first->isStopped()
-                 // neighboring stopped vehicle leaves enough space to overtake leader
-                 || neighLead.second > overtakeDist)) {
+                    // neighboring stopped vehicle leaves enough space to overtake leader
+                    || neighLead.second > overtakeDist)) {
             // avoid becoming stuck behind a stopped leader
             currentDist = myVehicle.getPositionOnLane() + leader.second;
             ret = ret | lca | LCA_STRATEGIC | LCA_URGENT;
@@ -1723,6 +1724,7 @@ MSLCM_LC2013::_wantsChange(
     }
     // --------
     if (changeToBest && bestLaneOffset == curr.bestLaneOffset
+            && relativeGain >= 0
             && (right ? mySpeedGainProbability < 0 : mySpeedGainProbability > 0)) {
         // change towards the correct lane, speedwise it does not hurt
         req = ret | lca | LCA_STRATEGIC;
@@ -2070,8 +2072,8 @@ MSLCM_LC2013::computeSpeedLat(double latDist, double& maneuverDist) {
         // Don't stay caught in the middle of a lane change while vehicle is standing, workaround for #3771
         speedBound = MAX2(LC_RESOLUTION_SPEED_LAT, speedBound);
     }
-    return MAX2(-speedBound, MIN2(speedBound, 
-                MSAbstractLaneChangeModel::computeSpeedLat(latDist, maneuverDist)));
+    return MAX2(-speedBound, MIN2(speedBound,
+                                  MSAbstractLaneChangeModel::computeSpeedLat(latDist, maneuverDist)));
 }
 
 double

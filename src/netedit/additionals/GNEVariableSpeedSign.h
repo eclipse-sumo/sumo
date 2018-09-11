@@ -50,7 +50,7 @@ public:
      * @param[in] name VSS name
      * @param[in] block movement enable or disable additional movement
      */
-    GNEVariableSpeedSign(const std::string& id, GNEViewNet* viewNet, const Position &pos, const std::vector<GNELane*> &lanes, const std::string& name, bool blockMovement);
+    GNEVariableSpeedSign(const std::string& id, GNEViewNet* viewNet, const Position& pos, const std::vector<GNELane*>& lanes, const std::string& name, bool blockMovement);
 
     /// @brief Destructor
     ~GNEVariableSpeedSign();

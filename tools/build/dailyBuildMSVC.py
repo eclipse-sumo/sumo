@@ -95,7 +95,7 @@ def runTests(options, env, gitrev, debugSuffix=""):
             # Check if sikulixServer is already opened
             # if runSikulixServer.checkStatus() == False:
             #    runSikulixServer.startSikulixServer()
-            subprocess.call([ttBin, "-a", "netedit.gui"] + fullOpt, env=env,
+            subprocess.call([ttBin, "-a", "netedit.daily"] + fullOpt, env=env,
                             stdout=log, stderr=subprocess.STDOUT, shell=True)
     subprocess.call([ttBin, "-b", env["FILEPREFIX"], "-coll"], env=env,
                     stdout=log, stderr=subprocess.STDOUT, shell=True)
@@ -197,15 +197,15 @@ for platform, dllDir in platformDlls:
             write = False
             for f in srcZip.namelist():
                 if f.count('/') == 1:
-                    write = False
+                    write = f.endswith(".md") or os.path.basename(f) in ["AUTHORS", "ChangeLog", "LICENSE"]
                 if f.endswith('/') and f.count('/') == 2:
-                    write = (f.endswith('/bin/') or f.endswith('/examples/') or
+                    write = (f.endswith('/bin/') or
                              f.endswith('/tools/') or f.endswith('/data/') or f.endswith('/docs/'))
                     if f.endswith('/bin/'):
                         binDir = f
                 elif f.endswith('/') and '/docs/' in f and f.count('/') == 3:
                     write = not f.endswith('/doxygen/')
-                elif write or os.path.basename(f) in ["AUTHORS", "COPYING", "README.md"]:
+                elif write:
                     zipf.writestr(f, srcZip.read(f))
             srcZip.close()
             dllPath = os.path.join(options.rootDir, dllDir)

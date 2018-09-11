@@ -77,7 +77,7 @@ static void setActionStepLength(const std::string& typeID, double actionStepLeng
 // ===========================================================================
 class MSVehicleType;
 namespace libsumo {
-    class VariableWrapper;
+class VariableWrapper;
 }
 
 

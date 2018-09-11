@@ -152,10 +152,16 @@ NBFrame::fillOptions(bool forNetgen) {
         oc.doRegister("geometry.max-grade", new Option_Float(10));
         oc.addDescription("geometry.max-grade", "Processing", "Warn about edge geometries with a grade in % above FLOAT. The threshold applies to roads with a speed limit of 50km/h and is scaled according to road speed.");
 
+        oc.doRegister("geometry.avoid-overlap", new Option_Bool(true));
+        oc.addDescription("geometry.avoid-overlap", "Processing", "Modify edge geometries to avoid overlap at junctions");
+
         // railway processing options
 
         oc.doRegister("railway.topology.repair", new Option_Bool(false));
         oc.addDescription("railway.topology.repair", "Railway", "Repair topology of the railway network");
+
+        oc.doRegister("railway.topology.repair.connect-straight", new Option_Bool(false));
+        oc.addDescription("railway.topology.repair.connect-straight", "Railway", "Allow bidiretional rail use wherever rails with opposite directions meet at a straight angle");
 
         oc.doRegister("railway.topology.all-bidi", new Option_Bool(false));
         oc.addDescription("railway.topology.all-bidi", "Railway", "Make all rails usable in both direction");
@@ -257,7 +263,7 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.addDescription("junctions.limit-turn-speed.warn.straight", "Junctions",
                       "Warn about turn speed limits that reduce the speed of straight connections by more than FLOAT");
 
-    oc.doRegister("junctions.limit-turn-speed.warn.turn", new Option_Float(15));
+    oc.doRegister("junctions.limit-turn-speed.warn.turn", new Option_Float(22));
     oc.addDescription("junctions.limit-turn-speed.warn.turn", "Junctions",
                       "Warn about turn speed limits that reduce the speed of turning connections (no u-turns) by more than FLOAT");
 

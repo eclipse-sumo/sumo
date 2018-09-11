@@ -299,7 +299,7 @@ public:
      * This is mainly used by the taz (district) parsing
      * @param[in] edge The edge to add
      */
-    void addSuccessor(MSEdge* edge, const MSEdge* via=nullptr);
+    void addSuccessor(MSEdge* edge, const MSEdge* via = nullptr);
 
     /** @brief Returns the number of edges that may be reached from this edge
      * @return The number of following edges
@@ -313,13 +313,13 @@ public:
      * @param[in] vClass The vClass for which to restrict the successors
      * @return The eligible following edges
      */
-    const MSEdgeVector& getSuccessors(SUMOVehicleClass vClass=SVC_IGNORING) const;
+    const MSEdgeVector& getSuccessors(SUMOVehicleClass vClass = SVC_IGNORING) const;
 
     /** @brief Returns the following edges with internal vias, restricted by vClass
      * @param[in] vClass The vClass for which to restrict the successors
      * @return The eligible following edges
      */
-    const MSConstEdgePairVector& getViaSuccessors(SUMOVehicleClass vClass=SVC_IGNORING) const;
+    const MSConstEdgePairVector& getViaSuccessors(SUMOVehicleClass vClass = SVC_IGNORING) const;
 
 
     /** @brief Returns the number of edges this edge is connected to

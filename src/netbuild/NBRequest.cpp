@@ -597,21 +597,21 @@ NBRequest::getResponseString(const NBEdge* const from, const NBEdge::Connection&
                     // check whether the connection is prohibited by another one
 #ifdef DEBUG_RESPONSE
                     if (DEBUGCOND) {
-                        std::cout << " c=" << queryCon.getDescription(from) << " prohibitC=" << connected[k].getDescription(*i) 
-                            << " f=" << myForbids[idx2][idx]
-                            << " clf=" << checkLaneFoes
-                            << " clfbc=" << checkLaneFoesByClass(queryCon, *i, connected[k])
-                            << " lc=" << laneConflict(from, to, toLane, *i, connected[k].toEdge, connected[k].toLane)
-                            << " rtc=" << NBNode::rightTurnConflict(from, to, fromLane, *i, connected[k].toEdge, connected[k].fromLane, lefthand)
-                            << " mc=" << mergeConflict(from, queryCon, *i, connected[k], false)
-                            << " oltc=" << oppositeLeftTurnConflict(from, queryCon, *i, connected[k], false)
-                            << " rorc=" << myJunction->rightOnRedConflict(c.tlLinkIndex, connected[k].tlLinkIndex)
-                            << " tlscc=" << myJunction->tlsContConflict(from, c, *i, connected[k])
-                            << "\n";
+                        std::cout << " c=" << queryCon.getDescription(from) << " prohibitC=" << connected[k].getDescription(*i)
+                                  << " f=" << myForbids[idx2][idx]
+                                  << " clf=" << checkLaneFoes
+                                  << " clfbc=" << checkLaneFoesByClass(queryCon, *i, connected[k])
+                                  << " lc=" << laneConflict(from, to, toLane, *i, connected[k].toEdge, connected[k].toLane)
+                                  << " rtc=" << NBNode::rightTurnConflict(from, to, fromLane, *i, connected[k].toEdge, connected[k].fromLane, lefthand)
+                                  << " mc=" << mergeConflict(from, queryCon, *i, connected[k], false)
+                                  << " oltc=" << oppositeLeftTurnConflict(from, queryCon, *i, connected[k], false)
+                                  << " rorc=" << myJunction->rightOnRedConflict(c.tlLinkIndex, connected[k].tlLinkIndex)
+                                  << " tlscc=" << myJunction->tlsContConflict(from, c, *i, connected[k])
+                                  << "\n";
                     }
 #endif
-                    const bool hasLaneConflict = (!(checkLaneFoes || checkLaneFoesByClass(queryCon, *i, connected[k])) 
-                                 || laneConflict(from, to, toLane, *i, connected[k].toEdge, connected[k].toLane));
+                    const bool hasLaneConflict = (!(checkLaneFoes || checkLaneFoesByClass(queryCon, *i, connected[k]))
+                                                  || laneConflict(from, to, toLane, *i, connected[k].toEdge, connected[k].toLane));
                     if ((myForbids[idx2][idx] && hasLaneConflict)
                             || NBNode::rightTurnConflict(from, to, fromLane, *i, connected[k].toEdge, connected[k].fromLane, lefthand)
                             || mergeConflict(from, queryCon, *i, connected[k], false)
@@ -660,14 +660,14 @@ NBRequest::getFoesString(NBEdge* from, NBEdge* to, int fromLane, int toLane, con
             std::vector<NBEdge::Connection> connected = (*i)->getConnectionsFromLane(j);
             int size = (int) connected.size();
             for (int k = size; k-- > 0;) {
-                const bool hasLaneConflict = (!(checkLaneFoes || checkLaneFoesByClass(queryCon, *i, connected[k])) 
-                        || laneConflict(from, to, toLane, *i, connected[k].toEdge, connected[k].toLane));
+                const bool hasLaneConflict = (!(checkLaneFoes || checkLaneFoesByClass(queryCon, *i, connected[k]))
+                                              || laneConflict(from, to, toLane, *i, connected[k].toEdge, connected[k].toLane));
                 if ((foes(from, to, (*i), connected[k].toEdge) && hasLaneConflict)
                         || NBNode::rightTurnConflict(from, to, fromLane, *i, connected[k].toEdge, connected[k].fromLane, lefthand)
                         || myJunction->turnFoes(from, to, fromLane, *i, connected[k].toEdge, connected[k].fromLane, lefthand)
                         || mergeConflict(from, queryCon, *i, connected[k], true)
                         || oppositeLeftTurnConflict(from, queryCon, *i, connected[k], true)
-                        ) {
+                   ) {
                     result += '1';
                 } else {
                     result += '0';
@@ -724,7 +724,7 @@ NBRequest::mergeConflict(const NBEdge* from, const NBEdge::Connection& con,
 
 bool
 NBRequest::oppositeLeftTurnConflict(const NBEdge* from, const NBEdge::Connection& con,
-                         const NBEdge* prohibitorFrom,  const NBEdge::Connection& prohibitorCon, bool foes) const {
+                                    const NBEdge* prohibitorFrom,  const NBEdge::Connection& prohibitorCon, bool foes) const {
     LinkDirection dir = myJunction->getDirection(from, con.toEdge);
     // XXX lefthand issue (solve via #4256)
     if (dir != LINKDIR_LEFT && dir != LINKDIR_PARTLEFT) {
@@ -757,9 +757,9 @@ NBRequest::oppositeLeftTurnConflict(const NBEdge* from, const NBEdge::Connection
     }
 }
 
-bool 
+bool
 NBRequest::checkLaneFoesByClass(const NBEdge::Connection& con,
-        const NBEdge* prohibitorFrom,  const NBEdge::Connection& prohibitorCon) const {
+                                const NBEdge* prohibitorFrom,  const NBEdge::Connection& prohibitorCon) const {
     if (con.toEdge != prohibitorCon.toEdge) {
         return false;
     }

@@ -279,7 +279,7 @@ MSVehicleType*
 MSVehicleType::build(SUMOVTypeParameter& from) {
     MSVehicleType* vtype = new MSVehicleType(from);
     const double decel = from.getCFParam(SUMO_ATTR_DECEL, SUMOVTypeParameter::getDefaultDecel(from.vehicleClass));
-    const double emergencyDecel = from.getCFParam(SUMO_ATTR_EMERGENCYDECEL, SUMOVTypeParameter::getDefaultEmergencyDecel(from.vehicleClass, decel));
+    const double emergencyDecel = from.getCFParam(SUMO_ATTR_EMERGENCYDECEL, SUMOVTypeParameter::getDefaultEmergencyDecel(from.vehicleClass, decel, MSGlobals::gDefaultEmergencyDecel));
     // by default decel and apparentDecel are identical
     const double apparentDecel = from.getCFParam(SUMO_ATTR_APPARENTDECEL, decel);
 
@@ -372,7 +372,7 @@ MSVehicleType::check() {
     }
 }
 
-void 
+void
 MSVehicleType::setAccel(double accel) {
     if (myOriginalType != 0 && accel < 0) {
         accel = myOriginalType->getCarFollowModel().getMaxAccel();
@@ -381,7 +381,7 @@ MSVehicleType::setAccel(double accel) {
     myParameter.cfParameter[SUMO_ATTR_ACCEL] = toString(accel);
 }
 
-void 
+void
 MSVehicleType::setDecel(double decel) {
     if (myOriginalType != 0 && decel < 0) {
         decel = myOriginalType->getCarFollowModel().getMaxDecel();
@@ -390,7 +390,7 @@ MSVehicleType::setDecel(double decel) {
     myParameter.cfParameter[SUMO_ATTR_DECEL] = toString(decel);
 }
 
-void 
+void
 MSVehicleType::setEmergencyDecel(double emergencyDecel) {
     if (myOriginalType != 0 && emergencyDecel < 0) {
         emergencyDecel = myOriginalType->getCarFollowModel().getEmergencyDecel();
@@ -399,7 +399,7 @@ MSVehicleType::setEmergencyDecel(double emergencyDecel) {
     myParameter.cfParameter[SUMO_ATTR_EMERGENCYDECEL] = toString(emergencyDecel);
 }
 
-void 
+void
 MSVehicleType::setApparentDecel(double apparentDecel) {
     if (myOriginalType != 0 && apparentDecel < 0) {
         apparentDecel = myOriginalType->getCarFollowModel().getApparentDecel();
@@ -408,7 +408,7 @@ MSVehicleType::setApparentDecel(double apparentDecel) {
     myParameter.cfParameter[SUMO_ATTR_APPARENTDECEL] = toString(apparentDecel);
 }
 
-void 
+void
 MSVehicleType::setImperfection(double imperfection) {
     if (myOriginalType != 0 && imperfection < 0) {
         imperfection = myOriginalType->getCarFollowModel().getImperfection();
@@ -417,7 +417,7 @@ MSVehicleType::setImperfection(double imperfection) {
     myParameter.cfParameter[SUMO_ATTR_SIGMA] = toString(imperfection);
 }
 
-void 
+void
 MSVehicleType::setTau(double tau) {
     if (myOriginalType != 0 && tau < 0) {
         tau = myOriginalType->getCarFollowModel().getHeadwayTime();

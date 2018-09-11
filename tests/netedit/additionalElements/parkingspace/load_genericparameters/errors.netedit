@@ -24,11 +24,9 @@ GLDebug: Inserted parkingSpace:parkingArea_gneE1_0_0space0 into SUMORTree with b
 GLDebug: Removed object parkingArea:parkingArea_gneE1_0_0 from SUMORTree with boundary 0.00,-13.60,50.00,26.40
 GLDebug: Inserted parkingArea:parkingArea_gneE1_0_0 into SUMORTree with boundary 0.00,-13.60,50.00,26.40
 Debug: Inserting generic parameter 'key1|value1' into additional space.
-Error: '<' character cannot be used in attribute value 'key'; use &lt; instead
- In file 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.22Aug100027.3720/netedit.gui/additionalElements/parkingspace/load_genericparameters\input_additionals.add.xml'
- At line/column 13/19.
-
-Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.22Aug100027.3720/netedit.gui/additionalElements/parkingspace/load_genericparameters\input_additionals.add.xml failed.
+Debug: Inserting generic parameter 'key1|value4' into additional space.
+Debug: Inserting generic parameter 'key2|' into additional space.
+Debug: Inserting generic parameter 'key4|value5' into additional space.
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Debug: Additionals saved

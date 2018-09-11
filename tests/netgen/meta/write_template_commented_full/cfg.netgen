@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Aug 16 16:22:18 2018 by Eclipse SUMO netgenerate Version d8ad5b8
+<!-- generated on Wed Aug 29 12:56:10 2018 by Eclipse SUMO netgenerate Version e9fcc9a
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -415,7 +415,7 @@
         <junctions.limit-turn-speed.warn.straight value="5" type="FLOAT"/>
 
         <!-- Warn about turn speed limits that reduce the speed of turning connections (no u-turns) by more than FLOAT -->
-        <junctions.limit-turn-speed.warn.turn value="15" type="FLOAT"/>
+        <junctions.limit-turn-speed.warn.turn value="22" type="FLOAT"/>
 
         <!-- Default radius for junctions that do not require wide vehicle turns -->
         <junctions.small-radius value="1.5" type="FLOAT"/>

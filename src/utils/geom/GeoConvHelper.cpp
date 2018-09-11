@@ -104,15 +104,15 @@ GeoConvHelper::~GeoConvHelper() {
 bool
 GeoConvHelper::operator==(const GeoConvHelper& o) const {
     return (
-            myProjString == o.myProjString &&
-            myOffset == o.myOffset &&
-            myProjectionMethod == o.myProjectionMethod &&
-            myOrigBoundary == o.myOrigBoundary &&
-            myConvBoundary == o.myConvBoundary &&
-            myGeoScale == o.myGeoScale &&
-            myCos == o.myCos &&
-            mySin == o.mySin &&
-            myUseInverseProjection == o.myUseInverseProjection 
+               myProjString == o.myProjString &&
+               myOffset == o.myOffset &&
+               myProjectionMethod == o.myProjectionMethod &&
+               myOrigBoundary == o.myOrigBoundary &&
+               myConvBoundary == o.myConvBoundary &&
+               myGeoScale == o.myGeoScale &&
+               myCos == o.myCos &&
+               mySin == o.mySin &&
+               myUseInverseProjection == o.myUseInverseProjection
            );
 }
 
@@ -295,6 +295,7 @@ GeoConvHelper::x2cartesian(Position& from, bool includeInBoundary) {
                 //!!! check pj_errno
                 x = ((x - 500000.) / 1000000.) * 3; // continues with UTM
             }
+            FALLTHROUGH;
             case UTM: {
                 int zone = (int)(x + 180) / 6 + 1;
                 myProjString = "+proj=utm +zone=" + toString(zone) +
@@ -422,7 +423,7 @@ GeoConvHelper::getProjString() const {
     return myProjString;
 }
 
-const std::string 
+const std::string
 GeoConvHelper::getProjStringExpaneded() const {
     if (myProjection == 0) {
         return "";

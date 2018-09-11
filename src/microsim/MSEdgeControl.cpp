@@ -138,6 +138,7 @@ MSEdgeControl::executeMovements(SUMOTime t) {
 void
 MSEdgeControl::changeLanes(SUMOTime t) {
     std::vector<MSLane*> toAdd;
+    MSGlobals::gComputeLC = true;
     for (std::list<MSLane*>::iterator i = myActiveLanes.begin(); i != myActiveLanes.end();) {
         LaneUsage& lu = myLanes[(*i)->getNumericalID()];
         if (lu.haveNeighbors) {
@@ -163,6 +164,7 @@ MSEdgeControl::changeLanes(SUMOTime t) {
             i = myActiveLanes.end();
         }
     }
+    MSGlobals::gComputeLC = false;
     for (std::vector<MSLane*>::iterator i = toAdd.begin(); i != toAdd.end(); ++i) {
         myActiveLanes.push_front(*i);
     }

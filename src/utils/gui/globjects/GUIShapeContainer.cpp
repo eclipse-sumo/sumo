@@ -33,10 +33,10 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIShapeContainer::GUIShapeContainer(SUMORTree& vis) : 
+GUIShapeContainer::GUIShapeContainer(SUMORTree& vis) :
     myVis(vis),
-    myAllowReplacement(false)
-{}
+    myAllowReplacement(false) {
+}
 
 
 GUIShapeContainer::~GUIShapeContainer() {}
@@ -59,7 +59,7 @@ GUIShapeContainer::addPOI(const std::string& id, const std::string& type, const 
             delete p;
             return false;
         }
-    } 
+    }
     myVis.addAdditionalGLObject(p);
     return true;
 }

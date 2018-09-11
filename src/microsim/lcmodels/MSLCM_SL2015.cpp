@@ -143,8 +143,7 @@ MSLCM_SL2015::MSLCM_SL2015(MSVehicle& v) :
     myAccelLat(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_ACCEL_LAT, 1.0)),
     myTurnAlignmentDist(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_TURN_ALIGNMENT_DISTANCE, 0.0)),
     myLookaheadLeft(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_LOOKAHEADLEFT, 2.0)),
-    mySpeedGainRight(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_SPEEDGAINRIGHT, 0.1))
-{
+    mySpeedGainRight(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_SPEEDGAINRIGHT, 0.1)) {
     initDerivedParameters();
 }
 
@@ -355,7 +354,7 @@ MSLCM_SL2015::_patchSpeed(const double min, const double wanted, const double ma
             gotOne = true;
 #ifdef DEBUG_PATCHSPEED
             if (gDebugFlag2) {
-                std::cout << SIMTIME << " veh=" << myVehicle.getID() << " got nVSafe=" << nVSafe << "\n";
+                std::cout << SIMTIME << " veh=" << myVehicle.getID() << " got accel=" << (*i) << " nVSafe=" << nVSafe << "\n";
             }
 #endif
         } else {
@@ -1662,20 +1661,20 @@ MSLCM_SL2015::_wantsChangeSublane(
                 if (turnInfo.first < myTurnAlignmentDist) {
                     // Vehicle is close enough to the link to change its default alignment
                     switch (turnInfo.second) {
-                    case LINKDIR_TURN:
-                    case LINKDIR_LEFT:
-                    case LINKDIR_PARTLEFT:
-                        align = LATALIGN_LEFT;
-                        break;
-                    case LINKDIR_TURN_LEFTHAND:
-                    case LINKDIR_RIGHT:
-                    case LINKDIR_PARTRIGHT:
-                        align = LATALIGN_RIGHT;
-                        break;
-                    case LINKDIR_STRAIGHT:
-                    case LINKDIR_NODIR:
-                    default:
-                        break;
+                        case LINKDIR_TURN:
+                        case LINKDIR_LEFT:
+                        case LINKDIR_PARTLEFT:
+                            align = LATALIGN_LEFT;
+                            break;
+                        case LINKDIR_TURN_LEFTHAND:
+                        case LINKDIR_RIGHT:
+                        case LINKDIR_PARTRIGHT:
+                            align = LATALIGN_RIGHT;
+                            break;
+                        case LINKDIR_STRAIGHT:
+                        case LINKDIR_NODIR:
+                        default:
+                            break;
                     }
                 }
             }
@@ -1886,10 +1885,13 @@ MSLCM_SL2015::updateExpectedSublaneSpeeds(const MSLeaderDistanceInfo& ahead, int
     const MSLane* lane = lanes[laneIndex];
     const double vMax = lane->getVehicleMaxSpeed(&myVehicle);
     assert(preb.size() == lanes.size());
-    assert(sublaneOffset + ahead.numSublanes() <= (int)myExpectedSublaneSpeeds.size());
 
     for (int sublane = 0; sublane < (int)ahead.numSublanes(); ++sublane) {
         const int edgeSublane = sublane + sublaneOffset;
+        if (edgeSublane >= (int)myExpectedSublaneSpeeds.size()) {
+            // this may happen if a sibling lane is wider than the changer lane
+            continue;
+        }
         if (lane->allowsVehicleClass(myVehicle.getVehicleType().getVehicleClass())) {
             // lane allowed, find potential leaders and compute safe speeds
             // XXX anticipate future braking if leader has a lower speed than myVehicle
@@ -2256,7 +2258,7 @@ MSLCM_SL2015::checkBlockingVehicles(
 #ifdef DEBUG_BLOCKING
                         if (gDebugFlag2) {
                             std::cout << "    blocked by " << vehDist.first->getID() << " gap=" << vehDist.second << " expectedGap=" << expectedGap
-                                      << " expectedSecureGap=" << expectedSecureGap << " secGap2=" << secureGap2 << " safetyFactor=" << safetyFactor
+                                      << " expectedSecureGap=" << expectedSecureGap << " secGap2=" << secureGap2 << " safetyFactor=" << getSafetyFactor()
                                       << " safeLatGapLeft=" << safeLatGapLeft << " safeLatGapRight=" << safeLatGapRight
                                       << "\n";
                         }
@@ -2270,7 +2272,7 @@ MSLCM_SL2015::checkBlockingVehicles(
 #ifdef DEBUG_BLOCKING
                     } else if (gDebugFlag2 && expectedGap < expectedSecureGap) {
                         std::cout << "    ignore blocker " << vehDist.first->getID() << " gap=" << vehDist.second << " expectedGap=" << expectedGap
-                                  << " expectedSecureGap=" << expectedSecureGap << " secGap2=" << secureGap2 << " safetyFactor=" << safetyFactor << "\n";
+                                  << " expectedSecureGap=" << expectedSecureGap << " secGap2=" << secureGap2 << " safetyFactor=" << getSafetyFactor() << "\n";
 #endif
                     }
                 }
@@ -2300,14 +2302,14 @@ MSLCM_SL2015::updateCFRelated(const MSLeaderDistanceInfo& vehicles, double foeOf
             double foeRight, foeLeft;
             vehicles.getSublaneBorders(i, foeOffset, foeRight, foeLeft);
             if (overlap(rightVehSide, leftVehSide, foeRight, foeLeft) && (vehDist.second >= 0
-                        // avoid deadlock due to #3729
-                        || (!leaders
-                            && myVehicle.getPositionOnLane() >= myVehicle.getVehicleType().getLength()
-                            && myVehicle.getSpeed() < SUMO_const_haltingSpeed
-                            && vehDist.first->getSpeed() < SUMO_const_haltingSpeed
-                            && -vehDist.second < vehDist.first->getVehicleType().getMinGap()
-                            && &(myVehicle.getLane()->getEdge()) != &(vehDist.first->getLane()->getEdge()))
-                        )) {
+                    // avoid deadlock due to #3729
+                    || (!leaders
+                        && myVehicle.getPositionOnLane() >= myVehicle.getVehicleType().getLength()
+                        && myVehicle.getSpeed() < SUMO_const_haltingSpeed
+                        && vehDist.first->getSpeed() < SUMO_const_haltingSpeed
+                        && -vehDist.second < vehDist.first->getVehicleType().getMinGap()
+                        && &(myVehicle.getLane()->getEdge()) != &(vehDist.first->getLane()->getEdge()))
+                                                                         )) {
 #ifdef DEBUG_BLOCKING
                 if (gDebugFlag2) {
                     std::cout << " ignoring cfrelated foe=" << vehDist.first->getID() << " gap=" << vehDist.second
@@ -2931,7 +2933,7 @@ MSLCM_SL2015::computeSpeedLat(double latDist, double& maneuverDist) {
     int currentDirection = mySpeedLat >= 0 ? 1 : -1;
     int directionWish = latDist >= 0 ? 1 : -1;
     const double maxSpeedLat = MIN2(myVehicle.getVehicleType().getMaxSpeedLat(),
-            myMaxSpeedLatStanding + myMaxSpeedLatFactor * myVehicle.getSpeed());
+                                    myMaxSpeedLatStanding + myMaxSpeedLatFactor * myVehicle.getSpeed());
 
 #ifdef DEBUG_MANEUVER
     if (debugVehicle()) {

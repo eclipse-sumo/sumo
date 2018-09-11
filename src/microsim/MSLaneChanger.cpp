@@ -54,6 +54,7 @@
 //#define DEBUG_CHECK_CHANGE
 //#define DEBUG_SURROUNDING_VEHICLES // debug getRealFollower() and getRealLeader()
 //#define DEBUG_CHANGE_OPPOSITE
+//#define DEBUG_CHANGE_OPPOSITE_OVERTAKINGTIME
 //#define DEBUG_ACTIONSTEPS
 //#define DEBUG_STATE
 //#define DEBUG_CANDIDATE
@@ -298,7 +299,7 @@ MSLaneChanger::change() {
 
     // Check for changes to the opposite lane if vehicle is active
     std::pair<MSVehicle* const, double> leader = getRealLeader(myCandi);
-    if (myChanger.size() == 1 || vehicle->getLaneChangeModel().isOpposite()) {
+    if (myChanger.size() == 1 || vehicle->getLaneChangeModel().isOpposite() || (!mayChange(-1) && !mayChange(1))) {
         if (changeOpposite(leader)) {
             return true;
         }
@@ -548,7 +549,8 @@ MSLaneChanger::getRealLeader(const ChangerIt& target) const {
         double seen = myCandi->lane->getLength() - veh(myCandi)->getPositionOnLane();
         double speed = veh(myCandi)->getSpeed();
         double dist = veh(myCandi)->getCarFollowModel().brakeGap(speed) + veh(myCandi)->getVehicleType().getMinGap();
-        if (seen > dist) {
+        // always check for link leaders while on an internal lane
+        if (seen > dist && !myCandi->lane->isInternal()) {
 #ifdef DEBUG_SURROUNDING_VEHICLES
             if (DEBUG_COND) {
                 std::cout << "  found no leader within dist=" << dist << "\n";
@@ -809,7 +811,14 @@ MSLaneChanger::checkChange(
                             ceil(vehicle->getSpeed() / vehicle->getCarFollowModel().getMaxDecel()));
         if (leader.first != 0) {
             const double brakeGap = vehicle->getCarFollowModel().brakeGap(vehicle->getSpeed());
-            if (brakeGap > leader.second) {
+            // returned gap value is relative to backPosition
+            const double gap = leader.second - vehicle->getVehicleType().getLengthWithGap();
+#ifdef DEBUG_CHECK_CHANGE
+            if (DEBUG_COND) {
+                std::cout << SIMTIME << "  pedestrian on road " + leader.first->getID() << " gap=" << gap << " brakeGap=" << brakeGap << "\n";
+            }
+#endif
+            if (brakeGap > gap) {
                 blocked |= blockedByLeader;
 #ifdef DEBUG_CHECK_CHANGE
                 if (DEBUG_COND) {
@@ -831,15 +840,27 @@ MSLaneChanger::checkChange(
     if (blocked == 0 && (state & LCA_WANTS_LANECHANGE) != 0 && neighLead.first != 0) {
         // do a more careful (but expensive) check to ensure that a
         // safety-critical leader is not being overlooked
+        // while changing on an intersection, it is not sufficient to abort the
+        // search with a leader on the current lane because all linkLeaders must
+        // be considered as well
         const double seen = myCandi->lane->getLength() - vehicle->getPositionOnLane();
         const double speed = vehicle->getSpeed();
         const double dist = vehicle->getCarFollowModel().brakeGap(speed) + vehicle->getVehicleType().getMinGap();
-        if (seen < dist) {
+        if (seen < dist || myCandi->lane->isInternal()) {
             std::pair<MSVehicle* const, double> neighLead2 = targetLane->getCriticalLeader(dist, seen, speed, *vehicle);
-            if (neighLead2.first != 0 && neighLead2.first != neighLead.first
-                    && (neighLead2.second < vehicle->getCarFollowModel().getSecureGap(
-                            vehicle->getSpeed(), neighLead2.first->getSpeed(), neighLead2.first->getCarFollowModel().getMaxDecel()))) {
-                state |= blockedByLeader;
+            if (neighLead2.first != 0 && neighLead2.first != neighLead.first) {
+                const double secureGap = vehicle->getCarFollowModel().getSecureGap(vehicle->getSpeed(),
+                                         neighLead2.first->getSpeed(), neighLead2.first->getCarFollowModel().getMaxDecel());
+                const double secureGap2 = secureGap * vehicle->getLaneChangeModel().getSafetyFactor();
+#ifdef DEBUG_SURROUNDING_VEHICLES
+                if (DEBUG_COND) {
+                    std::cout << SIMTIME << "   found critical leader=" << neighLead2.first->getID()
+                              << " gap=" << neighLead2.second << " secGap=" << secureGap << " secGap2=" << secureGap2 << "\n";
+                }
+#endif
+                if (neighLead2.second < secureGap2) {
+                    state |= blockedByLeader;
+                }
             }
         }
     }
@@ -853,45 +874,45 @@ MSLaneChanger::checkChange(
     if ((state & LCA_BLOCKED) == 0 && (state & LCA_WANTS_LANECHANGE) != 0 && MSGlobals::gLaneChangeDuration > DELTA_T) {
         // Ensure that a continuous lane change manoeuvre can be completed before the next turning movement.
         // Assume lateral position == 0. (If this should change in the future add + laneOffset*vehicle->getLateralPositionOnLane() to distToNeighLane)
-        const double distToNeighLane = 0.5*(vehicle->getLane()->getWidth() + targetLane->getWidth());
+        const double distToNeighLane = 0.5 * (vehicle->getLane()->getWidth() + targetLane->getWidth());
         // Extrapolate the LC duration if operating with speed dependent lateral speed.
         const MSAbstractLaneChangeModel& lcm = vehicle->getLaneChangeModel();
         const double assumedDecel = lcm.getAssumedDecelForLaneChangeDuration();
         const double estimatedLCDuration = lcm.estimateLCDuration(vehicle->getSpeed(), distToNeighLane, assumedDecel);
-        if (estimatedLCDuration==-1) {
+        if (estimatedLCDuration == -1) {
             // Can't guarantee that LC will succeed if vehicle is braking -> assert(lcm.myMaxSpeedLatStanding==0)
 #ifdef DEBUG_CHECK_CHANGE
             if DEBUG_COND {
-                std::cout << SIMTIME << " checkChange() too slow to guarantee completion of continuous lane change."
-                        <<"\nestimatedLCDuration="<<estimatedLCDuration
-                        <<"\ndistToNeighLane="<<distToNeighLane
-                        << std::endl;
-            }
+            std::cout << SIMTIME << " checkChange() too slow to guarantee completion of continuous lane change."
+            << "\nestimatedLCDuration=" << estimatedLCDuration
+            << "\ndistToNeighLane=" << distToNeighLane
+            << std::endl;
+        }
 #endif
-            state |= LCA_INSUFFICIENT_SPEED;
-        } else {
-            // Compute covered distance, when braking for the whole lc duration
-            const double decel = vehicle->getCarFollowModel().getMaxDecel() * estimatedLCDuration;
+        state |= LCA_INSUFFICIENT_SPEED;
+    } else {
+        // Compute covered distance, when braking for the whole lc duration
+        const double decel = vehicle->getCarFollowModel().getMaxDecel() * estimatedLCDuration;
             const double avgSpeed = 0.5 * (
-                    MAX2(0., vehicle->getSpeed() - ACCEL2SPEED(vehicle->getCarFollowModel().getMaxDecel())) +
-                    MAX2(0., vehicle->getSpeed() - decel));
+                                        MAX2(0., vehicle->getSpeed() - ACCEL2SPEED(vehicle->getCarFollowModel().getMaxDecel())) +
+                                        MAX2(0., vehicle->getSpeed() - decel));
             // Distance required for lane change.
             const double space2change = avgSpeed * estimatedLCDuration;
             // Available distance for LC maneuver (distance till next turn)
             double seen = myCandi->lane->getLength() - vehicle->getPositionOnLane();
 #ifdef DEBUG_CHECK_CHANGE
             if DEBUG_COND {
-                std::cout << SIMTIME << " checkChange() checking continuous lane change..."
-                        << "\ndistToNeighLane=" << distToNeighLane
-                        << " estimatedLCDuration=" << estimatedLCDuration
-                        << " space2change=" << space2change
-                        << " avgSpeed=" << avgSpeed
-                        << std::endl;
-            }
+            std::cout << SIMTIME << " checkChange() checking continuous lane change..."
+            << "\ndistToNeighLane=" << distToNeighLane
+            << " estimatedLCDuration=" << estimatedLCDuration
+            << " space2change=" << space2change
+            << " avgSpeed=" << avgSpeed
+            << std::endl;
+        }
 #endif
 
-            // for finding turns it doesn't matter whether we look along the current lane or the target lane
-            const std::vector<MSLane*>& bestLaneConts = vehicle->getBestLanesContinuation();
+        // for finding turns it doesn't matter whether we look along the current lane or the target lane
+        const std::vector<MSLane*>& bestLaneConts = vehicle->getBestLanesContinuation();
             int view = 1;
             MSLane* nextLane = vehicle->getLane();
             MSLinkCont::const_iterator link = MSLane::succLinkSec(*vehicle, view, *nextLane, bestLaneConts);
@@ -900,7 +921,7 @@ MSLaneChanger::checkChange(
                         // the lanes after an internal junction are on different
                         // edges and do not allow lane-changing
                         || (nextLane->getEdge().isInternal() && (*link)->getViaLaneOrLane()->getEdge().isInternal())
-                ) {
+                   ) {
                     state |= LCA_INSUFFICIENT_SPACE;
                     break;
                 }
@@ -1002,9 +1023,9 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, double> leader) {
     ret = vehicle->influenceChangeDecision(ret);
     bool oppositeChangeByTraci = false;
     // Check whether a lane change to the opposite direction was requested via TraCI
-    if ((ret &(LCA_TRACI)) != 0) {
+    if ((ret & (LCA_TRACI)) != 0) {
         oppositeChangeByTraci = true;
-        }
+    }
     const bool isOpposite = vehicle->getLaneChangeModel().isOpposite();
     if (!isOpposite && leader.first == 0 && !oppositeChangeByTraci) {
         // no reason to change unless there is a leader
@@ -1089,7 +1110,7 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, double> leader) {
         }
 #ifdef DEBUG_CHANGE_OPPOSITE
         if (DEBUG_COND) {
-            std::cout << "   compute time/space to overtake for columnLeader=" << columnLeader.first->getID() << " gap=" << columnLeader.second << "\n";
+            std::cout << "   compute time/space to overtake for columnLeader=" << columnLeader.first->getID() << " gap=" << columnLeader.second << " egoGap=" << egoGap << "\n";
         }
 #endif
         computeOvertakingTime(vehicle, columnLeader.first, egoGap, timeToOvertake, spaceToOvertake);
@@ -1135,17 +1156,39 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, double> leader) {
                     std::cout << "   cannot changeOpposite due to dangerous oncoming\n";
                 }
 #endif
+
+#ifdef DEBUG_CHANGE_OPPOSITE
+                if (neighLead.first->getLaneChangeModel().isOpposite()) {
+                    std::cout << SIMTIME << " ego=" << vehicle->getID() << " does not changeOpposite due to dangerous oncoming " << neighLead.first->getID() << "  (but the leader is also opposite)\n";
+                }
+#endif
                 return false;
             }
         }
-    } else if (!oppositeChangeByTraci){
+    } else if (!oppositeChangeByTraci) {
         timeToOvertake = -1;
         // look forward as far as possible
         spaceToOvertake = std::numeric_limits<double>::max();
-        leader = source->getOppositeLeader(vehicle, OPPOSITE_OVERTAKING_ONCOMING_LOOKAHEAD, true);
+        double dist = OPPOSITE_OVERTAKING_ONCOMING_LOOKAHEAD;
+        leader = source->getOppositeLeader(vehicle, dist, true);
+        double gap = leader.second;
+        while (leader.first != nullptr && leader.first->getLaneChangeModel().isOpposite()) {
+            // look beyond leaders that are also driving in the opposite direction until finding an oncoming leader or exhausting the look-ahead distance
+#ifdef DEBUG_CHANGE_OPPOSITE
+            if (DEBUG_COND) {
+                std::cout << SIMTIME << " opposite leader=" << leader.first->getID() << " gap=" << gap << " is driving against the flow\n";
+            }
+#endif
+            dist -= leader.second;
+            leader = source->getOppositeLeader(leader.first, dist, true);
+            if (leader.first != 0) {
+                gap += leader.second;
+            }
+        }
+        leader.second = gap;
         // -1 will use getMaximumBrakeDist() as look-ahead distance
         neighLead = opposite->getOppositeLeader(vehicle, -1, false);
-    } else{
+    } else {
         timeToOvertake = STEPS2TIME(vehicle->getInfluencer().getLaneTimeLineDuration());//todo discuss concept
         spaceToOvertake =  timeToOvertake * vehicle->getLane()->getVehicleMaxSpeed(vehicle);
     }
@@ -1221,12 +1264,20 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, double> leader) {
         laneQ.length = MIN2(laneQ.length, vehicle->nextStopDist() + forwardPos);
         // consider oncoming leaders
         if (leader.first != 0) {
-            laneQ.length = MIN2(laneQ.length, leader.second / 2 + forwardPos);
+            if (!leader.first->getLaneChangeModel().isOpposite()) {
+                laneQ.length = MIN2(laneQ.length, leader.second / 2 + forwardPos);
 #ifdef DEBUG_CHANGE_OPPOSITE
-            if (DEBUG_COND) {
-                std::cout << SIMTIME << " found oncoming leader=" << leader.first->getID() << " gap=" << leader.second << "\n";
-            }
+                if (DEBUG_COND) {
+                    std::cout << SIMTIME << " found oncoming leader=" << leader.first->getID() << " gap=" << leader.second << "\n";
+                }
 #endif
+            } else {
+#ifdef DEBUG_CHANGE_OPPOSITE
+                if (DEBUG_COND) {
+                    std::cout << SIMTIME << " opposite leader=" << leader.first->getID() << " gap=" << leader.second << " is driving against the flow\n";
+                }
+#endif
+            }
             leader.first = 0; // ignore leader after this
         }
 #ifdef DEBUG_CHANGE_OPPOSITE
@@ -1305,10 +1356,19 @@ MSLaneChanger::computeOvertakingTime(const MSVehicle* vehicle, const MSVehicle* 
     /// XXX ignore speed limit when overtaking through the opposite lane?
     const double timeToMaxSpeed = (vMax - v) / a;
 
+#ifdef DEBUG_CHANGE_OPPOSITE_OVERTAKINGTIME
+    if (DEBUG_COND) {
+        std::cout << "    t=" << t << "  tvMax=" << timeToMaxSpeed << " vMax=" << vMax << "\n";
+    }
+#endif
     if (t <= timeToMaxSpeed) {
         timeToOvertake = t;
         spaceToOvertake = v * t + t * t * a * 0.5;
-        //if (gDebugFlag1) std::cout << "    t below " << timeToMaxSpeed << " vMax=" << vMax << "\n";
+#ifdef DEBUG_CHANGE_OPPOSITE_OVERTAKINGTIME
+        if (DEBUG_COND) {
+            std::cout << "    sto=" << spaceToOvertake << "\n";
+        }
+#endif
     } else {
         // space until max speed is reached
         const double s = v * timeToMaxSpeed + timeToMaxSpeed * timeToMaxSpeed * a * 0.5;
@@ -1316,15 +1376,29 @@ MSLaneChanger::computeOvertakingTime(const MSVehicle* vehicle, const MSVehicle* 
         // s + (t-m) * vMax = g + u*t
         // solve t
         t = (g - s + m * vMax) / (vMax - u);
+        if (t < 0) {
+            // cannot overtake in time
+#ifdef DEBUG_CHANGE_OPPOSITE_OVERTAKINGTIME
+            if (DEBUG_COND) {
+                std::cout << "     t2=" << t << "\n";
+            }
+#endif
+            timeToOvertake = std::numeric_limits<double>::max();
+            spaceToOvertake = std::numeric_limits<double>::max();
+        } else {
+            // allow for a safety time gap
+            t += OPPOSITE_OVERTAKING_SAFE_TIMEGAP;
+            // round to multiples of step length (TS)
+            t = ceil(t / TS) * TS;
 
-        // allow for a safety time gap
-        t += OPPOSITE_OVERTAKING_SAFE_TIMEGAP;
-        // round to multiples of step length (TS)
-        t = ceil(t / TS) * TS;
-
-        timeToOvertake = t;
-        spaceToOvertake = s + (t - m) * vMax;
-        //if (gDebugFlag1) std::cout << "     s=" << s << " m=" << m << " vMax=" << vMax << "\n";
+            timeToOvertake = t;
+            spaceToOvertake = s + (t - m) * vMax;
+#ifdef DEBUG_CHANGE_OPPOSITE_OVERTAKINGTIME
+            if (DEBUG_COND) {
+                std::cout << "     t2=" << t << " s=" << s << " sto=" << spaceToOvertake << " m=" << m << "\n";
+            }
+#endif
+        }
     }
 }
 

@@ -62,11 +62,11 @@ def simulationStep(step=0):
             pos.x = PyFloat_Check(item) ? PyFloat_AsDouble(item) : PyLong_AsDouble(item);
             item = PySequence_GetItem(posTuple, 1);
             pos.y = PyFloat_Check(item) ? PyFloat_AsDouble(item) : PyLong_AsDouble(item);
-			pos.z = 0.;
-			if (posSize == 3) {
+            pos.z = 0.;
+            if (posSize == 3) {
                 item = PySequence_GetItem(posTuple, 2);
                 pos.z = PyFloat_Check(item) ? PyFloat_AsDouble(item) : PyLong_AsDouble(item);
-			}
+            }
         } else {
         // TODO error handling
         }
@@ -190,11 +190,11 @@ def simulationStep(step=0):
     $result = PyTuple_New($1.size());
     int index = 0;
     for (auto iter = $1.begin(); iter != $1.end(); ++iter) {
-	    const int size = (int)iter->continuationLanes.size();
+        const int size = (int)iter->continuationLanes.size();
         auto nextLanes = PyTuple_New(size);
         for (int i = 0; i < size; i++) {
             PyTuple_SetItem(nextLanes, i, PyUnicode_FromString(iter->continuationLanes[i].c_str()));
-		}
+        }
         PyTuple_SetItem($result, index++, PyTuple_Pack(6, PyUnicode_FromString(iter->laneID.c_str()),
                                                           PyFloat_FromDouble(iter->length),
                                                           PyFloat_FromDouble(iter->occupation),
@@ -241,6 +241,7 @@ def simulationStep(step=0):
 %include "std_string.i"
 %include "std_vector.i"
 %template(StringVector) std::vector<std::string>;
+%template(TraCIConnectionVector) std::vector<libsumo::TraCIConnection>;
 %template(TraCIPhaseVector) std::vector<libsumo::TraCIPhase>;
 %template(TraCIStageVector) std::vector<libsumo::TraCIStage>;
 
@@ -248,7 +249,7 @@ def simulationStep(step=0):
 %include "exception.i"
 
 // taken from here https://stackoverflow.com/questions/1394484/how-do-i-propagate-c-exceptions-to-python-in-a-swig-wrapper-library
-%exception { 
+%exception {
     try {
         $action
     } catch (libsumo::TraCIException &e) {

@@ -48,7 +48,7 @@ class GUIVisualizationSettings;
 // cannot declare this as inner class because it needs to be used in forward
 // declaration (@todo fix inclusion order by removing references to guisim!)
 struct GUIVisualizationTextSettings {
-    GUIVisualizationTextSettings(bool _show, double _size, RGBColor _color, bool _constSize=true) :
+    GUIVisualizationTextSettings(bool _show, double _size, RGBColor _color, bool _constSize = true) :
         show(_show), size(_size), color(_color), constSize(_constSize) {}
 
     bool show;
@@ -73,7 +73,7 @@ struct GUIVisualizationTextSettings {
         dev.writeAttr(name + "_constantSize", constSize);
     }
 
-    double scaledSize(double scale, double constFactor=0.1) const {
+    double scaledSize(double scale, double constFactor = 0.1) const {
         return constSize ? size / scale : size * constFactor;
     }
 };

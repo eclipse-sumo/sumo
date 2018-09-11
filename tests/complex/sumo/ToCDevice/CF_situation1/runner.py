@@ -112,7 +112,7 @@ if __name__ == "__main__":
     traci.start([sumoBinary, "-n", "input_net.net.xml", "-r", "input_routes.rou.xml", "-a",
                  "input_additional.add.xml", "--fcd-output", "fcd.xml",
                  "--no-step-log", "true",
-                  "--default.speeddev", "0"])
+                 "--default.speeddev", "0"])
 
     # Wait until the vehicle enters
     while ToC_vehicle not in traci.vehicle.getIDList():

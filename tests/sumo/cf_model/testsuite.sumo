@@ -10,6 +10,9 @@ stop_at_position
 # show stopping at a position range
 stop_at_position_slack
 
+# 10 vehicles driving in a queue. The first one stops for a while and then all vehicles start up again
+queue_stop_start
+
 # test model behaviour in jam situations
 jam_resolution
 
@@ -30,4 +33,7 @@ collisions
 
 # tests for setting apparentDecel  and emergentDecel to be distinct from decel
 apparentDecel_emergencyDecel
+
+# tests for specific aspects of IDM and IDMM
+IDM
 bugs

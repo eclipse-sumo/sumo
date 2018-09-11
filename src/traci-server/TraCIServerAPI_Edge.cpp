@@ -57,7 +57,7 @@ TraCIServerAPI_Edge::processGet(TraCIServer& server, tcpip::Storage& inputStorag
                     double time = 0.;
                     if (!server.readTypeCheckingDouble(inputStorage, time)) {
                         return server.writeErrorStatusCmd(CMD_GET_EDGE_VARIABLE,
-                            "The message must contain the time definition.", outputStorage);
+                                                          "The message must contain the time definition.", outputStorage);
                     }
                     server.getWrapperStorage().writeUnsignedByte(TYPE_DOUBLE);
                     server.getWrapperStorage().writeDouble(libsumo::Edge::getAdaptedTraveltime(id, time));
@@ -67,7 +67,7 @@ TraCIServerAPI_Edge::processGet(TraCIServer& server, tcpip::Storage& inputStorag
                     double time = 0.;
                     if (!server.readTypeCheckingDouble(inputStorage, time)) {
                         return server.writeErrorStatusCmd(CMD_GET_EDGE_VARIABLE,
-                            "The message must contain the time definition.", outputStorage);
+                                                          "The message must contain the time definition.", outputStorage);
                     }
                     server.getWrapperStorage().writeUnsignedByte(TYPE_DOUBLE);
                     server.getWrapperStorage().writeDouble(libsumo::Edge::getEffort(id, time));
@@ -77,8 +77,8 @@ TraCIServerAPI_Edge::processGet(TraCIServer& server, tcpip::Storage& inputStorag
                     std::string paramName;
                     if (!server.readTypeCheckingString(inputStorage, paramName)) {
                         return server.writeErrorStatusCmd(CMD_GET_EDGE_VARIABLE,
-                            "Retrieval of a parameter requires its name.",
-                            outputStorage);
+                                                          "Retrieval of a parameter requires its name.",
+                                                          outputStorage);
                     }
                     server.getWrapperStorage().writeUnsignedByte(TYPE_STRING);
                     server.getWrapperStorage().writeString(libsumo::Edge::getParameter(id, paramName));
@@ -86,8 +86,8 @@ TraCIServerAPI_Edge::processGet(TraCIServer& server, tcpip::Storage& inputStorag
                 }
                 default:
                     return server.writeErrorStatusCmd(CMD_GET_EDGE_VARIABLE,
-                        "Get Edge Variable: unsupported variable " + toHex(variable, 2)
-                        + " specified", outputStorage);
+                                                      "Get Edge Variable: unsupported variable " + toHex(variable, 2)
+                                                      + " specified", outputStorage);
             }
         }
     } catch (libsumo::TraCIException& e) {

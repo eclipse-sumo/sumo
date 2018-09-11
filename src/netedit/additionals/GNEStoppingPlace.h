@@ -147,10 +147,10 @@ protected:
     /// @brief set geometry common to all stopping places
     void setStoppingPlaceGeometry(double movingToSide);
 
-    /// @brief circle width resolution for all stopping places 
+    /// @brief circle width resolution for all stopping places
     static const double myCircleWidth;
 
-    /// @brief squared circle width resolution for all stopping places 
+    /// @brief squared circle width resolution for all stopping places
     static const double myCircleWidthSquared;
 
     /// @brief inner circle width resolution for all stopping places

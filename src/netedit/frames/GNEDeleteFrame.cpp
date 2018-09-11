@@ -55,7 +55,7 @@
 // GNEDeleteFrame::DeleteOptions - methods
 // ---------------------------------------------------------------------------
 
-GNEDeleteFrame::DeleteOptions::DeleteOptions(GNEDeleteFrame *deleteFrameParent) :
+GNEDeleteFrame::DeleteOptions::DeleteOptions(GNEDeleteFrame* deleteFrameParent) :
     FXGroupBox(deleteFrameParent->myContentFrame, "Options", GUIDesignGroupBoxFrame),
     myDeleteFrameParent(deleteFrameParent) {
 
@@ -72,13 +72,13 @@ GNEDeleteFrame::DeleteOptions::DeleteOptions(GNEDeleteFrame *deleteFrameParent) 
 GNEDeleteFrame::DeleteOptions::~DeleteOptions() {}
 
 
-bool 
+bool
 GNEDeleteFrame::DeleteOptions::forceDeleteAdditionals() const {
     return (myForceDeleteAdditionals->getCheck() == TRUE);
 }
 
 
-bool 
+bool
 GNEDeleteFrame::DeleteOptions::deleteOnlyGeometryPoints() const {
     return (myDeleteOnlyGeometryPoints->getCheck() == TRUE);
 }
@@ -99,7 +99,7 @@ GNEDeleteFrame::GNEDeleteFrame(FXHorizontalFrame* horizontalFrameParent, GNEView
 
 GNEDeleteFrame::~GNEDeleteFrame() {}
 
-void 
+void
 GNEDeleteFrame::show() {
     if (myViewNet->getNet()->getSelectedAttributeCarriers().size() == 1) {
         myACHierarchy->showACHierarchy(*myViewNet->getNet()->getSelectedAttributeCarriers().begin());
@@ -117,11 +117,11 @@ GNEDeleteFrame::hide() {
 }
 
 
-void 
+void
 GNEDeleteFrame::removeSelectedAttributeCarriers() {
     // remove all selected attribute carriers
     myViewNet->getUndoList()->p_begin("remove selected items");
-    while(myViewNet->getNet()->getSelectedAttributeCarriers().size() > 0) {
+    while (myViewNet->getNet()->getSelectedAttributeCarriers().size() > 0) {
         removeAttributeCarrier(*myViewNet->getNet()->getSelectedAttributeCarriers().begin(), true);
     }
     myViewNet->getUndoList()->p_end();
@@ -274,12 +274,12 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac, bool ignoreOptio
             }
             default: {
                 // obtain tag property (only for improve code legibility)
-                const auto &tagValue = GNEAttributeCarrier::getTagProperties(ac->getTag());
-                if(tagValue.isAdditional()) {
+                const auto& tagValue = GNEAttributeCarrier::getTagProperties(ac->getTag());
+                if (tagValue.isAdditional()) {
                     GNEAdditional* additional = dynamic_cast<GNEAdditional*>(ac);
                     assert(additional);
                     myViewNet->getViewParent()->getAdditionalFrame()->removeAdditional(additional);
-                } else if(tagValue.isShape()) {
+                } else if (tagValue.isShape()) {
                     GNEShape* shape = dynamic_cast<GNEShape*>(ac);
                     assert(shape);
                     myViewNet->getNet()->deleteShape(shape, myViewNet->getUndoList());
@@ -293,7 +293,7 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac, bool ignoreOptio
 }
 
 
-GNEDeleteFrame::DeleteOptions *
+GNEDeleteFrame::DeleteOptions*
 GNEDeleteFrame::getDeleteOptions() const {
     return myDeleteOptions;
 }

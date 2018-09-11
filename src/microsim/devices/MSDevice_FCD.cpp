@@ -81,7 +81,7 @@ MSDevice_FCD::~MSDevice_FCD() {
 }
 
 
-void 
+void
 MSDevice_FCD::initEdgeFilter() {
     myEdgeFilterInitialized = true;
     if (OptionsCont::getOptions().isSet("fcd-output.filter-edges.input-file")) {

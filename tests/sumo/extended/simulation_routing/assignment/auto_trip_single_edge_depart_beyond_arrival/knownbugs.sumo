@@ -3,5 +3,7 @@
 search_string:routeLength="0.00"
 trigger_on_absence:1
 search_file:tripinfos
+ignore_other_errors:1
 full_description:invalid route length
 brief_description:see #2757
+

@@ -1,23 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!-- generated on Mon Sep  3 17:13:23 2018 by Eclipse SUMO Version 854346cdd7
+-->
+
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="{net_file}"/>
-        <additional-files value="{vtypes_file}" />
         <route-files value="{routes_file}"/>
+        <additional-files value="{vtypes_file}"/>
     </input>
 
     <time>
-        <begin value="0" />
-        <end value="60" />
-        <step-length value="0.1" />
+        <begin value="0"/>
+        <end value="60"/>
+        <step-length value="0.1"/>
     </time>
 
     <processing>
-        <step-method.ballistic value="true" /> 
-        <default.speeddev value="0" /> 
-        <collision.action value="warn" />
+        <step-method.ballistic value="true"/>
+        <collision.action value="warn"/>
+        <default.speeddev value="0"/>
+        <default.emergencydecel value="decel"/>
     </processing>
 
     <report>

@@ -189,8 +189,8 @@ if __name__ == "__main__":
     # this is the normal way of using traci. sumo is started as a
     # subprocess and then the python script connects and runs
     traci.start([sumoBinary, "-n", "input_net.net.xml", "-r",
-        "input_routes.rou.xml", "--no-step-log", "true",
-        "--default.speeddev", "0"])
+                 "input_routes.rou.xml", "--no-step-log", "true",
+                 "--default.speeddev", "0"])
 
     # Wait until the vehicle enters
     while myVehicle not in traci.vehicle.getIDList():

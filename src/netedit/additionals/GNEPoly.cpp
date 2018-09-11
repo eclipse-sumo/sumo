@@ -87,6 +87,18 @@ GNEPoly::GNEPoly(GNENet* net, const std::string& id, const std::string& type, co
 GNEPoly::~GNEPoly() {}
 
 
+void
+GNEPoly::startGeometryMoving() {
+    // nothing to do (will be used in future implementations)
+}
+
+
+void
+GNEPoly::endGeometryMoving() {
+    // nothing to do (will be used in future implementations)
+}
+
+
 int
 GNEPoly::moveVertexShape(const int index, const Position& oldPos, const Position& offset) {
     // only move shape if block movement block shape are disabled
@@ -222,7 +234,7 @@ GNEPoly::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     buildCenterPopupEntry(ret);
     buildNameCopyPopupEntry(ret);
     // build selection and show parameters menu
-    buildSelectionPopupEntry(ret);
+    myNet->getViewNet()->buildSelectionACPopupEntry(ret, this);
     buildShowParamsPopupEntry(ret);
     FXMenuCommand* simplifyShape = new FXMenuCommand(ret, "Simplify Shape\t\tReplace current shape with a rectangle", 0, &parent, MID_GNE_POLYGON_SIMPLIFY_SHAPE);
     // disable simplify shape if polygon was already simplified
@@ -269,11 +281,11 @@ GNEPoly::getCenteringBoundary() const {
 
 void
 GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
-/*
-    // first call function mouseOverObject  (to check if this object is under cursor)
-    // @note currently disabled. It will be implemented in an different ticket of #2905
-    mouseOverObject(s);
-*/
+    /*
+        // first call function mouseOverObject  (to check if this object is under cursor)
+        // @note currently disabled. It will be implemented in an different ticket of #2905
+        mouseOverObject(s);
+    */
     // simply use GUIPolygon::drawGL
     GUIPolygon::drawGL(s);
     int circleResolution = GNEAttributeCarrier::getCircleResolution(s);
@@ -305,7 +317,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
             glPopMatrix();
             // draw points of shape
             for (auto i : myShape) {
-                if(!s.drawForSelecting || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo(i) <= (myHintSizeSquared + 2))) {
+                if (!s.drawForSelecting || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo(i) <= (myHintSizeSquared + 2))) {
                     glPushMatrix();
                     glTranslated(i.x(), i.y(), GLO_POLYGON + 0.02);
                     // Change color of vertex and flag mouseOverVertex if mouse is over vertex
@@ -346,7 +358,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
         }
     }
     // check if dotted contour has to be drawn
-    if(myNet->getViewNet()->getACUnderCursor() == this) {
+    if (myNet->getViewNet()->getACUnderCursor() == this) {
         GLHelper::drawShapeDottedContour(getType(), getShape());
     }
     // pop name
@@ -568,7 +580,7 @@ GNEPoly::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_FILL:
             return toString(myFill);
         case SUMO_ATTR_LAYER:
-            if(getShapeLayer() == Shape::DEFAULT_LAYER) {
+            if (getShapeLayer() == Shape::DEFAULT_LAYER) {
                 return "default";
             } else {
                 return toString(getShapeLayer());
@@ -646,11 +658,11 @@ GNEPoly::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_FILL:
             return canParse<bool>(value);
         case SUMO_ATTR_LAYER:
-            if(value == "default") {
+            if (value == "default") {
                 return true;
             } else {
                 return canParse<double>(value);
-        }
+            }
         case SUMO_ATTR_TYPE:
             return true;
         case SUMO_ATTR_IMGFILE:
@@ -695,9 +707,9 @@ GNEPoly::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-bool 
-GNEPoly::addGenericParameter(const std::string &key, const std::string &value) {
-    if(!knowsParameter(key)) {
+bool
+GNEPoly::addGenericParameter(const std::string& key, const std::string& value) {
+    if (!knowsParameter(key)) {
         setParameter(key, value);
         return true;
     } else {
@@ -706,9 +718,9 @@ GNEPoly::addGenericParameter(const std::string &key, const std::string &value) {
 }
 
 
-bool 
-GNEPoly::removeGenericParameter(const std::string &key) {
-    if(knowsParameter(key)) {
+bool
+GNEPoly::removeGenericParameter(const std::string& key) {
+    if (knowsParameter(key)) {
         unsetParameter(key);
         return true;
     } else {
@@ -717,9 +729,9 @@ GNEPoly::removeGenericParameter(const std::string &key) {
 }
 
 
-bool 
-GNEPoly::updateGenericParameter(const std::string &oldKey, const std::string &newKey) {
-    if(knowsParameter(oldKey) && !knowsParameter(newKey)) {
+bool
+GNEPoly::updateGenericParameter(const std::string& oldKey, const std::string& newKey) {
+    if (knowsParameter(oldKey) && !knowsParameter(newKey)) {
         std::string value = getParameter(oldKey);
         unsetParameter(oldKey);
         setParameter(newKey, value);
@@ -730,9 +742,9 @@ GNEPoly::updateGenericParameter(const std::string &oldKey, const std::string &ne
 }
 
 
-bool 
-GNEPoly::updateGenericParameterValue(const std::string &key, const std::string &newValue) {
-    if(knowsParameter(key)) {
+bool
+GNEPoly::updateGenericParameterValue(const std::string& key, const std::string& newValue) {
+    if (knowsParameter(key)) {
         setParameter(key, newValue);
         return true;
     } else {
@@ -741,7 +753,7 @@ GNEPoly::updateGenericParameterValue(const std::string &key, const std::string &
 }
 
 
-std::string 
+std::string
 GNEPoly::getGenericParametersStr() const {
     std::string result;
     // Generate an string using the following structure: "key1=value1|key2=value2|...
@@ -749,14 +761,14 @@ GNEPoly::getGenericParametersStr() const {
         result += i.first + "=" + i.second + "|";
     }
     // remove the last "|"
-    if(!result.empty()) {
+    if (!result.empty()) {
         result.pop_back();
     }
     return result;
 }
 
 
-std::vector<std::pair<std::string, std::string> > 
+std::vector<std::pair<std::string, std::string> >
 GNEPoly::getGenericParameters() const {
     std::vector<std::pair<std::string, std::string> >  result;
     // iterate over parameters map and fill result
@@ -767,8 +779,8 @@ GNEPoly::getGenericParameters() const {
 }
 
 
-void 
-GNEPoly::setGenericParametersStr(const std::string &value) {
+void
+GNEPoly::setGenericParametersStr(const std::string& value) {
     // clear parameters
     clearParameter();
     // separate value in a vector of string using | as separator
@@ -777,15 +789,15 @@ GNEPoly::setGenericParametersStr(const std::string &value) {
     while (stValues.hasNext()) {
         parsedValues.push_back(stValues.next());
     }
-    // check that parsed values (A=B)can be parsed in generic parameters 
-    for(auto i : parsedValues) {
+    // check that parsed values (A=B)can be parsed in generic parameters
+    for (auto i : parsedValues) {
         std::vector<std::string> parsedParameters;
         StringTokenizer stParam(i, "=", true);
         while (stParam.hasNext()) {
             parsedParameters.push_back(stParam.next());
         }
         // Check that parsed parameters are exactly two and contains valid chracters
-        if(parsedParameters.size() == 2 && SUMOXMLDefinitions::isValidGenericParameterKey(parsedParameters.front()) && SUMOXMLDefinitions::isValidGenericParameterValue(parsedParameters.back())) {
+        if (parsedParameters.size() == 2 && SUMOXMLDefinitions::isValidGenericParameterKey(parsedParameters.front()) && SUMOXMLDefinitions::isValidGenericParameterValue(parsedParameters.back())) {
             setParameter(parsedParameters.front(), parsedParameters.back());
         }
     }
@@ -804,6 +816,7 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             std::string oldID = myID;
             myID = value;
             myNet->changeShapeID(this, oldID);
+            setMicrosimID(value);
             break;
         }
         case SUMO_ATTR_SHAPE: {
@@ -851,10 +864,10 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             myFill = parse<bool>(value);
             break;
         case SUMO_ATTR_LAYER:
-            if(value == "default") {
+            if (value == "default") {
                 setShapeLayer(Shape::DEFAULT_LAYER);
             } else {
-                setShapeLayer(parse<double>(value));            
+                setShapeLayer(parse<double>(value));
             }
             break;
         case SUMO_ATTR_TYPE:
@@ -893,7 +906,7 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             mySimplifiedShape = false;
             break;
         case GNE_ATTR_SELECTED:
-            if(parse<bool>(value)) {
+            if (parse<bool>(value)) {
                 selectAttributeCarrier();
             } else {
                 unselectAttributeCarrier();
@@ -910,12 +923,12 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
 }
 
 
-void 
+void
 GNEPoly::mouseOverObject(const GUIVisualizationSettings&) const {
     // only continue if there isn't already a AC under cursor
-    if(myNet->getViewNet()->getACUnderCursor() == nullptr) {
+    if (myNet->getViewNet()->getACUnderCursor() == nullptr) {
         // check if cursor is within the shape
-        if(getShape().around(myNet->getViewNet()->getPositionInformation())) {
+        if (getShape().around(myNet->getViewNet()->getPositionInformation())) {
             myNet->getViewNet()->setACUnderCursor(this);
         }
     }

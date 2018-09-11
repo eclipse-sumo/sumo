@@ -681,7 +681,7 @@ enum {
     /// @brief abort drawing polygon
     MID_GNE_PROHIBITIONFRAME_ABORTDRAWING,
     /// @}
-    
+
 
     /// @name GNEEdge messages
     /// @{
@@ -722,6 +722,8 @@ enum {
     MID_GNE_JUNCTION_SPLIT,
     /// @brief edit junction shape
     MID_GNE_JUNCTION_EDIT_SHAPE,
+    /// @brief reset junction shape
+    MID_GNE_JUNCTION_RESET_SHAPE,
     /// @}
 
 
@@ -769,24 +771,32 @@ enum {
 
     /// @brief duplicate a lane
     MID_GNE_LANE_DUPLICATE,
+    /// @brief remove greenVerge
+    MID_GNE_LANE_RESET_CUSTOMSHAPE,
     /// @brief transform lane to sidewalk
     MID_GNE_LANE_TRANSFORM_SIDEWALK,
     /// @brief transform lane to bikelane
     MID_GNE_LANE_TRANSFORM_BIKE,
     /// @brief transform lane to busLane
     MID_GNE_LANE_TRANSFORM_BUS,
+    /// @brief transform lane to greenVerge
+    MID_GNE_LANE_TRANSFORM_GREENVERGE,
     /// @brief add sidewalk
     MID_GNE_LANE_ADD_SIDEWALK,
     /// @brief add bikelane
     MID_GNE_LANE_ADD_BIKE,
     /// @brief add busLane
     MID_GNE_LANE_ADD_BUS,
+    /// @brief add greenVerge
+    MID_GNE_LANE_ADD_GREENVERGE,
     /// @brief remove sidewalk
     MID_GNE_LANE_REMOVE_SIDEWALK,
     /// @brief remove bikelane
     MID_GNE_LANE_REMOVE_BIKE,
     /// @brief remove busLane
     MID_GNE_LANE_REMOVE_BUS,
+    /// @brief remove greenVerge
+    MID_GNE_LANE_REMOVE_GREENVERGE,
     /// @}
 
 

@@ -175,16 +175,16 @@ NILoader::loadXML(OptionsCont& oc) {
 
     // load public transport stops (used for restricting edge removal and as input when repairing railroad topology)
     loadXMLType(new NIXMLPTHandler(
-                myNetBuilder.getEdgeCont(),
-                myNetBuilder.getPTStopCont(),
-                myNetBuilder.getPTLineCont()),
+                    myNetBuilder.getEdgeCont(),
+                    myNetBuilder.getPTStopCont(),
+                    myNetBuilder.getPTLineCont()),
                 oc.getStringVector("ptstop-files"), "public transport stops");
 
     // load public transport lines (used as input when repairing railroad topology)
     loadXMLType(new NIXMLPTHandler(
-                myNetBuilder.getEdgeCont(),
-                myNetBuilder.getPTStopCont(),
-                myNetBuilder.getPTLineCont()),
+                    myNetBuilder.getEdgeCont(),
+                    myNetBuilder.getPTStopCont(),
+                    myNetBuilder.getPTLineCont()),
                 oc.getStringVector("ptline-files"), "public transport lines");
 }
 

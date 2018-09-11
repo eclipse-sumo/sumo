@@ -113,7 +113,7 @@ public:
     void checkSnapshots();
 
     /// @brief retrieve breakpoints from the current runThread
-    const std::vector<SUMOTime> retrieveBreakpoints() const; 
+    const std::vector<SUMOTime> retrieveBreakpoints() const;
 
 protected:
     int doPaintGL(int mode, const Boundary& bound);

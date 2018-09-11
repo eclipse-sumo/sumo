@@ -53,6 +53,7 @@ public:
 
     /// @brief constructor
     MSChargingStation(const std::string& chargingStationID, MSLane& lane, double startPos, double endPos,
+                      const std::string& name,
                       double chargingPower, double efficency, bool chargeInTransit, double chargeDelay);
 
     /// @brief destructor

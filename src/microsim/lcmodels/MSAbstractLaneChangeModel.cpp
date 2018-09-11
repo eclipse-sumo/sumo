@@ -200,7 +200,7 @@ MSAbstractLaneChangeModel::startLaneChangeManeuver(MSLane* source, MSLane* targe
         setManeuverDist(target->getCenterOnEdge() - source->getCenterOnEdge());
         myVehicle.switchOffSignal(MSVehicle::VEH_SIGNAL_BLINKER_RIGHT | MSVehicle::VEH_SIGNAL_BLINKER_LEFT);
         myVehicle.switchOnSignal(direction == 1 ? MSVehicle::VEH_SIGNAL_BLINKER_LEFT : MSVehicle::VEH_SIGNAL_BLINKER_RIGHT);
-        if(myLCOutput) {
+        if (myLCOutput) {
             memorizeGapsAtLCInit();
         }
         return true;
@@ -266,7 +266,7 @@ MSAbstractLaneChangeModel::laneChangeOutput(const std::string& tag, MSLane* sour
 }
 
 
-double 
+double
 MSAbstractLaneChangeModel::computeSpeedLat(double /*latDist*/, double& maneuverDist) {
     if (myVehicle.getVehicleType().wasSet(VTYPEPARS_MAXSPEED_LAT_SET)) {
         int stepsToChange = (int)ceil(maneuverDist / SPEED2DIST(myVehicle.getVehicleType().getMaxSpeedLat()));
@@ -562,35 +562,35 @@ MSAbstractLaneChangeModel::getAngleOffset() const {
 double
 MSAbstractLaneChangeModel::estimateLCDuration(const double speed, const double remainingManeuverDist, const double decel) const {
 
-    const SUMOVTypeParameter::SubParams& lcParams=myVehicle.getVehicleType().getParameter().getLCParams();
+    const SUMOVTypeParameter::SubParams& lcParams = myVehicle.getVehicleType().getParameter().getLCParams();
     if (lcParams.find(SUMO_ATTR_LCA_MAXSPEEDLATSTANDING) == lcParams.end() && lcParams.find(SUMO_ATTR_LCA_MAXSPEEDLATFACTOR) == lcParams.end()) {
-        if (!myVehicle.getVehicleType().wasSet(VTYPEPARS_MAXSPEED_LAT_SET)){
+        if (!myVehicle.getVehicleType().wasSet(VTYPEPARS_MAXSPEED_LAT_SET)) {
             // no dependency of lateral speed on longitudinal speed. (Only called prior to LC initialization to determine whether it could be completed)
             return STEPS2TIME(MSGlobals::gLaneChangeDuration);
         } else {
-            return remainingManeuverDist/myVehicle.getVehicleType().getMaxSpeedLat();
+            return remainingManeuverDist / myVehicle.getVehicleType().getMaxSpeedLat();
         }
     }
 
-    if(remainingManeuverDist==0){
+    if (remainingManeuverDist == 0) {
         return 0;
     }
 
     // Check argument assumptions
-    assert(speed>=0);
-    assert(remainingManeuverDist>=0);
-    assert(decel>0);
-    assert(myVehicle.getVehicleType().getMaxSpeedLat()>0);
+    assert(speed >= 0);
+    assert(remainingManeuverDist >= 0);
+    assert(decel > 0);
+    assert(myVehicle.getVehicleType().getMaxSpeedLat() > 0);
     assert(myMaxSpeedLatStanding <= myVehicle.getVehicleType().getMaxSpeedLat());
     assert(myMaxSpeedLatStanding >= 0);
 
     // for brevity
-    const double v0=speed;
-    const double D=remainingManeuverDist;
-    const double b=decel;
-    const double wmin=myMaxSpeedLatStanding;
-    const double f=myMaxSpeedLatFactor;
-    const double wmax= myVehicle.getVehicleType().getMaxSpeedLat();
+    const double v0 = speed;
+    const double D = remainingManeuverDist;
+    const double b = decel;
+    const double wmin = myMaxSpeedLatStanding;
+    const double f = myMaxSpeedLatFactor;
+    const double wmax = myVehicle.getVehicleType().getMaxSpeedLat();
 
     /* Here's the approach for the calculation of the required time for the LC:
      * To obtain the maximal LC-duration, for v(t) we assume that v(t)=max(0, v0-b*t),
@@ -604,18 +604,18 @@ MSAbstractLaneChangeModel::estimateLCDuration(const double speed, const double r
      * 2) wmin < w(T) < wmax, i.e. (wmax-wmin)/f > v(T) > 0
      * 3) w(T) = wmin, i.e., v(T)=0
      */
-    const double vm = (wmax-wmin)/f;
-    double distSoFar=0.;
-    double timeSoFar=0.;
-    double v=v0;
+    const double vm = (wmax - wmin) / f;
+    double distSoFar = 0.;
+    double timeSoFar = 0.;
+    double v = v0;
     if (v > vm) {
-        const double wmaxTime=(v0-vm)/b;
-        const double d1 = wmax*wmaxTime;
-        if (d1 >= D){
-            return D/wmax;
+        const double wmaxTime = (v0 - vm) / b;
+        const double d1 = wmax * wmaxTime;
+        if (d1 >= D) {
+            return D / wmax;
         } else {
-            distSoFar+=d1;
-            timeSoFar+=wmaxTime;
+            distSoFar += d1;
+            timeSoFar += wmaxTime;
             v = vm;
         }
     }
@@ -626,24 +626,24 @@ MSAbstractLaneChangeModel::estimateLCDuration(const double speed, const double r
          * and the additional lateral distance covered until v=0 at t=v/b is:
          * d2 = (wmin + 0.5*f*v)*t
          */
-        const double t = v/b; // stop time
-        const double d2 = (wmin + 0.5*f*v)*t; // lateral distance covered until stop
-        assert(d2>0);
-        if (distSoFar + d2 >= D){
+        const double t = v / b; // stop time
+        const double d2 = (wmin + 0.5 * f * v) * t; // lateral distance covered until stop
+        assert(d2 > 0);
+        if (distSoFar + d2 >= D) {
             // LC is completed during this phase
-            const double x = 0.5*f*b;
-            const double y = wmin + f*v;
+            const double x = 0.5 * f * b;
+            const double y = wmin + f * v;
             /* Solve D - distSoFar = y*t - x*t^2.
              * 0 = x*t^2 - y*t/x + (D - distSoFar)/x
              */
-            const double p = 0.5*y/x;
-            const double q = (D-distSoFar)/x;
-            assert(p*p-q>0);
-            const double t2 = p + sqrt(p*p-q);
-            return timeSoFar+t2;
+            const double p = 0.5 * y / x;
+            const double q = (D - distSoFar) / x;
+            assert(p * p - q > 0);
+            const double t2 = p + sqrt(p * p - q);
+            return timeSoFar + t2;
         } else {
-            distSoFar+=d2;
-            timeSoFar+=t;
+            distSoFar += d2;
+            timeSoFar += t;
             //v = 0;
         }
     }
@@ -653,23 +653,23 @@ MSAbstractLaneChangeModel::estimateLCDuration(const double speed, const double r
         return -1;
     } else {
         // complete LC with lateral speed wmin
-        return timeSoFar + (D-distSoFar)/wmin;
+        return timeSoFar + (D - distSoFar) / wmin;
     }
 }
 
 SUMOTime
 MSAbstractLaneChangeModel::remainingTime() const {
     assert(isChangingLanes()); // Only to be called during ongoing lane change
-    const SUMOVTypeParameter::SubParams& lcParams=myVehicle.getVehicleType().getParameter().getLCParams();
+    const SUMOVTypeParameter::SubParams& lcParams = myVehicle.getVehicleType().getParameter().getLCParams();
     if (lcParams.find(SUMO_ATTR_LCA_MAXSPEEDLATSTANDING) == lcParams.end() && lcParams.find(SUMO_ATTR_LCA_MAXSPEEDLATFACTOR) == lcParams.end()) {
         if (myVehicle.getVehicleType().wasSet(VTYPEPARS_MAXSPEED_LAT_SET)) {
-            return TIME2STEPS((1. - myLaneChangeCompletion) * myManeuverDist/myVehicle.getVehicleType().getMaxSpeedLat());
+            return TIME2STEPS((1. - myLaneChangeCompletion) * myManeuverDist / myVehicle.getVehicleType().getMaxSpeedLat());
         } else {
             return (SUMOTime)((1. - myLaneChangeCompletion) * MSGlobals::gLaneChangeDuration);
         }
     }
     // Using maxSpeedLat(Factor/Standing)
-    return TIME2STEPS(estimateLCDuration(myVehicle.getSpeed(), fabs(myManeuverDist*(1-myLaneChangeCompletion)), myVehicle.getCarFollowModel().getMaxDecel()));
+    return TIME2STEPS(estimateLCDuration(myVehicle.getSpeed(), fabs(myManeuverDist * (1 - myLaneChangeCompletion)), myVehicle.getCarFollowModel().getMaxDecel()));
 }
 
 

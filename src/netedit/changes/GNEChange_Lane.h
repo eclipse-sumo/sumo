@@ -55,7 +55,7 @@ public:
      * @param[in] forward Whether to create/delete (true/false)
      * @param[in] recomputeConnections Whether to recompute all connections for the affected edge
      */
-    GNEChange_Lane(GNEEdge* edge, GNELane* lane, const NBEdge::Lane& laneAttrs, bool forward, bool recomputeConnections=true);
+    GNEChange_Lane(GNEEdge* edge, GNELane* lane, const NBEdge::Lane& laneAttrs, bool forward, bool recomputeConnections = true);
 
     /// @brief Destructor
     ~GNEChange_Lane();

@@ -102,7 +102,7 @@ public:
     bool compute(const E* from, const E* to, const double departPos, const double arrivalPos,
                  const std::string stopID, const double speed,
                  const V* const vehicle, const SVCPermissions modeSet, const SUMOTime msTime,
-                 std::vector<TripItem>& into, const double externalFactor=0.) {
+                 std::vector<TripItem>& into, const double externalFactor = 0.) {
         createNet();
         _IntermodalTrip trip(from, to, departPos, arrivalPos, speed, msTime, 0, vehicle, modeSet, myExternalEffort, externalFactor);
         std::vector<const _IntermodalEdge*> intoEdges;
@@ -138,17 +138,12 @@ public:
                         }
                     }
                 }
-                if (prev != nullptr) {
-                    myInternalRouter->updateViaCost(prev, iEdge, &trip, time, effort);
-                }
-                const double edgeEffort = myInternalRouter->getEffort(iEdge, &trip, time);
-                effort += edgeEffort;
-                const double edgeTime = myInternalRouter->getTravelTime(iEdge, &trip, time, edgeEffort);
-                time += edgeTime;
+                const double prevTime = time, prevEffort = effort;
+                myInternalRouter->updateViaCost(prev, iEdge, &trip, time, effort);
                 prev = iEdge;
                 if (!into.empty()) {
-                    into.back().traveltime += edgeTime;
-                    into.back().cost += edgeEffort;
+                    into.back().traveltime += time - prevTime;
+                    into.back().cost += effort - prevEffort;
                 }
             }
         }

@@ -28,7 +28,7 @@ SUMO_HOME = os.path.join(os.path.dirname(__file__), "..", "..", "..", "..", ".."
 sys.path.append(os.path.join(os.environ.get("SUMO_HOME", SUMO_HOME), "tools"))
 import sumolib  # noqa
 import traci  # noqa
-import traci.constants as tc
+import traci.constants as tc  # noqa
 
 PORT = sumolib.miscutils.getFreeSocketPort()
 DELTA_T = 1000
@@ -54,8 +54,8 @@ def traciLoop(port, traciEndTime, i, runNr, steplength=0):
     while not step > traciEndStep:
         message = ""
         message += ("Process %s:\n" % (i))
-        message += ("   %s vehicle subscription results: %s\n" % (i, str(vehResults)))
-        message += ("   %s simulation subscription results: %s\n" % (i, str(simResults)))
+        message += ("   %s vehicle subscription results: %s\n" % (i, vehResults))
+        message += ("   %s simulation subscription results: %s\n" % (i, simResults))
         if (vehID == ""):
             vehs = traci.vehicle.getIDList()
             if len(vehs) > 0:
@@ -63,12 +63,12 @@ def traciLoop(port, traciEndTime, i, runNr, steplength=0):
                 if i == 1:
                     message += ("   %s subscribing to speed (ID = %s) of vehicle '%s'\n" % (i, tc.VAR_SPEED, vehID))
                     traci.vehicle.subscribe(vehID, [tc.VAR_SPEED])
-                    message += ("   -> %s\n" % str(traci.vehicle.getSubscriptionResults()))
+                    message += ("   -> %s\n" % str(traci.vehicle.getAllSubscriptionResults()))
                 else:
                     message += ("   %s subscribing to acceleration (ID = %s) of vehicle '%s'\n" %
                                 (i, tc.VAR_ACCEL, vehID))
                     traci.vehicle.subscribe(vehID, [tc.VAR_ACCEL])
-                    message += ("   -> %s\n" % str(traci.vehicle.getSubscriptionResults()))
+                    message += ("   -> %s\n" % str(traci.vehicle.getAllSubscriptionResults()))
                     sys.stdout.flush()
         elif len(vehs) == 0:
             message += ("   %s breaking execution: traced vehicle '%s' left." % (i, vehID))
