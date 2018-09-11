@@ -48,6 +48,7 @@ visum.net     text eol=lf
 *.bat     text eol=crlf
 
 # Denote all files that are truly binary and should not be modified.
+png.complex binary
 *.png binary
 *.jpg binary
 
