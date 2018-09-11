@@ -45,3 +45,6 @@ ticket4430
 
 # deadlock on parallel routing
 ticket4518
+
+# Crash in SSM Device on recurrent network search for foes (assertion triggered, perhaps only exposed in debug mode).
+ticket4556
