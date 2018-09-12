@@ -1351,12 +1351,13 @@ MSLaneChanger::computeOvertakingTime(const MSVehicle* vehicle, const MSVehicle* 
     // t = ((u - v - (((((2.0*(u - v))**2.0) + (8.0*a*g))**(1.0/2.0))*sign/2.0))/a)
     double t = (u - v - sqrt(4 * (u - v) * (u - v) + 8 * a * g) * sign * 0.5) / a;
 #ifdef DEBUG_CHANGE_OPPOSITE_OVERTAKINGTIME
-        if (DEBUG_COND) {
-            std::cout << " computeOvertakingTime v=" << v << " vMax=" << vMax << " u=" << u << " a=" << a << " d=" << d << " g=" << g << " t=" << t 
-                << " distEgo=" << v*t + t*t*a*0.5 << " distLead=" << g + u * t
-                << "\n";
-        }
+    if (DEBUG_COND) {
+        std::cout << " computeOvertakingTime v=" << v << " vMax=" << vMax << " u=" << u << " a=" << a << " d=" << d << " g=" << g << " t=" << t 
+            << " distEgo=" << v*t + t*t*a*0.5 << " distLead=" << g + u * t
+            << "\n";
+    }
 #endif
+    assert(t >= 0);
 
     // allow for a safety time gap
     t += OPPOSITE_OVERTAKING_SAFE_TIMEGAP;
