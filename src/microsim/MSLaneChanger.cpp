@@ -1158,8 +1158,10 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, double> leader) {
 #endif
 
 #ifdef DEBUG_CHANGE_OPPOSITE
-                if (neighLead.first->getLaneChangeModel().isOpposite()) {
-                    std::cout << SIMTIME << " ego=" << vehicle->getID() << " does not changeOpposite due to dangerous oncoming " << neighLead.first->getID() << "  (but the leader is also opposite)\n";
+                if (DEBUG_COND) {
+                    if (neighLead.first->getLaneChangeModel().isOpposite()) {
+                        std::cout << SIMTIME << " ego=" << vehicle->getID() << " does not changeOpposite due to dangerous oncoming " << neighLead.first->getID() << "  (but the leader is also opposite)\n";
+                    }
                 }
 #endif
                 return false;
@@ -1348,6 +1350,13 @@ MSLaneChanger::computeOvertakingTime(const MSVehicle* vehicle, const MSVehicle* 
     // solve t
     // t = ((u - v - (((((2.0*(u - v))**2.0) + (8.0*a*g))**(1.0/2.0))*sign/2.0))/a)
     double t = (u - v - sqrt(4 * (u - v) * (u - v) + 8 * a * g) * sign * 0.5) / a;
+#ifdef DEBUG_CHANGE_OPPOSITE_OVERTAKINGTIME
+        if (DEBUG_COND) {
+            std::cout << " computeOvertakingTime v=" << v << " vMax=" << vMax << " u=" << u << " a=" << a << " d=" << d << " g=" << g << " t=" << t 
+                << " distEgo=" << v*t + t*t*a*0.5 << " distLead=" << g + u * t
+                << "\n";
+        }
+#endif
 
     // allow for a safety time gap
     t += OPPOSITE_OVERTAKING_SAFE_TIMEGAP;
@@ -1359,7 +1368,7 @@ MSLaneChanger::computeOvertakingTime(const MSVehicle* vehicle, const MSVehicle* 
 
 #ifdef DEBUG_CHANGE_OPPOSITE_OVERTAKINGTIME
     if (DEBUG_COND) {
-        std::cout << "    t=" << t << "  tvMax=" << timeToMaxSpeed << " vMax=" << vMax << "\n";
+        std::cout << "   t=" << t << "  tvMax=" << timeToMaxSpeed << "\n";
     }
 #endif
     if (t <= timeToMaxSpeed) {
