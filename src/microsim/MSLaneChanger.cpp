@@ -1081,6 +1081,11 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, double> leader) {
                                              : OPPOSITE_OVERTAKING_MAX_LOOKAHEAD);
                 const double requiredSpace = (requiredSpaceAfterLeader
                                               + vehicle->getCarFollowModel().getSecureGap(overtakingSpeed, leadLead.first->getSpeed(), leadLead.first->getCarFollowModel().getMaxDecel()));
+#ifdef DEBUG_CHANGE_OPPOSITE
+                if (DEBUG_COND) {
+                    std::cout << "   leader's leader " << leadLead.first->getID() << " space=" << leadLead.second << " req1=" << requiredSpaceAfterLeader << " req2=" << requiredSpace << "\n";
+                }
+#endif
                 if (leadLead.second > requiredSpace) {
                     foundSpaceAhead = true;
                 } else {
@@ -1290,6 +1295,21 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, double> leader) {
                 }
 #endif
             }
+            if (neighLead.first != 0) {
+                const double remainingDist = laneQ.length - forwardPos;
+                computeOvertakingTime(vehicle, neighLead.first, neighLead.second, timeToOvertake, spaceToOvertake);
+#ifdef DEBUG_CHANGE_OPPOSITE
+                if (DEBUG_COND) {
+                    std::cout << SIMTIME << " ego=" << vehicle->getID() << " is overtaking " << neighLead.first->getID() 
+                        << " remainingDist=" << remainingDist <<  " spaceToOvertake=" << spaceToOvertake << " timeToOvertake=" << timeToOvertake << "\n";
+                }
+#endif
+                if (remainingDist > spaceToOvertake) {
+                    // exaggerate remaining dist so that the vehicle continues
+                    // overtaking (otherwise the lane change model might abort prematurely)
+                    laneQ.length += 1000;
+                }
+            }
             leader.first = 0; // ignore leader after this
         }
 #ifdef DEBUG_CHANGE_OPPOSITE
@@ -1343,7 +1363,7 @@ MSLaneChanger::computeOvertakingTime(const MSVehicle* vehicle, const MSVehicle* 
     // without upper bound on speed
     const double vMax = vehicle->getLane()->getVehicleMaxSpeed(vehicle);
     const double v = vehicle->getSpeed();
-    const double u = leader->getSpeed();
+    const double u = leader->getSpeed() + MAX2(0.0, leader->getAcceleration());
     const double a = vehicle->getCarFollowModel().getMaxAccel();
     const double d = vehicle->getCarFollowModel().getMaxDecel();
     const double g = (
@@ -1354,7 +1374,7 @@ MSLaneChanger::computeOvertakingTime(const MSVehicle* vehicle, const MSVehicle* 
                          // drive past the leader
                          + vehicle->getVehicleType().getLength()
                          // allow for safe gap between leader and vehicle
-                         + leader->getCarFollowModel().getSecureGap(v, vMax, d));
+                         + leader->getCarFollowModel().getSecureGap(u, vMax, d));
     const double sign = -1; // XXX recheck
     // v*t + t*t*a*0.5 = g + u*t
     // solve t
@@ -1362,7 +1382,7 @@ MSLaneChanger::computeOvertakingTime(const MSVehicle* vehicle, const MSVehicle* 
     double t = (u - v - sqrt(4 * (u - v) * (u - v) + 8 * a * g) * sign * 0.5) / a;
 #ifdef DEBUG_CHANGE_OPPOSITE_OVERTAKINGTIME
     if (DEBUG_COND) {
-        std::cout << " computeOvertakingTime v=" << v << " vMax=" << vMax << " u=" << u << " a=" << a << " d=" << d << " g=" << g << " t=" << t 
+        std::cout << " computeOvertakingTime v=" << v << " vMax=" << vMax << " u=" << u << " a=" << a << " d=" << d << " gap=" << gap << " g=" << g << " t=" << t 
             << " distEgo=" << v*t + t*t*a*0.5 << " distLead=" << g + u * t
             << "\n";
     }
