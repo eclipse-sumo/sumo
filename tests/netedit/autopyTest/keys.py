@@ -1,5 +1,5 @@
 import autopy
-import time
+import pyautogui
 
 # simply open a dialog with "hello world"
 def test_key():

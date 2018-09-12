@@ -18,6 +18,7 @@ import os
 import sys
 import subprocess
 import autopy
+import pyautogui
 import time
 
 # define delay before every operation

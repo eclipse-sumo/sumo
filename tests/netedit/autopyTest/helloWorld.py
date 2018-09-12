@@ -1,4 +1,5 @@
 import autopy
+import pyautogui
 
 # simply open a dialog with "hello world"
 def hello_world():
