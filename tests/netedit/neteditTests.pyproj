@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{a8bf62bc-12df-4c9f-b1e6-c055fce26cf5}</ProjectGuid>
     <ProjectHome />
-    <StartupFile>autopyTest\findReference.py</StartupFile>
+    <StartupFile>autopyTest\keys.py</StartupFile>
     <SearchPath />
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -7478,6 +7478,9 @@
     <Compile Include="additionalElements\variablespeedsign\volatileRecomputing\test.py" />
     <Compile Include="autopyTest\findReference.py" />
     <Compile Include="autopyTest\helloWorld.py" />
+    <Compile Include="autopyTest\keys.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="basic\about-dialog\test.py" />
     <Compile Include="basic\load_and_save\test.py" />
     <Compile Include="basic\new_net_1edge\test.py" />
