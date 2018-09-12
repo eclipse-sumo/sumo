@@ -1178,13 +1178,14 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, double> leader) {
             // look beyond leaders that are also driving in the opposite direction until finding an oncoming leader or exhausting the look-ahead distance
 #ifdef DEBUG_CHANGE_OPPOSITE
             if (DEBUG_COND) {
-                std::cout << SIMTIME << " opposite leader=" << leader.first->getID() << " gap=" << gap << " is driving against the flow\n";
+                std::cout << SIMTIME << " ego=" << vehicle->getID() << " opposite leader=" << leader.first->getID() << " gap=" << gap << " is driving against the flow\n";
             }
 #endif
-            dist -= leader.second;
+            const double gapToLeaderFront = leader.second + leader.first->getVehicleType().getLengthWithGap();
+            dist -= gapToLeaderFront;
             leader = source->getOppositeLeader(leader.first, dist, true);
             if (leader.first != 0) {
-                gap += leader.second;
+                gap += gapToLeaderFront;
             }
         }
         leader.second = gap;
