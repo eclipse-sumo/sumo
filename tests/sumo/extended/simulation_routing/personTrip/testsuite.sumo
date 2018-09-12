@@ -22,6 +22,9 @@ car_walk_arrivalpos
 # public transport and walk possible
 public_walk
 
+# public transport and walk possible
+public_walk_singleveh
+
 # public transport without bus stops
 unusable_bus
 
