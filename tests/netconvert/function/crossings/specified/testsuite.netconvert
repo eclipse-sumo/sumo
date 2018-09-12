@@ -109,6 +109,9 @@ sumonet_custom_washape
 # duplicated crossings shall be rejected
 4_arm_duplicate
 
+# a walkingarea should not try to follow the connection shape if there can be no adjacent road connection
+sharp_angle_incompatible_vclass
+
 # a pedestrian path crosses a street with sidewalks
 path_across_street
 
