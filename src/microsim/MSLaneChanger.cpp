@@ -1046,80 +1046,29 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, double> leader) {
     // preliminary sanity checks for overtaking space
     double timeToOvertake;
     double spaceToOvertake;
+
+    // we need to find two vehicles: 
+    // 1) the leader that shall be overtaken (not necessarily the current leader but one of its leaders that has enough space in front)
+    // 2) the oncoming vehicle (we need to look past vehicles that are currentlyovertaking through the opposite direction themselves)
+    // 
+    // if the vehicle is driving normally, then the search for 1) starts on the current lane and 2) on the opposite lane
+    // if the vehicle is driving on the opposite side then 1) is found on the neighboring lane and 2) on the current lane
+
+    std::pair<MSVehicle*, double> overtaken;
+    std::pair<MSVehicle*, double> oncoming;
+
+    
     if (!isOpposite && !oppositeChangeByTraci) {
-        assert(leader.first != 0);
-        // find a leader vehicle with sufficient space ahead for merging back
-        const double overtakingSpeed = source->getVehicleMaxSpeed(vehicle); // just a guess
-        const double mergeBrakeGap = vehicle->getCarFollowModel().brakeGap(overtakingSpeed);
-        std::pair<MSVehicle*, double> columnLeader = leader;
-        double egoGap = leader.second;
-        bool foundSpaceAhead = false;
-        double seen = leader.second + leader.first->getVehicleType().getLengthWithGap();
-        std::vector<MSLane*> conts = vehicle->getBestLanesContinuation();
-        while (!foundSpaceAhead) {
-            const double requiredSpaceAfterLeader = (columnLeader.first->getCarFollowModel().getSecureGap(
-                    columnLeader.first->getSpeed(), overtakingSpeed, vehicle->getCarFollowModel().getMaxDecel())
-                                                    + vehicle->getVehicleType().getLengthWithGap());
-
-
-            // all leader vehicles on the current laneChanger edge are already moved into MSLane::myTmpVehicles
-            const bool checkTmpVehicles = (&columnLeader.first->getLane()->getEdge() == &source->getEdge());
-            std::pair<MSVehicle* const, double> leadLead = columnLeader.first->getLane()->getLeader(
-                        columnLeader.first, columnLeader.first->getPositionOnLane(), conts, requiredSpaceAfterLeader + mergeBrakeGap,
-                        checkTmpVehicles);
-
-#ifdef DEBUG_CHANGE_OPPOSITE
-            if (DEBUG_COND) {
-                std::cout << "   leadLead=" << Named::getIDSecure(leadLead.first) << " gap=" << leadLead.second << "\n";
-            }
-#endif
-            if (leadLead.first == 0) {
-                foundSpaceAhead = true;
-            } else {
-                const double maxLookAhead = (vehicle->getVehicleType().getVehicleClass() == SVC_EMERGENCY
-                                             ? OPPOSITE_OVERTAKING_MAX_LOOKAHEAD_EMERGENCY
-                                             : OPPOSITE_OVERTAKING_MAX_LOOKAHEAD);
-                const double requiredSpace = (requiredSpaceAfterLeader
-                                              + vehicle->getCarFollowModel().getSecureGap(overtakingSpeed, leadLead.first->getSpeed(), leadLead.first->getCarFollowModel().getMaxDecel()));
-#ifdef DEBUG_CHANGE_OPPOSITE
-                if (DEBUG_COND) {
-                    std::cout << "   leader's leader " << leadLead.first->getID() << " space=" << leadLead.second << " req1=" << requiredSpaceAfterLeader << " req2=" << requiredSpace << "\n";
-                }
-#endif
-                if (leadLead.second > requiredSpace) {
-                    foundSpaceAhead = true;
-                } else {
-#ifdef DEBUG_CHANGE_OPPOSITE
-                    if (DEBUG_COND) {
-                        std::cout << "   not enough space after columnLeader=" << columnLeader.first->getID() << " required=" << requiredSpace << "\n";
-                    }
-#endif
-                    seen += MAX2(0., leadLead.second) + leadLead.first->getVehicleType().getLengthWithGap();
-                    if (seen > maxLookAhead) {
-#ifdef DEBUG_CHANGE_OPPOSITE
-                        if (DEBUG_COND) {
-                            std::cout << "   cannot changeOpposite due to insufficient free space after columnLeader (seen=" << seen << " columnLeader=" << columnLeader.first->getID() << ")\n";
-                        }
-#endif
-                        return false;
-                    }
-                    // see if merging after leadLead is possible
-                    egoGap += columnLeader.first->getVehicleType().getLengthWithGap() + leadLead.second;
-                    columnLeader = leadLead;
-#ifdef DEBUG_CHANGE_OPPOSITE
-                    if (DEBUG_COND) {
-                        std::cout << "   new columnLeader=" << columnLeader.first->getID() << "\n";
-                    }
-#endif
-                }
-            }
+        overtaken = getColumnleader(vehicle, leader);
+        if (overtaken.first == 0) {
+            return false;
         }
 #ifdef DEBUG_CHANGE_OPPOSITE
         if (DEBUG_COND) {
-            std::cout << "   compute time/space to overtake for columnLeader=" << columnLeader.first->getID() << " gap=" << columnLeader.second << " egoGap=" << egoGap << "\n";
+            std::cout << "   compute time/space to overtake for columnLeader=" << overtaken.first->getID() << " egoGap=" << overtaken.second << "\n";
         }
 #endif
-        computeOvertakingTime(vehicle, columnLeader.first, egoGap, timeToOvertake, spaceToOvertake);
+        computeOvertakingTime(vehicle, overtaken.first, overtaken.second, timeToOvertake, spaceToOvertake);
         // check for upcoming stops
         if (vehicle->nextStopDist() < spaceToOvertake) {
 #ifdef DEBUG_CHANGE_OPPOSITE
@@ -1134,12 +1083,12 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, double> leader) {
 #ifdef DEBUG_CHANGE_OPPOSITE
         if (DEBUG_COND) {
             std::cout << SIMTIME
-                      << " veh=" << vehicle->getID()
-                      << " changeOpposite opposite=" << opposite->getID()
-                      << " lead=" << Named::getIDSecure(leader.first)
-                      << " timeToOvertake=" << timeToOvertake
-                      << " spaceToOvertake=" << spaceToOvertake
-                      << "\n";
+                << " veh=" << vehicle->getID()
+                << " changeOpposite opposite=" << opposite->getID()
+                << " lead=" << Named::getIDSecure(leader.first)
+                << " timeToOvertake=" << timeToOvertake
+                << " spaceToOvertake=" << spaceToOvertake
+                << "\n";
         }
 #endif
         // check for dangerous oncoming leader
@@ -1154,12 +1103,12 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, double> leader) {
 #ifdef DEBUG_CHANGE_OPPOSITE
             if (DEBUG_COND) {
                 std::cout << SIMTIME
-                          << " oncoming=" << oncoming->getID()
-                          << " oncomingGap=" << neighLead.second
-                          << " leaderGap=" << leader.second
-                          << " safetyGap=" << safetyGap
-                          << " surplusGap=" << surplusGap
-                          << "\n";
+                    << " oncoming=" << oncoming->getID()
+                    << " oncomingGap=" << neighLead.second
+                    << " leaderGap=" << leader.second
+                    << " safetyGap=" << safetyGap
+                    << " surplusGap=" << surplusGap
+                    << "\n";
             }
 #endif
             if (surplusGap < 0) {
@@ -1180,6 +1129,7 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, double> leader) {
                 return false;
             }
         }
+
     } else if (!oppositeChangeByTraci) {
         timeToOvertake = -1;
         // look forward as far as possible
@@ -1445,6 +1395,82 @@ MSLaneChanger::computeOvertakingTime(const MSVehicle* vehicle, const MSVehicle* 
 #endif
         }
     }
+}
+
+
+
+std::pair<MSVehicle*, double> 
+MSLaneChanger::getColumnleader(MSVehicle* vehicle, std::pair<MSVehicle*, double> leader) {
+    assert(leader.first != 0);
+    MSLane* source = leader.first->getLane();
+    // find a leader vehicle with sufficient space ahead for merging back
+    const double overtakingSpeed = source->getVehicleMaxSpeed(vehicle); // just a guess
+    const double mergeBrakeGap = vehicle->getCarFollowModel().brakeGap(overtakingSpeed);
+    std::pair<MSVehicle*, double> columnLeader = leader;
+    double egoGap = leader.second;
+    bool foundSpaceAhead = false;
+    double seen = leader.second + leader.first->getVehicleType().getLengthWithGap();
+    std::vector<MSLane*> conts = vehicle->getBestLanesContinuation();
+    while (!foundSpaceAhead) {
+        const double requiredSpaceAfterLeader = (columnLeader.first->getCarFollowModel().getSecureGap(
+                    columnLeader.first->getSpeed(), overtakingSpeed, vehicle->getCarFollowModel().getMaxDecel())
+                + vehicle->getVehicleType().getLengthWithGap());
+
+
+        // all leader vehicles on the current laneChanger edge are already moved into MSLane::myTmpVehicles
+        const bool checkTmpVehicles = (&columnLeader.first->getLane()->getEdge() == &source->getEdge());
+        std::pair<MSVehicle* const, double> leadLead = columnLeader.first->getLane()->getLeader(
+                columnLeader.first, columnLeader.first->getPositionOnLane(), conts, requiredSpaceAfterLeader + mergeBrakeGap,
+                checkTmpVehicles);
+
+#ifdef DEBUG_CHANGE_OPPOSITE
+        if (DEBUG_COND) {
+            std::cout << "   leadLead=" << Named::getIDSecure(leadLead.first) << " gap=" << leadLead.second << "\n";
+        }
+#endif
+        if (leadLead.first == 0) {
+            foundSpaceAhead = true;
+        } else {
+            const double maxLookAhead = (vehicle->getVehicleType().getVehicleClass() == SVC_EMERGENCY
+                    ? OPPOSITE_OVERTAKING_MAX_LOOKAHEAD_EMERGENCY
+                    : OPPOSITE_OVERTAKING_MAX_LOOKAHEAD);
+            const double requiredSpace = (requiredSpaceAfterLeader
+                    + vehicle->getCarFollowModel().getSecureGap(overtakingSpeed, leadLead.first->getSpeed(), leadLead.first->getCarFollowModel().getMaxDecel()));
+#ifdef DEBUG_CHANGE_OPPOSITE
+            if (DEBUG_COND) {
+                std::cout << "   leader's leader " << leadLead.first->getID() << " space=" << leadLead.second << " req1=" << requiredSpaceAfterLeader << " req2=" << requiredSpace << "\n";
+            }
+#endif
+            if (leadLead.second > requiredSpace) {
+                foundSpaceAhead = true;
+            } else {
+#ifdef DEBUG_CHANGE_OPPOSITE
+                if (DEBUG_COND) {
+                    std::cout << "   not enough space after columnLeader=" << columnLeader.first->getID() << " required=" << requiredSpace << "\n";
+                }
+#endif
+                seen += MAX2(0., leadLead.second) + leadLead.first->getVehicleType().getLengthWithGap();
+                if (seen > maxLookAhead) {
+#ifdef DEBUG_CHANGE_OPPOSITE
+                    if (DEBUG_COND) {
+                        std::cout << "   cannot changeOpposite due to insufficient free space after columnLeader (seen=" << seen << " columnLeader=" << columnLeader.first->getID() << ")\n";
+                    }
+#endif
+                    return std::make_pair(nullptr, -1);
+                }
+                // see if merging after leadLead is possible
+                egoGap += columnLeader.first->getVehicleType().getLengthWithGap() + leadLead.second;
+                columnLeader = leadLead;
+#ifdef DEBUG_CHANGE_OPPOSITE
+                if (DEBUG_COND) {
+                    std::cout << "   new columnLeader=" << columnLeader.first->getID() << "\n";
+                }
+#endif
+            }
+        }
+    }
+    columnLeader.second = egoGap;
+    return columnLeader;
 }
 
 /****************************************************************************/

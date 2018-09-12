@@ -213,6 +213,9 @@ protected:
      */
     static void computeOvertakingTime(const MSVehicle* vehicle, const MSVehicle* leader, double gap, double& timeToOvertake, double& spaceToOvertake);
 
+    // @brief return leader vehicle that is to be overtaken  
+    static std::pair<MSVehicle*, double> getColumnleader(MSVehicle* vehicle, std::pair<MSVehicle*, double> leader);
+
 protected:
     /// Container for ChangeElemements, one for every lane in the edge.
     Changer   myChanger;
