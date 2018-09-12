@@ -40,6 +40,7 @@
 #include <utils/common/MsgHandler.h>
 
 #define OPPOSITE_OVERTAKING_SAFE_TIMEGAP 0.0
+#define OPPOSITE_OVERTAKING_SAFETYGAP_HEADWAY_FACTOR 0.0
 // XXX maxLookAhead should be higher if all leaders are stopped and lower when they are jammed/queued
 #define OPPOSITE_OVERTAKING_MAX_LOOKAHEAD 150.0 // just a guess
 #define OPPOSITE_OVERTAKING_MAX_LOOKAHEAD_EMERGENCY 1000.0 // just a guess
@@ -1139,21 +1140,26 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, double> leader) {
         // check for dangerous oncoming leader
         if (neighLead.first != 0) {
             const MSVehicle* oncoming = neighLead.first;
-
+            const double safetyGap = ((neighLead.first->getSpeed() + vehicle->getLane()->getVehicleMaxSpeed(vehicle)) 
+                    * vehicle->getCarFollowModel().getHeadwayTime()
+                    * OPPOSITE_OVERTAKING_SAFETYGAP_HEADWAY_FACTOR);
+            const double surplusGap = neighLead.second - spaceToOvertake - timeToOvertake * oncoming->getSpeed() - safetyGap;
 #ifdef DEBUG_CHANGE_OPPOSITE
             if (DEBUG_COND) {
                 std::cout << SIMTIME
                           << " oncoming=" << oncoming->getID()
                           << " oncomingGap=" << neighLead.second
                           << " leaderGap=" << leader.second
+                          << " safetyGap=" << safetyGap
+                          << " surplusGap=" << surplusGap
                           << "\n";
             }
 #endif
-            if (neighLead.second - spaceToOvertake - timeToOvertake * oncoming->getSpeed() < 0) {
+            if (surplusGap < 0) {
 
 #ifdef DEBUG_CHANGE_OPPOSITE
                 if (DEBUG_COND) {
-                    std::cout << "   cannot changeOpposite due to dangerous oncoming\n";
+                    std::cout << "   cannot changeOpposite due to dangerous oncoming (surplusGap=" << surplusGap << ")\n";
                 }
 #endif
 
@@ -1268,7 +1274,10 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, double> leader) {
         // consider oncoming leaders
         if (leader.first != 0) {
             if (!leader.first->getLaneChangeModel().isOpposite()) {
-                laneQ.length = MIN2(laneQ.length, leader.second / 2 + forwardPos);
+                const double safetyGap = ((leader.first->getSpeed() + vehicle->getLane()->getVehicleMaxSpeed(vehicle)) 
+                        * vehicle->getCarFollowModel().getHeadwayTime()
+                        * OPPOSITE_OVERTAKING_SAFETYGAP_HEADWAY_FACTOR);
+                laneQ.length = MIN2(laneQ.length, leader.second / 2 + forwardPos - safetyGap);
 #ifdef DEBUG_CHANGE_OPPOSITE
                 if (DEBUG_COND) {
                     std::cout << SIMTIME << " found oncoming leader=" << leader.first->getID() << " gap=" << leader.second << "\n";
