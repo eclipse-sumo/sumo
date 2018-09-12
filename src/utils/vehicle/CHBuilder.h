@@ -232,6 +232,7 @@ private:
         /// @brief Constructor
         CHInfo(const E* e) :
             edge(e),
+            priority(0.),
             contractedNeighbors(0),
             rank(-1),
             level(0),
