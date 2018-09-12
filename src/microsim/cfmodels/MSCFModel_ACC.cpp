@@ -80,27 +80,6 @@ MSCFModel_ACC::~MSCFModel_ACC() {}
 
 
 double
-MSCFModel_ACC::finalizeSpeed(MSVehicle* const veh, double vPos) const {
-    const double oldV = veh->getSpeed(); // save old v for optional acceleration computation
-    const double vSafe = MIN2(vPos, veh->processNextStop(vPos)); // process stops
-    // we need the acceleration for emission computation;
-    //  in this case, we neglect dawdling, nonetheless, using
-    //  vSafe does not incorporate speed reduction due to interaction
-    //  on lane changing
-//   const double vMin = getSpeedAfterMaxDecel(oldV);
-    const double vMin = minNextSpeed(oldV); // maybe minNextSpeedEmergency() ? Why is a custom finalizeSpeed function needed anyway?
-    const double vMax = MAX2(vMin, MIN3(veh->getLane()->getVehicleMaxSpeed(veh), maxNextSpeed(oldV, veh), vSafe));
-#ifdef _DEBUG
-    //if (vMin > vMax) {
-    //    WRITE_WARNING("Maximum speed of vehicle '" + veh->getID() + "' is lower than the minimum speed (min: " + toString(vMin) + ", max: " + toString(vMax) + ").");
-    //}
-#endif
-    return veh->getLaneChangeModel().patchSpeed(vMin, MAX2(vMin, vMax), vMax, *this);
-
-}
-
-
-double
 MSCFModel_ACC::followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double /* predMaxDecel */, const MSVehicle* const /* pred */) const {
     const double desSpeed = MIN2(veh->getLane()->getSpeedLimit(), veh->getMaxSpeed());
     return _v(veh, gap2pred, speed, predSpeed, desSpeed, true);
