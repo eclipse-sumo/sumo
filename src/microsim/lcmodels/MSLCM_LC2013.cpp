@@ -61,6 +61,7 @@
 
 #define RELGAIN_NORMALIZATION_MIN_SPEED (double)10.0
 #define URGENCY (double)2.0
+#define OPPOSITE_URGENCY (double)5.0
 
 #define KEEP_RIGHT_TIME (double)5.0 // the number of seconds after which a vehicle should move to the right lane
 #define KEEP_RIGHT_ACCEPTANCE (double)7.0 // calibration factor for determining the desire to keep right
@@ -459,8 +460,19 @@ MSLCM_LC2013::informLeader(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
     }
 #endif
 
+    double neighNextSpeed;
+    double neighNextGap;
+    MSVehicle* nv;
+    if (neighLead.first != 0) {
+        nv = neighLead.first;
+        neighNextSpeed = nv->getSpeed() - ACCEL2SPEED(MAX2(1.0, -nv->getAcceleration()));
+        if (MSGlobals::gSemiImplicitEulerUpdate) {
+            neighNextGap = neighLead.second + SPEED2DIST(neighNextSpeed - plannedSpeed);
+        } else {
+            neighNextGap = neighLead.second + SPEED2DIST((nv->getSpeed() + neighNextSpeed) / 2) - SPEED2DIST((myVehicle.getSpeed() + plannedSpeed) / 2);
+        }
+    }
     if ((blocked & LCA_BLOCKED_BY_LEADER) != 0 && neighLead.first != 0) {
-        MSVehicle* nv = neighLead.first;
 #ifdef DEBUG_INFORMER
         if (DEBUG_COND) {
             std::cout << " blocked by leader nv=" <<  nv->getID() << " nvSpeed=" << nv->getSpeed() << " needGap="
@@ -507,8 +519,10 @@ MSLCM_LC2013::informLeader(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
             // cannot overtake
             msgPass.informNeighLeader(new Info(std::numeric_limits<double>::max(), dir | LCA_AMBLOCKINGLEADER), &myVehicle);
             // slow down smoothly to follow leader
-            const double targetSpeed = myCarFollowModel.followSpeed(
-                                           &myVehicle, myVehicle.getSpeed(), neighLead.second, nv->getSpeed(), nv->getCarFollowModel().getMaxDecel());
+            // account for minor decelerations by the leader (dawdling)
+            const double targetSpeed = MAX2(
+                    myVehicle.getCarFollowModel().minNextSpeed(myVehicle.getSpeed(), &myVehicle), 
+                    myCarFollowModel.followSpeed(&myVehicle, myVehicle.getSpeed(), neighNextGap, neighNextSpeed, nv->getCarFollowModel().getMaxDecel()));
             if (targetSpeed < myVehicle.getSpeed()) {
                 // slow down smoothly to follow leader
                 const double decel = remainingSeconds == 0. ? myVehicle.getCarFollowModel().getMaxDecel() :
@@ -527,6 +541,8 @@ MSLCM_LC2013::informLeader(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
                               << " remainingSeconds=" << remainingSeconds
                               << " currentGap=" << neighLead.second
                               << " brakeGap=" << myVehicle.getCarFollowModel().brakeGap(myVehicle.getSpeed(), myCarFollowModel.getMaxDecel(), 0.)
+                              << " neighNextSpeed=" << neighNextSpeed
+                              << " neighNextGap=" << neighNextGap
                               << " targetSpeed=" << targetSpeed
                               << " nextSpeed=" << nextSpeed
                               << "\n";
@@ -575,31 +591,17 @@ MSLCM_LC2013::informLeader(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
         }
     } else if (neighLead.first != 0) { // (remainUnblocked)
         // we are not blocked now. make sure we stay far enough from the leader
-        MSVehicle* nv = neighLead.first;
-        double dv, nextNVSpeed;
-        if (MSGlobals::gSemiImplicitEulerUpdate) {
-            // XXX: the decrement (HELP_OVERTAKE) should be scaled with timestep length, I think.
-            //      It seems to function as an estimate nv's speed in the next simstep!? (so HELP_OVERTAKE should be an acceleration value.)
-            nextNVSpeed = nv->getSpeed() - HELP_OVERTAKE; // conservative
-            dv = SPEED2DIST(myVehicle.getSpeed() - nextNVSpeed);
-        } else {
-            // Estimate neigh's speed after actionstep length
-            // @note The possible breaking can be underestimated by the formula, so this is a potential
-            //       source of collisions if actionsteplength>simsteplength.
-            const double nvMaxDecel = HELP_OVERTAKE;
-            nextNVSpeed = nv->getSpeed() - nvMaxDecel * myVehicle.getActionStepLengthSecs(); // conservative
-            // Estimated gap reduction until next action step if own speed stays constant
-            dv = SPEED2DIST(myVehicle.getSpeed() - nextNVSpeed);
-        }
-        const double targetSpeed = myCarFollowModel.followSpeed(
-                                       &myVehicle, myVehicle.getSpeed(), neighLead.second - dv, nextNVSpeed, nv->getCarFollowModel().getMaxDecel());
+        const double targetSpeed = MAX2(
+                myVehicle.getCarFollowModel().minNextSpeed(myVehicle.getSpeed(), &myVehicle), 
+                myCarFollowModel.followSpeed(&myVehicle, myVehicle.getSpeed(), neighNextGap, neighNextSpeed, nv->getCarFollowModel().getMaxDecel()));
         addLCSpeedAdvice(targetSpeed);
 #ifdef DEBUG_INFORMER
         if (DEBUG_COND) {
             std::cout << " not blocked by leader nv=" <<  nv->getID()
                       << " nvSpeed=" << nv->getSpeed()
                       << " gap=" << neighLead.second
-                      << " nextGap=" << neighLead.second - dv
+                      << " neighNextSpeed=" << neighNextSpeed
+                      << " neighNextGap=" << neighNextGap
                       << " needGap=" << myVehicle.getCarFollowModel().getSecureGap(myVehicle.getSpeed(), nv->getSpeed(), nv->getCarFollowModel().getMaxDecel())
                       << " targetSpeed=" << targetSpeed
                       << "\n";
@@ -1390,9 +1392,10 @@ MSLCM_LC2013::_wantsChange(
         }
 
         const int remainingLanes = MAX2(1, abs(bestLaneOffset));
+        const double urgency = isOpposite() ? OPPOSITE_URGENCY : URGENCY;
         const double remainingSeconds = ((ret & LCA_TRACI) == 0 ?
-                                         // MAX2((double)STEPS2TIME(TS), (myLeftSpace-myLeadingBlockerLength) / MAX2(myLookAheadSpeed, NUMERICAL_EPS) / abs(bestLaneOffset) / URGENCY) :
-                                         MAX2((double)STEPS2TIME(TS), myLeftSpace / MAX2(myLookAheadSpeed, NUMERICAL_EPS) / remainingLanes / URGENCY) :
+                                         //MAX2((double)STEPS2TIME(TS), (myLeftSpace-myLeadingBlockerLength) / MAX2(myLookAheadSpeed, NUMERICAL_EPS) / remainingLanes / urgency) :
+                                         MAX2((double)STEPS2TIME(TS), myLeftSpace / MAX2(myLookAheadSpeed, NUMERICAL_EPS) / remainingLanes / urgency) :
                                          myVehicle.getInfluencer().changeRequestRemainingSeconds(currentTime));
         const double plannedSpeed = informLeader(msgPass, blocked, myLca, neighLead, remainingSeconds);
         // NOTE: for the  ballistic update case negative speeds may indicate a stop request,
