@@ -411,6 +411,14 @@ GNETLSEditorFrame::onCmdPhaseCreate(FXObject*, FXSelector, void*) {
     SUMOTime duration = getSUMOTime(myTLSPhases->getPhaseTable()->getItemText(oldIndex, 0));
     std::string state = myTLSPhases->getPhaseTable()->getItemText(oldIndex, fixed ? 1 : 3).text();
 
+    std::set<int> crossingIndices;
+    for (NBNode* n : myEditedDef->getNodes()) {
+        for (NBNode::Crossing* c : n->getCrossings()) {
+            crossingIndices.insert(c->tlLinkIndex);
+            crossingIndices.insert(c->tlLinkIndex2);
+        }
+    }
+
     // smart adapations for new state
     bool haveGreen = false;
     bool haveYellow = false;
@@ -438,7 +446,11 @@ GNETLSEditorFrame::onCmdPhaseCreate(FXObject*, FXSelector, void*) {
         duration = TIME2STEPS(myEditedDef->computeBrakingTime(oc.getFloat("tls.yellow.min-decel")));
         for (int i = 0; i < (int)state.size(); i++) {
             if (state[i] == LINKSTATE_TL_GREEN_MAJOR || state[i] == LINKSTATE_TL_GREEN_MINOR) {
-                state[i] = LINKSTATE_TL_YELLOW_MINOR;
+                if (crossingIndices.count(i) == 0) {
+                    state[i] = LINKSTATE_TL_YELLOW_MINOR;
+                } else {
+                    state[i] = LINKSTATE_TL_RED;
+                }
             }
         }
     } else if (haveYellow) {
