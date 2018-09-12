@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep 12 21:14:22 2018 by Eclipse SUMO netconvert Version v1_0_0+0152-ca4da05
+<!-- generated on Wed Sep 12 21:50:41 2018 by Eclipse SUMO netconvert Version v1_0_0+0153-031b56b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -70,13 +70,13 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":C_w0_0" index="0" allow="pedestrian" speed="1.00" length="32.36" width="4.50" shape="77.49,27.42 77.49,28.92 125.38,39.09 126.10,37.77 120.15,35.34 111.82,32.96 102.26,30.80 92.59,29.04 83.95,27.85"/>
     </edge>
     <edge id=":C_w1" function="walkingarea">
-        <lane id=":C_w1_0" index="0" allow="pedestrian" speed="1.00" length="3.43" width="4.50" shape="129.17,32.15 129.89,30.84 130.38,28.92 130.38,27.42 126.21,27.44 123.67,27.58 122.74,27.99 123.36,28.80 125.52,30.14"/>
+        <lane id=":C_w1_0" index="0" allow="pedestrian" speed="1.00" length="3.43" width="4.50" shape="129.17,32.15 129.89,30.84 130.38,28.92 130.38,27.42 129.30,27.69 128.51,28.39 128.06,29.35 127.99,30.41 128.35,31.40"/>
     </edge>
     <edge id=":C_w2" function="walkingarea">
         <lane id=":C_w2_0" index="0" allow="pedestrian" speed="1.00" length="44.45" width="4.50" shape="130.38,14.62 130.38,13.12 63.87,0.96 63.68,2.95 71.38,4.15 83.17,6.41 97.01,9.15 110.86,11.81 122.66,13.82"/>
     </edge>
     <edge id=":C_w3" function="walkingarea">
-        <lane id=":C_w3_0" index="0" allow="pedestrian" speed="1.00" length="10.89" width="4.50" shape="63.06,9.33 62.87,11.32 77.49,13.12 77.49,14.62 80.58,14.29 80.41,13.46 77.76,12.33 73.45,11.13 68.28,10.05"/>
+        <lane id=":C_w3_0" index="0" allow="pedestrian" speed="1.00" length="10.89" width="4.50" shape="63.06,9.33 62.87,11.32 77.49,13.12 77.49,14.62 79.62,14.28 78.86,13.41 76.03,12.25 71.91,11.03 67.32,9.97"/>
     </edge>
     <edge id=":C_w4" function="walkingarea">
         <lane id=":C_w4_0" index="0" allow="pedestrian" speed="1.00" length="0.10" width="4.50" shape="67.85,6.57 63.37,6.14 63.37,6.14 67.85,6.57"/>
