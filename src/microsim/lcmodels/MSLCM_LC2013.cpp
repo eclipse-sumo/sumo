@@ -1171,16 +1171,18 @@ MSLCM_LC2013::_wantsChange(
     laDist += myVehicle.getVehicleType().getLengthWithGap() * (double) 2.;
 
 
-    if (bestLaneOffset == 0 && leader.first != 0 && leader.first->isStopped()) {
+    if (bestLaneOffset == 0 && leader.first != 0 && leader.first->isStopped() && leader.second < (currentDist - posOnLane)) {
         // react to a stopped leader on the current lane
         // The value of laDist is doubled below for the check whether the lc-maneuver can be taken out
         // on the remaining distance (because the vehicle has to change back and forth). Therefore multiply with 0.5.
         laDist = 0.5 * (myVehicle.getVehicleType().getLengthWithGap()
-                        + leader.first->getVehicleType().getLengthWithGap());
-    } else if (bestLaneOffset == laneOffset && neighLead.first != 0 && neighLead.first->isStopped()) {
+                        + leader.first->getVehicleType().getLengthWithGap()
+                        + leader.second);
+    } else if (bestLaneOffset == laneOffset && neighLead.first != 0 && neighLead.first->isStopped() && neighLead.second < (currentDist - posOnLane)) {
         // react to a stopped leader on the target lane (if it is the bestLane)
-        laDist = myVehicle.getVehicleType().getLengthWithGap()
-                 + neighLead.first->getVehicleType().getLengthWithGap();
+        laDist = (myVehicle.getVehicleType().getLengthWithGap()
+                  + neighLead.first->getVehicleType().getLengthWithGap()
+                  + neighLead.second);
     }
 
     // free space that is available for changing
