@@ -41,6 +41,7 @@
 
 #define OPPOSITE_OVERTAKING_SAFE_TIMEGAP 0.0
 #define OPPOSITE_OVERTAKING_SAFETYGAP_HEADWAY_FACTOR 0.0
+#define OPPOSITE_OVERTAKING_SAFETY_FACTOR 1.2
 // XXX maxLookAhead should be higher if all leaders are stopped and lower when they are jammed/queued
 #define OPPOSITE_OVERTAKING_MAX_LOOKAHEAD 150.0 // just a guess
 #define OPPOSITE_OVERTAKING_MAX_LOOKAHEAD_EMERGENCY 1000.0 // just a guess
@@ -1095,7 +1096,7 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, double> leader) {
         if (neighLead.first != 0) {
             const MSVehicle* oncoming = neighLead.first;
             // conservative: assume that the oncoming vehicle accelerates to its maximum speed
-            const double oncomingSpeed = oncoming->getAcceleration() > 0 ? oncoming->getLane()->getVehicleMaxSpeed(oncoming) : oncoming->getSpeed();
+            const double oncomingSpeed = oncoming->isStopped() ? 0 : oncoming->getLane()->getVehicleMaxSpeed(oncoming);
             const double safetyGap = ((oncomingSpeed + vehicle->getLane()->getVehicleMaxSpeed(vehicle)) 
                     * vehicle->getCarFollowModel().getHeadwayTime()
                     * OPPOSITE_OVERTAKING_SAFETYGAP_HEADWAY_FACTOR);
@@ -1404,6 +1405,18 @@ MSLaneChanger::computeOvertakingTime(const MSVehicle* vehicle, const MSVehicle* 
 #endif
         }
     }
+    const double safetyFactor = OPPOSITE_OVERTAKING_SAFETY_FACTOR * vehicle->getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_ASSERTIVE, 1);
+    timeToOvertake *= safetyFactor;
+    spaceToOvertake *= safetyFactor;
+#ifdef DEBUG_CHANGE_OPPOSITE_OVERTAKINGTIME
+    if (DEBUG_COND) {
+        if (safetyFactor!= 1) {
+            std::cout << "    applying safetyFactor=" << safetyFactor
+                << " tto=" << timeToOvertake << " sto=" << spaceToOvertake << "\n";
+        }
+    }
+#endif
+
 }
 
 
@@ -1444,11 +1457,16 @@ MSLaneChanger::getColumnleader(MSVehicle* vehicle, std::pair<MSVehicle*, double>
             const double maxLookAhead = (vehicle->getVehicleType().getVehicleClass() == SVC_EMERGENCY
                     ? OPPOSITE_OVERTAKING_MAX_LOOKAHEAD_EMERGENCY
                     : OPPOSITE_OVERTAKING_MAX_LOOKAHEAD);
-            const double requiredSpace = (requiredSpaceAfterLeader
+            const double safetyFactor = OPPOSITE_OVERTAKING_SAFETY_FACTOR * vehicle->getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_ASSERTIVE, 1);
+            const double requiredSpace = safetyFactor * (requiredSpaceAfterLeader
                     + vehicle->getCarFollowModel().getSecureGap(overtakingSpeed, leadLead.first->getSpeed(), leadLead.first->getCarFollowModel().getMaxDecel()));
 #ifdef DEBUG_CHANGE_OPPOSITE
             if (DEBUG_COND) {
-                std::cout << "   leader's leader " << leadLead.first->getID() << " space=" << leadLead.second << " req1=" << requiredSpaceAfterLeader << " req2=" << requiredSpace << "\n";
+                std::cout << "   leader's leader " << leadLead.first->getID() << " space=" << leadLead.second 
+                    << " req1=" << requiredSpaceAfterLeader 
+                    << " req2=" << requiredSpace / safetyFactor
+                    << " req3=" << requiredSpace 
+                    << "\n";
             }
 #endif
             if (leadLead.second > requiredSpace) {
