@@ -1,0 +1,8 @@
+<routes>
+    <vehicle id="v1" depart="10" route="r0">
+        <stop busStop="busstop0" duration="10"/>
+        <stop busStop="busstop1" duration="10"/>
+    </vehicle>
+
+    <vehicle id="v2" depart="20" route="r0"/>
+</routes>
