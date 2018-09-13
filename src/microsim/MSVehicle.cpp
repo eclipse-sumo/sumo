@@ -3038,18 +3038,19 @@ MSVehicle::processLaneAdvances(std::vector<MSLane*>& passedLanes, bool& moved, s
         if (myCurrEdge != myRoute->end() - 1) {
             MSLane* approachedLane = myLane;
             // move the vehicle forward
-            for (myNextDriveItem = myLFLinkLanes.begin(); myNextDriveItem != myLFLinkLanes.end() && approachedLane != 0 && myState.myPos > approachedLane->getLength(); ++myNextDriveItem) {
-                MSLink* link = myNextDriveItem->myLink;
+            myNextDriveItem = myLFLinkLanes.begin();
+            while (myNextDriveItem != myLFLinkLanes.end() && approachedLane != nullptr && myState.myPos > approachedLane->getLength()) {
+                const MSLink* link = myNextDriveItem->myLink;
+                ++myNextDriveItem;
                 // check whether the vehicle was allowed to enter lane
                 //  otherwise it is decelerated and we do not need to test for it's
                 //  approach on the following lanes when a lane changing is performed
                 // proceed to the next lane
-                if (link != 0) {
+                if (link != nullptr) {
                     approachedLane = link->getViaLaneOrLane();
                     if (myInfluencer == 0 || myInfluencer->getEmergencyBrakeRedLight()) {
                         if (link->haveRed() && !ignoreRed(link, false)) {
                             emergencyReason = " because of a red traffic light";
-                            ++myNextDriveItem;
                             break;
                         }
                     }
@@ -3069,11 +3070,10 @@ MSVehicle::processLaneAdvances(std::vector<MSLane*>& passedLanes, bool& moved, s
                     --myNextDriveItem;
                 } else {
                     emergencyReason = " because there is no connection to the next edge";
-                    approachedLane = 0;
-                    ++myNextDriveItem;
+                    approachedLane = nullptr;
                     break;
                 }
-                if (approachedLane != myLane && approachedLane != 0) {
+                if (approachedLane != myLane && approachedLane != nullptr) {
                     leaveLane(MSMoveReminder::NOTIFICATION_JUNCTION, approachedLane);
                     myState.myPos -= myLane->getLength();
                     assert(myState.myPos > 0);
@@ -3085,7 +3085,6 @@ MSVehicle::processLaneAdvances(std::vector<MSLane*>& passedLanes, bool& moved, s
                         }
                     }
                     if (hasArrived()) {
-                        ++myNextDriveItem;
                         break;
                     }
                     if (getLaneChangeModel().isChangingLanes()) {
@@ -3099,7 +3098,6 @@ MSVehicle::processLaneAdvances(std::vector<MSLane*>& passedLanes, bool& moved, s
                     moved = true;
                     if (approachedLane->getEdge().isVaporizing()) {
                         leaveLane(MSMoveReminder::NOTIFICATION_VAPORIZED);
-                        ++myNextDriveItem;
                         break;
                     }
                     passedLanes.push_back(approachedLane);
