@@ -1590,7 +1590,7 @@ MSLaneChanger::getLaneAfter(MSLane* lane, const std::vector<MSLane*>& conts) {
 std::pair<MSVehicle*, double> 
 MSLaneChanger::getColumnleader(MSVehicle* vehicle, std::pair<MSVehicle*, double> leader) {
     assert(leader.first != 0);
-    MSLane* source = leader.first->getLane();
+    MSLane* source = vehicle->getLane();
     // find a leader vehicle with sufficient space ahead for merging back
     const double overtakingSpeed = source->getVehicleMaxSpeed(vehicle); // just a guess
     const double mergeBrakeGap = vehicle->getCarFollowModel().brakeGap(overtakingSpeed);
@@ -1602,6 +1602,7 @@ MSLaneChanger::getColumnleader(MSVehicle* vehicle, std::pair<MSVehicle*, double>
     while (!foundSpaceAhead) {
         const double requiredSpaceAfterLeader = (columnLeader.first->getCarFollowModel().getSecureGap(
                     columnLeader.first->getSpeed(), overtakingSpeed, vehicle->getCarFollowModel().getMaxDecel())
+                + columnLeader.first->getVehicleType().getMinGap()
                 + vehicle->getVehicleType().getLengthWithGap());
 
 
