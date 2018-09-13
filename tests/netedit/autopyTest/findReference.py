@@ -1,29 +1,19 @@
-import autopy
+import pyautogui
 import time
 
 
 def find_reference_example():
-    # get reference
-    reference = autopy.bitmap.Bitmap.open('reference.png')
 
-    # write width and height
-    width, height = autopy.screen.size()
-    print(width*autopy.screen.scale())
-    print(height*autopy.screen.scale())
-
-    # write screen scale
-    print(autopy.screen.scale())
-
-    # 30 second for search  reference
+    # aprox 30-40 second for search  reference (every locateOnScreen takes about 1-2 seconds)
     for x in range(0, 15):
-        # capture screen and search reference
-        pos = autopy.bitmap.capture_screen().find_bitmap(reference)
+        # search reference
+        position = pyautogui.locateOnScreen('reference.png')
         # check if pos was found
-        if pos:
+        if position:
             # break loop
-            print("Found reference at position: %s" % str(pos))
+            print("Found reference at position: %s" % str(position))
             break
         # wait two second
-        time.sleep(2)
+        time.sleep(1)
 
 find_reference_example()

@@ -1,8 +1,7 @@
-import autopy
 import pyautogui
 
 # simply open a dialog with "hello world"
 def hello_world():
-    autopy.alert.alert("Hello, world")
+    pyautogui.alert("Hello World", "Hello World Head")
 
 hello_world()
