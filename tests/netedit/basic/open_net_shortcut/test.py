@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit without search the pink square reference
-neteditProcess = netedit.setupAndStart(neteditTestRoot, [], True, False)
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--new'])
 
 # open configuration using shortcut
 netedit.openNetworkAs()

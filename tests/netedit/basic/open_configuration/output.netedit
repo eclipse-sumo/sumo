@@ -1,13 +1,5 @@
-+++ running this Java
-+++ trying to run SikuliX
-+++ using: -Xms64M -Xmx512M -Dfile.encoding=UTF-8 -Dsikuli.FromCommandLine -jar C:\sikulix\sikulix.jar -run test.sikuli
+Loading configuration... done.
 TestFunctions: Netedit opened successfully
 Finding reference
-Loading configuration... done.
 TestFunctions: 'reference.png' found. Position: 304 - 140
-[log] ( Strg+Umschalt )  TYPE "s"
-[log] ( Alt )  TYPE "f"
-[log] ( Strg )  TYPE "a"
-[log]  TYPE "#ENTER."
-[log] ( Strg )  TYPE "q"
 TestFunctions: Netedit closed successfully
