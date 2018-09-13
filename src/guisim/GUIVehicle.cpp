@@ -406,7 +406,7 @@ GUIVehicle::getColorValue(int activeScheme) const {
         case 22:
             return gSelected.isSelected(GLO_VEHICLE, getGlID());
         case 23:
-            return getBestLaneOffset();
+            return getLaneChangeModel().isOpposite() ? -100 : getBestLaneOffset();
         case 24:
             return getAcceleration();
         case 25:
