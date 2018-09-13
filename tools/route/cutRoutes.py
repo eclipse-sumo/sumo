@@ -33,7 +33,7 @@ import sort_routes
 if 'SUMO_HOME' in os.environ:
     tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
     sys.path.append(os.path.join(tools))
-    from sumolib.output import parse  # noqa
+    from sumolib.output import parse, parse_fast  # noqa
     from sumolib.net import readNet  # noqa
 else:
     sys.exit("please declare environment variable 'SUMO_HOME'")
@@ -99,11 +99,33 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None):
     multiAffectedRoutes = 0
     teleportFactorSum = 0.0
     too_short = 0
+    standaloneRoutes = {} # routeID -> routeObject
+    standaloneRoutesDepart = {} # routeID -> time or 'discard' or None
+    if options.additional_input:
+        parse_standalone_routes(options.additional_input, standaloneRoutes)
+    for routeFile in options.routeFiles:
+        parse_standalone_routes(routeFile, standaloneRoutes)
+
     for routeFile in options.routeFiles:
         print("Parsing routes from %s" % routeFile)
         for vehicle in parse(routeFile, 'vehicle'):
             num_vehicles += 1
-            edges = vehicle.route[0].edges.split()
+            if type(vehicle.route) == list:
+                edges = vehicle.route[0].edges.split()
+                routeRef = False
+            else:
+                newDepart = standaloneRoutesDepart.get(vehicle.route)
+                if newDepart is 'discard':
+                    # route was already checked and discared
+                    continue
+                elif newDepart is not None:
+                    # route was already treated
+                    vehicle.depart = "%.2f" % (newDepart + float(vehicle.depart))
+                    yield vehicle.depart, vehicle
+                    continue
+                else:
+                    routeRef = standaloneRoutes[vehicle.route]
+                    edges = routeRef.edges.split()
             firstIndex = getFirstIndex(areaEdges, edges)
             if firstIndex is None:
                 continue  # route does not touch the area
@@ -120,6 +142,8 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None):
             if len(route_parts) > 1:
                 multiAffectedRoutes += 1
                 if options.disconnected_action == 'discard':
+                    if routeRef:
+                        standaloneRoutesDepart[vehicle.route] = 'discard'
                     continue
             # loop over different route parts
             for ix_part, ix_interval in enumerate(route_parts):
@@ -128,9 +152,11 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None):
                 # check for minimum length
                 if toIndex - fromIndex + 1 < options.min_length:
                     too_short += 1
+                    if routeRef:
+                        standaloneRoutesDepart[vehicle.route] = 'discard'
                     continue
                 # compute new departure
-                if vehicle.route[0].exitTimes is None:
+                if routeRef or vehicle.route[0].exitTimes is None:
                     if orig_net is not None:
                         # extrapolate new departure using default speed
                         newDepart = (float(vehicle.depart) +
@@ -150,24 +176,16 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None):
                     # assume teleports were spread evenly across the vehicles route
                     newDepart = float(departTimes[int(fromIndex * teleportFactor)])
                     del vehicle.route[0].exitTimes
+                if routeRef:
+                    standaloneRoutesDepart[vehicle.route] = newDepart - float(vehicle.depart)
                 remaining = edges[fromIndex:toIndex + 1]
-                stops = []
-                if vehicle.stop:
-                    for stop in vehicle.stop:
-                        if stop.busStop:
-                            if not busStopEdges:
-                                print(
-                                    "No bus stop locations parsed, skipping bus stop '%s'." % stop.busStop)
-                                continue
-                            if stop.busStop not in busStopEdges:
-                                print(
-                                    "Skipping bus stop '%s', which could not be located." % stop.busStop)
-                                continue
-                            if busStopEdges[stop.busStop] in remaining:
-                                stops.append(stop)
-                        elif stop.lane[:-2] in remaining:
-                            stops.append(stop)
-                vehicle.route[0].edges = " ".join(remaining)
+                stops = cut_stops(vehicle, busStopEdges, remaining)
+                if routeRef:
+                    routeRef.stop = cut_stops(routeRef, busStopEdges, remaining)
+                    routeRef.edges = " ".join(remaining)
+                    yield None, routeRef
+                else:
+                    vehicle.route[0].edges = " ".join(remaining)
                 vehicle.stop = stops
                 vehicle.depart = "%.2f" % newDepart
                 if len(route_parts) > 1:
@@ -193,6 +211,26 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None):
     print("Number of disconnected routes: %s. Most frequent missing edges:" %
           multiAffectedRoutes)
     printTop(missingEdgeOccurences)
+
+def cut_stops(vehicle, busStopEdges, remaining):
+    stops = []
+    if vehicle.stop:
+        for stop in vehicle.stop:
+            if stop.busStop:
+                if not busStopEdges:
+                    print(
+                        "No bus stop locations parsed, skipping bus stop '%s'." % stop.busStop)
+                    continue
+                if stop.busStop not in busStopEdges:
+                    print(
+                        "Skipping bus stop '%s', which could not be located." % stop.busStop)
+                    continue
+                if busStopEdges[stop.busStop] in remaining:
+                    stops.append(stop)
+            elif stop.lane[:-2] in remaining:
+                stops.append(stop)
+    return stops
+
 
 
 def getFirstIndex(areaEdges, edges):
@@ -254,6 +292,10 @@ def write_route(file, vehicle):
     file.write(vehicle.toXML('    '))
 
 
+def parse_standalone_routes(file, into):
+    for route in parse(file, 'route'):
+        into[route.id] = route
+
 def main(options):
     net = readNet(options.network)
     edges = set([e.getID() for e in net.getEdges()])
@@ -294,12 +336,18 @@ def main(options):
         f.write(
             ('<%s xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ' +
              'xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">\n') % output_type)
-        num_routes = 0
+        num_routeRefs = 0
+        num_vehicles = 0
         for _, v in vehicles:
-            num_routes += 1
+            if v.name == 'route':
+                num_routeRefs += 1
+            else:
+                num_vehicles += 1
             writer(f, v)
         f.write('</%s>\n' % output_type)
-        print("Wrote %s %s" % (num_routes, output_type))
+        print("Wrote %s %s" % (num_vehicles, output_type))
+        if num_routeRefs > 0:
+            print("Wrote %s %s" % (num_routeRefs, "standalone routes"))
 
     if options.big:
         # write output unsorted
