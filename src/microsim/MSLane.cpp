@@ -67,7 +67,7 @@
 //#define DEBUG_INSERTION
 //#define DEBUG_PLAN_MOVE
 //#define DEBUG_EXEC_MOVE
-//#define DEBUG_CONTEXT
+#define DEBUG_CONTEXT
 //#define DEBUG_OPPOSITE
 //#define DEBUG_VEHICLE_CONTAINER
 //#define DEBUG_COLLISIONS
@@ -2134,10 +2134,10 @@ MSLane::getLeader(const MSVehicle* veh, const double vehPos, const std::vector<M
             }
 #ifdef DEBUG_CONTEXT
             if (DEBUG_COND2(veh)) {
-                std::cout << "   getLeader lane=" << getID() << " ego=" << veh->getID() << " egoPos=" << vehPos << " pred=" << pred->getID() << " predPos=" << pred->getPositionOnLane() << "\n";
+                std::cout << std::setprecision(gPrecision) << "   getLeader lane=" << getID() << " ego=" << veh->getID() << " egoPos=" << vehPos << " pred=" << pred->getID() << " predPos=" << pred->getPositionOnLane() << "\n";
             }
 #endif
-            if (pred->getPositionOnLane() > vehPos + NUMERICAL_EPS) {
+            if (pred->getPositionOnLane() >= vehPos) {
                 return std::pair<MSVehicle* const, double>(pred, pred->getBackPositionOnLane(this) - veh->getVehicleType().getMinGap() - vehPos);
             }
         }
@@ -2154,7 +2154,7 @@ MSLane::getLeader(const MSVehicle* veh, const double vehPos, const std::vector<M
                           << " pred=" << pred->getID() << " predPos=" << pred->getPositionOnLane(this) << " predBack=" << pred->getBackPositionOnLane(this) << "\n";
             }
 #endif
-            if (pred->getPositionOnLane(this) > vehPos + NUMERICAL_EPS) {
+            if (pred->getPositionOnLane(this) >= vehPos) {
                 return std::pair<MSVehicle* const, double>(pred, pred->getBackPositionOnLane(this) - veh->getVehicleType().getMinGap() - vehPos);
             }
         }
@@ -3230,7 +3230,7 @@ MSLane::getOppositeFollower(const MSVehicle* ego) const {
             if (result.first->getLaneChangeModel().isOpposite()) {
                 result.second -= result.first->getVehicleType().getLength();
             } else {
-                if (result.second > 0) {
+                if (result.second > POSITION_EPS) {
                     // follower can be safely ignored since it is going the other way
                     return std::make_pair(static_cast<MSVehicle*>(0), -1);
                 }
