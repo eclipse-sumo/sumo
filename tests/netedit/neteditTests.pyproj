@@ -2470,6 +2470,10 @@
     <Content Include="basic\open_net_shortcut\log.netedit" />
     <Content Include="basic\open_net_shortcut\net.netedit" />
     <Content Include="basic\open_net_shortcut\output.netedit" />
+    <Content Include="basic\pyautogui_error\errors.netedit" />
+    <Content Include="basic\pyautogui_error\gui-settings.xml" />
+    <Content Include="basic\pyautogui_error\log.netedit" />
+    <Content Include="basic\pyautogui_error\output.netedit" />
     <Content Include="basic\quit_noSave\errors.netedit" />
     <Content Include="basic\quit_noSave\gui-settings.xml" />
     <Content Include="basic\quit_noSave\input_net.con.xml" />
@@ -2505,10 +2509,6 @@
     <Content Include="basic\save_configuration\netnod.netedit" />
     <Content Include="basic\save_configuration\nettll.netedit" />
     <Content Include="basic\save_configuration\output.netedit" />
-    <Content Include="basic\sikulix_error\errors.netedit" />
-    <Content Include="basic\sikulix_error\gui-settings.xml" />
-    <Content Include="basic\sikulix_error\log.netedit" />
-    <Content Include="basic\sikulix_error\output.netedit" />
     <Content Include="basic\testsuite.netedit" />
     <Content Include="bugs\additionals\testsuite.netedit" />
     <Content Include="bugs\additionals\ticket3322\additionals.netedit" />
@@ -7488,10 +7488,10 @@
     <Compile Include="basic\open_configuration_shortcut\test.py" />
     <Compile Include="basic\open_netedit\test.py" />
     <Compile Include="basic\open_net_shortcut\test.py" />
+    <Compile Include="basic\pyautogui_error\test.py" />
     <Compile Include="basic\quit_noSave\test.py" />
     <Compile Include="basic\quit_saveAll\test.py" />
     <Compile Include="basic\save_configuration\test.py" />
-    <Compile Include="basic\sikulix_error\test.py" />
     <Compile Include="bugs\additionals\ticket3322\test.py" />
     <Compile Include="bugs\additionals\ticket3879\test.py" />
     <Compile Include="bugs\crossings\ticket3149\test.py" />
@@ -8138,10 +8138,10 @@
     <Folder Include="basic\open_configuration_shortcut" />
     <Folder Include="basic\open_netedit" />
     <Folder Include="basic\open_net_shortcut" />
+    <Folder Include="basic\pyautogui_error\" />
     <Folder Include="basic\quit_noSave" />
     <Folder Include="basic\quit_saveAll" />
     <Folder Include="basic\save_configuration" />
-    <Folder Include="basic\sikulix_error" />
     <Folder Include="bugs" />
     <Folder Include="bugs\additionals" />
     <Folder Include="bugs\additionals\ticket3322" />
