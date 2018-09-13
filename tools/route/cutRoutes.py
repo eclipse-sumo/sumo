@@ -331,7 +331,7 @@ def main(options):
                 kept_busstops += 1
                 if busStop.access:
                     busStop.access = [acc for acc in busStop.access if acc.lane[:-2] in edges]
-                busStops.write(busStop.toXML('    '))
+                busStops.write(busStop.toXML('    ').decode('utf8'))
         for taz in parse(options.additional_input, 'taz'):
             num_taz += 1
             taz_edges = [e for e in taz.edges.split() if e in edges]
