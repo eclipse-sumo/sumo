@@ -1037,7 +1037,7 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, double> leader) {
     }
     MSLane* opposite = source->getOpposite();
     //There is no lane for opposite driving
-    if (opposite == 0) {
+    if (opposite == 0 || !opposite->allowsVehicleClass(vehicle->getVClass())) {
         return false;
     }
     // changing into the opposite direction is always to the left (XXX except for left-hand networkds)
@@ -1174,7 +1174,7 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, double> leader) {
                 std::cout << "      usableDist=" << usableDist << " opposite=" << Named::getIDSecure((*it)->getOpposite()) << "\n";
             }
 #endif
-            if ((*it)->getOpposite() == 0) {
+            if ((*it)->getOpposite() == 0 || !(*it)->getOpposite()->allowsVehicleClass(vehicle->getVClass())) {
                 // opposite lane ends
                 break;
             }
