@@ -286,13 +286,6 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
         if (elv.size() > 0) {
             bool haveVia = false;
             std::string edgeID = "";
-            // first pass: compute average lengths of non-via edges
-            std::map<std::string, double> lengthSum;
-            std::map<std::string, int> numLanes;
-            for (std::vector<NBEdge::Connection>::const_iterator k = elv.begin(); k != elv.end(); ++k) {
-                lengthSum[(*k).id] += MAX2((*k).shape.length(), POSITION_EPS);
-                numLanes[(*k).id] += 1;
-            }
             // second pass: write non-via edges
             for (std::vector<NBEdge::Connection>::const_iterator k = elv.begin(); k != elv.end(); ++k) {
                 if ((*k).toEdge == 0) {
@@ -313,15 +306,11 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
                 // to avoid changing to an internal lane which has a successor
                 // with the wrong permissions we need to inherit them from the successor
                 const NBEdge::Lane& successor = (*k).toEdge->getLanes()[(*k).toLane];
-                const double length = lengthSum[edgeID] / numLanes[edgeID];
-                // @note the actual length should be used once sumo supports lanes of
-                // varying length within the same edge
-                //const double length = MAX2((*k).shape.length(), POSITION_EPS);
                 const double width = n.isConstantWidthTransition() && (*i)->getNumLanes() > (*k).toEdge->getNumLanes() ? (*i)->getLaneWidth((*k).fromLane) : successor.width;
                 writeLane(into, (*k).getInternalLaneID(), (*k).vmax,
                           successor.permissions, successor.preferred,
                           NBEdge::UNSPECIFIED_OFFSET, std::map<int, double>(), width, (*k).shape, &(*k),
-                          length, (*k).internalLaneIndex, getOppositeInternalID(ec, *i, *k));
+                          (*k).length, (*k).internalLaneIndex, getOppositeInternalID(ec, *i, *k));
                 haveVia = haveVia || (*k).haveVia;
             }
             ret = true;
