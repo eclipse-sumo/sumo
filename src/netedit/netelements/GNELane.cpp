@@ -848,11 +848,7 @@ GNELane::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_DISALLOW:
             return getVehicleClassNames(invertPermissions(edge->getPermissions(myIndex)));
         case SUMO_ATTR_WIDTH:
-            if (edge->getLaneStruct(myIndex).width == NBEdge::UNSPECIFIED_WIDTH) {
-                return "default";
-            } else {
-                return toString(edge->getLaneStruct(myIndex).width);
-            }
+            return toString(edge->getLaneStruct(myIndex).width);
         case SUMO_ATTR_ENDOFFSET:
             return toString(edge->getLaneStruct(myIndex).endOffset);
         case SUMO_ATTR_ACCELERATION:
@@ -915,11 +911,7 @@ GNELane::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_DISALLOW:
             return canParseVehicleClasses(value);
         case SUMO_ATTR_WIDTH:
-            if (value.empty() || (value == "default")) {
-                return true;
-            } else {
-                return canParse<double>(value) && ((parse<double>(value) > 0) || (parse<double>(value) == NBEdge::UNSPECIFIED_WIDTH));
-            }
+            return canParse<double>(value) && ((parse<double>(value) > 0) || (parse<double>(value) == NBEdge::UNSPECIFIED_WIDTH));
         case SUMO_ATTR_ENDOFFSET:
             return canParse<double>(value) && (parse<double>(value) >= 0);
         case SUMO_ATTR_ACCELERATION:
@@ -1067,11 +1059,7 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value) {
             edge->setPermissions(invertPermissions(parseVehicleClasses(value)), myIndex);
             break;
         case SUMO_ATTR_WIDTH:
-            if (value.empty() || (value == "default")) {
-                edge->setLaneWidth(myIndex, NBEdge::UNSPECIFIED_WIDTH);
-            } else {
-                edge->setLaneWidth(myIndex, parse<double>(value));
-            }
+            edge->setLaneWidth(myIndex, parse<double>(value));
             break;
         case SUMO_ATTR_ENDOFFSET:
             edge->setEndOffset(myIndex, parse<double>(value));
