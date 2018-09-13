@@ -140,7 +140,7 @@ public:
                     minArrival = nextDepart + s.travelTime;
                     bestDepartTime = STEPS2TIME(nextDepart);
                     // see naming scheme inMSInsertionControl::determineCandidates()
-                    if (s.ids.size() == 1 || running >= s.ids.size()) {
+                    if (s.ids.size() == 1 || running >= (int)s.ids.size()) {
                         intended = s.repetitionNumber == 1 ? s.ids[0] : s.ids[0] + "." + toString(running);
                     } else {
                         intended = s.ids[running];
