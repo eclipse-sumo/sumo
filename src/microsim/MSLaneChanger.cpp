@@ -1035,6 +1035,21 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, double> leader) {
         // XXX also check whether the leader is so far away as to be irrelevant
         return false;
     }
+    if (!isOpposite && !oppositeChangeByTraci 
+            && vehicle->getVClass() != SVC_EMERGENCY
+            && leader.first != 0 
+            && leader.first->signalSet(MSNet::getInstance()->lefthand() 
+                ? MSVehicle::VEH_SIGNAL_BLINKER_RIGHT : MSVehicle::VEH_SIGNAL_BLINKER_LEFT)) {
+        // do not try to overtake a vehicle that is about to turn left or wants
+        // to change left itself
+#ifdef DEBUG_CHANGE_OPPOSITE
+        if (DEBUG_COND) {
+            std::cout << "   not overtaking leader " << leader.first->getID() << " that has blinker set\n";
+        }
+#endif
+        return false;
+    }
+            
     MSLane* opposite = source->getOpposite();
     //There is no lane for opposite driving
     if (opposite == 0 || !opposite->allowsVehicleClass(vehicle->getVClass())) {
