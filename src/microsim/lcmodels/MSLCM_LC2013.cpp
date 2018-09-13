@@ -460,19 +460,19 @@ MSLCM_LC2013::informLeader(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
     }
 #endif
 
-    double neighNextSpeed;
-    double neighNextGap;
-    MSVehicle* nv;
-    if (neighLead.first != 0) {
-        nv = neighLead.first;
-        neighNextSpeed = nv->getSpeed() - ACCEL2SPEED(MAX2(1.0, -nv->getAcceleration()));
-        if (MSGlobals::gSemiImplicitEulerUpdate) {
-            neighNextGap = neighLead.second + SPEED2DIST(neighNextSpeed - plannedSpeed);
-        } else {
-            neighNextGap = neighLead.second + SPEED2DIST((nv->getSpeed() + neighNextSpeed) / 2) - SPEED2DIST((myVehicle.getSpeed() + plannedSpeed) / 2);
-        }
+    const MSVehicle* const nv = neighLead.first;
+    if (nv == nullptr) {
+        // not overtaking
+        return plannedSpeed;
     }
-    if ((blocked & LCA_BLOCKED_BY_LEADER) != 0 && neighLead.first != 0) {
+    const double neighNextSpeed = nv->getSpeed() - ACCEL2SPEED(MAX2(1.0, -nv->getAcceleration()));
+    double neighNextGap;
+    if (MSGlobals::gSemiImplicitEulerUpdate) {
+        neighNextGap = neighLead.second + SPEED2DIST(neighNextSpeed - plannedSpeed);
+    } else {
+        neighNextGap = neighLead.second + SPEED2DIST((nv->getSpeed() + neighNextSpeed) / 2) - SPEED2DIST((myVehicle.getSpeed() + plannedSpeed) / 2);
+    }
+    if ((blocked & LCA_BLOCKED_BY_LEADER) != 0) {
 #ifdef DEBUG_INFORMER
         if (DEBUG_COND) {
             std::cout << " blocked by leader nv=" <<  nv->getID() << " nvSpeed=" << nv->getSpeed() << " needGap="
@@ -589,7 +589,7 @@ MSLCM_LC2013::informLeader(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
             msgPass.informNeighLeader(new Info(nv->getSpeed(), dir | LCA_AMBLOCKINGLEADER), &myVehicle);
             return -1;  // XXX: using -1 is ambiguous for the ballistic update! Currently this is being catched in patchSpeed() (Leo), consider returning INVALID_SPEED, refs. #2577
         }
-    } else if (neighLead.first != 0) { // (remainUnblocked)
+    } else { // (remainUnblocked)
         // we are not blocked now. make sure we stay far enough from the leader
         const double targetSpeed = MAX2(
                 myVehicle.getCarFollowModel().minNextSpeed(myVehicle.getSpeed(), &myVehicle), 
@@ -608,9 +608,6 @@ MSLCM_LC2013::informLeader(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
         }
 #endif
         return MIN2(targetSpeed, plannedSpeed);
-    } else {
-        // not overtaking
-        return plannedSpeed;
     }
 }
 
