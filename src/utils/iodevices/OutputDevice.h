@@ -329,6 +329,10 @@ public:
         return *this;
     }
 
+    void flush() {
+        getOStream().flush();
+    }
+
 protected:
     /// @brief Returns the associated ostream
     virtual std::ostream& getOStream() = 0;
