@@ -319,13 +319,37 @@ def main(options):
             '<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ' +
             'xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">\n')
     if options.additional_input:
+        num_busstops = 0
+        kept_busstops = 0
+        num_taz = 0
+        kept_taz = 0
         for busStop in parse(options.additional_input, ('busStop', 'trainStop')):
+            num_busstops += 1
             edge = busStop.lane[:-2]
             busStopEdges[busStop.id] = edge
             if options.stops_output and edge in edges:
+                kept_busstops += 1
                 if busStop.access:
                     busStop.access = [acc for acc in busStop.access if acc.lane[:-2] in edges]
                 busStops.write(busStop.toXML('    '))
+        for taz in parse(options.additional_input, 'taz'):
+            num_taz += 1
+            taz_edges = [e for e in taz.edges.split() if e in edges]
+            if taz_edges:
+                taz.edges = " ".join(taz_edges)
+                if options.stops_output:
+                    kept_taz += 1
+                    busStops.write(taz.toXML('    '))
+        if num_busstops > 0 and num_taz > 0:
+            print("Kept %s of %s busStops and %s of %s tazs" % (
+                kept_busstops, num_busstops, kept_taz, num_taz))
+        elif num_busstops > 0:
+            print("Kept %s of %s busStops" % (
+                kept_busstops, num_busstops))
+        elif num_taz > 0:
+            print("Kept %s of %s tazs" % (
+                kept_taz, num_taz))
+                
     if options.stops_output:
         busStops.write('</additional>\n')
         busStops.close()
