@@ -5,4 +5,7 @@
     </vehicle>
 
     <vehicle id="v2" depart="20" route="r0"/>
+
+    <vehicle id="v3" depart="30" route="r1"/>
+    <vehicle id="v4" depart="40" route="r1"/>
 </routes>

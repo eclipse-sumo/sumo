@@ -57,6 +57,8 @@ extrapolated based on edge-lengths and maximum speeds multiplied with --speed-fa
     optParser.add_option("--speed-factor", type='float', default=1.0,
                          help="Factor for modifying maximum edge speeds when extrapolating new departure times " +
                               "(default 1.0)")
+    optParser.add_option("--default.stop-duration", type='float', default=0.0, dest="defaultStopDuration",
+                         help="default duration for stops in stand-alone routes")
     optParser.add_option(
         "--orig-net", help="complete network for retrieving edge lengths")
     optParser.add_option("-b", "--big", action="store_true", default=False,
@@ -176,12 +178,14 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None):
                     # assume teleports were spread evenly across the vehicles route
                     newDepart = float(departTimes[int(fromIndex * teleportFactor)])
                     del vehicle.route[0].exitTimes
+                departShift = None
                 if routeRef:
-                    standaloneRoutesDepart[vehicle.route] = newDepart - float(vehicle.depart)
+                    departShift = newDepart - float(vehicle.depart)
+                    standaloneRoutesDepart[vehicle.route] = departShift
                 remaining = edges[fromIndex:toIndex + 1]
                 stops = cut_stops(vehicle, busStopEdges, remaining)
                 if routeRef:
-                    routeRef.stop = cut_stops(routeRef, busStopEdges, remaining)
+                    routeRef.stop = cut_stops(routeRef, busStopEdges, remaining, departShift, options.defaultStopDuration)
                     routeRef.edges = " ".join(remaining)
                     yield None, routeRef
                 else:
@@ -212,9 +216,10 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None):
           multiAffectedRoutes)
     printTop(missingEdgeOccurences)
 
-def cut_stops(vehicle, busStopEdges, remaining):
+def cut_stops(vehicle, busStopEdges, remaining, departShift=0, defaultDuration=0):
     stops = []
     if vehicle.stop:
+        skippedStopDuration = 0
         for stop in vehicle.stop:
             if stop.busStop:
                 if not busStopEdges:
@@ -226,7 +231,14 @@ def cut_stops(vehicle, busStopEdges, remaining):
                         "Skipping bus stop '%s', which could not be located." % stop.busStop)
                     continue
                 if busStopEdges[stop.busStop] in remaining:
+                    if departShift > 0 and stop.until is not None:
+                        stop.until = max(0, float(stop.until) - (departShift + skippedStopDuration))
                     stops.append(stop)
+                elif stop.duration is not None:
+                    skippedStopDuration += float(stop.duration)
+                else:
+                    skippedStopDuration += defaultDuration
+
             elif stop.lane[:-2] in remaining:
                 stops.append(stop)
     return stops
@@ -370,7 +382,7 @@ def main(options):
             writer(f, v)
         f.write('</%s>\n' % output_type)
         if num_routeRefs > 0:
-            print("Wrote %s standalone-routes %s vehicles" % (num_routeRefs, num_vehicles))
+            print("Wrote %s standalone-routes and %s vehicles" % (num_routeRefs, num_vehicles))
         else:
             print("Wrote %s %s" % (num_vehicles, output_type))
 
