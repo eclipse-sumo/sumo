@@ -925,11 +925,12 @@ MSNet::getIntermodalRouter(const int routingMode, const MSEdgeVector& prohibited
                 carWalk |= MSIntermodalRouter::Network::ALL_JUNCTIONS;
             }
         }
+        const std::string routingAlgorithm = OptionsCont::getOptions().getString("routing-algorithm");
         if (routingMode == ROUTING_MODE_COMBINED) {
             // replace nullptr here by your EffortCalculator
-            myIntermodalRouter[routingMode] = new MSIntermodalRouter(MSNet::adaptIntermodalRouter, carWalk, routingMode, nullptr);
+            myIntermodalRouter[routingMode] = new MSIntermodalRouter(MSNet::adaptIntermodalRouter, carWalk, routingAlgorithm, routingMode, nullptr);
         } else {
-            myIntermodalRouter[routingMode] = new MSIntermodalRouter(MSNet::adaptIntermodalRouter, carWalk, routingMode);
+            myIntermodalRouter[routingMode] = new MSIntermodalRouter(MSNet::adaptIntermodalRouter, carWalk, routingAlgorithm, routingMode);
         }
     }
     myIntermodalRouter[routingMode]->prohibit(prohibited);

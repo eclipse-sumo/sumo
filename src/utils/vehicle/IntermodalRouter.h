@@ -34,6 +34,7 @@
 #include <utils/iodevices/OutputDevice.h>
 #include "SUMOAbstractRouter.h"
 #include "DijkstraRouter.h"
+#include "AStarRouter.h"
 #include "IntermodalNetwork.h"
 #include "EffortCalculator.h"
 #include "CarEdge.h"
@@ -61,6 +62,7 @@ private:
     typedef IntermodalTrip<E, N, V> _IntermodalTrip;
     typedef SUMOAbstractRouterPermissions<IntermodalEdge<E, L, N, V>, IntermodalTrip<E, N, V> > _InternalRouter;
     typedef DijkstraRouter<IntermodalEdge<E, L, N, V>, IntermodalTrip<E, N, V>, SUMOAbstractRouterPermissions<IntermodalEdge<E, L, N, V>, IntermodalTrip<E, N, V> > > _InternalDijkstra;
+    typedef AStarRouter<IntermodalEdge<E, L, N, V>, IntermodalTrip<E, N, V>, SUMOAbstractRouterPermissions<IntermodalEdge<E, L, N, V>, IntermodalTrip<E, N, V> > > _InternalAStar;
 
 public:
     struct TripItem {
@@ -79,11 +81,12 @@ public:
     };
 
     /// Constructor
-    IntermodalRouter(CreateNetCallback callback, const int carWalkTransfer, const int routingMode = 0, EffortCalculator* calc = nullptr) :
+    IntermodalRouter(CreateNetCallback callback, const int carWalkTransfer, const std::string& routingAlgorithm,
+                     const int routingMode = 0, EffortCalculator* calc = nullptr) :
         SUMOAbstractRouter<E, _IntermodalTrip>("IntermodalRouter"),
         myAmClone(false), myInternalRouter(nullptr), myIntermodalNet(nullptr),
-        myCallback(callback), myCarWalkTransfer(carWalkTransfer), myRoutingMode(routingMode),
-        myExternalEffort(calc) {
+        myCallback(callback), myCarWalkTransfer(carWalkTransfer), myRoutingAlgorithm(routingAlgorithm),
+        myRoutingMode(routingMode), myExternalEffort(calc) {
     }
 
     /// Destructor
@@ -96,7 +99,7 @@ public:
 
     SUMOAbstractRouter<E, _IntermodalTrip>* clone() {
         createNet();
-        return new IntermodalRouter<E, L, N, V>(myIntermodalNet);
+        return new IntermodalRouter<E, L, N, V>(myIntermodalNet, myCarWalkTransfer, myRoutingAlgorithm, myRoutingMode, myExternalEffort);
     }
 
     /** @brief Builds the route between the given edges using the minimum effort at the given time
@@ -216,10 +219,11 @@ public:
     }
 
 private:
-    IntermodalRouter(Network* net):
+    IntermodalRouter(Network* net, const int carWalkTransfer, const std::string& routingAlgorithm,
+                     const int routingMode, EffortCalculator* calc) :
         SUMOAbstractRouter<E, _IntermodalTrip>("IntermodalRouterClone"), myAmClone(true),
         myInternalRouter(new _InternalDijkstra(net->getAllEdges(), true, &_IntermodalEdge::getTravelTimeStatic)),
-        myIntermodalNet(net), myCarWalkTransfer(0), myRoutingMode(0), myExternalEffort(nullptr) {}
+        myIntermodalNet(net), myCarWalkTransfer(carWalkTransfer), myRoutingAlgorithm(routingAlgorithm), myRoutingMode(routingMode), myExternalEffort(calc) {}
 
     static inline double getEffortAggregated(const _IntermodalEdge* const edge, const _IntermodalTrip* const trip, double time) {
         return edge == nullptr || !edge->hasEffort() ? 0. : edge->getEffort(trip, time);
@@ -236,7 +240,11 @@ private:
             myCallback(*this);
             switch (myRoutingMode) {
                 case 0:
-                    myInternalRouter = new _InternalDijkstra(myIntermodalNet->getAllEdges(), true, &_IntermodalEdge::getTravelTimeStatic);
+                    if (myRoutingAlgorithm == "astar") {
+                        myInternalRouter = new _InternalAStar(myIntermodalNet->getAllEdges(), true, &_IntermodalEdge::getTravelTimeStatic);
+                    } else {
+                        myInternalRouter = new _InternalDijkstra(myIntermodalNet->getAllEdges(), true, &_IntermodalEdge::getTravelTimeStatic);
+                    }
                     break;
                 case 1:
                     myInternalRouter = new _InternalDijkstra(myIntermodalNet->getAllEdges(), true, &getEffortAggregated, &_IntermodalEdge::getTravelTimeStatic);
@@ -265,6 +273,7 @@ private:
     CreateNetCallback myCallback;
     const int myCarWalkTransfer;
     const int myRoutingMode;
+    const std::string myRoutingAlgorithm;
     EffortCalculator* const myExternalEffort;
 
 

@@ -65,6 +65,16 @@ public:
         return vehicle != 0 ? vehicle->getVClass() : SVC_PEDESTRIAN;
     }
 
+    // only used by AStar
+    inline double getMaxSpeed() const {
+        return vehicle != nullptr ? vehicle->getMaxSpeed() : speed;
+    }
+
+    // only used by AStar
+    inline double getChosenSpeedFactor() const {
+        return vehicle != nullptr ? vehicle->getChosenSpeedFactor() : 1.0;
+    }
+
     const E* const from;
     const E* const to;
     const double departPos;
