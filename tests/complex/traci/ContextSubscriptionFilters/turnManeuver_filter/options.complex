@@ -1,1 +1,1 @@
-sumo-gui 100 vehicle turnManeuver tests/complex/traci/ContextSubscriptionsFilters/runner.py
+sumo 100 vehicle turnManeuver tests/complex/traci/ContextSubscriptionFilters/runner.py

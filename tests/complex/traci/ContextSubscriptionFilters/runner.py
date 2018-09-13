@@ -43,9 +43,10 @@ def runSingle(traciEndTime, viewRange, module, objID, filterID):
     while not step > traciEndTime:
         responses = traci.simulationStep()
         near1 = set()
-        if objID in module.getContextSubscriptionResults():
-            for v in module.getContextSubscriptionResults()[objID]:
-                print(objID, "context:", v)
+        if subscribed:
+            print("Context results for veh '%s':"%objID)
+            for v in module.getContextSubscriptionResults(objID):
+                print(v)
                 near1.add(v)
 
         if not subscribed:
@@ -56,21 +57,21 @@ def runSingle(traciEndTime, viewRange, module, objID, filterID):
             sys.stdout.flush()
             if filterID == "lanes":
                 module.addSubscriptionFilterLanes([-1, 0, 1, 100])
-            elif filterID is "noOpposite":
+            elif filterID == "noOpposite":
                 module.addSubscriptionFilterNoOpposite()
-            elif filterID is "downstreamDistance":
+            elif filterID == "downstreamDistance":
                 module.addSubscriptionFilterDownstreamDistance(25.)
-            elif filterID is "upstreamDistance":
+            elif filterID == "upstreamDistance":
                 module.addSubscriptionFilterUpstreamDistance(10.)
-            elif filterID is "CFManeuver":
+            elif filterID == "CFManeuver":
                 module.addSubscriptionFilterCFManeuver()
-            elif filterID is "LCManeuver":
+            elif filterID == "LCManeuver":
                 module.addSubscriptionFilterLCManeuver()
-            elif filterID is "turnManeuver":
+            elif filterID == "turnManeuver":
                 module.addSubscriptionFilterTurnManeuver()
-            elif filterID is "vClass":
+            elif filterID == "vClass":
                 module.addSubscriptionFilterVClass()
-            elif filterID is "vType":
+            elif filterID == "vType":
                 module.addSubscriptionFilterVType()
             else:
                 print("Error: filterID '%s' not known" % filterID)
