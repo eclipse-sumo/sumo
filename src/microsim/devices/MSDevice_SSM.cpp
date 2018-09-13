@@ -460,10 +460,10 @@ MSDevice_SSM::computeGlobalMeasures() {
         }
 
         if (myComputeTGAP) {
-            if (leader.first == nullptr) {
+            if (leader.first == nullptr || myHolderMS->getSpeed() == 0.) {
                 myTGAPspan.push_back(INVALID);
             } else {
-                double tgap = (leader.second + leader.first->getVehicleType().getMinGap()) / myHolderMS->getSpeed();
+                const double tgap = (leader.second + leader.first->getVehicleType().getMinGap()) / myHolderMS->getSpeed();
                 myTGAPspan.push_back(tgap);
                 if (tgap < myMinTGAP.first.second) {
                     myMinTGAP = std::make_pair(std::make_pair(std::make_pair(SIMTIME, myHolderMS->getPosition()), tgap), leader.first->getID());
@@ -473,6 +473,7 @@ MSDevice_SSM::computeGlobalMeasures() {
 
     }
 }
+
 
 void
 MSDevice_SSM::createEncounters(FoeInfoMap& foes) {
