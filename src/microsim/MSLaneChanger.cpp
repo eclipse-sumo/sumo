@@ -1250,18 +1250,27 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, double> leader) {
 #endif
             }
             if (neighLead.first != 0) {
-                const double remainingDist = laneQ.length - forwardPos;
-                computeOvertakingTime(vehicle, neighLead.first, neighLead.second, timeToOvertake, spaceToOvertake);
+                overtaken = getColumnleader(vehicle, neighLead);
+                if (overtaken.first == 0) {
 #ifdef DEBUG_CHANGE_OPPOSITE
-                if (DEBUG_COND) {
-                    std::cout << SIMTIME << " ego=" << vehicle->getID() << " is overtaking " << neighLead.first->getID() 
-                        << " remainingDist=" << remainingDist <<  " spaceToOvertake=" << spaceToOvertake << " timeToOvertake=" << timeToOvertake << "\n";
-                }
+                    if (DEBUG_COND) {
+                        std::cout << SIMTIME << " ego=" << vehicle->getID() << " did not find columnleader to overtake\n";
+                    }
 #endif
-                if (remainingDist > spaceToOvertake) {
-                    // exaggerate remaining dist so that the vehicle continues
-                    // overtaking (otherwise the lane change model might abort prematurely)
-                    laneQ.length += 1000;
+                } else {
+                    const double remainingDist = laneQ.length - forwardPos;
+                    computeOvertakingTime(vehicle, overtaken.first, overtaken.second, timeToOvertake, spaceToOvertake);
+#ifdef DEBUG_CHANGE_OPPOSITE
+                    if (DEBUG_COND) {
+                        std::cout << SIMTIME << " ego=" << vehicle->getID() << " is overtaking " << overtaken.first->getID() 
+                            << " remainingDist=" << remainingDist <<  " spaceToOvertake=" << spaceToOvertake << " timeToOvertake=" << timeToOvertake << "\n";
+                    }
+#endif
+                    if (remainingDist > spaceToOvertake) {
+                        // exaggerate remaining dist so that the vehicle continues
+                        // overtaking (otherwise the lane change model might abort prematurely)
+                        laneQ.length += 1000;
+                    }
                 }
             }
             leader.first = 0; // ignore leader after this
@@ -1402,7 +1411,7 @@ MSLaneChanger::computeOvertakingTime(const MSVehicle* vehicle, const MSVehicle* 
 std::pair<MSVehicle*, double> 
 MSLaneChanger::getColumnleader(MSVehicle* vehicle, std::pair<MSVehicle*, double> leader) {
     assert(leader.first != 0);
-    MSLane* source = leader.first->getLane();
+    MSLane* source = vehicle->getLane();
     // find a leader vehicle with sufficient space ahead for merging back
     const double overtakingSpeed = source->getVehicleMaxSpeed(vehicle); // just a guess
     const double mergeBrakeGap = vehicle->getCarFollowModel().brakeGap(overtakingSpeed);
@@ -1414,6 +1423,7 @@ MSLaneChanger::getColumnleader(MSVehicle* vehicle, std::pair<MSVehicle*, double>
     while (!foundSpaceAhead) {
         const double requiredSpaceAfterLeader = (columnLeader.first->getCarFollowModel().getSecureGap(
                     columnLeader.first->getSpeed(), overtakingSpeed, vehicle->getCarFollowModel().getMaxDecel())
+                + columnLeader.first->getVehicleType().getMinGap()
                 + vehicle->getVehicleType().getLengthWithGap());
 
 
