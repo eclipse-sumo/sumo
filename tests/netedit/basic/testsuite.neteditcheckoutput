@@ -28,5 +28,5 @@ new_net_1edge
 # Check that all save dialogs of Netedit works saving all elements
 quit_saveAll
 
-# provoke an error with sikulix  (This test doesn't generate any net)
-# sikulix_error
+# provoke an error with pyautogui (disabled because this test doesn't generate any net)
+# pyautogui_error

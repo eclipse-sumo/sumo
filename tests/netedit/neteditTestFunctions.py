@@ -293,27 +293,24 @@ def Popen(extraParameters, debugInformation):
 def getReferenceMatch(neProcess, waitTime):
     # show information
     print("Finding reference")
-    # 30 second for search  reference
-    for x in range(0, waitTime):
-        # capture screen and search reference
-        positionOnScren = pyautogui.locateOnScreen('reference.png')
-        # check if pos was found
-        if positionOnScren:
-            # adjust position to center
-            referencePosition = [positionOnScren[0] + 16, positionOnScren[1] + 16]
-            # break loop
-            print("TestFunctions: 'reference.png' found. Position: " + str(referencePosition[0]) + " - " + str(referencePosition[1]))
-            # check that position is consistent (due scaling)
-            if (referencePosition[0] != 304 or referencePosition[1] != 140):
-                print("TestFunctions: Position of 'reference.png' isn't consistent. Check that interface scaling " +
-                      "is 100% (See #3746)")
-            return referencePosition
-        # wait two second
-        time.sleep(1)
-    # reference not found, then kill netedit process
-    neProcess.kill()
-    # print debug information
-    sys.exit("TestFunctions: Killed Netedit process. 'reference.png' not found")
+    # capture screen and search reference
+    positionOnScren = pyautogui.locateOnScreen('reference.png', waitTime)
+    # check if pos was found
+    if positionOnScren:
+        # adjust position to center
+        referencePosition = [positionOnScren[0] + 16, positionOnScren[1] + 16]
+        # break loop
+        print("TestFunctions: 'reference.png' found. Position: " + str(referencePosition[0]) + " - " + str(referencePosition[1]))
+        # check that position is consistent (due scaling)
+        if (referencePosition[0] != 304 or referencePosition[1] != 140):
+            print("TestFunctions: Position of 'reference.png' isn't consistent. Check that interface scaling " +
+                    "is 100% (See #3746)")
+        return referencePosition
+    else:
+        # reference not found, then kill netedit process
+        neProcess.kill()
+        # print debug information
+        sys.exit("TestFunctions: Killed Netedit process. 'reference.png' not found")
 
 
 """
@@ -321,25 +318,15 @@ def getReferenceMatch(neProcess, waitTime):
 """
 
 
-def setupAndStart(testRoot, extraParameters=[], debugInformation=True, searchReference=True, waitTime=DELAY_REFERENCE):
+def setupAndStart(testRoot, extraParameters=[], debugInformation=True, waitTime=DELAY_REFERENCE):
     setup(testRoot)
     # Open Netedit
     NeteditProcess = Popen(extraParameters, debugInformation)
     # atexit.register(quit, NeteditProcess, False, False)
     # print debug information
     print("TestFunctions: Netedit opened successfully")
-    # Check if reference must be searched
-    if(searchReference):
-        # Wait for Netedit reference
-        return NeteditProcess, getReferenceMatch(NeteditProcess, waitTime)
-    else:
-        # print debug information
-        print("TestFunctions: 'searchReference' option disabled. Reference isn't searched")
-        # Wait 1 second for Netedit process
-        time.sleep(2)
-        # focus netedit windows clicking over it
-        pyautogui.click(200, 200)
-        return NeteditProcess, None
+    # Wait for Netedit reference
+    return NeteditProcess, getReferenceMatch(NeteditProcess, waitTime)
 
 
 """
