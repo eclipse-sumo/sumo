@@ -227,9 +227,10 @@ NWWriter_SUMO::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
 
 
 std::string
-NWWriter_SUMO::getOppositeInternalID(const NBEdgeCont& ec, const NBEdge* from, const NBEdge::Connection& con) {
+NWWriter_SUMO::getOppositeInternalID(const NBEdgeCont& ec, const NBEdge* from, const NBEdge::Connection& con, double& oppositeLength) {
     const NBEdge::Lane& succ = con.toEdge->getLanes()[con.toLane];
     const NBEdge::Lane& pred = from->getLanes()[con.fromLane];
+    const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
     if (succ.oppositeID != "" && succ.oppositeID != "-" && pred.oppositeID != "" && pred.oppositeID != "-") {
 #ifdef DEBUG_OPPOSITE_INTERNAL
         std::cout << "getOppositeInternalID con=" << con.getDescription(from) << " (" << con.getInternalLaneID() << ")\n";
@@ -242,16 +243,17 @@ NWWriter_SUMO::getOppositeInternalID(const NBEdgeCont& ec, const NBEdge* from, c
         const std::vector<NBEdge::Connection>& connections = succOpp->getConnections();
         for (std::vector<NBEdge::Connection>::const_iterator it_c = connections.begin(); it_c != connections.end(); it_c++) {
             const NBEdge::Connection& conOpp = *it_c;
-            if (succOpp != from && // turnaround
-                    succOpp->getLaneID(conOpp.fromLane) == succ.oppositeID &&
-                    predOpp == conOpp.toEdge &&
-                    predOpp->getLaneID(conOpp.toLane) == pred.oppositeID &&
-                    // same lengths (@note: averaging is not taken into account)
-                    con.shape.length() == conOpp.shape.length()
+            if (succOpp != from // turnaround
+                    && predOpp == conOpp.toEdge 
+                    && succOpp->getLaneID(conOpp.fromLane) == succ.oppositeID 
+                    && predOpp->getLaneID(conOpp.toLane) == pred.oppositeID 
+                    && from->getToNode()->getDirection(from, con.toEdge, lefthand) == LINKDIR_STRAIGHT
+                    && from->getToNode()->getDirection(succOpp, predOpp, lefthand) == LINKDIR_STRAIGHT
                     ) {
 #ifdef DEBUG_OPPOSITE_INTERNAL
                 std::cout << "  found " << conOpp.getInternalLaneID() << "\n";
 #endif
+                oppositeLength = conOpp.length;
                 return conOpp.getInternalLaneID();
             } else {
                 /*
@@ -281,6 +283,29 @@ bool
 NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, const NBNode& n) {
     bool ret = false;
     const EdgeVector& incoming = n.getIncomingEdges();
+    // first pass: determine opposite internal edges and average their length
+    std::map<std::string, std::string> oppositeLaneID;
+    std::map<std::string, double> oppositeLengths;
+    for (NBEdge* e : incoming) {
+        for (const NBEdge::Connection& c : e->getConnections()) {
+            double oppositeLength = 0;
+            const std::string op = getOppositeInternalID(ec, e, c, oppositeLength);
+            oppositeLaneID[c.getInternalLaneID()] = op;
+            if (op != "") {
+                oppositeLengths[c.id] = oppositeLength;
+            }
+        }
+    }
+    if (oppositeLengths.size() > 0) {
+        for (NBEdge* e : incoming) {
+            for (NBEdge::Connection& c : e->getConnections()) {
+                if (oppositeLengths.count(c.id) > 0) {
+                    c.length = (c.length + oppositeLengths[c.id]) / 2;
+                }
+            }
+        }
+    }
+
     for (EdgeVector::const_iterator i = incoming.begin(); i != incoming.end(); i++) {
         const std::vector<NBEdge::Connection>& elv = (*i)->getConnections();
         if (elv.size() > 0) {
@@ -310,7 +335,7 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
                 writeLane(into, (*k).getInternalLaneID(), (*k).vmax,
                           successor.permissions, successor.preferred,
                           NBEdge::UNSPECIFIED_OFFSET, std::map<int, double>(), width, (*k).shape, &(*k),
-                          (*k).length, (*k).internalLaneIndex, getOppositeInternalID(ec, *i, *k));
+                          (*k).length, (*k).internalLaneIndex, oppositeLaneID[(*k).getInternalLaneID()]);
                 haveVia = haveVia || (*k).haveVia;
             }
             ret = true;

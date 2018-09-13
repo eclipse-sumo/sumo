@@ -197,7 +197,7 @@ private:
                                 const NBEdgeCont& ec);
 
     /// @brief retrieve the id of the opposite direction internal lane if it exists
-    static std::string getOppositeInternalID(const NBEdgeCont& ec, const NBEdge* from, const NBEdge::Connection& con);
+    static std::string getOppositeInternalID(const NBEdgeCont& ec, const NBEdge* from, const NBEdge::Connection& con, double& oppositeLength);
 
 };
 
