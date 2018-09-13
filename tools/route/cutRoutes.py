@@ -345,9 +345,10 @@ def main(options):
                 num_vehicles += 1
             writer(f, v)
         f.write('</%s>\n' % output_type)
-        print("Wrote %s %s" % (num_vehicles, output_type))
         if num_routeRefs > 0:
-            print("Wrote %s %s" % (num_routeRefs, "standalone routes"))
+            print("Wrote %s standalone-routes %s vehicles" % (num_routeRefs, num_vehicles))
+        else:
+            print("Wrote %s %s" % (num_vehicles, output_type))
 
     if options.big:
         # write output unsorted
