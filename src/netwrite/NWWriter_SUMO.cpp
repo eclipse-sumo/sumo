@@ -45,6 +45,7 @@
 #include "NWWriter_SUMO.h"
 
 
+//#define DEBUG_OPPOSITE_INTERNAL
 
 // ===========================================================================
 // method definitions
@@ -230,6 +231,9 @@ NWWriter_SUMO::getOppositeInternalID(const NBEdgeCont& ec, const NBEdge* from, c
     const NBEdge::Lane& succ = con.toEdge->getLanes()[con.toLane];
     const NBEdge::Lane& pred = from->getLanes()[con.fromLane];
     if (succ.oppositeID != "" && succ.oppositeID != "-" && pred.oppositeID != "" && pred.oppositeID != "-") {
+#ifdef DEBUG_OPPOSITE_INTERNAL
+        std::cout << "getOppositeInternalID con=" << con.getDescription(from) << " (" << con.getInternalLaneID() << ")\n";
+#endif
         // find the connection that connects succ.oppositeID to pred.oppositeID
         const NBEdge* succOpp = ec.retrieve(succ.oppositeID.substr(0, succ.oppositeID.rfind("_")));
         const NBEdge* predOpp = ec.retrieve(pred.oppositeID.substr(0, pred.oppositeID.rfind("_")));
@@ -243,8 +247,27 @@ NWWriter_SUMO::getOppositeInternalID(const NBEdgeCont& ec, const NBEdge* from, c
                     predOpp == conOpp.toEdge &&
                     predOpp->getLaneID(conOpp.toLane) == pred.oppositeID &&
                     // same lengths (@note: averaging is not taken into account)
-                    con.shape.length() == conOpp.shape.length()) {
+                    con.shape.length() == conOpp.shape.length()
+                    ) {
+#ifdef DEBUG_OPPOSITE_INTERNAL
+                std::cout << "  found " << conOpp.getInternalLaneID() << "\n";
+#endif
                 return conOpp.getInternalLaneID();
+            } else {
+                /*
+#ifdef DEBUG_OPPOSITE_INTERNAL
+                std::cout << "  rejected " << conOpp.getInternalLaneID() 
+                    << "\n     succ.oppositeID=" << succ.oppositeID 
+                    << "\n         succOppLane=" << succOpp->getLaneID(conOpp.fromLane)
+                    << "\n     pred.oppositeID=" << pred.oppositeID
+                    << "\n         predOppLane=" << predOpp->getLaneID(conOpp.toLane)
+                    << "\n      predOpp=" << predOpp->getID()
+                    << "\n     conOppTo=" << conOpp.toEdge->getID()
+                    << "\n     len1=" << con.shape.length()
+                    << "\n     len2=" << conOpp.shape.length()
+                    << "\n";
+#endif
+*/
             }
         }
         return "";
