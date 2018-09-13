@@ -3306,7 +3306,7 @@ MSVehicle::executeMove() {
     if (getLaneChangeModel().isOpposite()) {
         // transform back to the opposite-direction lane
         if (myLane->getOpposite() == 0) {
-            WRITE_WARNING("Unexpected end of opposite lane for vehicle '" + getID() + " at lane '" + myLane->getID() + "', time=" +
+            WRITE_WARNING("Unexpected end of opposite lane for vehicle '" + getID() + "' at lane '" + myLane->getID() + "', time=" +
                           time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
             getLaneChangeModel().changedToOpposite();
         } else {
