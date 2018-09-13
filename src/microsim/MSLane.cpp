@@ -1450,6 +1450,10 @@ MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, MSVe
                                std::set<const MSVehicle*>& toTeleport) const {
     std::string collisionType = (collider->getLaneChangeModel().isOpposite() != victim->getLaneChangeModel().isOpposite() ?
             "frontal collision" : "collision");
+    // in frontal collisions the opposite vehicle is the collider
+    if (victim->getLaneChangeModel().isOpposite() && !collider->getLaneChangeModel().isOpposite()) {
+        std::swap(collider, victim);
+    }
     std::string prefix = "Vehicle '" + collider->getID() + "'; " + collisionType + " with vehicle '" + victim->getID() ;
     if (myCollisionStopTime > 0) {
         if (collider->collisionStopTime() >= 0 && victim->collisionStopTime() >= 0) {
