@@ -38,7 +38,6 @@ DelayAfterDrag = 0.2
 
 NeteditApp = os.environ.get("NETEDIT_BINARY", "netedit")
 textTestSandBox = os.environ.get("TEXTTEST_SANDBOX", ".")
-referenceImage = os.path.join("imageResources", "reference.png")
 
 #################################################
 # interaction functions
@@ -141,7 +140,7 @@ def pasteIntoTextField(value, removePreviousContents=True):
         typeTwoKeys('ctrl', 'a')
         time.sleep(DELAY_KEY)
     # type 
-    pyautogui.typewrite(value, interval=0.1)
+    pyautogui.typewrite(value)
 
 
 """
@@ -153,10 +152,10 @@ def leftClick(referencePosition, positionx, positiony):
     # wait before every operation
     time.sleep(DELAY_MOUSE)
     # obtain clicked position
-    clickedPosition = referencePosition.getTarget().offset(positionx, positiony)
+    clickedPosition = [referencePosition[0] + positionx, referencePosition[1] + positiony]
     # click respect to offset
-    click(clickedPosition)
-    print("TestFunctions: Clicked over position", clickedPosition.x, '-', clickedPosition.y)
+    pyautogui.click(clickedPosition)
+    print("TestFunctions: Clicked over position", clickedPosition[0], '-', clickedPosition[1])
 
 
 """
@@ -230,10 +229,6 @@ def setup(NeteditTests):
         if os.path.exists(sandBox):
             textTestSandBox = sandBox
         os.remove(envFile)
-    # get reference for referencePosition
-    global referenceImage
-    referenceImage = os.path.join(
-        NeteditTests, "imageResources", "reference.png")
 
 
 """
@@ -297,22 +292,24 @@ def Popen(extraParameters, debugInformation):
 
 def getReferenceMatch(neProcess, waitTime):
     # show information
-    print("Finding reference...")
+    print("Finding reference")
     # 30 second for search  reference
-    for x in range(0, waitTime/2):
+    for x in range(0, waitTime):
         # capture screen and search reference
-        position = pyautogui.locateOnScreen('reference.png')
+        positionOnScren = pyautogui.locateOnScreen('reference.png')
         # check if pos was found
-        if position:
+        if positionOnScren:
+            # adjust position to center
+            referencePosition = [positionOnScren[0] + 16, positionOnScren[1] + 16]
             # break loop
-            print("TestFunctions: 'reference.png' found. Position: %s" % str(position))
+            print("TestFunctions: 'reference.png' found. Position: " + str(referencePosition[0]) + " - " + str(referencePosition[1]))
             # check that position is consistent (due scaling)
-            if (position[0] != 288 or position[1] != 124):
+            if (referencePosition[0] != 304 or referencePosition[1] != 140):
                 print("TestFunctions: Position of 'reference.png' isn't consistent. Check that interface scaling " +
                       "is 100% (See #3746)")
-            return position
+            return referencePosition
         # wait two second
-        time.sleep(2)
+        time.sleep(1)
     # reference not found, then kill netedit process
     neProcess.kill()
     # print debug information
@@ -341,7 +338,7 @@ def setupAndStart(testRoot, extraParameters=[], debugInformation=True, searchRef
         # Wait 1 second for Netedit process
         time.sleep(2)
         # focus netedit windows clicking over it
-        click(Region(200, 200, 10, 10))
+        pyautogui.click(200, 200)
         return NeteditProcess, None
 
 
@@ -535,8 +532,9 @@ def openNetworkAs(waitTime=2):
     typeTwoKeys('ctrl', 'o')
     # jump to filename TextField
     typeTwoKeys('alt', 'f')
-    filename = os.path.join(textTestSandBox, "input_net_loadedmanually.net.xml")
-    pasteIntoTextField(filename)
+    pasteIntoTextField(textTestSandBox)
+    typeEnter()
+    pasteIntoTextField("input_net_loadedmanually.net.xml")
     typeEnter()
     # wait for saving
     time.sleep(waitTime)
@@ -561,11 +559,12 @@ def saveNetwork():
 
 def saveNetworkAs(waitTime=2):
     # open save network as dialog
-    typeTreeKeys('ctrl', 'shift', 's')
+    typeThreeKeys('ctrl', 'shift', 's')
     # jump to filename TextField
     typeTwoKeys('alt', 'f')
-    filename = os.path.join(textTestSandBox, "net.net.xml")
-    pasteIntoTextField(filename)
+    pasteIntoTextField(textTestSandBox)
+    typeEnter()
+    pasteIntoTextField("net.net.xml")
     typeEnter()
     # wait for saving
     time.sleep(waitTime)
@@ -617,8 +616,9 @@ def openConfigurationShortcut(waitTime=2):
     typeThreeKeys('ctrl', 'shift', 'o')
     # jump to filename TextField
     typeTwoKeys('alt', 'f')
-    filename = os.path.join(textTestSandBox, "input_net.netccfg")
-    pasteIntoTextField(filename)
+    pasteIntoTextField(textTestSandBox)
+    typeEnter()
+    pasteIntoTextField("input_net.netccfg")
     typeEnter()
     # wait for loading
     time.sleep(waitTime)
@@ -634,8 +634,9 @@ def savePlainXML(waitTime=2):
     typeTwoKeys('ctrl', 'l')
     # jump to filename TextField
     typeTwoKeys('alt', 'f')
-    filename = os.path.join(textTestSandBox, "net")
-    pasteIntoTextField(filename)
+    pasteIntoTextField(textTestSandBox)
+    typeEnter()
+    pasteIntoTextField("net")
     typeEnter()
     # wait for loading
     time.sleep(waitTime)
