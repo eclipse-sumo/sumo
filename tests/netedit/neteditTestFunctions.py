@@ -21,7 +21,7 @@ import pyautogui
 import time
 
 # define delay before every operation
-DELAY_KEY = 0.5 # (0.1)
+DELAY_KEY = 0.1
 DELAY_MOUSE = 1
 DELAY_QUESTION = 1
 DELAY_REFERENCE = 30
@@ -31,10 +31,6 @@ DELAY_SELECT = 3
 DELAY_RECOMPUTE = 4
 DELAY_RECOMPUTE_VOLATILE = 5
 DELAY_REMOVESELECTION = 5
-
-MoveMouseDelay = 0.2
-DelayBeforeDrop = 0.2
-DelayAfterDrag = 0.2
 
 NeteditApp = os.environ.get("NETEDIT_BINARY", "netedit")
 textTestSandBox = os.environ.get("TEXTTEST_SANDBOX", ".")
@@ -169,9 +165,9 @@ def leftClickShift(referencePosition, positionx, positiony):
     # wait before every operation
     time.sleep(DELAY_MOUSE)
     # obtain clicked position
-    clickedPosition = referencePosition.getTarget().offset(positionx, positiony)
+    clickedPosition = [referencePosition[0] + positionx, referencePosition[1] + positiony]
     # click respect to offset
-    click(clickedPosition)
+    pyautogui.click(clickedPosition)
     print("TestFunctions: Clicked with Shift key pressed over position", clickedPosition.x, '-', clickedPosition.y)
     # Release Shift key
     pyautogui.keyUp('shift')
@@ -188,9 +184,9 @@ def leftClickControl(referencePosition, positionx, positiony):
     # wait before every operation
     time.sleep(DELAY_MOUSE)
     # obtain clicked position
-    clickedPosition = referencePosition.getTarget().offset(positionx, positiony)
+    clickedPosition = [referencePosition[0] + positionx, referencePosition[1] + positiony]
     # click respect to offset
-    click(clickedPosition)
+    pyautogui.click(clickedPosition)
     print("TestFunctions: Clicked with Control key pressed over position", clickedPosition.x, '-', clickedPosition.y)
     # Release Shift key
     pyautogui.keyUp('ctrl')
@@ -204,9 +200,13 @@ def leftClickControl(referencePosition, positionx, positiony):
 def dragDrop(referencePosition, x1, y1, x2, y2):
     # wait before every operation
     time.sleep(DELAY_KEY)
-    drag(referencePosition.getTarget().offset(x1, y1))
-    time.sleep(DELAY_MOUSE)
-    dropAt(referencePosition.getTarget().offset(x2, y2))
+    # obtain from and to position
+    fromPosition = [referencePosition[0] + x1, referencePosition[1] + y1]
+    tromPosition = [referencePosition[0] + x2, referencePosition[1] + y2]
+    # click respect to offset
+    pyautogui.click(fromPosition)
+    pyautogui.dragTo(tromPosition[0], tromPosition[1], 1, button='left')     # drag mouse to X of 100, Y of 200 while holding down left mouse button
+
 
 #################################################
 # basic functions
@@ -746,12 +746,8 @@ def moveMode():
 
 
 def moveElement(referencePosition, startX, startY, endX, endY):
-    # change mouse move delay
-    Settings.MoveMouseDelay = 0.5
     # move element
     dragDrop(referencePosition, startX, startY, endX, endY)
-    # set back mouse move delay
-    Settings.MoveMouseDelay = 0.2
 
 #################################################
 # crossings
@@ -1358,12 +1354,8 @@ def modificationModeReplace():
 def selectionRectangle(referencePosition, startX, startY, endX, endY):
     # Leave Shift key pressed
     pyautogui.keyDown('shift')
-    # change mouse move delay
-    Settings.MoveMouseDelay = 0.5
     # move element
     dragDrop(referencePosition, startX, startY, endX, endY)
-    # set back mouse move delay
-    Settings.MoveMouseDelay = 0.2
     # Release Shift key
     pyautogui.keyUp('shift')
     # wait for gl debug
