@@ -547,6 +547,9 @@ public:
                 }
             }
             SUMOTime lastTime = validStops.front().until;
+            if (lineEdges.front()->hasSchedule(lastTime)) {
+                WRITE_WARNING("Duplicate schedule for '" + pars.line + "' at time " + time2string(lastTime) + ".");
+            }
             for (lineEdge = lineEdges.begin(), s = validStops.begin() + 1; lineEdge != lineEdges.end(); ++lineEdge, ++s) {
                 (*lineEdge)->addSchedule(pars.id, lastTime, pars.repetitionNumber, pars.repetitionOffset, s->until - lastTime);
                 lastTime = s->until;

@@ -64,6 +64,10 @@ public:
         return myEntryStop;
     }
 
+    bool hasSchedule(const SUMOTime begin) const {
+        return mySchedules.find(begin) != mySchedules.end();
+    }
+
     void addSchedule(const std::string id, const SUMOTime begin, const int repetitionNumber, const SUMOTime period, const SUMOTime travelTime) {
         // try to merge with existing vehicle or flow
         bool found = false;
@@ -71,8 +75,10 @@ public:
             Schedule& s = it.second;
             if (travelTime == s.travelTime) {
                 if (repetitionNumber == -1 && s.repetitionNumber == 1) {
-                    s.period = begin - s.begin;
-                    found = true;
+                    if (begin > s.begin) {
+                        s.period = begin - s.begin;
+                        found = true;
+                    }
                 } else if (begin == s.begin + s.repetitionNumber * s.period) {
                     found = true;
                 }
