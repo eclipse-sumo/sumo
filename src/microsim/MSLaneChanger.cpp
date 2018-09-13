@@ -1437,7 +1437,7 @@ MSLaneChanger::computeOvertakingTime(const MSVehicle* vehicle, const MSVehicle* 
 
 
 std::pair<MSVehicle*, double> 
-MSLaneChanger::getColumnleader(MSVehicle* vehicle, std::pair<MSVehicle*, double> leader) {
+MSLaneChanger::getColumnleader(MSVehicle* vehicle, std::pair<MSVehicle*, double> leader, double maxLookAhead) {
     assert(leader.first != 0);
     MSLane* source = vehicle->getLane();
     // find a leader vehicle with sufficient space ahead for merging back
@@ -1448,6 +1448,17 @@ MSLaneChanger::getColumnleader(MSVehicle* vehicle, std::pair<MSVehicle*, double>
     bool foundSpaceAhead = false;
     double seen = leader.second + leader.first->getVehicleType().getLengthWithGap();
     std::vector<MSLane*> conts = vehicle->getBestLanesContinuation();
+    if (maxLookAhead == std::numeric_limits<double>::max()) {
+        maxLookAhead = (vehicle->getVehicleType().getVehicleClass() == SVC_EMERGENCY
+                ? OPPOSITE_OVERTAKING_MAX_LOOKAHEAD_EMERGENCY
+                : OPPOSITE_OVERTAKING_MAX_LOOKAHEAD);
+    }
+#ifdef DEBUG_CHANGE_OPPOSITE
+    if (DEBUG_COND) {
+        std::cout << " getColumnleader vehicle=" << vehicle->getID() << " leader=" << leader.first->getID() << " gap=" << leader.second << " maxLookAhead=" << maxLookAhead << "\n";
+    }
+#endif
+    const double safetyFactor = OPPOSITE_OVERTAKING_SAFETY_FACTOR * vehicle->getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_ASSERTIVE, 1);
     while (!foundSpaceAhead) {
         const double requiredSpaceAfterLeader = (columnLeader.first->getCarFollowModel().getSecureGap(
                     columnLeader.first->getSpeed(), overtakingSpeed, vehicle->getCarFollowModel().getMaxDecel())
@@ -1467,12 +1478,54 @@ MSLaneChanger::getColumnleader(MSVehicle* vehicle, std::pair<MSVehicle*, double>
         }
 #endif
         if (leadLead.first == 0) {
-            foundSpaceAhead = true;
+            double availableSpace = columnLeader.first->getLane()->getLength() - columnLeader.first->getPositionOnLane();
+            const double requiredSpace = safetyFactor * (requiredSpaceAfterLeader
+                    + vehicle->getCarFollowModel().brakeGap(overtakingSpeed));
+#ifdef DEBUG_CHANGE_OPPOSITE
+            if (DEBUG_COND) {
+                std::cout << "   no direct leader found after columnLeader " << columnLeader.first->getID()
+                    << " availableSpace=" << availableSpace 
+                    << " req1=" << requiredSpaceAfterLeader 
+                    << " req2=" << requiredSpace / safetyFactor
+                    << " req3=" << requiredSpace 
+                    << "\n";
+            }
+#endif
+            if (availableSpace > requiredSpace) {
+                foundSpaceAhead = true;
+            } else {
+                // maybe the columnleader is stopped before a junction or takes a different turn. 
+                // try to find another columnleader on successive lanes
+                MSLane* next = getLaneAfter(columnLeader.first->getLane(), conts);
+#ifdef DEBUG_CHANGE_OPPOSITE
+                if (DEBUG_COND) {
+                    std::cout << "   look for another leader on lane " << Named::getIDSecure(next) << "\n";
+                }
+#endif
+                while (next != nullptr) {
+                    seen += next->getLength();
+                    MSVehicle* cand = next->getLastAnyVehicle();
+                    if (cand == nullptr) {
+                        availableSpace += next->getLength();
+                        if (availableSpace > requiredSpace) {
+                            foundSpaceAhead = true;
+                            break;
+                        }
+                    } else {
+                        availableSpace += cand->getBackPositionOnLane();
+                        if (availableSpace > requiredSpace) {
+                            foundSpaceAhead = true;
+                            break;
+                        } else {
+                            return getColumnleader(vehicle, std::make_pair(cand, availableSpace + cand->getPositionOnLane()), maxLookAhead - seen);
+                        }
+                    }
+                }
+                if (!foundSpaceAhead) {
+                    return std::make_pair(nullptr, -1);
+                }
+            }
         } else {
-            const double maxLookAhead = (vehicle->getVehicleType().getVehicleClass() == SVC_EMERGENCY
-                    ? OPPOSITE_OVERTAKING_MAX_LOOKAHEAD_EMERGENCY
-                    : OPPOSITE_OVERTAKING_MAX_LOOKAHEAD);
-            const double safetyFactor = OPPOSITE_OVERTAKING_SAFETY_FACTOR * vehicle->getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_ASSERTIVE, 1);
             const double requiredSpace = safetyFactor * (requiredSpaceAfterLeader
                     + vehicle->getCarFollowModel().getSecureGap(overtakingSpeed, leadLead.first->getSpeed(), leadLead.first->getCarFollowModel().getMaxDecel()));
 #ifdef DEBUG_CHANGE_OPPOSITE
@@ -1514,6 +1567,21 @@ MSLaneChanger::getColumnleader(MSVehicle* vehicle, std::pair<MSVehicle*, double>
     }
     columnLeader.second = egoGap;
     return columnLeader;
+}
+
+
+MSLane* 
+MSLaneChanger::getLaneAfter(MSLane* lane, const std::vector<MSLane*>& conts) {
+    for (auto it = conts.begin(); it != conts.end(); ++it) {
+        if (*it == lane) {
+            if (it + 1 != conts.end()) {
+                return *(it + 1);
+            } else {
+                return nullptr;
+            }
+        }
+    }
+    return nullptr;
 }
 
 /****************************************************************************/
