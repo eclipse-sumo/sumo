@@ -37,6 +37,10 @@ elseif (MSVC)
     endif ()
 endif ()
 
+if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang" AND "${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libstdc++ -fsanitize=undefined,address,integer,unsigned-integer-overflow -fno-omit-frame-pointer -fsanitize-blacklist=${CMAKE_SOURCE_DIR}/build/clang_sanitize_blacklist.txt")
+endif ()
+
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
 # force Visual Studio to leave out the Release / Debug dirs
@@ -56,6 +60,7 @@ endif ()
 message(STATUS "    CMake: " ${CMAKE_VERSION})
 message(STATUS "    CMake generator: " ${CMAKE_GENERATOR})
 message(STATUS "    CMake build tool: " ${CMAKE_BUILD_TOOL})
+message(STATUS "    Compiler: " ${CMAKE_CXX_COMPILER_ID})
 if (MSVC)
     message(STATUS "    MSVC: " ${MSVC_VERSION})
 endif ()
