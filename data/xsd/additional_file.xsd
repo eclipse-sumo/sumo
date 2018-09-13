@@ -3,6 +3,7 @@
 
     <xsd:include schemaLocation="routeTypes.xsd" />
     <xsd:include schemaLocation="meandataTypes.xsd"/>
+    <xsd:include schemaLocation="taz_file.xsd"/>
 
     <xsd:element name="additional" type="additionalType"/>
     <xsd:element name="rerouterValue" type="rerouterValuesType"/>
@@ -47,6 +48,7 @@
 
             <xsd:element name="poly" type="polygonType" minOccurs="0"/>
             <xsd:element name="poi" type="poiType" minOccurs="0"/>
+            <xsd:element name="taz" type="tazType" minOccurs="0" maxOccurs="unbounded"/>
 
             <xsd:element name="type" type="typeType" minOccurs="0"/>
 
