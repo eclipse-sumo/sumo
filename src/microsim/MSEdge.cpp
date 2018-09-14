@@ -698,9 +698,11 @@ MSEdge::getMeanSpeed() const {
     double no = 0;
     if (MSGlobals::gUseMesoSim) {
         for (MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(*this); segment != 0; segment = segment->getNextSegment()) {
-            const double vehNo = (double) segment->getCarNumber();
-            v += vehNo * segment->getMeanSpeed();
-            no += vehNo;
+            const int vehNo = segment->getCarNumber();
+            if (vehNo > 0) {
+                v += vehNo * segment->getMeanSpeed();
+                no += vehNo;
+            }
         }
         if (no == 0) {
             return getLength() / myEmptyTraveltime; // may include tls-penalty
