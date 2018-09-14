@@ -35,7 +35,7 @@ netedit.changeAdditional("parkingArea")
 netedit.leftClick(referencePosition, 220, 250)
 
 # set name
-netedit.modifyAdditionalDefaultValue(2, "·$·%···$")
+netedit.modifyAdditionalDefaultValue(2, "&&>>><<<")
 
 # create parkingArea in mode "reference left"
 netedit.leftClick(referencePosition, 240, 250)
