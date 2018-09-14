@@ -15,6 +15,7 @@
 # import common functions for netedit tests
 import os
 import sys
+import time
 
 testRoot = os.path.join(os.environ.get('SUMO_HOME', '.'), 'tests')
 neteditTestRoot = os.path.join(
@@ -28,14 +29,14 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, [], F
 # Rebuild network
 netedit.rebuildNetwork()
 
-# wait 60 seconds (for slow computers)
-wait(60)
+# wait 30 seconds (for slow computers)
+time.sleep(30)
 
 # save network
 netedit.saveNetwork()
 
-# wait another 30 seconds (for slow computers)
-wait(30)
+# wait 30 seconds (for slow computers)
+time.sleep(30)
 
 # quit netedit
 netedit.quit(neteditProcess)

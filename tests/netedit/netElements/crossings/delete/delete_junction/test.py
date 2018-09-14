@@ -15,6 +15,7 @@
 # import common functions for netedit tests
 import os
 import sys
+import time
 
 testRoot = os.path.join(os.environ.get('SUMO_HOME', '.'), 'tests')
 neteditTestRoot = os.path.join(
@@ -35,14 +36,14 @@ netedit.deleteMode()
 netedit.leftClick(referencePosition, 300, 250)
 
 # wait for output
-wait(6)
+time.sleep(4)
 
 # check undo
 netedit.undo(referencePosition, 1)
 netedit.rebuildNetwork()
 
 # wait for output
-wait(3)
+time.sleep(4)
 
 # check redo
 netedit.redo(referencePosition, 1)
