@@ -1,0 +1,9 @@
+Warning: Essential filename attribute 'file' of e3Detector with ID 'e3Detector_0' is missing; e3Detector cannot be created
+Warning: A detEntry must be declared within the definition of a e3Detector.
+Warning: A detExit must be declared within the definition of a e3Detector.
+Warning: Format of essential filename attribute 'file' of e3Detector with ID 'e3Detector_1' is invalid; Filename contains invalid characters; e3Detector cannot be created
+Warning: A detEntry must be declared within the definition of a e3Detector.
+Warning: A detExit must be declared within the definition of a e3Detector.
+Warning: Format of essential filename attribute 'file' of e3Detector with ID 'e3Detector_2' is invalid; Filename cannot be empty; e3Detector cannot be created
+Warning: A detEntry must be declared within the definition of a e3Detector.
+Warning: A detExit must be declared within the definition of a e3Detector.
