@@ -623,6 +623,11 @@ public:
         myAmDelayed = true;
     }
 
+    // return whether there have been vehicles on this edge at least once
+    inline bool isDelayed() const {
+        return myAmDelayed;
+    }
+
     bool hasLaneChanger() const {
         return myLaneChanger != 0;
     }
