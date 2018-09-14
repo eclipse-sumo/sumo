@@ -272,8 +272,8 @@ private:
     Network* myIntermodalNet;
     CreateNetCallback myCallback;
     const int myCarWalkTransfer;
-    const int myRoutingMode;
     const std::string myRoutingAlgorithm;
+    const int myRoutingMode;
     EffortCalculator* const myExternalEffort;
 
 
