@@ -19,6 +19,7 @@ import sys
 import subprocess
 import pyautogui
 import time
+import pyperclip
 
 # define delay before every operation
 DELAY_KEY = 0.1
@@ -28,7 +29,7 @@ DELAY_REFERENCE = 30
 DELAY_QUIT = 3
 DELAY_UNDOREDO = 1
 DELAY_SELECT = 3
-DELAY_RECOMPUTE = 4
+DELAY_RECOMPUTE = 3
 DELAY_RECOMPUTE_VOLATILE = 5
 DELAY_REMOVESELECTION = 5
 
@@ -85,8 +86,8 @@ def typeTab():
 
 
 def typeInvertTab():
-    # type invert tab (PAGE_UP works)
-    typeTwoKeys('tab', 'shift')
+    # type invert tab
+    typeTwoKeys('shift', 'tab')
 
 
 """
@@ -131,12 +132,14 @@ def typeThreeKeys(key1, key2, key3):
 
 
 def pasteIntoTextField(value, removePreviousContents=True):
+    print (value)
     # remove previous content
     if(removePreviousContents):
         typeTwoKeys('ctrl', 'a')
         time.sleep(DELAY_KEY)
-    # type 
-    pyautogui.typewrite(value)
+    # use copy & paste (due problems with certain characters, for example '|')
+    pyperclip.copy(value)
+    pyautogui.hotkey('ctrl', 'v')
 
 
 """
