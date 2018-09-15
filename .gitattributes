@@ -49,6 +49,8 @@ visum.net     text eol=lf
 
 # Denote all files that are truly binary and should not be modified.
 png.complex binary
+png.sumo binary
+png2.sumo binary
 *.png binary
 *.jpg binary
 

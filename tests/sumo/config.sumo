@@ -185,6 +185,7 @@ full:0.0101
 vtypeprobe:0.0101
 weights:0.0101
 ssm:0.0101
+ssm2:0.0101
 
 [relative_float_tolerance]
 aggregated1:0.00001
