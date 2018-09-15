@@ -50,7 +50,6 @@ netedit.saveAdditionals()
 # save shapes
 netedit.saveShapes()
 
-
 # save network
 netedit.saveNetwork()
 

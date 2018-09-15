@@ -171,7 +171,7 @@ def leftClickShift(referencePosition, positionx, positiony):
     clickedPosition = [referencePosition[0] + positionx, referencePosition[1] + positiony]
     # click respect to offset
     pyautogui.click(clickedPosition)
-    print("TestFunctions: Clicked with Shift key pressed over position", clickedPosition.x, '-', clickedPosition.y)
+    print("TestFunctions: Clicked with Shift key pressed over position", clickedPosition[0], '-', clickedPosition[1])
     # Release Shift key
     pyautogui.keyUp('shift')
 
@@ -190,7 +190,7 @@ def leftClickControl(referencePosition, positionx, positiony):
     clickedPosition = [referencePosition[0] + positionx, referencePosition[1] + positiony]
     # click respect to offset
     pyautogui.click(clickedPosition)
-    print("TestFunctions: Clicked with Control key pressed over position", clickedPosition.x, '-', clickedPosition.y)
+    print("TestFunctions: Clicked with Control key pressed over position", clickedPosition[0], '-', clickedPosition[1])
     # Release Shift key
     pyautogui.keyUp('ctrl')
 
