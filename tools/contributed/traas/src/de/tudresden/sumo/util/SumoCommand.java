@@ -405,14 +405,14 @@ public class SumoCommand {
 			
 			cmd.content().writeUnsignedByte(Constants.POSITION_ROADMAP);
 			add_variable(edge1);
-			cmd.content().writeUnsignedByte(0);
 			add_variable(array[1]);
+			cmd.content().writeUnsignedByte(0);
 			
 			String edge2 = (String) array[2];
 			cmd.content().writeUnsignedByte(Constants.POSITION_ROADMAP);
 			add_variable(edge2);
-			cmd.content().writeUnsignedByte(0);
 			add_variable(array[3]);
+			cmd.content().writeUnsignedByte(0);
 
 			boolean isDriving = (boolean) array[4];
 			
