@@ -147,7 +147,7 @@ def writeField(protof, use, typ, name, tagNumber):
 
 def generateProto(tagAttrs, depthTags, enums, protodir, base):
     with open(os.path.join(protodir, "%s.proto" % base), 'w') as protof:
-        protof.write("package %s;\n" % base)
+        protof.write('syntax = "proto2";\npackage %s;\n' % base)
         for name, enum in enums.iteritems():
             protof.write("\nenum %s {\n" % capitalFirst(name))
             for idx, entry in enumerate(enum):
