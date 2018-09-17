@@ -1,20 +1,20 @@
 # edit attribute edges
-inspect_edges
+edges
 
 # edit attribute priority
-inspect_priority
+priority
 
 # edit attribute width
-inspect_width
+width
 
 # edit attribute linkindex
-inspect_linkindex
+linkindex
 
 # edit attribute linkindex2
-inspect_linkindex2
+linkindex2
 
 # edit attribute customshape
-inspect_customshape
+customshape
 
 # edit attribute genericparameters
-inspect_genericparameters
+genericparameters

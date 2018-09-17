@@ -1,53 +1,53 @@
 # edit id
-inspect_id
+id
 
 # edit from
-inspect_from
+from
 
 # edit to
-inspect_to
+to
 
 # edit speed
-inspect_speed
+speed
 
 # edit priority
-inspect_priority
+priority
 
 # edit numLanes
-inspect_numlanes
+numlanes
 
 # edit type
-inspect_type
+type
 
 # edit allow
-inspect_allow
+allow
 
 # edit disallow
-inspect_disallow
+disallow
 
 # edit shape
-inspect_shape
+shape
 
 # edit length
-inspect_length
+length
 
 # edit spreadtype
-inspect_spreadtype
+spreadtype
 
 # edit name
-inspect_name
+name
 
 # edit width
-inspect_width
+width
 
 # edit endoffset
-inspect_endoffset
+endoffset
 
 # edit shapestart
-inspect_shapestart
+shapestart
 
 # edit shapeend
-inspect_shapeend
+shapeend
 
 # edit generic parameters
-inspect_genericparameters
+genericparameters
