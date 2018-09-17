@@ -882,6 +882,27 @@ def toogleShowConnectionsInspectorMode():
     # focus frame again
     typeTab()
     
+    
+"""
+@brief create connection
+"""
+
+
+def createConnection(referencePosition, fromLanePositionX, fromLanePositionY, toLanePositionX, toLanePositionY, mode=""):
+    # check if connection has to be created in certain mode
+    if mode=="conflict":
+        pyautogui.keyDown('ctrl')
+    elif mode =="yield":
+        pyautogui.keyDown('shift')
+    # select first lane
+    leftClick(referencePosition, fromLanePositionX, fromLanePositionY)
+    # select another lane for create a connection
+    leftClick(referencePosition, toLanePositionX, toLanePositionY)
+    # check if connection has to be created in certain mode
+    if mode=="conflict":
+        pyautogui.keyUp('ctrl')
+    elif mode =="yield":
+        pyautogui.keyUp('shift')
 
     
 """

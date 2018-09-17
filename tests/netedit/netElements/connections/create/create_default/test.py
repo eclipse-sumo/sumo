@@ -34,11 +34,8 @@ netedit.toogleShowConnectionsInspectorMode()
 # set connection mode
 netedit.connectionMode()
 
-# select first lane
-netedit.leftClick(referencePosition, 600, 190)
-
-# select another lane for create a connection
-netedit.leftClick(referencePosition, 350, 0)
+# create connection
+netedit.createConnection(referencePosition, 600, 190, 350, 0)
 
 # save changes
 netedit.saveConnectionEdit()
