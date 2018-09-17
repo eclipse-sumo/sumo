@@ -645,14 +645,5 @@ def readNet(filename, **others):
         'withInternal' : import internal edges and lanes (default False)
     """
     netreader = NetReader(**others)
-    try:
-        if not os.path.isfile(filename):
-            print("Network file '%s' not found" % filename, file=sys.stderr)
-            sys.exit(1)
-        parse(filename, netreader)
-    except None:
-        print(
-            "Please mind that the network format has changed in 0.13.0, you may need to update your network!",
-            file=sys.stderr)
-        sys.exit(1)
+    parse(filename, netreader)
     return netreader.getNet()
