@@ -1,51 +1,51 @@
-select_vtypes_disallowed_all
+all
 
-select_vtypes_disallowed_army
+army
 
-select_vtypes_disallowed_authority
+authority
 
-select_vtypes_disallowed_bicycle
+bicycle
 
-select_vtypes_disallowed_bus
+bus
 
-select_vtypes_disallowed_coach
+coach
 
-select_vtypes_disallowed_custom1
+custom1
 
-select_vtypes_disallowed_custom2
+custom2
 
-select_vtypes_disallowed_delivery
+delivery
 
-select_vtypes_disallowed_emergency
+emergency
 
-select_vtypes_disallowed_evehicle
+evehicle
 
-select_vtypes_disallowed_hov
+hov
 
-select_vtypes_disallowed_moped
+moped
 
-select_vtypes_disallowed_motorcycle
+motorcycle
 
-select_vtypes_disallowed_passenger
+passenger
 
-select_vtypes_disallowed_pedestrian
+pedestrian
 
-select_vtypes_disallowed_private
+private
 
-select_vtypes_disallowed_rail
+rail
 
-select_vtypes_disallowed_rail_electric
+rail_electric
 
-select_vtypes_disallowed_rail_urban
+rail_urban
 
-select_vtypes_disallowed_ship
+ship
 
-select_vtypes_disallowed_taxi
+taxi
 
-select_vtypes_disallowed_trailer
+trailer
 
-select_vtypes_disallowed_tram
+tram
 
-select_vtypes_disallowed_truck
+truck
 
-select_vtypes_disallowed_vip
+vip
