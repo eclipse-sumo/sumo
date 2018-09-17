@@ -150,12 +150,12 @@ TraCIServerAPI_Edge::processSet(TraCIServer& server, tcpip::Storage& inputStorag
                     double begTime = 0., endTime = 0., value = 0.;
                     if (!server.readTypeCheckingDouble(inputStorage, begTime)) {
                         return server.writeErrorStatusCmd(CMD_SET_EDGE_VARIABLE,
-                                                          "The first variable must be the begin time given as int.",
+                                                          "The first variable must be the begin time given as double.",
                                                           outputStorage);
                     }
                     if (!server.readTypeCheckingDouble(inputStorage, endTime)) {
                         return server.writeErrorStatusCmd(CMD_SET_EDGE_VARIABLE,
-                                                          "The second variable must be the end time given as int.",
+                                                          "The second variable must be the end time given as double.",
                                                           outputStorage);
                     }
                     if (!server.readTypeCheckingDouble(inputStorage, value)) {
@@ -192,12 +192,12 @@ TraCIServerAPI_Edge::processSet(TraCIServer& server, tcpip::Storage& inputStorag
                     double begTime = 0., endTime = 0., value = 0.;
                     if (!server.readTypeCheckingDouble(inputStorage, begTime)) {
                         return server.writeErrorStatusCmd(CMD_SET_EDGE_VARIABLE,
-                                                          "The first variable must be the begin time given as int.",
+                                                          "The first variable must be the begin time given as double.",
                                                           outputStorage);
                     }
                     if (!server.readTypeCheckingDouble(inputStorage, endTime)) {
                         return server.writeErrorStatusCmd(CMD_SET_EDGE_VARIABLE,
-                                                          "The second variable must be the end time given as int.",
+                                                          "The second variable must be the end time given as double.",
                                                           outputStorage);
                     }
                     if (!server.readTypeCheckingDouble(inputStorage, value)) {
