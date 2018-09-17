@@ -1684,7 +1684,7 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
 }
 
 
-void 
+void
 NBEdge::assignInternalLaneLength(std::vector<Connection>::iterator i, int numLanes, double lengthSum) {
     // assign average length to all lanes of the same internal edge
     // @note the actual length should be used once sumo supports lanes of

@@ -744,14 +744,14 @@ StringBijection<LaneChangeAction>::Entry SUMOXMLDefinitions::laneChangeActionVal
     { "sublane",     LCA_SUBLANE },
     { "traci",       LCA_TRACI },
     { "urgent",      LCA_URGENT },
-    { "overlapping", LCA_OVERLAPPING }, 
-    { "blocked",     LCA_BLOCKED }, 
-    { "amBL",        LCA_AMBLOCKINGLEADER }, 
-    { "amBF",        LCA_AMBLOCKINGFOLLOWER }, 
-    { "amBB",        LCA_AMBACKBLOCKER }, 
-    { "amBBS",       LCA_AMBACKBLOCKER_STANDING }, 
-    { "MR",          LCA_MRIGHT }, 
-    { "ML",          LCA_MLEFT }, 
+    { "overlapping", LCA_OVERLAPPING },
+    { "blocked",     LCA_BLOCKED },
+    { "amBL",        LCA_AMBLOCKINGLEADER },
+    { "amBF",        LCA_AMBLOCKINGFOLLOWER },
+    { "amBB",        LCA_AMBACKBLOCKER },
+    { "amBBS",       LCA_AMBACKBLOCKER_STANDING },
+    { "MR",          LCA_MRIGHT },
+    { "ML",          LCA_MLEFT },
 
     { "unknown",     LCA_UNKNOWN } //< must be the last one
 };

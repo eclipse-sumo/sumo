@@ -124,7 +124,7 @@ public:
      * @param ret The popup menu to add the entry to
      * @param AC AttributeCarrier that will be select/unselected
      */
-    void buildSelectionACPopupEntry(GUIGLObjectPopupMenu* ret, GNEAttributeCarrier *AC);
+    void buildSelectionACPopupEntry(GUIGLObjectPopupMenu* ret, GNEAttributeCarrier* AC);
 
     /// @brief set color scheme
     bool setColorScheme(const std::string& name);
@@ -279,10 +279,10 @@ public:
 
     /// @brief remove restricted lane for bus
     long onCmdRemoveRestrictedLaneBuslane(FXObject*, FXSelector, void*);
-    
+
     /// @brief remove restricted lane for all vehicles
     long onCmdRemoveRestrictedLaneGreenVerge(FXObject*, FXSelector, void*);
-    
+
     /// @brief open additional dialog
     long onCmdOpenAdditionalDialog(FXObject*, FXSelector, void*);
 

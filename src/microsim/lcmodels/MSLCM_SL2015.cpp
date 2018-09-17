@@ -1289,9 +1289,9 @@ MSLCM_SL2015::_wantsChangeSublane(
                                   ? -mySpeedGainProbabilityRight / myChangeProbThresholdRight
                                   : -mySpeedGainProbabilityLeft / myChangeProbThresholdLeft);
     if (laneOffset != 0
-            && ((amBlockingFollowerPlusNB() 
-                // VARIANT_6 : counterNoHelp
-                    && ((myOwnState & myLca) != 0)) 
+            && ((amBlockingFollowerPlusNB()
+                 // VARIANT_6 : counterNoHelp
+                 && ((myOwnState & myLca) != 0))
                 ||
                 // continue previous cooperative change
                 ((myPreviousState & LCA_COOPERATIVE) != 0

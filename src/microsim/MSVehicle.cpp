@@ -2285,8 +2285,8 @@ MSVehicle::adaptToLeaders(const MSLeaderInfo& ahead, double latOffset,
             // @todo avoid multiple adaptations to the same leader
             const double predBack = pred->getBackPositionOnLane(lane);
             double gap = (lastLink == 0
-                                ? predBack - myState.myPos - getVehicleType().getMinGap()
-                                : predBack + seen - lane->getLength() - getVehicleType().getMinGap());
+                          ? predBack - myState.myPos - getVehicleType().getMinGap()
+                          : predBack + seen - lane->getLength() - getVehicleType().getMinGap());
             if (getLaneChangeModel().isOpposite()) {
                 gap *= -1;
             }

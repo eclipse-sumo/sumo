@@ -780,13 +780,13 @@ GNEPolygonFrame::DrawingMode::isDrawing() const {
 }
 
 
-void 
+void
 GNEPolygonFrame::DrawingMode::setDeleteLastCreatedPoint(bool value) {
     myDeleteLastCreatedPoint = value;
 }
 
 
-bool 
+bool
 GNEPolygonFrame::DrawingMode::getDeleteLastCreatedPoint() {
     return myDeleteLastCreatedPoint;
 }
@@ -897,7 +897,7 @@ GNEPolygonFrame::processClick(const Position& clickedPosition, GNELane* lane) {
         valuesOfElement = myShapeAttributes->getAttributesAndValues();
         if (myDrawingMode->isDrawing()) {
             // add or delete a new point depending of flag "delete last created point"
-            if(myDrawingMode->getDeleteLastCreatedPoint()) {
+            if (myDrawingMode->getDeleteLastCreatedPoint()) {
                 myDrawingMode->removeLastPoint();
             } else {
                 myDrawingMode->addNewPoint(clickedPosition);

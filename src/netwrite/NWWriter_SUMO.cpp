@@ -244,12 +244,12 @@ NWWriter_SUMO::getOppositeInternalID(const NBEdgeCont& ec, const NBEdge* from, c
         for (std::vector<NBEdge::Connection>::const_iterator it_c = connections.begin(); it_c != connections.end(); it_c++) {
             const NBEdge::Connection& conOpp = *it_c;
             if (succOpp != from // turnaround
-                    && predOpp == conOpp.toEdge 
-                    && succOpp->getLaneID(conOpp.fromLane) == succ.oppositeID 
-                    && predOpp->getLaneID(conOpp.toLane) == pred.oppositeID 
+                    && predOpp == conOpp.toEdge
+                    && succOpp->getLaneID(conOpp.fromLane) == succ.oppositeID
+                    && predOpp->getLaneID(conOpp.toLane) == pred.oppositeID
                     && from->getToNode()->getDirection(from, con.toEdge, lefthand) == LINKDIR_STRAIGHT
                     && from->getToNode()->getDirection(succOpp, predOpp, lefthand) == LINKDIR_STRAIGHT
-                    ) {
+               ) {
 #ifdef DEBUG_OPPOSITE_INTERNAL
                 std::cout << "  found " << conOpp.getInternalLaneID() << "\n";
 #endif
@@ -257,9 +257,9 @@ NWWriter_SUMO::getOppositeInternalID(const NBEdgeCont& ec, const NBEdge* from, c
                 return conOpp.getInternalLaneID();
             } else {
                 /*
-#ifdef DEBUG_OPPOSITE_INTERNAL
-                std::cout << "  rejected " << conOpp.getInternalLaneID() 
-                    << "\n     succ.oppositeID=" << succ.oppositeID 
+                #ifdef DEBUG_OPPOSITE_INTERNAL
+                std::cout << "  rejected " << conOpp.getInternalLaneID()
+                    << "\n     succ.oppositeID=" << succ.oppositeID
                     << "\n         succOppLane=" << succOpp->getLaneID(conOpp.fromLane)
                     << "\n     pred.oppositeID=" << pred.oppositeID
                     << "\n         predOppLane=" << predOpp->getLaneID(conOpp.toLane)
@@ -268,8 +268,8 @@ NWWriter_SUMO::getOppositeInternalID(const NBEdgeCont& ec, const NBEdge* from, c
                     << "\n     len1=" << con.shape.length()
                     << "\n     len2=" << conOpp.shape.length()
                     << "\n";
-#endif
-*/
+                #endif
+                */
             }
         }
         return "";

@@ -213,7 +213,7 @@ protected:
      */
     static void computeOvertakingTime(const MSVehicle* vehicle, const MSVehicle* leader, double gap, double& timeToOvertake, double& spaceToOvertake);
 
-    // @brief return leader vehicle that is to be overtaken  
+    // @brief return leader vehicle that is to be overtaken
     static std::pair<MSVehicle*, double> getColumnleader(MSVehicle* vehicle, std::pair<MSVehicle*, double> leader, double maxLookAhead = std::numeric_limits<double>::max());
 
     /// @brief return the next lane in conts beyond lane or nullptr
