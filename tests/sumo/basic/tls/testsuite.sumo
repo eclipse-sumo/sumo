@@ -38,3 +38,6 @@ offset_only
 
 # load another offset value for a non existing traffic light
 offset_unknown
+
+# the loaded program contains branches specified via attribute 'next'
+add_attribute_next
