@@ -100,7 +100,7 @@ dnl Make sure we are on architecture that supports SIMD
    ;;
    *-darwin*)
    AM_CPPFLAGS="-I/opt/X11/include -I/opt/local/include -I/usr/local/include $AM_CPPFLAGS"
-   AM_LDFLAGS="-I/opt/X11/lib -I/opt/local/lib -I/usr/local/lib $AM_LDFLAGS"
+   AM_LDFLAGS="-L/opt/X11/lib -L/opt/local/lib -L/usr/local/lib $AM_LDFLAGS"
    ;;
 esac
 
