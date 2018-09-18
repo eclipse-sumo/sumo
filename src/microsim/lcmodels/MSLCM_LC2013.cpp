@@ -2091,7 +2091,7 @@ MSLCM_LC2013::getSafetyFactor() const {
 
 double
 MSLCM_LC2013::getOppositeSafetyFactor() const {
-    return 1 / myOppositeParam;
+    return myOppositeParam <= 0 ? std::numeric_limits<double>::max() : 1 / myOppositeParam;
 }
 
 std::string
