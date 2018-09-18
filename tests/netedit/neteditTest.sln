@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2019
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "neteditTests", "neteditTests.pyproj", "{A8BF62BC-12DF-4C9F-B1E6-C055FCE26CF5}"
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "neteditTests", "neteditTests.pyproj", "{AF9784F3-AE15-4408-8222-3F9559BEE9D3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,8 +11,8 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A8BF62BC-12DF-4C9F-B1E6-C055FCE26CF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A8BF62BC-12DF-4C9F-B1E6-C055FCE26CF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF9784F3-AE15-4408-8222-3F9559BEE9D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF9784F3-AE15-4408-8222-3F9559BEE9D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
