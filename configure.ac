@@ -100,7 +100,6 @@ dnl Make sure we are on architecture that supports SIMD
    ;;
    *-darwin*)
    AM_CPPFLAGS="-I/opt/X11/include -I/opt/local/include -I/usr/local/include $AM_CPPFLAGS"
-   AM_LDFLAGS="-L/opt/X11/lib -L/opt/local/lib -L/usr/local/lib $AM_LDFLAGS"
    ;;
 esac
 
@@ -279,7 +278,7 @@ if test x"$with_fox_config" != xno; then
         ac_disabled="$ac_disabled GUI"
     else
         FOX_CFLAGS="`$FOX_CONFIG --cflags`"
-        FOX_LDFLAGS="`$FOX_CONFIG --libs`"
+        FOX_LDFLAGS="`$FOX_CONFIG --libs` -L/opt/X11/lib"
         AC_SUBST([FOX_LDFLAGS])
 
         save_cppflags=$CPPFLAGS
@@ -403,7 +402,6 @@ dnl  general flags
 AM_CPPFLAGS="-I$PWD/$srcdir/src $AM_CPPFLAGS"
 AC_SUBST(AM_CPPFLAGS)
 AC_SUBST(AM_CXXFLAGS)
-AC_SUBST(AM_LDFLAGS)
 AC_DEFINE_UNQUOTED([HAVE_ENABLED], ["$host$ac_enabled"], [Reporting string for enabled options])
 
 
