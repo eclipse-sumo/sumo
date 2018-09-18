@@ -20,8 +20,6 @@
     <VisualStudioVersion Condition=" '$(VisualStudioVersion)' == '' ">10.0</VisualStudioVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include=".vs\neteditTest\v15\.suo" />
-    <Content Include=".vs\neteditTest\v15\Solution.VC.db" />
     <Content Include="additionalElements\access\create\additionals.netedit" />
     <Content Include="additionalElements\access\create\errors.netedit" />
     <Content Include="additionalElements\access\create\gui-settings.xml" />
@@ -2370,6 +2368,7 @@
     <Content Include="additionalElements\routeprobe\volatileRecomputing\routeProbe_09.txt" />
     <Content Include="additionalElements\routeprobe\volatileRecomputing\routeProbe_13.txt" />
     <Content Include="additionalElements\routeprobe\volatileRecomputing\routeProbe_14.txt" />
+    <Content Include="additionalElements\testsuite.netedit.daily" />
     <Content Include="additionalElements\testsuite.netedit" />
     <Content Include="additionalElements\vaporizer\create\additionals.netedit" />
     <Content Include="additionalElements\vaporizer\create\errors.netedit" />
@@ -3045,6 +3044,7 @@
     <Content Include="netElements\connections\inspect_TLS\visibility\log.netedit" />
     <Content Include="netElements\connections\inspect_TLS\visibility\net.netedit" />
     <Content Include="netElements\connections\inspect_TLS\visibility\output.netedit" />
+    <Content Include="netElements\connections\testsuite.netedit.daily" />
     <Content Include="netElements\connections\testsuite.netedit" />
     <Content Include="netElements\crossings\create\button_clear\errors.netedit" />
     <Content Include="netElements\crossings\create\button_clear\gui-settings.xml" />
@@ -3659,6 +3659,7 @@
     <Content Include="netElements\crossings\load_small\net.netedit" />
     <Content Include="netElements\crossings\load_small\output.netedit" />
     <Content Include="netElements\crossings\testsuite.netedit" />
+    <Content Include="netElements\crossings\testsuite.netedit.daily" />
     <Content Include="netElements\edges\create\errors.netedit" />
     <Content Include="netElements\edges\create\gui-settings.xml" />
     <Content Include="netElements\edges\create\log.netedit" />
@@ -4685,6 +4686,7 @@
     <Content Include="netElements\edges\select_vtypes\disallowed\vip\output.netedit" />
     <Content Include="netElements\edges\select_vtypes\testsuite.netedit" />
     <Content Include="netElements\edges\testsuite.netedit" />
+    <Content Include="netElements\edges\testsuite.netedit.daily" />
     <Content Include="netElements\junctions\create\errors.netedit" />
     <Content Include="netElements\junctions\create\gui-settings.xml" />
     <Content Include="netElements\junctions\create\log.netedit" />
@@ -5213,6 +5215,7 @@
     <Content Include="netElements\junctions\move\net.netedit" />
     <Content Include="netElements\junctions\move\output.netedit" />
     <Content Include="netElements\junctions\testsuite.netedit" />
+    <Content Include="netElements\junctions\testsuite.netedit.daily" />
     <Content Include="netElements\lanes\delete\additionals.netedit" />
     <Content Include="netElements\lanes\delete\errors.netedit" />
     <Content Include="netElements\lanes\delete\gui-settings.xml" />
@@ -6014,6 +6017,7 @@
     <Content Include="netElements\lanes\select_vtypes\testsuite.netedit" />
     <Content Include="netElements\lanes\testsuite.netedit" />
     <Content Include="netElements\testsuite.netedit" />
+    <Content Include="netElements\testsuite.netedit.daily" />
     <Content Include="netElements\tls\testsuite.netedit" />
     <Content Include="options.netedit" />
     <Content Include="routeElements\testsuite.netedit" />
@@ -6167,6 +6171,7 @@
     <Content Include="selection\select_wrong_parameters\output.netedit" />
     <Content Include="selection\select_wrong_parameters\shapes.netedit" />
     <Content Include="selection\testsuite.netedit" />
+    <Content Include="selection\testsuite.netedit.daily" />
     <Content Include="shapeElements\basic\shape_invalid\errors.netedit" />
     <Content Include="shapeElements\basic\shape_invalid\gui-settings.xml" />
     <Content Include="shapeElements\basic\shape_invalid\input_net.con.xml" />
@@ -7890,7 +7895,9 @@
     <Content Include="shapeElements\poly\volatileRecomputing\output.netedit" />
     <Content Include="shapeElements\poly\volatileRecomputing\shapes.netedit" />
     <Content Include="shapeElements\testsuite.netedit" />
+    <Content Include="shapeElements\testsuite.netedit.daily" />
     <Content Include="testsuite.netedit" />
+    <Content Include="testsuite.netedit.daily" />
     <Content Include="trafficLights\save\errors.netedit" />
     <Content Include="trafficLights\save\gui-settings.xml" />
     <Content Include="trafficLights\save\input_net.con.xml" />
@@ -7902,6 +7909,7 @@
     <Content Include="trafficLights\save\net.netedit" />
     <Content Include="trafficLights\save\output.netedit" />
     <Content Include="trafficLights\testsuite.netedit" />
+    <Content Include="trafficLights\testsuite.netedit.daily" />
     <Content Include="volatileRecomputing\abort-recomputing\additionals.netedit" />
     <Content Include="volatileRecomputing\abort-recomputing\errors.netedit" />
     <Content Include="volatileRecomputing\abort-recomputing\gui-settings.xml" />
@@ -7955,6 +7963,7 @@
     <Content Include="volatileRecomputing\sidewalks.guess\net.netedit" />
     <Content Include="volatileRecomputing\sidewalks.guess\output.netedit" />
     <Content Include="volatileRecomputing\testsuite.netedit" />
+    <Content Include="volatileRecomputing\testsuite.netedit.daily" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="additionalElements\access\create\test.py" />
@@ -8609,9 +8618,6 @@
     <Compile Include="volatileRecomputing\sidewalks.guess\test.py" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include=".vs\" />
-    <Folder Include=".vs\neteditTest\" />
-    <Folder Include=".vs\neteditTest\v15" />
     <Folder Include="additionalElements" />
     <Folder Include="additionalElements\access" />
     <Folder Include="additionalElements\access\create" />
@@ -9194,7 +9200,7 @@
     <Folder Include="netElements\lanes\select_vtypes\disallowed\truck" />
     <Folder Include="netElements\lanes\select_vtypes\disallowed\vip" />
     <Folder Include="netElements\tls" />
-    <Folder Include="routeElements" />
+    <Folder Include="routeElements\" />
     <Folder Include="selection" />
     <Folder Include="selection\select_additional_basic" />
     <Folder Include="selection\select_basic" />
