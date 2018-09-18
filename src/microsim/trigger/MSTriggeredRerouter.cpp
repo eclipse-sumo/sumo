@@ -653,6 +653,8 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
 
         std::vector<double> probs = rerouteDef->parkProbs.getProbs();
 
+        const double brakeGap = veh.getBrakeGap();
+
         for (int i = 0; i < (int)parks.size(); ++i) {
             MSParkingArea* pa = parks[i].first;
             const double prob = probs[i];
@@ -709,7 +711,20 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
 
                         // The distance from the current edge to the new parking area
                         parkValues["distanceto"] = routeToPark.getDistanceBetween(veh.getPositionOnLane(), pa->getBeginLanePosition(),
-                                                   routeToPark.begin(), routeToPark.end(), includeInternalLengths);
+                                                   routeToPark.begin(), routeToPark.end() - 1, includeInternalLengths);
+
+                        //std::cout << SIMTIME << " veh=" << veh.getID() << " candidate=" << pa->getID()
+                        //    << " distanceTo=" << parkValues["distanceto"]
+                        //    << " brakeGap=" << brakeGap
+                        //    << " routeToPark=" << toString(edgesToPark)
+                        //    << " fromPos=" << veh.getPositionOnLane()
+                        //    << " tPos=" << pa->getBeginLanePosition()
+                        //    << "\n";
+                        if (parkValues["distanceto"] < brakeGap) {
+                            //std::cout << "   removed: pa too close\n";
+                            // to close to stop for this parkingArea
+                            continue;
+                        }
 
                         // The time to reach the new parking area
                         parkValues["timeto"] = router.recomputeCosts(edgesToPark, &veh, MSNet::getInstance()->getCurrentTimeStep());
@@ -730,7 +745,7 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
                                                   &c == &RGBColor::DEFAULT_COLOR ? 0 : new RGBColor(c), route.getStops());
                             // The distance from the new parking area to the end of the route
                             parkValues["distancefrom"] = routeFromPark.getDistanceBetween(pa->getBeginLanePosition(), routeFromPark.getLastEdge()->getLength(),
-                                                         routeFromPark.begin(), routeFromPark.end(), includeInternalLengths);
+                                                         routeFromPark.begin(), routeFromPark.end() - 1, includeInternalLengths);
                             // The time to reach this area
                             parkValues["timefrom"] = router.recomputeCosts(edgesFromPark, &veh, MSNet::getInstance()->getCurrentTimeStep());
                         }

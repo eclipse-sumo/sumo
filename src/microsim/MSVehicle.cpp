@@ -1675,6 +1675,12 @@ MSVehicle::getStopEdges() const {
 
 
 double
+MSVehicle::getBrakeGap() const {
+    getCarFollowModel().brakeGap(getSpeed());
+}
+
+
+double
 MSVehicle::basePos(const MSEdge* edge) const {
     double result = MIN2(getVehicleType().getLength() + POSITION_EPS, edge->getLength());
     if (hasStops()

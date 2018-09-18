@@ -1695,6 +1695,9 @@ protected:
      */
     const ConstMSEdgeVector getStopEdges() const;
 
+    /// @brief get distance for coming to a stop (used for rerouting checks)
+    double getBrakeGap() const;
+
     /// @brief ensure that a vehicle-relative position is not invalid
     Position validatePosition(Position result, double offset = 0) const;
 
