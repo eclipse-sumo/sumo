@@ -1421,7 +1421,7 @@ MSLaneChanger::computeOvertakingTime(const MSVehicle* vehicle, const MSVehicle* 
 #endif
         }
     }
-    const double safetyFactor = OPPOSITE_OVERTAKING_SAFETY_FACTOR * vehicle->getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_ASSERTIVE, 1);
+    const double safetyFactor = OPPOSITE_OVERTAKING_SAFETY_FACTOR * vehicle->getLaneChangeModel().getOppositeSafetyFactor();
     timeToOvertake *= safetyFactor;
     spaceToOvertake *= safetyFactor;
 #ifdef DEBUG_CHANGE_OPPOSITE_OVERTAKINGTIME
@@ -1459,7 +1459,7 @@ MSLaneChanger::getColumnleader(MSVehicle* vehicle, std::pair<MSVehicle*, double>
         std::cout << " getColumnleader vehicle=" << vehicle->getID() << " leader=" << leader.first->getID() << " gap=" << leader.second << " maxLookAhead=" << maxLookAhead << "\n";
     }
 #endif
-    const double safetyFactor = OPPOSITE_OVERTAKING_SAFETY_FACTOR * vehicle->getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_ASSERTIVE, 1);
+    const double safetyFactor = OPPOSITE_OVERTAKING_SAFETY_FACTOR * vehicle->getLaneChangeModel().getOppositeSafetyFactor();
     while (!foundSpaceAhead) {
         const double requiredSpaceAfterLeader = (columnLeader.first->getCarFollowModel().getSecureGap(
                 columnLeader.first->getSpeed(), overtakingSpeed, vehicle->getCarFollowModel().getMaxDecel())
