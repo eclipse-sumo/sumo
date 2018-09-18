@@ -3252,7 +3252,7 @@ MSLCM_SL2015::setParameter(const std::string& key, const std::string& value) {
         myCooperativeParam = doubleValue;
     } else if (key == toString(SUMO_ATTR_LCA_SPEEDGAIN_PARAM)) {
         mySpeedGainParam = doubleValue;
-    } else if (key == toString(LCA_KEEPRIGHT)) {
+    } else if (key == toString(SUMO_ATTR_LCA_KEEPRIGHT_PARAM)) {
         myKeepRightParam = doubleValue;
     } else if (key == toString(SUMO_ATTR_LCA_SUBLANE_PARAM)) {
         mySublaneParam = doubleValue;
