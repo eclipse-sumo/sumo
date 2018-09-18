@@ -1513,6 +1513,58 @@ GNEAttributeCarrier::fillAttributeCarriers() {
                                                "If set, no error will be reported if element is placed behind the lane. Instead,it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1",
                                                "0");
     }
+    currentTag = SUMO_TAG_E2DETECTOR_MULTILANE;
+    {
+        // set values of tag
+        myAllowedTags[currentTag] = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_DETECTOR | TAGPROPERTY_BLOCKMOVEMENT, 21, ICON_E2);
+        // set "file" as deprecated attribute
+        myAllowedTags[currentTag].addDeprecatedAttribute(SUMO_ATTR_CONT);
+        // set values of attributes
+        myAllowedTags[currentTag].addAttribute(SUMO_ATTR_ID,
+                                               ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
+                                               "The id of Multilane E2",
+                                               "");
+        myAllowedTags[currentTag].addAttribute(SUMO_ATTR_LANES,
+                                               ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_UNIQUE,
+                                               "The list lane ids in which the detector shall be laid on",
+                                               "");
+        myAllowedTags[currentTag].addAttribute(SUMO_ATTR_POSITION,
+                                               ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE,
+                                               "The position on the lane the detector shall be laid on in meters",
+                                               "");
+        myAllowedTags[currentTag].addAttribute(SUMO_ATTR_FREQUENCY,
+                                               ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUE,
+                                               "The aggregation period the values the detector collects shall be summed up",
+                                               "900.00");
+        myAllowedTags[currentTag].addAttribute(SUMO_ATTR_NAME,
+                                               ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+                                               "Name of " + toString(currentTag),
+                                               "");
+        myAllowedTags[currentTag].addAttribute(SUMO_ATTR_FILE,
+                                               ATTRPROPERTY_STRING | ATTRPROPERTY_FILENAME | ATTRPROPERTY_DEFAULTVALUE,
+                                               "The path to the output file",
+                                               "");
+        myAllowedTags[currentTag].addAttribute(SUMO_ATTR_VTYPES,
+                                               ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+                                               "Space separated list of vehicle type ids to consider",
+                                               "");
+        myAllowedTags[currentTag].addAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD,
+                                               ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+                                               "The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting)",
+                                               "1.00");
+        myAllowedTags[currentTag].addAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD,
+                                               ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+                                               "The speed-based threshold that describes how slow a vehicle has to be to be recognized as halting) in m/s",
+                                               "1.39");
+        myAllowedTags[currentTag].addAttribute(SUMO_ATTR_JAM_DIST_THRESHOLD,
+                                               ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+                                               "The minimum distance to the next standing vehicle in order to make this vehicle count as a participant to the jam) in m",
+                                               "10.00");
+        myAllowedTags[currentTag].addAttribute(SUMO_ATTR_FRIENDLY_POS,
+                                               ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+                                               "If set, no error will be reported if element is placed behind the lane. Instead,it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1",
+                                               "0");
+    }
     currentTag = SUMO_TAG_E3DETECTOR;
     {
         // set values of tag
