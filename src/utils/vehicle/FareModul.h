@@ -293,13 +293,15 @@ private:
 
       
       
-  void output(_IntermodalEdge const * edge) const override
+  std::string output(_IntermodalEdge const * edge) const override
   {
-    std::cout<<"Final fare state at edge of type: "<<edge->getLine()<<std::endl;
+    std::stringstream msg;
+    msg<<"Final fare state at edge of type: "<<edge->getLine()<<std::endl;
     FareState const  & my = myFareStates[edge->getNumericalID()];
-    std::cout<<"Tariftoken"<<FareUtil::tokenToString(my.myFareToken)<<std::endl;
-    std::cout<<"Zones "<<my.myCounter.numZones()<<std::endl;
-    std::cout<<"stations: "<<my.myVisistedStops<<std::endl;
+    msg<<"Tariftoken"<<FareUtil::tokenToString(my.myFareToken)<<std::endl;
+    msg<<"Zones "<<my.myCounter.numZones()<<std::endl;
+    msg<<"stations: "<<my.myVisistedStops<<std::endl;
+    return msg.str();
   }
   
   

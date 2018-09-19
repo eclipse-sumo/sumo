@@ -46,7 +46,7 @@ public:
     virtual void setInitialState(E const *edge)  = 0;
     
     /** basic output facility to inform about effort at this edge **/
-    virtual void output(E const *edge) const = 0 ;
+    virtual std::string output(E const *edge) const = 0;
     
 };
 

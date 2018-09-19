@@ -125,6 +125,9 @@ public:
                 if (iEdge->includeInRoute(false)) {
                     if (iEdge->getLine() == "!stop") {
                         into.back().destStop = iEdge->getID();
+                        if (myExternalEffort != nullptr) {
+                            into.back().description = myExternalEffort->output(iEdge);
+                        }
                         if (lastLine == "!ped") {
                             lastLine = ""; // a stop always starts a new trip item
                         }
