@@ -154,7 +154,7 @@ MSTLLogicControl::TLSLogicVariants::setStateInstantiatingOnline(MSTLLogicControl
     // build only once...
     MSTrafficLightLogic* logic = getLogic("online");
     if (logic == 0) {
-        MSPhaseDefinition* phase = new MSPhaseDefinition(DELTA_T, state);
+        MSPhaseDefinition* phase = new MSPhaseDefinition(DELTA_T, state, -1);
         std::vector<MSPhaseDefinition*> phases;
         phases.push_back(phase);
         logic = new MSSimpleTrafficLightLogic(tlc, myCurrentProgram->getID(), "online", phases, 0,
@@ -163,7 +163,7 @@ MSTLLogicControl::TLSLogicVariants::setStateInstantiatingOnline(MSTLLogicControl
         addLogic("online", logic, true, true);
         MSNet::getInstance()->createTLWrapper(logic);
     } else {
-        MSPhaseDefinition nphase(DELTA_T, state);
+        MSPhaseDefinition nphase(DELTA_T, state, -1);
         *(dynamic_cast<MSSimpleTrafficLightLogic*>(logic)->getPhases()[0]) = nphase;
         switchTo(tlc, "online");
     }

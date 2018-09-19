@@ -433,6 +433,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
 
     { "minDur",                 SUMO_ATTR_MINDURATION },
     { "maxDur",                 SUMO_ATTR_MAXDURATION },
+    { "next",                   SUMO_ATTR_NEXT },
     { "foes",                   SUMO_ATTR_FOES },
     // E2 detector
     { "cont",                   SUMO_ATTR_CONT },

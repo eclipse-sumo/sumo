@@ -173,7 +173,7 @@ public:
      * @todo min/max is used only by one junction type. Recheck
      * @todo min/max: maybe only one type of a phase definition should be built
      */
-    void addPhase(SUMOTime duration, const std::string& state,
+    void addPhase(SUMOTime duration, const std::string& state, int nextPhase,
                   SUMOTime min, SUMOTime max);
 
     /** @brief Adds a phase to the currently built traffic lights logic
@@ -185,7 +185,7 @@ public:
      * @param[in] transient_notdecisional Specifies if this is a transient phase (true) or a decisional one (false)
      * @param[in] commit Specifies if this is a commit phase
      */
-    void addPhase(SUMOTime duration, const std::string& state, SUMOTime minDuration, SUMOTime maxDuration, bool transient_notdecisional, bool commit);
+    void addPhase(SUMOTime duration, const std::string& state, int nextPhase, SUMOTime minDuration, SUMOTime maxDuration, bool transient_notdecisional, bool commit);
 
 
     /** @brief Adds a phase to the currently built traffic lights logic
@@ -198,7 +198,7 @@ public:
      * @param[in] commit Specifies if this is a commit phase
      * @param[in] targetLanes A reference to the vector containing targeted sensor lanes for this phase, given by lane id
      */
-    void addPhase(SUMOTime duration, const std::string& state, SUMOTime minDuration, SUMOTime maxDuration, bool transient_notdecisional, bool commit, MSPhaseDefinition::LaneIdVector& targetLanes);
+    void addPhase(SUMOTime duration, const std::string& state, int nextPhase, SUMOTime minDuration, SUMOTime maxDuration, bool transient_notdecisional, bool commit, MSPhaseDefinition::LaneIdVector& targetLanes);
 
 
     /** @brief Returns a previously build tls logic

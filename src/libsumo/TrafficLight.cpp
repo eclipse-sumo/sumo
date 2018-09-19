@@ -70,7 +70,7 @@ TrafficLight::getCompleteRedYellowGreenDefinition(const std::string& tlsID) {
         l.subParameter = logic->getParametersMap();
         for (int j = 0; j < logic->getPhaseNumber(); ++j) {
             MSPhaseDefinition phase = logic->getPhase(j);
-            l.phases.emplace_back(TraCIPhase(STEPS2TIME(phase.duration), STEPS2TIME(phase.minDuration), STEPS2TIME(phase.maxDuration), phase.getState()));
+            l.phases.emplace_back(TraCIPhase(STEPS2TIME(phase.duration), STEPS2TIME(phase.minDuration), STEPS2TIME(phase.maxDuration), phase.getState(), phase.getNextPhase()));
         }
         result.emplace_back(l);
     }
@@ -205,7 +205,7 @@ TrafficLight::setCompleteRedYellowGreenDefinition(const std::string& tlsID, cons
     }
     std::vector<MSPhaseDefinition*> phases;
     for (TraCIPhase phase : logic.phases) {
-        phases.push_back(new MSPhaseDefinition(TIME2STEPS(phase.duration), TIME2STEPS(phase.duration1), TIME2STEPS(phase.duration2), phase.phase));
+        phases.push_back(new MSPhaseDefinition(TIME2STEPS(phase.duration), TIME2STEPS(phase.duration1), TIME2STEPS(phase.duration2), phase.phase, phase.next));
     }
     if (vars.getLogic(logic.subID) == 0) {
         MSTrafficLightLogic* mslogic = new MSSimpleTrafficLightLogic(MSNet::getInstance()->getTLSControl(), tlsID, logic.subID, phases, logic.currentPhaseIndex, 0, logic.subParameter);

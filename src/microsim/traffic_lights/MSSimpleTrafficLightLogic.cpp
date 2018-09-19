@@ -69,7 +69,11 @@ MSSimpleTrafficLightLogic::trySwitch() {
     }
 
     // increment the index
-    myStep++;
+    if (myPhases[myStep]->nextPhase >= 0) {
+        myStep = myPhases[myStep]->nextPhase;
+    } else {
+        myStep++;
+    }
     // if the last phase was reached ...
     if (myStep >= (int)myPhases.size()) {
         // ... set the index to the first phase

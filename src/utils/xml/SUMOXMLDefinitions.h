@@ -655,6 +655,8 @@ enum SumoXMLAttr {
     SUMO_ATTR_MINDURATION,
     /// @brief maximum duration of a phase
     SUMO_ATTR_MAXDURATION,
+    /// @brief succesor phase index
+    SUMO_ATTR_NEXT,
     /// @}
 
     /// @name Attributes for junction-internal lanes
