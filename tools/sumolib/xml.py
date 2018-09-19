@@ -61,11 +61,12 @@ def compound_object(element_name, attrnames, warn=False):
         _original_fields = sorted(attrnames)
         _fields = [_prefix_keyword(a, warn) for a in _original_fields]
 
-        def __init__(self, values, child_dict):
+        def __init__(self, values, child_dict, text=None):
             for name, val in zip(self._fields, values):
                 self.__dict__[name] = val
             self._child_dict = child_dict
             self.name = element_name
+            self._text = text
 
         def getAttributes(self):
             return [(k, getattr(self, k)) for k in self._fields]
@@ -100,6 +101,12 @@ def compound_object(element_name, attrnames, warn=False):
             self._child_dict.setdefault(name, []).append(child)
             return child
 
+        def getText(self):
+            return self._text
+
+        def setText(self, text):
+            self._text = text
+
         def __getattr__(self, name):
             if name[:2] != "__":
                 return self._child_dict.get(name, None)
@@ -124,14 +131,15 @@ def compound_object(element_name, attrnames, warn=False):
             return self._child_dict[name]
 
         def __str__(self):
-            return "<%s,child_dict=%s>" % (self.getAttributes(), dict(self._child_dict))
+            nodeText = '' if self._text is None else ",text=%s" % self._text
+            return "<%s,child_dict=%s%s>" % (self.getAttributes(), dict(self._child_dict), nodeText)
 
         def toXML(self, initialIndent="", indent="    "):
             fields = ['%s="%s"' % (self._original_fields[i], str_possibly_unicode(getattr(self, k)))
                       for i, k in enumerate(self._fields) if getattr(self, k) is not None and
                       # see #3454
                       '{' not in self._original_fields[i]]
-            if not self._child_dict:
+            if not self._child_dict and self._text is None:
                 return "%s<%s %s/>\n" % (initialIndent, element_name, " ".join(fields))
             else:
                 s = "%s<%s %s>\n" % (
@@ -139,6 +147,8 @@ def compound_object(element_name, attrnames, warn=False):
                 for l in self._child_dict.values():
                     for c in l:
                         s += c.toXML(initialIndent + indent)
+                if self._text is not None:
+                    s += text
                 return s + "%s</%s>\n" % (initialIndent, element_name)
 
         def __repr__(self):
@@ -218,7 +228,7 @@ def _get_compound_object(node, elementTypes, element_name, element_attrs, attr_c
     attrnames = elementTypes[element_name]._original_fields
     return elementTypes[element_name](
         [attr_conversions.get(a, _IDENTITY)(node.get(a)) for a in attrnames],
-        child_dict)
+        child_dict, node.text)
 
 
 def create_document(root_element_name, attrs=None, schema=None):
