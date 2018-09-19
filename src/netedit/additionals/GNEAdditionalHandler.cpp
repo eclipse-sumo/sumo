@@ -946,8 +946,8 @@ GNEAdditionalHandler::parseAndBuildDetectorE2(const SUMOSAXAttributes& attrs, co
     bool abort = false;
     // parse attributes of E2
     std::string id = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_ID, abort);
-    std::string laneId = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_LANE, abort);
-    std::vector<std::string> laneIds = GNEAttributeCarrier::parseAttributeFromXML<std::vector<std::string>>(attrs, id, tag, SUMO_ATTR_LANES, abort);
+    std::string laneId = attrs.hasAttribute(SUMO_ATTR_LANE)?GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_LANE, abort):"";
+    std::string laneIds = attrs.hasAttribute(SUMO_ATTR_LANES)?GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_LANES, abort):"";
     double position = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_POSITION, abort);
     double frequency = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_FREQUENCY, abort);
     std::string file = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_FILE, abort);
@@ -962,20 +962,43 @@ GNEAdditionalHandler::parseAndBuildDetectorE2(const SUMOSAXAttributes& attrs, co
     GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_CONT, abort);
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
-        // get pointer to lane
-        GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false, true);
-        // check that all elements are valid
-        if (myViewNet->getNet()->retrieveAdditional(tag, id, false) != nullptr) {
-            WRITE_WARNING("There is another " + toString(tag) + " with the same ID='" + id + "'.");
-        } else if (lane == nullptr) {
-            // Write error if lane isn't valid
-            WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " '" + id + "' is not known.");
-        } else if (!fixE2DetectorPositionPosition(position, length, lane->getParentEdge().getNBEdge()->getFinalLength(), friendlyPos)) {
-            WRITE_WARNING("Invalid position for " + toString(tag) + " with ID = '" + id + "'.");
+        // check if at leas lane or laneIDS are defined
+        if(laneId.empty() && laneIds.empty()) {
+            WRITE_WARNING("A " + toString(tag) + " needs at least a lane or a list of lanes.");
         } else {
-            myLastInsertedAdditional = buildSingleLaneDetectorE2(myViewNet, myUndoAdditionals, id, lane, position, length, frequency, file, vehicleTypes, name, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, friendlyPos, false);
-            // save ID of last created element
-            myParentElements.commitElementInsertion(myLastInsertedAdditional->getID());
+            // get pointer to lane
+            GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false, true);
+            // get list of lanes
+            std::vector<GNELane*> lanes;
+            if(GNEAttributeCarrier::canParse<std::vector<GNELane*> >(myViewNet->getNet(), laneIds, false)) {
+                lanes = GNEAttributeCarrier::parse<std::vector<GNELane*> >(myViewNet->getNet(), laneIds);
+            }
+            // check that all elements are valid
+            if (myViewNet->getNet()->retrieveAdditional(tag, id, false) != nullptr) {
+                // write error if neither lane nor lane aren't defined
+                WRITE_WARNING("There is another " + toString(tag) + " with the same ID='" + id + "'.");
+            } else if (attrs.hasAttribute(SUMO_ATTR_LANE) && (lane == nullptr)) {
+                // Write error if lane isn't valid
+                WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " '" + id + "' is not known.");
+            } else if (attrs.hasAttribute(SUMO_ATTR_LANES) && lanes.empty()) {
+                // Write error if lane isn't valid
+                WRITE_WARNING("The list of lanes cannot be empty.");
+            } else if (attrs.hasAttribute(SUMO_ATTR_LANES) && lanes.empty()) {
+                // Write error if lane isn't valid
+                WRITE_WARNING("The list of lanes '" + laneIds + "' to use within the " + toString(tag) + " '" + id + "' isn't valid.");
+            } else if (lane && !fixE2DetectorPositionPosition(position, length, lane->getParentEdge().getNBEdge()->getFinalLength(), friendlyPos)) {
+                WRITE_WARNING("Invalid position for " + toString(tag) + " with ID = '" + id + "'.");
+            } else if (!lanes.empty() && !fixE2DetectorPositionPosition(position, length, lanes.back()->getParentEdge().getNBEdge()->getFinalLength(), friendlyPos)) {
+                WRITE_WARNING("Invalid position for " + toString(tag) + " with ID = '" + id + "'.");
+            } else if (lane) {
+                myLastInsertedAdditional = buildSingleLaneDetectorE2(myViewNet, myUndoAdditionals, id, lane, position, length, frequency, file, vehicleTypes, name, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, friendlyPos, false);
+                // save ID of last created element
+                myParentElements.commitElementInsertion(myLastInsertedAdditional->getID());
+            } else {
+                myLastInsertedAdditional = buildMultiLaneDetectorE2(myViewNet, myUndoAdditionals, id, lanes, position, frequency, file, vehicleTypes, name, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, friendlyPos, false);
+                // save ID of last created element
+                myParentElements.commitElementInsertion(myLastInsertedAdditional->getID());
+            }
         }
     }
 }
@@ -1604,20 +1627,22 @@ GNEAdditionalHandler::buildSingleLaneDetectorE2(GNEViewNet* viewNet, bool allowU
 GNEAdditional*
 GNEAdditionalHandler::buildMultiLaneDetectorE2(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, const std::vector<GNELane*> &lanes, double pos, double freq, const std::string& filename,
                                       const std::string& vehicleTypes, const std::string& name, const double timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, bool blockMovement) {
-    if (viewNet->getNet()->retrieveAdditional(SUMO_TAG_E2DETECTOR, id, false) == nullptr) {
+    if (viewNet->getNet()->retrieveAdditional(SUMO_TAG_E2DETECTOR_MULTILANE, id, false) == nullptr) {
         GNEDetectorE2* detectorE2 = new GNEDetectorE2(id, lanes, viewNet, pos, freq, filename, vehicleTypes, name, timeThreshold, speedThreshold, jamThreshold, friendlyPos, blockMovement);
         if (allowUndoRedo) {
-            viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_E2DETECTOR));
+            viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_E2DETECTOR_MULTILANE));
             viewNet->getUndoList()->add(new GNEChange_Additional(detectorE2, true), true);
             viewNet->getUndoList()->p_end();
         } else {
             viewNet->getNet()->insertAdditional(detectorE2);
-            //lane->addAdditionalChild(detectorE2);
-            detectorE2->incRef("buildDetectorE2");
+            for (auto i : lanes) {
+                i->addAdditionalChild(detectorE2);
+            }
+            detectorE2->incRef("buildDetectorE2Multilane");
         }
         return detectorE2;
     } else {
-        throw ProcessError("Could not build " + toString(SUMO_TAG_E2DETECTOR) + " with ID '" + id + "' in netedit; probably declared twice.");
+        throw ProcessError("Could not build " + toString(SUMO_TAG_E2DETECTOR_MULTILANE) + " with ID '" + id + "' in netedit; probably declared twice.");
     }
 }
 
