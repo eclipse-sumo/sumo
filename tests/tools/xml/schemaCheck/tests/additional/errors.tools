@@ -104,11 +104,9 @@ netedit/additionalElements/e1detector/load_genericparameters/input_additionals.a
 netedit/additionalElements/e1detector/load_genericparameters/input_additionals.add.xml:26:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'key' is required but missing.
 netedit/additionalElements/e1detector/load_genericparameters/input_additionals.add.xml:26:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'value' is required but missing.
 netedit/additionalElements/e2detector/load/input_additionals.add.xml:6:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'e2Detector': The attribute 'id' is required but missing.
-netedit/additionalElements/e2detector/load/input_additionals.add.xml:6:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'e2Detector': The attribute 'lane' is required but missing.
 netedit/additionalElements/e2detector/load/input_additionals.add.xml:6:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'e2Detector': The attribute 'file' is required but missing.
 netedit/additionalElements/e2detector/load/input_additionals.add.xml:9:0:ERROR:SCHEMASV:SCHEMAV_CVC_PATTERN_VALID: Element 'e2Detector', attribute 'id': [facet 'pattern'] The value 'id with spaces' is not accepted by the pattern '[^ \t\n\r|\\;,']+'.
 netedit/additionalElements/e2detector/load/input_additionals.add.xml:9:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'e2Detector', attribute 'id': 'id with spaces' is not a valid value of the atomic type 'idType'.
-netedit/additionalElements/e2detector/load/input_additionals.add.xml:18:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'e2Detector': The attribute 'lane' is required but missing.
 netedit/additionalElements/e2detector/load/input_additionals.add.xml:24:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'e2Detector', attribute 'pos': 'dummyPosition' is not a valid value of the atomic type 'xs:float'.
 netedit/additionalElements/e2detector/load/input_additionals.add.xml:48:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'e2Detector', attribute 'freq': 'dummyFrequency' is not a valid value of the atomic type 'positiveFloatType'.
 netedit/additionalElements/e2detector/load/input_additionals.add.xml:51:0:ERROR:SCHEMASV:SCHEMAV_CVC_MINEXCLUSIVE_VALID: Element 'e2Detector', attribute 'freq': [facet 'minExclusive'] The value '-100.00' must be greater than '0'.
@@ -416,7 +414,6 @@ sumo/output/e2/errors/freq_negative/input_additional.add.xml:4:0:ERROR:SCHEMASV:
 sumo/output/e2/errors/id_empty/input_additional.add.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_PATTERN_VALID: Element 'e2Detector', attribute 'id': [facet 'pattern'] The value '' is not accepted by the pattern '[^ \t\n\r|\\;,']+'.
 sumo/output/e2/errors/id_empty/input_additional.add.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'e2Detector', attribute 'id': '' is not a valid value of the atomic type 'idType'.
 sumo/output/e2/errors/id_missing/input_additional.add.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'e2Detector': The attribute 'id' is required but missing.
-sumo/output/e2/errors/lane_missing/input_additional.add.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'e2Detector': The attribute 'lane' is required but missing.
 sumo/output/e2/errors/length_empty/input_additional.add.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'e2Detector', attribute 'length': '' is not a valid value of the atomic type 'xs:float'.
 sumo/output/e2/errors/length_false/input_additional.add.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'e2Detector', attribute 'length': 'aaa' is not a valid value of the atomic type 'xs:float'.
 sumo/output/e2/errors/pos_empty/input_additional.add.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'e2Detector', attribute 'pos': '' is not a valid value of the atomic type 'xs:float'.
