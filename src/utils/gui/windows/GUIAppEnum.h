@@ -657,6 +657,12 @@ enum {
     MID_GNE_ADDITIONALFRAME_CLEARSELECTION,
     /// @brief invert selection of eleents
     MID_GNE_ADDITIONALFRAME_INVERTSELECTION,
+    /// @brief start selection of consecutive egdes/lanes
+    MID_GNE_ADDITIONALFRAME_STARTSELECTION,
+    /// @brief stop selection of consecutive egdes/lanes
+    MID_GNE_ADDITIONALFRAME_STOPSELECTION,
+    /// @brief abort selection of consecutive egdes/lanes
+    MID_GNE_ADDITIONALFRAME_ABORTSELECTION,
     /// @}
 
 

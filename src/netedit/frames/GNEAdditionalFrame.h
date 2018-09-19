@@ -203,9 +203,6 @@ public:
         /// @brief show warning message with information about non-valid attributes
         void showWarningMessage(std::string extra = "") const;
 
-        /// @brief get additional frame parent
-        GNEAdditionalFrame* getAdditionalFrameParent() const;
-
         /// @name FOX-callbacks
         /// @{
         /// @brief Called when help button is pressed
@@ -220,9 +217,8 @@ public:
         /// @brief pointer to additionalFrameParent
         GNEAdditionalFrame* myAdditionalFrameParent;
 
-        /// @brief vector with the additional parameters
+        /// @brief vector with the additional attributes
         std::vector<AdditionalAttributeSingle*> myVectorOfsingleAdditionalParameter;
-
     };
 
     // ===========================================================================
@@ -309,6 +305,78 @@ public:
 
         /// @brief Flag to check if current length is valid
         bool myCurrentLengthValid;
+    };
+
+    // ===========================================================================
+    // class ConsecutiveLaneSelector
+    // ===========================================================================
+
+    class ConsecutiveLaneSelector : protected FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEAdditionalFrame::ConsecutiveLaneSelector)
+
+        /// @brief friend class declaration
+        friend class AdditionalAttributeSingle;
+
+    public:
+        /// @brief constructor
+        ConsecutiveLaneSelector(GNEAdditionalFrame* additionalFrameParent);
+
+        /// @brief destructor
+        ~ConsecutiveLaneSelector();
+
+        /// @brief show ConsecutiveLaneSelector
+        void showConsecutiveLaneSelector();
+
+        /// @brief hide ConsecutiveLaneSelector
+        void hideConsecutiveLaneSelector();
+
+        /// @brief start selection of consecutive lanes
+        void startConsecutiveLaneSelector();
+
+        /// @brief stop selection of consecutive lanes
+        void stopConsecutiveLaneSelector();
+
+        /// @brief abort selection of consecutive lanes
+        void abortConsecutiveLaneSelector();
+
+        /// @brief return true if lane can be selected as consecutive lane
+        bool addSelectedLane(GNELane *lane);
+
+        /// @brief remove last added point
+        void removeLastSelectedLane();
+
+        /// @name FOX-callbacks
+        /// @{
+        /// @brief Called when the user press start selection button
+        long onCmdStartSelection(FXObject*, FXSelector, void*);
+
+        /// @brief Called when the user press stop selection button
+        long onCmdStopSelection(FXObject*, FXSelector, void*);
+
+        /// @brief Called when the user press abort selection button
+        long onCmdAbortSelection(FXObject*, FXSelector, void*);
+        /// @}
+
+    protected:
+        /// @brief FOX needs this
+        ConsecutiveLaneSelector() {}
+
+    private:
+        /// @brief pointer to additionalFrameParent
+        GNEAdditionalFrame* myAdditionalFrameParent;
+
+        /// @brief button for start selecting
+        FXButton* myStartSelectingButton;
+
+        /// @brief button for stop selecting
+        FXButton* myStopSelectingButton;
+
+        /// @brief button for abort selecting
+        FXButton* myAbortSelectingButton;
+
+        /// @brief Vector with the current selected lanes
+        std::vector<GNELane*> mySelectedLanes;
     };
 
     // ===========================================================================
@@ -523,25 +591,6 @@ public:
     /// @brief get list of selecte id's in string format
     static std::string getIdsSelected(const FXList* list);
 
-protected:
-    /// @brief get additional selector
-    AdditionalSelector* getAdditionalSelector() const;
-
-    /// @brief get additional attributes
-    AdditionalAttributes* getAdditionalParameters() const;
-
-    /// @brief get netedit attributes
-    NeteditAttributes* getNeteditAttributes() const;
-
-    /// @brief get additional parent selector
-    SelectorParentAdditional* getAdditionalParentSelector() const;
-
-    /// @brief get edge parents selector
-    SelectorParentEdges* getEdgeParentsSelector() const;
-
-    /// @brief get lane parents selector
-    SelectorParentLanes* getLaneParentsSelector() const;
-
 private:
     /// @brief generate a ID for an additiona element
     std::string generateID(GNENetElement* netElement) const;
@@ -560,6 +609,9 @@ private:
 
     /// @brief Netedit parameter
     GNEAdditionalFrame::NeteditAttributes* myNeteditParameters;
+    
+    /// @brief consecutive lane selector
+    GNEAdditionalFrame::ConsecutiveLaneSelector* myConsecutiveLaneSelector;
 
     /// @brief list of additional Set
     GNEAdditionalFrame::SelectorParentAdditional* myFirstAdditionalParentSelector;

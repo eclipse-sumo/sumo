@@ -1269,7 +1269,7 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, S
         case SUMO_TAG_E2DETECTOR_MULTILANE: {
             // obtain specify attributes of detector E2
             std::string id = values[SUMO_ATTR_ID];
-            std::vector<GNELane*> lanes /* = viewNet->getNet()->retrieveLane(values[SUMO_ATTR_LANE], false)*/;
+            std::vector<GNELane*> lanes = GNEAttributeCarrier::parse<std::vector<GNELane*> >(viewNet->getNet(), values[SUMO_ATTR_LANES]);
             double pos = GNEAttributeCarrier::parse<double>(values[SUMO_ATTR_POSITION]);
             double freq = GNEAttributeCarrier::parse<double>(values[SUMO_ATTR_FREQUENCY]);
             std::string filename = values[SUMO_ATTR_FILE];
