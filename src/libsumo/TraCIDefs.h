@@ -325,6 +325,8 @@ public:
     TraCIStage(int _type) : type(_type), depart(-1) {}
     /// @brief The type of stage (walking, driving, ...)
     int type;
+    /// @brief The vehicle type when using a private car or bike
+    std::string vType;
     /// @brief The line or the id of the vehicle type
     std::string line;
     /// @brief The id of the destination stop

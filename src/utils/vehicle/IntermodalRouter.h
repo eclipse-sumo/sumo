@@ -69,6 +69,7 @@ public:
         TripItem(const std::string& _line = "") :
             line(_line), intended(_line), depart(-1), traveltime(0.), cost(0.) {}
         std::string line;
+        std::string vType;
         std::string destStop;
         std::string intended; // intended public transport vehicle id
         double depart; // intended public transport departure
@@ -131,6 +132,7 @@ public:
                             lastLine = iEdge->getLine();
                             if (lastLine == "!car") {
                                 into.push_back(TripItem(vehicle->getID()));
+                                into.back().vType = vehicle->getParameter().vtypeid;
                             } else if (lastLine == "!ped") {
                                 into.push_back(TripItem());
                             } else {
