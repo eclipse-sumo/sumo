@@ -54,7 +54,8 @@
 // ===========================================================================
 
 GNEDetectorExit::GNEDetectorExit(GNEViewNet* viewNet, GNEAdditional* parent, GNELane* lane, double pos, bool friendlyPos, bool blockMovement) :
-    GNEDetector(parent, viewNet, GLO_DET_EXIT, SUMO_TAG_DET_EXIT, lane, pos, 0, "", "", friendlyPos, blockMovement) {
+    GNEDetector(parent, viewNet, GLO_DET_EXIT, SUMO_TAG_DET_EXIT, pos, 0, "", "", friendlyPos, blockMovement),
+    myLane(lane) {
 }
 
 
@@ -98,13 +99,20 @@ GNEDetectorExit::updateGeometry(bool updateGrid) {
 }
 
 
-bool GNEDetectorExit::isDetectorPositionFixed() const {
+bool 
+GNEDetectorExit::isDetectorPositionFixed() const {
     // with friendly position enabled position are "always fixed"
     if (myFriendlyPosition) {
         return true;
     } else {
         return (myPositionOverLane >= 0) && (myPositionOverLane <= myLane->getParentEdge().getNBEdge()->getFinalLength());
     }
+}
+
+
+GNELane*
+GNEDetectorExit::getLane() const {
+    return myLane;
 }
 
 

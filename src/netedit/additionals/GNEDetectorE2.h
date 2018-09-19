@@ -36,7 +36,7 @@
 class GNEDetectorE2 : public GNEDetector {
 
 public:
-    /**@brief Constructor
+    /**@brief Constructor for Single-Lane E2 detectors
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
      * @param[in] lane Lane of this StoppingPlace belongs
      * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
@@ -55,14 +55,38 @@ public:
     GNEDetectorE2(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double pos, double length, double freq, const std::string& filename, const std::string& vehicleTypes,
                   const std::string& name , const double timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, bool blockMovement);
 
+    /**@brief Constructor for Multi-Lane detectors
+     * @param[in] id The storage of gl-ids to get the one for this lane representation from
+     * @param[in] lanes vector of lanes Lane of this StoppingPlace belongs
+     * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
+     * @param[in] pos position of the detector on the lane
+     * @param[in] freq the aggregation period the values the detector collects shall be summed up.
+     * @param[in] filename The path to the output file.
+     * @param[in] vehicleTypes space separated list of vehicle type ids to consider
+     * @param[in] name E2 detector name
+     * @param[in] timeThreshold The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting
+     * @param[in] speedThreshold The speed-based threshold that describes how slow a vehicle has to be to be recognized as halting
+     * @param[in] speedThreshold The minimum distance to the next standing vehicle in order to make this vehicle count as a participant to the jam
+     * @param[in] friendlyPos enable or disable friendly positions
+     * @param[in] block movement enable or disable additional movement
+     */
+    GNEDetectorE2(const std::string& id, std::vector<GNELane*> lanes, GNEViewNet* viewNet, double pos, double freq, const std::string& filename, const std::string& vehicleTypes,
+                  const std::string& name , const double timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, bool blockMovement);
+
     /// @brief Destructor
     ~GNEDetectorE2();
 
     /// @brief get length of E2 Detector
     double getLength() const;
 
+    /// @name inherited from GNEDetector
+    /// @{
     /// @brief check if Position of detector is fixed
     bool isDetectorPositionFixed() const;
+
+    /// @brief get lane
+    GNELane* getLane() const;
+    /// @}
 
     /// @name Functions related with geometry of element
     /// @{
@@ -103,6 +127,12 @@ public:
     /// @}
 
 protected:
+    /// @brief The lane in which this detector is placed
+    GNELane* myLane;
+
+    /// @brief E2 lanes (used only by MultiLane E2 detectors)
+    std::vector<GNELane*> myLanes;
+
     /// @brief E2 detector lenght
     double myLength;
 

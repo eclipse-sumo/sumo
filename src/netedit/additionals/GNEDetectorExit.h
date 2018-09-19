@@ -53,8 +53,14 @@ public:
     /// @brief destructor
     ~GNEDetectorExit();
 
+    /// @name inherited from GNEDetector
+    /// @{
     /// @brief check if Position of detector is fixed
     bool isDetectorPositionFixed() const;
+
+    /// @brief get lane
+    GNELane* getLane() const;
+    /// @}
 
     /// @name Functions related with geometry of element
     /// @{
@@ -93,6 +99,10 @@ public:
      */
     bool isValid(SumoXMLAttr key, const std::string& value);
     /// @}
+
+protected:
+    /// @brief The lane in which this detector is placed
+    GNELane* myLane;
 
 private:
     /// @brief set attribute after validation

@@ -55,8 +55,19 @@
 
 GNEDetectorE2::GNEDetectorE2(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double pos, double length, double freq, const std::string& filename, const std::string& vehicleTypes,
                              const std::string& name, const double timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, bool blockMovement) :
-    GNEDetector(id, viewNet, GLO_E2DETECTOR, SUMO_TAG_E2DETECTOR, lane, pos, freq, filename, vehicleTypes, name, friendlyPos, blockMovement),
+    GNEDetector(id, viewNet, GLO_E2DETECTOR, SUMO_TAG_E2DETECTOR, pos, freq, filename, vehicleTypes, name, friendlyPos, blockMovement),
+    myLane(lane),
     myLength(length),
+    myTimeThreshold(timeThreshold),
+    mySpeedThreshold(speedThreshold),
+    myJamThreshold(jamThreshold) {
+}
+
+
+GNEDetectorE2::GNEDetectorE2(const std::string& id, std::vector<GNELane*> lanes, GNEViewNet* viewNet, double pos, double freq, const std::string& filename, const std::string& vehicleTypes,
+                             const std::string& name, const double timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, bool blockMovement) :
+    GNEDetector(id, viewNet, GLO_E2DETECTOR, SUMO_TAG_E2DETECTOR, pos, freq, filename, vehicleTypes, name, friendlyPos, blockMovement),
+    myLanes(lanes),
     myTimeThreshold(timeThreshold),
     mySpeedThreshold(speedThreshold),
     myJamThreshold(jamThreshold) {
@@ -164,6 +175,12 @@ GNEDetectorE2::isDetectorPositionFixed() const {
 }
 
 
+GNELane*
+GNEDetectorE2::getLane() const {
+    return myLane;
+}
+
+
 void
 GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
     // Start drawing adding an gl identificator
@@ -234,6 +251,8 @@ GNEDetectorE2::getAttribute(SumoXMLAttr key) const {
             return getAdditionalID();
         case SUMO_ATTR_LANE:
             return myLane->getID();
+        case SUMO_ATTR_LANES:
+            return parseIDs(myLanes);
         case SUMO_ATTR_POSITION:
             return toString(myPositionOverLane);
         case SUMO_ATTR_FREQUENCY:
@@ -274,6 +293,7 @@ GNEDetectorE2::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
     switch (key) {
         case SUMO_ATTR_ID:
         case SUMO_ATTR_LANE:
+        case SUMO_ATTR_LANES:
         case SUMO_ATTR_POSITION:
         case SUMO_ATTR_FREQUENCY:
         case SUMO_ATTR_LENGTH:
@@ -301,10 +321,12 @@ GNEDetectorE2::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             return isValidAdditionalID(value);
         case SUMO_ATTR_LANE:
-            if (myViewNet->getNet()->retrieveLane(value, false) != nullptr) {
-                return true;
-            } else {
+            return (myViewNet->getNet()->retrieveLane(value, false) != nullptr);
+        case SUMO_ATTR_LANES:
+            if (value.empty()) {
                 return false;
+            } else {
+                return canParse<std::vector<GNELane*> >(myViewNet->getNet(), value, false);
             }
         case SUMO_ATTR_POSITION:
             return canParse<double>(value);
@@ -354,6 +376,9 @@ GNEDetectorE2::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_LANE:
             myLane = changeLane(myLane, value);
             break;
+        case SUMO_ATTR_LANES:
+            myLanes = parse<std::vector<GNELane*> >(myViewNet->getNet(), value);
+            break;
         case SUMO_ATTR_POSITION:
             myPositionOverLane = parse<double>(value);
             break;
@@ -382,7 +407,7 @@ GNEDetectorE2::setAttribute(SumoXMLAttr key, const std::string& value) {
             myJamThreshold = parse<double>(value);
             break;
         case SUMO_ATTR_FRIENDLY_POS:
-            myFriendlyPosition = parse<bool>(value);;
+            myFriendlyPosition = parse<bool>(value);
             break;
         case GNE_ATTR_BLOCK_MOVEMENT:
             myBlockMovement = parse<bool>(value);

@@ -50,6 +50,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "e1Detector",                 SUMO_TAG_E1DETECTOR },
     { "inductionLoop",              SUMO_TAG_INDUCTION_LOOP },
     { "e2Detector",                 SUMO_TAG_E2DETECTOR },
+    { "e2MultilaneDetector",        SUMO_TAG_E2DETECTOR_MULTILANE },
     { "laneAreaDetector",           SUMO_TAG_LANE_AREA_DETECTOR },
     { "e3Detector",                 SUMO_TAG_E3DETECTOR },
     { "entryExitDetector",          SUMO_TAG_ENTRY_EXIT_DETECTOR },

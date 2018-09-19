@@ -40,7 +40,6 @@ public:
      * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
      * @param[in] type GUIGlObjectType of detector
      * @param[in] tag Type of xml tag that define the detector (SUMO_TAG_E1DETECTOR, SUMO_TAG_LANE_AREA_DETECTOR, etc...)
-     * @param[in] lane Lane of this detector belongs
      * @param[in] pos position of the detector on the lane
      * @param[in] freq the aggregation period the values the detector collects shall be summed up.
      * @param[in] vehicleTypes space separated list of vehicle type ids to consider
@@ -49,14 +48,13 @@ public:
      * @param[in] friendlyPos enable or disable friendly positions
      * @param[in] block movement enable or disable additional movement
      */
-    GNEDetector(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, GNELane* lane, double pos, double freq, const std::string& filename, const std::string& vehicleTypes, const std::string& name, bool friendlyPos, bool blockMovement);
+    GNEDetector(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, double pos, double freq, const std::string& filename, const std::string& vehicleTypes, const std::string& name, bool friendlyPos, bool blockMovement);
 
     /**@brief Constructor.
      * @param[in] additionalParent additional parent of this detector (ID will be generated automatically)
      * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
      * @param[in] type GUIGlObjectType of detector
      * @param[in] tag Type of xml tag that define the detector (SUMO_TAG_E1DETECTOR, SUMO_TAG_LANE_AREA_DETECTOR, etc...)
-     * @param[in] lane Lane of this detector belongs
      * @param[in] pos position of the detector on the lane
      * @param[in] freq the aggregation period the values the detector collects shall be summed up.
      * @param[in] filename The path to the output file.
@@ -64,7 +62,7 @@ public:
      * @param[in] friendlyPos enable or disable friendly positions
      * @param[in] block movement enable or disable additional movement
      */
-    GNEDetector(GNEAdditional* additionalParent, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, GNELane* lane, double pos, double freq, const std::string& filename, const std::string& name, bool friendlyPos, bool blockMovement);
+    GNEDetector(GNEAdditional* additionalParent, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, double pos, double freq, const std::string& filename, const std::string& name, bool friendlyPos, bool blockMovement);
 
     /// @brief Destructor
     ~GNEDetector();
@@ -73,7 +71,7 @@ public:
     virtual bool isDetectorPositionFixed() const = 0;
 
     /// @brief get lane
-    GNELane* getLane() const;
+    virtual GNELane* getLane() const = 0;
 
     /// @brief get position over lane
     double getPositionOverLane() const;
@@ -143,9 +141,6 @@ public:
     /// @}
 
 protected:
-    /// @brief The lane in which this detector is placed
-    GNELane* myLane;
-
     /// @brief position of detector over Lane
     double myPositionOverLane;
 

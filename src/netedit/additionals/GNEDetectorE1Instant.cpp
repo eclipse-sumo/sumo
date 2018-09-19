@@ -52,7 +52,8 @@
 // ===========================================================================
 
 GNEDetectorE1Instant::GNEDetectorE1Instant(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double pos, const std::string& filename, const std::string& vehicleTypes, const std::string& name, bool friendlyPos, bool blockMovement) :
-    GNEDetector(id, viewNet, GLO_E1DETECTOR_INSTANT, SUMO_TAG_INSTANT_INDUCTION_LOOP, lane, pos, 0, filename, vehicleTypes, name, friendlyPos, blockMovement) {
+    GNEDetector(id, viewNet, GLO_E1DETECTOR_INSTANT, SUMO_TAG_INSTANT_INDUCTION_LOOP, pos, 0, filename, vehicleTypes, name, friendlyPos, blockMovement),
+    myLane(lane) {
 }
 
 
@@ -103,13 +104,20 @@ GNEDetectorE1Instant::updateGeometry(bool updateGrid) {
 }
 
 
-bool GNEDetectorE1Instant::isDetectorPositionFixed() const {
+bool 
+GNEDetectorE1Instant::isDetectorPositionFixed() const {
     // with friendly position enabled position are "always fixed"
     if (myFriendlyPosition) {
         return true;
     } else {
         return (myPositionOverLane >= 0) && (myPositionOverLane <= myLane->getParentEdge().getNBEdge()->getFinalLength());
     }
+}
+
+
+GNELane*
+GNEDetectorE1Instant::getLane() const {
+    return myLane;
 }
 
 
