@@ -13,6 +13,9 @@ source_vclass
 # find reachable edges from source restricted by vClass
 source_vclass_invalid
 
+# account for bidirectional walking
+source_vclass_pedestrian
+
 # find edges that can reach the given destination
 destination
 
