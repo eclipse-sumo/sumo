@@ -619,6 +619,56 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
             glPopMatrix();
         }
     }
+
+    // draw connections between lane candidates during selecting lane mode
+    if (!myVisualizationSettings->drawForSelecting && 
+        myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->isSelectingLanes() &&
+        myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->getSelectedLanes().size() > 1) {
+        // iterate over all current selected lanes
+        for (int i = 0; i < myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->getSelectedLanes().size() - 1; i++) {
+            // declare position vector for shape
+            PositionVector shape;
+            // declare vectors for shape rotation and lenghts
+            std::vector<double> shapeRotations, shapeLengths;
+            // obtain GNELanes
+            GNELane* from = myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->getSelectedLanes().at(i);
+            GNELane* to = myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->getSelectedLanes().at(i+1);
+            // Push draw matrix
+            glPushMatrix();
+            // must draw on top of other connections
+            glTranslated(0, 0, GLO_JUNCTION + 0.2);
+            // check if exists connection between from and to
+            if(from->getParentEdge().getNBEdge()->hasConnectionTo(to->getParentEdge().getNBEdge(), to->getIndex(), from->getIndex())) {
+                // obtain connection shape
+                shape = from->getParentEdge().getNBEdge()->getConnection(from->getIndex(), to->getParentEdge().getNBEdge(), to->getIndex()).shape;
+                // set special color
+                GLHelper::setColor(myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->getSelectedLaneColor());
+            } else {
+                // make connection using lane shapes
+                shape.push_back(from->getShape().back());
+                shape.push_back(to->getShape().front());
+                // set red color
+                GLHelper::setColor(RGBColor::RED);
+            }
+            // Obtain lengths and shape rotations
+            int segments = (int) shape.size() - 1;
+            if (segments >= 0) {
+                shapeRotations.reserve(segments);
+                shapeLengths.reserve(segments);
+                for (int i = 0; i < segments; ++i) {
+                    const Position& f = shape[i];
+                    const Position& s = shape[i + 1];
+                    shapeLengths.push_back(f.distanceTo2D(s));
+                    shapeRotations.push_back((double) atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double)M_PI);
+                }
+            }
+            // draw a list of lines
+            GLHelper::drawBoxLines(shape, shapeRotations, shapeLengths, 0.2);
+            // pop draw matrix
+            glPopMatrix();
+        }
+    }
+
     // draw elements
     glLineWidth(1);
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -893,13 +943,11 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                 break;
             }
             case GNE_MODE_ADDITIONAL: {
-                GNEAdditionalFrame::AddAdditionalResult result = myViewParent->getAdditionalFrame()->addAdditional(myObjectsUnderCursor.netElement, myObjectsUnderCursor.additional);
-                // process click or update view depending of the result of "add additional"
-                if ((result == GNEAdditionalFrame::ADDADDITIONAL_SUCCESS) || (result == GNEAdditionalFrame::ADDADDITIONAL_INVALID_PARENT)) {
-                    update();
-                    // process click
-                    processClick(evt, eventData);
-                }
+                // add additional
+                myViewParent->getAdditionalFrame()->addAdditional(myObjectsUnderCursor.netElement, myObjectsUnderCursor.additional);
+                update();
+                // process click
+                processClick(evt, eventData);
                 break;
             }
             case GNE_MODE_CROSSING: {

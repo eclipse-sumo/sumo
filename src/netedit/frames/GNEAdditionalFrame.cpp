@@ -546,6 +546,9 @@ GNEAdditionalFrame::ConsecutiveLaneSelector::ConsecutiveLaneSelector(GNEAddition
     // disable stop and abort functions as init
     myStopSelectingButton->disable();
     myAbortSelectingButton->disable();
+    // define colors
+    myCandidateLaneColor = RGBColor(0, 64, 0, 255);
+    mySelectedLaneColor = RGBColor::GREEN;
 }
 
 
@@ -574,6 +577,14 @@ void
 GNEAdditionalFrame::ConsecutiveLaneSelector::startConsecutiveLaneSelector() {
     // Only start selection if ConsecutiveLaneSelector modul is shown
     if (shown()) {
+        // reset color of all selected lanes
+        for (auto i : mySelectedLanes) {
+            i->setSpecialColor(0);
+        }
+        // clear selected lanes
+        mySelectedLanes.clear();
+        // update view (due colors)
+        myAdditionalFrameParent->getViewNet()->update();
         // change buttons
         myStartSelectingButton->disable();
         myStopSelectingButton->enable();
@@ -584,18 +595,43 @@ GNEAdditionalFrame::ConsecutiveLaneSelector::startConsecutiveLaneSelector() {
 
 void 
 GNEAdditionalFrame::ConsecutiveLaneSelector::stopConsecutiveLaneSelector() {
-
+    // reset color of all candidate lanes
+    for (auto i : myCandidateLanes) {
+        if(std::find(mySelectedLanes.begin(), mySelectedLanes.end(), i) == mySelectedLanes.end()) {
+            i->setSpecialColor(0);
+        }
+    }
+    myCandidateLanes.clear();
+    // update view (due colors)
+    myAdditionalFrameParent->getViewNet()->update();
+    // change buttons
+    myStartSelectingButton->enable();
+    myStopSelectingButton->disable();
+    myAbortSelectingButton->disable();
 }
 
 
 void 
 GNEAdditionalFrame::ConsecutiveLaneSelector::abortConsecutiveLaneSelector() {
-
+    // reset color of all selected lanes
+    for (auto i : mySelectedLanes) {
+        i->setSpecialColor(0);
+    }
+    // clear selected lanes
+    mySelectedLanes.clear();
+    // update view (due colors)
+    myAdditionalFrameParent->getViewNet()->update();
+    // continue stopping ocnsecutive lane selector
+    stopConsecutiveLaneSelector();
 }
 
 
 bool 
 GNEAdditionalFrame::ConsecutiveLaneSelector::addSelectedLane(GNELane *lane) {
+    // first start selecting
+    if(myStartSelectingButton->isEnabled()) {
+        startConsecutiveLaneSelector();
+    }
     // check that lane wasn't already selected
     for (auto i : mySelectedLanes) {
         if (i == lane) {
@@ -608,15 +644,54 @@ GNEAdditionalFrame::ConsecutiveLaneSelector::addSelectedLane(GNELane *lane) {
         for (auto i : mySelectedLanes.back()->getParentEdge().getGNEJunctionDestiny()->getGNEOutgoingEdges()) {
             // check if parent edge ist in the list of outgoing edges
             if (i->getID() == lane->getParentEdge().getID()) {
+                // add selected lane to mySelectedLanes and change their color
                 mySelectedLanes.push_back(lane);
+                lane->setSpecialColor(&mySelectedLaneColor);
+                // restore original color of candidates (except already selected)
+                for (auto i : myCandidateLanes) {
+                    if(std::find(mySelectedLanes.begin(), mySelectedLanes.end(), i) == mySelectedLanes.end()) {
+                        i->setSpecialColor(0);
+                    }
+                }
+                myCandidateLanes.clear();
+                // change color of new lane candidadtes
+                for (auto i : mySelectedLanes.back()->getParentEdge().getGNEJunctionDestiny()->getGNEOutgoingEdges()) {
+                    for(auto j : i->getLanes()) {
+                        if(std::find(mySelectedLanes.begin(), mySelectedLanes.end(), j) == mySelectedLanes.end()) {
+                            j->setSpecialColor(&myCandidateLaneColor);
+                            myCandidateLanes.push_back(j);
+                        }
+                    }
+                }
+                // update view (due colors)
+                myAdditionalFrameParent->getViewNet()->update();
                 return true;
             }
         }
         WRITE_WARNING("Only consecutive lanes are allowed");
         return false;
     }
-    // First lane, then add it
+    // First lane, then add it and change color
     mySelectedLanes.push_back(lane);
+    lane->setSpecialColor(&mySelectedLaneColor);
+    // restore original color of candidates (except already selected)
+    for (auto i : myCandidateLanes) {
+        if(std::find(mySelectedLanes.begin(), mySelectedLanes.end(), i) == mySelectedLanes.end()) {
+            i->setSpecialColor(0);
+        }
+    }
+    myCandidateLanes.clear();
+    // change color of new candidates
+    for (auto i : mySelectedLanes.back()->getParentEdge().getGNEJunctionDestiny()->getGNEOutgoingEdges()) {
+        for(auto j : i->getLanes()) {
+            if(std::find(mySelectedLanes.begin(), mySelectedLanes.end(), j) == mySelectedLanes.end()) {
+                j->setSpecialColor(&myCandidateLaneColor);
+                myCandidateLanes.push_back(j);
+            }
+        }
+    }
+    // update view (due colors)
+    myAdditionalFrameParent->getViewNet()->update();
     return true;
 }
 
@@ -628,6 +703,24 @@ GNEAdditionalFrame::ConsecutiveLaneSelector::removeLastSelectedLane() {
     } else {
         WRITE_WARNING("First lane cannot be removed");
     }
+}
+
+
+bool 
+GNEAdditionalFrame::ConsecutiveLaneSelector::isSelectingLanes() const {
+    return (myStartSelectingButton->isEnabled() == false);
+}
+
+
+const RGBColor&
+GNEAdditionalFrame::ConsecutiveLaneSelector::getSelectedLaneColor() const {
+    return mySelectedLaneColor;
+}
+
+
+const std::vector<GNELane*>&
+GNEAdditionalFrame::ConsecutiveLaneSelector::getSelectedLanes() const {
+    return mySelectedLanes;
 }
 
 
@@ -838,6 +931,12 @@ GNEAdditionalFrame::getIdsSelected(const FXList* list) {
         }
     }
     return vectorOfIds;
+}
+
+
+GNEAdditionalFrame::ConsecutiveLaneSelector* 
+GNEAdditionalFrame::getConsecutiveLaneSelector() const {
+    return myConsecutiveLaneSelector;
 }
 
 // ---------------------------------------------------------------------------
@@ -1240,12 +1339,12 @@ GNEAdditionalFrame::GNEAdditionalFrame(FXHorizontalFrame* horizontalFrameParent,
 GNEAdditionalFrame::~GNEAdditionalFrame() {}
 
 
-GNEAdditionalFrame::AddAdditionalResult
+bool
 GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GNEAdditional* additionalElement) {
     // first check that current selected additional is valid
     if (myAdditionalSelector->getCurrentAdditionalType() == SUMO_TAG_NOTHING) {
         myViewNet->setStatusBarText("Current selected additional isn't valid.");
-        return ADDADDITIONAL_INVALID_ARGUMENTS;
+        return false;
     }
     // obtain tagproperty (only for improve code legibility)
     const auto& tagValue = GNEAttributeCarrier::getTagProperties(myAdditionalSelector->getCurrentAdditionalType());
@@ -1274,7 +1373,7 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GNEAdditional* addi
             valuesOfElement[GNE_ATTR_PARENT] = myFirstAdditionalParentSelector->getIdSelected();
         } else {
             myAdditionalParameters->showWarningMessage("A " + toString(tagValue.getParentTag()) + " must be selected before insertion of " + toString(myAdditionalSelector->getCurrentAdditionalType()) + ".");
-            return ADDADDITIONAL_INVALID_ARGUMENTS;
+            return false;
         }
     }
 
@@ -1285,14 +1384,14 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GNEAdditional* addi
             // show warning dialogbox and stop check if input parameters are valid
             if (myAdditionalParameters->areValuesValid() == false) {
                 myAdditionalParameters->showWarningMessage();
-                return ADDADDITIONAL_INVALID_ARGUMENTS;
+                return false;
             }
             // Get attribute junction
             valuesOfElement[SUMO_ATTR_JUNCTION] = pointed_junction->getID();
             // Generate id of element based on the junction
             valuesOfElement[SUMO_ATTR_ID] = generateID(pointed_junction);
         } else {
-            return ADDADDITIONAL_INVALID_PARENT;
+            return false;
         }
     }
     // Check if additional should be placed over a edge
@@ -1306,31 +1405,35 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GNEAdditional* addi
             // show warning dialogbox and stop check if input parameters are valid
             if (myAdditionalParameters->areValuesValid() == false) {
                 myAdditionalParameters->showWarningMessage();
-                return ADDADDITIONAL_INVALID_ARGUMENTS;
+                return false;
             }
             // Get attribute edge
             valuesOfElement[SUMO_ATTR_EDGE] = pointed_edge->getID();
             // Generate id of element based on the edge
             valuesOfElement[SUMO_ATTR_ID] = generateID(pointed_edge);
         } else {
-            return ADDADDITIONAL_INVALID_PARENT;
+            return false;
         }
     }
     // Check if additional should be placed over a lane
-    else if (tagValue.hasAttribute(SUMO_ATTR_LANE)) {
+    else if (tagValue.hasAttribute(SUMO_ATTR_LANE) || tagValue.hasAttribute(SUMO_ATTR_LANES)) {
         pointed_lane = dynamic_cast<GNELane*>(netElement);
         if (pointed_lane != nullptr) {
             // show warning dialogbox and stop check if input parameters are valid
             if (myAdditionalParameters->areValuesValid() == false) {
                 myAdditionalParameters->showWarningMessage();
-                return ADDADDITIONAL_INVALID_ARGUMENTS;
+                return false;
             }
-            // Get attribute lane
-            valuesOfElement[SUMO_ATTR_LANE] = pointed_lane->getID();
-            // Generate id of element based on the lane
-            valuesOfElement[SUMO_ATTR_ID] = generateID(pointed_lane);
+            if(tagValue.hasAttribute(SUMO_ATTR_LANES)) {
+                myConsecutiveLaneSelector->addSelectedLane(pointed_lane);
+            } else {
+                // Get attribute lane
+                valuesOfElement[SUMO_ATTR_LANE] = pointed_lane->getID();
+                // Generate id of element based on the lane
+                valuesOfElement[SUMO_ATTR_ID] = generateID(pointed_lane);
+            }
         } else {
-            return ADDADDITIONAL_INVALID_PARENT;
+            return false;
         }
     }
     // Check if additional should be placed over a crossing
@@ -1340,14 +1443,14 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GNEAdditional* addi
             // show warning dialogbox and stop check if input parameters are valid
             if (myAdditionalParameters->areValuesValid() == false) {
                 myAdditionalParameters->showWarningMessage();
-                return ADDADDITIONAL_INVALID_ARGUMENTS;
+                return false;
             }
             // Get attribute crossing
             valuesOfElement[SUMO_ATTR_CROSSING] = pointed_crossing->getID();
             // Generate id of element based on the crossing
             valuesOfElement[SUMO_ATTR_ID] = generateID(pointed_crossing);
         } else {
-            return ADDADDITIONAL_INVALID_PARENT;
+            return false;
         }
     } else {
         // Generate id of element
@@ -1357,7 +1460,7 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GNEAdditional* addi
     // show warning dialogbox and stop check if input parameters are valid
     if (myAdditionalParameters->areValuesValid() == false) {
         myAdditionalParameters->showWarningMessage();
-        return ADDADDITIONAL_INVALID_ARGUMENTS;
+        return false;
     }
 
     // Obtain position attribute if wasn't previously setted
@@ -1372,14 +1475,14 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GNEAdditional* addi
                     // check if current reference point is valid
                     if (myNeteditParameters->getActualReferencePoint() == NeteditAttributes::GNE_ADDITIONALREFERENCEPOINT_INVALID) {
                         myAdditionalParameters->showWarningMessage("Current selected reference point isn't valid");
-                        return ADDADDITIONAL_INVALID_ARGUMENTS;
+                        return false;
                     } else {
                         // set start and end position
                         valuesOfElement[SUMO_ATTR_STARTPOS] = toString(setStartPosition(positionOfTheMouseOverEdge, myNeteditParameters->getLength()));
                         valuesOfElement[SUMO_ATTR_ENDPOS] = toString(setEndPosition(pointed_edge->getLanes().at(0)->getLaneShapeLength(), positionOfTheMouseOverEdge, myNeteditParameters->getLength()));
                     }
                 } else {
-                    return ADDADDITIONAL_INVALID_ARGUMENTS;
+                    return false;
                 }
             }
             // Extract position of lane
@@ -1394,14 +1497,14 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GNEAdditional* addi
                     // check if current reference point is valid
                     if (myNeteditParameters->getActualReferencePoint() == NeteditAttributes::GNE_ADDITIONALREFERENCEPOINT_INVALID) {
                         myAdditionalParameters->showWarningMessage("Current selected reference point isn't valid");
-                        return ADDADDITIONAL_INVALID_ARGUMENTS;
+                        return false;
                     } else {
                         // set start and end position
                         valuesOfElement[SUMO_ATTR_STARTPOS] = toString(setStartPosition(positionOfTheMouseOverLane, myNeteditParameters->getLength()));
                         valuesOfElement[SUMO_ATTR_ENDPOS] = toString(setEndPosition(pointed_lane->getLaneShapeLength(), positionOfTheMouseOverLane, myNeteditParameters->getLength()));
                     }
                 } else {
-                    return ADDADDITIONAL_INVALID_ARGUMENTS;
+                    return false;
                 }
             }
             // Extract position of lane
@@ -1418,7 +1521,7 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GNEAdditional* addi
         double end = GNEAttributeCarrier::parse<double>(valuesOfElement[SUMO_ATTR_END]);
         if (begin > end) {
             myAdditionalParameters->showWarningMessage("Attribute '" + toString(SUMO_ATTR_STARTTIME) + "' cannot be greater than attribute '" + toString(SUMO_ATTR_END) + "'.");
-            return ADDADDITIONAL_INVALID_ARGUMENTS;
+            return false;
         }
     }
 
@@ -1454,10 +1557,10 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GNEAdditional* addi
         // check if attribute has at least one edge
         if (valuesOfElement[SUMO_ATTR_EDGES] == "") {
             myAdditionalParameters->showWarningMessage("List of " + toString(SUMO_TAG_EDGE) + "s cannot be empty");
-            return ADDADDITIONAL_INVALID_ARGUMENTS;
+            return false;
         }
     }
-
+    /*
     // If element own a list of SelectorParentLanes as attribute
     if (tagValue.hasAttribute(SUMO_ATTR_LANES)) {
         if (myLaneParentsSelector->isUseSelectedLanesEnable()) {
@@ -1477,10 +1580,10 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GNEAdditional* addi
         // check if attribute has at least a lane
         if (valuesOfElement[SUMO_ATTR_LANES] == "") {
             myAdditionalParameters->showWarningMessage("List of " + toString(SUMO_TAG_LANE) + "s cannot be empty");
-            return ADDADDITIONAL_INVALID_ARGUMENTS;
+            return false;
         }
     }
-
+    */
     // Create additional
     if (GNEAdditionalHandler::buildAdditional(myViewNet, true, myAdditionalSelector->getCurrentAdditionalType(), valuesOfElement)) {
         // Refresh additional Parent Selector (For additionals that have a limited number of childs)
@@ -1488,9 +1591,9 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GNEAdditional* addi
         // clear selected eddges and lanes
         myEdgeParentsSelector->onCmdClearSelection(0, 0, 0);
         myLaneParentsSelector->onCmdClearSelection(0, 0, 0);
-        return ADDADDITIONAL_SUCCESS;
+        return true;
     } else {
-        return ADDADDITIONAL_INVALID_ARGUMENTS;
+        return false;
     }
 }
 

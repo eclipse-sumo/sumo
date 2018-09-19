@@ -42,14 +42,6 @@ class GNEAdditional;
 class GNEAdditionalFrame : public GNEFrame {
 
 public:
-
-    /// @brief enum with all possible values after try to create an additional using frame
-    enum AddAdditionalResult {
-        ADDADDITIONAL_INVALID_ARGUMENTS,    // Parameters of additionals are invalid
-        ADDADDITIONAL_INVALID_PARENT,       // NetElement parent is invalid
-        ADDADDITIONAL_SUCCESS               // additional was successfully created
-    };
-
     /// @brief class declaration
     class AdditionalAttributes;
 
@@ -346,6 +338,15 @@ public:
         /// @brief remove last added point
         void removeLastSelectedLane();
 
+        /// @brief return true if modul is selecting lane
+        bool isSelectingLanes() const;
+
+        /// @brief get selected lane color
+        const RGBColor &getSelectedLaneColor() const;
+
+        /// @brief get current selected lanes
+        const std::vector<GNELane*> &getSelectedLanes() const;
+
         /// @name FOX-callbacks
         /// @{
         /// @brief Called when the user press start selection button
@@ -375,8 +376,17 @@ public:
         /// @brief button for abort selecting
         FXButton* myAbortSelectingButton;
 
-        /// @brief Vector with the current selected lanes
+        /// @brief Vector with the selected lanes
         std::vector<GNELane*> mySelectedLanes;
+
+        /// @brief Vector with the colored lanes
+        std::vector<GNELane*> myCandidateLanes;
+
+        /// @brief color for candidate lanes
+        RGBColor myCandidateLaneColor;
+
+        /// @brief color for selected lanes
+        RGBColor mySelectedLaneColor;
     };
 
     // ===========================================================================
@@ -578,7 +588,7 @@ public:
      * @param[in] additional clicked GNEAdditional. If user dind't clicked over a GNENetElement in view, additional will be nullptr
      * @return AddAdditionalStatus with the result of operation
      */
-    AddAdditionalResult addAdditional(GNENetElement* netElement, GNEAdditional* additional);
+    bool addAdditional(GNENetElement* netElement, GNEAdditional* additional);
 
     /**@brief remove an additional element previously added
      * @param[in] additional element to erase
@@ -590,6 +600,9 @@ public:
 
     /// @brief get list of selecte id's in string format
     static std::string getIdsSelected(const FXList* list);
+
+    /// @brief getConsecutive Lane Selector
+    GNEAdditionalFrame::ConsecutiveLaneSelector* getConsecutiveLaneSelector() const;
 
 private:
     /// @brief generate a ID for an additiona element
