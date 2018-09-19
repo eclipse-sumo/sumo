@@ -1,23 +1,23 @@
 # edit speed
-inspect_speed
+speed
 
 # edit allow
-inspect_allow
+allow
 
 # edit disallow
-inspect_disallow
+disallow
 
 # edit width
-inspect_width
+width
 
 # edit endoffset
-inspect_endoffset
+endoffset
 
 # edit acceleration
-inspect_acceleration
+acceleration
 
 # edit customshape
-inspect_customshape
+customshape
 
 # edit genericparameters
-inspect_genericparameters
+genericparameters

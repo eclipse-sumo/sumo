@@ -1457,6 +1457,8 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
     NBEdge* toEdge = 0;
     int edgeIndex = linkIndex;
     int internalLaneIndex = 0;
+    int numLanes = 0; // number of lanes that share the same edge
+    double lengthSum = 0; // total shape length of all lanes that share the same edge
     for (std::vector<Connection>::iterator i = myConnections.begin(); i != myConnections.end(); ++i) {
         Connection& con = *i;
         con.haveVia = false; // reset first since this may be called multiple times
@@ -1474,6 +1476,9 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
             edgeIndex = linkIndex;
             toEdge = (*i).toEdge;
             internalLaneIndex = 0;
+            assignInternalLaneLength(i, numLanes, lengthSum);
+            numLanes = 0;
+            lengthSum = 0;
         }
         PositionVector shape = n.computeInternalLaneShape(this, con, numPoints, myTo);
         std::vector<int> foeInternalLinks;
@@ -1672,9 +1677,24 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
         con.internalLaneIndex = internalLaneIndex;
         ++internalLaneIndex;
         ++linkIndex;
+        ++numLanes;
+        lengthSum += MAX2(POSITION_EPS, con.shape.length());
     }
+    assignInternalLaneLength(myConnections.end(), numLanes, lengthSum);
 }
 
+
+void
+NBEdge::assignInternalLaneLength(std::vector<Connection>::iterator i, int numLanes, double lengthSum) {
+    // assign average length to all lanes of the same internal edge
+    // @note the actual length should be used once sumo supports lanes of
+    // varying length within the same edge
+    assert(i - myConnections.begin() >= numLanes);
+    for (int prevIndex = 1; prevIndex <= numLanes; prevIndex++) {
+        //std::cout << " con=" << (*(i - prevIndex)).getDescription(this) << " numLanes=" << numLanes << " avgLength=" << lengthSum / numLanes << "\n";
+        (*(i - prevIndex)).length = lengthSum / numLanes;
+    }
+}
 
 double
 NBEdge::firstIntersection(const PositionVector& v1, const PositionVector& v2, double width2) {

@@ -151,6 +151,34 @@ public:
     }
 
 
+    virtual double getStartPos() const {
+        return 0.;
+    }
+
+    virtual double getEndPos() const {
+        return myLength;
+    }
+
+    // only used by AStar
+    inline double getSpeedLimit() const {
+        return myEdge != nullptr ? myEdge->getSpeedLimit() : 200. / 3.6;
+    }
+
+    // only used by AStar
+    inline double getLengthGeometryFactor() const {
+        return myEdge != nullptr ? myEdge->getLengthGeometryFactor() : 1;
+    }
+
+    // only used by AStar
+    inline double getDistanceTo(const IntermodalEdge* other) const {
+        return myEdge != nullptr && other->myEdge != nullptr ? myEdge->getDistanceTo(other->myEdge) : 0.;
+    }
+
+    // only used by AStar
+    inline double getMinimumTravelTime(const IntermodalTrip<E, N, V, IntermodalEdge>* const trip) const {
+        return myLength / trip->getMaxSpeed();
+    }
+
 protected:
     /// @brief List of edges that may be approached from this edge
     std::vector<IntermodalEdge*> myFollowingEdges;

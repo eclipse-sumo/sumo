@@ -1449,7 +1449,11 @@ MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, MSVe
                                double gap, double latGap, std::set<const MSVehicle*, ComparatorIdLess>& toRemove,
                                std::set<const MSVehicle*>& toTeleport) const {
     std::string collisionType = (collider->getLaneChangeModel().isOpposite() != victim->getLaneChangeModel().isOpposite() ?
-            "frontal collision" : "collision");
+                                 "frontal collision" : "collision");
+    // in frontal collisions the opposite vehicle is the collider
+    if (victim->getLaneChangeModel().isOpposite() && !collider->getLaneChangeModel().isOpposite()) {
+        std::swap(collider, victim);
+    }
     std::string prefix = "Vehicle '" + collider->getID() + "'; " + collisionType + " with vehicle '" + victim->getID() ;
     if (myCollisionStopTime > 0) {
         if (collider->collisionStopTime() >= 0 && victim->collisionStopTime() >= 0) {
@@ -2130,10 +2134,10 @@ MSLane::getLeader(const MSVehicle* veh, const double vehPos, const std::vector<M
             }
 #ifdef DEBUG_CONTEXT
             if (DEBUG_COND2(veh)) {
-                std::cout << "   getLeader lane=" << getID() << " ego=" << veh->getID() << " egoPos=" << vehPos << " pred=" << pred->getID() << " predPos=" << pred->getPositionOnLane() << "\n";
+                std::cout << std::setprecision(gPrecision) << "   getLeader lane=" << getID() << " ego=" << veh->getID() << " egoPos=" << vehPos << " pred=" << pred->getID() << " predPos=" << pred->getPositionOnLane() << "\n";
             }
 #endif
-            if (pred->getPositionOnLane() > vehPos + NUMERICAL_EPS) {
+            if (pred->getPositionOnLane() >= vehPos) {
                 return std::pair<MSVehicle* const, double>(pred, pred->getBackPositionOnLane(this) - veh->getVehicleType().getMinGap() - vehPos);
             }
         }
@@ -2150,7 +2154,7 @@ MSLane::getLeader(const MSVehicle* veh, const double vehPos, const std::vector<M
                           << " pred=" << pred->getID() << " predPos=" << pred->getPositionOnLane(this) << " predBack=" << pred->getBackPositionOnLane(this) << "\n";
             }
 #endif
-            if (pred->getPositionOnLane(this) > vehPos + NUMERICAL_EPS) {
+            if (pred->getPositionOnLane(this) >= vehPos) {
                 return std::pair<MSVehicle* const, double>(pred, pred->getBackPositionOnLane(this) - veh->getVehicleType().getMinGap() - vehPos);
             }
         }
@@ -3226,7 +3230,7 @@ MSLane::getOppositeFollower(const MSVehicle* ego) const {
             if (result.first->getLaneChangeModel().isOpposite()) {
                 result.second -= result.first->getVehicleType().getLength();
             } else {
-                if (result.second > 0) {
+                if (result.second > POSITION_EPS) {
                     // follower can be safely ignored since it is going the other way
                     return std::make_pair(static_cast<MSVehicle*>(0), -1);
                 }

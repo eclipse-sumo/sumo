@@ -1,6 +1,3 @@
-java version "1.8.0_181"
-Java(TM) SE Runtime Environment (build 1.8.0_181-b13)
-Java HotSpot(TM) 64-Bit Server VM (build 25.181-b13, mixed mode)
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals saved, shapes saved
 Debug: Selected shape 'poly' in ShapeSelector
@@ -26,10 +23,13 @@ Debug: Adding poly 'poly_4' into viewNet
 Debug: Setting new attribute blockMovement '1' into poly 'poly_4'
 Debug: Setting new attribute blockShape '1' into poly 'poly_4'
 Debug: Setting new attribute shape '2.00,-6.00 2.00,13.00 -3.00,13.00 -3.00,8.00 2.00,-6.00' into poly 'poly_0'
+Debug: Setting new attribute shape '12.00,8.00 12.00,13.00 7.00,13.00 7.00,8.00 9.55,7.95 12.00,8.00' into poly 'poly_1'
 Debug: Setting new attribute shape '12.00,8.00 12.00,13.00 7.00,13.00 7.00,8.00 10.00,-6.00 12.00,8.00' into poly 'poly_1'
 Debug: Setting new attribute shape '22.36,-5.95 22.36,-0.95 17.36,-0.95 17.36,-5.95 22.36,-5.95' into poly 'poly_2'
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute shape '22.00,8.00 22.00,13.00 17.00,13.00 17.00,8.00 22.00,8.00' into poly 'poly_2'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute shape '12.00,8.00 12.00,13.00 7.00,13.00 7.00,8.00 9.55,7.95 12.00,8.00' into poly 'poly_1'
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute shape '12.00,8.00 12.00,13.00 7.00,13.00 7.00,8.00 12.00,8.00' into poly 'poly_1'
 Debug: Keys Ctrl + Z (Undo) pressed
@@ -46,10 +46,6 @@ Debug: Setting previous attribute blockShape '0' into poly 'poly_2'
 Debug: Removing poly 'poly_2' from viewNet
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Removing poly 'poly_1' from viewNet
-Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Removing poly 'poly_0' from viewNet
-Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Adding poly 'poly_0' into viewNet
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Adding poly 'poly_1' into viewNet
 Debug: Keys Ctrl + Y (Redo) pressed
@@ -64,6 +60,8 @@ Debug: Setting new attribute blockMovement '1' into poly 'poly_4'
 Debug: Setting new attribute blockShape '1' into poly 'poly_4'
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute shape '2.00,-6.00 2.00,13.00 -3.00,13.00 -3.00,8.00 2.00,-6.00' into poly 'poly_0'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute shape '12.00,8.00 12.00,13.00 7.00,13.00 7.00,8.00 9.55,7.95 12.00,8.00' into poly 'poly_1'
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute shape '12.00,8.00 12.00,13.00 7.00,13.00 7.00,8.00 10.00,-6.00 12.00,8.00' into poly 'poly_1'
 Debug: Keys Ctrl + Y (Redo) pressed

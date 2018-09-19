@@ -259,8 +259,8 @@ GNEViewNet::buildViewToolBars(GUIGlChildWindow& cw) {
 }
 
 
-void 
-GNEViewNet::buildSelectionACPopupEntry(GUIGLObjectPopupMenu* ret, GNEAttributeCarrier *AC) {
+void
+GNEViewNet::buildSelectionACPopupEntry(GUIGLObjectPopupMenu* ret, GNEAttributeCarrier* AC) {
     if (AC->isAttributeCarrierSelected()) {
         new FXMenuCommand(ret, "Remove From Selected", GUIIconSubSys::getIcon(ICON_FLAG_MINUS), this, MID_REMOVESELECT);
     } else {
@@ -610,7 +610,7 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
             glPushMatrix();
             glLineWidth(2);
             // draw last line depending if shift key (delete last created point) is pressed
-            if(myViewParent->getPolygonFrame()->getDrawingMode()->getDeleteLastCreatedPoint()) {
+            if (myViewParent->getPolygonFrame()->getDrawingMode()->getDeleteLastCreatedPoint()) {
                 GLHelper::setColor(RGBColor::RED);
             } else {
                 GLHelper::setColor(RGBColor::GREEN);
@@ -619,19 +619,6 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
             glPopMatrix();
         }
     }
-
-    // in move mode, draw "eraser" icon if shift key is pressed
-/** currently disabled
-    if(!myVisualizationSettings->drawForSelecting && (myEditMode == GNE_MODE_MOVE) && myShiftKeyPressed) {
-        glPushMatrix();
-        glColor3d(1, 1, 1);
-        Position posRelative = screenPos2NetPos(myWindowCursorPositionX, myWindowCursorPositionY);
-        glTranslated(posRelative.x(), posRelative.y(), GLO_MAX);
-        glRotated(-180, 0, 0, 1);
-        GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_ERASER), 0.5);
-        glPopMatrix();
-    }
-**/
     // draw elements
     glLineWidth(1);
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -728,7 +715,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                     // obtain index of vertex to move if shape isn't blocked
                     if ((myMovedItems.polyToMove->isShapeBlocked() == false) && (myMovedItems.polyToMove->isMovementBlocked() == false)) {
                         // check if we want to remove a Geometry Point
-                        if(myShiftKeyPressed) {
+                        if (myShiftKeyPressed) {
                             // check if we're clicked over a Geometry Point
                             myMoveSingleElementValues.movingIndexShape = myMovedItems.polyToMove->getVertexIndex(myMoveSingleElementValues.movingOriginalPosition, false);
                             if (myMoveSingleElementValues.movingIndexShape != -1) {
@@ -1865,7 +1852,7 @@ GNEViewNet::onCmdDuplicateLane(FXObject*, FXSelector, void*) {
 }
 
 
-long 
+long
 GNEViewNet::onCmdResetLaneCustomShape(FXObject*, FXSelector, void*) {
     GNELane* lane = getLaneAtPopupPosition();
     if (lane != 0) {
@@ -1930,7 +1917,7 @@ GNEViewNet::onCmdAddRestrictedLaneBuslane(FXObject*, FXSelector, void*) {
 }
 
 
-long 
+long
 GNEViewNet::onCmdAddRestrictedLaneGreenVerge(FXObject*, FXSelector, void*) {
     return addRestrictedLane(SVC_IGNORING);
 }
@@ -2115,7 +2102,7 @@ GNEViewNet::addRestrictedLane(SUMOVehicleClass vclass) {
             // If only have a single lane, start undo/redo operation
             myUndoList->p_begin("Add vclass for " + toString(vclass));
             // Add restricted lane
-            if(lane->getIndex() > 0) {
+            if (lane->getIndex() > 0) {
                 myNet->addRestrictedLane(vclass, lane->getParentEdge(), lane->getIndex(), myUndoList);
             } else {
                 myNet->addRestrictedLane(vclass, lane->getParentEdge(), 0, myUndoList);
@@ -2244,7 +2231,7 @@ GNEViewNet::onCmdEditJunctionShape(FXObject*, FXSelector, void*) {
 }
 
 
-long 
+long
 GNEViewNet::onCmdResetJunctionShape(FXObject*, FXSelector, void*) {
     // Obtain junction under mouse
     GNEJunction* junction = getJunctionAtPopupPosition();
@@ -2416,7 +2403,7 @@ GNEViewNet::onCmdAddSelected(FXObject*, FXSelector, void*) {
         int id = getObjectAtPosition(getPopupPosition());
         GNEAttributeCarrier* ACToselect = dynamic_cast <GNEAttributeCarrier*>(GUIGlObjectStorage::gIDStorage.getObjectBlocking(id));
         GUIGlObjectStorage::gIDStorage.unblockObject(id);
-        if(ACToselect && !ACToselect->isAttributeCarrierSelected()) {
+        if (ACToselect && !ACToselect->isAttributeCarrierSelected()) {
             ACToselect->selectAttributeCarrier();
         }
     }
@@ -2430,7 +2417,7 @@ GNEViewNet::onCmdRemoveSelected(FXObject*, FXSelector, void*) {
         int id = getObjectAtPosition(getPopupPosition());
         GNEAttributeCarrier* ACToselect = dynamic_cast <GNEAttributeCarrier*>(GUIGlObjectStorage::gIDStorage.getObjectBlocking(id));
         GUIGlObjectStorage::gIDStorage.unblockObject(id);
-        if(ACToselect && ACToselect->isAttributeCarrierSelected()) {
+        if (ACToselect && ACToselect->isAttributeCarrierSelected()) {
             ACToselect->unselectAttributeCarrier();
         }
     }

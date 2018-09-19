@@ -322,12 +322,8 @@ MSInsertionControl::adaptIntermodalRouter(MSNet::MSIntermodalRouter& router) con
     // fill the public transport router with pre-parsed public transport lines
     for (const Flow& f : myFlows) {
         if (f.pars->line != "") {
-            const MSRoute* route = MSRoute::dictionary(f.pars->routeid);
-            const std::vector<SUMOVehicleParameter::Stop>* addStops = 0;
-            if (route != 0) {
-                addStops = &route->getStops();
-            }
-            router.getNetwork()->addSchedule(*f.pars, addStops);
+            const MSRoute* const route = MSRoute::dictionary(f.pars->routeid);
+            router.getNetwork()->addSchedule(*f.pars, route == nullptr ? nullptr : &route->getStops());
         }
     }
 }

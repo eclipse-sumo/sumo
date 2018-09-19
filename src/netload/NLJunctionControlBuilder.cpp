@@ -404,27 +404,27 @@ NLJunctionControlBuilder::initTrafficLightLogic(const std::string& id, const std
 
 
 void
-NLJunctionControlBuilder::addPhase(SUMOTime duration, const std::string& state, SUMOTime minDuration, SUMOTime maxDuration, bool transient_notdecisional, bool commit) {
+NLJunctionControlBuilder::addPhase(SUMOTime duration, const std::string& state, int nextPhase, SUMOTime minDuration, SUMOTime maxDuration, bool transient_notdecisional, bool commit) {
     // build and add the phase definition to the list
-    myActivePhases.push_back(new MSPhaseDefinition(duration, minDuration, maxDuration, state, transient_notdecisional, commit));
+    myActivePhases.push_back(new MSPhaseDefinition(duration, minDuration, maxDuration, state, nextPhase, transient_notdecisional, commit));
     // add phase duration to the absolute duration
     myAbsDuration += duration;
 }
 
 void
-NLJunctionControlBuilder::addPhase(SUMOTime duration, const std::string& state, SUMOTime minDuration, SUMOTime maxDuration, bool transient_notdecisional, bool commit, MSPhaseDefinition::LaneIdVector& targetLanes) {
+NLJunctionControlBuilder::addPhase(SUMOTime duration, const std::string& state, int nextPhase, SUMOTime minDuration, SUMOTime maxDuration, bool transient_notdecisional, bool commit, MSPhaseDefinition::LaneIdVector& targetLanes) {
     // build and add the phase definition to the list
-    myActivePhases.push_back(new MSPhaseDefinition(duration, minDuration, maxDuration, state, transient_notdecisional, commit, targetLanes));
+    myActivePhases.push_back(new MSPhaseDefinition(duration, minDuration, maxDuration, state, nextPhase, transient_notdecisional, commit, targetLanes));
     // add phase duration to the absolute duration
     myAbsDuration += duration;
 }
 
 
 void
-NLJunctionControlBuilder::addPhase(SUMOTime duration, const std::string& state,
+NLJunctionControlBuilder::addPhase(SUMOTime duration, const std::string& state, int nextPhase,
                                    SUMOTime minDuration, SUMOTime maxDuration) {
     // build and add the phase definition to the list
-    myActivePhases.push_back(new MSPhaseDefinition(duration, minDuration, maxDuration, state));
+    myActivePhases.push_back(new MSPhaseDefinition(duration, minDuration, maxDuration, state, nextPhase));
     // add phase duration to the absolute duration
     myAbsDuration += duration;
 }

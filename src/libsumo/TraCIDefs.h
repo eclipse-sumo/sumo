@@ -203,12 +203,13 @@ typedef std::map<std::string, SubscriptionResults> ContextSubscriptionResults;
 class TraCIPhase {
 public:
     TraCIPhase() {}
-    TraCIPhase(const double _duration, const double _duration1, const double _duration2, const std::string& _phase)
-        : duration(_duration), duration1(_duration1), duration2(_duration2), phase(_phase) {}
+    TraCIPhase(const double _duration, const double _duration1, const double _duration2, const std::string& _phase, int _next=-1)
+        : duration(_duration), duration1(_duration1), duration2(_duration2), phase(_phase), next(_next) {}
     ~TraCIPhase() {}
 
     double duration, duration1, duration2;
     std::string phase;
+    int next;
 };
 
 
@@ -324,6 +325,8 @@ public:
     TraCIStage(int _type) : type(_type), depart(-1) {}
     /// @brief The type of stage (walking, driving, ...)
     int type;
+    /// @brief The vehicle type when using a private car or bike
+    std::string vType;
     /// @brief The line or the id of the vehicle type
     std::string line;
     /// @brief The id of the destination stop
@@ -338,6 +341,12 @@ public:
     std::string intended;
     /// @brief intended depart time for public transport ride or -1
     double depart;
+    /// @brief position on the lane when starting the stage
+    double departPos;
+    /// @brief position on the lane when ending the stage
+    double arrivalPos;
+    /// @brief arbitrary description string
+    std::string description;
 };
 }
 

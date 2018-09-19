@@ -423,11 +423,11 @@ class Net:
             e.rebuildShape()
 
     def getShortestPath(self, fromEdge, toEdge, maxCost=1e400):
-        q = [(0, fromEdge, ())]
+        q = [(0, fromEdge.getID(), fromEdge, ())]
         seen = set()
         dist = {fromEdge: fromEdge.getLength()}
         while q:
-            cost, e1, path = heapq.heappop(q)
+            cost, _, e1, path = heapq.heappop(q)
             if e1 in seen:
                 continue
             seen.add(e1)
@@ -441,7 +441,7 @@ class Net:
                     newCost = cost + e2.getLength()
                     if e2 not in dist or newCost < dist[e2]:
                         dist[e2] = newCost
-                        heapq.heappush(q, (newCost, e2, path))
+                        heapq.heappush(q, (newCost, e2.getID(), e2, path))
         return None, 1e400
 
 class NetReader(handler.ContentHandler):
@@ -645,14 +645,5 @@ def readNet(filename, **others):
         'withInternal' : import internal edges and lanes (default False)
     """
     netreader = NetReader(**others)
-    try:
-        if not os.path.isfile(filename):
-            print("Network file '%s' not found" % filename, file=sys.stderr)
-            sys.exit(1)
-        parse(filename, netreader)
-    except None:
-        print(
-            "Please mind that the network format has changed in 0.13.0, you may need to update your network!",
-            file=sys.stderr)
-        sys.exit(1)
+    parse(filename, netreader)
     return netreader.getNet()

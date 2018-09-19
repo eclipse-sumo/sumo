@@ -1,13 +1,8 @@
-+++ running this Java
-+++ trying to run SikuliX
-+++ using: -Xms64M -Xmx512M -Dfile.encoding=UTF-8 -Dsikuli.FromCommandLine -jar C:\sikulix\sikulix.jar -run test.sikuli
 TestFunctions: Netedit opened successfully
-TestFunctions: 'searchReference' option disabled. Reference isn't searched
-[log] CLICK on L(205,205)@S(0)[0,0 1920x1200] (222 msec)
-[log] ( Strg+Umschalt )  TYPE "o"
-[log] ( Alt )  TYPE "f"
-[log] ( Strg )  TYPE "a"
-[log]  TYPE "#ENTER."
-[log] ( Strg )  TYPE "s"
-[log] ( Strg )  TYPE "q"
+Finding reference
+TestFunctions: 'reference.png' found. Position: 304 - 140
+C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.5_from_17Sep083718.3704/netedit.gui/basic/open_net_shortcut
+input_net_loadedmanually.net.xml
+C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.5_from_17Sep083718.3704/netedit.gui/basic/open_net_shortcut
+net.net.xml
 TestFunctions: Netedit closed successfully

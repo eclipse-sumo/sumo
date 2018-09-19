@@ -251,8 +251,8 @@ public:
      *  @see MSDeviceSSM::insertOptions()
      */
     template<class OptionType, class ValueType>
-    static OptionType * makeUnsetWithDefault(ValueType def) {
-        OptionType * o = new OptionType(def);
+    static OptionType* makeUnsetWithDefault(ValueType def) {
+        OptionType* o = new OptionType(def);
         o->unSet();
         return o;
     }

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed Sep 19 12:37:26 2018 by Eclipse SUMO Version v1_0_1+0023-9f2cdf8
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net2.net.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+    </output>
+
+    <time>
+        <end value="300"/>
+    </time>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<tlsStates xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tlsstates_file.xsd">
+    <tlsState time="0.00" id="C" programID="custom" phase="0" state="GGGggrrrrrGGGggrrrrr"/>
+    <tlsState time="33.00" id="C" programID="custom" phase="1" state="yyyggrrrrryyyggrrrrr"/>
+    <tlsState time="36.00" id="C" programID="custom" phase="2" state="rrrGGrrrrrrrrGGrrrrr"/>
+    <tlsState time="42.00" id="C" programID="custom" phase="3" state="rrryyrrrrrrrryyrrrrr"/>
+    <tlsState time="45.00" id="C" programID="custom" phase="4" state="rrrrrGGGggrrrrrGGGgg"/>
+    <tlsState time="78.00" id="C" programID="custom" phase="5" state="rrrrryyyggrrrrryyygg"/>
+    <tlsState time="81.00" id="C" programID="custom" phase="6" state="rrrrrrrrGGrrrrrrrrGG"/>
+    <tlsState time="87.00" id="C" programID="custom" phase="7" state="rrrrrrrryyrrrrrrrryy"/>
+    <tlsState time="90.00" id="C" programID="custom" phase="0" state="GGGggrrrrrGGGggrrrrr"/>
+    <tlsState time="123.00" id="C" programID="custom" phase="1" state="yyyggrrrrryyyggrrrrr"/>
+    <tlsState time="126.00" id="C" programID="custom" phase="2" state="rrrGGrrrrrrrrGGrrrrr"/>
+    <tlsState time="132.00" id="C" programID="custom" phase="3" state="rrryyrrrrrrrryyrrrrr"/>
+    <tlsState time="135.00" id="C" programID="custom" phase="4" state="rrrrrGGGggrrrrrGGGgg"/>
+    <tlsState time="168.00" id="C" programID="custom" phase="5" state="rrrrryyyggrrrrryyygg"/>
+    <tlsState time="171.00" id="C" programID="custom" phase="6" state="rrrrrrrrGGrrrrrrrrGG"/>
+    <tlsState time="177.00" id="C" programID="custom" phase="7" state="rrrrrrrryyrrrrrrrryy"/>
+    <tlsState time="180.00" id="C" programID="custom" phase="0" state="GGGggrrrrrGGGggrrrrr"/>
+    <tlsState time="213.00" id="C" programID="custom" phase="1" state="yyyggrrrrryyyggrrrrr"/>
+    <tlsState time="216.00" id="C" programID="custom" phase="2" state="rrrGGrrrrrrrrGGrrrrr"/>
+    <tlsState time="222.00" id="C" programID="custom" phase="3" state="rrryyrrrrrrrryyrrrrr"/>
+    <tlsState time="225.00" id="C" programID="custom" phase="4" state="rrrrrGGGggrrrrrGGGgg"/>
+    <tlsState time="258.00" id="C" programID="custom" phase="5" state="rrrrryyyggrrrrryyygg"/>
+    <tlsState time="261.00" id="C" programID="custom" phase="6" state="rrrrrrrrGGrrrrrrrrGG"/>
+    <tlsState time="267.00" id="C" programID="custom" phase="7" state="rrrrrrrryyrrrrrrrryy"/>
+    <tlsState time="270.00" id="C" programID="custom" phase="0" state="GGGggrrrrrGGGggrrrrr"/>
+</tlsStates>

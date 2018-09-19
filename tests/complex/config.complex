@@ -59,6 +59,7 @@ log:log.txt
 cadytslog:cadySumo-log.txt
 png:out.png
 png2:out2.png
+detector:detector.xml
 
 [run_dependent_text]
 output:<!--{[->]}-->
@@ -85,6 +86,7 @@ lanechanges:<!--{[->]}-->
 state:<!--{[->]}-->
 tls_state:<!--{[->]}-->
 state:<snapshot (.*) version="[^"]*"{REPLACE <snapshot \1 version="<version>"}
+detector:<!--{[->]}-->
 errors:Die Adresse wird bereits verwendet{REPLACE Address already in use}
 errors:Leaked object at 
 errors:*** 9 leaks found

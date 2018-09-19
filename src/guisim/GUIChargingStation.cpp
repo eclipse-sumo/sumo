@@ -53,9 +53,9 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIChargingStation::GUIChargingStation(const std::string& id, MSLane& lane, double frompos, double topos,  
-        const std::string& name,
-        double chargingPower, double efficiency, bool chargeInTransit, double chargeDelay) :
+GUIChargingStation::GUIChargingStation(const std::string& id, MSLane& lane, double frompos, double topos,
+                                       const std::string& name,
+                                       double chargingPower, double efficiency, bool chargeInTransit, double chargeDelay) :
     MSChargingStation(id, lane, frompos, topos, name, chargingPower, efficiency, chargeInTransit, chargeDelay),
     GUIGlObject_AbstractAdd(GLO_CHARGING_STATION, id) {
     myFGShape = lane.getShape();

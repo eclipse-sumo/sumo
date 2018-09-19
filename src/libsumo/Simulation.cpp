@@ -556,14 +556,19 @@ Simulation::findIntermodalRoute(const std::string& from, const std::string& to,
                     resultCand.push_back(TraCIStage(it->line == ""
                                                     ? MSTransportable::MOVING_WITHOUT_VEHICLE
                                                     : MSTransportable::DRIVING));
-                    resultCand.back().destStop = it->destStop;
+                    resultCand.back().vType = it->vType;
                     resultCand.back().line = it->line;
+                    resultCand.back().destStop = it->destStop;
                     for (const MSEdge* e : it->edges) {
                         resultCand.back().edges.push_back(e->getID());
                     }
-                    resultCand.back().travelTime = resultCand.back().cost = it->cost;
+                    resultCand.back().travelTime = it->traveltime;
+                    resultCand.back().cost = it->cost;
                     resultCand.back().intended = it->intended;
                     resultCand.back().depart = it->depart;
+                    resultCand.back().departPos = it->departPos;
+                    resultCand.back().arrivalPos = it->arrivalPos;
+                    resultCand.back().description = it->description;
                 }
                 cost += it->cost;
             }

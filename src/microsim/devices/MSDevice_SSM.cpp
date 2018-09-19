@@ -460,10 +460,10 @@ MSDevice_SSM::computeGlobalMeasures() {
         }
 
         if (myComputeTGAP) {
-            if (leader.first == nullptr) {
+            if (leader.first == nullptr || myHolderMS->getSpeed() == 0.) {
                 myTGAPspan.push_back(INVALID);
             } else {
-                double tgap = (leader.second + leader.first->getVehicleType().getMinGap()) / myHolderMS->getSpeed();
+                const double tgap = (leader.second + leader.first->getVehicleType().getMinGap()) / myHolderMS->getSpeed();
                 myTGAPspan.push_back(tgap);
                 if (tgap < myMinTGAP.first.second) {
                     myMinTGAP = std::make_pair(std::make_pair(std::make_pair(SIMTIME, myHolderMS->getPosition()), tgap), leader.first->getID());
@@ -473,6 +473,7 @@ MSDevice_SSM::computeGlobalMeasures() {
 
     }
 }
+
 
 void
 MSDevice_SSM::createEncounters(FoeInfoMap& foes) {
@@ -2372,22 +2373,22 @@ MSDevice_SSM::findSurroundingVehicles(const MSVehicle& veh, double range, FoeInf
     // Init pos with vehicle's current position. Below pos is set to zero to denote
     // the beginning position of the currently considered edge
     double pos = veh.getPositionOnLane();
-    // remainingRange is the range minus the distance that is already scanned downstream along the vehicles route
+    // remainingDownstreamRange is the range minus the distance that is already scanned downstream along the vehicles route
     double remainingDownstreamRange = range;
     // distToConflictLane is the distance of the ego vehicle to the start of the currently considered potential conflict lane (can be negative for its current lane)
     double distToConflictLane = -pos;
     // junctions that were already scanned (break search in recurrent nets)
     std::set<const MSJunction*> seenJunctions;
 
-    // if the current edge is internal, collect all vehicles from the junction and below range upstream (except on the vehicles own edge),
+    // if the current edge is internal, collect all vehicles from the junction and within upstream range (except on the vehicles own edge),
     // this is analogous to the code treating junctions in the loop below. Note that the distance on the junction itself is not included into
     // range, so vehicles farther away than range can be collected, too.
     if (lane->isInternal()) {
         edge = &(lane->getEdge());
 
 #ifdef DEBUG_SSM_SURROUNDING
-        std::cout << SIMTIME << " Vehicle '" << veh.getID() << "' is on internal edge " << edge->getID() << "'.\n"
-                  << "Previous edge of its route: '" << (*edgeIter)->getID() << "'" << std::endl;
+        std::cout << SIMTIME << " Vehicle '" << veh.getID() << "' is on internal edge " << edge->getID() << "'." << std::endl;
+//                  << "Previous edge of its route: '" << (*edgeIter)->getID() << "'" << std::endl;
 #endif
 
         assert(edge->getToJunction() == edge->getFromJunction());
@@ -2530,7 +2531,7 @@ MSDevice_SSM::findSurroundingVehicles(const MSVehicle& veh, double range, FoeInf
 }
 
 void
-MSDevice_SSM::getUpstreamVehicles(const MSEdge* edge, double pos, double range, double egoDistToConflictLane, const MSLane* const egoConflictLane, FoeInfoMap& foeCollector, std::set<const MSJunction*> seenJunctions) {
+MSDevice_SSM::getUpstreamVehicles(const MSEdge* edge, double pos, double range, double egoDistToConflictLane, const MSLane* const egoConflictLane, FoeInfoMap& foeCollector, std::set<const MSJunction*>& seenJunctions) {
 #ifdef DEBUG_SSM_SURROUNDING
     std::cout << SIMTIME << " getUpstreamVehicles() for edge '" << edge->getID() << "'"
               << " pos = " << pos << " range = " << range
@@ -2548,6 +2549,10 @@ MSDevice_SSM::getUpstreamVehicles(const MSEdge* edge, double pos, double range, 
         const MSLane::VehCont& vehicles = lane->getVehiclesSecure();
         for (MSLane::VehCont::const_iterator vi = vehicles.begin(); vi != vehicles.end(); ++vi) {
             MSVehicle* veh = *vi;
+            if (foeCollector.find(veh) != foeCollector.end()) {
+                // vehicle already recognized, earlier recognized conflict has priority
+                continue;
+            }
             if (veh->getPositionOnLane() - veh->getLength() <= pos && veh->getPositionOnLane() >= pos - range) {
 #ifdef DEBUG_SSM
                 std::cout << veh->getID()  << "\n";

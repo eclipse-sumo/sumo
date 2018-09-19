@@ -406,7 +406,7 @@ GUIVehicle::getColorValue(int activeScheme) const {
         case 22:
             return gSelected.isSelected(GLO_VEHICLE, getGlID());
         case 23:
-            return getBestLaneOffset();
+            return getLaneChangeModel().isOpposite() ? -100 : getBestLaneOffset();
         case 24:
             return getAcceleration();
         case 25:
@@ -688,6 +688,8 @@ GUIVehicle::getStopInfo() const {
         result += ", containerTriggered";
     } else if (myStops.front().collision) {
         result += ", collision";
+    } else if (myStops.front().pars.until != -1) {
+        result += ", until=" + time2string(myStops.front().pars.until);
     } else {
         result += ", duration=" + time2string(myStops.front().duration);
     }

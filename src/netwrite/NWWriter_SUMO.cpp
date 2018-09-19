@@ -45,6 +45,7 @@
 #include "NWWriter_SUMO.h"
 
 
+//#define DEBUG_OPPOSITE_INTERNAL
 
 // ===========================================================================
 // method definitions
@@ -226,10 +227,14 @@ NWWriter_SUMO::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
 
 
 std::string
-NWWriter_SUMO::getOppositeInternalID(const NBEdgeCont& ec, const NBEdge* from, const NBEdge::Connection& con) {
+NWWriter_SUMO::getOppositeInternalID(const NBEdgeCont& ec, const NBEdge* from, const NBEdge::Connection& con, double& oppositeLength) {
     const NBEdge::Lane& succ = con.toEdge->getLanes()[con.toLane];
     const NBEdge::Lane& pred = from->getLanes()[con.fromLane];
+    const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
     if (succ.oppositeID != "" && succ.oppositeID != "-" && pred.oppositeID != "" && pred.oppositeID != "-") {
+#ifdef DEBUG_OPPOSITE_INTERNAL
+        std::cout << "getOppositeInternalID con=" << con.getDescription(from) << " (" << con.getInternalLaneID() << ")\n";
+#endif
         // find the connection that connects succ.oppositeID to pred.oppositeID
         const NBEdge* succOpp = ec.retrieve(succ.oppositeID.substr(0, succ.oppositeID.rfind("_")));
         const NBEdge* predOpp = ec.retrieve(pred.oppositeID.substr(0, pred.oppositeID.rfind("_")));
@@ -238,13 +243,33 @@ NWWriter_SUMO::getOppositeInternalID(const NBEdgeCont& ec, const NBEdge* from, c
         const std::vector<NBEdge::Connection>& connections = succOpp->getConnections();
         for (std::vector<NBEdge::Connection>::const_iterator it_c = connections.begin(); it_c != connections.end(); it_c++) {
             const NBEdge::Connection& conOpp = *it_c;
-            if (succOpp != from && // turnaround
-                    succOpp->getLaneID(conOpp.fromLane) == succ.oppositeID &&
-                    predOpp == conOpp.toEdge &&
-                    predOpp->getLaneID(conOpp.toLane) == pred.oppositeID &&
-                    // same lengths (@note: averaging is not taken into account)
-                    con.shape.length() == conOpp.shape.length()) {
+            if (succOpp != from // turnaround
+                    && predOpp == conOpp.toEdge
+                    && succOpp->getLaneID(conOpp.fromLane) == succ.oppositeID
+                    && predOpp->getLaneID(conOpp.toLane) == pred.oppositeID
+                    && from->getToNode()->getDirection(from, con.toEdge, lefthand) == LINKDIR_STRAIGHT
+                    && from->getToNode()->getDirection(succOpp, predOpp, lefthand) == LINKDIR_STRAIGHT
+               ) {
+#ifdef DEBUG_OPPOSITE_INTERNAL
+                std::cout << "  found " << conOpp.getInternalLaneID() << "\n";
+#endif
+                oppositeLength = conOpp.length;
                 return conOpp.getInternalLaneID();
+            } else {
+                /*
+                #ifdef DEBUG_OPPOSITE_INTERNAL
+                std::cout << "  rejected " << conOpp.getInternalLaneID()
+                    << "\n     succ.oppositeID=" << succ.oppositeID
+                    << "\n         succOppLane=" << succOpp->getLaneID(conOpp.fromLane)
+                    << "\n     pred.oppositeID=" << pred.oppositeID
+                    << "\n         predOppLane=" << predOpp->getLaneID(conOpp.toLane)
+                    << "\n      predOpp=" << predOpp->getID()
+                    << "\n     conOppTo=" << conOpp.toEdge->getID()
+                    << "\n     len1=" << con.shape.length()
+                    << "\n     len2=" << conOpp.shape.length()
+                    << "\n";
+                #endif
+                */
             }
         }
         return "";
@@ -258,18 +283,34 @@ bool
 NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, const NBNode& n) {
     bool ret = false;
     const EdgeVector& incoming = n.getIncomingEdges();
+    // first pass: determine opposite internal edges and average their length
+    std::map<std::string, std::string> oppositeLaneID;
+    std::map<std::string, double> oppositeLengths;
+    for (NBEdge* e : incoming) {
+        for (const NBEdge::Connection& c : e->getConnections()) {
+            double oppositeLength = 0;
+            const std::string op = getOppositeInternalID(ec, e, c, oppositeLength);
+            oppositeLaneID[c.getInternalLaneID()] = op;
+            if (op != "") {
+                oppositeLengths[c.id] = oppositeLength;
+            }
+        }
+    }
+    if (oppositeLengths.size() > 0) {
+        for (NBEdge* e : incoming) {
+            for (NBEdge::Connection& c : e->getConnections()) {
+                if (oppositeLengths.count(c.id) > 0) {
+                    c.length = (c.length + oppositeLengths[c.id]) / 2;
+                }
+            }
+        }
+    }
+
     for (EdgeVector::const_iterator i = incoming.begin(); i != incoming.end(); i++) {
         const std::vector<NBEdge::Connection>& elv = (*i)->getConnections();
         if (elv.size() > 0) {
             bool haveVia = false;
             std::string edgeID = "";
-            // first pass: compute average lengths of non-via edges
-            std::map<std::string, double> lengthSum;
-            std::map<std::string, int> numLanes;
-            for (std::vector<NBEdge::Connection>::const_iterator k = elv.begin(); k != elv.end(); ++k) {
-                lengthSum[(*k).id] += MAX2((*k).shape.length(), POSITION_EPS);
-                numLanes[(*k).id] += 1;
-            }
             // second pass: write non-via edges
             for (std::vector<NBEdge::Connection>::const_iterator k = elv.begin(); k != elv.end(); ++k) {
                 if ((*k).toEdge == 0) {
@@ -290,15 +331,11 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
                 // to avoid changing to an internal lane which has a successor
                 // with the wrong permissions we need to inherit them from the successor
                 const NBEdge::Lane& successor = (*k).toEdge->getLanes()[(*k).toLane];
-                const double length = lengthSum[edgeID] / numLanes[edgeID];
-                // @note the actual length should be used once sumo supports lanes of
-                // varying length within the same edge
-                //const double length = MAX2((*k).shape.length(), POSITION_EPS);
                 const double width = n.isConstantWidthTransition() && (*i)->getNumLanes() > (*k).toEdge->getNumLanes() ? (*i)->getLaneWidth((*k).fromLane) : successor.width;
                 writeLane(into, (*k).getInternalLaneID(), (*k).vmax,
                           successor.permissions, successor.preferred,
                           NBEdge::UNSPECIFIED_OFFSET, std::map<int, double>(), width, (*k).shape, &(*k),
-                          length, (*k).internalLaneIndex, getOppositeInternalID(ec, *i, *k));
+                          (*k).length, (*k).internalLaneIndex, oppositeLaneID[(*k).getInternalLaneID()]);
                 haveVia = haveVia || (*k).haveVia;
             }
             ret = true;

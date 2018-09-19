@@ -695,6 +695,7 @@ SUMOVehicleParserHelper::parseLCParams(SUMOVTypeParameter& into, LaneChangeModel
         lc2013Params.insert(SUMO_ATTR_LCA_COOPERATIVE_PARAM);
         lc2013Params.insert(SUMO_ATTR_LCA_SPEEDGAIN_PARAM);
         lc2013Params.insert(SUMO_ATTR_LCA_KEEPRIGHT_PARAM);
+        lc2013Params.insert(SUMO_ATTR_LCA_OPPOSITE_PARAM);
         lc2013Params.insert(SUMO_ATTR_LCA_LOOKAHEADLEFT);
         lc2013Params.insert(SUMO_ATTR_LCA_SPEEDGAINRIGHT);
         lc2013Params.insert(SUMO_ATTR_LCA_MAXSPEEDLATSTANDING);

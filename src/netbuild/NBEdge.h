@@ -246,6 +246,9 @@ public:
 
         /// @brief get string describing this connection
         std::string getDescription(const NBEdge* parent) const;
+
+        /// @brief computed length (average of all internal lane shape lengths that share an internal edge)
+        double length;
     };
 
 
@@ -1432,6 +1435,9 @@ private:
 
     /// @brief restore a restricted lane
     void restoreRestrictedLane(SUMOVehicleClass vclass, std::vector<NBEdge::Lane> oldLanes, PositionVector oldGeometry, std::vector<NBEdge::Connection> oldConnections);
+
+    /// @brief assign length to all lanes of an internal edge
+    void assignInternalLaneLength(std::vector<Connection>::iterator i, int numLanes, double lengthSum);
 
 private:
     /** @brief The building step

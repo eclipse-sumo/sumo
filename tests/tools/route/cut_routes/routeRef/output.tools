@@ -1,0 +1,6 @@
+Valid area contains 4 edges
+Kept 1 of 2 busStops
+Parsing routes from input_routes.rou.xml
+Parsed 4 vehicles and kept 2 routes
+Number of disconnected routes: 0. Most frequent missing edges:
+Wrote 2 standalone-routes and 4 vehicles

@@ -625,6 +625,7 @@ MSMeanData::writeXMLOutput(OutputDevice& dev,
             writeEdge(dev, (*i), *edge, startTime, stopTime);
         }
         dev.closeTag();
+        dev.flush();
     }
 }
 

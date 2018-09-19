@@ -1,14 +1,14 @@
 # edit attribute priority
-inspect_selected_priority
+priority
 
 # edit attribute width
-inspect_selected_width
+width
 
 # edit attribute linkindex
-inspect_selected_linkindex
+linkindex
 
 # edit attribute linkindex2
-inspect_selected_linkindex2
+linkindex2
 
 # edit attribute genericparameters
-inspect_selected_genericparameters
+genericparameters

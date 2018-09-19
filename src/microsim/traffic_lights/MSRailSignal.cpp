@@ -60,7 +60,7 @@ MSRailSignal::MSRailSignal(MSTLLogicControl& tlcontrol,
                            const std::string& id, const std::string& subid,
                            const std::map<std::string, std::string>& parameters) :
     MSTrafficLightLogic(tlcontrol, id, subid, DELTA_T, parameters),
-    myCurrentPhase(DELTA_T, std::string(SUMO_MAX_CONNECTIONS, 'X')) { // dummy phase
+    myCurrentPhase(DELTA_T, std::string(SUMO_MAX_CONNECTIONS, 'X'), -1) { // dummy phase
     myDefaultCycleTime = DELTA_T;
 }
 

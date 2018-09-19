@@ -48,16 +48,16 @@ MSRailCrossing::MSRailCrossing(MSTLLogicControl& tlcontrol,
     /// XXX compute reasonable time depending on link length
     myYellowTime(TIME2STEPS(5)) {
     // dummy phase, used to avoid crashing in MSTrafficLightLogic::setTrafficLightSignals()
-    myPhases.push_back(new MSPhaseDefinition(1, 1, 1, std::string(SUMO_MAX_CONNECTIONS, 'X')));
+    myPhases.push_back(new MSPhaseDefinition(1, 1, 1, std::string(SUMO_MAX_CONNECTIONS, 'X'), -1));
 }
 
 void
 MSRailCrossing::init(NLDetectorBuilder&) {
     delete myPhases.front();
     myPhases.clear();
-    myPhases.push_back(new MSPhaseDefinition(1, 1, 1, std::string(myLinks.size(), 'G')));
-    myPhases.push_back(new MSPhaseDefinition(myYellowTime, myYellowTime, myYellowTime, std::string(myLinks.size(), 'y')));
-    myPhases.push_back(new MSPhaseDefinition(1, 1, 1, std::string(myLinks.size(), 'r')));
+    myPhases.push_back(new MSPhaseDefinition(1, 1, 1, std::string(myLinks.size(), 'G'), -1));
+    myPhases.push_back(new MSPhaseDefinition(myYellowTime, myYellowTime, myYellowTime, std::string(myLinks.size(), 'y'), -1));
+    myPhases.push_back(new MSPhaseDefinition(1, 1, 1, std::string(myLinks.size(), 'r'), -1));
     // init phases
     updateCurrentPhase();
     setTrafficLightSignals(MSNet::getInstance()->getCurrentTimeStep());

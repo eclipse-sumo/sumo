@@ -234,22 +234,6 @@ MESegment::removeDetector(MSMoveReminder* data) {
 
 
 void
-MESegment::updateDetectorsOnLeave(MEVehicle* v, SUMOTime currentTime, MESegment* next) {
-    MSMoveReminder::Notification reason;
-    if (next == 0) {
-        reason = MSMoveReminder::NOTIFICATION_ARRIVED;
-    } else if (next == &myVaporizationTarget) {
-        reason = MSMoveReminder::NOTIFICATION_VAPORIZED;
-    } else if (myNextSegment == 0) {
-        reason = MSMoveReminder::NOTIFICATION_JUNCTION;
-    } else {
-        reason = MSMoveReminder::NOTIFICATION_SEGMENT;
-    }
-    v->updateDetectors(currentTime, true, reason);
-}
-
-
-void
 MESegment::prepareDetectorForWriting(MSMoveReminder& data) {
     const SUMOTime currentTime = MSNet::getInstance()->getCurrentTimeStep();
     for (Queues::const_iterator k = myCarQues.begin(); k != myCarQues.end(); ++k) {
@@ -352,12 +336,12 @@ MESegment::writeVehicles(OutputDevice& of) const {
 
 
 MEVehicle*
-MESegment::removeCar(MEVehicle* v, SUMOTime leaveTime, MESegment* next) {
+MESegment::removeCar(MEVehicle* v, SUMOTime leaveTime, const MSMoveReminder::Notification reason) {
     myOccupancy = MAX2(0., myOccupancy - v->getVehicleType().getLengthWithGap());
     std::vector<MEVehicle*>& cars = myCarQues[v->getQueIndex()];
     assert(std::find(cars.begin(), cars.end(), v) != cars.end());
     // One could be tempted to do  v->setSegment(next); here but position on lane will be invalid if next == 0
-    updateDetectorsOnLeave(v, leaveTime, next);
+    v->updateDetectors(leaveTime, true, reason);
     myEdge.lock();
     if (v == cars.back()) {
         cars.pop_back();
@@ -480,13 +464,13 @@ MESegment::limitedControlOverride(const MSLink* link) const {
 
 
 void
-MESegment::send(MEVehicle* veh, MESegment* next, SUMOTime time) {
+MESegment::send(MEVehicle* veh, MESegment* next, SUMOTime time, const MSMoveReminder::Notification reason) {
     assert(isInvalid(next) || time >= myBlockTimes[veh->getQueIndex()]);
     MSLink* link = getLink(veh);
     if (link != 0) {
         link->removeApproaching(veh);
     }
-    MEVehicle* lc = removeCar(veh, time, next); // new leaderCar
+    MEVehicle* lc = removeCar(veh, time, reason); // new leaderCar
     myBlockTimes[veh->getQueIndex()] = time;
     if (!isInvalid(next)) {
         myLastHeadway = next->getTimeHeadway(this, veh);
@@ -529,7 +513,7 @@ MESegment::receive(MEVehicle* veh, SUMOTime time, bool isDepart, bool afterTelep
         veh->setEventTime(time + TIME2STEPS(myLength / speed)); // for correct arrival speed
         addReminders(veh);
         veh->activateReminders(MSMoveReminder::NOTIFICATION_JUNCTION);
-        updateDetectorsOnLeave(veh, time, 0);
+        veh->updateDetectors(time, true, MSMoveReminder::NOTIFICATION_ARRIVED);
         MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
         return;
     }

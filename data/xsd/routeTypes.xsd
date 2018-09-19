@@ -49,6 +49,7 @@
         <xsd:attribute name="lcSpeedGain" type="xsd:float"/>
         <xsd:attribute name="lcKeepRight" type="xsd:float"/>
         <xsd:attribute name="lcSublane" type="xsd:float"/>
+        <xsd:attribute name="lcOpposite" type="xsd:float"/>
         <xsd:attribute name="lcPushy" type="xsd:float"/>
         <xsd:attribute name="lcPushyGap" type="nonNegativeFloatType"/>
         <xsd:attribute name="lcAssertive" type="positiveFloatType"/>

@@ -321,20 +321,24 @@ MSDevice_Routing::adaptEdgeEfforts(SUMOTime currentTime) {
     if (myAdaptationSteps > 0) {
         // moving average
         for (MSEdgeVector::const_iterator i = edges.begin(); i != edges.end(); ++i) {
-            const int id = (*i)->getNumericalID();
-            const double currSpeed = (*i)->getMeanSpeed();
-            myEdgeSpeeds[id] += (currSpeed - myPastEdgeSpeeds[id][myAdaptationStepsIndex]) / myAdaptationSteps;
-            myPastEdgeSpeeds[id][myAdaptationStepsIndex] = currSpeed;
+            if ((*i)->isDelayed()) {
+                const int id = (*i)->getNumericalID();
+                const double currSpeed = (*i)->getMeanSpeed();
+                myEdgeSpeeds[id] += (currSpeed - myPastEdgeSpeeds[id][myAdaptationStepsIndex]) / myAdaptationSteps;
+                myPastEdgeSpeeds[id][myAdaptationStepsIndex] = currSpeed;
+            }
         }
         myAdaptationStepsIndex = (myAdaptationStepsIndex + 1) % myAdaptationSteps;
     } else {
         // exponential moving average
         const double newWeightFactor = (double)(1. - myAdaptationWeight);
         for (MSEdgeVector::const_iterator i = edges.begin(); i != edges.end(); ++i) {
-            const int id = (*i)->getNumericalID();
-            const double currSpeed = (*i)->getMeanSpeed();
-            if (currSpeed != myEdgeSpeeds[id]) {
-                myEdgeSpeeds[id] = myEdgeSpeeds[id] * myAdaptationWeight + currSpeed * newWeightFactor;
+            if ((*i)->isDelayed()) {
+                const int id = (*i)->getNumericalID();
+                const double currSpeed = (*i)->getMeanSpeed();
+                if (currSpeed != myEdgeSpeeds[id]) {
+                    myEdgeSpeeds[id] = myEdgeSpeeds[id] * myAdaptationWeight + currSpeed * newWeightFactor;
+                }
             }
         }
     }

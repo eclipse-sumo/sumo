@@ -37,6 +37,10 @@ elseif (MSVC)
     endif ()
 endif ()
 
+if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang" AND "${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libstdc++ -fsanitize=undefined,address,integer,unsigned-integer-overflow -fno-omit-frame-pointer -fsanitize-blacklist=${CMAKE_SOURCE_DIR}/build/clang_sanitize_blacklist.txt")
+endif ()
+
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
 # force Visual Studio to leave out the Release / Debug dirs
@@ -49,22 +53,18 @@ message(STATUS "CMAKE_BINARY_DIR: " ${CMAKE_BINARY_DIR})
 message(STATUS "CMAKE_SOURCE_DIR: " ${CMAKE_SOURCE_DIR})
 message(STATUS "")
 message(STATUS "Platform: ")
-message(STATUS "    Host: " ${CMAKE_HOST_SYSTEM_NAME} ${CMAKE_HOST_SYSTEM_VERSION} ${CMAKE_HOST_SYSTEM_PROCESSOR})
-if (CMAKE_CROSSCOMPILING)
-    message(STATUS "    Target: " ${CMAKE_SYSTEM_NAME} ${CMAKE_SYSTEM_VERSION} ${CMAKE_SYSTEM_PROCESSOR})
-endif ()
+message(STATUS "    Host: " ${CMAKE_HOST_SYSTEM} " " ${CMAKE_HOST_SYSTEM_PROCESSOR})
+message(STATUS "    Target: " ${CMAKE_SYSTEM} " " ${CMAKE_SYSTEM_PROCESSOR})
 message(STATUS "    CMake: " ${CMAKE_VERSION})
 message(STATUS "    CMake generator: " ${CMAKE_GENERATOR})
 message(STATUS "    CMake build tool: " ${CMAKE_BUILD_TOOL})
-if (MSVC)
-    message(STATUS "    MSVC: " ${MSVC_VERSION})
-endif ()
+message(STATUS "    Compiler: " ${CMAKE_CXX_COMPILER_ID} " " ${CMAKE_CXX_COMPILER_VERSION})
 if (CMAKE_GENERATOR MATCHES Xcode)
     message(STATUS "    Xcode: " ${XCODE_VERSION})
 endif ()
 message(STATUS "")
 
-set(ENABLED_FEATURES "${CMAKE_HOST_SYSTEM}")
+set(ENABLED_FEATURES "${CMAKE_SYSTEM} ${CMAKE_SYSTEM_PROCESSOR} ${CMAKE_CXX_COMPILER_ID} ${CMAKE_CXX_COMPILER_VERSION}")
 
 #set(Python_ADDITIONAL_VERSIONS 3.7 3.6 3.5 3.4 3.3 2.7) # it may help in finding the correct python for libsumo
 find_package(PythonInterp REQUIRED)
@@ -72,23 +72,24 @@ message(STATUS "Found Python: " ${PYTHON_EXECUTABLE})
 
 #http://stackoverflow.com/questions/1487752/how-do-i-instruct-cmake-to-look-for-libraries-installed-by-macports
 if (APPLE)
+    link_directories(/opt/X11/lib)
+    include_directories(/opt/X11/include)
     # Detect if the "port" command is valid on this system; if so, return full path
     execute_process(COMMAND which port RESULT_VARIABLE DETECT_MACPORTS OUTPUT_VARIABLE MACPORTS_PREFIX ERROR_QUIET OUTPUT_STRIP_TRAILING_WHITESPACE)
     if (${DETECT_MACPORTS} EQUAL 0)
-        # "/opt/local/bin/port" doesn't have libs, so we get the parent directory
-        get_filename_component(MACPORTS_PREFIX ${MACPORTS_PREFIX} DIRECTORY)
-        # "/opt/local/bin" doesn't have libs, so we get the parent directory
+        # MACPORTS_PREFIX contains now something like "/opt/local/bin/port", so we get the parent directory
         get_filename_component(MACPORTS_PREFIX ${MACPORTS_PREFIX} DIRECTORY)
         # "/opt/local" is where MacPorts lives, add `/lib` suffix and link
-        link_directories(${MACPORTS_PREFIX}/lib)
-        message(STATUS "Macports detected: ${MACPORTS_PREFIX}/lib")
-    else ()
-        # Recommendation, also add a "brew --prefix" custom command to detect a homebrew build environment
-        execute_process(COMMAND brew --prefix RESULT_VARIABLE DETECT_BREW OUTPUT_VARIABLE BREW_PREFIX ERROR_QUIET OUTPUT_STRIP_TRAILING_WHITESPACE)
-        if (${DETECT_BREW} EQUAL 0)
-            link_directories(${BREW_PREFIX}/lib)
-            message(STATUS "Brew detected: ${BREW_PREFIX}")
-        endif ()
+        link_directories(${MACPORTS_PREFIX}/../lib)
+        include_directories(${MACPORTS_PREFIX}/../include)
+        message(STATUS "Macports detected: ${MACPORTS_PREFIX}")
+    endif ()
+    # Recommendation, also add a "brew --prefix" custom command to detect a homebrew build environment
+    execute_process(COMMAND brew --prefix RESULT_VARIABLE DETECT_BREW OUTPUT_VARIABLE BREW_PREFIX ERROR_QUIET OUTPUT_STRIP_TRAILING_WHITESPACE)
+    if (${DETECT_BREW} EQUAL 0)
+        link_directories(${BREW_PREFIX}/lib)
+        include_directories(${BREW_PREFIX}/include)
+        message(STATUS "Brew detected: ${BREW_PREFIX}")
     endif ()
 endif (APPLE)
 

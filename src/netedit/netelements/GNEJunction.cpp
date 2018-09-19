@@ -211,7 +211,7 @@ GNEJunction::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         mcClearConnections->disable();
     }
     // disable mcResetCustomShape if junction doesn't have a custom shape
-    if(!myNBNode.hasCustomShape()) {
+    if (!myNBNode.hasCustomShape()) {
         mcResetCustomShape->disable();
     }
     // checkIsRemovable requiers turnarounds to be computed. This is ugly

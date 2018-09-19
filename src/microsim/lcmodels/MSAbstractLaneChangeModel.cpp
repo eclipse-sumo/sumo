@@ -247,7 +247,11 @@ MSAbstractLaneChangeModel::laneChangeOutput(const std::string& tag, MSLane* sour
         of.writeAttr(SUMO_ATTR_DIR, direction);
         of.writeAttr(SUMO_ATTR_SPEED, myVehicle.getSpeed());
         of.writeAttr(SUMO_ATTR_POSITION, myVehicle.getPositionOnLane());
-        of.writeAttr("reason", toString((LaneChangeAction)(myOwnState & ~(LCA_RIGHT | LCA_LEFT))));
+        of.writeAttr("reason", toString((LaneChangeAction)(myOwnState & ~(
+                                            LCA_RIGHT | LCA_LEFT
+                                            | LCA_AMBLOCKINGLEADER | LCA_AMBLOCKINGFOLLOWER
+                                            | LCA_MRIGHT | LCA_MLEFT
+                                            | LCA_AMBACKBLOCKER | LCA_AMBACKBLOCKER_STANDING))));
         of.writeAttr("leaderGap", myLastLeaderGap == NO_NEIGHBOR ? "None" : toString(myLastLeaderGap));
         of.writeAttr("leaderSecureGap", myLastLeaderSecureGap == NO_NEIGHBOR ? "None" : toString(myLastLeaderSecureGap));
         of.writeAttr("followerGap", myLastFollowerGap == NO_NEIGHBOR ? "None" : toString(myLastFollowerGap));

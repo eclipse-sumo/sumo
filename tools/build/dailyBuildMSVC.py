@@ -211,9 +211,11 @@ for platform, dllDir in platformDlls:
             dllPath = os.path.join(options.rootDir, dllDir)
             for f in glob.glob(os.path.join(dllPath, "*.dll")) + glob.glob(os.path.join(dllPath, "*", "*.dll")):
                 zipf.write(f, os.path.join(binDir, f[len(dllPath) + 1:]))
-            for ext in ("*.exe", "*.bat", "*.py", "*.pyd"):
+            for ext in ("*.exe", "*.bat", "*.py", "*.pyd", "*.dll", "*.jar"):
                 for f in glob.glob(os.path.join(options.rootDir, options.binDir, ext)):
-                    zipf.write(f, os.path.join(binDir, os.path.basename(f)))
+                    nameInZip = os.path.join(binDir, os.path.basename(f))
+                    if nameInZip not in srcZip.namelist():
+                        zipf.write(f, nameInZip)
             zipf.close()
             if options.suffix == "":
                 # installers only for the vanilla build

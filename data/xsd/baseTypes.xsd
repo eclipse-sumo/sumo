@@ -230,6 +230,7 @@
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>
+        <xsd:attribute name="next" type="nonNegativeIntType" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="paramType">

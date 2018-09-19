@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Sep  3 18:20:14 2018 by Eclipse SUMO Version 854346cdd7
+<!-- generated on Mon Sep 17 17:13:58 2018 by Eclipse SUMO Version 854346cdd7
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -232,6 +232,7 @@
             <xsd:element name="device.ssm.trajectories" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="device.ssm.range" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="device.ssm.extratime" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="device.ssm.file" type="strOptionType" minOccurs="0"/>
             <xsd:element name="device.ssm.geo" type="boolOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>

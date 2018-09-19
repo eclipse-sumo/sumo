@@ -8,8 +8,11 @@ delete
 # inspect connections
 inspect
 
+# inspect connections in a TLS junction
+inspect_TLS
+
 # inspect selected connections
 inspect_selected
 
-# load connections
-load
+# inspect selected connections in a TLS junction
+inspect_selected_TLS

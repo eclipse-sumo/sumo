@@ -345,6 +345,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "lcSpeedGain",            SUMO_ATTR_LCA_SPEEDGAIN_PARAM },
     { "lcKeepRight",            SUMO_ATTR_LCA_KEEPRIGHT_PARAM },
     { "lcSublane",              SUMO_ATTR_LCA_SUBLANE_PARAM },
+    { "lcOpposite",             SUMO_ATTR_LCA_OPPOSITE_PARAM },
     { "lcPushy",                SUMO_ATTR_LCA_PUSHY },
     { "lcPushyGap",             SUMO_ATTR_LCA_PUSHYGAP },
     { "lcAssertive",            SUMO_ATTR_LCA_ASSERTIVE },
@@ -432,6 +433,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
 
     { "minDur",                 SUMO_ATTR_MINDURATION },
     { "maxDur",                 SUMO_ATTR_MAXDURATION },
+    { "next",                   SUMO_ATTR_NEXT },
     { "foes",                   SUMO_ATTR_FOES },
     // E2 detector
     { "cont",                   SUMO_ATTR_CONT },
@@ -747,7 +749,16 @@ StringBijection<LaneChangeAction>::Entry SUMOXMLDefinitions::laneChangeActionVal
     { "sublane",     LCA_SUBLANE },
     { "traci",       LCA_TRACI },
     { "urgent",      LCA_URGENT },
-    { "blocked",     LCA_BLOCKED } //< must be the last one
+    { "overlapping", LCA_OVERLAPPING },
+    { "blocked",     LCA_BLOCKED },
+    { "amBL",        LCA_AMBLOCKINGLEADER },
+    { "amBF",        LCA_AMBLOCKINGFOLLOWER },
+    { "amBB",        LCA_AMBACKBLOCKER },
+    { "amBBS",       LCA_AMBACKBLOCKER_STANDING },
+    { "MR",          LCA_MRIGHT },
+    { "ML",          LCA_MLEFT },
+
+    { "unknown",     LCA_UNKNOWN } //< must be the last one
 };
 
 StringBijection<int> SUMOXMLDefinitions::Tags(
@@ -784,7 +795,7 @@ StringBijection<LateralAlignment> SUMOXMLDefinitions::LateralAlignments(
     SUMOXMLDefinitions::lateralAlignmentValues, LATALIGN_LEFT);
 
 StringBijection<LaneChangeAction> SUMOXMLDefinitions::LaneChangeActions(
-    SUMOXMLDefinitions::laneChangeActionValues, LCA_BLOCKED);
+    SUMOXMLDefinitions::laneChangeActionValues, LCA_UNKNOWN);
 
 
 std::string

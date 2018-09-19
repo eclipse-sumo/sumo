@@ -308,6 +308,9 @@ Lane::setAllowed(std::string laneID, std::vector<std::string> allowedClasses) {
     MSLane* l = const_cast<MSLane*>(getLane(laneID));
     l->setPermissions(parseVehicleClasses(allowedClasses), MSLane::CHANGE_PERMISSIONS_PERMANENT);
     l->getEdge().rebuildAllowedLanes();
+    for (MSEdge* pred : l->getEdge().getPredecessors()) {
+        pred->rebuildAllowedLanes();
+    }
 }
 
 

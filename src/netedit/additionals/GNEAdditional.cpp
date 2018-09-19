@@ -64,8 +64,7 @@ GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlOb
     myBlockMovement(blockMovement),
     myFirstAdditionalParent(nullptr),
     mySecondAdditionalParent(nullptr),
-    myBlockIconRotation(0.),
-    myMovingGeometryBoundary() {
+    myBlockIconRotation(0.) {
 }
 
 

@@ -30,3 +30,9 @@ with_unknown_busstops
 
 # remove unknown access from bus stops
 with_access
+
+# using standalone routes
+routeRef
+
+# filter taz
+taz

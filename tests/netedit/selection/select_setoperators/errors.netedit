@@ -1,6 +1,3 @@
-java version "1.8.0_181"
-Java(TM) SE Runtime Environment (build 1.8.0_181-b13)
-Java HotSpot(TM) 64-Bit Server VM (build 25.181-b13, mixed mode)
 Debug: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, shapes saved
@@ -299,6 +296,20 @@ Debug: Setting new attribute selected 'true' into edge '6'
 Debug: Setting new attribute selected 'true' into edge '7'
 Debug: Setting new attribute selected 'true' into edge '8'
 Debug: Setting new attribute selected 'true' into junction 'Center'
+Debug: Setting new attribute selected 'true' into detEntry 'e3Detector_0detEntry0'
+Debug: Setting new attribute selected 'true' into detExit 'e3Detector_0detExit0'
+Debug: Setting new attribute selected 'true' into poly 'poly_0'
+Debug: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 2 Additionals, 0 Crossings, 1 Polygons, 0 POIs
+Debug: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 2 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Debug: Setting new attribute selected 'true' into edge '1'
+Debug: Setting new attribute selected 'true' into edge '2'
+Debug: Setting new attribute selected 'true' into edge '3'
+Debug: Setting new attribute selected 'true' into edge '4'
+Debug: Setting new attribute selected 'true' into edge '5'
+Debug: Setting new attribute selected 'true' into edge '6'
+Debug: Setting new attribute selected 'true' into edge '7'
+Debug: Setting new attribute selected 'true' into edge '8'
+Debug: Setting new attribute selected 'true' into junction 'Center'
 Debug: Setting new attribute selected 'true' into e3Detector 'e3Detector_0'
 Debug: Setting new attribute selected 'true' into detExit 'e3Detector_0detExit0'
 Debug: Setting new attribute selected 'true' into e3Detector 'e3Detector_1'
@@ -306,7 +317,7 @@ Debug: Setting new attribute selected 'true' into e3Detector 'e3Detector_2'
 Debug: Setting new attribute selected 'true' into detExit 'e3Detector_2detExit0'
 Debug: Setting new attribute selected 'true' into e3Detector 'e3Detector_3'
 Debug: Setting new attribute selected 'true' into poly 'poly_0'
-Debug: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 6 Additionals, 0 Crossings, 1 Polygons, 0 POIs
+Debug: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 7 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into junction 'A'
 Debug: Setting new attribute selected 'true' into edge '1'
 Debug: Setting new attribute selected 'true' into junction 'B'
@@ -365,13 +376,14 @@ Debug: Setting new attribute selected 'false' into edge '6'
 Debug: Setting new attribute selected 'false' into edge '7'
 Debug: Setting new attribute selected 'false' into edge '8'
 Debug: Setting new attribute selected 'false' into e3Detector 'e3Detector_0'
+Debug: Setting new attribute selected 'false' into detEntry 'e3Detector_0detEntry0'
 Debug: Setting new attribute selected 'false' into detExit 'e3Detector_0detExit0'
 Debug: Setting new attribute selected 'false' into e3Detector 'e3Detector_1'
 Debug: Setting new attribute selected 'false' into e3Detector 'e3Detector_2'
 Debug: Setting new attribute selected 'false' into detExit 'e3Detector_2detExit0'
 Debug: Setting new attribute selected 'false' into e3Detector 'e3Detector_3'
 Debug: Setting new attribute selected 'false' into poly 'poly_0'
-Debug: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 16 connections, 6 Additionals, 0 Crossings, 0 Polygons, 4 POIs
+Debug: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 16 connections, 5 Additionals, 0 Crossings, 0 Polygons, 4 POIs
 Debug: Key DEL (delete) pressed
 Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '6'
 Debug: declaring connections of edge '6' as loaded (It will not be removed)
@@ -519,7 +531,6 @@ Debug: declaring connections of edge '5' as loaded (It will not be removed)
 Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '7'
 Debug: declaring connections of edge '7' as loaded (It will not be removed)
 Debug: Removing connection '8_2->1_2' from edge '8'
-Debug: Removing detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Debug: Removing detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
 Debug: Removing detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
 Debug: Removing detEntry 'e3Detector_3detEntry0' in GNEChange_Additional
@@ -583,6 +594,7 @@ Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edg
 Debug: invalidating (removing) connections of edge '7' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Debug: Removing edge '7' from net
+Debug: Removing detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Debug: Removing detExit 'e3Detector_0detExit0' in GNEChange_Additional
 Debug: Removing poiLane 'POI_5' from viewNet
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '8'
@@ -644,6 +656,7 @@ Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' int
 Debug: invalidating (removing) connections of edge '8' due it were guessed
 Debug: Adding poiLane 'POI_5' into viewNet
 Debug: Adding detExit 'e3Detector_0detExit0' in GNEChange_Additional
+Debug: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Debug: Adding edge '7' from net
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '7'
@@ -707,7 +720,6 @@ Debug: Adding detExit 'e3Detector_1detExit0' in GNEChange_Additional
 Debug: Adding detEntry 'e3Detector_3detEntry0' in GNEChange_Additional
 Debug: Adding detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
 Debug: Adding detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
-Debug: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Debug: Adding a previously selected connection '8_2->1_2' into edge '8'
 Debug: Created connection 'from8_2to1_2' in retrieveGNEConnection()
 Debug: Setting previous attribute modificationStatusNotForPrinting 'modified' into edge '7'
@@ -1029,7 +1041,6 @@ Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into ed
 Debug: declaring connections of edge '7' as loaded (It will not be removed)
 Debug: Removing connection '8_2->1_2' from edge '8'
 Debug: Deleting unreferenced connection 'from8_2to1_2' in removeConnection()
-Debug: Removing detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Debug: Removing detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
 Debug: Removing detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
 Debug: Removing detEntry 'e3Detector_3detEntry0' in GNEChange_Additional
@@ -1093,6 +1104,7 @@ Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edg
 Debug: invalidating (removing) connections of edge '7' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Debug: Removing edge '7' from net
+Debug: Removing detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Debug: Removing detExit 'e3Detector_0detExit0' in GNEChange_Additional
 Debug: Removing poiLane 'POI_5' from viewNet
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '8'

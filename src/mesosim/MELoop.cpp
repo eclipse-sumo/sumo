@@ -82,7 +82,7 @@ MELoop::changeSegment(MEVehicle* veh, SUMOTime leaveTime, MESegment* const toSeg
     MESegment* const onSegment = veh->getSegment();
     if (MESegment::isInvalid(toSegment)) {
         if (onSegment != 0) {
-            onSegment->send(veh, toSegment, leaveTime);
+            onSegment->send(veh, toSegment, leaveTime, toSegment == nullptr ? MSMoveReminder::NOTIFICATION_ARRIVED : MSMoveReminder::NOTIFICATION_VAPORIZED);
         } else {
             WRITE_WARNING("Vehicle '" + veh->getID() + "' teleports beyond arrival edge '" + veh->getEdge()->getID() + "', time " + time2string(leaveTime) + ".");
         }
@@ -92,7 +92,7 @@ MELoop::changeSegment(MEVehicle* veh, SUMOTime leaveTime, MESegment* const toSeg
     }
     if (toSegment->hasSpaceFor(veh, leaveTime) && (ignoreLink || veh->mayProceed())) {
         if (onSegment != 0) {
-            onSegment->send(veh, toSegment, leaveTime);
+            onSegment->send(veh, toSegment, leaveTime, onSegment->getNextSegment() == nullptr ? MSMoveReminder::NOTIFICATION_JUNCTION : MSMoveReminder::NOTIFICATION_SEGMENT);
             toSegment->receive(veh, leaveTime, false, ignoreLink);
         } else {
             WRITE_WARNING("Vehicle '" + veh->getID() + "' ends teleporting on edge '" + toSegment->getEdge().getID()
@@ -173,7 +173,7 @@ MELoop::teleportVehicle(MEVehicle* veh, MESegment* const toSegment) {
                           + "':" + toString(onSegment->getIndex()) + ", time " + time2string(leaveTime) + ".");
             MSNet::getInstance()->getVehicleControl().registerTeleportJam();
             // remove from current segment
-            onSegment->send(veh, 0, leaveTime);
+            onSegment->send(veh, 0, leaveTime, MSMoveReminder::NOTIFICATION_TELEPORT);
             // mark veh as teleporting
             veh->setSegment(0, 0);
         }

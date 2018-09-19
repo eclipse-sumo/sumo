@@ -99,10 +99,7 @@ dnl Make sure we are on architecture that supports SIMD
    AC_DEFINE([NOMINMAX], [1], [Including windows.h gives errors otherwise (cygwin)])
    ;;
    *-darwin*)
-   CPPFLAGS="$CPPFLAGS -I/opt/local/include"
-   export CPPFLAGS
-   LDFLAGS="$LDFLAGS -L/opt/local/lib"
-   export LDFLAGS
+   AM_CPPFLAGS="-I/opt/X11/include -I/opt/local/include -I/usr/local/include $AM_CPPFLAGS"
    ;;
 esac
 
@@ -281,7 +278,7 @@ if test x"$with_fox_config" != xno; then
         ac_disabled="$ac_disabled GUI"
     else
         FOX_CFLAGS="`$FOX_CONFIG --cflags`"
-        FOX_LDFLAGS="`$FOX_CONFIG --libs`"
+        FOX_LDFLAGS="`$FOX_CONFIG --libs` -L/opt/X11/lib"
         AC_SUBST([FOX_LDFLAGS])
 
         save_cppflags=$CPPFLAGS

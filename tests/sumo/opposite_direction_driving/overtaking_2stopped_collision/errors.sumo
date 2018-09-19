@@ -1,4 +1,0 @@
-Warning: Teleporting vehicle 'oncoming2'; frontal collision with vehicle 'overtaking', lane='-VODUGES_beg_0', gap=-2.06, time=17.00 stage=move.
-Warning: Vehicle 'oncoming2' teleports beyond arrival edge '-VODUGES_beg', time 17.00.
-Warning: Teleporting vehicle 'oncoming3'; frontal collision with vehicle 'overtaking', lane='-VODUGES_beg_0', gap=-6.41, time=19.00 stage=move.
-Warning: Vehicle 'oncoming3' teleports beyond arrival edge '-VODUGES_beg', time 19.00.

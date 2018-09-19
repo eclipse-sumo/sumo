@@ -699,13 +699,15 @@ TraCITestClient::testAPI() {
     }
     answerLog << "    getFoes: " << joinToString(lane.getFoes("e_vu0_0", "e_m4_0"), " ") << "\n";
     try {
-        answerLog << "    getFoes (invalid): " << joinToString(lane.getFoes("e_vu0_0", "e_m4_1"), " ") << "\n";
+        answerLog << "    getFoes (invalid): ";
+        answerLog << joinToString(lane.getFoes("e_vu0_0", "e_m4_1"), " ") << "\n";
     } catch (libsumo::TraCIException& e) {
         answerLog << "    caught TraCIException(" << e.what() << ")\n";
     }
     answerLog << "    getInternalFoes: " << joinToString(lane.getInternalFoes(":n_m4_2_0"), " ") << "\n";
     try {
-        answerLog << "    getInternalFoes (invalid): " << joinToString(lane.getInternalFoes("dummy"), " ") << "\n";
+        answerLog << "    getInternalFoes (invalid): ";
+        answerLog << joinToString(lane.getInternalFoes("dummy"), " ") << "\n";
     } catch (libsumo::TraCIException& e) {
         answerLog << "    caught TraCIException(" << e.what() << ")\n";
     }

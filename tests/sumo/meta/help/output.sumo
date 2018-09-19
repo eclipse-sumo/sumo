@@ -1,4 +1,4 @@
-Eclipse SUMO Version v1_0_0+0096-19e3d3b
+Eclipse SUMO Version v1_0_0+0117-9fdb064
  Copyright (C) 2001-2018 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -351,6 +351,8 @@ SSM Device Options:
                                          (default is 5.00secs.). Required >0 if
                                          PET is to be calculated for crossing
                                          conflicts.
+  --device.ssm.file STR                Give a global default filename for the
+                                         SSM output.
   --device.ssm.geo                     Whether to use coordinates of the
                                          original reference system in output
                                          (default is false).

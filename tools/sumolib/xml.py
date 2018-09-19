@@ -127,7 +127,7 @@ def compound_object(element_name, attrnames, warn=False):
             return "<%s,child_dict=%s>" % (self.getAttributes(), dict(self._child_dict))
 
         def toXML(self, initialIndent="", indent="    "):
-            fields = ['%s="%s"' % (self._original_fields[i], str(getattr(self, k)))
+            fields = ['%s="%s"' % (self._original_fields[i], str_possibly_unicode(getattr(self, k)))
                       for i, k in enumerate(self._fields) if getattr(self, k) is not None and
                       # see #3454
                       '{' not in self._original_fields[i]]
@@ -145,6 +145,13 @@ def compound_object(element_name, attrnames, warn=False):
             return str(self)
 
     return CompoundObject
+
+def str_possibly_unicode(val):
+    # there is probably a better way to do this
+    try:
+        return str(val)
+    except UnicodeEncodeError:
+        return val.encode('utf8')
 
 
 def parse(xmlfile, element_names, element_attrs={}, attr_conversions={},

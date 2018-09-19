@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Oct 18 15:19:14 2017 by SUMO Version dev-SVN-r26551
+<!-- generated on Wed Sep 12 15:40:11 2018 by Eclipse SUMO Version v1_0_0+0147-4055339
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,8 +14,13 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <lanechange-output value="lanechanges.xml"/>
     </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
 
     <report>
         <xml-validation value="never"/>
@@ -26,8 +31,6 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <lanechanges>
-    <change id="overtaking" type="emergency" time="23.00" from="WC_0" to="CW_0" dir="1" speed="0.00" pos="57.64" reason="" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="2.50" origLeaderSecureGap="0.00"/>
-    <change id="overtaking" type="emergency" time="29.00" from=":C_4_0" to=":C_10_0" dir="-1" speed="11.68" pos="2.02" reason="" leaderGap="None" leaderSecureGap="None" followerGap="2.50" followerSecureGap="0.00" origLeaderGap="None" origLeaderSecureGap="None"/>
-    <change id="blockers.2" type="DEFAULT_VEHTYPE" time="45.00" from="WC_0" to="CW_0" dir="1" speed="0.00" pos="80.15" reason="" leaderGap="225.34" leaderSecureGap="0.00" followerGap="None" followerSecureGap="None" origLeaderGap="2.50" origLeaderSecureGap="0.00"/>
-    <change id="blockers.2" type="DEFAULT_VEHTYPE" time="51.00" from="EC_0" to="CE_0" dir="-1" speed="6.15" pos="90.12" reason="" leaderGap="4.77" leaderSecureGap="1.75" followerGap="8.31" followerSecureGap="1.31" origLeaderGap="None" origLeaderSecureGap="None"/>
+    <change id="overtaking" type="emergency" time="23.00" from="WC_0" to="CW_0" dir="1" speed="0.00" pos="57.64" reason="speedGain" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="2.50" origLeaderSecureGap="0.00"/>
+    <change id="overtaking" type="emergency" time="29.00" from=":C_4_0" to=":C_10_0" dir="-1" speed="12.19" pos="1.51" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" followerGap="2.50" followerSecureGap="0.00" origLeaderGap="None" origLeaderSecureGap="None"/>
 </lanechanges>

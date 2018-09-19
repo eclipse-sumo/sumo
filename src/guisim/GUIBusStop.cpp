@@ -178,7 +178,7 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
     }
     glPopMatrix();
     glPopName();
-    drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
+    drawName(myFGSignPos, s.scale, s.addName);
 }
 
 

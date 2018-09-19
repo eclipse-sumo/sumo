@@ -412,10 +412,10 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
                 GLHelper::setColor(GNENet::selectionColor.changedBrightness(-20));
             }
             // obtain circle width and resolution
-            double circleWidth = GNEEdge::SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration)/2;
+            double circleWidth = GNEEdge::SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration) / 2;
             int circleResolution = GNEAttributeCarrier::getCircleResolution(s);
             // obtain custom shape
-            const PositionVector &customShape = myParentEdge.getNBEdge()->getLaneStruct(myIndex).customShape;
+            const PositionVector& customShape = myParentEdge.getNBEdge()->getLaneStruct(myIndex).customShape;
             // draw s
             glPushMatrix();
             glTranslated(customShape.front().x(), customShape.front().y(), GLO_JUNCTION + 0.01);
@@ -498,13 +498,13 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
     // build copy names entry
-    if(editMode != GNE_MODE_TLS) {
+    if (editMode != GNE_MODE_TLS) {
         new FXMenuCommand(ret, "Copy edge parent name to clipboard", 0, ret, MID_COPY_EDGE_NAME);
         buildNameCopyPopupEntry(ret);
     }
     // build selection
     myNet->getViewNet()->buildSelectionACPopupEntry(ret, this);
-    if(editMode != GNE_MODE_TLS) {
+    if (editMode != GNE_MODE_TLS) {
         // build show parameters menu
         buildShowParamsPopupEntry(ret);
         // build position copy entry
@@ -531,19 +531,19 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         if (isAttributeCarrierSelected()) {
             auto selectedLanes = myNet->retrieveLanes(true);
             for (auto i : selectedLanes) {
-                if(i->getParentEdge().hasRestrictedLane(SVC_PEDESTRIAN)) {
+                if (i->getParentEdge().hasRestrictedLane(SVC_PEDESTRIAN)) {
                     edgeHasSidewalk = true;
                 }
-                if(i->getParentEdge().hasRestrictedLane(SVC_BICYCLE)) {
+                if (i->getParentEdge().hasRestrictedLane(SVC_BICYCLE)) {
                     edgeHasBikelane = true;
                 }
-                if(i->getParentEdge().hasRestrictedLane(SVC_BUS)) {
+                if (i->getParentEdge().hasRestrictedLane(SVC_BUS)) {
                     edgeHasBuslane = true;
                 }
-                if(i->getParentEdge().hasRestrictedLane(SVC_IGNORING)) {
+                if (i->getParentEdge().hasRestrictedLane(SVC_IGNORING)) {
                     edgeHasGreenVerge = true;
                 }
-                if(i->getParentEdge().getNBEdge()->getLaneStruct(i->getIndex()).customShape.size() != 0) {
+                if (i->getParentEdge().getNBEdge()->getLaneStruct(i->getIndex()).customShape.size() != 0) {
                     differentLaneShapes = true;
                 }
             }
@@ -574,7 +574,7 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         ret->insertMenuPaneChild(laneOperations);
         new FXMenuCascade(ret, "lane operations", 0, laneOperations);
         new FXMenuCommand(laneOperations, "Duplicate lane", 0, &parent, MID_GNE_LANE_DUPLICATE);
-        if(differentLaneShapes) {
+        if (differentLaneShapes) {
             new FXMenuCommand(laneOperations, "reset custom shape", 0, &parent, MID_GNE_LANE_RESET_CUSTOMSHAPE);
         }
         // Create panel for lane operations and insert it in ret
@@ -652,7 +652,7 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     }
     // buildShowParamsPopupEntry(ret, false);
     // build shape positions menu
-    if(editMode != GNE_MODE_TLS) {
+    if (editMode != GNE_MODE_TLS) {
         new FXMenuSeparator(ret);
         const double pos = getShape().nearest_offset_to_point2D(parent.getPositionInformation());
         const double height = getShape().positionAtOffset2D(getShape().nearest_offset_to_point2D(parent.getPositionInformation())).z();
@@ -695,7 +695,7 @@ GNELane::getShapeLengths() const {
 
 Boundary
 GNELane::getBoundary() const {
-    if(myParentEdge.getNBEdge()->getLaneStruct(myIndex).customShape.size() == 0) {
+    if (myParentEdge.getNBEdge()->getLaneStruct(myIndex).customShape.size() == 0) {
         return myParentEdge.getNBEdge()->getLaneStruct(myIndex).shape.getBoxBoundary();
     } else {
         return myParentEdge.getNBEdge()->getLaneStruct(myIndex).customShape.getBoxBoundary();
@@ -848,11 +848,7 @@ GNELane::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_DISALLOW:
             return getVehicleClassNames(invertPermissions(edge->getPermissions(myIndex)));
         case SUMO_ATTR_WIDTH:
-            if (edge->getLaneStruct(myIndex).width == NBEdge::UNSPECIFIED_WIDTH) {
-                return "default";
-            } else {
-                return toString(edge->getLaneStruct(myIndex).width);
-            }
+            return toString(edge->getLaneStruct(myIndex).width);
         case SUMO_ATTR_ENDOFFSET:
             return toString(edge->getLaneStruct(myIndex).endOffset);
         case SUMO_ATTR_ACCELERATION:
@@ -915,17 +911,13 @@ GNELane::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_DISALLOW:
             return canParseVehicleClasses(value);
         case SUMO_ATTR_WIDTH:
-            if (value.empty() || (value == "default")) {
-                return true;
-            } else {
-                return canParse<double>(value) && ((parse<double>(value) > 0) || (parse<double>(value) == NBEdge::UNSPECIFIED_WIDTH));
-            }
+            return canParse<double>(value) && ((parse<double>(value) > 0) || (parse<double>(value) == NBEdge::UNSPECIFIED_WIDTH));
         case SUMO_ATTR_ENDOFFSET:
             return canParse<double>(value) && (parse<double>(value) >= 0);
         case SUMO_ATTR_ACCELERATION:
             return canParse<bool>(value);
         case SUMO_ATTR_CUSTOMSHAPE: {
-            if(value.empty()) {
+            if (value.empty()) {
                 return true;
             } else {
                 bool ok = true;
@@ -1067,11 +1059,7 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value) {
             edge->setPermissions(invertPermissions(parseVehicleClasses(value)), myIndex);
             break;
         case SUMO_ATTR_WIDTH:
-            if (value.empty() || (value == "default")) {
-                edge->setLaneWidth(myIndex, NBEdge::UNSPECIFIED_WIDTH);
-            } else {
-                edge->setLaneWidth(myIndex, parse<double>(value));
-            }
+            edge->setLaneWidth(myIndex, parse<double>(value));
             break;
         case SUMO_ATTR_ENDOFFSET:
             edge->setEndOffset(myIndex, parse<double>(value));
@@ -1082,7 +1070,7 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_CUSTOMSHAPE: {
             // first remove edge parent from net
             myNet->removeGLObjectFromGrid(&myParentEdge);
-            if(value.empty()) {
+            if (value.empty()) {
                 edge->setLaneShape(myIndex, PositionVector());
             } else {
                 bool ok;
@@ -1269,7 +1257,7 @@ GNELane::drawAsWaterway(const GUIVisualizationSettings& s) const {
 void
 GNELane::drawDirectionIndicators(double exaggeration, bool spreadSuperposed) const {
     const double width = MAX2(NUMERICAL_EPS, (myParentEdge.getNBEdge()->getLaneWidth(myIndex) * exaggeration
-                          * (spreadSuperposed ? 0.4 : 1)));
+                              * (spreadSuperposed ? 0.4 : 1)));
     const double sideOffset = spreadSuperposed ? width * -0.5 : 0;
     glPushMatrix();
     glTranslated(0, 0, GLO_JUNCTION + 0.1);

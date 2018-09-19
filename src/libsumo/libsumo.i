@@ -223,6 +223,13 @@ def simulationStep(step=0):
     $result = PyTuple_Pack(2, PyUnicode_FromString($1.first.c_str()), PyFloat_FromDouble($1.second));
 };
 
+%extend libsumo::TraCIStage {
+  %pythoncode %{
+    def __repr__(self):
+        return "Stage(%s)" % (", ".join(["%s=%s" % (attr, repr(getter(self))) for attr, getter in self.__swig_getmethods__.items()]))
+  %}
+};
+
 %exceptionclass libsumo::TraCIException;
 
 #endif

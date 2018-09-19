@@ -82,6 +82,9 @@ public:
     /// @brief Stores the timestep of the last on-switched of the phase
     SUMOTime myLastSwitch;
 
+    /// @brief The index of the phase that suceeds this one (or -1)
+    int nextPhase;
+
 private:
     /// @brief The phase definition
     std::string state;
@@ -101,7 +104,7 @@ private:
      */
     LaneIdVector targetLaneSet;
 
-    void init(SUMOTime durationArg, SUMOTime minDurationArg, SUMOTime maxDurationArg, const std::string& stateArg) {
+    void init(SUMOTime durationArg, SUMOTime minDurationArg, SUMOTime maxDurationArg, const std::string& stateArg, int nextPhase) {
         this->duration = durationArg;
         this->minDuration = minDurationArg < 0 ? durationArg : minDurationArg;
         this->maxDuration = (maxDurationArg < 0 || maxDurationArg < minDurationArg) ? durationArg : maxDurationArg;
@@ -110,10 +113,11 @@ private:
         this->myLastSwitch = string2time(OptionsCont::getOptions().getString("begin")); // SUMOTime-option
         //For SOTL phases
         //this->phaseType = phaseTypeArg;
+        this->nextPhase = nextPhase;
     }
 
-    void init(SUMOTime durationArg, SUMOTime minDurationArg, SUMOTime maxDurationArg, const std::string& stateArg, LaneIdVector& targetLaneSetArg) {
-        init(durationArg, minDurationArg, maxDurationArg, stateArg);
+    void init(SUMOTime durationArg, SUMOTime minDurationArg, SUMOTime maxDurationArg, const std::string& stateArg, int nextPhase, LaneIdVector& targetLaneSetArg) {
+        init(durationArg, minDurationArg, maxDurationArg, stateArg, nextPhase);
         //For SOTL target phases
         this->targetLaneSet = targetLaneSetArg;
     }
@@ -127,14 +131,14 @@ public:
      * @param[in] durationArg The duration of the phase
      * @param[in] stateArg The state in the phase
      */
-    MSPhaseDefinition(SUMOTime durationArg, const std::string& stateArg) {
+    MSPhaseDefinition(SUMOTime durationArg, const std::string& stateArg, int nextPhase) {
         //PhaseType phaseType;
         phaseType = PhaseType();
         phaseType[UNDEFINED_BIT] = 1;
         phaseType[TRANSIENT_NOTDECISIONAL_BIT] = 0;
         phaseType[TARGET_BIT] = 0;
         phaseType[COMMIT_BIT] = 0;
-        init(durationArg, durationArg, durationArg, stateArg);
+        init(durationArg, durationArg, durationArg, stateArg, nextPhase);
     }
 
 
@@ -145,14 +149,14 @@ public:
      * @param[in] maxDurationArg The maximum duration of the phase
      * @param[in] stateArg The state in the phase
      */
-    MSPhaseDefinition(SUMOTime durationArg, SUMOTime minDurationArg, SUMOTime maxDurationArg, const std::string& stateArg) {
+    MSPhaseDefinition(SUMOTime durationArg, SUMOTime minDurationArg, SUMOTime maxDurationArg, const std::string& stateArg, int nextPhase) {
         //PhaseType phaseType;
         phaseType = PhaseType();
         phaseType[UNDEFINED_BIT] = 1;
         phaseType[TRANSIENT_NOTDECISIONAL_BIT] = 0;
         phaseType[TARGET_BIT] = 0;
         phaseType[COMMIT_BIT] = 0;
-        init(durationArg, minDurationArg, maxDurationArg, stateArg);
+        init(durationArg, minDurationArg, maxDurationArg, stateArg, nextPhase);
     }
 
     /*
@@ -163,7 +167,7 @@ public:
      * @param[in] targetLaneSet identifies the lane-set to be considered when deciding the target phase to jump to
      * @see MSPhaseDefinition::PhaseType
      */
-    MSPhaseDefinition(SUMOTime durationArg, const std::string& stateArg, bool transient_notdecisional, bool commit, LaneIdVector& targetLaneSetArg) {
+    MSPhaseDefinition(SUMOTime durationArg, const std::string& stateArg, int nextPhase,  bool transient_notdecisional, bool commit, LaneIdVector& targetLaneSetArg) {
         if (targetLaneSetArg.size() == 0) {
             MsgHandler::getErrorInstance()->inform("MSPhaseDefinition::MSPhaseDefinition -> targetLaneSetArg cannot be empty for a target phase");
         }
@@ -173,7 +177,7 @@ public:
         phaseType[TRANSIENT_NOTDECISIONAL_BIT] = transient_notdecisional;
         phaseType[TARGET_BIT] = 1;
         phaseType[COMMIT_BIT] = commit;
-        init(durationArg, durationArg, durationArg, stateArg, targetLaneSetArg);
+        init(durationArg, durationArg, durationArg, stateArg, nextPhase, targetLaneSetArg);
     }
 
     /*
@@ -181,14 +185,14 @@ public:
      * In this phase the duration is fixed, because min and max duration are unspecified
      * @param[in] phaseType Indicates the type of the step
      */
-    MSPhaseDefinition(SUMOTime durationArg, const std::string& stateArg, bool transient_notdecisional, bool commit) {
+    MSPhaseDefinition(SUMOTime durationArg, const std::string& stateArg, int nextPhase, bool transient_notdecisional, bool commit) {
         //PhaseType phaseType;
         phaseType = PhaseType();
         phaseType[UNDEFINED_BIT] = 0;
         phaseType[TRANSIENT_NOTDECISIONAL_BIT] = transient_notdecisional;
         phaseType[TARGET_BIT] = 0;
         phaseType[COMMIT_BIT] = commit;
-        init(durationArg, durationArg, durationArg, stateArg);
+        init(durationArg, durationArg, durationArg, stateArg, nextPhase);
     }
 
 
@@ -199,7 +203,7 @@ public:
      * @param[in] targetLaneSet If not null, specifies this MSPhaseDefinition is a target step
      * @see MSPhaseDefinition::PhaseType
      */
-    MSPhaseDefinition(SUMOTime durationArg, SUMOTime minDurationArg, SUMOTime maxDurationArg, const std::string& stateArg, bool transient_notdecisional, bool commit, LaneIdVector& targetLaneSetArg) {
+    MSPhaseDefinition(SUMOTime durationArg, SUMOTime minDurationArg, SUMOTime maxDurationArg, const std::string& stateArg, int nextPhase, bool transient_notdecisional, bool commit, LaneIdVector& targetLaneSetArg) {
         if (targetLaneSetArg.size() == 0) {
             MsgHandler::getErrorInstance()->inform("MSPhaseDefinition::MSPhaseDefinition -> targetLaneSetArg cannot be empty for a target phase");
         }
@@ -210,7 +214,7 @@ public:
         phaseType[TRANSIENT_NOTDECISIONAL_BIT] = transient_notdecisional;
         phaseType[TARGET_BIT] = 1;
         phaseType[COMMIT_BIT] = commit;
-        init(durationArg, minDurationArg, maxDurationArg, stateArg, targetLaneSetArg);
+        init(durationArg, minDurationArg, maxDurationArg, stateArg, nextPhase, targetLaneSetArg);
     }
 
     /*
@@ -219,14 +223,14 @@ public:
      * @param[in] phaseType Indicates the type of the step
      * @see MSPhaseDefinition::PhaseType
      */
-    MSPhaseDefinition(SUMOTime durationArg, SUMOTime minDurationArg, SUMOTime maxDurationArg, const std::string& stateArg, bool transient_notdecisional, bool commit) {
+    MSPhaseDefinition(SUMOTime durationArg, SUMOTime minDurationArg, SUMOTime maxDurationArg, const std::string& stateArg, int nextPhase, bool transient_notdecisional, bool commit) {
         //PhaseType phaseType;
         phaseType = PhaseType();
         phaseType[UNDEFINED_BIT] = 0;
         phaseType[TRANSIENT_NOTDECISIONAL_BIT] = transient_notdecisional;
         phaseType[TARGET_BIT] = 0;
         phaseType[COMMIT_BIT] = commit;
-        init(durationArg, minDurationArg, maxDurationArg, stateArg);
+        init(durationArg, minDurationArg, maxDurationArg, stateArg, nextPhase);
 
     }
 
@@ -248,6 +252,10 @@ public:
 
     const LaneIdVector& getTargetLaneSet() const {
         return targetLaneSet;
+    }
+
+    int getNextPhase() const {
+        return nextPhase;
     }
 
     /** @brief Returns whether this phase is a pure "green" phase

@@ -111,6 +111,14 @@ public:
         return travelTime * distTravelled / this->getEdge()->getLength();
     }
 
+    double getStartPos() const {
+        return myStartPos;
+    }
+
+    double getEndPos() const {
+        return myStartPos + this->getLength();
+    }
+
 private:
     /// @brief the starting position for split edges
     const double myStartPos;
