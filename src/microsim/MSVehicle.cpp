@@ -1676,7 +1676,7 @@ MSVehicle::getStopEdges() const {
 
 double
 MSVehicle::getBrakeGap() const {
-    getCarFollowModel().brakeGap(getSpeed());
+    return getCarFollowModel().brakeGap(getSpeed());
 }
 
 
