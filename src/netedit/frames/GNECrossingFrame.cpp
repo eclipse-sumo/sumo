@@ -67,11 +67,6 @@ FXIMPLEMENT(GNECrossingFrame,                     FXVerticalFrame,  GNECrossingM
 FXIMPLEMENT(GNECrossingFrame::edgesSelector,      FXGroupBox,       GNEEdgesMap,              ARRAYNUMBER(GNEEdgesMap))
 FXIMPLEMENT(GNECrossingFrame::crossingParameters, FXGroupBox,       GNECrossingParametersMap, ARRAYNUMBER(GNECrossingParametersMap))
 
-// ===========================================================================
-// static members
-// ===========================================================================
-RGBColor GNECrossingFrame::crossingParameters::myCandidateColor;
-RGBColor GNECrossingFrame::crossingParameters::mySelectedColor;
 
 // ===========================================================================
 // method definitions

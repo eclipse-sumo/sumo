@@ -211,10 +211,10 @@ public:
         bool myCurrentParametersValid;
 
         /// @brief color for candidate edges
-        static RGBColor myCandidateColor;
+        RGBColor myCandidateColor;
 
         /// @brief color for selected edges
-        static RGBColor mySelectedColor;
+        RGBColor mySelectedColor;
     };
 
 
