@@ -40,38 +40,38 @@ traci.start(cmd)
 
 traci.simulationStep()
 
-for vType in [
-        '', 'defaultCar', 'slowCar', 'slowCarFactor', 'fastCar']:
-    ppStages("findIntermodalRoute (bike,car,public) - %s" % vType,
-             traci.simulation.findIntermodalRoute("A0B0", "A1B1", 
-                 departPos=900,
-                 arrivalPos=100,
-                 pType="avoid_walking",
-                 vType=vType,
-                 modes="car bicycle public"))
+for modes in [
+    "car bicycle public",
+    "public",
+    ""]:
+    for vType in [
+            '', 'defaultCar', 'slowCar', 'slowCarFactor', 'fastCar']:
+        for pType in [""]:
+            ppStages("findIntermodalRoute modes='%s' vType=%s' pType='%s'" %
+                    (modes, vType, pType),
+                    traci.simulation.findIntermodalRoute("A0B0", "A1B1", 
+                        departPos=900,
+                        arrivalPos=100,
+                        pType=pType,
+                        vType=vType,
+                        modes=modes))
 
-print()
-print()
-for vType in [
-        '', 'defaultCar', 'slowCar', 'slowCarFactor', 'fastCar']:
-    ppStages("findIntermodalRoute (public) - %s" % vType,
-             traci.simulation.findIntermodalRoute("A0B0", "A1B1", 
-                 departPos=900,
-                 arrivalPos=100,
-                 pType="avoid_walking",
-                 vType=vType,
-                 modes="public"))
+    print()
+    print()
 
+for modes in ["public"]:
+    for vType in ['']:
+        for pType in ["", "defaultPed", "slowPed", "slowPedFactor", "fastPed", "fastPedFactor"]:
+            ppStages("findIntermodalRoute modes='%s' vType=%s' pType='%s'" %
+                    (modes, vType, pType),
+                    traci.simulation.findIntermodalRoute("A0B0", "A1B1", 
+                        departPos=900,
+                        arrivalPos=100,
+                        pType=pType,
+                        vType=vType,
+                        modes=modes))
 
-print()
-print()
-for vType in [
-        '', 'defaultCar', 'slowCar', 'slowCarFactor', 'fastCar']:
-    ppStages("findIntermodalRoute () - %s" % vType,
-             traci.simulation.findIntermodalRoute("A0B0", "A1B1", 
-                 departPos=900,
-                 arrivalPos=100,
-                 pType="avoid_walking",
-                 vType=vType,
-                 modes=""))
+    print()
+    print()
+
 traci.close()
