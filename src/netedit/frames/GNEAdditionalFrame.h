@@ -21,16 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#include <config.h>
-
 #include "GNEFrame.h"
-
-// ===========================================================================
-// class declarations
-// ===========================================================================
-class GNEAttributeCarrier;
-class GNENetElement;
-class GNEAdditional;
 
 // ===========================================================================
 // class definitions
@@ -584,11 +575,10 @@ public:
     ~GNEAdditionalFrame();
 
     /**@brief add additional element
-     * @param[in] netElement clicked GNENetElement. If user doesn't clicked over a GNENetElement in view, netElement will be nullptr
-     * @param[in] additional clicked GNEAdditional. If user dind't clicked over a GNENetElement in view, additional will be nullptr
-     * @return AddAdditionalStatus with the result of operation
+     * @param objectsUnderCursor collection of objects under cursor after click over view
+     * @return true if additional was sucesfully added
      */
-    bool addAdditional(GNENetElement* netElement, GNEAdditional* additional);
+    bool addAdditional(const GNEViewNet::ObjectsUnderCursor &objectsUnderCursor);
 
     /**@brief remove an additional element previously added
      * @param[in] additional element to erase

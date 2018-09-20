@@ -37,7 +37,6 @@
 #include <netbuild/NBNetBuilder.h>
 #include <netbuild/NBOwnTLDef.h>
 #include <netedit/changes/GNEChange_TLS.h>
-#include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/GNENet.h>
 #include <netedit/netelements/GNEJunction.h>

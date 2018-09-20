@@ -85,6 +85,7 @@ class GNEPOI;
 class GNEFrame;
 class GNENetElement;
 class GNECrossing;
+class GNEInternalLane;
 class GNEAttributeCarrier;
 
 // ===========================================================================
@@ -99,6 +100,75 @@ class GNEViewNet : public GUISUMOAbstractView {
     FXDECLARE(GNEViewNet)
 
 public:
+
+    /// @brief class used to group all variables related with objects under cursor after a click over view
+    class ObjectsUnderCursor {
+    public:
+        /// @brief constructor
+        ObjectsUnderCursor();
+
+        /// @brief update objects under cursor (Called only in onLeftBtnPress(...) function)
+        void updateObjectUnderCursor(GUIGlID glIDObject, GNEPoly* editedPolyShape, FXEvent* ev);
+
+        /// @brief swap lane to edge
+        void swapLane2Edge();
+
+        /// @brief check if SHIFT key was pressed during click
+        bool shiftKeyPressed() const;
+
+        /// @brief check if CONTROL key was pressed during click
+        bool controlKeyPressed() const;
+
+        /// @brief information of event of onLeftBtnPress
+        FXEvent* eventInfo;
+
+        /// @brief GUI GL ID
+        GUIGlID glID;
+
+        /// @brief GUI GL object type
+        GUIGlObjectType glType;
+
+        /// @brief attribute carrier
+        GNEAttributeCarrier* attributeCarrier;
+
+        /// @brief net element
+        GNENetElement* netElement;
+
+        /// @brief additional element
+        GNEAdditional* additional;
+
+        /// @brief shape element (Poly and POIs)
+        GNEShape* shape;
+
+        /// @brief junction
+        GNEJunction* junction;
+
+        /// @brief edge
+        GNEEdge* edge;
+
+        /// @brief lane
+        GNELane* lane;
+
+        /// @brief crossing
+        GNECrossing* crossing;
+
+        /// @brief connection
+        GNEConnection* connection;
+
+        /// @brief POI
+        GNEPOI* poi;
+
+        /// @brief Poly
+        GNEPoly* poly;
+
+    private:
+        /// @brief Invalidated copy constructor.
+        ObjectsUnderCursor(const ObjectsUnderCursor&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        ObjectsUnderCursor& operator=(const ObjectsUnderCursor&) = delete;
+    };
+
     /* @brief constructor
      * @param[in] tmpParent temporal FXFrame parent so that we can add items to view area in the desired order
      * @param[in] actualParent FXFrame parent of GNEViewNet
@@ -469,81 +539,6 @@ private:
 
         /// @brief current index of shape that are being moved
         int movingIndexShape;
-    };
-
-    /// @brief class used to group all variables related with objects under cursor after a click over view
-    class ObjectsUnderCursor {
-    public:
-        /// @brief constructor
-        ObjectsUnderCursor():
-            eventInfo(nullptr),
-            glID(0),
-            glType(GLO_NETWORK),
-            attributeCarrier(nullptr),
-            netElement(nullptr),
-            additional(nullptr),
-            shape(nullptr),
-            junction(nullptr),
-            edge(nullptr),
-            lane(nullptr),
-            crossing(nullptr),
-            connection(nullptr),
-            poi(nullptr),
-            poly(nullptr) {}
-
-        /// @brief update objects under cursor (Called only in onLeftBtnPress(...) function)
-        void updateObjectUnderCursor(GUIGlID glIDObject, GNEPoly* editedPolyShape, FXEvent* ev);
-
-        /// @brief swap lane to edge
-        void swapLane2Edge();
-
-        /// @brief check if SHIFT key was pressed during click
-        bool shiftKeyPressed() const;
-
-        /// @brief check if CONTROL key was pressed during click
-        bool controlKeyPressed() const;
-
-        /// @brief information of event of onLeftBtnPress
-        FXEvent* eventInfo;
-
-        /// @brief GUI GL ID
-        GUIGlID glID;
-
-        /// @brief GUI GL object type
-        GUIGlObjectType glType;
-
-        /// @brief attribute carrier
-        GNEAttributeCarrier* attributeCarrier;
-
-        /// @brief net element
-        GNENetElement* netElement;
-
-        /// @brief additional element
-        GNEAdditional* additional;
-
-        /// @brief shape element (Poly and POIs)
-        GNEShape* shape;
-
-        /// @brief junction
-        GNEJunction* junction;
-
-        /// @brief edge
-        GNEEdge* edge;
-
-        /// @brief lane
-        GNELane* lane;
-
-        /// @brief crossing
-        GNECrossing* crossing;
-
-        /// @brief connection
-        GNEConnection* connection;
-
-        /// @brief POI
-        GNEPOI* poi;
-
-        /// @brief Poly
-        GNEPoly* poly;
     };
 
     /// @brief struct used to group all variables related with selecting using a square or polygon

@@ -155,6 +155,153 @@ FXIMPLEMENT(GNEViewNet, GUISUMOAbstractView, GNEViewNetMap, ARRAYNUMBER(GNEViewN
 // member method definitions
 // ===========================================================================
 
+// ---------------------------------------------------------------------------
+// GNEViewNet::ObjectsUnderCursor - methods
+// ---------------------------------------------------------------------------
+
+GNEViewNet::ObjectsUnderCursor::ObjectsUnderCursor():
+    eventInfo(nullptr),
+    glID(0),
+    glType(GLO_NETWORK),
+    attributeCarrier(nullptr),
+    netElement(nullptr),
+    additional(nullptr),
+    shape(nullptr),
+    junction(nullptr),
+    edge(nullptr),
+    lane(nullptr),
+    crossing(nullptr),
+    connection(nullptr),
+    poi(nullptr),
+    poly(nullptr) {}
+
+
+void
+GNEViewNet::ObjectsUnderCursor::updateObjectUnderCursor(GUIGlID glIDObject, GNEPoly* editedPolyShape, FXEvent* ev) {
+    // first reset all variables
+    eventInfo = nullptr;
+    glType = GLO_NETWORK;
+    attributeCarrier = nullptr;
+    netElement = nullptr;
+    additional = nullptr;
+    shape = nullptr;
+    junction = nullptr;
+    edge = nullptr;
+    lane = nullptr;
+    crossing = nullptr;
+    connection = nullptr;
+    poi = nullptr;
+    poly = nullptr;
+    // set event
+    eventInfo = ev;
+    // set GLID of object under cursor
+    glID = glIDObject;
+    // only continue if isn't 0
+    if (glID == 0) {
+        return;
+    }
+    // obtain glObject associated to these glID
+    GUIGlObject* glObject = GUIGlObjectStorage::gIDStorage.getObjectBlocking(glID);
+    GUIGlObjectStorage::gIDStorage.unblockObject(glID);
+    // only continue if glObject isn't nullptr;
+    if (glObject == nullptr) {
+        return;
+    }
+    // set glType
+    glType = glObject->getType();
+    // cast attribute carrier from glObject
+    attributeCarrier = dynamic_cast<GNEAttributeCarrier*>(glObject);
+    // only continue if attributeCarrier isn't nullptr;
+    if (attributeCarrier == nullptr) {
+        return;
+    }
+    // If we're editing a shape, ignore rest of elements (including other polygons)
+    if (editedPolyShape != nullptr) {
+        if (attributeCarrier == editedPolyShape) {
+            // cast Poly from attribute carrier
+            poly = dynamic_cast<GNEPoly*>(attributeCarrier);
+        }
+    } else {
+        // obtain tag property (only for improve code legibility)
+        const auto& tagValue = GNEAttributeCarrier::getTagProperties(attributeCarrier->getTag());
+        // check if attributeCarrier can be casted into netElement, additional or shape
+        if (tagValue.isNetElement()) {
+            // cast netElement from attribute carrier
+            netElement = dynamic_cast<GNENetElement*>(attributeCarrier);
+        } else if (tagValue.isAdditional()) {
+            // cast additional element from attribute carrier
+            additional = dynamic_cast<GNEAdditional*>(attributeCarrier);
+        } else if (tagValue.isShape()) {
+            // cast shape element from attribute carrier
+            shape = dynamic_cast<GNEShape*>(attributeCarrier);
+        } else {
+            // element isn't specified, then stop
+            return;
+        }
+        // now set specify AC type
+        switch (glObject->getType()) {
+            case GLO_JUNCTION:
+                junction = dynamic_cast<GNEJunction*>(attributeCarrier);
+                break;
+            case GLO_EDGE:
+                edge = dynamic_cast<GNEEdge*>(attributeCarrier);
+                break;
+            case GLO_LANE:
+                lane = dynamic_cast<GNELane*>(attributeCarrier);
+                break;
+            case GLO_POI:
+                poi = dynamic_cast<GNEPOI*>(attributeCarrier);
+                break;
+            case GLO_POLYGON:
+                poly = dynamic_cast<GNEPoly*>(attributeCarrier);
+                break;
+            case GLO_CROSSING:
+                crossing = dynamic_cast<GNECrossing*>(attributeCarrier);
+                break;
+            case GLO_CONNECTION:
+                connection = dynamic_cast<GNEConnection*>(attributeCarrier);
+                break;
+            default:
+                break;
+        }
+    }
+}
+
+
+void
+GNEViewNet::ObjectsUnderCursor::swapLane2Edge() {
+    if (lane) {
+        edge = &lane->getParentEdge();
+        netElement = edge;
+        attributeCarrier = edge;
+        glType = GLO_EDGE;
+    }
+}
+
+
+bool
+GNEViewNet::ObjectsUnderCursor::shiftKeyPressed() const {
+    if (eventInfo) {
+        return (eventInfo->state & SHIFTMASK) != 0;
+    } else {
+        return false;
+    }
+}
+
+
+bool
+GNEViewNet::ObjectsUnderCursor::controlKeyPressed() const {
+    if (eventInfo) {
+        return (eventInfo->state & CONTROLMASK) != 0;
+    } else {
+        return false;
+    }
+}
+
+// ---------------------------------------------------------------------------
+// GNEViewNet - methods
+// ---------------------------------------------------------------------------
+
 GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMainWindow& app,
                        GNEViewParent* viewParent, GNENet* net, GNEUndoList* undoList,
                        FXGLVisual* glVis, FXGLCanvas* share, FXToolBar* toolBar) :
@@ -466,10 +613,10 @@ GNEViewNet::beginMoveSelection(GNEAttributeCarrier* originAC, const Position& or
             // find/create point to move for other edges
             for (auto i : noJunctionsSelected) {
                 if (i != clickedEdge) {
-                    int index = i->getVertexIndex(originPositionOnClicked);
-                    myOriginShapesMovedPartialShapes[i].index = index;
-                    if (index >= 0) {
-                        myOriginShapesMovedPartialShapes[i].originalPosition = i->getNBEdge()->getInnerGeometry()[index];
+                    int movingIndex = i->getVertexIndex(originPositionOnClicked);
+                    myOriginShapesMovedPartialShapes[i].index = movingIndex;
+                    if (movingIndex >= 0) {
+                        myOriginShapesMovedPartialShapes[i].originalPosition = i->getNBEdge()->getInnerGeometry()[movingIndex];
                     }
                 }
             }
@@ -655,9 +802,9 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
             if (segments >= 0) {
                 shapeRotations.reserve(segments);
                 shapeLengths.reserve(segments);
-                for (int i = 0; i < segments; ++i) {
-                    const Position& f = shape[i];
-                    const Position& s = shape[i + 1];
+                for (int j = 0; j < segments; j++) {
+                    const Position& f = shape[j];
+                    const Position& s = shape[j + 1];
                     shapeLengths.push_back(f.distanceTo2D(s));
                     shapeRotations.push_back((double) atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double)M_PI);
                 }
@@ -944,7 +1091,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
             }
             case GNE_MODE_ADDITIONAL: {
                 // add additional
-                myViewParent->getAdditionalFrame()->addAdditional(myObjectsUnderCursor.netElement, myObjectsUnderCursor.additional);
+                myViewParent->getAdditionalFrame()->addAdditional(myObjectsUnderCursor);
                 update();
                 // process click
                 processClick(evt, eventData);
@@ -2928,128 +3075,6 @@ GNEViewNet::updateControls() {
             break;
         default:
             break;
-    }
-}
-
-void
-GNEViewNet::ObjectsUnderCursor::updateObjectUnderCursor(GUIGlID glIDObject, GNEPoly* editedPolyShape, FXEvent* ev) {
-    // first reset all variables
-    eventInfo = nullptr;
-    glType = GLO_NETWORK;
-    attributeCarrier = nullptr;
-    netElement = nullptr;
-    additional = nullptr;
-    shape = nullptr;
-    junction = nullptr;
-    edge = nullptr;
-    lane = nullptr;
-    crossing = nullptr;
-    connection = nullptr;
-    poi = nullptr;
-    poly = nullptr;
-    // set event
-    eventInfo = ev;
-    // set GLID of object under cursor
-    glID = glIDObject;
-    // only continue if isn't 0
-    if (glID == 0) {
-        return;
-    }
-    // obtain glObject associated to these glID
-    GUIGlObject* glObject = GUIGlObjectStorage::gIDStorage.getObjectBlocking(glID);
-    GUIGlObjectStorage::gIDStorage.unblockObject(glID);
-    // only continue if glObject isn't nullptr;
-    if (glObject == nullptr) {
-        return;
-    }
-    // set glType
-    glType = glObject->getType();
-    // cast attribute carrier from glObject
-    attributeCarrier = dynamic_cast<GNEAttributeCarrier*>(glObject);
-    // only continue if attributeCarrier isn't nullptr;
-    if (attributeCarrier == nullptr) {
-        return;
-    }
-    // If we're editing a shape, ignore rest of elements (including other polygons)
-    if (editedPolyShape != nullptr) {
-        if (attributeCarrier == editedPolyShape) {
-            // cast Poly from attribute carrier
-            poly = dynamic_cast<GNEPoly*>(attributeCarrier);
-        }
-    } else {
-        // obtain tag property (only for improve code legibility)
-        const auto& tagValue = GNEAttributeCarrier::getTagProperties(attributeCarrier->getTag());
-        // check if attributeCarrier can be casted into netElement, additional or shape
-        if (tagValue.isNetElement()) {
-            // cast netElement from attribute carrier
-            netElement = dynamic_cast<GNENetElement*>(attributeCarrier);
-        } else if (tagValue.isAdditional()) {
-            // cast additional element from attribute carrier
-            additional = dynamic_cast<GNEAdditional*>(attributeCarrier);
-        } else if (tagValue.isShape()) {
-            // cast shape element from attribute carrier
-            shape = dynamic_cast<GNEShape*>(attributeCarrier);
-        } else {
-            // element isn't specified, then stop
-            return;
-        }
-        // now set specify AC type
-        switch (glObject->getType()) {
-            case GLO_JUNCTION:
-                junction = dynamic_cast<GNEJunction*>(attributeCarrier);
-                break;
-            case GLO_EDGE:
-                edge = dynamic_cast<GNEEdge*>(attributeCarrier);
-                break;
-            case GLO_LANE:
-                lane = dynamic_cast<GNELane*>(attributeCarrier);
-                break;
-            case GLO_POI:
-                poi = dynamic_cast<GNEPOI*>(attributeCarrier);
-                break;
-            case GLO_POLYGON:
-                poly = dynamic_cast<GNEPoly*>(attributeCarrier);
-                break;
-            case GLO_CROSSING:
-                crossing = dynamic_cast<GNECrossing*>(attributeCarrier);
-                break;
-            case GLO_CONNECTION:
-                connection = dynamic_cast<GNEConnection*>(attributeCarrier);
-                break;
-            default:
-                break;
-        }
-    }
-}
-
-
-void
-GNEViewNet::ObjectsUnderCursor::swapLane2Edge() {
-    if (lane) {
-        edge = &lane->getParentEdge();
-        netElement = edge;
-        attributeCarrier = edge;
-        glType = GLO_EDGE;
-    }
-}
-
-
-bool
-GNEViewNet::ObjectsUnderCursor::shiftKeyPressed() const {
-    if (eventInfo) {
-        return (eventInfo->state & SHIFTMASK) != 0;
-    } else {
-        return false;
-    }
-}
-
-
-bool
-GNEViewNet::ObjectsUnderCursor::controlKeyPressed() const {
-    if (eventInfo) {
-        return (eventInfo->state & CONTROLMASK) != 0;
-    } else {
-        return false;
     }
 }
 

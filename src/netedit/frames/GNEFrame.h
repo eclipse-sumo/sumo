@@ -20,8 +20,6 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#include <config.h>
-
 #include <fx.h>
 #include <netbuild/NBEdge.h>
 #include <netbuild/NBTrafficLightLogic.h>
@@ -29,12 +27,8 @@
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <netedit/GNEAttributeCarrier.h>
+#include <netedit/GNEViewNet.h>
 
-// ===========================================================================
-// class declarations
-// ===========================================================================
-class GNEViewNet;
-class GNEUndoList;
 
 // ===========================================================================
 // class definitions

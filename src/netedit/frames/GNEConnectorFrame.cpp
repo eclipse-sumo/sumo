@@ -30,7 +30,6 @@
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <netedit/changes/GNEChange_Connection.h>
 #include <netedit/GNEViewParent.h>
-#include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNENet.h>
 #include <netedit/netelements/GNELane.h>

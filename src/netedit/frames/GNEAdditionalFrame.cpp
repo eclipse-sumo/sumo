@@ -47,7 +47,6 @@
 #include <netedit/additionals/GNERerouter.h>
 #include <netedit/additionals/GNEVariableSpeedSign.h>
 #include <netedit/additionals/GNEVariableSpeedSignStep.h>
-#include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 
 #include "GNEAdditionalFrame.h"
@@ -648,18 +647,18 @@ GNEAdditionalFrame::ConsecutiveLaneSelector::addSelectedLane(GNELane *lane) {
                 mySelectedLanes.push_back(lane);
                 lane->setSpecialColor(&mySelectedLaneColor);
                 // restore original color of candidates (except already selected)
-                for (auto i : myCandidateLanes) {
-                    if(std::find(mySelectedLanes.begin(), mySelectedLanes.end(), i) == mySelectedLanes.end()) {
-                        i->setSpecialColor(0);
+                for (auto j : myCandidateLanes) {
+                    if(std::find(mySelectedLanes.begin(), mySelectedLanes.end(), j) == mySelectedLanes.end()) {
+                        j->setSpecialColor(0);
                     }
                 }
                 myCandidateLanes.clear();
                 // change color of new lane candidadtes
-                for (auto i : mySelectedLanes.back()->getParentEdge().getGNEJunctionDestiny()->getGNEOutgoingEdges()) {
-                    for(auto j : i->getLanes()) {
-                        if(std::find(mySelectedLanes.begin(), mySelectedLanes.end(), j) == mySelectedLanes.end()) {
-                            j->setSpecialColor(&myCandidateLaneColor);
-                            myCandidateLanes.push_back(j);
+                for (auto j : mySelectedLanes.back()->getParentEdge().getGNEJunctionDestiny()->getGNEOutgoingEdges()) {
+                    for(auto k : j->getLanes()) {
+                        if(std::find(mySelectedLanes.begin(), mySelectedLanes.end(), k) == mySelectedLanes.end()) {
+                            k->setSpecialColor(&myCandidateLaneColor);
+                            myCandidateLanes.push_back(k);
                         }
                     }
                 }
@@ -1340,7 +1339,7 @@ GNEAdditionalFrame::~GNEAdditionalFrame() {}
 
 
 bool
-GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GNEAdditional* additionalElement) {
+GNEAdditionalFrame::addAdditional(const GNEViewNet::ObjectsUnderCursor &objectsUnderCursor) {
     // first check that current selected additional is valid
     if (myAdditionalSelector->getCurrentAdditionalType() == SUMO_TAG_NOTHING) {
         myViewNet->setStatusBarText("Current selected additional isn't valid.");
@@ -1355,18 +1354,12 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GNEAdditional* addi
     // limit position depending if show grid is enabled
     Position currentPosition = myViewNet->snapToActiveGrid(myViewNet->getPositionInformation());
 
-    // Declare pointer to netElements
-    GNEJunction* pointed_junction = nullptr;
-    GNEEdge* pointed_edge = nullptr;
-    GNELane* pointed_lane = nullptr;
-    GNECrossing* pointed_crossing = nullptr;
-
     // If element owns an additional parent, get id of parent from AdditionalParentSelector
     if (tagValue.hasParent()) {
         // if user click over an additional element parent, mark int in AdditionalParentSelector
-        if (additionalElement && (additionalElement->getTag() == tagValue.getParentTag())) {
-            valuesOfElement[GNE_ATTR_PARENT] = additionalElement->getID();
-            myFirstAdditionalParentSelector->setIDSelected(additionalElement->getID());
+        if (objectsUnderCursor.additional && (objectsUnderCursor.additional->getTag() == tagValue.getParentTag())) {
+            valuesOfElement[GNE_ATTR_PARENT] = objectsUnderCursor.additional->getID();
+            myFirstAdditionalParentSelector->setIDSelected(objectsUnderCursor.additional->getID());
         }
         // stop if currently there isn't a valid selected parent
         if (myFirstAdditionalParentSelector->getIdSelected() != "") {
@@ -1379,58 +1372,51 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GNEAdditional* addi
 
     // Check if additional should be placed over a junction
     if (tagValue.hasAttribute(SUMO_ATTR_JUNCTION)) {
-        pointed_junction = dynamic_cast<GNEJunction*>(netElement);
-        if (pointed_junction != nullptr) {
+        if (objectsUnderCursor.junction) {
             // show warning dialogbox and stop check if input parameters are valid
             if (myAdditionalParameters->areValuesValid() == false) {
                 myAdditionalParameters->showWarningMessage();
                 return false;
             }
             // Get attribute junction
-            valuesOfElement[SUMO_ATTR_JUNCTION] = pointed_junction->getID();
+            valuesOfElement[SUMO_ATTR_JUNCTION] = objectsUnderCursor.junction->getID();
             // Generate id of element based on the junction
-            valuesOfElement[SUMO_ATTR_ID] = generateID(pointed_junction);
+            valuesOfElement[SUMO_ATTR_ID] = generateID(objectsUnderCursor.junction);
         } else {
             return false;
         }
     }
     // Check if additional should be placed over a edge
-    else if (tagValue.hasAttribute(SUMO_ATTR_EDGE) ||
-             (myAdditionalSelector->getCurrentAdditionalType() == SUMO_TAG_VAPORIZER)) {
-        // Due a edge is composed of lanes, its neccesary check if clicked element is an lane
-        if (dynamic_cast<GNELane*>(netElement) != nullptr) {
-            pointed_edge = &(dynamic_cast<GNELane*>(netElement)->getParentEdge());
-        }
-        if (pointed_edge != nullptr) {
+    else if (tagValue.hasAttribute(SUMO_ATTR_EDGE) || (myAdditionalSelector->getCurrentAdditionalType() == SUMO_TAG_VAPORIZER)) {
+        if (objectsUnderCursor.edge) {
             // show warning dialogbox and stop check if input parameters are valid
             if (myAdditionalParameters->areValuesValid() == false) {
                 myAdditionalParameters->showWarningMessage();
                 return false;
             }
             // Get attribute edge
-            valuesOfElement[SUMO_ATTR_EDGE] = pointed_edge->getID();
+            valuesOfElement[SUMO_ATTR_EDGE] = objectsUnderCursor.edge->getID();
             // Generate id of element based on the edge
-            valuesOfElement[SUMO_ATTR_ID] = generateID(pointed_edge);
+            valuesOfElement[SUMO_ATTR_ID] = generateID(objectsUnderCursor.edge);
         } else {
             return false;
         }
     }
     // Check if additional should be placed over a lane
     else if (tagValue.hasAttribute(SUMO_ATTR_LANE) || tagValue.hasAttribute(SUMO_ATTR_LANES)) {
-        pointed_lane = dynamic_cast<GNELane*>(netElement);
-        if (pointed_lane != nullptr) {
+        if (objectsUnderCursor.lane) {
             // show warning dialogbox and stop check if input parameters are valid
             if (myAdditionalParameters->areValuesValid() == false) {
                 myAdditionalParameters->showWarningMessage();
                 return false;
             }
             if(tagValue.hasAttribute(SUMO_ATTR_LANES)) {
-                myConsecutiveLaneSelector->addSelectedLane(pointed_lane);
+                myConsecutiveLaneSelector->addSelectedLane(objectsUnderCursor.lane);
             } else {
                 // Get attribute lane
-                valuesOfElement[SUMO_ATTR_LANE] = pointed_lane->getID();
+                valuesOfElement[SUMO_ATTR_LANE] = objectsUnderCursor.lane->getID();
                 // Generate id of element based on the lane
-                valuesOfElement[SUMO_ATTR_ID] = generateID(pointed_lane);
+                valuesOfElement[SUMO_ATTR_ID] = generateID(objectsUnderCursor.lane);
             }
         } else {
             return false;
@@ -1438,17 +1424,16 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GNEAdditional* addi
     }
     // Check if additional should be placed over a crossing
     else if (tagValue.hasAttribute(SUMO_ATTR_CROSSING)) {
-        pointed_crossing = dynamic_cast<GNECrossing*>(netElement);
-        if (pointed_crossing != nullptr) {
+        if (objectsUnderCursor.crossing) {
             // show warning dialogbox and stop check if input parameters are valid
             if (myAdditionalParameters->areValuesValid() == false) {
                 myAdditionalParameters->showWarningMessage();
                 return false;
             }
             // Get attribute crossing
-            valuesOfElement[SUMO_ATTR_CROSSING] = pointed_crossing->getID();
+            valuesOfElement[SUMO_ATTR_CROSSING] = objectsUnderCursor.crossing->getID();
             // Generate id of element based on the crossing
-            valuesOfElement[SUMO_ATTR_ID] = generateID(pointed_crossing);
+            valuesOfElement[SUMO_ATTR_ID] = generateID(objectsUnderCursor.crossing);
         } else {
             return false;
         }
@@ -1465,9 +1450,9 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GNEAdditional* addi
 
     // Obtain position attribute if wasn't previously setted
     if (valuesOfElement.find(SUMO_ATTR_POSITION) == valuesOfElement.end()) {
-        if (pointed_edge) {
+        if (objectsUnderCursor.edge) {
             // Obtain position of the mouse over edge
-            double positionOfTheMouseOverEdge = pointed_edge->getLanes().at(0)->getShape().nearest_offset_to_point2D(currentPosition);
+            double positionOfTheMouseOverEdge = objectsUnderCursor.edge->getLanes().at(0)->getShape().nearest_offset_to_point2D(currentPosition);
             // If element has a StartPosition and EndPosition over edge, extract attributes
             if (tagValue.hasAttribute(SUMO_ATTR_STARTPOS) && tagValue.hasAttribute(SUMO_ATTR_ENDPOS)) {
                 // First check that current length is valid
@@ -1479,7 +1464,7 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GNEAdditional* addi
                     } else {
                         // set start and end position
                         valuesOfElement[SUMO_ATTR_STARTPOS] = toString(setStartPosition(positionOfTheMouseOverEdge, myNeteditParameters->getLength()));
-                        valuesOfElement[SUMO_ATTR_ENDPOS] = toString(setEndPosition(pointed_edge->getLanes().at(0)->getLaneShapeLength(), positionOfTheMouseOverEdge, myNeteditParameters->getLength()));
+                        valuesOfElement[SUMO_ATTR_ENDPOS] = toString(setEndPosition(objectsUnderCursor.edge->getLanes().at(0)->getLaneShapeLength(), positionOfTheMouseOverEdge, myNeteditParameters->getLength()));
                     }
                 } else {
                     return false;
@@ -1487,9 +1472,9 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GNEAdditional* addi
             }
             // Extract position of lane
             valuesOfElement[SUMO_ATTR_POSITION] = toString(positionOfTheMouseOverEdge);
-        } else if (pointed_lane) {
+        } else if (objectsUnderCursor.lane) {
             // Obtain position of the mouse over lane
-            double positionOfTheMouseOverLane = pointed_lane->getShape().nearest_offset_to_point2D(currentPosition) / pointed_lane->getLengthGeometryFactor();
+            double positionOfTheMouseOverLane = objectsUnderCursor.lane->getShape().nearest_offset_to_point2D(currentPosition) / objectsUnderCursor.lane->getLengthGeometryFactor();
             // If element has a StartPosition and EndPosition over lane, extract attributes
             if (tagValue.hasAttribute(SUMO_ATTR_STARTPOS) && tagValue.hasAttribute(SUMO_ATTR_ENDPOS)) {
                 // First check that current length is valid
@@ -1501,7 +1486,7 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GNEAdditional* addi
                     } else {
                         // set start and end position
                         valuesOfElement[SUMO_ATTR_STARTPOS] = toString(setStartPosition(positionOfTheMouseOverLane, myNeteditParameters->getLength()));
-                        valuesOfElement[SUMO_ATTR_ENDPOS] = toString(setEndPosition(pointed_lane->getLaneShapeLength(), positionOfTheMouseOverLane, myNeteditParameters->getLength()));
+                        valuesOfElement[SUMO_ATTR_ENDPOS] = toString(setEndPosition(objectsUnderCursor.lane->getLaneShapeLength(), positionOfTheMouseOverLane, myNeteditParameters->getLength()));
                     }
                 } else {
                     return false;

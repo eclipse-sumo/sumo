@@ -43,7 +43,6 @@
 #include <netedit/additionals/GNEPOI.h>
 #include <netedit/additionals/GNEPoly.h>
 #include <netedit/GNEUndoList.h>
-#include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 
 #include "GNEProhibitionFrame.h"
@@ -134,29 +133,29 @@ GNEProhibitionFrame::handleConnectionClick(GNEConnection* conn, bool /* mayDefin
         NBEdge* currentConnFrom = myCurrentConn->getEdgeFrom()->getNBEdge();
         NBEdge* currentConnTo = myCurrentConn->getEdgeTo()->getNBEdge();
 
-        for (auto conn : allConns) {
-            if (conn != myCurrentConn) {
-                NBEdge* otherConnFrom = conn->getEdgeFrom()->getNBEdge();
-                NBEdge* otherConnTo = conn->getEdgeTo()->getNBEdge();
+        for (auto i : allConns) {
+            if (i != myCurrentConn) {
+                NBEdge* otherConnFrom = i->getEdgeFrom()->getNBEdge();
+                NBEdge* otherConnTo = i->getEdgeTo()->getNBEdge();
 
                 // determine the prohibition status
                 bool foes = node->foes(currentConnFrom, currentConnTo, otherConnFrom, otherConnTo);
                 bool forbids = node->forbids(currentConnFrom, currentConnTo, otherConnFrom, otherConnTo, true);
                 bool forbidden = node->forbids(otherConnFrom, otherConnTo, currentConnFrom, currentConnTo, true);
 
-                myConcernedConns.insert(conn);
+                myConcernedConns.insert(i);
 
                 if (!foes) {
-                    conn->setSpecialColor(&undefinedColor);
+                    i->setSpecialColor(&undefinedColor);
                 } else {
                     if (forbids && forbidden) {
-                        conn->setSpecialColor(&mutualConflictColor);
+                        i->setSpecialColor(&mutualConflictColor);
                     } else if (forbids) {
-                        conn->setSpecialColor(&prohibitedColor);
+                        i->setSpecialColor(&prohibitedColor);
                     } else if (forbidden) {
-                        conn->setSpecialColor(&prohibitingColor);
+                        i->setSpecialColor(&prohibitingColor);
                     } else {
-                        conn->setSpecialColor(&unregulatedConflictColor);
+                        i->setSpecialColor(&unregulatedConflictColor);
                     }
                 }
             }
