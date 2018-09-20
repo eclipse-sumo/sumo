@@ -83,10 +83,11 @@ public:
         ATTRPROPERTY_TIME =         1 << 14,    // Attribute is a Time (float positive)
         ATTRPROPERTY_ANGLE =        1 << 15,    // Attribute is an angle (only takes values between 0 and 360, including both, another value will be automatically reduced
         ATTRPROPERTY_LIST =         1 << 16,    // Attribute is a list of other elements separated by spaces
-        ATTRPROPERTY_OPTIONAL =     1 << 17,    // Attribute is optional
-        ATTRPROPERTY_DEFAULTVALUE = 1 << 18,    // Attribute owns a default value
-        ATTRPROPERTY_COMBINABLE =   1 << 19,    // Attribute is combinable with other Attribute
-        ATTRPROPERTY_SYNONYM =      1 << 20,    // Element will be written with a different name in der XML
+        ATTRPROPERTY_SECUENCIAL =   1 << 17,    // Attribute is a special sequence of elements (for example: secuencial lanes in Multi Lane E2 detectors)
+        ATTRPROPERTY_OPTIONAL =     1 << 18,    // Attribute is optional
+        ATTRPROPERTY_DEFAULTVALUE = 1 << 19,    // Attribute owns a default value
+        ATTRPROPERTY_COMBINABLE =   1 << 20,    // Attribute is combinable with other Attribute
+        ATTRPROPERTY_SYNONYM =      1 << 21,    // Element will be written with a different name in der XML
     };
 
     /// @brief struct with the attribute Properties

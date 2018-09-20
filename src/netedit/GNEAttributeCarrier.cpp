@@ -1525,8 +1525,8 @@ GNEAttributeCarrier::fillAttributeCarriers() {
                                                "The id of Multilane E2",
                                                "");
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_LANES,
-                                               ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_UNIQUE,
-                                               "The list lane ids in which the detector shall be laid on",
+                                               ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_SECUENCIAL | ATTRPROPERTY_UNIQUE,
+                                               "The list of secuencial lane ids in which the detector shall be laid on",
                                                "");
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_POSITION,
                                                ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE,
