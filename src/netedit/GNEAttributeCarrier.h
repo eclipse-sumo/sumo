@@ -165,6 +165,9 @@ public:
         /// @brief return true if atribute is a list
         bool isList() const;
 
+        /// @brief return true if atribute is sequential
+        bool isSecuential() const;
+
         /// @brief return true if atribute is unique
         bool isUnique() const;
 

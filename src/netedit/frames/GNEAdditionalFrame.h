@@ -375,7 +375,7 @@ public:
 
         /// @brief color for selected lanes
         RGBColor mySelectedLaneColor;
-
+    public:
         /// @brief position of cursor mouse over first lane
         double myFirstPosition;
     };

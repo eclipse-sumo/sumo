@@ -1390,6 +1390,8 @@ GNEViewNet::hotkeyEnter() {
         if (myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->isSelectingLanes()) {
             // stop select lanes
             myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->stopConsecutiveLaneSelector();
+            // try to create additional
+            myViewParent->getAdditionalFrame()->addAdditional(myObjectsUnderCursor);
         }
     }
 }

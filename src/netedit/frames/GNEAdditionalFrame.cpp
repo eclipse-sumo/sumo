@@ -1477,8 +1477,8 @@ GNEAdditionalFrame::buildAdditionalCommonAttributes(std::map<SumoXMLAttr, std::s
             return false;
         }
     }
-    // If element own a list of SelectorParentLanes as attribute
-    if (tagValues.hasAttribute(SUMO_ATTR_LANES)) {
+    // If element own a list of non secuencial SelectorParentLanes as attribute
+    if (tagValues.hasAttribute(SUMO_ATTR_LANES) && !tagValues.getAttribute(SUMO_ATTR_LANES).isSecuential()) {
         if (myLaneParentsSelector->isUseSelectedLanesEnable()) {
             // Declare a vector of Id's
             std::vector<std::string> vectorOfIds;
@@ -1518,12 +1518,22 @@ GNEAdditionalFrame::buildAdditionalWithConsecutiveLanes(std::map<SumoXMLAttr, st
         }
     }
     else {
-        valuesMap[SUMO_ATTR_POSITION] = lane->getShape().nearest_offset_to_point2D(myViewNet->snapToActiveGrid(myViewNet->getPositionInformation())) / lane->getLengthGeometryFactor();
+        valuesMap[SUMO_ATTR_POSITION] = toString(myConsecutiveLaneSelector->myFirstPosition);
         valuesMap[SUMO_ATTR_LANES] = GNEAttributeCarrier::parseIDs(myConsecutiveLaneSelector->getSelectedLanes());
     }
+    // Generate id of element based on the first lane
+    valuesMap[SUMO_ATTR_ID] = generateID(myConsecutiveLaneSelector->getSelectedLanes().front());
     // show warning dialogbox and stop check if input parameters are valid
     if (myAdditionalParameters->areValuesValid() == false) {
         myAdditionalParameters->showWarningMessage();
+        return false;
+    } else if (GNEAdditionalHandler::buildAdditional(myViewNet, true, myAdditionalSelector->getCurrentAdditionalType(), valuesMap)) {
+        // Refresh additional Parent Selector (For additionals that have a limited number of childs)
+        myFirstAdditionalParentSelector->refreshListOfAdditionalParents();
+        // abort lane selector
+        myConsecutiveLaneSelector->abortConsecutiveLaneSelector();
+        return true;
+    } else {
         return false;
     }
 }

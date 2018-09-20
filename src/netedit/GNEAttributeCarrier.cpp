@@ -546,6 +546,12 @@ GNEAttributeCarrier::AttributeValues::isList() const {
 }
 
 
+bool 
+GNEAttributeCarrier::AttributeValues::isSecuential() const {
+    return (myAttributeProperty & ATTRPROPERTY_SECUENCIAL) != 0;
+}
+
+
 bool
 GNEAttributeCarrier::AttributeValues::isUnique() const {
     return (myAttributeProperty & ATTRPROPERTY_UNIQUE) != 0;
