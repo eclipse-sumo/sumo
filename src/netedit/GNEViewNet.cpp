@@ -1071,9 +1071,13 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                 update();
                 break;
             case GNE_MODE_CONNECT: {
+                // swap lanes to edges in connect Mode
                 if (myObjectsUnderCursor.lane) {
-                    // shift key may pass connections, Control key allow conflicts.
-                    myViewParent->getConnectorFrame()->handleLaneClick(myObjectsUnderCursor.lane, myObjectsUnderCursor.shiftKeyPressed(), myObjectsUnderCursor.controlKeyPressed(), true);
+                    myObjectsUnderCursor.swapLane2Edge();
+                }
+                if (myObjectsUnderCursor.lane) {
+                    // Handle lane click (shift key may pass connections, Control key allow conflicts)
+                    myViewParent->getConnectorFrame()->handleLaneClick(myObjectsUnderCursor);
                     update();
                 }
                 // process click
@@ -1099,7 +1103,12 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
             }
             case GNE_MODE_CROSSING: {
                 if (myObjectsUnderCursor.crossing == nullptr) {
-                    if (myViewParent->getCrossingFrame()->addCrossing(myObjectsUnderCursor.netElement)) {
+                     // swap lanes to edges in crossingMode
+                    if (myObjectsUnderCursor.lane) {
+                        myObjectsUnderCursor.swapLane2Edge();
+                    }
+                    // add crossing
+                    if (myViewParent->getCrossingFrame()->addCrossing(myObjectsUnderCursor)) {
                         update();
                     }
                 }
@@ -1123,7 +1132,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
             case GNE_MODE_PROHIBITION: {
                 if (myObjectsUnderCursor.connection) {
                     // shift key may pass connections, Control key allow conflicts.
-                    myViewParent->getProhibitionFrame()->handleConnectionClick(myObjectsUnderCursor.connection, myObjectsUnderCursor.shiftKeyPressed(), myObjectsUnderCursor.controlKeyPressed(), true);
+                    myViewParent->getProhibitionFrame()->handleProhibitionClick(myObjectsUnderCursor);
                     update();
                 }
                 // process click

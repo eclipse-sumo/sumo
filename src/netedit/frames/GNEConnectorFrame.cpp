@@ -158,71 +158,9 @@ GNEConnectorFrame::~GNEConnectorFrame() {}
 
 
 void
-GNEConnectorFrame::handleLaneClick(GNELane* lane, bool mayDefinitelyPass, bool allowConflict, bool toggle) {
-    if (myCurrentLane == 0) {
-        myCurrentLane = lane;
-        myCurrentLane->setSpecialColor(&sourceColor);
-        initTargets();
-        myNumChanges = 0;
-        myViewNet->getUndoList()->p_begin("modify " + toString(SUMO_TAG_CONNECTION) + "s");
-    } else if (myPotentialTargets.count(lane)
-               || (allowConflict && lane->getParentEdge().getGNEJunctionSource() == myCurrentLane->getParentEdge().getGNEJunctionDestiny())) {
-        const int fromIndex = myCurrentLane->getIndex();
-        GNEEdge& srcEdge = myCurrentLane->getParentEdge();
-        GNEEdge& destEdge = lane->getParentEdge();
-        std::vector<NBEdge::Connection> connections = srcEdge.getNBEdge()->getConnectionsFromLane(fromIndex);
-        bool changed = false;
-        LaneStatus status = getLaneStatus(connections, lane);
-        if (status == CONFLICTED && allowConflict) {
-            status = UNCONNECTED;
-        }
-        switch (status) {
-            case UNCONNECTED:
-                if (toggle) {
-                    // create new connection
-                    NBEdge::Connection newCon(fromIndex, destEdge.getNBEdge(), lane->getIndex(), mayDefinitelyPass);
-                    // if the connection was previously deleted (by clicking the same lane twice), restore all values
-                    for (NBEdge::Connection& c : myDeletedConnections) {
-                        // fromLane must be the same, only check toLane
-                        if (c.toEdge == destEdge.getNBEdge() && c.toLane == lane->getIndex()) {
-                            newCon = c;
-                        }
-                    }
-                    NBConnection newNBCon(srcEdge.getNBEdge(), fromIndex, destEdge.getNBEdge(), lane->getIndex(), newCon.tlLinkIndex);
-                    myViewNet->getUndoList()->add(new GNEChange_Connection(&srcEdge, newCon, false, true), true);
-                    lane->setSpecialColor(mayDefinitelyPass ? &targetPassColor : &targetColor);
-                    srcEdge.getGNEJunctionDestiny()->invalidateTLS(myViewNet->getUndoList(), NBConnection::InvalidConnection, newNBCon);
-                }
-                break;
-            case CONNECTED:
-            case CONNECTED_PASS: {
-                // remove connection
-                GNEConnection* con = srcEdge.retrieveGNEConnection(fromIndex, destEdge.getNBEdge(), lane->getIndex());
-                myDeletedConnections.push_back(con->getNBEdgeConnection());
-                myViewNet->getNet()->deleteConnection(con, myViewNet->getUndoList());
-                lane->setSpecialColor(&potentialTargetColor);
-                changed = true;
-                break;
-            }
-            case CONFLICTED:
-                SVCPermissions fromPermissions = srcEdge.getNBEdge()->getPermissions(fromIndex);
-                SVCPermissions toPermissions = destEdge.getNBEdge()->getPermissions(lane->getIndex());
-                if ((fromPermissions & toPermissions) == SVC_PEDESTRIAN) {
-                    myViewNet->setStatusBarText("Pedestrian connections are generated automatically");
-                } else if ((fromPermissions & toPermissions) == 0) {
-                    myViewNet->setStatusBarText("Incompatible vehicle class permissions");
-                } else {
-                    myViewNet->setStatusBarText("Another lane from the same edge already connects to that lane");
-                }
-                break;
-        }
-        if (changed) {
-            myNumChanges += 1;
-        }
-    } else {
-        myViewNet->setStatusBarText("Invalid target for " + toString(SUMO_TAG_CONNECTION));
-    }
-    updateDescription();
+GNEConnectorFrame::handleLaneClick(const GNEViewNet::ObjectsUnderCursor &objectsUnderCursor) {
+    // build connection
+    buildConnection(objectsUnderCursor.lane, objectsUnderCursor.shiftKeyPressed(), objectsUnderCursor.controlKeyPressed(), true);
 }
 
 
@@ -366,9 +304,9 @@ GNEConnectorFrame::onCmdClearSelectedConnections(FXObject*, FXSelector, void*) {
 
 void
 GNEConnectorFrame::removeConnections(GNELane* lane) {
-    handleLaneClick(lane, false, false, true); // select as current lane
+    buildConnection(lane, false, false, true); // select as current lane
     for (auto i : myPotentialTargets) {
-        handleLaneClick(i, false, false, false);  // deselect
+        buildConnection(i, false, false, false);  // deselect
     }
     onCmdOK(0, 0, 0); // save
 }
@@ -384,6 +322,75 @@ GNEConnectorFrame::onCmdResetSelectedConnections(FXObject*, FXSelector, void*) {
     }
     myViewNet->getUndoList()->p_end();
     return 1;
+}
+
+
+void
+GNEConnectorFrame::buildConnection(GNELane* lane, bool mayDefinitelyPass, bool allowConflict, bool toggle) {
+    if (myCurrentLane == 0) {
+        myCurrentLane = lane;
+        myCurrentLane->setSpecialColor(&sourceColor);
+        initTargets();
+        myNumChanges = 0;
+        myViewNet->getUndoList()->p_begin("modify " + toString(SUMO_TAG_CONNECTION) + "s");
+    } else if (myPotentialTargets.count(lane)
+               || (allowConflict && lane->getParentEdge().getGNEJunctionSource() == myCurrentLane->getParentEdge().getGNEJunctionDestiny())) {
+        const int fromIndex = myCurrentLane->getIndex();
+        GNEEdge& srcEdge = myCurrentLane->getParentEdge();
+        GNEEdge& destEdge = lane->getParentEdge();
+        std::vector<NBEdge::Connection> connections = srcEdge.getNBEdge()->getConnectionsFromLane(fromIndex);
+        bool changed = false;
+        LaneStatus status = getLaneStatus(connections, lane);
+        if (status == CONFLICTED && allowConflict) {
+            status = UNCONNECTED;
+        }
+        switch (status) {
+            case UNCONNECTED:
+                if (toggle) {
+                    // create new connection
+                    NBEdge::Connection newCon(fromIndex, destEdge.getNBEdge(), lane->getIndex(), mayDefinitelyPass);
+                    // if the connection was previously deleted (by clicking the same lane twice), restore all values
+                    for (NBEdge::Connection& c : myDeletedConnections) {
+                        // fromLane must be the same, only check toLane
+                        if (c.toEdge == destEdge.getNBEdge() && c.toLane == lane->getIndex()) {
+                            newCon = c;
+                        }
+                    }
+                    NBConnection newNBCon(srcEdge.getNBEdge(), fromIndex, destEdge.getNBEdge(), lane->getIndex(), newCon.tlLinkIndex);
+                    myViewNet->getUndoList()->add(new GNEChange_Connection(&srcEdge, newCon, false, true), true);
+                    lane->setSpecialColor(mayDefinitelyPass ? &targetPassColor : &targetColor);
+                    srcEdge.getGNEJunctionDestiny()->invalidateTLS(myViewNet->getUndoList(), NBConnection::InvalidConnection, newNBCon);
+                }
+                break;
+            case CONNECTED:
+            case CONNECTED_PASS: {
+                // remove connection
+                GNEConnection* con = srcEdge.retrieveGNEConnection(fromIndex, destEdge.getNBEdge(), lane->getIndex());
+                myDeletedConnections.push_back(con->getNBEdgeConnection());
+                myViewNet->getNet()->deleteConnection(con, myViewNet->getUndoList());
+                lane->setSpecialColor(&potentialTargetColor);
+                changed = true;
+                break;
+            }
+            case CONFLICTED:
+                SVCPermissions fromPermissions = srcEdge.getNBEdge()->getPermissions(fromIndex);
+                SVCPermissions toPermissions = destEdge.getNBEdge()->getPermissions(lane->getIndex());
+                if ((fromPermissions & toPermissions) == SVC_PEDESTRIAN) {
+                    myViewNet->setStatusBarText("Pedestrian connections are generated automatically");
+                } else if ((fromPermissions & toPermissions) == 0) {
+                    myViewNet->setStatusBarText("Incompatible vehicle class permissions");
+                } else {
+                    myViewNet->setStatusBarText("Another lane from the same edge already connects to that lane");
+                }
+                break;
+        }
+        if (changed) {
+            myNumChanges += 1;
+        }
+    } else {
+        myViewNet->setStatusBarText("Invalid target for " + toString(SUMO_TAG_CONNECTION));
+    }
+    updateDescription();
 }
 
 

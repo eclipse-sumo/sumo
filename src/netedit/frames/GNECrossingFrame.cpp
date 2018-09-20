@@ -495,25 +495,18 @@ GNECrossingFrame::hide() {
 
 
 bool
-GNECrossingFrame::addCrossing(GNENetElement* netElement) {
-    // cast netElement
-    GNEJunction* currentJunction = dynamic_cast<GNEJunction*>(netElement);
-    GNEEdge* selectedEdge = dynamic_cast<GNEEdge*>(netElement);
-    GNELane* selectedLane = dynamic_cast<GNELane*>(netElement);
-
+GNECrossingFrame::addCrossing(const GNEViewNet::ObjectsUnderCursor &objectsUnderCursor) {
     // If current element is a junction
-    if (currentJunction != NULL) {
+    if (objectsUnderCursor.junction) {
         // change label
-        myCurrentJunctionLabel->setText((std::string("Current Junction: ") + currentJunction->getID()).c_str());
+        myCurrentJunctionLabel->setText((std::string("Current Junction: ") + objectsUnderCursor.junction->getID()).c_str());
         // Enable edge selector and crossing parameters
-        myEdgeSelector->enableEdgeSelector(currentJunction);
-        myCrossingParameters->enableCrossingParameters(currentJunction->getNBNode()->isTLControlled());
+        myEdgeSelector->enableEdgeSelector(objectsUnderCursor.junction);
+        myCrossingParameters->enableCrossingParameters(objectsUnderCursor.junction->getNBNode()->isTLControlled());
         // clears selected edges
         myCrossingParameters->clearEdges();
-    } else if (selectedEdge != NULL) {
-        myCrossingParameters->markEdge(selectedEdge);
-    } else if (selectedLane != NULL) {
-        myCrossingParameters->markEdge(&selectedLane->getParentEdge());
+    } else if (objectsUnderCursor.edge) {
+        myCrossingParameters->markEdge(objectsUnderCursor.edge);
     } else {
         // set default label
         myCurrentJunctionLabel->setText("No junction selected");

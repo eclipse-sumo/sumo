@@ -17,6 +17,7 @@ set(netedit_frames_SRCS
    GNEDeleteFrame.cpp
    GNEPolygonFrame.h
    GNEPolygonFrame.cpp
+   GNEProhibitionFrame.h
    GNEProhibitionFrame.cpp
    )
 

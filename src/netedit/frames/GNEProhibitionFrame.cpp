@@ -117,11 +117,57 @@ GNEProhibitionFrame::GNEProhibitionFrame(FXHorizontalFrame* horizontalFrameParen
     //    GUIIconSubSys::getIcon(ICON_ACCEPT), this, MID_OK, GUIDesignButton);
 }
 
+
 GNEProhibitionFrame::~GNEProhibitionFrame() {}
 
-void
-GNEProhibitionFrame::handleConnectionClick(GNEConnection* conn, bool /* mayDefinitelyPass */, bool /* allowConflict */, bool /* toggle */) {
 
+void
+GNEProhibitionFrame::handleProhibitionClick(const GNEViewNet::ObjectsUnderCursor &objectsUnderCursor) {
+    // build prohibition
+    buildProhibition(objectsUnderCursor.connection, objectsUnderCursor.shiftKeyPressed(), objectsUnderCursor.controlKeyPressed(), true);
+}
+
+
+void
+GNEProhibitionFrame::show() {
+    GNEFrame::show();
+}
+
+
+void
+GNEProhibitionFrame::hide() {
+    GNEFrame::hide();
+}
+
+
+void
+GNEProhibitionFrame::updateDescription() const {
+    if (myCurrentConn == 0) {
+        myConnDescriptionLabel->setText("No Connection selected\n");
+    } else {
+        myConnDescriptionLabel->setText(("from lane " + myCurrentConn->getLaneFrom()->getMicrosimID() + "\nto lane " + myCurrentConn->getLaneTo()->getMicrosimID()).c_str());
+    }
+}
+
+
+long
+GNEProhibitionFrame::onCmdCancel(FXObject*, FXSelector, void*) {
+    if (myCurrentConn != 0) {
+        for (auto conn : myConcernedConns) {
+            conn->setSpecialColor(0);
+        }
+        myCurrentConn->setSpecialColor(0);
+        myCurrentConn = 0;
+        myConcernedConns.clear();
+        updateDescription();
+        myViewNet->update();
+    }
+    return 1;
+}
+
+
+void
+GNEProhibitionFrame::buildProhibition(GNEConnection* conn, bool /* mayDefinitelyPass */, bool /* allowConflict */, bool /* toggle */) {
     if (myCurrentConn == 0) {
         myCurrentConn = conn;
         myCurrentConn->setSpecialColor(&selectedColor);
@@ -165,39 +211,6 @@ GNEProhibitionFrame::handleConnectionClick(GNEConnection* conn, bool /* mayDefin
     }
 }
 
-void
-GNEProhibitionFrame::show() {
-    GNEFrame::show();
-}
-
-void
-GNEProhibitionFrame::hide() {
-    GNEFrame::hide();
-}
-
-void
-GNEProhibitionFrame::updateDescription() const {
-    if (myCurrentConn == 0) {
-        myConnDescriptionLabel->setText("No Connection selected\n");
-    } else {
-        myConnDescriptionLabel->setText(("from lane " + myCurrentConn->getLaneFrom()->getMicrosimID() + "\nto lane " + myCurrentConn->getLaneTo()->getMicrosimID()).c_str());
-    }
-}
-
-long
-GNEProhibitionFrame::onCmdCancel(FXObject*, FXSelector, void*) {
-    if (myCurrentConn != 0) {
-        for (auto conn : myConcernedConns) {
-            conn->setSpecialColor(0);
-        }
-        myCurrentConn->setSpecialColor(0);
-        myCurrentConn = 0;
-        myConcernedConns.clear();
-        updateDescription();
-        myViewNet->update();
-    }
-    return 1;
-}
 
 long
 GNEProhibitionFrame::onCmdOK(FXObject*, FXSelector, void*) {

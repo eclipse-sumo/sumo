@@ -221,10 +221,10 @@ public:
     void hide();
 
     /**@brief add Crossing element
-     * @param[in] netElement clicked netElement. if user didn't clicked over a GNENetElement in view, netElement will be nullptr
+     * @param objectsUnderCursor collection of objects under cursor after click over view
      * @return true if a GNECrossing was added, false in other case
      */
-    bool addCrossing(GNENetElement* netElement);
+    bool addCrossing(const GNEViewNet::ObjectsUnderCursor &objectsUnderCursor);
 
     /**@brief remove an Crossing element previously added
      * @param[in] Crossing element to erase

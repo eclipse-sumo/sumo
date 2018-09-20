@@ -53,8 +53,10 @@ public:
     /// @brief Destructor
     ~GNEProhibitionFrame();
 
-    /// @brief handle prohibitions and set teh relative colouring
-    void handleConnectionClick(GNEConnection* conn, bool mayDefinitelyPass, bool allowConflict, bool toggle);
+    /**@brief handle prohibitions and set the relative colouring
+     * @param objectsUnderCursor collection of objects under cursor after click over view
+     */
+    void handleProhibitionClick(const GNEViewNet::ObjectsUnderCursor &objectsUnderCursor);
 
     /// @brief show prohibition frame
     void show();
@@ -75,13 +77,15 @@ protected:
     GNEProhibitionFrame() {}
 
 private:
-
     /// @brief the prohibition status of a connection
     enum ConnStatus {
         UNDEFINED,
         PROHIBITED,
         PROHIBITING
     };
+
+    /// @brief build prohibition
+    void buildProhibition(GNEConnection* conn, bool mayDefinitelyPass, bool allowConflict, bool toggle);
 
     /// @brief Groupbox for description
     FXGroupBox* myGroupBoxDescription;
@@ -134,7 +138,6 @@ private:
     /// @brief color for mutual conflicts
     static RGBColor mutualConflictColor;
 
-private:
     /// @brief update description
     void updateDescription() const;
 };

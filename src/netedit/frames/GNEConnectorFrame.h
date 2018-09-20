@@ -44,12 +44,9 @@ public:
     ~GNEConnectorFrame();
 
     /**@brief either sets the current lane or toggles the connection of the
-     * current lane to this lane (if they share a junction)
-     * @param[in] lane Either the lane to set as current lane, or the destination from current lane
-     * @param[in] mayDefinitelyPass Whether new connections shall have the pass attribute set
-     * @param[in] toggle Whether non-existing connections shall be created
+     * @param objectsUnderCursor collection of objects under cursor after click over view
      */
-    void handleLaneClick(GNELane* lane, bool mayDefinitelyPass, bool allowConflict, bool toggle);
+    void handleLaneClick(const GNEViewNet::ObjectsUnderCursor &objectsUnderCursor);
 
     /// @name FOX-callbacks
     /// @{
@@ -73,7 +70,6 @@ protected:
     GNEConnectorFrame() {}
 
 private:
-
     /// @brief the status of a target lane
     enum LaneStatus {
         UNCONNECTED,
@@ -81,6 +77,14 @@ private:
         CONNECTED_PASS,
         CONFLICTED
     };
+
+    /**@brief either sets the current lane or toggles the connection of the
+     * current lane to this lane (if they share a junction)
+     * @param[in] lane Either the lane to set as current lane, or the destination from current lane
+     * @param[in] mayDefinitelyPass Whether new connections shall have the pass attribute set
+     * @param[in] toggle Whether non-existing connections shall be created
+     */
+    void buildConnection(GNELane* lane, bool mayDefinitelyPass, bool allowConflict, bool toggle);
 
     /// @brief Groupbox for description
     FXGroupBox* myGroupBoxDescription;
@@ -175,7 +179,6 @@ private:
     /// @brief color for potential to-lane targets (currently unconnected)
     static RGBColor potentialTargetColor;
 
-private:
     /// @brief update description
     void updateDescription() const;
 
