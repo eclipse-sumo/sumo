@@ -1,0 +1,7 @@
+<routes>
+    <vType id="avoidWalking" maxSpeed="0.5" vClass="pedestrian"/>
+    <vType id="defaultCar"/>
+    <vType id="slowCar" maxSpeed="1"/>
+    <vType id="slowCarFactor" speedFactor="0.2"/>
+    <vType id="fastCar" speedFactor="2"/>
+</routes>
