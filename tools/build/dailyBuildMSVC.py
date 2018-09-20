@@ -87,16 +87,15 @@ def runTests(options, env, gitrev, debugSuffix=""):
         runInternalTests.runInternal(
             debugSuffix, fullOpt, log, True, True, debugSuffix == "")
     else:
+        if not options.no_extended_tests:
+            neteditTests = subprocess.Popen([ttBin, "-a", "netedit.daily"] + fullOpt, env=env,
+                                            stdout=log, stderr=subprocess.STDOUT, shell=True)
         subprocess.call([ttBin] + fullOpt, env=env,
                         stdout=log, stderr=subprocess.STDOUT, shell=True)
+        if not options.no_extended_tests:
+            neteditTests.wait()
         subprocess.call([ttBin, "-a", "sumo.gui"] + fullOpt, env=env,
                         stdout=log, stderr=subprocess.STDOUT, shell=True)
-        if not options.no_extended_tests:
-            # Check if sikulixServer is already opened
-            # if runSikulixServer.checkStatus() == False:
-            #    runSikulixServer.startSikulixServer()
-            subprocess.call([ttBin, "-a", "netedit.daily"] + fullOpt, env=env,
-                            stdout=log, stderr=subprocess.STDOUT, shell=True)
     subprocess.call([ttBin, "-b", env["FILEPREFIX"], "-coll"], env=env,
                     stdout=log, stderr=subprocess.STDOUT, shell=True)
     for name in BINARIES:

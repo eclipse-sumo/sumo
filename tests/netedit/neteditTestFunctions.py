@@ -22,16 +22,16 @@ import time
 import pyperclip
 
 # define delay before every operation
-DELAY_KEY = 0.1
+DELAY_KEY = 0.01
 DELAY_MOUSE = 0.1
 DELAY_QUESTION = 0.1
 DELAY_REFERENCE = 30
 DELAY_QUIT = 1
 DELAY_UNDOREDO = 0.1
-DELAY_SELECT = 1
+DELAY_SELECT = 0.1
 DELAY_RECOMPUTE = 1
 DELAY_RECOMPUTE_VOLATILE = 1
-DELAY_REMOVESELECTION = 1
+DELAY_REMOVESELECTION = 0.1
 
 NeteditApp = os.environ.get("NETEDIT_BINARY", "netedit")
 textTestSandBox = os.environ.get("TEXTTEST_SANDBOX", ".")
