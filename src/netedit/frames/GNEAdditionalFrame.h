@@ -177,8 +177,8 @@ public:
         /// @brief hide group box
         void hideAdditionalParameters();
 
-        /// @brief get attributes and their values
-        std::map<SumoXMLAttr, std::string> getAttributesAndValues() const;
+        /// @brief get attributes and their values into valuesMap
+        void getAttributesAndValues(std::map<SumoXMLAttr, std::string> &valuesMap) const;
 
         /// @brief check if parameters of attributes are valid
         bool areValuesValid() const;
@@ -315,7 +315,7 @@ public:
         void hideConsecutiveLaneSelector();
 
         /// @brief start selection of consecutive lanes
-        void startConsecutiveLaneSelector();
+        void startConsecutiveLaneSelector(GNELane *lane, const Position &clickedPosition);
 
         /// @brief stop selection of consecutive lanes
         void stopConsecutiveLaneSelector();
@@ -332,6 +332,9 @@ public:
         /// @brief return true if modul is selecting lane
         bool isSelectingLanes() const;
 
+        /// @brief return true if modul is shown
+        bool isShown() const;
+
         /// @brief get selected lane color
         const RGBColor &getSelectedLaneColor() const;
 
@@ -340,9 +343,6 @@ public:
 
         /// @name FOX-callbacks
         /// @{
-        /// @brief Called when the user press start selection button
-        long onCmdStartSelection(FXObject*, FXSelector, void*);
-
         /// @brief Called when the user press stop selection button
         long onCmdStopSelection(FXObject*, FXSelector, void*);
 
@@ -357,9 +357,6 @@ public:
     private:
         /// @brief pointer to additionalFrameParent
         GNEAdditionalFrame* myAdditionalFrameParent;
-
-        /// @brief button for start selecting
-        FXButton* myStartSelectingButton;
 
         /// @brief button for stop selecting
         FXButton* myStopSelectingButton;
@@ -378,6 +375,9 @@ public:
 
         /// @brief color for selected lanes
         RGBColor mySelectedLaneColor;
+
+        /// @brief position of cursor mouse over first lane
+        double myFirstPosition;
     };
 
     // ===========================================================================
@@ -597,6 +597,24 @@ public:
 private:
     /// @brief generate a ID for an additiona element
     std::string generateID(GNENetElement* netElement) const;
+
+    /// @brief build common additional attributes
+    bool buildAdditionalCommonAttributes(std::map<SumoXMLAttr, std::string> &valuesMap, const GNEAttributeCarrier::TagValues &tagValues);
+
+    /// @brief build additional with Parent
+    bool buildAdditionalWithParent(std::map<SumoXMLAttr, std::string> &valuesMap, GNEAdditional* parent, const GNEAttributeCarrier::TagValues &tagValues);
+
+    /// @brief build additional over lane
+    bool buildAdditionalWithConsecutiveLanes(std::map<SumoXMLAttr, std::string> &valuesMap, GNELane* lane);
+
+    /// @brief build additional over lane
+    bool buildAdditionalOverEdge(std::map<SumoXMLAttr, std::string> &valuesMap, GNEEdge* edge);
+
+    /// @brief build additional over lanes
+    bool buildAdditionalOverLane(std::map<SumoXMLAttr, std::string> &valuesMap, GNELane* lane, const GNEAttributeCarrier::TagValues &tagValues);
+
+    /// @brief build additional over view
+    bool buildAdditionalOverView(std::map<SumoXMLAttr, std::string> &valuesMap, const GNEAttributeCarrier::TagValues &tagValues);
 
     /// @brief obtain the Start position values of StoppingPlaces and E2 detector over the lane
     double setStartPosition(double positionOfTheMouseOverLane, double lengthOfAdditional);

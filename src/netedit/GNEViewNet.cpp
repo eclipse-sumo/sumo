@@ -1386,6 +1386,11 @@ GNEViewNet::hotkeyEnter() {
         }
     } else if (myEditMode == GNE_MODE_CROSSING) {
         myViewParent->getCrossingFrame()->onCmdCreateCrossing(0, 0, 0);
+    } else if (myEditMode == GNE_MODE_ADDITIONAL) {
+        if (myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->isSelectingLanes()) {
+            // stop select lanes
+            myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->stopConsecutiveLaneSelector();
+        }
     }
 }
 
