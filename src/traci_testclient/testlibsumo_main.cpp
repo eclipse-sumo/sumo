@@ -45,11 +45,18 @@ main(int argc, char** argv) {
     }
     libsumo::Simulation::load(options);
     std::cout << "Simulation loaded\n";
-  std::vector<libsumo::TraCIStage> result = libsumo::Simulation::findIntermodalRoute("A1A0", "C1C2", "public", 0, 3, 0.5, 0.75, 444, 30,0,"ped");
-  
+  std::vector<libsumo::TraCIStage> result = libsumo::Simulation::findIntermodalRoute("64455492", "123867484", "public", 0, 3, 0.5, 0.15, 0, 0,0,"ped");
+  double cost = 0;
+  double time = 0;
   for (const auto& stage : result) {
         std::cout << " type=" << stage.type << " line=" << stage.line << " travelTime=" << stage.travelTime << " cost=" << stage.cost << " destination: "<< stage.destStop<<"\n";
+        std::cout<<"Descr:\n" << stage.description<<std::endl;
+        cost += stage.cost;
+        time += stage.travelTime;
     }
+    std::cout<<"end cost: "<<cost<<std::endl;
+  std::cout<<"end time: "<<time<<std::endl;
+  
 }
 
 

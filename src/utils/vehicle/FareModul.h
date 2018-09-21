@@ -38,7 +38,8 @@ public:
       return;
     uint64_t repNum = fareZoneToRep[ zoneNumber ];
     //assert power of 2
-    assert( bitcount(repNum) == 1 );
+    if ( bitcount(repNum) == 0 )
+      return;
     myCount = myCount | repNum;
   }
   
@@ -298,9 +299,11 @@ private:
     std::stringstream msg;
     msg<<"Final fare state at edge of type: "<<edge->getLine()<<std::endl;
     FareState const  & my = myFareStates[edge->getNumericalID()];
-    msg<<"Tariftoken"<<FareUtil::tokenToString(my.myFareToken)<<std::endl;
+    msg<<"Faretoken"<<FareUtil::tokenToString(my.myFareToken)<<std::endl;
+    msg<<"Price:"<<computePrice(my)<<std::endl;
     msg<<"Zones "<<my.myCounter.numZones()<<std::endl;
-    msg<<"stations: "<<my.myVisistedStops<<std::endl;
+    msg<<"Stations: "<<my.myVisistedStops<<std::endl;
+    msg<<"Distance:"<<my.myTravelledDistance<<std::endl;
     return msg.str();
   }
   
@@ -344,7 +347,6 @@ void FareModul<E,L,N,V>::updateFareState( FareState const & currentFareState, _S
   stateAtE.myCounter.addZone( e.getFareZone() );
   
   stateAtE.myVisistedStops++;
-  
   
   switch (token)
   {
@@ -479,7 +481,6 @@ void FareModul<E,L,N,V>::updateFareState(FareState const & currentFareState, _Pu
   FareState & stateAtE = myFareStates[e.getNumericalID()];
   
   stateAtE = currentFareState;
-  
   stateAtE.myTravelledDistance += e.getLength();
 }
 

@@ -78,6 +78,51 @@ namespace FareUtil {
     return ""; //surpress compiler warning
   }
   
+  
+  inline std::string tokenToTicket(FareToken const & token)
+  {
+    switch (token)
+    {
+      case FareToken::H:
+        return "Einzelticket Halle";
+      case FareToken::L:
+        return "Einzelticket Leipzig";
+      case FareToken::T1:
+        return "Einzelticket Stadtverkehr 1";
+      case FareToken::T2:
+        return "Einzelticket Stadtverkehr 2";
+      case FareToken::T3:
+        return "Einzelticket Stadtverkehr 3";
+      case FareToken::U:
+        return "Einzelticket";
+      case FareToken::Z:
+        return "Einzelticket";
+      case FareToken::M:
+        return "Einzelticket Verbundpreis";
+      case FareToken::K:
+        return "Kurzstreckenticket";
+      case FareToken::KL:
+        return "Kurzstreckenticket Leipzig";
+      case FareToken::KH:
+        return "Kurzstreckenticket Halle";
+      case FareToken::ZU:
+        return "None";
+      case FareToken::None:
+        return "None";
+      case FareToken::Free:
+        return "Free";
+      case FareToken::KHU:
+        return "Kurzstreckenticket Halle";
+      case FareToken::KLU:
+        return "Kurzstreckenticket Leipzig";
+      case FareToken ::KHZ:
+        return "Kurzstreckenticket Halle";
+      case FareToken ::KLZ:
+        return  "Kurzstreckenticket Leipzig";
+    }
+    return ""; //surpress compiler warning
+  }
+  
   inline FareToken stringToToken(std::string str)
   {
     if (str == "H") return FareToken::H;

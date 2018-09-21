@@ -11,7 +11,7 @@
 #define SUMO_FAREZONES_H
 
 #include <unordered_map>
-#include <stdint.h>
+#include <cstdint>
 
 static std::unordered_map<uint64_t ,int> repToFareZone = std::unordered_map<uint64_t ,int>{
         {1 ,110},
