@@ -297,10 +297,6 @@ public:
     class ConsecutiveLaneSelector : protected FXGroupBox {
         /// @brief FOX-declaration
         FXDECLARE(GNEAdditionalFrame::ConsecutiveLaneSelector)
-
-        /// @brief friend class declaration
-        friend class AdditionalAttributeSingle;
-
     public:
         /// @brief constructor
         ConsecutiveLaneSelector(GNEAdditionalFrame* additionalFrameParent);
@@ -318,7 +314,7 @@ public:
         void startConsecutiveLaneSelector(GNELane *lane, const Position &clickedPosition);
 
         /// @brief stop selection of consecutive lanes
-        void stopConsecutiveLaneSelector();
+        bool stopConsecutiveLaneSelector();
 
         /// @brief abort selection of consecutive lanes
         void abortConsecutiveLaneSelector();

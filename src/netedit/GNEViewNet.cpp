@@ -784,19 +784,10 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
             glPushMatrix();
             // must draw on top of other connections
             glTranslated(0, 0, GLO_JUNCTION + 0.2);
-            // check if exists connection between from and to
-            if(from->getParentEdge().getNBEdge()->hasConnectionTo(to->getParentEdge().getNBEdge(), to->getIndex(), from->getIndex())) {
-                // obtain connection shape
-                shape = from->getParentEdge().getNBEdge()->getConnection(from->getIndex(), to->getParentEdge().getNBEdge(), to->getIndex()).shape;
-                // set special color
-                GLHelper::setColor(myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->getSelectedLaneColor());
-            } else {
-                // make connection using lane shapes
-                shape.push_back(from->getShape().back());
-                shape.push_back(to->getShape().front());
-                // set red color
-                GLHelper::setColor(RGBColor::RED);
-            }
+            // obtain connection shape
+            shape = from->getParentEdge().getNBEdge()->getConnection(from->getIndex(), to->getParentEdge().getNBEdge(), to->getIndex()).shape;
+            // set special color
+            GLHelper::setColor(myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->getSelectedLaneColor());
             // Obtain lengths and shape rotations
             int segments = (int) shape.size() - 1;
             if (segments >= 0) {
@@ -1094,8 +1085,18 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                 break;
             }
             case GNE_MODE_ADDITIONAL: {
-                // add additional
-                myViewParent->getAdditionalFrame()->addAdditional(myObjectsUnderCursor);
+                if(myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->isShown()) {
+                    // check if we need to start select lanes
+                    if(myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->isSelectingLanes()) {
+                        // select lane to create an additional with consecutive lanes
+                        myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->addSelectedLane(myObjectsUnderCursor.lane);
+                    } else if (myObjectsUnderCursor.lane) {
+                        myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->startConsecutiveLaneSelector(myObjectsUnderCursor.lane, snapToActiveGrid(getPositionInformation()));
+                    }
+                } else {
+                    // add additional
+                    myViewParent->getAdditionalFrame()->addAdditional(myObjectsUnderCursor);
+                }
                 update();
                 // process click
                 processClick(evt, eventData);
@@ -1334,6 +1335,9 @@ GNEViewNet::abortOperation(bool clearSelection) {
         myViewParent->getPolygonFrame()->getDrawingMode()->abortDrawing();
     } else if (myEditMode == GNE_MODE_PROHIBITION) {
         myViewParent->getProhibitionFrame()->onCmdCancel(0, 0, 0);
+    } else if (myEditMode == GNE_MODE_ADDITIONAL) {
+        // abort select lanes
+        myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->abortConsecutiveLaneSelector();
     }
     myUndoList->p_abort();
 }
@@ -1388,10 +1392,8 @@ GNEViewNet::hotkeyEnter() {
         myViewParent->getCrossingFrame()->onCmdCreateCrossing(0, 0, 0);
     } else if (myEditMode == GNE_MODE_ADDITIONAL) {
         if (myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->isSelectingLanes()) {
-            // stop select lanes
+            // stop select lanes to create additional
             myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->stopConsecutiveLaneSelector();
-            // try to create additional
-            myViewParent->getAdditionalFrame()->addAdditional(myObjectsUnderCursor);
         }
     }
 }

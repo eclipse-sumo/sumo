@@ -29,25 +29,26 @@
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <netedit/changes/GNEChange_Additional.h>
-#include <netedit/additionals/GNEAdditional.h>
-#include <netedit/additionals/GNEAdditionalHandler.h>
-#include <netedit/GNEAttributeCarrier.h>
-#include <netedit/additionals/GNECalibrator.h>
-#include <netedit/additionals/GNEClosingLaneReroute.h>
-#include <netedit/additionals/GNEClosingReroute.h>
-#include <netedit/netelements/GNECrossing.h>
-#include <netedit/additionals/GNEDestProbReroute.h>
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNEJunction.h>
 #include <netedit/netelements/GNELane.h>
-#include <netedit/GNENet.h>
+#include <netedit/netelements/GNEConnection.h>
+#include <netedit/additionals/GNEAdditional.h>
+#include <netedit/additionals/GNEAdditionalHandler.h>
+#include <netedit/additionals/GNECalibrator.h>
+#include <netedit/additionals/GNEClosingLaneReroute.h>
+#include <netedit/additionals/GNEClosingReroute.h>
 #include <netedit/additionals/GNERerouter.h>
 #include <netedit/additionals/GNERerouterInterval.h>
-#include <netedit/GNEUndoList.h>
+#include <netedit/netelements/GNECrossing.h>
+#include <netedit/additionals/GNEDestProbReroute.h>
 #include <netedit/additionals/GNERerouter.h>
 #include <netedit/additionals/GNEVariableSpeedSign.h>
 #include <netedit/additionals/GNEVariableSpeedSignStep.h>
 #include <netedit/GNEViewParent.h>
+#include <netedit/GNENet.h>
+#include <netedit/GNEAttributeCarrier.h>
+#include <netedit/GNEUndoList.h>
 
 #include "GNEAdditionalFrame.h"
 
@@ -573,14 +574,6 @@ void
 GNEAdditionalFrame::ConsecutiveLaneSelector::startConsecutiveLaneSelector(GNELane *lane, const Position &clickedPosition) {
     // Only start selection if ConsecutiveLaneSelector modul is shown
     if (shown()) {
-        // reset color of all selected lanes
-        for (auto i : mySelectedLanes) {
-            i->setSpecialColor(0);
-        }
-        // clear selected lanes
-        mySelectedLanes.clear();
-        // update view (due colors)
-        myAdditionalFrameParent->getViewNet()->update();
         // change buttons
         myStopSelectingButton->enable();
         myAbortSelectingButton->enable();
@@ -592,41 +585,71 @@ GNEAdditionalFrame::ConsecutiveLaneSelector::startConsecutiveLaneSelector(GNELan
 }
 
 
-void 
+bool 
 GNEAdditionalFrame::ConsecutiveLaneSelector::stopConsecutiveLaneSelector() {
-    // reset color of all candidate lanes
-    for (auto i : myCandidateLanes) {
-        if(std::find(mySelectedLanes.begin(), mySelectedLanes.end(), i) == mySelectedLanes.end()) {
-            i->setSpecialColor(0);
-        }
+    // obtain tagproperty (only for improve code legibility)
+    const auto& tagValues = GNEAttributeCarrier::getTagProperties(myAdditionalFrameParent->myAdditionalSelector->getCurrentAdditionalType());
+
+    // Declare map to keep attributes from Frames from Frame
+    std::map<SumoXMLAttr, std::string> valuesMap;
+
+    // fill valuesOfElement with attributes from Frame
+    myAdditionalFrameParent->myAdditionalParameters->getAttributesAndValues(valuesMap);
+
+    // Generate id of element
+    valuesMap[SUMO_ATTR_ID] = myAdditionalFrameParent->generateID(nullptr);
+    valuesMap[SUMO_ATTR_LANES] = GNEAttributeCarrier::parseIDs(mySelectedLanes);
+    valuesMap[SUMO_ATTR_POSITION] = toString(myFirstPosition);
+
+    // parse common attributes
+    if(!myAdditionalFrameParent->buildAdditionalCommonAttributes(valuesMap, tagValues)) {
+        return false;
     }
-    myCandidateLanes.clear();
-    myFirstPosition = 0;
-    // update view (due colors)
-    myAdditionalFrameParent->getViewNet()->update();
-    // change buttons
-    myStopSelectingButton->disable();
-    myAbortSelectingButton->disable();
+
+    // show warning dialogbox and stop check if input parameters are valid
+    if (myAdditionalFrameParent->myAdditionalParameters->areValuesValid() == false) {
+        myAdditionalFrameParent->myAdditionalParameters->showWarningMessage();
+        return false;
+    } else if (GNEAdditionalHandler::buildAdditional(myAdditionalFrameParent->myViewNet, true, myAdditionalFrameParent->myAdditionalSelector->getCurrentAdditionalType(), valuesMap)) {
+        // abort consecutive lane selector
+        abortConsecutiveLaneSelector();
+        return true;
+    } else {
+        return false;
+    }
 }
 
 
 void 
 GNEAdditionalFrame::ConsecutiveLaneSelector::abortConsecutiveLaneSelector() {
+     // reset color of all candidate lanes
+    for (auto i : myCandidateLanes) {
+        i->setSpecialColor(0);
+    }
+    myCandidateLanes.clear();
     // reset color of all selected lanes
     for (auto i : mySelectedLanes) {
         i->setSpecialColor(0);
     }
+    myCandidateLanes.clear();
+    myFirstPosition = 0;
     // clear selected lanes
     mySelectedLanes.clear();
+    // disable buttons
+    myStopSelectingButton->disable();
+    myAbortSelectingButton->disable();
     // update view (due colors)
     myAdditionalFrameParent->getViewNet()->update();
-    // continue stopping ocnsecutive lane selector
-    stopConsecutiveLaneSelector();
+
 }
 
 
 bool 
 GNEAdditionalFrame::ConsecutiveLaneSelector::addSelectedLane(GNELane *lane) {
+    // first check that lane exist
+    if(lane == nullptr) {
+        return false;
+    }
     // check that lane wasn't already selected
     for (auto i : mySelectedLanes) {
         if (i == lane) {
@@ -634,39 +657,17 @@ GNEAdditionalFrame::ConsecutiveLaneSelector::addSelectedLane(GNELane *lane) {
             return false;
         }
     }
-    // check that lane is consecutive
+    // check that there is candidate lanes
     if(mySelectedLanes.size() > 0) {
-        for (auto i : mySelectedLanes.back()->getParentEdge().getGNEJunctionDestiny()->getGNEOutgoingEdges()) {
-            // check if parent edge ist in the list of outgoing edges
-            if (i->getID() == lane->getParentEdge().getID()) {
-                // add selected lane to mySelectedLanes and change their color
-                mySelectedLanes.push_back(lane);
-                lane->setSpecialColor(&mySelectedLaneColor);
-                // restore original color of candidates (except already selected)
-                for (auto j : myCandidateLanes) {
-                    if(std::find(mySelectedLanes.begin(), mySelectedLanes.end(), j) == mySelectedLanes.end()) {
-                        j->setSpecialColor(0);
-                    }
-                }
-                myCandidateLanes.clear();
-                // change color of new lane candidadtes
-                for (auto j : mySelectedLanes.back()->getParentEdge().getGNEJunctionDestiny()->getGNEOutgoingEdges()) {
-                    for(auto k : j->getLanes()) {
-                        if(std::find(mySelectedLanes.begin(), mySelectedLanes.end(), k) == mySelectedLanes.end()) {
-                            k->setSpecialColor(&myCandidateLaneColor);
-                            myCandidateLanes.push_back(k);
-                        }
-                    }
-                }
-                // update view (due colors)
-                myAdditionalFrameParent->getViewNet()->update();
-                return true;
-            }
+        if (myCandidateLanes.empty()) {
+            WRITE_WARNING("Only candidate lanes are allowed");
+            return false;
+        } else if((myCandidateLanes.size() > 0) && (std::find(myCandidateLanes.begin(), myCandidateLanes.end(), lane) == myCandidateLanes.end())) {
+            WRITE_WARNING("Only consecutive lanes are allowed");
+            return false;
         }
-        WRITE_WARNING("Only consecutive lanes are allowed");
-        return false;
     }
-    // First lane, then add it and change color
+    // select lane
     mySelectedLanes.push_back(lane);
     lane->setSpecialColor(&mySelectedLaneColor);
     // restore original color of candidates (except already selected)
@@ -675,14 +676,15 @@ GNEAdditionalFrame::ConsecutiveLaneSelector::addSelectedLane(GNELane *lane) {
             i->setSpecialColor(0);
         }
     }
+    // clear candidate lanes
     myCandidateLanes.clear();
-    // change color of new candidates
-    for (auto i : mySelectedLanes.back()->getParentEdge().getGNEJunctionDestiny()->getGNEOutgoingEdges()) {
-        for(auto j : i->getLanes()) {
-            if(std::find(mySelectedLanes.begin(), mySelectedLanes.end(), j) == mySelectedLanes.end()) {
-                j->setSpecialColor(&myCandidateLaneColor);
-                myCandidateLanes.push_back(j);
-            }
+    // fill candidate lanes
+    for (auto i : lane->getParentEdge().getGNEConnections()) {
+        // check that possible candidate lane isn't already selected 
+        if((lane == i->getLaneFrom()) && (std::find(mySelectedLanes.begin(), mySelectedLanes.end(), i->getLaneTo()) == mySelectedLanes.end())) {
+            // set candidate lane
+            i->getLaneTo()->setSpecialColor(&myCandidateLaneColor);
+            myCandidateLanes.push_back(i->getLaneTo());
         }
     }
     // update view (due colors)
@@ -1359,9 +1361,7 @@ GNEAdditionalFrame::addAdditional(const GNEViewNet::ObjectsUnderCursor &objectsU
         return false;
     }
     // If consecutive Lane Selector is enabled, it means that either we're selecting lanes or we're finished or we'rent started
-    if(myConsecutiveLaneSelector->isShown()) {
-        return buildAdditionalWithConsecutiveLanes(valuesMap, objectsUnderCursor.lane);
-    } else if(tagValues.hasAttribute(SUMO_ATTR_EDGE)) {
+    if(tagValues.hasAttribute(SUMO_ATTR_EDGE)) {
         return buildAdditionalOverEdge(valuesMap, &objectsUnderCursor.lane->getParentEdge());
     } else if(tagValues.hasAttribute(SUMO_ATTR_LANE)) {
         return buildAdditionalOverLane(valuesMap, objectsUnderCursor.lane, tagValues);
@@ -1416,11 +1416,11 @@ GNEAdditionalFrame::generateID(GNENetElement* netElement) const {
 
 
 bool 
-GNEAdditionalFrame::buildAdditionalWithParent(std::map<SumoXMLAttr, std::string> &valuesMap, GNEAdditional* parent, const GNEAttributeCarrier::TagValues &tagValues) {
+GNEAdditionalFrame::buildAdditionalWithParent(std::map<SumoXMLAttr, std::string> &valuesMap, GNEAdditional* additionalParent, const GNEAttributeCarrier::TagValues &tagValues) {
     // if user click over an additional element parent, mark int in AdditionalParentSelector
-    if (parent && (parent->getTag() == tagValues.getParentTag())) {
-        valuesMap[GNE_ATTR_PARENT] = parent->getID();
-        myFirstAdditionalParentSelector->setIDSelected(parent->getID());
+    if (additionalParent && (additionalParent->getTag() == tagValues.getParentTag())) {
+        valuesMap[GNE_ATTR_PARENT] = additionalParent->getID();
+        myFirstAdditionalParentSelector->setIDSelected(additionalParent->getID());
     }
     // stop if currently there isn't a valid selected parent
     if (myFirstAdditionalParentSelector->getIdSelected() != "") {
@@ -1520,20 +1520,19 @@ GNEAdditionalFrame::buildAdditionalWithConsecutiveLanes(std::map<SumoXMLAttr, st
     else {
         valuesMap[SUMO_ATTR_POSITION] = toString(myConsecutiveLaneSelector->myFirstPosition);
         valuesMap[SUMO_ATTR_LANES] = GNEAttributeCarrier::parseIDs(myConsecutiveLaneSelector->getSelectedLanes());
-    }
-    // Generate id of element based on the first lane
-    valuesMap[SUMO_ATTR_ID] = generateID(myConsecutiveLaneSelector->getSelectedLanes().front());
-    // show warning dialogbox and stop check if input parameters are valid
-    if (myAdditionalParameters->areValuesValid() == false) {
-        myAdditionalParameters->showWarningMessage();
-        return false;
-    } else if (GNEAdditionalHandler::buildAdditional(myViewNet, true, myAdditionalSelector->getCurrentAdditionalType(), valuesMap)) {
-        // Refresh additional Parent Selector (For additionals that have a limited number of childs)
-        myFirstAdditionalParentSelector->refreshListOfAdditionalParents();
-        // abort lane selector
-        myConsecutiveLaneSelector->abortConsecutiveLaneSelector();
-        return true;
-    } else {
+        // Generate id of element based on the first lane
+        valuesMap[SUMO_ATTR_ID] = generateID(myConsecutiveLaneSelector->getSelectedLanes().front());
+        // show warning dialogbox and stop check if input parameters are valid
+        if (myAdditionalParameters->areValuesValid() == false) {
+            myAdditionalParameters->showWarningMessage();
+            return false;
+        } else if (GNEAdditionalHandler::buildAdditional(myViewNet, true, myAdditionalSelector->getCurrentAdditionalType(), valuesMap)) {
+            // Refresh additional Parent Selector (For additionals that have a limited number of childs)
+            myFirstAdditionalParentSelector->refreshListOfAdditionalParents();
+            // abort lane selector
+            myConsecutiveLaneSelector->abortConsecutiveLaneSelector();
+            return true;
+        }
         return false;
     }
 }
