@@ -148,7 +148,7 @@ def compound_object(element_name, attrnames, warn=False):
                     for c in l:
                         s += c.toXML(initialIndent + indent)
                 if self._text is not None:
-                    s += text
+                    s += self._text.strip()
                 return s + "%s</%s>\n" % (initialIndent, element_name)
 
         def __repr__(self):
