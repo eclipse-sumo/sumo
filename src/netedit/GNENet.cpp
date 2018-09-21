@@ -1766,6 +1766,11 @@ GNENet::getTLLogicCont() {
     return myNetBuilder->getTLLogicCont();
 }
 
+NBEdgeCont& 
+GNENet::getEdgeCont() {
+    return myNetBuilder->getEdgeCont();
+}
+
 
 void
 GNENet::renameJunction(GNEJunction* junction, const std::string& newID) {
