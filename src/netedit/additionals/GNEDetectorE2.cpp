@@ -56,7 +56,7 @@
 GNEDetectorE2::GNEDetectorE2(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double pos, double length, double freq, const std::string& filename, const std::string& vehicleTypes,
                              const std::string& name, const double timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, bool blockMovement) :
     GNEDetector(id, viewNet, GLO_E2DETECTOR, SUMO_TAG_E2DETECTOR, pos, freq, filename, vehicleTypes, name, friendlyPos, blockMovement),
-    myLane(lane),
+    myLanes({lane}),
     myLength(length),
     myTimeThreshold(timeThreshold),
     mySpeedThreshold(speedThreshold),
@@ -67,7 +67,6 @@ GNEDetectorE2::GNEDetectorE2(const std::string& id, GNELane* lane, GNEViewNet* v
 GNEDetectorE2::GNEDetectorE2(const std::string& id, std::vector<GNELane*> lanes, GNEViewNet* viewNet, double pos, double freq, const std::string& filename, const std::string& vehicleTypes,
                              const std::string& name, const double timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, bool blockMovement) :
     GNEDetector(id, viewNet, GLO_E2DETECTOR, SUMO_TAG_E2DETECTOR_MULTILANE, pos, freq, filename, vehicleTypes, name, friendlyPos, blockMovement),
-    myLane(NULL),
     myLanes(lanes),
     myTimeThreshold(timeThreshold),
     mySpeedThreshold(speedThreshold),
@@ -86,21 +85,22 @@ GNEDetectorE2::updateGeometry(bool updateGrid) {
         myViewNet->getNet()->removeGLObjectFromGrid(this);
     }
 
-    // Clear all containers
+    // Clear all containers and shape
     myShapeRotations.clear();
     myShapeLengths.clear();
+    myShape.clear();
 
-    GNELane *lane = myLane? myLane : myLanes.front();
-
-    // Get shape of lane parent
-    myShape = lane->getShape();
+    // set s
+    for (auto i : myLanes) {
+        myShape.append(i->getShape());
+    }
 
     // set start position
     double startPosFixed;
     if (myPositionOverLane < 0) {
         startPosFixed = 0;
-    } else if (myPositionOverLane > lane->getParentEdge().getNBEdge()->getFinalLength()) {
-        startPosFixed = lane->getParentEdge().getNBEdge()->getFinalLength();
+    } else if (myPositionOverLane > myLanes.front()->getParentEdge().getNBEdge()->getFinalLength()) {
+        startPosFixed = myLanes.front()->getParentEdge().getNBEdge()->getFinalLength();
     } else {
         startPosFixed = myPositionOverLane;
     }
@@ -109,14 +109,14 @@ GNEDetectorE2::updateGeometry(bool updateGrid) {
     double endPosFixed;
     if ((myPositionOverLane + myLength) < 0) {
         endPosFixed = 0;
-    } else if ((myPositionOverLane + myLength) > lane->getParentEdge().getNBEdge()->getFinalLength()) {
-        endPosFixed = lane->getParentEdge().getNBEdge()->getFinalLength();
+    } else if ((myPositionOverLane + myLength) > myLanes.back()->getParentEdge().getNBEdge()->getFinalLength()) {
+        endPosFixed = myLanes.back()->getParentEdge().getNBEdge()->getFinalLength();
     } else {
         endPosFixed = (myPositionOverLane + myLength);
     }
 
     // Cut shape using as delimitators fixed start position and fixed end position
-    myShape = myShape.getSubpart(startPosFixed * lane->getLengthGeometryFactor(), endPosFixed * lane->getLengthGeometryFactor());
+    myShape = myShape.getSubpart(startPosFixed * myLanes.front()->getLengthGeometryFactor(), endPosFixed * myLanes.back()->getLengthGeometryFactor());
 
     // Get number of parts of the shape
     int numberOfSegments = (int)myShape.size() - 1;
@@ -152,7 +152,7 @@ GNEDetectorE2::updateGeometry(bool updateGrid) {
     myBlockIconOffset = Position(-0.75, 0);
 
     // Set block icon rotation, and using their rotation for draw logo
-    setBlockIconRotation(lane);
+    setBlockIconRotation(myLanes.front());
 
     // last step is to check if object has to be added into grid (SUMOTree) again
     if (updateGrid) {
@@ -173,18 +173,14 @@ GNEDetectorE2::isDetectorPositionFixed() const {
     if (myFriendlyPosition) {
         return true;
     } else {
-        return (myPositionOverLane >= 0) && ((myPositionOverLane + myLength) <= myLane->getParentEdge().getNBEdge()->getFinalLength());
+        return (myPositionOverLane >= 0) && ((myPositionOverLane + myLength) <= myLanes.front()->getParentEdge().getNBEdge()->getFinalLength());
     }
 }
 
 
 GNELane*
 GNEDetectorE2::getLane() const {
-    if(myLane) {
-        return myLane;
-    } else {
-        return myLanes.front();
-    }
+    return myLanes.front();
 }
 
 
@@ -257,7 +253,6 @@ GNEDetectorE2::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getAdditionalID();
         case SUMO_ATTR_LANE:
-            return myLane->getID();
         case SUMO_ATTR_LANES:
             return parseIDs(myLanes);
         case SUMO_ATTR_POSITION:
@@ -328,7 +323,6 @@ GNEDetectorE2::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             return isValidAdditionalID(value);
         case SUMO_ATTR_LANE:
-            return (myViewNet->getNet()->retrieveLane(value, false) != nullptr);
         case SUMO_ATTR_LANES:
             if (value.empty()) {
                 return false;
@@ -381,8 +375,6 @@ GNEDetectorE2::setAttribute(SumoXMLAttr key, const std::string& value) {
             changeAdditionalID(value);
             break;
         case SUMO_ATTR_LANE:
-            myLane = changeLane(myLane, value);
-            break;
         case SUMO_ATTR_LANES:
             myLanes = parse<std::vector<GNELane*> >(myViewNet->getNet(), value);
             break;

@@ -127,10 +127,7 @@ public:
     /// @}
 
 protected:
-    /// @brief The lane in which this detector is placed
-    GNELane* myLane;
-
-    /// @brief E2 lanes (used only by MultiLane E2 detectors)
+    /// @brief E2 lanes (Single lanes uses only the first lane)
     std::vector<GNELane*> myLanes;
 
     /// @brief E2 detector lenght
