@@ -76,15 +76,14 @@ make %{?_smp_mflags} man
 
 %install
 %make_install
-mkdir -p %{buildroot}%{_prefix}/lib/sumo
-rm -rf tools/contributed/traci4j
-cp -a tools data %{buildroot}%{_prefix}/lib/sumo
+mkdir -p %{buildroot}%{_datadir}/sumo
+cp -a tools data %{buildroot}%{_datadir}/sumo
 mkdir -p %{buildroot}%{_bindir}
-ln -s ../../bin %{buildroot}%{_prefix}/lib/sumo
-ln -s ../lib/sumo/tools/assign/duaIterate.py %{buildroot}%{_bindir}/duaIterate.py
-ln -s ../lib/sumo/tools/osmWebWizard.py %{buildroot}%{_bindir}/osmWebWizard.py
-ln -s ../lib/sumo/tools/randomTrips.py %{buildroot}%{_bindir}/randomTrips.py
-ln -s ../lib/sumo/tools/traceExporter.py %{buildroot}%{_bindir}/traceExporter.py
+ln -s %{_bindir} %{buildroot}%{_datadir}/sumo/bin
+ln -s %{_datadir}/sumo/tools/assign/duaIterate.py %{buildroot}%{_bindir}/duaIterate.py
+ln -s %{_datadir}/sumo/tools/osmWebWizard.py %{buildroot}%{_bindir}/osmWebWizard.py
+ln -s %{_datadir}/sumo/tools/randomTrips.py %{buildroot}%{_bindir}/randomTrips.py
+ln -s %{_datadir}/sumo/tools/traceExporter.py %{buildroot}%{_bindir}/traceExporter.py
 install -d -m 755 %{buildroot}%{_mandir}/man1
 install -p -m 644 docs/man/*.1 %{buildroot}%{_mandir}/man1
 install -d -m 755 %{buildroot}%{_sysconfdir}/profile.d
@@ -102,7 +101,7 @@ install -Dm644 %{SOURCE2} %{buildroot}%{_datadir}/mime/application/%{name}.xml
 %files
 %defattr(-,root,root)
 %{_bindir}/*
-%{_prefix}/lib/sumo
+%{_datadir}/sumo
 %doc AUTHORS LICENSE README.md ChangeLog CONTRIBUTING.md NOTICE.md docs/pydoc docs/userdoc docs/examples
 %{_mandir}/man1/*
 %{_sysconfdir}/profile.d/%{name}.*sh
