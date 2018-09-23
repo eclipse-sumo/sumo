@@ -20,7 +20,7 @@
 Name:           sumo
 Version:        git
 Release:        0
-Summary:        Simulation of Urban Mobility - A Microscopic Traffic Simulation
+Summary:        Eclipse Simulation of Urban Mobility - A Microscopic Traffic Simulation
 License:        EPL-2.0
 Group:          Productivity/Scientific/Other
 URL:            http://sumo.dlr.de/
@@ -63,7 +63,11 @@ designed to handle large road networks.
 unzip -o %{SOURCE1} -d ..
 mv docs/tutorial docs/examples
 # Use real shebang
+%if 0%{?fedora_version} > 28
+find . -name "*.py" -o -name "*.pyw" | xargs sed -i 's,^#!%{_bindir}/env python$,#!%{_bindir}/python2,'
+%else
 find . -name "*.py" -o -name "*.pyw" | xargs sed -i 's,^#!%{_bindir}/env python$,#!%{_bindir}/python,'
+%endif
 
 %build
 %configure
@@ -83,15 +87,17 @@ ln -s ../lib/sumo/tools/randomTrips.py %{buildroot}%{_bindir}/randomTrips.py
 ln -s ../lib/sumo/tools/traceExporter.py %{buildroot}%{_bindir}/traceExporter.py
 install -d -m 755 %{buildroot}%{_mandir}/man1
 install -p -m 644 docs/man/*.1 %{buildroot}%{_mandir}/man1
-install -Dm644 build/package/%{name}.desktop %{buildroot}%{_datadir}/applications
-install -Dm644 build/package/%{name}.png %{buildroot}%{_datadir}/pixmaps
+install -d -m 755 %{buildroot}%{_sysconfdir}/profile.d
+install -p -m 644 build/package/*sh %{buildroot}%{_sysconfdir}/profile.d
+install -d -m 755 %{buildroot}%{_datadir}/applications
+install -p -m 644 build/package/%{name}.desktop %{buildroot}%{_datadir}/applications
+install -d -m 755 %{buildroot}%{_datadir}/pixmaps
+install -p -m 644 build/package/%{name}.png %{buildroot}%{_datadir}/pixmaps
 %if 0%{?suse_version}
 install -Dm644 %{SOURCE2} %{buildroot}%{_datadir}/mime/application/%{name}.xml
 %fdupes -s docs
 %fdupes %{buildroot}
 %endif
-install -d -m 755 %{buildroot}%{_sysconfdir}/profile.d
-install -p -m 644 build/package/*sh %{buildroot}%{_sysconfdir}/profile.d
 
 %files
 %defattr(-,root,root)
@@ -99,9 +105,10 @@ install -p -m 644 build/package/*sh %{buildroot}%{_sysconfdir}/profile.d
 %{_prefix}/lib/sumo
 %doc AUTHORS LICENSE README.md ChangeLog CONTRIBUTING.md NOTICE.md docs/pydoc docs/userdoc docs/examples
 %{_mandir}/man1/*
+%{_sysconfdir}/profile.d/%{name}.*sh
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/pixmaps/%{name}.png
-%if 0%{?suse_version} > 1200
+%if 0%{?suse_version}
 %{_datadir}/mime/application
 %endif
 
