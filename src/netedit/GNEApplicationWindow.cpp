@@ -794,9 +794,14 @@ GNEApplicationWindow::onCmdOpenForeign(FXObject*, FXSelector, void*) {
         OptionsCont& oc = OptionsCont::getOptions();
         GNELoadThread::fillOptions(oc);
         if (osmPattern.contains(opendialog.getPattern())) {
+            // recommended osm options
+            // http://sumo.dlr.de/wiki/Networks/Import/OpenStreetMap#Recommended_NETCONVERT_Options
             oc.set("osm-files", file);
+            oc.set("geometry.remove", "true");
             oc.set("ramps.guess", "true");
-            oc.set("tls.guess", "true");
+            oc.set("junctions.join", "true");
+            oc.set("tls.guess-signals", "true");
+            oc.set("tls.discard-simple", "true");
         } else {
             throw ProcessError("Attempted to import unknown file format '" + file + "'.");
         }
