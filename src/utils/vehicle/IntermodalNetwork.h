@@ -33,6 +33,7 @@
 #include <utils/common/Named.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/ToString.h>
+#include <utils/geom/Position.h>
 #include "AccessEdge.h"
 #include "CarEdge.h"
 #include "IntermodalEdge.h"
@@ -134,7 +135,7 @@ public:
 
         // build the walking connectors if there are no walking areas
         for (const E* const edge : edges) {
-            if (edge->isTazConnector()) {
+            if (edge->isTazConnector() || edge->isInternal()) {
                 continue;
             }
             if (haveSeenWalkingArea) {
@@ -521,20 +522,23 @@ public:
 
         typename std::vector<_PTEdge*>& lineEdges = myPTLines[pars.line];
         if (lineEdges.empty()) {
-            _IntermodalEdge* lastStop = 0;
+            _IntermodalEdge* lastStop = nullptr;
+            Position lastPos;
             SUMOTime lastTime = 0;
-            for (std::vector<SUMOVehicleParameter::Stop>::const_iterator s = validStops.begin(); s != validStops.end(); ++s) {
-                _IntermodalEdge* currStop = myStopConnections[s->busstop];
-                if (lastStop != 0) {
-                    _PTEdge* const newEdge = new _PTEdge(s->busstop, myNumericalID++, lastStop, currStop->getEdge(), pars.line);
+            for (const SUMOVehicleParameter::Stop& s : validStops) {
+                _IntermodalEdge* currStop = myStopConnections[s.busstop];
+                Position stopPos = E::getStopPosition(s);
+                if (lastStop != nullptr) {
+                    _PTEdge* const newEdge = new _PTEdge(s.busstop, myNumericalID++, lastStop, currStop->getEdge(), pars.line, lastPos.distanceTo(stopPos));
                     addEdge(newEdge);
-                    newEdge->addSchedule(pars.id, lastTime, pars.repetitionNumber, pars.repetitionOffset, s->until - lastTime);
+                    newEdge->addSchedule(pars.id, lastTime, pars.repetitionNumber, pars.repetitionOffset, s.until - lastTime);
                     lastStop->addSuccessor(newEdge);
                     newEdge->addSuccessor(currStop);
                     lineEdges.push_back(newEdge);
                 }
-                lastTime = s->until;
+                lastTime = s.until;
                 lastStop = currStop;
+                lastPos = stopPos;
             }
         } else {
             if (validStops.size() != lineEdges.size() + 1) {

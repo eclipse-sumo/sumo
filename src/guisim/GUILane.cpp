@@ -1189,6 +1189,16 @@ GUILane::closeTraffic(bool rebuildAllowed) {
     myAmClosed = !myAmClosed;
     if (rebuildAllowed) {
         getEdge().rebuildAllowedLanes();
+        for (MSEdge* pred : getEdge().getPredecessors()) {
+            pred->rebuildAllowedLanes();
+            for (MSLane* predL : pred->getLanes()) {
+                const VehCont& vehs = predL->getVehiclesSecure();
+                for (MSVehicle* veh : vehs) {
+                    veh->updateBestLanes(true);
+                }
+                predL->releaseVehicles();
+            }
+        }
     }
 }
 

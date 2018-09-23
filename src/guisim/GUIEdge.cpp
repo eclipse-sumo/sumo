@@ -518,6 +518,16 @@ GUIEdge::closeTraffic(const GUILane* lane) {
         }
     }
     rebuildAllowedLanes();
+    for (MSEdge* pred : getPredecessors()) {
+        pred->rebuildAllowedLanes();
+        for (MSLane* predL : pred->getLanes()) {
+            const MSLane::VehCont& vehs = predL->getVehiclesSecure();
+            for (MSVehicle* veh : vehs) {
+                veh->updateBestLanes(true);
+            }
+            predL->releaseVehicles();
+        }
+    }
 }
 
 

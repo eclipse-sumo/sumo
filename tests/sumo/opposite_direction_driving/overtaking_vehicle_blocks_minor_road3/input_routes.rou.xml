@@ -8,7 +8,7 @@
     <vehicle id="oncoming1" route="r2" departPos="100"  depart="0"/>
 
     <vehicle id="stopped1"  route="r0" departPos="40" depart="2" type="bus">
-        <stop lane="VODUGES_beg_0" endPos="-12" duration="3"/>
+        <stop lane="VODUGES_beg_0" endPos="-12" duration="50"/>
     </vehicle>
     <vehicle id="overtaking" route="r0" departPos="0"  depart="2"/>
 

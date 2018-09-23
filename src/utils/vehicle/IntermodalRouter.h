@@ -77,6 +77,7 @@ public:
         std::vector<const E*> edges;
         double traveltime;
         double cost;
+        double length;
         double departPos;
         double arrivalPos;
         std::string description;
@@ -120,6 +121,7 @@ public:
             std::string lastLine = "";
             double time = STEPS2TIME(msTime);
             double effort = 0.;
+            double length = 0.;
             const _IntermodalEdge* prev = nullptr;
             for (const _IntermodalEdge* iEdge : intoEdges) {
                 if (iEdge->includeInRoute(false)) {
@@ -151,12 +153,13 @@ public:
                         }
                     }
                 }
-                const double prevTime = time, prevEffort = effort;
-                myInternalRouter->updateViaCost(prev, iEdge, &trip, time, effort);
+                const double prevTime = time, prevEffort = effort, prevLength = length;
+                myInternalRouter->updateViaCost(prev, iEdge, &trip, time, effort, length);
                 prev = iEdge;
                 if (!into.empty()) {
                     into.back().traveltime += time - prevTime;
                     into.back().cost += effort - prevEffort;
+                    into.back().length += length - prevLength;
                 }
             }
         }

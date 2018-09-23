@@ -82,7 +82,7 @@ public:
         return myTTOperation == nullptr ? effort : (*myTTOperation)(e, v, t);
     }
 
-    inline void updateViaCost(const E* const prev, const E* const e, const V* const v, double& time, double& effort) const {
+    inline void updateViaCost(const E* const prev, const E* const e, const V* const v, double& time, double& effort, double& length) const {
         if (prev != nullptr) {
             for (const std::pair<const E*, const E*>& follower : prev->getViaSuccessors()) {
                 if (follower.first == e) {
@@ -91,6 +91,7 @@ public:
                         const double viaEffortDelta = this->getEffort(viaEdge, v, time);
                         time += getTravelTime(viaEdge, v, time, viaEffortDelta);
                         effort += viaEffortDelta;
+                        length += viaEdge->getLength();
                         viaEdge = viaEdge->getViaSuccessors().front().first;
                     }
                     break;
@@ -100,18 +101,20 @@ public:
         const double effortDelta = this->getEffort(e, v, time);
         effort += effortDelta;
         time += getTravelTime(e, v, time, effortDelta);
+        length += e->getLength();
     }
 
 
     inline double recomputeCosts(const std::vector<const E*>& edges, const V* const v, SUMOTime msTime) const {
-        double effort = 0.;
         double time = STEPS2TIME(msTime);
+        double effort = 0.;
+        double length = 0.;
         const E* prev = nullptr;
         for (const E* const e : edges) {
             if (isProhibited(e, v)) {
                 return -1;
             }
-            updateViaCost(prev, e, v, time, effort);
+            updateViaCost(prev, e, v, time, effort, length);
             prev = e;
         }
         return effort;

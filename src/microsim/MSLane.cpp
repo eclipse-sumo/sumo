@@ -77,6 +77,7 @@
 //#define DEBUG_NO_CONNECTION
 
 #define DEBUG_COND (false)
+//#define DEBUG_COND (getID() == "undefined")
 //#define DEBUG_COND2(obj) ((obj != 0 && (obj)->getID() == "disabled"))
 #define DEBUG_COND2(obj) ((obj != 0 && (obj)->isSelected()))
 
@@ -215,6 +216,11 @@ MSLane::addLink(MSLink* link) {
 void
 MSLane::addNeigh(const std::string& id) {
     myNeighs.push_back(id);
+    // warn about lengths after loading the second lane of the pair
+    if (getOpposite() != nullptr && getLength() != getOpposite()->getLength()) {
+        WRITE_WARNING("Unequal lengths of neigh lane '" + getID() + "' and lane '" + id + "' (" + toString(getLength()) 
+                + ", " + toString(getOpposite()->getLength()) + ")");
+    }
 }
 
 
