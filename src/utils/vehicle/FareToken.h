@@ -28,8 +28,10 @@ enum class FareToken : int
   KLU  =  14,
   KHZ  =  15,
   KLZ  =  16,
-  ZU   =  17   //Artificial state for after leaving short trip khu or klu since a pedestrian edge does not allow us
+  ZU   =  17 ,  //Artificial state for after leaving short trip khu or klu since a pedestrian edge does not allow us
               //to distinguish between z or u zones
+  START = 18
+  
 };
 
 namespace FareUtil {
@@ -119,6 +121,8 @@ namespace FareUtil {
         return "Kurzstreckenticket Halle";
       case FareToken ::KLZ:
         return  "Kurzstreckenticket Leipzig";
+      case FareToken ::START:
+        return "forbidden START";
     }
     return ""; //surpress compiler warning
   }

@@ -87,7 +87,8 @@ public:
     myFareToken( FareToken::None ),
     myCounter( std::numeric_limits<int>::max() ),
     myTravelledDistance(std::numeric_limits<double>::max() ),
-    myVisistedStops(std::numeric_limits<int>::max() )
+    myVisistedStops(std::numeric_limits<int>::max() ),
+    myPriceDiff(0)
   {
   };
   
@@ -99,7 +100,8 @@ public:
   myFareToken( token ),
   myCounter(0),
   myTravelledDistance(0),
-  myVisistedStops(0) {}
+  myVisistedStops(0),
+  myPriceDiff(0){}
   
   /** Destructor **/
   ~FareState() = default;
@@ -122,6 +124,8 @@ private:
   double myTravelledDistance;
   /**num of visited stops**/
   int myVisistedStops;
+  /** price diff to previous edge **/
+  double myPriceDiff;
   
 };
 
@@ -179,7 +183,7 @@ public:
     double  effort = 0;
     FareState const & state =  myFareStates.at( (size_t) edge->getNumericalID() );
     if( state.isValid() ){
-      effort = computePrice( state );
+      effort = state.myPriceDiff;
     }
     else{
       effort = std::numeric_limits<double>::max();
@@ -190,43 +194,55 @@ public:
   /** Implementation of EffortCalculator **/
   void update(_IntermodalEdge const *  edge, _IntermodalEdge const *  prev)  override
   {
+    
     std::string const & edgeType = edge->getLine();
     
     //get propagated fare state
-    FareState const & state  = myFareStates.at( (size_t) prev->getNumericalID() );
+    FareState  & state  = myFareStates.at( (size_t) prev->getNumericalID() );
+  
+    double oldPr;
+    if( state.myFareToken == FareToken::START)
+    {
+      oldPr = 0;
+    }
+    else{
+      oldPr = computePrice(state);
+    }
     
     //treat  public transport edges
     if( edgeType.c_str()[0] != '!')
     {
-      auto publicTransportEdge = dynamic_cast<_PublicTransportEdge const *>(edge);
+      auto publicTransportEdge = static_cast<_PublicTransportEdge const *>(edge);
       updateFareState(state,*publicTransportEdge);
-      return;
     }
     
     //treat stop edges
-    if( edgeType ==  "!stop" )
+    else if( edgeType ==  "!stop" )
     {
-      auto stopEdge = dynamic_cast<_StopEdge const *>(edge);
+      auto stopEdge = static_cast<_StopEdge const *>(edge);
       updateFareState(state,*stopEdge);
-      return;
     }
     
     //treat ped edges
-    if( edgeType == "!ped")  {
-      auto pedestrianEdge = dynamic_cast<_PedestrianEdge const *>(edge);
+   else if( edgeType == "!ped")  {
+      auto pedestrianEdge = static_cast<_PedestrianEdge const *>(edge);
       updateFareState(state,*pedestrianEdge);
-      return;
     }
     
-    if( edgeType == "!access" ) {
+   else if( edgeType == "!access" ) {
       
-      auto accessEdge = dynamic_cast<_AccessEdge const *>(edge);
+      auto accessEdge = static_cast<_AccessEdge const *>(edge);
       updateFareState(state,*accessEdge, *prev);
-      return;
     }
     
-    updateFareState(state,*edge);
-  
+    else
+    {
+      updateFareState(state,*edge);
+    }
+    FareState & stateAtE = myFareStates[edge->getNumericalID()];
+    double newPr = computePrice(stateAtE);
+    stateAtE.myPriceDiff = newPr-oldPr;
+    
   }
   
   /** Implementation of EffortCalculator
@@ -237,7 +253,7 @@ public:
     
     int id = edge->getNumericalID();
     
-    myFareStates[id] = FareState(FareToken::Free);
+    myFareStates[id] = FareState(FareToken::START);
     
   }
 
@@ -252,7 +268,7 @@ private:
   /** List of the prices **/
   Prices prices;
   
-      double computePrice(FareState fareState) const
+      double computePrice(FareState const & fareState) const
       {
         switch(fareState.myFareToken)
         {
@@ -283,6 +299,8 @@ private:
           case FareToken ::KHZ:
             return prices.shortTripHalle;
           case FareToken::Free:
+            return 1.4;
+          case FareToken ::START:
             return 0;
           case FareToken::ZU:
           case FareToken::None:
@@ -294,16 +312,39 @@ private:
 
       
       
-  std::string output(_IntermodalEdge const * edge) const override
+  std::string output(_IntermodalEdge const * edge ) const override
   {
-    std::stringstream msg;
-    msg<<"Final fare state at edge of type: "<<edge->getLine()<<std::endl;
+    
     FareState const  & my = myFareStates[edge->getNumericalID()];
-    msg<<"Faretoken"<<FareUtil::tokenToString(my.myFareToken)<<std::endl;
-    msg<<"Price:"<<computePrice(my)<<std::endl;
-    msg<<"Zones "<<my.myCounter.numZones()<<std::endl;
-    msg<<"Stations: "<<my.myVisistedStops<<std::endl;
-    msg<<"Distance:"<<my.myTravelledDistance<<std::endl;
+    std::stringstream msg;
+    if( false )
+    {
+      msg<<"Final fare state at edge of type: "<<edge->getLine()<<std::endl;
+      msg<<"Faretoken"<<FareUtil::tokenToString(my.myFareToken)<<std::endl;
+      msg<<"Price:"<<computePrice(my)<<std::endl;
+      msg<<"Zones "<<my.myCounter.numZones()<<std::endl;
+      msg<<"Stations: "<<my.myVisistedStops<<std::endl;
+      msg<<"Distance:"<<my.myTravelledDistance<<std::endl;
+    }
+    else
+    {
+      msg << FareUtil::tokenToTicket(my.myFareToken)<<" ";
+      if (my.myFareToken == FareToken::Z)
+      {
+        msg << my.myCounter.numZones()<< " ";
+        if( my.myCounter.numZones() == 1 )
+          msg << "Zone";
+        else
+          msg <<"Zonen";
+        
+      }
+      else if( my.myFareToken == FareToken::U )
+      {
+        msg << my.myCounter.numZones() << "1 Zone";
+  
+      }
+      msg<<":"<<computePrice(my);
+    }
     return msg.str();
   }
   
@@ -468,6 +509,11 @@ void FareModul<E,L,N,V>::updateFareState(FareState const & currentFareState, _Pe
   
   stateAtE = currentFareState;
   
+  if( currentFareState.myFareToken == FareToken::START )
+  {
+    stateAtE.myFareToken=FareToken::Free;
+  }
+  
 }
 
 
@@ -493,6 +539,11 @@ void FareModul<E,L,N,V>::updateFareState(FareState const & currentFareState, _In
   FareState & stateAtE = myFareStates[e.getNumericalID()];
 
   stateAtE = currentFareState;
+  
+  if( currentFareState.myFareToken == FareToken::START )
+  {
+    stateAtE.myFareToken=FareToken::Free;
+  }
 
 }
 
@@ -504,6 +555,11 @@ void FareModul<E,L,N,V>::updateFareState(FareState const & currentFareState, con
   FareState & stateAtE = myFareStates[e.getNumericalID()];
   
   stateAtE = currentFareState;
+  
+  if( currentFareState.myFareToken == FareToken::START )
+  {
+    stateAtE.myFareToken=FareToken::Free;
+  }
   
   if( prev.getLine() == "!ped" )
   {

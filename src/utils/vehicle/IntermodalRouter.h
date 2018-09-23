@@ -236,7 +236,14 @@ private:
     }
 
     static inline double getCombined(const _IntermodalEdge* const edge, const _IntermodalTrip* const trip, double time) {
-        return edge->getTravelTime(trip, time) + trip->externalFactor * trip->calc->getEffort(edge);
+      double trTime =  edge->getTravelTime(trip, time);
+      double fac = 0;
+      if( edge->getLine() =="!ped")
+      {
+        trTime += fac*trTime;
+      }
+      return trTime + trip->externalFactor * trip->calc->getEffort(edge);
+      
     }
 
     inline void createNet() {
