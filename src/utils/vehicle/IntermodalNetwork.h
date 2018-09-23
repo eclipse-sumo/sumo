@@ -33,6 +33,7 @@
 #include <utils/common/Named.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/ToString.h>
+#include <utils/geom/Position.h>
 #include "AccessEdge.h"
 #include "CarEdge.h"
 #include "IntermodalEdge.h"
