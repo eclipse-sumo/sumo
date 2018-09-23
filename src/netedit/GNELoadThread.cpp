@@ -86,10 +86,12 @@ GNELoadThread::run() {
 
     // try to load the given configuration
     OptionsCont& oc = OptionsCont::getOptions();
-    oc.clear();
-    if (!initOptions()) {
-        submitEndAndCleanup(net);
-        return 0;
+    if (myFile != "") {
+        oc.clear();
+        if (!initOptions()) {
+            submitEndAndCleanup(net);
+            return 0;
+        }
     }
     MsgHandler::initOutputOptions();
     if (!(NIFrame::checkOptions() &&

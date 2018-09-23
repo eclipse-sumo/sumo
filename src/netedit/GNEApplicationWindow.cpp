@@ -806,7 +806,7 @@ GNEApplicationWindow::onCmdOpenForeign(FXObject*, FXSelector, void*) {
 
         if (wizard->execute()) {
             NIFrame::checkOptions(); // needed to set projection parameters
-            loadConfigOrNet(file, false, false, false);
+            loadConfigOrNet("", false, false, false);
         }
     }
     return 1;
