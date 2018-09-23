@@ -840,6 +840,12 @@ MSEdge::getDistanceTo(const MSEdge* other) const {
 }
 
 
+const Position
+MSEdge::getStopPosition(const SUMOVehicleParameter::Stop& stop) {
+    return MSLane::dictionary(stop.lane)->geometryPositionAtOffset((stop.endPos + stop.startPos) / 2.);
+}
+
+
 double
 MSEdge::getSpeedLimit() const {
     // @note lanes might have different maximum speeds in theory

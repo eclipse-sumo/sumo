@@ -316,6 +316,14 @@ ROEdge::getAllEdges() {
 }
 
 
+const Position
+ROEdge::getStopPosition(const SUMOVehicleParameter::Stop& stop) {
+    const double middle = (stop.endPos + stop.startPos) / 2.;
+    const ROEdge* const edge = RONet::getInstance()->getEdge(SUMOXMLDefinitions::getEdgeIDFromLane(stop.lane));
+    return (edge->getFromJunction()->getPosition() + edge->getToJunction()->getPosition()) * (middle / edge->getLength());
+}
+
+
 const ROEdgeVector&
 ROEdge::getSuccessors(SUMOVehicleClass vClass) const {
     if (vClass == SVC_IGNORING || !RONet::getInstance()->hasPermissions() || isTazConnector()) {

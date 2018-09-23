@@ -60,9 +60,9 @@ private:
     typedef void(*CreateNetCallback)(IntermodalRouter <E, L, N, V>&);
     typedef IntermodalEdge<E, L, N, V> _IntermodalEdge;
     typedef IntermodalTrip<E, N, V> _IntermodalTrip;
-    typedef SUMOAbstractRouterPermissions<IntermodalEdge<E, L, N, V>, IntermodalTrip<E, N, V> > _InternalRouter;
-    typedef DijkstraRouter<IntermodalEdge<E, L, N, V>, IntermodalTrip<E, N, V>, SUMOAbstractRouterPermissions<IntermodalEdge<E, L, N, V>, IntermodalTrip<E, N, V> > > _InternalDijkstra;
-    typedef AStarRouter<IntermodalEdge<E, L, N, V>, IntermodalTrip<E, N, V>, SUMOAbstractRouterPermissions<IntermodalEdge<E, L, N, V>, IntermodalTrip<E, N, V> > > _InternalAStar;
+    typedef SUMOAbstractRouterPermissions<_IntermodalEdge, _IntermodalTrip> _InternalRouter;
+    typedef DijkstraRouter<_IntermodalEdge, _IntermodalTrip, _InternalRouter> _InternalDijkstra;
+    typedef AStarRouter<_IntermodalEdge, _IntermodalTrip, _InternalRouter> _InternalAStar;
 
 public:
     struct TripItem {
@@ -76,6 +76,7 @@ public:
         std::vector<const E*> edges;
         double traveltime;
         double cost;
+        double length;
         double departPos;
         double arrivalPos;
         std::string description;
@@ -119,6 +120,7 @@ public:
             std::string lastLine = "";
             double time = STEPS2TIME(msTime);
             double effort = 0.;
+            double length = 0.;
             const _IntermodalEdge* prev = nullptr;
             for (const _IntermodalEdge* iEdge : intoEdges) {
                 if (iEdge->includeInRoute(false)) {
@@ -147,12 +149,13 @@ public:
                         }
                     }
                 }
-                const double prevTime = time, prevEffort = effort;
-                myInternalRouter->updateViaCost(prev, iEdge, &trip, time, effort);
+                const double prevTime = time, prevEffort = effort, prevLength = length;
+                myInternalRouter->updateViaCost(prev, iEdge, &trip, time, effort, length);
                 prev = iEdge;
                 if (!into.empty()) {
                     into.back().traveltime += time - prevTime;
                     into.back().cost += effort - prevEffort;
+                    into.back().length += length - prevLength;
                 }
             }
         }

@@ -564,6 +564,7 @@ Simulation::findIntermodalRoute(const std::string& from, const std::string& to,
                     }
                     resultCand.back().travelTime = it->traveltime;
                     resultCand.back().cost = it->cost;
+                    resultCand.back().length = it->length;
                     resultCand.back().intended = it->intended;
                     resultCand.back().depart = it->depart;
                     resultCand.back().departPos = it->departPos;
