@@ -90,6 +90,10 @@ GNEDetectorE2::updateGeometry(bool updateGrid) {
     myShapeLengths.clear();
     myShape.clear();
 
+
+
+
+
     // set s
     for (auto i : myLanes) {
         myShape.append(i->getShape());
@@ -99,8 +103,8 @@ GNEDetectorE2::updateGeometry(bool updateGrid) {
     double startPosFixed;
     if (myPositionOverLane < 0) {
         startPosFixed = 0;
-    } else if (myPositionOverLane > myLanes.front()->getParentEdge().getNBEdge()->getFinalLength()) {
-        startPosFixed = myLanes.front()->getParentEdge().getNBEdge()->getFinalLength();
+    } else if (myPositionOverLane > myLanes.back()->getParentEdge().getNBEdge()->getFinalLength()) {
+        startPosFixed = myLanes.back()->getParentEdge().getNBEdge()->getFinalLength();
     } else {
         startPosFixed = myPositionOverLane;
     }

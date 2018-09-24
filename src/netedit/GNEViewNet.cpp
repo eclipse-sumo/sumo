@@ -778,8 +778,8 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
             // declare vectors for shape rotation and lenghts
             std::vector<double> shapeRotations, shapeLengths;
             // obtain GNELanes
-            GNELane* from = myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->getSelectedLanes().at(i);
-            GNELane* to = myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->getSelectedLanes().at(i+1);
+            GNELane* from = myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->getSelectedLanes().at(i).first;
+            GNELane* to = myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->getSelectedLanes().at(i+1).first;
             // Push draw matrix
             glPushMatrix();
             // must draw on top of other connections
@@ -1089,7 +1089,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                     // check if we need to start select lanes
                     if(myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->isSelectingLanes()) {
                         // select lane to create an additional with consecutive lanes
-                        myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->addSelectedLane(myObjectsUnderCursor.lane);
+                        myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->addSelectedLane(myObjectsUnderCursor.lane, snapToActiveGrid(getPositionInformation()));
                     } else if (myObjectsUnderCursor.lane) {
                         myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->startConsecutiveLaneSelector(myObjectsUnderCursor.lane, snapToActiveGrid(getPositionInformation()));
                     }

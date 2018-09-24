@@ -535,8 +535,7 @@ GNEAdditionalFrame::AdditionalAttributes::onCmdHelp(FXObject*, FXSelector, void*
 
 GNEAdditionalFrame::ConsecutiveLaneSelector::ConsecutiveLaneSelector(GNEAdditionalFrame* additionalFrameParent) :
     FXGroupBox(additionalFrameParent->myContentFrame, "Lane Selector", GUIDesignGroupBoxFrame),
-    myAdditionalFrameParent(additionalFrameParent),
-    myFirstPosition(0) {
+    myAdditionalFrameParent(additionalFrameParent) {
     // create start and stop buttons
     myStopSelectingButton = new FXButton(this, "Stop selecting", 0, this, MID_GNE_ADDITIONALFRAME_STOPSELECTION, GUIDesignButton);
     myAbortSelectingButton = new FXButton(this, "Abort selecting", 0, this, MID_GNE_ADDITIONALFRAME_ABORTSELECTION, GUIDesignButton);
@@ -577,10 +576,8 @@ GNEAdditionalFrame::ConsecutiveLaneSelector::startConsecutiveLaneSelector(GNELan
         // change buttons
         myStopSelectingButton->enable();
         myAbortSelectingButton->enable();
-        // save first clicked position
-        myFirstPosition = lane->getShape().nearest_offset_to_point2D(clickedPosition) / lane->getLengthGeometryFactor();
         // add lane
-        addSelectedLane(lane);
+        addSelectedLane(lane, clickedPosition);
     }
 }
 
@@ -598,8 +595,14 @@ GNEAdditionalFrame::ConsecutiveLaneSelector::stopConsecutiveLaneSelector() {
 
     // Generate id of element
     valuesMap[SUMO_ATTR_ID] = myAdditionalFrameParent->generateID(nullptr);
-    valuesMap[SUMO_ATTR_LANES] = GNEAttributeCarrier::parseIDs(mySelectedLanes);
-    valuesMap[SUMO_ATTR_POSITION] = toString(myFirstPosition);
+    // obtain lane IDs
+    std::vector<std::string> laneIDs;
+    for (auto i : mySelectedLanes) {
+        laneIDs.push_back(i.first->getID());
+    }
+    valuesMap[SUMO_ATTR_LANES] = joinToString(laneIDs, " ");
+    // Obtain position clicked over lane
+    valuesMap[SUMO_ATTR_POSITION] = toString(mySelectedLanes.front().second);
 
     // parse common attributes
     if(!myAdditionalFrameParent->buildAdditionalCommonAttributes(valuesMap, tagValues)) {
@@ -629,10 +632,9 @@ GNEAdditionalFrame::ConsecutiveLaneSelector::abortConsecutiveLaneSelector() {
     myCandidateLanes.clear();
     // reset color of all selected lanes
     for (auto i : mySelectedLanes) {
-        i->setSpecialColor(0);
+        i.first->setSpecialColor(0);
     }
     myCandidateLanes.clear();
-    myFirstPosition = 0;
     // clear selected lanes
     mySelectedLanes.clear();
     // disable buttons
@@ -645,14 +647,14 @@ GNEAdditionalFrame::ConsecutiveLaneSelector::abortConsecutiveLaneSelector() {
 
 
 bool 
-GNEAdditionalFrame::ConsecutiveLaneSelector::addSelectedLane(GNELane *lane) {
+GNEAdditionalFrame::ConsecutiveLaneSelector::addSelectedLane(GNELane *lane, const Position &clickedPosition) {
     // first check that lane exist
     if(lane == nullptr) {
         return false;
     }
     // check that lane wasn't already selected
     for (auto i : mySelectedLanes) {
-        if (i == lane) {
+        if (i.first == lane) {
             WRITE_WARNING("Duplicated lanes aren't allowed");
             return false;
         }
@@ -667,12 +669,13 @@ GNEAdditionalFrame::ConsecutiveLaneSelector::addSelectedLane(GNELane *lane) {
             return false;
         }
     }
-    // select lane
-    mySelectedLanes.push_back(lane);
+    // select lane and save the clicked position
+    mySelectedLanes.push_back(std::make_pair(lane, lane->getShape().nearest_offset_to_point2D(clickedPosition) / lane->getLengthGeometryFactor()));
+    // change color of selected lane
     lane->setSpecialColor(&mySelectedLaneColor);
     // restore original color of candidates (except already selected)
     for (auto i : myCandidateLanes) {
-        if(std::find(mySelectedLanes.begin(), mySelectedLanes.end(), i) == mySelectedLanes.end()) {
+        if(!isLaneSelected(i)) {
             i->setSpecialColor(0);
         }
     }
@@ -681,7 +684,7 @@ GNEAdditionalFrame::ConsecutiveLaneSelector::addSelectedLane(GNELane *lane) {
     // fill candidate lanes
     for (auto i : lane->getParentEdge().getGNEConnections()) {
         // check that possible candidate lane isn't already selected 
-        if((lane == i->getLaneFrom()) && (std::find(mySelectedLanes.begin(), mySelectedLanes.end(), i->getLaneTo()) == mySelectedLanes.end())) {
+        if((lane == i->getLaneFrom()) && (!isLaneSelected(i->getLaneTo()))) {
             // set candidate lane
             i->getLaneTo()->setSpecialColor(&myCandidateLaneColor);
             myCandidateLanes.push_back(i->getLaneTo());
@@ -721,7 +724,7 @@ GNEAdditionalFrame::ConsecutiveLaneSelector::getSelectedLaneColor() const {
 }
 
 
-const std::vector<GNELane*>&
+const std::vector<std::pair<GNELane*, double> >&
 GNEAdditionalFrame::ConsecutiveLaneSelector::getSelectedLanes() const {
     return mySelectedLanes;
 }
@@ -738,6 +741,17 @@ long
 GNEAdditionalFrame::ConsecutiveLaneSelector::onCmdAbortSelection(FXObject*, FXSelector, void*) {
     abortConsecutiveLaneSelector();
     return 0;
+}
+
+
+bool
+GNEAdditionalFrame::ConsecutiveLaneSelector::isLaneSelected(GNELane *lane) const {
+    for (auto i : mySelectedLanes) {
+        if (i.first == lane) {
+            return true;
+        }
+    }
+    return false;
 }
 
 // ---------------------------------------------------------------------------
@@ -1508,20 +1522,25 @@ bool
 GNEAdditionalFrame::buildAdditionalWithConsecutiveLanes(std::map<SumoXMLAttr, std::string> &valuesMap, GNELane* lane) {
     if(myConsecutiveLaneSelector->isSelectingLanes()) {
         if(lane) {
-            myConsecutiveLaneSelector->addSelectedLane(lane);
-            return false;
+            myConsecutiveLaneSelector->addSelectedLane(lane, myViewNet->getPositionInformation());
         }
+        return false;
     } else if(myConsecutiveLaneSelector->getSelectedLanes().size() == 0) {
         if(lane) {
             myConsecutiveLaneSelector->startConsecutiveLaneSelector(lane, myViewNet->getPositionInformation());
-            return false;
         }
-    }
-    else {
-        valuesMap[SUMO_ATTR_POSITION] = toString(myConsecutiveLaneSelector->myFirstPosition);
-        valuesMap[SUMO_ATTR_LANES] = GNEAttributeCarrier::parseIDs(myConsecutiveLaneSelector->getSelectedLanes());
+        return false;
+    } else {
+        // obtain lane IDs
+        std::vector<std::string> laneIDs;
+        for (auto i : myConsecutiveLaneSelector->getSelectedLanes()) {
+            laneIDs.push_back(i.first->getID());
+        }
+        valuesMap[SUMO_ATTR_LANES] = joinToString(laneIDs, " ");
+        // Obtain position clicked over lane
+        valuesMap[SUMO_ATTR_POSITION] = toString(myConsecutiveLaneSelector->getSelectedLanes().front().second);
         // Generate id of element based on the first lane
-        valuesMap[SUMO_ATTR_ID] = generateID(myConsecutiveLaneSelector->getSelectedLanes().front());
+        valuesMap[SUMO_ATTR_ID] = generateID(myConsecutiveLaneSelector->getSelectedLanes().front().first);
         // show warning dialogbox and stop check if input parameters are valid
         if (myAdditionalParameters->areValuesValid() == false) {
             myAdditionalParameters->showWarningMessage();

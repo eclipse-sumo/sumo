@@ -320,7 +320,7 @@ public:
         void abortConsecutiveLaneSelector();
 
         /// @brief return true if lane can be selected as consecutive lane
-        bool addSelectedLane(GNELane *lane);
+        bool addSelectedLane(GNELane *lane, const Position &clickedPosition);
 
         /// @brief remove last added point
         void removeLastSelectedLane();
@@ -335,7 +335,7 @@ public:
         const RGBColor &getSelectedLaneColor() const;
 
         /// @brief get current selected lanes
-        const std::vector<GNELane*> &getSelectedLanes() const;
+        const std::vector<std::pair<GNELane*, double> > &getSelectedLanes() const;
 
         /// @name FOX-callbacks
         /// @{
@@ -360,8 +360,8 @@ public:
         /// @brief button for abort selecting
         FXButton* myAbortSelectingButton;
 
-        /// @brief Vector with the selected lanes
-        std::vector<GNELane*> mySelectedLanes;
+        /// @brief Vector with the selected lanes and the clicked position
+        std::vector<std::pair<GNELane*, double> > mySelectedLanes;
 
         /// @brief Vector with the colored lanes
         std::vector<GNELane*> myCandidateLanes;
@@ -371,9 +371,9 @@ public:
 
         /// @brief color for selected lanes
         RGBColor mySelectedLaneColor;
-    public:
-        /// @brief position of cursor mouse over first lane
-        double myFirstPosition;
+
+        /// @brief check if certain lane is selected
+        bool isLaneSelected(GNELane *lane) const;
     };
 
     // ===========================================================================
