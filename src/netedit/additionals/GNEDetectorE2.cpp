@@ -39,6 +39,7 @@
 #include <utils/xml/SUMOSAXHandler.h>
 #include <netedit/netelements/GNELane.h>
 #include <netedit/netelements/GNEEdge.h>
+#include <netedit/netelements/GNEConnection.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNENet.h>
@@ -90,37 +91,89 @@ GNEDetectorE2::updateGeometry(bool updateGrid) {
     myShapeLengths.clear();
     myShape.clear();
 
+    // declare variables for start and end positions
+    double startPosFixed, endPosFixed;
 
+    // calculate start and end positions dependin of number of lanes
+    if (myLanes.size() == 1) {
+        // set shape lane as detector shape
+        myShape = myLanes.front()->getShape();
+       
+        // set start position
+        if (myPositionOverLane < 0) {
+            startPosFixed = 0;
+        } else if (myPositionOverLane > myLanes.back()->getParentEdge().getNBEdge()->getFinalLength()) {
+            startPosFixed = myLanes.back()->getParentEdge().getNBEdge()->getFinalLength();
+        } else {
+            startPosFixed = myPositionOverLane;
+        }
+        
+        // set end position
+        if ((myPositionOverLane + myLength) < 0) {
+            endPosFixed = 0;
+        } else if ((myPositionOverLane + myLength) > myLanes.back()->getParentEdge().getNBEdge()->getFinalLength()) {
+            endPosFixed = myLanes.back()->getParentEdge().getNBEdge()->getFinalLength();
+        } else {
+            endPosFixed = (myPositionOverLane + myLength);
+        }
+        
+        // Cut shape using as delimitators fixed start position and fixed end position
+        myShape = myShape.getSubpart(startPosFixed * myLanes.front()->getLengthGeometryFactor(), endPosFixed * myLanes.back()->getLengthGeometryFactor());
+    } else if (myLanes.size() > 1) {
+        // start with the first lane shape
+        myShape = myLanes.front()->getShape();
+       
+        // set start position
+        if (myPositionOverLane < 0) {
+            startPosFixed = 0;
+        } else if (myPositionOverLane > myLanes.front()->getParentEdge().getNBEdge()->getFinalLength()) {
+            startPosFixed = myLanes.front()->getParentEdge().getNBEdge()->getFinalLength();
+        } else {
+            startPosFixed = myPositionOverLane;
+        }
+        // Cut shape using as delimitators fixed start position and fixed end position
+        myShape = myShape.getSubpart(startPosFixed * myLanes.front()->getLengthGeometryFactor(), myLanes.front()->getParentEdge().getNBEdge()->getFinalLength());
+       
+        // declare last shape
+        PositionVector lastShape = myLanes.back()->getShape();
 
+        // set end position
+        if (myPositionOverLane < 0) {
+            endPosFixed = 0;
+        } else if (myPositionOverLane > myLanes.back()->getParentEdge().getNBEdge()->getFinalLength()) {
+            endPosFixed = myLanes.back()->getParentEdge().getNBEdge()->getFinalLength();
+        } else {
+            endPosFixed = myPositionOverLane;
+        }
 
+        // Cut shape using as delimitators fixed start position and fixed end position
+        lastShape = lastShape.getSubpart(0, endPosFixed * myLanes.back()->getLengthGeometryFactor());
 
-    // set s
-    for (auto i : myLanes) {
-        myShape.append(i->getShape());
+        // add first connection (if exist)
+        for (auto j : myLanes.at(0)->getParentEdge().getGNEConnections()) {
+            if (j->getLaneTo() == myLanes.at(1)) {
+                myShape.append(j->getShape());
+            }
+        }
+
+        // append shapes of intermediate lanes AND connections (if exist)
+        for (int i = 1; i < (myLanes.size() - 1); i++) {
+            // add lane shape
+            myShape.append(myLanes.at(i)->getShape());
+            // add connection shape (if exist)
+            for (auto j : myLanes.at(i)->getParentEdge().getGNEConnections()) {
+                if (j->getLaneTo() == myLanes.at(i+1)) {
+                    myShape.append(j->getShape());
+                }
+            }
+        }
+
+        // append last shape
+        myShape.append(lastShape);
+
+        // remove double points
+        myShape.removeDoublePoints();
     }
-
-    // set start position
-    double startPosFixed;
-    if (myPositionOverLane < 0) {
-        startPosFixed = 0;
-    } else if (myPositionOverLane > myLanes.back()->getParentEdge().getNBEdge()->getFinalLength()) {
-        startPosFixed = myLanes.back()->getParentEdge().getNBEdge()->getFinalLength();
-    } else {
-        startPosFixed = myPositionOverLane;
-    }
-
-    // set end position
-    double endPosFixed;
-    if ((myPositionOverLane + myLength) < 0) {
-        endPosFixed = 0;
-    } else if ((myPositionOverLane + myLength) > myLanes.back()->getParentEdge().getNBEdge()->getFinalLength()) {
-        endPosFixed = myLanes.back()->getParentEdge().getNBEdge()->getFinalLength();
-    } else {
-        endPosFixed = (myPositionOverLane + myLength);
-    }
-
-    // Cut shape using as delimitators fixed start position and fixed end position
-    myShape = myShape.getSubpart(startPosFixed * myLanes.front()->getLengthGeometryFactor(), endPosFixed * myLanes.back()->getLengthGeometryFactor());
 
     // Get number of parts of the shape
     int numberOfSegments = (int)myShape.size() - 1;
@@ -225,11 +278,12 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
         glRotated(myBlockIconRotation, 0, 0, -1);
         //move to logo position
         glTranslated(-0.75, 0, 0);
+        std::string logoName = (myLanes.size() == 1)? "E2" : "E2MultiLane";
         // draw E2 logo
         if (isAttributeCarrierSelected()) {
-            GLHelper::drawText("E2", Position(), .1, 1.5, myViewNet->getNet()->selectionColor);
+            GLHelper::drawText(logoName, Position(), .1, 1.5, myViewNet->getNet()->selectionColor);
         } else {
-            GLHelper::drawText("E2", Position(), .1, 1.5, RGBColor::BLACK);
+            GLHelper::drawText(logoName, Position(), .1, 1.5, RGBColor::BLACK);
         }
         // pop matrix
         glPopMatrix();
