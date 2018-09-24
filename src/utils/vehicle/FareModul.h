@@ -34,6 +34,7 @@ public:
   
   inline  void addZone(int zoneNumber)
   {
+    zoneNumber = getOverlayZone(zoneNumber);
     if( zoneNumber == 0 )
       return;
     uint64_t repNum = fareZoneToRep[ zoneNumber ];
@@ -570,7 +571,10 @@ void FareModul<E,L,N,V>::updateFareState(FareState const & currentFareState, con
       case FareToken::Free ://we have not yet taken public transport
         break;
       case  FareToken::K :
-            stateAtE.myFareToken = FareToken::Z;
+            if( currentFareState.myCounter.numZones() == 0 )
+              stateAtE.myFareToken = FareToken::U;
+            else
+              stateAtE.myFareToken = FareToken::Z;
         break;
       case  FareToken::KH :
             stateAtE.myFareToken = FareToken::H;

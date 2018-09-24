@@ -141,7 +141,54 @@ static std::unordered_map<int,uint64_t> fareZoneToRep  = std::unordered_map<int,
     {323,1152921504606846976 },
     {324,2305843009213693952 } };
 
+/**
+ * Returns the zone the specified lower rank zones is a part of
+ * @return
+ */
 
-
+inline int getOverlayZone(int zoneNumber)
+{
+  if( zoneNumber < 400 ) return zoneNumber; //real "zone" numbers, no city zones
+  
+  switch (zoneNumber)
+  {
+    case 511:
+      return 165;
+    case 512:
+      return 166;
+    case 513:
+      return 167;
+    case 514:
+      return 142;
+    case 515:
+      return 123;
+    case 516:
+      return 127;
+    case 518:
+      return 145;
+    case 519:
+      return 144;
+    case 521:
+      return 153;
+    case 551:
+      return 231;
+    case 552:
+      return 232;
+    case 553:
+      return 233;
+    case 554:
+      return 259;
+    case 555:
+      return 241;
+    case 556:
+      return 255;
+    case 571:
+      return 322;
+    case 572:
+      return 324;
+    default:
+      return zoneNumber;
+  }
+}
 
 #endif //SUMO_FAREZONES_H
