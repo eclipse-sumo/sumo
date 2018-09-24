@@ -26,11 +26,7 @@ Group:          Productivity/Scientific/Other
 URL:            http://sumo.dlr.de/
 Source0:        sumo-src-%{version}.tar.gz
 Source1:        sumo-doc-%{version}.zip
-Source2:        %{name}.desktop
-Source3:        %{name}.png
-Source4:        %{name}.xml
-Source5:        %{name}.sh
-Source6:        %{name}.csh
+Source2:        %{name}.xml
 BuildRequires:  gcc-c++
 BuildRequires:  help2man
 BuildRequires:  pkgconfig
@@ -87,21 +83,21 @@ ln -s ../lib/sumo/tools/randomTrips.py %{buildroot}%{_bindir}/randomTrips.py
 ln -s ../lib/sumo/tools/traceExporter.py %{buildroot}%{_bindir}/traceExporter.py
 install -d -m 755 %{buildroot}%{_mandir}/man1
 install -p -m 644 docs/man/*.1 %{buildroot}%{_mandir}/man1
-install -Dm644 %{SOURCE2} %{buildroot}%{_datadir}/applications/%{name}.desktop
-install -Dm644 %{SOURCE3} %{buildroot}%{_datadir}/pixmaps/%{name}.png
+install -Dm644 build/package/%{name}.desktop %{buildroot}%{_datadir}/applications
+install -Dm644 build/package/%{name}.png %{buildroot}%{_datadir}/pixmaps
 %if 0%{?suse_version}
-install -Dm644 %{SOURCE4} %{buildroot}%{_datadir}/mime/application/%{name}.xml
+install -Dm644 %{SOURCE2} %{buildroot}%{_datadir}/mime/application/%{name}.xml
 %fdupes -s docs
 %fdupes %{buildroot}
 %endif
 install -d -m 755 %{buildroot}%{_sysconfdir}/profile.d
-install -m 644 %{SOURCE5} %{SOURCE6} %{buildroot}%{_sysconfdir}/profile.d
+install -p -m 644 build/package/*sh %{buildroot}%{_sysconfdir}/profile.d
 
 %files
 %defattr(-,root,root)
 %{_bindir}/*
 %{_prefix}/lib/sumo
-%doc AUTHORS COPYING README.md ChangeLog docs/pydoc docs/userdoc docs/examples
+%doc AUTHORS LICENSE README.md ChangeLog CONTRIBUTING.md NOTICE.md docs/pydoc docs/userdoc docs/examples
 %{_mandir}/man1/*
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/pixmaps/%{name}.png

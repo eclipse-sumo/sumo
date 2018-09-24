@@ -484,6 +484,9 @@ public:
     /// @brief returns the tllcont of the underlying netbuilder
     NBTrafficLightLogicCont& getTLLogicCont();
 
+    /// @brief returns the NBEdgeCont of the underlying netbuilder
+    NBEdgeCont& getEdgeCont();
+
     /// @brief initialize GNEConnections
     void initGNEConnections();
 

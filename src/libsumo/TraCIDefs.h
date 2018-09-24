@@ -333,10 +333,12 @@ public:
     std::string destStop;
     /// @brief The sequence of edges to travel
     std::vector<std::string> edges;
-    /// @brief duration of the stage
+    /// @brief duration of the stage in seconds
     double travelTime;
     /// @brief effort needed
     double cost;
+    /// @brief length in m
+    double length;
     /// @brief id of the intended vehicle for public transport ride
     std::string intended;
     /// @brief intended depart time for public transport ride or -1

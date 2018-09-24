@@ -557,6 +557,10 @@ public:
     double getDistanceTo(const MSEdge* other) const;
 
 
+    /// @brief return the coordinates of the center of the given stop
+    static const Position getStopPosition(const SUMOVehicleParameter::Stop& stop);
+
+
     /** @brief return the length of the edge
      * @return The edge's length
      */

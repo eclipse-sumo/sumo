@@ -449,6 +449,9 @@ public:
         myInterpolate = interpolate;
     }
 
+    /// @brief return the coordinates of the center of the given stop
+    static const Position getStopPosition(const SUMOVehicleParameter::Stop& stop);
+
     /// @brief get edge priority (road class)
     int getPriority() const {
         return myPriority;

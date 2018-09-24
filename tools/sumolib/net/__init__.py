@@ -201,8 +201,11 @@ class Net:
             except Exception:
                 pass
 
-    def getEdges(self):
-        return self._edges
+    def getEdges(self, withInternal=True):
+        if not withInternal:
+            return [e for e in self._edges if e.getFunction() == '']
+        else:
+            return self._edges
 
     def getRoundabouts(self):
         return self._roundabouts
@@ -460,6 +463,7 @@ class NetReader(handler.ContentHandler):
         self._withConnections = others.get('withConnections', True)
         self._withFoes = others.get('withFoes', True)
         self._withInternal = others.get('withInternal', False)
+        self._withPedestrianConnections = others.get('withPedestrianConnections', False)
 
     def startElement(self, name, attrs):
         if name == 'location':
@@ -547,7 +551,7 @@ class NetReader(handler.ContentHandler):
         if name == 'connection' and self._withConnections and (attrs['from'][0] != ":" or self._withInternal):
             fromEdgeID = attrs['from']
             toEdgeID = attrs['to']
-            if not (fromEdgeID in self._net._crossings_and_walkingAreas or toEdgeID in
+            if self._withPedestrianConnections or not (fromEdgeID in self._net._crossings_and_walkingAreas or toEdgeID in
                     self._net._crossings_and_walkingAreas):
                 fromEdge = self._net.getEdge(fromEdgeID)
                 toEdge = self._net.getEdge(toEdgeID)

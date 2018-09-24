@@ -4052,7 +4052,7 @@ void
 MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
 #ifdef DEBUG_BESTLANES
     if (DEBUG_COND) {
-        std::cout << SIMTIME << " updateBestLanes veh=" << getID() << " startLane1=" << Named::getIDSecure(startLane) << " myLane=" << Named::getIDSecure(myLane) << "\n";
+        std::cout << SIMTIME << " updateBestLanes veh=" << getID() << " force=" << forceRebuild << " startLane1=" << Named::getIDSecure(startLane) << " myLane=" << Named::getIDSecure(myLane) << "\n";
     }
 #endif
     if (startLane == 0) {
@@ -4073,6 +4073,9 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
     }
     if (myBestLanes.size() > 0 && !forceRebuild && myLastBestLanesEdge == &startLane->getEdge()) {
         updateOccupancyAndCurrentBestLane(startLane);
+#ifdef DEBUG_BESTLANES
+            if (DEBUG_COND) std::cout << "  only updateOccupancyAndCurrentBestLane\n";
+#endif
         return;
     }
     if (startLane->getEdge().isInternal()) {
@@ -4081,6 +4084,9 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
             updateBestLanes(true, startLane->getLogicalPredecessorLane());
         }
         if (myLastBestLanesInternalLane == startLane && !forceRebuild) {
+#ifdef DEBUG_BESTLANES
+            if (DEBUG_COND) std::cout << "  nothing to do on internal\n";
+#endif
             return;
         }
         // adapt best lanes to fit the current internal edge:
@@ -4125,6 +4131,9 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
                 }
                 myLastBestLanesInternalLane = startLane;
                 updateOccupancyAndCurrentBestLane(startLane);
+#ifdef DEBUG_BESTLANES
+                if (DEBUG_COND) std::cout << "  updated for internal\n";
+#endif
                 return;
             } else {
                 // remove passed edges
