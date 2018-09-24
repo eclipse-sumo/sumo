@@ -206,11 +206,28 @@ public:
             // in the second we connect all car-only edges to all sidewalks.
             _IntermodalEdge* const toNodeConn = myWalkingConnectorLookup[edge->getToJunction()];
             if (toNodeConn != nullptr) {
+                // Check for the outgoing vias and use the shortest one as an approximation
+                const std::vector<std::pair<const L*, const E*> > outgoing = sidewalk->getOutgoingViaLanes();
+                double minViaLength = std::numeric_limits<double>::max();
+                const E* minVia = nullptr;
+                for (const auto& target : outgoing) {
+                    if (target.second != nullptr && target.second->getLength() < minViaLength) {
+                        minViaLength = target.second->getLength();
+                        minVia = target.second;
+                    }
+                }
+                EdgePair interVia = std::make_pair(nullptr, nullptr);
+                if (minVia != nullptr) {
+                    const auto it = myBidiLookup.find(minVia);
+                    if (it != myBidiLookup.end()) {
+                        interVia = it->second;
+                    }
+                }
                 if (!haveSeenWalkingArea) {
                     // if we have walking areas we should use them and not the connector
-                    pair.first->addSuccessor(toNodeConn);
+                    pair.first->addSuccessor(toNodeConn, interVia.first);
                 }
-                toNodeConn->addSuccessor(pair.second);
+                toNodeConn->addSuccessor(pair.second, interVia.second);
             }
             _IntermodalEdge* const fromNodeConn = myWalkingConnectorLookup[edge->getFromJunction()];
             if (fromNodeConn != nullptr) {
@@ -267,7 +284,7 @@ public:
         typename std::map<const E*, EdgePair>::const_iterator it = myBidiLookup.find(e);
         if (it == myBidiLookup.end()) {
             assert(false);
-            throw ProcessError("Edge '" + e->getID() + "' not found in intermodal network '");
+            throw ProcessError("Edge '" + e->getID() + "' not found in intermodal network.'");
         }
         return (*it).second;
     }

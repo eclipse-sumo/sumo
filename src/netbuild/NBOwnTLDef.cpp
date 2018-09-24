@@ -618,7 +618,7 @@ EdgeVector
 NBOwnTLDef::getConnectedOuterEdges(const EdgeVector& incoming) {
     EdgeVector result = incoming;
     for (EdgeVector::iterator it = result.begin(); it != result.end();) {
-        if ((*it)->getConnections().size() == 0 || (*it)->isInnerEdge()) {
+        if ((*it)->getConnections().size() == 0 || (*it)->isInternal()) {
             it = result.erase(it);
         } else {
             ++it;

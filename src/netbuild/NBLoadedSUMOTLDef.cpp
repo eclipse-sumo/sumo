@@ -264,7 +264,7 @@ NBLoadedSUMOTLDef::collectEdges() {
                     myControlledInnerEdges.insert(edge->getID());
                 } else {
                     myEdgesWithin.push_back(edge);
-                    (*j)->setIsInnerEdge();
+                    (*j)->setInternal();
                     ++j; //j = myIncomingEdges.erase(j);
                     continue;
                 }

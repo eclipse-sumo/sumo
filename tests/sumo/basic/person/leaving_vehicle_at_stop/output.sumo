@@ -1,4 +1,4 @@
-Loading net-file from 'net.net.xml'... done (26ms).
+Loading net-file from 'net.net.xml'... done (25ms).
 Loading additional-files from 'input_additional.add.xml'... done (0ms).
 Loading done.
 Simulation started with time: 0.00
@@ -16,5 +16,5 @@ Persons:
  Inserted: 2
  Running: 0
 
-DijkstraRouter answered 4 queries and explored 79.00 edges on average.
+DijkstraRouter answered 4 queries and explored 64.00 edges on average.
 DijkstraRouter spent 1ms answering queries (0.25ms on average).

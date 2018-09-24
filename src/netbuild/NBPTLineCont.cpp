@@ -172,9 +172,9 @@ void NBPTLineCont::reviseStops(NBPTLine* myPTLine, NBEdgeCont& cont) {
         stop->addLine(myPTLine->getRef());
     }
 }
+
+
 void NBPTLineCont::constructRoute(NBPTLine* pTLine, NBEdgeCont& cont) {
-
-
     std::vector<NBEdge*> edges;
 
     NBNode* first = nullptr;
@@ -301,6 +301,8 @@ NBPTLineCont::addEdges2Keep(const OptionsCont& oc, std::set<std::string>& into) 
         }
     }
 }
+
+
 std::set<std::string>&
 NBPTLineCont::getServedPTStops() {
     return myServedPTStops;
