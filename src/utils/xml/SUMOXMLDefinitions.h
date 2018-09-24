@@ -782,7 +782,10 @@ enum SumoXMLAttr {
     SUMO_ATTR_ORIGIN,
     SUMO_ATTR_DESTINATION,
     SUMO_ATTR_VISIBLE,
-
+  ///fare graph attributes
+    SUMO_ATTR_FAREZONE,
+    SUMO_ATTR_FARETOKEN,
+    SUMO_ATTR_STARTTOKEN,
 
     /// @name ActivityGen Tags
     /// @{

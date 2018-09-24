@@ -58,7 +58,7 @@ public:
         return true;
     }
 
-    bool prohibits(const IntermodalTrip<E, N, V>* const trip) const {
+    bool prohibits(const IntermodalTrip<E, N, V, IntermodalEdge<E, L, N, V> >* const trip) const {
         return (trip->modeSet & SVC_BUS) == 0;
     }
 
@@ -96,7 +96,7 @@ public:
         }
     }
 
-    double getTravelTime(const IntermodalTrip<E, N, V>* const /* trip */, double time) const {
+    double getTravelTime(const IntermodalTrip<E, N, V, IntermodalEdge<E, L, N, V> >* const /* trip */, double time) const {
         SUMOTime minArrival = SUMOTime_MAX;
         const SUMOTime step = TIME2STEPS(time);
         for (typename std::multimap<SUMOTime, Schedule>::const_iterator it = mySchedules.begin(); it != mySchedules.end(); ++it) {

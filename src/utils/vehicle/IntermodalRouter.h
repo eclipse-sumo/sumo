@@ -52,14 +52,15 @@
  * The router for pedestrians (on a bidirectional network of sidewalks and crossings)
  */
 template<class E, class L, class N, class V>
-class IntermodalRouter : public SUMOAbstractRouter<E, IntermodalTrip<E, N, V> > {
+class IntermodalRouter : public SUMOAbstractRouter<E, IntermodalTrip<E, N, V, IntermodalEdge<E, L, N, V> > > {
 public:
     typedef IntermodalNetwork<E, L, N, V> Network;
 
 private:
-    typedef void(*CreateNetCallback)(IntermodalRouter <E, L, N, V>&);
     typedef IntermodalEdge<E, L, N, V> _IntermodalEdge;
-    typedef IntermodalTrip<E, N, V> _IntermodalTrip;
+    typedef EffortCalculator<_IntermodalEdge> _EffortCalculator;
+    typedef void(*CreateNetCallback)(IntermodalRouter <E, L, N, V>&);
+    typedef IntermodalTrip<E, N, V, _IntermodalEdge> _IntermodalTrip;
     typedef SUMOAbstractRouterPermissions<_IntermodalEdge, _IntermodalTrip> _InternalRouter;
     typedef DijkstraRouter<_IntermodalEdge, _IntermodalTrip, _InternalRouter> _InternalDijkstra;
     typedef AStarRouter<_IntermodalEdge, _IntermodalTrip, _InternalRouter> _InternalAStar;
@@ -84,7 +85,7 @@ public:
 
     /// Constructor
     IntermodalRouter(CreateNetCallback callback, const int carWalkTransfer, const std::string& routingAlgorithm,
-                     const int routingMode = 0, EffortCalculator* calc = nullptr) :
+                     const int routingMode = 0, _EffortCalculator* calc = nullptr) :
         SUMOAbstractRouter<E, _IntermodalTrip>("IntermodalRouter"),
         myAmClone(false), myInternalRouter(nullptr), myIntermodalNet(nullptr),
         myCallback(callback), myCarWalkTransfer(carWalkTransfer), myRoutingAlgorithm(routingAlgorithm),
@@ -126,6 +127,9 @@ public:
                 if (iEdge->includeInRoute(false)) {
                     if (iEdge->getLine() == "!stop") {
                         into.back().destStop = iEdge->getID();
+                        if (myExternalEffort != nullptr) {
+                            into.back().description = myExternalEffort->output(iEdge);
+                        }
                         if (lastLine == "!ped") {
                             lastLine = ""; // a stop always starts a new trip item
                         }
@@ -225,7 +229,7 @@ public:
 
 private:
     IntermodalRouter(Network* net, const int carWalkTransfer, const std::string& routingAlgorithm,
-                     const int routingMode, EffortCalculator* calc) :
+                     const int routingMode, _EffortCalculator* calc) :
         SUMOAbstractRouter<E, _IntermodalTrip>("IntermodalRouterClone"), myAmClone(true),
         myInternalRouter(new _InternalDijkstra(net->getAllEdges(), true, &_IntermodalEdge::getTravelTimeStatic)),
         myIntermodalNet(net), myCarWalkTransfer(carWalkTransfer), myRoutingAlgorithm(routingAlgorithm), myRoutingMode(routingMode), myExternalEffort(calc) {}
@@ -235,7 +239,7 @@ private:
     }
 
     static inline double getCombined(const _IntermodalEdge* const edge, const _IntermodalTrip* const trip, double time) {
-        return edge->getTravelTime(trip, time) + trip->externalFactor * trip->calc->getEffort(edge->getNumericalID());
+      return edge->getTravelTime(trip, time) + trip->externalFactor * trip->calc->getEffort(edge);
     }
 
     inline void createNet() {
@@ -259,11 +263,12 @@ private:
                     break;
                 case 3:
                     if (myExternalEffort != nullptr) {
-                        std::vector<std::string> edgeIDs;
+                        myExternalEffort->init(myIntermodalNet->getAllEdges());
+                        /* std::vector<std::string> edgeIDs;
                         for (const auto e : myIntermodalNet->getAllEdges()) {
                             edgeIDs.push_back(e->getID());
                         }
-                        myExternalEffort->init(edgeIDs);
+                        myExternalEffort->init(edgeIDs); */
                     }
                     myInternalRouter = new _InternalDijkstra(myIntermodalNet->getAllEdges(), true, &getCombined, &_IntermodalEdge::getTravelTimeStatic, false, myExternalEffort);
                     break;
@@ -279,7 +284,7 @@ private:
     const int myCarWalkTransfer;
     const std::string myRoutingAlgorithm;
     const int myRoutingMode;
-    EffortCalculator* const myExternalEffort;
+    _EffortCalculator* const myExternalEffort;
 
 
 private:

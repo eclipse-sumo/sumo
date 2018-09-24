@@ -28,6 +28,7 @@
 #include <utils/geom/Position.h>
 #include <microsim/MSVehicleType.h>
 #include <microsim/MSNet.h>
+#include <utils/vehicle/FareToken.h>
 #include "MSLane.h"
 #include "MSTransportable.h"
 #include "MSStoppingPlace.h"
@@ -39,9 +40,14 @@
 MSStoppingPlace::MSStoppingPlace(const std::string& id,
                                  const std::vector<std::string>& lines,
                                  MSLane& lane,
-                                 double begPos, double endPos, const std::string name)
+                                 double begPos, double endPos,
+                                 const std::string name,
+                                 FareToken fareToken,
+                                 FareToken startToken,
+                                 int fareZone )
     : Named(id), myLines(lines), myLane(lane),
-      myBegPos(begPos), myEndPos(endPos), myLastFreePos(endPos), myWaitingPos(endPos), myName(name) {
+      myBegPos(begPos), myEndPos(endPos), myLastFreePos(endPos), myWaitingPos(endPos), myName(name),
+      myFareToken(fareToken), myStartToken(startToken), myFareZone(fareZone)  {
     computeLastFreePos();
 }
 
@@ -212,6 +218,19 @@ const std::string&
 MSStoppingPlace::getMyName() const {
     return myName;
 }
+
+FareToken MSStoppingPlace::getStartToken() const {
+    return  myStartToken;
+}
+
+FareToken  MSStoppingPlace::getCollectToken() const {
+    return myFareToken;
+}
+
+int MSStoppingPlace::getFareZone() const {
+    return myFareZone;
+}
+
 
 
 bool

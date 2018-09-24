@@ -26,7 +26,7 @@ set(utils_vehicle_STAT_SRCS
    SUMOVehicleParameter.h
    SUMOVTypeParameter.cpp
    SUMOVTypeParameter.h
-)
+        FareModul.h FareModul.cpp FareToken.h FareZones.h)
 
 add_library(utils_vehicle STATIC ${utils_vehicle_STAT_SRCS})
 set_property(TARGET utils_vehicle PROPERTY PROJECT_LABEL "z_utils_vehicle")

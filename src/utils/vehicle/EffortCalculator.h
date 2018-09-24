@@ -28,11 +28,26 @@
 // class definitions
 // ===========================================================================
 /// @brief the effort calculator interface
+template<class E>
 class EffortCalculator {
+  
 public:
-    virtual void init(const std::vector<std::string>& edges) = 0;
-    virtual double getEffort(const int edge) const = 0;
-    virtual void update(const int edge, const int prev, const double length) = 0;
+  
+    /** Pass the set of all edges in the routing query to the effortCalculator **/
+    virtual void init(const std::vector<E*>& edges) = 0;
+    
+    /** Return the effort of a given edge **/
+    virtual double getEffort(E const * edge) const = 0;
+    
+    /** Update the effort of the edge **/
+    virtual void update(E const *  edge, E const *  prev) = 0;
+    
+    /** Set the effort of the first edge in the query to zero **/
+    virtual void setInitialState(E const *edge)  = 0;
+    
+    /** basic output facility to inform about effort at this edge **/
+    virtual std::string output(E const *edge) const = 0;
+    
 };
 
 

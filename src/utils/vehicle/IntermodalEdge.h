@@ -29,6 +29,7 @@
 #include <vector>
 #include <utils/common/ValueTimeLine.h>
 #include "IntermodalTrip.h"
+#include "FareToken.h"
 
 
 // ===========================================================================
@@ -99,11 +100,11 @@ public:
         return myFollowingViaEdges;
     }
 
-    virtual bool prohibits(const IntermodalTrip<E, N, V>* const /* trip */) const {
+    virtual bool prohibits(const IntermodalTrip<E, N, V, IntermodalEdge>* const /* trip */) const {
         return false;
     }
 
-    virtual double getTravelTime(const IntermodalTrip<E, N, V>* const /* trip */, double /* time */) const {
+    virtual double getTravelTime(const IntermodalTrip<E, N, V, IntermodalEdge>* const /* trip */, double /* time */) const {
         return 0.;
     }
 
@@ -112,15 +113,15 @@ public:
         return 0.;
     }
 
-    static inline double getTravelTimeStatic(const IntermodalEdge* const edge, const IntermodalTrip<E, N, V>* const trip, double time) {
+    static inline double getTravelTimeStatic(const IntermodalEdge* const edge, const IntermodalTrip<E, N, V, IntermodalEdge>* const trip, double time) {
         return edge == nullptr ? 0. : edge->getTravelTime(trip, time);
     }
 
-    virtual double getEffort(const IntermodalTrip<E, N, V>* const /* trip */, double /* time */) const {
+    virtual double getEffort(const IntermodalTrip<E, N, V, IntermodalEdge>* const /* trip */, double /* time */) const {
         return 0.;
     }
 
-    static inline double getEffortStatic(const IntermodalEdge* const edge, const IntermodalTrip<E, N, V>* const trip, double time) {
+    static inline double getEffortStatic(const IntermodalEdge* const edge, const IntermodalTrip<E, N, V, IntermodalEdge>* const trip, double time) {
         return edge == nullptr || !edge->hasEffort() ? 0. : edge->getEffort(trip, time);
     }
 
@@ -139,6 +140,20 @@ public:
     virtual bool hasEffort() const {
         return myEfforts != nullptr;
     }
+    
+    
+    virtual int getFareZone() const {
+        return 0;
+    }
+
+    virtual FareToken getFareToken() const {
+        return FareToken ::None;
+    }
+
+    virtual FareToken getStartToken() const {
+     return FareToken ::None ;
+    }
+
 
     virtual double getStartPos() const {
         return 0.;
@@ -164,7 +179,7 @@ public:
     }
 
     // only used by AStar
-    inline double getMinimumTravelTime(const IntermodalTrip<E, N, V>* const trip) const {
+    inline double getMinimumTravelTime(const IntermodalTrip<E, N, V, IntermodalEdge>* const trip) const {
         return myLength / trip->getMaxSpeed();
     }
 

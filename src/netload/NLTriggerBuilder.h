@@ -268,10 +268,14 @@ protected:
      * @param[in] frompos Begin position of the stop on the lane
      * @param[in] topos End position of the stop on the lane
      * @param[in] element which kind of stop is to be built
+     * @param[in] fareZone fareZone this stop is located in
+     * @param[in] fareTokenCol fareToken that can be collected at this station
+     * @param[in] fareTokenStart fareToken for starting a pt trip at this station
      * @exception InvalidArgument If the stop can not be added to the net (is duplicate)
      */
     virtual void buildStoppingPlace(MSNet& net, std::string id, std::vector<std::string> lines, MSLane* lane,
-                                    double frompos, double topos, const SumoXMLTag element, std::string string);
+                                    double frompos, double topos, const SumoXMLTag element, std::string string,
+                                    int fareZone = 0, FareToken collectToken = FareToken::None, FareToken startToken = FareToken::None);
 
     /** @brief Builds a charging station
      *

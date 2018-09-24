@@ -35,13 +35,13 @@
 // class definitions
 // ===========================================================================
 /// @brief the "vehicle" type that is given to the internal router (SUMOAbstractRouter)
-template<class E, class N, class V>
+template<class E, class N, class V, class IE>
 class IntermodalTrip {
 public:
     IntermodalTrip(const E* _from, const E* _to, double _departPos, double _arrivalPos,
                    double _speed, SUMOTime _departTime, const N* _node,
                    const V* _vehicle = 0, const SVCPermissions _modeSet = SVC_PEDESTRIAN,
-                   const EffortCalculator* const _calc = nullptr, const double _externalFactor = 0.) :
+                   const EffortCalculator<IE>* const _calc=nullptr, const double _externalFactor=0.) :
         from(_from),
         to(_to),
         departPos(_departPos < 0 ? _from->getLength() + _departPos : _departPos),
@@ -84,7 +84,7 @@ public:
     const N* const node; // indicates whether only routing across this node shall be performed
     const V* const vehicle; // indicates which vehicle may be used
     const SVCPermissions modeSet;
-    const EffortCalculator* const calc;
+    const EffortCalculator<IE>* const calc;
     const double externalFactor;
 
 private:
