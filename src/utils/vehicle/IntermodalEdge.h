@@ -43,7 +43,7 @@ public:
         myNumericalID(numericalID),
         myEdge(edge),
         myLine(line),
-        myLength(edge == nullptr ? length : edge->getLength()),
+        myLength(edge == nullptr || length > 0. ? length : edge->getLength()),
         myEfforts(nullptr) { }
 
     virtual ~IntermodalEdge() {}
@@ -130,6 +130,10 @@ public:
 
     inline void setLength(const double length) {
         myLength = length;
+    }
+
+    inline bool isInternal() const {
+        return myEdge != nullptr && myEdge->isInternal();
     }
 
     virtual bool hasEffort() const {

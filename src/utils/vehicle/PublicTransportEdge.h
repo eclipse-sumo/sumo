@@ -52,7 +52,7 @@ private:
 
 public:
     PublicTransportEdge(const std::string id, int numericalID, const IntermodalEdge<E, L, N, V>* entryStop, const E* endEdge, const std::string& line, const double length) :
-        IntermodalEdge<E, L, N, V>(line + ":" + (id != "" ? id : endEdge->getID()), numericalID, nullptr, line, length), myEntryStop(entryStop) { }
+        IntermodalEdge<E, L, N, V>(line + ":" + (id != "" ? id : endEdge->getID()), numericalID, endEdge, line, length), myEntryStop(entryStop) { }
 
     bool includeInRoute(bool /* allEdges */) const {
         return true;

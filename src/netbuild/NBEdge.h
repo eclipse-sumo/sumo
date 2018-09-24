@@ -962,14 +962,14 @@ public:
     }
 
     /// @brief Marks this edge being within an intersection
-    void setIsInnerEdge() {
+    void setInternal() {
         myAmInnerEdge = true;
     }
 
     /** @brief Returns whether this edge was marked as being within an intersection
      * @return Whether this edge was marked as being within an intersection
      */
-    bool isInnerEdge() const {
+    bool isInternal() const {
         return myAmInnerEdge;
     }
     /// @}
@@ -1286,7 +1286,6 @@ public:
     /** @brief Returns the following edges for the given vClass
      */
     const NBConstEdgePairVector& getViaSuccessors(SUMOVehicleClass vClass = SVC_IGNORING) const;
-
 
     //@}
 

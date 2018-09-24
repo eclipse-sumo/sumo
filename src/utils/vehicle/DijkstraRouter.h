@@ -215,7 +215,7 @@ public:
             const E* viaEdge = minimumInfo->via;
             double effort = minimumInfo->effort;
             double leaveTime = minimumInfo->leaveTime;
-            while (viaEdge != nullptr && viaEdge != minEdge) {
+            while (viaEdge != nullptr && viaEdge->isInternal()) {
                 const double viaEffortDelta = this->getEffort(viaEdge, vehicle, leaveTime);
                 leaveTime += this->getTravelTime(viaEdge, vehicle, leaveTime, viaEffortDelta);
                 effort += viaEffortDelta;
