@@ -532,7 +532,7 @@ NBNodeShapeComputer::getSmoothCorner(PositionVector begShape, PositionVector end
         //}
         PositionVector curve = myNode.computeSmoothShape(begShape2, endShape2, cornerDetail + 2, false, 25, 25, recordError, NBNode::AVOID_WIDE_LEFT_TURN);
         //PositionVector curve = myNode.computeSmoothShape(begShape2, endShape2, cornerDetail + 2, false, 25, 25, recordError, 0);
-        const double curvature = curve.length2D() / begPoint.distanceTo2D(endPoint);
+        const double curvature = curve.length2D() / MAX2(NUMERICAL_EPS, begPoint.distanceTo2D(endPoint));
 #ifdef DEBUG_SMOOTH_CORNERS
         if (DEBUGCOND) {
             std::cout << "   curveLength=" << curve.length2D() << " dist=" << begPoint.distanceTo2D(endPoint) << " curvature=" << curvature << "\n";

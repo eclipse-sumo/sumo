@@ -78,6 +78,9 @@ public:
         double getLength() const {
             return 0.;
         }
+        bool isInternal() const {
+            return false;
+        }
 
         NBEdge* edge;
 

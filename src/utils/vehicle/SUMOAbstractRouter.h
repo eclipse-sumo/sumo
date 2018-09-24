@@ -87,7 +87,7 @@ public:
             for (const std::pair<const E*, const E*>& follower : prev->getViaSuccessors()) {
                 if (follower.first == e) {
                     const E* viaEdge = follower.second;
-                    while (viaEdge != nullptr && viaEdge != e) {
+                    while (viaEdge != nullptr && viaEdge->isInternal()) {
                         const double viaEffortDelta = this->getEffort(viaEdge, v, time);
                         time += getTravelTime(viaEdge, v, time, viaEffortDelta);
                         effort += viaEffortDelta;

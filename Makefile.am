@@ -65,7 +65,7 @@ dist-hook:
 	    tools/extractTest.py -i -f tests/examples.txt -o $(abs_distdir) ; \
 	    find build -regex ".*\.\(sh\|csh\|desktop\|png\|spec\|cmake\)" -print0 | xargs -0 cp --parents --target-directory $(abs_distdir) ; \
 	    find data -regex ".*\.\(xsd\|xml\|csv\|veh\|obj\|mtl\|ttf\)" -print0 | xargs -0 cp --parents --target-directory $(abs_distdir) ; \
-	    find tools -regex ".*\.\(py\|pl\|xml\|sumocfg\|gif\|html\|png\|js\|css\)" -print0 | xargs -0 cp --parents --target-directory $(abs_distdir) ; \
+	    find tools -regex ".*\.\(py\|java\|xml\|sumocfg\|gif\|html\|png\|js\|css\)" -print0 | xargs -0 cp --parents --target-directory $(abs_distdir) ; \
 	    find . -name CMakeLists.txt -print0 | xargs -0 cp --parents --target-directory $(abs_distdir) ; \
 	    cp --parents src/*.cmake $(abs_distdir) ; \
 	fi;
