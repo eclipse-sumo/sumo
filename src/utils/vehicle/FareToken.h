@@ -76,6 +76,8 @@ namespace FareUtil {
         return "KHZ";
       case FareToken ::KLZ:
         return  "KLZ";
+      default:
+        return "";
     }
     return ""; //surpress compiler warning
   }

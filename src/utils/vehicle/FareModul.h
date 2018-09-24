@@ -243,6 +243,8 @@ public:
     double newPr = computePrice(stateAtE);
     stateAtE.myPriceDiff = newPr-oldPr;
     
+    assert( stateAtE.myPriceDiff  >= 0 );
+    
   }
   
   /** Implementation of EffortCalculator
@@ -412,7 +414,7 @@ void FareModul<E,L,N,V>::updateFareState( FareState const & currentFareState, _S
       if( collectedToken == FareToken::H)
         stateAtE.myFareToken = FareToken::H;
       if( collectedToken == FareToken::L)
-        stateAtE.myFareToken = FareToken::H;
+        stateAtE.myFareToken = FareToken::L;
       if( collectedToken == FareToken::Z)
         stateAtE.myFareToken = FareToken::Z;
       break;
@@ -420,7 +422,7 @@ void FareModul<E,L,N,V>::updateFareState( FareState const & currentFareState, _S
     case FareToken::L:
       if(collectedToken ==FareToken::Z)
         stateAtE.myFareToken = FareToken::Z;
-
+      break;
     case FareToken::KH:
       if( stateAtE.myVisistedStops <= 4 ){
         if( collectedToken == FareToken::U)
@@ -577,10 +579,10 @@ void FareModul<E,L,N,V>::updateFareState(FareState const & currentFareState, con
             stateAtE.myFareToken = FareToken::L;
         break;
       case  FareToken::KLU :
-           stateAtE.myFareToken = FareToken::U;
+           stateAtE.myFareToken = FareToken::L;
         break;
       case  FareToken::KHU:
-           stateAtE.myFareToken = FareToken::U;
+           stateAtE.myFareToken = FareToken::H;
         break;
       case  FareToken::KLZ :
           stateAtE.myFareToken = FareToken::Z;
