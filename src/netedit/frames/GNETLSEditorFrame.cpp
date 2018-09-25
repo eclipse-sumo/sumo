@@ -1181,22 +1181,44 @@ GNETLSEditorFrame::TLSFile::onCmdLoadTLSProgram(FXObject*, FXSelector, void*) {
     if (opendialog.execute()) {
         // run parser
         NBTrafficLightLogicCont tmpTLLCont;;
-        NIXMLTrafficLightsHandler tllHandler(tmpTLLCont, myTLSEditorParent->myViewNet->getNet()->getEdgeCont());
+        NIXMLTrafficLightsHandler tllHandler(tmpTLLCont, myTLSEditorParent->myViewNet->getNet()->getEdgeCont(), true);
         tmpTLLCont.insert(myTLSEditorParent->myEditedDef);
         XMLSubSys::runParser(tllHandler, opendialog.getFilename().text());
 
-        const int numLoaded = (int)tmpTLLCont.getPrograms(myTLSEditorParent->myEditedDef->getID()).size();
-        if (numLoaded > 0) {
-            myTLSEditorParent->getViewNet()->getUndoList()->p_begin("modifying traffic light definition");
-            std::vector<NBNode*> nodes = myTLSEditorParent->myEditedDef->getNodes();
-            for (auto item : tmpTLLCont.getPrograms(myTLSEditorParent->myEditedDef->getID())) {
-                for (auto it_node : nodes) {
-                    GNEJunction* junction = myTLSEditorParent->getViewNet()->getNet()->retrieveJunction(it_node->getID());
-                    myTLSEditorParent->getViewNet()->getUndoList()->add(new GNEChange_TLS(junction, item.second, true), true);
+        NBLoadedSUMOTLDef* newDefSameProgram = nullptr;
+        std::set<NBLoadedSUMOTLDef*> newDefsOtherProgram;
+        for (auto item : tmpTLLCont.getPrograms(myTLSEditorParent->myEditedDef->getID())) {
+            if (item.second != myTLSEditorParent->myEditedDef) {
+                NBLoadedSUMOTLDef* sdef = dynamic_cast<NBLoadedSUMOTLDef*>(item.second);
+                if (item.first == myTLSEditorParent->myEditedDef->getProgramID()) {
+                    newDefSameProgram = sdef;
+                } else {
+                    newDefsOtherProgram.insert(sdef);
                 }
             }
-            myTLSEditorParent->getViewNet()->getUndoList()->p_end();
-            myTLSEditorParent->getViewNet()->setStatusBarText(toString(numLoaded) + " programs found for traffic light '" + myTLSEditorParent->myEditedDef->getID() + "'");
+        }
+        const int newPrograms = (int)newDefsOtherProgram.size();
+        if (newPrograms > 0 || newDefSameProgram != nullptr) {
+            std::vector<NBNode*> nodes = myTLSEditorParent->myEditedDef->getNodes();
+            for (auto newProg : newDefsOtherProgram) {
+                for (auto it_node : nodes) {
+                    GNEJunction* junction = myTLSEditorParent->getViewNet()->getNet()->retrieveJunction(it_node->getID());
+                    myTLSEditorParent->getViewNet()->getUndoList()->add(new GNEChange_TLS(junction, newProg, true), true);
+                }
+            }
+            if (newPrograms > 0) {
+                WRITE_MESSAGE("Loaded " + toString(newPrograms) + " new programs for tlLogic '" + myTLSEditorParent->myEditedDef->getID() + "'");
+            }
+            if (newDefSameProgram != nullptr) {
+                // replace old program when loading the same program ID
+                myTLSEditorParent->myEditedDef = newDefSameProgram;
+                //myTLSEditorParent->myEditedDef = new NBLoadedSUMOTLDef(newDefSameProgram, newDefSameProgram->getLogic());
+                //myTLSEditorParent->getViewNet()->getUndoList()->add(new GNEChange_TLS(junction, myTLSEditorParent->myEditedDef, false), true);
+                //myTLSEditorParent->getViewNet()->getUndoList()->add(new GNEChange_TLS(junction, , true), true);
+                WRITE_MESSAGE("Updated program '" + newDefSameProgram->getProgramID() +  "' for tlLogic '" + myTLSEditorParent->myEditedDef->getID() + "'");
+            } else {
+                //myTLSEditorParent->myEditedDef = new NBLoadedSUMOTLDef(newDefSameProgram, newDefSameProgram->getLogic());
+            }
         } else {
             myTLSEditorParent->getViewNet()->setStatusBarText("No programs found for traffic light '" + myTLSEditorParent->myEditedDef->getID() + "'");
         }

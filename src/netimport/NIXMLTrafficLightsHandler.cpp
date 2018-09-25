@@ -51,13 +51,14 @@
 // method definitions
 // ===========================================================================
 NIXMLTrafficLightsHandler::NIXMLTrafficLightsHandler(
-    NBTrafficLightLogicCont& tlCont, NBEdgeCont& ec) :
+    NBTrafficLightLogicCont& tlCont, NBEdgeCont& ec, bool ignoreUnknown) :
     SUMOSAXHandler("xml-tllogics"),
     myTLLCont(tlCont),
     myEdgeCont(ec),
     myCurrentTL(0),
-    myResetPhases(false) {
-}
+    myResetPhases(false),
+    myIgnoreUnknown(ignoreUnknown)
+{ }
 
 
 NIXMLTrafficLightsHandler::~NIXMLTrafficLightsHandler() {}
@@ -104,7 +105,7 @@ void
 NIXMLTrafficLightsHandler::myEndElement(int element) {
     switch (element) {
         case SUMO_TAG_TLLOGIC:
-            if (!myCurrentTL) {
+            if (!myCurrentTL && !myIgnoreUnknown) {
                 WRITE_ERROR("Unmatched closing tag for tlLogic.");
             } else {
                 myCurrentTL = 0;
@@ -144,7 +145,9 @@ NIXMLTrafficLightsHandler::initTrafficLightLogic(const SUMOSAXAttributes& attrs,
     //   there should be a definition with the same id but different programID
     const std::map<std::string, NBTrafficLightDefinition*>& programs = myTLLCont.getPrograms(id);
     if (programs.size() == 0) {
-        WRITE_ERROR("Cannot load traffic light program for unknown id '" + id + "', programID '" + programID + "'.");
+        if (!myIgnoreUnknown) {
+            WRITE_ERROR("Cannot load traffic light program for unknown id '" + id + "', programID '" + programID + "'.");
+        }
         return 0;
     }
     const std::string existingProgram = programs.begin()->first; // arbitrary for our purpose
