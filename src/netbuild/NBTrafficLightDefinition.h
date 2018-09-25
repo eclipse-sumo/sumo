@@ -370,6 +370,10 @@ public:
         return false;
     };
 
+    /// @brief get ID and programID together (for convenient debugging)
+    std::string getDescription() const;
+
+
 protected:
     /// @brief id for temporary definitions
     static const std::string DummyID;
