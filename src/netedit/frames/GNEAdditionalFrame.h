@@ -433,7 +433,7 @@ public:
         ~SelectorEdgeChilds();
 
         /// @brief get list of selecte id's in string format
-        std::string getIdsSelected() const;
+        std::string getEdgeIdsSelected() const;
 
         /// @brief Show SelectorEdgeChilds Modul
         void showSelectorEdgeChildsModul(std::string search = "");
@@ -443,9 +443,6 @@ public:
 
         /// @brief Update use selectedEdges
         void updateUseSelectedEdges();
-
-        /// @brief get status of checkBox UseSelectedEdges
-        bool isUseSelectedEdgesEnable() const;
 
         /// @name FOX-callbacks
         /// @{
@@ -504,8 +501,8 @@ public:
         /// @brief destructor
         ~SelectorLaneChilds();
 
-        /// @brief get list of selecte id's in string format
-        std::string getIdsSelected() const;
+        /// @brief get list of selecte lane ids in string format
+        std::string getLaneIdsSelected() const;
 
         /// @brief Show list of SelectorLaneChilds Modul
         void showSelectorLaneChildsModul(std::string search = "");
@@ -515,9 +512,6 @@ public:
 
         // @brief Update use selectedLanes
         void updateUseSelectedLanes();
-
-        /// @brief get status of checkBox UseSelectedLanes
-        bool isUseSelectedLanesEnable() const;
 
         /// @name FOX-callbacks
         /// @{
@@ -583,9 +577,6 @@ public:
 
     /// @brief show additional frame and update use selected edges/lanes
     void show();
-
-    /// @brief get list of selecte id's in string format
-    static std::string getIdsSelected(const FXList* list);
 
     /// @brief getConsecutive Lane Selector
     GNEAdditionalFrame::SelectorLaneParents* getConsecutiveLaneSelector() const;

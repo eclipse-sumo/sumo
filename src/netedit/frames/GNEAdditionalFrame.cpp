@@ -935,22 +935,6 @@ GNEAdditionalFrame::NeteditAttributes::onCmdHelp(FXObject*, FXSelector, void*) {
 }
 
 
-std::string
-GNEAdditionalFrame::getIdsSelected(const FXList* list) {
-    // Obtain Id's of list
-    std::string vectorOfIds;
-    for (int i = 0; i < list->getNumItems(); i++) {
-        if (list->isItemSelected(i)) {
-            if (vectorOfIds.size() > 0) {
-                vectorOfIds += " ";
-            }
-            vectorOfIds += (list->getItem(i)->getText()).text();
-        }
-    }
-    return vectorOfIds;
-}
-
-
 GNEAdditionalFrame::SelectorLaneParents* 
 GNEAdditionalFrame::getConsecutiveLaneSelector() const {
     return mySelectorLaneParents;
@@ -1072,8 +1056,24 @@ GNEAdditionalFrame::SelectorEdgeChilds::~SelectorEdgeChilds() {}
 
 
 std::string
-GNEAdditionalFrame::SelectorEdgeChilds::getIdsSelected() const {
-    return GNEAdditionalFrame::getIdsSelected(myList);
+GNEAdditionalFrame::SelectorEdgeChilds::getEdgeIdsSelected() const {
+    std::vector<std::string> vectorOfIds;
+    if (myUseSelectedEdgesCheckButton->getCheck()) {
+        // get Selected edges
+        std::vector<GNEEdge*> selectedEdges = myAdditionalFrameParent->getViewNet()->getNet()->retrieveEdges(true);
+        // Iterate over selectedEdges and getId
+        for (auto i : selectedEdges) {
+            vectorOfIds.push_back(i->getID());
+        }
+    } else {
+        // Obtain Id's of list
+        for (int i = 0; i < myList->getNumItems(); i++) {
+            if (myList->isItemSelected(i)) {
+                vectorOfIds.push_back(myList->getItem(i)->getText().text());
+            }
+        }
+    }
+    return joinToString(vectorOfIds, " ");
 }
 
 
@@ -1115,16 +1115,6 @@ GNEAdditionalFrame::SelectorEdgeChilds::updateUseSelectedEdges() {
         myUseSelectedEdgesCheckButton->enable();
     } else {
         myUseSelectedEdgesCheckButton->disable();
-    }
-}
-
-
-bool
-GNEAdditionalFrame::SelectorEdgeChilds::isUseSelectedEdgesEnable() const {
-    if (myUseSelectedEdgesCheckButton->getCheck()) {
-        return true;
-    } else {
-        return false;
     }
 }
 
@@ -1221,8 +1211,24 @@ GNEAdditionalFrame::SelectorLaneChilds::~SelectorLaneChilds() {}
 
 
 std::string
-GNEAdditionalFrame::SelectorLaneChilds::getIdsSelected() const {
-    return GNEAdditionalFrame::getIdsSelected(myList);
+GNEAdditionalFrame::SelectorLaneChilds::getLaneIdsSelected() const {
+    std::vector<std::string> vectorOfIds;
+    if (myUseSelectedLanesCheckButton->getCheck()) {
+        // get Selected lanes
+        std::vector<GNELane*> selectedLanes = myAdditionalFrameParent->getViewNet()->getNet()->retrieveLanes(true);
+        // Iterate over selectedLanes and getId
+        for (auto i : selectedLanes) {
+            vectorOfIds.push_back(i->getID());
+        }
+    } else {
+        // Obtain Id's of list
+        for (int i = 0; i < myList->getNumItems(); i++) {
+            if (myList->isItemSelected(i)) {
+                vectorOfIds.push_back(myList->getItem(i)->getText().text());
+            }
+        }
+    }
+    return joinToString(vectorOfIds, " ");
 }
 
 
@@ -1255,16 +1261,6 @@ GNEAdditionalFrame::SelectorLaneChilds::updateUseSelectedLanes() {
         myUseSelectedLanesCheckButton->enable();
     } else {
         myUseSelectedLanesCheckButton->disable();
-    }
-}
-
-
-bool
-GNEAdditionalFrame::SelectorLaneChilds::isUseSelectedLanesEnable() const {
-    if (myUseSelectedLanesCheckButton->getCheck()) {
-        return true;
-    } else {
-        return false;
     }
 }
 
@@ -1486,21 +1482,9 @@ GNEAdditionalFrame::buildAdditionalCommonAttributes(std::map<SumoXMLAttr, std::s
         }
     }
     // If element own a list of SelectorEdgeChilds as attribute
-    if (tagValues.hasAttribute(SUMO_ATTR_EDGES)) {
-        if (mySelectorEdgeChilds->isUseSelectedEdgesEnable()) {
-            // Declare a vector of Id's
-            std::vector<std::string> vectorOfIds;
-            // get Selected edges
-            std::vector<GNEEdge*> selectedEdges = myViewNet->getNet()->retrieveEdges(true);
-            // Iterate over selectedEdges and getId
-            for (auto i : selectedEdges) {
-                vectorOfIds.push_back(i->getID());
-            }
-            // Set saved Ids in attribute edges
-            valuesMap[SUMO_ATTR_EDGES] = joinToString(vectorOfIds, " ");
-        } else {
-            valuesMap[SUMO_ATTR_EDGES] = mySelectorEdgeChilds->getIdsSelected();
-        }
+    if (tagValues.hasAttribute(SUMO_ATTR_EDGES) && !tagValues.canBePlacedOverEdges()) {
+        // obtain edge IDs
+        valuesMap[SUMO_ATTR_EDGES] = mySelectorEdgeChilds->getEdgeIdsSelected();
         // check if attribute has at least one edge
         if (valuesMap[SUMO_ATTR_EDGES] == "") {
             myAdditionalParameters->showWarningMessage("List of " + toString(SUMO_TAG_EDGE) + "s cannot be empty");
@@ -1509,20 +1493,8 @@ GNEAdditionalFrame::buildAdditionalCommonAttributes(std::map<SumoXMLAttr, std::s
     }
     // get values of mySelectorLaneChilds, if tag correspond to an element that has lanes as childs
     if (tagValues.hasAttribute(SUMO_ATTR_LANES) && !tagValues.canBePlacedOverLanes()) {
-        if (mySelectorLaneChilds->isUseSelectedLanesEnable()) {
-            // Declare a vector of Id's
-            std::vector<std::string> vectorOfIds;
-            // get Selected lanes
-            std::vector<GNELane*> selectedLanes = myViewNet->getNet()->retrieveLanes(true);
-            // Iterate over selectedLanes and getId
-            for (auto i : selectedLanes) {
-                vectorOfIds.push_back(i->getID());
-            }
-            // Set saved Ids in attribute lanes
-            valuesMap[SUMO_ATTR_LANES] = joinToString(vectorOfIds, " ");
-        } else {
-            valuesMap[SUMO_ATTR_LANES] = mySelectorLaneChilds->getIdsSelected();
-        }
+        // obtain lane IDs
+        valuesMap[SUMO_ATTR_LANES] = mySelectorLaneChilds->getLaneIdsSelected();
         // check if attribute has at least a lane
         if (valuesMap[SUMO_ATTR_LANES] == "") {
             myAdditionalParameters->showWarningMessage("List of " + toString(SUMO_TAG_LANE) + "s cannot be empty");
@@ -1614,17 +1586,21 @@ GNEAdditionalFrame::buildAdditionalOverLane(std::map<SumoXMLAttr, std::string> &
 
  bool 
 GNEAdditionalFrame::buildAdditionalOverLanes(std::map<SumoXMLAttr, std::string> &valuesMap, GNELane* lane, const GNEAttributeCarrier::TagValues &tagValues) {
-    if(mySelectorLaneParents->isSelectingLanes()) {
-        if(lane) {
-            mySelectorLaneParents->addSelectedLane(lane, myViewNet->getPositionInformation());
-        }
+     // stop if lane isn't valid
+    if(lane == nullptr) {
         return false;
-    } else if(mySelectorLaneParents->getSelectedLanes().size() == 0) {
-        if(lane) {
-            mySelectorLaneParents->startConsecutiveLaneSelector(lane, myViewNet->getPositionInformation());
-        }
+    }
+    if(mySelectorLaneParents->isSelectingLanes()) {
+        // select clicked lane, but don't build additional
+        mySelectorLaneParents->addSelectedLane(lane, myViewNet->getPositionInformation());
+        return false;
+    } else if(mySelectorLaneParents->getSelectedLanes().empty()) {
+        // if there isn't selected lanes, that means that we will be start selecting lanes
+        mySelectorLaneParents->startConsecutiveLaneSelector(lane, myViewNet->getPositionInformation());
         return false;
     } else {
+        // Generate id of element based on the first lane
+        valuesMap[SUMO_ATTR_ID] = generateID(mySelectorLaneParents->getSelectedLanes().front().first);
         // obtain lane IDs
         std::vector<std::string> laneIDs;
         for (auto i : mySelectorLaneParents->getSelectedLanes()) {
@@ -1633,15 +1609,12 @@ GNEAdditionalFrame::buildAdditionalOverLanes(std::map<SumoXMLAttr, std::string> 
         valuesMap[SUMO_ATTR_LANES] = joinToString(laneIDs, " ");
         // Check if clicked position over first lane has to be obtained
         if(tagValues.hasAttribute(SUMO_ATTR_POSITION)) {
-            
             valuesMap[SUMO_ATTR_POSITION] = toString(mySelectorLaneParents->getSelectedLanes().front().second);
         }
         // Check if clicked position over last lane has to be obtained
         if(tagValues.hasAttribute(SUMO_ATTR_ENDPOS)) {
             valuesMap[SUMO_ATTR_ENDPOS] = toString(mySelectorLaneParents->getSelectedLanes().back().second);
         }
-        // Generate id of element based on the first lane
-        valuesMap[SUMO_ATTR_ID] = generateID(mySelectorLaneParents->getSelectedLanes().front().first);
         // show warning dialogbox and stop check if input parameters are valid
         if (myAdditionalParameters->areCurrentAdditionalAttributesValid() == false) {
             myAdditionalParameters->showWarningMessage();
@@ -1652,8 +1625,10 @@ GNEAdditionalFrame::buildAdditionalOverLanes(std::map<SumoXMLAttr, std::string> 
             // abort lane selector
             mySelectorLaneParents->abortConsecutiveLaneSelector();
             return true;
+        } else {
+            // additional cannot be build
+            return false;
         }
-        return false;
     }
  }
 
