@@ -3518,7 +3518,7 @@ MSVehicle::getBackPositionOnLane(const MSLane* lane) const {
         }
         WRITE_WARNING("Request backPos of vehicle '" + getID() + "' for invalid lane '" + Named::getIDSecure(lane)
                       + "' time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".")
-        assert(false);
+        SOFT_ASSERT(false);
         return  myState.myBackPos;
     }
 }

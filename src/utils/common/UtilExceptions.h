@@ -153,6 +153,13 @@ public:
         : ProcessError(message) {}
 };
 
+/// define SOFT_ASSERT raise an assertion in debug mode everywhere except on the windows test server
+#define MSVC_TEST_SERVER // replace this with a CMake variable
+#ifdef MSVC_TEST_SERVER
+#define SOFT_ASSERT(expr) if (!expr) {throw ProcessError("should not happen");}
+#else
+#define SOFT_ASSERT(expr) assert(expr);
+#endif
 
 #endif
 
