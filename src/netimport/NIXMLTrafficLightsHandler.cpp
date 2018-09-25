@@ -105,11 +105,7 @@ void
 NIXMLTrafficLightsHandler::myEndElement(int element) {
     switch (element) {
         case SUMO_TAG_TLLOGIC:
-            if (!myCurrentTL && !myIgnoreUnknown) {
-                WRITE_ERROR("Unmatched closing tag for tlLogic.");
-            } else {
-                myCurrentTL = 0;
-            }
+            myCurrentTL = 0;
             break;
         default:
             break;
@@ -195,6 +191,7 @@ NIXMLTrafficLightsHandler::initTrafficLightLogic(const SUMOSAXAttributes& attrs,
             for (std::vector<NBNode*>::iterator it = nodes.begin(); it != nodes.end(); it++) {
                 loadedDef->addNode(*it);
             }
+            //std::cout << " case3 oldDef=" << oldDef->getDescription() << " loadedDef=" << loadedDef->getDescription() << "\n";
             myTLLCont.insert(loadedDef);
         }
     } else {

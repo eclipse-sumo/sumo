@@ -899,6 +899,7 @@ GNEApplicationWindow::onCmdOpenTLSPrograms(FXObject*, FXSelector, void*) {
         std::string file = opendialog.getFilename().text();
         // Run parser
         myUndoList->p_begin("Loading TLS Programs from '" + file + "'");
+        myNet->computeEverything(this);
         if (myNet->getViewNet()->getViewParent()->getTLSEditorFrame()->parseTLSPrograms(file) == false) {
             // Abort undo/redo
             myUndoList->abort();

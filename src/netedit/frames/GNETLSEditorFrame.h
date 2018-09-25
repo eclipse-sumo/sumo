@@ -281,9 +281,6 @@ public:
         /// @brief disable all elements TLSFile
         void disableTLSFile();
 
-        /// @brief check if loaded TrafficLights corresponds to a TL controled junction in net
-        bool checkTLSValids(std::vector<NBLoadedSUMOTLDef*>& loadedTLS);
-
         /// @name FOX-callbacks
         /// @{
         /// @brief load TLS Program from an additional file

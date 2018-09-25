@@ -182,15 +182,24 @@ GNETLSEditorFrame::isTLSSaved() {
 
 bool
 GNETLSEditorFrame::parseTLSPrograms(const std::string& file) {
-    myViewNet->getUndoList()->p_begin("Loading TLS");
-
     NBTrafficLightLogicCont& tllCont = myViewNet->getNet()->getTLLogicCont();
     NBTrafficLightLogicCont tmpTLLCont;;
     NIXMLTrafficLightsHandler tllHandler(tmpTLLCont, myViewNet->getNet()->getEdgeCont());
     // existing definitions must be available to update their programs
+    std::set<NBTrafficLightDefinition*> origDefs;
     for (NBTrafficLightDefinition* def : tllCont.getDefinitions()) {
-        tmpTLLCont.insert(def);
+        // make a copy of every program
+        NBTrafficLightDefinition* copy = new NBLoadedSUMOTLDef(def, tllCont.getLogic(def->getID(), def->getProgramID()));
+        std::vector<NBNode*> nodes = def->getNodes();
+        for (auto it_node : nodes) {
+            GNEJunction* junction = myViewNet->getNet()->retrieveJunction(it_node->getID());
+            myViewNet->getUndoList()->add(new GNEChange_TLS(junction, def, false, false), true);
+            myViewNet->getUndoList()->add(new GNEChange_TLS(junction, copy, true), true);
+        }
+        tmpTLLCont.insert(copy);
+        origDefs.insert(copy);
     }
+    //std::cout << " initialized tmpCont with " << origDefs.size() << " defs\n";
     XMLSubSys::runParser(tllHandler, file);
 
     std::vector<NBLoadedSUMOTLDef*> loadedTLS;
@@ -201,22 +210,19 @@ GNETLSEditorFrame::parseTLSPrograms(const std::string& file) {
         }
     }
     myViewNet->setStatusBarText("Loaded " + toString(loadedTLS.size()) + " programs");
-    if (myTLSFile->checkTLSValids(loadedTLS)) {
-        for (auto i : loadedTLS) {
-            const std::map<std::string, NBTrafficLightDefinition*>& defs = tllCont.getPrograms(i->getID());
-            if (defs.size() > 0) {
-                NBTrafficLightDefinition* def = defs.begin()->second;
-                std::vector<NBNode*> nodes = def->getNodes();
-                for (auto it_node : nodes) {
-                    GNEJunction* junction = myViewNet->getNet()->retrieveJunction(it_node->getID());
-                    myViewNet->getUndoList()->add(new GNEChange_TLS(junction, i, true), true);
-                }
-
-            }
+    for (auto def : loadedTLS) {
+        if (origDefs.count(def) != 0) {
+            // already add to undolist before
+            //std::cout << " skip " << def->getDescription() << "\n";
+            continue;
         }
-        myViewNet->getUndoList()->p_end();
-    } else {
-        myViewNet->getUndoList()->p_abort();
+        std::vector<NBNode*> nodes = def->getNodes();
+        //std::cout << " add " << def->getDescription() << " for nodes=" << toString(nodes) << "\n";
+        for (auto it_node : nodes) {
+            GNEJunction* junction = myViewNet->getNet()->retrieveJunction(it_node->getID());
+            //myViewNet->getUndoList()->add(new GNEChange_TLS(junction, myTLSEditorParent->myEditedDef, false), true);
+            myViewNet->getUndoList()->add(new GNEChange_TLS(junction, def, true), true);
+        }
     }
     // clean up temporary container to avoid deletion of defs when it's destruct is called
     for (NBTrafficLightDefinition* def : tmpTLLCont.getDefinitions()) {
@@ -1120,54 +1126,6 @@ GNETLSEditorFrame::TLSFile::disableTLSFile() {
 }
 
 
-bool
-GNETLSEditorFrame::TLSFile::checkTLSValids(std::vector<NBLoadedSUMOTLDef*>& loadedTLS) {
-    std::vector<NBLoadedSUMOTLDef*> definitionsJunctionsWithoutTL;
-    for (auto i : loadedTLS) {
-        if (myTLSEditorParent->getViewNet()->getNet()->getTLLogicCont().getPrograms(i->getID()).size() == 0) {
-            definitionsJunctionsWithoutTL.push_back(i);
-        }
-    }
-    // check if there is definitions loaded with an uncontrolled junction asociated
-    if (definitionsJunctionsWithoutTL.size() > 0) {
-        // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Opening question FXMessageBox 'create TLS in uncontrolled junctions'");
-        // open question box
-        FXuint answer = FXMessageBox::question(myTLSEditorParent, MBOX_YES_NO_CANCEL,
-                                               "Create TLS", "%s",
-                                               ("There is " + toString(definitionsJunctionsWithoutTL.size()) + " TLS without controlled junction.\nDo you want to create TLSs in uncontrolled Junctions?").c_str());
-        if (answer == MBOX_CLICKED_YES) { //1:yes, 2:no, 4:esc/cancel
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Closed FXMessageBox 'create TLS in uncontrolled junctions' with 'Yes'");
-            // convert Junctions in TLS
-            for (auto i : definitionsJunctionsWithoutTL) {
-                GNEJunction* junction = myTLSEditorParent->getViewNet()->getNet()->retrieveJunction(i->getID(), false);
-                if (junction != 0) {
-                    junction->setAttribute(SUMO_ATTR_TYPE, "traffic_light", myTLSEditorParent->getViewNet()->getUndoList());
-                } else {
-                    WRITE_WARNING("Could not create traffic light '" + i->getID() + "' because there is no junction with the same id");
-                }
-            }
-        } else if (answer == MBOX_CLICKED_NO) {
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Closed FXMessageBox 'create TLS in uncontrolled junctions' with 'No'");
-            // delete loaded TLSs without associated controlled Junction
-            for (auto i : definitionsJunctionsWithoutTL) {
-                loadedTLS.erase(std::find(loadedTLS.begin(), loadedTLS.end(), i));
-                delete i;
-            }
-        } else {
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Closed FXMessageBox 'create TLS in uncontrolled junctions' with 'Cancel'");
-            // return false to abort loading of TLSs
-            return false;
-        }
-    }
-
-    // return true to continue loading TLSs
-    return true;
-}
-
 
 long
 GNETLSEditorFrame::TLSFile::onCmdLoadTLSProgram(FXObject*, FXSelector, void*) {
@@ -1212,12 +1170,7 @@ GNETLSEditorFrame::TLSFile::onCmdLoadTLSProgram(FXObject*, FXSelector, void*) {
             if (newDefSameProgram != nullptr) {
                 // replace old program when loading the same program ID
                 myTLSEditorParent->myEditedDef = newDefSameProgram;
-                //myTLSEditorParent->myEditedDef = new NBLoadedSUMOTLDef(newDefSameProgram, newDefSameProgram->getLogic());
-                //myTLSEditorParent->getViewNet()->getUndoList()->add(new GNEChange_TLS(junction, myTLSEditorParent->myEditedDef, false), true);
-                //myTLSEditorParent->getViewNet()->getUndoList()->add(new GNEChange_TLS(junction, , true), true);
                 WRITE_MESSAGE("Updated program '" + newDefSameProgram->getProgramID() +  "' for tlLogic '" + myTLSEditorParent->myEditedDef->getID() + "'");
-            } else {
-                //myTLSEditorParent->myEditedDef = new NBLoadedSUMOTLDef(newDefSameProgram, newDefSameProgram->getLogic());
             }
         } else {
             myTLSEditorParent->getViewNet()->setStatusBarText("No programs found for traffic light '" + myTLSEditorParent->myEditedDef->getID() + "'");
@@ -1228,20 +1181,6 @@ GNETLSEditorFrame::TLSFile::onCmdLoadTLSProgram(FXObject*, FXSelector, void*) {
             tmpTLLCont.removeProgram(def->getID(), def->getProgramID(), false);
         }
 
-        //myTLSEditorParent->myEditedDef->cleanupStates();
-
-        // check that only a phase was loaded
-        /* for(auto i : myLoadedTLS) {
-            if(i->getID() == myTLSEditorParent->myTLSJunction->getCurrentJunction()->getID()) {
-                myTLSEditorParent->myEditedDef->getProgramID();
-
-                for (auto j : i.second) {
-                    myTLSEditorParent->myEditedDef->getLogic()->addStep(j.duration, j.state, j.minDur, j.maxDur);
-                }
-
-            }
-        }
-        */
         myTLSEditorParent->myTLSPhases->initPhaseTable();
         myTLSEditorParent->myTLSModifications->setHaveModifications(true);
     }
