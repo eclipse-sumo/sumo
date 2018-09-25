@@ -172,16 +172,16 @@ public:
         void addAttribute(SumoXMLAttr AdditionalAttributeSingle);
 
         /// @brief show group box
-        void showAdditionalParameters();
+        void showAdditionalAttributesModul();
 
         /// @brief hide group box
-        void hideAdditionalParameters();
+        void hideAdditionalAttributesModul();
 
         /// @brief get attributes and their values into valuesMap
         void getAttributesAndValues(std::map<SumoXMLAttr, std::string> &valuesMap) const;
 
         /// @brief check if parameters of attributes are valid
-        bool areValuesValid() const;
+        bool areCurrentAdditionalAttributesValid() const;
 
         /// @brief show warning message with information about non-valid attributes
         void showWarningMessage(std::string extra = "") const;
@@ -227,11 +227,11 @@ public:
         /// @brief destructor
         ~NeteditAttributes();
 
-        /// @brief show length field and reference point
-        void showNeteditAttributes(bool includeLengthAndReferencePoint);
+        /// @brief show Netedit attributes modul
+        void showNeteditAttributesModul(bool includeLengthAndReferencePoint);
 
-        /// @brief show length field and reference point
-        void hideNeteditAttributes();
+        /// @brief hide Netedit attributes modul
+        void hideNeteditAttributesModul();
 
         /// @brief get actual reference point
         additionalReferencePoint getActualReferencePoint() const;
@@ -291,24 +291,24 @@ public:
     };
 
     // ===========================================================================
-    // class ConsecutiveLaneSelector
+    // class SelectorLaneParents
     // ===========================================================================
 
-    class ConsecutiveLaneSelector : protected FXGroupBox {
+    class SelectorLaneParents : protected FXGroupBox {
         /// @brief FOX-declaration
-        FXDECLARE(GNEAdditionalFrame::ConsecutiveLaneSelector)
+        FXDECLARE(GNEAdditionalFrame::SelectorLaneParents)
     public:
         /// @brief constructor
-        ConsecutiveLaneSelector(GNEAdditionalFrame* additionalFrameParent);
+        SelectorLaneParents(GNEAdditionalFrame* additionalFrameParent);
 
         /// @brief destructor
-        ~ConsecutiveLaneSelector();
+        ~SelectorLaneParents();
 
-        /// @brief show ConsecutiveLaneSelector
-        void showConsecutiveLaneSelector();
+        /// @brief show SelectorLaneParents modul
+        void showSelectorLaneParentsModul();
 
-        /// @brief hide ConsecutiveLaneSelector
-        void hideConsecutiveLaneSelector();
+        /// @brief hide SelectorLaneParents
+        void hideSelectorLaneParentsModul();
 
         /// @brief start selection of consecutive lanes
         void startConsecutiveLaneSelector(GNELane *lane, const Position &clickedPosition);
@@ -348,7 +348,7 @@ public:
 
     protected:
         /// @brief FOX needs this
-        ConsecutiveLaneSelector() {}
+        SelectorLaneParents() {}
 
     private:
         /// @brief pointer to additionalFrameParent
@@ -377,16 +377,16 @@ public:
     };
 
     // ===========================================================================
-    // class SelectorParentAdditional
+    // class SelectorAdditionalParent
     // ===========================================================================
 
-    class SelectorParentAdditional : protected FXGroupBox {
+    class SelectorAdditionalParent : protected FXGroupBox {
     public:
         /// @brief constructor
-        SelectorParentAdditional(GNEAdditionalFrame* additionalFrameParent);
+        SelectorAdditionalParent(GNEAdditionalFrame* additionalFrameParent);
 
         /// @brief destructor
-        ~SelectorParentAdditional();
+        ~SelectorAdditionalParent();
 
         /// @brief get currently additional parent selected
         std::string getIdSelected() const;
@@ -394,14 +394,14 @@ public:
         /// @brief select manually a element of the list
         void setIDSelected(const std::string& id);
 
-        /// @brief Show list of SelectorParentAdditional
-        bool showListOfAdditionalParents(SumoXMLTag additionalTypeParent);
+        /// @brief Show list of SelectorAdditionalParent Modul
+        bool showSelectorAdditionalParentModul(SumoXMLTag additionalTypeParent);
 
-        /// @brief hide SelectorParentAdditional
-        void hideListOfAdditionalParents();
+        /// @brief hide SelectorAdditionalParent Modul
+        void hideSelectorAdditionalParentModul();
 
-        /// @brief Refresh list of Additional Parents
-        void refreshListOfAdditionalParents();
+        /// @brief Refresh list of Additional Parents Modul
+        void refreshSelectorAdditionalParentModul();
 
     private:
         /// @brief pointer to Additional Frame Parent
@@ -418,28 +418,28 @@ public:
     };
 
     // ===========================================================================
-    // class SelectorParentEdges
+    // class SelectorEdgeChilds
     // ===========================================================================
 
-    class SelectorParentEdges : protected FXGroupBox {
+    class SelectorEdgeChilds : protected FXGroupBox {
         /// @brief FOX-declaration
-        FXDECLARE(GNEAdditionalFrame::SelectorParentEdges)
+        FXDECLARE(GNEAdditionalFrame::SelectorEdgeChilds)
 
     public:
         /// @brief constructor
-        SelectorParentEdges(GNEAdditionalFrame* additionalFrameParent);
+        SelectorEdgeChilds(GNEAdditionalFrame* additionalFrameParent);
 
         /// @brief destructor
-        ~SelectorParentEdges();
+        ~SelectorEdgeChilds();
 
         /// @brief get list of selecte id's in string format
         std::string getIdsSelected() const;
 
-        /// @brief Show list of SelectorParentEdges
-        void showList(std::string search = "");
+        /// @brief Show SelectorEdgeChilds Modul
+        void showSelectorEdgeChildsModul(std::string search = "");
 
-        /// @brief hide SelectorParentEdges
-        void hideList();
+        /// @brief hide SelectorEdgeChilds Modul
+        void hideSelectorEdgeChildsModul();
 
         /// @brief Update use selectedEdges
         void updateUseSelectedEdges();
@@ -467,7 +467,7 @@ public:
 
     protected:
         /// @brief FOX needs this
-        SelectorParentEdges() {}
+        SelectorEdgeChilds() {}
 
     private:
         /// @brief pointer to additional frame parent
@@ -476,7 +476,7 @@ public:
         /// @brief CheckBox for selected edges
         FXCheckButton* myUseSelectedEdgesCheckButton;
 
-        /// @brief List of SelectorParentEdges
+        /// @brief List of SelectorEdgeChilds
         FXList* myList;
 
         /// @brief text field for search edge IDs
@@ -490,28 +490,28 @@ public:
     };
 
     // ===========================================================================
-    // class SelectorParentLanes
+    // class SelectorLaneChilds
     // ===========================================================================
 
-    class SelectorParentLanes : protected FXGroupBox {
+    class SelectorLaneChilds : protected FXGroupBox {
         /// @brief FOX-declaration
-        FXDECLARE(GNEAdditionalFrame::SelectorParentLanes)
+        FXDECLARE(GNEAdditionalFrame::SelectorLaneChilds)
 
     public:
         /// @brief constructor
-        SelectorParentLanes(GNEAdditionalFrame* additionalFrameParent);
+        SelectorLaneChilds(GNEAdditionalFrame* additionalFrameParent);
 
         /// @brief destructor
-        ~SelectorParentLanes();
+        ~SelectorLaneChilds();
 
         /// @brief get list of selecte id's in string format
         std::string getIdsSelected() const;
 
-        /// @brief Show list of SelectorParentLanes
-        void showList(std::string search = "");
+        /// @brief Show list of SelectorLaneChilds Modul
+        void showSelectorLaneChildsModul(std::string search = "");
 
-        /// @brief hide SelectorParentLanes
-        void hideList();
+        /// @brief hide SelectorLaneChilds Modul
+        void hideSelectorLaneChildsModul();
 
         // @brief Update use selectedLanes
         void updateUseSelectedLanes();
@@ -539,7 +539,7 @@ public:
 
     protected:
         /// @brief FOX needs this
-        SelectorParentLanes() {}
+        SelectorLaneChilds() {}
 
     private:
         /// @brief pointer to additional frame parent
@@ -548,7 +548,7 @@ public:
         /// @brief CheckBox for selected lanes
         FXCheckButton* myUseSelectedLanesCheckButton;
 
-        /// @brief List of SelectorParentLanes
+        /// @brief List of SelectorLaneChilds
         FXList* myList;
 
         /// @brief text field for search lane IDs
@@ -588,7 +588,7 @@ public:
     static std::string getIdsSelected(const FXList* list);
 
     /// @brief getConsecutive Lane Selector
-    GNEAdditionalFrame::ConsecutiveLaneSelector* getConsecutiveLaneSelector() const;
+    GNEAdditionalFrame::SelectorLaneParents* getConsecutiveLaneSelector() const;
 
 private:
     /// @brief generate a ID for an additiona element
@@ -600,14 +600,14 @@ private:
     /// @brief build additional with Parent
     bool buildAdditionalWithParent(std::map<SumoXMLAttr, std::string> &valuesMap, GNEAdditional* parent, const GNEAttributeCarrier::TagValues &tagValues);
 
-    /// @brief build additional over lane
-    bool buildAdditionalWithConsecutiveLanes(std::map<SumoXMLAttr, std::string> &valuesMap, GNELane* lane);
-
-    /// @brief build additional over lane
+    /// @brief build additional over an edge
     bool buildAdditionalOverEdge(std::map<SumoXMLAttr, std::string> &valuesMap, GNEEdge* edge);
 
-    /// @brief build additional over lanes
+    /// @brief build additional over a single lane
     bool buildAdditionalOverLane(std::map<SumoXMLAttr, std::string> &valuesMap, GNELane* lane, const GNEAttributeCarrier::TagValues &tagValues);
+
+    /// @brief build additional over lanes
+    bool buildAdditionalOverLanes(std::map<SumoXMLAttr, std::string> &valuesMap, GNELane* lane, const GNEAttributeCarrier::TagValues &tagValues);
 
     /// @brief build additional over view
     bool buildAdditionalOverView(std::map<SumoXMLAttr, std::string> &valuesMap, const GNEAttributeCarrier::TagValues &tagValues);
@@ -627,17 +627,17 @@ private:
     /// @brief Netedit parameter
     GNEAdditionalFrame::NeteditAttributes* myNeteditParameters;
     
-    /// @brief consecutive lane selector
-    GNEAdditionalFrame::ConsecutiveLaneSelector* myConsecutiveLaneSelector;
+    /// @brief Modul for select lane parents (currently only consecutives)
+    GNEAdditionalFrame::SelectorLaneParents* mySelectorLaneParents;
 
-    /// @brief list of additional Set
-    GNEAdditionalFrame::SelectorParentAdditional* myFirstAdditionalParentSelector;
+    /// @brief Modul for select a single additional parent (Used only for first Additional parent)
+    GNEAdditionalFrame::SelectorAdditionalParent* mySelectorAdditionalParent;
 
-    /// @brief list of SelectorParentEdges
-    GNEAdditionalFrame::SelectorParentEdges* myEdgeParentsSelector;
+    /// @brief Modul for select edge childs
+    GNEAdditionalFrame::SelectorEdgeChilds* mySelectorEdgeChilds;
 
-    /// @brief list of SelectorParentLanes
-    GNEAdditionalFrame::SelectorParentLanes* myLaneParentsSelector;
+    /// @brief Modul for select lane childs
+    GNEAdditionalFrame::SelectorLaneChilds* mySelectorLaneChilds;
 };
 
 
