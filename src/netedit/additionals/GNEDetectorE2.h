@@ -59,7 +59,8 @@ public:
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
      * @param[in] lanes vector of lanes Lane of this StoppingPlace belongs
      * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
-     * @param[in] pos position of the detector on the lane
+     * @param[in] pos position of the detector on the first lane
+     * @param[in] endPos position of the detector on the last lane
      * @param[in] freq the aggregation period the values the detector collects shall be summed up.
      * @param[in] filename The path to the output file.
      * @param[in] vehicleTypes space separated list of vehicle type ids to consider
@@ -70,7 +71,7 @@ public:
      * @param[in] friendlyPos enable or disable friendly positions
      * @param[in] block movement enable or disable additional movement
      */
-    GNEDetectorE2(const std::string& id, std::vector<GNELane*> lanes, GNEViewNet* viewNet, double pos, double freq, const std::string& filename, const std::string& vehicleTypes,
+    GNEDetectorE2(const std::string& id, std::vector<GNELane*> lanes, GNEViewNet* viewNet, double pos, double endPos, double freq, const std::string& filename, const std::string& vehicleTypes,
                   const std::string& name , const double timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, bool blockMovement);
 
     /// @brief Destructor
@@ -132,6 +133,9 @@ protected:
 
     /// @brief E2 detector lenght
     double myLength;
+
+    /// @brief end position over lane (only for Multilane E2 detectors)
+    double myEndPositionOverLane;
 
     /// @brief The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting
     double myTimeThreshold;

@@ -1528,7 +1528,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_E2DETECTOR_MULTILANE;
     {
         // set values of tag
-        myAllowedTags[currentTag] = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_DETECTOR | TAGPROPERTY_BLOCKMOVEMENT, additional, ICON_E2, SUMO_TAG_LANE);
+        myAllowedTags[currentTag] = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_DETECTOR | TAGPROPERTY_PARENT | TAGPROPERTY_BLOCKMOVEMENT, additional, ICON_E2, SUMO_TAG_LANE);
         // set "file" as deprecated attribute
         myAllowedTags[currentTag].addDeprecatedAttribute(SUMO_ATTR_CONT);
         // set values of attributes
@@ -1543,6 +1543,10 @@ GNEAttributeCarrier::fillAttributeCarriers() {
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_POSITION,
                                                ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE,
                                                "The position on the lane the detector shall be laid on in meters",
+                                               "");
+        myAllowedTags[currentTag].addAttribute(SUMO_ATTR_ENDPOS,
+                                               ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE,
+                                               "The end position on the lane the detector shall be laid on in meters",
                                                "");
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_FREQUENCY,
                                                ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUE,

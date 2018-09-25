@@ -414,7 +414,8 @@ public:
      * @param[in] allowUndoRedo enable or disable remove created additional with ctrl + Z / ctrl + Y
      * @param[in] id The id of the detector
      * @param[in] lanes The lanes the detector is placed on
-     * @param[in] pos position of the detector on the lane
+     * @param[in] pos position of the detector on the first lane
+     * @param[in] endPos position of the detector on the last lane
      * @param[in] freq the aggregation period the values the detector collects shall be summed up.
      * @param[in] filename The path to the output file.
      * @param[in] vtypes list of vehicle types to be reported
@@ -427,7 +428,7 @@ public:
      * @return true if was sucesfully created, false in other case
      * @exception InvalidArgument If the detector can not be added to the net (is duplicate)
      */
-    static GNEAdditional* buildMultiLaneDetectorE2(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, const std::vector<GNELane*> &lanes, double pos, double freq, const std::string& filename,
+    static GNEAdditional* buildMultiLaneDetectorE2(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, const std::vector<GNELane*> &lanes, double pos, double endPos, double freq, const std::string& filename,
                                                     const std::string& vehicleTypes, const std::string& name, const double timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, bool blockMovement);
 
     /**@brief Builds a multi entry exit detector (E3)

@@ -395,7 +395,7 @@ public:
         void setIDSelected(const std::string& id);
 
         /// @brief Show list of SelectorParentAdditional
-        void showListOfAdditionalParents(SumoXMLTag additionalTypeParent);
+        bool showListOfAdditionalParents(SumoXMLTag additionalTypeParent);
 
         /// @brief hide SelectorParentAdditional
         void hideListOfAdditionalParents();

@@ -184,10 +184,15 @@ GNEAdditionalFrame::AdditionalSelector::setCurrentAdditional(SumoXMLTag actualAd
         } else {
             myAdditionalFrameParent->myEdgeParentsSelector->hideList();
         }
-        // Show SelectorParentLanes if we're adding an additional that own the attribute SUMO_ATTR_LANES
+        // Show SelectorParentLanes or consecutive lane selector if we're adding an additional that own the attribute SUMO_ATTR_LANES
         if (tagValue.hasAttribute(SUMO_ATTR_LANES)) {
-            myAdditionalFrameParent->myLaneParentsSelector->showList();
-            myAdditionalFrameParent->myConsecutiveLaneSelector->showConsecutiveLaneSelector();
+            if(tagValue.hasParent() && tagValue.getParentTag() == SUMO_TAG_LANE) {
+                myAdditionalFrameParent->myConsecutiveLaneSelector->showConsecutiveLaneSelector();
+                myAdditionalFrameParent->myLaneParentsSelector->hideList();
+            } else {
+                myAdditionalFrameParent->myLaneParentsSelector->showList();
+                myAdditionalFrameParent->myConsecutiveLaneSelector->hideConsecutiveLaneSelector();
+            }
         } else {
             myAdditionalFrameParent->myLaneParentsSelector->hideList();
             myAdditionalFrameParent->myConsecutiveLaneSelector->hideConsecutiveLaneSelector();
@@ -601,8 +606,10 @@ GNEAdditionalFrame::ConsecutiveLaneSelector::stopConsecutiveLaneSelector() {
         laneIDs.push_back(i.first->getID());
     }
     valuesMap[SUMO_ATTR_LANES] = joinToString(laneIDs, " ");
-    // Obtain position clicked over lane
+    // Obtain clicked position over first lane
     valuesMap[SUMO_ATTR_POSITION] = toString(mySelectedLanes.front().second);
+    // Obtain clicked position over last lane
+    valuesMap[SUMO_ATTR_ENDPOS] = toString(mySelectedLanes.back().second);
 
     // parse common attributes
     if(!myAdditionalFrameParent->buildAdditionalCommonAttributes(valuesMap, tagValues)) {
@@ -997,12 +1004,19 @@ GNEAdditionalFrame::SelectorParentAdditional::setIDSelected(const std::string& i
 }
 
 
-void
+bool
 GNEAdditionalFrame::SelectorParentAdditional::showListOfAdditionalParents(SumoXMLTag additionalType) {
-    myAdditionalTypeParent = additionalType;
-    myFirstAdditionalParentsLabel->setText(("Parent type: " + toString(additionalType)).c_str());
-    refreshListOfAdditionalParents();
-    show();
+    // make sure that we're editing an additional tag
+    for (auto i : GNEAttributeCarrier::allowedAdditionalTags(false)) {
+        if (i == additionalType) {
+            myAdditionalTypeParent = additionalType;
+            myFirstAdditionalParentsLabel->setText(("Parent type: " + toString(additionalType)).c_str());
+            refreshListOfAdditionalParents();
+            show();
+            return true;
+        }
+    }
+    return false;
 }
 
 
@@ -1537,8 +1551,10 @@ GNEAdditionalFrame::buildAdditionalWithConsecutiveLanes(std::map<SumoXMLAttr, st
             laneIDs.push_back(i.first->getID());
         }
         valuesMap[SUMO_ATTR_LANES] = joinToString(laneIDs, " ");
-        // Obtain position clicked over lane
+        // Obtain position clicked over first lane
         valuesMap[SUMO_ATTR_POSITION] = toString(myConsecutiveLaneSelector->getSelectedLanes().front().second);
+        // Obtain clicked position over last lane
+        valuesMap[SUMO_ATTR_ENDPOS] = toString(myConsecutiveLaneSelector->getSelectedLanes().back().second);
         // Generate id of element based on the first lane
         valuesMap[SUMO_ATTR_ID] = generateID(myConsecutiveLaneSelector->getSelectedLanes().front().first);
         // show warning dialogbox and stop check if input parameters are valid

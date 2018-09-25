@@ -321,7 +321,7 @@ GNEFrame::ACHierarchy::showAttributeCarrierParents() {
                 GNEAdditional* additional = myFrameParent->getViewNet()->getNet()->retrieveAdditional(myAC->getTag(), myAC->getID(), false);
                 if (additional) {
                     // first check if additional has another additional as parent (to add it into root)
-                    if (tagValue.hasParent()) {
+                    if (tagValue.hasParent() && tagValue.getParentTag() != SUMO_TAG_LANE) {
                         GNEAdditional* additionalParent = myFrameParent->getViewNet()->getNet()->retrieveAdditional(tagValue.getParentTag(), additional->getAttribute(GNE_ATTR_PARENT));
                         // create additional parent item
                         FXTreeItem* additionalParentItem = myTreelist->insertItem(0, 0, additionalParent->getHierarchyName().c_str(), additionalParent->getIcon(), additionalParent->getIcon());
