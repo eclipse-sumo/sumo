@@ -179,7 +179,10 @@ MSDevice_Bluelight::notifyMove(SUMOVehicle& veh, double /* oldPos */,
                     if (it != influencedTypes.end()) {
                         // The vehicle gets back its old VehicleType after the emergency vehicle have passed them
                         MSVehicleType* targetType = MSNet::getInstance()->getVehicleControl().getVType(it->second);
-                        static_cast<MSVehicle*>(veh2)->replaceVehicleType(targetType);
+                        //targetType is nullptr if the vehicle type has already changed to its old vehicleType
+                        if (targetType != nullptr) {
+                            static_cast<MSVehicle*>(veh2)->replaceVehicleType(targetType);
+                        }
                     }
                 }
             }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jan 23 12:56:47 2015 by SUMO Version dev-SVN-r17681ID
+<!-- generated on Tue Jul 17 09:11:48 2018 by Eclipse SUMO Version UNKNOWN
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,6 +14,7 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <netstate-dump value="netstate_dump.xml"/>
     </output>
 
@@ -23,7 +24,7 @@ SPDX-License-Identifier: EPL-2.0
     </report>
 
     <traci_server>
-        <remote-port value="33158"/>
+        <remote-port value="62095"/>
     </traci_server>
 
 </configuration>
@@ -384,35 +385,35 @@ SPDX-License-Identifier: EPL-2.0
     </timestep>
     <timestep time="43.00">
         <edge id="4fi">
-            <lane id="4fi_0">
+            <lane id="4fi_0"/>
+            <lane id="4fi_1">
                 <vehicle id="veh0" pos="167.46" speed="33.29"/>
             </lane>
-            <lane id="4fi_1"/>
         </edge>
     </timestep>
     <timestep time="44.00">
         <edge id="4fi">
-            <lane id="4fi_0">
+            <lane id="4fi_0"/>
+            <lane id="4fi_1">
                 <vehicle id="veh0" pos="200.79" speed="33.33"/>
             </lane>
-            <lane id="4fi_1"/>
         </edge>
     </timestep>
     <timestep time="45.00">
         <edge id="4fi">
-            <lane id="4fi_0">
+            <lane id="4fi_0"/>
+            <lane id="4fi_1">
                 <vehicle id="veh0" pos="234.12" speed="33.33"/>
             </lane>
-            <lane id="4fi_1"/>
         </edge>
     </timestep>
     <timestep time="46.00">
         <edge id="4si">
             <lane id="4si_0"/>
-            <lane id="4si_1">
+            <lane id="4si_1"/>
+            <lane id="4si_2">
                 <vehicle id="veh0" pos="15.46" speed="33.33"/>
             </lane>
-            <lane id="4si_2"/>
         </edge>
     </timestep>
     <timestep time="47.00">
