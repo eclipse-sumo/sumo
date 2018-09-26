@@ -386,11 +386,19 @@ GNEDetectorE2::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             return isValidAdditionalID(value);
         case SUMO_ATTR_LANE:
-        case SUMO_ATTR_LANES:
             if (value.empty()) {
                 return false;
             } else {
                 return canParse<std::vector<GNELane*> >(myViewNet->getNet(), value, false);
+            }
+        case SUMO_ATTR_LANES:
+            if (value.empty()) {
+                return false;
+            } else if (canParse<std::vector<GNELane*> >(myViewNet->getNet(), value, false)) {
+                // check that at least there ist TWO lanes
+                return (parse<std::vector<GNELane*> >(myViewNet->getNet(), value).size() > 1);
+            } else {
+                return false;
             }
         case SUMO_ATTR_POSITION:
             return canParse<double>(value);
