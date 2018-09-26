@@ -213,14 +213,6 @@ public:
         FXDECLARE(GNEAdditionalFrame::NeteditAttributes)
 
     public:
-        /// @brief list of the reference points
-        enum additionalReferencePoint {
-            GNE_ADDITIONALREFERENCEPOINT_LEFT,
-            GNE_ADDITIONALREFERENCEPOINT_RIGHT,
-            GNE_ADDITIONALREFERENCEPOINT_CENTER,
-            GNE_ADDITIONALREFERENCEPOINT_INVALID
-        };
-
         /// @brief constructor
         NeteditAttributes(GNEAdditionalFrame* additionalFrameParent);
 
@@ -233,17 +225,11 @@ public:
         /// @brief hide Netedit attributes modul
         void hideNeteditAttributesModul();
 
-        /// @brief get actual reference point
-        additionalReferencePoint getActualReferencePoint() const;
-
-        /// @brief get value of length
-        double getLength() const;
+        /// @brief get attributes and their values into valuesMap
+        bool getAttributesAndValues(std::map<SumoXMLAttr, std::string> &valuesMap, double mousePositionOverLane) const;
 
         /// @brief check if block is enabled
         bool isBlockEnabled() const;
-
-        /// @brief check if current length is valid
-        bool isCurrentLengthValid() const;
 
         /// @name FOX-callbacks
         /// @{
@@ -265,6 +251,23 @@ public:
         NeteditAttributes() {}
 
     private:
+        /// @brief list of the reference points
+        enum additionalReferencePoint {
+            GNE_ADDITIONALREFERENCEPOINT_LEFT,
+            GNE_ADDITIONALREFERENCEPOINT_RIGHT,
+            GNE_ADDITIONALREFERENCEPOINT_CENTER,
+            GNE_ADDITIONALREFERENCEPOINT_INVALID
+        };
+
+        /// @brief obtain the Start position values of StoppingPlaces and E2 detector over the lane
+        double setStartPosition(double positionOfTheMouseOverLane, double lengthOfAdditional) const;
+
+        /// @brief obtain the End position values of StoppingPlaces and E2 detector over the lane
+        double setEndPosition(double positionOfTheMouseOverLane, double lengthOfAdditional) const;
+
+        /// @brief pointer to additional frame parent
+        GNEAdditionalFrame* myAdditionalFrameParent;
+
         /// @brief match box with the list of reference points
         FXComboBox* myReferencePointMatchBox;
 
@@ -602,12 +605,6 @@ private:
 
     /// @brief build additional over view
     bool buildAdditionalOverView(std::map<SumoXMLAttr, std::string> &valuesMap, const GNEAttributeCarrier::TagValues &tagValues);
-
-    /// @brief obtain the Start position values of StoppingPlaces and E2 detector over the lane
-    double setStartPosition(double positionOfTheMouseOverLane, double lengthOfAdditional);
-
-    /// @brief obtain the End position values of StoppingPlaces and E2 detector over the lane
-    double setEndPosition(double laneLength, double positionOfTheMouseOverLane, double lengthOfAdditional);
 
     /// @brief additional selector
     GNEAdditionalFrame::AdditionalSelector* myAdditionalSelector;

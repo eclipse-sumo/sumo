@@ -125,13 +125,10 @@ GNEAdditionalFrame::AdditionalSelector::AdditionalSelector(GNEAdditionalFrame* a
     for (auto i : listOfTags) {
         myAdditionalMatchBox->appendItem(toString(i).c_str());
     }
-
     // Set visible items
     myAdditionalMatchBox->setNumVisible((int)myAdditionalMatchBox->getNumItems());
-
     // set busstop as default additional (item n. 11 of the list)
     myAdditionalMatchBox->setCurrentItem(11);
-
     // AdditionalSelector is always shown
     show();
 }
@@ -591,13 +588,10 @@ bool
 GNEAdditionalFrame::SelectorLaneParents::stopConsecutiveLaneSelector() {
     // obtain tagproperty (only for improve code legibility)
     const auto& tagValues = GNEAttributeCarrier::getTagProperties(myAdditionalFrameParent->myAdditionalSelector->getCurrentAdditionalType());
-
     // Declare map to keep attributes from Frames from Frame
     std::map<SumoXMLAttr, std::string> valuesMap;
-
     // fill valuesOfElement with attributes from Frame
     myAdditionalFrameParent->myAdditionalParameters->getAttributesAndValues(valuesMap);
-
     // Generate id of element
     valuesMap[SUMO_ATTR_ID] = myAdditionalFrameParent->generateID(nullptr);
     // obtain lane IDs
@@ -610,12 +604,10 @@ GNEAdditionalFrame::SelectorLaneParents::stopConsecutiveLaneSelector() {
     valuesMap[SUMO_ATTR_POSITION] = toString(mySelectedLanes.front().second);
     // Obtain clicked position over last lane
     valuesMap[SUMO_ATTR_ENDPOS] = toString(mySelectedLanes.back().second);
-
     // parse common attributes
     if(!myAdditionalFrameParent->buildAdditionalCommonAttributes(valuesMap, tagValues)) {
         return false;
     }
-
     // show warning dialogbox and stop check if input parameters are valid
     if (myAdditionalFrameParent->myAdditionalParameters->areCurrentAdditionalAttributesValid() == false) {
         myAdditionalFrameParent->myAdditionalParameters->showWarningMessage();
@@ -768,6 +760,7 @@ GNEAdditionalFrame::SelectorLaneParents::isLaneSelected(GNELane *lane) const {
 GNEAdditionalFrame::NeteditAttributes::NeteditAttributes(GNEAdditionalFrame* additionalFrameParent) :
     FXGroupBox(additionalFrameParent->myContentFrame, "Netedit attributes", GUIDesignGroupBoxFrame),
     myActualAdditionalReferencePoint(GNE_ADDITIONALREFERENCEPOINT_LEFT),
+    myAdditionalFrameParent(additionalFrameParent),
     myCurrentLengthValid(true) {
     // Create FXListBox for the reference points and fill it
     myReferencePointMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
@@ -815,27 +808,31 @@ GNEAdditionalFrame::NeteditAttributes::hideNeteditAttributesModul() {
 }
 
 
-GNEAdditionalFrame::NeteditAttributes::additionalReferencePoint
-GNEAdditionalFrame::NeteditAttributes::getActualReferencePoint() const {
-    return myActualAdditionalReferencePoint;
-}
-
-
-double
-GNEAdditionalFrame::NeteditAttributes::getLength() const {
-    return GNEAttributeCarrier::parse<double>(myLengthTextField->getText().text());
+bool 
+GNEAdditionalFrame::NeteditAttributes::getAttributesAndValues(std::map<SumoXMLAttr, std::string> &valuesMap, double mousePositionOverLane) const {
+    // First check that current length is valid
+    if (myCurrentLengthValid) {
+        // check if current reference point is valid
+        if (myActualAdditionalReferencePoint == GNE_ADDITIONALREFERENCEPOINT_INVALID) {
+            myAdditionalFrameParent->myAdditionalParameters->showWarningMessage("Current selected reference point isn't valid");
+            return false;
+        } else {
+            // obtain lenght
+            double lenght = GNEAttributeCarrier::parse<double>(myLengthTextField->getText().text());
+            // set start and end position
+            valuesMap[SUMO_ATTR_STARTPOS] = toString(setStartPosition(mousePositionOverLane, lenght));
+            valuesMap[SUMO_ATTR_ENDPOS] = toString(setEndPosition(mousePositionOverLane, lenght));
+            return true;
+        }
+    } else {
+        return false;
+    }
 }
 
 
 bool
 GNEAdditionalFrame::NeteditAttributes::isBlockEnabled() const {
     return myBlockMovementCheckButton->getCheck() == 1 ? true : false;
-}
-
-
-bool
-GNEAdditionalFrame::NeteditAttributes::isCurrentLengthValid() const {
-    return myCurrentLengthValid;
 }
 
 
@@ -935,9 +932,33 @@ GNEAdditionalFrame::NeteditAttributes::onCmdHelp(FXObject*, FXSelector, void*) {
 }
 
 
-GNEAdditionalFrame::SelectorLaneParents* 
-GNEAdditionalFrame::getConsecutiveLaneSelector() const {
-    return mySelectorLaneParents;
+double
+GNEAdditionalFrame::NeteditAttributes::setStartPosition(double positionOfTheMouseOverLane, double lengthOfAdditional) const {
+    switch (myActualAdditionalReferencePoint) {
+        case GNE_ADDITIONALREFERENCEPOINT_LEFT:
+            return positionOfTheMouseOverLane;
+        case GNE_ADDITIONALREFERENCEPOINT_RIGHT:
+            return positionOfTheMouseOverLane - lengthOfAdditional;
+        case GNE_ADDITIONALREFERENCEPOINT_CENTER:
+            return positionOfTheMouseOverLane - lengthOfAdditional / 2;
+        default:
+            throw InvalidArgument("Reference Point invalid");
+    }
+}
+
+
+double
+GNEAdditionalFrame::NeteditAttributes::setEndPosition(double positionOfTheMouseOverLane, double lengthOfAdditional)  const{
+    switch (myActualAdditionalReferencePoint) {
+        case GNE_ADDITIONALREFERENCEPOINT_LEFT:
+            return positionOfTheMouseOverLane + lengthOfAdditional;
+        case GNE_ADDITIONALREFERENCEPOINT_RIGHT:
+            return positionOfTheMouseOverLane;
+        case GNE_ADDITIONALREFERENCEPOINT_CENTER:
+            return positionOfTheMouseOverLane + lengthOfAdditional / 2;
+        default:
+            throw InvalidArgument("Reference Point invalid");
+    }
 }
 
 // ---------------------------------------------------------------------------
@@ -1420,6 +1441,12 @@ GNEAdditionalFrame::show() {
 }
 
 
+GNEAdditionalFrame::SelectorLaneParents* 
+GNEAdditionalFrame::getConsecutiveLaneSelector() const {
+    return mySelectorLaneParents;
+}
+
+
 std::string
 GNEAdditionalFrame::generateID(GNENetElement* netElement) const {
     // obtain current number of additionals to generate a new index faster
@@ -1546,26 +1573,16 @@ GNEAdditionalFrame::buildAdditionalOverLane(std::map<SumoXMLAttr, std::string> &
         return false;
     }
     // Obtain position of the mouse over lane (limited over grid)
-    double positionOfTheMouseOverLane = lane->getShape().nearest_offset_to_point2D(myViewNet->snapToActiveGrid(myViewNet->getPositionInformation())) / lane->getLengthGeometryFactor();
+    double mousePositionOverLane = lane->getShape().nearest_offset_to_point2D(myViewNet->snapToActiveGrid(myViewNet->getPositionInformation())) / lane->getLengthGeometryFactor();
     // If element has a StartPosition and EndPosition over lane, extract attributes
-    if (tagValues.hasAttribute(SUMO_ATTR_STARTPOS) && tagValues.hasAttribute(SUMO_ATTR_ENDPOS)) {
-        // First check that current length is valid
-        if (myNeteditParameters->isCurrentLengthValid()) {
-            // check if current reference point is valid
-            if (myNeteditParameters->getActualReferencePoint() == NeteditAttributes::GNE_ADDITIONALREFERENCEPOINT_INVALID) {
-                myAdditionalParameters->showWarningMessage("Current selected reference point isn't valid");
-                return false;
-            } else {
-                // set start and end position
-                valuesMap[SUMO_ATTR_STARTPOS] = toString(setStartPosition(positionOfTheMouseOverLane, myNeteditParameters->getLength()));
-                valuesMap[SUMO_ATTR_ENDPOS] = toString(setEndPosition(lane->getLaneShapeLength(), positionOfTheMouseOverLane, myNeteditParameters->getLength()));
-            }
-        } else {
+    if (tagValues.canMaskStartEndPos()) {
+        // check that masked start and end position is valid
+        if(!myNeteditParameters->getAttributesAndValues(valuesMap, mousePositionOverLane)) {
             return false;
         }
     } else if (tagValues.hasAttribute(SUMO_ATTR_POSITION) && (valuesMap.find(SUMO_ATTR_POSITION) == valuesMap.end())) {
         // Obtain position attribute if wasn't previously set in Frame
-        valuesMap[SUMO_ATTR_POSITION] = toString(positionOfTheMouseOverLane);
+        valuesMap[SUMO_ATTR_POSITION] = toString(mousePositionOverLane);
     }
     // show warning dialogbox and stop check if input parameters are valid
     if (myAdditionalParameters->areCurrentAdditionalAttributesValid() == false) {
@@ -1658,34 +1675,4 @@ GNEAdditionalFrame::buildAdditionalOverView(std::map<SumoXMLAttr, std::string> &
     }
 }
 
-
-double
-GNEAdditionalFrame::setStartPosition(double positionOfTheMouseOverLane, double lengthOfAdditional) {
-    switch (myNeteditParameters->getActualReferencePoint()) {
-        case NeteditAttributes::GNE_ADDITIONALREFERENCEPOINT_LEFT:
-            return positionOfTheMouseOverLane;
-        case NeteditAttributes::GNE_ADDITIONALREFERENCEPOINT_RIGHT:
-            return positionOfTheMouseOverLane - lengthOfAdditional;
-        case NeteditAttributes::GNE_ADDITIONALREFERENCEPOINT_CENTER:
-            return positionOfTheMouseOverLane - lengthOfAdditional / 2;
-        default:
-            throw InvalidArgument("Reference Point invalid");
-    }
-}
-
-
-double
-GNEAdditionalFrame::setEndPosition(double /*laneLength*/, double positionOfTheMouseOverLane, double lengthOfAdditional) {
-    switch (myNeteditParameters->getActualReferencePoint()) {
-        case NeteditAttributes::GNE_ADDITIONALREFERENCEPOINT_LEFT:
-            return positionOfTheMouseOverLane + lengthOfAdditional;
-        case NeteditAttributes::GNE_ADDITIONALREFERENCEPOINT_RIGHT:
-            return positionOfTheMouseOverLane;
-        case NeteditAttributes::GNE_ADDITIONALREFERENCEPOINT_CENTER:
-            return positionOfTheMouseOverLane + lengthOfAdditional / 2;
-        default:
-            throw InvalidArgument("Reference Point invalid");
-    }
-}
- 
 /****************************************************************************/
