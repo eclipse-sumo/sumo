@@ -57,15 +57,17 @@ GNEChange_Additional::GNEChange_Additional(GNEAdditional* additional, bool forwa
     // obtain tag properties
     const auto &tagProperties = GNEAttributeCarrier::getTagProperties(myAdditional->getTag());
     // handle additionals with lane parent
-    if (tagProperties.hasAttribute(SUMO_ATTR_LANE)) {
+    if (tagProperties.canBePlacedOverLane()) {
         myLaneParents.push_back(myNet->retrieveLane(myAdditional->getAttribute(SUMO_ATTR_LANE)));
-    } else if (tagProperties.hasAttribute(SUMO_ATTR_LANES)) {
+    }
+    if (tagProperties.canBePlacedOverLanes()) {
         myLaneParents = GNEAttributeCarrier::parse<std::vector<GNELane*> >(additional->getViewNet()->getNet(), myAdditional->getAttribute(SUMO_ATTR_LANES));
     }
-    // handle additionals with edge parent
-    if (tagProperties.hasAttribute(SUMO_ATTR_EDGE)) {
+    // handle additionals with edge parent (with an exception)
+    if (tagProperties.canBePlacedOverEdge() && (additional->getTag() != SUMO_TAG_VAPORIZER)) {
         myEdgeParents.push_back(myNet->retrieveEdge(myAdditional->getAttribute(SUMO_ATTR_EDGE)));
-    } else if (tagProperties.hasAttribute(SUMO_ATTR_EDGES)) {
+    }
+    if (tagProperties.canBePlacedOverEdges()) {
         myEdgeParents = GNEAttributeCarrier::parse<std::vector<GNEEdge*> >(additional->getViewNet()->getNet(), myAdditional->getAttribute(SUMO_ATTR_EDGES));
     }
     // special case for Vaporizers

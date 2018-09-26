@@ -239,6 +239,7 @@ std::string
 GNEVaporizer::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
+        case SUMO_ATTR_EDGE:
             return getAdditionalID();
         case SUMO_ATTR_BEGIN:
             return toString(myBegin);
@@ -281,6 +282,7 @@ bool
 GNEVaporizer::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
+        case SUMO_ATTR_EDGE:
             if (myViewNet->getNet()->retrieveEdge(value, false) != nullptr) {
                 return isValidAdditionalID(value);
             } else {
@@ -329,6 +331,7 @@ void
 GNEVaporizer::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
+        case SUMO_ATTR_EDGE:
             changeAdditionalID(value);
             myEdge = changeEdge(myEdge, value);
             break;
