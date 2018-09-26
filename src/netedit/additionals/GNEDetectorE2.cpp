@@ -88,24 +88,14 @@ GNEDetectorE2::updateGeometry(bool updateGrid) {
         myViewNet->getNet()->removeGLObjectFromGrid(this);
     }
 
-    // Clear all containers and shape
+    // Clear all containers for single-shape elements
     myShapeRotations.clear();
     myShapeLengths.clear();
     myShape.clear();
 
-    for (auto i : myMultiShapeRotations) {
-        i.clear();
-    }
+    // clear all containers for multi-shape elements 
     myMultiShapeRotations.clear();
-
-    for (auto i : myMultiShapeLengths) {
-        i.clear();
-    }
     myMultiShapeLengths.clear();
-
-    for (auto i : myMultiShape) {
-        i.clear();
-    }
     myMultiShape.clear();
 
     // declare variables for start and end positions
@@ -197,10 +187,11 @@ GNEDetectorE2::updateGeometry(bool updateGrid) {
         // Cut shape using as delimitators fixed start position and fixed end position
         lastShape = lastShape.getSubpart(0, endPosFixed * myLanes.back()->getLengthGeometryFactor());
 
-        // add first connection (if exist)
+        // add first shape connection (if exist, in other case leave it empty)
+        myMultiShape.push_back(PositionVector());
         for (auto j : myLanes.at(0)->getParentEdge().getGNEConnections()) {
             if (j->getLaneTo() == myLanes.at(1)) {
-                myMultiShape.push_back(j->getShape());
+                myMultiShape.back() = j->getShape();
             }
         }
 
@@ -224,7 +215,9 @@ GNEDetectorE2::updateGeometry(bool updateGrid) {
         // Get number of parts of the shape
         std::vector<int> numberOfSegments;
         for (auto i : myMultiShape) {
-            numberOfSegments.push_back((int)i.size() - 1);
+            // numseg cannot be 0
+            int numSeg = (int)i.size() - 1;
+            numberOfSegments.push_back((numSeg>=0)? numSeg : 0);
             myMultiShapeRotations.push_back(std::vector<double>());
             myMultiShapeLengths.push_back(std::vector<double>());
         }
@@ -358,7 +351,15 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
     }
     // check if dotted contour has to be drawn
     if (!s.drawForSelecting && (myViewNet->getACUnderCursor() == this)) {
-        GLHelper::drawShapeDottedContour(getType(), myShape, exaggeration);
+        if(myShape.size() > 0) {
+            GLHelper::drawShapeDottedContour(getType(), myShape, exaggeration);
+        } else {
+            PositionVector multiShapeFixed;
+            for (auto i : myMultiShape) {
+                multiShapeFixed.append(i);
+            }
+            GLHelper::drawShapeDottedContour(getType(), multiShapeFixed, exaggeration);
+        }
     }
     // Pop name
     glPopName();
