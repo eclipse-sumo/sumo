@@ -610,10 +610,10 @@ private:
     GNEAdditionalFrame::AdditionalSelector* myAdditionalSelector;
 
     /// @brief additional internal attributes
-    GNEAdditionalFrame::AdditionalAttributes* myAdditionalParameters;
+    GNEAdditionalFrame::AdditionalAttributes* myAdditionalAttributes;
 
     /// @brief Netedit parameter
-    GNEAdditionalFrame::NeteditAttributes* myNeteditParameters;
+    GNEAdditionalFrame::NeteditAttributes* myNeteditAttributes;
     
     /// @brief Modul for select lane parents (currently only consecutives)
     GNEAdditionalFrame::SelectorLaneParents* mySelectorLaneParents;
