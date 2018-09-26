@@ -93,6 +93,21 @@ GNEDetectorE2::updateGeometry(bool updateGrid) {
     myShapeLengths.clear();
     myShape.clear();
 
+    for (auto i : myMultiShapeRotations) {
+        i.clear();
+    }
+    myMultiShapeRotations.clear();
+
+    for (auto i : myMultiShapeLengths) {
+        i.clear();
+    }
+    myMultiShapeLengths.clear();
+
+    for (auto i : myMultiShape) {
+        i.clear();
+    }
+    myMultiShape.clear();
+
     // declare variables for start and end positions
     double startPosFixed, endPosFixed;
 
@@ -100,7 +115,7 @@ GNEDetectorE2::updateGeometry(bool updateGrid) {
     if (myLanes.size() == 1) {
         // set shape lane as detector shape
         myShape = myLanes.front()->getShape();
-       
+
         // set start position
         if (myPositionOverLane < 0) {
             startPosFixed = 0;
@@ -109,7 +124,7 @@ GNEDetectorE2::updateGeometry(bool updateGrid) {
         } else {
             startPosFixed = myPositionOverLane;
         }
-        
+
         // set end position
         if ((myPositionOverLane + myLength) < 0) {
             endPosFixed = 0;
@@ -121,9 +136,40 @@ GNEDetectorE2::updateGeometry(bool updateGrid) {
         
         // Cut shape using as delimitators fixed start position and fixed end position
         myShape = myShape.getSubpart(startPosFixed * myLanes.front()->getLengthGeometryFactor(), endPosFixed * myLanes.back()->getLengthGeometryFactor());
+    
+        // Get number of parts of the shape
+        int numberOfSegments = (int)myShape.size() - 1;
+
+        // If number of segments is more than 0
+        if (numberOfSegments >= 0) {
+
+            // Reserve memory (To improve efficiency)
+            myShapeRotations.reserve(numberOfSegments);
+            myShapeLengths.reserve(numberOfSegments);
+
+            // For every part of the shape
+            for (int i = 0; i < numberOfSegments; ++i) {
+
+                // Obtain first position
+                const Position& f = myShape[i];
+
+                // Obtain next position
+                const Position& s = myShape[i + 1];
+
+                // Save distance between position into myShapeLengths
+                myShapeLengths.push_back(f.distanceTo(s));
+
+                // Save rotation (angle) of the vector constructed by points f and s
+                myShapeRotations.push_back((double)atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double)M_PI);
+            }
+        }
+
+        // Set block icon position
+        myBlockIconPosition = myShape.getLineCenter();
+
     } else if (myLanes.size() > 1) {
         // start with the first lane shape
-        myShape = myLanes.front()->getShape();
+        myMultiShape.push_back(myLanes.front()->getShape());
        
         // set start position
         if (myPositionOverLane < 0) {
@@ -134,7 +180,7 @@ GNEDetectorE2::updateGeometry(bool updateGrid) {
             startPosFixed = myPositionOverLane;
         }
         // Cut shape using as delimitators fixed start position and fixed end position
-        myShape = myShape.getSubpart(startPosFixed * myLanes.front()->getLengthGeometryFactor(), myLanes.front()->getParentEdge().getNBEdge()->getFinalLength());
+        myMultiShape[0] = myMultiShape[0].getSubpart(startPosFixed * myLanes.front()->getLengthGeometryFactor(), myLanes.front()->getParentEdge().getNBEdge()->getFinalLength());
        
         // declare last shape
         PositionVector lastShape = myLanes.back()->getShape();
@@ -154,58 +200,59 @@ GNEDetectorE2::updateGeometry(bool updateGrid) {
         // add first connection (if exist)
         for (auto j : myLanes.at(0)->getParentEdge().getGNEConnections()) {
             if (j->getLaneTo() == myLanes.at(1)) {
-                myShape.append(j->getShape());
+                myMultiShape.push_back(j->getShape());
             }
         }
 
         // append shapes of intermediate lanes AND connections (if exist)
         for (int i = 1; i < (myLanes.size() - 1); i++) {
             // add lane shape
-            myShape.append(myLanes.at(i)->getShape());
-            // add connection shape (if exist)
+            myMultiShape.push_back(myLanes.at(i)->getShape());
+            // add empty shape for connection
+            myMultiShape.push_back(PositionVector());
+            // set connection shape (if exist). In other case, insert an empty shape
             for (auto j : myLanes.at(i)->getParentEdge().getGNEConnections()) {
                 if (j->getLaneTo() == myLanes.at(i+1)) {
-                    myShape.append(j->getShape());
+                    myMultiShape.back() = j->getShape();
                 }
             }
         }
 
         // append last shape
-        myShape.append(lastShape);
+        myMultiShape.push_back(lastShape);
 
-        // remove double points
-        myShape.removeDoublePoints();
-    }
-
-    // Get number of parts of the shape
-    int numberOfSegments = (int)myShape.size() - 1;
-
-    // If number of segments is more than 0
-    if (numberOfSegments >= 0) {
-
-        // Reserve memory (To improve efficiency)
-        myShapeRotations.reserve(numberOfSegments);
-        myShapeLengths.reserve(numberOfSegments);
-
-        // For every part of the shape
-        for (int i = 0; i < numberOfSegments; ++i) {
-
-            // Obtain first position
-            const Position& f = myShape[i];
-
-            // Obtain next position
-            const Position& s = myShape[i + 1];
-
-            // Save distance between position into myShapeLengths
-            myShapeLengths.push_back(f.distanceTo(s));
-
-            // Save rotation (angle) of the vector constructed by points f and s
-            myShapeRotations.push_back((double)atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double)M_PI);
+        // Get number of parts of the shape
+        std::vector<int> numberOfSegments;
+        for (auto i : myMultiShape) {
+            numberOfSegments.push_back((int)i.size() - 1);
+            myMultiShapeRotations.push_back(std::vector<double>());
+            myMultiShapeLengths.push_back(std::vector<double>());
         }
-    }
 
-    // Set block icon position
-    myBlockIconPosition = myShape.getLineCenter();
+        // If number of segments is more than 0
+        for (int i = 0; i < myMultiShape.size(); i++) {
+            // Reserve size for every part
+            myMultiShapeRotations.back().reserve(numberOfSegments.at(i));
+            myMultiShapeLengths.back().reserve(numberOfSegments.at(i));
+            // iterate over each segment
+            for (int j = 0; j < numberOfSegments.at(i); j++) {
+
+                // Obtain first position
+                const Position& f = myMultiShape[i][j];
+
+                // Obtain next position
+                const Position& s = myMultiShape[i][j + 1];
+
+                // Save distance between position into myShapeLengths
+                myMultiShapeLengths.at(i).push_back(f.distanceTo(s));
+
+                // Save rotation (angle) of the vector constructed by points f and s
+                myMultiShapeRotations.at(i).push_back((double)atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double)M_PI);
+            }
+        }
+        // Set block icon position
+        myBlockIconPosition = myMultiShape.front().getLineCenter();
+    }
 
     // Set offset of the block icon
     myBlockIconOffset = Position(-0.75, 0);
@@ -251,7 +298,7 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
     // Add a draw matrix
     glPushMatrix();
 
-    // Start with the drawing of the area traslating matrix to origing
+    // Start with the drawing of the area traslating matrix to origin
     glTranslated(0, 0, getType());
 
     // Set color of the base
@@ -264,8 +311,19 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
     const double exaggeration = s.addSize.getExaggeration(s);
 
-    // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-    GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, exaggeration);
+    // check if we have to drawn a E2 single lane or a E2 multiLane
+    if(myShape.size() > 0) {
+        // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
+        GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, exaggeration);
+    } else {
+        // iterate over multishapes
+        for (int i = 0; i < myMultiShape.size(); i++) {
+            // don't draw shapes over connections if "show connections" is enabled
+            if (!myViewNet->showConnections() || (i%2==0)) {
+                GLHelper::drawBoxLines(myMultiShape.at(i), myMultiShapeRotations.at(i), myMultiShapeLengths.at(i), exaggeration);
+            }
+        }
+    }
 
     // Pop last matrix
     glPopMatrix();

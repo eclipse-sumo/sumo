@@ -315,6 +315,11 @@ protected:
      */
     PositionVector myShape;
 
+    /**@brief The multi-shape of the additional element (used by certain additionals)
+     * @note must be configured in updateGeometry(bool updateGrid)
+     */
+    std::vector<PositionVector> myMultiShape;
+
     /// @brief boundary used during moving of elements
     Boundary myMovingGeometryBoundary;
 
@@ -323,11 +328,17 @@ protected:
 
     /// @name computed only once (for performance) in updateGeometry(bool updateGrid)
     /// @{
-    /// The rotations of the shape parts
+    /// @brief The rotations of the shape parts
     std::vector<double> myShapeRotations;
 
-    /// The lengths of the shape parts
+    /// @brief The lengths of the shape parts
     std::vector<double> myShapeLengths;
+
+    /// @brief The rotations of the multi-shape parts
+    std::vector<std::vector<double> > myMultiShapeRotations;
+
+    /// @brief The lengths of the multi-shape shape parts
+    std::vector<std::vector<double> > myMultiShapeLengths;
     /// @}
 
     /// @brief boolean to check if additional element is blocked (i.e. cannot be moved with mouse)

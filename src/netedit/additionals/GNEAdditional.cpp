@@ -565,6 +565,16 @@ GNEAdditional::getCenteringBoundary() const {
         Boundary b = myShape.getBoxBoundary();
         b.grow(20);
         return b;
+    } else if (myMultiShape.size() > 0) {
+        // merge all multishape parts in a single shape
+        PositionVector multiShapeFixed;
+        for (auto i : myMultiShape) {
+            multiShapeFixed.append(i);
+        }
+        // obtain boundary of multishape fixed
+        Boundary b = multiShapeFixed.getBoxBoundary();
+        b.grow(20);
+        return b;
     } else if (myFirstAdditionalParent) {
         return myFirstAdditionalParent->getCenteringBoundary();
     } else {
