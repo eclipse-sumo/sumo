@@ -55,6 +55,295 @@ const double GNEAttributeCarrier::INVALID_POSITION = -1000000;
 // ===========================================================================
 
 // ---------------------------------------------------------------------------
+// GNEAttributeCarrier::AttributeValues - methods
+// ---------------------------------------------------------------------------
+
+GNEAttributeCarrier::AttributeValues::AttributeValues() :
+    myAttributeProperty(ATTRPROPERTY_STRING),
+    myPositionListed(0),
+    myDefinition(""),
+    myDefaultValue(""),
+    myAttrSynonym(SUMO_ATTR_NOTHING) {}
+
+
+GNEAttributeCarrier::AttributeValues::AttributeValues(int attributeProperty, int positionListed, const std::string& definition, const std::string& defaultValue, const std::vector<std::string>& discreteValues, SumoXMLAttr synonym) :
+    myAttributeProperty(attributeProperty),
+    myPositionListed(positionListed),
+    myDefinition(definition),
+    myDefaultValue(defaultValue),
+    myDiscreteValues(discreteValues),
+    myAttrSynonym(synonym) {
+}
+
+
+void 
+GNEAttributeCarrier::AttributeValues::checkAttributeIntegrity() {
+    // check that default values are valid
+/*
+    if(hasDefaultValue()) {
+        if (isInt() && !canParse<int>(myDefaultValue)) {
+            throw FormatException("default value cannot be parse to int");
+        } else if (isFloat() && !canParse<double>(myDefaultValue)) {
+            throw FormatException("default value cannot be parse to float");
+        } else if (isBool() && !canParse<bool>(myDefaultValue)) {
+            throw FormatException("default value cannot be parse to bool");
+        }
+    }
+*/
+    // Check that color attributes always owns an default value
+    if (isColor() && myDefaultValue.empty()) {
+        throw FormatException("Color attributes must own always a default color");
+    }
+    // check that secuential attributes correspond to a list
+    if (isSecuential() && !isList()) {
+        throw FormatException("Secuential property only is compatible with list properties");
+    }
+    // check that synonim attribute isn't nothing
+    if (hasAttrSynonym() && (myAttrSynonym == SUMO_ATTR_NOTHING)) {
+        throw FormatException("Synonim attribute cannot be nothing");
+    }
+}
+
+
+int
+GNEAttributeCarrier::AttributeValues::getPositionListed() const {
+    return myPositionListed;
+}
+
+
+const std::string&
+GNEAttributeCarrier::AttributeValues::getDefinition() const {
+    return myDefinition;
+}
+
+
+const std::string&
+GNEAttributeCarrier::AttributeValues::getDefaultValue() const {
+    return myDefaultValue;
+}
+
+
+std::string
+GNEAttributeCarrier::AttributeValues::getDescription() const {
+    std::string pre;
+    std::string type;
+    std::string plural;
+    std::string last;
+    // pre type
+    if ((myAttributeProperty & ATTRPROPERTY_LIST) != 0) {
+        pre += "list of ";
+        if ((myAttributeProperty & ATTRPROPERTY_VCLASS) != 0) {
+            plural = "es";
+        } else {
+            plural = "s";
+        }
+    }
+    if ((myAttributeProperty & ATTRPROPERTY_POSITIVE) != 0) {
+        pre += "positive ";
+    }
+    if ((myAttributeProperty & ATTRPROPERTY_NONEDITABLE) != 0) {
+        pre += "non editable ";
+    }
+    if ((myAttributeProperty & ATTRPROPERTY_DISCRETE) != 0) {
+        pre += "discrete ";
+    }
+    if ((myAttributeProperty & ATTRPROPERTY_OPTIONAL) != 0) {
+        pre += "optional ";
+    }
+    if ((myAttributeProperty & ATTRPROPERTY_UNIQUE) != 0) {
+        pre += "unique ";
+    }
+    if ((myAttributeProperty & ATTRPROPERTY_COMBINABLE) != 0) {
+        pre += "combinable ";
+    }
+    // type
+    if ((myAttributeProperty & ATTRPROPERTY_INT) != 0) {
+        type = "integer";
+    }
+    if ((myAttributeProperty & ATTRPROPERTY_FLOAT) != 0) {
+        type = "float";
+    }
+    if ((myAttributeProperty & ATTRPROPERTY_BOOL) != 0) {
+        type = "boolean";
+    }
+    if ((myAttributeProperty & ATTRPROPERTY_STRING) != 0) {
+        type = "string";
+    }
+    if ((myAttributeProperty & ATTRPROPERTY_POSITION) != 0) {
+        type = "position";
+    }
+    if ((myAttributeProperty & ATTRPROPERTY_COLOR) != 0) {
+        type = "color";
+    }
+    if ((myAttributeProperty & ATTRPROPERTY_VCLASS) != 0) {
+        type = "VClass";
+    }
+    if ((myAttributeProperty & ATTRPROPERTY_FILENAME) != 0) {
+        type = "filename";
+    }
+    if ((myAttributeProperty & ATTRPROPERTY_PROBABILITY) != 0) {
+        type = "probability";
+        last = "[0, 1]";
+    }
+    if ((myAttributeProperty & ATTRPROPERTY_TIME) != 0) {
+        type = "time";
+    }
+    if ((myAttributeProperty & ATTRPROPERTY_ANGLE) != 0) {
+        type = "angle";
+        last = "[0, 360]";
+    }
+    return pre + type + plural + last;
+}
+
+
+const std::vector<std::string>&
+GNEAttributeCarrier::AttributeValues::getDiscreteValues() const {
+    return myDiscreteValues;
+}
+
+
+SumoXMLAttr
+GNEAttributeCarrier::AttributeValues::getAttrSynonym() const {
+    if (hasAttrSynonym()) {
+        return myAttrSynonym;
+    } else {
+        throw ProcessError("Attr doesn't have synonym");
+    }
+}
+
+
+bool
+GNEAttributeCarrier::AttributeValues::hasDefaultValue() const {
+    return (myAttributeProperty & ATTRPROPERTY_DEFAULTVALUE) != 0;
+}
+
+
+bool
+GNEAttributeCarrier::AttributeValues::hasAttrSynonym() const {
+    return (myAttributeProperty & ATTRPROPERTY_SYNONYM) != 0;
+}
+
+
+bool
+GNEAttributeCarrier::AttributeValues::isInt() const {
+    return (myAttributeProperty & ATTRPROPERTY_INT) != 0;
+}
+
+
+bool
+GNEAttributeCarrier::AttributeValues::isFloat() const {
+    return (myAttributeProperty & ATTRPROPERTY_FLOAT) != 0;
+}
+
+
+bool
+GNEAttributeCarrier::AttributeValues::isBool() const {
+    return (myAttributeProperty & ATTRPROPERTY_BOOL) != 0;
+}
+
+
+bool
+GNEAttributeCarrier::AttributeValues::isString() const {
+    return (myAttributeProperty & ATTRPROPERTY_STRING) != 0;
+}
+
+
+bool
+GNEAttributeCarrier::AttributeValues::isProbability() const {
+    return (myAttributeProperty & ATTRPROPERTY_PROBABILITY) != 0;
+}
+
+
+bool
+GNEAttributeCarrier::AttributeValues::isNumerical() const {
+    return (myAttributeProperty & (ATTRPROPERTY_INT | ATTRPROPERTY_FLOAT)) != 0;
+}
+
+
+bool
+GNEAttributeCarrier::AttributeValues::isTime() const {
+    return (myAttributeProperty & ATTRPROPERTY_TIME) != 0;
+}
+
+
+bool
+GNEAttributeCarrier::AttributeValues::isPositive() const {
+    return (myAttributeProperty & ATTRPROPERTY_POSITIVE) != 0;
+}
+
+
+bool
+GNEAttributeCarrier::AttributeValues::cannotBeZero() const {
+    return (myAttributeProperty & ATTRPROPERTY_NOTZERO) != 0;
+}
+
+
+bool
+GNEAttributeCarrier::AttributeValues::isColor() const {
+    return (myAttributeProperty & ATTRPROPERTY_COLOR) != 0;
+}
+
+
+bool
+GNEAttributeCarrier::AttributeValues::isFilename() const {
+    return (myAttributeProperty & ATTRPROPERTY_FILENAME) != 0;
+}
+
+
+bool
+GNEAttributeCarrier::AttributeValues::isVClass() const {
+    return (myAttributeProperty & ATTRPROPERTY_VCLASS) != 0;
+}
+
+
+bool
+GNEAttributeCarrier::AttributeValues::isSVCPermission() const {
+    return ((myAttributeProperty & ATTRPROPERTY_LIST) != 0) && ((myAttributeProperty & ATTRPROPERTY_VCLASS) != 0);
+}
+
+
+bool
+GNEAttributeCarrier::AttributeValues::isList() const {
+    return (myAttributeProperty & ATTRPROPERTY_LIST) != 0;
+}
+
+
+bool 
+GNEAttributeCarrier::AttributeValues::isSecuential() const {
+    return (myAttributeProperty & ATTRPROPERTY_SECUENCIAL) != 0;
+}
+
+
+bool
+GNEAttributeCarrier::AttributeValues::isUnique() const {
+    return (myAttributeProperty & ATTRPROPERTY_UNIQUE) != 0;
+}
+
+
+bool
+GNEAttributeCarrier::AttributeValues::isOptional() const {
+    return (myAttributeProperty & ATTRPROPERTY_OPTIONAL) != 0;
+}
+
+
+bool
+GNEAttributeCarrier::AttributeValues::isDiscrete() const {
+    return (myAttributeProperty & ATTRPROPERTY_DISCRETE) != 0;
+}
+
+
+bool
+GNEAttributeCarrier::AttributeValues::isCombinable() const {
+    return (myAttributeProperty & ATTRPROPERTY_COMBINABLE) != 0;
+}
+
+
+bool
+GNEAttributeCarrier::AttributeValues::isNonEditable() const {
+    return (myAttributeProperty & ATTRPROPERTY_NONEDITABLE) != 0;
+}
+
+// ---------------------------------------------------------------------------
 // GNEAttributeCarrier::TagValues - methods
 // ---------------------------------------------------------------------------
 
@@ -75,9 +364,45 @@ GNEAttributeCarrier::TagValues::TagValues(int tagProperty, int &positionListed, 
     myTagSynonym(tagSynonym) {
     // Always update list position after setting a new tag value
     positionListed++;
+
+}
+
+
+void 
+GNEAttributeCarrier::TagValues::checkTagIntegrity() {
+    // check that element must ist at least netElement, Additional, or shape
+    if (!isNetElement() && !isAdditional() && !isShape()) {
+        throw ProcessError("element must be at leas netElement, Additional, or shape");
+    }
+    // check that element only is netElement, Additional, or shape at the same time
+    if ((isNetElement() + isAdditional() + isShape()) > 1) {
+        throw ProcessError("element only can be netElement, Additional, or shape at the same time");
+    }
     // If element is drawable, chek that at least one placeover is defined
-    if(isDrawable() && !(canBePlacedOverView() || canBePlacedOverEdge() || canBePlacedOverLane() || canBePlacedOverJunction() || canBePlacedOverEdges() || canBePlacedOverLanes())) {
+    if (isDrawable() && !(canBePlacedOverView() || canBePlacedOverEdge() || canBePlacedOverLane() || canBePlacedOverJunction() || canBePlacedOverEdges() || canBePlacedOverLanes())) {
         throw ProcessError("If attribute is drawable a PLACEDOVER attribute must be defined");
+    }
+    // if element can mask the start and end position, check that bot attributes exist
+    if (canMaskStartEndPos() && (!hasAttribute(SUMO_ATTR_STARTPOS) || !hasAttribute(SUMO_ATTR_ENDPOS))) {
+        throw ProcessError("If attribute mask the start and end position, bot attribute has to be defined");
+    }
+    // check that synonim tag isn't nothing
+    if (hasTagSynonym() && (myTagSynonym == SUMO_TAG_NOTHING)) {
+        throw FormatException("Synonim tag cannot be nothing");
+    }
+    // check integrity of all attributes
+    for (auto i : myAttributeValues) {
+        i.second.checkAttributeIntegrity();
+         // check that if attribute is combinable, own a combination of Allow/disallow attibute
+        if (i.second.isCombinable()) {
+            if((i.first != SUMO_ATTR_ALLOW) && (i.first != SUMO_ATTR_DISALLOW)) {
+                throw ProcessError("Attributes aren't combinables");
+            } else if ((i.first == SUMO_ATTR_ALLOW) && !hasAttribute(SUMO_ATTR_DISALLOW)) {
+                throw ProcessError("allow need a disallow attribute in the same tag");
+            } else if ((i.first == SUMO_ATTR_DISALLOW) && !hasAttribute(SUMO_ATTR_ALLOW)) {
+                throw ProcessError("disallow need an allow attribute in the same tag");
+            }
+        }
     }
 }
 
@@ -354,273 +679,15 @@ GNEAttributeCarrier::TagValues::canBePlacedOverLanes() const {
 }
 
 
+bool 
+GNEAttributeCarrier::TagValues::canMaskStartEndPos() const {
+    return (myTagProperty & TAGPROPERTY_MASKSTARTENDPOS) != 0;
+} 
+
+
 bool
 GNEAttributeCarrier::TagValues::isAttributeDeprecated(SumoXMLAttr attr) const {
     return (std::find(myDeprecatedAttributes.begin(), myDeprecatedAttributes.end(), attr) != myDeprecatedAttributes.end());
-}
-
-// ---------------------------------------------------------------------------
-// GNEAttributeCarrier::AttributeValues - methods
-// ---------------------------------------------------------------------------
-
-GNEAttributeCarrier::AttributeValues::AttributeValues() :
-    myAttributeProperty(ATTRPROPERTY_STRING),
-    myPositionListed(0),
-    myDefinition(""),
-    myDefaultValue(""),
-    myAttrSynonym(SUMO_ATTR_NOTHING) {}
-
-
-GNEAttributeCarrier::AttributeValues::AttributeValues(int attributeProperty, int positionListed, const std::string& definition, const std::string& defaultValue, const std::vector<std::string>& discreteValues, SumoXMLAttr synonym) :
-    myAttributeProperty(attributeProperty),
-    myPositionListed(positionListed),
-    myDefinition(definition),
-    myDefaultValue(defaultValue),
-    myDiscreteValues(discreteValues),
-    myAttrSynonym(synonym) {
-    // Check that color attributes always owns an default value
-    if (isColor() && myDefaultValue.empty()) {
-        throw FormatException("Color attributes must own always a default color");
-    }
-}
-
-
-int
-GNEAttributeCarrier::AttributeValues::getPositionListed() const {
-    return myPositionListed;
-}
-
-
-const std::string&
-GNEAttributeCarrier::AttributeValues::getDefinition() const {
-    return myDefinition;
-}
-
-
-const std::string&
-GNEAttributeCarrier::AttributeValues::getDefaultValue() const {
-    return myDefaultValue;
-}
-
-
-std::string
-GNEAttributeCarrier::AttributeValues::getDescription() const {
-    std::string pre;
-    std::string type;
-    std::string plural;
-    std::string last;
-    // pre type
-    if ((myAttributeProperty & ATTRPROPERTY_LIST) != 0) {
-        pre += "list of ";
-        if ((myAttributeProperty & ATTRPROPERTY_VCLASS) != 0) {
-            plural = "es";
-        } else {
-            plural = "s";
-        }
-    }
-    if ((myAttributeProperty & ATTRPROPERTY_POSITIVE) != 0) {
-        pre += "positive ";
-    }
-    if ((myAttributeProperty & ATTRPROPERTY_NONEDITABLE) != 0) {
-        pre += "non editable ";
-    }
-    if ((myAttributeProperty & ATTRPROPERTY_DISCRETE) != 0) {
-        pre += "discrete ";
-    }
-    if ((myAttributeProperty & ATTRPROPERTY_OPTIONAL) != 0) {
-        pre += "optional ";
-    }
-    if ((myAttributeProperty & ATTRPROPERTY_UNIQUE) != 0) {
-        pre += "unique ";
-    }
-    if ((myAttributeProperty & ATTRPROPERTY_COMBINABLE) != 0) {
-        pre += "combinable ";
-    }
-    // type
-    if ((myAttributeProperty & ATTRPROPERTY_INT) != 0) {
-        type = "integer";
-    }
-    if ((myAttributeProperty & ATTRPROPERTY_FLOAT) != 0) {
-        type = "float";
-    }
-    if ((myAttributeProperty & ATTRPROPERTY_BOOL) != 0) {
-        type = "boolean";
-    }
-    if ((myAttributeProperty & ATTRPROPERTY_STRING) != 0) {
-        type = "string";
-    }
-    if ((myAttributeProperty & ATTRPROPERTY_POSITION) != 0) {
-        type = "position";
-    }
-    if ((myAttributeProperty & ATTRPROPERTY_COLOR) != 0) {
-        type = "color";
-    }
-    if ((myAttributeProperty & ATTRPROPERTY_VCLASS) != 0) {
-        type = "VClass";
-    }
-    if ((myAttributeProperty & ATTRPROPERTY_FILENAME) != 0) {
-        type = "filename";
-    }
-    if ((myAttributeProperty & ATTRPROPERTY_PROBABILITY) != 0) {
-        type = "probability";
-        last = "[0, 1]";
-    }
-    if ((myAttributeProperty & ATTRPROPERTY_TIME) != 0) {
-        type = "time";
-    }
-    if ((myAttributeProperty & ATTRPROPERTY_ANGLE) != 0) {
-        type = "angle";
-        last = "[0, 360]";
-    }
-    return pre + type + plural + last;
-}
-
-
-const std::vector<std::string>&
-GNEAttributeCarrier::AttributeValues::getDiscreteValues() const {
-    return myDiscreteValues;
-}
-
-
-SumoXMLAttr
-GNEAttributeCarrier::AttributeValues::getAttrSynonym() const {
-    if (hasAttrSynonym()) {
-        return myAttrSynonym;
-    } else {
-        throw ProcessError("Attr doesn't have synonym");
-    }
-}
-
-
-bool
-GNEAttributeCarrier::AttributeValues::hasDefaultValue() const {
-    return (myAttributeProperty & ATTRPROPERTY_DEFAULTVALUE) != 0;
-}
-
-
-bool
-GNEAttributeCarrier::AttributeValues::hasAttrSynonym() const {
-    return (myAttributeProperty & ATTRPROPERTY_SYNONYM) != 0;
-}
-
-
-bool
-GNEAttributeCarrier::AttributeValues::isInt() const {
-    return (myAttributeProperty & ATTRPROPERTY_INT) != 0;
-}
-
-
-bool
-GNEAttributeCarrier::AttributeValues::isFloat() const {
-    return (myAttributeProperty & ATTRPROPERTY_FLOAT) != 0;
-}
-
-
-bool
-GNEAttributeCarrier::AttributeValues::isBool() const {
-    return (myAttributeProperty & ATTRPROPERTY_BOOL) != 0;
-}
-
-
-bool
-GNEAttributeCarrier::AttributeValues::isString() const {
-    return (myAttributeProperty & ATTRPROPERTY_STRING) != 0;
-}
-
-
-bool
-GNEAttributeCarrier::AttributeValues::isProbability() const {
-    return (myAttributeProperty & ATTRPROPERTY_PROBABILITY) != 0;
-}
-
-
-bool
-GNEAttributeCarrier::AttributeValues::isNumerical() const {
-    return (myAttributeProperty & (ATTRPROPERTY_INT | ATTRPROPERTY_FLOAT)) != 0;
-}
-
-
-bool
-GNEAttributeCarrier::AttributeValues::isTime() const {
-    return (myAttributeProperty & ATTRPROPERTY_TIME) != 0;
-}
-
-
-bool
-GNEAttributeCarrier::AttributeValues::isPositive() const {
-    return (myAttributeProperty & ATTRPROPERTY_POSITIVE) != 0;
-}
-
-
-bool
-GNEAttributeCarrier::AttributeValues::isntZero() const {
-    return (myAttributeProperty & ATTRPROPERTY_NOTZERO) != 0;
-}
-
-
-bool
-GNEAttributeCarrier::AttributeValues::isColor() const {
-    return (myAttributeProperty & ATTRPROPERTY_COLOR) != 0;
-}
-
-
-bool
-GNEAttributeCarrier::AttributeValues::isFilename() const {
-    return (myAttributeProperty & ATTRPROPERTY_FILENAME) != 0;
-}
-
-
-bool
-GNEAttributeCarrier::AttributeValues::isVClass() const {
-    return (myAttributeProperty & ATTRPROPERTY_VCLASS) != 0;
-}
-
-
-bool
-GNEAttributeCarrier::AttributeValues::isSVCPermission() const {
-    return ((myAttributeProperty & ATTRPROPERTY_LIST) != 0) && ((myAttributeProperty & ATTRPROPERTY_VCLASS) != 0);
-}
-
-
-bool
-GNEAttributeCarrier::AttributeValues::isList() const {
-    return (myAttributeProperty & ATTRPROPERTY_LIST) != 0;
-}
-
-
-bool 
-GNEAttributeCarrier::AttributeValues::isSecuential() const {
-    return (myAttributeProperty & ATTRPROPERTY_SECUENCIAL) != 0;
-}
-
-
-bool
-GNEAttributeCarrier::AttributeValues::isUnique() const {
-    return (myAttributeProperty & ATTRPROPERTY_UNIQUE) != 0;
-}
-
-
-bool
-GNEAttributeCarrier::AttributeValues::isOptional() const {
-    return (myAttributeProperty & ATTRPROPERTY_OPTIONAL) != 0;
-}
-
-
-bool
-GNEAttributeCarrier::AttributeValues::isDiscrete() const {
-    return (myAttributeProperty & ATTRPROPERTY_DISCRETE) != 0;
-}
-
-
-bool
-GNEAttributeCarrier::AttributeValues::isCombinable() const {
-    return (myAttributeProperty & ATTRPROPERTY_COMBINABLE) != 0;
-}
-
-
-bool
-GNEAttributeCarrier::AttributeValues::isNonEditable() const {
-    return (myAttributeProperty & ATTRPROPERTY_NONEDITABLE) != 0;
 }
 
 // ---------------------------------------------------------------------------
@@ -1262,7 +1329,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_BUS_STOP;
     {
         // set values of tag
-        myAllowedTags[currentTag] = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_LANE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_STOPPINGPLACE | TAGPROPERTY_BLOCKMOVEMENT, additional, ICON_BUSSTOP, SUMO_TAG_LANE);
+        myAllowedTags[currentTag] = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_LANE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_STOPPINGPLACE | TAGPROPERTY_BLOCKMOVEMENT | TAGPROPERTY_MASKSTARTENDPOS, additional, ICON_BUSSTOP, SUMO_TAG_LANE);
         // set values of attributes
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_ID,
                                                ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
@@ -1318,7 +1385,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_CONTAINER_STOP;
     {
         // set values of tag
-        myAllowedTags[currentTag] = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_LANE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_STOPPINGPLACE | TAGPROPERTY_BLOCKMOVEMENT, additional, ICON_CONTAINERSTOP, SUMO_TAG_LANE);
+        myAllowedTags[currentTag] = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_LANE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_STOPPINGPLACE | TAGPROPERTY_BLOCKMOVEMENT | TAGPROPERTY_MASKSTARTENDPOS, additional, ICON_CONTAINERSTOP, SUMO_TAG_LANE);
         // set values of attributes
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_ID,
                                                ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
@@ -1352,7 +1419,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_CHARGING_STATION;
     {
         // set values of tag
-        myAllowedTags[currentTag] = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_LANE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_STOPPINGPLACE | TAGPROPERTY_BLOCKMOVEMENT, additional, ICON_CHARGINGSTATION, SUMO_TAG_LANE);
+        myAllowedTags[currentTag] = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_LANE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_STOPPINGPLACE | TAGPROPERTY_BLOCKMOVEMENT | TAGPROPERTY_MASKSTARTENDPOS, additional, ICON_CHARGINGSTATION, SUMO_TAG_LANE);
         // set values of attributes
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_ID,
                                                ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
@@ -1398,7 +1465,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_PARKING_AREA;
     {
         // set values of tag
-        myAllowedTags[currentTag] = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_LANE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_STOPPINGPLACE | TAGPROPERTY_BLOCKMOVEMENT, additional, ICON_PARKINGAREA, SUMO_TAG_LANE);
+        myAllowedTags[currentTag] = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_LANE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_STOPPINGPLACE | TAGPROPERTY_BLOCKMOVEMENT | TAGPROPERTY_MASKSTARTENDPOS, additional, ICON_PARKINGAREA, SUMO_TAG_LANE);
         // set values of attributes
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_ID,
                                                ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
@@ -2397,6 +2464,10 @@ GNEAttributeCarrier::fillAttributeCarriers() {
                                                ATTRPROPERTY_FLOAT | ATTRPROPERTY_ANGLE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
                                                "Angle of rendered image in degree",
                                                toString(Shape::DEFAULT_ANGLE));
+    }
+    // check integrity of all Tags (function checkTagIntegrity() throw an exception if there is an inconsistency)
+    for (auto i : myAllowedTags) {
+        i.second.checkTagIntegrity();
     }
 }
 

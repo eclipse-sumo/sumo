@@ -99,6 +99,9 @@ public:
         /// @brief parameter constructor
         AttributeValues(int attributeProperty, int positionListed, const std::string& definition, const std::string& defaultValue, const std::vector<std::string>& discreteValues, SumoXMLAttr synonym);
 
+        /// @brief check Attribute integrity (For example, throw an exception if tag has a Float default value, but given default value cannot be parse to float)
+        void checkAttributeIntegrity();
+
         /// @brief get position in list (used in frames for listing attributes with certain sort)
         int getPositionListed() const;
 
@@ -148,7 +151,7 @@ public:
         bool isPositive() const;
 
         /// @brief return true if atribute cannot be zero
-        bool isntZero() const;
+        bool cannotBeZero() const;
 
         /// @brief return true if atribute is a color
         bool isColor() const;
@@ -223,14 +226,14 @@ public:
         TAGPROPERTY_SYNONYM =             1 << 16,  // Element will be written with a different name in der XML
         TAGPROPERTY_AUTOMATICSORTING =    1 << 17,  // Element sort automatic their Childs (used by Additionals)
         TAGPROPERTY_SELECTABLE =          1 << 18,  // Element is selectable
-        TAGPROPERTY_WRITECHILDSSEPARATE = 1 << 19,  // Element writes their childs in a separated filename
-        TAGPROPERTY_PLACEDOVER_VIEW =     1 << 20,  // Element will be placed in view
-        TAGPROPERTY_PLACEDOVER_EDGE =     1 << 21,  // Element will be placed over an edge
-        TAGPROPERTY_PLACEDOVER_LANE =     1 << 22,  // Element will be placed over a lane
-        TAGPROPERTY_PLACEDOVER_JUNCTION = 1 << 23,  // Element will be placed over a junction
-        TAGPROPERTY_PLACEDOVER_EDGES =    1 << 24,  // Element will be placed over a list of edges
-        TAGPROPERTY_PLACEDOVER_LANES =    1 << 25,  // Element will be placed over a list of lanes
-
+        TAGPROPERTY_MASKSTARTENDPOS =     1 << 19,  // Element mask attributes StartPos and EndPos as "lenght" (Only used in the appropiate GNEFrame)
+        TAGPROPERTY_WRITECHILDSSEPARATE = 1 << 20,  // Element writes their childs in a separated filename
+        TAGPROPERTY_PLACEDOVER_VIEW =     1 << 21,  // Element will be placed in view
+        TAGPROPERTY_PLACEDOVER_EDGE =     1 << 22,  // Element will be placed over an edge
+        TAGPROPERTY_PLACEDOVER_LANE =     1 << 23,  // Element will be placed over a lane
+        TAGPROPERTY_PLACEDOVER_JUNCTION = 1 << 24,  // Element will be placed over a junction
+        TAGPROPERTY_PLACEDOVER_EDGES =    1 << 25,  // Element will be placed over a list of edges
+        TAGPROPERTY_PLACEDOVER_LANES =    1 << 26,  // Element will be placed over a list of lanes
     };
 
     /// @brief struct with the attribute Properties
@@ -241,6 +244,9 @@ public:
 
         /// @brief parameter constructor
         TagValues(int tagProperty, int &positionListed, GUIIcon icon, SumoXMLTag parentTag = SUMO_TAG_NOTHING, SumoXMLTag tagSynonym = SUMO_TAG_NOTHING);
+
+        /// @brief check Tag integrity (this include all their attributes)
+        void checkTagIntegrity();
 
         /// @brief add attribute (duplicated attributed aren't allowed)
         void addAttribute(SumoXMLAttr attr, int attributeProperty, const std::string& definition, const std::string& defaultValue, std::vector<std::string> discreteValues = std::vector<std::string>(), SumoXMLAttr synonym = SUMO_ATTR_NOTHING);
@@ -353,8 +359,11 @@ public:
         /// @brief return true if tag correspond to an element that can be placed over a list of edges
         bool canBePlacedOverEdges() const;
 
-        /// @brief return true if tag correspond to an element that can be placed over a list of lanes
+        /// @brief return true if tag correspond 
         bool canBePlacedOverLanes() const;
+
+        /// @brief return true if tag correspond to an element that can mask the attributes "start" and "end" position as attribute "lenght"
+        bool canMaskStartEndPos() const;
 
         /// @brief return true if attribute of this tag is deprecated
         bool isAttributeDeprecated(SumoXMLAttr attr) const;
@@ -612,7 +621,7 @@ public:
                     if (attrProperties.isPositive() && (parsedIntAttribute < 0)) {
                         errorFormat = "Cannot be negative; ";
                         parsedOk = false;
-                    } else if (attrProperties.isntZero() && (parsedIntAttribute == 0)) {
+                    } else if (attrProperties.cannotBeZero() && (parsedIntAttribute == 0)) {
                         errorFormat = "Cannot be zero; ";
                         parsedOk = false;
                     }
@@ -633,7 +642,7 @@ public:
                     if (attrProperties.isPositive() && (parsedDoubleAttribute < 0)) {
                         errorFormat = "Cannot be negative; ";
                         parsedOk = false;
-                    } else if (attrProperties.isntZero() && (parsedDoubleAttribute == 0)) {
+                    } else if (attrProperties.cannotBeZero() && (parsedDoubleAttribute == 0)) {
                         errorFormat = "Cannot be zero; ";
                         parsedOk = false;
                     }
