@@ -49,25 +49,28 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Additional, GNEChange, nullptr, 0)
 GNEChange_Additional::GNEChange_Additional(GNEAdditional* additional, bool forward) :
     GNEChange(additional->getViewNet()->getNet(), forward),
     myAdditional(additional),
-    myLaneParent(nullptr),
-    myEdgeParent(nullptr),
     myFirstAdditionalParent(myAdditional->getFirstAdditionalParent()),
     mySecondAdditionalParent(myAdditional->getSecondAdditionalParent()),
     myEdgeChilds(myAdditional->getEdgeChilds()),
     myLaneChilds(myAdditional->getLaneChilds()) {
-    assert(myNet);
     myAdditional->incRef("GNEChange_Additional");
+    // obtain tag properties
+    const auto &tagProperties = GNEAttributeCarrier::getTagProperties(myAdditional->getTag());
     // handle additionals with lane parent
-    if (GNEAttributeCarrier::getTagProperties(myAdditional->getTag()).hasAttribute(SUMO_ATTR_LANE)) {
-        myLaneParent = myNet->retrieveLane(myAdditional->getAttribute(SUMO_ATTR_LANE));
+    if (tagProperties.hasAttribute(SUMO_ATTR_LANE)) {
+        myLaneParents.push_back(myNet->retrieveLane(myAdditional->getAttribute(SUMO_ATTR_LANE)));
+    } else if (tagProperties.hasAttribute(SUMO_ATTR_LANES)) {
+        myLaneParents = GNEAttributeCarrier::parse<std::vector<GNELane*> >(additional->getViewNet()->getNet(), myAdditional->getAttribute(SUMO_ATTR_LANES));
     }
     // handle additionals with edge parent
-    if (GNEAttributeCarrier::getTagProperties(myAdditional->getTag()).hasAttribute(SUMO_ATTR_EDGE)) {
-        myEdgeParent = myNet->retrieveEdge(myAdditional->getAttribute(SUMO_ATTR_EDGE));
+    if (tagProperties.hasAttribute(SUMO_ATTR_EDGE)) {
+        myEdgeParents.push_back(myNet->retrieveEdge(myAdditional->getAttribute(SUMO_ATTR_EDGE)));
+    } else if (tagProperties.hasAttribute(SUMO_ATTR_EDGES)) {
+        myEdgeParents = GNEAttributeCarrier::parse<std::vector<GNEEdge*> >(additional->getViewNet()->getNet(), myAdditional->getAttribute(SUMO_ATTR_EDGES));
     }
     // special case for Vaporizers
     if (myAdditional->getTag() == SUMO_TAG_VAPORIZER) {
-        myEdgeParent = myNet->retrieveEdge(myAdditional->getAttribute(SUMO_ATTR_ID));
+        myEdgeParents.push_back(myNet->retrieveEdge(myAdditional->getAttribute(SUMO_ATTR_ID)));
     }
 }
 
@@ -95,12 +98,12 @@ GNEChange_Additional::undo() {
         // delete additional of test
         myNet->deleteAdditional(myAdditional);
         // 1 - If additional own a lane parent, remove it from lane
-        if (myLaneParent) {
-            myLaneParent->removeAdditionalChild(myAdditional);
+        for (auto i : myLaneParents) {
+            i->removeAdditionalChild(myAdditional);
         }
         // 2 - If additional own a edge parent, remove it from edge
-        if (myEdgeParent) {
-            myEdgeParent->removeAdditionalChild(myAdditional);
+        for (auto i : myEdgeParents) {
+            i->removeAdditionalChild(myAdditional);
         }
         // 3 - If additional has a first parent, remove it from their additional childs
         if (myFirstAdditionalParent) {
@@ -124,12 +127,12 @@ GNEChange_Additional::undo() {
         // insert additional of test
         myNet->insertAdditional(myAdditional);
         // 1 - If additional own a Lane parent, add it to lane
-        if (myLaneParent) {
-            myLaneParent->addAdditionalChild(myAdditional);
+        for (auto i : myLaneParents) {
+            i->addAdditionalChild(myAdditional);
         }
         // 2 - If additional own a edge parent, add it to edge
-        if (myEdgeParent != nullptr) {
-            myEdgeParent->addAdditionalChild(myAdditional);
+        for (auto i : myEdgeParents) {
+            i->addAdditionalChild(myAdditional);
         }
         // 3 - If additional has a parent, add it into additional parent
         if (myFirstAdditionalParent) {
@@ -165,12 +168,12 @@ GNEChange_Additional::redo() {
         // insert additional into net
         myNet->insertAdditional(myAdditional);
         // 1 - If additional own a Lane parent, add it to lane
-        if (myLaneParent) {
-            myLaneParent->addAdditionalChild(myAdditional);
+        for (auto i : myLaneParents) {
+            i->addAdditionalChild(myAdditional);
         }
         // 2 - If additional own a edge parent, add it to edge
-        if (myEdgeParent != nullptr) {
-            myEdgeParent->addAdditionalChild(myAdditional);
+        for (auto i : myEdgeParents) {
+            i->addAdditionalChild(myAdditional);
         }
         // 3 - If additional has a parent, add it into additional parent
         if (myFirstAdditionalParent) {
@@ -194,12 +197,12 @@ GNEChange_Additional::redo() {
         // delete additional of test
         myNet->deleteAdditional(myAdditional);
         // 1 - If additional own a lane parent, remove it from lane
-        if (myLaneParent) {
-            myLaneParent->removeAdditionalChild(myAdditional);
+        for (auto i : myLaneParents) {
+            i->removeAdditionalChild(myAdditional);
         }
         // 2 - If additional own a edge parent, remove it from edge
-        if (myEdgeParent) {
-            myEdgeParent->removeAdditionalChild(myAdditional);
+        for (auto i : myEdgeParents) {
+            i->removeAdditionalChild(myAdditional);
         }
         // 3 - If additiona has a first parent, remove it from their additional childs
         if (myFirstAdditionalParent) {

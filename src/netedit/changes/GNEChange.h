@@ -25,6 +25,7 @@
 #include <config.h>
 
 #include <fx.h>
+#include <vector>
 #include <utils/foxtools/fxexdefs.h>
 
 // ===========================================================================
