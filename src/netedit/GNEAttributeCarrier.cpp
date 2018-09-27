@@ -386,9 +386,9 @@ GNEAttributeCarrier::TagValues::checkTagIntegrity() {
     if (canMaskStartEndPos() && (!hasAttribute(SUMO_ATTR_STARTPOS) || !hasAttribute(SUMO_ATTR_ENDPOS))) {
         throw ProcessError("If attribute mask the start and end position, bot attribute has to be defined");
     }
-    // check that synonim tag isn't nothing
+    // check that synonym tag isn't nothing
     if (hasTagSynonym() && (myTagSynonym == SUMO_TAG_NOTHING)) {
-        throw FormatException("Synonim tag cannot be nothing");
+        throw FormatException("synonym tag cannot be nothing");
     }
     // check integrity of all attributes
     for (auto i : myAttributeValues) {
@@ -1635,7 +1635,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_E2DETECTOR_MULTILANE;
     {
         // set values of tag
-        myAllowedTags[currentTag] = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_LANES | TAGPROPERTY_SELECTABLE | TAGPROPERTY_DETECTOR | TAGPROPERTY_PARENT | TAGPROPERTY_BLOCKMOVEMENT, additional, ICON_E2, SUMO_TAG_LANE);
+        myAllowedTags[currentTag] = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_LANES | TAGPROPERTY_SELECTABLE | TAGPROPERTY_DETECTOR | TAGPROPERTY_PARENT | TAGPROPERTY_SYNONYM | TAGPROPERTY_BLOCKMOVEMENT, additional, ICON_E2, SUMO_TAG_LANE, SUMO_TAG_E2DETECTOR);
         // set "file" as deprecated attribute
         myAllowedTags[currentTag].addDeprecatedAttribute(SUMO_ATTR_CONT);
         // set values of attributes

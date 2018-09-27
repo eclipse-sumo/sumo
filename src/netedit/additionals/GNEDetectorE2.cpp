@@ -176,12 +176,12 @@ GNEDetectorE2::updateGeometry(bool updateGrid) {
         PositionVector lastShape = myLanes.back()->getShape();
 
         // set end position
-        if (myPositionOverLane < 0) {
+        if (myEndPositionOverLane < 0) {
             endPosFixed = 0;
-        } else if (myPositionOverLane > myLanes.back()->getParentEdge().getNBEdge()->getFinalLength()) {
+        } else if (myEndPositionOverLane > myLanes.back()->getParentEdge().getNBEdge()->getFinalLength()) {
             endPosFixed = myLanes.back()->getParentEdge().getNBEdge()->getFinalLength();
         } else {
-            endPosFixed = myPositionOverLane;
+            endPosFixed = myEndPositionOverLane;
         }
 
         // Cut shape using as delimitators fixed start position and fixed end position
@@ -377,7 +377,7 @@ GNEDetectorE2::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_POSITION:
             return toString(myPositionOverLane);
         case SUMO_ATTR_ENDPOS:
-            return toString(myPositionOverLane);
+            return toString(myEndPositionOverLane);
         case SUMO_ATTR_FREQUENCY:
             return toString(myFreq);
         case SUMO_ATTR_LENGTH:
