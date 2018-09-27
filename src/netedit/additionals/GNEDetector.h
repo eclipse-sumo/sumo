@@ -82,13 +82,13 @@ public:
      * @param[in] newPosition new position of geometry
      * @note should't be called in drawGL(...) functions to avoid smoothness issues
      */
-    void moveGeometry(const Position& oldPos, const Position& offset);
+    virtual void moveGeometry(const Position& oldPos, const Position& offset) = 0;
 
     /**@brief commit geometry changes in the attributes of an element after use of moveGeometry(...)
      * @param[in] oldPos the old position of additional
      * @param[in] undoList The undoList on which to register changes
      */
-    void commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList);
+    virtual void commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) = 0;
 
     /// @brief update pre-computed geometry information
     virtual void updateGeometry(bool updateGrid) = 0;

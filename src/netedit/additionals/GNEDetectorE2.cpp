@@ -82,6 +82,53 @@ GNEDetectorE2::~GNEDetectorE2() {
 
 
 void
+GNEDetectorE2::moveGeometry(const Position& oldPos, const Position& offset) {
+    // move geometry depending of number of lanes
+    if(myLanes.size() == 1) {
+        // Calculate new position using old position
+        Position newPosition = oldPos;
+        newPosition.add(offset);
+        myPositionOverLane = myLanes.front()->getShape().nearest_offset_to_point2D(newPosition, false);
+    } else {
+        // Calculate new position using old position
+        Position newMultiLaneCenterPosition = oldPos;
+        newMultiLaneCenterPosition.add(offset);
+        double newMultiLaneCenter = myLanes.front()->getShape().nearest_offset_to_point2D(newMultiLaneCenterPosition, false);
+        // move stopping palce depending if start or end position is defined
+        double halfMultiLaneLength = (myPositionOverLane - myEndPositionOverLane) / 2.0;
+        // change start and end position of stopping place
+        myPositionOverLane = newMultiLaneCenter - halfMultiLaneLength;
+        myEndPositionOverLane = newMultiLaneCenter + halfMultiLaneLength;
+    }
+    // Update geometry
+    updateGeometry(false);
+}
+
+
+void
+GNEDetectorE2::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
+    // commit geometry moving depending of number of lanes
+    if(myLanes.size() == 1) {
+        // restore old position before commit new position
+        double originalPosOverLane = getLane()->getShape().nearest_offset_to_point2D(oldPos, false);
+        // commit new position allowing undo/redo
+        undoList->p_begin("position of " + toString(getTag()));
+        undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPositionOverLane), true, toString(originalPosOverLane)));
+        undoList->p_end();
+    } else {
+        // calculate old stopping place center
+        double oldMultiLaneCenterOffset = myLanes.front()->getShape().nearest_offset_to_point2D(oldPos, false);
+        undoList->p_begin("position of " + toString(getTag()));
+        // change myStartPosition or myEndPosition depending if they are defined
+        double halfMultiLaneLength = (myPositionOverLane - myEndPositionOverLane) / 2.0;
+        undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPositionOverLane), true, toString(oldMultiLaneCenterOffset - halfMultiLaneLength)));
+        undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_ENDPOS, toString(myEndPositionOverLane), true, toString(oldMultiLaneCenterOffset + halfMultiLaneLength)));
+        undoList->p_end();
+    }
+}
+
+
+void
 GNEDetectorE2::updateGeometry(bool updateGrid) {
     // first check if object has to be removed from grid (SUMOTree)
     if (updateGrid) {
@@ -267,20 +314,46 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
 
     // Check if the distance is enougth to draw details and isn't being drawn for selecting
     if ((s.scale * exaggeration >= 10) && !s.drawForSelecting) {
-        // Push matrix
-        glPushMatrix();
-        // Traslate to center of detector
-        glTranslated(myGeometry.shape.getLineCenter().x(), myGeometry.shape.getLineCenter().y(), getType() + 0.1);
-        // Rotate depending of myBlockIconRotation
-        glRotated(myBlockIconRotation, 0, 0, -1);
-        //move to logo position
-        glTranslated(-0.75, 0, 0);
-        std::string logoName = (myLanes.size() == 1)? "E2" : "E2MultiLane";
-        // draw E2 logo
-        if (isAttributeCarrierSelected()) {
-            GLHelper::drawText(logoName, Position(), .1, 1.5, myViewNet->getNet()->selectionColor);
+        // draw logo depending if this is an Multilane E2 detector
+        if(getTag() == SUMO_TAG_E2DETECTOR) {
+            // Push matrix
+            glPushMatrix();
+            // Traslate to center of detector
+            glTranslated(myGeometry.shape.getLineCenter().x(), myGeometry.shape.getLineCenter().y(), getType() + 0.1);
+            // Rotate depending of myBlockIconRotation
+            glRotated(myBlockIconRotation, 0, 0, -1);
+            //move to logo position
+            glTranslated(-0.75, 0, 0);
+            // draw E2 logo
+            if (isAttributeCarrierSelected()) {
+                GLHelper::drawText("E2", Position(), .1, 1.5, myViewNet->getNet()->selectionColor);
+            } else {
+                GLHelper::drawText("E2", Position(), .1, 1.5, RGBColor::BLACK);
+            }
         } else {
-            GLHelper::drawText(logoName, Position(), .1, 1.5, RGBColor::BLACK);
+            // Push matrix
+            glPushMatrix();
+            // Traslate to center of detector
+            glTranslated(myBlockIconPosition.x(), myBlockIconPosition.y(), getType() + 0.1);
+            // Rotate depending of myBlockIconRotation
+            glRotated(myBlockIconRotation, 0, 0, -1);
+            //move to logo position
+            glTranslated(-1.5, 0, 0);
+            // draw E2 logo
+            if (isAttributeCarrierSelected()) {
+                GLHelper::drawText("E2", Position(), .1, 1.5, myViewNet->getNet()->selectionColor);
+            } else {
+                GLHelper::drawText("E2", Position(), .1, 1.5, RGBColor::BLACK);
+            }
+            //move to logo position
+            glTranslated(1.2, 0, 0);
+            // Rotate depending of myBlockIconRotation
+            glRotated(90, 0, 0, 1);
+            if (isAttributeCarrierSelected()) {
+                GLHelper::drawText("multi", Position(), .1, 0.9, myViewNet->getNet()->selectedAdditionalColor);
+            } else {
+                GLHelper::drawText("multi", Position(), .1, 0.9, RGBColor::BLACK);
+            }
         }
         // pop matrix
         glPopMatrix();

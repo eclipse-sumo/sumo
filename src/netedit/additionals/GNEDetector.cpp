@@ -79,28 +79,6 @@ GNEDetector::getPositionOverLane() const {
 }
 
 
-void
-GNEDetector::moveGeometry(const Position& oldPos, const Position& offset) {
-    // Calculate new position using old position
-    Position newPosition = oldPos;
-    newPosition.add(offset);
-    myPositionOverLane = getLane()->getShape().nearest_offset_to_point2D(newPosition, false);
-    // Update geometry
-    updateGeometry(false);
-}
-
-
-void
-GNEDetector::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
-    // restore old position before commit new position
-    double originalPosOverLane = getLane()->getShape().nearest_offset_to_point2D(oldPos, false);
-    // commit new position allowing undo/redo
-    undoList->p_begin("position of " + toString(getTag()));
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPositionOverLane), true, toString(originalPosOverLane)));
-    undoList->p_end();
-}
-
-
 Position
 GNEDetector::getPositionInView() const {
     if (myPositionOverLane < 0) {
