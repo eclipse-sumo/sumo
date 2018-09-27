@@ -943,22 +943,27 @@ GNEAdditionalHandler::parseAndBuildDetectorE1(const SUMOSAXAttributes& attrs, co
 
 void
 GNEAdditionalHandler::parseAndBuildDetectorE2(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
+    // Tag E2 detectors can build either E2 single lanes or E2 multilanes, depending of attribute "lanes"
+    SumoXMLTag E2Tag = attrs.hasAttribute(SUMO_ATTR_LANES)? SUMO_TAG_E2DETECTOR_MULTILANE : tag;
     bool abort = false;
-    // parse attributes of E2
-    std::string id = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_ID, abort);
-    std::string laneId = attrs.hasAttribute(SUMO_ATTR_LANE)?GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_LANE, abort):"";
-    std::string laneIds = attrs.hasAttribute(SUMO_ATTR_LANES)?GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_LANES, abort):"";
-    double position = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_POSITION, abort);
-    double endPos = attrs.hasAttribute(SUMO_ATTR_LANES)?GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_ENDPOS, abort):0;
-    double frequency = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_FREQUENCY, abort);
-    std::string file = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_FILE, abort);
-    std::string vehicleTypes = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_VTYPES, abort);
-    std::string name = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_NAME, abort);
-    double length = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_LENGTH, abort);
-    double haltingTimeThreshold = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_HALTING_TIME_THRESHOLD, abort);
-    double haltingSpeedThreshold = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_HALTING_SPEED_THRESHOLD, abort);
-    double jamDistThreshold = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_JAM_DIST_THRESHOLD, abort);
-    bool friendlyPos = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, id, tag, SUMO_ATTR_FRIENDLY_POS, abort);
+    // start parsing ID
+    std::string id = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", E2Tag, SUMO_ATTR_ID, abort);
+    // parse attributes of E2 SingleLanes
+    std::string laneId = (E2Tag == SUMO_TAG_E2DETECTOR)?GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, E2Tag, SUMO_ATTR_LANE, abort):"";
+    double length = (E2Tag == SUMO_TAG_E2DETECTOR)?GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, E2Tag, SUMO_ATTR_LENGTH, abort):0;
+    // parse attributes of E2 Multilanes
+    std::string laneIds = (E2Tag == SUMO_TAG_E2DETECTOR_MULTILANE)?GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, E2Tag, SUMO_ATTR_LANES, abort):"";
+    double endPos = (E2Tag == SUMO_TAG_E2DETECTOR_MULTILANE)?GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, E2Tag, SUMO_ATTR_ENDPOS, abort):0;
+    // parse common attributes
+    double position = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, E2Tag, SUMO_ATTR_POSITION, abort);
+    double frequency = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, E2Tag, SUMO_ATTR_FREQUENCY, abort);
+    std::string file = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, E2Tag, SUMO_ATTR_FILE, abort);
+    std::string vehicleTypes = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, E2Tag, SUMO_ATTR_VTYPES, abort);
+    std::string name = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, E2Tag, SUMO_ATTR_NAME, abort);
+    double haltingTimeThreshold = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, E2Tag, SUMO_ATTR_HALTING_TIME_THRESHOLD, abort);
+    double haltingSpeedThreshold = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, E2Tag, SUMO_ATTR_HALTING_SPEED_THRESHOLD, abort);
+    double jamDistThreshold = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, E2Tag, SUMO_ATTR_JAM_DIST_THRESHOLD, abort);
+    bool friendlyPos = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, id, E2Tag, SUMO_ATTR_FRIENDLY_POS, abort);
     // cont attribute is deprecated
     GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_CONT, abort);
     // Continue if all parameters were sucesfully loaded
