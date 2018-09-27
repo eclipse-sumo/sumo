@@ -99,27 +99,27 @@ GNECalibrator::updateGeometry(bool updateGrid) {
     if (updateGrid) {
         myViewNet->getNet()->removeGLObjectFromGrid(this);
     }
+
     // Clear all containers
-    myShapeRotations.clear();
-    myShapeLengths.clear();
-    // clear Shape
-    myShape.clear();
+    myGeometry.clearGeometry();
+
     // get shape depending of we have a edge or a lane
     if (myLane) {
         // Get shape of lane parent
-        myShape.push_back(myLane->getShape().positionAtOffset(myPositionOverLane));
+        myGeometry.shape.push_back(myLane->getShape().positionAtOffset(myPositionOverLane));
         // Save rotation (angle) of the vector constructed by points f and s
-        myShapeRotations.push_back(myLane->getShape().rotationDegreeAtOffset(myPositionOverLane) * -1);
+        myGeometry.shapeRotations.push_back(myLane->getShape().rotationDegreeAtOffset(myPositionOverLane) * -1);
     } else if (myEdge) {
         for (auto i : myEdge->getLanes()) {
             // Get shape of lane parent
-            myShape.push_back(i->getShape().positionAtOffset(myPositionOverLane));
+            myGeometry.shape.push_back(i->getShape().positionAtOffset(myPositionOverLane));
             // Save rotation (angle) of the vector constructed by points f and s
-            myShapeRotations.push_back(myEdge->getLanes().at(0)->getShape().rotationDegreeAtOffset(myPositionOverLane) * -1);
+            myGeometry.shapeRotations.push_back(myEdge->getLanes().at(0)->getShape().rotationDegreeAtOffset(myPositionOverLane) * -1);
         }
     } else {
         throw ProcessError("Both myEdge and myLane aren't defined");
     }
+
     // last step is to check if object has to be added into grid (SUMOTree) again
     if (updateGrid) {
         myViewNet->getNet()->addGLObjectIntoGrid(this);
@@ -161,9 +161,9 @@ GNECalibrator::drawGL(const GUIVisualizationSettings& s) const {
     const double exaggeration = s.addSize.getExaggeration(s);
 
     // iterate over every Calibrator symbol
-    for (int i = 0; i < (int)myShape.size(); ++i) {
-        const Position& pos = myShape[i];
-        double rot = myShapeRotations[i];
+    for (int i = 0; i < (int)myGeometry.shape.size(); ++i) {
+        const Position& pos = myGeometry.shape[i];
+        double rot = myGeometry.shapeRotations[i];
         glPushMatrix();
         glTranslated(pos.x(), pos.y(), getType());
         glRotated(rot, 0, 0, 1);

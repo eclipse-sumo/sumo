@@ -252,7 +252,7 @@ GNEAdditional::getViewNet() const {
 
 PositionVector
 GNEAdditional::getShape() const {
-    return myShape;
+    return myGeometry.shape;
 }
 
 
@@ -513,21 +513,21 @@ GNEAdditional::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     if (tagProperties.hasAttribute(SUMO_ATTR_LANE)) {
         GNELane* lane = myViewNet->getNet()->retrieveLane(getAttribute(SUMO_ATTR_LANE));
         // Show menu command inner position
-        const double innerPos = myShape.nearest_offset_to_point2D(parent.getPositionInformation());
+        const double innerPos = myGeometry.shape.nearest_offset_to_point2D(parent.getPositionInformation());
         new FXMenuCommand(ret, ("Cursor position inner additional: " + toString(innerPos)).c_str(), 0, 0, 0);
         // If shape isn't empty, show menu command lane position
-        if (myShape.size() > 0) {
-            const double lanePos = lane->getShape().nearest_offset_to_point2D(myShape[0]);
+        if (myGeometry.shape.size() > 0) {
+            const double lanePos = lane->getShape().nearest_offset_to_point2D(myGeometry.shape[0]);
             new FXMenuCommand(ret, ("Cursor position over " + toString(SUMO_TAG_LANE) + ": " + toString(innerPos + lanePos)).c_str(), 0, 0, 0);
         }
     } else if (tagProperties.hasAttribute(SUMO_ATTR_EDGE)) {
         GNEEdge* edge = myViewNet->getNet()->retrieveEdge(getAttribute(SUMO_ATTR_EDGE));
         // Show menu command inner position
-        const double innerPos = myShape.nearest_offset_to_point2D(parent.getPositionInformation());
+        const double innerPos = myGeometry.shape.nearest_offset_to_point2D(parent.getPositionInformation());
         new FXMenuCommand(ret, ("Cursor position inner additional: " + toString(innerPos)).c_str(), 0, 0, 0);
         // If shape isn't empty, show menu command edge position
-        if (myShape.size() > 0) {
-            const double edgePos = edge->getLanes().at(0)->getShape().nearest_offset_to_point2D(myShape[0]);
+        if (myGeometry.shape.size() > 0) {
+            const double edgePos = edge->getLanes().at(0)->getShape().nearest_offset_to_point2D(myGeometry.shape[0]);
             new FXMenuCommand(ret, ("Mouse position over " + toString(SUMO_TAG_EDGE) + ": " + toString(innerPos + edgePos)).c_str(), 0, 0, 0);
         }
     } else {
@@ -561,18 +561,13 @@ GNEAdditional::getCenteringBoundary() const {
     // Return Boundary depending if myMovingGeometryBoundary is initialised (important for move geometry)
     if (myMovingGeometryBoundary.isInitialised()) {
         return myMovingGeometryBoundary;
-    } else if (myShape.size() > 0) {
-        Boundary b = myShape.getBoxBoundary();
+    } else if (myGeometry.shape.size() > 0) {
+        Boundary b = myGeometry.shape.getBoxBoundary();
         b.grow(20);
         return b;
-    } else if (myMultiShape.size() > 0) {
-        // merge all multishape parts in a single shape
-        PositionVector multiShapeFixed;
-        for (auto i : myMultiShape) {
-            multiShapeFixed.append(i);
-        }
+    } else if (myGeometry.multiShape.size() > 0) {
         // obtain boundary of multishape fixed
-        Boundary b = multiShapeFixed.getBoxBoundary();
+        Boundary b = myGeometry.multiShapeUnified.getBoxBoundary();
         b.grow(20);
         return b;
     } else if (myFirstAdditionalParent) {
@@ -618,6 +613,85 @@ GNEAdditional::isRouteValid(const std::vector<GNEEdge*>& edges, bool report) {
 }
 
 
+GNEAdditional::additionalGeometry::additionalGeometry() {}
+
+
+void 
+GNEAdditional::additionalGeometry::clearGeometry() {
+    shape.clear();
+    multiShape.clear();
+    shapeRotations.clear();
+    shapeLengths.clear();
+    multiShapeRotations.clear();
+    multiShapeLengths.clear();
+    multiShapeUnified.clear();
+}
+
+
+void 
+GNEAdditional::additionalGeometry::calculateMultiShapeUnified() {
+    // merge all multishape parts in a single shape
+    for (auto i : multiShape) {
+        multiShapeUnified.append(i);
+    }
+}
+
+
+void 
+GNEAdditional::additionalGeometry::calculateShapeRotationsAndLengths() {
+    // Get number of parts of the shape
+    int numberOfSegments = (int)shape.size() - 1;
+    // If number of segments is more than 0
+    if (numberOfSegments >= 0) {
+        // Reserve memory (To improve efficiency)
+        shapeRotations.reserve(numberOfSegments);
+        shapeLengths.reserve(numberOfSegments);
+        // For every part of the shape
+        for (int i = 0; i < numberOfSegments; ++i) {
+            // Obtain first position
+            const Position& f = shape[i];
+            // Obtain next position
+            const Position& s = shape[i + 1];
+            // Save distance between position into myShapeLengths
+            shapeLengths.push_back(f.distanceTo(s));
+            // Save rotation (angle) of the vector constructed by points f and s
+            shapeRotations.push_back((double)atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double)M_PI);
+        }
+    }
+}
+
+
+void 
+GNEAdditional::additionalGeometry::calculateMultiShapeRotationsAndLengths() {
+    // Get number of parts of the shape for every part shape
+    std::vector<int> numberOfSegments;
+    for (auto i : multiShape) {
+        // numseg cannot be 0
+        int numSeg = (int)i.size() - 1;
+        numberOfSegments.push_back((numSeg>=0)? numSeg : 0);
+        multiShapeRotations.push_back(std::vector<double>());
+        multiShapeLengths.push_back(std::vector<double>());
+    }
+    // If number of segments is more than 0
+    for (int i = 0; i < multiShape.size(); i++) {
+        // Reserve size for every part
+        multiShapeRotations.back().reserve(numberOfSegments.at(i));
+        multiShapeLengths.back().reserve(numberOfSegments.at(i));
+        // iterate over each segment
+        for (int j = 0; j < numberOfSegments.at(i); j++) {
+            // Obtain first position
+            const Position& f = multiShape[i][j];
+            // Obtain next position
+            const Position& s = multiShape[i][j + 1];
+            // Save distance between position into myShapeLengths
+            multiShapeLengths.at(i).push_back(f.distanceTo(s));
+            // Save rotation (angle) of the vector constructed by points f and s
+            multiShapeRotations.at(i).push_back((double)atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double)M_PI);
+        }
+    }
+}
+
+
 void
 GNEAdditional::setDefaultValues() {
     // iterate over attributes and set default value
@@ -631,9 +705,9 @@ GNEAdditional::setDefaultValues() {
 
 void
 GNEAdditional::setBlockIconRotation(GNELane* additionalLane) {
-    if (myShape.size() > 0 && myShape.length() != 0) {
+    if (myGeometry.shape.size() > 0 && myGeometry.shape.length() != 0) {
         // If length of the shape is distint to 0, Obtain rotation of center of shape
-        myBlockIconRotation = myShape.rotationDegreeAtOffset((myShape.length() / 2.)) - 90;
+        myBlockIconRotation = myGeometry.shape.rotationDegreeAtOffset((myGeometry.shape.length() / 2.)) - 90;
     } else if (additionalLane) {
         // If additional is over a lane, set rotation in the position over lane
         double posOverLane = additionalLane->getShape().nearest_offset_to_point2D(getPositionInView());

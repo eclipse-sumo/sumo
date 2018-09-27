@@ -80,7 +80,7 @@ GNEChargingStation::updateGeometry(bool updateGrid) {
     setStoppingPlaceGeometry(0);
 
     // Obtain a copy of the shape
-    PositionVector tmpShape = myShape;
+    PositionVector tmpShape = myGeometry.shape;
 
     // Move shape to side
     tmpShape.move2side(1.5 * offsetSign);
@@ -89,7 +89,7 @@ GNEChargingStation::updateGeometry(bool updateGrid) {
     mySignPos = tmpShape.getLineCenter();
 
     // Set block icon position
-    myBlockIconPosition = myShape.getLineCenter();
+    myBlockIconPosition = myGeometry.shape.getLineCenter();
 
     // Set block icon rotation, and using their rotation for sign
     setBlockIconRotation(myLane);
@@ -120,7 +120,7 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::setColor(s.SUMO_color_chargingStation);
     }
     // Draw base
-    GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, exaggeration);
+    GLHelper::drawBoxLines(myGeometry.shape, myGeometry.shapeRotations, myGeometry.shapeLengths, exaggeration);
     // Check if the distance is enought to draw details and if is being drawn for selecting
     if (s.drawForSelecting) {
         // only draw circle depending of distance between sign and mouse cursor
@@ -195,7 +195,7 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
     }
     // check if dotted contour has to be drawn
     if (!s.drawForSelecting && (myViewNet->getACUnderCursor() == this)) {
-        GLHelper::drawShapeDottedContour(getType(), myShape, exaggeration);
+        GLHelper::drawShapeDottedContour(getType(), myGeometry.shape, exaggeration);
     }
     // Pop name matrix
     glPopName();

@@ -195,17 +195,16 @@ GNEStoppingPlace::getParentName() const {
 void
 GNEStoppingPlace::setStoppingPlaceGeometry(double movingToSide) {
     // Clear all containers
-    myShapeRotations.clear();
-    myShapeLengths.clear();
+    myGeometry.clearGeometry();
 
     // Get value of option "lefthand"
     double offsetSign = OptionsCont::getOptions().getBool("lefthand") ? -1 : 1;
 
     // Get shape of lane parent
-    myShape = myLane->getShape();
+    myGeometry.shape = myLane->getShape();
 
     // Move shape to side
-    myShape.move2side(movingToSide * offsetSign);
+    myGeometry.shape.move2side(movingToSide * offsetSign);
 
     // set start position
     double startPosFixed;
@@ -232,34 +231,10 @@ GNEStoppingPlace::setStoppingPlaceGeometry(double movingToSide) {
     }
 
     // Cut shape using as delimitators fixed start position and fixed end position
-    myShape = myShape.getSubpart(startPosFixed * myLane->getLengthGeometryFactor(), endPosFixed * myLane->getLengthGeometryFactor());
+    myGeometry.shape = myGeometry.shape.getSubpart(startPosFixed * myLane->getLengthGeometryFactor(), endPosFixed * myLane->getLengthGeometryFactor());
 
-    // Get number of parts of the shape
-    int numberOfSegments = (int) myShape.size() - 1;
-
-    // If number of segments is more than 0
-    if (numberOfSegments >= 0) {
-
-        // Reserve memory (To improve efficiency)
-        myShapeRotations.reserve(numberOfSegments);
-        myShapeLengths.reserve(numberOfSegments);
-
-        // For every part of the shape
-        for (int i = 0; i < numberOfSegments; ++i) {
-
-            // Obtain first position
-            const Position& f = myShape[i];
-
-            // Obtain next position
-            const Position& s = myShape[i + 1];
-
-            // Save distance between position into myShapeLengths
-            myShapeLengths.push_back(f.distanceTo(s));
-
-            // Save rotation (angle) of the vector constructed by points f and s
-            myShapeRotations.push_back((double) atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double)M_PI);
-        }
-    }
+    // Get calculate lenghts and rotations
+    myGeometry.calculateShapeRotationsAndLengths();
 }
 
 

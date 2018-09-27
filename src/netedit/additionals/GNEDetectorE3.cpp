@@ -77,7 +77,7 @@ GNEDetectorE3::updateGeometry(bool updateGrid) {
     }
 
     // Clear shape
-    myShape.clear();
+    myGeometry.shape.clear();
 
     // Set block icon position
     myBlockIconPosition = myPosition;
@@ -89,7 +89,7 @@ GNEDetectorE3::updateGeometry(bool updateGrid) {
     setBlockIconRotation();
 
     // Set position
-    myShape.push_back(myPosition);
+    myGeometry.shape.push_back(myPosition);
 
     // Update connection's geometry
     updateChildConnections();
@@ -138,7 +138,7 @@ GNEDetectorE3::drawGL(const GUIVisualizationSettings& s) const {
 
     // Add a draw matrix for drawing logo
     glPushMatrix();
-    glTranslated(myShape[0].x(), myShape[0].y(), getType());
+    glTranslated(myGeometry.shape[0].x(), myGeometry.shape[0].y(), getType());
 
     // Draw icon depending of detector is selected and if isn't being drawn for selecting
     if (s.drawForSelecting) {

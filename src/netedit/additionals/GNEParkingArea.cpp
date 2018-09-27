@@ -81,7 +81,7 @@ GNEParkingArea::updateGeometry(bool updateGrid) {
     setStoppingPlaceGeometry(myLane->getParentEdge().getNBEdge()->getLaneWidth(myLane->getIndex()) / 2 + myWidth);
 
     // Obtain a copy of the shape
-    PositionVector tmpShape = myShape;
+    PositionVector tmpShape = myGeometry.shape;
 
     // Move shape to side
     tmpShape.move2side(1.5 * offsetSign);
@@ -90,7 +90,7 @@ GNEParkingArea::updateGeometry(bool updateGrid) {
     mySignPos = tmpShape.getLineCenter();
 
     // Set block icon position
-    myBlockIconPosition = myShape.getLineCenter();
+    myBlockIconPosition = myGeometry.shape.getLineCenter();
 
     // Set block icon rotation, and using their rotation for sign
     setBlockIconRotation(myLane);
@@ -121,7 +121,7 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::setColor(RGBColor(83, 89, 172, 255));
     }
     // Draw base
-    GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, myWidth * exaggeration);
+    GLHelper::drawBoxLines(myGeometry.shape, myGeometry.shapeRotations, myGeometry.shapeLengths, myWidth * exaggeration);
     // Check if the distance is enought to draw details and if is being drawn for selecting
     if (s.drawForSelecting) {
         // only draw circle depending of distance between sign and mouse cursor
@@ -186,7 +186,7 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
     }
     // check if dotted contour has to be drawn
     if (!s.drawForSelecting && (myViewNet->getACUnderCursor() == this)) {
-        GLHelper::drawShapeDottedContour(getType(), myShape, myWidth * exaggeration);
+        GLHelper::drawShapeDottedContour(getType(), myGeometry.shape, myWidth * exaggeration);
     }
     // Pop name matrix
     glPopName();

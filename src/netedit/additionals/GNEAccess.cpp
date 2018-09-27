@@ -99,11 +99,10 @@ GNEAccess::updateGeometry(bool updateGrid) {
     }
 
     // Clear all containers
-    myShapeRotations.clear();
-    myShapeLengths.clear();
+    myGeometry.clearGeometry();
 
     // Get shape of lane parent
-    myShape = myLane->getShape();
+    myGeometry.shape = myLane->getShape();
 
     // set start position
     double fixedPositionOverLane;
@@ -117,13 +116,13 @@ GNEAccess::updateGeometry(bool updateGrid) {
         fixedPositionOverLane = parse<double>(myPositionOverLane);
     }
     // obtain position
-    myShape[0] = myLane->getShape().positionAtOffset(fixedPositionOverLane * myLane->getLengthGeometryFactor());
+    myGeometry.shape[0] = myLane->getShape().positionAtOffset(fixedPositionOverLane * myLane->getLengthGeometryFactor());
 
     // Save rotation (angle) of the vector constructed by points f and s
-    myShapeRotations.push_back(myLane->getShape().rotationDegreeAtOffset(fixedPositionOverLane) * -1);
+    myGeometry.shapeRotations.push_back(myLane->getShape().rotationDegreeAtOffset(fixedPositionOverLane) * -1);
 
     // Set block icon position
-    myBlockIconPosition = myShape.getLineCenter();
+    myBlockIconPosition = myGeometry.shape.getLineCenter();
 
     // Set offset of the block icon
     myBlockIconOffset = Position(-1, 0);
@@ -196,7 +195,7 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
     } else {
         GLHelper::setColor(s.SUMO_color_busStop);
     }
-    glTranslated(myShape[0].x(), myShape[0].y(), GLO_ACCESS);
+    glTranslated(myGeometry.shape[0].x(), myGeometry.shape[0].y(), GLO_ACCESS);
     // draw circle
     if (s.drawForSelecting) {
         GLHelper::drawFilledCircle((double) 0.5 * exaggeration, 8);

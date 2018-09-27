@@ -72,30 +72,26 @@ GNEVaporizer::updateGeometry(bool updateGrid) {
     }
 
     // Clear all containers
-    myShapeRotations.clear();
-    myShapeLengths.clear();
-
-    // clear Shape
-    myShape.clear();
+    myGeometry.clearGeometry();
 
     // get lanes of edge
     GNELane* firstLane = myEdge->getLanes().at(0);
 
     // Get shape of lane parent
     double offset = firstLane->getShape().length() < 2.5 ? firstLane->getShape().length() : 2.5;
-    myShape.push_back(firstLane->getShape().positionAtOffset(offset));
+    myGeometry.shape.push_back(firstLane->getShape().positionAtOffset(offset));
 
     // Obtain first position
-    Position f = myShape[0] - Position(1, 0);
+    Position f = myGeometry.shape[0] - Position(1, 0);
 
     // Obtain next position
-    Position s = myShape[0] + Position(1, 0);
+    Position s = myGeometry.shape[0] + Position(1, 0);
 
     // Save rotation (angle) of the vector constructed by points f and s
-    myShapeRotations.push_back(firstLane->getShape().rotationDegreeAtOffset(0) * -1);
+    myGeometry.shapeRotations.push_back(firstLane->getShape().rotationDegreeAtOffset(0) * -1);
 
     // Set block icon position
-    myBlockIconPosition = myShape.getLineCenter();
+    myBlockIconPosition = myGeometry.shape.getLineCenter();
 
     // Set offset of the block icon
     myBlockIconOffset = Position(1.1, (-3.06));
@@ -160,8 +156,8 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
     // draw shape
     glPushMatrix();
     glTranslated(0, 0, getType());
-    glTranslated(myShape[0].x(), myShape[0].y(), 0);
-    glRotated(myShapeRotations[0], 0, 0, 1);
+    glTranslated(myGeometry.shape[0].x(), myGeometry.shape[0].y(), 0);
+    glRotated(myGeometry.shapeRotations[0], 0, 0, 1);
     glScaled(exaggeration, exaggeration, 1);
     glTranslated(-1.6, -1.6, 0);
     glBegin(GL_QUADS);
@@ -195,8 +191,8 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
 
     // Add a draw matrix for drawing logo
     glPushMatrix();
-    glTranslated(myShape[0].x(), myShape[0].y(), getType());
-    glRotated(myShapeRotations[0], 0, 0, 1);
+    glTranslated(myGeometry.shape[0].x(), myGeometry.shape[0].y(), getType());
+    glRotated(myGeometry.shapeRotations[0], 0, 0, 1);
     glTranslated((-2.56), (-1.6), 0);
 
     // Draw icon depending of Vaporizer is selected and if isn't being drawn for selecting
@@ -227,7 +223,7 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
 
     // check if dotted contour has to be drawn
     if (!s.drawForSelecting && (myViewNet->getACUnderCursor() == this)) {
-        GLHelper::drawShapeDottedContour(getType(), myShape[0], 2, 2, myShapeRotations[0], -2.56, -1.6);
+        GLHelper::drawShapeDottedContour(getType(), myGeometry.shape[0], 2, 2, myGeometry.shapeRotations[0], -2.56, -1.6);
     }
 
     // pop name

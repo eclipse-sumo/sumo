@@ -96,9 +96,10 @@ GNEParkingSpace::updateGeometry(bool updateGrid) {
     if (updateGrid) {
         myViewNet->getNet()->removeGLObjectFromGrid(this);
     }
-    // clear shape and set new position
-    myShape.clear();
-    myShape.push_back(Position(myX, myY));
+    // Clear all containers
+    myGeometry.clearGeometry();
+    // set new position
+    myGeometry.shape.push_back(Position(myX, myY));
     // last step is to check if object has to be added into grid (SUMOTree) again
     if (updateGrid) {
         myViewNet->getNet()->addGLObjectIntoGrid(this);

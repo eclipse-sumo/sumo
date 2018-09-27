@@ -307,39 +307,57 @@ public:
     static bool isRouteValid(const std::vector<GNEEdge*>& edges, bool report);
 
 protected:
+    /// @brief struct for pack all values related with geometry of elemement
+    struct additionalGeometry {
+
+        /// @brief constructor
+        additionalGeometry();
+
+        /// @brief reset geometry
+        void clearGeometry();
+
+        /// @brief calculate multi shape unified
+        void calculateMultiShapeUnified();
+
+        /// @brief calculate shape rotations and lenghts
+        void calculateShapeRotationsAndLengths();
+
+        /// @brief calculate multi shape rotations and lenghts
+        void calculateMultiShapeRotationsAndLengths();
+
+        /// @brief The shape of the additional element
+        PositionVector shape;
+
+        /// @brief The multi-shape of the additional element (used by certain additionals)
+        std::vector<PositionVector> multiShape;
+
+        /// @brief The rotations of the single shape parts
+        std::vector<double> shapeRotations;
+
+        /// @brief The lengths of the single shape parts
+        std::vector<double> shapeLengths;
+
+        /// @brief The rotations of the multi-shape parts
+        std::vector<std::vector<double> > multiShapeRotations;
+
+        /// @brief The lengths of the multi-shape shape parts
+        std::vector<std::vector<double> > multiShapeLengths;
+
+        /// @brief multi shape unified
+        PositionVector multiShapeUnified;
+    };
+
     /// @brief The GNEViewNet this additional element belongs
     GNEViewNet* myViewNet;
 
-    /**@brief The shape of the additional element
-     * @note must be configured in updateGeometry(bool updateGrid)
-     */
-    PositionVector myShape;
-
-    /**@brief The multi-shape of the additional element (used by certain additionals)
-     * @note must be configured in updateGeometry(bool updateGrid)
-     */
-    std::vector<PositionVector> myMultiShape;
+    /// @brief geometry to be precomputed in updateGeometry(...)
+    additionalGeometry myGeometry;
 
     /// @brief boundary used during moving of elements
     Boundary myMovingGeometryBoundary;
 
     /// @brief name of additional
     std::string myAdditionalName;
-
-    /// @name computed only once (for performance) in updateGeometry(bool updateGrid)
-    /// @{
-    /// @brief The rotations of the shape parts
-    std::vector<double> myShapeRotations;
-
-    /// @brief The lengths of the shape parts
-    std::vector<double> myShapeLengths;
-
-    /// @brief The rotations of the multi-shape parts
-    std::vector<std::vector<double> > myMultiShapeRotations;
-
-    /// @brief The lengths of the multi-shape shape parts
-    std::vector<std::vector<double> > myMultiShapeLengths;
-    /// @}
 
     /// @brief boolean to check if additional element is blocked (i.e. cannot be moved with mouse)
     bool myBlockMovement;
