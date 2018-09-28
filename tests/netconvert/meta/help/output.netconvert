@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version 0b587be
+Eclipse SUMO netconvert Version v1_0_1+0110-05ad9f8
  Copyright (C) 2001-2018 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
   SUMO.
@@ -156,6 +156,7 @@ Processing Options:
   --offset.x FLOAT                     Adds FLOAT to net x-positions
   --offset.y FLOAT                     Adds FLOAT to net y-positions
   --flip-y-axis                        Flips the y-coordinate along zero
+  --flatten                            Remove all z-data
   --roundabouts.guess                  Enable roundabout-guessing
   --opposites.guess                    Enable guessing of opposite direction
                                          lanes usable for overtaking

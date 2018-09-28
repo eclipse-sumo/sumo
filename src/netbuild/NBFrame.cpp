@@ -195,6 +195,9 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.addSynonyme("flip-y-axis", "flip-y");
     oc.addDescription("flip-y-axis", "Processing", "Flips the y-coordinate along zero");
 
+    oc.doRegister("flatten", new Option_Bool(false));
+    oc.addDescription("flatten", "Processing", "Remove all z-data");
+
     oc.doRegister("roundabouts.guess", new Option_Bool(true));
     oc.addSynonyme("roundabouts.guess", "guess-roundabouts", true);
     oc.addDescription("roundabouts.guess", "Processing", "Enable roundabout-guessing");

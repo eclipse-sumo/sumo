@@ -49,7 +49,7 @@ int GeoConvHelper::myNumLoaded = 0;
 // ===========================================================================
 
 GeoConvHelper::GeoConvHelper(const std::string& proj, const Position& offset,
-                             const Boundary& orig, const Boundary& conv, double scale, double rot, bool inverse):
+                             const Boundary& orig, const Boundary& conv, double scale, double rot, bool inverse, bool flatten):
     myProjString(proj),
 #ifdef HAVE_PROJ
     myProjection(0),
@@ -62,6 +62,7 @@ GeoConvHelper::GeoConvHelper(const std::string& proj, const Position& offset,
     myCos(cos(DEG2RAD(-rot))),
     myProjectionMethod(NONE),
     myUseInverseProjection(inverse),
+    myFlatten(flatten),
     myOrigBoundary(orig),
     myConvBoundary(conv) {
     if (proj == "!") {
@@ -112,7 +113,8 @@ GeoConvHelper::operator==(const GeoConvHelper& o) const {
                myGeoScale == o.myGeoScale &&
                myCos == o.myCos &&
                mySin == o.mySin &&
-               myUseInverseProjection == o.myUseInverseProjection
+               myUseInverseProjection == o.myUseInverseProjection &&
+               myFlatten == o.myFlatten
            );
 }
 
@@ -127,6 +129,7 @@ GeoConvHelper::operator=(const GeoConvHelper& orig) {
     myCos = orig.myCos;
     mySin = orig.mySin;
     myUseInverseProjection = orig.myUseInverseProjection;
+    myFlatten = orig.myFlatten;
 #ifdef HAVE_PROJ
     if (myProjection != 0) {
         pj_free(myProjection);
@@ -161,6 +164,7 @@ GeoConvHelper::init(OptionsCont& oc) {
     double rot = oc.getFloat("proj.rotate");
     Position offset = Position(oc.getFloat("offset.x"), oc.getFloat("offset.y"));
     bool inverse = oc.exists("proj.inverse") && oc.getBool("proj.inverse");
+    bool flatten = oc.getBool("flatten");
 
     if (oc.getBool("simple-projection")) {
         proj = "-";
@@ -187,7 +191,7 @@ GeoConvHelper::init(OptionsCont& oc) {
         proj = oc.getString("proj");
     }
 #endif
-    myProcessing = GeoConvHelper(proj, offset, Boundary(), Boundary(), scale, rot, inverse);
+    myProcessing = GeoConvHelper(proj, offset, Boundary(), Boundary(), scale, rot, inverse, flatten);
     myFinal = myProcessing;
     return true;
 }
@@ -383,6 +387,9 @@ GeoConvHelper::x2cartesian_const(Position& from) const {
     }
     from.set(x, y);
     from.add(myOffset);
+    if (myFlatten) {
+        from.setz(0);
+    }
     return true;
 }
 

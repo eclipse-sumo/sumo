@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Aug 31 15:32:09 2018 by Eclipse SUMO netconvert Version 0b587be
+<!-- generated on Fri Sep 28 14:34:16 2018 by Eclipse SUMO netconvert Version v1_0_1+0110-05ad9f8
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -257,6 +257,9 @@
 
         <!-- Flips the y-coordinate along zero -->
         <flip-y-axis value="false" synonymes="flip-y" type="BOOL"/>
+
+        <!-- Remove all z-data -->
+        <flatten value="false" type="BOOL"/>
 
         <!-- Enable roundabout-guessing -->
         <roundabouts.guess value="true" synonymes="guess-roundabouts" type="BOOL"/>
