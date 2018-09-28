@@ -21,8 +21,12 @@ sys.path.append(os.path.join(os.environ.get("SUMO_HOME", SUMO_HOME), "tools"))
 import traci
 import sumolib
 
-sumoBinary = checkBinary('sumo')
-traci.start([sumoBinary, "-n", "input_net.net.xml", "-r", "input_routes.rou.xml"])
+sumoBinary = sumolib.checkBinary('sumo')
+traci.start([sumoBinary, 
+    "-n", "input_net.net.xml", "-r",
+    "input_routes.rou.xml",
+    "--no-step-log",
+    ])
 
 vehHasLeft = False
 vehHasArrived = False

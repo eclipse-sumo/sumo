@@ -486,7 +486,7 @@ Vehicle::getDrivingDistance(const std::string& vehicleID, const std::string& edg
     MSVehicle* veh = getVehicle(vehicleID);
     if (veh->isOnRoad()) {
         double distance = veh->getRoute().getDistanceBetween(veh->getPositionOnLane(), position,
-                          &veh->getLane()->getEdge(), Helper::getEdge(edgeID));
+                          &veh->getLane()->getEdge(), Helper::getEdge(edgeID), true, veh->getRoutePosition());
         if (distance == std::numeric_limits<double>::max()) {
             return INVALID_DOUBLE_VALUE;
         }

@@ -272,7 +272,10 @@ MSRoute::dict_saveState(OutputDevice& out) {
 
 double
 MSRoute::getDistanceBetween(double fromPos, double toPos,
-                            const MSEdge* fromEdge, const MSEdge* toEdge, bool includeInternal) const {
+                            const MSEdge* fromEdge, const MSEdge* toEdge, bool includeInternal, int routePosition) const {
+    if (routePosition < 0 || routePosition >= myEdges.size()) {
+        throw ProcessError("Invalid routePosition " + toString(routePosition) + " for route with " + toString(myEdges.size()) + " edges");
+    }
     /// XXX routes that start and end within the same intersection are not supported
     //std::cout << SIMTIME << " getDistanceBetween from=" << fromEdge->getID() << " to=" << toEdge->getID() << " fromPos=" << fromPos << " toPos=" << toPos << " includeInternal=" << includeInternal << "\n";
     if (fromEdge->isInternal()) {
@@ -285,16 +288,16 @@ MSRoute::getDistanceBetween(double fromPos, double toPos,
             const MSEdge* pred = fromEdge->getPredecessors().front();
             assert(pred != 0);
             //std::cout << "  recurse fromPred=" << pred->getID() << "\n";
-            return getDistanceBetween(pred->getLength(), toPos, pred, toEdge, includeInternal) - fromPos;
+            return getDistanceBetween(pred->getLength(), toPos, pred, toEdge, includeInternal, routePosition) - fromPos;
         }
     }
     if (toEdge->isInternal()) {
         const MSEdge* pred = toEdge->getPredecessors().front();
         assert(pred != 0);
         //std::cout << "  recurse toPred=" << pred->getID() << "\n";
-        return toPos + getDistanceBetween(fromPos, pred->getLength(), fromEdge, pred, includeInternal);
+        return toPos + getDistanceBetween(fromPos, pred->getLength(), fromEdge, pred, includeInternal, routePosition);
     }
-    ConstMSEdgeVector::const_iterator it = std::find(myEdges.begin(), myEdges.end(), fromEdge);
+    ConstMSEdgeVector::const_iterator it = std::find(myEdges.begin() + routePosition, myEdges.end(), fromEdge);
     if (it == myEdges.end() || std::find(it, myEdges.end(), toEdge) == myEdges.end()) {
         // start or destination not contained in route
         return std::numeric_limits<double>::max();

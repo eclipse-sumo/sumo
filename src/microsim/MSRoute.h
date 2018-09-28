@@ -132,9 +132,10 @@ public:
      * @param[in] fromEdge edge at wich computation begins
      * @param[in] toEdge   edge at which distance computation shall stop
      * @param[in] includeInternal Whether the lengths of internal edges shall be counted
+     * @param[in] routePosition Optional offset when searching for the fromEdge within the route
      * @return             distance between the position fromPos on fromEdge and toPos on toEdge
      */
-    double getDistanceBetween(double fromPos, double toPos, const MSEdge* fromEdge, const MSEdge* toEdge, bool includeInternal = true) const;
+    double getDistanceBetween(double fromPos, double toPos, const MSEdge* fromEdge, const MSEdge* toEdge, bool includeInternal = true, int routePosition = 0) const;
 
     /** @brief Compute the distance between 2 given edges on this route, including the length of internal lanes.
      * This has the same semantics as above but uses iterators instead of edge
