@@ -91,9 +91,15 @@ GNEDetectorE2::moveGeometry(const Position& offset) {
     if(myLanes.size() == 1) {
         myPositionOverLane = parse<double>(myMove.firstOriginalLanePosition) + offsetLane;
     } else {
-        // change start and end position of stopping place
-        myPositionOverLane = parse<double>(myMove.firstOriginalLanePosition) + offsetLane;
-        myEndPositionOverLane = parse<double>(myMove.secondOriginalPosition) + offsetLane;
+        // calculate new start and end positions
+        double newStartPosition = parse<double>(myMove.firstOriginalLanePosition) + offsetLane;
+        double newEndPosition = parse<double>(myMove.secondOriginalPosition) + offsetLane;
+        // change start and end position of E2 detector ONLY if both extremes aren't overpassed
+        if((newStartPosition >= 0) && (newStartPosition <= myLanes.front()->getLaneShapeLength()) &&
+           (newEndPosition >= 0) && (newEndPosition <= myLanes.back()->getLaneShapeLength())) {
+            myPositionOverLane = newStartPosition;
+            myEndPositionOverLane = newEndPosition;
+        }
     }
     // Update geometry
     updateGeometry(false);
