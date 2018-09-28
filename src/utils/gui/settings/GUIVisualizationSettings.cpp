@@ -63,6 +63,9 @@ const RGBColor GUIVisualizationSettings::SUMO_color_containerStop_sign(177, 184,
 const RGBColor GUIVisualizationSettings::SUMO_color_chargingStation(114, 210, 252);
 const RGBColor GUIVisualizationSettings::SUMO_color_chargingStation_sign(255, 235, 0);
 const RGBColor GUIVisualizationSettings::SUMO_color_chargingStation_charge(255, 180, 0);
+const RGBColor GUIVisualizationSettings::SUMO_color_E1(255, 255, 0);
+const RGBColor GUIVisualizationSettings::SUMO_color_E1Instant(255, 0, 255);
+const RGBColor GUIVisualizationSettings::SUMO_color_E2(0, 204, 204);
 const RGBColor GUIVisualizationSettings::SUMO_color_E3Entry(0, 92, 64);
 const RGBColor GUIVisualizationSettings::SUMO_color_E3Exit(92, 0, 0);
 

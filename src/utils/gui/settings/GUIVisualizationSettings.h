@@ -367,6 +367,15 @@ public:
     /// @brief color for chargingStation during charging
     static const RGBColor SUMO_color_chargingStation_charge;
 
+    /// @brief color for E1 detectors
+    static const RGBColor SUMO_color_E1;
+
+    /// @brief color for E1 Instant detectors
+    static const RGBColor SUMO_color_E1Instant;
+
+    /// @brief color for E2 detectors
+    static const RGBColor SUMO_color_E2;
+
     /// @brief color for Entrys
     static const RGBColor SUMO_color_E3Entry;
 

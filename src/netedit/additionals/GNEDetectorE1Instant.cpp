@@ -149,7 +149,7 @@ GNEDetectorE1Instant::drawGL(const GUIVisualizationSettings& s) const {
     if (isAttributeCarrierSelected()) {
         GLHelper::setColor(myViewNet->getNet()->selectedAdditionalColor);
     } else {
-        GLHelper::setColor(RGBColor(255, 0, 255));
+        GLHelper::setColor(s.SUMO_color_E1Instant);
     }
     // draw shape
     glPushMatrix();
