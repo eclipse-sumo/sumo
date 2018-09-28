@@ -19,7 +19,7 @@ from __future__ import print_function
 import sys
 from collections import defaultdict
 
-COLORS = ["red", "green", "blue", "yellow", "cyan", "magenta"]
+COLORS = ["red", "green", "blue", "yellow", "cyan", "magenta", "orange"]
 
 outfile = sys.argv[1]
 shapesParts = sys.argv[2].split()
