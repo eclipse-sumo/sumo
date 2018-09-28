@@ -54,13 +54,13 @@ GNERerouterInterval::GNERerouterInterval(GNEAdditional* rerouterParent, double b
 GNERerouterInterval::~GNERerouterInterval() {}
 
 void
-GNERerouterInterval::moveGeometry(const Position&, const Position&) {
+GNERerouterInterval::moveGeometry(const Position&) {
     // This additional cannot be moved
 }
 
 
 void
-GNERerouterInterval::commitGeometryMoving(const Position&, GNEUndoList*) {
+GNERerouterInterval::commitGeometryMoving(GNEUndoList*) {
     // This additional cannot be moved
 }
 

@@ -129,16 +129,14 @@ public:
     void endGeometryMoving();
 
     /**@brief change the position of the element geometry without saving in undoList
-    * @param[in] oldPos position before start movement
-    * @param[in] offset movement offset regardings to oldPos
-    */
-    virtual void moveGeometry(const Position& oldPos, const Position& offset) = 0;
+     * @param[in] offset Position used for calculate new position of geometry without updating RTree
+     */
+    virtual void moveGeometry(const Position& offset) = 0;
 
     /**@brief commit geometry changes in the attributes of an element after use of moveGeometry(...)
-    * @param[in] oldPos the old position of additional
     * @param[in] undoList The undoList on which to register changes
     */
-    virtual void commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) = 0;
+    virtual void commitGeometryMoving(GNEUndoList* undoList) = 0;
 
     /// @brief update pre-computed geometry information
     virtual void updateGeometry(bool updateGrid) = 0;
@@ -307,7 +305,7 @@ public:
     static bool isRouteValid(const std::vector<GNEEdge*>& edges, bool report);
 
 protected:
-    /// @brief struct for pack all values related with geometry of elemement
+    /// @brief struct for pack all variables related with geometry of elemement
     struct additionalGeometry {
 
         /// @brief constructor
@@ -347,14 +345,29 @@ protected:
         PositionVector multiShapeUnified;
     };
 
+    /// @brief struct for pack all variables related with additional move
+    struct additionalMove {
+        /// @brief boundary used during moving of elements (to avoid insertion in RTREE
+        Boundary movingGeometryBoundary;
+
+        /// @brief value for saving first original position over lane before moving
+        Position originalViewPosition;
+
+        /// @brief value for saving first original position over lane before moving
+        std::string firstOriginalLanePosition;
+
+        /// @brief value for saving second original position over lane before moving
+        std::string secondOriginalPosition;
+    };
+
     /// @brief The GNEViewNet this additional element belongs
     GNEViewNet* myViewNet;
 
     /// @brief geometry to be precomputed in updateGeometry(...)
     additionalGeometry myGeometry;
 
-    /// @brief boundary used during moving of elements
-    Boundary myMovingGeometryBoundary;
+    /// @brief variable geometry 
+    additionalMove myMove;
 
     /// @brief name of additional
     std::string myAdditionalName;

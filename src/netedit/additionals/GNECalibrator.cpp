@@ -82,13 +82,13 @@ GNECalibrator::~GNECalibrator() {}
 
 
 void
-GNECalibrator::moveGeometry(const Position&, const Position&) {
+GNECalibrator::moveGeometry(const Position&) {
     // This additional cannot be moved
 }
 
 
 void
-GNECalibrator::commitGeometryMoving(const Position&, GNEUndoList*) {
+GNECalibrator::commitGeometryMoving(GNEUndoList*) {
     // This additional cannot be moved
 }
 

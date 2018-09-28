@@ -103,13 +103,13 @@ GNECalibratorVehicleType::~GNECalibratorVehicleType() {}
 
 
 void
-GNECalibratorVehicleType::moveGeometry(const Position&, const Position&) {
+GNECalibratorVehicleType::moveGeometry(const Position&) {
     // This additional cannot be moved
 }
 
 
 void
-GNECalibratorVehicleType::commitGeometryMoving(const Position&, GNEUndoList*) {
+GNECalibratorVehicleType::commitGeometryMoving(GNEUndoList*) {
     // This additional cannot be moved
 }
 

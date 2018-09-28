@@ -63,9 +63,9 @@ GNEDetectorExit::~GNEDetectorExit() {}
 
 
 void
-GNEDetectorExit::moveGeometry(const Position& oldPos, const Position& offset) {
+GNEDetectorExit::moveGeometry(const Position& offset) {
     // Calculate new position using old position
-    Position newPosition = oldPos;
+    Position newPosition = myMove.originalViewPosition;
     newPosition.add(offset);
     myPositionOverLane = myLane->getShape().nearest_offset_to_point2D(newPosition, false);
     // Update geometry
@@ -74,12 +74,10 @@ GNEDetectorExit::moveGeometry(const Position& oldPos, const Position& offset) {
 
 
 void
-GNEDetectorExit::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
-    // restore old position before commit new position
-    double originalPosOverLane = myLane->getShape().nearest_offset_to_point2D(oldPos, false);
+GNEDetectorExit::commitGeometryMoving(GNEUndoList* undoList) {
     // commit new position allowing undo/redo
     undoList->p_begin("position of " + toString(getTag()));
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPositionOverLane), true, toString(originalPosOverLane)));
+    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPositionOverLane), true, myMove.firstOriginalLanePosition));
     undoList->p_end();
 }
 

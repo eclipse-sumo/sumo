@@ -223,19 +223,38 @@ GNEAdditional::openAdditionalDialog() {
 
 void
 GNEAdditional::startGeometryMoving() {
+    // always save original position over view
+    myMove.originalViewPosition = getPositionInView();
+    // obtain tag properties (to improve code legibility)
+    const TagValues& tagProperties = getTagProperties(getTag());
+    // check if position over lane or lanes has to be saved
+    if (tagProperties.canBePlacedOverLane()) {
+        if(tagProperties.canMaskStartEndPos()) {
+            // obtain start and end position
+            myMove.firstOriginalLanePosition = getAttribute(SUMO_ATTR_STARTPOS);
+            myMove.secondOriginalPosition = getAttribute(SUMO_ATTR_ENDPOS);
+        } else {
+            // obtain position attribute
+            myMove.firstOriginalLanePosition = getAttribute(SUMO_ATTR_POSITION);
+        }
+    } else if (tagProperties.canBePlacedOverLanes()) {
+        // obtain start and end position
+        myMove.firstOriginalLanePosition = getAttribute(SUMO_ATTR_POSITION);
+        myMove.secondOriginalPosition = getAttribute(SUMO_ATTR_ENDPOS);
+    }
     // save current centering boundary
-    myMovingGeometryBoundary = getCenteringBoundary();
+    myMove.movingGeometryBoundary = getCenteringBoundary();
 }
 
 
 void
 GNEAdditional::endGeometryMoving() {
     // check that endGeometryMoving was called only once
-    if (myMovingGeometryBoundary.isInitialised()) {
+    if (myMove.movingGeometryBoundary.isInitialised()) {
         // Remove object from net
         myViewNet->getNet()->removeGLObjectFromGrid(this);
         // reset myMovingGeometryBoundary
-        myMovingGeometryBoundary.reset();
+        myMove.movingGeometryBoundary.reset();
         // update geometry without updating grid
         updateGeometry(false);
         // add object into grid again (using the new centering boundary)
@@ -559,8 +578,8 @@ GNEAdditional::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
 Boundary
 GNEAdditional::getCenteringBoundary() const {
     // Return Boundary depending if myMovingGeometryBoundary is initialised (important for move geometry)
-    if (myMovingGeometryBoundary.isInitialised()) {
-        return myMovingGeometryBoundary;
+    if (myMove.movingGeometryBoundary.isInitialised()) {
+        return myMove.movingGeometryBoundary;
     } else if (myGeometry.shape.size() > 0) {
         Boundary b = myGeometry.shape.getBoxBoundary();
         b.grow(20);

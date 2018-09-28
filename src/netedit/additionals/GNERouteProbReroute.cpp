@@ -57,13 +57,13 @@ GNERouteProbReroute::~GNERouteProbReroute() {}
 
 
 void
-GNERouteProbReroute::moveGeometry(const Position&, const Position&) {
+GNERouteProbReroute::moveGeometry(const Position&) {
     // This additional cannot be moved
 }
 
 
 void
-GNERouteProbReroute::commitGeometryMoving(const Position&, GNEUndoList*) {
+GNERouteProbReroute::commitGeometryMoving(GNEUndoList*) {
     // This additional cannot be moved
 }
 

@@ -70,9 +70,9 @@ GNEParkingSpace::~GNEParkingSpace() {}
 
 
 void
-GNEParkingSpace::moveGeometry(const Position& oldPos, const Position& offset) {
+GNEParkingSpace::moveGeometry(const Position& offset) {
     // restore old position, apply offset and update Geometry
-    Position pos = oldPos;
+    Position pos = myMove.originalViewPosition;
     pos.add(offset);
     myX = pos.x();
     myY = pos.y();
@@ -81,11 +81,11 @@ GNEParkingSpace::moveGeometry(const Position& oldPos, const Position& offset) {
 
 
 void
-GNEParkingSpace::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
+GNEParkingSpace::commitGeometryMoving(GNEUndoList* undoList) {
     // commit new position allowing undo/redo
     undoList->p_begin("position of " + toString(getTag()));
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_X, toString(myX), true, toString(oldPos.x())));
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_Y, toString(myY), true, toString(oldPos.y())));
+    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_X, toString(myX), true, toString(myMove.originalViewPosition.x())));
+    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_Y, toString(myY), true, toString(myMove.originalViewPosition.y())));
     undoList->p_end();
 }
 

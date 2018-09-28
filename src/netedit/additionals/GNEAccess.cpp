@@ -68,9 +68,9 @@ GNEAccess::~GNEAccess() {
 
 
 void
-GNEAccess::moveGeometry(const Position& oldPos, const Position& offset) {
+GNEAccess::moveGeometry(const Position& offset) {
     // Calculate new position using old position
-    Position newPosition = oldPos;
+    Position newPosition = myMove.originalViewPosition;
     newPosition.add(offset);
     myPositionOverLane = toString(myLane->getShape().nearest_offset_to_point2D(newPosition, false));
     // Update geometry
@@ -79,13 +79,11 @@ GNEAccess::moveGeometry(const Position& oldPos, const Position& offset) {
 
 
 void
-GNEAccess::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
+GNEAccess::commitGeometryMoving(GNEUndoList* undoList) {
     if (!myBlockMovement) {
-        // restore old position before commit new position
-        double originalPosOverLane = myLane->getShape().nearest_offset_to_point2D(oldPos, false);
         // commit new position allowing undo/redo
         undoList->p_begin("position of " + toString(getTag()));
-        undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, myPositionOverLane, true, toString(originalPosOverLane)));
+        undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, myPositionOverLane, true, myMove.firstOriginalLanePosition));
         undoList->p_end();
     }
 }

@@ -56,13 +56,13 @@ GNEClosingReroute::~GNEClosingReroute() {}
 
 
 void
-GNEClosingReroute::moveGeometry(const Position&, const Position&) {
+GNEClosingReroute::moveGeometry(const Position&) {
     // This additional cannot be moved
 }
 
 
 void
-GNEClosingReroute::commitGeometryMoving(const Position&, GNEUndoList*) {
+GNEClosingReroute::commitGeometryMoving(GNEUndoList*) {
     // This additional cannot be moved
 }
 

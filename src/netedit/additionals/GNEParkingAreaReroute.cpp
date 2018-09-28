@@ -56,13 +56,13 @@ GNEParkingAreaReroute::~GNEParkingAreaReroute() {}
 
 
 void
-GNEParkingAreaReroute::moveGeometry(const Position&, const Position&) {
+GNEParkingAreaReroute::moveGeometry(const Position&) {
     // This additional cannot be moved
 }
 
 
 void
-GNEParkingAreaReroute::commitGeometryMoving(const Position&, GNEUndoList*) {
+GNEParkingAreaReroute::commitGeometryMoving(GNEUndoList*) {
     // This additional cannot be moved
 }
 

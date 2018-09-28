@@ -108,19 +108,19 @@ GNEDetectorE3::getPositionInView() const {
 
 
 void
-GNEDetectorE3::moveGeometry(const Position& oldPos, const Position& offset) {
+GNEDetectorE3::moveGeometry(const Position& offset) {
     // restore old position, apply offset and update Geometry
-    myPosition = oldPos;
+    myPosition = myMove.originalViewPosition;
     myPosition.add(offset);
     updateGeometry(false);
 }
 
 
 void
-GNEDetectorE3::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
+GNEDetectorE3::commitGeometryMoving(GNEUndoList* undoList) {
     // commit new position allowing undo/redo
     undoList->p_begin("position of " + toString(getTag()));
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPosition), true, toString(oldPos)));
+    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPosition), true, toString(myMove.originalViewPosition)));
     undoList->p_end();
 }
 

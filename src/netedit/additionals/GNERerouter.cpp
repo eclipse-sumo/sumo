@@ -115,19 +115,19 @@ GNERerouter::openAdditionalDialog() {
 
 
 void
-GNERerouter::moveGeometry(const Position& oldPos, const Position& offset) {
+GNERerouter::moveGeometry(const Position& offset) {
     // restore old position, apply offset and update Geometry
-    myPosition = oldPos;
+    myPosition = myMove.originalViewPosition;
     myPosition.add(offset);
     updateGeometry(false);
 }
 
 
 void
-GNERerouter::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
+GNERerouter::commitGeometryMoving(GNEUndoList* undoList) {
     // commit new position allowing undo/redo
     undoList->p_begin("position of " + toString(getTag()));
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPosition), true, toString(oldPos)));
+    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPosition), true, toString(myMove.originalViewPosition)));
     undoList->p_end();
 }
 

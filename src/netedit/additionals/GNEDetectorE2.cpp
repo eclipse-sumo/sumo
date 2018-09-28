@@ -82,16 +82,16 @@ GNEDetectorE2::~GNEDetectorE2() {
 
 
 void
-GNEDetectorE2::moveGeometry(const Position& oldPos, const Position& offset) {
+GNEDetectorE2::moveGeometry(const Position& offset) {
     // move geometry depending of number of lanes
     if(myLanes.size() == 1) {
         // Calculate new position using old position
-        Position newPosition = oldPos;
+        Position newPosition = myMove.originalViewPosition;
         newPosition.add(offset);
         myPositionOverLane = myLanes.front()->getShape().nearest_offset_to_point2D(newPosition, false);
     } else {
         // Calculate new position using old position
-        Position newMultiLaneCenterPosition = oldPos;
+        Position newMultiLaneCenterPosition = myMove.originalViewPosition;
         newMultiLaneCenterPosition.add(offset);
         double newMultiLaneCenter = myLanes.front()->getShape().nearest_offset_to_point2D(newMultiLaneCenterPosition, false);
         // move stopping palce depending if start or end position is defined
@@ -106,23 +106,19 @@ GNEDetectorE2::moveGeometry(const Position& oldPos, const Position& offset) {
 
 
 void
-GNEDetectorE2::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
+GNEDetectorE2::commitGeometryMoving(GNEUndoList* undoList) {
     // commit geometry moving depending of number of lanes
     if(myLanes.size() == 1) {
-        // restore old position before commit new position
-        double originalPosOverLane = getLane()->getShape().nearest_offset_to_point2D(oldPos, false);
         // commit new position allowing undo/redo
         undoList->p_begin("position of " + toString(getTag()));
-        undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPositionOverLane), true, toString(originalPosOverLane)));
+        undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPositionOverLane), true, myMove.firstOriginalLanePosition));
         undoList->p_end();
     } else {
-        // calculate old stopping place center
-        double oldMultiLaneCenterOffset = myLanes.front()->getShape().nearest_offset_to_point2D(oldPos, false);
         undoList->p_begin("position of " + toString(getTag()));
         // change myStartPosition or myEndPosition depending if they are defined
         double halfMultiLaneLength = (myPositionOverLane - myEndPositionOverLane) / 2.0;
-        undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPositionOverLane), true, toString(oldMultiLaneCenterOffset - halfMultiLaneLength)));
-        undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_ENDPOS, toString(myEndPositionOverLane), true, toString(oldMultiLaneCenterOffset + halfMultiLaneLength)));
+        undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPositionOverLane), true, myMove.firstOriginalLanePosition));
+        undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_ENDPOS, toString(myEndPositionOverLane), true, myMove.secondOriginalPosition));
         undoList->p_end();
     }
 }

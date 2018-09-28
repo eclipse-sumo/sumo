@@ -962,11 +962,10 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                     if (myObjectsUnderCursor.additional->isAttributeCarrierSelected()) {
                         myMovingSelection = true;
                     } else {
+                        // set additionals moved object
                         myMovedItems.additionalToMove = myObjectsUnderCursor.additional;
-                        // start geometry moving
+                        // start additional geometry moving
                         myMovedItems.additionalToMove->startGeometryMoving();
-                        // Save original Position of Element
-                        myMoveSingleElementValues.movingOriginalPosition = myMovedItems.additionalToMove->getPositionInView();
                     }
                 } else {
                     // process click
@@ -1183,7 +1182,7 @@ GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
         myMovedItems.edgeToMove = 0;
     } else if (myMovedItems.additionalToMove) {
         myMovedItems.additionalToMove->endGeometryMoving();
-        myMovedItems.additionalToMove->commitGeometryMoving(myMoveSingleElementValues.movingOriginalPosition, myUndoList);
+        myMovedItems.additionalToMove->commitGeometryMoving(myUndoList);
         myMovedItems.additionalToMove = 0;
     } else if (mySelectingArea.selectingUsingRectangle) {
         bool shiftKeyPressed = ((FXEvent*)eventData)->state & SHIFTMASK;
@@ -1269,7 +1268,7 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* eventData) {
         }
     } else if (myMovedItems.additionalToMove  && (myMovedItems.additionalToMove->isAdditionalBlocked() == false)) {
         // Move Additional geometry without commiting changes
-        myMovedItems.additionalToMove->moveGeometry(myMoveSingleElementValues.movingOriginalPosition, offsetMovement);
+        myMovedItems.additionalToMove->moveGeometry(offsetMovement);
     } else if (mySelectingArea.selectingUsingRectangle) {
         mySelectingArea.selectionCorner2 = getPositionInformation();
         setStatusBarText(mySelectingArea.reportDimensions());

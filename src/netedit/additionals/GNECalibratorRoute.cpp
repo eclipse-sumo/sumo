@@ -75,13 +75,13 @@ GNECalibratorRoute::getGNEEdges() const {
 
 
 void
-GNECalibratorRoute::moveGeometry(const Position&, const Position&) {
+GNECalibratorRoute::moveGeometry(const Position&) {
     // This additional cannot be moved
 }
 
 
 void
-GNECalibratorRoute::commitGeometryMoving(const Position&, GNEUndoList*) {
+GNECalibratorRoute::commitGeometryMoving(GNEUndoList*) {
     // This additional cannot be moved
 }
 

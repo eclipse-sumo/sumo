@@ -64,13 +64,13 @@ GNEVariableSpeedSignStep::getTime() const {
 
 
 void
-GNEVariableSpeedSignStep::moveGeometry(const Position&, const Position&) {
+GNEVariableSpeedSignStep::moveGeometry(const Position&) {
     // This additional cannot be moved
 }
 
 
 void
-GNEVariableSpeedSignStep::commitGeometryMoving(const Position&, GNEUndoList*) {
+GNEVariableSpeedSignStep::commitGeometryMoving(GNEUndoList*) {
     // This additional cannot be moved
 }
 
