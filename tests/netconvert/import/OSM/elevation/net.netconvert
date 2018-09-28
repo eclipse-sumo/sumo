@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Aug 15 16:12:39 2018 by Eclipse SUMO netconvert Version abbc805
+<!-- generated on Fri Sep 28 15:36:21 2018 by Eclipse SUMO netconvert Version v1_0_1+0115-fc19294
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -201,7 +201,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="-196674458#1_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="21.97" shape="464.44,565.63,30.01 456.69,566.37,29.91"/>
     </edge>
     <edge id="-239335494#0" from="2335739502" to="1560223404" priority="7" type="highway.secondary" shape="478.11,551.46,30.01 478.66,558.22,30.02 478.25,562.69,30.01">
-        <lane id="-239335494#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="11.47" shape="480.44,552.46,30.01 480.37,552.65,30.01"/>
+        <lane id="-239335494#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="11.24" shape="479.80,552.51,30.01 479.81,552.71,30.01"/>
     </edge>
     <edge id="-239335494#1" from="32266938" to="2335739502" priority="7" type="highway.secondary">
         <lane id="-239335494#1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="6.58" shape="479.18,544.89,30.00 479.51,548.91,30.01"/>

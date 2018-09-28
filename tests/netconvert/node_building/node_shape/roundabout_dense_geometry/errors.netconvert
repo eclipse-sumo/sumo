@@ -1,6 +1,5 @@
-Warning: Speed of roundabout connection 'a_0->-60036_0' reduced by 22.35 due to turning radius of 5.37 (length=6.91 angle=101.66)
 Warning: Edge 'b' has a grade of 72.71%.
-Warning: Connection 'd_0->a_0' has a grade of 39.11%.
+Warning: Connection 'd_0->a_0' has a grade of 42.21%.
 Warning: Edge 'inA' has a grade of 13.68%.
-Warning: Connection 'inA_0->a_0' has a grade of 106.67%.
+Warning: Connection 'inA_0->a_0' has a grade of 104.49%.
 Warning: Edge 'outA' has a grade of 14.27%.

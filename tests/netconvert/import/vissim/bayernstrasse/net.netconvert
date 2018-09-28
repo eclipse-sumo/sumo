@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Aug 15 16:12:34 2018 by Eclipse SUMO netconvert Version abbc805
+<!-- generated on Fri Sep 28 15:36:17 2018 by Eclipse SUMO netconvert Version v1_0_1+0115-fc19294
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -98,7 +98,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="20001_0" index="0" speed="13.89" length="47.77" shape="1443.71,1674.76 1434.99,1666.44 1424.10,1657.29 1421.85,1655.70"/>
     </edge>
     <edge id="20002" from="17" to="18" priority="-1" type="1" spreadType="center" shape="1436.88,1642.15 1448.38,1649.86 1459.45,1659.54 1465.30,1667.09">
-        <lane id="20002_0" index="0" speed="13.89" length="61.39" shape="1454.13,1653.44 1454.22,1653.61"/>
+        <lane id="20002_0" index="0" speed="13.89" length="60.96" shape="1453.25,1654.12 1453.40,1654.25"/>
     </edge>
     <edge id="20003+31[1][1][0]" from="25" to="26" priority="0" spreadType="center">
         <lane id="20003+31[1][1][0]_0" index="0" speed="13.89" length="24.74" shape="712.77,1935.29 727.71,1919.73"/>
@@ -165,8 +165,8 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="30001[0]_1" index="1" speed="13.89" length="177.66" shape="319.73,1181.37 366.03,1182.24 409.48,1183.31 435.99,1183.96 469.13,1186.07 480.79,1188.15"/>
     </edge>
     <edge id="30001[1][0]" from="46" to="49" priority="-1" type="11" spreadType="center" shape="479.07,1186.22 483.20,1186.96 489.57,1190.54">
-        <lane id="30001[1][0]_0" index="0" speed="13.89" length="3.03" shape="493.33,1186.83 493.53,1186.87"/>
-        <lane id="30001[1][0]_1" index="1" speed="13.89" length="3.03" shape="484.43,1189.49 484.60,1189.58"/>
+        <lane id="30001[1][0]_0" index="0" speed="13.89" length="4.15" shape="491.86,1189.99 492.04,1190.09"/>
+        <lane id="30001[1][0]_1" index="1" speed="13.89" length="4.15" shape="484.43,1189.49 484.60,1189.58"/>
     </edge>
     <edge id="30001[1][1][0]" from="49" to="47" priority="-1" type="11" spreadType="center" shape="489.57,1190.54 497.84,1190.85 506.83,1193.49 526.37,1195.61">
         <lane id="30001[1][1][0]_0" index="0" speed="13.89" length="37.30" shape="493.24,1189.08 498.10,1189.26 507.15,1191.91 522.92,1193.62"/>
@@ -605,7 +605,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="82[0]_0" index="0" speed="13.89" length="43.02" shape="1556.24,1949.73 1554.01,1946.55 1552.30,1944.53 1550.35,1943.20 1548.77,1942.40 1547.43,1941.44 1545.82,1938.92 1540.12,1929.32 1535.65,1921.23"/>
     </edge>
     <edge id="82[1]" from="34" to="35" priority="-1" type="5" spreadType="center" shape="1530.81,1914.99 1532.23,1913.88 1532.41,1912.15 1532.30,1910.85 1530.44,1905.28">
-        <lane id="82[1]_0" index="0" speed="13.89" length="8.41" shape="1532.50,1913.19 1532.33,1912.89"/>
+        <lane id="82[1]_0" index="0" speed="13.89" length="3.12" shape="1532.31,1913.12 1532.33,1912.89"/>
     </edge>
     <edge id="83[0]" from="83-begin" to="36" priority="-1" type="5" spreadType="center" shape="1561.85,1877.95 1566.91,1889.97 1567.15,1892.49">
         <lane id="83[0]_0" index="0" speed="13.89" length="15.50" shape="1561.85,1877.95 1565.59,1886.84"/>

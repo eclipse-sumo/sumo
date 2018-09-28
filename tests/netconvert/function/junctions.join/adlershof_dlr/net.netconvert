@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Aug 15 16:12:45 2018 by Eclipse SUMO netconvert Version abbc805
+<!-- generated on Fri Sep 28 15:36:26 2018 by Eclipse SUMO netconvert Version v1_0_1+0115-fc19294
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -1126,7 +1126,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="141968830#1_1" index="1" disallow="pedestrian" speed="13.89" length="108.83" shape="3386.11,757.33 3400.52,752.80 3480.18,727.31"/>
     </edge>
     <edge id="141968844#0" from="1552842722" to="1552842714" name="Eisenhutweg" priority="6" type="highway.tertiary" spreadType="center" shape="3498.22,728.52 3496.68,726.29 3495.50,723.22 3495.17,720.25">
-        <lane id="141968844#0_0" index="0" allow="pedestrian" speed="13.89" length="9.05" width="3.00" shape="3494.17,725.10 3494.17,724.90"/>
+        <lane id="141968844#0_0" index="0" allow="pedestrian" speed="13.89" length="9.05" width="3.00" shape="3494.49,725.06 3494.42,724.87"/>
         <lane id="141968844#0_1" index="1" disallow="pedestrian" speed="13.89" length="9.05" shape="3497.10,724.00 3497.07,723.80"/>
     </edge>
     <edge id="141968844#1" from="1552842714" to="456893967" name="Eisenhutweg" priority="6" type="highway.tertiary" spreadType="center" shape="3495.17,720.25 3495.77,716.56 3497.35,713.34 3500.83,709.95 3504.43,708.35 3511.27,708.48 3516.19,711.32">
@@ -1134,8 +1134,8 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="141968844#1_1" index="1" disallow="pedestrian" speed="13.89" length="28.65" shape="3497.18,717.26 3497.21,717.02 3498.58,714.23 3501.68,711.21 3504.73,709.86 3510.85,709.97 3513.49,711.49"/>
     </edge>
     <edge id="141968844#2" from="456893967" to="456893971" name="Eisenhutweg" priority="6" type="highway.tertiary" spreadType="center" shape="3516.19,711.32 3519.24,715.83 3519.99,718.73 3519.94,722.35">
-        <lane id="141968844#2_0" index="0" allow="pedestrian" speed="13.89" length="12.18" width="3.00" shape="3521.45,716.34 3521.38,716.53"/>
-        <lane id="141968844#2_1" index="1" disallow="pedestrian" speed="13.89" length="12.18" shape="3518.50,717.25 3518.49,717.45"/>
+        <lane id="141968844#2_0" index="0" allow="pedestrian" speed="13.89" length="11.97" width="3.00" shape="3521.03,716.34 3521.08,716.54"/>
+        <lane id="141968844#2_1" index="1" disallow="pedestrian" speed="13.89" length="11.97" shape="3518.06,717.26 3518.11,717.45"/>
     </edge>
     <edge id="141968844#3" from="456893971" to="588394574" name="Eisenhutweg" priority="6" type="highway.tertiary" spreadType="center" shape="3519.94,722.35 3518.46,726.52 3515.87,729.70">
         <lane id="141968844#3_0" index="0" allow="pedestrian" speed="13.89" length="8.53" width="3.00" shape="3520.55,725.42 3519.88,727.32 3518.40,729.12"/>
