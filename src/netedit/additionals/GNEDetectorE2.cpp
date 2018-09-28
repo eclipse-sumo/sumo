@@ -62,7 +62,8 @@ GNEDetectorE2::GNEDetectorE2(const std::string& id, GNELane* lane, GNEViewNet* v
     myLength(length),
     myTimeThreshold(timeThreshold),
     mySpeedThreshold(speedThreshold),
-    myJamThreshold(jamThreshold) {
+    myJamThreshold(jamThreshold),
+    myE2valid(true) {
 }
 
 
@@ -252,6 +253,27 @@ GNEDetectorE2::getLength() const {
 }
 
 
+void 
+GNEDetectorE2::checkE2MultilaneIntegrity() {
+    // we assume that E2 is valid
+    myE2valid = true;
+    int i = 0;
+    // iterate over all lanes, and stop if myE2valid is false
+    while (i < ((int)myLanes.size()-1) && myE2valid) {
+        // set myE2valid to false
+        myE2valid = false;
+        // if a connection betwen "from" lane and "to" lane of connection is found, change myE2valid to true again
+        for (auto j : myLanes.at(i)->getParentEdge().getGNEConnections()) {
+            if(j->getLaneFrom() == myLanes.at(i) && j->getLaneTo() == myLanes.at(i+1)) {
+                myE2valid = true;
+            }
+        }
+        // update iterator
+        i++;
+    }
+}
+
+
 bool
 GNEDetectorE2::isDetectorPositionFixed() const {
     // with friendly position enabled position are "always fixed"
@@ -284,7 +306,12 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
     if (isAttributeCarrierSelected()) {
         GLHelper::setColor(myViewNet->getNet()->selectedAdditionalColor);
     } else {
-        GLHelper::setColor(RGBColor(0, 204, 204));
+        // set color depending if is or isn't valid
+        if(myE2valid) {
+            GLHelper::setColor(RGBColor(0, 204, 204));
+        } else {
+            GLHelper::setColor(RGBColor::RED);
+        }
     }
 
     // Obtain exaggeration of the draw

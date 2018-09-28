@@ -80,6 +80,9 @@ public:
     /// @brief get length of E2 Detector
     double getLength() const;
 
+    /// @brief check if E2 is valid (all of their lanes are connected, it must called after every operation which involves lane's connections)
+    void checkE2MultilaneIntegrity();
+
     /// @name inherited from GNEDetector
     /// @{
     /// @brief check if Position of detector is fixed
@@ -155,6 +158,9 @@ protected:
 
     /// @brief The minimum distance to the next standing vehicle in order to make this vehicle count as a participant to the jam
     double myJamThreshold;
+
+    /// @brief flag to check if E2 multilane is valid or invalid
+    bool myE2valid;
 
 private:
     /// @brief set attribute after validation
