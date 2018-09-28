@@ -83,22 +83,17 @@ GNEDetectorE2::~GNEDetectorE2() {
 
 void
 GNEDetectorE2::moveGeometry(const Position& offset) {
+    // Calculate new position using old position
+    Position newPosition = myMove.originalViewPosition;
+    newPosition.add(offset);
+    double offsetLane = myLanes.front()->getShape().nearest_offset_to_point2D(newPosition, false) - myLanes.front()->getShape().nearest_offset_to_point2D(myMove.originalViewPosition, false);
     // move geometry depending of number of lanes
     if(myLanes.size() == 1) {
-        // Calculate new position using old position
-        Position newPosition = myMove.originalViewPosition;
-        newPosition.add(offset);
-        myPositionOverLane = myLanes.front()->getShape().nearest_offset_to_point2D(newPosition, false);
+        myPositionOverLane = parse<double>(myMove.firstOriginalLanePosition) + offsetLane;
     } else {
-        // Calculate new position using old position
-        Position newMultiLaneCenterPosition = myMove.originalViewPosition;
-        newMultiLaneCenterPosition.add(offset);
-        double newMultiLaneCenter = myLanes.front()->getShape().nearest_offset_to_point2D(newMultiLaneCenterPosition, false);
-        // move stopping palce depending if start or end position is defined
-        double halfMultiLaneLength = (myPositionOverLane - myEndPositionOverLane) / 2.0;
         // change start and end position of stopping place
-        myPositionOverLane = newMultiLaneCenter - halfMultiLaneLength;
-        myEndPositionOverLane = newMultiLaneCenter + halfMultiLaneLength;
+        myPositionOverLane = parse<double>(myMove.firstOriginalLanePosition) + offsetLane;
+        myEndPositionOverLane = parse<double>(myMove.secondOriginalPosition) + offsetLane;
     }
     // Update geometry
     updateGeometry(false);
@@ -115,8 +110,6 @@ GNEDetectorE2::commitGeometryMoving(GNEUndoList* undoList) {
         undoList->p_end();
     } else {
         undoList->p_begin("position of " + toString(getTag()));
-        // change myStartPosition or myEndPosition depending if they are defined
-        double halfMultiLaneLength = (myPositionOverLane - myEndPositionOverLane) / 2.0;
         undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPositionOverLane), true, myMove.firstOriginalLanePosition));
         undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_ENDPOS, toString(myEndPositionOverLane), true, myMove.secondOriginalPosition));
         undoList->p_end();

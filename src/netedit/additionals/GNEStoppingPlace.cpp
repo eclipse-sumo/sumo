@@ -93,19 +93,16 @@ GNEStoppingPlace::moveGeometry(const Position& offset) {
     // only move if at leats start or end positions is defined
     if (!myStartPosition.empty() || !myEndPosition.empty()) {
         // Calculate new position using old position
-        Position newStoppingPlaceCenterPosition = myMove.originalViewPosition;
-        newStoppingPlaceCenterPosition.add(offset);
-        double newStoppingPlaceCenter = myLane->getShape().nearest_offset_to_point2D(newStoppingPlaceCenterPosition, false);
-        // move stopping palce depending if start or end position is defined
-        if (!myStartPosition.empty() && !myEndPosition.empty()) {
-            double halfStoppingPlaceLength = (parse<double>(myEndPosition) - parse<double>(myStartPosition)) / 2.0;
-            // change start and end position of stopping place
-            myStartPosition = toString(newStoppingPlaceCenter - halfStoppingPlaceLength);
-            myEndPosition = toString(newStoppingPlaceCenter + halfStoppingPlaceLength);
-        } else if (myStartPosition.empty()) {
-            myEndPosition = toString(newStoppingPlaceCenter);
-        } else {
-            myStartPosition = toString(newStoppingPlaceCenter);
+        Position newPosition = myMove.originalViewPosition;
+        newPosition.add(offset);
+        double offsetLane = myLane->getShape().nearest_offset_to_point2D(newPosition, false) - myLane->getShape().nearest_offset_to_point2D(myMove.originalViewPosition, false);
+        // check if start position must be moved  
+        if (!myStartPosition.empty()) {
+            myStartPosition = toString(parse<double>(myMove.firstOriginalLanePosition) + offsetLane);
+        }
+        // check if start position must be moved
+        if (!myStartPosition.empty()) {
+            myEndPosition = toString(parse<double>(myMove.secondOriginalPosition) + offsetLane);
         }
         // Update geometry
         updateGeometry(false);
@@ -118,18 +115,11 @@ GNEStoppingPlace::commitGeometryMoving(GNEUndoList* undoList) {
     // only commit geometry moving if at leats start or end positions is defined
     if (!myStartPosition.empty() || !myEndPosition.empty()) {
         undoList->p_begin("position of " + toString(getTag()));
-        // change myStartPosition or myEndPosition depending if they are defined
-        if (!myStartPosition.empty() && !myEndPosition.empty()) {
-            double halfStoppingPlaceLength = (parse<double>(myEndPosition) - parse<double>(myStartPosition)) / 2.0;
-            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_STARTPOS, toString(myStartPosition), true, myMove.firstOriginalLanePosition));
-            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_ENDPOS, myEndPosition, true, myMove.secondOriginalPosition));
-        } else if (myStartPosition.empty()) {
-            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_ENDPOS, myEndPosition, true, myMove.firstOriginalLanePosition));
-        } else {
-            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_STARTPOS, toString(myStartPosition), true, myMove.secondOriginalPosition));
+        if (!myStartPosition.empty()) {
+            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_STARTPOS, myStartPosition, true, myMove.firstOriginalLanePosition));
         }
-        // only change end position if its set
         if (!myEndPosition.empty()) {
+            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_ENDPOS, myEndPosition, true, myMove.secondOriginalPosition));
         }
         undoList->p_end();
     }
