@@ -86,7 +86,7 @@ GNELoadThread::run() {
 
     // try to load the given configuration
     OptionsCont& oc = OptionsCont::getOptions();
-    if (myFile != "") {
+    if (myFile != "" || oc.getString("sumo-net-file") != "") {
         oc.clear();
         if (!initOptions()) {
             submitEndAndCleanup(net);
