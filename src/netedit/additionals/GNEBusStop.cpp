@@ -86,10 +86,10 @@ GNEBusStop::updateGeometry(bool updateGrid) {
     mySignPos = tmpShape.getLineCenter();
 
     // Set block icon position
-    myBlockIconPosition = myGeometry.shape.getLineCenter();
+    myBlockIcon.position = myGeometry.shape.getLineCenter();
 
     // Set block icon rotation, and using their rotation for sign
-    setBlockIconRotation(myLane);
+    myBlockIcon.setRotation(myLane);
 
     // last step is to check if object has to be added into grid (SUMOTree) again
     if (updateGrid) {
@@ -148,7 +148,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
             glPushMatrix();
             // Rotate and traslaste
             glTranslated(mySignPos.x(), mySignPos.y(), 0);
-            glRotated(-1 * myBlockIconRotation, 0, 0, 1);
+            glRotated(-1 * myBlockIcon.rotation, 0, 0, 1);
             // draw line with a color depending of the selection status
             if (isAttributeCarrierSelected()) {
                 GLHelper::drawText(myLines[i].c_str(), Position(1.2, (double)i), .1, 1.f, myViewNet->getNet()->selectionColor, 0, FONS_ALIGN_LEFT);
@@ -183,22 +183,22 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
         // If the scale * exageration is equal or more than 4.5, draw H
         if (s.scale * exaggeration >= 4.5) {
             if (isAttributeCarrierSelected()) {
-                GLHelper::drawText("H", Position(), .1, myCircleInText, myViewNet->getNet()->selectedAdditionalColor, myBlockIconRotation);
+                GLHelper::drawText("H", Position(), .1, myCircleInText, myViewNet->getNet()->selectedAdditionalColor, myBlockIcon.rotation);
             } else {
-                GLHelper::drawText("H", Position(), .1, myCircleInText, s.SUMO_color_busStop, myBlockIconRotation);
+                GLHelper::drawText("H", Position(), .1, myCircleInText, s.SUMO_color_busStop, myBlockIcon.rotation);
             }
         }
         // pop draw matrix
         glPopMatrix();
         // Show Lock icon depending of the Edit mode
-        drawLockIcon();
+        myBlockIcon.draw();
     }
     // pop draw matrix
     glPopMatrix();
     // Draw name if isn't being drawn for selecting
     drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
     if (s.addFullName.show && (myAdditionalName != "") && !s.drawForSelecting) {
-        GLHelper::drawText(myAdditionalName, mySignPos, GLO_MAX - getType(), s.addFullName.scaledSize(s.scale), s.addFullName.color, myBlockIconRotation);
+        GLHelper::drawText(myAdditionalName, mySignPos, GLO_MAX - getType(), s.addFullName.scaledSize(s.scale), s.addFullName.color, myBlockIcon.rotation);
     }
     // check if dotted contour has to be drawn
     if (!s.drawForSelecting && (myViewNet->getACUnderCursor() == this)) {

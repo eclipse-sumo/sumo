@@ -91,13 +91,13 @@ GNEVaporizer::updateGeometry(bool updateGrid) {
     myGeometry.shapeRotations.push_back(firstLane->getShape().rotationDegreeAtOffset(0) * -1);
 
     // Set block icon position
-    myBlockIconPosition = myGeometry.shape.getLineCenter();
+    myBlockIcon.position = myGeometry.shape.getLineCenter();
 
     // Set offset of the block icon
-    myBlockIconOffset = Position(1.1, (-3.06));
+    myBlockIcon.offset = Position(1.1, (-3.06));
 
     // Set block icon rotation, and using their rotation for logo
-    setBlockIconRotation(firstLane);
+    myBlockIcon.setRotation(firstLane);
 
     // last step is to check if object has to be added into grid (SUMOTree) again
     if (updateGrid) {
@@ -215,7 +215,7 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
     // Check if the distance is enought to draw details
     if ((s.scale * exaggeration >= 10) && !s.drawForSelecting) {
         // Show Lock icon depending of the Edit mode
-        drawLockIcon(0.4);
+        myBlockIcon.draw(0.4);
     }
 
     // draw name

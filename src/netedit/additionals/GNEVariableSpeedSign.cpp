@@ -74,22 +74,19 @@ GNEVariableSpeedSign::updateGeometry(bool updateGrid) {
     myGeometry.shape.clear();
 
     // Set block icon position
-    myBlockIconPosition = myPosition;
+    myBlockIcon.position = myPosition;
 
     // Set block icon offset
-    myBlockIconOffset = Position(-0.5, -0.5);
+    myBlockIcon.offset = Position(-0.5, -0.5);
 
     // Set block icon rotation, and using their rotation for draw logo
-    setBlockIconRotation();
+    myBlockIcon.setRotation();
 
     // Set position
     myGeometry.shape.push_back(myPosition);
 
-    // clear mySymbolsPositionAndRotation
-    mySymbolsPositionAndRotation.clear();
-
     // update child connections
-    updateChildConnections();
+    myChildConnections.update();
 
     // last step is to check if object has to be added into grid (SUMOTree) again
     if (updateGrid) {
@@ -165,13 +162,13 @@ GNEVariableSpeedSign::drawGL(const GUIVisualizationSettings& s) const {
     if (!s.drawForSelecting) {
 
         // Show Lock icon depending of the Edit mode
-        drawLockIcon(0.4);
+        myBlockIcon.draw(0.4);
 
         // obtain exxageration
         const double exaggeration = s.addSize.getExaggeration(s);
 
         // iterate over symbols and rotation
-        for (auto i : mySymbolsPositionAndRotation) {
+        for (auto i : myChildConnections.symbolsPositionAndRotation) {
             glPushMatrix();
             glScaled(exaggeration, exaggeration, 1);
             glTranslated(i.first.x(), i.first.y(), getType());
@@ -204,7 +201,7 @@ GNEVariableSpeedSign::drawGL(const GUIVisualizationSettings& s) const {
         }
 
         // Draw connections
-        drawChildConnections();
+        myChildConnections.draw();
     }
 
     // Pop symbol matrix
@@ -219,11 +216,11 @@ GNEVariableSpeedSign::drawGL(const GUIVisualizationSettings& s) const {
     if (!s.drawForSelecting && (myViewNet->getACUnderCursor() == this)) {
         GLHelper::drawShapeDottedContour(getType(), myPosition, 2, 2);
         // draw shape dotte contour aroud alld connections between child and parents
-        for (auto i : myChildConnectionPositions) {
+        for (auto i : myChildConnections.connectionPositions) {
             GLHelper::drawShapeDottedContour(getType(), i, 0);
         }
         // draw rerouter symbol over all lanes
-        for (auto i : mySymbolsPositionAndRotation) {
+        for (auto i : myChildConnections.symbolsPositionAndRotation) {
             GLHelper::drawShapeDottedContour(getType(), i.first, 2.6, 2.6, -1 * i.second, 0, -1.5);
         }
     }

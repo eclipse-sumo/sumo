@@ -149,7 +149,7 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
     // Traslate matrix and draw lock icon if isn't being drawn for selecting
     if (!s.drawForSelecting) {
         glTranslated(0, myLength / 2, 0.1);
-        drawLockIcon();
+        myBlockIcon.draw();
     }
     // pop draw matrix
     glPopMatrix();

@@ -246,9 +246,11 @@ void
 GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
     GUIPointOfInterest::drawGL(s);
     // draw lock icon if isn't in selecting mode
+/**
     if (!s.drawForSelecting) {
-        drawLockIcon(*this, getType() + 0.1, 0.2);
+        myBlockIcon.draw(*this, getType() + 0.1, 0.2);
     }
+**/
     // push matrix
     glPushName(getGlID());
     // draw an orange square mode if there is an image(see #4036)

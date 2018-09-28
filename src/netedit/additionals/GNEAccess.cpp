@@ -120,13 +120,13 @@ GNEAccess::updateGeometry(bool updateGrid) {
     myGeometry.shapeRotations.push_back(myLane->getShape().rotationDegreeAtOffset(fixedPositionOverLane) * -1);
 
     // Set block icon position
-    myBlockIconPosition = myGeometry.shape.getLineCenter();
+    myBlockIcon.position = myGeometry.shape.getLineCenter();
 
     // Set offset of the block icon
-    myBlockIconOffset = Position(-1, 0);
+    myBlockIcon.offset = Position(-1, 0);
 
     // Set block icon rotation, and using their rotation for logo
-    setBlockIconRotation(myLane);
+    myBlockIcon.setRotation(myLane);
 
     // last step is to check if object has to be added into grid (SUMOTree) again
     if (updateGrid) {

@@ -90,10 +90,10 @@ GNEParkingArea::updateGeometry(bool updateGrid) {
     mySignPos = tmpShape.getLineCenter();
 
     // Set block icon position
-    myBlockIconPosition = myGeometry.shape.getLineCenter();
+    myBlockIcon.position = myGeometry.shape.getLineCenter();
 
     // Set block icon rotation, and using their rotation for sign
-    setBlockIconRotation(myLane);
+    myBlockIcon.setRotation(myLane);
 
     // last step is to check if object has to be added into grid (SUMOTree) again
     if (updateGrid) {
@@ -167,22 +167,22 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
         // Draw sign 'C'
         if (s.scale * exaggeration >= 4.5) {
             if (isAttributeCarrierSelected()) {
-                GLHelper::drawText("P", Position(), .1, myCircleInText, myViewNet->getNet()->selectedAdditionalColor, myBlockIconRotation);
+                GLHelper::drawText("P", Position(), .1, myCircleInText, myViewNet->getNet()->selectedAdditionalColor, myBlockIcon.rotation);
             } else {
-                GLHelper::drawText("P", Position(), .1, myCircleInText, RGBColor(83, 89, 172, 255), myBlockIconRotation);
+                GLHelper::drawText("P", Position(), .1, myCircleInText, RGBColor(83, 89, 172, 255), myBlockIcon.rotation);
             }
         }
         // Pop sign matrix
         glPopMatrix();
         // Draw icon
-        GNEAdditional::drawLockIcon();
+        myBlockIcon.draw();
     }
     // Pop base matrix
     glPopMatrix();
     // Draw name if isn't being drawn for selecting
     drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
     if (s.addFullName.show && (myAdditionalName != "") && !s.drawForSelecting) {
-        GLHelper::drawText(myAdditionalName, mySignPos, GLO_MAX - getType(), s.addFullName.scaledSize(s.scale), s.addFullName.color, myBlockIconRotation);
+        GLHelper::drawText(myAdditionalName, mySignPos, GLO_MAX - getType(), s.addFullName.scaledSize(s.scale), s.addFullName.color, myBlockIcon.rotation);
     }
     // check if dotted contour has to be drawn
     if (!s.drawForSelecting && (myViewNet->getACUnderCursor() == this)) {

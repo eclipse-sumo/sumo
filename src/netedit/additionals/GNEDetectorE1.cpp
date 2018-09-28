@@ -105,13 +105,13 @@ GNEDetectorE1::updateGeometry(bool updateGrid) {
     myGeometry.shapeRotations.push_back(myLane->getShape().rotationDegreeAtOffset(fixedPositionOverLane) * -1);
 
     // Set block icon position
-    myBlockIconPosition = myGeometry.shape.getLineCenter();
+    myBlockIcon.position = myGeometry.shape.getLineCenter();
 
     // Set offset of the block icon
-    myBlockIconOffset = Position(-1, 0);
+    myBlockIcon.offset = Position(-1, 0);
 
     // Set block icon rotation, and using their rotation for logo
-    setBlockIconRotation(myLane);
+    myBlockIcon.setRotation(myLane);
 
     // last step is to check if object has to be added into grid (SUMOTree) again
     if (updateGrid) {
@@ -211,8 +211,8 @@ GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
         glPushMatrix();
         // Traslate to center of detector
         glTranslated(myGeometry.shape.getLineCenter().x(), myGeometry.shape.getLineCenter().y(), getType() + 0.1);
-        // Rotate depending of myBlockIconRotation
-        glRotated(myBlockIconRotation, 0, 0, -1);
+        // Rotate depending of myBlockIcon.rotation
+        glRotated(myBlockIcon.rotation, 0, 0, -1);
         //move to logo position
         glTranslated(-1, 0, 0);
         // draw E1 logo
@@ -224,7 +224,7 @@ GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
         // pop matrix
         glPopMatrix();
         // Show Lock icon depending of the Edit mode
-        drawLockIcon();
+        myBlockIcon.draw();
     }
 
     // Finish draw if isn't being drawn for selecting

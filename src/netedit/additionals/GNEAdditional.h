@@ -306,10 +306,9 @@ public:
 
 protected:
     /// @brief struct for pack all variables related with geometry of elemement
-    struct additionalGeometry {
-
+    struct AdditionalGeometry {
         /// @brief constructor
-        additionalGeometry();
+        AdditionalGeometry();
 
         /// @brief reset geometry
         void clearGeometry();
@@ -346,7 +345,7 @@ protected:
     };
 
     /// @brief struct for pack all variables related with additional move
-    struct additionalMove {
+    struct AdditionalMove {
         /// @brief boundary used during moving of elements (to avoid insertion in RTREE
         Boundary movingGeometryBoundary;
 
@@ -360,14 +359,67 @@ protected:
         std::string secondOriginalPosition;
     };
 
+    /// @brief struct for pack all variables and functions related with Block Icon
+    struct BlockIcon {
+        /// @brief constructor
+        BlockIcon(GNEAdditional *additional);
+
+        /// @brief set Rotation of block Icon (must be called in updateGeometry(bool updateGrid) function)
+        void setRotation(GNELane* additionalLane = nullptr);
+
+        /// @brief draw lock icon
+        void draw(double size = 0.5) const;
+
+        /// @brief position of the block icon
+        Position position;
+
+        /// @brief The offSet of the block icon
+        Position offset;
+
+        /// @brief The rotation of the block icon
+        double rotation;
+
+    private:
+        /// @brief pointer to additional parent
+        GNEAdditional *myAdditional;
+    };
+
+    /// @brief struct for pack all variables and functions relative to connections between Additionals and their childs
+    struct ChildConnections {
+        /// @brief constructor
+        ChildConnections(GNEAdditional *additional);
+
+        /// @brief update Connection's geometry
+        void update();
+
+        /// @brief draw connections between Parent and childrens
+        void draw() const;
+
+        /// @brief position and rotation of every symbol over lane
+        std::vector<std::pair<Position, double> > symbolsPositionAndRotation;
+
+        /// @brief Matrix with the Vertex's positions of connections between parents an their childs
+        std::vector<PositionVector> connectionPositions;
+
+    private:
+        /// @brief pointer to additional parent
+        GNEAdditional *myAdditional;
+    };
+
     /// @brief The GNEViewNet this additional element belongs
     GNEViewNet* myViewNet;
 
     /// @brief geometry to be precomputed in updateGeometry(...)
-    additionalGeometry myGeometry;
+    AdditionalGeometry myGeometry;
 
-    /// @brief variable geometry 
-    additionalMove myMove;
+    /// @brief variable AdditionalMove
+    AdditionalMove myMove;
+
+    /// @brief variable BlockIcon
+    BlockIcon myBlockIcon;
+
+    /// @brief variable ChildConnections
+    ChildConnections myChildConnections;
 
     /// @brief name of additional
     std::string myAdditionalName;
@@ -392,24 +444,6 @@ protected:
 
     /// @brief change all attributes of additional with their default values (note: this cannot be undo)
     void setDefaultValues();
-
-    /// @name members and functions relative to block icon
-    /// @{
-    /// @brief set Rotation of block Icon (must be called in updateGeometry(bool updateGrid) function)
-    void setBlockIconRotation(GNELane* additionalLane = nullptr);
-
-    /// @brief draw lock icon
-    void drawLockIcon(double size = 0.5) const;
-
-    /// @brief position of the block icon
-    Position myBlockIconPosition;
-
-    /// @brief The offSet of the block icon
-    Position myBlockIconOffset;
-
-    /// @brief The rotation of the block icon
-    double myBlockIconRotation;
-    /// @}
 
     /// @name Functions relative to change values in setAttribute(...)
     /// @{
@@ -449,23 +483,6 @@ protected:
     * @throw exception if additional with ID newAdditionalParentID doesn't exist
     */
     void changeSecondAdditionalParent(const std::string& newAdditionalParentID);
-
-    /// @}
-
-    /// @name members and functions relative to connections between Additionals and their childs
-    /// @{
-
-    /// @brief update Connection's geometry
-    void updateChildConnections();
-
-    /// @brief draw connections between Parent and childrens
-    void drawChildConnections() const;
-
-    /// @brief position and rotation of every simbol over lane
-    std::vector<std::pair<Position, double> > mySymbolsPositionAndRotation;
-
-    /// @brief Matrix with the Vertex's positions of connections between parents an their childs
-    std::vector<PositionVector> myChildConnectionPositions;
 
     /// @}
 

@@ -64,7 +64,8 @@ GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlOb
     myBlockMovement(blockMovement),
     myFirstAdditionalParent(nullptr),
     mySecondAdditionalParent(nullptr),
-    myBlockIconRotation(0.) {
+    myBlockIcon(this),
+    myChildConnections(this) {
 }
 
 
@@ -77,7 +78,8 @@ GNEAdditional::GNEAdditional(GNEAdditional* singleAdditionalParent, GNEViewNet* 
     myBlockMovement(blockMovement),
     myFirstAdditionalParent(singleAdditionalParent),
     mySecondAdditionalParent(nullptr),
-    myBlockIconRotation(0.) {
+    myBlockIcon(this),
+    myChildConnections(this) {
     // check that additional parent is of expected type
     assert(singleAdditionalParent->getTag() == getTagProperties(getTag()).getParentTag());
 }
@@ -92,7 +94,8 @@ GNEAdditional::GNEAdditional(GNEAdditional* firstAdditionalParent, GNEAdditional
     myBlockMovement(blockMovement),
     myFirstAdditionalParent(firstAdditionalParent),
     mySecondAdditionalParent(secondAdditionalParent),
-    myBlockIconRotation(0.) {
+    myBlockIcon(this),
+    myChildConnections(this) {
     // check that additional parent is of expected type
     assert(firstAdditionalParent->getTag() == getTagProperties(getTag()).getParentTag());
 }
@@ -108,7 +111,8 @@ GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlOb
     myFirstAdditionalParent(nullptr),
     mySecondAdditionalParent(nullptr),
     myEdgeChilds(edgeChilds),
-    myBlockIconRotation(0.) {
+    myBlockIcon(this),
+    myChildConnections(this) {
 }
 
 
@@ -122,7 +126,8 @@ GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlOb
     myFirstAdditionalParent(nullptr),
     mySecondAdditionalParent(nullptr),
     myLaneChilds(laneChilds),
-    myBlockIconRotation(0.) {
+    myBlockIcon(this),
+    myChildConnections(this) {
 }
 
 
@@ -632,11 +637,11 @@ GNEAdditional::isRouteValid(const std::vector<GNEEdge*>& edges, bool report) {
 }
 
 
-GNEAdditional::additionalGeometry::additionalGeometry() {}
+GNEAdditional::AdditionalGeometry::AdditionalGeometry() {}
 
 
 void 
-GNEAdditional::additionalGeometry::clearGeometry() {
+GNEAdditional::AdditionalGeometry::clearGeometry() {
     shape.clear();
     multiShape.clear();
     shapeRotations.clear();
@@ -648,7 +653,7 @@ GNEAdditional::additionalGeometry::clearGeometry() {
 
 
 void 
-GNEAdditional::additionalGeometry::calculateMultiShapeUnified() {
+GNEAdditional::AdditionalGeometry::calculateMultiShapeUnified() {
     // merge all multishape parts in a single shape
     for (auto i : multiShape) {
         multiShapeUnified.append(i);
@@ -657,7 +662,7 @@ GNEAdditional::additionalGeometry::calculateMultiShapeUnified() {
 
 
 void 
-GNEAdditional::additionalGeometry::calculateShapeRotationsAndLengths() {
+GNEAdditional::AdditionalGeometry::calculateShapeRotationsAndLengths() {
     // Get number of parts of the shape
     int numberOfSegments = (int)shape.size() - 1;
     // If number of segments is more than 0
@@ -681,7 +686,7 @@ GNEAdditional::additionalGeometry::calculateShapeRotationsAndLengths() {
 
 
 void 
-GNEAdditional::additionalGeometry::calculateMultiShapeRotationsAndLengths() {
+GNEAdditional::AdditionalGeometry::calculateMultiShapeRotationsAndLengths() {
     // Get number of parts of the shape for every part shape
     std::vector<int> numberOfSegments;
     for (auto i : multiShape) {
@@ -711,54 +716,48 @@ GNEAdditional::additionalGeometry::calculateMultiShapeRotationsAndLengths() {
 }
 
 
-void
-GNEAdditional::setDefaultValues() {
-    // iterate over attributes and set default value
-    for (auto i : getTagProperties(getTag())) {
-        if (i.second.hasDefaultValue()) {
-            setAttribute(i.first, i.second.getDefaultValue());
-        }
-    }
-}
+GNEAdditional::BlockIcon::BlockIcon(GNEAdditional *additional) :
+    myAdditional(additional),
+    rotation(0.) {}
 
 
 void
-GNEAdditional::setBlockIconRotation(GNELane* additionalLane) {
-    if (myGeometry.shape.size() > 0 && myGeometry.shape.length() != 0) {
+GNEAdditional::BlockIcon::setRotation(GNELane* additionalLane) {
+    if (myAdditional->myGeometry.shape.size() > 0 && myAdditional->myGeometry.shape.length() != 0) {
         // If length of the shape is distint to 0, Obtain rotation of center of shape
-        myBlockIconRotation = myGeometry.shape.rotationDegreeAtOffset((myGeometry.shape.length() / 2.)) - 90;
+        rotation = myAdditional->myGeometry.shape.rotationDegreeAtOffset((myAdditional->myGeometry.shape.length() / 2.)) - 90;
     } else if (additionalLane) {
         // If additional is over a lane, set rotation in the position over lane
-        double posOverLane = additionalLane->getShape().nearest_offset_to_point2D(getPositionInView());
-        myBlockIconRotation = additionalLane->getShape().rotationDegreeAtOffset(posOverLane) - 90;
+        double posOverLane = additionalLane->getShape().nearest_offset_to_point2D(myAdditional->getPositionInView());
+        rotation = additionalLane->getShape().rotationDegreeAtOffset(posOverLane) - 90;
     } else {
         // In other case, rotation is 0
-        myBlockIconRotation = 0;
+        rotation = 0;
     }
 }
 
 
 void
-GNEAdditional::drawLockIcon(double size) const {
-    if (myViewNet->showLockIcon()) {
+GNEAdditional::BlockIcon::draw(double size) const {
+    if (myAdditional->myViewNet->showLockIcon()) {
         // Start pushing matrix
         glPushMatrix();
         // Traslate to middle of shape
-        glTranslated(myBlockIconPosition.x(), myBlockIconPosition.y(), getType() + 0.1);
+        glTranslated(position.x(), position.y(), myAdditional->getType() + 0.1);
         // Set draw color
         glColor3d(1, 1, 1);
-        // Rotate depending of myBlockIconRotation
-        glRotated(myBlockIconRotation, 0, 0, -1);
+        // Rotate depending of rotation
+        glRotated(rotation, 0, 0, -1);
         // Rotate 180 degrees
         glRotated(180, 0, 0, 1);
         // Traslate depending of the offset
-        glTranslated(myBlockIconOffset.x(), myBlockIconOffset.y(), 0);
+        glTranslated(offset.x(), offset.y(), 0);
         // Draw icon depending of the state of additional
-        if (mySelected) {
-            if (!getTagProperties(getTag()).canBlockMovement()) {
+        if (myAdditional->mySelected) {
+            if (!getTagProperties(myAdditional->getTag()).canBlockMovement()) {
                 // Draw not movable texture if additional isn't movable and is selected
                 GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_NOTMOVINGSELECTED), size);
-            } else if (myBlockMovement) {
+            } else if (myAdditional->myBlockMovement) {
                 // Draw lock texture if additional is movable, is blocked and is selected
                 GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_LOCKSELECTED), size);
             } else {
@@ -766,10 +765,10 @@ GNEAdditional::drawLockIcon(double size) const {
                 GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_EMPTYSELECTED), size);
             }
         } else {
-            if (!getTagProperties(getTag()).canBlockMovement()) {
+            if (!getTagProperties(myAdditional->getTag()).canBlockMovement()) {
                 // Draw not movable texture if additional isn't movable
                 GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_NOTMOVING), size);
-            } else if (myBlockMovement) {
+            } else if (myAdditional->myBlockMovement) {
                 // Draw lock texture if additional is movable and is blocked
                 GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_LOCK), size);
             } else {
@@ -783,14 +782,18 @@ GNEAdditional::drawLockIcon(double size) const {
 }
 
 
+GNEAdditional::ChildConnections::ChildConnections(GNEAdditional *additional) : 
+    myAdditional(additional) {}
+
+
 void
-GNEAdditional::updateChildConnections() {
+GNEAdditional::ChildConnections::update() {
     // first clear connection positions
-    myChildConnectionPositions.clear();
-    mySymbolsPositionAndRotation.clear();
+    connectionPositions.clear();
+    symbolsPositionAndRotation.clear();
 
     // calculate position and rotation of every simbol for every edge
-    for (auto i : myEdgeChilds) {
+    for (auto i : myAdditional->myEdgeChilds) {
         for (auto j : i->getLanes()) {
             std::pair<Position, double> posRot;
             // set position and lenght depending of shape's lengt
@@ -801,12 +804,12 @@ GNEAdditional::updateChildConnections() {
                 posRot.first = j->getShape().positionAtOffset(j->getShape().length());
                 posRot.second = j->getShape().rotationDegreeAtOffset(j->getShape().length());
             }
-            mySymbolsPositionAndRotation.push_back(posRot);
+            symbolsPositionAndRotation.push_back(posRot);
         }
     }
 
     // calculate position and rotation of every symbol for every lane
-    for (auto i : myLaneChilds) {
+    for (auto i : myAdditional->myLaneChilds) {
         std::pair<Position, double> posRot;
         // set position and lenght depending of shape's lengt
         if (i->getShape().length() - 6 > 0) {
@@ -816,70 +819,70 @@ GNEAdditional::updateChildConnections() {
             posRot.first = i->getShape().positionAtOffset(i->getShape().length());
             posRot.second = i->getShape().rotationDegreeAtOffset(i->getShape().length());
         }
-        mySymbolsPositionAndRotation.push_back(posRot);
+        symbolsPositionAndRotation.push_back(posRot);
     }
 
     // calculate position for every additional child
-    for (auto i : myAdditionalChilds) {
+    for (auto i : myAdditional->myAdditionalChilds) {
         // check that position is different of position
-        if (i->getPositionInView() != getPositionInView()) {
+        if (i->getPositionInView() != myAdditional->getPositionInView()) {
             std::vector<Position> posConnection;
-            double A = std::abs(i->getPositionInView().x() - getPositionInView().x());
-            double B = std::abs(i->getPositionInView().y() - getPositionInView().y());
+            double A = std::abs(i->getPositionInView().x() - myAdditional->getPositionInView().x());
+            double B = std::abs(i->getPositionInView().y() - myAdditional->getPositionInView().y());
             // Set positions of connection's vertex. Connection is build from Entry to E3
             posConnection.push_back(i->getPositionInView());
-            if (getPositionInView().x() > i->getPositionInView().x()) {
-                if (getPositionInView().y() > i->getPositionInView().y()) {
+            if (myAdditional->getPositionInView().x() > i->getPositionInView().x()) {
+                if (myAdditional->getPositionInView().y() > i->getPositionInView().y()) {
                     posConnection.push_back(Position(i->getPositionInView().x() + A, i->getPositionInView().y()));
                 } else {
                     posConnection.push_back(Position(i->getPositionInView().x(), i->getPositionInView().y() - B));
                 }
             } else {
-                if (getPositionInView().y() > i->getPositionInView().y()) {
+                if (myAdditional->getPositionInView().y() > i->getPositionInView().y()) {
                     posConnection.push_back(Position(i->getPositionInView().x(), i->getPositionInView().y() + B));
                 } else {
                     posConnection.push_back(Position(i->getPositionInView().x() - A, i->getPositionInView().y()));
                 }
             }
-            posConnection.push_back(getPositionInView());
-            myChildConnectionPositions.push_back(posConnection);
+            posConnection.push_back(myAdditional->getPositionInView());
+            connectionPositions.push_back(posConnection);
         }
     }
 
     // calculate geometry for connections between parent and childs
-    for (auto i : mySymbolsPositionAndRotation) {
+    for (auto i : symbolsPositionAndRotation) {
         std::vector<Position> posConnection;
-        double A = std::abs(i.first.x() - getPositionInView().x());
-        double B = std::abs(i.first.y() - getPositionInView().y());
+        double A = std::abs(i.first.x() - myAdditional->getPositionInView().x());
+        double B = std::abs(i.first.y() - myAdditional->getPositionInView().y());
         // Set positions of connection's vertex. Connection is build from Entry to E3
         posConnection.push_back(i.first);
-        if (getPositionInView().x() > i.first.x()) {
-            if (getPositionInView().y() > i.first.y()) {
+        if (myAdditional->getPositionInView().x() > i.first.x()) {
+            if (myAdditional->getPositionInView().y() > i.first.y()) {
                 posConnection.push_back(Position(i.first.x() + A, i.first.y()));
             } else {
                 posConnection.push_back(Position(i.first.x(), i.first.y() - B));
             }
         } else {
-            if (getPositionInView().y() > i.first.y()) {
+            if (myAdditional->getPositionInView().y() > i.first.y()) {
                 posConnection.push_back(Position(i.first.x(), i.first.y() + B));
             } else {
                 posConnection.push_back(Position(i.first.x() - A, i.first.y()));
             }
         }
-        posConnection.push_back(getPositionInView());
-        myChildConnectionPositions.push_back(posConnection);
+        posConnection.push_back(myAdditional->getPositionInView());
+        connectionPositions.push_back(posConnection);
     }
 }
 
 
 void
-GNEAdditional::drawChildConnections() const {
+GNEAdditional::ChildConnections::draw() const {
     // Iterate over myConnectionPositions
-    for (auto i : myChildConnectionPositions) {
+    for (auto i : connectionPositions) {
         // Add a draw matrix
         glPushMatrix();
         // traslate in the Z axis
-        glTranslated(0, 0, getType() - 0.01);
+        glTranslated(0, 0, myAdditional->getType() - 0.01);
         // Set color of the base
         GLHelper::setColor(RGBColor(255, 235, 0));
         for (auto j = i.begin(); (j + 1) != i.end(); j++) {
@@ -888,6 +891,17 @@ GNEAdditional::drawChildConnections() const {
         }
         // Pop draw matrix
         glPopMatrix();
+    }
+}
+
+
+void
+GNEAdditional::setDefaultValues() {
+    // iterate over attributes and set default value
+    for (auto i : getTagProperties(getTag())) {
+        if (i.second.hasDefaultValue()) {
+            setAttribute(i.first, i.second.getDefaultValue());
+        }
     }
 }
 

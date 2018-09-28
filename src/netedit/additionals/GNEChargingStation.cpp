@@ -89,10 +89,10 @@ GNEChargingStation::updateGeometry(bool updateGrid) {
     mySignPos = tmpShape.getLineCenter();
 
     // Set block icon position
-    myBlockIconPosition = myGeometry.shape.getLineCenter();
+    myBlockIcon.position = myGeometry.shape.getLineCenter();
 
     // Set block icon rotation, and using their rotation for sign
-    setBlockIconRotation(myLane);
+    myBlockIcon.setRotation(myLane);
 
     // last step is to check if object has to be added into grid (SUMOTree) again
     if (updateGrid) {
@@ -145,9 +145,9 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
         glPushMatrix();
         // draw line with a color depending of the selection status
         if (isAttributeCarrierSelected()) {
-            GLHelper::drawText((toString(myChargingPower) + " W").c_str(), mySignPos + Position(1.2, 0), .1, 1.f, myViewNet->getNet()->selectionColor, myBlockIconRotation, FONS_ALIGN_LEFT);
+            GLHelper::drawText((toString(myChargingPower) + " W").c_str(), mySignPos + Position(1.2, 0), .1, 1.f, myViewNet->getNet()->selectionColor, myBlockIcon.rotation, FONS_ALIGN_LEFT);
         } else {
-            GLHelper::drawText((toString(myChargingPower) + " W").c_str(), mySignPos + Position(1.2, 0), .1, 1.f, s.SUMO_color_chargingStation, myBlockIconRotation, FONS_ALIGN_LEFT);
+            GLHelper::drawText((toString(myChargingPower) + " W").c_str(), mySignPos + Position(1.2, 0), .1, 1.f, s.SUMO_color_chargingStation, myBlockIcon.rotation, FONS_ALIGN_LEFT);
         }
         // pop matrix for charging power
         glPopMatrix();
@@ -176,22 +176,22 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
         // Draw sign 'C'
         if (s.scale * exaggeration >= 4.5) {
             if (isAttributeCarrierSelected()) {
-                GLHelper::drawText("C", Position(), .1, myCircleInText, myViewNet->getNet()->selectedAdditionalColor, myBlockIconRotation);
+                GLHelper::drawText("C", Position(), .1, myCircleInText, myViewNet->getNet()->selectedAdditionalColor, myBlockIcon.rotation);
             } else {
-                GLHelper::drawText("C", Position(), .1, myCircleInText, s.SUMO_color_chargingStation, myBlockIconRotation);
+                GLHelper::drawText("C", Position(), .1, myCircleInText, s.SUMO_color_chargingStation, myBlockIcon.rotation);
             }
         }
         // Pop sign matrix
         glPopMatrix();
         // Draw icon
-        GNEAdditional::drawLockIcon();
+        myBlockIcon.draw();
     }
     // Pop base matrix
     glPopMatrix();
     // Draw name if isn't being drawn for selecting
     drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
     if (s.addFullName.show && (myAdditionalName != "") && !s.drawForSelecting) {
-        GLHelper::drawText(myAdditionalName, mySignPos, GLO_MAX - getType(), s.addFullName.scaledSize(s.scale), s.addFullName.color, myBlockIconRotation);
+        GLHelper::drawText(myAdditionalName, mySignPos, GLO_MAX - getType(), s.addFullName.scaledSize(s.scale), s.addFullName.color, myBlockIcon.rotation);
     }
     // check if dotted contour has to be drawn
     if (!s.drawForSelecting && (myViewNet->getACUnderCursor() == this)) {

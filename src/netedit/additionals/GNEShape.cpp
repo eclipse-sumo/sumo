@@ -66,7 +66,7 @@ GNEShape::isShapeBlocked() const {
 
 
 void
-GNEShape::drawLockIcon(const Position& pos, double layer, double size) const {
+GNEShape::draw(const Position& pos, double layer, double size) const {
     if (myNet->getViewNet()->showLockIcon()) {
         // Start pushing matrix
         glPushMatrix();

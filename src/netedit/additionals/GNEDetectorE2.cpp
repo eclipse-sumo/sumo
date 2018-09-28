@@ -160,7 +160,7 @@ GNEDetectorE2::updateGeometry(bool updateGrid) {
         myGeometry.calculateShapeRotationsAndLengths();
 
         // Set block icon position
-        myBlockIconPosition = myGeometry.shape.getLineCenter();
+        myBlockIcon.position = myGeometry.shape.getLineCenter();
 
     } else if (myLanes.size() > 1) {
         // start with the first lane shape
@@ -224,14 +224,14 @@ GNEDetectorE2::updateGeometry(bool updateGrid) {
         myGeometry.calculateMultiShapeUnified();
 
         // Set block icon position
-        myBlockIconPosition = myGeometry.multiShape.front().getLineCenter();
+        myBlockIcon.position = myGeometry.multiShape.front().getLineCenter();
     }
 
     // Set offset of the block icon
-    myBlockIconOffset = Position(-0.75, 0);
+    myBlockIcon.offset = Position(-0.75, 0);
 
     // Set block icon rotation, and using their rotation for draw logo
-    setBlockIconRotation(myLanes.front());
+    myBlockIcon.setRotation(myLanes.front());
 
     // last step is to check if object has to be added into grid (SUMOTree) again
     if (updateGrid) {
@@ -309,8 +309,8 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
             glPushMatrix();
             // Traslate to center of detector
             glTranslated(myGeometry.shape.getLineCenter().x(), myGeometry.shape.getLineCenter().y(), getType() + 0.1);
-            // Rotate depending of myBlockIconRotation
-            glRotated(myBlockIconRotation, 0, 0, -1);
+            // Rotate depending of myBlockIcon.rotation
+            glRotated(myBlockIcon.rotation, 0, 0, -1);
             //move to logo position
             glTranslated(-0.75, 0, 0);
             // draw E2 logo
@@ -323,9 +323,9 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
             // Push matrix
             glPushMatrix();
             // Traslate to center of detector
-            glTranslated(myBlockIconPosition.x(), myBlockIconPosition.y(), getType() + 0.1);
-            // Rotate depending of myBlockIconRotation
-            glRotated(myBlockIconRotation, 0, 0, -1);
+            glTranslated(myBlockIcon.position.x(), myBlockIcon.position.y(), getType() + 0.1);
+            // Rotate depending of myBlockIcon.rotation
+            glRotated(myBlockIcon.rotation, 0, 0, -1);
             //move to logo position
             glTranslated(-1.5, 0, 0);
             // draw E2 logo
@@ -336,7 +336,7 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
             }
             //move to logo position
             glTranslated(1.2, 0, 0);
-            // Rotate depending of myBlockIconRotation
+            // Rotate depending of myBlockIcon.rotation
             glRotated(90, 0, 0, 1);
             if (isAttributeCarrierSelected()) {
                 GLHelper::drawText("multi", Position(), .1, 0.9, myViewNet->getNet()->selectedAdditionalColor);
@@ -348,7 +348,7 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
         glPopMatrix();
 
         // Show Lock icon depending of the Edit mode
-        drawLockIcon();
+        myBlockIcon.draw();
     }
 
     // Draw name if isn't being drawn for selecting

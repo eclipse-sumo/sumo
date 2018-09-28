@@ -100,10 +100,10 @@ GNEDetectorExit::updateGeometry(bool updateGrid) {
     myGeometry.shapeRotations.push_back(myLane->getShape().rotationDegreeAtOffset(fixedPositionOverLane) * -1);
 
     // Set block icon position
-    myBlockIconPosition = myGeometry.shape.getLineCenter();
+    myBlockIcon.position = myGeometry.shape.getLineCenter();
 
     // Set block icon rotation, and using their rotation for logo
-    setBlockIconRotation(myLane);
+    myBlockIcon.setRotation(myLane);
 
     // last step is to check if object has to be added into grid (SUMOTree) again
     if (updateGrid) {
@@ -193,8 +193,8 @@ GNEDetectorExit::drawGL(const GUIVisualizationSettings& s) const {
         glPushMatrix();
         // Traslate to center of detector
         glTranslated(myGeometry.shape.getLineCenter().x(), myGeometry.shape.getLineCenter().y(), getType() + 0.1);
-        // Rotate depending of myBlockIconRotation
-        glRotated(myBlockIconRotation, 0, 0, -1);
+        // Rotate depending of myBlockIcon.rotation
+        glRotated(myBlockIcon.rotation, 0, 0, -1);
         //move to logo position
         glTranslated(1.9, 0, 0);
         // draw Entry logo if isn't being drawn for selecting
@@ -208,7 +208,7 @@ GNEDetectorExit::drawGL(const GUIVisualizationSettings& s) const {
         }
         //move to logo position
         glTranslated(1.7, 0, 0);
-        // Rotate depending of myBlockIconRotation
+        // Rotate depending of myBlockIcon.rotation
         glRotated(90, 0, 0, 1);
         // draw Entry text if isn't being drawn for selecting
         if (s.drawForSelecting) {
@@ -223,7 +223,7 @@ GNEDetectorExit::drawGL(const GUIVisualizationSettings& s) const {
         glPopMatrix();
         // Show Lock icon depending of the Edit mode and if isn't being drawn for selecting
         if (!s.drawForSelecting) {
-            drawLockIcon(0.4);
+            myBlockIcon.draw(0.4);
         }
     }
     // Draw name if isn't being drawn for selecting
