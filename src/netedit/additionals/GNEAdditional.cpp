@@ -1038,52 +1038,6 @@ GNEAdditional::checkAdditionalChildRestriction() const {
 }
 
 
-bool
-GNEAdditional::addGenericParameter(const std::string& key, const std::string& value) {
-    if (!knowsParameter(key)) {
-        setParameter(key, value);
-        return true;
-    } else {
-        return false;
-    }
-}
-
-
-bool
-GNEAdditional::removeGenericParameter(const std::string& key) {
-    if (knowsParameter(key)) {
-        unsetParameter(key);
-        return true;
-    } else {
-        return false;
-    }
-}
-
-
-bool
-GNEAdditional::updateGenericParameter(const std::string& oldKey, const std::string& newKey) {
-    if (knowsParameter(oldKey) && !knowsParameter(newKey)) {
-        std::string value = getParameter(oldKey);
-        unsetParameter(oldKey);
-        setParameter(newKey, value);
-        return true;
-    } else {
-        return false;
-    }
-}
-
-
-bool
-GNEAdditional::updateGenericParameterValue(const std::string& key, const std::string& newValue) {
-    if (knowsParameter(key)) {
-        setParameter(key, newValue);
-        return true;
-    } else {
-        return false;
-    }
-}
-
-
 std::string
 GNEAdditional::getGenericParametersStr() const {
     std::string result;

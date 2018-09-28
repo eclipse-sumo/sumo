@@ -487,52 +487,6 @@ GNEConnection::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-bool
-GNEConnection::addGenericParameter(const std::string& key, const std::string& value) {
-    if (!getNBEdgeConnection().knowsParameter(key)) {
-        getNBEdgeConnection().setParameter(key, value);
-        return true;
-    } else {
-        return false;
-    }
-}
-
-
-bool
-GNEConnection::removeGenericParameter(const std::string& key) {
-    if (getNBEdgeConnection().knowsParameter(key)) {
-        getNBEdgeConnection().unsetParameter(key);
-        return true;
-    } else {
-        return false;
-    }
-}
-
-
-bool
-GNEConnection::updateGenericParameter(const std::string& oldKey, const std::string& newKey) {
-    if (getNBEdgeConnection().knowsParameter(oldKey) && !getNBEdgeConnection().knowsParameter(newKey)) {
-        std::string value = getNBEdgeConnection().getParameter(oldKey);
-        getNBEdgeConnection().unsetParameter(oldKey);
-        getNBEdgeConnection().setParameter(newKey, value);
-        return true;
-    } else {
-        return false;
-    }
-}
-
-
-bool
-GNEConnection::updateGenericParameterValue(const std::string& key, const std::string& newValue) {
-    if (getNBEdgeConnection().knowsParameter(key)) {
-        getNBEdgeConnection().setParameter(key, newValue);
-        return true;
-    } else {
-        return false;
-    }
-}
-
-
 std::string
 GNEConnection::getGenericParametersStr() const {
     std::string result;

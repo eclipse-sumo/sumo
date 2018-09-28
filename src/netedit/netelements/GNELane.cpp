@@ -937,52 +937,6 @@ GNELane::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-bool
-GNELane::addGenericParameter(const std::string& key, const std::string& value) {
-    if (!myParentEdge.getNBEdge()->getLaneStruct(myIndex).knowsParameter(key)) {
-        myParentEdge.getNBEdge()->getLaneStruct(myIndex).setParameter(key, value);
-        return true;
-    } else {
-        return false;
-    }
-}
-
-
-bool
-GNELane::removeGenericParameter(const std::string& key) {
-    if (myParentEdge.getNBEdge()->getLaneStruct(myIndex).knowsParameter(key)) {
-        myParentEdge.getNBEdge()->getLaneStruct(myIndex).unsetParameter(key);
-        return true;
-    } else {
-        return false;
-    }
-}
-
-
-bool
-GNELane::updateGenericParameter(const std::string& oldKey, const std::string& newKey) {
-    if (myParentEdge.getNBEdge()->getLaneStruct(myIndex).knowsParameter(oldKey) && !myParentEdge.getNBEdge()->getLaneStruct(myIndex).knowsParameter(newKey)) {
-        std::string value = myParentEdge.getNBEdge()->getLaneStruct(myIndex).getParameter(oldKey);
-        myParentEdge.getNBEdge()->getLaneStruct(myIndex).unsetParameter(oldKey);
-        myParentEdge.getNBEdge()->getLaneStruct(myIndex).setParameter(newKey, value);
-        return true;
-    } else {
-        return false;
-    }
-}
-
-
-bool
-GNELane::updateGenericParameterValue(const std::string& key, const std::string& newValue) {
-    if (myParentEdge.getNBEdge()->getLaneStruct(myIndex).knowsParameter(key)) {
-        myParentEdge.getNBEdge()->getLaneStruct(myIndex).setParameter(key, newValue);
-        return true;
-    } else {
-        return false;
-    }
-}
-
-
 std::string
 GNELane::getGenericParametersStr() const {
     std::string result;

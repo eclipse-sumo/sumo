@@ -1126,52 +1126,6 @@ GNEJunction::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-bool
-GNEJunction::addGenericParameter(const std::string& key, const std::string& value) {
-    if (!myNBNode.knowsParameter(key)) {
-        myNBNode.setParameter(key, value);
-        return true;
-    } else {
-        return false;
-    }
-}
-
-
-bool
-GNEJunction::removeGenericParameter(const std::string& key) {
-    if (myNBNode.knowsParameter(key)) {
-        myNBNode.unsetParameter(key);
-        return true;
-    } else {
-        return false;
-    }
-}
-
-
-bool
-GNEJunction::updateGenericParameter(const std::string& oldKey, const std::string& newKey) {
-    if (myNBNode.knowsParameter(oldKey) && !myNBNode.knowsParameter(newKey)) {
-        std::string value = myNBNode.getParameter(oldKey);
-        myNBNode.unsetParameter(oldKey);
-        myNBNode.setParameter(newKey, value);
-        return true;
-    } else {
-        return false;
-    }
-}
-
-
-bool
-GNEJunction::updateGenericParameterValue(const std::string& key, const std::string& newValue) {
-    if (myNBNode.knowsParameter(key)) {
-        myNBNode.setParameter(key, newValue);
-        return true;
-    } else {
-        return false;
-    }
-}
-
-
 std::string
 GNEJunction::getGenericParametersStr() const {
     std::string result;

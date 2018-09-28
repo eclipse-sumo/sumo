@@ -361,56 +361,6 @@ GNECrossing::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-bool
-GNECrossing::addGenericParameter(const std::string& key, const std::string& value) {
-    auto crossing = myParentJunction->getNBNode()->getCrossing(myCrossingEdges);
-    if (!crossing->knowsParameter(key)) {
-        crossing->setParameter(key, value);
-        return true;
-    } else {
-        return false;
-    }
-}
-
-
-bool
-GNECrossing::removeGenericParameter(const std::string& key) {
-    auto crossing = myParentJunction->getNBNode()->getCrossing(myCrossingEdges);
-    if (crossing->knowsParameter(key)) {
-        crossing->unsetParameter(key);
-        return true;
-    } else {
-        return false;
-    }
-}
-
-
-bool
-GNECrossing::updateGenericParameter(const std::string& oldKey, const std::string& newKey) {
-    auto crossing = myParentJunction->getNBNode()->getCrossing(myCrossingEdges);
-    if (crossing->knowsParameter(oldKey) && !crossing->knowsParameter(newKey)) {
-        std::string value = crossing->getParameter(oldKey);
-        crossing->unsetParameter(oldKey);
-        crossing->setParameter(newKey, value);
-        return true;
-    } else {
-        return false;
-    }
-}
-
-
-bool
-GNECrossing::updateGenericParameterValue(const std::string& key, const std::string& newValue) {
-    auto crossing = myParentJunction->getNBNode()->getCrossing(myCrossingEdges);
-    if (crossing->knowsParameter(key)) {
-        crossing->setParameter(key, newValue);
-        return true;
-    } else {
-        return false;
-    }
-}
-
-
 std::string
 GNECrossing::getGenericParametersStr() const {
     auto crossing = myParentJunction->getNBNode()->getCrossing(myCrossingEdges);

@@ -1116,52 +1116,6 @@ GNEEdge::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-bool
-GNEEdge::addGenericParameter(const std::string& key, const std::string& value) {
-    if (!myNBEdge.knowsParameter(key)) {
-        myNBEdge.setParameter(key, value);
-        return true;
-    } else {
-        return false;
-    }
-}
-
-
-bool
-GNEEdge::removeGenericParameter(const std::string& key) {
-    if (myNBEdge.knowsParameter(key)) {
-        myNBEdge.unsetParameter(key);
-        return true;
-    } else {
-        return false;
-    }
-}
-
-
-bool
-GNEEdge::updateGenericParameter(const std::string& oldKey, const std::string& newKey) {
-    if (myNBEdge.knowsParameter(oldKey) && !myNBEdge.knowsParameter(newKey)) {
-        std::string value = myNBEdge.getParameter(oldKey);
-        myNBEdge.unsetParameter(oldKey);
-        myNBEdge.setParameter(newKey, value);
-        return true;
-    } else {
-        return false;
-    }
-}
-
-
-bool
-GNEEdge::updateGenericParameterValue(const std::string& key, const std::string& newValue) {
-    if (myNBEdge.knowsParameter(key)) {
-        myNBEdge.setParameter(key, newValue);
-        return true;
-    } else {
-        return false;
-    }
-}
-
-
 std::string
 GNEEdge::getGenericParametersStr() const {
     std::string result;

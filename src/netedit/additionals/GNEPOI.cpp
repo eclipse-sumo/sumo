@@ -420,52 +420,6 @@ GNEPOI::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-bool
-GNEPOI::addGenericParameter(const std::string& key, const std::string& value) {
-    if (!knowsParameter(key)) {
-        setParameter(key, value);
-        return true;
-    } else {
-        return false;
-    }
-}
-
-
-bool
-GNEPOI::removeGenericParameter(const std::string& key) {
-    if (knowsParameter(key)) {
-        unsetParameter(key);
-        return true;
-    } else {
-        return false;
-    }
-}
-
-
-bool
-GNEPOI::updateGenericParameter(const std::string& oldKey, const std::string& newKey) {
-    if (knowsParameter(oldKey) && !knowsParameter(newKey)) {
-        std::string value = getParameter(oldKey);
-        unsetParameter(oldKey);
-        setParameter(newKey, value);
-        return true;
-    } else {
-        return false;
-    }
-}
-
-
-bool
-GNEPOI::updateGenericParameterValue(const std::string& key, const std::string& newValue) {
-    if (knowsParameter(key)) {
-        setParameter(key, newValue);
-        return true;
-    } else {
-        return false;
-    }
-}
-
-
 std::string
 GNEPOI::getGenericParametersStr() const {
     std::string result;
