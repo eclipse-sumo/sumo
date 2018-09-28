@@ -152,6 +152,8 @@ NIFrame::fillOptions() {
     oc.doRegister("construction-date", new Option_String());
     oc.addDescription("construction-date", "Processing", "Use YYYY-MM-DD date to determine the readiness of features under construction");
 
+    oc.doRegister("flatten", new Option_Bool(false));
+    oc.addDescription("flatten", "Processing", "Remove all z-data");
 
     // register xml options
     oc.doRegister("plain.extend-edge-shape", new Option_Bool(false));
