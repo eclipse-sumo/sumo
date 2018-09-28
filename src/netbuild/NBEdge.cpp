@@ -759,9 +759,8 @@ NBEdge::startShapeAt(const PositionVector& laneShape, const NBNode* startNode, P
         nodeShape = startNode->getShape();
         nodeShape.closePolygon();
     }
-    PositionVector lb(laneShape.begin(), laneShape.begin() + 2);
-    // this doesn't look reasonable @todo use lb.extrapolateFirstBy(100.0);
-    lb.extrapolate(100.0);
+    PositionVector lb = laneShape;
+    lb.extrapolate2D(100.0);
     if (nodeShape.intersects(laneShape)) {
         // shape intersects directly
         std::vector<double> pbv = laneShape.intersectsAtLengths2D(nodeShape);
@@ -792,7 +791,7 @@ NBEdge::startShapeAt(const PositionVector& laneShape, const NBNode* startNode, P
         double pb = VectorHelper<double>::maxValue(pbv);
         assert(pb >= 0);
         PositionVector result = laneShape.getSubpartByIndex(1, (int)laneShape.size() - 1);
-        Position np = PositionVector::positionAtOffset2D(lb[0], lb[1], pb);
+        Position np = lb.positionAtOffset2D(pb);
         if (!startNode->geometryLike()) {
             // make "real" intersections flat
             np.setz(startNode->getPosition().z());
