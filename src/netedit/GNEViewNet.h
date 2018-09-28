@@ -562,6 +562,9 @@ private:
 
         /// @brief inform about selection size
         std::string reportDimensions();
+
+        /// @brief draw rectangle selection
+        void drawRectangleSelection() const;
     };
 
     /// @brief struct used to group all variables related with testing
@@ -813,6 +816,16 @@ private:
     /// @brief Auxiliar function used by onLeftBtnPress(...)
     void processClick(FXEvent* e, void* data);
 
+    /// @brief draw functions
+    /// @{
+
+    /// @brief draw connections between lane candidates during selecting lane mode in Additional mode
+    void drawLaneCandidates() const;
+
+    /// @brief draw temporal polygon  shape in Polygon Mode
+    void drawTemporalPolygonShape() const;
+    /// @}
+   
     /// @brief Invalidated copy constructor.
     GNEViewNet(const GNEViewNet&) = delete;
 

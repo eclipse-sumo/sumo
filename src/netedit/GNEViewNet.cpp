@@ -685,20 +685,7 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
     glEnable(GL_DEPTH_TEST);
 
     // visualize rectangular selection
-    if (mySelectingArea.selectingUsingRectangle) {
-        glPushMatrix();
-        glTranslated(0, 0, GLO_MAX - 1);
-        GLHelper::setColor(GNENet::selectionColor);
-        glLineWidth(2);
-        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-        glBegin(GL_QUADS);
-        glVertex2d(mySelectingArea.selectionCorner1.x(), mySelectingArea.selectionCorner1.y());
-        glVertex2d(mySelectingArea.selectionCorner1.x(), mySelectingArea.selectionCorner2.y());
-        glVertex2d(mySelectingArea.selectionCorner2.x(), mySelectingArea.selectionCorner2.y());
-        glVertex2d(mySelectingArea.selectionCorner2.x(), mySelectingArea.selectionCorner1.y());
-        glEnd();
-        glPopMatrix();
-    }
+    mySelectingArea.drawRectangleSelection();
 
     // compute lane width
     double lw = m2p(SUMO_const_laneWidth);
@@ -743,68 +730,10 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
         }
     }
 
-    // draw temporal shape of polygon during drawing
-    if (!myVisualizationSettings->drawForSelecting && myViewParent->getPolygonFrame()->getDrawingMode()->isDrawing()) {
-        const PositionVector& temporalDrawingShape = myViewParent->getPolygonFrame()->getDrawingMode()->getTemporalShape();
-        // draw blue line with the current drawed shape
-        glPushMatrix();
-        glLineWidth(2);
-        GLHelper::setColor(RGBColor::BLUE);
-        GLHelper::drawLine(temporalDrawingShape);
-        glPopMatrix();
-        // draw red line from the last point of shape to the current mouse position
-        if (temporalDrawingShape.size() > 0) {
-            glPushMatrix();
-            glLineWidth(2);
-            // draw last line depending if shift key (delete last created point) is pressed
-            if (myViewParent->getPolygonFrame()->getDrawingMode()->getDeleteLastCreatedPoint()) {
-                GLHelper::setColor(RGBColor::RED);
-            } else {
-                GLHelper::setColor(RGBColor::GREEN);
-            }
-            GLHelper::drawLine(temporalDrawingShape.back(), snapToActiveGrid(getPositionInformation()));
-            glPopMatrix();
-        }
-    }
-
-    // draw connections between lane candidates during selecting lane mode
-    if (!myVisualizationSettings->drawForSelecting && 
-        myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->isSelectingLanes() &&
-        myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->getSelectedLanes().size() > 1) {
-        // iterate over all current selected lanes
-        for (int i = 0; i < myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->getSelectedLanes().size() - 1; i++) {
-            // declare position vector for shape
-            PositionVector shape;
-            // declare vectors for shape rotation and lenghts
-            std::vector<double> shapeRotations, shapeLengths;
-            // obtain GNELanes
-            GNELane* from = myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->getSelectedLanes().at(i).first;
-            GNELane* to = myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->getSelectedLanes().at(i+1).first;
-            // Push draw matrix
-            glPushMatrix();
-            // must draw on top of other connections
-            glTranslated(0, 0, GLO_JUNCTION + 0.2);
-            // obtain connection shape
-            shape = from->getParentEdge().getNBEdge()->getConnection(from->getIndex(), to->getParentEdge().getNBEdge(), to->getIndex()).shape;
-            // set special color
-            GLHelper::setColor(myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->getSelectedLaneColor());
-            // Obtain lengths and shape rotations
-            int segments = (int) shape.size() - 1;
-            if (segments >= 0) {
-                shapeRotations.reserve(segments);
-                shapeLengths.reserve(segments);
-                for (int j = 0; j < segments; j++) {
-                    const Position& f = shape[j];
-                    const Position& s = shape[j + 1];
-                    shapeLengths.push_back(f.distanceTo2D(s));
-                    shapeRotations.push_back((double) atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double)M_PI);
-                }
-            }
-            // draw a list of lines
-            GLHelper::drawBoxLines(shape, shapeRotations, shapeLengths, 0.2);
-            // pop draw matrix
-            glPopMatrix();
-        }
+    // draw temporal elements
+    if (!myVisualizationSettings->drawForSelecting) {
+        drawTemporalPolygonShape();
+        drawLaneCandidates();
     }
 
     // draw elements
@@ -3202,6 +3131,127 @@ GNEViewNet::SelectingArea::reportDimensions() {
     return ("Selection width:" + toString(fabs(selectionCorner1.x() - selectionCorner2.x()))
             + " height:" + toString(fabs(selectionCorner1.y() - selectionCorner2.y()))
             + " diagonal:" + toString(selectionCorner1.distanceTo2D(selectionCorner2)));
+}
+
+
+void 
+GNEViewNet::SelectingArea::drawRectangleSelection() const {
+    if (selectingUsingRectangle) {
+        glPushMatrix();
+        glTranslated(0, 0, GLO_MAX - 1);
+        GLHelper::setColor(GNENet::selectionColor);
+        glLineWidth(2);
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        glBegin(GL_QUADS);
+        glVertex2d(selectionCorner1.x(), selectionCorner1.y());
+        glVertex2d(selectionCorner1.x(), selectionCorner2.y());
+        glVertex2d(selectionCorner2.x(), selectionCorner2.y());
+        glVertex2d(selectionCorner2.x(), selectionCorner1.y());
+        glEnd();
+        glPopMatrix();
+    }
+}
+
+
+void 
+GNEViewNet::drawLaneCandidates() const {
+    if (myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->isSelectingLanes()) {
+        // draw first point
+        if(myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->getSelectedLanes().size() > 0) {
+            // Push draw matrix
+            glPushMatrix();
+            // obtain first clicked point
+            const Position &firstLanePoint = myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->getSelectedLanes().front().first->getShape().positionAtOffset(
+                                             myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->getSelectedLanes().front().second);
+            // must draw on top of other connections
+            glTranslated(firstLanePoint.x(), firstLanePoint.y(), GLO_JUNCTION + 0.3);
+            GLHelper::setColor(RGBColor::RED);
+            // draw first point
+            GLHelper::drawFilledCircle((double) 1.3, 8);
+            GLHelper::drawText("S", Position(), .1, 1.3, RGBColor::CYAN);
+            // pop draw matrix
+            glPopMatrix();
+        }
+        // draw connections between lanes
+        if(myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->getSelectedLanes().size() > 1) {
+            // iterate over all current selected lanes
+            for (int i = 0; i < myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->getSelectedLanes().size() - 1; i++) {
+                // declare position vector for shape
+                PositionVector shape;
+                // declare vectors for shape rotation and lenghts
+                std::vector<double> shapeRotations, shapeLengths;
+                // obtain GNELanes
+                GNELane* from = myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->getSelectedLanes().at(i).first;
+                GNELane* to = myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->getSelectedLanes().at(i+1).first;
+                // Push draw matrix
+                glPushMatrix();
+                // must draw on top of other connections
+                glTranslated(0, 0, GLO_JUNCTION + 0.2);
+                // obtain connection shape
+                shape = from->getParentEdge().getNBEdge()->getConnection(from->getIndex(), to->getParentEdge().getNBEdge(), to->getIndex()).shape;
+                // set special color
+                GLHelper::setColor(myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->getSelectedLaneColor());
+                // Obtain lengths and shape rotations
+                int segments = (int) shape.size() - 1;
+                if (segments >= 0) {
+                    shapeRotations.reserve(segments);
+                    shapeLengths.reserve(segments);
+                    for (int j = 0; j < segments; j++) {
+                        const Position& f = shape[j];
+                        const Position& s = shape[j + 1];
+                        shapeLengths.push_back(f.distanceTo2D(s));
+                        shapeRotations.push_back((double) atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double)M_PI);
+                    }
+                }
+                // draw a list of lines
+                GLHelper::drawBoxLines(shape, shapeRotations, shapeLengths, 0.2);
+                // pop draw matrix
+                glPopMatrix();
+            }
+            // draw last point
+            glPushMatrix();
+            // obtain last clicked point
+            const Position &lastLanePoint = myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->getSelectedLanes().back().first->getShape().positionAtOffset(
+                                            myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->getSelectedLanes().back().second);
+            // must draw on top of other connections
+            glTranslated(lastLanePoint.x(), lastLanePoint.y(), GLO_JUNCTION + 0.3);
+            GLHelper::setColor(RGBColor::RED);
+            // draw last point
+            GLHelper::drawFilledCircle((double) 1.3, 8);
+            GLHelper::drawText("E", Position(), .1, 1.3, RGBColor::CYAN);
+            // pop draw matrix
+            glPopMatrix();
+        }
+
+    }
+}
+
+
+void 
+GNEViewNet::drawTemporalPolygonShape() const {
+    // check if we're in drawing mode
+    if(myViewParent->getPolygonFrame()->getDrawingMode()->isDrawing()) {
+        const PositionVector& temporalDrawingShape = myViewParent->getPolygonFrame()->getDrawingMode()->getTemporalShape();
+        // draw blue line with the current drawed shape
+        glPushMatrix();
+        glLineWidth(2);
+        GLHelper::setColor(RGBColor::BLUE);
+        GLHelper::drawLine(temporalDrawingShape);
+        glPopMatrix();
+        // draw red line from the last point of shape to the current mouse position
+        if (temporalDrawingShape.size() > 0) {
+            glPushMatrix();
+            glLineWidth(2);
+            // draw last line depending if shift key (delete last created point) is pressed
+            if (myViewParent->getPolygonFrame()->getDrawingMode()->getDeleteLastCreatedPoint()) {
+                GLHelper::setColor(RGBColor::RED);
+            } else {
+                GLHelper::setColor(RGBColor::GREEN);
+            }
+            GLHelper::drawLine(temporalDrawingShape.back(), snapToActiveGrid(getPositionInformation()));
+            glPopMatrix();
+        }
+    }
 }
 
 /****************************************************************************/
