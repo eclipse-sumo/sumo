@@ -164,7 +164,7 @@ GeoConvHelper::init(OptionsCont& oc) {
     double rot = oc.getFloat("proj.rotate");
     Position offset = Position(oc.getFloat("offset.x"), oc.getFloat("offset.y"));
     bool inverse = oc.exists("proj.inverse") && oc.getBool("proj.inverse");
-    bool flatten = oc.getBool("flatten");
+    bool flatten = oc.exists("flatten") && oc.getBool("flatten");
 
     if (oc.getBool("simple-projection")) {
         proj = "-";

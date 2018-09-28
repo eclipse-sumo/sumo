@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Sep 28 14:34:16 2018 by Eclipse SUMO netconvert Version v1_0_1+0110-05ad9f8
+<!-- generated on Fri Sep 28 15:38:46 2018 by Eclipse SUMO netconvert Version v1_0_1+0115-fc19294
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -192,6 +192,9 @@
         <!-- Use YYYY-MM-DD date to determine the readiness of features under construction -->
         <construction-date value="" type="STR"/>
 
+        <!-- Remove all z-data -->
+        <flatten value="false" type="BOOL"/>
+
         <!-- If edge shapes do not end at the node positions, extend them -->
         <plain.extend-edge-shape value="false" synonymes="xml.keep-shape" type="BOOL"/>
 
@@ -257,9 +260,6 @@
 
         <!-- Flips the y-coordinate along zero -->
         <flip-y-axis value="false" synonymes="flip-y" type="BOOL"/>
-
-        <!-- Remove all z-data -->
-        <flatten value="false" type="BOOL"/>
 
         <!-- Enable roundabout-guessing -->
         <roundabouts.guess value="true" synonymes="guess-roundabouts" type="BOOL"/>

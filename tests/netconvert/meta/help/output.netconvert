@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version v1_0_1+0110-05ad9f8
+Eclipse SUMO netconvert Version v1_0_1+0115-fc19294
  Copyright (C) 2001-2018 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
   SUMO.
@@ -107,6 +107,7 @@ Processing Options:
   --construction-date STR              Use YYYY-MM-DD date to determine the
                                          readiness of features under
                                          construction
+  --flatten                            Remove all z-data
   --plain.extend-edge-shape            If edge shapes do not end at the node
                                          positions, extend them
   --numerical-ids                      Remaps alphanumerical IDs of nodes and
@@ -156,7 +157,6 @@ Processing Options:
   --offset.x FLOAT                     Adds FLOAT to net x-positions
   --offset.y FLOAT                     Adds FLOAT to net y-positions
   --flip-y-axis                        Flips the y-coordinate along zero
-  --flatten                            Remove all z-data
   --roundabouts.guess                  Enable roundabout-guessing
   --opposites.guess                    Enable guessing of opposite direction
                                          lanes usable for overtaking
