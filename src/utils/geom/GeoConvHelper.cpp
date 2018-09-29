@@ -430,14 +430,17 @@ GeoConvHelper::getProjString() const {
     return myProjString;
 }
 
+
 const std::string
-GeoConvHelper::getProjStringExpaneded() const {
-    if (myProjection == 0) {
-        return "";
-    } else {
+GeoConvHelper::getProjStringExpanded() const {
+#ifdef HAVE_PROJ
+    if (myProjection != nullptr) {
         return pj_get_def(myProjection, 0);
     }
+#endif
+    return "";
 }
+
 
 void
 GeoConvHelper::computeFinal(bool lefthand) {
