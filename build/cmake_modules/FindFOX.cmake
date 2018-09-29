@@ -18,18 +18,20 @@ set(FOX_FOUND 0)
 if(FOX_LIBRARY AND FOX_CXX_FLAGS)
     SET(FOX_FOUND TRUE)
 else()
-	# In Windows system, find the fox directory using as hint the environment variable "FOX_INCLUDE_DIR"
+    # In Windows system, find the fox directory using as hint the environment variable "FOX_INCLUDE_DIR"
     FIND_PATH(FOX_INCLUDE_DIR NAMES fx.h HINTS $ENV{FOX_INCLUDE_DIR})
-	# In Windows system, find the fox dll using as hint the environment variable "FOX_LIBRARY"
+    # In Windows system, find the fox dll using as hint the environment variable "FOX_LIBRARY"
     FIND_LIBRARY(FOX_LIBRARY NAMES FOXDLL-1.6 HINTS $ENV{FOX_LIBRARY})
-	# if both were found, set flag FOX_FOUND to true
+    # if both were found, set flag FOX_FOUND to true
     IF (FOX_INCLUDE_DIR AND FOX_LIBRARY)
         SET(FOX_FOUND TRUE)
+    ELSE ()
+        SET(FOX_LIBRARY "")
     ENDIF (FOX_INCLUDE_DIR AND FOX_LIBRARY)
 endif()
 
 # if fox library wasn't found and it's required, stop cmake compilation and show error message
 if(FOX_FIND_REQUIRED AND NOT FOX_FOUND)
-	message(FATAL_ERROR "no fox. make sure that env variables FOX_INCLUDE_DIR and FOX_LIBRARY are set")
+    message(FATAL_ERROR "no fox. make sure that env variables FOX_INCLUDE_DIR and FOX_LIBRARY are set")
 endif()
 
