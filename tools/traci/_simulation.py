@@ -278,8 +278,8 @@ class SimulationDomain(Domain):
         return self._getUniversal(tc.VAR_TELEPORT_ENDING_VEHICLES_IDS)
 
     def getDeltaT(self):
-        """getDeltaT() -> integer
-        Returns the length of one simulation step in milliseconds
+        """getDeltaT() -> double
+        Returns the length of one simulation step in seconds
         """
         return self._getUniversal(tc.VAR_DELTA_T)
 
