@@ -46,6 +46,7 @@
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/GNEViewParent.h>
+#include <netedit/changes/GNEChange_Connection.h>
 
 #include "GNEDetectorE2.h"
 #include "GNEAdditionalHandler.h"
@@ -85,11 +86,26 @@ GNEDetectorE2::~GNEDetectorE2() {
 
 bool 
 GNEDetectorE2::isAdditionalValid() const {
-    // with friendly position enabled position are "always fixed"
-    if (myFriendlyPosition) {
-        return true;
+    if(myLanes.size() == 1) {
+        // with friendly position enabled position are "always fixed"
+        if (myFriendlyPosition) {
+            return true;
+        } else {
+            return (myPositionOverLane >= 0) && ((myPositionOverLane + myLength) <= myLanes.front()->getParentEdge().getNBEdge()->getFinalLength());
+        }
     } else {
-        return (myPositionOverLane >= 0) && ((myPositionOverLane + myLength) <= myLanes.front()->getParentEdge().getNBEdge()->getFinalLength());
+        // first check if there is connection between all consecutive lanes
+        if (myE2valid) {
+            // with friendly position enabled position are "always fixed"
+            if (myFriendlyPosition) {
+                return true;
+            } else {
+                return (myPositionOverLane >= 0) && ((myPositionOverLane) <= myLanes.back()->getParentEdge().getNBEdge()->getFinalLength() &&
+                        myEndPositionOverLane >= 0) && ((myEndPositionOverLane) <= myLanes.back()->getParentEdge().getNBEdge()->getFinalLength());
+            }
+        } else {
+            return false;
+        }
     }
 }
 
@@ -97,15 +113,44 @@ GNEDetectorE2::isAdditionalValid() const {
 std::string 
 GNEDetectorE2::getAdditionalProblem() const {
     // declare variable for error position 
-    std::string errorPosition;
-    // check positions over lane
-    if (myPositionOverLane < 0) {
-        errorPosition = (toString(SUMO_ATTR_POSITION) + " < 0");
+    std::string errorFirstLanePosition, separator, errorLastLanePosition;
+    if(myLanes.size() == 1) {
+        // check positions over lane
+        if (myPositionOverLane < 0) {
+            errorFirstLanePosition = (toString(SUMO_ATTR_POSITION) + " < 0");
+        }
+        if (myPositionOverLane > myLanes.front()->getParentEdge().getNBEdge()->getFinalLength()) {
+            errorFirstLanePosition = (toString(SUMO_ATTR_POSITION) + " > lanes's length");
+        }
+        if ((myPositionOverLane + myLength) > myLanes.front()->getParentEdge().getNBEdge()->getFinalLength()) {
+            errorFirstLanePosition = (toString(SUMO_ATTR_POSITION) + " + " + toString(SUMO_ATTR_LENGTH) + " > lanes's length");
+        }
+    } else {
+        if (myE2valid) {
+            // check positions over first lane
+            if (myPositionOverLane < 0) {
+                errorFirstLanePosition = (toString(SUMO_ATTR_POSITION) + " < 0");
+            }
+            if (myPositionOverLane > myLanes.front()->getParentEdge().getNBEdge()->getFinalLength()) {
+                errorFirstLanePosition = (toString(SUMO_ATTR_POSITION) + " > lanes's length");
+            }
+            // check positions over last lane
+            if (myPositionOverLane < 0) {
+                errorLastLanePosition = (toString(SUMO_ATTR_ENDPOS) + " < 0");
+            }
+            if (myPositionOverLane > myLanes.back()->getParentEdge().getNBEdge()->getFinalLength()) {
+                errorLastLanePosition = (toString(SUMO_ATTR_ENDPOS) + " > lanes's length");
+            }
+        } else {
+            errorFirstLanePosition = "lanes aren't consecutives";
+        }
     }
-    if ((myPositionOverLane + myLength) > myLanes.front()->getParentEdge().getNBEdge()->getFinalLength()) {
-        errorPosition = (toString(SUMO_ATTR_POSITION) + " > lanes's length");
+    // check separator
+    if ((errorFirstLanePosition.size() > 0) && (errorLastLanePosition.size() > 0)) {
+        separator = " and ";
     }
-    return errorPosition;
+
+    return errorFirstLanePosition + separator + errorLastLanePosition;
 }
 
 
@@ -120,6 +165,30 @@ GNEDetectorE2::fixAdditionalProblem() {
         // set new position and length
         setAttribute(SUMO_ATTR_POSITION, toString(newPositionOverLane), myViewNet->getUndoList());
         setAttribute(SUMO_ATTR_LENGTH, toString(myLength), myViewNet->getUndoList());
+    } else {
+        // build connections between all consecutive lanes
+        bool foundConnection = true;
+        int i = 0;
+        // iterate over all lanes, and stop if myE2valid is false
+        while (i < ((int)myLanes.size()-1)) {
+            // change foundConnection to false
+            foundConnection = false;
+            // if a connection betwen "from" lane and "to" lane of connection is found, change myE2valid to true again
+            for (auto j : myLanes.at(i)->getParentEdge().getGNEConnections()) {
+                if(j->getLaneFrom() == myLanes.at(i) && j->getLaneTo() == myLanes.at(i+1)) {
+                    foundConnection = true;
+                }
+            }
+            // if connection wasn't found
+            if(!foundConnection) {
+                // create new connection manually
+                NBEdge::Connection newCon(myLanes.at(i)->getIndex(), myLanes.at(i+1)->getParentEdge().getNBEdge(), myLanes.at(i+1)->getIndex());
+                // allow to undo creation of new lane
+                myViewNet->getUndoList()->add(new GNEChange_Connection(&myLanes.at(i)->getParentEdge(), newCon, false, true), true);
+            }
+            // update lane iterator
+            i++;
+        }
     }
 }
 

@@ -46,7 +46,7 @@ class GNEDialog_FixAdditionalPositions : public FXDialogBox {
 
 public:
     /// @brief Constructor
-    GNEDialog_FixAdditionalPositions(GNEViewNet* viewNet, const std::vector<GNEAdditional*>& invalidStoppingPlaces, const std::vector<GNEAdditional*>& invalidDetectors);
+    GNEDialog_FixAdditionalPositions(GNEViewNet* viewNet, const std::vector<GNEAdditional*>& invalidSingleLaneAdditionals, const std::vector<GNEAdditional*>& invalidMultiLaneAdditionals);
 
     /// @brief destructor
     ~GNEDialog_FixAdditionalPositions();
@@ -108,8 +108,8 @@ protected:
         /// @brief Option "build connections between lanes"
         FXRadioButton* buildConnectionBetweenLanes;
 
-        /// @brief Option "remove non connected lanes"
-        FXRadioButton* removeNonConnectedLanes;
+        /// @brief Option "Activate friendlyPos and save"
+        FXRadioButton* activateFriendlyPositionAndSave;
 
         /// @brief Option "remove invalid elements"
         FXRadioButton* removeInvalidElements;
@@ -124,11 +124,11 @@ protected:
     /// @brief view net
     GNEViewNet* myViewNet;
 
-    /// @brief vector with the invalid stoppingplaces
-    std::vector<GNEAdditional*> myInvalidStoppingPlaces;
+    /// @brief vector with the invalid single-lane additionals
+    std::vector<GNEAdditional*> myInvalidSingleLaneAdditionals;
 
-    /// @brief vector with the invalid stoppingplaces
-    std::vector<GNEAdditional*> myInvalidDetectors;
+    /// @brief vector with the invalid multi-lane additionals
+    std::vector<GNEAdditional*> myInvalidMultiLaneAdditionals;
 
     /// @brief list with the stoppingPlaces and detectors
     FXTable* myTable;

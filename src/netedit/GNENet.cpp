@@ -1876,25 +1876,25 @@ GNENet::requiereSaveAdditionals(bool value) {
 
 void
 GNENet::saveAdditionals(const std::string& filename) {
-    // obtain invalid stopping places and detectors
-    std::vector<GNEAdditional*> invalidStoppingPlaces;
-    std::vector<GNEAdditional*> invalidDetectors;
+    // obtain invalid additionals depending of number of their lane parents
+    std::vector<GNEAdditional*> invalidSingleLaneAdditionals;
+    std::vector<GNEAdditional*> invalidMultiLaneAdditionals;
     // iterate over additionals and obtain invalids
     for (auto i : myAttributeCarriers.additionals) {
         for (auto j : i.second) {
             // check if has to be fixed
-            if (GNEAttributeCarrier::getTagProperties(j.second->getTag()).isStoppingPlace() && !j.second->isAdditionalValid()) {
-                invalidStoppingPlaces.push_back(j.second);
-            } else if (GNEAttributeCarrier::getTagProperties(j.second->getTag()).isDetector() && !j.second->isAdditionalValid()) {
-                invalidDetectors.push_back(j.second);
+            if (GNEAttributeCarrier::getTagProperties(j.second->getTag()).canBePlacedOverLane() && !j.second->isAdditionalValid()) {
+                invalidSingleLaneAdditionals.push_back(j.second);
+            } else if (GNEAttributeCarrier::getTagProperties(j.second->getTag()).canBePlacedOverLanes() && !j.second->isAdditionalValid()) {
+                invalidMultiLaneAdditionals.push_back(j.second);
             }
         }
     }
     // if there are invalid StoppingPlaces or detectors, open GNEDialog_FixAdditionalPositions
-    if (invalidStoppingPlaces.size() > 0 || invalidDetectors.size() > 0) {
+    if (invalidSingleLaneAdditionals.size() > 0 || invalidMultiLaneAdditionals.size() > 0) {
         // 0 -> Canceled Saving, with or whithout selecting invalid stopping places and E2
         // 1 -> Invalid stoppingPlaces and E2 fixed, friendlyPos enabled, or saved with invalid positions
-        GNEDialog_FixAdditionalPositions fixAdditionalPositionsDialog(myViewNet, invalidStoppingPlaces, invalidDetectors);
+        GNEDialog_FixAdditionalPositions fixAdditionalPositionsDialog(myViewNet, invalidSingleLaneAdditionals, invalidMultiLaneAdditionals);
         if (fixAdditionalPositionsDialog.execute() == 0) {
             // Here a console message
             ;

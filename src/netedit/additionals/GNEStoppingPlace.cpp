@@ -99,11 +99,19 @@ GNEStoppingPlace::getAdditionalProblem() const {
     // declare variables 
     std::string errorStart, separator, errorEnd;
     // check positions over lane
-    if (canParse<double>(myStartPosition) && (parse<double>(myStartPosition) < 0)) {
-        errorStart = (toString(SUMO_ATTR_STARTPOS) + " < 0");
+    if(canParse<double>(myStartPosition)) {
+        if (parse<double>(myStartPosition) < 0) {
+            errorStart = (toString(SUMO_ATTR_STARTPOS) + " < 0");
+        } else if (parse<double>(myStartPosition) > myLane->getParentEdge().getNBEdge()->getFinalLength()) {
+            errorStart = (toString(SUMO_ATTR_STARTPOS) + " > lanes's length");
+        }
     }
-    if (canParse<double>(myEndPosition) && (parse<double>(myEndPosition) > myLane->getParentEdge().getNBEdge()->getFinalLength())) {
-        errorEnd = (toString(SUMO_ATTR_ENDPOS) + " > lanes's length");
+    if(canParse<double>(myEndPosition)) {
+        if (parse<double>(myEndPosition) < 0) {
+            errorEnd = (toString(SUMO_ATTR_ENDPOS) + " < 0");
+        } else if (parse<double>(myEndPosition) > myLane->getParentEdge().getNBEdge()->getFinalLength()) {
+            errorEnd = (toString(SUMO_ATTR_ENDPOS) + " > lanes's length");
+        }
     }
     // check separator
     if ((errorStart.size() > 0) && (errorEnd.size() > 0)) {
