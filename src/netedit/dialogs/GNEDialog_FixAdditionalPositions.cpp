@@ -152,24 +152,8 @@ GNEDialog_FixAdditionalPositions::GNEDialog_FixAdditionalPositions(GNEViewNet* v
         // Update index
         indexRow++;
     }
-    // create label for elements
-    new FXLabel(mainFrame, "Select a solution:", 0, GUIDesignLabelCenterThick);
-    // create horizontal frames for radio buttons
-    FXHorizontalFrame* RadioButtons = new FXHorizontalFrame(mainFrame, GUIDesignHorizontalFrame);
-    // create Vertical Frame for left options
-    FXVerticalFrame* RadioButtonsLeft = new FXVerticalFrame(RadioButtons, GUIDesignAuxiliarVerticalFrame);
-    myOptionA = new FXRadioButton(RadioButtonsLeft, "Activate friendlyPos and save\t\tFriendly pos parameter will be activated in all stopping places and E2 detectors",
-                                  this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
-    myOptionC = new FXRadioButton(RadioButtonsLeft, "Save invalid positions\t\tSave stopping places and E2 detectors with invalid positions",
-                                  this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
-    // create Vertical Frame for right options
-    FXVerticalFrame* RadioButtonsRight = new FXVerticalFrame(RadioButtons, GUIDesignAuxiliarVerticalFrame);
-    myOptionB = new FXRadioButton(RadioButtonsRight, "Fix positions and save\t\tPosition of stopping places and E2 detectors will be fixed",
-                                  this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
-    myOptionD = new FXRadioButton(RadioButtonsRight, "Select invalid additionals\t\tCancel saving of additionals and select invalid stopping places and E2 detectors",
-                                  this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
-    // leave option a as default
-    myOptionA->setCheck(true);
+    // create position options
+    myPositionOptions.buildPositionOptions(this, mainFrame);
     // create dialog buttons bot centered
     FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(mainFrame, GUIDesignHorizontalFrame);
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
@@ -187,39 +171,14 @@ GNEDialog_FixAdditionalPositions::~GNEDialog_FixAdditionalPositions() {
 
 long
 GNEDialog_FixAdditionalPositions::onCmdSelectOption(FXObject* obj, FXSelector, void*) {
-    if (obj == myOptionA) {
-        myOptionA->setCheck(true);
-        myOptionB->setCheck(false);
-        myOptionC->setCheck(false);
-        myOptionD->setCheck(false);
-        return 1;
-    } else if (obj == myOptionB) {
-        myOptionA->setCheck(false);
-        myOptionB->setCheck(true);
-        myOptionC->setCheck(false);
-        myOptionD->setCheck(false);
-        return 1;
-    } else if (obj == myOptionC) {
-        myOptionA->setCheck(false);
-        myOptionB->setCheck(false);
-        myOptionC->setCheck(true);
-        myOptionD->setCheck(false);
-        return 1;
-    } else if (obj == myOptionD) {
-        myOptionA->setCheck(false);
-        myOptionB->setCheck(false);
-        myOptionC->setCheck(false);
-        myOptionD->setCheck(true);
-        return 1;
-    } else {
-        return 0;
-    }
+    myPositionOptions.selectOption(obj);
+    return 1;
 }
 
 
 long
 GNEDialog_FixAdditionalPositions::onCmdAccept(FXObject*, FXSelector, void*) {
-    if (myOptionA->getCheck() == TRUE) {
+    if (myPositionOptions.activateFriendlyPositionAndSave->getCheck() == TRUE) {
         myViewNet->getUndoList()->p_begin(toString(SUMO_ATTR_FRIENDLY_POS) + " of invalid additionals");
         // iterate over invalid stopping places to enable friendly position
         for (auto i : myInvalidStoppingPlaces) {
@@ -233,7 +192,7 @@ GNEDialog_FixAdditionalPositions::onCmdAccept(FXObject*, FXSelector, void*) {
         // stop modal with TRUE (continue saving)
         getApp()->stopModal(this, TRUE);
         return 1;
-    } else if (myOptionB->getCheck() == TRUE) {
+    } else if (myPositionOptions.fixPositionsAndSave->getCheck() == TRUE) {
         myViewNet->getUndoList()->p_begin("Fixed positions of invalid additionals");
         // iterate over invalid stopping places to fix positions
         for (auto i = myInvalidStoppingPlaces.begin(); i != myInvalidStoppingPlaces.end(); i++) {
@@ -275,12 +234,11 @@ GNEDialog_FixAdditionalPositions::onCmdAccept(FXObject*, FXSelector, void*) {
         // stop modal with TRUE (continue saving)
         getApp()->stopModal(this, TRUE);
         return 1;
-    } else if (myOptionC->getCheck() == TRUE) {
+    } else if (myPositionOptions.saveInvalid->getCheck() == TRUE) {
         // simply stop modal with TRUE to save additionals with invalid positions
         getApp()->stopModal(this, TRUE);
         return 1;
-    } else if (myOptionD->getCheck() == TRUE) {
-        std::set<GUIGlID> GLIDsToSelect;
+    } else if (myPositionOptions.selectInvalidStopsAndCancel->getCheck() == TRUE) {
         myViewNet->getUndoList()->p_begin("select invalid additionals");
         for (auto i : myInvalidStoppingPlaces) {
             i->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
@@ -302,6 +260,57 @@ GNEDialog_FixAdditionalPositions::onCmdCancel(FXObject*, FXSelector, void*) {
     // Stop Modal (abort saving)
     getApp()->stopModal(this, FALSE);
     return 1;
+}
+
+
+void 
+GNEDialog_FixAdditionalPositions::PositionOptions::buildPositionOptions(GNEDialog_FixAdditionalPositions *fixAdditionalPositions, FXVerticalFrame* mainFrame) {
+    // create label for elements
+    new FXLabel(mainFrame, "Select a solution:", 0, GUIDesignLabelCenterThick);
+    // create horizontal frames for radio buttons
+    FXHorizontalFrame* RadioButtons = new FXHorizontalFrame(mainFrame, GUIDesignHorizontalFrame);
+    // create Vertical Frame for left options
+    FXVerticalFrame* RadioButtonsLeft = new FXVerticalFrame(RadioButtons, GUIDesignAuxiliarVerticalFrame);
+    activateFriendlyPositionAndSave = new FXRadioButton(RadioButtonsLeft, "Activate friendlyPos and save\t\tFriendly pos parameter will be activated in all stopping places and E2 detectors",
+                                  fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    saveInvalid = new FXRadioButton(RadioButtonsLeft, "Save invalid positions\t\tSave stopping places and E2 detectors with invalid positions",
+                                  fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    // create Vertical Frame for right options
+    FXVerticalFrame* RadioButtonsRight = new FXVerticalFrame(RadioButtons, GUIDesignAuxiliarVerticalFrame);
+    fixPositionsAndSave = new FXRadioButton(RadioButtonsRight, "Fix positions and save\t\tPosition of stopping places and E2 detectors will be fixed",
+                                  fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    selectInvalidStopsAndCancel = new FXRadioButton(RadioButtonsRight, "Select invalid additionals\t\tCancel saving of additionals and select invalid stopping places and E2 detectors",
+                                  fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    // leave option "activateFriendlyPositionAndSave" as default
+    activateFriendlyPositionAndSave->setCheck(true);
+}
+
+
+void 
+GNEDialog_FixAdditionalPositions::PositionOptions::selectOption(FXObject* option) {
+     if (option == activateFriendlyPositionAndSave) {
+        activateFriendlyPositionAndSave->setCheck(true);
+        fixPositionsAndSave->setCheck(false);
+        saveInvalid->setCheck(false);
+        selectInvalidStopsAndCancel->setCheck(false);
+    } else if (option == fixPositionsAndSave) {
+        activateFriendlyPositionAndSave->setCheck(false);
+        fixPositionsAndSave->setCheck(true);
+        saveInvalid->setCheck(false);
+        selectInvalidStopsAndCancel->setCheck(false);
+    } else if (option == saveInvalid) {
+        activateFriendlyPositionAndSave->setCheck(false);
+        fixPositionsAndSave->setCheck(false);
+        saveInvalid->setCheck(true);
+        selectInvalidStopsAndCancel->setCheck(false);
+    } else if (option == selectInvalidStopsAndCancel) {
+        activateFriendlyPositionAndSave->setCheck(false);
+        fixPositionsAndSave->setCheck(false);
+        saveInvalid->setCheck(false);
+        selectInvalidStopsAndCancel->setCheck(true);
+    } else {
+        throw ProcessError("Invalid PositionOptions");
+    }
 }
 
 /****************************************************************************/

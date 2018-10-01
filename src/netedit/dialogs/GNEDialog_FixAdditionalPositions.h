@@ -64,6 +64,27 @@ public:
     /// @}
 
 protected:
+    /// @brief struct for group all radio buttons related with position
+    struct PositionOptions {
+        /// @brief build Position Options
+        void buildPositionOptions(GNEDialog_FixAdditionalPositions *fixAdditionalPositions, FXVerticalFrame* mainFrame);
+
+        /// @brief select option
+        void selectOption(FXObject* option);
+
+        /// @brief Option "Activate friendlyPos and save"
+        FXRadioButton* activateFriendlyPositionAndSave;
+
+        /// @brief Option "Fix Positions and save"
+        FXRadioButton* fixPositionsAndSave;
+
+        /// @brief Option "Save invalid"
+        FXRadioButton* saveInvalid;
+
+        /// @brief Option "Select invalid stops and cancel"
+        FXRadioButton* selectInvalidStopsAndCancel;
+    };
+
     /// @brief FOX needs this
     GNEDialog_FixAdditionalPositions() {}
 
@@ -79,17 +100,8 @@ protected:
     /// @brief list with the stoppingPlaces and detectors
     FXTable* myTable;
 
-    /// @brief Option "Activate friendlyPos and save"
-    FXRadioButton* myOptionA;
-
-    /// @brief Option "Fix Positions and save"
-    FXRadioButton* myOptionB;
-
-    /// @brief Option "Save invalid"
-    FXRadioButton* myOptionC;
-
-    /// @brief Option "Select invalid stops and cancel"
-    FXRadioButton* myOptionD;
+    /// @brief struct with position options
+    PositionOptions myPositionOptions;
 
     /// @brief accept button
     FXButton* myAcceptButton;
