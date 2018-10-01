@@ -72,6 +72,12 @@ protected:
         /// @brief select option
         void selectOption(FXObject* option);
 
+        /// @brief enable position options
+        void enablePositionOptions();
+
+        /// @brief disable position options
+        void disablePositionOptions();
+
         /// @brief Option "Activate friendlyPos and save"
         FXRadioButton* activateFriendlyPositionAndSave;
 
@@ -83,6 +89,33 @@ protected:
 
         /// @brief Option "Select invalid stops and cancel"
         FXRadioButton* selectInvalidStopsAndCancel;
+    };
+
+    /// @brief struct for group all radio buttons related with position
+    struct ConsecutiveLaneOptions {
+        /// @brief build consecutive lane Options
+        void buildConsecutiveLaneOptions(GNEDialog_FixAdditionalPositions *fixAdditionalPositions, FXVerticalFrame* mainFrame);
+
+        /// @brief select option
+        void selectOption(FXObject* option);
+
+        /// @brief enable consecutive lane options
+        void enableConsecutiveLaneOptions();
+
+        /// @brief disable consecutive lane options
+        void disableConsecutiveLaneOptions();
+
+        /// @brief Option "build connections between lanes"
+        FXRadioButton* buildConnectionBetweenLanes;
+
+        /// @brief Option "remove non connected lanes"
+        FXRadioButton* removeNonConnectedLanes;
+
+        /// @brief Option "remove invalid elements"
+        FXRadioButton* removeInvalidElements;
+
+        /// @brief Option "select invalid elements"
+        FXRadioButton* selectInvalidElements;
     };
 
     /// @brief FOX needs this
@@ -102,6 +135,9 @@ protected:
 
     /// @brief struct with position options
     PositionOptions myPositionOptions;
+
+    /// @brief struct with the consecutive lane options
+    ConsecutiveLaneOptions myConsecutiveLaneOptions;
 
     /// @brief accept button
     FXButton* myAcceptButton;

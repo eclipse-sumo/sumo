@@ -154,7 +154,10 @@ GNEDialog_FixAdditionalPositions::GNEDialog_FixAdditionalPositions(GNEViewNet* v
     }
     // create position options
     myPositionOptions.buildPositionOptions(this, mainFrame);
+    // create consecutive lane options
+    myConsecutiveLaneOptions.buildConsecutiveLaneOptions(this, mainFrame);
     // create dialog buttons bot centered
+    new FXHorizontalSeparator(mainFrame, GUIDesignHorizontalSeparator);
     FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(mainFrame, GUIDesignHorizontalFrame);
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
     myAcceptButton = new FXButton(buttonsFrame, FXWindow::tr("&Accept"), GUIIconSubSys::getIcon(ICON_ACCEPT), this, MID_GNE_ADDITIONALDIALOG_BUTTONACCEPT, GUIDesignButtonAccept);
@@ -172,6 +175,7 @@ GNEDialog_FixAdditionalPositions::~GNEDialog_FixAdditionalPositions() {
 long
 GNEDialog_FixAdditionalPositions::onCmdSelectOption(FXObject* obj, FXSelector, void*) {
     myPositionOptions.selectOption(obj);
+    myConsecutiveLaneOptions.selectOption(obj);
     return 1;
 }
 
@@ -266,7 +270,7 @@ GNEDialog_FixAdditionalPositions::onCmdCancel(FXObject*, FXSelector, void*) {
 void 
 GNEDialog_FixAdditionalPositions::PositionOptions::buildPositionOptions(GNEDialog_FixAdditionalPositions *fixAdditionalPositions, FXVerticalFrame* mainFrame) {
     // create label for elements
-    new FXLabel(mainFrame, "Select a solution:", 0, GUIDesignLabelCenterThick);
+    new FXLabel(mainFrame, "Select a solution for StoppingPlaces and E2 detectors:", 0, GUIDesignLabelCenterThick);
     // create horizontal frames for radio buttons
     FXHorizontalFrame* RadioButtons = new FXHorizontalFrame(mainFrame, GUIDesignHorizontalFrame);
     // create Vertical Frame for left options
@@ -308,9 +312,92 @@ GNEDialog_FixAdditionalPositions::PositionOptions::selectOption(FXObject* option
         fixPositionsAndSave->setCheck(false);
         saveInvalid->setCheck(false);
         selectInvalidStopsAndCancel->setCheck(true);
-    } else {
-        throw ProcessError("Invalid PositionOptions");
     }
+}
+
+
+void 
+GNEDialog_FixAdditionalPositions::PositionOptions::enablePositionOptions() {
+    activateFriendlyPositionAndSave->enable();
+    fixPositionsAndSave->enable();
+    saveInvalid->enable();
+    selectInvalidStopsAndCancel->enable();
+}
+
+
+void 
+GNEDialog_FixAdditionalPositions::PositionOptions::disablePositionOptions() {
+    activateFriendlyPositionAndSave->disable();
+    fixPositionsAndSave->disable();
+    saveInvalid->disable();
+    selectInvalidStopsAndCancel->disable();
+}
+
+
+void 
+GNEDialog_FixAdditionalPositions::ConsecutiveLaneOptions::buildConsecutiveLaneOptions(GNEDialog_FixAdditionalPositions *fixAdditionalPositions, FXVerticalFrame* mainFrame) {
+    // create label for elements
+    new FXLabel(mainFrame, "Select a solution for Multilane E2 detectors:", 0, GUIDesignLabelCenterThick);
+    // create horizontal frames for radio buttons
+    FXHorizontalFrame* RadioButtons = new FXHorizontalFrame(mainFrame, GUIDesignHorizontalFrame);
+    // create Vertical Frame for left options
+    FXVerticalFrame* RadioButtonsLeft = new FXVerticalFrame(RadioButtons, GUIDesignAuxiliarVerticalFrame);
+    buildConnectionBetweenLanes = new FXRadioButton(RadioButtonsLeft, "Build connections between lanes\t\tNew connections will be created between non-connected lanes",
+                                  fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    removeNonConnectedLanes = new FXRadioButton(RadioButtonsLeft, "Remove non-connected lanes\t\tRemove non connected lanes (note: E2 could be removed)",
+                                  fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    // create Vertical Frame for right options
+    FXVerticalFrame* RadioButtonsRight = new FXVerticalFrame(RadioButtons, GUIDesignAuxiliarVerticalFrame);
+    removeInvalidElements = new FXRadioButton(RadioButtonsRight, "Remove invalid E2 detectors\t\tRemove Multilane E2 Detectors with non-connected lanes",
+                                  fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    selectInvalidElements = new FXRadioButton(RadioButtonsRight, "Select invalid E2 detectors\t\tCancel saving of additionals and select invalid E2 Multilane detectors",
+                                  fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    // leave option "buildConnectionBetweenLanes" as default
+    buildConnectionBetweenLanes->setCheck(true);
+}
+
+
+void 
+GNEDialog_FixAdditionalPositions::ConsecutiveLaneOptions::selectOption(FXObject* option) {
+    if (option == buildConnectionBetweenLanes) {
+        buildConnectionBetweenLanes->setCheck(true);
+        removeNonConnectedLanes->setCheck(false);
+        removeInvalidElements->setCheck(false);
+        selectInvalidElements->setCheck(false);
+    } else if (option == removeNonConnectedLanes) {
+        buildConnectionBetweenLanes->setCheck(false);
+        removeNonConnectedLanes->setCheck(true);
+        removeInvalidElements->setCheck(false);
+        selectInvalidElements->setCheck(false);
+    } else if (option == removeInvalidElements) {
+        buildConnectionBetweenLanes->setCheck(false);
+        removeNonConnectedLanes->setCheck(false);
+        removeInvalidElements->setCheck(true);
+        selectInvalidElements->setCheck(false);
+    } else if (option == selectInvalidElements) {
+        buildConnectionBetweenLanes->setCheck(false);
+        removeNonConnectedLanes->setCheck(false);
+        removeInvalidElements->setCheck(false);
+        selectInvalidElements->setCheck(true);
+    }
+}
+
+
+void 
+GNEDialog_FixAdditionalPositions::ConsecutiveLaneOptions::enableConsecutiveLaneOptions() {
+    buildConnectionBetweenLanes->enable();
+    removeNonConnectedLanes->enable();
+    removeInvalidElements->enable();
+    selectInvalidElements->enable();
+}
+
+
+void 
+GNEDialog_FixAdditionalPositions::ConsecutiveLaneOptions::disableConsecutiveLaneOptions() {
+    buildConnectionBetweenLanes->disable();
+    removeNonConnectedLanes->disable();
+    removeInvalidElements->disable();
+    selectInvalidElements->disable();
 }
 
 /****************************************************************************/
