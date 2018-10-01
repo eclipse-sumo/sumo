@@ -220,6 +220,24 @@ GNEAdditional::writeAdditional(OutputDevice& device) const {
 }
 
 
+bool 
+GNEAdditional::isAdditionalValid() const {
+    return true;
+}
+
+
+std::string 
+GNEAdditional::getAdditionalProblem() const {
+    return "";
+}
+
+
+void 
+GNEAdditional::fixAdditionalProblem() {
+    throw InvalidArgument(toString(getTag()) + " cannot fix any problem");
+}
+
+
 void
 GNEAdditional::openAdditionalDialog() {
     throw InvalidArgument(toString(getTag()) + " doesn't have an additional dialog");

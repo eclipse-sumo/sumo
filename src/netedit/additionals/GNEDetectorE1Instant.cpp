@@ -45,6 +45,7 @@
 #include <netedit/GNEViewParent.h>
 
 #include "GNEDetectorE1Instant.h"
+#include "GNEAdditionalHandler.h"
 
 
 // ===========================================================================
@@ -58,6 +59,43 @@ GNEDetectorE1Instant::GNEDetectorE1Instant(const std::string& id, GNELane* lane,
 
 
 GNEDetectorE1Instant::~GNEDetectorE1Instant() {
+}
+
+
+bool 
+GNEDetectorE1Instant::isAdditionalValid() const {
+    // with friendly position enabled position are "always fixed"
+    if (myFriendlyPosition) {
+        return true;
+    } else {
+        return (myPositionOverLane >= 0) && (myPositionOverLane <= myLane->getParentEdge().getNBEdge()->getFinalLength());
+    }
+}
+
+
+std::string 
+GNEDetectorE1Instant::getAdditionalProblem() const {
+    // declare variable for error position 
+    std::string errorPosition;
+    // check positions over lane
+    if (myPositionOverLane < 0) {
+        errorPosition = (toString(SUMO_ATTR_POSITION) + " < 0");
+    }
+    if (myPositionOverLane > myLane->getParentEdge().getNBEdge()->getFinalLength()) {
+        errorPosition = (toString(SUMO_ATTR_POSITION) + " > lanes's length");
+    }
+    return errorPosition;
+}
+
+
+void 
+GNEDetectorE1Instant::fixAdditionalProblem() {
+    // declare new position
+    double newPositionOverLane = myPositionOverLane;
+    // fix pos and lenght  checkAndFixDetectorPositionPosition
+    GNEAdditionalHandler::checkAndFixDetectorPositionPosition(newPositionOverLane, myLane->getParentEdge().getNBEdge()->getFinalLength(), true);
+    // set new position
+    setAttribute(SUMO_ATTR_POSITION, toString(newPositionOverLane), myViewNet->getUndoList());
 }
 
 
@@ -116,17 +154,6 @@ GNEDetectorE1Instant::updateGeometry(bool updateGrid) {
     // last step is to check if object has to be added into grid (SUMOTree) again
     if (updateGrid) {
         myViewNet->getNet()->addGLObjectIntoGrid(this);
-    }
-}
-
-
-bool 
-GNEDetectorE1Instant::isDetectorPositionFixed() const {
-    // with friendly position enabled position are "always fixed"
-    if (myFriendlyPosition) {
-        return true;
-    } else {
-        return (myPositionOverLane >= 0) && (myPositionOverLane <= myLane->getParentEdge().getNBEdge()->getFinalLength());
     }
 }
 

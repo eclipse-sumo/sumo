@@ -109,10 +109,22 @@ public:
     /// @brief Destructor
     ~GNEAdditional();
 
+    /// @name members and functions relative to write additionals into XML
+    /// @{
     /**@brief writte additional element into a xml file
      * @param[in] device device in which write parameters of additional element
      */
     void writeAdditional(OutputDevice& device) const;
+
+    /// @brief check if current additional is valid to be writed into XML (by default true, can be reimplemented in childs)
+    virtual bool isAdditionalValid() const;
+
+    /// @brief return a string with the current additional problem (by default empty, can be reimplemented in childs) 
+    virtual std::string getAdditionalProblem() const;
+
+    /// @brief fix additional problem (by default throw an exception, has to be reimplemented in childs) 
+    virtual void fixAdditionalProblem();
+    /// @}
 
     /**@brief open Additional Dialog
      * @note: if additional needs an additional dialog, this function has to be implemented in childrens (see GNERerouter and GNEVariableSpeedSign)
@@ -471,7 +483,6 @@ protected:
     * @throw exception if additional with ID newAdditionalParentID doesn't exist
     */
     void changeSecondAdditionalParent(const std::string& newAdditionalParentID);
-
     /// @}
 
 private:

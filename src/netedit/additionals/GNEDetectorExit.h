@@ -53,11 +53,20 @@ public:
     /// @brief destructor
     ~GNEDetectorExit();
 
+    /// @name members and functions relative to write additionals into XML
+    /// @{
+    /// @brief check if current additional is valid to be writed into XML
+    bool isAdditionalValid() const;
+
+    /// @brief return a string with the current additional problem 
+    std::string getAdditionalProblem() const;
+
+    /// @brief fix additional problem
+    void fixAdditionalProblem();
+    /// @}
+
     /// @name inherited from GNEDetector
     /// @{
-    /// @brief check if Position of detector is fixed
-    bool isDetectorPositionFixed() const;
-
     /// @brief get lane
     GNELane* getLane() const;
     /// @}

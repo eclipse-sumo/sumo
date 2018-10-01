@@ -48,6 +48,7 @@
 #include <netedit/GNEViewParent.h>
 
 #include "GNEDetectorE2.h"
+#include "GNEAdditionalHandler.h"
 
 
 // ===========================================================================
@@ -79,6 +80,47 @@ GNEDetectorE2::GNEDetectorE2(const std::string& id, std::vector<GNELane*> lanes,
 
 
 GNEDetectorE2::~GNEDetectorE2() {
+}
+
+
+bool 
+GNEDetectorE2::isAdditionalValid() const {
+    // with friendly position enabled position are "always fixed"
+    if (myFriendlyPosition) {
+        return true;
+    } else {
+        return (myPositionOverLane >= 0) && ((myPositionOverLane + myLength) <= myLanes.front()->getParentEdge().getNBEdge()->getFinalLength());
+    }
+}
+
+
+std::string 
+GNEDetectorE2::getAdditionalProblem() const {
+    // declare variable for error position 
+    std::string errorPosition;
+    // check positions over lane
+    if (myPositionOverLane < 0) {
+        errorPosition = (toString(SUMO_ATTR_POSITION) + " < 0");
+    }
+    if ((myPositionOverLane + myLength) > myLanes.front()->getParentEdge().getNBEdge()->getFinalLength()) {
+        errorPosition = (toString(SUMO_ATTR_POSITION) + " > lanes's length");
+    }
+    return errorPosition;
+}
+
+
+void 
+GNEDetectorE2::fixAdditionalProblem() {
+    if(myLanes.size() == 1) {
+        // obtain position and lenght
+        double newPositionOverLane = myPositionOverLane;
+        double newLength = myLength;
+        // fix pos and lenght using fixE2DetectorPositionPosition
+        GNEAdditionalHandler::fixE2DetectorPositionPosition(newPositionOverLane, newLength, myLanes.at(0)->getParentEdge().getNBEdge()->getFinalLength(), true);
+        // set new position and length
+        setAttribute(SUMO_ATTR_POSITION, toString(newPositionOverLane), myViewNet->getUndoList());
+        setAttribute(SUMO_ATTR_LENGTH, toString(myLength), myViewNet->getUndoList());
+    }
 }
 
 
@@ -207,7 +249,6 @@ GNEDetectorE2::updateGeometry(bool updateGrid) {
             }
         }
 
-
         // append shapes of intermediate lanes AND connections (if exist)
         for (int i = 1; i < (myLanes.size() - 1); i++) {
             // add lane shape
@@ -271,17 +312,6 @@ GNEDetectorE2::checkE2MultilaneIntegrity() {
         }
         // update iterator
         i++;
-    }
-}
-
-
-bool
-GNEDetectorE2::isDetectorPositionFixed() const {
-    // with friendly position enabled position are "always fixed"
-    if (myFriendlyPosition) {
-        return true;
-    } else {
-        return (myPositionOverLane >= 0) && ((myPositionOverLane + myLength) <= myLanes.front()->getParentEdge().getNBEdge()->getFinalLength());
     }
 }
 

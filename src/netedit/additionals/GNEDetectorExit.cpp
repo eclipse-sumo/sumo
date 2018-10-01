@@ -47,6 +47,7 @@
 
 #include "GNEDetectorExit.h"
 #include "GNEDetectorE3.h"
+#include "GNEAdditionalHandler.h"
 
 
 // ===========================================================================
@@ -60,6 +61,43 @@ GNEDetectorExit::GNEDetectorExit(GNEViewNet* viewNet, GNEAdditional* parent, GNE
 
 
 GNEDetectorExit::~GNEDetectorExit() {}
+
+
+bool 
+GNEDetectorExit::isAdditionalValid() const {
+    // with friendly position enabled position are "always fixed"
+    if (myFriendlyPosition) {
+        return true;
+    } else {
+        return (myPositionOverLane >= 0) && (myPositionOverLane <= myLane->getParentEdge().getNBEdge()->getFinalLength());
+    }
+}
+
+
+std::string 
+GNEDetectorExit::getAdditionalProblem() const {
+    // declare variable for error position 
+    std::string errorPosition;
+    // check positions over lane
+    if (myPositionOverLane < 0) {
+        errorPosition = (toString(SUMO_ATTR_POSITION) + " < 0");
+    }
+    if (myPositionOverLane > myLane->getParentEdge().getNBEdge()->getFinalLength()) {
+        errorPosition = (toString(SUMO_ATTR_POSITION) + " > lanes's length");
+    }
+    return errorPosition;
+}
+
+
+void 
+GNEDetectorExit::fixAdditionalProblem() {
+    // declare new position
+    double newPositionOverLane = myPositionOverLane;
+    // fix pos and lenght  checkAndFixDetectorPositionPosition
+    GNEAdditionalHandler::checkAndFixDetectorPositionPosition(newPositionOverLane, myLane->getParentEdge().getNBEdge()->getFinalLength(), true);
+    // set new position
+    setAttribute(SUMO_ATTR_POSITION, toString(newPositionOverLane), myViewNet->getUndoList());
+}
 
 
 void
@@ -112,17 +150,6 @@ GNEDetectorExit::updateGeometry(bool updateGrid) {
 
     // update E3 parent Geometry
     myFirstAdditionalParent->updateGeometry(updateGrid);
-}
-
-
-bool 
-GNEDetectorExit::isDetectorPositionFixed() const {
-    // with friendly position enabled position are "always fixed"
-    if (myFriendlyPosition) {
-        return true;
-    } else {
-        return (myPositionOverLane >= 0) && (myPositionOverLane <= myLane->getParentEdge().getNBEdge()->getFinalLength());
-    }
 }
 
 

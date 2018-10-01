@@ -67,8 +67,17 @@ public:
     /// @brief Destructor
     ~GNEDetector();
 
-    /// @brief check if Position of detector is fixed
-    virtual bool isDetectorPositionFixed() const = 0;
+    /// @name members and functions relative to write additionals into XML
+    /// @{
+    /// @brief check if current additional is valid to be writed into XML (must be reimplemented in all detector childs)
+    virtual bool isAdditionalValid() const = 0;
+
+    /// @brief return a string with the current additional problem (must be reimplemented in all detector childs)
+    virtual std::string getAdditionalProblem() const = 0;
+
+    /// @brief fix additional problem (must be reimplemented in all detector childs)
+    virtual void fixAdditionalProblem() = 0;
+    /// @}
 
     /// @brief get lane
     virtual GNELane* getLane() const = 0;

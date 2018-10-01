@@ -1877,17 +1877,16 @@ GNENet::requiereSaveAdditionals(bool value) {
 void
 GNENet::saveAdditionals(const std::string& filename) {
     // obtain invalid stopping places and detectors
-    std::vector<GNEStoppingPlace*> invalidStoppingPlaces;
-    std::vector<GNEDetector*> invalidDetectors;
+    std::vector<GNEAdditional*> invalidStoppingPlaces;
+    std::vector<GNEAdditional*> invalidDetectors;
+    // iterate over additionals and obtain invalids
     for (auto i : myAttributeCarriers.additionals) {
         for (auto j : i.second) {
-            GNEStoppingPlace* stoppingPlace = dynamic_cast<GNEStoppingPlace*>(j.second);
-            GNEDetector* detector = dynamic_cast<GNEDetector*>(j.second);
             // check if has to be fixed
-            if ((stoppingPlace != nullptr) && (stoppingPlace->areStoppingPlacesPositionsFixed() == false)) {
-                invalidStoppingPlaces.push_back(stoppingPlace);
-            } else if ((detector != nullptr) && (detector->isDetectorPositionFixed() == false)) {
-                invalidDetectors.push_back(detector);
+            if (GNEAttributeCarrier::getTagProperties(j.second->getTag()).isStoppingPlace() && !j.second->isAdditionalValid()) {
+                invalidStoppingPlaces.push_back(j.second);
+            } else if (GNEAttributeCarrier::getTagProperties(j.second->getTag()).isDetector() && !j.second->isAdditionalValid()) {
+                invalidDetectors.push_back(j.second);
             }
         }
     }

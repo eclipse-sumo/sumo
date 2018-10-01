@@ -72,6 +72,60 @@ GNEStoppingPlace::GNEStoppingPlace(const std::string& id, GNEViewNet* viewNet, G
 GNEStoppingPlace::~GNEStoppingPlace() {}
 
 
+bool 
+GNEStoppingPlace::isAdditionalValid() const {
+    // with friendly position enabled position are "always fixed"
+    if (myFriendlyPosition) {
+        return true;
+    } else {
+        if (myStartPosition.empty() && myEndPosition.empty()) {
+            return true;
+        } else if (myStartPosition.empty()) {
+            return (canParse<double>(myEndPosition) && (parse<double>(myEndPosition) <= myLane->getParentEdge().getNBEdge()->getFinalLength()));
+        } else if (myEndPosition.empty()) {
+            return (canParse<double>(myStartPosition) && (parse<double>(myStartPosition) >= 0));
+        } else {
+            return canParse<double>(myStartPosition) && canParse<double>(myEndPosition) &&
+                   (parse<double>(myStartPosition) >= 0) &&
+                   (parse<double>(myEndPosition) <= myLane->getParentEdge().getNBEdge()->getFinalLength()) &&
+                   ((parse<double>(myEndPosition) - parse<double>(myStartPosition)) >= POSITION_EPS);
+        }
+    }
+}
+
+
+std::string 
+GNEStoppingPlace::getAdditionalProblem() const {
+    // declare variables 
+    std::string errorStart, separator, errorEnd;
+    // check positions over lane
+    if (canParse<double>(myStartPosition) && (parse<double>(myStartPosition) < 0)) {
+        errorStart = (toString(SUMO_ATTR_STARTPOS) + " < 0");
+    }
+    if (canParse<double>(myEndPosition) && (parse<double>(myEndPosition) > myLane->getParentEdge().getNBEdge()->getFinalLength())) {
+        errorEnd = (toString(SUMO_ATTR_ENDPOS) + " > lanes's length");
+    }
+    // check separator
+    if ((errorStart.size() > 0) && (errorEnd.size() > 0)) {
+        separator = " and ";
+    }
+    return errorStart + separator + errorEnd;
+}
+
+
+void 
+GNEStoppingPlace::fixAdditionalProblem() {
+    // declare new start and end position
+    std::string newStartPos = myStartPosition;
+    std::string newEndPos = myEndPosition;
+    // fix start and end positions using fixStoppinPlacePosition (0.01 is used to avoid precision problems)
+    GNEAdditionalHandler::fixStoppinPlacePosition(newStartPos, newEndPos, myLane->getLaneParametricLength() - 0.01, POSITION_EPS + 0.01, true);
+    // set new start and end positions
+    setAttribute(SUMO_ATTR_STARTPOS, newStartPos, myViewNet->getUndoList());
+    setAttribute(SUMO_ATTR_ENDPOS, newEndPos, myViewNet->getUndoList());
+}
+
+
 Position
 GNEStoppingPlace::getPositionInView() const {
     double startPos = canParse<double>(myStartPosition) ? parse<double>(myStartPosition) : 0;
@@ -148,28 +202,6 @@ GNEStoppingPlace::getEndPosition() const {
         return parse<double>(myEndPosition);
     } else {
         return myLane->getLaneShapeLength();
-    }
-}
-
-
-bool
-GNEStoppingPlace::areStoppingPlacesPositionsFixed() const {
-    // with friendly position enabled position are "always fixed"
-    if (myFriendlyPosition) {
-        return true;
-    } else {
-        if (myStartPosition.empty() && myEndPosition.empty()) {
-            return true;
-        } else if (myStartPosition.empty()) {
-            return (canParse<double>(myEndPosition) && (parse<double>(myEndPosition) <= myLane->getParentEdge().getNBEdge()->getFinalLength()));
-        } else if (myEndPosition.empty()) {
-            return (canParse<double>(myStartPosition) && (parse<double>(myStartPosition) >= 0));
-        } else {
-            return canParse<double>(myStartPosition) && canParse<double>(myEndPosition) &&
-                   (parse<double>(myStartPosition) >= 0) &&
-                   (parse<double>(myEndPosition) <= myLane->getParentEdge().getNBEdge()->getFinalLength()) &&
-                   ((parse<double>(myEndPosition) - parse<double>(myStartPosition)) >= POSITION_EPS);
-        }
     }
 }
 

@@ -46,7 +46,7 @@ class GNEDialog_FixAdditionalPositions : public FXDialogBox {
 
 public:
     /// @brief Constructor
-    GNEDialog_FixAdditionalPositions(GNEViewNet* viewNet, const std::vector<GNEStoppingPlace*>& invalidStoppingPlaces, const std::vector<GNEDetector*>& invalidDetectors);
+    GNEDialog_FixAdditionalPositions(GNEViewNet* viewNet, const std::vector<GNEAdditional*>& invalidStoppingPlaces, const std::vector<GNEAdditional*>& invalidDetectors);
 
     /// @brief destructor
     ~GNEDialog_FixAdditionalPositions();
@@ -125,10 +125,10 @@ protected:
     GNEViewNet* myViewNet;
 
     /// @brief vector with the invalid stoppingplaces
-    std::vector<GNEStoppingPlace*> myInvalidStoppingPlaces;
+    std::vector<GNEAdditional*> myInvalidStoppingPlaces;
 
     /// @brief vector with the invalid stoppingplaces
-    std::vector<GNEDetector*> myInvalidDetectors;
+    std::vector<GNEAdditional*> myInvalidDetectors;
 
     /// @brief list with the stoppingPlaces and detectors
     FXTable* myTable;

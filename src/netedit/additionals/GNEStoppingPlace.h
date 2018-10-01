@@ -53,6 +53,18 @@ public:
     /// @brief Destructor
     ~GNEStoppingPlace();
 
+    /// @name members and functions relative to write additionals into XML
+    /// @{
+    /// @brief check if current additional is valid to be writed into XML
+    bool isAdditionalValid() const;
+
+    /// @brief return a string with the current additional problem
+    std::string getAdditionalProblem() const;
+
+    /// @brief fix additional problem
+    void fixAdditionalProblem();
+    /// @}
+
     /// @brief get Lane
     GNELane* getLane() const;
 
@@ -61,9 +73,6 @@ public:
 
     /// @brief get end Position
     double getEndPosition() const;
-
-    /// @brief check if Position of stoppingPlace are fixed
-    bool areStoppingPlacesPositionsFixed() const;
 
     /// @name Functions related with geometry of element
     /// @{
