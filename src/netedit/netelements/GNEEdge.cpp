@@ -44,6 +44,7 @@
 #include <netedit/additionals/GNEAdditional.h>
 #include <netedit/additionals/GNERouteProbe.h>
 #include <netedit/additionals/GNEVaporizer.h>
+#include <netedit/additionals/GNEDetectorE2.h>
 
 #include "GNEConnection.h"
 #include "GNECrossing.h"
@@ -1437,6 +1438,18 @@ GNEEdge::addConnection(NBEdge::Connection nbCon, bool selectAfterCreation) {
         }
         // update geometry
         con->updateGeometry(true);
+        // iterate over all additionals from "from" lane and check E2 multilane integrity
+        for (auto i : con->getLaneFrom()->getAdditionalChilds()) {
+            if (i->getTag() == SUMO_TAG_E2DETECTOR_MULTILANE) {
+                dynamic_cast<GNEDetectorE2*>(i)->checkE2MultilaneIntegrity();
+            }
+        }
+        // iterate over all additionals from "to" lane and check E2 multilane integrity
+        for (auto i : con->getLaneTo()->getAdditionalChilds()) {
+            if (i->getTag() == SUMO_TAG_E2DETECTOR_MULTILANE) {
+                dynamic_cast<GNEDetectorE2*>(i)->checkE2MultilaneIntegrity();
+            }
+        }
     }
     // actually we only do this to force a redraw
     updateGeometry(true);
@@ -1456,6 +1469,18 @@ GNEEdge::removeConnection(NBEdge::Connection nbCon) {
     if (con != nullptr) {
         con->decRef("GNEEdge::removeConnection");
         myGNEConnections.erase(std::find(myGNEConnections.begin(), myGNEConnections.end(), con));
+        // iterate over all additionals from "from" lane and check E2 multilane integrity
+        for (auto i : con->getLaneFrom()->getAdditionalChilds()) {
+            if (i->getTag() == SUMO_TAG_E2DETECTOR_MULTILANE) {
+                dynamic_cast<GNEDetectorE2*>(i)->checkE2MultilaneIntegrity();
+            }
+        }
+        // iterate over all additionals from "to" lane and check E2 multilane integrity
+        for (auto i : con->getLaneTo()->getAdditionalChilds()) {
+            if (i->getTag() == SUMO_TAG_E2DETECTOR_MULTILANE) {
+                dynamic_cast<GNEDetectorE2*>(i)->checkE2MultilaneIntegrity();
+            }
+        }
         // remove it from Tree
         myNet->removeGLObjectFromGrid(con);
         // check if connection is selected

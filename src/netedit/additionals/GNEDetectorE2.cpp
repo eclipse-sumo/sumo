@@ -200,19 +200,20 @@ GNEDetectorE2::updateGeometry(bool updateGrid) {
         lastShape = lastShape.getSubpart(0, endPosFixed * myLanes.back()->getLengthGeometryFactor());
 
         // add first shape connection (if exist, in other case leave it empty)
-        myGeometry.multiShape.push_back(PositionVector());
+        myGeometry.multiShape.push_back(PositionVector{myLanes.at(0)->getShape().back(), myLanes.at(1)->getShape().front()});
         for (auto j : myLanes.at(0)->getParentEdge().getGNEConnections()) {
             if (j->getLaneTo() == myLanes.at(1)) {
                 myGeometry.multiShape.back() = j->getShape();
             }
         }
 
+
         // append shapes of intermediate lanes AND connections (if exist)
         for (int i = 1; i < (myLanes.size() - 1); i++) {
             // add lane shape
             myGeometry.multiShape.push_back(myLanes.at(i)->getShape());
             // add empty shape for connection
-            myGeometry.multiShape.push_back(PositionVector());
+            myGeometry.multiShape.push_back(PositionVector{myLanes.at(i)->getShape().back(), myLanes.at(i+1)->getShape().front()});
             // set connection shape (if exist). In other case, insert an empty shape
             for (auto j : myLanes.at(i)->getParentEdge().getGNEConnections()) {
                 if (j->getLaneTo() == myLanes.at(i+1)) {
