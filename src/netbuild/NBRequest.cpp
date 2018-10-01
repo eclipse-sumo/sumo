@@ -350,24 +350,47 @@ NBRequest::distanceCounterClockwise(NBEdge* from, NBEdge* to) {
 
 
 void
-NBRequest::writeLogic(std::string /* key */, OutputDevice& into, const bool checkLaneFoes) const {
+NBRequest::writeLogic(OutputDevice& into) const {
+    int numLinks = (int)myResponse.size();
+    assert((int)myFoes.size() == numLinks);
+    assert((int)myHaveVia.size() == numLinks);
+    const bool padding = numLinks > 10;
+    for (int i = 0; i < numLinks; i++) {
+        into.openTag(SUMO_TAG_REQUEST);
+        into.writeAttr(SUMO_ATTR_INDEX, i);
+        if (padding && i < 10) {
+            into.writePadding(" ");
+        }
+        into.writeAttr(SUMO_ATTR_RESPONSE, myResponse[i]);
+        into.writeAttr(SUMO_ATTR_FOES, myFoes[i]);
+        if (!OptionsCont::getOptions().getBool("no-internal-links")) {
+            into.writeAttr(SUMO_ATTR_CONT, myHaveVia[i]);
+        }
+        into.closeTag();
+    }
+}
+
+
+void
+NBRequest::computeLogic(const bool checkLaneFoes) {
+    myResponse.clear();
+    myFoes.clear();
+    myHaveVia.clear();
     int pos = 0;
     EdgeVector::const_iterator i;
     // normal connections
-    const bool padding = getSizes().second + myJunction->getCrossings().size() > 10;
     for (i = myIncoming.begin(); i != myIncoming.end(); i++) {
         int noLanes = (*i)->getNumLanes();
         for (int k = 0; k < noLanes; k++) {
-            pos = writeLaneResponse(into, *i, k, pos, checkLaneFoes, padding);
+            pos = computeLaneResponse(*i, k, pos, checkLaneFoes);
         }
     }
     // crossings
     auto crossings = myJunction->getCrossings();
     for (auto c : crossings) {
-        pos = writeCrossingResponse(into, *c, pos);
+        pos = computeCrossingResponse(*c, pos);
     }
 }
-
 
 void
 NBRequest::resetSignalised() {
@@ -498,32 +521,23 @@ NBRequest::forbids(const NBEdge* const possProhibitorFrom, const NBEdge* const p
     return true;
 }
 
-
 int
-NBRequest::writeLaneResponse(OutputDevice& od, NBEdge* from,
-                             int fromLane, int pos, const bool checkLaneFoes, bool padding) const {
+NBRequest::computeLaneResponse(NBEdge* from, int fromLane, int pos, const bool checkLaneFoes) {
     for (const NBEdge::Connection& c : from->getConnectionsFromLane(fromLane)) {
         assert(c.toEdge != 0);
-        od.openTag(SUMO_TAG_REQUEST);
-        od.writeAttr(SUMO_ATTR_INDEX, pos++);
-        if (padding && pos <= 10) {
-            od.writePadding(" ");
-        }
+        pos++;
         const std::string foes = getFoesString(from, c.toEdge, fromLane, c.toLane, checkLaneFoes);
         const std::string response = myJunction->getType() == NODETYPE_ZIPPER ? foes : getResponseString(from, c, checkLaneFoes);
-        od.writeAttr(SUMO_ATTR_RESPONSE, response);
-        od.writeAttr(SUMO_ATTR_FOES, foes);
-        if (!OptionsCont::getOptions().getBool("no-internal-links")) {
-            od.writeAttr(SUMO_ATTR_CONT, c.haveVia);
-        }
-        od.closeTag();
+        myFoes.push_back(foes);
+        myResponse.push_back(response);
+        myHaveVia.push_back(c.haveVia);
     }
     return pos;
 }
 
 
 int
-NBRequest::writeCrossingResponse(OutputDevice& od, const NBNode::Crossing& crossing, int pos) const {
+NBRequest::computeCrossingResponse(const NBNode::Crossing& crossing, int pos) {
     std::string foes(myJunction->getCrossings().size(), '0');
     std::string response(myJunction->getCrossings().size(), '0');
     // conflicts with normal connections
@@ -548,12 +562,10 @@ NBRequest::writeCrossingResponse(OutputDevice& od, const NBNode::Crossing& cross
             }
         }
     }
-    od.openTag(SUMO_TAG_REQUEST);
-    od.writeAttr(SUMO_ATTR_INDEX, pos++);
-    od.writeAttr(SUMO_ATTR_RESPONSE, response);
-    od.writeAttr(SUMO_ATTR_FOES, foes);
-    od.writeAttr(SUMO_ATTR_CONT, false);
-    od.closeTag();
+    pos++;
+    myResponse.push_back(response);
+    myFoes.push_back(foes);
+    myHaveVia.push_back(false);
     return pos;
 }
 

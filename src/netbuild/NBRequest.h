@@ -132,7 +132,9 @@ public:
                  bool regardNonSignalisedLowerPriority) const;
 
     /// @brief writes the XML-representation of the logic as a bitset-logic XML representation
-    void writeLogic(std::string key, OutputDevice& into, const bool checkLaneFoes) const;
+    void computeLogic(const bool checkLaneFoes);
+
+    void writeLogic(OutputDevice& into) const;
 
     /// @brief prints the request
     friend std::ostream& operator<<(std::ostream& os, const NBRequest& r);
@@ -154,14 +156,13 @@ private:
         from2->to2 (is higher priorised than this) */
     void setBlocking(NBEdge* from1, NBEdge* to1, NBEdge* from2, NBEdge* to2);
 
-    /** @brief writes the response of a certain lane
+    /** @brief computes the response of a certain lane
         Returns the next link index within the junction */
-    int writeLaneResponse(OutputDevice& od, NBEdge* from, int lane,
-                          int pos, const bool checkLaneFoes, bool padding) const;
+    int computeLaneResponse(NBEdge* from, int lane, int pos, const bool checkLaneFoes);
 
-    /** @brief writes the response of a certain crossing
+    /** @brief computes the response of a certain crossing
         Returns the next link index within the junction */
-    int writeCrossingResponse(OutputDevice& od, const NBNode::Crossing& crossing, int pos) const;
+    int computeCrossingResponse(const NBNode::Crossing& crossing, int pos);
 
     /** @brief Writes the response of a certain link
      *
@@ -253,6 +254,11 @@ private:
 
     /// @brief the link X link is done-checks
     CombinationsCont  myDone;
+
+    /// @brief precomputed right-of-way matrices for each lane-to-lane link
+    std::vector<std::string> myFoes;
+    std::vector<std::string> myResponse;
+    std::vector<bool> myHaveVia;
 
 private:
     static int myGoodBuilds, myNotBuild;

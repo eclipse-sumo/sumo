@@ -1410,6 +1410,26 @@ NBNodeCont::computeLogics(const NBEdgeCont& ec, OptionsCont& oc) {
 
 
 void
+NBNodeCont::computeLogics2(const NBEdgeCont& ec, OptionsCont& oc) {
+    std::set<NBNode*> roundaboutNodes;
+    const bool checkLaneFoesAll = oc.getBool("check-lane-foes.all");
+    const bool checkLaneFoesRoundabout = !checkLaneFoesAll && oc.getBool("check-lane-foes.roundabout");
+    if (checkLaneFoesRoundabout) {
+        const std::set<EdgeSet>& roundabouts = ec.getRoundabouts();
+        for (std::set<EdgeSet>::const_iterator i = roundabouts.begin(); i != roundabouts.end(); ++i) {
+            for (EdgeSet::const_iterator j = (*i).begin(); j != (*i).end(); ++j) {
+                roundaboutNodes.insert((*j)->getToNode());
+            }
+        }
+    }
+    for (NodeCont::iterator i = myNodes.begin(); i != myNodes.end(); i++) {
+        const bool checkLaneFoes = checkLaneFoesAll || (checkLaneFoesRoundabout && roundaboutNodes.count((*i).second) > 0);
+        (*i).second->computeLogic2(checkLaneFoes);
+    }
+}
+
+
+void
 NBNodeCont::clear() {
     for (NodeCont::iterator i = myNodes.begin(); i != myNodes.end(); i++) {
         delete((*i).second);

@@ -865,10 +865,18 @@ NBNode::computeLogic(const NBEdgeCont& ec, OptionsCont& oc) {
 }
 
 
+void
+NBNode::computeLogic2(bool checkLaneFoes) {
+    if (myRequest != nullptr) {
+        myRequest->computeLogic(checkLaneFoes);
+    }
+}
+
+
 bool
-NBNode::writeLogic(OutputDevice& into, const bool checkLaneFoes) const {
+NBNode::writeLogic(OutputDevice& into) const {
     if (myRequest) {
-        myRequest->writeLogic(myID, into, checkLaneFoes);
+        myRequest->writeLogic(into);
         return true;
     }
     return false;

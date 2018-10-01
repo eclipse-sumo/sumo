@@ -351,8 +351,11 @@ public:
     /// @brief computes the node's type, logic and traffic light
     void computeLogic(const NBEdgeCont& ec, OptionsCont& oc);
 
+    /// @brief compute right-of-way logic for all lane-to-lane connections
+    void computeLogic2(bool checkLaneFoes);
+
     /// @brief writes the XML-representation of the logic as a bitset-logic XML representation
-    bool writeLogic(OutputDevice& into, const bool checkLaneFoes) const;
+    bool writeLogic(OutputDevice& into) const;
 
     /// @brief Returns something like the most unused direction Should only be used to add source or sink nodes
     Position getEmptyDir() const;

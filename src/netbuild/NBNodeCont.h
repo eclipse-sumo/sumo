@@ -247,8 +247,11 @@ public:
     /// divides the incoming lanes on outgoing lanes
     void computeLanes2Lanes();
 
-    /// build the list of outgoing edges and lanes
+    /// @brief build the list of outgoing edges and lanes
     void computeLogics(const NBEdgeCont& ec, OptionsCont& oc);
+
+    /// @brief compute right-of-way logic for all lane-to-lane connections
+    void computeLogics2(const NBEdgeCont& ec, OptionsCont& oc);
 
     /// @brief Returns the number of nodes stored in this container
     int size() const {
