@@ -192,30 +192,42 @@ GNEDialog_FixAdditionalPositions::onCmdAccept(FXObject*, FXSelector, void*) {
     }
      // now check options from multi lane additionals
     if(myInvalidMultiLaneAdditionals.size() > 0) {
+        myViewNet->getUndoList()->p_begin("fix multilane additionals problems");
+        // fix problems of consecutive lanes
         if (myConsecutiveLaneOptions.buildConnectionBetweenLanes->getCheck() == TRUE) {
-            myViewNet->getUndoList()->p_begin("build missing connections between consecutive lanes");
             // iterate over invalid single lane elements to enable friendly position
             for (auto i : myInvalidMultiLaneAdditionals) {
                 i->fixAdditionalProblem();
             }
-            myViewNet->getUndoList()->p_end();
+            // we need to check if after first fix there is still  Invalid MultiL-ane Additionals with errors
+            auto copyOfInvalidMultiLaneAdditionals = myInvalidMultiLaneAdditionals;
+            myInvalidMultiLaneAdditionals.clear();
+            for (auto i : copyOfInvalidMultiLaneAdditionals) {
+                if(!i->isAdditionalValid()) {
+                    myInvalidMultiLaneAdditionals.push_back(i);
+                }
+            }
         } else if (myConsecutiveLaneOptions.removeInvalidElements->getCheck() == TRUE) {
-            myViewNet->getUndoList()->p_begin("remove additionals with invalid consecutive lanes");
             // iterate over invalid single lane elements to fix positions
             for (auto i : myInvalidMultiLaneAdditionals) {
                 myViewNet->getViewParent()->getAdditionalFrame()->removeAdditional(i);
             }
-            myViewNet->getUndoList()->p_end();
-        } else if (myConsecutiveLaneOptions.selectInvalidElements->getCheck() == TRUE) {
-            myViewNet->getUndoList()->p_begin("select invalid additionals with invalid consecutive lanes");
-            // iterate over invalid single lane elements to select all elements
-            for (auto i : myInvalidMultiLaneAdditionals) {
-                i->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
-            }
-            myViewNet->getUndoList()->p_end();
-            // abort saving
-            continueSaving = false;
+            // clear myInvalidMultiLaneAdditionals due tere isn't more invalid multi lane additionals
+            myInvalidMultiLaneAdditionals.clear();
         }
+        // fix problem of positions
+        if (myPositionOptions.activateFriendlyPositionAndSave->getCheck() == TRUE) {
+            // iterate over invalid single lane elements to enable friendly position
+            for (auto i : myInvalidSingleLaneAdditionals) {
+                i->setAttribute(SUMO_ATTR_FRIENDLY_POS, "true", myViewNet->getUndoList());
+            }
+        } else if (myPositionOptions.fixPositionsAndSave->getCheck() == TRUE) {
+            // iterate over invalid single lane elements to fix positions
+            for (auto i : myInvalidSingleLaneAdditionals) {
+                i->fixAdditionalProblem();
+            }
+        }
+        myViewNet->getUndoList()->p_end();
     }
     if(continueSaving) {
         // stop modal with TRUE (continue saving)
@@ -313,60 +325,56 @@ GNEDialog_FixAdditionalPositions::ConsecutiveLaneOptions::buildConsecutiveLaneOp
     FXVerticalFrame* RadioButtonsLeft = new FXVerticalFrame(RadioButtons, GUIDesignAuxiliarVerticalFrame);
     buildConnectionBetweenLanes = new FXRadioButton(RadioButtonsLeft, "Build connections between lanes\t\tNew connections will be created between non-connected lanes",
                                                     fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
-    removeInvalidElements = new FXRadioButton(RadioButtonsLeft, "Remove invalid E2 detectors\t\tRemove Multilane E2 Detectors with non-connected lanes",
-                                              fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    activateFriendlyPositionAndSave = new FXRadioButton(RadioButtonsLeft, "Activate friendlyPos and save\t\tFriendly pos parameter will be activated in all stopping places and E2 detectors",
+                                                        fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     // create Vertical Frame for right options
     FXVerticalFrame* RadioButtonsRight = new FXVerticalFrame(RadioButtons, GUIDesignAuxiliarVerticalFrame);
-    activateFriendlyPositionAndSave = new FXRadioButton(RadioButtonsRight, "Activate friendlyPos and save\t\tFriendly pos parameter will be activated in all stopping places and E2 detectors",
-                                                        fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
-    selectInvalidElements = new FXRadioButton(RadioButtonsRight, "Select invalid E2 detectors\t\tCancel saving of additionals and select invalid E2 Multilane detectors",
+    removeInvalidElements = new FXRadioButton(RadioButtonsRight, "Remove invalid E2 detectors\t\tRemove Multilane E2 Detectors with non-connected lanes",
                                               fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
-    // leave option "buildConnectionBetweenLanes" as default
+    fixPositionsAndSave = new FXRadioButton(RadioButtonsRight, "Fix positions and save\t\tPosition of stopping places and E2 detectors will be fixed",
+                                            fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    // leave option "buildConnectionBetweenLanes" and "activateFriendlyPositionAndSave" as default
     buildConnectionBetweenLanes->setCheck(true);
+    activateFriendlyPositionAndSave->setCheck(true);
 }
 
 
 void 
 GNEDialog_FixAdditionalPositions::ConsecutiveLaneOptions::selectOption(FXObject* option) {
-    if (option == activateFriendlyPositionAndSave) {
-        activateFriendlyPositionAndSave->setCheck(true);
-        buildConnectionBetweenLanes->setCheck(false);
-        removeInvalidElements->setCheck(false);
-        selectInvalidElements->setCheck(false);
-    } else if (option == buildConnectionBetweenLanes) {
-        activateFriendlyPositionAndSave->setCheck(false);
+    // set top buttons
+    if (option == buildConnectionBetweenLanes) {
         buildConnectionBetweenLanes->setCheck(true);
         removeInvalidElements->setCheck(false);
-        selectInvalidElements->setCheck(false);
     } else if (option == removeInvalidElements) {
-        activateFriendlyPositionAndSave->setCheck(false);
         buildConnectionBetweenLanes->setCheck(false);
         removeInvalidElements->setCheck(true);
-        selectInvalidElements->setCheck(false);
-    } else if (option == selectInvalidElements) {
+    }
+    // set down buttons
+    if (option == activateFriendlyPositionAndSave) {
+        activateFriendlyPositionAndSave->setCheck(true);
+        fixPositionsAndSave->setCheck(false);
+    } else if (option == fixPositionsAndSave) {
         activateFriendlyPositionAndSave->setCheck(false);
-        buildConnectionBetweenLanes->setCheck(false);
-        removeInvalidElements->setCheck(false);
-        selectInvalidElements->setCheck(true);
+        fixPositionsAndSave->setCheck(true);
     }
 }
 
 
 void 
 GNEDialog_FixAdditionalPositions::ConsecutiveLaneOptions::enableConsecutiveLaneOptions() {
-    activateFriendlyPositionAndSave->enable();
     buildConnectionBetweenLanes->enable();
     removeInvalidElements->enable();
-    selectInvalidElements->enable();
+    activateFriendlyPositionAndSave->enable();
+    fixPositionsAndSave->enable();
 }
 
 
 void 
 GNEDialog_FixAdditionalPositions::ConsecutiveLaneOptions::disableConsecutiveLaneOptions() {
-    activateFriendlyPositionAndSave->disable();
     buildConnectionBetweenLanes->disable();
     removeInvalidElements->disable();
-    selectInvalidElements->disable();
+    activateFriendlyPositionAndSave->disable();
+    fixPositionsAndSave->disable();
 }
 
 /****************************************************************************/

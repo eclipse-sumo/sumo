@@ -108,14 +108,14 @@ protected:
         /// @brief Option "build connections between lanes"
         FXRadioButton* buildConnectionBetweenLanes;
 
-        /// @brief Option "Activate friendlyPos and save"
-        FXRadioButton* activateFriendlyPositionAndSave;
-
         /// @brief Option "remove invalid elements"
         FXRadioButton* removeInvalidElements;
 
-        /// @brief Option "select invalid elements"
-        FXRadioButton* selectInvalidElements;
+        /// @brief Option "Activate friendlyPos and save"
+        FXRadioButton* activateFriendlyPositionAndSave;
+
+        /// @brief Option "Fix Positions and save"
+        FXRadioButton* fixPositionsAndSave;
     };
 
     /// @brief FOX needs this
