@@ -883,6 +883,26 @@ NBNode::writeLogic(OutputDevice& into) const {
 }
 
 
+const std::string
+NBNode::getFoes(int linkIndex) const {
+    if (myRequest == nullptr) {
+        return "";
+    } else {
+        return myRequest->getFoes(linkIndex);
+    }
+}
+
+
+const std::string
+NBNode::getResponse(int linkIndex) const {
+    if (myRequest == nullptr) {
+        return "";
+    } else {
+        return myRequest->getResponse(linkIndex);
+    }
+}
+
+
 void
 NBNode::computeNodeShape(double mismatchThreshold) {
     if (myHaveCustomPoly) {

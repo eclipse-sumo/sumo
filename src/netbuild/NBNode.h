@@ -357,6 +357,9 @@ public:
     /// @brief writes the XML-representation of the logic as a bitset-logic XML representation
     bool writeLogic(OutputDevice& into) const;
 
+    const std::string getFoes(int linkIndex) const;
+    const std::string getResponse(int linkIndex) const;
+
     /// @brief Returns something like the most unused direction Should only be used to add source or sink nodes
     Position getEmptyDir() const;
 

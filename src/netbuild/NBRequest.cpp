@@ -348,6 +348,21 @@ NBRequest::distanceCounterClockwise(NBEdge* from, NBEdge* to) {
     return ret;
 }
 
+const std::string& 
+NBRequest::getFoes(int linkIndex) const {
+    assert(linkIndex >= 0);
+    assert(linkIndex < (int)myFoes.size());
+    return myFoes[linkIndex];
+}
+
+
+const std::string&
+NBRequest::getResponse(int linkIndex) const {
+    assert(linkIndex >= 0);
+    assert(linkIndex < (int)myResponse.size());
+    return myResponse[linkIndex];
+}
+
 
 void
 NBRequest::writeLogic(OutputDevice& into) const {

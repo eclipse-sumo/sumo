@@ -179,15 +179,23 @@ GNEProhibitionFrame::buildProhibition(GNEConnection* conn, bool /* mayDefinitely
         NBEdge* currentConnFrom = myCurrentConn->getEdgeFrom()->getNBEdge();
         NBEdge* currentConnTo = myCurrentConn->getEdgeTo()->getNBEdge();
 
+        const int currentLinkIndex = node->getConnectionIndex(currentConnFrom, myCurrentConn->getNBEdgeConnection());
+        std::string currentFoesString = node->getFoes(currentLinkIndex);
+        std::string currentResponseString = node->getResponse(currentLinkIndex);
+        std::reverse(currentFoesString.begin(), currentFoesString.end());
+        std::reverse(currentResponseString.begin(), currentResponseString.end());
+
         for (auto i : allConns) {
             if (i != myCurrentConn) {
                 NBEdge* otherConnFrom = i->getEdgeFrom()->getNBEdge();
                 NBEdge* otherConnTo = i->getEdgeTo()->getNBEdge();
-
+                const int linkIndex = node->getConnectionIndex(otherConnFrom, i->getNBEdgeConnection());
+                std::string responseString = node->getResponse(linkIndex);
+                std::reverse(responseString.begin(), responseString.end());
                 // determine the prohibition status
-                bool foes = node->foes(currentConnFrom, currentConnTo, otherConnFrom, otherConnTo);
-                bool forbids = node->forbids(currentConnFrom, currentConnTo, otherConnFrom, otherConnTo, true);
-                bool forbidden = node->forbids(otherConnFrom, otherConnTo, currentConnFrom, currentConnTo, true);
+                bool foes = currentFoesString.size() > linkIndex && currentFoesString[linkIndex] == '1';
+                bool forbids = responseString.size() > currentLinkIndex && responseString[currentLinkIndex] == '1';
+                bool forbidden = currentResponseString.size() > linkIndex && currentResponseString[linkIndex] == '1';
 
                 myConcernedConns.insert(i);
 

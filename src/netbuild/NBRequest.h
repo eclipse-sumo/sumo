@@ -136,6 +136,9 @@ public:
 
     void writeLogic(OutputDevice& into) const;
 
+    const std::string& getFoes(int linkIndex) const;
+    const std::string& getResponse(int linkIndex) const;
+
     /// @brief prints the request
     friend std::ostream& operator<<(std::ostream& os, const NBRequest& r);
 
