@@ -248,9 +248,6 @@ private:
     /// @brief definition of a container for link(edge->edge) X link(edge->edge) combinations (size = |myIncoming|*|myOutgoing|)
     typedef std::vector<LinkInfoCont> CombinationsCont;
 
-    /// @brief a container for approached lanes of a certain edge
-    typedef std::map<NBEdge*, LaneVector> OccupiedLanes;
-
     /// @brief the link X link blockings
     CombinationsCont  myForbids;
 
