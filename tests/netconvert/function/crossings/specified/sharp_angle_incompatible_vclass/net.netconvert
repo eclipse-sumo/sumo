@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep 12 21:50:41 2018 by Eclipse SUMO netconvert Version v1_0_0+0153-031b56b
+<!-- generated on Mon Oct  1 23:14:50 2018 by Eclipse SUMO netconvert Version v1_0_1+0134-106951d
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -147,10 +147,10 @@ SPDX-License-Identifier: EPL-2.0
         <request index="3"  response="00101110110" foes="00101110110" cont="1"/>
         <request index="4"  response="10010001000" foes="10010001001" cont="0"/>
         <request index="5"  response="10010001000" foes="10010001001" cont="0"/>
-        <request index="6" response="00000000000" foes="00000001001" cont="0"/>
-        <request index="7" response="00000000000" foes="00000110110" cont="0"/>
-        <request index="8" response="00000000000" foes="00000001000" cont="0"/>
-        <request index="9" response="00000000000" foes="00000000001" cont="0"/>
+        <request index="6"  response="00000000000" foes="00000001001" cont="0"/>
+        <request index="7"  response="00000000000" foes="00000110110" cont="0"/>
+        <request index="8"  response="00000000000" foes="00000001000" cont="0"/>
+        <request index="9"  response="00000000000" foes="00000000001" cont="0"/>
         <request index="10" response="00000000000" foes="00000110110" cont="0"/>
     </junction>
     <junction id="E" type="dead_end" x="202.13" y="21.02" incLanes="CE_0 CE_1 CE_2" intLanes="" shape="202.13,21.02 202.13,13.12 202.13,21.02"/>
