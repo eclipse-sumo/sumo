@@ -591,6 +591,13 @@ GNEAdditionalFrame::SelectorLaneParents::stopConsecutiveLaneSelector() {
     const auto& tagValues = GNEAttributeCarrier::getTagProperties(myAdditionalFrameParent->myAdditionalSelector->getCurrentAdditionalType());
     // Declare map to keep attributes from Frames from Frame
     std::map<SumoXMLAttr, std::string> valuesMap;
+    // abort if there isn't at least two lanes
+    if (mySelectedLanes.size() < 2) {
+        WRITE_WARNING(toString(myAdditionalFrameParent->myAdditionalSelector->getCurrentAdditionalType()) + " requieres at least two lanes.");
+        // abort consecutive lane selector
+        abortConsecutiveLaneSelector();
+        return false;
+    }
     // fill valuesOfElement with attributes from Frame
     myAdditionalFrameParent->myAdditionalAttributes->getAttributesAndValues(valuesMap);
     // Generate id of element
