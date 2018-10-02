@@ -284,6 +284,9 @@ class Net:
     def getNodes(self):
         return self._nodes
 
+    def getTLS(self, tlid):
+        return self._id2tls[tlid]
+
     def getTLSSecure(self, tlid):
         if tlid in self._id2tls:
             tls = self._id2tls[tlid]
