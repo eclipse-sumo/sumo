@@ -276,7 +276,7 @@ install(DIRECTORY tools/ DESTINATION share/sumo/tools
 install(CODE "execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink ../../bin $ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/share/sumo/bin)")
 
 # custom targets
-add_custom_target(examples DEPENDS sumo netconvert
+add_custom_target(examples DEPENDS sumo netconvert dfrouter duarouter jtrrouter
     COMMAND ${PYTHON_EXECUTABLE} tools/extractTest.py -x -f tests/examples.txt -p docs/examples/runAll.py
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
 add_test(exampletest ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/docs/examples/runAll.py)
