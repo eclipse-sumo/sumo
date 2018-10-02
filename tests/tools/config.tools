@@ -151,6 +151,7 @@ output:instance at 0x[0-9A-Fa-f]+{REPLACE instance at <ADDRESS>}
 output:Written configuration to .*{REPLACE Written configuration to <PATH>}
 output:Warning: Module 'rtree' not available. Using brute-force fallback
 output:2147483647{REPLACE 9223372036854775807}
+output:Simulation.*started with{REPLACE Simulation started with}
 trips:<!-- generated on{[->]}-->
 osmtrips:<!-- generated on{[->]}-->
 districts:<!-- generated on{[->]}-->

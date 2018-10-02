@@ -29,6 +29,10 @@
 // ===========================================================================
 #include <config.h>
 
+#ifdef HAVE_VERSION_H
+#include <version.h>
+#endif
+
 #include <string>
 #include <iostream>
 #include <sstream>
@@ -307,7 +311,7 @@ MSNet::getRestrictions(const std::string& id) const {
 MSNet::SimulationState
 MSNet::simulate(SUMOTime start, SUMOTime stop) {
     // report the begin when wished
-    WRITE_MESSAGE("Simulation started with time: " + time2string(start));
+    WRITE_MESSAGE("Simulation version " + std::string(VERSION_STRING) + " started with time: " + time2string(start));
     // the simulation loop
     SimulationState state = SIMSTATE_RUNNING;
     // state loading may have changed the start time so we need to reinit it
