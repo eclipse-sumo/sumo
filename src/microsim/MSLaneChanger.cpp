@@ -162,7 +162,7 @@ MSLaneChanger::updateChanger(bool vehHasChanged) {
     // "Push" the vehicles to the back, i.e. follower becomes vehicle,
     // vehicle becomes leader, and leader becomes predecessor of vehicle,
     // if it exists.
-    if (!vehHasChanged || MSGlobals::gLaneChangeDuration > DELTA_T) {
+    if (!vehHasChanged) {
         //std::cout << SIMTIME << " updateChanger: lane=" << myCandi->lane->getID() << " has new lead=" << veh(myCandi)->getID() << "\n";
         myCandi->lead = veh(myCandi);
     }
@@ -479,7 +479,7 @@ MSLaneChanger::continueChange(MSVehicle* vehicle, ChangerIt& from) {
                   << "\n";
     }
 #endif
-    return pastMidpoint;
+    return pastMidpoint && lcm.getShadowLane() == 0;
 }
 
 
