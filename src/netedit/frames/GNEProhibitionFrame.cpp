@@ -193,9 +193,9 @@ GNEProhibitionFrame::buildProhibition(GNEConnection* conn, bool /* mayDefinitely
                 std::string responseString = node->getResponse(linkIndex);
                 std::reverse(responseString.begin(), responseString.end());
                 // determine the prohibition status
-                bool foes = currentFoesString.size() > linkIndex && currentFoesString[linkIndex] == '1';
-                bool forbids = responseString.size() > currentLinkIndex && responseString[currentLinkIndex] == '1';
-                bool forbidden = currentResponseString.size() > linkIndex && currentResponseString[linkIndex] == '1';
+                bool foes = (int)currentFoesString.size() > linkIndex && currentFoesString[linkIndex] == '1';
+                bool forbids = (int)responseString.size() > currentLinkIndex && responseString[currentLinkIndex] == '1';
+                bool forbidden = (int)currentResponseString.size() > linkIndex && currentResponseString[linkIndex] == '1';
 
                 myConcernedConns.insert(i);
 

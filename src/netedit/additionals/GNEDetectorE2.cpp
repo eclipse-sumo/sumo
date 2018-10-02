@@ -334,7 +334,7 @@ GNEDetectorE2::updateGeometry(bool updateGrid) {
         }
 
         // append shapes of intermediate lanes AND connections (if exist)
-        for (int i = 1; i < (myLanes.size() - 1); i++) {
+        for (int i = 1; i < ((int)myLanes.size() - 1); i++) {
             // add lane shape
             myGeometry.multiShape.push_back(myLanes.at(i)->getShape());
             // add empty shape for connection
@@ -438,7 +438,7 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::drawBoxLines(myGeometry.shape, myGeometry.shapeRotations, myGeometry.shapeLengths, exaggeration);
     } else {
         // iterate over multishapes
-        for (int i = 0; i < myGeometry.multiShape.size(); i++) {
+        for (int i = 0; i < (int)myGeometry.multiShape.size(); i++) {
             // don't draw shapes over connections if "show connections" is enabled
             if (!myViewNet->showConnections() || (i%2==0)) {
                 GLHelper::drawBoxLines(myGeometry.multiShape.at(i), myGeometry.multiShapeRotations.at(i), myGeometry.multiShapeLengths.at(i), exaggeration);

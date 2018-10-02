@@ -3175,7 +3175,7 @@ GNEViewNet::drawLaneCandidates() const {
         // draw connections between lanes
         if(myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->getSelectedLanes().size() > 1) {
             // iterate over all current selected lanes
-            for (int i = 0; i < myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->getSelectedLanes().size() - 1; i++) {
+            for (int i = 0; i < (int)myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->getSelectedLanes().size() - 1; i++) {
                 // declare position vector for shape
                 PositionVector shape;
                 // declare vectors for shape rotation and lenghts

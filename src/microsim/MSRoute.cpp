@@ -273,7 +273,7 @@ MSRoute::dict_saveState(OutputDevice& out) {
 double
 MSRoute::getDistanceBetween(double fromPos, double toPos,
                             const MSEdge* fromEdge, const MSEdge* toEdge, bool includeInternal, int routePosition) const {
-    if (routePosition < 0 || routePosition >= myEdges.size()) {
+    if (routePosition < 0 || routePosition >= (int)myEdges.size()) {
         throw ProcessError("Invalid routePosition " + toString(routePosition) + " for route with " + toString(myEdges.size()) + " edges");
     }
     /// XXX routes that start and end within the same intersection are not supported

@@ -715,7 +715,7 @@ GNEAdditional::AdditionalGeometry::calculateMultiShapeRotationsAndLengths() {
         multiShapeLengths.push_back(std::vector<double>());
     }
     // If number of segments is more than 0
-    for (int i = 0; i < multiShape.size(); i++) {
+    for (int i = 0; i < (int)multiShape.size(); i++) {
         // Reserve size for every part
         multiShapeRotations.back().reserve(numberOfSegments.at(i));
         multiShapeLengths.back().reserve(numberOfSegments.at(i));
