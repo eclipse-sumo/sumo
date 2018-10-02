@@ -25,43 +25,33 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
+# recompute
+netedit.rebuildNetwork()
+
 # go to additional mode
 netedit.additionalMode()
 
 # select E2
-netedit.changeAdditional("e2Detector")
+netedit.changeAdditional("e2MultilaneDetector")
 
-# create E2
-netedit.leftClick(referencePosition, 250, 250)
+# create E2 with default parameters
+netedit.leftClick(referencePosition, 190, 240)
+netedit.leftClick(referencePosition, 440, 240)
+netedit.leftClick(referencePosition, 440, 210)
+netedit.leftClick(referencePosition, 190, 210)
+netedit.typeEnter()
 
 # Change to delete
 netedit.deleteMode()
-
-# delete created E2
-netedit.leftClick(referencePosition, 250, 250)
 
 # delete loaded E2
-netedit.leftClick(referencePosition, 450, 250)
+netedit.leftClick(referencePosition, 250, 210)
 
-# delete lane with the second loaded E2
-netedit.leftClick(referencePosition, 200, 200)
+# delete created E2
+netedit.leftClick(referencePosition, 250, 240)
 
-# Check undo
+# Check undo redo
 netedit.undo(referencePosition, 3)
-
-# Change to delete
-netedit.deleteMode()
-
-# disble 'Automatically delete additionals'
-netedit.changeAutomaticallyDeleteAdditionals(referencePosition)
-
-# try to delete lane with the second loaded E2 (doesn't allowed)
-netedit.leftClick(referencePosition, 200, 200)
-
-# wait warning
-netedit.waitAutomaticallyDeleteAdditionalsWarning()
-
-# check redo
 netedit.redo(referencePosition, 3)
 
 # save additionals
