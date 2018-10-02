@@ -59,7 +59,7 @@ FXIMPLEMENT(GNEDialog_FixAdditionalPositions, FXDialogBox, GNEDialog_FixAddition
 // ===========================================================================
 
 GNEDialog_FixAdditionalPositions::GNEDialog_FixAdditionalPositions(GNEViewNet* viewNet, const std::vector<GNEAdditional*>& invalidSingleLaneAdditionals, const std::vector<GNEAdditional*>& invalidMultiLaneAdditionals) :
-    FXDialogBox(viewNet->getApp(), ("Fix additional problems"), GUIDesignDialogBoxExplicit, 0, 0, 458, 300, 0, 0, 0, 0),
+    FXDialogBox(viewNet->getApp(), ("Fix additional problems"), GUIDesignDialogBoxExplicit, 0, 0, 478, 350, 0, 0, 0, 0),
     myViewNet(viewNet),
     myInvalidSingleLaneAdditionals(invalidSingleLaneAdditionals),
     myInvalidMultiLaneAdditionals(invalidMultiLaneAdditionals) {
@@ -82,7 +82,7 @@ GNEDialog_FixAdditionalPositions::GNEDialog_FixAdditionalPositions(GNEViewNet* v
     myTable->setVisibleColumns(4);
     myTable->setColumnWidth(0, GUIDesignTableIconCellWidth);
     myTable->setColumnWidth(1, 160);
-    myTable->setColumnWidth(2, 260);
+    myTable->setColumnWidth(2, 280);
     myTable->setColumnText(0, "");
     myTable->setColumnText(1, toString(SUMO_ATTR_ID).c_str());
     myTable->setColumnText(2, "Conflict");
@@ -325,12 +325,14 @@ GNEDialog_FixAdditionalPositions::ConsecutiveLaneOptions::buildConsecutiveLaneOp
     FXVerticalFrame* RadioButtonsLeft = new FXVerticalFrame(RadioButtons, GUIDesignAuxiliarVerticalFrame);
     buildConnectionBetweenLanes = new FXRadioButton(RadioButtonsLeft, "Build connections between lanes\t\tNew connections will be created between non-connected lanes",
                                                     fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
-    activateFriendlyPositionAndSave = new FXRadioButton(RadioButtonsLeft, "Activate friendlyPos and save\t\tFriendly pos parameter will be activated in all stopping places and E2 detectors",
-                                                        fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    removeInvalidElements = new FXRadioButton(RadioButtonsLeft, "Remove invalid E2 detectors\t\tRemove Multilane E2 Detectors with non-connected lanes",
+                                              fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    // add a vertical separator beween both options
+    new FXVerticalSeparator(RadioButtons, GUIDesignVerticalSeparator);
     // create Vertical Frame for right options
     FXVerticalFrame* RadioButtonsRight = new FXVerticalFrame(RadioButtons, GUIDesignAuxiliarVerticalFrame);
-    removeInvalidElements = new FXRadioButton(RadioButtonsRight, "Remove invalid E2 detectors\t\tRemove Multilane E2 Detectors with non-connected lanes",
-                                              fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    activateFriendlyPositionAndSave = new FXRadioButton(RadioButtonsRight, "Activate friendlyPos and save\t\tFriendly pos parameter will be activated in all stopping places and E2 detectors",
+                                                        fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     fixPositionsAndSave = new FXRadioButton(RadioButtonsRight, "Fix positions and save\t\tPosition of stopping places and E2 detectors will be fixed",
                                             fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     // leave option "buildConnectionBetweenLanes" and "activateFriendlyPositionAndSave" as default
