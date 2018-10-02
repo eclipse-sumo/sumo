@@ -595,7 +595,7 @@ private:
     bool buildAdditionalWithParent(std::map<SumoXMLAttr, std::string> &valuesMap, GNEAdditional* parent, const GNEAttributeCarrier::TagValues &tagValues);
 
     /// @brief build additional over an edge
-    bool buildAdditionalOverEdge(std::map<SumoXMLAttr, std::string> &valuesMap, GNEEdge* edge);
+    bool buildAdditionalOverEdge(std::map<SumoXMLAttr, std::string> &valuesMap, GNEEdge* edge, const GNEAttributeCarrier::TagValues &tagValues);
 
     /// @brief build additional over a single lane
     bool buildAdditionalOverLane(std::map<SumoXMLAttr, std::string> &valuesMap, GNELane* lane, const GNEAttributeCarrier::TagValues &tagValues);

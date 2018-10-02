@@ -1401,13 +1401,9 @@ GNEAdditionalFrame::addAdditional(const GNEViewNet::ObjectsUnderCursor &objectsU
     if (tagValues.hasParent() && !buildAdditionalWithParent(valuesMap, objectsUnderCursor.additional, tagValues)) {
         return false;
     }
-    // parse common attributes
-    if(!buildAdditionalCommonAttributes(valuesMap, tagValues)) {
-        return false;
-    }
     // If consecutive Lane Selector is enabled, it means that either we're selecting lanes or we're finished or we'rent started
     if(tagValues.canBePlacedOverEdge()) {
-        return buildAdditionalOverEdge(valuesMap, &objectsUnderCursor.lane->getParentEdge());
+        return buildAdditionalOverEdge(valuesMap, &objectsUnderCursor.lane->getParentEdge(), tagValues);
     } else if(tagValues.canBePlacedOverLane()) {
         return buildAdditionalOverLane(valuesMap, objectsUnderCursor.lane, tagValues);
     } else if(tagValues.canBePlacedOverLanes()) {
@@ -1534,7 +1530,7 @@ GNEAdditionalFrame::buildAdditionalCommonAttributes(std::map<SumoXMLAttr, std::s
 
 
 bool 
-GNEAdditionalFrame::buildAdditionalOverEdge(std::map<SumoXMLAttr, std::string> &valuesMap, GNEEdge* edge) {
+GNEAdditionalFrame::buildAdditionalOverEdge(std::map<SumoXMLAttr, std::string> &valuesMap, GNEEdge* edge, const GNEAttributeCarrier::TagValues &tagValues) {
     // check that edge exist
     if (edge) {
         // Get attribute lane's edge
@@ -1542,6 +1538,10 @@ GNEAdditionalFrame::buildAdditionalOverEdge(std::map<SumoXMLAttr, std::string> &
         // Generate id of element based on the lane's edge
         valuesMap[SUMO_ATTR_ID] = generateID(edge);
     } else {
+        return false;
+    }
+    // parse common attributes
+    if(!buildAdditionalCommonAttributes(valuesMap, tagValues)) {
         return false;
     }
     // show warning dialogbox and stop check if input parameters are valid
@@ -1583,6 +1583,10 @@ GNEAdditionalFrame::buildAdditionalOverLane(std::map<SumoXMLAttr, std::string> &
     } else if (tagValues.hasAttribute(SUMO_ATTR_POSITION) && (valuesMap.find(SUMO_ATTR_POSITION) == valuesMap.end())) {
         // Obtain position attribute if wasn't previously set in Frame
         valuesMap[SUMO_ATTR_POSITION] = toString(mousePositionOverLane);
+    }
+    // parse common attributes
+    if(!buildAdditionalCommonAttributes(valuesMap, tagValues)) {
+        return false;
     }
     // show warning dialogbox and stop check if input parameters are valid
     if (myAdditionalAttributes->areCurrentAdditionalAttributesValid() == false) {
@@ -1632,6 +1636,10 @@ GNEAdditionalFrame::buildAdditionalOverLanes(std::map<SumoXMLAttr, std::string> 
         if(tagValues.hasAttribute(SUMO_ATTR_ENDPOS)) {
             valuesMap[SUMO_ATTR_ENDPOS] = toString(mySelectorLaneParents->getSelectedLanes().back().second);
         }
+        // parse common attributes
+        if(!buildAdditionalCommonAttributes(valuesMap, tagValues)) {
+            return false;
+        }
         // show warning dialogbox and stop check if input parameters are valid
         if (myAdditionalAttributes->areCurrentAdditionalAttributesValid() == false) {
             myAdditionalAttributes->showWarningMessage();
@@ -1658,6 +1666,10 @@ GNEAdditionalFrame::buildAdditionalOverView(std::map<SumoXMLAttr, std::string> &
     if (tagValues.hasAttribute(SUMO_ATTR_POSITION) && (valuesMap.find(SUMO_ATTR_POSITION) == valuesMap.end())) {
         // An attribute "position" can be either a float or a Position. If isn't float, we get the position over map
         valuesMap[SUMO_ATTR_POSITION] = toString(myViewNet->snapToActiveGrid(myViewNet->getPositionInformation()));
+    }
+    // parse common attributes
+    if(!buildAdditionalCommonAttributes(valuesMap, tagValues)) {
+        return false;
     }
     // show warning dialogbox and stop check if input parameters are valid
     if (myAdditionalAttributes->areCurrentAdditionalAttributesValid() == false) {
