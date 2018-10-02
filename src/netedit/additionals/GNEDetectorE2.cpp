@@ -76,7 +76,8 @@ GNEDetectorE2::GNEDetectorE2(const std::string& id, std::vector<GNELane*> lanes,
     myEndPositionOverLane(endPos),
     myTimeThreshold(timeThreshold),
     mySpeedThreshold(speedThreshold),
-    myJamThreshold(jamThreshold) {
+    myJamThreshold(jamThreshold),
+    myE2valid(true) {
 }
 
 
