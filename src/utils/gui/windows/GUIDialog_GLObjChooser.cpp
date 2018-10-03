@@ -171,6 +171,10 @@ GUIDialog_GLObjChooser::onCmdFilter(FXObject*, FXSelector, void*) {
     return 1;
 }
 
+std::string
+GUIDialog_GLObjChooser::getObjectName(GUIGlObject* o) const {
+    return o->getMicrosimID();
+}
 
 void
 GUIDialog_GLObjChooser::refreshList(const std::vector<GUIGlID>& ids) {
@@ -180,7 +184,7 @@ GUIDialog_GLObjChooser::refreshList(const std::vector<GUIGlID>& ids) {
         if (o == 0) {
             continue;
         }
-        const std::string& name = o->getMicrosimID();
+        const std::string& name = getObjectName(o);
         bool selected = myParent->isSelected(o);
         FXIcon* icon = selected ? GUIIconSubSys::getIcon(ICON_FLAG) : 0;
         myIDs.insert(o->getGlID());
