@@ -59,7 +59,7 @@ public:
     static void remove(const std::string& polygonID, int layer = 0);
 
     static void setFilled(std::string polygonID, bool filled);
-    static void setParameter(std::string& name, std::string& value, std::string& string);
+    static void setParameter(std::string& id, std::string& name, std::string& value);
 
     LIBSUMO_SUBSCRIPTION_API
 
