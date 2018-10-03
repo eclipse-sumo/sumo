@@ -84,7 +84,9 @@ FXDEFMAP(GNETLSEditorFrame) GNETLSEditorFrameMap[] = {
 
 FXDEFMAP(GNETLSEditorFrame::TLSFile) TLSFileMap[] = {
     FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_LOAD_PROGRAM,    GNETLSEditorFrame::TLSFile::onCmdLoadTLSProgram),
+    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_LOAD_PROGRAM,    GNETLSEditorFrame::TLSFile::onUpdNeedsDef),
     FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_SAVE_PROGRAM,    GNETLSEditorFrame::TLSFile::onCmdSaveTLSProgram),
+    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_SAVE_PROGRAM,    GNETLSEditorFrame::TLSFile::onUpdNeedsDef),
 };
 
 // Object implementation
@@ -237,8 +239,6 @@ GNETLSEditorFrame::onCmdCancel(FXObject*, FXSelector, void*) {
         myViewNet->getUndoList()->p_abort();
         cleanup();
         myViewNet->update();
-        // disable TLS File
-        myTLSFile->disableTLSFile();
     }
     return 1;
 }
@@ -816,16 +816,12 @@ GNETLSEditorFrame::TLSAttributes::initTLSAttributes(GNEJunction* junction) {
         myNameTextField->setText(it->getID().c_str());
         myNameTextField->enable();
         myProgramComboBox->appendItem(it->getProgramID().c_str());
-        // enable TLS
-        myTLSEditorParent->myTLSFile->enableTLSFile();
     }
     if (myTLSDefinitions.size() > 0) {
         myProgramComboBox->enable();
         myProgramComboBox->setCurrentItem(0);
         myProgramComboBox->setNumVisible(myProgramComboBox->getNumItems());
         myTLSEditorParent->onCmdDefSwitch(0, 0, 0);
-        // enable TLS
-        myTLSEditorParent->myTLSFile->enableTLSFile();
     }
 }
 
@@ -1099,31 +1095,12 @@ GNETLSEditorFrame::TLSFile::TLSFile(GNETLSEditorFrame* TLSEditorParent) :
     myLoadTLSProgramButton = new FXButton(this, "Load TLS Program", 0, this, MID_GNE_TLSFRAME_LOAD_PROGRAM, GUIDesignButton);
     // create create tlDef button
     mySaveTLSProgramButton = new FXButton(this, "Save TLS Program", 0, this, MID_GNE_TLSFRAME_SAVE_PROGRAM, GUIDesignButton);
-    // by default TLSFile is disabled
-    disableTLSFile();
     // show TLSFile
     show();
 }
 
 
 GNETLSEditorFrame::TLSFile::~TLSFile() {}
-
-
-void
-GNETLSEditorFrame::TLSFile::enableTLSFile() {
-    // enable buttons
-    myLoadTLSProgramButton->enable();
-    mySaveTLSProgramButton->enable();
-}
-
-
-void
-GNETLSEditorFrame::TLSFile::disableTLSFile() {
-    // disable buttons
-    myLoadTLSProgramButton->disable();
-    mySaveTLSProgramButton->disable();
-}
-
 
 
 long
@@ -1235,5 +1212,12 @@ GNETLSEditorFrame::TLSFile::writeSUMOTime(SUMOTime steps) {
     } else {
         return toString(time);
     }
+}
+
+long
+GNETLSEditorFrame::TLSFile::onUpdNeedsDef(FXObject* o, FXSelector, void*) {
+    const bool enable = myTLSEditorParent->myTLSAttributes->getNumberOfTLSDefinitions() > 0;
+    o->handle(this, FXSEL(SEL_COMMAND, enable ? FXWindow::ID_ENABLE : FXWindow::ID_DISABLE), 0);
+    return 1;
 }
 /****************************************************************************/
