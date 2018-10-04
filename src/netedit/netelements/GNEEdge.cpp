@@ -1512,6 +1512,18 @@ GNEEdge::retrieveGNEConnection(int fromLane, NBEdge* to, int toLane, bool create
         WRITE_DEBUG("Created " + toString(createdConnection->getTag()) + " '" + createdConnection->getID() + "' in retrieveGNEConnection()");
         // insert it in Tree
         myNet->addGLObjectIntoGrid(createdConnection);
+        // iterate over all additionals from "from" lane and check E2 multilane integrity
+        for (auto i : createdConnection->getLaneFrom()->getAdditionalChilds()) {
+            if (i->getTag() == SUMO_TAG_E2DETECTOR_MULTILANE) {
+                dynamic_cast<GNEDetectorE2*>(i)->checkE2MultilaneIntegrity();
+            }
+        }
+        // iterate over all additionals from "to" lane and check E2 multilane integrity
+        for (auto i : createdConnection->getLaneTo()->getAdditionalChilds()) {
+            if (i->getTag() == SUMO_TAG_E2DETECTOR_MULTILANE) {
+                dynamic_cast<GNEDetectorE2*>(i)->checkE2MultilaneIntegrity();
+            }
+        }
         return createdConnection;
     } else {
         return nullptr;

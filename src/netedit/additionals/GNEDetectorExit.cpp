@@ -93,8 +93,8 @@ void
 GNEDetectorExit::fixAdditionalProblem() {
     // declare new position
     double newPositionOverLane = myPositionOverLane;
-    // fix pos and lenght  checkAndFixDetectorPositionPosition
-    GNEAdditionalHandler::checkAndFixDetectorPositionPosition(newPositionOverLane, myLane->getParentEdge().getNBEdge()->getFinalLength(), true);
+    // fix pos and lenght  checkAndFixDetectorPosition
+    GNEAdditionalHandler::checkAndFixDetectorPosition(newPositionOverLane, myLane->getParentEdge().getNBEdge()->getFinalLength(), true);
     // set new position
     setAttribute(SUMO_ATTR_POSITION, toString(newPositionOverLane), myViewNet->getUndoList());
 }

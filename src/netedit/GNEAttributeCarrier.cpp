@@ -31,6 +31,7 @@
 #include <netbuild/NBEdge.h>
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNELane.h>
+#include <netedit/netelements/GNEJunction.h>
 
 #include "GNEAttributeCarrier.h"
 #include "GNEUndoList.h"
@@ -883,6 +884,37 @@ GNEAttributeCarrier::parseStringToANDBool(const std::string& string) {
         } else {
             return true;
         }
+    }
+}
+
+
+bool 
+GNEAttributeCarrier::lanesConsecutives(const std::vector<GNELane*>& lanes) {
+    // we need at least two lanes
+    if(lanes.size() > 1) {
+        // now check that lanes are consecutives (not neccesary connected)
+        int currentLane = 0;
+        while (currentLane < ((int)lanes.size() - 1)) {
+            int nextLane = -1;
+            // iterate over outgoing edges of destiny juntion of edge's lane
+            for (int i = 0; (i < (int)lanes.at(currentLane)->getParentEdge().getGNEJunctionDestiny()->getGNEOutgoingEdges().size()) && (nextLane == -1); i++) {
+                // iterate over lanes of outgoing edges of destiny juntion of edge's lane
+                for (int j = 0; (j < lanes.at(currentLane)->getParentEdge().getGNEJunctionDestiny()->getGNEOutgoingEdges().at(i)->getLanes().size()) && (nextLane == -1); j++) {
+                    // check if lane correspond to the next lane of "lanes"
+                    if(lanes.at(currentLane)->getParentEdge().getGNEJunctionDestiny()->getGNEOutgoingEdges().at(i)->getLanes().at(j) == lanes.at(currentLane + 1)) {
+                        nextLane = currentLane;
+                    }
+                }
+            }
+            if(nextLane == -1) {
+                return false;
+            } else {
+                currentLane++;
+            }
+        }
+        return true;
+    } else {
+        return false;
     }
 }
 

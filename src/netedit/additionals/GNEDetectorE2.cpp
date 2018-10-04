@@ -161,8 +161,8 @@ GNEDetectorE2::fixAdditionalProblem() {
         // obtain position and lenght
         double newPositionOverLane = myPositionOverLane;
         double newLength = myLength;
-        // fix pos and lenght using fixE2DetectorPositionPosition
-        GNEAdditionalHandler::fixE2DetectorPositionPosition(newPositionOverLane, newLength, myLanes.at(0)->getParentEdge().getNBEdge()->getFinalLength(), true);
+        // fix pos and lenght using fixE2DetectorPosition
+        GNEAdditionalHandler::fixE2DetectorPosition(newPositionOverLane, newLength, myLanes.at(0)->getParentEdge().getNBEdge()->getFinalLength(), true);
         // set new position and length
         setAttribute(SUMO_ATTR_POSITION, toString(newPositionOverLane), myViewNet->getUndoList());
         setAttribute(SUMO_ATTR_LENGTH, toString(myLength), myViewNet->getUndoList());
@@ -194,14 +194,14 @@ GNEDetectorE2::fixAdditionalProblem() {
         } else {
             // declare new position
             double newPositionOverLane = myPositionOverLane;
-            // fix pos and lenght  checkAndFixDetectorPositionPosition
-            GNEAdditionalHandler::checkAndFixDetectorPositionPosition(newPositionOverLane, myLanes.front()->getParentEdge().getNBEdge()->getFinalLength(), true);
+            // fix pos and lenght  checkAndFixDetectorPosition
+            GNEAdditionalHandler::checkAndFixDetectorPosition(newPositionOverLane, myLanes.front()->getParentEdge().getNBEdge()->getFinalLength(), true);
             // set new position
             setAttribute(SUMO_ATTR_POSITION, toString(newPositionOverLane), myViewNet->getUndoList());
             // declare new end position
             double newEndPositionOverLane = myEndPositionOverLane;
-            // fix pos and lenght  checkAndFixDetectorPositionPosition
-            GNEAdditionalHandler::checkAndFixDetectorPositionPosition(newEndPositionOverLane, myLanes.back()->getParentEdge().getNBEdge()->getFinalLength(), true);
+            // fix pos and lenght  checkAndFixDetectorPosition
+            GNEAdditionalHandler::checkAndFixDetectorPosition(newEndPositionOverLane, myLanes.back()->getParentEdge().getNBEdge()->getFinalLength(), true);
             // set new position
             setAttribute(SUMO_ATTR_ENDPOS, toString(newEndPositionOverLane), myViewNet->getUndoList());
         }
@@ -605,8 +605,8 @@ GNEDetectorE2::isValid(SumoXMLAttr key, const std::string& value) {
             if (value.empty()) {
                 return false;
             } else if (canParse<std::vector<GNELane*> >(myViewNet->getNet(), value, false)) {
-                // check that at least there ist TWO lanes
-                return (parse<std::vector<GNELane*> >(myViewNet->getNet(), value).size() > 1);
+                // check if lanes are consecutives
+                return lanesConsecutives(parse<std::vector<GNELane*> >(myViewNet->getNet(), value));
             } else {
                 return false;
             }
@@ -660,6 +660,7 @@ GNEDetectorE2::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_LANE:
         case SUMO_ATTR_LANES:
             myLanes = parse<std::vector<GNELane*> >(myViewNet->getNet(), value);
+            checkE2MultilaneIntegrity();
             break;
         case SUMO_ATTR_POSITION:
             myPositionOverLane = parse<double>(value);

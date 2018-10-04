@@ -675,7 +675,7 @@ public:
     * @param[in] friendlyPos Attribute of detector
     * @return true if the detector position is valid, false in otherweise
     */
-    static bool checkAndFixDetectorPositionPosition(double& pos, const double laneLength, const bool friendlyPos);
+    static bool checkAndFixDetectorPosition(double& pos, const double laneLength, const bool friendlyPos);
 
     /**@brief check if the position of a detector over a lane is valid
     * @param[in] startPos Start position of detector
@@ -684,7 +684,7 @@ public:
     * @param[in] friendlyPos Attribute of detector
     * @return true if the detector position is valid, false in otherweise
     */
-    static bool fixE2DetectorPositionPosition(double& pos, double& length, const double laneLength, const bool friendlyPos);
+    static bool fixE2DetectorPosition(double& pos, double& length, const double laneLength, const bool friendlyPos);
 
     /// @brief check if a GNEAccess can be created in a certain Edge
     static bool accessCanBeCreated(GNEAdditional* busStopParent, GNEEdge& edge);

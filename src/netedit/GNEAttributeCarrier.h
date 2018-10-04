@@ -545,6 +545,9 @@ public:
     /// @brief parse a string of booleans (1 0 1 1....) using AND operation
     static bool parseStringToANDBool(const std::string& string);
 
+    /// @brief check if lanes are consecutives
+    static bool lanesConsecutives(const std::vector<GNELane*>& lanes);
+
     /// @brief default value for invalid positions (used by POIs and Polygons)
     static const double INVALID_POSITION;
 
@@ -727,6 +730,11 @@ public:
             // set extra check for list of lanes
             if ((attribute == SUMO_ATTR_LANES) && parsedAttribute.empty()) {
                 errorFormat = "List of lanes cannot be empty; ";
+                parsedOk = false;
+            }
+            // set extra check for list of VTypes
+            if ((attribute == SUMO_ATTR_VTYPES) && !parsedAttribute.empty() && SUMOXMLDefinitions::isValidListOfTypeID(parsedAttribute)) {
+                errorFormat = "List of vTypes contains invalid characters; ";
                 parsedOk = false;
             }
             // If attribute has an invalid format

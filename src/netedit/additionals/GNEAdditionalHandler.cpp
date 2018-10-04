@@ -737,7 +737,7 @@ GNEAdditionalHandler::parseAndBuildAccess(const SUMOSAXAttributes& attrs, const 
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " is not known.");
         } else if (busStop == nullptr) {
             WRITE_WARNING("A " + toString(tag) + " must be declared within the definition of a " + toString(SUMO_TAG_BUS_STOP) + ".");
-        } else if (!checkAndFixDetectorPositionPosition(posDouble, lane->getLaneShapeLength(), friendlyPos)) {
+        } else if (!checkAndFixDetectorPosition(posDouble, lane->getLaneShapeLength(), friendlyPos)) {
             WRITE_WARNING("Invalid position for " + toString(tag) + ".");
         } else if (!accessCanBeCreated(busStop, lane->getParentEdge())) {
             WRITE_WARNING("Edge '" + lane->getParentEdge().getID() + "' already has an Access for busStop '" + busStop->getID() + "'");
@@ -930,7 +930,7 @@ GNEAdditionalHandler::parseAndBuildDetectorE1(const SUMOSAXAttributes& attrs, co
         } else if (lane == nullptr) {
             // Write error if lane isn't valid
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " '" + id + "' is not known.");
-        } else if (!checkAndFixDetectorPositionPosition(position, lane->getLaneShapeLength(), friendlyPos)) {
+        } else if (!checkAndFixDetectorPosition(position, lane->getLaneShapeLength(), friendlyPos)) {
             WRITE_WARNING("Invalid position for " + toString(tag) + " with ID = '" + id + "'.");
         } else {
             myLastInsertedAdditional = buildDetectorE1(myViewNet, myUndoAdditionals, id, lane, position, frequency, file, vehicleTypes, name, friendlyPos, false);
@@ -944,7 +944,7 @@ GNEAdditionalHandler::parseAndBuildDetectorE1(const SUMOSAXAttributes& attrs, co
 void
 GNEAdditionalHandler::parseAndBuildDetectorE2(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
     // Tag E2 detectors can build either E2 single lanes or E2 multilanes, depending of attribute "lanes"
-    SumoXMLTag E2Tag = attrs.hasAttribute(SUMO_ATTR_LANES)? SUMO_TAG_E2DETECTOR_MULTILANE : tag;
+    SumoXMLTag E2Tag = attrs.hasAttribute(SUMO_ATTR_LANES)? SUMO_TAG_E2DETECTOR_MULTILANE : SUMO_TAG_E2DETECTOR;
     bool abort = false;
     // start parsing ID
     std::string id = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", E2Tag, SUMO_ATTR_ID, abort);
@@ -965,37 +965,44 @@ GNEAdditionalHandler::parseAndBuildDetectorE2(const SUMOSAXAttributes& attrs, co
     double jamDistThreshold = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, E2Tag, SUMO_ATTR_JAM_DIST_THRESHOLD, abort);
     bool friendlyPos = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, id, E2Tag, SUMO_ATTR_FRIENDLY_POS, abort);
     // cont attribute is deprecated
-    GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_CONT, abort);
+    GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, E2Tag, SUMO_ATTR_CONT, abort);
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
         // check if at leas lane or laneIDS are defined
         if(laneId.empty() && laneIds.empty()) {
-            WRITE_WARNING("A " + toString(tag) + " needs at least a lane or a list of lanes.");
+            WRITE_WARNING("A " + toString(E2Tag) + " needs at least a lane or a list of lanes.");
         } else {
             // get pointer to lane
             GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false, true);
             // get list of lanes
             std::vector<GNELane*> lanes;
+            bool laneConsecutives = true;
             if(GNEAttributeCarrier::canParse<std::vector<GNELane*> >(myViewNet->getNet(), laneIds, false)) {
                 lanes = GNEAttributeCarrier::parse<std::vector<GNELane*> >(myViewNet->getNet(), laneIds);
+                // check if lanes are consecutives
+                laneConsecutives = GNEAttributeCarrier::lanesConsecutives(lanes);
             }
             // check that all elements are valid
-            if (myViewNet->getNet()->retrieveAdditional(tag, id, false) != nullptr) {
+            if (myViewNet->getNet()->retrieveAdditional(E2Tag, id, false) != nullptr) {
                 // write error if neither lane nor lane aren't defined
-                WRITE_WARNING("There is another " + toString(tag) + " with the same ID='" + id + "'.");
+                WRITE_WARNING("There is another " + toString(E2Tag) + " with the same ID='" + id + "'.");
             } else if (attrs.hasAttribute(SUMO_ATTR_LANE) && (lane == nullptr)) {
                 // Write error if lane isn't valid
-                WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " '" + id + "' is not known.");
+                WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(E2Tag) + " '" + id + "' is not known.");
             } else if (attrs.hasAttribute(SUMO_ATTR_LANES) && lanes.empty()) {
                 // Write error if lane isn't valid
                 WRITE_WARNING("The list of lanes cannot be empty.");
             } else if (attrs.hasAttribute(SUMO_ATTR_LANES) && lanes.empty()) {
                 // Write error if lane isn't valid
-                WRITE_WARNING("The list of lanes '" + laneIds + "' to use within the " + toString(tag) + " '" + id + "' isn't valid.");
-            } else if (lane && !fixE2DetectorPositionPosition(position, length, lane->getParentEdge().getNBEdge()->getFinalLength(), friendlyPos)) {
-                WRITE_WARNING("Invalid position for " + toString(tag) + " with ID = '" + id + "'.");
-            } else if (!lanes.empty() && !fixE2DetectorPositionPosition(position, length, lanes.back()->getParentEdge().getNBEdge()->getFinalLength(), friendlyPos)) {
-                WRITE_WARNING("Invalid position for " + toString(tag) + " with ID = '" + id + "'.");
+                WRITE_WARNING("The list of lanes '" + laneIds + "' to use within the " + toString(E2Tag) + " '" + id + "' isn't valid.");
+            } else if (!lanes.empty() && !laneConsecutives) {
+                WRITE_WARNING("The lanes '" + laneIds + "' to use within the " + toString(E2Tag) + " '" + id + "' aren't consecutives.");
+            } else if (lane && !fixE2DetectorPosition(position, length, lane->getParentEdge().getNBEdge()->getFinalLength(), friendlyPos)) {
+                WRITE_WARNING("Invalid position for " + toString(E2Tag) + " with ID = '" + id + "'.");
+            } else if (!lanes.empty() && !fixE2DetectorPosition(position, length, lanes.front()->getParentEdge().getNBEdge()->getFinalLength(), friendlyPos)) {
+                WRITE_WARNING("Invalid position for " + toString(E2Tag) + " with ID = '" + id + "'.");
+            } else if (!lanes.empty() && !fixE2DetectorPosition(endPos, length, lanes.back()->getParentEdge().getNBEdge()->getFinalLength(), friendlyPos)) {
+                WRITE_WARNING("Invalid end position for " + toString(E2Tag) + " with ID = '" + id + "'.");
             } else if (lane) {
                 myLastInsertedAdditional = buildSingleLaneDetectorE2(myViewNet, myUndoAdditionals, id, lane, position, length, frequency, file, vehicleTypes, name, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, friendlyPos, false);
                 // save ID of last created element
@@ -1051,7 +1058,7 @@ GNEAdditionalHandler::parseAndBuildDetectorEntry(const SUMOSAXAttributes& attrs,
         // check that all parameters are valid
         if (lane == nullptr) {
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " is not known.");
-        } else if (!checkAndFixDetectorPositionPosition(position, lane->getLaneShapeLength(), friendlyPos)) {
+        } else if (!checkAndFixDetectorPosition(position, lane->getLaneShapeLength(), friendlyPos)) {
             WRITE_WARNING("Invalid position for " + toString(tag) + ".");
         } else if (E3Parent) {
             myLastInsertedAdditional = buildDetectorEntry(myViewNet, myUndoAdditionals, E3Parent, lane, position, friendlyPos, false);
@@ -1077,7 +1084,7 @@ GNEAdditionalHandler::parseAndBuildDetectorExit(const SUMOSAXAttributes& attrs, 
         // check that all parameters are valid
         if (lane == nullptr) {
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " is not known.");
-        } else if (!checkAndFixDetectorPositionPosition(position, lane->getLaneShapeLength(), friendlyPos)) {
+        } else if (!checkAndFixDetectorPosition(position, lane->getLaneShapeLength(), friendlyPos)) {
             WRITE_WARNING("Invalid position for " + toString(tag) + ".");
         } else if (E3Parent) {
             myLastInsertedAdditional = buildDetectorExit(myViewNet, myUndoAdditionals, E3Parent, lane, position, friendlyPos, false);
@@ -1109,7 +1116,7 @@ GNEAdditionalHandler::parseAndBuildDetectorE1Instant(const SUMOSAXAttributes& at
         } else if (lane == nullptr) {
             // Write error if lane isn't valid
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " '" + id + "' is not known.");
-        } else if (!checkAndFixDetectorPositionPosition(position, lane->getLaneShapeLength(), friendlyPos)) {
+        } else if (!checkAndFixDetectorPosition(position, lane->getLaneShapeLength(), friendlyPos)) {
             WRITE_WARNING("Invalid position for " + toString(tag) + " with ID = '" + id + "'.");
         } else {
             myLastInsertedAdditional = buildDetectorE1Instant(myViewNet, myUndoAdditionals, id, lane, position, file, vehicleTypes, name, friendlyPos, false);
@@ -1647,6 +1654,8 @@ GNEAdditionalHandler::buildMultiLaneDetectorE2(GNEViewNet* viewNet, bool allowUn
             }
             detectorE2->incRef("buildDetectorE2Multilane");
         }
+        // check E2 integrity
+        detectorE2->checkE2MultilaneIntegrity();
         return detectorE2;
     } else {
         throw ProcessError("Could not build " + toString(SUMO_TAG_E2DETECTOR_MULTILANE) + " with ID '" + id + "' in netedit; probably declared twice.");
@@ -2225,31 +2234,31 @@ GNEAdditionalHandler::fixStoppinPlacePosition(std::string& startPos, std::string
 }
 
 
-bool GNEAdditionalHandler::checkAndFixDetectorPositionPosition(double& pos, const double laneLength, const bool friendlyPos) {
+bool GNEAdditionalHandler::checkAndFixDetectorPosition(double& pos, const double laneLength, const bool friendlyPos) {
     if ((pos < 0) || (pos > laneLength)) {
         if (!friendlyPos) {
             return false;
         } else if (pos < 0) {
             pos = 0;
         } else if (pos > laneLength) {
-            pos = laneLength;
+            pos = laneLength - 0.01;
         }
     }
     return true;
 }
 
 
-bool GNEAdditionalHandler::fixE2DetectorPositionPosition(double& pos, double& length, const double laneLength, const bool friendlyPos) {
+bool GNEAdditionalHandler::fixE2DetectorPosition(double& pos, double& length, const double laneLength, const bool friendlyPos) {
     if ((pos < 0) || ((pos + length) > laneLength)) {
         if (!friendlyPos) {
             return false;
         } else if (pos < 0) {
             pos = 0;
         } else if (pos > laneLength) {
-            pos = laneLength;
+            pos = laneLength - 0.01;
             length = 0;
         } else if ((pos + length) > laneLength) {
-            length = laneLength - pos;
+            length = laneLength - pos - 0.01;
         }
     }
     return true;
