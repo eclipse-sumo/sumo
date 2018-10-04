@@ -55,6 +55,10 @@ print("color modified2", traci.polygon.getColor(polygonID))
 traci.polygon.setFilled(polygonID, False)
 print("filled modified", traci.polygon.getFilled(polygonID))
 
+print("getParameter='%s' (unset)" % (traci.polygon.getParameter(polygonID, "foo")))
+traci.polygon.setParameter(polygonID, "foo", "42")
+print("getParameter='%s' (after setting)" % (traci.polygon.getParameter(polygonID, "foo")))
+
 traci.polygon.subscribe(polygonID)
 print(traci.polygon.getSubscriptionResults(polygonID))
 for step in range(3, 6):

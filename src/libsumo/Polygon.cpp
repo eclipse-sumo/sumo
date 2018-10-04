@@ -81,8 +81,8 @@ Polygon::getColor(const std::string& polygonID) {
 
 
 std::string
-Polygon::getParameter(const std::string& polygonID, const std::string& paramName) {
-    return getPolygon(polygonID)->getParameter(paramName, "");
+Polygon::getParameter(const std::string& polygonID, const std::string& key) {
+    return getPolygon(polygonID)->getParameter(key, "");
 }
 
 
@@ -147,9 +147,9 @@ Polygon::getPolygon(const std::string& id) {
 
 
 void
-Polygon::setParameter(std::string& id, std::string& name, std::string& value) {
-    SUMOPolygon* p = getPolygon(id);
-    p->setParameter(name, value);
+Polygon::setParameter(const std::string& polygonID, const std::string& key, const std::string& value) {
+    SUMOPolygon* p = getPolygon(polygonID);
+    p->setParameter(key, value);
 }
 
 
