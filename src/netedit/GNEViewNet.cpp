@@ -891,6 +891,8 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                     if (myObjectsUnderCursor.additional->isAttributeCarrierSelected()) {
                         myMovingSelection = true;
                     } else {
+                        // save current position
+                        myMoveSingleElementValues.movingOriginalPosition = getPositionInformation();
                         // set additionals moved object
                         myMovedItems.additionalToMove = myObjectsUnderCursor.additional;
                         // start additional geometry moving
@@ -1155,19 +1157,11 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* eventData) {
     if ((myEditMode == GNE_MODE_POLYGON) && myViewParent->getPolygonFrame()->getDrawingMode()->isDrawing()) {
         myViewParent->getPolygonFrame()->getDrawingMode()->setDeleteLastCreatedPoint(myShiftKeyPressed);
     }
-    // calculate offset of movement depending of showGrid
-    Position offsetMovement;
-    if (myVisualizationSettings->showGrid) {
-        offsetMovement = snapToActiveGrid(getPositionInformation()) - myMoveSingleElementValues.movingOriginalPosition;
-        if (myMenuCheckMoveElevation->getCheck()) {
-            const double dist = int((offsetMovement.y() + offsetMovement.x()) / myVisualizationSettings->gridXSize) * myVisualizationSettings->gridXSize;
-            offsetMovement = Position(0, 0, dist / 10);
-        }
-    } else {
-        offsetMovement = getPositionInformation() - myMoveSingleElementValues.movingReference;
-        if (myMenuCheckMoveElevation->getCheck()) {
-            offsetMovement = Position(0, 0, (offsetMovement.y() + offsetMovement.x()) / 10);
-        }
+    // calculate offset
+    Position offsetMovement = snapToActiveGrid(getPositionInformation()) - myMoveSingleElementValues.movingOriginalPosition;
+    if (myMenuCheckMoveElevation->getCheck()) {
+        const double dist = int((offsetMovement.y() + offsetMovement.x()) / myVisualizationSettings->gridXSize) * myVisualizationSettings->gridXSize;
+        offsetMovement = Position(0, 0, dist / 10);
     }
     // @note  #3521: Add checkBox to allow moving elements... has to behere implemented
     // check what type of additional is moved
@@ -1197,7 +1191,7 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* eventData) {
         }
     } else if (myMovedItems.additionalToMove  && (myMovedItems.additionalToMove->isAdditionalBlocked() == false)) {
         // Move Additional geometry without commiting changes
-        myMovedItems.additionalToMove->moveGeometry(offsetMovement);
+        myMovedItems.additionalToMove->moveGeometry(getPositionInformation() - myMoveSingleElementValues.movingOriginalPosition);
     } else if (mySelectingArea.selectingUsingRectangle) {
         mySelectingArea.selectionCorner2 = getPositionInformation();
         setStatusBarText(mySelectingArea.reportDimensions());

@@ -123,6 +123,7 @@ GNEPOI::moveGeometry(const Position& oldPos, const Position& offset) {
             // Calculate new position using old position
             Position newPosition = oldPos;
             newPosition.add(offset);
+            myNet->getViewNet()->snapToActiveGrid(newPosition);
             myPosOverLane = myGNELane->getShape().nearest_offset_to_point2D(newPosition, false);
             // Update geometry
             updateGeometry(false);

@@ -104,6 +104,7 @@ GNEDetectorE1::moveGeometry(const Position& offset) {
     // Calculate new position using old position
     Position newPosition = myMove.originalViewPosition;
     newPosition.add(offset);
+    newPosition = myViewNet->snapToActiveGrid(newPosition);
     myPositionOverLane = myLane->getShape().nearest_offset_to_point2D(newPosition, false);
     // Update geometry
     updateGeometry(false);

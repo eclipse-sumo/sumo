@@ -112,6 +112,7 @@ GNEDetectorE3::moveGeometry(const Position& offset) {
     // restore old position, apply offset and update Geometry
     myPosition = myMove.originalViewPosition;
     myPosition.add(offset);
+    myPosition = myViewNet->snapToActiveGrid(myPosition);
     updateGeometry(false);
 }
 

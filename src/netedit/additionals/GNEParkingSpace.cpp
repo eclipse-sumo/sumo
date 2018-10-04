@@ -72,10 +72,11 @@ GNEParkingSpace::~GNEParkingSpace() {}
 void
 GNEParkingSpace::moveGeometry(const Position& offset) {
     // restore old position, apply offset and update Geometry
-    Position pos = myMove.originalViewPosition;
-    pos.add(offset);
-    myX = pos.x();
-    myY = pos.y();
+    Position newPosition = myMove.originalViewPosition;
+    newPosition.add(offset);
+    newPosition = myViewNet->snapToActiveGrid(newPosition);
+    myX = newPosition.x();
+    myY = newPosition.y();
     updateGeometry(false);
 }
 
