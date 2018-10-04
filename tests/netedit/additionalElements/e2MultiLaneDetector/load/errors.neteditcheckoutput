@@ -1,2 +1,0 @@
-Warning: The given position (=50) for detector 'E2_39' does not lie on the given lane 'gneE0_0' with length 50 (adjusting to new position 49.9
-Warning: No valid detector length and end position given. Assuming endPos = lane length and length = endPos-startPos

@@ -25,6 +25,13 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
+# recompute
+netedit.rebuildNetwork()
+
+# Check undo redo
+netedit.undo(referencePosition, 1)
+netedit.redo(referencePosition, 1)
+
 # save additionals
 netedit.saveAdditionals()
 
