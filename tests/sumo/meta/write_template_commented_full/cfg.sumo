@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Sep 11 12:11:52 2018 by Eclipse SUMO Version v1_0_0+0096-19e3d3b
+<!-- generated on Thu Oct  4 21:56:49 2018 by Eclipse SUMO Version v1_0_1+0174-bfdf8c8
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -137,6 +137,9 @@
 
         <!-- Write the output in the duarouter alternatives style -->
         <vehroute-output.dua value="false" synonymes="vehroutes.dua" type="BOOL"/>
+
+        <!-- Write costs for all routes -->
+        <vehroute-output.cost value="false" type="BOOL"/>
 
         <!-- Write the output with the intended instead of the real departure time -->
         <vehroute-output.intended-depart value="false" synonymes="vehroutes.intended-depart" type="BOOL"/>
@@ -695,9 +698,6 @@
 
         <!-- The aggregation period for value tracker windows -->
         <tracker-interval value="1" type="FLOAT"/>
-
-        <!-- Start with an OpenSceneGraph view instead of the regular 2D view -->
-        <osg-view value="false" type="BOOL"/>
 
         <!-- Enable ovelay for screen recognition -->
         <gui-testing value="false" type="BOOL"/>

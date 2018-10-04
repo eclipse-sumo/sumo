@@ -1,4 +1,4 @@
-Eclipse SUMO Version v1_0_0+0117-9fdb064
+Eclipse SUMO Version v1_0_1+0174-bfdf8c8
  Copyright (C) 2001-2018 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -79,6 +79,7 @@ Output Options:
   --vehroute-output.sorted             Sorts the output by departure time
   --vehroute-output.dua                Write the output in the duarouter
                                          alternatives style
+  --vehroute-output.cost               Write costs for all routes
   --vehroute-output.intended-depart    Write the output with the intended
                                          instead of the real departure time
   --vehroute-output.route-length       Include total route length in the output
@@ -489,8 +490,6 @@ GUI Only Options:
                                          position
   --tracker-interval FLOAT             The aggregation period for value tracker
                                          windows
-  --osg-view                           Start with an OpenSceneGraph view
-                                         instead of the regular 2D view
   --gui-testing                        Enable ovelay for screen recognition
   --gui-testing-debug                  Enable output messages during
                                          GUI-Testing
