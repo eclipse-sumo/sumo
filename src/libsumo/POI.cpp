@@ -78,8 +78,8 @@ POI::getPosition(const std::string& poiID, const bool includeZ) {
 
 
 std::string
-POI::getParameter(const std::string& poiID, const std::string& param) {
-    return getPoI(poiID)->getParameter(param, "");
+POI::getParameter(const std::string& poiID, const std::string& key) {
+    return getPoI(poiID)->getParameter(key, "");
 }
 
 
@@ -123,9 +123,9 @@ POI::remove(const std::string& poiID, int /* layer */) {
 
 
 void
-POI::setParameter(const std::string& poiID, const std::string& param, const std::string& value) {
+POI::setParameter(const std::string& poiID, const std::string& key, const std::string& value) {
     PointOfInterest* p = getPoI(poiID);
-    p->setParameter(param, value);
+    p->setParameter(key, value);
 }
 
 
