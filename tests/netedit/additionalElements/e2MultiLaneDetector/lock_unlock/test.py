@@ -23,56 +23,55 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
+
+# recompute
+netedit.rebuildNetwork()
 
 # go to additional mode
 netedit.additionalMode()
 
 # select E2
-netedit.changeAdditional("e2Detector")
+netedit.changeAdditional("e2MultilaneDetector")
 
-# create E2
-netedit.leftClick(referencePosition, 240, 250)
-
-# change to move mode
-netedit.moveMode()
-
-# move E2 to right
-netedit.moveElement(referencePosition, 130, 250, 220, 250)
+# create E2 with default parameters
+netedit.leftClick(referencePosition, 190, 240)
+netedit.leftClick(referencePosition, 440, 240)
+netedit.typeEnter()
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect E2
-netedit.leftClick(referencePosition, 350, 250)
+netedit.leftClick(referencePosition, 320, 240)
 
-# block additional
+# Change boolean parameter 15
 netedit.modifyBoolAttribute(15)
 
-# change to move mode
+# go to move mode
 netedit.moveMode()
 
-# try to move E2 to right (must be blocked)
-netedit.moveElement(referencePosition, 250, 250, 350, 250)
+# try to move E2 to left taking the first lane
+netedit.moveElement(referencePosition, 200, 240, 20, 240)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect E2
-netedit.leftClick(referencePosition, 350, 250)
+netedit.leftClick(referencePosition, 320, 240)
 
-# unblock additional
+# Change boolean parameter 15
 netedit.modifyBoolAttribute(15)
 
-# change to move mode
+# go to move mode
 netedit.moveMode()
 
-# move E2 to right (must be allowed)
-netedit.moveElement(referencePosition, 250, 250, 350, 250)
+# move E2 to left taking the first lane
+netedit.moveElement(referencePosition, 200, 240, 20, 240)
 
-# Check undos and redos
-netedit.undo(referencePosition, 5)
-netedit.redo(referencePosition, 5)
+# Check undo redo
+netedit.undo(referencePosition, 4)
+netedit.redo(referencePosition, 4)
 
 # save additionals
 netedit.saveAdditionals()
@@ -82,3 +81,4 @@ netedit.saveNetwork()
 
 # quit netedit
 netedit.quit(neteditProcess)
+

@@ -23,47 +23,36 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
+
+# recompute
+netedit.rebuildNetwork()
 
 # go to additional mode
 netedit.additionalMode()
 
 # select E2
-netedit.changeAdditional("e2Detector")
+netedit.changeAdditional("e2MultilaneDetector")
 
-# create E2
-netedit.leftClick(referencePosition, 210, 250)
+# create E2 with default parameters
+netedit.leftClick(referencePosition, 190, 240)
+netedit.leftClick(referencePosition, 440, 240)
+netedit.typeEnter()
 
-# change to move mode
+# go to move mode
 netedit.moveMode()
 
-# move E2 to left
-netedit.moveElement(referencePosition, 120, 250, 30, 250)
+# move E2 to left taking the first lane
+netedit.moveElement(referencePosition, 190, 240, 20, 240)
+netedit.moveElement(referencePosition, 20, 240, 300, 240)
 
-# move back
-netedit.moveElement(referencePosition, 50, 250, 120, 250)
+# move E2 to left taking the last lane
+netedit.moveElement(referencePosition, 460, 240, 600, 240)
+netedit.moveElement(referencePosition, 500, 240, 350, 240)
 
-# move E2 to right
-netedit.moveElement(referencePosition, 130, 250, 250, 250)
-
-# move back
-netedit.moveElement(referencePosition, 260, 250, 120, 250)
-
-# move E2 to left overpassing lane
-netedit.moveElement(referencePosition, 130, 250, -150, 250)
-
-# move back
-netedit.moveElement(referencePosition, -80, 250, 120, 250)
-
-# move E2 to right overpassing lane
-netedit.moveElement(referencePosition, 130, 250, 480, 250)
-
-# move back to another different position of initial
-netedit.moveElement(referencePosition, 500, 250, 300, 250)
-
-# Check undos and redos
-netedit.undo(referencePosition, 10)
-netedit.redo(referencePosition, 10)
+# Check undo redo
+netedit.undo(referencePosition, 5)
+netedit.redo(referencePosition, 5)
 
 # save additionals
 netedit.saveAdditionals()
@@ -73,3 +62,4 @@ netedit.saveNetwork()
 
 # quit netedit
 netedit.quit(neteditProcess)
+
