@@ -360,6 +360,9 @@ GNEDetectorE2::updateGeometry(bool updateGrid) {
 
         // Set block icon position
         myBlockIcon.position = myGeometry.multiShape.front().getLineCenter();
+
+        // check integrity
+        checkE2MultilaneIntegrity();
     }
 
     // Set offset of the block icon
