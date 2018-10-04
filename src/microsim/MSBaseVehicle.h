@@ -221,7 +221,7 @@ public:
      * @param[in] removeStops Whether stops should be removed if they do not fit onto the new route
      * @return Whether the new route was accepted
      */
-    bool replaceRouteEdges(ConstMSEdgeVector& edges, const std::string& info, bool onInit = false, bool check = false, bool removeStops = true);
+    bool replaceRouteEdges(ConstMSEdgeVector& edges, double cost, const std::string& info, bool onInit = false, bool check = false, bool removeStops = true);
 
 
     /** @brief Returns the vehicle's acceleration

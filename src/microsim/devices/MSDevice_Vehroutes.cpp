@@ -43,6 +43,7 @@
 bool MSDevice_Vehroutes::mySaveExits = false;
 bool MSDevice_Vehroutes::myLastRouteOnly = false;
 bool MSDevice_Vehroutes::myDUAStyle = false;
+bool MSDevice_Vehroutes::myWriteCosts = false;
 bool MSDevice_Vehroutes::mySorted = false;
 bool MSDevice_Vehroutes::myIntendedDepart = false;
 bool MSDevice_Vehroutes::myRouteLength = false;
@@ -66,6 +67,7 @@ MSDevice_Vehroutes::init() {
         mySaveExits = oc.getBool("vehroute-output.exit-times");
         myLastRouteOnly = oc.getBool("vehroute-output.last-route");
         myDUAStyle = oc.getBool("vehroute-output.dua");
+        myWriteCosts = oc.getBool("vehroute-output.cost");
         mySorted = myDUAStyle || oc.getBool("vehroute-output.sorted");
         myIntendedDepart = oc.getBool("vehroute-output.intended-depart");
         myRouteLength = oc.getBool("vehroute-output.route-length");
@@ -178,7 +180,7 @@ MSDevice_Vehroutes::writeXMLRoute(OutputDevice& os, int index) const {
     os.openTag(SUMO_TAG_ROUTE);
     if (index >= 0) {
         assert((int)myReplacedRoutes.size() > index);
-        if (myDUAStyle) {
+        if (myDUAStyle || myWriteCosts) {
             os.writeAttr(SUMO_ATTR_COST, myReplacedRoutes[index].route->getCosts());
         }
         // write edge on which the vehicle was when the route was valid
@@ -203,7 +205,7 @@ MSDevice_Vehroutes::writeXMLRoute(OutputDevice& os, int index) const {
         }
         myReplacedRoutes[index].route->writeEdgeIDs(os, lastEdge);
     } else {
-        if (myDUAStyle) {
+        if (myDUAStyle || myWriteCosts) {
             os.writeAttr(SUMO_ATTR_COST, myHolder.getRoute().getCosts());
         }
         os << " edges=\"";

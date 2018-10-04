@@ -501,7 +501,7 @@ MSVehicle::Influencer::postProcessRemoteControl(MSVehicle* v) {
         v->getLane()->removeVehicle(v, MSMoveReminder::NOTIFICATION_TELEPORT);
     }
     if (myRemoteRoute.size() != 0) {
-        v->replaceRouteEdges(myRemoteRoute, "traci:moveToXY", true);
+        v->replaceRouteEdges(myRemoteRoute, -1, "traci:moveToXY", true);
     }
     v->myCurrEdge = v->getRoute().begin() + myRemoteEdgeOffset;
     if (myRemoteLane != 0 && myRemotePos > myRemoteLane->getLength()) {
@@ -5015,7 +5015,8 @@ MSVehicle::rerouteParkingArea(const std::string& parkingAreaID, std::string& err
         newParameter->arrivalPos = newParkingArea->getEndLanePosition();
         replaceParameter(newParameter);
     }
-    replaceRouteEdges(edges, "TraCI:rerouteParkingArea", false, false, false);
+    const double routeCost = router.recomputeCosts(edges, this, MSNet::getInstance()->getCurrentTimeStep());
+    replaceRouteEdges(edges, routeCost, "TraCI:rerouteParkingArea", false, false, false);
 
     if (!replaceParkingArea(newParkingArea, errorMsg)) {
         WRITE_WARNING("Vehicle '" + getID() + "' could not reroute to new parkingArea '" + newParkingArea->getID()

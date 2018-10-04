@@ -185,6 +185,9 @@ MSFrame::fillOptions() {
     oc.addSynonyme("vehroute-output.dua", "vehroutes.dua");
     oc.addDescription("vehroute-output.dua", "Output", "Write the output in the duarouter alternatives style");
 
+    oc.doRegister("vehroute-output.cost", new Option_Bool(false));
+    oc.addDescription("vehroute-output.cost", "Output", "Write costs for all routes");
+
     oc.doRegister("vehroute-output.intended-depart", new Option_Bool(false));
     oc.addSynonyme("vehroute-output.intended-depart", "vehroutes.intended-depart");
     oc.addDescription("vehroute-output.intended-depart", "Output", "Write the output with the intended instead of the real departure time");

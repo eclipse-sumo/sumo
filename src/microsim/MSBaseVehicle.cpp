@@ -210,9 +210,8 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
     if (!edges.empty() && edges.back()->isTazConnector()) {
         edges.pop_back();
     }
-    replaceRouteEdges(edges, info, onInit);
     const double routeCost = router.recomputeCosts(edges, this, t);
-    const_cast<MSRoute*>(myRoute)->setCosts(routeCost);
+    replaceRouteEdges(edges, routeCost, info, onInit);
     // this must be called even if the route could not be replaced
     if (onInit) {
         if (edges.empty()) {
@@ -230,7 +229,7 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
 
 
 bool
-MSBaseVehicle::replaceRouteEdges(ConstMSEdgeVector& edges, const std::string& info, bool onInit, bool check, bool removeStops) {
+MSBaseVehicle::replaceRouteEdges(ConstMSEdgeVector& edges, double cost, const std::string& info, bool onInit, bool check, bool removeStops) {
     if (edges.empty()) {
         WRITE_WARNING("No route for vehicle '" + getID() + "' found.");
         return false;
@@ -259,6 +258,7 @@ MSBaseVehicle::replaceRouteEdges(ConstMSEdgeVector& edges, const std::string& in
     }
     const RGBColor& c = myRoute->getColor();
     MSRoute* newRoute = new MSRoute(id, edges, false, &c == &RGBColor::DEFAULT_COLOR ? 0 : new RGBColor(c), std::vector<SUMOVehicleParameter::Stop>());
+    newRoute->setCosts(cost);
     if (!MSRoute::dictionary(id, newRoute)) {
         delete newRoute;
         return false;

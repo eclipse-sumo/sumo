@@ -425,7 +425,8 @@ MSTriggeredRerouter::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification 
                 newParameter->arrivalPos = newParkingArea->getEndLanePosition();
                 veh.replaceParameter(newParameter);
             }
-            veh.replaceRouteEdges(edges, getID(), false, false, false);
+            const double routeCost = router.recomputeCosts(edges, &veh, MSNet::getInstance()->getCurrentTimeStep());
+            veh.replaceRouteEdges(edges, routeCost, getID(), false, false, false);
             std::string errorMsg;
             if (!veh.replaceParkingArea(newParkingArea, errorMsg)) {
                 WRITE_WARNING("Vehicle '" + veh.getID() + "' at rerouter '" + getID()
@@ -487,7 +488,8 @@ MSTriggeredRerouter::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification 
                 : MSNet::getInstance()->getRouterTT(rerouteDef->closed);
         router.compute(
             veh.getEdge(), newEdge, &veh, MSNet::getInstance()->getCurrentTimeStep(), edges);
-        const bool useNewRoute = veh.replaceRouteEdges(edges, getID());
+        const double routeCost = router.recomputeCosts(edges, &veh, MSNet::getInstance()->getCurrentTimeStep());
+        const bool useNewRoute = veh.replaceRouteEdges(edges, routeCost, getID());
 #ifdef DEBUG_REROUTER
         if (DEBUGCOND) std::cout << "   rerouting:  newEdge=" << newEdge->getID() << " useNewRoute=" << useNewRoute << " newArrivalPos=" << newArrivalPos << " numClosed=" << rerouteDef->closed.size()
                                      << " destUnreachable=" << destUnreachable << " containsClosed=" << veh.getRoute().containsAnyOf(rerouteDef->closed) << "\n";

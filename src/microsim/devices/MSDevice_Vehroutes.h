@@ -184,6 +184,9 @@ private:
     /// @brief A shortcut for the Option "vehroute-output.dua"
     static bool myDUAStyle;
 
+    /// @brief A shortcut for the Option "vehroute-output.costs"
+    static bool myWriteCosts;
+
     /// @brief A shortcut for the Option "vehroute-output.sorted"
     static bool mySorted;
 

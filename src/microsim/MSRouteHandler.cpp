@@ -1145,7 +1145,7 @@ MSRouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
                                 localArrivalPos = it->edges.back()->getLength();
                             }
                             myActivePlan->push_back(new MSPerson::MSPersonStage_Driving(it->edges.back(), bs, localArrivalPos, std::vector<std::string>({ it->line })));
-                            vehicle->replaceRouteEdges(it->edges, "person:" + myVehicleParameter->id, true);
+                            vehicle->replaceRouteEdges(it->edges, -1, "person:" + myVehicleParameter->id, true);
                             vehicle->setArrivalPos(localArrivalPos);
                             vehControl.addVehicle(vehPar->id, vehicle);
                             carUsed = true;
