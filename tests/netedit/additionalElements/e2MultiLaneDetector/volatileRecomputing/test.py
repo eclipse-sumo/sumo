@@ -15,6 +15,7 @@
 # import common functions for netedit tests
 import os
 import sys
+import time
 
 testRoot = os.path.join(os.environ.get('SUMO_HOME', '.'), 'tests')
 neteditTestRoot = os.path.join(
@@ -25,11 +26,35 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--sidewalks.guess', '--crossings.guess', '--gui-testing-debug-gl'])
 
+# rebuild before recomputing with volatile options
+netedit.rebuildNetwork()
+
+# wait more
+time.sleep(2)
+
 # Recompute with volatile options
 netedit.rebuildNetworkWithVolatileOptions()
 
+# create new connections
+netedit.fixStoppingPlace("activateFriendlyPos")
+
+# wait more
+time.sleep(3)
+
+# rebuild before saving
+netedit.rebuildNetwork()
+
+# wait more
+time.sleep(2)
+
 # save additionals
 netedit.saveAdditionals()
+
+# create new connections
+netedit.fixStoppingPlace("activateFriendlyPos")
+
+# wait more
+time.sleep(3)
 
 # save network
 netedit.saveNetwork()
