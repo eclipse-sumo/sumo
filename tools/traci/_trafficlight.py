@@ -143,9 +143,10 @@ class TrafficLightDomain(Domain):
         return self._getUniversal(tc.TL_RED_YELLOW_GREEN_STATE, tlsID)
 
     def getCompleteRedYellowGreenDefinition(self, tlsID):
-        """getCompleteRedYellowGreenDefinition(string) ->
+        """getCompleteRedYellowGreenDefinition(string) -> list(Logic)
 
-        .
+        Returns a list of Logic objects. 
+        Each Logic encodes a traffic light program for the given tlsID. 
         """
         return self._getUniversal(tc.TL_COMPLETE_DEFINITION_RYG, tlsID)
 
@@ -174,21 +175,24 @@ class TrafficLightDomain(Domain):
     def getPhase(self, tlsID):
         """getPhase(string) -> integer
 
-        .
+        Returns the index of the current phase within the list of all phases of
+        the current program.
         """
         return self._getUniversal(tc.TL_CURRENT_PHASE, tlsID)
 
     def getNextSwitch(self, tlsID):
         """getNextSwitch(string) -> double
 
-        .
+        Returns the absolute simulation time at which the traffic light is
+        schedule to switch to the next phase (in seconds).
         """
         return self._getUniversal(tc.TL_NEXT_SWITCH, tlsID)
 
     def getPhaseDuration(self, tlsID):
         """getPhaseDuration(string) -> double
 
-        .
+        Returns the total duration of the current phase (in seconds). This value
+        is not affected by the elapsed or remaining duration of the current phase.
         """
         return self._getUniversal(tc.TL_PHASE_DURATION, tlsID)
 
@@ -221,7 +225,8 @@ class TrafficLightDomain(Domain):
     def setPhase(self, tlsID, index):
         """setPhase(string, integer) -> None
 
-        .
+        Switches to the phase with the given index in the list of all phases for
+        the current program.
         """
         self._connection._sendIntCmd(
             tc.CMD_SET_TL_VARIABLE, tc.TL_PHASE_INDEX, tlsID, index)
@@ -229,7 +234,9 @@ class TrafficLightDomain(Domain):
     def setProgram(self, tlsID, programID):
         """setProgram(string, string) -> None
 
-        Sets the id of the current program.
+        Switches to the program with the given programID. The program must have
+        been loaded earlier. The special value 'off' can always be used to
+        switch off the traffic light.
         """
         self._connection._sendStringCmd(
             tc.CMD_SET_TL_VARIABLE, tc.TL_PROGRAM, tlsID, programID)
@@ -237,7 +244,8 @@ class TrafficLightDomain(Domain):
     def setPhaseDuration(self, tlsID, phaseDuration):
         """setPhaseDuration(string, double) -> None
 
-        Set the phase duration of the current phase in seconds.
+        Set the remaining phase duration of the current phase in seconds.
+        This value has no effect on subsquent repetitions of this phase.
         """
         self._connection._sendDoubleCmd(
             tc.CMD_SET_TL_VARIABLE, tc.TL_PHASE_DURATION, tlsID, phaseDuration)
@@ -245,7 +253,8 @@ class TrafficLightDomain(Domain):
     def setCompleteRedYellowGreenDefinition(self, tlsID, tls):
         """setCompleteRedYellowGreenDefinition(string, ) -> None
 
-        .
+        Sets a new program for the given tlsID from a Logic object.
+        See getCompleteRedYellowGreenDefinition.
         """
         length = 1 + 4 + 1 + 4 + \
             len(tls._subID) + 1 + 4 + 1 + 4 + 1 + 4 + 1 + 4  # tls parameter
