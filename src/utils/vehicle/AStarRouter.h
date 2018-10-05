@@ -36,6 +36,7 @@
 #include <iterator>
 #include <map>
 #include <iostream>
+#include <memory>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/TplConvert.h>
@@ -135,7 +136,7 @@ public:
     };
 
     /// Constructor
-    AStarRouter(const std::vector<E*>& edges, bool unbuildIsWarning, typename BASE::Operation operation, const LookupTable* const lookup = 0) :
+    AStarRouter(const std::vector<E*>& edges, bool unbuildIsWarning, typename BASE::Operation operation, const std::shared_ptr<const LookupTable> lookup = 0) :
         BASE("AStarRouter", operation),
         myErrorMsgHandler(unbuildIsWarning ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()),
         myLookupTable(lookup),
@@ -146,7 +147,7 @@ public:
         }
     }
 
-    AStarRouter(const std::vector<EdgeInfo>& edgeInfos, bool unbuildIsWarning, typename BASE::Operation operation, const LookupTable* const lookup = 0) :
+    AStarRouter(const std::vector<EdgeInfo>& edgeInfos, bool unbuildIsWarning, typename BASE::Operation operation, const std::shared_ptr<const LookupTable> lookup = 0) :
         BASE("AStarRouter", operation),
         myErrorMsgHandler(unbuildIsWarning ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()),
         myLookupTable(lookup),
@@ -340,7 +341,7 @@ protected:
     MsgHandler* const myErrorMsgHandler;
 
     /// @brief the lookup table for travel time heuristics
-    const LookupTable* const myLookupTable;
+    const std::shared_ptr<const LookupTable> myLookupTable;
 
     /// @brief maximum speed in the network
     double myMaxSpeed;
