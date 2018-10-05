@@ -18,7 +18,7 @@ echo -n "$FILEPREFIX " > $STATUSLOG
 date >> $STATUSLOG
 echo "--" >> $STATUSLOG
 cd $PREFIX/sumo
-if test ${CONFIGURE_OPT::5} == "cmake"; then
+if test "${CONFIGURE_OPT::5}" == "cmake"; then
   rm -rf build/$FILEPREFIX
 else
   make distclean &> /dev/null
@@ -28,7 +28,7 @@ basename $MAKELOG >> $STATUSLOG
 git pull &> $MAKELOG || (echo "git pull failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
 GITREV=`tools/build/version.py -`
 date >> $MAKELOG
-if test ${CONFIGURE_OPT::5} == "cmake"; then
+if test "${CONFIGURE_OPT::5}" == "cmake"; then
   mkdir build/$FILEPREFIX && cd build/$FILEPREFIX
   cmake ../.. >> $MAKELOG 2>&1 || (echo "cmake failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
 else
@@ -90,7 +90,7 @@ fi
 echo "--" >> $STATUSLOG
 basename $MAKEALLLOG >> $STATUSLOG
 export CXXFLAGS="$CXXFLAGS -Wall -W -pedantic -Wno-long-long -Wformat -Wformat-security"
-if test ${CONFIGURE_OPT::5} == "cmake"; then
+if test "${CONFIGURE_OPT::5}" == "cmake"; then
   rm -rf build/debug-$FILEPREFIX
   mkdir build/debug-$FILEPREFIX && cd build/debug-$FILEPREFIX
   cmake -DCMAKE_BUILD_TYPE=Debug ../.. >> $MAKEALLLOG 2>&1 || (echo "cmake debug failed" | tee -a $STATUSLOG; tail -10 $MAKEALLLOG)
