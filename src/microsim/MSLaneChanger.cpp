@@ -274,12 +274,6 @@ MSLaneChanger::change() {
         return false;
     }
 
-
-    if (vehicle->isRemoteControlled()) {
-        registerUnchanged(vehicle);
-        return false;
-    }
-
     if (!vehicle->isActive()) {
 #ifdef DEBUG_ACTIONSTEPS
         if DEBUG_COND {
@@ -322,8 +316,7 @@ MSLaneChanger::change() {
         // change if the vehicle wants to and is allowed to change
         if ((stateRight & LCA_RIGHT) != 0 && (stateRight & LCA_BLOCKED) == 0) {
             vehicle->getLaneChangeModel().setOwnState(stateRight);
-            startChange(vehicle, myCandi, -1);
-            return true;
+            return startChange(vehicle, myCandi, -1);
         }
         if ((stateRight & LCA_RIGHT) != 0 && (stateRight & LCA_URGENT) != 0) {
             (myCandi - 1)->lastBlocked = vehicle;
@@ -340,8 +333,7 @@ MSLaneChanger::change() {
         // change if the vehicle wants to and is allowed to change
         if ((stateLeft & LCA_LEFT) != 0 && (stateLeft & LCA_BLOCKED) == 0) {
             vehicle->getLaneChangeModel().setOwnState(stateLeft);
-            startChange(vehicle, myCandi, 1);
-            return true;
+            return startChange(vehicle, myCandi, 1);
         }
         if ((stateLeft & LCA_LEFT) != 0 && (stateLeft & LCA_URGENT) != 0) {
             (myCandi + 1)->lastBlocked = vehicle;
@@ -422,17 +414,22 @@ MSLaneChanger::applyTraCICommands(MSVehicle* vehicle) {
 }
 
 
-void
+bool
 MSLaneChanger::startChange(MSVehicle* vehicle, ChangerIt& from, int direction) {
+    if (vehicle->isRemoteControlled()) {
+        registerUnchanged(vehicle);
+        return false;
+    }
     ChangerIt to = from + direction;
     // @todo delay entering the target lane until the vehicle intersects it
     //       physically (considering lane width and vehicle width)
     //if (to->lane->getID() == "beg_1") std::cout << SIMTIME << " startChange to lane=" << to->lane->getID() << " myTmpVehiclesBefore=" << toString(to->lane->myTmpVehicles) << "\n";
     const bool continuous = vehicle->getLaneChangeModel().startLaneChangeManeuver(from->lane, to->lane, direction);
     if (continuous) {
-        continueChange(vehicle, myCandi);
+        return continueChange(vehicle, myCandi);
     } else {
         to->registerHop(vehicle);
+        return true;
     }
 }
 
