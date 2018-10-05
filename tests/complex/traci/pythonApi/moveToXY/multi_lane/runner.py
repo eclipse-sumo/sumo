@@ -62,18 +62,20 @@ def check(x, y, angle, exLane, exPos, exPosLat, comment):
         pass
     print(traci.simulation.getTime(), 
             " lane=%s" % lane2,
-            " left=%s, %s" % traci.vehicle.getLaneChangeState(vehID, -1),
-            " right=%s, %s" % traci.vehicle.getLaneChangeState(vehID,  1))
+            #" route=%s" % str(traci.vehicle.getRoute(vehID)),
+            " right=%s, %s" % traci.vehicle.getLaneChangeStatePretty(vehID, -1),
+            " left=%s, %s" % traci.vehicle.getLaneChangeStatePretty(vehID,  1))
 
 
 traci.start(cmd)
 traci.simulationStep()
 traci.route.add("SE", ["SC", "CE"])
 traci.vehicle.add(vehID, "SE")
-check(104.95, 25,   ANGLE_UNDEF, None,         None, None,       "correct lane")
+check(104.95, 20,   ANGLE_UNDEF, None,         None, None,       "correct lane")
 check(104.95, 30,   ANGLE_UNDEF, None,         None, None,       "correct lane")
-check(104.95, 35,   ANGLE_UNDEF, None,         None, None,       "correct lane")
-check(101.65, 40,   ANGLE_UNDEF, None,         None, None,       "correct lane")
-check(101.65, 45,   ANGLE_UNDEF, None,         None, None,       "correct lane")
+check(104.95, 40,   ANGLE_UNDEF, None,         None, None,       "correct lane")
 check(101.65, 50,   ANGLE_UNDEF, None,         None, None,       "correct lane")
+check(101.65, 60,   ANGLE_UNDEF, None,         None, None,       "correct lane")
+check(101.65, 70,   ANGLE_UNDEF, None,         None, None,       "correct lane")
+check(101.65, 80,   ANGLE_UNDEF, None,         None, None,       "correct lane")
 traci.close()
