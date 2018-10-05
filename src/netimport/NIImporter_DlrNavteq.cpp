@@ -360,11 +360,13 @@ NIImporter_DlrNavteq::EdgesHandler::report(const std::string& result) {
     } catch (NumberFormatException&) {
         throw ProcessError("Non-numerical value for the number of lanes of link '" + id + "'.");
     }
+
+    const std::string navTeqTypeId = getColumn(st, VEHICLE_TYPE) + "_" + getColumn(st, FORM_OF_WAY);
     // build the edge
     NBEdge* e = 0;
     const std::string interID = getColumn(st, BETWEEN_NODE_ID);
     if (interID == "-1") {
-        e = new NBEdge(id, from, to, "", speed, numLanes, priority,
+        e = new NBEdge(id, from, to, myTypeCont.knows(navTeqTypeId) ? navTeqTypeId : "", speed, numLanes, priority,
                        NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, streetName);
     } else {
         PositionVector geoms = myGeoms[interID];
@@ -374,13 +376,11 @@ NIImporter_DlrNavteq::EdgesHandler::report(const std::string& result) {
         geoms.insert(geoms.begin(), from->getPosition());
         geoms.push_back(to->getPosition());
         const std::string origID = OptionsCont::getOptions().getBool("output.original-names") ? id : "";
-        e = new NBEdge(id, from, to, "", speed, numLanes, priority,
+        e = new NBEdge(id, from, to, myTypeCont.knows(navTeqTypeId) ? navTeqTypeId : "", speed, numLanes, priority,
                        NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, geoms, streetName, origID, LANESPREAD_CENTER);
     }
 
     // NavTeq imports can be done with a typemap (if supplied), if not, the old defaults are used
-    const std::string navTeqTypeId = getColumn(st, VEHICLE_TYPE) + "_" + getColumn(st, FORM_OF_WAY);
-
     if (myTypeCont.knows(navTeqTypeId)) {
         e->setPermissions(myTypeCont.getPermissions(navTeqTypeId));
     } else {

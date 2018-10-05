@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 10/05/18 13:45:28 by Eclipse SUMO netconvert Version UNKNOWN
+<!-- generated on 10/05/18 14:10:16 by Eclipse SUMO netconvert Version UNKNOWN
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -42,22 +42,22 @@ SPDX-License-Identifier: EPL-2.0
 
     <type id="1000000000_1" priority="1" numLanes="1" speed="11.11" allow="bicycle"/>
 
-    <edge id="-1" from="0" to="1" priority="0">
+    <edge id="-1" from="0" to="1" priority="0" type="1000000000_1">
         <lane id="-1_0" index="0" allow="bicycle" speed="55.56" length="22852.39" shape="17018.23,13397.41 39849.91,12735.85"/>
         <lane id="-1_1" index="1" allow="bicycle" speed="55.56" length="22852.39" shape="17018.32,13400.61 39850.00,12739.05"/>
         <lane id="-1_2" index="2" allow="bicycle" speed="55.56" length="22852.39" shape="17018.41,13403.81 39850.09,12742.24"/>
     </edge>
-    <edge id="-2" from="0" to="2" priority="0">
+    <edge id="-2" from="0" to="2" priority="0" type="1000000000_1">
         <lane id="-2_0" index="0" allow="bicycle" speed="55.56" length="17016.60" shape="16996.53,13414.09 0.26,13975.11"/>
         <lane id="-2_1" index="1" allow="bicycle" speed="55.56" length="17016.60" shape="16996.42,13410.89 0.16,13971.92"/>
         <lane id="-2_2" index="2" allow="bicycle" speed="55.56" length="17016.60" shape="16996.32,13407.69 0.05,13968.72"/>
     </edge>
-    <edge id="-3" from="0" to="3" priority="0">
+    <edge id="-3" from="0" to="3" priority="0" type="1000000000_1">
         <lane id="-3_0" index="0" allow="bicycle" speed="55.56" length="13115.46" shape="17015.68,13416.59 17425.81,26514.51"/>
         <lane id="-3_1" index="1" allow="bicycle" speed="55.56" length="13115.46" shape="17012.49,13416.69 17422.61,26514.61"/>
         <lane id="-3_2" index="2" allow="bicycle" speed="55.56" length="13115.46" shape="17009.29,13416.79 17419.41,26514.71"/>
     </edge>
-    <edge id="-4" from="0" to="4" priority="0">
+    <edge id="-4" from="0" to="4" priority="0" type="1000000000_1">
         <lane id="-4_0" index="0" allow="bicycle" speed="55.56" length="13412.28" shape="16999.00,13394.90 16580.26,0.25"/>
         <lane id="-4_1" index="1" allow="bicycle" speed="55.56" length="13412.28" shape="17002.20,13394.80 16583.46,0.15"/>
         <lane id="-4_2" index="2" allow="bicycle" speed="55.56" length="13412.28" shape="17005.39,13394.70 16586.65,0.05"/>
@@ -67,16 +67,16 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="1_1" index="1" allow="pedestrian" speed="55.56" length="22852.39" shape="39850.28,12748.64 17018.60,13410.20"/>
         <lane id="1_2" index="2" allow="pedestrian" speed="55.56" length="22852.39" shape="39850.19,12745.44 17018.50,13407.00"/>
     </edge>
-    <edge id="2" from="2" to="0" priority="0">
+    <edge id="2" from="2" to="0" priority="0" type="1000000000_1">
         <lane id="2_0" index="0" allow="bicycle" speed="55.56" length="17016.60" shape="-0.26,13959.12 16996.00,13398.10"/>
         <lane id="2_1" index="1" allow="bicycle" speed="55.56" length="17016.60" shape="-0.16,13962.32 16996.10,13401.30"/>
         <lane id="2_2" index="2" allow="bicycle" speed="55.56" length="17016.60" shape="-0.05,13965.52 16996.21,13404.49"/>
     </edge>
-    <edge id="3" from="3" to="0" priority="0">
+    <edge id="3" from="3" to="0" priority="0" type="1000000000_1">
         <lane id="3_0" index="0" allow="bicycle" speed="33.33" length="13115.46" shape="17413.01,26514.91 17002.89,13416.99"/>
         <lane id="3_1" index="1" allow="bicycle" speed="33.33" length="13115.46" shape="17416.21,26514.81 17006.09,13416.89"/>
     </edge>
-    <edge id="4" from="4" to="0" priority="0">
+    <edge id="4" from="4" to="0" priority="0" type="1000000000_1">
         <lane id="4_0" index="0" allow="bicycle" speed="33.33" length="13412.28" shape="16593.05,-0.15 17011.79,13394.50"/>
         <lane id="4_1" index="1" allow="bicycle" speed="33.33" length="13412.28" shape="16589.85,-0.05 17008.59,13394.60"/>
     </edge>
