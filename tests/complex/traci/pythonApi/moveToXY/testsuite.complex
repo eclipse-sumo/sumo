@@ -1,6 +1,9 @@
 # tests for mapping vehicles outside the road network
 keepRoute2
 
+# tests for mapping vehicles on multi-lane road
+multi_lane
+
 # mapping a fast vehicle onto short edges
 short_edges
 
