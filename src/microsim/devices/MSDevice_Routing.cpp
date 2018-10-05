@@ -400,7 +400,7 @@ MSDevice_Routing::reroute(const SUMOTime currentTime, const bool onInit) {
                     CHRouterWrapper<MSEdge, SUMOVehicle, SUMOAbstractRouterPermissions<MSEdge, SUMOVehicle> > router(
                         MSEdge::getAllEdges(), true, &MSNet::getTravelTime,
                         string2time(oc.getString("begin")), string2time(oc.getString("end")), std::numeric_limits<int>::max(), 1);
-                    lookup = std::make_shared<AStar::LMLT>(oc.getString("astar.landmark-distances"), MSEdge::getAllEdges(), &router, &myHolder, "", oc.getInt("device.rerouting.threads"));
+                    lookup = std::make_shared<const AStar::LMLT>(oc.getString("astar.landmark-distances"), MSEdge::getAllEdges(), &router, &myHolder, "", oc.getInt("device.rerouting.threads"));
                     myHolder.setChosenSpeedFactor(speedFactor);
                 }
                 myRouter = new AStar(MSEdge::getAllEdges(), true, &MSDevice_Routing::getEffort, lookup);
@@ -416,7 +416,7 @@ MSDevice_Routing::reroute(const SUMOTime currentTime, const bool onInit) {
                     CHRouterWrapper<MSEdge, SUMOVehicle, SUMOAbstractRouter<MSEdge, SUMOVehicle> > router(
                         MSEdge::getAllEdges(), true, &MSNet::getTravelTime,
                         string2time(oc.getString("begin")), string2time(oc.getString("end")), std::numeric_limits<int>::max(), 1);
-                    lookup = std::make_shared<AStar::LMLT>(oc.getString("astar.landmark-distances"), MSEdge::getAllEdges(), &router, &myHolder, "", oc.getInt("device.rerouting.threads"));
+                    lookup = std::make_shared<const AStar::LMLT>(oc.getString("astar.landmark-distances"), MSEdge::getAllEdges(), &router, &myHolder, "", oc.getInt("device.rerouting.threads"));
                     myHolder.setChosenSpeedFactor(speedFactor);
                 }
                 myRouter = new AStar(MSEdge::getAllEdges(), true, &MSDevice_Routing::getEffort, lookup);
