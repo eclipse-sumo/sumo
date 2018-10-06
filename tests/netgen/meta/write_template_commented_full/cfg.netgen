@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Aug 29 12:56:10 2018 by Eclipse SUMO netgenerate Version e9fcc9a
+<!-- generated on Sat Oct  6 23:21:18 2018 by Eclipse SUMO netgenerate Version v1_0_1+0193-0616abb
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -266,6 +266,9 @@
 
         <!-- Turns on TLS guessing -->
         <tls.guess value="false" synonymes="guess-tls" type="BOOL"/>
+
+        <!-- Sets minimum value for the sum of all incoming lane speeds when guessing TLS -->
+        <tls.guess.threshold value="41.6667" type="FLOAT"/>
 
         <!-- Includes node clusters into guess -->
         <tls-guess.joining value="false" type="BOOL"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Sep 28 15:38:46 2018 by Eclipse SUMO netconvert Version v1_0_1+0115-fc19294
+<!-- generated on Sat Oct  6 23:21:24 2018 by Eclipse SUMO netconvert Version v1_0_1+0193-0616abb
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -332,6 +332,9 @@
 
         <!-- Turns on TLS guessing -->
         <tls.guess value="false" synonymes="guess-tls" type="BOOL"/>
+
+        <!-- Sets minimum value for the sum of all incoming lane speeds when guessing TLS -->
+        <tls.guess.threshold value="41.6667" type="FLOAT"/>
 
         <!-- Sets district nodes as tls-controlled -->
         <tls.taz-nodes value="false" synonymes="tls-guess.district-nodes" type="BOOL"/>
