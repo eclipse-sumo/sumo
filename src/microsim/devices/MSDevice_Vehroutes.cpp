@@ -183,6 +183,9 @@ MSDevice_Vehroutes::writeXMLRoute(OutputDevice& os, int index) const {
         if (myDUAStyle || myWriteCosts) {
             os.writeAttr(SUMO_ATTR_COST, myReplacedRoutes[index].route->getCosts());
         }
+        if (myWriteCosts) {
+            os.writeAttr(SUMO_ATTR_SAVINGS, myReplacedRoutes[index].route->getSavings());
+        }
         // write edge on which the vehicle was when the route was valid
         os.writeAttr("replacedOnEdge", (myReplacedRoutes[index].edge ?
                                         myReplacedRoutes[index].edge->getID() : ""));
@@ -207,6 +210,9 @@ MSDevice_Vehroutes::writeXMLRoute(OutputDevice& os, int index) const {
     } else {
         if (myDUAStyle || myWriteCosts) {
             os.writeAttr(SUMO_ATTR_COST, myHolder.getRoute().getCosts());
+        }
+        if (myWriteCosts) {
+            os.writeAttr(SUMO_ATTR_SAVINGS, myHolder.getRoute().getSavings());
         }
         os << " edges=\"";
         const MSEdge* lastEdge = 0;
@@ -302,7 +308,11 @@ MSDevice_Vehroutes::writeOutput(const bool hasArrived) const {
             const std::vector<double>& probs = routeDist->getProbs();
             for (int i = 0; i < (int)routes.size(); ++i) {
                 od.setPrecision();
-                od.openTag(SUMO_TAG_ROUTE).writeAttr(SUMO_ATTR_COST, routes[i]->getCosts());
+                od.openTag(SUMO_TAG_ROUTE);
+                od.writeAttr(SUMO_ATTR_COST, routes[i]->getCosts());
+                if (myWriteCosts) {
+                    od.writeAttr(SUMO_ATTR_SAVINGS, routes[i]->getSavings());
+                }
                 od.setPrecision(8);
                 od.writeAttr(SUMO_ATTR_PROB, probs[i]);
                 od.setPrecision();

@@ -161,12 +161,27 @@ public:
         return myCosts;
     }
 
+    /** @brief Returns the estimated savings due to using this route (compare to the route before rerouting)
+     *
+     * @return The route's estimated savings (the difference in costs of this route to the previous one)
+     */
+    double getSavings() const {
+        return mySavings;
+    }
+
     /** @brief Sets the costs of the route
      *
      * @param[in] costs The new route costs
      */
     void setCosts(double costs) {
         myCosts = costs;
+    }
+    /** @brief Sets the savings of the route
+     *
+     * @param[in] costs The new route costs
+     */
+    void setSavings(double savings) {
+        mySavings = savings;
     }
 
     /// Returns the stops
@@ -238,6 +253,9 @@ private:
 
     /// @brief The assigned or calculated costs
     double myCosts;
+
+    /// @brief The estimated savings when rerouting
+    double mySavings;
 
     /// @brief List of the stops on the parsed route
     std::vector<SUMOVehicleParameter::Stop> myStops;

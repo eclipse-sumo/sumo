@@ -166,6 +166,7 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
     if (sink == 0) {
         sink = myRoute->getLastEdge();
     }
+    ConstMSEdgeVector oldEdgesRemaining(myCurrEdge, myRoute->end());
     ConstMSEdgeVector edges;
     ConstMSEdgeVector stops;
     if (myParameter->via.size() == 0) {
@@ -211,7 +212,11 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
         edges.pop_back();
     }
     const double routeCost = router.recomputeCosts(edges, this, t);
-    replaceRouteEdges(edges, routeCost, info, onInit);
+    bool ok = replaceRouteEdges(edges, routeCost, info, onInit);
+    if (ok && !onInit) {
+        const double previousCost = router.recomputeCosts(oldEdgesRemaining, this, t);
+        const_cast<MSRoute*>(myRoute)->setSavings(previousCost - routeCost);
+    }
     // this must be called even if the route could not be replaced
     if (onInit) {
         if (edges.empty()) {

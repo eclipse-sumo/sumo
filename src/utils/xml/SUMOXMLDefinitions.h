@@ -563,6 +563,7 @@ enum SumoXMLAttr {
     /// @{
     SUMO_ATTR_LAST,
     SUMO_ATTR_COST,
+    SUMO_ATTR_SAVINGS,
     SUMO_ATTR_PROB,
     SUMO_ATTR_PROBS,
     SUMO_ATTR_ROUTES,
