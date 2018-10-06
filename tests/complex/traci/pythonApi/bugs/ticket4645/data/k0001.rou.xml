@@ -1,39 +1,7 @@
 <routes>
         <vType id="Car" accel="1.0" decel="4.5" sigma="0.5" length="5" minGap="2.5" maxSpeed="13.89" departSpeed="13.89" guiShape="passenger"/>
-
-        <vType id="Fiets" accel="1.0" decel="2.0" sigma="0.5" length="1.5" minGap="0.5" maxSpeed="5.5" guiShape="bicycle" vClass="bicycle" departSpeed="5.5" epartLane="best"/>
-        <vType id="Snorfiets" accel="1.0" decel="4.5" sigma="0.5" length="2.0" minGap="1.0" maxSpeed="6,94" guiShape="moped" vClass="moped" departSpeed="6.94" departLane="best"/>
-        <vType id="Bromfiets" accel="1.0" decel="4.5" sigma="0.5" length="2.0" minGap="1.2" maxSpeed="12.5" guiShape="moped" vClass="moped" departSpeed="12.5" departLane="best"/>
-        <vType id="Voetganger" accel="1.0" decel="1.0" sigma="0.5" length="1.75" minGap="0.25" maxSpeed="1.3" guiShape="pedestrian" vClass="pedestrian" departSpeed="1.2" departLane="best"/>
         <vType id="Motor" accel="2.0" decel="6.0" sigma="0.5" length="2.5" minGap="2.0" maxSpeed="13.89" guiShape="motorcycle" vClass="motorcycle" deparSpeed="13.89" departLane="best"/>
 	    
-	    <route id="route01" edges="gneE01 gneE02 gneE111 gneE119"/>
-        <route id="route02" edges="gneE01 gneE02 gneE111 gneE133.0 gneE133.12 gneE134 23602047"/>
-        <route id="route03" edges="gneE01 gneE02 gneE111 gneE125"/>
-        <route id="route04" edges="gneE123 gneE135 gneE05"/>
-        <route id="route05" edges="gneE123 gneE119"/>
-        <route id="route06" edges="gneE123 gneE133.0 gneE133.12 gneE134 23602047"/>
-        <route id="route07" edges="-23602047 gneE136 gneE131 gneE129.0 gneE129.48 gneE125 "/>
-        <route id="route08" edges="-23602047 gneE136 gneE131 gneE129.0 gneE129.48 gneE135 gneE05 "/>
-        <route id="route09" edges="-23602047 gneE136 gneE131 gneE129.0 gneE129.48 gneE119"/>
-        <route id="route10" edges="gneE09 gneE113 gneE133.0 gneE133.12 gneE134 23602047"/>
-        <route id="route11" edges="gneE09 gneE113 gneE125"/>
-        <route id="route12" edges="gneE09 gneE113 gneE135 gneE05"/>
-
-        <route id="route13" edges="gneE14.0 gneE155 gneE158 gneE159 gneE161 gneE162 gneE262.0 gneE272 gneE62.85"/>
-        <route id="route14" edges="gneE269 gneE265 gneE255 gneE256 gneE258 gneE259 gneE260 gneE69.84"/>
-        <route id="route15" edges="gneE70.0 gneE221 gneE222 gneE224 gneE182 gneE183"/>
-        <route id="route16" edges="gneE184 gneE202 gneE203 gneE204 gneE206 gneE207 gneE215 gneE145 gneE46.17"/>
-        <route id="route17" edges="gneE47.0 gneE148 gneE216 gneE208"/>
-        <route id="route18" edges="gneE63.0 gneE273 gneE263.4 gneE169 gneE170 gneE172 gneE173 gneE156 gneE15.35"/>
-        <route id="route19" edges="gneE184 gneE185 gneE225 gneE227 gneE228 gneE249 gneE250 gneE251 gneE253 gneE254 gneE266 gneE272 gneE62.85"/>
-        <route id="route20" edges="gneE184 gneE185 gneE225 gneE227 gneE228 gneE69.84"/>
-        <route id="route21" edges="gneE63.0 gneE273 gneE263.4 gneE169 gneE170 gneE172 gneE173 gneE156 gneE15.35"/>
-        <route id="route22" edges="gneE16.0 gneE153 gneE175 gneE176 gneE178 gneE179 gneE239 gneE240.6"/>
-        <route id="route23" edges="gneE269 gneE241 gneE242 gneE243 gneE245 gneE246 gneE268 gneE217 gneE218 gneE220 gneE180"/>
-        <route id="route24" edges="gneE68 gneE217 gneE218 gneE220 gneE180"/>
-        <route id="route25" edges="gneE68 gneE217 gneE218 gneE220 gneE186 gneE187 gneE189 gneE190 gneE150 gneE110.15"/>
-
 		<flow id="type01" begin="0" end="9000" vehsPerHour="44" type="Car">
             <route edges="gneE01 gneE02 gneE111 gneE119"/>
         </flow>
@@ -85,40 +53,4 @@
         <flow id="type12m" begin="0" end="9000" vehsPerHour="2" type="Motor">
             <route edges="gneE09 gneE113 gneE135 gneE05"/>
         </flow>
-        <flow id="type13" begin="0" end="9000" vehsPerHour="4" type="Voetganger">  VO4
-            <route edges="gneE14.0 gneE155 gneE158 gneE159 gneE161 gneE162 gneE262.0 gneE272 gneE62.85"/>
-        </flow>
-		<flow id="type14" begin="0" end="9000" vehsPerHour="6" type="Voetganger">  VO3
-            <route edges="gneE269 gneE265 gneE255 gneE256 gneE258 gneE259 gneE260 gneE69.84"/>
-        </flow>
-        <flow id="type15" begin="0" end="9000" vehsPerHour="14" type="Voetganger">   VO2
-            <route edges="gneE70.0 gneE221 gneE222 gneE224 gneE182 gneE183"/>
-        </flow>
-        <flow id="type16" begin="0" end="9000" vehsPerHour="4" type="Voetganger">   VO1
-            <route edges="gneE184 gneE202 gneE203 gneE204 gneE206 gneE207 gneE215 gneE145 gneE46.17"/>
-		</flow>
-        <flow id="type22" begin="0" end="9000" vehsPerHour="78" type="Fiets"> 		FO4
-            <route edges="gneE16.0 gneE153 gneE175 gneE176 gneE178 gneE179 gneE239 gneE240.6"/>
-        </flow>
-		<flow id="type22sf" begin="0" end="9000" vehsPerHour="6" type="Snorfiets"> SFO4
-            <route edges="gneE16.0 gneE153 gneE175 gneE176 gneE178 gneE179 gneE239 gneE240.6"/>
-		</flow>
-        <flow id="type23" begin="0" end="9000" vehsPerHour="26" type="Fiets">       FO3
-            <route edges="gneE269 gneE241 gneE242 gneE243 gneE245 gneE246 gneE268 gneE217 gneE218 gneE220 gneE180"/>
-        </flow>
-        <flow id="type23sf" begin="0" end="9000" vehsPerHour="4" type="Snorfiets">  SFO3
-            <route edges="gneE269 gneE241 gneE242 gneE243 gneE245 gneE246 gneE268 gneE217 gneE218 gneE220 gneE180"/>
-        </flow>
-        <flow id="type24" begin="0" end="9000" vehsPerHour="124" type="Fiets">       FO2
-            <route edges="gneE68 gneE217 gneE218 gneE220 gneE180"/>
-        </flow>
-        <flow id="type24sf" begin="0" end="9000" vehsPerHour="16" type="Snorfiets"> SFO2
-            <route edges="gneE68 gneE217 gneE218 gneE220 gneE180"/>
-        </flow>
-        <flow id="type25" begin="0" end="9000" vehsPerHour="62" type="Fiets">       FO1
-            <route edges="gneE68 gneE217 gneE218 gneE220 gneE186 gneE187 gneE189 gneE190 gneE150 gneE110.15"/>
-        </flow>
-        <flow id="type25sf" begin="0" end="9000" vehsPerHour="14" type="Snorfiets">  SFO1
-            <route edges="gneE68 gneE217 gneE218 gneE220 gneE186 gneE187 gneE189 gneE190 gneE150 gneE110.15"/>
-        </flow>
-</routes>		
+</routes>
