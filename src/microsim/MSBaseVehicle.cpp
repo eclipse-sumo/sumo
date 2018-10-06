@@ -212,8 +212,8 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
         edges.pop_back();
     }
     const double routeCost = router.recomputeCosts(edges, this, t);
-    const double previousCost = router.recomputeCosts(oldEdgesRemaining, this, t);
-    const double savings = onInit ? 0 : previousCost - routeCost;
+    const double previousCost = onInit ? routeCost : router.recomputeCosts(oldEdgesRemaining, this, t);
+    const double savings = previousCost - routeCost;
     //if (getID() == "43") std::cout << SIMTIME << " pCost=" << previousCost << " cost=" << routeCost
     //    << " onInit=" << onInit
     //        << " prevEdges=" << toString(oldEdgesRemaining)
