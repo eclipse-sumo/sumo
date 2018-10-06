@@ -30,7 +30,6 @@
 #include <microsim/MSNet.h>
 #include <microsim/MSVehicle.h>
 
-//#define DEBUG_E3_NOTIFY_ENTER_AND_LEAVE
 //#define DEBUG_E3_NOTIFY_MOVE
 //#define DEBUG_COND(obj) ((obj.getID() == ""))
 #define DEBUG_COND(obj) (true)
@@ -48,12 +47,13 @@ MSE3Collector::MSE3EntryReminder::MSE3EntryReminder(
     myCollector(collector), myPosition(crossSection.myPosition) {
 }
 
+
 bool
 MSE3Collector::MSE3EntryReminder::notifyEnter(SUMOVehicle& veh, Notification reason, const MSLane* enteredLane) {
     if (reason != NOTIFICATION_JUNCTION) {
         const double posOnLane = veh.getBackPositionOnLane(enteredLane) + veh.getVehicleType().getLength();
-        if (posOnLane > myPosition) {
-            // if the vehicle changes into a covered section we assume it was already registred on another lane
+        if (myLane == enteredLane && posOnLane > myPosition) {
+            // if the vehicle changes into a covered section we assume it was already registered on another lane
             return false;
         }
     }
@@ -115,7 +115,7 @@ MSE3Collector::MSE3LeaveReminder::notifyEnter(SUMOVehicle& veh, Notification rea
     if (reason != NOTIFICATION_JUNCTION) {
         const double backPosOnLane = veh.getBackPositionOnLane(enteredLane);
         if (backPosOnLane > myPosition) {
-            // if the vehicle changes into a covered section we assume it was already registred on another lane
+            // if the vehicle changes into a covered section we assume it was already registered on another lane
             // however, if it is not fully past the detector we still need to track it
             return false;
         }
