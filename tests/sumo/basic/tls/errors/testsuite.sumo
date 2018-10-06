@@ -1,2 +1,8 @@
 # empty tls program
 no_phases
+
+# Warn about missing yellow phases
+missing_yellow
+
+# the loaded program contains branches specified via attribute 'next' with invalid index
+add_attribute_next_invalid
