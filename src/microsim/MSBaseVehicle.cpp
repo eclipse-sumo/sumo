@@ -166,7 +166,7 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
     if (sink == 0) {
         sink = myRoute->getLastEdge();
     }
-    ConstMSEdgeVector oldEdgesRemaining(myCurrEdge, myRoute->end());
+    ConstMSEdgeVector oldEdgesRemaining(source == *myCurrEdge ? myCurrEdge : myCurrEdge + 1, myRoute->end());
     ConstMSEdgeVector edges;
     ConstMSEdgeVector stops;
     if (myParameter->via.size() == 0) {
@@ -212,11 +212,14 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
         edges.pop_back();
     }
     const double routeCost = router.recomputeCosts(edges, this, t);
-    bool ok = replaceRouteEdges(edges, routeCost, info, onInit);
-    if (ok && !onInit) {
-        const double previousCost = router.recomputeCosts(oldEdgesRemaining, this, t);
-        const_cast<MSRoute*>(myRoute)->setSavings(previousCost - routeCost);
-    }
+    const double previousCost = router.recomputeCosts(oldEdgesRemaining, this, t);
+    const double savings = onInit ? 0 : previousCost - routeCost;
+    //if (getID() == "43") std::cout << SIMTIME << " pCost=" << previousCost << " cost=" << routeCost
+    //    << " onInit=" << onInit
+    //        << " prevEdges=" << toString(oldEdgesRemaining)
+    //        << " newEdges=" << toString(edges)
+    //        << "\n";
+    bool ok = replaceRouteEdges(edges, routeCost, savings, info, onInit);
     // this must be called even if the route could not be replaced
     if (onInit) {
         if (edges.empty()) {
@@ -234,7 +237,7 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
 
 
 bool
-MSBaseVehicle::replaceRouteEdges(ConstMSEdgeVector& edges, double cost, const std::string& info, bool onInit, bool check, bool removeStops) {
+MSBaseVehicle::replaceRouteEdges(ConstMSEdgeVector& edges, double cost, double savings, const std::string& info, bool onInit, bool check, bool removeStops) {
     if (edges.empty()) {
         WRITE_WARNING("No route for vehicle '" + getID() + "' found.");
         return false;
@@ -264,6 +267,7 @@ MSBaseVehicle::replaceRouteEdges(ConstMSEdgeVector& edges, double cost, const st
     const RGBColor& c = myRoute->getColor();
     MSRoute* newRoute = new MSRoute(id, edges, false, &c == &RGBColor::DEFAULT_COLOR ? 0 : new RGBColor(c), std::vector<SUMOVehicleParameter::Stop>());
     newRoute->setCosts(cost);
+    newRoute->setSavings(savings);
     if (!MSRoute::dictionary(id, newRoute)) {
         delete newRoute;
         return false;

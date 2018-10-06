@@ -832,7 +832,7 @@ Vehicle::changeTarget(const std::string& vehicleID, const std::string& edgeID) {
     veh->getInfluencer().getRouterTT().compute(
         currentEdge, destEdge, (const MSVehicle * const)veh, MSNet::getInstance()->getCurrentTimeStep(), newRoute);
     // replace the vehicle's route by the new one (cost is updated by call to reroute())
-    if (!veh->replaceRouteEdges(newRoute, -1, "traci:changeTarget", onInit)) {
+    if (!veh->replaceRouteEdges(newRoute, -1, 0, "traci:changeTarget", onInit)) {
         throw TraCIException("Route replacement failed for " + veh->getID());
     }
     // route again to ensure usage of via/stops
@@ -1157,7 +1157,7 @@ Vehicle::setRoute(const std::string& vehicleID, const std::vector<std::string>& 
     } catch (ProcessError& e) {
         throw TraCIException("Invalid edge list for vehicle '" + veh->getID() + "' (" + e.what() + ")");
     }
-    if (!veh->replaceRouteEdges(edges, -1, "traci:setRoute", veh->getLane() == 0, true)) {
+    if (!veh->replaceRouteEdges(edges, -1, 0, "traci:setRoute", veh->getLane() == 0, true)) {
         throw TraCIException("Route replacement failed for " + veh->getID());
     }
 }
