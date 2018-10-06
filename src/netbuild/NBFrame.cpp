@@ -329,6 +329,9 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.addSynonyme("tls.guess", "guess-tls", true);
     oc.addDescription("tls.guess", "TLS Building", "Turns on TLS guessing");
 
+    oc.doRegister("tls.guess.threshold", new Option_Float(150 / 3.6));
+    oc.addDescription("tls.guess.threshold", "TLS Building", "Sets minimum value for the sum of all incoming lane speeds when guessing TLS");
+
     if (!forNetgen) {
         oc.doRegister("tls.taz-nodes", new Option_Bool(false));
         oc.addSynonyme("tls.taz-nodes", "tls-guess.district-nodes", true);

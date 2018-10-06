@@ -1137,7 +1137,7 @@ NBNodeCont::analyzeCluster(NodeSet cluster, std::string& id, Position& pos,
 
 // ----------- (Helper) methods for guessing/computing traffic lights
 bool
-NBNodeCont::shouldBeTLSControlled(const NodeSet& c) const {
+NBNodeCont::shouldBeTLSControlled(const NodeSet& c, double laneSpeedThreshold) const {
     int noIncoming = 0;
     int noOutgoing = 0;
     bool tooFast = false;
@@ -1160,13 +1160,14 @@ NBNodeCont::shouldBeTLSControlled(const NodeSet& c) const {
             }
         }
     }
-    return !tooFast && f >= 150. / 3.6 && c.size() != 0;
+    return !tooFast && f >= laneSpeedThreshold && c.size() != 0;
 }
 
 
 void
 NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
     // build list of definitely not tls-controlled junctions
+    const double laneSpeedThreshold = oc.getFloat("tls.guess.threshold");
     std::vector<NBNode*> ncontrolled;
     if (oc.isSet("tls.unset")) {
         std::vector<std::string> notTLControlledNodes = oc.getStringVector("tls.unset");
@@ -1284,7 +1285,7 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
                 }
             }
             // check whether the cluster should be controlled
-            if (!shouldBeTLSControlled(c)) {
+            if (!shouldBeTLSControlled(c, laneSpeedThreshold)) {
                 i = cands.erase(i);
             } else {
                 ++i;
@@ -1321,7 +1322,7 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
         }
         NodeSet c;
         c.insert(cur);
-        if (!shouldBeTLSControlled(c) || cur->getIncomingEdges().size() < 3) {
+        if (!shouldBeTLSControlled(c, laneSpeedThreshold) || cur->getIncomingEdges().size() < 3) {
             continue;
         }
         setAsTLControlled((*i).second, tlc, type);

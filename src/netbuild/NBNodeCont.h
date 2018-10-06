@@ -336,9 +336,10 @@ private:
     /// @{
     /** @brief Returns whethe the given node cluster should be controlled by a tls
      * @param[in] c The node cluster
+     * @param[in] laneSpeedThreshold threshold for determining whether a node or cluster should be tls controlled
      * @return Whether this node cluster shall be controlled by a tls
      */
-    bool shouldBeTLSControlled(const NodeSet& c) const;
+    bool shouldBeTLSControlled(const NodeSet& c, double laneSpeedThreshold) const;
     /// @}
 
 
