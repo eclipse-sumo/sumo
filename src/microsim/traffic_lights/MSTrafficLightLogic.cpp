@@ -120,7 +120,11 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
         std::vector<bool> foundGreen(phases.front()->getState().size(), false);
         for (int i = 0; i < (int)phases.size(); ++i) {
             // warn about unused stats
-            const int iNext = (i + 1) % phases.size();
+            const int iNext = phases[i]->nextPhase < 0 ? (i + 1) % phases.size() : phases[i]->nextPhase;
+            if (iNext < 0 || iNext >= phases.size()) {
+                throw ProcessError("Invalid nextPhase " + toString(iNext) + " in tlLogic '" + getID()
+                              + "', program '" + getProgramID() + "' with " + toString(phases.size()) + " phases");
+            }
             const std::string& state1 = phases[i]->getState();
             const std::string& state2 = phases[iNext]->getState();
             assert(state1.size() == state2.size());
