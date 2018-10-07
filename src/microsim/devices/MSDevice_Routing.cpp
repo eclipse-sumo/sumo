@@ -105,6 +105,9 @@ MSDevice_Routing::insertOptions(OptionsCont& oc) {
     oc.doRegister("device.rerouting.threads", new Option_Integer(0));
     oc.addDescription("device.rerouting.threads", "Routing", "The number of parallel execution threads used for rerouting");
 
+    oc.doRegister("device.rerouting.synchronize", new Option_Bool(false));
+    oc.addDescription("device.rerouting.synchronize", "Routing", "Let rerouting happen at the same time for all vehicles");
+
     oc.doRegister("device.rerouting.output", new Option_FileName());
     oc.addDescription("device.rerouting.output", "Routing", "Save adapting weights to FILE");
 
@@ -216,8 +219,11 @@ MSDevice_Routing::notifyEnter(SUMOVehicle& /*veh*/, MSMoveReminder::Notification
         // build repetition trigger if routing shall be done more often
         if (myPeriod > 0) {
             myRerouteCommand = new WrappingCommand<MSDevice_Routing>(this, &MSDevice_Routing::wrappedRerouteCommandExecute);
-            MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(
-                myRerouteCommand, myPeriod + MSNet::getInstance()->getCurrentTimeStep());
+            SUMOTime start = MSNet::getInstance()->getCurrentTimeStep();
+            if (OptionsCont::getOptions().getBool("device.rerouting.synchronize")) {
+                start -= start % myPeriod;
+            }
+            MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(myRerouteCommand, myPeriod + start);
         }
     }
     return false;
