@@ -327,7 +327,7 @@ public final class GlobalConfig {
     }
 
     public void setLisaRestFulServerDir(String lisaRestFulServerDir) {
-        if (lisaRestFulServerDir.equals(this.lisaRestFulServerDir)) {
+        if (!lisaRestFulServerDir.equals(this.lisaRestFulServerDir)) {
             this.lisaRestFulServerDir = lisaRestFulServerDir;
             updateLisaServerParameters();
         }
