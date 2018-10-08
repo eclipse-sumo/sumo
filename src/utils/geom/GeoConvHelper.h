@@ -150,9 +150,6 @@ public:
     /// @brief Returns the original projection definition
     const std::string& getProjString() const;
 
-    /// @brief Returns the expanded projection definition
-    const std::string getProjStringExpanded() const;
-
     /// @brief @brief writes the location element
     static void writeLocation(OutputDevice& into);
 
