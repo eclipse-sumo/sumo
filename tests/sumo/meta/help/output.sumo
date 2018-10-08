@@ -1,4 +1,4 @@
-Eclipse SUMO Version v1_0_1+0174-bfdf8c8
+Eclipse SUMO Version UNKNOWN
  Copyright (C) 2001-2018 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -254,6 +254,8 @@ Routing Options:
                                          edge weights
   --device.rerouting.threads INT       The number of parallel execution threads
                                          used for rerouting
+  --device.rerouting.synchronize       Let rerouting happen at the same time
+                                         for all vehicles
   --device.rerouting.output FILE       Save adapting weights to FILE
 
 Report Options:
@@ -490,6 +492,8 @@ GUI Only Options:
                                          position
   --tracker-interval FLOAT             The aggregation period for value tracker
                                          windows
+  --osg-view                           Start with an OpenSceneGraph view
+                                         instead of the regular 2D view
   --gui-testing                        Enable ovelay for screen recognition
   --gui-testing-debug                  Enable output messages during
                                          GUI-Testing

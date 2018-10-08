@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Oct  4 21:56:49 2018 by Eclipse SUMO Version v1_0_1+0174-bfdf8c8
+<!-- generated on 10/08/18 22:06:59 by Eclipse SUMO Version UNKNOWN
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -133,6 +133,7 @@
         <device.rerouting.with-taz value="false" synonymes="device.routing.with-taz with-taz" type="BOOL" help="Use zones (districts) as routing start- and endpoints"/>
         <device.rerouting.init-with-loaded-weights value="false" type="BOOL" help="Use weight files given with option --weight-files for initializing edge weights"/>
         <device.rerouting.threads value="0" type="INT" help="The number of parallel execution threads used for rerouting"/>
+        <device.rerouting.synchronize value="false" type="BOOL" help="Let rerouting happen at the same time for all vehicles"/>
         <device.rerouting.output value="" type="FILE" help="Save adapting weights to FILE"/>
     </routing>
 
@@ -275,6 +276,7 @@
         <window-size value="" type="STR" help="Create initial window with the given x,y size"/>
         <window-pos value="" type="STR" help="Create initial window at the given x,y position"/>
         <tracker-interval value="1" type="FLOAT" help="The aggregation period for value tracker windows"/>
+        <osg-view value="false" type="BOOL" help="Start with an OpenSceneGraph view instead of the regular 2D view"/>
         <gui-testing value="false" type="BOOL" help="Enable ovelay for screen recognition"/>
         <gui-testing-debug value="false" type="BOOL" help="Enable output messages during GUI-Testing"/>
     </gui_only>
