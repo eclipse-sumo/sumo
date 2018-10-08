@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, LisumSimulation of Urban MObility; see https://eclipse.org/sumo
 // Copyright (C) 2016-2018 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
@@ -7,7 +7,7 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    Actions.java
+/// @file    Constants.java
 /// @author  Maximiliano Bottazzi
 /// @date    2016
 /// @version $Id$
@@ -22,7 +22,7 @@ import de.dlr.ts.commons.javafx.messages.InformationMessage;
 import de.dlr.ts.commons.logger.DLRLogger;
 import de.dlr.ts.lisum.GlobalConfig;
 import de.dlr.ts.lisum.Tools;
-import de.dlr.ts.lisum.simulation.Simulation;
+import de.dlr.ts.lisum.simulation.LisumSimulation;
 import de.dlr.ts.lisum.exceptions.LisumException;
 import de.dlr.ts.lisum.gui.options.LisaControlUnitPreferences;
 import de.dlr.ts.lisum.gui.options.SystemPreferencesWindow;
@@ -128,7 +128,7 @@ public class Actions
             {
                 DLRLogger.info(this, "Opening simulation " + selectedFile.getAbsolutePath());
                 
-                Simulation simulation = new Simulation();
+                LisumSimulation simulation = new LisumSimulation();
                 simulation.load(selectedFile);                
                 
                 SystemProperties.getInstance().setCurrentSimulation(simulation);
@@ -159,7 +159,7 @@ public class Actions
      */
     public void closeCurrentproject()
     {
-        Simulation cs = SystemProperties.getInstance().getCurrentSimulation();
+        LisumSimulation cs = SystemProperties.getInstance().getCurrentSimulation();
         if(cs != null)
             DLRLogger.info("Actions", "Closing simulation " + cs.getSimulationFiles().getSimulationDirectory());
         
@@ -214,9 +214,9 @@ public class Actions
         /**
          * Init before play
          */
-        Simulation.InitBeforePlayResponse initBeforePlay = SystemProperties.getInstance().getCurrentSimulation().initBeforePlay();
+        LisumSimulation.InitBeforePlayResponse initBeforePlay = SystemProperties.getInstance().getCurrentSimulation().initBeforePlay();
         
-        if(initBeforePlay == Simulation.InitBeforePlayResponse.LisaRESTfulServerNotFound)
+        if(initBeforePlay == LisumSimulation.InitBeforePlayResponse.LisaRESTfulServerNotFound)
         {
             Actions.getInstance().lisaServerNotFoundMessage();
         }

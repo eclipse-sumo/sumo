@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, LisumSimulation of Urban MObility; see https://eclipse.org/sumo
 // Copyright (C) 2016-2018 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
@@ -7,7 +7,7 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    SystemProperties.java
+/// @file    Constants.java
 /// @author  Maximiliano Bottazzi
 /// @date    2016
 /// @version $Id$
@@ -18,7 +18,7 @@ package de.dlr.ts.lisum.gui;
 
 import de.dlr.ts.commons.tools.FileTools;
 import de.dlr.ts.lisum.GlobalConfig;
-import de.dlr.ts.lisum.simulation.Simulation;
+import de.dlr.ts.lisum.simulation.LisumSimulation;
 import de.dlr.ts.utils.xmladmin2.XMLAdmin2;
 import de.dlr.ts.utils.xmladmin2.exceptions.MalformedKeyOrNameException;
 import de.dlr.ts.utils.xmladmin2.exceptions.XMLNodeNotFoundException;
@@ -42,7 +42,7 @@ public class SystemProperties
 {
     private static final SystemProperties INSTANCE = new SystemProperties();
 
-    private Simulation currentSimulation = null;
+    private LisumSimulation currentSimulation = null;
     private final BooleanProperty simulationOpened = new SimpleBooleanProperty(false);
     private final BooleanProperty simulationStarted = new SimpleBooleanProperty(false);
     
@@ -108,7 +108,7 @@ public class SystemProperties
      * 
      * @param project
      */
-    public void setCurrentSimulation(Simulation project)
+    public void setCurrentSimulation(LisumSimulation project)
     {
         this.currentSimulation = project;
         
@@ -136,7 +136,7 @@ public class SystemProperties
      * 
      * @return 
      */
-    public Simulation getCurrentSimulation()
+    public LisumSimulation getCurrentSimulation()
     {
         return currentSimulation;
     }

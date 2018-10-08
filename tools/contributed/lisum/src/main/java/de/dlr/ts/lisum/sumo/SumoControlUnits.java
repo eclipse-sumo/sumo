@@ -1,4 +1,4 @@
-/****************************************************************************/
+/** ************************************************************************* */
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 // Copyright (C) 2016-2018 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
@@ -6,14 +6,14 @@
 // which accompanies this distribution, and is available at
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
-/****************************************************************************/
-/// @file    SumoControlUnits.java
+/** ************************************************************************* */
+/// @file    Constants.java
 /// @author  Maximiliano Bottazzi
 /// @date    2016
 /// @version $Id$
 ///
 //
-/****************************************************************************/
+/** ************************************************************************* */
 package de.dlr.ts.lisum.sumo;
 
 import de.dlr.ts.commons.logger.DLRLogger;
@@ -29,99 +29,90 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 /**
  *
- * @author @author <a href="mailto:maximiliano.bottazzi@dlr.de">Maximiliano Bottazzi</a>
+ * @author @author <a href="mailto:maximiliano.bottazzi@dlr.de">Maximiliano
+ * Bottazzi</a>
  */
-class SumoControlUnits
-{
+class SumoControlUnits {
+
     private final List<SumoControlUnit> controlUnits = new ArrayList<>();
     private final Map<String, SumoControlUnit> controlUnitsHash = new HashMap<>();
-    
-    
+
     /**
-     * 
+     *
      */
-    public SumoControlUnits()
-    {
+    public SumoControlUnits() {
     }
-    
+
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
-    public int getCount()
-    {
+    public int getCount() {
         return controlUnits.size();
     }
-    
+
     /**
-     * 
+     *
      * @param index
-     * @return 
+     * @return
      */
-    public SumoControlUnit getControlUnit(int index)
-    {
+    public SumoControlUnit getControlUnit(int index) {
         return controlUnits.get(index);
     }
 
     /**
-     * 
+     *
      */
-    public void executeSimulationStep()
-    {
-        for (int i = 0; i < controlUnits.size(); i++)
+    public void executeSimulationStep() {
+        for (int i = 0; i < controlUnits.size(); i++) {
             controlUnits.get(i).executeSimulationStep();
+        }
     }
-    
+
     /**
-     * 
+     *
      * @param name
-     * @return 
+     * @return
      */
-    public SumoControlUnit getControlUnit(String name)
-    {
+    public SumoControlUnit getControlUnit(String name) {
         return controlUnitsHash.get(name);
     }
 
-    
     /**
-     * 
+     *
      * @param sumoNetFile
-     * @return 
+     * @return
      */
-    public SumoControlUnits load(File sumoNetFile)
-    {
-        try
-        {
+    public SumoControlUnits load(File sumoNetFile) {
+        try {
             XMLAdmin2 x = new XMLAdmin2().load(sumoNetFile);
 
             int tlscount = x.getNodesCount("tlLogic");
 
-            for (int i = 0; i < tlscount; i++)
-            {
+            for (int i = 0; i < tlscount; i++) {
                 XMLNode node = x.getNode("tlLogic", i);
                 final String name = node.getAttributes().get("id").getValue();
-                
+
                 int phasesCount = node.getNodesCount("phase");
                 String[] states = new String[phasesCount];
-                
-                for (int j = 0; j < phasesCount; j++)
+
+                for (int j = 0; j < phasesCount; j++) {
                     states[j] = node.getNode("phase", j).getAttributes().get("state").getValue();
-                
+                }
+
                 SumoControlUnit scu = new SumoControlUnit(name, states);
                 this.controlUnits.add(scu);
                 this.controlUnitsHash.put(name, scu);
-                
+
                 DLRLogger.info(this, "Adding control unit " + name);
             }
 
-        } catch (SAXException | IOException | MalformedKeyOrNameException | XMLNodeNotFoundException ex)
-        {
+        } catch (SAXException | IOException | MalformedKeyOrNameException | XMLNodeNotFoundException ex) {
             DLRLogger.severe(this, ex);
         }
-        
+
         return this;
     }
 }

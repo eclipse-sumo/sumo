@@ -7,7 +7,7 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    SumoDetectors.java
+/// @file    Constants.java
 /// @author  Maximiliano Bottazzi
 /// @date    2016
 /// @version $Id$
@@ -21,7 +21,8 @@ import de.dlr.ts.lisum.interfaces.DetectorInterface;
 import de.dlr.ts.utils.xmladmin2.XMLAdmin2;
 import de.dlr.ts.utils.xmladmin2.exceptions.MalformedKeyOrNameException;
 import de.dlr.ts.utils.xmladmin2.exceptions.XMLNodeNotFoundException;
-import it.polito.appeal.traci.InductionLoop;
+import it.polito.appeal.traci.SumoTraciConnection;
+//import it.polito.appeal.traci.InductionLoop;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -35,21 +36,21 @@ import org.xml.sax.SAXException;
 class SumoDetectors
 {
     private final List<SumoDetector> detectors = new ArrayList<>();    
-
+    private SumoTraciConnection conn;
     
     /**
      * 
      */
-    public SumoDetectors(/*VehicleTypes vehicleTypes*/)
+    public SumoDetectors(/*VehicleTypes vehicleTypes*/ SumoTraciConnection conn)
     {
         //this.vehicleTypes = vehicleTypes;
+        this.conn = conn;
     }
     
     /**
      * 
      */
-    public void executeSimulationStep()
-    {
+    public void executeSimulationStep() throws Exception {
         for (SumoDetector detector : detectors)
             detector.executeSimulationStep();
     }
@@ -58,10 +59,10 @@ class SumoDetectors
      * 
      * @param name 
      */
-    public void addDetector(String name, InductionLoop induct, DetectorInterface cityDetector)
+    public void addDetector(String name, DetectorInterface cityDetector)
     {
-        SumoDetector sd = new SumoDetector(name /*, vehicleTypes*/);
-        sd.setSumoInductionLoop(induct);
+        SumoDetector sd = new SumoDetector(name, conn);
+        //sd.setSumoInductionLoop(induct);
         sd.setCityDetector(cityDetector);
         
         detectors.add(sd);
@@ -89,7 +90,7 @@ class SumoDetectors
                 //String lane = x.getNode("inductionLoop", i).getAttributes().get("lane").getValue();
                 //String pos = x.getNode("inductionLoop", i).getAttributes().get("pos").getValue();
                 
-                SumoDetector sd = new SumoDetector(name /*, vehicleTypes*/);
+                SumoDetector sd = new SumoDetector(name /*, vehicleTypes*/, conn);
                 detectors.add(sd);
                 
                 DLRLogger.info(this, "Adding detector " + sd);

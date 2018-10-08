@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, LisumSimulation of Urban MObility; see https://eclipse.org/sumo
 // Copyright (C) 2016-2018 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
@@ -7,7 +7,7 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    SimulationToolBar.java
+/// @file    Constants.java
 /// @author  Maximiliano Bottazzi
 /// @date    2016
 /// @version $Id$
@@ -19,7 +19,7 @@ package de.dlr.ts.lisum.gui.toolbars;
 import de.dlr.ts.commons.javafx.messages.ErrorMessage;
 import de.dlr.ts.commons.logger.DLRLogger;
 import de.dlr.ts.lisum.GlobalConfig;
-import de.dlr.ts.lisum.simulation.Simulation;
+import de.dlr.ts.lisum.simulation.LisumSimulation;
 import de.dlr.ts.lisum.gui.Actions;
 import de.dlr.ts.lisum.gui.Icons;
 import de.dlr.ts.lisum.gui.SystemProperties;
@@ -146,7 +146,7 @@ public final class SimulationToolBar extends ToolBar implements ToolBarInterface
         
         if(enabled)
         {
-            Simulation cp = SystemProperties.getInstance().getCurrentSimulation();
+            LisumSimulation cp = SystemProperties.getInstance().getCurrentSimulation();
             for (String s : cp.getSimulationFiles().getSimulationDirectory().list())
             {
                 if(s.endsWith(".xml") || s.endsWith(".sumocfg"))
