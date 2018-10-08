@@ -44,6 +44,7 @@ import de.tudresden.ws.container.SumoPrimitive;
 import de.tudresden.ws.container.SumoStopFlags;
 import de.tudresden.ws.container.SumoStringList;
 import de.tudresden.ws.container.SumoTLSProgram;
+import de.tudresden.ws.container.SumoVehicleData;
 import de.uniluebeck.itm.tcpip.Storage;
 import de.tudresden.ws.container.SumoTLSPhase;
 import de.tudresden.ws.container.SumoTLSController;
@@ -332,8 +333,7 @@ public class CommandProcessor extends Query{
 			
 			output = sg;
 		
-		}
-		else if(type == Constants.TYPE_COLOR){
+		} else if(type == Constants.TYPE_COLOR){
 			
 			int r = s.readUnsignedByte();
 			int g = s.readUnsignedByte();
@@ -341,7 +341,7 @@ public class CommandProcessor extends Query{
 			int a = s.readUnsignedByte();
 			
 			output = new SumoColor(r, g, b, a);
-		
+
 		}else if(type == Constants.TYPE_UBYTE){
 			output = new SumoPrimitive(s.readUnsignedByte());
 		}
@@ -604,6 +604,35 @@ public class CommandProcessor extends Query{
 				}
 			
 				output = sl;
+
+            }else if(sc.input2 == Constants.LAST_STEP_VEHICLE_DATA){
+
+                resp.content().readUnsignedByte();
+                resp.content().readInt();
+
+                SumoVehicleData vehData  = new SumoVehicleData();
+
+                int numItems = resp.content().readInt();
+                for(int i=0; i<numItems; i++){
+
+                    resp.content().readUnsignedByte();
+                    String vehID = resp.content().readStringASCII();
+
+                    resp.content().readUnsignedByte();
+                    double length = resp.content().readDouble();
+
+                    resp.content().readUnsignedByte();
+                    double entryTime = resp.content().readDouble();
+
+                    resp.content().readUnsignedByte();
+                    double leaveTime = resp.content().readDouble();
+
+                    resp.content().readUnsignedByte();
+                    String typeID = resp.content().readStringASCII();
+
+                    vehData.add(vehID, length, entryTime, leaveTime, typeID);
+                }
+                output = vehData;
 				
 			}else if(sc.input2 == Constants.FIND_ROUTE){
 				
