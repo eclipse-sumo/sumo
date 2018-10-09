@@ -68,7 +68,7 @@ public class SimulationFiles {
      * @param lisumConfigurationFile
      * @throws de.dlr.ts.lisum.exceptions.LisumException
      */
-    public void read(File lisumConfigurationFile) throws LisumException {
+    public void read(File lisumConfigurationFile, String sumoConfig) throws LisumException {
         DLRLogger.config(this, "Reading and setting simulation properties from " + lisumConfigurationFile + ".");
 
         /**
@@ -93,22 +93,25 @@ public class SimulationFiles {
         /**
          * Setting Sumo configuration file
          */
-        String tmp = null;
-        for (String s : simulationDirectory.list()) {
-            if (s.endsWith(".sumocfg")) {
-                tmp = s;
+        if (sumoConfig == null) {
+            for (String s : simulationDirectory.list()) {
+                if (s.endsWith(".sumocfg")) {
+                    sumoConfig = s;
+                }
             }
-        }
 
-        if (tmp == null) {
-            throw new LisumException("Fatal error: no Sumo configuration file could be found.");
-        }
+            if (sumoConfig == null) {
+                throw new LisumException("Fatal error: no Sumo configuration file could be found.");
+            }
 
-        sumoConfigFile = new File(simulationDirectory.getAbsolutePath() + File.separator + tmp);
+            sumoConfigFile = new File(simulationDirectory.getAbsolutePath() + File.separator + sumoConfig);
+        } else {
+            sumoConfigFile = new File(sumoConfig);
+        }
 
         DLRLogger.config(this, "Setting Sumo configuration file: " + sumoConfigFile);
         
-        tmp = null;
+        String tmp = null;
         try {            
             /**
             * Setting sumo net file         
@@ -122,7 +125,7 @@ public class SimulationFiles {
 
                 sumoNetFile = new File(tmp);
                 if(!sumoNetFile.isAbsolute())
-                    sumoNetFile = new File(simulationDirectory.getAbsolutePath() + File.separator + tmp);            
+                    sumoNetFile = new File(sumoConfigFile.getParent() + File.separator + tmp);            
 
                 DLRLogger.config(this, "Setting Sumo net.xml file: " + sumoNetFile);
             } catch (XMLNodeNotFoundException ex) {
@@ -138,7 +141,7 @@ public class SimulationFiles {
                 if (tmp != null) {                
                     sumoAddFile = new File(tmp);
                     if(!sumoAddFile.isAbsolute())                
-                        sumoAddFile = new File(simulationDirectory.getAbsolutePath() + File.separator + tmp);
+                        sumoAddFile = new File(sumoConfigFile.getParent() + File.separator + tmp);
 
                     DLRLogger.config(this, "Setting Sumo add.xml file: " + sumoAddFile);
                 }                
@@ -155,7 +158,7 @@ public class SimulationFiles {
                 if (tmp != null) {                
                     sumoRouFile = new File(tmp);
                     if(!sumoRouFile.isAbsolute())                
-                        sumoRouFile = new File(simulationDirectory.getAbsolutePath() + File.separator + tmp);
+                        sumoRouFile = new File(sumoConfigFile.getParent() + File.separator + tmp);
 
                     DLRLogger.config(this, "Setting Sumo rou.xml file: " + sumoRouFile);
                 }

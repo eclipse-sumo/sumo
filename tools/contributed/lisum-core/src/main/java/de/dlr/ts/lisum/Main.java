@@ -23,6 +23,7 @@ import java.util.logging.Logger;
 public class Main 
 {   
     String sumoExec = "sumo";
+    String sumoConfig = null;
     int sumoPort = 9100;
     String lisaRestFulServerDir = "localhost";
     int lisaPort = 9091;    
@@ -42,7 +43,8 @@ public class Main
         sc.addRuntimeOption("-log            ", "logging level", "INFO");
         sc.addRuntimeOption("-f or -file     ", "lisum_xml Project file", "");
         sc.addRuntimeOption("-c or -conf     ", "config file", "");        
-        sc.addRuntimeOption("-s or -sumoexec ", "Sumo_GUI executable", "");
+        sc.addRuntimeOption("-s or -sumoexec ", "Sumo executable", "");
+        sc.addRuntimeOption("-S or -sumocfg  ", "Sumo configuration", "");
         sc.addRuntimeOption("-l or -lisa     ", "lisa RESTful server address", "localhost");
         sc.showSplashScreen();
         
@@ -111,6 +113,15 @@ public class Main
                     System.exit(0);
                 }
             }                
+            if(args[i].equals("-sumocfg") || args[i].equals("-S")) {
+                sumoConfig = args[i+1];
+                DLRLogger.info("Setting sumoConfig: " + sumoConfig);
+                
+                if(!new File(sumoConfig).exists()) {
+                    DLRLogger.severe(String.format("Error: Couldn't find Sumo coniguration file (%s). Quitting.", sumoConfig));
+                    System.exit(0);
+                }
+            }                
             
             if(args[i].equals("-lisa") || args[i].equals("-l")) {
                 lisaRestFulServerDir = args[i+1];
@@ -155,7 +166,7 @@ public class Main
             return;
         }
         
-        LisumSimulation ls = new LisumSimulation(sumoExec, sumoPort, lisaRestFulServerDir, lisaPort);        
+        LisumSimulation ls = new LisumSimulation(sumoExec, sumoConfig, sumoPort, lisaRestFulServerDir, lisaPort);        
         ls.load(new File(lisumFile));
      
         ls.initBeforePlay();

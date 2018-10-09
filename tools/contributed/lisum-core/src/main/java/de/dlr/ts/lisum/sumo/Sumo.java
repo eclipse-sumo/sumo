@@ -48,6 +48,7 @@ public class Sumo {
     private long vehiclesCount;
     private long stepsPerSecond = 0L;
     private final String sumoExec;
+    private final String sumoConfig;
     private final int sumoPort;
     
     
@@ -56,9 +57,10 @@ public class Sumo {
      * @param lisumSimulation
      * @param sumoExec
      */
-    public Sumo(LisumSimulation lisumSimulation, String sumoExec, int sumoPort) {
+    public Sumo(LisumSimulation lisumSimulation, String sumoExec, String sumoConfig, int sumoPort) {
         this.lisumSimulation = lisumSimulation;
         this.sumoExec = sumoExec;
+        this.sumoConfig = sumoConfig;
         this.sumoPort = sumoPort;
     }
 
@@ -97,15 +99,14 @@ public class Sumo {
 
                 //startSumoGUI();
 
-                conn = new SumoTraciConnection(sumoExec,
-                        lisumSimulation.getSimulationFiles().getSumoConfigFile().getCanonicalPath());
+                conn = new SumoTraciConnection(sumoExec, sumoConfig);
 
                 //Start Traci Server and Sumo
                 conn.runServer();
 
                 sumoDetectors = new SumoDetectors(conn);
 
-                double simulationTimeSeconds;
+                double simulationTimeSeconds = 0;
 
                 /**
                  * Control units
@@ -137,15 +138,11 @@ public class Sumo {
                 long time = System.currentTimeMillis();
                 long _steps = 0L;
 
-                /**
-                 *
-                 */
                 boolean run = true;
                 while (run) {
-                    //conn.nextSimStep();                    
+                    //System.out.println("Step=" + simulationTimeSeconds + " expected=" + (int)conn.do_job_get(Simulation.getMinExpectedNumber()));
                     conn.do_timestep();
 
-                    //simulationTimeSeconds = conn.getCurrentSimTime() / 1000;                                        
                     simulationTimeSeconds = (int) conn.do_job_get(Simulation.getCurrentTime()) / 1000d;
 
                     if (System.currentTimeMillis() - time > 1000L) {
@@ -158,15 +155,13 @@ public class Sumo {
 
                     vehiclesCount = (int) conn.do_job_get(de.tudresden.sumo.cmd.Vehicle.getIDCount());
 
-                    /**
-                     *
-                     */
                     sumoDetectors.executeSimulationStep();
                     sumoControlUnits.executeSimulationStep();
                     lisumSimulation.executeSimulationStep((long) simulationTimeSeconds);
                 }
 
                 conn.close();
+                //System.out.println("Quitting at t=" + simulationTimeSeconds);
             } catch (UnknownHostException ex) {
                 //DLRLogger.severe(this, ex);
                 DLRLogger.info("Sumo", "Closing SumoGUI instance");
