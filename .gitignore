@@ -89,6 +89,7 @@
 /tools/game/racing/tripinfos.xml
 /tools/game/A10KW/*
 /tools/contributed/lisum/target
+/tools/contributed/lisum-core/target
 /tools/contributed/traas/dist
 /tools/contributed/traas/javadoc
 /tools/contributed/traas/release
