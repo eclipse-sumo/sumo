@@ -43,7 +43,7 @@ public class Main
         sc.addRuntimeOption("-f or -file     ", "lisum_xml Project file", "");
         sc.addRuntimeOption("-c or -conf     ", "config file", "");        
         sc.addRuntimeOption("-s or -sumoexec ", "Sumo_GUI executable", "");
-        sc.addRuntimeOption("-l or -lisa     ", "lisa RESTful server address", "");        
+        sc.addRuntimeOption("-l or -lisa     ", "lisa RESTful server address", "localhost");
         sc.showSplashScreen();
         
         /*
@@ -80,8 +80,11 @@ public class Main
             
             StringBuilder sb = new StringBuilder();
             
-            for (String string : f)
-                sb.append(string + " ");            
+            for (String string : f) {
+                if(!string.trim().startsWith("#"))                
+                    sb.append(string + " ");            
+            }
+                
             
             readConf(sb.toString().split(" "));
             
