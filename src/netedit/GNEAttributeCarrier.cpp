@@ -899,7 +899,7 @@ GNEAttributeCarrier::lanesConsecutives(const std::vector<GNELane*>& lanes) {
             // iterate over outgoing edges of destiny juntion of edge's lane
             for (int i = 0; (i < (int)lanes.at(currentLane)->getParentEdge().getGNEJunctionDestiny()->getGNEOutgoingEdges().size()) && (nextLane == -1); i++) {
                 // iterate over lanes of outgoing edges of destiny juntion of edge's lane
-                for (int j = 0; (j < lanes.at(currentLane)->getParentEdge().getGNEJunctionDestiny()->getGNEOutgoingEdges().at(i)->getLanes().size()) && (nextLane == -1); j++) {
+                for (int j = 0; (j < (int)lanes.at(currentLane)->getParentEdge().getGNEJunctionDestiny()->getGNEOutgoingEdges().at(i)->getLanes().size()) && (nextLane == -1); j++) {
                     // check if lane correspond to the next lane of "lanes"
                     if(lanes.at(currentLane)->getParentEdge().getGNEJunctionDestiny()->getGNEOutgoingEdges().at(i)->getLanes().at(j) == lanes.at(currentLane + 1)) {
                         nextLane = currentLane;

@@ -177,7 +177,6 @@ GNEProhibitionFrame::buildProhibition(GNEConnection* conn, bool /* mayDefinitely
         std::vector<GNEConnection*> allConns = junction->getGNEConnections();
         NBNode* node = junction->getNBNode();
         NBEdge* currentConnFrom = myCurrentConn->getEdgeFrom()->getNBEdge();
-        NBEdge* currentConnTo = myCurrentConn->getEdgeTo()->getNBEdge();
 
         const int currentLinkIndex = node->getConnectionIndex(currentConnFrom, myCurrentConn->getNBEdgeConnection());
         std::string currentFoesString = node->getFoes(currentLinkIndex);
@@ -188,7 +187,6 @@ GNEProhibitionFrame::buildProhibition(GNEConnection* conn, bool /* mayDefinitely
         for (auto i : allConns) {
             if (i != myCurrentConn) {
                 NBEdge* otherConnFrom = i->getEdgeFrom()->getNBEdge();
-                NBEdge* otherConnTo = i->getEdgeTo()->getNBEdge();
                 const int linkIndex = node->getConnectionIndex(otherConnFrom, i->getNBEdgeConnection());
                 std::string responseString = node->getResponse(linkIndex);
                 std::reverse(responseString.begin(), responseString.end());

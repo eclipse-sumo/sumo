@@ -219,7 +219,7 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
     //        << " prevEdges=" << toString(oldEdgesRemaining)
     //        << " newEdges=" << toString(edges)
     //        << "\n";
-    bool ok = replaceRouteEdges(edges, routeCost, savings, info, onInit);
+    replaceRouteEdges(edges, routeCost, savings, info, onInit);
     // this must be called even if the route could not be replaced
     if (onInit) {
         if (edges.empty()) {

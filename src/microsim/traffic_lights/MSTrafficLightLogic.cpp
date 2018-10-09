@@ -121,7 +121,7 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
         for (int i = 0; i < (int)phases.size(); ++i) {
             // warn about unused stats
             const int iNext = phases[i]->nextPhase < 0 ? (i + 1) % phases.size() : phases[i]->nextPhase;
-            if (iNext < 0 || iNext >= phases.size()) {
+            if (iNext < 0 || iNext >= (int)phases.size()) {
                 throw ProcessError("Invalid nextPhase " + toString(iNext) + " in tlLogic '" + getID()
                               + "', program '" + getProgramID() + "' with " + toString(phases.size()) + " phases");
             }
