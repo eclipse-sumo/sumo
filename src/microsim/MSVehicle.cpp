@@ -638,10 +638,10 @@ MSVehicle::Stop::write(OutputDevice& dev) const {
         dev.writeAttr(SUMO_ATTR_ENDPOS, pars.endPos);
     }
     if (duration >= 0) {
-        dev.writeAttr(SUMO_ATTR_DURATION, STEPS2TIME(duration));
+        dev.writeAttr(SUMO_ATTR_DURATION, time2string(duration));
     }
     if (pars.until >= 0) {
-        dev.writeAttr(SUMO_ATTR_UNTIL, STEPS2TIME(pars.until));
+        dev.writeAttr(SUMO_ATTR_UNTIL, time2string(pars.until));
     }
     if (pars.triggered) {
         dev.writeAttr(SUMO_ATTR_TRIGGERED, pars.triggered);
