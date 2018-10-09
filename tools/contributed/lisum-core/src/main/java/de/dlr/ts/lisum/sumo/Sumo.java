@@ -138,8 +138,7 @@ public class Sumo {
                 long time = System.currentTimeMillis();
                 long _steps = 0L;
 
-                boolean run = true;
-                while (run) {
+                while ((int) conn.do_job_get(Simulation.getMinExpectedNumber()) > 0) {
                     //System.out.println("Step=" + simulationTimeSeconds + " expected=" + (int)conn.do_job_get(Simulation.getMinExpectedNumber()));
                     conn.do_timestep();
 
