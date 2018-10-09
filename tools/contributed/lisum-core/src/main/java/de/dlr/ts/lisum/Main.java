@@ -22,7 +22,7 @@ import java.util.logging.Logger;
  */
 public class Main 
 {   
-    String sumoExec = "D:\\Tmp\\sumo-1.0.1\\bin\\sumo-gui.exe";
+    String sumoExec = "sumo";
     int sumoPort = 9100;
     String lisaRestFulServerDir = "localhost";
     int lisaPort = 9091;    
