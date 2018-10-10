@@ -650,6 +650,7 @@ def readNet(filename, **others):
         'withConnections' : import all connections (default True)
         'withFoes' : import right-of-way information (default True)
         'withInternal' : import internal edges and lanes (default False)
+        'withPedestrianConnections' : import connections between sidewalks, crossings (default False)
     """
     netreader = NetReader(**others)
     parse(filename, netreader)
