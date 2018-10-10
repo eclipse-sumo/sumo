@@ -311,4 +311,30 @@ if (GIT_FOUND)
     set_property(TARGET distcheck PROPERTY FOLDER "CMake") 
     set_property(TARGET distcheck PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
 endif ()
+
+# java targets
+find_program(MVN_EXECUTABLE mvn)
+find_program(ANT_EXECUTABLE ant)
+if (MVN_EXECUTABLE AND ANT_EXECUTABLE)
+    add_custom_target(traas
+        COMMAND ${ANT_EXECUTABLE} -f tools/contributed/traas/build.xml clean release
+        COMMAND ${CMAKE_COMMAND} -E copy tools/contributed/traas/dist/TraaS.jar bin
+        COMMAND ${MVN_EXECUTABLE} install:install-file -Dfile=bin/TraaS.jar -DgroupId=de.tudresden -DartifactId=traas -Dversion=1.0 -Dpackaging=jar
+        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+    add_custom_target(cadyts
+        COMMAND ${MVN_EXECUTABLE} --batch-mode -f tools/contributed/calibration/pom.xml clean install
+        COMMAND ${CMAKE_COMMAND} -E copy tools/contributed/calibration/utilities/target/floetteroed-utilities-1.0.0.jar bin
+        COMMAND ${CMAKE_COMMAND} -E copy tools/contributed/calibration/cadyts/target/cadyts-1.3.0-SNAPSHOT.jar bin
+        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+    add_custom_target(lisum-core
+        COMMAND ${MVN_EXECUTABLE} --batch-mode -f tools/contributed/lisum-core/pom.xml clean install
+        COMMAND ${CMAKE_COMMAND} -E copy tools/contributed/lisum-core/target/lisum-core-1.0.1-SNAPSHOT.jar bin
+        COMMAND ${MVN_EXECUTABLE} install:install-file -Dfile=bin/lisum-core-1.0.1-SNAPSHOT.jar -DgroupId=de.dlr.ts -DartifactId=lisum-core -Dversion=1.0.1 -Dpackaging=jar
+        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+    add_custom_target(lisum-gui
+        COMMAND ${MVN_EXECUTABLE} --batch-mode -f tools/contributed/lisum-gui/pom.xml clean install
+        COMMAND ${CMAKE_COMMAND} -E copy tools/contributed/lisum-gui/target/lisum-gui-1.0.1-SNAPSHOT.jar bin
+        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+endif()
 message(STATUS "Enabled features: ${ENABLED_FEATURES}")
+
