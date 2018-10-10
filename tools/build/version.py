@@ -39,7 +39,7 @@ def gitDescribe(commit="HEAD", gitDir=None):
     command = ["git", "describe", "--long", "--always", commit]
     if gitDir:
         command[1:1] = ["-C", gitDir]
-    d = subprocess.check_output(command, shell=True, universal_newlines=True).strip()
+    d = subprocess.check_output(command, universal_newlines=True).strip()
     if "-" in d:
         # remove the "g" in describe output
         d = d.replace("-g", "-")
