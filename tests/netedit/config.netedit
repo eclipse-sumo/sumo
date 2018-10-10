@@ -60,4 +60,5 @@ log:Proj GUI{REPLACE MODULES}
 [floating_point_tolerance]
 net:0.0101
 output:0.0101
+errors:0.0101
 additionals:0.0101
