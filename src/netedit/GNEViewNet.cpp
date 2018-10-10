@@ -709,24 +709,26 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
                 myTestingMode.testingWidth = 0;
             }
             //std::cout << " fixed: view=" << getWidth() << ", " << getHeight() << " app=" << myApp->getWidth() << ", " << myApp->getHeight() << "\n";
-            // draw pink square in the upper left corner on top of everything
-            glPushMatrix();
-            const double size = p2m(32);
-            Position center = screenPos2NetPos(8, 8);
-            GLHelper::setColor(RGBColor::MAGENTA);
-            glTranslated(center.x(), center.y(), GLO_MAX - 1);
-            glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-            glBegin(GL_QUADS);
-            glVertex2d(0, 0);
-            glVertex2d(0, -size);
-            glVertex2d(size, -size);
-            glVertex2d(size, 0);
-            glEnd();
-            glPopMatrix();
-            // show box with the current position relative to pink square
-            Position posRelative = screenPos2NetPos(getWidth() - 40, getHeight() - 20);
-            // adjust cursor position (24,25) to show exactly the same position as in function netedit.leftClick(match, X, Y)
-            GLHelper::drawTextBox(toString(myWindowCursorPositionX - 24) + " " + toString(myWindowCursorPositionY - 25), posRelative, GLO_MAX - 1, p2m(20), RGBColor::BLACK, RGBColor::WHITE);
+            if (myTestingMode.drawRefSquare) {
+                // draw pink square in the upper left corner on top of everything
+                glPushMatrix();
+                const double size = p2m(32);
+                Position center = screenPos2NetPos(8, 8);
+                GLHelper::setColor(RGBColor::MAGENTA);
+                glTranslated(center.x(), center.y(), GLO_MAX - 1);
+                glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+                glBegin(GL_QUADS);
+                glVertex2d(0, 0);
+                glVertex2d(0, -size);
+                glVertex2d(size, -size);
+                glVertex2d(size, 0);
+                glEnd();
+                glPopMatrix();
+                // show box with the current position relative to pink square
+                Position posRelative = screenPos2NetPos(getWidth() - 40, getHeight() - 20);
+                // adjust cursor position (24,25) to show exactly the same position as in function netedit.leftClick(match, X, Y)
+                GLHelper::drawTextBox(toString(myWindowCursorPositionX - 24) + " " + toString(myWindowCursorPositionY - 25), posRelative, GLO_MAX - 1, p2m(20), RGBColor::BLACK, RGBColor::WHITE);
+            }
         }
     }
 
