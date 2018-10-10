@@ -193,7 +193,7 @@ MSTransportable::Stage_Waiting::tripInfoOutput(OutputDevice& os, const MSTranspo
 
 
 void
-MSTransportable::Stage_Waiting::routeOutput(OutputDevice& os, const bool withRouteLength) const {
+MSTransportable::Stage_Waiting::routeOutput(OutputDevice& os, const bool /* withRouteLength */) const {
     if (myType != WAITING_FOR_DEPART) {
         // lane index is arbitrary
         os.openTag("stop").writeAttr(SUMO_ATTR_LANE, getDestination()->getID() + "_0");
