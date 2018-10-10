@@ -14,9 +14,8 @@
         <mainClass>de.dlr.ts.lisum.gui.MainApp</mainClass>
     </properties>
 
-    <organization>
-        <!-- Used as the 'Vendor' for JNLP generation -->
-        <name>Your Organisation</name>
+    <organization>        
+        <name>DLR - German Aerospace Center</name>
     </organization>
 
     <build>

@@ -15,55 +15,45 @@ import java.util.Date;
 
 /**
  *
- * @author @author <a href="mailto:maximiliano.bottazzi@dlr.de">Maximiliano Bottazzi</a>
+ * @author @author <a href="mailto:maximiliano.bottazzi@dlr.de">Maximiliano
+ * Bottazzi</a>
  */
-public class DateTools
-{
-    private static DateFormat dfmt = new SimpleDateFormat("yyyyMMdd HH:mm:ss.SSS");
-    private static DateFormat dfmt2 = new SimpleDateFormat("yyyyMMdd_HH.mm.ss.SSS");
-    private static DateFormat dfmt3 = new SimpleDateFormat("yyyyMMdd_HH.mm.ss");
-    
-    
+public class DateTools {
+
+    private static final DateFormat dfmt = new SimpleDateFormat("yyyyMMdd HH:mm:ss.SSS");
+    private static final DateFormat dfmt2 = new SimpleDateFormat("yyyyMMdd_HH.mm.ss.SSS");
+    private static final DateFormat dfmt3 = new SimpleDateFormat("yyyyMMdd_HH.mm.ss");
+
     /**
      *
      * Returns date with the format <i>20150910 10:10:43.059</i>
-     * 
+     *
      * @param millis
      * @return
      */
-    public static String getDateStringForLogger(long millis)
-    {
+    public static String getDateStringForLogger(long millis) {
         return dfmt.format(new Date(millis));
     }
-    
-    
-    public static void main(String[] args)
-    {
-        System.out.println(getDateStringForFileNameWithMillis(System.currentTimeMillis()));
-        System.out.println(getDateStringForFileNameNoMillis(System.currentTimeMillis()));
-    }
-    
+
     /**
-     * 
+     *
      * Returns date with the format <i>20150910_10.16.13.481</i>
-     * 
+     *
      * @param millis
-     * @return 
+     * @return
      */
-    public static String getDateStringForFileNameWithMillis(long millis)
-    {
+    public static String getDateStringForFileNameWithMillis(long millis) {
         return dfmt2.format(new Date(millis));
     }
-    
+
     /**
-     * 
+     *
      * Returns date with the format <i>20150910_10.16.13</i>
-     * 
+     *
      * @param millis
-     * @return 
+     * @return
      */
-    public static String getDateStringForFileNameNoMillis(long millis)
-    {
+    public static String getDateStringForFileNameNoMillis(long millis) {
         return dfmt3.format(new Date(millis));
     }
 }
