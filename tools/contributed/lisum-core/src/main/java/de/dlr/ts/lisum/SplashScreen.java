@@ -379,20 +379,5 @@ public class SplashScreen {
 
         return sb.toString();
     }
-
-    /**
-     *
-     * @param args
-     */
-    public static void main(String[] args) {
-        SplashScreen sc = new SplashScreen("Program");
-        //sc.setSplashScreenTime(2000);
-        //sc.setTitle("Current configuration");
-        sc.setAuthor("Maxi");
-        sc.addProperty("rulo", "true");
-        sc.addRuntimeOption("-r", "resource", "default");
-        sc.addComment("A comment");
-
-        sc.showSplashScreen();
-    }
+    
 }

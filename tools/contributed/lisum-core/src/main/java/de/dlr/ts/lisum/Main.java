@@ -22,15 +22,17 @@ import java.util.logging.Logger;
  */
 public class Main 
 {   
-    String sumoExec = "sumo";
-    String sumoConfig = null;
-    int sumoPort = 9100;
-    String lisaRestFulServerDir = "localhost";
-    int lisaPort = 9091;    
-    String lisumFile = "";
+    private String sumoExec = "sumo";
+    private String sumoConfig = null;
+    private int sumoPort = 9100;
+    private String lisaRestFulServerDir = "localhost";
+    private int lisaPort = 9091;    
+    private String lisumFile = "";
     private String loggingLevel = "INFO";        
     
+    
     /**
+     * Starts lisum-core
      * 
      * @param args
      * @throws Exception 
@@ -47,7 +49,7 @@ public class Main
         sc.addRuntimeOption("-S or -sumocfg  ", "Sumo configuration", "");
         //sc.addRuntimeOption("-l or -lisa     ", "lisa RESTful server address", "localhost");
         sc.showSplashScreen();
-        
+
         new Main().start(args);
     }    
     
@@ -139,7 +141,8 @@ public class Main
             return;
         }
         
-        LisumSimulation ls = new LisumSimulation(sumoExec, sumoConfig, sumoPort, lisaRestFulServerDir, lisaPort);        
+        LisumSimulation ls = new LisumSimulation(sumoExec, sumoPort, lisaRestFulServerDir, lisaPort);        
+        ls.setSumoConfig(sumoConfig);
         ls.load(new File(lisumFile));
      
         ls.initBeforePlay();
