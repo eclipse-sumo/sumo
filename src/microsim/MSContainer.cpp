@@ -100,7 +100,7 @@ MSContainer::MSContainerStage_Driving::getStageSummary() const {
 
 
 void
-MSContainer::MSContainerStage_Driving::tripInfoOutput(OutputDevice& os, MSTransportable*) const {
+MSContainer::MSContainerStage_Driving::tripInfoOutput(OutputDevice& os, const MSTransportable* const) const {
     os.openTag("transport");
     os.writeAttr("waitingTime", time2string(myDeparted - myWaitingSince));
     os.writeAttr("vehicle", myVehicleID);
@@ -114,9 +114,12 @@ MSContainer::MSContainerStage_Driving::tripInfoOutput(OutputDevice& os, MSTransp
 
 
 void
-MSContainer::MSContainerStage_Driving::routeOutput(OutputDevice& os) const {
+MSContainer::MSContainerStage_Driving::routeOutput(OutputDevice& os, const bool withRouteLength) const {
     os.openTag("transport").writeAttr(SUMO_ATTR_FROM, getFromEdge()->getID()).writeAttr(SUMO_ATTR_TO, getDestination()->getID());
     os.writeAttr(SUMO_ATTR_LINES, myLines).closeTag();
+    if (withRouteLength) {
+        os.writeAttr("routeLength", myVehicleDistance);
+    }
 }
 
 
@@ -199,7 +202,7 @@ MSContainer::MSContainerStage_Tranship::getEdges() const {
 
 
 void
-MSContainer::MSContainerStage_Tranship::tripInfoOutput(OutputDevice& os, MSTransportable*) const {
+MSContainer::MSContainerStage_Tranship::tripInfoOutput(OutputDevice& os, const MSTransportable* const) const {
     const SUMOTime duration = myArrived - myDeparted;
     // no timeloss is possible
     const double distance = mySpeed * STEPS2TIME(duration);
@@ -216,9 +219,12 @@ MSContainer::MSContainerStage_Tranship::tripInfoOutput(OutputDevice& os, MSTrans
 
 
 void
-MSContainer::MSContainerStage_Tranship::routeOutput(OutputDevice& os) const {
+MSContainer::MSContainerStage_Tranship::routeOutput(OutputDevice& os, const bool withRouteLength) const {
     os.openTag("tranship").writeAttr(SUMO_ATTR_EDGES, myRoute);
     os.writeAttr(SUMO_ATTR_SPEED, mySpeed);
+    if (withRouteLength) {
+        os.writeAttr("routeLength", mySpeed * (myArrived - myDeparted));
+    }
     os.closeTag();
 }
 
@@ -296,26 +302,27 @@ MSContainer::proceed(MSNet* net, SUMOTime time) {
 
 
 void
-MSContainer::tripInfoOutput(OutputDevice& os, MSTransportable* transportable) const {
+MSContainer::tripInfoOutput(OutputDevice& os) const {
     os.openTag("containerinfo").writeAttr("id", getID()).writeAttr("depart", time2string(getDesiredDepart()));
     for (MSTransportablePlan::const_iterator i = myPlan->begin(); i != myPlan->end(); ++i) {
-        (*i)->tripInfoOutput(os, transportable);
+        (*i)->tripInfoOutput(os, this);
     }
     os.closeTag();
 }
 
 
 void
-MSContainer::routeOutput(OutputDevice& os) const {
+MSContainer::routeOutput(OutputDevice& os, const bool withRouteLength) const {
     os.openTag(SUMO_TAG_CONTAINER).writeAttr(SUMO_ATTR_ID, getID()).writeAttr(SUMO_ATTR_DEPART, time2string(getDesiredDepart()));
     if (myStep == myPlan->end()) {
         os.writeAttr("arrival", time2string(MSNet::getInstance()->getCurrentTimeStep()));
     }
     for (MSTransportablePlan::const_iterator i = myPlan->begin(); i != myPlan->end(); ++i) {
-        (*i)->routeOutput(os);
+        (*i)->routeOutput(os, withRouteLength);
     }
     os.closeTag();
     os.lf();
 }
+
 
 /****************************************************************************/
