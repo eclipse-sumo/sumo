@@ -32,6 +32,7 @@ public class Main
     
     
     /**
+     * Starts lisum-core
      * 
      * @param args
      * @throws Exception 
