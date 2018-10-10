@@ -24,7 +24,7 @@ public enum LightColor
 {
     OFF(0, 'O'),
     RED(3, 'r'), 
-    YELLOW_BLINKING(4, 'o'), 
+    YELLOW_BLINKING(8, 'o'), 
     YELLOW(12, 'y'), 
     RED_YELLOW(15, 'u'), 
     GREEN(48, 'G'), 
