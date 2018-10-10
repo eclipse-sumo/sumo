@@ -1,4 +1,4 @@
-/****************************************************************************/
+/** ************************************************************************* */
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 // Copyright (C) 2016-2018 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
@@ -6,19 +6,18 @@
 // which accompanies this distribution, and is available at
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
-/****************************************************************************/
+/** ************************************************************************* */
 /// @file    Constants.java
 /// @author  Maximiliano Bottazzi
 /// @date    2016
 /// @version $Id$
 ///
 //
-/****************************************************************************/
+/** ************************************************************************* */
 package de.dlr.ts.lisum.lisa;
 
 import de.dlr.ts.commons.logger.DLRLogger;
 import de.dlr.ts.commons.logger.ToString;
-//import de.dlr.ts.lisum.GlobalConfig;
 import de.dlr.ts.lisum.exceptions.LisaRESTfulServerNotFoundException;
 import de.dlr.ts.utils.xmladmin2.XMLAdmin2;
 import de.dlr.ts.utils.xmladmin2.MalformedKeyOrNameException;
@@ -37,13 +36,14 @@ import org.xml.sax.SAXException;
 
 /**
  *
- * @author @author <a href="mailto:maximiliano.bottazzi@dlr.de">Maximiliano Bottazzi</a>
+ * @author @author <a href="mailto:maximiliano.bottazzi@dlr.de">Maximiliano
+ * Bottazzi</a>
  */
-final class LisaCommands
-{
+final class LisaCommands {
+
     private static int lisaServerPort;
     private static String lisaServerAddress;
-    
+
     public static final String GET_TASK_URI = "/services/PDService/getTask";
     private static final String SET_DATA_DIR_URI = "/services/DDService/setDataDir";
     private static final String SET_TASK_LIST_URI = "/services/PDService/setTaskList";
@@ -51,47 +51,42 @@ final class LisaCommands
     private static final String GET_OBJECT_LIST_URI = "/services/PDService/getObjectList";
     private static final String REMOVE_TASK_LIST_URI = "/services/PDService/removeTaskList";
     private static final String PUT_MESSAGE_CALLBACK_URI = "/services/PDCallback/putMessage";
-    
+
     private static final HttpClient HTTP_CLIENT = HttpClients.createDefault();
-    
-    
+
     /**
-     * 
+     *
      */
-    LisaCommands(String lsa, int lsp) {        
+    LisaCommands(String lsa, int lsp) {
         lisaServerPort = lsp;
         lisaServerAddress = lsa;
     }
 
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     @Override
-    public String toString()
-    {
+    public String toString() {
         ToString ts = new ToString("LisaCommands");
-        
+
         return ts.add("lisaServerAddress", lisaServerAddress).add("lisaServerPort", lisaServerPort).toString();
     }
 
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
-    private static String getURI()
-    {
+    private static String getURI() {
         return "http://" + lisaServerAddress + ":" + lisaServerPort;
     }
-    
+
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
-    public static boolean TestRESTfulServer()
-    {
-        try
-        {
+    public static boolean TestRESTfulServer() {
+        try {
             /**
              * Sending anything to the server in order to test it.
              */
@@ -99,269 +94,236 @@ final class LisaCommands
             String request = Requests.INSTANCE.getObjectListRequest(1, 1);
             StringEntity entity = new StringEntity(request, "UTF-8");
             post.setEntity(entity);
-            
-            execute(post);                                    
-        } 
-        catch (UnsupportedEncodingException ex)
-        {
+
+            execute(post);
+        } catch (UnsupportedEncodingException ex) {
             DLRLogger.severe("", ex);
-        } catch (LisaRESTfulServerNotFoundException ex)
-        {
+        } catch (LisaRESTfulServerNotFoundException ex) {
             return false;
         }
-        
-        
+
         return true;
     }
-    
+
     /**
-     * This doesnt work
-     * 
-     * @param id 
+     * This does not work
+     *
+     * @param id
      */
-    public void getTask(int id) throws LisaRESTfulServerNotFoundException
-    {
-        try
-        {
+    public void getTask(int id) throws LisaRESTfulServerNotFoundException {
+        try {
             //HttpPost post = new HttpPost(lisaServerAddress + PUT_MESSAGE_SERVICE_URI);
             HttpPost post = new HttpPost(getURI() + PUT_MESSAGE_CALLBACK_URI);
             String request = Requests.INSTANCE.getGetTaskRequest(id);
             StringEntity entity = new StringEntity(request, "UTF-8");
             post.setEntity(entity);
-     
+
             DLRLogger.finer(this, request);
-            
+
             Response response = execute(post);
             DLRLogger.finer(this, response.statusCode + " | " + response.body);
-        } 
-        catch (UnsupportedEncodingException ex)
-        {
+        } catch (UnsupportedEncodingException ex) {
             DLRLogger.severe(this, ex);
         }
     }
-    
+
     /**
-     * 
-     * @param message 
-     * @return  
+     *
+     * @param message
+     * @return
      */
-    public PutMessageResponse putMessage(String message) throws LisaRESTfulServerNotFoundException
-    {
+    public PutMessageResponse putMessage(String message) throws LisaRESTfulServerNotFoundException {
         PutMessageResponse vektor = null;
-        
-        try
-        {
+
+        try {
             //HttpPost post = new HttpPost(lisaServerAddress + PUT_MESSAGE_SERVICE_URI);
             HttpPost post = new HttpPost(getURI() + PUT_MESSAGE_CALLBACK_URI);
             String request = Requests.INSTANCE.getPutMessageRequest(message);
             StringEntity entity = new StringEntity(request, "UTF-8");
             post.setEntity(entity);
-     
-            DLRLogger.finer(this, request);
-            
+
+            DLRLogger.finer(this, "Sending requesto to Lisa: " + request);
+
             Response response = execute(post);
-            DLRLogger.finer(this, response.statusCode + " | " + response.body);
+            DLRLogger.finest(this, "Lisa responds: " + response.statusCode + " | " + response.body);
+
+            if (response.statusCode == 200) 
+                vektor = new PutMessageResponse(response.body);
             
-            if(response.statusCode == 200)
-                vektor = new PutMessageResponse(response.body);            
-        } 
-        catch (UnsupportedEncodingException ex)
-        {
-            DLRLogger.severe(this, ex);
+            DLRLogger.finest(this, "-------------------------------      " + vektor.toString());
+            
+        } catch (UnsupportedEncodingException ex) {
+            String hh = DLRLogger.severe(this, ex);
+            ex.printStackTrace();
         }
-        
+
         return vektor;
     }
-    
+
     /**
-     * 
+     *
      * @param zNr
      * @param fNr
      * @param interval
-     * @return 
+     * @return
      */
-    public int setTask(int zNr, int fNr, int interval) throws LisaRESTfulServerNotFoundException
-    {
+    public int setTask(int zNr, int fNr, int interval) throws LisaRESTfulServerNotFoundException {
         int newTaskId = 0;
-        try
-        {
+        try {
             HttpPost post = new HttpPost(getURI() + SET_TASK_LIST_URI);
             String request = Requests.INSTANCE.getSetTaskRequest(zNr, fNr, interval);
             StringEntity entity = new StringEntity(request, "UTF-8");
             post.setEntity(entity);
-            
+
             Response response = execute(post);
             DLRLogger.finer(this, response.statusCode + " | " + response.body);
-            
+
             XMLAdmin2 x = new XMLAdmin2().load(response.body.getBytes());
             newTaskId = x.getNode("ns2:ID").getValue(0);
-        } 
-        catch (UnsupportedEncodingException | SAXException | MalformedKeyOrNameException | XMLNodeNotFoundException ex)
-        {
+        } catch (UnsupportedEncodingException | SAXException | MalformedKeyOrNameException | XMLNodeNotFoundException ex) {
             DLRLogger.severe(this, ex);
         }
-        
+
         return newTaskId;
     }
-    
+
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
-    public String getObjectList() throws LisaRESTfulServerNotFoundException
-    {
-        try
-        {
+    public String getObjectList() throws LisaRESTfulServerNotFoundException {
+        try {
             HttpPost post = new HttpPost(getURI() + GET_OBJECT_LIST_URI);
             String request = Requests.INSTANCE.getObjectListRequest(1, 1);
             StringEntity entity = new StringEntity(request, "UTF-8");
             post.setEntity(entity);
-            
+
             Response response = execute(post);
             DLRLogger.finer(this, response.statusCode + " | " + response.body);
-            
+
             return response.body;
-        } 
-        catch (UnsupportedEncodingException ex)
-        {
+        } catch (UnsupportedEncodingException ex) {
             DLRLogger.severe(this, ex);
         }
-        
+
         return "";
     }
-    
+
     /**
-     * 
-     * @param id 
+     *
+     * @param id
      */
-    public void removeTaskList(int id) throws LisaRESTfulServerNotFoundException
-    {
-        try
-        {
+    public void removeTaskList(int id) throws LisaRESTfulServerNotFoundException {
+        try {
             HttpPost post = new HttpPost(getURI() + REMOVE_TASK_LIST_URI);
-            
+
             String request = Requests.INSTANCE.getRemoveTaskListRequest(id);
             StringEntity entity = new StringEntity(request, "UTF-8");
             post.setEntity(entity);
-            
+
             Response execute = execute(post);
             DLRLogger.finer(this, execute.statusCode + " | " + execute.body);
-        } 
-        catch (UnsupportedEncodingException ex)
-        {
+        } catch (UnsupportedEncodingException ex) {
             DLRLogger.severe(this, ex);
         }
-        
+
     }
-    
+
     /**
-     * 
+     *
      * @param zNr
      * @param fNr
      * @return The id of the task list or -1 if not found.
      */
-    public int[] getTaskList(int zNr, int fNr) throws LisaRESTfulServerNotFoundException
-    {
+    public int[] getTaskList(int zNr, int fNr) throws LisaRESTfulServerNotFoundException {
         int[] ids = null;
-        try
-        {
+        try {
             String uri = GET_TASK_LIST_URI;
             HttpPost post = new HttpPost(getURI() + uri);
-            
+
             String request = Requests.INSTANCE.getTaskListRequest(zNr, fNr);
             StringEntity entity = new StringEntity(request, "UTF-8");
             post.setEntity(entity);
-            
+
             Response execute = execute(post);
             DLRLogger.finer(this, execute.statusCode + " | " + execute.body);
-            
+
             XMLAdmin2 x = new XMLAdmin2().load(execute.body.getBytes());
-            
+
             //System.out.println(x.getXML(true));
-            int nodesCount = x.getNodesCount("ns2:TaskInfo");            
+            int nodesCount = x.getNodesCount("ns2:TaskInfo");
             ids = new int[nodesCount];
-            
-            for (int i = 0; i < nodesCount; i++)
-            {
+
+            for (int i = 0; i < nodesCount; i++) {
                 int id = x.getNode("ns2:TaskInfo", i).getNode("ns2:ID").getValue(-1);
                 ids[i] = id;
             }
-        } 
-        catch (UnsupportedEncodingException | SAXException | MalformedKeyOrNameException | XMLNodeNotFoundException ex)
-        {
+        } catch (UnsupportedEncodingException | SAXException | MalformedKeyOrNameException | XMLNodeNotFoundException ex) {
             DLRLogger.severe(this, ex);
         }
-        
+
         return ids;
     }
-    
+
     /**
-     * 
-     * @param dataDir     
-     * @return 
+     *
+     * @param dataDir
+     * @return
      */
-    public void setDataDir(final File dataDir) throws LisaRESTfulServerNotFoundException
-    {
-        try
-        {
+    public void setDataDir(final File dataDir) throws LisaRESTfulServerNotFoundException {
+        try {
             HttpPost post = new HttpPost(getURI() + SET_DATA_DIR_URI);
             String request = Requests.INSTANCE.getSetDataDirRequest(dataDir.getAbsolutePath());
-            
+
             StringEntity entity = new StringEntity(request, "UTF-8");
             post.setEntity(entity);
-            
+
             Response execute = execute(post);
-            
-            if (execute.statusCode == 200)
-                DLRLogger.config(this, "Lisa DataDir set successfully");
-        } 
-        catch (UnsupportedEncodingException ex)
-        {
+
+            if (execute.statusCode == 200) {
+                DLRLogger.config(this, "Lisa DataDir set successfully.");
+            }
+        } catch (UnsupportedEncodingException ex) {
             //DLRLogger.severe(this, ex);
             throw new LisaRESTfulServerNotFoundException();
         }
     }
-    
+
     /**
-     * 
+     *
      * @param post
-     * @return 
+     * @return
      */
-    static Response execute(HttpPost post) throws LisaRESTfulServerNotFoundException
-    {
-        try
-        {
+    static Response execute(HttpPost post) throws LisaRESTfulServerNotFoundException {
+        try {
             byte[] responseBody;
             int statusCode;
             String reasonPhrase;
             ProtocolVersion protocolVersion;
-            
+
             HttpResponse execute = HTTP_CLIENT.execute(post);
             reasonPhrase = execute.getStatusLine().getReasonPhrase();
             statusCode = execute.getStatusLine().getStatusCode();
             protocolVersion = execute.getStatusLine().getProtocolVersion();
-            
+
             ByteArrayOutputStream outstream = new ByteArrayOutputStream();
             execute.getEntity().writeTo(outstream);
             responseBody = outstream.toByteArray();
-            
+
             Response response = new Response();
             response.statusCode = statusCode;
             response.body = new String(responseBody);
-            
+
             return response;
-        }
-        catch (IOException ex)
-        {
+        } catch (IOException ex) {
             throw new LisaRESTfulServerNotFoundException("");
         }
     }
-    
+
     /**
-     * 
+     *
      */
-    private static class Response
-    {
+    private static class Response {
         int statusCode;
         String body;
     }

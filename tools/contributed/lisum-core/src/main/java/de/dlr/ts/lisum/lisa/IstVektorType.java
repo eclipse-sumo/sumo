@@ -1,4 +1,4 @@
-/****************************************************************************/
+/** ************************************************************************* */
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 // Copyright (C) 2016-2018 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
@@ -6,24 +6,25 @@
 // which accompanies this distribution, and is available at
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
-/****************************************************************************/
+/** ************************************************************************* */
 /// @file    Constants.java
 /// @author  Maximiliano Bottazzi
 /// @date    2016
 /// @version $Id$
 ///
 //
-/****************************************************************************/
+/** ************************************************************************* */
 package de.dlr.ts.lisum.lisa;
 
 import de.dlr.ts.commons.logger.ToString;
 
 /**
  *
- * @author @author <a href="mailto:maximiliano.bottazzi@dlr.de">Maximiliano Bottazzi</a>
+ * @author @author <a href="mailto:maximiliano.bottazzi@dlr.de">Maximiliano
+ * Bottazzi</a>
  */
-class IstVektorType
-{
+class IstVektorType {
+
     private int sammelstoerung;
     private long zeitpunktLetzteAenderung;
     private int betriebsart;
@@ -35,18 +36,15 @@ class IstVektorType
     private int oepnvEinAus;
     private int koordinierung;
 
-    public IstVektorType()
-    {
+    public IstVektorType() {
     }
 
-    public IstVektorType(String line)
-    {
+    public IstVektorType(String line) {
         this.parse(line);
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         ToString tos = new ToString("IstVektorType");
         tos.add("sammelstoerung", sammelstoerung);
         tos.add("zeitpunktLetzteAenderung", zeitpunktLetzteAenderung);
@@ -58,21 +56,20 @@ class IstVektorType
         tos.add("ivEinAus", ivEinAus);
         tos.add("oepnvEinAus", oepnvEinAus);
         tos.add("koordinierung", koordinierung);
-        
+
         return tos.toString();
     }
-    
+
     /**
-     * 
-     * @param vector 
+     *
+     * @param vector
      */
-    public final void parse(String vector)
-    {
+    public final void parse(String vector) {
         vector = vector.replaceAll("\\{", "");
         vector = vector.replaceAll("\\}", "");
-        
+
         String[] split = vector.split(";");
-        
+
         sammelstoerung = new Integer(split[0]);
         zeitpunktLetzteAenderung = new Integer(split[1]);
         betriebsart = new Integer(split[2]);
@@ -85,104 +82,84 @@ class IstVektorType
         koordinierung = new Integer(split[9]);
     }
 
-    public int getSammelstoerung()
-    {
+    public int getSammelstoerung() {
         return sammelstoerung;
     }
 
-    public void setSammelstoerung(int sammelstoerung)
-    {
+    public void setSammelstoerung(int sammelstoerung) {
         this.sammelstoerung = sammelstoerung;
     }
 
-    public long getZeitpunktLetzteAenderung()
-    {
+    public long getZeitpunktLetzteAenderung() {
         return zeitpunktLetzteAenderung;
     }
 
-    public void setZeitpunktLetzteAenderung(long zeitpunktLetzteAenderung)
-    {
+    public void setZeitpunktLetzteAenderung(long zeitpunktLetzteAenderung) {
         this.zeitpunktLetzteAenderung = zeitpunktLetzteAenderung;
     }
 
-    public int getBetriebsart()
-    {
+    public int getBetriebsart() {
         return betriebsart;
     }
 
-    public void setBetriebsart(int betriebsart)
-    {
+    public void setBetriebsart(int betriebsart) {
         this.betriebsart = betriebsart;
     }
 
-    public int getSignalProgramm()
-    {
+    public int getSignalProgramm() {
         return signalProgramm;
     }
 
-    public void setSignalProgramm(int signalProgramm)
-    {
+    public void setSignalProgramm(int signalProgramm) {
         this.signalProgramm = signalProgramm;
     }
 
-    public int getKnotenEinAus()
-    {
+    public int getKnotenEinAus() {
         return knotenEinAus;
     }
 
-    public void setKnotenEinAus(int knotenEinAus)
-    {
+    public void setKnotenEinAus(int knotenEinAus) {
         this.knotenEinAus = knotenEinAus;
     }
 
-    public int getSondereingriff()
-    {
+    public int getSondereingriff() {
         return sondereingriff;
     }
 
-    public void setSondereingriff(int sondereingriff)
-    {
+    public void setSondereingriff(int sondereingriff) {
         this.sondereingriff = sondereingriff;
     }
 
-    public int getVaEinAus()
-    {
+    public int getVaEinAus() {
         return vaEinAus;
     }
 
-    public void setVaEinAus(int vaEinAus)
-    {
+    public void setVaEinAus(int vaEinAus) {
         this.vaEinAus = vaEinAus;
     }
 
-    public int getIvEinAus()
-    {
+    public int getIvEinAus() {
         return ivEinAus;
     }
 
-    public void setIvEinAus(int ivEinAus)
-    {
+    public void setIvEinAus(int ivEinAus) {
         this.ivEinAus = ivEinAus;
     }
 
-    public int getOepnvEinAus()
-    {
+    public int getOepnvEinAus() {
         return oepnvEinAus;
     }
 
-    public void setOepnvEinAus(int oepnvEinAus)
-    {
+    public void setOepnvEinAus(int oepnvEinAus) {
         this.oepnvEinAus = oepnvEinAus;
     }
 
-    public int getKoordinierung()
-    {
+    public int getKoordinierung() {
         return koordinierung;
     }
 
-    public void setKoordinierung(int koordinierung)
-    {
+    public void setKoordinierung(int koordinierung) {
         this.koordinierung = koordinierung;
     }
-    
+
 }

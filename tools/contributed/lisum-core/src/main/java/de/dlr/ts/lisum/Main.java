@@ -45,33 +45,11 @@ public class Main
         sc.addRuntimeOption("-c or -conf     ", "config file", "");        
         sc.addRuntimeOption("-s or -sumoexec ", "Sumo executable", "");
         sc.addRuntimeOption("-S or -sumocfg  ", "Sumo configuration", "");
-        sc.addRuntimeOption("-l or -lisa     ", "lisa RESTful server address", "localhost");
+        //sc.addRuntimeOption("-l or -lisa     ", "lisa RESTful server address", "localhost");
         sc.showSplashScreen();
-        
-        /*
-        if(args.length == 0) {            
-            
-            String aa = "-f D:\\Tmp\\Lisum\\Lisum_Victor_20181002\\lisum.xml -c culo.txt";
-            //String aa = "-c culo.txt";
-            new Main().start(aa.split(" "));
-            
-            return;
-        }
-        */
         
         new Main().start(args);
     }    
-    
-
-    private String[] clean(String[] args) {
-        List<String> tmp = new ArrayList<>();
-        
-        for (String arg : args)
-            if(!arg.trim().isEmpty())
-                tmp.add(arg.trim());        
-        
-        return tmp.toArray(new String[tmp.size()]);
-    }
     
     private void readConfFile(String file) {
         
@@ -81,12 +59,12 @@ public class Main
             List<String> f = FileTools.readSmallTextFile(file);
             
             StringBuilder sb = new StringBuilder();
-            
+
             for (String string : f) {
                 if(!string.trim().startsWith("#"))                
                     sb.append(string + " ");            
-            }
-                
+            }   
+
             
             readConf(sb.toString().split(" "));
             
@@ -97,7 +75,7 @@ public class Main
     
     private void readConf(String[] args) 
     {        
-        args = clean(args);                
+        args = cleanArray(args);                
         
         for (int i = 0; i < args.length; i++) 
         {            
@@ -126,11 +104,6 @@ public class Main
             if(args[i].equals("-lisa") || args[i].equals("-l")) {
                 lisaRestFulServerDir = args[i+1];
                 DLRLogger.info("Setting Lisa Server: " + lisaRestFulServerDir);
-                
-                if(!new File(lisaRestFulServerDir).exists()) {
-                    DLRLogger.severe(String.format("Error: Couldn't find Lisa RESTful directory (%s). Quitting.", lisaRestFulServerDir));
-                    System.exit(0);
-                }
             }                
             
             if(args[i].equals("-log")) {                
@@ -173,4 +146,14 @@ public class Main
         
         new Thread(ls.getRunnable()).start();
     }
+
+     private String[] cleanArray(String[] args) {
+         List<String> tmp = new ArrayList<>();
+         
+         for (String arg : args)
+             if(!arg.trim().isEmpty())
+                 tmp.add(arg.trim());        
+         
+         return tmp.toArray(new String[tmp.size()]);
+     }
 }

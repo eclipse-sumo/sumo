@@ -141,7 +141,8 @@ final class LisaControlUnit implements ControlUnitInterface
      */
     public void executeSimulationStep(long simulationTime) throws LisaRESTfulServerNotFoundException
     {
-        if(enabled) {
+        if(enabled)
+        {
             String detectorsString = lisaDetectors.getLisaString();
         
             //Preparing message to send
@@ -151,9 +152,7 @@ final class LisaControlUnit implements ControlUnitInterface
             PutMessageResponse messageResponseFromLisa = commands.putMessage(commandToLisa);
             
             lisaSignalGroups.parseStates(messageResponseFromLisa.getSignalsStateVector()); //Catch NULL value
-        } else {
-            System.out.println("LisaControlUnit " + fullName + " disabled");
-        }
+        }        
     }
 
     /**
