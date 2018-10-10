@@ -64,5 +64,8 @@ dua
 # one vehicle with a single route that is written with costs
 dua_trip
 
+# public transport and walk possible
+person_route_length
+
 # Testing error cases
 errors

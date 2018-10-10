@@ -180,7 +180,7 @@ MSTransportable::Stage_Waiting::proceed(MSNet* net, MSTransportable* transportab
 
 
 void
-MSTransportable::Stage_Waiting::tripInfoOutput(OutputDevice& os, MSTransportable*) const {
+MSTransportable::Stage_Waiting::tripInfoOutput(OutputDevice& os, const MSTransportable* const) const {
     if (myType != WAITING_FOR_DEPART) {
         os.openTag("stop");
         os.writeAttr("duration", time2string(myArrived - myDeparted));
@@ -193,7 +193,7 @@ MSTransportable::Stage_Waiting::tripInfoOutput(OutputDevice& os, MSTransportable
 
 
 void
-MSTransportable::Stage_Waiting::routeOutput(OutputDevice& os) const {
+MSTransportable::Stage_Waiting::routeOutput(OutputDevice& os, const bool withRouteLength) const {
     if (myType != WAITING_FOR_DEPART) {
         // lane index is arbitrary
         os.openTag("stop").writeAttr(SUMO_ATTR_LANE, getDestination()->getID() + "_0");

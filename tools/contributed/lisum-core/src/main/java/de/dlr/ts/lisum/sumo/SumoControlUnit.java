@@ -1,4 +1,4 @@
-/** ************************************************************************* */
+/****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 // Copyright (C) 2016-2018 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
@@ -6,14 +6,14 @@
 // which accompanies this distribution, and is available at
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
-/** ************************************************************************* */
+/****************************************************************************/
 /// @file    Constants.java
 /// @author  Maximiliano Bottazzi
 /// @date    2016
 /// @version $Id$
 ///
 //
-/** ************************************************************************* */
+/****************************************************************************/
 package de.dlr.ts.lisum.sumo;
 
 import de.dlr.ts.lisum.enums.LightColor;
@@ -28,8 +28,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author @author <a href="mailto:maximiliano.bottazzi@dlr.de">Maximiliano
- * Bottazzi</a>
+ * @author @author <a href="mailto:maximiliano.bottazzi@dlr.de">Maximiliano Bottazzi</a>
  */
 class SumoControlUnit {
 
@@ -50,6 +49,7 @@ class SumoControlUnit {
         int phasesCount = sumoStrings[0].length();
 
         for (int i = 0; i < phasesCount; i++) {
+            /*
             String nodeLine = extractStates(i, sumoStrings);
 
             char greenType = 'G';
@@ -59,8 +59,9 @@ class SumoControlUnit {
                     greenType = 'g';
                 }
             }
+            */
 
-            SignalGroup sg = new SignalGroup(greenType);
+            SignalGroup sg = new SignalGroup();
             signalGroups.add(sg);
         }
     }
@@ -157,14 +158,12 @@ class SumoControlUnit {
      */
     public static class SignalGroup {
 
-        private char green = 'G';
         private LightColor currentLightColor = LightColor.OFF;
 
         /**
          *
          */
-        public SignalGroup(char green) {
-            this.green = green;
+        public SignalGroup() {
         }
 
         /**
@@ -180,10 +179,6 @@ class SumoControlUnit {
          * @return
          */
         public char getSumoCurrentLightColor() {
-            if (currentLightColor.isGreen()) {
-                return green;
-            }
-
             return currentLightColor.getSumoCode();
         }
     }

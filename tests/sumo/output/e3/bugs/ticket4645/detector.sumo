@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 10/10/18 11:14:36 by Eclipse SUMO Version UNKNOWN
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <additional-files value="input_routes.rou.xml,input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+        <end value="100"/>
+        <step-length value="0.1"/>
+    </time>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <gui_only>
+        <tracker-interval value="0.1"/>
+    </gui_only>
+
+</configuration>
+-->
+
+<e3Detector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/det_e3_file.xsd">
+   <interval begin="0.00" end="100.00" id="tt_fc09" meanTravelTime="42.62" meanOverlapTravelTime="43.02" meanSpeed="11.03" meanHaltsPerVehicle="11.25" meanTimeLoss="9.09" vehicleSum="4" meanSpeedWithin="10.01" meanHaltsPerVehicleWithin="100.29" meanDurationWithin="33.73" vehicleSumWithin="14" meanIntervalSpeedWithin="10.01" meanIntervalHaltsPerVehicleWithin="100.29" meanIntervalDurationWithin="33.73" meanTimeLossWithin="12.34"/>
+</e3Detector>

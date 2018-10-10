@@ -256,9 +256,9 @@ MSPerson::MSPersonStage_Walking::walkDistance() const {
 
 
 void
-MSPerson::MSPersonStage_Walking::tripInfoOutput(OutputDevice& os, MSTransportable* person) const {
+MSPerson::MSPersonStage_Walking::tripInfoOutput(OutputDevice& os, const MSTransportable* const person) const {
     const double distance = walkDistance();
-    const double maxSpeed = getMaxSpeed(dynamic_cast<MSPerson*>(person));
+    const double maxSpeed = getMaxSpeed(person);
     const SUMOTime duration = myArrived - myDeparted;
     const SUMOTime timeLoss = duration - TIME2STEPS(distance / maxSpeed);
     MSDevice_Tripinfo::addPedestrianData(distance, duration, timeLoss);
@@ -276,19 +276,22 @@ MSPerson::MSPersonStage_Walking::tripInfoOutput(OutputDevice& os, MSTransportabl
 
 
 void
-MSPerson::MSPersonStage_Walking::routeOutput(OutputDevice& os) const {
+MSPerson::MSPersonStage_Walking::routeOutput(OutputDevice& os, const bool withRouteLength) const {
     os.openTag("walk").writeAttr(SUMO_ATTR_EDGES, myRoute);
     std::string comment = "";
     if (myDestinationStop != 0) {
         os.writeAttr(SUMO_ATTR_BUS_STOP, myDestinationStop->getID());
         if (myDestinationStop->getMyName() != "") {
-            comment =  " <!-- " + myDestinationStop->getMyName() + " -->";
+            comment =  " <!-- " + StringUtils::escapeXML(myDestinationStop->getMyName(), true) + " -->";
         }
     }
     if (myWalkingTime > 0) {
         os.writeAttr(SUMO_ATTR_DURATION, time2string(myWalkingTime));
     } else if (mySpeed > 0) {
         os.writeAttr(SUMO_ATTR_SPEED, mySpeed);
+    }
+    if (withRouteLength) {
+        os.writeAttr("routeLength", walkDistance());
     }
     os.closeTag(comment);
 }
@@ -343,7 +346,7 @@ MSPerson::MSPersonStage_Walking::setRouteIndex(MSPerson* person, int routeOffset
 }
 
 double
-MSPerson::MSPersonStage_Walking::getMaxSpeed(const MSPerson* person) const {
+MSPerson::MSPersonStage_Walking::getMaxSpeed(const MSTransportable* const person) const {
     return mySpeed > 0 ? mySpeed : person->getVehicleType().getMaxSpeed() * person->getSpeedFactor();
 }
 
@@ -423,7 +426,7 @@ MSPerson::MSPersonStage_Driving::getStageSummary() const {
 
 
 void
-MSPerson::MSPersonStage_Driving::tripInfoOutput(OutputDevice& os, MSTransportable*) const {
+MSPerson::MSPersonStage_Driving::tripInfoOutput(OutputDevice& os, const MSTransportable* const) const {
     const SUMOTime waitingTime = myDeparted - myWaitingSince;
     const SUMOTime duration = myArrived - myDeparted;
     MSDevice_Tripinfo::addRideData(myVehicleDistance, duration, myVehicleVClass, myVehicleLine, waitingTime);
@@ -440,7 +443,7 @@ MSPerson::MSPersonStage_Driving::tripInfoOutput(OutputDevice& os, MSTransportabl
 
 
 void
-MSPerson::MSPersonStage_Driving::routeOutput(OutputDevice& os) const {
+MSPerson::MSPersonStage_Driving::routeOutput(OutputDevice& os, const bool withRouteLength) const {
     os.openTag("ride");
     if (getFromEdge() != nullptr) {
         os.writeAttr(SUMO_ATTR_FROM, getFromEdge()->getID());
@@ -459,6 +462,9 @@ MSPerson::MSPersonStage_Driving::routeOutput(OutputDevice& os) const {
     }
     if (myIntendedDepart >= 0) {
         os.writeAttr(SUMO_ATTR_DEPART, time2string(myIntendedDepart));
+    }
+    if (withRouteLength) {
+        os.writeAttr("routeLength", myVehicleDistance);
     }
     os.closeTag(comment);
 }
@@ -516,7 +522,7 @@ MSPerson::MSPersonStage_Access::getAngle(SUMOTime /* now */) const {
 
 
 void
-MSPerson::MSPersonStage_Access::tripInfoOutput(OutputDevice& os, MSTransportable*) const {
+MSPerson::MSPersonStage_Access::tripInfoOutput(OutputDevice& os, const MSTransportable* const) const {
     os.openTag("access");
     os.writeAttr("stop", getDestinationStop()->getID());
     os.writeAttr("duration", myArrived > 0 ? time2string(myArrived - myDeparted) : "-1");
@@ -628,24 +634,24 @@ MSPerson::getNextEdgePtr() const {
 
 
 void
-MSPerson::tripInfoOutput(OutputDevice& os, MSTransportable* transportable) const {
+MSPerson::tripInfoOutput(OutputDevice& os) const {
     os.openTag("personinfo").writeAttr("id", getID()).writeAttr("depart", time2string(getDesiredDepart()));
     for (MSTransportablePlan::const_iterator i = myPlan->begin(); i != myPlan->end(); ++i) {
-        (*i)->tripInfoOutput(os, transportable);
+        (*i)->tripInfoOutput(os, this);
     }
     os.closeTag();
 }
 
 
 void
-MSPerson::routeOutput(OutputDevice& os) const {
+MSPerson::routeOutput(OutputDevice& os, const bool withRouteLength) const {
     const std::string typeID = getVehicleType().getID() != DEFAULT_PEDTYPE_ID ? getVehicleType().getID() : "";
     myParameter->write(os, OptionsCont::getOptions(), SUMO_TAG_PERSON, typeID);
     if (hasArrived()) {
         os.writeAttr("arrival", time2string(MSNet::getInstance()->getCurrentTimeStep()));
     }
     for (MSTransportablePlan::const_iterator i = myPlan->begin(); i != myPlan->end(); ++i) {
-        (*i)->routeOutput(os);
+        (*i)->routeOutput(os, withRouteLength);
     }
     os.closeTag();
     os.lf();

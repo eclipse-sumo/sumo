@@ -159,13 +159,14 @@ public:
          * @param[in] os The stream to write the information into
          * @exception IOError not yet implemented
          */
-        virtual void tripInfoOutput(OutputDevice& os, MSTransportable* transportable) const = 0;
+        virtual void tripInfoOutput(OutputDevice& os, const MSTransportable* const transportable) const = 0;
 
         /** @brief Called on writing vehroute output
          * @param[in] os The stream to write the information into
+         * @param[in] withRouteLength whether route length shall be written
          * @exception IOError not yet implemented
          */
-        virtual void routeOutput(OutputDevice& os) const = 0;
+        virtual void routeOutput(OutputDevice& os, const bool withRouteLength) const = 0;
 
         /** @brief Called for writing the events output (begin of an action)
          * @param[in] os The stream to write the information into
@@ -245,14 +246,14 @@ public:
         * @param[in] os The stream to write the information into
         * @exception IOError not yet implemented
         */
-        virtual void tripInfoOutput(OutputDevice& os, MSTransportable* transportable) const;
+        virtual void tripInfoOutput(OutputDevice& os, const MSTransportable* const transportable) const;
 
         /** @brief Called on writing vehroute output
         *
         * @param[in] os The stream to write the information into
         * @exception IOError not yet implemented
         */
-        virtual void routeOutput(OutputDevice& os) const;
+        virtual void routeOutput(OutputDevice& os, const bool withRouteLength) const;
 
         /** @brief Called for writing the events output
         * @param[in] os The stream to write the information into
@@ -502,14 +503,14 @@ public:
      * @param[in] os The stream to write the information into
      * @exception IOError not yet implemented
      */
-    virtual void tripInfoOutput(OutputDevice& os, MSTransportable* transportable) const = 0;
+    virtual void tripInfoOutput(OutputDevice& os) const = 0;
 
     /** @brief Called on writing vehroute output
      *
      * @param[in] os The stream to write the information into
      * @exception IOError not yet implemented
      */
-    virtual void routeOutput(OutputDevice& os) const = 0;
+    virtual void routeOutput(OutputDevice& os, const bool withRouteLength) const = 0;
 
     /// @brief Whether the transportable waits for a vehicle of the line specified.
     bool isWaitingFor(const std::string& line) const {
