@@ -1,6 +1,8 @@
-#Options:
-option(CHECK_OPTIONAL_LIBS "Try to download / enable all optional libraries" true)
+# Options
+option(CHECK_OPTIONAL_LIBS "Try to download / enable all optional libraries (use only EPL clean libraries, if set to false)" true)
 option(MULTITHREADED_BUILD "Use all available cores for building (applies to Visual Studio only)" true)
+option(PROFILING "Enable output of profiling data (applies to gcc/clang builds only)" false)
+option(COVERAGE "Enable output of coverage data (applies to gcc/clang builds only)" false)
 
 # Set a default build type if none was specified
 # you may use -DCMAKE_BUILD_TYPE:STRING=Debug from the command line
@@ -21,11 +23,23 @@ cmake_minimum_required(VERSION 3.1)
 cmake_policy(SET CMP0054 NEW)
 
 set(CMAKE_COLOR_MAKEFILE ON)
-
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/build/cmake_modules/")
+
+set(ENABLED_FEATURES "${CMAKE_SYSTEM} ${CMAKE_SYSTEM_PROCESSOR} ${CMAKE_CXX_COMPILER_ID} ${CMAKE_CXX_COMPILER_VERSION}")
+
+# compiler specific flags
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR
         "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -pedantic -Wextra")
+    set(ENABLED_FEATURES "${ENABLED_FEATURES} ${CMAKE_BUILD_TYPE}")
+    if (PROFILING)
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pg")
+        set(ENABLED_FEATURES "${ENABLED_FEATURES} Profiling")
+    endif ()
+    if (COVERAGE)
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fprofile-arcs -ftest-coverage -O0")
+        set(ENABLED_FEATURES "${ENABLED_FEATURES} Profiling")
+    endif ()
 elseif (MSVC)
     set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /W3")
     # set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /W4 /WX /EHsc")
@@ -63,12 +77,6 @@ if (CMAKE_GENERATOR MATCHES Xcode)
     message(STATUS "    Xcode: " ${XCODE_VERSION})
 endif ()
 message(STATUS "")
-
-set(ENABLED_FEATURES "${CMAKE_SYSTEM} ${CMAKE_SYSTEM_PROCESSOR} ${CMAKE_CXX_COMPILER_ID} ${CMAKE_CXX_COMPILER_VERSION}")
-if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR
-        "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
-    set(ENABLED_FEATURES "${ENABLED_FEATURES} ${CMAKE_BUILD_TYPE}")
-endif ()
 
 #set(Python_ADDITIONAL_VERSIONS 3.7 3.6 3.5 3.4 3.3 2.7) # it may help in finding the correct python for libsumo
 find_package(PythonInterp REQUIRED)
@@ -279,7 +287,65 @@ install(DIRECTORY tools/ DESTINATION share/sumo/tools
        )
 install(CODE "execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink ../../bin $ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/share/sumo/bin)")
 
-# custom targets
+# doc targets
+add_custom_target(pydoc
+    COMMAND rm -rf docs/pydoc
+    COMMAND mkdir docs/pydoc
+    COMMAND pydoc -w tools/traci
+    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+
+add_custom_target(doxygen
+    COMMAND rm -rf docs/doxygen
+    COMMAND mkdir docs/doxygen
+    COMMAND doxygen sumo.doxyconf &> doxygen.log
+    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+
+add_custom_target(userdoc
+    COMMAND rm -rf docs/userdoc
+    COMMAND tools/build/buildHTMLDocs.py -o docs/userdoc -i docs/wiki/index.html -r $(VERSION)
+    COMMAND cp docs/wiki/*.png docs/wiki/*.css docs/userdoc
+    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+
+add_custom_target(javadoc
+    COMMAND rm -rf docs/javadoc
+    COMMAND mkdir docs/javadoc
+    COMMAND ant -f tools/contributed/traas/build.xml javadoc
+    COMMAND mv tools/contributed/traas/javadoc docs/javadoc/traas
+    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+
+add_custom_target(man
+    COMMAND rm -rf docs/man
+    COMMAND mkdir docs/man
+    COMMAND help2man -N -n "A microscopic road traffic simulation" bin/sumo > docs/man/sumo.1
+    COMMAND help2man -N -n "GUI version of the simulation SUMO" bin/sumo-gui > docs/man/sumo-gui.1
+    COMMAND help2man -N -n "Builds vehicle routes for SUMO using detector values" bin/dfrouter > docs/man/dfrouter.1
+    COMMAND help2man -N -n "Shortest path router and DUE computer for the microscopic road traffic simulation SUMO" bin/duarouter > docs/man/duarouter.1
+    COMMAND help2man -N -n "Router for the microscopic road traffic simulation SUMO based on junction turning ratios" bin/jtrrouter > docs/man/jtrrouter.1
+    COMMAND help2man -N -n "Import O/D-matrices for macroscopic traffic assignment" bin/marouter > docs/man/marouter.1
+    COMMAND help2man -N -n "Generates routes of persons throughout a day for the microscopic road traffic simulation SUMO" bin/activitygen > docs/man/activitygen.1
+    COMMAND help2man -N -n "Importer of O/D-matrices for the road traffic simulation SUMO" bin/od2trips > docs/man/od2trips.1
+    COMMAND help2man -N -n "Road network importer / builder for the road traffic simulation SUMO" bin/netconvert > docs/man/netconvert.1
+    COMMAND help2man -N -n "Road network editor for the road traffic simulation SUMO" bin/netedit > docs/man/netedit.1
+    COMMAND help2man -N -n "Road network generator for the microscopic road traffic simulation SUMO" bin/netgenerate > docs/man/netgenerate.1
+    COMMAND help2man -N -n "Importer of polygons and POIs for the road traffic simulation SUMO" bin/polyconvert > docs/man/polyconvert.1
+    COMMAND help2man -N -n "TraCITestClient for the road traffic simulation SUMO" bin/TraCITestClient > docs/man/TraCITestClient.1
+    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+
+add_custom_target(doc DEPENDS pydoc doxygen userdoc javadoc)
+
+# coverage targets
+add_custom_target(lcov
+    COMMAND rm -rf docs/lcov
+    COMMAND mkdir docs/lcov
+    COMMAND lcov -d . -c --no-external --output-file docs/lcov/lcov.info
+    COMMAND genhtml -o docs/lcov/html docs/lcov/lcov.info
+    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+
+add_custom_target(lcov-reset
+    COMMAND lcov -d . -z
+    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+
+# example and dist targets
 add_custom_target(examples DEPENDS sumo netconvert dfrouter duarouter jtrrouter
     COMMAND ${PYTHON_EXECUTABLE} tools/extractTest.py -x -f tests/examples.txt -p docs/examples/runAll.py
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
@@ -333,7 +399,7 @@ if (MVN_EXECUTABLE AND ANT_EXECUTABLE)
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
     add_custom_target(lisum-gui
         COMMAND ${MVN_EXECUTABLE} --batch-mode -f tools/contributed/lisum-gui/pom.xml clean install
-        COMMAND ${CMAKE_COMMAND} -E copy tools/contributed/lisum-gui/target/lisum-gui-1.0.1-SNAPSHOT.jar bin
+        COMMAND ${CMAKE_COMMAND} -E copy tools/contributed/lisum-gui/target/lisum-gui-1.0.jar bin
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
 endif()
 message(STATUS "Enabled features: ${ENABLED_FEATURES}")
