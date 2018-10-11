@@ -132,7 +132,9 @@ public class LisaControlUnitPreferences
         stage.getIcons().add(SystemProperties.getInstance().getMainIcon());
         stage.setResizable(false);
         
-        SystemProperties.getInstance().simulationOpenedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) ->
+        SystemProperties.getInstance().simulationOpenedProperty()
+                .addListener((ObservableValue<? extends Boolean> observable, 
+                        Boolean oldValue, Boolean newValue) ->
         {
             if(!newValue)
                 stage.close();
@@ -214,7 +216,8 @@ public class LisaControlUnitPreferences
      */
     private void populateControlUnitInitialValues()
     {
-        SimulationControlUnits cus = SystemProperties.getInstance().getCurrentSimulation().getControlUnits();
+        SimulationControlUnits cus = SystemProperties.getInstance()
+                .getCurrentSimulation().getControlUnits();
         
         for (ControlUnitInterface _controlUnit : city.getControlUnits())
         {
@@ -230,7 +233,9 @@ public class LisaControlUnitPreferences
             controlUnits.add(name);
         }
 
-        controlUnitComboBox.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) ->
+        controlUnitComboBox.getSelectionModel().selectedItemProperty()
+                .addListener((ObservableValue<? extends String> observable, 
+                        String oldValue, String newValue) ->
         {
             int selectedIndex = controlUnitComboBox.getSelectionModel().getSelectedIndex();
             currentControlUnit = city.getControlUnits()[selectedIndex];            
