@@ -288,12 +288,6 @@ install(DIRECTORY tools/ DESTINATION share/sumo/tools
 install(CODE "execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink ../../bin $ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/share/sumo/bin)")
 
 # doc targets
-add_custom_target(pydoc
-    COMMAND rm -rf docs/pydoc
-    COMMAND mkdir docs/pydoc
-    COMMAND pydoc -w tools/traci
-    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
-
 add_custom_target(doxygen
     COMMAND rm -rf docs/doxygen
     COMMAND mkdir docs/doxygen
@@ -301,8 +295,7 @@ add_custom_target(doxygen
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
 
 add_custom_target(userdoc
-    COMMAND rm -rf docs/userdoc
-    COMMAND tools/build/buildHTMLDocs.py -o docs/userdoc -i docs/wiki/index.html -r $(VERSION)
+    COMMAND tools/build/buildHTMLDocs.py -o docs/userdoc -i docs/wiki/index.html -p docs/pydoc -c -r ${PACKAGE_VERSION}
     COMMAND cp docs/wiki/*.png docs/wiki/*.css docs/userdoc
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
 
@@ -331,7 +324,7 @@ add_custom_target(man
     COMMAND help2man -N -n "TraCITestClient for the road traffic simulation SUMO" bin/TraCITestClient > docs/man/TraCITestClient.1
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
 
-add_custom_target(doc DEPENDS pydoc doxygen userdoc javadoc)
+add_custom_target(doc DEPENDS doxygen userdoc javadoc man)
 
 # coverage targets
 add_custom_target(lcov
@@ -382,22 +375,22 @@ endif ()
 find_program(MVN_EXECUTABLE mvn)
 find_program(ANT_EXECUTABLE ant)
 if (MVN_EXECUTABLE AND ANT_EXECUTABLE)
-    add_custom_target(traas
-        COMMAND ${ANT_EXECUTABLE} -f tools/contributed/traas/build.xml clean release
-        COMMAND ${CMAKE_COMMAND} -E copy tools/contributed/traas/dist/TraaS.jar bin
-        COMMAND ${MVN_EXECUTABLE} install:install-file -Dfile=bin/TraaS.jar -DgroupId=de.tudresden -DartifactId=traas -Dversion=1.0 -Dpackaging=jar
-        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
     add_custom_target(cadyts
         COMMAND ${MVN_EXECUTABLE} --batch-mode -f tools/contributed/calibration/pom.xml clean install
         COMMAND ${CMAKE_COMMAND} -E copy tools/contributed/calibration/utilities/target/floetteroed-utilities-1.0.0.jar bin
         COMMAND ${CMAKE_COMMAND} -E copy tools/contributed/calibration/cadyts/target/cadyts-1.3.0-SNAPSHOT.jar bin
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
-    add_custom_target(lisum-core
+    add_custom_target(traas
+        COMMAND ${ANT_EXECUTABLE} -f tools/contributed/traas/build.xml clean release
+        COMMAND ${CMAKE_COMMAND} -E copy tools/contributed/traas/dist/TraaS.jar bin
+        COMMAND ${MVN_EXECUTABLE} install:install-file -Dfile=bin/TraaS.jar -DgroupId=de.tudresden -DartifactId=traas -Dversion=1.0 -Dpackaging=jar
+        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+    add_custom_target(lisum-core DEPENDS traas
         COMMAND ${MVN_EXECUTABLE} --batch-mode -f tools/contributed/lisum-core/pom.xml clean install
         COMMAND ${CMAKE_COMMAND} -E copy tools/contributed/lisum-core/target/lisum-core-1.0.1-SNAPSHOT.jar bin
         COMMAND ${MVN_EXECUTABLE} install:install-file -Dfile=bin/lisum-core-1.0.1-SNAPSHOT.jar -DgroupId=de.dlr.ts -DartifactId=lisum-core -Dversion=1.0.1 -Dpackaging=jar
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
-    add_custom_target(lisum-gui
+    add_custom_target(lisum-gui DEPENDS lisum-core
         COMMAND ${MVN_EXECUTABLE} --batch-mode -f tools/contributed/lisum-gui/pom.xml clean install
         COMMAND ${CMAKE_COMMAND} -E copy tools/contributed/lisum-gui/target/lisum-gui-1.0.jar bin
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})

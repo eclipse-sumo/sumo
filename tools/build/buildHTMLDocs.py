@@ -46,11 +46,17 @@ try:
 except ImportError:
     from urllib.request import urlopen
 import os
+import sys
 import shutil
 import datetime
+import pydoc
+import types
 from optparse import OptionParser
 
 from mirrorWiki import readParsePage, readParseEditPage, getAllPages
+TOOLDIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(TOOLDIR)
+from sumolib.miscutils import working_dir
 
 
 def patchLinks(page, name):
@@ -140,14 +146,38 @@ def parseWikiLink(l):
     return text, link
 
 
+def pydoc_recursive(module):
+    pydoc.writedoc(module)
+    for submod in module.__dict__.values():
+        if type(submod) is types.ModuleType and submod.__name__.startswith(module.__name__):
+            pydoc_recursive(submod)
+
+
+def generate_pydoc(out_dir):
+    os.mkdir(out_dir)
+    import traci, sumolib
+    with working_dir(out_dir):
+        for module in (traci, sumolib):
+            pydoc_recursive(module)
+
+
 optParser = OptionParser()
 optParser.add_option("-m", "--mirror", default="mirror", help="mirror folder")
 optParser.add_option("-o", "--output", default="docs", help="output folder")
+optParser.add_option("-p", "--pydoc-output", help="output folder for pydoc")
 optParser.add_option("-i", "--index", default=os.path.join(os.path.dirname(
     __file__), "..", "..", "docs", "wiki", "index.html"), help="index template file")
 optParser.add_option("-r", "--version", help="add version info")
+optParser.add_option("-c", "--clean", action="store_true", default=False, help="remove output dirs")
 (options, args) = optParser.parse_args()
 
+if options.pydoc_output:
+    if options.clean:
+        shutil.rmtree(options.pydoc_output)
+    generate_pydoc(options.pydoc_output)
+if options.clean:
+    shutil.rmtree(options.mirror)
+    shutil.rmtree(options.output)
 try:
     os.mkdir(options.mirror)
 except Exception:
