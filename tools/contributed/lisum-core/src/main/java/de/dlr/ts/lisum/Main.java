@@ -8,13 +8,21 @@ package de.dlr.ts.lisum;
 import de.dlr.ts.commons.logger.DLRLogger;
 import de.dlr.ts.commons.logger.LogLevel;
 import de.dlr.ts.commons.tools.FileTools;
+import de.dlr.ts.lisum.interfaces.CityInterface;
+import de.dlr.ts.lisum.interfaces.ControlUnitInterface;
+import de.dlr.ts.lisum.interfaces.SignalProgramInterface;
 import de.dlr.ts.lisum.simulation.LisumSimulation;
+import de.dlr.ts.utils.xmladmin2.MalformedKeyOrNameException;
+import de.dlr.ts.utils.xmladmin2.XMLAdmin2;
+import de.dlr.ts.utils.xmladmin2.XMLNode;
+import de.dlr.ts.utils.xmladmin2.XMLNodeNotFoundException;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.xml.sax.SAXException;
 
 /**
  *
@@ -24,12 +32,12 @@ public class Main
 {   
     private String sumoExec = "sumo";
     private String sumoConfig = null;
-    private int sumoPort = 9100;
+    private final int sumoPort = 9100;
     private String lisaRestFulServerDir = "localhost";
-    private int lisaPort = 9091;    
+    private final int lisaPort = 9091;    
     private String lisumFile = "";
     private String loggingLevel = "INFO";        
-    
+    private LisumSimulation ls;
     
     /**
      * Starts lisum-core
@@ -67,7 +75,6 @@ public class Main
                     sb.append(string + " ");            
             }   
 
-            
             readConf(sb.toString().split(" "));
             
         } catch (IOException ex) {
@@ -123,7 +130,7 @@ public class Main
                 }
             }                                        
         } 
-    }
+    }        
     
     /**
      * 
@@ -137,26 +144,169 @@ public class Main
         DLRLogger.setLevel(LogLevel.valueOf(loggingLevel.toUpperCase()));
         
         if(lisumFile.isEmpty()) {
-            System.err.println("Error. No Lisum file received. Use -f <path_to_file/lisum.xml>. Quitting.");
+            System.err.println("Error: No Lisum file received. Use -f <path_to_file/lisum.xml>. Quitting.");
             return;
         }
         
-        LisumSimulation ls = new LisumSimulation(sumoExec, sumoPort, lisaRestFulServerDir, lisaPort);        
+        ls = new LisumSimulation(sumoExec, sumoPort, lisaRestFulServerDir, lisaPort);        
         ls.setSumoConfig(sumoConfig);
         ls.load(new File(lisumFile));
      
-        ls.initBeforePlay();
+        LisumSimulation.InitBeforePlayResponse initBeforePlay = ls.initBeforePlay();
         
-        new Thread(ls.getRunnable()).start();
+        if(initBeforePlay == LisumSimulation.InitBeforePlayResponse.LisaRESTfulServerNotFound) {
+            System.err.println(String.format("Error: No Lisa RESTfull server found in localhost:%d. Quitting.", this.lisaPort));
+        }            
+        else {
+            
+            DLRLogger.info("");
+            
+            DLRLogger.info("******  Ebene items  ******");
+            for (int i = 0; i < Constants.ebeneItems.size(); i++) {
+                DLRLogger.info(String.format("%1$4s", i) + " " + Constants.ebeneItems.get(i));
+            }            
+            
+            DLRLogger.info("");
+            DLRLogger.info("******  Available Control Units  ******");
+            
+            for (ControlUnitInterface cu : ls.getCityInterface().getControlUnits()) {
+                DLRLogger.info("> " + cu.getFullName());
+                
+                for (SignalProgramInterface sp : cu.getSignalPrograms()) {
+                    DLRLogger.info("      o " + sp.getName());
+                }
+            }            
+            DLRLogger.info("");                        
+            
+            loadDefaults();
+            
+            DLRLogger.info("Project loaded successfully. Start (Y/N)? [Y]");
+            int read = System.in.read();                        
+            
+            if(read == 121 || read == 89 || read == 13)
+                new Thread(ls.getRunnable()).start();  
+            else
+                DLRLogger.info("Good bye!");
+        }        
     }
 
-     private String[] cleanArray(String[] args) {
-         List<String> tmp = new ArrayList<>();
-         
-         for (String arg : args)
-             if(!arg.trim().isEmpty())
-                 tmp.add(arg.trim());        
-         
-         return tmp.toArray(new String[tmp.size()]);
-     }
+    private ControlUnitInterface getControlUnit(String name) 
+    {        
+        for (ControlUnitInterface cu : ls.getCityInterface().getControlUnits())
+            if(cu.getFullName().contains(name.trim()))
+                return cu;        
+        
+        return null;
+    }
+    
+    private void loadDefaults() {
+        try {
+            XMLAdmin2 x = new XMLAdmin2().load(this.lisumFile);
+            
+            ControlUnitInterface controlUnit = null;
+            SignalProgramInterface signalProgram = null;
+            boolean coordinated = false;
+            int ebene = 0;
+            boolean va = false;
+            boolean iv = false;
+            boolean ov = false;            
+            
+            //DLRLogger.info("Reading default states in lisum.xml");
+            
+            if(!x.hasNode("defaultStates")) {
+                DLRLogger.info("******  No default states definition found in lisum.xml ******");
+                return;
+            }
+            
+            for (ControlUnitInterface cu : ls.getCityInterface().getControlUnits())
+                cu.setEnabled(false);            
+            
+            int count = x.getNode("defaultStates").getNodesCount("state");
+            for (int i = 0; i < count; i++) 
+            {
+                XMLNode node = x.getNode("defaultStates").getNode("state", i);
+                
+                boolean enabled = node.getAttributes().get("enabled").getValue(true);                
+                                
+                String cuName = node.getNode("controlUnit").getValue();
+                controlUnit = getControlUnit(cuName);
+
+                if(controlUnit != null) 
+                {                                        
+                    if(!enabled)
+                        continue;
+                    
+                    String programName = node.getNode("program").getValue();
+
+                    int signalIndex = 0;
+                    for (SignalProgramInterface sp : controlUnit.getSignalPrograms()) {                            
+                        if(sp.getName().contains(programName)) {
+                            signalProgram = sp;
+                            break;
+                        }
+                        signalIndex++;
+                    }
+
+                    if(signalProgram == null) {
+                        DLRLogger.severe("No signal program containing " + programName + " could be found.");
+                        return;
+                    }
+
+                    controlUnit.setEnabled(true);
+                    coordinated = node.getNode("coordinated").getValue(coordinated);
+                    ebene = node.getNode("ebene").getValue(ebene);
+                    va = node.getNode("va").getValue(va);
+                    iv = node.getNode("iv").getValue(iv);
+                    ov = node.getNode("ov").getValue(ov);
+                    
+                    controlUnit.setEnabled(true);
+                    controlUnit.setEbene(ebene);
+                    controlUnit.setCoordinated(coordinated ? 1 : 0);
+                    controlUnit.setCurrentSignalProgram(signalIndex);
+                    controlUnit.setVA(va);                        
+                    controlUnit.setIV(iv);
+                    controlUnit.setOV(ov);                        
+                }
+                else {
+                    DLRLogger.severe("Error: Couldn't find control unit " + cuName);
+                }
+                
+                DLRLogger.info("");
+                    DLRLogger.info("******  Default states  ******");
+                
+                for (int j = 0; j < ls.getCityInterface().getControlUnits().length; j++) 
+                {
+                    controlUnit = ls.getCityInterface().getControlUnits()[j];                    
+                    DLRLogger.info("> Control unit: " + controlUnit.getFullName() + " (enabled=" + controlUnit.isEnabled() + ")");
+                    
+                    if(!controlUnit.isEnabled()) {
+                        DLRLogger.info("");
+                        continue;                        
+                    }                        
+                    
+                    DLRLogger.info("    o Program: " + controlUnit.getCurrentSignalProgram().getName());                        
+                    DLRLogger.info("    o Coordinated=" + (controlUnit.getCoordinated() == 1));
+                    DLRLogger.info("    o Ebene=" + Constants.ebeneItems.get(ebene));
+                    DLRLogger.info("    o va=" + controlUnit.isVA() + ", iv=" + 
+                            controlUnit.isIV() + ", öv=" + controlUnit.isOV());
+                    DLRLogger.info("");
+                }
+                
+            }                        
+        } catch (SAXException | XMLNodeNotFoundException | IOException | MalformedKeyOrNameException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);                        
+            System.exit(0);        
+        }
+    }
+    
+    
+    private String[] cleanArray(String[] args) {
+        List<String> tmp = new ArrayList<>();
+
+        for (String arg : args)
+            if(!arg.trim().isEmpty())
+                tmp.add(arg.trim());        
+
+        return tmp.toArray(new String[tmp.size()]);
+    }
 }
