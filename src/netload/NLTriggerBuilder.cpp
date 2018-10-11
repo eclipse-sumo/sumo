@@ -140,6 +140,9 @@ NLTriggerBuilder::parseAndBuildLaneSpeedTrigger(MSNet& net, const SUMOSAXAttribu
         if (file == "") {
             trigger->registerParent(SUMO_TAG_VSS, myHandler);
         }
+        else {
+            delete trigger;
+        }
     } catch (ProcessError& e) {
         throw InvalidArgument(e.what());
     }
@@ -331,10 +334,16 @@ NLTriggerBuilder::parseAndBuildCalibrator(MSNet& net, const SUMOSAXAttributes& a
         if (file == "") {
             trigger->registerParent(SUMO_TAG_CALIBRATOR, myHandler);
         }
+        else {
+            delete trigger;
+        }
     } else {
         MSCalibrator* trigger = buildCalibrator(net, id, edge, lane, pos, file, outfile, freq, probe);
         if (file == "") {
             trigger->registerParent(SUMO_TAG_CALIBRATOR, myHandler);
+        }
+        else {
+            delete trigger;
         }
     }
 }
@@ -381,6 +390,9 @@ NLTriggerBuilder::parseAndBuildRerouter(MSNet& net, const SUMOSAXAttributes& att
         trigger->registerParent(SUMO_TAG_REROUTER, myHandler);
     } else if (!XMLSubSys::runParser(*trigger, file)) {
         throw ProcessError();
+    }
+    else {
+        delete trigger;
     }
 }
 
