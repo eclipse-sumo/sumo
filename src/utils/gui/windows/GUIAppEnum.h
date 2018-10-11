@@ -640,6 +640,14 @@ enum {
     /// @}
 
 
+    /// @name GNETAZFrame messages
+    /// @{
+
+    /// @brief Create TAZ
+    MID_GNE_TAZFRAME_CREATETAZ,
+    /// @}
+
+
     /// @name GNEAdditionalFrame messages
     /// @{
 
