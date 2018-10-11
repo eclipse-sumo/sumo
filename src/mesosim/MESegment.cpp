@@ -95,6 +95,7 @@ MESegment::MESegment(const std::string& id,
                    parent.getToJunction()->getType() != NODETYPE_TRAFFIC_LIGHT_NOJUNCTION &&
                    parent.getToJunction()->getType() != NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED &&
                    parent.hasMinorLink()),
+    myNumCars(0),
     myEntryBlockTime(SUMOTime_MIN),
     myLastHeadway(TIME2STEPS(-1)),
     myMeanSpeed(speed),
@@ -289,16 +290,6 @@ MESegment::initialise(MEVehicle* veh, SUMOTime time) {
 }
 
 
-int
-MESegment::getCarNumber() const {
-    int total = 0;
-    for (Queues::const_iterator k = myCarQues.begin(); k != myCarQues.end(); ++k) {
-        total += (int)k->size();
-    }
-    return total;
-}
-
-
 double
 MESegment::getMeanSpeed(bool useCached) const {
     const SUMOTime currentTime = MSNet::getInstance()->getCurrentTimeStep();
@@ -342,6 +333,7 @@ MESegment::removeCar(MEVehicle* v, SUMOTime leaveTime, const MSMoveReminder::Not
     assert(std::find(cars.begin(), cars.end(), v) != cars.end());
     // One could be tempted to do  v->setSegment(next); here but position on lane will be invalid if next == 0
     v->updateDetectors(leaveTime, true, reason);
+    myNumCars--;
     myEdge.lock();
     if (v == cars.back()) {
         cars.pop_back();
@@ -558,6 +550,7 @@ MESegment::receive(MEVehicle* veh, SUMOTime time, bool isDepart, bool afterTelep
         }
     }
     myEdge.unlock();
+    myNumCars++;
     if (!isDepart) {
         // regular departs could take place anywhere on the edge so they should not block regular flow
         // the -1 facilitates interleaving of multiple streams
@@ -674,6 +667,7 @@ MESegment::loadState(std::vector<std::string>& vehIds, MSVehicleControl& vc, con
         if (v != 0) {
             assert(v->getSegment() == this);
             myCarQues[queIdx].push_back(v);
+            myNumCars++;
             myOccupancy += v->getVehicleType().getLengthWithGap();
         }
     }
