@@ -60,6 +60,8 @@ enum EditMode {
     GNE_MODE_ADDITIONAL,
     ///@brief Mode for editing crossing
     GNE_MODE_CROSSING,
+    ///@brief Mode for editing TAZ
+    GNE_MODE_TAZ,
     ///@brief Mode for editing Polygons
     GNE_MODE_POLYGON,
     ///@brief Mode for editing connection prohibits
@@ -254,6 +256,9 @@ public:
 
     /// @brief called when user press the button for crossing mode
     long onCmdSetModeCrossing(FXObject*, FXSelector, void*);
+
+    /// @brief called when user press the button for TAZ mode
+    long onCmdSetModeTAZ(FXObject*, FXSelector, void*);
 
     /// @brief called when user press the button for polygon mode
     long onCmdSetModePolygon(FXObject*, FXSelector, void*);
@@ -720,6 +725,9 @@ private:
 
     /// @brief chekable button for edit mode crossing
     MFXCheckableButton* myEditModeCrossing;
+
+    /// @brief chekable button for edit mode TAZ
+    MFXCheckableButton* myEditModeTAZ;
 
     /// @brief chekable button for edit mode polygon
     MFXCheckableButton* myEditModePolygon;

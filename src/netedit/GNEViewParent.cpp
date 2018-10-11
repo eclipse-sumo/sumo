@@ -47,6 +47,7 @@
 #include <netedit/frames/GNETLSEditorFrame.h>
 #include <netedit/frames/GNEAdditionalFrame.h>
 #include <netedit/frames/GNECrossingFrame.h>
+#include <netedit/frames/GNETAZFrame.h>
 #include <netedit/frames/GNEDeleteFrame.h>
 #include <netedit/frames/GNEPolygonFrame.h>
 #include <netedit/frames/GNEProhibitionFrame.h>
@@ -60,7 +61,6 @@
 #include <netedit/dialogs/GNEDialogACChooser.h>
 
 #include "GNENet.h"
-#include <netedit/netelements/GNEEdge.h>
 #include "GNEViewNet.h"
 #include "GNEViewParent.h"
 #include "GNEUndoList.h"
@@ -144,6 +144,7 @@ GNEViewParent::GNEViewParent(FXMDIClient* p, FXMDIMenu* mdimenu, const FXString&
     myGNEFrames[MID_GNE_SETMODE_TLS] = new GNETLSEditorFrame(myFramesArea, viewNet);
     myGNEFrames[MID_GNE_SETMODE_ADDITIONAL] = new GNEAdditionalFrame(myFramesArea, viewNet);
     myGNEFrames[MID_GNE_SETMODE_CROSSING] = new GNECrossingFrame(myFramesArea, viewNet);
+    myGNEFrames[MID_GNE_SETMODE_TAZ] = new GNETAZFrame(myFramesArea, viewNet);
     myGNEFrames[MID_GNE_SETMODE_DELETE] = new GNEDeleteFrame(myFramesArea, viewNet);
     myGNEFrames[MID_GNE_SETMODE_POLYGON] = new GNEPolygonFrame(myFramesArea, viewNet);
 
@@ -231,6 +232,11 @@ GNEViewParent::getCrossingFrame() const {
     return dynamic_cast<GNECrossingFrame*>(myGNEFrames.at(MID_GNE_SETMODE_CROSSING));
 }
 
+
+GNETAZFrame* 
+GNEViewParent::getTAZFrame() const {
+    return dynamic_cast<GNETAZFrame*>(myGNEFrames.at(MID_GNE_SETMODE_TAZ));
+}
 
 GNEDeleteFrame*
 GNEViewParent::getDeleteFrame() const {

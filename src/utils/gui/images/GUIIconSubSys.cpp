@@ -132,6 +132,7 @@
 #include "modeconnection.xpm"
 #include "modecreateedge.xpm"
 #include "modecrossing.xpm"
+#include "modetaz.xpm"
 #include "modedelete.xpm"
 #include "modeinspect.xpm"
 #include "modemove.xpm"
@@ -340,6 +341,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[ICON_MODECONNECTION] = new FXXPMIcon(a, modeconnection_xpm);
     myIcons[ICON_MODECREATEEDGE] = new FXXPMIcon(a, modecreateedge_xpm);
     myIcons[ICON_MODECROSSING] = new FXXPMIcon(a, modecrossing_xpm);
+    myIcons[ICON_MODETAZ] = new FXXPMIcon(a, modetaz_xpm);
     myIcons[ICON_MODEDELETE] = new FXXPMIcon(a, modedelete_xpm);
     myIcons[ICON_MODEINSPECT] = new FXXPMIcon(a, modeinspect_xpm);
     myIcons[ICON_MODEMOVE] = new FXXPMIcon(a, modemove_xpm);

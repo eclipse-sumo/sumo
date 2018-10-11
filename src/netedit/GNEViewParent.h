@@ -50,6 +50,7 @@ class GNEConnectorFrame;
 class GNETLSEditorFrame;
 class GNEAdditionalFrame;
 class GNECrossingFrame;
+class GNETAZFrame;
 class GNEDeleteFrame;
 class GNEPolygonFrame;
 class GNEProhibitionFrame;
@@ -116,6 +117,9 @@ public:
 
     /// @brief get frame for GNE_MODE_CROSSING
     GNECrossingFrame* getCrossingFrame() const;
+
+    /// @brief get frame for GNE_MODE_TAZ
+    GNETAZFrame* getTAZFrame() const;
 
     /// @brief get frame for GNE_MODE_DELETE
     GNEDeleteFrame* getDeleteFrame() const;

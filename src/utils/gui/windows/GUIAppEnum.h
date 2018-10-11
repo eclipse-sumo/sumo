@@ -493,6 +493,8 @@ enum {
     MID_GNE_SETMODE_ADDITIONAL,
     /// @brief mode for editing crossing
     MID_GNE_SETMODE_CROSSING,
+    /// @brief mode for editing TAZ
+    MID_GNE_SETMODE_TAZ,
     /// @brief mode for creating polygons
     MID_GNE_SETMODE_POLYGON,
     /// @brief mode for editing connection prohibitions

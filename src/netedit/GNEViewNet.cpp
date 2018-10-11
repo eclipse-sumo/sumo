@@ -52,6 +52,7 @@
 #include <netedit/frames/GNETLSEditorFrame.h>
 #include <netedit/frames/GNEAdditionalFrame.h>
 #include <netedit/frames/GNECrossingFrame.h>
+#include <netedit/frames/GNETAZFrame.h>
 #include <netedit/frames/GNEPolygonFrame.h>
 #include <netedit/frames/GNEDeleteFrame.h>
 #include <netedit/frames/GNEProhibitionFrame.h>
@@ -89,6 +90,7 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_TLS,                     GNEViewNet::onCmdSetModeTLS),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_ADDITIONAL,              GNEViewNet::onCmdSetModeAdditional),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_CROSSING,                GNEViewNet::onCmdSetModeCrossing),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_TAZ,                     GNEViewNet::onCmdSetModeTAZ),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_POLYGON,                 GNEViewNet::onCmdSetModePolygon),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_PROHIBITION,             GNEViewNet::onCmdSetModeProhibition),
     // Viewnet
@@ -1049,6 +1051,23 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                 processClick(evt, eventData);
                 break;
             }
+            case GNE_MODE_TAZ: {
+                /*
+                if (myObjectsUnderCursor.crossing == nullptr) {
+                     // swap lanes to edges in crossingMode
+                    if (myObjectsUnderCursor.lane) {
+                        myObjectsUnderCursor.swapLane2Edge();
+                    }
+                    // add crossing
+                    if (myViewParent->getCrossingFrame()->addCrossing(myObjectsUnderCursor)) {
+                        update();
+                    }
+                }
+                */
+                // process click
+                processClick(evt, eventData);
+                break;
+            }
             case GNE_MODE_POLYGON: {
                 if (myObjectsUnderCursor.poi == nullptr) {
                     GNEPolygonFrame::AddShapeResult result = myViewParent->getPolygonFrame()->processClick(snapToActiveGrid(getPositionInformation()), myObjectsUnderCursor.lane);
@@ -1314,6 +1333,10 @@ GNEViewNet::hotkeyEnter() {
         }
     } else if (myEditMode == GNE_MODE_CROSSING) {
         myViewParent->getCrossingFrame()->onCmdCreateCrossing(nullptr, 0, nullptr);
+    } else if (myEditMode == GNE_MODE_TAZ) {
+        /*
+        myViewParent->getCrossingFrame()->onCmdCreateCrossing(0, 0, 0);
+        */
     } else if (myEditMode == GNE_MODE_ADDITIONAL) {
         if (myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->isSelectingLanes()) {
             // stop select lanes to create additional
@@ -1363,6 +1386,9 @@ GNEViewNet::setEditModeFromHotkey(FXushort selid) {
             break;
         case MID_GNE_SETMODE_CROSSING:
             setEditMode(GNE_MODE_CROSSING);
+            break;
+        case MID_GNE_SETMODE_TAZ:
+            setEditMode(GNE_MODE_TAZ);
             break;
         case MID_GNE_SETMODE_POLYGON:
             setEditMode(GNE_MODE_POLYGON);
@@ -1655,6 +1681,13 @@ GNEViewNet::onCmdSetModeAdditional(FXObject*, FXSelector, void*) {
 long
 GNEViewNet::onCmdSetModeCrossing(FXObject*, FXSelector, void*) {
     setEditMode(GNE_MODE_CROSSING);
+    return 1;
+}
+
+
+long
+GNEViewNet::onCmdSetModeTAZ(FXObject*, FXSelector, void*) {
+    setEditMode(GNE_MODE_TAZ);
     return 1;
 }
 
@@ -2647,6 +2680,8 @@ GNEViewNet::buildEditModeControls() {
             GUIIconSubSys::getIcon(ICON_MODEADDITIONAL), this, MID_GNE_SETMODE_ADDITIONAL, GUIDesignButtonToolbarCheckable);
     myEditModeCrossing = new MFXCheckableButton(false, myToolbar, "\tset crossing mode\tMode for creating crossings between edges.",
             GUIIconSubSys::getIcon(ICON_MODECROSSING), this, MID_GNE_SETMODE_CROSSING, GUIDesignButtonToolbarCheckable);
+    myEditModeTAZ = new MFXCheckableButton(false, myToolbar, "\tset TAZ mode\tMode for creating Traffic Assignment Zones.",
+            GUIIconSubSys::getIcon(ICON_MODETAZ), this, MID_GNE_SETMODE_TAZ, GUIDesignButtonToolbarCheckable);
     myEditModePolygon = new MFXCheckableButton(false, myToolbar, "\tset polygon mode\tMode for creating polygons and POIs.",
             GUIIconSubSys::getIcon(ICON_MODEPOLYGON), this, MID_GNE_SETMODE_POLYGON, GUIDesignButtonToolbarCheckable);
 
@@ -2665,8 +2700,7 @@ GNEViewNet::buildEditModeControls() {
     myMenuCheckShowConnections = new FXMenuCheck(myToolbar, ("Show " + toString(SUMO_TAG_CONNECTION) + "s\t\tToggle show " + toString(SUMO_TAG_CONNECTION) + "s over " + toString(SUMO_TAG_JUNCTION) + "s").c_str(), this, MID_GNE_VIEWNET_SHOW_CONNECTIONS);
     myMenuCheckShowConnections->setCheck(myVisualizationSettings->showLane2Lane);
 
-    myMenuCheckHideConnections = new FXMenuCheck(myToolbar,
-            "Hide connections\t\tHide connections", this, 0);
+    myMenuCheckHideConnections = new FXMenuCheck(myToolbar, "Hide connections\t\tHide connections", this, 0);
     myMenuCheckHideConnections->setCheck(false);
 
     myMenuCheckExtendToEdgeNodes = new FXMenuCheck(myToolbar, ("Auto-select " + toString(SUMO_TAG_JUNCTION) + "s\t\tToggle whether selecting multiple " + toString(SUMO_TAG_EDGE) + "s should automatically select their " + toString(SUMO_TAG_JUNCTION) + "s").c_str(), this, 0);
@@ -2714,6 +2748,7 @@ GNEViewNet::updateModeSpecificControls() {
     myEditModeTrafficLight->setChecked(false);
     myEditModeAdditional->setChecked(false);
     myEditModeCrossing->setChecked(false);
+    myEditModeTAZ->setChecked(false);
     myEditModePolygon->setChecked(false);
     myEditModeProhibition->setChecked(false);
     myViewParent->hideAllFrames();
@@ -2785,6 +2820,13 @@ GNEViewNet::updateModeSpecificControls() {
             myEditModeCrossing->setChecked(true);
             myMenuCheckShowGrid->setCheck(false);
             break;
+        case GNE_MODE_TAZ:
+            myViewParent->getTAZFrame()->show();
+            myViewParent->getTAZFrame()->focusUpperElement();
+            myCurrentFrame = myViewParent->getTAZFrame();
+            myEditModeTAZ->setChecked(true);
+            myMenuCheckShowGrid->setCheck(false);
+            break;
         case GNE_MODE_POLYGON:
             myViewParent->getPolygonFrame()->show();
             myViewParent->getPolygonFrame()->focusUpperElement();
@@ -2811,6 +2853,7 @@ GNEViewNet::updateModeSpecificControls() {
     myEditModeTrafficLight->update();
     myEditModeAdditional->update();
     myEditModeCrossing->update();
+    myEditModeTAZ->update();
     myEditModePolygon->update();
     myEditModeProhibition->update();
     // force repaint because different modes draw different things
