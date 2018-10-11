@@ -137,8 +137,11 @@ public class XMLAdmin2 {
      *
      * @param key The key leading to the desired node.
      * @return
+     * @throws de.dlr.ts.utils.xmladmin2.MalformedKeyOrNameException
+     * @throws de.dlr.ts.utils.xmladmin2.XMLNodeNotFoundException
      */
-    public XMLNode getNode(String key) throws XMLNodeNotFoundException, MalformedKeyOrNameException {
+    public XMLNode getNode(String key) throws MalformedKeyOrNameException, 
+            XMLNodeNotFoundException {
         return rootNode.getNode(key);
     }
 
@@ -169,6 +172,8 @@ public class XMLAdmin2 {
      *
      * @param key
      * @return     
+     * @throws de.dlr.ts.utils.xmladmin2.MalformedKeyOrNameException     
+     * @throws de.dlr.ts.utils.xmladmin2.XMLNodeNotFoundException     
      */
     public int getNodesCount(String key) throws MalformedKeyOrNameException, XMLNodeNotFoundException {
         return rootNode.getNodesCount(key);
@@ -206,6 +211,7 @@ public class XMLAdmin2 {
      * @return
      * @throws SAXException
      * @throws IOException
+     * @throws de.dlr.ts.utils.xmladmin2.MalformedKeyOrNameException
      */
     public XMLAdmin2 load(String xmlFileName) throws SAXException, IOException, MalformedKeyOrNameException {
         load(new File(xmlFileName));
@@ -220,6 +226,7 @@ public class XMLAdmin2 {
      * @return the same XMLAdmin2
      * @throws SAXException
      * @throws IOException
+     * @throws de.dlr.ts.utils.xmladmin2.MalformedKeyOrNameException
      */
     public XMLAdmin2 load(File file) throws SAXException, IOException, MalformedKeyOrNameException {
         doc = dBuilder.parse(file);
@@ -235,6 +242,7 @@ public class XMLAdmin2 {
      * @param bytes
      * @return
      * @throws SAXException
+     * @throws de.dlr.ts.utils.xmladmin2.MalformedKeyOrNameException
      */
     public XMLAdmin2 load(byte[] bytes) throws SAXException, MalformedKeyOrNameException {
         try {
@@ -258,6 +266,7 @@ public class XMLAdmin2 {
      * @param is
      * @return
      * @throws SAXException
+     * @throws de.dlr.ts.utils.xmladmin2.MalformedKeyOrNameException
      */
     public XMLAdmin2 load(InputStream is) throws SAXException, MalformedKeyOrNameException {
         try {

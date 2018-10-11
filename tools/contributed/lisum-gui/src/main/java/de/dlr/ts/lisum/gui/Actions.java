@@ -77,7 +77,7 @@ public class Actions {
             File selectedFile = new File(lastOpenFiles[0].getText());
             openSimulation(selectedFile);
         } else {
-            InformationMessage im = new InformationMessage("Recent opened files list empty.");
+            InformationMessage im = new InformationMessage("List of recent opened files is empty.");
             im.show();
         }
     }

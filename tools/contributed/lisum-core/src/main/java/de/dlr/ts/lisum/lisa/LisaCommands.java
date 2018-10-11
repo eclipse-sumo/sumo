@@ -148,13 +148,10 @@ final class LisaCommands {
             DLRLogger.finest(this, "Lisa responds: " + response.statusCode + " | " + response.body);
 
             if (response.statusCode == 200) 
-                vektor = new PutMessageResponse(response.body);
-            
-            DLRLogger.finest(this, "-------------------------------      " + vektor.toString());
+                vektor = new PutMessageResponse(response.body);                        
             
         } catch (UnsupportedEncodingException ex) {
-            String hh = DLRLogger.severe(this, ex);
-            ex.printStackTrace();
+            DLRLogger.severe(this, ex);            
         }
 
         return vektor;

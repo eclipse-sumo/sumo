@@ -17,6 +17,7 @@
 package de.dlr.ts.lisum.gui.options;
 
 import de.dlr.ts.commons.logger.DLRLogger;
+import de.dlr.ts.lisum.Constants;
 import de.dlr.ts.lisum.interfaces.ControlUnitInterface;
 import de.dlr.ts.lisum.interfaces.SignalProgramInterface;
 import javafx.beans.value.ObservableValue;
@@ -101,6 +102,10 @@ public class LisaControlUnitPreferencesBody
         /**
          * 
          */
+        for (String ebeneItem : Constants.ebeneItems)
+            ebeneList.add(ebeneItem);        
+        
+        /*
         ebeneList.add("Serviceeingriff");
         ebeneList.add("Bediener, lokal");
         ebeneList.add("Programm fix, lokal");
@@ -114,6 +119,7 @@ public class LisaControlUnitPreferencesBody
         ebeneList.add("Fehler Gerät");
         ebeneList.add("Signalsicherung");
         ebeneList.add("System");
+        */
     }
 
     /**

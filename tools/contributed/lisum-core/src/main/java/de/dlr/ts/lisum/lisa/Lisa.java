@@ -89,6 +89,10 @@ public class Lisa implements CityInterface {
      */
     @Override
     public LisumSimulation.InitBeforePlayResponse initBeforePlay() {
+        
+        if(!LisaCommands.TestRESTfulServer())
+            return LisumSimulation.InitBeforePlayResponse.LisaRESTfulServerNotFound;
+        
         try {
             lisaCommands.setDataDir(lisaDirectory);
             lisaControlUnits.initBeforePlay();
