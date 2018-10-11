@@ -125,6 +125,7 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
                 throw ProcessError("Invalid nextPhase " + toString(iNext) + " in tlLogic '" + getID()
                               + "', program '" + getProgramID() + "' with " + toString(phases.size()) + " phases");
             }
+            const std::string optionalFrom = phases[i]->nextPhase < 0 ? "" : " from phase " + toString(i);
             const std::string& state1 = phases[i]->getState();
             const std::string& state2 = phases[iNext]->getState();
             assert(state1.size() == state2.size());
@@ -143,7 +144,7 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
                         if ((*it)->getPermissions() != SVC_PEDESTRIAN) {
                             WRITE_WARNING("Missing yellow phase in tlLogic '" + getID()
                                           + "', program '" + getProgramID() + "' for tl-index " + toString(j)
-                                          + " when switching to phase " + toString(iNext));
+                                          + " when switching" + optionalFrom + " to phase " + toString(iNext));
                             return; // one warning per program is enough
                         }
                     }
