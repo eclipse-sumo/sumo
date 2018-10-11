@@ -25,6 +25,7 @@ package de.dlr.ts.lisum.simulation;
  * Institute of Transportation Systems
  * 
  */
+import de.dlr.ts.commons.logger.DLRLogger;
 import de.dlr.ts.lisum.interfaces.SimulationListener;
 import de.dlr.ts.lisum.exceptions.LisumException;
 import de.dlr.ts.lisum.interfaces.CityInterface;
@@ -193,7 +194,9 @@ public class LisumSimulation implements SimulationListener {
 
         currentSimulationStep = 0;
         sumo.initBeforePlay();
-
+        
+        DLRLogger.info("Project loaded successfully.");
+        
         return InitBeforePlayResponse.OK;
     }
 

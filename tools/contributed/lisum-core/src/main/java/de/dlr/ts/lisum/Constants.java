@@ -16,6 +16,10 @@
 /****************************************************************************/
 package de.dlr.ts.lisum;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  *
  * @author @author <a href="mailto:maximiliano.bottazzi@dlr.de">Maximiliano Bottazzi</a>
@@ -59,4 +63,20 @@ public class Constants
      * 
      */
     public static final int LISA_RESTFUL_SERVER_PORT_DEFAULT = 9091;
+    
+    public static final List<String> ebeneItems = Arrays.asList(
+        "Serviceeingriff",
+        "Bediener, lokal",
+        "Programm fix, lokal",
+        "Handrastbetrieb, lokal",
+        "Schaltuhr, lokal",
+        "Zentrale",
+        "Zentrale 2",
+        "Sondereingriff-Zentrale",
+        "Sondereingriff",
+        "Logik",
+        "Fehler Gerät",
+        "Signalsicherung",
+        "System"    
+    );        
 }
