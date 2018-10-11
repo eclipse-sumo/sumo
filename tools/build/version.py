@@ -38,7 +38,7 @@ GITFILE = "index"
 def gitDescribe(commit="HEAD", gitDir=None):
     command = ["git", "describe", "--long", "--always", commit]
     if gitDir:
-        command[1:1] = ["-C", gitDir]
+        command[1:1] = ["--git-dir=" + gitDir]
     d = subprocess.check_output(command, universal_newlines=True).strip()
     if "-" in d:
         # remove the "g" in describe output
@@ -58,27 +58,24 @@ def create_version_file(versionFile, revision, vcsFile):
 
 
 def main():
-    sumoSrc = join(dirname(__file__), '..', '..', 'src')
+    sumoRoot = join(dirname(__file__), '..', '..')
+    vcsDir = join(sumoRoot, GITDIR)
     # determine output file
     if len(sys.argv) > 1:
         versionDir = sys.argv[1]
         if sys.argv[1] == "-":
-            print(gitDescribe(gitDir=sumoSrc))
+            print(gitDescribe(gitDir=vcsDir))
             return
     else:
-        versionDir = sumoSrc
+        versionDir = join(sumoRoot, "src")
     versionFile = join(versionDir, 'version.h')
 
-    # determine dir
-    if len(sys.argv) > 2:
-        vcsFile = join(sys.argv[2], GITFILE)
-    else:
-        vcsFile = join(sumoSrc, '..', GITDIR, GITFILE)
+    vcsFile = join(vcsDir, GITFILE)
     if exists(vcsFile):
         if not exists(versionFile) or getmtime(versionFile) < getmtime(vcsFile):
             # vcsFile is newer. lets update the revision number
             try:
-                create_version_file(versionFile, gitDescribe(gitDir=sumoSrc), vcsFile)
+                create_version_file(versionFile, gitDescribe(gitDir=vcsDir), vcsFile)
             except Exception as e:
                 print("Error creating", versionFile, e)
     else:
