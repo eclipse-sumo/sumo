@@ -281,7 +281,8 @@ endif ()
 install(DIRECTORY data/ DESTINATION share/sumo/data)
 install(DIRECTORY tools/ DESTINATION share/sumo/tools
         PATTERN "calibration" EXCLUDE
-        PATTERN "lisum" EXCLUDE
+        PATTERN "lisum-core" EXCLUDE
+        PATTERN "lisum-gui" EXCLUDE
         PATTERN "sumolib4matlab/src" EXCLUDE
         PATTERN "traas" EXCLUDE
         PATTERN "traci4matlab/src" EXCLUDE
@@ -295,11 +296,13 @@ add_custom_target(doxygen
     COMMAND mkdir docs/doxygen
     COMMAND doxygen sumo.doxyconf &> doxygen.log
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+set_property(TARGET doxygen PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
 
 add_custom_target(userdoc
     COMMAND tools/build/buildHTMLDocs.py -o docs/userdoc -i docs/wiki/index.html -p docs/pydoc -c -r ${PACKAGE_VERSION}
     COMMAND cp docs/wiki/*.png docs/wiki/*.css docs/userdoc
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+set_property(TARGET userdoc PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
 
 add_custom_target(javadoc
     COMMAND rm -rf docs/javadoc
@@ -307,6 +310,7 @@ add_custom_target(javadoc
     COMMAND ant -f tools/contributed/traas/build.xml javadoc
     COMMAND mv tools/contributed/traas/javadoc docs/javadoc/traas
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+set_property(TARGET javadoc PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
 
 add_custom_target(man
     COMMAND rm -rf docs/man
@@ -325,8 +329,10 @@ add_custom_target(man
     COMMAND help2man -N -n "Importer of polygons and POIs for the road traffic simulation SUMO" bin/polyconvert > docs/man/polyconvert.1
     COMMAND help2man -N -n "TraCITestClient for the road traffic simulation SUMO" bin/TraCITestClient > docs/man/TraCITestClient.1
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+set_property(TARGET man PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
 
 add_custom_target(doc DEPENDS doxygen userdoc javadoc man)
+set_property(TARGET doc PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
 
 # coverage targets
 add_custom_target(lcov
