@@ -22,7 +22,8 @@ set(polyconvert_SRCS
 )
 
 add_executable(polyconvert ${polyconvert_SRCS})
-set_target_properties(polyconvert PROPERTIES OUTPUT_NAME_DEBUG polyconvertD)
+set_target_properties(polyconvert PROPERTIES OUTPUT_NAME polyconvert${BINARY_SUFFIX})
+set_target_properties(polyconvert PROPERTIES OUTPUT_NAME_DEBUG polyconvert${BINARY_SUFFIX}D)
 target_link_libraries(polyconvert ${commonlibs} ${GDAL_LIBRARY})
 
 add_custom_command(OUTPUT pc_typemap.h

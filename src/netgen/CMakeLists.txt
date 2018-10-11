@@ -13,7 +13,8 @@ set(netgenerate_SRCS
 )
 
 add_executable(netgenerate ${netgenerate_SRCS})
-set_target_properties(netgenerate PROPERTIES OUTPUT_NAME_DEBUG netgenerateD)
+set_target_properties(netgenerate PROPERTIES OUTPUT_NAME netgenerate${BINARY_SUFFIX})
+set_target_properties(netgenerate PROPERTIES OUTPUT_NAME_DEBUG netgenerate${BINARY_SUFFIX}D)
 target_link_libraries(netgenerate netbuild netwrite ${GDAL_LIBRARY} ${commonlibs})
 
 install(TARGETS netgenerate RUNTIME DESTINATION bin)

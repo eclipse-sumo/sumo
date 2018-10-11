@@ -13,7 +13,8 @@ set(marouter_SRCS
 )
 
 add_executable(marouter ${marouter_SRCS})
-set_target_properties(marouter PROPERTIES OUTPUT_NAME_DEBUG marouterD)
+set_target_properties(marouter PROPERTIES OUTPUT_NAME marouter${BINARY_SUFFIX})
+set_target_properties(marouter PROPERTIES OUTPUT_NAME_DEBUG marouter${BINARY_SUFFIX}D)
 target_link_libraries(marouter router od ${commonvehiclelibs})
 
 install(TARGETS marouter RUNTIME DESTINATION bin)

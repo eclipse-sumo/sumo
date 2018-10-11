@@ -39,7 +39,8 @@ endif ()
 
 add_executable(sumo version.h sumo_main.cpp
         microsim/MSMoveReminder.cpp microsim/MSMoveReminder.h)
-set_target_properties(sumo PROPERTIES OUTPUT_NAME_DEBUG sumoD)
+set_target_properties(sumo PROPERTIES OUTPUT_NAME sumo${BINARY_SUFFIX})
+set_target_properties(sumo PROPERTIES OUTPUT_NAME_DEBUG sumo${BINARY_SUFFIX}D)
 target_link_libraries(sumo ${sumolibs})
 
 if (FOX_FOUND)
@@ -51,7 +52,8 @@ if (FOX_FOUND)
             mesosim/MEVehicleControl.h mesosim/MEVehicleControl.cpp)
 
     add_executable(sumo-gui version.h ${sumoguiexec} guisim.rc)
-    set_target_properties(sumo-gui PROPERTIES OUTPUT_NAME_DEBUG sumo-guiD)
+    set_target_properties(sumo-gui PROPERTIES OUTPUT_NAME sumo-gui${BINARY_SUFFIX})
+    set_target_properties(sumo-gui PROPERTIES OUTPUT_NAME_DEBUG sumo-gui${BINARY_SUFFIX}D)
     target_link_libraries(sumo-gui gui guinetload guisim gui_dialogs
         utils_gui_windows utils_gui_globjects utils_gui_div utils_gui_settings
         utils_gui_images utils_gui_tracker utils_foxtools osgview ${sumolibs} mesogui
@@ -66,11 +68,13 @@ if (FOX_FOUND)
 endif ()
 
 add_executable(netconvert version.h netconvert_main.cpp)
-set_target_properties(netconvert PROPERTIES OUTPUT_NAME_DEBUG netconvertD)
+set_target_properties(netconvert PROPERTIES OUTPUT_NAME netconvert${BINARY_SUFFIX})
+set_target_properties(netconvert PROPERTIES OUTPUT_NAME_DEBUG netconvert${BINARY_SUFFIX}D)
 target_link_libraries(netconvert ${netconvertlibs})
 
 add_executable(od2trips version.h od2trips_main.cpp)
-set_target_properties(od2trips PROPERTIES OUTPUT_NAME_DEBUG od2tripsD)
+set_target_properties(od2trips PROPERTIES OUTPUT_NAME od2trips${BINARY_SUFFIX})
+set_target_properties(od2trips PROPERTIES OUTPUT_NAME_DEBUG od2trips${BINARY_SUFFIX}D)
 target_link_libraries(od2trips od utils_vehicle ${commonlibs})
 
 install(TARGETS sumo netconvert od2trips RUNTIME DESTINATION bin)

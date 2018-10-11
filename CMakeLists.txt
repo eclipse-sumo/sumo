@@ -3,6 +3,7 @@ option(CHECK_OPTIONAL_LIBS "Try to download / enable all optional libraries (use
 option(MULTITHREADED_BUILD "Use all available cores for building (applies to Visual Studio only)" true)
 option(PROFILING "Enable output of profiling data (applies to gcc/clang builds only)" false)
 option(COVERAGE "Enable output of coverage data (applies to gcc/clang builds only)" false)
+set(BINARY_SUFFIX "" CACHE STRING "Append the suffix to every generated binary")
 
 # Set a default build type if none was specified
 # you may use -DCMAKE_BUILD_TYPE:STRING=Debug from the command line
@@ -35,10 +36,11 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR
     if (PROFILING)
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pg")
         set(ENABLED_FEATURES "${ENABLED_FEATURES} Profiling")
+        set(BINARY_SUFFIX "${BINARY_SUFFIX}P")
     endif ()
     if (COVERAGE)
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fprofile-arcs -ftest-coverage -O0")
-        set(ENABLED_FEATURES "${ENABLED_FEATURES} Profiling")
+        set(ENABLED_FEATURES "${ENABLED_FEATURES} Coverage")
     endif ()
 elseif (MSVC)
     set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /W3")
