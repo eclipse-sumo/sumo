@@ -40,6 +40,7 @@
 #include "MSDevice_DriverState.h"
 #include "MSDevice_Bluelight.h"
 #include "MSDevice_FCD.h"
+#include "MSRoutingEngine.h"
 
 
 // ===========================================================================
@@ -103,7 +104,7 @@ MSDevice::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into) {
 
 void
 MSDevice::cleanupAll() {
-    MSDevice_Routing::cleanup();
+    MSRoutingEngine::cleanup();
     MSDevice_Tripinfo::cleanup();
     MSDevice_FCD::cleanup();
 }

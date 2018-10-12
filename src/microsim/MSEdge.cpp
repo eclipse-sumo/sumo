@@ -32,7 +32,7 @@
 #include <cassert>
 #include <utils/common/StringTokenizer.h>
 #include <utils/options/OptionsCont.h>
-#include <microsim/devices/MSDevice_Routing.h>
+#include <microsim/devices/MSRoutingEngine.h>
 #include <mesosim/MELoop.h>
 #include <mesosim/MESegment.h>
 #include <mesosim/MEVehicle.h>
@@ -324,8 +324,8 @@ MSEdge::allowedLanes(const MSEdge* destination, SUMOVehicleClass vclass) const {
         // this vclass is requested for the first time. rebuild all destinations
         // go through connected edges
 #ifdef HAVE_FOX
-        if (MSDevice_Routing::isParallel()) {
-            MSDevice_Routing::lock();
+        if (MSRoutingEngine::isParallel()) {
+            MSRoutingEngine::lock();
         }
 #endif
         for (AllowedLanesCont::const_iterator i1 = myAllowed.begin(); i1 != myAllowed.end(); ++i1) {
@@ -359,8 +359,8 @@ MSEdge::allowedLanes(const MSEdge* destination, SUMOVehicleClass vclass) const {
             }
         }
 #ifdef HAVE_FOX
-        if (MSDevice_Routing::isParallel()) {
-            MSDevice_Routing::unlock();
+        if (MSRoutingEngine::isParallel()) {
+            MSRoutingEngine::unlock();
         }
 #endif
         return myClassedAllowed[vclass][destination];
@@ -733,7 +733,7 @@ MSEdge::getCurrentTravelTime(double minSpeed) const {
 
 double
 MSEdge::getRoutingSpeed() const {
-    return MSDevice_Routing::getAssumedSpeed(this);
+    return MSRoutingEngine::getAssumedSpeed(this);
 }
 
 
@@ -934,8 +934,8 @@ MSEdge::getSuccessors(SUMOVehicleClass vClass) const {
         return mySuccessors;
     }
 #ifdef HAVE_FOX
-    if (MSDevice_Routing::isParallel()) {
-        MSDevice_Routing::lock();
+    if (MSRoutingEngine::isParallel()) {
+        MSRoutingEngine::lock();
     }
 #endif
     std::map<SUMOVehicleClass, MSEdgeVector>::iterator i = myClassesSuccessorMap.find(vClass);
@@ -957,8 +957,8 @@ MSEdge::getSuccessors(SUMOVehicleClass vClass) const {
     }
     // can use cached value
 #ifdef HAVE_FOX
-    if (MSDevice_Routing::isParallel()) {
-        MSDevice_Routing::unlock();
+    if (MSRoutingEngine::isParallel()) {
+        MSRoutingEngine::unlock();
     }
 #endif
     return i->second;
@@ -971,16 +971,16 @@ MSEdge::getViaSuccessors(SUMOVehicleClass vClass) const {
         return myViaSuccessors;
     }
 #ifdef HAVE_FOX
-    if (MSDevice_Routing::isParallel()) {
-        MSDevice_Routing::lock();
+    if (MSRoutingEngine::isParallel()) {
+        MSRoutingEngine::lock();
     }
 #endif
     auto i = myClassesViaSuccessorMap.find(vClass);
     if (i != myClassesViaSuccessorMap.end()) {
         // can use cached value
 #ifdef HAVE_FOX
-        if (MSDevice_Routing::isParallel()) {
-            MSDevice_Routing::unlock();
+        if (MSRoutingEngine::isParallel()) {
+            MSRoutingEngine::unlock();
         }
 #endif
         return i->second;
@@ -999,8 +999,8 @@ MSEdge::getViaSuccessors(SUMOVehicleClass vClass) const {
         }
     }
 #ifdef HAVE_FOX
-    if (MSDevice_Routing::isParallel()) {
-        MSDevice_Routing::unlock();
+    if (MSRoutingEngine::isParallel()) {
+        MSRoutingEngine::unlock();
     }
 #endif
     return result;

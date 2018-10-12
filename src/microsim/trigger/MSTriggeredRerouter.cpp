@@ -49,6 +49,7 @@
 #include <microsim/MSParkingArea.h>
 #include <microsim/MSTransportable.h>
 #include <microsim/devices/MSDevice_Routing.h>
+#include <microsim/devices/MSRoutingEngine.h>
 #include "MSTriggeredRerouter.h"
 
 #include <mesosim/MELoop.h>
@@ -394,7 +395,7 @@ MSTriggeredRerouter::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification 
             const MSEdge* newEdge = &(newParkingArea->getLane().getEdge());
 
             SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = hasReroutingDevice
-                    ? MSDevice_Routing::getRouterTT(rerouteDef->closed)
+                    ? MSRoutingEngine::getRouterTT(rerouteDef->closed)
                     : MSNet::getInstance()->getRouterTT(rerouteDef->closed);
 
             // Compute the route from the current edge to the parking area edge
@@ -491,7 +492,7 @@ MSTriggeredRerouter::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification 
     if (rerouteDef->closed.size() == 0 || destUnreachable || veh.getRoute().containsAnyOf(rerouteDef->closed)) {
         ConstMSEdgeVector edges;
         SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = hasReroutingDevice
-                ? MSDevice_Routing::getRouterTT(rerouteDef->closed)
+                ? MSRoutingEngine::getRouterTT(rerouteDef->closed)
                 : MSNet::getInstance()->getRouterTT(rerouteDef->closed);
         router.compute(
             veh.getEdge(), newEdge, &veh, MSNet::getInstance()->getCurrentTimeStep(), edges);

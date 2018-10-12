@@ -31,6 +31,7 @@
 #include <iterator>
 #include <utils/vehicle/IntermodalRouter.h>
 #include <microsim/devices/MSDevice_Routing.h>
+#include <microsim/devices/MSRoutingEngine.h>
 #include "MSGlobals.h"
 #include "MSVehicle.h"
 #include "MSVehicleControl.h"
@@ -105,7 +106,7 @@ MSInsertionControl::addFlow(SUMOVehicleParameter* const pars, int index) {
 int
 MSInsertionControl::emitVehicles(SUMOTime time) {
     // check whether any vehicles shall be emitted within this time step
-    const bool havePreChecked = MSDevice_Routing::isEnabled();
+    const bool havePreChecked = MSRoutingEngine::isEnabled();
     if (myPendingEmits.empty() || (havePreChecked && myEmitCandidates.empty())) {
         return 0;
     }
@@ -248,7 +249,7 @@ MSInsertionControl::determineCandidates(SUMOTime time) {
             ++i;
         }
     }
-    checkCandidates(time, MSDevice_Routing::isEnabled());
+    checkCandidates(time, MSRoutingEngine::isEnabled());
 }
 
 
