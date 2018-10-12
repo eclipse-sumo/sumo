@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Fri Oct 12 08:40:41 2018
+TraCITestClient output file. Date: Fri Oct 12 08:51:01 2018
 
 
 -> Command sent: <SimulationStep>:
@@ -29,9 +29,13 @@ testAPI:
   POI:
     getIDList: poi0 poi1
     getIDCount: 2
+    getPosition: TraCIPosition(1000,100,0)
+    getColor: TraCIColor(0,255,0,255)
   polygon:
     getIDList: poly0
     getIDCount: 1
+    getShape: TraCIPosition(800,1000,0) TraCIPosition(1200,1000,0) TraCIPosition(1200,900,0) TraCIPosition(800,900,0) 
+    getColor: TraCIColor(0,255,255,255)
   route:
     add:
     getIDList: e_m4 e_u1 r1

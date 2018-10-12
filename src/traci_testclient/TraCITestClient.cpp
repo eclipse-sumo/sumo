@@ -715,11 +715,20 @@ TraCITestClient::testAPI() {
     answerLog << "  POI:\n";
     answerLog << "    getIDList: " << joinToString(poi.getIDList(), " ") << "\n";
     answerLog << "    getIDCount: " << poi.getIDCount() << "\n";
+    answerLog << "    getPosition: " << poi.getPosition("poi0").getString() << "\n";
+    answerLog << "    getColor: " << poi.getColor("poi0").getString() << "\n";
 
     // poly
     answerLog << "  polygon:\n";
     answerLog << "    getIDList: " << joinToString(polygon.getIDList(), " ") << "\n";
     answerLog << "    getIDCount: " << polygon.getIDCount() << "\n";
+    std::vector<libsumo::TraCIPosition> shape = polygon.getShape("poly0");
+    std::string shapeStr;
+    for (auto pos : shape) {
+        shapeStr += pos.getString() + " ";
+    }
+    answerLog << "    getShape: " << shapeStr << "\n";
+    answerLog << "    getColor: " << polygon.getColor("poly0").getString() << "\n";
 
     // route
     answerLog << "  route:\n";
