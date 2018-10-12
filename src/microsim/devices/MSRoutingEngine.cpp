@@ -310,10 +310,10 @@ MSRoutingEngine::setEdgeTravelTime(const MSEdge* const edge, const double travel
 SUMOAbstractRouter<MSEdge, SUMOVehicle>&
 MSRoutingEngine::getRouterTT(const MSEdgeVector& prohibited) {
     if (myRouterWithProhibited == 0) {
+        initWeightUpdate();
+        initEdgeWeights();
         myRouterWithProhibited = new AStarRouter<MSEdge, SUMOVehicle, SUMOAbstractRouterPermissions<MSEdge, SUMOVehicle> >(
             MSEdge::getAllEdges(), true, &MSRoutingEngine::getEffort);
-        initEdgeWeights();
-        initWeightUpdate();
     }
     myRouterWithProhibited->prohibit(prohibited);
     return *myRouterWithProhibited;
