@@ -78,7 +78,7 @@ public:
     /// @}
 
     /// @brief Advances by one step (or up to the given time)
-    void simulationStep(int time = 0);
+    void simulationStep(double time = 0);
 
     /// @brief Let sumo load a simulation using the given command line like options.
     void load(const std::vector<std::string>& args);

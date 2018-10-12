@@ -561,7 +561,7 @@ TraCIAPI::readContextSubscription(int cmdId, tcpip::Storage& inMsg) {
 
 
 void
-TraCIAPI::simulationStep(int time) {
+TraCIAPI::simulationStep(double time) {
     send_commandSimulationStep(time);
     tcpip::Storage inMsg;
     check_resultState(inMsg, CMD_SIMSTEP);
