@@ -226,23 +226,28 @@ public class Main
             boolean ov = false;            
             
             //DLRLogger.info("Reading default states in lisum.xml");
-            
+            /*
             if(!x.hasNode("defaultStates")) {
                 DLRLogger.info("******  No default states definition found in lisum.xml ******");
                 return;
-            }
+            }*/
             
             for (ControlUnitInterface cu : ls.getCityInterface().getControlUnits())
                 cu.setEnabled(false);            
             
-            int count = x.getNode("defaultStates").getNodesCount("controlUnit");
+            int count = x.getNode("controlUnits").getNodesCount("controlUnit");
             for (int i = 0; i < count; i++) 
             {
-                XMLNode node = x.getNode("defaultStates").getNode("controlUnit", i);
+                XMLNode node = x.getNode("controlUnits").getNode("controlUnit", i);
+                String cuName = node.getAttributes().get("lisa").getValue();
+                
+                if(!node.hasNode("state"))
+                    continue;
+                
+                node = x.getNode("controlUnits").getNode("controlUnit", i).getNode("state");
                 
                 boolean enabled = node.getAttributes().get("enabled").getValue(0) == 1;                
-                
-                String cuName = node.getAttributes().get("lisaName").getValue();
+                                
                 controlUnit = getControlUnit(cuName);
 
                 if(controlUnit != null)
@@ -277,13 +282,13 @@ public class Main
                     controlUnit.setEbene(ebene);
                     controlUnit.setCoordinated(coordinated ? 1 : 0);
                     controlUnit.setCurrentSignalProgram(signalIndex);
-                    controlUnit.setVA(va);                        
+                    controlUnit.setVA(va);
                     controlUnit.setIV(iv);
-                    controlUnit.setOV(ov);                        
+                    controlUnit.setOV(ov);
                 }
                 else {
                     DLRLogger.severe("Error: Couldn't find control unit " + cuName);
-                }                                                
+                }
             }
             
             DLRLogger.info("");
