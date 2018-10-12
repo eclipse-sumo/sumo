@@ -88,8 +88,8 @@ MSBaseVehicle::MSBaseVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
     // init devices
     MSDevice::buildVehicleDevices(*this, myDevices);
     //
-    for (std::vector< MSDevice* >::iterator dev = myDevices.begin(); dev != myDevices.end(); ++dev) {
-        myMoveReminders.push_back(std::make_pair(*dev, 0.));
+    for (MSVehicleDevice* dev : myDevices) {
+        myMoveReminders.push_back(std::make_pair(dev, 0.));
     }
     myRoute->addReference();
     if (!pars->wasSet(VEHPARS_FORCE_REROUTE)) {
@@ -109,8 +109,8 @@ MSBaseVehicle::~MSBaseVehicle() {
     if (myParameter->repetitionNumber == 0) {
         MSRoute::checkDist(myParameter->routeid);
     }
-    for (std::vector< MSDevice* >::iterator dev = myDevices.begin(); dev != myDevices.end(); ++dev) {
-        delete *dev;
+    for (MSVehicleDevice* dev : myDevices) {
+        delete dev;
     }
     delete myParameter;
 }
@@ -475,11 +475,11 @@ MSBaseVehicle::getImpatience() const {
 }
 
 
-MSDevice*
+MSVehicleDevice*
 MSBaseVehicle::getDevice(const std::type_info& type) const {
-    for (std::vector<MSDevice*>::const_iterator dev = myDevices.begin(); dev != myDevices.end(); ++dev) {
-        if (typeid(**dev) == type) {
-            return *dev;
+    for (MSVehicleDevice* const dev : myDevices) {
+        if (typeid(*dev) == type) {
+            return dev;
         }
     }
     return 0;
@@ -582,8 +582,8 @@ MSBaseVehicle::getContainers() const {
 
 bool
 MSBaseVehicle::hasDevice(const std::string& deviceName) const {
-    for (std::vector<MSDevice* >::const_iterator dev = myDevices.begin(); dev != myDevices.end(); ++dev) {
-        if ((*dev)->deviceName() == deviceName) {
+    for (MSDevice* const dev : myDevices) {
+        if (dev->deviceName() == deviceName) {
             return true;
         }
     }
@@ -612,9 +612,9 @@ MSBaseVehicle::createDevice(const std::string& deviceName) {
 
 std::string
 MSBaseVehicle::getDeviceParameter(const std::string& deviceName, const std::string& key) const {
-    for (std::vector<MSDevice* >::const_iterator dev = myDevices.begin(); dev != myDevices.end(); ++dev) {
-        if ((*dev)->deviceName() == deviceName) {
-            return (*dev)->getParameter(key);
+    for (MSVehicleDevice* const dev : myDevices) {
+        if (dev->deviceName() == deviceName) {
+            return dev->getParameter(key);
         }
     }
     throw InvalidArgument("No device of type '" + deviceName + "' exists");
@@ -623,9 +623,9 @@ MSBaseVehicle::getDeviceParameter(const std::string& deviceName, const std::stri
 
 void
 MSBaseVehicle::setDeviceParameter(const std::string& deviceName, const std::string& key, const std::string& value) {
-    for (std::vector<MSDevice* >::iterator dev = myDevices.begin(); dev != myDevices.end(); ++dev) {
-        if ((*dev)->deviceName() == deviceName) {
-            (*dev)->setParameter(key, value);
+    for (MSVehicleDevice* const dev : myDevices) {
+        if (dev->deviceName() == deviceName) {
+            dev->setParameter(key, value);
             return;
         }
     }

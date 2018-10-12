@@ -57,7 +57,7 @@ MSDevice_Bluelight::insertOptions(OptionsCont& oc) {
 
 
 void
-MSDevice_Bluelight::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into) {
+MSDevice_Bluelight::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& into) {
     OptionsCont& oc = OptionsCont::getOptions();
     if (equippedByDefaultAssignmentOptions(oc, "bluelight", v, false)) {
         // build the device
@@ -103,7 +103,7 @@ MSDevice_Bluelight::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& 
 // ---------------------------------------------------------------------------
 MSDevice_Bluelight::MSDevice_Bluelight(SUMOVehicle& holder, const std::string& id,
                                        double customValue1, double customValue2, double customValue3) :
-    MSDevice(holder, id),
+    MSVehicleDevice(holder, id),
     myCustomValue1(customValue1),
     myCustomValue2(customValue2),
     myCustomValue3(customValue3) {

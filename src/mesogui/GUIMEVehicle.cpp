@@ -30,7 +30,7 @@
 #include <utils/gui/settings/GUIVisualizationSettings.h>
 #include <microsim/logging/CastingFunctionBinding.h>
 #include <microsim/logging/FunctionBinding.h>
-#include <microsim/devices/MSDevice.h>
+#include <microsim/devices/MSVehicleDevice.h>
 #include <guisim/GUILane.h>
 #include "GUIMEVehicle.h"
 
@@ -104,14 +104,7 @@ GUIMEVehicle::getParameterWindow(GUIMainWindow& app,
     //            new FunctionBinding<GUIMEVehicle, double>(this, &GUIMEVehicle::getFuelConsumption));
     //ret->mkItem("noise (Harmonoise) [dB]", true,
     //            new FunctionBinding<GUIMEVehicle, double>(this, &GUIMEVehicle::getHarmonoise_NoiseEmissions));
-    std::ostringstream str;
-    for (std::vector<MSDevice*>::const_iterator i = myDevices.begin(); i != myDevices.end(); ++i) {
-        if (i != myDevices.begin()) {
-            str << ' ';
-        }
-        str << (*i)->getID().substr(0, (*i)->getID().find(getID()));
-    }
-    ret->mkItem("devices", false, str.str());
+    ret->mkItem("devices", false, toString(myDevices));
     //ret->mkItem("persons", true,
     //            new FunctionBinding<GUIMEVehicle, int>(this, &GUIMEVehicle::getPersonNumber));
     //ret->mkItem("containers", true,

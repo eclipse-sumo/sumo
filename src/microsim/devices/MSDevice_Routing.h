@@ -33,7 +33,7 @@
 #include <utils/vehicle/SUMOAbstractRouter.h>
 #include <utils/vehicle/AStarRouter.h>
 #include <microsim/MSVehicle.h>
-#include "MSDevice.h"
+#include "MSVehicleDevice.h"
 
 #ifdef HAVE_FOX
 #include <utils/foxtools/FXWorkerThread.h>
@@ -66,7 +66,7 @@ class MSLane;
  *  x time steps where x is the period. This is triggered by an event that executes
  *  "wrappedRerouteCommandExecute".
  */
-class MSDevice_Routing : public MSDevice {
+class MSDevice_Routing : public MSVehicleDevice {
 public:
     /** @brief Inserts MSDevice_Routing-options
      * @param[filled] oc The options container to add the options to
@@ -96,7 +96,7 @@ public:
      * @param[in] v The vehicle for which a device may be built
      * @param[filled] into The vector to store the built device in
      */
-    static void buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into);
+    static void buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& into);
 
 
     /// @brief Destructor.

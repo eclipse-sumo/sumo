@@ -43,6 +43,7 @@ class SUMOVehicle;
 class MSTransportable;
 class OptionsCont;
 class SUMOSAXAttributes;
+class MSVehicleDevice;
 
 
 // ===========================================================================
@@ -50,19 +51,13 @@ class SUMOSAXAttributes;
 // ===========================================================================
 /**
  * @class MSDevice
- * @brief Abstract in-vehicle device
+ * @brief Abstract in-vehicle / in-person device
  *
- * The MSDevice-interface brings the following interfaces to a vehicle that
+ * The MSDevice-interface brings the following interfaces to a vehicle /person that
  *  may be overwritten by real devices:
- * @arg Retrieval of the vehicle that holds the device
  * @arg Building and retrieval of a device id
- * @arg Methods called on vehicle movement / state change
- *
- * The "methods called on vehicle movement / state change" are called for each
- *  device within the corresponding vehicle methods. MSDevice brings already
- *  an empty (nothing doing) implementation of these.
  */
-class MSDevice : public MSMoveReminder, public Named {
+class MSDevice : public Named {
 public:
     /** @brief Inserts options for building devices
      * @param[filled] oc The options container to add the options to
@@ -80,7 +75,7 @@ public:
      * @param[in] v The vehicle for which a device may be built
      * @param[filled] into The vector to store the built device in
      */
-    static void buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into);
+    static void buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& into);
 
     static std::mt19937* getEquipmentRNG() {
         return &myEquipmentRNG;
@@ -102,22 +97,12 @@ public:
      * @param[in] holder The vehicle that holds this device
      * @param[in] id The ID of the device
      */
-    MSDevice(SUMOVehicle& holder, const std::string& id) :
-        MSMoveReminder(id), Named(id), myHolder(holder) {
+    MSDevice(const std::string& id) : Named(id) {
     }
 
 
     /// @brief Destructor
     virtual ~MSDevice() { }
-
-
-    /** @brief Returns the vehicle that holds this device
-     *
-     * @return The vehicle that holds this device
-     */
-    SUMOVehicle& getHolder() const {
-        return myHolder;
-    }
 
 
     /** @brief Called on writing tripinfo output
@@ -190,10 +175,6 @@ protected:
     static bool getBoolParam(const SUMOVehicle& v, const OptionsCont& oc, std::string paramName, bool deflt, bool required);
     /// @}
 
-protected:
-    /// @brief The vehicle that stores the device
-    SUMOVehicle& myHolder;
-
 private:
     /// @brief vehicles which explicitly carry a device, sorted by device, first
     static std::map<std::string, std::set<std::string> > myExplicitIDs;
@@ -215,4 +196,3 @@ private:
 #endif
 
 /****************************************************************************/
-

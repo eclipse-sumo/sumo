@@ -41,7 +41,7 @@ class MSVehicleType;
 class MSRoute;
 class MSEdge;
 class MSLane;
-class MSDevice;
+class MSVehicleDevice;
 class MSPerson;
 class MSTransportable;
 class MSParkingArea;
@@ -281,7 +281,7 @@ public:
     /** @brief Returns this vehicle's devices
      * @return This vehicle's devices
      */
-    virtual const std::vector<MSDevice*>& getDevices() const = 0;
+    virtual const std::vector<MSVehicleDevice*>& getDevices() const = 0;
 
     /** @brief Adds a person to this vehicle
      *
@@ -363,7 +363,7 @@ public:
     virtual bool isStoppedInRange(double pos) const = 0;
 
     /// @brief Returns a device of the given type if it exists or 0
-    virtual MSDevice* getDevice(const std::type_info& type) const = 0;
+    virtual MSVehicleDevice* getDevice(const std::type_info& type) const = 0;
 
 
     virtual double getChosenSpeedFactor() const = 0;

@@ -124,7 +124,7 @@ MSDevice_Routing::checkOptions(OptionsCont& oc) {
 
 
 void
-MSDevice_Routing::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into) {
+MSDevice_Routing::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& into) {
     const OptionsCont& oc = OptionsCont::getOptions();
     if (v.getParameter().wasSet(VEHPARS_FORCE_REROUTE) || equippedByDefaultAssignmentOptions(oc, "rerouting", v, false)) {
         // route computation is enabled
@@ -142,7 +142,7 @@ MSDevice_Routing::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& in
 // ---------------------------------------------------------------------------
 MSDevice_Routing::MSDevice_Routing(SUMOVehicle& holder, const std::string& id,
                                    SUMOTime period, SUMOTime preInsertionPeriod)
-    : MSDevice(holder, id), myPeriod(period), myPreInsertionPeriod(preInsertionPeriod), myLastRouting(-1), mySkipRouting(-1), myRerouteCommand(0) {
+    : MSVehicleDevice(holder, id), myPeriod(period), myPreInsertionPeriod(preInsertionPeriod), myLastRouting(-1), mySkipRouting(-1), myRerouteCommand(0) {
     if (myPreInsertionPeriod > 0 || holder.getParameter().wasSet(VEHPARS_FORCE_REROUTE)) {
         // we do always a pre insertion reroute for trips to fill the best lanes of the vehicle with somehow meaningful values (especially for deaprtLane="best")
         myRerouteCommand = new WrappingCommand<MSDevice_Routing>(this, &MSDevice_Routing::preInsertionReroute);

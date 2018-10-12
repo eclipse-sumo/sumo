@@ -160,14 +160,7 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
                 new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getElectricityConsumption));
     ret->mkItem("noise (Harmonoise) [dB]", true,
                 new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getHarmonoise_NoiseEmissions));
-    std::ostringstream str;
-    for (std::vector<MSDevice*>::const_iterator i = myDevices.begin(); i != myDevices.end(); ++i) {
-        if (i != myDevices.begin()) {
-            str << ' ';
-        }
-        str << (*i)->getID().substr(0, (*i)->getID().find(getID()));
-    }
-    ret->mkItem("devices", false, str.str());
+    ret->mkItem("devices", false, toString(myDevices));
     ret->mkItem("persons", true,
                 new FunctionBinding<GUIVehicle, int>(this, &MSVehicle::getPersonNumber));
     ret->mkItem("containers", true,

@@ -5357,8 +5357,8 @@ MSVehicle::saveState(OutputDevice& out) {
         it->write(out);
     }
     myParameter->writeParams(out);
-    for (std::vector<MSDevice*>::const_iterator dev = myDevices.begin(); dev != myDevices.end(); ++dev) {
-        (*dev)->saveState(out);
+    for (MSVehicleDevice* const dev : myDevices) {
+        dev->saveState(out);
     }
     out.closeTag();
 }

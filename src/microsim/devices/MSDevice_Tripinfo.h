@@ -25,7 +25,7 @@
 // ===========================================================================
 #include <config.h>
 
-#include "MSDevice.h"
+#include "MSVehicleDevice.h"
 #include <utils/common/SUMOTime.h>
 
 // ===========================================================================
@@ -44,7 +44,7 @@ class SUMOVehicle;
  *
  * @see MSDevice
  */
-class MSDevice_Tripinfo : public MSDevice {
+class MSDevice_Tripinfo : public MSVehicleDevice {
 public:
     /** @brief Build devices for the given vehicle, if needed
      *
@@ -56,7 +56,7 @@ public:
      * @param[in] v The vehicle for which a device may be built
      * @param[filled] into The vector to store the built device in
      */
-    static void buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into);
+    static void buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& into);
 
     /// @brief update tripinfo statistics
     void updateStatistics(SUMOTime timeLoss) const;

@@ -26,7 +26,7 @@
 // ===========================================================================
 #include <config.h>
 
-#include "MSDevice.h"
+#include "MSVehicleDevice.h"
 #include <utils/common/SUMOTime.h>
 #include <utils/common/WrappingCommand.h>
 
@@ -52,7 +52,7 @@ class RGBColor;
  *
  * @see MSDevice
  */
-class MSDevice_ToC : public MSDevice {
+class MSDevice_ToC : public MSVehicleDevice {
 public:
     /** @brief Inserts MSDevice_ToC-options
      * @param[filled] oc The options container to add the options to
@@ -70,7 +70,7 @@ public:
      * @param[in] v The vehicle for which a device may be built
      * @param[filled] into The vector to store the built device in
      */
-    static void buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into);
+    static void buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& into);
 
 private:
 

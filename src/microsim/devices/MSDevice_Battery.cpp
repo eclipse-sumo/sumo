@@ -51,7 +51,7 @@ MSDevice_Battery::insertOptions(OptionsCont& oc) {
 
 
 void
-MSDevice_Battery::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into) {
+MSDevice_Battery::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& into) {
     // Check if vehicle should get a battery
     if (equippedByDefaultAssignmentOptions(OptionsCont::getOptions(), "battery", v, false)) {
         const HelpersEnergy& e = PollutantsInterface::getEnergyHelper();
@@ -207,7 +207,7 @@ bool MSDevice_Battery::notifyMove(SUMOVehicle& veh, double /* oldPos */, double 
 // ---------------------------------------------------------------------------
 MSDevice_Battery::MSDevice_Battery(SUMOVehicle& holder, const std::string& id, const double actualBatteryCapacity, const double maximumBatteryCapacity,
                                    const double powerMax, const double stoppingTreshold, const std::map<int, double>& param) :
-    MSDevice(holder, id),
+    MSVehicleDevice(holder, id),
     myActualBatteryCapacity(0),         // [actualBatteryCapacity <= maximumBatteryCapacity]
     myMaximumBatteryCapacity(0),        // [maximumBatteryCapacity >= 0]
     myPowerMax(0),                      // [maximumPower >= 0]

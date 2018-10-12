@@ -211,7 +211,7 @@ MSDevice_SSM::insertOptions(OptionsCont& oc) {
 }
 
 void
-MSDevice_SSM::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into) {
+MSDevice_SSM::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& into) {
     if (equippedByDefaultAssignmentOptions(OptionsCont::getOptions(), "ssm", v, false)) {
         if (MSGlobals::gUseMesoSim) {
             WRITE_WARNING("SSM Device for vehicle '" + v.getID() + "' will not be built. (SSMs not supported in MESO)");
@@ -2237,7 +2237,7 @@ MSDevice_SSM::makeStringWithNAs(std::vector<double> v, std::vector<double> NAs, 
 // ---------------------------------------------------------------------------
 MSDevice_SSM::MSDevice_SSM(SUMOVehicle& holder, const std::string& id, std::string outputFilename, std::map<std::string, double> thresholds,
                            bool trajectories, double range, double extraTime, bool useGeoCoords) :
-    MSDevice(holder, id),
+    MSVehicleDevice(holder, id),
     myThresholds(thresholds),
     mySaveTrajectories(trajectories),
     myRange(range),

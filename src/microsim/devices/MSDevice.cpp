@@ -86,7 +86,7 @@ MSDevice::checkOptions(OptionsCont& oc) {
 
 
 void
-MSDevice::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into) {
+MSDevice::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& into) {
     MSDevice_Vehroutes::buildVehicleDevices(v, into);
     MSDevice_Tripinfo::buildVehicleDevices(v, into);
     MSDevice_Routing::buildVehicleDevices(v, into);

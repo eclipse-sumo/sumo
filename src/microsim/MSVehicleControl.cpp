@@ -29,7 +29,7 @@
 #include "MSEdge.h"
 #include "MSNet.h"
 #include "MSRouteHandler.h"
-#include <microsim/devices/MSDevice.h>
+#include <microsim/devices/MSVehicleDevice.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/RGBColor.h>
 #include <utils/vehicle/SUMOVTypeParameter.h>
@@ -110,8 +110,8 @@ MSVehicleControl::scheduleVehicleRemoval(SUMOVehicle* veh) {
     myTotalTravelTime += STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep() - veh->getDeparture());
     myRunningVehNo--;
     MSNet::getInstance()->informVehicleStateListener(veh, MSNet::VEHICLE_STATE_ARRIVED);
-    for (std::vector<MSDevice*>::const_iterator i = veh->getDevices().begin(); i != veh->getDevices().end(); ++i) {
-        (*i)->generateOutput();
+    for (MSVehicleDevice* const dev : veh->getDevices()) {
+        dev->generateOutput();
     }
     if (OptionsCont::getOptions().isSet("tripinfo-output")) {
         // close tag after tripinfo (possibly including emissions from another device) have been written

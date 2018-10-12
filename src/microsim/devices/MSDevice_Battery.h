@@ -15,17 +15,16 @@
 ///
 // The Battery parameters for the vehicle
 /****************************************************************************/
+#ifndef MSDevice_Battery_h
+#define MSDevice_Battery_h
+
 
 // ===========================================================================
 // included modules
 // ===========================================================================
-
 #include <config.h>
 
-#ifndef MSDevice_Battery_h
-#define MSDevice_Battery_h
-
-#include <microsim/devices/MSDevice.h>
+#include <microsim/devices/MSVehicleDevice.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/trigger/MSChargingStation.h>
 #include <utils/common/SUMOTime.h>
@@ -44,7 +43,7 @@ class SUMOVehicle;
  * @class MSDevice_Battery
  * @brief Battery device for electric vehicles
  */
-class MSDevice_Battery : public MSDevice {
+class MSDevice_Battery : public MSVehicleDevice {
 public:
     /** @brief Inserts MSDevice_Example-options
     * @param[filled] oc The options container to add the options to
@@ -61,7 +60,7 @@ public:
     * @param[in] v The vehicle for which a device may be built
     * @param[filled] into The vector to store the built device in
     */
-    static void buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into);
+    static void buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& into);
 
 public:
     /// @brief Destructor.

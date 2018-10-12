@@ -78,7 +78,7 @@ MSDevice_Vehroutes::init() {
 
 
 MSDevice_Vehroutes*
-MSDevice_Vehroutes::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into, int maxRoutes) {
+MSDevice_Vehroutes::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& into, int maxRoutes) {
     if (maxRoutes < std::numeric_limits<int>::max()) {
         return new MSDevice_Vehroutes(v, "vehroute_" + v.getID(), maxRoutes);
     }
@@ -109,7 +109,7 @@ MSDevice_Vehroutes::StateListener::vehicleStateChanged(const SUMOVehicle* const 
 // MSDevice_Vehroutes-methods
 // ---------------------------------------------------------------------------
 MSDevice_Vehroutes::MSDevice_Vehroutes(SUMOVehicle& holder, const std::string& id, int maxRoutes) :
-    MSDevice(holder, id),
+    MSVehicleDevice(holder, id),
     myCurrentRoute(&holder.getRoute()),
     myMaxRoutes(maxRoutes),
     myLastSavedAt(0),

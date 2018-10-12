@@ -246,9 +246,9 @@ MSStateHandler::closeVehicle() {
         }
         while (!myDeviceAttrs.empty()) {
             const std::string attrID = myDeviceAttrs.back()->getString(SUMO_ATTR_ID);
-            for (std::vector<MSDevice*>::const_iterator dev = v->getDevices().begin(); dev != v->getDevices().end(); ++dev) {
-                if ((*dev)->getID() == attrID) {
-                    (*dev)->loadState(*myDeviceAttrs.back());
+            for (MSVehicleDevice* const dev : v->getDevices()) {
+                if (dev->getID() == attrID) {
+                    dev->loadState(*myDeviceAttrs.back());
                 }
             }
             delete myDeviceAttrs.back();

@@ -51,7 +51,7 @@ MSDevice_Example::insertOptions(OptionsCont& oc) {
 
 
 void
-MSDevice_Example::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into) {
+MSDevice_Example::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& into) {
     OptionsCont& oc = OptionsCont::getOptions();
     if (equippedByDefaultAssignmentOptions(oc, "example", v, false)) {
         // build the device
@@ -93,7 +93,7 @@ MSDevice_Example::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& in
 // ---------------------------------------------------------------------------
 MSDevice_Example::MSDevice_Example(SUMOVehicle& holder, const std::string& id,
                                    double customValue1, double customValue2, double customValue3) :
-    MSDevice(holder, id),
+    MSVehicleDevice(holder, id),
     myCustomValue1(customValue1),
     myCustomValue2(customValue2),
     myCustomValue3(customValue3) {

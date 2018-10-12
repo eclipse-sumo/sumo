@@ -90,7 +90,7 @@ MSDevice_ToC::insertOptions(OptionsCont& oc) {
 
 
 void
-MSDevice_ToC::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into) {
+MSDevice_ToC::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& into) {
     OptionsCont& oc = OptionsCont::getOptions();
     if (equippedByDefaultAssignmentOptions(oc, "toc", v, false)) {
         std::string manualType = getManualType(v, oc);
@@ -152,7 +152,7 @@ MSDevice_ToC::MSDevice_ToC(SUMOVehicle& holder, const std::string& id,
                            std::string manualType, std::string automatedType,
                            SUMOTime responseTime, double recoveryRate, double initialAwareness,
                            double mrmDecel, bool useColoring) :
-    MSDevice(holder, id),
+    MSVehicleDevice(holder, id),
     myManualTypeID(manualType),
     myAutomatedTypeID(automatedType),
     myResponseTime(responseTime),

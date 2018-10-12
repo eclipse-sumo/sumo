@@ -83,7 +83,7 @@ MSDevice_DriverState::insertOptions(OptionsCont& oc) {
 
 
 void
-MSDevice_DriverState::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into) {
+MSDevice_DriverState::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& into) {
     OptionsCont& oc = OptionsCont::getOptions();
     if (equippedByDefaultAssignmentOptions(oc, "driverstate", v, false)) {
         const double minAwareness = getMinAwareness(v, oc);
@@ -155,7 +155,7 @@ MSDevice_DriverState::MSDevice_DriverState(SUMOVehicle& holder, const std::strin
         double speedDifferenceChangePerceptionThreshold,
         double headwayChangePerceptionThreshold,
         double headwayErrorCoefficient) :
-    MSDevice(holder, id),
+    MSVehicleDevice(holder, id),
     myMinAwareness(minAwareness),
     myInitialAwareness(initialAwareness),
     myErrorTimeScaleCoefficient(errorTimeScaleCoefficient),
