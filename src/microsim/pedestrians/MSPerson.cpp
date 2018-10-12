@@ -453,7 +453,7 @@ MSPerson::MSPersonStage_Driving::routeOutput(OutputDevice& os, const bool withRo
     if (myDestinationStop != 0) {
         os.writeAttr(SUMO_ATTR_BUS_STOP, myDestinationStop->getID());
         if (myDestinationStop->getMyName() != "") {
-            comment = " <!-- " + myDestinationStop->getMyName() + " -->";
+            comment = " <!-- " + StringUtils::escapeXML(myDestinationStop->getMyName()) + " -->";
         }
     }
     os.writeAttr(SUMO_ATTR_LINES, myLines);
