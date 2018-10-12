@@ -711,6 +711,15 @@ TraCITestClient::testAPI() {
     } catch (libsumo::TraCIException& e) {
         answerLog << "    caught TraCIException(" << e.what() << ")\n";
     }
+    // poi
+    answerLog << "  POI:\n";
+    answerLog << "    getIDList: " << joinToString(poi.getIDList(), " ") << "\n";
+    answerLog << "    getIDCount: " << poi.getIDCount() << "\n";
+
+    // poly
+    answerLog << "  polygon:\n";
+    answerLog << "    getIDList: " << joinToString(polygon.getIDList(), " ") << "\n";
+    answerLog << "    getIDCount: " << polygon.getIDCount() << "\n";
 
     // route
     answerLog << "  route:\n";

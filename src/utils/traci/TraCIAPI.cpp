@@ -1272,6 +1272,11 @@ TraCIAPI::POIScope::getIDList() const {
     return myParent.getStringVector(CMD_GET_POI_VARIABLE, ID_LIST, "");
 }
 
+int
+TraCIAPI::POIScope::getIDCount() const {
+    return myParent.getInt(CMD_GET_POI_VARIABLE, ID_COUNT, "");
+}
+
 std::string
 TraCIAPI::POIScope::getType(const std::string& poiID) const {
     return myParent.getString(CMD_GET_POI_VARIABLE, VAR_TYPE, poiID);
@@ -1364,6 +1369,11 @@ TraCIAPI::POIScope::remove(const std::string& poiID, int layer) const {
 std::vector<std::string>
 TraCIAPI::PolygonScope::getIDList() const {
     return myParent.getStringVector(CMD_GET_POLYGON_VARIABLE, ID_LIST, "");
+}
+
+int
+TraCIAPI::PolygonScope::getIDCount() const {
+    return myParent.getInt(CMD_GET_POLYGON_VARIABLE, ID_COUNT, "");
 }
 
 std::string

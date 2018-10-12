@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Mon Sep 17 07:58:05 2018
+TraCITestClient output file. Date: Fri Oct 12 08:40:41 2018
 
 
 -> Command sent: <SimulationStep>:
@@ -26,6 +26,12 @@ testAPI:
     getFoes (invalid):     caught TraCIException(.. Answered with error to command (163), [description: No connection from lane 'e_vu0_0' to lane 'e_m4_1'])
     getInternalFoes: :n_m4_7_0 :n_m4_0_1 :n_m4_4_0 :n_m4_4_1 :n_m4_4_2
     getInternalFoes (invalid):     caught TraCIException(.. Answered with error to command (163), [description: Lane 'dummy' is not known])
+  POI:
+    getIDList: poi0 poi1
+    getIDCount: 2
+  polygon:
+    getIDList: poly0
+    getIDCount: 1
   route:
     add:
     getIDList: e_m4 e_u1 r1

@@ -409,6 +409,7 @@ public:
         virtual ~POIScope() {}
 
         std::vector<std::string> getIDList() const;
+        int getIDCount() const;
         std::string getType(const std::string& poiID) const;
         libsumo::TraCIPosition getPosition(const std::string& poiID) const;
         libsumo::TraCIColor getColor(const std::string& poiID) const;
@@ -441,6 +442,7 @@ public:
         virtual ~PolygonScope() {}
 
         std::vector<std::string> getIDList() const;
+        int getIDCount() const;
         std::string getType(const std::string& polygonID) const;
         libsumo::TraCIPositionVector getShape(const std::string& polygonID) const;
         libsumo::TraCIColor getColor(const std::string& polygonID) const;
