@@ -297,12 +297,14 @@ add_custom_target(doxygen
     COMMAND doxygen sumo.doxyconf &> doxygen.log
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
 set_property(TARGET doxygen PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
+set_property(TARGET doxygen PROPERTY FOLDER "doc")
 
 add_custom_target(userdoc
     COMMAND tools/build/buildHTMLDocs.py -o docs/userdoc -i docs/wiki/index.html -p docs/pydoc -c -r ${PACKAGE_VERSION}
     COMMAND cp docs/wiki/*.png docs/wiki/*.css docs/userdoc
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
 set_property(TARGET userdoc PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
+set_property(TARGET userdoc PROPERTY FOLDER "doc")
 
 add_custom_target(javadoc
     COMMAND rm -rf docs/javadoc
@@ -311,6 +313,7 @@ add_custom_target(javadoc
     COMMAND mv tools/contributed/traas/javadoc docs/javadoc/traas
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
 set_property(TARGET javadoc PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
+set_property(TARGET javadoc PROPERTY FOLDER "doc")
 
 add_custom_target(man
     COMMAND rm -rf docs/man
@@ -330,21 +333,25 @@ add_custom_target(man
     COMMAND help2man -N -n "TraCITestClient for the road traffic simulation SUMO" bin/TraCITestClient > docs/man/TraCITestClient.1
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
 set_property(TARGET man PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
+set_property(TARGET man PROPERTY FOLDER "doc")
 
 add_custom_target(doc DEPENDS doxygen userdoc javadoc man)
 set_property(TARGET doc PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
+set_property(TARGET doc PROPERTY FOLDER "doc")
 
 # coverage targets
-add_custom_target(lcov
+if (COVERAGE)
+    add_custom_target(lcov
     COMMAND rm -rf docs/lcov
     COMMAND mkdir docs/lcov
     COMMAND lcov -d . -c --no-external --output-file docs/lcov/lcov.info
     COMMAND genhtml -o docs/lcov/html docs/lcov/lcov.info
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
 
-add_custom_target(lcov-reset
+    add_custom_target(lcov-reset
     COMMAND lcov -d . -z
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+endif()
 
 # example and dist targets
 add_custom_target(examples DEPENDS sumo netconvert dfrouter duarouter jtrrouter
@@ -353,16 +360,20 @@ add_custom_target(examples DEPENDS sumo netconvert dfrouter duarouter jtrrouter
 add_test(exampletest ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/docs/examples/runAll.py)
 find_package(Git)
 if (GIT_FOUND)
-    add_custom_target(dist DEPENDS examples
+    add_custom_target(dist DEPENDS examples doc
         COMMAND rm -rf sumo-${PACKAGE_VERSION} sumo-${PACKAGE_VERSION}.zip sumo-src-${PACKAGE_VERSION}.tar.gz
         COMMAND ${GIT_EXECUTABLE} archive --prefix sumo-${PACKAGE_VERSION}/ -o sumo-${PACKAGE_VERSION}.zip HEAD
         COMMAND unzip sumo-${PACKAGE_VERSION}.zip
-        COMMAND cp -a docs/tutorial docs/examples sumo-${PACKAGE_VERSION}/docs
+        COMMAND cp -a docs/tutorial docs/examples docs/userdoc docs/pydoc docs/javadoc docs/man sumo-${PACKAGE_VERSION}/docs
         COMMAND zip -r sumo-src-${PACKAGE_VERSION}.zip sumo-${PACKAGE_VERSION}
         COMMAND tar czf sumo-src-${PACKAGE_VERSION}.tar.gz sumo-${PACKAGE_VERSION}
+        COMMAND cp -a docs/doxygen sumo-${PACKAGE_VERSION}/docs
+        COMMAND cp -a tests sumo-${PACKAGE_VERSION}
+        COMMAND zip -r sumo-all-${PACKAGE_VERSION}.zip sumo-${PACKAGE_VERSION}
+        COMMAND tar czf sumo-all-${PACKAGE_VERSION}.tar.gz sumo-${PACKAGE_VERSION}
         COMMAND rm -rf sumo-${PACKAGE_VERSION} sumo-${PACKAGE_VERSION}.zip
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
-    set_property(TARGET dist PROPERTY FOLDER "CMake") 
+    set_property(TARGET dist PROPERTY FOLDER "CMake")
     set_property(TARGET dist PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
 
     add_custom_target(distcheck DEPENDS dist
@@ -375,7 +386,7 @@ if (GIT_FOUND)
                 && make install || (echo "ERROR: the install target failed." && false)
         COMMAND rm -rf sumo-${PACKAGE_VERSION}
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
-    set_property(TARGET distcheck PROPERTY FOLDER "CMake") 
+    set_property(TARGET distcheck PROPERTY FOLDER "CMake")
     set_property(TARGET distcheck PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
 endif ()
 

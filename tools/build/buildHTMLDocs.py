@@ -173,11 +173,11 @@ optParser.add_option("-c", "--clean", action="store_true", default=False, help="
 
 if options.pydoc_output:
     if options.clean:
-        shutil.rmtree(options.pydoc_output)
+        shutil.rmtree(options.pydoc_output, ignore_errors=True)
     generate_pydoc(options.pydoc_output)
 if options.clean:
-    shutil.rmtree(options.mirror)
-    shutil.rmtree(options.output)
+    shutil.rmtree(options.mirror, ignore_errors=True)
+    shutil.rmtree(options.output, ignore_errors=True)
 try:
     os.mkdir(options.mirror)
 except Exception:

@@ -32,7 +32,7 @@ set(libsumostatic_STAT_SRCS
         Edge.cpp Edge.h)
 
 add_library(libsumostatic STATIC ${libsumostatic_STAT_SRCS})
-set_property(TARGET libsumostatic PROPERTY PROJECT_LABEL "z_libsumostatic")
+set_property(TARGET libsumostatic PROPERTY FOLDER "libsumo")
 
 set(ENABLE_PYTHON_BINDINGS ON CACHE BOOL "Build Python Bindings")
 set(ENABLE_JAVA_BINDINGS ON CACHE BOOL "Build Java Bindings")
@@ -67,6 +67,7 @@ if(SWIG_FOUND)
                 COMMAND "${Java_JAR_EXECUTABLE}" -cfM ${CMAKE_SOURCE_DIR}/bin/libsumojni.jar -C classes .
                 COMMAND "${Java_JAR_EXECUTABLE}" -cfM ${CMAKE_SOURCE_DIR}/bin/libsumojni_src.jar -C java .
             )
+            set_property(TARGET libsumojni PROPERTY FOLDER "libsumo")
         else()
             message(WARNING "ENABLE_JAVA_BINDINGS is set but Java or JNI was not found.")
         endif()
@@ -102,6 +103,7 @@ if(SWIG_FOUND)
             if (MSVC)
                 # disable python module for the debug build because virtually no one has a python debug dll to link against
                 set_property(TARGET ${SWIG_MODULE_libsumo_REAL_NAME} PROPERTY EXCLUDE_FROM_DEFAULT_BUILD_DEBUG TRUE)
+                set_property(TARGET ${SWIG_MODULE_libsumo_REAL_NAME} PROPERTY FOLDER "libsumo")
                 swig_link_libraries(libsumo ${sumolibs} ${PYTHON_LIBRARIES})
             else()
                 swig_link_libraries(libsumo -Wl,--whole-archive ${sumolibs} -Wl,--no-whole-archive ${PYTHON_LIBRARIES})
