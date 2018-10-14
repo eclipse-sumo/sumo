@@ -27,8 +27,7 @@ from optparse import OptionParser
 
 dirname = os.path.dirname(__file__)
 optParser = OptionParser()
-optParser.add_option("-j", "--java", action="store_true",
-                     default=False, help="generate Java output")
+optParser.add_option("-j", "--java", help="generate Java output as static members of the given class")
 optParser.add_option("-o", "--output", default=os.path.join(dirname, "constants.py"),
                      help="File to save constants into", metavar="FILE")
 (options, args) = optParser.parse_args()
@@ -56,6 +55,11 @@ This script contains TraCI constant definitions from <SUMO_HOME>/src/traci-serve
 
 if options.java:
     print("*/\n", file=fdo)
+    className = options.java
+    if "." in className:
+        package, className = className.rsplit(".", 1)
+        fdo.write("package %s;\n" % package)
+    fdo.write("public class %s {" % className)
 else:
     print('"""\n', file=fdo)
 
@@ -65,31 +69,25 @@ def translateFile(filePath, fdo, start, item, end):
         started = False
         for line in fdi:
             if started:
+                line = line.strip()
                 if line.find(end) >= 0:
                     started = False
-                    if options.java:
-                        fdo.write("}")
                     continue
                 if options.java:
                     line = line.replace("//", "    //")
                 else:
                     line = line.replace("///", "#").lstrip(" ")
                     line = line.replace("//", "# ").lstrip(" ")
-                if line.find(item) >= 0:
-                    if "=" in line:
-                        fdo.write(line.strip().rstrip(",") + "\n")
-                        continue
-                    vals = line.split(" ")
-                    if options.java:
-                        line = "    public static final int " + \
-                            vals[1] + " = " + vals[2].strip() + ";\n"
-                    else:
+                if line.find(item) >= 0 and not "//" in line:
+                    line = line.rstrip(",")
+                    if "=" not in line:
+                        vals = line.split(" ")
                         line = vals[1] + " = " + vals[2]
-                fdo.write(line)
+                    if options.java:
+                        line = "    public static final int " + line + ";"
+                print(line, file=fdo)
             if line.find(start) >= 0:
                 started = True
-                if options.java:
-                    fdo.write("public class TraCIConstants {")
 
 
 srcDir = os.path.join(dirname, "..", "..", "src")
@@ -97,4 +95,6 @@ translateFile(os.path.join(srcDir, "traci-server", "TraCIConstants.h"),
               fdo, "#define TRACICONSTANTS_H", "#define ", "#endif")
 translateFile(os.path.join(srcDir, "utils", "xml", "SUMOXMLDefinitions.h"),
               fdo, "enum LaneChangeAction {", "LCA_", "};")
+if options.java:
+    fdo.write("}")
 fdo.close()
