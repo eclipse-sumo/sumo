@@ -346,7 +346,7 @@
 #define RTYPE_ERR 0xFF
 
 // return value for invalid queries (especially vehicle is not on the road), see Position::INVALID
-#define INVALID_DOUBLE_VALUE -1073741824.
+#define INVALID_DOUBLE_VALUE -1073741824
 // return value for invalid queries (especially vehicle is not on the road), see Position::INVALID
 #define INVALID_INT_VALUE -1073741824
 // maximum value for client ordering (2 ^ 30)

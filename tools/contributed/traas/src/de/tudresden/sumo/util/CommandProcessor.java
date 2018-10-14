@@ -30,7 +30,6 @@ import java.util.LinkedList;
 import de.tudresden.sumo.config.Constants;
 import de.tudresden.sumo.subscription.Subscription;
 import de.tudresden.ws.container.SumoBestLanes;
-import de.tudresden.ws.container.SumoBoundingBox;
 import de.tudresden.ws.container.SumoColor;
 import de.tudresden.ws.container.SumoGeometry;
 import de.tudresden.ws.container.SumoLeader;
@@ -99,15 +98,6 @@ public class CommandProcessor extends Query{
 			}
 			output = ssl;
 		
-		}else if(type == Constants.TYPE_BOUNDINGBOX){
-			
-			double min_x = s.readDouble();
-			double min_y = s.readDouble();
-			double max_x = s.readDouble();
-			double max_y = s.readDouble();
-			
-			output = new SumoBoundingBox(min_x, min_y, max_x, max_y);
-			
 		}else if(type == Constants.VAR_STOPSTATE){
 			
 			short s0 = s.readByte();
@@ -379,15 +369,6 @@ public class CommandProcessor extends Query{
 			}
 			output = ssl;
 		
-		}else if(sc.output_type == Constants.TYPE_BOUNDINGBOX){
-			
-			double min_x = resp.content().readDouble();
-			double min_y = resp.content().readDouble();
-			double max_x = resp.content().readDouble();
-			double max_y = resp.content().readDouble();
-			
-			output = new SumoBoundingBox(min_x, min_y, max_x, max_y);
-			
 		}else if(sc.input2 == Constants.VAR_STOPSTATE){
 			short s = resp.content().readByte();
 			SumoStopFlags sf = new SumoStopFlags((byte) s);

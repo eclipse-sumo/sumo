@@ -43,7 +43,7 @@ public class Gui {
 	 */
 
 	public static SumoCommand getBoundary(String viewID){
-		return new SumoCommand(Constants.CMD_GET_GUI_VARIABLE, Constants.VAR_VIEW_BOUNDARY, viewID, Constants.RESPONSE_GET_GUI_VARIABLE, Constants.TYPE_BOUNDINGBOX);
+		return new SumoCommand(Constants.CMD_GET_GUI_VARIABLE, Constants.VAR_VIEW_BOUNDARY, viewID, Constants.RESPONSE_GET_GUI_VARIABLE, Constants.TYPE_POLYGON);
 	}
 
 	/**
