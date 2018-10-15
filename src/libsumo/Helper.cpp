@@ -54,7 +54,7 @@
 
 //#define DEBUG_MOVEXY
 //#define DEBUG_MOVEXY_ANGLE
-
+#define DEBUG_SURROUNDING
 
 void
 LaneStoringVisitor::add(const MSLane* const l) const {
@@ -414,6 +414,12 @@ Helper::collectObjectsInRange(int domain, const PositionVector& shape, double ra
 
 void
 Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& objIDs) {
+#ifdef DEBUG_SURROUNDING
+    MSVehicle* _veh = libsumo::Vehicle::getVehicle(s.id);
+    std::cout << SIMTIME << " applySubscriptionFilters for vehicle '" << _veh->getID() << "' on lane '" << _veh->getLane()->getID() <<"'"
+            << "\n       on edge '" << _veh->getLane()->getEdge().getID() << "' (" << toString(_veh->getLane()->getEdge().getLanes()) << ")" << std::endl;
+#endif
+
     if (s.activeFilters == 0) {
         // No filters set
         return;
@@ -432,6 +438,67 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
         // Only return foes on upcoming junction in context subscription result + other maneuver relevant vehicles
     }
 
+    std::set<MSVehicle*> vehs;
+    if(s.activeFilters & SUBS_FILTER_RANGE_ALONG_NET) {
+        // Set defaults for upstream and downstream distances
+        double downstreamDist = s.range, upstreamDist = s.range;
+        if (s.activeFilters & SUBS_FILTER_DOWNSTREAM_DIST) {
+            // Specifies maximal downstream distance for vehicles in context subscription result
+            downstreamDist = s.filterDownstreamDist;
+        }
+        if (s.activeFilters & SUBS_FILTER_UPSTREAM_DIST) {
+            // Specifies maximal downstream distance for vehicles in context subscription result
+            upstreamDist = s.filterUpstreamDist;
+        }
+        MSVehicle* v = libsumo::Vehicle::getVehicle(s.id);
+        if (s.activeFilters & SUBS_FILTER_LANES) {
+            // Relative lane indices are specified
+            for (int ix : s.filterLanes){
+                MSLane* lane = v->getLane()->getParallelLane(ix);
+                if (lane != nullptr) {
+#ifdef DEBUG_SURROUNDING
+                    std::cout << "Checking for surrounding vehicles starting on lane '" << lane->getID() << "' at index " << ix << std::endl;
+#endif
+                    // Search vehs along lane
+                    const std::set<MSVehicle*> new_vehs = v->getLane()->getSurroundingVehicles(v->getPositionOnLane(), downstreamDist, upstreamDist+v->getLength());
+                    vehs.insert(new_vehs.begin(), new_vehs.end());
+                } else if (!disregardOppositeDirection && ix > 0) {
+                    assert(v->getLane()->getIndex() + ix >= v->getLane()->getEdge().getLanes().size()); // index points beyond this edge
+                    // Check opposite edge, too
+                    const MSEdge* opposite = v->getLane()->getEdge().getOppositeEdge();
+                    if (opposite == nullptr) {
+#ifdef DEBUG_SURROUNDING
+                    std::cout << "No lane at index " << ix << std::endl;
+#endif
+                        // no opposite edge
+                        continue;
+                    }
+                    // Index of opposite lane at relative offset ix
+                    const int ix_opposite = opposite->getLanes().size() - 1 - (v->getLane()->getIndex() + ix - v->getLane()->getEdge().getLanes().size());
+                    lane = opposite->getLanes()[ix_opposite];
+                    // Search vehs along opposite lanes (swap upstream and downstream distance)
+                    const std::set<MSVehicle*> new_vehs = v->getLane()->getSurroundingVehicles(lane->getLength() - v->getPositionOnLane(), upstreamDist+v->getLength(), downstreamDist);
+                    vehs.insert(new_vehs.begin(), new_vehs.end());
+                }
+#ifdef DEBUG_SURROUNDING
+                else {
+                    std::cout << "No lane at index " << ix << std::endl;
+                }
+#endif
+            }
+        } else {
+            // No lane indices are specified -> use only vehicle's current lane per default
+            vehs = v->getLane()->getSurroundingVehicles(v->getPositionOnLane(), downstreamDist, upstreamDist+v->getLength());
+        }
+
+#ifdef DEBUG_SURROUNDING
+        std::cout << SIMTIME << " applySubscriptionFilters() for veh '" << v->getID() << "'. Found the following vehicles:\n";
+        for (auto veh : vehs) {
+            std::cout << "  '" << veh->getID() << "' on lane '" << veh->getLane()->getID() << "'\n";
+        }
+#endif
+    }
+
     if (s.activeFilters & SUBS_FILTER_VCLASS) {
         // Only return vehicles of the given vClass in context subscription result
         // s.filterVClasses
@@ -441,23 +508,6 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
         // s.filterVTypes;
     }
 
-    if(s.activeFilters & SUBS_FILTER_RANGE_ALONG_NET) {
-        double ds = 0., us = 0.;
-        if (s.activeFilters & SUBS_FILTER_DOWNSTREAM_DIST) {
-            // Specify maximal downstream distance for vehicles in context subscription result
-            ds = s.filterDownstreamDist;
-        }
-        if (s.activeFilters & SUBS_FILTER_UPSTREAM_DIST) {
-            // Specify maximal downstream distance for vehicles in context subscription result
-            us = s.filterUpstreamDist;
-        }
-        MSVehicle* v = libsumo::Vehicle::getVehicle(s.id);
-//        std::shared_ptr<std::set<MSVehicle*> > vehs = v->getLane();
-    }
-    if (s.activeFilters & SUBS_FILTER_LANES) {
-        // Filter by list of lanes relative to ego vehicle
-        // s.filterLanes;
-    }
 }
 
 void
