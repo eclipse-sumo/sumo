@@ -227,13 +227,14 @@ public:
         TAGPROPERTY_AUTOMATICSORTING =    1 << 17,  // Element sort automatic their Childs (used by Additionals)
         TAGPROPERTY_SELECTABLE =          1 << 18,  // Element is selectable
         TAGPROPERTY_MASKSTARTENDPOS =     1 << 19,  // Element mask attributes StartPos and EndPos as "lenght" (Only used in the appropiate GNEFrame)
-        TAGPROPERTY_WRITECHILDSSEPARATE = 1 << 20,  // Element writes their childs in a separated filename
-        TAGPROPERTY_PLACEDOVER_VIEW =     1 << 21,  // Element will be placed in view
-        TAGPROPERTY_PLACEDOVER_EDGE =     1 << 22,  // Element will be placed over an edge
-        TAGPROPERTY_PLACEDOVER_LANE =     1 << 23,  // Element will be placed over a lane
-        TAGPROPERTY_PLACEDOVER_JUNCTION = 1 << 24,  // Element will be placed over a junction
-        TAGPROPERTY_PLACEDOVER_EDGES =    1 << 25,  // Element will be placed over a list of edges
-        TAGPROPERTY_PLACEDOVER_LANES =    1 << 26,  // Element will be placed over a list of lanes
+        TAGPROPERTY_MASKXYPOSITION =      1 << 20,  // Element mask attributes X and Y as "Position"
+        TAGPROPERTY_WRITECHILDSSEPARATE = 1 << 21,  // Element writes their childs in a separated filename
+        TAGPROPERTY_PLACEDOVER_VIEW =     1 << 22,  // Element will be placed in view
+        TAGPROPERTY_PLACEDOVER_EDGE =     1 << 23,  // Element will be placed over an edge
+        TAGPROPERTY_PLACEDOVER_LANE =     1 << 24,  // Element will be placed over a lane
+        TAGPROPERTY_PLACEDOVER_JUNCTION = 1 << 25,  // Element will be placed over a junction
+        TAGPROPERTY_PLACEDOVER_EDGES =    1 << 26,  // Element will be placed over a list of edges
+        TAGPROPERTY_PLACEDOVER_LANES =    1 << 27,  // Element will be placed over a list of lanes
     };
 
     /// @brief struct with the attribute Properties
@@ -364,6 +365,9 @@ public:
 
         /// @brief return true if tag correspond to an element that can mask the attributes "start" and "end" position as attribute "lenght"
         bool canMaskStartEndPos() const;
+
+        /// @brief return true if tag correspond to an element that can mask the attributes "X" and "Y" position as attribute "Position"
+        bool canMaskXYPositions() const;
 
         /// @brief return true if attribute of this tag is deprecated
         bool isAttributeDeprecated(SumoXMLAttr attr) const;
@@ -750,6 +754,43 @@ public:
                     // set default value (To avoid errors in parse<T>(parsedAttribute))
                     parsedAttribute = defaultValue;
                 }
+            }
+        } else if (tagProperties.canMaskXYPositions() && (attribute == SUMO_ATTR_POSITION)) {
+            // if element can mask their XYPosition, then must be extracted X Y coordiantes separeted
+            std::string x, y;
+            if(attrs.hasAttribute(SUMO_ATTR_X)) {
+                x = attrs.get<std::string>(SUMO_ATTR_X, objectID.c_str(), parsedOk, false);
+                // check that X attribute is valid
+                if(!canParse<double>(x)) {
+                    WRITE_WARNING("Format of essential " + attrProperties.getDescription() + " attribute '" + toString(SUMO_ATTR_X) + "' of " +
+                                  additionalOfWarningMessage +  " is invalid; Cannot be parsed to float; " + toString(tag) + " cannot be created");
+                    // abort parsing (and creation) of element
+                    abort = true;
+                }
+            } else {
+                WRITE_WARNING("Essential " + attrProperties.getDescription() + " attribute '" + toString(SUMO_ATTR_X) + "' of " +
+                              additionalOfWarningMessage +  " is missing; " + toString(tag) + " cannot be created");
+                // abort parsing (and creation) of element
+                abort = true;
+            }
+            if(attrs.hasAttribute(SUMO_ATTR_Y)) {
+                y = attrs.get<std::string>(SUMO_ATTR_Y, objectID.c_str(), parsedOk, false);
+                // check that X attribute is valid
+                if(!canParse<double>(y)) {
+                    WRITE_WARNING("Format of essential " + attrProperties.getDescription() + " attribute '" + toString(SUMO_ATTR_Y) + "' of " +
+                                  additionalOfWarningMessage + " is invalid; Cannot be parsed to float; " + toString(tag) + " cannot be created");
+                    // abort parsing (and creation) of element
+                    abort = true;
+                }
+            } else {
+                WRITE_WARNING("Essential " + attrProperties.getDescription() + " attribute '" + toString(SUMO_ATTR_Y) + "' of " +
+                            additionalOfWarningMessage +  " is missing; " + toString(tag) + " cannot be created");
+                // abort parsing (and creation) of element
+                abort = true;
+            }
+            // create Position attribute using parsed coordinates X and Y
+            if(!abort) {
+                parsedAttribute = x + "," + y;
             }
         } else {
             // if attribute is optional and has a default value, obtain it. In other case, abort.

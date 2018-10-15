@@ -29,6 +29,7 @@
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/common/ToString.h>
 #include <utils/geom/GeomHelper.h>
+#include <utils/geom/GeomConvHelper.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
@@ -55,10 +56,9 @@
 // method definitions
 // ===========================================================================
 
-GNEParkingSpace::GNEParkingSpace(GNEViewNet* viewNet, GNEAdditional* parkingAreaParent, double x, double y, double z, double width, double length, double angle, bool blockMovement) :
+GNEParkingSpace::GNEParkingSpace(GNEViewNet* viewNet, GNEAdditional* parkingAreaParent, Position pos, double z, double width, double length, double angle, bool blockMovement) :
     GNEAdditional(parkingAreaParent, viewNet, GLO_PARKING_SPACE, SUMO_TAG_PARKING_SPACE, "", blockMovement),
-    myX(x),
-    myY(y),
+    myPosition(pos),
     myZ(z),
     myWidth(width),
     myLength(length),
@@ -72,11 +72,9 @@ GNEParkingSpace::~GNEParkingSpace() {}
 void
 GNEParkingSpace::moveGeometry(const Position& offset) {
     // restore old position, apply offset and update Geometry
-    Position newPosition = myMove.originalViewPosition;
-    newPosition.add(offset);
-    newPosition = myViewNet->snapToActiveGrid(newPosition);
-    myX = newPosition.x();
-    myY = newPosition.y();
+    myPosition = myMove.originalViewPosition;
+    myPosition.add(offset);
+    myPosition = myViewNet->snapToActiveGrid(myPosition);
     updateGeometry(false);
 }
 
@@ -85,8 +83,7 @@ void
 GNEParkingSpace::commitGeometryMoving(GNEUndoList* undoList) {
     // commit new position allowing undo/redo
     undoList->p_begin("position of " + toString(getTag()));
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_X, toString(myX), true, toString(myMove.originalViewPosition.x())));
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_Y, toString(myY), true, toString(myMove.originalViewPosition.y())));
+    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPosition), true, toString(myMove.originalViewPosition)));
     undoList->p_end();
 }
 
@@ -100,7 +97,7 @@ GNEParkingSpace::updateGeometry(bool updateGrid) {
     // Clear all containers
     myGeometry.clearGeometry();
     // set new position
-    myGeometry.shape.push_back(Position(myX, myY));
+    myGeometry.shape.push_back(myPosition);
     // last step is to check if object has to be added into grid (SUMOTree) again
     if (updateGrid) {
         myViewNet->getNet()->addGLObjectIntoGrid(this);
@@ -110,7 +107,7 @@ GNEParkingSpace::updateGeometry(bool updateGrid) {
 
 Position
 GNEParkingSpace::getPositionInView() const {
-    return Position(myX, myY);
+    return myPosition;
 }
 
 
@@ -126,7 +123,7 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
     glPushName(getGlID());
     glPushMatrix();
     // Traslate matrix and draw green contour
-    glTranslated(myX, myY, getType() + 0.1);
+    glTranslated(myPosition.x(), myPosition.y(), getType() + 0.1);
     glRotated(myAngle, 0, 0, 1);
     // only drawn small box if isn't being drawn for selecting
     if (!s.drawForSelecting) {
@@ -156,7 +153,7 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
     glPopMatrix();
     // check if dotted contour has to be drawn
     if (!s.drawForSelecting && (myViewNet->getACUnderCursor() == this)) {
-        GLHelper::drawShapeDottedContour(getType(), Position(myX, myY), myWidth, myLength, myAngle, 0, myLength / 2);
+        GLHelper::drawShapeDottedContour(getType(), myPosition, myWidth, myLength, myAngle, 0, myLength / 2);
     }
 
     // pop name
@@ -169,10 +166,8 @@ GNEParkingSpace::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
             return getAdditionalID();
-        case SUMO_ATTR_X:
-            return toString(myX);
-        case SUMO_ATTR_Y:
-            return toString(myY);
+        case SUMO_ATTR_POSITION:
+            return toString(myPosition);
         case SUMO_ATTR_Z:
             return toString(myZ);
         case SUMO_ATTR_WIDTH:
@@ -202,8 +197,7 @@ GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndo
     }
     switch (key) {
         case SUMO_ATTR_ID:
-        case SUMO_ATTR_X:
-        case SUMO_ATTR_Y:
+        case SUMO_ATTR_POSITION:
         case SUMO_ATTR_Z:
         case SUMO_ATTR_WIDTH:
         case SUMO_ATTR_LENGTH:
@@ -225,10 +219,10 @@ GNEParkingSpace::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             return isValidAdditionalID(value);
-        case SUMO_ATTR_X:
-            return canParse<double>(value);
-        case SUMO_ATTR_Y:
-            return canParse<double>(value);
+        case SUMO_ATTR_POSITION: {
+            bool ok;
+            return GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, false).size() == 1;
+        }
         case SUMO_ATTR_Z:
             return canParse<double>(value);
         case SUMO_ATTR_WIDTH:
@@ -259,7 +253,7 @@ GNEParkingSpace::getPopUpID() const {
 
 std::string
 GNEParkingSpace::getHierarchyName() const {
-    return toString(getTag()) + ": " + getAttribute(SUMO_ATTR_X) + ", " + getAttribute(SUMO_ATTR_Y);
+    return toString(getTag()) + ": " + getAttribute(SUMO_ATTR_POSITION);
 }
 
 // ===========================================================================
@@ -272,15 +266,11 @@ GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             changeAdditionalID(value);
             break;
-        case SUMO_ATTR_X:
-            myX = parse<double>(value);
+        case SUMO_ATTR_POSITION: {
+            bool ok;
+            myPosition = GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, false)[0];
             break;
-        case SUMO_ATTR_Y:
-            myY = parse<double>(value);
-            break;
-        case SUMO_ATTR_Z:
-            myZ = parse<double>(value);
-            break;
+        }
         case SUMO_ATTR_WIDTH:
             myWidth = parse<double>(value);
             break;

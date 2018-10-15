@@ -153,7 +153,7 @@ GNEAdditional::writeAdditional(OutputDevice& device) const {
             // obtain attribute
             std::string attribute = getAttribute(i.first);
             if (i.second.isOptional() && i.second.hasDefaultValue() && !i.second.isCombinable()) {
-                // Only write attributes with default value if is different of original
+                // Only write attributes with default value if is different from original
                 if (i.second.getDefaultValue() != attribute) {
                     // check if attribute must be written using a synonim
                     if (i.second.hasAttrSynonym()) {
@@ -165,6 +165,11 @@ GNEAdditional::writeAdditional(OutputDevice& device) const {
                             if (i.first != SUMO_ATTR_DISALLOW) {
                                 writePermissions(device, parseVehicleClasses(attribute));
                             }
+                        } else if(tagProperties.canMaskXYPositions() && (i.first == SUMO_ATTR_POSITION)) {
+                            // get position attribute and write it separate
+                            Position pos = parse<Position>(getAttribute(SUMO_ATTR_POSITION));
+                            device.writeAttr(SUMO_ATTR_X, toString(pos.x()));
+                            device.writeAttr(SUMO_ATTR_Y, toString(pos.y()));
                         } else {
                             device.writeAttr(i.first, attribute);
                         }
@@ -181,6 +186,11 @@ GNEAdditional::writeAdditional(OutputDevice& device) const {
                         if (i.first != SUMO_ATTR_DISALLOW) {
                             writePermissions(device, parseVehicleClasses(attribute));
                         }
+                    } else if(tagProperties.canMaskXYPositions() && (i.first == SUMO_ATTR_POSITION)) {
+                        // get position attribute and write it separate
+                        Position pos = parse<Position>(getAttribute(SUMO_ATTR_POSITION));
+                        device.writeAttr(SUMO_ATTR_X, toString(pos.x()));
+                        device.writeAttr(SUMO_ATTR_Y, toString(pos.y()));
                     } else {
                         device.writeAttr(i.first, attribute);
                     }

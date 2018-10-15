@@ -686,6 +686,12 @@ GNEAttributeCarrier::TagValues::canMaskStartEndPos() const {
 } 
 
 
+bool 
+GNEAttributeCarrier::TagValues::canMaskXYPositions() const {
+    return (myTagProperty & TAGPROPERTY_MASKXYPOSITION) != 0;
+} 
+
+
 bool
 GNEAttributeCarrier::TagValues::isAttributeDeprecated(SumoXMLAttr attr) const {
     return (std::find(myDeprecatedAttributes.begin(), myDeprecatedAttributes.end(), attr) != myDeprecatedAttributes.end());
@@ -1543,15 +1549,11 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_PARKING_SPACE;
     {
         // set values of tag
-        myAllowedTags[currentTag] = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_VIEW | TAGPROPERTY_SELECTABLE | TAGPROPERTY_PARENT | TAGPROPERTY_REPARENT | TAGPROPERTY_BLOCKMOVEMENT, additional, ICON_PARKINGSPACE, SUMO_TAG_PARKING_AREA);
+        myAllowedTags[currentTag] = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_VIEW | TAGPROPERTY_MASKXYPOSITION | TAGPROPERTY_SELECTABLE | TAGPROPERTY_PARENT | TAGPROPERTY_REPARENT | TAGPROPERTY_BLOCKMOVEMENT, additional, ICON_PARKINGSPACE, SUMO_TAG_PARKING_AREA);
         // set values of attributes
-        myAllowedTags[currentTag].addAttribute(SUMO_ATTR_X,
-                                               ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE,
-                                               "The X position in meters of the parking vehicle",
-                                               "");
-        myAllowedTags[currentTag].addAttribute(SUMO_ATTR_Y,
-                                               ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE,
-                                               "The Y position in meters of the parking vehicle",
+        myAllowedTags[currentTag].addAttribute(SUMO_ATTR_POSITION,
+                                               ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_POSITION, // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
+                                               "The x-y position of the parking vehicle on the plane",
                                                "");
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_Z,
                                                ATTRPROPERTY_FLOAT | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,

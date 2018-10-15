@@ -357,8 +357,7 @@ public:
      * @param[in] viewNet viewNet in which element will be inserted
      * @param[in] allowUndoRedo enable or disable remove created additional with ctrl + Z / ctrl + Y
      * @param[in] parkingAreaParent Pointer to Parking Area Parent
-     * @param[in] x ParkingSpace's X position
-     * @param[in] y ParkingSpace's Y position
+     * @param[in] pos ParkingSpace's X-Y position
      * @param[in] z ParkingSpace's Z position
      * @param[in] width ParkingArea's width
      * @param[in] length ParkingArea's length
@@ -367,7 +366,7 @@ public:
      * @return true if was sucesfully created, false in other case
      * @exception InvalidArgument If the charging Station can not be added to the net (is duplicate)
      */
-    static GNEAdditional* buildParkingSpace(GNEViewNet* viewNet, bool allowUndoRedo, GNEAdditional* parkingAreaParent, double x, double y, double z, double width, double length, double angle, bool blockMovement);
+    static GNEAdditional* buildParkingSpace(GNEViewNet* viewNet, bool allowUndoRedo, GNEAdditional* parkingAreaParent, Position pos, double z, double width, double length, double angle, bool blockMovement);
 
     /**@brief Builds a induction loop detector (E1)
      * @param[in] viewNet viewNet in which element will be inserted

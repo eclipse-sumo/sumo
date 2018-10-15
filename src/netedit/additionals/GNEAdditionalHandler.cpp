@@ -826,8 +826,7 @@ void
 GNEAdditionalHandler::parseAndBuildParkingSpace(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
     bool abort = false;
     // parse attributes of charging station
-    double x = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", tag, SUMO_ATTR_X, abort);
-    double y = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", tag, SUMO_ATTR_Y, abort);
+    Position pos = GNEAttributeCarrier::parseAttributeFromXML<Position>(attrs, "", tag, SUMO_ATTR_POSITION, abort);
     double z = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", tag, SUMO_ATTR_Z, abort);
     double width = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", tag, SUMO_ATTR_WIDTH, abort);
     double length = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", tag, SUMO_ATTR_LENGTH, abort);
@@ -838,7 +837,7 @@ GNEAdditionalHandler::parseAndBuildParkingSpace(const SUMOSAXAttributes& attrs, 
         GNEAdditional* parkingAreaParent = myParentElements.retrieveAdditionalParent(myViewNet, SUMO_TAG_PARKING_AREA);
         // check that all parameters are valid
         if (parkingAreaParent != nullptr) {
-            myLastInsertedAdditional = buildParkingSpace(myViewNet, myUndoAdditionals, parkingAreaParent, x, y, z, width, length, angle, false);
+            myLastInsertedAdditional = buildParkingSpace(myViewNet, myUndoAdditionals, parkingAreaParent, pos, z, width, length, angle, false);
             // save ID of last created element
             myParentElements.commitElementInsertion(myLastInsertedAdditional->getID());
         }
@@ -1237,7 +1236,7 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, S
             GNEAdditional* parkingArea = viewNet->getNet()->retrieveAdditional(SUMO_TAG_PARKING_AREA, values[GNE_ATTR_PARENT], false);
             bool blockMovement = GNEAttributeCarrier::parse<bool>(values[GNE_ATTR_BLOCK_MOVEMENT]);
             // Build Parking
-            return buildParkingSpace(viewNet, allowUndoRedo, parkingArea, pos.x(), pos.y(), z, width, lenght, angle, blockMovement);
+            return buildParkingSpace(viewNet, allowUndoRedo, parkingArea, pos, z, width, lenght, angle, blockMovement);
         }
         case SUMO_TAG_E1DETECTOR: {
             // obtain specify attributes of detector E1
@@ -1582,8 +1581,8 @@ GNEAdditionalHandler::buildParkingArea(GNEViewNet* viewNet, bool allowUndoRedo, 
 
 
 GNEAdditional*
-GNEAdditionalHandler::buildParkingSpace(GNEViewNet* viewNet, bool allowUndoRedo, GNEAdditional* parkingAreaParent, double x, double y, double z, double width, double length, double angle, bool blockMovement) {
-    GNEParkingSpace* parkingSpace = new GNEParkingSpace(viewNet, parkingAreaParent, x, y, z, width, length, angle, blockMovement);
+GNEAdditionalHandler::buildParkingSpace(GNEViewNet* viewNet, bool allowUndoRedo, GNEAdditional* parkingAreaParent, Position pos, double z, double width, double length, double angle, bool blockMovement) {
+    GNEParkingSpace* parkingSpace = new GNEParkingSpace(viewNet, parkingAreaParent, pos, z, width, length, angle, blockMovement);
     if (allowUndoRedo) {
         viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_PARKING_SPACE));
         viewNet->getUndoList()->add(new GNEChange_Additional(parkingSpace, true), true);

@@ -1670,7 +1670,7 @@ GNEAdditionalFrame::buildAdditionalOverView(std::map<SumoXMLAttr, std::string> &
     // Generate id of element
     valuesMap[SUMO_ATTR_ID] = generateID(nullptr);
     // Obtain position attribute if wasn't previously set in Frame
-    if (/*tagValues.hasAttribute(SUMO_ATTR_POSITION) && */(valuesMap.find(SUMO_ATTR_POSITION) == valuesMap.end())) {
+    if (tagValues.hasAttribute(SUMO_ATTR_POSITION) && (valuesMap.find(SUMO_ATTR_POSITION) == valuesMap.end())) {
         // An attribute "position" can be either a float or a Position. If isn't float, we get the position over map
         valuesMap[SUMO_ATTR_POSITION] = toString(myViewNet->snapToActiveGrid(myViewNet->getPositionInformation()));
     }
