@@ -109,16 +109,9 @@ TraCIServerAPI_Lane::processGet(TraCIServer& server, tcpip::Storage& inputStorag
                     }
                     break;
                 }
-                case VAR_SHAPE: {
-                    server.getWrapperStorage().writeUnsignedByte(TYPE_POLYGON);
-                    libsumo::TraCIPositionVector shp = libsumo::Lane::getShape(id);
-                    server.getWrapperStorage().writeUnsignedByte(MIN2(255, (int)shp.size()));
-                    for (int iPoint = 0; iPoint < MIN2(255, (int) shp.size()); ++iPoint) {
-                        server.getWrapperStorage().writeDouble(shp[iPoint].x);
-                        server.getWrapperStorage().writeDouble(shp[iPoint].y);
-                    }
+                case VAR_SHAPE:
+                    server.writePositionVector(server.getWrapperStorage(), libsumo::Lane::getShape(id));
                     break;
-                }
                 case VAR_PARAMETER: {
                     std::string paramName = "";
                     if (!server.readTypeCheckingString(inputStorage, paramName)) {

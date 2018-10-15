@@ -157,6 +157,8 @@ public:
 
     void writeResponseWithLength(tcpip::Storage& outputStorage, tcpip::Storage& tempMsg);
 
+    void writePositionVector(tcpip::Storage& outputStorage, const libsumo::TraCIPositionVector& shape);
+
 
     /// @name Helpers for reading and checking values
     /// @{

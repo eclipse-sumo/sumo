@@ -46,16 +46,9 @@ TraCIServerAPI_Polygon::processGet(TraCIServer& server, tcpip::Storage& inputSto
     try {
         if (!libsumo::Polygon::handleVariable(id, variable, &server)) {
             switch (variable) {
-                case VAR_SHAPE: {
-                    server.getWrapperStorage().writeUnsignedByte(TYPE_POLYGON);
-                    libsumo::TraCIPositionVector tp = libsumo::Polygon::getShape(id);
-                    server.getWrapperStorage().writeUnsignedByte((int)tp.size());
-                    for (int iPoint = 0; iPoint < (int)tp.size(); ++iPoint) {
-                        server.getWrapperStorage().writeDouble(tp[iPoint].x);
-                        server.getWrapperStorage().writeDouble(tp[iPoint].y);
-                    }
+                case VAR_SHAPE:
+                    server.writePositionVector(server.getWrapperStorage(), libsumo::Polygon::getShape(id));
                     break;
-                }
                 case VAR_PARAMETER: {
                     std::string paramName = "";
                     if (!server.readTypeCheckingString(inputStorage, paramName)) {

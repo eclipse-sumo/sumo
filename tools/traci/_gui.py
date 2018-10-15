@@ -22,7 +22,7 @@ from . import constants as tc
 _RETURN_VALUE_FUNC = {tc.VAR_VIEW_ZOOM: Storage.readDouble,
                       tc.VAR_VIEW_OFFSET: lambda result: result.read("!dd"),
                       tc.VAR_VIEW_SCHEMA: Storage.readString,
-                      tc.VAR_VIEW_BOUNDARY: lambda result: (result.read("!dd"), result.read("!dd")),
+                      tc.VAR_VIEW_BOUNDARY: Storage.readShape,
                       tc.VAR_HAS_VIEW: lambda result: bool(result.read("!i")[0])}
 
 

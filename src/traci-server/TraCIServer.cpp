@@ -1454,6 +1454,23 @@ TraCIServer::writeResponseWithLength(tcpip::Storage& outputStorage, tcpip::Stora
     outputStorage.writeStorage(tempMsg);
 }
 
+
+void 
+TraCIServer::writePositionVector(tcpip::Storage& outputStorage, const libsumo::TraCIPositionVector& shape) {
+    outputStorage.writeUnsignedByte(TYPE_POLYGON);
+    if (shape.size() < 256) {
+        outputStorage.writeUnsignedByte((int)shape.size());
+    } else {
+        outputStorage.writeUnsignedByte(0);
+        outputStorage.writeInt((int)shape.size());
+    }
+    for (const libsumo::TraCIPosition& pos : shape) {
+        outputStorage.writeDouble(pos.x);
+        outputStorage.writeDouble(pos.y);
+    }
+}
+
+
 bool
 TraCIServer::readTypeCheckingInt(tcpip::Storage& inputStorage, int& into) {
     if (inputStorage.readUnsignedByte() != TYPE_INTEGER) {
@@ -1545,9 +1562,12 @@ TraCIServer::readTypeCheckingPolygon(tcpip::Storage& inputStorage, PositionVecto
         return false;
     }
     into.clear();
-    int noEntries = inputStorage.readUnsignedByte();
+    int size = inputStorage.readUnsignedByte();
+    if (size == 0) {
+        size = inputStorage.readInt();
+    }
     PositionVector shape;
-    for (int i = 0; i < noEntries; ++i) {
+    for (int i = 0; i < size; ++i) {
         double x = inputStorage.readDouble();
         double y = inputStorage.readDouble();
         into.push_back(Position(x, y));

@@ -575,9 +575,12 @@ TraCITestClient::readAndReportTypeDependent(tcpip::Storage& inMsg, int valueData
         double doublev = inMsg.readDouble();
         answerLog << " Double value: " << doublev << std::endl;
     } else if (valueDataType == TYPE_POLYGON) {
-        int length = inMsg.readUnsignedByte();
+        int size = inMsg.readUnsignedByte();
+        if (size == 0) {
+            size = inMsg.readInt();
+        }
         answerLog << " PolygonValue: ";
-        for (int i = 0; i < length; i++) {
+        for (int i = 0; i < size; i++) {
             double x = inMsg.readDouble();
             double y = inMsg.readDouble();
             answerLog << "(" << x << "," << y << ") ";
@@ -729,6 +732,13 @@ TraCITestClient::testAPI() {
     }
     answerLog << "    getShape: " << shapeStr << "\n";
     answerLog << "    getColor: " << polygon.getColor("poly0").getString() << "\n";
+    shape[0].x = 42;
+    polygon.setShape("poly0", shape);
+    std::string shapeStr2;
+    for (auto pos : polygon.getShape("poly0")) {
+        shapeStr2 += pos.getString() + " ";
+    }
+    answerLog << "    getShape after modification: " << shapeStr2 << "\n";
 
     // route
     answerLog << "  route:\n";
