@@ -19,6 +19,7 @@
 /mirror
 # build dir 
 /cmake-build*
+/cmake_build*
 /build/cmake-build*
 /build/cmake-codeblocks*
 # bin dir
