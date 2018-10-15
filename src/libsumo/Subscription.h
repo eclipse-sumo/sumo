@@ -52,7 +52,9 @@ enum SubscriptionFilterType {
     // Only return vehicles of the given vClass in context subscription result
     SUBS_FILTER_VCLASS = 1 << 7,
     // Only return vehicles of the given vType in context subscription result
-    SUBS_FILTER_VTYPE = 1 << 8
+    SUBS_FILTER_VTYPE = 1 << 8,
+    // Filter category for measuring distances along the road network, instead of taking an R-tree query
+    SUBS_FILTER_RANGE_ALONG_NET = SUBS_FILTER_DOWNSTREAM_DIST | SUBS_FILTER_UPSTREAM_DIST
 };
 
 
