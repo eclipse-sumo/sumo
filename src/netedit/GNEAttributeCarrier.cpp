@@ -2207,6 +2207,28 @@ GNEAttributeCarrier::fillAttributeCarriers() {
                                                "Name of " + toString(currentTag),
                                                "");
     }
+    currentTag = SUMO_TAG_TAZ;
+    {
+        // set values of tag
+        myAllowedTags[currentTag] = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_VIEW | TAGPROPERTY_SELECTABLE, additional, ICON_TAZ);
+        // set values of attributes
+        myAllowedTags[currentTag].addAttribute(SUMO_ATTR_ID,
+                                               ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
+                                               "The id of the TAZ",
+                                               "");
+        myAllowedTags[currentTag].addAttribute(SUMO_ATTR_SHAPE,
+                                               ATTRPROPERTY_STRING | ATTRPROPERTY_POSITION | ATTRPROPERTY_LIST | ATTRPROPERTY_UNIQUE,
+                                               "The shape of the TAZ",
+                                               "");
+        myAllowedTags[currentTag].addAttribute(SUMO_ATTR_COLOR,
+                                               ATTRPROPERTY_STRING | ATTRPROPERTY_COLOR | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+                                               "The RGBA color with which the TAZ shall be displayed",
+                                               "red");
+        myAllowedTags[currentTag].addAttribute(SUMO_ATTR_EDGES,
+                                               ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_UNIQUE,
+                                               "List of edges of the TAZ",
+                                               "");
+    }
     currentTag = SUMO_TAG_VTYPE;
     {
         // obtain a vector string with the emissions

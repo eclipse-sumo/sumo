@@ -177,6 +177,7 @@
 #include "destprobreroute.xpm"
 #include "parkingzonereroute.xpm"
 #include "routeprobreroute.xpm"
+#include "taz.xpm"
 
 #include "flow.xpm"
 #include "route.xpm"
@@ -386,6 +387,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[ICON_DESTPROBREROUTE] = new FXXPMIcon(a, destprobreroute_xpm);
     myIcons[ICON_PARKINGZONEREROUTE] = new FXXPMIcon(a, parkingzonereroute_xpm);
     myIcons[ICON_ROUTEPROBREROUTE] = new FXXPMIcon(a, routeprobreroute_xpm);
+    myIcons[ICON_TAZ] = new FXXPMIcon(a, taz_xpm);
 
     myIcons[ICON_FLOW] = new FXXPMIcon(a, flow_xpm);
     myIcons[ICON_ROUTE] = new FXXPMIcon(a, route_xpm);
