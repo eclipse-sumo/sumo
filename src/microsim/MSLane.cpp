@@ -1118,21 +1118,6 @@ MSLane::planMovements(SUMOTime t) {
                 << "\n    reservations=" << toString(myManeuverReservations)
                 << "\n";
 #endif
-#ifdef DEBUG_SURROUNDING
-    if DEBUG_COND {
-        double pos = 20.;
-        double downstreamDist = 20.;
-        //    double downstreamDist = 0.;
-        //    double downstreamDist = 100.;
-        //    double downstreamDist = 5.;
-        //    double upstreamDist = 0.;
-        double upstreamDist = 5.;
-        //    double upstreamDist = 100.;
-
-//        std::cout << "\n# On lane '" << getID() << "':" << std::endl;
-//        std::set<MSVehicle*> vehs = getSurroundingVehicles(pos, downstreamDist, upstreamDist);
-    }
-#endif
     assert(MSGlobals::gLateralResolution || myManeuverReservations.size() == 0);
     for (; veh != myVehicles.rend(); ++veh) {
 #ifdef DEBUG_PLAN_MOVE
