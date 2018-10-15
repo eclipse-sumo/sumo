@@ -857,6 +857,22 @@ public:
     /// @brief get all vehicles that are inlapping from consecutive edges
     MSLeaderInfo getPartialBeyond() const;
 
+    /// @brief Returns all vehicles closer than downstreamDist along the along the road network starting on the given
+    ///        position. Predecessor lanes are searched upstream for the given upstreamDistance
+    /// @note  Re-implementation of the corresponding method in MSDevice_SSM, which cannot be easily adapted, as it gathers
+    ///        additional information for conflict lanes, etc.
+    /// @param[in] lanes - sequence of lanes to search along
+    /// @param[in] startPos - start position of the search on the first lane
+    /// @param[in] downstreamDist - distance to search downstream
+    /// @param[in] upstreamDist - distance to search upstream
+    /// @param[in] prevLanes - lanes, which were already scanned
+    /// @return    vehs - List of vehicles found
+    std::set<MSVehicle*> getSurroundingVehicles(double startPos, double downstreamDist, double upstreamDist, std::shared_ptr<std::set<MSLane*> > prevLanes = nullptr) const;
+
+    /// @brief Returns all vehicles on the lane overlapping with the interval [a,b]
+    /// @note  Does not consider vehs with front on subsequent lanes
+    std::set<MSVehicle*> getVehicles(double a, double b) const;
+
     /** @brief get the most likely precedecessor lane (sorted using by_connections_to_sorter).
      * The result is cached in myLogicalPredecessorLane
      */
