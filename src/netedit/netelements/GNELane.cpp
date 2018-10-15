@@ -76,7 +76,7 @@ GNELane::GNELane(GNEEdge& edge, const int index) :
 
 GNELane::GNELane() :
     GNENetElement(nullptr, "dummyConstructorGNELane", GLO_LANE, SUMO_TAG_LANE),
-    myParentEdge(*static_cast<GNEEdge*>(0)),
+    myParentEdge(GNEEdge(NBEdge("", nullptr, nullptr, nullptr), nullptr)),
     myIndex(-1),
     mySpecialColor(0) {
 }
