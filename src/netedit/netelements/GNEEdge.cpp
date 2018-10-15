@@ -520,6 +520,8 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
                         glTranslated(0, 0, GLO_JUNCTION - 0.01);
                         glLineWidth(4);
                         GLHelper::drawLine(myNBEdge.getGeometry().front(), myGNEJunctionSource->getPositionInView());
+                        // draw line between begin point of last lane shape and the first edge shape point
+                        GLHelper::drawLine(myNBEdge.getGeometry().front(), myNBEdge.getLanes().back().shape.front());
                         glPopMatrix();
                     }
                 }
@@ -541,6 +543,8 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
                         glTranslated(0, 0, GLO_JUNCTION - 0.01);
                         glLineWidth(4);
                         GLHelper::drawLine(myNBEdge.getGeometry().back(), myGNEJunctionDestiny->getPositionInView());
+                        // draw line between last point of first lane shape and the last edge shape point
+                        GLHelper::drawLine(myNBEdge.getGeometry().back(), myNBEdge.getLanes().back().shape.back());
                         glPopMatrix();
                     }
                 }
