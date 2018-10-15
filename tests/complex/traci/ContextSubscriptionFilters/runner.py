@@ -34,6 +34,8 @@ else:
     sumoCall = [os.environ.get(
         "GUISIM_BINARY", os.path.join(sumoHome, 'bin', 'sumo-gui')), '-S', '-Q']
 
+sumoCall=[os.path.join(sumoHome, 'bin', 'sumo-gui')]
+
 
 def runSingle(traciEndTime, viewRange, module, objID, filterID):
     step = 0
@@ -60,9 +62,9 @@ def runSingle(traciEndTime, viewRange, module, objID, filterID):
             elif filterID == "noOpposite":
                 module.addSubscriptionFilterNoOpposite()
             elif filterID == "downstreamDistance":
-                module.addSubscriptionFilterDownstreamDistance(25.)
+                module.addSubscriptionFilterDownstreamDistance(50.)
             elif filterID == "upstreamDistance":
-                module.addSubscriptionFilterUpstreamDistance(10.)
+                module.addSubscriptionFilterUpstreamDistance(20.)
             elif filterID == "CFManeuver":
                 module.addSubscriptionFilterCFManeuver()
             elif filterID == "LCManeuver":
