@@ -867,7 +867,7 @@ public:
     /// @param[in] upstreamDist - distance to search upstream
     /// @param[in] prevLanes - lanes, which were already scanned
     /// @return    vehs - List of vehicles found
-    std::set<MSVehicle*> getSurroundingVehicles(double startPos, double downstreamDist, double upstreamDist, std::shared_ptr<std::set<MSLane*> > prevLanes = nullptr) const;
+    std::set<MSVehicle*> getSurroundingVehicles(double startPos, double downstreamDist, double upstreamDist, std::shared_ptr<std::set<const MSLane*> > prevLanes = nullptr) const;
 
     /// @brief Returns all vehicles on the lane overlapping with the interval [a,b]
     /// @note  Does not consider vehs with front on subsequent lanes

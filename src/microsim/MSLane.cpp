@@ -1129,8 +1129,8 @@ MSLane::planMovements(SUMOTime t) {
         double upstreamDist = 5.;
         //    double upstreamDist = 100.;
 
-        std::cout << "\n# On lane '" << getID() << "':" << std::endl;
-        std::set<MSVehicle*> vehs = getSurroundingVehicles(pos, downstreamDist, upstreamDist);
+//        std::cout << "\n# On lane '" << getID() << "':" << std::endl;
+//        std::set<MSVehicle*> vehs = getSurroundingVehicles(pos, downstreamDist, upstreamDist);
     }
 #endif
     assert(MSGlobals::gLateralResolution || myManeuverReservations.size() == 0);
@@ -3173,12 +3173,20 @@ MSLane::getPartialBeyond() const {
 
 
 std::set<MSVehicle*>
-MSLane::getSurroundingVehicles(double startPos, double downstreamDist, double upstreamDist, std::shared_ptr<std::set<MSLane*> > prevLanes) const {
+MSLane::getSurroundingVehicles(double startPos, double downstreamDist, double upstreamDist, std::shared_ptr<std::set<const MSLane*> > prevLanes) const {
     if (prevLanes == nullptr) {
-        prevLanes = std::make_shared<std::set<MSLane*> >();
+        prevLanes = std::make_shared<std::set<const MSLane*> >();
+    }
+    if (prevLanes->find(this) != prevLanes->end()) {
+#ifdef DEBUG_SURROUNDING
+        std::cout << "Skipping previously scanned lane: " << getID() << std::endl;
+#endif
+        return std::set<MSVehicle*>();
+    } else {
+        prevLanes->insert(prevLanes->end(), this);
     }
 #ifdef DEBUG_SURROUNDING
-    std::cout << "On lane " << myID << ": " << std::endl;
+    std::cout << "Scanning on lane " << myID << "(downstr. " << downstreamDist << ", upstr. " << upstreamDist << "): " << std::endl;
 #endif
     std::set<MSVehicle*> foundVehicles = getVehicles(MAX2(0., startPos-upstreamDist), MIN2(myLength, startPos + downstreamDist));
     if (startPos < upstreamDist) {
@@ -3205,7 +3213,7 @@ MSLane::getSurroundingVehicles(double startPos, double downstreamDist, double up
         }
     }
 #ifdef DEBUG_SURROUNDING
-    std::cout << "On lane " << myID << ": \nFound vehicles: " << std::endl;
+    std::cout << "On lane (2) " << myID << ": \nFound vehicles: " << std::endl;
     for (MSVehicle* v : foundVehicles) {
         std::cout << v->getID() << " pos = " << v->getPositionOnLane() << std::endl;
     }
