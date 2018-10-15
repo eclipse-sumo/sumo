@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version v1_0_1+0193-0616abb
+Eclipse SUMO netconvert Version v1_0_1+0273-e95334c
  Copyright (C) 2001-2018 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
   SUMO.
@@ -247,6 +247,10 @@ TLS Building Options:
                                          quarter-phase
   --tls.default-type STR               TLSs with unspecified type will use STR
                                          as their algorithm
+  --tls.layout STR                     Set phase layout four grouping opposite
+                                         directions or grouping all movements
+                                         for one incoming edge ['opposites',
+                                         'incoming']
   --tls.min-dur INT                    Default minimum phase duration for
                                          traffic lights with variable phase
                                          length
