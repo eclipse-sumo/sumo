@@ -387,21 +387,45 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::showAttribute(SumoXMLTag AC
     }
     // Set field depending of the type of value
     if (attrValue.isBool()) {
-        // set check button
-        if (GNEAttributeCarrier::parseStringToANDBool(value)) {
-            myBoolCheckButton->setCheck(true);
-            myBoolCheckButton->setText("true");
-        } else {
-            myBoolCheckButton->setCheck(false);
-            myBoolCheckButton->setText("false");
+        // first we need to check if all boolean values are equal
+        bool allBooleanValuesEqual = true;
+        // obtain boolean vector
+        auto booleanVector = GNEAttributeCarrier::parse<std::vector<bool> >(value);
+        // iterate over pased booleans comparing all element with the first
+        for (auto i : booleanVector) {
+            if (i != booleanVector.front()) {
+                allBooleanValuesEqual = false;
+            }
         }
-        // show check button
-        myBoolCheckButton->show();
-        // enable or disable depending if attribute is editable
-        if (attrValue.isNonEditable()) {
-            myBoolCheckButton->disable();
+        // use checkbox or textfield depending if all booleans are equal
+        if(allBooleanValuesEqual) {
+            // set check button 
+            if (booleanVector.front()) {
+                myBoolCheckButton->setCheck(true);
+                myBoolCheckButton->setText("true");
+            } else {
+                myBoolCheckButton->setCheck(false);
+                myBoolCheckButton->setText("false");
+            }
+            // show check button
+            myBoolCheckButton->show();
+            // enable or disable depending if attribute is editable
+            if (attrValue.isNonEditable()) {
+                myBoolCheckButton->disable();
+            } else {
+                myBoolCheckButton->enable();
+            }
         } else {
-            myBoolCheckButton->enable();
+            // show list of bools (0 1)
+            myTextFieldStrings->setText(value.c_str());
+            myTextFieldStrings->setTextColor(FXRGB(0, 0, 0));
+            myTextFieldStrings->show();
+            // enable or disable depending if attribute is editable
+            if (attrValue.isNonEditable()) {
+                myTextFieldStrings->disable();
+            } else {
+                myTextFieldStrings->enable();
+            }
         }
     } else if (attrValue.isDiscrete()) {
         // Check if are combinable choices
@@ -606,13 +630,19 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::onCmdSetAttribute(FXObject*
     const auto& attrValues = tagValues.getAttribute(myAttr);
     // First, obtain the string value of the new attribute depending of their type
     if (attrValues.isBool()) {
-        // Set true o false depending of the checkBox
-        if (myBoolCheckButton->getCheck()) {
-            myBoolCheckButton->setText("true");
-            newVal = "true";
+        // first check if we're editing boolean as a list of string or as a checkbox
+        if(myBoolCheckButton->shown()) {
+            // Set true o false depending of the checkBox
+            if (myBoolCheckButton->getCheck()) {
+                myBoolCheckButton->setText("true");
+                newVal = "true";
+            } else {
+                myBoolCheckButton->setText("false");
+                newVal = "false";
+            }
         } else {
-            myBoolCheckButton->setText("false");
-            newVal = "false";
+            // obtain boolean value of myTextFieldStrings (because we're inspecting multiple attribute carriers with different values)
+            newVal = myTextFieldStrings->getText().text();
         }
     } else if (attrValues.isDiscrete()) {
         // Check if are combinable choices (for example, Vehicle Types)
@@ -786,7 +816,7 @@ GNEInspectorFrame::AttributesEditor::showAttributeEditor() {
             if ((myInspectorFrameParent->getInspectedACs().size() > 1) && it.second.isUnique()) {
                 continue;
             }
-            // Declare a set of occuring values and insert attribute's values of item
+            // Declare a set of occuring values and insert attribute's values of item (note: We use a set to avoid repeated values)
             std::set<std::string> occuringValues;
             for (auto it_ac : myInspectorFrameParent->getInspectedACs()) {
                 occuringValues.insert(it_ac->getAttribute(it.first));

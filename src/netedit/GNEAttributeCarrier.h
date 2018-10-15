@@ -546,9 +546,6 @@ public:
     template<typename T>
     static std::string parseIDs(const std::vector<T>& ACs);
 
-    /// @brief parse a string of booleans (1 0 1 1....) using AND operation
-    static bool parseStringToANDBool(const std::string& string);
-
     /// @brief check if lanes are consecutives
     static bool lanesConsecutives(const std::vector<GNELane*>& lanes);
 
