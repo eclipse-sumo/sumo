@@ -441,13 +441,18 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
         // s.filterVTypes;
     }
 
-    if (s.activeFilters & SUBS_FILTER_DOWNSTREAM_DIST) {
-        // Specify maximal downstream distance for vehicles in context subscription result
-        // s.filterDownstreamDist
-    }
-    if (s.activeFilters & SUBS_FILTER_UPSTREAM_DIST) {
-        // Specify maximal downstream distance for vehicles in context subscription result
-        // s.filterUpstreamDist
+    if(s.activeFilters & SUBS_FILTER_RANGE_ALONG_NET) {
+        double ds = 0., us = 0.;
+        if (s.activeFilters & SUBS_FILTER_DOWNSTREAM_DIST) {
+            // Specify maximal downstream distance for vehicles in context subscription result
+            ds = s.filterDownstreamDist;
+        }
+        if (s.activeFilters & SUBS_FILTER_UPSTREAM_DIST) {
+            // Specify maximal downstream distance for vehicles in context subscription result
+            us = s.filterUpstreamDist;
+        }
+        MSVehicle* v = libsumo::Vehicle::getVehicle(s.id);
+//        std::shared_ptr<std::set<MSVehicle*> > vehs = v->getLane();
     }
     if (s.activeFilters & SUBS_FILTER_LANES) {
         // Filter by list of lanes relative to ego vehicle
