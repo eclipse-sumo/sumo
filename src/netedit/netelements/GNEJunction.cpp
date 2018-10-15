@@ -27,7 +27,6 @@
 #include <utils/common/StringTokenizer.h>
 #include <utils/foxtools/MFXImageHelper.h>
 #include <utils/geom/Position.h>
-#include <utils/geom/GeomConvHelper.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
@@ -1100,13 +1099,14 @@ GNEJunction::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_TYPE:
             return SUMOXMLDefinitions::NodeTypes.hasString(value);
         case SUMO_ATTR_POSITION: {
-            bool ok;
-            return GeomConvHelper::parseShapeReporting(value, "user-supplied position", nullptr, ok, false).size() == 1;
+            return canParse<Position>(value);
         }
         case SUMO_ATTR_SHAPE: {
-            bool ok = true;
-            PositionVector shape = GeomConvHelper::parseShapeReporting(value, "user-supplied position", nullptr, ok, true);
-            return ok;
+            if(value.empty()) {
+                return true;
+            } else {
+                return canParse<PositionVector>(value);
+            }
         }
         case SUMO_ATTR_RADIUS:
             return canParse<double>(value);
@@ -1199,8 +1199,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
         }
         case SUMO_ATTR_POSITION: {
             // set new position in NBNode (note: Junctions don't need to refresh it in the RTREE due the variable myJunctionBoundary
-            bool ok;
-            moveJunctionGeometry(GeomConvHelper::parseShapeReporting(value, "netedit-given", nullptr, ok, false)[0], true);
+            moveJunctionGeometry(parse<Position>(value), true);
             // mark this connections and all of the junction's Neighbours as deprecated
             markConnectionsDeprecated(true);
             break;
@@ -1217,8 +1216,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
             myLogicStatus = value;
             break;
         case SUMO_ATTR_SHAPE: {
-            bool ok;
-            const PositionVector shape = GeomConvHelper::parseShapeReporting(value, "netedit-given", nullptr, ok, true);
+            const PositionVector shape = parse<PositionVector>(value);
             myNBNode.setCustomShape(shape);
             // mark this connections and all of the junction's Neighbours as deprecated
             markConnectionsDeprecated(true);

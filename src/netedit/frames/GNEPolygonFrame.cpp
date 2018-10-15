@@ -28,7 +28,6 @@
 #include <utils/gui/div/GUIIOGlobals.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/images/GUIIconSubSys.h>
-#include <utils/geom/GeomConvHelper.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <netedit/GNEViewParent.h>
@@ -993,7 +992,6 @@ GNEPolygonFrame::getDrawingMode() const {
 
 bool
 GNEPolygonFrame::addPolygon(const std::map<SumoXMLAttr, std::string>& polyValues) {
-    bool ok = true;
     // parse attributes from polyValues
     std::string id = polyValues.at(SUMO_ATTR_ID);
     std::string type = polyValues.at(SUMO_ATTR_TYPE);
@@ -1002,7 +1000,7 @@ GNEPolygonFrame::addPolygon(const std::map<SumoXMLAttr, std::string>& polyValues
     double angle = GNEAttributeCarrier::parse<double>(polyValues.at(SUMO_ATTR_ANGLE));
     std::string imgFile = polyValues.at(SUMO_ATTR_IMGFILE);
     bool relativePath = GNEAttributeCarrier::parse<bool>(polyValues.at(SUMO_ATTR_RELATIVEPATH));
-    PositionVector shape = GeomConvHelper::parseShapeReporting(polyValues.at(SUMO_ATTR_SHAPE), "user-supplied position", nullptr, ok, true);
+    PositionVector shape = GNEAttributeCarrier::parse<PositionVector>(polyValues.at(SUMO_ATTR_SHAPE));
     bool fill = GNEAttributeCarrier::parse<bool>(polyValues.at(SUMO_ATTR_FILL));
     double lineWidth = GNEAttributeCarrier::parse<double>(polyValues.at(SUMO_ATTR_LINEWIDTH));
     // parse layer
@@ -1026,13 +1024,12 @@ GNEPolygonFrame::addPolygon(const std::map<SumoXMLAttr, std::string>& polyValues
 
 bool
 GNEPolygonFrame::addPOI(const std::map<SumoXMLAttr, std::string>& POIValues) {
-    bool ok = true;
     // parse attributes from POIValues
     std::string id = POIValues.at(SUMO_ATTR_ID);
     std::string type = POIValues.at(SUMO_ATTR_TYPE);
     RGBColor color = RGBColor::parseColor(POIValues.at(SUMO_ATTR_COLOR));
     std::string layerStr = POIValues.at(SUMO_ATTR_LAYER);
-    Position pos = GeomConvHelper::parseShapeReporting(POIValues.at(SUMO_ATTR_POSITION), "netedit-given", nullptr, ok, false)[0];
+    Position pos = GNEAttributeCarrier::parse<Position>(POIValues.at(SUMO_ATTR_POSITION));
     double angle = GNEAttributeCarrier::parse<double>(POIValues.at(SUMO_ATTR_ANGLE));
     std::string imgFile = POIValues.at(SUMO_ATTR_IMGFILE);
     bool relativePath = GNEAttributeCarrier::parse<bool>(POIValues.at(SUMO_ATTR_RELATIVEPATH));

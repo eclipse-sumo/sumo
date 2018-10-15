@@ -31,7 +31,6 @@
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/common/ToString.h>
 #include <utils/geom/GeomHelper.h>
-#include <utils/geom/GeomConvHelper.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/images/GUIIconSubSys.h>
@@ -919,10 +918,8 @@ GNELane::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_CUSTOMSHAPE: {
             if (value.empty()) {
                 return true;
-            } else {
-                bool ok = true;
-                PositionVector shape = GeomConvHelper::parseShapeReporting(value, "user-supplied position", nullptr, ok, true);
-                return ok && (shape.size() > 1);
+            } else if (canParse<PositionVector>(value)) {
+                return parse<PositionVector>(value).size() > 1;
             }
         }
         case SUMO_ATTR_INDEX:
@@ -1028,7 +1025,7 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value) {
                 edge->setLaneShape(myIndex, PositionVector());
             } else {
                 bool ok;
-                edge->setLaneShape(myIndex, GeomConvHelper::parseShapeReporting(value, "user-supplied position", nullptr, ok, true));
+                edge->setLaneShape(myIndex, parse<PositionVector>(value));
             }
             // add edge parent into net again
             myNet->addGLObjectIntoGrid(&myParentEdge);

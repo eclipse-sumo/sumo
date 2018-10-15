@@ -28,7 +28,6 @@
 #include <utils/common/StringTokenizer.h>
 #include <utils/foxtools/MFXUtils.h>
 #include <utils/geom/PositionVector.h>
-#include <utils/geom/GeomConvHelper.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/common/ToString.h>
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -347,9 +346,11 @@ GNECrossing::isValid(SumoXMLAttr key, const std::string& value) {
                     && myParentJunction->getNBNode()->getControllingTLS().size() > 0
                     && (*myParentJunction->getNBNode()->getControllingTLS().begin())->getMaxValidIndex() >= parse<int>(value));
         case SUMO_ATTR_CUSTOMSHAPE: {
-            bool ok = true;
-            PositionVector shape = GeomConvHelper::parseShapeReporting(value, "user-supplied shape", nullptr, ok, true);
-            return ok;
+            if (value.empty()) {
+                return true;
+            } else {
+                return canParse<PositionVector>(value);
+            }
         }
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
@@ -481,11 +482,10 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value) {
             crossing->tlLinkIndex2 = crossing->customTLIndex2;
             break;
         case SUMO_ATTR_CUSTOMSHAPE: {
-            bool ok;
             // first remove object from grid
             myNet->removeGLObjectFromGrid(this);
             // set custom shape
-            crossing->customShape = GeomConvHelper::parseShapeReporting(value, "user-supplied shape", nullptr, ok, true);
+            crossing->customShape = parse<PositionVector>(value);
             // insert object in grid again
             myNet->removeGLObjectFromGrid(this);
             break;

@@ -27,8 +27,6 @@
 #include <utils/common/StringTokenizer.h>
 #include <utils/foxtools/MFXImageHelper.h>
 #include <utils/geom/Position.h>
-#include <utils/geom/GeomConvHelper.h>
-#include <utils/geom/GeoConvHelper.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/xml/XMLSubSys.h>
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -375,14 +373,12 @@ GNEPOI::isValid(SumoXMLAttr key, const std::string& value) {
             if (myGNELane) {
                 return canParse<double>(value);
             } else {
-                bool ok;
-                return GeomConvHelper::parseShapeReporting(value, "user-supplied position", nullptr, ok, false).size() == 1;
+                return canParse<Position>(value);
             }
         case SUMO_ATTR_POSITION_LAT:
             return canParse<double>(value);
         case SUMO_ATTR_GEOPOSITION: {
-            bool ok;
-            return GeomConvHelper::parseShapeReporting(value, "user-supplied GEO position", nullptr, ok, false).size() == 1;
+            return canParse<Position>(value);
         }
         case SUMO_ATTR_GEO:
             return canParse<bool>(value);
@@ -501,8 +497,7 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             if (myGNELane) {
                 myPosOverLane = parse<double>(value);
             } else {
-                bool ok = true;
-                set(GeomConvHelper::parseShapeReporting(value, "netedit-given", nullptr, ok, false)[0]);
+                set(parse<Position>(value));
                 // set GEO Position
                 myGEOPosition = *this;
                 GeoConvHelper::getFinal().cartesian2geo(myGEOPosition);
@@ -521,8 +516,7 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_GEOPOSITION: {
             // first remove object from grid due position is used for boundary
             myNet->removeGLObjectFromGrid(this);
-            bool ok = true;
-            myGEOPosition = GeomConvHelper::parseShapeReporting(value, "netedit-given", nullptr, ok, false)[0];
+            myGEOPosition = parse<Position>(value);
             // set cartesian Position
             set(myGEOPosition);
             GeoConvHelper::getFinal().x2cartesian_const(*this);

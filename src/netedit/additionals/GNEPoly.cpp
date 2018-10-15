@@ -27,8 +27,6 @@
 #include <utils/common/StringTokenizer.h>
 #include <utils/foxtools/MFXImageHelper.h>
 #include <utils/geom/Position.h>
-#include <utils/geom/GeomConvHelper.h>
-#include <utils/geom/GeoConvHelper.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/xml/XMLSubSys.h>
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -651,10 +649,7 @@ GNEPoly::isValid(SumoXMLAttr key, const std::string& value) {
             return SUMOXMLDefinitions::isValidNetID(value) && (myNet->retrievePolygon(value, false) == nullptr);
         case SUMO_ATTR_SHAPE:
         case SUMO_ATTR_GEOSHAPE: {
-            bool ok = true;
-            // check if shape can be parsed
-            PositionVector shape = GeomConvHelper::parseShapeReporting(value, "user-supplied position", nullptr, ok, true);
-            return (shape.size() > 0);
+            return canParse<PositionVector>(value);
         }
         case SUMO_ATTR_COLOR:
             return canParse<RGBColor>(value);
@@ -779,9 +774,8 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         }
         case SUMO_ATTR_SHAPE: {
-            bool ok = true;
             // set new shape
-            myShape = GeomConvHelper::parseShapeReporting(value, "netedit-given", nullptr, ok, true);
+            myShape = parse<PositionVector>(value);
             // set GEO shape
             myGeoShape = myShape;
             for (int i = 0; i < (int) myGeoShape.size(); i++) {
@@ -798,9 +792,8 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         }
         case SUMO_ATTR_GEOSHAPE: {
-            bool ok = true;
             // set new GEO shape
-            myGeoShape = GeomConvHelper::parseShapeReporting(value, "netedit-given", nullptr, ok, true);
+            myGeoShape = parse<PositionVector>(value);
             // set shape
             myShape = myGeoShape ;
             for (int i = 0; i < (int) myShape.size(); i++) {

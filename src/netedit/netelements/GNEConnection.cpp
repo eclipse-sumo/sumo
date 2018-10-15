@@ -28,7 +28,6 @@
 #include <utils/common/StringTokenizer.h>
 #include <utils/foxtools/MFXUtils.h>
 #include <utils/geom/PositionVector.h>
-#include <utils/geom/GeomConvHelper.h>
 #include <utils/gui/windows/GUIMainWindow.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/common/ToString.h>
@@ -473,9 +472,11 @@ GNEConnection::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_SPEED:
             return canParse<double>(value) && (parse<double>(value) > 0);
         case SUMO_ATTR_CUSTOMSHAPE: {
-            bool ok = true;
-            PositionVector shape = GeomConvHelper::parseShapeReporting(value, "user-supplied shape", nullptr, ok, true);
-            return ok;
+            if(value.empty()) {
+                return true;
+            } else {
+                return canParse<PositionVector>(value);
+            }
         }
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
@@ -564,13 +565,12 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value) {
             nbCon.speed = parse<double>(value);
             break;
         case SUMO_ATTR_CUSTOMSHAPE: {
-            bool ok;
             const bool init = (myShape.size() == 0);
             if (!init) {
                 // first remove object from net grid
                 myNet->removeGLObjectFromGrid(this);
             }
-            nbCon.customShape = GeomConvHelper::parseShapeReporting(value, "user-supplied shape", nullptr, ok, true);
+            nbCon.customShape = parse<PositionVector>(value);
             if (!init) {
                 // add object into net again
                 myNet->addGLObjectIntoGrid(this);
