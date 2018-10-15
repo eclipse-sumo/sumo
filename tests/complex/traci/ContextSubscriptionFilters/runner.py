@@ -34,9 +34,6 @@ else:
     sumoCall = [os.environ.get(
         "GUISIM_BINARY", os.path.join(sumoHome, 'bin', 'sumo-gui')), '-S', '-Q']
 
-sumoCall=[os.path.join(sumoHome, 'bin', 'sumo-gui')]
-
-
 def runSingle(traciEndTime, viewRange, module, objID, filterID):
     step = 0
     traci.start(sumoCall + ["-c", "sumo.sumocfg"])
