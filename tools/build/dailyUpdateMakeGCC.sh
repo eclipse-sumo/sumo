@@ -93,7 +93,7 @@ export CXXFLAGS="$CXXFLAGS -Wall -W -pedantic -Wno-long-long -Wformat -Wformat-s
 if test "${CONFIGURE_OPT::5}" == "cmake"; then
   rm -rf build/debug-$FILEPREFIX
   mkdir build/debug-$FILEPREFIX && cd build/debug-$FILEPREFIX
-  cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=$PREFIX ../.. >> $MAKEALLLOG 2>&1 || (echo "cmake debug failed" | tee -a $STATUSLOG; tail -10 $MAKEALLLOG)
+  cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=$PREFIX ../.. > $MAKEALLLOG 2>&1 || (echo "cmake debug failed" | tee -a $STATUSLOG; tail -10 $MAKEALLLOG)
 else
   ./configure --prefix=$PREFIX/sumo --program-suffix=A --with-python --with-ffmpeg \
     $CONFIGURE_OPT &> $MAKEALLLOG || (echo "configure with all options failed" | tee -a $STATUSLOG; tail -10 $MAKEALLLOG)
