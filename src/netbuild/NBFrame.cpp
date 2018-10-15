@@ -416,6 +416,9 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.doRegister("tls.default-type", new Option_String("static"));
     oc.addDescription("tls.default-type", "TLS Building", "TLSs with unspecified type will use STR as their algorithm");
 
+    oc.doRegister("tls.layout", new Option_String("opposites"));
+    oc.addDescription("tls.layout", "TLS Building", "Set phase layout four grouping opposite directions or grouping all movements for one incoming edge ['opposites', 'incoming']");
+
     oc.doRegister("tls.min-dur", new Option_Integer(5));
     oc.addDescription("tls.min-dur", "TLS Building", "Default minimum phase duration for traffic lights with variable phase length");
 
@@ -567,6 +570,10 @@ NBFrame::checkOptions() {
     }
     if (oc.getFloat("junctions.small-radius") > oc.getFloat("default.junctions.radius")) {
         WRITE_ERROR("option 'default.junctions.radius' cannot be smaller than option 'junctions.small-radius'");
+        ok = false;
+    }
+    if (oc.getString("tls.layout") != "opposites" and oc.getString("tls.layout") != "incoming") {
+        WRITE_ERROR("tls.layout must be 'opposites' or 'incoming'");
         ok = false;
     }
     return ok;

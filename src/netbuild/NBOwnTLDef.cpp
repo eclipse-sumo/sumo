@@ -251,24 +251,30 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
     const SUMOTime greenTime = TIME2STEPS(OptionsCont::getOptions().getInt("tls.green.time"));
     const SUMOTime allRedTime = TIME2STEPS(OptionsCont::getOptions().getInt("tls.allred.time"));
     const double minorLeftSpeedThreshold = OptionsCont::getOptions().getFloat("tls.minor-left.max-speed");
+    const double groupOpposites = OptionsCont::getOptions().getString("tls.layout") == "opposites";
     // build all phases
     std::vector<int> greenPhases; // indices of green phases
     std::vector<bool> hadGreenMajor(noLinksAll, false);
     while (toProc.size() > 0) {
         std::pair<NBEdge*, NBEdge*> chosen;
-        if (incoming.size() == 2) {
-            // if there are only 2 incoming edges we need to decide whether they are a crossing or a "continuation"
-            // @node: this heuristic could be extended to also check the number of outgoing edges
-            double angle = fabs(NBHelpers::relAngle(incoming[0]->getAngleAtNode(incoming[0]->getToNode()), incoming[1]->getAngleAtNode(incoming[1]->getToNode())));
-            // angle would be 180 for straight opposing incoming edges
-            if (angle < 135) {
-                chosen = std::pair<NBEdge*, NBEdge*>(toProc[0], static_cast<NBEdge*>(0));
-                toProc.erase(toProc.begin());
+        if (groupOpposites) {
+            if (incoming.size() == 2) {
+                // if there are only 2 incoming edges we need to decide whether they are a crossing or a "continuation"
+                // @node: this heuristic could be extended to also check the number of outgoing edges
+                double angle = fabs(NBHelpers::relAngle(incoming[0]->getAngleAtNode(incoming[0]->getToNode()), incoming[1]->getAngleAtNode(incoming[1]->getToNode())));
+                // angle would be 180 for straight opposing incoming edges
+                if (angle < 135) {
+                    chosen = std::pair<NBEdge*, NBEdge*>(toProc[0], static_cast<NBEdge*>(nullptr));
+                    toProc.erase(toProc.begin());
+                } else {
+                    chosen = getBestPair(toProc);
+                }
             } else {
                 chosen = getBestPair(toProc);
             }
         } else {
-            chosen = getBestPair(toProc);
+            chosen = std::pair<NBEdge*, NBEdge*>(toProc[0], static_cast<NBEdge*>(nullptr));
+            toProc.erase(toProc.begin());
         }
         int pos = 0;
         std::string state((int) noLinksAll, 'r');
@@ -296,19 +302,21 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
         //std::cout << " state after plain straight movers=" << state << "\n";
         // correct behaviour for those that are not in chosen, but may drive, though
         state = allowFollowersOfChosen(state, fromEdges, toEdges);
-        for (int i1 = 0; i1 < pos; ++i1) {
-            if (state[i1] == 'G') {
-                continue;
-            }
-            bool isForbidden = false;
-            for (int i2 = 0; i2 < pos && !isForbidden; ++i2) {
-                if (state[i2] == 'G' && !isTurnaround[i2] &&
-                        (forbids(fromEdges[i2], toEdges[i2], fromEdges[i1], toEdges[i1], true) || forbids(fromEdges[i1], toEdges[i1], fromEdges[i2], toEdges[i2], true))) {
-                    isForbidden = true;
+        if (groupOpposites || chosen.first->getToNode()->getType() == NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED) {
+            for (int i1 = 0; i1 < pos; ++i1) {
+                if (state[i1] == 'G') {
+                    continue;
                 }
-            }
-            if (!isForbidden && !hasCrossing(fromEdges[i1], toEdges[i1], crossings)) {
-                state[i1] = 'G';
+                bool isForbidden = false;
+                for (int i2 = 0; i2 < pos && !isForbidden; ++i2) {
+                    if (state[i2] == 'G' && !isTurnaround[i2] &&
+                            (forbids(fromEdges[i2], toEdges[i2], fromEdges[i1], toEdges[i1], true) || forbids(fromEdges[i1], toEdges[i1], fromEdges[i2], toEdges[i2], true))) {
+                        isForbidden = true;
+                    }
+                }
+                if (!isForbidden && !hasCrossing(fromEdges[i1], toEdges[i1], crossings)) {
+                    state[i1] = 'G';
+                }
             }
         }
         //std::cout << " state after finding additional 'G's=" << state << "\n";
