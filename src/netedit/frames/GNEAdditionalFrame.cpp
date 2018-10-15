@@ -123,7 +123,10 @@ GNEAdditionalFrame::AdditionalSelector::AdditionalSelector(GNEAdditionalFrame* a
     // Add options to myAdditionalMatchBox
     auto listOfTags = GNEAttributeCarrier::allowedAdditionalTags(true);
     for (auto i : listOfTags) {
-        myAdditionalMatchBox->appendItem(toString(i).c_str());
+        // include all except TAZs
+        if (i != SUMO_TAG_TAZ) {
+            myAdditionalMatchBox->appendItem(toString(i).c_str());
+        }
     }
     // Set visible items
     myAdditionalMatchBox->setNumVisible((int)myAdditionalMatchBox->getNumItems());

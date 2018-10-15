@@ -59,6 +59,7 @@
 #include "GNEVaporizer.h"
 #include "GNEVariableSpeedSign.h"
 #include "GNEVariableSpeedSignStep.h"
+#include "GNETAZ.h"
 
 
 // ===========================================================================
@@ -140,6 +141,9 @@ GNEAdditionalHandler::myStartElement(int element, const SUMOSAXAttributes& attrs
             case SUMO_TAG_VAPORIZER:
                 parseAndBuildVaporizer(attrs, tag);
                 break;
+            case SUMO_TAG_TAZ:
+                parseAndBuildTAZ(attrs, tag);
+                break;
             case SUMO_TAG_VSS:
                 parseAndBuildVariableSpeedSign(attrs, tag);
                 break;
@@ -220,6 +224,27 @@ GNEAdditionalHandler::parseAndBuildVaporizer(const SUMOSAXAttributes& attrs, con
             WRITE_WARNING("Time interval of " + toString(tag) + " isn't valid. Attribute '" + toString(SUMO_ATTR_BEGIN) + "' is greater than attribute '" + toString(SUMO_ATTR_END) + "'.");
         } else {
             myLastInsertedAdditional = buildVaporizer(myViewNet, myUndoAdditionals, edge, begin, end, name);
+            // save ID of last created element
+            myParentElements.commitElementInsertion(myLastInsertedAdditional->getID());
+        }
+    }
+}
+
+
+void 
+GNEAdditionalHandler::parseAndBuildTAZ(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
+    bool abort = false;
+    // parse attributes of Vaporizer
+    const std::string id = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_ID, abort);
+    const PositionVector shape = GNEAttributeCarrier::parseAttributeFromXML<PositionVector>(attrs, "", tag, SUMO_ATTR_SHAPE, abort);
+    RGBColor color = GNEAttributeCarrier::parseAttributeFromXML<RGBColor>(attrs, "", tag, SUMO_ATTR_BEGIN, abort);
+    // Continue if all parameters were successfully loaded
+    if (!abort) {
+        // check that all parameters are valid
+        if (myViewNet->getNet()->retrieveAdditional(tag, id, false) != nullptr) {
+            WRITE_WARNING("There is another " + toString(tag) + " with the same ID='" + id + "'.");
+        } else {
+            myLastInsertedAdditional = buildTAZ(myViewNet, myUndoAdditionals, id, shape, color, false);
             // save ID of last created element
             myParentElements.commitElementInsertion(myLastInsertedAdditional->getID());
         }
@@ -2084,6 +2109,23 @@ GNEAdditionalHandler::buildVaporizer(GNEViewNet* viewNet, bool allowUndoRedo, GN
         vaporizer->incRef("buildVaporizer");
     }
     return vaporizer;
+}
+
+
+GNEAdditional* 
+GNEAdditionalHandler::buildTAZ(GNEViewNet* viewNet, bool allowUndoRedo, const std::string &id, const PositionVector &shape, const RGBColor &color, bool blockMovement) {
+    GNETAZ* TAZ = new GNETAZ(id, viewNet, shape, color, blockMovement);
+    if (allowUndoRedo) {
+        viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_TAZ));
+        viewNet->getUndoList()->add(new GNEChange_Additional(TAZ, true), true);
+        viewNet->getUndoList()->p_end();
+        // center after creation
+        viewNet->centerTo(TAZ->getGlID(), false);
+    } else {
+        viewNet->getNet()->insertAdditional(TAZ);
+        TAZ->incRef("buildTAZ");
+    }
+    return TAZ;
 }
 
 

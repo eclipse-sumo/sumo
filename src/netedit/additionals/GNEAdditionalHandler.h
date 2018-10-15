@@ -88,6 +88,13 @@ public:
      */
     void parseAndBuildVaporizer(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
 
+    /**@brief Builds a vaporization
+     * @param[in] attrs SAX-attributes which define the vaporizer
+     * @param[in] tag of the additional
+     * @note recheck throwing the exception
+     */
+    void parseAndBuildTAZ(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
+
     /**@brief Parses his values and builds a Variable Speed Signal (lane speed trigger)
      * @param[in] attrs SAX-attributes which define the trigger
      * @param[in] tag of the additional
@@ -639,6 +646,18 @@ public:
      * @exception ProcessError If the XML definition file is errornous
      */
     static GNEAdditional* buildVaporizer(GNEViewNet* viewNet, bool allowUndoRedo, GNEEdge* edge, double startTime, double end, const std::string& name);
+
+    /**@brief Builds a TAZ (Traffic Assignment Zone)
+     * @param[in] viewNet viewNet in which element will be inserted
+     * @param[in] allowUndoRedo enable or disable remove created additional with ctrl + Z / ctrl + Y
+     * @param[in] id TAZ ID
+     * @param[in] shape TAZ shape
+     * @param[in] color TAZ color
+     * @param[in] blockMovemet enable or disable block movement
+     * @return true if was sucesfully created, false in other case
+     * @exception ProcessError If the XML definition file is errornous
+     */
+    static GNEAdditional* buildTAZ(GNEViewNet* viewNet, bool allowUndoRedo, const std::string &id, const PositionVector &shape, const RGBColor &color, bool blockMovement);
 
     /**@brief Helper method to obtain the filename
      * @param[in] attrs The attributes to obtain the file name from
