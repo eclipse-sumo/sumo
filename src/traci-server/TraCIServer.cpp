@@ -1316,11 +1316,13 @@ TraCIServer::addSubscriptionFilter() {
             addSubscriptionFilterNoOpposite();
             break;
         case FILTER_TYPE_DOWNSTREAM_DIST: {
+            myInputStorage.readByte(); // read type double
             double dist = myInputStorage.readDouble();
             addSubscriptionFilterDownstreamDistance(dist);
         }
         break;
         case FILTER_TYPE_UPSTREAM_DIST: {
+            myInputStorage.readByte(); // read type double
             double dist = myInputStorage.readDouble();
             addSubscriptionFilterUpstreamDistance(dist);
         }

@@ -266,7 +266,7 @@ class Connection:
             # filter with float parameter
             assert(type(params) is float)
             length = 1 + 1 + 1 + 1 + 8  # length + CMD + FILTER_ID + floattype + float
-            self._string += struct.pack("!BBBd", length, command, filterType, tc.TYPE_DOUBLE, params)
+            self._string += struct.pack("!BBBBd", length, command, filterType, tc.TYPE_DOUBLE, params)
         elif filterType in (tc.FILTER_TYPE_VCLASS, tc.FILTER_TYPE_VTYPE):
             # filter with list(string) parameter
             try:
