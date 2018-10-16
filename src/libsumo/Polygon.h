@@ -51,6 +51,7 @@ public:
     static TraCIPositionVector getShape(const std::string& polygonID);
     static TraCIColor getColor(const std::string& polygonID);
     static bool getFilled(const std::string& polygonID);
+    static double getLineWidth(const std::string& polygonID);
     static std::string getParameter(const std::string& polygonID, const std::string& key);
     static void setType(const std::string& polygonID, const std::string& setType);
     static void setShape(const std::string& polygonID, const TraCIPositionVector& shape);
@@ -59,6 +60,7 @@ public:
     static void remove(const std::string& polygonID, int layer = 0);
 
     static void setFilled(std::string polygonID, bool filled);
+    static void setLineWidth(std::string polygonID, double lineWidth);
     static void setParameter(const std::string& polygonID, const std::string& key, const std::string& value);
 
     LIBSUMO_SUBSCRIPTION_API

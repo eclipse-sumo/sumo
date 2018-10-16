@@ -72,6 +72,10 @@ Polygon::getFilled(const std::string& polygonID) {
     return getPolygon(polygonID)->getFill();
 }
 
+double
+Polygon::getLineWidth(const std::string& polygonID) {
+    return getPolygon(polygonID)->getLineWidth();
+}
 
 TraCIColor
 Polygon::getColor(const std::string& polygonID) {
@@ -135,6 +139,12 @@ Polygon::setFilled(std::string polygonID, bool filled) {
     p->setFill(filled);
 }
 
+void
+Polygon::setLineWidth(std::string polygonID, double lineWidth) {
+    SUMOPolygon* p = getPolygon(polygonID);
+    p->setLineWidth(lineWidth);
+}
+
 
 SUMOPolygon*
 Polygon::getPolygon(const std::string& id) {
@@ -195,6 +205,8 @@ Polygon::handleVariable(const std::string& objID, const int variable, VariableWr
             return wrapper->wrapColor(objID, variable, getColor(objID));
         case VAR_FILL:
             return wrapper->wrapInt(objID, variable, getFilled(objID));
+        case VAR_WIDTH:
+            return wrapper->wrapDouble(objID, variable, getLineWidth(objID));
         default:
             return false;
     }

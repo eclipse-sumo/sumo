@@ -443,12 +443,14 @@ public:
 
         std::vector<std::string> getIDList() const;
         int getIDCount() const;
+        double getLineWidth(const std::string& polygonID) const;
         std::string getType(const std::string& polygonID) const;
         libsumo::TraCIPositionVector getShape(const std::string& polygonID) const;
         libsumo::TraCIColor getColor(const std::string& polygonID) const;
         void setType(const std::string& polygonID, const std::string& setType) const;
         void setShape(const std::string& polygonID, const libsumo::TraCIPositionVector& shape) const;
         void setColor(const std::string& polygonID, const libsumo::TraCIColor& c) const;
+        void setLineWidth(const std::string& polygonID, const double lineWidth) const;
         void add(const std::string& polygonID, const libsumo::TraCIPositionVector& shape, const libsumo::TraCIColor& c, bool fill, const std::string& type, int layer) const;
         void remove(const std::string& polygonID, int layer = 0) const;
 

@@ -657,7 +657,7 @@
 // minimum gap (get: vehicle types)
 #define VAR_MINGAP 0x4c
 
-// width (get: vehicle types, lanes)
+// width (get: vehicle types, lanes, polygons)
 #define VAR_WIDTH 0x4d
 
 // shape (get: polygons)

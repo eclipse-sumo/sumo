@@ -730,6 +730,8 @@ TraCITestClient::testAPI() {
     for (auto pos : shape) {
         shapeStr += pos.getString() + " ";
     }
+    polygon.setLineWidth("poly0", 0.6);
+    answerLog << "    getLineWidth: " << polygon.getLineWidth("poly0") << "\n";
     answerLog << "    getShape: " << shapeStr << "\n";
     answerLog << "    getColor: " << polygon.getColor("poly0").getString() << "\n";
     shape[0].x = 42;

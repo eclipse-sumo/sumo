@@ -1377,6 +1377,11 @@ TraCIAPI::PolygonScope::getIDCount() const {
     return myParent.getInt(CMD_GET_POLYGON_VARIABLE, ID_COUNT, "");
 }
 
+double
+TraCIAPI::PolygonScope::getLineWidth(const std::string& polygonID) const {
+    return myParent.getDouble(CMD_GET_POLYGON_VARIABLE, VAR_WIDTH, polygonID);
+}
+
 std::string
 TraCIAPI::PolygonScope::getType(const std::string& polygonID) const {
     return myParent.getString(CMD_GET_POLYGON_VARIABLE, VAR_TYPE, polygonID);
@@ -1392,6 +1397,15 @@ TraCIAPI::PolygonScope::getColor(const std::string& polygonID) const {
     return myParent.getColor(CMD_GET_POLYGON_VARIABLE, VAR_COLOR, polygonID);
 }
 
+void
+TraCIAPI::PolygonScope::setLineWidth(const std::string& polygonID, const double lineWidth) const {
+    tcpip::Storage content;
+    content.writeUnsignedByte(TYPE_DOUBLE);
+    content.writeDouble(lineWidth);
+    myParent.send_commandSetValue(CMD_SET_POLYGON_VARIABLE, VAR_WIDTH, polygonID, content);
+    tcpip::Storage inMsg;
+    myParent.check_resultState(inMsg, CMD_SET_POLYGON_VARIABLE);
+}
 
 void
 TraCIAPI::PolygonScope::setType(const std::string& polygonID, const std::string& setType) const {

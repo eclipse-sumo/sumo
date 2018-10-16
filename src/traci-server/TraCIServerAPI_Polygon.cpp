@@ -77,6 +77,7 @@ TraCIServerAPI_Polygon::processSet(TraCIServer& server, tcpip::Storage& inputSto
     // variable
     int variable = inputStorage.readUnsignedByte();
     if (variable != VAR_TYPE && variable != VAR_COLOR && variable != VAR_SHAPE && variable != VAR_FILL
+            && variable != VAR_WIDTH
             && variable != ADD && variable != REMOVE && variable != VAR_PARAMETER) {
         return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE,
                                           "Change Polygon State: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
@@ -116,6 +117,14 @@ TraCIServerAPI_Polygon::processSet(TraCIServer& server, tcpip::Storage& inputSto
                     return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "'fill' must be defined using an integer.", outputStorage);
                 }
                 libsumo::Polygon::setFilled(id, value != 0);
+            }
+            break;
+            case VAR_WIDTH: {
+                double value = 0;
+                if (!server.readTypeCheckingDouble(inputStorage, value)) {
+                    return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "'lineWidth' must be defined using an double.", outputStorage);
+                }
+                libsumo::Polygon::setLineWidth(id, value);
             }
             break;
             case ADD: {
