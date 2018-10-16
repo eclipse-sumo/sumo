@@ -145,6 +145,7 @@ output:^calling.*duarouter
 output:Parsing network projection
 output:Parsing types from '.*[\\/]data[\\/]typemap[\\/]{REPLACE Parsing types from 'sumo/data/typemap/}
 output:from osm-file .*[\\/](.*)osm.xml{REPLACE from osm-file '\1osm.xml}
+output:from .*[\\/](.*).xml{REPLACE from <DIR>/\1.xml}
 output:Building scenario in.*{REPLACE Building scenario in <DIR>}
 output:^Performance:{->}^Vehicles:
 output:instance at 0x[0-9A-Fa-f]+{REPLACE instance at <ADDRESS>}
