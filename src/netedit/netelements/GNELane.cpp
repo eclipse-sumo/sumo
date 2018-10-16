@@ -1024,7 +1024,6 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value) {
             if (value.empty()) {
                 edge->setLaneShape(myIndex, PositionVector());
             } else {
-                bool ok;
                 edge->setLaneShape(myIndex, parse<PositionVector>(value));
             }
             // add edge parent into net again
