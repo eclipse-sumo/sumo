@@ -572,7 +572,7 @@ NBFrame::checkOptions() {
         WRITE_ERROR("option 'default.junctions.radius' cannot be smaller than option 'junctions.small-radius'");
         ok = false;
     }
-    if (oc.getString("tls.layout") != "opposites" and oc.getString("tls.layout") != "incoming") {
+    if (oc.getString("tls.layout") != "opposites" && oc.getString("tls.layout") != "incoming") {
         WRITE_ERROR("tls.layout must be 'opposites' or 'incoming'");
         ok = false;
     }
