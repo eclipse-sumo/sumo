@@ -53,6 +53,8 @@ enum SubscriptionFilterType {
     SUBS_FILTER_VTYPE = 1 << 8,
     // Filter category for measuring distances along the road network instead of using the usual rtree query
     SUBS_FILTER_NO_RTREE = SUBS_FILTER_DOWNSTREAM_DIST | SUBS_FILTER_UPSTREAM_DIST | SUBS_FILTER_LANES | SUBS_FILTER_TURN | SUBS_FILTER_LEAD_FOLLOW,
+    // Filter category for maneuver filters
+    SUBS_FILTER_MANEUVER = SUBS_FILTER_TURN | SUBS_FILTER_LEAD_FOLLOW,
 };
 
 
@@ -104,7 +106,7 @@ public:
     /// @brief Upstream distance specified by the upstream distance filter
     double filterUpstreamDist;
     /// @brief vTypes specified by the vTypes filter
-    std::vector<std::string> filterVTypes;
+    std::set<std::string> filterVTypes;
     /// @brief vClasses specified by the vClasses filter, @see SVCPermissions
     int filterVClasses;
 };
