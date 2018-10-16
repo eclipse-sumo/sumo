@@ -291,7 +291,7 @@ class Connection:
             except:
                 raise TraCIException("Filter type lanes requires index list as parameter.")
             lanes = list(set(params))
-            if len(lanes) < params:
+            if len(lanes) < len(params):
                 warnings.warn("Ignoring duplicate lane specification for subscription filter.")
             length = 1 + 1 + 1 + 1 + l  # length + CMD + FILTER_ID + length(list) as ubyte + lane-indices
             self._string += struct.pack("!BBBB", length, command, filterType, l)
