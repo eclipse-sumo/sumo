@@ -734,7 +734,7 @@ public:
                 parsedOk = false;
             }
             // set extra check for list of VTypes
-            if ((attribute == SUMO_ATTR_VTYPES) && !parsedAttribute.empty() && SUMOXMLDefinitions::isValidListOfTypeID(parsedAttribute)) {
+            if ((attribute == SUMO_ATTR_VTYPES) && !parsedAttribute.empty() && !SUMOXMLDefinitions::isValidListOfTypeID(parsedAttribute)) {
                 errorFormat = "List of vTypes contains invalid characters; ";
                 parsedOk = false;
             }
