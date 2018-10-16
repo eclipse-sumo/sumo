@@ -421,7 +421,7 @@ private:
     //    void addSubscriptionFilterLC(int direction);
     void addSubscriptionFilterTurn();
     void addSubscriptionFilterVClass(SVCPermissions vClasses);
-    void addSubscriptionFilterVType(std::vector<std::string> vTypes);
+    void addSubscriptionFilterVType(std::set<std::string> vTypes);
     bool isVehicleToVehicleContextSubscription(const libsumo::Subscription& s);
 
     bool findObjectShape(int domain, const std::string& id, PositionVector& shape);

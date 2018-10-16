@@ -88,6 +88,7 @@
 // ===========================================================================
 //#define DEBUG_MULTI_CLIENTS
 //#define DEBUG_SUBSCRIPTIONS
+//#define DEBUG_SUBSCRIPTION_FILTERS
 
 
 // ===========================================================================
@@ -1165,9 +1166,9 @@ TraCIServer::processSingleSubscription(const libsumo::Subscription& s, tcpip::St
     const int getCommandId = s.contextDomain > 0 ? s.contextDomain : s.commandId - 0x30;
     std::set<std::string> objIDs;
     if (s.contextDomain > 0) {
-        PositionVector shape;
-        libsumo::Helper::findObjectShape(s.commandId, s.id, shape);
-        if (s.activeFilters & libsumo::SUBS_FILTER_NO_RTREE == 0) {
+        if ((s.activeFilters & libsumo::SUBS_FILTER_NO_RTREE) == 0) {
+            PositionVector shape;
+            libsumo::Helper::findObjectShape(s.commandId, s.id, shape);
             libsumo::Helper::collectObjectsInRange(s.contextDomain, shape, s.range, objIDs);
         }
         libsumo::Helper::applySubscriptionFilters(s, objIDs);
@@ -1295,6 +1296,10 @@ TraCIServer::addObjectVariableSubscription(const int commandId, const bool hasCo
 bool
 TraCIServer::addSubscriptionFilter() {
     bool success  = true;
+    if (myLastContextSubscription == nullptr) {
+        WRITE_WARNING("addSubscriptionFilter: No previous vehicle context subscription exists to apply the context filter.");
+        return true;
+    }
     // Read filter type
     int filterType = myInputStorage.readUnsignedByte();
 
@@ -1344,8 +1349,10 @@ TraCIServer::addSubscriptionFilter() {
         }
         break;
         case FILTER_TYPE_VTYPE: {
-            std::vector<std::string> vTypes = myInputStorage.readStringList();
-            addSubscriptionFilterVType(vTypes);
+            std::vector<std::string> vTypesVector = myInputStorage.readStringList();
+            std::set<std::string> vTypesSet;
+            vTypesSet.insert(vTypesVector.begin(), vTypesVector.end());
+            addSubscriptionFilterVType(vTypesSet);
         }
         break;
         default:
@@ -1364,79 +1371,79 @@ TraCIServer::addSubscriptionFilter() {
 
 void
 TraCIServer::removeFilters() {
+#ifdef DEBUG_SUBSCRIPTION_FILTERS
     std::cout << "Removing filters" << std::endl;
-    if (myLastContextSubscription != nullptr) {
-        myLastContextSubscription->activeFilters = libsumo::SUBS_FILTER_NONE;
-    }
+#endif
+    myLastContextSubscription->activeFilters = libsumo::SUBS_FILTER_NONE;
 }
 
 void
 TraCIServer::addSubscriptionFilterLanes(std::vector<int> lanes) {
+#ifdef DEBUG_SUBSCRIPTION_FILTERS
     std::cout << "Adding lane filter (lanes=" << toString(lanes) << ")" << std::endl;
-    if (myLastContextSubscription != nullptr) {
-        myLastContextSubscription->activeFilters = myLastContextSubscription->activeFilters | libsumo::SUBS_FILTER_LANES;
-        myLastContextSubscription->filterLanes = lanes;
-    }
+#endif
+    myLastContextSubscription->activeFilters = myLastContextSubscription->activeFilters | libsumo::SUBS_FILTER_LANES;
+    myLastContextSubscription->filterLanes = lanes;
 }
 
 void
 TraCIServer::addSubscriptionFilterNoOpposite() {
+#ifdef DEBUG_SUBSCRIPTION_FILTERS
     std::cout << "Adding no opposite filter" << std::endl;
-    if (myLastContextSubscription != nullptr) {
-        myLastContextSubscription->activeFilters = myLastContextSubscription->activeFilters | libsumo::SUBS_FILTER_NOOPPOSITE;
-    }
+#endif
+    myLastContextSubscription->activeFilters = myLastContextSubscription->activeFilters | libsumo::SUBS_FILTER_NOOPPOSITE;
 }
 
 void
 TraCIServer::addSubscriptionFilterDownstreamDistance(double dist) {
-    if (myLastContextSubscription != nullptr) {
-        std::cout << "Adding downstream dist filter (dist=" << toString(dist) << ")" << std::endl;
-        myLastContextSubscription->activeFilters = myLastContextSubscription->activeFilters | libsumo::SUBS_FILTER_DOWNSTREAM_DIST;
-        myLastContextSubscription->filterDownstreamDist = dist;
-    }
+#ifdef DEBUG_SUBSCRIPTION_FILTERS
+    std::cout << "Adding downstream dist filter (dist=" << toString(dist) << ")" << std::endl;
+#endif
+    myLastContextSubscription->activeFilters = myLastContextSubscription->activeFilters | libsumo::SUBS_FILTER_DOWNSTREAM_DIST;
+    myLastContextSubscription->filterDownstreamDist = dist;
 }
 
 void
 TraCIServer::addSubscriptionFilterUpstreamDistance(double dist) {
-    if (myLastContextSubscription != nullptr) {
-        std::cout << "Adding upstream dist filter (dist=" << toString(dist) << ")" << std::endl;
-        myLastContextSubscription->activeFilters = myLastContextSubscription->activeFilters | libsumo::SUBS_FILTER_UPSTREAM_DIST;
-        myLastContextSubscription->filterUpstreamDist = dist;
-    }
+#ifdef DEBUG_SUBSCRIPTION_FILTERS
+    std::cout << "Adding upstream dist filter (dist=" << toString(dist) << ")" << std::endl;
+#endif
+    myLastContextSubscription->activeFilters = myLastContextSubscription->activeFilters | libsumo::SUBS_FILTER_UPSTREAM_DIST;
+    myLastContextSubscription->filterUpstreamDist = dist;
 }
 
 void
 TraCIServer::addSubscriptionFilterLeadFollow() {
-    if (myLastContextSubscription != nullptr) {
-        std::cout << "Adding Lead/Follow-maneuver filter" << std::endl;
-        myLastContextSubscription->activeFilters = myLastContextSubscription->activeFilters | libsumo::SUBS_FILTER_LEAD_FOLLOW;
-    }
+#ifdef DEBUG_SUBSCRIPTION_FILTERS
+    std::cout << "Adding Lead/Follow-maneuver filter" << std::endl;
+#endif
+    myLastContextSubscription->activeFilters = myLastContextSubscription->activeFilters | libsumo::SUBS_FILTER_LEAD_FOLLOW;
 }
 
 void
 TraCIServer::addSubscriptionFilterTurn() {
-    if (myLastContextSubscription != nullptr) {
-        std::cout << "Adding turn-maneuver filter" << std::endl;
-        myLastContextSubscription->activeFilters = myLastContextSubscription->activeFilters | libsumo::SUBS_FILTER_TURN;
-    }
+#ifdef DEBUG_SUBSCRIPTION_FILTERS
+    std::cout << "Adding turn-maneuver filter" << std::endl;
+#endif
+    myLastContextSubscription->activeFilters = myLastContextSubscription->activeFilters | libsumo::SUBS_FILTER_TURN;
 }
 
 void
 TraCIServer::addSubscriptionFilterVClass(SVCPermissions vClasses) {
-    if (myLastContextSubscription != nullptr) {
-        std::cout << "Adding vClass filter (vClasses=" << toString(vClasses) << ")" << std::endl;
-        myLastContextSubscription->activeFilters = myLastContextSubscription->activeFilters | libsumo::SUBS_FILTER_VCLASS;
-        myLastContextSubscription->filterVClasses = vClasses;
-    }
+#ifdef DEBUG_SUBSCRIPTION_FILTERS
+    std::cout << "Adding vClass filter (vClasses=" << toString(vClasses) << ")" << std::endl;
+#endif
+    myLastContextSubscription->activeFilters = myLastContextSubscription->activeFilters | libsumo::SUBS_FILTER_VCLASS;
+    myLastContextSubscription->filterVClasses = vClasses;
 }
 
 void
-TraCIServer::addSubscriptionFilterVType(std::vector<std::string> vTypes) {
-    if (myLastContextSubscription != nullptr) {
-        std::cout << "Adding vType filter (vTypes=" << toString(vTypes) << ")" << std::endl;
-        myLastContextSubscription->activeFilters = myLastContextSubscription->activeFilters | libsumo::SUBS_FILTER_VTYPE;
-        myLastContextSubscription->filterVTypes = vTypes;
-    }
+TraCIServer::addSubscriptionFilterVType(std::set<std::string> vTypes) {
+#ifdef DEBUG_SUBSCRIPTION_FILTERS
+    std::cout << "Adding vType filter (vTypes=" << toString(vTypes) << ")" << std::endl;
+#endif
+    myLastContextSubscription->activeFilters = myLastContextSubscription->activeFilters | libsumo::SUBS_FILTER_VTYPE;
+    myLastContextSubscription->filterVTypes = vTypes;
 }
 
 void
