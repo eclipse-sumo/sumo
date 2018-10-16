@@ -516,23 +516,19 @@ GNESelectorFrame::MatchAttribute::enableMatchAttribute() {
     // Clear items of myMatchTagComboBox
     myMatchTagComboBox->clearItems();
     // Set items depending of current item set
+    std::vector<SumoXMLTag> listOfTags;
     if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::ELEMENTSET_NETELEMENT) {
-        auto listOfTags = GNEAttributeCarrier::allowedNetElementsTags(true);
-        for (auto i : listOfTags) {
-            myMatchTagComboBox->appendItem(toString(i).c_str());
-        }
+        listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TAGProperty::TAGPROPERTY_NETELEMENT, true);
     } else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::ELEMENTSET_ADDITIONAL) {
-        auto listOfTags = GNEAttributeCarrier::allowedAdditionalTags(true);
-        for (auto i : listOfTags) {
-            myMatchTagComboBox->appendItem(toString(i).c_str());
-        }
+        listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TAGProperty::TAGPROPERTY_ADDITIONAL, true);
     } else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::ELEMENTSET_SHAPE) {
-        auto listOfTags = GNEAttributeCarrier::allowedShapeTags(true);
-        for (auto i : listOfTags) {
-            myMatchTagComboBox->appendItem(toString(i).c_str());
-        }
+        listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TAGProperty::TAGPROPERTY_SHAPE, true);
     } else {
         throw ProcessError("Invalid element set");
+    }
+    // fill combo box
+    for (auto i : listOfTags) {
+        myMatchTagComboBox->appendItem(toString(i).c_str());
     }
     // set first item as current item
     myMatchTagComboBox->setCurrentItem(0);
@@ -560,29 +556,21 @@ GNESelectorFrame::MatchAttribute::onCmdSelMBTag(FXObject*, FXSelector, void*) {
     // First check what type of elementes is being selected
     myCurrentTag = SUMO_TAG_NOTHING;
     // find current element tag
+    std::vector<SumoXMLTag> listOfTags;
     if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::ELEMENTSET_NETELEMENT) {
-        auto listOfTags = GNEAttributeCarrier::allowedNetElementsTags(true);
-        for (auto i : listOfTags) {
-            if (toString(i) == myMatchTagComboBox->getText().text()) {
-                myCurrentTag = i;
-            }
-        }
+        listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TAGProperty::TAGPROPERTY_NETELEMENT, true);
     } else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::ELEMENTSET_ADDITIONAL) {
-        auto listOfTags = GNEAttributeCarrier::allowedAdditionalTags(true);
-        for (auto i : listOfTags) {
-            if (toString(i) == myMatchTagComboBox->getText().text()) {
-                myCurrentTag = i;
-            }
-        }
+        listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TAGProperty::TAGPROPERTY_ADDITIONAL, true);
     } else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::ELEMENTSET_SHAPE) {
-        auto listOfTags = GNEAttributeCarrier::allowedShapeTags(true);
-        for (auto i : listOfTags) {
-            if (toString(i) == myMatchTagComboBox->getText().text()) {
-                myCurrentTag = i;
-            }
-        }
+        listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TAGProperty::TAGPROPERTY_SHAPE, true);
     } else {
         throw ProcessError("Unkown set");
+    }
+    // fill myMatchTagComboBox
+    for (auto i : listOfTags) {
+        if (toString(i) == myMatchTagComboBox->getText().text()) {
+            myCurrentTag = i;
+        }
     }
     // check that typed-by-user value is correct
     if (myCurrentTag != SUMO_TAG_NOTHING) {

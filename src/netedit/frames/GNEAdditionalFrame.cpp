@@ -121,12 +121,9 @@ GNEAdditionalFrame::AdditionalSelector::AdditionalSelector(GNEAdditionalFrame* a
     myAdditionalMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
 
     // Add options to myAdditionalMatchBox
-    auto listOfTags = GNEAttributeCarrier::allowedAdditionalTags(true);
+    auto listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TAGProperty::TAGPROPERTY_ADDITIONAL, true);
     for (auto i : listOfTags) {
-        // include all except TAZs
-        if (i != SUMO_TAG_TAZ) {
-            myAdditionalMatchBox->appendItem(toString(i).c_str());
-        }
+        myAdditionalMatchBox->appendItem(toString(i).c_str());
     }
     // Set visible items
     myAdditionalMatchBox->setNumVisible((int)myAdditionalMatchBox->getNumItems());
@@ -213,7 +210,7 @@ GNEAdditionalFrame::AdditionalSelector::setCurrentAdditional(SumoXMLTag actualAd
 long
 GNEAdditionalFrame::AdditionalSelector::onCmdselectAttributeCarrier(FXObject*, FXSelector, void*) {
     // Check if value of myAdditionalMatchBox correspond of an allowed additional tags
-    auto listOfTags = GNEAttributeCarrier::allowedAdditionalTags(false);
+    auto listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TAGProperty::TAGPROPERTY_ADDITIONAL, false);
     for (auto i : listOfTags) {
         if (toString(i) == myAdditionalMatchBox->getText().text()) {
             myAdditionalMatchBox->setTextColor(FXRGB(0, 0, 0));
@@ -1022,7 +1019,8 @@ GNEAdditionalFrame::SelectorAdditionalParent::setIDSelected(const std::string& i
 bool
 GNEAdditionalFrame::SelectorAdditionalParent::showSelectorAdditionalParentModul(SumoXMLTag additionalType) {
     // make sure that we're editing an additional tag
-    for (auto i : GNEAttributeCarrier::allowedAdditionalTags(false)) {
+    auto listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TAGProperty::TAGPROPERTY_ADDITIONAL, false);
+    for (auto i : listOfTags) {
         if (i == additionalType) {
             myAdditionalTypeParent = additionalType;
             myFirstAdditionalParentsLabel->setText(("Parent type: " + toString(additionalType)).c_str());

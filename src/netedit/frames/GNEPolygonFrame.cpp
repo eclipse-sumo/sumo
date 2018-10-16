@@ -90,7 +90,7 @@ GNEPolygonFrame::ShapeSelector::ShapeSelector(GNEPolygonFrame* shapeFrameParent)
     myShapeMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
 
     // Add options to myShapeMatchBox
-    auto listOfTags = GNEAttributeCarrier::allowedShapeTags(false);
+    auto listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TAGProperty::TAGPROPERTY_SHAPE, true);
     for (auto i : listOfTags) {
         myShapeMatchBox->appendItem(toString(i).c_str());
     }
@@ -157,7 +157,7 @@ GNEPolygonFrame::ShapeSelector::setCurrentShape(SumoXMLTag actualShapeType) {
 long
 GNEPolygonFrame::ShapeSelector::onCmdselectAttributeCarrier(FXObject*, FXSelector, void*) {
     // Check if value of myShapeMatchBox correspond of an allowed shape tags
-    auto listOfTags = GNEAttributeCarrier::allowedShapeTags(false);
+    auto listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TAGProperty::TAGPROPERTY_SHAPE, true);
     for (auto i : listOfTags) {
         if (toString(i) == myShapeMatchBox->getText().text()) {
             myShapeMatchBox->setTextColor(FXRGB(0, 0, 0));

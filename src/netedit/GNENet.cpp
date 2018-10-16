@@ -128,7 +128,7 @@ GNENet::GNENet(NBNetBuilder* netBuilder) :
         myZBoundary.add(0, 0);
     }
     // fill additionals with tags
-    auto listOfTags = GNEAttributeCarrier::allowedAdditionalTags(false);
+    auto listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TAGProperty::TAGPROPERTY_ADDITIONAL, false);
     for (auto i : listOfTags) {
         myAttributeCarriers.additionals.insert(std::make_pair(i, std::map<std::string, GNEAdditional*>()));
     }
@@ -1318,7 +1318,7 @@ GNENet::computeEverything(GNEApplicationWindow* window, bool force, bool volatil
     // load additionals if was recomputed with volatile options
     if (additionalPath != "") {
         // fill additionals with tags
-        auto listOfTags = GNEAttributeCarrier::allowedAdditionalTags(false);
+        auto listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TAGProperty::TAGPROPERTY_ADDITIONAL, false);
         for (auto i : listOfTags) {
             myAttributeCarriers.additionals.insert(std::make_pair(i, std::map<std::string, GNEAdditional*>()));
         }

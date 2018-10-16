@@ -79,18 +79,6 @@ GNEAttributeCarrier::AttributeValues::AttributeValues(int attributeProperty, int
 
 void 
 GNEAttributeCarrier::AttributeValues::checkAttributeIntegrity() {
-    // check that default values are valid
-/*
-    if(hasDefaultValue()) {
-        if (isInt() && !canParse<int>(myDefaultValue)) {
-            throw FormatException("default value cannot be parse to int");
-        } else if (isFloat() && !canParse<double>(myDefaultValue)) {
-            throw FormatException("default value cannot be parse to float");
-        } else if (isBool() && !canParse<bool>(myDefaultValue)) {
-            throw FormatException("default value cannot be parse to bool");
-        }
-    }
-*/
     // Check that color attributes always owns an default value
     if (isColor() && myDefaultValue.empty()) {
         throw FormatException("Color attributes must own always a default color");
@@ -349,7 +337,7 @@ GNEAttributeCarrier::AttributeValues::isNonEditable() const {
 // ---------------------------------------------------------------------------
 
 GNEAttributeCarrier::TagValues::TagValues() :
-    myTagProperty(TAGPROPERTY_NETELEMENT),
+    myTagProperty(0),
     myIcon(ICON_EMPTY),
     myPositionListed(0),
     myParentTag(SUMO_TAG_NOTHING),
@@ -372,11 +360,11 @@ GNEAttributeCarrier::TagValues::TagValues(int tagProperty, int &positionListed, 
 void 
 GNEAttributeCarrier::TagValues::checkTagIntegrity() {
     // check that element must ist at least netElement, Additional, or shape
-    if (!isNetElement() && !isAdditional() && !isShape()) {
+    if (!isNetElement() && !isAdditional() && !isShape() && !isTAZ()) {
         throw ProcessError("element must be at leas netElement, Additional, or shape");
     }
     // check that element only is netElement, Additional, or shape at the same time
-    if ((isNetElement() + isAdditional() + isShape()) > 1) {
+    if ((isNetElement() + isAdditional() + isShape() + isTAZ()) > 1) {
         throw ProcessError("element only can be netElement, Additional, or shape at the same time");
     }
     // If element is drawable, chek that at least one placeover is defined
@@ -557,6 +545,12 @@ GNEAttributeCarrier::TagValues::isSelectable() const {
 bool
 GNEAttributeCarrier::TagValues::isShape() const {
     return (myTagProperty & TAGPROPERTY_SHAPE) != 0;
+}
+
+
+bool
+GNEAttributeCarrier::TagValues::isTAZ() const {
+    return (myTagProperty & TAGPROPERTY_TAZ) != 0;
 }
 
 
@@ -983,53 +977,49 @@ GNEAttributeCarrier::allowedTags(bool onlyDrawables) {
 
 
 std::vector<SumoXMLTag>
-GNEAttributeCarrier::allowedNetElementsTags(bool onlyDrawables) {
+GNEAttributeCarrier::allowedTagsByCategory(int tagPropertyCategory, bool onlyDrawables) {
     std::vector<SumoXMLTag> netElementTags;
     // define on first access
     if (myAllowedTags.size() == 0) {
         fillAttributeCarriers();
     }
-    // fill netElements tags
-    for (auto i : myAllowedTags) {
-        if (i.second.isNetElement() && (!onlyDrawables || i.second.isDrawable())) {
-            netElementTags.push_back(i.first);
-        }
+    switch (tagPropertyCategory) {
+        case TAGPROPERTY_NETELEMENT:
+            // fill netElements tags
+            for (auto i : myAllowedTags) {
+                if (i.second.isNetElement() && (!onlyDrawables || i.second.isDrawable())) {
+                    netElementTags.push_back(i.first);
+                }
+            }
+            break;
+        case TAGPROPERTY_ADDITIONAL:
+            // fill additional tags
+            for (auto i : myAllowedTags) {
+                if (i.second.isAdditional() && (!onlyDrawables || i.second.isDrawable())) {
+                    netElementTags.push_back(i.first);
+                }
+            }
+            break;
+        case TAGPROPERTY_SHAPE:
+            // fill shape tags
+            for (auto i : myAllowedTags) {
+                if (i.second.isShape() && (!onlyDrawables || i.second.isDrawable())) {
+                    netElementTags.push_back(i.first);
+                }
+            }
+            break;
+        case TAGPROPERTY_TAZ:
+            // fill taz tags
+            for (auto i : myAllowedTags) {
+                if (i.second.isTAZ() && (!onlyDrawables || i.second.isDrawable())) {
+                    netElementTags.push_back(i.first);
+                }
+            }
+            break;
+        default:
+            throw ProcessError("Category isn't defined");
     }
     return netElementTags;
-}
-
-
-std::vector<SumoXMLTag>
-GNEAttributeCarrier::allowedAdditionalTags(bool onlyDrawables) {
-    std::vector<SumoXMLTag> additionalTags;
-    // define on first access
-    if (myAllowedTags.size() == 0) {
-        fillAttributeCarriers();
-    }
-    // fill additional tags
-    for (auto i : myAllowedTags) {
-        if (i.second.isAdditional() && (!onlyDrawables || i.second.isDrawable())) {
-            additionalTags.push_back(i.first);
-        }
-    }
-    return additionalTags;
-}
-
-
-std::vector<SumoXMLTag>
-GNEAttributeCarrier::allowedShapeTags(bool onlyDrawables) {
-    std::vector<SumoXMLTag> shapeTags;
-    // define on first access
-    if (myAllowedTags.size() == 0) {
-        fillAttributeCarriers();
-    }
-    // fill shape tags
-    for (auto i : myAllowedTags) {
-        if (i.second.isShape() && (onlyDrawables || i.second.isDrawable())) {
-            shapeTags.push_back(i.first);
-        }
-    }
-    return shapeTags;
 }
 
 
@@ -2226,7 +2216,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_TAZ;
     {
         // set values of tag
-        myAllowedTags[currentTag] = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_VIEW | TAGPROPERTY_SELECTABLE, additional, ICON_TAZ);
+        myAllowedTags[currentTag] = TagValues(TAGPROPERTY_TAZ | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_VIEW | TAGPROPERTY_SELECTABLE, additional, ICON_TAZ);
         // set values of attributes
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_ID,
                                                ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
