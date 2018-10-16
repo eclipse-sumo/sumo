@@ -77,11 +77,10 @@
 //#define DEBUG_NO_CONNECTION
 //#define DEBUG_SURROUNDING
 
-//#define DEBUG_COND (false)
+#define DEBUG_COND (false)
 //#define DEBUG_COND (getID() == "undefined")
 //#define DEBUG_COND2(obj) ((obj != 0 && (obj)->getID() == "disabled"))
 //#define DEBUG_COND2(obj) ((obj != 0 && (obj)->isSelected()))
-#define DEBUG_COND (getID() == "68")
 
 // ===========================================================================
 // static member definitions
@@ -3214,6 +3213,7 @@ MSLane::getVehicles(double a, double b) const {
 
     size_t nV = vehs.size();
     if (nV == 0) {
+        releaseVehicles();
         return res;
     }
 
