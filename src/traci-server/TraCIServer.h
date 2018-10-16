@@ -415,9 +415,11 @@ private:
     void addSubscriptionFilterNoOpposite();
     void addSubscriptionFilterDownstreamDistance(double dist);
     void addSubscriptionFilterUpstreamDistance(double dist);
-    void addSubscriptionFilterCFManeuver();
-    void addSubscriptionFilterLCManeuver();
-    void addSubscriptionFilterTurnManeuver();
+    void addSubscriptionFilterLeadFollow();
+    // TODO: for libsumo, implement convenience definitions present in python client:
+    //    void addSubscriptionFilterCF();
+    //    void addSubscriptionFilterLC(int direction);
+    void addSubscriptionFilterTurn();
     void addSubscriptionFilterVClass(SVCPermissions vClasses);
     void addSubscriptionFilterVType(std::vector<std::string> vTypes);
     bool isVehicleToVehicleContextSubscription(const libsumo::Subscription& s);

@@ -64,6 +64,7 @@
 #include <microsim/MSGlobals.h>
 #include <microsim/traffic_lights/MSTLLogicControl.h>
 #include <libsumo/Simulation.h>
+#include <libsumo/Subscription.h>
 #include "TraCIConstants.h"
 #include "TraCIServer.h"
 #include "TraCIServerAPI_InductionLoop.h"
@@ -1166,7 +1167,9 @@ TraCIServer::processSingleSubscription(const libsumo::Subscription& s, tcpip::St
     if (s.contextDomain > 0) {
         PositionVector shape;
         libsumo::Helper::findObjectShape(s.commandId, s.id, shape);
-        libsumo::Helper::collectObjectsInRange(s.contextDomain, shape, s.range, objIDs);
+        if (s.activeFilters & libsumo::SUBS_FILTER_NO_RTREE == 0) {
+            libsumo::Helper::collectObjectsInRange(s.contextDomain, shape, s.range, objIDs);
+        }
         libsumo::Helper::applySubscriptionFilters(s, objIDs);
     } else {
         objIDs.insert(s.id);
@@ -1327,15 +1330,13 @@ TraCIServer::addSubscriptionFilter() {
             addSubscriptionFilterUpstreamDistance(dist);
         }
         break;
-        case FILTER_TYPE_CF_MANEUVER:
-            addSubscriptionFilterCFManeuver();
-            break;
-        case FILTER_TYPE_LC_MANEUVER: {
-            addSubscriptionFilterLCManeuver();
+        case FILTER_TYPE_LEAD_FOLLOW: {
+            // Read relative lanes to consider for context filter
+            addSubscriptionFilterLeadFollow();
         }
-        break;
-        case FILTER_TYPE_TURN_MANEUVER:
-            addSubscriptionFilterTurnManeuver();
+            break;
+        case FILTER_TYPE_TURN:
+            addSubscriptionFilterTurn();
             break;
         case FILTER_TYPE_VCLASS: {
             SVCPermissions vClasses = parseVehicleClasses(myInputStorage.readStringList());
@@ -1405,26 +1406,18 @@ TraCIServer::addSubscriptionFilterUpstreamDistance(double dist) {
 }
 
 void
-TraCIServer::addSubscriptionFilterCFManeuver() {
+TraCIServer::addSubscriptionFilterLeadFollow() {
     if (myLastContextSubscription != nullptr) {
-        std::cout << "Adding CF-maneuver filter" << std::endl;
-        myLastContextSubscription->activeFilters = myLastContextSubscription->activeFilters | libsumo::SUBS_FILTER_CF_MANEUVER;
+        std::cout << "Adding Lead/Follow-maneuver filter" << std::endl;
+        myLastContextSubscription->activeFilters = myLastContextSubscription->activeFilters | libsumo::SUBS_FILTER_LEAD_FOLLOW;
     }
 }
 
 void
-TraCIServer::addSubscriptionFilterLCManeuver() {
-    if (myLastContextSubscription != nullptr) {
-        std::cout << "Adding LC-maneuver filter" << std::endl;
-        myLastContextSubscription->activeFilters = myLastContextSubscription->activeFilters | libsumo::SUBS_FILTER_LC_MANEUVER;
-    }
-}
-
-void
-TraCIServer::addSubscriptionFilterTurnManeuver() {
+TraCIServer::addSubscriptionFilterTurn() {
     if (myLastContextSubscription != nullptr) {
         std::cout << "Adding turn-maneuver filter" << std::endl;
-        myLastContextSubscription->activeFilters = myLastContextSubscription->activeFilters | libsumo::SUBS_FILTER_TURN_MANEUVER;
+        myLastContextSubscription->activeFilters = myLastContextSubscription->activeFilters | libsumo::SUBS_FILTER_TURN;
     }
 }
 

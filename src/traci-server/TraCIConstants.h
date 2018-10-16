@@ -473,14 +473,11 @@
 // Specify maximal upstream distance for vehicles in context subscription result
 #define FILTER_TYPE_UPSTREAM_DIST 0x04
 
-// Only return leader and follower in context subscription result
-#define FILTER_TYPE_CF_MANEUVER 0x05
-
-// Only return leader and follower on ego and neighboring lane in context subscription result
-#define FILTER_TYPE_LC_MANEUVER 0x06
+// Only return leader and follower on the specified lanes in context subscription result
+#define FILTER_TYPE_LEAD_FOLLOW 0x05
 
 // Only return foes on upcoming junction in context subscription result
-#define FILTER_TYPE_TURN_MANEUVER 0x07
+#define FILTER_TYPE_TURN 0x07
 
 // Only return vehicles of the given vClass in context subscription result
 #define FILTER_TYPE_VCLASS 0x08

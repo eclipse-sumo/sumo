@@ -54,7 +54,7 @@
 
 //#define DEBUG_MOVEXY
 //#define DEBUG_MOVEXY_ANGLE
-#define DEBUG_SURROUNDING
+//#define DEBUG_SURROUNDING
 
 void
 LaneStoringVisitor::add(const MSLane* const l) const {
@@ -144,7 +144,9 @@ Helper::handleSingleSubscription(const Subscription& s) {
     if (s.contextDomain > 0) {
         PositionVector shape;
         findObjectShape(s.commandId, s.id, shape);
-        collectObjectsInRange(s.contextDomain, shape, s.range, objIDs);
+        if (s.activeFilters & SUBS_FILTER_NO_RTREE == 0) {
+            collectObjectsInRange(s.contextDomain, shape, s.range, objIDs);
+        }
         applySubscriptionFilters(s, objIDs);
     } else {
         objIDs.insert(s.id);
@@ -426,20 +428,16 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
     }
 
     // Whether vehicles on opposite lanes shall be taken into account
-    bool disregardOppositeDirection = s.activeFilters & SUBS_FILTER_NOOPPOSITE;
+    const bool disregardOppositeDirection = s.activeFilters & SUBS_FILTER_NOOPPOSITE;
 
-    if (s.activeFilters & SUBS_FILTER_CF_MANEUVER) {
-        // Only return leader and follower in context subscription result + other maneuver relevant vehicles
-    }
-    if (s.activeFilters & SUBS_FILTER_LC_MANEUVER) {
-        // Only return leader and follower on ego and neighboring lane in context subscription result + other maneuver relevant vehicles
-    }
-    if (s.activeFilters & SUBS_FILTER_TURN_MANEUVER) {
-        // Only return foes on upcoming junction in context subscription result + other maneuver relevant vehicles
+    // Check filter specification consistency
+    // TODO: Warn only once
+    if (disregardOppositeDirection && (s.activeFilters & SUBS_FILTER_NO_RTREE == 0)) {
+        WRITE_WARNING("Ignoring no-opposite subscription filter for geographic range object collection. Consider using the 'lanes' filter.")
     }
 
     std::set<MSVehicle*> vehs;
-    if(s.activeFilters & SUBS_FILTER_RANGE_ALONG_NET) {
+    if(s.activeFilters & SUBS_FILTER_NO_RTREE) {
         // Set defaults for upstream and downstream distances
         double downstreamDist = s.range, upstreamDist = s.range;
         if (s.activeFilters & SUBS_FILTER_DOWNSTREAM_DIST) {
@@ -451,6 +449,15 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
             upstreamDist = s.filterUpstreamDist;
         }
         MSVehicle* v = libsumo::Vehicle::getVehicle(s.id);
+
+
+        if (s.activeFilters & SUBS_FILTER_LEAD_FOLLOW) {
+            // TODO: Only return leader and follower on the specified lanes in context subscription result
+        }
+        if (s.activeFilters & SUBS_FILTER_TURN) {
+            // TODO: Only return foes on upcoming junction in context subscription result
+        }
+
         if (s.activeFilters & SUBS_FILTER_LANES) {
             // Relative lane indices are specified
             for (int ix : s.filterLanes){
@@ -480,6 +487,11 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
                     const std::set<MSVehicle*> new_vehs = v->getLane()->getSurroundingVehicles(lane->getLength() - v->getPositionOnLane(), upstreamDist+v->getLength(), downstreamDist);
                     vehs.insert(new_vehs.begin(), new_vehs.end());
                 }
+
+                // TODO: If opposite should be checked, do this for each lane of the forward search tree!
+                //       For instance, these would not be obtained if the ego lane does not have an opposite...
+
+
 #ifdef DEBUG_SURROUNDING
                 else {
                     std::cout << "No lane at index " << ix << std::endl;
@@ -497,6 +509,7 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
             std::cout << "  '" << veh->getID() << "' on lane '" << veh->getLane()->getID() << "'\n";
         }
 #endif
+
     }
 
     if (s.activeFilters & SUBS_FILTER_VCLASS) {

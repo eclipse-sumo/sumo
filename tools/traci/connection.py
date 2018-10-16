@@ -257,7 +257,7 @@ class Connection:
         command = tc.CMD_ADD_SUBSCRIPTION_FILTER
         self._queue.append(command)
         if filterType in (tc.FILTER_TYPE_NONE, tc.FILTER_TYPE_NOOPPOSITE, 
-                          tc.FILTER_TYPE_CF_MANEUVER, tc.FILTER_TYPE_LC_MANEUVER, tc.FILTER_TYPE_TURN_MANEUVER):
+                          tc.FILTER_TYPE_TURN, tc.FILTER_TYPE_LEAD_FOLLOW):
             # filter without parameter
             assert(params is None)
             length = 1 + 1 + 1  # length + CMD + FILTER_ID
@@ -285,13 +285,17 @@ class Connection:
             self._string += self._packStringList(params)
         elif filterType == tc.FILTER_TYPE_LANES:
             # filter with list(byte) parameter
+            # check uniqueness of given lanes in list
             try:
                 l = len(params)
             except:
                 raise TraCIException("Filter type lanes requires index list as parameter.")
+            lanes = list(set(params))
+            if len(lanes) < params:
+                warnings.warn("Ignoring duplicate lane specification for subscription filter.")
             length = 1 + 1 + 1 + 1 + l  # length + CMD + FILTER_ID + length(list) as ubyte + lane-indices
             self._string += struct.pack("!BBBB", length, command, filterType, l)
-            for i in params:
+            for i in lanes:
                 if i <= -128 or i >= 128:
                     raise TraCIException("Filter type lanes: maximal lane index is 127.")
                 if i < 0:

@@ -75,7 +75,7 @@
 //#define DEBUG_PEDESTRIAN_COLLISIONS
 //#define DEBUG_LANE_SORTER
 //#define DEBUG_NO_CONNECTION
-#define DEBUG_SURROUNDING
+//#define DEBUG_SURROUNDING
 
 //#define DEBUG_COND (false)
 //#define DEBUG_COND (getID() == "undefined")

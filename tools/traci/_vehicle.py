@@ -1476,23 +1476,41 @@ class VehicleDomain(Domain):
 
         Restricts vehicles returned by the last modified vehicle context subscription to leader and follower of the ego
         """
-        self._connection._addSubscriptionFilter(tc.FILTER_TYPE_CF_MANEUVER)
+        self.addSubscriptionFilterLeadFollow([0])
 
-    def addSubscriptionFilterLCManeuver(self):
+    def addSubscriptionFilterLCManeuver(self, direction):
+        """addSubscriptionFilterLCManeuver(int) -> None
+
+        Restricts vehicles returned by the last modified vehicle context subscription to neighbor and ego-lane leader
+        and follower of the ego.
+        direction - lane change direction (in {-1=right, 1=left})
+        Combine with: distance filters; vClass/vType filter.
+        """
+        if direction is None:
+            # Using default: both directions
+            lanes = [-1, 0, 1]
+        elif not (direction == -1 or direction == 1):
+            warnings.warn("Ignoring lane change subscription filter with non-neighboring lane offset direction=%s."%direction)
+        else:
+            lanes = [0, direction]
+        self.addSubscriptionFilterLeadFollow(lanes)
+        
+    def addSubscriptionFilterLeadFollow(self, lanes):
         """addSubscriptionFilterLCManeuver() -> None
 
         Restricts vehicles returned by the last modified vehicle context subscription to neighbor and ego-lane leader
         and follower of the ego.
         Combine with: lanes-filter to restrict to one direction; distance filters; vClass/vType filter.
         """
-        self._connection._addSubscriptionFilter(tc.FILTER_TYPE_LC_MANEUVER)
+        self._connection._addSubscriptionFilter(tc.FILTER_TYPE_LEAD_FOLLOW)
+        self._connection._addSubscriptionFilter(tc.FILTER_TYPE_LANES, lanes)
 
-    def addSubscriptionFilterTurnManeuver(self):
+    def addSubscriptionFilterTurn(self):
         """addSubscriptionFilterTurnManeuver() -> None
 
         Restricts vehicles returned by the last modified vehicle context subscription to foes on an upcoming junction
         """
-        self._connection._addSubscriptionFilter(tc.FILTER_TYPE_TURN_MANEUVER)
+        self._connection._addSubscriptionFilter(tc.FILTER_TYPE_TURN)
 
     def addSubscriptionFilterVClass(self, vClasses):
         """addSubscriptionFilterVClass(list(String)) -> None
