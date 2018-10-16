@@ -474,6 +474,7 @@
         <xsd:attribute name="layer" type="xsd:float" use="optional"/>
         <xsd:attribute name="shape" type="shapeType" use="required"/>
         <xsd:attribute name="angle" type="xsd:float" use="optional"/>
+        <xsd:attribute name="lineWidth" type="xsd:float" use="optional"/>
         <xsd:attribute name="imgFile" type="xsd:string" use="optional"/>
     </xsd:complexType>
 

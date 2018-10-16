@@ -422,6 +422,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "state",                  SUMO_ATTR_STATE },
     { "layer",                  SUMO_ATTR_LAYER },
     { "fill",                   SUMO_ATTR_FILL },
+    { "lineWidth",              SUMO_ATTR_LINEWIDTH },
     { "prefix",                 SUMO_ATTR_PREFIX },
     { "discard",                SUMO_ATTR_DISCARD },
 

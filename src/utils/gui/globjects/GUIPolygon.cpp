@@ -40,12 +40,11 @@
 // ===========================================================================
 GUIPolygon::GUIPolygon(const std::string& id, const std::string& type,
                        const RGBColor& color, const PositionVector& shape, bool geo,
-                       bool fill, double layer, double angle, const std::string& imgFile,
+                       bool fill, double lineWidth, double layer, double angle, const std::string& imgFile,
                        bool relativePath):
-    SUMOPolygon(id, type, color, shape, geo, fill, layer, angle, imgFile, relativePath),
+    SUMOPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, relativePath),
     GUIGlObject_AbstractAdd(GLO_POLYGON, id),
-    myDisplayList(0),
-    myLineWidth(1) // m
+    myDisplayList(0)
 
 {}
 

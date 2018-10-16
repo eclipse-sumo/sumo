@@ -641,6 +641,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_LAYER,
     /// @brief Fill the polygon
     SUMO_ATTR_FILL,
+    SUMO_ATTR_LINEWIDTH,
     SUMO_ATTR_PREFIX,
     SUMO_ATTR_DISCARD,
 

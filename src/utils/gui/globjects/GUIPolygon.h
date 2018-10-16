@@ -53,9 +53,10 @@ public:
      * @param[in] shape The shape of the polygon
      * @param[in] geo specifiy if shape was loaded as GEO
      * @param[in] fill Whether the polygon shall be filled
+     * @param[in] lineWidth Line width when drawing unfilled polygon
      */
     GUIPolygon(const std::string& id, const std::string& type,
-               const RGBColor& color, const PositionVector& shape, bool geo, bool fill,
+               const RGBColor& color, const PositionVector& shape, bool geo, bool fill, double lineWidth,
                double layer = 0, double angle = 0, const std::string& imgFile = "", bool relativePath = false);
 
     /// @brief Destructor
@@ -106,11 +107,6 @@ public:
     /// @brief set a new shape and update the tesselation
     virtual void setShape(const PositionVector& shape);
 
-    /// @brief set a new shape and update the tesselation
-    void setLineWidth(double lineWidth) {
-        myLineWidth = lineWidth;
-    }
-
 protected:
     /// @brief set color
     void setColor(const GUIVisualizationSettings& s) const;
@@ -121,9 +117,6 @@ private:
 
     /// @brief id of the display list for the cached tesselation
     mutable GLuint myDisplayList;
-
-    /// @brief the previous line width for deciding whether the display list must be refreshed
-    mutable double myLineWidth;
 
     /// @brief store the drawing commands in a display list
     void storeTesselation(double lineWidth) const;

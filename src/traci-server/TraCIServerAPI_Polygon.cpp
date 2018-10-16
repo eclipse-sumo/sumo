@@ -122,8 +122,10 @@ TraCIServerAPI_Polygon::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
                     return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "A compound object is needed for setting a new polygon.", outputStorage);
                 }
-                //readt itemNo
-                inputStorage.readInt();
+                int itemNo = inputStorage.readInt();
+                if (itemNo != 5 && itemNo != 6) {
+                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Adding a polygon needs five to six parameters.", outputStorage);
+                }
                 std::string type;
                 if (!server.readTypeCheckingString(inputStorage, type)) {
                     return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "The type must be given as a string.", outputStorage);
@@ -145,9 +147,15 @@ TraCIServerAPI_Polygon::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 if (!server.readTypeCheckingPolygon(inputStorage, shape)) {
                     return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "The fifth polygon parameter must be the shape.", outputStorage);
                 }
+                double lineWidth = 1;
+                if (itemNo == 6) {
+                    if (!server.readTypeCheckingDouble(inputStorage, lineWidth)) {
+                        return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "The sixth polygon parameter must be the lineWidth encoded as double.", outputStorage);
+                    }
+                }
                 libsumo::TraCIPositionVector tp = libsumo::Helper::makeTraCIPositionVector(shape);
 
-                libsumo::Polygon::add(id, tp, col, fill, type, layer);
+                libsumo::Polygon::add(id, tp, col, fill, lineWidth, type, layer);
 
             }
             break;

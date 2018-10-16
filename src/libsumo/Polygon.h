@@ -55,7 +55,7 @@ public:
     static void setType(const std::string& polygonID, const std::string& setType);
     static void setShape(const std::string& polygonID, const TraCIPositionVector& shape);
     static void setColor(const std::string& polygonID, const TraCIColor& c);
-    static void add(const std::string& polygonID, const TraCIPositionVector& shape, const TraCIColor& color, bool fill = false, const std::string& polygonType = "", int layer = 0);
+    static void add(const std::string& polygonID, const TraCIPositionVector& shape, const TraCIColor& color, bool fill = false, double lineWidth = 1, const std::string& polygonType = "", int layer = 0);
     static void remove(const std::string& polygonID, int layer = 0);
 
     static void setFilled(std::string polygonID, bool filled);

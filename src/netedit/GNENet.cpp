@@ -218,11 +218,11 @@ GNENet::drawGL(const GUIVisualizationSettings& /*s*/) const {
 
 bool
 GNENet::addPolygon(const std::string& id, const std::string& type, const RGBColor& color, double layer, double angle,
-                   const std::string& imgFile, bool relativePath, const PositionVector& shape, bool geo, bool fill, bool /*ignorePruning*/) {
+                   const std::string& imgFile, bool relativePath, const PositionVector& shape, bool geo, bool fill, double lineWidth, bool /*ignorePruning*/) {
     // check if ID is duplicated
     if (myPolygons.get(id) == nullptr) {
         // create poly
-        GNEPoly* poly = new GNEPoly(this, id, type, shape, geo, fill, color, layer, angle, imgFile, relativePath, false, false);
+        GNEPoly* poly = new GNEPoly(this, id, type, shape, geo, fill, lineWidth, color, layer, angle, imgFile, relativePath, false, false);
         if (myAllowUndoShapes) {
             myViewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_POLY));
             myViewNet->getUndoList()->add(new GNEChange_Shape(poly, true), true);
@@ -1995,10 +1995,8 @@ GNEPoly*
 GNENet::addPolygonForEditShapes(GNENetElement* netElement, const PositionVector& shape, bool fill, RGBColor col) {
     if (shape.size() > 0) {
         // create poly for edit shapes
-        GNEPoly* shapePoly = new GNEPoly(this, "edit_shape", "edit_shape", shape, false, true, col, GLO_POLYGON, 0, "", false, false , false);
+        GNEPoly* shapePoly = new GNEPoly(this, "edit_shape", "edit_shape", shape, false, fill, 0.3, col, GLO_POLYGON, 0, "", false, false , false);
         shapePoly->setShapeEditedElement(netElement);
-        shapePoly->setFill(fill);
-        shapePoly->setLineWidth(0.3);
         myGrid.addAdditionalGLObject(shapePoly);
         myViewNet->update();
         return shapePoly;

@@ -64,9 +64,9 @@ const double GNEPoly::myHintSizeSquared = 0.64;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GNEPoly::GNEPoly(GNENet* net, const std::string& id, const std::string& type, const PositionVector& shape, bool geo, bool fill,
+GNEPoly::GNEPoly(GNENet* net, const std::string& id, const std::string& type, const PositionVector& shape, bool geo, bool fill, double lineWidth,
                  const RGBColor& color, double layer, double angle, const std::string& imgFile, bool relativePath, bool movementBlocked, bool shapeBlocked) :
-    GUIPolygon(id, type, color, shape, geo, fill, layer, angle, imgFile, relativePath),
+    GUIPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, relativePath),
     GNEShape(net, SUMO_TAG_POLY, movementBlocked, shapeBlocked),
     myNetElementShapeEdited(nullptr),
     myClosedShape(shape.front() == shape.back()),
@@ -579,6 +579,8 @@ GNEPoly::getAttribute(SumoXMLAttr key) const {
             return toString(getShapeColor());
         case SUMO_ATTR_FILL:
             return toString(myFill);
+        case SUMO_ATTR_LINEWIDTH:
+            return toString(myLineWidth);
         case SUMO_ATTR_LAYER:
             if (getShapeLayer() == Shape::DEFAULT_LAYER) {
                 return "default";
@@ -622,6 +624,7 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_GEOSHAPE:
         case SUMO_ATTR_COLOR:
         case SUMO_ATTR_FILL:
+        case SUMO_ATTR_LINEWIDTH:
         case SUMO_ATTR_LAYER:
         case SUMO_ATTR_TYPE:
         case SUMO_ATTR_IMGFILE:
@@ -657,6 +660,8 @@ GNEPoly::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<RGBColor>(value);
         case SUMO_ATTR_FILL:
             return canParse<bool>(value);
+        case SUMO_ATTR_LINEWIDTH:
+            return canParse<double>(value) && (parse<double>(value) >= 0);
         case SUMO_ATTR_LAYER:
             if (value == "default") {
                 return true;
@@ -816,6 +821,9 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_FILL:
             myFill = parse<bool>(value);
+            break;
+        case SUMO_ATTR_LINEWIDTH:
+            myLineWidth = parse<double>(value);
             break;
         case SUMO_ATTR_LAYER:
             if (value == "default") {

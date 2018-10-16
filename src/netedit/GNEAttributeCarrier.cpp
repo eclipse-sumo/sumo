@@ -2356,6 +2356,10 @@ GNEAttributeCarrier::fillAttributeCarriers() {
                                                ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE,
                                                "An information whether the polygon shall be filled",
                                                "0");
+        myAllowedTags[currentTag].addAttribute(SUMO_ATTR_LINEWIDTH,
+                                               ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE,
+                                               "The default line width for drawing an unfilled polygon",
+                                               "1");
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_LAYER,
                                                ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE,
                                                "The layer in which the polygon lies",

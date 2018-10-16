@@ -266,7 +266,7 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
                     color = c;
                 }
                 if (!discard) {
-                    SUMOPolygon* poly = new SUMOPolygon(id, type, color, vec, false, false, layer);
+                    SUMOPolygon* poly = new SUMOPolygon(id, type, color, vec, false, false, 1, layer);
                     toFill.add(poly);
                 }
                 vec.clear();
@@ -312,7 +312,7 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
             }
             if (!discard) {
                 if (teilflaechen[flaechenelemente[area]].size() > 0) {
-                    SUMOPolygon* poly = new SUMOPolygon(id, type, color, teilflaechen[flaechenelemente[area]], false, false, layer);
+                    SUMOPolygon* poly = new SUMOPolygon(id, type, color, teilflaechen[flaechenelemente[area]], false, false, 1, layer);
                     toFill.add(poly);
                 } else {
                     Position pos(x, y);

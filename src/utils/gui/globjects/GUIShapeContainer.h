@@ -65,11 +65,12 @@ public:
      * @param[in] shape The shape of the polygon
      * @param[in] geo specify if shape was loaded as GEO coordinate
      * @param[in] fill Whether the polygon shall be filled
+     * @param[in] lineWidth Line width when drawing unfilled polygon
      * @return whether the polygon could be added
      */
     virtual bool addPolygon(const std::string& id, const std::string& type, const RGBColor& color, double layer,
                             double angle, const std::string& imgFile, bool relativePath, const PositionVector& shape, bool geo,
-                            bool fill, bool ignorePruning = false);
+                            bool fill, double lineWidth, bool ignorePruning = false);
 
 
     /** @brief Builds a POI using the given values and adds it to the container
