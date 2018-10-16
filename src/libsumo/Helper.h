@@ -121,7 +121,9 @@ public:
 
     static void collectObjectsInRange(int domain, const PositionVector& shape, double range, std::set<std::string>& into);
 
-    /// @brief Filter the given ID-Set according to the filters set by the subscription
+    /// @brief Filter the given ID-Set (which was obtained from an R-Tree search)
+    ///        according to the filters set by the subscription or firstly build the object ID list if
+    ///        if the filters rather demand searching along the road network than considering a geometric range.
     /// @param[in] s Subscription which holds the filter specification to be applied
     /// @param[in/out] objIDs Set of object IDs that is to be filtered. Result is stored in place.
     /// @note Currently this assumes that the objects are vehicles.

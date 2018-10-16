@@ -142,9 +142,9 @@ Helper::handleSingleSubscription(const Subscription& s) {
     const int getCommandId = s.contextDomain > 0 ? s.contextDomain : s.commandId - 0x30;
     std::set<std::string> objIDs;
     if (s.contextDomain > 0) {
-        PositionVector shape;
-        findObjectShape(s.commandId, s.id, shape);
-        if (s.activeFilters & SUBS_FILTER_NO_RTREE == 0) {
+        if ((s.activeFilters & SUBS_FILTER_NO_RTREE) == 0) {
+            PositionVector shape;
+            findObjectShape(s.commandId, s.id, shape);
             collectObjectsInRange(s.contextDomain, shape, s.range, objIDs);
         }
         applySubscriptionFilters(s, objIDs);
@@ -419,7 +419,8 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
 #ifdef DEBUG_SURROUNDING
     MSVehicle* _veh = libsumo::Vehicle::getVehicle(s.id);
     std::cout << SIMTIME << " applySubscriptionFilters for vehicle '" << _veh->getID() << "' on lane '" << _veh->getLane()->getID() <<"'"
-            << "\n       on edge '" << _veh->getLane()->getEdge().getID() << "' (" << toString(_veh->getLane()->getEdge().getLanes()) << ")" << std::endl;
+            << "\n       on edge '" << _veh->getLane()->getEdge().getID() << "' (" << toString(_veh->getLane()->getEdge().getLanes()) << ")\n"
+            << "objIDs = " << toString(objIDs) << std::endl;
 #endif
 
     if (s.activeFilters == 0) {
@@ -436,7 +437,9 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
         WRITE_WARNING("Ignoring no-opposite subscription filter for geographic range object collection. Consider using the 'lanes' filter.")
     }
 
-    std::set<MSVehicle*> vehs;
+    // TODO: Treat case, where ego vehicle is currently on opposite lane
+
+    std::set<const MSVehicle*> vehs;
     if(s.activeFilters & SUBS_FILTER_NO_RTREE) {
         // Set defaults for upstream and downstream distances
         double downstreamDist = s.range, upstreamDist = s.range;
@@ -449,78 +452,180 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
             upstreamDist = s.filterUpstreamDist;
         }
         MSVehicle* v = libsumo::Vehicle::getVehicle(s.id);
-
-
-        if (s.activeFilters & SUBS_FILTER_LEAD_FOLLOW) {
-            // TODO: Only return leader and follower on the specified lanes in context subscription result
+        if (!v->isOnRoad()) {
+            return;
         }
-        if (s.activeFilters & SUBS_FILTER_TURN) {
-            // TODO: Only return foes on upcoming junction in context subscription result
+        MSLane* vehLane = v->getLane();
+        if (vehLane == nullptr) {
+            return;
         }
+        MSEdge* vehEdge = &vehLane->getEdge();
+        std::vector<int> filterLanes = s.filterLanes;
 
-        if (s.activeFilters & SUBS_FILTER_LANES) {
-            // Relative lane indices are specified
-            for (int ix : s.filterLanes){
-                MSLane* lane = v->getLane()->getParallelLane(ix);
+        if (s.activeFilters & SUBS_FILTER_MANEUVER) {
+            // Maneuver filters disables road net search for all surrounding vehicles
+            if (s.activeFilters & SUBS_FILTER_LEAD_FOLLOW) {
+                // TODO: Only return leader and follower on the specified lanes in context subscription result
+                if ((s.activeFilters & SUBS_FILTER_LANES) == 0) {
+                    // No lane indices are specified -> return leader and follower on current lane
+                    filterLanes = {0};
+                }
+                for (int ix : filterLanes) {
+                    MSLane* lane = v->getLane()->getParallelLane(ix);
+                    if (lane != nullptr) {
+                        // this is a non-opposite lane
+                        vehs.insert(vehs.end(), lane->getLeader(v, v->getPositionOnLane(), v->getBestLanesContinuation(lane), downstreamDist).first);
+                        vehs.insert(vehs.end(), vehLane->getFollower(v, v->getPositionOnLane(), upstreamDist, false).first);
+                    } else if (!disregardOppositeDirection && ix > 0) {
+                        // check whether ix points to an opposite lane
+                        const MSEdge* opposite = vehEdge->getOppositeEdge();
+                        if (opposite == nullptr) {
+#ifdef DEBUG_SURROUNDING
+                            std::cout << "No lane at index " << ix << std::endl;
+#endif
+                            // no opposite edge
+                            continue;
+                        }
+                        // Index of opposite lane at relative offset ix
+                        const int ix_opposite = opposite->getLanes().size() - 1 - (vehLane->getIndex() + ix - vehEdge->getLanes().size());
+                        if (ix_opposite < 0) {
+#ifdef DEBUG_SURROUNDING
+                            std::cout << "No lane on opposite at index " << ix_opposite << std::endl;
+#endif
+                            // no opposite edge
+                            continue;
+                        }
+                        lane = opposite->getLanes()[ix_opposite];
+                        // Search vehs along opposite lanes (swap upstream and downstream distance)
+                        // XXX transformations for curved geometries
+                        double posOnOpposite = MAX2(0., opposite->getLength() - v->getPositionOnLane());
+                        // Get leader on opposite
+                        vehs.insert(vehs.end(), lane->getFollower(v, posOnOpposite, downstreamDist, true).first);
+                        // Get follower (no search on consecutive lanes
+                        vehs.insert(vehs.end(), lane->getLeader(v, posOnOpposite-v->getLength(), std::vector<MSLane*>()).first);
+                    }
+                }
+            }
+
+            if (s.activeFilters & SUBS_FILTER_TURN) {
+                // TODO: Only return foes on upcoming junction in context subscription result
+            }
+
+        } else {
+            if ((s.activeFilters & SUBS_FILTER_LANES) == 0) {
+                // No lane indices and no maneuver filters are specified (but downstream and/or upstream distance)
+                //   -> use only vehicle's current lane as origin for the search
+                filterLanes = {0};
+            }
+            for (int ix : filterLanes){
+                MSLane* lane = vehLane->getParallelLane(ix);
                 if (lane != nullptr) {
 #ifdef DEBUG_SURROUNDING
                     std::cout << "Checking for surrounding vehicles starting on lane '" << lane->getID() << "' at index " << ix << std::endl;
 #endif
                     // Search vehs along lane
-                    const std::set<MSVehicle*> new_vehs = v->getLane()->getSurroundingVehicles(v->getPositionOnLane(), downstreamDist, upstreamDist+v->getLength());
+                    const std::set<MSVehicle*> new_vehs = vehLane->getSurroundingVehicles(v->getPositionOnLane(), downstreamDist, upstreamDist+v->getLength());
                     vehs.insert(new_vehs.begin(), new_vehs.end());
                 } else if (!disregardOppositeDirection && ix > 0) {
-                    assert(v->getLane()->getIndex() + ix >= v->getLane()->getEdge().getLanes().size()); // index points beyond this edge
+                    assert(vehLane->getIndex() + ix >= vehEdge->getLanes().size()); // index points beyond this edge
                     // Check opposite edge, too
-                    const MSEdge* opposite = v->getLane()->getEdge().getOppositeEdge();
+                    const MSEdge* opposite = vehEdge->getOppositeEdge();
                     if (opposite == nullptr) {
 #ifdef DEBUG_SURROUNDING
-                    std::cout << "No lane at index " << ix << std::endl;
+                        std::cout << "No lane at index " << ix << std::endl;
 #endif
                         // no opposite edge
                         continue;
                     }
                     // Index of opposite lane at relative offset ix
-                    const int ix_opposite = opposite->getLanes().size() - 1 - (v->getLane()->getIndex() + ix - v->getLane()->getEdge().getLanes().size());
+                    const int ix_opposite = opposite->getLanes().size() - 1 - (vehLane->getIndex() + ix - vehEdge->getLanes().size());
+                    if (ix_opposite < 0) {
+#ifdef DEBUG_SURROUNDING
+                        std::cout << "No lane on opposite at index " << ix_opposite << std::endl;
+#endif
+                        // no opposite edge
+                        continue;
+                    }
                     lane = opposite->getLanes()[ix_opposite];
                     // Search vehs along opposite lanes (swap upstream and downstream distance)
                     const std::set<MSVehicle*> new_vehs = v->getLane()->getSurroundingVehicles(lane->getLength() - v->getPositionOnLane(), upstreamDist+v->getLength(), downstreamDist);
                     vehs.insert(new_vehs.begin(), new_vehs.end());
                 }
-
-                // TODO: If opposite should be checked, do this for each lane of the forward search tree!
-                //       For instance, these would not be obtained if the ego lane does not have an opposite...
-
-
 #ifdef DEBUG_SURROUNDING
                 else {
                     std::cout << "No lane at index " << ix << std::endl;
                 }
 #endif
+
+                // TODO: If opposite should be checked, do this for each lane of the forward search tree!
+                //       For instance, these would not be obtained if the ego lane does not have an opposite...
+
             }
-        } else {
-            // No lane indices are specified -> use only vehicle's current lane per default
-            vehs = v->getLane()->getSurroundingVehicles(v->getPositionOnLane(), downstreamDist, upstreamDist+v->getLength());
-        }
 
 #ifdef DEBUG_SURROUNDING
-        std::cout << SIMTIME << " applySubscriptionFilters() for veh '" << v->getID() << "'. Found the following vehicles:\n";
-        for (auto veh : vehs) {
-            std::cout << "  '" << veh->getID() << "' on lane '" << veh->getLane()->getID() << "'\n";
-        }
+            std::cout << SIMTIME << " applySubscriptionFilters() for veh '" << v->getID() << "'. Found the following vehicles:\n";
+            for (auto veh : vehs) {
+                std::cout << "  '" << veh->getID() << "' on lane '" << veh->getLane()->getID() << "'\n";
+            }
 #endif
 
+            // filter vehicles in vehs by class and/or type if requested
+            if (s.activeFilters & SUBS_FILTER_VCLASS) {
+                // Only return vehicles of the given vClass in context subscription result
+                auto i = vehs.begin();
+                while (i != vehs.end()) {
+                    if ((*i)->getVehicleType().getVehicleClass() & s.filterVClasses == 0) {
+                        i = vehs.erase(i);
+                    } else {
+                        ++i;
+                    }
+                }
+            }
+            if (s.activeFilters & SUBS_FILTER_VTYPE) {
+                // Only return vehicles of the given vType in context subscription result
+                auto i = vehs.begin();
+                while (i != vehs.end()) {
+                    if (s.filterVTypes.find((*i)->getVehicleType().getID()) == s.filterVTypes.end()) {
+                        i = vehs.erase(i);
+                    } else {
+                        ++i;
+                    }
+                }
+            }
+        }
+        // Write vehs IDs in objIDs
+        for (const MSVehicle* veh : vehs) {
+            if (veh != nullptr) {
+                objIDs.insert(objIDs.end(), veh->getID());
+            }
+        }
+    } else {
+        // filter vehicles in vehs by class and/or type if requested
+        if (s.activeFilters & SUBS_FILTER_VCLASS) {
+            // Only return vehicles of the given vClass in context subscription result
+            auto i = objIDs.begin();
+            while (i != objIDs.end()) {
+                MSVehicle* veh = libsumo::Vehicle::getVehicle(*i);
+                if (veh->getVehicleType().getVehicleClass() & s.filterVClasses == 0) {
+                    i = objIDs.erase(i);
+                } else {
+                    ++i;
+                }
+            }
+        }
+        if (s.activeFilters & SUBS_FILTER_VTYPE) {
+            // Only return vehicles of the given vType in context subscription result
+            auto i = objIDs.begin();
+            while (i != objIDs.end()) {
+                MSVehicle* veh = libsumo::Vehicle::getVehicle(*i);
+                if (s.filterVTypes.find(veh->getVehicleType().getID()) == s.filterVTypes.end()) {
+                    i = objIDs.erase(i);
+                } else {
+                    ++i;
+                }
+            }
+        }
     }
-
-    if (s.activeFilters & SUBS_FILTER_VCLASS) {
-        // Only return vehicles of the given vClass in context subscription result
-        // s.filterVClasses
-    }
-    if (s.activeFilters & SUBS_FILTER_VTYPE) {
-        // Only return vehicles of the given vType in context subscription result
-        // s.filterVTypes;
-    }
-
 }
 
 void
