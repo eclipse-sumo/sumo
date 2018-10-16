@@ -39,6 +39,48 @@ class GNETAZFrame : public GNEFrame {
 public:
 
     // ===========================================================================
+    // class TAZSelector
+    // ===========================================================================
+
+    class TAZSelector : protected FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNETAZFrame::TAZSelector)
+
+    public:
+        /// @brief constructor
+        TAZSelector(GNETAZFrame* TAZFrameParent);
+
+        /// @brief destructor
+        ~TAZSelector();
+
+        /// @brief get current TAZ type
+        SumoXMLTag getCurrentTAZType() const;
+
+        /// @brief set parameters depending of the given TAZType
+        void setCurrentTAZ(SumoXMLTag actualTAZType);
+
+        /// @name FOX-callbacks
+        /// @{
+        /// @brief Called when the user select another TAZ Type
+        long onCmdselectAttributeCarrier(FXObject*, FXSelector, void*);
+        /// @}
+
+    protected:
+        /// @brief FOX needs this
+        TAZSelector() {}
+
+    private:
+        /// @brief pointer to TAZ Frame Parent
+        GNETAZFrame* myTAZFrameParent;
+
+        /// @brief combo box with the list of TAZ elements
+        FXComboBox* myTAZMatchBox;
+
+        /// @brief actual TAZ type selected in the match Box
+        SumoXMLTag myCurrentTAZType;
+    };
+
+    // ===========================================================================
     // class edgesSelector
     // ===========================================================================
 
@@ -256,17 +298,14 @@ protected:
     GNETAZFrame() {}
 
 private:
+    /// @brief TAZ Selector
+    GNETAZFrame::TAZSelector* myTAZSelector;
+
     /// @brief edge selector
     GNETAZFrame::edgesSelector* myEdgeSelector;
 
     /// @brief TAZ parameters
     GNETAZFrame::TAZParameters* myTAZParameters;
-
-    /// @brief groupbox for the junction label
-    FXGroupBox* myGroupBoxLabel;
-
-    /// @brief Label for current Junction
-    FXLabel* myCurrentJunctionLabel;
 
     /// @brief groupbox for buttons
     FXGroupBox* myGroupBoxButtons;
