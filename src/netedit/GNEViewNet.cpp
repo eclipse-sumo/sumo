@@ -1332,10 +1332,10 @@ GNEViewNet::hotkeyEnter() {
             myViewParent->getPolygonFrame()->getDrawingMode()->startDrawing();
         }
     } else if (myEditMode == GNE_MODE_CROSSING) {
-        myViewParent->getCrossingFrame()->onCmdCreateCrossing(nullptr, 0, nullptr);
+        myViewParent->getCrossingFrame()->createCrossingHotkey();
     } else if (myEditMode == GNE_MODE_TAZ) {
         /*
-        myViewParent->getCrossingFrame()->onCmdCreateCrossing(0, 0, 0);
+        myViewParent->getTAZFrame()->createTAZHotkey();
         */
     } else if (myEditMode == GNE_MODE_ADDITIONAL) {
         if (myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->isSelectingLanes()) {
