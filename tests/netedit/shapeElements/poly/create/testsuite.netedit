@@ -8,6 +8,9 @@ create_color
 # create fill
 create_fill
 
+# create lineWidth
+create_linewidth
+
 # create layer
 create_layer
 

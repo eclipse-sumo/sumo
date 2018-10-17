@@ -28,30 +28,30 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 # go to shape mode
 netedit.shapeMode()
 
-# go to poly mode and select poly
+# go to shape mode
 netedit.changeShape("poly")
 
-# create first polygon
-netedit.createSquaredPoly(referencePosition, 200, 150, 200, True)
+# change line width (invalid)
+netedit.modifyShapeDefaultValue(5, "dummyLineWidth")
 
-# go to inspect mode
-netedit.inspectMode()
+# try to create polygon
+netedit.createSquaredPoly(referencePosition, 100, 50, 100, True)
 
-# inspect first polygon
-netedit.leftClick(referencePosition, 100, 50)
+# change line width (invalid, negative)
+netedit.modifyShapeDefaultValue(5, "-2.5")
 
-# Change parameter 6 with a non valid value
-netedit.modifyAttribute(6, "dummyLayer")
+# create polygon
+netedit.createSquaredPoly(referencePosition, 200, 50, 100, True)
 
-# Change parameter 6 with a valid value (negative)
-netedit.modifyAttribute(6, "-2")
+# change line width (valid)
+netedit.modifyShapeDefaultValue(5, "3.2")
 
-# Change parameter 6 with a valid value (negative)
-netedit.modifyAttribute(6, "2.5")
+# create polygon
+netedit.createSquaredPoly(referencePosition, 300, 50, 100, True)
 
-# Check undos and redos
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+# Check undo redo
+netedit.undo(referencePosition, 1)
+netedit.redo(referencePosition, 1)
 
 # save shapes
 netedit.saveShapes()

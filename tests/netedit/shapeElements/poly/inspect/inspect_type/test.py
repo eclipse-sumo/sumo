@@ -40,8 +40,8 @@ netedit.inspectMode()
 # inspect first polygon
 netedit.leftClick(referencePosition, 100, 50)
 
-# Change parameter 5 with a valid value (but with invalid XML attributes)
-netedit.modifyAttribute(6, "<<myOwnType>>")
+# Change parameter 7 with a valid value (but with invalid XML attributes)
+netedit.modifyAttribute(7, "<<myOwnType>>")
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)

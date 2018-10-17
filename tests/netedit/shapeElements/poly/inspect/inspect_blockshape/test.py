@@ -40,8 +40,8 @@ netedit.inspectMode()
 # inspect first polygon
 netedit.leftClick(referencePosition, 100, 50)
 
-# Change boolean parameter 12
-netedit.modifyShapeDefaultBoolValue(15)
+# Change boolean parameter 16
+netedit.modifyShapeDefaultBoolValue(16)
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)

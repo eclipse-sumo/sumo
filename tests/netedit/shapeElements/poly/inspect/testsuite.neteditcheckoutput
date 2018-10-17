@@ -11,6 +11,9 @@ inspect_color
 # edit poly fill
 inspect_fill
 
+# edit poly lineWidth
+inspect_linewidth
+
 # edit poly layer
 inspect_layer
 

@@ -38,10 +38,10 @@ netedit.modifyShapeDefaultValue(3, "white")
 netedit.modifyShapeDefaultBoolValue(4)
 
 # change imgfile (valid)
-netedit.modifyShapeDefaultValue(7, "berlin_icon.ico")
+netedit.modifyShapeDefaultValue(8, "berlin_icon.ico")
 
 # change relativePos
-netedit.modifyShapeDefaultBoolValue(8)
+netedit.modifyShapeDefaultBoolValue(9)
 
 # create polygon
 netedit.createSquaredPoly(referencePosition, 100, 50, 100, True)
