@@ -271,6 +271,9 @@ GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value) {
             myPosition = GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, false)[0];
             break;
         }
+        case SUMO_ATTR_Z:
+            myZ = parse<double>(value);
+            break;
         case SUMO_ATTR_WIDTH:
             myWidth = parse<double>(value);
             break;
