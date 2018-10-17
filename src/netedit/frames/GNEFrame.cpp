@@ -48,7 +48,7 @@
 
 #include "GNEFrame.h"
 #include "GNEInspectorFrame.h"
-#include "GNEPolygonFrame.h"
+#include "GNEFrame.h"
 #include "GNEDeleteFrame.h"
 
 
@@ -56,7 +56,7 @@
 // FOX callback mapping
 // ===========================================================================
 
-FXDEFMAP(GNEFrame::ACHierarchy) GNEFrameACHierarchyMap[] = {
+FXDEFMAP(GNEFrame::ACHierarchy) ACHierarchyMap[] = {
     FXMAPFUNC(SEL_COMMAND,              MID_GNE_INSPECTORFRAME_CENTER,      GNEFrame::ACHierarchy::onCmdCenterItem),
     FXMAPFUNC(SEL_COMMAND,              MID_GNE_INSPECTORFRAME_INSPECT,     GNEFrame::ACHierarchy::onCmdInspectItem),
     FXMAPFUNC(SEL_COMMAND,              MID_GNE_INSPECTORFRAME_DELETE,      GNEFrame::ACHierarchy::onCmdDeleteItem),
@@ -68,9 +68,16 @@ FXDEFMAP(GNEFrame::GenericParametersEditor) GenericParametersEditorMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,          GNEFrame::GenericParametersEditor::onCmdSetGenericParameter),
 };
 
+FXDEFMAP(GNEFrame::DrawingShape) DrawingShapeMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_STARTDRAWING,   GNEFrame::DrawingShape::onCmdStartDrawing),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_STOPDRAWING,    GNEFrame::DrawingShape::onCmdStopDrawing),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ABORTDRAWING,   GNEFrame::DrawingShape::onCmdAbortDrawing),
+};
+
 // Object implementation
-FXIMPLEMENT(GNEFrame::ACHierarchy,              FXGroupBox, GNEFrameACHierarchyMap, ARRAYNUMBER(GNEFrameACHierarchyMap))
-FXIMPLEMENT(GNEFrame::GenericParametersEditor,  FXGroupBox, GenericParametersEditorMap, ARRAYNUMBER(GenericParametersEditorMap))
+FXIMPLEMENT(GNEFrame::ACHierarchy,              FXGroupBox,     ACHierarchyMap,                 ARRAYNUMBER(ACHierarchyMap))
+FXIMPLEMENT(GNEFrame::GenericParametersEditor,  FXGroupBox,     GenericParametersEditorMap,     ARRAYNUMBER(GenericParametersEditorMap))
+FXIMPLEMENT(GNEFrame::DrawingShape,             FXGroupBox,     DrawingShapeMap,                ARRAYNUMBER(DrawingShapeMap))
 
 
 // ===========================================================================
@@ -707,6 +714,169 @@ GNEFrame::GenericParametersEditor::onCmdSetGenericParameter(FXObject*, FXSelecto
 }
 
 // ---------------------------------------------------------------------------
+// GNEFrame::DrawingShape - methods
+// ---------------------------------------------------------------------------
+
+GNEFrame::DrawingShape::DrawingShape(GNEFrame* frameParent) :
+    FXGroupBox(frameParent->myContentFrame, "Drawing", GUIDesignGroupBoxFrame),
+    myFrameParent(frameParent),
+    myDeleteLastCreatedPoint(false),
+    myCloseShape(false) {
+    // create start and stop buttons
+    myStartDrawingButton = new FXButton(this, "Start drawing", 0, this, MID_GNE_STARTDRAWING, GUIDesignButton);
+    myStopDrawingButton = new FXButton(this, "Stop drawing", 0, this, MID_GNE_STOPDRAWING, GUIDesignButton);
+    myAbortDrawingButton = new FXButton(this, "Abort drawing", 0, this, MID_GNE_ABORTDRAWING, GUIDesignButton);
+
+    // create information label
+    std::ostringstream information;
+    information
+            << "- 'Start drawing' or ENTER\n"
+            << "  draws shape boundary.\n"
+            << "- 'Stop drawing' or ENTER\n"
+            << "  creates shape.\n"
+            << "- 'Shift + Click'\n"
+            << "  removes last created point.\n"
+            << "- 'Abort drawing' or ESC\n"
+            << "  removes drawed shape.";
+    myInformationLabel = new FXLabel(this, information.str().c_str(), 0, GUIDesignLabelFrameInformation);
+    // disable stop and abort functions as init
+    myStopDrawingButton->disable();
+    myAbortDrawingButton->disable();
+}
+
+
+GNEFrame::DrawingShape::~DrawingShape() {}
+
+
+void GNEFrame::DrawingShape::showDrawingShape() {
+    // abort current drawing before show
+    abortDrawing();
+    // show FXGroupBox
+    FXGroupBox::show();
+}
+
+
+void GNEFrame::DrawingShape::hideDrawingShape() {
+    // abort current drawing before hide
+    abortDrawing();
+    // show FXGroupBox
+    FXGroupBox::hide();
+}
+
+
+void
+GNEFrame::DrawingShape::startDrawing() {
+    // Only start drawing if DrawingShape modul is shown
+    if (shown()) {
+        // change buttons
+        myStartDrawingButton->disable();
+        myStopDrawingButton->enable();
+        myAbortDrawingButton->enable();
+    }
+}
+
+
+void
+GNEFrame::DrawingShape::stopDrawing() {
+    // check if shape has to be closed
+    if (myCloseShape) {
+        myTemporalShapeShape.closePolygon();
+    }
+    // try to build shape
+    if (myFrameParent->buildShape()) {
+        // clear created points
+        myTemporalShapeShape.clear();
+        myFrameParent->getViewNet()->update();
+        // change buttons
+        myStartDrawingButton->enable();
+        myStopDrawingButton->disable();
+        myAbortDrawingButton->disable();
+    } else {
+        // abort drawing if shape cannot be created
+        abortDrawing();
+    }
+}
+
+
+void
+GNEFrame::DrawingShape::abortDrawing() {
+    // clear created points
+    myTemporalShapeShape.clear();
+    myFrameParent->getViewNet()->update();
+    // change buttons
+    myStartDrawingButton->enable();
+    myStopDrawingButton->disable();
+    myAbortDrawingButton->disable();
+}
+
+
+void
+GNEFrame::DrawingShape::addNewPoint(const Position& P) {
+    if (myStopDrawingButton->isEnabled()) {
+        myTemporalShapeShape.push_back(P);
+    } else {
+        throw ProcessError("A new point cannot be added if drawing wasn't started");
+    }
+}
+
+
+void
+GNEFrame::DrawingShape::removeLastPoint() {
+
+}
+
+
+const PositionVector&
+GNEFrame::DrawingShape::getTemporalShape() const {
+    return myTemporalShapeShape;
+}
+
+
+bool
+GNEFrame::DrawingShape::isDrawing() const {
+    return myStopDrawingButton->isEnabled();
+}
+
+
+void
+GNEFrame::DrawingShape::setDeleteLastCreatedPoint(bool value) {
+    myDeleteLastCreatedPoint = value;
+}
+
+
+bool
+GNEFrame::DrawingShape::getDeleteLastCreatedPoint() {
+    return myDeleteLastCreatedPoint;
+}
+
+
+void 
+GNEFrame::DrawingShape::setCloseShape(bool value) {
+    myCloseShape = value;
+}
+
+
+long
+GNEFrame::DrawingShape::onCmdStartDrawing(FXObject*, FXSelector, void*) {
+    startDrawing();
+    return 0;
+}
+
+
+long
+GNEFrame::DrawingShape::onCmdStopDrawing(FXObject*, FXSelector, void*) {
+    stopDrawing();
+    return 0;
+}
+
+
+long
+GNEFrame::DrawingShape::onCmdAbortDrawing(FXObject*, FXSelector, void*) {
+    abortDrawing();
+    return 0;
+}
+
+// ---------------------------------------------------------------------------
 // GNEFrame - methods
 // ---------------------------------------------------------------------------
 
@@ -799,6 +969,13 @@ GNEFrame::getFrameHeaderLabel() const {
 FXFont*
 GNEFrame::getFrameHeaderFont() const {
     return myFrameHeaderFont;
+}
+
+
+bool 
+GNEFrame::buildShape() {
+    // this function has to be reimplemente in all frames that needs to draw a polygon (for example, GNEPolygonFrame or GNETAZFrame)
+    return false;
 }
 
 

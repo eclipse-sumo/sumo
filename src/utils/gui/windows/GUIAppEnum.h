@@ -557,6 +557,12 @@ enum {
     MID_GNE_SELECTORFRAME_PROCESSSTRING,
     /// @brief changes the visual scaling of selected items
     MID_GNE_SELECTORFRAME_SELECTSCALE,
+    /// @brief start drawing polygon
+    MID_GNE_STARTDRAWING,
+    /// @brief stop drawing polygon
+    MID_GNE_STOPDRAWING,
+    /// @brief abort drawing polygon
+    MID_GNE_ABORTDRAWING,
     /// @}
 
 
@@ -675,17 +681,6 @@ enum {
     MID_GNE_ADDITIONALFRAME_ABORTSELECTION,
     /// @}
 
-
-    /// @name GNEPolygonFrame messages
-    /// @{
-
-    /// @brief start drawing polygon
-    MID_GNE_POLYGONFRAME_STARTDRAWING,
-    /// @brief stop drawing polygon
-    MID_GNE_POLYGONFRAME_STOPDRAWING,
-    /// @brief abort drawing polygon
-    MID_GNE_POLYGONFRAME_ABORTDRAWING,
-    /// @}
 
     /// @name GNEProhibitionFrame messages
     /// @{

@@ -269,6 +269,9 @@ public:
         NeteditAttributes() {}
 
     private:
+        /// @brief pointer to polygon frame parent
+        GNEPolygonFrame* myPolygonFrameParent;
+
         /// @brief Label for block movement
         FXLabel* myBlockMovementLabel;
 
@@ -294,93 +297,6 @@ public:
         FXCheckButton* myClosePolygonCheckButton;
     };
 
-    // ===========================================================================
-    // class DrawingMode
-    // ===========================================================================
-
-    class DrawingMode : private FXGroupBox {
-        /// @brief FOX-declaration
-        FXDECLARE(GNEPolygonFrame::DrawingMode)
-
-    public:
-        /// @brief constructor
-        DrawingMode(GNEPolygonFrame* polygonFrameParent);
-
-        /// @brief destructor
-        ~DrawingMode();
-
-        /// @brief show Drawing mode
-        void showDrawingMode();
-
-        /// @brief hide Drawing mode
-        void hideDrawingMode();
-
-        /// @brief start drawing
-        void startDrawing();
-
-        /// @brief stop drawing and create polygon or
-        void stopDrawing();
-
-        /// @brief abort drawing
-        void abortDrawing();
-
-        /// @brief add new point to temporal shape
-        void addNewPoint(const Position& P);
-
-        /// @brief remove last added point
-        void removeLastPoint();
-
-        /// @brief get Temporal shape
-        const PositionVector& getTemporalShape() const;
-
-        /// @brief return true if currently a shape is drawed
-        bool isDrawing() const;
-
-        /// @brief enable or disable delete last created point
-        void setDeleteLastCreatedPoint(bool value);
-
-        /// @brief get flag delete last created point
-        bool getDeleteLastCreatedPoint();
-
-        /// @name FOX-callbacks
-        /// @{
-        /// @brief Called when the user press start drawing button
-        long onCmdStartDrawing(FXObject*, FXSelector, void*);
-
-        /// @brief Called when the user press stop drawing button
-        long onCmdStopDrawing(FXObject*, FXSelector, void*);
-
-        /// @brief Called when the user press abort drawing button
-        long onCmdAbortDrawing(FXObject*, FXSelector, void*);
-        /// @}
-
-    protected:
-        /// @brief FOX needs this
-        DrawingMode() {}
-
-    private:
-        /// @brief frame frame parent
-        GNEPolygonFrame* myPolygonFrameParent;
-
-        /// @brief flag to enable/disable delete point mode
-        bool myDeleteLastCreatedPoint;
-
-        /// @brief button for start drawing
-        FXButton* myStartDrawingButton;
-
-        /// @brief button for stop drawing
-        FXButton* myStopDrawingButton;
-
-        /// @brief button for abort drawing
-        FXButton* myAbortDrawingButton;
-
-        /// @brief Label with information
-        FXLabel* myInformationLabel;
-
-        /// @brief current drawed shape
-        PositionVector myTemporalShapeShape;
-    };
-
     /**@brief Constructor
     * @brief parent FXHorizontalFrame in which this GNEFrame is placed
     * @brief viewNet viewNet that uses this GNEFrame
@@ -397,31 +313,22 @@ public:
     */
     AddShapeResult processClick(const Position& clickedPosition, GNELane* lane);
 
-    /**@brief build Polygon using values of Fields and drawed shape
-     * return true if was sucesfully created
-     * @note called when user stop drawing polygon
-     */
-    bool buildPoly(const PositionVector& drawedShape);
-
     /// @brief show shape frame and update use selected edges/lanes
     void show();
 
     /// @brief get list of selecte id's in string format
     static std::string getIdsSelected(const FXList* list);
 
-    /// @brief get shape selector
-    ShapeSelector* getShapeSelector() const;
-
-    /// @brief get shape attributes
-    ShapeAttributes* getShapeAttributes() const;
-
-    /// @brief get netedit attributes editor
-    NeteditAttributes* getNeteditAttributes() const;
-
     /// @brief get drawing mode editor
-    DrawingMode* getDrawingMode() const;
+    DrawingShape* getDrawingShape() const;
 
 protected:
+    /**@brief build a shaped element using the drawed shape
+     * return true if was sucesfully created
+     * @note called when user stop drawing polygon
+     */
+    bool buildShape();
+
     /// @brief add Polygon
     bool addPolygon(const std::map<SumoXMLAttr, std::string>& POIValues);
 
@@ -441,8 +348,8 @@ private:
     /// @brief Netedit parameter
     NeteditAttributes* myNeteditAttributes;
 
-    /// @brief drawing mode
-    DrawingMode* myDrawingMode;
+    /// @brief Drawing shape
+    DrawingShape* myDrawingShape;
 };
 
 

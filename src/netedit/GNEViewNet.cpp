@@ -1151,7 +1151,7 @@ GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
 
 long GNEViewNet::onRightBtnPress(FXObject* obj, FXSelector sel, void* eventData) {
     // disable right button press during drawing polygon
-    if ((myEditMode == GNE_MODE_POLYGON) && myViewParent->getPolygonFrame()->getDrawingMode()->isDrawing()) {
+    if ((myEditMode == GNE_MODE_POLYGON) && myViewParent->getPolygonFrame()->getDrawingShape()->isDrawing()) {
         return 1;
     } else {
         return GUISUMOAbstractView::onRightBtnPress(obj, sel, eventData);
@@ -1161,7 +1161,7 @@ long GNEViewNet::onRightBtnPress(FXObject* obj, FXSelector sel, void* eventData)
 
 long GNEViewNet::onRightBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
     // disable right button release during drawing polygon
-    if ((myEditMode == GNE_MODE_POLYGON) && myViewParent->getPolygonFrame()->getDrawingMode()->isDrawing()) {
+    if ((myEditMode == GNE_MODE_POLYGON) && myViewParent->getPolygonFrame()->getDrawingShape()->isDrawing()) {
         return 1;
     } else {
         return GUISUMOAbstractView::onRightBtnRelease(obj, sel, eventData);
@@ -1175,8 +1175,8 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* eventData) {
     // update shift key pressed
     myShiftKeyPressed = ((FXEvent*)eventData)->state & SHIFTMASK;
     // change "delete last created point" depending if during movement shift key is pressed
-    if ((myEditMode == GNE_MODE_POLYGON) && myViewParent->getPolygonFrame()->getDrawingMode()->isDrawing()) {
-        myViewParent->getPolygonFrame()->getDrawingMode()->setDeleteLastCreatedPoint(myShiftKeyPressed);
+    if ((myEditMode == GNE_MODE_POLYGON) && myViewParent->getPolygonFrame()->getDrawingShape()->isDrawing()) {
+        myViewParent->getPolygonFrame()->getDrawingShape()->setDeleteLastCreatedPoint(myShiftKeyPressed);
     }
     // calculate offset
     Position offsetMovement = snapToActiveGrid(getPositionInformation()) - myMoveSingleElementValues.movingOriginalPosition;
@@ -1228,8 +1228,8 @@ GNEViewNet::onKeyPress(FXObject* o, FXSelector sel, void* eventData) {
     // update shift key pressed
     myShiftKeyPressed = ((FXEvent*)eventData)->state & SHIFTMASK;
     // change "delete last created point" depending of shift key
-    if ((myEditMode == GNE_MODE_POLYGON) && myViewParent->getPolygonFrame()->getDrawingMode()->isDrawing()) {
-        myViewParent->getPolygonFrame()->getDrawingMode()->setDeleteLastCreatedPoint(((FXEvent*)eventData)->state & SHIFTMASK);
+    if ((myEditMode == GNE_MODE_POLYGON) && myViewParent->getPolygonFrame()->getDrawingShape()->isDrawing()) {
+        myViewParent->getPolygonFrame()->getDrawingShape()->setDeleteLastCreatedPoint(((FXEvent*)eventData)->state & SHIFTMASK);
     }
     update();
     return GUISUMOAbstractView::onKeyPress(o, sel, eventData);
@@ -1241,8 +1241,8 @@ GNEViewNet::onKeyRelease(FXObject* o, FXSelector sel, void* eventData) {
     // update shift key pressed
     myShiftKeyPressed = ((FXEvent*)eventData)->state & SHIFTMASK;
     // change "delete last created point" depending of shift key
-    if ((myEditMode == GNE_MODE_POLYGON) && myViewParent->getPolygonFrame()->getDrawingMode()->isDrawing()) {
-        myViewParent->getPolygonFrame()->getDrawingMode()->setDeleteLastCreatedPoint(myShiftKeyPressed);
+    if ((myEditMode == GNE_MODE_POLYGON) && myViewParent->getPolygonFrame()->getDrawingShape()->isDrawing()) {
+        myViewParent->getPolygonFrame()->getDrawingShape()->setDeleteLastCreatedPoint(myShiftKeyPressed);
     }
     // check if selecting using rectangle has to be disabled
     if (mySelectingArea.selectingUsingRectangle && !myShiftKeyPressed) {
@@ -1275,7 +1275,7 @@ GNEViewNet::abortOperation(bool clearSelection) {
         stopEditCustomShape();
     } else if (myEditMode == GNE_MODE_POLYGON) {
         // abort current drawing
-        myViewParent->getPolygonFrame()->getDrawingMode()->abortDrawing();
+        myViewParent->getPolygonFrame()->getDrawingShape()->abortDrawing();
     } else if (myEditMode == GNE_MODE_PROHIBITION) {
         myViewParent->getProhibitionFrame()->onCmdCancel(nullptr, 0, nullptr);
     } else if (myEditMode == GNE_MODE_ADDITIONAL) {
@@ -1324,12 +1324,12 @@ GNEViewNet::hotkeyEnter() {
             update();
         }
     } else if (myEditMode == GNE_MODE_POLYGON) {
-        if (myViewParent->getPolygonFrame()->getDrawingMode()->isDrawing()) {
+        if (myViewParent->getPolygonFrame()->getDrawingShape()->isDrawing()) {
             // stop current drawing
-            myViewParent->getPolygonFrame()->getDrawingMode()->stopDrawing();
+            myViewParent->getPolygonFrame()->getDrawingShape()->stopDrawing();
         } else {
             // start drawing
-            myViewParent->getPolygonFrame()->getDrawingMode()->startDrawing();
+            myViewParent->getPolygonFrame()->getDrawingShape()->startDrawing();
         }
     } else if (myEditMode == GNE_MODE_CROSSING) {
         myViewParent->getCrossingFrame()->createCrossingHotkey();
@@ -3269,8 +3269,8 @@ GNEViewNet::drawLaneCandidates() const {
 void 
 GNEViewNet::drawTemporalPolygonShape() const {
     // check if we're in drawing mode
-    if(myViewParent->getPolygonFrame()->getDrawingMode()->isDrawing()) {
-        const PositionVector& temporalDrawingShape = myViewParent->getPolygonFrame()->getDrawingMode()->getTemporalShape();
+    if(myViewParent->getPolygonFrame()->getDrawingShape()->isDrawing()) {
+        const PositionVector& temporalDrawingShape = myViewParent->getPolygonFrame()->getDrawingShape()->getTemporalShape();
         // draw blue line with the current drawed shape
         glPushMatrix();
         glLineWidth(2);
@@ -3282,7 +3282,7 @@ GNEViewNet::drawTemporalPolygonShape() const {
             glPushMatrix();
             glLineWidth(2);
             // draw last line depending if shift key (delete last created point) is pressed
-            if (myViewParent->getPolygonFrame()->getDrawingMode()->getDeleteLastCreatedPoint()) {
+            if (myViewParent->getPolygonFrame()->getDrawingShape()->getDeleteLastCreatedPoint()) {
                 GLHelper::setColor(RGBColor::RED);
             } else {
                 GLHelper::setColor(RGBColor::GREEN);
