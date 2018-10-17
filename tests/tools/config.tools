@@ -67,6 +67,7 @@ copy_test_path:ptlines.xml
 copy_test_path:input_edgedata.xml
 copy_test_path:summary.xml
 copy_test_path:config.txt
+copy_test_path:input_sel.txt
 
 [collate_file]
 detectors:e1.add.xml

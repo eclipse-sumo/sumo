@@ -1,2 +1,5 @@
 # test generating polygons from a route file
 basic
+
+# filter output edges
+filter

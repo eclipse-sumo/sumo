@@ -47,6 +47,7 @@ def parse_args(args):
                          default=0, help="maximum random disturbance to route geometry")
     optParser.add_option("--standalone", action="store_true", default=False,
                          help="Parse stand-alone routes that are not define as child-element of a vehicle")
+    optParser.add_option("--filter-output.file", dest="filterOutputFile", help="only write output for edges in the given selection file")
     options, args = optParser.parse_args(args=args)
     if len(args) < 2:
         sys.exit(USAGE)
@@ -68,16 +69,34 @@ def randomize_pos(pos, blur):
 
 MISSING_EDGES = set()
 
+def readFilterEdges(options):
+    try:
+        filterFile = options.filterOutputFile
+    except:
+        filterFile = None
+    if filterFile is not None:
+        result = set()
+        for line in open(filterFile):
+            if line.startswith('edge:'):
+                result.add(line.replace('edge:','').strip())
+        return result
+    else:
+        return None
+
 
 def generate_poly(options, net, id, color, edges, outf, type="route"):
     lanes = []
+    filterEdges = readFilterEdges(options)
     for e in edges:
         if net.hasEdge(e):
-            lanes.append(net.getEdge(e).getLane(0))
+            if filterEdges is None or e in filterEdges:
+                lanes.append(net.getEdge(e).getLane(0))
         else:
             if e not in MISSING_EDGES:
                 sys.stderr.write("Warning: unknown edge '%s'\n" % e)
                 MISSING_EDGES.add(e)
+    if not lanes:
+        return
     shape = list(itertools.chain(*list(l.getShape() for l in lanes)))
     if options.blur > 0:
         shape = [randomize_pos(pos, options.blur) for pos in shape]
