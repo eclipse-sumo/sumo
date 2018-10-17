@@ -81,6 +81,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "request",                    SUMO_TAG_REQUEST },
     { "source",                     SUMO_TAG_SOURCE },
     { "taz",                        SUMO_TAG_TAZ },
+    { "tazEdge",                    SUMO_TAG_TAZEDGE },
     { "tazSource",                  SUMO_TAG_TAZSOURCE },
     { "tazSink",                    SUMO_TAG_TAZSINK },
     { "trafficLight",               SUMO_TAG_TRAFFIC_LIGHT },
@@ -588,7 +589,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "departureVariation",     AGEN_ATTR_DEP_VARIATION },
 
     // netEdit
-    { "selected",   GNE_ATTR_SELECTED },
+    { "selected",                           GNE_ATTR_SELECTED },
     { "modificationStatusNotForPrinting",   GNE_ATTR_MODIFICATION_STATUS },
     { "shapeStart",                         GNE_ATTR_SHAPE_START },
     { "shapeEnd",                           GNE_ATTR_SHAPE_END },
@@ -598,6 +599,8 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "closedShape",                        GNE_ATTR_CLOSE_SHAPE },
     { "parentItem",                         GNE_ATTR_PARENT },
     { "genericParameter",                   GNE_ATTR_GENERIC },
+    { "departWeight",                       GNE_ATTR_TAZ_DEPARTWEIGHT },
+    { "arrivalWeight",                      GNE_ATTR_TAZ_ARRIVALWEIGHT },
 
     { "targetLanes", SUMO_ATTR_TARGETLANE },
     { "crossing", SUMO_ATTR_CROSSING },

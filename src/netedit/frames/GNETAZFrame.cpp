@@ -89,7 +89,7 @@ GNETAZFrame::TAZSelector::TAZSelector(GNETAZFrame* TAZFrameParent) :
     myTAZMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
 
     // Add options to myTAZMatchBox
-    auto listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TAGProperty::TAGPROPERTY_TAZ, true);
+    auto listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TAGProperty::TAGPROPERTY_TAZ, false);
     for (auto i : listOfTags) {
         myTAZMatchBox->appendItem(toString(i).c_str());
     }
@@ -155,7 +155,7 @@ GNETAZFrame::TAZSelector::setCurrentTAZ(SumoXMLTag actualTAZType) {
 long
 GNETAZFrame::TAZSelector::onCmdselectAttributeCarrier(FXObject*, FXSelector, void*) {
     // Check if value of myTAZMatchBox correspond of an allowed TAZ tags
-    auto listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TAGProperty::TAGPROPERTY_TAZ, true);
+    auto listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TAGProperty::TAGPROPERTY_TAZ, false);
     for (auto i : listOfTags) {
         if (toString(i) == myTAZMatchBox->getText().text()) {
             myTAZMatchBox->setTextColor(FXRGB(0, 0, 0));

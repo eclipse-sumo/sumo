@@ -1088,10 +1088,18 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     // obtain Node Types except NODETYPE_DEAD_END_DEPRECATED
     std::vector<std::string> nodeTypes = SUMOXMLDefinitions::NodeTypes.getStrings();
     nodeTypes.erase(std::find(nodeTypes.begin(), nodeTypes.end(), toString(NODETYPE_DEAD_END_DEPRECATED)));
+    // obtain a vector string with the emissions
+    std::vector<std::string> emissions = { "zero", "LDV", "LDV_G_EU0", "LDV_G_EU1", "LDV_G_EU2", "LDV_G_EU3", "LDV_G_EU4", "LDV_G_EU5",
+                                            "LDV_G_EU6", "LDV_G_East", "LDV_D_EU0", "LDV_D_EU1", "LDV_D_EU2", "LDV_D_EU3", "LDV_D_EU4", "LDV_D_EU5", "LDV_D_EU6",
+                                            "PC", "PC_Alternative", "PC_G_EU0", "PC_G_EU1", "PC_G_EU2", "PC_G_EU3", "PC_G_EU4", "PC_G_EU5", "PC_G_EU6", "PC_G_East",
+                                            "PC_D_EU0", "PC_D_EU1", "PC_D_EU2", "PC_D_EU3", "PC_D_EU4", "PC_D_EU5", "PC_D_EU6", "Bus", "Coach", "HDV", "HDV_G", "HDV_D_EU0",
+                                            "HDV_D_EU1", "HDV_D_EU2", "HDV_D_EU3", "HDV_D_EU4", "HDV_D_EU5", "HDV_D_EU6", "HDV_D_East"
+                                          };
     // declare integers for list position. It will be updated after every TagValues(...) call
     int netElement = 0;
     int additional = 0;
     int shape = 0;
+    int taz = 0;
     // fill all ACs
     SumoXMLTag currentTag = SUMO_TAG_EDGE;
     {
@@ -2216,7 +2224,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_TAZ;
     {
         // set values of tag
-        myAllowedTags[currentTag] = TagValues(TAGPROPERTY_TAZ | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_VIEW | TAGPROPERTY_SELECTABLE, additional, ICON_TAZ);
+        myAllowedTags[currentTag] = TagValues(TAGPROPERTY_TAZ | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_VIEW | TAGPROPERTY_SELECTABLE, taz, ICON_TAZ);
         // set values of attributes
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_ID,
                                                ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
@@ -2235,16 +2243,22 @@ GNEAttributeCarrier::fillAttributeCarriers() {
                                                "List of edges of the TAZ",
                                                "");
     }
+    currentTag = SUMO_TAG_TAZEDGE;
+    {
+        // set values of tag
+        myAllowedTags[currentTag] = TagValues(TAGPROPERTY_TAZ | TAGPROPERTY_PARENT, taz, ICON_TAZ, SUMO_TAG_TAZ);
+        // set values of attributes
+        myAllowedTags[currentTag].addAttribute(GNE_ATTR_TAZ_DEPARTWEIGHT,
+                                               ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE,
+                                               "Depart weightt associated to this Edge",
+                                               "0");
+        myAllowedTags[currentTag].addAttribute(GNE_ATTR_TAZ_ARRIVALWEIGHT,
+                                               ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE,
+                                               "Arrival weight associated to this Edget",
+                                               "0");
+    }
     currentTag = SUMO_TAG_VTYPE;
     {
-        // obtain a vector string with the emissions
-        std::vector<std::string> emissions = { "zero", "LDV", "LDV_G_EU0", "LDV_G_EU1", "LDV_G_EU2", "LDV_G_EU3", "LDV_G_EU4", "LDV_G_EU5",
-                                               "LDV_G_EU6", "LDV_G_East", "LDV_D_EU0", "LDV_D_EU1", "LDV_D_EU2", "LDV_D_EU3", "LDV_D_EU4", "LDV_D_EU5", "LDV_D_EU6",
-                                               "PC", "PC_Alternative", "PC_G_EU0", "PC_G_EU1", "PC_G_EU2", "PC_G_EU3", "PC_G_EU4", "PC_G_EU5", "PC_G_EU6", "PC_G_East",
-                                               "PC_D_EU0", "PC_D_EU1", "PC_D_EU2", "PC_D_EU3", "PC_D_EU4", "PC_D_EU5", "PC_D_EU6", "Bus", "Coach", "HDV", "HDV_G", "HDV_D_EU0",
-                                               "HDV_D_EU1", "HDV_D_EU2", "HDV_D_EU3", "HDV_D_EU4", "HDV_D_EU5", "HDV_D_EU6", "HDV_D_East"
-                                             };
-
         // set values of tag
         myAllowedTags[currentTag] = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_PARENT, additional, ICON_VTYPE);
         // set values of attributes
