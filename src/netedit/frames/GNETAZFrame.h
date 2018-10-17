@@ -191,12 +191,6 @@ public:
         /// @brief get TAZ NBedges
         std::vector<NBEdge*> getTAZEdges() const;
 
-        /// @brief get TAZ priority
-        bool getTAZPriority() const;
-
-        /// @brief get TAZ width
-        double getTAZWidth() const;
-
         /// @brief get candidate color
         const RGBColor& getCandidateColor() const;
 
@@ -231,18 +225,6 @@ public:
 
         /// @brief TextField for edges
         FXTextField* myTAZEdges;
-
-        /// @brief Label for Priority
-        FXLabel* myTAZPriorityLabel;
-
-        /// @brief CheckBox for Priority
-        FXCheckButton* myTAZPriorityCheckButton;
-
-        /// @brief Label for width
-        FXLabel* myTAZWidthLabel;
-
-        /// @brief TextField for width
-        FXTextField* myTAZWidth;
 
         /// @brief button for help
         FXButton* myHelpTAZAttribute;

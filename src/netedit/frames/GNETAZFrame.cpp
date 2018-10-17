@@ -289,18 +289,6 @@ GNETAZFrame::TAZParameters::TAZParameters(GNETAZFrame* TAZFrameParent) :
     myTAZEdges = new FXTextField(TAZParameter, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     myTAZEdgesLabel->disable();
     myTAZEdges->disable();
-    // create label and checkbox for Priority
-    TAZParameter = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    myTAZPriorityLabel = new FXLabel(TAZParameter, toString(SUMO_ATTR_PRIORITY).c_str(), 0, GUIDesignLabelAttribute);
-    myTAZPriorityCheckButton = new FXCheckButton(TAZParameter, "", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButtonAttribute);
-    myTAZPriorityLabel->disable();
-    myTAZPriorityCheckButton->disable();
-    // create label and textfield for width
-    TAZParameter = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    myTAZWidthLabel = new FXLabel(TAZParameter, toString(SUMO_ATTR_WIDTH).c_str(), 0, GUIDesignLabelAttribute);
-    myTAZWidth = new FXTextField(TAZParameter, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldReal);
-    myTAZWidthLabel->disable();
-    myTAZWidth->disable();
     // Create help button
     myHelpTAZAttribute = new FXButton(this, "Help", 0, this, MID_HELP, GUIDesignButtonRectangular);
     myHelpTAZAttribute->disable();
@@ -320,21 +308,10 @@ GNETAZFrame::TAZParameters::enableTAZParameters(bool hasTLS) {
     // Enable all elements of the TAZ frames
     myTAZEdgesLabel->enable();
     myTAZEdges->enable();
-    myTAZPriorityLabel->enable();
-    if (hasTLS) {
-        myTAZPriorityCheckButton->disable();
-    } else {
-        myTAZPriorityCheckButton->enable();
-    }
-    myTAZWidthLabel->enable();
-    myTAZWidth->enable();
     myHelpTAZAttribute->enable();
     // set values of parameters
     onCmdSetAttribute(0, 0, 0);
-    myTAZPriorityCheckButton->setCheck(hasTLS ? true :
-                                            GNEAttributeCarrier::parse<bool>(tagProperties.getDefaultValue(SUMO_ATTR_PRIORITY)));
-    myTAZWidth->setText(tagProperties.getDefaultValue(SUMO_ATTR_WIDTH).c_str());
-    myTAZWidth->setTextColor(FXRGB(0, 0, 0));
+    /*myTAZWidth->setText(tagProperties.getDefaultValue(SUMO_ATTR_WIDTH).c_str());*/
 }
 
 
@@ -342,16 +319,9 @@ void
 GNETAZFrame::TAZParameters::disableTAZParameters() {
     // clear all values of parameters
     myTAZEdges->setText("");
-    myTAZPriorityCheckButton->setCheck(false);
-    myTAZPriorityCheckButton->setText("false");
-    myTAZWidth->setText("");
     // Disable all elements of the TAZ frames
     myTAZEdgesLabel->disable();
     myTAZEdges->disable();
-    myTAZPriorityLabel->disable();
-    myTAZPriorityCheckButton->disable();
-    myTAZWidthLabel->disable();
-    myTAZWidth->disable();
     myHelpTAZAttribute->disable();
     myTAZFrameParent->myCreateTAZ->setCreateTAZButton(false);
 }
@@ -434,24 +404,8 @@ GNETAZFrame::TAZParameters::getTAZEdges() const {
 
 
 bool
-GNETAZFrame::TAZParameters::getTAZPriority() const {
-    if (myTAZPriorityCheckButton->getCheck()) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-
-bool
 GNETAZFrame::TAZParameters::isCurrentParametersValid() const {
     return myCurrentParametersValid;
-}
-
-
-double
-GNETAZFrame::TAZParameters::getTAZWidth() const {
-    return GNEAttributeCarrier::parse<double>(myTAZWidth->getText().text());
 }
 
 
@@ -520,23 +474,6 @@ GNETAZFrame::TAZParameters::onCmdSetAttribute(FXObject*, FXSelector, void*) {
 
     // Check that at least there are a selected edge
     if (TAZEdges.empty()) {
-        myCurrentParametersValid = false;
-    }
-
-    // change label of TAZ priority
-    if (myTAZPriorityCheckButton->getCheck()) {
-        myTAZPriorityCheckButton->setText("true");
-    } else {
-        myTAZPriorityCheckButton->setText("false");
-    }
-
-    // Check width
-    if (GNEAttributeCarrier::canParse<double>(myTAZWidth->getText().text()) &&
-            GNEAttributeCarrier::parse<double>(myTAZWidth->getText().text()) > 0) {
-        myTAZWidth->setTextColor(FXRGB(0, 0, 0));
-        myTAZWidth->killFocus();
-    } else {
-        myTAZWidth->setTextColor(FXRGB(255, 0, 0));
         myCurrentParametersValid = false;
     }
 
