@@ -3242,6 +3242,45 @@ MSLane::getVehicles(double a, double b) const {
     return res;
 }
 
+std::set<std::pair<const MSJunction*, const MSLink*> >
+MSLane::getUpcomingJunctions(double pos, double range, const std::vector<MSLane*>& contLanes) const {
+    // set of upcoming junctions and the corresponding conflict links
+    std::set<std::pair<const MSJunction*, const MSLink*> > junctions;
+
+    // Currently scanned lane
+    const MSLane* lane = this;
+
+    // continuation lanes for the vehicle
+    std::vector<MSLane*>::const_iterator contLanesIt = contLanes.begin();
+    // scanned distance so far
+    double dist = 0.0;
+    // scan position relative to current lane
+//    double pos = v->getPositionOnLane();
+    // link to be crossed by the vehicle
+    MSLink* link = nullptr;
+    if (lane->isInternal()) {
+        assert(*contLanesIt == nullptr);
+        link = lane->getEntryLink();
+        junctions.insert(std::make_pair(link->getJunction(), link));
+        dist += link->getInternalLengthsAfter();
+        // next non-internal lane behind junction
+        lane = link->getLane();
+        pos = 0.0;
+        assert(*(contLanesIt+1) == lane);
+    }
+    while (++contLanesIt != contLanes.end()) {
+        assert(!lane->isInternal());
+        dist += lane->getLength() - pos;
+        if (dist > range) {
+            break;
+        }
+        link = lane->getLinkTo(*contLanesIt);
+        junctions.insert(std::make_pair(link->getJunction(), link));
+        lane = *contLanesIt;
+    }
+    return junctions;
+}
+
 
 MSLane*
 MSLane::getOpposite() const {

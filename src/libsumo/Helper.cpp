@@ -509,6 +509,12 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
 
             if (s.activeFilters & SUBS_FILTER_TURN) {
                 // TODO: Only return foes on upcoming junction in context subscription result
+
+                // get upcoming junctions and vialanes within downstream distance, where foe links exist or at least the link direction is not straight
+                MSLane* lane = v->getLane();
+                std::set<std::pair<const MSJunction*, const MSLink*> > junctions = lane->getUpcomingJunctions(v->getPositionOnLane(), downstreamDist, v->getBestLanesContinuation());
+
+                // TODO: GO ON HERE. iterate through junctions and find approaching foes within upstreamDist
             }
 
         } else {
