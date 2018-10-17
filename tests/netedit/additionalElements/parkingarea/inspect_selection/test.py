@@ -56,7 +56,7 @@ netedit.modifyAttribute(1, "-5")
 netedit.modifyAttribute(1, "7")
 
 # Change parameter 2 with a different value
-netedit.modifyBoolAttribute(2)
+netedit.modifyAttribute(2, "true")
 
 # Change parameter 3 with a non valid value (dummy)
 netedit.modifyAttribute(3, "dummyWidth")

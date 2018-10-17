@@ -82,8 +82,8 @@ netedit.modifyAdditionalDefaultValue(4, "customName")
 # create calibrator with valid name
 netedit.leftClick(referencePosition, 200, 230)
 
-# change routeprobe with a invalid  routeProbe
-netedit.modifyAdditionalDefaultValue(5, "%%;;.$···$%")
+# change routeprobe with a invalid routeProbe
+netedit.modifyAdditionalDefaultValue(5, ";;;;;%%;;;;")
 
 # create calibrator with a different routeProbe in other lane
 netedit.leftClick(referencePosition, 200, 230)

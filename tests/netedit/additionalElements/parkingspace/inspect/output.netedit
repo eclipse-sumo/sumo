@@ -8,14 +8,10 @@ space
 TestFunctions: Clicked over position 554 - 460
 TestFunctions: Clicked over position 704 - 460
 TestFunctions: Clicked over position 554 - 440
-dummyX
+dummyPosition
 
--3.5
-3
-dummyY
-
--3
-2.5
+-3.5,-3
+3,2.5
 dummyZ
 
 -4.25
