@@ -46,8 +46,8 @@ NIVissimNodeDef_Edges::NIVissimNodeDef_Edges(int id,
 
 
 NIVissimNodeDef_Edges::~NIVissimNodeDef_Edges() {
-    for (NIVissimNodeParticipatingEdgeVector::iterator i = myEdges.begin(); i != myEdges.end(); i++) {
-        delete(*i);
+    for (auto & myEdge : myEdges) {
+        deletemyEdge;
     }
     myEdges.clear();
 }
@@ -101,8 +101,7 @@ NIVissimNodeDef_Edges::searchAndSetConnections() {
 
 double
 NIVissimNodeDef_Edges::getEdgePosition(int edgeid) const {
-    for (NIVissimNodeParticipatingEdgeVector::const_iterator i = myEdges.begin(); i != myEdges.end(); i++) {
-        NIVissimNodeParticipatingEdge* edge = *i;
+    for (auto edge : myEdges) {
         if (edge->getID() == edgeid) {
             return (edge->getFromPos() + edge->getToPos()) / (double) 2.0;
         }

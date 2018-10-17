@@ -265,11 +265,11 @@ GUIBaseVehicle::GUIBaseVehicle(MSBaseVehicle& vehicle) :
 
 GUIBaseVehicle::~GUIBaseVehicle() {
     myLock.lock();
-    for (std::map<GUISUMOAbstractView*, int>::iterator i = myAdditionalVisualizations.begin(); i != myAdditionalVisualizations.end(); ++i) {
-        if (i->first->getTrackedID() == getGlID()) {
-            i->first->stopTrack();
+    for (auto & myAdditionalVisualization : myAdditionalVisualizations) {
+        if (myAdditionalVisualization.first->getTrackedID() == getGlID()) {
+            myAdditionalVisualization.first->stopTrack();
         }
-        while (i->first->removeAdditionalGLVisualisation(this));
+        while (myAdditionalVisualization.first->removeAdditionalGLVisualisation(this));
     }
     myLock.unlock();
     delete myRoutes;
@@ -1266,8 +1266,8 @@ GUIBaseVehicle::drawAction_drawPersonsAndContainers(const GUIVisualizationSettin
     if (myVehicle.myPersonDevice != nullptr) {
         const std::vector<MSTransportable*>& ps = myVehicle.myPersonDevice->getTransportables();
         int personIndex = 0;
-        for (std::vector<MSTransportable*>::const_iterator i = ps.begin(); i != ps.end(); ++i) {
-            GUIPerson* person = dynamic_cast<GUIPerson*>(*i);
+        for (auto p : ps) {
+            GUIPerson* person = dynamic_cast<GUIPerson*>(p);
             assert(person != 0);
             person->setPositionInVehicle(getSeatPosition(personIndex++));
             person->drawGL(s);
@@ -1276,8 +1276,8 @@ GUIBaseVehicle::drawAction_drawPersonsAndContainers(const GUIVisualizationSettin
     if (myVehicle.myContainerDevice != nullptr) {
         const std::vector<MSTransportable*>& cs = myVehicle.myContainerDevice->getTransportables();
         int containerIndex = 0;
-        for (std::vector<MSTransportable*>::const_iterator i = cs.begin(); i != cs.end(); ++i) {
-            GUIContainer* container = dynamic_cast<GUIContainer*>(*i);
+        for (auto c : cs) {
+            GUIContainer* container = dynamic_cast<GUIContainer*>(c);
             assert(container != 0);
             container->setPositionInVehicle(getSeatPosition(containerIndex++));
             container->drawGL(s);

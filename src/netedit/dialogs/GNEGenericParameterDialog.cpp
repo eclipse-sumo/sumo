@@ -360,10 +360,10 @@ GNEGenericParameterDialog::GenericParametersOptions::onCmdSaveGenericParameters(
         OutputDevice& device = OutputDevice::getDevice(file.text());
         device.writeXMLHeader("genericParameter", "genericparameter_file.xsd");
         // iterate over all generic parameters and save it in the filename
-        for (auto i = myGenericParameterDialogParent->myGenericParametersValues->getGenericParameters()->begin(); i != myGenericParameterDialogParent->myGenericParametersValues->getGenericParameters()->end(); i++) {
+        for (const auto & i : *myGenericParameterDialogParent->myGenericParametersValues->getGenericParameters()) {
             device.openTag(SUMO_TAG_PARAM);
-            device.writeAttr(SUMO_ATTR_KEY, i->first);
-            device.writeAttr(SUMO_ATTR_VALUE, i->second);
+            device.writeAttr(SUMO_ATTR_KEY, i.first);
+            device.writeAttr(SUMO_ATTR_VALUE, i.second);
             device.closeTag();
         }
         device.close();
@@ -385,11 +385,11 @@ GNEGenericParameterDialog::GenericParametersOptions::onCmdSortGenericParameters(
     std::vector<std::pair<std::string, std::string> > genericParametersNoEmpty;
     std::vector<std::string> valuesEmpty;
     // first extract empty values
-    for (auto i = myGenericParameterDialogParent->myGenericParametersValues->getGenericParameters()->begin(); i != myGenericParameterDialogParent->myGenericParametersValues->getGenericParameters()->end(); i++) {
-        if (!i->first.empty()) {
-            genericParametersNoEmpty.push_back(*i);
-        } else if (i->first.empty() && !i->second.empty()) {
-            valuesEmpty.push_back(i->second);
+    for (const auto & i : *myGenericParameterDialogParent->myGenericParametersValues->getGenericParameters()) {
+        if (!i.first.empty()) {
+            genericParametersNoEmpty.push_back(i);
+        } else if (i.first.empty() && !i.second.empty()) {
+            valuesEmpty.push_back(i.second);
         }
     }
     // now sort non-empty generic parameters
@@ -534,8 +534,8 @@ GNEGenericParameterDialog::~GNEGenericParameterDialog() {}
 long
 GNEGenericParameterDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     // check if all edited generic parameters are valid
-    for (auto i = myGenericParametersValues->getGenericParameters()->begin(); i != myGenericParametersValues->getGenericParameters()->end(); i++) {
-        if (i->first.empty()) {
+    for (const auto & i : *myGenericParametersValues->getGenericParameters()) {
+        if (i.first.empty()) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
             // open warning Box
@@ -543,7 +543,7 @@ GNEGenericParameterDialog::onCmdAccept(FXObject*, FXSelector, void*) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
             return 1;
-        } else if (!SUMOXMLDefinitions::isValidGenericParameterKey(i->first)) {
+        } else if (!SUMOXMLDefinitions::isValidGenericParameterKey(i.first)) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
             // open warning Box
@@ -551,7 +551,7 @@ GNEGenericParameterDialog::onCmdAccept(FXObject*, FXSelector, void*) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
             return 1;
-        } else if (!SUMOXMLDefinitions::isValidGenericParameterValue(i->second)) {
+        } else if (!SUMOXMLDefinitions::isValidGenericParameterValue(i.second)) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
             // open warning Box

@@ -40,8 +40,8 @@ ROJTREdge::ROJTREdge(const std::string& id, RONode* from, RONode* to, int index,
 
 
 ROJTREdge::~ROJTREdge() {
-    for (FollowerUsageCont::iterator i = myFollowingDefs.begin(); i != myFollowingDefs.end(); ++i) {
-        delete(*i).second;
+    for (auto & myFollowingDef : myFollowingDefs) {
+        deletemyFollowingDef.second;
     }
 }
 
@@ -78,10 +78,10 @@ ROJTREdge::chooseNext(const ROVehicle* const veh, double time, const std::set<co
     // gather information about the probabilities at this time
     RandomDistributor<ROJTREdge*> dist;
     // use the loaded definitions, first
-    for (FollowerUsageCont::const_iterator i = myFollowingDefs.begin(); i != myFollowingDefs.end(); ++i) {
-        if (avoid.count(i->first) == 0) {
-            if ((veh == nullptr || !(*i).first->prohibits(veh)) && (*i).second->describesTime(time)) {
-                dist.add((*i).first, (*i).second->getValue(time));
+    for (const auto & myFollowingDef : myFollowingDefs) {
+        if (avoid.count(myFollowingDef.first) == 0) {
+            if ((veh == nullptr || !myFollowingDef.first->prohibits(veh)) && myFollowingDef.second->describesTime(time)) {
+                dist.add(myFollowingDef.first, myFollowingDef.second->getValue(time));
             }
         }
     }

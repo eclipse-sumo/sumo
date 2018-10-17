@@ -198,22 +198,22 @@ MSE3Collector::MSE3Collector(const std::string& id,
     myCurrentMeanSpeed(0), myCurrentHaltingsNumber(0), myLastResetTime(-1),
     myOpenEntry(openEntry) {
     // Set MoveReminders to entries and exits
-    for (CrossSectionVectorConstIt crossSec1 = entries.begin(); crossSec1 != entries.end(); ++crossSec1) {
-        myEntryReminders.push_back(new MSE3EntryReminder(*crossSec1, *this));
+    for (auto entrie : entries) {
+        myEntryReminders.push_back(new MSE3EntryReminder(entrie, *this));
     }
-    for (CrossSectionVectorConstIt crossSec2 = exits.begin(); crossSec2 != exits.end(); ++crossSec2) {
-        myLeaveReminders.push_back(new MSE3LeaveReminder(*crossSec2, *this));
+    for (auto exit : exits) {
+        myLeaveReminders.push_back(new MSE3LeaveReminder(exit, *this));
     }
     reset();
 }
 
 
 MSE3Collector::~MSE3Collector() {
-    for (std::vector<MSE3EntryReminder*>::iterator i = myEntryReminders.begin(); i != myEntryReminders.end(); ++i) {
-        delete *i;
+    for (auto & myEntryReminder : myEntryReminders) {
+        delete myEntryReminder;
     }
-    for (std::vector<MSE3LeaveReminder*>::iterator i = myLeaveReminders.begin(); i != myLeaveReminders.end(); ++i) {
-        delete *i;
+    for (auto & myLeaveReminder : myLeaveReminders) {
+        delete myLeaveReminder;
     }
 }
 
@@ -338,28 +338,28 @@ MSE3Collector::writeXMLOutput(OutputDevice& dev,
     double meanIntervalHaltsPerVehicleWithin = 0.;
     double meanIntervalDurationWithin = 0.;
     double meanTimeLossWithin = 0.;
-    for (std::map<const SUMOVehicle*, E3Values>::iterator i = myEnteredContainer.begin(); i != myEnteredContainer.end(); ++i) {
-        meanHaltsPerVehicleWithin += (double)(*i).second.haltings;
-        meanIntervalHaltsPerVehicleWithin += (double)(*i).second.intervalHaltings;
-        const double end = (*i).second.backLeaveTime == 0 ? STEPS2TIME(stopTime) : (*i).second.backLeaveTime;
-        const double time = end - (*i).second.entryTime;
+    for (auto & i : myEnteredContainer) {
+        meanHaltsPerVehicleWithin += (double)i.second.haltings;
+        meanIntervalHaltsPerVehicleWithin += (double)i.second.intervalHaltings;
+        const double end = i.second.backLeaveTime == 0 ? STEPS2TIME(stopTime) : i.second.backLeaveTime;
+        const double time = end - i.second.entryTime;
         const double timeWithin = MIN2(time, end - STEPS2TIME(startTime));
-        if (i->second.speedSum > 0.) {
-            meanSpeedWithin += i->second.speedSum / time;
+        if (i.second.speedSum > 0.) {
+            meanSpeedWithin += i.second.speedSum / time;
         }
-        if (i->second.intervalSpeedSum > 0.) {
-            meanIntervalSpeedWithin += i->second.intervalSpeedSum / timeWithin;
+        if (i.second.intervalSpeedSum > 0.) {
+            meanIntervalSpeedWithin += i.second.intervalSpeedSum / timeWithin;
         }
         meanDurationWithin += time;
         meanIntervalDurationWithin += timeWithin;
         // reset interval values
-        (*i).second.intervalHaltings = 0;
-        (*i).second.intervalSpeedSum = 0;
+        i.second.intervalHaltings = 0;
+        i.second.intervalSpeedSum = 0;
 
         if (!MSGlobals::gUseMesoSim) {
-            const SUMOTime currentTimeLoss = static_cast<const MSVehicle*>(i->first)->getTimeLoss();
-            meanTimeLossWithin += STEPS2TIME(currentTimeLoss - (*i).second.intervalTimeLoss);
-            (*i).second.intervalTimeLoss = currentTimeLoss;
+            const SUMOTime currentTimeLoss = static_cast<const MSVehicle*>(i.first)->getTimeLoss();
+            meanTimeLossWithin += STEPS2TIME(currentTimeLoss - i.second.intervalTimeLoss);
+            i.second.intervalTimeLoss = currentTimeLoss;
         }
     }
     myLastResetTime = stopTime;
@@ -400,9 +400,9 @@ void
 MSE3Collector::detectorUpdate(const SUMOTime step) {
     myCurrentMeanSpeed = 0;
     myCurrentHaltingsNumber = 0;
-    for (std::map<const SUMOVehicle*, E3Values>::iterator pair = myEnteredContainer.begin(); pair != myEnteredContainer.end(); ++pair) {
-        const SUMOVehicle* veh = pair->first;
-        E3Values& values = pair->second;
+    for (auto & pair : myEnteredContainer) {
+        const SUMOVehicle* veh = pair.first;
+        E3Values& values = pair.second;
         myCurrentMeanSpeed += veh->getSpeed();
         values.hadUpdate = true;
         values.speedSum += veh->getSpeed() * TS;
@@ -449,8 +449,8 @@ MSE3Collector::getVehiclesWithin() const {
 std::vector<std::string>
 MSE3Collector::getCurrentVehicleIDs() const {
     std::vector<std::string> ret;
-    for (std::map<const SUMOVehicle*, E3Values>::const_iterator pair = myEnteredContainer.begin(); pair != myEnteredContainer.end(); ++pair) {
-        ret.push_back((*pair).first->getID());
+    for (const auto & pair : myEnteredContainer) {
+        ret.push_back(pair.first->getID());
     }
     std::sort(ret.begin(), ret.end());
     return ret;

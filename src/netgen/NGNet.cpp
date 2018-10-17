@@ -51,11 +51,11 @@ NGNet::NGNet(NBNetBuilder& nb) :
 
 
 NGNet::~NGNet() {
-    for (NGEdgeList::iterator ni = myEdgeList.begin(); ni != myEdgeList.end(); ++ni) {
-        delete *ni;
+    for (auto & ni : myEdgeList) {
+        delete ni;
     }
-    for (NGNodeList::iterator ni = myNodeList.begin(); ni != myNodeList.end(); ++ni) {
-        delete *ni;
+    for (auto & ni : myNodeList) {
+        delete ni;
     }
 }
 
@@ -68,9 +68,9 @@ NGNet::getNextFreeID() {
 
 NGNode*
 NGNet::findNode(int xID, int yID) {
-    for (NGNodeList::iterator ni = myNodeList.begin(); ni != myNodeList.end(); ++ni) {
-        if ((*ni)->samePos(xID, yID)) {
-            return *ni;
+    for (auto & ni : myNodeList) {
+        if (ni->samePos(xID, yID)) {
+            return ni;
         }
     }
     return nullptr;
@@ -217,13 +217,13 @@ NGNet::connect(NGNode* node1, NGNode* node2) {
 void
 NGNet::toNB() const {
     std::vector<NBNode*> nodes;
-    for (NGNodeList::const_iterator i1 = myNodeList.begin(); i1 != myNodeList.end(); i1++) {
-        NBNode* node = (*i1)->buildNBNode(myNetBuilder);
+    for (auto i1 : myNodeList) {
+        NBNode* node = i1->buildNBNode(myNetBuilder);
         nodes.push_back(node);
         myNetBuilder.getNodeCont().insert(node);
     }
-    for (NGEdgeList::const_iterator i2 = myEdgeList.begin(); i2 != myEdgeList.end(); i2++) {
-        NBEdge* edge = (*i2)->buildNBEdge(myNetBuilder);
+    for (auto i2 : myEdgeList) {
+        NBEdge* edge = i2->buildNBEdge(myNetBuilder);
         myNetBuilder.getEdgeCont().insert(edge);
     }
     // now, let's append the reverse directions...
@@ -248,8 +248,8 @@ NGNet::toNB() const {
         const double turnLaneLength = OptionsCont::getOptions().getFloat("turn-lanes.length");
         NBEdgeCont& ec = myNetBuilder.getEdgeCont();
         EdgeVector allEdges;
-        for (auto it = ec.begin(); it != ec.end(); ++it) {
-            allEdges.push_back(it->second);
+        for (const auto & it : ec) {
+            allEdges.push_back(it.second);
         }
         for (NBEdge* e : allEdges) {
             if (e->getToNode()->geometryLike()) {

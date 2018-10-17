@@ -820,8 +820,8 @@ MSLCM_SL2015::informLeaders(int blocked, int dir,
             plannedSpeed = MIN2(plannedSpeed, safe);
         }
     }
-    for (std::vector<CLeaderDist>::const_iterator it = blockers.begin(); it != blockers.end(); ++it) {
-        plannedSpeed = MIN2(plannedSpeed, informLeader(blocked, dir, *it, remainingSeconds));
+    for (const auto & blocker : blockers) {
+        plannedSpeed = MIN2(plannedSpeed, informLeader(blocked, dir, blocker, remainingSeconds));
     }
     return plannedSpeed;
 }
@@ -833,8 +833,8 @@ MSLCM_SL2015::informFollowers(int blocked, int dir,
                               double remainingSeconds,
                               double plannedSpeed) {
     // #3727
-    for (std::vector<CLeaderDist>::const_iterator it = blockers.begin(); it != blockers.end(); ++it) {
-        informFollower(blocked, dir, *it, remainingSeconds, plannedSpeed);
+    for (const auto & blocker : blockers) {
+        informFollower(blocked, dir, blocker, remainingSeconds, plannedSpeed);
     }
 }
 
@@ -882,10 +882,10 @@ MSLCM_SL2015::prepareStep() {
         // initialize
         const MSEdge* currEdge = &myVehicle.getLane()->getEdge();
         const std::vector<MSLane*>& lanes = currEdge->getLanes();
-        for (std::vector<MSLane*>::const_iterator it_lane = lanes.begin(); it_lane != lanes.end(); ++it_lane) {
-            const int subLanes = MAX2(1, int(ceil((*it_lane)->getWidth() / MSGlobals::gLateralResolution)));
+        for (auto lane : lanes) {
+            const int subLanes = MAX2(1, int(ceil(lane->getWidth() / MSGlobals::gLateralResolution)));
             for (int i = 0; i < subLanes; ++i) {
-                newExpectedSpeeds.push_back((*it_lane)->getVehicleMaxSpeed(&myVehicle));
+                newExpectedSpeeds.push_back(lane->getVehicleMaxSpeed(&myVehicle));
             }
         }
         if (myExpectedSublaneSpeeds.size() > 0) {
@@ -915,15 +915,13 @@ MSLCM_SL2015::computeSublaneShift(const MSEdge* prevEdge, const MSEdge* curEdge)
     // find the first lane that targets the new edge
     int prevShift = 0;
     const std::vector<MSLane*>& lanes = prevEdge->getLanes();
-    for (std::vector<MSLane*>::const_iterator it_lane = lanes.begin(); it_lane != lanes.end(); ++it_lane) {
-        const MSLane* lane = *it_lane;
-        for (MSLinkCont::const_iterator it_link = lane->getLinkCont().begin(); it_link != lane->getLinkCont().end(); ++it_link) {
-            if (&((*it_link)->getLane()->getEdge()) == curEdge) {
+    for (auto lane : lanes) {
+        for (auto it_link : lane->getLinkCont()) {
+            if (&(it_link->getLane()->getEdge()) == curEdge) {
                 int curShift = 0;
-                const MSLane* target = (*it_link)->getLane();
+                const MSLane* target = it_link->getLane();
                 const std::vector<MSLane*>& lanes2 = curEdge->getLanes();
-                for (std::vector<MSLane*>::const_iterator it_lane2 = lanes2.begin(); it_lane2 != lanes2.end(); ++it_lane2) {
-                    const MSLane* lane2 = *it_lane2;
+                for (auto lane2 : lanes2) {
                     if (lane2 == target) {
                         return prevShift + curShift;
                     }
@@ -1141,8 +1139,8 @@ MSLCM_SL2015::_wantsChangeSublane(
     // TODO: include updated roundabout distance code from LC2013 (probably best to put it to AbstractLCModel class)
     // VARIANT_15 (insideRoundabout)
     int roundaboutEdgesAhead = 0;
-    for (std::vector<MSLane*>::iterator it = curr.bestContinuations.begin(); it != curr.bestContinuations.end(); ++it) {
-        if ((*it) != nullptr && (*it)->getEdge().isRoundabout()) {
+    for (auto & bestContinuation : curr.bestContinuations) {
+        if (bestContinuation != nullptr && bestContinuation->getEdge().isRoundabout()) {
             roundaboutEdgesAhead += 1;
         } else if (roundaboutEdgesAhead > 0) {
             // only check the next roundabout
@@ -1150,8 +1148,8 @@ MSLCM_SL2015::_wantsChangeSublane(
         }
     }
     int roundaboutEdgesAheadNeigh = 0;
-    for (std::vector<MSLane*>::iterator it = neigh.bestContinuations.begin(); it != neigh.bestContinuations.end(); ++it) {
-        if ((*it) != nullptr && (*it)->getEdge().isRoundabout()) {
+    for (auto & bestContinuation : neigh.bestContinuations) {
+        if (bestContinuation != nullptr && bestContinuation->getEdge().isRoundabout()) {
             roundaboutEdgesAheadNeigh += 1;
         } else if (roundaboutEdgesAheadNeigh > 0) {
             // only check the next roundabout
@@ -2549,11 +2547,11 @@ MSLCM_SL2015::checkStrategicChange(int ret,
         //const double requiredDist = MAX2(2 * myVehicle.getLateralOverlap(), getSublaneWidth()) / SUMO_const_laneWidth * laDist;
         const double requiredDist = 2 * myVehicle.getLateralOverlap() / SUMO_const_laneWidth * laDist;
         double currentShadowDist = -myVehicle.getPositionOnLane();
-        for (std::vector<MSLane*>::const_iterator it = curr.bestContinuations.begin(); it != curr.bestContinuations.end(); ++it) {
-            if (*it == nullptr) {
+        for (auto bestContinuation : curr.bestContinuations) {
+            if (bestContinuation == nullptr) {
                 continue;
             }
-            MSLane* shadow = getShadowLane(*it);
+            MSLane* shadow = getShadowLane(bestContinuation);
             if (shadow == nullptr || currentShadowDist >= requiredDist) {
                 break;
             }

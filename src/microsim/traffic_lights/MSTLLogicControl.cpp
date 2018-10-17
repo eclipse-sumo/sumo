@@ -53,11 +53,11 @@ MSTLLogicControl::TLSLogicVariants::TLSLogicVariants()
 
 MSTLLogicControl::TLSLogicVariants::~TLSLogicVariants() {
     std::map<std::string, MSTrafficLightLogic*>::const_iterator j;
-    for (std::map<std::string, MSTrafficLightLogic*>::iterator j = myVariants.begin(); j != myVariants.end(); ++j) {
-        delete(*j).second;
+    for (auto & myVariant : myVariants) {
+        deletemyVariant.second;
     }
-    for (std::vector<OnSwitchAction*>::iterator i = mySwitchActions.begin(); i != mySwitchActions.end(); ++i) {
-        delete *i;
+    for (auto & mySwitchAction : mySwitchActions) {
+        delete mySwitchAction;
     }
 }
 
@@ -65,17 +65,17 @@ MSTLLogicControl::TLSLogicVariants::~TLSLogicVariants() {
 bool
 MSTLLogicControl::TLSLogicVariants::checkOriginalTLS() const {
     bool hadErrors = false;
-    for (std::map<std::string, MSTrafficLightLogic*>::const_iterator j = myVariants.begin(); j != myVariants.end(); ++j) {
-        const MSTrafficLightLogic::Phases& phases = (*j).second->getPhases();
-        int linkNo = (int)(*j).second->getLinks().size();
+    for (const auto & myVariant : myVariants) {
+        const MSTrafficLightLogic::Phases& phases = myVariant.second->getPhases();
+        int linkNo = (int)myVariant.second->getLinks().size();
         bool hadProgramErrors = false;
-        for (MSTrafficLightLogic::Phases::const_iterator i = phases.begin(); i != phases.end(); ++i) {
-            if ((int)(*i)->getState().length() < linkNo) {
+        for (auto phase : phases) {
+            if ((int)phase->getState().length() < linkNo) {
                 hadProgramErrors = true;
             }
         }
         if (hadProgramErrors) {
-            WRITE_ERROR("Mismatching phase size in tls '" + (*j).second->getID() + "', program '" + (*j).first + "'.");
+            WRITE_ERROR("Mismatching phase size in tls '" + myVariant.second->getID() + "', program '" + myVariant.first + "'.");
             hadErrors = true;
         }
     }
@@ -210,16 +210,16 @@ MSTLLogicControl::TLSLogicVariants::switchTo(MSTLLogicControl& tlc, const std::s
 
 void
 MSTLLogicControl::TLSLogicVariants::executeOnSwitchActions() const {
-    for (std::vector<OnSwitchAction*>::const_iterator i = mySwitchActions.begin(); i != mySwitchActions.end(); ++i) {
-        (*i)->execute();
+    for (auto mySwitchAction : mySwitchActions) {
+        mySwitchAction->execute();
     }
 }
 
 
 void
 MSTLLogicControl::TLSLogicVariants::addLink(MSLink* link, MSLane* lane, int pos) {
-    for (std::map<std::string, MSTrafficLightLogic*>::iterator i = myVariants.begin(); i != myVariants.end(); ++i) {
-        (*i).second->addLink(link, lane, pos);
+    for (auto & myVariant : myVariants) {
+        myVariant.second->addLink(link, lane, pos);
     }
 }
 
@@ -557,8 +557,8 @@ MSTLLogicControl::~MSTLLogicControl() {
 
 void
 MSTLLogicControl::setTrafficLightSignals(SUMOTime t) const {
-    for (std::map<std::string, TLSLogicVariants*>::const_iterator i = myLogics.begin(); i != myLogics.end(); ++i) {
-        (*i).second->getActive()->setTrafficLightSignals(t);
+    for (const auto & myLogic : myLogics) {
+        myLogic.second->getActive()->setTrafficLightSignals(t);
     }
 }
 
@@ -597,8 +597,8 @@ MSTLLogicControl::get(const std::string& id, const std::string& programID) const
 std::vector<std::string>
 MSTLLogicControl::getAllTLIds() const {
     std::vector<std::string> ret;
-    for (std::map<std::string, TLSLogicVariants*>::const_iterator i = myLogics.begin(); i != myLogics.end(); ++i) {
-        ret.push_back((*i).first);
+    for (const auto & myLogic : myLogics) {
+        ret.push_back(myLogic.first);
     }
     return ret;
 }
@@ -629,9 +629,9 @@ MSTLLogicControl::knows(const std::string& id) const {
 bool
 MSTLLogicControl::closeNetworkReading() {
     bool hadErrors = false;
-    for (std::map<std::string, TLSLogicVariants*>::iterator i = myLogics.begin(); i != myLogics.end(); ++i) {
-        hadErrors |= !(*i).second->checkOriginalTLS();
-        (*i).second->saveInitialStates();
+    for (auto & myLogic : myLogics) {
+        hadErrors |= !myLogic.second->checkOriginalTLS();
+        myLogic.second->saveInitialStates();
     }
     myNetWasLoaded = true;
     return !hadErrors;

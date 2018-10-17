@@ -329,8 +329,8 @@ MEVehicle::getCurrentLinkPenaltySeconds() const {
 
 void
 MEVehicle::updateDetectorForWriting(MSMoveReminder* rem, SUMOTime currentTime, SUMOTime exitTime) {
-    for (MoveReminderCont::iterator i = myMoveReminders.begin(); i != myMoveReminders.end(); ++i) {
-        if (i->first == rem) {
+    for (auto & myMoveReminder : myMoveReminders) {
+        if (myMoveReminder.first == rem) {
             rem->updateDetector(*this, mySegment->getIndex() * mySegment->getLength(),
                                 (mySegment->getIndex() + 1) * mySegment->getLength(),
                                 getLastEntryTime(), currentTime, exitTime, false);

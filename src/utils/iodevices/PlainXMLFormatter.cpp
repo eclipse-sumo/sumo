@@ -52,8 +52,8 @@ PlainXMLFormatter::writeXMLHeader(std::ostream& into, const std::string& rootEle
     if (myXMLStack.empty()) {
         OptionsCont::getOptions().writeXMLHeader(into);
         openTag(into, rootElement);
-        for (std::map<SumoXMLAttr, std::string>::const_iterator it = attrs.begin(); it != attrs.end(); ++it) {
-            writeAttr(into, it->first, it->second);
+        for (const auto & attr : attrs) {
+            writeAttr(into, attr.first, attr.second);
         }
         into << ">\n";
         myHavePendingOpener = false;

@@ -50,11 +50,11 @@ MSQueueExport::writeEdge(OutputDevice& of) {
     of.openTag("lanes");
     MSEdgeControl& ec = MSNet::getInstance()->getEdgeControl();
     const MSEdgeVector& edges = ec.getEdges();
-    for (MSEdgeVector::const_iterator e = edges.begin(); e != edges.end(); ++e) {
-        MSEdge& edge = **e;
+    for (auto e : edges) {
+        MSEdge& edge = *e;
         const std::vector<MSLane*>& lanes = edge.getLanes();
-        for (std::vector<MSLane*>::const_iterator lane = lanes.begin(); lane != lanes.end(); ++lane) {
-            writeLane(of, **lane);
+        for (auto lane : lanes) {
+            writeLane(of, *lane);
         }
     }
     of.closeTag();

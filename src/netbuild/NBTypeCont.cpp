@@ -118,10 +118,10 @@ NBTypeCont::copyRestrictionsAndAttrs(const std::string& fromId, const std::strin
 
 void
 NBTypeCont::writeTypes(OutputDevice& into) const {
-    for (TypesCont::const_iterator i = myTypes.begin(); i != myTypes.end(); ++i) {
+    for (const auto & myType : myTypes) {
         into.openTag(SUMO_TAG_TYPE);
-        into.writeAttr(SUMO_ATTR_ID, i->first);
-        const NBTypeCont::TypeDefinition& type = i->second;
+        into.writeAttr(SUMO_ATTR_ID, myType.first);
+        const NBTypeCont::TypeDefinition& type = myType.second;
         if (type.attrs.count(SUMO_ATTR_PRIORITY) > 0) {
             into.writeAttr(SUMO_ATTR_PRIORITY, type.priority);
         }
@@ -149,10 +149,10 @@ NBTypeCont::writeTypes(OutputDevice& into) const {
         if (type.attrs.count(SUMO_ATTR_BIKELANEWIDTH) > 0) {
             into.writeAttr(SUMO_ATTR_BIKELANEWIDTH, type.bikeLaneWidth);
         }
-        for (std::map<SUMOVehicleClass, double>::const_iterator j = type.restrictions.begin(); j != type.restrictions.end(); ++j) {
+        for (const auto & restriction : type.restrictions) {
             into.openTag(SUMO_TAG_RESTRICTION);
-            into.writeAttr(SUMO_ATTR_VCLASS, getVehicleClassNames(j->first));
-            into.writeAttr(SUMO_ATTR_SPEED, j->second);
+            into.writeAttr(SUMO_ATTR_VCLASS, getVehicleClassNames(restriction.first));
+            into.writeAttr(SUMO_ATTR_SPEED, restriction.second);
             into.closeTag();
         }
         into.closeTag();

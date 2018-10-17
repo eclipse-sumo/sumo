@@ -64,12 +64,12 @@ MSRightOfWayJunction::postloadInit() {
     for (i = myIncomingLanes.begin(); i != myIncomingLanes.end(); ++i) {
         const MSLinkCont& links = (*i)->getLinkCont();
         // ... set information for every link
-        for (MSLinkCont::const_iterator j = links.begin(); j != links.end(); j++) {
-            if ((*j)->getLane()->getEdge().isWalkingArea() ||
-                    ((*i)->getEdge().isWalkingArea() && !(*j)->getLane()->getEdge().isCrossing())) {
+        for (auto link : links) {
+            if (link->getLane()->getEdge().isWalkingArea() ||
+                    ((*i)->getEdge().isWalkingArea() && !link->getLane()->getEdge().isCrossing())) {
                 continue;
             }
-            sortedLinks.push_back(std::make_pair(*i, *j));
+            sortedLinks.push_back(std::make_pair(*i, link));
             ++maxNo;
         }
     }
@@ -79,14 +79,14 @@ MSRightOfWayJunction::postloadInit() {
         const MSLinkCont& links = (*i)->getLinkCont();
         // ... set information for every link
         const MSLane* walkingAreaFoe = nullptr;
-        for (MSLinkCont::const_iterator j = links.begin(); j != links.end(); j++) {
-            if ((*j)->getLane()->getEdge().isWalkingArea()) {
+        for (auto link : links) {
+            if (link->getLane()->getEdge().isWalkingArea()) {
                 if ((*i)->getPermissions() != SVC_PEDESTRIAN) {
                     // vehicular lane connects to a walkingarea
-                    walkingAreaFoe = (*j)->getLane();
+                    walkingAreaFoe = link->getLane();
                 }
                 continue;
-            } else if (((*i)->getEdge().isWalkingArea() && !(*j)->getLane()->getEdge().isCrossing())) {
+            } else if (((*i)->getEdge().isWalkingArea() && !link->getLane()->getEdge().isCrossing())) {
                 continue;
             }
             if (myLogic->getLogicSize() <= requestPos) {
@@ -95,17 +95,17 @@ MSRightOfWayJunction::postloadInit() {
             const MSLogicJunction::LinkBits& linkResponse = myLogic->getResponseFor(requestPos); // SUMO_ATTR_RESPONSE
             const MSLogicJunction::LinkBits& linkFoes = myLogic->getFoesFor(requestPos); // SUMO_ATTR_FOES
             bool cont = myLogic->getIsCont(requestPos);
-            myLinkFoeLinks[*j] = std::vector<MSLink*>();
+            myLinkFoeLinks[link] = std::vector<MSLink*>();
             for (int c = 0; c < maxNo; ++c) {
                 if (linkResponse.test(c)) {
                     MSLink* foe = sortedLinks[c].second;
-                    myLinkFoeLinks[*j].push_back(foe);
+                    myLinkFoeLinks[link].push_back(foe);
                     if (MSGlobals::gUsingInternalLanes && foe->getViaLane() != nullptr) {
                         assert(foe->getViaLane()->getLinkCont().size() == 1);
                         MSLink* foeExitLink = foe->getViaLane()->getLinkCont()[0];
                         // add foe links after an internal junction
                         if (foeExitLink->getViaLane() != nullptr) {
-                            myLinkFoeLinks[*j].push_back(foeExitLink);
+                            myLinkFoeLinks[link].push_back(foeExitLink);
                         }
                     }
                 }
@@ -121,15 +121,15 @@ MSRightOfWayJunction::postloadInit() {
                     }
                     // add foe links after an internal junction
                     const MSLinkCont& lc = l->getLinkCont();
-                    for (MSLinkCont::const_iterator q = lc.begin(); q != lc.end(); ++q) {
-                        if ((*q)->getViaLane() != nullptr) {
-                            foes.push_back(*q);
+                    for (auto q : lc) {
+                        if (q->getViaLane() != nullptr) {
+                            foes.push_back(q);
                         }
                     }
                 }
             }
 
-            myLinkFoeInternalLanes[*j] = std::vector<MSLane*>();
+            myLinkFoeInternalLanes[link] = std::vector<MSLane*>();
             if (MSGlobals::gUsingInternalLanes && myInternalLanes.size() > 0) {
                 int li = 0;
                 for (int c = 0; c < (int)sortedLinks.size(); ++c) {
@@ -137,42 +137,42 @@ MSRightOfWayJunction::postloadInit() {
                         continue;
                     }
                     if (linkFoes.test(c)) {
-                        myLinkFoeInternalLanes[*j].push_back(myInternalLanes[li]);
+                        myLinkFoeInternalLanes[link].push_back(myInternalLanes[li]);
                         if (linkResponse.test(c)) {
                             const std::vector<MSLane::IncomingLaneInfo>& l = myInternalLanes[li]->getIncomingLanes();
                             if (l.size() == 1 && l[0].lane->getEdge().isInternal()) {
-                                myLinkFoeInternalLanes[*j].push_back(l[0].lane);
+                                myLinkFoeInternalLanes[link].push_back(l[0].lane);
                             }
                         }
                     }
                     ++li;
                 }
             }
-            (*j)->setRequestInformation((int)requestPos, hasFoes, cont, myLinkFoeLinks[*j], myLinkFoeInternalLanes[*j]);
+            link->setRequestInformation((int)requestPos, hasFoes, cont, myLinkFoeLinks[link], myLinkFoeInternalLanes[link]);
             // the exit link for a link before an internal junction is handled in MSInternalJunction
             // so we need to skip if cont=true
-            if (MSGlobals::gUsingInternalLanes && (*j)->getViaLane() != nullptr && !cont) {
+            if (MSGlobals::gUsingInternalLanes && link->getViaLane() != nullptr && !cont) {
                 assert((*j)->getViaLane()->getLinkCont().size() == 1);
-                MSLink* exitLink = (*j)->getViaLane()->getLinkCont()[0];
+                MSLink* exitLink = link->getViaLane()->getLinkCont()[0];
                 exitLink->setRequestInformation((int)requestPos, false, false, std::vector<MSLink*>(),
-                                                myLinkFoeInternalLanes[*j], (*j)->getViaLane());
+                                                myLinkFoeInternalLanes[link], link->getViaLane());
             }
             // the exit link for a crossing is needed for the pedestrian model
-            if (MSGlobals::gUsingInternalLanes && (*j)->getLane()->getEdge().isCrossing()) {
-                MSLink* exitLink = (*j)->getLane()->getLinkCont()[0];
+            if (MSGlobals::gUsingInternalLanes && link->getLane()->getEdge().isCrossing()) {
+                MSLink* exitLink = link->getLane()->getLinkCont()[0];
                 exitLink->setRequestInformation((int)requestPos, false, false, std::vector<MSLink*>(),
-                                                myLinkFoeInternalLanes[*j], (*j)->getLane());
+                                                myLinkFoeInternalLanes[link], link->getLane());
             }
             for (std::vector<MSLink*>::const_iterator k = foes.begin(); k != foes.end(); ++k) {
-                (*j)->addBlockedLink(*k);
-                (*k)->addBlockedLink(*j);
+                link->addBlockedLink(*k);
+                (*k)->addBlockedLink(link);
             }
             requestPos++;
         }
         if (walkingAreaFoe != nullptr && links.size() > 1) {
-            for (MSLinkCont::const_iterator j = links.begin(); j != links.end(); j++) {
-                if (!(*j)->getLane()->getEdge().isWalkingArea()) {
-                    MSLink* exitLink = (*j)->getViaLane()->getLinkCont()[0];
+            for (auto link : links) {
+                if (!link->getLane()->getEdge().isWalkingArea()) {
+                    MSLink* exitLink = link->getViaLane()->getLinkCont()[0];
                     exitLink->addWalkingAreaFoe(walkingAreaFoe);
                 }
             }

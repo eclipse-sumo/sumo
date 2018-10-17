@@ -58,38 +58,38 @@ TraCIServerAPI_Lane::processGet(TraCIServer& server, tcpip::Storage& inputStorag
                     tempContent.writeUnsignedByte(TYPE_INTEGER);
                     tempContent.writeInt((int) links.size());
                     ++cnt;
-                    for (std::vector<libsumo::TraCIConnection>::const_iterator i = links.begin(); i != links.end(); ++i) {
+                    for (const auto & link : links) {
                         // approached non-internal lane (if any)
                         tempContent.writeUnsignedByte(TYPE_STRING);
-                        tempContent.writeString(i->approachedLane);
+                        tempContent.writeString(link.approachedLane);
                         ++cnt;
                         // approached "via", internal lane (if any)
                         tempContent.writeUnsignedByte(TYPE_STRING);
-                        tempContent.writeString(i->approachedInternal);
+                        tempContent.writeString(link.approachedInternal);
                         ++cnt;
                         // priority
                         tempContent.writeUnsignedByte(TYPE_UBYTE);
-                        tempContent.writeUnsignedByte(i->hasPrio);
+                        tempContent.writeUnsignedByte(link.hasPrio);
                         ++cnt;
                         // opened
                         tempContent.writeUnsignedByte(TYPE_UBYTE);
-                        tempContent.writeUnsignedByte(i->isOpen);
+                        tempContent.writeUnsignedByte(link.isOpen);
                         ++cnt;
                         // approaching foe
                         tempContent.writeUnsignedByte(TYPE_UBYTE);
-                        tempContent.writeUnsignedByte(i->hasFoe);
+                        tempContent.writeUnsignedByte(link.hasFoe);
                         ++cnt;
                         // state (not implemented, yet)
                         tempContent.writeUnsignedByte(TYPE_STRING);
-                        tempContent.writeString(i->state);
+                        tempContent.writeString(link.state);
                         ++cnt;
                         // direction
                         tempContent.writeUnsignedByte(TYPE_STRING);
-                        tempContent.writeString(i->direction);
+                        tempContent.writeString(link.direction);
                         ++cnt;
                         // length
                         tempContent.writeUnsignedByte(TYPE_DOUBLE);
-                        tempContent.writeDouble(i->length);
+                        tempContent.writeDouble(link.length);
                         ++cnt;
                     }
                     server.getWrapperStorage().writeInt(cnt);

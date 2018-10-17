@@ -551,27 +551,27 @@ Simulation::findIntermodalRoute(const std::string& from, const std::string& to,
         if (router.compute(fromEdge, toEdge, departPos, arrivalPos, destStop,
                            speed * walkFactor, vehicle, modeSet, departStep, items, externalFactor)) {
             double cost = 0;
-            for (std::vector<MSNet::MSIntermodalRouter::TripItem>::iterator it = items.begin(); it != items.end(); ++it) {
-                if (!it->edges.empty()) {
-                    resultCand.push_back(TraCIStage(it->line == ""
+            for (auto & item : items) {
+                if (!item.edges.empty()) {
+                    resultCand.push_back(TraCIStage(item.line == ""
                                                     ? MSTransportable::MOVING_WITHOUT_VEHICLE
                                                     : MSTransportable::DRIVING));
-                    resultCand.back().vType = it->vType;
-                    resultCand.back().line = it->line;
-                    resultCand.back().destStop = it->destStop;
-                    for (const MSEdge* e : it->edges) {
+                    resultCand.back().vType = item.vType;
+                    resultCand.back().line = item.line;
+                    resultCand.back().destStop = item.destStop;
+                    for (const MSEdge* e : item.edges) {
                         resultCand.back().edges.push_back(e->getID());
                     }
-                    resultCand.back().travelTime = it->traveltime;
-                    resultCand.back().cost = it->cost;
-                    resultCand.back().length = it->length;
-                    resultCand.back().intended = it->intended;
-                    resultCand.back().depart = it->depart;
-                    resultCand.back().departPos = it->departPos;
-                    resultCand.back().arrivalPos = it->arrivalPos;
-                    resultCand.back().description = it->description;
+                    resultCand.back().travelTime = item.traveltime;
+                    resultCand.back().cost = item.cost;
+                    resultCand.back().length = item.length;
+                    resultCand.back().intended = item.intended;
+                    resultCand.back().depart = item.depart;
+                    resultCand.back().departPos = item.departPos;
+                    resultCand.back().arrivalPos = item.arrivalPos;
+                    resultCand.back().description = item.description;
                 }
-                cost += it->cost;
+                cost += item.cost;
             }
             if (cost < minCost) {
                 minCost = cost;

@@ -87,12 +87,12 @@ MSFullExport::writeEdge(OutputDevice& of) {
     of.openTag("edges");
     MSEdgeControl& ec = MSNet::getInstance()->getEdgeControl();
     const MSEdgeVector& edges = ec.getEdges();
-    for (MSEdgeVector::const_iterator e = edges.begin(); e != edges.end(); ++e) {
-        MSEdge& edge = **e;
+    for (auto e : edges) {
+        MSEdge& edge = *e;
         of.openTag("edge").writeAttr("id", edge.getID()).writeAttr("traveltime", edge.getCurrentTravelTime());
         const std::vector<MSLane*>& lanes = edge.getLanes();
-        for (std::vector<MSLane*>::const_iterator lane = lanes.begin(); lane != lanes.end(); ++lane) {
-            writeLane(of, **lane);
+        for (auto lane : lanes) {
+            writeLane(of, *lane);
         }
         of.closeTag();
     }
@@ -122,16 +122,15 @@ MSFullExport::writeTLS(OutputDevice& of, SUMOTime /* timestep */) {
         const MSTrafficLightLogic::LaneVectorVector& lanes = vars.getActive()->getLaneVectors();
 
         std::vector<std::string> laneIDs;
-        for (MSTrafficLightLogic::LaneVectorVector::const_iterator i = lanes.begin(); i != lanes.end(); ++i) {
-            const MSTrafficLightLogic::LaneVector& llanes = (*i);
-            for (MSTrafficLightLogic::LaneVector::const_iterator j = llanes.begin(); j != llanes.end(); ++j) {
-                laneIDs.push_back((*j)->getID());
+        for (const auto & llanes : lanes) {
+            for (auto llane : llanes) {
+                laneIDs.push_back(llane->getID());
             }
         }
 
         std::string lane_output = "";
-        for (int i1 = 0; i1 < (int)laneIDs.size(); ++i1) {
-            lane_output += laneIDs[i1] + " ";
+        for (const auto & laneID : laneIDs) {
+            lane_output += laneID + " ";
         }
 
         std::string state = vars.getActive()->getCurrentPhaseDef().getState();

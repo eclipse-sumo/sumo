@@ -102,9 +102,9 @@ NIVissimDisturbance::dictionary(int id) {
 std::vector<int>
 NIVissimDisturbance::getWithin(const AbstractPoly& poly) {
     std::vector<int> ret;
-    for (DictType::iterator i = myDict.begin(); i != myDict.end(); i++) {
-        if ((*i).second->crosses(poly)) {
-            ret.push_back((*i).second->myID);
+    for (auto & i : myDict) {
+        if (i.second->crosses(poly)) {
+            ret.push_back(i.second->myID);
         }
     }
     return ret;
@@ -208,9 +208,9 @@ NIVissimDisturbance::addToNode(NBNode* node, NBDistrictCont& dc,
             // if so, simply prohibit the connections
             NBNode* node = e->getToNode();
             const EdgeVector& connected = e->getConnectedEdges();
-            for (EdgeVector::const_iterator i = connected.begin(); i != connected.end(); i++) {
+            for (auto i : connected) {
                 node->addSortedLinkFoes(
-                    NBConnection(e, *i),
+                    NBConnection(e, i),
                     NBConnection(pcoe, pcie));
             }
         } else {
@@ -263,10 +263,10 @@ NIVissimDisturbance::addToNode(NBNode* node, NBDistrictCont& dc,
             // if so, simply prohibit the connections
             NBNode* node = e->getToNode();
             const EdgeVector& connected = e->getConnectedEdges();
-            for (EdgeVector::const_iterator i = connected.begin(); i != connected.end(); i++) {
+            for (auto i : connected) {
                 node->addSortedLinkFoes(
                     NBConnection(bcoe, bcie),
-                    NBConnection(e, *i));
+                    NBConnection(e, i));
             }
         } else {
             WRITE_WARNING("Would have to split edge '" + e->getID() + "' to build a prohibition");
@@ -323,8 +323,8 @@ NIVissimDisturbance::getConnection(NBNode* node, int aedgeid) {
 
 void
 NIVissimDisturbance::clearDict() {
-    for (DictType::iterator i = myDict.begin(); i != myDict.end(); i++) {
-        delete(*i).second;
+    for (auto & i : myDict) {
+        deletei.second;
     }
     myDict.clear();
 }
@@ -332,10 +332,10 @@ NIVissimDisturbance::clearDict() {
 
 void
 NIVissimDisturbance::dict_SetDisturbances() {
-    for (DictType::iterator i = myDict.begin(); i != myDict.end(); i++) {
-        NIVissimDisturbance* d = (*i).second;
-        NIVissimAbstractEdge::dictionary(d->myEdge.getEdgeID())->addDisturbance((*i).first);
-        NIVissimAbstractEdge::dictionary(d->myDisturbance.getEdgeID())->addDisturbance((*i).first);
+    for (auto & i : myDict) {
+        NIVissimDisturbance* d = i.second;
+        NIVissimAbstractEdge::dictionary(d->myEdge.getEdgeID())->addDisturbance(i.first);
+        NIVissimAbstractEdge::dictionary(d->myDisturbance.getEdgeID())->addDisturbance(i.first);
     }
     /*    for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
             delete (*i).second;

@@ -68,8 +68,7 @@ ODDistrictCont::getRandomSinkFromDistrict(const std::string& name) const {
 
 void
 ODDistrictCont::loadDistricts(std::vector<std::string> files) {
-    for (std::vector<std::string>::iterator i = files.begin(); i != files.end(); ++i) {
-        const std::string& districtfile = *i;
+    for (auto & districtfile : files) {
         if (!FileHelpers::isReadable(districtfile)) {
             throw ProcessError("Could not access network file '" + districtfile + "' to load.");
         }
@@ -87,15 +86,15 @@ ODDistrictCont::loadDistricts(std::vector<std::string> files) {
 
 void
 ODDistrictCont::makeDistricts(const std::map<std::string, std::pair<std::vector<std::string>, std::vector<std::string> > >& districts) {
-    for (std::map<std::string, std::pair<std::vector<std::string>, std::vector<std::string> > >::const_iterator it = districts.begin(); it != districts.end(); ++it) {
-        ODDistrict* current = new ODDistrict(it->first);
-        const std::vector<std::string>& sources = it->second.first;
-        for (std::vector<std::string>::const_iterator i = sources.begin(); i != sources.end(); ++i) {
-            current->addSource(*i, 1.);
+    for (const auto & district : districts) {
+        ODDistrict* current = new ODDistrict(district.first);
+        const std::vector<std::string>& sources = district.second.first;
+        for (const auto & source : sources) {
+            current->addSource(source, 1.);
         }
-        const std::vector<std::string>& sinks = it->second.second;
-        for (std::vector<std::string>::const_iterator i = sinks.begin(); i != sinks.end(); ++i) {
-            current->addSink(*i, 1.);
+        const std::vector<std::string>& sinks = district.second.second;
+        for (const auto & sink : sinks) {
+            current->addSink(sink, 1.);
         }
         add(current->getID(), current);
     }

@@ -116,8 +116,8 @@ RONetHandler::myEndElement(int element) {
     switch (element) {
         case SUMO_TAG_NET:
             // build junction graph
-            for (std::set<std::string>::const_iterator it = myUnseenNodeIDs.begin(); it != myUnseenNodeIDs.end(); ++it) {
-                WRITE_ERROR("Unknown node '" + *it + "'.");
+            for (const auto & myUnseenNodeID : myUnseenNodeIDs) {
+                WRITE_ERROR("Unknown node '" + myUnseenNodeID + "'.");
             }
             break;
         default:

@@ -75,8 +75,8 @@ NBRequest::NBRequest(const NBEdgeCont& ec,
         myDone.push_back(LinkInfoCont(variations, false));
     }
     // insert loaded prohibits
-    for (NBConnectionProhibits::const_iterator j = loadedProhibits.begin(); j != loadedProhibits.end(); j++) {
-        NBConnection prohibited = (*j).first;
+    for (const auto & loadedProhibit : loadedProhibits) {
+        NBConnection prohibited = loadedProhibit.first;
         bool ok1 = prohibited.check(ec);
         if (find(myIncoming.begin(), myIncoming.end(), prohibited.getFrom()) == myIncoming.end()) {
             ok1 = false;
@@ -91,9 +91,8 @@ NBRequest::NBRequest(const NBEdgeCont& ec,
                 ok1 = false;
             }
         }
-        const NBConnectionVector& prohibiting = (*j).second;
-        for (NBConnectionVector::const_iterator k = prohibiting.begin(); k != prohibiting.end(); k++) {
-            NBConnection sprohibiting = *k;
+        const NBConnectionVector& prohibiting = loadedProhibit.second;
+        for (auto sprohibiting : prohibiting) {
             bool ok2 = sprohibiting.check(ec);
             if (find(myIncoming.begin(), myIncoming.end(), sprohibiting.getFrom()) == myIncoming.end()) {
                 ok2 = false;
@@ -414,44 +413,44 @@ NBRequest::resetSignalised() {
         int noLanesEdge1 = (*i11)->getNumLanes();
         for (int j1 = 0; j1 < noLanesEdge1; j1++) {
             std::vector<NBEdge::Connection> el1 = (*i11)->getConnectionsFromLane(j1);
-            for (std::vector<NBEdge::Connection>::iterator i12 = el1.begin(); i12 != el1.end(); ++i12) {
-                int idx1 = getIndex((*i11), (*i12).toEdge);
+            for (auto & i12 : el1) {
+                int idx1 = getIndex((*i11), i12.toEdge);
                 if (idx1 < 0) {
                     continue;
                 }
                 // go through possibly prohibited
-                for (EdgeVector::const_iterator i21 = myIncoming.begin(); i21 != myIncoming.end(); i21++) {
-                    int noLanesEdge2 = (*i21)->getNumLanes();
+                for (auto i21 : myIncoming) {
+                    int noLanesEdge2 = i21->getNumLanes();
                     for (int j2 = 0; j2 < noLanesEdge2; j2++) {
-                        std::vector<NBEdge::Connection> el2 = (*i21)->getConnectionsFromLane(j2);
-                        for (std::vector<NBEdge::Connection>::iterator i22 = el2.begin(); i22 != el2.end(); i22++) {
-                            int idx2 = getIndex((*i21), (*i22).toEdge);
+                        std::vector<NBEdge::Connection> el2 = i21->getConnectionsFromLane(j2);
+                        for (auto & i22 : el2) {
+                            int idx2 = getIndex(i21, i22.toEdge);
                             if (idx2 < 0) {
                                 continue;
                             }
                             // check
                             // same incoming connections do not prohibit each other
-                            if ((*i11) == (*i21)) {
+                            if ((*i11) == i21) {
                                 myForbids[idx1][idx2] = false;
                                 myForbids[idx2][idx1] = false;
                                 continue;
                             }
                             // check other
                             // if both are non-signalised or both are signalised
-                            if (((*i12).tlID == "" && (*i22).tlID == "")
+                            if ((i12.tlID == "" && i22.tlID == "")
                                     ||
-                                    ((*i12).tlID != "" && (*i22).tlID != "")) {
+                                    (i12.tlID != "" && i22.tlID != "")) {
                                 // do nothing
                                 continue;
                             }
                             // supposing, we don not have to
                             //  brake if we are no foes
-                            if (!foes(*i11, (*i12).toEdge, *i21, (*i22).toEdge)) {
+                            if (!foes(*i11, i12.toEdge, i21, i22.toEdge)) {
                                 continue;
                             }
                             // otherwise:
                             //  the non-signalised must break
-                            if ((*i12).tlID != "") {
+                            if (i12.tlID != "") {
                                 myForbids[idx1][idx2] = true;
                                 myForbids[idx2][idx1] = false;
                             } else {
@@ -471,11 +470,10 @@ std::pair<int, int>
 NBRequest::getSizes() const {
     int noLanes = 0;
     int noLinks = 0;
-    for (EdgeVector::const_iterator i = myIncoming.begin();
-            i != myIncoming.end(); i++) {
-        int noLanesEdge = (*i)->getNumLanes();
+    for (auto i : myIncoming) {
+        int noLanesEdge = i->getNumLanes();
         for (int j = 0; j < noLanesEdge; j++) {
-            int numConnections = (int)(*i)->getConnectionsFromLane(j).size();
+            int numConnections = (int)i->getConnectionsFromLane(j).size();
             noLinks += numConnections;
             if (numConnections > 0) {
                 noLanes++;
@@ -566,8 +564,8 @@ NBRequest::computeCrossingResponse(const NBNode::Crossing& crossing, int pos) {
             for (int k = size; k-- > 0;) {
                 const NBEdge* to = connected[k].toEdge;
                 bool foe = false;
-                for (EdgeVector::const_iterator it_e = crossing.edges.begin(); it_e != crossing.edges.end(); ++it_e) {
-                    if ((*it_e) == from || (*it_e) == to) {
+                for (auto edge : crossing.edges) {
+                    if (edge == from || edge == to) {
                         foe = true;
                         break;
                     }
@@ -883,9 +881,9 @@ NBRequest::mustBrake(const NBEdge* const from, const NBEdge* const to, int fromL
     LinkDirection dir = myJunction->getDirection(from, to);
     if (dir == LINKDIR_RIGHT || dir == LINKDIR_PARTRIGHT) {
         const std::vector<NBEdge::Connection>& cons = from->getConnections();
-        for (std::vector<NBEdge::Connection>::const_iterator i = cons.begin(); i != cons.end(); i++) {
+        for (const auto & con : cons) {
             if (NBNode::rightTurnConflict(from, to, fromLane,
-                                          from, (*i).toEdge, (*i).fromLane)) {
+                                          from, con.toEdge, con.fromLane)) {
                 return true;
             }
         }
@@ -952,23 +950,23 @@ NBRequest::resetCooperating() {
     std::map<NBEdge*, std::set<int> > approachedLanes;
     // map from edge to list of incoming edges
     std::map<NBEdge*, EdgeVector> incomingEdges;
-    for (EdgeVector::const_iterator it_e = myIncoming.begin(); it_e != myIncoming.end(); it_e++) {
-        const std::vector<NBEdge::Connection> connections = (*it_e)->getConnections();
-        for (std::vector<NBEdge::Connection>::const_iterator it_c = connections.begin(); it_c != connections.end(); ++it_c) {
-            incomingCount[it_c->toEdge]++;
-            approachedLanes[it_c->toEdge].insert(it_c->toLane);
-            incomingEdges[it_c->toEdge].push_back(*it_e);
+    for (auto it_e : myIncoming) {
+        const std::vector<NBEdge::Connection> connections = it_e->getConnections();
+        for (const auto & connection : connections) {
+            incomingCount[connection.toEdge]++;
+            approachedLanes[connection.toEdge].insert(connection.toLane);
+            incomingEdges[connection.toEdge].push_back(it_e);
         }
     }
-    for (std::map<NBEdge*, int>::iterator it = incomingCount.begin(); it != incomingCount.end(); ++it) {
-        NBEdge* to = it->first;
+    for (auto & it : incomingCount) {
+        NBEdge* to = it.first;
         // we cannot test against to->getNumLanes() since not all lanes may be used
-        if ((int)approachedLanes[to].size() >= it->second) {
+        if ((int)approachedLanes[to].size() >= it.second) {
             EdgeVector& incoming = incomingEdges[to];
             // make these connections mutually unconflicting
             for (EdgeVector::iterator it_e1 = incoming.begin(); it_e1 != incoming.end(); ++it_e1) {
-                for (EdgeVector::iterator it_e2 = incoming.begin(); it_e2 != incoming.end(); ++it_e2) {
-                    myForbids[getIndex(*it_e1, to)][getIndex(*it_e2, to)] = false;
+                for (auto & it_e2 : incoming) {
+                    myForbids[getIndex(*it_e1, to)][getIndex(it_e2, to)] = false;
                 }
             }
         }

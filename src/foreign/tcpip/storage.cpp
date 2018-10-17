@@ -224,9 +224,9 @@ namespace tcpip
 	void Storage::writeStringList(const std::vector<std::string> &s)
 	{
 		writeInt(static_cast<int>(s.size()));
-        for (std::vector<std::string>::const_iterator it = s.begin(); it!=s.end() ; it++)
+        for (const auto & it : s)
 		{
-			writeString(*it);
+			writeString(it);
         }
 	}
 

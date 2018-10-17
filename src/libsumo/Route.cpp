@@ -55,8 +55,8 @@ std::vector<std::string>
 Route::getEdges(const std::string& routeID) {
     const MSRoute* r = getRoute(routeID);
     std::vector<std::string> ids;
-    for (ConstMSEdgeVector::const_iterator i = r->getEdges().begin(); i != r->getEdges().end(); ++i) {
-        ids.push_back((*i)->getID());
+    for (auto i : r->getEdges()) {
+        ids.push_back(i->getID());
     }
     return ids;
 }
@@ -87,10 +87,10 @@ Route::add(const std::string& routeID, const std::vector<std::string>& edgeIDs) 
     if (edgeIDs.size() == 0) {
         throw TraCIException("Cannot add route '" + routeID + "' without edges.");
     }
-    for (std::vector<std::string>::const_iterator ei = edgeIDs.begin(); ei != edgeIDs.end(); ++ei) {
-        MSEdge* edge = MSEdge::dictionary(*ei);
+    for (const auto & edgeID : edgeIDs) {
+        MSEdge* edge = MSEdge::dictionary(edgeID);
         if (edge == nullptr) {
-            throw TraCIException("Unknown edge '" + *ei + "' in route.");
+            throw TraCIException("Unknown edge '" + edgeID + "' in route.");
         }
         edges.push_back(edge);
     }

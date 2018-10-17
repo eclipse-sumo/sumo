@@ -232,25 +232,25 @@ GUIVehicle::getTypeParameterWindow(GUIMainWindow& app,
 void
 GUIVehicle::drawAction_drawLinkItems(const GUIVisualizationSettings& s) const {
     glTranslated(0, 0, getType() + .2); // draw on top of cars
-    for (DriveItemVector::const_iterator i = myLFLinkLanes.begin(); i != myLFLinkLanes.end(); ++i) {
-        if ((*i).myLink == nullptr) {
+    for (const auto & myLFLinkLane : myLFLinkLanes) {
+        if (myLFLinkLane.myLink == nullptr) {
             continue;
         }
-        MSLink* link = (*i).myLink;
+        MSLink* link = myLFLinkLane.myLink;
         MSLane* via = link->getViaLaneOrLane();
         if (via != nullptr) {
             Position p = via->getShape()[0];
-            if ((*i).mySetRequest) {
+            if (myLFLinkLane.mySetRequest) {
                 glColor3d(0, .8, 0);
             } else {
                 glColor3d(.8, 0, 0);
             }
-            const SUMOTime leaveTime = (*i).myLink->getLeaveTime(
-                                           (*i).myArrivalTime, (*i).myArrivalSpeed, (*i).getLeaveSpeed(), getVehicleType().getLength());
-            drawLinkItem(p, (*i).myArrivalTime, leaveTime, s.vehicleName.size / s.scale);
+            const SUMOTime leaveTime = myLFLinkLane.myLink->getLeaveTime(
+                                           myLFLinkLane.myArrivalTime, myLFLinkLane.myArrivalSpeed, myLFLinkLane.getLeaveSpeed(), getVehicleType().getLength());
+            drawLinkItem(p, myLFLinkLane.myArrivalTime, leaveTime, s.vehicleName.size / s.scale);
             // the time slot that ego vehicle uses when checking opened may
             // differ from the one it requests in setApproaching
-            MSLink::ApproachingVehicleInformation avi = (*i).myLink->getApproaching(this);
+            MSLink::ApproachingVehicleInformation avi = myLFLinkLane.myLink->getApproaching(this);
             assert(avi.arrivalTime == (*i).myArrivalTime && avi.leavingTime == leaveTime);
             UNUSED_PARAMETER(avi); // only used for assertion
         }
@@ -420,8 +420,7 @@ GUIVehicle::drawBestLanes() const {
     myLock.lock();
     std::vector<std::vector<MSVehicle::LaneQ> > bestLanes = myBestLanes;
     myLock.unlock();
-    for (std::vector<std::vector<MSVehicle::LaneQ> >::iterator j = bestLanes.begin(); j != bestLanes.end(); ++j) {
-        std::vector<MSVehicle::LaneQ>& lanes = *j;
+    for (auto & lanes : bestLanes) {
         double gmax = -1;
         double rmax = -1;
         for (std::vector<MSVehicle::LaneQ>::const_iterator i = lanes.begin(); i != lanes.end(); ++i) {
@@ -696,8 +695,7 @@ GUIVehicle::selectBlockingFoes() const {
 #ifdef DEBUG_FOES
     std::cout << SIMTIME << " selectBlockingFoes veh=" << getID() << " dist=" << dist << " numLinks=" << myLFLinkLanes.size() << "\n";
 #endif
-    for (DriveItemVector::const_iterator i = myLFLinkLanes.begin(); i != myLFLinkLanes.end(); ++i) {
-        const DriveProcessItem& dpi = *i;
+    for (const auto & dpi : myLFLinkLanes) {
         if (dpi.myLink == nullptr) {
             /// XXX if the vehicle intends to stop on an intersection, there could be a relevant exitLink (see #4299)
             continue;
@@ -750,9 +748,9 @@ GUIVehicle::selectBlockingFoes() const {
 #ifdef DEBUG_FOES
         gDebugFlag1 = false;
 #endif
-        for (MSLink::LinkLeaders::const_iterator it = linkLeaders.begin(); it != linkLeaders.end(); ++it) {
+        for (const auto & linkLeader : linkLeaders) {
             // the vehicle to enter the junction first has priority
-            const GUIVehicle* leader = dynamic_cast<const GUIVehicle*>(it->vehAndGap.first);
+            const GUIVehicle* leader = dynamic_cast<const GUIVehicle*>(linkLeader.vehAndGap.first);
             if (leader != nullptr) {
                 if (dpi.myLink->isLeader(this, leader)) {
                     gSelected.select(leader->getGlID());
@@ -761,8 +759,8 @@ GUIVehicle::selectBlockingFoes() const {
 #endif
                 }
             } else {
-                for (std::vector<const MSPerson*>::iterator it_p = blockingPersons.begin(); it_p != blockingPersons.end(); ++it_p) {
-                    const GUIPerson* foe = dynamic_cast<const GUIPerson*>(*it_p);
+                for (auto & blockingPerson : blockingPersons) {
+                    const GUIPerson* foe = dynamic_cast<const GUIPerson*>(blockingPerson);
                     if (foe != nullptr) {
                         gSelected.select(foe->getGlID());
                         //std::cout << SIMTIME << " veh=" << getID() << " is blocked on link " << dpi.myLink->getRespondIndex() << " to " << dpi.myLink->getViaLaneOrLane()->getID() << " by pedestrian. dist=" << it->second << "\n";

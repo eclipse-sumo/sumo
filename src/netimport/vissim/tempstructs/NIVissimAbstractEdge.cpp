@@ -40,8 +40,7 @@ NIVissimAbstractEdge::NIVissimAbstractEdge(int id,
         const PositionVector& geom)
     : myID(id), myNode(-1) {
     // convert/publicate geometry
-    for (PositionVector::const_iterator i = geom.begin(); i != geom.end(); ++i) {
-        Position p = *i;
+    for (auto p : geom) {
         if (!NBNetBuilder::transformCoordinate(p)) {
             WRITE_WARNING("Unable to project coordinates for edge '" + toString(id) + "'.");
         }
@@ -94,8 +93,8 @@ NIVissimAbstractEdge::getGeomPosition(double pos) const {
 
 void
 NIVissimAbstractEdge::splitAndAssignToNodes() {
-    for (DictType::iterator i = myDict.begin(); i != myDict.end(); i++) {
-        NIVissimAbstractEdge* e = (*i).second;
+    for (auto & i : myDict) {
+        NIVissimAbstractEdge* e = i.second;
         e->splitAssigning();
     }
 }
@@ -122,8 +121,8 @@ NIVissimAbstractEdge::crossesEdgeAtPoint(NIVissimAbstractEdge* c) const {
 std::vector<int>
 NIVissimAbstractEdge::getWithin(const AbstractPoly& p, double offset) {
     std::vector<int> ret;
-    for (DictType::iterator i = myDict.begin(); i != myDict.end(); i++) {
-        NIVissimAbstractEdge* e = (*i).second;
+    for (auto & i : myDict) {
+        NIVissimAbstractEdge* e = i.second;
         if (e->overlapsWith(p, offset)) {
             ret.push_back(e->myID);
         }
@@ -151,8 +150,8 @@ NIVissimAbstractEdge::getID() const {
 
 void
 NIVissimAbstractEdge::clearDict() {
-    for (DictType::iterator i = myDict.begin(); i != myDict.end(); i++) {
-        delete(*i).second;
+    for (auto & i : myDict) {
+        deletei.second;
     }
     myDict.clear();
 }

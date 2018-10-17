@@ -313,17 +313,17 @@ SUMOVTypeParameter::write(OutputDevice& dev) const {
     if (wasSet(VTYPEPARS_LANE_CHANGE_MODEL_SET)) {
         dev.writeAttr(SUMO_ATTR_LANE_CHANGE_MODEL, lcModel);
     }
-    for (SubParams::const_iterator i = lcParameter.begin(); i != lcParameter.end(); ++i) {
-        dev.writeAttr(i->first, i->second);
+    for (const auto & i : lcParameter) {
+        dev.writeAttr(i.first, i.second);
     }
-    for (SubParams::const_iterator i = jmParameter.begin(); i != jmParameter.end(); ++i) {
-        dev.writeAttr(i->first, i->second);
+    for (const auto & i : jmParameter) {
+        dev.writeAttr(i.first, i.second);
     }
     if (wasSet(VTYPEPARS_CAR_FOLLOW_MODEL)) {
         dev.writeAttr(SUMO_ATTR_CAR_FOLLOW_MODEL, SUMOXMLDefinitions::CarFollowModels.getString(cfModel));
     }
-    for (SubParams::const_iterator i = cfParameter.begin(); i != cfParameter.end(); ++i) {
-        dev.writeAttr(i->first, i->second);
+    for (const auto & i : cfParameter) {
+        dev.writeAttr(i.first, i.second);
     }
     writeParams(dev);
     dev.closeTag();

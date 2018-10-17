@@ -1195,11 +1195,11 @@ void
 GNEApplicationWindow::closeAllWindows() {
     myTrackerLock.lock();
     // remove trackers and other external windows
-    for (int i = 0; i < (int)mySubWindows.size(); ++i) {
-        mySubWindows[i]->destroy();
+    for (auto & mySubWindow : mySubWindows) {
+        mySubWindow->destroy();
     }
-    for (int i = 0; i < (int)myTrackerWindows.size(); ++i) {
-        myTrackerWindows[i]->destroy();
+    for (auto & myTrackerWindow : myTrackerWindows) {
+        myTrackerWindow->destroy();
     }
     // reset the caption
     setTitle(myTitlePrefix);

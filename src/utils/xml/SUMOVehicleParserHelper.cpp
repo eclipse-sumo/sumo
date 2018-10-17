@@ -532,11 +532,11 @@ SUMOVehicleParserHelper::parseVTypeEmbedded(SUMOVTypeParameter& into,
         into.parametersSet |= VTYPEPARS_CAR_FOLLOW_MODEL;
     }
     bool ok = true;
-    for (std::set<SumoXMLAttr>::const_iterator it = cf_it->second.begin(); it != cf_it->second.end(); ++it) {
-        if (attrs.hasAttribute(*it)) {
-            into.cfParameter[*it] = attrs.get<std::string>(*it, into.id.c_str(), ok);
-            if (*it == SUMO_ATTR_TAU && string2time(into.cfParameter[*it]) < DELTA_T && gSimulation) {
-                WRITE_WARNING("Value of tau=" + toString(into.cfParameter[*it])
+    for (auto it : cf_it->second) {
+        if (attrs.hasAttribute(it)) {
+            into.cfParameter[it] = attrs.get<std::string>(it, into.id.c_str(), ok);
+            if (it == SUMO_ATTR_TAU && string2time(into.cfParameter[it]) < DELTA_T && gSimulation) {
+                WRITE_WARNING("Value of tau=" + toString(into.cfParameter[it])
                               + " in car following model '" + toString(into.cfModel) + "' lower than simulation step size may cause collisions");
             }
         }
@@ -723,9 +723,9 @@ SUMOVehicleParserHelper::parseLCParams(SUMOVTypeParameter& into, LaneChangeModel
     }
     bool ok = true;
     std::set<SumoXMLAttr> allowed = allowedLCModelAttrs[model];
-    for (std::set<SumoXMLAttr>::const_iterator it = allowed.begin(); it != allowed.end(); it++) {
-        if (attrs.hasAttribute(*it)) {
-            into.lcParameter[*it] = attrs.get<std::string>(*it, into.id.c_str(), ok);
+    for (auto it : allowed) {
+        if (attrs.hasAttribute(it)) {
+            into.lcParameter[it] = attrs.get<std::string>(it, into.id.c_str(), ok);
         }
     }
     if (!ok) {
@@ -748,9 +748,9 @@ SUMOVehicleParserHelper::parseJMParams(SUMOVTypeParameter& into, const SUMOSAXAt
         allowedJMAttrs.insert(SUMO_ATTR_JM_TIMEGAP_MINOR);
     }
     bool ok = true;
-    for (std::set<SumoXMLAttr>::const_iterator it = allowedJMAttrs.begin(); it != allowedJMAttrs.end(); it++) {
-        if (attrs.hasAttribute(*it)) {
-            into.jmParameter[*it] = attrs.get<std::string>(*it, into.id.c_str(), ok);
+    for (auto allowedJMAttr : allowedJMAttrs) {
+        if (attrs.hasAttribute(allowedJMAttr)) {
+            into.jmParameter[allowedJMAttr] = attrs.get<std::string>(allowedJMAttr, into.id.c_str(), ok);
         }
     }
     if (!ok) {

@@ -135,8 +135,8 @@ namespace PHEMlightdll {
 
         //Open file
         std::ifstream vehicleReader;
-        for (std::vector<std::string>::const_iterator i = DataPath.begin(); i != DataPath.end(); i++) {
-            vehicleReader.open(((*i) + emissionClass + ".PHEMLight.veh").c_str());
+        for (const auto & i : DataPath) {
+            vehicleReader.open((i + emissionClass + ".PHEMLight.veh").c_str());
             if (vehicleReader.good()) {
                 break;
             }
@@ -306,8 +306,8 @@ namespace PHEMlightdll {
         }
 
         std::ifstream fileReader;
-        for (std::vector<std::string>::const_iterator i = DataPath.begin(); i != DataPath.end(); i++) {
-            fileReader.open(((*i) + emissionClass + pollutantExtension + ".csv").c_str());
+        for (const auto & i : DataPath) {
+            fileReader.open((i + emissionClass + pollutantExtension + ".csv").c_str());
             if (fileReader.good()) {
                 break;
             }
@@ -365,8 +365,8 @@ namespace PHEMlightdll {
 
     std::vector<double> CEPHandler::todoubleList(const std::vector<std::string>& s) {
         std::vector<double> result;
-        for (std::vector<std::string>::const_iterator i = s.begin(); i != s.end(); ++i) {
-            result.push_back(todouble(*i));
+        for (const auto & i : s) {
+            result.push_back(todouble(i));
         }
         return result;
     }

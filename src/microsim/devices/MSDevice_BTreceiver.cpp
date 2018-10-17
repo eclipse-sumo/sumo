@@ -138,12 +138,12 @@ MSDevice_BTreceiver::BTreceiverUpdate::execute(SUMOTime /*currentTime*/) {
         rt.Search(cmin, cmax, sv);
 
         // loop over surrounding vehicles, check visibility status
-        for (std::set<std::string>::const_iterator j = surroundingVehicles.begin(); j != surroundingVehicles.end(); ++j) {
-            if ((*i).first == *j) {
+        for (const auto & surroundingVehicle : surroundingVehicles) {
+            if ((*i).first == surroundingVehicle) {
                 // seeing oneself? skip
                 continue;
             }
-            updateVisibility(*vi, *MSDevice_BTsender::sVehicles.find(*j)->second);
+            updateVisibility(*vi, *MSDevice_BTsender::sVehicles.find(surroundingVehicle)->second);
         }
 
         if (vi->haveArrived) {
@@ -331,26 +331,26 @@ void
 MSDevice_BTreceiver::BTreceiverUpdate::writeOutput(const std::string& id, const std::map<std::string, std::vector<SeenDevice*> >& seen, bool allRecognitions) {
     OutputDevice& os = OutputDevice::getDeviceByOption("bt-output");
     os.openTag("bt").writeAttr("id", id);
-    for (std::map<std::string, std::vector<SeenDevice*> >::const_iterator j = seen.begin(); j != seen.end(); ++j) {
-        const std::vector<SeenDevice*>& sts = (*j).second;
-        for (std::vector<SeenDevice*>::const_iterator k = sts.begin(); k != sts.end(); ++k) {
-            os.openTag("seen").writeAttr("id", (*j).first);
-            const MSDevice_BTsender::VehicleState& obsBeg = (*k)->meetingBegin.observerState;
-            const MSDevice_BTsender::VehicleState& seenBeg = (*k)->meetingBegin.seenState;
-            os.writeAttr("tBeg", (*k)->meetingBegin.t)
+    for (const auto & j : seen) {
+        const std::vector<SeenDevice*>& sts = j.second;
+        for (auto st : sts) {
+            os.openTag("seen").writeAttr("id", j.first);
+            const MSDevice_BTsender::VehicleState& obsBeg = st->meetingBegin.observerState;
+            const MSDevice_BTsender::VehicleState& seenBeg = st->meetingBegin.seenState;
+            os.writeAttr("tBeg", st->meetingBegin.t)
             .writeAttr("observerPosBeg", obsBeg.position).writeAttr("observerSpeedBeg", obsBeg.speed)
             .writeAttr("observerLaneIDBeg", obsBeg.laneID).writeAttr("observerLanePosBeg", obsBeg.lanePos)
             .writeAttr("seenPosBeg", seenBeg.position).writeAttr("seenSpeedBeg", seenBeg.speed)
             .writeAttr("seenLaneIDBeg", seenBeg.laneID).writeAttr("seenLanePosBeg", seenBeg.lanePos);
-            const MSDevice_BTsender::VehicleState& obsEnd = (*k)->meetingEnd->observerState;
-            const MSDevice_BTsender::VehicleState& seenEnd = (*k)->meetingEnd->seenState;
-            os.writeAttr("tEnd", (*k)->meetingEnd->t)
+            const MSDevice_BTsender::VehicleState& obsEnd = st->meetingEnd->observerState;
+            const MSDevice_BTsender::VehicleState& seenEnd = st->meetingEnd->seenState;
+            os.writeAttr("tEnd", st->meetingEnd->t)
             .writeAttr("observerPosEnd", obsEnd.position).writeAttr("observerSpeedEnd", obsEnd.speed)
             .writeAttr("observerLaneIDEnd", obsEnd.laneID).writeAttr("observerLanePosEnd", obsEnd.lanePos)
             .writeAttr("seenPosEnd", seenEnd.position).writeAttr("seenSpeedEnd", seenEnd.speed)
             .writeAttr("seenLaneIDEnd", seenEnd.laneID).writeAttr("seenLanePosEnd", seenEnd.lanePos)
-            .writeAttr("observerRoute", (*k)->receiverRoute).writeAttr("seenRoute", (*k)->senderRoute);
-            for (std::vector<MeetingPoint*>::iterator l = (*k)->recognitionPoints.begin(); l != (*k)->recognitionPoints.end(); ++l) {
+            .writeAttr("observerRoute", st->receiverRoute).writeAttr("seenRoute", st->senderRoute);
+            for (std::vector<MeetingPoint*>::iterator l = st->recognitionPoints.begin(); l != st->recognitionPoints.end(); ++l) {
                 os.openTag("recognitionPoint").writeAttr("t", (*l)->t)
                 .writeAttr("observerPos", (*l)->observerState.position).writeAttr("observerSpeed", (*l)->observerState.speed)
                 .writeAttr("observerLaneID", (*l)->observerState.laneID).writeAttr("observerLanePos", (*l)->observerState.lanePos)

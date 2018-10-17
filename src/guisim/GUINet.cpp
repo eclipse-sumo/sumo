@@ -88,18 +88,18 @@ GUINet::~GUINet() {
     }
     // delete allocated wrappers
     //  of junctions
-    for (std::vector<GUIJunctionWrapper*>::iterator i1 = myJunctionWrapper.begin(); i1 != myJunctionWrapper.end(); i1++) {
-        delete(*i1);
+    for (auto & i1 : myJunctionWrapper) {
+        deletei1;
     }
     //  of additional structures
     GUIGlObject_AbstractAdd::clearDictionary();
     //  of tl-logics
-    for (Logics2WrapperMap::iterator i3 = myLogics2Wrapper.begin(); i3 != myLogics2Wrapper.end(); i3++) {
-        delete(*i3).second;
+    for (auto & i3 : myLogics2Wrapper) {
+        deletei3.second;
     }
     //  of detectors
-    for (std::vector<GUIDetectorWrapper*>::iterator i = myDetectorWrapper.begin(); i != myDetectorWrapper.end(); ++i) {
-        delete *i;
+    for (auto & i : myDetectorWrapper) {
+        delete i;
     }
 }
 
@@ -135,8 +135,8 @@ GUINet::initTLMap() {
     // allocate storage for the wrappers
     myTLLogicWrapper.reserve(logics.size());
     // go through the logics
-    for (std::vector<MSTrafficLightLogic*>::const_iterator i = logics.begin(); i != logics.end(); ++i) {
-        createTLWrapper(*i);
+    for (auto logic : logics) {
+        createTLWrapper(logic);
     }
 }
 
@@ -226,9 +226,9 @@ GUINet::simulationStep() {
 std::vector<GUIGlID>
 GUINet::getJunctionIDs(bool includeInternal) const {
     std::vector<GUIGlID> ret;
-    for (std::vector<GUIJunctionWrapper*>::const_iterator i = myJunctionWrapper.begin(); i != myJunctionWrapper.end(); ++i) {
-        if (!(*i)->isInternal() || includeInternal) {
-            ret.push_back((*i)->getGlID());
+    for (auto i : myJunctionWrapper) {
+        if (!i->isInternal() || includeInternal) {
+            ret.push_back(i->getGlID());
         }
     }
     return ret;
@@ -239,10 +239,10 @@ std::vector<GUIGlID>
 GUINet::getTLSIDs() const {
     std::vector<GUIGlID> ret;
     std::vector<std::string> ids;
-    for (std::map<MSTrafficLightLogic*, GUITrafficLightLogicWrapper*>::const_iterator i = myLogics2Wrapper.begin(); i != myLogics2Wrapper.end(); ++i) {
-        std::string sid = (*i).second->getMicrosimID();
+    for (const auto & i : myLogics2Wrapper) {
+        std::string sid = i.second->getMicrosimID();
         if (find(ids.begin(), ids.end(), sid) == ids.end()) {
-            ret.push_back((*i).second->getGlID());
+            ret.push_back(i.second->getGlID());
             ids.push_back(sid);
         }
     }
@@ -254,8 +254,8 @@ void
 GUINet::initGUIStructures() {
     // initialise detector storage for gui
     const std::vector<SumoXMLTag> types = myDetectorControl->getAvailableTypes();
-    for (std::vector<SumoXMLTag>::const_iterator i = types.begin(); i != types.end(); ++i) {
-        for (const auto& j : myDetectorControl->getTypedDetectors(*i)) {
+    for (auto type : types) {
+        for (const auto& j : myDetectorControl->getTypedDetectors(type)) {
             GUIDetectorWrapper* wrapper = j.second->buildDetectorGUIRepresentation();
             if (wrapper != nullptr) {
                 myDetectorWrapper.push_back(wrapper);
@@ -268,10 +268,10 @@ GUINet::initGUIStructures() {
     // initialise edge storage for gui
     const MSEdgeVector& edges = MSEdge::getAllEdges();
     myEdgeWrapper.reserve(edges.size());
-    for (MSEdgeVector::const_iterator i = edges.begin(); i != edges.end(); ++i) {
+    for (auto edge : edges) {
         // VISIM connector edges shall be drawn (they have lanes)
-        if (!(*i)->isTazConnector() || (*i)->getLanes().size() > 0) {
-            myEdgeWrapper.push_back(static_cast<GUIEdge*>(*i));
+        if (!edge->isTazConnector() || edge->getLanes().size() > 0) {
+            myEdgeWrapper.push_back(static_cast<GUIEdge*>(edge));
         }
     }
     // initialise junction storage for gui
@@ -281,12 +281,11 @@ GUINet::initGUIStructures() {
         myJunctionWrapper.push_back(new GUIJunctionWrapper(*i.second));
     }
     // build the visualization tree
-    for (std::vector<GUIEdge*>::iterator i = myEdgeWrapper.begin(); i != myEdgeWrapper.end(); ++i) {
-        GUIEdge* edge = *i;
+    for (auto edge : myEdgeWrapper) {
         Boundary b;
         const std::vector<MSLane*>& lanes = edge->getLanes();
-        for (std::vector<MSLane*>::const_iterator j = lanes.begin(); j != lanes.end(); ++j) {
-            b.add((*j)->getShape().getBoxBoundary());
+        for (auto lane : lanes) {
+            b.add(lane->getShape().getBoxBoundary());
         }
         // make sure persons are always drawn and selectable since they depend on their edge being drawn
         b.grow(MSPModel::SIDEWALK_OFFSET + 1);
@@ -298,8 +297,7 @@ GUINet::initGUIStructures() {
             throw ProcessError("Network size exceeds 1 Lightyear. Please reconsider your inputs.\n");
         }
     }
-    for (std::vector<GUIJunctionWrapper*>::iterator i = myJunctionWrapper.begin(); i != myJunctionWrapper.end(); ++i) {
-        GUIJunctionWrapper* junction = *i;
+    for (auto junction : myJunctionWrapper) {
         Boundary b = junction->getBoundary();
         b.grow(2.);
         const float cmin[2] = { (float)b.xmin(), (float)b.ymin() };

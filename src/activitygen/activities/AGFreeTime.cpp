@@ -230,9 +230,9 @@ AGFreeTime::generateTrips() {
 int
 AGFreeTime::whenBackHome() {
     int timeBack = 0;
-    for (std::list<AGTrip>::iterator itT = myPreviousTrips->begin(); itT != myPreviousTrips->end(); ++itT) {
-        if (timeBack < itT->getArrTime(this->timePerKm) && itT->isDaily()) {
-            timeBack = itT->getArrTime(this->timePerKm);
+    for (auto & myPreviousTrip : *myPreviousTrips) {
+        if (timeBack < myPreviousTrip.getArrTime(this->timePerKm) && myPreviousTrip.isDaily()) {
+            timeBack = myPreviousTrip.getArrTime(this->timePerKm);
         }
     }
     return timeBack;
@@ -241,9 +241,9 @@ AGFreeTime::whenBackHome() {
 int
 AGFreeTime::whenBackHomeThisDay(int day) {
     int timeBack = 0;
-    for (std::list<AGTrip>::iterator itT = myPreviousTrips->begin(); itT != myPreviousTrips->end(); ++itT) {
-        if (timeBack < itT->getArrTime(this->timePerKm) && (itT->getDay() == day || itT->isDaily())) {
-            timeBack = itT->getArrTime(this->timePerKm);
+    for (auto & myPreviousTrip : *myPreviousTrips) {
+        if (timeBack < myPreviousTrip.getArrTime(this->timePerKm) && (myPreviousTrip.getDay() == day || myPreviousTrip.isDaily())) {
+            timeBack = myPreviousTrip.getArrTime(this->timePerKm);
         }
     }
     return timeBack;
@@ -252,9 +252,9 @@ AGFreeTime::whenBackHomeThisDay(int day) {
 int
 AGFreeTime::whenBeginActivityNextDay(int day) {
     AGTime timeBack(1, 0, 0);
-    for (std::list<AGTrip>::iterator itT = myPreviousTrips->begin(); itT != myPreviousTrips->end(); ++itT) {
-        if (timeBack.getTime() > itT->getTime() && (itT->getDay() == (day + 1) || itT->isDaily())) {
-            timeBack.setTime(itT->getTime());
+    for (auto & myPreviousTrip : *myPreviousTrips) {
+        if (timeBack.getTime() > myPreviousTrip.getTime() && (myPreviousTrip.getDay() == (day + 1) || myPreviousTrip.isDaily())) {
+            timeBack.setTime(myPreviousTrip.getTime());
         }
     }
     timeBack.addDays(1); // this the beginning of activities of the next day

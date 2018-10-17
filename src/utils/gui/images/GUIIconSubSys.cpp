@@ -430,17 +430,17 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[ICON_GRID3] = new FXXPMIcon(a, grid3_xpm);
 
     // ... and create them
-    for (int i = 0; i < ICON_MAX; i++) {
-        if (myIcons[i] != nullptr) {
-            myIcons[i]->create();
+    for (auto & myIcon : myIcons) {
+        if (myIcon != nullptr) {
+            myIcon->create();
         }
     }
 }
 
 
 GUIIconSubSys::~GUIIconSubSys() {
-    for (int i = 0; i < ICON_MAX; i++) {
-        delete myIcons[i];
+    for (auto & myIcon : myIcons) {
+        delete myIcon;
     }
 }
 

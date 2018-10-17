@@ -110,8 +110,8 @@ NIVissimTL::NIVissimTLSignal::dictionary(int lsaid, int id) {
 
 void
 NIVissimTL::NIVissimTLSignal::clearDict() {
-    for (SignalDictType::iterator i = myDict.begin(); i != myDict.end(); i++) {
-        for (SSignalDictType::iterator j = (*i).second.begin(); j != (*i).second.end(); j++) {
+    for (auto & i : myDict) {
+        for (SSignalDictType::iterator j = i.second.begin(); j != i.second.end(); j++) {
             delete(*j).second;
         }
     }
@@ -145,8 +145,7 @@ NIVissimTL::NIVissimTLSignal::addTo(NBEdgeCont& ec, NBLoadedTLDef* tl) const {
         // check whether to use the original lanes only
         if (edge->lanesWereAssigned()) {
             std::vector<NBEdge::Connection> connections = edge->getConnectionsFromLane(myLane - 1);
-            for (std::vector<NBEdge::Connection>::iterator i = connections.begin(); i != connections.end(); i++) {
-                const NBEdge::Connection& conn = *i;
+            for (auto & conn : connections) {
                 assert(myLane - 1 < (int)edge->getNumLanes());
                 assignedConnections.push_back(NBConnection(edge, myLane - 1, conn.toEdge, conn.toLane));
             }
@@ -154,8 +153,7 @@ NIVissimTL::NIVissimTLSignal::addTo(NBEdgeCont& ec, NBLoadedTLDef* tl) const {
             WRITE_WARNING("Edge : Lanes were not assigned(!)");
             for (int j = 0; j < edge->getNumLanes(); j++) {
                 std::vector<NBEdge::Connection> connections = edge->getConnectionsFromLane(j);
-                for (std::vector<NBEdge::Connection>::iterator i = connections.begin(); i != connections.end(); i++) {
-                    const NBEdge::Connection& conn = *i;
+                for (auto & conn : connections) {
                     assignedConnections.push_back(NBConnection(edge, j, conn.toEdge, conn.toLane));
                 }
             }
@@ -251,8 +249,8 @@ NIVissimTL::NIVissimTLSignalGroup::dictionary(int lsaid, int id) {
 
 void
 NIVissimTL::NIVissimTLSignalGroup::clearDict() {
-    for (GroupDictType::iterator i = myDict.begin(); i != myDict.end(); i++) {
-        for (SGroupDictType::iterator j = (*i).second.begin(); j != (*i).second.end(); j++) {
+    for (auto & i : myDict) {
+        for (SGroupDictType::iterator j = i.second.begin(); j != i.second.end(); j++) {
             delete(*j).second;
         }
     }
@@ -277,8 +275,8 @@ NIVissimTL::NIVissimTLSignalGroup::addTo(NBLoadedTLDef* tl) const {
             ? NBTrafficLightDefinition::TLCOLOR_RED : NBTrafficLightDefinition::TLCOLOR_GREEN;
     std::string id = toString<int>(myID);
     tl->addSignalGroup(id); // !!! myTimes als SUMOTime
-    for (std::vector<double>::const_iterator i = myTimes.begin(); i != myTimes.end(); i++) {
-        tl->addSignalGroupPhaseBegin(id, (SUMOTime) *i, color);
+    for (std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<double> > >::value_type myTime : myTimes) {
+        tl->addSignalGroupPhaseBegin(id, (SUMOTime) myTime, color);
         color = color == NBTrafficLightDefinition::TLCOLOR_RED
                 ? NBTrafficLightDefinition::TLCOLOR_GREEN : NBTrafficLightDefinition::TLCOLOR_RED;
     }
@@ -352,8 +350,8 @@ NIVissimTL::dictionary(int id) {
 
 void
 NIVissimTL::clearDict() {
-    for (DictType::iterator i = myDict.begin(); i != myDict.end(); i++) {
-        delete(*i).second;
+    for (auto & i : myDict) {
+        deletei.second;
     }
     myDict.clear();
 }
@@ -370,8 +368,8 @@ NIVissimTL::dict_SetSignals(NBTrafficLightLogicCont& tlc,
     int ref_signals = 0;
     int no_signals = 0;
     int no_groups = 0;
-    for (DictType::iterator i = myDict.begin(); i != myDict.end(); i++) {
-        NIVissimTL* tl = (*i).second;
+    for (auto & i : myDict) {
+        NIVissimTL* tl = i.second;
         /*  if(tl->myType!="festzeit") {
            cout << " Warning: The traffic light '" << tl->myID
             << "' could not be assigned to a node." << endl;

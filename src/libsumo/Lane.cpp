@@ -125,11 +125,11 @@ TraCIPositionVector
 Lane::getShape(std::string laneID) {
     TraCIPositionVector pv;
     const PositionVector& shp = getLane(laneID)->getShape();
-    for (PositionVector::const_iterator pi = shp.begin(); pi != shp.end(); ++pi) {
+    for (const auto & pi : shp) {
         TraCIPosition p;
-        p.x = pi->x();
-        p.y = pi->y();
-        p.z = pi->z();
+        p.x = pi.x();
+        p.y = pi.y();
+        p.z = pi.z();
         pv.push_back(p);
     }
     return pv;
@@ -206,8 +206,8 @@ Lane::getLastStepLength(std::string laneID) {
     const MSLane* lane = getLane(laneID);
     double length = 0;
     const MSLane::VehCont& vehs = lane->getVehiclesSecure();
-    for (MSLane::VehCont::const_iterator j = vehs.begin(); j != vehs.end(); ++j) {
-        length += (*j)->getVehicleType().getLength();
+    for (auto veh : vehs) {
+        length += veh->getVehicleType().getLength();
     }
     if (vehs.size() > 0) {
         length = length / (double)vehs.size();
@@ -245,8 +245,8 @@ Lane::getLastStepHaltingNumber(std::string laneID) {
     const MSLane* lane = getLane(laneID);
     int halting = 0;
     const MSLane::VehCont& vehs = lane->getVehiclesSecure();
-    for (MSLane::VehCont::const_iterator j = vehs.begin(); j != vehs.end(); ++j) {
-        if ((*j)->getSpeed() < SUMO_const_haltingSpeed) {
+    for (auto veh : vehs) {
+        if (veh->getSpeed() < SUMO_const_haltingSpeed) {
             ++halting;
         }
     }
@@ -260,8 +260,8 @@ Lane::getLastStepVehicleIDs(std::string laneID) {
     const MSLane* lane = getLane(laneID);
     std::vector<std::string> vehIDs;
     const MSLane::VehCont& vehs = lane->getVehiclesSecure();
-    for (MSLane::VehCont::const_iterator j = vehs.begin(); j != vehs.end(); ++j) {
-        vehIDs.push_back((*j)->getID());
+    for (auto veh : vehs) {
+        vehIDs.push_back(veh->getID());
     }
     lane->releaseVehicles();
     return vehIDs;

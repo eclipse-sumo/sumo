@@ -124,8 +124,8 @@ NBLoadedSUMOTLDef::setTLControllingInformation() const {
         NBOwnTLDef dummy(DummyID, myControlledNodes, 0, TLTYPE_STATIC);
         dummy.setParticipantsInformation();
         dummy.setTLControllingInformation();
-        for (std::vector<NBNode*>::const_iterator i = myControlledNodes.begin(); i != myControlledNodes.end(); i++) {
-            (*i)->removeTrafficLight(&dummy);
+        for (auto myControlledNode : myControlledNodes) {
+            myControlledNode->removeTrafficLight(&dummy);
         }
     }
     if (myReconstructRemovedConnections) {
@@ -138,8 +138,7 @@ NBLoadedSUMOTLDef::setTLControllingInformation() const {
     }
     // set the information about the link's positions within the tl into the
     //  edges the links are starting at, respectively
-    for (NBConnectionVector::const_iterator it = myControlledLinks.begin(); it != myControlledLinks.end(); it++) {
-        const NBConnection& c = *it;
+    for (const auto & c : myControlledLinks) {
         if (c.getTLIndex() >= (int)myTLLogic->getNumLinks()) {
             throw ProcessError("Invalid linkIndex " + toString(c.getTLIndex()) + " for traffic light '" + getID() +
                                "' with " + toString(myTLLogic->getNumLinks()) + " links.");
@@ -159,9 +158,9 @@ NBLoadedSUMOTLDef::remapRemoved(NBEdge*, const EdgeVector&, const EdgeVector&) {
 
 void
 NBLoadedSUMOTLDef::replaceRemoved(NBEdge* removed, int removedLane, NBEdge* by, int byLane) {
-    for (NBConnectionVector::iterator it = myControlledLinks.begin(); it != myControlledLinks.end(); ++it) {
-        (*it).replaceFrom(removed, removedLane, by, byLane);
-        (*it).replaceTo(removed, removedLane, by, byLane);
+    for (auto & myControlledLink : myControlledLinks) {
+        myControlledLink.replaceFrom(removed, removedLane, by, byLane);
+        myControlledLink.replaceTo(removed, removedLane, by, byLane);
     }
 }
 
@@ -185,8 +184,8 @@ NBLoadedSUMOTLDef::amInvalid() const {
     if (myIncomingEdges.size() == 0) {
         return true;
     }
-    for (std::vector<NBNode*>::const_iterator i = myControlledNodes.begin(); i != myControlledNodes.end(); i++) {
-        if (myOriginalNodes.count(*i) != 1) {
+    for (auto myControlledNode : myControlledNodes) {
+        if (myOriginalNodes.count(myControlledNode) != 1) {
             //std::cout << " node " << (*i)->getID() << " missing from myOriginalNodes\n";
             return true;
         }
@@ -239,10 +238,10 @@ NBLoadedSUMOTLDef::collectEdges() {
     myIncomingEdges.clear();
     EdgeVector myOutgoing;
     // collect the edges from the participating nodes
-    for (std::vector<NBNode*>::iterator i = myControlledNodes.begin(); i != myControlledNodes.end(); i++) {
-        const EdgeVector& incoming = (*i)->getIncomingEdges();
+    for (auto & myControlledNode : myControlledNodes) {
+        const EdgeVector& incoming = myControlledNode->getIncomingEdges();
         copy(incoming.begin(), incoming.end(), back_inserter(myIncomingEdges));
-        const EdgeVector& outgoing = (*i)->getOutgoingEdges();
+        const EdgeVector& outgoing = myControlledNode->getOutgoingEdges();
         copy(outgoing.begin(), outgoing.end(), back_inserter(myOutgoing));
     }
     // check which of the edges are completely within the junction
@@ -254,8 +253,8 @@ NBLoadedSUMOTLDef::collectEdges() {
         if (k != myOutgoing.end()) {
             if (myControlledInnerEdges.count(edge->getID()) == 0) {
                 bool controlled = false;
-                for (NBConnectionVector::iterator it = myControlledLinks.begin(); it != myControlledLinks.end(); it++) {
-                    if ((*it).getFrom() == edge) {
+                for (auto & myControlledLink : myControlledLinks) {
+                    if (myControlledLink.getFrom() == edge) {
                         controlled = true;
                         break;
                     }
@@ -293,8 +292,8 @@ NBLoadedSUMOTLDef::shiftTLConnectionLaneIndex(NBEdge* edge, int offset, int thre
     if (myShifted.count(edge) == 0) {
         /// XXX what if an edge should really be shifted twice?
         myShifted.insert(edge);
-        for (NBConnectionVector::iterator it = myControlledLinks.begin(); it != myControlledLinks.end(); it++) {
-            (*it).shiftLaneIndex(edge, offset, threshold);
+        for (auto & myControlledLink : myControlledLinks) {
+            myControlledLink.shiftLaneIndex(edge, offset, threshold);
         }
     }
 }
@@ -314,13 +313,13 @@ NBLoadedSUMOTLDef::patchIfCrossingsAdded() {
     // collect crossings
     bool customIndex = false;
     std::vector<NBNode::Crossing*> crossings;
-    for (std::vector<NBNode*>::iterator i = myControlledNodes.begin(); i != myControlledNodes.end(); i++) {
-        const std::vector<NBNode::Crossing*>& c = (*i)->getCrossings();
+    for (auto & myControlledNode : myControlledNodes) {
+        const std::vector<NBNode::Crossing*>& c = myControlledNode->getCrossings();
         // set tl indices for crossings
-        customIndex |= (*i)->setCrossingTLIndices(getID(), noLinksAll);
+        customIndex |= myControlledNode->setCrossingTLIndices(getID(), noLinksAll);
         copy(c.begin(), c.end(), std::back_inserter(crossings));
         noLinksAll += (int)c.size();
-        oldCrossings += (*i)->numCrossingsFromSumoNet();
+        oldCrossings += myControlledNode->numCrossingsFromSumoNet();
     }
     if ((int)crossings.size() != oldCrossings) {
         std::vector<NBTrafficLightLogic::PhaseDefinition> phases = myTLLogic->getPhases();
@@ -360,8 +359,7 @@ NBLoadedSUMOTLDef::collectEdgeVectors(EdgeVector& fromEdges, EdgeVector& toEdges
     assert(fromEdges.size() == toEdges.size());
     const int size = (int)fromEdges.size();
 
-    for (NBConnectionVector::const_iterator it = myControlledLinks.begin(); it != myControlledLinks.end(); it++) {
-        const NBConnection& c = *it;
+    for (const auto & c : myControlledLinks) {
         if (c.getTLIndex() != NBConnection::InvalidTlIndex) {
             if (c.getTLIndex() >= size) {
                 throw ProcessError("Invalid linkIndex " + toString(c.getTLIndex()) + " for traffic light '" + getID() +
@@ -382,16 +380,15 @@ NBLoadedSUMOTLDef::initNeedsContRelation() const {
         myRightOnRedConflicts.clear();
         const bool controlledWithin = !OptionsCont::getOptions().getBool("tls.uncontrolled-within");
         const std::vector<NBTrafficLightLogic::PhaseDefinition> phases = myTLLogic->getPhases();
-        for (std::vector<NBTrafficLightLogic::PhaseDefinition>::const_iterator it = phases.begin(); it != phases.end(); it++) {
-            const std::string state = (*it).state;
+        for (const auto & phase : phases) {
+            const std::string state = phase.state;
             for (NBConnectionVector::const_iterator it1 = myControlledLinks.begin(); it1 != myControlledLinks.end(); it1++) {
                 const NBConnection& c1 = *it1;
                 const int i1 = c1.getTLIndex();
                 if (i1 == NBConnection::InvalidTlIndex || (state[i1] != 'g' && state[i1] != 's') || c1.getFrom() == nullptr || c1.getTo() == nullptr) {
                     continue;
                 }
-                for (NBConnectionVector::const_iterator it2 = myControlledLinks.begin(); it2 != myControlledLinks.end(); it2++) {
-                    const NBConnection& c2 = *it2;
+                for (const auto & c2 : myControlledLinks) {
                     const int i2 = c2.getTLIndex();
                     if (i2 != NBConnection::InvalidTlIndex
                             && i2 != i1
@@ -526,10 +523,10 @@ NBLoadedSUMOTLDef::reconstructLogic() {
                         // rebuild the logic
                         const std::vector<NBTrafficLightLogic::PhaseDefinition> phases = myTLLogic->getPhases();
                         NBTrafficLightLogic* newLogic = new NBTrafficLightLogic(getID(), getProgramID(), 0, myOffset, myType);
-                        for (std::vector<NBTrafficLightLogic::PhaseDefinition>::const_iterator it = phases.begin(); it != phases.end(); it++) {
-                            std::string newState = it->state;
+                        for (const auto & phase : phases) {
+                            std::string newState = phase.state;
                             newState.erase(newState.begin() + removed);
-                            newLogic->addStep(it->duration, newState);
+                            newLogic->addStep(phase.duration, newState);
                         }
                         delete myTLLogic;
                         myTLLogic = newLogic;

@@ -161,9 +161,9 @@ GUIContainerStop::drawGL(const GUIVisualizationSettings& s) const {
     glPopMatrix();
     glPopName();
     drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
-    for (std::vector<MSTransportable*>::const_iterator i = myWaitingTransportables.begin(); i != myWaitingTransportables.end(); ++i) {
+    for (auto myWaitingTransportable : myWaitingTransportables) {
         glTranslated(0, 1, 0); // make multiple containers viewable
-        static_cast<GUIContainer*>(*i)->drawGL(s);
+        static_cast<GUIContainer*>(myWaitingTransportable)->drawGL(s);
     }
 }
 

@@ -107,8 +107,8 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     }
 
     // write normal edges (road)
-    for (std::map<std::string, NBEdge*>::const_iterator i = ec.begin(); i != ec.end(); ++i) {
-        const NBEdge* e = (*i).second;
+    for (const auto & i : ec) {
+        const NBEdge* e = i.second;
         const int fromNodeID = e->getIncomingEdges().size() > 0 ? getID(e->getFromNode()->getID(), nodeMap, nodeID) : INVALID_ID;
         const int toNodeID = e->getConnections().size() > 0 ? getID(e->getToNode()->getID(), nodeMap, nodeID) : INVALID_ID;
         writeNormalEdge(device, e,
@@ -120,14 +120,14 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
 
     // write junction-internal edges (road). In OpenDRIVE these are called 'paths' or 'connecting roads'
     OutputDevice_String junctionOSS(false, 3);
-    for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
-        NBNode* n = (*i).second;
+    for (const auto & i : nc) {
+        NBNode* n = i.second;
         int connectionID = 0; // unique within a junction
         const int nID = getID(n->getID(), nodeMap, nodeID);
         if (n->numNormalConnections() > 0) {
             junctionOSS << "    <junction name=\"" << n->getID() << "\" id=\"" << nID << "\">\n";
         }
-        std::vector<NBEdge*> incoming = (*i).second->getIncomingEdges();
+        std::vector<NBEdge*> incoming = i.second->getIncomingEdges();
         if (lefthand) {
             std::reverse(incoming.begin(), incoming.end());
         }
@@ -188,22 +188,20 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     // write junctions (junction)
     device << junctionOSS.getString();
 
-    for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
-        NBNode* n = (*i).second;
+    for (const auto & i : nc) {
+        NBNode* n = i.second;
         const std::vector<NBEdge*>& incoming = n->getIncomingEdges();
         // check if any connections must be written
         int numConnections = 0;
-        for (std::vector<NBEdge*>::const_iterator j = incoming.begin(); j != incoming.end(); ++j) {
-            numConnections += (int)((*j)->getConnections().size());
+        for (auto j : incoming) {
+            numConnections += (int)(j->getConnections().size());
         }
         if (numConnections == 0) {
             continue;
         }
-        for (std::vector<NBEdge*>::const_iterator j = incoming.begin(); j != incoming.end(); ++j) {
-            const NBEdge* inEdge = *j;
+        for (auto inEdge : incoming) {
             const std::vector<NBEdge::Connection>& elv = inEdge->getConnections();
-            for (std::vector<NBEdge::Connection>::const_iterator k = elv.begin(); k != elv.end(); ++k) {
-                const NBEdge::Connection& c = *k;
+            for (const auto & c : elv) {
                 const NBEdge* outEdge = c.toEdge;
                 if (outEdge == nullptr) {
                     continue;

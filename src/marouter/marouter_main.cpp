@@ -150,8 +150,8 @@ computeAllPairs(RONet& net, OptionsCont& oc) {
 void
 writeInterval(OutputDevice& dev, const SUMOTime begin, const SUMOTime end, const RONet& net, const ROVehicle* const veh) {
     dev.openTag(SUMO_TAG_INTERVAL).writeAttr(SUMO_ATTR_BEGIN, time2string(begin)).writeAttr(SUMO_ATTR_END, time2string(end));
-    for (std::map<std::string, ROEdge*>::const_iterator i = net.getEdgeMap().begin(); i != net.getEdgeMap().end(); ++i) {
-        ROMAEdge* edge = static_cast<ROMAEdge*>(i->second);
+    for (const auto & i : net.getEdgeMap()) {
+        ROMAEdge* edge = static_cast<ROMAEdge*>(i.second);
         if (edge->getFunction() == EDGEFUNC_NORMAL) {
             dev.openTag(SUMO_TAG_EDGE).writeAttr(SUMO_ATTR_ID, edge->getID());
             const double traveltime = edge->getTravelTime(veh, STEPS2TIME(begin));
@@ -327,9 +327,9 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
                     od.writeAttr(SUMO_ATTR_NUMBER, int(c->vehicleNumber));
                     matrix.writeDefaultAttrs(od, oc.getBool("ignore-vehicle-type"), c);
                     od.openTag(SUMO_TAG_ROUTE_DISTRIBUTION);
-                    for (std::vector<RORoute*>::const_iterator j = c->pathsVector.begin(); j != c->pathsVector.end(); ++j) {
-                        (*j)->setCosts(router->recomputeCosts((*j)->getEdgeVector(), &defaultVehicle, string2time(oc.getString("begin"))));
-                        (*j)->writeXMLDefinition(od, nullptr, true, false);
+                    for (auto j : c->pathsVector) {
+                        j->setCosts(router->recomputeCosts(j->getEdgeVector(), &defaultVehicle, string2time(oc.getString("begin"))));
+                        j->writeXMLDefinition(od, nullptr, true, false);
                     }
                     od.closeTag();
                     od.closeTag();
@@ -342,9 +342,9 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
                             od.openTag(SUMO_TAG_VEHICLE).writeAttr(SUMO_ATTR_ID, *id).writeAttr(SUMO_ATTR_DEPART, time2string(deps->first));
                             matrix.writeDefaultAttrs(od, oc.getBool("ignore-vehicle-type"), c);
                             od.openTag(SUMO_TAG_ROUTE_DISTRIBUTION);
-                            for (std::vector<RORoute*>::const_iterator j = c->pathsVector.begin(); j != c->pathsVector.end(); ++j) {
-                                (*j)->setCosts(router->recomputeCosts((*j)->getEdgeVector(), &defaultVehicle, string2time(oc.getString("begin"))));
-                                (*j)->writeXMLDefinition(od, nullptr, true, false);
+                            for (auto j : c->pathsVector) {
+                                j->setCosts(router->recomputeCosts(j->getEdgeVector(), &defaultVehicle, string2time(oc.getString("begin"))));
+                                j->writeXMLDefinition(od, nullptr, true, false);
                             }
                             od.closeTag();
                             if (!tazParamKeys.empty()) {
@@ -358,8 +358,8 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
                         }
                     }
                 }
-                for (std::vector<RORoute*>::const_iterator j = c->pathsVector.begin(); j != c->pathsVector.end(); ++j) {
-                    delete *j;
+                for (auto j : c->pathsVector) {
+                    delete j;
                 }
                 if (c->end > lastEnd) {
                     lastEnd = c->end;
@@ -375,9 +375,9 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
                 writeInterval(OutputDevice::getDeviceByOption("netload-output"), begin, end, net, a.getDefaultVehicle());
             } else {
                 SUMOTime lastCell = 0;
-                for (std::vector<ODCell*>::const_iterator i = matrix.getCells().begin(); i != matrix.getCells().end(); ++i) {
-                    if ((*i)->end > lastCell) {
-                        lastCell = (*i)->end;
+                for (auto i : matrix.getCells()) {
+                    if (i->end > lastCell) {
+                        lastCell = i->end;
                     }
                 }
                 const SUMOTime interval = string2time(OptionsCont::getOptions().getString("aggregation-interval"));
@@ -393,8 +393,8 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
         // end the processing
         net.cleanup();
     } catch (ProcessError&) {
-        for (std::vector<ODCell*>::const_iterator i = matrix.getCells().begin(); i != matrix.getCells().end(); ++i) {
-            for (std::vector<RORoute*>::const_iterator j = (*i)->pathsVector.begin(); j != (*i)->pathsVector.end(); ++j) {
+        for (auto i : matrix.getCells()) {
+            for (std::vector<RORoute*>::const_iterator j = i->pathsVector.begin(); j != i->pathsVector.end(); ++j) {
                 delete *j;
             }
         }

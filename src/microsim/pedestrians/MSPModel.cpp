@@ -91,8 +91,7 @@ MSPModel::cleanup() {
 int
 MSPModel::canTraverse(int dir, const ConstMSEdgeVector& route) {
     const MSJunction* junction = nullptr;
-    for (ConstMSEdgeVector::const_iterator it = route.begin(); it != route.end(); ++it) {
-        const MSEdge* edge = *it;
+    for (auto edge : route) {
         if (junction != nullptr) {
             //std::cout << " junction=" << junction->getID() << " edge=" << edge->getID() << "\n";
             if (junction == edge->getFromJunction()) {

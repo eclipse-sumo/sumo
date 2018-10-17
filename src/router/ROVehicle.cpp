@@ -48,8 +48,8 @@ ROVehicle::ROVehicle(const SUMOVehicleParameter& pars,
     : RORoutable(pars, type), myRoute(route) {
     getParameter().stops.clear();
     if (route != nullptr && route->getFirstRoute() != nullptr) {
-        for (std::vector<SUMOVehicleParameter::Stop>::const_iterator s = route->getFirstRoute()->getStops().begin(); s != route->getFirstRoute()->getStops().end(); ++s) {
-            addStop(*s, net, errorHandler);
+        for (const auto & s : route->getFirstRoute()->getStops()) {
+            addStop(s, net, errorHandler);
         }
     }
     for (std::vector<SUMOVehicleParameter::Stop>::const_iterator s = pars.stops.begin(); s != pars.stops.end(); ++s) {

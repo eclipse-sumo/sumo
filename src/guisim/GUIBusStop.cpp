@@ -154,8 +154,8 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
             // pop matrix for every line
             glPopMatrix();
         }
-        for (std::vector<Position>::const_iterator i = myAccessCoords.begin(); i != myAccessCoords.end(); ++i) {
-            GLHelper::drawBoxLine(*i, RAD2DEG(myFGSignPos.angleTo2D(*i)) - 90, myFGSignPos.distanceTo2D(*i), .05);
+        for (const auto & myAccessCoord : myAccessCoords) {
+            GLHelper::drawBoxLine(myAccessCoord, RAD2DEG(myFGSignPos.angleTo2D(myAccessCoord)) - 90, myFGSignPos.distanceTo2D(myAccessCoord), .05);
         }
         // draw the sign
         glTranslated(myFGSignPos.x(), myFGSignPos.y(), 0);

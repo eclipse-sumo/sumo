@@ -125,8 +125,8 @@ MSCalibrator::~MSCalibrator() {
     if (myCurrentStateInterval != myIntervals.end()) {
         writeXMLOutput();
     }
-    for (std::vector<VehicleRemover*>::iterator it = myVehicleRemovers.begin(); it != myVehicleRemovers.end(); ++it) {
-        (*it)->disable();
+    for (auto & myVehicleRemover : myVehicleRemovers) {
+        myVehicleRemover->disable();
     }
 }
 
@@ -282,14 +282,14 @@ MSCalibrator::removePending() {
         MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
         // it is not save to remove the vehicles inside
         // VehicleRemover::notifyEnter so we do it here
-        for (std::set<std::string>::iterator it = myToRemove.begin(); it != myToRemove.end(); ++it) {
-            MSVehicle* vehicle = dynamic_cast<MSVehicle*>(vc.getVehicle(*it));
+        for (const auto & it : myToRemove) {
+            MSVehicle* vehicle = dynamic_cast<MSVehicle*>(vc.getVehicle(it));
             if (vehicle != nullptr) {
                 vehicle->onRemovalFromNet(MSMoveReminder::NOTIFICATION_VAPORIZED);
                 vehicle->getLane()->removeVehicle(vehicle, MSMoveReminder::NOTIFICATION_VAPORIZED);
                 vc.scheduleVehicleRemoval(vehicle);
             } else {
-                WRITE_WARNING("Calibrator '" + getID() + "' could not remove vehicle '" + *it + "'.");
+                WRITE_WARNING("Calibrator '" + getID() + "' could not remove vehicle '" + it + "'.");
             }
         }
         myToRemove.clear();
@@ -440,8 +440,8 @@ MSCalibrator::execute(SUMOTime currentTime) {
 void
 MSCalibrator::reset() {
     myEdgeMeanData.reset();
-    for (std::vector<MSMeanData_Net::MSLaneMeanDataValues*>::iterator it = myLaneMeanData.begin(); it != myLaneMeanData.end(); ++it) {
-        (*it)->reset();
+    for (auto & it : myLaneMeanData) {
+        it->reset();
     }
 }
 
@@ -496,13 +496,12 @@ MSCalibrator::remainingVehicleCapacity(int laneIndex) const {
 
 void
 MSCalibrator::cleanup() {
-    for (std::vector<MSMoveReminder*>::iterator it = LeftoverReminders.begin(); it != LeftoverReminders.end(); ++it) {
-        delete *it;
+    for (auto & LeftoverReminder : LeftoverReminders) {
+        delete LeftoverReminder;
     }
     LeftoverReminders.clear();
-    for (std::vector<SUMOVehicleParameter*>::iterator it = LeftoverVehicleParameters.begin();
-            it != LeftoverVehicleParameters.end(); ++it) {
-        delete *it;
+    for (auto & LeftoverVehicleParameter : LeftoverVehicleParameters) {
+        delete LeftoverVehicleParameter;
     }
     LeftoverVehicleParameters.clear();
 }
@@ -511,9 +510,8 @@ MSCalibrator::cleanup() {
 void
 MSCalibrator::updateMeanData() {
     myEdgeMeanData.reset();
-    for (std::vector<MSMeanData_Net::MSLaneMeanDataValues*>::iterator it = myLaneMeanData.begin();
-            it != myLaneMeanData.end(); ++it) {
-        (*it)->addTo(myEdgeMeanData);
+    for (auto & it : myLaneMeanData) {
+        it->addTo(myEdgeMeanData);
     }
 }
 

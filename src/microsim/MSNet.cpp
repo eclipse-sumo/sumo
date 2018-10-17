@@ -722,12 +722,12 @@ MSNet::writeOutput() {
         od.openTag("timestep");
         od.writeAttr(SUMO_ATTR_ID, STEPS2TIME(myStep));
         const MSEdgeVector& edges = myEdges->getEdges();
-        for (MSEdgeVector::const_iterator i = edges.begin(); i != edges.end(); ++i) {
-            const std::vector<MSLane*>& lanes = (*i)->getLanes();
-            for (std::vector<MSLane*>::const_iterator j = lanes.begin(); j != lanes.end(); ++j) {
-                const std::vector<MSLink*>& links = (*j)->getLinkCont();
-                for (std::vector<MSLink*>::const_iterator k = links.begin(); k != links.end(); ++k) {
-                    (*k)->writeApproaching(od, (*j)->getID());
+        for (auto edge : edges) {
+            const std::vector<MSLane*>& lanes = edge->getLanes();
+            for (auto lane : lanes) {
+                const std::vector<MSLink*>& links = lane->getLinkCont();
+                for (auto link : links) {
+                    link->writeApproaching(od, lane->getID());
                 }
             }
         }
@@ -735,8 +735,7 @@ MSNet::writeOutput() {
     }
 
     // write SSM output
-    for (std::set<MSDevice_SSM*>::iterator di = MSDevice_SSM::getInstances().begin(); di != MSDevice_SSM::getInstances().end(); ++di) {
-        MSDevice_SSM* dev = (*di);
+    for (auto dev : MSDevice_SSM::getInstances()) {
         dev->updateAndWriteOutput();
     }
 }
@@ -829,8 +828,8 @@ MSNet::removeVehicleStateListener(VehicleStateListener* listener) {
 
 void
 MSNet::informVehicleStateListener(const SUMOVehicle* const vehicle, VehicleState to, const std::string& info) {
-    for (std::vector<VehicleStateListener*>::iterator i = myVehicleStateListeners.begin(); i != myVehicleStateListeners.end(); ++i) {
-        (*i)->vehicleStateChanged(vehicle, to, info);
+    for (auto & myVehicleStateListener : myVehicleStateListeners) {
+        myVehicleStateListener->vehicleStateChanged(vehicle, to, info);
     }
 }
 
@@ -975,8 +974,8 @@ MSNet::getLanesRTree() const {
 bool
 MSNet::checkElevation() {
     const MSEdgeVector& edges = myEdges->getEdges();
-    for (MSEdgeVector::const_iterator e = edges.begin(); e != edges.end(); ++e) {
-        for (std::vector<MSLane*>::const_iterator i = (*e)->getLanes().begin(); i != (*e)->getLanes().end(); ++i) {
+    for (auto edge : edges) {
+        for (std::vector<MSLane*>::const_iterator i = edge->getLanes().begin(); i != edge->getLanes().end(); ++i) {
             if ((*i)->getShape().hasElevation()) {
                 return true;
             }

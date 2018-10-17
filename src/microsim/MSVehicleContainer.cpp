@@ -239,8 +239,8 @@ std::ostream& operator << (std::ostream& strm, MSVehicleContainer& cont) {
     strm << "------------------------------------" << std::endl;
     while (!cont.isEmpty()) {
         const MSVehicleContainer::VehicleVector& v = cont.top();
-        for (MSVehicleContainer::VehicleVector::const_iterator i = v.begin(); i != v.end(); ++i) {
-            strm << (*i)->getParameter().depart << std::endl;
+        for (auto i : v) {
+            strm << i->getParameter().depart << std::endl;
         }
         cont.pop();
     }

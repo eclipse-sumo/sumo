@@ -195,21 +195,21 @@ NILoader::loadXMLType(SUMOSAXHandler* handler, const std::vector<std::string>& f
     std::string exceptMsg = "";
     // start the parsing
     try {
-        for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
+        for (const auto & file : files) {
             if (stringParse) {
                 handler->setFileName("built in type map");
                 SUMOSAXReader* reader = XMLSubSys::getSAXReader(*handler);
-                reader->parseString(*file);
+                reader->parseString(file);
                 delete reader;
                 continue;
             }
-            if (!FileHelpers::isReadable(*file)) {
-                WRITE_ERROR("Could not open " + type + "-file '" + *file + "'.");
+            if (!FileHelpers::isReadable(file)) {
+                WRITE_ERROR("Could not open " + type + "-file '" + file + "'.");
                 exceptMsg = "Process Error";
                 continue;
             }
-            PROGRESS_BEGIN_MESSAGE("Parsing " + type + " from '" + *file + "'");
-            XMLSubSys::runParser(*handler, *file);
+            PROGRESS_BEGIN_MESSAGE("Parsing " + type + " from '" + file + "'");
+            XMLSubSys::runParser(*handler, file);
             PROGRESS_DONE_MESSAGE();
         }
     } catch (const XERCES_CPP_NAMESPACE::XMLException& toCatch) {

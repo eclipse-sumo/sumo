@@ -177,8 +177,7 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
             LaneAttrs* lane = ed->lanes[fromLaneIndex];
             // connections
             const std::vector<Connection>& connections = lane->connections;
-            for (std::vector<Connection>::const_iterator c_it = connections.begin(); c_it != connections.end(); c_it++) {
-                const Connection& c = *c_it;
+            for (const auto & c : connections) {
                 if (myEdges.count(c.toEdgeID) == 0) {
                     WRITE_ERROR("Unknown edge '" + c.toEdgeID + "' given in connection.");
                     continue;
@@ -253,8 +252,8 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
             toRemove.push_back(nbe);
         }
     }
-    for (EdgeVector::iterator i = toRemove.begin(); i != toRemove.end(); ++i) {
-        myNetBuilder.getEdgeCont().erase(myNetBuilder.getDistrictCont(), *i);
+    for (auto & i : toRemove) {
+        myNetBuilder.getEdgeCont().erase(myNetBuilder.getDistrictCont(), i);
     }
     // insert loaded prohibitions
     for (std::vector<Prohibition>::const_iterator it = myProhibitions.begin(); it != myProhibitions.end(); it++) {
@@ -306,11 +305,10 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
         // add loaded crossings
         for (std::map<std::string, std::vector<Crossing> >::const_iterator it = myPedestrianCrossings.begin(); it != myPedestrianCrossings.end(); ++it) {
             NBNode* node = myNodeCont.retrieve((*it).first);
-            for (std::vector<Crossing>::const_iterator it_c = (*it).second.begin(); it_c != (*it).second.end(); ++it_c) {
-                const Crossing& crossing = (*it_c);
+            for (const auto & crossing : (*it).second) {
                 EdgeVector edges;
-                for (std::vector<std::string>::const_iterator it_e = crossing.crossingEdges.begin(); it_e != crossing.crossingEdges.end(); ++it_e) {
-                    NBEdge* edge = myNetBuilder.getEdgeCont().retrieve(*it_e);
+                for (const auto & crossingEdge : crossing.crossingEdges) {
+                    NBEdge* edge = myNetBuilder.getEdgeCont().retrieve(crossingEdge);
                     // edge might have been removed due to options
                     if (edge != nullptr) {
                         edges.push_back(edge);
@@ -353,11 +351,11 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
     // add roundabouts
     for (std::vector<std::vector<std::string> >::const_iterator it = myRoundabouts.begin(); it != myRoundabouts.end(); ++it) {
         EdgeSet roundabout;
-        for (std::vector<std::string>::const_iterator it_r = it->begin(); it_r != it->end(); ++it_r) {
-            NBEdge* edge = myNetBuilder.getEdgeCont().retrieve(*it_r);
+        for (const auto & it_r : *it) {
+            NBEdge* edge = myNetBuilder.getEdgeCont().retrieve(it_r);
             if (edge == nullptr) {
-                if (!myNetBuilder.getEdgeCont().wasIgnored(*it_r)) {
-                    WRITE_ERROR("Unknown edge '" + (*it_r) + "' in roundabout");
+                if (!myNetBuilder.getEdgeCont().wasIgnored(it_r)) {
+                    WRITE_ERROR("Unknown edge '" + it_r + "' in roundabout");
                 }
             } else {
                 roundabout.insert(edge);
@@ -728,14 +726,14 @@ NIImporter_SUMO::addConnection(const SUMOSAXAttributes& attrs) {
         if (from->func == EDGEFUNC_WALKINGAREA && myEdges[conn.toEdgeID]->func == EDGEFUNC_CROSSING) {
             // connection from walkingArea to crossing
             std::vector<Crossing>& crossings = myPedestrianCrossings[SUMOXMLDefinitions::getJunctionIDFromInternalEdge(fromID)];
-            for (std::vector<Crossing>::iterator it = crossings.begin(); it != crossings.end(); ++it) {
-                if (conn.toEdgeID == (*it).edgeID) {
+            for (auto & crossing : crossings) {
+                if (conn.toEdgeID == crossing.edgeID) {
                     if (conn.tlID != "") {
-                        (*it).priority = true;
-                        (*it).customTLIndex = conn.tlLinkIndex;
+                        crossing.priority = true;
+                        crossing.customTLIndex = conn.tlLinkIndex;
                     } else {
                         LinkState state = SUMOXMLDefinitions::LinkStates.get(attrs.get<std::string>(SUMO_ATTR_STATE, nullptr, ok));
-                        (*it).priority = state == LINKSTATE_MAJOR;
+                        crossing.priority = state == LINKSTATE_MAJOR;
                     }
                 }
             }

@@ -651,8 +651,8 @@ GNEJunction::setLogicValid(bool valid, GNEUndoList* undoList, const std::string&
         assert(undoList->hasCommandGroup());
         NBTurningDirectionsComputer::computeTurnDirectionsForNode(&myNBNode, false);
         EdgeVector incoming = myNBNode.getIncomingEdges();
-        for (EdgeVector::iterator it = incoming.begin(); it != incoming.end(); it++) {
-            GNEEdge* srcEdge = myNet->retrieveEdge((*it)->getID());
+        for (auto & it : incoming) {
+            GNEEdge* srcEdge = myNet->retrieveEdge(it->getID());
             removeConnectionsFrom(srcEdge, undoList, false); // false, because the whole tls will be invalidated at the end
             undoList->add(new GNEChange_Attribute(srcEdge, GNE_ATTR_MODIFICATION_STATUS, status), true);
         }
@@ -792,8 +792,7 @@ GNEJunction::replaceIncomingConnections(GNEEdge* which, GNEEdge* by, GNEUndoList
 void
 GNEJunction::markAsModified(GNEUndoList* undoList) {
     EdgeVector incoming = myNBNode.getIncomingEdges();
-    for (EdgeVector::iterator it = incoming.begin(); it != incoming.end(); it++) {
-        NBEdge* srcNBE = *it;
+    for (auto srcNBE : incoming) {
         GNEEdge* srcEdge = myNet->retrieveEdge(srcNBE->getID());
         undoList->add(new GNEChange_Attribute(srcEdge, GNE_ATTR_MODIFICATION_STATUS, FEATURE_MODIFIED), true);
     }

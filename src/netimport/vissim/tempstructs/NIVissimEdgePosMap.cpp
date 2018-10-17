@@ -64,8 +64,8 @@ NIVissimEdgePosMap::add(int edgeid, double from, double to) {
 
 void
 NIVissimEdgePosMap::join(NIVissimEdgePosMap& with) {
-    for (ContType::iterator i = with.myCont.begin(); i != with.myCont.end(); i++) {
-        add((*i).first, (*i).second.first, (*i).second.second);
+    for (auto & i : with.myCont) {
+        add(i.first, i.second.first, i.second.second);
     }
 }
 

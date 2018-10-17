@@ -280,9 +280,9 @@ GUICalibrator::GUICalibrator(const std::string& id,
     GUIGlObject_AbstractAdd(GLO_CALIBRATOR, id),
     myShowAsKMH(true) {
     const std::vector<MSLane*>& destLanes = edge->getLanes();
-    for (std::vector<MSLane*>::const_iterator i = destLanes.begin(); i != destLanes.end(); ++i) {
-        if (lane == nullptr || (*i) == lane) {
-            const PositionVector& v = (*i)->getShape();
+    for (auto destLane : destLanes) {
+        if (lane == nullptr || destLane == lane) {
+            const PositionVector& v = destLane->getShape();
             myFGPositions.push_back(v.positionAtOffset(pos));
             myBoundary.add(v.positionAtOffset(pos));
             myFGRotations.push_back(-v.rotationDegreeAtOffset(pos));

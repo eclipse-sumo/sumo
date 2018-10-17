@@ -43,8 +43,8 @@
 // ---------------------------------------------------------------------------
 void
 NBTurningDirectionsComputer::computeTurnDirections(NBNodeCont& nc, bool warn) {
-    for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
-        computeTurnDirectionsForNode(i->second, warn);
+    for (const auto & i : nc) {
+        computeTurnDirectionsForNode(i.second, warn);
     }
 }
 
@@ -53,14 +53,12 @@ NBTurningDirectionsComputer::computeTurnDirectionsForNode(NBNode* node, bool war
     const std::vector<NBEdge*>& incoming = node->getIncomingEdges();
     const std::vector<NBEdge*>& outgoing = node->getOutgoingEdges();
     // reset turning directions since this may be called multiple times
-    for (std::vector<NBEdge*>::const_iterator k = incoming.begin(); k != incoming.end(); ++k) {
-        (*k)->setTurningDestination(nullptr);
+    for (auto k : incoming) {
+        k->setTurningDestination(nullptr);
     }
     std::vector<Combination> combinations;
-    for (std::vector<NBEdge*>::const_iterator j = outgoing.begin(); j != outgoing.end(); ++j) {
-        NBEdge* outedge = *j;
-        for (std::vector<NBEdge*>::const_iterator k = incoming.begin(); k != incoming.end(); ++k) {
-            NBEdge* e = *k;
+    for (auto outedge : outgoing) {
+        for (auto e : incoming) {
             // @todo: check whether NBHelpers::relAngle is properly defined and whether it should really be used, here
             const double signedAngle = NBHelpers::normRelAngle(e->getAngleAtNode(node), outedge->getAngleAtNode(node));
             if (signedAngle > 0 && signedAngle < 177 && e->getGeometry().back().distanceTo2D(outedge->getGeometry().front()) < POSITION_EPS) {
@@ -121,8 +119,8 @@ NBTurningDirectionsComputer::computeTurnDirectionsForNode(NBNode* node, bool war
 // ---------------------------------------------------------------------------
 void
 NBNodesEdgesSorter::sortNodesEdges(NBNodeCont& nc, bool useNodeShape) {
-    for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
-        i->second->sortEdges(useNodeShape);
+    for (const auto & i : nc) {
+        i.second->sortEdges(useNodeShape);
     }
 }
 
@@ -149,16 +147,16 @@ NBNodesEdgesSorter::swapWhenReversed(const NBNode* const n,
 void
 NBNodeTypeComputer::computeNodeTypes(NBNodeCont& nc) {
     validateRailCrossings(nc);
-    for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
-        NBNode* n = (*i).second;
+    for (const auto & i : nc) {
+        NBNode* n = i.second;
         // the type may already be set from the data
         if (n->myType != NODETYPE_UNKNOWN && n->myType != NODETYPE_DEAD_END) {
             continue;
         }
         // check whether the node is a waterway node. Set to unregulated by default
         bool waterway = true;
-        for (EdgeVector::const_iterator i = n->getEdges().begin(); i != n->getEdges().end(); ++i) {
-            if (!isWaterway((*i)->getPermissions())) {
+        for (auto i : n->getEdges()) {
+            if (!isWaterway(i->getPermissions())) {
                 waterway = false;
                 break;
             }
@@ -206,8 +204,8 @@ NBNodeTypeComputer::computeNodeTypes(NBNodeCont& nc) {
 
 void
 NBNodeTypeComputer::validateRailCrossings(NBNodeCont& nc) {
-    for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
-        NBNode* n = (*i).second;
+    for (const auto & i : nc) {
+        NBNode* n = i.second;
         if (n->myType == NODETYPE_RAIL_CROSSING) {
             // check if it really is a rail crossing
             int numRailway = 0;
@@ -259,8 +257,8 @@ NBNodeTypeComputer::isRailwayNode(NBNode* n) {
 // ---------------------------------------------------------------------------
 void
 NBEdgePriorityComputer::computeEdgePriorities(NBNodeCont& nc) {
-    for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
-        computeEdgePrioritiesSingleNode((*i).second);
+    for (const auto & i : nc) {
+        computeEdgePrioritiesSingleNode(i.second);
     }
 }
 

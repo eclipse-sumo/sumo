@@ -99,17 +99,17 @@ NBOwnTLDef::computeUnblockedWeightedStreamNumber(const NBEdge* const e1, const N
         std::vector<NBEdge::Connection> approached1 = e1->getConnectionsFromLane(e1l);
         for (int e2l = 0; e2l < e2->getNumLanes(); e2l++) {
             std::vector<NBEdge::Connection> approached2 = e2->getConnectionsFromLane(e2l);
-            for (std::vector<NBEdge::Connection>::iterator e1c = approached1.begin(); e1c != approached1.end(); ++e1c) {
-                if (e1->getTurnDestination() == (*e1c).toEdge) {
+            for (auto & e1c : approached1) {
+                if (e1->getTurnDestination() == e1c.toEdge) {
                     continue;
                 }
-                for (std::vector<NBEdge::Connection>::iterator e2c = approached2.begin(); e2c != approached2.end(); ++e2c) {
-                    if (e2->getTurnDestination() == (*e2c).toEdge) {
+                for (auto & e2c : approached2) {
+                    if (e2->getTurnDestination() == e2c.toEdge) {
                         continue;
                     }
-                    if (!forbids(e1, (*e1c).toEdge, e2, (*e2c).toEdge, true)) {
-                        val += getDirectionalWeight(e1->getToNode()->getDirection(e1, (*e1c).toEdge));
-                        val += getDirectionalWeight(e2->getToNode()->getDirection(e2, (*e2c).toEdge));
+                    if (!forbids(e1, e1c.toEdge, e2, e2c.toEdge, true)) {
+                        val += getDirectionalWeight(e1->getToNode()->getDirection(e1, e1c.toEdge));
+                        val += getDirectionalWeight(e2->getToNode()->getDirection(e2, e2c.toEdge));
                     }
                 }
             }
@@ -202,21 +202,21 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
     std::vector<int> fromLanes;
     int noLanesAll = 0;
     int noLinksAll = 0;
-    for (int i1 = 0; i1 < (int)incoming.size(); i1++) {
-        int noLanes = incoming[i1]->getNumLanes();
+    for (auto i1 : incoming) {
+        int noLanes = i1->getNumLanes();
         noLanesAll += noLanes;
         for (int i2 = 0; i2 < noLanes; i2++) {
-            NBEdge* fromEdge = incoming[i1];
+            NBEdge* fromEdge = i1;
             std::vector<NBEdge::Connection> approached = fromEdge->getConnectionsFromLane(i2);
             noLinksAll += (int) approached.size();
             bool hasStraight = false;
-            for (int i3 = 0; i3 < (int)approached.size(); i3++) {
-                if (!fromEdge->mayBeTLSControlled(i2, approached[i3].toEdge, approached[i3].toLane)) {
+            for (auto & i3 : approached) {
+                if (!fromEdge->mayBeTLSControlled(i2, i3.toEdge, i3.toLane)) {
                     --noLinksAll;
                     continue;
                 }
                 assert(i3 < (int)approached.size());
-                NBEdge* toEdge = approached[i3].toEdge;
+                NBEdge* toEdge = i3.toEdge;
                 fromEdges.push_back(fromEdge);
                 fromLanes.push_back((int)i2);
                 toEdges.push_back(toEdge);
@@ -236,11 +236,11 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
     }
     // collect crossings
     std::vector<NBNode::Crossing*> crossings;
-    for (std::vector<NBNode*>::iterator i = myControlledNodes.begin(); i != myControlledNodes.end(); i++) {
-        const std::vector<NBNode::Crossing*>& c = (*i)->getCrossings();
+    for (auto & myControlledNode : myControlledNodes) {
+        const std::vector<NBNode::Crossing*>& c = myControlledNode->getCrossings();
         if (!onlyConts) {
             // set tl indices for crossings
-            (*i)->setCrossingTLIndices(getID(), noLinksAll);
+            myControlledNode->setCrossingTLIndices(getID(), noLinksAll);
         }
         copy(c.begin(), c.end(), std::back_inserter(crossings));
         noLinksAll += (int)c.size();
@@ -280,14 +280,13 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
         std::string state((int) noLinksAll, 'r');
         //std::cout << " computing " << getID() << " prog=" << getProgramID() << " cho1=" << Named::getIDSecure(chosen.first) << " cho2=" << Named::getIDSecure(chosen.second) << " toProc=" << toString(toProc) << "\n";
         // plain straight movers
-        for (int i1 = 0; i1 < (int) incoming.size(); ++i1) {
-            NBEdge* fromEdge = incoming[i1];
+        for (auto fromEdge : incoming) {
             const bool inChosen = fromEdge == chosen.first || fromEdge == chosen.second; //chosen.find(fromEdge)!=chosen.end();
             const int numLanes = fromEdge->getNumLanes();
             for (int i2 = 0; i2 < numLanes; i2++) {
                 std::vector<NBEdge::Connection> approached = fromEdge->getConnectionsFromLane(i2);
-                for (int i3 = 0; i3 < (int)approached.size(); ++i3) {
-                    if (!fromEdge->mayBeTLSControlled(i2, approached[i3].toEdge, approached[i3].toLane)) {
+                for (auto & i3 : approached) {
+                    if (!fromEdge->mayBeTLSControlled(i2, i3.toEdge, i3.toLane)) {
                         continue;
                     }
                     if (inChosen) {
@@ -483,8 +482,7 @@ NBOwnTLDef::hasCrossing(const NBEdge* from, const NBEdge* to, const std::vector<
         const NBNode::Crossing& cross = *c;
         // only check connections at this crossings node
         if (to->getFromNode() == cross.node) {
-            for (EdgeVector::const_iterator it_e = cross.edges.begin(); it_e != cross.edges.end(); ++it_e) {
-                const NBEdge* edge = *it_e;
+            for (auto edge : cross.edges) {
                 if (edge == from || edge == to) {
                     return true;
                 }
@@ -584,8 +582,7 @@ void
 NBOwnTLDef::setTLControllingInformation() const {
     // set the information about the link's positions within the tl into the
     //  edges the links are starting at, respectively
-    for (NBConnectionVector::const_iterator j = myControlledLinks.begin(); j != myControlledLinks.end(); ++j) {
-        const NBConnection& conn = *j;
+    for (const auto & conn : myControlledLinks) {
         NBEdge* edge = conn.getFrom();
         edge->setControllingTLInformation(conn, getID());
     }
@@ -613,8 +610,8 @@ NBOwnTLDef::initNeedsContRelation() const {
             NBTrafficLightLogic* tllDummy = dummy.computeLogicAndConts(0, true);
             delete tllDummy;
             myNeedsContRelation = dummy.myNeedsContRelation;
-            for (std::vector<NBNode*>::const_iterator i = myControlledNodes.begin(); i != myControlledNodes.end(); i++) {
-                (*i)->removeTrafficLight(&dummy);
+            for (auto myControlledNode : myControlledNodes) {
+                myControlledNode->removeTrafficLight(&dummy);
             }
         }
         myNeedsContRelationReady = true;
@@ -726,8 +723,8 @@ NBOwnTLDef::addPedestrianScramble(NBTrafficLightLogic* logic, int noLinksAll, SU
     const int vehLinks = noLinksAll - (int)crossings.size();
     std::vector<bool> foundGreen(crossings.size(), false);
     const std::vector<NBTrafficLightLogic::PhaseDefinition>& phases = logic->getPhases();
-    for (int i = 0; i < (int)phases.size(); ++i) {
-        const std::string state = phases[i].state;
+    for (const auto & phase : phases) {
+        const std::string state = phase.state;
         for (int j = 0; j < (int)crossings.size(); ++j) {
             LinkState ls = (LinkState)state[vehLinks + j];
             if (ls == LINKSTATE_TL_GREEN_MAJOR || ls == LINKSTATE_TL_GREEN_MINOR) {
@@ -735,8 +732,8 @@ NBOwnTLDef::addPedestrianScramble(NBTrafficLightLogic* logic, int noLinksAll, SU
             }
         }
     }
-    for (int j = 0; j < (int)foundGreen.size(); ++j) {
-        if (!foundGreen[j]) {
+    for (auto && j : foundGreen) {
+        if (!j) {
 
             // add a phase where all pedestrians may walk, (preceded by a yellow phase and followed by a clearing phase)
             if (phases.size() > 0) {
@@ -781,8 +778,8 @@ NBOwnTLDef::checkCustomCrossingIndices(NBTrafficLightLogic* logic) const {
     int minCustomIndex = -1;
     int maxCustomIndex = -1;
     // collect crossings
-    for (std::vector<NBNode*>::const_iterator i = myControlledNodes.begin(); i != myControlledNodes.end(); i++) {
-        const std::vector<NBNode::Crossing*>& c = (*i)->getCrossings();
+    for (auto myControlledNode : myControlledNodes) {
+        const std::vector<NBNode::Crossing*>& c = myControlledNode->getCrossings();
         for (auto crossing : c) {
             minCustomIndex = MIN2(minCustomIndex, crossing->customTLIndex);
             minCustomIndex = MIN2(minCustomIndex, crossing->customTLIndex2);

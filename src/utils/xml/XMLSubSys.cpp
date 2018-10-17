@@ -89,8 +89,8 @@ XMLSubSys::isValidating(const bool net) {
 
 void
 XMLSubSys::close() {
-    for (std::vector<SUMOSAXReader*>::iterator i = myReaders.begin(); i != myReaders.end(); ++i) {
-        delete *i;
+    for (auto & myReader : myReaders) {
+        delete myReader;
     }
     myReaders.clear();
     XERCES_CPP_NAMESPACE::XMLPlatformUtils::Terminate();

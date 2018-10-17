@@ -44,8 +44,8 @@ NIVissimTrafficDescription::NIVissimTrafficDescription(
 
 
 NIVissimTrafficDescription::~NIVissimTrafficDescription() {
-    for (NIVissimVehicleClassVector::iterator i = myVehicleTypes.begin(); i != myVehicleTypes.end(); i++) {
-        delete *i;
+    for (auto & myVehicleType : myVehicleTypes) {
+        delete myVehicleType;
     }
     myVehicleTypes.clear();
 }
@@ -87,8 +87,8 @@ NIVissimTrafficDescription::dictionary(int id) {
 
 void
 NIVissimTrafficDescription::clearDict() {
-    for (DictType::iterator i = myDict.begin(); i != myDict.end(); i++) {
-        delete(*i).second;
+    for (auto & i : myDict) {
+        deletei.second;
     }
     myDict.clear();
 }
@@ -107,8 +107,8 @@ NIVissimTrafficDescription::meanSpeed(int id) {
 double
 NIVissimTrafficDescription::meanSpeed() const {
     double speed = 0;
-    for (NIVissimVehicleClassVector::const_iterator i = myVehicleTypes.begin(); i != myVehicleTypes.end(); i++) {
-        speed += (*i)->getSpeed();
+    for (auto myVehicleType : myVehicleTypes) {
+        speed += myVehicleType->getSpeed();
     }
     return speed / (double) myVehicleTypes.size();
 }

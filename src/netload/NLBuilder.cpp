@@ -171,11 +171,11 @@ NLBuilder::build() {
         SAXWeightsHandler handler(retrieverDefs, "");
         // start parsing; for each file in the list
         std::vector<std::string> files = myOptions.getStringVector("weight-files");
-        for (std::vector<std::string>::iterator i = files.begin(); i != files.end(); ++i) {
+        for (auto & file : files) {
             // report about loading when wished
-            WRITE_MESSAGE("Loading weights from '" + *i + "'...");
+            WRITE_MESSAGE("Loading weights from '" + file + "'...");
             // parse the file
-            if (!XMLSubSys::runParser(handler, *i)) {
+            if (!XMLSubSys::runParser(handler, file)) {
                 return false;
             }
         }
@@ -291,8 +291,8 @@ NLBuilder::buildNet() {
         } else {
             const std::string prefix = myOptions.getString("save-state.prefix");
             const std::string suffix = myOptions.getString("save-state.suffix");
-            for (std::vector<SUMOTime>::iterator i = stateDumpTimes.begin(); i != stateDumpTimes.end(); ++i) {
-                stateDumpFiles.push_back(prefix + "_" + time2string(*i) + suffix);
+            for (std::_Vector_iterator<std::_Vector_val<std::_Simple_types<long long> > >::value_type & stateDumpTime : stateDumpTimes) {
+                stateDumpFiles.push_back(prefix + "_" + time2string(stateDumpTime) + suffix);
             }
         }
     } catch (IOError& e) {

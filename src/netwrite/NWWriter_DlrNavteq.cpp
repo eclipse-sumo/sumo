@@ -103,8 +103,8 @@ NWWriter_DlrNavteq::writeNodesUnsplitted(const OptionsCont& oc, NBNodeCont& nc, 
     gch.cartesian2geo(max);
     max.mul(geoScale);
     int multinodes = 0;
-    for (std::map<std::string, NBEdge*>::const_iterator i = ec.begin(); i != ec.end(); ++i) {
-        if ((*i).second->getGeometry().size() > 2) {
+    for (const auto & i : ec) {
+        if (i.second->getGeometry().size() > 2) {
             multinodes++;
         }
     }
@@ -119,8 +119,8 @@ NWWriter_DlrNavteq::writeNodesUnsplitted(const OptionsCont& oc, NBNodeCont& nc, 
     device << "# [ymin] " << min.y() << "\n";
     device << "# [ymax] " << max.y() << "\n";
     // write normal nodes
-    for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
-        NBNode* n = (*i).second;
+    for (const auto & i : nc) {
+        NBNode* n = i.second;
         Position pos = n->getPosition();
         gch.cartesian2geo(pos);
         pos.mul(geoScale);
@@ -199,13 +199,13 @@ NWWriter_DlrNavteq::writeLinksUnsplitted(const OptionsCont& oc, NBEdgeCont& ec, 
     // write format specifier
     device << "# LINK_ID\tNODE_ID_FROM\tNODE_ID_TO\tBETWEEN_NODE_ID\tLENGTH\tVEHICLE_TYPE\tFORM_OF_WAY\tBRUNNEL_TYPE\tFUNCTIONAL_ROAD_CLASS\tSPEED_CATEGORY\tNUMBER_OF_LANES\tSPEED_LIMIT\tSPEED_RESTRICTION\tNAME_ID1_REGIONAL\tNAME_ID2_LOCAL\tHOUSENUMBERS_RIGHT\tHOUSENUMBERS_LEFT\tZIP_CODE\tAREA_ID\tSUBAREA_ID\tTHROUGH_TRAFFIC\tSPECIAL_RESTRICTIONS\tEXTENDED_NUMBER_OF_LANES\tISRAMP\tCONNECTION\n";
     // write edges
-    for (std::map<std::string, NBEdge*>::const_iterator i = ec.begin(); i != ec.end(); ++i) {
-        NBEdge* e = (*i).second;
+    for (const auto & i : ec) {
+        NBEdge* e = i.second;
         const int kph = speedInKph(e->getSpeed());
         const std::string& betweenNodeID = (e->getGeometry().size() > 2) ? internalNodes[e] : UNDEFINED;
         std::string nameID = UNDEFINED;
         if (oc.getBool("output.street-names")) {
-            const std::string& name = i->second->getStreetName();
+            const std::string& name = i.second->getStreetName();
             if (name != "" && nameIDs.count(name) == 0) {
                 nameID = toString(nameIDs.size());
                 nameIDs[name] = nameID;
@@ -446,15 +446,14 @@ NWWriter_DlrNavteq::writeTrafficSignals(const OptionsCont& oc, NBNodeCont& nc) {
     // write format specifier
     device << "#Traffic signal related to LINK_ID and NODE_ID with location relative to driving direction.\n#column format like pointcollection.\n#DESCRIPTION->LOCATION: 1-rechts von LINK; 2-links von LINK; 3-oberhalb LINK -1-keineAngabe\n#RELATREC_ID\tPOICOL_TYPE\tDESCRIPTION\tLONGITUDE\tLATITUDE\tLINK_ID\n";
     // write record for every edge incoming to a tls controlled node
-    for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
-        NBNode* n = (*i).second;
+    for (const auto & i : nc) {
+        NBNode* n = i.second;
         if (n->isTLControlled()) {
             Position pos = n->getPosition();
             gch.cartesian2geo(pos);
             pos.mul(geoScale);
             const EdgeVector& incoming = n->getIncomingEdges();
-            for (EdgeVector::const_iterator it = incoming.begin(); it != incoming.end(); ++it) {
-                NBEdge* e = *it;
+            for (auto e : incoming) {
                 device << e->getID() << "\t"
                        << "12\t" // POICOL_TYPE
                        << "LSA;NODEIDS#" << n->getID() << "#;LOCATION#-1#;\t"
@@ -484,15 +483,13 @@ NWWriter_DlrNavteq::writeProhibitedManoeuvres(const OptionsCont& oc, const NBNod
     device << "#No driving allowed from ID1 to ID2 or the complete chain from ID1 to IDn\n";
     device << "#RELATREC_ID\tPERMANENT_ID_INFO\tVALIDITY_PERIOD\tTHROUGH_TRAFFIC\tVEHICLE_TYPE\tNAVTEQ_LINK_ID1\t[NAVTEQ_LINK_ID2 ...]\n";
     // write record for every pair of incoming/outgoing edge that are not connected despite having common permissions
-    for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
-        NBNode* n = (*i).second;
+    for (const auto & i : nc) {
+        NBNode* n = i.second;
         const EdgeVector& incoming = n->getIncomingEdges();
         const EdgeVector& outgoing = n->getOutgoingEdges();
-        for (EdgeVector::const_iterator j = incoming.begin(); j != incoming.end(); ++j) {
-            NBEdge* inEdge = *j;
+        for (auto inEdge : incoming) {
             const SVCPermissions inPerm = inEdge->getPermissions();
-            for (EdgeVector::const_iterator k = outgoing.begin(); k != outgoing.end(); ++k) {
-                NBEdge* outEdge = *k;
+            for (auto outEdge : outgoing) {
                 const SVCPermissions outPerm = outEdge->getPermissions();
                 const SVCPermissions commonPerm = inPerm & outPerm;
                 if (commonPerm != 0 && commonPerm != SVC_PEDESTRIAN && !inEdge->isConnectedTo(outEdge)) {
@@ -520,15 +517,13 @@ NWWriter_DlrNavteq::writeConnectedLanes(const OptionsCont& oc, NBNodeCont& nc) {
     device << "#column format like pointcollection.\n";
     device << "#NODE-ID\tVEHICLE-TYPE\tFROM_LANE\tTO_LANE\tTHROUGH_TRAFFIC\tLINK_IDs[2..*]\n";
     // write record for every connection
-    for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
-        NBNode* n = (*i).second;
+    for (const auto & i : nc) {
+        NBNode* n = i.second;
         const EdgeVector& incoming = n->getIncomingEdges();
-        for (EdgeVector::const_iterator j = incoming.begin(); j != incoming.end(); ++j) {
-            NBEdge* from = *j;
+        for (auto from : incoming) {
             const SVCPermissions fromPerm = from->getPermissions();
             const std::vector<NBEdge::Connection>& connections = from->getConnections();
-            for (std::vector<NBEdge::Connection>::const_iterator it_c = connections.begin(); it_c != connections.end(); it_c++) {
-                const NBEdge::Connection& c = *it_c;
+            for (const auto & c : connections) {
                 device
                         << n->getID() << "\t"
                         << getAllowedTypes(fromPerm & c.toEdge->getPermissions()) << "\t"

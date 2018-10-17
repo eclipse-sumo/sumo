@@ -162,8 +162,7 @@ main(int argc, char** argv) {
                 oc.set("output-file", "./");
             }
             const std::vector<SUMOEmissionClass> classes = PollutantsInterface::getAllClasses();
-            for (std::vector<SUMOEmissionClass>::const_iterator ci = classes.begin(); ci != classes.end(); ++ci) {
-                SUMOEmissionClass c = *ci;
+            for (std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<int> > >::value_type c : classes) {
                 single(oc.getString("output-file") + PollutantsInterface::getName(c) + ".csv", PollutantsInterface::getName(c),
                        c, vMin, vMax, vStep, aMin, aMax, aStep, sMin, sMax, sStep, oc.getBool("verbose"));
             }

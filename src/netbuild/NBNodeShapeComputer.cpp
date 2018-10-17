@@ -90,10 +90,10 @@ NBNodeShapeComputer::compute() {
         const EdgeVector& incoming = myNode.getIncomingEdges();
         const EdgeVector& outgoing = myNode.getOutgoingEdges();
         double maxAngle = 0.;
-        for (EdgeVector::const_iterator i = incoming.begin(); i != incoming.end(); ++i) {
-            double ia = (*i)->getAngleAtNode(&myNode);
-            for (EdgeVector::const_iterator j = outgoing.begin(); j != outgoing.end(); ++j) {
-                double oa = (*j)->getAngleAtNode(&myNode);
+        for (auto i : incoming) {
+            double ia = i->getAngleAtNode(&myNode);
+            for (auto j : outgoing) {
+                double oa = j->getAngleAtNode(&myNode);
                 double ad = GeomHelper::getMinAngleDiff(ia, oa);
                 if (22.5 >= ad) {
                     maxAngle = MAX2(ad, maxAngle);
@@ -367,8 +367,8 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
                     // fixate extended geometry for repeated computation
                     const double shorten = distances[*i] - 100;
                     (*i)->shortenGeometryAtNode(&myNode, shorten);
-                    for (std::set<NBEdge*>::iterator k = same[*i].begin(); k != same[*i].end(); ++k) {
-                        (*k)->shortenGeometryAtNode(&myNode, shorten);
+                    for (auto k : same[*i]) {
+                        k->shortenGeometryAtNode(&myNode, shorten);
                     }
 #ifdef DEBUG_NODE_SHAPE
                     if (DEBUGCOND) {
@@ -426,8 +426,8 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
 #endif
                 // fixate extended geometry for repeated computation
                 (*i)->extendGeometryAtNode(&myNode, advanceStopLine);
-                for (std::set<NBEdge*>::iterator k = same[*i].begin(); k != same[*i].end(); ++k) {
-                    (*k)->extendGeometryAtNode(&myNode, advanceStopLine);
+                for (auto k : same[*i]) {
+                    k->extendGeometryAtNode(&myNode, advanceStopLine);
                 }
             }
             offset = MAX2(100.0 - advanceStopLine, offset);
@@ -452,8 +452,8 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
         }
 #endif
         (*i)->setNodeBorder(&myNode, p, p2, rectangularCut);
-        for (std::set<NBEdge*>::iterator k = same[*i].begin(); k != same[*i].end(); ++k) {
-            (*k)->setNodeBorder(&myNode, p, p2, rectangularCut);
+        for (auto k : same[*i]) {
+            k->setNodeBorder(&myNode, p, p2, rectangularCut);
         }
     }
     // final curve segment

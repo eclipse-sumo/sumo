@@ -369,9 +369,9 @@ GUILane::drawArrows() const {
     if (myWidth < SUMO_const_laneWidth) {
         glScaled(myWidth / SUMO_const_laneWidth, 1, 1);
     }
-    for (std::vector<MSLink*>::const_iterator i = myLinks.begin(); i != myLinks.end(); ++i) {
-        LinkDirection dir = (*i)->getDirection();
-        LinkState state = (*i)->getState();
+    for (auto myLink : myLinks) {
+        LinkDirection dir = myLink->getDirection();
+        LinkState state = myLink->getState();
         if (state == LINKSTATE_DEADEND || dir == LINKDIR_NODIR) {
             continue;
         }
@@ -426,12 +426,12 @@ GUILane::drawLane2LaneConnections(double exaggeration) const {
     if (exaggeration > 1) {
         centroid = myEdge->getToJunction()->getShape().getCentroid();
     }
-    for (std::vector<MSLink*>::const_iterator i = myLinks.begin(); i != myLinks.end(); ++i) {
-        const MSLane* connected = (*i)->getLane();
+    for (auto myLink : myLinks) {
+        const MSLane* connected = myLink->getLane();
         if (connected == nullptr) {
             continue;
         }
-        GLHelper::setColor(GUIVisualizationSettings::getLinkColor((*i)->getState()));
+        GLHelper::setColor(GUIVisualizationSettings::getLinkColor(myLink->getState()));
         glBegin(GL_LINES);
         Position p1 = getShape()[-1];
         Position p2 = connected->getShape()[0];
@@ -634,14 +634,14 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
     if (s.scale * s.vehicleSize.getExaggeration(s) > s.vehicleSize.minSize) {
         // retrieve vehicles from lane; disallow simulation
         const MSLane::VehCont& vehicles = getVehiclesSecure();
-        for (MSLane::VehCont::const_iterator v = vehicles.begin(); v != vehicles.end(); ++v) {
-            if ((*v)->getLane() == this) {
-                static_cast<const GUIVehicle* const>(*v)->drawGL(s);
+        for (auto vehicle : vehicles) {
+            if (vehicle->getLane() == this) {
+                static_cast<const GUIVehicle* const>(vehicle)->drawGL(s);
             } // else: this is the shadow during a continuous lane change
         }
         // draw parking vehicles
-        for (std::set<const MSVehicle*>::const_iterator v = myParkingVehicles.begin(); v != myParkingVehicles.end(); ++v) {
-            static_cast<const GUIVehicle* const>(*v)->drawGL(s);
+        for (auto myParkingVehicle : myParkingVehicles) {
+            static_cast<const GUIVehicle* const>(myParkingVehicle)->drawGL(s);
         }
         // allow lane simulation
         releaseVehicles();

@@ -73,8 +73,8 @@ NIVissimConnectionCluster::NodeSubCluster::add(NIVissimConnection* c) {
 
 void
 NIVissimConnectionCluster::NodeSubCluster::add(const NIVissimConnectionCluster::NodeSubCluster& c) {
-    for (ConnectionCont::const_iterator i = c.myConnections.begin(); i != c.myConnections.end(); i++) {
-        add(*i);
+    for (auto myConnection : c.myConnections) {
+        add(myConnection);
     }
 }
 
@@ -89,9 +89,9 @@ std::vector<int>
 NIVissimConnectionCluster::NodeSubCluster::getConnectionIDs() const {
     std::vector<int> ret;
     int id = NIVissimConnectionCluster::getNextFreeNodeID();
-    for (ConnectionCont::const_iterator i = myConnections.begin(); i != myConnections.end(); i++) {
-        ret.push_back((*i)->getID());
-        (*i)->setNodeCluster(id);
+    for (auto myConnection : myConnections) {
+        ret.push_back(myConnection->getID());
+        myConnection->setNodeCluster(id);
     }
     return ret;
 }
@@ -122,8 +122,8 @@ NIVissimConnectionCluster::NIVissimConnectionCluster(
         myEdges.push_back(edgeid);
     }
     // add information about incoming and outgoing edges
-    for (std::vector<int>::const_iterator i = connections.begin(); i != connections.end(); i++) {
-        NIVissimConnection* c = NIVissimConnection::dictionary(*i);
+    for (std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<int> > >::value_type connection : connections) {
+        NIVissimConnection* c = NIVissimConnection::dictionary(connection);
         assert(c != 0);
         myOutgoingEdges.push_back(c->getToEdgeID());
         myIncomingEdges.push_back(c->getFromEdgeID());
@@ -143,8 +143,8 @@ NIVissimConnectionCluster::NIVissimConnectionCluster(
     recomputeBoundary();
     assert(myBoundary.xmax() >= myBoundary.xmin());
     // add information about incoming and outgoing edges
-    for (std::vector<int>::const_iterator i = connections.begin(); i != connections.end(); i++) {
-        NIVissimConnection* c = NIVissimConnection::dictionary(*i);
+    for (std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<int> > >::value_type connection : connections) {
+        NIVissimConnection* c = NIVissimConnection::dictionary(connection);
         assert(c != 0);
         myOutgoingEdges.push_back(c->getToEdgeID());
         myIncomingEdges.push_back(c->getFromEdgeID());
@@ -181,8 +181,8 @@ NIVissimConnectionCluster::add(NIVissimConnectionCluster* c) {
     assert(myBoundary.xmax() >= myBoundary.xmin());
     assert(c->myBoundary.xmax() >= c->myBoundary.xmin());
     myBoundary.add(c->myBoundary);
-    for (std::vector<int>::iterator i = c->myConnections.begin(); i != c->myConnections.end(); i++) {
-        myConnections.push_back(*i);
+    for (std::_Vector_iterator<std::_Vector_val<std::_Simple_types<int> > >::value_type & myConnection : c->myConnections) {
+        myConnections.push_back(myConnection);
     }
     VectorHelper<int>::removeDouble(myConnections);
     assert(myNodeCluster == -1 || c->myNodeCluster == -1);
@@ -228,13 +228,12 @@ NIVissimConnectionCluster::joinBySameEdges(double offset) {
             }
             j++;
         }
-        for (std::vector<NIVissimConnectionCluster*>::iterator k = joinAble.begin();
-                k != joinAble.end(); k++) {
+        for (auto & k : joinAble) {
             // add the overlaping cluster
-            (*i)->add(*k);
+            (*i)->add(k);
             // erase the overlaping cluster
-            delete *k;
-            myClusters.erase(find(myClusters.begin(), myClusters.end(), *k));
+            delete k;
+            myClusters.erase(find(myClusters.begin(), myClusters.end(), k));
         }
         //
         if (joinAble.size() > 0) {
@@ -259,13 +258,12 @@ NIVissimConnectionCluster::joinBySameEdges(double offset) {
             }
             j++;
         }
-        for (std::vector<NIVissimConnectionCluster*>::iterator k = joinAble.begin();
-                k != joinAble.end(); k++) {
+        for (auto & k : joinAble) {
             // add the overlaping cluster
-            (*i)->add(*k);
+            (*i)->add(k);
             // erase the overlaping cluster
-            delete *k;
-            myClusters.erase(find(myClusters.begin(), myClusters.end(), *k));
+            delete k;
+            myClusters.erase(find(myClusters.begin(), myClusters.end(), k));
         }
         //
         if (joinAble.size() > 0) {
@@ -293,13 +291,12 @@ NIVissimConnectionCluster::joinBySameEdges(double offset) {
             }
             j++;
         }
-        for (std::vector<NIVissimConnectionCluster*>::iterator k = joinAble.begin();
-                k != joinAble.end(); k++) {
+        for (auto & k : joinAble) {
             // add the overlaping cluster
-            (*i)->add(*k);
+            (*i)->add(k);
             // erase the overlaping cluster
-            delete *k;
-            myClusters.erase(find(myClusters.begin(), myClusters.end(), *k));
+            delete k;
+            myClusters.erase(find(myClusters.begin(), myClusters.end(), k));
         }
         //
         if (joinAble.size() > 0) {
@@ -418,10 +415,10 @@ NIVissimConnectionCluster::isWeakDistrictConnRealisation(NIVissimConnectionClust
 bool
 NIVissimConnectionCluster::liesOnSameEdgesEnd(NIVissimConnectionCluster* cc2) {
     //
-    for (std::vector<int>::iterator i = myConnections.begin(); i != myConnections.end(); i++) {
-        NIVissimConnection* c1 = NIVissimConnection::dictionary(*i);
-        for (std::vector<int>::iterator j = cc2->myConnections.begin(); j != cc2->myConnections.end(); j++) {
-            NIVissimConnection* c2 = NIVissimConnection::dictionary(*j);
+    for (std::_Vector_iterator<std::_Vector_val<std::_Simple_types<int> > >::value_type & myConnection : myConnections) {
+        NIVissimConnection* c1 = NIVissimConnection::dictionary(myConnection);
+        for (std::_Vector_iterator<std::_Vector_val<std::_Simple_types<int> > >::value_type & j : cc2->myConnections) {
+            NIVissimConnection* c2 = NIVissimConnection::dictionary(j);
             if (c1->getFromEdgeID() == c2->getFromEdgeID()) {
                 NIVissimEdge* e = NIVissimEdge::dictionary(c1->getFromEdgeID());
                 const PositionVector& g = e->getGeometry();
@@ -454,12 +451,12 @@ std::vector<int>
 NIVissimConnectionCluster::extendByToTreatAsSame(const std::vector<int>& iv1,
         const std::vector<int>& iv2) const {
     std::vector<int> ret(iv1);
-    for (std::vector<int>::const_iterator i = iv1.begin(); i != iv1.end(); i++) {
-        NIVissimEdge* e = NIVissimEdge::dictionary(*i);
+    for (std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<int> > >::value_type i : iv1) {
+        NIVissimEdge* e = NIVissimEdge::dictionary(i);
         const std::vector<NIVissimEdge*> treatAsSame = e->getToTreatAsSame();
-        for (std::vector<NIVissimEdge*>::const_iterator j = treatAsSame.begin(); j != treatAsSame.end(); j++) {
-            if (find(iv2.begin(), iv2.end(), (*j)->getID()) == iv2.end()) {
-                ret.push_back((*j)->getID());
+        for (auto j : treatAsSame) {
+            if (find(iv2.begin(), iv2.end(), j->getID()) == iv2.end()) {
+                ret.push_back(j->getID());
             }
         }
     }
@@ -469,11 +466,11 @@ NIVissimConnectionCluster::extendByToTreatAsSame(const std::vector<int>& iv1,
 std::vector<int>
 NIVissimConnectionCluster::getDisturbanceParticipators() {
     std::vector<int> ret;
-    for (std::vector<int>::iterator i = myConnections.begin(); i != myConnections.end(); i++) {
-        NIVissimConnection* c = NIVissimConnection::dictionary(*i);
+    for (std::_Vector_iterator<std::_Vector_val<std::_Simple_types<int> > >::value_type & myConnection : myConnections) {
+        NIVissimConnection* c = NIVissimConnection::dictionary(myConnection);
         const std::vector<int>& disturbances = c->getDisturbances();
-        for (std::vector<int>::const_iterator j = disturbances.begin(); j != disturbances.end(); j++) {
-            NIVissimDisturbance* d = NIVissimDisturbance::dictionary(*j);
+        for (std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<int> > >::value_type disturbance : disturbances) {
+            NIVissimDisturbance* d = NIVissimDisturbance::dictionary(disturbance);
             ret.push_back(d->getEdgeID());
             ret.push_back(d->getDisturbanceID());
         }
@@ -484,17 +481,17 @@ NIVissimConnectionCluster::getDisturbanceParticipators() {
 
 void
 NIVissimConnectionCluster::buildNodeClusters() {
-    for (ContType::iterator i = myClusters.begin(); i != myClusters.end(); i++) {
+    for (auto & myCluster : myClusters) {
         std::vector<int> disturbances;
         std::vector<int> tls;
         std::vector<int> nodes;
         int tlsid = -1;
         int nodeid = -1;
-        if ((*i)->myConnections.size() > 0) {
-            (*i)->recomputeBoundary();
-            disturbances = NIVissimDisturbance::getWithin((*i)->myBoundary);
+        if (myCluster->myConnections.size() > 0) {
+            myCluster->recomputeBoundary();
+            disturbances = NIVissimDisturbance::getWithin(myCluster->myBoundary);
         }
-        nodes = (*i)->myNodes;//NIVissimTL::getWithin((*i)->myBoundary, 5.0);
+        nodes = myCluster->myNodes;//NIVissimTL::getWithin((*i)->myBoundary, 5.0);
         if (nodes.size() > 1) {
             WRITE_WARNING("NIVissimConnectionCluster:More than a single node");
             //          throw 1; // !!! eigentlich sollte hier nur eine Ampelanlage sein
@@ -505,25 +502,25 @@ NIVissimConnectionCluster::buildNodeClusters() {
         //
         //
         int id = NIVissimNodeCluster::dictionary(
-                     nodeid, tlsid, (*i)->myConnections,
-                     disturbances, (*i)->myIncomingEdges.size() < 2);
+                     nodeid, tlsid, myCluster->myConnections,
+                     disturbances, myCluster->myIncomingEdges.size() < 2);
         assert((*i)->myNodeCluster == id || (*i)->myNodeCluster < 0);
-        (*i)->myNodeCluster = id;
+        myCluster->myNodeCluster = id;
     }
 }
 
 
 void
 NIVissimConnectionCluster::_debugOut(std::ostream& into) {
-    for (ContType::iterator i = myClusters.begin(); i != myClusters.end(); i++) {
-        std::vector<int> connections = (*i)->myConnections;
+    for (auto & myCluster : myClusters) {
+        std::vector<int> connections = myCluster->myConnections;
         for (std::vector<int>::iterator j = connections.begin(); j != connections.end(); j++) {
             if (j != connections.begin()) {
                 into << ", ";
             }
             into << *j;
         }
-        into << "(" << (*i)->myBoundary << ")" << std::endl;
+        into << "(" << myCluster->myBoundary << ")" << std::endl;
     }
     into << "---------------------------" << std::endl;
 }
@@ -544,8 +541,7 @@ NIVissimConnectionCluster::dictSize() {
 
 void
 NIVissimConnectionCluster::removeConnections(const NodeSubCluster& c) {
-    for (NodeSubCluster::ConnectionCont::const_iterator i = c.myConnections.begin(); i != c.myConnections.end(); i++) {
-        NIVissimConnection* conn = *i;
+    for (auto conn : c.myConnections) {
         int connid = conn->getID();
         std::vector<int>::iterator j = find(myConnections.begin(), myConnections.end(), connid);
         if (j != myConnections.end()) {
@@ -559,8 +555,8 @@ NIVissimConnectionCluster::removeConnections(const NodeSubCluster& c) {
 void
 NIVissimConnectionCluster::recomputeBoundary() {
     myBoundary = Boundary();
-    for (std::vector<int>::iterator i = myConnections.begin(); i != myConnections.end(); i++) {
-        NIVissimConnection* c = NIVissimConnection::dictionary(*i);
+    for (std::_Vector_iterator<std::_Vector_val<std::_Simple_types<int> > >::value_type & myConnection : myConnections) {
+        NIVissimConnection* c = NIVissimConnection::dictionary(myConnection);
         if (c != nullptr) {
             myBoundary.add(c->getFromGeomPosition());
             myBoundary.add(c->getToGeomPosition());
@@ -687,8 +683,8 @@ NIVissimConnectionCluster::getPositionForEdge(int edgeid) const {
 
 void
 NIVissimConnectionCluster::clearDict() {
-    for (ContType::iterator i = myClusters.begin(); i != myClusters.end(); i++) {
-        delete(*i);
+    for (auto & myCluster : myClusters) {
+        deletemyCluster;
     }
     myClusters.clear();
     myFirstFreeID = 100000;
@@ -699,8 +695,8 @@ PositionVector
 NIVissimConnectionCluster::getIncomingContinuationGeometry(NIVissimEdge* e) const {
     // collect connection where this edge is the incoming one
     std::vector<NIVissimConnection*> edgeIsIncoming;
-    for (std::vector<int>::const_iterator i = myConnections.begin(); i != myConnections.end(); i++) {
-        NIVissimConnection* c = NIVissimConnection::dictionary(*i);
+    for (std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<int> > >::value_type myConnection : myConnections) {
+        NIVissimConnection* c = NIVissimConnection::dictionary(myConnection);
         if (c->getFromEdgeID() == e->getID()) {
             edgeIsIncoming.push_back(c);
         }
@@ -722,8 +718,8 @@ NIVissimConnection*
 NIVissimConnectionCluster::getIncomingContinuation(NIVissimEdge* e) const {
     // collect connection where this edge is the incoming one
     std::vector<NIVissimConnection*> edgeIsIncoming;
-    for (std::vector<int>::const_iterator i = myConnections.begin(); i != myConnections.end(); i++) {
-        NIVissimConnection* c = NIVissimConnection::dictionary(*i);
+    for (std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<int> > >::value_type myConnection : myConnections) {
+        NIVissimConnection* c = NIVissimConnection::dictionary(myConnection);
         if (c->getFromEdgeID() == e->getID()) {
             edgeIsIncoming.push_back(c);
         }
@@ -744,8 +740,8 @@ PositionVector
 NIVissimConnectionCluster::getOutgoingContinuationGeometry(NIVissimEdge* e) const {
     // collect connection where this edge is the outgoing one
     std::vector<NIVissimConnection*> edgeIsOutgoing;
-    for (std::vector<int>::const_iterator i = myConnections.begin(); i != myConnections.end(); i++) {
-        NIVissimConnection* c = NIVissimConnection::dictionary(*i);
+    for (std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<int> > >::value_type myConnection : myConnections) {
+        NIVissimConnection* c = NIVissimConnection::dictionary(myConnection);
         if (c->getToEdgeID() == e->getID()) {
             edgeIsOutgoing.push_back(c);
         }
@@ -766,8 +762,8 @@ NIVissimConnection*
 NIVissimConnectionCluster::getOutgoingContinuation(NIVissimEdge* e) const {
     // collect connection where this edge is the outgoing one
     std::vector<NIVissimConnection*> edgeIsOutgoing;
-    for (std::vector<int>::const_iterator i = myConnections.begin(); i != myConnections.end(); i++) {
-        NIVissimConnection* c = NIVissimConnection::dictionary(*i);
+    for (std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<int> > >::value_type myConnection : myConnections) {
+        NIVissimConnection* c = NIVissimConnection::dictionary(myConnection);
         if (c->getToEdgeID() == e->getID()) {
             edgeIsOutgoing.push_back(c);
         }

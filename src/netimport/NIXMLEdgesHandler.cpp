@@ -417,9 +417,9 @@ void NIXMLEdgesHandler::addSplit(const SUMOSAXAttributes& attrs) {
         }
         std::vector<std::string> lanes;
         SUMOSAXAttributes::parseStringVector(attrs.getOpt<std::string>(SUMO_ATTR_LANES, nullptr, ok, ""), lanes);
-        for (std::vector<std::string>::iterator i = lanes.begin(); i != lanes.end(); ++i) {
+        for (auto & i : lanes) {
             try {
-                int lane = TplConvert::_2int((*i).c_str());
+                int lane = TplConvert::_2int(i.c_str());
                 e.lanes.push_back(lane);
             } catch (NumberFormatException&) {
                 WRITE_ERROR("Error on parsing a split (edge '" + myCurrentID + "').");
@@ -601,11 +601,11 @@ NIXMLEdgesHandler::addRoundabout(const SUMOSAXAttributes& attrs) {
     if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
         std::vector<std::string> edgeIDs = attrs.getStringVector(SUMO_ATTR_EDGES);
         EdgeSet roundabout;
-        for (std::vector<std::string>::iterator it = edgeIDs.begin(); it != edgeIDs.end(); ++it) {
-            NBEdge* edge = myEdgeCont.retrieve(*it);
+        for (auto & edgeID : edgeIDs) {
+            NBEdge* edge = myEdgeCont.retrieve(edgeID);
             if (edge == nullptr) {
-                if (!myEdgeCont.wasIgnored(*it)) {
-                    WRITE_ERROR("Unknown edge '" + (*it) + "' in roundabout");
+                if (!myEdgeCont.wasIgnored(edgeID)) {
+                    WRITE_ERROR("Unknown edge '" + edgeID + "' in roundabout");
                 }
             } else {
                 roundabout.insert(edge);

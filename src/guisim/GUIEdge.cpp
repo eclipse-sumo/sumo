@@ -118,22 +118,22 @@ Boundary
 GUIEdge::getBoundary() const {
     Boundary ret;
     if (!isTazConnector()) {
-        for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
-            ret.add((*i)->getShape().getBoxBoundary());
+        for (auto myLane : *myLanes) {
+            ret.add(myLane->getShape().getBoxBoundary());
         }
     } else {
         // take the starting coordinates of all follower edges and the endpoints
         // of all successor edges
-        for (MSEdgeVector::const_iterator it = mySuccessors.begin(); it != mySuccessors.end(); ++it) {
-            const std::vector<MSLane*>& lanes = (*it)->getLanes();
-            for (std::vector<MSLane*>::const_iterator it_lane = lanes.begin(); it_lane != lanes.end(); ++it_lane) {
-                ret.add((*it_lane)->getShape().front());
+        for (auto mySuccessor : mySuccessors) {
+            const std::vector<MSLane*>& lanes = mySuccessor->getLanes();
+            for (auto lane : lanes) {
+                ret.add(lane->getShape().front());
             }
         }
-        for (MSEdgeVector::const_iterator it = myPredecessors.begin(); it != myPredecessors.end(); ++it) {
-            const std::vector<MSLane*>& lanes = (*it)->getLanes();
-            for (std::vector<MSLane*>::const_iterator it_lane = lanes.begin(); it_lane != lanes.end(); ++it_lane) {
-                ret.add((*it_lane)->getShape().back());
+        for (auto myPredecessor : myPredecessors) {
+            const std::vector<MSLane*>& lanes = myPredecessor->getLanes();
+            for (auto lane : lanes) {
+                ret.add(lane->getShape().back());
             }
         }
     }
@@ -211,11 +211,11 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
     }
     glPushName(getGlID());
     // draw the lanes
-    for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
+    for (auto myLane : *myLanes) {
         if (MSGlobals::gUseMesoSim) {
             setColor(s);
         }
-        GUILane* l = dynamic_cast<GUILane*>(*i);
+        GUILane* l = dynamic_cast<GUILane*>(myLane);
         if (l != nullptr) {
             l->drawGL(s);
         }
@@ -254,16 +254,16 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
     }
     if (s.scale * s.personSize.getExaggeration(s) > s.personSize.minSize) {
         AbstractMutex::ScopedLocker locker(myLock);
-        for (std::set<MSTransportable*>::const_iterator i = myPersons.begin(); i != myPersons.end(); ++i) {
-            GUIPerson* person = dynamic_cast<GUIPerson*>(*i);
+        for (auto myPerson : myPersons) {
+            GUIPerson* person = dynamic_cast<GUIPerson*>(myPerson);
             assert(person != 0);
             person->drawGL(s);
         }
     }
     if (s.scale * s.containerSize.getExaggeration(s) > s.containerSize.minSize) {
         AbstractMutex::ScopedLocker locker(myLock);
-        for (std::set<MSTransportable*>::const_iterator i = myContainers.begin(); i != myContainers.end(); ++i) {
-            GUIContainer* container = dynamic_cast<GUIContainer*>(*i);
+        for (auto myContainer : myContainers) {
+            GUIContainer* container = dynamic_cast<GUIContainer*>(myContainer);
             assert(container != 0);
             container->drawGL(s);
         }
@@ -511,8 +511,8 @@ void
 GUIEdge::closeTraffic(const GUILane* lane) {
     const std::vector<MSLane*>& lanes = getLanes();
     const bool isClosed = lane->isClosed();
-    for (std::vector<MSLane*>::const_iterator i = lanes.begin(); i != lanes.end(); ++i) {
-        GUILane* l = dynamic_cast<GUILane*>(*i);
+    for (auto lane : lanes) {
+        GUILane* l = dynamic_cast<GUILane*>(lane);
         if (l->isClosed() == isClosed) {
             l->closeTraffic(false);
         }
@@ -546,14 +546,14 @@ GUIEdge::addRerouter() {
 
     // trigger rerouting for vehicles already on this edge
     const std::vector<MSLane*>& lanes = getLanes();
-    for (std::vector<MSLane*>::const_iterator i = lanes.begin(); i != lanes.end(); ++i) {
-        const MSLane::VehCont& vehicles = (*i)->getVehiclesSecure();
-        for (MSLane::VehCont::const_iterator v = vehicles.begin(); v != vehicles.end(); ++v) {
-            if ((*v)->getLane() == (*i)) {
-                rr->notifyEnter(**v, MSMoveReminder::NOTIFICATION_JUNCTION);
+    for (auto lane : lanes) {
+        const MSLane::VehCont& vehicles = lane->getVehiclesSecure();
+        for (auto vehicle : vehicles) {
+            if (vehicle->getLane() == lane) {
+                rr->notifyEnter(*vehicle, MSMoveReminder::NOTIFICATION_JUNCTION);
             } // else: this is the shadow during a continuous lane change
         }
-        (*i)->releaseVehicles();
+        lane->releaseVehicles();
     }
 }
 

@@ -127,26 +127,26 @@ void
 OutputDevice::closeAll(bool keepErrorRetrievers) {
     std::vector<OutputDevice*> errorDevices;
     std::vector<OutputDevice*> nonErrorDevices;
-    for (std::map<std::string, OutputDevice*>::iterator i = myOutputDevices.begin(); i != myOutputDevices.end(); ++i) {
-        if (MsgHandler::getErrorInstance()->isRetriever(i->second)) {
-            errorDevices.push_back(i->second);
+    for (auto & myOutputDevice : myOutputDevices) {
+        if (MsgHandler::getErrorInstance()->isRetriever(myOutputDevice.second)) {
+            errorDevices.push_back(myOutputDevice.second);
         } else {
-            nonErrorDevices.push_back(i->second);
+            nonErrorDevices.push_back(myOutputDevice.second);
         }
     }
-    for (std::vector<OutputDevice*>::iterator i = nonErrorDevices.begin(); i != nonErrorDevices.end(); ++i) {
+    for (auto & nonErrorDevice : nonErrorDevices) {
         try {
             //std::cout << "  close '" << (*i)->getFilename() << "'\n";
-            (*i)->close();
+            nonErrorDevice->close();
         } catch (const IOError& e) {
             WRITE_ERROR("Error on closing output devices.");
             WRITE_ERROR(e.what());
         }
     }
     if (!keepErrorRetrievers) {
-        for (std::vector<OutputDevice*>::iterator i = errorDevices.begin(); i != errorDevices.end(); ++i) {
+        for (auto & errorDevice : errorDevices) {
             try {
-                (*i)->close();
+                errorDevice->close();
             } catch (const IOError& e) {
                 std::cerr << "Error on closing error output devices." << std::endl;
                 std::cerr << e.what() << std::endl;

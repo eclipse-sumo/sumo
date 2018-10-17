@@ -57,9 +57,9 @@ RORouteDef::RORouteDef(const std::string& id, const int lastUsed,
 
 
 RORouteDef::~RORouteDef() {
-    for (std::vector<RORoute*>::iterator i = myAlternatives.begin(); i != myAlternatives.end(); i++) {
-        if (myRouteRefs.count(*i) == 0) {
-            delete *i;
+    for (auto & myAlternative : myAlternatives) {
+        if (myRouteRefs.count(myAlternative) == 0) {
+            delete myAlternative;
         }
     }
 }
@@ -279,8 +279,8 @@ RORouteDef::addAlternative(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
     }
     // recompute the costs and (when a new route was added) scale the probabilities
     const double scale = double(myAlternatives.size() - 1) / double(myAlternatives.size());
-    for (std::vector<RORoute*>::iterator i = myAlternatives.begin(); i != myAlternatives.end(); i++) {
-        RORoute* alt = *i;
+    for (auto & myAlternative : myAlternatives) {
+        RORoute* alt = myAlternative;
         // recompute the costs for all routes
         const double newCosts = router.recomputeCosts(alt->getEdgeVector(), veh, begin);
         if (newCosts < 0.) {
@@ -288,7 +288,7 @@ RORouteDef::addAlternative(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
         }
         assert(myAlternatives.size() != 0);
         if (myNewRoute) {
-            if (*i == current) {
+            if (myAlternative == current) {
                 // set initial probability and costs
                 alt->setProbability((double)(1.0 / (double) myAlternatives.size()));
                 alt->setCosts(newCosts);
@@ -297,7 +297,7 @@ RORouteDef::addAlternative(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
                 alt->setProbability(alt->getProbability() * scale);
             }
         }
-        RouteCostCalculator<RORoute, ROEdge, ROVehicle>::getCalculator().setCosts(alt, newCosts, *i == myAlternatives[myLastUsed]);
+        RouteCostCalculator<RORoute, ROEdge, ROVehicle>::getCalculator().setCosts(alt, newCosts, myAlternative == myAlternatives[myLastUsed]);
     }
     assert(myAlternatives.size() != 0);
     RouteCostCalculator<RORoute, ROEdge, ROVehicle>::getCalculator().calculateProbabilities(myAlternatives, veh, veh->getDepartureTime());
@@ -321,13 +321,13 @@ RORouteDef::addAlternative(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
         myAlternatives.erase(myAlternatives.begin() + RouteCostCalculator<RORoute, ROEdge, ROVehicle>::getCalculator().getMaxRouteNumber(), myAlternatives.end());
         // rescale probabilities
         double newSum = 0;
-        for (std::vector<RORoute*>::iterator i = myAlternatives.begin(); i != myAlternatives.end(); i++) {
-            newSum += (*i)->getProbability();
+        for (auto & myAlternative : myAlternatives) {
+            newSum += myAlternative->getProbability();
         }
         assert(newSum > 0);
         // @note newSum may be larger than 1 for numerical reasons
-        for (std::vector<RORoute*>::iterator i = myAlternatives.begin(); i != myAlternatives.end(); i++) {
-            (*i)->setProbability((*i)->getProbability() / newSum);
+        for (auto & myAlternative : myAlternatives) {
+            myAlternative->setProbability(myAlternative->getProbability() / newSum);
         }
     }
 
@@ -383,8 +383,7 @@ RORouteDef::copyOrigDest(const std::string& id) const {
 RORouteDef*
 RORouteDef::copy(const std::string& id, const SUMOTime stopOffset) const {
     RORouteDef* result = new RORouteDef(id, 0, myTryRepair, myMayBeDisconnected);
-    for (std::vector<RORoute*>::const_iterator i = myAlternatives.begin(); i != myAlternatives.end(); i++) {
-        RORoute* route = *i;
+    for (auto route : myAlternatives) {
         RGBColor* col = route->getColor() != nullptr ? new RGBColor(*route->getColor()) : nullptr;
         RORoute* newRoute = new RORoute(id, 0, 1, route->getEdgeVector(), col, route->getStops());
         newRoute->addStopOffset(stopOffset);
@@ -397,8 +396,8 @@ RORouteDef::copy(const std::string& id, const SUMOTime stopOffset) const {
 double
 RORouteDef::getOverallProb() const {
     double sum = 0.;
-    for (std::vector<RORoute*>::const_iterator i = myAlternatives.begin(); i != myAlternatives.end(); i++) {
-        sum += (*i)->getProbability();
+    for (auto myAlternative : myAlternatives) {
+        sum += myAlternative->getProbability();
     }
     return sum;
 }

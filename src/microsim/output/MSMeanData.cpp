@@ -382,8 +382,8 @@ MSMeanData::MeanDataValueTracker::write(OutputDevice& dev,
 int
 MSMeanData::MeanDataValueTracker::getNumReady() const {
     int result = 0;
-    for (std::list<TrackerEntry*>::const_iterator it = myCurrentData.begin(); it != myCurrentData.end(); ++it) {
-        if ((*it)->myNumVehicleEntered == (*it)->myNumVehicleLeft) {
+    for (auto it : myCurrentData) {
+        if (it->myNumVehicleEntered == it->myNumVehicleLeft) {
             result++;
         } else {
             break;
@@ -425,11 +425,11 @@ MSMeanData::MSMeanData(const std::string& id,
 void
 MSMeanData::init() {
     const MSEdgeVector& edges = MSNet::getInstance()->getEdgeControl().getEdges();
-    for (MSEdgeVector::const_iterator e = edges.begin(); e != edges.end(); ++e) {
-        if ((myDumpInternal || !(*e)->isInternal()) && !(*e)->isCrossing() && !(*e)->isWalkingArea()) {
-            myEdges.push_back(*e);
+    for (auto edge : edges) {
+        if ((myDumpInternal || !edge->isInternal()) && !edge->isCrossing() && !edge->isWalkingArea()) {
+            myEdges.push_back(edge);
             myMeasures.push_back(std::vector<MeanDataValues*>());
-            const std::vector<MSLane*>& lanes = (*e)->getLanes();
+            const std::vector<MSLane*>& lanes = edge->getLanes();
             if (MSGlobals::gUseMesoSim) {
                 MeanDataValues* data;
                 if (myTrackVehicles) {
@@ -437,9 +437,9 @@ MSMeanData::init() {
                 } else {
                     data = createValues(nullptr, lanes[0]->getLength(), false);
                 }
-                data->setDescription("meandata_" + (*e)->getID());
+                data->setDescription("meandata_" + edge->getID());
                 myMeasures.back().push_back(data);
-                MESegment* s = MSGlobals::gMesoNet->getSegmentForEdge(**e);
+                MESegment* s = MSGlobals::gMesoNet->getSegmentForEdge(*edge);
                 while (s != nullptr) {
                     s->addDetector(data);
                     s->prepareDetectorForWriting(*data);
@@ -452,15 +452,15 @@ MSMeanData::init() {
             if (myAmEdgeBased && myTrackVehicles) {
                 myMeasures.back().push_back(new MeanDataValueTracker(nullptr, lanes[0]->getLength(), this));
             }
-            for (std::vector<MSLane*>::const_iterator lane = lanes.begin(); lane != lanes.end(); ++lane) {
+            for (auto lane : lanes) {
                 if (myTrackVehicles) {
                     if (myAmEdgeBased) {
-                        (*lane)->addMoveReminder(myMeasures.back().back());
+                        lane->addMoveReminder(myMeasures.back().back());
                     } else {
-                        myMeasures.back().push_back(new MeanDataValueTracker(*lane, (*lane)->getLength(), this));
+                        myMeasures.back().push_back(new MeanDataValueTracker(lane, lane->getLength(), this));
                     }
                 } else {
-                    myMeasures.back().push_back(createValues(*lane, (*lane)->getLength(), true));
+                    myMeasures.back().push_back(createValues(lane, lane->getLength(), true));
                 }
             }
         }
@@ -470,8 +470,8 @@ MSMeanData::init() {
 
 MSMeanData::~MSMeanData() {
     for (std::vector<std::vector<MeanDataValues*> >::const_iterator i = myMeasures.begin(); i != myMeasures.end(); ++i) {
-        for (std::vector<MeanDataValues*>::const_iterator j = (*i).begin(); j != (*i).end(); ++j) {
-            delete *j;
+        for (auto j : (*i)) {
+            delete j;
         }
     }
 }
@@ -494,8 +494,8 @@ MSMeanData::resetOnly(SUMOTime stopTime) {
         return;
     }
     for (std::vector<std::vector<MeanDataValues*> >::const_iterator i = myMeasures.begin(); i != myMeasures.end(); ++i) {
-        for (std::vector<MeanDataValues*>::const_iterator j = (*i).begin(); j != (*i).end(); ++j) {
-            (*j)->reset();
+        for (auto j : (*i)) {
+            j->reset();
         }
     }
 }
@@ -599,8 +599,8 @@ MSMeanData::writeXMLOutput(OutputDevice& dev,
         myPendingIntervals.push_back(std::make_pair(startTime, stopTime));
         numReady = (int)myPendingIntervals.size();
         for (std::vector<std::vector<MeanDataValues*> >::const_iterator i = myMeasures.begin(); i != myMeasures.end(); ++i) {
-            for (std::vector<MeanDataValues*>::const_iterator j = (*i).begin(); j != (*i).end(); ++j) {
-                numReady = MIN2(numReady, ((MeanDataValueTracker*)*j)->getNumReady());
+            for (auto j : (*i)) {
+                numReady = MIN2(numReady, ((MeanDataValueTracker*)j)->getNumReady());
                 if (numReady == 0) {
                     break;
                 }

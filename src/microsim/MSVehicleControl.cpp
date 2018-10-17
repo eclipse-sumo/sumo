@@ -76,13 +76,13 @@ MSVehicleControl::MSVehicleControl() :
 
 MSVehicleControl::~MSVehicleControl() {
     // delete vehicles
-    for (VehicleDictType::iterator i = myVehicleDict.begin(); i != myVehicleDict.end(); ++i) {
-        delete(*i).second;
+    for (auto & i : myVehicleDict) {
+        deletei.second;
     }
     myVehicleDict.clear();
     // delete vehicle type distributions
-    for (VTypeDistDictType::iterator i = myVTypeDistDict.begin(); i != myVTypeDistDict.end(); ++i) {
-        delete(*i).second;
+    for (auto & i : myVTypeDistDict) {
+        deletei.second;
     }
     myVTypeDistDict.clear();
     // delete vehicle types
@@ -153,17 +153,17 @@ MSVehicleControl::saveState(OutputDevice& out) {
     out.writeAttr(SUMO_ATTR_DEPART, myTotalDepartureDelay);
     out.writeAttr(SUMO_ATTR_TIME, myTotalTravelTime).closeTag();
     // save vehicle types
-    for (VTypeDictType::iterator it = myVTypeDict.begin(); it != myVTypeDict.end(); ++it) {
-        it->second->getParameter().write(out);
+    for (auto & it : myVTypeDict) {
+        it.second->getParameter().write(out);
     }
-    for (VTypeDistDictType::iterator it = myVTypeDistDict.begin(); it != myVTypeDistDict.end(); ++it) {
-        out.openTag(SUMO_TAG_VTYPE_DISTRIBUTION).writeAttr(SUMO_ATTR_ID, it->first);
-        out.writeAttr(SUMO_ATTR_VTYPES, (*it).second->getVals());
-        out.writeAttr(SUMO_ATTR_PROBS, (*it).second->getProbs());
+    for (auto & it : myVTypeDistDict) {
+        out.openTag(SUMO_TAG_VTYPE_DISTRIBUTION).writeAttr(SUMO_ATTR_ID, it.first);
+        out.writeAttr(SUMO_ATTR_VTYPES, it.second->getVals());
+        out.writeAttr(SUMO_ATTR_PROBS, it.second->getProbs());
         out.closeTag();
     }
-    for (VehicleDictType::iterator it = myVehicleDict.begin(); it != myVehicleDict.end(); ++it) {
-        (*it).second->saveState(out);
+    for (auto & it : myVehicleDict) {
+        it.second->saveState(out);
     }
 }
 
@@ -324,11 +324,11 @@ MSVehicleControl::getVType(const std::string& id, std::mt19937* rng) {
 void
 MSVehicleControl::insertVTypeIDs(std::vector<std::string>& into) const {
     into.reserve(into.size() + myVTypeDict.size() + myVTypeDistDict.size());
-    for (VTypeDictType::const_iterator i = myVTypeDict.begin(); i != myVTypeDict.end(); ++i) {
-        into.push_back((*i).first);
+    for (const auto & i : myVTypeDict) {
+        into.push_back(i.first);
     }
-    for (VTypeDistDictType::const_iterator i = myVTypeDistDict.begin(); i != myVTypeDistDict.end(); ++i) {
-        into.push_back((*i).first);
+    for (const auto & i : myVTypeDistDict) {
+        into.push_back(i.first);
     }
 }
 
@@ -387,8 +387,8 @@ MSVehicleControl::getWaitingVehicle(const MSEdge* const edge, const std::set<std
                 }
             }
         }
-        for (std::vector<SUMOVehicle*>::iterator it = waitingTooFarAway.begin(); it != waitingTooFarAway.end(); ++it) {
-            WRITE_WARNING(ridingID + " at edge '" + edge->getID() + "' position " + toString(position) + " cannot use waiting vehicle '" + (*it)->getID() + "' at position " + toString((*it)->getPositionOnLane()) + " because it is too far away.");
+        for (auto & it : waitingTooFarAway) {
+            WRITE_WARNING(ridingID + " at edge '" + edge->getID() + "' position " + toString(position) + " cannot use waiting vehicle '" + it->getID() + "' at position " + toString(it->getPositionOnLane()) + " because it is too far away.");
         }
     }
     return nullptr;

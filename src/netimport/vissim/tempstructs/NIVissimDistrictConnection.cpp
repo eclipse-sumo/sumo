@@ -117,12 +117,12 @@ NIVissimDistrictConnection::dictionary(int id) {
 void
 NIVissimDistrictConnection::dict_BuildDistrictConnections() {
     //  pre-assign connections to districts
-    for (DictType::iterator i = myDict.begin(); i != myDict.end(); i++) {
-        NIVissimDistrictConnection* c = (*i).second;
+    for (auto & i : myDict) {
+        NIVissimDistrictConnection* c = i.second;
         const std::vector<int>& districts = c->myDistricts;
-        for (std::vector<int>::const_iterator j = districts.begin(); j != districts.end(); j++) {
+        for (std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<int> > >::value_type district : districts) {
             // assign connection to district
-            myDistrictsConnections[*j].push_back((*i).first);
+            myDistrictsConnections[district].push_back(i.first);
         }
     }
 }
@@ -130,10 +130,10 @@ NIVissimDistrictConnection::dict_BuildDistrictConnections() {
 
 void
 NIVissimDistrictConnection::dict_CheckEdgeEnds() {
-    for (std::map<int, std::vector<int> >::iterator k = myDistrictsConnections.begin(); k != myDistrictsConnections.end(); k++) {
-        const std::vector<int>& connections = (*k).second;
-        for (std::vector<int>::const_iterator j = connections.begin(); j != connections.end(); j++) {
-            NIVissimDistrictConnection* c = dictionary(*j);
+    for (auto & myDistrictsConnection : myDistrictsConnections) {
+        const std::vector<int>& connections = myDistrictsConnection.second;
+        for (std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<int> > >::value_type connection : connections) {
+            NIVissimDistrictConnection* c = dictionary(connection);
             c->checkEdgeEnd();
         }
     }
@@ -151,17 +151,17 @@ NIVissimDistrictConnection::checkEdgeEnd() {
 void
 NIVissimDistrictConnection::dict_BuildDistrictNodes(NBDistrictCont& dc,
         NBNodeCont& nc) {
-    for (std::map<int, std::vector<int> >::iterator k = myDistrictsConnections.begin(); k != myDistrictsConnections.end(); k++) {
+    for (auto & myDistrictsConnection : myDistrictsConnections) {
         // get the connections
-        const std::vector<int>& connections = (*k).second;
+        const std::vector<int>& connections = myDistrictsConnection.second;
         // retrieve the current district
-        std::string dsid = toString<int>((*k).first);
+        std::string dsid = toString<int>(myDistrictsConnection.first);
         NBDistrict* district = new NBDistrict(dsid);
         dc.insert(district);
         // compute the middle of the district
         PositionVector pos;
-        for (std::vector<int>::const_iterator j = connections.begin(); j != connections.end(); j++) {
-            NIVissimDistrictConnection* c = dictionary(*j);
+        for (std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<int> > >::value_type connection : connections) {
+            NIVissimDistrictConnection* c = dictionary(connection);
             pos.push_back(c->geomPosition());
         }
         Position distCenter = pos.getPolygonCenter();
@@ -187,27 +187,27 @@ NIVissimDistrictConnection::dict_BuildDistricts(NBDistrictCont& dc,
     //  their normalised probability is computed within NBDistrict
     //   to avoid double code writing and more securty within the converter
     //  go through the district table
-    for (std::map<int, std::vector<int> >::iterator k = myDistrictsConnections.begin(); k != myDistrictsConnections.end(); k++) {
+    for (auto & myDistrictsConnection : myDistrictsConnections) {
         // get the connections
-        const std::vector<int>& connections = (*k).second;
+        const std::vector<int>& connections = myDistrictsConnection.second;
         // retrieve the current district
         NBDistrict* district =
-            dc.retrieve(toString<int>((*k).first));
+            dc.retrieve(toString<int>(myDistrictsConnection.first));
         NBNode* districtNode = nc.retrieve("District" + district->getID());
         assert(district != 0 && districtNode != 0);
 
-        for (std::vector<int>::const_iterator l = connections.begin(); l != connections.end(); l++) {
-            NIVissimDistrictConnection* c = dictionary(*l);
+        for (std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<int> > >::value_type connection : connections) {
+            NIVissimDistrictConnection* c = dictionary(connection);
             // get the edge to connect the parking place to
             NBEdge* e = ec.retrieve(toString<int>(c->myEdgeID));
             if (e == nullptr) {
                 e = ec.retrievePossiblySplit(toString<int>(c->myEdgeID), c->myPosition);
             }
             if (e == nullptr) {
-                WRITE_WARNING("Could not build district '" + toString<int>((*k).first) + "' - edge '" + toString<int>(c->myEdgeID) + "' is missing.");
+                WRITE_WARNING("Could not build district '" + toString<int>(myDistrictsConnection.first) + "' - edge '" + toString<int>(c->myEdgeID) + "' is missing.");
                 continue;
             }
-            std::string id = "ParkingPlace" + toString<int>(*l);
+            std::string id = "ParkingPlace" + toString<int>(connection);
             NBNode* parkingPlace = nc.retrieve(id);
             if (parkingPlace == nullptr) {
                 double pos = c->getPosition();
@@ -226,7 +226,7 @@ NIVissimDistrictConnection::dict_BuildDistricts(NBDistrictCont& dc,
 
             // build the connection to the source
             if (e->getFromNode() == parkingPlace) {
-                id = "VissimFromParkingplace" + toString<int>((*k).first) + "-" + toString<int>(c->myID);
+                id = "VissimFromParkingplace" + toString<int>(myDistrictsConnection.first) + "-" + toString<int>(c->myID);
                 NBEdge* source =
                     new NBEdge(id, districtNode, parkingPlace,
                                "Connection", c->getMeanSpeed(/*distc*/) / (double) 3.6, 3, -1,
@@ -235,7 +235,7 @@ NIVissimDistrictConnection::dict_BuildDistricts(NBDistrictCont& dc,
                     throw 1; // !!!
                 }
                 double percNormed =
-                    c->myPercentages[(*k).first];
+                    c->myPercentages[myDistrictsConnection.first];
                 if (!district->addSource(source, percNormed)) {
                     throw 1;
                 }
@@ -243,7 +243,7 @@ NIVissimDistrictConnection::dict_BuildDistricts(NBDistrictCont& dc,
 
             // build the connection to the destination
             if (e->getToNode() == parkingPlace) {
-                id = "VissimToParkingplace"  + toString<int>((*k).first) + "-" + toString<int>(c->myID);
+                id = "VissimToParkingplace"  + toString<int>(myDistrictsConnection.first) + "-" + toString<int>(c->myID);
                 NBEdge* destination =
                     new NBEdge(id, parkingPlace, districtNode,
                                "Connection", (double) 100 / (double) 3.6, 2, -1,
@@ -252,7 +252,7 @@ NIVissimDistrictConnection::dict_BuildDistricts(NBDistrictCont& dc,
                     throw 1; // !!!
                 }
                 double percNormed2 =
-                    c->myPercentages[(*k).first];
+                    c->myPercentages[myDistrictsConnection.first];
                 if (!district->addSink(destination, percNormed2)) {
                     throw 1; // !!!
                 }
@@ -337,9 +337,9 @@ NIVissimDistrictConnection::geomPosition() const {
 
 NIVissimDistrictConnection*
 NIVissimDistrictConnection::dict_findForEdge(int edgeid) {
-    for (DictType::iterator i = myDict.begin(); i != myDict.end(); i++) {
-        if ((*i).second->myEdgeID == edgeid) {
-            return (*i).second;
+    for (auto & i : myDict) {
+        if (i.second->myEdgeID == edgeid) {
+            return i.second;
         }
     }
     return nullptr;
@@ -348,8 +348,8 @@ NIVissimDistrictConnection::dict_findForEdge(int edgeid) {
 
 void
 NIVissimDistrictConnection::clearDict() {
-    for (DictType::iterator i = myDict.begin(); i != myDict.end(); i++) {
-        delete(*i).second;
+    for (auto & i : myDict) {
+        deletei.second;
     }
     myDict.clear();
 }

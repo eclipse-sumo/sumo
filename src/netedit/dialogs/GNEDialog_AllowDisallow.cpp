@@ -127,8 +127,8 @@ long
 GNEDialog_AllowDisallow::onCmdValueChanged(FXObject* obj, FXSelector, void*) {
     FXButton* buttonPressed = dynamic_cast<FXButton*>(obj);
     // change icon of button
-    for (auto i = myVClassMap.begin(); i != myVClassMap.end(); i++) {
-        if (i->second.first == buttonPressed) {
+    for (auto & i : myVClassMap) {
+        if (i.second.first == buttonPressed) {
             if (buttonPressed->getIcon() == GUIIconSubSys::getIcon(ICON_ACCEPT)) {
                 buttonPressed->setIcon(GUIIconSubSys::getIcon(ICON_CANCEL));
             } else {

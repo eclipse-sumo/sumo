@@ -167,15 +167,15 @@ NIXMLTrafficLightsHandler::initTrafficLightLogic(const SUMOSAXAttributes& attrs,
             loadedDef = new NBLoadedSUMOTLDef(id, programID, offset, type);
             // copy nodes and controlled inner edges
             std::vector<NBNode*> nodes = newDef->getNodes();
-            for (std::vector<NBNode*>::iterator it = nodes.begin(); it != nodes.end(); it++) {
-                loadedDef->addNode(*it);
+            for (auto & node : nodes) {
+                loadedDef->addNode(node);
             }
             loadedDef->addControlledInnerEdges(newDef->getControlledInnerEdges());
             if (programID == NBTrafficLightDefinition::DefaultProgramID) {
                 // replace default Program
                 std::vector<NBNode*> nodes = newDef->getNodes();
-                for (std::vector<NBNode*>::iterator it = nodes.begin(); it != nodes.end(); it++) {
-                    (*it)->removeTrafficLight(newDef);
+                for (auto & node : nodes) {
+                    node->removeTrafficLight(newDef);
                 }
                 myTLLCont.removeProgram(id, NBTrafficLightDefinition::DefaultProgramID);
             }
@@ -188,8 +188,8 @@ NIXMLTrafficLightsHandler::initTrafficLightLogic(const SUMOSAXAttributes& attrs,
             loadedDef = new NBLoadedSUMOTLDef(oldDef, newLogic);
             // copy nodes
             std::vector<NBNode*> nodes = oldDef->getNodes();
-            for (std::vector<NBNode*>::iterator it = nodes.begin(); it != nodes.end(); it++) {
-                loadedDef->addNode(*it);
+            for (auto & node : nodes) {
+                loadedDef->addNode(node);
             }
             //std::cout << " case3 oldDef=" << oldDef->getDescription() << " loadedDef=" << loadedDef->getDescription() << "\n";
             myTLLCont.insert(loadedDef);

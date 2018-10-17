@@ -167,8 +167,8 @@ GUISelectedStorage::getSelected(GUIGlObjectType type) {
 
 void
 GUISelectedStorage::clear() {
-    for (std::map<GUIGlObjectType, SingleTypeSelections>::iterator it = mySelections.begin(); it != mySelections.end(); it++) {
-        it->second.clear();
+    for (auto & mySelection : mySelections) {
+        mySelection.second.clear();
     }
     myAllSelected.clear();
     if (myUpdateTarget) {
@@ -226,8 +226,8 @@ std::string
 GUISelectedStorage::load(const std::string& filename, GUIGlObjectType type) {
     std::string errors;
     const std::set<GUIGlID> ids = loadIDs(filename, errors, type);
-    for (std::set<GUIGlID>::const_iterator it = ids.begin(); it != ids.end(); it++) {
-        select(*it, false);
+    for (std::_Tree_const_iterator<std::_Tree_val<std::_Tree_simple_types<unsigned int> > >::value_type id : ids) {
+        select(id, false);
     }
     if (myUpdateTarget) {
         myUpdateTarget->selectionUpdated();
@@ -263,12 +263,12 @@ GUISelectedStorage::remove2Update() {
 void
 GUISelectedStorage::save(const std::string& filename, const std::set<GUIGlID>& ids) {
     OutputDevice& dev = OutputDevice::getDevice(filename);
-    for (std::set<GUIGlID>::const_iterator i = ids.begin(); i != ids.end(); ++i) {
-        GUIGlObject* object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(*i);
+    for (std::_Tree_const_iterator<std::_Tree_val<std::_Tree_simple_types<unsigned int> > >::value_type id : ids) {
+        GUIGlObject* object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
         if (object != nullptr) {
             std::string name = object->getFullName();
             dev << name << "\n";
-            GUIGlObjectStorage::gIDStorage.unblockObject(*i);
+            GUIGlObjectStorage::gIDStorage.unblockObject(id);
         }
     }
     dev.close();

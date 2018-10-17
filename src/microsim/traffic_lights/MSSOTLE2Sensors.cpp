@@ -50,9 +50,8 @@ void MSSOTLE2Sensors::buildSensors(
     for (MSTrafficLightLogic::LaneVectorVector::const_iterator laneVector =
                 controlledLanes.begin(); laneVector != controlledLanes.end();
             laneVector++) {
-        for (MSTrafficLightLogic::LaneVector::const_iterator lane =
-                    laneVector->begin(); lane != laneVector->end(); lane++) {
-            currentLane = (*lane);
+        for (auto lane : *laneVector) {
+            currentLane = lane;
             buildSensorForLane(currentLane, nb, sensorLength);
         }
     }
@@ -70,9 +69,8 @@ void MSSOTLE2Sensors::buildCountSensors(
     for (MSTrafficLightLogic::LaneVectorVector::const_iterator laneVector =
                 controlledLanes.begin(); laneVector != controlledLanes.end();
             laneVector++) {
-        for (MSTrafficLightLogic::LaneVector::const_iterator lane =
-                    laneVector->begin(); lane != laneVector->end(); lane++) {
-            currentLane = (*lane);
+        for (auto lane : *laneVector) {
+            currentLane = lane;
             buildCountSensorForLane(currentLane, nb);
         }
     }
@@ -88,9 +86,8 @@ void MSSOTLE2Sensors::buildCountOutSensors(
     for (MSTrafficLightLogic::LaneVectorVector::const_iterator laneVector =
                 controlledLanes.begin(); laneVector != controlledLanes.end();
             laneVector++) {
-        for (MSTrafficLightLogic::LaneVector::const_iterator lane =
-                    laneVector->begin(); lane != laneVector->end(); lane++) {
-            currentLane = (*lane);
+        for (auto lane : *laneVector) {
+            currentLane = lane;
             buildCountSensorForOutLane(currentLane, nb);
         }
     }
@@ -111,9 +108,8 @@ void MSSOTLE2Sensors::buildOutSensors(
     for (MSTrafficLightLogic::LaneVectorVector::const_iterator laneVector =
                 controlledLanes.begin(); laneVector != controlledLanes.end();
             laneVector++) {
-        for (MSTrafficLightLogic::LaneVector::const_iterator lane =
-                    laneVector->begin(); lane != laneVector->end(); lane++) {
-            currentLane = (*lane);
+        for (auto lane : *laneVector) {
+            currentLane = lane;
             buildSensorForOutLane(currentLane, nb, sensorLength);
         }
     }
@@ -214,9 +210,9 @@ int MSSOTLE2Sensors::getPassedVeh(std::string laneId, bool /* out */) {
     } else {
         int additional = 0;
         if (m_continueSensorOnLanes.find(laneId) != m_continueSensorOnLanes.end())
-            for (std::vector<std::string>::iterator it = m_continueSensorOnLanes[laneId].begin(); it != m_continueSensorOnLanes[laneId].end(); ++ it) {
+            for (auto & it : m_continueSensorOnLanes[laneId]) {
                 int tmp = 0;
-                if (getVelueFromSensor(*it, &MSE2Collector::getPassedVeh, tmp)) {
+                if (getVelueFromSensor(it, &MSE2Collector::getPassedVeh, tmp)) {
                     additional += tmp;
                 }
             }
@@ -312,10 +308,10 @@ void MSSOTLE2Sensors::buildContinueSensior(MSLane* lane, NLDetectorBuilder& nb, 
         WRITE_MESSAGE(oss.str())
         //Continue other line if needed.
         if (length + usedLength < sensorLength * 0.9) {
-            for (std::vector<MSLane::IncomingLaneInfo>::const_iterator it = continueOnLane->getIncomingLanes().begin(); it != continueOnLane->getIncomingLanes().end(); ++it) {
-                const MSEdge* edge = &it->lane->getEdge();
+            for (const auto & it : continueOnLane->getIncomingLanes()) {
+                const MSEdge* edge = &it.lane->getEdge();
                 if (!edge->isInternal() && !edge->isWalkingArea() && !edge->isCrossing()) {
-                    buildContinueSensior(lane, nb, sensorLength, it->lane, length + usedLength);
+                    buildContinueSensior(lane, nb, sensorLength, it.lane, length + usedLength);
                 }
             }
         }
@@ -414,9 +410,9 @@ int MSSOTLE2Sensors::estimateVehicles(std::string laneId) {
     }
     int additional = 0;
     if (m_continueSensorOnLanes.find(laneId) != m_continueSensorOnLanes.end())
-        for (std::vector<std::string>::iterator it = m_continueSensorOnLanes[laneId].begin(); it != m_continueSensorOnLanes[laneId].end(); ++ it) {
-            if (m_sensorMap.find(*it) != m_sensorMap.end()) {
-                additional += m_sensorMap[*it]->getEstimatedCurrentVehicleNumber(speedThresholdParam);
+        for (auto & it : m_continueSensorOnLanes[laneId]) {
+            if (m_sensorMap.find(it) != m_sensorMap.end()) {
+                additional += m_sensorMap[it]->getEstimatedCurrentVehicleNumber(speedThresholdParam);
             }
         }
     return sensorsIterator->second->getEstimatedCurrentVehicleNumber(speedThresholdParam) + additional;
@@ -430,9 +426,9 @@ int MSSOTLE2Sensors::countVehicles(std::string laneId) {
     }
     int additional = 0;
     if (m_continueSensorOnLanes.find(laneId) != m_continueSensorOnLanes.end()) {
-        for (std::vector<std::string>::iterator it = m_continueSensorOnLanes[laneId].begin(); it != m_continueSensorOnLanes[laneId].end(); ++ it) {
-            if (m_sensorMap.find(*it) != m_sensorMap.end()) {
-                additional += count(m_sensorMap[*it]);
+        for (auto & it : m_continueSensorOnLanes[laneId]) {
+            if (m_sensorMap.find(it) != m_sensorMap.end()) {
+                additional += count(m_sensorMap[it]);
             }
         }
     }
@@ -463,14 +459,14 @@ double MSSOTLE2Sensors::meanVehiclesSpeed(std::string laneId) {
     double meanSpeedAcc = 0;
     int totalCarNumer = 0;
     if (m_continueSensorOnLanes.find(laneId) != m_continueSensorOnLanes.end())
-        for (std::vector<std::string>::iterator it = m_continueSensorOnLanes[laneId].begin(); it != m_continueSensorOnLanes[laneId].end(); ++ it) {
+        for (auto & it : m_continueSensorOnLanes[laneId]) {
             int number = 0;
             double mean = -1;
-            if (!getVelueFromSensor(*it, &MSE2Collector::getCurrentVehicleNumber, number)) {
+            if (!getVelueFromSensor(it, &MSE2Collector::getCurrentVehicleNumber, number)) {
                 continue;
             }
             totalCarNumer += number;
-            getVelueFromSensor(*it, &MSE2Collector::getCurrentMeanSpeed, mean);
+            getVelueFromSensor(it, &MSE2Collector::getCurrentMeanSpeed, mean);
             meanSpeedAcc += mean * (double) number;
         }
     int number = sensorsIteratorOut->second->getCurrentVehicleNumber();
@@ -502,9 +498,9 @@ void MSSOTLE2Sensors::setVehicleWeigths(const std::string& weightString) {
     split(weightString, ';', types);
     std::ostringstream logstr;
     logstr << "[MSSOTLE2Sensors::setVehicleWeigths] ";
-    for (std::vector<std::string>::iterator typesIt = types.begin(); typesIt != types.end(); ++typesIt) {
+    for (auto & typesIt : types) {
         std::vector<std::string> typeWeight;
-        split(*typesIt, '=', typeWeight);
+        split(typesIt, '=', typeWeight);
         if (typeWeight.size() == 2) {
             std::string type = trim(typeWeight[0]);
             int value = TplConvert::_2int(typeWeight[1].c_str());
@@ -524,9 +520,9 @@ int MSSOTLE2Sensors::count(MSE2Collector* sensor) {
     const std::vector<MSE2Collector::VehicleInfo*> vehicles = sensor->getCurrentVehicles();
     std::ostringstream logstr;
     logstr << "[MSSOTLE2Sensors::count]";
-    for (std::vector<MSE2Collector::VehicleInfo*>::const_iterator vit = vehicles.begin(); vit != vehicles.end(); ++vit) {
-        if ((*vit)->onDetector) {
-            const std::string vtype = (*vit)->type;
+    for (auto vehicle : vehicles) {
+        if (vehicle->onDetector) {
+            const std::string vtype = vehicle->type;
             if (m_typeWeightMap.find(vtype) != m_typeWeightMap.end()) {
                 number += m_typeWeightMap[vtype];
 //                DBG(logstr << " Added " << m_typeWeightMap[vtype] << " for vtype " << vtype;)

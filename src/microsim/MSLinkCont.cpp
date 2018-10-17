@@ -34,8 +34,7 @@ MSLinkContHelper::getInternalFollowingEdge(const MSLane* fromLane,
         const MSEdge* followerAfterInternal) {
     //@todo to be optimized
     const MSLinkCont& lc = fromLane->getLinkCont();
-    for (MSLinkCont::const_iterator j = lc.begin(); j != lc.end(); j++) {
-        MSLink* link = *j;
+    for (auto link : lc) {
         if (&link->getLane()->getEdge() == followerAfterInternal) {
             if (link->getViaLane() != nullptr) {
                 return &link->getViaLane()->getEdge();
@@ -53,8 +52,7 @@ MSLinkContHelper::getInternalFollowingLane(const MSLane* fromLane,
         const MSLane* followerAfterInternal) {
     //@todo to be optimized
     const MSLinkCont& lc = fromLane->getLinkCont();
-    for (MSLinkCont::const_iterator j = lc.begin(); j != lc.end(); j++) {
-        MSLink* link = *j;
+    for (auto link : lc) {
         if (link->getLane() == followerAfterInternal) {
             if (link->getViaLane() != nullptr) {
                 return link->getViaLane();
@@ -70,8 +68,7 @@ MSLinkContHelper::getInternalFollowingLane(const MSLane* fromLane,
 MSLink*
 MSLinkContHelper::getConnectingLink(const MSLane& from, const MSLane& to) {
     const MSLinkCont& lc = from.getLinkCont();
-    for (MSLinkCont::const_iterator j = lc.begin(); j != lc.end(); j++) {
-        MSLink* link = *j;
+    for (auto link : lc) {
         if (link->getLane() == &to) {
             return link;
         } else if (link->getViaLaneOrLane() == &to) {

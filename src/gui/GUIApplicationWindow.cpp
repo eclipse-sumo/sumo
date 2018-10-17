@@ -720,10 +720,10 @@ GUIApplicationWindow::onCmdEditChosen(FXObject* menu, FXSelector, void*) {
     } else {
         if (!myAmLoading && myRunThread->simulationAvailable()) {
             const SUMOVehicleClass svc = SumoVehicleClassStrings.get(mc->getText().text());
-            for (MSEdgeVector::const_iterator i = MSEdge::getAllEdges().begin(); i != MSEdge::getAllEdges().end(); ++i) {
-                const std::vector<MSLane*>& lanes = (*i)->getLanes();
-                for (std::vector<MSLane*>::const_iterator it = lanes.begin(); it != lanes.end(); ++it) {
-                    GUILane* lane = dynamic_cast<GUILane*>(*it);
+            for (auto i : MSEdge::getAllEdges()) {
+                const std::vector<MSLane*>& lanes = i->getLanes();
+                for (auto it : lanes) {
+                    GUILane* lane = dynamic_cast<GUILane*>(it);
                     assert(lane != 0);
                     if ((lane->getPermissions() & svc) != 0) {
                         gSelected.select(lane->getGlID());
@@ -1364,8 +1364,8 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent* e) {
             const GUISUMOViewParent::ViewType defaultType = ec->myOsgView ? GUISUMOViewParent::VIEW_3D_OSG : GUISUMOViewParent::VIEW_2D_OPENGL;
             if (ec->mySettingsFiles.size() > 0) {
                 // open a view for each file and apply settings
-                for (std::vector<std::string>::const_iterator it = ec->mySettingsFiles.begin(); it != ec->mySettingsFiles.end(); ++it) {
-                    GUISettingsHandler settings(*it);
+                for (const auto & mySettingsFile : ec->mySettingsFiles) {
+                    GUISettingsHandler settings(mySettingsFile);
                     GUISUMOViewParent::ViewType vt = defaultType;
                     if (settings.getViewType() == "osg" || settings.getViewType() == "3d") {
                         vt = GUISUMOViewParent::VIEW_3D_OSG;

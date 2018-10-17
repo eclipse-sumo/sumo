@@ -61,8 +61,8 @@ MSInsertionControl::MSInsertionControl(MSVehicleControl& vc,
 
 
 MSInsertionControl::~MSInsertionControl() {
-    for (std::vector<Flow>::iterator i = myFlows.begin(); i != myFlows.end(); ++i) {
-        delete(i->pars);
+    for (auto & myFlow : myFlows) {
+        delete(myFlow.pars);
     }
 }
 
@@ -307,8 +307,8 @@ MSInsertionControl::getPendingEmits(const MSLane* lane) {
                 // lanes of the depart edge
                 const MSEdge* edge = (*veh)->getEdge();
                 const std::vector<MSLane*>& lanes = edge->getLanes();
-                for (std::vector<MSLane*>::const_iterator i = lanes.begin(); i != lanes.end(); ++i) {
-                    myPendingEmitsForLane[*i]++;
+                for (auto lane : lanes) {
+                    myPendingEmitsForLane[lane]++;
                 }
             }
         }

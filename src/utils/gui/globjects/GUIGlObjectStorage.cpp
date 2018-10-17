@@ -131,8 +131,8 @@ std::set<GUIGlID>
 GUIGlObjectStorage::getAllIDs() const {
     AbstractMutex::ScopedLocker locker(myLock);
     std::set<GUIGlID> result;
-    for (ObjectMap::const_iterator it = myMap.begin(); it != myMap.end(); it++) {
-        result.insert(it->first);
+    for (const auto & it : myMap) {
+        result.insert(it.first);
     }
     return result;
 }

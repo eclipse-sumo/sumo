@@ -57,8 +57,8 @@ MSNoLogicJunction::postloadInit() {
     // inform links where they have to report approaching vehicles to
     for (i = myIncomingLanes.begin(); i != myIncomingLanes.end(); ++i) {
         const MSLinkCont& links = (*i)->getLinkCont();
-        for (MSLinkCont::const_iterator j = links.begin(); j != links.end(); j++) {
-            (*j)->setRequestInformation(-1, false, false, std::vector<MSLink*>(), std::vector<MSLane*>());
+        for (auto link : links) {
+            link->setRequestInformation(-1, false, false, std::vector<MSLink*>(), std::vector<MSLane*>());
         }
     }
 }
@@ -69,8 +69,7 @@ MSNoLogicJunction::getInternalLanes() const {
     // Besides the lanes im myInternal lanes, which are only the last parts of the connections,
     // this collects all lanes on the junction
     std::vector<MSLane*> allInternalLanes;
-    for (std::vector<MSLane*>::const_iterator i = myInternalLanes.begin(); i != myInternalLanes.end(); ++i) {
-        MSLane* l = *i;
+    for (auto l : myInternalLanes) {
         while (l != nullptr) {
             allInternalLanes.push_back(l);
             const std::vector<MSLane::IncomingLaneInfo> incoming = l->getIncomingLanes();

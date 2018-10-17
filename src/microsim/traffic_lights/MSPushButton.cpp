@@ -58,8 +58,8 @@ bool MSPedestrianPushButton::isActivated() const {
 bool MSPedestrianPushButton::isActiveForEdge(const MSEdge* walkingEdge, const MSEdge* crossing) {
     const std::set<MSTransportable*> persons = walkingEdge->getPersons();
     if (persons.size() > 0) {
-        for (std::set<MSTransportable*>::const_iterator pIt = persons.begin(); pIt != persons.end(); ++pIt) {
-            const MSPerson* person = (MSPerson*)*pIt;
+        for (auto pIt : persons) {
+            const MSPerson* person = (MSPerson*)pIt;
             const MSEdge* nextEdge = person->getNextEdgePtr();
             ///TODO keep using >= 1 or switch to ==1. Should change return value from always active to active only when pressed?
             ///TODO If changed the swarm logic must be changed since it relies on this behavior that keeps it active
@@ -117,8 +117,7 @@ bool MSPedestrianPushButton::isActiveForEdge(const MSEdge* walkingEdge, const MS
 
 ///@brief Checks if any of the edges is a walking area
 void getWalking(const std::vector<MSEdge*>& edges, std::vector< MSEdge*>& walkingEdges) {
-    for (std::vector<MSEdge*>::const_iterator it = edges.begin(); it != edges.end(); ++it) {
-        MSEdge* edge = *it;
+    for (auto edge : edges) {
         if (edge->isWalkingArea() || ((edge->getPermissions() & SVC_PEDESTRIAN) != 0)) {
             walkingEdges.push_back(edge);
         }
@@ -136,8 +135,7 @@ const std::vector<MSEdge*> getWalkingAreas(const MSEdge* crossing) {
 
 bool MSPedestrianPushButton::isActiveOnAnySideOfTheRoad(const MSEdge* crossing) {
     const std::vector<MSEdge*> walkingList = getWalkingAreas(crossing);
-    for (std::vector<MSEdge*>::const_iterator wIt = walkingList.begin(); wIt != walkingList.end(); ++wIt) {
-        MSEdge* walking = *wIt;
+    for (auto walking : walkingList) {
         if (isActiveForEdge(walking, crossing)) {
             DBG(WRITE_MESSAGE("MSPedestrianPushButton::isActiveOnAnySideOfTheRoad crossing edge " + crossing->getID() + " walking edge" + walking->getID()););
             return true;
@@ -152,8 +150,8 @@ std::vector<MSPushButton*> MSPedestrianPushButton::loadPushButtons(const MSPhase
     const std::vector<std::string> lanes = phase->getTargetLaneSet();
 //    Multiple lane can be of the same edge, so I avoid readding them
     std::set<std::string> controlledEdges;
-    for (std::vector<std::string>::const_iterator lIt = lanes.begin(); lIt != lanes.end(); ++lIt) {
-        MSLane* lane = MSLane::dictionary(*lIt);
+    for (const auto & lIt : lanes) {
+        MSLane* lane = MSLane::dictionary(lIt);
         if (lane) {
             MSEdge* laneEdge = &lane->getEdge();
             if (controlledEdges.count(laneEdge->getID()) != 0) {
@@ -166,8 +164,7 @@ std::vector<MSPushButton*> MSPedestrianPushButton::loadPushButtons(const MSPhase
                         cIt != m_crossingEdgeMap[laneEdge->getID()].end(); ++cIt) {
                     MSEdge* crossing = MSEdge::dictionary(*cIt);
                     const std::vector<MSEdge*> walkingList = getWalkingAreas(crossing);
-                    for (std::vector<MSEdge*>::const_iterator wIt = walkingList.begin(); wIt != walkingList.end(); ++wIt) {
-                        MSEdge* walking = *wIt;
+                    for (auto walking : walkingList) {
                         DBG(WRITE_MESSAGE("MSPedestrianPushButton::loadPushButtons Added pushButton for walking edge " + walking->getID() + " crossing edge "
                                           + crossing->getID() + " crossed edge " + laneEdge->getID() + ". Phase state " + phase->getState()););
                         pushButtons.push_back(new MSPedestrianPushButton(walking, crossing));
@@ -182,8 +179,7 @@ std::vector<MSPushButton*> MSPedestrianPushButton::loadPushButtons(const MSPhase
 void MSPedestrianPushButton::loadCrossingEdgeMap() {
     if (!m_crossingEdgeMapLoaded) {
         m_crossingEdgeMapLoaded = true;
-        for (MSEdgeVector::const_iterator eIt = MSEdge::getAllEdges().begin(); eIt != MSEdge::getAllEdges().end(); ++eIt) {
-            const MSEdge* edge = *eIt;
+        for (auto edge : MSEdge::getAllEdges()) {
             if (edge->isCrossing()) {
                 for (std::vector<std::string>::const_iterator cIt = edge->getCrossingEdges().begin();
                         cIt != edge->getCrossingEdges().end(); ++cIt) {

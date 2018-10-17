@@ -42,8 +42,8 @@ MSDetectorControl::MSDetectorControl() {
 
 
 MSDetectorControl::~MSDetectorControl() {
-    for (std::map<SumoXMLTag, NamedObjectCont<MSDetectorFileOutput*> >::iterator i = myDetectors.begin(); i != myDetectors.end(); ++i) {
-        (*i).second.clear();
+    for (auto & myDetector : myDetectors) {
+        myDetector.second.clear();
     }
     for (std::vector<MSMeanData*>::const_iterator i = myMeanData.begin(); i != myMeanData.end(); ++i) {
         delete *i;
@@ -93,8 +93,8 @@ MSDetectorControl::add(MSMeanData* mn, const std::string& device,
 const std::vector<SumoXMLTag>
 MSDetectorControl::getAvailableTypes() const {
     std::vector<SumoXMLTag> result;
-    for (std::map<SumoXMLTag, NamedObjectCont<MSDetectorFileOutput*> >::const_iterator i = myDetectors.begin(); i != myDetectors.end(); ++i) {
-        result.push_back(i->first);
+    for (const auto & myDetector : myDetectors) {
+        result.push_back(myDetector.first);
     }
     return result;
 }
@@ -124,15 +124,15 @@ MSDetectorControl::updateDetectors(const SUMOTime step) {
 
 void
 MSDetectorControl::writeOutput(SUMOTime step, bool closing) {
-    for (Intervals::iterator i = myIntervals.begin(); i != myIntervals.end(); ++i) {
-        IntervalsKey interval = (*i).first;
+    for (auto & myInterval : myIntervals) {
+        IntervalsKey interval = myInterval.first;
         if (myLastCalls[interval] + interval.first <= step || (closing && myLastCalls[interval] < step)) {
-            DetectorFileVec dfVec = (*i).second;
+            DetectorFileVec dfVec = myInterval.second;
             SUMOTime startTime = myLastCalls[interval];
             // check whether at the end the output was already generated
-            for (DetectorFileVec::iterator it = dfVec.begin(); it != dfVec.end(); ++it) {
-                MSDetectorFileOutput* det = it->first;
-                det->writeXMLOutput(*(it->second), startTime, step);
+            for (auto & it : dfVec) {
+                MSDetectorFileOutput* det = it.first;
+                det->writeXMLOutput(*(it.second), startTime, step);
             }
             myLastCalls[interval] = step;
         }

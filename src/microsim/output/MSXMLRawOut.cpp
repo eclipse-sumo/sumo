@@ -51,8 +51,8 @@ MSXMLRawOut::write(OutputDevice& of, const MSEdgeControl& ec,
     of.openTag("timestep") << " time=\"" << time2string(timestep) << "\"";
     of.setPrecision(precision);
     const MSEdgeVector& edges = ec.getEdges();
-    for (MSEdgeVector::const_iterator e = edges.begin(); e != edges.end(); ++e) {
-        writeEdge(of, **e, timestep);
+    for (auto edge : edges) {
+        writeEdge(of, *edge, timestep);
     }
     of.setPrecision(gPrecision);
     of.closeTag();
@@ -75,8 +75,8 @@ MSXMLRawOut::writeEdge(OutputDevice& of, const MSEdge& edge, SUMOTime timestep) 
             }
         } else {
             const std::vector<MSLane*>& lanes = edge.getLanes();
-            for (std::vector<MSLane*>::const_iterator lane = lanes.begin(); lane != lanes.end(); ++lane) {
-                if (((**lane).getVehicleNumber() != 0)) {
+            for (auto lane : lanes) {
+                if (((*lane).getVehicleNumber() != 0)) {
                     dump = true;
                     break;
                 }
@@ -97,18 +97,18 @@ MSXMLRawOut::writeEdge(OutputDevice& of, const MSEdge& edge, SUMOTime timestep) 
                 }
             } else {
                 const std::vector<MSLane*>& lanes = edge.getLanes();
-                for (std::vector<MSLane*>::const_iterator lane = lanes.begin(); lane != lanes.end(); ++lane) {
-                    writeLane(of, **lane);
+                for (auto lane : lanes) {
+                    writeLane(of, *lane);
                 }
             }
         }
         // write persons
-        for (std::vector<MSTransportable*>::const_iterator it_p = persons.begin(); it_p != persons.end(); ++it_p) {
-            writeTransportable(of, *it_p, SUMO_TAG_PERSON);
+        for (auto person : persons) {
+            writeTransportable(of, person, SUMO_TAG_PERSON);
         }
         // write containers
-        for (std::vector<MSTransportable*>::const_iterator it_c = containers.begin(); it_c != containers.end(); ++it_c) {
-            writeTransportable(of, *it_c, SUMO_TAG_CONTAINER);
+        for (auto container : containers) {
+            writeTransportable(of, container, SUMO_TAG_CONTAINER);
         }
         of.closeTag();
     }
@@ -119,13 +119,11 @@ void
 MSXMLRawOut::writeLane(OutputDevice& of, const MSLane& lane) {
     of.openTag("lane") << " id=\"" << lane.myID << "\"";
     if (lane.getVehicleNumber() != 0) {
-        for (std::vector<MSVehicle*>::const_iterator veh = lane.myVehBuffer.begin();
-                veh != lane.myVehBuffer.end(); ++veh) {
-            writeVehicle(of, **veh);
+        for (auto veh : lane.myVehBuffer) {
+            writeVehicle(of, *veh);
         }
-        for (MSLane::VehCont::const_iterator veh = lane.myVehicles.begin();
-                veh != lane.myVehicles.end(); ++veh) {
-            writeVehicle(of, **veh);
+        for (auto myVehicle : lane.myVehicles) {
+            writeVehicle(of, *myVehicle);
         }
     }
     of.closeTag();
@@ -157,12 +155,12 @@ MSXMLRawOut::writeVehicle(OutputDevice& of, const MSBaseVehicle& veh) {
                 of.writeAttr(SUMO_ATTR_CONTAINER_NUMBER, containerNumber);
             }
             const std::vector<MSTransportable*>& persons = microVeh.getPersons();
-            for (std::vector<MSTransportable*>::const_iterator it_p = persons.begin(); it_p != persons.end(); ++it_p) {
-                writeTransportable(of, *it_p, SUMO_TAG_PERSON);
+            for (auto person : persons) {
+                writeTransportable(of, person, SUMO_TAG_PERSON);
             }
             const std::vector<MSTransportable*>& containers = microVeh.getContainers();
-            for (std::vector<MSTransportable*>::const_iterator it_c = containers.begin(); it_c != containers.end(); ++it_c) {
-                writeTransportable(of, *it_c, SUMO_TAG_CONTAINER);
+            for (auto container : containers) {
+                writeTransportable(of, container, SUMO_TAG_CONTAINER);
             }
         }
         of.closeTag();

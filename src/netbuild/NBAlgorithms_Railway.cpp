@@ -336,11 +336,11 @@ NBRailwayTopologyAnalyzer::getRailNodes(NBNetBuilder& nb, bool verbose) {
 
     NBEdgeCont& ec = nb.getEdgeCont();
     int numRailEdges = 0;
-    for (auto it = ec.begin(); it != ec.end(); it++) {
-        if (isRailway(it->second->getPermissions())) {
+    for (const auto & it : ec) {
+        if (isRailway(it.second->getPermissions())) {
             numRailEdges++;
-            railNodes.insert(it->second->getFromNode());
-            railNodes.insert(it->second->getToNode());
+            railNodes.insert(it.second->getFromNode());
+            railNodes.insert(it.second->getToNode());
 
         }
     }
@@ -462,8 +462,8 @@ NBRailwayTopologyAnalyzer::extendBidiEdges(NBNetBuilder& nb) {
     int added = 0;
     std::set<NBNode*> railNodes = getRailNodes(nb);
     NBEdgeCont& ec = nb.getEdgeCont();
-    for (auto it = ec.begin(); it != ec.end(); it++) {
-        NBEdge* e = it->second;
+    for (const auto & it : ec) {
+        NBEdge* e = it.second;
         if (e->isBidiRail()) {
             added += extendBidiEdges(nb, e->getFromNode(), e->getTurnDestination(true));
             added += extendBidiEdges(nb, e->getToNode(), e);

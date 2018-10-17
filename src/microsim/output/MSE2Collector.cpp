@@ -297,14 +297,14 @@ MSE2Collector::recalculateDetectorLength() {
 
 MSE2Collector::~MSE2Collector() {
     // clear move notifications
-    for (std::vector<MoveNotificationInfo*>::iterator j = myMoveNotifications.begin(); j != myMoveNotifications.end(); ++j) {
-        delete *j;
+    for (auto & myMoveNotification : myMoveNotifications) {
+        delete myMoveNotification;
     }
     myMoveNotifications.clear();
 
     // clear vehicle infos
-    for (VehicleInfoMap::iterator j = myVehicleInfos.begin(); j != myVehicleInfos.end(); ++j) {
-        delete j->second;
+    for (auto & myVehicleInfo : myVehicleInfos) {
+        delete myVehicleInfo.second;
     }
     myVehicleInfos.clear();
 }
@@ -427,8 +427,8 @@ MSE2Collector::addDetectorToLanes(std::vector<MSLane*>& lanes) {
     std::cout << "\n" << "Adding detector " << myID << " to lanes:" << std::endl;
 }
 #endif
-for (std::vector<MSLane*>::iterator l = lanes.begin(); l != lanes.end(); ++l) {
-        (*l)->addMoveReminder(this);
+for (auto & lane : lanes) {
+        lane->addMoveReminder(this);
 #ifdef DEBUG_E2_CONSTRUCTOR
         if DEBUG_COND {
         std::cout << (*l)->getID() << std::endl;
@@ -919,8 +919,8 @@ for (i = myLeftVehicles.begin(); i != myLeftVehicles.end(); ++i) {
 myLeftVehicles.clear();
 
     // reset move notifications
-    for (std::vector<MoveNotificationInfo*>::iterator j = myMoveNotifications.begin(); j != myMoveNotifications.end(); ++j) {
-        delete *j;
+    for (auto & myMoveNotification : myMoveNotifications) {
+        delete myMoveNotification;
     }
     myMoveNotifications.clear();
 }
@@ -1188,8 +1188,8 @@ MSE2Collector::processJams(std::vector<JamInfo*>& jams, JamInfo* currentJam) {
     myCurrentJamNo = (int) jams.size();
 
     // clean up jam structure
-    for (std::vector<JamInfo*>::iterator i = jams.begin(); i != jams.end(); ++i) {
-        delete *i;
+    for (auto & jam : jams) {
+        delete jam;
     }
 }
 
@@ -1272,14 +1272,14 @@ MSE2Collector::writeXMLOutput(OutputDevice& dev, SUMOTime startTime, SUMOTime st
     SUMOTime haltingDurationSum = 0;
     SUMOTime maxHaltingDuration = 0;
     int haltingNo = 0;
-    for (std::vector<SUMOTime>::iterator i = myPastStandingDurations.begin(); i != myPastStandingDurations.end(); ++i) {
-        haltingDurationSum += (*i);
-        maxHaltingDuration = MAX2(maxHaltingDuration, (*i));
+    for (std::_Vector_iterator<std::_Vector_val<std::_Simple_types<long long> > >::value_type & myPastStandingDuration : myPastStandingDurations) {
+        haltingDurationSum += myPastStandingDuration;
+        maxHaltingDuration = MAX2(maxHaltingDuration, myPastStandingDuration);
         haltingNo++;
     }
-    for (std::map<std::string, SUMOTime> ::iterator i = myHaltingVehicleDurations.begin(); i != myHaltingVehicleDurations.end(); ++i) {
-        haltingDurationSum += (*i).second;
-        maxHaltingDuration = MAX2(maxHaltingDuration, (*i).second);
+    for (auto & myHaltingVehicleDuration : myHaltingVehicleDurations) {
+        haltingDurationSum += myHaltingVehicleDuration.second;
+        maxHaltingDuration = MAX2(maxHaltingDuration, myHaltingVehicleDuration.second);
         haltingNo++;
     }
     const SUMOTime meanHaltingDuration = haltingNo != 0 ? haltingDurationSum / haltingNo : 0;
@@ -1287,14 +1287,14 @@ MSE2Collector::writeXMLOutput(OutputDevice& dev, SUMOTime startTime, SUMOTime st
     SUMOTime intervalHaltingDurationSum = 0;
     SUMOTime intervalMaxHaltingDuration = 0;
     int intervalHaltingNo = 0;
-    for (std::vector<SUMOTime>::iterator i = myPastIntervalStandingDurations.begin(); i != myPastIntervalStandingDurations.end(); ++i) {
-        intervalHaltingDurationSum += (*i);
-        intervalMaxHaltingDuration = MAX2(intervalMaxHaltingDuration, (*i));
+    for (std::_Vector_iterator<std::_Vector_val<std::_Simple_types<long long> > >::value_type & myPastIntervalStandingDuration : myPastIntervalStandingDurations) {
+        intervalHaltingDurationSum += myPastIntervalStandingDuration;
+        intervalMaxHaltingDuration = MAX2(intervalMaxHaltingDuration, myPastIntervalStandingDuration);
         intervalHaltingNo++;
     }
-    for (std::map<std::string, SUMOTime> ::iterator i = myIntervalHaltingVehicleDurations.begin(); i != myIntervalHaltingVehicleDurations.end(); ++i) {
-        intervalHaltingDurationSum += (*i).second;
-        intervalMaxHaltingDuration = MAX2(intervalMaxHaltingDuration, (*i).second);
+    for (auto & myIntervalHaltingVehicleDuration : myIntervalHaltingVehicleDurations) {
+        intervalHaltingDurationSum += myIntervalHaltingVehicleDuration.second;
+        intervalMaxHaltingDuration = MAX2(intervalMaxHaltingDuration, myIntervalHaltingVehicleDuration.second);
         intervalHaltingNo++;
     }
     const SUMOTime intervalMeanHaltingDuration = intervalHaltingNo != 0 ? intervalHaltingDurationSum / intervalHaltingNo : 0;
@@ -1362,8 +1362,8 @@ MSE2Collector::reset() {
     myMaxJamInMeters = 0;
     myTimeSamples = 0;
     myMeanVehicleNumber = 0;
-    for (std::map<std::string, SUMOTime>::iterator i = myIntervalHaltingVehicleDurations.begin(); i != myIntervalHaltingVehicleDurations.end(); ++i) {
-        (*i).second = 0;
+    for (auto & myIntervalHaltingVehicleDuration : myIntervalHaltingVehicleDurations) {
+        myIntervalHaltingVehicleDuration.second = 0;
     }
     myPastStandingDurations.clear();
     myPastIntervalStandingDurations.clear();
@@ -1373,8 +1373,8 @@ MSE2Collector::reset() {
 int
 MSE2Collector::getCurrentVehicleNumber() const {
     int result = 0;
-    for (VehicleInfoMap::const_iterator it = myVehicleInfos.begin(); it != myVehicleInfos.end(); it++) {
-        if (it->second->onDetector) {
+    for (const auto & myVehicleInfo : myVehicleInfos) {
+        if (myVehicleInfo.second->onDetector) {
             result++;
         }
     }
@@ -1386,9 +1386,9 @@ MSE2Collector::getCurrentVehicleNumber() const {
 std::vector<std::string>
 MSE2Collector::getCurrentVehicleIDs() const {
     std::vector<std::string> ret;
-    for (VehicleInfoMap::const_iterator i = myVehicleInfos.begin(); i != myVehicleInfos.end(); ++i) {
-        if (i->second->onDetector) {
-            ret.push_back(i->second->id);
+    for (const auto & myVehicleInfo : myVehicleInfos) {
+        if (myVehicleInfo.second->onDetector) {
+            ret.push_back(myVehicleInfo.second->id);
         }
     }
     std::sort(ret.begin(), ret.end());
@@ -1417,16 +1417,15 @@ MSE2Collector::getEstimatedCurrentVehicleNumber(double speedThreshold) const {
     double thresholdSpeed = myLane->getSpeedLimit() / speedThreshold;
 
     int count = 0;
-    for (VehicleInfoMap::const_iterator it = myVehicleInfos.begin();
-            it != myVehicleInfos.end(); it++) {
-        if (it->second->onDetector) {
+    for (const auto & myVehicleInfo : myVehicleInfos) {
+        if (myVehicleInfo.second->onDetector) {
 //            if (it->position < distance) {
 //                distance = it->position;
 //            }
 //            const double realDistance = myLane->getLength() - distance; // the closer vehicle get to the light the greater is the distance
-            const double realDistance = it->second->distToDetectorEnd;
-            if (it->second->lastSpeed <= thresholdSpeed || it->second->lastAccel > 0) { //TODO speed less half of the maximum speed for the lane NEED TUNING
-                count = (int)(realDistance / (it->second->length + it->second->minGap)) + 1;
+            const double realDistance = myVehicleInfo.second->distToDetectorEnd;
+            if (myVehicleInfo.second->lastSpeed <= thresholdSpeed || myVehicleInfo.second->lastAccel > 0) { //TODO speed less half of the maximum speed for the lane NEED TUNING
+                count = (int)(realDistance / (myVehicleInfo.second->length + myVehicleInfo.second->minGap)) + 1;
             }
         }
     }
@@ -1444,13 +1443,12 @@ MSE2Collector::getEstimateQueueLength() const {
     double distance = std::numeric_limits<double>::max();
     double realDistance = 0;
     bool flowing =  true;
-    for (VehicleInfoMap::const_iterator it = myVehicleInfos.begin();
-            it != myVehicleInfos.end(); it++) {
-        if (it->second->onDetector) {
-            distance = MIN2(it->second->lastPos, distance);
+    for (const auto & myVehicleInfo : myVehicleInfos) {
+        if (myVehicleInfo.second->onDetector) {
+            distance = MIN2(myVehicleInfo.second->lastPos, distance);
             //  double distanceTemp = myLane->getLength() - distance;
-            if (it->second->lastSpeed <= 0.5) {
-                realDistance = distance - it->second->length + it->second->minGap;
+            if (myVehicleInfo.second->lastSpeed <= 0.5) {
+                realDistance = distance - myVehicleInfo.second->length + myVehicleInfo.second->minGap;
                 flowing = false;
             }
 //            DBG(

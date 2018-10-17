@@ -171,12 +171,12 @@ MSRoute::clear() {
 #ifdef HAVE_FOX
     FXMutexLock f(myDictMutex);
 #endif
-    for (RouteDistDict::iterator i = myDistDict.begin(); i != myDistDict.end(); ++i) {
-        delete i->second.first;
+    for (auto & i : myDistDict) {
+        delete i.second.first;
     }
     myDistDict.clear();
-    for (RouteDict::iterator i = myDict.begin(); i != myDict.end(); ++i) {
-        delete i->second;
+    for (auto & i : myDict) {
+        delete i.second;
     }
     myDict.clear();
 }
@@ -190,8 +190,8 @@ MSRoute::checkDist(const std::string& id) {
     RouteDistDict::iterator it = myDistDict.find(id);
     if (it != myDistDict.end() && !it->second.second) {
         const std::vector<const MSRoute*>& routes = it->second.first->getVals();
-        for (std::vector<const MSRoute*>::const_iterator i = routes.begin(); i != routes.end(); ++i) {
-            (*i)->release();
+        for (auto route : routes) {
+            route->release();
         }
         delete it->second.first;
         myDistDict.erase(it);
@@ -258,16 +258,16 @@ MSRoute::dict_saveState(OutputDevice& out) {
 #ifdef HAVE_FOX
     FXMutexLock f(myDictMutex);
 #endif
-    for (RouteDict::iterator it = myDict.begin(); it != myDict.end(); ++it) {
-        out.openTag(SUMO_TAG_ROUTE).writeAttr(SUMO_ATTR_ID, (*it).second->getID());
-        out.writeAttr(SUMO_ATTR_STATE, (*it).second->myAmPermanent);
-        out.writeAttr(SUMO_ATTR_EDGES, (*it).second->myEdges).closeTag();
+    for (auto & it : myDict) {
+        out.openTag(SUMO_TAG_ROUTE).writeAttr(SUMO_ATTR_ID, it.second->getID());
+        out.writeAttr(SUMO_ATTR_STATE, it.second->myAmPermanent);
+        out.writeAttr(SUMO_ATTR_EDGES, it.second->myEdges).closeTag();
     }
-    for (RouteDistDict::iterator it = myDistDict.begin(); it != myDistDict.end(); ++it) {
-        out.openTag(SUMO_TAG_ROUTE_DISTRIBUTION).writeAttr(SUMO_ATTR_ID, (*it).first);
-        out.writeAttr(SUMO_ATTR_STATE, (*it).second.second);
-        out.writeAttr(SUMO_ATTR_ROUTES, (*it).second.first->getVals());
-        out.writeAttr(SUMO_ATTR_PROBS, (*it).second.first->getProbs());
+    for (auto & it : myDistDict) {
+        out.openTag(SUMO_TAG_ROUTE_DISTRIBUTION).writeAttr(SUMO_ATTR_ID, it.first);
+        out.writeAttr(SUMO_ATTR_STATE, it.second.second);
+        out.writeAttr(SUMO_ATTR_ROUTES, it.second.first->getVals());
+        out.writeAttr(SUMO_ATTR_PROBS, it.second.first->getProbs());
         out.closeTag();
     }
 }

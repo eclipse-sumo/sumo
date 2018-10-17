@@ -72,8 +72,8 @@ void
 MSLaneChangerSublane::initChanger() {
     MSLaneChanger::initChanger();
     // Prepare myChanger with a safe state.
-    for (ChangerIt ce = myChanger.begin(); ce != myChanger.end(); ++ce) {
-        ce->ahead = ce->lane->getPartialBeyond();
+    for (auto & ce : myChanger) {
+        ce.ahead = ce.lane->getPartialBeyond();
 //        std::cout << SIMTIME << " initChanger lane=" << ce->lane->getID() << " vehicles=" << toString(ce->lane->myVehicles) << "\n";
 //        std::cout << SIMTIME << " initChanger lane=" << ce->lane->getID() << " partial vehicles=" << toString(ce->lane->myPartialVehicles) << "\n";
 //        std::cout << SIMTIME << " initChanger lane=" << ce->lane->getID() << " partial vehicles beyond=" << toString(ce->ahead.toString()) << "\n";

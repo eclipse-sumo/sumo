@@ -131,8 +131,8 @@ MSLaneChanger::laneChange(SUMOTime t) {
         updateLanes(t);
     } catch (const ProcessError&) {
         // clean up locks or the gui may hang
-        for (ChangerIt ce = myChanger.begin(); ce != myChanger.end(); ++ce) {
-            ce->lane->releaseVehicles();
+        for (auto & ce : myChanger) {
+            ce.lane->releaseVehicles();
         }
         throw;
     }
@@ -142,13 +142,13 @@ MSLaneChanger::laneChange(SUMOTime t) {
 void
 MSLaneChanger::initChanger() {
     // Prepare myChanger with a safe state.
-    for (ChangerIt ce = myChanger.begin(); ce != myChanger.end(); ++ce) {
-        ce->lead = nullptr;
-        ce->hoppedVeh = nullptr;
-        ce->lastBlocked = nullptr;
-        ce->firstBlocked = nullptr;
-        ce->dens = 0;
-        ce->lane->getVehiclesSecure();
+    for (auto & ce : myChanger) {
+        ce.lead = nullptr;
+        ce.hoppedVeh = nullptr;
+        ce.lastBlocked = nullptr;
+        ce.firstBlocked = nullptr;
+        ce.dens = 0;
+        ce.lane->getVehiclesSecure();
 
         //std::cout << SIMTIME << " initChanger lane=" << ce->lane->getID() << " vehicles=" << toString(ce->lane->myVehicles) << "\n";
     }
@@ -183,10 +183,10 @@ MSLaneChanger::updateLanes(SUMOTime t) {
     // centered. This will solve many problems.
     // Second: this swap would be faster if vehicle-containers would have
     // been pointers, but then I had to change too much of the MSLane code.
-    for (ChangerIt ce = myChanger.begin(); ce != myChanger.end(); ++ce) {
+    for (auto & ce : myChanger) {
         //std::cout << SIMTIME << " updateLanes lane=" << ce->lane->getID() << " myVehicles=" << toString(ce->lane->myVehicles) << " myTmpVehicles=" << toString(ce->lane->myTmpVehicles) << "\n";
-        ce->lane->swapAfterLaneChange(t);
-        ce->lane->releaseVehicles();
+        ce.lane->swapAfterLaneChange(t);
+        ce.lane->releaseVehicles();
     }
 }
 

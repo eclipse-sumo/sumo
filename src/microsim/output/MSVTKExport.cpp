@@ -132,7 +132,7 @@ std::string
 MSVTKExport::List2String(std::vector<double> input) {
 
     std::string output = "";
-    for (int i = 0; i < (int)input.size(); i++) {
+    for (double i : input) {
 
         std::stringstream ss;
 
@@ -141,7 +141,7 @@ MSVTKExport::List2String(std::vector<double> input) {
         //ss.unsetf(::std::ios::dec);
         //ss.setf(::std::ios::scientific);
 
-        ss << input[i] << " ";
+        ss << i << " ";
         output += ss.str();
     }
 

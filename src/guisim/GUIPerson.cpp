@@ -173,11 +173,11 @@ GUIPerson::GUIPerson(const SUMOVehicleParameter* pars, MSVehicleType* vtype, MST
 
 GUIPerson::~GUIPerson() {
     myLock.lock();
-    for (std::map<GUISUMOAbstractView*, int>::iterator i = myAdditionalVisualizations.begin(); i != myAdditionalVisualizations.end(); ++i) {
-        if (i->first->getTrackedID() == getGlID()) {
-            i->first->stopTrack();
+    for (auto & myAdditionalVisualization : myAdditionalVisualizations) {
+        if (myAdditionalVisualization.first->getTrackedID() == getGlID()) {
+            myAdditionalVisualization.first->stopTrack();
         }
-        while (i->first->removeAdditionalGLVisualisation(this));
+        while (myAdditionalVisualization.first->removeAdditionalGLVisualisation(this));
     }
     myLock.unlock();
 }
@@ -341,8 +341,8 @@ GUIPerson::drawGLAdditional(GUISUMOAbstractView* const parent, const GUIVisualiz
             assert(stage != 0);
             const double exaggeration = s.personSize.getExaggeration(s);
             const ConstMSEdgeVector& edges = stage->getRoute();
-            for (ConstMSEdgeVector::const_iterator it = edges.begin(); it != edges.end(); ++it) {
-                GUILane* lane = static_cast<GUILane*>((*it)->getLanes()[0]);
+            for (auto edge : edges) {
+                GUILane* lane = static_cast<GUILane*>(edge->getLanes()[0]);
                 GLHelper::drawBoxLines(lane->getShape(), lane->getShapeRotations(), lane->getShapeLengths(), exaggeration);
             }
         }

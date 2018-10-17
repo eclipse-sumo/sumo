@@ -100,8 +100,8 @@ NWWriter_XML::writeNodes(const OptionsCont& oc, NBNodeCont& nc) {
     }
 
     // write nodes
-    for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
-        NBNode* n = (*i).second;
+    for (const auto & i : nc) {
+        NBNode* n = i.second;
         device.openTag(SUMO_TAG_NODE);
         device.writeAttr(SUMO_ATTR_ID, n->getID());
         // write position
@@ -124,9 +124,9 @@ NWWriter_XML::writeNodes(const OptionsCont& oc, NBNodeCont& nc) {
             // make sure ids are unique and sorted
             std::set<std::string> tlsIDs;
             std::set<std::string> controlledInnerEdges;
-            for (std::set<NBTrafficLightDefinition*>::const_iterator it_tl = tlss.begin(); it_tl != tlss.end(); it_tl++) {
-                tlsIDs.insert((*it_tl)->getID());
-                std::vector<std::string> cie = (*it_tl)->getControlledInnerEdges();
+            for (auto tls : tlss) {
+                tlsIDs.insert(tls->getID());
+                std::vector<std::string> cie = tls->getControlledInnerEdges();
                 controlledInnerEdges.insert(cie.begin(), cie.end());
             }
             std::vector<std::string> sortedIDs(tlsIDs.begin(), tlsIDs.end());
@@ -178,9 +178,9 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, NBNodeCont& nc, NB
     OutputDevice& cdevice = OutputDevice::getDevice(oc.getString("plain-output-prefix") + ".con.xml");
     cdevice.writeXMLHeader("connections", "connections_file.xsd", attrs);
     const bool writeNames = oc.getBool("output.street-names");
-    for (std::map<std::string, NBEdge*>::const_iterator i = ec.begin(); i != ec.end(); ++i) {
+    for (const auto & i : ec) {
         // write the edge itself to the edges-files
-        NBEdge* e = (*i).second;
+        NBEdge* e = i.second;
         edevice.openTag(SUMO_TAG_EDGE);
         edevice.writeAttr(SUMO_ATTR_ID, e->getID());
         edevice.writeAttr(SUMO_ATTR_FROM, e->getFromNode()->getID());
@@ -291,8 +291,8 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, NBNodeCont& nc, NB
                 }
             }
         } else {
-            for (std::vector<NBEdge::Connection>::const_iterator c = connections.begin(); c != connections.end(); ++c) {
-                NWWriter_SUMO::writeConnection(cdevice, *e, *c, false, NWWriter_SUMO::PLAIN);
+            for (const auto & connection : connections) {
+                NWWriter_SUMO::writeConnection(cdevice, *e, connection, false, NWWriter_SUMO::PLAIN);
             }
             cdevice << "\n";
         }
@@ -304,15 +304,15 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, NBNodeCont& nc, NB
     }
 
     // write loaded prohibitions to the connections-file
-    for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
-        NWWriter_SUMO::writeProhibitions(cdevice, i->second->getProhibitions());
+    for (const auto & i : nc) {
+        NWWriter_SUMO::writeProhibitions(cdevice, i.second->getProhibitions());
     }
     // write pedestrian crossings to the connections-file
-    for (std::map<std::string, NBNode*>::const_iterator it_node = nc.begin(); it_node != nc.end(); ++it_node) {
-        const std::vector<NBNode::Crossing*>& crossings = (*it_node).second->getCrossings();
+    for (const auto & it_node : nc) {
+        const std::vector<NBNode::Crossing*>& crossings = it_node.second->getCrossings();
         for (auto c : crossings) {
             cdevice.openTag(SUMO_TAG_CROSSING);
-            cdevice.writeAttr(SUMO_ATTR_NODE, (*it_node).second->getID());
+            cdevice.writeAttr(SUMO_ATTR_NODE, it_node.second->getID());
             cdevice.writeAttr(SUMO_ATTR_EDGES, c->edges);
             cdevice.writeAttr(SUMO_ATTR_PRIORITY, c->priority);
             if (c->customWidth != NBEdge::UNSPECIFIED_WIDTH) {
@@ -331,10 +331,10 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, NBNodeCont& nc, NB
         }
     }
     // write custom walkingarea shapes to the connections file
-    for (std::map<std::string, NBNode*>::const_iterator it_node = nc.begin(); it_node != nc.end(); ++it_node) {
-        for (const auto& wacs : it_node->second->getWalkingAreaCustomShapes()) {
+    for (const auto & it_node : nc) {
+        for (const auto& wacs : it_node.second->getWalkingAreaCustomShapes()) {
             cdevice.openTag(SUMO_TAG_WALKINGAREA);
-            cdevice.writeAttr(SUMO_ATTR_NODE, it_node->first);
+            cdevice.writeAttr(SUMO_ATTR_NODE, it_node.first);
             cdevice.writeAttr(SUMO_ATTR_EDGES, joinNamedToString(wacs.edges, " "));
             cdevice.writeAttr(SUMO_ATTR_SHAPE, wacs.shape);
             cdevice.closeTag();
@@ -355,13 +355,13 @@ NWWriter_XML::writeTrafficLights(const OptionsCont& oc, NBTrafficLightLogicCont&
     NWWriter_SUMO::writeTrafficLights(device, tc);
     // we also need to remember the associations between tlLogics and connections
     // since the information in con.xml is insufficient
-    for (std::map<std::string, NBEdge*>::const_iterator i = ec.begin(); i != ec.end(); ++i) {
-        NBEdge* e = (*i).second;
+    for (const auto & i : ec) {
+        NBEdge* e = i.second;
         // write this edge's tl-controlled connections
         const std::vector<NBEdge::Connection> connections = e->getConnections();
-        for (std::vector<NBEdge::Connection>::const_iterator c = connections.begin(); c != connections.end(); ++c) {
-            if (c->tlID != "") {
-                NWWriter_SUMO::writeConnection(device, *e, *c, false, NWWriter_SUMO::TLL);
+        for (const auto & connection : connections) {
+            if (connection.tlID != "") {
+                NWWriter_SUMO::writeConnection(device, *e, connection, false, NWWriter_SUMO::TLL);
             }
         }
     }
@@ -376,12 +376,12 @@ NWWriter_XML::writeJoinedJunctions(const OptionsCont& oc, NBNodeCont& nc) {
     OutputDevice& device = OutputDevice::getDevice(oc.getString("junctions.join-output"));
     device.writeXMLHeader("nodes", "nodes_file.xsd", attrs);
     const std::vector<std::set<std::string> >& clusters = nc.getJoinedClusters();
-    for (std::vector<std::set<std::string> >::const_iterator it = clusters.begin(); it != clusters.end(); it++) {
+    for (const auto & cluster : clusters) {
         assert((*it).size() > 0);
         device.openTag(SUMO_TAG_JOIN);
         // prepare string
         std::ostringstream oss;
-        for (std::set<std::string>::const_iterator it_id = it->begin(); it_id != it->end(); it_id++) {
+        for (std::set<std::string>::const_iterator it_id = cluster.begin(); it_id != cluster.end(); it_id++) {
             oss << *it_id << " ";
         }
         // remove final space
@@ -397,11 +397,11 @@ void
 NWWriter_XML::writeStreetSigns(const OptionsCont& oc, NBEdgeCont& ec) {
     OutputDevice& device = OutputDevice::getDevice(oc.getString("street-sign-output"));
     device.writeXMLHeader("additional", "additional_file.xsd");
-    for (std::map<std::string, NBEdge*>::const_iterator i = ec.begin(); i != ec.end(); ++i) {
-        NBEdge* e = (*i).second;
+    for (const auto & i : ec) {
+        NBEdge* e = i.second;
         const std::vector<NBSign>& signs =  e->getSigns();
-        for (std::vector<NBSign>::const_iterator it = signs.begin(); it != signs.end(); ++it) {
-            it->writeAsPOI(device, e);
+        for (const auto & sign : signs) {
+            sign.writeAsPOI(device, e);
         }
     }
     device.close();
@@ -410,16 +410,16 @@ void
 NWWriter_XML::writePTStops(const OptionsCont& oc, NBPTStopCont& sc) {
     OutputDevice& device = OutputDevice::getDevice(oc.getString("ptstop-output"));
     device.writeXMLHeader("additional", "additional_file.xsd");
-    for (std::map<std::string, NBPTStop*>::const_iterator i = sc.begin(); i != sc.end(); ++i) {
-        i->second->write(device);
+    for (const auto & i : sc) {
+        i.second->write(device);
     }
     device.close();
 }
 void NWWriter_XML::writePTLines(const OptionsCont& oc, NBPTLineCont& lc, NBEdgeCont& ec) {
     OutputDevice& device = OutputDevice::getDevice(oc.getString("ptline-output"));
     device.writeXMLHeader("additional", "additional_file.xsd");
-    for (std::vector<NBPTLine*>::const_iterator i = lc.begin(); i != lc.end(); ++i) {
-        (*i)->write(device, ec);
+    for (auto i : lc) {
+        i->write(device, ec);
     }
     device.close();
 }

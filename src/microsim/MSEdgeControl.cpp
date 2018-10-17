@@ -71,15 +71,15 @@ MSEdgeControl::~MSEdgeControl() {
 
 void
 MSEdgeControl::patchActiveLanes() {
-    for (std::set<MSLane*, ComparatorIdLess>::iterator i = myChangedStateLanes.begin(); i != myChangedStateLanes.end(); ++i) {
-        LaneUsage& lu = myLanes[(*i)->getNumericalID()];
+    for (auto myChangedStateLane : myChangedStateLanes) {
+        LaneUsage& lu = myLanes[myChangedStateLane->getNumericalID()];
         // if the lane was inactive but is now...
-        if (!lu.amActive && (*i)->getVehicleNumber() > 0) {
+        if (!lu.amActive && myChangedStateLane->getVehicleNumber() > 0) {
             // ... add to active lanes and mark as such
             if (lu.haveNeighbors) {
-                myActiveLanes.push_front(*i);
+                myActiveLanes.push_front(myChangedStateLane);
             } else {
-                myActiveLanes.push_back(*i);
+                myActiveLanes.push_back(myChangedStateLane);
             }
             lu.amActive = true;
         }
@@ -112,14 +112,14 @@ MSEdgeControl::executeMovements(SUMOTime t) {
             ++i;
         }
     }
-    for (std::vector<MSLane*>::iterator i = myWithVehicles2Integrate.begin(); i != myWithVehicles2Integrate.end(); ++i) {
-        if ((*i)->integrateNewVehicle(t)) {
-            LaneUsage& lu = myLanes[(*i)->getNumericalID()];
+    for (auto & i : myWithVehicles2Integrate) {
+        if (i->integrateNewVehicle(t)) {
+            LaneUsage& lu = myLanes[i->getNumericalID()];
             if (!lu.amActive) {
                 if (lu.haveNeighbors) {
-                    myActiveLanes.push_front(*i);
+                    myActiveLanes.push_front(i);
                 } else {
-                    myActiveLanes.push_back(*i);
+                    myActiveLanes.push_back(i);
                 }
                 lu.amActive = true;
             }
@@ -128,8 +128,8 @@ MSEdgeControl::executeMovements(SUMOTime t) {
     if (MSGlobals::gLateralResolution > 0) {
         // multiple vehicle shadows may have entered an inactive lane and would
         // not be sorted otherwise
-        for (LaneUsageVector::iterator it = myLanes.begin(); it != myLanes.end(); ++it) {
-            (*it).lane->sortPartialVehicles();
+        for (auto & myLane : myLanes) {
+            myLane.lane->sortPartialVehicles();
         }
     }
 }
@@ -147,14 +147,14 @@ MSEdgeControl::changeLanes(SUMOTime t) {
                 myLastLaneChange[edge.getNumericalID()] = t;
                 edge.changeLanes(t);
                 const std::vector<MSLane*>& lanes = edge.getLanes();
-                for (std::vector<MSLane*>::const_iterator i = lanes.begin(); i != lanes.end(); ++i) {
-                    LaneUsage& lu = myLanes[(*i)->getNumericalID()];
+                for (auto lane : lanes) {
+                    LaneUsage& lu = myLanes[lane->getNumericalID()];
                     //if ((*i)->getID() == "disabled") {
                     //    std::cout << SIMTIME << " vehicles=" << toString((*i)->getVehiclesSecure()) << "\n";
                     //    (*i)->releaseVehicles();
                     //}
-                    if ((*i)->getVehicleNumber() > 0 && !lu.amActive) {
-                        toAdd.push_back(*i);
+                    if (lane->getVehicleNumber() > 0 && !lu.amActive) {
+                        toAdd.push_back(lane);
                         lu.amActive = true;
                     }
                 }
@@ -165,13 +165,13 @@ MSEdgeControl::changeLanes(SUMOTime t) {
         }
     }
     MSGlobals::gComputeLC = false;
-    for (std::vector<MSLane*>::iterator i = toAdd.begin(); i != toAdd.end(); ++i) {
-        myActiveLanes.push_front(*i);
+    for (auto & i : toAdd) {
+        myActiveLanes.push_front(i);
     }
     if (MSGlobals::gLateralResolution > 0) {
         // sort maneuver reservations
-        for (LaneUsageVector::iterator it = myLanes.begin(); it != myLanes.end(); ++it) {
-            (*it).lane->sortManeuverReservations();
+        for (auto & myLane : myLanes) {
+            myLane.lane->sortManeuverReservations();
         }
     }
 }
@@ -180,8 +180,8 @@ MSEdgeControl::changeLanes(SUMOTime t) {
 void
 MSEdgeControl::detectCollisions(SUMOTime timestep, const std::string& stage) {
     // Detections is made by the edge's lanes, therefore hand over.
-    for (std::list<MSLane*>::iterator i = myActiveLanes.begin(); i != myActiveLanes.end(); ++i) {
-        (*i)->detectCollisions(timestep, stage);
+    for (auto & myActiveLane : myActiveLanes) {
+        myActiveLane->detectCollisions(timestep, stage);
     }
 }
 
@@ -189,8 +189,8 @@ MSEdgeControl::detectCollisions(SUMOTime timestep, const std::string& stage) {
 std::vector<std::string>
 MSEdgeControl::getEdgeNames() const {
     std::vector<std::string> ret;
-    for (MSEdgeVector::const_iterator i = myEdges.begin(); i != myEdges.end(); ++i) {
-        ret.push_back((*i)->getID());
+    for (auto myEdge : myEdges) {
+        ret.push_back(myEdge->getID());
     }
     return ret;
 }
@@ -205,8 +205,8 @@ void
 MSEdgeControl::setAdditionalRestrictions() {
     for (MSEdgeVector::const_iterator i = myEdges.begin(); i != myEdges.end(); ++i) {
         const std::vector<MSLane*>& lanes = (*i)->getLanes();
-        for (std::vector<MSLane*>::const_iterator j = lanes.begin(); j != lanes.end(); ++j) {
-            (*j)->initRestrictions();
+        for (auto lane : lanes) {
+            lane->initRestrictions();
         }
     }
 }

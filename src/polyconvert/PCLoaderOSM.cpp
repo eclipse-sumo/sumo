@@ -244,8 +244,8 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
     }
 
     // instatiate polygons
-    for (EdgeMap::iterator i = edges.begin(); i != edges.end(); ++i) {
-        PCOSMEdge* e = (*i).second;
+    for (auto & edge : edges) {
+        PCOSMEdge* e = edge.second;
         if (e->myAttributes.size() == 0) {
             // cannot be relevant as a polygon
             continue;
@@ -292,8 +292,8 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
 
 
     // instantiate pois
-    for (std::map<long long int, PCOSMNode*>::iterator i = nodes.begin(); i != nodes.end(); ++i) {
-        PCOSMNode* n = (*i).second;
+    for (auto & node : nodes) {
+        PCOSMNode* n = node.second;
         if (n->myAttributes.size() == 0) {
             // cannot be relevant as a poi
             continue;
@@ -328,12 +328,12 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
         delete(*i).second;
     }
     // delete edges
-    for (EdgeMap::iterator i = edges.begin(); i != edges.end(); ++i) {
-        delete(*i).second;
+    for (auto & edge : edges) {
+        deleteedge.second;
     }
     // delete relations
-    for (Relations::iterator i = relations.begin(); i != relations.end(); ++i) {
-        delete(*i);
+    for (auto & relation : relations) {
+        deleterelation;
     }
 }
 
@@ -530,8 +530,8 @@ PCLoaderOSM::RelationsHandler::myStartElement(int element, const SUMOSAXAttribut
             myCurrentRelation->name = value;
         } else if (MyKeysToInclude.count(key) > 0) {
             myCurrentRelation->keep = true;
-            for (std::vector<long long int>::iterator it = myCurrentWays.begin(); it != myCurrentWays.end(); ++it) {
-                myAdditionalWays[*it] = myCurrentRelation;
+            for (std::_Vector_iterator<std::_Vector_val<std::_Simple_types<long long> > >::value_type & myCurrentWay : myCurrentWays) {
+                myAdditionalWays[myCurrentWay] = myCurrentRelation;
             }
         }
         myCurrentRelation->myAttributes[key] = value;

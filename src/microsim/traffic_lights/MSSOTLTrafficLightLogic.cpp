@@ -65,13 +65,13 @@ MSSOTLTrafficLightLogic::MSSOTLTrafficLightLogic(
 }
 
 MSSOTLTrafficLightLogic::~MSSOTLTrafficLightLogic() {
-    for (PhasePushButtons::iterator mapIt = m_pushButtons.begin(); mapIt != m_pushButtons.end(); ++mapIt)
-        for (std::vector<MSPushButton*>::iterator vIt = mapIt->second.begin(); vIt != mapIt->second.end(); ++vIt) {
+    for (auto & m_pushButton : m_pushButtons)
+        for (std::vector<MSPushButton*>::iterator vIt = m_pushButton.second.begin(); vIt != m_pushButton.second.end(); ++vIt) {
             delete *vIt;
         }
     m_pushButtons.clear();
-    for (int i = 0; i < (int)myPhases.size(); i++) {
-        delete myPhases[i];
+    for (auto & myPhase : myPhases) {
+        delete myPhase;
     }
     if (sensorsSelfBuilt) {
         delete mySensors;
@@ -189,8 +189,8 @@ MSSOTLTrafficLightLogic::init(NLDetectorBuilder& nb) {
 
                 for (int i = 0; i < (int)myLinks.size(); i++) {
                     LinkVector oneLink = getLinksAt(i);
-                    for (int j = 0; j < (int)oneLink.size(); j++) {
-                        MSLane* lane  = oneLink[j]->getLane();
+                    for (auto & j : oneLink) {
+                        MSLane* lane  = j->getLane();
                         outLanes.push_back(lane);
                     }
                 }
@@ -222,11 +222,9 @@ MSSOTLTrafficLightLogic::updateCTS() {
     SUMOTime elapsedTimeSteps = 0;
     SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
     //Iterate over the target phase map and update CTS value for every target phase except for the one belonging to the current steps chain
-    for (std::map<int, SUMOTime>::iterator mapIterator = targetPhasesCTS.begin();
-            mapIterator != targetPhasesCTS.end();
-            mapIterator++) {
-        int chain = mapIterator->first;
-        SUMOTime oldVal = mapIterator->second;
+    for (auto & mapIterator : targetPhasesCTS) {
+        int chain = mapIterator.first;
+        SUMOTime oldVal = mapIterator.second;
         if (chain != lastChain) {
             //Get the number of timesteps since the last check for that phase
             elapsedTimeSteps = now - lastCheckForTargetPhase[chain];
@@ -236,21 +234,21 @@ MSSOTLTrafficLightLogic::updateCTS() {
             //SWITCH between 3 counting vehicles function
             switch (getMode()) {
                 case (0):
-                    mapIterator->second += elapsedTimeSteps
+                    mapIterator.second += elapsedTimeSteps
                                            * countVehicles(getPhase(chain)); //SUMO
                     break;
                 case (1):
-                    mapIterator->second += elapsedTimeSteps
+                    mapIterator.second += elapsedTimeSteps
                                            * countVehicles(getPhase(chain)); //COMPLEX
                     break;
                 case (2):
-                    mapIterator->second = countVehicles(getPhase(chain)); //QUEUE
+                    mapIterator.second = countVehicles(getPhase(chain)); //QUEUE
                     break;
                 default:
                     WRITE_ERROR("Unrecognized traffic threshold calculation mode");
             }
             std::ostringstream oss;
-            oss << "MSSOTLTrafficLightLogic::updateCTS->TLC " << getID() << " chain " << chain << " oldVal " << oldVal << " newVal " << mapIterator->second;
+            oss << "MSSOTLTrafficLightLogic::updateCTS->TLC " << getID() << " chain " << chain << " oldVal " << oldVal << " newVal " << mapIterator.second;
             WRITE_MESSAGE(oss.str());
         }
         if (isDecayThresholdActivated()) {
@@ -469,16 +467,16 @@ MSSOTLTrafficLightLogic::trySwitch() {
                 resetCTS(lastChain);
                 //Update lastTargetPhase
                 lastChain = getCurrentPhaseIndex();
-                for (std::map<int, int>::iterator it = targetPhasesLastSelection.begin(); it != targetPhasesLastSelection.end(); ++ it) {
-                    if (it->first == lastChain) {
-                        if (it->second >= getTargetPhaseMaxLastSelection()) {
+                for (auto & it : targetPhasesLastSelection) {
+                    if (it.first == lastChain) {
+                        if (it.second >= getTargetPhaseMaxLastSelection()) {
                             std::ostringstream oss;
-                            oss << "Forced selection of the phase " << lastChain << " since its last selection was " << it->second << " changes ago";
+                            oss << "Forced selection of the phase " << lastChain << " since its last selection was " << it.second << " changes ago";
                             WRITE_MESSAGE(oss.str())
                         }
-                        it->second = 0;
-                    } else if (it->first != previousStep) {
-                        ++it->second;
+                        it.second = 0;
+                    } else if (it.first != previousStep) {
+                        ++it.second;
                     }
                 }
                 if (isDecayThresholdActivated()) {

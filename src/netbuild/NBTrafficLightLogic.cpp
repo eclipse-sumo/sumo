@@ -146,8 +146,8 @@ NBTrafficLightLogic::resetPhases() {
 SUMOTime
 NBTrafficLightLogic::getDuration() const {
     SUMOTime duration = 0;
-    for (PhaseDefinitionVector::const_iterator i = myPhases.begin(); i != myPhases.end(); ++i) {
-        duration += (*i).duration;
+    for (const auto & myPhase : myPhases) {
+        duration += myPhase.duration;
     }
     return duration;
 }

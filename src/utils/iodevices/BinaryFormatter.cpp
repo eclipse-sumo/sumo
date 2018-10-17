@@ -60,9 +60,9 @@ void
 BinaryFormatter::writeStringList(std::ostream& into, const std::vector<std::string>& list) {
     FileHelpers::writeByte(into, BF_LIST);
     FileHelpers::writeInt(into, (int)list.size());
-    for (std::vector<std::string>::const_iterator it = list.begin(); it != list.end(); ++it) {
+    for (const auto & it : list) {
         FileHelpers::writeByte(into, BF_STRING);
-        FileHelpers::writeString(into, *it);
+        FileHelpers::writeString(into, it);
     }
 }
 
@@ -77,8 +77,8 @@ BinaryFormatter::writeXMLHeader(std::ostream& into,
         writeStringList(into, std::vector<std::string>());
         if (SUMOXMLDefinitions::Tags.hasString(rootElement)) {
             openTag(into, rootElement);
-            for (std::map<SumoXMLAttr, std::string>::const_iterator it = attrs.begin(); it != attrs.end(); ++it) {
-                writeAttr(into, it->first, it->second);
+            for (const auto & attr : attrs) {
+                writeAttr(into, attr.first, attr.second);
             }
             return true;
         }
@@ -196,8 +196,8 @@ template<>
 void BinaryFormatter::writeAttr(std::ostream& into, const SumoXMLAttr attr, const PositionVector& val) {
     BinaryFormatter::writeAttrHeader(into, attr, BF_LIST);
     FileHelpers::writeInt(into, static_cast<int>(val.size()));
-    for (PositionVector::const_iterator pos = val.begin(); pos != val.end(); ++pos) {
-        writePosition(into, *pos);
+    for (const auto & pos : val) {
+        writePosition(into, pos);
     }
 }
 
@@ -226,9 +226,9 @@ template<>
 void BinaryFormatter::writeAttr(std::ostream& into, const SumoXMLAttr /* attr */, const std::vector<int>& val) {
     FileHelpers::writeByte(into, BF_LIST);
     FileHelpers::writeInt(into, (int)val.size());
-    for (std::vector<int>::const_iterator it = val.begin(); it != val.end(); ++it) {
+    for (std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<int> > >::value_type it : val) {
         FileHelpers::writeByte(into, BF_INTEGER);
-        FileHelpers::writeInt(into, *it);
+        FileHelpers::writeInt(into, it);
     }
 }
 

@@ -208,8 +208,8 @@ void
 NIImporter_ITSUMO::Handler::myEndElement(int element) {
     switch (element) {
         case ITSUMO_TAG_SIMULATION: {
-            for (std::vector<Section*>::iterator i = mySections.begin(); i != mySections.end(); ++i) {
-                for (std::vector<LaneSet*>::iterator j = (*i)->laneSets.begin(); j != (*i)->laneSets.end(); ++j) {
+            for (auto & mySection : mySections) {
+                for (std::vector<LaneSet*>::iterator j = mySection->laneSets.begin(); j != mySection->laneSets.end(); ++j) {
                     LaneSet* ls = (*j);
                     NBEdge* edge = new NBEdge(ls->id, ls->from, ls->to, "", ls->v, (int)ls->lanes.size(), -1, NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET);
                     if (!myNetBuilder.getEdgeCont().insert(edge)) {
@@ -218,7 +218,7 @@ NIImporter_ITSUMO::Handler::myEndElement(int element) {
                     }
                     delete ls;
                 }
-                delete *i;
+                delete mySection;
             }
         }
         break;
@@ -263,8 +263,8 @@ NIImporter_ITSUMO::Handler::myEndElement(int element) {
                         WRITE_ERROR("Fond laneset-id '" + id + "' twice.");
                     } else {
                         double vSum = 0;
-                        for (std::vector<Lane>::iterator j = myCurrentLanes.begin(); j != myCurrentLanes.end(); ++j) {
-                            vSum += (*j).v;
+                        for (auto & myCurrentLane : myCurrentLanes) {
+                            vSum += myCurrentLane.v;
                         }
                         vSum /= (double) myCurrentLanes.size();
                         LaneSet* ls = new LaneSet(id, myCurrentLanes, vSum, i, from, to);

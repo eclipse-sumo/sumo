@@ -57,8 +57,8 @@ MSRouteProbe::MSRouteProbe(const std::string& id, const MSEdge* edge, const std:
         }
         return;
     }
-    for (std::vector<MSLane*>::const_iterator it = edge->getLanes().begin(); it != edge->getLanes().end(); ++it) {
-        (*it)->addMoveReminder(this);
+    for (auto it : edge->getLanes()) {
+        it->addMoveReminder(this);
     }
 }
 

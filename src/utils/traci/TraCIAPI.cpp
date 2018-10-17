@@ -588,8 +588,8 @@ TraCIAPI::simulationStep(double time) {
 void
 TraCIAPI::load(const std::vector<std::string>& args) {
     int numChars = 0;
-    for (int i = 0; i < (int)args.size(); ++i) {
-        numChars += (int)args[i].size();
+    for (const auto & arg : args) {
+        numChars += (int)arg.size();
     }
     tcpip::Storage content;
     content.writeUnsignedByte(0);
@@ -1182,8 +1182,8 @@ TraCIAPI::LaneScope::setAllowed(const std::string& laneID, const std::vector<std
     tcpip::Storage content;
     content.writeUnsignedByte(TYPE_STRINGLIST);
     content.writeInt((int)allowedClasses.size());
-    for (int i = 0; i < (int)allowedClasses.size(); ++i) {
-        content.writeString(allowedClasses[i]);
+    for (const auto & allowedClasse : allowedClasses) {
+        content.writeString(allowedClasse);
     }
     myParent.send_commandSetValue(CMD_SET_LANE_VARIABLE, LANE_ALLOWED, laneID, content);
     tcpip::Storage inMsg;
@@ -1195,8 +1195,8 @@ TraCIAPI::LaneScope::setDisallowed(const std::string& laneID, const std::vector<
     tcpip::Storage content;
     content.writeUnsignedByte(TYPE_STRINGLIST);
     content.writeInt((int)disallowedClasses.size());
-    for (int i = 0; i < (int)disallowedClasses.size(); ++i) {
-        content.writeString(disallowedClasses[i]);
+    for (const auto & disallowedClasse : disallowedClasses) {
+        content.writeString(disallowedClasse);
     }
     myParent.send_commandSetValue(CMD_SET_LANE_VARIABLE, LANE_DISALLOWED, laneID, content);
     tcpip::Storage inMsg;
@@ -1470,9 +1470,9 @@ TraCIAPI::PolygonScope::add(const std::string& polygonID, const libsumo::TraCIPo
     content.writeInt(layer);
     content.writeUnsignedByte(TYPE_POLYGON);
     content.writeUnsignedByte((int)shape.size());
-    for (int i = 0; i < (int)shape.size(); ++i) {
-        content.writeDouble(shape[i].x);
-        content.writeDouble(shape[i].y);
+    for (const auto & i : shape) {
+        content.writeDouble(i.x);
+        content.writeDouble(i.y);
     }
     myParent.send_commandSetValue(CMD_SET_POLYGON_VARIABLE, ADD, polygonID, content);
     tcpip::Storage inMsg;
@@ -2689,8 +2689,8 @@ TraCIAPI::VehicleScope::setRoute(const std::string& vehicleID, const std::vector
     tcpip::Storage content;
     content.writeUnsignedByte(TYPE_STRINGLIST);
     content.writeInt((int)edges.size());
-    for (int i = 0; i < (int)edges.size(); ++i) {
-        content.writeString(edges[i]);
+    for (const auto & edge : edges) {
+        content.writeString(edge);
     }
     myParent.send_commandSetValue(CMD_SET_VEHICLE_VARIABLE, VAR_ROUTE, vehicleID, content);
     tcpip::Storage inMsg;
@@ -2703,8 +2703,8 @@ TraCIAPI::VehicleScope::rerouteTraveltime(const std::string& vehicleID, bool cur
     if (currentTravelTimes) {
         // updated edge weights with current network traveltimes (at most once per simulation step)
         std::vector<std::string> edges = myParent.edge.getIDList();
-        for (std::vector<std::string>::iterator it = edges.begin(); it != edges.end(); ++it) {
-            myParent.edge.adaptTraveltime(*it, myParent.edge.getTraveltime(*it));
+        for (auto & edge : edges) {
+            myParent.edge.adaptTraveltime(edge, myParent.edge.getTraveltime(edge));
         }
     }
 
@@ -2855,8 +2855,8 @@ TraCIAPI::VehicleScope::setVia(const std::string& vehicleID, const std::vector<s
     tcpip::Storage content;
     content.writeUnsignedByte(TYPE_STRINGLIST);
     content.writeInt((int)via.size());
-    for (int i = 0; i < (int)via.size(); ++i) {
-        content.writeString(via[i]);
+    for (const auto & i : via) {
+        content.writeString(i);
     }
     myParent.send_commandSetValue(CMD_SET_VEHICLE_VARIABLE, VAR_VIA, vehicleID, content);
     tcpip::Storage inMsg;

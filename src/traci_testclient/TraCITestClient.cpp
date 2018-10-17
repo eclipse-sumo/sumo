@@ -688,8 +688,7 @@ TraCITestClient::testAPI() {
     answerLog << "    getLinkNumber: " << lane.getLinkNumber(laneID) << "\n";
     std::vector<libsumo::TraCIConnection> connections = lane.getLinks(laneID);
     answerLog << "    getLinks:\n";
-    for (int i = 0; i < (int)connections.size(); ++i) {
-        const libsumo::TraCIConnection& c = connections[i];
+    for (const auto & c : connections) {
         answerLog << "    approachedLane=" << c.approachedLane
                   << " hasPrio=" << c.hasPrio
                   << " isOpen=" << c.isOpen
@@ -817,8 +816,7 @@ TraCITestClient::testAPI() {
     answerLog << "    getRoutingMode: " << vehicle.getRoutingMode("0") << "\n";
     answerLog << "    getNextTLS:\n";
     std::vector<libsumo::TraCINextTLSData> result = vehicle.getNextTLS("0");
-    for (int i = 0; i < (int)result.size(); ++i) {
-        const libsumo::TraCINextTLSData& d = result[i];
+    for (const auto & d : result) {
         answerLog << "      tls=" << d.id << " tlIndex=" << d.tlIndex << " dist=" << d.dist << " state=" << d.state << "\n";
     }
     answerLog << "    moveToXY, simStep:\n";
@@ -860,8 +858,7 @@ TraCITestClient::testAPI() {
     answerLog << "    getIDList: " << joinToString(inductionloop.getIDList(), " ") << "\n";
     answerLog << "    getVehicleData:\n";
     std::vector<libsumo::TraCIVehicleData> result2 = inductionloop.getVehicleData("det1");
-    for (int i = 0; i < (int)result2.size(); ++i) {
-        const libsumo::TraCIVehicleData& vd = result2[i];
+    for (const auto & vd : result2) {
         answerLog << "      veh=" << vd.id << " length=" << vd.length << " entered=" << vd.entryTime << " left=" << vd.leaveTime << " type=" << vd.typeID << "\n";
     }
 
@@ -891,8 +888,8 @@ TraCITestClient::testAPI() {
     simulationStep();
     answerLog << "    context subscription results:\n";
     libsumo::SubscriptionResults result4 = edge.getContextSubscriptionResults("e_u1");
-    for (libsumo::SubscriptionResults::iterator it = result4.begin(); it != result4.end(); ++it) {
-        answerLog << "      vehicle=" << it->first << " pos=" << it->second[VAR_LANEPOSITION]->getString() << "\n";
+    for (auto & it : result4) {
+        answerLog << "      vehicle=" << it.first << " pos=" << it.second[VAR_LANEPOSITION]->getString() << "\n";
     }
 
     // person
@@ -961,14 +958,14 @@ TraCITestClient::testAPI() {
 
     std::vector<libsumo::TraCILogic> logics = trafficlights.getCompleteRedYellowGreenDefinition("n_m4");
     answerLog << "    completeDefinition:\n";
-    for (int i = 0; i < (int)logics.size(); ++i) {
-        answerLog << "      subID=" << logics[i].subID << " type=" << logics[i].type << " phase=" << logics[i].currentPhaseIndex << "\n";
-        answerLog << "      params=" << joinToString(logics[i].subParameter, " ", ":") << "\n";
-        for (int j = 0; j < (int)logics[i].phases.size(); ++j) {
-            answerLog << "         phase=" << logics[i].phases[j].phase
-                      << " dur=" << logics[i].phases[j].duration
-                      << " minDur=" << logics[i].phases[j].duration1
-                      << " maxDur=" << logics[i].phases[j].duration2
+    for (auto & logic : logics) {
+        answerLog << "      subID=" << logic.subID << " type=" << logic.type << " phase=" << logic.currentPhaseIndex << "\n";
+        answerLog << "      params=" << joinToString(logic.subParameter, " ", ":") << "\n";
+        for (int j = 0; j < (int)logic.phases.size(); ++j) {
+            answerLog << "         phase=" << logic.phases[j].phase
+                      << " dur=" << logic.phases[j].duration
+                      << " minDur=" << logic.phases[j].duration1
+                      << " maxDur=" << logic.phases[j].duration2
                       << "\n";
         }
     }

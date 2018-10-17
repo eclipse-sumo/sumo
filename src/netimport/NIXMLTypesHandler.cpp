@@ -88,9 +88,9 @@ NIXMLTypesHandler::myStartElement(int element,
                                      SUMO_ATTR_ALLOW, SUMO_ATTR_DISALLOW, SUMO_ATTR_ONEWAY,
                                      SUMO_ATTR_DISCARD, SUMO_ATTR_WIDTH, SUMO_ATTR_SIDEWALKWIDTH, SUMO_ATTR_BIKELANEWIDTH
                                     };
-            for (int i = 0; i < 10; i++) {
-                if (attrs.hasAttribute(myAttrs[i])) {
-                    myTypeCont.markAsSet(myCurrentTypeID, myAttrs[i]);
+            for (auto & myAttr : myAttrs) {
+                if (attrs.hasAttribute(myAttr)) {
+                    myTypeCont.markAsSet(myCurrentTypeID, myAttr);
                 }
             }
             break;

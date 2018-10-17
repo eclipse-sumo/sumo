@@ -325,8 +325,8 @@ Vehicle::getRoute(const std::string& vehicleID) {
     std::vector<std::string> result;
     MSVehicle* veh = getVehicle(vehicleID);
     const MSRoute& r = veh->getRoute();
-    for (MSRouteIterator i = r.begin(); i != r.end(); ++i) {
-        result.push_back((*i)->getID());
+    for (auto i : r) {
+        result.push_back(i->getID());
     }
     return result;
 }
@@ -344,17 +344,16 @@ Vehicle::getBestLanes(const std::string& vehicleID) {
     MSVehicle* veh = getVehicle(vehicleID);
     if (veh->isOnRoad()) {
         const std::vector<MSVehicle::LaneQ>& bestLanes = veh->getBestLanes();
-        for (std::vector<MSVehicle::LaneQ>::const_iterator i = bestLanes.begin(); i != bestLanes.end(); ++i) {
+        for (const auto & lq : bestLanes) {
             TraCIBestLanesData bld;
-            const MSVehicle::LaneQ& lq = *i;
             bld.laneID = lq.lane->getID();
             bld.length = lq.length;
             bld.occupation = lq.nextOccupation;
             bld.bestLaneOffset = lq.bestLaneOffset;
             bld.allowsContinuation = lq.allowsContinuation;
-            for (std::vector<MSLane*>::const_iterator j = lq.bestContinuations.begin(); j != lq.bestContinuations.end(); ++j) {
-                if ((*j) != nullptr) {
-                    bld.continuationLanes.push_back((*j)->getID());
+            for (auto bestContinuation : lq.bestContinuations) {
+                if (bestContinuation != nullptr) {
+                    bld.continuationLanes.push_back(bestContinuation->getID());
                 }
             }
             result.push_back(bld);

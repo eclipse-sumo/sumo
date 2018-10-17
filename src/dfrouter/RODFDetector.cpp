@@ -81,8 +81,8 @@ double
 RODFDetector::computeDistanceFactor(const RODFRouteDesc& rd) const {
     double distance = rd.edges2Pass[0]->getFromJunction()->getPosition().distanceTo(rd.edges2Pass.back()->getToJunction()->getPosition());
     double length = 0;
-    for (ROEdgeVector::const_iterator i = rd.edges2Pass.begin(); i != rd.edges2Pass.end(); ++i) {
-        length += (*i)->getLength();
+    for (auto edges2Pas : rd.edges2Pass) {
+        length += edges2Pas->getLength();
     }
     return (distance / length);
 }
@@ -99,8 +99,7 @@ RODFDetector::computeSplitProbabilities(const RODFNet* net, const RODFDetectorCo
     const std::vector<RODFRouteDesc>& routes = myRoutes->get();
     std::vector<RODFEdge*> nextDetEdges;
     std::set<ROEdge*> preSplitEdges;
-    for (std::vector<RODFRouteDesc>::const_iterator i = routes.begin(); i != routes.end(); ++i) {
-        const RODFRouteDesc& rd = *i;
+    for (const auto & rd : routes) {
         bool hadSplit = false;
         for (ROEdgeVector::const_iterator j = rd.edges2Pass.begin(); j != rd.edges2Pass.end(); ++j) {
             if (hadSplit && net->hasDetector(*j)) {
@@ -128,8 +127,7 @@ RODFDetector::computeSplitProbabilities(const RODFNet* net, const RODFDetectorCo
             while (!pending.empty()) {
                 ROEdge* e = pending.back();
                 pending.pop_back();
-                for (ROEdgeVector::const_iterator it = e->getPredecessors().begin(); it != e->getPredecessors().end(); it++) {
-                    ROEdge* e2 = *it;
+                for (auto e2 : e->getPredecessors()) {
                     if (e2->getNumSuccessors() == 1 && seen.count(e2) == 0) {
                         if (net->hasDetector(e2)) {
                             inFlows[*i] += detectors.getAggFlowFor(e2, 0, 0, flows);
@@ -197,10 +195,10 @@ RODFDetector::buildDestinationDistribution(const RODFDetectorCon& detectors,
                 }
                 const std::map<RODFEdge*, double>& tprobs = probs[(int)((time - startTime) / stepOffset)];
                 RODFEdge* splitEdge = nullptr;
-                for (std::map<RODFEdge*, double>::const_iterator k = tprobs.begin(); k != tprobs.end(); ++k) {
-                    if (find(j, (*ri).edges2Pass.end(), (*k).first) != (*ri).edges2Pass.end()) {
-                        prob *= (*k).second;
-                        splitEdge = (*k).first;
+                for (const auto & tprob : tprobs) {
+                    if (find(j, (*ri).edges2Pass.end(), tprob.first) != (*ri).edges2Pass.end()) {
+                        prob *= tprob.second;
+                        splitEdge = tprob.first;
                         break;
                     }
                 }
@@ -290,16 +288,16 @@ RODFDetector::writeEmitterDefinition(const std::string& file,
         const std::vector<RODFRouteDesc>& routes = myRoutes->get();
         out.openTag(SUMO_TAG_ROUTE_DISTRIBUTION).writeAttr(SUMO_ATTR_ID, myID);
         bool isEmptyDist = true;
-        for (std::vector<RODFRouteDesc>::const_iterator i = routes.begin(); i != routes.end(); ++i) {
-            if ((*i).overallProb > 0) {
+        for (const auto & route : routes) {
+            if (route.overallProb > 0) {
                 isEmptyDist = false;
             }
         }
-        for (std::vector<RODFRouteDesc>::const_iterator i = routes.begin(); i != routes.end(); ++i) {
+        for (const auto & route : routes) {
             if (isEmptyDist) {
-                out.openTag(SUMO_TAG_ROUTE).writeAttr(SUMO_ATTR_REFID, (*i).routename).writeAttr(SUMO_ATTR_PROB, 1.0).closeTag();
-            } else if ((*i).overallProb > 0 || includeUnusedRoutes) {
-                out.openTag(SUMO_TAG_ROUTE).writeAttr(SUMO_ATTR_REFID, (*i).routename).writeAttr(SUMO_ATTR_PROB, (*i).overallProb).closeTag();
+                out.openTag(SUMO_TAG_ROUTE).writeAttr(SUMO_ATTR_REFID, route.routename).writeAttr(SUMO_ATTR_PROB, 1.0).closeTag();
+            } else if (route.overallProb > 0 || includeUnusedRoutes) {
+                out.openTag(SUMO_TAG_ROUTE).writeAttr(SUMO_ATTR_REFID, route.routename).writeAttr(SUMO_ATTR_PROB, route.overallProb).closeTag();
             }
         }
         out.closeTag(); // routeDistribution
@@ -478,8 +476,8 @@ RODFDetectorCon::RODFDetectorCon() {}
 
 
 RODFDetectorCon::~RODFDetectorCon() {
-    for (std::vector<RODFDetector*>::iterator i = myDetectors.begin(); i != myDetectors.end(); ++i) {
-        delete *i;
+    for (auto & myDetector : myDetectors) {
+        delete myDetector;
     }
 }
 
@@ -502,8 +500,8 @@ RODFDetectorCon::addDetector(RODFDetector* dfd) {
 
 bool
 RODFDetectorCon::detectorsHaveCompleteTypes() const {
-    for (std::vector<RODFDetector*>::const_iterator i = myDetectors.begin(); i != myDetectors.end(); ++i) {
-        if ((*i)->getType() == TYPE_NOT_DEFINED) {
+    for (auto myDetector : myDetectors) {
+        if (myDetector->getType() == TYPE_NOT_DEFINED) {
             return false;
         }
     }
@@ -513,8 +511,8 @@ RODFDetectorCon::detectorsHaveCompleteTypes() const {
 
 bool
 RODFDetectorCon::detectorsHaveRoutes() const {
-    for (std::vector<RODFDetector*>::const_iterator i = myDetectors.begin(); i != myDetectors.end(); ++i) {
-        if ((*i)->hasRoutes()) {
+    for (auto myDetector : myDetectors) {
+        if (myDetector->hasRoutes()) {
             return true;
         }
     }
@@ -532,9 +530,9 @@ void
 RODFDetectorCon::save(const std::string& file) const {
     OutputDevice& out = OutputDevice::getDevice(file);
     out.writeXMLHeader("detectors", "detectors_file.xsd");
-    for (std::vector<RODFDetector*>::const_iterator i = myDetectors.begin(); i != myDetectors.end(); ++i) {
-        out.openTag(SUMO_TAG_DETECTOR_DEFINITION).writeAttr(SUMO_ATTR_ID, StringUtils::escapeXML((*i)->getID())).writeAttr(SUMO_ATTR_LANE, (*i)->getLaneID()).writeAttr(SUMO_ATTR_POSITION, (*i)->getPos());
-        switch ((*i)->getType()) {
+    for (auto myDetector : myDetectors) {
+        out.openTag(SUMO_TAG_DETECTOR_DEFINITION).writeAttr(SUMO_ATTR_ID, StringUtils::escapeXML(myDetector->getID())).writeAttr(SUMO_ATTR_LANE, myDetector->getLaneID()).writeAttr(SUMO_ATTR_POSITION, myDetector->getPos());
+        switch (myDetector->getType()) {
             case BETWEEN_DETECTOR:
                 out.writeAttr(SUMO_ATTR_TYPE, "between");
                 break;
@@ -560,9 +558,9 @@ void
 RODFDetectorCon::saveAsPOIs(const std::string& file) const {
     OutputDevice& out = OutputDevice::getDevice(file);
     out.writeXMLHeader("additional", "additional_file.xsd");
-    for (std::vector<RODFDetector*>::const_iterator i = myDetectors.begin(); i != myDetectors.end(); ++i) {
-        out.openTag(SUMO_TAG_POI).writeAttr(SUMO_ATTR_ID, StringUtils::escapeXML((*i)->getID()));
-        switch ((*i)->getType()) {
+    for (auto myDetector : myDetectors) {
+        out.openTag(SUMO_TAG_POI).writeAttr(SUMO_ATTR_ID, StringUtils::escapeXML(myDetector->getID()));
+        switch (myDetector->getType()) {
             case BETWEEN_DETECTOR:
                 out.writeAttr(SUMO_ATTR_TYPE, "between_detector_position").writeAttr(SUMO_ATTR_COLOR, RGBColor::BLUE);
                 break;
@@ -578,7 +576,7 @@ RODFDetectorCon::saveAsPOIs(const std::string& file) const {
             default:
                 throw 1;
         }
-        out.writeAttr(SUMO_ATTR_LANE, (*i)->getLaneID()).writeAttr(SUMO_ATTR_POSITION, (*i)->getPos()).closeTag();
+        out.writeAttr(SUMO_ATTR_LANE, myDetector->getLaneID()).writeAttr(SUMO_ATTR_POSITION, myDetector->getPos()).closeTag();
     }
     out.close();
 }
@@ -591,15 +589,15 @@ RODFDetectorCon::saveRoutes(const std::string& file) const {
     std::vector<std::string> saved;
     // write for source detectors
     bool lastWasSaved = true;
-    for (std::vector<RODFDetector*>::const_iterator i = myDetectors.begin(); i != myDetectors.end(); ++i) {
-        if ((*i)->getType() != SOURCE_DETECTOR) {
+    for (auto myDetector : myDetectors) {
+        if (myDetector->getType() != SOURCE_DETECTOR) {
             // do not build routes for other than sources
             continue;
         }
         if (lastWasSaved) {
             out << "\n";
         }
-        lastWasSaved = (*i)->writeRoutes(saved, out);
+        lastWasSaved = myDetector->writeRoutes(saved, out);
     }
     out << "\n";
     out.close();
@@ -770,8 +768,7 @@ RODFDetectorCon::getAggFlowFor(const ROEdge* edge, SUMOTime time, SUMOTime perio
     assert(myDetectorEdgeMap.find(edge->getID()) != myDetectorEdgeMap.end());
     const std::vector<FlowDef>& flows = static_cast<const RODFEdge*>(edge)->getFlows();
     double agg = 0;
-    for (std::vector<FlowDef>::const_iterator i = flows.begin(); i != flows.end(); ++i) {
-        const FlowDef& srcFD = *i;
+    for (const auto & srcFD : flows) {
         if (srcFD.qLKW >= 0) {
             agg += srcFD.qLKW;
         }
@@ -943,9 +940,9 @@ RODFDetectorCon::guessEmptyFlows(RODFDetectorFlows& flows) {
 
 const RODFDetector&
 RODFDetectorCon::getAnyDetectorForEdge(const RODFEdge* const edge) const {
-    for (std::vector<RODFDetector*>::const_iterator i = myDetectors.begin(); i != myDetectors.end(); ++i) {
-        if ((*i)->getEdgeID() == edge->getID()) {
-            return **i;
+    for (auto myDetector : myDetectors) {
+        if (myDetector->getEdgeID() == edge->getID()) {
+            return *myDetector;
         }
     }
     throw 1;
@@ -954,8 +951,8 @@ RODFDetectorCon::getAnyDetectorForEdge(const RODFEdge* const edge) const {
 
 void
 RODFDetectorCon::clearDists(std::map<SUMOTime, RandomDistributor<int>* >& dists) const {
-    for (std::map<SUMOTime, RandomDistributor<int>* >::iterator i = dists.begin(); i != dists.end(); ++i) {
-        delete(*i).second;
+    for (auto & dist : dists) {
+        deletedist.second;
     }
 }
 
@@ -968,8 +965,8 @@ RODFDetectorCon::mesoJoin(const std::string& nid,
     RODFDetector* newDet = new RODFDetector(nid, first);
     addDetector(newDet);
     // delete previous
-    for (std::vector<std::string>::const_iterator i = oldids.begin(); i != oldids.end(); ++i) {
-        removeDetector(*i);
+    for (const auto & oldid : oldids) {
+        removeDetector(oldid);
     }
 }
 

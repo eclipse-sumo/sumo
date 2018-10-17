@@ -202,10 +202,9 @@ Boundary
 GUITrafficLightLogicWrapper::getCenteringBoundary() const {
     Boundary ret;
     const MSTrafficLightLogic::LaneVectorVector& lanes = myTLLogic.getLaneVectors();
-    for (MSTrafficLightLogic::LaneVectorVector::const_iterator i = lanes.begin(); i != lanes.end(); ++i) {
-        const MSTrafficLightLogic::LaneVector& lanes2 = (*i);
-        for (MSTrafficLightLogic::LaneVector::const_iterator j = lanes2.begin(); j != lanes2.end(); ++j) {
-            ret.add((*j)->getShape()[-1]);
+    for (const auto & lanes2 : lanes) {
+        for (auto j : lanes2) {
+            ret.add(j->getShape()[-1]);
         }
     }
     ret.grow(20);
@@ -260,19 +259,19 @@ GUITrafficLightLogicWrapper::drawGL(const GUIVisualizationSettings& s) const {
                 phaseIdx = (phaseIdx + 1) % phases.size();
             }
             // highlight nextGreen links
-            for (std::vector<int>::iterator it_idx = nextGreen.begin(); it_idx != nextGreen.end(); it_idx++) {
-                const MSTrafficLightLogic::LaneVector& lanes = myTLLogic.getLanesAt(*it_idx);
-                for (MSTrafficLightLogic::LaneVector::const_iterator it_lane = lanes.begin(); it_lane != lanes.end(); it_lane++) {
+            for (std::_Vector_iterator<std::_Vector_val<std::_Simple_types<int> > >::value_type & it_idx : nextGreen) {
+                const MSTrafficLightLogic::LaneVector& lanes = myTLLogic.getLanesAt(it_idx);
+                for (auto lane : lanes) {
                     glPushMatrix();
                     // split circle in red and yellow
-                    Position pos = (*it_lane)->getShape().back();
+                    Position pos = lane->getShape().back();
                     glTranslated(pos.x(), pos.y(), GLO_MAX);
-                    double rot = RAD2DEG((*it_lane)->getShape().angleAt2D((int)(*it_lane)->getShape().size() - 2)) - 90;
+                    double rot = RAD2DEG(lane->getShape().angleAt2D((int)lane->getShape().size() - 2)) - 90;
                     glRotated(rot, 0, 0, 1);
                     GLHelper::setColor(s.getLinkColor(LINKSTATE_TL_RED));
-                    GLHelper::drawFilledCircle((*it_lane)->getWidth() / 2., 8, -90, 90);
+                    GLHelper::drawFilledCircle(lane->getWidth() / 2., 8, -90, 90);
                     GLHelper::setColor(s.getLinkColor(LINKSTATE_TL_YELLOW_MAJOR));
-                    GLHelper::drawFilledCircle((*it_lane)->getWidth() / 2., 8, 90, 270);
+                    GLHelper::drawFilledCircle(lane->getWidth() / 2., 8, 90, 270);
                     glPopMatrix();
                 }
             }

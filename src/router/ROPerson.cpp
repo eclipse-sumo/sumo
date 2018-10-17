@@ -179,8 +179,8 @@ ROPerson::Walk::saveAsXML(OutputDevice& os, const bool extended) const {
 
 void
 ROPerson::PersonTrip::saveVehicles(OutputDevice& os, OutputDevice* const typeos, bool asAlternatives, OptionsCont& options) const {
-    for (std::vector<ROVehicle*>::const_iterator it = myVehicles.begin(); it != myVehicles.end(); ++it) {
-        (*it)->saveAsXML(os, typeos, asAlternatives, options);
+    for (auto myVehicle : myVehicles) {
+        myVehicle->saveAsXML(os, typeos, asAlternatives, options);
     }
 }
 
@@ -220,9 +220,9 @@ void
 ROPerson::computeRoute(const RORouterProvider& provider,
                        const bool /* removeLoops */, MsgHandler* errorHandler) {
     myRoutingSuccess = true;
-    for (std::vector<PlanItem*>::iterator it = myPlan.begin(); it != myPlan.end(); ++it) {
-        if ((*it)->needsRouting()) {
-            PersonTrip* trip = static_cast<PersonTrip*>(*it);
+    for (auto & it : myPlan) {
+        if (it->needsRouting()) {
+            PersonTrip* trip = static_cast<PersonTrip*>(it);
             std::vector<ROVehicle*>& vehicles = trip->getVehicles();
             if (vehicles.empty()) {
                 computeIntermodal(provider, trip, nullptr, errorHandler);
@@ -243,8 +243,8 @@ ROPerson::computeRoute(const RORouterProvider& provider,
 void
 ROPerson::saveAsXML(OutputDevice& os, OutputDevice* const typeos, bool asAlternatives, OptionsCont& options) const {
     // write the person's vehicles
-    for (std::vector<PlanItem*>::const_iterator it = myPlan.begin(); it != myPlan.end(); ++it) {
-        (*it)->saveVehicles(os, typeos, asAlternatives, options);
+    for (auto it : myPlan) {
+        it->saveVehicles(os, typeos, asAlternatives, options);
     }
 
     if (typeos != nullptr && getType() != nullptr && !getType()->saved) {
@@ -259,8 +259,8 @@ ROPerson::saveAsXML(OutputDevice& os, OutputDevice* const typeos, bool asAlterna
     // write the person
     getParameter().write(os, options, SUMO_TAG_PERSON);
 
-    for (std::vector<PlanItem*>::const_iterator it = myPlan.begin(); it != myPlan.end(); ++it) {
-        (*it)->saveAsXML(os, asAlternatives);
+    for (auto it : myPlan) {
+        it->saveAsXML(os, asAlternatives);
     }
 
     // write params

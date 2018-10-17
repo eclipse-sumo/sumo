@@ -2152,9 +2152,9 @@ GNEViewNet::restrictLane(SUMOVehicleClass vclass) {
             // begin undo operation
             myUndoList->p_begin("restrict lanes to " + toString(vclass));
             // iterate over selected lanes
-            for (std::map<GNEEdge*, GNELane*>::iterator i = mapOfEdgesAndLanes.begin(); i != mapOfEdgesAndLanes.end(); i++) {
+            for (auto & mapOfEdgesAndLane : mapOfEdgesAndLanes) {
                 // Transform lane to Sidewalk
-                myNet->restrictLane(vclass, i->second, myUndoList);
+                myNet->restrictLane(vclass, mapOfEdgesAndLane.second, myUndoList);
             }
             // end undo operation
             myUndoList->p_end();
@@ -2195,9 +2195,9 @@ GNEViewNet::addRestrictedLane(SUMOVehicleClass vclass) {
             // declare counter for number of restrictions
             int counter = 0;
             // iterate over set of edges
-            for (std::set<GNEEdge*>::iterator it = setOfEdges.begin(); it != setOfEdges.end(); it++) {
+            for (auto setOfEdge : setOfEdges) {
                 // update counter if edge has already a restricted lane of type "vclass"
-                if ((*it)->hasRestrictedLane(vclass)) {
+                if (setOfEdge->hasRestrictedLane(vclass)) {
                     counter++;
                 }
             }
@@ -2276,9 +2276,9 @@ GNEViewNet::removeRestrictedLane(SUMOVehicleClass vclass) {
             // declare counter for number of restrictions
             int counter = 0;
             // iterate over set of edges
-            for (std::set<GNEEdge*>::iterator it = setOfEdges.begin(); it != setOfEdges.end(); it++) {
+            for (auto setOfEdge : setOfEdges) {
                 // update counter if edge has already a restricted lane of type "vclass"
-                if ((*it)->hasRestrictedLane(vclass)) {
+                if (setOfEdge->hasRestrictedLane(vclass)) {
                     counter++;
                 }
             }
@@ -2310,9 +2310,9 @@ GNEViewNet::removeRestrictedLane(SUMOVehicleClass vclass) {
             // begin undo operation
             myUndoList->p_begin("Remove restrictions for " + toString(vclass));
             // iterate over set of edges
-            for (std::set<GNEEdge*>::iterator it = setOfEdges.begin(); it != setOfEdges.end(); it++) {
+            for (auto setOfEdge : setOfEdges) {
                 // add Sidewalk
-                myNet->removeRestrictedLane(vclass, *(*it), myUndoList);
+                myNet->removeRestrictedLane(vclass, *setOfEdge, myUndoList);
             }
             // end undo operation
             myUndoList->p_end();

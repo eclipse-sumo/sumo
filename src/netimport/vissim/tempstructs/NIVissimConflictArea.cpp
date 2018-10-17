@@ -95,10 +95,10 @@ NIVissimConflictArea::dictionary(int id) {
 NIVissimConflictArea*
 NIVissimConflictArea::dict_findByLinks(const std::string& link1,
                                        const std::string& link2) {
-    for (DictType::iterator i = myDict.begin(); i != myDict.end(); i++) {
-        if (((*i).second->myFirstLink == link1) &&
-                ((*i).second->mySecondLink == link2)) {
-            return (*i).second;
+    for (auto & i : myDict) {
+        if ((i.second->myFirstLink == link1) &&
+                (i.second->mySecondLink == link2)) {
+            return i.second;
         }
     }
     return nullptr;
@@ -107,8 +107,8 @@ NIVissimConflictArea::dict_findByLinks(const std::string& link1,
 
 void
 NIVissimConflictArea::clearDict() {
-    for (DictType::iterator i = myDict.begin(); i != myDict.end(); i++) {
-        delete(*i).second;
+    for (auto & i : myDict) {
+        deletei.second;
     }
     myDict.clear();
 }

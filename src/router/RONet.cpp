@@ -91,8 +91,8 @@ RONet::RONet()
 
 
 RONet::~RONet() {
-    for (RoutablesMap::iterator routables = myRoutables.begin(); routables != myRoutables.end(); ++routables) {
-        for (RORoutable* const r : routables->second) {
+    for (auto & myRoutable : myRoutables) {
+        for (RORoutable* const r : myRoutable.second) {
             const ROVehicle* const veh = dynamic_cast<const ROVehicle*>(r);
             // delete routes and the vehicle
             if (veh != nullptr && veh->getRouteDefinition()->getID()[0] == '!') {
@@ -422,9 +422,9 @@ RONet::checkFlows(SUMOTime time, MsgHandler* errorHandler) {
                     SUMOVehicleParameter* newPars = new SUMOVehicleParameter(*pars);
                     newPars->id = pars->id + "." + toString(pars->repetitionsDone);
                     newPars->depart = pars->depart;
-                    for (std::vector<SUMOVehicleParameter::Stop>::iterator stop = newPars->stops.begin(); stop != newPars->stops.end(); ++stop) {
-                        if (stop->until >= 0) {
-                            stop->until += pars->depart - origDepart;
+                    for (auto & stop : newPars->stops) {
+                        if (stop.until >= 0) {
+                            stop.until += pars->depart - origDepart;
                         }
                     }
                     pars->repetitionsDone++;
@@ -458,9 +458,9 @@ RONet::checkFlows(SUMOTime time, MsgHandler* errorHandler) {
                 SUMOVehicleParameter* newPars = new SUMOVehicleParameter(*pars);
                 newPars->id = pars->id + "." + toString(pars->repetitionsDone);
                 newPars->depart = depart;
-                for (std::vector<SUMOVehicleParameter::Stop>::iterator stop = newPars->stops.begin(); stop != newPars->stops.end(); ++stop) {
-                    if (stop->until >= 0) {
-                        stop->until += depart - pars->depart;
+                for (auto & stop : newPars->stops) {
+                    if (stop.until >= 0) {
+                        stop.until += depart - pars->depart;
                     }
                 }
                 pars->repetitionsDone++;
@@ -520,8 +520,8 @@ RONet::createBulkRouteRequests(const RORouterProvider& provider, const SUMOTime 
             continue;
         }
 #endif
-        for (std::vector<RORoutable*>::const_iterator j = i->second.begin(); j != i->second.end(); ++j) {
-            (*j)->computeRoute(provider, removeLoops, myErrorHandler);
+        for (auto j : i->second) {
+            j->computeRoute(provider, removeLoops, myErrorHandler);
             provider.getVehicleRouter().setBulkMode(true);
         }
         provider.getVehicleRouter().setBulkMode(false);

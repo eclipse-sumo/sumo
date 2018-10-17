@@ -125,9 +125,9 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
     myHasFoes = hasFoes;
     myAmCont = isCont;
     myFoeLinks = foeLinks;
-    for (std::vector<MSLane*>::const_iterator it_lane = foeLanes.begin(); it_lane != foeLanes.end(); ++it_lane) {
+    for (auto foeLane : foeLanes) {
         // cannot assign vector due to const-ness
-        myFoeLanes.push_back(*it_lane);
+        myFoeLanes.push_back(foeLane);
     }
     myJunction = const_cast<MSJunction*>(myLane->getEdge().getFromJunction()); // junctionGraph is initialized after the whole network is loaded
     myAmContOff = isCont && myLogic != nullptr && internalLaneBefore == nullptr && checkContOff();
@@ -318,11 +318,11 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
         if (fromInternalLane()) {
             //std::cout << " setRequestInformation link=" << getViaLaneOrLane()->getID() << " before=" << myLaneBefore->getID() << " before2=" << myLaneBefore->getIncomingLanes().front().lane->getID() << "\n";
             const MSLinkCont& predLinks2 = myLaneBefore->getIncomingLanes().front().lane->getLinkCont();
-            for (MSLinkCont::const_iterator it = predLinks2.begin(); it != predLinks2.end(); ++it) {
-                const MSEdge* target = &((*it)->getLane()->getEdge());
-                if ((*it)->getViaLane() != myInternalLaneBefore && target == myTarget) {
+            for (auto it : predLinks2) {
+                const MSEdge* target = &(it->getLane()->getEdge());
+                if (it->getViaLane() != myInternalLaneBefore && target == myTarget) {
                     //std::cout << " add sublaneFoe=" << (*it)->getViaLane()->getID() << "\n";
-                    mySublaneFoeLanes.push_back((*it)->getViaLane());
+                    mySublaneFoeLanes.push_back(it->getViaLane());
                 }
             }
         }
@@ -383,8 +383,8 @@ MSLink::addBlockedLink(MSLink* link) {
 
 bool
 MSLink::willHaveBlockedFoe() const {
-    for (std::set<MSLink*>::const_iterator i = myBlockedFoeLinks.begin(); i != myBlockedFoeLinks.end(); ++i) {
-        if ((*i)->isBlockingAnyone()) {
+    for (auto myBlockedFoeLink : myBlockedFoeLinks) {
+        if (myBlockedFoeLink->isBlockingAnyone()) {
             return true;
         }
     }
@@ -517,9 +517,9 @@ MSLink::opened(SUMOTime arrivalTime, double arrivalSpeed, double leaveSpeed, dou
     }
 #endif
 
-    for (std::vector<MSLink*>::const_iterator i = myFoeLinks.begin(); i != myFoeLinks.end(); ++i) {
+    for (auto myFoeLink : myFoeLinks) {
         if (MSGlobals::gUseMesoSim) {
-            if ((*i)->haveRed()) {
+            if (myFoeLink->haveRed()) {
                 continue;
             }
         }
@@ -528,7 +528,7 @@ MSLink::opened(SUMOTime arrivalTime, double arrivalSpeed, double leaveSpeed, dou
             std::cout << "    foeLink=" << (*i)->getViaLaneOrLane()->getID() << " numApproaching=" << (*i)->getApproaching().size() << "\n";
         }
 #endif
-        if ((*i)->blockedAtTime(arrivalTime, leaveTime, arrivalSpeed, leaveSpeed, myLane == (*i)->getLane(),
+        if (myFoeLink->blockedAtTime(arrivalTime, leaveTime, arrivalSpeed, leaveSpeed, myLane == myFoeLink->getLane(),
                                 impatience, decel, waitingTime, collectFoes, ego)) {
             return false;
         }
@@ -668,13 +668,13 @@ MSLink::maybeOccupied(MSLane* lane) {
 
 bool
 MSLink::hasApproachingFoe(SUMOTime arrivalTime, SUMOTime leaveTime, double speed, double decel) const {
-    for (std::vector<MSLink*>::const_iterator i = myFoeLinks.begin(); i != myFoeLinks.end(); ++i) {
-        if ((*i)->blockedAtTime(arrivalTime, leaveTime, speed, speed, myLane == (*i)->getLane(), 0, decel, 0)) {
+    for (auto myFoeLink : myFoeLinks) {
+        if (myFoeLink->blockedAtTime(arrivalTime, leaveTime, speed, speed, myLane == myFoeLink->getLane(), 0, decel, 0)) {
             return true;
         }
     }
-    for (std::vector<const MSLane*>::const_iterator i = myFoeLanes.begin(); i != myFoeLanes.end(); ++i) {
-        if ((*i)->getVehicleNumberWithPartials() > 0) {
+    for (auto myFoeLane : myFoeLanes) {
+        if (myFoeLane->getVehicleNumberWithPartials() > 0) {
             return true;
         }
     }
@@ -1049,8 +1049,8 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
             // by ignoring pedestrians that are "obviously" not on a collision course
             double distToPeds = std::numeric_limits<double>::max();
             const std::set<MSTransportable*>& persons = myWalkingAreaFoe->getEdge().getPersons();
-            for (std::set<MSTransportable*>::const_iterator it = persons.begin(); it != persons.end(); ++it) {
-                MSPerson* p = dynamic_cast<MSPerson*>(*it);
+            for (auto person : persons) {
+                MSPerson* p = dynamic_cast<MSPerson*>(person);
                 distToPeds = MIN2(distToPeds, ego->getPosition().distanceTo2D(p->getPosition()) - p->getVehicleType().getLength() - MSPModel::SAFETY_GAP);
                 if (collectBlockers != nullptr) {
                     collectBlockers->push_back(p);
@@ -1061,8 +1061,7 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
 
         if (MSGlobals::gLateralResolution > 0 && ego != nullptr && !isShadowLink) {
             // check for foes on the same lane
-            for (std::vector<MSLane*>::const_iterator it = mySublaneFoeLanes.begin(); it != mySublaneFoeLanes.end(); ++it) {
-                const MSLane* foeLane = *it;
+            for (auto foeLane : mySublaneFoeLanes) {
                 MSLane::AnyVehicleIterator end = foeLane->anyVehiclesEnd();
                 for (MSLane::AnyVehicleIterator it_veh = foeLane->anyVehiclesBegin(); it_veh != end; ++it_veh) {
                     MSVehicle* leader = (MSVehicle*)*it_veh;

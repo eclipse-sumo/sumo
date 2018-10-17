@@ -84,8 +84,7 @@ MSLogicJunction::getInternalLanes() const {
     // Besides the lanes im myInternal lanes, which are only the last parts of the connections,
     // this collects all lanes on the junction
     std::vector<MSLane*> allInternalLanes;
-    for (std::vector<MSLane*>::const_iterator i = myInternalLanes.begin(); i != myInternalLanes.end(); ++i) {
-        MSLane* l = *i;
+    for (auto l : myInternalLanes) {
         while (l != nullptr) {
             allInternalLanes.push_back(l);
             const std::vector<MSLane::IncomingLaneInfo> incoming = l->getIncomingLanes();

@@ -261,8 +261,8 @@ GUISUMOViewParent::isSelected(GUIGlObject* o) const {
             return false;
         }
         const std::vector<MSLane*>& lanes = edge->getLanes();
-        for (std::vector<MSLane*>::const_iterator j = lanes.begin(); j != lanes.end(); ++j) {
-            GUILane* l = dynamic_cast<GUILane*>(*j);
+        for (auto lane : lanes) {
+            GUILane* l = dynamic_cast<GUILane*>(lane);
             if (l != nullptr && gSelected.isSelected(GLO_LANE, l->getGlID())) {
                 return true;
             }

@@ -120,8 +120,8 @@ NIImporter_VISUM::NIImporter_VISUM(NBNetBuilder& nb,
 
 
 NIImporter_VISUM::~NIImporter_VISUM() {
-    for (NIVisumTL_Map::iterator j = myTLS.begin(); j != myTLS.end(); j++) {
-        delete j->second;
+    for (auto & j : myTLS) {
+        delete j.second;
     }
 }
 
@@ -158,18 +158,18 @@ NIImporter_VISUM::load() {
         }
     }
     // go through the parsers and process all entries
-    for (ParserVector::iterator i = mySingleDataParsers.begin(); i != mySingleDataParsers.end(); i++) {
-        if ((*i).position < 0) {
+    for (auto & mySingleDataParser : mySingleDataParsers) {
+        if (mySingleDataParser.position < 0) {
             // do not process using parsers for which no information was found
             continue;
         }
         // ok, the according information is stored in the file
-        PROGRESS_BEGIN_MESSAGE("Parsing " + (*i).name);
+        PROGRESS_BEGIN_MESSAGE("Parsing " + mySingleDataParser.name);
         // reset the line reader and let it point to the begin of the according data field
         myLineReader.reinit();
-        myLineReader.setPos((*i).position);
+        myLineReader.setPos(mySingleDataParser.position);
         // prepare the line parser
-        myLineParser.reinit((*i).pattern);
+        myLineParser.reinit(mySingleDataParser.pattern);
         // read
         bool singleDataEndFound = false;
         while (myLineReader.hasMore() && !singleDataEndFound) {
@@ -180,13 +180,13 @@ NIImporter_VISUM::load() {
                 myLineParser.parseLine(line);
                 try {
                     myCurrentID = "<unknown>";
-                    (this->*(*i).function)();
+                    (this->*mySingleDataParser.function)();
                 } catch (OutOfBoundsException&) {
-                    WRITE_ERROR("Too short value line in " + (*i).name + " occurred.");
+                    WRITE_ERROR("Too short value line in " + mySingleDataParser.name + " occurred.");
                 } catch (NumberFormatException&) {
-                    WRITE_ERROR("A value in " + (*i).name + " should be numeric but is not (id='" + myCurrentID + "').");
+                    WRITE_ERROR("A value in " + mySingleDataParser.name + " should be numeric but is not (id='" + myCurrentID + "').");
                 } catch (UnknownElement& e) {
-                    WRITE_ERROR("One of the needed values ('" + std::string(e.what()) + "') is missing in " + (*i).name + ".");
+                    WRITE_ERROR("One of the needed values ('" + std::string(e.what()) + "') is missing in " + mySingleDataParser.name + ".");
                 }
             }
         }
@@ -194,8 +194,8 @@ NIImporter_VISUM::load() {
         PROGRESS_DONE_MESSAGE();
     }
     // build traffic lights
-    for (NIVisumTL_Map::iterator j = myTLS.begin(); j != myTLS.end(); j++) {
-        j->second->build(myNetBuilder.getEdgeCont(), myNetBuilder.getTLLogicCont());
+    for (auto & j : myTLS) {
+        j.second->build(myNetBuilder.getEdgeCont(), myNetBuilder.getTLLogicCont());
     }
     // build district shapes
     for (std::map<NBDistrict*, PositionVector>::const_iterator k = myDistrictShapes.begin(); k != myDistrictShapes.end(); ++k) {
@@ -474,8 +474,8 @@ NIImporter_VISUM::parse_Connectors() {
     if (dir.find('Q') != std::string::npos) {
         const EdgeVector& edges = dest->getOutgoingEdges();
         bool hasContinuation = false;
-        for (EdgeVector::const_iterator i = edges.begin(); i != edges.end(); ++i) {
-            if (!(*i)->isMacroscopicConnector()) {
+        for (auto edge : edges) {
+            if (!edge->isMacroscopicConnector()) {
                 hasContinuation = true;
             }
         }
@@ -508,8 +508,8 @@ NIImporter_VISUM::parse_Connectors() {
     if (dir.find('Z') != std::string::npos) {
         const EdgeVector& edges = dest->getIncomingEdges();
         bool hasPredeccessor = false;
-        for (EdgeVector::const_iterator i = edges.begin(); i != edges.end(); ++i) {
-            if (!(*i)->isMacroscopicConnector()) {
+        for (auto edge : edges) {
+            if (!edge->isMacroscopicConnector()) {
                 hasPredeccessor = true;
             }
         }
@@ -911,8 +911,8 @@ NIImporter_VISUM::parse_AreaSubPartElement() {
     }
 
     const std::vector<long long int>& areas = mySubPartsAreas.find(id)->second;
-    for (std::vector<long long int>::const_iterator i = areas.begin(); i != areas.end(); ++i) {
-        NBDistrict* d = myShapeDistrictMap[*i];
+    for (std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<long long> > >::value_type area : areas) {
+        NBDistrict* d = myShapeDistrictMap[area];
         if (d == nullptr) {
             continue;
         }

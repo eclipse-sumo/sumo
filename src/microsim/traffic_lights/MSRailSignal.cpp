@@ -187,9 +187,9 @@ MSRailSignal::init(NLDetectorBuilder&) {
 #endif
 
 
-    for (std::map<MSLane*, std::vector<const MSLane*> >::iterator it = mySucceedingBlocks.begin(); it != mySucceedingBlocks.end(); it++) {
+    for (auto & mySucceedingBlock : mySucceedingBlocks) {
         std::queue<const MSLane*> revLanes;
-        for (std::vector<const MSLane*>::iterator laneIt = it->second.begin(); laneIt != it->second.end(); laneIt++) {
+        for (std::vector<const MSLane*>::iterator laneIt = mySucceedingBlock.second.begin(); laneIt != mySucceedingBlock.second.end(); laneIt++) {
             const MSLane* lane = *laneIt;
 
             const MSEdge* reverseEdge = lane->getEdge().getBidiEdge();
@@ -206,7 +206,7 @@ MSRailSignal::init(NLDetectorBuilder&) {
 
         while (!revLanes.empty()) {
             const MSLane* revLane = revLanes.front();
-            it->second.push_back(revLane);
+            mySucceedingBlock.second.push_back(revLane);
             revLanes.pop();
         }
     }

@@ -65,14 +65,14 @@ MSMeanData_Amitran::MSLaneMeanDataValues::addTo(MSMeanData::MeanDataValues& val)
     v.amount += amount;
     v.sampleSeconds += sampleSeconds;
     v.travelledDistance += travelledDistance;
-    for (std::map<const MSVehicleType*, int>::const_iterator it = typedAmount.begin(); it != typedAmount.end(); ++it) {
-        v.typedAmount[it->first] += it->second;
+    for (const auto & it : typedAmount) {
+        v.typedAmount[it.first] += it.second;
     }
-    for (std::map<const MSVehicleType*, double>::const_iterator it = typedSamples.begin(); it != typedSamples.end(); ++it) {
-        v.typedSamples[it->first] += it->second;
+    for (const auto & typedSample : typedSamples) {
+        v.typedSamples[typedSample.first] += typedSample.second;
     }
-    for (std::map<const MSVehicleType*, double>::const_iterator it = typedTravelDistance.begin(); it != typedTravelDistance.end(); ++it) {
-        v.typedTravelDistance[it->first] += it->second;
+    for (const auto & it : typedTravelDistance) {
+        v.typedTravelDistance[it.first] += it.second;
     }
 }
 
@@ -118,9 +118,9 @@ MSMeanData_Amitran::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOTim
         dev.writeAttr("amount", amount).writeAttr("averageSpeed", "-1");
     }
     if (myParent->isTyped()) {
-        for (std::map<const MSVehicleType*, int>::const_iterator it = typedAmount.begin(); it != typedAmount.end(); ++it) {
-            dev.openTag("actorConfig").writeAttr(SUMO_ATTR_ID, it->first->getNumericalID());
-            dev.writeAttr("amount", it->second).writeAttr("averageSpeed", int(100 * typedTravelDistance.find(it->first)->second / typedSamples.find(it->first)->second));
+        for (const auto & it : typedAmount) {
+            dev.openTag("actorConfig").writeAttr(SUMO_ATTR_ID, it.first->getNumericalID());
+            dev.writeAttr("amount", it.second).writeAttr("averageSpeed", int(100 * typedTravelDistance.find(it.first)->second / typedSamples.find(it.first)->second));
             dev.closeTag();
         }
     }

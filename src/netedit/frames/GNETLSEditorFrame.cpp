@@ -467,11 +467,11 @@ GNETLSEditorFrame::onCmdPhaseCreate(FXObject*, FXSelector, void*) {
     if (haveGreen && haveYellow) {
         // guess left-mover state
         duration = TIME2STEPS(oc.getInt("tls.left-green.time"));
-        for (int i = 0; i < (int)state.size(); i++) {
-            if (state[i] == LINKSTATE_TL_YELLOW_MAJOR || state[i] == LINKSTATE_TL_YELLOW_MINOR) {
-                state[i] = LINKSTATE_TL_RED;
-            } else if (state[i] == LINKSTATE_TL_GREEN_MINOR) {
-                state[i] = LINKSTATE_TL_GREEN_MAJOR;
+        for (char & i : state) {
+            if (i == LINKSTATE_TL_YELLOW_MAJOR || i == LINKSTATE_TL_YELLOW_MINOR) {
+                i = LINKSTATE_TL_RED;
+            } else if (i == LINKSTATE_TL_GREEN_MINOR) {
+                i = LINKSTATE_TL_GREEN_MAJOR;
             }
         }
     } else if (haveGreen) {
@@ -490,9 +490,9 @@ GNETLSEditorFrame::onCmdPhaseCreate(FXObject*, FXSelector, void*) {
     } else if (haveYellow) {
         duration = TIME2STEPS(oc.isDefault("tls.allred.time") ? 2 :  oc.getInt("tls.allred.time"));
         // guess all-red state
-        for (int i = 0; i < (int)state.size(); i++) {
-            if (state[i] == LINKSTATE_TL_YELLOW_MAJOR || state[i] == LINKSTATE_TL_YELLOW_MINOR) {
-                state[i] = LINKSTATE_TL_RED;
+        for (char & i : state) {
+            if (i == LINKSTATE_TL_YELLOW_MAJOR || i == LINKSTATE_TL_YELLOW_MINOR) {
+                i = LINKSTATE_TL_RED;
             }
         }
     }

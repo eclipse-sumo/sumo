@@ -46,9 +46,8 @@ void MSDeterministicHiLevelTrafficLightLogic::init(NLDetectorBuilder& nb) {
     MSLane* currentLane = nullptr;
     for (MSTrafficLightLogic::LaneVectorVector::const_iterator laneVector =
                 myLanes.begin(); laneVector != myLanes.end(); laneVector++) {
-        for (MSTrafficLightLogic::LaneVector::const_iterator lane =
-                    laneVector->begin(); lane != laneVector->end(); lane++) {
-            currentLane = (*lane);
+        for (auto lane : *laneVector) {
+            currentLane = lane;
             if (inputLanes.find(currentLane->getID()) == inputLanes.end()) {
                 inputLanes.insert(currentLane->getID());
                 DBG(
@@ -61,8 +60,8 @@ void MSDeterministicHiLevelTrafficLightLogic::init(NLDetectorBuilder& nb) {
 
     for (int i = 0; i < (int)myLinks.size(); i++) {
         LinkVector oneLink = getLinksAt(i);
-        for (int j = 0; j < (int)oneLink.size(); j++) {
-            currentLane = oneLink[j]->getLane();
+        for (auto & j : oneLink) {
+            currentLane = j->getLane();
             if (outputLanes.find(currentLane->getID()) == outputLanes.end()) {
                 outputLanes.insert(currentLane->getID());
                 DBG(
@@ -98,9 +97,7 @@ double MSDeterministicHiLevelTrafficLightLogic::getMeanSpeedForInputLanes() {
         return 0;
     }
     double vSpeedInTot = 0;
-    for (MSLaneID_set::iterator laneIterator = inputLanes.begin();
-            laneIterator != inputLanes.end(); laneIterator++) {
-        std::string laneId = *laneIterator;
+    for (auto laneId : inputLanes) {
         double maxSpeed = getSensors()->meanVehiclesSpeed(laneId);
         if (maxSpeed > -1) {
             vSpeedInTot += (13.89 - maxSpeed) * 10. / 13.89;
@@ -116,9 +113,7 @@ double MSDeterministicHiLevelTrafficLightLogic::getMeanSpeedForOutputLanes() {
         return 0;
     }
     double vSpeedOutTot = 0;
-    for (MSLaneID_set::iterator laneIterator = outputLanes.begin();
-            laneIterator != outputLanes.end(); laneIterator++) {
-        std::string laneId = *laneIterator;
+    for (auto laneId : outputLanes) {
         double maxSpeed = getSensors()->meanVehiclesSpeed(laneId);
         if (maxSpeed > -1) {
             vSpeedOutTot += (13.89 - maxSpeed) * 10. / 13.89;

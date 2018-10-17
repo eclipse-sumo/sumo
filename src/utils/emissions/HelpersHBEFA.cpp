@@ -138,31 +138,31 @@ HelpersHBEFA::HelpersHBEFA() : PollutantsInterface::Helper("HBEFA2") {
     int clusterSizesH[] = {3, 6, 12};
     int clusterSizesP[] = {7, 14};
     int index = 1;
-    for (int i = 0; i < 3; i++) {
-        for (int j = 0; j < clusterSizesH[i]; j++) {
-            myEmissionClassStrings.insert("HDV_" + toString(clusterSizesH[i]) + "_" + toString(j + 1), index | PollutantsInterface::HEAVY_BIT);
-            myEmissionClassStrings.addAlias("hdv_" + toString(clusterSizesH[i]) + "_" + toString(j + 1), index | PollutantsInterface::HEAVY_BIT);
+    for (int i : clusterSizesH) {
+        for (int j = 0; j < i; j++) {
+            myEmissionClassStrings.insert("HDV_" + toString(i) + "_" + toString(j + 1), index | PollutantsInterface::HEAVY_BIT);
+            myEmissionClassStrings.addAlias("hdv_" + toString(i) + "_" + toString(j + 1), index | PollutantsInterface::HEAVY_BIT);
             index++;
         }
     }
-    for (int i = 0; i < 2; i++) {
-        for (int j = 0; j < clusterSizesP[i]; j++) {
-            myEmissionClassStrings.insert("P_" + toString(clusterSizesP[i]) + "_" + toString(j + 1), index);
-            myEmissionClassStrings.addAlias("p_" + toString(clusterSizesP[i]) + "_" + toString(j + 1), index);
+    for (int i : clusterSizesP) {
+        for (int j = 0; j < i; j++) {
+            myEmissionClassStrings.insert("P_" + toString(i) + "_" + toString(j + 1), index);
+            myEmissionClassStrings.addAlias("p_" + toString(i) + "_" + toString(j + 1), index);
             index++;
         }
     }
-    for (int i = 0; i < 3; i++) {
-        for (int j = 0; j < clusterSizesH[i]; j++) {
-            myEmissionClassStrings.insert("HDV_A0_" + toString(clusterSizesH[i]) + "_" + toString(j + 1), index | PollutantsInterface::HEAVY_BIT);
-            myEmissionClassStrings.addAlias("hdv_a0_" + toString(clusterSizesH[i]) + "_" + toString(j + 1), index | PollutantsInterface::HEAVY_BIT);
+    for (int i : clusterSizesH) {
+        for (int j = 0; j < i; j++) {
+            myEmissionClassStrings.insert("HDV_A0_" + toString(i) + "_" + toString(j + 1), index | PollutantsInterface::HEAVY_BIT);
+            myEmissionClassStrings.addAlias("hdv_a0_" + toString(i) + "_" + toString(j + 1), index | PollutantsInterface::HEAVY_BIT);
             index++;
         }
     }
-    for (int i = 0; i < 2; i++) {
-        for (int j = 0; j < clusterSizesP[i]; j++) {
-            myEmissionClassStrings.insert("P_A0_" + toString(clusterSizesP[i]) + "_" + toString(j + 1), index);
-            myEmissionClassStrings.addAlias("p_a0_" + toString(clusterSizesP[i]) + "_" + toString(j + 1), index);
+    for (int i : clusterSizesP) {
+        for (int j = 0; j < i; j++) {
+            myEmissionClassStrings.insert("P_A0_" + toString(i) + "_" + toString(j + 1), index);
+            myEmissionClassStrings.addAlias("p_a0_" + toString(i) + "_" + toString(j + 1), index);
             index++;
         }
     }

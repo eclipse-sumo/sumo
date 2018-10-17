@@ -209,8 +209,8 @@ PHEMCEPHandler::ReadVehicleFile(const std::vector<std::string>& path, const std:
 
 {
     std::ifstream fileVehicle;
-    for (std::vector<std::string>::const_iterator i = path.begin(); i != path.end(); i++) {
-        fileVehicle.open(((*i) + emissionClass + ".PHEMLight.veh").c_str());
+    for (const auto & i : path) {
+        fileVehicle.open((i + emissionClass + ".PHEMLight.veh").c_str());
         if (fileVehicle.good()) {
             break;
         }
@@ -393,8 +393,8 @@ bool PHEMCEPHandler::ReadEmissionData(bool readFC, const std::vector<std::string
     }
     // declare file stream
     std::ifstream fileEmission;
-    for (std::vector<std::string>::const_iterator i = path.begin(); i != path.end(); i++) {
-        fileEmission.open(((*i) + emissionClass + pollutantExtension + ".csv").c_str());
+    for (const auto & i : path) {
+        fileEmission.open((i + emissionClass + pollutantExtension + ".csv").c_str());
         if (fileEmission.good()) {
             break;
         }

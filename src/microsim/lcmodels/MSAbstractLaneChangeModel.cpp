@@ -685,9 +685,9 @@ MSAbstractLaneChangeModel::setShadowApproachingInformation(MSLink* link) const {
 
 void
 MSAbstractLaneChangeModel::removeShadowApproachingInformation() const {
-    for (std::vector<MSLink*>::iterator it = myApproachedByShadow.begin(); it != myApproachedByShadow.end(); ++it) {
+    for (auto & it : myApproachedByShadow) {
         //std::cout << SIMTIME << " veh=" << myVehicle.getID() << " @=" << &myVehicle << " remove shadow approaching=" << (*it)->getViaLaneOrLane()->getID() << "\n";
-        (*it)->removeApproaching(&myVehicle);
+        it->removeApproaching(&myVehicle);
     }
     myApproachedByShadow.clear();
 }

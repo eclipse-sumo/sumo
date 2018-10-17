@@ -70,24 +70,24 @@ MSInternalJunction::postloadInit() {
     // inform links where they have to report approaching vehicles to
     int requestPos = 0;
     //std::cout << " special=" << specialLane->getID() << " incoming=" << toString(myIncomingLanes) << " internal=" << toString(myInternalLanes) << "\n";
-    for (std::vector<MSLane*>::iterator i = myInternalLanes.begin(); i != myInternalLanes.end(); ++i) {
-        const MSLinkCont& lc = (*i)->getLinkCont();
-        for (MSLinkCont::const_iterator q = lc.begin(); q != lc.end(); ++q) {
-            if ((*q)->getViaLane() != nullptr) {
-                const int foeIndex = (*i)->getIncomingLanes()[0].viaLink->getIndex();
+    for (auto & myInternalLane : myInternalLanes) {
+        const MSLinkCont& lc = myInternalLane->getLinkCont();
+        for (auto q : lc) {
+            if (q->getViaLane() != nullptr) {
+                const int foeIndex = myInternalLane->getIncomingLanes()[0].viaLink->getIndex();
                 //std::cout << "       response=" << response << " index=" << ownLinkIndex << " foeIndex=" << foeIndex << " ibct=" << indirectBicycleTurn(specialLane, thisLink, *i, *q) << "\n";
-                if (response.test(foeIndex) || indirectBicycleTurn(specialLane, thisLink, *i, *q)) {
+                if (response.test(foeIndex) || indirectBicycleTurn(specialLane, thisLink, myInternalLane, q)) {
                     // only respect vehicles before internal junctions if they
                     // have priority (see the analogous foeLinks.test() when
                     // initializing myLinkFoeInternalLanes in MSRightOfWayJunction
                     // Indirect left turns for bicycles are a special case
                     // because they both intersect on their second part with the first part of the other one
                     // and only one of the has priority
-                    myInternalLaneFoes.push_back(*i);
+                    myInternalLaneFoes.push_back(myInternalLane);
                 }
-                myInternalLaneFoes.push_back((*q)->getViaLane());
+                myInternalLaneFoes.push_back(q->getViaLane());
             } else {
-                myInternalLaneFoes.push_back(*i);
+                myInternalLaneFoes.push_back(myInternalLane);
             }
             //std::cout << "  i=" << (*i)->getID() << " qLane=" << (*q)->getLane()->getID() << " qVia=" << Named::getIDSecure((*q)->getViaLane()) << " foes=" << toString(myInternalLaneFoes) << "\n";
         }
@@ -96,12 +96,12 @@ MSInternalJunction::postloadInit() {
     for (std::vector<MSLane*>::const_iterator i = myIncomingLanes.begin() + 1; i != myIncomingLanes.end(); ++i) {
         MSLane* l = *i;
         const MSLinkCont& lc = l->getLinkCont();
-        for (MSLinkCont::const_iterator j = lc.begin(); j != lc.end(); ++j) {
-            MSLane* via = (*j)->getViaLane();
+        for (auto j : lc) {
+            MSLane* via = j->getViaLane();
             if (std::find(myInternalLanes.begin(), myInternalLanes.end(), via) == myInternalLanes.end()) {
                 continue;
             }
-            myInternalLinkFoes.push_back(*j);
+            myInternalLinkFoes.push_back(j);
         }
     }
     // thisLinks is itself an exitLink of the preceding internal lane

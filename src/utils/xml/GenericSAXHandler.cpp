@@ -59,8 +59,8 @@ GenericSAXHandler::GenericSAXHandler(
 
 
 GenericSAXHandler::~GenericSAXHandler() {
-    for (AttrMap::iterator i1 = myPredefinedTags.begin(); i1 != myPredefinedTags.end(); i1++) {
-        delete[](*i1).second;
+    for (auto & myPredefinedTag : myPredefinedTags) {
+        delete[]myPredefinedTag.second;
     }
 }
 
@@ -126,15 +126,15 @@ GenericSAXHandler::endElement(const XMLCh* const /*uri*/,
     // collect characters
     if (myCharactersVector.size() != 0) {
         int len = 0;
-        for (int i = 0; i < (int)myCharactersVector.size(); ++i) {
-            len += (int)myCharactersVector[i].length();
+        for (auto & i : myCharactersVector) {
+            len += (int)i.length();
         }
         char* buf = new char[len + 1];
         int pos = 0;
-        for (int i = 0; i < (int)myCharactersVector.size(); ++i) {
-            memcpy((unsigned char*) buf + pos, (unsigned char*) myCharactersVector[i].c_str(),
-                   sizeof(char)*myCharactersVector[i].length());
-            pos += (int)myCharactersVector[i].length();
+        for (auto & i : myCharactersVector) {
+            memcpy((unsigned char*) buf + pos, (unsigned char*) i.c_str(),
+                   sizeof(char)*i.length());
+            pos += (int)i.length();
         }
         buf[pos] = 0;
 

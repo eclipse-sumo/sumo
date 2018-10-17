@@ -81,15 +81,15 @@ MSTriggeredRerouter::MSTriggeredRerouter(const std::string& id,
     myAmInUserMode(false),
     myTimeThreshold(timeThreshold) {
     // build actors
-    for (MSEdgeVector::const_iterator j = edges.begin(); j != edges.end(); ++j) {
+    for (auto edge : edges) {
         if (MSGlobals::gUseMesoSim) {
-            MESegment* s = MSGlobals::gMesoNet->getSegmentForEdge(**j);
+            MESegment* s = MSGlobals::gMesoNet->getSegmentForEdge(*edge);
             s->addDetector(this);
             continue;
         }
-        const std::vector<MSLane*>& destLanes = (*j)->getLanes();
-        for (std::vector<MSLane*>::const_iterator i = destLanes.begin(); i != destLanes.end(); ++i) {
-            (*i)->addMoveReminder(this);
+        const std::vector<MSLane*>& destLanes = edge->getLanes();
+        for (auto destLane : destLanes) {
+            destLane->addMoveReminder(this);
         }
     }
     if (off) {
@@ -247,8 +247,8 @@ MSTriggeredRerouter::myEndElement(int element) {
         if (ri.closedLanes.size() > 0) {
             // collect edges that are affect by a closed lane
             std::set<MSEdge*> affected;
-            for (std::vector<MSLane*>::iterator l = ri.closedLanes.begin(); l != ri.closedLanes.end(); ++l) {
-                affected.insert(&((*l)->getEdge()));
+            for (auto & closedLane : ri.closedLanes) {
+                affected.insert(&(closedLane->getEdge()));
             }
             ri.closedLanesAffected.insert(ri.closedLanesAffected.begin(), affected.begin(), affected.end());
         }
@@ -272,32 +272,32 @@ MSTriggeredRerouter::myEndElement(int element) {
 
 SUMOTime
 MSTriggeredRerouter::setPermissions(const SUMOTime currentTime) {
-    for (std::vector<RerouteInterval>::iterator i = myIntervals.begin(); i != myIntervals.end(); ++i) {
-        if (i->begin == currentTime && !(i->closed.empty() && i->closedLanes.empty()) && i->permissions != SVCAll) {
-            for (MSEdgeVector::iterator e = i->closed.begin(); e != i->closed.end(); ++e) {
-                for (std::vector<MSLane*>::const_iterator l = (*e)->getLanes().begin(); l != (*e)->getLanes().end(); ++l) {
+    for (auto & myInterval : myIntervals) {
+        if (myInterval.begin == currentTime && !(myInterval.closed.empty() && myInterval.closedLanes.empty()) && myInterval.permissions != SVCAll) {
+            for (MSEdgeVector::iterator e = myInterval.closed.begin(); e != myInterval.closed.end(); ++e) {
+                for (auto l : (*e)->getLanes()) {
                     //std::cout << SIMTIME << " closing: intervalID=" << i->id << " lane=" << (*l)->getID() << " prevPerm=" << getVehicleClassNames((*l)->getPermissions()) << " new=" << getVehicleClassNames(i->permissions) << "\n";
-                    (*l)->setPermissions(i->permissions, i->id);
+                    l->setPermissions(myInterval.permissions, myInterval.id);
                 }
                 (*e)->rebuildAllowedLanes();
             }
-            for (std::vector<MSLane*>::iterator l = i->closedLanes.begin(); l != i->closedLanes.end(); ++l) {
-                (*l)->setPermissions(i->permissions, i->id);
+            for (std::vector<MSLane*>::iterator l = myInterval.closedLanes.begin(); l != myInterval.closedLanes.end(); ++l) {
+                (*l)->setPermissions(myInterval.permissions, myInterval.id);
                 (*l)->getEdge().rebuildAllowedLanes();
             }
             MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(
-                new WrappingCommand<MSTriggeredRerouter>(this, &MSTriggeredRerouter::setPermissions), i->end);
+                new WrappingCommand<MSTriggeredRerouter>(this, &MSTriggeredRerouter::setPermissions), myInterval.end);
         }
-        if (i->end == currentTime && !(i->closed.empty() && i->closedLanes.empty()) && i->permissions != SVCAll) {
-            for (MSEdgeVector::iterator e = i->closed.begin(); e != i->closed.end(); ++e) {
-                for (std::vector<MSLane*>::const_iterator l = (*e)->getLanes().begin(); l != (*e)->getLanes().end(); ++l) {
-                    (*l)->resetPermissions(i->id);
+        if (myInterval.end == currentTime && !(myInterval.closed.empty() && myInterval.closedLanes.empty()) && myInterval.permissions != SVCAll) {
+            for (MSEdgeVector::iterator e = myInterval.closed.begin(); e != myInterval.closed.end(); ++e) {
+                for (auto l : (*e)->getLanes()) {
+                    l->resetPermissions(myInterval.id);
                     //std::cout << SIMTIME << " opening: intervalID=" << i->id << " lane=" << (*l)->getID() << " restore prevPerm=" << getVehicleClassNames((*l)->getPermissions()) << "\n";
                 }
                 (*e)->rebuildAllowedLanes();
             }
-            for (std::vector<MSLane*>::iterator l = i->closedLanes.begin(); l != i->closedLanes.end(); ++l) {
-                (*l)->resetPermissions(i->id);
+            for (std::vector<MSLane*>::iterator l = myInterval.closedLanes.begin(); l != myInterval.closedLanes.end(); ++l) {
+                (*l)->resetPermissions(myInterval.id);
                 (*l)->getEdge().rebuildAllowedLanes();
             }
         }
@@ -308,20 +308,20 @@ MSTriggeredRerouter::setPermissions(const SUMOTime currentTime) {
 
 const MSTriggeredRerouter::RerouteInterval*
 MSTriggeredRerouter::getCurrentReroute(SUMOTime time, SUMOVehicle& veh) const {
-    for (std::vector<RerouteInterval>::const_iterator i = myIntervals.begin(); i != myIntervals.end(); ++i) {
-        if (i->begin <= time && i->end > time) {
+    for (const auto & myInterval : myIntervals) {
+        if (myInterval.begin <= time && myInterval.end > time) {
             if (
                 // destProbReroute
-                i->edgeProbs.getOverallProb() > 0 ||
+                myInterval.edgeProbs.getOverallProb() > 0 ||
                 // routeProbReroute
-                i->routeProbs.getOverallProb() > 0 ||
+                myInterval.routeProbs.getOverallProb() > 0 ||
                 // parkingZoneReroute
-                i->parkProbs.getOverallProb() > 0 ||
+                myInterval.parkProbs.getOverallProb() > 0 ||
                 // affected by closingReroute
-                veh.getRoute().containsAnyOf(i->closed) ||
+                veh.getRoute().containsAnyOf(myInterval.closed) ||
                 // affected by closingLaneReroute
-                veh.getRoute().containsAnyOf(i->closedLanesAffected)) {
-                return &*i;
+                veh.getRoute().containsAnyOf(myInterval.closedLanesAffected)) {
+                return &myInterval;
             }
         }
     }
@@ -331,10 +331,10 @@ MSTriggeredRerouter::getCurrentReroute(SUMOTime time, SUMOVehicle& veh) const {
 
 const MSTriggeredRerouter::RerouteInterval*
 MSTriggeredRerouter::getCurrentReroute(SUMOTime time) const {
-    for (std::vector<RerouteInterval>::const_iterator i = myIntervals.begin(); i != myIntervals.end(); ++i) {
-        if (i->begin <= time && i->end > time) {
-            if (i->parkProbs.getOverallProb() != 0 || i->edgeProbs.getOverallProb() != 0 || i->routeProbs.getOverallProb() != 0 || !i->closed.empty()) {
-                return &*i;
+    for (const auto & myInterval : myIntervals) {
+        if (myInterval.begin <= time && myInterval.end > time) {
+            if (myInterval.parkProbs.getOverallProb() != 0 || myInterval.edgeProbs.getOverallProb() != 0 || myInterval.routeProbs.getOverallProb() != 0 || !myInterval.closed.empty()) {
+                return &myInterval;
             }
         }
     }
@@ -791,9 +791,9 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
         // minimum cost to get the parking area
         double minParkingCost = 0.0;
 
-        for (MSParkingAreaMap_t::iterator it = parkAreas.begin(); it != parkAreas.end(); ++it) {
+        for (auto & parkArea : parkAreas) {
             // get the parking values
-            ParkingParamMap_t parkValues = it->second;
+            ParkingParamMap_t parkValues = parkArea.second;
 
             // normalizing parking values with maximum values (we want to maximize some parameters then we reverse the value)
             parkValues["probability"] = maxValues["probability"] > 0.0 ? 1.0 - parkValues["probability"] / maxValues["probability"] : 0.0;
@@ -811,19 +811,19 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
             double parkingCost = 0.0;
 
             // sum every index with its weight
-            for (ParkingParamMap_t::iterator pc = parkValues.begin(); pc != parkValues.end(); ++pc) {
-                parkingCost += weights[pc->first] * pc->second;
+            for (auto & parkValue : parkValues) {
+                parkingCost += weights[parkValue.first] * parkValue.second;
             }
 
             // get the parking area with minimum cost
             if (nearParkArea == nullptr || parkingCost < minParkingCost) {
                 minParkingCost = parkingCost;
-                nearParkArea = it->first;
+                nearParkArea = parkArea.first;
             }
 
 #ifdef DEBUG_PARKING
             if (DEBUGCOND) {
-                std::cout << "    altPA=" << it->first->getID() << " score=" << parkingCost << "\n";
+                std::cout << "    altPA=" << parkArea.first->getID() << " score=" << parkingCost << "\n";
             }
 #endif
         }

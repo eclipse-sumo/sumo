@@ -76,12 +76,12 @@ GUIParameterTracker::GUIParameterTracker(GUIMainWindow& app,
 
 GUIParameterTracker::~GUIParameterTracker() {
     myApplication->removeChild(this);
-    for (std::vector<TrackerValueDesc*>::iterator i1 = myTracked.begin(); i1 != myTracked.end(); i1++) {
-        delete(*i1);
+    for (auto & i1 : myTracked) {
+        deletei1;
     }
     // deleted by GUINet
-    for (std::vector<GLObjectValuePassConnector<double>*>::iterator i2 = myValuePassers.begin(); i2 != myValuePassers.end(); i2++) {
-        delete(*i2);
+    for (auto & myValuePasser : myValuePassers) {
+        deletemyValuePasser;
     }
     delete myToolBarDrag;
     delete myToolBar;
@@ -174,8 +174,8 @@ GUIParameterTracker::onCmdChangeAggregation(FXObject*, FXSelector, void*) {
             throw 1;
             break;
     }
-    for (std::vector<TrackerValueDesc*>::iterator i1 = myTracked.begin(); i1 != myTracked.end(); i1++) {
-        (*i1)->setAggregationSpan(TIME2STEPS(aggInt));
+    for (auto & i1 : myTracked) {
+        i1->setAggregationSpan(TIME2STEPS(aggInt));
     }
     return 1;
 }
@@ -262,8 +262,7 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValues() {
     glLoadIdentity();
     glDisable(GL_TEXTURE_2D);
     int run = 0;
-    for (std::vector<TrackerValueDesc*>::iterator i = myParent->myTracked.begin(); i != myParent->myTracked.end(); i++) {
-        TrackerValueDesc* desc = *i;
+    for (auto desc : myParent->myTracked) {
         drawValue(*desc,
                   (double) myWidthInPixels / (double) myParent->myTracked.size() * (double) run);
         run++;

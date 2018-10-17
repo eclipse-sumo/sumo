@@ -179,8 +179,8 @@ OptionsCont::getSecure(const std::string& name) const {
     std::map<std::string, bool>::iterator s = myDeprecatedSynonymes.find(name);
     if (s != myDeprecatedSynonymes.end() && !s->second) {
         std::string defaultName;
-        for (std::map<std::string, std::vector<std::string> >::const_iterator i = mySubTopicEntries.begin(); i != mySubTopicEntries.end(); ++i) {
-            for (std::vector<std::string>::const_iterator j = i->second.begin(); j != i->second.end(); ++j) {
+        for (const auto & mySubTopicEntrie : mySubTopicEntries) {
+            for (std::vector<std::string>::const_iterator j = mySubTopicEntrie.second.begin(); j != mySubTopicEntrie.second.end(); ++j) {
                 KnownContType::const_iterator l = myValues.find(*j);
                 if (l != myValues.end() && l->second == k->second) {
                     defaultName = *j;
@@ -278,9 +278,9 @@ std::vector<std::string>
 OptionsCont::getSynonymes(const std::string& name) const {
     Option* o = getSecure(name);
     std::vector<std::string> v(0);
-    for (KnownContType::const_iterator i = myValues.begin(); i != myValues.end(); i++) {
-        if ((*i).second == o && name != (*i).first) {
-            v.push_back((*i).first);
+    for (const auto & myValue : myValues) {
+        if (myValue.second == o && name != myValue.first) {
+            v.push_back(myValue.first);
         }
     }
     return v;
@@ -386,13 +386,13 @@ OptionsCont::checkDependingSuboptions(const std::string& name, const std::string
     }
     bool ok = true;
     std::vector<std::string> seenSynonymes;
-    for (KnownContType::const_iterator i = myValues.begin(); i != myValues.end(); i++) {
-        if (std::find(seenSynonymes.begin(), seenSynonymes.end(), (*i).first) != seenSynonymes.end()) {
+    for (const auto & myValue : myValues) {
+        if (std::find(seenSynonymes.begin(), seenSynonymes.end(), myValue.first) != seenSynonymes.end()) {
             continue;
         }
-        if ((*i).second->isSet() && !(*i).second->isDefault() && (*i).first.find(prefix) == 0) {
-            WRITE_ERROR("Option '" + (*i).first + "' needs option '" + name + "'.");
-            std::vector<std::string> synonymes = getSynonymes((*i).first);
+        if (myValue.second->isSet() && !myValue.second->isDefault() && myValue.first.find(prefix) == 0) {
+            WRITE_ERROR("Option '" + myValue.first + "' needs option '" + name + "'.");
+            std::vector<std::string> synonymes = getSynonymes(myValue.first);
             std::copy(synonymes.begin(), synonymes.end(), std::back_inserter(seenSynonymes));
             ok = false;
         }
@@ -436,8 +436,8 @@ OptionsCont::isBool(const std::string& name) const {
 
 void
 OptionsCont::resetWritable() {
-    for (ItemAddressContType::iterator i = myAddresses.begin(); i != myAddresses.end(); i++) {
-        (*i)->resetWritable();
+    for (auto & myAddresse : myAddresses) {
+        myAddresse->resetWritable();
     }
 }
 
@@ -675,8 +675,8 @@ OptionsCont::printHelp(std::ostream& os) {
             int csize = (int)j->length() + 2 + 4;
             // abbreviation length ("-X, "->4chars) if any
             const std::vector<std::string> synonymes = getSynonymes(*j);
-            for (std::vector<std::string>::const_iterator s = synonymes.begin(); s != synonymes.end(); ++s) {
-                if (s->length() == 1 && myDeprecatedSynonymes.count(*s) == 0) {
+            for (const auto & synonyme : synonymes) {
+                if (synonyme.length() == 1 && myDeprecatedSynonymes.count(synonyme) == 0) {
                     csize += 4;
                     break;
                 }
@@ -762,17 +762,17 @@ OptionsCont::writeConfiguration(std::ostream& os, const bool filled,
         os << myAppName;
     }
     os << "Configuration.xsd\">" << std::endl << std::endl;
-    for (std::vector<std::string>::const_iterator i = mySubTopics.begin(); i != mySubTopics.end(); ++i) {
-        std::string subtopic = *i;
+    for (const auto & mySubTopic : mySubTopics) {
+        std::string subtopic = mySubTopic;
         if (subtopic == "Configuration" && !complete) {
             continue;
         }
         std::replace(subtopic.begin(), subtopic.end(), ' ', '_');
         std::transform(subtopic.begin(), subtopic.end(), subtopic.begin(), tolower);
-        const std::vector<std::string>& entries = mySubTopicEntries.find(*i)->second;
+        const std::vector<std::string>& entries = mySubTopicEntries.find(mySubTopic)->second;
         bool hadOne = false;
-        for (std::vector<std::string>::const_iterator j = entries.begin(); j != entries.end(); ++j) {
-            Option* o = getSecure(*j);
+        for (const auto & entrie : entries) {
+            Option* o = getSecure(entrie);
             bool write = complete || (filled && !o->isDefault());
             if (!write) {
                 continue;
@@ -785,12 +785,12 @@ OptionsCont::writeConfiguration(std::ostream& os, const bool filled,
                 os << "        <!-- " << StringUtils::escapeXML(o->getDescription(), inComment) << " -->" << std::endl;
             }
             // write the option and the value (if given)
-            os << "        <" << *j << " value=\"";
+            os << "        <" << entrie << " value=\"";
             if (o->isSet() && (filled || o->isDefault())) {
                 os << StringUtils::escapeXML(o->getValueString(), inComment);
             }
             if (complete) {
-                std::vector<std::string> synonymes = getSynonymes(*j);
+                std::vector<std::string> synonymes = getSynonymes(entrie);
                 if (!synonymes.empty()) {
                     os << "\" synonymes=\"";
                     for (std::vector<std::string>::const_iterator s = synonymes.begin(); s != synonymes.end(); ++s) {
@@ -849,14 +849,14 @@ OptionsCont::writeSchema(std::ostream& os) {
         os << "    <xsd:complexType name=\"" << subtopic << "TopicType\">\n";
         os << "        <xsd:all>\n";
         const std::vector<std::string>& entries = mySubTopicEntries[*i];
-        for (std::vector<std::string>::const_iterator j = entries.begin(); j != entries.end(); ++j) {
-            Option* o = getSecure(*j);
+        for (const auto & entrie : entries) {
+            Option* o = getSecure(entrie);
             std::string type = o->getTypeName();
             std::transform(type.begin(), type.end(), type.begin(), tolower);
             if (type == "int[]") {
                 type = "intArray";
             }
-            os << "            <xsd:element name=\"" << *j << "\" type=\"" << type << "OptionType\" minOccurs=\"0\"/>\n";
+            os << "            <xsd:element name=\"" << entrie << "\" type=\"" << type << "OptionType\" minOccurs=\"0\"/>\n";
         }
         os << "        </xsd:all>\n";
         os << "    </xsd:complexType>\n\n";
@@ -898,8 +898,8 @@ OptionsCont::getStringVector(const std::string& name) const {
     }
     StringTokenizer st(def, ";,", true);
     std::vector<std::string> ret = st.getVector();
-    for (std::vector<std::string>::iterator i = ret.begin(); i != ret.end(); ++i) {
-        (*i) = StringUtils::prune(*i);
+    for (auto & i : ret) {
+        i = StringUtils::prune(i);
     }
     return ret;
 }

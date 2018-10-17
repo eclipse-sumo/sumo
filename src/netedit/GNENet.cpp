@@ -332,8 +332,8 @@ GNENet::createEdge(
     bool recomputeConnections) {
     // prevent duplicate edge (same geometry)
     const EdgeVector& outgoing = src->getNBNode()->getOutgoingEdges();
-    for (EdgeVector::const_iterator it = outgoing.begin(); it != outgoing.end(); it++) {
-        if ((*it)->getToNode() == dest->getNBNode() && (*it)->getGeometry().size() == 2) {
+    for (auto it : outgoing) {
+        if (it->getToNode() == dest->getNBNode() && it->getGeometry().size() == 2) {
             if (!allowDuplicateGeom) {
                 return nullptr;
             }
@@ -1559,9 +1559,9 @@ GNENet::cleanInvalidCrossings(GNEUndoList* undoList) {
     }
     // obtain invalid crossigns
     std::vector<GNECrossing*> myInvalidCrossings;
-    for (auto i = myNetCrossings.begin(); i != myNetCrossings.end(); i++) {
-        if ((*i)->getNBCrossing()->valid == false) {
-            myInvalidCrossings.push_back(*i);
+    for (auto & myNetCrossing : myNetCrossings) {
+        if (myNetCrossing->getNBCrossing()->valid == false) {
+            myInvalidCrossings.push_back(myNetCrossing);
         }
     }
 
@@ -1591,8 +1591,8 @@ GNENet::cleanInvalidCrossings(GNEUndoList* undoList) {
             }
         } else {
             undoList->p_begin("Clean " + toString(SUMO_TAG_CROSSING) + "s");
-            for (auto i = myInvalidCrossings.begin(); i != myInvalidCrossings.end(); i++) {
-                deleteCrossing((*i), undoList);
+            for (auto & myInvalidCrossing : myInvalidCrossings) {
+                deleteCrossing(myInvalidCrossing, undoList);
             }
             undoList->p_end();
         }

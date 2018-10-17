@@ -53,9 +53,9 @@ PollutantsInterface::getClassByName(const std::string& eClass, const SUMOVehicle
     if (sep != std::string::npos) {
         const std::string model = eClass.substr(0, sep);
         const std::string subClass = eClass.substr(sep + 1);
-        for (int i = 0; i < 4; i++) {
-            if (myHelpers[i]->getName() == model) {
-                return myHelpers[i]->getClassByName(subClass, vc);
+        for (auto & myHelper : myHelpers) {
+            if (myHelper->getName() == model) {
+                return myHelper->getClassByName(subClass, vc);
             }
         }
     } else {

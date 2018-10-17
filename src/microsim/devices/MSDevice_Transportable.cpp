@@ -76,8 +76,8 @@ bool
 MSDevice_Transportable::notifyMove(SUMOVehicle& veh, double /*oldPos*/, double /*newPos*/, double /*newSpeed*/) {
     if (myStopped) {
         if (!veh.isStopped()) {
-            for (std::vector<MSTransportable*>::iterator i = myTransportables.begin(); i != myTransportables.end(); ++i) {
-                (*i)->setDeparted(MSNet::getInstance()->getCurrentTimeStep());
+            for (auto & myTransportable : myTransportables) {
+                myTransportable->setDeparted(MSNet::getInstance()->getCurrentTimeStep());
             }
             myStopped = false;
         }
@@ -115,8 +115,8 @@ MSDevice_Transportable::notifyMove(SUMOVehicle& veh, double /*oldPos*/, double /
 bool
 MSDevice_Transportable::notifyEnter(SUMOVehicle& /*veh*/, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
     if (reason == MSMoveReminder::NOTIFICATION_DEPARTED) {
-        for (std::vector<MSTransportable*>::iterator i = myTransportables.begin(); i != myTransportables.end(); ++i) {
-            (*i)->setDeparted(MSNet::getInstance()->getCurrentTimeStep());
+        for (auto & myTransportable : myTransportables) {
+            myTransportable->setDeparted(MSNet::getInstance()->getCurrentTimeStep());
         }
     }
     return true;
@@ -127,8 +127,7 @@ bool
 MSDevice_Transportable::notifyLeave(SUMOVehicle& veh, double /*lastPos*/,
                                     MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
     if (reason >= MSMoveReminder::NOTIFICATION_ARRIVED) {
-        for (std::vector<MSTransportable*>::iterator i = myTransportables.begin(); i != myTransportables.end(); ++i) {
-            MSTransportable* transportable = *i;
+        for (auto transportable : myTransportables) {
             if (transportable->getDestination() != veh.getEdge()) {
                 WRITE_WARNING((myAmContainer ? "Teleporting container '" : "Teleporting person '") + transportable->getID() +
                               "' from vehicle destination edge '" + veh.getEdge()->getID() +
@@ -177,8 +176,8 @@ std::string
 MSDevice_Transportable::getParameter(const std::string& key) const {
     if (key == "IDList") {
         std::vector<std::string> ids;
-        for (std::vector<MSTransportable*>::const_iterator i = myTransportables.begin(); i != myTransportables.end(); ++i) {
-            ids.push_back((*i)->getID());
+        for (auto myTransportable : myTransportables) {
+            ids.push_back(myTransportable->getID());
         }
         return toString(ids);
     }

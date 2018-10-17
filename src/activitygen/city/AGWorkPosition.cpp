@@ -75,11 +75,10 @@ AGWorkPosition::generateOpeningTime(const AGDataAndStatistics& ds) {
     double choice = RandHelper::rand();
     double cumul = 0;
 
-    for (std::map<int, double>::const_iterator it = ds.beginWorkHours.begin();
-            it != ds.beginWorkHours.end(); ++it) {
-        cumul += it->second;
+    for (const auto & beginWorkHour : ds.beginWorkHours) {
+        cumul += beginWorkHour.second;
         if (cumul >= choice) {
-            return it->first;
+            return beginWorkHour.first;
         }
     }
     std::cout << "-- WARNING: work time distribution not complete (Sum(proportions) != 1): AUTODEFINED at 9.00am --" << std::endl;
@@ -91,11 +90,10 @@ int
 AGWorkPosition::generateClosingTime(const AGDataAndStatistics& ds) {
     double choice = RandHelper::rand();
     double cumul = 0;
-    for (std::map<int, double>::const_iterator it = ds.endWorkHours.begin();
-            it != ds.endWorkHours.end(); ++it) {
-        cumul += it->second;
+    for (const auto & endWorkHour : ds.endWorkHours) {
+        cumul += endWorkHour.second;
         if (cumul >= choice) {
-            return it->first;
+            return endWorkHour.first;
         }
     }
     std::cout << "-- WARNING: work time distribution not complete (Sum(proportions) != 1): AUTODEFINED at 5.00pm --" << std::endl;

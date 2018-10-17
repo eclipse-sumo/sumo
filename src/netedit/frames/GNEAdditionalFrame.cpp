@@ -447,8 +447,8 @@ GNEAdditionalFrame::AdditionalAttributes::~AdditionalAttributes() {}
 void
 GNEAdditionalFrame::AdditionalAttributes::clearAttributes() {
     // Hide all fields
-    for (int i = 0; i < (int)myVectorOfsingleAdditionalParameter.size(); i++) {
-        myVectorOfsingleAdditionalParameter.at(i)->hideParameter();
+    for (auto & i : myVectorOfsingleAdditionalParameter) {
+        i->hideParameter();
     }
 }
 
@@ -477,9 +477,9 @@ GNEAdditionalFrame::AdditionalAttributes::hideAdditionalAttributesModul() {
 void
 GNEAdditionalFrame::AdditionalAttributes::getAttributesAndValues(std::map<SumoXMLAttr, std::string> &valuesMap) const {
     // get standard parameters
-    for (int i = 0; i < (int)myVectorOfsingleAdditionalParameter.size(); i++) {
-        if (myVectorOfsingleAdditionalParameter.at(i)->getAttr() != SUMO_ATTR_NOTHING) {
-            valuesMap[myVectorOfsingleAdditionalParameter.at(i)->getAttr()] = myVectorOfsingleAdditionalParameter.at(i)->getValue();
+    for (auto i : myVectorOfsingleAdditionalParameter) {
+        if (i->getAttr() != SUMO_ATTR_NOTHING) {
+            valuesMap[i->getAttr()] = i->getValue();
         }
     }
 }

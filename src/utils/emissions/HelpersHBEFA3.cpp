@@ -454,16 +454,16 @@ HelpersHBEFA3::HelpersHBEFA3() : PollutantsInterface::Helper("HBEFA3") {
                             "PC_D_EU0", "PC_D_EU1", "PC_D_EU2", "PC_D_EU3", "PC_D_EU4", "PC_D_EU5", "PC_D_EU6"
                           };
     std::string heavy[] = { "Bus", "Coach", "HDV", "HDV_G", "HDV_D_EU0", "HDV_D_EU1", "HDV_D_EU2", "HDV_D_EU3", "HDV_D_EU4", "HDV_D_EU5", "HDV_D_EU6", "HDV_D_East"};
-    for (int i = 0; i < 33; i++) {
-        myEmissionClassStrings.insert(light[i], index);
-        std::transform(light[i].begin(), light[i].end(), light[i].begin(), tolower);
-        myEmissionClassStrings.addAlias(light[i], index);
+    for (auto & i : light) {
+        myEmissionClassStrings.insert(i, index);
+        std::transform(i.begin(), i.end(), i.begin(), tolower);
+        myEmissionClassStrings.addAlias(i, index);
         index++;
     }
-    for (int i = 0; i < 12; i++) {
-        myEmissionClassStrings.insert(heavy[i], index | PollutantsInterface::HEAVY_BIT);
-        std::transform(heavy[i].begin(), heavy[i].end(), heavy[i].begin(), tolower);
-        myEmissionClassStrings.addAlias(heavy[i], index | PollutantsInterface::HEAVY_BIT);
+    for (auto & i : heavy) {
+        myEmissionClassStrings.insert(i, index | PollutantsInterface::HEAVY_BIT);
+        std::transform(i.begin(), i.end(), i.begin(), tolower);
+        myEmissionClassStrings.addAlias(i, index | PollutantsInterface::HEAVY_BIT);
         index++;
     }
     myEmissionClassStrings.addAlias("unknown", myEmissionClassStrings.get("PC_G_EU4"));

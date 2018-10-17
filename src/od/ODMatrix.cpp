@@ -53,8 +53,8 @@ ODMatrix::ODMatrix(const ODDistrictCont& dc)
 
 
 ODMatrix::~ODMatrix() {
-    for (std::vector<ODCell*>::iterator i = myContainer.begin(); i != myContainer.end(); ++i) {
-        delete *i;
+    for (auto & i : myContainer) {
+        delete i;
     }
     myContainer.clear();
 }
@@ -544,11 +544,11 @@ void
 ODMatrix::applyCurve(const Distribution_Points& ps) {
     std::vector<ODCell*> oldCells = myContainer;
     myContainer.clear();
-    for (std::vector<ODCell*>::iterator i = oldCells.begin(); i != oldCells.end(); ++i) {
+    for (auto & oldCell : oldCells) {
         std::vector<ODCell*> newCells;
-        applyCurve(ps, *i, newCells);
+        applyCurve(ps, oldCell, newCells);
         copy(newCells.begin(), newCells.end(), back_inserter(myContainer));
-        delete *i;
+        delete oldCell;
     }
 }
 
@@ -556,10 +556,10 @@ ODMatrix::applyCurve(const Distribution_Points& ps) {
 void
 ODMatrix::loadMatrix(OptionsCont& oc) {
     std::vector<std::string> files = oc.getStringVector("od-matrix-files");
-    for (std::vector<std::string>::iterator i = files.begin(); i != files.end(); ++i) {
-        LineReader lr(*i);
+    for (auto & file : files) {
+        LineReader lr(file);
         if (!lr.good()) {
-            throw ProcessError("Could not open '" + (*i) + "'.");
+            throw ProcessError("Could not open '" + file + "'.");
         }
         std::string type = lr.readLine();
         // get the type only
@@ -570,27 +570,27 @@ ODMatrix::loadMatrix(OptionsCont& oc) {
         if (type.length() > 1 && type[1] == 'V') {
             // process ptv's 'V'-matrices
             if (type.find('N') != std::string::npos) {
-                throw ProcessError("'" + *i + "' does not contain the needed information about the time described.");
+                throw ProcessError("'" + file + "' does not contain the needed information about the time described.");
             }
             readV(lr, oc.getFloat("scale"), oc.getString("vtype"), type.find('M') != std::string::npos);
         } else if (type.length() > 1 && type[1] == 'O') {
             // process ptv's 'O'-matrices
             if (type.find('N') != std::string::npos) {
-                throw ProcessError("'" + *i + "' does not contain the needed information about the time described.");
+                throw ProcessError("'" + file + "' does not contain the needed information about the time described.");
             }
             readO(lr, oc.getFloat("scale"), oc.getString("vtype"), type.find('M') != std::string::npos);
         } else {
-            throw ProcessError("'" + *i + "' uses an unknown matrix type '" + type + "'.");
+            throw ProcessError("'" + file + "' uses an unknown matrix type '" + type + "'.");
         }
     }
     std::vector<std::string> amitranFiles = oc.getStringVector("od-amitran-files");
-    for (std::vector<std::string>::iterator i = amitranFiles.begin(); i != amitranFiles.end(); ++i) {
-        if (!FileHelpers::isReadable(*i)) {
-            throw ProcessError("Could not access matrix file '" + *i + "' to load.");
+    for (auto & amitranFile : amitranFiles) {
+        if (!FileHelpers::isReadable(amitranFile)) {
+            throw ProcessError("Could not access matrix file '" + amitranFile + "' to load.");
         }
-        PROGRESS_BEGIN_MESSAGE("Loading matrix in Amitran format from '" + *i + "'");
-        ODAmitranHandler handler(*this, *i);
-        if (!XMLSubSys::runParser(handler, *i)) {
+        PROGRESS_BEGIN_MESSAGE("Loading matrix in Amitran format from '" + amitranFile + "'");
+        ODAmitranHandler handler(*this, amitranFile);
+        if (!XMLSubSys::runParser(handler, amitranFile)) {
             PROGRESS_FAILED_MESSAGE();
         } else {
             PROGRESS_DONE_MESSAGE();
@@ -602,12 +602,12 @@ ODMatrix::loadMatrix(OptionsCont& oc) {
 void
 ODMatrix::loadRoutes(OptionsCont& oc, SUMOSAXHandler& handler) {
     std::vector<std::string> routeFiles = oc.getStringVector("route-files");
-    for (std::vector<std::string>::iterator i = routeFiles.begin(); i != routeFiles.end(); ++i) {
-        if (!FileHelpers::isReadable(*i)) {
-            throw ProcessError("Could not access route file '" + *i + "' to load.");
+    for (auto & routeFile : routeFiles) {
+        if (!FileHelpers::isReadable(routeFile)) {
+            throw ProcessError("Could not access route file '" + routeFile + "' to load.");
         }
-        PROGRESS_BEGIN_MESSAGE("Loading routes and trips from '" + *i + "'");
-        if (!XMLSubSys::runParser(handler, *i)) {
+        PROGRESS_BEGIN_MESSAGE("Loading routes and trips from '" + routeFile + "'");
+        if (!XMLSubSys::runParser(handler, routeFile)) {
             PROGRESS_FAILED_MESSAGE();
         } else {
             PROGRESS_DONE_MESSAGE();
@@ -628,10 +628,10 @@ ODMatrix::parseTimeLine(const std::vector<std::string>& def, bool timelineDayInH
         }
         result.add(24 * 3600., 0.); // dummy value to finish the last interval
     } else {
-        for (int i = 0; i < (int)def.size(); i++) {
-            StringTokenizer st2(def[i], ":");
+        for (const auto & i : def) {
+            StringTokenizer st2(i, ":");
             if (st2.size() != 2) {
-                throw ProcessError("Broken time line definition: missing a value in '" + def[i] + "'.");
+                throw ProcessError("Broken time line definition: missing a value in '" + i + "'.");
             }
             const double time = TplConvert::_2double(st2.next().c_str());
             result.add(time, TplConvert::_2double(st2.next().c_str()));

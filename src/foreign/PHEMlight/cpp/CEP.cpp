@@ -58,8 +58,8 @@ namespace PHEMlightdll {
         std::vector<std::vector<double> > normalizedPollutantMeasures;
 
         // init pollutant identifiers
-        for (int i = 0; i < (int)headerLinePollutants.size(); i++) {
-            pollutantIdentifier.push_back(headerLinePollutants[i]);
+        for (const auto & headerLinePollutant : headerLinePollutants) {
+            pollutantIdentifier.push_back(headerLinePollutant);
         }
 
         // initialize measures
@@ -72,26 +72,26 @@ namespace PHEMlightdll {
         _speedCurveRotational = std::vector<double>();
         _speedPatternRotational = std::vector<double>();
         _gearTransmissionCurve = std::vector<double>();
-        for (int i = 0; i < (int)matrixSpeedRotational.size(); i++) {
-            if (matrixSpeedRotational[i].size() != 3) {
+        for (auto & i : matrixSpeedRotational) {
+            if (i.size() != 3) {
                 return;
             }
 
-            _speedPatternRotational.push_back(matrixSpeedRotational[i][0] / 3.6);
-            _gearTransmissionCurve.push_back(matrixSpeedRotational[i][1]);
-            _speedCurveRotational.push_back(matrixSpeedRotational[i][2]);
+            _speedPatternRotational.push_back(i[0] / 3.6);
+            _gearTransmissionCurve.push_back(i[1]);
+            _speedCurveRotational.push_back(i[2]);
         }
 
         // looping through matrix and assigning values for drag table
         _nNormTable = std::vector<double>();
         _dragNormTable = std::vector<double>();
-        for (int i = 0; i < (int)normedDragTable.size(); i++) {
-            if (normedDragTable[i].size() != 2) {
+        for (auto & i : normedDragTable) {
+            if (i.size() != 2) {
                 return;
             }
 
-            _nNormTable.push_back(normedDragTable[i][0]);
-            _dragNormTable.push_back(normedDragTable[i][1]);
+            _nNormTable.push_back(i[0]);
+            _dragNormTable.push_back(i[1]);
         }
 
         // looping through matrix and assigning values for Fuel consumption
@@ -99,15 +99,15 @@ namespace PHEMlightdll {
         _normedCepCurveFC = std::vector<double>();
         _powerPatternFC = std::vector<double>();
         _normalizedPowerPatternFC = std::vector<double>();
-        for (int i = 0; i < (int)matrixFC.size(); i++) {
-            if (matrixFC[i].size() != 2) {
+        for (auto & i : matrixFC) {
+            if (i.size() != 2) {
                 return;
             }
 
-            _powerPatternFC.push_back(matrixFC[i][0] * _ratedPower);
-            _normalizedPowerPatternFC.push_back(matrixFC[i][0]);
-            _cepCurveFC.push_back(matrixFC[i][1] * _ratedPower);
-            _normedCepCurveFC.push_back(matrixFC[i][1]);
+            _powerPatternFC.push_back(i[0] * _ratedPower);
+            _normalizedPowerPatternFC.push_back(i[0]);
+            _cepCurveFC.push_back(i[1] * _ratedPower);
+            _normedCepCurveFC.push_back(i[1]);
 
         }
 
@@ -133,19 +133,19 @@ namespace PHEMlightdll {
         _cepNormalizedCurvePollutants = std::map<std::string, std::vector<double> >();
 
         int headerCount = (int)headerLinePollutants.size();
-        for (int i = 0; i < (int)matrixPollutants.size(); i++) {
-            for (int j = 0; j < (int)matrixPollutants[i].size(); j++) {
-                if ((int)matrixPollutants[i].size() != headerCount + 1) {
+        for (auto & matrixPollutant : matrixPollutants) {
+            for (int j = 0; j < (int)matrixPollutant.size(); j++) {
+                if ((int)matrixPollutant.size() != headerCount + 1) {
                     return;
                 }
 
                 if (j == 0) {
-                    _normailzedPowerPatternPollutants.push_back(matrixPollutants[i][j]);
-                    _powerPatternPollutants.push_back(matrixPollutants[i][j] * getNormalizingPower());
+                    _normailzedPowerPatternPollutants.push_back(matrixPollutant[j]);
+                    _powerPatternPollutants.push_back(matrixPollutant[j] * getNormalizingPower());
                 }
                 else {
-                    pollutantMeasures[j - 1].push_back(matrixPollutants[i][j] * pollutantMultiplyer);
-                    normalizedPollutantMeasures[j - 1].push_back(matrixPollutants[i][j]);
+                    pollutantMeasures[j - 1].push_back(matrixPollutant[j] * pollutantMultiplyer);
+                    normalizedPollutantMeasures[j - 1].push_back(matrixPollutant[j]);
                 }
             }
         }

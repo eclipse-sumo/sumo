@@ -176,16 +176,15 @@ NLEdgeControlBuilder::closeLane() {
 
 MSEdgeControl*
 NLEdgeControlBuilder::build() {
-    for (MSEdgeVector::iterator i1 = myEdges.begin(); i1 != myEdges.end(); i1++) {
-        (*i1)->closeBuilding();
+    for (auto & myEdge : myEdges) {
+        myEdge->closeBuilding();
     }
-    for (MSEdgeVector::iterator i1 = myEdges.begin(); i1 != myEdges.end(); i1++) {
-        (*i1)->buildLaneChanger();
+    for (auto & myEdge : myEdges) {
+        myEdge->buildLaneChanger();
     }
     // mark internal edges belonging to a roundabout (after all edges are build)
     if (MSGlobals::gUsingInternalLanes) {
-        for (MSEdgeVector::iterator i1 = myEdges.begin(); i1 != myEdges.end(); i1++) {
-            MSEdge* edge = *i1;
+        for (auto edge : myEdges) {
             if (edge->isInternal()) {
                 if (edge->getNumSuccessors() != 1 || edge->getNumPredecessors() != 1) {
                     throw ProcessError("Internal edge '" + edge->getID() + "' is not properly connected (probably a manually modified net.xml).");
@@ -201,8 +200,8 @@ NLEdgeControlBuilder::build() {
         deprecatedVehicleClassesSeen.clear();
     }
     // check for bi-directional edges (this are edges in opposing direction and superposable/congruent shapes)
-    for (MSEdgeVector::iterator i1 = myEdges.begin(); i1 != myEdges.end(); i1++) {
-        (*i1)->checkAndRegisterBiDirEdge();
+    for (auto & myEdge : myEdges) {
+        myEdge->checkAndRegisterBiDirEdge();
     }
     return new MSEdgeControl(myEdges);
 }

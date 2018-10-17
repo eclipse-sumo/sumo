@@ -71,8 +71,8 @@ NBTrafficLightDefinition::NBTrafficLightDefinition(const std::string& id,
         i++;
     }
     std::sort(myControlledNodes.begin(), myControlledNodes.end(), NBNode::nodes_by_id_sorter());
-    for (std::vector<NBNode*>::const_iterator i = junctions.begin(); i != junctions.end(); i++) {
-        (*i)->addTrafficLight(this);
+    for (auto junction : junctions) {
+        junction->addTrafficLight(this);
     }
 }
 
@@ -109,8 +109,8 @@ NBTrafficLightDefinition::compute(OptionsCont& oc) {
     if (amInvalid()) {
         // make a copy of myControlledNodes because it will be modified;
         std::vector<NBNode*> nodes = myControlledNodes;
-        for (std::vector<NBNode*>::iterator it = nodes.begin(); it != nodes.end(); it++) {
-            (*it)->removeTrafficLight(this);
+        for (auto & node : nodes) {
+            node->removeTrafficLight(this);
         }
         WRITE_WARNING("The traffic light '" + getID() + "' does not control any links; it will not be build.");
         return nullptr;
@@ -168,11 +168,11 @@ NBTrafficLightDefinition::collectReachable(EdgeVector outer, const EdgeVector& w
         NBEdge* from = outer.back();
         outer.pop_back();
         std::vector<NBEdge::Connection>& cons = from->getConnections();
-        for (std::vector<NBEdge::Connection>::iterator k = cons.begin(); k != cons.end(); k++) {
-            NBEdge* to = (*k).toEdge;
+        for (auto & con : cons) {
+            NBEdge* to = con.toEdge;
             if (reachable.count(to) == 0 &&
                     (find(within.begin(), within.end(), to) != within.end()) &&
-                    (!checkControlled || from->mayBeTLSControlled((*k).fromLane, to, (*k).toLane))) {
+                    (!checkControlled || from->mayBeTLSControlled(con.fromLane, to, con.toLane))) {
                 reachable.insert(to);
                 outer.push_back(to);
             }
@@ -188,17 +188,16 @@ NBTrafficLightDefinition::collectEdges() {
     myEdgesWithin.clear();
     EdgeVector myOutgoing;
     // collect the edges from the participating nodes
-    for (std::vector<NBNode*>::iterator i = myControlledNodes.begin(); i != myControlledNodes.end(); i++) {
-        const EdgeVector& incoming = (*i)->getIncomingEdges();
+    for (auto & myControlledNode : myControlledNodes) {
+        const EdgeVector& incoming = myControlledNode->getIncomingEdges();
         copy(incoming.begin(), incoming.end(), back_inserter(myIncomingEdges));
-        const EdgeVector& outgoing = (*i)->getOutgoingEdges();
+        const EdgeVector& outgoing = myControlledNode->getOutgoingEdges();
         copy(outgoing.begin(), outgoing.end(), back_inserter(myOutgoing));
     }
     EdgeVector outer;
     // check which of the edges are completely within the junction
     //  add them to the list of edges lying within the node
-    for (EdgeVector::iterator j = myIncomingEdges.begin(); j != myIncomingEdges.end(); ++j) {
-        NBEdge* edge = *j;
+    for (auto edge : myIncomingEdges) {
         // an edge lies within the logic if it is outgoing as well as incoming
         EdgeVector::iterator k = find(myOutgoing.begin(), myOutgoing.end(), edge);
         if (k != myOutgoing.end()) {
@@ -213,8 +212,7 @@ NBTrafficLightDefinition::collectEdges() {
     std::set<NBEdge*> reachable2 = collectReachable(outer, myEdgesWithin, false);
 
     const bool uncontrolledWithin = OptionsCont::getOptions().getBool("tls.uncontrolled-within");
-    for (EdgeVector::iterator j = myEdgesWithin.begin(); j != myEdgesWithin.end(); ++j) {
-        NBEdge* edge = *j;
+    for (auto edge : myEdgesWithin) {
         // edges that are marked as 'inner' will not get their own phase when
         // computing traffic light logics (unless they cannot be reached from the outside at all)
         if (reachable.count(edge) == 1) {
@@ -454,13 +452,11 @@ NBTrafficLightDefinition::collectAllLinks() {
     myControlledLinks.clear();
     int tlIndex = 0;
     // build the list of links which are controled by the traffic light
-    for (EdgeVector::iterator i = myIncomingEdges.begin(); i != myIncomingEdges.end(); i++) {
-        NBEdge* incoming = *i;
+    for (auto incoming : myIncomingEdges) {
         int noLanes = incoming->getNumLanes();
         for (int j = 0; j < noLanes; j++) {
             std::vector<NBEdge::Connection> connected = incoming->getConnectionsFromLane(j);
-            for (std::vector<NBEdge::Connection>::iterator k = connected.begin(); k != connected.end(); k++) {
-                const NBEdge::Connection& el = *k;
+            for (auto & el : connected) {
                 if (incoming->mayBeTLSControlled(el.fromLane, el.toEdge, el.toLane)) {
                     if (el.toEdge != nullptr && el.toLane >= (int) el.toEdge->getNumLanes()) {
                         throw ProcessError("Connection '" + incoming->getID() + "_" + toString(j) + "->" + el.toEdge->getID() + "_" + toString(el.toLane) + "' yields in a not existing lane.");
@@ -497,8 +493,8 @@ NBTrafficLightDefinition::initNeedsContRelation() const {
         NBOwnTLDef dummy(DummyID, myControlledNodes, 0, TLTYPE_STATIC);
         dummy.initNeedsContRelation();
         myNeedsContRelation = dummy.myNeedsContRelation;
-        for (std::vector<NBNode*>::const_iterator i = myControlledNodes.begin(); i != myControlledNodes.end(); i++) {
-            (*i)->removeTrafficLight(&dummy);
+        for (auto myControlledNode : myControlledNodes) {
+            myControlledNode->removeTrafficLight(&dummy);
         }
     }
     myNeedsContRelationReady = true;
@@ -513,8 +509,8 @@ NBTrafficLightDefinition::rightOnRedConflict(int index, int foeIndex) const {
         NBTrafficLightLogic* tllDummy = dummy.computeLogicAndConts(0, true);
         delete tllDummy;
         myRightOnRedConflicts = dummy.myRightOnRedConflicts;
-        for (std::vector<NBNode*>::const_iterator i = myControlledNodes.begin(); i != myControlledNodes.end(); i++) {
-            (*i)->removeTrafficLight(&dummy);
+        for (auto myControlledNode : myControlledNodes) {
+            myControlledNode->removeTrafficLight(&dummy);
         }
         myRightOnRedConflictsReady = true;
         //std::cout << " rightOnRedConflicts tls=" << getID() << " pro=" << getProgramID() << "\n";

@@ -61,8 +61,8 @@ NIVissimBoundedClusterObject::clustered() const {
 
 void
 NIVissimBoundedClusterObject::closeLoading() {
-    for (ContType::iterator i = myDict.begin(); i != myDict.end(); i++) {
-        (*i)->computeBounding();
+    for (auto i : myDict) {
+        i->computeBounding();
     }
 }
 

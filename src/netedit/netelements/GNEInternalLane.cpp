@@ -176,10 +176,10 @@ GNEInternalLane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     buildPopupHeader(myPopup, app);
     if (myEditor != nullptr) {
         const std::vector<std::string> names = LinkStateNames.getStrings();
-        for (std::vector<std::string>::const_iterator it = names.begin(); it != names.end(); it++) {
-            FXuint state = LinkStateNames.get(*it);
+        for (const auto & name : names) {
+            FXuint state = LinkStateNames.get(name);
             std::string origHint = ((LinkState)state == myOrigState ? " (original)" : "");
-            FXMenuRadio* mc = new FXMenuRadio(myPopup, (*it + origHint).c_str(), this, FXDataTarget::ID_OPTION + state);
+            FXMenuRadio* mc = new FXMenuRadio(myPopup, (name + origHint).c_str(), this, FXDataTarget::ID_OPTION + state);
             mc->setSelBackColor(MFXUtils::getFXColor(colorForLinksState(state)));
             mc->setBackColor(MFXUtils::getFXColor(colorForLinksState(state)));
         }

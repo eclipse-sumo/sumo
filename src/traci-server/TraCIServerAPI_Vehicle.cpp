@@ -159,15 +159,15 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                     server.getWrapperStorage().writeInt(cnt);
                     server.getWrapperStorage().writeUnsignedByte(TYPE_INTEGER);
                     server.getWrapperStorage().writeInt((int)nextTLS.size());
-                    for (std::vector<libsumo::TraCINextTLSData>::iterator it = nextTLS.begin(); it != nextTLS.end(); ++it) {
+                    for (auto & it : nextTLS) {
                         server.getWrapperStorage().writeUnsignedByte(TYPE_STRING);
-                        server.getWrapperStorage().writeString(it->id);
+                        server.getWrapperStorage().writeString(it.id);
                         server.getWrapperStorage().writeUnsignedByte(TYPE_INTEGER);
-                        server.getWrapperStorage().writeInt(it->tlIndex);
+                        server.getWrapperStorage().writeInt(it.tlIndex);
                         server.getWrapperStorage().writeUnsignedByte(TYPE_DOUBLE);
-                        server.getWrapperStorage().writeDouble(it->dist);
+                        server.getWrapperStorage().writeDouble(it.dist);
                         server.getWrapperStorage().writeUnsignedByte(TYPE_BYTE);
-                        server.getWrapperStorage().writeByte(it->state);
+                        server.getWrapperStorage().writeByte(it.state);
                     }
                     break;
                 }
@@ -178,19 +178,19 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                     server.getWrapperStorage().writeInt(cnt);
                     server.getWrapperStorage().writeUnsignedByte(TYPE_INTEGER);
                     server.getWrapperStorage().writeInt((int)nextStops.size());
-                    for (std::vector<libsumo::TraCINextStopData>::iterator it = nextStops.begin(); it != nextStops.end(); ++it) {
+                    for (auto & nextStop : nextStops) {
                         server.getWrapperStorage().writeUnsignedByte(TYPE_STRING);
-                        server.getWrapperStorage().writeString(it->lane);
+                        server.getWrapperStorage().writeString(nextStop.lane);
                         server.getWrapperStorage().writeUnsignedByte(TYPE_DOUBLE);
-                        server.getWrapperStorage().writeDouble(it->endPos);
+                        server.getWrapperStorage().writeDouble(nextStop.endPos);
                         server.getWrapperStorage().writeUnsignedByte(TYPE_STRING);
-                        server.getWrapperStorage().writeString(it->stoppingPlaceID);
+                        server.getWrapperStorage().writeString(nextStop.stoppingPlaceID);
                         server.getWrapperStorage().writeUnsignedByte(TYPE_INTEGER);
-                        server.getWrapperStorage().writeInt(it->stopFlags);
+                        server.getWrapperStorage().writeInt(nextStop.stopFlags);
                         server.getWrapperStorage().writeUnsignedByte(TYPE_DOUBLE);
-                        server.getWrapperStorage().writeDouble(it->duration);
+                        server.getWrapperStorage().writeDouble(nextStop.duration);
                         server.getWrapperStorage().writeUnsignedByte(TYPE_DOUBLE);
-                        server.getWrapperStorage().writeDouble(it->until);
+                        server.getWrapperStorage().writeDouble(nextStop.until);
                     }
                     break;
                 }

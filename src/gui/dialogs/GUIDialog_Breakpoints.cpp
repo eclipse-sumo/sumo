@@ -176,8 +176,8 @@ GUIDialog_Breakpoints::encode2TXT() {
     FXMutexLock lock(*myBreakpointLock);
     std::ostringstream strm;
     std::sort(myBreakpoints->begin(), myBreakpoints->end());
-    for (std::vector<SUMOTime>::iterator j = myBreakpoints->begin(); j != myBreakpoints->end(); ++j) {
-        strm << time2string(*j) << std::endl;
+    for (std::_Vector_iterator<std::_Vector_val<std::_Simple_types<long long> > >::value_type & myBreakpoint : *myBreakpoints) {
+        strm << time2string(myBreakpoint) << std::endl;
     }
     return strm.str();
 }

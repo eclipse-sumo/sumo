@@ -184,14 +184,13 @@ ROMAAssignments::addRoute(ConstROEdgeVector& edges, std::vector<RORoute*>& paths
 
 void
 ROMAAssignments::getKPaths(const int kPaths, const double penalty) {
-    for (std::vector<ODCell*>::const_iterator i = myMatrix.getCells().begin(); i != myMatrix.getCells().end(); ++i) {
-        ODCell* c = *i;
+    for (auto c : myMatrix.getCells()) {
         myPenalties.clear();
         for (int k = 0; k < kPaths; k++) {
             ConstROEdgeVector edges;
             myRouter.compute(myNet.getEdge(c->origin + "-source"), myNet.getEdge(c->destination + "-sink"), myDefaultVehicle, 0, edges);
-            for (ConstROEdgeVector::iterator e = edges.begin(); e != edges.end(); e++) {
-                myPenalties[*e] = penalty;
+            for (auto & edge : edges) {
+                myPenalties[edge] = penalty;
             }
             addRoute(edges, c->pathsVector, c->origin + c->destination + toString(c->pathsVector.size()), 0);
         }
@@ -203,8 +202,8 @@ ROMAAssignments::getKPaths(const int kPaths, const double penalty) {
 void
 ROMAAssignments::resetFlows() {
     const double begin = STEPS2TIME(MIN2(myBegin, myMatrix.getCells().front()->begin));
-    for (std::map<std::string, ROEdge*>::const_iterator i = myNet.getEdgeMap().begin(); i != myNet.getEdgeMap().end(); ++i) {
-        ROMAEdge* edge = static_cast<ROMAEdge*>(i->second);
+    for (const auto & i : myNet.getEdgeMap()) {
+        ROMAEdge* edge = static_cast<ROMAEdge*>(i.second);
         edge->setFlow(begin, STEPS2TIME(myEnd), 0.);
         edge->setHelpFlow(begin, STEPS2TIME(myEnd), 0.);
     }
@@ -216,10 +215,10 @@ ROMAAssignments::incremental(const int numIter, const bool verbose) {
     SUMOTime lastBegin = -1;
     std::vector<int> intervals;
     int count = 0;
-    for (std::vector<ODCell*>::const_iterator i = myMatrix.getCells().begin(); i != myMatrix.getCells().end(); ++i) {
-        if ((*i)->begin != lastBegin) {
+    for (auto i : myMatrix.getCells()) {
+        if (i->begin != lastBegin) {
             intervals.push_back(count);
-            lastBegin = (*i)->begin;
+            lastBegin = i->begin;
         }
         count++;
     }
@@ -234,8 +233,8 @@ ROMAAssignments::incremental(const int numIter, const bool verbose) {
             WRITE_MESSAGE(" starting interval " + time2string(intervalStart));
         }
         std::map<const ROMAEdge*, double> loadedTravelTimes;
-        for (std::map<std::string, ROEdge*>::const_iterator i = myNet.getEdgeMap().begin(); i != myNet.getEdgeMap().end(); ++i) {
-            ROMAEdge* edge = static_cast<ROMAEdge*>(i->second);
+        for (const auto & i : myNet.getEdgeMap()) {
+            ROMAEdge* edge = static_cast<ROMAEdge*>(i.second);
             if (edge->hasLoadedTravelTime(STEPS2TIME(intervalStart))) {
                 loadedTravelTimes[edge] = edge->getTravelTime(myDefaultVehicle, STEPS2TIME(intervalStart));
             }
@@ -288,8 +287,8 @@ ROMAAssignments::incremental(const int numIter, const bool verbose) {
                 const SUMOTime end = myAdditiveTraffic ? myEnd : c->end;
                 const double intervalLengthInHours = STEPS2TIME(end - begin) / 3600.;
                 const ConstROEdgeVector& edges = c->pathsVector.back()->getEdgeVector();
-                for (ConstROEdgeVector::const_iterator e = edges.begin(); e != edges.end(); e++) {
-                    ROMAEdge* edge = static_cast<ROMAEdge*>(myNet.getEdge((*e)->getID()));
+                for (auto e : edges) {
+                    ROMAEdge* edge = static_cast<ROMAEdge*>(myNet.getEdge(e->getID()));
                     const double newFlow = edge->getFlow(STEPS2TIME(begin)) + linkFlow;
                     edge->setFlow(STEPS2TIME(begin), STEPS2TIME(end), newFlow);
                     double travelTime = capacityConstraintFunction(edge, newFlow / intervalLengthInHours);
@@ -316,14 +315,13 @@ ROMAAssignments::sue(const int maxOuterIteration, const int maxInnerIteration, c
     if (myAdditiveTraffic) {
         intervals[STEPS2TIME(myBegin)] = STEPS2TIME(myEnd);
     } else {
-        for (std::vector<ODCell*>::const_iterator i = myMatrix.getCells().begin(); i != myMatrix.getCells().end(); ++i) {
-            intervals[STEPS2TIME((*i)->begin)] = STEPS2TIME((*i)->end);
+        for (auto i : myMatrix.getCells()) {
+            intervals[STEPS2TIME(i->begin)] = STEPS2TIME(i->end);
         }
     }
     for (int outer = 0; outer < maxOuterIteration; outer++) {
         for (int inner = 0; inner < maxInnerIteration; inner++) {
-            for (std::vector<ODCell*>::const_iterator i = myMatrix.getCells().begin(); i != myMatrix.getCells().end(); ++i) {
-                ODCell* const c = *i;
+            for (auto c : myMatrix.getCells()) {
                 const SUMOTime begin = myAdditiveTraffic ? myBegin : c->begin;
                 const SUMOTime end = myAdditiveTraffic ? myEnd : c->end;
                 // update path cost
@@ -339,8 +337,8 @@ ROMAAssignments::sue(const int maxOuterIteration, const int maxInnerIteration, c
                     RORoute* r = *j;
                     const double pathFlow = r->getProbability() * c->vehicleNumber;
                     // assign edge flow deltas
-                    for (ConstROEdgeVector::const_iterator e = r->getEdgeVector().begin(); e != r->getEdgeVector().end(); e++) {
-                        ROMAEdge* edge = static_cast<ROMAEdge*>(myNet.getEdge((*e)->getID()));
+                    for (auto e : r->getEdgeVector()) {
+                        ROMAEdge* edge = static_cast<ROMAEdge*>(myNet.getEdge(e->getID()));
                         edge->setHelpFlow(STEPS2TIME(begin), STEPS2TIME(end), edge->getHelpFlow(STEPS2TIME(begin)) + pathFlow);
                     }
                 }
@@ -349,8 +347,8 @@ ROMAAssignments::sue(const int maxOuterIteration, const int maxInnerIteration, c
             int unstableEdges = 0;
             for (std::map<const double, double>::const_iterator i = intervals.begin(); i != intervals.end(); ++i) {
                 const double intervalLengthInHours = STEPS2TIME(i->second - i->first) / 3600.;
-                for (std::map<std::string, ROEdge*>::const_iterator e = myNet.getEdgeMap().begin(); e != myNet.getEdgeMap().end(); ++e) {
-                    ROMAEdge* edge = static_cast<ROMAEdge*>(e->second);
+                for (const auto & e : myNet.getEdgeMap()) {
+                    ROMAEdge* edge = static_cast<ROMAEdge*>(e.second);
                     const double oldFlow = edge->getFlow(i->first);
                     double newFlow = oldFlow;
                     if (inner == 0 && outer == 0) {
@@ -386,8 +384,7 @@ ROMAAssignments::sue(const int maxOuterIteration, const int maxInnerIteration, c
         // check for a new route, if none available, break
         // several modifications about when a route is new and when to break are in the original script
         bool newRoute = false;
-        for (std::vector<ODCell*>::const_iterator i = myMatrix.getCells().begin(); i != myMatrix.getCells().end(); ++i) {
-            ODCell* c = *i;
+        for (auto c : myMatrix.getCells()) {
             ConstROEdgeVector edges;
             myRouter.compute(myNet.getEdge(c->origin + "-source"), myNet.getEdge(c->destination + "-sink"), myDefaultVehicle, 0, edges);
             newRoute |= addRoute(edges, c->pathsVector, c->origin + c->destination + toString(c->pathsVector.size()), 0);
@@ -397,8 +394,7 @@ ROMAAssignments::sue(const int maxOuterIteration, const int maxInnerIteration, c
         }
     }
     // final round of assignment
-    for (std::vector<ODCell*>::const_iterator i = myMatrix.getCells().begin(); i != myMatrix.getCells().end(); ++i) {
-        ODCell* c = *i;
+    for (auto c : myMatrix.getCells()) {
         // update path cost
         for (std::vector<RORoute*>::const_iterator j = c->pathsVector.begin(); j != c->pathsVector.end(); ++j) {
             RORoute* r = *j;

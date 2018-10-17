@@ -410,30 +410,30 @@ GNEConnectorFrame::initTargets() {
     NBNode* nbn = myCurrentLane->getParentEdge().getGNEJunctionDestiny()->getNBNode();
 
     const EdgeVector& outgoing = nbn->getOutgoingEdges();
-    for (EdgeVector::const_iterator it = outgoing.begin(); it != outgoing.end(); it++) {
-        GNEEdge* edge = myViewNet->getNet()->retrieveEdge((*it)->getID());
+    for (auto it : outgoing) {
+        GNEEdge* edge = myViewNet->getNet()->retrieveEdge(it->getID());
         const GNEEdge::LaneVector& lanes = edge->getLanes();
-        for (GNEEdge::LaneVector::const_iterator it_lane = lanes.begin(); it_lane != lanes.end(); it_lane++) {
-            myPotentialTargets.insert(*it_lane);
+        for (auto lane : lanes) {
+            myPotentialTargets.insert(lane);
         }
     }
     // set color for existing connections
     const int fromIndex = myCurrentLane->getIndex();
     NBEdge* srcEdge = myCurrentLane->getParentEdge().getNBEdge();
     std::vector<NBEdge::Connection> connections = srcEdge->getConnectionsFromLane(fromIndex);
-    for (std::set<GNELane*>::iterator it = myPotentialTargets.begin(); it != myPotentialTargets.end(); it++) {
-        switch (getLaneStatus(connections, *it)) {
+    for (auto myPotentialTarget : myPotentialTargets) {
+        switch (getLaneStatus(connections, myPotentialTarget)) {
             case CONNECTED:
-                (*it)->setSpecialColor(&targetColor);
+                myPotentialTarget->setSpecialColor(&targetColor);
                 break;
             case CONNECTED_PASS:
-                (*it)->setSpecialColor(&targetPassColor);
+                myPotentialTarget->setSpecialColor(&targetPassColor);
                 break;
             case CONFLICTED:
-                (*it)->setSpecialColor(&conflictColor);
+                myPotentialTarget->setSpecialColor(&conflictColor);
                 break;
             case UNCONNECTED:
-                (*it)->setSpecialColor(&potentialTargetColor);
+                myPotentialTarget->setSpecialColor(&potentialTargetColor);
                 break;
         }
     }
@@ -443,8 +443,8 @@ GNEConnectorFrame::initTargets() {
 void
 GNEConnectorFrame::cleanup() {
     // clean up
-    for (std::set<GNELane*>::iterator it = myPotentialTargets.begin(); it != myPotentialTargets.end(); it++) {
-        (*it)->setSpecialColor(nullptr);
+    for (auto myPotentialTarget : myPotentialTargets) {
+        myPotentialTarget->setSpecialColor(nullptr);
     }
     myPotentialTargets.clear();
     myNumChanges = 0;

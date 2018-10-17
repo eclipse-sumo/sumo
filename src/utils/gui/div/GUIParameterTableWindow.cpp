@@ -95,8 +95,8 @@ GUIParameterTableWindow::GUIParameterTableWindow(GUIMainWindow& app, GUIGlObject
 GUIParameterTableWindow::~GUIParameterTableWindow() {
     myApplication->removeChild(this);
     myLock.lock();
-    for (std::vector<GUIParameterTableItemInterface*>::iterator i = myItems.begin(); i != myItems.end(); ++i) {
-        delete(*i);
+    for (auto & myItem : myItems) {
+        deletemyItem;
     }
     if (myObject != nullptr) {
         myObject->removeParameterTable(this);
@@ -208,8 +208,8 @@ GUIParameterTableWindow::updateTable() {
     if (myObject == nullptr) {
         return;
     }
-    for (std::vector<GUIParameterTableItemInterface*>::iterator i = myItems.begin(); i != myItems.end(); i++) {
-        (*i)->update();
+    for (auto & myItem : myItems) {
+        myItem->update();
     }
 }
 
@@ -222,8 +222,8 @@ GUIParameterTableWindow::closeBuilding(const Parameterised* p) {
     }
     if (p != nullptr) {
         const std::map<std::string, std::string>& map = p->getParametersMap();
-        for (std::map<std::string, std::string>::const_iterator it = map.begin(); it != map.end(); ++it) {
-            mkItem(("param:" + it->first).c_str(), false, it->second);
+        for (const auto & it : map) {
+            mkItem(("param:" + it.first).c_str(), false, it.second);
         }
     }
     myApplication->addChild(this, true);

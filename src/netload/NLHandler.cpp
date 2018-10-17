@@ -1372,10 +1372,10 @@ void
 NLHandler::addRoundabout(const SUMOSAXAttributes& attrs) {
     if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
         std::vector<std::string> edgeIDs = attrs.getStringVector(SUMO_ATTR_EDGES);
-        for (std::vector<std::string>::iterator it = edgeIDs.begin(); it != edgeIDs.end(); ++it) {
-            MSEdge* edge = MSEdge::dictionary(*it);
+        for (auto & edgeID : edgeIDs) {
+            MSEdge* edge = MSEdge::dictionary(edgeID);
             if (edge == nullptr) {
-                WRITE_ERROR("Unknown edge '" + (*it) + "' in roundabout");
+                WRITE_ERROR("Unknown edge '" + edgeID + "' in roundabout");
             } else {
                 edge->markAsRoundabout();
             }

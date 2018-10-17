@@ -1775,9 +1775,9 @@ MSLCM_LC2013::getRoundaboutAheadInfo(const MSLCM_LC2013* lcm, const MSVehicle::L
             // add remaining length on current, internal lane to roundabout distance on neigh continuation
             roundaboutDistanceAheadNeigh = veh.getLane()->getLength() - veh.getPositionOnLane();
             MSLane* nextLane = nullptr;
-            for (std::vector<MSLane*>::const_iterator i = curr.bestContinuations.begin(); i != curr.bestContinuations.end(); i++) {
-                if (*i != nullptr && *i != veh.getLane()) {
-                    nextLane = *i;
+            for (auto bestContinuation : curr.bestContinuations) {
+                if (bestContinuation != nullptr && bestContinuation != veh.getLane()) {
+                    nextLane = bestContinuation;
                     break;
                 }
             }
@@ -1801,8 +1801,7 @@ MSLCM_LC2013::getRoundaboutAheadInfo(const MSLCM_LC2013* lcm, const MSVehicle::L
     // count the number of roundabout edges ahead to determine whether
     // special LC behavior is required (promoting the use of the inner lane, mainly)
     roundaboutEdgesAhead = 0;
-    for (std::vector<MSLane*>::const_iterator it = curr.bestContinuations.begin(); it != curr.bestContinuations.end(); ++it) {
-        const MSLane* lane = *it;
+    for (auto lane : curr.bestContinuations) {
         if (lane != nullptr && lane->getEdge().isRoundabout()) {
             roundaboutEdgesAhead += 1;
         } else if (roundaboutEdgesAhead > 0) {
@@ -1811,8 +1810,8 @@ MSLCM_LC2013::getRoundaboutAheadInfo(const MSLCM_LC2013* lcm, const MSVehicle::L
         }
     }
     roundaboutEdgesAheadNeigh = 0;
-    for (std::vector<MSLane*>::const_iterator it = neigh.bestContinuations.begin(); it != neigh.bestContinuations.end(); ++it) {
-        if ((*it) != nullptr && (*it)->getEdge().isRoundabout()) {
+    for (auto bestContinuation : neigh.bestContinuations) {
+        if (bestContinuation != nullptr && bestContinuation->getEdge().isRoundabout()) {
             roundaboutEdgesAheadNeigh += 1;
         } else if (roundaboutEdgesAheadNeigh > 0) {
             // only check the next roundabout

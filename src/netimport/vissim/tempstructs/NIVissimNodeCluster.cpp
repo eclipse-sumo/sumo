@@ -180,8 +180,8 @@ NIVissimNodeCluster::buildNBNode(NBNodeCont& nc) {
 
 void
 NIVissimNodeCluster::buildNBNodes(NBNodeCont& nc) {
-    for (DictType::iterator i = myDict.begin(); i != myDict.end(); i++) {
-        (*i).second->buildNBNode(nc);
+    for (auto & i : myDict) {
+        i.second->buildNBNode(nc);
     }
 }
 
@@ -196,18 +196,18 @@ NIVissimNodeCluster::dict_recheckEdgeChanges() {
 int
 NIVissimNodeCluster::getFromNode(int edgeid) {
     int ret = -1;
-    for (DictType::iterator i = myDict.begin(); i != myDict.end(); i++) {
-        NIVissimNodeCluster* c = (*i).second;
-        for (std::vector<int>::iterator j = c->myConnectors.begin(); j != c->myConnectors.end(); j++) {
-            NIVissimConnection* conn = NIVissimConnection::dictionary(*j);
+    for (auto & i : myDict) {
+        NIVissimNodeCluster* c = i.second;
+        for (std::_Vector_iterator<std::_Vector_val<std::_Simple_types<int> > >::value_type & myConnector : c->myConnectors) {
+            NIVissimConnection* conn = NIVissimConnection::dictionary(myConnector);
             if (conn != nullptr && conn->getToEdgeID() == edgeid) {
 //                return (*i).first;
-                if (ret != -1 && (*i).first != ret) {
+                if (ret != -1 && i.first != ret) {
 //                     "NIVissimNodeCluster:DoubleNode:" << ret << endl;
                     throw 1; // an edge should not outgo from two different nodes
 // but actually, a joined cluster may posess a connections more than once
                 }
-                ret = (*i).first;
+                ret = i.first;
             }
         }
     }
@@ -218,19 +218,19 @@ NIVissimNodeCluster::getFromNode(int edgeid) {
 int
 NIVissimNodeCluster::getToNode(int edgeid) {
     int ret = -1;
-    for (DictType::iterator i = myDict.begin(); i != myDict.end(); i++) {
-        NIVissimNodeCluster* c = (*i).second;
-        for (std::vector<int>::iterator j = c->myConnectors.begin(); j != c->myConnectors.end(); j++) {
-            NIVissimConnection* conn = NIVissimConnection::dictionary(*j);
+    for (auto & i : myDict) {
+        NIVissimNodeCluster* c = i.second;
+        for (std::_Vector_iterator<std::_Vector_val<std::_Simple_types<int> > >::value_type & myConnector : c->myConnectors) {
+            NIVissimConnection* conn = NIVissimConnection::dictionary(myConnector);
             if (conn != nullptr && conn->getFromEdgeID() == edgeid) {
 //                return (*i).first;
-                if (ret != -1 && ret != (*i).first) {
+                if (ret != -1 && ret != i.first) {
 //                  << "NIVissimNodeCluster: multiple to-nodes" << endl;
                     throw 1; // an edge should not outgo from two different nodes
 // but actually, a joined cluster may posess a connections more than once
 
                 }
-                ret = (*i).first;
+                ret = i.first;
             }
         }
     }
@@ -240,8 +240,8 @@ NIVissimNodeCluster::getToNode(int edgeid) {
 
 void
 NIVissimNodeCluster::_debugOut(std::ostream& into) {
-    for (DictType::iterator i = myDict.begin(); i != myDict.end(); i++) {
-        NIVissimNodeCluster* c = (*i).second;
+    for (auto & i : myDict) {
+        NIVissimNodeCluster* c = i.second;
         into << std::endl << c->myID << ":";
         for (std::vector<int>::iterator j = c->myConnectors.begin(); j != c->myConnectors.end(); j++) {
             if (j != c->myConnectors.begin()) {
@@ -270,11 +270,11 @@ NIVissimNodeCluster::getPos() const {
 void
 NIVissimNodeCluster::dict_addDisturbances(NBDistrictCont& dc,
         NBNodeCont& nc, NBEdgeCont& ec) {
-    for (DictType::iterator i = myDict.begin(); i != myDict.end(); i++) {
-        const std::vector<int>& disturbances = (*i).second->myDisturbances;
-        NBNode* node = nc.retrieve((*i).second->getNodeName());
-        for (std::vector<int>::const_iterator j = disturbances.begin(); j != disturbances.end(); j++) {
-            NIVissimDisturbance* disturbance = NIVissimDisturbance::dictionary(*j);
+    for (auto & i : myDict) {
+        const std::vector<int>& disturbances = i.second->myDisturbances;
+        NBNode* node = nc.retrieve(i.second->getNodeName());
+        for (std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<int> > >::value_type j : disturbances) {
+            NIVissimDisturbance* disturbance = NIVissimDisturbance::dictionary(j);
             disturbance->addToNode(node, dc, nc, ec);
         }
     }
@@ -284,8 +284,8 @@ NIVissimNodeCluster::dict_addDisturbances(NBDistrictCont& dc,
 
 void
 NIVissimNodeCluster::clearDict() {
-    for (DictType::iterator i = myDict.begin(); i != myDict.end(); i++) {
-        delete(*i).second;
+    for (auto & i : myDict) {
+        deletei.second;
     }
     myDict.clear();
 }

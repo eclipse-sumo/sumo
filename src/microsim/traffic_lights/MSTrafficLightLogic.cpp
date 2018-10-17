@@ -204,10 +204,9 @@ MSTrafficLightLogic::adaptLinkInformationFrom(const MSTrafficLightLogic& logic) 
 std::map<MSLink*, LinkState>
 MSTrafficLightLogic::collectLinkStates() const {
     std::map<MSLink*, LinkState> ret;
-    for (LinkVectorVector::const_iterator i1 = myLinks.begin(); i1 != myLinks.end(); ++i1) {
-        const LinkVector& l = (*i1);
-        for (LinkVector::const_iterator i2 = l.begin(); i2 != l.end(); ++i2) {
-            ret[*i2] = (*i2)->getState();
+    for (const auto & l : myLinks) {
+        for (auto i2 : l) {
+            ret[i2] = i2->getState();
         }
     }
     return ret;
@@ -222,8 +221,8 @@ MSTrafficLightLogic::setTrafficLightSignals(SUMOTime t) const {
     for (int i = 0; i < (int)myLinks.size(); i++) {
         const LinkVector& currGroup = myLinks[i];
         LinkState ls = (LinkState) state[i];
-        for (LinkVector::const_iterator j = currGroup.begin(); j != currGroup.end(); j++) {
-            (*j)->setTLState(ls, t);
+        for (auto j : currGroup) {
+            j->setTLState(ls, t);
         }
     }
     return true;
@@ -232,11 +231,10 @@ MSTrafficLightLogic::setTrafficLightSignals(SUMOTime t) const {
 
 void
 MSTrafficLightLogic::resetLinkStates(const std::map<MSLink*, LinkState>& vals) const {
-    for (LinkVectorVector::const_iterator i1 = myLinks.begin(); i1 != myLinks.end(); ++i1) {
-        const LinkVector& l = (*i1);
-        for (LinkVector::const_iterator i2 = l.begin(); i2 != l.end(); ++i2) {
+    for (const auto & l : myLinks) {
+        for (auto i2 : l) {
             assert(vals.find(*i2) != vals.end());
-            (*i2)->setTLState(vals.find(*i2)->second, MSNet::getInstance()->getCurrentTimeStep());
+            i2->setTLState(vals.find(i2)->second, MSNet::getInstance()->getCurrentTimeStep());
         }
     }
 }
@@ -248,8 +246,8 @@ MSTrafficLightLogic::getLinkIndex(const MSLink* const link) const {
     int index = 0;
     for (LinkVectorVector::const_iterator i1 = myLinks.begin(); i1 != myLinks.end(); ++i1, ++index) {
         const LinkVector& l = (*i1);
-        for (LinkVector::const_iterator i2 = l.begin(); i2 != l.end(); ++i2) {
-            if ((*i2) == link) {
+        for (auto i2 : l) {
+            if (i2 == link) {
                 return index;
             }
         }
@@ -301,15 +299,15 @@ void MSTrafficLightLogic::initMesoTLSPenalties() {
     std::vector<double> redDuration(numLinks, 0);
     std::vector<double> totalRedDuration(numLinks, 0);
     std::vector<double> penalty(numLinks, 0);
-    for (int i = 0; i < (int)phases.size(); ++i) {
-        const std::string& state = phases[i]->getState();
-        duration += phases[i]->duration;
+    for (auto phase : phases) {
+        const std::string& state = phase->getState();
+        duration += phase->duration;
         // warn about transitions from green to red without intermediate yellow
         for (int j = 0; j < numLinks; ++j) {
             if ((LinkState)state[j] == LINKSTATE_TL_RED
                     || (LinkState)state[j] == LINKSTATE_TL_REDYELLOW) {
-                redDuration[j] += STEPS2TIME(phases[i]->duration);
-                totalRedDuration[j] += STEPS2TIME(phases[i]->duration);
+                redDuration[j] += STEPS2TIME(phase->duration);
+                totalRedDuration[j] += STEPS2TIME(phase->duration);
             } else if (redDuration[j] > 0) {
                 penalty[j] += 0.5 * (redDuration[j] * redDuration[j] + redDuration[j]);
                 redDuration[j] = 0;
@@ -335,10 +333,10 @@ void MSTrafficLightLogic::initMesoTLSPenalties() {
     }
     // initialize empty-net travel times
     // XXX refactor after merging sharps (links know their incoming edge)
-    for (std::set<const MSJunction*>::iterator it = controlledJunctions.begin(); it != controlledJunctions.end(); ++it) {
-        const ConstMSEdgeVector incoming = (*it)->getIncoming();
-        for (ConstMSEdgeVector::const_iterator it_e = incoming.begin(); it_e != incoming.end(); ++it_e) {
-            const_cast<MSEdge*>(*it_e)->recalcCache();
+    for (auto controlledJunction : controlledJunctions) {
+        const ConstMSEdgeVector incoming = controlledJunction->getIncoming();
+        for (auto it_e : incoming) {
+            const_cast<MSEdge*>(it_e)->recalcCache();
         }
     }
 

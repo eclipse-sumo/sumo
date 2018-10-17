@@ -100,9 +100,9 @@ GUIViewTraffic::buildViewToolBars(GUIGlChildWindow& v) {
     // build coloring tools
     {
         const std::vector<std::string>& names = gSchemeStorage.getNames();
-        for (std::vector<std::string>::const_iterator i = names.begin(); i != names.end(); ++i) {
-            v.getColoringSchemesCombo().appendItem((*i).c_str());
-            if ((*i) == myVisualizationSettings->name) {
+        for (const auto & name : names) {
+            v.getColoringSchemesCombo().appendItem(name.c_str());
+            if (name == myVisualizationSettings->name) {
                 v.getColoringSchemesCombo().setCurrentItem(v.getColoringSchemesCombo().getNumItems() - 1);
             }
         }
@@ -187,15 +187,15 @@ GUIViewTraffic::buildColorRainbow(GUIColorScheme& scheme, int active, GUIGlObjec
             active = 23; // segment incline, fall back to total incline
         }
         const MSEdgeVector& edges = MSEdge::getAllEdges();
-        for (MSEdgeVector::const_iterator it = edges.begin(); it != edges.end(); ++it) {
+        for (auto edge : edges) {
             if (MSGlobals::gUseMesoSim) {
-                const double val = static_cast<GUIEdge*>(*it)->getColorValue(active);
+                const double val = static_cast<GUIEdge*>(edge)->getColorValue(active);
                 minValue = MIN2(minValue, val);
                 maxValue = MAX2(maxValue, val);
             } else {
-                const std::vector<MSLane*>& lanes = (*it)->getLanes();
-                for (std::vector<MSLane*>::const_iterator it_l = lanes.begin(); it_l != lanes.end(); it_l++) {
-                    const double val = static_cast<GUILane*>(*it_l)->getColorValue(active);
+                const std::vector<MSLane*>& lanes = edge->getLanes();
+                for (auto lane : lanes) {
+                    const double val = static_cast<GUILane*>(lane)->getColorValue(active);
                     minValue = MIN2(minValue, val);
                     maxValue = MAX2(maxValue, val);
                 }
@@ -307,9 +307,8 @@ GUIViewTraffic::onGamingClick(Position pos) {
     const std::vector<MSTrafficLightLogic*>& logics = tlsControl.getAllLogics();
     MSTrafficLightLogic* minTll = nullptr;
     double minDist = std::numeric_limits<double>::infinity();
-    for (std::vector<MSTrafficLightLogic*>::const_iterator i = logics.begin(); i != logics.end(); ++i) {
+    for (auto tll : logics) {
         // get the logic
-        MSTrafficLightLogic* tll = (*i);
         if (tlsControl.isActive(tll)) {
             // get the links
             const MSTrafficLightLogic::LaneVector& lanes = tll->getLanesAt(0);

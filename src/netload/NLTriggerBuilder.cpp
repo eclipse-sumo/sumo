@@ -125,8 +125,8 @@ NLTriggerBuilder::parseAndBuildLaneSpeedTrigger(MSNet& net, const SUMOSAXAttribu
     std::vector<MSLane*> lanes;
     std::vector<std::string> laneIDs;
     SUMOSAXAttributes::parseStringVector(objectid, laneIDs);
-    for (std::vector<std::string>::iterator i = laneIDs.begin(); i != laneIDs.end(); ++i) {
-        MSLane* lane = MSLane::dictionary(*i);
+    for (auto & laneID : laneIDs) {
+        MSLane* lane = MSLane::dictionary(laneID);
         if (lane == nullptr) {
             throw InvalidArgument("The lane to use within MSLaneSpeedTrigger '" + id + "' is not known.");
         }
@@ -358,10 +358,10 @@ NLTriggerBuilder::parseAndBuildRerouter(MSNet& net, const SUMOSAXAttributes& att
     MSEdgeVector edges;
     std::vector<std::string> edgeIDs;
     SUMOSAXAttributes::parseStringVector(objectid, edgeIDs);
-    for (std::vector<std::string>::iterator i = edgeIDs.begin(); i != edgeIDs.end(); ++i) {
-        MSEdge* edge = MSEdge::dictionary(*i);
+    for (auto & edgeID : edgeIDs) {
+        MSEdge* edge = MSEdge::dictionary(edgeID);
         if (edge == nullptr) {
-            throw InvalidArgument("The edge '" + (*i) + "' to use within MSTriggeredRerouter '" + id + "' is not known.");
+            throw InvalidArgument("The edge '" + edgeID + "' to use within MSTriggeredRerouter '" + id + "' is not known.");
         }
         edges.push_back(edge);
     }

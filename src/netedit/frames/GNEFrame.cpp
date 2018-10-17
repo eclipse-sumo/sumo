@@ -427,8 +427,8 @@ GNEFrame::ACHierarchy::showAttributeCarrierChilds(GNEAttributeCarrier* AC, FXTre
                 // insert edge item
                 FXTreeItem* edgeItem = addACIntoList(AC, itemParent);
                 // insert lanes
-                for (int i = 0; i < (int)edge->getLanes().size(); i++) {
-                    showAttributeCarrierChilds(edge->getLanes().at(i), edgeItem);
+                for (auto i : edge->getLanes()) {
+                    showAttributeCarrierChilds(i, edgeItem);
                 }
                 // insert additionals of edge
                 for (auto i : edge->getAdditionalChilds()) {
@@ -607,8 +607,8 @@ std::string
 GNEFrame::GenericParametersEditor::getGenericParametersStr() const {
     std::string result;
     // Generate an string using the following structure: "key1=value1|key2=value2|...
-    for (auto i = myGenericParameters->begin(); i != myGenericParameters->end(); i++) {
-        result += i->first + "=" + i->second + "|";
+    for (auto & myGenericParameter : *myGenericParameters) {
+        result += myGenericParameter.first + "=" + myGenericParameter.second + "|";
     }
     // remove the last "|"
     if (!result.empty()) {

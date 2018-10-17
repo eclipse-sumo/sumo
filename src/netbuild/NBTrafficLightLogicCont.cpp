@@ -78,8 +78,8 @@ NBTrafficLightLogicCont::insert(NBTrafficLightDefinition* logic, bool forceInser
             if (forceInsert) {
                 const Program2Def& programs = myDefinitions[logic->getID()];
                 IDSupplier idS("", 0);
-                for (Program2Def::const_iterator it_prog = programs.begin(); it_prog != programs.end(); it_prog++) {
-                    idS.avoid(it_prog->first);
+                for (const auto & program : programs) {
+                    idS.avoid(program.first);
                 }
                 logic->setProgramID(idS.getNext());
             } else {
@@ -98,14 +98,14 @@ bool
 NBTrafficLightLogicCont::removeFully(const std::string id) {
     if (myDefinitions.count(id)) {
         // delete all programs
-        for (Program2Def::iterator i = myDefinitions[id].begin(); i != myDefinitions[id].end(); i++) {
-            delete i->second;
+        for (auto & i : myDefinitions[id]) {
+            delete i.second;
         }
         myDefinitions.erase(id);
         // also delete any logics that were already computed
         if (myComputed.count(id)) {
-            for (Program2Logic::iterator i = myComputed[id].begin(); i != myComputed[id].end(); i++) {
-                delete i->second;
+            for (auto & i : myComputed[id]) {
+                delete i.second;
             }
             myComputed.erase(id);
         }
@@ -141,15 +141,15 @@ std::pair<int, int>
 NBTrafficLightLogicCont::computeLogics(OptionsCont& oc) {
     // clean previous logics
     Logics logics = getComputed();
-    for (Logics::iterator it = logics.begin(); it != logics.end(); it++) {
-        delete *it;
+    for (auto & logic : logics) {
+        delete logic;
     }
     myComputed.clear();
 
     int numPrograms = 0;
     Definitions definitions = getDefinitions();
-    for (Definitions::iterator it = definitions.begin(); it != definitions.end(); it++) {
-        if (computeSingleLogic(oc, *it)) {
+    for (auto & definition : definitions) {
+        if (computeSingleLogic(oc, definition)) {
             numPrograms++;
         }
     }
@@ -191,17 +191,17 @@ NBTrafficLightLogicCont::computeSingleLogic(OptionsCont& oc, NBTrafficLightDefin
 void
 NBTrafficLightLogicCont::clear() {
     Definitions definitions = getDefinitions();
-    for (Definitions::iterator it = definitions.begin(); it != definitions.end(); it++) {
-        delete *it;
+    for (auto & definition : definitions) {
+        delete definition;
     }
     myDefinitions.clear();
     Logics logics = getComputed();
-    for (Logics::iterator it = logics.begin(); it != logics.end(); it++) {
-        delete *it;
+    for (auto & logic : logics) {
+        delete logic;
     }
     myComputed.clear();
-    for (std::set<NBTrafficLightDefinition*>::iterator it = myExtracted.begin(); it != myExtracted.end(); it++) {
-        delete *it;
+    for (auto it : myExtracted) {
+        delete it;
     }
     myExtracted.clear();
 }
@@ -211,8 +211,8 @@ void
 NBTrafficLightLogicCont::remapRemoved(NBEdge* removed, const EdgeVector& incoming,
                                       const EdgeVector& outgoing) {
     Definitions definitions = getDefinitions();
-    for (Definitions::iterator it = definitions.begin(); it != definitions.end(); it++) {
-        (*it)->remapRemoved(removed, incoming, outgoing);
+    for (auto & definition : definitions) {
+        definition->remapRemoved(removed, incoming, outgoing);
     }
 }
 
@@ -221,8 +221,8 @@ void
 NBTrafficLightLogicCont::replaceRemoved(NBEdge* removed, int removedLane,
                                         NBEdge* by, int byLane) {
     Definitions definitions = getDefinitions();
-    for (Definitions::iterator it = definitions.begin(); it != definitions.end(); it++) {
-        (*it)->replaceRemoved(removed, removedLane, by, byLane);
+    for (auto & definition : definitions) {
+        definition->replaceRemoved(removed, removedLane, by, byLane);
     }
 }
 
@@ -269,18 +269,18 @@ void
 NBTrafficLightLogicCont::setTLControllingInformation(const NBEdgeCont& ec, const NBNodeCont& nc) {
     Definitions definitions = getDefinitions();
     // set the information about all participants, first
-    for (Definitions::iterator it = definitions.begin(); it != definitions.end(); it++) {
-        (*it)->setParticipantsInformation();
+    for (auto & definition : definitions) {
+        definition->setParticipantsInformation();
     }
     // clear previous information because tlDefs may have been removed in NETEDIT
     ec.clearControllingTLInformation();
     // insert the information about the tl-controlling
-    for (Definitions::iterator it = definitions.begin(); it != definitions.end(); it++) {
-        (*it)->setTLControllingInformation();
+    for (auto & definition : definitions) {
+        definition->setTLControllingInformation();
     }
     // handle rail signals which are not instantiated as normal definitions
-    for (std::map<std::string, NBNode*>::const_iterator it = nc.begin(); it != nc.end(); it ++) {
-        NBNode* n = it->second;
+    for (const auto & it : nc) {
+        NBNode* n = it.second;
         if (n->getType() == NODETYPE_RAIL_SIGNAL || n->getType() == NODETYPE_RAIL_CROSSING) {
             NBOwnTLDef dummy(n->getID(), n, 0, TLTYPE_STATIC);
             dummy.setParticipantsInformation();
@@ -295,10 +295,10 @@ NBTrafficLightLogicCont::setTLControllingInformation(const NBEdgeCont& ec, const
 NBTrafficLightLogicCont::Logics
 NBTrafficLightLogicCont::getComputed() const {
     Logics result;
-    for (Id2Logics::const_iterator it_id = myComputed.begin(); it_id != myComputed.end(); it_id++) {
-        const Program2Logic& programs = it_id->second;
-        for (Program2Logic::const_iterator it_prog = programs.begin(); it_prog != programs.end(); it_prog++) {
-            result.push_back(it_prog->second);
+    for (const auto & it_id : myComputed) {
+        const Program2Logic& programs = it_id.second;
+        for (const auto & program : programs) {
+            result.push_back(program.second);
         }
     }
     return result;
@@ -308,10 +308,10 @@ NBTrafficLightLogicCont::getComputed() const {
 NBTrafficLightLogicCont::Definitions
 NBTrafficLightLogicCont::getDefinitions() const {
     Definitions result;
-    for (Id2Defs::const_iterator it_id = myDefinitions.begin(); it_id != myDefinitions.end(); it_id++) {
-        const Program2Def& programs = it_id->second;
-        for (Program2Def::const_iterator it_prog = programs.begin(); it_prog != programs.end(); it_prog++) {
-            result.push_back(it_prog->second);
+    for (const auto & myDefinition : myDefinitions) {
+        const Program2Def& programs = myDefinition.second;
+        for (const auto & program : programs) {
+            result.push_back(program.second);
         }
     }
     return result;

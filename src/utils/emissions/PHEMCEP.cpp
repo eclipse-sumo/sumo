@@ -81,8 +81,8 @@ PHEMCEP::PHEMCEP(bool heavyVehicle, SUMOEmissionClass emissionClass, const std::
     std::vector<std::vector<double> > normalizedPollutantMeasures;
 
     // init pollutant identifiers
-    for (int i = 0; i < (int)headerLinePollutants.size(); i++) {
-        pollutantIdentifier.push_back(headerLinePollutants[i]);
+    for (const auto & headerLinePollutant : headerLinePollutants) {
+        pollutantIdentifier.push_back(headerLinePollutant);
     } // end for
 
     // get size of powerPatterns
@@ -99,26 +99,26 @@ PHEMCEP::PHEMCEP(bool heavyVehicle, SUMOEmissionClass emissionClass, const std::
     _speedCurveRotational.clear();
     _speedPatternRotational.clear();
     _gearTransmissionCurve.clear();
-    for (int i = 0; i < (int)matrixSpeedRotational.size(); i++) {
-        if (matrixSpeedRotational[i].size() != 3) {
+    for (const auto & i : matrixSpeedRotational) {
+        if (i.size() != 3) {
             throw InvalidArgument("Error loading vehicle file for: " + emissionClassIdentifier);
         }
 
-        _speedPatternRotational.push_back(matrixSpeedRotational[i][0] / 3.6);
-        _speedCurveRotational.push_back(matrixSpeedRotational[i][1]);
-        _gearTransmissionCurve.push_back(matrixSpeedRotational[i][2]);
+        _speedPatternRotational.push_back(i[0] / 3.6);
+        _speedCurveRotational.push_back(i[1]);
+        _gearTransmissionCurve.push_back(i[2]);
     } // end for
 
     // looping through matrix and assigning values for drag table
     _nNormTable.clear();
     _dragNormTable.clear();
-    for (int i = 0; i < (int) normedDragTable.size(); i++) {
-        if (normedDragTable[i].size() != 2) {
+    for (const auto & i : normedDragTable) {
+        if (i.size() != 2) {
             return;
         }
 
-        _nNormTable.push_back(normedDragTable[i][0]);
-        _dragNormTable.push_back(normedDragTable[i][1]);
+        _nNormTable.push_back(i[0]);
+        _dragNormTable.push_back(i[1]);
 
     } // end for
 
@@ -127,15 +127,15 @@ PHEMCEP::PHEMCEP(bool heavyVehicle, SUMOEmissionClass emissionClass, const std::
     _powerPatternFC.clear();
     _normalizedPowerPatternFC.clear();
     _normedCepCurveFC.clear();
-    for (int i = 0; i < (int)matrixFC.size(); i++) {
-        if (matrixFC[i].size() != 2) {
+    for (const auto & i : matrixFC) {
+        if (i.size() != 2) {
             throw InvalidArgument("Error loading vehicle file for: " + emissionClassIdentifier);
         }
 
-        _powerPatternFC.push_back(matrixFC[i][0] * _ratedPower);
-        _normalizedPowerPatternFC.push_back(matrixFC[i][0]);
-        _cepCurveFC.push_back(matrixFC[i][1] * _ratedPower);
-        _normedCepCurveFC.push_back(matrixFC[i][1]);
+        _powerPatternFC.push_back(i[0] * _ratedPower);
+        _normalizedPowerPatternFC.push_back(i[0]);
+        _cepCurveFC.push_back(i[1] * _ratedPower);
+        _normedCepCurveFC.push_back(i[1]);
 
     } // end for
 
@@ -156,18 +156,18 @@ PHEMCEP::PHEMCEP(bool heavyVehicle, SUMOEmissionClass emissionClass, const std::
     } // end if
 
     const int headerCount = (int)headerLinePollutants.size();
-    for (int i = 0; i < (int)matrixPollutants.size(); i++) {
-        for (int j = 0; j < (int)matrixPollutants[i].size(); j++) {
-            if ((int)matrixPollutants[i].size() != headerCount + 1) {
+    for (const auto & matrixPollutant : matrixPollutants) {
+        for (int j = 0; j < (int)matrixPollutant.size(); j++) {
+            if ((int)matrixPollutant.size() != headerCount + 1) {
                 return;
             }
 
             if (j == 0) {
-                _normailzedPowerPatternPollutants.push_back(matrixPollutants[i][j]);
-                _powerPatternPollutants.push_back(matrixPollutants[i][j] * _normalizingPower);
+                _normailzedPowerPatternPollutants.push_back(matrixPollutant[j]);
+                _powerPatternPollutants.push_back(matrixPollutant[j] * _normalizingPower);
             } else {
-                pollutantMeasures[j - 1].push_back(matrixPollutants[i][j] * pollutantMultiplyer);
-                normalizedPollutantMeasures[j - 1].push_back(matrixPollutants[i][j]);
+                pollutantMeasures[j - 1].push_back(matrixPollutant[j] * pollutantMultiplyer);
+                normalizedPollutantMeasures[j - 1].push_back(matrixPollutant[j]);
             } // end if
         } // end for
     } // end for

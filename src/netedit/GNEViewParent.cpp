@@ -191,8 +191,8 @@ GNEViewParent::~GNEViewParent() {
 
 void
 GNEViewParent::hideAllFrames() {
-    for (auto i = myGNEFrames.begin(); i != myGNEFrames.end(); i++) {
-        i->second->hide();
+    for (auto & myGNEFrame : myGNEFrames) {
+        myGNEFrame.second->hide();
     }
 }
 
@@ -252,9 +252,9 @@ void
 GNEViewParent::showFramesArea() {
     bool showFlag = false;
     // Iterate over GNEFrames
-    for (auto i = myGNEFrames.begin(); i != myGNEFrames.end(); i++) {
+    for (auto & myGNEFrame : myGNEFrames) {
         // if at least one frame is shown, change showFlag
-        if (i->second->shown()) {
+        if (myGNEFrame.second->shown()) {
             showFlag = true;
         }
     }
@@ -270,9 +270,9 @@ void
 GNEViewParent::hideFramesArea() {
     bool hideFlag = true;
     // Iterate over frames
-    for (auto i = myGNEFrames.begin(); i != myGNEFrames.end(); i++) {
+    for (auto & myGNEFrame : myGNEFrames) {
         // if at least one frame is shown,  change hideflag
-        if (i->second->shown()) {
+        if (myGNEFrame.second->shown()) {
             hideFlag = false;
         }
     }
@@ -482,9 +482,9 @@ GNEViewParent::onKeyRelease(FXObject* o, FXSelector sel, void* eventData) {
 
 long
 GNEViewParent::onCmdUpdateFrameAreaWidth(FXObject*, FXSelector, void*) {
-    for (auto i = myGNEFrames.begin(); i != myGNEFrames.end(); i++) {
+    for (auto & myGNEFrame : myGNEFrames) {
         // update size of all GNEFrame
-        i->second->setFrameWidth(myFramesArea->getWidth());
+        myGNEFrame.second->setFrameWidth(myFramesArea->getWidth());
     }
     return 0;
 }

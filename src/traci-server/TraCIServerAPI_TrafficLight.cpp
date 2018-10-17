@@ -130,8 +130,8 @@ TraCIServerAPI_TrafficLight::processGet(TraCIServer& server, tcpip::Storage& inp
                     const std::string& state = tls->getCurrentPhaseDef().getState();
                     const std::map<std::string, std::string>& params = tls->getParametersMap();
                     int num = 0;
-                    for (std::map<std::string, std::string>::const_iterator i = params.begin(); i != params.end(); ++i) {
-                        if ("connection:" == (*i).first.substr(0, 11)) {
+                    for (const auto & param : params) {
+                        if ("connection:" == param.first.substr(0, 11)) {
                             ++num;
                         }
                     }
@@ -139,13 +139,13 @@ TraCIServerAPI_TrafficLight::processGet(TraCIServer& server, tcpip::Storage& inp
                     server.getWrapperStorage().writeUnsignedByte(TYPE_COMPOUND);
                     server.getWrapperStorage().writeUnsignedByte(TYPE_INTEGER);
                     server.getWrapperStorage().writeInt(num * 2);
-                    for (std::map<std::string, std::string>::const_iterator i = params.begin(); i != params.end(); ++i) {
-                        if ("connection:" != (*i).first.substr(0, 11)) {
+                    for (const auto & param : params) {
+                        if ("connection:" != param.first.substr(0, 11)) {
                             continue;
                         }
                         server.getWrapperStorage().writeUnsignedByte(TYPE_STRING);
-                        server.getWrapperStorage().writeString((*i).second); // foreign id
-                        std::string connection = (*i).first.substr(11);
+                        server.getWrapperStorage().writeString(param.second); // foreign id
+                        std::string connection = param.first.substr(11);
                         std::string from, to;
                         const std::string::size_type b = connection.find("->");
                         if (b == std::string::npos) {

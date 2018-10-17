@@ -43,9 +43,8 @@ SUMORouteLoaderControl::SUMORouteLoaderControl(SUMOTime inAdvanceStepNo):
 
 
 SUMORouteLoaderControl::~SUMORouteLoaderControl() {
-    for (std::vector<SUMORouteLoader*>::iterator i = myRouteLoaders.begin();
-            i != myRouteLoaders.end(); ++i) {
-        delete(*i);
+    for (auto & myRouteLoader : myRouteLoaders) {
+        deletemyRouteLoader;
     }
 }
 
@@ -70,12 +69,12 @@ SUMORouteLoaderControl::loadNext(SUMOTime step) {
     myCurrentLoadTime = SUMOTime_MAX;
     // load all routes for the specified time period
     bool furtherAvailable = false;
-    for (std::vector<SUMORouteLoader*>::iterator i = myRouteLoaders.begin(); i != myRouteLoaders.end(); ++i) {
-        myCurrentLoadTime = MIN2(myCurrentLoadTime, (*i)->loadUntil(loadMaxTime));
-        if ((*i)->getFirstDepart() != -1) {
-            myFirstLoadTime = MIN2(myFirstLoadTime, (*i)->getFirstDepart());
+    for (auto & myRouteLoader : myRouteLoaders) {
+        myCurrentLoadTime = MIN2(myCurrentLoadTime, myRouteLoader->loadUntil(loadMaxTime));
+        if (myRouteLoader->getFirstDepart() != -1) {
+            myFirstLoadTime = MIN2(myFirstLoadTime, myRouteLoader->getFirstDepart());
         }
-        furtherAvailable |= (*i)->moreAvailable();
+        furtherAvailable |= myRouteLoader->moreAvailable();
     }
     myAllLoaded = !furtherAvailable;
 }

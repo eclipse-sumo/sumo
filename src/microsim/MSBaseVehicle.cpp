@@ -458,8 +458,8 @@ MSBaseVehicle::calculateArrivalParams() {
         myArrivalLane = MIN2(myParameter->arrivalLane, (int)(lanes.size() - 1));
     }
     if (myParameter->arrivalSpeedProcedure == ARRIVAL_SPEED_GIVEN) {
-        for (std::vector<MSLane*>::const_iterator l = lanes.begin(); l != lanes.end(); ++l) {
-            if (myParameter->arrivalSpeed <= (*l)->getVehicleMaxSpeed(this)) {
+        for (auto lane : lanes) {
+            if (myParameter->arrivalSpeed <= lane->getVehicleMaxSpeed(this)) {
                 return;
             }
         }
@@ -504,9 +504,9 @@ MSBaseVehicle::saveState(OutputDevice& out) {
 
 void
 MSBaseVehicle::addStops(const bool ignoreStopErrors) {
-    for (std::vector<SUMOVehicleParameter::Stop>::const_iterator i = myRoute->getStops().begin(); i != myRoute->getStops().end(); ++i) {
+    for (const auto & i : myRoute->getStops()) {
         std::string errorMsg;
-        if (!addStop(*i, errorMsg, myParameter->depart) && !ignoreStopErrors) {
+        if (!addStop(i, errorMsg, myParameter->depart) && !ignoreStopErrors) {
             throw ProcessError(errorMsg);
         }
         if (errorMsg != "") {
@@ -536,8 +536,8 @@ std::vector<std::string>
 MSBaseVehicle::getPersonIDList() const {
     std::vector<std::string> ret;
     const std::vector<MSTransportable*>& persons = getPersons();
-    for (std::vector<MSTransportable*>::const_iterator it_p = persons.begin(); it_p != persons.end(); ++it_p) {
-        ret.push_back((*it_p)->getID());
+    for (auto person : persons) {
+        ret.push_back(person->getID());
     }
     return ret;
 }

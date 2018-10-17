@@ -61,9 +61,9 @@ LaneStoringVisitor::add(const MSLane* const l) const {
     switch (myDomain) {
         case CMD_GET_VEHICLE_VARIABLE: {
             const MSLane::VehCont& vehs = l->getVehiclesSecure();
-            for (MSLane::VehCont::const_iterator j = vehs.begin(); j != vehs.end(); ++j) {
-                if (myShape.distance2D((*j)->getPosition()) <= myRange) {
-                    myIDs.insert((*j)->getID());
+            for (auto veh : vehs) {
+                if (myShape.distance2D(veh->getPosition()) <= myRange) {
+                    myIDs.insert(veh->getID());
                 }
             }
             l->releaseVehicles();
@@ -200,8 +200,8 @@ Helper::makeTraCIPositionVector(const PositionVector& positionVector) {
 PositionVector
 Helper::makePositionVector(const TraCIPositionVector& vector) {
     PositionVector pv;
-    for (int i = 0; i < (int)vector.size(); i++) {
-        pv.push_back(Position(vector[i].x, vector[i].y));
+    for (const auto & i : vector) {
+        pv.push_back(Position(i.x, i.y));
     }
     return pv;
 }
@@ -275,13 +275,13 @@ Helper::convertCartesianToRoadMap(Position pos) {
     double minDistance = std::numeric_limits<double>::max();
 
     allEdgeIds = MSNet::getInstance()->getEdgeControl().getEdgeNames();
-    for (std::vector<std::string>::iterator itId = allEdgeIds.begin(); itId != allEdgeIds.end(); itId++) {
-        const std::vector<MSLane*>& allLanes = MSEdge::dictionary((*itId))->getLanes();
-        for (std::vector<MSLane*>::const_iterator itLane = allLanes.begin(); itLane != allLanes.end(); itLane++) {
-            const double newDistance = (*itLane)->getShape().distance2D(pos);
+    for (auto & allEdgeId : allEdgeIds) {
+        const std::vector<MSLane*>& allLanes = MSEdge::dictionary(allEdgeId)->getLanes();
+        for (auto allLane : allLanes) {
+            const double newDistance = allLane->getShape().distance2D(pos);
             if (newDistance < minDistance) {
                 minDistance = newDistance;
-                result.first = (*itLane);
+                result.first = allLane;
             }
         }
     }
@@ -683,8 +683,8 @@ Helper::moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveN
     double maxDist = 0;
     std::map<MSLane*, LaneUtility> lane2utility;
     // compute utility for all candidate edges
-    for (std::set<std::string>::const_iterator j = into.begin(); j != into.end(); ++j) {
-        const MSEdge* const e = MSEdge::dictionary(*j);
+    for (const auto & j : into) {
+        const MSEdge* const e = MSEdge::dictionary(j);
         const MSEdge* prevEdge = nullptr;
         const MSEdge* nextEdge = nullptr;
         bool onRoute = false;
@@ -748,8 +748,7 @@ Helper::moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveN
         // weight the lanes...
         const std::vector<MSLane*>& lanes = e->getLanes();
         const bool perpendicular = false;
-        for (std::vector<MSLane*>::const_iterator k = lanes.begin(); k != lanes.end(); ++k) {
-            MSLane* lane = *k;
+        for (auto lane : lanes) {
             double langle = 180.;
             double dist = FAR_AWAY;
             double perpendicularDist = FAR_AWAY;
@@ -799,9 +798,9 @@ Helper::moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveN
     // get the best lane given the previously computed values
     double bestValue = 0;
     MSLane* bestLane = nullptr;
-    for (std::map<MSLane*, LaneUtility>::iterator i = lane2utility.begin(); i != lane2utility.end(); ++i) {
-        MSLane* l = (*i).first;
-        const LaneUtility& u = (*i).second;
+    for (auto & i : lane2utility) {
+        MSLane* l = i.first;
+        const LaneUtility& u = i.second;
         double distN = u.dist > 999 ? -10 : 1. - (u.dist / maxDist);
         double angleDiffN = 1. - (u.angleDiff / 180.);
         double idN = u.ID ? 1 : 0;
@@ -939,9 +938,9 @@ Helper::moveToXYMap_matchingRoutePosition(const Position& pos, const std::string
     // @note: this is enabled for non-internal lanes only, as otherwise the position information may ambiguous
     if (!(*lane)->getEdge().isInternal()) {
         const std::vector<MSLane*>& lanes = (*lane)->getEdge().getLanes();
-        for (std::vector<MSLane*>::const_iterator i = lanes.begin(); i != lanes.end(); ++i) {
-            if ((*i)->getParameter(SUMO_PARAM_ORIGID, (*i)->getID()) == origID) {
-                *lane = *i;
+        for (auto i : lanes) {
+            if (i->getParameter(SUMO_PARAM_ORIGID, i->getID()) == origID) {
+                *lane = i;
                 break;
             }
         }

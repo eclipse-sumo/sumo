@@ -77,9 +77,9 @@ MSSOTLPolicy5DFamilyStimulus::MSSOTLPolicy5DFamilyStimulus(std::string keyPrefix
     }
 
     //For each param list, slice values
-    for (int i = 0; i < (int)params_names.size(); i ++) {
-        std::string key = keyPrefix + params_names[i];
-        std::string param_list = getParameter(key, default_values[params_names[i]]);
+    for (const auto & params_name : params_names) {
+        std::string key = keyPrefix + params_name;
+        std::string param_list = getParameter(key, default_values[params_name]);
         std::vector<std::string> tokens = StringTokenizer(param_list, ";").getVector();
 
         for (int token_counter = 0; token_counter < size_family; ++token_counter) {

@@ -158,10 +158,10 @@ getVehicleClassNamesList(SVCPermissions permissions) {
     /// @todo cache values?
     const std::vector<std::string> classNames = SumoVehicleClassStrings.getStrings();
     std::vector<std::string> result;
-    for (std::vector<std::string>::const_iterator it = classNames.begin(); it != classNames.end(); it++) {
-        const int svc = (int)SumoVehicleClassStrings.get(*it);
+    for (const auto & className : classNames) {
+        const int svc = (int)SumoVehicleClassStrings.get(className);
         if ((svc & permissions) == svc && svc != SVC_IGNORING) {
-            result.push_back(*it);
+            result.push_back(className);
         }
     }
     return result;
@@ -181,9 +181,9 @@ int
 getVehicleClassCompoundID(const std::string& name) {
     int ret = SVC_IGNORING;
     const std::vector<std::string> names = SumoVehicleClassStrings.getStrings();
-    for (std::vector<std::string>::const_iterator it = names.begin(); it != names.end(); it++) {
-        if (name.find(*it) != std::string::npos) {
-            ret = ret | (int) SumoVehicleClassStrings.get(*it);
+    for (const auto & it : names) {
+        if (name.find(it) != std::string::npos) {
+            ret = ret | (int) SumoVehicleClassStrings.get(it);
         }
     }
     return ret;
@@ -250,13 +250,13 @@ invertPermissions(SVCPermissions permissions) {
 SVCPermissions
 parseVehicleClasses(const std::vector<std::string>& allowedS) {
     SVCPermissions result = 0;
-    for (std::vector<std::string>::const_iterator i = allowedS.begin(); i != allowedS.end(); ++i) {
-        const SUMOVehicleClass vc = getVehicleClassID(*i);
+    for (const auto & i : allowedS) {
+        const SUMOVehicleClass vc = getVehicleClassID(i);
         const std::string& realName = SumoVehicleClassStrings.getString(vc);
-        if (realName != *i) {
-            WRITE_WARNING("The vehicle class '" + (*i) + "' is deprecated, use '" + realName + "' instead.");
+        if (realName != i) {
+            WRITE_WARNING("The vehicle class '" + i + "' is deprecated, use '" + realName + "' instead.");
         }
-        result |= getVehicleClassID(*i);
+        result |= getVehicleClassID(i);
     }
     return result;
 }

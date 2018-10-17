@@ -123,8 +123,8 @@ MSDevice_Vehroutes::MSDevice_Vehroutes(SUMOVehicle& holder, const std::string& i
 
 
 MSDevice_Vehroutes::~MSDevice_Vehroutes() {
-    for (std::vector<RouteReplaceInfo>::iterator i = myReplacedRoutes.begin(); i != myReplacedRoutes.end(); ++i) {
-        (*i).route->release();
+    for (auto & myReplacedRoute : myReplacedRoutes) {
+        myReplacedRoute.route->release();
     }
     myCurrentRoute->release();
     myStateListener.myDevices.erase(&myHolder);
@@ -412,12 +412,12 @@ MSDevice_Vehroutes::saveState(OutputDevice& out) const {
     internals.push_back(toString(myDepartSpeed));
     internals.push_back(toString(myDepartPos));
     internals.push_back(toString(myReplacedRoutes.size()));
-    for (int i = 0; i < (int)myReplacedRoutes.size(); ++i) {
-        const std::string replacedOnEdge = myReplacedRoutes[i].edge == nullptr ? "!NULL" : myReplacedRoutes[i].edge->getID();
+    for (const auto & myReplacedRoute : myReplacedRoutes) {
+        const std::string replacedOnEdge = myReplacedRoute.edge == nullptr ? "!NULL" : myReplacedRoute.edge->getID();
         internals.push_back(replacedOnEdge);
-        internals.push_back(toString(myReplacedRoutes[i].time));
-        internals.push_back(myReplacedRoutes[i].route->getID());
-        internals.push_back(myReplacedRoutes[i].info);
+        internals.push_back(toString(myReplacedRoute.time));
+        internals.push_back(myReplacedRoute.route->getID());
+        internals.push_back(myReplacedRoute.info);
     }
     out.writeAttr(SUMO_ATTR_STATE, toString(internals));
     out.closeTag();

@@ -320,9 +320,9 @@ SUMOSAXAttributesImpl_Binary::getName(int attr) const {
 
 void
 SUMOSAXAttributesImpl_Binary::serialize(std::ostream& os) const {
-    for (std::set<int>::const_iterator i = myAttrs.begin(); i != myAttrs.end(); ++i) {
-        os << " " << getName(*i);
-        os << "=\"" << getStringSecure(*i, "?") << "\"";
+    for (std::_Tree_const_iterator<std::_Tree_val<std::_Tree_simple_types<int> > >::value_type myAttr : myAttrs) {
+        os << " " << getName(myAttr);
+        os << "=\"" << getStringSecure(myAttr, "?") << "\"";
     }
 }
 
@@ -330,25 +330,25 @@ SUMOSAXAttributesImpl_Binary::serialize(std::ostream& os) const {
 SUMOSAXAttributes*
 SUMOSAXAttributesImpl_Binary::clone() const {
     std::map<std::string, std::string> attrs;
-    for (std::map<int, char>::const_iterator it = myCharValues.begin(); it != myCharValues.end(); ++it) {
-        const std::string attrName = myAttrIds.find(it->first)->second;
-        attrs[attrName] = toString(it->second);
+    for (const auto & myCharValue : myCharValues) {
+        const std::string attrName = myAttrIds.find(myCharValue.first)->second;
+        attrs[attrName] = toString(myCharValue.second);
     }
-    for (std::map<int, int>::const_iterator it = myIntValues.begin(); it != myIntValues.end(); ++it) {
-        const std::string attrName = myAttrIds.find(it->first)->second;
-        attrs[attrName] = toString(it->second);
+    for (const auto & myIntValue : myIntValues) {
+        const std::string attrName = myAttrIds.find(myIntValue.first)->second;
+        attrs[attrName] = toString(myIntValue.second);
     }
-    for (std::map<int, double>::const_iterator it = myFloatValues.begin(); it != myFloatValues.end(); ++it) {
-        const std::string attrName = myAttrIds.find(it->first)->second;
-        attrs[attrName] = toString(it->second);
+    for (const auto & myFloatValue : myFloatValues) {
+        const std::string attrName = myAttrIds.find(myFloatValue.first)->second;
+        attrs[attrName] = toString(myFloatValue.second);
     }
-    for (std::map<int, std::string>::const_iterator it = myStringValues.begin(); it != myStringValues.end(); ++it) {
-        const std::string attrName = myAttrIds.find(it->first)->second;
-        attrs[attrName] = it->second;
+    for (const auto & myStringValue : myStringValues) {
+        const std::string attrName = myAttrIds.find(myStringValue.first)->second;
+        attrs[attrName] = myStringValue.second;
     }
-    for (std::map<int, PositionVector>::const_iterator it = myPositionVectors.begin(); it != myPositionVectors.end(); ++it) {
-        const std::string attrName = myAttrIds.find(it->first)->second;
-        attrs[attrName] = toString(it->second);
+    for (const auto & myPositionVector : myPositionVectors) {
+        const std::string attrName = myAttrIds.find(myPositionVector.first)->second;
+        attrs[attrName] = toString(myPositionVector.second);
     }
     return new SUMOSAXAttributesImpl_Cached(attrs, myAttrIds, getObjectType());
 }

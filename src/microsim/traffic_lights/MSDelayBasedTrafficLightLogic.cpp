@@ -115,8 +115,8 @@ MSDelayBasedTrafficLightLogic::proposeProlongation(const SUMOTime actDuration, c
         // this lane index corresponds to a non-green time
         bool igreen = state[i] == LINKSTATE_TL_GREEN_MAJOR || state[i] == LINKSTATE_TL_GREEN_MINOR;
         const std::vector<MSLane*>& lanes = getLanesAt(i);
-        for (LaneVector::const_iterator j = lanes.begin(); j != lanes.end(); j++) {
-            LaneDetectorMap::iterator i = myLaneDetectors.find(*j);
+        for (auto lane : lanes) {
+            LaneDetectorMap::iterator i = myLaneDetectors.find(lane);
             if (i == myLaneDetectors.end()) {
 #ifdef DEBUG_TIMELOSS_CONTROL
                 // no detector for this lane!? maybe noVehicles allowed
@@ -131,10 +131,9 @@ MSDelayBasedTrafficLightLogic::proposeProlongation(const SUMOTime actDuration, c
 #endif
             if (igreen) {
                 // green phase
-                for (std::vector<MSE2Collector::VehicleInfo*>::const_iterator ivp = vehInfos.begin(); ivp != vehInfos.end(); ++ivp) {
-                    MSE2Collector::VehicleInfo* iv = *ivp;
+                for (auto iv : vehInfos) {
                     if (iv->accumulatedTimeLoss > myTimeLossThreshold && iv->distToDetectorEnd > 0) {
-                        const SUMOTime estimatedTimeToJunction = TIME2STEPS((iv->distToDetectorEnd) / (*j)->getSpeedLimit());
+                        const SUMOTime estimatedTimeToJunction = TIME2STEPS((iv->distToDetectorEnd) / lane->getSpeedLimit());
                         if (actDuration + estimatedTimeToJunction  <= maxDuration) {
                             // only prolong if vehicle has a chance to pass until max duration is reached
                             prolongation = MAX2(prolongation, estimatedTimeToJunction);

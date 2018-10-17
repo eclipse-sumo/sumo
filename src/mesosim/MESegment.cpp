@@ -113,8 +113,8 @@ MESegment::MESegment(const std::string& id,
             const std::vector<MSLane*>* const allowed = parent.allowedLanes(*edge);
             assert(allowed != 0);
             assert(allowed->size() > 0);
-            for (std::vector<MSLane*>::const_iterator j = allowed->begin(); j != allowed->end(); ++j) {
-                std::vector<MSLane*>::const_iterator it = find(lanes.begin(), lanes.end(), *j);
+            for (auto j : *allowed) {
+                std::vector<MSLane*>::const_iterator it = find(lanes.begin(), lanes.end(), j);
                 myFollowerMap[edge].push_back((int)distance(lanes.begin(), it));
             }
         }
@@ -298,10 +298,10 @@ MESegment::getMeanSpeed(bool useCached) const {
         const SUMOTime tau = free() ? myTau_ff : myTau_jf;
         double v = 0;
         int count = 0;
-        for (Queues::const_iterator k = myCarQues.begin(); k != myCarQues.end(); ++k) {
+        for (const auto & myCarQue : myCarQues) {
             SUMOTime earliestExitTime = currentTime;
-            count += (int)k->size();
-            for (std::vector<MEVehicle*>::const_reverse_iterator veh = k->rbegin(); veh != k->rend(); ++veh) {
+            count += (int)myCarQue.size();
+            for (std::vector<MEVehicle*>::const_reverse_iterator veh = myCarQue.rbegin(); veh != myCarQue.rend(); ++veh) {
                 v += (*veh)->getConservativeSpeed(earliestExitTime); // earliestExitTime is updated!
                 earliestExitTime += tauWithVehLength(tau, (*veh)->getVehicleType().getLengthWithGap());
             }
@@ -318,8 +318,8 @@ MESegment::getMeanSpeed(bool useCached) const {
 
 void
 MESegment::writeVehicles(OutputDevice& of) const {
-    for (Queues::const_iterator k = myCarQues.begin(); k != myCarQues.end(); ++k) {
-        for (std::vector<MEVehicle*>::const_iterator veh = k->begin(); veh != k->end(); ++veh) {
+    for (const auto & myCarQue : myCarQues) {
+        for (std::vector<MEVehicle*>::const_iterator veh = myCarQue.begin(); veh != myCarQue.end(); ++veh) {
             MSXMLRawOut::writeVehicle(of, *(*veh));
         }
     }
@@ -383,18 +383,18 @@ MESegment::getLink(const MEVehicle* veh, bool penalty) const {
         // try to find any link leading to our next edge, start with the lane pointed to by the que index
         const MSLane* const bestLane = myEdge.getLanes()[veh->getQueIndex()];
         const MSLinkCont& links = bestLane->getLinkCont();
-        for (std::vector<MSLink*>::const_iterator j = links.begin(); j != links.end(); ++j) {
-            if (&(*j)->getLane()->getEdge() == nextEdge) {
-                return *j;
+        for (auto link : links) {
+            if (&link->getLane()->getEdge() == nextEdge) {
+                return link;
             }
         }
         // this is for the non-multique case, maybe we should use caching here !!!
-        for (std::vector<MSLane*>::const_iterator l = myEdge.getLanes().begin(); l != myEdge.getLanes().end(); ++l) {
-            if ((*l) != bestLane) {
-                const MSLinkCont& links = (*l)->getLinkCont();
-                for (std::vector<MSLink*>::const_iterator j = links.begin(); j != links.end(); ++j) {
-                    if (&(*j)->getLane()->getEdge() == nextEdge) {
-                        return *j;
+        for (auto l : myEdge.getLanes()) {
+            if (l != bestLane) {
+                const MSLinkCont& links = l->getLinkCont();
+                for (auto link : links) {
+                    if (&link->getLane()->getEdge() == nextEdge) {
+                        return link;
                     }
                 }
             }
@@ -485,8 +485,8 @@ MESegment::overtake() {
 
 void
 MESegment::addReminders(MEVehicle* veh) const {
-    for (std::vector<MSMoveReminder*>::const_iterator i = myDetectorData.begin(); i != myDetectorData.end(); ++i) {
-        veh->addReminder(*i);
+    for (auto i : myDetectorData) {
+        veh->addReminder(i);
     }
 }
 
@@ -635,9 +635,9 @@ MESegment::setSpeed(double newSpeed, SUMOTime currentTime, double jamThresh) {
 SUMOTime
 MESegment::getEventTime() const {
     SUMOTime result = SUMOTime_MAX;
-    for (int i = 0; i < (int)myCarQues.size(); ++i) {
-        if (myCarQues[i].size() != 0 && myCarQues[i].back()->getEventTime() < result) {
-            result = myCarQues[i].back()->getEventTime();
+    for (const auto & myCarQue : myCarQues) {
+        if (myCarQue.size() != 0 && myCarQue.back()->getEventTime() < result) {
+            result = myCarQue.back()->getEventTime();
         }
     }
     if (result < SUMOTime_MAX) {
@@ -685,8 +685,8 @@ MESegment::loadState(std::vector<std::string>& vehIds, MSVehicleControl& vc, con
 std::vector<const MEVehicle*>
 MESegment::getVehicles() const {
     std::vector<const MEVehicle*> result;
-    for (Queues::const_iterator k = myCarQues.begin(); k != myCarQues.end(); ++k) {
-        result.insert(result.end(), k->begin(), k->end());
+    for (const auto & myCarQue : myCarQues) {
+        result.insert(result.end(), myCarQue.begin(), myCarQue.end());
     }
     return result;
 }
@@ -694,8 +694,8 @@ MESegment::getVehicles() const {
 
 bool
 MESegment::hasBlockedLeader() const {
-    for (Queues::const_iterator k = myCarQues.begin(); k != myCarQues.end(); ++k) {
-        if (k->size() > 0 && (*k).back()->getWaitingTime() > 0) {
+    for (const auto & myCarQue : myCarQues) {
+        if (myCarQue.size() > 0 && myCarQue.back()->getWaitingTime() > 0) {
             return true;
         }
     }
@@ -747,11 +747,9 @@ MESegment::getTLSCapacity(const MEVehicle* veh) const {
 double
 MESegment::getMaxPenaltySeconds() const {
     double maxPenalty = 0;
-    for (std::vector<MSLane*>::const_iterator i = myEdge.getLanes().begin(); i != myEdge.getLanes().end(); ++i) {
-        MSLane* l = *i;
+    for (auto l : myEdge.getLanes()) {
         const MSLinkCont& lc = l->getLinkCont();
-        for (MSLinkCont::const_iterator j = lc.begin(); j != lc.end(); ++j) {
-            MSLink* link = *j;
+        for (auto link : lc) {
             maxPenalty = MAX2(maxPenalty, STEPS2TIME(
                                   link->getMesoTLSPenalty() + (link->havePriority() ? 0 : MSGlobals::gMesoMinorPenalty)));
         }

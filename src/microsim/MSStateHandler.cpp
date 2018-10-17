@@ -90,8 +90,8 @@ MSStateHandler::saveState(const std::string& file, SUMOTime step) {
     } else {
         for (int i = 0; i < MSEdge::dictSize(); i++) {
             const std::vector<MSLane*>& lanes = MSEdge::getAllEdges()[i]->getLanes();
-            for (std::vector<MSLane*>::const_iterator it = lanes.begin(); it != lanes.end(); ++it) {
-                (*it)->saveState(out);
+            for (auto lane : lanes) {
+                lane->saveState(out);
             }
         }
     }

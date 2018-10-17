@@ -38,8 +38,8 @@ NBDistrictCont::NBDistrictCont() {}
 
 
 NBDistrictCont::~NBDistrictCont() {
-    for (DistrictCont::iterator i = myDistricts.begin(); i != myDistricts.end(); i++) {
-        delete((*i).second);
+    for (auto & myDistrict : myDistricts) {
+        delete(myDistrict.second);
     }
     myDistricts.clear();
 }
@@ -96,8 +96,8 @@ NBDistrictCont::addSink(const std::string& dist, NBEdge* const destination,
 
 void
 NBDistrictCont::removeFromSinksAndSources(NBEdge* const e) {
-    for (DistrictCont::iterator i = myDistricts.begin(); i != myDistricts.end(); i++) {
-        (*i).second->removeFromSinksAndSources(e);
+    for (auto & myDistrict : myDistricts) {
+        myDistrict.second->removeFromSinksAndSources(e);
     }
 }
 

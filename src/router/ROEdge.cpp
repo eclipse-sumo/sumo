@@ -77,8 +77,8 @@ ROEdge::ROEdge(const std::string& id, RONode* from, RONode* to, int index, const
 
 
 ROEdge::~ROEdge() {
-    for (std::vector<ROLane*>::iterator i = myLanes.begin(); i != myLanes.end(); ++i) {
-        delete(*i);
+    for (auto & myLane : myLanes) {
+        deletemyLane;
     }
 }
 
@@ -301,8 +301,8 @@ ROEdge::buildTimeLines(const std::string& measure, const bool boundariesOverride
 
 bool
 ROEdge::allFollowersProhibit(const ROVehicle* const vehicle) const {
-    for (ROEdgeVector::const_iterator i = myFollowingEdges.begin(); i != myFollowingEdges.end(); ++i) {
-        if (!(*i)->prohibits(vehicle)) {
+    for (auto myFollowingEdge : myFollowingEdges) {
+        if (!myFollowingEdge->prohibits(vehicle)) {
             return false;
         }
     }
@@ -349,9 +349,9 @@ ROEdge::getSuccessors(SUMOVehicleClass vClass) const {
         }
     }
     // also add district edges (they are not connected at the lane level
-    for (ROEdgeVector::const_iterator it = myFollowingEdges.begin(); it != myFollowingEdges.end(); ++it) {
-        if ((*it)->isTazConnector()) {
-            followers.insert(*it);
+    for (auto myFollowingEdge : myFollowingEdges) {
+        if (myFollowingEdge->isTazConnector()) {
+            followers.insert(myFollowingEdge);
         }
     }
     myClassesSuccessorMap[vClass].insert(myClassesSuccessorMap[vClass].begin(),

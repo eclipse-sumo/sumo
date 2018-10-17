@@ -152,8 +152,8 @@ GUISUMOAbstractView::~GUISUMOAbstractView() {
     delete myViewportChooser;
     delete myVisualizationChanger;
     // cleanup decals
-    for (std::vector<GUISUMOAbstractView::Decal>::iterator it = myDecals.begin(); it != myDecals.end(); ++it) {
-        delete it->image;
+    for (auto & myDecal : myDecals) {
+        delete myDecal.image;
     }
 }
 
@@ -319,8 +319,7 @@ GUISUMOAbstractView::getObjectAtPosition(Position pos) {
     // Interpret results
     int idMax = 0;
     double maxLayer = -std::numeric_limits<double>::max();
-    for (std::vector<GUIGlID>::const_iterator it = ids.begin(); it != ids.end(); it++) {
-        GUIGlID id = *it;
+    for (std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<unsigned int> > >::value_type id : ids) {
         GUIGlObject* o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
         if (o == nullptr) {
             continue;
@@ -362,8 +361,7 @@ GUISUMOAbstractView::getObjectsAtPosition(Position pos, double radius) {
     const std::vector<GUIGlID> ids = getObjectsInBoundary(selection);
     std::vector<GUIGlID> result;
     // Interpret results
-    for (std::vector<GUIGlID>::const_iterator it = ids.begin(); it != ids.end(); it++) {
-        GUIGlID id = *it;
+    for (std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<unsigned int> > >::value_type id : ids) {
         GUIGlObject* o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
         if (o == nullptr) {
             continue;
@@ -1266,8 +1264,7 @@ void
 GUISUMOAbstractView::drawDecals() {
     glPushName(0);
     myDecalsLock.lock();
-    for (std::vector<GUISUMOAbstractView::Decal>::iterator l = myDecals.begin(); l != myDecals.end(); ++l) {
-        GUISUMOAbstractView::Decal& d = *l;
+    for (auto & d : myDecals) {
         if (d.skip2D) {
             continue;
         }

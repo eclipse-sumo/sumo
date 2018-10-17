@@ -50,8 +50,8 @@ MSTransportableControl::MSTransportableControl():
 
 
 MSTransportableControl::~MSTransportableControl() {
-    for (std::map<std::string, MSTransportable*>::iterator i = myTransportables.begin(); i != myTransportables.end(); ++i) {
-        delete(*i).second;
+    for (auto & myTransportable : myTransportables) {
+        deletemyTransportable.second;
     }
     myTransportables.clear();
     myWaiting4Vehicle.clear();
@@ -120,11 +120,11 @@ MSTransportableControl::checkWaiting(MSNet* net, const SUMOTime time) {
     while (myWaiting4Departure.find(time) != myWaiting4Departure.end()) {
         const TransportableVector& transportables = myWaiting4Departure[time];
         // we cannot use an iterator here because there might be additions to the vector while proceeding
-        for (int i = 0; i < (int)transportables.size(); ++i) {
-            if (transportables[i]->proceed(net, time)) {
+        for (auto transportable : transportables) {
+            if (transportable->proceed(net, time)) {
                 myRunningNumber++;
             } else {
-                erase(transportables[i]);
+                erase(transportable);
             }
         }
         myWaiting4Departure.erase(time);
@@ -132,9 +132,9 @@ MSTransportableControl::checkWaiting(MSNet* net, const SUMOTime time) {
     while (myWaitingUntil.find(time) != myWaitingUntil.end()) {
         const TransportableVector& transportables = myWaitingUntil[time];
         // we cannot use an iterator here because there might be additions to the vector while proceeding
-        for (int i = 0; i < (int)transportables.size(); ++i) {
-            if (!transportables[i]->proceed(net, time)) {
-                erase(transportables[i]);
+        for (auto transportable : transportables) {
+            if (!transportable->proceed(net, time)) {
+                erase(transportable);
             }
         }
         myWaitingUntil.erase(time);
@@ -251,8 +251,7 @@ MSTransportableControl::abortWaitingForVehicle() {
     for (std::map<const MSEdge*, TransportableVector>::const_iterator i = myWaiting4Vehicle.begin(); i != myWaiting4Vehicle.end(); ++i) {
         const MSEdge* edge = (*i).first;
         const TransportableVector& pv = (*i).second;
-        for (TransportableVector::const_iterator j = pv.begin(); j != pv.end(); ++j) {
-            MSTransportable* p = (*j);
+        for (auto p : pv) {
             p->setDeparted(MSNet::getInstance()->getCurrentTimeStep());
             std::string transportableType;
             if (dynamic_cast<MSPerson*>(p) != nullptr) {
@@ -273,15 +272,15 @@ MSTransportableControl::abortWaitingForVehicle() {
 
 void
 MSTransportableControl::abortWaiting(MSTransportable* t) {
-    for (std::map<SUMOTime, TransportableVector>::iterator it = myWaiting4Departure.begin(); it != myWaiting4Departure.end(); ++it) {
-        TransportableVector& ts = it->second;
+    for (auto & it : myWaiting4Departure) {
+        TransportableVector& ts = it.second;
         TransportableVector::iterator it2 = std::find(ts.begin(), ts.end(), t);
         if (it2 != ts.end()) {
             ts.erase(it2);
         }
     }
-    for (std::map<SUMOTime, TransportableVector>::iterator it = myWaiting4Departure.begin(); it != myWaiting4Departure.end(); ++it) {
-        TransportableVector& ts = it->second;
+    for (auto & it : myWaiting4Departure) {
+        TransportableVector& ts = it.second;
         TransportableVector::iterator it2 = std::find(ts.begin(), ts.end(), t);
         if (it2 != ts.end()) {
             ts.erase(it2);

@@ -222,9 +222,9 @@ SUMOSAXAttributesImpl_Cached::getName(int attr) const {
 
 void
 SUMOSAXAttributesImpl_Cached::serialize(std::ostream& os) const {
-    for (std::map<std::string, std::string>::const_iterator it = myAttrs.begin(); it != myAttrs.end(); ++it) {
-        os << " " << it->first;
-        os << "=\"" << it->second << "\"";
+    for (const auto & myAttr : myAttrs) {
+        os << " " << myAttr.first;
+        os << "=\"" << myAttr.second << "\"";
     }
 }
 

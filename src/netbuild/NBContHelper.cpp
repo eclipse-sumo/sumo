@@ -57,8 +57,8 @@ NBContHelper::nextCCW(const EdgeVector& edges, EdgeVector::const_iterator& from)
 
 std::ostream&
 NBContHelper::out(std::ostream& os, const std::vector<bool>& v) {
-    for (std::vector<bool>::const_iterator i = v.begin(); i != v.end(); i++) {
-        os << *i;
+    for (std::_Vb_const_iterator::const_reference i : v) {
+        os << i;
     }
     return os;
 }
@@ -67,9 +67,9 @@ NBContHelper::out(std::ostream& os, const std::vector<bool>& v) {
 NBEdge*
 NBContHelper::findConnectingEdge(const EdgeVector& edges,
                                  NBNode* from, NBNode* to) {
-    for (EdgeVector::const_iterator i = edges.begin(); i != edges.end(); i++) {
-        if ((*i)->getToNode() == to && (*i)->getFromNode() == from) {
-            return *i;
+    for (auto edge : edges) {
+        if (edge->getToNode() == to && edge->getFromNode() == from) {
+            return edge;
         }
     }
     return nullptr;

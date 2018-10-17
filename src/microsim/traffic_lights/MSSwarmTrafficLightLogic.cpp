@@ -76,14 +76,12 @@ MSSwarmTrafficLightLogic::~MSSwarmTrafficLightLogic() {
     if (logData && swarmLogFile.is_open()) {
         swarmLogFile.close();
     }
-    for (std::map<std::string, CircularBuffer<double>*>::iterator it = m_meanSpeedHistory.begin();
-            it != m_meanSpeedHistory.end(); ++it) {
-        delete it->second;
+    for (auto & it : m_meanSpeedHistory) {
+        delete it.second;
     }
     m_meanSpeedHistory.clear();
-    for (std::map<std::string, CircularBuffer<double>*>::iterator it = m_derivativeHistory.begin();
-            it != m_derivativeHistory.end(); ++it) {
-        delete it->second;
+    for (auto & it : m_derivativeHistory) {
+        delete it.second;
     }
     m_derivativeHistory.clear();
 }
@@ -132,9 +130,8 @@ void MSSwarmTrafficLightLogic::init(NLDetectorBuilder& nb) {
     int index = 0;
     for (MSTrafficLightLogic::LaneVectorVector::const_iterator laneVector = myLanes.begin();
             laneVector != myLanes.end(); laneVector++) {
-        for (MSTrafficLightLogic::LaneVector::const_iterator lane = laneVector->begin(); lane != laneVector->end();
-                lane++) {
-            currentLane = (*lane);
+        for (auto lane : *laneVector) {
+            currentLane = lane;
             if (pheromoneInputLanes.find(currentLane->getID()) == pheromoneInputLanes.end()) {
                 laneCheck[currentLane] = false;
                 if (allowLine(currentLane)) {
@@ -156,8 +153,8 @@ void MSSwarmTrafficLightLogic::init(NLDetectorBuilder& nb) {
     LinkVectorVector myLinks = getLinks();
     for (int i = 0; i < (int)myLinks.size(); i++) {
         LinkVector oneLink = getLinksAt(i);
-        for (int j = 0; j < (int)oneLink.size(); j++) {
-            currentLane = oneLink[j]->getLane();
+        for (auto & j : oneLink) {
+            currentLane = j->getLane();
             if (pheromoneOutputLanes.find(currentLane->getID()) == pheromoneOutputLanes.end()) {
                 laneCheck[currentLane] = false;
                 if (allowLine(currentLane)) {
@@ -200,15 +197,13 @@ void MSSwarmTrafficLightLogic::init(NLDetectorBuilder& nb) {
 
 void MSSwarmTrafficLightLogic::resetPheromone() {
     //input
-    for (MSLaneId_PheromoneMap::iterator laneIterator = pheromoneInputLanes.begin();
-            laneIterator != pheromoneInputLanes.end(); laneIterator++) {
-        std::string laneId = laneIterator->first;
+    for (auto & pheromoneInputLane : pheromoneInputLanes) {
+        std::string laneId = pheromoneInputLane.first;
         pheromoneInputLanes[laneId] = 0;
     }
     //output
-    for (MSLaneId_PheromoneMap::iterator laneIterator = pheromoneOutputLanes.begin();
-            laneIterator != pheromoneOutputLanes.end(); laneIterator++) {
-        std::string laneId = laneIterator->first;
+    for (auto & pheromoneOutputLane : pheromoneOutputLanes) {
+        std::string laneId = pheromoneOutputLane.first;
         pheromoneOutputLanes[laneId] = 0;
     }
 }
@@ -419,8 +414,8 @@ void MSSwarmTrafficLightLogic::updateSensitivities() {
 
     //reset of the sensitivity thresholds in case of 0 pheromone on the input lanes
     if (getPheromoneForInputLanes() == 0) {
-        for (int i = 0; i < (int)policies.size(); i++) {
-            policies[i]->setThetaSensitivity(getThetaInit());
+        for (auto & policie : policies) {
+            policie->setThetaSensitivity(getThetaInit());
 //			ANALYSIS_DBG(
             DBG(
                 std::ostringstream phero_str; phero_str << "Policy " << policies[i]->getName() << " sensitivity reset to " << policies[i]->getThetaSensitivity() << " due to evaporated input pheromone."; WRITE_MESSAGE(time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSSwarmTrafficLightLogic::updateSensitivities::" + phero_str.str());)
@@ -446,8 +441,7 @@ void MSSwarmTrafficLightLogic::updateSensitivities() {
                 break;
         }
     }
-    for (int i = 0; i < (int)policies.size(); i++) {
-        MSSOTLPolicy* policy = policies[i];
+    for (auto policy : policies) {
         double newSensitivity;
         if (eta < 0) {	//bad performance
             if (policy == currentPolicy) { // punish the current policy
@@ -695,9 +689,8 @@ double MSSwarmTrafficLightLogic::calculateEtaDiff() {
     // Search the incoming lane to get the count of the vehicles passed. [IN]
     for (MSTrafficLightLogic::LaneVectorVector::const_iterator laneVector = myLanes.begin();
             laneVector != myLanes.end(); laneVector++) {
-        for (MSTrafficLightLogic::LaneVector::const_iterator lane = laneVector->begin(); lane != laneVector->end();
-                lane++) {
-            currentLane = (*lane);
+        for (auto lane : *laneVector) {
+            currentLane = lane;
 
             // Map to avoid check the lane for every possible direction
             if (laneCheck[currentLane] == false) {
@@ -719,9 +712,8 @@ double MSSwarmTrafficLightLogic::calculateEtaDiff() {
     // We use the links to get the respective lane id.
     for (MSTrafficLightLogic::LinkVectorVector::const_iterator linkVector = myLinks.begin();
             linkVector != myLinks.end(); linkVector++) {
-        for (MSTrafficLightLogic::LinkVector::const_iterator link = linkVector->begin(); link != linkVector->end();
-                link++) {
-            currentLane = (*link)->getLane();
+        for (auto link : *linkVector) {
+            currentLane = link->getLane();
 
             // Map to avoid check the lane for every possible direction
             if (laneCheck[currentLane] == false) {
@@ -884,9 +876,8 @@ double MSSwarmTrafficLightLogic::calculateEtaRatio() {
     // Search the incoming lane to get the count of the vehicles passed. [IN]
     for (MSTrafficLightLogic::LaneVectorVector::const_iterator laneVector = myLanes.begin();
             laneVector != myLanes.end(); laneVector++) {
-        for (MSTrafficLightLogic::LaneVector::const_iterator lane = laneVector->begin(); lane != laneVector->end();
-                lane++) {
-            currentLane = (*lane);
+        for (auto lane : *laneVector) {
+            currentLane = lane;
 
             // Map to avoid check the lane for every possible direction
             if (laneCheck[currentLane] == false) {
@@ -908,9 +899,8 @@ double MSSwarmTrafficLightLogic::calculateEtaRatio() {
     // We use the links to get the respective lane id.
     for (MSTrafficLightLogic::LinkVectorVector::const_iterator linkVector = myLinks.begin();
             linkVector != myLinks.end(); linkVector++) {
-        for (MSTrafficLightLogic::LinkVector::const_iterator link = linkVector->begin(); link != linkVector->end();
-                link++) {
-            currentLane = (*link)->getLane();
+        for (auto link : *linkVector) {
+            currentLane = link->getLane();
 
             // Map to avoid check the lane for every possible direction
             if (laneCheck[currentLane] == false) {
@@ -1068,18 +1058,16 @@ void MSSwarmTrafficLightLogic::resetLaneCheck() {
     for (MSTrafficLightLogic::LaneVectorVector::const_iterator laneVector = myLanes.begin();
             laneVector != myLanes.end(); laneVector++) {
 
-        for (MSTrafficLightLogic::LaneVector::const_iterator lane = laneVector->begin(); lane != laneVector->end();
-                lane++) {
-            currentLane = (*lane);
+        for (auto lane : *laneVector) {
+            currentLane = lane;
             laneCheck[currentLane] = false;
         }
     }
 
     for (MSTrafficLightLogic::LinkVectorVector::const_iterator linkVector = myLinks.begin();
             linkVector != myLinks.end(); linkVector++) {
-        for (MSTrafficLightLogic::LinkVector::const_iterator link = linkVector->begin(); link != linkVector->end();
-                link++) {
-            currentLane = (*link)->getLane();
+        for (auto link : *linkVector) {
+            currentLane = link->getLane();
             laneCheck[currentLane] = false;
         }
     }
@@ -1098,9 +1086,9 @@ void MSSwarmTrafficLightLogic::choosePolicy(double phero_in, double phero_out, d
     std::vector<double> thetaStimuli;
     double thetaSum = 0.0;
     // Compute stimulus for each policy
-    for (int i = 0; i < (int)getPolicies().size(); i++) {
-        double stimulus = getPolicies()[i]->computeDesirability(phero_in, phero_out, dispersion_in, dispersion_out);
-        double thetaStimulus = pow(stimulus, 2) / (pow(stimulus, 2) + pow(getPolicies()[i]->getThetaSensitivity(), 2));
+    for (auto & i : getPolicies()) {
+        double stimulus = i->computeDesirability(phero_in, phero_out, dispersion_in, dispersion_out);
+        double thetaStimulus = pow(stimulus, 2) / (pow(stimulus, 2) + pow(i->getThetaSensitivity(), 2));
 
         thetaStimuli.push_back(thetaStimulus);
         thetaSum += thetaStimulus;

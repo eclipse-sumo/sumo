@@ -171,10 +171,9 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
             myEdgeCont.guessRoundabouts();
         }
         const std::set<EdgeSet>& roundabouts = myEdgeCont.getRoundabouts();
-        for (std::set<EdgeSet>::const_iterator it_round = roundabouts.begin();
-                it_round != roundabouts.end(); ++it_round) {
+        for (const auto & roundabout : roundabouts) {
             std::vector<std::string> nodeIDs;
-            for (EdgeSet::const_iterator it_edge = it_round->begin(); it_edge != it_round->end(); ++it_edge) {
+            for (EdgeSet::const_iterator it_edge = roundabout.begin(); it_edge != roundabout.end(); ++it_edge) {
                 nodeIDs.push_back((*it_edge)->getToNode()->getID());
             }
             myNodeCont.addJoinExclusion(nodeIDs);
@@ -216,11 +215,11 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     // MOVE TO ORIGIN
     // compute new boundary after network modifications have taken place
     Boundary boundary;
-    for (std::map<std::string, NBNode*>::const_iterator it = myNodeCont.begin(); it != myNodeCont.end(); ++it) {
-        boundary.add(it->second->getPosition());
+    for (const auto & it : myNodeCont) {
+        boundary.add(it.second->getPosition());
     }
-    for (std::map<std::string, NBEdge*>::const_iterator it = myEdgeCont.begin(); it != myEdgeCont.end(); ++it) {
-        boundary.add(it->second->getGeometry().getBoxBoundary());
+    for (const auto & it : myEdgeCont) {
+        boundary.add(it.second->getGeometry().getBoxBoundary());
     }
     geoConvHelper.setConvBoundary(boundary);
 
@@ -360,8 +359,8 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         if (speedOffset != 0 || speedFactor != 1 || speedMin > 0) {
             before = SysUtils::getCurrentMillis();
             PROGRESS_BEGIN_MESSAGE("Applying speed modifications");
-            for (std::map<std::string, NBEdge*>::const_iterator i = myEdgeCont.begin(); i != myEdgeCont.end(); ++i) {
-                (*i).second->setSpeed(-1, MAX2((*i).second->getSpeed() * speedFactor + speedOffset, speedMin));
+            for (const auto & i : myEdgeCont) {
+                i.second->setSpeed(-1, MAX2(i.second->getSpeed() * speedFactor + speedOffset, speedMin));
             }
             PROGRESS_TIME_MESSAGE(before);
         }
@@ -378,15 +377,15 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     if (mayAddOrRemove && oc.getBool("crossings.guess")) {
         myNetworkHaveCrossings = true;
         int crossings = 0;
-        for (std::map<std::string, NBNode*>::const_iterator i = myNodeCont.begin(); i != myNodeCont.end(); ++i) {
-            crossings += (*i).second->guessCrossings();
+        for (const auto & i : myNodeCont) {
+            crossings += i.second->guessCrossings();
         }
         WRITE_MESSAGE("Guessed " + toString(crossings) + " pedestrian crossings.");
     }
     if (!myNetworkHaveCrossings) {
         // recheck whether we had crossings in the input
-        for (std::map<std::string, NBNode*>::const_iterator i = myNodeCont.begin(); i != myNodeCont.end(); ++i) {
-            if (i->second->getCrossingsIncludingInvalid().size() > 0) {
+        for (const auto & i : myNodeCont) {
+            if (i.second->getCrossingsIncludingInvalid().size() > 0) {
                 myNetworkHaveCrossings = true;
                 break;
             }
@@ -452,18 +451,18 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     PROGRESS_TIME_MESSAGE(before);
 
     if (myNetworkHaveCrossings && !oc.getBool("no-internal-links")) {
-        for (std::map<std::string, NBNode*>::const_iterator i = myNodeCont.begin(); i != myNodeCont.end(); ++i) {
-            i->second->buildCrossingsAndWalkingAreas();
+        for (const auto & i : myNodeCont) {
+            i.second->buildCrossingsAndWalkingAreas();
         }
     } else {
-        for (std::map<std::string, NBNode*>::const_iterator i = myNodeCont.begin(); i != myNodeCont.end(); ++i) {
+        for (const auto & i : myNodeCont) {
             // needed by netedit if the last crossings was deleted from the network
             // and walkingareas have been invalidated since the last call to compute()
-            i->second->discardWalkingareas();
+            i.second->discardWalkingareas();
         }
         if (oc.getBool("no-internal-links")) {
-            for (std::map<std::string, NBNode*>::const_iterator i = myNodeCont.begin(); i != myNodeCont.end(); ++i) {
-                i->second->discardAllCrossings(false);
+            for (const auto & i : myNodeCont) {
+                i.second->discardAllCrossings(false);
             }
         }
     }
@@ -504,16 +503,16 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         PROGRESS_TIME_MESSAGE(before);
     }
 
-    for (std::map<std::string, NBEdge*>::const_iterator i = myEdgeCont.begin(); i != myEdgeCont.end(); ++i) {
-        (*i).second->sortOutgoingConnectionsByIndex();
+    for (const auto & i : myEdgeCont) {
+        i.second->sortOutgoingConnectionsByIndex();
     }
     // FINISHING INNER EDGES
     if (!oc.getBool("no-internal-links")) {
         before = SysUtils::getCurrentMillis();
         PROGRESS_BEGIN_MESSAGE("Building inner edges");
         // walking areas shall only be built if crossings are wished as well
-        for (std::map<std::string, NBNode*>::const_iterator i = myNodeCont.begin(); i != myNodeCont.end(); ++i) {
-            (*i).second->buildInnerEdges();
+        for (const auto & i : myNodeCont) {
+            i.second->buildInnerEdges();
         }
         PROGRESS_TIME_MESSAGE(before);
     }
@@ -525,8 +524,8 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         myEdgeCont.computeLaneShapes();
         myNodeCont.computeNodeShapes();
         myEdgeCont.computeEdgeShapes();
-        for (std::map<std::string, NBNode*>::const_iterator i = myNodeCont.begin(); i != myNodeCont.end(); ++i) {
-            (*i).second->buildInnerEdges();
+        for (const auto & i : myNodeCont) {
+            i.second->buildInnerEdges();
         }
         PROGRESS_TIME_MESSAGE(before);
     }
@@ -608,17 +607,17 @@ NBNetBuilder::moveToOrigin(GeoConvHelper& geoConvHelper, bool lefthand) {
     //if (lefthand) {
     //    y = boundary.ymax();
     //}
-    for (std::map<std::string, NBNode*>::const_iterator i = myNodeCont.begin(); i != myNodeCont.end(); ++i) {
-        (*i).second->reshiftPosition(x, y);
+    for (const auto & i : myNodeCont) {
+        i.second->reshiftPosition(x, y);
     }
-    for (std::map<std::string, NBEdge*>::const_iterator i = myEdgeCont.begin(); i != myEdgeCont.end(); ++i) {
-        (*i).second->reshiftPosition(x, y);
+    for (const auto & i : myEdgeCont) {
+        i.second->reshiftPosition(x, y);
     }
-    for (std::map<std::string, NBDistrict*>::const_iterator i = myDistrictCont.begin(); i != myDistrictCont.end(); ++i) {
-        (*i).second->reshiftPosition(x, y);
+    for (const auto & i : myDistrictCont) {
+        i.second->reshiftPosition(x, y);
     }
-    for (std::map<std::string, NBPTStop*>::const_iterator i = myPTStopCont.begin(); i != myPTStopCont.end(); ++i) {
-        (*i).second->reshiftPosition(x, y);
+    for (const auto & i : myPTStopCont) {
+        i.second->reshiftPosition(x, y);
     }
     geoConvHelper.moveConvertedBy(x, y);
     PROGRESS_TIME_MESSAGE(before);
@@ -628,14 +627,14 @@ NBNetBuilder::moveToOrigin(GeoConvHelper& geoConvHelper, bool lefthand) {
 void
 NBNetBuilder::mirrorX() {
     // mirror the network along the X-axis
-    for (std::map<std::string, NBNode*>::const_iterator i = myNodeCont.begin(); i != myNodeCont.end(); ++i) {
-        (*i).second->mirrorX();
+    for (const auto & i : myNodeCont) {
+        i.second->mirrorX();
     }
-    for (std::map<std::string, NBEdge*>::const_iterator i = myEdgeCont.begin(); i != myEdgeCont.end(); ++i) {
-        (*i).second->mirrorX();
+    for (const auto & i : myEdgeCont) {
+        i.second->mirrorX();
     }
-    for (std::map<std::string, NBDistrict*>::const_iterator i = myDistrictCont.begin(); i != myDistrictCont.end(); ++i) {
-        (*i).second->mirrorX();
+    for (const auto & i : myDistrictCont) {
+        i.second->mirrorX();
     }
 }
 

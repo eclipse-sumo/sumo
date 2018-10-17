@@ -121,8 +121,7 @@ NBHeightMapper::getZ(const Position& geo) const {
     assert(hits == (int)result.size());
     UNUSED_PARAMETER(hits); // only used for assertion
 
-    for (Triangles::iterator it = result.begin(); it != result.end(); it++) {
-        const Triangle* triangle = *it;
+    for (auto triangle : result) {
         if (triangle->contains(geo)) {
             return triangle->getZ(geo);
         }
@@ -326,8 +325,8 @@ NBHeightMapper::loadTiff(const std::string& file) {
 
 void
 NBHeightMapper::clearData() {
-    for (Triangles::iterator it = myTriangles.begin(); it != myTriangles.end(); it++) {
-        delete *it;
+    for (auto & myTriangle : myTriangles) {
+        delete myTriangle;
     }
     myTriangles.clear();
 #ifdef HAVE_GDAL

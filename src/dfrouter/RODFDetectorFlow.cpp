@@ -121,9 +121,9 @@ RODFDetectorFlows::getFlowSumSecure(const std::string& id) const {
     double ret = 0;
     if (knows(id)) {
         const std::vector<FlowDef>& flows = getFlowDefs(id);
-        for (std::vector<FlowDef>::const_iterator i = flows.begin(); i != flows.end(); ++i) {
-            ret += (*i).qPKW;
-            ret += (*i).qLKW;
+        for (const auto & flow : flows) {
+            ret += flow.qPKW;
+            ret += flow.qLKW;
         }
     }
     return ret;
@@ -138,9 +138,9 @@ RODFDetectorFlows::getMaxDetectorFlow() const {
         for (j = myFastAccessFlows.begin(); j != myFastAccessFlows.end(); ++j) {
             double curr = 0;
             const std::vector<FlowDef>& flows = (*j).second;
-            for (std::vector<FlowDef>::const_iterator i = flows.begin(); i != flows.end(); ++i) {
-                curr += (*i).qPKW;
-                curr += (*i).qLKW;
+            for (const auto & flow : flows) {
+                curr += flow.qPKW;
+                curr += flow.qLKW;
             }
             if (max < curr) {
                 max = curr;
@@ -155,30 +155,30 @@ RODFDetectorFlows::getMaxDetectorFlow() const {
 void
 RODFDetectorFlows::mesoJoin(const std::string& nid,
                             const std::vector<std::string>& oldids) {
-    for (std::vector<std::string>::const_iterator i = oldids.begin(); i != oldids.end(); ++i) {
-        if (!knows(*i)) {
+    for (const auto & oldid : oldids) {
+        if (!knows(oldid)) {
             continue;
         }
-        std::vector<FlowDef>& flows = myFastAccessFlows[*i];
+        std::vector<FlowDef>& flows = myFastAccessFlows[oldid];
         int index = 0;
         for (SUMOTime t = myBeginTime; t != myEndTime; t += myStepOffset) {
             addFlow(nid, t, flows[index++]); // !!!
         }
-        myFastAccessFlows.erase(*i);
+        myFastAccessFlows.erase(oldid);
     }
 }
 
 
 void
 RODFDetectorFlows::printAbsolute() const {
-    for (std::map<std::string, std::vector<FlowDef> >::const_iterator i = myFastAccessFlows.begin(); i != myFastAccessFlows.end(); ++i) {
-        std::cout << (*i).first << ":";
-        const std::vector<FlowDef>& flows = (*i).second;
+    for (const auto & myFastAccessFlow : myFastAccessFlows) {
+        std::cout << myFastAccessFlow.first << ":";
+        const std::vector<FlowDef>& flows = myFastAccessFlow.second;
         double qPKW = 0;
         double qLKW = 0;
-        for (std::vector<FlowDef>::const_iterator j = flows.begin(); j != flows.end(); ++j) {
-            qPKW += (*j).qPKW;
-            qLKW += (*j).qLKW;
+        for (const auto & flow : flows) {
+            qPKW += flow.qPKW;
+            qLKW += flow.qLKW;
         }
         std::cout << qPKW << "/" << qLKW << std::endl;
     }

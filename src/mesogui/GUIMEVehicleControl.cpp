@@ -75,10 +75,10 @@ void
 GUIMEVehicleControl::insertVehicleIDs(std::vector<GUIGlID>& into) {
     AbstractMutex::ScopedLocker locker(myLock);
     into.reserve(myVehicleDict.size());
-    for (VehicleDictType::iterator i = myVehicleDict.begin(); i != myVehicleDict.end(); ++i) {
-        SUMOVehicle* veh = (*i).second;
+    for (auto & i : myVehicleDict) {
+        SUMOVehicle* veh = i.second;
         if (veh->isOnRoad()) {
-            into.push_back(static_cast<GUIMEVehicle*>((*i).second)->getGlID());
+            into.push_back(static_cast<GUIMEVehicle*>(i.second)->getGlID());
         }
     }
 }

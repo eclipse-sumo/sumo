@@ -43,11 +43,11 @@ NIVisumTL::NIVisumTL(const std::string& name, SUMOTime cycleTime, SUMOTime offse
 
 
 NIVisumTL::~NIVisumTL() {
-    for (std::map<std::string, Phase*>::iterator i = myPhases.begin(); i != myPhases.end(); ++i) {
-        delete i->second;
+    for (auto & myPhase : myPhases) {
+        delete myPhase.second;
     }
-    for (std::map<std::string, SignalGroup*>::iterator i = mySignalGroups.begin(); i != mySignalGroups.end(); ++i) {
-        delete i->second;
+    for (auto & mySignalGroup : mySignalGroups) {
+        delete mySignalGroup.second;
     }
 }
 
@@ -72,8 +72,7 @@ NIVisumTL::getSignalGroup(const std::string& name) {
 
 void
 NIVisumTL::build(NBEdgeCont& ec, NBTrafficLightLogicCont& tlc) {
-    for (std::vector<NBNode*>::iterator ni = myNodes.begin(); ni != myNodes.end(); ni++) {
-        NBNode* node = (*ni);
+    for (auto node : myNodes) {
         if (node == nullptr) {
             WRITE_WARNING("invalid node for traffic light '" + myName + "'");
             continue;
@@ -83,16 +82,16 @@ NIVisumTL::build(NBEdgeCont& ec, NBTrafficLightLogicCont& tlc) {
         tlc.insert(def);
         def->setCycleDuration((int) myCycleTime);
         // signalgroups
-        for (std::map<std::string, SignalGroup*>::iterator gi = mySignalGroups.begin(); gi != mySignalGroups.end(); gi++) {
-            std::string groupName = (*gi).first;
-            NIVisumTL::SignalGroup& SG = *(*gi).second;
+        for (auto & mySignalGroup : mySignalGroups) {
+            std::string groupName = mySignalGroup.first;
+            NIVisumTL::SignalGroup& SG = *mySignalGroup.second;
             def->addSignalGroup(groupName);
             def->addToSignalGroup(groupName, SG.connections());
             // phases
             SUMOTime yellowTime = -1;
             if (myPhaseDefined) {
-                for (std::map<std::string, Phase*>::iterator pi = SG.phases().begin(); pi != SG.phases().end(); pi++) {
-                    NIVisumTL::Phase& PH = *(*pi).second;
+                for (auto & pi : SG.phases()) {
+                    NIVisumTL::Phase& PH = *pi.second;
                     def->addSignalGroupPhaseBegin(groupName, PH.getStartTime(), NBTrafficLightDefinition::TLCOLOR_GREEN);
                     def->addSignalGroupPhaseBegin(groupName, PH.getEndTime(), NBTrafficLightDefinition::TLCOLOR_RED);
                     yellowTime = MAX2(PH.getYellowTime(), yellowTime);

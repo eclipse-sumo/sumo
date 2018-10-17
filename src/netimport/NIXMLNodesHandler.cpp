@@ -197,9 +197,9 @@ NIXMLNodesHandler::processNodeType(const SUMOSAXAttributes& attrs, NBNode* node,
         processTrafficLightDefinitions(attrs, node, tlc);
     }
     // remove previously set tls if this node is not controlled by them
-    for (std::set<NBTrafficLightDefinition*>::iterator i = oldTLS.begin(); i != oldTLS.end(); ++i) {
-        if ((*i)->getNodes().size() == 0) {
-            tlc.removeFully((*i)->getID());
+    for (auto i : oldTLS) {
+        if (i->getNodes().size() == 0) {
+            tlc.removeFully(i->getID());
         }
     }
 
@@ -323,8 +323,8 @@ NIXMLNodesHandler::processTrafficLightDefinitions(const SUMOSAXAttributes& attrs
     std::vector<std::string> controlledInner;
     SUMOSAXAttributes::parseStringVector(attrs.getOpt<std::string>(SUMO_ATTR_CONTROLLED_INNER, nullptr, ok, ""), controlledInner);
     if (controlledInner.size() != 0) {
-        for (std::set<NBTrafficLightDefinition*>::iterator it = tlDefs.begin(); it != tlDefs.end(); it++) {
-            (*it)->addControlledInnerEdges(controlledInner);
+        for (auto tlDef : tlDefs) {
+            tlDef->addControlledInnerEdges(controlledInner);
         }
     }
 }

@@ -64,14 +64,14 @@ GUIJunctionWrapper::GUIJunctionWrapper(MSJunction& junction)
     myMaxSize = MAX2(myBoundary.getWidth(), myBoundary.getHeight());
     myIsInternal = myJunction.getType() == NODETYPE_INTERNAL;
     myAmWaterway = myJunction.getIncoming().size() + myJunction.getOutgoing().size() > 0;
-    for (ConstMSEdgeVector::const_iterator it = myJunction.getIncoming().begin(); it != myJunction.getIncoming().end(); ++it) {
-        if (!(*it)->isInternal() && !isWaterway((*it)->getPermissions())) {
+    for (auto it : myJunction.getIncoming()) {
+        if (!it->isInternal() && !isWaterway(it->getPermissions())) {
             myAmWaterway = false;
             break;
         }
     }
-    for (ConstMSEdgeVector::const_iterator it = myJunction.getOutgoing().begin(); it != myJunction.getOutgoing().end(); ++it) {
-        if (!(*it)->isInternal() && !isWaterway((*it)->getPermissions())) {
+    for (auto it : myJunction.getOutgoing()) {
+        if (!it->isInternal() && !isWaterway(it->getPermissions())) {
             myAmWaterway = false;
             break;
         }

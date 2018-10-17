@@ -281,8 +281,8 @@ TraCIServer::openSocket(const std::map<int, CmdExecutor>& execs) {
         myInstance = new TraCIServer(string2time(OptionsCont::getOptions().getString("begin")),
                                      OptionsCont::getOptions().getInt("remote-port"),
                                      OptionsCont::getOptions().getInt("num-clients"));
-        for (std::map<int, CmdExecutor>::const_iterator i = execs.begin(); i != execs.end(); ++i) {
-            myInstance->myExecutors[i->first] = i->second;
+        for (const auto & exec : execs) {
+            myInstance->myExecutors[exec.first] = exec.second;
         }
     }
     if (myInstance != nullptr) {
@@ -318,8 +318,8 @@ TraCIServer::vehicleStateChanged(const SUMOVehicle* const vehicle, MSNet::Vehicl
     if (!myDoCloseConnection) {
         myVehicleStateChanges[to].push_back(vehicle->getID());
         if (!myAmEmbedded) {
-            for (std::map<int, SocketInfo*>::iterator i = mySockets.begin(); i != mySockets.end(); ++i) {
-                i->second->vehicleStateChanges[to].push_back(vehicle->getID());
+            for (auto & mySocket : mySockets) {
+                mySocket.second->vehicleStateChanges[to].push_back(vehicle->getID());
             }
         }
     }
@@ -592,8 +592,8 @@ TraCIServer::processCommandsUntilSimStep(SUMOTime step) {
                     // Clear vehicleStateChanges for this client -> For subsequent TraCI stepping
                     // that is performed within this SUMO step, no updates on vehicle states
                     // belonging to the last SUMO simulation step will be received by this client.
-                    for (std::map<MSNet::VehicleState, std::vector<std::string> >::iterator i = myCurrentSocket->second->vehicleStateChanges.begin(); i != myCurrentSocket->second->vehicleStateChanges.end(); ++i) {
-                        (*i).second.clear();
+                    for (auto & vehicleStateChange : myCurrentSocket->second->vehicleStateChanges) {
+                        vehicleStateChange.second.clear();
                     }
                     myCurrentSocket++;
                 } else if (load) {
@@ -626,8 +626,8 @@ TraCIServer::processCommandsUntilSimStep(SUMOTime step) {
         }
         // All clients are done with the current time step
         // Reset myVehicleStateChanges
-        for (std::map<MSNet::VehicleState, std::vector<std::string> >::iterator i = myVehicleStateChanges.begin(); i != myVehicleStateChanges.end(); ++i) {
-            (*i).second.clear();
+        for (auto & myVehicleStateChange : myVehicleStateChanges) {
+            myVehicleStateChange.second.clear();
         }
     } catch (std::invalid_argument& e) {
         throw ProcessError(e.what());
@@ -826,8 +826,8 @@ TraCIServer::dispatchCommand() {
                     } else {
                         myTargetTime = TIME2STEPS(nextT);
                     }
-                    for (std::map<MSNet::VehicleState, std::vector<std::string> >::iterator i = myVehicleStateChanges.begin(); i != myVehicleStateChanges.end(); ++i) {
-                        (*i).second.clear();
+                    for (auto & myVehicleStateChange : myVehicleStateChanges) {
+                        myVehicleStateChange.second.clear();
                     }
                     while (MSNet::getInstance()->getCurrentTimeStep() < myTargetTime) {
                         MSNet::getInstance()->simulationStep();
@@ -1177,20 +1177,20 @@ TraCIServer::processSingleSubscription(const libsumo::Subscription& s, tcpip::St
     }
     const int numVars = s.contextDomain > 0 && s.variables.size() == 1 && s.variables[0] == ID_LIST ? 0 : (int)s.variables.size();
     int skipped = 0;
-    for (std::set<std::string>::iterator j = objIDs.begin(); j != objIDs.end(); ++j) {
+    for (const auto & objID : objIDs) {
         if (s.contextDomain > 0) {
             //if (centralObject(s, *j)) {
             //    skipped++;
             //    continue;
             //}
-            outputStorage.writeString(*j);
+            outputStorage.writeString(objID);
         }
         if (numVars > 0) {
             std::vector<std::vector<unsigned char> >::const_iterator k = s.parameters.begin();
             for (std::vector<int>::const_iterator i = s.variables.begin(); i != s.variables.end(); ++i, ++k) {
                 tcpip::Storage message;
                 message.writeUnsignedByte(*i);
-                message.writeString(*j);
+                message.writeString(objID);
                 message.writePacket(*k);
                 tcpip::Storage tmpOutput;
                 if (myExecutors.find(getCommandId) != myExecutors.end()) {

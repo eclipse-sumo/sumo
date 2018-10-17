@@ -125,8 +125,8 @@ NIVissimEdge::NIVissimEdge(int id, const std::string& name,
 
 
 NIVissimEdge::~NIVissimEdge() {
-    for (NIVissimClosedLanesVector::iterator i = myClosedLanes.begin(); i != myClosedLanes.end(); i++) {
-        delete(*i);
+    for (auto & myClosedLane : myClosedLanes) {
+        deletemyClosedLane;
     }
     myClosedLanes.clear();
 }
@@ -176,9 +176,9 @@ NIVissimEdge::buildConnectionClusters() {
     const double MAX_CLUSTER_DISTANCE = 10;
     // build clusters for all edges made up from not previously assigne
     //  connections
-    for (DictType::iterator i = myDict.begin(); i != myDict.end(); i++) {
-        int edgeid = (*i).first;
-        NIVissimEdge* edge = (*i).second;
+    for (auto & i : myDict) {
+        int edgeid = i.first;
+        NIVissimEdge* edge = i.second;
         // get all connectors using this edge
         std::vector<int> connectors = edge->myIncomingConnections;
         copy(edge->myOutgoingConnections.begin(), edge->myOutgoingConnections.end(), back_inserter(connectors));
@@ -190,7 +190,7 @@ NIVissimEdge::buildConnectionClusters() {
         // try to cluster the connections participating within the current edge
         std::vector<int> currentCluster;
         std::vector<int>::iterator j = connectors.begin();
-        bool outgoing = NIVissimConnection::dictionary(*j)->getFromEdgeID() == (*i).first;
+        bool outgoing = NIVissimConnection::dictionary(*j)->getFromEdgeID() == i.first;
         double position = outgoing
                           ? NIVissimConnection::dictionary(*j)->getFromPosition()
                           : NIVissimConnection::dictionary(*j)->getToPosition();
@@ -237,8 +237,8 @@ NIVissimEdge::buildConnectionClusters() {
 void
 NIVissimEdge::dict_buildNBEdges(NBDistrictCont& dc, NBNodeCont& nc,
                                 NBEdgeCont& ec, double offset) {
-    for (DictType::iterator i = myDict.begin(); i != myDict.end(); i++) {
-        NIVissimEdge* edge = (*i).second;
+    for (auto & i : myDict) {
+        NIVissimEdge* edge = i.second;
         edge->buildNBEdge(dc, nc, ec, offset);
     }
 }
@@ -294,8 +294,7 @@ NIVissimEdge::checkUnconnectedLaneSpeeds() {
             }
             myLaneSpeeds[i] = speed;
             std::vector<NIVissimConnection*> connected = getOutgoingConnected(i);
-            for (std::vector<NIVissimConnection*>::iterator j = connected.begin(); j != connected.end(); j++) {
-                NIVissimConnection* c = *j;
+            for (auto c : connected) {
                 NIVissimEdge* e = NIVissimEdge::dictionary(c->getToEdgeID());
                 // propagate
                 e->propagateSpeed(/*dc, */speed, c->getToLanes());
@@ -312,8 +311,7 @@ NIVissimEdge::propagateOwn() {
             continue;
         }
         std::vector<NIVissimConnection*> connected = getOutgoingConnected(i);
-        for (std::vector<NIVissimConnection*>::iterator j = connected.begin(); j != connected.end(); j++) {
-            NIVissimConnection* c = *j;
+        for (auto c : connected) {
             NIVissimEdge* e = NIVissimEdge::dictionary(c->getToEdgeID());
             // propagate
             e->propagateSpeed(/*dc, */myLaneSpeeds[i], c->getToLanes());
@@ -354,8 +352,7 @@ NIVissimEdge::propagateSpeed(double speed, std::vector<int> forLanes) {
         // get the list of connected edges
         std::vector<NIVissimConnection*> connected = getOutgoingConnected(*i);
         // go throught the list
-        for (std::vector<NIVissimConnection*>::iterator j = connected.begin(); j != connected.end(); j++) {
-            NIVissimConnection* c = *j;
+        for (auto c : connected) {
             NIVissimEdge* e = NIVissimEdge::dictionary(c->getToEdgeID());
             // propagate
             e->propagateSpeed(/*dc, */speed, c->getToLanes());
@@ -383,8 +380,7 @@ NIVissimEdge::setDistrictSpeed() {
                     // get the list of connected edges
                     std::vector<NIVissimConnection*> connected = getOutgoingConnected(i);
                     // go throught the list
-                    for (std::vector<NIVissimConnection*>::iterator j = connected.begin(); j != connected.end(); j++) {
-                        NIVissimConnection* c = *j;
+                    for (auto c : connected) {
                         NIVissimEdge* e = NIVissimEdge::dictionary(c->getToEdgeID());
                         // propagate
                         e->propagateSpeed(/*dc, */speed, c->getToLanes());
@@ -399,8 +395,8 @@ NIVissimEdge::setDistrictSpeed() {
 std::vector<NIVissimConnection*>
 NIVissimEdge::getOutgoingConnected(int lane) const {
     std::vector<NIVissimConnection*> ret;
-    for (std::vector<int>::const_iterator i = myOutgoingConnections.begin(); i != myOutgoingConnections.end(); i++) {
-        NIVissimConnection* c = NIVissimConnection::dictionary(*i);
+    for (std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<int> > >::value_type myOutgoingConnection : myOutgoingConnections) {
+        NIVissimConnection* c = NIVissimConnection::dictionary(myOutgoingConnection);
         const std::vector<int>& lanes = c->getFromLanes();
         if (find(lanes.begin(), lanes.end(), lane) != lanes.end()) {
             NIVissimEdge* e = NIVissimEdge::dictionary(c->getToEdgeID());

@@ -89,9 +89,9 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
         FXHorizontalFrame* frame0 = new FXHorizontalFrame(contentFrame, GUIDesignViewSettingsHorizontalFrame1);
         mySchemeName = new FXComboBox(frame0, 20, this, MID_SIMPLE_VIEW_NAMECHANGE, GUIDesignViewSettingsComboBox1);
         const std::vector<std::string>& names = gSchemeStorage.getNames();
-        for (std::vector<std::string>::const_iterator i = names.begin(); i != names.end(); ++i) {
-            int index = mySchemeName->appendItem((*i).c_str());
-            if ((*i) == mySettings->name) {
+        for (const auto & name : names) {
+            int index = mySchemeName->appendItem(name.c_str());
+            if (name == mySettings->name) {
                 mySchemeName->setCurrentItem((FXint) index);
             }
         }

@@ -76,8 +76,8 @@ GUIE2Collector::MyWrapper::MyWrapper(GUIE2Collector& detector) :
     PositionVector v;
     const std::vector<MSLane*> lanes = detector.getLanes();
     double detectorLength = detector.getLength();
-    for (std::vector<MSLane*>::const_iterator li = lanes.begin(); li != lanes.end(); ++li) {
-        const PositionVector& shape = (*li)->getShape();
+    for (auto lane : lanes) {
+        const PositionVector& shape = lane->getShape();
         // account for gaps between lanes (e.g. in networks without internal lanes)
         if (v.size() > 0) {
             detectorLength += v.back().distanceTo2D(shape.front());

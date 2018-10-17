@@ -192,12 +192,12 @@ MSActuatedTrafficLightLogic::gapControl() {
     for (int i = 0; i < (int) state.size(); i++)  {
         if (state[i] == LINKSTATE_TL_GREEN_MAJOR || state[i] == LINKSTATE_TL_GREEN_MINOR) {
             const std::vector<MSLane*>& lanes = getLanesAt(i);
-            for (LaneVector::const_iterator j = lanes.begin(); j != lanes.end(); j++) {
-                if (myInductLoops.find(*j) == myInductLoops.end()) {
+            for (auto lane : lanes) {
+                if (myInductLoops.find(lane) == myInductLoops.end()) {
                     continue;
                 }
                 if (!MSGlobals::gUseMesoSim) { // why not check outside the loop? (Leo)
-                    const double actualGap = static_cast<MSInductLoop*>(myInductLoops.find(*j)->second)->getTimeSinceLastDetection();
+                    const double actualGap = static_cast<MSInductLoop*>(myInductLoops.find(lane)->second)->getTimeSinceLastDetection();
                     if (actualGap < myMaxGap) {
                         result = MIN2(result, actualGap);
                     }

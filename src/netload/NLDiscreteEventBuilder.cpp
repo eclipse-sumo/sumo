@@ -93,8 +93,8 @@ NLDiscreteEventBuilder::buildSaveTLStateCommand(const SUMOSAXAttributes& attrs,
     }
     if (source == "") {
         const std::vector<std::string> ids = myNet.getTLSControl().getAllTLIds();
-        for (std::vector<std::string>::const_iterator tls = ids.begin(); tls != ids.end(); ++tls) {
-            const MSTLLogicControl::TLSLogicVariants& logics = myNet.getTLSControl().get(*tls);
+        for (const auto & id : ids) {
+            const MSTLLogicControl::TLSLogicVariants& logics = myNet.getTLSControl().get(id);
             new Command_SaveTLSState(logics, OutputDevice::getDevice(FileHelpers::checkForRelativity(dest, basePath)));
         }
     } else {
@@ -121,8 +121,8 @@ NLDiscreteEventBuilder::buildSaveTLSwitchesCommand(const SUMOSAXAttributes& attr
     }
     if (source == "") {
         const std::vector<std::string> ids = myNet.getTLSControl().getAllTLIds();
-        for (std::vector<std::string>::const_iterator tls = ids.begin(); tls != ids.end(); ++tls) {
-            const MSTLLogicControl::TLSLogicVariants& logics = myNet.getTLSControl().get(*tls);
+        for (const auto & id : ids) {
+            const MSTLLogicControl::TLSLogicVariants& logics = myNet.getTLSControl().get(id);
             new Command_SaveTLSSwitches(logics, OutputDevice::getDevice(FileHelpers::checkForRelativity(dest, basePath)));
         }
     } else {
@@ -149,8 +149,8 @@ NLDiscreteEventBuilder::buildSaveTLSwitchStatesCommand(const SUMOSAXAttributes& 
     }
     if (source == "") {
         const std::vector<std::string> ids = myNet.getTLSControl().getAllTLIds();
-        for (std::vector<std::string>::const_iterator tls = ids.begin(); tls != ids.end(); ++tls) {
-            const MSTLLogicControl::TLSLogicVariants& logics = myNet.getTLSControl().get(*tls);
+        for (const auto & id : ids) {
+            const MSTLLogicControl::TLSLogicVariants& logics = myNet.getTLSControl().get(id);
             new Command_SaveTLSSwitchStates(logics, OutputDevice::getDevice(FileHelpers::checkForRelativity(dest, basePath)));
         }
     } else {

@@ -190,8 +190,8 @@ std::vector<std::string>
 MSInductLoop::getCurrentVehicleIDs() const {
     std::vector<VehicleData> d = collectVehiclesOnDet(MSNet::getInstance()->getCurrentTimeStep() - DELTA_T);
     std::vector<std::string> ret;
-    for (std::vector<VehicleData>::iterator i = d.begin(); i != d.end(); ++i) {
-        ret.push_back((*i).idM);
+    for (auto & i : d) {
+        ret.push_back(i.idM);
     }
     return ret;
 }
@@ -297,9 +297,9 @@ MSInductLoop::collectVehiclesOnDet(SUMOTime tMS, bool leaveTime) const {
             ret.push_back(*i);
         }
     }
-    for (VehicleMap::const_iterator i = myVehiclesOnDet.begin(); i != myVehiclesOnDet.end(); ++i) {
-        SUMOVehicle* v = (*i).first;
-        VehicleData d(v->getID(), v->getVehicleType().getLength(), (*i).second, HAS_NOT_LEFT_DETECTOR, v->getVehicleType().getID());
+    for (const auto & i : myVehiclesOnDet) {
+        SUMOVehicle* v = i.first;
+        VehicleData d(v->getID(), v->getVehicleType().getLength(), i.second, HAS_NOT_LEFT_DETECTOR, v->getVehicleType().getID());
         d.speedM = v->getSpeed();
         ret.push_back(d);
     }

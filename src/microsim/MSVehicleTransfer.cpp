@@ -179,12 +179,12 @@ MSVehicleTransfer::~MSVehicleTransfer() {
 
 void
 MSVehicleTransfer::saveState(OutputDevice& out) const {
-    for (VehicleInfVector::const_iterator it = myVehicles.begin(); it != myVehicles.end(); ++it) {
+    for (const auto & myVehicle : myVehicles) {
         out.openTag(SUMO_TAG_VEHICLETRANSFER);
-        out.writeAttr(SUMO_ATTR_ID, it->myVeh->getID());
-        out.writeAttr(SUMO_ATTR_DEPART, it->myProceedTime);
-        if (it->myParking) {
-            out.writeAttr(SUMO_ATTR_PARKING, it->myVeh->getLane()->getID());
+        out.writeAttr(SUMO_ATTR_ID, myVehicle.myVeh->getID());
+        out.writeAttr(SUMO_ATTR_DEPART, myVehicle.myProceedTime);
+        if (myVehicle.myParking) {
+            out.writeAttr(SUMO_ATTR_PARKING, myVehicle.myVeh->getLane()->getID());
         }
         out.closeTag();
     }

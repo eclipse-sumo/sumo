@@ -125,8 +125,8 @@ GUIMainWindow::removeChild(FXMainWindow* child) {
 std::vector<std::string>
 GUIMainWindow::getViewIDs() const {
     std::vector<std::string> ret;
-    for (std::vector<FXMDIChild*>::const_iterator i = mySubWindows.begin(); i != mySubWindows.end(); ++i) {
-        ret.push_back((*i)->getTitle().text());
+    for (auto mySubWindow : mySubWindows) {
+        ret.push_back(mySubWindow->getTitle().text());
     }
     return ret;
 }
@@ -134,9 +134,9 @@ GUIMainWindow::getViewIDs() const {
 
 FXMDIChild*
 GUIMainWindow::getViewByID(const std::string& id) const {
-    for (std::vector<FXMDIChild*>::const_iterator i = mySubWindows.begin(); i != mySubWindows.end(); ++i) {
-        if (std::string((*i)->getTitle().text()) == id) {
-            return *i;
+    for (auto mySubWindow : mySubWindows) {
+        if (std::string(mySubWindow->getTitle().text()) == id) {
+            return mySubWindow;
         }
     }
     return nullptr;
@@ -155,8 +155,8 @@ GUIMainWindow::updateChildren() {
     myMDIClient->forallWindows(this, FXSEL(SEL_COMMAND, MID_SIMSTEP), nullptr);
     // inform other windows
     myTrackerLock.lock();
-    for (int i = 0; i < (int)myTrackerWindows.size(); i++) {
-        myTrackerWindows[i]->handle(this, FXSEL(SEL_COMMAND, MID_SIMSTEP), nullptr);
+    for (auto & myTrackerWindow : myTrackerWindows) {
+        myTrackerWindow->handle(this, FXSEL(SEL_COMMAND, MID_SIMSTEP), nullptr);
     }
     myTrackerLock.unlock();
 }

@@ -219,8 +219,8 @@ GUITriggeredRerouter::GUITriggeredRerouter(const std::string& id, const MSEdgeVe
     MSTriggeredRerouter(id, edges, prob, aXMLFilename, off, timeThreshold, vTypes),
     GUIGlObject_AbstractAdd(GLO_REROUTER, id) {
     // add visualisation objects for edges which trigger the rerouter
-    for (MSEdgeVector::const_iterator it = edges.begin(); it != edges.end(); ++it) {
-        myEdgeVisualizations.push_back(new GUITriggeredRerouterEdge(dynamic_cast<GUIEdge*>(*it), this, false));
+    for (auto edge : edges) {
+        myEdgeVisualizations.push_back(new GUITriggeredRerouterEdge(dynamic_cast<GUIEdge*>(edge), this, false));
         rtree.addAdditionalGLObject(myEdgeVisualizations.back());
         myBoundary.add(myEdgeVisualizations.back()->getCenteringBoundary());
     }
@@ -228,8 +228,8 @@ GUITriggeredRerouter::GUITriggeredRerouter(const std::string& id, const MSEdgeVe
 
 
 GUITriggeredRerouter::~GUITriggeredRerouter() {
-    for (std::vector<GUITriggeredRerouterEdge*>::iterator it = myEdgeVisualizations.begin(); it != myEdgeVisualizations.end(); ++it) {
-        delete *it;
+    for (auto & myEdgeVisualization : myEdgeVisualizations) {
+        delete myEdgeVisualization;
     }
     myEdgeVisualizations.clear();
 }
@@ -241,8 +241,8 @@ GUITriggeredRerouter::myEndElement(int element) {
     if (element == SUMO_TAG_INTERVAL) {
         // add visualisation objects for closed edges
         const RerouteInterval& ri = myIntervals.back();
-        for (MSEdgeVector::const_iterator it = ri.closed.begin(); it != ri.closed.end(); ++it) {
-            myEdgeVisualizations.push_back(new GUITriggeredRerouterEdge(dynamic_cast<GUIEdge*>(*it), this, true));
+        for (auto it : ri.closed) {
+            myEdgeVisualizations.push_back(new GUITriggeredRerouterEdge(dynamic_cast<GUIEdge*>(it), this, true));
             dynamic_cast<GUINet*>(GUINet::getInstance())->getVisualisationSpeedUp().addAdditionalGLObject(myEdgeVisualizations.back());
             myBoundary.add(myEdgeVisualizations.back()->getCenteringBoundary());
         }
@@ -308,10 +308,10 @@ GUITriggeredRerouter::GUITriggeredRerouterEdge::GUITriggeredRerouterEdge(GUIEdge
     const std::vector<MSLane*>& lanes = edge->getLanes();
     myFGPositions.reserve(lanes.size());
     myFGRotations.reserve(lanes.size());
-    for (std::vector<MSLane*>::const_iterator i = lanes.begin(); i != lanes.end(); ++i) {
-        const PositionVector& v = (*i)->getShape();
+    for (auto lane : lanes) {
+        const PositionVector& v = lane->getShape();
         const double pos = closed ? 3 : v.length() - (double) 6.;
-        myFGPositions.push_back((*i)->geometryPositionAtOffset(pos));
+        myFGPositions.push_back(lane->geometryPositionAtOffset(pos));
         myFGRotations.push_back(-v.rotationDegreeAtOffset(pos));
         myBoundary.add(myFGPositions.back());
     }
