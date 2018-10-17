@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Nov 10 09:47:24 2017 by SUMO Version v0_31_0-1058-g3a8b4ee
+<!-- generated on Wed Oct 17 20:25:34 2018 by Eclipse SUMO Version v1_0_1+0313-d13dc10
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,10 +14,12 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <tripinfo-output value="tripinfos.xml"/>
     </output>
 
     <processing>
+        <default.speeddev value="0"/>
         <pedestrian.model value="nonInteracting"/>
     </processing>
 
@@ -30,16 +32,16 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <personinfo id="forward_turn_left" depart="0.00">
+    <personinfo id="forward_turn_left" depart="0.00" type="DEFAULT_PEDTYPE">
         <walk depart="0.00" departPos="81.95" arrival="16.00" arrivalPos="10.00" duration="16.00" routeLength="20.00" timeLoss="1.60" maxSpeed="1.39"/>
     </personinfo>
-    <personinfo id="backward_change_side" depart="0.00">
+    <personinfo id="backward_change_side" depart="0.00" type="DEFAULT_PEDTYPE">
         <walk depart="0.00" departPos="10.00" arrival="16.00" arrivalPos="10.00" duration="16.00" routeLength="20.00" timeLoss="1.60" maxSpeed="1.39"/>
     </personinfo>
-    <personinfo id="forward_change_side" depart="0.00">
+    <personinfo id="forward_change_side" depart="0.00" type="DEFAULT_PEDTYPE">
         <walk depart="0.00" departPos="81.95" arrival="16.00" arrivalPos="81.95" duration="16.00" routeLength="20.00" timeLoss="1.60" maxSpeed="1.39"/>
     </personinfo>
-    <personinfo id="backward_turn_left" depart="0.00">
+    <personinfo id="backward_turn_left" depart="0.00" type="DEFAULT_PEDTYPE">
         <walk depart="0.00" departPos="10.00" arrival="16.00" arrivalPos="81.95" duration="16.00" routeLength="20.00" timeLoss="1.60" maxSpeed="1.39"/>
     </personinfo>
 </tripinfos>
