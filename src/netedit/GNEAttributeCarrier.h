@@ -755,6 +755,8 @@ public:
         } else if (tagProperties.canMaskXYPositions() && (attribute == SUMO_ATTR_POSITION)) {
             // if element can mask their XYPosition, then must be extracted X Y coordiantes separeted
             std::string x, y;
+            // give a default value to parsedAttribute to avoid problem parsing invalid positions
+            parsedAttribute="0,0";
             if(attrs.hasAttribute(SUMO_ATTR_X)) {
                 x = attrs.get<std::string>(SUMO_ATTR_X, objectID.c_str(), parsedOk, false);
                 // check that X attribute is valid
