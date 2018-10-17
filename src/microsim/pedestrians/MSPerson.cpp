@@ -635,7 +635,10 @@ MSPerson::getNextEdgePtr() const {
 
 void
 MSPerson::tripInfoOutput(OutputDevice& os) const {
-    os.openTag("personinfo").writeAttr("id", getID()).writeAttr("depart", time2string(getDesiredDepart()));
+    os.openTag("personinfo");
+    os.writeAttr("id", getID());
+    os.writeAttr("depart", time2string(getDesiredDepart()));
+    os.writeAttr("type", getVehicleType().getID());
     for (MSTransportablePlan::const_iterator i = myPlan->begin(); i != myPlan->end(); ++i) {
         (*i)->tripInfoOutput(os, this);
     }
