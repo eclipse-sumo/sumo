@@ -69,7 +69,7 @@ def randomize_pos(pos, blur):
 MISSING_EDGES = set()
 
 
-def generate_poly(net, id, color, layer, geo, edges, blur, outf, type="route"):
+def generate_poly(options, net, id, color, edges, outf, type="route"):
     lanes = []
     for e in edges:
         if net.hasEdge(e):
@@ -79,16 +79,16 @@ def generate_poly(net, id, color, layer, geo, edges, blur, outf, type="route"):
                 sys.stderr.write("Warning: unknown edge '%s'\n" % e)
                 MISSING_EDGES.add(e)
     shape = list(itertools.chain(*list(l.getShape() for l in lanes)))
-    if blur > 0:
-        shape = [randomize_pos(pos, blur) for pos in shape]
+    if options.blur > 0:
+        shape = [randomize_pos(pos, options.blur) for pos in shape]
 
     geoFlag = ""
-    if geo:
+    if options.geo:
         shape = [net.convertXY2LonLat(*pos) for pos in shape]
         geoFlag = ' geo="true"'
     shapeString = ' '.join('%s,%s' % (x, y) for x, y in shape)
     outf.write('<poly id="%s" color="%s" layer="%s" type="%s" shape="%s"%s/>\n' % (
-        id, color, layer, type, shapeString, geoFlag))
+        id, color, options.layer, type, shapeString, geoFlag))
 
 
 def main(args):
@@ -113,15 +113,13 @@ def main(args):
             if options.standalone:
                 for route in parse(routefile, 'route'):
                     # print("found veh", vehicle.id)
-                    generate_poly(net, unique_id(route.id), options.colorgen(),
-                                  options.layer, options.geo,
-                                  route.edges.split(), options.blur, outf)
+                    generate_poly(options, net, unique_id(route.id), options.colorgen(),
+                                  route.edges.split(), outf)
             else:
                 for vehicle in parse(routefile, 'vehicle'):
                     # print("found veh", vehicle.id)
-                    generate_poly(net, unique_id(vehicle.id), options.colorgen(),
-                                  options.layer, options.geo,
-                                  vehicle.route[0].edges.split(), options.blur, outf)
+                    generate_poly(options, net, unique_id(vehicle.id), options.colorgen(),
+                                  vehicle.route[0].edges.split(), outf)
         outf.write('</polygons>\n')
 
 
