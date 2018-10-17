@@ -49,26 +49,26 @@ FXDEFMAP(GNETAZFrame::TAZSelector) SelectorTAZMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_SET_TYPE,    GNETAZFrame::TAZSelector::onCmdselectNewTAZ),
 };
 
-FXDEFMAP(GNETAZFrame) GNETAZMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_TAZFRAME_CREATETAZ,  GNETAZFrame::onCmdCreateTAZ),
+FXDEFMAP(GNETAZFrame::CreateTAZ) CreateTAZMap[] = {
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_TAZFRAME_CREATETAZ,  GNETAZFrame::CreateTAZ::onCmdCreateTAZ),
 };
 
-FXDEFMAP(GNETAZFrame::edgesSelector) GNEEdgesMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_USESELECTED,        GNETAZFrame::edgesSelector::onCmdUseSelectedEdges),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_CLEARSELECTION,     GNETAZFrame::edgesSelector::onCmdClearSelection),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_INVERTSELECTION,    GNETAZFrame::edgesSelector::onCmdInvertSelection),
+FXDEFMAP(GNETAZFrame::EdgesSelector) EdgesMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_USESELECTED,        GNETAZFrame::EdgesSelector::onCmdUseSelectedEdges),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_CLEARSELECTION,     GNETAZFrame::EdgesSelector::onCmdClearSelection),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_INVERTSELECTION,    GNETAZFrame::EdgesSelector::onCmdInvertSelection),
 };
 
-FXDEFMAP(GNETAZFrame::TAZParameters) GNETAZParametersMap[] = {
+FXDEFMAP(GNETAZFrame::TAZParameters) TAZParametersMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_SET_ATTRIBUTE,   GNETAZFrame::TAZParameters::onCmdSetAttribute),
     FXMAPFUNC(SEL_COMMAND, MID_HELP,                GNETAZFrame::TAZParameters::onCmdHelp),
 };
 
 // Object implementation
-FXIMPLEMENT(GNETAZFrame::TAZSelector,       FXGroupBox,         SelectorTAZMap,         ARRAYNUMBER(SelectorTAZMap))
-FXIMPLEMENT(GNETAZFrame,                    FXVerticalFrame,    GNETAZMap,              ARRAYNUMBER(GNETAZMap))
-FXIMPLEMENT(GNETAZFrame::edgesSelector,     FXGroupBox,         GNEEdgesMap,            ARRAYNUMBER(GNEEdgesMap))
-FXIMPLEMENT(GNETAZFrame::TAZParameters,     FXGroupBox,         GNETAZParametersMap,    ARRAYNUMBER(GNETAZParametersMap))
+FXIMPLEMENT(GNETAZFrame::TAZSelector,       FXGroupBox,     SelectorTAZMap,     ARRAYNUMBER(SelectorTAZMap))
+FXIMPLEMENT(GNETAZFrame::CreateTAZ,         FXGroupBox,     CreateTAZMap,       ARRAYNUMBER(CreateTAZMap))
+FXIMPLEMENT(GNETAZFrame::EdgesSelector,     FXGroupBox,     EdgesMap,           ARRAYNUMBER(EdgesMap))
+FXIMPLEMENT(GNETAZFrame::TAZParameters,     FXGroupBox,     TAZParametersMap,   ARRAYNUMBER(TAZParametersMap))
 
 
 // ===========================================================================
@@ -176,10 +176,10 @@ GNETAZFrame::TAZSelector::onCmdselectNewTAZ(FXObject*, FXSelector, void*) {
 }
 
 // ---------------------------------------------------------------------------
-// GNETAZFrame::edgesSelector - methods
+// GNETAZFrame::EdgesSelector - methods
 // ---------------------------------------------------------------------------
 
-GNETAZFrame::edgesSelector::edgesSelector(GNETAZFrame* TAZFrameParent) :
+GNETAZFrame::EdgesSelector::EdgesSelector(GNETAZFrame* TAZFrameParent) :
     FXGroupBox(TAZFrameParent->myContentFrame, ("selection of " + toString(SUMO_TAG_EDGE) + "s").c_str(), GUIDesignGroupBoxFrame),
     myTAZFrameParent(TAZFrameParent),
     myCurrentJunction(0) {
@@ -195,17 +195,17 @@ GNETAZFrame::edgesSelector::edgesSelector(GNETAZFrame* TAZFrameParent) :
 }
 
 
-GNETAZFrame::edgesSelector::~edgesSelector() {}
+GNETAZFrame::EdgesSelector::~EdgesSelector() {}
 
 
 GNEJunction*
-GNETAZFrame::edgesSelector::getCurrentJunction() const {
+GNETAZFrame::EdgesSelector::getCurrentJunction() const {
     return myCurrentJunction;
 }
 
 
 void
-GNETAZFrame::edgesSelector::enableEdgeSelector(GNEJunction* currentJunction) {
+GNETAZFrame::EdgesSelector::enableEdgeSelector(GNEJunction* currentJunction) {
     // restore color of all lanes of edge candidates
     restoreEdgeColors();
     // Set current junction
@@ -226,10 +226,10 @@ GNETAZFrame::edgesSelector::enableEdgeSelector(GNEJunction* currentJunction) {
 
 
 void
-GNETAZFrame::edgesSelector::disableEdgeSelector() {
+GNETAZFrame::EdgesSelector::disableEdgeSelector() {
     // disable current junction
     myCurrentJunction = NULL;
-    // disable all elements of the edgesSelector
+    // disable all elements of the EdgesSelector
     myUseSelectedEdges->disable();
     myClearEdgesSelection->disable();
     myInvertEdgesSelection->disable();
@@ -239,7 +239,7 @@ GNETAZFrame::edgesSelector::disableEdgeSelector() {
 
 
 void
-GNETAZFrame::edgesSelector::restoreEdgeColors() {
+GNETAZFrame::EdgesSelector::restoreEdgeColors() {
     if (myCurrentJunction != NULL) {
         // restore color of all lanes of edge candidates
         for (auto i : myCurrentJunction->getGNEEdges()) {
@@ -255,21 +255,21 @@ GNETAZFrame::edgesSelector::restoreEdgeColors() {
 
 
 long
-GNETAZFrame::edgesSelector::onCmdUseSelectedEdges(FXObject*, FXSelector, void*) {
+GNETAZFrame::EdgesSelector::onCmdUseSelectedEdges(FXObject*, FXSelector, void*) {
     myTAZFrameParent->myTAZParameters->useSelectedEdges(myCurrentJunction);
     return 1;
 }
 
 
 long
-GNETAZFrame::edgesSelector::onCmdClearSelection(FXObject*, FXSelector, void*) {
+GNETAZFrame::EdgesSelector::onCmdClearSelection(FXObject*, FXSelector, void*) {
     myTAZFrameParent->myTAZParameters->clearEdges();
     return 1;
 }
 
 
 long
-GNETAZFrame::edgesSelector::onCmdInvertSelection(FXObject*, FXSelector, void*) {
+GNETAZFrame::EdgesSelector::onCmdInvertSelection(FXObject*, FXSelector, void*) {
     myTAZFrameParent->myTAZParameters->invertEdges(myCurrentJunction);
     return 1;
 }
@@ -353,7 +353,7 @@ GNETAZFrame::TAZParameters::disableTAZParameters() {
     myTAZWidthLabel->disable();
     myTAZWidth->disable();
     myHelpTAZAttribute->disable();
-    myTAZFrameParent->setCreateTAZButton(false);
+    myTAZFrameParent->myCreateTAZ->setCreateTAZButton(false);
 }
 
 
@@ -541,7 +541,7 @@ GNETAZFrame::TAZParameters::onCmdSetAttribute(FXObject*, FXSelector, void*) {
     }
 
     // Enable or disable create TAZ button depending of the current parameters
-    myTAZFrameParent->setCreateTAZButton(myCurrentParametersValid);
+    myTAZFrameParent->myCreateTAZ->setCreateTAZButton(myCurrentParametersValid);
     return 0;
 }
 
@@ -553,27 +553,78 @@ GNETAZFrame::TAZParameters::onCmdHelp(FXObject*, FXSelector, void*) {
 }
 
 // ---------------------------------------------------------------------------
+// GNETAZFrame::NeteditAttributes- methods
+// ---------------------------------------------------------------------------
+
+GNETAZFrame::CreateTAZ::CreateTAZ(GNETAZFrame* TAZFrameParent) :
+    FXGroupBox(TAZFrameParent->myContentFrame, "Create", GUIDesignGroupBoxFrame),
+    myTAZFrameParent(TAZFrameParent) {
+    // Create TAZ button and disable it
+    myCreateTAZButton = new FXButton(this, "Create TAZ", 0, this, MID_GNE_TAZFRAME_CREATETAZ, GUIDesignButton);
+    myCreateTAZButton->disable();
+
+}
+
+
+GNETAZFrame::CreateTAZ::~CreateTAZ() {}
+
+
+long
+GNETAZFrame::CreateTAZ::onCmdCreateTAZ(FXObject*, FXSelector, void*) {
+    // First check that current parameters are valid
+    if (myTAZFrameParent->myTAZParameters->isCurrentParametersValid()) {
+        /*
+        // iterate over junction's TAZ to find duplicated TAZs
+        if (myEdgeSelector->getCurrentJunction()->getNBNode()->checkTAZDuplicated(myTAZParameters->getTAZEdges()) == false) {
+            // create new TAZ
+            myViewNet->getUndoList()->add(new GNEChange_TAZ(myEdgeSelector->getCurrentJunction(),
+                                          myTAZParameters->getTAZEdges(),
+                                          myTAZParameters->getTAZWidth(),
+                                          myTAZParameters->getTAZPriority(),
+                                          -1, -1,
+                                          PositionVector::EMPTY,
+                                          false, true), true);
+
+            // clear selected edges
+            myEdgeSelector->onCmdClearSelection(0, 0, 0);
+        } else {
+            WRITE_WARNING("There is already another TAZ with the same edges in the junction; Duplicated TAZ aren't allowed.");
+        }
+        */
+    }
+    return 1;
+}
+
+
+void
+GNETAZFrame::CreateTAZ::setCreateTAZButton(bool value) {
+    if (value) {
+        myCreateTAZButton->enable();
+    } else {
+        myCreateTAZButton->disable();
+    }
+}
+
+// ---------------------------------------------------------------------------
 // GNETAZFrame - methods
 // ---------------------------------------------------------------------------
 
 GNETAZFrame::GNETAZFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
     GNEFrame(horizontalFrameParent, viewNet, "TAZs") {
-    // Create TAZ Selector
+    // Create TAZ Selector modul
     myTAZSelector = new TAZSelector(this);
 
-    // Create TAZParameters
+    // Create TAZParameters modul
     myTAZParameters = new TAZParameters(this);
 
-    // Create drawing controls
+    // Create drawing controls modul
     myDrawingShape = new DrawingShape(this);
 
-    // Create edge Selector
-    myEdgeSelector = new edgesSelector(this);
+    // Create edge Selector modul
+    myEdgeSelector = new EdgesSelector(this);
 
-    // Create groupbox for create TAZs
-    myGroupBoxButtons = new FXGroupBox(myContentFrame, "Create", GUIDesignGroupBoxFrame);
-    myCreateTAZButton = new FXButton(myGroupBoxButtons, "Create TAZ", 0, this, MID_GNE_TAZFRAME_CREATETAZ, GUIDesignButton);
-    myCreateTAZButton->disable();
+    // Create TAZ Modul
+    myCreateTAZ = new CreateTAZ(this);
 
     // Create groupbox and labels for legends
     FXGroupBox *groupBoxLegend = new FXGroupBox(myContentFrame, "Legend", GUIDesignGroupBoxFrame);
@@ -646,42 +697,6 @@ GNETAZFrame::addTAZ(const GNEViewNet::ObjectsUnderCursor &objectsUnderCursor) {
     return false;
 }
 */
-
-long
-GNETAZFrame::onCmdCreateTAZ(FXObject*, FXSelector, void*) {
-    // First check that current parameters are valid
-    if (myTAZParameters->isCurrentParametersValid()) {
-        /*
-        // iterate over junction's TAZ to find duplicated TAZs
-        if (myEdgeSelector->getCurrentJunction()->getNBNode()->checkTAZDuplicated(myTAZParameters->getTAZEdges()) == false) {
-            // create new TAZ
-            myViewNet->getUndoList()->add(new GNEChange_TAZ(myEdgeSelector->getCurrentJunction(),
-                                          myTAZParameters->getTAZEdges(),
-                                          myTAZParameters->getTAZWidth(),
-                                          myTAZParameters->getTAZPriority(),
-                                          -1, -1,
-                                          PositionVector::EMPTY,
-                                          false, true), true);
-
-            // clear selected edges
-            myEdgeSelector->onCmdClearSelection(0, 0, 0);
-        } else {
-            WRITE_WARNING("There is already another TAZ with the same edges in the junction; Duplicated TAZ aren't allowed.");
-        }
-        */
-    }
-    return 1;
-}
-
-
-void
-GNETAZFrame::setCreateTAZButton(bool value) {
-    if (value) {
-        myCreateTAZButton->enable();
-    } else {
-        myCreateTAZButton->disable();
-    }
-}
 
 
 GNETAZFrame::DrawingShape*

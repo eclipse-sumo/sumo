@@ -33,8 +33,6 @@ class GNETAZ;
  * The Widget for setting internal attributes of TAZ elements
  */
 class GNETAZFrame : public GNEFrame {
-    /// @brief FOX-declaration
-    FXDECLARE(GNETAZFrame)
 
 public:
 
@@ -89,19 +87,19 @@ public:
     };
 
     // ===========================================================================
-    // class edgesSelector
+    // class EdgesSelector
     // ===========================================================================
 
-    class edgesSelector : public FXGroupBox {
+    class EdgesSelector : public FXGroupBox {
         /// @brief FOX-declaration
-        FXDECLARE(GNETAZFrame::edgesSelector)
+        FXDECLARE(GNETAZFrame::EdgesSelector)
 
     public:
         /// @brief constructor
-        edgesSelector(GNETAZFrame* TAZFrameParent);
+        EdgesSelector(GNETAZFrame* TAZFrameParent);
 
         /// @brief destructor
-        ~edgesSelector();
+        ~EdgesSelector();
 
         /// @brief get current junction
         GNEJunction* getCurrentJunction() const;
@@ -135,7 +133,7 @@ public:
 
     protected:
         /// @brief FOX needs this
-        edgesSelector() {}
+        EdgesSelector() {}
 
     private:
         /// @brief pointer to GNETAZFrame parent
@@ -258,7 +256,42 @@ public:
         /// @brief color for selected edges
         RGBColor mySelectedColor;
     };
+    
+    // ===========================================================================
+    // class CreateTAZ
+    // ===========================================================================
 
+    class CreateTAZ : public FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNETAZFrame::CreateTAZ)
+
+    public:
+        /// @brief constructor
+        CreateTAZ(GNETAZFrame* TAZFrameParent);
+
+        /// @brief destructor
+        ~CreateTAZ();
+
+        /// @brief enable or disable button create edges
+        void setCreateTAZButton(bool value);
+
+        /// @name FOX-callbacks
+        /// @{
+        /// @brief Called when the user press the button create edge
+        long onCmdCreateTAZ(FXObject*, FXSelector, void*);
+        /// @}
+
+    protected:
+        /// @brief FOX needs this
+        CreateTAZ() {}
+
+    private:
+        /// @brief pointer to GNETAZFrame parent
+        GNETAZFrame* myTAZFrameParent;
+
+        /// @field FXButton for create TAZ
+        FXButton* myCreateTAZButton;
+    };
 
     /**@brief Constructor
      * @brief parent FXHorizontalFrame in which this GNEFrame is placed
@@ -279,49 +312,24 @@ public:
     */
     AddTAZResult processClick(const Position& clickedPosition, GNEEdge* edge);
 
-    /// @brief enable or disable button create edges
-    void setCreateTAZButton(bool value);
-
-    /// @name FOX-callbacks
-    /// @{
-    /// @brief Called when the user press the button create edge
-    long onCmdCreateTAZ(FXObject*, FXSelector, void*);
-    /// @}
-
     /// @brief get drawing mode editor
     DrawingShape* getDrawingShape() const;
 
-protected:
-    /// @brief FOX needs this
-    GNETAZFrame() {}
-
 private:
     /// @brief TAZ Selector
-    GNETAZFrame::TAZSelector* myTAZSelector;
+    TAZSelector* myTAZSelector;
 
     /// @brief TAZ parameters
-    GNETAZFrame::TAZParameters* myTAZParameters;
+    TAZParameters* myTAZParameters;
 
     /// @brief Drawing shape
     DrawingShape* myDrawingShape;
 
     /// @brief edge selector
-    GNETAZFrame::edgesSelector* myEdgeSelector;
+    EdgesSelector* myEdgeSelector;
 
-    /// @brief groupbox for buttons
-    FXGroupBox* myGroupBoxButtons;
-
-    /// @field FXButton for create TAZ
-    FXButton* myCreateTAZButton;
-
-    /// @brief groupbox for Legend
-    FXGroupBox* myGroupBoxLegend;
-
-    /// @brief Label for color candidate
-    FXLabel* myColorCandidateLabel;
-
-    /// @brief Label for color selected
-    FXLabel* myColorSelectedLabel;
+    /// @brief create TAZ
+    CreateTAZ* myCreateTAZ;
 };
 
 
