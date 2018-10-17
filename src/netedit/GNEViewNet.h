@@ -840,7 +840,7 @@ private:
     void drawLaneCandidates() const;
 
     /// @brief draw temporal polygon  shape in Polygon Mode
-    void drawTemporalPolygonShape() const;
+    void drawTemporalDrawShape() const;
     /// @}
    
     /// @brief Invalidated copy constructor.

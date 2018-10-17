@@ -38,6 +38,14 @@ class GNETAZFrame : public GNEFrame {
 
 public:
 
+    /// @brief enum with all possible values after try to create an shape using frame
+    enum AddTAZResult {
+        ADDTAZ_SUCCESS,             // TAZ was successfully created
+        ADDTAZ_UPDATEDTEMPORALTAZ,  // Added or removed a new point to temporal shape
+        ADDTAZ_INVALID,             // TAZ wasn't created
+        ADDTAZ_NOTHING              // Nothing to do
+    };
+
     // ===========================================================================
     // class TAZSelector
     // ===========================================================================
@@ -62,7 +70,7 @@ public:
         /// @name FOX-callbacks
         /// @{
         /// @brief Called when the user select another TAZ Type
-        long onCmdselectAttributeCarrier(FXObject*, FXSelector, void*);
+        long onCmdselectNewTAZ(FXObject*, FXSelector, void*);
         /// @}
 
     protected:
@@ -264,16 +272,12 @@ public:
     /// @brief hide TAZ frame
     void hide();
 
-    /**@brief add TAZ element
-     * @param objectsUnderCursor collection of objects under cursor after click over view
-     * @return true if a GNETAZ was added, false in other case
-     */
-    bool addTAZ(const GNEViewNet::ObjectsUnderCursor &objectsUnderCursor);
-
-    /**@brief remove an TAZ element previously added
-     * @param[in] TAZ element to erase
-     */
-    void removeTAZ(GNETAZ* TAZ);
+    /**@brief process click over Viewnet
+    * @param[in] clickedPosition clicked position over ViewNet
+    * @param[in] edge clicked edge
+    * @return AddShapeStatus with the result of operation
+    */
+    AddTAZResult processClick(const Position& clickedPosition, GNEEdge* edge);
 
     /// @brief enable or disable button create edges
     void setCreateTAZButton(bool value);
@@ -284,14 +288,8 @@ public:
     long onCmdCreateTAZ(FXObject*, FXSelector, void*);
     /// @}
 
-    /// @brief get list of selecte id's in string format
-    static std::string getIdsSelected(const FXList* list);
-
-    /// @brief get edge selector
-    GNETAZFrame::edgesSelector* getEdgeSelector() const;
-
-    /// @brief get TAZ parameters
-    GNETAZFrame::TAZParameters* getTAZParameters() const;
+    /// @brief get drawing mode editor
+    DrawingShape* getDrawingShape() const;
 
 protected:
     /// @brief FOX needs this
@@ -301,11 +299,14 @@ private:
     /// @brief TAZ Selector
     GNETAZFrame::TAZSelector* myTAZSelector;
 
-    /// @brief edge selector
-    GNETAZFrame::edgesSelector* myEdgeSelector;
-
     /// @brief TAZ parameters
     GNETAZFrame::TAZParameters* myTAZParameters;
+
+    /// @brief Drawing shape
+    DrawingShape* myDrawingShape;
+
+    /// @brief edge selector
+    GNETAZFrame::edgesSelector* myEdgeSelector;
 
     /// @brief groupbox for buttons
     FXGroupBox* myGroupBoxButtons;

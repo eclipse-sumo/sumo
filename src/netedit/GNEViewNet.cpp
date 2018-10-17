@@ -736,7 +736,7 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
 
     // draw temporal elements
     if (!myVisualizationSettings->drawForSelecting) {
-        drawTemporalPolygonShape();
+        drawTemporalDrawShape();
         drawLaneCandidates();
     }
 
@@ -1052,20 +1052,14 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                 break;
             }
             case GNE_MODE_TAZ: {
-                /*
-                if (myObjectsUnderCursor.crossing == nullptr) {
-                     // swap lanes to edges in crossingMode
-                    if (myObjectsUnderCursor.lane) {
-                        myObjectsUnderCursor.swapLane2Edge();
-                    }
-                    // add crossing
-                    if (myViewParent->getCrossingFrame()->addCrossing(myObjectsUnderCursor)) {
-                        update();
-                    }
+                GNETAZFrame::AddTAZResult result = myViewParent->getTAZFrame()->processClick(snapToActiveGrid(getPositionInformation()), myObjectsUnderCursor.edge);
+                // view net must be always update
+                update();
+                // process click depending of the result of "process click"
+                if ((result != GNETAZFrame::ADDTAZ_UPDATEDTEMPORALTAZ)) {
+                    // process click
+                    processClick(evt, eventData);
                 }
-                */
-                // process click
-                processClick(evt, eventData);
                 break;
             }
             case GNE_MODE_POLYGON: {
@@ -1229,7 +1223,9 @@ GNEViewNet::onKeyPress(FXObject* o, FXSelector sel, void* eventData) {
     myShiftKeyPressed = ((FXEvent*)eventData)->state & SHIFTMASK;
     // change "delete last created point" depending of shift key
     if ((myEditMode == GNE_MODE_POLYGON) && myViewParent->getPolygonFrame()->getDrawingShape()->isDrawing()) {
-        myViewParent->getPolygonFrame()->getDrawingShape()->setDeleteLastCreatedPoint(((FXEvent*)eventData)->state & SHIFTMASK);
+        myViewParent->getPolygonFrame()->getDrawingShape()->setDeleteLastCreatedPoint(myShiftKeyPressed);
+    } else if ((myEditMode == GNE_MODE_TAZ) && myViewParent->getTAZFrame()->getDrawingShape()->isDrawing()) {
+        myViewParent->getTAZFrame()->getDrawingShape()->setDeleteLastCreatedPoint(myShiftKeyPressed);
     }
     update();
     return GUISUMOAbstractView::onKeyPress(o, sel, eventData);
@@ -1334,9 +1330,13 @@ GNEViewNet::hotkeyEnter() {
     } else if (myEditMode == GNE_MODE_CROSSING) {
         myViewParent->getCrossingFrame()->createCrossingHotkey();
     } else if (myEditMode == GNE_MODE_TAZ) {
-        /*
-        myViewParent->getTAZFrame()->createTAZHotkey();
-        */
+        if (myViewParent->getTAZFrame()->getDrawingShape()->isDrawing()) {
+            // stop current drawing
+            myViewParent->getTAZFrame()->getDrawingShape()->stopDrawing();
+        } else {
+            // start drawing
+            myViewParent->getTAZFrame()->getDrawingShape()->startDrawing();
+        }
     } else if (myEditMode == GNE_MODE_ADDITIONAL) {
         if (myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->isSelectingLanes()) {
             // stop select lanes to create additional
@@ -3267,29 +3267,36 @@ GNEViewNet::drawLaneCandidates() const {
 
 
 void 
-GNEViewNet::drawTemporalPolygonShape() const {
-    // check if we're in drawing mode
+GNEViewNet::drawTemporalDrawShape() const {
+    PositionVector temporalShape;
+    bool deleteLastCreatedPoint = false;
+    // obtain temporal shape and delete last created point flag
     if(myViewParent->getPolygonFrame()->getDrawingShape()->isDrawing()) {
-        const PositionVector& temporalDrawingShape = myViewParent->getPolygonFrame()->getDrawingShape()->getTemporalShape();
+        temporalShape = myViewParent->getPolygonFrame()->getDrawingShape()->getTemporalShape();
+        deleteLastCreatedPoint = myViewParent->getPolygonFrame()->getDrawingShape()->getDeleteLastCreatedPoint();
+    } else if(myViewParent->getTAZFrame()->getDrawingShape()->isDrawing()) {
+        temporalShape = myViewParent->getTAZFrame()->getDrawingShape()->getTemporalShape();
+        deleteLastCreatedPoint = myViewParent->getTAZFrame()->getDrawingShape()->getDeleteLastCreatedPoint();
+    }
+    // check if we're in drawing mode
+    if(temporalShape.size() > 0) {
         // draw blue line with the current drawed shape
         glPushMatrix();
         glLineWidth(2);
         GLHelper::setColor(RGBColor::BLUE);
-        GLHelper::drawLine(temporalDrawingShape);
+        GLHelper::drawLine(temporalShape);
         glPopMatrix();
         // draw red line from the last point of shape to the current mouse position
-        if (temporalDrawingShape.size() > 0) {
-            glPushMatrix();
-            glLineWidth(2);
-            // draw last line depending if shift key (delete last created point) is pressed
-            if (myViewParent->getPolygonFrame()->getDrawingShape()->getDeleteLastCreatedPoint()) {
-                GLHelper::setColor(RGBColor::RED);
-            } else {
-                GLHelper::setColor(RGBColor::GREEN);
-            }
-            GLHelper::drawLine(temporalDrawingShape.back(), snapToActiveGrid(getPositionInformation()));
-            glPopMatrix();
+        glPushMatrix();
+        glLineWidth(2);
+        // draw last line depending if shift key (delete last created point) is pressed
+        if (deleteLastCreatedPoint) {
+            GLHelper::setColor(RGBColor::RED);
+        } else {
+            GLHelper::setColor(RGBColor::GREEN);
         }
+        GLHelper::drawLine(temporalShape.back(), snapToActiveGrid(getPositionInformation()));
+        glPopMatrix();
     }
 }
 
