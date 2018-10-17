@@ -307,7 +307,7 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
         // Traslate matrix
         glTranslated(0, 0, GLO_JUNCTION + 0.1); // must draw on top of junction
         // Set color
-        if (isAttributeCarrierSelected() && s.junctionColorer.getActive() != 1) {
+        if (isAttributeCarrierSelected()) {
             // override with special colors (unless the color scheme is based on selection)
             GLHelper::setColor(GNENet::selectedConnectionColor);
         } else if (mySpecialColor != 0) {
