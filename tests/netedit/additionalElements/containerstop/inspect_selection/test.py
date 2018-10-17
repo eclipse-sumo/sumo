@@ -41,17 +41,17 @@ netedit.leftClick(referencePosition, 150, 250)
 netedit.modifyAttribute(0, "commonName")
 
 # Set friendlyPos
-netedit.modifyBoolAttribute(1)
+netedit.modifyAttribute(1, "true")
 
 # Set lines
 netedit.modifyAttribute(2, "commonLine1 commonLine2")
 
-# Set friendlyPos
-netedit.modifyBoolAttribute(7)
+# Set block movement
+netedit.modifyBoolAttribute(6)
 
 # Check undo redo
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.undo(referencePosition, 4)
+netedit.redo(referencePosition, 4)
 
 # save additionals
 netedit.saveAdditionals()

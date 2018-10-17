@@ -41,7 +41,7 @@ netedit.leftClick(referencePosition, 150, 250)
 netedit.modifyAttribute(0, "commonName")
 
 # Set friendlyPos
-netedit.modifyBoolAttribute(1)
+netedit.modifyAttribute(1, "true")
 
 # Set invalid Power
 netedit.modifyAttribute(2, "-1000")
@@ -56,7 +56,7 @@ netedit.modifyAttribute(3, "2")
 netedit.modifyAttribute(3, "0.5")
 
 # Set charge in transit
-netedit.modifyBoolAttribute(4)
+netedit.modifyAttribute(4, "true")
 
 # Set invalid charge delay
 netedit.modifyAttribute(5, "-2")
@@ -64,7 +64,7 @@ netedit.modifyAttribute(5, "-2")
 # Set valid charge delay
 netedit.modifyAttribute(5, "6.3")
 
-# Set charge in transit
+# Set block movement
 netedit.modifyBoolAttribute(9)
 
 # Check undo redo
