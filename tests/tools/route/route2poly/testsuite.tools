@@ -3,3 +3,6 @@ basic
 
 # filter output edges
 filter
+
+# scale polygon width according to the number of similar routes
+scaleWidth

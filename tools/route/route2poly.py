@@ -22,6 +22,7 @@ import sys
 import os
 import itertools
 import random
+from collections import defaultdict
 from optparse import OptionParser
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from sumolib.output import parse  # noqa
@@ -45,6 +46,8 @@ def parse_args(args):
                          default=False, help="write polgyons with geo-coordinates")
     optParser.add_option("--blur", type="float",
                          default=0, help="maximum random disturbance to route geometry")
+    optParser.add_option("--scale-width", type="float", dest="scaleWidth",
+                         help="group similar routes and scale width by group size multiplied with the given factor (in m)")
     optParser.add_option("--standalone", action="store_true", default=False,
                          help="Parse stand-alone routes that are not define as child-element of a vehicle")
     optParser.add_option("--filter-output.file", dest="filterOutputFile", help="only write output for edges in the given selection file")
@@ -69,28 +72,11 @@ def randomize_pos(pos, blur):
 
 MISSING_EDGES = set()
 
-def readFilterEdges(options):
-    try:
-        filterFile = options.filterOutputFile
-    except:
-        filterFile = None
-    if filterFile is not None:
-        result = set()
-        for line in open(filterFile):
-            if line.startswith('edge:'):
-                result.add(line.replace('edge:','').strip())
-        return result
-    else:
-        return None
-
-
-def generate_poly(options, net, id, color, edges, outf, type="route"):
+def generate_poly(options, net, id, color, edges, outf, type="route", lineWidth=None, params={}):
     lanes = []
-    filterEdges = readFilterEdges(options)
     for e in edges:
         if net.hasEdge(e):
-            if filterEdges is None or e in filterEdges:
-                lanes.append(net.getEdge(e).getLane(0))
+            lanes.append(net.getEdge(e).getLane(0))
         else:
             if e not in MISSING_EDGES:
                 sys.stderr.write("Warning: unknown edge '%s'\n" % e)
@@ -102,19 +88,30 @@ def generate_poly(options, net, id, color, edges, outf, type="route"):
         shape = [randomize_pos(pos, options.blur) for pos in shape]
 
     geoFlag = ""
+    lineWidth = '' if lineWidth is None else ' lineWidth="%s"' % lineWidth
     if options.geo:
         shape = [net.convertXY2LonLat(*pos) for pos in shape]
         geoFlag = ' geo="true"'
     shapeString = ' '.join('%s,%s' % (x, y) for x, y in shape)
-    outf.write('<poly id="%s" color="%s" layer="%s" type="%s" shape="%s"%s/>\n' % (
-        id, color, options.layer, type, shapeString, geoFlag))
+    close = '/'
+    if params:
+        close = ''
+    outf.write('<poly id="%s" color="%s" layer="%s" type="%s" shape="%s"%s%s%s>\n' % (
+        id, color, options.layer, type, shapeString, geoFlag, lineWidth, close))
+    if params:
+        for key, value in params.items():
+            outf.write('    <param key="%s" value="%s"/>\n' % (key, value))
+        outf.write('</poly>\n')
+
+def filterEdges(edges, keep):
+    if keep is None:
+        return edges
+    else: 
+        return [e for e in edges if e in keep]
 
 
-def main(args):
-    options = parse_args(args)
-    net = readNet(options.net)
+def parseRoutes(options):
     known_ids = set()
-
     def unique_id(cand, index=0):
         cand2 = cand
         if index > 0:
@@ -125,20 +122,47 @@ def main(args):
             known_ids.add(cand2)
             return cand2
 
+    keep = None
+    if options.filterOutputFile is not None:
+        keep = set()
+        for line in open(options.filterOutputFile):
+            if line.startswith('edge:'):
+                keep.add(line.replace('edge:','').strip())
+
+    for routefile in options.routefiles:
+        print("parsing %s" % routefile)
+        if options.standalone:
+            for route in parse(routefile, 'route'):
+                # print("found veh", vehicle.id)
+                yield unique_id(route.id), filterEdges(route.edges.split(), keep)
+        else:
+            for vehicle in parse(routefile, 'vehicle'):
+                # print("found veh", vehicle.id)
+                yield unique_id(vehicle.id), filterEdges(vehicle.route[0].edges.split(), keep)
+
+
+def main(args):
+    options = parse_args(args)
+    net = readNet(options.net)
+
     with open(options.outfile, 'w') as outf:
         outf.write('<polygons>\n')
-        for routefile in options.routefiles:
-            print("parsing %s" % routefile)
-            if options.standalone:
-                for route in parse(routefile, 'route'):
-                    # print("found veh", vehicle.id)
-                    generate_poly(options, net, unique_id(route.id), options.colorgen(),
-                                  route.edges.split(), outf)
-            else:
-                for vehicle in parse(routefile, 'vehicle'):
-                    # print("found veh", vehicle.id)
-                    generate_poly(options, net, unique_id(vehicle.id), options.colorgen(),
-                                  vehicle.route[0].edges.split(), outf)
+        if options.scaleWidth is None:
+            for route_id, edges in parseRoutes(options):
+                generate_poly(options, net, route_id, options.colorgen(), edges, outf)
+        else:
+            count = {}
+            for route_id, edges in parseRoutes(options):
+                edges = tuple(edges)
+                if edges in count:
+                    count[edges][0] += 1
+                else:
+                    count[edges] = [1, route_id]
+            for edges, (n, route_id) in count.items():
+                width = options.scaleWidth * n
+                params = {'count': str(n)}
+                generate_poly(options, net, route_id, options.colorgen(), edges, outf, lineWidth=width, params=params)
+
         outf.write('</polygons>\n')
 
 
