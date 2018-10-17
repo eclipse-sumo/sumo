@@ -6,3 +6,6 @@ filter
 
 # scale polygon width according to the number of similar routes
 scaleWidth
+
+# include internal lane shapes in export
+internal

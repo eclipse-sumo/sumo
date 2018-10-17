@@ -79,6 +79,7 @@ def get_options():
     # options for generate_poly
     options.layer = 100
     options.geo = False
+    options.internal = False
 
     return options
 

@@ -94,6 +94,10 @@ class Edge:
     def getOutgoing(self):
         return self._outgoing
 
+    def getConnections(self, toEdge):
+        """Returns all connections to the given target edge"""
+        return self._outgoing.get(toEdge, [])
+
     def getRawShape(self):
         """Return the shape that was used in netconvert for building this edge (2D)."""
         if self._shape is None:

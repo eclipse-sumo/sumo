@@ -44,6 +44,8 @@ def parse_args(args):
         "-l", "--layer", default=100, help="layer for generated polygons")
     optParser.add_option("--geo", action="store_true",
                          default=False, help="write polgyons with geo-coordinates")
+    optParser.add_option("--internal", action="store_true",
+                         default=False, help="include internal edges in generated shapes")
     optParser.add_option("--blur", type="float",
                          default=0, help="maximum random disturbance to route geometry")
     optParser.add_option("--scale-width", type="float", dest="scaleWidth",
@@ -83,6 +85,34 @@ def generate_poly(options, net, id, color, edges, outf, type="route", lineWidth=
                 MISSING_EDGES.add(e)
     if not lanes:
         return
+    if options.internal and len(lanes) > 1:
+        lanes2 = []
+        for i, lane in enumerate(lanes):
+            edge = lane.getEdge()
+            if i == 0:
+                cons = edge.getConnections(lanes[i + 1].getEdge())
+                if cons:
+                    lanes2.append(cons[0].getFromLane())
+                else:
+                    lanes2.append(lane)
+            else:
+                cons = lanes[i - 1].getEdge().getConnections(edge)
+                if cons:
+                    viaID = cons[0].getViaLaneID()
+                    if viaID:
+                        via = net.getLane(viaID)
+                        lanes2.append(via)
+                        cons2 = via.getEdge().getConnections(edge)
+                        if cons2:
+                            viaID2 = cons2[0].getViaLaneID()
+                            if viaID2:
+                                via2 = net.getLane(viaID2)
+                                lanes2.append(via2)
+                        lanes2.append(cons[0].getToLane())
+                else:
+                    lanes2.append(lane)
+        lanes = lanes2
+
     shape = list(itertools.chain(*list(l.getShape() for l in lanes)))
     if options.blur > 0:
         shape = [randomize_pos(pos, options.blur) for pos in shape]
@@ -143,7 +173,7 @@ def parseRoutes(options):
 
 def main(args):
     options = parse_args(args)
-    net = readNet(options.net)
+    net = readNet(options.net, withInternal=options.internal)
 
     with open(options.outfile, 'w') as outf:
         outf.write('<polygons>\n')
