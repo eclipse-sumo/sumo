@@ -951,6 +951,11 @@ GUILane::setFunctionalColor(const GUIColorer& c, RGBColor& col) const {
                     tazColors.push_back(RGBColor::parseColor(e->getParameter("tazColor")));
                 }
             }
+            for (MSEdge* e: myEdge->getSuccessors()) {
+                if (e->isTazConnector() && e->knowsParameter("tazColor")) {
+                    tazColors.push_back(RGBColor::parseColor(e->getParameter("tazColor")));
+                }
+            }
             if (tazColors.size() > 0) {
                 int randColor = RandHelper::rand((int)tazColors.size(), RGBColor::getColorRNG());
                 col = tazColors[randColor];
