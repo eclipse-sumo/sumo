@@ -2368,7 +2368,7 @@ NBEdge::divideSelectedLanesOnEdges(const EdgeVector* outgoing, const std::vector
     for (auto target : *outgoing) {
         assert(l2eConns.find(target) != l2eConns.end());
         const std::vector<int> lanes = (l2eConns.find(target))->second;
-        for (std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<int> > >::value_type lane : lanes) {
+        for (auto lane : lanes) {
             const int fromIndex = availableLanes[lane];
             if ((getPermissions(fromIndex) & target->getPermissions()) == 0) {
                 // exclude connection if fromLane and toEdge have no common permissions
@@ -2594,8 +2594,8 @@ NBEdge::prepareEdgePriorities(const EdgeVector* outgoing) {
 int
 NBEdge::computePrioritySum(const std::vector<int>& priorities) {
     int sum = 0;
-    for (std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<int> > >::value_type prioritie : priorities) {
-        sum += prioritie;
+    for (auto priority : priorities) {
+        sum += priority;
     }
     return sum;
 }

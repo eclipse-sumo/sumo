@@ -226,7 +226,7 @@ std::string
 GUISelectedStorage::load(const std::string& filename, GUIGlObjectType type) {
     std::string errors;
     const std::set<GUIGlID> ids = loadIDs(filename, errors, type);
-    for (std::_Tree_const_iterator<std::_Tree_val<std::_Tree_simple_types<unsigned int> > >::value_type id : ids) {
+    for (auto const id : ids) {
         select(id, false);
     }
     if (myUpdateTarget) {
@@ -263,7 +263,7 @@ GUISelectedStorage::remove2Update() {
 void
 GUISelectedStorage::save(const std::string& filename, const std::set<GUIGlID>& ids) {
     OutputDevice& dev = OutputDevice::getDevice(filename);
-    for (std::_Tree_const_iterator<std::_Tree_val<std::_Tree_simple_types<unsigned int> > >::value_type id : ids) {
+    for (auto const id : ids) {
         GUIGlObject* object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
         if (object != nullptr) {
             std::string name = object->getFullName();

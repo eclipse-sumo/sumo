@@ -291,7 +291,7 @@ NLBuilder::buildNet() {
         } else {
             const std::string prefix = myOptions.getString("save-state.prefix");
             const std::string suffix = myOptions.getString("save-state.suffix");
-            for (std::_Vector_iterator<std::_Vector_val<std::_Simple_types<long long> > >::value_type & stateDumpTime : stateDumpTimes) {
+            for (auto & stateDumpTime : stateDumpTimes) {
                 stateDumpFiles.push_back(prefix + "_" + time2string(stateDumpTime) + suffix);
             }
         }

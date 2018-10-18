@@ -530,7 +530,7 @@ PCLoaderOSM::RelationsHandler::myStartElement(int element, const SUMOSAXAttribut
             myCurrentRelation->name = value;
         } else if (MyKeysToInclude.count(key) > 0) {
             myCurrentRelation->keep = true;
-            for (std::_Vector_iterator<std::_Vector_val<std::_Simple_types<long long> > >::value_type & myCurrentWay : myCurrentWays) {
+            for (auto & myCurrentWay : myCurrentWays) {
                 myAdditionalWays[myCurrentWay] = myCurrentRelation;
             }
         }

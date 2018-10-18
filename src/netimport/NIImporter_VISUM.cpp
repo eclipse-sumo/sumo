@@ -911,7 +911,7 @@ NIImporter_VISUM::parse_AreaSubPartElement() {
     }
 
     const std::vector<long long int>& areas = mySubPartsAreas.find(id)->second;
-    for (std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<long long> > >::value_type area : areas) {
+    for (auto const area : areas) {
         NBDistrict* d = myShapeDistrictMap[area];
         if (d == nullptr) {
             continue;

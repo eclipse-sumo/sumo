@@ -226,7 +226,7 @@ template<>
 void BinaryFormatter::writeAttr(std::ostream& into, const SumoXMLAttr /* attr */, const std::vector<int>& val) {
     FileHelpers::writeByte(into, BF_LIST);
     FileHelpers::writeInt(into, (int)val.size());
-    for (std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<int> > >::value_type it : val) {
+    for (auto const it : val) {
         FileHelpers::writeByte(into, BF_INTEGER);
         FileHelpers::writeInt(into, it);
     }

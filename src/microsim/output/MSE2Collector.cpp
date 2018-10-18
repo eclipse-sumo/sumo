@@ -1272,7 +1272,7 @@ MSE2Collector::writeXMLOutput(OutputDevice& dev, SUMOTime startTime, SUMOTime st
     SUMOTime haltingDurationSum = 0;
     SUMOTime maxHaltingDuration = 0;
     int haltingNo = 0;
-    for (std::_Vector_iterator<std::_Vector_val<std::_Simple_types<long long> > >::value_type & myPastStandingDuration : myPastStandingDurations) {
+    for (auto & myPastStandingDuration : myPastStandingDurations) {
         haltingDurationSum += myPastStandingDuration;
         maxHaltingDuration = MAX2(maxHaltingDuration, myPastStandingDuration);
         haltingNo++;
@@ -1287,7 +1287,7 @@ MSE2Collector::writeXMLOutput(OutputDevice& dev, SUMOTime startTime, SUMOTime st
     SUMOTime intervalHaltingDurationSum = 0;
     SUMOTime intervalMaxHaltingDuration = 0;
     int intervalHaltingNo = 0;
-    for (std::_Vector_iterator<std::_Vector_val<std::_Simple_types<long long> > >::value_type & myPastIntervalStandingDuration : myPastIntervalStandingDurations) {
+    for (auto & myPastIntervalStandingDuration : myPastIntervalStandingDurations) {
         intervalHaltingDurationSum += myPastIntervalStandingDuration;
         intervalMaxHaltingDuration = MAX2(intervalMaxHaltingDuration, myPastIntervalStandingDuration);
         intervalHaltingNo++;

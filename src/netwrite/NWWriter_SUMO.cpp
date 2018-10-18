@@ -599,7 +599,7 @@ NWWriter_SUMO::writeInternalNodes(OutputDevice& into, const NBNode& n) {
             }
             into.writeAttr(SUMO_ATTR_INCLANES, incLanes);
             const std::vector<int>& foes = k.foeInternalLinks;
-            for (std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<int> > >::value_type foe : foes) {
+            for (auto const foe : foes) {
                 foeIDs.push_back(internalLaneIDs[foe]);
             }
             into.writeAttr(SUMO_ATTR_INTLANES, joinToString(foeIDs, " "));

@@ -198,7 +198,7 @@ NIVissimNodeCluster::getFromNode(int edgeid) {
     int ret = -1;
     for (auto & i : myDict) {
         NIVissimNodeCluster* c = i.second;
-        for (std::_Vector_iterator<std::_Vector_val<std::_Simple_types<int> > >::value_type & myConnector : c->myConnectors) {
+        for (auto & myConnector : c->myConnectors) {
             NIVissimConnection* conn = NIVissimConnection::dictionary(myConnector);
             if (conn != nullptr && conn->getToEdgeID() == edgeid) {
 //                return (*i).first;
@@ -220,7 +220,7 @@ NIVissimNodeCluster::getToNode(int edgeid) {
     int ret = -1;
     for (auto & i : myDict) {
         NIVissimNodeCluster* c = i.second;
-        for (std::_Vector_iterator<std::_Vector_val<std::_Simple_types<int> > >::value_type & myConnector : c->myConnectors) {
+        for (auto & myConnector : c->myConnectors) {
             NIVissimConnection* conn = NIVissimConnection::dictionary(myConnector);
             if (conn != nullptr && conn->getFromEdgeID() == edgeid) {
 //                return (*i).first;
@@ -273,7 +273,7 @@ NIVissimNodeCluster::dict_addDisturbances(NBDistrictCont& dc,
     for (auto & i : myDict) {
         const std::vector<int>& disturbances = i.second->myDisturbances;
         NBNode* node = nc.retrieve(i.second->getNodeName());
-        for (std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<int> > >::value_type j : disturbances) {
+        for (auto j : disturbances) {
             NIVissimDisturbance* disturbance = NIVissimDisturbance::dictionary(j);
             disturbance->addToNode(node, dc, nc, ec);
         }

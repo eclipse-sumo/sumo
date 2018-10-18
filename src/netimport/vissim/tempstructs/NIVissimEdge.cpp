@@ -395,7 +395,7 @@ NIVissimEdge::setDistrictSpeed() {
 std::vector<NIVissimConnection*>
 NIVissimEdge::getOutgoingConnected(int lane) const {
     std::vector<NIVissimConnection*> ret;
-    for (std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<int> > >::value_type myOutgoingConnection : myOutgoingConnections) {
+    for (auto myOutgoingConnection : myOutgoingConnections) {
         NIVissimConnection* c = NIVissimConnection::dictionary(myOutgoingConnection);
         const std::vector<int>& lanes = c->getFromLanes();
         if (find(lanes.begin(), lanes.end(), lane) != lanes.end()) {

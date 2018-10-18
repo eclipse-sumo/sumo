@@ -120,7 +120,7 @@ NIVissimDistrictConnection::dict_BuildDistrictConnections() {
     for (auto & i : myDict) {
         NIVissimDistrictConnection* c = i.second;
         const std::vector<int>& districts = c->myDistricts;
-        for (std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<int> > >::value_type district : districts) {
+        for (auto const district : districts) {
             // assign connection to district
             myDistrictsConnections[district].push_back(i.first);
         }
@@ -132,7 +132,7 @@ void
 NIVissimDistrictConnection::dict_CheckEdgeEnds() {
     for (auto & myDistrictsConnection : myDistrictsConnections) {
         const std::vector<int>& connections = myDistrictsConnection.second;
-        for (std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<int> > >::value_type connection : connections) {
+        for (auto const connection : connections) {
             NIVissimDistrictConnection* c = dictionary(connection);
             c->checkEdgeEnd();
         }
@@ -160,7 +160,7 @@ NIVissimDistrictConnection::dict_BuildDistrictNodes(NBDistrictCont& dc,
         dc.insert(district);
         // compute the middle of the district
         PositionVector pos;
-        for (std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<int> > >::value_type connection : connections) {
+        for (auto const connection : connections) {
             NIVissimDistrictConnection* c = dictionary(connection);
             pos.push_back(c->geomPosition());
         }
@@ -196,7 +196,7 @@ NIVissimDistrictConnection::dict_BuildDistricts(NBDistrictCont& dc,
         NBNode* districtNode = nc.retrieve("District" + district->getID());
         assert(district != 0 && districtNode != 0);
 
-        for (std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<int> > >::value_type connection : connections) {
+        for (auto const connection : connections) {
             NIVissimDistrictConnection* c = dictionary(connection);
             // get the edge to connect the parking place to
             NBEdge* e = ec.retrieve(toString<int>(c->myEdgeID));

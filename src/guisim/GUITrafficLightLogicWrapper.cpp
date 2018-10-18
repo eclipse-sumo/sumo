@@ -259,7 +259,7 @@ GUITrafficLightLogicWrapper::drawGL(const GUIVisualizationSettings& s) const {
                 phaseIdx = (phaseIdx + 1) % phases.size();
             }
             // highlight nextGreen links
-            for (std::_Vector_iterator<std::_Vector_val<std::_Simple_types<int> > >::value_type & it_idx : nextGreen) {
+            for (auto & it_idx : nextGreen) {
                 const MSTrafficLightLogic::LaneVector& lanes = myTLLogic.getLanesAt(it_idx);
                 for (auto lane : lanes) {
                     glPushMatrix();

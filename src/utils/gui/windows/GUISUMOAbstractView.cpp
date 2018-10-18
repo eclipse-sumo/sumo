@@ -319,7 +319,7 @@ GUISUMOAbstractView::getObjectAtPosition(Position pos) {
     // Interpret results
     int idMax = 0;
     double maxLayer = -std::numeric_limits<double>::max();
-    for (std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<unsigned int> > >::value_type id : ids) {
+    for (auto const id : ids) {
         GUIGlObject* o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
         if (o == nullptr) {
             continue;
@@ -361,7 +361,7 @@ GUISUMOAbstractView::getObjectsAtPosition(Position pos, double radius) {
     const std::vector<GUIGlID> ids = getObjectsInBoundary(selection);
     std::vector<GUIGlID> result;
     // Interpret results
-    for (std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<unsigned int> > >::value_type id : ids) {
+    for (auto const id : ids) {
         GUIGlObject* o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
         if (o == nullptr) {
             continue;

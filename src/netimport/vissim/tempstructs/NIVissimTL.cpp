@@ -275,7 +275,7 @@ NIVissimTL::NIVissimTLSignalGroup::addTo(NBLoadedTLDef* tl) const {
             ? NBTrafficLightDefinition::TLCOLOR_RED : NBTrafficLightDefinition::TLCOLOR_GREEN;
     std::string id = toString<int>(myID);
     tl->addSignalGroup(id); // !!! myTimes als SUMOTime
-    for (std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<double> > >::value_type myTime : myTimes) {
+    for (auto const myTime : myTimes) {
         tl->addSignalGroupPhaseBegin(id, (SUMOTime) myTime, color);
         color = color == NBTrafficLightDefinition::TLCOLOR_RED
                 ? NBTrafficLightDefinition::TLCOLOR_GREEN : NBTrafficLightDefinition::TLCOLOR_RED;

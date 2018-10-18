@@ -320,7 +320,7 @@ SUMOSAXAttributesImpl_Binary::getName(int attr) const {
 
 void
 SUMOSAXAttributesImpl_Binary::serialize(std::ostream& os) const {
-    for (std::_Tree_const_iterator<std::_Tree_val<std::_Tree_simple_types<int> > >::value_type myAttr : myAttrs) {
+    for (auto const myAttr : myAttrs) {
         os << " " << getName(myAttr);
         os << "=\"" << getStringSecure(myAttr, "?") << "\"";
     }
