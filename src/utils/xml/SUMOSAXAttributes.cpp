@@ -60,7 +60,6 @@ std::string SUMOSAXAttributes::getInternal(const int attr) const {
 }
 
 
-
 SUMOTime
 SUMOSAXAttributes::getSUMOTimeReporting(int attr, const char* objectid,
                                         bool& ok, bool report) const {
@@ -109,9 +108,6 @@ SUMOSAXAttributes::getOptSUMOTimeReporting(int attr, const char* objectid,
     ok = false;
     return (SUMOTime) - 1;
 }
-
-
-
 
 
 void
@@ -243,4 +239,3 @@ Boundary SUMOSAXAttributes::getInternal(const int attr) const {
 
 
 /****************************************************************************/
-

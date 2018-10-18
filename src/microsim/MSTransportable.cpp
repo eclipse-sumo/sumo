@@ -129,6 +129,66 @@ MSTransportable::Stage::getEdgeAngle(const MSEdge* e, double at) const {
 
 
 /* -------------------------------------------------------------------------
+* MSTransportable::Stage_Trip - methods
+* ----------------------------------------------------------------------- */
+MSTransportable::Stage_Trip::Stage_Trip(const MSEdge* origin, const MSEdge* destination, const SUMOTime duration, const SVCPermissions modeSet,
+    const std::string& vTypes, const double walkFactor, const double arrivalPos) :
+    MSTransportable::Stage(destination, nullptr, arrivalPos, TRIP),
+    myDuration(duration),
+    myModeSet(modeSet),
+    myVTypes(vTypes),
+    myWalkFactor(walkFactor) {
+}
+
+
+MSTransportable::Stage_Trip::~Stage_Trip() {}
+
+
+Position
+MSTransportable::Stage_Trip::getPosition(SUMOTime /* now */) const {
+    throw ProcessError("Should not get here!");
+}
+
+
+double
+MSTransportable::Stage_Trip::getAngle(SUMOTime /* now */) const {
+    throw ProcessError("Should not get here!");
+}
+
+
+void
+MSTransportable::Stage_Trip::proceed(MSNet* net, MSTransportable* transportable, SUMOTime now, Stage* previous) {
+    // this is the last chance to start routing
+}
+
+
+void
+MSTransportable::Stage_Trip::tripInfoOutput(OutputDevice& os, const MSTransportable* const) const {
+}
+
+
+void
+MSTransportable::Stage_Trip::routeOutput(OutputDevice& os, const bool /* withRouteLength */) const {
+}
+
+
+void
+MSTransportable::Stage_Trip::beginEventOutput(const MSTransportable& p, SUMOTime t, OutputDevice& os) const {
+}
+
+
+void
+MSTransportable::Stage_Trip::endEventOutput(const MSTransportable& p, SUMOTime t, OutputDevice& os) const {
+}
+
+
+std::string
+MSTransportable::Stage_Trip::getStageSummary() const {
+    return "trip from '" + myOrigin->getID() + "' to '" + getDestination()->getID() + "'";
+}
+
+
+/* -------------------------------------------------------------------------
 * MSTransportable::Stage_Waiting - methods
 * ----------------------------------------------------------------------- */
 MSTransportable::Stage_Waiting::Stage_Waiting(const MSEdge* destination,
@@ -586,6 +646,7 @@ MSTransportable::getStageSummary(int stageIndex) const {
     return (*myPlan)[stageIndex]->getStageSummary();
 }
 
+
 bool
 MSTransportable::hasArrived() const {
     return myStep == myPlan->end();
@@ -638,4 +699,6 @@ MSTransportable::rerouteParkingArea(MSStoppingPlace* orig, MSStoppingPlace* repl
     };
     return;
 }
+
+
 /****************************************************************************/

@@ -29,6 +29,7 @@
 #include <utils/geom/Position.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/geom/Boundary.h>
+#include <utils/vehicle/SUMOAbstractRouter.h>
 
 
 // ===========================================================================
@@ -60,7 +61,8 @@ public:
         WAITING = 1,
         MOVING_WITHOUT_VEHICLE = 2, // walking for persons, tranship for containers
         DRIVING = 3,
-        ACCESS = 4
+        ACCESS = 4,
+        TRIP = 5
     };
 
     /**
@@ -205,6 +207,82 @@ public:
 
         /// @brief Invalidated assignment operator.
         Stage& operator=(const Stage&);
+
+    };
+
+    /**
+    * A "placeholder" stage storing routing info which will result in real stages when routed
+    */
+    class Stage_Trip : public Stage {
+    public:
+        /// constructor
+        Stage_Trip(const MSEdge* origin, const MSEdge* destination, const SUMOTime duration, const SVCPermissions modeSet,
+            const std::string& vTypes, const double walkFactor, const double arrivalPos);
+
+        /// destructor
+        virtual ~Stage_Trip();
+
+        Position getPosition(SUMOTime now) const;
+
+        double getAngle(SUMOTime now) const;
+
+        std::string getStageDescription() const {
+            return "trip";
+        }
+
+        std::string getStageSummary() const;
+
+        /// proceeds to the next step
+        virtual void proceed(MSNet* net, MSTransportable* transportable, SUMOTime now, Stage* previous);
+
+        /** @brief Called on writing tripinfo output
+        *
+        * @param[in] os The stream to write the information into
+        * @exception IOError not yet implemented
+        */
+        virtual void tripInfoOutput(OutputDevice& os, const MSTransportable* const transportable) const;
+
+        /** @brief Called on writing vehroute output
+        *
+        * @param[in] os The stream to write the information into
+        * @exception IOError not yet implemented
+        */
+        virtual void routeOutput(OutputDevice& os, const bool withRouteLength) const;
+
+        /** @brief Called for writing the events output
+        * @param[in] os The stream to write the information into
+        * @exception IOError not yet implemented
+        */
+        virtual void beginEventOutput(const MSTransportable& p, SUMOTime t, OutputDevice& os) const;
+
+        /** @brief Called for writing the events output (end of an action)
+        * @param[in] os The stream to write the information into
+        * @exception IOError not yet implemented
+        */
+        virtual void endEventOutput(const MSTransportable& p, SUMOTime t, OutputDevice& os) const;
+
+    private:
+        /// the origin edge
+        const MSEdge* myOrigin;
+
+        /// the time the trip should take (applies to only walking)
+        SUMOTime myDuration;
+
+        /// @brief The allowed modes of transportation
+        const SVCPermissions myModeSet;
+
+        /// @brief The factor to apply to walking durations
+        const double myWalkFactor;
+
+        /// @brief The possible vehicles to use
+        const std::string myVTypes;
+
+    private:
+        /// @brief Invalidated copy constructor.
+        Stage_Trip(const Stage_Trip&);
+
+        /// @brief Invalidated assignment operator.
+        Stage_Trip& operator=(const Stage_Trip&);
 
     };
 
@@ -575,6 +653,17 @@ public:
 
     /// @brief adapt plan when the vehicle reroutes and now stops at replacement instead of orig
     void rerouteParkingArea(MSStoppingPlace* orig, MSStoppingPlace* replacement);
+
+    /** @brief Performs a rerouting using the given router
+    *
+    * Tries to find a new (intermodal) plan between the current edge and the destination edge, first.
+    * Tries to replace the current plan by the new one.
+    *
+    * @param[in] t The time for which the route is computed
+    * @param[in] router The router to use
+    */
+    void reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, const bool onInit = false, const bool withTaz = false);
+
 
 protected:
     /// @brief the offset for computing positions when standing at an edge
