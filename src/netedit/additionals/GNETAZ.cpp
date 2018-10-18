@@ -61,9 +61,10 @@ const double GNETAZ::myHintSizeSquared = 0.64;
 // ===========================================================================
 
 GNETAZ::GNETAZ(const std::string& id, GNEViewNet* viewNet, PositionVector shape, RGBColor color, bool blockMovement) :
-    GNEAdditional(id, viewNet, GLO_E3DETECTOR, SUMO_TAG_TAZ, "", blockMovement),
+    GNEAdditional(id, viewNet, GLO_TAZ, SUMO_TAG_TAZ, "", blockMovement),
     myColor(color),
-    myBlockShape(false) {
+    myBlockShape(false),
+    myCurrentMovingVertexIndex(-1) {
     myGeometry.shape = shape;
 }
 
@@ -99,6 +100,151 @@ GNETAZ::commitGeometryMoving(GNEUndoList* undoList) {
     undoList->p_begin("position of " + toString(getTag()));
     undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(myGeometry.shape[0]), true, toString(myMove.originalViewPosition)));
     undoList->p_end();
+}
+
+
+int 
+GNETAZ::moveVertexShape(const int index, const Position& oldPos, const Position& offset) {
+    // only move shape if block movement block shape are disabled
+    if (!myBlockMovement && !myBlockShape && (index != -1)) {
+        // check that index is correct before change position
+        if (index < (int)myGeometry.shape.size()) {
+            // save current moving Geometry Point
+            myCurrentMovingVertexIndex = index;
+            // Declare value for saving Z value (needed because movement is only in X-Y)
+            double zValue = 0;
+            // if closed shape and cliked is first or last, move both giving more priority to first always
+            if ((index == 0 || index == (int)myGeometry.shape.size() - 1)) {
+                // save Z value of first shape Geometry Point
+                zValue = myGeometry.shape.front().z();
+                // Change position of first shape Geometry Point
+                myGeometry.shape.front() = oldPos;
+                myGeometry.shape.front().add(offset);
+                // restore Z value of first shape Geometry Point
+                myGeometry.shape.front().setz(zValue);
+                // save Z value of last shape Geometry Point
+                zValue = myGeometry.shape.back().z();
+                // Change position of last shape Geometry Point
+                myGeometry.shape.back() = oldPos;
+                myGeometry.shape.back().add(offset);
+                // restore Z value of last shape Geometry Point
+                myGeometry.shape.back().setz(zValue);
+            } else {
+                // save Z value of Geometry Point
+                zValue = myGeometry.shape.back().z();
+                // change position of Geometry Point
+                myGeometry.shape[index] = oldPos;
+                myGeometry.shape[index].add(offset);
+                // restore Z value of Geometry Point
+                myGeometry.shape.back().setz(zValue);
+            }
+            // return index of moved Geometry Point
+            return index;
+        } else {
+            throw InvalidArgument("Index greater than shape size");
+        }
+    } else {
+        return index;
+    }
+}
+
+
+void 
+GNETAZ::moveEntireShape(const PositionVector& oldShape, const Position& offset) {
+    // only move shape if block movement is disabled and block shape is enabled
+    if (!myBlockMovement && myBlockShape) {
+        // restore original shape
+        myGeometry.shape = oldShape;
+        // change all points of the shape shape using offset
+        for (auto& i : myGeometry.shape) {
+            i.add(offset);
+        }
+        // update Geometry after moving
+        updateGeometry(true);
+    }
+}
+
+
+void 
+GNETAZ::commitShapeChange(const PositionVector& oldShape, GNEUndoList* undoList) {
+    if (!myBlockMovement) {
+        // disable current moving vertex
+        myCurrentMovingVertexIndex = -1;
+        // restore original shape into shapeToCommit
+        PositionVector shapeToCommit = myGeometry.shape;
+        // restore old shape in polygon (to avoid problems with RTree)
+        myGeometry.shape = oldShape;
+        // first check if double points has to be removed
+        shapeToCommit.removeDoublePoints(myHintSize);
+        if (shapeToCommit.size() != myGeometry.shape.size()) {
+            WRITE_WARNING("Merged shape's point")
+        }
+        // check if polygon has to be closed
+        if (shapeToCommit.size() > 1 && shapeToCommit.front().distanceTo2D(shapeToCommit.back()) < (2 * myHintSize)) {
+            shapeToCommit.pop_back();
+            shapeToCommit.push_back(shapeToCommit.front());
+        }
+        // commit new shape
+        undoList->p_begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + toString(getTag()));
+        undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(shapeToCommit)));
+        undoList->p_end();
+    }
+}
+
+
+int 
+GNETAZ::getVertexIndex(const Position& pos, bool createIfNoExist) {
+    // first check if vertex already exists
+    for (auto i : myGeometry.shape) {
+        if (i.distanceTo2D(pos) < myHintSize) {
+            return myGeometry.shape.indexOfClosest(i);
+        }
+    }
+    // if vertex doesn't exist, insert it
+    if (createIfNoExist && (myGeometry.shape.distance2D(pos) < myHintSize)) {
+        return myGeometry.shape.insertAtClosest(pos);
+    } else {
+        return -1;
+    }
+}
+
+
+void 
+GNETAZ::deleteGeometryPoint(const Position& pos, bool allowUndo) {
+    if (myGeometry.shape.size() > 2) {
+        // obtain index
+        PositionVector modifiedShape = myGeometry.shape;
+        int index = modifiedShape.indexOfClosest(pos);
+        // remove point dependending of
+        if ((index == 0 || index == (int)modifiedShape.size() - 1)) {
+            modifiedShape.erase(modifiedShape.begin());
+            modifiedShape.erase(modifiedShape.end() - 1);
+            modifiedShape.push_back(modifiedShape.front());
+        } else {
+            modifiedShape.erase(modifiedShape.begin() + index);
+        }
+        // set new shape depending of allowUndo
+        if (allowUndo) {
+            myViewNet->getUndoList()->p_begin("delete geometry point");
+            setAttribute(SUMO_ATTR_SHAPE, toString(modifiedShape), myViewNet->getUndoList());
+            myViewNet->getUndoList()->p_end();
+        } else {
+            // first remove object from grid due shape is used for boundary
+            myViewNet->getNet()->removeGLObjectFromGrid(this);
+            // set new shape
+            myGeometry.shape = modifiedShape;
+            // add object into grid again
+            myViewNet->getNet()->addGLObjectIntoGrid(this);
+        }
+    } else {
+        WRITE_WARNING("Number of remaining points insufficient")
+    }
+}
+
+
+bool 
+GNETAZ::isShapeBlocked() const {
+    return myBlockShape;
 }
 
 
@@ -167,20 +313,6 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
                     }
                     GLHelper::drawFilledCircle(myHintSize, circleResolution);
                     glPopMatrix();
-                    // draw special symbols (Start, End and Block)
-                    if ((i == myGeometry.shape.front()) && !s.drawForSelecting) {
-                        // draw a "s" over first point
-                        glPushMatrix();
-                        glTranslated(i.x(), i.y(), GLO_POLYGON + 0.03);
-                        GLHelper::drawText("S", Position(), .1, 2 * myHintSize, invertedColor);
-                        glPopMatrix();
-                    } else if ((i == myGeometry.shape.back()) && !s.drawForSelecting) {
-                        // draw a "e" over last point if polygon isn't closed
-                        glPushMatrix();
-                        glTranslated(i.x(), i.y(), GLO_POLYGON + 0.03);
-                        GLHelper::drawText("E", Position(), .1, 2 * myHintSize, invertedColor);
-                        glPopMatrix();
-                    }
                 }
             }
             // check if draw moving hint has to be drawed
@@ -213,6 +345,13 @@ GNETAZ::getAttribute(SumoXMLAttr key) const {
             return toString(myGeometry.shape);
         case SUMO_ATTR_COLOR:
             return toString(myColor);
+        case SUMO_ATTR_EDGES: {
+            std::string edges;
+            for (auto i : myAdditionalChilds) {
+                edges += i->getAttribute(SUMO_ATTR_ID);
+            }
+            return edges;
+        }
         case GNE_ATTR_BLOCK_MOVEMENT:
             return toString(myBlockMovement);
          case GNE_ATTR_BLOCK_SHAPE:
@@ -236,6 +375,7 @@ GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* und
         case SUMO_ATTR_ID:
         case SUMO_ATTR_SHAPE:
         case SUMO_ATTR_COLOR:
+        case SUMO_ATTR_EDGES:
         case GNE_ATTR_BLOCK_MOVEMENT:
         case GNE_ATTR_BLOCK_SHAPE:
         case GNE_ATTR_SELECTED:
@@ -257,6 +397,12 @@ GNETAZ::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<PositionVector>(value);
         case SUMO_ATTR_COLOR:
             return canParse<RGBColor>(value);
+        case SUMO_ATTR_EDGES:
+            if (value.empty()) {
+                return true;
+            } else {
+                return SUMOXMLDefinitions::isValidListOfTypeID(value);
+            }
         case GNE_ATTR_BLOCK_MOVEMENT:
             return canParse<bool>(value);
         case GNE_ATTR_BLOCK_SHAPE:
@@ -299,6 +445,8 @@ GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_COLOR:
             myColor = parse<RGBColor>(value);
+            break;
+        case SUMO_ATTR_EDGES:
             break;
         case GNE_ATTR_BLOCK_MOVEMENT:
             myBlockMovement = parse<bool>(value);

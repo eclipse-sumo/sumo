@@ -67,6 +67,7 @@
 #include <netedit/additionals/GNEPoly.h>
 #include <netedit/additionals/GNEAdditional.h>
 #include <netedit/additionals/GNERerouter.h>
+#include <netedit/additionals/GNETAZ.h>
 
 #include "GNEViewNet.h"
 #include "GNEApplicationWindow.h"
@@ -174,6 +175,7 @@ GNEViewNet::ObjectsUnderCursor::ObjectsUnderCursor():
     lane(nullptr),
     crossing(nullptr),
     connection(nullptr),
+    taz(nullptr),
     poi(nullptr),
     poly(nullptr) {}
 
@@ -192,6 +194,7 @@ GNEViewNet::ObjectsUnderCursor::updateObjectUnderCursor(GUIGlID glIDObject, GNEP
     lane = nullptr;
     crossing = nullptr;
     connection = nullptr;
+    taz = nullptr;
     poi = nullptr;
     poly = nullptr;
     // set event
@@ -236,6 +239,9 @@ GNEViewNet::ObjectsUnderCursor::updateObjectUnderCursor(GUIGlID glIDObject, GNEP
         } else if (tagValue.isShape()) {
             // cast shape element from attribute carrier
             shape = dynamic_cast<GNEShape*>(attributeCarrier);
+        } else if (tagValue.isTAZ()) {
+            // cast TAZ element from attribute carrier
+            taz = dynamic_cast<GNETAZ*>(attributeCarrier);
         } else {
             // element isn't specified, then stop
             return;
@@ -251,17 +257,17 @@ GNEViewNet::ObjectsUnderCursor::updateObjectUnderCursor(GUIGlID glIDObject, GNEP
             case GLO_LANE:
                 lane = dynamic_cast<GNELane*>(attributeCarrier);
                 break;
-            case GLO_POI:
-                poi = dynamic_cast<GNEPOI*>(attributeCarrier);
-                break;
-            case GLO_POLYGON:
-                poly = dynamic_cast<GNEPoly*>(attributeCarrier);
-                break;
             case GLO_CROSSING:
                 crossing = dynamic_cast<GNECrossing*>(attributeCarrier);
                 break;
             case GLO_CONNECTION:
                 connection = dynamic_cast<GNEConnection*>(attributeCarrier);
+                break;
+            case GLO_POI:
+                poi = dynamic_cast<GNEPOI*>(attributeCarrier);
+                break;
+            case GLO_POLYGON:
+                poly = dynamic_cast<GNEPoly*>(attributeCarrier);
                 break;
             default:
                 break;
@@ -902,6 +908,31 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                         // start additional geometry moving
                         myMovedItems.additionalToMove->startGeometryMoving();
                     }
+                } else if(myObjectsUnderCursor.taz) {
+                    // set TAZ to move
+                    myMovedItems.tazToMove = myObjectsUnderCursor.taz;
+                    // save original shape (needed for commit change)
+                    myMoveSingleElementValues.movingOriginalShape = myMovedItems.tazToMove->getShape();
+                    // save clicked position as moving original position
+                    myMoveSingleElementValues.movingOriginalPosition = getPositionInformation();
+                    // obtain index of vertex to move if shape isn't blocked
+                    if ((myMovedItems.tazToMove->isShapeBlocked() == false) && (myMovedItems.tazToMove->isAdditionalBlocked() == false)) {
+                        // check if we want to remove a Geometry Point
+                        if (myShiftKeyPressed) {
+                            // check if we're clicked over a Geometry Point
+                            myMoveSingleElementValues.movingIndexShape = myMovedItems.tazToMove->getVertexIndex(myMoveSingleElementValues.movingOriginalPosition, false);
+                            if (myMoveSingleElementValues.movingIndexShape != -1) {
+                                myMovedItems.tazToMove->deleteGeometryPoint(myMoveSingleElementValues.movingOriginalPosition);
+                                // after removing Geomtery Point, reset PolyToMove
+                                myMovedItems.tazToMove = nullptr;
+                            }
+                        } else {
+                            // obtain index of vertex to move and moving reference
+                            myMoveSingleElementValues.movingIndexShape = myMovedItems.tazToMove->getVertexIndex(myMoveSingleElementValues.movingOriginalPosition);
+                        }
+                    } else {
+                        myMoveSingleElementValues.movingIndexShape = -1;
+                    }
                 } else {
                     // process click
                     processClick(evt, eventData);
@@ -1130,6 +1161,9 @@ GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
         myMovedItems.additionalToMove->endGeometryMoving();
         myMovedItems.additionalToMove->commitGeometryMoving(myUndoList);
         myMovedItems.additionalToMove = nullptr;
+    } else if (myMovedItems.tazToMove) {
+        myMovedItems.tazToMove->commitShapeChange(myMoveSingleElementValues.movingOriginalShape, myUndoList);
+        myMovedItems.tazToMove = nullptr;
     } else if (mySelectingArea.selectingUsingRectangle) {
         bool shiftKeyPressed = ((FXEvent*)eventData)->state & SHIFTMASK;
         mySelectingArea.processSelection(this, shiftKeyPressed);
@@ -1204,9 +1238,16 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* eventData) {
             // move edge's geometry without commiting changes
             myMoveSingleElementValues.movingIndexShape = myMovedItems.edgeToMove->moveVertexShape(myMoveSingleElementValues.movingIndexShape, myMoveSingleElementValues.movingOriginalPosition, offsetMovement);
         }
-    } else if (myMovedItems.additionalToMove  && (myMovedItems.additionalToMove->isAdditionalBlocked() == false)) {
+    } else if (myMovedItems.additionalToMove && (myMovedItems.additionalToMove->isAdditionalBlocked() == false)) {
         // Move Additional geometry without commiting changes
         myMovedItems.additionalToMove->moveGeometry(getPositionInformation() - myMoveSingleElementValues.movingOriginalPosition);
+    } else if (myMovedItems.tazToMove) {
+        // move TAZ's geometry without commiting changes
+        if (myMovedItems.tazToMove->isShapeBlocked()) {
+            myMovedItems.tazToMove->moveEntireShape(myMoveSingleElementValues.movingOriginalShape, offsetMovement);
+        } else {
+            myMoveSingleElementValues.movingIndexShape = myMovedItems.tazToMove->moveVertexShape(myMoveSingleElementValues.movingIndexShape, myMoveSingleElementValues.movingOriginalPosition, offsetMovement);
+        }
     } else if (mySelectingArea.selectingUsingRectangle) {
         mySelectingArea.selectionCorner2 = getPositionInformation();
         setStatusBarText(mySelectingArea.reportDimensions());

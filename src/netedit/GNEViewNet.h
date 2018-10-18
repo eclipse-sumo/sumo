@@ -89,6 +89,7 @@ class GNENetElement;
 class GNECrossing;
 class GNEInternalLane;
 class GNEAttributeCarrier;
+class GNETAZ;
 
 // ===========================================================================
 // class definitions
@@ -156,6 +157,9 @@ public:
 
         /// @brief connection
         GNEConnection* connection;
+
+        /// @brief TAZ element (needed because uses a shape instead a position)
+        GNETAZ* taz;
 
         /// @brief POI
         GNEPOI* poi;
@@ -507,7 +511,8 @@ private:
             edgeToMove(nullptr),
             polyToMove(nullptr),
             poiToMove(nullptr),
-            additionalToMove(nullptr) {}
+            additionalToMove(nullptr),
+            tazToMove(nullptr) {}
 
         /// @brief the Junction to be moved.
         GNEJunction* junctionToMove;
@@ -518,11 +523,14 @@ private:
         /// @brief the poly of which geometry is being moved
         GNEPoly* polyToMove;
 
-        /// @brief the poi which is being moved
+        /// @brief the poi which position is being moved
         GNEPOI* poiToMove;
 
-        /// @brief the stoppingPlace element which shape is being moved
+        /// @brief the additional element which position is being moved
         GNEAdditional* additionalToMove;
+
+        /// @brief the TAZ element which their Shape is being moved (it's the only additional with a shape instead a position)
+        GNETAZ* tazToMove;
     };
 
     /// @brief struct used to group all variables related with movement of single elements
@@ -541,7 +549,6 @@ private:
 
         /// @brief Shape of elements before moving (needed for commmit shape changes)
         PositionVector movingOriginalShape;
-        PositionVector movingOriginalShape2;
 
         /// @brief bool to indicate that startPos are being moved
         bool movingStartPos;

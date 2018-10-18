@@ -58,6 +58,7 @@ StringBijection<GUIGlObjectType>::Entry GUIGlObject::GUIGlObjectTypeNamesInitial
     {"additional",          GLO_ADDITIONAL},
     {"busStop",             GLO_BUS_STOP},
     {"access",              GLO_ACCESS},
+    {"taz",                 GLO_TAZ},
     {"containerStop",       GLO_CONTAINER_STOP},
     {"chargingStation",     GLO_CHARGING_STATION},
     {"parkingArea",         GLO_PARKING_AREA},
