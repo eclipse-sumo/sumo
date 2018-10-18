@@ -1,0 +1,6 @@
+sumo_256 ICON DISCARDABLE "../data/logo/sumo-256x256x32.ico"
+sumo_128 ICON DISCARDABLE "../data/logo/sumo-128x128x32.ico"
+sumo_64 ICON DISCARDABLE "../data/logo/sumo-64x64x32.ico"
+sumo_48 ICON DISCARDABLE "../data/logo/sumo-48x48x32.ico"
+sumo_32 ICON DISCARDABLE "../data/logo/sumo-32x32x32.ico"
+sumo_16 ICON DISCARDABLE "../data/logo/sumo-16x16x32.ico"

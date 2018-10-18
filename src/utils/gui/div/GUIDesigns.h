@@ -175,7 +175,7 @@
 #define GUIDesignLabelIcon64x32Thicked      (FRAME_THICK | ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 94, 46, 2, 2, 2, 2
 
 /// @brief design for label with icon of 64x64 px
-#define GUIDesignLabelIcon64x64noSpacing    (LAYOUT_CENTER_Y | LAYOUT_CENTER_X | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT ), 0, 0, 64, 64, 0, 0, 0, 0
+#define GUIDesignLabelIcon64x64noSpacing    (LAYOUT_CENTER_Y | LAYOUT_CENTER_X ), 0, 0, 0, 0, 2, 2, 0, 0
 
 /// @brief label ticked filled extended over frame used for VClasses. can be used by icons of 64x32 pixels
 #define GUIDesignLabelIconExtendedx46Ticked (FRAME_THICK | ICON_BEFORE_TEXT | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, 46, 2, 2, 2, 2

@@ -28,8 +28,9 @@
 #include "GUIIcons.h"
 #include "GUIIconSubSys.h"
 
-#include "dlr.xpm"
-#include "sumo.xpm"
+#include "sumo_icon64.xpm"
+#include "sumo_icon16.xpm"
+#include "sumo_logo.xpm"
 
 #include "empty.xpm"
 #include "filesave.xpm"
@@ -113,7 +114,8 @@
 
 #include "undo.xpm"
 #include "redo.xpm"
-#include "netedit.xpm"
+#include "netedit_icon64.xpm"
+#include "netedit_icon16.xpm"
 #include "lock.xpm"
 #include "add.xpm"
 #include "remove.xpm"
@@ -231,9 +233,9 @@ GUIIconSubSys* GUIIconSubSys::myInstance = 0;
 
 GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     // build icons
-    myIcons[ICON_APP] = new FXXPMIcon(a, document_xpm);
-    myIcons[ICON_DLR] = new FXXPMIcon(a, dlr_xpm);
-    myIcons[ICON_SUMO] = new FXXPMIcon(a, sumo_xpm);
+    myIcons[ICON_SUMO] = new FXXPMIcon(a, sumo_icon64_xpm);
+    myIcons[ICON_SUMO_MINI] = new FXXPMIcon(a, sumo_icon16_xpm);
+    myIcons[ICON_SUMO_LOGO] = new FXXPMIcon(a, sumo_logo_xpm);
     myIcons[ICON_EMPTY] = new FXXPMIcon(a, empty_xpm);
     myIcons[ICON_OPEN_CONFIG] = new FXXPMIcon(a, fileopen_xpm);
     myIcons[ICON_OPEN_NET] = new FXXPMIcon(a, netopen_xpm);
@@ -320,7 +322,8 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
 
     myIcons[ICON_UNDO] = new FXXPMIcon(a, undo_xpm);
     myIcons[ICON_REDO] = new FXXPMIcon(a, redo_xpm);
-    myIcons[ICON_NETEDIT] = new FXXPMIcon(a, netedit_xpm);
+    myIcons[ICON_NETEDIT] = new FXXPMIcon(a, netedit_icon64_xpm);
+    myIcons[ICON_NETEDIT_MINI] = new FXXPMIcon(a, netedit_icon16_xpm);
     myIcons[ICON_LOCK] = new FXXPMIcon(a, lock_xpm);
     myIcons[ICON_ADD] = new FXXPMIcon(a, add_xpm);
     myIcons[ICON_REMOVE] = new FXXPMIcon(a, remove_xpm);

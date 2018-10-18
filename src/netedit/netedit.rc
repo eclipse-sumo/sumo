@@ -1,1 +1,6 @@
-0 ICON DISCARDABLE "netedit64.ico"
+netedit_16 ICON DISCARDABLE "../../data/logo/netedit-16x16x32.ico"
+netedit_256 ICON DISCARDABLE "../../data/logo/netedit-256x256x32.ico"
+netedit_128 ICON DISCARDABLE "../../data/logo/netedit-128x128x32.ico"
+netedit_64 ICON DISCARDABLE "../../data/logo/netedit-64x64x32.ico"
+netedit_48 ICON DISCARDABLE "../../data/logo/netedit-48x48x32.ico"
+netedit_32 ICON DISCARDABLE "../../data/logo/netedit-32x32x32.ico"

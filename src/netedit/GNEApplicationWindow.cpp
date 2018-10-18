@@ -588,7 +588,7 @@ GNEApplicationWindow::fillMenuBar() {
     new FXMenuSeparator(myEditMenu);
     new FXMenuCommand(myEditMenu,
                       "Open in SUMO GUI...\tCtrl+T\tOpens the SUMO GUI application with the current network.",
-                      GUIIconSubSys::getIcon(ICON_APP), this, MID_SUMOGUI);
+                      GUIIconSubSys::getIcon(ICON_SUMO_MINI), this, MID_SUMOGUI);
 
     // processing menu (trigger netbuild computations)
     myProcessingMenu = new FXMenuPane(this);

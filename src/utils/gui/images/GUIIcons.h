@@ -36,9 +36,9 @@
 enum GUIIcon {
     /// @name general Interface icons
     /// @{
-    ICON_APP = 0,
-    ICON_DLR,
     ICON_SUMO,
+    ICON_SUMO_MINI,
+    ICON_SUMO_LOGO,
     ICON_EMPTY,
     ICON_OPEN_CONFIG,
     ICON_OPEN_NET,
@@ -177,6 +177,7 @@ enum GUIIcon {
     ICON_UNDO,
     ICON_REDO,
     ICON_NETEDIT,
+    ICON_NETEDIT_MINI,
     ICON_LOCK,
     ICON_ADD,
     ICON_REMOVE,

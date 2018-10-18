@@ -38,13 +38,13 @@
 GUIDialog_AboutSUMO::GUIDialog_AboutSUMO(FXWindow* parent) :
     FXDialogBox(parent, "About Eclipse SUMO", GUIDesignDialogBox) {
     // set dialog icon
-    setIcon(GUIIconSubSys::getIcon(ICON_SUMO));
+    setIcon(GUIIconSubSys::getIcon(ICON_SUMO_MINI));
 
     // create frame for main info
     FXHorizontalFrame* mainInfoFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
 
     // SUMO Icon
-    new FXLabel(mainInfoFrame, "", GUIIconSubSys::getIcon(ICON_SUMO), GUIDesignLabelIcon64x64noSpacing);
+    new FXLabel(mainInfoFrame, "", GUIIconSubSys::getIcon(ICON_SUMO_LOGO), GUIDesignLabelIcon64x64noSpacing);
 
     // "SUMO <VERSION>"
     FXVerticalFrame* descriptionFrame = new FXVerticalFrame(mainInfoFrame, GUIDesignLabelAboutInfo);

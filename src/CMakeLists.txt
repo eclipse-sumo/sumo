@@ -51,7 +51,7 @@ if (FOX_FOUND)
             gui/GUITLLogicPhasesTrackerWindow.h gui/GUITLLogicPhasesTrackerWindow.cpp
             mesosim/MEVehicleControl.h mesosim/MEVehicleControl.cpp)
 
-    add_executable(sumo-gui version.h ${sumoguiexec} guisim.rc)
+    add_executable(sumo-gui version.h ${sumoguiexec} sumo-gui.rc)
     set_target_properties(sumo-gui PROPERTIES OUTPUT_NAME sumo-gui${BINARY_SUFFIX})
     set_target_properties(sumo-gui PROPERTIES OUTPUT_NAME_DEBUG sumo-gui${BINARY_SUFFIX}D)
     target_link_libraries(sumo-gui gui guinetload guisim gui_dialogs

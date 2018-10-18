@@ -273,7 +273,8 @@ GUIApplicationWindow::dependentBuild() {
 
     // start the simulation-thread (it will loop until the application ends deciding by itself whether to perform a step or not)
     myRunThread->start();
-    setIcon(GUIIconSubSys::getIcon(ICON_APP));
+    setIcon(GUIIconSubSys::getIcon(ICON_SUMO));
+    setMiniIcon(GUIIconSubSys::getIcon(ICON_SUMO_MINI));
 }
 
 
@@ -555,7 +556,7 @@ GUIApplicationWindow::fillMenuBar() {
     myHelpMenu = new FXMenuPane(this);
     new FXMenuTitle(myMenuBar, "&Help", NULL, myHelpMenu);
     new FXMenuCommand(myHelpMenu, "&Online Documentation\tF1\tOpen Online documentation", 0, this, MID_HELP);
-    new FXMenuCommand(myHelpMenu, "&About\tF2\tAbout sumo-gui", GUIIconSubSys::getIcon(ICON_APP),
+    new FXMenuCommand(myHelpMenu, "&About\tF2\tAbout sumo-gui", GUIIconSubSys::getIcon(ICON_SUMO_MINI),
                       this, MID_ABOUT);
 
     // initialize Ctrl hotkeys with Caps Lock enabled using decimal code (to avoid problems in Linux)
@@ -1588,7 +1589,7 @@ GUIApplicationWindow::openNewView(GUISUMOViewParent::ViewType vt) {
     std::string caption = "View #" + toString(myViewNumber++);
     FXuint opts = MDI_TRACKING;
     GUISUMOViewParent* w = new GUISUMOViewParent(myMDIClient, myMDIMenu, FXString(caption.c_str()),
-            this, GUIIconSubSys::getIcon(ICON_APP), opts, 10, 10, 300, 200);
+            this, GUIIconSubSys::getIcon(ICON_SUMO_MINI), opts, 10, 10, 300, 200);
     GUISUMOAbstractView* v = w->init(getBuildGLCanvas(), myRunThread->getNet(), vt);
     v->setApplicationSnapshots(&myRunThread->getSnapshots(), &myRunThread->getSnapshotsLock());
     if (oldView != 0) {
