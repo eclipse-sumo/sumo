@@ -19,6 +19,7 @@
         <xsd:attribute name="id" type="xsd:string" use="required"/>
         <xsd:attribute name="edges" type="xsd:string" use="optional"/>
         <xsd:attribute name="shape" type="shapeType" use="optional"/>
+        <xsd:attribute name="color" type="colorType" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="tazSubType">
