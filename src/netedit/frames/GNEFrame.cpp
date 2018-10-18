@@ -74,10 +74,18 @@ FXDEFMAP(GNEFrame::DrawingShape) DrawingShapeMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ABORTDRAWING,   GNEFrame::DrawingShape::onCmdAbortDrawing),
 };
 
+FXDEFMAP(GNEFrame::NeteditAttributes) NeteditAttributesMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_TEXT,     GNEFrame::NeteditAttributes::onCmdSetLength),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_BOOL,     GNEFrame::NeteditAttributes::onCmdSetBlocking),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_TYPE,               GNEFrame::NeteditAttributes::onCmdSelectReferencePoint),
+    FXMAPFUNC(SEL_COMMAND,  MID_HELP,                       GNEFrame::NeteditAttributes::onCmdHelp),
+};
+
 // Object implementation
 FXIMPLEMENT(GNEFrame::ACHierarchy,              FXGroupBox,     ACHierarchyMap,                 ARRAYNUMBER(ACHierarchyMap))
 FXIMPLEMENT(GNEFrame::GenericParametersEditor,  FXGroupBox,     GenericParametersEditorMap,     ARRAYNUMBER(GenericParametersEditorMap))
 FXIMPLEMENT(GNEFrame::DrawingShape,             FXGroupBox,     DrawingShapeMap,                ARRAYNUMBER(DrawingShapeMap))
+FXIMPLEMENT(GNEFrame::NeteditAttributes,          FXGroupBox,         NeteditAttributesMap,           ARRAYNUMBER(NeteditAttributesMap))
 
 
 // ===========================================================================
@@ -874,6 +882,246 @@ long
 GNEFrame::DrawingShape::onCmdAbortDrawing(FXObject*, FXSelector, void*) {
     abortDrawing();
     return 0;
+}
+
+// ---------------------------------------------------------------------------
+// GNEFrame::NeteditAttributes- methods
+// ---------------------------------------------------------------------------
+
+GNEFrame::NeteditAttributes::NeteditAttributes(GNEFrame* additionalFrameParent) :
+    FXGroupBox(additionalFrameParent->myContentFrame, "Netedit attributes", GUIDesignGroupBoxFrame),
+    myActualAdditionalReferencePoint(GNE_ADDITIONALREFERENCEPOINT_LEFT),
+    myAdditionalFrameParent(additionalFrameParent),
+    myCurrentLengthValid(true) {
+    // Create FXListBox for the reference points and fill it
+    myReferencePointMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
+    myReferencePointMatchBox->appendItem("reference left");
+    myReferencePointMatchBox->appendItem("reference right");
+    myReferencePointMatchBox->appendItem("reference center");
+    // Create Frame for Length Label and textField
+    FXHorizontalFrame* lengthFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    myLengthLabel = new FXLabel(lengthFrame, toString(SUMO_ATTR_LENGTH).c_str(), 0, GUIDesignLabelAttribute);
+    myLengthTextField = new FXTextField(lengthFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE_TEXT, GUIDesignTextField);
+    myLengthTextField->setText("10");
+    // Create Frame for block movement label and checkBox (By default disabled)
+    FXHorizontalFrame* blockMovement = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    myBlockLabel = new FXLabel(blockMovement, "block move", 0, GUIDesignLabelAttribute);
+    myBlockMovementCheckButton = new FXCheckButton(blockMovement, "false", this, MID_GNE_SET_ATTRIBUTE_BOOL, GUIDesignCheckButtonAttribute);
+    myBlockMovementCheckButton->setCheck(false);
+    // Create help button
+    helpReferencePoint = new FXButton(this, "Help", 0, this, MID_HELP, GUIDesignButtonRectangular);
+    // Set visible items
+    myReferencePointMatchBox->setNumVisible((int)myReferencePointMatchBox->getNumItems());
+}
+
+
+GNEFrame::NeteditAttributes::~NeteditAttributes() {}
+
+
+void
+GNEFrame::NeteditAttributes::showNeteditAttributesModul(const GNEAttributeCarrier::TagValues& tagValue) {
+    // we assume that frame will not be show
+    bool showFrame = false;
+    // check if block movement check button has to be show
+    if (tagValue.canBlockMovement()) {
+        myBlockLabel->show();
+        myBlockMovementCheckButton->show();
+        showFrame = true;
+    } else {
+        myBlockLabel->hide();
+        myBlockMovementCheckButton->hide();
+    }
+    // check if lenght text field has to be showed
+    if(tagValue.canMaskStartEndPos()) {
+        myLengthLabel->show();
+        myLengthTextField->show();
+        myReferencePointMatchBox->show();
+        showFrame = true;
+    } else {
+        myLengthLabel->hide();
+        myLengthTextField->hide();
+        myReferencePointMatchBox->hide();
+    }
+    // if at least one element is show, show modul
+    if(showFrame) {
+        show();
+    } else {
+        hide();
+    }
+}
+
+
+void
+GNEFrame::NeteditAttributes::hideNeteditAttributesModul() {
+    hide();
+}
+
+
+bool 
+GNEFrame::NeteditAttributes::getAttributesAndValues(std::map<SumoXMLAttr, std::string> &valuesMap, GNELane *lane) const {
+    // Save block value if additional can be blocked
+    if (myBlockMovementCheckButton->shown()) {
+        if(myBlockMovementCheckButton->getCheck() == 1) {
+            valuesMap[GNE_ATTR_BLOCK_MOVEMENT] = "true";
+        } else {
+            valuesMap[GNE_ATTR_BLOCK_MOVEMENT] = "false";
+        }
+    }
+    // check if we need to obtain a start and end position over an edge
+    if(myReferencePointMatchBox->shown()) {
+        // we need a valid lane to calculate position over lane
+        if(lane == nullptr) {
+            return false;
+        } else if (myCurrentLengthValid) {
+            // Obtain position of the mouse over lane (limited over grid)
+            double mousePositionOverLane = lane->getShape().nearest_offset_to_point2D(myAdditionalFrameParent->myViewNet->snapToActiveGrid(myAdditionalFrameParent->myViewNet->getPositionInformation())) / lane->getLengthGeometryFactor();
+            // check if current reference point is valid
+            if (myActualAdditionalReferencePoint == GNE_ADDITIONALREFERENCEPOINT_INVALID) {
+                std::string errorMessage = "Current selected reference point isn't valid";
+                myAdditionalFrameParent->myViewNet->setStatusBarText(errorMessage);
+                // Write Warning in console if we're in testing mode
+                WRITE_DEBUG(errorMessage);
+                return false;
+            } else {
+                // obtain lenght
+                double lenght = GNEAttributeCarrier::parse<double>(myLengthTextField->getText().text());
+                // set start and end position
+                valuesMap[SUMO_ATTR_STARTPOS] = toString(setStartPosition(mousePositionOverLane, lenght));
+                valuesMap[SUMO_ATTR_ENDPOS] = toString(setEndPosition(mousePositionOverLane, lenght));
+                return true;
+            }
+        } else {
+            return false;
+        }
+    }
+    // all ok, then return true to continue creating element
+    return true;
+}
+
+
+long
+GNEFrame::NeteditAttributes::onCmdSetLength(FXObject*, FXSelector, void*) {
+    // change color of text field depending of the input length
+    if (GNEAttributeCarrier::canParse<double>(myLengthTextField->getText().text()) &&
+            GNEAttributeCarrier::parse<double>(myLengthTextField->getText().text()) > 0) {
+        myLengthTextField->setTextColor(FXRGB(0, 0, 0));
+        myLengthTextField->killFocus();
+        myCurrentLengthValid = true;
+    } else {
+        myLengthTextField->setTextColor(FXRGB(255, 0, 0));
+        myCurrentLengthValid = false;
+    }
+    // Update aditional frame
+    update();
+    return 1;
+}
+
+
+long
+GNEFrame::NeteditAttributes::onCmdSelectReferencePoint(FXObject*, FXSelector, void*) {
+    // Cast actual reference point type
+    if (myReferencePointMatchBox->getText() == "reference left") {
+        myReferencePointMatchBox->setTextColor(FXRGB(0, 0, 0));
+        myActualAdditionalReferencePoint = GNE_ADDITIONALREFERENCEPOINT_LEFT;
+        myLengthTextField->enable();
+    } else if (myReferencePointMatchBox->getText() == "reference right") {
+        myReferencePointMatchBox->setTextColor(FXRGB(0, 0, 0));
+        myActualAdditionalReferencePoint = GNE_ADDITIONALREFERENCEPOINT_RIGHT;
+        myLengthTextField->enable();
+    } else if (myReferencePointMatchBox->getText() == "reference center") {
+        myLengthTextField->enable();
+        myReferencePointMatchBox->setTextColor(FXRGB(0, 0, 0));
+        myActualAdditionalReferencePoint = GNE_ADDITIONALREFERENCEPOINT_CENTER;
+        myLengthTextField->enable();
+    } else {
+        myReferencePointMatchBox->setTextColor(FXRGB(255, 0, 0));
+        myActualAdditionalReferencePoint = GNE_ADDITIONALREFERENCEPOINT_INVALID;
+        myLengthTextField->disable();
+    }
+    return 1;
+}
+
+
+long
+GNEFrame::NeteditAttributes::onCmdSetBlocking(FXObject*, FXSelector, void*) {
+    if (myBlockMovementCheckButton->getCheck()) {
+        myBlockMovementCheckButton->setText("true");
+    } else {
+        myBlockMovementCheckButton->setText("false");
+    }
+    return 1;
+}
+
+
+long
+GNEFrame::NeteditAttributes::onCmdHelp(FXObject*, FXSelector, void*) {
+    // Create dialog box
+    FXDialogBox* additionalNeteditAttributesHelpDialog = new FXDialogBox(this, "Netedit Parameters Help", GUIDesignDialogBox);
+    additionalNeteditAttributesHelpDialog->setIcon(GUIIconSubSys::getIcon(ICON_MODEADDITIONAL));
+    // set help text
+    std::ostringstream help;
+    help
+            << "- Referece point: Mark the initial position of the additional element.\n"
+            << "  Example: If you want to create a busStop with a length of 30 in the point 100 of the lane:\n"
+            << "  - Reference Left will create it with startPos = 70 and endPos = 100.\n"
+            << "  - Reference Right will create it with startPos = 100 and endPos = 130.\n"
+            << "  - Reference Center will create it with startPos = 85 and endPos = 115.\n"
+            << "\n"
+            << "- Block movement: if is enabled, the created additional element will be blocked. i.e. cannot be moved with\n"
+            << "  the mouse. This option can be modified inspecting element.";
+    // Create label with the help text
+    new FXLabel(additionalNeteditAttributesHelpDialog, help.str().c_str(), 0, GUIDesignLabelFrameInformation);
+    // Create horizontal separator
+    new FXHorizontalSeparator(additionalNeteditAttributesHelpDialog, GUIDesignHorizontalSeparator);
+    // Create frame for OK Button
+    FXHorizontalFrame* myHorizontalFrameOKButton = new FXHorizontalFrame(additionalNeteditAttributesHelpDialog, GUIDesignAuxiliarHorizontalFrame);
+    // Create Button Close (And two more horizontal frames to center it)
+    new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
+    new FXButton(myHorizontalFrameOKButton, "OK\t\tclose", GUIIconSubSys::getIcon(ICON_ACCEPT), additionalNeteditAttributesHelpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
+    new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
+    // Write Warning in console if we're in testing mode
+    WRITE_DEBUG("Opening NeteditAttributes help dialog");
+    // create Dialog
+    additionalNeteditAttributesHelpDialog->create();
+    // show in the given position
+    additionalNeteditAttributesHelpDialog->show(PLACEMENT_CURSOR);
+    // refresh APP
+    getApp()->refresh();
+    // open as modal dialog (will block all windows until stop() or stopModal() is called)
+    getApp()->runModalFor(additionalNeteditAttributesHelpDialog);
+    // Write Warning in console if we're in testing mode
+    WRITE_DEBUG("Closing NeteditAttributes help dialog");
+    return 1;
+}
+
+
+double
+GNEFrame::NeteditAttributes::setStartPosition(double positionOfTheMouseOverLane, double lengthOfAdditional) const {
+    switch (myActualAdditionalReferencePoint) {
+        case GNE_ADDITIONALREFERENCEPOINT_LEFT:
+            return positionOfTheMouseOverLane;
+        case GNE_ADDITIONALREFERENCEPOINT_RIGHT:
+            return positionOfTheMouseOverLane - lengthOfAdditional;
+        case GNE_ADDITIONALREFERENCEPOINT_CENTER:
+            return positionOfTheMouseOverLane - lengthOfAdditional / 2;
+        default:
+            throw InvalidArgument("Reference Point invalid");
+    }
+}
+
+
+double
+GNEFrame::NeteditAttributes::setEndPosition(double positionOfTheMouseOverLane, double lengthOfAdditional)  const{
+    switch (myActualAdditionalReferencePoint) {
+        case GNE_ADDITIONALREFERENCEPOINT_LEFT:
+            return positionOfTheMouseOverLane + lengthOfAdditional;
+        case GNE_ADDITIONALREFERENCEPOINT_RIGHT:
+            return positionOfTheMouseOverLane;
+        case GNE_ADDITIONALREFERENCEPOINT_CENTER:
+            return positionOfTheMouseOverLane + lengthOfAdditional / 2;
+        default:
+            throw InvalidArgument("Reference Point invalid");
+    }
 }
 
 // ---------------------------------------------------------------------------

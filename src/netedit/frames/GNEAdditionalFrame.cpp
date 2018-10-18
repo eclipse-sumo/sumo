@@ -70,13 +70,6 @@ FXDEFMAP(GNEAdditionalFrame::AdditionalAttributes) AdditionalAttributesMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HELP,   GNEAdditionalFrame::AdditionalAttributes::onCmdHelp),
 };
 
-FXDEFMAP(GNEAdditionalFrame::NeteditAttributes) NeteditAttributesMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_TEXT,     GNEAdditionalFrame::NeteditAttributes::onCmdSetLength),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_BOOL,     GNEAdditionalFrame::NeteditAttributes::onCmdSetBlocking),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_TYPE,               GNEAdditionalFrame::NeteditAttributes::onCmdSelectReferencePoint),
-    FXMAPFUNC(SEL_COMMAND,  MID_HELP,                       GNEAdditionalFrame::NeteditAttributes::onCmdHelp),
-};
-
 FXDEFMAP(GNEAdditionalFrame::SelectorLaneParents) ConsecutiveLaneSelectorMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_STOPSELECTION,  GNEAdditionalFrame::SelectorLaneParents::onCmdStopSelection),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_ABORTSELECTION, GNEAdditionalFrame::SelectorLaneParents::onCmdAbortSelection),
@@ -102,7 +95,6 @@ FXDEFMAP(GNEAdditionalFrame::SelectorLaneChilds) SelectorParentLanesMap[] = {
 FXIMPLEMENT(GNEAdditionalFrame::AdditionalSelector,         FXGroupBox,         SelectorAdditionalMap,          ARRAYNUMBER(SelectorAdditionalMap))
 FXIMPLEMENT(GNEAdditionalFrame::AdditionalAttributeSingle,  FXHorizontalFrame,  AdditionalAttributeSingleMap,   ARRAYNUMBER(AdditionalAttributeSingleMap))
 FXIMPLEMENT(GNEAdditionalFrame::AdditionalAttributes,       FXGroupBox,         AdditionalAttributesMap,        ARRAYNUMBER(AdditionalAttributesMap))
-FXIMPLEMENT(GNEAdditionalFrame::NeteditAttributes,          FXGroupBox,         NeteditAttributesMap,           ARRAYNUMBER(NeteditAttributesMap))
 FXIMPLEMENT(GNEAdditionalFrame::SelectorLaneParents,        FXGroupBox,         ConsecutiveLaneSelectorMap,     ARRAYNUMBER(ConsecutiveLaneSelectorMap))
 FXIMPLEMENT(GNEAdditionalFrame::SelectorEdgeChilds,         FXGroupBox,         SelectorParentEdgesMap,         ARRAYNUMBER(SelectorParentEdgesMap))
 FXIMPLEMENT(GNEAdditionalFrame::SelectorLaneChilds,         FXGroupBox,         SelectorParentLanesMap,         ARRAYNUMBER(SelectorParentLanesMap))
@@ -151,12 +143,8 @@ GNEAdditionalFrame::AdditionalSelector::setCurrentAdditional(SumoXMLTag actualAd
     if (myCurrentAdditionalType != SUMO_TAG_NOTHING) {
         // obtain tag property (only for improve code legibility)
         const auto& tagValue = GNEAttributeCarrier::getTagProperties(myCurrentAdditionalType);
-        // first check if additional can block movement or mask the start/end position, then show neteditParameters
-        if (tagValue.canBlockMovement() || tagValue.canMaskStartEndPos()) {
-            myAdditionalFrameParent->myNeteditAttributes->showNeteditAttributesModul(tagValue.canMaskStartEndPos());
-        } else {
-            myAdditionalFrameParent->myNeteditAttributes->hideNeteditAttributesModul();
-        }
+        // show NeteeditAttributes
+        myAdditionalFrameParent->myNeteditAttributes->showNeteditAttributesModul(tagValue);
         // Clear internal attributes
         myAdditionalFrameParent->myAdditionalAttributes->clearAttributes();
         // iterate over attributes of myCurrentAdditionalType
@@ -761,214 +749,6 @@ GNEAdditionalFrame::SelectorLaneParents::isLaneSelected(GNELane *lane) const {
 }
 
 // ---------------------------------------------------------------------------
-// GNEAdditionalFrame::NeteditAttributes- methods
-// ---------------------------------------------------------------------------
-
-GNEAdditionalFrame::NeteditAttributes::NeteditAttributes(GNEAdditionalFrame* additionalFrameParent) :
-    FXGroupBox(additionalFrameParent->myContentFrame, "Netedit attributes", GUIDesignGroupBoxFrame),
-    myActualAdditionalReferencePoint(GNE_ADDITIONALREFERENCEPOINT_LEFT),
-    myAdditionalFrameParent(additionalFrameParent),
-    myCurrentLengthValid(true) {
-    // Create FXListBox for the reference points and fill it
-    myReferencePointMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
-    myReferencePointMatchBox->appendItem("reference left");
-    myReferencePointMatchBox->appendItem("reference right");
-    myReferencePointMatchBox->appendItem("reference center");
-    // Create Frame for Length Label and textField
-    FXHorizontalFrame* lengthFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    myLengthLabel = new FXLabel(lengthFrame, toString(SUMO_ATTR_LENGTH).c_str(), nullptr, GUIDesignLabelAttribute);
-    myLengthTextField = new FXTextField(lengthFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE_TEXT, GUIDesignTextField);
-    myLengthTextField->setText("10");
-    // Create Frame for block movement label and checkBox (By default disabled)
-    FXHorizontalFrame* blockMovement = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    myBlockLabel = new FXLabel(blockMovement, "block move", nullptr, GUIDesignLabelAttribute);
-    myBlockMovementCheckButton = new FXCheckButton(blockMovement, "false", this, MID_GNE_SET_ATTRIBUTE_BOOL, GUIDesignCheckButtonAttribute);
-    myBlockMovementCheckButton->setCheck(false);
-    // Create help button
-    helpReferencePoint = new FXButton(this, "Help", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
-    // Set visible items
-    myReferencePointMatchBox->setNumVisible((int)myReferencePointMatchBox->getNumItems());
-}
-
-
-GNEAdditionalFrame::NeteditAttributes::~NeteditAttributes() {}
-
-
-void
-GNEAdditionalFrame::NeteditAttributes::showNeteditAttributesModul(bool includeLengthAndReferencePoint) {
-    show();
-    if (includeLengthAndReferencePoint) {
-        myLengthLabel->show();
-        myLengthTextField->show();
-        myReferencePointMatchBox->show();
-    } else {
-        myLengthLabel->hide();
-        myLengthTextField->hide();
-        myReferencePointMatchBox->hide();
-    }
-}
-
-
-void
-GNEAdditionalFrame::NeteditAttributes::hideNeteditAttributesModul() {
-    hide();
-}
-
-
-bool 
-GNEAdditionalFrame::NeteditAttributes::getAttributesAndValues(std::map<SumoXMLAttr, std::string> &valuesMap, double mousePositionOverLane) const {
-    // First check that current length is valid
-    if (myCurrentLengthValid) {
-        // check if current reference point is valid
-        if (myActualAdditionalReferencePoint == GNE_ADDITIONALREFERENCEPOINT_INVALID) {
-            myAdditionalFrameParent->myAdditionalAttributes->showWarningMessage("Current selected reference point isn't valid");
-            return false;
-        } else {
-            // obtain lenght
-            double lenght = GNEAttributeCarrier::parse<double>(myLengthTextField->getText().text());
-            // set start and end position
-            valuesMap[SUMO_ATTR_STARTPOS] = toString(setStartPosition(mousePositionOverLane, lenght));
-            valuesMap[SUMO_ATTR_ENDPOS] = toString(setEndPosition(mousePositionOverLane, lenght));
-            return true;
-        }
-    } else {
-        return false;
-    }
-}
-
-
-bool
-GNEAdditionalFrame::NeteditAttributes::isBlockEnabled() const {
-    return myBlockMovementCheckButton->getCheck() == 1 ? true : false;
-}
-
-
-long
-GNEAdditionalFrame::NeteditAttributes::onCmdSetLength(FXObject*, FXSelector, void*) {
-    // change color of text field depending of the input length
-    if (GNEAttributeCarrier::canParse<double>(myLengthTextField->getText().text()) &&
-            GNEAttributeCarrier::parse<double>(myLengthTextField->getText().text()) > 0) {
-        myLengthTextField->setTextColor(FXRGB(0, 0, 0));
-        myLengthTextField->killFocus();
-        myCurrentLengthValid = true;
-    } else {
-        myLengthTextField->setTextColor(FXRGB(255, 0, 0));
-        myCurrentLengthValid = false;
-    }
-    // Update aditional frame
-    update();
-    return 1;
-}
-
-
-long
-GNEAdditionalFrame::NeteditAttributes::onCmdSelectReferencePoint(FXObject*, FXSelector, void*) {
-    // Cast actual reference point type
-    if (myReferencePointMatchBox->getText() == "reference left") {
-        myReferencePointMatchBox->setTextColor(FXRGB(0, 0, 0));
-        myActualAdditionalReferencePoint = GNE_ADDITIONALREFERENCEPOINT_LEFT;
-        myLengthTextField->enable();
-    } else if (myReferencePointMatchBox->getText() == "reference right") {
-        myReferencePointMatchBox->setTextColor(FXRGB(0, 0, 0));
-        myActualAdditionalReferencePoint = GNE_ADDITIONALREFERENCEPOINT_RIGHT;
-        myLengthTextField->enable();
-    } else if (myReferencePointMatchBox->getText() == "reference center") {
-        myLengthTextField->enable();
-        myReferencePointMatchBox->setTextColor(FXRGB(0, 0, 0));
-        myActualAdditionalReferencePoint = GNE_ADDITIONALREFERENCEPOINT_CENTER;
-        myLengthTextField->enable();
-    } else {
-        myReferencePointMatchBox->setTextColor(FXRGB(255, 0, 0));
-        myActualAdditionalReferencePoint = GNE_ADDITIONALREFERENCEPOINT_INVALID;
-        myLengthTextField->disable();
-    }
-    return 1;
-}
-
-
-long
-GNEAdditionalFrame::NeteditAttributes::onCmdSetBlocking(FXObject*, FXSelector, void*) {
-    if (myBlockMovementCheckButton->getCheck()) {
-        myBlockMovementCheckButton->setText("true");
-    } else {
-        myBlockMovementCheckButton->setText("false");
-    }
-    return 1;
-}
-
-
-long
-GNEAdditionalFrame::NeteditAttributes::onCmdHelp(FXObject*, FXSelector, void*) {
-    // Create dialog box
-    FXDialogBox* additionalNeteditAttributesHelpDialog = new FXDialogBox(this, "Netedit Parameters Help", GUIDesignDialogBox);
-    additionalNeteditAttributesHelpDialog->setIcon(GUIIconSubSys::getIcon(ICON_MODEADDITIONAL));
-    // set help text
-    std::ostringstream help;
-    help
-            << "- Referece point: Mark the initial position of the additional element.\n"
-            << "  Example: If you want to create a busStop with a length of 30 in the point 100 of the lane:\n"
-            << "  - Reference Left will create it with startPos = 70 and endPos = 100.\n"
-            << "  - Reference Right will create it with startPos = 100 and endPos = 130.\n"
-            << "  - Reference Center will create it with startPos = 85 and endPos = 115.\n"
-            << "\n"
-            << "- Block movement: if is enabled, the created additional element will be blocked. i.e. cannot be moved with\n"
-            << "  the mouse. This option can be modified inspecting element.";
-    // Create label with the help text
-    new FXLabel(additionalNeteditAttributesHelpDialog, help.str().c_str(), nullptr, GUIDesignLabelFrameInformation);
-    // Create horizontal separator
-    new FXHorizontalSeparator(additionalNeteditAttributesHelpDialog, GUIDesignHorizontalSeparator);
-    // Create frame for OK Button
-    FXHorizontalFrame* myHorizontalFrameOKButton = new FXHorizontalFrame(additionalNeteditAttributesHelpDialog, GUIDesignAuxiliarHorizontalFrame);
-    // Create Button Close (And two more horizontal frames to center it)
-    new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
-    new FXButton(myHorizontalFrameOKButton, "OK\t\tclose", GUIIconSubSys::getIcon(ICON_ACCEPT), additionalNeteditAttributesHelpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
-    new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
-    // Write Warning in console if we're in testing mode
-    WRITE_DEBUG("Opening NeteditAttributes help dialog");
-    // create Dialog
-    additionalNeteditAttributesHelpDialog->create();
-    // show in the given position
-    additionalNeteditAttributesHelpDialog->show(PLACEMENT_CURSOR);
-    // refresh APP
-    getApp()->refresh();
-    // open as modal dialog (will block all windows until stop() or stopModal() is called)
-    getApp()->runModalFor(additionalNeteditAttributesHelpDialog);
-    // Write Warning in console if we're in testing mode
-    WRITE_DEBUG("Closing NeteditAttributes help dialog");
-    return 1;
-}
-
-
-double
-GNEAdditionalFrame::NeteditAttributes::setStartPosition(double positionOfTheMouseOverLane, double lengthOfAdditional) const {
-    switch (myActualAdditionalReferencePoint) {
-        case GNE_ADDITIONALREFERENCEPOINT_LEFT:
-            return positionOfTheMouseOverLane;
-        case GNE_ADDITIONALREFERENCEPOINT_RIGHT:
-            return positionOfTheMouseOverLane - lengthOfAdditional;
-        case GNE_ADDITIONALREFERENCEPOINT_CENTER:
-            return positionOfTheMouseOverLane - lengthOfAdditional / 2;
-        default:
-            throw InvalidArgument("Reference Point invalid");
-    }
-}
-
-
-double
-GNEAdditionalFrame::NeteditAttributes::setEndPosition(double positionOfTheMouseOverLane, double lengthOfAdditional)  const{
-    switch (myActualAdditionalReferencePoint) {
-        case GNE_ADDITIONALREFERENCEPOINT_LEFT:
-            return positionOfTheMouseOverLane + lengthOfAdditional;
-        case GNE_ADDITIONALREFERENCEPOINT_RIGHT:
-            return positionOfTheMouseOverLane;
-        case GNE_ADDITIONALREFERENCEPOINT_CENTER:
-            return positionOfTheMouseOverLane + lengthOfAdditional / 2;
-        default:
-            throw InvalidArgument("Reference Point invalid");
-    }
-}
-
-// ---------------------------------------------------------------------------
 // GNEAdditionalFrame::SelectorAdditionalParent - methods
 // ---------------------------------------------------------------------------
 
@@ -1360,25 +1140,25 @@ GNEAdditionalFrame::GNEAdditionalFrame(FXHorizontalFrame* horizontalFrameParent,
     GNEFrame(horizontalFrameParent, viewNet, "Additionals") {
 
     // create Additional Selector
-    myAdditionalSelector = new GNEAdditionalFrame::AdditionalSelector(this);
+    myAdditionalSelector = new AdditionalSelector(this);
 
     // Create additional parameters
-    myAdditionalAttributes = new GNEAdditionalFrame::AdditionalAttributes(this);
+    myAdditionalAttributes = new AdditionalAttributes(this);
 
     // Create Netedit parameter
-    myNeteditAttributes = new GNEAdditionalFrame::NeteditAttributes(this);
+    myNeteditAttributes = new NeteditAttributes(this);
 
     // Create consecutive Lane Selector
-    mySelectorLaneParents = new GNEAdditionalFrame::SelectorLaneParents(this);
+    mySelectorLaneParents = new SelectorLaneParents(this);
 
     // Create create list for additional Set
-    mySelectorAdditionalParent = new GNEAdditionalFrame::SelectorAdditionalParent(this);
+    mySelectorAdditionalParent = new SelectorAdditionalParent(this);
 
     /// Create list for SelectorEdgeChilds
-    mySelectorEdgeChilds = new GNEAdditionalFrame::SelectorEdgeChilds(this);
+    mySelectorEdgeChilds = new SelectorEdgeChilds(this);
 
     /// Create list for SelectorLaneChilds
-    mySelectorLaneChilds = new GNEAdditionalFrame::SelectorLaneChilds(this);
+    mySelectorLaneChilds = new SelectorLaneChilds(this);
 
     // set BusStop as default additional
     myAdditionalSelector->setCurrentAdditional(SUMO_TAG_BUS_STOP);
@@ -1405,13 +1185,18 @@ GNEAdditionalFrame::addAdditional(const GNEViewNet::ObjectsUnderCursor &objectsU
     // fill valuesOfElement with attributes from Frame
     myAdditionalAttributes->getAttributesAndValues(valuesMap);
 
+    // fill netedit attributes
+    if(!myNeteditAttributes->getAttributesAndValues(valuesMap, objectsUnderCursor.lane)) {
+        return false;
+    }
+
     // If element owns an additional parent, get id of parent from AdditionalParentSelector
     if (tagValues.hasParent() && !buildAdditionalWithParent(valuesMap, objectsUnderCursor.additional, tagValues)) {
         return false;
     }
     // If consecutive Lane Selector is enabled, it means that either we're selecting lanes or we're finished or we'rent started
     if(tagValues.canBePlacedOverEdge()) {
-        return buildAdditionalOverEdge(valuesMap, &objectsUnderCursor.lane->getParentEdge(), tagValues);
+        return buildAdditionalOverEdge(valuesMap, objectsUnderCursor.lane, tagValues);
     } else if(tagValues.canBePlacedOverLane()) {
         return buildAdditionalOverLane(valuesMap, objectsUnderCursor.lane, tagValues);
     } else if(tagValues.canBePlacedOverLanes()) {
@@ -1492,10 +1277,6 @@ GNEAdditionalFrame::buildAdditionalWithParent(std::map<SumoXMLAttr, std::string>
 
 bool 
 GNEAdditionalFrame::buildAdditionalCommonAttributes(std::map<SumoXMLAttr, std::string> &valuesMap, const GNEAttributeCarrier::TagValues &tagValues) {
-    // Save block value if additional can be blocked
-    if (tagValues.canBlockMovement()) {
-        valuesMap[GNE_ATTR_BLOCK_MOVEMENT] = toString(myNeteditAttributes->isBlockEnabled());
-    }
     // If additional has a interval defined by a begin or end, check that is valid
     if (tagValues.hasAttribute(SUMO_ATTR_STARTTIME) && tagValues.hasAttribute(SUMO_ATTR_END)) {
         double begin = GNEAttributeCarrier::parse<double>(valuesMap[SUMO_ATTR_STARTTIME]);
@@ -1538,13 +1319,13 @@ GNEAdditionalFrame::buildAdditionalCommonAttributes(std::map<SumoXMLAttr, std::s
 
 
 bool 
-GNEAdditionalFrame::buildAdditionalOverEdge(std::map<SumoXMLAttr, std::string> &valuesMap, GNEEdge* edge, const GNEAttributeCarrier::TagValues &tagValues) {
+GNEAdditionalFrame::buildAdditionalOverEdge(std::map<SumoXMLAttr, std::string> &valuesMap, GNELane* lane, const GNEAttributeCarrier::TagValues &tagValues) {
     // check that edge exist
-    if (edge) {
+    if (lane) {
         // Get attribute lane's edge
-        valuesMap[SUMO_ATTR_EDGE] = edge->getID();
+        valuesMap[SUMO_ATTR_EDGE] = lane->getParentEdge().getID();
         // Generate id of element based on the lane's edge
-        valuesMap[SUMO_ATTR_ID] = generateID(edge);
+        valuesMap[SUMO_ATTR_ID] = generateID(&lane->getParentEdge());
     } else {
         return false;
     }
@@ -1582,14 +1363,8 @@ GNEAdditionalFrame::buildAdditionalOverLane(std::map<SumoXMLAttr, std::string> &
     }
     // Obtain position of the mouse over lane (limited over grid)
     double mousePositionOverLane = lane->getShape().nearest_offset_to_point2D(myViewNet->snapToActiveGrid(myViewNet->getPositionInformation())) / lane->getLengthGeometryFactor();
-    // If element has a StartPosition and EndPosition over lane, extract attributes
-    if (tagValues.canMaskStartEndPos()) {
-        // check that masked start and end position is valid
-        if(!myNeteditAttributes->getAttributesAndValues(valuesMap, mousePositionOverLane)) {
-            return false;
-        }
-    } else if (tagValues.hasAttribute(SUMO_ATTR_POSITION) && (valuesMap.find(SUMO_ATTR_POSITION) == valuesMap.end())) {
-        // Obtain position attribute if wasn't previously set in Frame
+    // Obtain position attribute if wasn't previously set in Frame
+    if (tagValues.hasAttribute(SUMO_ATTR_POSITION) && (valuesMap.find(SUMO_ATTR_POSITION) == valuesMap.end())) {
         valuesMap[SUMO_ATTR_POSITION] = toString(mousePositionOverLane);
     }
     // parse common attributes

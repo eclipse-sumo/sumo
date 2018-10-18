@@ -205,95 +205,6 @@ public:
     };
 
     // ===========================================================================
-    // class NeteditAttributes
-    // ===========================================================================
-
-    class NeteditAttributes : protected FXGroupBox {
-        /// @brief FOX-declaration
-        FXDECLARE(GNEAdditionalFrame::NeteditAttributes)
-
-    public:
-        /// @brief constructor
-        NeteditAttributes(GNEAdditionalFrame* additionalFrameParent);
-
-        /// @brief destructor
-        ~NeteditAttributes();
-
-        /// @brief show Netedit attributes modul
-        void showNeteditAttributesModul(bool includeLengthAndReferencePoint);
-
-        /// @brief hide Netedit attributes modul
-        void hideNeteditAttributesModul();
-
-        /// @brief get attributes and their values into valuesMap
-        bool getAttributesAndValues(std::map<SumoXMLAttr, std::string> &valuesMap, double mousePositionOverLane) const;
-
-        /// @brief check if block is enabled
-        bool isBlockEnabled() const;
-
-        /// @name FOX-callbacks
-        /// @{
-        /// @brief Called when user enters a new length
-        long onCmdSetLength(FXObject*, FXSelector, void*);
-
-        /// @brief Called when user enters another reference point
-        long onCmdSelectReferencePoint(FXObject*, FXSelector, void*);
-
-        /// @brief Called when user changes the checkbox "set blocking"
-        long onCmdSetBlocking(FXObject*, FXSelector, void*);
-
-        /// @brief Called when user press the help button
-        long onCmdHelp(FXObject*, FXSelector, void*);
-        /// @}
-
-    protected:
-        /// @brief FOX needs this
-        NeteditAttributes() {}
-
-    private:
-        /// @brief list of the reference points
-        enum additionalReferencePoint {
-            GNE_ADDITIONALREFERENCEPOINT_LEFT,
-            GNE_ADDITIONALREFERENCEPOINT_RIGHT,
-            GNE_ADDITIONALREFERENCEPOINT_CENTER,
-            GNE_ADDITIONALREFERENCEPOINT_INVALID
-        };
-
-        /// @brief obtain the Start position values of StoppingPlaces and E2 detector over the lane
-        double setStartPosition(double positionOfTheMouseOverLane, double lengthOfAdditional) const;
-
-        /// @brief obtain the End position values of StoppingPlaces and E2 detector over the lane
-        double setEndPosition(double positionOfTheMouseOverLane, double lengthOfAdditional) const;
-
-        /// @brief pointer to additional frame parent
-        GNEAdditionalFrame* myAdditionalFrameParent;
-
-        /// @brief match box with the list of reference points
-        FXComboBox* myReferencePointMatchBox;
-
-        /// @brief Button for help about the reference point
-        FXButton* helpReferencePoint;
-
-        /// @brief actual additional reference point selected in the match Box
-        additionalReferencePoint myActualAdditionalReferencePoint;
-
-        /// @brief Label for length
-        FXLabel* myLengthLabel;
-
-        /// @brief textField for length
-        FXTextField* myLengthTextField;
-
-        /// @brief Label for block movement
-        FXLabel* myBlockLabel;
-
-        /// @brief checkBox for block movement
-        FXCheckButton* myBlockMovementCheckButton;
-
-        /// @brief Flag to check if current length is valid
-        bool myCurrentLengthValid;
-    };
-
-    // ===========================================================================
     // class SelectorLaneParents
     // ===========================================================================
 
@@ -594,8 +505,8 @@ private:
     /// @brief build additional with Parent
     bool buildAdditionalWithParent(std::map<SumoXMLAttr, std::string> &valuesMap, GNEAdditional* parent, const GNEAttributeCarrier::TagValues &tagValues);
 
-    /// @brief build additional over an edge
-    bool buildAdditionalOverEdge(std::map<SumoXMLAttr, std::string> &valuesMap, GNEEdge* edge, const GNEAttributeCarrier::TagValues &tagValues);
+    /// @brief build additional over an edge (parent of lane)
+    bool buildAdditionalOverEdge(std::map<SumoXMLAttr, std::string> &valuesMap, GNELane* lane, const GNEAttributeCarrier::TagValues &tagValues);
 
     /// @brief build additional over a single lane
     bool buildAdditionalOverLane(std::map<SumoXMLAttr, std::string> &valuesMap, GNELane* lane, const GNEAttributeCarrier::TagValues &tagValues);
@@ -607,25 +518,25 @@ private:
     bool buildAdditionalOverView(std::map<SumoXMLAttr, std::string> &valuesMap, const GNEAttributeCarrier::TagValues &tagValues);
 
     /// @brief additional selector
-    GNEAdditionalFrame::AdditionalSelector* myAdditionalSelector;
+    AdditionalSelector* myAdditionalSelector;
 
     /// @brief additional internal attributes
-    GNEAdditionalFrame::AdditionalAttributes* myAdditionalAttributes;
+    AdditionalAttributes* myAdditionalAttributes;
 
     /// @brief Netedit parameter
-    GNEAdditionalFrame::NeteditAttributes* myNeteditAttributes;
+    NeteditAttributes* myNeteditAttributes;
     
     /// @brief Modul for select lane parents (currently only consecutives)
-    GNEAdditionalFrame::SelectorLaneParents* mySelectorLaneParents;
+    SelectorLaneParents* mySelectorLaneParents;
 
     /// @brief Modul for select a single additional parent (Used only for first Additional parent)
-    GNEAdditionalFrame::SelectorAdditionalParent* mySelectorAdditionalParent;
+    SelectorAdditionalParent* mySelectorAdditionalParent;
 
     /// @brief Modul for select edge childs
-    GNEAdditionalFrame::SelectorEdgeChilds* mySelectorEdgeChilds;
+    SelectorEdgeChilds* mySelectorEdgeChilds;
 
     /// @brief Modul for select lane childs
-    GNEAdditionalFrame::SelectorLaneChilds* mySelectorLaneChilds;
+    SelectorLaneChilds* mySelectorLaneChilds;
 };
 
 

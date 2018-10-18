@@ -273,6 +273,92 @@ public:
         FXLabel* myInformationLabel;
     };
 
+    // ===========================================================================
+    // class NeteditAttributes
+    // ===========================================================================
+
+    class NeteditAttributes : protected FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEFrame::NeteditAttributes)
+
+    public:
+        /// @brief constructor
+        NeteditAttributes(GNEFrame* additionalFrameParent);
+
+        /// @brief destructor
+        ~NeteditAttributes();
+
+        /// @brief show Netedit attributes modul
+        void showNeteditAttributesModul(const GNEAttributeCarrier::TagValues& tagValue);
+
+        /// @brief hide Netedit attributes modul
+        void hideNeteditAttributesModul();
+
+        /// @brief fill valuesMap with netedit attributes
+        bool getAttributesAndValues(std::map<SumoXMLAttr, std::string> &valuesMap, GNELane *lane) const;
+
+        /// @name FOX-callbacks
+        /// @{
+        /// @brief Called when user enters a new length
+        long onCmdSetLength(FXObject*, FXSelector, void*);
+
+        /// @brief Called when user enters another reference point
+        long onCmdSelectReferencePoint(FXObject*, FXSelector, void*);
+
+        /// @brief Called when user changes the checkbox "set blocking"
+        long onCmdSetBlocking(FXObject*, FXSelector, void*);
+
+        /// @brief Called when user press the help button
+        long onCmdHelp(FXObject*, FXSelector, void*);
+        /// @}
+
+    protected:
+        /// @brief FOX needs this
+        NeteditAttributes() {}
+
+    private:
+        /// @brief list of the reference points
+        enum additionalReferencePoint {
+            GNE_ADDITIONALREFERENCEPOINT_LEFT,
+            GNE_ADDITIONALREFERENCEPOINT_RIGHT,
+            GNE_ADDITIONALREFERENCEPOINT_CENTER,
+            GNE_ADDITIONALREFERENCEPOINT_INVALID
+        };
+
+        /// @brief obtain the Start position values of StoppingPlaces and E2 detector over the lane
+        double setStartPosition(double positionOfTheMouseOverLane, double lengthOfAdditional) const;
+
+        /// @brief obtain the End position values of StoppingPlaces and E2 detector over the lane
+        double setEndPosition(double positionOfTheMouseOverLane, double lengthOfAdditional) const;
+
+        /// @brief pointer to additional frame parent
+        GNEFrame* myAdditionalFrameParent;
+
+        /// @brief match box with the list of reference points
+        FXComboBox* myReferencePointMatchBox;
+
+        /// @brief Button for help about the reference point
+        FXButton* helpReferencePoint;
+
+        /// @brief actual additional reference point selected in the match Box
+        additionalReferencePoint myActualAdditionalReferencePoint;
+
+        /// @brief Label for length
+        FXLabel* myLengthLabel;
+
+        /// @brief textField for length
+        FXTextField* myLengthTextField;
+
+        /// @brief Label for block movement
+        FXLabel* myBlockLabel;
+
+        /// @brief checkBox for block movement
+        FXCheckButton* myBlockMovementCheckButton;
+
+        /// @brief Flag to check if current length is valid
+        bool myCurrentLengthValid;
+    };
+
     /**@brief Constructor
      * @brief parent FXHorizontalFrame in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
