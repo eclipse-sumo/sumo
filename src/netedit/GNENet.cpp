@@ -127,8 +127,13 @@ GNENet::GNENet(NBNetBuilder* netBuilder) :
     if (myZBoundary.ymin() != Z_INITIALIZED) {
         myZBoundary.add(0, 0);
     }
-    // fill additionals with tags
+
+    // fill additionals with tags (note: this include the TAZS)
     auto listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TAGProperty::TAGPROPERTY_ADDITIONAL, false);
+    for (auto i : listOfTags) {
+        myAttributeCarriers.additionals.insert(std::make_pair(i, std::map<std::string, GNEAdditional*>()));
+    }
+    listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TAGProperty::TAGPROPERTY_TAZ, false);
     for (auto i : listOfTags) {
         myAttributeCarriers.additionals.insert(std::make_pair(i, std::map<std::string, GNEAdditional*>()));
     }

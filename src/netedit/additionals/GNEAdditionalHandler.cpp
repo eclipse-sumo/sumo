@@ -1470,6 +1470,15 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, S
             }
             return nullptr;
         }
+        case SUMO_TAG_TAZ: {
+            // obtain specify attributes of vaporizer
+            std::string id = values[SUMO_ATTR_ID];
+            PositionVector shape = GNEAttributeCarrier::parse<PositionVector>(values[SUMO_ATTR_SHAPE]);
+            RGBColor color = GNEAttributeCarrier::parse<RGBColor>(values[SUMO_ATTR_COLOR]);
+            bool blockMovement = GNEAttributeCarrier::parse<bool>(values[GNE_ATTR_BLOCK_MOVEMENT]);
+            // Build TAZ
+            return buildTAZ(viewNet, allowUndoRedo, id, shape, color, blockMovement);
+        }
         default:
             return nullptr;
     }

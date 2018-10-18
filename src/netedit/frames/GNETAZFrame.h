@@ -200,6 +200,9 @@ public:
         /// @brief check if current parameters are valid
         bool isCurrentParametersValid() const;
 
+        /// @brief get a map with attributes and their values
+        std::map<SumoXMLAttr, std::string> getAttributesAndValues() const;
+
         /// @name FOX-callbacks
         /// @{
         /// @brief Called when user set a value
@@ -296,6 +299,13 @@ public:
 
     /// @brief get drawing mode editor
     DrawingShape* getDrawingShape() const;
+
+protected:
+    /**@brief build a shaped element using the drawed shape
+     * return true if was sucesfully created
+     * @note called when user stop drawing shape
+     */
+    bool buildShape();
 
 private:
     /// @brief TAZ Selector

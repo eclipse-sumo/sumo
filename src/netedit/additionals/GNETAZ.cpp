@@ -123,6 +123,7 @@ GNETAZ::getParentName() const {
 
 void
 GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
+    /*
     // Start drawing adding an gl identificator
     glPushName(getGlID());
 
@@ -158,16 +159,15 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
     }
     // check if dotted contour has to be drawn
     if (!s.drawForSelecting && (myViewNet->getACUnderCursor() == this)) {
-        /*
         GLHelper::drawShapeDottedContour(getType(), myPosition, 2, 2);
         // draw shape dotte contour aroud alld connections between child and parents
         for (auto i : myChildConnections.connectionPositions) {
             GLHelper::drawShapeDottedContour(getType(), i, 0);
         }
-        */
     }
     // Pop name
     glPopName();
+    */
 }
 
 

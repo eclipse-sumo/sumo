@@ -35,6 +35,7 @@
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNELane.h>
 #include <netedit/additionals/GNETAZ.h>
+#include <netedit/additionals/GNEAdditionalHandler.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEAttributeCarrier.h>
 
@@ -409,6 +410,13 @@ GNETAZFrame::TAZParameters::isCurrentParametersValid() const {
 }
 
 
+std::map<SumoXMLAttr, std::string> 
+GNETAZFrame::TAZParameters::getAttributesAndValues() const {
+    std::map<SumoXMLAttr, std::string> parametersAndValues;
+    return parametersAndValues;
+}
+
+
 const RGBColor&
 GNETAZFrame::TAZParameters::getCandidateColor() const {
     return myCandidateColor;
@@ -572,6 +580,9 @@ GNETAZFrame::GNETAZFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* v
 
     // disable edge selector
     myEdgeSelector->disableEdgeSelector();
+
+    // all TAZ polygon are always closed
+    myDrawingShape->setCloseShape(true);
 }
 
 
@@ -641,4 +652,37 @@ GNETAZFrame::getDrawingShape() const {
     return myDrawingShape;
 }
 
+
+bool
+GNETAZFrame::buildShape() {
+    // show warning dialogbox and stop check if input parameters are valid
+    /*if (myTAZParameters->isCurrentParametersValid() == false) {
+        return false;
+    } else */if(myDrawingShape->getTemporalShape().size() == 0) {
+        WRITE_WARNING("TAZ shape cannot be empty");
+        return false;
+    } else {
+        // Declare map to keep values
+        std::map<SumoXMLAttr, std::string> valuesOfElement = myTAZParameters->getAttributesAndValues();
+
+        // generate new ID
+        valuesOfElement[SUMO_ATTR_ID] = myViewNet->getNet()->generateAdditionalID(SUMO_TAG_TAZ);
+
+        // obtain shape
+        valuesOfElement[SUMO_ATTR_SHAPE] = toString(myDrawingShape->getTemporalShape());
+
+        // obtain color (temporal)
+        valuesOfElement[SUMO_ATTR_COLOR] = "black";
+        valuesOfElement[GNE_ATTR_BLOCK_MOVEMENT] = "false";
+        /*
+        // obtain block movement value
+        valuesOfElement[GNE_ATTR_BLOCK_MOVEMENT] = toString(myNeteditAttributes->isBlockMovementEnabled());
+
+        // obtain block shape value
+        valuesOfElement[GNE_ATTR_BLOCK_SHAPE] = toString(myNeteditAttributes->isBlockShapeEnabled());
+        */
+        // return true if TAZ was sucesfully created
+        return GNEAdditionalHandler::buildAdditional(myViewNet, true, SUMO_TAG_TAZ, valuesOfElement);
+    }
+}
 /****************************************************************************/
