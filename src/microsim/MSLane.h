@@ -875,7 +875,9 @@ public:
 
 
     /// @brief Returns all upcoming junctions within given range along the given (non-internal) continuation lanes measured from given position
-    std::set<std::pair<const MSJunction*, const MSLink*> > getUpcomingJunctions(double pos, double range, const std::vector<MSLane*>& contLanes) const;
+    std::vector<const MSJunction*> getUpcomingJunctions(double pos, double range, const std::vector<MSLane*>& contLanes) const;
+    /// @brief Returns all upcoming junctions within given range along the given (non-internal) continuation lanes measured from given position
+    std::vector<const MSLink*> getUpcomingLinks(double pos, double range, const std::vector<MSLane*>& contLanes) const;
 
     /** @brief get the most likely precedecessor lane (sorted using by_connections_to_sorter).
      * The result is cached in myLogicalPredecessorLane
