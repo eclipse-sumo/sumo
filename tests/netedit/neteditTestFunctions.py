@@ -152,8 +152,10 @@ def leftClick(referencePosition, positionx, positiony):
     time.sleep(DELAY_MOUSE)
     # obtain clicked position
     clickedPosition = [referencePosition[0] + positionx, referencePosition[1] + positiony]
-    # click respect to offset
+    # click relative to offset
     pyautogui.click(clickedPosition)
+    # wait after every operation
+    time.sleep(DELAY_MOUSE)
     print("TestFunctions: Clicked over position", clickedPosition[0], '-', clickedPosition[1])
 
 
@@ -169,11 +171,13 @@ def leftClickShift(referencePosition, positionx, positiony):
     time.sleep(DELAY_MOUSE)
     # obtain clicked position
     clickedPosition = [referencePosition[0] + positionx, referencePosition[1] + positiony]
-    # click respect to offset
+    # click relative to offset
     pyautogui.click(clickedPosition)
     print("TestFunctions: Clicked with Shift key pressed over position", clickedPosition[0], '-', clickedPosition[1])
     # Release Shift key
     pyautogui.keyUp('shift')
+    # wait after key up
+    time.sleep(DELAY_KEY)
 
 
 """
@@ -188,11 +192,13 @@ def leftClickControl(referencePosition, positionx, positiony):
     time.sleep(DELAY_MOUSE)
     # obtain clicked position
     clickedPosition = [referencePosition[0] + positionx, referencePosition[1] + positiony]
-    # click respect to offset
+    # click relative to offset
     pyautogui.click(clickedPosition)
     print("TestFunctions: Clicked with Control key pressed over position", clickedPosition[0], '-', clickedPosition[1])
     # Release Shift key
     pyautogui.keyUp('ctrl')
+    # wait after key up
+    time.sleep(DELAY_KEY)
 
 
 """
@@ -206,7 +212,7 @@ def dragDrop(referencePosition, x1, y1, x2, y2):
     # obtain from and to position
     fromPosition = [referencePosition[0] + x1, referencePosition[1] + y1]
     tromPosition = [referencePosition[0] + x2, referencePosition[1] + y2]
-    # click respect to offset
+    # click relative to offset
     pyautogui.click(fromPosition)
     pyautogui.dragTo(tromPosition[0], tromPosition[1], 1, button='left')     # drag mouse to X of 100, Y of 200 while holding down left mouse button
 
