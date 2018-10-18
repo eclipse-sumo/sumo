@@ -389,10 +389,10 @@ GNEPoly::deleteGeometryPoint(const Position& pos, bool allowUndo) {
         PositionVector modifiedShape = myShape;
         int index = modifiedShape.indexOfClosest(pos);
         // remove point dependending of
-        if (myClosedShape && (index == 0 || index == (int)modifiedShape.size() - 1)) {
+        if (myClosedShape && (index == 0 || index == (int)modifiedShape.size() - 1) && (myShape.size() > 2)) {
             modifiedShape.erase(modifiedShape.begin());
             modifiedShape.erase(modifiedShape.end() - 1);
-            myShape.push_back(modifiedShape.front());
+            modifiedShape.push_back(modifiedShape.front());
         } else {
             modifiedShape.erase(modifiedShape.begin() + index);
         }
