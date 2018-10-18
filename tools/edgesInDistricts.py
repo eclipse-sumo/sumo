@@ -94,8 +94,9 @@ class DistrictEdgeComputer:
             else:
                 if options.weighted:
                     if options.shapeinfo:
-                        fd.write('    <taz id="%s" shape="%s">\n' %
-                                 (district.id, district.getShapeString()))
+                        color = ' color="%s"' % district.color if district.color is not None else ''
+                        fd.write('    <taz id="%s" shape="%s"%s>\n' %
+                                 (district.id, district.getShapeString(), color))
                     else:
                         fd.write('    <taz id="%s">\n' % district.id)
                     for edge in filtered:
