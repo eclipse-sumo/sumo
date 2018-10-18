@@ -68,7 +68,7 @@ NIVissimClosures*
 NIVissimClosures::dictionary(const std::string& name) {
     DictType::iterator i = myDict.find(name);
     if (i == myDict.end()) {
-        return 0;
+        return nullptr;
     }
     return (*i).second;
 }

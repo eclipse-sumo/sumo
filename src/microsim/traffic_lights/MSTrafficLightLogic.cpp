@@ -262,7 +262,7 @@ MSTrafficLightLogic::getLinkIndex(const MSLink* const link) const {
 // ----------- Dynamic Information Retrieval
 SUMOTime
 MSTrafficLightLogic::getNextSwitchTime() const {
-    return mySwitchCommand != 0 ? mySwitchCommand->getNextSwitchTime() : -1;
+    return mySwitchCommand != nullptr ? mySwitchCommand->getNextSwitchTime() : -1;
 }
 
 

@@ -235,23 +235,23 @@ NIImporter_Vissim::NIVissimXMLHandler_Streckendefinition::myStartElement(int ele
     if (element == VISSIM_TAG_LINK) {
         //parse all links
         bool ok = true;
-        int id = attrs.get<int>(VISSIM_ATTR_NO, 0, ok);
+        int id = attrs.get<int>(VISSIM_ATTR_NO, nullptr, ok);
         myLastNodeID = id;
 
         // !!! assuming empty myElemData
-        myElemData["id"].push_back(attrs.get<std::string>(VISSIM_ATTR_NO, 0, ok));
+        myElemData["id"].push_back(attrs.get<std::string>(VISSIM_ATTR_NO, nullptr, ok));
         // error ignored if name is empty
-        myElemData["name"].push_back(attrs.get<std::string>(VISSIM_ATTR_NAME, 0, ok, false));
-        myElemData["type"].push_back(attrs.get<std::string>(VISSIM_ATTR_LINKBEHAVETYPE, 0, ok));
-        myElemData["zuschlag1"].push_back(attrs.get<std::string>(VISSIM_ATTR_ZUSCHLAG1, 0, ok));
-        myElemData["zuschlag2"].push_back(attrs.get<std::string>(VISSIM_ATTR_ZUSCHLAG2, 0, ok));
+        myElemData["name"].push_back(attrs.get<std::string>(VISSIM_ATTR_NAME, nullptr, ok, false));
+        myElemData["type"].push_back(attrs.get<std::string>(VISSIM_ATTR_LINKBEHAVETYPE, nullptr, ok));
+        myElemData["zuschlag1"].push_back(attrs.get<std::string>(VISSIM_ATTR_ZUSCHLAG1, nullptr, ok));
+        myElemData["zuschlag2"].push_back(attrs.get<std::string>(VISSIM_ATTR_ZUSCHLAG2, nullptr, ok));
     }
 
     if (element == VISSIM_TAG_LANE) {
         bool ok = true;
         // appends empty element if no width found
         // error ignored if name is empty
-        myElemData["width"].push_back(attrs.get<std::string>(VISSIM_ATTR_WIDTH, 0, ok, false));
+        myElemData["width"].push_back(attrs.get<std::string>(VISSIM_ATTR_WIDTH, nullptr, ok, false));
     }
 
     if (element == VISSIM_TAG_FROM) {
@@ -260,8 +260,8 @@ NIImporter_Vissim::NIVissimXMLHandler_Streckendefinition::myStartElement(int ele
         }
         bool ok = true;
         std::vector<std::string> from(StringTokenizer(attrs.get<std::string>(
-                                          VISSIM_ATTR_LANE, 0, ok), " ").getVector());
-        myElemData["from_pos"].push_back(attrs.get<std::string>(VISSIM_ATTR_POS, 0, ok));
+                                          VISSIM_ATTR_LANE, nullptr, ok), " ").getVector());
+        myElemData["from_pos"].push_back(attrs.get<std::string>(VISSIM_ATTR_POS, nullptr, ok));
         myElemData["from_id"].push_back(from[0]);
         myElemData["from_lane"].push_back(from[1]);
     }
@@ -269,8 +269,8 @@ NIImporter_Vissim::NIVissimXMLHandler_Streckendefinition::myStartElement(int ele
     if (element == VISSIM_TAG_TO) {
         bool ok = true;
         std::vector<std::string> to(StringTokenizer(attrs.get<std::string>(
-                                        VISSIM_ATTR_LANE, 0, ok), " ").getVector());
-        myElemData["to_pos"].push_back(attrs.get<std::string>(VISSIM_ATTR_POS, 0, ok));
+                                        VISSIM_ATTR_LANE, nullptr, ok), " ").getVector());
+        myElemData["to_pos"].push_back(attrs.get<std::string>(VISSIM_ATTR_POS, nullptr, ok));
         myElemData["to_id"].push_back(to[0]);
         myElemData["to_lane"].push_back(to[1]);
     }
@@ -280,11 +280,11 @@ NIImporter_Vissim::NIVissimXMLHandler_Streckendefinition::myStartElement(int ele
         // create a <sep> separated string of coordinate data
         std::string sep(" ");
 
-        std::string posS(attrs.get<std::string>(VISSIM_ATTR_X, 0, ok));
+        std::string posS(attrs.get<std::string>(VISSIM_ATTR_X, nullptr, ok));
         posS += sep;
-        posS.append(attrs.get<std::string>(VISSIM_ATTR_Y, 0, ok));
+        posS.append(attrs.get<std::string>(VISSIM_ATTR_Y, nullptr, ok));
         // allow for no Z
-        std::string z(attrs.get<std::string>(VISSIM_ATTR_ZOFFSET, 0, ok, false));
+        std::string z(attrs.get<std::string>(VISSIM_ATTR_ZOFFSET, nullptr, ok, false));
         if (z.length() > 0) {
             posS += sep;
             posS.append(z);
@@ -405,9 +405,9 @@ NIImporter_Vissim::NIVissimXMLHandler_Zuflussdefinition::myStartElement(int elem
     if (element == VISSIM_TAG_VEHICLE_INPUT) {
         //parse all flows
         bool ok = true;
-        std::string id = attrs.get<std::string>(VISSIM_ATTR_NO, 0, ok);
-        std::string edgeid = attrs.get<std::string>(VISSIM_ATTR_LINK, 0, ok);
-        std::string name = attrs.get<std::string>(VISSIM_ATTR_NAME, 0, ok, false);
+        std::string id = attrs.get<std::string>(VISSIM_ATTR_NO, nullptr, ok);
+        std::string edgeid = attrs.get<std::string>(VISSIM_ATTR_LINK, nullptr, ok);
+        std::string name = attrs.get<std::string>(VISSIM_ATTR_NAME, nullptr, ok, false);
 
         NIVissimSource::dictionary(id,
                                    name,
@@ -432,18 +432,18 @@ NIImporter_Vissim::NIVissimXMLHandler_Parkplatzdefinition::myStartElement(int el
     if (element == VISSIM_TAG_PARKINGLOT) {
         //parse all parkinglots
         bool ok = true;
-        int id = attrs.get<int>(VISSIM_ATTR_NO, 0, ok);
-        int edgeid = attrs.get<int>(VISSIM_ATTR_INTLINK, 0, ok);
-        std::string name = attrs.get<std::string>(VISSIM_ATTR_NAME, 0, ok, false);
-        double position = attrs.get<double>(VISSIM_ATTR_POS, 0, ok);
+        int id = attrs.get<int>(VISSIM_ATTR_NO, nullptr, ok);
+        int edgeid = attrs.get<int>(VISSIM_ATTR_INTLINK, nullptr, ok);
+        std::string name = attrs.get<std::string>(VISSIM_ATTR_NAME, nullptr, ok, false);
+        double position = attrs.get<double>(VISSIM_ATTR_POS, nullptr, ok);
         std::vector<std::pair<int, int> > assignedVehicles; // (vclass, vwunsch)
         //FIXME: vWunsch + Fahzeugklassen einlesen
         // There can be s
         std::vector<int> districts;
         //FIXME: Parkplatzdefinition für mehrere Zonen implementieren
         std::vector<double> percentages;
-        districts.push_back(attrs.get<int>(VISSIM_ATTR_DISTRICT, 0, ok));
-        percentages.push_back(attrs.get<double>(VISSIM_ATTR_PERCENTAGE, 0, ok));
+        districts.push_back(attrs.get<int>(VISSIM_ATTR_DISTRICT, nullptr, ok));
+        percentages.push_back(attrs.get<double>(VISSIM_ATTR_PERCENTAGE, nullptr, ok));
 
         NIVissimDistrictConnection::dictionary(id,
                                                name,
@@ -476,9 +476,9 @@ NIImporter_Vissim::NIVissimXMLHandler_Fahrzeugklassendefinition::myStartElement(
 
     if (element == VISSIM_TAG_VEHICLE_CLASS) {
         bool ok = true;
-        myElemData["id"].push_back(attrs.get<std::string>(VISSIM_ATTR_NO, 0, ok));
-        myElemData["name"].push_back(attrs.get<std::string>(VISSIM_ATTR_NAME, 0, ok, false));
-        std::string colorStr(attrs.get<std::string>(VISSIM_ATTR_COLOR, 0, ok));
+        myElemData["id"].push_back(attrs.get<std::string>(VISSIM_ATTR_NO, nullptr, ok));
+        myElemData["name"].push_back(attrs.get<std::string>(VISSIM_ATTR_NAME, nullptr, ok, false));
+        std::string colorStr(attrs.get<std::string>(VISSIM_ATTR_COLOR, nullptr, ok));
         for (int pos = (int)colorStr.size() - 2; pos > 0; pos -= 2) {
             colorStr.insert(pos, " ");
         }
@@ -486,7 +486,7 @@ NIImporter_Vissim::NIVissimXMLHandler_Fahrzeugklassendefinition::myStartElement(
     }
     if (element == VISSIM_TAG_INTOBJECTREF) {
         bool ok = true;
-        myElemData["types"].push_back(attrs.get<std::string>(VISSIM_ATTR_KEY, 0, ok));
+        myElemData["types"].push_back(attrs.get<std::string>(VISSIM_ATTR_KEY, nullptr, ok));
 
 
     }
@@ -541,15 +541,15 @@ NIImporter_Vissim::NIVissimXMLHandler_Geschwindigkeitsverteilungsdefinition::myS
     myHierarchyLevel++;
     if (element == VISSIM_TAG_SPEED_DIST) {
         bool ok = true;
-        myElemData["id"].push_back(attrs.get<std::string>(VISSIM_ATTR_NO, 0, ok));
+        myElemData["id"].push_back(attrs.get<std::string>(VISSIM_ATTR_NO, nullptr, ok));
     }
 
     if (element == VISSIM_TAG_DATAPOINT) {
         bool ok = true;
         std::string sep(" ");
-        std::string posS(attrs.get<std::string>(VISSIM_ATTR_X, 0, ok));
+        std::string posS(attrs.get<std::string>(VISSIM_ATTR_X, nullptr, ok));
         posS += sep;
-        posS.append(attrs.get<std::string>(VISSIM_ATTR_FX, 0, ok));
+        posS.append(attrs.get<std::string>(VISSIM_ATTR_FX, nullptr, ok));
         myElemData["points"].push_back(posS);
 
     }
@@ -591,7 +591,7 @@ NIImporter_Vissim::NIVissimXMLHandler_VWunschentscheidungsdefinition::myStartEle
     myHierarchyLevel++;
     if (element == VISSIM_TAG_SPEED_DECISION) {
         bool ok = true;
-        myElemData["name"].push_back(attrs.get<std::string>(VISSIM_ATTR_NAME, 0, ok, false));
+        myElemData["name"].push_back(attrs.get<std::string>(VISSIM_ATTR_NAME, nullptr, ok, false));
         //FIXME: 2 vWunsch in the xml file, but only 1 of them is set???
     }
 
@@ -622,14 +622,14 @@ NIImporter_Vissim::NIVissimXMLHandler_Routenentscheidungsdefinition::myStartElem
     myHierarchyLevel++;
     if (element == VISSIM_TAG_DECISION_STATIC) {
         bool ok = true;
-        myElemData["startLink"].push_back(attrs.get<std::string>(VISSIM_ATTR_LINK, 0, ok));
-        myElemData["startPos"].push_back(attrs.get<std::string>(VISSIM_ATTR_POS, 0, ok));
+        myElemData["startLink"].push_back(attrs.get<std::string>(VISSIM_ATTR_LINK, nullptr, ok));
+        myElemData["startPos"].push_back(attrs.get<std::string>(VISSIM_ATTR_POS, nullptr, ok));
     }
     if (element == VISSIM_TAG_ROUTE_STATIC) {
         bool ok = true;
-        myElemData["destLink"].push_back(attrs.get<std::string>(VISSIM_ATTR_DESTLINK, 0, ok));
-        myElemData["destPos"].push_back(attrs.get<std::string>(VISSIM_ATTR_DESTPOS, 0, ok));
-        myElemData["id"].push_back(attrs.get<std::string>(VISSIM_ATTR_NO, 0, ok));
+        myElemData["destLink"].push_back(attrs.get<std::string>(VISSIM_ATTR_DESTLINK, nullptr, ok));
+        myElemData["destPos"].push_back(attrs.get<std::string>(VISSIM_ATTR_DESTPOS, nullptr, ok));
+        myElemData["id"].push_back(attrs.get<std::string>(VISSIM_ATTR_NO, nullptr, ok));
     }
     if (element == VISSIM_TAG_INTOBJECTREF) {
         // bool ok = true;
@@ -658,12 +658,12 @@ NIImporter_Vissim::NIVissimXMLHandler_ConflictArea::myStartElement(int element, 
     if (element == VISSIM_TAG_CA) {
         //parse all flows
         bool ok = true;
-        std::string status = attrs.get<std::string>(VISSIM_ATTR_STATUS, 0, ok);
+        std::string status = attrs.get<std::string>(VISSIM_ATTR_STATUS, nullptr, ok);
         //get only the conflict areas which were set in VISSIM
         if (status != "PASSIVE") {
-            NIVissimConflictArea::dictionary(attrs.get<int>(VISSIM_ATTR_NO, 0, ok),
-                                             attrs.get<std::string>(VISSIM_ATTR_LINK1, 0, ok),
-                                             attrs.get<std::string>(VISSIM_ATTR_LINK2, 0, ok),
+            NIVissimConflictArea::dictionary(attrs.get<int>(VISSIM_ATTR_NO, nullptr, ok),
+                                             attrs.get<std::string>(VISSIM_ATTR_LINK1, nullptr, ok),
+                                             attrs.get<std::string>(VISSIM_ATTR_LINK2, nullptr, ok),
                                              status);
         }
 

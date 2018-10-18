@@ -147,7 +147,7 @@ NWWriter_DlrNavteq::writeNodesUnsplitted(const OptionsCont& oc, NBNodeCont& nc, 
             // the import NIImporter_DlrNavteq checks for the presence of a
             // negated edge id to determine spread type. We may need to do some
             // shifting to make this consistent
-            const bool hasOppositeID = ec.getOppositeByID(e->getID()) != 0;
+            const bool hasOppositeID = ec.getOppositeByID(e->getID()) != nullptr;
             if (e->getLaneSpreadFunction() == LANESPREAD_RIGHT && !hasOppositeID) {
                 // need to write center-line geometry instead
                 try {
@@ -166,7 +166,7 @@ NWWriter_DlrNavteq::writeNodesUnsplitted(const OptionsCont& oc, NBNodeCont& nc, 
 
             std::string internalNodeID = e->getID();
             if (internalNodeID == UNDEFINED
-                    || (nc.retrieve(internalNodeID) != 0)
+                    || (nc.retrieve(internalNodeID) != nullptr)
                     || reservedNodeIDs.count(internalNodeID) > 0
                ) {
                 // need to invent a new name to avoid clashing with the id of a 'real' node or a reserved name

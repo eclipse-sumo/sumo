@@ -147,7 +147,7 @@ TraCIServerAPI_Lane::processSet(TraCIServer& server, tcpip::Storage& inputStorag
     // id
     std::string id = inputStorage.readString();
     MSLane* l = MSLane::dictionary(id);
-    if (l == 0) {
+    if (l == nullptr) {
         return server.writeErrorStatusCmd(CMD_SET_LANE_VARIABLE, "Lane '" + id + "' is not known", outputStorage);
     }
     // process

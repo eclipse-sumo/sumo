@@ -98,11 +98,11 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("lane [id]", false, Named::getIDSecure(myLane, "n/a"));
     if (MSAbstractLaneChangeModel::haveLateralDynamics()) {
         const MSLane* shadowLane = getLaneChangeModel().getShadowLane();
-        ret->mkItem("shadow lane [id]", false, shadowLane == 0 ? "" : shadowLane->getID());
+        ret->mkItem("shadow lane [id]", false, shadowLane == nullptr ? "" : shadowLane->getID());
     }
     if (MSGlobals::gLateralResolution > 0) {
         const MSLane* targetLane = getLaneChangeModel().getTargetLane();
-        ret->mkItem("target lane [id]", false, targetLane == 0 ? "" : targetLane->getID());
+        ret->mkItem("target lane [id]", false, targetLane == nullptr ? "" : targetLane->getID());
     }
     ret->mkItem("position [m]", true,
                 new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getPositionOnLane));
@@ -233,12 +233,12 @@ void
 GUIVehicle::drawAction_drawLinkItems(const GUIVisualizationSettings& s) const {
     glTranslated(0, 0, getType() + .2); // draw on top of cars
     for (DriveItemVector::const_iterator i = myLFLinkLanes.begin(); i != myLFLinkLanes.end(); ++i) {
-        if ((*i).myLink == 0) {
+        if ((*i).myLink == nullptr) {
             continue;
         }
         MSLink* link = (*i).myLink;
         MSLane* via = link->getViaLaneOrLane();
-        if (via != 0) {
+        if (via != nullptr) {
             Position p = via->getShape()[0];
             if ((*i).mySetRequest) {
                 glColor3d(0, .8, 0);
@@ -464,7 +464,7 @@ GUIVehicle::drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r)
             ++bestLaneIndex;
         } else {
             const std::vector<MSLane*>* allowed = (*i)->allowedLanes(getVClass());
-            if (allowed != 0 && allowed->size() != 0) {
+            if (allowed != nullptr && allowed->size() != 0) {
                 lane = static_cast<GUILane*>((*allowed)[0]);
             } else {
                 lane = static_cast<GUILane*>((*i)->getLanes()[0]);
@@ -631,7 +631,7 @@ GUIVehicle::drawAction_drawRailCarriages(const GUIVisualizationSettings& s, doub
 
 int
 GUIVehicle::getNumPassengers() const {
-    if (myPersonDevice != 0) {
+    if (myPersonDevice != nullptr) {
         return (int)myPersonDevice->size();
     }
     return 0;
@@ -698,7 +698,7 @@ GUIVehicle::selectBlockingFoes() const {
 #endif
     for (DriveItemVector::const_iterator i = myLFLinkLanes.begin(); i != myLFLinkLanes.end(); ++i) {
         const DriveProcessItem& dpi = *i;
-        if (dpi.myLink == 0) {
+        if (dpi.myLink == nullptr) {
             /// XXX if the vehicle intends to stop on an intersection, there could be a relevant exitLink (see #4299)
             continue;
         }
@@ -718,9 +718,9 @@ GUIVehicle::selectBlockingFoes() const {
             }
         }
 #endif
-        if (getLaneChangeModel().getShadowLane() != 0) {
+        if (getLaneChangeModel().getShadowLane() != nullptr) {
             MSLink* parallelLink = dpi.myLink->getParallelLink(getLaneChangeModel().getShadowDirection());
-            if (parallelLink != 0) {
+            if (parallelLink != nullptr) {
                 const double shadowLatPos = getLateralPositionOnLane() - getLaneChangeModel().getShadowDirection() * 0.5 * (
                                                 myLane->getWidth() + getLaneChangeModel().getShadowLane()->getWidth());
 #ifdef DEBUG_FOES
@@ -753,7 +753,7 @@ GUIVehicle::selectBlockingFoes() const {
         for (MSLink::LinkLeaders::const_iterator it = linkLeaders.begin(); it != linkLeaders.end(); ++it) {
             // the vehicle to enter the junction first has priority
             const GUIVehicle* leader = dynamic_cast<const GUIVehicle*>(it->vehAndGap.first);
-            if (leader != 0) {
+            if (leader != nullptr) {
                 if (dpi.myLink->isLeader(this, leader)) {
                     gSelected.select(leader->getGlID());
 #ifdef DEBUG_FOES
@@ -763,7 +763,7 @@ GUIVehicle::selectBlockingFoes() const {
             } else {
                 for (std::vector<const MSPerson*>::iterator it_p = blockingPersons.begin(); it_p != blockingPersons.end(); ++it_p) {
                     const GUIPerson* foe = dynamic_cast<const GUIPerson*>(*it_p);
-                    if (foe != 0) {
+                    if (foe != nullptr) {
                         gSelected.select(foe->getGlID());
                         //std::cout << SIMTIME << " veh=" << getID() << " is blocked on link " << dpi.myLink->getRespondIndex() << " to " << dpi.myLink->getViaLaneOrLane()->getID() << " by pedestrian. dist=" << it->second << "\n";
                     }
@@ -779,7 +779,7 @@ void
 GUIVehicle::drawOutsideNetwork(bool add) {
     GUIMainWindow* mw = GUIMainWindow::getInstance();
     GUISUMOAbstractView* view = mw->getActiveView();
-    if (view != 0) {
+    if (view != nullptr) {
         if (add) {
             if ((myAdditionalVisualizations[view] & VO_DRAW_OUTSIDE_NETWORK) == 0) {
                 myAdditionalVisualizations[view] |= VO_DRAW_OUTSIDE_NETWORK;

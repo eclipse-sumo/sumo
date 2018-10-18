@@ -57,11 +57,11 @@ RandHelper::insertRandOptions() {
 
 void
 RandHelper::initRand(std::mt19937* which, const bool random, const int seed) {
-    if (which == 0) {
+    if (which == nullptr) {
         which = &myRandomNumberGenerator;
     }
     if (random) {
-        which->seed((unsigned long)time(0));
+        which->seed((unsigned long)time(nullptr));
     } else {
         which->seed(seed);
     }

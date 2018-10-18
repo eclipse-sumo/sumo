@@ -126,7 +126,7 @@ InductionLoop::getVehicleData(const std::string& detID) {
 MSInductLoop*
 InductionLoop::getDetector(const std::string& id) {
     MSInductLoop* il = dynamic_cast<MSInductLoop*>(MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_INDUCTION_LOOP).get(id));
-    if (il == 0) {
+    if (il == nullptr) {
         throw TraCIException("Induction loop '" + id + "' is not known");
     }
     return il;

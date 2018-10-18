@@ -44,7 +44,7 @@ AGChild::print() const {
 
 bool
 AGChild::setSchool(AGSchool* school) {
-    if (school == NULL) {
+    if (school == nullptr) {
         return false;
     }
     bool enoughPlace = school->addNewChild();
@@ -57,7 +57,7 @@ AGChild::setSchool(AGSchool* school) {
 bool
 AGChild::allocateASchool(std::list<AGSchool>* schools, AGPosition housePos) {
     double minDist = std::numeric_limits<double>::infinity();
-    AGSchool* sch = NULL;
+    AGSchool* sch = nullptr;
     if (schools->size() == 0) {
         return false;
     }
@@ -74,17 +74,17 @@ AGChild::allocateASchool(std::list<AGSchool>* schools, AGPosition housePos) {
 
 bool
 AGChild::leaveSchool() {
-    if (school != NULL)
+    if (school != nullptr)
         if (!school->removeChild()) {
             return false;
         }
-    school = NULL;
+    school = nullptr;
     return true;
 }
 
 bool
 AGChild::haveASchool() const {
-    return (school != NULL);
+    return (school != nullptr);
 }
 
 AGPosition

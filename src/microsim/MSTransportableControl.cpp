@@ -76,7 +76,7 @@ MSTransportable*
 MSTransportableControl::get(const std::string& id) const {
     std::map<std::string, MSTransportable*>::const_iterator i = myTransportables.find(id);
     if (i == myTransportables.end()) {
-        return 0;
+        return nullptr;
     }
     return (*i).second;
 }
@@ -255,7 +255,7 @@ MSTransportableControl::abortWaitingForVehicle() {
             MSTransportable* p = (*j);
             p->setDeparted(MSNet::getInstance()->getCurrentTimeStep());
             std::string transportableType;
-            if (dynamic_cast<MSPerson*>(p) != 0) {
+            if (dynamic_cast<MSPerson*>(p) != nullptr) {
                 edge->removePerson(p);
                 transportableType = "Person";
             } else {
@@ -263,7 +263,7 @@ MSTransportableControl::abortWaitingForVehicle() {
                 edge->removeContainer(p);
             }
             MSTransportable::Stage_Driving* stage = dynamic_cast<MSTransportable::Stage_Driving*>(p->getCurrentStage());
-            const std::string waitDescription = stage == 0 ? "waiting" : stage->getWaitingDescription();
+            const std::string waitDescription = stage == nullptr ? "waiting" : stage->getWaitingDescription();
             WRITE_WARNING(transportableType + " '" + p->getID() + "' aborted " + waitDescription + ".");
             erase(p);
         }

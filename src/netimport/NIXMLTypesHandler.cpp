@@ -59,7 +59,7 @@ NIXMLTypesHandler::myStartElement(int element,
         case SUMO_TAG_TYPE: {
             bool ok = true;
             // get the id, report a warning if not given or empty...
-            myCurrentTypeID = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
+            myCurrentTypeID = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
             const char* const id = myCurrentTypeID.c_str();
             const std::string defType = myTypeCont.knows(myCurrentTypeID) ? myCurrentTypeID : "";
             const int priority = attrs.getOpt<int>(SUMO_ATTR_PRIORITY, id, ok, myTypeCont.getPriority(defType));

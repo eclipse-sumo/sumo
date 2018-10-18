@@ -148,7 +148,7 @@ GNEViewParent::GNEViewParent(FXMDIClient* p, FXMDIMenu* mdimenu, const FXString&
     myGNEFrames[MID_GNE_SETMODE_POLYGON] = new GNEPolygonFrame(myFramesArea, viewNet);
 
     // Update frame areas after creation
-    onCmdUpdateFrameAreaWidth(0, 0, 0);
+    onCmdUpdateFrameAreaWidth(nullptr, 0, nullptr);
 
     // Hidde all Frames Area
     hideFramesArea();
@@ -356,7 +356,7 @@ GNEViewParent::onCmdMakeSnapshot(FXObject*, FXSelector, void*) {
 
 long
 GNEViewParent::onCmdClose(FXObject*, FXSelector /* sel */, void*) {
-    myParent->handle(this, FXSEL(SEL_COMMAND, MID_CLOSE), 0);
+    myParent->handle(this, FXSEL(SEL_COMMAND, MID_CLOSE), nullptr);
     return 1;
 }
 

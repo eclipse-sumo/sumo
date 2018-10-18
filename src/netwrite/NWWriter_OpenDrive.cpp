@@ -72,7 +72,7 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     OutputDevice& device = OutputDevice::getDevice(oc.getString("opendrive-output"));
     device << "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n";
     device.openTag("OpenDRIVE");
-    time_t now = time(0);
+    time_t now = time(nullptr);
     std::string dstr(ctime(&now));
     const Boundary& b = GeoConvHelper::getFinal().getConvBoundary();
     // write header
@@ -135,7 +135,7 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             std::string centerMark = "none";
             const int inEdgeID = getID(inEdge->getID(), edgeMap, edgeID);
             // group parallel edges
-            const NBEdge* outEdge = 0;
+            const NBEdge* outEdge = nullptr;
             bool isOuterEdge = true; // determine where a solid outer border should be drawn
             int lastFromLane = -1;
             std::vector<NBEdge::Connection> parallel;
@@ -146,7 +146,7 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             for (const NBEdge::Connection& c : connections) {
                 assert(c.toEdge != 0);
                 if (outEdge != c.toEdge || c.fromLane == lastFromLane) {
-                    if (outEdge != 0) {
+                    if (outEdge != nullptr) {
                         if (isOuterEdge) {
                             addPedestrianConnection(inEdge, outEdge, parallel);
                         }
@@ -205,7 +205,7 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             for (std::vector<NBEdge::Connection>::const_iterator k = elv.begin(); k != elv.end(); ++k) {
                 const NBEdge::Connection& c = *k;
                 const NBEdge* outEdge = c.toEdge;
-                if (outEdge == 0) {
+                if (outEdge == nullptr) {
                     continue;
                 }
             }
@@ -324,7 +324,7 @@ void
 NWWriter_OpenDrive::addPedestrianConnection(const NBEdge* inEdge, const NBEdge* outEdge, std::vector<NBEdge::Connection>& parallel) {
     // by default there are no internal lanes for pedestrians. Determine if
     // one is feasible and does not exist yet.
-    if (outEdge != 0
+    if (outEdge != nullptr
             && inEdge->getPermissions(0) == SVC_PEDESTRIAN
             && outEdge->getPermissions(0) == SVC_PEDESTRIAN
             && (parallel.empty()
@@ -358,7 +358,7 @@ NWWriter_OpenDrive::writeInternalEdge(OutputDevice& device, OutputDevice& juncti
     fallBackShape.push_back(endShape.front());
     const bool turnaround = inEdge->isTurningDirectionAt(outEdge);
     bool ok = true;
-    PositionVector init = NBNode::bezierControlPoints(begShape, endShape, turnaround, 25, 25, ok, 0, straightThresh);
+    PositionVector init = NBNode::bezierControlPoints(begShape, endShape, turnaround, 25, 25, ok, nullptr, straightThresh);
     if (init.size() == 0) {
         length = fallBackShape.length2D();
         // problem with turnarounds is known, method currently returns 'ok' (#2539)
@@ -369,7 +369,7 @@ NWWriter_OpenDrive::writeInternalEdge(OutputDevice& device, OutputDevice& juncti
             // side as reference line and shift
             begShape = getRightLaneBorder(inEdge, cLeft.fromLane);
             endShape = getRightLaneBorder(outEdge, cLeft.toLane);
-            init = NBNode::bezierControlPoints(begShape, endShape, turnaround, 25, 25, ok, 0, straightThresh);
+            init = NBNode::bezierControlPoints(begShape, endShape, turnaround, 25, 25, ok, nullptr, straightThresh);
             if (init.size() != 0) {
                 length = bezier(init, 12).length2D();
                 laneOffset = outEdge->getLaneWidth(cLeft.toLane);
@@ -799,7 +799,7 @@ NWWriter_OpenDrive::writeGeomSmooth(const PositionVector& shape, double speed, O
                 endShape.add(p1 - endShape.front());
             }
             const double extrapolateLength = MIN2((double)25, lineLength / 4);
-            PositionVector init = NBNode::bezierControlPoints(begShape, endShape, false, extrapolateLength, extrapolateLength, ok, 0, straightThresh);
+            PositionVector init = NBNode::bezierControlPoints(begShape, endShape, false, extrapolateLength, extrapolateLength, ok, nullptr, straightThresh);
             if (init.size() == 0) {
                 // could not compute control points, write line
                 offset = writeGeomLines(line, device, elevationDevice, offset);

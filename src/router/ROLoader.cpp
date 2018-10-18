@@ -59,7 +59,7 @@ void
 ROLoader::EdgeFloatTimeLineRetriever_EdgeTravelTime::addEdgeWeight(const std::string& id,
         double val, double beg, double end) const {
     ROEdge* e = myNet.getEdge(id);
-    if (e != 0) {
+    if (e != nullptr) {
         e->addTravelTime(val, beg, end);
     } else {
         if (id[0] != ':') {
@@ -80,7 +80,7 @@ void
 ROLoader::EdgeFloatTimeLineRetriever_EdgeWeight::addEdgeWeight(const std::string& id,
         double val, double beg, double end) const {
     ROEdge* e = myNet.getEdge(id);
-    if (e != 0) {
+    if (e != nullptr) {
         e->addEffort(val, beg, end);
     } else {
         if (id[0] != ':') {

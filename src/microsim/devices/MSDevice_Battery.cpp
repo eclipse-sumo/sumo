@@ -183,12 +183,12 @@ bool MSDevice_Battery::notifyMove(SUMOVehicle& veh, double /* oldPos */, double 
         myChargingStopped = false;
 
         // Disable charging vehicle
-        if (myActChargingStation != NULL) {
+        if (myActChargingStation != nullptr) {
             myActChargingStation->setChargingVehicle(false);
         }
 
         // Set charging station pointer to NULL
-        myActChargingStation = NULL;
+        myActChargingStation = nullptr;
 
         // Set energy charged to 0
         myEnergyCharged = 0.00;
@@ -217,7 +217,7 @@ MSDevice_Battery::MSDevice_Battery(SUMOVehicle& holder, const std::string& id, c
     myChargingStopped(false),           // Initially vehicle don't charge stopped
     myChargingInTransit(false),         // Initially vehicle don't charge in transit
     myConsum(0),                        // Initially the vehicle is stopped and therefore the consum is zero.
-    myActChargingStation(NULL),         // Initially the vehicle isn't over a Charging Station
+    myActChargingStation(nullptr),         // Initially the vehicle isn't over a Charging Station
     myEnergyCharged(0),                 // Initially the energy charged is zero
     myVehicleStopped(0) {               // Initially the vehicle is stopped and the corresponding variable is 0
 
@@ -381,7 +381,7 @@ MSDevice_Battery::getChargingStartTime() const {
 
 std::string
 MSDevice_Battery::getChargingStationID() const {
-    if (myActChargingStation != NULL) {
+    if (myActChargingStation != nullptr) {
         return myActChargingStation->getID();
     } else {
         return "NULL";

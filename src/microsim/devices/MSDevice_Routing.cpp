@@ -142,7 +142,7 @@ MSDevice_Routing::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevic
 // ---------------------------------------------------------------------------
 MSDevice_Routing::MSDevice_Routing(SUMOVehicle& holder, const std::string& id,
                                    SUMOTime period, SUMOTime preInsertionPeriod)
-    : MSVehicleDevice(holder, id), myPeriod(period), myPreInsertionPeriod(preInsertionPeriod), myLastRouting(-1), mySkipRouting(-1), myRerouteCommand(0) {
+    : MSVehicleDevice(holder, id), myPeriod(period), myPreInsertionPeriod(preInsertionPeriod), myLastRouting(-1), mySkipRouting(-1), myRerouteCommand(nullptr) {
     if (myPreInsertionPeriod > 0 || holder.getParameter().wasSet(VEHPARS_FORCE_REROUTE)) {
         // we do always a pre insertion reroute for trips to fill the best lanes of the vehicle with somehow meaningful values (especially for deaprtLane="best")
         myRerouteCommand = new WrappingCommand<MSDevice_Routing>(this, &MSDevice_Routing::preInsertionReroute);
@@ -235,7 +235,7 @@ MSDevice_Routing::getParameter(const std::string& key) const {
     if (StringUtils::startsWith(key, "edge:")) {
         const std::string edgeID = key.substr(5);
         const MSEdge* edge = MSEdge::dictionary(edgeID);
-        if (edge == 0) {
+        if (edge == nullptr) {
             throw InvalidArgument("Edge '" + edgeID + "' is invalid for parameter retrieval of '" + deviceName() + "'");
         }
         return toString(MSRoutingEngine::getEffort(edge, &myHolder, 0));
@@ -257,7 +257,7 @@ MSDevice_Routing::setParameter(const std::string& key, const std::string& value)
     if (StringUtils::startsWith(key, "edge:")) {
         const std::string edgeID = key.substr(5);
         const MSEdge* edge = MSEdge::dictionary(edgeID);
-        if (edge == 0) {
+        if (edge == nullptr) {
             throw InvalidArgument("Edge '" + edgeID + "' is invalid for parameter setting of '" + deviceName() + "'");
         }
         MSRoutingEngine::setEdgeTravelTime(edge, doubleValue);
@@ -268,7 +268,7 @@ MSDevice_Routing::setParameter(const std::string& key, const std::string& value)
             myRerouteCommand->deschedule();
         } else if (oldPeriod <= 0) {
             // re-schedule routing command
-            notifyEnter(myHolder, MSMoveReminder::NOTIFICATION_DEPARTED, 0);
+            notifyEnter(myHolder, MSMoveReminder::NOTIFICATION_DEPARTED, nullptr);
         }
     } else {
         throw InvalidArgument("Setting parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");

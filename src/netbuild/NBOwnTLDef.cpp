@@ -121,7 +121,7 @@ NBOwnTLDef::computeUnblockedWeightedStreamNumber(const NBEdge* const e1, const N
 
 std::pair<NBEdge*, NBEdge*>
 NBOwnTLDef::getBestCombination(const EdgeVector& edges) {
-    std::pair<NBEdge*, NBEdge*> bestPair(static_cast<NBEdge*>(0), static_cast<NBEdge*>(0));
+    std::pair<NBEdge*, NBEdge*> bestPair(static_cast<NBEdge*>(nullptr), static_cast<NBEdge*>(nullptr));
     double bestValue = -1;
     for (EdgeVector::const_iterator i = edges.begin(); i != edges.end(); ++i) {
         for (EdgeVector::const_iterator j = i + 1; j != edges.end(); ++j) {
@@ -150,7 +150,7 @@ std::pair<NBEdge*, NBEdge*>
 NBOwnTLDef::getBestPair(EdgeVector& incoming) {
     if (incoming.size() == 1) {
         // only one there - return the one
-        std::pair<NBEdge*, NBEdge*> ret(*incoming.begin(), static_cast<NBEdge*>(0));
+        std::pair<NBEdge*, NBEdge*> ret(*incoming.begin(), static_cast<NBEdge*>(nullptr));
         incoming.clear();
         return ret;
     }
@@ -220,7 +220,7 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
                 fromEdges.push_back(fromEdge);
                 fromLanes.push_back((int)i2);
                 toEdges.push_back(toEdge);
-                if (toEdge != 0) {
+                if (toEdge != nullptr) {
                     isTurnaround.push_back(fromEdge->isTurningDirectionAt(toEdge));
                 } else {
                     isTurnaround.push_back(true);
@@ -471,7 +471,7 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
         return logic;
     } else {
         delete logic;
-        return 0;
+        return nullptr;
     }
 }
 
@@ -804,7 +804,7 @@ int
 NBOwnTLDef::getMaxIndex() {
     setParticipantsInformation();
     NBTrafficLightLogic* logic = compute(OptionsCont::getOptions());
-    if (logic != 0) {
+    if (logic != nullptr) {
         return logic->getNumLinks() - 1;
     } else {
         return -1;

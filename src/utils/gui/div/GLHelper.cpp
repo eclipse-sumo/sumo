@@ -50,7 +50,7 @@
 // ===========================================================================
 std::vector<std::pair<double, double> > GLHelper::myCircleCoords;
 std::vector<RGBColor> GLHelper::myDottedcontourColors;
-FONScontext* GLHelper::myFont = 0;
+FONScontext* GLHelper::myFont = nullptr;
 double GLHelper::myFontSize = 50.0;
 
 void APIENTRY combCallback(GLdouble coords[3],
@@ -103,7 +103,7 @@ GLHelper::drawFilledPolyTesselated(const PositionVector& v, bool close) {
     gluTessCallback(tobj, GLU_TESS_END, (GLvoid(APIENTRY*)()) &glEnd);
     gluTessCallback(tobj, GLU_TESS_COMBINE, (GLvoid(APIENTRY*)()) &combCallback);
     gluTessProperty(tobj, GLU_TESS_WINDING_RULE, GLU_TESS_WINDING_ODD);
-    gluTessBeginPolygon(tobj, NULL);
+    gluTessBeginPolygon(tobj, nullptr);
     gluTessBeginContour(tobj);
     double* points = new double[(v.size() + int(close)) * 3];
 
@@ -588,21 +588,21 @@ GLHelper::getColor() {
 void
 GLHelper::resetFont() {
     glfonsDelete(myFont);
-    myFont = 0;
+    myFont = nullptr;
 }
 
 
 bool
 GLHelper::initFont() {
-    if (myFont == 0) {
+    if (myFont == nullptr) {
         myFont = glfonsCreate(2048, 2048, FONS_ZERO_BOTTOMLEFT);
-        if (myFont != 0) {
+        if (myFont != nullptr) {
             const int fontNormal = fonsAddFontMem(myFont, "medium", data_font_Roboto_Medium_ttf, data_font_Roboto_Medium_ttf_len, 0);
             fonsSetFont(myFont, fontNormal);
             fonsSetSize(myFont, (float)myFontSize);
         }
     }
-    return myFont != 0;
+    return myFont != nullptr;
 }
 
 
@@ -625,7 +625,7 @@ GLHelper::drawText(const std::string& text, const Position& pos,
     glRotated(-angle, 0, 0, 1);
     fonsSetAlign(myFont, align == 0 ? FONS_ALIGN_CENTER | FONS_ALIGN_MIDDLE : align);
     fonsSetColor(myFont, glfonsRGBA(col.red(), col.green(), col.blue(), col.alpha()));
-    fonsDrawText(myFont, 0., 0., text.c_str(), NULL);
+    fonsDrawText(myFont, 0., 0., text.c_str(), nullptr);
     glPopMatrix();
 }
 
@@ -642,7 +642,7 @@ GLHelper::drawTextBox(const std::string& text, const Position& pos,
     if (boxAngle > 360) {
         boxAngle -= 360;
     }
-    const double stringWidth = size / myFontSize * fonsTextBounds(myFont, 0, 0, text.c_str(), NULL, NULL);
+    const double stringWidth = size / myFontSize * fonsTextBounds(myFont, 0, 0, text.c_str(), nullptr, nullptr);
     const double borderWidth = size / 20;
     const double boxHeight = size * 0.8;
     const double boxWidth = stringWidth + size / 2;

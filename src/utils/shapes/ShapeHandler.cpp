@@ -43,7 +43,7 @@
 ShapeHandler::ShapeHandler(const std::string& file, ShapeContainer& sc) :
     SUMOSAXHandler(file), myShapeContainer(sc),
     myPrefix(""), myDefaultColor(RGBColor::RED), myDefaultLayer(), myDefaultFill(false),
-    myLastParameterised(0) {
+    myLastParameterised(nullptr) {
 }
 
 
@@ -63,9 +63,9 @@ ShapeHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
                 addPOI(attrs, false, false);
                 break;
             case SUMO_TAG_PARAM:
-                if (myLastParameterised != 0) {
+                if (myLastParameterised != nullptr) {
                     bool ok = true;
-                    const std::string key = attrs.get<std::string>(SUMO_ATTR_KEY, 0, ok);
+                    const std::string key = attrs.get<std::string>(SUMO_ATTR_KEY, nullptr, ok);
                     // continue if key awas sucesfully loaded
                     if (ok) {
                         // circumventing empty string value
@@ -95,7 +95,7 @@ ShapeHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
 void
 ShapeHandler::myEndElement(int element) {
     if (element != SUMO_TAG_PARAM) {
-        myLastParameterised = 0;
+        myLastParameterised = nullptr;
     }
 }
 
@@ -103,7 +103,7 @@ void
 ShapeHandler::addPOI(const SUMOSAXAttributes& attrs, const bool ignorePruning, const bool useProcessing) {
     bool ok = true;
     const double INVALID_POSITION(-1000000);
-    const std::string id = myPrefix + attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
+    const std::string id = myPrefix + attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
     double x = attrs.getOpt<double>(SUMO_ATTR_X, id.c_str(), ok, INVALID_POSITION);
     const double y = attrs.getOpt<double>(SUMO_ATTR_Y, id.c_str(), ok, INVALID_POSITION);
     double lon = attrs.getOpt<double>(SUMO_ATTR_LON, id.c_str(), ok, INVALID_POSITION);
@@ -177,7 +177,7 @@ ShapeHandler::addPOI(const SUMOSAXAttributes& attrs, const bool ignorePruning, c
 void
 ShapeHandler::addPoly(const SUMOSAXAttributes& attrs, const bool ignorePruning, const bool useProcessing) {
     bool ok = true;
-    const std::string id = myPrefix + attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
+    const std::string id = myPrefix + attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
     // get the id, report an error if not given or empty...
     if (!ok) {
         return;

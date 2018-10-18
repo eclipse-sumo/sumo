@@ -79,7 +79,7 @@ GUIGLObjectPopupMenu::~GUIGLObjectPopupMenu() {
 void
 GUIGLObjectPopupMenu::insertMenuPaneChild(FXMenuPane* child) {
     // Check that MenuPaneChild isn't NULL
-    if (child == NULL) {
+    if (child == nullptr) {
         throw ProcessError("MenuPaneChild cannot be NULL");
     }
     // Check that MenuPaneChild wasn't already inserted

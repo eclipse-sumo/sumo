@@ -755,7 +755,7 @@ GNEAttributeCarrier::parse(const std::string& string) {
         throw EmptyData();
     } else {
         bool ok = true;
-        PositionVector pos = GeomConvHelper::parseShapeReporting(string, "netedit-given", 0, ok, false, false);
+        PositionVector pos = GeomConvHelper::parseShapeReporting(string, "netedit-given", nullptr, ok, false, false);
         if (!ok || pos.size() != 1) {
             throw NumberFormatException();
         } else {

@@ -59,7 +59,7 @@ GUIPolygon::getPopUpMenu(GUIMainWindow& app,
     GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
     buildPopupHeader(ret, app, false);
     FXString t(getShapeType().c_str());
-    new FXMenuCommand(ret, "(" + t + ")", 0, 0, 0);
+    new FXMenuCommand(ret, "(" + t + ")", nullptr, nullptr, 0);
     new FXMenuSeparator(ret);
     buildCenterPopupEntry(ret);
     buildNameCopyPopupEntry(ret);
@@ -235,7 +235,7 @@ GUIPolygon::performTesselation(double lineWidth) const {
         //gluTessCallback(tobj, GLU_TESS_ERROR, (GLvoid (APIENTRY*) ()) &errorCallback);
         gluTessCallback(tobj, GLU_TESS_COMBINE, (GLvoid(APIENTRY*)()) &combineCallback);
         gluTessProperty(tobj, GLU_TESS_WINDING_RULE, GLU_TESS_WINDING_ODD);
-        gluTessBeginPolygon(tobj, NULL);
+        gluTessBeginPolygon(tobj, nullptr);
         gluTessBeginContour(tobj);
         for (int i = 0; i != (int)myShape.size(); ++i) {
             points[3 * i]  = myShape[(int) i].x();

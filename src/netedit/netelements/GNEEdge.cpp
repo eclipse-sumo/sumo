@@ -1036,7 +1036,7 @@ bool
 GNEEdge::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            return SUMOXMLDefinitions::isValidNetID(value) && (myNet->retrieveEdge(value, false) == 0);
+            return SUMOXMLDefinitions::isValidNetID(value) && (myNet->retrieveEdge(value, false) == nullptr);
         case SUMO_ATTR_FROM: {
             // check that is a valid ID and is different of ID of junction destiny
             if (SUMOXMLDefinitions::isValidNetID(value) && (value != myGNEJunctionDestiny->getMicrosimID())) {
@@ -1080,7 +1080,7 @@ GNEEdge::isValid(SumoXMLAttr key, const std::string& value) {
             return true;
         case SUMO_ATTR_SHAPE: {
             bool ok = true;
-            PositionVector shape = GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, true);
+            PositionVector shape = GeomConvHelper::parseShapeReporting(value, "user-supplied position", nullptr, ok, true);
             return ok;
         }
         case SUMO_ATTR_SPREADTYPE:
@@ -1094,7 +1094,7 @@ GNEEdge::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_SHAPE_START: {
             bool ok;
             if (value != "") {
-                PositionVector shapeStart = GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, false);
+                PositionVector shapeStart = GeomConvHelper::parseShapeReporting(value, "user-supplied position", nullptr, ok, false);
                 return ((shapeStart.size() == 1) && (shapeStart[0] != myNBEdge.getGeometry()[-1]));
             } else {
                 return true;
@@ -1103,7 +1103,7 @@ GNEEdge::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_SHAPE_END: {
             bool ok;
             if (value != "") {
-                PositionVector shapeStart = GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, false);
+                PositionVector shapeStart = GeomConvHelper::parseShapeReporting(value, "user-supplied position", nullptr, ok, false);
                 return ((shapeStart.size() == 1) && (shapeStart[0] != myNBEdge.getGeometry()[0]));
             } else {
                 return true;
@@ -1219,7 +1219,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_SHAPE:
             bool ok;
-            myOrigShape = GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, true);
+            myOrigShape = GeomConvHelper::parseShapeReporting(value, "netedit-given", nullptr, ok, true);
             setGeometry(myOrigShape, true, true);
             break;
         case SUMO_ATTR_SPREADTYPE:
@@ -1310,7 +1310,7 @@ GNEEdge::setNumLanes(int numLanes, GNEUndoList* undoList) {
     const int oldNumLanes = (int)myLanes.size();
     for (int i = oldNumLanes; i < numLanes; i++) {
         // since the GNELane does not exist yet, it cannot have yet been referenced so we only pass a zero-pointer
-        undoList->add(new GNEChange_Lane(this, 0,
+        undoList->add(new GNEChange_Lane(this, nullptr,
                                          myNBEdge.getLaneStruct(oldNumLanes - 1), true), true);
     }
     for (int i = oldNumLanes - 1; i > numLanes - 1; i--) {
@@ -1381,7 +1381,7 @@ GNEEdge::removeLane(GNELane* lane, bool recomputeConnections) {
     if (myLanes.size() == 0) {
         throw ProcessError("Should not remove the last " + toString(SUMO_TAG_LANE) + " from an " + toString(getTag()));
     }
-    if (lane == 0) {
+    if (lane == nullptr) {
         lane = myLanes.back();
     }
     // check if lane is selected
@@ -1632,7 +1632,7 @@ GNEEdge::smoothShape(const PositionVector& old, bool forElevation) {
         } else {
             bool ok = true;
             const double straightThresh = DEG2RAD(oc.getFloat("opendrive-output.straight-threshold"));
-            init = NBNode::bezierControlPoints(begShape, endShape, false, dist, dist, ok, 0, straightThresh);
+            init = NBNode::bezierControlPoints(begShape, endShape, false, dist, dist, ok, nullptr, straightThresh);
         }
 #ifdef DEBUG_SMOOTH_GEOM
         if (DEBUGCOND(this)) {

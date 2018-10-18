@@ -53,7 +53,7 @@ NIXMLPTHandler::NIXMLPTHandler(NBEdgeCont& ec, NBPTStopCont& sc, NBPTLineCont& l
     myEdgeCont(ec),
     myStopCont(sc),
     myLineCont(lc),
-    myCurrentLine(0) {
+    myCurrentLine(nullptr) {
 }
 
 
@@ -81,7 +81,7 @@ NIXMLPTHandler::myStartElement(int element,
         case SUMO_TAG_PARAM:
             if (myLastParameterised.size() != 0) {
                 bool ok = true;
-                const std::string key = attrs.get<std::string>(SUMO_ATTR_KEY, 0, ok);
+                const std::string key = attrs.get<std::string>(SUMO_ATTR_KEY, nullptr, ok);
                 // circumventing empty string test
                 const std::string val = attrs.hasAttribute(SUMO_ATTR_VALUE) ? attrs.getString(SUMO_ATTR_VALUE) : "";
                 myLastParameterised.back()->setParameter(key, val);
@@ -97,11 +97,11 @@ NIXMLPTHandler::myEndElement(int element) {
     switch (element) {
         case SUMO_TAG_BUS_STOP:
         case SUMO_TAG_TRAIN_STOP:
-            myCurrentStop = 0;
+            myCurrentStop = nullptr;
             break;
         case SUMO_TAG_PT_LINE:
             myCurrentLine->setMyNumOfStops((int)(myCurrentLine->getStops().size() / myCurrentCompletion));
-            myCurrentLine = 0;
+            myCurrentLine = nullptr;
             break;
         default:
             break;

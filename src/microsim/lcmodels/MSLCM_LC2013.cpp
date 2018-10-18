@@ -630,7 +630,7 @@ MSLCM_LC2013::informFollower(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
     }
 
 #endif
-    if ((blocked & LCA_BLOCKED_BY_FOLLOWER) != 0 && nv != 0) {
+    if ((blocked & LCA_BLOCKED_BY_FOLLOWER) != 0 && nv != nullptr) {
 #ifdef DEBUG_INFORMER
         if (DEBUG_COND) {
             std::cout << " blocked by follower nv=" <<  nv->getID() << " nvSpeed=" << nv->getSpeed() << " needGap="
@@ -1774,9 +1774,9 @@ MSLCM_LC2013::getRoundaboutAheadInfo(const MSLCM_LC2013* lcm, const MSVehicle::L
             // vehicle is on internal roundabout lane -> neigh.lane is not a parallel internal lane, but the next non-internal lane
             // add remaining length on current, internal lane to roundabout distance on neigh continuation
             roundaboutDistanceAheadNeigh = veh.getLane()->getLength() - veh.getPositionOnLane();
-            MSLane* nextLane = 0;
+            MSLane* nextLane = nullptr;
             for (std::vector<MSLane*>::const_iterator i = curr.bestContinuations.begin(); i != curr.bestContinuations.end(); i++) {
-                if (*i != 0 && *i != veh.getLane()) {
+                if (*i != nullptr && *i != veh.getLane()) {
                     nextLane = *i;
                     break;
                 }
@@ -1803,7 +1803,7 @@ MSLCM_LC2013::getRoundaboutAheadInfo(const MSLCM_LC2013* lcm, const MSVehicle::L
     roundaboutEdgesAhead = 0;
     for (std::vector<MSLane*>::const_iterator it = curr.bestContinuations.begin(); it != curr.bestContinuations.end(); ++it) {
         const MSLane* lane = *it;
-        if (lane != 0 && lane->getEdge().isRoundabout()) {
+        if (lane != nullptr && lane->getEdge().isRoundabout()) {
             roundaboutEdgesAhead += 1;
         } else if (roundaboutEdgesAhead > 0) {
             // only check the next roundabout
@@ -1812,7 +1812,7 @@ MSLCM_LC2013::getRoundaboutAheadInfo(const MSLCM_LC2013* lcm, const MSVehicle::L
     }
     roundaboutEdgesAheadNeigh = 0;
     for (std::vector<MSLane*>::const_iterator it = neigh.bestContinuations.begin(); it != neigh.bestContinuations.end(); ++it) {
-        if ((*it) != 0 && (*it)->getEdge().isRoundabout()) {
+        if ((*it) != nullptr && (*it)->getEdge().isRoundabout()) {
             roundaboutEdgesAheadNeigh += 1;
         } else if (roundaboutEdgesAheadNeigh > 0) {
             // only check the next roundabout
@@ -1864,7 +1864,7 @@ MSLCM_LC2013::distanceAlongNextRoundabout(double position, const MSLane* initial
 
     // set an iterator to the first non-zero entry of continuationLanes
     std::vector<MSLane*>::const_iterator j = continuationLanes.begin();
-    while (j != continuationLanes.end() && *j == 0) {
+    while (j != continuationLanes.end() && *j == nullptr) {
         ++j;
     }
 
@@ -1873,7 +1873,7 @@ MSLCM_LC2013::distanceAlongNextRoundabout(double position, const MSLane* initial
         // continuations end here
         assert(initialLane == 0);
         return 0.;
-    } else if (initialLane == 0) {
+    } else if (initialLane == nullptr) {
         // NOTE: this may occur when calling distanceAlongNextRoundabout() with neigh.lane in _wantsChange().
         // In that case, the possible internal lengths have been taken into account in _wantsChange().
         // Thus we set initialLane to the first non-zero lane in continuationLanes
@@ -1889,7 +1889,7 @@ MSLCM_LC2013::distanceAlongNextRoundabout(double position, const MSLane* initial
         if (!initialLane->isInternal()) {
             assert(initialLane == *j);
             roundaboutDistanceAhead += initialLane->getLength() - position;
-            if (j + 1 == continuationLanes.end() || *(j + 1) == 0 || !(*(j + 1))->getEdge().isRoundabout()) {
+            if (j + 1 == continuationLanes.end() || *(j + 1) == nullptr || !(*(j + 1))->getEdge().isRoundabout()) {
                 // following connection is not part of the roundabout
             } else {
                 // add internal lengths
@@ -1919,7 +1919,7 @@ MSLCM_LC2013::distanceAlongNextRoundabout(double position, const MSLane* initial
             // since bestContinuations contains no internal edges
             // add consecutive connection lengths if it is part of the route and the
             // consecutive edge is on the roundabout as well
-            if (it + 1 != continuationLanes.end() && *(it + 1) != 0 && (*(it + 1))->getEdge().isRoundabout()) {
+            if (it + 1 != continuationLanes.end() && *(it + 1) != nullptr && (*(it + 1))->getEdge().isRoundabout()) {
                 // find corresponding link for the current lane
                 const MSLink* link = MSLinkContHelper::getConnectingLink(*lane, **(it + 1));
                 assert(link != 0);
@@ -1939,7 +1939,7 @@ MSLCM_LC2013::distanceAlongNextRoundabout(double position, const MSLane* initial
 int
 MSLCM_LC2013::slowDownForBlocked(MSVehicle** blocked, int state) {
     //  if this vehicle is blocking someone in front, we maybe decelerate to let him in
-    if ((*blocked) != 0) {
+    if ((*blocked) != nullptr) {
         double gap = (*blocked)->getPositionOnLane() - (*blocked)->getVehicleType().getLength() - myVehicle.getPositionOnLane() - myVehicle.getVehicleType().getMinGap();
 #ifdef DEBUG_SLOW_DOWN
         if (DEBUG_COND) {
@@ -2003,7 +2003,7 @@ MSLCM_LC2013::saveBlockerLength(MSVehicle* blocker, int lcaCounter) {
                   << "\n";
     }
 #endif
-    if (blocker != 0 && (blocker->getLaneChangeModel().getOwnState() & lcaCounter) != 0) {
+    if (blocker != nullptr && (blocker->getLaneChangeModel().getOwnState() & lcaCounter) != 0) {
         // is there enough space in front of us for the blocker?
         const double potential = myLeftSpace - myVehicle.getCarFollowModel().brakeGap(
                                      myVehicle.getSpeed(), myVehicle.getCarFollowModel().getMaxDecel(), 0);

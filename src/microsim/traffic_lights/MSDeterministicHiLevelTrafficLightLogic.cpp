@@ -43,7 +43,7 @@ void MSDeterministicHiLevelTrafficLightLogic::init(NLDetectorBuilder& nb) {
         "*** Intersection " + getID()
         + " will run using MSDeterministicHiLevelTrafficLightLogic ***");
 
-    MSLane* currentLane = NULL;
+    MSLane* currentLane = nullptr;
     for (MSTrafficLightLogic::LaneVectorVector::const_iterator laneVector =
                 myLanes.begin(); laneVector != myLanes.end(); laneVector++) {
         for (MSTrafficLightLogic::LaneVector::const_iterator lane =

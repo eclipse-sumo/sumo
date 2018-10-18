@@ -38,7 +38,7 @@
 // ===========================================================================
 // static members
 // ===========================================================================
-MSPModel* MSPModel::myModel(0);
+MSPModel* MSPModel::myModel(nullptr);
 
 // named constants
 const int MSPModel::FORWARD(1);
@@ -57,7 +57,7 @@ const double MSPModel::SIDEWALK_OFFSET(3);
 
 MSPModel*
 MSPModel::getModel() {
-    if (myModel == 0) {
+    if (myModel == nullptr) {
         const OptionsCont& oc = OptionsCont::getOptions();
         MSNet* net = MSNet::getInstance();
         const std::string model = oc.getString("pedestrian.model");
@@ -80,20 +80,20 @@ MSPModel::getModel() {
 
 void
 MSPModel::cleanup() {
-    if (myModel != 0) {
+    if (myModel != nullptr) {
         myModel->cleanupHelper();
         delete myModel;
-        myModel = 0;
+        myModel = nullptr;
     }
 }
 
 
 int
 MSPModel::canTraverse(int dir, const ConstMSEdgeVector& route) {
-    const MSJunction* junction = 0;
+    const MSJunction* junction = nullptr;
     for (ConstMSEdgeVector::const_iterator it = route.begin(); it != route.end(); ++it) {
         const MSEdge* edge = *it;
-        if (junction != 0) {
+        if (junction != nullptr) {
             //std::cout << " junction=" << junction->getID() << " edge=" << edge->getID() << "\n";
             if (junction == edge->getFromJunction()) {
                 dir = FORWARD;

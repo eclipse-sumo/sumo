@@ -319,7 +319,7 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
                     if (!geoConvHelper.x2cartesian(pos)) {
                         WRITE_WARNING("Unable to project coordinates for POI '" + id + "'.");
                     }
-                    PointOfInterest* poi = new PointOfInterest(id, type, color, pos, "", 0, 0, layer);
+                    PointOfInterest* poi = new PointOfInterest(id, type, color, pos, "", nullptr, 0, layer);
                     toFill.add(poi);
                 }
             }

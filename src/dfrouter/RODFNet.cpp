@@ -358,8 +358,8 @@ RODFNet::buildRoutes(RODFDetectorCon& detcont, bool keepUnfoundEnds, bool includ
         RODFRouteDesc rd;
         rd.edges2Pass.push_back(e);
         rd.duration_2 = (e->getLength() / e->getSpeedLimit()); //!!!;
-        rd.endDetectorEdge = 0;
-        rd.lastDetectorEdge = 0;
+        rd.endDetectorEdge = nullptr;
+        rd.lastDetectorEdge = nullptr;
         rd.distance = e->getLength();
         rd.distance2Last = 0;
         rd.duration2Last = 0;
@@ -627,7 +627,7 @@ RODFNet::getDetectorEdge(const RODFDetector& det) const {
     std::string edgeName = det.getLaneID();
     edgeName = edgeName.substr(0, edgeName.rfind('_'));
     ROEdge* ret = getEdge(edgeName);
-    if (ret == 0) {
+    if (ret == nullptr) {
         throw ProcessError("Edge '" + edgeName + "' used by detector '" + det.getID() + "' is not known.");
     }
     return ret;
@@ -941,7 +941,7 @@ RODFNet::buildEdgeFlowMap(const RODFDetectorFlows& flows,
 
         const std::vector<std::string>& dets = (*i).second;
         std::map<double, std::vector<std::string> > cliques;
-        std::vector<std::string>* maxClique = 0;
+        std::vector<std::string>* maxClique = nullptr;
         for (std::vector<std::string>::const_iterator j = dets.begin(); j != dets.end(); ++j) {
             if (!flows.knows(*j)) {
                 continue;
@@ -962,7 +962,7 @@ RODFNet::buildEdgeFlowMap(const RODFDetectorFlows& flows,
                 maxClique = &cliques[det.getPos()];
             }
         }
-        if (maxClique == 0) {
+        if (maxClique == nullptr) {
             continue;
         }
         std::vector<FlowDef> mflows; // !!! reserve

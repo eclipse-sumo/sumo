@@ -44,14 +44,14 @@ AGAdult::randomFreeWorkPosition(std::vector<AGWorkPosition>* wps) {
         }
     }
     if (freePos.empty()) {
-        return 0;
+        return nullptr;
     }
     return RandHelper::getRandomFrom(freePos);
 }
 
 
 AGAdult::AGAdult(int age)
-    : AGPerson(age), work(0) {}
+    : AGPerson(age), work(nullptr) {}
 
 
 void
@@ -67,13 +67,13 @@ AGAdult::tryToWork(double rate, std::vector<AGWorkPosition>* wps) {
         // This avoids that the current one is the same as the new one.
         AGWorkPosition* newWork = randomFreeWorkPosition(wps);
 
-        if (work != 0) {
+        if (work != nullptr) {
             work->let();
         }
         work = newWork;
         work->take(this);
     } else {
-        if (work != 0) {
+        if (work != nullptr) {
             // Also sets work = 0 with the call back lostWorkPosition
             work->let();
         }
@@ -83,19 +83,19 @@ AGAdult::tryToWork(double rate, std::vector<AGWorkPosition>* wps) {
 
 bool
 AGAdult::isWorking() const {
-    return (work != 0);
+    return (work != nullptr);
 }
 
 
 void
 AGAdult::lostWorkPosition() {
-    work = 0;
+    work = nullptr;
 }
 
 
 void
 AGAdult::resignFromWorkPosition() {
-    if (work != 0) {
+    if (work != nullptr) {
         work->let();
     }
 }
@@ -103,7 +103,7 @@ AGAdult::resignFromWorkPosition() {
 
 const AGWorkPosition&
 AGAdult::getWorkPosition() const {
-    if (work != 0) {
+    if (work != nullptr) {
         return *work;
     }
     throw std::runtime_error("AGAdult::getWorkPosition: Adult is unemployed.");

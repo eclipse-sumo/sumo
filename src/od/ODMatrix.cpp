@@ -113,14 +113,14 @@ ODMatrix::add(const std::string& id, const SUMOTime depart,
     }
     // we start looking from the end because there is a high probability that the input is sorted by time
     std::vector<ODCell*>& odList = myShortCut[od];
-    ODCell* cell = 0;
+    ODCell* cell = nullptr;
     for (std::vector<ODCell*>::const_reverse_iterator c = odList.rbegin(); c != odList.rend(); ++c) {
         if ((*c)->begin <= depart && (*c)->end > depart && (*c)->vehicleType == vehicleType) {
             cell = *c;
             break;
         }
     }
-    if (cell == 0) {
+    if (cell == nullptr) {
         const SUMOTime interval = string2time(OptionsCont::getOptions().getString("aggregation-interval"));
         const int intervalIdx = (int)(depart / interval);
         if (add(1., intervalIdx * interval, (intervalIdx + 1) * interval, od.first, od.second, vehicleType)) {

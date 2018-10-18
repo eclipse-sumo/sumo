@@ -46,7 +46,7 @@
 // ===========================================================================
 NLEdgeControlBuilder::NLEdgeControlBuilder()
     : myCurrentNumericalLaneID(0), myCurrentNumericalEdgeID(0), myEdges(0), myCurrentLaneIndex(-1) {
-    myActiveEdge = (MSEdge*) 0;
+    myActiveEdge = (MSEdge*) nullptr;
     myLaneStorage = new std::vector<MSLane*>();
 }
 
@@ -65,7 +65,7 @@ NLEdgeControlBuilder::beginEdgeParsing(
     // closeEdge might not have been called because the last edge had an error, so we clear the lane storage
     myLaneStorage->clear();
     myActiveEdge = buildEdge(id, function, streetName, edgeType, priority);
-    if (MSEdge::dictionary(id) != 0) {
+    if (MSEdge::dictionary(id) != nullptr) {
         throw InvalidArgument("Another edge with the id '" + id + "' exists.");
     }
     myEdges.push_back(myActiveEdge);

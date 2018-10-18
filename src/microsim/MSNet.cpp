@@ -133,7 +133,7 @@ double
 MSNet::getEffort(const MSEdge* const e, const SUMOVehicle* const v, double t) {
     double value;
     const MSVehicle* const veh = dynamic_cast<const MSVehicle* const>(v);
-    if (veh != 0 && veh->getWeightsStorage().retrieveExistingEffort(e, t, value)) {
+    if (veh != nullptr && veh->getWeightsStorage().retrieveExistingEffort(e, t, value)) {
         return value;
     }
     if (getInstance()->getWeightsStorage().retrieveExistingEffort(e, t, value)) {
@@ -147,7 +147,7 @@ double
 MSNet::getTravelTime(const MSEdge* const e, const SUMOVehicle* const v, double t) {
     double value;
     const MSVehicle* const veh = dynamic_cast<const MSVehicle* const>(v);
-    if (veh != 0 && veh->getWeightsStorage().retrieveExistingTravelTime(e, t, value)) {
+    if (veh != nullptr && veh->getWeightsStorage().retrieveExistingTravelTime(e, t, value)) {
         return value;
     }
     if (getInstance()->getWeightsStorage().retrieveExistingTravelTime(e, t, value)) {
@@ -177,10 +177,10 @@ MSNet::MSNet(MSVehicleControl* vc, MSEventControl* beginOfTimestepEvents,
     myHavePermissions(false),
     myHasInternalLinks(false),
     myHasElevation(false),
-    myRouterTT(0),
-    myRouterEffort(0),
-    myPedestrianRouter(0) {
-    if (myInstance != 0) {
+    myRouterTT(nullptr),
+    myRouterEffort(nullptr),
+    myPedestrianRouter(nullptr) {
+    if (myInstance != nullptr) {
         throw ProcessError("A network was already constructed.");
     }
     OptionsCont& oc = OptionsCont::getOptions();
@@ -192,14 +192,14 @@ MSNet::MSNet(MSVehicleControl* vc, MSEventControl* beginOfTimestepEvents,
                                         string2time(oc.getString("random-depart-offset")));
     myVehicleControl = vc;
     myDetectorControl = new MSDetectorControl();
-    myEdges = 0;
-    myJunctions = 0;
-    myRouteLoaders = 0;
-    myLogics = 0;
-    myPersonControl = 0;
-    myContainerControl = 0;
-    myEdgeWeights = 0;
-    myShapeContainer = shapeCont == 0 ? new ShapeContainer() : shapeCont;
+    myEdges = nullptr;
+    myJunctions = nullptr;
+    myRouteLoaders = nullptr;
+    myLogics = nullptr;
+    myPersonControl = nullptr;
+    myContainerControl = nullptr;
+    myEdgeWeights = nullptr;
+    myShapeContainer = shapeCont == nullptr ? new ShapeContainer() : shapeCont;
 
     myBeginOfTimestepEvents = beginOfTimestepEvents;
     myEndOfTimestepEvents = endOfTimestepEvents;
@@ -302,7 +302,7 @@ const std::map<SUMOVehicleClass, double>*
 MSNet::getRestrictions(const std::string& id) const {
     std::map<std::string, std::map<SUMOVehicleClass, double> >::const_iterator i = myRestrictions.find(id);
     if (i == myRestrictions.end()) {
-        return 0;
+        return nullptr;
     }
     return &i->second;
 }
@@ -343,7 +343,7 @@ MSNet::simulate(SUMOTime start, SUMOTime stop) {
             OptionsIO::setArgs(TraCIServer::getInstance()->getLoadArgs());
             TraCIServer::getInstance()->getLoadArgs().clear();
         } else if (state != SIMSTATE_RUNNING) {
-            if (TraCIServer::getInstance() != 0 && !TraCIServer::wasClosed()) {
+            if (TraCIServer::getInstance() != nullptr && !TraCIServer::wasClosed()) {
                 // overrides SIMSTATE_END_STEP_REACHED, e.g. (TraCI ignore SUMO's --end option)
                 state = SIMSTATE_RUNNING;
             }
@@ -414,7 +414,7 @@ MSNet::closeSimulation(SUMOTime start) {
         if (myVehicleControl->getEmergencyStops() > 0) {
             msg << "Emergency Stops: " << myVehicleControl->getEmergencyStops() << "\n";
         }
-        if (myPersonControl != 0 && myPersonControl->getLoadedNumber() > 0) {
+        if (myPersonControl != nullptr && myPersonControl->getLoadedNumber() > 0) {
             msg << "Persons: " << "\n"
                 << " Inserted: " << myPersonControl->getLoadedNumber() << "\n"
                 << " Running: " << myPersonControl->getRunningNumber() << "\n";
@@ -441,7 +441,7 @@ MSNet::simulationStep() {
         myTraCIStepDuration = SysUtils::getCurrentMillis();
     }
     TraCIServer* t = TraCIServer::getInstance();
-    if (t != 0 && !t->isEmbedded()) {
+    if (t != nullptr && !t->isEmbedded()) {
         t->processCommandsUntilSimStep(myStep);
 #ifdef DEBUG_SIMSTEP
         bool loadRequested = !TraCI::getLoadArgs().empty();
@@ -504,11 +504,11 @@ MSNet::simulationStep() {
     loadRoutes();
 
     // persons
-    if (myPersonControl != 0 && myPersonControl->hasTransportables()) {
+    if (myPersonControl != nullptr && myPersonControl->hasTransportables()) {
         myPersonControl->checkWaiting(this, myStep);
     }
     // containers
-    if (myContainerControl != 0 && myContainerControl->hasTransportables()) {
+    if (myContainerControl != nullptr && myContainerControl->hasTransportables()) {
         myContainerControl->checkWaiting(this, myStep);
     }
     // insert vehicles
@@ -550,14 +550,14 @@ MSNet::simulationState(SUMOTime stopTime) const {
     if (TraCIServer::wasClosed()) {
         return SIMSTATE_CONNECTION_CLOSED;
     }
-    if (TraCIServer::getInstance() != 0 && !TraCIServer::getInstance()->getLoadArgs().empty()) {
+    if (TraCIServer::getInstance() != nullptr && !TraCIServer::getInstance()->getLoadArgs().empty()) {
         return SIMSTATE_LOADING;
     }
-    if ((stopTime < 0 || myStep > stopTime) && TraCIServer::getInstance() == 0) {
+    if ((stopTime < 0 || myStep > stopTime) && TraCIServer::getInstance() == nullptr) {
         if ((myVehicleControl->getActiveVehicleCount() == 0)
                 && (myInserter->getPendingFlowCount() == 0)
-                && (myPersonControl == 0 || !myPersonControl->hasNonWaiting())
-                && (myContainerControl == 0 || !myContainerControl->hasNonWaiting())) {
+                && (myPersonControl == nullptr || !myPersonControl->hasNonWaiting())
+                && (myContainerControl == nullptr || !myContainerControl->hasNonWaiting())) {
             if (myPersonControl) {
                 myPersonControl->abortWaitingForVehicle();
             }
@@ -617,7 +617,7 @@ MSNet::clearAll() {
     MSDevice_SSM::cleanup();
     MSStopOut::cleanup();
     TraCIServer* t = TraCIServer::getInstance();
-    if (t != 0) {
+    if (t != nullptr) {
         t->cleanup();
     }
     libsumo::Helper::cleanup();
@@ -750,7 +750,7 @@ MSNet::logSimulationDuration() const {
 
 MSTransportableControl&
 MSNet::getPersonControl() {
-    if (myPersonControl == 0) {
+    if (myPersonControl == nullptr) {
         myPersonControl = new MSTransportableControl();
     }
     return *myPersonControl;
@@ -758,7 +758,7 @@ MSNet::getPersonControl() {
 
 MSTransportableControl&
 MSNet::getContainerControl() {
-    if (myContainerControl == 0) {
+    if (myContainerControl == nullptr) {
         myContainerControl = new MSTransportableControl();
     }
     return *myContainerControl;
@@ -767,7 +767,7 @@ MSNet::getContainerControl() {
 
 MSEdgeWeightsStorage&
 MSNet::getWeightsStorage() {
-    if (myEdgeWeights == 0) {
+    if (myEdgeWeights == nullptr) {
         myEdgeWeights = new MSEdgeWeightsStorage();
     }
     return *myEdgeWeights;
@@ -796,7 +796,7 @@ MSNet::postSimStepOutput() const {
             oss << " (0ms ?*RT. ?";
         }
         oss << "UPS, ";
-        if (TraCIServer::getInstance() != 0) {
+        if (TraCIServer::getInstance() != nullptr) {
             oss << "TraCI: " << myTraCIStepDuration << "ms, ";
         }
         oss << "vehicles TOT " << myVehicleControl->getDepartedVehicleNo()
@@ -846,7 +846,7 @@ MSNet::getStoppingPlace(const std::string& id, const SumoXMLTag category) const 
     if (myStoppingPlaces.count(category) > 0) {
         return myStoppingPlaces.find(category)->second.get(id);
     }
-    return 0;
+    return nullptr;
 }
 
 
@@ -877,7 +877,7 @@ MSNet::writeChargingStationOutput() const {
 
 SUMOAbstractRouter<MSEdge, SUMOVehicle>&
 MSNet::getRouterTT(const MSEdgeVector& prohibited) const {
-    if (myRouterTT == 0) {
+    if (myRouterTT == nullptr) {
         const std::string routingAlgorithm = OptionsCont::getOptions().getString("routing-algorithm");
         if (routingAlgorithm == "dijkstra") {
             myRouterTT = new DijkstraRouter<MSEdge, SUMOVehicle, SUMOAbstractRouterPermissions<MSEdge, SUMOVehicle> >(
@@ -897,7 +897,7 @@ MSNet::getRouterTT(const MSEdgeVector& prohibited) const {
 
 SUMOAbstractRouter<MSEdge, SUMOVehicle>&
 MSNet::getRouterEffort(const MSEdgeVector& prohibited) const {
-    if (myRouterEffort == 0) {
+    if (myRouterEffort == nullptr) {
         myRouterEffort = new DijkstraRouter<MSEdge, SUMOVehicle, SUMOAbstractRouterPermissions<MSEdge, SUMOVehicle> >(
             MSEdge::getAllEdges(), true, &MSNet::getEffort, &MSNet::getTravelTime);
     }
@@ -908,7 +908,7 @@ MSNet::getRouterEffort(const MSEdgeVector& prohibited) const {
 
 MSNet::MSPedestrianRouter&
 MSNet::getPedestrianRouter(const MSEdgeVector& prohibited) const {
-    if (myPedestrianRouter == 0) {
+    if (myPedestrianRouter == nullptr) {
         myPedestrianRouter = new MSPedestrianRouter();
     }
     myPedestrianRouter->prohibit(prohibited);

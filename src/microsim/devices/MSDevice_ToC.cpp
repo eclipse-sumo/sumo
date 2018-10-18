@@ -474,7 +474,7 @@ MSDevice_ToC::switchHolderType(const std::string& targetTypeID) {
     std::cout << SIMTIME << " Switching type of vehicle '" << myHolder.getID() << "' to '" << targetTypeID << "'" << std::endl;
 #endif
     MSVehicleType* targetType = MSNet::getInstance()->getVehicleControl().getVType(targetTypeID);
-    if (targetType == 0) {
+    if (targetType == nullptr) {
         WRITE_ERROR("vType '" + targetType->getID() + "' for vehicle '" + myHolder.getID() + "' is not known.");
         return;
     }

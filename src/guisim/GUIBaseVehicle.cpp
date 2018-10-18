@@ -286,32 +286,32 @@ GUIBaseVehicle::getPopUpMenu(GUIMainWindow& app,
     buildSelectionPopupEntry(ret);
     //
     if (hasActiveAddVisualisation(&parent, VO_SHOW_ROUTE)) {
-        new FXMenuCommand(ret, "Hide Current Route", 0, ret, MID_HIDE_CURRENTROUTE);
+        new FXMenuCommand(ret, "Hide Current Route", nullptr, ret, MID_HIDE_CURRENTROUTE);
     } else {
-        new FXMenuCommand(ret, "Show Current Route", 0, ret, MID_SHOW_CURRENTROUTE);
+        new FXMenuCommand(ret, "Show Current Route", nullptr, ret, MID_SHOW_CURRENTROUTE);
     }
     if (hasActiveAddVisualisation(&parent, VO_SHOW_ALL_ROUTES)) {
-        new FXMenuCommand(ret, "Hide All Routes", 0, ret, MID_HIDE_ALLROUTES);
+        new FXMenuCommand(ret, "Hide All Routes", nullptr, ret, MID_HIDE_ALLROUTES);
     } else {
-        new FXMenuCommand(ret, "Show All Routes", 0, ret, MID_SHOW_ALLROUTES);
+        new FXMenuCommand(ret, "Show All Routes", nullptr, ret, MID_SHOW_ALLROUTES);
     }
     if (hasActiveAddVisualisation(&parent, VO_SHOW_BEST_LANES)) {
-        new FXMenuCommand(ret, "Hide Best Lanes", 0, ret, MID_HIDE_BEST_LANES);
+        new FXMenuCommand(ret, "Hide Best Lanes", nullptr, ret, MID_HIDE_BEST_LANES);
     } else {
-        new FXMenuCommand(ret, "Show Best Lanes", 0, ret, MID_SHOW_BEST_LANES);
+        new FXMenuCommand(ret, "Show Best Lanes", nullptr, ret, MID_SHOW_BEST_LANES);
     }
     if (hasActiveAddVisualisation(&parent, VO_SHOW_LFLINKITEMS)) {
-        new FXMenuCommand(ret, "Hide Link Items", 0, ret, MID_HIDE_LFLINKITEMS);
+        new FXMenuCommand(ret, "Hide Link Items", nullptr, ret, MID_HIDE_LFLINKITEMS);
     } else {
-        new FXMenuCommand(ret, "Show Link Items", 0, ret, MID_SHOW_LFLINKITEMS);
+        new FXMenuCommand(ret, "Show Link Items", nullptr, ret, MID_SHOW_LFLINKITEMS);
     }
     new FXMenuSeparator(ret);
     if (parent.getTrackedID() != getGlID()) {
-        new FXMenuCommand(ret, "Start Tracking", 0, ret, MID_START_TRACK);
+        new FXMenuCommand(ret, "Start Tracking", nullptr, ret, MID_START_TRACK);
     } else {
-        new FXMenuCommand(ret, "Stop Tracking", 0, ret, MID_STOP_TRACK);
+        new FXMenuCommand(ret, "Stop Tracking", nullptr, ret, MID_STOP_TRACK);
     }
-    new FXMenuCommand(ret, "Select Foes", 0, ret, MID_SHOW_FOES);
+    new FXMenuCommand(ret, "Select Foes", nullptr, ret, MID_SHOW_FOES);
 
     new FXMenuSeparator(ret);
     //
@@ -882,7 +882,7 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
     const double degAngle = RAD2DEG(angle + M_PI / 2.);
     const double length = getVType().getLength();
     // one seat in the center of the vehicle by default
-    if (myVehicle.getLane() != 0) {
+    if (myVehicle.getLane() != nullptr) {
         mySeatPositions[0] = myVehicle.getPosition(-length / 2);
     } else {
         mySeatPositions[0] = p1;
@@ -950,7 +950,7 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
         glEnd();
     }
     MSDevice_BTreceiver* dev = static_cast<MSDevice_BTreceiver*>(myVehicle.getDevice(typeid(MSDevice_BTreceiver)));
-    if (dev != 0 && s.showBTRange) {
+    if (dev != nullptr && s.showBTRange) {
         glColor3d(1., 0., 0.);
         GLHelper::drawOutlineCircle(dev->getRange(), dev->getRange() - .2, 32);
     }
@@ -1248,7 +1248,7 @@ GUIBaseVehicle::drawRoute(const GUIVisualizationSettings& s, int routeNo, double
     }
     --routeNo; // only prior routes are stored
     const MSRoute* route = myRoutes->getRoute(routeNo);
-    if (route != 0) {
+    if (route != nullptr) {
         drawRouteHelper(s, *route);
     }
 }
@@ -1263,7 +1263,7 @@ GUIBaseVehicle::getSeatPosition(int personIndex) const {
 
 void
 GUIBaseVehicle::drawAction_drawPersonsAndContainers(const GUIVisualizationSettings& s) const {
-    if (myVehicle.myPersonDevice != 0) {
+    if (myVehicle.myPersonDevice != nullptr) {
         const std::vector<MSTransportable*>& ps = myVehicle.myPersonDevice->getTransportables();
         int personIndex = 0;
         for (std::vector<MSTransportable*>::const_iterator i = ps.begin(); i != ps.end(); ++i) {
@@ -1273,7 +1273,7 @@ GUIBaseVehicle::drawAction_drawPersonsAndContainers(const GUIVisualizationSettin
             person->drawGL(s);
         }
     }
-    if (myVehicle.myContainerDevice != 0) {
+    if (myVehicle.myContainerDevice != nullptr) {
         const std::vector<MSTransportable*>& cs = myVehicle.myContainerDevice->getTransportables();
         int containerIndex = 0;
         for (std::vector<MSTransportable*>::const_iterator i = cs.begin(); i != cs.end(); ++i) {

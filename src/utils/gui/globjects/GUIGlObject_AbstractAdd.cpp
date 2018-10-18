@@ -66,7 +66,7 @@ GUIGlObject_AbstractAdd*
 GUIGlObject_AbstractAdd::get(const std::string& name) {
     auto i = myObjects.find(name);
     if (i == myObjects.end()) {
-        return 0;
+        return nullptr;
     } else {
         return i->second;
     }

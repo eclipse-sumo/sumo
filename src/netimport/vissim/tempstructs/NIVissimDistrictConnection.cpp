@@ -109,7 +109,7 @@ NIVissimDistrictConnection*
 NIVissimDistrictConnection::dictionary(int id) {
     DictType::iterator i = myDict.find(id);
     if (i == myDict.end()) {
-        return 0;
+        return nullptr;
     }
     return (*i).second;
 }
@@ -200,16 +200,16 @@ NIVissimDistrictConnection::dict_BuildDistricts(NBDistrictCont& dc,
             NIVissimDistrictConnection* c = dictionary(*l);
             // get the edge to connect the parking place to
             NBEdge* e = ec.retrieve(toString<int>(c->myEdgeID));
-            if (e == 0) {
+            if (e == nullptr) {
                 e = ec.retrievePossiblySplit(toString<int>(c->myEdgeID), c->myPosition);
             }
-            if (e == 0) {
+            if (e == nullptr) {
                 WRITE_WARNING("Could not build district '" + toString<int>((*k).first) + "' - edge '" + toString<int>(c->myEdgeID) + "' is missing.");
                 continue;
             }
             std::string id = "ParkingPlace" + toString<int>(*l);
             NBNode* parkingPlace = nc.retrieve(id);
-            if (parkingPlace == 0) {
+            if (parkingPlace == nullptr) {
                 double pos = c->getPosition();
                 if (pos < e->getLength() - pos) {
                     parkingPlace = e->getFromNode();
@@ -342,7 +342,7 @@ NIVissimDistrictConnection::dict_findForEdge(int edgeid) {
             return (*i).second;
         }
     }
-    return 0;
+    return nullptr;
 }
 
 
@@ -375,7 +375,7 @@ double
 NIVissimDistrictConnection::getRealSpeed(int distNo) const {
     std::string id = toString<int>(distNo);
     Distribution* dist = DistributionCont::dictionary("speed", id);
-    if (dist == 0) {
+    if (dist == nullptr) {
         WRITE_WARNING("The referenced speed distribution '" + id + "' is not known.");
         WRITE_WARNING(". Using default.");
         return OptionsCont::getOptions().getFloat("vissim.default-speed");

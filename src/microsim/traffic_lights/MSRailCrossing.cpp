@@ -99,7 +99,7 @@ MSRailCrossing::updateCurrentPhase() {
                 stayRedUntil = MAX2(stayRedUntil, avi.leavingTime);
             }
         }
-        if ((*it_link)->getViaLane() != 0 && (*it_link)->getViaLane()->getVehicleNumberWithPartials() > 0) {
+        if ((*it_link)->getViaLane() != nullptr && (*it_link)->getViaLane()->getVehicleNumberWithPartials() > 0) {
             // do not open if there is still a train on the crossing
             stayRedUntil = MAX2(stayRedUntil, now + DELTA_T);
         }
