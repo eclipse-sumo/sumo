@@ -47,7 +47,7 @@ NIVissimNodeDef_Edges::NIVissimNodeDef_Edges(int id,
 
 NIVissimNodeDef_Edges::~NIVissimNodeDef_Edges() {
     for (auto & myEdge : myEdges) {
-        deletemyEdge;
+        delete myEdge;
     }
     myEdges.clear();
 }

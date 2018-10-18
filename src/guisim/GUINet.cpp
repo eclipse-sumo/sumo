@@ -89,13 +89,13 @@ GUINet::~GUINet() {
     // delete allocated wrappers
     //  of junctions
     for (auto & i1 : myJunctionWrapper) {
-        deletei1;
+        delete i1;
     }
     //  of additional structures
     GUIGlObject_AbstractAdd::clearDictionary();
     //  of tl-logics
     for (auto & i3 : myLogics2Wrapper) {
-        deletei3.second;
+        delete i3.second;
     }
     //  of detectors
     for (auto & i : myDetectorWrapper) {

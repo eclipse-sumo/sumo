@@ -44,7 +44,7 @@ SUMORouteLoaderControl::SUMORouteLoaderControl(SUMOTime inAdvanceStepNo):
 
 SUMORouteLoaderControl::~SUMORouteLoaderControl() {
     for (auto & myRouteLoader : myRouteLoaders) {
-        deletemyRouteLoader;
+        delete myRouteLoader;
     }
 }
 

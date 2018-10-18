@@ -77,11 +77,11 @@ GUIParameterTracker::GUIParameterTracker(GUIMainWindow& app,
 GUIParameterTracker::~GUIParameterTracker() {
     myApplication->removeChild(this);
     for (auto & i1 : myTracked) {
-        deletei1;
+        delete i1;
     }
     // deleted by GUINet
     for (auto & myValuePasser : myValuePassers) {
-        deletemyValuePasser;
+        delete myValuePasser;
     }
     delete myToolBarDrag;
     delete myToolBar;

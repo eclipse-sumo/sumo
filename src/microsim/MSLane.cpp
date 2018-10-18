@@ -1736,7 +1736,7 @@ MSLane::dictionary(const std::string& id) {
 void
 MSLane::clear() {
     for (auto & i : myDict) {
-        deletei.second;
+        delete i.second;
     }
     myDict.clear();
 }

@@ -207,8 +207,8 @@ GUIParkingArea::drawGL(const GUIVisualizationSettings& s) const {
 Boundary
 GUIParkingArea::getCenteringBoundary() const {
     Boundary b = myShape.getBoxBoundary();
-    for (const auto & mySpaceOccupancie : mySpaceOccupancies) {
-        b.add(mySpaceOccupancie.second.myPosition);
+    for (const auto & mySpaceOccupancy : mySpaceOccupancies) {
+        b.add(mySpaceOccupancy.second.myPosition);
     }
     b.grow(20);
     return b;

@@ -71,7 +71,7 @@ DistributionCont::clear() {
     for (auto & i : myDict) {
         DistDict& dict = i.second;
         for (auto & j : dict) {
-            deletej.second;
+            delete j.second;
         }
     }
 }

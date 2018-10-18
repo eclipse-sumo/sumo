@@ -41,7 +41,7 @@ ROJTREdge::ROJTREdge(const std::string& id, RONode* from, RONode* to, int index,
 
 ROJTREdge::~ROJTREdge() {
     for (auto & myFollowingDef : myFollowingDefs) {
-        deletemyFollowingDef.second;
+        delete myFollowingDef.second;
     }
 }
 

@@ -96,7 +96,7 @@ GUIParameterTableWindow::~GUIParameterTableWindow() {
     myApplication->removeChild(this);
     myLock.lock();
     for (auto & myItem : myItems) {
-        deletemyItem;
+        delete myItem;
     }
     if (myObject != nullptr) {
         myObject->removeParameterTable(this);

@@ -684,7 +684,7 @@ NIVissimConnectionCluster::getPositionForEdge(int edgeid) const {
 void
 NIVissimConnectionCluster::clearDict() {
     for (auto & myCluster : myClusters) {
-        deletemyCluster;
+        delete myCluster;
     }
     myClusters.clear();
     myFirstFreeID = 100000;

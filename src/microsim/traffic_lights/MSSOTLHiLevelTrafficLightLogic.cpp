@@ -37,8 +37,8 @@ MSSOTLHiLevelTrafficLightLogic::MSSOTLHiLevelTrafficLightLogic(MSTLLogicControl&
 }
 
 MSSOTLHiLevelTrafficLightLogic::~MSSOTLHiLevelTrafficLightLogic() {
-    for (auto & policie : policies) {
-        deletepolicie;
+    for (auto & policy : policies) {
+delete policy;
     }
 }
 

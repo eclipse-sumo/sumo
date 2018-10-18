@@ -54,7 +54,7 @@ MSTLLogicControl::TLSLogicVariants::TLSLogicVariants()
 MSTLLogicControl::TLSLogicVariants::~TLSLogicVariants() {
     std::map<std::string, MSTrafficLightLogic*>::const_iterator j;
     for (auto & myVariant : myVariants) {
-        deletemyVariant.second;
+        delete myVariant.second;
     }
     for (auto & mySwitchAction : mySwitchActions) {
         delete mySwitchAction;

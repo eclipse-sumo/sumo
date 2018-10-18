@@ -68,7 +68,7 @@ NIVissimConnection::NIVissimConnection(int id,
 
 NIVissimConnection::~NIVissimConnection() {
     for (auto & myClosedLane : myClosedLanes) {
-        deletemyClosedLane;
+        delete myClosedLane;
     }
     myClosedLanes.clear();
 }

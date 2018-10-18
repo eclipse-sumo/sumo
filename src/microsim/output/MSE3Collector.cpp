@@ -198,8 +198,8 @@ MSE3Collector::MSE3Collector(const std::string& id,
     myCurrentMeanSpeed(0), myCurrentHaltingsNumber(0), myLastResetTime(-1),
     myOpenEntry(openEntry) {
     // Set MoveReminders to entries and exits
-    for (auto entrie : entries) {
-        myEntryReminders.push_back(new MSE3EntryReminder(entrie, *this));
+    for (auto entry : entries) {
+        myEntryReminders.push_back(new MSE3EntryReminder(entry, *this));
     }
     for (auto exit : exits) {
         myLeaveReminders.push_back(new MSE3LeaveReminder(exit, *this));

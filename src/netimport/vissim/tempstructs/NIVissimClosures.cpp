@@ -78,7 +78,7 @@ NIVissimClosures::dictionary(const std::string& name) {
 void
 NIVissimClosures::clearDict() {
     for (auto & i : myDict) {
-        deletei.second;
+        delete i.second;
     }
     myDict.clear();
 }

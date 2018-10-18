@@ -504,9 +504,9 @@ MSBaseVehicle::saveState(OutputDevice& out) {
 
 void
 MSBaseVehicle::addStops(const bool ignoreStopErrors) {
-    for (const auto & i : myRoute->getStops()) {
+    for (const auto & stop : myRoute->getStops()) {
         std::string errorMsg;
-        if (!addStop(i, errorMsg, myParameter->depart) && !ignoreStopErrors) {
+        if (!addStop(stop, errorMsg, myParameter->depart) && !ignoreStopErrors) {
             throw ProcessError(errorMsg);
         }
         if (errorMsg != "") {

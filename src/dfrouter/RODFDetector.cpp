@@ -81,8 +81,8 @@ double
 RODFDetector::computeDistanceFactor(const RODFRouteDesc& rd) const {
     double distance = rd.edges2Pass[0]->getFromJunction()->getPosition().distanceTo(rd.edges2Pass.back()->getToJunction()->getPosition());
     double length = 0;
-    for (auto edges2Pas : rd.edges2Pass) {
-        length += edges2Pas->getLength();
+    for (auto edge2Pass : rd.edges2Pass) {
+        length += edge2Pass->getLength();
     }
     return (distance / length);
 }
@@ -952,7 +952,7 @@ RODFDetectorCon::getAnyDetectorForEdge(const RODFEdge* const edge) const {
 void
 RODFDetectorCon::clearDists(std::map<SUMOTime, RandomDistributor<int>* >& dists) const {
     for (auto & dist : dists) {
-        deletedist.second;
+        delete dist.second;
     }
 }
 

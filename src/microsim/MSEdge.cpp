@@ -85,7 +85,7 @@ MSEdge::MSEdge(const std::string& id, int numericalID,
 MSEdge::~MSEdge() {
     delete myLaneChanger;
     for (auto & i1 : myAllowed) {
-        deletei1.second;
+        delete i1.second;
     }
     for (auto & i2 : myClassedAllowed) {
         for (AllowedLanesCont::iterator i1 = i2.second.begin(); i1 != i2.second.end(); i1++) {
@@ -776,7 +776,7 @@ MSEdge::getAllEdges() {
 void
 MSEdge::clear() {
     for (auto & i : myDict) {
-        deletei.second;
+        delete i.second;
     }
     myDict.clear();
     myEdges.clear();
@@ -1034,7 +1034,7 @@ MSEdge::hasMinorLink() const {
     }
     return false;
 }
-
+     
 
 void MSEdge::checkAndRegisterBiDirEdge() {
     myBidiEdge = nullptr;

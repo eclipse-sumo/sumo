@@ -77,12 +77,12 @@ MSVehicleControl::MSVehicleControl() :
 MSVehicleControl::~MSVehicleControl() {
     // delete vehicles
     for (auto & i : myVehicleDict) {
-        deletei.second;
+        delete i.second;
     }
     myVehicleDict.clear();
     // delete vehicle type distributions
     for (auto & i : myVTypeDistDict) {
-        deletei.second;
+        delete i.second;
     }
     myVTypeDistDict.clear();
     // delete vehicle types

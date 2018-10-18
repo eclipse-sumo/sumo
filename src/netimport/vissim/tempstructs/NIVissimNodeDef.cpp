@@ -125,7 +125,7 @@ NIVissimNodeDef::dictSize() {
 void
 NIVissimNodeDef::clearDict() {
     for (auto & i : myDict) {
-        deletei.second;
+        delete i.second;
     }
     myDict.clear();
 }

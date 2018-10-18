@@ -349,7 +349,7 @@ NIVissimDistrictConnection::dict_findForEdge(int edgeid) {
 void
 NIVissimDistrictConnection::clearDict() {
     for (auto & i : myDict) {
-        deletei.second;
+        delete i.second;
     }
     myDict.clear();
 }

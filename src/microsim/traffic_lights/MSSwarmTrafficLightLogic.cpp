@@ -414,8 +414,8 @@ void MSSwarmTrafficLightLogic::updateSensitivities() {
 
     //reset of the sensitivity thresholds in case of 0 pheromone on the input lanes
     if (getPheromoneForInputLanes() == 0) {
-        for (auto & policie : policies) {
-            policie->setThetaSensitivity(getThetaInit());
+        for (auto & policy : policies) {
+            policy->setThetaSensitivity(getThetaInit());
 //			ANALYSIS_DBG(
             DBG(
                 std::ostringstream phero_str; phero_str << "Policy " << policies[i]->getName() << " sensitivity reset to " << policies[i]->getThetaSensitivity() << " due to evaporated input pheromone."; WRITE_MESSAGE(time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSSwarmTrafficLightLogic::updateSensitivities::" + phero_str.str());)

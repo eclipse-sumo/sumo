@@ -518,8 +518,8 @@ RODFNet::revalidateFlows(const RODFDetector* detector,
         // collect incoming
         {
             // !! time difference is missing
-            for (auto & previou : previous) {
-                const std::vector<FlowDef>& flows = static_cast<const RODFEdge*>(previou)->getFlows();
+            for (auto & prev : previous) {
+                const std::vector<FlowDef>& flows = static_cast<const RODFEdge*>(prev)->getFlows();
                 if (flows.size() != 0) {
                     const FlowDef& srcFD = flows[index];
                     inFlow.qLKW += srcFD.qLKW;

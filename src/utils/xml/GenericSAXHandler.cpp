@@ -60,7 +60,7 @@ GenericSAXHandler::GenericSAXHandler(
 
 GenericSAXHandler::~GenericSAXHandler() {
     for (auto & myPredefinedTag : myPredefinedTags) {
-        delete[]myPredefinedTag.second;
+        delete[] myPredefinedTag.second;
     }
 }
 

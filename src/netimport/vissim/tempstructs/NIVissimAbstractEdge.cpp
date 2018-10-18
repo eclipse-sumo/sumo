@@ -151,7 +151,7 @@ NIVissimAbstractEdge::getID() const {
 void
 NIVissimAbstractEdge::clearDict() {
     for (auto & i : myDict) {
-        deletei.second;
+        delete i.second;
     }
     myDict.clear();
 }

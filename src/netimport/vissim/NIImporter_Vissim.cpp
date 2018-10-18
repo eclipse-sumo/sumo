@@ -891,7 +891,7 @@ NIImporter_Vissim::~NIImporter_Vissim() {
     NIVissimConnection::clearDict();
     NIVissimConflictArea::clearDict();
     for (auto & myParser : myParsers) {
-        deletemyParser.second;
+        delete myParser.second;
     }
 }
 

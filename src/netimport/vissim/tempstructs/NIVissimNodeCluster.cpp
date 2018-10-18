@@ -285,7 +285,7 @@ NIVissimNodeCluster::dict_addDisturbances(NBDistrictCont& dc,
 void
 NIVissimNodeCluster::clearDict() {
     for (auto & i : myDict) {
-        deletei.second;
+        delete i.second;
     }
     myDict.clear();
 }

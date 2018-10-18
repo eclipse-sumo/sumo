@@ -71,7 +71,7 @@ NIVissimVehicleType::dictionary(int id) {
 void
 NIVissimVehicleType::clearDict() {
     for (auto & i : myDict) {
-        deletei.second;
+        delete i.second;
     }
     myDict.clear();
 }

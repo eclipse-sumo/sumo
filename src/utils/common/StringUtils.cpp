@@ -54,9 +54,9 @@ StringUtils::prune(const std::string& str) {
 
 std::string
 StringUtils::to_lower_case(std::string str) {
-    for (char & i : str) {
-        if (i >= 'A' && i <= 'Z') {
-            i = i + 'a' - 'A';
+    for (char & c : str) {
+        if (c >= 'A' && c <= 'Z') {
+            c = c + 'a' - 'A';
         }
     }
     return str;
@@ -171,8 +171,8 @@ std::string
 StringUtils::urlEncode(const std::string& toEncode, const std::string encodeWhich) {
     std::ostringstream out;
 
-    for (char i : toEncode) {
-        const char t = i;
+    for (char c : toEncode) {
+        const char t = c;
 
         if ((encodeWhich != "" && encodeWhich.find(t) == std::string::npos) ||
                 (encodeWhich == "" &&
@@ -182,9 +182,9 @@ StringUtils::urlEncode(const std::string& toEncode, const std::string encodeWhic
                   (t >= 97 && t <= 122) ||       // a-z
                   t == 126))                     // tilde
            ) {
-            out << i;
+            out << c;
         } else {
-            out << charToHex(i);
+            out << charToHex(c);
         }
     }
 

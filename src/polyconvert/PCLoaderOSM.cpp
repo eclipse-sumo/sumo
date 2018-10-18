@@ -329,11 +329,11 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
     }
     // delete edges
     for (auto & edge : edges) {
-        deleteedge.second;
+        delete edge.second;
     }
     // delete relations
     for (auto & relation : relations) {
-        deleterelation;
+        delete relation;
     }
 }
 

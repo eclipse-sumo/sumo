@@ -1431,7 +1431,7 @@ NBNodeCont::clear() {
     }
     myNodes.clear();
     for (auto myExtractedNode : myExtractedNodes) {
-        deletemyExtractedNode;
+        delete myExtractedNode;
     }
     myExtractedNodes.clear();
 }

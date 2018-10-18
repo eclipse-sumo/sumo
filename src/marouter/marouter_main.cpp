@@ -327,9 +327,9 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
                     od.writeAttr(SUMO_ATTR_NUMBER, int(c->vehicleNumber));
                     matrix.writeDefaultAttrs(od, oc.getBool("ignore-vehicle-type"), c);
                     od.openTag(SUMO_TAG_ROUTE_DISTRIBUTION);
-                    for (auto j : c->pathsVector) {
-                        j->setCosts(router->recomputeCosts(j->getEdgeVector(), &defaultVehicle, string2time(oc.getString("begin"))));
-                        j->writeXMLDefinition(od, nullptr, true, false);
+                    for (auto path : c->pathsVector) {
+                        path->setCosts(router->recomputeCosts(path->getEdgeVector(), &defaultVehicle, string2time(oc.getString("begin"))));
+                        path->writeXMLDefinition(od, nullptr, true, false);
                     }
                     od.closeTag();
                     od.closeTag();
@@ -342,9 +342,9 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
                             od.openTag(SUMO_TAG_VEHICLE).writeAttr(SUMO_ATTR_ID, *id).writeAttr(SUMO_ATTR_DEPART, time2string(deps->first));
                             matrix.writeDefaultAttrs(od, oc.getBool("ignore-vehicle-type"), c);
                             od.openTag(SUMO_TAG_ROUTE_DISTRIBUTION);
-                            for (auto j : c->pathsVector) {
-                                j->setCosts(router->recomputeCosts(j->getEdgeVector(), &defaultVehicle, string2time(oc.getString("begin"))));
-                                j->writeXMLDefinition(od, nullptr, true, false);
+                            for (auto path : c->pathsVector) {
+                                path->setCosts(router->recomputeCosts(path->getEdgeVector(), &defaultVehicle, string2time(oc.getString("begin"))));
+                                path->writeXMLDefinition(od, nullptr, true, false);
                             }
                             od.closeTag();
                             if (!tazParamKeys.empty()) {
@@ -358,8 +358,8 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
                         }
                     }
                 }
-                for (auto j : c->pathsVector) {
-                    delete j;
+                for (auto path : c->pathsVector) {
+                    delete path;
                 }
                 if (c->end > lastEnd) {
                     lastEnd = c->end;

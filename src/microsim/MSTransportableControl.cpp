@@ -51,7 +51,7 @@ MSTransportableControl::MSTransportableControl():
 
 MSTransportableControl::~MSTransportableControl() {
     for (auto & myTransportable : myTransportables) {
-        deletemyTransportable.second;
+        delete myTransportable.second;
     }
     myTransportables.clear();
     myWaiting4Vehicle.clear();

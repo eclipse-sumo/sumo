@@ -705,7 +705,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     // clean up
     // -------------------------
     for (auto & edge : edges) {
-        deleteedge.second;
+        delete edge.second;
     }
 }
 

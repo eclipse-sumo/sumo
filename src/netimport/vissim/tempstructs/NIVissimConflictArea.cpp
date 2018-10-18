@@ -108,7 +108,7 @@ NIVissimConflictArea::dict_findByLinks(const std::string& link1,
 void
 NIVissimConflictArea::clearDict() {
     for (auto & i : myDict) {
-        deletei.second;
+        delete i.second;
     }
     myDict.clear();
 }

@@ -124,9 +124,9 @@ NWWriter_XML::writeNodes(const OptionsCont& oc, NBNodeCont& nc) {
             // make sure ids are unique and sorted
             std::set<std::string> tlsIDs;
             std::set<std::string> controlledInnerEdges;
-            for (auto tls : tlss) {
-                tlsIDs.insert(tls->getID());
-                std::vector<std::string> cie = tls->getControlledInnerEdges();
+            for (auto tl : tlss) {
+                tlsIDs.insert(tl->getID());
+                std::vector<std::string> cie = tl->getControlledInnerEdges();
                 controlledInnerEdges.insert(cie.begin(), cie.end());
             }
             std::vector<std::string> sortedIDs(tlsIDs.begin(), tlsIDs.end());

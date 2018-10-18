@@ -771,8 +771,8 @@ OptionsCont::writeConfiguration(std::ostream& os, const bool filled,
         std::transform(subtopic.begin(), subtopic.end(), subtopic.begin(), tolower);
         const std::vector<std::string>& entries = mySubTopicEntries.find(mySubTopic)->second;
         bool hadOne = false;
-        for (const auto & entrie : entries) {
-            Option* o = getSecure(entrie);
+        for (const auto & entry : entries) {
+            Option* o = getSecure(entry);
             bool write = complete || (filled && !o->isDefault());
             if (!write) {
                 continue;
@@ -785,12 +785,12 @@ OptionsCont::writeConfiguration(std::ostream& os, const bool filled,
                 os << "        <!-- " << StringUtils::escapeXML(o->getDescription(), inComment) << " -->" << std::endl;
             }
             // write the option and the value (if given)
-            os << "        <" << entrie << " value=\"";
+            os << "        <" << entry << " value=\"";
             if (o->isSet() && (filled || o->isDefault())) {
                 os << StringUtils::escapeXML(o->getValueString(), inComment);
             }
             if (complete) {
-                std::vector<std::string> synonymes = getSynonymes(entrie);
+                std::vector<std::string> synonymes = getSynonymes(entry);
                 if (!synonymes.empty()) {
                     os << "\" synonymes=\"";
                     for (std::vector<std::string>::const_iterator s = synonymes.begin(); s != synonymes.end(); ++s) {
@@ -849,14 +849,14 @@ OptionsCont::writeSchema(std::ostream& os) {
         os << "    <xsd:complexType name=\"" << subtopic << "TopicType\">\n";
         os << "        <xsd:all>\n";
         const std::vector<std::string>& entries = mySubTopicEntries[*i];
-        for (const auto & entrie : entries) {
-            Option* o = getSecure(entrie);
+        for (const auto & entry : entries) {
+            Option* o = getSecure(entry);
             std::string type = o->getTypeName();
             std::transform(type.begin(), type.end(), type.begin(), tolower);
             if (type == "int[]") {
                 type = "intArray";
             }
-            os << "            <xsd:element name=\"" << entrie << "\" type=\"" << type << "OptionType\" minOccurs=\"0\"/>\n";
+            os << "            <xsd:element name=\"" << entry << "\" type=\"" << type << "OptionType\" minOccurs=\"0\"/>\n";
         }
         os << "        </xsd:all>\n";
         os << "    </xsd:complexType>\n\n";

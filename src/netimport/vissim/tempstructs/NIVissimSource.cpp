@@ -72,7 +72,7 @@ NIVissimSource::dictionary(const std::string& id) {
 void
 NIVissimSource::clearDict() {
     for (auto & i : myDict) {
-        deletei.second;
+        delete i.second;
     }
     myDict.clear();
 }

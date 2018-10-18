@@ -351,7 +351,7 @@ NIVissimTL::dictionary(int id) {
 void
 NIVissimTL::clearDict() {
     for (auto & i : myDict) {
-        deletei.second;
+        delete i.second;
     }
     myDict.clear();
 }

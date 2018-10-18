@@ -324,7 +324,7 @@ NIVissimDisturbance::getConnection(NBNode* node, int aedgeid) {
 void
 NIVissimDisturbance::clearDict() {
     for (auto & i : myDict) {
-        deletei.second;
+        delete i.second;
     }
     myDict.clear();
 }

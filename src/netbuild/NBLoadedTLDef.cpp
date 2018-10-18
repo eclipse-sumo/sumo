@@ -275,7 +275,7 @@ NBLoadedTLDef::NBLoadedTLDef(const NBEdgeCont& ec, const std::string& id, SUMOTi
 
 NBLoadedTLDef::~NBLoadedTLDef() {
     for (auto & mySignalGroup : mySignalGroups) {
-        deletemySignalGroup.second;
+        delete mySignalGroup.second;
     }
 }
 

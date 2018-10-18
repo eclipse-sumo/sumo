@@ -78,7 +78,7 @@ ROEdge::ROEdge(const std::string& id, RONode* from, RONode* to, int index, const
 
 ROEdge::~ROEdge() {
     for (auto & myLane : myLanes) {
-        deletemyLane;
+        delete myLane;
     }
 }
 

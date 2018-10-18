@@ -57,7 +57,7 @@ NBContHelper::nextCCW(const EdgeVector& edges, EdgeVector::const_iterator& from)
 
 std::ostream&
 NBContHelper::out(std::ostream& os, const std::vector<bool>& v) {
-    for (std::_Vb_const_iterator::const_reference i : v) {
+    for (auto const & i : v) {
         os << i;
     }
     return os;

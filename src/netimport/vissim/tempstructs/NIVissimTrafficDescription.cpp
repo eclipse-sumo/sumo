@@ -88,7 +88,7 @@ NIVissimTrafficDescription::dictionary(int id) {
 void
 NIVissimTrafficDescription::clearDict() {
     for (auto & i : myDict) {
-        deletei.second;
+        delete i.second;
     }
     myDict.clear();
 }
