@@ -487,7 +487,7 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
                             continue;
                         }
                         // Index of opposite lane at relative offset ix
-                        const int ix_opposite = (int)opposite->getLanes().size() - 1 - (vehLane->getIndex() + ix - vehEdge->getLanes().size());
+                        const int ix_opposite = (int)opposite->getLanes().size() - 1 - (vehLane->getIndex() + ix - (int)vehEdge->getLanes().size());
                         if (ix_opposite < 0) {
 #ifdef DEBUG_SURROUNDING
                             std::cout << "No lane on opposite at index " << ix_opposite << std::endl;
@@ -544,7 +544,7 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
                         continue;
                     }
                     // Index of opposite lane at relative offset ix
-                    const int ix_opposite = opposite->getLanes().size() - 1 - (vehLane->getIndex() + ix - vehEdge->getLanes().size());
+                    const int ix_opposite = (int)opposite->getLanes().size() - 1 - (vehLane->getIndex() + ix - (int)vehEdge->getLanes().size());
                     if (ix_opposite < 0) {
 #ifdef DEBUG_SURROUNDING
                         std::cout << "No lane on opposite at index " << ix_opposite << std::endl;
@@ -580,7 +580,7 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
                 // Only return vehicles of the given vClass in context subscription result
                 auto i = vehs.begin();
                 while (i != vehs.end()) {
-                    if ((*i)->getVehicleType().getVehicleClass() & s.filterVClasses == 0) {
+                    if (((*i)->getVehicleType().getVehicleClass() & s.filterVClasses) == 0) {
                         i = vehs.erase(i);
                     } else {
                         ++i;
@@ -612,7 +612,7 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
             auto i = objIDs.begin();
             while (i != objIDs.end()) {
                 MSVehicle* veh = libsumo::Vehicle::getVehicle(*i);
-                if (veh->getVehicleType().getVehicleClass() & s.filterVClasses == 0) {
+                if ((veh->getVehicleType().getVehicleClass() & s.filterVClasses) == 0) {
                     i = objIDs.erase(i);
                 } else {
                     ++i;
