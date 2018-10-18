@@ -580,9 +580,6 @@ GNETAZFrame::GNETAZFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* v
 
     // disable edge selector
     myEdgeSelector->disableEdgeSelector();
-
-    // all TAZ polygon are always closed
-    myDrawingShape->setCloseShape(true);
 }
 
 
@@ -668,8 +665,10 @@ GNETAZFrame::buildShape() {
         // generate new ID
         valuesOfElement[SUMO_ATTR_ID] = myViewNet->getNet()->generateAdditionalID(SUMO_TAG_TAZ);
 
-        // obtain shape
-        valuesOfElement[SUMO_ATTR_SHAPE] = toString(myDrawingShape->getTemporalShape());
+        // obtain shape and close it
+        PositionVector shape = myDrawingShape->getTemporalShape();
+        shape.closePolygon();
+        valuesOfElement[SUMO_ATTR_SHAPE] = toString(shape);
 
         // obtain color (temporal)
         valuesOfElement[SUMO_ATTR_COLOR] = "black";

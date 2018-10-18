@@ -75,17 +75,15 @@ FXDEFMAP(GNEFrame::DrawingShape) DrawingShapeMap[] = {
 };
 
 FXDEFMAP(GNEFrame::NeteditAttributes) NeteditAttributesMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_TEXT,     GNEFrame::NeteditAttributes::onCmdSetLength),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_BOOL,     GNEFrame::NeteditAttributes::onCmdSetBlocking),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_TYPE,               GNEFrame::NeteditAttributes::onCmdSelectReferencePoint),
-    FXMAPFUNC(SEL_COMMAND,  MID_HELP,                       GNEFrame::NeteditAttributes::onCmdHelp),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEFrame::NeteditAttributes::onCmdSetNeteditAttribute),
+    FXMAPFUNC(SEL_COMMAND,  MID_HELP,               GNEFrame::NeteditAttributes::onCmdHelp),
 };
 
 // Object implementation
 FXIMPLEMENT(GNEFrame::ACHierarchy,              FXGroupBox,     ACHierarchyMap,                 ARRAYNUMBER(ACHierarchyMap))
 FXIMPLEMENT(GNEFrame::GenericParametersEditor,  FXGroupBox,     GenericParametersEditorMap,     ARRAYNUMBER(GenericParametersEditorMap))
 FXIMPLEMENT(GNEFrame::DrawingShape,             FXGroupBox,     DrawingShapeMap,                ARRAYNUMBER(DrawingShapeMap))
-FXIMPLEMENT(GNEFrame::NeteditAttributes,          FXGroupBox,         NeteditAttributesMap,           ARRAYNUMBER(NeteditAttributesMap))
+FXIMPLEMENT(GNEFrame::NeteditAttributes,        FXGroupBox,     NeteditAttributesMap,           ARRAYNUMBER(NeteditAttributesMap))
 
 
 // ===========================================================================
@@ -728,8 +726,7 @@ GNEFrame::GenericParametersEditor::onCmdSetGenericParameter(FXObject*, FXSelecto
 GNEFrame::DrawingShape::DrawingShape(GNEFrame* frameParent) :
     FXGroupBox(frameParent->myContentFrame, "Drawing", GUIDesignGroupBoxFrame),
     myFrameParent(frameParent),
-    myDeleteLastCreatedPoint(false),
-    myCloseShape(false) {
+    myDeleteLastCreatedPoint(false) {
     // create start and stop buttons
     myStartDrawingButton = new FXButton(this, "Start drawing", 0, this, MID_GNE_STARTDRAWING, GUIDesignButton);
     myStopDrawingButton = new FXButton(this, "Stop drawing", 0, this, MID_GNE_STOPDRAWING, GUIDesignButton);
@@ -786,10 +783,6 @@ GNEFrame::DrawingShape::startDrawing() {
 
 void
 GNEFrame::DrawingShape::stopDrawing() {
-    // check if shape has to be closed
-    if (myCloseShape) {
-        myTemporalShapeShape.closePolygon();
-    }
     // try to build shape
     if (myFrameParent->buildShape()) {
         // clear created points
@@ -858,12 +851,6 @@ GNEFrame::DrawingShape::getDeleteLastCreatedPoint() {
 }
 
 
-void 
-GNEFrame::DrawingShape::setCloseShape(bool value) {
-    myCloseShape = value;
-}
-
-
 long
 GNEFrame::DrawingShape::onCmdStartDrawing(FXObject*, FXSelector, void*) {
     startDrawing();
@@ -888,26 +875,35 @@ GNEFrame::DrawingShape::onCmdAbortDrawing(FXObject*, FXSelector, void*) {
 // GNEFrame::NeteditAttributes- methods
 // ---------------------------------------------------------------------------
 
-GNEFrame::NeteditAttributes::NeteditAttributes(GNEFrame* additionalFrameParent) :
-    FXGroupBox(additionalFrameParent->myContentFrame, "Netedit attributes", GUIDesignGroupBoxFrame),
+GNEFrame::NeteditAttributes::NeteditAttributes(GNEFrame* frameParent) :
+    FXGroupBox(frameParent->myContentFrame, "Netedit attributes", GUIDesignGroupBoxFrame),
     myActualAdditionalReferencePoint(GNE_ADDITIONALREFERENCEPOINT_LEFT),
-    myAdditionalFrameParent(additionalFrameParent),
+    myFrameParent(frameParent),
     myCurrentLengthValid(true) {
     // Create FXListBox for the reference points and fill it
-    myReferencePointMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
+    myReferencePointMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBox);
     myReferencePointMatchBox->appendItem("reference left");
     myReferencePointMatchBox->appendItem("reference right");
     myReferencePointMatchBox->appendItem("reference center");
     // Create Frame for Length Label and textField
     FXHorizontalFrame* lengthFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     myLengthLabel = new FXLabel(lengthFrame, toString(SUMO_ATTR_LENGTH).c_str(), 0, GUIDesignLabelAttribute);
-    myLengthTextField = new FXTextField(lengthFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE_TEXT, GUIDesignTextField);
+    myLengthTextField = new FXTextField(lengthFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     myLengthTextField->setText("10");
     // Create Frame for block movement label and checkBox (By default disabled)
     FXHorizontalFrame* blockMovement = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    myBlockLabel = new FXLabel(blockMovement, "block move", 0, GUIDesignLabelAttribute);
-    myBlockMovementCheckButton = new FXCheckButton(blockMovement, "false", this, MID_GNE_SET_ATTRIBUTE_BOOL, GUIDesignCheckButtonAttribute);
+    myBlockMovementLabel = new FXLabel(blockMovement, "block move", 0, GUIDesignLabelAttribute);
+    myBlockMovementCheckButton = new FXCheckButton(blockMovement, "false", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButtonAttribute);
     myBlockMovementCheckButton->setCheck(false);
+    // Create Frame for block shape label and checkBox (By default disabled)
+    FXHorizontalFrame* blockShapeFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    myBlockShapeLabel = new FXLabel(blockShapeFrame, "block shape", 0, GUIDesignLabelAttribute);
+    myBlockShapeCheckButton = new FXCheckButton(blockShapeFrame, "false", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButtonAttribute);
+    // Create Frame for block close polygon and checkBox (By default disabled)
+    FXHorizontalFrame *closePolygonFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    myClosePolygonLabel = new FXLabel(closePolygonFrame, "Close shape", 0, GUIDesignLabelAttribute);
+    myCloseShapeCheckButton = new FXCheckButton(closePolygonFrame, "false", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButtonAttribute);
+    myBlockShapeCheckButton->setCheck(false);
     // Create help button
     helpReferencePoint = new FXButton(this, "Help", 0, this, MID_HELP, GUIDesignButtonRectangular);
     // Set visible items
@@ -922,15 +918,6 @@ void
 GNEFrame::NeteditAttributes::showNeteditAttributesModul(const GNEAttributeCarrier::TagValues& tagValue) {
     // we assume that frame will not be show
     bool showFrame = false;
-    // check if block movement check button has to be show
-    if (tagValue.canBlockMovement()) {
-        myBlockLabel->show();
-        myBlockMovementCheckButton->show();
-        showFrame = true;
-    } else {
-        myBlockLabel->hide();
-        myBlockMovementCheckButton->hide();
-    }
     // check if lenght text field has to be showed
     if(tagValue.canMaskStartEndPos()) {
         myLengthLabel->show();
@@ -941,6 +928,33 @@ GNEFrame::NeteditAttributes::showNeteditAttributesModul(const GNEAttributeCarrie
         myLengthLabel->hide();
         myLengthTextField->hide();
         myReferencePointMatchBox->hide();
+    }
+    // check if block movement check button has to be show
+    if (tagValue.canBlockMovement()) {
+        myBlockMovementLabel->show();
+        myBlockMovementCheckButton->show();
+        showFrame = true;
+    } else {
+        myBlockMovementLabel->hide();
+        myBlockMovementCheckButton->hide();
+    }
+    // check if block shape check button has to be show
+    if (tagValue.canBlockShape()) {
+        myBlockShapeLabel->show();
+        myBlockShapeCheckButton->show();
+        showFrame = true;
+    } else {
+        myBlockShapeLabel->hide();
+        myBlockShapeCheckButton->hide();
+    }
+    // check if close shape check button has to be show
+    if (tagValue.canCloseShape()) {
+        myClosePolygonLabel->show();
+        myCloseShapeCheckButton->show();
+        showFrame = true;
+    } else {
+        myClosePolygonLabel->hide();
+        myCloseShapeCheckButton->hide();
     }
     // if at least one element is show, show modul
     if(showFrame) {
@@ -958,15 +972,7 @@ GNEFrame::NeteditAttributes::hideNeteditAttributesModul() {
 
 
 bool 
-GNEFrame::NeteditAttributes::getAttributesAndValues(std::map<SumoXMLAttr, std::string> &valuesMap, GNELane *lane) const {
-    // Save block value if additional can be blocked
-    if (myBlockMovementCheckButton->shown()) {
-        if(myBlockMovementCheckButton->getCheck() == 1) {
-            valuesMap[GNE_ATTR_BLOCK_MOVEMENT] = "true";
-        } else {
-            valuesMap[GNE_ATTR_BLOCK_MOVEMENT] = "false";
-        }
-    }
+GNEFrame::NeteditAttributes::getNeteditAttributesAndValues(std::map<SumoXMLAttr, std::string> &valuesMap, GNELane *lane) const {
     // check if we need to obtain a start and end position over an edge
     if(myReferencePointMatchBox->shown()) {
         // we need a valid lane to calculate position over lane
@@ -974,11 +980,11 @@ GNEFrame::NeteditAttributes::getAttributesAndValues(std::map<SumoXMLAttr, std::s
             return false;
         } else if (myCurrentLengthValid) {
             // Obtain position of the mouse over lane (limited over grid)
-            double mousePositionOverLane = lane->getShape().nearest_offset_to_point2D(myAdditionalFrameParent->myViewNet->snapToActiveGrid(myAdditionalFrameParent->myViewNet->getPositionInformation())) / lane->getLengthGeometryFactor();
+            double mousePositionOverLane = lane->getShape().nearest_offset_to_point2D(myFrameParent->myViewNet->snapToActiveGrid(myFrameParent->myViewNet->getPositionInformation())) / lane->getLengthGeometryFactor();
             // check if current reference point is valid
             if (myActualAdditionalReferencePoint == GNE_ADDITIONALREFERENCEPOINT_INVALID) {
                 std::string errorMessage = "Current selected reference point isn't valid";
-                myAdditionalFrameParent->myViewNet->setStatusBarText(errorMessage);
+                myFrameParent->myViewNet->setStatusBarText(errorMessage);
                 // Write Warning in console if we're in testing mode
                 WRITE_DEBUG(errorMessage);
                 return false;
@@ -988,10 +994,33 @@ GNEFrame::NeteditAttributes::getAttributesAndValues(std::map<SumoXMLAttr, std::s
                 // set start and end position
                 valuesMap[SUMO_ATTR_STARTPOS] = toString(setStartPosition(mousePositionOverLane, lenght));
                 valuesMap[SUMO_ATTR_ENDPOS] = toString(setEndPosition(mousePositionOverLane, lenght));
-                return true;
             }
         } else {
             return false;
+        }
+    }
+    // Save block value if element can be blocked
+    if (myBlockMovementCheckButton->shown()) {
+        if(myBlockMovementCheckButton->getCheck() == 1) {
+            valuesMap[GNE_ATTR_BLOCK_MOVEMENT] = "true";
+        } else {
+            valuesMap[GNE_ATTR_BLOCK_MOVEMENT] = "false";
+        }
+    }
+    // Save block shape value if shape's element can be blocked
+    if (myBlockShapeCheckButton->shown()) {
+        if(myBlockShapeCheckButton->getCheck() == 1) {
+            valuesMap[GNE_ATTR_BLOCK_SHAPE] = "true";
+        } else {
+            valuesMap[GNE_ATTR_BLOCK_SHAPE] = "false";
+        }
+    }
+    // Save close shape value if shape's element can be closed
+    if (myCloseShapeCheckButton->shown()) {
+        if(myCloseShapeCheckButton->getCheck() == 1) {
+            valuesMap[GNE_ATTR_CLOSE_SHAPE] = "true";
+        } else {
+            valuesMap[GNE_ATTR_CLOSE_SHAPE] = "false";
         }
     }
     // all ok, then return true to continue creating element
@@ -1000,55 +1029,60 @@ GNEFrame::NeteditAttributes::getAttributesAndValues(std::map<SumoXMLAttr, std::s
 
 
 long
-GNEFrame::NeteditAttributes::onCmdSetLength(FXObject*, FXSelector, void*) {
-    // change color of text field depending of the input length
-    if (GNEAttributeCarrier::canParse<double>(myLengthTextField->getText().text()) &&
-            GNEAttributeCarrier::parse<double>(myLengthTextField->getText().text()) > 0) {
-        myLengthTextField->setTextColor(FXRGB(0, 0, 0));
-        myLengthTextField->killFocus();
-        myCurrentLengthValid = true;
-    } else {
-        myLengthTextField->setTextColor(FXRGB(255, 0, 0));
-        myCurrentLengthValid = false;
+GNEFrame::NeteditAttributes::onCmdSetNeteditAttribute(FXObject* obj, FXSelector, void*) {
+    if (obj == myBlockMovementCheckButton) {
+        if (myBlockMovementCheckButton->getCheck()) {
+            myBlockMovementCheckButton->setText("true");
+        } else {
+            myBlockMovementCheckButton->setText("false");
+        }
+    } else if (obj == myBlockShapeCheckButton) {
+        if (myBlockShapeCheckButton->getCheck()) {
+            myBlockShapeCheckButton->setText("true");
+        } else {
+            myBlockShapeCheckButton->setText("false");
+        }
+    } else if (obj == myCloseShapeCheckButton) {
+        if (myCloseShapeCheckButton->getCheck()) {
+            myCloseShapeCheckButton->setText("true");
+        } else {
+            myCloseShapeCheckButton->setText("false");
+        }
+    } else if (obj == myLengthTextField) {
+        // change color of text field depending of the input length
+        if (GNEAttributeCarrier::canParse<double>(myLengthTextField->getText().text()) &&
+                GNEAttributeCarrier::parse<double>(myLengthTextField->getText().text()) > 0) {
+            myLengthTextField->setTextColor(FXRGB(0, 0, 0));
+            myLengthTextField->killFocus();
+            myCurrentLengthValid = true;
+        } else {
+            myLengthTextField->setTextColor(FXRGB(255, 0, 0));
+            myCurrentLengthValid = false;
+        }
+        // Update aditional frame
+        update();
+    } else if (obj == myReferencePointMatchBox) {
+        // Cast actual reference point type
+        if (myReferencePointMatchBox->getText() == "reference left") {
+            myReferencePointMatchBox->setTextColor(FXRGB(0, 0, 0));
+            myActualAdditionalReferencePoint = GNE_ADDITIONALREFERENCEPOINT_LEFT;
+            myLengthTextField->enable();
+        } else if (myReferencePointMatchBox->getText() == "reference right") {
+            myReferencePointMatchBox->setTextColor(FXRGB(0, 0, 0));
+            myActualAdditionalReferencePoint = GNE_ADDITIONALREFERENCEPOINT_RIGHT;
+            myLengthTextField->enable();
+        } else if (myReferencePointMatchBox->getText() == "reference center") {
+            myLengthTextField->enable();
+            myReferencePointMatchBox->setTextColor(FXRGB(0, 0, 0));
+            myActualAdditionalReferencePoint = GNE_ADDITIONALREFERENCEPOINT_CENTER;
+            myLengthTextField->enable();
+        } else {
+            myReferencePointMatchBox->setTextColor(FXRGB(255, 0, 0));
+            myActualAdditionalReferencePoint = GNE_ADDITIONALREFERENCEPOINT_INVALID;
+            myLengthTextField->disable();
+        }
     }
-    // Update aditional frame
-    update();
-    return 1;
-}
 
-
-long
-GNEFrame::NeteditAttributes::onCmdSelectReferencePoint(FXObject*, FXSelector, void*) {
-    // Cast actual reference point type
-    if (myReferencePointMatchBox->getText() == "reference left") {
-        myReferencePointMatchBox->setTextColor(FXRGB(0, 0, 0));
-        myActualAdditionalReferencePoint = GNE_ADDITIONALREFERENCEPOINT_LEFT;
-        myLengthTextField->enable();
-    } else if (myReferencePointMatchBox->getText() == "reference right") {
-        myReferencePointMatchBox->setTextColor(FXRGB(0, 0, 0));
-        myActualAdditionalReferencePoint = GNE_ADDITIONALREFERENCEPOINT_RIGHT;
-        myLengthTextField->enable();
-    } else if (myReferencePointMatchBox->getText() == "reference center") {
-        myLengthTextField->enable();
-        myReferencePointMatchBox->setTextColor(FXRGB(0, 0, 0));
-        myActualAdditionalReferencePoint = GNE_ADDITIONALREFERENCEPOINT_CENTER;
-        myLengthTextField->enable();
-    } else {
-        myReferencePointMatchBox->setTextColor(FXRGB(255, 0, 0));
-        myActualAdditionalReferencePoint = GNE_ADDITIONALREFERENCEPOINT_INVALID;
-        myLengthTextField->disable();
-    }
-    return 1;
-}
-
-
-long
-GNEFrame::NeteditAttributes::onCmdSetBlocking(FXObject*, FXSelector, void*) {
-    if (myBlockMovementCheckButton->getCheck()) {
-        myBlockMovementCheckButton->setText("true");
-    } else {
-        myBlockMovementCheckButton->setText("false");
-    }
     return 1;
 }
 
@@ -1092,6 +1126,18 @@ GNEFrame::NeteditAttributes::onCmdHelp(FXObject*, FXSelector, void*) {
     // Write Warning in console if we're in testing mode
     WRITE_DEBUG("Closing NeteditAttributes help dialog");
     return 1;
+    /**********
+    help from PolygonFrame
+            << "- Block movement: If enabled, the created polygon element will be blocked. i.e. cannot be moved with\n"
+            << "  the mouse. This option can be modified inspecting element.\n"
+            << "\n"
+            << "- Block shape: If enabled, the shape of created polygon element will be blocked. i.e. their geometry points\n"
+            << "  cannot be edited be moved with the mouse. This option can be modified inspecting element.\n"
+            << "\n"
+            << "- Close shape: If enabled, the created polygon element will be closed. i.e. the last created geometry point\n"
+            << "  will be connected with the first geometry point automatically. This option can be modified inspecting element.";
+    
+    ****************/
 }
 
 

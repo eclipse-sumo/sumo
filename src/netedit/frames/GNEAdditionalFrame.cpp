@@ -1186,7 +1186,7 @@ GNEAdditionalFrame::addAdditional(const GNEViewNet::ObjectsUnderCursor &objectsU
     myAdditionalAttributes->getAttributesAndValues(valuesMap);
 
     // fill netedit attributes
-    if(!myNeteditAttributes->getAttributesAndValues(valuesMap, objectsUnderCursor.lane)) {
+    if(!myNeteditAttributes->getNeteditAttributesAndValues(valuesMap, objectsUnderCursor.lane)) {
         return false;
     }
 

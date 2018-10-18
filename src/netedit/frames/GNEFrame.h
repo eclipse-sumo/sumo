@@ -228,9 +228,6 @@ public:
         /// @brief get flag delete last created point
         bool getDeleteLastCreatedPoint();
 
-        /// @brief set close shape
-        void setCloseShape(bool value);
-
         /// @name FOX-callbacks
         /// @{
         /// @brief Called when the user press start drawing button
@@ -253,9 +250,6 @@ public:
 
         /// @brief flag to enable/disable delete point mode
         bool myDeleteLastCreatedPoint;
-
-        /// @beif flag to enable disable Close shape after creation (by default disabled)
-        bool myCloseShape;
 
         /// @brief current drawed shape
         PositionVector myTemporalShapeShape;
@@ -283,7 +277,7 @@ public:
 
     public:
         /// @brief constructor
-        NeteditAttributes(GNEFrame* additionalFrameParent);
+        NeteditAttributes(GNEFrame* frameParent);
 
         /// @brief destructor
         ~NeteditAttributes();
@@ -295,18 +289,12 @@ public:
         void hideNeteditAttributesModul();
 
         /// @brief fill valuesMap with netedit attributes
-        bool getAttributesAndValues(std::map<SumoXMLAttr, std::string> &valuesMap, GNELane *lane) const;
+        bool getNeteditAttributesAndValues(std::map<SumoXMLAttr, std::string> &valuesMap, GNELane *lane) const;
 
         /// @name FOX-callbacks
         /// @{
-        /// @brief Called when user enters a new length
-        long onCmdSetLength(FXObject*, FXSelector, void*);
-
-        /// @brief Called when user enters another reference point
-        long onCmdSelectReferencePoint(FXObject*, FXSelector, void*);
-
-        /// @brief Called when user changes the checkbox "set blocking"
-        long onCmdSetBlocking(FXObject*, FXSelector, void*);
+        /// @brief Called when user changes some element of NeteditAttributes
+        long onCmdSetNeteditAttribute(FXObject*, FXSelector, void*);
 
         /// @brief Called when user press the help button
         long onCmdHelp(FXObject*, FXSelector, void*);
@@ -331,17 +319,11 @@ public:
         /// @brief obtain the End position values of StoppingPlaces and E2 detector over the lane
         double setEndPosition(double positionOfTheMouseOverLane, double lengthOfAdditional) const;
 
-        /// @brief pointer to additional frame parent
-        GNEFrame* myAdditionalFrameParent;
+        /// @brief pointer to frame parent
+        GNEFrame* myFrameParent;
 
         /// @brief match box with the list of reference points
         FXComboBox* myReferencePointMatchBox;
-
-        /// @brief Button for help about the reference point
-        FXButton* helpReferencePoint;
-
-        /// @brief actual additional reference point selected in the match Box
-        additionalReferencePoint myActualAdditionalReferencePoint;
 
         /// @brief Label for length
         FXLabel* myLengthLabel;
@@ -350,13 +332,31 @@ public:
         FXTextField* myLengthTextField;
 
         /// @brief Label for block movement
-        FXLabel* myBlockLabel;
+        FXLabel* myBlockMovementLabel;
 
         /// @brief checkBox for block movement
         FXCheckButton* myBlockMovementCheckButton;
 
+        /// @brief Label for block shape
+        FXLabel* myBlockShapeLabel;
+
+        /// @brief checkBox for block shape
+        FXCheckButton* myBlockShapeCheckButton;
+
+        /// @brief Label for open/close polygon
+        FXLabel* myClosePolygonLabel;
+
+        /// @brief checkbox to enable/disable closing polygon
+        FXCheckButton* myCloseShapeCheckButton;
+    
+        /// @brief Button for help about the reference point
+        FXButton* helpReferencePoint;
+
         /// @brief Flag to check if current length is valid
         bool myCurrentLengthValid;
+
+        /// @brief actual additional reference point selected in the match Box
+        additionalReferencePoint myActualAdditionalReferencePoint;
     };
 
     /**@brief Constructor
