@@ -108,7 +108,7 @@ del { color: #555555; }
 	float: left;
 	margin: 0 0 10px;
 	list-style-type: none;
-	background-color: #65728d;
+	background-color: #17412f;
 }
 #subsMenu li { float: left; }
 #subsMenu a:link, #subsMenu a:visited {
@@ -305,9 +305,9 @@ del { color: #555555; }
 /* Logo */
 #logo
 {
-    background-color:#080063;
-    height:140;
-    color:white;
+    background-color:#338033;
+    height: 140px;
+    color: white;
 	padding-top: 10px;
 }
 #logo_text1 {
