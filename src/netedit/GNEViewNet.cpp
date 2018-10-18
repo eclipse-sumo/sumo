@@ -834,7 +834,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                     // save clicked position as moving original position
                     myMoveSingleElementValues.movingOriginalPosition = getPositionInformation();
                     // obtain index of vertex to move if shape isn't blocked
-                    if ((myMovedItems.polyToMove->isShapeBlocked() == false) && (myMovedItems.polyToMove->isMovementBlocked() == false)) {
+                    if ((myMovedItems.polyToMove->isPolygonBlocked() == false) && (myMovedItems.polyToMove->isMovementBlocked() == false)) {
                         // check if we want to remove a Geometry Point
                         if (myShiftKeyPressed) {
                             // check if we're clicked over a Geometry Point
@@ -1184,7 +1184,7 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* eventData) {
         moveSelection(offsetMovement);
     } else if (myMovedItems.polyToMove) {
         // move shape's geometry without commiting changes
-        if (myMovedItems.polyToMove->isShapeBlocked()) {
+        if (myMovedItems.polyToMove->isPolygonBlocked()) {
             myMovedItems.polyToMove->moveEntireShape(myMoveSingleElementValues.movingOriginalShape, offsetMovement);
         } else {
             myMoveSingleElementValues.movingIndexShape = myMovedItems.polyToMove->moveVertexShape(myMoveSingleElementValues.movingIndexShape, myMoveSingleElementValues.movingOriginalPosition, offsetMovement);

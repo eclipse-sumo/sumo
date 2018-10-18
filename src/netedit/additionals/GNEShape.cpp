@@ -36,11 +36,10 @@
 // method definitions
 // ===========================================================================
 
-GNEShape::GNEShape(GNENet* net, SumoXMLTag tag, bool movementBlocked, bool shapeBlocked) :
+GNEShape::GNEShape(GNENet* net, SumoXMLTag tag, bool movementBlocked) :
     GNEAttributeCarrier(tag),
     myNet(net),
-    myBlockMovement(movementBlocked),
-    myBlockShape(shapeBlocked) {
+    myBlockMovement(movementBlocked) {
 }
 
 
@@ -56,12 +55,6 @@ GNEShape::getNet() const {
 bool
 GNEShape::isMovementBlocked() const {
     return myBlockMovement;
-}
-
-
-bool
-GNEShape::isShapeBlocked() const {
-    return myBlockShape;
 }
 
 
