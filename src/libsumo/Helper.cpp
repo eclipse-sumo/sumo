@@ -10,6 +10,7 @@
 /// @file    Helper.cpp
 /// @author  Laura Bieker-Walz
 /// @author  Robert Hilbrich
+/// @author  Leonhard Luecken
 /// @date    15.09.2017
 /// @version $Id$
 ///
@@ -182,6 +183,24 @@ Helper::handleSingleSubscription(const Subscription& s) {
             if (!handler->handle(objID, LAST_STEP_VEHICLE_NUMBER, handler.get())) {
                 handler->handle(objID, ID_LIST, handler.get());
             }
+        }
+    }
+}
+
+
+void
+Helper::fuseLaneCoverage(std::shared_ptr<LaneCoverageInfo> aggregatedLaneCoverage, const std::shared_ptr<LaneCoverageInfo> newLaneCoverage) {
+    for (auto& p : *newLaneCoverage) {
+        const MSLane* lane = p.first;
+        if (aggregatedLaneCoverage->find(lane) == aggregatedLaneCoverage->end()) {
+            // Lane has no coverage in aggregatedLaneCoverage, yet
+            (*aggregatedLaneCoverage)[lane] = (*newLaneCoverage)[lane];
+        } else {
+            // Lane is covered in aggregatedLaneCoverage as well
+            std::pair<double, double>& range1 = (*aggregatedLaneCoverage)[lane];
+            std::pair<double, double>& range2 = (*newLaneCoverage)[lane];
+            std::pair<double, double> hull = std::make_pair(MIN2(range1.first, range2.first), MAX2(range1.second, range2.second));
+            (*aggregatedLaneCoverage)[lane] = hull;
         }
     }
 }
@@ -460,34 +479,39 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
             return;
         }
         MSEdge* vehEdge = &vehLane->getEdge();
-        std::vector<int> filterLanes = s.filterLanes;
+        std::vector<int> filterLanes;
+        if ((s.activeFilters & SUBS_FILTER_LANES) == 0) {
+            // No lane indices are specified (but downstream and/or upstream distance)
+            //   -> use only vehicle's current lane as origin for the searches
+            filterLanes = {0};
+            // Lane indices must be specified when leader/follower information is requested.
+            assert((s.activeFilters & SUBS_FILTER_LEAD_FOLLOW) == 0);
+        } else {
+            filterLanes = s.filterLanes;
+        }
 
         if (s.activeFilters & SUBS_FILTER_MANEUVER) {
             // Maneuver filters disables road net search for all surrounding vehicles
             if (s.activeFilters & SUBS_FILTER_LEAD_FOLLOW) {
-                // TODO: Only return leader and follower on the specified lanes in context subscription result
-                if ((s.activeFilters & SUBS_FILTER_LANES) == 0) {
-                    // No lane indices are specified -> return leader and follower on current lane
-                    filterLanes = {0};
-                }
-                for (int ix : filterLanes) {
-                    MSLane* lane = v->getLane()->getParallelLane(ix);
+                // Return leader and follower on the specified lanes in context subscription result.
+                for (int offset : filterLanes) {
+                    MSLane* lane = v->getLane()->getParallelLane(offset);
                     if (lane != nullptr) {
                         // this is a non-opposite lane
                         vehs.insert(vehs.end(), lane->getLeader(v, v->getPositionOnLane(), v->getBestLanesContinuation(lane), downstreamDist).first);
                         vehs.insert(vehs.end(), vehLane->getFollower(v, v->getPositionOnLane(), upstreamDist, false).first);
-                    } else if (!disregardOppositeDirection && ix > 0) {
+                    } else if (!disregardOppositeDirection && offset > 0) { // TODO: offset<0 may indicate opposite query when vehicle is on opposite itself
                         // check whether ix points to an opposite lane
                         const MSEdge* opposite = vehEdge->getOppositeEdge();
                         if (opposite == nullptr) {
 #ifdef DEBUG_SURROUNDING
-                            std::cout << "No lane at index " << ix << std::endl;
+                            std::cout << "No lane at index " << offset << std::endl;
 #endif
                             // no opposite edge
                             continue;
                         }
-                        // Index of opposite lane at relative offset ix
-                        const int ix_opposite = (int)opposite->getLanes().size() - 1 - (vehLane->getIndex() + ix - (int)vehEdge->getLanes().size());
+                        // Index of opposite lane at relative offset
+                        const int ix_opposite = (int)opposite->getLanes().size() - 1 - (vehLane->getIndex() + offset - (int)vehEdge->getLanes().size());
                         if (ix_opposite < 0) {
 #ifdef DEBUG_SURROUNDING
                             std::cout << "No lane on opposite at index " << ix_opposite << std::endl;
@@ -525,33 +549,36 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
             }
 
         } else {
-            if ((s.activeFilters & SUBS_FILTER_LANES) == 0) {
-                // No lane indices and no maneuver filters are specified (but downstream and/or upstream distance)
-                //   -> use only vehicle's current lane as origin for the search
-                filterLanes = {0};
-            }
-            for (int ix : filterLanes){
-                MSLane* lane = vehLane->getParallelLane(ix);
+            // No maneuver filters requested, but only lanes filter (directly, or indirectly by specifying downstream or upstream distance)
+            assert(filterLanes.size() > 0);
+            // This is to remember the lanes checked in the driving direction of the vehicle (their opposites can be added in a second pass)
+            auto checkedLanesInDrivingDir = std::make_shared<LaneCoverageInfo>();
+            for (int offset : filterLanes){
+                MSLane* lane = vehLane->getParallelLane(offset);
                 if (lane != nullptr) {
 #ifdef DEBUG_SURROUNDING
-                    std::cout << "Checking for surrounding vehicles starting on lane '" << lane->getID() << "' at index " << ix << std::endl;
+                    std::cout << "Checking for surrounding vehicles starting on lane '" << lane->getID() << "' at index " << offset << std::endl;
 #endif
-                    // Search vehs along lane
-                    const std::set<MSVehicle*> new_vehs = vehLane->getSurroundingVehicles(v->getPositionOnLane(), downstreamDist, upstreamDist+v->getLength());
+                    // Search vehs along this lane
+                    // (Coverage info is collected per origin lane since lanes reached from neighboring lanes may have different distances
+                    // and aborting at previously scanned when coming from a closer origin may prevent scanning of parts that should be included.)
+                    std::shared_ptr<LaneCoverageInfo> checkedLanes = std::make_shared<LaneCoverageInfo>();
+                    const std::set<MSVehicle*> new_vehs = lane->getSurroundingVehicles(v->getPositionOnLane(), downstreamDist, upstreamDist+v->getLength(), checkedLanes);
                     vehs.insert(new_vehs.begin(), new_vehs.end());
-                } else if (!disregardOppositeDirection && ix > 0) {
-                    assert(vehLane->getIndex() + ix >= vehEdge->getLanes().size()); // index points beyond this edge
+                    fuseLaneCoverage(checkedLanesInDrivingDir, checkedLanes);
+                } else if (!disregardOppositeDirection && offset > 0) {
                     // Check opposite edge, too
+                    assert(vehLane->getIndex() + (unsigned int) offset >= vehEdge->getLanes().size()); // index points beyond this edge
                     const MSEdge* opposite = vehEdge->getOppositeEdge();
                     if (opposite == nullptr) {
 #ifdef DEBUG_SURROUNDING
-                        std::cout << "No lane at index " << ix << std::endl;
+                        std::cout << "No lane at index " << offset << std::endl;
 #endif
                         // no opposite edge
                         continue;
                     }
-                    // Index of opposite lane at relative offset ix
-                    const int ix_opposite = (int)opposite->getLanes().size() - 1 - (vehLane->getIndex() + ix - (int)vehEdge->getLanes().size());
+                    // Index of opposite lane at relative offset
+                    const int ix_opposite = (int)opposite->getLanes().size() - 1 - (vehLane->getIndex() + offset - (int)vehEdge->getLanes().size());
                     if (ix_opposite < 0) {
 #ifdef DEBUG_SURROUNDING
                         std::cout << "No lane on opposite at index " << ix_opposite << std::endl;
@@ -561,17 +588,45 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
                     }
                     lane = opposite->getLanes()[ix_opposite];
                     // Search vehs along opposite lanes (swap upstream and downstream distance)
-                    const std::set<MSVehicle*> new_vehs = v->getLane()->getSurroundingVehicles(lane->getLength() - v->getPositionOnLane(), upstreamDist+v->getLength(), downstreamDist);
+                    const std::set<MSVehicle*> new_vehs = lane->getSurroundingVehicles(lane->getLength() - v->getPositionOnLane(), upstreamDist+v->getLength(), downstreamDist, std::make_shared<LaneCoverageInfo>());
                     vehs.insert(new_vehs.begin(), new_vehs.end());
                 }
 #ifdef DEBUG_SURROUNDING
                 else {
-                    std::cout << "No lane at index " << ix << std::endl;
+                    std::cout << "No lane at index " << offset << std::endl;
                 }
 #endif
 
-                // TODO: If opposite should be checked, do this for each lane of the forward search tree!
-                //       For instance, these would not be obtained if the ego lane does not have an opposite...
+                if (!disregardOppositeDirection) {
+                    // If opposite should be checked, do this for each lane of the search tree in checkedLanesInDrivingDir
+                    // (For instance, some opposite lanes of these would not be obtained if the ego lane does not have an opposite.)
+
+                    // Number of opposite lanes to be checked (assumes filterLanes.size()>0, see assertion above) determined as hypothetical offset
+                    // overlap into opposing edge from the vehicle's current lane.
+                    // TODO: offset<0 may indicate opposite query when vehicle is on opposite itself (-> use min_element(filterLanes...) instead, etc)
+                    unsigned int nOpp = (*std::max_element(filterLanes.begin(), filterLanes.end())) - (vehEdge->getLanes().size() - 1 - vehLane->getIndex());
+                    // Collect vehicles from opposite lanes
+                    for (auto& laneCov : *checkedLanesInDrivingDir) {
+                        const MSLane* lane = laneCov.first;
+                        if (lane == nullptr || lane->getEdge().getOppositeEdge() == nullptr) {
+                            continue;
+                        }
+                        const MSEdge* edge = &(lane->getEdge());
+                        const MSEdge* opposite = edge->getOppositeEdge();
+                        const std::pair<double, double>& range = laneCov.second;
+                        auto leftMostOppositeLaneIt = opposite->getLanes().rbegin();
+                        for (auto oppositeLaneIt = leftMostOppositeLaneIt;
+                                oppositeLaneIt != opposite->getLanes().rend(); ++oppositeLaneIt) {
+                            if (oppositeLaneIt - leftMostOppositeLaneIt == nOpp) {
+                                break;
+                            }
+                            // Add vehicles from corresponding range on opposite direction
+                            const MSLane* oppositeLane = *oppositeLaneIt;
+                            auto new_vehs = oppositeLane->getVehicles(lane->getLength()-range.second, lane->getLength()-range.first);
+                            vehs.insert(new_vehs.begin(), new_vehs.end());
+                        }
+                    }
+                }
 
             }
 

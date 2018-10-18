@@ -30,7 +30,9 @@
 // ===========================================================================
 #include <config.h>
 
+#include <memory>
 #include <vector>
+#include <map>
 #include <deque>
 #include <cassert>
 #include <utils/common/Named.h>
@@ -57,6 +59,11 @@ class MSVehicleControl;
 class OutputDevice;
 class MSLeaderInfo;
 
+// ===========================================================================
+// type definitions
+// ===========================================================================
+/// Coverage info
+typedef std::map<const MSLane*, std::pair<double, double> >  LaneCoverageInfo; // also declared in libsumo/Helper.h!
 
 // ===========================================================================
 // class definitions
@@ -865,9 +872,10 @@ public:
     /// @param[in] startPos - start position of the search on the first lane
     /// @param[in] downstreamDist - distance to search downstream
     /// @param[in] upstreamDist - distance to search upstream
-    /// @param[in] prevLanes - lanes, which were already scanned
+    /// @param[in/out] checkedLanes - lanes, which were already scanned (current lane is added, if not present,
+    ///                otherwise the scan is aborted; TODO: this may disregard unscanned parts of the lane in specific circular set ups.)
     /// @return    vehs - List of vehicles found
-    std::set<MSVehicle*> getSurroundingVehicles(double startPos, double downstreamDist, double upstreamDist, std::shared_ptr<std::set<const MSLane*> > prevLanes = nullptr) const;
+    std::set<MSVehicle*> getSurroundingVehicles(double startPos, double downstreamDist, double upstreamDist, std::shared_ptr<LaneCoverageInfo> checkedLanes) const;
 
     /// @brief Returns all vehicles on the lane overlapping with the interval [a,b]
     /// @note  Does not consider vehs with front on subsequent lanes

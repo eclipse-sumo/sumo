@@ -9,6 +9,7 @@
 /****************************************************************************/
 /// @file    Helper.h
 /// @author  Robert Hilbrich
+/// @author  Leonhard Luecken
 /// @date    15.09.2017
 /// @version $Id$
 ///
@@ -24,10 +25,10 @@
 #include <config.h>
 
 #include <vector>
+#include <memory>
 #include <libsumo/Subscription.h>
 #include <libsumo/TraCIDefs.h>
 #include <microsim/MSNet.h>
-
 
 // ===========================================================================
 // class declarations
@@ -36,9 +37,12 @@ class Position;
 class PositionVector;
 class RGBColor;
 class MSEdge;
-class MSLane;
 class MSPerson;
 
+// ===========================================================================
+// type definitions
+// ===========================================================================
+typedef std::map<const MSLane*, std::pair<double, double> >  LaneCoverageInfo; // also declared in MSLane.h!
 
 // ===========================================================================
 // class definitions
@@ -199,6 +203,13 @@ public:
 
 private:
     static void handleSingleSubscription(const Subscription& s);
+
+    /// @brief Adds lane coverage information from newLaneCoverage into aggregatedLaneCoverage
+    /// @param[in/out] aggregatedLaneCoverage - aggregated lane coverage info, to which the new will be added
+    /// @param[in] newLaneCoverage - new lane coverage to be added
+    /// @todo Disjunct ranges are not handled (LaneCoverageInfo definition would need to allow several intervals per lane) but
+    ///       the intermediate range is simply assimilated.
+    static void fuseLaneCoverage(std::shared_ptr<LaneCoverageInfo> aggregatedLaneCoverage, const std::shared_ptr<LaneCoverageInfo> newLaneCoverage);
 
 private:
     class VehicleStateListener : public MSNet::VehicleStateListener {
