@@ -26,7 +26,6 @@
 #include <cassert>
 #include <utils/geom/GeomHelper.h>
 #include <utils/common/StdDefs.h>
-#include <utils/common/RandHelper.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 #define FONTSTASH_IMPLEMENTATION // Expands implementation
@@ -718,7 +717,7 @@ GLHelper::drawCrossTies(const PositionVector& geom,
 
 void
 GLHelper::debugVertices(const PositionVector& shape, double size, double layer) {
-    RGBColor color = RGBColor::fromHSV(RandHelper::rand(360), 1, 1);
+    RGBColor color = RGBColor::randomHue();
     for (int i = 0; i < (int)shape.size(); ++i) {
         GLHelper::drawText(toString(i), shape[i], layer, size, color, 0);
     }

@@ -28,6 +28,7 @@
 #include <cassert>
 #include <string>
 #include <sstream>
+#include <utils/common/RandHelper.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/ToString.h>
 #include <utils/common/TplConvert.h>
@@ -53,6 +54,8 @@ const RGBColor RGBColor::GREY = RGBColor(128, 128, 128, 255);
 const RGBColor RGBColor::DEFAULT_COLOR = RGBColor::YELLOW;
 const std::string RGBColor::DEFAULT_COLOR_STRING = toString(RGBColor::DEFAULT_COLOR);
 
+// random colors do not affect the simulation. No initialization is necessary
+std::mt19937 RGBColor::myRNG;
 
 // ===========================================================================
 // method definitions
@@ -326,6 +329,10 @@ RGBColor::fromHSV(double h, double s, double v) {
     return RGBColor(255, 255, 255, 255);
 }
 
+RGBColor 
+RGBColor::randomHue(double s, double v) {
+    return fromHSV(RandHelper::rand(360, &myRNG), s, v);
+}
 
 /****************************************************************************/
 
