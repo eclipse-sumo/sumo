@@ -1328,6 +1328,8 @@ NLHandler::addDistrict(const SUMOSAXAttributes& attrs) {
             }
         }
         RGBColor color = attrs.getOpt<RGBColor>(SUMO_ATTR_COLOR, myCurrentDistrictID.c_str(), ok, RGBColor::parseColor("1.0,.33,.33"));
+        source->setParameter("tazColor", toString(color));
+        sink->setParameter("tazColor", toString(color));
 
         if (attrs.hasAttribute(SUMO_ATTR_SHAPE)) {
             PositionVector shape = attrs.get<PositionVector>(SUMO_ATTR_SHAPE, myCurrentDistrictID.c_str(), ok);

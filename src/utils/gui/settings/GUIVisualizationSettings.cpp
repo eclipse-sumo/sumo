@@ -296,6 +296,8 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.addColor(RGBColor::YELLOW, (double)10);
     scheme.addColor(RGBColor::RED, (double)100);
     laneColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by TAZ (streetwise)", RGBColor(204, 204, 204));
+    laneColorer.addScheme(scheme);
 
 
     /// add vehicle coloring schemes

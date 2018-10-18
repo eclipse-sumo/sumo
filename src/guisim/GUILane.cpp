@@ -910,7 +910,7 @@ GUILane::setColor(const GUIVisualizationSettings& s) const {
         col = static_cast<const GUIEdge*>(myEdge)->getMesoColor();
     } else {
         const GUIColorer& c = s.laneColorer;
-        if (!setFunctionalColor(c.getActive(), col) && !setMultiColor(c, col)) {
+        if (!setFunctionalColor(c, col) && !setMultiColor(c, col)) {
             col = c.getScheme().getColor(getColorValue(c.getActive()));
         }
     }
@@ -920,7 +920,8 @@ GUILane::setColor(const GUIVisualizationSettings& s) const {
 
 
 bool
-GUILane::setFunctionalColor(int activeScheme, RGBColor& col) const {
+GUILane::setFunctionalColor(const GUIColorer& c, RGBColor& col) const {
+    const int activeScheme = c.getActive();
     switch (activeScheme) {
         case 0:
             if (myEdge->isCrossing()) {
@@ -939,6 +940,21 @@ GUILane::setFunctionalColor(int activeScheme, RGBColor& col) const {
         case 18: {
             double hue = GeomHelper::naviDegree(myShape.beginEndAngle()); // [0-360]
             col = RGBColor::fromHSV(hue, 1., 1.);
+            GLHelper::setColor(col);
+            return true;
+        }
+        case 30: { // taz color
+            col = c.getScheme().getColor(0);
+            std::vector<RGBColor> tazColors;
+            for (MSEdge* e: myEdge->getPredecessors()) {
+                if (e->isTazConnector() && e->knowsParameter("tazColor")) {
+                    tazColors.push_back(RGBColor::parseColor(e->getParameter("tazColor")));
+                }
+            }
+            if (tazColors.size() > 0) {
+                int randColor = RandHelper::rand((int)tazColors.size(), RGBColor::getColorRNG());
+                col = tazColors[randColor];
+            }
             GLHelper::setColor(col);
             return true;
         }
