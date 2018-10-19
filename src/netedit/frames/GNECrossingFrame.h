@@ -83,12 +83,6 @@ public:
         /// @brief restore colors of all edges
         void restoreEdgeColors();
 
-        /// @brief return candidate color
-        const RGBColor& getCandidateColor() const;
-
-        /// @brief return selected color
-        const RGBColor& getSelectedColor() const;
-
         /// @name FOX-callbacks
         /// @{
         /// @brief called when useSelectedEdges button edge is pressed
