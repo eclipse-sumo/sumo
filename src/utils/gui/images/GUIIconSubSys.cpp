@@ -41,7 +41,6 @@
 #include "stop.xpm"
 #include "step.xpm"
 #include "new_window.xpm"
-#include "document.xpm"
 
 #include "app_tracker.xpm"
 #include "app_finder.xpm"

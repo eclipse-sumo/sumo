@@ -34,7 +34,6 @@ crossing.xpm \
 cut.xpm \
 destprobreroute.xpm \
 dilate.xpm \
-dlr.xpm \
 document.xpm \
 e1.xpm \
 e1instant.xpm \
@@ -91,7 +90,8 @@ modepolygon.xpm \
 modeprohibition.xpm \
 modeselect.xpm \
 modetrafficlight.xpm \
-netedit.xpm \
+netedit_icon16.xpm \
+netedit_icon64.xpm \
 neteditarrow.xpm \
 netopen.xpm \
 new_window.xpm \
@@ -132,7 +132,9 @@ show_tooltips.xpm \
 skeletonize.xpm \
 step.xpm \
 stop.xpm \
-sumo.xpm \
+sumo_icon16.xpm \
+sumo_icon64.xpm \
+sumo_logo.xpm \
 undo.xpm \
 vaporizer.xpm \
 variablespeedsign.xpm \
