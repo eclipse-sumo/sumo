@@ -488,11 +488,8 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
     // recognize full transparency and simply don't draw
     GLfloat color[4];
     glGetFloatv(GL_CURRENT_COLOR, color);
-    if (color[3] != 0 && s.scale * exaggeration > s.laneMinSize &&
-            // only show one edge for a pair of superposed rail edges
-            (myEdge->getBidiEdge() == 0
-             || s.showLaneDirection
-             || myEdge->getNumericalID() < myEdge->getBidiEdge()->getNumericalID())) {
+    bool hiddenBidi = myEdge->getBidiEdge() != nullptr && myEdge->getNumericalID() > myEdge->getBidiEdge()->getNumericalID();
+    if (color[3] != 0 && s.scale * exaggeration > s.laneMinSize) {
         // scale tls-controlled lane2lane-arrows along with their junction shapes
         double junctionExaggeration = 1;
         if (!isInternal
@@ -513,7 +510,9 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
             glPopMatrix();
         } else {
             GUINet* net = (GUINet*) MSNet::getInstance();
-            if (drawAsRailway(s)) {
+            if (hiddenBidi) {
+                // do not draw shape
+            } else if (drawAsRailway(s)) {
                 // draw as railway: assume standard gauge of 1435mm when lane width is not set
                 // draw foot width 150mm, assume that distance between rail feet inner sides is reduced on both sides by 39mm with regard to the gauge
                 // assume crosstie length of 181% gauge (2600mm for standard gauge)
@@ -581,7 +580,7 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                 glTranslated(0, 0, GLO_JUNCTION); // must draw on top of junction shape
                 glTranslated(0, 0, .5);
                 if (drawDetails) {
-                    if (MSGlobals::gLateralResolution > 0 && s.showSublanes) {
+                    if (MSGlobals::gLateralResolution > 0 && s.showSublanes && !hiddenBidi) {
                         // draw sublane-borders
                         GLHelper::setColor(GLHelper::getColor().changedBrightness(51));
                         for (double offset = -myHalfLaneWidth; offset < myHalfLaneWidth; offset += MSGlobals::gLateralResolution) {
@@ -623,10 +622,10 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                 glPopMatrix();
             }
         }
-        if (mustDrawMarkings && drawDetails && s.laneShowBorders) { // needs matrix reset
+        if (mustDrawMarkings && drawDetails && s.laneShowBorders && !hiddenBidi) { // needs matrix reset
             drawMarkings(s, exaggeration);
         }
-        if (drawDetails && isInternal && s.showBikeMarkings && myPermissions == SVC_BICYCLE && exaggeration == 1.0 && s.showLinkDecals && s.laneShowBorders) {
+        if (drawDetails && isInternal && s.showBikeMarkings && myPermissions == SVC_BICYCLE && exaggeration == 1.0 && s.showLinkDecals && s.laneShowBorders && !hiddenBidi) {
             drawBikeMarkings();
         }
     } else {
