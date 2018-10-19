@@ -23,9 +23,11 @@
 // ===========================================================================
 #include <config.h>
 
+#include <utils/common/StringTokenizer.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
 #include <utils/vehicle/PedestrianRouter.h>
+#include <utils/vehicle/IntermodalRouter.h>
 #include "MSEdge.h"
 #include "MSLane.h"
 #include "MSNet.h"
@@ -131,13 +133,16 @@ MSTransportable::Stage::getEdgeAngle(const MSEdge* e, double at) const {
 /* -------------------------------------------------------------------------
 * MSTransportable::Stage_Trip - methods
 * ----------------------------------------------------------------------- */
-MSTransportable::Stage_Trip::Stage_Trip(const MSEdge* origin, const MSEdge* destination, const SUMOTime duration, const SVCPermissions modeSet,
-    const std::string& vTypes, const double walkFactor, const double arrivalPos) :
-    MSTransportable::Stage(destination, nullptr, arrivalPos, TRIP),
+MSTransportable::Stage_Trip::Stage_Trip(const MSEdge* origin, const MSEdge* destination, MSStoppingPlace* toStop, const SUMOTime duration, const SVCPermissions modeSet,
+    const std::string& vTypes, const double speed, const double walkFactor, const double departPosLat, const double arrivalPos) :
+    MSTransportable::Stage(destination, toStop, arrivalPos, TRIP),
+    myOrigin(origin),
     myDuration(duration),
     myModeSet(modeSet),
     myVTypes(vTypes),
-    myWalkFactor(walkFactor) {
+    mySpeed(speed),
+    myWalkFactor(walkFactor),
+    myDepartPosLat(departPosLat) {
 }
 
 
@@ -158,27 +163,104 @@ MSTransportable::Stage_Trip::getAngle(SUMOTime /* now */) const {
 
 void
 MSTransportable::Stage_Trip::proceed(MSNet* net, MSTransportable* transportable, SUMOTime now, Stage* previous) {
-    // this is the last chance to start routing
+    MSVehicleControl& vehControl = net->getVehicleControl();
+    std::vector<SUMOVehicleParameter*> pars;
+    for (StringTokenizer st(myVTypes); st.hasNext();) {
+        pars.push_back(new SUMOVehicleParameter());
+        pars.back()->vtypeid = st.next();
+        pars.back()->parametersSet |= VEHPARS_VTYPE_SET;
+        pars.back()->departProcedure = DEPART_TRIGGERED;
+        pars.back()->id = transportable->getID() + "_" + toString(pars.size() - 1);
+    }
+    if (pars.empty()) {
+        if ((myModeSet & SVC_PASSENGER) != 0) {
+            pars.push_back(new SUMOVehicleParameter());
+            pars.back()->id = transportable->getID() + "_0";
+            pars.back()->departProcedure = DEPART_TRIGGERED;
+        } else if ((myModeSet & SVC_BICYCLE) != 0) {
+            pars.push_back(new SUMOVehicleParameter());
+            pars.back()->vtypeid = DEFAULT_BIKETYPE_ID;
+            pars.back()->id = transportable->getID() + "_b0";
+            pars.back()->departProcedure = DEPART_TRIGGERED;
+        } else {
+            // allow shortcut via busStop even when not intending to ride
+            pars.push_back(nullptr);
+        }
+    }
+    for (SUMOVehicleParameter* vehPar : pars) {
+        SUMOVehicle* vehicle = nullptr;
+        if (vehPar != nullptr) {
+            MSVehicleType* type = vehControl.getVType(vehPar->vtypeid);
+            if (type->getVehicleClass() != SVC_IGNORING && (myOrigin->getPermissions() & type->getVehicleClass()) == 0) {
+                WRITE_WARNING("Ignoring vehicle type '" + type->getID() + "' when routing person '" + transportable->getID() + "' because it is not allowed on the start edge.");
+            } else {
+                const MSRoute* const routeDummy = new MSRoute(vehPar->id, ConstMSEdgeVector({ myOrigin }), false, 0, std::vector<SUMOVehicleParameter::Stop>());
+                vehicle = vehControl.buildVehicle(vehPar, routeDummy, type, !MSGlobals::gCheckRoutes);
+            }
+        }
+        bool carUsed = false;
+        std::vector<MSNet::MSIntermodalRouter::TripItem> result;
+        if (net->getIntermodalRouter().compute(myOrigin, myDestination, previous->getArrivalPos(), myArrivalPos, myDestinationStop == nullptr ? "" : myDestinationStop->getID(),
+            transportable->getVehicleType().getMaxSpeed() * myWalkFactor, vehicle, myModeSet, transportable->getParameter().depart, result)) {
+            for (std::vector<MSNet::MSIntermodalRouter::TripItem>::iterator it = result.begin(); it != result.end(); ++it) {
+                if (!it->edges.empty()) {
+                    MSStoppingPlace* bs = MSNet::getInstance()->getStoppingPlace(it->destStop, SUMO_TAG_BUS_STOP);
+                    double localArrivalPos = bs != nullptr ? bs->getAccessPos(it->edges.back()) : it->edges.back()->getLength() / 2.;
+                    if (it + 1 == result.end() && myArrivalPos != INVALID_DOUBLE) {
+                        localArrivalPos = myArrivalPos;
+                    }
+                    if (it->line == "") {
+                        const double depPos = previous->getDestinationStop() != nullptr ? previous->getDestinationStop()->getAccessPos(it->edges.front()) : previous->getArrivalPos();
+                        transportable->appendStage(new MSPerson::MSPersonStage_Walking(transportable->getID(), it->edges, bs, myDuration, mySpeed, depPos, localArrivalPos, myDepartPosLat));
+                    } else if (vehicle != nullptr && it->line == vehicle->getID()) {
+                        if (bs == nullptr && it + 1 != result.end()) {
+                            // we have no defined endpoint and are in the middle of the trip, drive as far as possible
+                            localArrivalPos = it->edges.back()->getLength();
+                        }
+                        transportable->appendStage(new MSPerson::MSPersonStage_Driving(it->edges.back(), bs, localArrivalPos, std::vector<std::string>({ it->line })));
+                        vehicle->replaceRouteEdges(it->edges, -1, 0, "person:" + transportable->getID(), true);
+                        vehicle->setArrivalPos(localArrivalPos);
+                        vehControl.addVehicle(vehPar->id, vehicle);
+                        carUsed = true;
+                    } else {
+                        transportable->appendStage(new MSPerson::MSPersonStage_Driving(
+                            it->edges.back(), bs, localArrivalPos, std::vector<std::string>({ it->line }), it->intended, TIME2STEPS(it->depart)));
+                    }
+                }
+            }
+        } else {
+            if (MSGlobals::gCheckRoutes) {
+                const std::string error = "No connection found between '" + myOrigin->getID() + "' and '" + (myDestinationStop != nullptr ? myDestinationStop->getID() : myDestination->getID()) + "' for person '" + transportable->getID() + "'.";
+                throw ProcessError(error);
+            } else {
+                // pedestrian will teleport
+                transportable->appendStage(new MSPerson::MSPersonStage_Walking(transportable->getID(), ConstMSEdgeVector({ myOrigin, myDestination }), myDestinationStop, myDuration, mySpeed, previous->getArrivalPos(), myArrivalPos, myDepartPosLat));
+            }
+        }
+        if (vehicle != 0 && !carUsed) {
+            vehControl.deleteVehicle(vehicle, true);
+        }
+    }
 }
 
 
 void
-MSTransportable::Stage_Trip::tripInfoOutput(OutputDevice& os, const MSTransportable* const) const {
+MSTransportable::Stage_Trip::tripInfoOutput(OutputDevice&, const MSTransportable* const) const {
 }
 
 
 void
-MSTransportable::Stage_Trip::routeOutput(OutputDevice& os, const bool /* withRouteLength */) const {
+MSTransportable::Stage_Trip::routeOutput(OutputDevice&, const bool /* withRouteLength */) const {
 }
 
 
 void
-MSTransportable::Stage_Trip::beginEventOutput(const MSTransportable& p, SUMOTime t, OutputDevice& os) const {
+MSTransportable::Stage_Trip::beginEventOutput(const MSTransportable&, SUMOTime, OutputDevice&) const {
 }
 
 
 void
-MSTransportable::Stage_Trip::endEventOutput(const MSTransportable& p, SUMOTime t, OutputDevice& os) const {
+MSTransportable::Stage_Trip::endEventOutput(const MSTransportable&, SUMOTime, OutputDevice&) const {
 }
 
 
@@ -696,8 +778,7 @@ MSTransportable::rerouteParkingArea(MSStoppingPlace* orig, MSStoppingPlace* repl
                 }
             }
         }
-    };
-    return;
+    }
 }
 
 

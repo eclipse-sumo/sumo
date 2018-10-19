@@ -216,8 +216,8 @@ public:
     class Stage_Trip : public Stage {
     public:
         /// constructor
-        Stage_Trip(const MSEdge* origin, const MSEdge* destination, const SUMOTime duration, const SVCPermissions modeSet,
-            const std::string& vTypes, const double walkFactor, const double arrivalPos);
+        Stage_Trip(const MSEdge* origin, const MSEdge* destination, MSStoppingPlace* toStop, const SUMOTime duration, const SVCPermissions modeSet,
+            const std::string& vTypes, const double speed, const double walkFactor, const double departPosLat, const double arrivalPos);
 
         /// destructor
         virtual ~Stage_Trip();
@@ -271,11 +271,17 @@ public:
         /// @brief The allowed modes of transportation
         const SVCPermissions myModeSet;
 
+        /// @brief The possible vehicles to use
+        const std::string myVTypes;
+
+        /// @brief The walking speed
+        const double mySpeed;
+
         /// @brief The factor to apply to walking durations
         const double myWalkFactor;
 
-        /// @brief The possible vehicles to use
-        const std::string myVTypes;
+        /// @brief The lateral depart position
+        const double myDepartPosLat;
 
     private:
         /// @brief Invalidated copy constructor.
@@ -653,16 +659,6 @@ public:
 
     /// @brief adapt plan when the vehicle reroutes and now stops at replacement instead of orig
     void rerouteParkingArea(MSStoppingPlace* orig, MSStoppingPlace* replacement);
-
-    /** @brief Performs a rerouting using the given router
-    *
-    * Tries to find a new (intermodal) plan between the current edge and the destination edge, first.
-    * Tries to replace the current plan by the new one.
-    *
-    * @param[in] t The time for which the route is computed
-    * @param[in] router The router to use
-    */
-    void reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, const bool onInit = false, const bool withTaz = false);
 
 
 protected:

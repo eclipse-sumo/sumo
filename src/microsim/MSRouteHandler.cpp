@@ -1039,7 +1039,6 @@ MSRouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
     if (attrs.hasAttribute(SUMO_ATTR_DURATION) && duration <= 0) {
         throw ProcessError("Non-positive walking duration for  '" + myVehicleParameter->id + "'.");
     }
-    const MSVehicleType* pedType = vehControl.getVType(myVehicleParameter->vtypeid, &myParsingRNG);
     const std::string fromID = attrs.getOpt<std::string>(SUMO_ATTR_FROM, id, ok, "");
     const MSEdge* from = fromID != "" || myActivePlan->empty() ? MSEdge::dictionary(fromID) : myActivePlan->back()->getDestination();
     if (from == 0) {
@@ -1052,7 +1051,7 @@ MSRouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
     }
     double departPos = 0;
     double arrivalPos = 0;
-    MSStoppingPlace* bs = nullptr;
+    MSStoppingPlace* stoppingPlace = nullptr;
     if (myActivePlan->empty()) {
         double initialDepartPos = myVehicleParameter->departPos;
         if (myVehicleParameter->departPosProcedure == DEPART_POS_RANDOM) {
@@ -1060,7 +1059,7 @@ MSRouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
         }
         myActivePlan->push_back(new MSTransportable::Stage_Waiting(from, -1, myVehicleParameter->depart, initialDepartPos, "start", true));
     }
-    parseWalkPositions(attrs, myVehicleParameter->id, from, to, departPos, arrivalPos, bs, myActivePlan->back(), ok);
+    parseWalkPositions(attrs, myVehicleParameter->id, from, to, departPos, arrivalPos, stoppingPlace, myActivePlan->back(), ok);
 
     const std::string modes = attrs.getOpt<std::string>(SUMO_ATTR_MODES, id, ok, "");
     SVCPermissions modeSet = 0;
@@ -1077,97 +1076,25 @@ MSRouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
         }
     }
     const std::string types = attrs.getOpt<std::string>(SUMO_ATTR_VTYPES, id, ok, "");
-    std::vector<SUMOVehicleParameter*> pars;
     for (StringTokenizer st(types); st.hasNext();) {
-        pars.push_back(new SUMOVehicleParameter());
-        pars.back()->vtypeid = st.next();
-        pars.back()->parametersSet |= VEHPARS_VTYPE_SET;
-        pars.back()->departProcedure = DEPART_TRIGGERED;
-        MSVehicleType* type = vehControl.getVType(pars.back()->vtypeid);
-        if (type == 0) {
-            throw InvalidArgument("The vehicle type '" + pars.back()->vtypeid + "' in a trip for person '" + myVehicleParameter->id + "' is not known.");
+        const std::string vtypeid = st.next();
+        if (vehControl.getVType(vtypeid) == nullptr) {
+            throw InvalidArgument("The vehicle type '" + vtypeid + "' in a trip for person '" + myVehicleParameter->id + "' is not known.");
         }
-        pars.back()->id = myVehicleParameter->id + "_" + toString(pars.size() - 1);
         modeSet |= SVC_PASSENGER;
     }
-    if (pars.empty()) {
-        if ((modeSet & SVC_PASSENGER) != 0) {
-            pars.push_back(new SUMOVehicleParameter());
-            pars.back()->id = myVehicleParameter->id + "_0";
-            pars.back()->departProcedure = DEPART_TRIGGERED;
-        } else if ((modeSet & SVC_BICYCLE) != 0) {
-            pars.push_back(new SUMOVehicleParameter());
-            pars.back()->vtypeid = DEFAULT_BIKETYPE_ID;
-            pars.back()->id = myVehicleParameter->id + "_b0";
-            pars.back()->departProcedure = DEPART_TRIGGERED;
-        } else {
-            // allow shortcut via busStop even when not intending to ride
-            pars.push_back(nullptr);
-        }
-    }
-
     const double speed = attrs.getOpt<double>(SUMO_ATTR_SPEED, id, ok, -1.);
     if (attrs.hasAttribute(SUMO_ATTR_SPEED) && speed <= 0) {
         throw ProcessError("Non-positive walking speed for  '" + myVehicleParameter->id + "'.");
     }
     const double walkFactor = attrs.getOpt<double>(SUMO_ATTR_WALKFACTOR, id, ok, OptionsCont::getOptions().getFloat("persontrip.walkfactor"));
     const double departPosLat = attrs.getOpt<double>(SUMO_ATTR_DEPARTPOS_LAT, 0, ok, 0);
+    if (!attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
+        arrivalPos = INVALID_DOUBLE;
+    }
     if (ok) {
-        const std::string error = "No connection found between '" + from->getID() + "' and '" + (bs != nullptr ? bs->getID() : to->getID()) + "' for person '" + myVehicleParameter->id + "'.";
-        for (SUMOVehicleParameter* vehPar : pars) {
-            SUMOVehicle* vehicle = nullptr;
-            if (vehPar != nullptr) {
-                MSVehicleType* type = MSNet::getInstance()->getVehicleControl().getVType(vehPar->vtypeid);
-                if (type->getVehicleClass() != SVC_IGNORING && (from->getPermissions() & type->getVehicleClass()) == 0) {
-                    WRITE_WARNING("Ignoring vehicle type '" + type->getID() + "' when routing person '" + myVehicleParameter->id + "' because it is not allowed on the start edge.");
-                } else {
-                    const MSRoute* const routeDummy = new MSRoute(vehPar->id, ConstMSEdgeVector({ from }), false, 0, std::vector<SUMOVehicleParameter::Stop>());
-                    vehicle = vehControl.buildVehicle(vehPar, routeDummy, type, !MSGlobals::gCheckRoutes);
-                }
-            }
-            bool carUsed = false;
-            std::vector<MSNet::MSIntermodalRouter::TripItem> result;
-            if (MSNet::getInstance()->getIntermodalRouter().compute(from, to, departPos, arrivalPos, bs == nullptr ? "" : bs->getID(),
-                    pedType->getMaxSpeed() * walkFactor, vehicle, modeSet, myVehicleParameter->depart, result)) {
-                for (std::vector<MSNet::MSIntermodalRouter::TripItem>::iterator it = result.begin(); it != result.end(); ++it) {
-                    if (!it->edges.empty()) {
-                        bs = MSNet::getInstance()->getStoppingPlace(it->destStop, SUMO_TAG_BUS_STOP);
-                        double localArrivalPos = bs != nullptr ? bs->getAccessPos(it->edges.back()) : it->edges.back()->getLength() / 2.;
-                        if (it + 1 == result.end() && attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
-                            localArrivalPos = arrivalPos;
-                        }
-                        if (it->line == "") {
-                            const double depPos = myActivePlan->back()->getDestinationStop() != nullptr ? myActivePlan->back()->getDestinationStop()->getAccessPos(it->edges.front()) : departPos;
-                            myActivePlan->push_back(new MSPerson::MSPersonStage_Walking(myVehicleParameter->id, it->edges, bs, duration, speed, depPos, localArrivalPos, departPosLat));
-                        } else if (vehicle != nullptr && it->line == vehicle->getID()) {
-                            if (bs == nullptr && it + 1 != result.end()) {
-                                // we have no defined endpoint and are in the middle of the trip, drive as far as possible
-                                localArrivalPos = it->edges.back()->getLength();
-                            }
-                            myActivePlan->push_back(new MSPerson::MSPersonStage_Driving(it->edges.back(), bs, localArrivalPos, std::vector<std::string>({ it->line })));
-                            vehicle->replaceRouteEdges(it->edges, -1, 0, "person:" + myVehicleParameter->id, true);
-                            vehicle->setArrivalPos(localArrivalPos);
-                            vehControl.addVehicle(vehPar->id, vehicle);
-                            carUsed = true;
-                        } else {
-                            myActivePlan->push_back(new MSPerson::MSPersonStage_Driving(
-                                                        it->edges.back(), bs, localArrivalPos, std::vector<std::string>({ it->line }), it->intended, TIME2STEPS(it->depart)));
-                        }
-                    }
-                }
-            } else {
-                if (MSGlobals::gCheckRoutes) {
-                    throw ProcessError(error);
-                } else {
-                    myActiveRoute.push_back(from);
-                    myActiveRoute.push_back(to); // pedestrian will teleport
-                    myActivePlan->push_back(new MSPerson::MSPersonStage_Walking(myVehicleParameter->id, myActiveRoute, bs, duration, speed, departPos, arrivalPos, departPosLat));
-                }
-            }
-            if (vehicle != 0 && !carUsed) {
-                vehControl.deleteVehicle(vehicle, true);
-            }
-        }
+        myVehicleParameter->parametersSet |= VEHPARS_FORCE_REROUTE;
+        myActivePlan->push_back(new MSTransportable::Stage_Trip(from, to, stoppingPlace, duration, modeSet, types, speed, walkFactor, departPosLat, arrivalPos));
     }
     myActiveRoute.clear();
 }
