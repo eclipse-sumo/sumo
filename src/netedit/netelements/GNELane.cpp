@@ -62,6 +62,9 @@
 
 // Object implementation
 FXIMPLEMENT(GNELane, FXDelegator, 0, 0)
+//Static GNEEdge for default constructor needed by FOX
+static NBEdge  emptyNBEdge("", nullptr, nullptr, nullptr);
+static GNEEdge emptyGNEEdge(emptyNBEdge, nullptr);
 
 // ===========================================================================
 // method definitions
@@ -76,7 +79,7 @@ GNELane::GNELane(GNEEdge& edge, const int index) :
 
 GNELane::GNELane() :
     GNENetElement(nullptr, "dummyConstructorGNELane", GLO_LANE, SUMO_TAG_LANE),
-    myParentEdge(*static_cast<GNEEdge*>(0)),
+    myParentEdge(emptyGNEEdge),
     myIndex(-1),
     mySpecialColor(0) {
 }
