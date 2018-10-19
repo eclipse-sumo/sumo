@@ -593,7 +593,7 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                     if (s.showLaneDirection) {
                         if (drawAsRailway(s)) {
                             // improve visibility of superposed rail edges
-                            setColor(s);
+                            GLHelper::setColor(setColor(s).changedBrightness(100));
                         } else {
                             glColor3d(0.3, 0.3, 0.3);
                         }
