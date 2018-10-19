@@ -46,9 +46,6 @@
 // FOX callback mapping
 // ===========================================================================
 
-FXDEFMAP(GNETAZFrame::CreateTAZ) CreateTAZMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_TAZFRAME_CREATETAZ,  GNETAZFrame::CreateTAZ::onCmdCreateTAZ),
-};
 /*
 FXDEFMAP(GNETAZFrame::EdgesSelector) EdgesMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,   GNEPolygonFrame::ShapeAttributeSingle::onCmdSetColorAttribute),
@@ -61,7 +58,6 @@ FXDEFMAP(GNETAZFrame::TAZParameters) TAZParametersMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNETAZFrame::CreateTAZ,         FXGroupBox,     CreateTAZMap,       ARRAYNUMBER(CreateTAZMap))
 FXIMPLEMENT(GNETAZFrame::TAZParameters,     FXGroupBox,     TAZParametersMap,   ARRAYNUMBER(TAZParametersMap))
 //FXIMPLEMENT(GNETAZFrame::EdgesSelector,     FXGroupBox,     EdgesMap,           ARRAYNUMBER(EdgesMap))
 
@@ -99,8 +95,6 @@ GNETAZFrame::CurrentTAZ::setCurrentTAZ(GNETAZ* currentTAZ) {
         myTAZFrameParent->myNeteditAttributes->hideNeteditAttributesModul();
         // hide drawing shape
         myTAZFrameParent->myDrawingShape->hideDrawingShape();
-        // hide create TAZ
-        myTAZFrameParent->myCreateTAZ->hide();
         // show edge selector
         myTAZFrameParent->myEdgeSelector->show();
     } else {
@@ -111,8 +105,6 @@ GNETAZFrame::CurrentTAZ::setCurrentTAZ(GNETAZ* currentTAZ) {
         myTAZFrameParent->myNeteditAttributes->showNeteditAttributesModul(GNEAttributeCarrier::getTagProperties(SUMO_TAG_TAZ));
         // show drawing shape
         myTAZFrameParent->myDrawingShape->showDrawingShape();
-        // show create TAZ
-        myTAZFrameParent->myCreateTAZ->show();
         // hide edge selector
         myTAZFrameParent->myEdgeSelector->hide();
     }
@@ -272,7 +264,6 @@ long
 GNETAZFrame::TAZParameters::onCmdSetAttribute(FXObject*, FXSelector, void*) {
     // only COLOR text field has to be checked
     bool currentParametersValid = GNEAttributeCarrier::canParse<RGBColor>(myTextFieldColor->getText().text());
-
     // change color of textfield dependig of myCurrentParametersValid
     if (currentParametersValid) {
         myTextFieldColor->setTextColor(FXRGB(0, 0, 0));
@@ -281,9 +272,6 @@ GNETAZFrame::TAZParameters::onCmdSetAttribute(FXObject*, FXSelector, void*) {
         myTextFieldColor->setTextColor(FXRGB(255, 0, 0));
         currentParametersValid = false;
     }
-
-    // Enable or disable create TAZ button depending of the current parameters
-    myTAZFrameParent->myCreateTAZ->setCreateTAZButton(currentParametersValid);
     return 0;
 }
 
@@ -292,59 +280,6 @@ long
 GNETAZFrame::TAZParameters::onCmdHelp(FXObject*, FXSelector, void*) {
     myTAZFrameParent->openHelpAttributesDialog(SUMO_TAG_TAZ);
     return 1;
-}
-
-// ---------------------------------------------------------------------------
-// GNETAZFrame::NeteditAttributes- methods
-// ---------------------------------------------------------------------------
-
-GNETAZFrame::CreateTAZ::CreateTAZ(GNETAZFrame* TAZFrameParent) :
-    FXGroupBox(TAZFrameParent->myContentFrame, "Create", GUIDesignGroupBoxFrame),
-    myTAZFrameParent(TAZFrameParent) {
-    // Create TAZ button and disable it
-    myCreateTAZButton = new FXButton(this, "Create TAZ", 0, this, MID_GNE_TAZFRAME_CREATETAZ, GUIDesignButton);
-    myCreateTAZButton->disable();
-
-}
-
-
-GNETAZFrame::CreateTAZ::~CreateTAZ() {}
-
-
-long
-GNETAZFrame::CreateTAZ::onCmdCreateTAZ(FXObject*, FXSelector, void*) {
-    // First check that current parameters are valid
-    if (myTAZFrameParent->myTAZParameters->isCurrentParametersValid()) {
-        /*
-        // iterate over junction's TAZ to find duplicated TAZs
-        if (myEdgeSelector->getCurrentJunction()->getNBNode()->checkTAZDuplicated(myTAZParameters->getTAZEdges()) == false) {
-            // create new TAZ
-            myViewNet->getUndoList()->add(new GNEChange_TAZ(myEdgeSelector->getCurrentJunction(),
-                                          myTAZParameters->getTAZEdges(),
-                                          myTAZParameters->getTAZWidth(),
-                                          myTAZParameters->getTAZPriority(),
-                                          -1, -1,
-                                          PositionVector::EMPTY,
-                                          false, true), true);
-
-            // clear selected edges
-            myEdgeSelector->onCmdClearSelection(0, 0, 0);
-        } else {
-            WRITE_WARNING("There is already another TAZ with the same edges in the junction; Duplicated TAZ aren't allowed.");
-        }
-        */
-    }
-    return 1;
-}
-
-
-void
-GNETAZFrame::CreateTAZ::setCreateTAZButton(bool value) {
-    if (value) {
-        myCreateTAZButton->enable();
-    } else {
-        myCreateTAZButton->disable();
-    }
 }
 
 // ---------------------------------------------------------------------------
@@ -369,8 +304,6 @@ GNETAZFrame::GNETAZFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* v
     // Create edge Selector modul
     myEdgeSelector = new EdgesSelector(this);
 
-    // Create TAZ Modul
-    myCreateTAZ = new CreateTAZ(this);
     /*
     // Create groupbox and labels for legends
     FXGroupBox *groupBoxLegend = new FXGroupBox(myContentFrame, "Legend", GUIDesignGroupBoxFrame);

@@ -192,42 +192,6 @@ public:
         FXButton* myHelpTAZAttribute;
     };
     
-    // ===========================================================================
-    // class CreateTAZ
-    // ===========================================================================
-
-    class CreateTAZ : public FXGroupBox {
-        /// @brief FOX-declaration
-        FXDECLARE(GNETAZFrame::CreateTAZ)
-
-    public:
-        /// @brief constructor
-        CreateTAZ(GNETAZFrame* TAZFrameParent);
-
-        /// @brief destructor
-        ~CreateTAZ();
-
-        /// @brief enable or disable button create edges
-        void setCreateTAZButton(bool value);
-
-        /// @name FOX-callbacks
-        /// @{
-        /// @brief Called when the user press the button create edge
-        long onCmdCreateTAZ(FXObject*, FXSelector, void*);
-        /// @}
-
-    protected:
-        /// @brief FOX needs this
-        CreateTAZ() {}
-
-    private:
-        /// @brief pointer to GNETAZFrame parent
-        GNETAZFrame* myTAZFrameParent;
-
-        /// @field FXButton for create TAZ
-        FXButton* myCreateTAZButton;
-    };
-
     /**@brief Constructor
      * @brief parent FXHorizontalFrame in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
@@ -281,9 +245,6 @@ private:
 
     /// @brief edge selector
     EdgesSelector* myEdgeSelector;
-
-    /// @brief create TAZ
-    CreateTAZ* myCreateTAZ;
 };
 
 
