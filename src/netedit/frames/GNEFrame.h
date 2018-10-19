@@ -43,6 +43,54 @@ class GNEFrame : public FXVerticalFrame {
 public:
 
     // ===========================================================================
+    // class ItemSelector
+    // ===========================================================================
+
+    class ItemSelector : protected FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEFrame::ItemSelector)
+
+    public:
+        /// @brief constructor
+        ItemSelector(GNEFrame* frameParent, GNEAttributeCarrier::TAGProperty type, bool onlyDrawables = true);
+
+        /// @brief destructor
+        ~ItemSelector();
+
+        /// @brief get current type tag
+        SumoXMLTag getCurrentTypeTag() const;
+
+        /// @brief set current type manually
+        void setCurrentTypeTag(SumoXMLTag typeTag);
+
+        /// @name FOX-callbacks
+        /// @{
+        /// @brief Called when the user select another element in ComboBox
+        long onCmdSelectItem(FXObject*, FXSelector, void*);
+        /// @}
+
+    protected:
+        /// @brief FOX needs this
+        ItemSelector() {}
+
+    private:
+        /// @brief pointer to Frame Parent
+        GNEFrame* myFrameParent;
+
+        /// @brief comboBox with the list of elements type
+        FXComboBox* myTypeMatchBox;
+
+        /// @brief actual type selected in the match Box (if invalid, it takes SUMO_TAG_NOTHING)
+        SumoXMLTag myCurrentType;
+
+        /// @brief set of tags (NetElements, Additionals, Shapes...)
+        GNEAttributeCarrier::TAGProperty myTagPropertyType;
+
+        /// @brief show only drawable elements
+        bool myOnlyDrawables;
+    };
+
+    // ===========================================================================
     // class ACHierarchy
     // ===========================================================================
 
@@ -403,6 +451,12 @@ protected:
      * @note called when user stop drawing shape
      */
     virtual bool buildShape();
+
+     /// @brief enable moduls depending of item selected in ItemSelector (can be reimplemented in frame childs)
+    virtual void enableModuls(const GNEAttributeCarrier::TagValues &tagValue);
+
+    /// @brief disable moduls if element selected in itemSelector isn't valid (can be reimplemented in frame childs)
+    virtual void disableModuls();
 
     /// @brief Open help attributes dialog
     void openHelpAttributesDialog(SumoXMLTag tag) const;

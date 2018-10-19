@@ -56,6 +56,10 @@
 // FOX callback mapping
 // ===========================================================================
 
+FXDEFMAP(GNEFrame::ItemSelector) ItemSelectorMap[] = {
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SET_TYPE,    GNEFrame::ItemSelector::onCmdSelectItem),
+};
+
 FXDEFMAP(GNEFrame::ACHierarchy) ACHierarchyMap[] = {
     FXMAPFUNC(SEL_COMMAND,              MID_GNE_INSPECTORFRAME_CENTER,      GNEFrame::ACHierarchy::onCmdCenterItem),
     FXMAPFUNC(SEL_COMMAND,              MID_GNE_INSPECTORFRAME_INSPECT,     GNEFrame::ACHierarchy::onCmdInspectItem),
@@ -80,6 +84,7 @@ FXDEFMAP(GNEFrame::NeteditAttributes) NeteditAttributesMap[] = {
 };
 
 // Object implementation
+FXIMPLEMENT(GNEFrame::ItemSelector,             FXGroupBox,     ItemSelectorMap,                ARRAYNUMBER(ItemSelectorMap))
 FXIMPLEMENT(GNEFrame::ACHierarchy,              FXGroupBox,     ACHierarchyMap,                 ARRAYNUMBER(ACHierarchyMap))
 FXIMPLEMENT(GNEFrame::GenericParametersEditor,  FXGroupBox,     GenericParametersEditorMap,     ARRAYNUMBER(GenericParametersEditorMap))
 FXIMPLEMENT(GNEFrame::DrawingShape,             FXGroupBox,     DrawingShapeMap,                ARRAYNUMBER(DrawingShapeMap))
@@ -89,6 +94,106 @@ FXIMPLEMENT(GNEFrame::NeteditAttributes,        FXGroupBox,     NeteditAttribute
 // ===========================================================================
 // method definitions
 // ===========================================================================
+
+// ---------------------------------------------------------------------------
+// GNEFrame::ItemSelector - methods
+// ---------------------------------------------------------------------------
+
+GNEFrame::ItemSelector::ItemSelector(GNEFrame* frameParent, GNEAttributeCarrier::TAGProperty type, bool onlyDrawables) :
+    FXGroupBox(frameParent->myContentFrame, "Element", GUIDesignGroupBoxFrame),
+    myFrameParent(frameParent),
+    myTagPropertyType(type),
+    myOnlyDrawables(onlyDrawables),
+    myCurrentType(SUMO_TAG_NOTHING) {
+    // first check that property is valid
+    switch (type)     {
+        case GNEAttributeCarrier::TAGProperty::TAGPROPERTY_NETELEMENT:
+            setText("NetElement element");
+            break;
+        case GNEAttributeCarrier::TAGProperty::TAGPROPERTY_ADDITIONAL:
+            setText("Additional element");
+            break;
+        case GNEAttributeCarrier::TAGProperty::TAGPROPERTY_SHAPE:
+            setText("Shape element");
+            break;
+        case GNEAttributeCarrier::TAGProperty::TAGPROPERTY_TAZ:
+            setText("TAZ element");
+            break;
+        default:
+            throw ProcessError("invalid tag property");
+
+    }
+    // Create FXListBox in myTypeMatchBox
+    myTypeMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
+    // Add options to myTypeMatchBox based on tag
+    auto listOfTags = GNEAttributeCarrier::allowedTagsByCategory(myTagPropertyType, myOnlyDrawables);
+    for (auto i : listOfTags) {
+        myTypeMatchBox->appendItem(toString(i).c_str());
+    }
+    // Set visible items
+    myTypeMatchBox->setNumVisible((int)myTypeMatchBox->getNumItems());
+    // ItemSelector is always shown
+    show();
+}
+
+
+GNEFrame::ItemSelector::~ItemSelector() {}
+
+
+SumoXMLTag
+GNEFrame::ItemSelector::getCurrentTypeTag() const {
+    return myCurrentType;
+}
+
+
+void
+GNEFrame::ItemSelector::setCurrentTypeTag(SumoXMLTag typeTag) {
+    // make sure that tag is in myTypeMatchBox
+    for (int i = 0; i < (int)myTypeMatchBox->getNumItems(); i++) {
+        if (myTypeMatchBox->getItem(i).text() == toString(typeTag)) {
+            myTypeMatchBox->setCurrentItem(i);
+            // Set new current type
+            myCurrentType = typeTag;
+        }
+    }
+    // Check that typeTag type is valid
+    if (myCurrentType != SUMO_TAG_NOTHING) {
+        // show moduls if selected item is valid
+        myFrameParent->enableModuls(GNEAttributeCarrier::getTagProperties(myCurrentType));
+    } else {
+        // hide all moduls if selected item isn't valid
+        myFrameParent->disableModuls();
+    }
+}
+
+
+long
+GNEFrame::ItemSelector::onCmdSelectItem(FXObject*, FXSelector, void*) {
+    // Check if value of myTypeMatchBox correspond of an allowed additional tags
+    auto listOfTags = GNEAttributeCarrier::allowedTagsByCategory(myTagPropertyType, myOnlyDrawables);
+    for (auto i : listOfTags) {
+        if (toString(i) == myTypeMatchBox->getText().text()) {
+            // set color of myTypeMatchBox to black (valid)
+            myTypeMatchBox->setTextColor(FXRGB(0, 0, 0));
+            // Set new current type
+            myCurrentType = i;
+            // show moduls if selected item is valid
+            myFrameParent->enableModuls(GNEAttributeCarrier::getTagProperties(myCurrentType));
+            // Write Warning in console if we're in testing mode
+            WRITE_DEBUG(("Selected item '" + myTypeMatchBox->getText() + "' in ItemSelector").text());
+            return 1;
+        }
+    }
+    // if additional name isn't correct, set SUMO_TAG_NOTHING as current type
+    myCurrentType = SUMO_TAG_NOTHING;
+    // hide all moduls if selected item isn't valid
+    myFrameParent->disableModuls();
+    // set color of myTypeMatchBox to red (invalid)
+    myTypeMatchBox->setTextColor(FXRGB(255, 0, 0));
+    // Write Warning in console if we're in testing mode
+    WRITE_DEBUG("Selected invalid item in ItemSelector");
+    return 1;
+}
 
 // ---------------------------------------------------------------------------
 // GNEFrame::ACHierarchy - methods
@@ -1268,8 +1373,20 @@ GNEFrame::getFrameHeaderFont() const {
 
 bool 
 GNEFrame::buildShape() {
-    // this function has to be reimplemente in all frames that needs to draw a polygon (for example, GNEPolygonFrame or GNETAZFrame)
+    // this function has to be reimplemente in all child frames that needs to draw a polygon (for example, GNEPolygonFrame or GNETAZFrame)
     return false;
+}
+
+
+void 
+GNEFrame::enableModuls(const GNEAttributeCarrier::TagValues&) {
+    // this function has to be reimplemente in all child frames that uses a ItemSelector modul
+}
+
+
+void 
+GNEFrame::disableModuls() {
+    // this function has to be reimplemente in all child frames that uses a ItemSelector modul
 }
 
 

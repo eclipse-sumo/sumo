@@ -37,48 +37,6 @@ public:
     class AdditionalAttributes;
 
     // ===========================================================================
-    // class AdditionalSelector
-    // ===========================================================================
-
-    class AdditionalSelector : protected FXGroupBox {
-        /// @brief FOX-declaration
-        FXDECLARE(GNEAdditionalFrame::AdditionalSelector)
-
-    public:
-        /// @brief constructor
-        AdditionalSelector(GNEAdditionalFrame* additionalFrameParent);
-
-        /// @brief destructor
-        ~AdditionalSelector();
-
-        /// @brief get current additional type
-        SumoXMLTag getCurrentAdditionalType() const;
-
-        /// @brief set parameters depending of the given additionalType
-        void setCurrentAdditional(SumoXMLTag actualAdditionalType);
-
-        /// @name FOX-callbacks
-        /// @{
-        /// @brief Called when the user select another additional Type
-        long onCmdselectAttributeCarrier(FXObject*, FXSelector, void*);
-        /// @}
-
-    protected:
-        /// @brief FOX needs this
-        AdditionalSelector() {}
-
-    private:
-        /// @brief pointer to Additional Frame Parent
-        GNEAdditionalFrame* myAdditionalFrameParent;
-
-        /// @brief combo box with the list of additional elements
-        FXComboBox* myAdditionalMatchBox;
-
-        /// @brief actual additional type selected in the match Box
-        SumoXMLTag myCurrentAdditionalType;
-    };
-
-    // ===========================================================================
     // class AdditionalAttributeSingle
     // ===========================================================================
 
@@ -495,6 +453,13 @@ public:
     /// @brief getConsecutive Lane Selector
     GNEAdditionalFrame::SelectorLaneParents* getConsecutiveLaneSelector() const;
 
+protected:
+     /// @brief enable moduls depending of item selected in ItemSelector
+    void enableModuls(const GNEAttributeCarrier::TagValues &tagValue);
+
+    /// @brief disable moduls if element selected in itemSelector isn't valid
+    void disableModuls();
+
 private:
     /// @brief generate a ID for an additiona element
     std::string generateID(GNENetElement* netElement) const;
@@ -517,8 +482,8 @@ private:
     /// @brief build additional over view
     bool buildAdditionalOverView(std::map<SumoXMLAttr, std::string> &valuesMap, const GNEAttributeCarrier::TagValues &tagValues);
 
-    /// @brief additional selector
-    AdditionalSelector* myAdditionalSelector;
+    /// @brief item selector
+    ItemSelector* myItemSelector;
 
     /// @brief additional internal attributes
     AdditionalAttributes* myAdditionalAttributes;

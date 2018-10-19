@@ -46,48 +46,6 @@ public:
     class ShapeAttributes;
 
     // ===========================================================================
-    // class ShapeSelector
-    // ===========================================================================
-
-    class ShapeSelector : public FXGroupBox {
-        /// @brief FOX-declaration
-        FXDECLARE(GNEPolygonFrame::ShapeSelector)
-
-    public:
-        /// @brief constructor
-        ShapeSelector(GNEPolygonFrame* shapeFrameParent);
-
-        /// @brief destructor
-        ~ShapeSelector();
-
-        /// @brief get current shape type
-        SumoXMLTag getCurrentShapeType() const;
-
-        /// @brief set parameters depending of the given shapeType
-        void setCurrentShape(SumoXMLTag actualShapeType);
-
-        /// @name FOX-callbacks
-        /// @{
-        /// @brief Called when the user select another shape Type
-        long onCmdselectAttributeCarrier(FXObject*, FXSelector, void*);
-        /// @}
-
-    protected:
-        /// @brief FOX needs this
-        ShapeSelector() {}
-
-    private:
-        /// @brief pointer to Shape Frame Parent
-        GNEPolygonFrame* myShapeFrameParent;
-
-        /// @brief combo box with the list of shape elements
-        FXComboBox* myShapeMatchBox;
-
-        /// @brief actual shape type selected in the match Box
-        SumoXMLTag myCurrentShapeType;
-    };
-
-    // ===========================================================================
     // class ShapeAttributeSingle
     // ===========================================================================
 
@@ -257,6 +215,12 @@ protected:
      */
     bool buildShape();
 
+     /// @brief enable moduls depending of item selected in ItemSelector
+    void enableModuls(const GNEAttributeCarrier::TagValues &tagValue);
+
+    /// @brief disable moduls if element selected in itemSelector isn't valid
+    void disableModuls();
+
     /// @brief add Polygon
     bool addPolygon(const std::map<SumoXMLAttr, std::string>& POIValues);
 
@@ -267,8 +231,8 @@ protected:
     bool addPOILane(const std::map<SumoXMLAttr, std::string>& POIValues);
 
 private:
-    /// @brief additional selector
-    ShapeSelector* myShapeSelector;
+    /// @brief item selector
+    ItemSelector* myItemSelector;
 
     /// @brief shape internal attributes
     ShapeAttributes* myShapeAttributes;

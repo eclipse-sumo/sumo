@@ -45,48 +45,6 @@ public:
     };
 
     // ===========================================================================
-    // class TAZSelector
-    // ===========================================================================
-
-    class TAZSelector : protected FXGroupBox {
-        /// @brief FOX-declaration
-        FXDECLARE(GNETAZFrame::TAZSelector)
-
-    public:
-        /// @brief constructor
-        TAZSelector(GNETAZFrame* TAZFrameParent);
-
-        /// @brief destructor
-        ~TAZSelector();
-
-        /// @brief get current TAZ type
-        SumoXMLTag getCurrentTAZType() const;
-
-        /// @brief set parameters depending of the given TAZType
-        void setCurrentTAZ(SumoXMLTag actualTAZType);
-
-        /// @name FOX-callbacks
-        /// @{
-        /// @brief Called when the user select another TAZ Type
-        long onCmdselectNewTAZ(FXObject*, FXSelector, void*);
-        /// @}
-
-    protected:
-        /// @brief FOX needs this
-        TAZSelector() {}
-
-    private:
-        /// @brief pointer to TAZ Frame Parent
-        GNETAZFrame* myTAZFrameParent;
-
-        /// @brief combo box with the list of TAZ elements
-        FXComboBox* myTAZMatchBox;
-
-        /// @brief actual TAZ type selected in the match Box
-        SumoXMLTag myCurrentTAZType;
-    };
-
-    // ===========================================================================
     // class EdgesSelector
     // ===========================================================================
 
@@ -307,9 +265,15 @@ protected:
      */
     bool buildShape();
 
+     /// @brief enable moduls depending of item selected in ItemSelector
+    void enableModuls(const GNEAttributeCarrier::TagValues &tagValue);
+
+    /// @brief disable moduls if element selected in itemSelector isn't valid
+    void disableModuls();
+
 private:
-    /// @brief TAZ Selector
-    TAZSelector* myTAZSelector;
+    /// @brief item selector
+    ItemSelector* myItemSelector;
 
     /// @brief TAZ parameters
     TAZParameters* myTAZParameters;

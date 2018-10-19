@@ -46,10 +46,6 @@
 // FOX callback mapping
 // ===========================================================================
 
-FXDEFMAP(GNETAZFrame::TAZSelector) SelectorTAZMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SET_TYPE,    GNETAZFrame::TAZSelector::onCmdselectNewTAZ),
-};
-
 FXDEFMAP(GNETAZFrame::CreateTAZ) CreateTAZMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_TAZFRAME_CREATETAZ,  GNETAZFrame::CreateTAZ::onCmdCreateTAZ),
 };
@@ -66,7 +62,6 @@ FXDEFMAP(GNETAZFrame::TAZParameters) TAZParametersMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNETAZFrame::TAZSelector,       FXGroupBox,     SelectorTAZMap,     ARRAYNUMBER(SelectorTAZMap))
 FXIMPLEMENT(GNETAZFrame::CreateTAZ,         FXGroupBox,     CreateTAZMap,       ARRAYNUMBER(CreateTAZMap))
 FXIMPLEMENT(GNETAZFrame::EdgesSelector,     FXGroupBox,     EdgesMap,           ARRAYNUMBER(EdgesMap))
 FXIMPLEMENT(GNETAZFrame::TAZParameters,     FXGroupBox,     TAZParametersMap,   ARRAYNUMBER(TAZParametersMap))
@@ -75,106 +70,6 @@ FXIMPLEMENT(GNETAZFrame::TAZParameters,     FXGroupBox,     TAZParametersMap,   
 // ===========================================================================
 // method definitions
 // ===========================================================================
-
-
-// ---------------------------------------------------------------------------
-// GNETAZFrame::TAZSelector - methods
-// ---------------------------------------------------------------------------
-
-GNETAZFrame::TAZSelector::TAZSelector(GNETAZFrame* TAZFrameParent) :
-    FXGroupBox(TAZFrameParent->myContentFrame, "TAZ element", GUIDesignGroupBoxFrame),
-    myTAZFrameParent(TAZFrameParent),
-    myCurrentTAZType(SUMO_TAG_NOTHING) {
-
-    // Create FXListBox in myGroupBoxForMyTAZMatchBox
-    myTAZMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
-
-    // Add options to myTAZMatchBox
-    auto listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TAGProperty::TAGPROPERTY_TAZ, false);
-    for (auto i : listOfTags) {
-        myTAZMatchBox->appendItem(toString(i).c_str());
-    }
-    // Set visible items
-    myTAZMatchBox->setNumVisible((int)myTAZMatchBox->getNumItems());
-    // call onCmdselectAttributeCarrier to configure entire dialog 
-    onCmdselectNewTAZ(0,0,0);
-    // TAZSelector is always shown
-    show();
-}
-
-
-GNETAZFrame::TAZSelector::~TAZSelector() {}
-
-
-SumoXMLTag
-GNETAZFrame::TAZSelector::getCurrentTAZType() const {
-    return myCurrentTAZType;
-}
-
-
-void
-GNETAZFrame::TAZSelector::setCurrentTAZ(SumoXMLTag actualTAZType) {
-    // Set new actualTAZType
-    myCurrentTAZType = actualTAZType;
-    /*
-    // Check that current TAZ type is valid
-    if (myCurrentTAZType != SUMO_TAG_NOTHING) {
-
-        // obtain tag property (only for improve code legibility)
-        const auto& tagValue = GNEAttributeCarrier::getTagProperties(myCurrentTAZType);
-        // first check if TAZ can block movement or mask the start/end position, then show neteditParameters
-        if (tagValue.canBlockMovement() || tagValue.canMaskStartEndPos()) {
-            myTAZFrameParent->myNeteditAttributes->showNeteditAttributesModul(tagValue.canMaskStartEndPos());
-        } else {
-            myTAZFrameParent->myNeteditAttributes->hideNeteditAttributesModul();
-        }
-        // Clear internal attributes
-        myTAZFrameParent->myTAZAttributes->clearAttributes();
-        // iterate over attributes of myCurrentTAZType
-        for (auto i : tagValue) {
-            // only show attributes that aren't uniques
-            if (!i.second.isUnique()) {
-                myTAZFrameParent->myTAZAttributes->addAttribute(i.first);
-            }
-        }
-        // show TAZ attribute modul
-        myTAZFrameParent->myTAZAttributes->showTAZAttributesModul();
-        // Show SelectorEdgeChilds if we're adding an TAZ that own the attribute SUMO_ATTR_EDGES
-        if (tagValue.hasAttribute(SUMO_ATTR_EDGES)) {
-            myTAZFrameParent->mySelectorEdgeChilds->showSelectorEdgeChildsModul();
-        } else {
-            myTAZFrameParent->mySelectorEdgeChilds->hideSelectorEdgeChildsModul();
-        }
-    } else {
-        // hide all moduls if TAZ isn't valid
-        myTAZFrameParent->myTAZAttributes->hideTAZAttributesModul();
-        myTAZFrameParent->myNeteditAttributes->hideNeteditAttributesModul();
-        myTAZFrameParent->mySelectorEdgeChilds->hideSelectorEdgeChildsModul();
-    }
-    */
-}
-
-
-long
-GNETAZFrame::TAZSelector::onCmdselectNewTAZ(FXObject*, FXSelector, void*) {
-    // Check if value of myTAZMatchBox correspond of an allowed TAZ tags
-    auto listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TAGProperty::TAGPROPERTY_TAZ, false);
-    for (auto i : listOfTags) {
-        if (toString(i) == myTAZMatchBox->getText().text()) {
-            myTAZMatchBox->setTextColor(FXRGB(0, 0, 0));
-            setCurrentTAZ(i);
-            // Write Warning in console if we're in testing mode
-            WRITE_DEBUG(("Selected TAZ '" + myTAZMatchBox->getText() + "' in TAZSelector").text());
-            return 1;
-        }
-    }
-    // if TAZ name isn't correct, hidde all
-    setCurrentTAZ(SUMO_TAG_NOTHING);
-    myTAZMatchBox->setTextColor(FXRGB(255, 0, 0));
-    // Write Warning in console if we're in testing mode
-    WRITE_DEBUG("Selected invalid TAZ in TAZSelector");
-    return 1;
-}
 
 // ---------------------------------------------------------------------------
 // GNETAZFrame::EdgesSelector - methods
@@ -556,8 +451,9 @@ GNETAZFrame::CreateTAZ::setCreateTAZButton(bool value) {
 
 GNETAZFrame::GNETAZFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
     GNEFrame(horizontalFrameParent, viewNet, "TAZs") {
-    // Create TAZ Selector modul
-    myTAZSelector = new TAZSelector(this);
+
+    // create item Selector modul for TAZs
+    myItemSelector = new ItemSelector(this, GNEAttributeCarrier::TAGProperty::TAGPROPERTY_TAZ);
 
     // Create TAZParameters modul
     myTAZParameters = new TAZParameters(this);
@@ -580,6 +476,9 @@ GNETAZFrame::GNETAZFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* v
 
     // disable edge selector
     myEdgeSelector->disableEdgeSelector();
+
+    // set BusStop as default additional
+    myItemSelector->setCurrentTypeTag(SUMO_TAG_TAZ);
 }
 
 
@@ -600,7 +499,7 @@ GNETAZFrame::AddTAZResult
 GNETAZFrame::processClick(const Position& clickedPosition, GNEEdge* edge) {
     // Declare map to keep values
     std::map<SumoXMLAttr, std::string> valuesOfElement;
-     if (myTAZSelector->getCurrentTAZType() == SUMO_TAG_TAZ) {
+     if (myItemSelector->getCurrentTypeTag() == SUMO_TAG_TAZ) {
         // obtain TAZ values
         //valuesOfElement = myTAZAttributes->getAttributesAndValues();
         if (myDrawingShape->isDrawing()) {
@@ -684,4 +583,17 @@ GNETAZFrame::buildShape() {
         return GNEAdditionalHandler::buildAdditional(myViewNet, true, SUMO_TAG_TAZ, valuesOfElement);
     }
 }
+
+
+void 
+GNETAZFrame::enableModuls(const GNEAttributeCarrier::TagValues &/*tagValue*/) {
+
+}
+
+
+void 
+GNETAZFrame::disableModuls() {
+
+}
+
 /****************************************************************************/
