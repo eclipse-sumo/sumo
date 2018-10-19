@@ -602,13 +602,15 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                             drawDirectionIndicators(exaggeration);
                         }
                     }
-                    glTranslated(0, 0, .1);
+                    glTranslated(0, 0, 1000);
                     if (s.drawLinkJunctionIndex.show) {
                         drawLinkNo(s);
                     }
                     if (s.drawLinkTLIndex.show) {
                         drawTLSLinkNo(s, *net);
                     }
+                    glTranslated(0, 0, -1000);
+                    glTranslated(0, 0, .1);
                 }
                 // make sure link rules are drawn so tls can be selected via right-click
                 if (s.showLinkRules && (drawDetails || s.drawForSelecting)) {
