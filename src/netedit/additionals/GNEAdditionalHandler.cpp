@@ -2109,8 +2109,6 @@ GNEAdditionalHandler::buildTAZ(GNEViewNet* viewNet, bool allowUndoRedo, const st
         viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_TAZ));
         viewNet->getUndoList()->add(new GNEChange_Additional(TAZ, true), true);
         viewNet->getUndoList()->p_end();
-        // center after creation
-        viewNet->centerTo(TAZ->getGlID(), false);
     } else {
         viewNet->getNet()->insertAdditional(TAZ);
         TAZ->incRef("buildTAZ");
