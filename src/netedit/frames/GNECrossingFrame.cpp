@@ -72,7 +72,7 @@ FXIMPLEMENT(GNECrossingFrame::CreateCrossing,       FXGroupBox,     CreateCrossi
 // ===========================================================================
 
 // ---------------------------------------------------------------------------
-// GNECrossingFrame::EdgesSelector - methods
+// GNECrossingFrame::CurrentJunction - methods
 // ---------------------------------------------------------------------------
 
 GNECrossingFrame::CurrentJunction::CurrentJunction(GNECrossingFrame* crossingFrameParent) : 
