@@ -45,13 +45,44 @@ public:
     };
 
     // ===========================================================================
+    // class CurrentTAZ
+    // ===========================================================================
+
+    class CurrentTAZ : public FXGroupBox {
+
+    public:
+        /// @brief constructor
+        CurrentTAZ(GNETAZFrame* TAZFrameParent);
+
+        /// @brief destructor
+        ~CurrentTAZ();
+
+        /// @brief set current TAZ
+        void setCurrentTAZ(GNETAZ* currentTAZ);
+
+        /// @brief get current TAZ
+        GNETAZ* getCurrentTAZ() const;
+
+    private:
+        /// @brief pointer to TAZ Frame
+        GNETAZFrame* myTAZFrameParent;
+
+        /// @brief current TAZ
+        GNETAZ* myCurrentTAZ;
+
+        /// @brief Label for current TAZ
+        FXLabel* myCurrentTAZLabel;
+    };
+
+    // ===========================================================================
     // class EdgesSelector
     // ===========================================================================
 
     class EdgesSelector : public FXGroupBox {
+        /*
         /// @brief FOX-declaration
         FXDECLARE(GNETAZFrame::EdgesSelector)
-
+        */
     public:
         /// @brief constructor
         EdgesSelector(GNETAZFrame* TAZFrameParent);
@@ -71,12 +102,6 @@ public:
         /// @brief restore colors of all edges
         void restoreEdgeColors();
 
-        /// @brief return candidate color
-        const RGBColor& getCandidateColor() const;
-
-        /// @brief return selected color
-        const RGBColor& getSelectedColor() const;
-
         /// @name FOX-callbacks
         /// @{
         /// @brief called when useSelectedEdges button edge is pressed
@@ -88,11 +113,11 @@ public:
         /// @brief called when invert selection button is pressed
         long onCmdInvertSelection(FXObject*, FXSelector, void*);
         /// @}
-
+    /*
     protected:
         /// @brief FOX needs this
         EdgesSelector() {}
-
+    */
     private:
         /// @brief pointer to GNETAZFrame parent
         GNETAZFrame* myTAZFrameParent;
@@ -114,7 +139,7 @@ public:
     // class TAZParameters
     // ===========================================================================
 
-    class TAZParameters : public FXGroupBox {
+    class TAZParameters : protected FXGroupBox {
         /// @brief FOX-declaration
         FXDECLARE(GNETAZFrame::TAZParameters)
 
@@ -125,35 +150,11 @@ public:
         /// @brief destructor
         ~TAZParameters();
 
-        /// @brief enable TAZ parameters and set the default value of parameters
-        void enableTAZParameters(bool hasTLS);
+        /// @brief show TAZ parameters and set the default value of parameters
+        void showTAZParametersModul();
 
-        /// @brief disable TAZ parameters and clear parameters
-        void disableTAZParameters();
-
-        /// @brief check if currently the TAZParameters is enabled
-        bool isTAZParametersEnabled() const;
-
-        /// @brief mark or dismark edge
-        void markEdge(GNEEdge* edge);
-
-        /// @brief clear edges
-        void clearEdges();
-
-        /// @brief invert edges
-        void invertEdges(GNEJunction* parentJunction);
-
-        /// @brief use selected eges
-        void useSelectedEdges(GNEJunction* parentJunction);
-
-        /// @brief get TAZ NBedges
-        std::vector<NBEdge*> getTAZEdges() const;
-
-        /// @brief get candidate color
-        const RGBColor& getCandidateColor() const;
-
-        /// @brief get selected color
-        const RGBColor& getSelectedColor() const;
+        /// @brief hide TAZ parameters
+        void hideTAZParametersModul();
 
         /// @brief check if current parameters are valid
         bool isCurrentParametersValid() const;
@@ -163,6 +164,9 @@ public:
 
         /// @name FOX-callbacks
         /// @{
+        /// @brief called when user press the "Color" button
+        long onCmdSetColorAttribute(FXObject*, FXSelector, void*);
+
         /// @brief Called when user set a value
         long onCmdSetAttribute(FXObject*, FXSelector, void*);
 
@@ -178,26 +182,14 @@ public:
         /// @brief pointer to GNETAZFrame parent
         GNETAZFrame* myTAZFrameParent;
 
-        /// @brief current selected edges
-        std::vector<GNEEdge*> myCurrentSelectedEdges;
+        /// @brief Button for open color editor
+        FXButton* myColorEditor;
 
-        /// @brief Label for edges
-        FXLabel* myTAZEdgesLabel;
-
-        /// @brief TextField for edges
-        FXTextField* myTAZEdges;
+        /// @brief textField to modify the default value of color parameter
+        FXTextField* myTextFieldColor;
 
         /// @brief button for help
         FXButton* myHelpTAZAttribute;
-
-        /// @brief flag to check if current parameters are valid
-        bool myCurrentParametersValid;
-
-        /// @brief color for candidate edges
-        RGBColor myCandidateColor;
-
-        /// @brief color for selected edges
-        RGBColor mySelectedColor;
     };
     
     // ===========================================================================
@@ -258,6 +250,9 @@ public:
     /// @brief get drawing mode editor
     DrawingShape* getDrawingShape() const;
 
+    /// @brief get Current TAZ
+    CurrentTAZ* getCurrentTAZ() const;
+
 protected:
     /**@brief build a shaped element using the drawed shape
      * return true if was sucesfully created
@@ -272,11 +267,14 @@ protected:
     void disableModuls();
 
 private:
-    /// @brief item selector
-    ItemSelector* myItemSelector;
+    /// @brief current TAZ
+    CurrentTAZ* myCurrentTAZ;
 
     /// @brief TAZ parameters
     TAZParameters* myTAZParameters;
+
+    /// @brief Netedit parameter
+    NeteditAttributes* myNeteditAttributes;
 
     /// @brief Drawing shape
     DrawingShape* myDrawingShape;

@@ -49,27 +49,80 @@
 FXDEFMAP(GNETAZFrame::CreateTAZ) CreateTAZMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_TAZFRAME_CREATETAZ,  GNETAZFrame::CreateTAZ::onCmdCreateTAZ),
 };
-
+/*
 FXDEFMAP(GNETAZFrame::EdgesSelector) EdgesMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_USESELECTED,        GNETAZFrame::EdgesSelector::onCmdUseSelectedEdges),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_CLEARSELECTION,     GNETAZFrame::EdgesSelector::onCmdClearSelection),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_INVERTSELECTION,    GNETAZFrame::EdgesSelector::onCmdInvertSelection),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,   GNEPolygonFrame::ShapeAttributeSingle::onCmdSetColorAttribute),
 };
-
+*/
 FXDEFMAP(GNETAZFrame::TAZParameters) TAZParametersMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SET_ATTRIBUTE,   GNETAZFrame::TAZParameters::onCmdSetAttribute),
-    FXMAPFUNC(SEL_COMMAND, MID_HELP,                GNETAZFrame::TAZParameters::onCmdHelp),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SET_ATTRIBUTE_DIALOG,    GNETAZFrame::TAZParameters::onCmdSetColorAttribute),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SET_ATTRIBUTE,           GNETAZFrame::TAZParameters::onCmdSetAttribute),
+    FXMAPFUNC(SEL_COMMAND, MID_HELP,                        GNETAZFrame::TAZParameters::onCmdHelp),
 };
 
 // Object implementation
 FXIMPLEMENT(GNETAZFrame::CreateTAZ,         FXGroupBox,     CreateTAZMap,       ARRAYNUMBER(CreateTAZMap))
-FXIMPLEMENT(GNETAZFrame::EdgesSelector,     FXGroupBox,     EdgesMap,           ARRAYNUMBER(EdgesMap))
 FXIMPLEMENT(GNETAZFrame::TAZParameters,     FXGroupBox,     TAZParametersMap,   ARRAYNUMBER(TAZParametersMap))
+//FXIMPLEMENT(GNETAZFrame::EdgesSelector,     FXGroupBox,     EdgesMap,           ARRAYNUMBER(EdgesMap))
 
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
+
+// ---------------------------------------------------------------------------
+// GNECrossingFrame::CurrentJunction - methods
+// ---------------------------------------------------------------------------
+
+GNETAZFrame::CurrentTAZ::CurrentTAZ(GNETAZFrame* TAZFrameParent) : 
+    FXGroupBox(TAZFrameParent->myContentFrame, "TAZ", GUIDesignGroupBoxFrame),
+    myTAZFrameParent(TAZFrameParent),
+    myCurrentTAZ(nullptr) {
+    // create TAZ label
+    myCurrentTAZLabel = new FXLabel(this, "No TAZ selected", 0, GUIDesignLabelLeft);
+}
+
+
+GNETAZFrame::CurrentTAZ::~CurrentTAZ() {}
+
+
+void 
+GNETAZFrame::CurrentTAZ::setCurrentTAZ(GNETAZ* currentTAZ) {
+    // set new current TAZ
+    myCurrentTAZ = currentTAZ;
+    // update label and moduls
+    if(myCurrentTAZ != nullptr) {
+        myCurrentTAZLabel->setText((std::string("Current TAZ: ") + myCurrentTAZ->getID()).c_str());
+        // hide TAZ parameters
+        myTAZFrameParent->myTAZParameters->hideTAZParametersModul();
+        // hide Netedit parameters
+        myTAZFrameParent->myNeteditAttributes->hideNeteditAttributesModul();
+        // hide drawing shape
+        myTAZFrameParent->myDrawingShape->hideDrawingShape();
+        // hide create TAZ
+        myTAZFrameParent->myCreateTAZ->hide();
+        // show edge selector
+        myTAZFrameParent->myEdgeSelector->show();
+    } else {
+        myCurrentTAZLabel->setText("No TAZ selected");
+        // show TAZ parameters
+        myTAZFrameParent->myTAZParameters->showTAZParametersModul();
+        // show Netedit parameters
+        myTAZFrameParent->myNeteditAttributes->showNeteditAttributesModul(GNEAttributeCarrier::getTagProperties(SUMO_TAG_TAZ));
+        // show drawing shape
+        myTAZFrameParent->myDrawingShape->showDrawingShape();
+        // show create TAZ
+        myTAZFrameParent->myCreateTAZ->show();
+        // hide edge selector
+        myTAZFrameParent->myEdgeSelector->hide();
+    }
+}
+
+
+GNETAZ* 
+GNETAZFrame::CurrentTAZ::getCurrentTAZ() const {
+    return myCurrentTAZ;
+}
 
 // ---------------------------------------------------------------------------
 // GNETAZFrame::EdgesSelector - methods
@@ -129,8 +182,6 @@ GNETAZFrame::EdgesSelector::disableEdgeSelector() {
     myUseSelectedEdges->disable();
     myClearEdgesSelection->disable();
     myInvertEdgesSelection->disable();
-    // Disable TAZ parameters
-    myTAZFrameParent->myTAZParameters->disableTAZParameters();
 }
 
 
@@ -149,48 +200,21 @@ GNETAZFrame::EdgesSelector::restoreEdgeColors() {
     }
 }
 
-
-long
-GNETAZFrame::EdgesSelector::onCmdUseSelectedEdges(FXObject*, FXSelector, void*) {
-    myTAZFrameParent->myTAZParameters->useSelectedEdges(myCurrentJunction);
-    return 1;
-}
-
-
-long
-GNETAZFrame::EdgesSelector::onCmdClearSelection(FXObject*, FXSelector, void*) {
-    myTAZFrameParent->myTAZParameters->clearEdges();
-    return 1;
-}
-
-
-long
-GNETAZFrame::EdgesSelector::onCmdInvertSelection(FXObject*, FXSelector, void*) {
-    myTAZFrameParent->myTAZParameters->invertEdges(myCurrentJunction);
-    return 1;
-}
-
 // ---------------------------------------------------------------------------
 // GNETAZFrame::NeteditAttributes- methods
 // ---------------------------------------------------------------------------
 
 GNETAZFrame::TAZParameters::TAZParameters(GNETAZFrame* TAZFrameParent) :
     FXGroupBox(TAZFrameParent->myContentFrame, "TAZ parameters", GUIDesignGroupBoxFrame),
-    myTAZFrameParent(TAZFrameParent),
-    myCurrentParametersValid(true) {
-    FXHorizontalFrame* TAZParameter = NULL;
+    myTAZFrameParent(TAZFrameParent) {
     // create label and string textField for edges
-    TAZParameter = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    myTAZEdgesLabel = new FXLabel(TAZParameter, toString(SUMO_ATTR_EDGES).c_str(), 0, GUIDesignLabelAttribute);
-    myTAZEdges = new FXTextField(TAZParameter, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    myTAZEdgesLabel->disable();
-    myTAZEdges->disable();
+    FXHorizontalFrame* TAZParameter = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    myColorEditor = new FXButton(TAZParameter, toString(SUMO_ATTR_COLOR).c_str(), 0, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
+    myTextFieldColor = new FXTextField(TAZParameter, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    // set blue as default color
+    myTextFieldColor->setText("blue");
     // Create help button
     myHelpTAZAttribute = new FXButton(this, "Help", 0, this, MID_HELP, GUIDesignButtonRectangular);
-    myHelpTAZAttribute->disable();
-    // set colors
-    myCandidateColor = RGBColor(0, 64, 0, 255);
-    mySelectedColor = RGBColor::GREEN;
 }
 
 
@@ -198,190 +222,68 @@ GNETAZFrame::TAZParameters::~TAZParameters() {}
 
 
 void
-GNETAZFrame::TAZParameters::enableTAZParameters(bool hasTLS) {
-    // obtain Tag Values
-    const auto& tagProperties = GNEAttributeCarrier::getTagProperties(SUMO_TAG_TAZ);
-    // Enable all elements of the TAZ frames
-    myTAZEdgesLabel->enable();
-    myTAZEdges->enable();
-    myHelpTAZAttribute->enable();
-    // set values of parameters
-    onCmdSetAttribute(0, 0, 0);
-    /*myTAZWidth->setText(tagProperties.getDefaultValue(SUMO_ATTR_WIDTH).c_str());*/
+GNETAZFrame::TAZParameters::showTAZParametersModul() {
+    FXGroupBox::show();
 }
 
 
 void
-GNETAZFrame::TAZParameters::disableTAZParameters() {
-    // clear all values of parameters
-    myTAZEdges->setText("");
-    // Disable all elements of the TAZ frames
-    myTAZEdgesLabel->disable();
-    myTAZEdges->disable();
-    myHelpTAZAttribute->disable();
-    myTAZFrameParent->myCreateTAZ->setCreateTAZButton(false);
-}
-
-
-bool
-GNETAZFrame::TAZParameters::isTAZParametersEnabled() const {
-    return myTAZEdgesLabel->isEnabled();
-}
-
-
-void
-GNETAZFrame::TAZParameters::markEdge(GNEEdge* edge) {
-    GNEJunction* currentJunction = myTAZFrameParent->myEdgeSelector->getCurrentJunction();
-    if (currentJunction != NULL) {
-        // Check if edge belongs to junction's edge
-        if (std::find(currentJunction->getGNEEdges().begin(), currentJunction->getGNEEdges().end(), edge) != currentJunction->getGNEEdges().end()) {
-            // Update text field with the new edge
-            std::vector<std::string> TAZEdges = GNEAttributeCarrier::parse<std::vector<std::string> > (myTAZEdges->getText().text());
-            // Check if new edge must be added or removed
-            std::vector<std::string>::iterator itFinder = std::find(TAZEdges.begin(), TAZEdges.end(), edge->getID());
-            if (itFinder == TAZEdges.end()) {
-                TAZEdges.push_back(edge->getID());
-            } else {
-                TAZEdges.erase(itFinder);
-            }
-            myTAZEdges->setText(joinToString(TAZEdges, " ").c_str());
-        }
-        // Update colors and attributes
-        onCmdSetAttribute(0, 0, 0);
-    }
-}
-
-
-void
-GNETAZFrame::TAZParameters::clearEdges() {
-    myTAZEdges->setText("");
-    // Update colors and attributes
-    onCmdSetAttribute(0, 0, 0);
-}
-
-
-void
-GNETAZFrame::TAZParameters::invertEdges(GNEJunction* parentJunction) {
-    std::vector<std::string> TAZEdges;
-    for (auto i : parentJunction->getGNEEdges()) {
-        if (std::find(myCurrentSelectedEdges.begin(), myCurrentSelectedEdges.end(), i) == myCurrentSelectedEdges.end()) {
-            TAZEdges.push_back(i->getID());
-        }
-    }
-    myTAZEdges->setText(joinToString(TAZEdges, " ").c_str());
-    // Update colors and attributes
-    onCmdSetAttribute(0, 0, 0);
-}
-
-
-void
-GNETAZFrame::TAZParameters::useSelectedEdges(GNEJunction* parentJunction) {
-    std::vector<std::string> TAZEdges;
-    for (auto i : parentJunction->getGNEEdges()) {
-        if (i->isAttributeCarrierSelected()) {
-            TAZEdges.push_back(i->getID());
-        }
-    }
-    myTAZEdges->setText(joinToString(TAZEdges, " ").c_str());
-    // Update colors and attributes
-    onCmdSetAttribute(0, 0, 0);
-}
-
-
-std::vector<NBEdge*>
-GNETAZFrame::TAZParameters::getTAZEdges() const {
-    std::vector<NBEdge*> NBEdgeVector;
-    // Iterate over myCurrentSelectedEdges
-    for (auto i : myCurrentSelectedEdges) {
-        NBEdgeVector.push_back(i->getNBEdge());
-    }
-    return NBEdgeVector;
+GNETAZFrame::TAZParameters::hideTAZParametersModul() {
+    FXGroupBox::hide();
 }
 
 
 bool
 GNETAZFrame::TAZParameters::isCurrentParametersValid() const {
-    return myCurrentParametersValid;
+    return (GNEAttributeCarrier::canParse<RGBColor>(myTextFieldColor->getText().text()) == false);
 }
 
 
 std::map<SumoXMLAttr, std::string> 
 GNETAZFrame::TAZParameters::getAttributesAndValues() const {
     std::map<SumoXMLAttr, std::string> parametersAndValues;
+    // get color (currently the only editable attribute)
+    parametersAndValues[SUMO_ATTR_COLOR] = myTextFieldColor->getText().text();
     return parametersAndValues;
 }
 
 
-const RGBColor&
-GNETAZFrame::TAZParameters::getCandidateColor() const {
-    return myCandidateColor;
-}
-
-
-const RGBColor&
-GNETAZFrame::TAZParameters::getSelectedColor() const {
-    return mySelectedColor;
+long 
+GNETAZFrame::TAZParameters::onCmdSetColorAttribute(FXObject*, FXSelector, void*) {
+    // create FXColorDialog
+    FXColorDialog colordialog(this, tr("Color Dialog"));
+    colordialog.setTarget(this);
+    // If previous attribute wasn't correct, set black as default color
+    if (GNEAttributeCarrier::canParse<RGBColor>(myTextFieldColor->getText().text())) {
+        colordialog.setRGBA(MFXUtils::getFXColor(RGBColor::parseColor(myTextFieldColor->getText().text())));
+    } else {
+        colordialog.setRGBA(MFXUtils::getFXColor(RGBColor::parseColor("blue")));
+    }
+    // execute dialog to get a new color
+    if (colordialog.execute()) {
+        myTextFieldColor->setText(toString(MFXUtils::getRGBColor(colordialog.getRGBA())).c_str());
+        onCmdSetAttribute(0, 0, 0);
+    }
+    return 0;
 }
 
 
 long
 GNETAZFrame::TAZParameters::onCmdSetAttribute(FXObject*, FXSelector, void*) {
-    myCurrentParametersValid = true;
-    // get string vector with the edges
-    std::vector<std::string> TAZEdges = GNEAttributeCarrier::parse<std::vector<std::string> > (myTAZEdges->getText().text());
-    // Clear selected edges
-    myCurrentSelectedEdges.clear();
-    // iterate over vector of edge IDs
-    for (auto i : TAZEdges) {
-        GNEEdge* edge = myTAZFrameParent->getViewNet()->getNet()->retrieveEdge(i, false);
-        GNEJunction* currentJunction = myTAZFrameParent->myEdgeSelector->getCurrentJunction();
-        // Check that edge exists and belongs to Junction
-        if (edge == 0) {
-            myCurrentParametersValid = false;
-        } else if (std::find(currentJunction->getGNEEdges().begin(), currentJunction->getGNEEdges().end(), edge) == currentJunction->getGNEEdges().end()) {
-            myCurrentParametersValid = false;
-        } else {
-            // select or unselected edge
-            auto itFinder = std::find(myCurrentSelectedEdges.begin(), myCurrentSelectedEdges.end(), edge);
-            if (itFinder == myCurrentSelectedEdges.end()) {
-                myCurrentSelectedEdges.push_back(edge);
-            } else {
-                myCurrentSelectedEdges.erase(itFinder);
-            }
-        }
-    }
+    // only COLOR text field has to be checked
+    bool currentParametersValid = GNEAttributeCarrier::canParse<RGBColor>(myTextFieldColor->getText().text());
 
     // change color of textfield dependig of myCurrentParametersValid
-    if (myCurrentParametersValid) {
-        myTAZEdges->setTextColor(FXRGB(0, 0, 0));
-        myTAZEdges->killFocus();
+    if (currentParametersValid) {
+        myTextFieldColor->setTextColor(FXRGB(0, 0, 0));
+        myTextFieldColor->killFocus();
     } else {
-        myTAZEdges->setTextColor(FXRGB(255, 0, 0));
-        myCurrentParametersValid = false;
-    }
-
-    // Update colors of edges
-    for (auto i : myTAZFrameParent->myEdgeSelector->getCurrentJunction()->getGNEEdges()) {
-        if (std::find(myCurrentSelectedEdges.begin(), myCurrentSelectedEdges.end(), i) != myCurrentSelectedEdges.end()) {
-            for (auto j : i->getLanes()) {
-                j->setSpecialColor(&mySelectedColor);
-            }
-        } else {
-            for (auto j : i->getLanes()) {
-                j->setSpecialColor(&myCandidateColor);
-            }
-        }
-    }
-    // Update view net
-    myTAZFrameParent->getViewNet()->update();
-
-    // Check that at least there are a selected edge
-    if (TAZEdges.empty()) {
-        myCurrentParametersValid = false;
+        myTextFieldColor->setTextColor(FXRGB(255, 0, 0));
+        currentParametersValid = false;
     }
 
     // Enable or disable create TAZ button depending of the current parameters
-    myTAZFrameParent->myCreateTAZ->setCreateTAZButton(myCurrentParametersValid);
+    myTAZFrameParent->myCreateTAZ->setCreateTAZButton(currentParametersValid);
     return 0;
 }
 
@@ -452,11 +354,14 @@ GNETAZFrame::CreateTAZ::setCreateTAZButton(bool value) {
 GNETAZFrame::GNETAZFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
     GNEFrame(horizontalFrameParent, viewNet, "TAZs") {
 
-    // create item Selector modul for TAZs
-    myItemSelector = new ItemSelector(this, GNEAttributeCarrier::TAGProperty::TAGPROPERTY_TAZ);
+    // create current TAZ modul
+    myCurrentTAZ = new CurrentTAZ(this);
 
-    // Create TAZParameters modul
+    // Create TAZ Parameters modul
     myTAZParameters = new TAZParameters(this);
+
+    /// @brief create  Netedit parameter
+    myNeteditAttributes = new NeteditAttributes(this);
 
     // Create drawing controls modul
     myDrawingShape = new DrawingShape(this);
@@ -466,19 +371,19 @@ GNETAZFrame::GNETAZFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* v
 
     // Create TAZ Modul
     myCreateTAZ = new CreateTAZ(this);
-
+    /*
     // Create groupbox and labels for legends
     FXGroupBox *groupBoxLegend = new FXGroupBox(myContentFrame, "Legend", GUIDesignGroupBoxFrame);
     FXLabel* colorCandidateLabel = new FXLabel(groupBoxLegend, "Candidate", 0, GUIDesignLabelLeft);
     colorCandidateLabel->setBackColor(MFXUtils::getFXColor(myTAZParameters->getCandidateColor()));
     FXLabel *colorSelectedLabel = new FXLabel(groupBoxLegend, "Selected", 0, GUIDesignLabelLeft);
     colorSelectedLabel->setBackColor(MFXUtils::getFXColor(myTAZParameters->getSelectedColor()));
-
+    */
     // disable edge selector
     myEdgeSelector->disableEdgeSelector();
 
-    // set BusStop as default additional
-    myItemSelector->setCurrentTypeTag(SUMO_TAG_TAZ);
+    // by default there isn't a TAZ
+    myCurrentTAZ->setCurrentTAZ(nullptr);
 }
 
 
@@ -499,24 +404,19 @@ GNETAZFrame::AddTAZResult
 GNETAZFrame::processClick(const Position& clickedPosition, GNEEdge* edge) {
     // Declare map to keep values
     std::map<SumoXMLAttr, std::string> valuesOfElement;
-     if (myItemSelector->getCurrentTypeTag() == SUMO_TAG_TAZ) {
-        // obtain TAZ values
-        //valuesOfElement = myTAZAttributes->getAttributesAndValues();
-        if (myDrawingShape->isDrawing()) {
-            // add or delete a new point depending of flag "delete last created point"
-            if (myDrawingShape->getDeleteLastCreatedPoint()) {
-                myDrawingShape->removeLastPoint();
-            } else {
-                myDrawingShape->addNewPoint(clickedPosition);
-            }
-            return ADDTAZ_UPDATEDTEMPORALTAZ;
+    // obtain TAZ values
+    //valuesOfElement = myTAZAttributes->getAttributesAndValues();
+    if (myDrawingShape->isDrawing()) {
+        // add or delete a new point depending of flag "delete last created point"
+        if (myDrawingShape->getDeleteLastCreatedPoint()) {
+            myDrawingShape->removeLastPoint();
         } else {
-            // return ADDTAZ_NOTHING if is drawing isn't enabled
-            return ADDTAZ_NOTHING;
+            myDrawingShape->addNewPoint(clickedPosition);
         }
+        return ADDTAZ_UPDATEDTEMPORALTAZ;
     } else {
-        myViewNet->setStatusBarText("Current selected TAZ isn't valid.");
-        return ADDTAZ_INVALID;
+        // return ADDTAZ_NOTHING if is drawing isn't enabled
+        return ADDTAZ_NOTHING;
     }
 }
 
@@ -549,6 +449,12 @@ GNETAZFrame::getDrawingShape() const {
 }
 
 
+GNETAZFrame::CurrentTAZ* 
+GNETAZFrame::getCurrentTAZ() const {
+    return myCurrentTAZ;
+}
+
+
 bool
 GNETAZFrame::buildShape() {
     // show warning dialogbox and stop check if input parameters are valid
@@ -558,8 +464,11 @@ GNETAZFrame::buildShape() {
         WRITE_WARNING("TAZ shape cannot be empty");
         return false;
     } else {
-        // Declare map to keep values
+        // Declare map to keep TAZ Parameters values
         std::map<SumoXMLAttr, std::string> valuesOfElement = myTAZParameters->getAttributesAndValues();
+
+        // obtain Netedit attributes
+        myNeteditAttributes->getNeteditAttributesAndValues(valuesOfElement, nullptr);
 
         // generate new ID
         valuesOfElement[SUMO_ATTR_ID] = myViewNet->getNet()->generateAdditionalID(SUMO_TAG_TAZ);
@@ -569,16 +478,6 @@ GNETAZFrame::buildShape() {
         shape.closePolygon();
         valuesOfElement[SUMO_ATTR_SHAPE] = toString(shape);
 
-        // obtain color (temporal)
-        valuesOfElement[SUMO_ATTR_COLOR] = "black";
-        valuesOfElement[GNE_ATTR_BLOCK_MOVEMENT] = "false";
-        /*
-        // obtain block movement value
-        valuesOfElement[GNE_ATTR_BLOCK_MOVEMENT] = toString(myNeteditAttributes->isBlockMovementEnabled());
-
-        // obtain block shape value
-        valuesOfElement[GNE_ATTR_BLOCK_SHAPE] = toString(myNeteditAttributes->isBlockShapeEnabled());
-        */
         // return true if TAZ was sucesfully created
         return GNEAdditionalHandler::buildAdditional(myViewNet, true, SUMO_TAG_TAZ, valuesOfElement);
     }

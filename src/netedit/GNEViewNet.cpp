@@ -1083,13 +1083,25 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                 break;
             }
             case GNE_MODE_TAZ: {
-                GNETAZFrame::AddTAZResult result = myViewParent->getTAZFrame()->processClick(snapToActiveGrid(getPositionInformation()), myObjectsUnderCursor.edge);
-                // view net must be always update
-                update();
-                // process click depending of the result of "process click"
-                if ((result != GNETAZFrame::ADDTAZ_UPDATEDTEMPORALTAZ)) {
+                // check if we're going to create a new TAZ or edit edges of an existent TAZ
+                if( (myObjectsUnderCursor.taz != nullptr) &&
+                    (myViewParent->getTAZFrame()->getCurrentTAZ()->getCurrentTAZ() == nullptr) && 
+                    (myViewParent->getTAZFrame()->getDrawingShape()->isDrawing() == false)) {
+                    // set clicked TAZ as currentTAZ
+                    myViewParent->getTAZFrame()->getCurrentTAZ()->setCurrentTAZ(myObjectsUnderCursor.taz);
+                    // view net must be always update
+                    update();
                     // process click
                     processClick(evt, eventData);
+                } else {
+                    GNETAZFrame::AddTAZResult result = myViewParent->getTAZFrame()->processClick(snapToActiveGrid(getPositionInformation()), myObjectsUnderCursor.edge);
+                    // view net must be always update
+                    update();
+                    // process click depending of the result of "process click"
+                    if ((result != GNETAZFrame::ADDTAZ_UPDATEDTEMPORALTAZ)) {
+                        // process click
+                        processClick(evt, eventData);
+                    }
                 }
                 break;
             }
@@ -1313,6 +1325,14 @@ GNEViewNet::abortOperation(bool clearSelection) {
     } else if (myEditMode == GNE_MODE_POLYGON) {
         // abort current drawing
         myViewParent->getPolygonFrame()->getDrawingShape()->abortDrawing();
+    } else if (myEditMode == GNE_MODE_TAZ) {
+        if(myViewParent->getTAZFrame()->getDrawingShape()->isDrawing()) {
+            // abort current drawing
+            myViewParent->getPolygonFrame()->getDrawingShape()->abortDrawing();
+        } else if (myViewParent->getTAZFrame()->getCurrentTAZ()->getCurrentTAZ() != nullptr) {
+            // abort editing TAZ
+            myViewParent->getTAZFrame()->getCurrentTAZ()->setCurrentTAZ(nullptr);
+        }
     } else if (myEditMode == GNE_MODE_PROHIBITION) {
         myViewParent->getProhibitionFrame()->onCmdCancel(nullptr, 0, nullptr);
     } else if (myEditMode == GNE_MODE_ADDITIONAL) {
