@@ -1,9 +1,2 @@
-lanes_filter
-noOpposite_filter
-downstreamDistance_filter
-upstreamDistance_filter
-CFManeuver_filter
-LCManeuver
-turnManeuver_filter
-vClass_filter
-vType_filter
+# Tests the traversal of the roadnet for detection of surrounding vehicles if the lanes filter is combined with different values for downstreamDistance and upstreamDistance
+roadnetSearch

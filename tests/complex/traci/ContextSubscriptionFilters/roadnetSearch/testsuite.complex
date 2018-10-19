@@ -1,0 +1,2 @@
+# No other vehicles but "ego" should be returned
+dist_10
