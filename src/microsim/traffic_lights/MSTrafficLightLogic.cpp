@@ -119,7 +119,7 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
         bool haveWarnedAboutUnusedStates = false;
         std::vector<bool> foundGreen(phases.front()->getState().size(), false);
         for (int i = 0; i < (int)phases.size(); ++i) {
-            // warn about unused stats
+            // warn about unused states
             const int iNext = phases[i]->nextPhase < 0 ? (i + 1) % phases.size() : phases[i]->nextPhase;
             if (iNext < 0 || iNext >= (int)phases.size()) {
                 throw ProcessError("Invalid nextPhase " + toString(iNext) + " in tlLogic '" + getID()
@@ -134,6 +134,12 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
                               + "', program '" + getProgramID() + "' in phase " + toString(i)
                               + " after tl-index " + toString((int)myLanes.size() - 1));
                 haveWarnedAboutUnusedStates = true;
+            }
+            // detect illegal states
+            const std::string::size_type illegal = state1.find_first_not_of(SUMOXMLDefinitions::ALLOWED_TLS_LINKSTATES);
+            if (std::string::npos != illegal) {
+                throw ProcessError("Illegal character '" + toString(state1[illegal]) + "' in tlLogic '" + getID()
+                              + "', program '" + getProgramID() + "' in phase " + toString(i));
             }
             // warn about transitions from green to red without intermediate yellow
             for (int j = 0; j < (int)MIN3(state1.size(), state2.size(), myLanes.size()); ++j) {
