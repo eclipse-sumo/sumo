@@ -3,3 +3,6 @@ roadnetSearch_noOpposite
 
 # Tests the traversal of the roadnet for detection of surrounding vehicles if the lanes filter is combined with different values for downstreamDistance and upstreamDistance and no-opposite
 roadnetSearch_withOpposite
+
+# Tests whether opposite lanes are ignored
+noOpposite
