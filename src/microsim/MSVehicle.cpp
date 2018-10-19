@@ -2599,13 +2599,18 @@ MSVehicle::processLinkAproaches(double& vSafe, double& vSafeMin, double& vSafeMi
                     // XXX: There is a problem in subsecond simulation: If we cannot
                     // make it across the minor link in one step, new traffic
                     // could appear on a major foe link and cause a collision. Refs. #1845, #2123
-                    vSafeMinDist = myLane->getLength() - getPositionOnLane(); // distance that must be covered
+                    vSafeMinDist = i->myDistance; // distance that must be covered
                     if (MSGlobals::gSemiImplicitEulerUpdate) {
                         vSafeMin = MIN2((double) DIST2SPEED(vSafeMinDist + POSITION_EPS), (*i).myVLinkPass);
                     } else {
                         vSafeMin = MIN2((double) DIST2SPEED(2 * vSafeMinDist + NUMERICAL_EPS) - getSpeed(), (*i).myVLinkPass);
                     }
                     canBrakeVSafeMin = canBrake;
+#ifdef DEBUG_EXEC_MOVE
+                    if (DEBUG_COND) {
+                        std::cout << "     vSafeMin=" << vSafeMin << " vSafeMinDist=" << vSafeMinDist << " canBrake=" << canBrake << "\n";
+                    }
+#endif
                 }
             }
             // have waited; may pass if opened...
