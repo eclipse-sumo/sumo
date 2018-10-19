@@ -60,6 +60,8 @@
 // ===========================================================================
 const double GNEEdge::SNAP_RADIUS = SUMO_const_halfLaneWidth;
 
+GNEEdge GNEEdge::DummyEdge;
+
 // ===========================================================================
 // members methods
 // ===========================================================================
@@ -87,6 +89,11 @@ GNEEdge::GNEEdge(NBEdge& nbe, GNENet* net, bool wasSplit, bool loaded):
     }
 }
 
+GNEEdge::GNEEdge() :
+    GNENetElement(0, "DUMMY", GLO_EDGE, SUMO_TAG_EDGE),
+    myNBEdge(NBEdge::DummyEdge)
+{
+}
 
 GNEEdge::~GNEEdge() {
     // Delete references to this eddge in lanes

@@ -71,6 +71,8 @@ const double NBEdge::ANGLE_LOOKAHEAD = 10.0;
 const int NBEdge::UNSPECIFIED_INTERNAL_LANE_INDEX = -1;
 const bool NBEdge::UNSPECIFIED_CONNECTION_UNCONTROLLED = false;
 
+NBEdge NBEdge::DummyEdge;
+
 // ===========================================================================
 // method definitions
 // ===========================================================================
@@ -339,6 +341,11 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to, const NBEdge* tp
     }
 }
 
+
+NBEdge::NBEdge() :
+    Named("DUMMY")
+{
+}
 
 void
 NBEdge::reinit(NBNode* from, NBNode* to, const std::string& type,

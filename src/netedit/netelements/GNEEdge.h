@@ -271,6 +271,9 @@ public:
     // the radius in which to register clicks for geometry nodes
     static const double SNAP_RADIUS;
 
+    /// @brief Dummy edge to use when a reference must be supplied in the no-arguments constructor (FOX technicality)
+    static GNEEdge DummyEdge;
+
     /// @brief clear current connections
     void clearGNEConnections();
 
@@ -367,6 +370,9 @@ private:
 
     /// @brief invalidated assignment operator
     GNEEdge& operator=(const GNEEdge& s) = delete;
+
+    /// @brief constructor for dummy edge
+    GNEEdge();
 };
 
 

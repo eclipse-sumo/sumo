@@ -251,6 +251,8 @@ public:
         double length;
     };
 
+    /// @brief Dummy edge to use when a reference must be supplied in the no-arguments constructor (FOX technicality)
+    static NBEdge DummyEdge;
 
     /// @brief unspecified lane width
     static const double UNSPECIFIED_WIDTH;
@@ -1750,6 +1752,10 @@ private:
 
     /// @brief invalidated assignment operator
     NBEdge& operator=(const NBEdge& s);
+
+    /// @brief constructor for dummy edge
+    NBEdge();
+
 };
 
 
