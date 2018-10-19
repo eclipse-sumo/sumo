@@ -677,6 +677,18 @@ StringBijection<LinkState>::Entry SUMOXMLDefinitions::linkStateValues[] = {
     { "-", LINKSTATE_DEADEND } //< must be the last one
 };
 
+const char SUMOXMLDefinitions::AllowedTLS_linkStatesInitializer[] = {
+    LINKSTATE_TL_GREEN_MAJOR,
+    LINKSTATE_TL_GREEN_MINOR,
+    LINKSTATE_STOP, // used for NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED
+    LINKSTATE_TL_RED,
+    LINKSTATE_TL_REDYELLOW,
+    LINKSTATE_TL_YELLOW_MAJOR,
+    LINKSTATE_TL_YELLOW_MINOR,
+    LINKSTATE_TL_OFF_BLINKING,
+    LINKSTATE_TL_OFF_NOSIGNAL
+};
+const std::string SUMOXMLDefinitions::ALLOWED_TLS_LINKSTATES(AllowedTLS_linkStatesInitializer, 9);
 
 StringBijection<LinkDirection>::Entry SUMOXMLDefinitions::linkDirectionValues[] = {
     { "s",      LINKDIR_STRAIGHT },

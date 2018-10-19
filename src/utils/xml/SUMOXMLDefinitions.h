@@ -1009,7 +1009,6 @@ enum LinkState {
     LINKSTATE_DEADEND = '-'
 };
 
-
 /**
  * @enum LinkDirection
  * @brief The different directions a link between two lanes may take (or a
@@ -1259,6 +1258,11 @@ public:
     /// @brief return edge id when given the lane ID
     static std::string getEdgeIDFromLane(const std::string laneID);
     /// @}
+    
+    /// @brief all allowed characters for phase state 
+    static const std::string ALLOWED_TLS_LINKSTATES;
+
+
 
 private:
     /// @brief containers for the different SUMOXMLDefinitions
@@ -1294,6 +1298,9 @@ private:
     /// @brief lane change action values
     static StringBijection<LaneChangeAction>::Entry laneChangeActionValues[];
     /// @}
+    
+    /// @brief all allowed characters for phase state 
+    static const char AllowedTLS_linkStatesInitializer[];
 };
 
 #endif

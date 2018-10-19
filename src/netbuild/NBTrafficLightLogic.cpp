@@ -44,18 +44,6 @@
 // ===========================================================================
 // static members
 // ===========================================================================
-const char NBTrafficLightLogic::allowedStatesInitializer[] = {LINKSTATE_TL_GREEN_MAJOR,
-                                                              LINKSTATE_TL_GREEN_MINOR,
-                                                              LINKSTATE_STOP, // used for NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED
-                                                              LINKSTATE_TL_RED,
-                                                              LINKSTATE_TL_REDYELLOW,
-                                                              LINKSTATE_TL_YELLOW_MAJOR,
-                                                              LINKSTATE_TL_YELLOW_MINOR,
-                                                              LINKSTATE_TL_OFF_BLINKING,
-                                                              LINKSTATE_TL_OFF_NOSIGNAL
-                                                             };
-
-const std::string NBTrafficLightLogic::ALLOWED_STATES(NBTrafficLightLogic::allowedStatesInitializer, 9);
 
 // ===========================================================================
 // member method definitions
@@ -97,7 +85,7 @@ NBTrafficLightLogic::addStep(SUMOTime duration, const std::string& state, SUMOTi
                            " does not match declared number of links " + toString(myNumLinks));
     }
     // check state contents
-    const std::string::size_type illegal = state.find_first_not_of(ALLOWED_STATES);
+    const std::string::size_type illegal = state.find_first_not_of(SUMOXMLDefinitions::ALLOWED_TLS_LINKSTATES);
     if (std::string::npos != illegal) {
         throw ProcessError("When adding phase: illegal character '" + toString(state[illegal]) + "' in state");
     }
