@@ -487,8 +487,9 @@ def main(options):
             options.weights_outprefix + SOURCE_SUFFIX)
         trip_generator.sink_generator.write_weights(
             options.weights_outprefix + SINK_SUFFIX)
-        trip_generator.via_generator.write_weights(
-            options.weights_outprefix + VIA_SUFFIX)
+        if trip_generator.via_generator:
+            trip_generator.via_generator.write_weights(
+                    options.weights_outprefix + VIA_SUFFIX)
 
     # return wether trips could be generated as requested
     return trip_generator is not None
