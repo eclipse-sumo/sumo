@@ -9,3 +9,6 @@ scaleWidth
 
 # include internal lane shapes in export
 internal
+
+# spread shapes to avoid overlap
+spread
