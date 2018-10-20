@@ -28,6 +28,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from sumolib.output import parse  # noqa
 from sumolib.net import readNet  # noqa
 from sumolib.miscutils import Colorgen  # noqa
+from sumolib import geomhelper
 
 
 def parse_args(args):
@@ -46,6 +47,7 @@ def parse_args(args):
                          default=False, help="write polgyons with geo-coordinates")
     optParser.add_option("--internal", action="store_true",
                          default=False, help="include internal edges in generated shapes")
+    optParser.add_option("--spread", type="float", help="spread polygons laterally to avoid overlap")
     optParser.add_option("--blur", type="float",
                          default=0, help="maximum random disturbance to route geometry")
     optParser.add_option("--scale-width", type="float", dest="scaleWidth",
@@ -73,9 +75,24 @@ def randomize_pos(pos, blur):
 
 
 MISSING_EDGES = set()
+SPREAD = defaultdict(set)
+SPREAD_MAX = [0]
+def getSpread(lanes):
+    """find the smalles spread value that is available for all lanes"""
+    for i in range(SPREAD_MAX[0] + 2):
+        if all([i not in SPREAD[l] for l in lanes]):
+            SPREAD_MAX[0] = i
+            [SPREAD[l].add(i) for l in lanes]
+            return i
+        else:
+            pass
+            #print(i, [i not in SPREAD[l] for l in lanes])
+    assert(False)
+
 
 def generate_poly(options, net, id, color, edges, outf, type="route", lineWidth=None, params={}):
     lanes = []
+    spread = 0
     for e in edges:
         if net.hasEdge(e):
             lanes.append(net.getEdge(e).getLane(0))
@@ -114,6 +131,11 @@ def generate_poly(options, net, id, color, edges, outf, type="route", lineWidth=
         lanes = lanes2
 
     shape = list(itertools.chain(*list(l.getShape() for l in lanes)))
+    if options.spread:
+        spread = getSpread(lanes)
+        if spread:
+            shape = geomhelper.move2side(shape, options.spread * spread)
+            params["spread"] = str(spread)
     if options.blur > 0:
         shape = [randomize_pos(pos, options.blur) for pos in shape]
 

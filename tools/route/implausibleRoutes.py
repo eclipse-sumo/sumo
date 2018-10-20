@@ -80,6 +80,7 @@ def get_options():
     options.layer = 100
     options.geo = False
     options.internal = False
+    options.spread = None
 
     return options
 
