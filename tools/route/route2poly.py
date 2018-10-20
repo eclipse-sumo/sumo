@@ -55,7 +55,10 @@ def parse_args(args):
     optParser.add_option("--standalone", action="store_true", default=False,
                          help="Parse stand-alone routes that are not define as child-element of a vehicle")
     optParser.add_option("--filter-output.file", dest="filterOutputFile", help="only write output for edges in the given selection file")
+    optParser.add_option("--seed", type="int", help="random seed")
     options, args = optParser.parse_args(args=args)
+    if options.seed:
+        random.seed(options.seed)
     if len(args) < 2:
         sys.exit(USAGE)
     try:
@@ -67,6 +70,7 @@ def parse_args(args):
         sys.exit(USAGE)
     if options.outfile is None:
         options.outfile = options.routefiles[0] + ".poly.xml"
+
     return options
 
 
