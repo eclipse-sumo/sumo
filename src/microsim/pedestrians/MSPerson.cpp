@@ -557,7 +557,7 @@ MSPerson::~MSPerson() {
 bool
 MSPerson::proceed(MSNet* net, SUMOTime time) {
     MSTransportable::Stage* prior = *myStep;
-    prior->setArrived(time);
+    prior->setArrived(net, this, time);
     /*
     if(myWriteEvents) {
         (*myStep)->endEventOutput(*this, time, OutputDevice::getDeviceByOption("person-event-output"));

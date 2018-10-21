@@ -124,7 +124,7 @@ public:
         void setDeparted(SUMOTime now);
 
         /// logs end of the step
-        virtual void setArrived(SUMOTime now);
+        virtual void setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now);
 
         /// Whether the transportable waits for a vehicle of the line specified.
         virtual bool isWaitingFor(const std::string& line) const;
@@ -222,6 +222,10 @@ public:
         /// destructor
         virtual ~Stage_Trip();
 
+        const MSEdge* getEdge() const;
+
+        double getEdgePos(SUMOTime now) const;
+
         Position getPosition(SUMOTime now) const;
 
         double getAngle(SUMOTime now) const;
@@ -231,6 +235,9 @@ public:
         }
 
         std::string getStageSummary() const;
+
+        /// logs end of the step
+        virtual void setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now);
 
         /// proceeds to the next step
         virtual void proceed(MSNet* net, MSTransportable* transportable, SUMOTime now, Stage* previous);
@@ -279,6 +286,9 @@ public:
 
         /// @brief The factor to apply to walking durations
         const double myWalkFactor;
+
+        /// @brief The depart position
+        double myDepartPos;
 
         /// @brief The lateral depart position
         const double myDepartPosLat;
@@ -422,7 +432,7 @@ public:
         void setVehicle(SUMOVehicle* v);
 
         /// @brief marks arrival time and records driven distance
-        void setArrived(SUMOTime now);
+        void setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now);
 
         /** @brief Called for writing the events output
         * @param[in] os The stream to write the information into

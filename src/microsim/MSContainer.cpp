@@ -288,7 +288,7 @@ MSContainer::~MSContainer() {
 bool
 MSContainer::proceed(MSNet* net, SUMOTime time) {
     Stage* prior = *myStep;
-    prior->setArrived(time);
+    prior->setArrived(net, this, time);
     // must be done before increasing myStep to avoid invalid state for rendering
     prior->getEdge()->removeContainer(this);
     myStep++;

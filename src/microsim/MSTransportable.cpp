@@ -105,7 +105,7 @@ MSTransportable::Stage::setDeparted(SUMOTime now) {
 }
 
 void
-MSTransportable::Stage::setArrived(SUMOTime now) {
+MSTransportable::Stage::setArrived(MSNet* /* net */, MSTransportable* /* transportable */, SUMOTime now) {
     myArrived = now;
 }
 
@@ -161,8 +161,21 @@ MSTransportable::Stage_Trip::getAngle(SUMOTime /* now */) const {
 }
 
 
+const MSEdge*
+MSTransportable::Stage_Trip::getEdge() const {
+    return myOrigin;
+}
+
+
+double
+MSTransportable::Stage_Trip::getEdgePos(SUMOTime /* now */) const {
+    return myDepartPos;
+}
+
+
 void
-MSTransportable::Stage_Trip::proceed(MSNet* net, MSTransportable* transportable, SUMOTime now, Stage* previous) {
+MSTransportable::Stage_Trip::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now) {
+    MSTransportable::Stage::setArrived(net, transportable, now);
     MSVehicleControl& vehControl = net->getVehicleControl();
     std::vector<SUMOVehicleParameter*> pars;
     for (StringTokenizer st(myVTypes); st.hasNext();) {
@@ -187,6 +200,17 @@ MSTransportable::Stage_Trip::proceed(MSNet* net, MSTransportable* transportable,
             pars.push_back(nullptr);
         }
     }
+    MSTransportable::Stage* previous;
+    if (transportable->getNumStages() == transportable->getNumRemainingStages()) { // this is a difficult way to check that we are the first stage
+        myDepartPos = transportable->getParameter().departPos;
+        if (transportable->getParameter().departPosProcedure == DEPART_POS_RANDOM) {
+            myDepartPos = RandHelper::rand(myOrigin->getLength());
+        }
+        previous = new MSTransportable::Stage_Waiting(myOrigin, -1, transportable->getParameter().depart, myDepartPos, "start", true);
+    } else {
+        previous = transportable->getNextStage(-1);
+        myDepartPos = previous->getArrivalPos();
+    }
     for (SUMOVehicleParameter* vehPar : pars) {
         SUMOVehicle* vehicle = nullptr;
         if (vehPar != nullptr) {
@@ -200,31 +224,33 @@ MSTransportable::Stage_Trip::proceed(MSNet* net, MSTransportable* transportable,
         }
         bool carUsed = false;
         std::vector<MSNet::MSIntermodalRouter::TripItem> result;
-        if (net->getIntermodalRouter().compute(myOrigin, myDestination, previous->getArrivalPos(), myArrivalPos, myDestinationStop == nullptr ? "" : myDestinationStop->getID(),
+        if (net->getIntermodalRouter().compute(myOrigin, myDestination, previous->getArrivalPos(), fabs(myArrivalPos), myDestinationStop == nullptr ? "" : myDestinationStop->getID(),
             transportable->getVehicleType().getMaxSpeed() * myWalkFactor, vehicle, myModeSet, transportable->getParameter().depart, result)) {
             for (std::vector<MSNet::MSIntermodalRouter::TripItem>::iterator it = result.begin(); it != result.end(); ++it) {
                 if (!it->edges.empty()) {
                     MSStoppingPlace* bs = MSNet::getInstance()->getStoppingPlace(it->destStop, SUMO_TAG_BUS_STOP);
                     double localArrivalPos = bs != nullptr ? bs->getAccessPos(it->edges.back()) : it->edges.back()->getLength() / 2.;
-                    if (it + 1 == result.end() && myArrivalPos != INVALID_DOUBLE) {
+                    if (it + 1 == result.end() && myArrivalPos >= 0.) {
                         localArrivalPos = myArrivalPos;
                     }
                     if (it->line == "") {
                         const double depPos = previous->getDestinationStop() != nullptr ? previous->getDestinationStop()->getAccessPos(it->edges.front()) : previous->getArrivalPos();
-                        transportable->appendStage(new MSPerson::MSPersonStage_Walking(transportable->getID(), it->edges, bs, myDuration, mySpeed, depPos, localArrivalPos, myDepartPosLat));
+                        previous = new MSPerson::MSPersonStage_Walking(transportable->getID(), it->edges, bs, myDuration, mySpeed, depPos, localArrivalPos, myDepartPosLat);
+                        transportable->appendStage(previous);
                     } else if (vehicle != nullptr && it->line == vehicle->getID()) {
                         if (bs == nullptr && it + 1 != result.end()) {
                             // we have no defined endpoint and are in the middle of the trip, drive as far as possible
                             localArrivalPos = it->edges.back()->getLength();
                         }
-                        transportable->appendStage(new MSPerson::MSPersonStage_Driving(it->edges.back(), bs, localArrivalPos, std::vector<std::string>({ it->line })));
+                        previous = new MSPerson::MSPersonStage_Driving(it->edges.back(), bs, localArrivalPos, std::vector<std::string>({ it->line }));
+                        transportable->appendStage(previous);
                         vehicle->replaceRouteEdges(it->edges, -1, 0, "person:" + transportable->getID(), true);
                         vehicle->setArrivalPos(localArrivalPos);
                         vehControl.addVehicle(vehPar->id, vehicle);
                         carUsed = true;
                     } else {
-                        transportable->appendStage(new MSPerson::MSPersonStage_Driving(
-                            it->edges.back(), bs, localArrivalPos, std::vector<std::string>({ it->line }), it->intended, TIME2STEPS(it->depart)));
+                        previous = new MSPerson::MSPersonStage_Driving(it->edges.back(), bs, localArrivalPos, std::vector<std::string>({ it->line }), it->intended, TIME2STEPS(it->depart));
+                        transportable->appendStage(previous);
                     }
                 }
             }
@@ -234,13 +260,18 @@ MSTransportable::Stage_Trip::proceed(MSNet* net, MSTransportable* transportable,
                 throw ProcessError(error);
             } else {
                 // pedestrian will teleport
-                transportable->appendStage(new MSPerson::MSPersonStage_Walking(transportable->getID(), ConstMSEdgeVector({ myOrigin, myDestination }), myDestinationStop, myDuration, mySpeed, previous->getArrivalPos(), myArrivalPos, myDepartPosLat));
+                transportable->appendStage(new MSPerson::MSPersonStage_Walking(transportable->getID(), ConstMSEdgeVector({ myOrigin, myDestination }), myDestinationStop, myDuration, mySpeed, previous->getArrivalPos(), fabs(myArrivalPos), myDepartPosLat));
             }
         }
         if (vehicle != 0 && !carUsed) {
             vehControl.deleteVehicle(vehicle, true);
         }
     }
+}
+
+
+void
+MSTransportable::Stage_Trip::proceed(MSNet* net, MSTransportable* transportable, SUMOTime now, Stage* previous) {
 }
 
 
@@ -500,8 +531,8 @@ MSTransportable::Stage_Driving::getEdges() const {
 }
 
 void
-MSTransportable::Stage_Driving::setArrived(SUMOTime now) {
-    MSTransportable::Stage::setArrived(now);
+MSTransportable::Stage_Driving::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now) {
+    MSTransportable::Stage::setArrived(net, transportable, now);
     if (myVehicle != 0) {
         // distance was previously set to driven distance upon embarking
         myVehicleDistance = myVehicle->getRoute().getDistanceBetween(
@@ -572,6 +603,7 @@ MSTransportable::MSTransportable(const SUMOVehicleParameter* pars, MSVehicleType
     : myParameter(pars), myVType(vtype), myPlan(plan) {
     myStep = myPlan->begin();
 }
+
 
 MSTransportable::~MSTransportable() {
     if (myPlan != 0) {
