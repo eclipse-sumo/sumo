@@ -211,6 +211,7 @@ MSTransportable::Stage_Trip::setArrived(MSNet* net, MSTransportable* transportab
         previous = transportable->getNextStage(-1);
         myDepartPos = previous->getArrivalPos();
     }
+    // TODO This works currently only for a single vehicle type
     for (SUMOVehicleParameter* vehPar : pars) {
         SUMOVehicle* vehicle = nullptr;
         if (vehPar != nullptr) {
@@ -224,6 +225,7 @@ MSTransportable::Stage_Trip::setArrived(MSNet* net, MSTransportable* transportab
         }
         bool carUsed = false;
         std::vector<MSNet::MSIntermodalRouter::TripItem> result;
+        int stageIndex = 1;
         if (net->getIntermodalRouter().compute(myOrigin, myDestination, previous->getArrivalPos(), fabs(myArrivalPos), myDestinationStop == nullptr ? "" : myDestinationStop->getID(),
             transportable->getVehicleType().getMaxSpeed() * myWalkFactor, vehicle, myModeSet, transportable->getParameter().depart, result)) {
             for (std::vector<MSNet::MSIntermodalRouter::TripItem>::iterator it = result.begin(); it != result.end(); ++it) {
@@ -236,21 +238,21 @@ MSTransportable::Stage_Trip::setArrived(MSNet* net, MSTransportable* transportab
                     if (it->line == "") {
                         const double depPos = previous->getDestinationStop() != nullptr ? previous->getDestinationStop()->getAccessPos(it->edges.front()) : previous->getArrivalPos();
                         previous = new MSPerson::MSPersonStage_Walking(transportable->getID(), it->edges, bs, myDuration, mySpeed, depPos, localArrivalPos, myDepartPosLat);
-                        transportable->appendStage(previous);
+                        transportable->appendStage(previous, stageIndex++);
                     } else if (vehicle != nullptr && it->line == vehicle->getID()) {
                         if (bs == nullptr && it + 1 != result.end()) {
                             // we have no defined endpoint and are in the middle of the trip, drive as far as possible
                             localArrivalPos = it->edges.back()->getLength();
                         }
                         previous = new MSPerson::MSPersonStage_Driving(it->edges.back(), bs, localArrivalPos, std::vector<std::string>({ it->line }));
-                        transportable->appendStage(previous);
+                        transportable->appendStage(previous, stageIndex++);
                         vehicle->replaceRouteEdges(it->edges, -1, 0, "person:" + transportable->getID(), true);
                         vehicle->setArrivalPos(localArrivalPos);
                         vehControl.addVehicle(vehPar->id, vehicle);
                         carUsed = true;
                     } else {
                         previous = new MSPerson::MSPersonStage_Driving(it->edges.back(), bs, localArrivalPos, std::vector<std::string>({ it->line }), it->intended, TIME2STEPS(it->depart));
-                        transportable->appendStage(previous);
+                        transportable->appendStage(previous, stageIndex++);
                     }
                 }
             }
@@ -260,7 +262,7 @@ MSTransportable::Stage_Trip::setArrived(MSNet* net, MSTransportable* transportab
                 throw ProcessError(error);
             } else {
                 // pedestrian will teleport
-                transportable->appendStage(new MSPerson::MSPersonStage_Walking(transportable->getID(), ConstMSEdgeVector({ myOrigin, myDestination }), myDestinationStop, myDuration, mySpeed, previous->getArrivalPos(), fabs(myArrivalPos), myDepartPosLat));
+                transportable->appendStage(new MSPerson::MSPersonStage_Walking(transportable->getID(), ConstMSEdgeVector({ myOrigin, myDestination }), myDestinationStop, myDuration, mySpeed, previous->getArrivalPos(), fabs(myArrivalPos), myDepartPosLat), stageIndex++);
             }
         }
         if (vehicle != 0 && !carUsed) {
@@ -272,6 +274,8 @@ MSTransportable::Stage_Trip::setArrived(MSNet* net, MSTransportable* transportab
 
 void
 MSTransportable::Stage_Trip::proceed(MSNet* net, MSTransportable* transportable, SUMOTime now, Stage* previous) {
+    // just skip the stage, every interesting happens in setArrived
+    transportable->proceed(net, now);
 }
 
 

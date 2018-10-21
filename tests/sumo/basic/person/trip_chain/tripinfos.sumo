@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Oct 17 20:24:27 2018 by Eclipse SUMO Version v1_0_1+0313-d13dc10
+<!-- generated on 10/21/18 20:23:24 by Eclipse SUMO Version v1_0_1+0209-42a0b935e0
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -39,9 +39,9 @@ SPDX-License-Identifier: EPL-2.0
     <personinfo id="person0" depart="0.00" type="DEFAULT_PEDTYPE">
         <walk depart="0.00" departPos="80.00" arrival="49.00" arrivalPos="55.00" duration="49.00" routeLength="65.50" timeLoss="1.84" maxSpeed="1.39"/>
         <ride waitingTime="72.00" vehicle="train0" depart="121.00" arrival="140.00" arrivalPos="92.00" duration="19.00" routeLength="190.08"/>
-        <walk depart="140.00" departPos="60.00" arrival="197.00" arrivalPos="45.00" duration="57.00" routeLength="77.00" timeLoss="1.56" maxSpeed="1.39"/>
-        <stop duration="20.00" arrival="217.00" arrivalPos="45.00" actType="singing"/>
-        <ride waitingTime="0.00" vehicle="car0" depart="217.00" arrival="237.00" arrivalPos="92.00" duration="20.00" routeLength="196.50"/>
+        <walk depart="140.00" departPos="92.00" arrival="174.00" arrivalPos="45.00" duration="34.00" routeLength="45.00" timeLoss="1.60" maxSpeed="1.39"/>
+        <stop duration="20.00" arrival="194.00" arrivalPos="45.00" actType="singing"/>
+        <ride waitingTime="0.00" vehicle="car0" depart="194.00" arrival="214.00" arrivalPos="92.00" duration="20.00" routeLength="196.50"/>
     </personinfo>
-    <tripinfo id="car0" depart="217.00" departLane="1/4to2/4_0" departPos="50.00" departSpeed="0.00" departDelay="0.00" arrival="237.00" arrivalLane="3/4to4/4_0" arrivalPos="92.00" arrivalSpeed="13.90" duration="20.00" routeLength="242.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="2.19" rerouteNo="0" devices="tripinfo_car0 person_car0" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="car0" depart="194.00" departLane="1/4to2/4_0" departPos="50.00" departSpeed="0.00" departDelay="0.00" arrival="214.00" arrivalLane="3/4to4/4_0" arrivalPos="92.00" arrivalSpeed="13.90" duration="20.00" routeLength="242.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="2.19" rerouteNo="0" devices="tripinfo_car0 person_car0" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
 </tripinfos>
