@@ -1,0 +1,3 @@
+# Test whether lane change filter selects opposite leader and follower in a opposite direction driving scenario
+# All relevant leaders and followers on ego and opposite lanes should be returned
+laneChangeOpposite

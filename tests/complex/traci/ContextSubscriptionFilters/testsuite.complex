@@ -10,3 +10,5 @@ noOpposite
 # Tests whether leader and follower vehicles are filtered correctly
 leadFollow
 
+# Tests whether leader and follower vehicles are filtered correctly in combination with opposite traffic
+leadFollowOpposite
