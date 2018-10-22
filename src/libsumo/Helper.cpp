@@ -572,7 +572,7 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
                     const MSEdge* opposite = vehEdge->getOppositeEdge();
                     if (opposite == nullptr) {
 #ifdef DEBUG_SURROUNDING
-                        std::cout << "No lane at index " << offset << std::endl;
+                        std::cout << "No opposite edge, thus no lane at index " << offset << std::endl;
 #endif
                         // no opposite edge
                         continue;
