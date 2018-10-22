@@ -81,19 +81,26 @@ public:
     /// These methods parse the attributes for each of the described trigger
     /// and call the according methods to build the trigger
     /// @{
-    /**@brief Builds a vaporization
+    /**@brief Builds a Vaporizer
      * @param[in] attrs SAX-attributes which define the vaporizer
      * @param[in] tag of the additional
      * @note recheck throwing the exception
      */
     void parseAndBuildVaporizer(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
 
-    /**@brief Builds a vaporization
+    /**@brief Builds a TAZ
      * @param[in] attrs SAX-attributes which define the vaporizer
      * @param[in] tag of the additional
      * @note recheck throwing the exception
      */
     void parseAndBuildTAZ(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
+
+    /**@brief Builds a TAZ Edge
+     * @param[in] attrs SAX-attributes which define the vaporizer
+     * @param[in] tag of the additional
+     * @note recheck throwing the exception
+     */
+    void parseAndBuildTAZEdge(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
 
     /**@brief Parses his values and builds a Variable Speed Signal (lane speed trigger)
      * @param[in] attrs SAX-attributes which define the trigger

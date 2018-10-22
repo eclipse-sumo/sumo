@@ -1083,26 +1083,17 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                 break;
             }
             case GNE_MODE_TAZ: {
-                // check if we're going to create a new TAZ or edit edges of an existent TAZ
-                if( (myObjectsUnderCursor.taz != nullptr) &&
-                    (myViewParent->getTAZFrame()->getCurrentTAZ()->getCurrentTAZ() == nullptr) && 
-                    (myViewParent->getTAZFrame()->getDrawingShape()->isDrawing() == false)) {
-                    // set clicked TAZ as currentTAZ
-                    myViewParent->getTAZFrame()->getCurrentTAZ()->setCurrentTAZ(myObjectsUnderCursor.taz);
-                    // view net must be always update
-                    update();
-                    // process click
-                    processClick(evt, eventData);
-                } else {
-                    GNETAZFrame::AddTAZResult result = myViewParent->getTAZFrame()->processClick(snapToActiveGrid(getPositionInformation()), myObjectsUnderCursor.edge);
-                    // view net must be always update
-                    update();
-                    // process click depending of the result of "process click"
-                    if ((result != GNETAZFrame::ADDTAZ_UPDATEDTEMPORALTAZ)) {
-                        // process click
-                        processClick(evt, eventData);
-                    }
+                // swap lanes to edges in TAZ Mode
+                if (myObjectsUnderCursor.lane) {
+                    myObjectsUnderCursor.swapLane2Edge();
                 }
+                // check if process click was scuesfully
+                if(myViewParent->getTAZFrame()->processClick(snapToActiveGrid(getPositionInformation()), myObjectsUnderCursor.taz, myObjectsUnderCursor.edge)) {
+                    // view net must be always update
+                    update();
+                }
+                // process click
+                processClick(evt, eventData);
                 break;
             }
             case GNE_MODE_POLYGON: {
@@ -1330,7 +1321,7 @@ GNEViewNet::abortOperation(bool clearSelection) {
             // abort current drawing
             myViewParent->getPolygonFrame()->getDrawingShape()->abortDrawing();
         } else if (myViewParent->getTAZFrame()->getCurrentTAZ()->getCurrentTAZ() != nullptr) {
-            // abort editing TAZ
+            // finish current editing TAZ
             myViewParent->getTAZFrame()->getCurrentTAZ()->setCurrentTAZ(nullptr);
         }
     } else if (myEditMode == GNE_MODE_PROHIBITION) {

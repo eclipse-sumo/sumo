@@ -2248,9 +2248,13 @@ GNEAttributeCarrier::fillAttributeCarriers() {
         // set values of tag
         myAllowedTags[currentTag] = TagValues(TAGPROPERTY_TAZ | TAGPROPERTY_PARENT, taz, ICON_TAZ, SUMO_TAG_TAZ);
         // set values of attributes
+        myAllowedTags[currentTag].addAttribute(SUMO_ATTR_EDGE,
+                                               ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
+                                               "The id of edge in the simulation network",
+                                               "");
         myAllowedTags[currentTag].addAttribute(GNE_ATTR_TAZ_DEPARTWEIGHT,
                                                ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE,
-                                               "Depart weightt associated to this Edge",
+                                               "Depart weight associated to this Edge",
                                                "0");
         myAllowedTags[currentTag].addAttribute(GNE_ATTR_TAZ_ARRIVALWEIGHT,
                                                ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE,

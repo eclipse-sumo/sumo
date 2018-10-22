@@ -141,6 +141,9 @@ GNEAdditionalHandler::myStartElement(int element, const SUMOSAXAttributes& attrs
             case SUMO_TAG_TAZ:
                 parseAndBuildTAZ(attrs, tag);
                 break;
+            case SUMO_TAG_TAZEDGE:
+                parseAndBuildTAZEdge(attrs, tag);
+                break;
             case SUMO_TAG_VSS:
                 parseAndBuildVariableSpeedSign(attrs, tag);
                 break;
@@ -246,6 +249,12 @@ GNEAdditionalHandler::parseAndBuildTAZ(const SUMOSAXAttributes& attrs, const Sum
             myParentElements.commitElementInsertion(myLastInsertedAdditional->getID());
         }
     }
+}
+
+
+void 
+GNEAdditionalHandler::parseAndBuildTAZEdge(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
+
 }
 
 
