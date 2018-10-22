@@ -81,6 +81,8 @@
 //#define DEBUG_COND (getID() == "undefined")
 //#define DEBUG_COND2(obj) ((obj != 0 && (obj)->getID() == "disabled"))
 //#define DEBUG_COND2(obj) ((obj != 0 && (obj)->isSelected()))
+//#define DEBUG_COND (getID() == "ego")
+//#define DEBUG_COND2(obj) ((obj != 0 && (obj)->getID() == "ego"))
 
 // ===========================================================================
 // static member definitions
@@ -2965,9 +2967,10 @@ MSLane::getFollowersOnConsecutive(const MSVehicle* ego, double backOffset,
                 }
 #endif
                 for (int i = 0; i < first.numSublanes(); ++i) {
-                    const MSVehicle* v = first[i];
+                    // NOTE: I added this because getFirstVehicleInformation() returns the ego as first if it partially laps into next. (Leo)
+                    const MSVehicle* v = first[i] == ego ? firstFront[i] : first[i];
                     double agap = 0;
-                    if (v != 0 && v != ego) {
+                    if (v != 0) {
                         if (!v->isFrontOnLane(next)) {
                             // the front of v is already on divergent trajectory from the ego vehicle
                             // for which this method is called (in the context of MSLaneChanger).
