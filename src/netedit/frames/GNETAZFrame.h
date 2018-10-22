@@ -39,7 +39,7 @@ public:
     // class CurrentTAZ
     // ===========================================================================
 
-    class CurrentTAZ : public FXGroupBox {
+    class CurrentTAZ : protected FXGroupBox {
 
     public:
         /// @brief constructor
@@ -66,10 +66,10 @@ public:
     };
 
     // ===========================================================================
-    // class EdgesSelector
+    // class EdgesTAZSelector
     // ===========================================================================
 
-    class EdgesTAZSelector : public FXGroupBox {
+    class EdgesTAZSelector : protected FXGroupBox {
         /// @brief FOX-declaration
         FXDECLARE(GNETAZFrame::EdgesTAZSelector)
 
@@ -81,10 +81,10 @@ public:
         ~EdgesTAZSelector();
 
         /// @brief show EdgesTAZSelector
-        void showEdgesTAZSelector();
+        void showEdgeTAZSelectorModul();
 
         /// @brief hide EdgesTAZSelector
-        void hideEdgesTAZSelector();
+        void hideEdgeTAZSelectorModul();
 
         /// @brief select edge
         bool selectEdge(GNEEdge *edge);

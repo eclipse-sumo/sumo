@@ -136,10 +136,10 @@ public:
         AttributesEditor(GNEInspectorFrame* inspectorFrameParent);
 
         /// @brief show attributes of ac
-        void showAttributeEditor();
+        void showAttributeEditorModul();
 
         /// @brief hide attribute editor
-        void hideAttributesEditor();
+        void hideAttributesEditorModul();
 
         /// @brief refresh attribute editor (only the valid values will be refresh)
         void refreshAttributeEditor(bool forceRefreshShape, bool forceRefreshPosition);

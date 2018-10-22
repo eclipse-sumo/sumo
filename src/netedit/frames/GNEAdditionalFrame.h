@@ -52,10 +52,10 @@ public:
         ~AdditionalAttributeSingle();
 
         /// @brief show name and value of attribute of type string
-        void showParameter(SumoXMLAttr additionalAttr, std::string value);
+        void showAdditionalAttribute(SumoXMLAttr additionalAttr, std::string value);
 
         /// @brief hide all parameters
-        void hideParameter();
+        void hideAdditionalAttribute();
 
         /// @brief return Attr
         SumoXMLAttr getAttr() const;
@@ -447,8 +447,8 @@ public:
      */
     void removeAdditional(GNEAdditional* additional);
 
-    /// @brief show additional frame and update use selected edges/lanes
-    void show();
+    /// @brief show selector lane child and update use selected edges/lanes
+    void showSelectorLaneChildsModul();
 
     /// @brief getConsecutive Lane Selector
     GNEAdditionalFrame::SelectorLaneParents* getConsecutiveLaneSelector() const;

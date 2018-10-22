@@ -52,7 +52,7 @@ public:
     class ShapeAttributeSingle : public FXHorizontalFrame {
         /// @brief FOX-declaration
         FXDECLARE(GNEPolygonFrame::ShapeAttributeSingle)
-
+        
     public:
         /// @brief constructor
         ShapeAttributeSingle(ShapeAttributes* shapeAttributesParent);
@@ -127,9 +127,12 @@ public:
     // class ShapeAttributes
     // ===========================================================================
 
-    class ShapeAttributes : public FXGroupBox {
+    class ShapeAttributes : protected FXGroupBox {
         /// @brief FOX-declaration
         FXDECLARE(GNEPolygonFrame::ShapeAttributes)
+
+        // declare friend class
+        friend class ShapeAttributeSingle;
 
     public:
         /// @brief constructor
@@ -144,11 +147,11 @@ public:
         /// @brief add attribute
         void addAttribute(SumoXMLAttr ShapeAttributeSingle);
 
-        /// @brief show group box
-        void showShapeParameters();
+        /// @brief show ShapeAttributes modul
+        void showShapeAttributesModul();
 
         /// @brief hide group box
-        void hideShapeParameters();
+        void hideShapeAttributesModul();
 
         /// @brief get attributes and their values
         std::map<SumoXMLAttr, std::string> getAttributesAndValues() const;

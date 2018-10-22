@@ -38,7 +38,7 @@ public:
     // class CurrentJunction
     // ===========================================================================
 
-    class CurrentJunction : public FXGroupBox {
+    class CurrentJunction : protected FXGroupBox {
 
     public:
         /// @brief constructor
@@ -60,7 +60,7 @@ public:
     // class EdgesSelector
     // ===========================================================================
 
-    class EdgesSelector : public FXGroupBox {
+    class EdgesSelector : protected FXGroupBox {
         /// @brief FOX-declaration
         FXDECLARE(GNECrossingFrame::EdgesSelector)
 
@@ -120,7 +120,7 @@ public:
     // class CrossingParameters
     // ===========================================================================
 
-    class CrossingParameters : public FXGroupBox {
+    class CrossingParameters : protected FXGroupBox {
         /// @brief FOX-declaration
         FXDECLARE(GNECrossingFrame::CrossingParameters)
 
@@ -225,7 +225,7 @@ public:
     // class CreateCrossing
     // ===========================================================================
 
-    class CreateCrossing : public FXGroupBox {
+    class CreateCrossing : protected FXGroupBox {
         /// @brief FOX-declaration
         FXDECLARE(GNECrossingFrame::CreateCrossing)
 

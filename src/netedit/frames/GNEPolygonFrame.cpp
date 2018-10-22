@@ -322,14 +322,14 @@ GNEPolygonFrame::ShapeAttributes::addAttribute(SumoXMLAttr ShapeAttributeSingle)
 
 
 void
-GNEPolygonFrame::ShapeAttributes::showShapeParameters() {
+GNEPolygonFrame::ShapeAttributes::showShapeAttributesModul() {
     recalc();
     show();
 }
 
 
 void
-GNEPolygonFrame::ShapeAttributes::hideShapeParameters() {
+GNEPolygonFrame::ShapeAttributes::hideShapeAttributesModul() {
     hide();
 }
 
@@ -582,7 +582,7 @@ GNEPolygonFrame::enableModuls(const GNEAttributeCarrier::TagValues &tagValue) {
     }
     // if there are parmeters, show and Recalc groupBox
     if (myShapeAttributes->getNumberOfAddedAttributes() > 0) {
-        myShapeAttributes->showShapeParameters();
+        myShapeAttributes->showShapeAttributesModul();
     }
     // show netedit attributes
     myNeteditAttributes->showNeteditAttributesModul(tagValue);
@@ -598,7 +598,7 @@ GNEPolygonFrame::enableModuls(const GNEAttributeCarrier::TagValues &tagValue) {
 void 
 GNEPolygonFrame::disableModuls() {
     // hide all widgets
-    myShapeAttributes->hideShapeParameters();
+    myShapeAttributes->hideShapeAttributesModul();
     myNeteditAttributes->hideNeteditAttributesModul();
     getDrawingShape()->hideDrawingShape();
 }

@@ -38,7 +38,7 @@ public:
     // class LockGLObjectTypes
     // ===========================================================================
 
-    class LockGLObjectTypes : public FXGroupBox {
+    class LockGLObjectTypes : protected FXGroupBox {
 
     public:
         /// @brief constructor
@@ -73,7 +73,7 @@ public:
     // class ModificationMode
     // ===========================================================================
 
-    class ModificationMode : public FXGroupBox {
+    class ModificationMode : protected FXGroupBox {
         /// @brief FOX-declaration
         FXDECLARE(GNESelectorFrame::ModificationMode)
 
@@ -131,7 +131,7 @@ public:
     // class ElementSet
     // ===========================================================================
 
-    class ElementSet : public FXGroupBox {
+    class ElementSet : protected FXGroupBox {
         /// @brief FOX-declaration
         FXDECLARE(GNESelectorFrame::ElementSet)
 
@@ -180,7 +180,7 @@ public:
     // class MatchAttribute
     // ===========================================================================
 
-    class MatchAttribute : public FXGroupBox {
+    class MatchAttribute : protected FXGroupBox {
         /// @brief FOX-declaration
         FXDECLARE(GNESelectorFrame::MatchAttribute)
 
@@ -250,7 +250,7 @@ public:
     // class VisualScaling
     // ===========================================================================
 
-    class VisualScaling : public FXGroupBox {
+    class VisualScaling : protected FXGroupBox {
         /// @brief FOX-declaration
         FXDECLARE(GNESelectorFrame::VisualScaling)
 
@@ -285,7 +285,7 @@ public:
     // class SelectionOperation
     // ===========================================================================
 
-    class SelectionOperation : public FXGroupBox {
+    class SelectionOperation : protected FXGroupBox {
         /// @brief FOX-declaration
         FXDECLARE(GNESelectorFrame::SelectionOperation)
 

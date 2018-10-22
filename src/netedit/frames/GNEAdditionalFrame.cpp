@@ -110,7 +110,7 @@ GNEAdditionalFrame::AdditionalAttributeSingle::AdditionalAttributeSingle(Additio
     myTextFieldStrings = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE_TEXT, GUIDesignTextField);
     myBoolCheckButton = new FXCheckButton(this, "Disabled", this, MID_GNE_SET_ATTRIBUTE_BOOL, GUIDesignCheckButtonAttribute);
     // Hide elements
-    hideParameter();
+    hideAdditionalAttribute();
 }
 
 
@@ -118,7 +118,7 @@ GNEAdditionalFrame::AdditionalAttributeSingle::~AdditionalAttributeSingle() {}
 
 
 void
-GNEAdditionalFrame::AdditionalAttributeSingle::showParameter(SumoXMLAttr additionalAttr, std::string value) {
+GNEAdditionalFrame::AdditionalAttributeSingle::showAdditionalAttribute(SumoXMLAttr additionalAttr, std::string value) {
     myAdditionalAttr = additionalAttr;
     myInvalidValue = "";
     myLabel->setText(toString(myAdditionalAttr).c_str());
@@ -152,7 +152,7 @@ GNEAdditionalFrame::AdditionalAttributeSingle::showParameter(SumoXMLAttr additio
 
 
 void
-GNEAdditionalFrame::AdditionalAttributeSingle::hideParameter() {
+GNEAdditionalFrame::AdditionalAttributeSingle::hideAdditionalAttribute() {
     myAdditionalAttr = SUMO_ATTR_NOTHING;
     myLabel->hide();
     myTextFieldInt->hide();
@@ -315,7 +315,7 @@ void
 GNEAdditionalFrame::AdditionalAttributes::clearAttributes() {
     // Hide all fields
     for (int i = 0; i < (int)myVectorOfsingleAdditionalParameter.size(); i++) {
-        myVectorOfsingleAdditionalParameter.at(i)->hideParameter();
+        myVectorOfsingleAdditionalParameter.at(i)->hideAdditionalAttribute();
     }
 }
 
@@ -324,7 +324,7 @@ void
 GNEAdditionalFrame::AdditionalAttributes::addAttribute(SumoXMLAttr AdditionalAttributeSingle) {
     // obtain attribute property (only for improve code legibility)
     const auto& attrvalue = GNEAttributeCarrier::getTagProperties(myAdditionalFrameParent->myItemSelector->getCurrentTypeTag()).getAttribute(AdditionalAttributeSingle);
-    myVectorOfsingleAdditionalParameter.at(attrvalue.getPositionListed())->showParameter(AdditionalAttributeSingle, attrvalue.getDefaultValue());
+    myVectorOfsingleAdditionalParameter.at(attrvalue.getPositionListed())->showAdditionalAttribute(AdditionalAttributeSingle, attrvalue.getDefaultValue());
 }
 
 
@@ -1099,7 +1099,7 @@ GNEAdditionalFrame::removeAdditional(GNEAdditional* additional) {
 
 
 void
-GNEAdditionalFrame::show() {
+GNEAdditionalFrame::showSelectorLaneChildsModul() {
     // Show frame
     GNEFrame::show();
     // Update UseSelectedLane CheckBox

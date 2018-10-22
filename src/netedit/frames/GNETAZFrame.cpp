@@ -98,7 +98,7 @@ GNETAZFrame::CurrentTAZ::setCurrentTAZ(GNETAZ* currentTAZ) {
         // hide drawing shape
         myTAZFrameParent->myDrawingShape->hideDrawingShape();
         // show edge selector
-        myTAZFrameParent->myEdgesTAZSelector->show();
+        myTAZFrameParent->myEdgesTAZSelector->showEdgeTAZSelectorModul();
     } else {
         myCurrentTAZLabel->setText("No TAZ selected");
         // show TAZ parameters
@@ -108,7 +108,7 @@ GNETAZFrame::CurrentTAZ::setCurrentTAZ(GNETAZ* currentTAZ) {
         // show drawing shape
         myTAZFrameParent->myDrawingShape->showDrawingShape();
         // hide edge selector
-        myTAZFrameParent->myEdgesTAZSelector->hide();
+        myTAZFrameParent->myEdgesTAZSelector->hideEdgeTAZSelectorModul();
     }
 }
 
@@ -140,12 +140,14 @@ GNETAZFrame::EdgesTAZSelector::~EdgesTAZSelector() {
 
 
 void 
-GNETAZFrame::EdgesTAZSelector::showEdgesTAZSelector() {
+GNETAZFrame::EdgesTAZSelector::showEdgeTAZSelectorModul() {
+    show();
 }
 
 
 void 
-GNETAZFrame::EdgesTAZSelector::hideEdgesTAZSelector() {
+GNETAZFrame::EdgesTAZSelector::hideEdgeTAZSelectorModul() {
+    hide();
 }
 
 
@@ -167,6 +169,7 @@ GNETAZFrame::EdgesTAZSelector::selectEdge(GNEEdge *edge) {
         return false;
     }
 }
+
 
 long 
 GNETAZFrame::EdgesTAZSelector::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
@@ -338,7 +341,7 @@ GNETAZFrame::GNETAZFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* v
     colorSelectedLabel->setBackColor(MFXUtils::getFXColor(myTAZParameters->getSelectedColor()));
     */
     // hide edge TAZselector
-    myEdgesTAZSelector->hideEdgesTAZSelector();
+    myEdgesTAZSelector->hideEdgeTAZSelectorModul();
 
     // by default there isn't a TAZ
     myCurrentTAZ->setCurrentTAZ(nullptr);

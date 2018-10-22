@@ -178,7 +178,7 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
     // Assing ACs to myACs
     myInspectedACs = ACs;
     // Hide all elements
-    myAttributesEditor->hideAttributesEditor();
+    myAttributesEditor->hideAttributesEditorModul();
     myNeteditAttributesEditor->hideNeteditAttributesEditor();
     myGEOAttributesEditor->hideGEOAttributesEditor();
     myGenericParametersEditor->hideGenericParametersEditor();
@@ -206,7 +206,7 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
         getFrameHeaderLabel()->setText(headerString.c_str());
 
         // Show attributes editor
-        myAttributesEditor->showAttributeEditor();
+        myAttributesEditor->showAttributeEditorModul();
 
         // show netedit attributes editor if  we're inspecting elements with Netedit Attributes
         myNeteditAttributesEditor->showNeteditAttributesEditor();
@@ -809,7 +809,7 @@ GNEInspectorFrame::AttributesEditor::AttributesEditor(GNEInspectorFrame* inspect
 
 
 void
-GNEInspectorFrame::AttributesEditor::showAttributeEditor() {
+GNEInspectorFrame::AttributesEditor::showAttributeEditorModul() {
     if (myInspectorFrameParent->getInspectedACs().size() > 0) {
         // Gets tag (only for simplify code)
         SumoXMLTag ACFrontTag = myInspectorFrameParent->getInspectedACs().front()->getTag();
@@ -847,7 +847,7 @@ GNEInspectorFrame::AttributesEditor::showAttributeEditor() {
 
 
 void
-GNEInspectorFrame::AttributesEditor::hideAttributesEditor() {
+GNEInspectorFrame::AttributesEditor::hideAttributesEditorModul() {
     // hide al attributes
     for (auto i : myVectorOfAttributeInputs) {
         i->hideAttribute();
