@@ -33,7 +33,7 @@ else:
 
 def runSingle(traciEndTime, viewRange, objID):
     step = 0
-    traci.start(sumoCall + ["-c", "../sumo.sumocfg"])
+    traci.start(sumoCall + ["-c", "sumo.sumocfg"])
 
     subscribed = False
     while not step > traciEndTime:
