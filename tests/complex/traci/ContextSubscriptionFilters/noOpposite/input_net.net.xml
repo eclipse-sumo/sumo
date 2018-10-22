@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Do 18 Okt 2018 10:31:44 CEST by Eclipse SUMO netedit Version v1_0_1+0307-fdf513fa2e
+<!-- generated on Mo 22 Okt 2018 18:56:15 CEST by Eclipse SUMO netedit Version v1_0_1+0370-a7f1300
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="/home/matthias/workspace/zeitlupe2/sumo/tests/complex/traci/ContextSubscriptionFilters/new/no_opposite/input_net.net.xml"/>
+        <sumo-net-file value="tests/complex/traci/ContextSubscriptionFilters/noOpposite/input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="/home/matthias/workspace/zeitlupe2/sumo/tests/complex/traci/ContextSubscriptionFilters/new/no_opposite/input_net.net.xml"/>
+        <output-file value="tests/complex/traci/ContextSubscriptionFilters/noOpposite/input_net.net.xml"/>
     </output>
 
     <processing>
         <offset.disable-normalization value="true"/>
+        <opposites.guess value="true"/>
         <lefthand value="false"/>
     </processing>
 
@@ -36,16 +37,24 @@
     <location netOffset="0.00,0.00" convBoundary="-100.00,100.00,100.00,100.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
     <edge id="-e1" from="j1" to="j0" priority="-1">
-        <lane id="-e1_0" index="0" speed="13.89" length="100.00" shape="0.00,101.60 -100.00,101.60"/>
+        <lane id="-e1_0" index="0" speed="13.89" length="100.00" shape="0.00,101.60 -100.00,101.60">
+            <neigh lane="e1_0"/>
+        </lane>
     </edge>
     <edge id="-e2" from="j2" to="j1" priority="-1">
-        <lane id="-e2_0" index="0" speed="13.89" length="100.00" shape="100.00,101.60 0.00,101.60"/>
+        <lane id="-e2_0" index="0" speed="13.89" length="100.00" shape="100.00,101.60 0.00,101.60">
+            <neigh lane="e2_0"/>
+        </lane>
     </edge>
     <edge id="e1" from="j0" to="j1" priority="-1">
-        <lane id="e1_0" index="0" speed="13.89" length="100.00" shape="-100.00,98.40 0.00,98.40"/>
+        <lane id="e1_0" index="0" speed="13.89" length="100.00" shape="-100.00,98.40 0.00,98.40">
+            <neigh lane="-e1_0"/>
+        </lane>
     </edge>
     <edge id="e2" from="j1" to="j2" priority="-1">
-        <lane id="e2_0" index="0" speed="13.89" length="100.00" shape="0.00,98.40 100.00,98.40"/>
+        <lane id="e2_0" index="0" speed="13.89" length="100.00" shape="0.00,98.40 100.00,98.40">
+            <neigh lane="-e2_0"/>
+        </lane>
     </edge>
 
     <junction id="j0" type="dead_end" x="-100.00" y="100.00" incLanes="-e1_0" intLanes="" shape="-100.00,100.00 -100.00,103.20 -100.00,100.00"/>
