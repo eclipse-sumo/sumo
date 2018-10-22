@@ -2967,10 +2967,13 @@ MSLane::getFollowersOnConsecutive(const MSVehicle* ego, double backOffset,
                 }
 #endif
                 for (int i = 0; i < first.numSublanes(); ++i) {
-                    // NOTE: I added this because getFirstVehicleInformation() returns the ego as first if it partially laps into next. (Leo)
-                    const MSVehicle* v = first[i] == ego ? firstFront[i] : first[i];
+                    // NOTE: I added this because getFirstVehicleInformation() returns the ego as first if it partially laps into next.
+                    // EDIT: Disabled the previous changes (see commented code in next line and fourth upcoming) as I realized that this
+                    //       did not completely fix the issue (to conserve test results). Refs #4727 (Leo)
+                    const MSVehicle* v = /* first[i] == ego ? firstFront[i] :*/ first[i];
                     double agap = 0;
-                    if (v != 0) {
+                    if (v != 0 && v != ego) {
+                    // if (v != 0) {
                         if (!v->isFrontOnLane(next)) {
                             // the front of v is already on divergent trajectory from the ego vehicle
                             // for which this method is called (in the context of MSLaneChanger).
