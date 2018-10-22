@@ -6,3 +6,7 @@ roadnetSearch_withOpposite
 
 # Tests whether opposite lanes are ignored
 noOpposite
+
+# Tests whether leader and follower vehicles are filtered correctly
+leadFollow
+
