@@ -77,7 +77,7 @@ ShapeContainer::removePOI(const std::string& id) {
 void
 ShapeContainer::movePOI(const std::string& id, const Position& pos) {
     PointOfInterest* p = myPOIs.get(id);
-    if (p != 0) {
+    if (p != nullptr) {
         static_cast<Position*>(p)->set(pos);
     }
 }
@@ -86,7 +86,7 @@ ShapeContainer::movePOI(const std::string& id, const Position& pos) {
 void
 ShapeContainer::reshapePolygon(const std::string& id, const PositionVector& shape) {
     SUMOPolygon* p = myPolygons.get(id);
-    if (p != 0) {
+    if (p != nullptr) {
         p->setShape(shape);
     }
 }

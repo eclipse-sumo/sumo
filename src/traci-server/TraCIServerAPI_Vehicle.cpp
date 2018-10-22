@@ -318,13 +318,13 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
 #endif
     const bool shouldExist = variable != ADD && variable != ADD_FULL;
     SUMOVehicle* sumoVehicle = MSNet::getInstance()->getVehicleControl().getVehicle(id);
-    if (sumoVehicle == 0) {
+    if (sumoVehicle == nullptr) {
         if (shouldExist) {
             return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Vehicle '" + id + "' is not known", outputStorage);
         }
     }
     MSVehicle* v = dynamic_cast<MSVehicle*>(sumoVehicle);
-    if (v == 0 && shouldExist) {
+    if (v == nullptr && shouldExist) {
         return server.writeErrorStatusCmd(CMD_GET_VEHICLE_VARIABLE, "Vehicle '" + id + "' is not a micro-simulation vehicle", outputStorage);
     }
     try {

@@ -117,10 +117,10 @@ void MSSwarmTrafficLightLogic::init(NLDetectorBuilder& nb) {
     //Setting the startup policy
     choosePolicy(0, 0, 0, 0);
     //Initializing the random number generator to a time-dependent seed
-    srand((int) time(NULL));
+    srand((int) time(nullptr));
     //Initializing pheromone maps according to input lanes
     //For each lane insert a pair into maps
-    MSLane* currentLane = NULL;
+    MSLane* currentLane = nullptr;
 
 //	Derivative
     const int derivativeHistorySize = TplConvert::_2int(getParameter("PHERO_DERIVATIVE_HISTORY_SIZE", "3").c_str());
@@ -679,7 +679,7 @@ double MSSwarmTrafficLightLogic::calculatePhi(int factor) {
 
 double MSSwarmTrafficLightLogic::calculateEtaDiff() {
 
-    MSLane* currentLane = NULL;
+    MSLane* currentLane = nullptr;
     int count = 0, minIn = 0, minOut = 0, toSub, tmp;
     bool inInit = true, outInit = true;
     double eta, normalized, diff, phi, delta;
@@ -868,7 +868,7 @@ double MSSwarmTrafficLightLogic::calculateEtaDiff() {
 }
 
 double MSSwarmTrafficLightLogic::calculateEtaRatio() {
-    MSLane* currentLane = NULL;
+    MSLane* currentLane = nullptr;
     int count = 0, minIn = 0, minOut = 0, toSub, tmp;
     bool inInit = true, outInit = true;
     double eta, ratio, phi, normalized, delta;
@@ -1062,7 +1062,7 @@ double MSSwarmTrafficLightLogic::calculateEtaRatio() {
 
 void MSSwarmTrafficLightLogic::resetLaneCheck() {
 
-    MSLane* currentLane = NULL;
+    MSLane* currentLane = nullptr;
 
     // reset both the input and the output lanes.
     for (MSTrafficLightLogic::LaneVectorVector::const_iterator laneVector = myLanes.begin();

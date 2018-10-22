@@ -155,25 +155,25 @@ TraCIServerAPI_TrafficLight::processGet(TraCIServer& server, tcpip::Storage& inp
                             to = connection.substr(b + 2);
                         }
                         bool denotesEdge = from.find("_") == std::string::npos;
-                        MSLane* fromLane = 0;
+                        MSLane* fromLane = nullptr;
                         const MSTrafficLightLogic::LaneVectorVector& lanes = tls->getLaneVectors();
                         MSTrafficLightLogic::LaneVectorVector::const_iterator j = lanes.begin();
-                        for (; j != lanes.end() && fromLane == 0;) {
-                            for (MSTrafficLightLogic::LaneVector::const_iterator k = (*j).begin(); k != (*j).end() && fromLane == 0;) {
+                        for (; j != lanes.end() && fromLane == nullptr;) {
+                            for (MSTrafficLightLogic::LaneVector::const_iterator k = (*j).begin(); k != (*j).end() && fromLane == nullptr;) {
                                 if (denotesEdge && (*k)->getEdge().getID() == from) {
                                     fromLane = *k;
                                 } else if (!denotesEdge && (*k)->getID() == from) {
                                     fromLane = *k;
                                 }
-                                if (fromLane == 0) {
+                                if (fromLane == nullptr) {
                                     ++k;
                                 }
                             }
-                            if (fromLane == 0) {
+                            if (fromLane == nullptr) {
                                 ++j;
                             }
                         }
-                        if (fromLane == 0) {
+                        if (fromLane == nullptr) {
                             return server.writeErrorStatusCmd(CMD_GET_TL_VARIABLE, "Could not find edge or lane '" + from + "' in traffic light '" + id + "'.", outputStorage);
                         }
                         int pos = (int)std::distance(lanes.begin(), j);

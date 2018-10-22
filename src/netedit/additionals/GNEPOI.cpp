@@ -366,7 +366,7 @@ bool
 GNEPOI::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            return SUMOXMLDefinitions::isValidNetID(value) && (myNet->retrievePOI(value, false) == 0);
+            return SUMOXMLDefinitions::isValidNetID(value) && (myNet->retrievePOI(value, false) == nullptr);
         case SUMO_ATTR_COLOR:
             return canParse<RGBColor>(value);
         case SUMO_ATTR_LANE:
@@ -376,13 +376,13 @@ GNEPOI::isValid(SumoXMLAttr key, const std::string& value) {
                 return canParse<double>(value);
             } else {
                 bool ok;
-                return GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, false).size() == 1;
+                return GeomConvHelper::parseShapeReporting(value, "user-supplied position", nullptr, ok, false).size() == 1;
             }
         case SUMO_ATTR_POSITION_LAT:
             return canParse<double>(value);
         case SUMO_ATTR_GEOPOSITION: {
             bool ok;
-            return GeomConvHelper::parseShapeReporting(value, "user-supplied GEO position", 0, ok, false).size() == 1;
+            return GeomConvHelper::parseShapeReporting(value, "user-supplied GEO position", nullptr, ok, false).size() == 1;
         }
         case SUMO_ATTR_GEO:
             return canParse<bool>(value);
@@ -502,7 +502,7 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
                 myPosOverLane = parse<double>(value);
             } else {
                 bool ok = true;
-                set(GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, false)[0]);
+                set(GeomConvHelper::parseShapeReporting(value, "netedit-given", nullptr, ok, false)[0]);
                 // set GEO Position
                 myGEOPosition = *this;
                 GeoConvHelper::getFinal().cartesian2geo(myGEOPosition);
@@ -522,7 +522,7 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             // first remove object from grid due position is used for boundary
             myNet->removeGLObjectFromGrid(this);
             bool ok = true;
-            myGEOPosition = GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, false)[0];
+            myGEOPosition = GeomConvHelper::parseShapeReporting(value, "netedit-given", nullptr, ok, false)[0];
             // set cartesian Position
             set(myGEOPosition);
             GeoConvHelper::getFinal().x2cartesian_const(*this);

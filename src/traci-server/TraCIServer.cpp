@@ -94,7 +94,7 @@
 // ===========================================================================
 // static member definitions
 // ===========================================================================
-TraCIServer* TraCIServer::myInstance = 0;
+TraCIServer* TraCIServer::myInstance = nullptr;
 bool TraCIServer::myDoCloseConnection = false;
 
 
@@ -273,7 +273,7 @@ TraCIServer::~TraCIServer() {
 // ---------- Initialisation and Shutdown
 void
 TraCIServer::openSocket(const std::map<int, CmdExecutor>& execs) {
-    if (myInstance == 0 && !myDoCloseConnection && (OptionsCont::getOptions().getInt("remote-port") != 0
+    if (myInstance == nullptr && !myDoCloseConnection && (OptionsCont::getOptions().getInt("remote-port") != 0
 #ifdef HAVE_PYTHON
             || OptionsCont::getOptions().isSet("python-script")
 #endif
@@ -285,7 +285,7 @@ TraCIServer::openSocket(const std::map<int, CmdExecutor>& execs) {
             myInstance->myExecutors[i->first] = i->second;
         }
     }
-    if (myInstance != 0) {
+    if (myInstance != nullptr) {
         // maybe net was deleted and built again
         MSNet::getInstance()->addVehicleStateListener(myInstance);
         myInstance->mySubscriptionCache.writeInt(0);
@@ -295,11 +295,11 @@ TraCIServer::openSocket(const std::map<int, CmdExecutor>& execs) {
 
 void
 TraCIServer::close() {
-    if (myInstance == 0) {
+    if (myInstance == nullptr) {
         return;
     }
     delete myInstance;
-    myInstance = 0;
+    myInstance = nullptr;
     myDoCloseConnection = true;
 }
 
@@ -973,7 +973,7 @@ TraCIServer::postProcessSimulationStep() {
         const libsumo::Subscription& s = *i;
         bool isArrivedVehicle = (s.commandId == CMD_SUBSCRIBE_VEHICLE_VARIABLE || s.commandId == CMD_SUBSCRIBE_VEHICLE_CONTEXT)
                                 && (find(myVehicleStateChanges[MSNet::VEHICLE_STATE_ARRIVED].begin(), myVehicleStateChanges[MSNet::VEHICLE_STATE_ARRIVED].end(), s.id) != myVehicleStateChanges[MSNet::VEHICLE_STATE_ARRIVED].end());
-        bool isArrivedPerson = (s.commandId == CMD_SUBSCRIBE_PERSON_VARIABLE || s.commandId == CMD_SUBSCRIBE_PERSON_CONTEXT) && MSNet::getInstance()->getPersonControl().get(s.id) == 0;
+        bool isArrivedPerson = (s.commandId == CMD_SUBSCRIBE_PERSON_VARIABLE || s.commandId == CMD_SUBSCRIBE_PERSON_CONTEXT) && MSNet::getInstance()->getPersonControl().get(s.id) == nullptr;
         if ((s.endTime < t) || isArrivedVehicle || isArrivedPerson) {
             i = mySubscriptions.erase(i);
             continue;

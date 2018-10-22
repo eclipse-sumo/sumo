@@ -309,27 +309,27 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     myViewParent(viewParent),
     myNet(net),
     myEditMode(GNE_MODE_MOVE),
-    myCurrentFrame(0),
+    myCurrentFrame(nullptr),
     myShowConnections(false),
     mySelectEdges(true),
     myShiftKeyPressed(false),
-    myCreateEdgeSource(0),
+    myCreateEdgeSource(nullptr),
     myMovingSelection(false),
     myToolbar(toolBar),
-    myEditModeCreateEdge(0),
-    myEditModeMove(0),
-    myEditModeDelete(0),
-    myEditModeInspect(0),
-    myEditModeSelect(0),
-    myEditModeConnection(0),
-    myEditModeTrafficLight(0),
-    myEditModeAdditional(0),
-    myEditModeCrossing(0),
-    myEditModePolygon(0),
-    myEditModeProhibition(0),
+    myEditModeCreateEdge(nullptr),
+    myEditModeMove(nullptr),
+    myEditModeDelete(nullptr),
+    myEditModeInspect(nullptr),
+    myEditModeSelect(nullptr),
+    myEditModeConnection(nullptr),
+    myEditModeTrafficLight(nullptr),
+    myEditModeAdditional(nullptr),
+    myEditModeCrossing(nullptr),
+    myEditModePolygon(nullptr),
+    myEditModeProhibition(nullptr),
     myEditModeNames(),
     myUndoList(undoList),
-    myEditShapePoly(0) {
+    myEditShapePoly(nullptr) {
     // view must be the final member of actualParent
     reparent(actualParent);
 
@@ -422,7 +422,7 @@ GNEViewNet::setColorScheme(const std::string& name) {
     if (!gSchemeStorage.contains(name)) {
         return false;
     }
-    if (myVisualizationChanger != 0) {
+    if (myVisualizationChanger != nullptr) {
         if (myVisualizationChanger->getCurrentScheme() != name) {
             myVisualizationChanger->setCurrentScheme(name);
         }
@@ -543,9 +543,9 @@ GNEViewNet::startEditCustomShape(GNENetElement* element, const PositionVector& s
 void
 GNEViewNet::stopEditCustomShape() {
     // stop edit shape junction deleting myEditShapePoly
-    if (myEditShapePoly != 0) {
+    if (myEditShapePoly != nullptr) {
         myNet->removePolygonForEditShapes(myEditShapePoly);
-        myEditShapePoly = 0;
+        myEditShapePoly = nullptr;
         // restore previous edit mode
         if (myEditMode != myPreviousEditMode) {
             setEditMode(myPreviousEditMode);
@@ -779,7 +779,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                     if (!myObjectsUnderCursor.junction) {
                         myObjectsUnderCursor.junction = myNet->createJunction(snapToActiveGrid(getPositionInformation()), myUndoList);
                     }
-                    if (myCreateEdgeSource == 0) {
+                    if (myCreateEdgeSource == nullptr) {
                         myCreateEdgeSource = myObjectsUnderCursor.junction;
                         myCreateEdgeSource->markAsCreateEdgeSource();
                         update();
@@ -805,7 +805,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                                     myCreateEdgeSource->markAsCreateEdgeSource();
                                     myUndoList->p_begin("create new " + toString(SUMO_TAG_EDGE));
                                 } else {
-                                    myCreateEdgeSource = 0;
+                                    myCreateEdgeSource = nullptr;
                                 }
                             } else {
                                 setStatusBarText("An " + toString(SUMO_TAG_EDGE) + " with the same geometry already exists!");
@@ -1090,10 +1090,10 @@ GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
         finishMoveSelection();
     } else if (myMovedItems.polyToMove) {
         myMovedItems.polyToMove->commitShapeChange(myMoveSingleElementValues.movingOriginalShape, myUndoList);
-        myMovedItems.polyToMove = 0;
+        myMovedItems.polyToMove = nullptr;
     } else if (myMovedItems.poiToMove) {
         myMovedItems.poiToMove->commitGeometryMoving(myMoveSingleElementValues.movingOriginalPosition, myUndoList);
-        myMovedItems.poiToMove = 0;
+        myMovedItems.poiToMove = nullptr;
     } else if (myMovedItems.junctionToMove) {
         // finish Junction movement
         myMovedItems.junctionToMove->endGeometryMoving();
@@ -1101,7 +1101,7 @@ GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
         if (!mergeJunctions(myMovedItems.junctionToMove, myMoveSingleElementValues.movingOriginalPosition)) {
             myMovedItems.junctionToMove->commitGeometryMoving(myMoveSingleElementValues.movingOriginalPosition, myUndoList);
         }
-        myMovedItems.junctionToMove = 0;
+        myMovedItems.junctionToMove = nullptr;
     } else if (myMovedItems.edgeToMove) {
         if (myMoveSingleElementValues.movingStartPos) {
             myMovedItems.edgeToMove->commitShapeStartChange(myMoveSingleElementValues.movingOriginalPosition, myUndoList);
@@ -1112,11 +1112,11 @@ GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
         } else {
             myMovedItems.edgeToMove->commitShapeChange(myMoveSingleElementValues.movingOriginalShape, myUndoList);
         }
-        myMovedItems.edgeToMove = 0;
+        myMovedItems.edgeToMove = nullptr;
     } else if (myMovedItems.additionalToMove) {
         myMovedItems.additionalToMove->endGeometryMoving();
         myMovedItems.additionalToMove->commitGeometryMoving(myUndoList);
-        myMovedItems.additionalToMove = 0;
+        myMovedItems.additionalToMove = nullptr;
     } else if (mySelectingArea.selectingUsingRectangle) {
         bool shiftKeyPressed = ((FXEvent*)eventData)->state & SHIFTMASK;
         mySelectingArea.processSelection(this, shiftKeyPressed);
@@ -1241,7 +1241,7 @@ GNEViewNet::abortOperation(bool clearSelection) {
     if (myCreateEdgeSource != nullptr) {
         // remove current created edge source
         myCreateEdgeSource->unMarkAsCreateEdgeSource();
-        myCreateEdgeSource = 0;
+        myCreateEdgeSource = nullptr;
     } else if (myEditMode == GNE_MODE_SELECT) {
         mySelectingArea.selectingUsingRectangle = false;
         // check if current selection has to be cleaned
@@ -1249,16 +1249,16 @@ GNEViewNet::abortOperation(bool clearSelection) {
             myViewParent->getSelectorFrame()->clearCurrentSelection();
         }
     } else if (myEditMode == GNE_MODE_CONNECT) {
-        myViewParent->getConnectorFrame()->onCmdCancel(0, 0, 0);
+        myViewParent->getConnectorFrame()->onCmdCancel(nullptr, 0, nullptr);
     } else if (myEditMode == GNE_MODE_TLS) {
-        myViewParent->getTLSEditorFrame()->onCmdCancel(0, 0, 0);
+        myViewParent->getTLSEditorFrame()->onCmdCancel(nullptr, 0, nullptr);
     } else if (myEditMode == GNE_MODE_MOVE) {
         stopEditCustomShape();
     } else if (myEditMode == GNE_MODE_POLYGON) {
         // abort current drawing
         myViewParent->getPolygonFrame()->getDrawingMode()->abortDrawing();
     } else if (myEditMode == GNE_MODE_PROHIBITION) {
-        myViewParent->getProhibitionFrame()->onCmdCancel(0, 0, 0);
+        myViewParent->getProhibitionFrame()->onCmdCancel(nullptr, 0, nullptr);
     } else if (myEditMode == GNE_MODE_ADDITIONAL) {
         // abort select lanes
         myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->abortConsecutiveLaneSelector();
@@ -1288,12 +1288,12 @@ GNEViewNet::hotkeyDel() {
 void
 GNEViewNet::hotkeyEnter() {
     if (myEditMode == GNE_MODE_CONNECT) {
-        myViewParent->getConnectorFrame()->onCmdOK(0, 0, 0);
+        myViewParent->getConnectorFrame()->onCmdOK(nullptr, 0, nullptr);
     } else if (myEditMode == GNE_MODE_TLS) {
-        myViewParent->getTLSEditorFrame()->onCmdOK(0, 0, 0);
-    } else if ((myEditMode == GNE_MODE_MOVE) && (myEditShapePoly != 0)) {
+        myViewParent->getTLSEditorFrame()->onCmdOK(nullptr, 0, nullptr);
+    } else if ((myEditMode == GNE_MODE_MOVE) && (myEditShapePoly != nullptr)) {
         // save edited junction's shape
-        if (myEditShapePoly != 0) {
+        if (myEditShapePoly != nullptr) {
             myUndoList->p_begin("custom " + toString(myEditShapePoly->getShapeEditedElement()->getTag()) + " shape");
             SumoXMLAttr attr = SUMO_ATTR_SHAPE;
             if (GNEAttributeCarrier::getTagProperties(myEditShapePoly->getShapeEditedElement()->getTag()).hasAttribute(SUMO_ATTR_CUSTOMSHAPE)) {
@@ -1313,7 +1313,7 @@ GNEViewNet::hotkeyEnter() {
             myViewParent->getPolygonFrame()->getDrawingMode()->startDrawing();
         }
     } else if (myEditMode == GNE_MODE_CROSSING) {
-        myViewParent->getCrossingFrame()->onCmdCreateCrossing(0, 0, 0);
+        myViewParent->getCrossingFrame()->onCmdCreateCrossing(nullptr, 0, nullptr);
     } else if (myEditMode == GNE_MODE_ADDITIONAL) {
         if (myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->isSelectingLanes()) {
             // stop select lanes to create additional
@@ -1427,7 +1427,7 @@ GNEViewNet::showLockIcon() const {
 
 GNEJunction*
 GNEViewNet::getJunctionAtPopupPosition() {
-    GNEJunction* junction = 0;
+    GNEJunction* junction = nullptr;
     if (makeCurrent()) {
         int id = getObjectAtPosition(getPopupPosition());
         GUIGlObject* pointed = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
@@ -1448,7 +1448,7 @@ GNEViewNet::getJunctionAtPopupPosition() {
 
 GNEConnection*
 GNEViewNet::getConnectionAtPopupPosition() {
-    GNEConnection* connection = 0;
+    GNEConnection* connection = nullptr;
     if (makeCurrent()) {
         int id = getObjectAtPosition(getPopupPosition());
         GUIGlObject* pointed = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
@@ -1469,7 +1469,7 @@ GNEViewNet::getConnectionAtPopupPosition() {
 
 GNECrossing*
 GNEViewNet::getCrossingAtPopupPosition() {
-    GNECrossing* crossing = 0;
+    GNECrossing* crossing = nullptr;
     if (makeCurrent()) {
         int id = getObjectAtPosition(getPopupPosition());
         GUIGlObject* pointed = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
@@ -1489,7 +1489,7 @@ GNEViewNet::getCrossingAtPopupPosition() {
 
 GNEEdge*
 GNEViewNet::getEdgeAtPopupPosition() {
-    GNEEdge* edge = 0;
+    GNEEdge* edge = nullptr;
     if (makeCurrent()) {
         int id = getObjectAtPosition(getPopupPosition());
         GUIGlObject* pointed = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
@@ -1513,7 +1513,7 @@ GNEViewNet::getEdgeAtPopupPosition() {
 
 GNELane*
 GNEViewNet::getLaneAtPopupPosition() {
-    GNELane* lane = 0;
+    GNELane* lane = nullptr;
     if (makeCurrent()) {
         int id = getObjectAtPosition(getPopupPosition());
         GUIGlObject* pointed = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
@@ -1564,7 +1564,7 @@ GNEViewNet::getAdditionalAtPopupPosition() {
             return dynamic_cast<GNEAdditional*>(pointed);
         }
     }
-    return 0;
+    return nullptr;
 }
 
 
@@ -1578,7 +1578,7 @@ GNEViewNet::getPolygonAtPopupPosition() {
             return dynamic_cast<GNEPoly*>(pointed);
         }
     }
-    return 0;
+    return nullptr;
 }
 
 
@@ -1592,7 +1592,7 @@ GNEViewNet::getPOIAtPopupPosition() {
             return dynamic_cast<GNEPOI*>(pointed);
         }
     }
-    return 0;
+    return nullptr;
 }
 
 
@@ -1674,7 +1674,7 @@ GNEViewNet::onCmdSetModeProhibition(FXObject*, FXSelector, void*) {
 long
 GNEViewNet::onCmdSplitEdge(FXObject*, FXSelector, void*) {
     GNEEdge* edge = getEdgeAtPopupPosition();
-    if (edge != 0) {
+    if (edge != nullptr) {
         myNet->splitEdge(edge, edge->getSplitPos(getPopupPosition()), myUndoList);
     }
     return 1;
@@ -1694,7 +1694,7 @@ GNEViewNet::onCmdSplitEdgeBidi(FXObject*, FXSelector, void*) {
 long
 GNEViewNet::onCmdReverseEdge(FXObject*, FXSelector, void*) {
     GNEEdge* edge = getEdgeAtPopupPosition();
-    if (edge != 0) {
+    if (edge != nullptr) {
         myNet->reverseEdge(edge, myUndoList);
     }
     return 1;
@@ -1704,7 +1704,7 @@ GNEViewNet::onCmdReverseEdge(FXObject*, FXSelector, void*) {
 long
 GNEViewNet::onCmdAddReversedEdge(FXObject*, FXSelector, void*) {
     GNEEdge* edge = getEdgeAtPopupPosition();
-    if (edge != 0) {
+    if (edge != nullptr) {
         myNet->addReversedEdge(edge, myUndoList);
     }
     return 1;
@@ -1714,7 +1714,7 @@ GNEViewNet::onCmdAddReversedEdge(FXObject*, FXSelector, void*) {
 long
 GNEViewNet::onCmdEditEdgeEndpoint(FXObject*, FXSelector, void*) {
     GNEEdge* edge = getEdgeAtPopupPosition();
-    if (edge != 0) {
+    if (edge != nullptr) {
         edge->editEndpoint(getPopupPosition(), myUndoList);
     }
     return 1;
@@ -1724,7 +1724,7 @@ GNEViewNet::onCmdEditEdgeEndpoint(FXObject*, FXSelector, void*) {
 long
 GNEViewNet::onCmdResetEdgeEndpoint(FXObject*, FXSelector, void*) {
     GNEEdge* edge = getEdgeAtPopupPosition();
-    if (edge != 0) {
+    if (edge != nullptr) {
         edge->resetEndpoint(getPopupPosition(), myUndoList);
     }
     return 1;
@@ -1734,7 +1734,7 @@ GNEViewNet::onCmdResetEdgeEndpoint(FXObject*, FXSelector, void*) {
 long
 GNEViewNet::onCmdStraightenEdges(FXObject*, FXSelector, void*) {
     GNEEdge* edge = getEdgeAtPopupPosition();
-    if (edge != 0) {
+    if (edge != nullptr) {
         if (edge->isAttributeCarrierSelected()) {
             myUndoList->p_begin("straighten selected " + toString(SUMO_TAG_EDGE) + "s");
             std::vector<GNEEdge*> edges = myNet->retrieveEdges(true);
@@ -1755,7 +1755,7 @@ GNEViewNet::onCmdStraightenEdges(FXObject*, FXSelector, void*) {
 long
 GNEViewNet::onCmdSmoothEdges(FXObject*, FXSelector, void*) {
     GNEEdge* edge = getEdgeAtPopupPosition();
-    if (edge != 0) {
+    if (edge != nullptr) {
         if (edge->isAttributeCarrierSelected()) {
             myUndoList->p_begin("straighten elevation of selected " + toString(SUMO_TAG_EDGE) + "s");
             std::vector<GNEEdge*> edges = myNet->retrieveEdges(true);
@@ -1776,7 +1776,7 @@ GNEViewNet::onCmdSmoothEdges(FXObject*, FXSelector, void*) {
 long
 GNEViewNet::onCmdStraightenEdgesElevation(FXObject*, FXSelector, void*) {
     GNEEdge* edge = getEdgeAtPopupPosition();
-    if (edge != 0) {
+    if (edge != nullptr) {
         if (edge->isAttributeCarrierSelected()) {
             myUndoList->p_begin("straighten elevation of selected " + toString(SUMO_TAG_EDGE) + "s");
             std::vector<GNEEdge*> edges = myNet->retrieveEdges(true);
@@ -1797,7 +1797,7 @@ GNEViewNet::onCmdStraightenEdgesElevation(FXObject*, FXSelector, void*) {
 long
 GNEViewNet::onCmdSmoothEdgesElevation(FXObject*, FXSelector, void*) {
     GNEEdge* edge = getEdgeAtPopupPosition();
-    if (edge != 0) {
+    if (edge != nullptr) {
         if (edge->isAttributeCarrierSelected()) {
             myUndoList->p_begin("smooth elevation of selected " + toString(SUMO_TAG_EDGE) + "s");
             std::vector<GNEEdge*> edges = myNet->retrieveEdges(true);
@@ -1817,7 +1817,7 @@ GNEViewNet::onCmdSmoothEdgesElevation(FXObject*, FXSelector, void*) {
 
 long
 GNEViewNet::onCmdSimplifyShape(FXObject*, FXSelector, void*) {
-    if (myEditShapePoly != 0) {
+    if (myEditShapePoly != nullptr) {
         myEditShapePoly->simplifyShape(false);
         update();
     } else {
@@ -1832,7 +1832,7 @@ GNEViewNet::onCmdSimplifyShape(FXObject*, FXSelector, void*) {
 
 long
 GNEViewNet::onCmdDeleteGeometryPoint(FXObject*, FXSelector, void*) {
-    if (myEditShapePoly != 0) {
+    if (myEditShapePoly != nullptr) {
         myEditShapePoly->deleteGeometryPoint(getPopupPosition(), false);
         update();
     } else {
@@ -1847,7 +1847,7 @@ GNEViewNet::onCmdDeleteGeometryPoint(FXObject*, FXSelector, void*) {
 
 long
 GNEViewNet::onCmdClosePolygon(FXObject*, FXSelector, void*) {
-    if (myEditShapePoly != 0) {
+    if (myEditShapePoly != nullptr) {
         myEditShapePoly->closePolygon(false);
         update();
     } else {
@@ -1862,7 +1862,7 @@ GNEViewNet::onCmdClosePolygon(FXObject*, FXSelector, void*) {
 
 long
 GNEViewNet::onCmdOpenPolygon(FXObject*, FXSelector, void*) {
-    if (myEditShapePoly != 0) {
+    if (myEditShapePoly != nullptr) {
         myEditShapePoly->openPolygon(false);
         update();
     } else {
@@ -1877,7 +1877,7 @@ GNEViewNet::onCmdOpenPolygon(FXObject*, FXSelector, void*) {
 
 long
 GNEViewNet::onCmdSetFirstGeometryPoint(FXObject*, FXSelector, void*) {
-    if (myEditShapePoly != 0) {
+    if (myEditShapePoly != nullptr) {
         myEditShapePoly->changeFirstGeometryPoint(myEditShapePoly->getVertexIndex(getPopupPosition(), false), false);
         update();
     } else {
@@ -1969,7 +1969,7 @@ GNEViewNet::onCmdTransformPOI(FXObject*, FXSelector, void*) {
 long
 GNEViewNet::onCmdDuplicateLane(FXObject*, FXSelector, void*) {
     GNELane* lane = getLaneAtPopupPosition();
-    if (lane != 0) {
+    if (lane != nullptr) {
         // when duplicating an unselected lane, keep all connections as they
         // are, otherwise recompute them
         if (lane->isAttributeCarrierSelected()) {
@@ -1992,7 +1992,7 @@ GNEViewNet::onCmdDuplicateLane(FXObject*, FXSelector, void*) {
 long
 GNEViewNet::onCmdResetLaneCustomShape(FXObject*, FXSelector, void*) {
     GNELane* lane = getLaneAtPopupPosition();
-    if (lane != 0) {
+    if (lane != nullptr) {
         // when duplicating an unselected lane, keep all connections as they
         // are, otherwise recompute them
         if (lane->isAttributeCarrierSelected()) {
@@ -2099,7 +2099,7 @@ GNEViewNet::onCmdOpenAdditionalDialog(FXObject*, FXSelector, void*) {
 bool
 GNEViewNet::restrictLane(SUMOVehicleClass vclass) {
     GNELane* lane = getLaneAtPopupPosition();
-    if (lane != 0) {
+    if (lane != nullptr) {
         // Get selected lanes
         std::vector<GNELane*> lanes = myNet->retrieveLanes(true); ;
         // Declare map of edges and lanes
@@ -2174,7 +2174,7 @@ GNEViewNet::restrictLane(SUMOVehicleClass vclass) {
 bool
 GNEViewNet::addRestrictedLane(SUMOVehicleClass vclass) {
     GNELane* lane = getLaneAtPopupPosition();
-    if (lane != 0) {
+    if (lane != nullptr) {
         // Get selected edges
         std::vector<GNEEdge*> edges = myNet->retrieveEdges(true);
         // get selected lanes
@@ -2255,7 +2255,7 @@ GNEViewNet::addRestrictedLane(SUMOVehicleClass vclass) {
 bool
 GNEViewNet::removeRestrictedLane(SUMOVehicleClass vclass) {
     GNELane* lane = getLaneAtPopupPosition();
-    if (lane != 0) {
+    if (lane != nullptr) {
         // Get selected edges
         std::vector<GNEEdge*> edges = myNet->retrieveEdges(true);
         // get selected lanes
@@ -2397,7 +2397,7 @@ GNEViewNet::onCmdResetJunctionShape(FXObject*, FXSelector, void*) {
 long
 GNEViewNet::onCmdReplaceJunction(FXObject*, FXSelector, void*) {
     GNEJunction* junction = getJunctionAtPopupPosition();
-    if (junction != 0) {
+    if (junction != nullptr) {
         myNet->replaceJunctionByGeometry(junction, myUndoList);
         update();
     }
@@ -2411,7 +2411,7 @@ GNEViewNet::onCmdReplaceJunction(FXObject*, FXSelector, void*) {
 long
 GNEViewNet::onCmdSplitJunction(FXObject*, FXSelector, void*) {
     GNEJunction* junction = getJunctionAtPopupPosition();
-    if (junction != 0) {
+    if (junction != nullptr) {
         myNet->splitJunction(junction, myUndoList);
         update();
     }
@@ -2425,7 +2425,7 @@ GNEViewNet::onCmdSplitJunction(FXObject*, FXSelector, void*) {
 long
 GNEViewNet::onCmdClearConnections(FXObject*, FXSelector, void*) {
     GNEJunction* junction = getJunctionAtPopupPosition();
-    if (junction != 0) {
+    if (junction != nullptr) {
         // check if we're handling a selection
         if (junction->isAttributeCarrierSelected()) {
             std::vector<GNEJunction*> selectedJunction = myNet->retrieveJunctions(true);
@@ -2449,7 +2449,7 @@ GNEViewNet::onCmdClearConnections(FXObject*, FXSelector, void*) {
 long
 GNEViewNet::onCmdResetConnections(FXObject*, FXSelector, void*) {
     GNEJunction* junction = getJunctionAtPopupPosition();
-    if (junction != 0) {
+    if (junction != nullptr) {
         // check if we're handling a selection
         if (junction->isAttributeCarrierSelected()) {
             std::vector<GNEJunction*> selectedJunction = myNet->retrieveJunctions(true);
@@ -2815,7 +2815,7 @@ GNEViewNet::updateModeSpecificControls() {
     myEditModeProhibition->update();
     // force repaint because different modes draw different things
     myToolbar->recalc();
-    onPaint(0, 0, 0);
+    onPaint(nullptr, 0, nullptr);
     update();
 }
 
@@ -2951,14 +2951,14 @@ GNEViewNet::deleteSelectedShapes() {
 bool
 GNEViewNet::mergeJunctions(GNEJunction* moved, const Position& oldPos) {
     const Position& newPos = moved->getNBNode()->getPosition();
-    GNEJunction* mergeTarget = 0;
+    GNEJunction* mergeTarget = nullptr;
     // try to find another junction to merge with
     if (makeCurrent()) {
         Boundary selection;
         selection.add(newPos);
         selection.grow(0.1);
         const std::vector<GUIGlID> ids = getObjectsInBoundary(selection);
-        GUIGlObject* object = 0;
+        GUIGlObject* object = nullptr;
         for (auto it_ids : ids) {
             if (it_ids == 0) {
                 continue;

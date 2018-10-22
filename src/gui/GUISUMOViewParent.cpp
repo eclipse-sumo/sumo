@@ -256,14 +256,14 @@ GUISUMOViewParent::isSelected(GUIGlObject* o) const {
         return true;
     } else if (type == GLO_EDGE) {
         GUIEdge* edge = dynamic_cast<GUIEdge*>(o);
-        if (edge == 0) {
+        if (edge == nullptr) {
             // hmph, just some security stuff
             return false;
         }
         const std::vector<MSLane*>& lanes = edge->getLanes();
         for (std::vector<MSLane*>::const_iterator j = lanes.begin(); j != lanes.end(); ++j) {
             GUILane* l = dynamic_cast<GUILane*>(*j);
-            if (l != 0 && gSelected.isSelected(GLO_LANE, l->getGlID())) {
+            if (l != nullptr && gSelected.isSelected(GLO_LANE, l->getGlID())) {
                 return true;
             }
         }

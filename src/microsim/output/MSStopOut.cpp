@@ -35,7 +35,7 @@
 // ---------------------------------------------------------------------------
 // static initialisation methods
 // ---------------------------------------------------------------------------
-MSStopOut* MSStopOut::myInstance = 0;
+MSStopOut* MSStopOut::myInstance = nullptr;
 
 void
 MSStopOut::init() {
@@ -47,7 +47,7 @@ MSStopOut::init() {
 void
 MSStopOut::cleanup() {
     delete myInstance;
-    myInstance = 0;
+    myInstance = nullptr;
 }
 
 // ===========================================================================

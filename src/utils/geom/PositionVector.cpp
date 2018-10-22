@@ -1277,7 +1277,7 @@ PositionVector::intersects(const Position& p11, const Position& p12, const Posit
             }
         }
         if (a != -1e12) {
-            if (x != 0) {
+            if (x != nullptr) {
                 if (p11.x() != p12.x()) {
                     *mu = (a - p11.x()) / (p12.x() - p11.x());
                     *x = a;
@@ -1313,7 +1313,7 @@ PositionVector::intersects(const Position& p11, const Position& p12, const Posit
             return false;
         }
     }
-    if (x != 0) {
+    if (x != nullptr) {
         *x = p11.x() + mua * (p12.x() - p11.x());
         *y = p11.y() + mua * (p12.y() - p11.y());
         *mu = mua;

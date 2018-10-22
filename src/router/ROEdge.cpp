@@ -69,7 +69,7 @@ ROEdge::ROEdge(const std::string& id, RONode* from, RONode* to, int index, const
         myEdges.push_back(0);
     }
     myEdges[index] = this;
-    if (from == 0 && to == 0) {
+    if (from == nullptr && to == nullptr) {
         // TAZ edge, no lanes
         myCombinedPermissions = SVCAll;
     }
@@ -398,7 +398,7 @@ ROEdge::getViaSuccessors(SUMOVehicleClass vClass) const {
 
 bool
 ROEdge::isConnectedTo(const ROEdge* const e, const ROVehicle* const vehicle) const {
-    const SUMOVehicleClass vClass = (vehicle == 0 ? SVC_IGNORING : vehicle->getVClass());
+    const SUMOVehicleClass vClass = (vehicle == nullptr ? SVC_IGNORING : vehicle->getVClass());
     const ROEdgeVector& followers = getSuccessors(vClass);
     return std::find(followers.begin(), followers.end(), e) != followers.end();
 }

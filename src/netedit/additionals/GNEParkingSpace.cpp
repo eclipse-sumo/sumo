@@ -221,7 +221,7 @@ GNEParkingSpace::isValid(SumoXMLAttr key, const std::string& value) {
             return isValidAdditionalID(value);
         case SUMO_ATTR_POSITION: {
             bool ok;
-            return GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, false).size() == 1;
+            return GeomConvHelper::parseShapeReporting(value, "user-supplied position", nullptr, ok, false).size() == 1;
         }
         case SUMO_ATTR_Z:
             return canParse<double>(value);
@@ -268,7 +268,7 @@ GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_POSITION: {
             bool ok;
-            myPosition = GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, false)[0];
+            myPosition = GeomConvHelper::parseShapeReporting(value, "netedit-given", nullptr, ok, false)[0];
             break;
         }
         case SUMO_ATTR_Z:

@@ -111,7 +111,7 @@ MSDevice_Example::notifyMove(SUMOVehicle& veh, double /* oldPos */,
     std::cout << "device '" << getID() << "' notifyMove: newSpeed=" << newSpeed << "\n";
     // check whether another device is present on the vehicle:
     MSDevice_Tripinfo* otherDevice = static_cast<MSDevice_Tripinfo*>(veh.getDevice(typeid(MSDevice_Tripinfo)));
-    if (otherDevice != 0) {
+    if (otherDevice != nullptr) {
         std::cout << "  veh '" << veh.getID() << " has device '" << otherDevice->getID() << "'\n";
     }
     return true; // keep the device

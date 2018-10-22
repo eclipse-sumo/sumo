@@ -54,7 +54,7 @@ NBTurningDirectionsComputer::computeTurnDirectionsForNode(NBNode* node, bool war
     const std::vector<NBEdge*>& outgoing = node->getOutgoingEdges();
     // reset turning directions since this may be called multiple times
     for (std::vector<NBEdge*>::const_iterator k = incoming.begin(); k != incoming.end(); ++k) {
-        (*k)->setTurningDestination(0);
+        (*k)->setTurningDestination(nullptr);
     }
     std::vector<Combination> combinations;
     for (std::vector<NBEdge*>::const_iterator j = outgoing.begin(); j != outgoing.end(); ++j) {
@@ -347,7 +347,7 @@ NBEdgePriorityComputer::setPriorityJunctionPriorities(NBNode& n) {
                 s->setJunctionPriority(&n, NBEdge::PRIORITY_ROAD);
             }
         }
-        markBestParallel(n, best1, 0);
+        markBestParallel(n, best1, nullptr);
         assert(bestOutgoing.size() != 0);
         // mark the best outgoing as the continuation
         sort(bestOutgoing.begin(), bestOutgoing.end(), NBContHelper::edge_similar_direction_sorter(best1));
@@ -368,8 +368,8 @@ NBEdgePriorityComputer::setPriorityJunctionPriorities(NBNode& n) {
     // This means, when several incoming roads have the same priority,
     //  we want a (any) straight connection to be more priorised than a turning
     double bestAngle = 0;
-    NBEdge* bestFirst = 0;
-    NBEdge* bestSecond = 0;
+    NBEdge* bestFirst = nullptr;
+    NBEdge* bestSecond = nullptr;
     bool hadBest = false;
     for (i = bestIncoming.begin(); i != bestIncoming.end(); ++i) {
         EdgeVector::iterator j;
@@ -411,9 +411,9 @@ void
 NBEdgePriorityComputer::markBestParallel(const NBNode& n, NBEdge* bestFirst, NBEdge* bestSecond) {
     // edges running parallel to the main direction should also be prioritised
     const double a1 = bestFirst->getAngleAtNode(&n);
-    const double a2 = bestSecond == 0 ? a1 : bestSecond->getAngleAtNode(&n);
+    const double a2 = bestSecond == nullptr ? a1 : bestSecond->getAngleAtNode(&n);
     SVCPermissions p1 = bestFirst->getPermissions();
-    SVCPermissions p2 = bestSecond == 0 ? p1 : bestSecond->getPermissions();
+    SVCPermissions p2 = bestSecond == nullptr ? p1 : bestSecond->getPermissions();
     for (NBEdge* e : n.getIncomingEdges()) {
         // @note: this rule might also apply if there are common permissions but
         // then we would not further rules to resolve the priority between the best edge and its parallel edge
@@ -430,7 +430,7 @@ NBEdgePriorityComputer::markBestParallel(const NBNode& n, NBEdge* bestFirst, NBE
 NBEdge*
 NBEdgePriorityComputer::extractAndMarkFirst(NBNode& n, std::vector<NBEdge*>& s, int prio) {
     if (s.size() == 0) {
-        return 0;
+        return nullptr;
     }
     NBEdge* ret = s.front();
     s.erase(s.begin());

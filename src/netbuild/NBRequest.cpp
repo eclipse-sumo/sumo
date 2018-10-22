@@ -112,10 +112,10 @@ NBRequest::NBRequest(const NBEdgeCont& ec,
                     myGoodBuilds++;
                 }
             } else {
-                std::string pfID = prohibited.getFrom() != 0 ? prohibited.getFrom()->getID() : "UNKNOWN";
-                std::string ptID = prohibited.getTo() != 0 ? prohibited.getTo()->getID() : "UNKNOWN";
-                std::string bfID = sprohibiting.getFrom() != 0 ? sprohibiting.getFrom()->getID() : "UNKNOWN";
-                std::string btID = sprohibiting.getTo() != 0 ? sprohibiting.getTo()->getID() : "UNKNOWN";
+                std::string pfID = prohibited.getFrom() != nullptr ? prohibited.getFrom()->getID() : "UNKNOWN";
+                std::string ptID = prohibited.getTo() != nullptr ? prohibited.getTo()->getID() : "UNKNOWN";
+                std::string bfID = sprohibiting.getFrom() != nullptr ? sprohibiting.getFrom()->getID() : "UNKNOWN";
+                std::string btID = sprohibiting.getTo() != nullptr ? sprohibiting.getTo()->getID() : "UNKNOWN";
                 WRITE_WARNING("could not prohibit " + pfID + "->" + ptID + " by " + bfID + "->" + btID);
                 myNotBuild++;
             }
@@ -199,7 +199,7 @@ void
 NBRequest::setBlocking(NBEdge* from1, NBEdge* to1,
                        NBEdge* from2, NBEdge* to2) {
     // check whether one of the links has a dead end
-    if (to1 == 0 || to2 == 0) {
+    if (to1 == nullptr || to2 == nullptr) {
         return;
     }
     // get the indices of both links
@@ -490,7 +490,7 @@ bool
 NBRequest::foes(const NBEdge* const from1, const NBEdge* const to1,
                 const NBEdge* const from2, const NBEdge* const to2) const {
     // unconnected edges do not forbid other edges
-    if (to1 == 0 || to2 == 0) {
+    if (to1 == nullptr || to2 == nullptr) {
         return false;
     }
     // get the indices
@@ -510,7 +510,7 @@ NBRequest::forbids(const NBEdge* const possProhibitorFrom, const NBEdge* const p
                    const NBEdge* const possProhibitedFrom, const NBEdge* const possProhibitedTo,
                    bool regardNonSignalisedLowerPriority) const {
     // unconnected edges do not forbid other edges
-    if (possProhibitorTo == 0 || possProhibitedTo == 0) {
+    if (possProhibitorTo == nullptr || possProhibitedTo == nullptr) {
         return false;
     }
     // get the indices
@@ -592,7 +592,7 @@ NBRequest::getResponseString(const NBEdge* const from, const NBEdge::Connection&
     const int fromLane = c.fromLane;
     const int toLane = c.toLane;
     int idx = 0;
-    if (to != 0) {
+    if (to != nullptr) {
         idx = getIndex(from, to);
     }
     std::string result;
@@ -852,7 +852,7 @@ operator<<(std::ostream& os, const NBRequest& r) {
 bool
 NBRequest::mustBrake(const NBEdge* const from, const NBEdge* const to, int fromLane, int toLane, bool includePedCrossings) const {
     // vehicles which do not have a following lane must always decelerate to the end
-    if (to == 0) {
+    if (to == nullptr) {
         return true;
     }
     // get the indices

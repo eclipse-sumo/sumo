@@ -110,8 +110,8 @@ MSTriggeredRerouter::myStartElement(int element,
                                     const SUMOSAXAttributes& attrs) {
     if (element == SUMO_TAG_INTERVAL) {
         bool ok = true;
-        myCurrentIntervalBegin = attrs.getOptSUMOTimeReporting(SUMO_ATTR_BEGIN, 0, ok, -1);
-        myCurrentIntervalEnd = attrs.getOptSUMOTimeReporting(SUMO_ATTR_END, 0, ok, -1);
+        myCurrentIntervalBegin = attrs.getOptSUMOTimeReporting(SUMO_ATTR_BEGIN, nullptr, ok, -1);
+        myCurrentIntervalEnd = attrs.getOptSUMOTimeReporting(SUMO_ATTR_END, nullptr, ok, -1);
     }
     if (element == SUMO_TAG_DEST_PROB_REROUTE) {
         // by giving probabilities of new destinations
@@ -121,7 +121,7 @@ MSTriggeredRerouter::myStartElement(int element,
             throw ProcessError("MSTriggeredRerouter " + getID() + ": No destination edge id given.");
         }
         MSEdge* to = MSEdge::dictionary(dest);
-        if (to == 0) {
+        if (to == nullptr) {
             if (dest == "keepDestination") {
                 to = &mySpecialDest_keepDestination;
             } else if (dest == "terminateRoute") {
@@ -148,7 +148,7 @@ MSTriggeredRerouter::myStartElement(int element,
         // by closing
         std::string closed_id = attrs.getStringSecure(SUMO_ATTR_ID, "");
         MSEdge* closed = MSEdge::dictionary(closed_id);
-        if (closed == 0) {
+        if (closed == nullptr) {
             throw ProcessError("MSTriggeredRerouter " + getID() + ": Edge '" + closed_id + "' to close is not known.");
         }
         myCurrentClosed.push_back(closed);
@@ -162,7 +162,7 @@ MSTriggeredRerouter::myStartElement(int element,
         // by closing lane
         std::string closed_id = attrs.getStringSecure(SUMO_ATTR_ID, "");
         MSLane* closed = MSLane::dictionary(closed_id);
-        if (closed == 0) {
+        if (closed == nullptr) {
             throw ProcessError("MSTriggeredRerouter " + getID() + ": Lane '" + closed_id + "' to close is not known.");
         }
         myCurrentClosedLanes.push_back(closed);
@@ -186,7 +186,7 @@ MSTriggeredRerouter::myStartElement(int element,
             throw ProcessError("MSTriggeredRerouter " + getID() + ": No route id given.");
         }
         const MSRoute* route = MSRoute::dictionary(routeStr);
-        if (route == 0) {
+        if (route == nullptr) {
             throw ProcessError("MSTriggeredRerouter " + getID() + ": Route '" + routeStr + "' does not exist.");
         }
 
@@ -211,7 +211,7 @@ MSTriggeredRerouter::myStartElement(int element,
             throw ProcessError("MSTriggeredRerouter " + getID() + ": No parking area id given.");
         }
         MSParkingArea* pa = static_cast<MSParkingArea*>(MSNet::getInstance()->getStoppingPlace(parkingarea, SUMO_TAG_PARKING_AREA));
-        if (pa == 0) {
+        if (pa == nullptr) {
             throw ProcessError("MSTriggeredRerouter " + getID() + ": Parking area '" + parkingarea + "' is not known.");
         }
         // get the probability to reroute
@@ -325,7 +325,7 @@ MSTriggeredRerouter::getCurrentReroute(SUMOTime time, SUMOVehicle& veh) const {
             }
         }
     }
-    return 0;
+    return nullptr;
 }
 
 
@@ -338,7 +338,7 @@ MSTriggeredRerouter::getCurrentReroute(SUMOTime time) const {
             }
         }
     }
-    return 0;
+    return nullptr;
 }
 
 
@@ -364,7 +364,7 @@ MSTriggeredRerouter::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification 
     // check whether the vehicle shall be rerouted
     const SUMOTime time = MSNet::getInstance()->getCurrentTimeStep();
     const MSTriggeredRerouter::RerouteInterval* rerouteDef = getCurrentReroute(time, veh);
-    if (rerouteDef == 0) {
+    if (rerouteDef == nullptr) {
         return true; // an active interval could appear later
     }
     double prob = myAmInUserMode ? myUserProbability : myProbability;
@@ -375,7 +375,7 @@ MSTriggeredRerouter::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification 
         return true; // waiting time may be reached later
     }
     // if we have a closingLaneReroute, only vehicles with a rerouting device can profit from rerouting (otherwise, edge weights will not reflect local jamming)
-    const bool hasReroutingDevice = veh.getDevice(typeid(MSDevice_Routing)) != 0;
+    const bool hasReroutingDevice = veh.getDevice(typeid(MSDevice_Routing)) != nullptr;
     if (rerouteDef->closedLanes.size() > 0 && !hasReroutingDevice) {
         return true; // an active interval could appear later
     }
@@ -391,7 +391,7 @@ MSTriggeredRerouter::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification 
     if (rerouteDef->parkProbs.getOverallProb() > 0) {
         bool newDestination = false;
         MSParkingArea* newParkingArea = rerouteParkingArea(rerouteDef, veh, newDestination);
-        if (newParkingArea != 0) {
+        if (newParkingArea != nullptr) {
             const MSEdge* newEdge = &(newParkingArea->getLane().getEdge());
 
             SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = hasReroutingDevice
@@ -448,7 +448,7 @@ MSTriggeredRerouter::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification 
     // get rerouting params
     const MSRoute* newRoute = rerouteDef->routeProbs.getOverallProb() > 0 ? rerouteDef->routeProbs.get() : 0;
     // we will use the route if given rather than calling our own dijsktra...
-    if (newRoute != 0) {
+    if (newRoute != nullptr) {
 #ifdef DEBUG_REROUTER
         if (DEBUGCOND) {
             std::cout << "    replacedRoute from routeDist " << newRoute->getID() << "\n";
@@ -478,7 +478,7 @@ MSTriggeredRerouter::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification 
             } else {
                 newEdge = lastEdge;
             }
-        } else if (newEdge == 0) {
+        } else if (newEdge == nullptr) {
 #ifdef DEBUG_REROUTER
             if (DEBUGCOND) {
                 std::cout << "   could not find new edge!\n";
@@ -717,7 +717,7 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
                             maxValues["relfreespace"] = parkValues["relfreespace"];
                         }
 
-                        MSRoute routeToPark(route.getID() + "!topark#1", edgesToPark, false, &c == &RGBColor::DEFAULT_COLOR ? 0 : new RGBColor(c), route.getStops());
+                        MSRoute routeToPark(route.getID() + "!topark#1", edgesToPark, false, &c == &RGBColor::DEFAULT_COLOR ? nullptr : new RGBColor(c), route.getStops());
 
                         // The distance from the current edge to the new parking area
                         parkValues["distanceto"] = routeToPark.getDistanceBetween(veh.getPositionOnLane(), pa->getBeginLanePosition(),
@@ -752,7 +752,7 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
                             parkValues["timefrom"] = 0;
                         } else {
                             MSRoute routeFromPark(route.getID() + "!frompark#1", edgesFromPark, false,
-                                                  &c == &RGBColor::DEFAULT_COLOR ? 0 : new RGBColor(c), route.getStops());
+                                                  &c == &RGBColor::DEFAULT_COLOR ? nullptr : new RGBColor(c), route.getStops());
                             // The distance from the new parking area to the end of the route
                             parkValues["distancefrom"] = routeFromPark.getDistanceBetween(pa->getBeginLanePosition(), routeFromPark.getLastEdge()->getLength(),
                                                          routeFromPark.begin(), routeFromPark.end() - 1, includeInternalLengths);
@@ -816,7 +816,7 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
             }
 
             // get the parking area with minimum cost
-            if (nearParkArea == 0 || parkingCost < minParkingCost) {
+            if (nearParkArea == nullptr || parkingCost < minParkingCost) {
                 minParkingCost = parkingCost;
                 nearParkArea = it->first;
             }

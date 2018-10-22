@@ -151,18 +151,18 @@ main(int argc, char** argv) {
         if (!oc.isSet("output-file") && (oc.isSet("timeline-file") || !oc.isSet("emission-output"))) {
             throw ProcessError("The output file must be given.");
         }
-        std::ostream* out = 0;
+        std::ostream* out = nullptr;
         if (oc.isSet("output-file")) {
             out = new std::ofstream(oc.getString("output-file").c_str());
         }
         OutputDevice::createDeviceByOption("emission-output", "emission-export", "emission_file.xsd");
-        OutputDevice* xmlOut = 0;
+        OutputDevice* xmlOut = nullptr;
         if (oc.isSet("emission-output")) {
             xmlOut = &OutputDevice::getDeviceByOption("emission-output");
-        } else if (out == 0) {
+        } else if (out == nullptr) {
             out = &std::cout;
         }
-        std::ostream* sumOut = 0;
+        std::ostream* sumOut = nullptr;
         if (oc.isSet("sum-output")) {
             sumOut = new std::ofstream(oc.getString("sum-output").c_str());
             (*sumOut) << "Vehicle,Cycle,Time,Speed,Gradient,Acceleration,FC,FCel,CO2,NOx,CO,HC,PM" << std::endl;
@@ -221,7 +221,7 @@ main(int argc, char** argv) {
                 std::cout << "sums" << std::endl
                           << "length:" << l << std::endl;
             }
-            if (sumOut != 0) {
+            if (sumOut != nullptr) {
                 (*sumOut) << oc.getString("emission-class") << "," << lr.getFileName() << "," << time << ","
                           << (l / time * 3.6) << "," << (totalS / time) << "," << (totalA / time) << ",";
                 handler.writeNormedSums(*sumOut, "", l);

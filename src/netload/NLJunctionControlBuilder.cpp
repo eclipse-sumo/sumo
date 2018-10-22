@@ -73,7 +73,7 @@ NLJunctionControlBuilder::NLJunctionControlBuilder(MSNet& net, NLDetectorBuilder
     myNet(net),
     myDetectorBuilder(db),
     myOffset(0),
-    myJunctions(0),
+    myJunctions(nullptr),
     myNetIsLoaded(false) {
     myLogicControl = new MSTLLogicControl();
     myJunctions = new MSJunctionControl();
@@ -107,10 +107,10 @@ NLJunctionControlBuilder::openJunction(const std::string& id,
 
 void
 NLJunctionControlBuilder::closeJunction(const std::string& basePath) {
-    if (myJunctions == 0) {
+    if (myJunctions == nullptr) {
         throw ProcessError("Information about the number of nodes was missing.");
     }
-    MSJunction* junction = 0;
+    MSJunction* junction = nullptr;
     switch (myType) {
         case NODETYPE_NOJUNCTION:
         case NODETYPE_DEAD_END:
@@ -145,7 +145,7 @@ NLJunctionControlBuilder::closeJunction(const std::string& basePath) {
         default:
             throw InvalidArgument("False junction logic type.");
     }
-    if (junction != 0) {
+    if (junction != nullptr) {
         if (!myJunctions->add(myActiveID, junction)) {
             throw InvalidArgument("Another junction with the id '" + myActiveID + "' exists.");
         }
@@ -157,7 +157,7 @@ NLJunctionControlBuilder::closeJunction(const std::string& basePath) {
 MSJunctionControl*
 NLJunctionControlBuilder::build() const {
     MSJunctionControl* js = myJunctions;
-    myJunctions = 0;
+    myJunctions = nullptr;
     return js;
 }
 
@@ -217,12 +217,12 @@ NLJunctionControlBuilder::closeTrafficLightLogic(const std::string& basePath) {
     }
     SUMOTime firstEventOffset = 0;
     int step = 0;
-    MSTrafficLightLogic* existing = 0;
+    MSTrafficLightLogic* existing = nullptr;
     MSSimpleTrafficLightLogic::Phases::const_iterator i = myActivePhases.begin();
     if (myLogicType != TLTYPE_RAIL) {
         if (myAbsDuration == 0) {
             existing = getTLLogicControlToUse().get(myActiveKey, myActiveProgram);
-            if (existing == 0) {
+            if (existing == nullptr) {
                 throw InvalidArgument("TLS program '" + myActiveProgram + "' for TLS '" + myActiveKey + "' has a duration of 0.");
             } else {
                 // only modify the offset of an existing logic
@@ -245,7 +245,7 @@ NLJunctionControlBuilder::closeTrafficLightLogic(const std::string& basePath) {
             ++i;
         }
         firstEventOffset = (*i)->duration - offset + myNet.getCurrentTimeStep();
-        if (existing != 0) {
+        if (existing != nullptr) {
             existing->changeStepAndDuration(getTLLogicControlToUse(),
                                             myNet.getCurrentTimeStep(), step, (*i)->duration - offset);
             return;
@@ -255,7 +255,7 @@ NLJunctionControlBuilder::closeTrafficLightLogic(const std::string& basePath) {
     if (myActiveProgram == "") {
         myActiveProgram = "default";
     }
-    MSTrafficLightLogic* tlLogic = 0;
+    MSTrafficLightLogic* tlLogic = nullptr;
     // build the tls-logic in dependance to its type
     switch (myLogicType) {
         case TLTYPE_SWARM_BASED:
@@ -319,7 +319,7 @@ NLJunctionControlBuilder::closeTrafficLightLogic(const std::string& basePath) {
             throw ProcessError("Invalid traffic light type '" + toString(myLogicType) + "'");
     }
     myActivePhases.clear();
-    if (tlLogic != 0) {
+    if (tlLogic != nullptr) {
         if (getTLLogicControlToUse().add(myActiveKey, myActiveProgram, tlLogic)) {
             if (myNetIsLoaded) {
                 tlLogic->init(myDetectorBuilder);
@@ -461,7 +461,7 @@ NLJunctionControlBuilder::buildTLLogics() {
         throw ProcessError("Traffic lights could not be built.");
     }
     MSTLLogicControl* ret = myLogicControl;
-    myLogicControl = 0;
+    myLogicControl = nullptr;
     return ret;
 }
 
@@ -475,7 +475,7 @@ NLJunctionControlBuilder::addParam(const std::string& key,
 
 MSTLLogicControl&
 NLJunctionControlBuilder::getTLLogicControlToUse() const {
-    if (myLogicControl != 0) {
+    if (myLogicControl != nullptr) {
         return *myLogicControl;
     }
     return myNet.getTLSControl();
@@ -506,10 +506,10 @@ NLJunctionControlBuilder::postLoadInitialization() {
 
 MSJunction*
 NLJunctionControlBuilder::retrieve(const std::string id) {
-    if (myJunctions != 0) {
+    if (myJunctions != nullptr) {
         return myJunctions->get(id);
     } else {
-        return 0;
+        return nullptr;
     }
 }
 

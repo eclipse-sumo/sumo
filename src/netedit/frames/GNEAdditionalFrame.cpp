@@ -237,7 +237,7 @@ GNEAdditionalFrame::AdditionalAttributeSingle::AdditionalAttributeSingle(Additio
     myAdditionalAttributesParent(additionalAttributesParent),
     myAdditionalAttr(SUMO_ATTR_NOTHING) {
     // Create visual elements
-    myLabel = new FXLabel(this, "name", 0, GUIDesignLabelAttribute);
+    myLabel = new FXLabel(this, "name", nullptr, GUIDesignLabelAttribute);
     myTextFieldInt = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE_TEXT, GUIDesignTextFieldInt);
     myTextFieldReal = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE_TEXT, GUIDesignTextFieldReal);
     myTextFieldStrings = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE_TEXT, GUIDesignTextField);
@@ -437,7 +437,7 @@ GNEAdditionalFrame::AdditionalAttributes::AdditionalAttributes(GNEAdditionalFram
         myVectorOfsingleAdditionalParameter.push_back(new AdditionalAttributeSingle(this));
     }
     // Create help button
-    new FXButton(this, "Help", 0, this, MID_HELP, GUIDesignButtonRectangular);
+    new FXButton(this, "Help", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
 }
 
 
@@ -540,8 +540,8 @@ GNEAdditionalFrame::SelectorLaneParents::SelectorLaneParents(GNEAdditionalFrame*
     FXGroupBox(additionalFrameParent->myContentFrame, "Lane Selector", GUIDesignGroupBoxFrame),
     myAdditionalFrameParent(additionalFrameParent) {
     // create start and stop buttons
-    myStopSelectingButton = new FXButton(this, "Stop selecting", 0, this, MID_GNE_ADDITIONALFRAME_STOPSELECTION, GUIDesignButton);
-    myAbortSelectingButton = new FXButton(this, "Abort selecting", 0, this, MID_GNE_ADDITIONALFRAME_ABORTSELECTION, GUIDesignButton);
+    myStopSelectingButton = new FXButton(this, "Stop selecting", nullptr, this, MID_GNE_ADDITIONALFRAME_STOPSELECTION, GUIDesignButton);
+    myAbortSelectingButton = new FXButton(this, "Abort selecting", nullptr, this, MID_GNE_ADDITIONALFRAME_ABORTSELECTION, GUIDesignButton);
     // disable stop and abort functions as init
     myStopSelectingButton->disable();
     myAbortSelectingButton->disable();
@@ -634,13 +634,13 @@ void
 GNEAdditionalFrame::SelectorLaneParents::abortConsecutiveLaneSelector() {
      // reset color of all candidate lanes
     for (auto i : myCandidateLanes) {
-        i->setSpecialColor(0);
+        i->setSpecialColor(nullptr);
     }
     // clear candidate colors
     myCandidateLanes.clear();
     // reset color of all selected lanes
     for (auto i : mySelectedLanes) {
-        i.first->setSpecialColor(0);
+        i.first->setSpecialColor(nullptr);
     }
     // clear selected lanes
     mySelectedLanes.clear();
@@ -682,7 +682,7 @@ GNEAdditionalFrame::SelectorLaneParents::addSelectedLane(GNELane *lane, const Po
     // restore original color of candidates (except already selected)
     for (auto i : myCandidateLanes) {
         if(!isLaneSelected(i)) {
-            i->setSpecialColor(0);
+            i->setSpecialColor(nullptr);
         }
     }
     // clear candidate lanes
@@ -776,16 +776,16 @@ GNEAdditionalFrame::NeteditAttributes::NeteditAttributes(GNEAdditionalFrame* add
     myReferencePointMatchBox->appendItem("reference center");
     // Create Frame for Length Label and textField
     FXHorizontalFrame* lengthFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    myLengthLabel = new FXLabel(lengthFrame, toString(SUMO_ATTR_LENGTH).c_str(), 0, GUIDesignLabelAttribute);
+    myLengthLabel = new FXLabel(lengthFrame, toString(SUMO_ATTR_LENGTH).c_str(), nullptr, GUIDesignLabelAttribute);
     myLengthTextField = new FXTextField(lengthFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE_TEXT, GUIDesignTextField);
     myLengthTextField->setText("10");
     // Create Frame for block movement label and checkBox (By default disabled)
     FXHorizontalFrame* blockMovement = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    myBlockLabel = new FXLabel(blockMovement, "block move", 0, GUIDesignLabelAttribute);
+    myBlockLabel = new FXLabel(blockMovement, "block move", nullptr, GUIDesignLabelAttribute);
     myBlockMovementCheckButton = new FXCheckButton(blockMovement, "false", this, MID_GNE_SET_ATTRIBUTE_BOOL, GUIDesignCheckButtonAttribute);
     myBlockMovementCheckButton->setCheck(false);
     // Create help button
-    helpReferencePoint = new FXButton(this, "Help", 0, this, MID_HELP, GUIDesignButtonRectangular);
+    helpReferencePoint = new FXButton(this, "Help", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
     // Set visible items
     myReferencePointMatchBox->setNumVisible((int)myReferencePointMatchBox->getNumItems());
 }
@@ -914,7 +914,7 @@ GNEAdditionalFrame::NeteditAttributes::onCmdHelp(FXObject*, FXSelector, void*) {
             << "- Block movement: if is enabled, the created additional element will be blocked. i.e. cannot be moved with\n"
             << "  the mouse. This option can be modified inspecting element.";
     // Create label with the help text
-    new FXLabel(additionalNeteditAttributesHelpDialog, help.str().c_str(), 0, GUIDesignLabelFrameInformation);
+    new FXLabel(additionalNeteditAttributesHelpDialog, help.str().c_str(), nullptr, GUIDesignLabelFrameInformation);
     // Create horizontal separator
     new FXHorizontalSeparator(additionalNeteditAttributesHelpDialog, GUIDesignHorizontalSeparator);
     // Create frame for OK Button
@@ -977,7 +977,7 @@ GNEAdditionalFrame::SelectorAdditionalParent::SelectorAdditionalParent(GNEAdditi
     myAdditionalFrameParent(additionalFrameParent),
     myAdditionalTypeParent(SUMO_TAG_NOTHING) {
     // Create label with the type of SelectorAdditionalParent
-    myFirstAdditionalParentsLabel = new FXLabel(this, "No additional selected", 0, GUIDesignLabelLeftThick);
+    myFirstAdditionalParentsLabel = new FXLabel(this, "No additional selected", nullptr, GUIDesignLabelLeftThick);
     // Create list
     myFirstAdditionalParentsList = new FXList(this, this, MID_GNE_SET_TYPE, GUIDesignListSingleElement, 0, 0, 0, 100);
     // Hide List
@@ -1070,10 +1070,10 @@ GNEAdditionalFrame::SelectorEdgeChilds::SelectorEdgeChilds(GNEAdditionalFrame* a
     FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
 
     // Create button for clear selection
-    myClearEdgesSelection = new FXButton(buttonsFrame, "Clear", 0, this, MID_GNE_ADDITIONALFRAME_CLEARSELECTION, GUIDesignButtonRectangular);
+    myClearEdgesSelection = new FXButton(buttonsFrame, "Clear", nullptr, this, MID_GNE_ADDITIONALFRAME_CLEARSELECTION, GUIDesignButtonRectangular);
 
     // Create button for invert selection
-    myInvertEdgesSelection = new FXButton(buttonsFrame, "Invert", 0, this, MID_GNE_ADDITIONALFRAME_INVERTSELECTION, GUIDesignButtonRectangular);
+    myInvertEdgesSelection = new FXButton(buttonsFrame, "Invert", nullptr, this, MID_GNE_ADDITIONALFRAME_INVERTSELECTION, GUIDesignButtonRectangular);
 
     // Hide List
     hideSelectorEdgeChildsModul();
@@ -1225,10 +1225,10 @@ GNEAdditionalFrame::SelectorLaneChilds::SelectorLaneChilds(GNEAdditionalFrame* a
     FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
 
     // Create button for clear selection
-    clearLanesSelection = new FXButton(buttonsFrame, "clear", 0, this, MID_GNE_ADDITIONALFRAME_CLEARSELECTION, GUIDesignButtonRectangular);
+    clearLanesSelection = new FXButton(buttonsFrame, "clear", nullptr, this, MID_GNE_ADDITIONALFRAME_CLEARSELECTION, GUIDesignButtonRectangular);
 
     // Create button for invert selection
-    invertLanesSelection = new FXButton(buttonsFrame, "invert", 0, this, MID_GNE_ADDITIONALFRAME_INVERTSELECTION, GUIDesignButtonRectangular);
+    invertLanesSelection = new FXButton(buttonsFrame, "invert", nullptr, this, MID_GNE_ADDITIONALFRAME_INVERTSELECTION, GUIDesignButtonRectangular);
 
     // Hide List
     hideSelectorLaneChildsModul();
@@ -1559,8 +1559,8 @@ GNEAdditionalFrame::buildAdditionalOverEdge(std::map<SumoXMLAttr, std::string> &
         // Refresh additional Parent Selector (For additionals that have a limited number of childs)
         mySelectorAdditionalParent->refreshSelectorAdditionalParentModul();
         // clear selected eddges and lanes
-        mySelectorEdgeChilds->onCmdClearSelection(0, 0, 0);
-        mySelectorLaneChilds->onCmdClearSelection(0, 0, 0);
+        mySelectorEdgeChilds->onCmdClearSelection(nullptr, 0, nullptr);
+        mySelectorLaneChilds->onCmdClearSelection(nullptr, 0, nullptr);
         return true;
     } else {
         return false;
@@ -1603,8 +1603,8 @@ GNEAdditionalFrame::buildAdditionalOverLane(std::map<SumoXMLAttr, std::string> &
         // Refresh additional Parent Selector (For additionals that have a limited number of childs)
         mySelectorAdditionalParent->refreshSelectorAdditionalParentModul();
         // clear selected eddges and lanes
-        mySelectorEdgeChilds->onCmdClearSelection(0, 0, 0);
-        mySelectorLaneChilds->onCmdClearSelection(0, 0, 0);
+        mySelectorEdgeChilds->onCmdClearSelection(nullptr, 0, nullptr);
+        mySelectorLaneChilds->onCmdClearSelection(nullptr, 0, nullptr);
         return true;
     } else {
         return false;
@@ -1686,8 +1686,8 @@ GNEAdditionalFrame::buildAdditionalOverView(std::map<SumoXMLAttr, std::string> &
         // Refresh additional Parent Selector (For additionals that have a limited number of childs)
         mySelectorAdditionalParent->refreshSelectorAdditionalParentModul();
         // clear selected eddges and lanes
-        mySelectorEdgeChilds->onCmdClearSelection(0, 0, 0);
-        mySelectorLaneChilds->onCmdClearSelection(0, 0, 0);
+        mySelectorEdgeChilds->onCmdClearSelection(nullptr, 0, nullptr);
+        mySelectorLaneChilds->onCmdClearSelection(nullptr, 0, nullptr);
         return true;
     } else {
         return false;

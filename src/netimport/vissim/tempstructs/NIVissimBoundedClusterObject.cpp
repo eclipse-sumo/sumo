@@ -29,7 +29,7 @@
 NIVissimBoundedClusterObject::ContType NIVissimBoundedClusterObject::myDict;
 
 NIVissimBoundedClusterObject::NIVissimBoundedClusterObject()
-    : myBoundary(0), myClusterID(-1) {
+    : myBoundary(nullptr), myClusterID(-1) {
     myDict.insert(this);
 }
 

@@ -259,7 +259,7 @@ GNEFrame::ACHierarchy::showAttributeCarrierParents() {
                 FXTreeItem* edgeItem = myTreelist->insertItem(nullptr, junctionDestinyItem, edge->getHierarchyName().c_str(), edge->getIcon(), edge->getIcon());
                 edgeItem->setExpanded(true);
                 // Create lane item
-                FXTreeItem* laneItem = myTreelist->insertItem(0, edgeItem, lane->getHierarchyName().c_str(), lane->getIcon(), lane->getIcon());
+                FXTreeItem* laneItem = myTreelist->insertItem(nullptr, edgeItem, lane->getHierarchyName().c_str(), lane->getIcon(), lane->getIcon());
                 laneItem->setExpanded(true);
                 // Save items in myTreeItemToACMap
                 myTreeItemToACMap[junctionSourceItem] = edge->getGNEJunctionSource();
@@ -300,7 +300,7 @@ GNEFrame::ACHierarchy::showAttributeCarrierParents() {
                 FXTreeItem* edgeToItem = myTreelist->insertItem(nullptr, nullptr, connection->getEdgeTo()->getHierarchyName().c_str(), connection->getEdgeTo()->getIcon(), connection->getEdgeTo()->getIcon());
                 edgeToItem->setExpanded(true);
                 // create connection item
-                FXTreeItem* connectionItem = myTreelist->insertItem(0, edgeToItem, connection->getHierarchyName().c_str(), connection->getIcon(), connection->getIcon());
+                FXTreeItem* connectionItem = myTreelist->insertItem(nullptr, edgeToItem, connection->getHierarchyName().c_str(), connection->getIcon(), connection->getIcon());
                 connectionItem->setExpanded(true);
                 // Save items in myTreeItemToACMap
                 myTreeItemToACMap[edgeFromItem] = connection->getEdgeFrom();
@@ -324,7 +324,7 @@ GNEFrame::ACHierarchy::showAttributeCarrierParents() {
                     if (tagValue.hasParent() && tagValue.getParentTag() != SUMO_TAG_LANE) {
                         GNEAdditional* additionalParent = myFrameParent->getViewNet()->getNet()->retrieveAdditional(tagValue.getParentTag(), additional->getAttribute(GNE_ATTR_PARENT));
                         // create additional parent item
-                        FXTreeItem* additionalParentItem = myTreelist->insertItem(0, 0, additionalParent->getHierarchyName().c_str(), additionalParent->getIcon(), additionalParent->getIcon());
+                        FXTreeItem* additionalParentItem = myTreelist->insertItem(nullptr, nullptr, additionalParent->getHierarchyName().c_str(), additionalParent->getIcon(), additionalParent->getIcon());
                         additionalParentItem->setExpanded(true);
                         // Save it in myTreeItemToACMap
                         myTreeItemToACMap[additionalParentItem] = additionalParent;
@@ -358,7 +358,7 @@ GNEFrame::ACHierarchy::showAttributeCarrierParents() {
                         FXTreeItem* edgeItem = myTreelist->insertItem(nullptr, junctionDestinyItem, edge->getHierarchyName().c_str(), edge->getIcon(), edge->getIcon());
                         edgeItem->setExpanded(true);
                         // Create lane item
-                        FXTreeItem* laneItem = myTreelist->insertItem(0, edgeItem, lane->getHierarchyName().c_str(), lane->getIcon(), lane->getIcon());
+                        FXTreeItem* laneItem = myTreelist->insertItem(nullptr, edgeItem, lane->getHierarchyName().c_str(), lane->getIcon(), lane->getIcon());
                         laneItem->setExpanded(true);
                         // Save items in myTreeItemToACMap
                         myTreeItemToACMap[junctionSourceItem] = edge->getGNEJunctionSource();
@@ -380,7 +380,7 @@ GNEFrame::ACHierarchy::showAttributeCarrierParents() {
                         FXTreeItem* edgeItem = myTreelist->insertItem(nullptr, junctionDestinyItem, edge->getHierarchyName().c_str(), edge->getIcon(), edge->getIcon());
                         edgeItem->setExpanded(true);
                         // Create lane item
-                        FXTreeItem* laneItem = myTreelist->insertItem(0, edgeItem, lanes.front()->getHierarchyName().c_str(), lanes.front()->getIcon(), lanes.front()->getIcon());
+                        FXTreeItem* laneItem = myTreelist->insertItem(nullptr, edgeItem, lanes.front()->getHierarchyName().c_str(), lanes.front()->getIcon(), lanes.front()->getIcon());
                         laneItem->setExpanded(true);
                         // Save items in myTreeItemToACMap
                         myTreeItemToACMap[junctionSourceItem] = edge->getGNEJunctionSource();
@@ -450,7 +450,7 @@ GNEFrame::ACHierarchy::showAttributeCarrierChilds(GNEAttributeCarrier* AC, FXTre
                 // insert incoming connections of lanes (by default isn't expanded)
                 if (lane->getGNEIncomingConnections().size() > 0) {
                     std::vector<GNEConnection*> incomingLaneConnections = lane->getGNEIncomingConnections();
-                    FXTreeItem* incomingConnections = myTreelist->insertItem(0, laneItem, "Incomings", incomingLaneConnections.front()->getIcon(), lane->getGNEIncomingConnections().front()->getIcon());
+                    FXTreeItem* incomingConnections = myTreelist->insertItem(nullptr, laneItem, "Incomings", incomingLaneConnections.front()->getIcon(), lane->getGNEIncomingConnections().front()->getIcon());
                     myTreeItemsConnections.insert(incomingConnections);
                     incomingConnections->setExpanded(false);
                     // insert incoming connections
@@ -461,7 +461,7 @@ GNEFrame::ACHierarchy::showAttributeCarrierChilds(GNEAttributeCarrier* AC, FXTre
                 // insert outcoming connections of lanes (by default isn't expanded)
                 if (lane->getGNEOutcomingConnections().size() > 0) {
                     std::vector<GNEConnection*> outcomingLaneConnections = lane->getGNEOutcomingConnections();
-                    FXTreeItem* outgoingConnections = myTreelist->insertItem(0, laneItem, "Outcomings", outcomingLaneConnections.front()->getIcon(), lane->getGNEOutcomingConnections().front()->getIcon());
+                    FXTreeItem* outgoingConnections = myTreelist->insertItem(nullptr, laneItem, "Outcomings", outcomingLaneConnections.front()->getIcon(), lane->getGNEOutcomingConnections().front()->getIcon());
                     myTreeItemsConnections.insert(outgoingConnections);
                     outgoingConnections->setExpanded(false);
                     // insert outcoming connections
@@ -502,7 +502,7 @@ GNEFrame::ACHierarchy::showAttributeCarrierChilds(GNEAttributeCarrier* AC, FXTre
 
 FXTreeItem*
 GNEFrame::ACHierarchy::addACIntoList(GNEAttributeCarrier* AC, FXTreeItem* itemParent) {
-    FXTreeItem* item = myTreelist->insertItem(0, itemParent, AC->getHierarchyName().c_str(), AC->getIcon(), AC->getIcon());
+    FXTreeItem* item = myTreelist->insertItem(nullptr, itemParent, AC->getHierarchyName().c_str(), AC->getIcon(), AC->getIcon());
     myTreeItemToACMap[item] = AC;
     item->setExpanded(true);
     return item;
@@ -521,7 +521,7 @@ GNEFrame::GenericParametersEditor::GenericParametersEditor(GNEFrame* inspectorFr
     myGenericParameters = new std::vector<std::pair<std::string, std::string> >;
     // create textfield and buttons
     myTextFieldGenericParameter = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    myEditGenericParameterButton = new FXButton(this, "Edit generic parameter", 0, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButton);
+    myEditGenericParameterButton = new FXButton(this, "Edit generic parameter", nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButton);
 }
 
 
@@ -725,7 +725,7 @@ GNEFrame::GNEFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet
     myHeaderLeftFrame->hide();
 
     // Create titel frame
-    myFrameHeaderLabel = new FXLabel(myHeaderFrame, frameLabel.c_str(), 0, GUIDesignLabelFrameInformation);
+    myFrameHeaderLabel = new FXLabel(myHeaderFrame, frameLabel.c_str(), nullptr, GUIDesignLabelFrameInformation);
 
     // Create frame for right elements of header (By default unused)
     myHeaderRightFrame = new FXHorizontalFrame(myHeaderFrame, GUIDesignAuxiliarHorizontalFrame);

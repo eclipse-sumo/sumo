@@ -269,14 +269,14 @@ void
 GUILane::drawLinkRules(const GUIVisualizationSettings& s, const GUINet& net) const {
     int noLinks = (int)myLinks.size();
     if (noLinks == 0) {
-        drawLinkRule(s, net, 0, getShape(), 0, 0);
+        drawLinkRule(s, net, nullptr, getShape(), 0, 0);
         return;
     }
     if (getEdge().isCrossing()) {
         // draw rules at the start and end of the crossing
         MSLink* link = MSLinkContHelper::getConnectingLink(*getLogicalPredecessorLane(), *this);
         MSLink* link2 = myLinks.front();
-        if (link2->getTLLogic() == 0) {
+        if (link2->getTLLogic() == nullptr) {
             link2 = link;
         }
         PositionVector shape = getShape();
@@ -302,7 +302,7 @@ GUILane::drawLinkRule(const GUIVisualizationSettings& s, const GUINet& net, MSLi
     const Position& end = shape.back();
     const Position& f = shape[-2];
     const double rot = RAD2DEG(atan2((end.x() - f.x()), (f.y() - end.y())));
-    if (link == 0) {
+    if (link == nullptr) {
         GLHelper::setColor(GUIVisualizationSettings::getLinkColor(LINKSTATE_DEADEND));
         glPushMatrix();
         glTranslated(end.x(), end.y(), 0);
@@ -428,7 +428,7 @@ GUILane::drawLane2LaneConnections(double exaggeration) const {
     }
     for (std::vector<MSLink*>::const_iterator i = myLinks.begin(); i != myLinks.end(); ++i) {
         const MSLane* connected = (*i)->getLane();
-        if (connected == 0) {
+        if (connected == nullptr) {
             continue;
         }
         GLHelper::setColor(GUIVisualizationSettings::getLinkColor((*i)->getState()));
@@ -776,30 +776,30 @@ GUILane::getPopUpMenu(GUIMainWindow& app,
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
     //
-    new FXMenuCommand(ret, "Copy edge name to clipboard", 0, ret, MID_COPY_EDGE_NAME);
+    new FXMenuCommand(ret, "Copy edge name to clipboard", nullptr, ret, MID_COPY_EDGE_NAME);
     buildNameCopyPopupEntry(ret);
     buildSelectionPopupEntry(ret);
     //
     buildShowParamsPopupEntry(ret, false);
     const double pos = interpolateGeometryPosToLanePos(myShape.nearest_offset_to_point2D(parent.getPositionInformation()));
     const double height = myShape.positionAtOffset2D(myShape.nearest_offset_to_point2D(parent.getPositionInformation())).z();
-    new FXMenuCommand(ret, ("pos: " + toString(pos) + " height: " + toString(height)).c_str(), 0, 0, 0);
+    new FXMenuCommand(ret, ("pos: " + toString(pos) + " height: " + toString(height)).c_str(), nullptr, nullptr, 0);
     new FXMenuSeparator(ret);
     buildPositionCopyEntry(ret, false);
     new FXMenuSeparator(ret);
     if (myAmClosed) {
         if (myPermissionChanges.empty()) {
-            new FXMenuCommand(ret, "Reopen lane", 0, &parent, MID_CLOSE_LANE);
-            new FXMenuCommand(ret, "Reopen edge", 0, &parent, MID_CLOSE_EDGE);
+            new FXMenuCommand(ret, "Reopen lane", nullptr, &parent, MID_CLOSE_LANE);
+            new FXMenuCommand(ret, "Reopen edge", nullptr, &parent, MID_CLOSE_EDGE);
         } else {
-            new FXMenuCommand(ret, "Reopen lane (override rerouter)", 0, &parent, MID_CLOSE_LANE);
-            new FXMenuCommand(ret, "Reopen edge (override rerouter)", 0, &parent, MID_CLOSE_EDGE);
+            new FXMenuCommand(ret, "Reopen lane (override rerouter)", nullptr, &parent, MID_CLOSE_LANE);
+            new FXMenuCommand(ret, "Reopen edge (override rerouter)", nullptr, &parent, MID_CLOSE_EDGE);
         }
     } else {
-        new FXMenuCommand(ret, "Close lane", 0, &parent, MID_CLOSE_LANE);
-        new FXMenuCommand(ret, "Close edge", 0, &parent, MID_CLOSE_EDGE);
+        new FXMenuCommand(ret, "Close lane", nullptr, &parent, MID_CLOSE_LANE);
+        new FXMenuCommand(ret, "Close edge", nullptr, &parent, MID_CLOSE_EDGE);
     }
-    new FXMenuCommand(ret, "Add rerouter", 0, &parent, MID_ADD_REROUTER);
+    new FXMenuCommand(ret, "Add rerouter", nullptr, &parent, MID_ADD_REROUTER);
     return ret;
 }
 
@@ -928,7 +928,7 @@ GUILane::setFunctionalColor(const GUIColorer& c, RGBColor& col) const {
             if (myEdge->isCrossing()) {
                 // determine priority to decide color
                 MSLink* link = MSLinkContHelper::getConnectingLink(*getLogicalPredecessorLane(), *this);
-                if (link->havePriority() || link->getTLLogic() != 0) {
+                if (link->havePriority() || link->getTLLogic() != nullptr) {
                     col = RGBColor(230, 230, 230);
                 } else {
                     col = RGBColor(26, 26, 26);

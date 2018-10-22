@@ -265,11 +265,11 @@ RGBColor::parseColorReporting(
     ok = false;
     std::ostringstream oss;
     oss << "Attribute 'color' in definition of ";
-    if (objectid == 0) {
+    if (objectid == nullptr) {
         oss << "a ";
     }
     oss << objecttype;
-    if (objectid != 0) {
+    if (objectid != nullptr) {
         oss << " '" << objectid << "'";
     }
     oss << " is not a valid color.";

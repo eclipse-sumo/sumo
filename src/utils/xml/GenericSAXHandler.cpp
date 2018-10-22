@@ -42,7 +42,7 @@ GenericSAXHandler::GenericSAXHandler(
     StringBijection<int>::Entry* tags, int terminatorTag,
     StringBijection<int>::Entry* attrs, int terminatorAttr,
     const std::string& file, const std::string& expectedRoot)
-    : myParentHandler(0), myParentIndicator(SUMO_TAG_NOTHING), myFileName(file), myExpectedRoot(expectedRoot), mySchemaSeen(false) {
+    : myParentHandler(nullptr), myParentIndicator(SUMO_TAG_NOTHING), myFileName(file), myExpectedRoot(expectedRoot), mySchemaSeen(false) {
     int i = 0;
     while (tags[i].key != terminatorTag) {
         myTagMap.insert(TagMap::value_type(tags[i].str, tags[i].key));
@@ -152,7 +152,7 @@ GenericSAXHandler::endElement(const XMLCh* const /*uri*/,
         if (myParentHandler && myParentIndicator == element) {
             XMLSubSys::setHandler(*myParentHandler);
             myParentIndicator = SUMO_TAG_NOTHING;
-            myParentHandler = 0;
+            myParentHandler = nullptr;
         }
     }
 }

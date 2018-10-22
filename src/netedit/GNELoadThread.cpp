@@ -82,7 +82,7 @@ GNELoadThread::run() {
     MsgHandler::getErrorInstance()->addRetriever(myErrorRetriever);
     MsgHandler::getWarningInstance()->addRetriever(myWarningRetriever);
 
-    GNENet* net = 0;
+    GNENet* net = nullptr;
 
     // try to load the given configuration
     OptionsCont& oc = OptionsCont::getOptions();
@@ -172,7 +172,7 @@ GNELoadThread::run() {
             WRITE_ERROR("Failed to build network.");
             delete net;
             delete netBuilder;
-            net = 0;
+            net = nullptr;
         } catch (std::exception& e) {
             WRITE_ERROR(e.what());
 #ifdef _DEBUG
@@ -180,7 +180,7 @@ GNELoadThread::run() {
 #endif
             delete net;
             delete netBuilder;
-            net = 0;
+            net = nullptr;
         }
     }
     // only a single setting file is supported
@@ -330,7 +330,7 @@ GNELoadThread::loadConfigOrNet(const std::string& file, bool isNet, bool useStar
     myFile = file;
     myLoadNet = isNet;
     if (myFile != "" && !useStartupOptions) {
-        OptionsIO::setArgs(0, 0);
+        OptionsIO::setArgs(0, nullptr);
     }
     myNewNet = newNet;
     start();

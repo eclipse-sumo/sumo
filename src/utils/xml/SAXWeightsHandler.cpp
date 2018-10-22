@@ -79,13 +79,13 @@ void SAXWeightsHandler::myStartElement(int element,
     switch (element) {
         case SUMO_TAG_INTERVAL: {
             bool ok = true;
-            myCurrentTimeBeg = STEPS2TIME(attrs.getSUMOTimeReporting(SUMO_ATTR_BEGIN, 0, ok));
-            myCurrentTimeEnd = STEPS2TIME(attrs.getSUMOTimeReporting(SUMO_ATTR_END, 0, ok));
+            myCurrentTimeBeg = STEPS2TIME(attrs.getSUMOTimeReporting(SUMO_ATTR_BEGIN, nullptr, ok));
+            myCurrentTimeEnd = STEPS2TIME(attrs.getSUMOTimeReporting(SUMO_ATTR_END, nullptr, ok));
         }
         break;
         case SUMO_TAG_EDGE: {
             bool ok = true;
-            myCurrentEdgeID = attrs.getOpt<std::string>(SUMO_ATTR_ID, 0, ok, "");
+            myCurrentEdgeID = attrs.getOpt<std::string>(SUMO_ATTR_ID, nullptr, ok, "");
             tryParse(attrs, true);
         }
         break;

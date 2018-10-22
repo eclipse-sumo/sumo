@@ -114,7 +114,7 @@ void
 SUMOSAXAttributes::emitUngivenError(const std::string& attrname, const char* objectid) const {
     std::ostringstream oss;
     oss << "Attribute '" << attrname << "' is missing in definition of ";
-    if (objectid == 0 || objectid[0] == 0) {
+    if (objectid == nullptr || objectid[0] == 0) {
         oss << "a " << myObjectType;
     } else {
         oss << myObjectType << " '" << objectid << "'";
@@ -128,7 +128,7 @@ void
 SUMOSAXAttributes::emitEmptyError(const std::string& attrname, const char* objectid) const {
     std::ostringstream oss;
     oss << "Attribute '" << attrname << "' in definition of ";
-    if (objectid == 0 || objectid[0] == 0) {
+    if (objectid == nullptr || objectid[0] == 0) {
         oss << "a " << myObjectType;
     } else {
         oss << myObjectType << " '" << objectid << "'";
@@ -142,7 +142,7 @@ void
 SUMOSAXAttributes::emitFormatError(const std::string& attrname, const std::string& type, const char* objectid) const {
     std::ostringstream oss;
     oss << "Attribute '" << attrname << "' in definition of ";
-    if (objectid == 0 || objectid[0] == 0) {
+    if (objectid == nullptr || objectid[0] == 0) {
         oss << "a " << myObjectType;
     } else {
         oss << myObjectType << " '" << objectid << "'";

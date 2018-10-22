@@ -161,7 +161,7 @@ GUIViewTraffic::setColorScheme(const std::string& name) {
     if (!gSchemeStorage.contains(name)) {
         return false;
     }
-    if (myVisualizationChanger != 0) {
+    if (myVisualizationChanger != nullptr) {
         if (myVisualizationChanger->getCurrentScheme() != name) {
             myVisualizationChanger->setCurrentScheme(name);
         }
@@ -305,7 +305,7 @@ void
 GUIViewTraffic::onGamingClick(Position pos) {
     MSTLLogicControl& tlsControl = MSNet::getInstance()->getTLSControl();
     const std::vector<MSTrafficLightLogic*>& logics = tlsControl.getAllLogics();
-    MSTrafficLightLogic* minTll = 0;
+    MSTrafficLightLogic* minTll = nullptr;
     double minDist = std::numeric_limits<double>::infinity();
     for (std::vector<MSTrafficLightLogic*>::const_iterator i = logics.begin(); i != logics.end(); ++i) {
         // get the logic
@@ -322,7 +322,7 @@ GUIViewTraffic::onGamingClick(Position pos) {
             }
         }
     }
-    if (minTll != 0) {
+    if (minTll != nullptr) {
         const MSTLLogicControl::TLSLogicVariants& vars = tlsControl.get(minTll->getID());
         const std::vector<MSTrafficLightLogic*> logics = vars.getAllLogics();
         if (logics.size() > 1) {
@@ -355,19 +355,19 @@ GUIViewTraffic::getLaneUnderCursor() {
         int id = getObjectUnderCursor();
         if (id != 0) {
             GUIGlObject* o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
-            if (o != 0) {
+            if (o != nullptr) {
                 return dynamic_cast<GUILane*>(o);
             }
         }
         makeNonCurrent();
     }
-    return 0;
+    return nullptr;
 }
 
 long
 GUIViewTraffic::onCmdCloseLane(FXObject*, FXSelector, void*) {
     GUILane* lane = getLaneUnderCursor();
-    if (lane != 0) {
+    if (lane != nullptr) {
         lane->closeTraffic();
         GUIGlObjectStorage::gIDStorage.unblockObject(lane->getGlID());
         update();
@@ -379,7 +379,7 @@ GUIViewTraffic::onCmdCloseLane(FXObject*, FXSelector, void*) {
 long
 GUIViewTraffic::onCmdCloseEdge(FXObject*, FXSelector, void*) {
     GUILane* lane = getLaneUnderCursor();
-    if (lane != 0) {
+    if (lane != nullptr) {
         dynamic_cast<GUIEdge*>(&lane->getEdge())->closeTraffic(lane);
         GUIGlObjectStorage::gIDStorage.unblockObject(lane->getGlID());
         update();
@@ -391,7 +391,7 @@ GUIViewTraffic::onCmdCloseEdge(FXObject*, FXSelector, void*) {
 long
 GUIViewTraffic::onCmdAddRerouter(FXObject*, FXSelector, void*) {
     GUILane* lane = getLaneUnderCursor();
-    if (lane != 0) {
+    if (lane != nullptr) {
         dynamic_cast<GUIEdge*>(&lane->getEdge())->addRerouter();
         GUIGlObjectStorage::gIDStorage.unblockObject(lane->getGlID());
         update();
@@ -404,7 +404,7 @@ long
 GUIViewTraffic::onDoubleClicked(FXObject*, FXSelector, void*) {
     // leave fullscreen mode
     if (myApp->isFullScreen()) {
-        myApp->onCmdFullScreen(0, 0, 0);
+        myApp->onCmdFullScreen(nullptr, 0, nullptr);
     } else {
         stopTrack();
     }

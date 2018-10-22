@@ -117,9 +117,9 @@ TrafficLight::getControlledLinks(const std::string& tlsID) {
         for (int j = 0; j < (int)llanes.size(); ++j) {
             MSLink* link = llinks[j];
             // approached non-internal lane (if any)
-            const std::string to = link->getLane() != 0 ? link->getLane()->getID() : "";
+            const std::string to = link->getLane() != nullptr ? link->getLane()->getID() : "";
             // approached "via", internal lane (if any)
-            const std::string via = link->getViaLane() != 0 ? link->getViaLane()->getID() : "";
+            const std::string via = link->getViaLane() != nullptr ? link->getViaLane()->getID() : "";
             subList.emplace_back(TraCILink(llanes[j]->getID(), via, to));
         }
         result.emplace_back(subList);
@@ -207,7 +207,7 @@ TrafficLight::setCompleteRedYellowGreenDefinition(const std::string& tlsID, cons
     for (TraCIPhase phase : logic.phases) {
         phases.push_back(new MSPhaseDefinition(TIME2STEPS(phase.duration), TIME2STEPS(phase.duration1), TIME2STEPS(phase.duration2), phase.phase, phase.next));
     }
-    if (vars.getLogic(logic.subID) == 0) {
+    if (vars.getLogic(logic.subID) == nullptr) {
         MSTrafficLightLogic* mslogic = new MSSimpleTrafficLightLogic(MSNet::getInstance()->getTLSControl(), tlsID, logic.subID, phases, logic.currentPhaseIndex, 0, logic.subParameter);
         vars.addLogic(logic.subID, mslogic, true, true);
     } else {

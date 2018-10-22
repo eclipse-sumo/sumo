@@ -380,7 +380,7 @@ GNEAdditionalHandler::parseAndBuildCalibratorFlow(const SUMOSAXAttributes& attrs
         } else if ((vehsPerHour.empty()) && (speed.empty())) {
             WRITE_WARNING(toString(SUMO_TAG_FLOW) + " cannot be created; At least parameters " + toString(SUMO_ATTR_VEHSPERHOUR) + " or " + toString(SUMO_ATTR_SPEED) + " has to be defined");
             abort = true;
-        } else if (calibrator != NULL) {
+        } else if (calibrator != nullptr) {
             myLastInsertedAdditional = buildCalibratorFlow(myViewNet, true, calibrator, route, vtype, vehsPerHour, speed, color, departLane, departPos, departSpeed, arrivalLane, arrivalPos, arrivalSpeed,
                                        line, personNumber, containerNumber, reroute, departPosLat, arrivalPosLat, begin, end);
             // save ID of last created element
@@ -392,12 +392,12 @@ GNEAdditionalHandler::parseAndBuildCalibratorFlow(const SUMOSAXAttributes& attrs
 
 void
 GNEAdditionalHandler::parseGenericParameter(const SUMOSAXAttributes& attrs) {
-    if (myLastInsertedAdditional != 0) {
+    if (myLastInsertedAdditional != nullptr) {
         bool ok = true;
         std::string key;
         if (attrs.hasAttribute(SUMO_ATTR_KEY)) {
             // obtain key
-            key = attrs.get<std::string>(SUMO_ATTR_KEY, 0, ok);
+            key = attrs.get<std::string>(SUMO_ATTR_KEY, nullptr, ok);
             if (key.empty()) {
                 WRITE_WARNING("Error parsing key from additional generic parameter. Key cannot be empty");
                 ok = false;
@@ -1228,7 +1228,7 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, S
         case SUMO_TAG_PARKING_SPACE: {
             bool ok;
             // obtain specify attributes of Parking Space
-            Position pos = GeomConvHelper::parseShapeReporting(values[SUMO_ATTR_POSITION], "user-supplied position", 0, ok, false)[0];
+            Position pos = GeomConvHelper::parseShapeReporting(values[SUMO_ATTR_POSITION], "user-supplied position", nullptr, ok, false)[0];
             double z = GNEAttributeCarrier::parse<double>(values[SUMO_ATTR_Z]);
             double width = GNEAttributeCarrier::parse<double>(values[SUMO_ATTR_WIDTH]);
             double lenght = GNEAttributeCarrier::parse<double>(values[SUMO_ATTR_LENGTH]);
@@ -1304,7 +1304,7 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, S
             // obtain specify attributes of detector E3
             bool ok;
             std::string id = values[SUMO_ATTR_ID];
-            PositionVector pos = GeomConvHelper::parseShapeReporting(values[SUMO_ATTR_POSITION], "user-supplied position", 0, ok, false);
+            PositionVector pos = GeomConvHelper::parseShapeReporting(values[SUMO_ATTR_POSITION], "user-supplied position", nullptr, ok, false);
             double freq = GNEAttributeCarrier::parse<double>(values[SUMO_ATTR_FREQUENCY]);
             std::string filename = values[SUMO_ATTR_FILE];
             std::string vehicleTypes = values[SUMO_ATTR_VTYPES];
@@ -1368,7 +1368,7 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, S
             // obtain specify attributes of variable speed signal
             std::string id = values[SUMO_ATTR_ID];
             bool ok;
-            PositionVector pos = GeomConvHelper::parseShapeReporting(values[SUMO_ATTR_POSITION], "user-supplied position", 0, ok, false);
+            PositionVector pos = GeomConvHelper::parseShapeReporting(values[SUMO_ATTR_POSITION], "user-supplied position", nullptr, ok, false);
             std::vector<GNELane*> lanes = GNEAttributeCarrier::parse<std::vector<GNELane*> >(viewNet->getNet(), values[SUMO_ATTR_LANES]);
             std::string name = values[SUMO_ATTR_NAME];
             // get rest of parameters
@@ -1416,7 +1416,7 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, S
             // obtain specify attributes of rerouter
             std::string id = values[SUMO_ATTR_ID];
             bool ok;
-            PositionVector pos = GeomConvHelper::parseShapeReporting(values[SUMO_ATTR_POSITION], "user-supplied position", 0, ok, false);
+            PositionVector pos = GeomConvHelper::parseShapeReporting(values[SUMO_ATTR_POSITION], "user-supplied position", nullptr, ok, false);
             std::vector<GNEEdge*> edges = GNEAttributeCarrier::parse<std::vector<GNEEdge*> >(viewNet->getNet(), values[SUMO_ATTR_EDGES]);
             // Get rest of parameters
             bool off = GNEAttributeCarrier::parse<bool>(values[SUMO_ATTR_OFF]);
@@ -2093,7 +2093,7 @@ std::string
 GNEAdditionalHandler::getFileName(const SUMOSAXAttributes& attrs, const std::string& base, const bool allowEmpty) {
     // get the file name to read further definitions from
     bool ok = true;
-    std::string file = attrs.getOpt<std::string>(SUMO_ATTR_FILE, 0, ok, "");
+    std::string file = attrs.getOpt<std::string>(SUMO_ATTR_FILE, nullptr, ok, "");
     if (file == "") {
         if (allowEmpty) {
             return file;

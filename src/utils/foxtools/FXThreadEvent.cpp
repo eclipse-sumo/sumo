@@ -76,7 +76,7 @@ FXThreadEvent::FXThreadEvent(FXObject* tgt, FXSelector sel) : FXBaseObject(tgt, 
     UNUSED_PARAMETER(res); // only used for assertion
     getApp()->addInput(event[PIPE_READ], INPUT_READ, this, ID_THREAD_EVENT);
 #else
-    event = CreateEvent(NULL, FALSE, FALSE, NULL);
+    event = CreateEvent(nullptr, FALSE, FALSE, nullptr);
     FXASSERT(event != NULL);
     getApp()->addInput(event, INPUT_READ, this, ID_THREAD_EVENT);
 #endif
@@ -130,7 +130,7 @@ long FXThreadEvent::onThreadSignal(FXObject*, FXSelector, void*) {
 #else
     //FIXME need win32 support
 #endif
-    handle(this, FXSEL(seltype, 0), NULL);
+    handle(this, FXSEL(seltype, 0), nullptr);
     return 0;
 }
 
@@ -138,7 +138,7 @@ long FXThreadEvent::onThreadSignal(FXObject*, FXSelector, void*) {
 // which is now in the main thread (ie no longer in the worker thread)
 long FXThreadEvent::onThreadEvent(FXObject*, FXSelector sel, void*) {
     FXuint seltype = FXSELTYPE(sel);
-    return target && target->handle(this, FXSEL(seltype, message), NULL);
+    return target && target->handle(this, FXSEL(seltype, message), nullptr);
 }
 
 }

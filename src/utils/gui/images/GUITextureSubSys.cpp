@@ -55,7 +55,7 @@
 // static member variable definitions
 // ===========================================================================
 
-GUITextureSubSys* GUITextureSubSys::myInstance = 0;
+GUITextureSubSys* GUITextureSubSys::myInstance = nullptr;
 
 // ===========================================================================
 // member definitions
@@ -185,7 +185,7 @@ GUITextureSubSys::resetTextures() {
 void
 GUITextureSubSys::close() {
     delete myInstance;
-    myInstance = 0;
+    myInstance = nullptr;
 }
 
 

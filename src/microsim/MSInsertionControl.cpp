@@ -180,7 +180,7 @@ MSInsertionControl::checkCandidates(SUMOTime time, const bool preCheck) {
                 myEmitCandidates.insert(v);
             } else {
                 MSDevice_Routing* dev = static_cast<MSDevice_Routing*>(v->getDevice(typeid(MSDevice_Routing)));
-                if (dev != 0) {
+                if (dev != nullptr) {
                     dev->skipRouting(time);
                 }
             }
@@ -210,7 +210,7 @@ MSInsertionControl::determineCandidates(SUMOTime time) {
             newPars->depart = pars->repetitionProbability > 0 ? time : (SUMOTime)(pars->depart + pars->repetitionsDone * pars->repetitionOffset) + computeRandomDepartOffset();
             pars->repetitionsDone++;
             // try to build the vehicle
-            if (vehControl.getVehicle(newPars->id) == 0) {
+            if (vehControl.getVehicle(newPars->id) == nullptr) {
                 const MSRoute* route = MSRoute::dictionary(pars->routeid);
                 MSVehicleType* vtype = vehControl.getVType(pars->vtypeid, MSRouteHandler::getParsingRNG());
                 SUMOVehicle* vehicle = vehControl.buildVehicle(newPars, route, vtype, !MSGlobals::gCheckRoutes);
@@ -300,7 +300,7 @@ MSInsertionControl::getPendingEmits(const MSLane* lane) {
         myPendingEmitsForLane.clear();
         for (MSVehicleContainer::VehicleVector::const_iterator veh = myPendingEmits.begin(); veh != myPendingEmits.end(); ++veh) {
             const MSLane* lane = (*veh)->getLane();
-            if (lane != 0) {
+            if (lane != nullptr) {
                 myPendingEmitsForLane[lane]++;
             } else {
                 // no (tentative) departLane was set, increase count for all

@@ -236,7 +236,7 @@ GNEPoly::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     // build selection and show parameters menu
     myNet->getViewNet()->buildSelectionACPopupEntry(ret, this);
     buildShowParamsPopupEntry(ret);
-    FXMenuCommand* simplifyShape = new FXMenuCommand(ret, "Simplify Shape\t\tReplace current shape with a rectangle", 0, &parent, MID_GNE_POLYGON_SIMPLIFY_SHAPE);
+    FXMenuCommand* simplifyShape = new FXMenuCommand(ret, "Simplify Shape\t\tReplace current shape with a rectangle", nullptr, &parent, MID_GNE_POLYGON_SIMPLIFY_SHAPE);
     // disable simplify shape if polygon was already simplified
     if (mySimplifiedShape || myShape.size() <= 2) {
         simplifyShape->disable();
@@ -244,16 +244,16 @@ GNEPoly::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     // create open or close polygon's shape only if myNetElementShapeEdited is nullptr
     if (myNetElementShapeEdited == nullptr) {
         if (myClosedShape) {
-            new FXMenuCommand(ret, "Open shape\t\tOpen polygon's shape", 0, &parent, MID_GNE_POLYGON_OPEN);
+            new FXMenuCommand(ret, "Open shape\t\tOpen polygon's shape", nullptr, &parent, MID_GNE_POLYGON_OPEN);
         } else {
-            new FXMenuCommand(ret, "Close shape\t\tClose polygon's shape", 0, &parent, MID_GNE_POLYGON_CLOSE);
+            new FXMenuCommand(ret, "Close shape\t\tClose polygon's shape", nullptr, &parent, MID_GNE_POLYGON_CLOSE);
         }
     }
     // create a extra FXMenuCommand if mouse is over a vertex
     int index = getVertexIndex(myNet->getViewNet()->getPositionInformation(), false);
     if (index != -1) {
-        FXMenuCommand* removeGeometryPoint = new FXMenuCommand(ret, "Remove geometry point\t\tRemove geometry point under mouse", 0, &parent, MID_GNE_POLYGON_DELETE_GEOMETRY_POINT);
-        FXMenuCommand* setFirstPoint = new FXMenuCommand(ret, "Set first geometry point\t\tSet", 0, &parent, MID_GNE_POLYGON_SET_FIRST_POINT);
+        FXMenuCommand* removeGeometryPoint = new FXMenuCommand(ret, "Remove geometry point\t\tRemove geometry point under mouse", nullptr, &parent, MID_GNE_POLYGON_DELETE_GEOMETRY_POINT);
+        FXMenuCommand* setFirstPoint = new FXMenuCommand(ret, "Set first geometry point\t\tSet", nullptr, &parent, MID_GNE_POLYGON_SET_FIRST_POINT);
         // disable setFirstPoint if shape only have three points
         if ((myClosedShape && (myShape.size() <= 4)) || (!myClosedShape && (myShape.size() <= 2))) {
             removeGeometryPoint->disable();
@@ -648,12 +648,12 @@ bool
 GNEPoly::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            return SUMOXMLDefinitions::isValidNetID(value) && (myNet->retrievePolygon(value, false) == 0);
+            return SUMOXMLDefinitions::isValidNetID(value) && (myNet->retrievePolygon(value, false) == nullptr);
         case SUMO_ATTR_SHAPE:
         case SUMO_ATTR_GEOSHAPE: {
             bool ok = true;
             // check if shape can be parsed
-            PositionVector shape = GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, true);
+            PositionVector shape = GeomConvHelper::parseShapeReporting(value, "user-supplied position", nullptr, ok, true);
             return (shape.size() > 0);
         }
         case SUMO_ATTR_COLOR:
@@ -781,7 +781,7 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_SHAPE: {
             bool ok = true;
             // set new shape
-            myShape = GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, true);
+            myShape = GeomConvHelper::parseShapeReporting(value, "netedit-given", nullptr, ok, true);
             // set GEO shape
             myGeoShape = myShape;
             for (int i = 0; i < (int) myGeoShape.size(); i++) {
@@ -800,7 +800,7 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_GEOSHAPE: {
             bool ok = true;
             // set new GEO shape
-            myGeoShape = GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, true);
+            myGeoShape = GeomConvHelper::parseShapeReporting(value, "netedit-given", nullptr, ok, true);
             // set shape
             myShape = myGeoShape ;
             for (int i = 0; i < (int) myShape.size(); i++) {

@@ -519,7 +519,7 @@ NBNodeShapeComputer::getSmoothCorner(PositionVector begShape, PositionVector end
             return ret;
         }
         const double angle = GeomHelper::angleDiff(begShape2.angleAt2D(-2), endShape2.angleAt2D(0));
-        NBNode* recordError = 0;
+        NBNode* recordError = nullptr;
 #ifdef DEBUG_SMOOTH_CORNERS
         if (DEBUGCOND) {
             std::cout << "   angle=" << RAD2DEG(angle) << "\n";

@@ -256,7 +256,7 @@ NIImporter_ITSUMO::Handler::myEndElement(int element) {
                 std::string toID = myParameter["to"];
                 NBNode* from = myNetBuilder.getNodeCont().retrieve(fromID);
                 NBNode* to = myNetBuilder.getNodeCont().retrieve(toID);
-                if (from == 0 || to == 0) {
+                if (from == nullptr || to == nullptr) {
                     WRITE_ERROR("Missing node in laneset '" + myParameter["lanesetID"] + "'.");
                 } else {
                     if (myLaneSets.find(id) != myLaneSets.end()) {
