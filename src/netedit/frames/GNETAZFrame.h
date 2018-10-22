@@ -35,15 +35,6 @@ class GNETAZ;
 class GNETAZFrame : public GNEFrame {
 
 public:
-
-    /// @brief enum with all possible values after try to create an shape using frame
-    enum AddTAZResult {
-        ADDTAZ_SUCCESS,             // TAZ was successfully created
-        ADDTAZ_UPDATEDTEMPORALTAZ,  // Added or removed a new point to temporal shape
-        ADDTAZ_INVALID,             // TAZ wasn't created
-        ADDTAZ_NOTHING              // Nothing to do
-    };
-
     // ===========================================================================
     // class CurrentTAZ
     // ===========================================================================
@@ -95,13 +86,13 @@ public:
         /// @brief hide EdgesTAZSelector
         void hideEdgesTAZSelector();
 
+        /// @brief select edge
+        bool selectEdge(GNEEdge *edge);
+
         /// @name FOX-callbacks
         /// @{
         /// @brief called when user change a depart or arrival weight
         long onCmdSetAttribute(FXObject* obj, FXSelector, void*);
-
-        /// @brieef called when user press add edgeTAZ button
-        long onCmdAddEdgeTAZ(FXObject*, FXSelector, void*);
 
         /// @brieef called when user press a remove edgeTAZ button
         long onCmdRemoveEdgeTAZ(FXObject* obj, FXSelector, void*);
@@ -113,7 +104,6 @@ public:
         EdgesTAZSelector() {}
 
     private:
-        
         /// @brief struct for show Edge TAZs in frame
         struct EdgeTAZ {
             /// @brief constructor
@@ -142,11 +132,11 @@ public:
         /// @brief pointer to GNETAZFrame parent
         GNETAZFrame* myTAZFrameParent;
 
+        /// @brief Label for current edges
+        FXLabel *myCurrentEdgesLabel;
+
         /// @brief vector with the EdgeTAZs
         std::vector<EdgeTAZ*> myEdgeTAZs;
-
-        /// @brief add button
-        FXButton *myAddButton;
     };
 
     // ===========================================================================
@@ -220,10 +210,11 @@ public:
 
     /**@brief process click over Viewnet
     * @param[in] clickedPosition clicked position over ViewNet
+    * @param[in] TAZ clicked TAZ
     * @param[in] edge clicked edge
     * @return AddShapeStatus with the result of operation
     */
-    AddTAZResult processClick(const Position& clickedPosition, GNEEdge* edge);
+    bool processClick(const Position& clickedPosition, GNETAZ* taz, GNEEdge* edge);
 
     /// @brief get drawing mode editor
     DrawingShape* getDrawingShape() const;

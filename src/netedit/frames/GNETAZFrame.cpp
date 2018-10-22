@@ -55,7 +55,6 @@ FXDEFMAP(GNETAZFrame::TAZParameters) TAZParametersMap[] = {
 
 FXDEFMAP(GNETAZFrame::EdgesTAZSelector) EdgesTAZSelectorMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,      GNETAZFrame::EdgesTAZSelector::onCmdSetAttribute),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADD_ATTRIBUTE,      GNETAZFrame::EdgesTAZSelector::onCmdAddEdgeTAZ),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_REMOVE_ATTRIBUTE,   GNETAZFrame::EdgesTAZSelector::onCmdRemoveEdgeTAZ),
 };
 
@@ -126,7 +125,13 @@ GNETAZFrame::CurrentTAZ::getCurrentTAZ() const {
 GNETAZFrame::EdgesTAZSelector::EdgesTAZSelector(GNETAZFrame* TAZFrameParent) :
     FXGroupBox(TAZFrameParent->myContentFrame, ("selection of " + toString(SUMO_TAG_EDGE) + "s").c_str(), GUIDesignGroupBoxFrame),
     myTAZFrameParent(TAZFrameParent) {
-    myAddButton = new FXButton(this, "X", 0, this, MID_GNE_ADD_ATTRIBUTE, GUIDesignButtonAttribute);
+    myCurrentEdgesLabel = new FXLabel(this, "TAZ without edges", 0, GUIDesignLabelLeft);
+    // update current edges label
+    if(myTAZFrameParent->getCurrentTAZ()->getCurrentTAZ() && (myTAZFrameParent->getCurrentTAZ()->getCurrentTAZ()->getEdgeChilds().size() > 0)) {
+        myCurrentEdgesLabel->hide();
+    } else {
+        myCurrentEdgesLabel->show();
+    }
 }
 
 
@@ -144,17 +149,27 @@ GNETAZFrame::EdgesTAZSelector::hideEdgesTAZSelector() {
 }
 
 
-long 
-GNETAZFrame::EdgesTAZSelector::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
-    return 0;
+bool 
+GNETAZFrame::EdgesTAZSelector::selectEdge(GNEEdge *edge) {
+    if(edge) {
+        // add TAZ;
+        myEdgeTAZs.push_back(new EdgeTAZ(this));
+        // update current edges label
+        if(myTAZFrameParent->getCurrentTAZ()->getCurrentTAZ() && (myTAZFrameParent->getCurrentTAZ()->getCurrentTAZ()->getEdgeChilds().size() > 0)) {
+            myCurrentEdgesLabel->setText("");
+        } else {
+            myCurrentEdgesLabel->setText("TAZ without edges");
+        }
+        // recalc frame
+        recalc();
+        return true;
+    } else {
+        return false;
+    }
 }
 
-
 long 
-GNETAZFrame::EdgesTAZSelector::onCmdAddEdgeTAZ(FXObject*, FXSelector, void*) {
-    // add TAZ;
-    myEdgeTAZs.push_back(new EdgeTAZ(this));
-    recalc();
+GNETAZFrame::EdgesTAZSelector::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
     return 0;
 }
 
@@ -182,7 +197,7 @@ GNETAZFrame::EdgesTAZSelector::EdgeTAZ::EdgeTAZ(EdgesTAZSelector *edgesTAZSelect
     myVerticalFrame = new FXVerticalFrame(edgesTAZSelector, GUIDesignAuxiliarHorizontalFrame);
     // create Edge Label and button
     FXHorizontalFrame* horizontalFrameButton = new FXHorizontalFrame(myVerticalFrame, GUIDesignAuxiliarHorizontalFrame);
-    removeButton = new FXButton(horizontalFrameButton, "", 0, edgesTAZSelector, MID_GNE_REMOVE_ATTRIBUTE, GUIDesignButtonIcon);
+    removeButton = new FXButton(horizontalFrameButton, "", GUIIconSubSys::getIcon(ICON_REMOVE), edgesTAZSelector, MID_GNE_REMOVE_ATTRIBUTE, GUIDesignButtonIcon);
     edgeLabel = new FXLabel(horizontalFrameButton, "edge: ", 0, GUIDesignLabelLeftThick);
     // create Label and textfield for Arrival Weight
     FXHorizontalFrame* departWeightFrame = new FXHorizontalFrame(myVerticalFrame, GUIDesignAuxiliarHorizontalFrame);
@@ -237,7 +252,7 @@ GNETAZFrame::TAZParameters::hideTAZParametersModul() {
 
 bool
 GNETAZFrame::TAZParameters::isCurrentParametersValid() const {
-    return (GNEAttributeCarrier::canParse<RGBColor>(myTextFieldColor->getText().text()) == false);
+    return GNEAttributeCarrier::canParse<RGBColor>(myTextFieldColor->getText().text());
 }
 
 
@@ -341,12 +356,10 @@ GNETAZFrame::hide() {
 }
 
 
-GNETAZFrame::AddTAZResult 
-GNETAZFrame::processClick(const Position& clickedPosition, GNEEdge* edge) {
+bool 
+GNETAZFrame::processClick(const Position& clickedPosition, GNETAZ *TAZ, GNEEdge* edge) {
     // Declare map to keep values
     std::map<SumoXMLAttr, std::string> valuesOfElement;
-    // obtain TAZ values
-    //valuesOfElement = myTAZAttributes->getAttributesAndValues();
     if (myDrawingShape->isDrawing()) {
         // add or delete a new point depending of flag "delete last created point"
         if (myDrawingShape->getDeleteLastCreatedPoint()) {
@@ -354,34 +367,24 @@ GNETAZFrame::processClick(const Position& clickedPosition, GNEEdge* edge) {
         } else {
             myDrawingShape->addNewPoint(clickedPosition);
         }
-        return ADDTAZ_UPDATEDTEMPORALTAZ;
+        return true;
+    } else if (myCurrentTAZ->getCurrentTAZ() == nullptr) {
+        // avoid reset of Frame if user doesn't click over an TAZ
+        if(TAZ) {
+            myCurrentTAZ->setCurrentTAZ(TAZ);
+            return true;
+        } else {
+            return false;
+        }
+    } else if (edge) {
+        // select edge if is unselected, or unselect if it was already selected
+        myEdgesTAZSelector->selectEdge(edge);
+        return true;
     } else {
-        // return ADDTAZ_NOTHING if is drawing isn't enabled
-        return ADDTAZ_NOTHING;
+        // nothing to do
+        return false;
     }
 }
-
-/*
-bool
-GNETAZFrame::addTAZ(const GNEViewNet::ObjectsUnderCursor &objectsUnderCursor) {
-    // If current element is a junction
-    if (objectsUnderCursor.junction) {
-        // Enable edge selector and TAZ parameters
-        myEdgeSelector->enableEdgeSelector(objectsUnderCursor.junction);
-        myTAZParameters->enableTAZParameters(objectsUnderCursor.junction->getNBNode()->isTLControlled());
-        // clears selected edges
-        myTAZParameters->clearEdges();
-    } else if (objectsUnderCursor.edge) {
-        myTAZParameters->markEdge(objectsUnderCursor.edge);
-    } else {
-        // restore  color of all lanes of edge candidates
-        myEdgeSelector->restoreEdgeColors();
-        // Disable edge selector
-        myEdgeSelector->disableEdgeSelector();
-    }
-    return false;
-}
-*/
 
 
 GNETAZFrame::DrawingShape*
@@ -399,9 +402,9 @@ GNETAZFrame::getCurrentTAZ() const {
 bool
 GNETAZFrame::buildShape() {
     // show warning dialogbox and stop check if input parameters are valid
-    /*if (myTAZParameters->isCurrentParametersValid() == false) {
+    if (myTAZParameters->isCurrentParametersValid() == false) {
         return false;
-    } else */if(myDrawingShape->getTemporalShape().size() == 0) {
+    } else if(myDrawingShape->getTemporalShape().size() == 0) {
         WRITE_WARNING("TAZ shape cannot be empty");
         return false;
     } else {
