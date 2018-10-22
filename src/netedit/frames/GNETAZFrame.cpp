@@ -46,20 +46,23 @@
 // FOX callback mapping
 // ===========================================================================
 
-/*
-FXDEFMAP(GNETAZFrame::EdgesSelector) EdgesMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,   GNEPolygonFrame::ShapeAttributeSingle::onCmdSetColorAttribute),
-};
-*/
 FXDEFMAP(GNETAZFrame::TAZParameters) TAZParametersMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_SET_ATTRIBUTE_DIALOG,    GNETAZFrame::TAZParameters::onCmdSetColorAttribute),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_SET_ATTRIBUTE,           GNETAZFrame::TAZParameters::onCmdSetAttribute),
     FXMAPFUNC(SEL_COMMAND, MID_HELP,                        GNETAZFrame::TAZParameters::onCmdHelp),
 };
 
+
+FXDEFMAP(GNETAZFrame::EdgesTAZSelector) EdgesTAZSelectorMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,      GNETAZFrame::EdgesTAZSelector::onCmdSetAttribute),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADD_ATTRIBUTE,      GNETAZFrame::EdgesTAZSelector::onCmdAddEdgeTAZ),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_REMOVE_ATTRIBUTE,   GNETAZFrame::EdgesTAZSelector::onCmdRemoveEdgeTAZ),
+};
+
+
 // Object implementation
-FXIMPLEMENT(GNETAZFrame::TAZParameters,     FXGroupBox,     TAZParametersMap,   ARRAYNUMBER(TAZParametersMap))
-//FXIMPLEMENT(GNETAZFrame::EdgesSelector,     FXGroupBox,     EdgesMap,           ARRAYNUMBER(EdgesMap))
+FXIMPLEMENT(GNETAZFrame::TAZParameters,     FXGroupBox,     TAZParametersMap,       ARRAYNUMBER(TAZParametersMap))
+FXIMPLEMENT(GNETAZFrame::EdgesTAZSelector,  FXGroupBox,     EdgesTAZSelectorMap,    ARRAYNUMBER(EdgesTAZSelectorMap))
 
 
 // ===========================================================================
@@ -67,7 +70,7 @@ FXIMPLEMENT(GNETAZFrame::TAZParameters,     FXGroupBox,     TAZParametersMap,   
 // ===========================================================================
 
 // ---------------------------------------------------------------------------
-// GNECrossingFrame::CurrentJunction - methods
+// GNECrossingFrame::CurrentTAZ - methods
 // ---------------------------------------------------------------------------
 
 GNETAZFrame::CurrentTAZ::CurrentTAZ(GNETAZFrame* TAZFrameParent) : 
@@ -96,7 +99,7 @@ GNETAZFrame::CurrentTAZ::setCurrentTAZ(GNETAZ* currentTAZ) {
         // hide drawing shape
         myTAZFrameParent->myDrawingShape->hideDrawingShape();
         // show edge selector
-        myTAZFrameParent->myEdgeSelector->show();
+        myTAZFrameParent->myEdgesTAZSelector->show();
     } else {
         myCurrentTAZLabel->setText("No TAZ selected");
         // show TAZ parameters
@@ -106,7 +109,7 @@ GNETAZFrame::CurrentTAZ::setCurrentTAZ(GNETAZ* currentTAZ) {
         // show drawing shape
         myTAZFrameParent->myDrawingShape->showDrawingShape();
         // hide edge selector
-        myTAZFrameParent->myEdgeSelector->hide();
+        myTAZFrameParent->myEdgesTAZSelector->hide();
     }
 }
 
@@ -120,80 +123,87 @@ GNETAZFrame::CurrentTAZ::getCurrentTAZ() const {
 // GNETAZFrame::EdgesSelector - methods
 // ---------------------------------------------------------------------------
 
-GNETAZFrame::EdgesSelector::EdgesSelector(GNETAZFrame* TAZFrameParent) :
+GNETAZFrame::EdgesTAZSelector::EdgesTAZSelector(GNETAZFrame* TAZFrameParent) :
     FXGroupBox(TAZFrameParent->myContentFrame, ("selection of " + toString(SUMO_TAG_EDGE) + "s").c_str(), GUIDesignGroupBoxFrame),
-    myTAZFrameParent(TAZFrameParent),
-    myCurrentJunction(0) {
-
-    // Create button for selected edges
-    myUseSelectedEdges = new FXButton(this, ("Use selected " + toString(SUMO_TAG_EDGE) + "s").c_str(), 0, this, MID_GNE_ADDITIONALFRAME_USESELECTED, GUIDesignButton);
-
-    // Create button for clear selection
-    myClearEdgesSelection = new FXButton(this, ("Clear " + toString(SUMO_TAG_EDGE) + "s").c_str(), 0, this, MID_GNE_ADDITIONALFRAME_CLEARSELECTION, GUIDesignButton);
-
-    // Create button for invert selection
-    myInvertEdgesSelection = new FXButton(this, ("Invert " + toString(SUMO_TAG_EDGE) + "s").c_str(), 0, this, MID_GNE_ADDITIONALFRAME_INVERTSELECTION, GUIDesignButton);
+    myTAZFrameParent(TAZFrameParent) {
+    myAddButton = new FXButton(this, "X", 0, this, MID_GNE_ADD_ATTRIBUTE, GUIDesignButtonAttribute);
 }
 
 
-GNETAZFrame::EdgesSelector::~EdgesSelector() {}
-
-
-GNEJunction*
-GNETAZFrame::EdgesSelector::getCurrentJunction() const {
-    return myCurrentJunction;
+GNETAZFrame::EdgesTAZSelector::~EdgesTAZSelector() {
 }
 
 
-void
-GNETAZFrame::EdgesSelector::enableEdgeSelector(GNEJunction* currentJunction) {
-    // restore color of all lanes of edge candidates
-    restoreEdgeColors();
-    // Set current junction
-    myCurrentJunction = currentJunction;
-    // Update view net to show the new colors
-    myTAZFrameParent->getViewNet()->update();
-    // check if use selected eges must be enabled
-    myUseSelectedEdges->disable();
-    for (auto i : myCurrentJunction->getGNEEdges()) {
-        if (i->isAttributeCarrierSelected()) {
-            myUseSelectedEdges->enable();
+void 
+GNETAZFrame::EdgesTAZSelector::showEdgesTAZSelector() {
+}
+
+
+void 
+GNETAZFrame::EdgesTAZSelector::hideEdgesTAZSelector() {
+}
+
+
+long 
+GNETAZFrame::EdgesTAZSelector::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
+    return 0;
+}
+
+
+long 
+GNETAZFrame::EdgesTAZSelector::onCmdAddEdgeTAZ(FXObject*, FXSelector, void*) {
+    // add TAZ;
+    myEdgeTAZs.push_back(new EdgeTAZ(this));
+    recalc();
+    return 0;
+}
+
+
+long 
+GNETAZFrame::EdgesTAZSelector::onCmdRemoveEdgeTAZ(FXObject* obj, FXSelector, void*) {
+    // search remove button in all EdgeTAZs
+    for (int i = 0; i < (int)myEdgeTAZs.size(); i++) {
+        if(myEdgeTAZs.at(i)->removeButton == obj) {
+            // delete EdgeTAZ
+            delete myEdgeTAZs.at(i);
+            // remove EdgeTAZ from myEdgeTAZs
+            myEdgeTAZs.erase(myEdgeTAZs.begin() + i);
+            // recalc frame
+            recalc();
+            return 1;
         }
     }
-    // Enable rest of elements
-    myClearEdgesSelection->enable();
-    myInvertEdgesSelection->enable();
+    return 0;
 }
 
 
-void
-GNETAZFrame::EdgesSelector::disableEdgeSelector() {
-    // disable current junction
-    myCurrentJunction = NULL;
-    // disable all elements of the EdgesSelector
-    myUseSelectedEdges->disable();
-    myClearEdgesSelection->disable();
-    myInvertEdgesSelection->disable();
+GNETAZFrame::EdgesTAZSelector::EdgeTAZ::EdgeTAZ(EdgesTAZSelector *edgesTAZSelector) {
+    // create vertical frame
+    myVerticalFrame = new FXVerticalFrame(edgesTAZSelector, GUIDesignAuxiliarHorizontalFrame);
+    // create Edge Label and button
+    FXHorizontalFrame* horizontalFrameButton = new FXHorizontalFrame(myVerticalFrame, GUIDesignAuxiliarHorizontalFrame);
+    removeButton = new FXButton(horizontalFrameButton, "", 0, edgesTAZSelector, MID_GNE_REMOVE_ATTRIBUTE, GUIDesignButtonIcon);
+    edgeLabel = new FXLabel(horizontalFrameButton, "edge: ", 0, GUIDesignLabelLeftThick);
+    // create Label and textfield for Arrival Weight
+    FXHorizontalFrame* departWeightFrame = new FXHorizontalFrame(myVerticalFrame, GUIDesignAuxiliarHorizontalFrame);
+    new FXLabel(departWeightFrame, toString(GNE_ATTR_TAZ_DEPARTWEIGHT).c_str(), 0, GUIDesignLabelAttribute);
+    departWeightTextField = new FXTextField(departWeightFrame, GUIDesignTextFieldNCol, edgesTAZSelector, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    // create Label and textfield for Arrival Weight
+    FXHorizontalFrame* arrivalWeightFrame = new FXHorizontalFrame(myVerticalFrame, GUIDesignAuxiliarHorizontalFrame);
+    new FXLabel(arrivalWeightFrame, toString(GNE_ATTR_TAZ_ARRIVALWEIGHT).c_str(), 0, GUIDesignLabelAttribute);
+    arrivalWeightTextField = new FXTextField(arrivalWeightFrame, GUIDesignTextFieldNCol, edgesTAZSelector, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    // create myVerticalFrame (and their childs)
+    myVerticalFrame->create();
 }
 
 
-void
-GNETAZFrame::EdgesSelector::restoreEdgeColors() {
-    if (myCurrentJunction != NULL) {
-        // restore color of all lanes of edge candidates
-        for (auto i : myCurrentJunction->getGNEEdges()) {
-            for (auto j : i->getLanes()) {
-                j->setSpecialColor(0);
-            }
-        }
-        // Update view net to show the new colors
-        myTAZFrameParent->getViewNet()->update();
-        myCurrentJunction = NULL;
-    }
+GNETAZFrame::EdgesTAZSelector::EdgeTAZ::~EdgeTAZ() {
+    // delete vertical frame (and all of their childs)
+    delete myVerticalFrame;
 }
 
 // ---------------------------------------------------------------------------
-// GNETAZFrame::NeteditAttributes- methods
+// GNETAZFrame::TAZParameters- methods
 // ---------------------------------------------------------------------------
 
 GNETAZFrame::TAZParameters::TAZParameters(GNETAZFrame* TAZFrameParent) :
@@ -302,7 +312,7 @@ GNETAZFrame::GNETAZFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* v
     myDrawingShape = new DrawingShape(this);
 
     // Create edge Selector modul
-    myEdgeSelector = new EdgesSelector(this);
+    myEdgesTAZSelector = new EdgesTAZSelector(this);
 
     /*
     // Create groupbox and labels for legends
@@ -312,8 +322,8 @@ GNETAZFrame::GNETAZFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* v
     FXLabel *colorSelectedLabel = new FXLabel(groupBoxLegend, "Selected", 0, GUIDesignLabelLeft);
     colorSelectedLabel->setBackColor(MFXUtils::getFXColor(myTAZParameters->getSelectedColor()));
     */
-    // disable edge selector
-    myEdgeSelector->disableEdgeSelector();
+    // hide edge TAZselector
+    myEdgesTAZSelector->hideEdgesTAZSelector();
 
     // by default there isn't a TAZ
     myCurrentTAZ->setCurrentTAZ(nullptr);
@@ -326,8 +336,6 @@ GNETAZFrame::~GNETAZFrame() {
 
 void
 GNETAZFrame::hide() {
-    // restore color of all lanes of edge candidates
-    myEdgeSelector->restoreEdgeColors();
     // hide frame
     GNEFrame::hide();
 }

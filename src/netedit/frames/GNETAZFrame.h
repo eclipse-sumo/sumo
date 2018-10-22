@@ -78,61 +78,75 @@ public:
     // class EdgesSelector
     // ===========================================================================
 
-    class EdgesSelector : public FXGroupBox {
-        /*
+    class EdgesTAZSelector : public FXGroupBox {
         /// @brief FOX-declaration
-        FXDECLARE(GNETAZFrame::EdgesSelector)
-        */
+        FXDECLARE(GNETAZFrame::EdgesTAZSelector)
+
     public:
         /// @brief constructor
-        EdgesSelector(GNETAZFrame* TAZFrameParent);
+        EdgesTAZSelector(GNETAZFrame* TAZFrameParent);
 
         /// @brief destructor
-        ~EdgesSelector();
+        ~EdgesTAZSelector();
 
-        /// @brief get current junction
-        GNEJunction* getCurrentJunction() const;
+        /// @brief show EdgesTAZSelector
+        void showEdgesTAZSelector();
 
-        /// @brief enable edgeSelector
-        void enableEdgeSelector(GNEJunction* currentJunction);
-
-        /// @brief disable edgeSelector
-        void disableEdgeSelector();
-
-        /// @brief restore colors of all edges
-        void restoreEdgeColors();
+        /// @brief hide EdgesTAZSelector
+        void hideEdgesTAZSelector();
 
         /// @name FOX-callbacks
         /// @{
-        /// @brief called when useSelectedEdges button edge is pressed
-        long onCmdUseSelectedEdges(FXObject*, FXSelector, void*);
+        /// @brief called when user change a depart or arrival weight
+        long onCmdSetAttribute(FXObject* obj, FXSelector, void*);
 
-        /// @brief called when clear selection button is pressed
-        long onCmdClearSelection(FXObject*, FXSelector, void*);
+        /// @brieef called when user press add edgeTAZ button
+        long onCmdAddEdgeTAZ(FXObject*, FXSelector, void*);
 
-        /// @brief called when invert selection button is pressed
-        long onCmdInvertSelection(FXObject*, FXSelector, void*);
+        /// @brieef called when user press a remove edgeTAZ button
+        long onCmdRemoveEdgeTAZ(FXObject* obj, FXSelector, void*);
+
         /// @}
-    /*
+
     protected:
         /// @brief FOX needs this
-        EdgesSelector() {}
-    */
+        EdgesTAZSelector() {}
+
     private:
+        
+        /// @brief struct for show Edge TAZs in frame
+        struct EdgeTAZ {
+            /// @brief constructor
+            EdgeTAZ(EdgesTAZSelector *edgesTAZSelector);
+
+            /// @brief destructor
+            ~EdgeTAZ();
+
+            /// @brief edge label
+            FXLabel *edgeLabel;
+
+            /// @brief remove button
+            FXButton *removeButton;
+
+            /// @brief textField for depart weight
+            FXTextField *departWeightTextField;
+
+            /// @brief textField for arrival weight
+            FXTextField *arrivalWeightTextField;
+
+        private:
+            /// @brief vertical frame
+            FXVerticalFrame *myVerticalFrame;
+        };
+
         /// @brief pointer to GNETAZFrame parent
         GNETAZFrame* myTAZFrameParent;
 
-        /// @brief CheckBox for selected edges
-        FXButton* myUseSelectedEdges;
+        /// @brief vector with the EdgeTAZs
+        std::vector<EdgeTAZ*> myEdgeTAZs;
 
-        /// @brief button for clear selection
-        FXButton* myClearEdgesSelection;
-
-        /// @brief button for invert selection
-        FXButton* myInvertEdgesSelection;
-
-        /// @brief current Junction
-        GNEJunction* myCurrentJunction;
+        /// @brief add button
+        FXButton *myAddButton;
     };
 
     // ===========================================================================
@@ -243,8 +257,8 @@ private:
     /// @brief Drawing shape
     DrawingShape* myDrawingShape;
 
-    /// @brief edge selector
-    EdgesSelector* myEdgeSelector;
+    /// @brief edge TAZ selector
+    EdgesTAZSelector* myEdgesTAZSelector;
 };
 
 
