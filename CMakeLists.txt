@@ -375,6 +375,10 @@ if (GIT_FOUND)
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
     set_property(TARGET dist PROPERTY FOLDER "CMake")
     set_property(TARGET dist PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
+    # alias for backward compatibility
+	add_custom_target(dist-complete DEPENDS dist)
+    set_property(TARGET dist-complete PROPERTY FOLDER "CMake")
+    set_property(TARGET dist-complete PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
 
     add_custom_target(distcheck DEPENDS dist
         COMMAND rm -rf sumo-${PACKAGE_VERSION}

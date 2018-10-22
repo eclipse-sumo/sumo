@@ -102,4 +102,4 @@ $(VERSION_H): ../.git
 	../tools/build/version.py $(CURDIR)
 endif
 
-EXTRA_DIST = config.h config.h.in $(VERSION_H) guisim.rc
+EXTRA_DIST = config.h config.h.in $(VERSION_H) sumo-gui.rc

@@ -41,7 +41,7 @@ if make -j32 >> $MAKELOG 2>&1; then
   fi
   date >> $MAKELOG
   if make install >> $MAKELOG 2>&1; then
-    if test -z "$CONFIGURE_OPT"; then
+    if test -z "$CONFIGURE_OPT" -o "$CONFIGURE_OPT" == "cmake"; then
       make -j distcheck >> $MAKELOG 2>&1 || (echo "make distcheck failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
       make dist-complete >> $MAKELOG 2>&1 || (echo "make dist-complete failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
     fi
