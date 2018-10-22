@@ -906,7 +906,7 @@ class VehicleDomain(Domain):
         """changeLane(string, int, double) -> None
 
         Forces a lane change to the lane with the given index; if successful,
-        the lane will be chosen for the given amount of time (in ms).
+        the lane will be chosen for the given amount of time (in s).
         """
         if type(duration) is int and duration >= 1000:
             warnings.warn("API change now handles duration as floating point seconds", stacklevel=2)
@@ -917,10 +917,10 @@ class VehicleDomain(Domain):
         self._connection._sendExact()
 
     def changeLaneRelative(self, vehID, left, duration):
-        """changeLane(string, int, int) -> None
+        """changeLane(string, int, double) -> None
 
         Forces a relative lane change; if successful,
-        the lane will be chosen for the given amount of time (in ms).
+        the lane will be chosen for the given amount of time (in s).
         """
         if type(duration) is int and duration >= 1000:
             warnings.warn("API change now handles duration as floating point seconds", stacklevel=2)
