@@ -30,7 +30,7 @@ if sys.argv[1] == "sumo":
         "SUMO_BINARY", os.path.join(sumoHome, 'bin', 'sumo')), ]
 else:
     sumoCall = [os.environ.get(
-        "GUISIM_BINARY", os.path.join(sumoHome, 'bin', 'sumo-gui'))] #, '-S', '-Q']
+        "GUISIM_BINARY", os.path.join(sumoHome, 'bin', 'sumo-gui')), '-S', '-Q']
 
 egoID = "ego"
 
