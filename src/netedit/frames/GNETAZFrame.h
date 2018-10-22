@@ -140,6 +140,57 @@ public:
     };
 
     // ===========================================================================
+    // class SaveTAZEdges
+    // ===========================================================================
+
+    class SaveTAZEdges : protected FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNETAZFrame::SaveTAZEdges)
+
+    public:
+        /// @brief constructor
+        SaveTAZEdges(GNETAZFrame* TAZFrameParent);
+
+        /// @brief destructor
+        ~SaveTAZEdges();
+
+        /// @brief show save TAZ Edges Modul
+        void showSaveTAZEdgesModul();
+
+        /// @brief hide save TAZ Edges Modul
+        void hideSaveTAZEdgesModul();
+
+        /// @brief enable or disable button save changes
+        void setSaveChangesButton(bool value);
+
+        /// @brief enable or disable button cancel changes
+        void setCancelChangesButton(bool value);
+
+        /// @name FOX-callbacks
+        /// @{
+        /// @brief Called when the user press the button save changes
+        long onCmdSaveChanges(FXObject*, FXSelector, void*);
+
+        /// @brief Called when the user press the button cancel changes
+        long onCmdCancelChanges(FXObject*, FXSelector, void*);
+        /// @}
+
+    protected:
+        /// @brief FOX needs this
+        SaveTAZEdges() {}
+
+    private:
+        /// @brief pointer to TAZFrame parent
+        GNETAZFrame* myTAZFrameParent;
+
+        /// @field FXButton for save changes in TAZEdges
+        FXButton* mySaveChangesButton;
+
+        /// @field FXButton for cancel changes in TAZEdges
+        FXButton* myCancelChangesButton;
+    };
+
+    // ===========================================================================
     // class TAZParameters
     // ===========================================================================
 
@@ -247,6 +298,9 @@ private:
 
     /// @brief Drawing shape
     DrawingShape* myDrawingShape;
+
+    /// @brief save TAZ Edges
+    SaveTAZEdges* mySaveTAZEdges;
 
     /// @brief edge TAZ selector
     EdgesTAZSelector* myEdgesTAZSelector;
