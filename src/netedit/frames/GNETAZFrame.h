@@ -19,6 +19,7 @@
 
 // temporal declaration
 class GNETAZ;
+class GNETAZEdge;
 
 // ===========================================================================
 // included modules
@@ -49,10 +50,10 @@ public:
         ~CurrentTAZ();
 
         /// @brief set current TAZ
-        void setCurrentTAZ(GNETAZ* currentTAZ);
+        void setTAZ(GNETAZ* currentTAZ);
 
         /// @brief get current TAZ
-        GNETAZ* getCurrentTAZ() const;
+        GNETAZ* getTAZ() const;
 
     private:
         /// @brief pointer to TAZ Frame
@@ -107,7 +108,7 @@ public:
         /// @brief struct for show Edge TAZs in frame
         struct EdgeTAZ {
             /// @brief constructor
-            EdgeTAZ(EdgesTAZSelector *edgesTAZSelector);
+            EdgeTAZ(EdgesTAZSelector *edgesTAZSelector, GNETAZEdge *TAZEdge);
 
             /// @brief destructor
             ~EdgeTAZ();
@@ -127,6 +128,12 @@ public:
         private:
             /// @brief vertical frame
             FXVerticalFrame *myVerticalFrame;
+
+            /// @brief pointer to Edges TAZSelector Parent
+            EdgesTAZSelector *myEdgesTAZSelectorParent;
+
+            /// @brief pointer to edited TAZEdge
+            GNETAZEdge *myEditedTAZEdge;
         };
 
         /// @brief pointer to GNETAZFrame parent
@@ -261,9 +268,9 @@ public:
 
     /**@brief process click over Viewnet
     * @param[in] clickedPosition clicked position over ViewNet
-    * @param[in] TAZ clicked TAZ
-    * @param[in] edge clicked edge
-    * @return AddShapeStatus with the result of operation
+    * @param[in] TAZ clicked TAZ (can be null)
+    * @param[in] edge clicked edge (can be null)
+    * @return true if something (select TAZ or add edge) was sucefully done
     */
     bool processClick(const Position& clickedPosition, GNETAZ* taz, GNEEdge* edge);
 

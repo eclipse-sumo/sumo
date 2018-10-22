@@ -85,6 +85,9 @@ public:
     void drawGL(const GUIVisualizationSettings& s) const;
     /// @}
 
+    /// @brief get pointer to TAZ edge
+    GNEEdge* getEdge() const;
+
     /// @brief inherited from GNEAttributeCarrier
     /// @{
     /* @brief method for getting the Attribute of an XML key

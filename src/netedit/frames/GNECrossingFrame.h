@@ -161,12 +161,6 @@ public:
         /// @brief get crossing width
         double getCrossingWidth() const;
 
-        /// @brief get candidate color
-        const RGBColor& getCandidateColor() const;
-
-        /// @brief get selected color
-        const RGBColor& getSelectedColor() const;
-
         /// @brief check if current parameters are valid
         bool isCurrentParametersValid() const;
 
@@ -213,12 +207,6 @@ public:
 
         /// @brief flag to check if current parameters are valid
         bool myCurrentParametersValid;
-
-        /// @brief color for candidate edges
-        RGBColor myCandidateColor;
-
-        /// @brief color for selected edges
-        RGBColor mySelectedColor;
     };
 
     // ===========================================================================

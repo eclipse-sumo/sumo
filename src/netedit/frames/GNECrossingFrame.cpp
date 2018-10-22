@@ -223,9 +223,6 @@ GNECrossingFrame::CrossingParameters::CrossingParameters(GNECrossingFrame* cross
     // Create help button
     myHelpCrossingAttribute = new FXButton(this, "Help", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
     myHelpCrossingAttribute->disable();
-    // set colors
-    myCandidateColor = RGBColor(0, 64, 0, 255);
-    mySelectedColor = RGBColor::GREEN;
 }
 
 
@@ -374,18 +371,6 @@ GNECrossingFrame::CrossingParameters::getCrossingWidth() const {
 }
 
 
-const RGBColor&
-GNECrossingFrame::CrossingParameters::getCandidateColor() const {
-    return myCandidateColor;
-}
-
-
-const RGBColor&
-GNECrossingFrame::CrossingParameters::getSelectedColor() const {
-    return mySelectedColor;
-}
-
-
 long
 GNECrossingFrame::CrossingParameters::onCmdSetAttribute(FXObject*, FXSelector, void*) {
     myCurrentParametersValid = true;
@@ -426,11 +411,11 @@ GNECrossingFrame::CrossingParameters::onCmdSetAttribute(FXObject*, FXSelector, v
     for (auto i : myCrossingFrameParent->myEdgeSelector->getCurrentJunction()->getGNEEdges()) {
         if (std::find(myCurrentSelectedEdges.begin(), myCurrentSelectedEdges.end(), i) != myCurrentSelectedEdges.end()) {
             for (auto j : i->getLanes()) {
-                j->setSpecialColor(&mySelectedColor);
+                j->setSpecialColor(&myCrossingFrameParent->getEdgeCandidateColor());
             }
         } else {
             for (auto j : i->getLanes()) {
-                j->setSpecialColor(&myCandidateColor);
+                j->setSpecialColor(&myCrossingFrameParent->getEdgeCandidateSelectedColor());
             }
         }
     }
@@ -541,9 +526,9 @@ GNECrossingFrame::GNECrossingFrame(FXHorizontalFrame* horizontalFrameParent, GNE
     // Create groupbox and labels for legends
     FXGroupBox *groupBoxLegend = new FXGroupBox(myContentFrame, "Legend", GUIDesignGroupBoxFrame);
     FXLabel *colorCandidateLabel = new FXLabel(groupBoxLegend, "Candidate", 0, GUIDesignLabelLeft);
-    colorCandidateLabel->setBackColor(MFXUtils::getFXColor(myCrossingParameters->getCandidateColor()));
+    colorCandidateLabel->setBackColor(MFXUtils::getFXColor(getEdgeCandidateColor()));
     FXLabel *colorSelectedLabel = new FXLabel(groupBoxLegend, "Selected", 0, GUIDesignLabelLeft);
-    colorSelectedLabel->setBackColor(MFXUtils::getFXColor(myCrossingParameters->getSelectedColor()));
+    colorSelectedLabel->setBackColor(MFXUtils::getFXColor(getEdgeCandidateSelectedColor()));
 
     // disable edge selector
     myEdgeSelector->disableEdgeSelector();

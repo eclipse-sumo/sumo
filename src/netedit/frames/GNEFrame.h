@@ -461,6 +461,12 @@ protected:
     /// @brief Open help attributes dialog
     void openHelpAttributesDialog(SumoXMLTag tag) const;
 
+    /// @brief get edge candidate color
+    const RGBColor& getEdgeCandidateColor() const;
+
+    /// @brief get selected color
+    const RGBColor& getEdgeCandidateSelectedColor() const;
+
     /// @brief View Net for changes
     GNEViewNet* myViewNet;
 
@@ -485,6 +491,12 @@ private:
 
     /// @brief the label for the frame's header
     FXLabel* myFrameHeaderLabel;
+    
+    /// @brief edge candidate color (used by some modulds to mark edges)
+    RGBColor myEdgeCandidateColor;
+
+    /// @brief selected edge candidate color (used by some modulds to selected mark edges)
+    RGBColor myEdgeCandidateSelectedColor;
 
     /// @brief Invalidated copy constructor.
     GNEFrame(const GNEFrame&) = delete;

@@ -38,6 +38,7 @@
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/common/MsgHandler.h>
 #include <netedit/netelements/GNELane.h>
+#include <netedit/frames/GNETAZFrame.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNENet.h>
@@ -328,8 +329,8 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
         }
     }
     // check if dotted contour has to be drawn
-    if (myViewNet->getACUnderCursor() == this) {
-        GLHelper::drawShapeDottedContour(getType(), getShape());
+    if ((myViewNet->getACUnderCursor() == this) || (myViewNet->getViewParent()->getTAZFrame()->getCurrentTAZ()->getTAZ() == this)) {
+        GLHelper::drawShapeDottedContour(GLO_POLYGON + 1, getShape());
     }
     // pop name
     glPopName();

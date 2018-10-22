@@ -22,6 +22,7 @@
 
 #include <utils/common/ToString.h>
 #include <utils/common/MsgHandler.h>
+#include <netedit/netelements/GNEEdge.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/GNEUndoList.h>
 
@@ -80,11 +81,19 @@ GNETAZEdge::drawGL(const GUIVisualizationSettings&) const {
 }
 
 
+GNEEdge* 
+GNETAZEdge::getEdge() const {
+    return myEdge;
+}
+
+
 std::string
 GNETAZEdge::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
             return getAdditionalID();
+        case SUMO_ATTR_EDGE:
+            return myEdge->getID();
         case GNE_ATTR_TAZ_DEPARTWEIGHT:
             return toString(myDepartWeight);
         case GNE_ATTR_TAZ_ARRIVALWEIGHT:

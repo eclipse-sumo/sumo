@@ -1281,7 +1281,9 @@ GNEFrame::NeteditAttributes::setEndPosition(double positionOfTheMouseOverLane, d
 
 GNEFrame::GNEFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet, const std::string& frameLabel) :
     FXVerticalFrame(horizontalFrameParent, GUIDesignAuxiliarFrame),
-    myViewNet(viewNet) {
+    myViewNet(viewNet),
+    myEdgeCandidateColor(RGBColor(0, 64, 0, 255)),
+    myEdgeCandidateSelectedColor(RGBColor::GREEN) {
 
     // Create font
     myFrameHeaderFont = new FXFont(getApp(), "Arial", 14, FXFont::Bold),
@@ -1455,6 +1457,18 @@ GNEFrame::openHelpAttributesDialog(SumoXMLTag elementTag) const {
     getApp()->runModalFor(attributesHelpDialog);
     // Write Warning in console if we're in testing mode
     WRITE_DEBUG("Closing HelpAttributes dialog for tag '" + toString(elementTag) + "'");
+}
+
+
+const RGBColor&
+GNEFrame::getEdgeCandidateColor() const {
+    return myEdgeCandidateColor;
+}
+
+
+const RGBColor& 
+GNEFrame::getEdgeCandidateSelectedColor() const {
+    return myEdgeCandidateSelectedColor;
 }
 
 /****************************************************************************/
