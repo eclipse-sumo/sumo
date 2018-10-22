@@ -6,10 +6,10 @@
 # which accompanies this distribution, and is available at
 # http://www.eclipse.org/legal/epl-v20.html
 # SPDX-License-Identifier: EPL-2.0
-
 # @file    runner.py
 # @author  Daniel Krajzewicz
 # @author  Michael Behrisch
+# @author  Leonhard Luecken
 # @date    2012-10-19
 # @version $Id$
 
@@ -30,7 +30,7 @@ if sys.argv[1] == "sumo":
         "SUMO_BINARY", os.path.join(sumoHome, 'bin', 'sumo')), ]
 else:
     sumoCall = [os.environ.get(
-        "GUISIM_BINARY", os.path.join(sumoHome, 'bin', 'sumo-gui')), '-S', '-Q']
+        "GUISIM_BINARY", os.path.join(sumoHome, 'bin', 'sumo-gui'))] #, '-S', '-Q']
 
 egoID = "ego"
 
