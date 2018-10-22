@@ -142,6 +142,7 @@ lead_right
 lead_straight
 lead_left
 [021] Context results for vehicle 'ego':
+follow_straight
 follow_right
 follow_left
 lead_right
