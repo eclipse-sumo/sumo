@@ -47,8 +47,10 @@ def runSingle(traciEndTime, viewRange, objID):
                 break
             
             print("[%03d] Context results for vehicle '%s':" % (step, objID))
-            for v in traci.vehicle.getContextSubscriptionResults(objID) or []:
-                print(v)
+            results = traci.vehicle.getContextSubscriptionResults(objID)
+            if results is not None:
+                for v in sorted([v for v in results]):
+                    print(v)
 
         if not subscribed:
             print("Subscribing to vehicle context of object '%s'" % (objID))
@@ -61,6 +63,10 @@ def runSingle(traciEndTime, viewRange, objID):
             traci.vehicle.addSubscriptionFilterLanes(laneList)
             traci.vehicle.addSubscriptionFilterUpstreamDistance(float(sys.argv[4]))
             traci.vehicle.addSubscriptionFilterDownstreamDistance(float(sys.argv[5]))
+            
+            # advice all vehicle not to change lanes 
+            for vehID in traci.vehicle.getIDList():
+                traci.vehicle.changeLane(vehID, traci.vehicle.getLaneIndex(vehID), 111)
                 
             subscribed = True
         step += 1
