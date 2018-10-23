@@ -347,11 +347,11 @@ GNETAZ::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_COLOR:
             return toString(myColor);
         case SUMO_ATTR_EDGES: {
-            std::string edges;
+            std::vector<std::string> edgeIDs;
             for (auto i : myAdditionalChilds) {
-                edges += i->getAttribute(SUMO_ATTR_ID);
+                edgeIDs.push_back(i->getAttribute(SUMO_ATTR_EDGE));
             }
-            return edges;
+            return toString(edgeIDs);
         }
         case GNE_ATTR_BLOCK_MOVEMENT:
             return toString(myBlockMovement);

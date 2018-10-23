@@ -57,6 +57,7 @@
 #include "GNEVariableSpeedSign.h"
 #include "GNEVariableSpeedSignStep.h"
 #include "GNETAZ.h"
+#include "GNETAZEdge.h"
 
 
 // ===========================================================================
@@ -237,7 +238,7 @@ GNEAdditionalHandler::parseAndBuildTAZ(const SUMOSAXAttributes& attrs, const Sum
     // parse attributes of Vaporizer
     const std::string id = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_ID, abort);
     const PositionVector shape = GNEAttributeCarrier::parseAttributeFromXML<PositionVector>(attrs, "", tag, SUMO_ATTR_SHAPE, abort);
-    RGBColor color = GNEAttributeCarrier::parseAttributeFromXML<RGBColor>(attrs, "", tag, SUMO_ATTR_BEGIN, abort);
+    RGBColor color = GNEAttributeCarrier::parseAttributeFromXML<RGBColor>(attrs, "", tag, SUMO_ATTR_COLOR, abort);
     // Continue if all parameters were successfully loaded
     if (!abort) {
         // check that all parameters are valid
@@ -254,7 +255,27 @@ GNEAdditionalHandler::parseAndBuildTAZ(const SUMOSAXAttributes& attrs, const Sum
 
 void 
 GNEAdditionalHandler::parseAndBuildTAZEdge(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
-
+    bool abort = false;
+    // parse attributes of Vaporizer
+    const std::string edgeID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_EDGE, abort);
+    const double departWeight = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, edgeID, tag, GNE_ATTR_TAZ_DEPARTWEIGHT, abort);
+    const double arrivalWeight = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, edgeID, tag, GNE_ATTR_TAZ_ARRIVALWEIGHT, abort);
+    // Continue if all parameters were successfully loaded
+    if (!abort) {
+        // get edge and TAZ
+        GNEEdge* edge = myViewNet->getNet()->retrieveEdge(edgeID, false);
+        GNEAdditional* TAZ = myParentElements.retrieveAdditionalParent(myViewNet, SUMO_TAG_TAZ);
+        // check that all parameters are valid
+        if (edge == nullptr) {
+            WRITE_WARNING("The edge '" + edgeID + "' to use within the " + toString(tag) + " is not known.");
+        } else if (TAZ == nullptr) {
+            WRITE_WARNING("A " + toString(tag) + " must be declared within the definition of a " + toString(SUMO_TAG_TAZ) + ".");
+        } else {
+            myLastInsertedAdditional = buildTAZEdge(myViewNet, myUndoAdditionals, TAZ, edge, departWeight, arrivalWeight);
+            // save ID of last created element
+            myParentElements.commitElementInsertion(myLastInsertedAdditional->getID());
+        }
+    }
 }
 
 
@@ -2121,6 +2142,21 @@ GNEAdditionalHandler::buildTAZ(GNEViewNet* viewNet, bool allowUndoRedo, const st
     } else {
         viewNet->getNet()->insertAdditional(TAZ);
         TAZ->incRef("buildTAZ");
+    }
+    return TAZ;
+}
+
+
+GNEAdditional* 
+GNEAdditionalHandler::buildTAZEdge(GNEViewNet* viewNet, bool allowUndoRedo, GNEAdditional *TAZ, GNEEdge *edge, double departWeight, double arrivalWeight) {
+    GNETAZEdge *TAZEdge = new GNETAZEdge(TAZ, edge, departWeight, arrivalWeight);
+    if (allowUndoRedo) {
+        viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_TAZ));
+        viewNet->getUndoList()->add(new GNEChange_Additional(TAZEdge, true), true);
+        viewNet->getUndoList()->p_end();
+    } else {
+        viewNet->getNet()->insertAdditional(TAZEdge);
+        TAZ->incRef("buildTAZEdge");
     }
     return TAZ;
 }
