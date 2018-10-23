@@ -38,22 +38,22 @@ netedit.createSquaredPoly(referencePosition, 100, 150, 100, True)
 netedit.createSquaredPoly(referencePosition, 200, 150, 100, True)
 
 # enable block shape
-netedit.modifyShapeDefaultBoolValue(12)
+netedit.modifyShapeDefaultBoolValue(13)
 
 # create polygon blocked
 netedit.createSquaredPoly(referencePosition, 300, 150, 100, True)
 
 # disable block shape
-netedit.modifyShapeDefaultBoolValue(12)
+netedit.modifyShapeDefaultBoolValue(13)
 
 # enable block move
-netedit.modifyShapeDefaultBoolValue(11)
+netedit.modifyShapeDefaultBoolValue(12)
 
 # create polygon
 netedit.createSquaredPoly(referencePosition, 400, 150, 100, True)
 
 # enable block shape
-netedit.modifyShapeDefaultBoolValue(12)
+netedit.modifyShapeDefaultBoolValue(13)
 
 # create polygon
 netedit.createSquaredPoly(referencePosition, 500, 150, 100, True)

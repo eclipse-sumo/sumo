@@ -41,13 +41,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 100, 50)
 
 # Change parameter 6 with a non valid value (invalid)
-netedit.modifyAttribute(5, "%$$%%%%%")
+netedit.modifyAttribute(6, "%$$%%%%%")
 
 # Change parameter 6 with a non valid value (non exist)
-netedit.modifyAttribute(5, "paris.ico")
+netedit.modifyAttribute(6, "paris.ico")
 
 # Change parameter 8 with a valid value (valid)
-netedit.modifyAttribute(5, "berlin_icon.ico")
+netedit.modifyAttribute(6, "berlin_icon.ico")
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)

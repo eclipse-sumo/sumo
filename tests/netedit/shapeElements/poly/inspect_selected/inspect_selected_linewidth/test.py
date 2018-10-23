@@ -40,8 +40,14 @@ netedit.inspectMode()
 # inspect first polygon
 netedit.leftClick(referencePosition, 100, 50)
 
-# Change boolean parameter 2
-netedit.modifyAttribute(4, "true")
+# Change parameter 4 with a non valid value
+netedit.modifyAttribute(3, "dummyLineWidth")
+
+# Change parameter 4 with a valid value (negative)
+netedit.modifyAttribute(3, "-2")
+
+# Change parameter 4 with a valid value (negative)
+netedit.modifyAttribute(3, "2.5")
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)
