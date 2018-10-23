@@ -641,26 +641,28 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
                     // Number of opposite lanes to be checked (assumes filterLanes.size()>0, see assertion above) determined as hypothetical offset
                     // overlap into opposing edge from the vehicle's current lane.
                     // TODO: offset<0 may indicate opposite query when vehicle is on opposite itself (-> use min_element(filterLanes...) instead, etc)
-                    unsigned int nOpp = (*std::max_element(filterLanes.begin(), filterLanes.end())) - ((int)vehEdge->getLanes().size() - 1 - vehLane->getIndex());
+                    unsigned int nOpp = MAX2(0, (*std::max_element(filterLanes.begin(), filterLanes.end())) - ((int)vehEdge->getLanes().size() - 1 - vehLane->getIndex()));
                     // Collect vehicles from opposite lanes
-                    for (auto& laneCov : *checkedLanesInDrivingDir) {
-                        const MSLane* lane = laneCov.first;
-                        if (lane == nullptr || lane->getEdge().getOppositeEdge() == nullptr) {
-                            continue;
-                        }
-                        const MSEdge* edge = &(lane->getEdge());
-                        const MSEdge* opposite = edge->getOppositeEdge();
-                        const std::pair<double, double>& range = laneCov.second;
-                        auto leftMostOppositeLaneIt = opposite->getLanes().rbegin();
-                        for (auto oppositeLaneIt = leftMostOppositeLaneIt;
-                                oppositeLaneIt != opposite->getLanes().rend(); ++oppositeLaneIt) {
-                            if (oppositeLaneIt - leftMostOppositeLaneIt == nOpp) {
-                                break;
+                    if (nOpp > 0) {
+                        for (auto& laneCov : *checkedLanesInDrivingDir) {
+                            const MSLane* lane = laneCov.first;
+                            if (lane == nullptr || lane->getEdge().getOppositeEdge() == nullptr) {
+                                continue;
                             }
-                            // Add vehicles from corresponding range on opposite direction
-                            const MSLane* oppositeLane = *oppositeLaneIt;
-                            auto new_vehs = oppositeLane->getVehicles(lane->getLength()-range.second, lane->getLength()-range.first);
-                            vehs.insert(new_vehs.begin(), new_vehs.end());
+                            const MSEdge* edge = &(lane->getEdge());
+                            const MSEdge* opposite = edge->getOppositeEdge();
+                            const std::pair<double, double>& range = laneCov.second;
+                            auto leftMostOppositeLaneIt = opposite->getLanes().rbegin();
+                            for (auto oppositeLaneIt = leftMostOppositeLaneIt;
+                                    oppositeLaneIt != opposite->getLanes().rend(); ++oppositeLaneIt) {
+                                if (oppositeLaneIt - leftMostOppositeLaneIt == nOpp) {
+                                    break;
+                                }
+                                // Add vehicles from corresponding range on opposite direction
+                                const MSLane* oppositeLane = *oppositeLaneIt;
+                                auto new_vehs = oppositeLane->getVehicles(lane->getLength()-range.second, lane->getLength()-range.first);
+                                vehs.insert(new_vehs.begin(), new_vehs.end());
+                            }
                         }
                     }
                 }
