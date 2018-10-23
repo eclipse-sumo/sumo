@@ -490,6 +490,12 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
             filterLanes = s.filterLanes;
         }
 
+#ifdef DEBUG_SURROUNDING
+        std::cout << "Filter lanes: " << toString(filterLanes) << std::endl;
+        std::cout << "Downstream distance: " << downstreamDist << std::endl;
+        std::cout << "Upstream distance: " << upstreamDist << std::endl;
+#endif
+
         if (s.activeFilters & SUBS_FILTER_MANEUVER) {
             // Maneuver filters disables road net search for all surrounding vehicles
             if (s.activeFilters & SUBS_FILTER_LEAD_FOLLOW) {
@@ -498,8 +504,17 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
                     MSLane* lane = v->getLane()->getParallelLane(offset);
                     if (lane != nullptr) {
                         // this is a non-opposite lane
-                        vehs.insert(vehs.end(), lane->getLeader(v, v->getPositionOnLane(), v->getBestLanesContinuation(lane), downstreamDist).first);
-                        vehs.insert(vehs.end(), vehLane->getFollower(v, v->getPositionOnLane(), upstreamDist, false).first);
+                        MSVehicle* leader = lane->getLeader(v, v->getPositionOnLane(), v->getBestLanesContinuation(lane), downstreamDist).first;
+                        MSVehicle* follower = lane->getFollower(v, v->getPositionOnLane(), upstreamDist, false).first;
+                        vehs.insert(vehs.end(), leader);
+                        vehs.insert(vehs.end(), follower);
+
+#ifdef DEBUG_SURROUNDING
+                        std::cout << "Lane at index " << offset << ": '" << lane->getID() << std::endl;
+                        std::cout << "Leader: '" << (leader != nullptr ? leader->getID() : "NULL") << "'" << std::endl;
+                        std::cout << "Follower: '" << (follower != nullptr ? follower->getID() : "NULL") << "'" << std::endl;
+#endif
+
                     } else if (!disregardOppositeDirection && offset > 0) { // TODO: offset<0 may indicate opposite query when vehicle is on opposite itself
                         // check whether ix points to an opposite lane
                         const MSEdge* opposite = vehEdge->getOppositeEdge();
@@ -572,7 +587,7 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
                     const MSEdge* opposite = vehEdge->getOppositeEdge();
                     if (opposite == nullptr) {
 #ifdef DEBUG_SURROUNDING
-                        std::cout << "No lane at index " << offset << std::endl;
+                        std::cout << "No opposite edge, thus no lane at index " << offset << std::endl;
 #endif
                         // no opposite edge
                         continue;

@@ -1,0 +1,45 @@
+Loading configuration... done.
+ Retrying in 1 seconds
+Subscribing to vehicle context of object 'ego'
+[001] Context results for vehicle 'ego':
+ego
+[002] Context results for vehicle 'ego':
+ego
+[003] Context results for vehicle 'ego':
+ego
+[004] Context results for vehicle 'ego':
+ego
+[005] Context results for vehicle 'ego':
+ego
+[006] Context results for vehicle 'ego':
+ego
+[007] Context results for vehicle 'ego':
+opp1
+ego
+[008] Context results for vehicle 'ego':
+opp1
+ego
+[009] Context results for vehicle 'ego':
+opp1
+ego
+[010] Context results for vehicle 'ego':
+opp1
+ego
+[011] Context results for vehicle 'ego':
+opp1
+ego
+[012] Context results for vehicle 'ego':
+opp1
+ego
+[013] Context results for vehicle 'ego':
+opp1
+ego
+[014] Context results for vehicle 'ego':
+opp1
+ego
+[015] Context results for vehicle 'ego':
+ego
+[016] Context results for vehicle 'ego':
+ego
+[017] Vehicle 'ego' has arrived at destination
+Print ended at step 18

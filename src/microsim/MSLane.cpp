@@ -81,6 +81,8 @@
 //#define DEBUG_COND (getID() == "undefined")
 //#define DEBUG_COND2(obj) ((obj != 0 && (obj)->getID() == "disabled"))
 //#define DEBUG_COND2(obj) ((obj != 0 && (obj)->isSelected()))
+//#define DEBUG_COND (getID() == "ego")
+//#define DEBUG_COND2(obj) ((obj != 0 && (obj)->getID() == "ego"))
 
 // ===========================================================================
 // static member definitions
@@ -2965,8 +2967,12 @@ MSLane::getFollowersOnConsecutive(const MSVehicle* ego, double backOffset,
                 }
 #endif
                 for (int i = 0; i < first.numSublanes(); ++i) {
-                    const MSVehicle* v = first[i];
+                    // NOTE: I added this because getFirstVehicleInformation() returns the ego as first if it partially laps into next.
+                    // EDIT: Disabled the previous changes (see commented code in next line and fourth upcoming) as I realized that this
+                    //       did not completely fix the issue (to conserve test results). Refs #4727 (Leo)
+                    const MSVehicle* v = /* first[i] == ego ? firstFront[i] :*/ first[i];
                     double agap = 0;
+
                     if (v != nullptr && v != ego) {
                         if (!v->isFrontOnLane(next)) {
                             // the front of v is already on divergent trajectory from the ego vehicle
@@ -3169,7 +3175,7 @@ MSLane::getSurroundingVehicles(double startPos, double downstreamDist, double up
         (*checkedLanes)[this] = std::make_pair(MAX2(0.0, startPos-upstreamDist), MIN2(startPos+downstreamDist, getLength()));
     }
 #ifdef DEBUG_SURROUNDING
-    std::cout << "Scanning on lane " << myID << "(downstr. " << downstreamDist << ", upstr. " << upstreamDist << "): " << std::endl;
+    std::cout << "Scanning on lane " << myID << "(downstr. " << downstreamDist << ", upstr. " << upstreamDist << ", startPos " << startPos << "): " << std::endl;
 #endif
     std::set<MSVehicle*> foundVehicles = getVehicles(MAX2(0., startPos-upstreamDist), MIN2(myLength, startPos + downstreamDist));
     if (startPos < upstreamDist) {
@@ -3182,7 +3188,7 @@ MSLane::getSurroundingVehicles(double startPos, double downstreamDist, double up
                 std::cout << "Skipping previous: " << incoming->getID() << std::endl;
             }
 #endif
-            std::set<MSVehicle*> newVehs = incoming->getSurroundingVehicles(incoming->getLength(), downstreamDist, upstreamDist-startPos, checkedLanes);
+            std::set<MSVehicle*> newVehs = incoming->getSurroundingVehicles(incoming->getLength(), 0.0, upstreamDist-startPos, checkedLanes);
             foundVehicles.insert(newVehs.begin(), newVehs.end());
         }
     }
@@ -3191,7 +3197,10 @@ MSLane::getSurroundingVehicles(double startPos, double downstreamDist, double up
         // scan successive lanes
         const MSLinkCont& lc = getLinkCont();
         for (MSLink* l : lc) {
-            std::set<MSVehicle*> newVehs = l->getViaLaneOrLane()->getSurroundingVehicles(0.0, getLength()-startPos, downstreamDist, checkedLanes);
+#ifdef DEBUG_SURROUNDING
+            std::cout << "Checking on outgoing: " << l->getViaLaneOrLane()->getID() << std::endl;
+#endif
+            std::set<MSVehicle*> newVehs = l->getViaLaneOrLane()->getSurroundingVehicles(0.0, downstreamDist - (myLength - startPos), upstreamDist, checkedLanes);
             foundVehicles.insert(newVehs.begin(), newVehs.end());
         }
     }
@@ -3210,7 +3219,7 @@ MSLane::getVehicles(double a, double b) const {
     std::set<MSVehicle*> res;
     const VehCont& vehs = getVehiclesSecure();
 
-    size_t nV = vehs.size();
+    int nV = vehs.size();
     if (nV == 0) {
         releaseVehicles();
         return res;
@@ -3222,7 +3231,7 @@ MSLane::getVehicles(double a, double b) const {
 
     // Find indices ia (min with veh in interval)
     //  and ib (max with veh in interval)
-    size_t ia = 0, ib = nV-1;
+    int ia = 0, ib = nV-1;
     while (ia != nV) {
         if(vehs[ia]->getPositionOnLane() >= a) {
             break;
