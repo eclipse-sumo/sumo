@@ -17,9 +17,6 @@
 #ifndef GNETAZFrame_h
 #define GNETAZFrame_h
 
-// temporal declaration
-class GNETAZ;
-class GNETAZEdge;
 
 // ===========================================================================
 // included modules
@@ -90,14 +87,17 @@ public:
         /// @brief select edge
         bool selectEdge(GNEEdge *edge);
 
+        /// @brief update list of EdgeTAZRow
+        void updateList();
+
         /// @name FOX-callbacks
         /// @{
+
         /// @brief called when user change a depart or arrival weight
         long onCmdSetAttribute(FXObject* obj, FXSelector, void*);
 
         /// @brieef called when user press a remove edgeTAZ button
         long onCmdRemoveEdgeTAZ(FXObject* obj, FXSelector, void*);
-
         /// @}
 
     protected:
@@ -105,35 +105,52 @@ public:
         EdgesTAZSelector() {}
 
     private:
-        /// @brief struct for show Edge TAZs in frame
-        struct EdgeTAZ {
+        /// @brief struct for show Edge TAZs in frame based on a vertical frame
+        class EdgeTAZRow : private FXVerticalFrame {
+
+        public:
             /// @brief constructor
-            EdgeTAZ(EdgesTAZSelector *edgesTAZSelector, GNETAZEdge *TAZEdge);
+            EdgeTAZRow(EdgesTAZSelector *edgesTAZSelector, GNEAdditional *TAZEdge, GNEEdge *edge);
 
             /// @brief destructor
-            ~EdgeTAZ();
+            ~EdgeTAZRow();
 
-            /// @brief edge label
-            FXLabel *edgeLabel;
+            /// @brief pointer to associated TAZEdge
+            GNEAdditional *getEditedTAZEdge() const;
 
-            /// @brief remove button
-            FXButton *removeButton;
+            /// @brief get remove button
+            FXButton *getRemoveButton() const;
 
-            /// @brief textField for depart weight
-            FXTextField *departWeightTextField;
+            /// @brief get textField for depart weight
+            FXTextField *getDepartWeightTextField() const;
 
-            /// @brief textField for arrival weight
-            FXTextField *arrivalWeightTextField;
+            /// @brief get textField for arrival weight
+            FXTextField *getArrivalWeightTextField() const;
+
+            /// @brief pointer to TAZEdge's edge
+            GNEEdge *getEdge() const;
 
         private:
-            /// @brief vertical frame
-            FXVerticalFrame *myVerticalFrame;
-
             /// @brief pointer to Edges TAZSelector Parent
             EdgesTAZSelector *myEdgesTAZSelectorParent;
 
             /// @brief pointer to edited TAZEdge
-            GNETAZEdge *myEditedTAZEdge;
+            GNEAdditional *myEditedTAZEdge;
+
+            /// @brief pointer to TAZEdge's edge
+            GNEEdge *myEdge;
+
+            /// @brief edge label
+            FXLabel *myEdgeLabel;
+
+            /// @brief remove button
+            FXButton *myRemoveButton;
+
+            /// @brief textField for depart weight
+            FXTextField *myDepartWeightTextField;
+
+            /// @brief textField for arrival weight
+            FXTextField *myArrivalWeightTextField;
         };
 
         /// @brief pointer to GNETAZFrame parent
@@ -142,8 +159,8 @@ public:
         /// @brief Label for current edges
         FXLabel *myCurrentEdgesLabel;
 
-        /// @brief vector with the EdgeTAZs
-        std::vector<EdgeTAZ*> myEdgeTAZs;
+        /// @brief vector with the EdgeTAZ Rows
+        std::vector<EdgeTAZRow*> myEdgeTAZRows;
     };
 
     // ===========================================================================
@@ -167,11 +184,8 @@ public:
         /// @brief hide save TAZ Edges Modul
         void hideSaveTAZEdgesModul();
 
-        /// @brief enable or disable button save changes
-        void setSaveChangesButton(bool value);
-
-        /// @brief enable or disable button cancel changes
-        void setCancelChangesButton(bool value);
+        /// @brief enable buttons save and cancel changes
+        void enableButtons();
 
         /// @name FOX-callbacks
         /// @{

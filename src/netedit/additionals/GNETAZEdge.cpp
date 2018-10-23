@@ -81,12 +81,6 @@ GNETAZEdge::drawGL(const GUIVisualizationSettings&) const {
 }
 
 
-GNEEdge* 
-GNETAZEdge::getEdge() const {
-    return myEdge;
-}
-
-
 std::string
 GNETAZEdge::getAttribute(SumoXMLAttr key) const {
     switch (key) {

@@ -72,6 +72,7 @@ enum EditMode {
 // class declarations
 // ===========================================================================
 
+class GNEChange;
 class GNENet;
 class GNENetElement;
 class GNEJunction;
