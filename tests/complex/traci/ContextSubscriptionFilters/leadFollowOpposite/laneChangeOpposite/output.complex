@@ -1,0 +1,103 @@
+Loading configuration... done.
+ Retrying in 1 seconds
+Subscribing to vehicle context of object 'ego'
+[001] Context results for vehicle 'ego':
+snail_leader
+[002] Context results for vehicle 'ego':
+snail_leader
+[003] Context results for vehicle 'ego':
+snail_leader
+[004] Context results for vehicle 'ego':
+snail_leader
+[005] Context results for vehicle 'ego':
+snail_leader
+[006] Context results for vehicle 'ego':
+snail_leader
+[007] Context results for vehicle 'ego':
+snail_leader
+[008] Context results for vehicle 'ego':
+snail_leader
+[009] Context results for vehicle 'ego':
+snail_leader
+[010] Context results for vehicle 'ego':
+snail_leader
+opposite.0
+[011] Context results for vehicle 'ego':
+snail_leader
+opposite.0
+[012] Context results for vehicle 'ego':
+snail_leader
+opposite.0
+[013] Context results for vehicle 'ego':
+snail_leader
+opposite.0
+[014] Context results for vehicle 'ego':
+snail_leader
+opposite.0
+[015] Context results for vehicle 'ego':
+snail_leader
+opposite.0
+[016] Context results for vehicle 'ego':
+snail_leader
+opposite.0
+[017] Context results for vehicle 'ego':
+snail_leader
+opposite.1
+opposite.0
+[018] Context results for vehicle 'ego':
+snail_leader
+opposite.1
+[019] Context results for vehicle 'ego':
+opposite.2
+opposite.1
+snail_leader
+[020] Context results for vehicle 'ego':
+opposite.2
+opposite.1
+snail_leader
+[021] Context results for vehicle 'ego':
+opposite.2
+opposite.1
+snail_leader
+[022] Context results for vehicle 'ego':
+opposite.3
+opposite.2
+snail_leader
+[023] Context results for vehicle 'ego':
+opposite.3
+opposite.2
+snail_leader
+[024] Context results for vehicle 'ego':
+opposite.3
+opposite.2
+snail_leader
+[025] Context results for vehicle 'ego':
+opposite.3
+snail_leader
+opposite.4
+[026] Context results for vehicle 'ego':
+opposite.3
+snail_leader
+opposite.4
+[027] Context results for vehicle 'ego':
+snail_leader
+opposite.4
+[028] Context results for vehicle 'ego':
+snail_leader
+opposite.5
+opposite.4
+[029] Context results for vehicle 'ego':
+snail_leader
+opposite.5
+opposite.4
+[030] Context results for vehicle 'ego':
+snail_leader
+opposite.6
+opposite.5
+[031] Context results for vehicle 'ego':
+opposite.6
+opposite.5
+[032] Context results for vehicle 'ego':
+opposite.6
+[033] Vehicle 'ego' has arrived at destination
+Print ended at step 34

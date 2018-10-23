@@ -26,14 +26,14 @@ import traci  # noqa
 
 DELTA_T = 1000
 
-if sys.argv[1] == "sumo":
+if sys.argv[1] == "sumo--":
     sumoCall = [os.environ.get("SUMO_BINARY", os.path.join(sumoHome, 'bin', 'sumo'))]
 else:
-    sumoCall = [os.environ.get("GUISIM_BINARY", os.path.join(sumoHome, 'bin', 'sumo-gui')), '-S', '-Q']
+    sumoCall = [os.environ.get("GUISIM_BINARY", os.path.join(sumoHome, 'bin', 'sumo-gui'))] #, '-S', '-Q']
 
 def runSingle(traciEndTime, viewRange, objID):
     step = 0
-    traci.start(sumoCall + ["-c", "../sumo.sumocfg"])
+    traci.start(sumoCall + ["-c", "sumo.sumocfg"])
 
     subscribed = False
     while not step > traciEndTime:
