@@ -15,3 +15,6 @@ leadFollowOpposite
 
 # Get vehicle's foes on upcoming junctions
 turn
+
+# Tests whether lanes filter in combination with up-/down-stream distance filters work correctly
+lanesUpDownDistance
