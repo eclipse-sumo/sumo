@@ -659,12 +659,12 @@ public:
      * @param[in] allowUndoRedo enable or disable remove created additional with ctrl + Z / ctrl + Y
      * @param[in] id TAZ ID
      * @param[in] shape TAZ shape
-     * @param[in] color TAZ color
+     * @param[in] edges list of edge IDs (note: This will create GNETAZEdges with default values)
      * @param[in] blockMovemet enable or disable block movement
      * @return true if was sucesfully created, false in other case
      * @exception ProcessError If the XML definition file is errornous
      */
-    static GNEAdditional* buildTAZ(GNEViewNet* viewNet, bool allowUndoRedo, const std::string &id, const PositionVector &shape, const RGBColor &color, bool blockMovement);
+    static GNEAdditional* buildTAZ(GNEViewNet* viewNet, bool allowUndoRedo, const std::string &id, const PositionVector &shape, const RGBColor &color, const std::vector<std::string> &edgeIDs, bool blockMovement);
 
     /**@brief Builds a TAZEdge (Traffic Assignment Zone)
      * @param[in] viewNet viewNet in which element will be inserted

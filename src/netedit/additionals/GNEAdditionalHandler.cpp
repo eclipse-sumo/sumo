@@ -238,15 +238,19 @@ GNEAdditionalHandler::parseAndBuildTAZ(const SUMOSAXAttributes& attrs, const Sum
     bool abort = false;
     // parse attributes of Vaporizer
     const std::string id = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_ID, abort);
-    const PositionVector shape = GNEAttributeCarrier::parseAttributeFromXML<PositionVector>(attrs, "", tag, SUMO_ATTR_SHAPE, abort);
-    RGBColor color = GNEAttributeCarrier::parseAttributeFromXML<RGBColor>(attrs, "", tag, SUMO_ATTR_COLOR, abort);
+    const PositionVector shape = GNEAttributeCarrier::parseAttributeFromXML<PositionVector>(attrs, id, tag, SUMO_ATTR_SHAPE, abort);
+    RGBColor color = GNEAttributeCarrier::parseAttributeFromXML<RGBColor>(attrs, id, tag, SUMO_ATTR_COLOR, abort);
+    std::vector<std::string> edgeIDs;
+    if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
+        edgeIDs = GNEAttributeCarrier::parseAttributeFromXML<std::vector<std::string> >(attrs, id, tag, SUMO_ATTR_EDGES, abort);
+    }
     // Continue if all parameters were successfully loaded
     if (!abort) {
         // check that all parameters are valid
         if (myViewNet->getNet()->retrieveAdditional(tag, id, false) != nullptr) {
             WRITE_WARNING("There is another " + toString(tag) + " with the same ID='" + id + "'.");
         } else {
-            myLastInsertedAdditional = buildTAZ(myViewNet, myUndoAdditionals, id, shape, color, false);
+            myLastInsertedAdditional = buildTAZ(myViewNet, myUndoAdditionals, id, shape, color, edgeIDs, false);
             // save ID of last created element
             myParentElements.commitElementInsertion(myLastInsertedAdditional->getID());
         }
@@ -1506,9 +1510,17 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, S
             std::string id = values[SUMO_ATTR_ID];
             PositionVector shape = GNEAttributeCarrier::parse<PositionVector>(values[SUMO_ATTR_SHAPE]);
             RGBColor color = GNEAttributeCarrier::parse<RGBColor>(values[SUMO_ATTR_COLOR]);
+            std::vector<std::string> edgeIDs = GNEAttributeCarrier::parse<std::vector<std::string> >(values[SUMO_ATTR_EDGES]);
             bool blockMovement = GNEAttributeCarrier::parse<bool>(values[GNE_ATTR_BLOCK_MOVEMENT]);
+            // check if all edge IDs are valid
+            for (auto i : edgeIDs) {
+                if (viewNet->getNet()->retrieveEdge(i, false) == nullptr) {
+                    WRITE_WARNING("Invalid " + toString(SUMO_TAG_EDGE) + " with ID = '" + i + "'.");
+                    return false;
+                }
+            }
             // Build TAZ
-            return buildTAZ(viewNet, allowUndoRedo, id, shape, color, blockMovement);
+            return buildTAZ(viewNet, allowUndoRedo, id, shape, color, edgeIDs, blockMovement);
         }
         default:
             return nullptr;
@@ -2134,15 +2146,25 @@ GNEAdditionalHandler::buildVaporizer(GNEViewNet* viewNet, bool allowUndoRedo, GN
 
 
 GNEAdditional* 
-GNEAdditionalHandler::buildTAZ(GNEViewNet* viewNet, bool allowUndoRedo, const std::string &id, const PositionVector &shape, const RGBColor &color, bool blockMovement) {
+GNEAdditionalHandler::buildTAZ(GNEViewNet* viewNet, bool allowUndoRedo, const std::string &id, const PositionVector &shape, const RGBColor &color, const std::vector<std::string> &edgeIDs, bool blockMovement) {
     GNETAZ* TAZ = new GNETAZ(id, viewNet, shape, color, blockMovement);
     if (allowUndoRedo) {
         viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_TAZ));
         viewNet->getUndoList()->add(new GNEChange_Additional(TAZ, true), true);
+        // create TAZEdges
+        for (auto i : edgeIDs) {
+            GNETAZEdge* TAZEdge = new GNETAZEdge(TAZ, viewNet->getNet()->retrieveEdge(i), 0, 0);
+            viewNet->getUndoList()->add(new GNEChange_Additional(TAZEdge, true), true);
+        }
         viewNet->getUndoList()->p_end();
     } else {
         viewNet->getNet()->insertAdditional(TAZ);
         TAZ->incRef("buildTAZ");
+        for (auto i : edgeIDs) {
+            GNETAZEdge* TAZEdge = new GNETAZEdge(TAZ, viewNet->getNet()->retrieveEdge(i), 0, 0);
+            TAZEdge->incRef("buildTAZ");
+            TAZ->addAdditionalChild(TAZEdge);
+        }
     }
     return TAZ;
 }

@@ -197,6 +197,9 @@ public:
     /// @brief builds the view toolbars
     virtual void buildViewToolBars(GUIGlChildWindow&);
 
+    /// @brief get AttributeCarriers in Boundary
+    std::set<std::pair<std::string, GNEAttributeCarrier*> > getAttributeCarriersInBoundary(const Boundary &boundary, bool forceSelectEdges = false);
+
     /** @brief Builds an entry which allows to (de)select the object
      * @param ret The popup menu to add the entry to
      * @param AC AttributeCarrier that will be select/unselected
@@ -562,12 +565,16 @@ private:
     /// @brief struct used to group all variables related with selecting using a square or polygon
     /// @note in the future the variables used for selecting throught a polygon will be placed here
     struct SelectingArea {
+    public:
         /// @brief default constructor
         SelectingArea() :
             selectingUsingRectangle(false) {}
 
-        /// @brief Process Selection
-        void processSelection(GNEViewNet* viewNet, bool shiftKeyPressed);
+        /// @brief process rectangle Selection
+        void processRectangleSelection(GNEViewNet* viewNet, bool shiftKeyPressed);
+
+        /// @brief process shape selection
+        void processShapeSelection(GNEViewNet* viewNet, const PositionVector &shape);
 
         /// @brief whether we have started rectangle-selection
         bool selectingUsingRectangle;
@@ -583,6 +590,10 @@ private:
 
         /// @brief draw rectangle selection
         void drawRectangleSelection(const RGBColor& color) const;
+
+    private:
+        /// @brief Process boundary Selection
+        void processBoundarySelection(GNEViewNet* viewNet, Boundary boundary);
     };
 
     /// @brief struct used to group all variables related with testing

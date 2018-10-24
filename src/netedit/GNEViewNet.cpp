@@ -414,6 +414,38 @@ GNEViewNet::buildViewToolBars(GUIGlChildWindow& cw) {
 }
 
 
+std::set<std::pair<std::string, GNEAttributeCarrier*> >
+GNEViewNet::getAttributeCarriersInBoundary(const Boundary &boundary, bool forceSelectEdges) {
+    // use a SET of pairs to obtain IDs and Pointers to attribute carriers. We need this because certain ACs can be returned many times (example: Edges)
+    // Note: a map cannot be used because there is different ACs with the same ID (example: Additionals)
+    std::set<std::pair<std::string, GNEAttributeCarrier*> > result;
+    // firstm make OpenGL context current prior to performing OpenGL commands
+    if (makeCurrent()) {
+        // obtain GUIGLIds of all objects in the given boundary
+        std::vector<GUIGlID> ids = getObjectsInBoundary(boundary);
+        //  finish make OpenGL context current
+        makeNonCurrent();
+        // iterate over GUIGlIDs
+        for (auto i : ids) {
+            // avoid to select Net (i = 0)
+            if (i != 0) {
+                GNEAttributeCarrier* retrievedAC = myNet->retrieveAttributeCarrier(i);
+                // in the case of a Lane, we need to change the retrieved lane to their the parent if mySelectEdges is enabled
+                if ((retrievedAC->getTag() == SUMO_TAG_LANE) && (mySelectEdges || forceSelectEdges)) {
+                    retrievedAC = &dynamic_cast<GNELane*>(retrievedAC)->getParentEdge();
+                }
+                // make sure that AttributeCarrier can be selected
+                GUIGlObject* glObject = dynamic_cast<GUIGlObject*>(retrievedAC);
+                if (glObject && !myViewParent->getSelectorFrame()->getLockGLObjectTypes()->IsObjectTypeLocked(glObject->getType())) {
+                    result.insert(std::make_pair(retrievedAC->getID(), retrievedAC));
+                }
+            }
+        }
+    }
+    return result;
+}
+
+
 void
 GNEViewNet::buildSelectionACPopupEntry(GUIGLObjectPopupMenu* ret, GNEAttributeCarrier* AC) {
     if (AC->isAttributeCarrierSelected()) {
@@ -1169,7 +1201,7 @@ GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
         myMovedItems.tazToMove = nullptr;
     } else if (mySelectingArea.selectingUsingRectangle) {
         bool shiftKeyPressed = ((FXEvent*)eventData)->state & SHIFTMASK;
-        mySelectingArea.processSelection(this, shiftKeyPressed);
+        mySelectingArea.processRectangleSelection(this, shiftKeyPressed);
         // update selector frame
         if (myViewParent->getSelectorFrame()->shown()) {
             myViewParent->getSelectorFrame()->getLockGLObjectTypes()->updateLockGLObjectTypes();
@@ -3117,105 +3149,23 @@ GNEViewNet::updateControls() {
 
 
 void
-GNEViewNet::SelectingArea::processSelection(GNEViewNet* viewNet, bool shiftKeyPressed) {
+GNEViewNet::SelectingArea::processRectangleSelection(GNEViewNet* viewNet, bool shiftKeyPressed) {
     selectingUsingRectangle = false;
     // shift held down on mouse-down and mouse-up
     if (shiftKeyPressed) {
-        if (viewNet->makeCurrent()) {
-            Boundary b;
-            b.add(selectionCorner1);
-            b.add(selectionCorner2);
-            std::vector<GUIGlID> ids = viewNet->getObjectsInBoundary(b);
-            // use a set of pairs to obtain attribute carriers in rectangle sorted by ID (note: a map cannot be used because there is different ACs with the same ID
-            std::set<std::pair<std::string, GNEAttributeCarrier*> > ACInRectangles;
-            for (auto i : ids) {
-                // avoid to select Net (i = 0)
-                if (i != 0) {
-                    GNEAttributeCarrier* retrievedAC = viewNet->myNet->retrieveAttributeCarrier(i);
-                    // in the case of a Lane, we need to change the retrieved lane to their the parent if mySelectEdges is enabled
-                    if ((retrievedAC->getTag() == SUMO_TAG_LANE) && viewNet->mySelectEdges) {
-                        retrievedAC = &dynamic_cast<GNELane*>(retrievedAC)->getParentEdge();
-                    }
-                    // make sure that AttributeCarrier can be selected
-                    GUIGlObject* glObject = dynamic_cast<GUIGlObject*>(retrievedAC);
-                    if (glObject && !viewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->IsObjectTypeLocked(glObject->getType())) {
-                        ACInRectangles.insert(std::make_pair(retrievedAC->getID(), retrievedAC));
-                    }
-                }
-            }
-            // declare two sets of attribute carriers, one for select and another for unselect
-            std::set<std::pair<std::string, GNEAttributeCarrier*> > ACToSelect;
-            std::set<std::pair<std::string, GNEAttributeCarrier*> > ACToUnselect;
-            // in restrict AND replace mode all current selected attribute carriers will be unselected
-            if ((viewNet->myViewParent->getSelectorFrame()->getModificationModeModul()->getModificationMode() == GNESelectorFrame::ModificationMode::SET_RESTRICT) ||
-                    (viewNet->myViewParent->getSelectorFrame()->getModificationModeModul()->getModificationMode() == GNESelectorFrame::ModificationMode::SET_REPLACE)) {
-                for (auto i : viewNet->myNet->getSelectedAttributeCarriers()) {
-                    ACToUnselect.insert(std::make_pair(i->getID(), i));
-                }
-            }
-            // iterate over AtributeCarriers obtained of rectangle an place it in ACToSelect or ACToUnselect
-            for (auto i : ACInRectangles) {
-                switch (viewNet->myViewParent->getSelectorFrame()->getModificationModeModul()->getModificationMode()) {
-                    case GNESelectorFrame::ModificationMode::SET_SUB:
-                        ACToUnselect.insert(i);
-                        break;
-                    case GNESelectorFrame::ModificationMode::SET_RESTRICT:
-                        if (ACToUnselect.find(i) != ACToUnselect.end()) {
-                            ACToSelect.insert(i);
-                        }
-                        break;
-                    default:
-                        ACToSelect.insert(i);
-                        break;
-                }
-            }
-            // select junctions and their connections and crossings if Auto select junctions is enabled (note: only for "add mode")
-            if (viewNet->autoSelectNodes() && GNESelectorFrame::ModificationMode::SET_ADD) {
-                std::vector<GNEEdge*> edgesToSelect;
-                // iterate over ACToSelect and extract edges
-                for (auto i : ACToSelect) {
-                    if (i.second->getTag() == SUMO_TAG_EDGE) {
-                        edgesToSelect.push_back(dynamic_cast<GNEEdge*>(i.second));
-                    }
-                }
-                // iterate over extracted edges
-                for (auto i : edgesToSelect) {
-                    // select junction source and all their connections and crossings
-                    ACToSelect.insert(std::make_pair(i->getGNEJunctionSource()->getID(), i->getGNEJunctionSource()));
-                    for (auto j : i->getGNEJunctionSource()->getGNEConnections()) {
-                        ACToSelect.insert(std::make_pair(j->getID(), j));
-                    }
-                    for (auto j : i->getGNEJunctionSource()->getGNECrossings()) {
-                        ACToSelect.insert(std::make_pair(j->getID(), j));
-                    }
-                    // select junction destiny and all their connections crossings
-                    ACToSelect.insert(std::make_pair(i->getGNEJunctionDestiny()->getID(), i->getGNEJunctionDestiny()));
-                    for (auto j : i->getGNEJunctionDestiny()->getGNEConnections()) {
-                        ACToSelect.insert(std::make_pair(j->getID(), j));
-                    }
-                    for (auto j : i->getGNEJunctionDestiny()->getGNECrossings()) {
-                        ACToSelect.insert(std::make_pair(j->getID(), j));
-                    }
-                }
-            }
-            // only continue if there is ACs to select or unselect
-            if ((ACToSelect.size() + ACToUnselect.size()) > 0) {
-                // first unselect AC of ACToUnselect and then selects AC of ACToSelect
-                viewNet->myUndoList->p_begin("selection using rectangle");
-                for (auto i : ACToUnselect) {
-                    i.second->setAttribute(GNE_ATTR_SELECTED, "false", viewNet->myUndoList);
-                }
-                for (auto i : ACToSelect) {
-                    if (GNEAttributeCarrier::getTagProperties(i.second->getTag()).isSelectable()) {
-                        i.second->setAttribute(GNE_ATTR_SELECTED, "true", viewNet->myUndoList);
-                    }
-                }
-                viewNet->myUndoList->p_end();
-            }
-            viewNet->makeNonCurrent();
-        }
+        Boundary rectangleBoundary;
+        rectangleBoundary.add(selectionCorner1);
+        rectangleBoundary.add(selectionCorner2);
+        processBoundarySelection(viewNet, rectangleBoundary);
     }
 }
+
+
+void 
+GNEViewNet::SelectingArea::processShapeSelection(GNEViewNet* viewNet, const PositionVector &shape) {
+    processBoundarySelection(viewNet, shape.getBoxBoundary());
+}
+
 
 std::string
 GNEViewNet::SelectingArea::reportDimensions() {
@@ -3240,6 +3190,87 @@ GNEViewNet::SelectingArea::drawRectangleSelection(const RGBColor& color) const {
         glVertex2d(selectionCorner2.x(), selectionCorner1.y());
         glEnd();
         glPopMatrix();
+    }
+}
+
+
+void 
+GNEViewNet::SelectingArea::processBoundarySelection(GNEViewNet* viewNet, Boundary boundary) {
+    if (viewNet->makeCurrent()) {
+        std::set<std::pair<std::string, GNEAttributeCarrier*> > ACsInBoundary = viewNet->getAttributeCarriersInBoundary(boundary);
+        // declare two sets of attribute carriers, one for select and another for unselect
+        std::vector<GNEAttributeCarrier*> ACToSelect;
+        std::vector<GNEAttributeCarrier*> ACToUnselect;
+        // reserve memory (we assume that in the worst case we're going to insert all elements of ACsInBoundary
+        ACToSelect.reserve(ACsInBoundary.size());
+        ACToUnselect.reserve(ACsInBoundary.size());
+        // in restrict AND replace mode all current selected attribute carriers will be unselected
+        if ((viewNet->myViewParent->getSelectorFrame()->getModificationModeModul()->getModificationMode() == GNESelectorFrame::ModificationMode::SET_RESTRICT) ||
+                (viewNet->myViewParent->getSelectorFrame()->getModificationModeModul()->getModificationMode() == GNESelectorFrame::ModificationMode::SET_REPLACE)) {
+            for (auto i : viewNet->myNet->getSelectedAttributeCarriers()) {
+                ACToUnselect.push_back(i);
+            }
+        }
+        // iterate over AtributeCarriers obtained of boundary an place it in ACToSelect or ACToUnselect
+        for (auto i : ACsInBoundary) {
+            switch (viewNet->myViewParent->getSelectorFrame()->getModificationModeModul()->getModificationMode()) {
+                case GNESelectorFrame::ModificationMode::SET_SUB:
+                    ACToUnselect.push_back(i.second);
+                    break;
+                case GNESelectorFrame::ModificationMode::SET_RESTRICT:
+                    if (std::find(ACToUnselect.begin(), ACToUnselect.end(), i.second) != ACToUnselect.end()) {
+                        ACToSelect.push_back(i.second);
+                    }
+                    break;
+                default:
+                    ACToSelect.push_back(i.second);
+                    break;
+            }
+        }
+        // select junctions and their connections and crossings if Auto select junctions is enabled (note: only for "add mode")
+        if (viewNet->autoSelectNodes() && GNESelectorFrame::ModificationMode::SET_ADD) {
+            std::vector<GNEEdge*> edgesToSelect;
+            // iterate over ACToSelect and extract edges
+            for (auto i : ACToSelect) {
+                if (i->getTag() == SUMO_TAG_EDGE) {
+                    edgesToSelect.push_back(dynamic_cast<GNEEdge*>(i));
+                }
+            }
+            // iterate over extracted edges
+            for (auto i : edgesToSelect) {
+                // select junction source and all their connections and crossings
+                ACToSelect.push_back(i->getGNEJunctionSource());
+                for (auto j : i->getGNEJunctionSource()->getGNEConnections()) {
+                    ACToSelect.push_back(j);
+                }
+                for (auto j : i->getGNEJunctionSource()->getGNECrossings()) {
+                    ACToSelect.push_back(j);
+                }
+                // select junction destiny and all their connections crossings
+                ACToSelect.push_back(i->getGNEJunctionDestiny());
+                for (auto j : i->getGNEJunctionDestiny()->getGNEConnections()) {
+                    ACToSelect.push_back(j);
+                }
+                for (auto j : i->getGNEJunctionDestiny()->getGNECrossings()) {
+                    ACToSelect.push_back(j);
+                }
+            }
+        }
+        // only continue if there is ACs to select or unselect
+        if ((ACToSelect.size() + ACToUnselect.size()) > 0) {
+            // first unselect AC of ACToUnselect and then selects AC of ACToSelect
+            viewNet->myUndoList->p_begin("selection using rectangle");
+            for (auto i : ACToUnselect) {
+                i->setAttribute(GNE_ATTR_SELECTED, "false", viewNet->myUndoList);
+            }
+            for (auto i : ACToSelect) {
+                if (GNEAttributeCarrier::getTagProperties(i->getTag()).isSelectable()) {
+                    i->setAttribute(GNE_ATTR_SELECTED, "true", viewNet->myUndoList);
+                }
+            }
+            viewNet->myUndoList->p_end();
+        }
+        viewNet->makeNonCurrent();
     }
 }
 

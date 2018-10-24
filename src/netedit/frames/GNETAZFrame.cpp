@@ -426,12 +426,16 @@ GNETAZFrame::SaveTAZEdges::onCmdCancelChanges(FXObject*, FXSelector, void*) {
 GNETAZFrame::TAZParameters::TAZParameters(GNETAZFrame* TAZFrameParent) :
     FXGroupBox(TAZFrameParent->myContentFrame, "TAZ parameters", GUIDesignGroupBoxFrame),
     myTAZFrameParent(TAZFrameParent) {
-    // create label and string textField for edges
-    FXHorizontalFrame* TAZParameter = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    myColorEditor = new FXButton(TAZParameter, toString(SUMO_ATTR_COLOR).c_str(), 0, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
-    myTextFieldColor = new FXTextField(TAZParameter, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    // set blue as default color
+    // create Button and string textField for color and set blue as default color
+    FXHorizontalFrame* colorParameter = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    myColorEditor = new FXButton(colorParameter, toString(SUMO_ATTR_COLOR).c_str(), 0, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
+    myTextFieldColor = new FXTextField(colorParameter, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     myTextFieldColor->setText("blue");
+    // create Label and CheckButton for use innen edges with true as default value
+    FXHorizontalFrame* useInnenEdges = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    FXLabel* useInnenEdgesLabel = new FXLabel(useInnenEdges, "Innen Edges", 0, GUIDesignLabelAttribute);
+    myUseInnenEdgesCheckButton = new FXCheckButton(useInnenEdges, "true", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButtonAttribute);
+    myUseInnenEdgesCheckButton->setCheck(true);
     // Create help button
     myHelpTAZAttribute = new FXButton(this, "Help", 0, this, MID_HELP, GUIDesignButtonRectangular);
 }
@@ -455,6 +459,12 @@ GNETAZFrame::TAZParameters::hideTAZParametersModul() {
 bool
 GNETAZFrame::TAZParameters::isCurrentParametersValid() const {
     return GNEAttributeCarrier::canParse<RGBColor>(myTextFieldColor->getText().text());
+}
+
+
+bool 
+GNETAZFrame::TAZParameters::isUseInnenEdgesEnabled() const {
+    return (myUseInnenEdgesCheckButton->getCheck() == TRUE);
 }
 
 
@@ -498,6 +508,12 @@ GNETAZFrame::TAZParameters::onCmdSetAttribute(FXObject*, FXSelector, void*) {
     } else {
         myTextFieldColor->setTextColor(FXRGB(255, 0, 0));
         currentParametersValid = false;
+    }
+    // change useInnenEdgesCheckButton text
+    if(myUseInnenEdgesCheckButton->getCheck() == true) {
+        myUseInnenEdgesCheckButton->setText("true");
+    } else {
+        myUseInnenEdgesCheckButton->setText("false");
     }
     return 0;
 }
@@ -616,6 +632,20 @@ GNETAZFrame::buildShape() {
         shape.closePolygon();
         valuesOfElement[SUMO_ATTR_SHAPE] = toString(shape);
 
+        // check if TAZ has to be created with edges
+        if (myTAZParameters->isUseInnenEdgesEnabled()) {
+            std::vector<std::string> edgeIDs;
+            auto ACsInBoundary = myViewNet->getAttributeCarriersInBoundary(shape.getBoxBoundary(), true);
+            for (auto i : ACsInBoundary) {
+                if(i.second->getTag() == SUMO_TAG_EDGE) {
+                    edgeIDs.push_back(i.first);
+                }
+            }
+            valuesOfElement[SUMO_ATTR_EDGES] = toString(edgeIDs);
+        } else {
+            // TAZ is created without edges
+            valuesOfElement[SUMO_ATTR_EDGES] = "";
+        }
         // return true if TAZ was sucesfully created
         return GNEAdditionalHandler::buildAdditional(myViewNet, true, SUMO_TAG_TAZ, valuesOfElement);
     }
