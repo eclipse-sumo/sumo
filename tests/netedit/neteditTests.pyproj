@@ -3078,10 +3078,6 @@
     <Content Include="netElements\connections\inspect\keepclear\log.netedit" />
     <Content Include="netElements\connections\inspect\keepclear\net.netedit" />
     <Content Include="netElements\connections\inspect\keepclear\output.netedit" />
-    <Content Include="netElements\connections\inspect\linkindex\errors.netedit" />
-    <Content Include="netElements\connections\inspect\linkindex\log.netedit" />
-    <Content Include="netElements\connections\inspect\linkindex\net.netedit" />
-    <Content Include="netElements\connections\inspect\linkindex\output.netedit" />
     <Content Include="netElements\connections\inspect\pass\errors.netedit" />
     <Content Include="netElements\connections\inspect\pass\log.netedit" />
     <Content Include="netElements\connections\inspect\pass\net.netedit" />
@@ -3118,10 +3114,6 @@
     <Content Include="netElements\connections\inspect_selected\keepclear\log.netedit" />
     <Content Include="netElements\connections\inspect_selected\keepclear\net.netedit" />
     <Content Include="netElements\connections\inspect_selected\keepclear\output.netedit" />
-    <Content Include="netElements\connections\inspect_selected\linkindex\errors.netedit" />
-    <Content Include="netElements\connections\inspect_selected\linkindex\log.netedit" />
-    <Content Include="netElements\connections\inspect_selected\linkindex\net.netedit" />
-    <Content Include="netElements\connections\inspect_selected\linkindex\output.netedit" />
     <Content Include="netElements\connections\inspect_selected\pass\errors.netedit" />
     <Content Include="netElements\connections\inspect_selected\pass\log.netedit" />
     <Content Include="netElements\connections\inspect_selected\pass\net.netedit" />
@@ -8409,7 +8401,6 @@
     <Compile Include="netElements\connections\inspect\customshape\test.py" />
     <Compile Include="netElements\connections\inspect\genericparameters\test.py" />
     <Compile Include="netElements\connections\inspect\keepclear\test.py" />
-    <Compile Include="netElements\connections\inspect\linkindex\test.py" />
     <Compile Include="netElements\connections\inspect\pass\test.py" />
     <Compile Include="netElements\connections\inspect\speed\test.py" />
     <Compile Include="netElements\connections\inspect\uncontrolled\test.py" />
@@ -8417,7 +8408,6 @@
     <Compile Include="netElements\connections\inspect_selected\contpos\test.py" />
     <Compile Include="netElements\connections\inspect_selected\genericparameters\test.py" />
     <Compile Include="netElements\connections\inspect_selected\keepclear\test.py" />
-    <Compile Include="netElements\connections\inspect_selected\linkindex\test.py" />
     <Compile Include="netElements\connections\inspect_selected\pass\test.py" />
     <Compile Include="netElements\connections\inspect_selected\speed\test.py" />
     <Compile Include="netElements\connections\inspect_selected\uncontrolled\test.py" />
@@ -9120,7 +9110,6 @@
     <Folder Include="netElements\connections\inspect\customshape" />
     <Folder Include="netElements\connections\inspect\genericparameters" />
     <Folder Include="netElements\connections\inspect\keepclear" />
-    <Folder Include="netElements\connections\inspect\linkindex" />
     <Folder Include="netElements\connections\inspect\pass" />
     <Folder Include="netElements\connections\inspect\speed" />
     <Folder Include="netElements\connections\inspect\uncontrolled" />
@@ -9129,7 +9118,6 @@
     <Folder Include="netElements\connections\inspect_selected\contpos" />
     <Folder Include="netElements\connections\inspect_selected\genericparameters" />
     <Folder Include="netElements\connections\inspect_selected\keepclear" />
-    <Folder Include="netElements\connections\inspect_selected\linkindex" />
     <Folder Include="netElements\connections\inspect_selected\pass" />
     <Folder Include="netElements\connections\inspect_selected\speed" />
     <Folder Include="netElements\connections\inspect_selected\uncontrolled" />
