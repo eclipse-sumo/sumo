@@ -228,7 +228,7 @@ public:
         TAGPROPERTY_AUTOMATICSORTING =    1 << 18,  // Element sort automatic their Childs (used by Additionals)
         TAGPROPERTY_SELECTABLE =          1 << 19,  // Element is selectable
         TAGPROPERTY_MASKSTARTENDPOS =     1 << 20,  // Element mask attributes StartPos and EndPos as "lenght" (Only used in the appropiate GNEFrame)
-        TAGPROPERTY_MASKXYPOSITION =      1 << 21,  // Element mask attributes X and Y as "Position"
+        TAGPROPERTY_MASKXYZPOSITION =     1 << 21,  // Element mask attributes X, Y and Z as "Position"
         TAGPROPERTY_WRITECHILDSSEPARATE = 1 << 22,  // Element writes their childs in a separated filename
         TAGPROPERTY_PLACEDOVER_VIEW =     1 << 23,  // Element will be placed in view
         TAGPROPERTY_PLACEDOVER_EDGE =     1 << 24,  // Element will be placed over an edge
