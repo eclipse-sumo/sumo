@@ -38,7 +38,7 @@ netedit.leftClick(referencePosition, 250, 250)
 netedit.changeAdditional("space")
 
 # select parent
-netedit.selectAdditionalChild(9, 0)
+netedit.selectAdditionalChild(8, 0)
 
 # create space
 netedit.leftClick(referencePosition, 250, 105)

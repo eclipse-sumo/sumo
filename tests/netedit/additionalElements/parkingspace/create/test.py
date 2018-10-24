@@ -41,130 +41,104 @@ netedit.changeAdditional("space")
 netedit.leftClick(referencePosition, 250, 100)
 
 # select parent
-netedit.selectAdditionalChild(9, 0)
+netedit.selectAdditionalChild(8, 0)
 
 # create space
 netedit.leftClick(referencePosition, 250, 100)
 
-# set invalid z (dummy)
-netedit.selectAdditionalChild(9, 0)
-netedit.modifyAdditionalDefaultValue(2, "dummyZ")
-
-# try to create space
-netedit.leftClick(referencePosition, 260, 100)
-
-# set invalid z (empty)
-netedit.modifyAdditionalDefaultValue(2, "")
-
-# try to create space
-netedit.leftClick(referencePosition, 260, 100)
-
-# set valid z (negative)
-netedit.modifyAdditionalDefaultValue(2, "-2")
-
-# create space
-netedit.leftClick(referencePosition, 260, 100)
-
-# set valid z (negative)
-netedit.selectAdditionalChild(9, 0)
-netedit.modifyAdditionalDefaultValue(2, "3.5")
-
-# create space
-netedit.leftClick(referencePosition, 270, 100)
-
 # set invalid width (dummy)
-netedit.selectAdditionalChild(9, 0)
+netedit.selectAdditionalChild(8, 0)
 netedit.modifyAdditionalDefaultValue(3, "dummyWidth")
 
 # try to create area
 netedit.leftClick(referencePosition, 280, 100)
 
 # set invalid width (empty)
-netedit.modifyAdditionalDefaultValue(3, "")
+netedit.modifyAdditionalDefaultValue(2, "")
 
 # try to create area
 netedit.leftClick(referencePosition, 280, 100)
 
 # set invalid width (negative)
-netedit.modifyAdditionalDefaultValue(3, "-3")
+netedit.modifyAdditionalDefaultValue(2, "-3")
 
 # try to create area
 netedit.leftClick(referencePosition, 280, 100)
 
 # set valid width
-netedit.modifyAdditionalDefaultValue(3, "2.5")
+netedit.modifyAdditionalDefaultValue(2, "2.5")
 
 # create area
 netedit.leftClick(referencePosition, 280, 100)
 
 # set invalid height (dummy)
-netedit.selectAdditionalChild(9, 0)
-netedit.modifyAdditionalDefaultValue(4, "dummyHeight")
+netedit.selectAdditionalChild(8, 0)
+netedit.modifyAdditionalDefaultValue(3, "dummyHeight")
 
 # try to create area
 netedit.leftClick(referencePosition, 290, 100)
 
 # set invalid height (empty)
-netedit.modifyAdditionalDefaultValue(4, "")
+netedit.modifyAdditionalDefaultValue(3, "")
 
 # try to create area
 netedit.leftClick(referencePosition, 290, 100)
 
 # set invalid height (negative)
-netedit.modifyAdditionalDefaultValue(4, "-4")
+netedit.modifyAdditionalDefaultValue(3, "-4")
 
 # try to create area
 netedit.leftClick(referencePosition, 290, 100)
 
 # set valid height
-netedit.modifyAdditionalDefaultValue(4, "3.1")
+netedit.modifyAdditionalDefaultValue(3, "3.1")
 
 # create area
 netedit.leftClick(referencePosition, 290, 100)
 
 # set invalid angle (dummy)
-netedit.modifyAdditionalDefaultValue(5, "dummyHeight")
+netedit.modifyAdditionalDefaultValue(4, "dummyHeight")
 
 # try to create area
-netedit.selectAdditionalChild(9, 0)
+netedit.selectAdditionalChild(8, 0)
 netedit.leftClick(referencePosition, 300, 100)
 
 # set invalid angle (empty)
-netedit.modifyAdditionalDefaultValue(5, "")
+netedit.modifyAdditionalDefaultValue(4, "")
 
 # try to create area
 netedit.leftClick(referencePosition, 300, 100)
 
 # set valid angle (negative)
-netedit.modifyAdditionalDefaultValue(5, "-4")
+netedit.modifyAdditionalDefaultValue(4, "-4")
 
 # create area
 netedit.leftClick(referencePosition, 300, 100)
 
 # set valid angle (>360)
-netedit.selectAdditionalChild(9, 0)
-netedit.modifyAdditionalDefaultValue(5, "500")
+netedit.selectAdditionalChild(8, 0)
+netedit.modifyAdditionalDefaultValue(4, "500")
 
 # create area
 netedit.leftClick(referencePosition, 310, 100)
 
 # set valid angle
-netedit.selectAdditionalChild(9, 0)
-netedit.modifyAdditionalDefaultValue(5, "120")
+netedit.selectAdditionalChild(8, 0)
+netedit.modifyAdditionalDefaultValue(4, "120")
 
 # create area
 netedit.leftClick(referencePosition, 320, 100)
 
 # block movement
-netedit.selectAdditionalChild(9, 0)
-netedit.modifyAdditionalDefaultBoolValue(7)
+netedit.selectAdditionalChild(8, 0)
+netedit.modifyAdditionalDefaultBoolValue(6)
 
 # create area
 netedit.leftClick(referencePosition, 330, 100)
 
 # Check undo redo
-netedit.undo(referencePosition, 10)
-netedit.redo(referencePosition, 10)
+netedit.undo(referencePosition, 7)
+netedit.redo(referencePosition, 7)
 
 # save additionals
 netedit.saveAdditionals()

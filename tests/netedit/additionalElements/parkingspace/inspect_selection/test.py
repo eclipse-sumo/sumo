@@ -38,62 +38,50 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 230, 130)
 
 # Change parameter 0 with a non valid value (dummy)
-netedit.modifyAttribute(0, "dummyZ")
+netedit.modifyAttribute(0, "dummyWidth")
 
-# Change parameter 0 with a non valid value (empty)
-netedit.modifyAttribute(0, "")
+# Change parameter 0 with a non valid value (negative)
+netedit.modifyAttribute(0, "-5")
 
-# Change parameter 0 with a valid value (-negative)
-netedit.modifyAttribute(0, "-4.25")
+# Change parameter 0 with a non valid value (0)
+netedit.modifyAttribute(0, "0")
 
 # Change parameter 0 with a valid value
-netedit.modifyAttribute(0, "1.00")
+netedit.modifyAttribute(0, "2.3")
 
 # Change parameter 1 with a non valid value (dummy)
-netedit.modifyAttribute(1, "dummyWidth")
+netedit.modifyAttribute(1, "dummyHeight")
 
 # Change parameter 1 with a non valid value (negative)
-netedit.modifyAttribute(1, "-5")
+netedit.modifyAttribute(1, "-6")
 
 # Change parameter 1 with a non valid value (0)
 netedit.modifyAttribute(1, "0")
 
 # Change parameter 1 with a valid value
-netedit.modifyAttribute(1, "2.3")
+netedit.modifyAttribute(1, "3.4")
 
 # Change parameter 2 with a non valid value (dummy)
-netedit.modifyAttribute(2, "dummyHeight")
+netedit.modifyAttribute(2, "dummyAngle")
 
-# Change parameter 2 with a non valid value (negative)
+# Change parameter 2 with a valid value (negative)
 netedit.modifyAttribute(2, "-6")
 
-# Change parameter 2 with a non valid value (0)
-netedit.modifyAttribute(2, "0")
+# Change parameter 2 with a valid value >360
+netedit.modifyAttribute(2, "500")
 
 # Change parameter 2 with a valid value
-netedit.modifyAttribute(2, "3.4")
-
-# Change parameter 3 with a non valid value (dummy)
-netedit.modifyAttribute(3, "dummyAngle")
-
-# Change parameter 3 with a valid value (negative)
-netedit.modifyAttribute(3, "-6")
-
-# Change parameter 3 with a valid value >360
-netedit.modifyAttribute(3, "500")
-
-# Change parameter 3 with a valid value
-netedit.modifyAttribute(3, "32.5")
-
-# Change parameter 5 with a different value
-netedit.modifyAttribute(7, "parkingAreaNewParent")
+netedit.modifyAttribute(2, "32.5")
 
 # Change parameter 6 with a different value
-netedit.modifyBoolAttribute(8)
+netedit.modifyAttribute(6, "parkingAreaNewParent")
+
+# Change parameter 7 with a different value
+netedit.modifyBoolAttribute(7)
 
 # Check undos and redos
-netedit.undo(referencePosition, 17)
-netedit.redo(referencePosition, 17)
+netedit.undo(referencePosition, 14)
+netedit.redo(referencePosition, 14)
 
 # save additionals
 netedit.saveAdditionals()

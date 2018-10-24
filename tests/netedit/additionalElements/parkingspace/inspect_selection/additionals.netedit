@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 17.10.2018 14:54:34 by Eclipse SUMO netedit Version v1_0_1+0296-2f18426848
+<!-- generated on 24.10.2018 16:26:11 by Eclipse SUMO netedit Version v1_0_1+0296-2f18426848
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_17Oct145008.3948/netedit.gui/additionalElements/parkingspace/inspect_selection\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.4_from_24Oct160739.2740/netedit.gui/additionalElements/parkingspace/inspect_selection\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_17Oct145008.3948/netedit.gui/additionalElements/parkingspace/inspect_selection\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.4_from_24Oct160739.2740/netedit.gui/additionalElements/parkingspace/inspect_selection\net.net.xml"/>
     </output>
 
     <processing>
@@ -28,13 +28,13 @@
     </pedestrian>
 
     <netedit>
-        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_17Oct145008.3948/netedit.gui/additionalElements/parkingspace/inspect_selection\input_additionals.add.xml"/>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_17Oct145008.3948/netedit.gui/additionalElements/parkingspace/inspect_selection\additionals.xml"/>
-        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_17Oct145008.3948/netedit.gui/additionalElements/parkingspace/inspect_selection\shapes.xml"/>
+        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.4_from_24Oct160739.2740/netedit.gui/additionalElements/parkingspace/inspect_selection\input_additionals.add.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.4_from_24Oct160739.2740/netedit.gui/additionalElements/parkingspace/inspect_selection\additionals.xml"/>
+        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.4_from_24Oct160739.2740/netedit.gui/additionalElements/parkingspace/inspect_selection\shapes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_17Oct145008.3948/netedit.gui/additionalElements/parkingspace/inspect_selection\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.4_from_24Oct160739.2740/netedit.gui/additionalElements/parkingspace/inspect_selection\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -44,7 +44,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_17Oct145008.3948/netedit.gui/additionalElements/parkingspace/inspect_selection\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.4_from_24Oct160739.2740/netedit.gui/additionalElements/parkingspace/inspect_selection\log.txt"/>
     </report>
 
 </configuration>
@@ -52,9 +52,9 @@
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <parkingArea id="parkingAreaNewParent" length="5.00" lane="gneE1_0" startPos="29.00" endPos="39.00">
-        <space width="2.30" length="3.40" z="1.00" x="34.00" y="7.00" angle="32.50"/>
-        <space width="2.30" length="3.40" z="1.00" x="17.00" y="7.00" angle="32.50"/>
-        <space width="2.30" length="3.40" z="1.00" x="34.00" y="7.00" angle="32.50"/>
+        <space width="2.30" length="3.40" x="34.00" y="7.00" angle="32.50"/>
+        <space width="2.30" length="3.40" x="17.00" y="7.00" z="10.00" angle="32.50"/>
+        <space width="2.30" length="3.40" x="34.00" y="7.00" angle="32.50"/>
     </parkingArea>
     <parkingArea id="parkingArea_gneE0_0_0" length="5.00" lane="gneE0_0" startPos="12.00" endPos="22.00"/>
     <parkingArea id="parkingArea_gneE0_0_1" length="5.00" lane="gneE0_0" startPos="29.00" endPos="39.00"/>

@@ -46,21 +46,13 @@ GLDebug: Removed object parkingSpace:parkingArea_gneE2_0_0space1 from SUMORTree 
 GLDebug: Inserted parkingSpace:parkingArea_gneE2_0_0space1 into SUMORTree with boundary 12.00,-18.00,52.00,22.00
 GLDebug: Removed object parkingArea:parkingArea_gneE2_0_0 from SUMORTree with boundary -3.00,-9.60,47.00,30.40
 GLDebug: Inserted parkingArea:parkingArea_gneE2_0_0 into SUMORTree with boundary -3.00,-9.60,47.00,30.40
-Error: Shape of a(n) user-supplied position is broken: the position is neither x,y nor x,y,z.
 Debug: Value 'dummyPosition' for attribute pos of space isn't valid
-Error: Shape of a(n) user-supplied position is broken: the shape is empty.
 Debug: Value '' for attribute pos of space isn't valid
 Debug: Setting new attribute pos '-3.5,-3' into space 'parkingArea_gneE2_0_0space0'
 GLDebug: Removed object parkingSpace:parkingArea_gneE2_0_0space0 from SUMORTree with boundary -3.00,-18.00,37.00,22.00
 GLDebug: Inserted parkingSpace:parkingArea_gneE2_0_0space0 into SUMORTree with boundary -23.50,-23.00,16.50,17.00
-Debug: Setting new attribute pos '3,2.5' into space 'parkingArea_gneE2_0_0space0'
+Debug: Setting new attribute pos '3,2.5,15' into space 'parkingArea_gneE2_0_0space0'
 GLDebug: Removed object parkingSpace:parkingArea_gneE2_0_0space0 from SUMORTree with boundary -23.50,-23.00,16.50,17.00
-GLDebug: Inserted parkingSpace:parkingArea_gneE2_0_0space0 into SUMORTree with boundary -17.00,-17.50,23.00,22.50
-Debug: Setting new attribute z '-4.25' into space 'parkingArea_gneE2_0_0space0'
-GLDebug: Removed object parkingSpace:parkingArea_gneE2_0_0space0 from SUMORTree with boundary -17.00,-17.50,23.00,22.50
-GLDebug: Inserted parkingSpace:parkingArea_gneE2_0_0space0 into SUMORTree with boundary -17.00,-17.50,23.00,22.50
-Debug: Setting new attribute z '1.00' into space 'parkingArea_gneE2_0_0space0'
-GLDebug: Removed object parkingSpace:parkingArea_gneE2_0_0space0 from SUMORTree with boundary -17.00,-17.50,23.00,22.50
 GLDebug: Inserted parkingSpace:parkingArea_gneE2_0_0space0 into SUMORTree with boundary -17.00,-17.50,23.00,22.50
 Debug: Setting new attribute parentItem 'parkingArea_gneE2_0_1' into space 'parkingArea_gneE2_0_0space0'
 GLDebug: Removed object parkingArea:parkingArea_gneE2_0_0 from SUMORTree with boundary -3.00,-9.60,47.00,30.40
@@ -140,14 +132,6 @@ GLDebug: Inserted parkingSpace:parkingArea_gneE2_0_0space0 into SUMORTree with b
 GLDebug: Removed object parkingSpace:parkingArea_gneE2_0_0space0 from SUMORTree with boundary -17.00,-17.50,23.00,22.50
 GLDebug: Inserted parkingSpace:parkingArea_gneE2_0_0space0 into SUMORTree with boundary -17.00,-17.50,23.00,22.50
 Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute z '-4.25' into space 'parkingArea_gneE2_0_0space0'
-GLDebug: Removed object parkingSpace:parkingArea_gneE2_0_0space0 from SUMORTree with boundary -17.00,-17.50,23.00,22.50
-GLDebug: Inserted parkingSpace:parkingArea_gneE2_0_0space0 into SUMORTree with boundary -17.00,-17.50,23.00,22.50
-Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute z '0.00' into space 'parkingArea_gneE2_0_0space0'
-GLDebug: Removed object parkingSpace:parkingArea_gneE2_0_0space0 from SUMORTree with boundary -17.00,-17.50,23.00,22.50
-GLDebug: Inserted parkingSpace:parkingArea_gneE2_0_0space0 into SUMORTree with boundary -17.00,-17.50,23.00,22.50
-Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute pos '-3.50,-3.00' into space 'parkingArea_gneE2_0_0space0'
 GLDebug: Removed object parkingSpace:parkingArea_gneE2_0_0space0 from SUMORTree with boundary -17.00,-17.50,23.00,22.50
 GLDebug: Inserted parkingSpace:parkingArea_gneE2_0_0space0 into SUMORTree with boundary -23.50,-23.00,16.50,17.00
@@ -174,7 +158,6 @@ GLDebug: Inserted parkingArea:parkingArea_gneE2_0_0 into SUMORTree with boundary
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Removing parkingArea 'parkingArea_gneE2_0_0' in GNEChange_Additional
 GLDebug: Removed object parkingArea:parkingArea_gneE2_0_0 from SUMORTree with boundary -3.00,-9.60,47.00,30.40
-Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Keys Ctrl + Z (Undo) pressed
@@ -214,16 +197,8 @@ Debug: Setting new attribute pos '-3.5,-3' into space 'parkingArea_gneE2_0_0spac
 GLDebug: Removed object parkingSpace:parkingArea_gneE2_0_0space0 from SUMORTree with boundary -3.00,-18.00,37.00,22.00
 GLDebug: Inserted parkingSpace:parkingArea_gneE2_0_0space0 into SUMORTree with boundary -23.50,-23.00,16.50,17.00
 Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute pos '3,2.5' into space 'parkingArea_gneE2_0_0space0'
+Debug: Setting new attribute pos '3,2.5,15' into space 'parkingArea_gneE2_0_0space0'
 GLDebug: Removed object parkingSpace:parkingArea_gneE2_0_0space0 from SUMORTree with boundary -23.50,-23.00,16.50,17.00
-GLDebug: Inserted parkingSpace:parkingArea_gneE2_0_0space0 into SUMORTree with boundary -17.00,-17.50,23.00,22.50
-Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute z '-4.25' into space 'parkingArea_gneE2_0_0space0'
-GLDebug: Removed object parkingSpace:parkingArea_gneE2_0_0space0 from SUMORTree with boundary -17.00,-17.50,23.00,22.50
-GLDebug: Inserted parkingSpace:parkingArea_gneE2_0_0space0 into SUMORTree with boundary -17.00,-17.50,23.00,22.50
-Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute z '1.00' into space 'parkingArea_gneE2_0_0space0'
-GLDebug: Removed object parkingSpace:parkingArea_gneE2_0_0space0 from SUMORTree with boundary -17.00,-17.50,23.00,22.50
 GLDebug: Inserted parkingSpace:parkingArea_gneE2_0_0space0 into SUMORTree with boundary -17.00,-17.50,23.00,22.50
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute parentItem 'parkingArea_gneE2_0_1' into space 'parkingArea_gneE2_0_0space0'
@@ -267,7 +242,6 @@ Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute angle '32.5' into space 'parkingArea_gneE2_0_0space1'
 GLDebug: Removed object parkingSpace:parkingArea_gneE2_0_0space1 from SUMORTree with boundary 12.00,-18.00,52.00,22.00
 GLDebug: Inserted parkingSpace:parkingArea_gneE2_0_0space1 into SUMORTree with boundary 12.00,-18.00,52.00,22.00
-Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Keys Ctrl + Y (Redo) pressed
