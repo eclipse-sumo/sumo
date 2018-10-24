@@ -217,7 +217,7 @@ public:
     public:
         /// constructor
         Stage_Trip(const MSEdge* origin, const MSEdge* destination, MSStoppingPlace* toStop, const SUMOTime duration, const SVCPermissions modeSet,
-            const std::string& vTypes, const double speed, const double walkFactor, const double departPosLat, const double arrivalPos);
+            const std::string& vTypes, const double speed, const double walkFactor, const double departPosLat, const bool hasArrivalPos, const double arrivalPos);
 
         /// destructor
         virtual ~Stage_Trip();
@@ -297,6 +297,9 @@ public:
 
         /// @brief The lateral depart position
         const double myDepartPosLat;
+
+        /// @brief whether an arrivalPos was in the input
+        const bool myHaveArrivalPos;
 
     private:
         /// @brief Invalidated copy constructor.

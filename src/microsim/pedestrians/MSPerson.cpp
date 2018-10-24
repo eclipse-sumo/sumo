@@ -581,7 +581,7 @@ MSPerson::proceed(MSNet* net, SUMOTime time) {
     if (myStep != myPlan->end()) {
         if ((*myStep)->getStageType() == MOVING_WITHOUT_VEHICLE && (prior->getStageType() != ACCESS || prior->getDestination() != (*myStep)->getFromEdge())) {
             MSStoppingPlace* const prevStop = prior->getDestinationStop();
-            if (prevStop != nullptr) {
+            if (prevStop != nullptr && prior->getStageType() != TRIP) {
                 const double accessDist = prevStop->getAccessDistance((*myStep)->getFromEdge());
                 if (accessDist > 0.) {
                     myStep = myPlan->insert(myStep, new MSPersonStage_Access((*myStep)->getFromEdge(), prevStop, prevStop->getAccessPos((*myStep)->getFromEdge()), accessDist, true));

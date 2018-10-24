@@ -134,7 +134,7 @@ MSTransportable::Stage::getEdgeAngle(const MSEdge* e, double at) const {
 * MSTransportable::Stage_Trip - methods
 * ----------------------------------------------------------------------- */
 MSTransportable::Stage_Trip::Stage_Trip(const MSEdge* origin, const MSEdge* destination, MSStoppingPlace* toStop, const SUMOTime duration, const SVCPermissions modeSet,
-    const std::string& vTypes, const double speed, const double walkFactor, const double departPosLat, const double arrivalPos) :
+    const std::string& vTypes, const double speed, const double walkFactor, const double departPosLat, const bool hasArrivalPos, const double arrivalPos) :
     MSTransportable::Stage(destination, toStop, arrivalPos, TRIP),
     myOrigin(origin),
     myDuration(duration),
@@ -142,7 +142,8 @@ MSTransportable::Stage_Trip::Stage_Trip(const MSEdge* origin, const MSEdge* dest
     myVTypes(vTypes),
     mySpeed(speed),
     myWalkFactor(walkFactor),
-    myDepartPosLat(departPosLat) {
+    myDepartPosLat(departPosLat),
+    myHaveArrivalPos(hasArrivalPos) {
 }
 
 
@@ -226,13 +227,13 @@ MSTransportable::Stage_Trip::setArrived(MSNet* net, MSTransportable* transportab
         bool carUsed = false;
         std::vector<MSNet::MSIntermodalRouter::TripItem> result;
         int stageIndex = 1;
-        if (net->getIntermodalRouter().compute(myOrigin, myDestination, previous->getArrivalPos(), fabs(myArrivalPos), myDestinationStop == nullptr ? "" : myDestinationStop->getID(),
+        if (net->getIntermodalRouter().compute(myOrigin, myDestination, previous->getArrivalPos(), myArrivalPos, myDestinationStop == nullptr ? "" : myDestinationStop->getID(),
             transportable->getVehicleType().getMaxSpeed() * myWalkFactor, vehicle, myModeSet, transportable->getParameter().depart, result)) {
             for (std::vector<MSNet::MSIntermodalRouter::TripItem>::iterator it = result.begin(); it != result.end(); ++it) {
                 if (!it->edges.empty()) {
                     MSStoppingPlace* bs = MSNet::getInstance()->getStoppingPlace(it->destStop, SUMO_TAG_BUS_STOP);
                     double localArrivalPos = bs != nullptr ? bs->getAccessPos(it->edges.back()) : it->edges.back()->getLength() / 2.;
-                    if (it + 1 == result.end() && myArrivalPos >= 0.) {
+                    if (it + 1 == result.end() && myHaveArrivalPos) {
                         localArrivalPos = myArrivalPos;
                     }
                     if (it->line == "") {
@@ -271,7 +272,7 @@ MSTransportable::Stage_Trip::setArrived(MSNet* net, MSTransportable* transportab
                 throw ProcessError(error);
             } else {
                 // pedestrian will teleport
-                transportable->appendStage(new MSPerson::MSPersonStage_Walking(transportable->getID(), ConstMSEdgeVector({ myOrigin, myDestination }), myDestinationStop, myDuration, mySpeed, previous->getArrivalPos(), fabs(myArrivalPos), myDepartPosLat), stageIndex++);
+                transportable->appendStage(new MSPerson::MSPersonStage_Walking(transportable->getID(), ConstMSEdgeVector({ myOrigin, myDestination }), myDestinationStop, myDuration, mySpeed, previous->getArrivalPos(), myArrivalPos, myDepartPosLat), stageIndex++);
             }
         }
         if (vehicle != nullptr && !carUsed) {
