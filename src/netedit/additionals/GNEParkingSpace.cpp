@@ -29,7 +29,6 @@
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/common/ToString.h>
 #include <utils/geom/GeomHelper.h>
-#include <utils/geom/GeomConvHelper.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
@@ -56,10 +55,9 @@
 // method definitions
 // ===========================================================================
 
-GNEParkingSpace::GNEParkingSpace(GNEViewNet* viewNet, GNEAdditional* parkingAreaParent, Position pos, double z, double width, double length, double angle, bool blockMovement) :
+GNEParkingSpace::GNEParkingSpace(GNEViewNet* viewNet, GNEAdditional* parkingAreaParent, const Position &pos, double width, double length, double angle, bool blockMovement) :
     GNEAdditional(parkingAreaParent, viewNet, GLO_PARKING_SPACE, SUMO_TAG_PARKING_SPACE, "", blockMovement),
     myPosition(pos),
-    myZ(z),
     myWidth(width),
     myLength(length),
     myAngle(angle) {
@@ -168,8 +166,6 @@ GNEParkingSpace::getAttribute(SumoXMLAttr key) const {
             return getAdditionalID();
         case SUMO_ATTR_POSITION:
             return toString(myPosition);
-        case SUMO_ATTR_Z:
-            return toString(myZ);
         case SUMO_ATTR_WIDTH:
             return toString(myWidth);
         case SUMO_ATTR_LENGTH:
@@ -198,7 +194,6 @@ GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndo
     switch (key) {
         case SUMO_ATTR_ID:
         case SUMO_ATTR_POSITION:
-        case SUMO_ATTR_Z:
         case SUMO_ATTR_WIDTH:
         case SUMO_ATTR_LENGTH:
         case SUMO_ATTR_ANGLE:
@@ -219,12 +214,8 @@ GNEParkingSpace::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             return isValidAdditionalID(value);
-        case SUMO_ATTR_POSITION: {
-            bool ok;
-            return GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, false).size() == 1;
-        }
-        case SUMO_ATTR_Z:
-            return canParse<double>(value);
+        case SUMO_ATTR_POSITION:
+            return canParse<Position>(value);
         case SUMO_ATTR_WIDTH:
             return canParse<double>(value) && (parse<double>(value) >= 0);
         case SUMO_ATTR_LENGTH:
@@ -266,13 +257,8 @@ GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             changeAdditionalID(value);
             break;
-        case SUMO_ATTR_POSITION: {
-            bool ok;
-            myPosition = GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, false)[0];
-            break;
-        }
-        case SUMO_ATTR_Z:
-            myZ = parse<double>(value);
+        case SUMO_ATTR_POSITION:
+            myPosition = parse<Position>(value);
             break;
         case SUMO_ATTR_WIDTH:
             myWidth = parse<double>(value);
