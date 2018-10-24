@@ -3219,7 +3219,7 @@ MSLane::getVehiclesInRange(double a, double b) const {
     std::set<MSVehicle*> res;
     const VehCont& vehs = getVehiclesSecure();
 
-    int nV = vehs.size();
+    const int nV = (int)vehs.size();
     if (nV == 0) {
         releaseVehicles();
         return res;
