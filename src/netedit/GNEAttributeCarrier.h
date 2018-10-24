@@ -791,11 +791,11 @@ public:
             if(attrs.hasAttribute(SUMO_ATTR_Z)) {                
                 z = attrs.get<std::string>(SUMO_ATTR_Z, objectID.c_str(), parsedOk, false);
                 // check that Z attribute is valid
-                if(!canParse<double>(y)) {
+                if(!canParse<double>(z)) {
                     WRITE_WARNING("Format of optional " + attrProperties.getDescription() + " attribute '" + toString(SUMO_ATTR_Z) + "' of " +
                                   additionalOfWarningMessage + " is invalid; Cannot be parsed to float; " + toString(tag) + " cannot be created");
-                    // abort parsing (and creation) of element
-                    abort = true;
+                    // leave Z attribute empty
+                    z.clear();
                 }
             }
             // create Position attribute using parsed coordinates X, Y and, optionally, Z
