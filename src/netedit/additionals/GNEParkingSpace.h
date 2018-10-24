@@ -51,13 +51,12 @@ public:
      * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
      * @param[in] parkingAreaParent pointer to Parking Area parent
      * @param[in] pos ParkingSpace's X-Y position
-     * @param[in] z ParkingSpace's Z position
      * @param[in] width ParkingArea's width
      * @param[in] length ParkingArea's length
      * @param[in] angle ParkingArea's angle
      * @param[in] block movement enable or disable additional movement
      */
-    GNEParkingSpace(GNEViewNet* viewNet, GNEAdditional* parkingAreaParent, Position pos, double z, double width, double length, double angle, bool blockMovement);
+    GNEParkingSpace(GNEViewNet* viewNet, GNEAdditional* parkingAreaParent, const Position &pos, double width, double length, double angle, bool blockMovement);
 
     /// @brief Destructor
     ~GNEParkingSpace();
@@ -126,9 +125,6 @@ public:
 protected:
     /// @brief position of Parking Space in view
     Position myPosition;
-
-    /// @brief z position of Parking Space
-    double myZ;
 
     /// @brief width of Parking Space
     double myWidth;

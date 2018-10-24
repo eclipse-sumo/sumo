@@ -165,11 +165,15 @@ GNEAdditional::writeAdditional(OutputDevice& device) const {
                             if (i.first != SUMO_ATTR_DISALLOW) {
                                 writePermissions(device, parseVehicleClasses(attribute));
                             }
-                        } else if(tagProperties.canMaskXYPositions() && (i.first == SUMO_ATTR_POSITION)) {
+                        } else if(tagProperties.canMaskXYZPositions() && (i.first == SUMO_ATTR_POSITION)) {
                             // get position attribute and write it separate
                             Position pos = parse<Position>(getAttribute(SUMO_ATTR_POSITION));
                             device.writeAttr(SUMO_ATTR_X, toString(pos.x()));
                             device.writeAttr(SUMO_ATTR_Y, toString(pos.y()));
+                            // write 0 only if is different from 0 (the default value)
+                            if(pos.z() != 0) {
+                                device.writeAttr(SUMO_ATTR_Z, toString(pos.z()));
+                            }
                         } else {
                             device.writeAttr(i.first, attribute);
                         }
@@ -186,11 +190,15 @@ GNEAdditional::writeAdditional(OutputDevice& device) const {
                         if (i.first != SUMO_ATTR_DISALLOW) {
                             writePermissions(device, parseVehicleClasses(attribute));
                         }
-                    } else if(tagProperties.canMaskXYPositions() && (i.first == SUMO_ATTR_POSITION)) {
+                    } else if(tagProperties.canMaskXYZPositions() && (i.first == SUMO_ATTR_POSITION)) {
                         // get position attribute and write it separate
                         Position pos = parse<Position>(getAttribute(SUMO_ATTR_POSITION));
                         device.writeAttr(SUMO_ATTR_X, toString(pos.x()));
                         device.writeAttr(SUMO_ATTR_Y, toString(pos.y()));
+                        // write 0 only if is different from 0 (the default value)
+                        if(pos.z() != 0) {
+                            device.writeAttr(SUMO_ATTR_Z, toString(pos.z()));
+                        }
                     } else {
                         device.writeAttr(i.first, attribute);
                     }

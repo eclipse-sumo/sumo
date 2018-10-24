@@ -1,0 +1,5 @@
+# Return all foes approaching junctions, which are closer than 50m, at a distance < 50m.
+turn_d50_u50
+
+# Return all foes approaching junctions, which are closer than 250m, at a distance < 250m.
+turn_d250_u250

@@ -49,7 +49,7 @@ extrapolated based on edge-lengths and maximum speeds multiplied with --speed-fa
                          default=False, help="Give more output")
     optParser.add_option("--trips-output", help="output trip file")
     optParser.add_option("--min-length", type='int',
-                         default=0, help="minimum route length in the subnetwork")
+                         default=0, help="minimum route length in the subnetwork (in #edges)")
     optParser.add_option("--routes-output", help="output route file")
     optParser.add_option("--stops-output", help="output filtered stop file")
     optParser.add_option(

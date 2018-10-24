@@ -44,11 +44,11 @@ netedit.leftClick(referencePosition, 400, 180)
 netedit.changeAdditional("space")
 
 # create first space
-netedit.selectAdditionalChild(9, 0)
+netedit.selectAdditionalChild(8, 0)
 netedit.leftClick(referencePosition, 250, 320)
 
 # create second space
-netedit.selectAdditionalChild(9, 0)
+netedit.selectAdditionalChild(8, 0)
 netedit.leftClick(referencePosition, 400, 320)
 
 # go to inspect mode
@@ -67,74 +67,62 @@ netedit.modifyAttribute(0, "")
 netedit.modifyAttribute(0, "-3.5,-3")
 
 # Change parameter 0 with a valid value
-netedit.modifyAttribute(0, "3,2.5")
+netedit.modifyAttribute(0, "3,2.5,15")
 
-# Change parameter 1 with a non valid value (dummy)
-netedit.modifyAttribute(1, "dummyZ")
+# Change parameter 7 with a non valid value (dummy)
+netedit.modifyAttribute(7, "dummyParent")
 
-# Change parameter 1 with a non valid value (empty)
-netedit.modifyAttribute(1, "")
+# Change parameter 7 with a non valid value (empty)
+netedit.modifyAttribute(7, "")
 
-# Change parameter 1 with a valid value (-negative)
-netedit.modifyAttribute(1, "-4.25")
+# Change parameter 7 with a valid value
+netedit.modifyAttribute(7, "parkingArea_gneE2_0_1")
 
-# Change parameter 1 with a valid value
-netedit.modifyAttribute(1, "1.00")
-
-# Change parameter 8 with a non valid value (dummy)
-netedit.modifyAttribute(8, "dummyParent")
-
-# Change parameter 8 with a non valid value (empty)
-netedit.modifyAttribute(8, "")
-
-# Change parameter 8 with a valid value
-netedit.modifyAttribute(8, "parkingArea_gneE2_0_1")
-
-# Change parameter 9 with a different value
-netedit.modifyBoolAttribute(9)
+# Change parameter 8 with a different value
+netedit.modifyBoolAttribute(8)
 
 # inspect the other space
 netedit.leftClick(referencePosition, 400, 300)
 
+# Change parameter 1 with a non valid value (dummy)
+netedit.modifyAttribute(1, "dummyWidth")
+
+# Change parameter 1 with a non valid value (negative)
+netedit.modifyAttribute(1, "-5")
+
+# Change parameter 1 with a non valid value (0)
+netedit.modifyAttribute(1, "0")
+
+# Change parameter 1 with a valid value
+netedit.modifyAttribute(1, "2.3")
+
 # Change parameter 2 with a non valid value (dummy)
-netedit.modifyAttribute(2, "dummyWidth")
+netedit.modifyAttribute(2, "dummyHeight")
 
 # Change parameter 2 with a non valid value (negative)
-netedit.modifyAttribute(2, "-5")
+netedit.modifyAttribute(2, "-6")
 
 # Change parameter 2 with a non valid value (0)
 netedit.modifyAttribute(2, "0")
 
 # Change parameter 2 with a valid value
-netedit.modifyAttribute(2, "2.3")
+netedit.modifyAttribute(2, "3.4")
 
 # Change parameter 3 with a non valid value (dummy)
-netedit.modifyAttribute(3, "dummyHeight")
+netedit.modifyAttribute(3, "dummyAngle")
 
-# Change parameter 3 with a non valid value (negative)
+# Change parameter 3 with a valid value (negative)
 netedit.modifyAttribute(3, "-6")
 
-# Change parameter 3 with a non valid value (0)
-netedit.modifyAttribute(3, "0")
+# Change parameter 3 with a valid value >360
+netedit.modifyAttribute(3, "500")
 
 # Change parameter 3 with a valid value
-netedit.modifyAttribute(3, "3.4")
-
-# Change parameter 4 with a non valid value (dummy)
-netedit.modifyAttribute(4, "dummyAngle")
-
-# Change parameter 4 with a valid value (negative)
-netedit.modifyAttribute(4, "-6")
-
-# Change parameter 4 with a valid value >360
-netedit.modifyAttribute(4, "500")
-
-# Change parameter 4 with a valid value
-netedit.modifyAttribute(4, "32.5")
+netedit.modifyAttribute(3, "32.5")
 
 # Check undos and redos
-netedit.undo(referencePosition, 22)
-netedit.redo(referencePosition, 22)
+netedit.undo(referencePosition, 19)
+netedit.redo(referencePosition, 19)
 
 # save additionals
 netedit.saveAdditionals()

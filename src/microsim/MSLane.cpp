@@ -3263,6 +3263,10 @@ MSLane::getUpcomingJunctions(double pos, double range, const std::vector<MSLane*
 
 std::vector<const MSLink*>
 MSLane::getUpcomingLinks(double pos, double range, const std::vector<MSLane*>& contLanes) const {
+#ifdef DEBUG_SURROUNDING
+        std::cout << "getUpcoming links on lane '" << getID() << "' with pos=" << pos
+                << " range=" << range << std::endl;
+#endif
     // set of upcoming junctions and the corresponding conflict links
     std::vector<const MSLink*> links;
 
@@ -3273,12 +3277,10 @@ MSLane::getUpcomingLinks(double pos, double range, const std::vector<MSLane*>& c
     std::vector<MSLane*>::const_iterator contLanesIt = contLanes.begin();
     // scanned distance so far
     double dist = 0.0;
-    // scan position relative to current lane
-//    double pos = v->getPositionOnLane();
     // link to be crossed by the vehicle
     MSLink* link = nullptr;
     if (lane->isInternal()) {
-        assert(*contLanesIt == nullptr);
+        assert(*contLanesIt == nullptr); // is called with vehicle's bestLane structure
         link = lane->getEntryLink();
         links.insert(links.end(), link);
         dist += link->getInternalLengthsAfter();
@@ -3290,11 +3292,17 @@ MSLane::getUpcomingLinks(double pos, double range, const std::vector<MSLane*>& c
     while (++contLanesIt != contLanes.end()) {
         assert(!lane->isInternal());
         dist += lane->getLength() - pos;
+        pos = 0.;
+#ifdef DEBUG_SURROUNDING
+        std::cout << "Distance until end of lane '" << lane->getID() << "' is " << dist << "." << std::endl;
+#endif
         if (dist > range) {
             break;
         }
         link = lane->getLinkTo(*contLanesIt);
-        links.insert(links.end(), link);
+        if (link!=nullptr) {
+            links.insert(links.end(), link);
+        }
         lane = *contLanesIt;
     }
     return links;

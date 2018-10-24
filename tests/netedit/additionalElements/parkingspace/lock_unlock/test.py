@@ -38,7 +38,7 @@ netedit.leftClick(referencePosition, 250, 250)
 netedit.changeAdditional("space")
 
 # select parent
-netedit.selectAdditionalChild(9, 0)
+netedit.selectAdditionalChild(8, 0)
 
 # create space
 netedit.leftClick(referencePosition, 250, 110)
@@ -56,7 +56,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 410, 130)
 
 # block space
-netedit.modifyBoolAttribute(9)
+netedit.modifyBoolAttribute(8)
 
 # change to move mode
 netedit.moveMode()
@@ -71,7 +71,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 410, 120)
 
 # unblock space
-netedit.modifyBoolAttribute(9)
+netedit.modifyBoolAttribute(8)
 
 # change to move mode
 netedit.moveMode()

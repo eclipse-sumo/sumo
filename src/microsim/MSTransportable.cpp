@@ -282,7 +282,7 @@ MSTransportable::Stage_Trip::setArrived(MSNet* net, MSTransportable* transportab
 
 
 void
-MSTransportable::Stage_Trip::proceed(MSNet* net, MSTransportable* transportable, SUMOTime now, Stage* previous) {
+MSTransportable::Stage_Trip::proceed(MSNet* net, MSTransportable* transportable, SUMOTime now, Stage* /* previous */) {
     // just skip the stage, every interesting happens in setArrived
     transportable->proceed(net, now);
 }

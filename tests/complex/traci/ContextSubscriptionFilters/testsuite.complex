@@ -12,3 +12,9 @@ leadFollow
 
 # Tests whether leader and follower vehicles are filtered correctly in combination with opposite traffic
 leadFollowOpposite
+
+# Get vehicle's foes on upcoming junctions
+turn
+
+# Tests whether lanes filter in combination with up-/down-stream distance filters work correctly
+lanesUpDownDistance

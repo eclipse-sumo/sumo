@@ -41,16 +41,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 100, 50)
 
 # Change parameter 8 with a non valid value (dummy)
-netedit.modifyAttribute(7, "dummyAngle")
+netedit.modifyAttribute(8, "dummyAngle")
 
 # Change parameter 8 with a valid value (negative)
-netedit.modifyAttribute(7, "-5")
+netedit.modifyAttribute(8, "-5")
 
 # Change parameter 8 with a valid value (> 360)
-netedit.modifyAttribute(7, "365")
+netedit.modifyAttribute(8, "365")
 
 # Change parameter 8 with a valid value (> 360)
-netedit.modifyAttribute(7, "10")
+netedit.modifyAttribute(8, "10")
 
 # Check undos and redos
 netedit.undo(referencePosition, 4)

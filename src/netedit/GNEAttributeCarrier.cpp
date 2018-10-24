@@ -687,8 +687,8 @@ GNEAttributeCarrier::TagValues::canMaskStartEndPos() const {
 
 
 bool 
-GNEAttributeCarrier::TagValues::canMaskXYPositions() const {
-    return (myTagProperty & TAGPROPERTY_MASKXYPOSITION) != 0;
+GNEAttributeCarrier::TagValues::canMaskXYZPositions() const {
+    return (myTagProperty & TAGPROPERTY_MASKXYZPOSITION) != 0;
 } 
 
 
@@ -1527,16 +1527,12 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_PARKING_SPACE;
     {
         // set values of tag
-        myAllowedTags[currentTag] = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_VIEW | TAGPROPERTY_MASKXYPOSITION | TAGPROPERTY_SELECTABLE | TAGPROPERTY_PARENT | TAGPROPERTY_REPARENT | TAGPROPERTY_BLOCKMOVEMENT, additional, ICON_PARKINGSPACE, SUMO_TAG_PARKING_AREA);
+        myAllowedTags[currentTag] = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_VIEW | TAGPROPERTY_MASKXYZPOSITION | TAGPROPERTY_SELECTABLE | TAGPROPERTY_PARENT | TAGPROPERTY_REPARENT | TAGPROPERTY_BLOCKMOVEMENT, additional, ICON_PARKINGSPACE, SUMO_TAG_PARKING_AREA);
         // set values of attributes
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_POSITION,
                                                ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_POSITION, // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
-                                               "The x-y position of the parking vehicle on the plane",
+                                               "The x-y-z position of the parking vehicle on the plane",
                                                "");
-        myAllowedTags[currentTag].addAttribute(SUMO_ATTR_Z,
-                                               ATTRPROPERTY_FLOAT | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
-                                               "The Z position in meters of the parking vehicle",
-                                               "0.00");
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_WIDTH,
                                                ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
                                                "The width of the road-side parking spaces",
