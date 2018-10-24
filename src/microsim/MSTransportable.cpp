@@ -551,6 +551,9 @@ MSTransportable::Stage_Driving::setArrived(MSNet* net, MSTransportable* transpor
         myVehicleDistance = myVehicle->getRoute().getDistanceBetween(
                                 myVehicle->getDepartPos(), myVehicle->getPositionOnLane(),
                                 myVehicle->getRoute().begin(),  myVehicle->getCurrentRouteEdge()) - myVehicleDistance;
+        if (myVehicle->isStopped()) {
+            myArrivalPos = myVehicle->getPositionOnLane();
+        }
     } else {
         myVehicleDistance = -1.;
     }
@@ -796,32 +799,10 @@ MSTransportable::rerouteParkingArea(MSStoppingPlace* orig, MSStoppingPlace* repl
             return;
         }
         // if the next step is a walk, adapt the route
+        // TODO Should we also reroute when the walk has a fixed edge list or only trips?
         Stage* nextStage = *(myStep + 1);
-        if (nextStage->getStageType() == MOVING_WITHOUT_VEHICLE) {
-            MSPerson* p = dynamic_cast<MSPerson*>(this);
-            if (p != nullptr) {
-                const MSEdge* to = nextStage->getDestination();
-                double departPos = stage->getArrivalPos();
-                double arrivalPos = nextStage->getArrivalPos();
-                double speed = p->getVehicleType().getMaxSpeed();
-                ConstMSEdgeVector newEdges;
-                MSNet::getInstance()->getPedestrianRouter().compute(stage->getDestination(), to, departPos, arrivalPos, speed, 0, nullptr, newEdges);
-                if (newEdges.empty()) {
-                    WRITE_WARNING("Could not reroute person '" + getID()
-                                  + "' when rerouting vehicle '" + stage->getVehicle()->getID()
-                                  + "' to new parkingArea '" + replacement->getID() + "'.");
-                } else {
-                    //std::cout << SIMTIME << " plan before rerouting " << getID() << ":\n";
-                    //for (int stage = 0; stage < p->getNumStages(); stage++) {
-                    //    std::cout << stage << ": " << p->getStageSummary(stage) << "\n";;
-                    //}
-                    p->reroute(newEdges, departPos, 1, 2);
-                    //std::cout << SIMTIME << " plan after rerouting " << getID() << ":\n";
-                    //for (int stage = 0; stage < p->getNumStages(); stage++) {
-                    //    std::cout << stage << ": " << p->getStageSummary(stage) << "\n";;
-                    //}
-                }
-            }
+        if (nextStage->getStageType() == TRIP) {
+            dynamic_cast<MSTransportable::Stage_Trip*>(nextStage)->setOrigin(stage->getDestination());
         }
     }
 }

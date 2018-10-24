@@ -239,6 +239,11 @@ public:
         /// logs end of the step
         virtual void setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now);
 
+        /// change origin for parking area rerouting 
+        void setOrigin(const MSEdge* origin) {
+            myOrigin = origin;
+        }
+
         /// proceeds to the next step
         virtual void proceed(MSNet* net, MSTransportable* transportable, SUMOTime now, Stage* previous);
 
