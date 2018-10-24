@@ -1000,11 +1000,9 @@ MSRouteHandler::parseWalkPositions(const SUMOSAXAttributes& attrs, const std::st
         if (bs == nullptr) {
             throw ProcessError("Unknown bus stop '" + bsID + "' for " + description + ".");
         }
-        if (toEdge != nullptr) {
-            arrivalPos = bs->getAccessPos(toEdge);
-            if (arrivalPos < 0) {
-                throw ProcessError("Bus stop '" + bsID + "' is not connected to arrival edge '" + toEdge->getID() + "' for " + description + ".");
-            }
+        arrivalPos = bs->getAccessPos(toEdge != nullptr ? toEdge : &bs->getLane().getEdge());
+        if (arrivalPos < 0) {
+            throw ProcessError("Bus stop '" + bsID + "' is not connected to arrival edge '" + toEdge->getID() + "' for " + description + ".");
         }
         if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
             const double length = toEdge != nullptr ? toEdge->getLength() : bs->getLane().getLength();
