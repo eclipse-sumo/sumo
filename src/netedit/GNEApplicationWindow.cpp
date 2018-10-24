@@ -301,10 +301,8 @@ GNEApplicationWindow::dependentBuild() {
     getAccelTable()->addAccel(65,  this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_ADDITIONAL));   // A
     getAccelTable()->addAccel(114, this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_CROSSING));     // r
     getAccelTable()->addAccel(82,  this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_CROSSING));     // R
-
-    getAccelTable()->addAccel(114, this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_TAZ));          // r
-    getAccelTable()->addAccel(82,  this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_TAZ));          // R
-
+    getAccelTable()->addAccel(122, this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_TAZ));          // z
+    getAccelTable()->addAccel(90,  this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_TAZ));          // Z
     getAccelTable()->addAccel(112, this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_POLYGON));      // p
     getAccelTable()->addAccel(80,  this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_POLYGON));      // P
     getAccelTable()->addAccel(118, this, FXSEL(SEL_COMMAND, MID_EDITVIEWPORT));             // v
@@ -578,7 +576,7 @@ GNEApplicationWindow::fillMenuBar() {
                       "C&rossing mode\tR\tCreate crossings between edges.",
                       GUIIconSubSys::getIcon(ICON_MODECROSSING), this, MID_GNE_SETMODE_CROSSING);
     new FXMenuCommand(myEditMenu,
-                      "TA&Z mode\tR\tCreate Traffic Assignment Zones.",
+                      "TA&Z mode\tZ\tCreate Traffic Assignment Zones.",
                       GUIIconSubSys::getIcon(ICON_MODETAZ), this, MID_GNE_SETMODE_TAZ);
     new FXMenuCommand(myEditMenu,
                       "&POI-Poly mode\tP\tCreate Points-Of-Interest and polygons.",

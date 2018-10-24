@@ -2246,7 +2246,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_TAZEDGE;
     {
         // set values of tag
-        myAllowedTags[currentTag] = TagValues(TAGPROPERTY_TAZ | TAGPROPERTY_PARENT, taz, ICON_TAZ, SUMO_TAG_TAZ);
+        myAllowedTags[currentTag] = TagValues(TAGPROPERTY_TAZ | TAGPROPERTY_PARENT, taz, ICON_TAZEDGE, SUMO_TAG_TAZ);
         // set values of attributes
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_ID,
                                                ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,

@@ -389,6 +389,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[ICON_PARKINGZONEREROUTE] = new FXXPMIcon(a, parkingzonereroute_xpm);
     myIcons[ICON_ROUTEPROBREROUTE] = new FXXPMIcon(a, routeprobreroute_xpm);
     myIcons[ICON_TAZ] = new FXXPMIcon(a, taz_xpm);
+    myIcons[ICON_TAZEDGE] = new FXXPMIcon(a, tazedge_xpm);
 
     myIcons[ICON_FLOW] = new FXXPMIcon(a, flow_xpm);
     myIcons[ICON_ROUTE] = new FXXPMIcon(a, route_xpm);

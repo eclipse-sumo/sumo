@@ -1,5 +1,5 @@
 /* XPM */
-static char *taz_xpm[] = {
+static const char *taz_xpm[] = {
 /* columns rows colors chars-per-pixel */
 "16 16 256 2 ",
 "   c gray100",

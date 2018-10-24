@@ -253,6 +253,7 @@ enum GUIIcon {
     ICON_PARKINGZONEREROUTE,
     ICON_ROUTEPROBREROUTE,
     ICON_TAZ,
+    ICON_TAZEDGE,
     /// @}
 
     /// @name netedit routeElements icons
