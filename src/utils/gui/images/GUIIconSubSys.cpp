@@ -178,6 +178,7 @@
 #include "parkingzonereroute.xpm"
 #include "routeprobreroute.xpm"
 #include "taz.xpm"
+#include "tazedge.xpm"
 
 #include "flow.xpm"
 #include "route.xpm"
