@@ -669,14 +669,15 @@ public:
     /**@brief Builds a TAZEdge (Traffic Assignment Zone)
      * @param[in] viewNet viewNet in which element will be inserted
      * @param[in] allowUndoRedo enable or disable remove created additional with ctrl + Z / ctrl + Y
-      *@param[in] TAZ Traffic Assignment Zone in which this TAZEdge is palced
+     * @param[in] tagEdgeType check what kind of TAZ is build (GNETAZEdge, tazSource or tazSink)
+     * @param[in] TAZ Traffic Assignment Zone in which this TAZEdge is palced
      * @param[in] ege edge in which TAZEdge is placed
      * @param[in] departWeight depart weight of TAZEdge
      * @param[in] arrivalWeight arrival weight of TAZEdge
      * @return true if was sucesfully created, false in other case
      * @exception ProcessError If the XML definition file is errornous
      */
-    static GNEAdditional* buildTAZEdge(GNEViewNet* viewNet, bool allowUndoRedo, GNEAdditional *TAZ, GNEEdge *edge, double departWeight, double arrivalWeight);
+    static GNEAdditional* buildTAZEdge(GNEViewNet* viewNet, bool allowUndoRedo, const SumoXMLTag& tagEdgeType, GNEAdditional *TAZ, GNEEdge *edge, double departWeight, double arrivalWeight);
 
     /**@brief Helper method to obtain the filename
      * @param[in] attrs The attributes to obtain the file name from

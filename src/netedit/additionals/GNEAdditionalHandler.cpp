@@ -142,7 +142,8 @@ GNEAdditionalHandler::myStartElement(int element, const SUMOSAXAttributes& attrs
             case SUMO_TAG_TAZ:
                 parseAndBuildTAZ(attrs, tag);
                 break;
-            case SUMO_TAG_TAZEDGE:
+            case SUMO_TAG_TAZSOURCE:
+            case SUMO_TAG_TAZSINK:
                 parseAndBuildTAZEdge(attrs, tag);
                 break;
             case SUMO_TAG_VSS:
@@ -257,9 +258,9 @@ void
 GNEAdditionalHandler::parseAndBuildTAZEdge(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
     bool abort = false;
     // parse attributes of Vaporizer
-    const std::string edgeID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_EDGE, abort);
-    const double departWeight = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, edgeID, tag, GNE_ATTR_TAZ_DEPARTWEIGHT, abort);
-    const double arrivalWeight = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, edgeID, tag, GNE_ATTR_TAZ_ARRIVALWEIGHT, abort);
+    const std::string edgeID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_TAZEDGE, SUMO_ATTR_ID, abort);
+    const double departWeight = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, edgeID, SUMO_TAG_TAZEDGE, SUMO_ATTR_WEIGHT, abort);
+    const double arrivalWeight = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, edgeID, SUMO_TAG_TAZEDGE, SUMO_ATTR_WEIGHT, abort);
     // Continue if all parameters were successfully loaded
     if (!abort) {
         // get edge and TAZ
@@ -271,7 +272,7 @@ GNEAdditionalHandler::parseAndBuildTAZEdge(const SUMOSAXAttributes& attrs, const
         } else if (TAZ == nullptr) {
             WRITE_WARNING("A " + toString(tag) + " must be declared within the definition of a " + toString(SUMO_TAG_TAZ) + ".");
         } else {
-            myLastInsertedAdditional = buildTAZEdge(myViewNet, myUndoAdditionals, TAZ, edge, departWeight, arrivalWeight);
+            myLastInsertedAdditional = buildTAZEdge(myViewNet, myUndoAdditionals, tag, TAZ, edge, departWeight, arrivalWeight);
             // save ID of last created element
             myParentElements.commitElementInsertion(myLastInsertedAdditional->getID());
         }
@@ -2148,17 +2149,75 @@ GNEAdditionalHandler::buildTAZ(GNEViewNet* viewNet, bool allowUndoRedo, const st
 
 
 GNEAdditional* 
-GNEAdditionalHandler::buildTAZEdge(GNEViewNet* viewNet, bool allowUndoRedo, GNEAdditional *TAZ, GNEEdge *edge, double departWeight, double arrivalWeight) {
-    GNETAZEdge *TAZEdge = new GNETAZEdge(TAZ, edge, departWeight, arrivalWeight);
-    if (allowUndoRedo) {
-        viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_TAZ));
-        viewNet->getUndoList()->add(new GNEChange_Additional(TAZEdge, true), true);
-        viewNet->getUndoList()->p_end();
+GNEAdditionalHandler::buildTAZEdge(GNEViewNet* viewNet, bool allowUndoRedo, const SumoXMLTag& tagEdgeType, GNEAdditional *TAZ, GNEEdge *edge, double departWeight, double arrivalWeight) {
+    GNEAdditional *TAZEdge = nullptr;
+    if(tagEdgeType == SUMO_TAG_TAZEDGE) {
+        // create TAZ
+        TAZEdge = new GNETAZEdge(TAZ, edge, departWeight, arrivalWeight);
+        if (allowUndoRedo) {
+            viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_TAZ));
+            viewNet->getUndoList()->add(new GNEChange_Additional(TAZEdge, true), true);
+            viewNet->getUndoList()->p_end();
+        } else {
+            viewNet->getNet()->insertAdditional(TAZEdge);
+            TAZ->incRef("buildTAZEdge");
+        }
+    } else if(tagEdgeType == SUMO_TAG_TAZSOURCE) { 
+        // first check if TAZ exist
+        TAZEdge = viewNet->getNet()->retrieveAdditional(SUMO_TAG_TAZEDGE, edge->getID(), false);
+        // check if TAZEdge has to be created
+        if(TAZEdge == nullptr) {
+            // Create TAZ only with departWeight
+            TAZEdge = new GNETAZEdge(TAZ, edge, departWeight, 0);
+            if (allowUndoRedo) {
+                viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_TAZ));
+                viewNet->getUndoList()->add(new GNEChange_Additional(TAZEdge, true), true);
+                viewNet->getUndoList()->p_end();
+            } else {
+                viewNet->getNet()->insertAdditional(TAZEdge);
+                TAZ->incRef("buildTAZEdge");
+            }
+        } else {
+            // update TAZ Attribute
+            if (allowUndoRedo) {
+                viewNet->getUndoList()->p_begin("update " + toString(SUMO_TAG_TAZ));
+                TAZEdge->setAttribute(GNE_ATTR_TAZ_DEPARTWEIGHT, toString(departWeight), viewNet->getUndoList());
+                viewNet->getUndoList()->p_end();
+            } else {
+                TAZEdge->setAttribute(GNE_ATTR_TAZ_DEPARTWEIGHT, toString(departWeight), nullptr);
+                TAZ->incRef("buildTAZEdge");
+            }
+        }
+    } else if(tagEdgeType == SUMO_TAG_TAZSINK) { 
+        // first check if TAZ exist
+        TAZEdge = viewNet->getNet()->retrieveAdditional(SUMO_TAG_TAZEDGE, edge->getID(), false);
+        // check if TAZEdge has to be created
+        if(TAZEdge == nullptr) {
+            // Create TAZ only with arrivalWeight
+            TAZEdge = new GNETAZEdge(TAZ, edge, 0, arrivalWeight);
+            if (allowUndoRedo) {
+                viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_TAZ));
+                viewNet->getUndoList()->add(new GNEChange_Additional(TAZEdge, true), true);
+                viewNet->getUndoList()->p_end();
+            } else {
+                viewNet->getNet()->insertAdditional(TAZEdge);
+                TAZ->incRef("buildTAZEdge");
+            }
+        } else {
+            // update TAZ Attribute
+            if (allowUndoRedo) {
+                viewNet->getUndoList()->p_begin("update " + toString(SUMO_TAG_TAZ));
+                TAZEdge->setAttribute(GNE_ATTR_TAZ_ARRIVALWEIGHT, toString(arrivalWeight), viewNet->getUndoList());
+                viewNet->getUndoList()->p_end();
+            } else {
+                TAZEdge->setAttribute(GNE_ATTR_TAZ_ARRIVALWEIGHT, toString(arrivalWeight), nullptr);
+                TAZ->incRef("buildTAZEdge");
+            }
+        }
     } else {
-        viewNet->getNet()->insertAdditional(TAZEdge);
-        TAZ->incRef("buildTAZEdge");
+        ProcessError("Invalid TAZEdge");
     }
-    return TAZ;
+    return TAZEdge;
 }
 
 

@@ -104,18 +104,23 @@ GNETAZEdge::getAttribute(SumoXMLAttr key) const {
 
 void
 GNETAZEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
-    if (value == getAttribute(key)) {
-        return; //avoid needless changes, later logic relies on the fact that attributes have changed
-    }
-    switch (key) {
-        case SUMO_ATTR_ID:
-        case GNE_ATTR_TAZ_DEPARTWEIGHT:
-        case GNE_ATTR_TAZ_ARRIVALWEIGHT:
-        case GNE_ATTR_GENERIC:
-            undoList->p_add(new GNEChange_Attribute(this, key, value));
-            break;
-        default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+    // this additional is the only that can edit a variable directly, see GNEAdditionalHandler::buildTAZEdge(...)
+    if(undoList == nullptr) {
+        setAttribute(key, value);
+    } else {
+        if (value == getAttribute(key)) {
+            return; //avoid needless changes, later logic relies on the fact that attributes have changed
+        }
+        switch (key) {
+            case SUMO_ATTR_ID:
+            case GNE_ATTR_TAZ_DEPARTWEIGHT:
+            case GNE_ATTR_TAZ_ARRIVALWEIGHT:
+            case GNE_ATTR_GENERIC:
+                undoList->p_add(new GNEChange_Attribute(this, key, value));
+                break;
+            default:
+                throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+        }
     }
 }
 
