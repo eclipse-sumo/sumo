@@ -44,7 +44,7 @@ TraCIAPI::TraCIAPI()
       person(*this), poi(*this), polygon(*this), route(*this),
       simulation(*this), trafficlights(*this),
       vehicle(*this), vehicletype(*this),
-      mySocket(0) {
+      mySocket(nullptr) {
     myDomains[RESPONSE_SUBSCRIBE_EDGE_VARIABLE] = &edge;
     myDomains[RESPONSE_SUBSCRIBE_GUI_VARIABLE] = &gui;
     myDomains[RESPONSE_SUBSCRIBE_JUNCTION_VARIABLE] = &junction;
@@ -77,7 +77,7 @@ TraCIAPI::connect(const std::string& host, int port) {
         mySocket->connect();
     } catch (tcpip::SocketException&) {
         delete mySocket;
-        mySocket = 0;
+        mySocket = nullptr;
         throw;
     }
 }
@@ -110,12 +110,12 @@ TraCIAPI::close() {
 
 void
 TraCIAPI::closeSocket() {
-    if (mySocket == 0) {
+    if (mySocket == nullptr) {
         return;
     }
     mySocket->close();
     delete mySocket;
-    mySocket = 0;
+    mySocket = nullptr;
 }
 
 
@@ -158,13 +158,13 @@ TraCIAPI::send_commandSetOrder(int order) const {
 
 void
 TraCIAPI::send_commandGetVariable(int domID, int varID, const std::string& objID, tcpip::Storage* add) const {
-    if (mySocket == 0) {
+    if (mySocket == nullptr) {
         throw tcpip::SocketException("Socket is not initialised");
     }
     tcpip::Storage outMsg;
     // command length
     int length = 1 + 1 + 1 + 4 + (int) objID.length();
-    if (add != 0) {
+    if (add != nullptr) {
         length += (int)add->size();
     }
     outMsg.writeUnsignedByte(length);
@@ -175,7 +175,7 @@ TraCIAPI::send_commandGetVariable(int domID, int varID, const std::string& objID
     // object id
     outMsg.writeString(objID);
     // additional values
-    if (add != 0) {
+    if (add != nullptr) {
         outMsg.writeStorage(*add);
     }
     // send request message
@@ -185,7 +185,7 @@ TraCIAPI::send_commandGetVariable(int domID, int varID, const std::string& objID
 
 void
 TraCIAPI::send_commandSetValue(int domID, int varID, const std::string& objID, tcpip::Storage& content) const {
-    if (mySocket == 0) {
+    if (mySocket == nullptr) {
         throw tcpip::SocketException("Socket is not initialised");
     }
     tcpip::Storage outMsg;
@@ -207,7 +207,7 @@ TraCIAPI::send_commandSetValue(int domID, int varID, const std::string& objID, t
 void
 TraCIAPI::send_commandSubscribeObjectVariable(int domID, const std::string& objID, double beginTime, double endTime,
         const std::vector<int>& vars) const {
-    if (mySocket == 0) {
+    if (mySocket == nullptr) {
         throw tcpip::SocketException("Socket is not initialised");
     }
     tcpip::Storage outMsg;
@@ -235,7 +235,7 @@ TraCIAPI::send_commandSubscribeObjectVariable(int domID, const std::string& objI
 void
 TraCIAPI::send_commandSubscribeObjectContext(int domID, const std::string& objID, double beginTime, double endTime,
         int domain, double range, const std::vector<int>& vars) const {
-    if (mySocket == 0) {
+    if (mySocket == nullptr) {
         throw tcpip::SocketException("Socket is not initialised");
     }
     tcpip::Storage outMsg;
@@ -308,7 +308,7 @@ TraCIAPI::check_resultState(tcpip::Storage& inMsg, int command, bool ignoreComma
         case RTYPE_NOTIMPLEMENTED:
             throw libsumo::TraCIException(".. Sent command is not implemented (" + toString(command) + "), [description: " + msg + "]");
         case RTYPE_OK:
-            if (acknowledgement != 0) {
+            if (acknowledgement != nullptr) {
                 (*acknowledgement) = ".. Command acknowledged (" + toString(command) + "), [description: " + msg + "]";
             }
             break;

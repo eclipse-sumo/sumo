@@ -86,7 +86,7 @@ GUITriggeredRerouter::GUIManip_TriggeredRerouter::GUIManip_TriggeredRerouter(
     const std::string& name, GUITriggeredRerouter& o,
     int /*xpos*/, int /*ypos*/)
     : GUIManipulator(app, name, 0, 0), myParent(&app),
-      myChosenValue(0), myChosenTarget(myChosenValue, NULL, MID_OPTION),
+      myChosenValue(0), myChosenTarget(myChosenValue, nullptr, MID_OPTION),
       myUsageProbability(o.getProbability()), myUsageProbabilityTarget(myUsageProbability),
       myObject(&o) {
     myChosenTarget.setTarget(this);
@@ -132,7 +132,7 @@ GUITriggeredRerouter::GUIManip_TriggeredRerouter::GUIManip_TriggeredRerouter(
                     ? myObject->getUserProbability() > 0
                     ? 1 : 2
                     : 0;
-    new FXButton(f1, "Close", NULL, this, MID_CLOSE,
+    new FXButton(f1, "Close", nullptr, this, MID_CLOSE,
                  BUTTON_INITIAL | BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_CENTER_X, 0, 0, 0, 0, 30, 30, 4, 4);
 }
 
@@ -267,7 +267,7 @@ GUITriggeredRerouter::getPopUpMenu(GUIMainWindow& app,
 GUIParameterTableWindow*
 GUITriggeredRerouter::getParameterWindow(GUIMainWindow&,
         GUISUMOAbstractView&) {
-    return 0;
+    return nullptr;
 }
 
 
@@ -331,7 +331,7 @@ GUITriggeredRerouter::GUITriggeredRerouterEdge::getPopUpMenu(GUIMainWindow& app,
 GUIParameterTableWindow*
 GUITriggeredRerouter::GUITriggeredRerouterEdge::getParameterWindow(GUIMainWindow&,
         GUISUMOAbstractView&) {
-    return 0;
+    return nullptr;
 }
 
 
@@ -345,7 +345,7 @@ GUITriggeredRerouter::GUITriggeredRerouterEdge::drawGL(const GUIVisualizationSet
             // draw closing symbol onto all lanes
             const RerouteInterval* const ri =
                 myParent->getCurrentReroute(MSNet::getInstance()->getCurrentTimeStep());
-            if (ri != 0 && prob > 0) {
+            if (ri != nullptr && prob > 0) {
                 // draw only if the edge is closed at this time
                 if (std::find(ri->closed.begin(), ri->closed.end(), myEdge) != ri->closed.end()) {
                     const int noLanes = (int)myFGPositions.size();

@@ -149,7 +149,7 @@ Polygon::setLineWidth(std::string polygonID, double lineWidth) {
 SUMOPolygon*
 Polygon::getPolygon(const std::string& id) {
     SUMOPolygon* p = MSNet::getInstance()->getShapeContainer().getPolygons().get(id);
-    if (p == 0) {
+    if (p == nullptr) {
         throw TraCIException("Polygon '" + id + "' is not known");
     }
     return p;

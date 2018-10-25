@@ -58,7 +58,7 @@ MSBatteryExport::write(OutputDevice& of, SUMOTime timestep, int precision) {
 
         Position pos = veh->getLane()->getShape().positionAtOffset(veh->getPositionOnLane());
 
-        if (static_cast<MSDevice_Battery*>(veh->getDevice(typeid(MSDevice_Battery))) != 0) {
+        if (static_cast<MSDevice_Battery*>(veh->getDevice(typeid(MSDevice_Battery))) != nullptr) {
             MSDevice_Battery* batteryToExport = dynamic_cast<MSDevice_Battery*>(veh->getDevice(typeid(MSDevice_Battery)));
             if (batteryToExport->getMaximumBatteryCapacity() > 0) {
                 // Open Row

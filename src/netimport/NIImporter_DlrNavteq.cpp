@@ -332,10 +332,10 @@ NIImporter_DlrNavteq::EdgesHandler::report(const std::string& result) {
     const std::string toID = getColumn(st, NODE_ID_TO);
     NBNode* from = myNodeCont.retrieve(fromID);
     NBNode* to = myNodeCont.retrieve(toID);
-    if (from == 0) {
+    if (from == nullptr) {
         throw ProcessError("The from-node '" + fromID + "' of link '" + id + "' could not be found");
     }
-    if (to == 0) {
+    if (to == nullptr) {
         throw ProcessError("The to-node '" + toID + "' of link '" + id + "' could not be found");
     }
     // speed
@@ -363,7 +363,7 @@ NIImporter_DlrNavteq::EdgesHandler::report(const std::string& result) {
 
     const std::string navTeqTypeId = getColumn(st, VEHICLE_TYPE) + "_" + getColumn(st, FORM_OF_WAY);
     // build the edge
-    NBEdge* e = 0;
+    NBEdge* e = nullptr;
     const std::string interID = getColumn(st, BETWEEN_NODE_ID);
     if (interID == "-1") {
         e = new NBEdge(id, from, to, myTypeCont.knows(navTeqTypeId) ? navTeqTypeId : "", speed, numLanes, priority,
@@ -485,7 +485,7 @@ NIImporter_DlrNavteq::TrafficlightsHandler::report(const std::string& result) {
     StringTokenizer st(result, StringTokenizer::WHITECHARS);
     const std::string edgeID = st.get(5);
     NBEdge* edge = myEdgeCont.retrieve(edgeID);
-    if (edge == 0) {
+    if (edge == nullptr) {
         WRITE_WARNING("The traffic light edge '" + edgeID + "' could not be found");
     } else {
         NBNode* node = edge->getToNode();
@@ -594,7 +594,7 @@ NIImporter_DlrNavteq::TimeRestrictionsHandler::report(const std::string& result)
             //std::cout << " duration=" << duration << " tEnd=" << tEnd << " translation=" << asctime(localtime(&tEnd)) << "\n";
             if (myConstructionTime < tEnd) {
                 NBEdge* edge = myEdgeCont.retrieve(id);
-                if (edge != 0) {
+                if (edge != nullptr) {
                     myRemovedEdges++;
                     myEdgeCont.extract(myDistrictCont, edge, true);
                 }
@@ -741,12 +741,12 @@ NIImporter_DlrNavteq::ProhibitionHandler::report(const std::string& result) {
     const std::string endEdge = st.get(st.size() - 1);
 
     NBEdge* from = myEdgeCont.retrieve(startEdge);
-    if (from == 0) {
+    if (from == nullptr) {
         WRITE_WARNING("Ignoring prohibition from unknown start edge '" + startEdge + "'");
         return true;
     }
     NBEdge* to = myEdgeCont.retrieve(endEdge);
-    if (to == 0) {
+    if (to == nullptr) {
         WRITE_WARNING("Ignoring prohibition from unknown end edge '" + endEdge + "'");
         return true;
     }
@@ -786,12 +786,12 @@ NIImporter_DlrNavteq::ConnectedLanesHandler::report(const std::string& result) {
     const std::string endEdge = st.get(st.size() - 1);
 
     NBEdge* from = myEdgeCont.retrieve(startEdge);
-    if (from == 0) {
+    if (from == nullptr) {
         WRITE_WARNING("Ignoring prohibition from unknown start edge '" + startEdge + "'");
         return true;
     }
     NBEdge* to = myEdgeCont.retrieve(endEdge);
-    if (to == 0) {
+    if (to == nullptr) {
         WRITE_WARNING("Ignoring prohibition from unknown end edge '" + endEdge + "'");
         return true;
     }

@@ -58,7 +58,7 @@ OutputDevice::getDevice(const std::string& name) {
         return *myOutputDevices[name];
     }
     // build the device
-    OutputDevice* dev = 0;
+    OutputDevice* dev = nullptr;
     // check whether the device shall print to stdout
     if (name == "stdout") {
         dev = OutputDevice_COUT::getDevice();

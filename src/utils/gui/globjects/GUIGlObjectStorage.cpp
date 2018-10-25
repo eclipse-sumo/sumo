@@ -67,7 +67,7 @@ GUIGlObjectStorage::getObjectBlocking(GUIGlID id) {
             GUIGlObject* o = (*i).second;
             return o;
         }
-        return 0;
+        return nullptr;
     }
     GUIGlObject* o = (*i).second;
     myMap.erase(id);
@@ -83,7 +83,7 @@ GUIGlObjectStorage::getObjectBlocking(const std::string& fullName) {
         GUIGlID id = myFullNameMap[fullName]->getGlID();
         return getObjectBlocking(id);
     }
-    return 0;
+    return nullptr;
 }
 
 

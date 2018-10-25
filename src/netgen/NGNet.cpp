@@ -73,7 +73,7 @@ NGNet::findNode(int xID, int yID) {
             return *ni;
         }
     }
-    return 0;
+    return nullptr;
 }
 
 std::string
@@ -231,7 +231,7 @@ NGNet::toNB() const {
     for (std::vector<NBNode*>::const_iterator i = nodes.begin(); i != nodes.end(); ++i) {
         NBNode* node = *i;
         for (NBEdge* e : node->getIncomingEdges()) {
-            if (node->getConnectionTo(e->getFromNode()) == 0 && RandHelper::rand() <= bidiProb) {
+            if (node->getConnectionTo(e->getFromNode()) == nullptr && RandHelper::rand() <= bidiProb) {
                 NBEdge* back = new NBEdge("-" + e->getID(), node, e->getFromNode(),
                                           "", myNetBuilder.getTypeCont().getSpeed(""),
                                           e->getNumLanes(),
@@ -270,13 +270,13 @@ NGNet::toNB() const {
                 split.offset = -0.5 * split.offsetFactor * turnLanes * e->getLaneWidth(0);
                 if (e->getFromNode()->geometryLike()) {
                     // shift the reverse direction explicitly as it will not get a turn lane
-                    NBEdge* reverse = 0;
+                    NBEdge* reverse = nullptr;
                     for (NBEdge* reverseCand : e->getFromNode()->getIncomingEdges()) {
                         if (reverseCand->getFromNode() == e->getToNode()) {
                             reverse = reverseCand;
                         }
                     }
-                    if (reverse != 0) {
+                    if (reverse != nullptr) {
                         PositionVector g = reverse->getGeometry();
                         g.move2side(-split.offset);
                         reverse->setGeometry(g);

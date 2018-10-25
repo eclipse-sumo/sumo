@@ -110,11 +110,11 @@ GeomConvHelper::emitError(bool report, const std::string& what, const std::strin
     }
     std::ostringstream oss;
     oss << what << " of ";
-    if (objectid == 0) {
+    if (objectid == nullptr) {
         oss << "a(n) ";
     }
     oss << objecttype;
-    if (objectid != 0) {
+    if (objectid != nullptr) {
         oss << " '" << objectid << "'";
     }
     oss << " is broken: " << desc << ".";

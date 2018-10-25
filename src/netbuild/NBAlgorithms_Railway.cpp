@@ -640,14 +640,14 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForBufferStops(NBNetBuilder& nb) {
             }
             int numAddedBidi = 0;
             numBufferStops++;
-            NBEdge* prev = 0;
-            NBEdge* prev2 = 0;
+            NBEdge* prev = nullptr;
+            NBEdge* prev2 = nullptr;
             EdgeVector inRail, outRail;
             getRailEdges(node, inRail, outRail);
             bool addAway = true; // add new edges away from buffer stop
-            while (prev == 0 || (inRail.size() + outRail.size()) == 3) {
-                NBEdge* e = 0;
-                if (prev == 0) {
+            while (prev == nullptr || (inRail.size() + outRail.size()) == 3) {
+                NBEdge* e = nullptr;
+                if (prev == nullptr) {
                     assert(node->getEdges().size() == 1);
                     e = node->getEdges().front();
                     addAway = node == e->getToNode();
@@ -663,8 +663,8 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForBufferStops(NBNetBuilder& nb) {
                     }
                 }
                 e->setLaneSpreadFunction(LANESPREAD_CENTER);
-                NBNode* e2From = 0;
-                NBNode* e2To = 0;
+                NBNode* e2From = nullptr;
+                NBNode* e2To = nullptr;
                 if (addAway) {
                     e2From = node;
                     e2To = e->getFromNode();

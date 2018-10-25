@@ -58,7 +58,7 @@ FXIMPLEMENT(GUIDialog_GLObjChooser, FXMainWindow, GUIDialog_GLObjChooserMap, ARR
 // method definitions
 // ===========================================================================
 GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(GUIGlChildWindow* parent, FXIcon* icon, const FXString& title, const std::vector<GUIGlID>& ids, GUIGlObjectStorage& /*glStorage*/) :
-    FXMainWindow(parent->getApp(), title, icon, NULL, GUIDesignChooserDialog),
+    FXMainWindow(parent->getApp(), title, icon, nullptr, GUIDesignChooserDialog),
     myParent(parent) {
     FXHorizontalFrame* hbox = new FXHorizontalFrame(this, GUIDesignAuxiliarFrame);
     // build the list
@@ -147,7 +147,7 @@ GUIDialog_GLObjChooser::onListKeyPress(FXObject*, FXSelector, void* ptr) {
     FXEvent* event = (FXEvent*)ptr;
     switch (event->code) {
         case KEY_Return:
-            onCmdText(0, 0, 0);
+            onCmdText(nullptr, 0, nullptr);
             break;
         default:
             break;
@@ -181,12 +181,12 @@ GUIDialog_GLObjChooser::refreshList(const std::vector<GUIGlID>& ids) {
     myList->clearItems();
     for (auto i : ids) {
         GUIGlObject* o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(i);
-        if (o == 0) {
+        if (o == nullptr) {
             continue;
         }
         const std::string& name = getObjectName(o);
         bool selected = myParent->isSelected(o);
-        FXIcon* icon = selected ? GUIIconSubSys::getIcon(ICON_FLAG) : 0;
+        FXIcon* icon = selected ? GUIIconSubSys::getIcon(ICON_FLAG) : nullptr;
         myIDs.insert(o->getGlID());
         myList->appendItem(name.c_str(), icon, (void*) & (*myIDs.find(o->getGlID())));
         GUIGlObjectStorage::gIDStorage.unblockObject(i);
@@ -202,7 +202,7 @@ GUIDialog_GLObjChooser::onCmdToggleSelection(FXObject*, FXSelector, void*) {
     if (i >= 0) {
         toggleSelection(i);
         if (myList->getItemIcon(i) == flag) {
-            myList->setItemIcon(i, 0);
+            myList->setItemIcon(i, nullptr);
         } else {
             myList->setItemIcon(i, flag);
         }

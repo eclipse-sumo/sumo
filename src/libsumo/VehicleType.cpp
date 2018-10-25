@@ -345,7 +345,7 @@ LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(VehicleType, VEHICLETYPE)
 MSVehicleType*
 VehicleType::getVType(std::string id) {
     MSVehicleType* t = MSNet::getInstance()->getVehicleControl().getVType(id);
-    if (t == 0) {
+    if (t == nullptr) {
         throw TraCIException("Vehicle type '" + id + "' is not known");
     }
     return t;

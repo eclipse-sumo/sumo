@@ -74,7 +74,7 @@ Junction::getShape(const std::string& junctionID) {
 MSJunction*
 Junction::getJunction(const std::string& id) {
     MSJunction* j = MSNet::getInstance()->getJunctionControl().get(id);
-    if (j == 0) {
+    if (j == nullptr) {
         throw TraCIException("Junction '" + id + "' is not known");
     }
     return j;

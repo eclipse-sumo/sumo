@@ -150,7 +150,7 @@ GUIParkingArea::drawGL(const GUIVisualizationSettings& s) const {
             geom.push_back(Position(pos.x(), pos.y() - (*l).second.myLength, pos.z()));
             geom.push_back(Position(pos.x(), pos.y(), pos.z()));
             */
-            GLHelper::setColor((*i).second.vehicle == 0 ? green : red);
+            GLHelper::setColor((*i).second.vehicle == nullptr ? green : red);
             GLHelper::drawBoxLines(geom, 0.1 * exaggeration);
             glPopMatrix();
         }

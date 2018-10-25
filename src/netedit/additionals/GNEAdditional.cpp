@@ -558,8 +558,8 @@ GNEAdditional::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     buildCenterPopupEntry(ret);
     buildPositionCopyEntry(ret, false);
     // buld menu commands for names
-    new FXMenuCommand(ret, ("Copy " + toString(getTag()) + " name to clipboard").c_str(), 0, ret, MID_COPY_NAME);
-    new FXMenuCommand(ret, ("Copy " + toString(getTag()) + " typed name to clipboard").c_str(), 0, ret, MID_COPY_TYPED_NAME);
+    new FXMenuCommand(ret, ("Copy " + toString(getTag()) + " name to clipboard").c_str(), nullptr, ret, MID_COPY_NAME);
+    new FXMenuCommand(ret, ("Copy " + toString(getTag()) + " typed name to clipboard").c_str(), nullptr, ret, MID_COPY_TYPED_NAME);
     new FXMenuSeparator(ret);
     // build selection and show parameters menu
     myViewNet->buildSelectionACPopupEntry(ret, this);
@@ -574,24 +574,24 @@ GNEAdditional::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         GNELane* lane = myViewNet->getNet()->retrieveLane(getAttribute(SUMO_ATTR_LANE));
         // Show menu command inner position
         const double innerPos = myGeometry.shape.nearest_offset_to_point2D(parent.getPositionInformation());
-        new FXMenuCommand(ret, ("Cursor position inner additional: " + toString(innerPos)).c_str(), 0, 0, 0);
+        new FXMenuCommand(ret, ("Cursor position inner additional: " + toString(innerPos)).c_str(), nullptr, nullptr, 0);
         // If shape isn't empty, show menu command lane position
         if (myGeometry.shape.size() > 0) {
             const double lanePos = lane->getShape().nearest_offset_to_point2D(myGeometry.shape[0]);
-            new FXMenuCommand(ret, ("Cursor position over " + toString(SUMO_TAG_LANE) + ": " + toString(innerPos + lanePos)).c_str(), 0, 0, 0);
+            new FXMenuCommand(ret, ("Cursor position over " + toString(SUMO_TAG_LANE) + ": " + toString(innerPos + lanePos)).c_str(), nullptr, nullptr, 0);
         }
     } else if (tagProperties.hasAttribute(SUMO_ATTR_EDGE)) {
         GNEEdge* edge = myViewNet->getNet()->retrieveEdge(getAttribute(SUMO_ATTR_EDGE));
         // Show menu command inner position
         const double innerPos = myGeometry.shape.nearest_offset_to_point2D(parent.getPositionInformation());
-        new FXMenuCommand(ret, ("Cursor position inner additional: " + toString(innerPos)).c_str(), 0, 0, 0);
+        new FXMenuCommand(ret, ("Cursor position inner additional: " + toString(innerPos)).c_str(), nullptr, nullptr, 0);
         // If shape isn't empty, show menu command edge position
         if (myGeometry.shape.size() > 0) {
             const double edgePos = edge->getLanes().at(0)->getShape().nearest_offset_to_point2D(myGeometry.shape[0]);
-            new FXMenuCommand(ret, ("Mouse position over " + toString(SUMO_TAG_EDGE) + ": " + toString(innerPos + edgePos)).c_str(), 0, 0, 0);
+            new FXMenuCommand(ret, ("Mouse position over " + toString(SUMO_TAG_EDGE) + ": " + toString(innerPos + edgePos)).c_str(), nullptr, nullptr, 0);
         }
     } else {
-        new FXMenuCommand(ret, ("Cursor position in view: " + toString(getPositionInView().x()) + "," + toString(getPositionInView().y())).c_str(), 0, 0, 0);
+        new FXMenuCommand(ret, ("Cursor position in view: " + toString(getPositionInView().x()) + "," + toString(getPositionInView().y())).c_str(), nullptr, nullptr, 0);
     }
     return ret;
 }

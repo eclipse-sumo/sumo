@@ -335,7 +335,7 @@ GNENet::createEdge(
     for (EdgeVector::const_iterator it = outgoing.begin(); it != outgoing.end(); it++) {
         if ((*it)->getToNode() == dest->getNBNode() && (*it)->getGeometry().size() == 2) {
             if (!allowDuplicateGeom) {
-                return 0;
+                return nullptr;
             }
         }
     }
@@ -679,7 +679,7 @@ GNENet::removeRestrictedLane(SUMOVehicleClass vclass, GNEEdge& edge, GNEUndoList
 GNEJunction*
 GNENet::splitEdge(GNEEdge* edge, const Position& pos, GNEUndoList* undoList, GNEJunction* newJunction) {
     undoList->p_begin("split " + toString(SUMO_TAG_EDGE));
-    if (newJunction == 0) {
+    if (newJunction == nullptr) {
         newJunction = createJunction(pos, undoList);
     }
     // compute geometry
@@ -744,7 +744,7 @@ GNENet::splitEdge(GNEEdge* edge, const Position& pos, GNEUndoList* undoList, GNE
 
 void
 GNENet::splitEdgesBidi(const std::set<GNEEdge*>& edges, const Position& pos, GNEUndoList* undoList) {
-    GNEJunction* newJunction = 0;
+    GNEJunction* newJunction = nullptr;
     undoList->p_begin("split " + toString(SUMO_TAG_EDGE) + "s");
     for (auto it : edges) {
         newJunction = splitEdge(it, pos, undoList, newJunction);
@@ -1074,7 +1074,7 @@ GNELane*
 GNENet::retrieveLane(const std::string& id, bool failHard, bool checkVolatileChange) {
     const std::string edge_id = SUMOXMLDefinitions::getEdgeIDFromLane(id);
     GNEEdge* edge = retrieveEdge(edge_id, failHard);
-    if (edge != 0) {
+    if (edge != nullptr) {
         GNELane* lane = nullptr;
         // search  lane in lane's edges
         for (auto it : edge->getLanes()) {
@@ -2458,7 +2458,7 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
         }
     }
     // Clear current inspected ACs in inspectorFrame if a previous net was loaded
-    if (myViewNet != 0) {
+    if (myViewNet != nullptr) {
         myViewNet->getViewParent()->getInspectorFrame()->clearInspectedAC();
     }
     // Remove from container
@@ -2519,7 +2519,7 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
         // iterate over junctions of net
         for (const auto& it : myAttributeCarriers.junctions) {
             // undolist may not yet exist but is also not needed when just marking junctions as valid
-            it.second->setLogicValid(true, 0);
+            it.second->setLogicValid(true, nullptr);
             // insert junction in grid again
             myGrid.addAdditionalGLObject(it.second);
             // updated geometry

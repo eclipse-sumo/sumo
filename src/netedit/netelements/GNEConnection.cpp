@@ -66,7 +66,7 @@ GNEConnection::GNEConnection(GNELane* from, GNELane* to) :
     myFromLane(from),
     myToLane(to),
     myLinkState(LINKSTATE_TL_OFF_NOSIGNAL),
-    mySpecialColor(0),
+    mySpecialColor(nullptr),
     myShapeDeprecated(true) {
 }
 
@@ -277,7 +277,7 @@ GNEConnection::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     // build position copy entry
     buildPositionCopyEntry(ret, false);
     // create menu commands
-    FXMenuCommand* mcCustomShape = new FXMenuCommand(ret, "Set custom connection shape", 0, &parent, MID_GNE_CONNECTION_EDIT_SHAPE);
+    FXMenuCommand* mcCustomShape = new FXMenuCommand(ret, "Set custom connection shape", nullptr, &parent, MID_GNE_CONNECTION_EDIT_SHAPE);
     // check if menu commands has to be disabled
     EditMode editMode = myNet->getViewNet()->getCurrentEditMode();
     const bool wrongMode = (editMode == GNE_MODE_CONNECT || editMode == GNE_MODE_TLS || editMode == GNE_MODE_CREATE_EDGE);
@@ -310,7 +310,7 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
         if (isAttributeCarrierSelected()) {
             // override with special colors (unless the color scheme is based on selection)
             GLHelper::setColor(GNENet::selectedConnectionColor);
-        } else if (mySpecialColor != 0) {
+        } else if (mySpecialColor != nullptr) {
             GLHelper::setColor(*mySpecialColor);
         } else {
             // Set color depending of the link state
@@ -418,7 +418,7 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
                 for (NBTrafficLightDefinition* tlDef : defs) {
                     NBLoadedSUMOTLDef* sumoDef = dynamic_cast<NBLoadedSUMOTLDef*>(tlDef);
                     NBTrafficLightLogic* tllogic = sumoDef ? sumoDef->getLogic() : tlDef->compute(OptionsCont::getOptions());
-                    if (tllogic != 0) {
+                    if (tllogic != nullptr) {
                         NBLoadedSUMOTLDef* newDef = new NBLoadedSUMOTLDef(tlDef, tllogic);
                         newDef->addConnection(getEdgeFrom()->getNBEdge(), getEdgeTo()->getNBEdge(),
                                               getLaneFrom()->getIndex(), getLaneTo()->getIndex(), parse<int>(value), false);
@@ -474,7 +474,7 @@ GNEConnection::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<double>(value) && (parse<double>(value) > 0);
         case SUMO_ATTR_CUSTOMSHAPE: {
             bool ok = true;
-            PositionVector shape = GeomConvHelper::parseShapeReporting(value, "user-supplied shape", 0, ok, true);
+            PositionVector shape = GeomConvHelper::parseShapeReporting(value, "user-supplied shape", nullptr, ok, true);
             return ok;
         }
         case GNE_ATTR_SELECTED:
@@ -570,7 +570,7 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value) {
                 // first remove object from net grid
                 myNet->removeGLObjectFromGrid(this);
             }
-            nbCon.customShape = GeomConvHelper::parseShapeReporting(value, "user-supplied shape", 0, ok, true);
+            nbCon.customShape = GeomConvHelper::parseShapeReporting(value, "user-supplied shape", nullptr, ok, true);
             if (!init) {
                 // add object into net again
                 myNet->addGLObjectIntoGrid(this);

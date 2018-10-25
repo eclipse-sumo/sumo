@@ -192,12 +192,12 @@ GNEJunction::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     //}
     const int numEndpoints = (int)myNBNode.getEndPoints().size();
     // create menu commands
-    FXMenuCommand* mcCustomShape = new FXMenuCommand(ret, "Set custom junction shape", 0, &parent, MID_GNE_JUNCTION_EDIT_SHAPE);
-    FXMenuCommand* mcResetCustomShape = new FXMenuCommand(ret, "Reset junction shape", 0, &parent, MID_GNE_JUNCTION_RESET_SHAPE);
-    FXMenuCommand* mcReplace = new FXMenuCommand(ret, "Replace junction by geometry point", 0, &parent, MID_GNE_JUNCTION_REPLACE);
-    FXMenuCommand* mcSplit = new FXMenuCommand(ret, ("Split junction (" + toString(numEndpoints) + " end points)").c_str(), 0, &parent, MID_GNE_JUNCTION_SPLIT);
-    FXMenuCommand* mcClearConnections = new FXMenuCommand(ret, "Clear connections", 0, &parent, MID_GNE_JUNCTION_CLEAR_CONNECTIONS);
-    FXMenuCommand* mcResetConnections = new FXMenuCommand(ret, "Reset connections", 0, &parent, MID_GNE_JUNCTION_RESET_CONNECTIONS);
+    FXMenuCommand* mcCustomShape = new FXMenuCommand(ret, "Set custom junction shape", nullptr, &parent, MID_GNE_JUNCTION_EDIT_SHAPE);
+    FXMenuCommand* mcResetCustomShape = new FXMenuCommand(ret, "Reset junction shape", nullptr, &parent, MID_GNE_JUNCTION_RESET_SHAPE);
+    FXMenuCommand* mcReplace = new FXMenuCommand(ret, "Replace junction by geometry point", nullptr, &parent, MID_GNE_JUNCTION_REPLACE);
+    FXMenuCommand* mcSplit = new FXMenuCommand(ret, ("Split junction (" + toString(numEndpoints) + " end points)").c_str(), nullptr, &parent, MID_GNE_JUNCTION_SPLIT);
+    FXMenuCommand* mcClearConnections = new FXMenuCommand(ret, "Clear connections", nullptr, &parent, MID_GNE_JUNCTION_CLEAR_CONNECTIONS);
+    FXMenuCommand* mcResetConnections = new FXMenuCommand(ret, "Reset connections", nullptr, &parent, MID_GNE_JUNCTION_RESET_CONNECTIONS);
     // check if menu commands has to be disabled
     EditMode editMode = myNet->getViewNet()->getCurrentEditMode();
     const bool wrongMode = (editMode == GNE_MODE_CONNECT || editMode == GNE_MODE_TLS || editMode == GNE_MODE_CREATE_EDGE);
@@ -733,7 +733,7 @@ GNEJunction::removeTLSConnections(std::vector<NBConnection>& connections, GNEUnd
     for (auto it : coypOfTls) {
         NBLoadedSUMOTLDef* tlDef = dynamic_cast<NBLoadedSUMOTLDef*>(it);
         // guessed TLS (NBOwnTLDef) do not need to be updated
-        if (tlDef != 0) {
+        if (tlDef != nullptr) {
             std::string newID = tlDef->getID();
             // create replacement before deleting the original because deletion will mess up saving original nodes
             NBLoadedSUMOTLDef* replacementDef = new NBLoadedSUMOTLDef(tlDef, tlDef->getLogic());
@@ -768,7 +768,7 @@ GNEJunction::replaceIncomingConnections(GNEEdge* which, GNEEdge* by, GNEUndoList
     for (auto it : coypOfTls) {
         NBLoadedSUMOTLDef* tlDef = dynamic_cast<NBLoadedSUMOTLDef*>(it);
         // guessed TLS (NBOwnTLDef) do not need to be updated
-        if (tlDef != 0) {
+        if (tlDef != nullptr) {
             std::string newID = tlDef->getID();
             // create replacement before deleting the original because deletion will mess up saving original nodes
             NBLoadedSUMOTLDef* replacementDef = new NBLoadedSUMOTLDef(tlDef, tlDef->getLogic());
@@ -807,8 +807,8 @@ GNEJunction::invalidateTLS(GNEUndoList* undoList, const NBConnection& deletedCon
     const std::set<NBTrafficLightDefinition*> coypOfTls = myNBNode.getControllingTLS(); // make a copy!
     for (auto it : coypOfTls) {
         NBLoadedSUMOTLDef* tlDef = dynamic_cast<NBLoadedSUMOTLDef*>(it);
-        if (tlDef != 0) {
-            NBTrafficLightDefinition* replacementDef = 0;
+        if (tlDef != nullptr) {
+            NBTrafficLightDefinition* replacementDef = nullptr;
             std::string newID = tlDef->getID(); // + "_reguessed"; // changes due to reguessing will be visible in diff
             if (deletedConnection != NBConnection::InvalidConnection) {
                 // create replacement before deleting the original because deletion will mess up saving original nodes
@@ -1009,7 +1009,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
                 }
                 if (!getNBNode()->isTLControlled()) {
                     // create new traffic light
-                    undoList->add(new GNEChange_TLS(this, 0, true), true);
+                    undoList->add(new GNEChange_TLS(this, nullptr, true), true);
                 }
             } else if (getNBNode()->isTLControlled()) {
                 // delete old traffic light
@@ -1029,9 +1029,9 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
             const std::set<NBTrafficLightDefinition*> copyOfTls = myNBNode.getControllingTLS();
             assert(copyOfTls.size() > 0);
             NBTrafficLightDefinition* currentTLS = *copyOfTls.begin();
-            NBTrafficLightDefinition* currentTLSCopy = 0;
+            NBTrafficLightDefinition* currentTLSCopy = nullptr;
             const bool currentIsSingle = currentTLS->getNodes().size() == 1;
-            const bool currentIsLoaded = dynamic_cast<NBLoadedSUMOTLDef*>(currentTLS) != 0;
+            const bool currentIsLoaded = dynamic_cast<NBLoadedSUMOTLDef*>(currentTLS) != nullptr;
             if (currentIsLoaded) {
                 currentTLSCopy = new NBLoadedSUMOTLDef(currentTLS,
                                                        dynamic_cast<NBLoadedSUMOTLDef*>(currentTLS)->getLogic());
@@ -1046,18 +1046,18 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
             if (programs.size() > 0) {
                 for (auto it : programs) {
                     NBTrafficLightDefinition* oldTLS = it.second;
-                    if (dynamic_cast<NBOwnTLDef*>(oldTLS) != 0) {
+                    if (dynamic_cast<NBOwnTLDef*>(oldTLS) != nullptr) {
                         undoList->add(new GNEChange_TLS(this, oldTLS, true), true);
                     } else {
                         // delete and re-create the definition because the loaded phases are now invalid
-                        if (dynamic_cast<NBLoadedSUMOTLDef*>(oldTLS) != 0 &&
+                        if (dynamic_cast<NBLoadedSUMOTLDef*>(oldTLS) != nullptr &&
                                 dynamic_cast<NBLoadedSUMOTLDef*>(oldTLS)->usingSignalGroups()) {
                             // keep the old program and add all-red state for the added links
                             NBLoadedSUMOTLDef* newTLSJoined = new NBLoadedSUMOTLDef(oldTLS, dynamic_cast<NBLoadedSUMOTLDef*>(oldTLS)->getLogic());
                             newTLSJoined->joinLogic(currentTLSCopy);
                             undoList->add(new GNEChange_TLS(this, newTLSJoined, true, true), true);
                         } else {
-                            undoList->add(new GNEChange_TLS(this, 0, true, false, value), true);
+                            undoList->add(new GNEChange_TLS(this, nullptr, true, false, value), true);
                         }
                         NBTrafficLightDefinition* newTLS = *myNBNode.getControllingTLS().begin();
                         // switch from old to new definition
@@ -1079,7 +1079,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
                     undoList->add(new GNEChange_TLS(this, renamedTLS, true, true), true);
                 } else {
                     // create new traffic light
-                    undoList->add(new GNEChange_TLS(this, 0, true, false, value), true);
+                    undoList->add(new GNEChange_TLS(this, nullptr, true, false, value), true);
                 }
             }
             delete currentTLSCopy;
@@ -1096,16 +1096,16 @@ bool
 GNEJunction::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            return SUMOXMLDefinitions::isValidNetID(value) && (myNet->retrieveJunction(value, false) == 0);
+            return SUMOXMLDefinitions::isValidNetID(value) && (myNet->retrieveJunction(value, false) == nullptr);
         case SUMO_ATTR_TYPE:
             return SUMOXMLDefinitions::NodeTypes.hasString(value);
         case SUMO_ATTR_POSITION: {
             bool ok;
-            return GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, false).size() == 1;
+            return GeomConvHelper::parseShapeReporting(value, "user-supplied position", nullptr, ok, false).size() == 1;
         }
         case SUMO_ATTR_SHAPE: {
             bool ok = true;
-            PositionVector shape = GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, true);
+            PositionVector shape = GeomConvHelper::parseShapeReporting(value, "user-supplied position", nullptr, ok, true);
             return ok;
         }
         case SUMO_ATTR_RADIUS:
@@ -1200,7 +1200,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_POSITION: {
             // set new position in NBNode (note: Junctions don't need to refresh it in the RTREE due the variable myJunctionBoundary
             bool ok;
-            moveJunctionGeometry(GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, false)[0], true);
+            moveJunctionGeometry(GeomConvHelper::parseShapeReporting(value, "netedit-given", nullptr, ok, false)[0], true);
             // mark this connections and all of the junction's Neighbours as deprecated
             markConnectionsDeprecated(true);
             break;
@@ -1218,7 +1218,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_SHAPE: {
             bool ok;
-            const PositionVector shape = GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, true);
+            const PositionVector shape = GeomConvHelper::parseShapeReporting(value, "netedit-given", nullptr, ok, true);
             myNBNode.setCustomShape(shape);
             // mark this connections and all of the junction's Neighbours as deprecated
             markConnectionsDeprecated(true);

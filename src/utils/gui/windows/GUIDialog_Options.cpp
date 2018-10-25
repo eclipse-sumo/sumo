@@ -65,7 +65,7 @@ GUIDialog_Options::GUIDialog_Options(FXWindow* parent,  const char* titleName, i
     new FXStatusBar(this, GUIDesignStatusBar);
     FXVerticalFrame* contentFrame = new FXVerticalFrame(this, GUIDesignContentsFrame);
 
-    FXTabBook* tabbook = new FXTabBook(contentFrame, 0, 0, GUIDesignTabBook);
+    FXTabBook* tabbook = new FXTabBook(contentFrame, nullptr, 0, GUIDesignTabBook);
 
     for (auto it_topic : oc.getSubTopics()) {
         if (it_topic == "Configuration") {

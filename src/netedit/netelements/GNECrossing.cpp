@@ -224,7 +224,7 @@ GNECrossing::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     // build position copy entry
     buildPositionCopyEntry(ret, false);
     // create menu commands
-    FXMenuCommand* mcCustomShape = new FXMenuCommand(ret, "Set custom crossing shape", 0, &parent, MID_GNE_CROSSING_EDIT_SHAPE);
+    FXMenuCommand* mcCustomShape = new FXMenuCommand(ret, "Set custom crossing shape", nullptr, &parent, MID_GNE_CROSSING_EDIT_SHAPE);
     // check if menu commands has to be disabled
     EditMode editMode = myNet->getViewNet()->getCurrentEditMode();
     const bool wrongMode = (editMode == GNE_MODE_CONNECT || editMode == GNE_MODE_TLS || editMode == GNE_MODE_CREATE_EDGE);
@@ -348,7 +348,7 @@ GNECrossing::isValid(SumoXMLAttr key, const std::string& value) {
                     && (*myParentJunction->getNBNode()->getControllingTLS().begin())->getMaxValidIndex() >= parse<int>(value));
         case SUMO_ATTR_CUSTOMSHAPE: {
             bool ok = true;
-            PositionVector shape = GeomConvHelper::parseShapeReporting(value, "user-supplied shape", 0, ok, true);
+            PositionVector shape = GeomConvHelper::parseShapeReporting(value, "user-supplied shape", nullptr, ok, true);
             return ok;
         }
         case GNE_ATTR_SELECTED:
@@ -485,7 +485,7 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value) {
             // first remove object from grid
             myNet->removeGLObjectFromGrid(this);
             // set custom shape
-            crossing->customShape = GeomConvHelper::parseShapeReporting(value, "user-supplied shape", 0, ok, true);
+            crossing->customShape = GeomConvHelper::parseShapeReporting(value, "user-supplied shape", nullptr, ok, true);
             // insert object in grid again
             myNet->removeGLObjectFromGrid(this);
             break;

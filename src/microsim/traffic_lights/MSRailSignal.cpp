@@ -102,9 +102,9 @@ MSRailSignal::init(NLDetectorBuilder&) {
                 if (!incomingLanes.empty()) {
                     precedentLane = incomingLanes.front().lane;
                 } else {
-                    precedentLane = 0;
+                    precedentLane = nullptr;
                 }
-                if (precedentLane == 0) { //if there is no preceeding lane
+                if (precedentLane == nullptr) { //if there is no preceeding lane
                     noRailSignal = false;
                 } else if (blockLength >= MAX_BLOCK_LENGTH) { // avoid huge blocks
                     WRITE_WARNING("Block before rail signal junction '" + getID() +
@@ -112,7 +112,7 @@ MSRailSignal::init(NLDetectorBuilder&) {
                     noRailSignal = false;
                 } else {
                     const MSJunction* junction = precedentLane->getEdge().getToJunction();
-                    if ((junction != 0) && (junction->getType() == NODETYPE_RAIL_SIGNAL || junction->getType() == NODETYPE_TRAFFIC_LIGHT)) { //if this junction exists and if it has a rail signal
+                    if ((junction != nullptr) && (junction->getType() == NODETYPE_RAIL_SIGNAL || junction->getType() == NODETYPE_TRAFFIC_LIGHT)) { //if this junction exists and if it has a rail signal
                         noRailSignal = false;
                     } else {
                         afferentBlock.push_back(precedentLane);
@@ -137,7 +137,7 @@ MSRailSignal::init(NLDetectorBuilder&) {
                     std::vector<MSLink*>::const_iterator j;
                     for (j = outGoingLinks.begin(); j != outGoingLinks.end(); j++) {
                         const MSJunction* junction = currentLane->getEdge().getToJunction();
-                        if ((junction != 0) && (junction->getType() == NODETYPE_RAIL_SIGNAL || junction->getType() == NODETYPE_TRAFFIC_LIGHT)) { //if this junctions exists and if it has a rail signal
+                        if ((junction != nullptr) && (junction->getType() == NODETYPE_RAIL_SIGNAL || junction->getType() == NODETYPE_TRAFFIC_LIGHT)) { //if this junctions exists and if it has a rail signal
                             noRailSignalLocal = false;
                             break;
                         }
@@ -193,11 +193,11 @@ MSRailSignal::init(NLDetectorBuilder&) {
             const MSLane* lane = *laneIt;
 
             const MSEdge* reverseEdge = lane->getEdge().getBidiEdge();
-            if (reverseEdge != 0) {
+            if (reverseEdge != nullptr) {
                 const MSLane* revLane = reverseEdge->getLanes()[0];
                 revLanes.push(revLane);
                 const MSLane* pred = revLane->getCanonicalPredecessorLane();
-                if (pred != 0) {
+                if (pred != nullptr) {
                     const MSLink* msLink = pred->getLinkTo(revLane);
                     mySucceedingBlocksIncommingLinks[lane] = msLink;
                 }

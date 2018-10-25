@@ -262,7 +262,7 @@ Helper::makePosition(const TraCIPosition& tpos) {
 MSEdge*
 Helper::getEdge(const std::string& edgeID) {
     MSEdge* edge = MSEdge::dictionary(edgeID);
-    if (edge == 0) {
+    if (edge == nullptr) {
         throw TraCIException("Referenced edge '" + edgeID + "' is not known.");
     }
     return edge;
@@ -272,7 +272,7 @@ Helper::getEdge(const std::string& edgeID) {
 const MSLane*
 Helper::getLaneChecking(const std::string& edgeID, int laneIndex, double pos) {
     const MSEdge* edge = MSEdge::dictionary(edgeID);
-    if (edge == 0) {
+    if (edge == nullptr) {
         throw TraCIException("Unknown edge " + edgeID);
     }
     if (laneIndex < 0 || laneIndex >= (int)edge->getLanes().size()) {
@@ -317,7 +317,7 @@ Helper::cleanup() {
     }
     myObjects.clear();
     delete myLaneTree;
-    myLaneTree = 0;
+    myLaneTree = nullptr;
 }
 
 
@@ -386,10 +386,10 @@ Helper::collectObjectsInRange(int domain, const PositionVector& shape, double ra
             case CMD_GET_LANE_VARIABLE:
             case CMD_GET_PERSON_VARIABLE:
             case CMD_GET_VEHICLE_VARIABLE:
-                myObjects[CMD_GET_EDGE_VARIABLE] = 0;
-                myObjects[CMD_GET_LANE_VARIABLE] = 0;
-                myObjects[CMD_GET_PERSON_VARIABLE] = 0;
-                myObjects[CMD_GET_VEHICLE_VARIABLE] = 0;
+                myObjects[CMD_GET_EDGE_VARIABLE] = nullptr;
+                myObjects[CMD_GET_LANE_VARIABLE] = nullptr;
+                myObjects[CMD_GET_PERSON_VARIABLE] = nullptr;
+                myObjects[CMD_GET_VEHICLE_VARIABLE] = nullptr;
                 myLaneTree = new LANE_RTREE_QUAL(&MSLane::visit);
                 MSLane::fill(*myLaneTree);
                 break;
@@ -753,7 +753,7 @@ Helper::setRemoteControlled(MSPerson* p, Position xyPos, MSLane* l, double pos, 
 void
 Helper::postProcessRemoteControl() {
     for (auto& controlled : myRemoteControlledVehicles) {
-        if (MSNet::getInstance()->getVehicleControl().getVehicle(controlled.first) != 0) {
+        if (MSNet::getInstance()->getVehicleControl().getVehicle(controlled.first) != nullptr) {
             controlled.second->getInfluencer().postProcessRemoteControl(controlled.second);
         } else {
             WRITE_WARNING("Vehicle '" + controlled.first + "' was removed though being controlled by TraCI");
@@ -761,7 +761,7 @@ Helper::postProcessRemoteControl() {
     }
     myRemoteControlledVehicles.clear();
     for (auto& controlled : myRemoteControlledPersons) {
-        if (MSNet::getInstance()->getPersonControl().get(controlled.first) != 0) {
+        if (MSNet::getInstance()->getPersonControl().get(controlled.first) != nullptr) {
             controlled.second->getInfluencer().postProcessRemoteControl(controlled.second);
         } else {
             WRITE_WARNING("Person '" + controlled.first + "' was removed though being controlled by TraCI");
@@ -786,8 +786,8 @@ Helper::moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveN
     // compute utility for all candidate edges
     for (std::set<std::string>::const_iterator j = into.begin(); j != into.end(); ++j) {
         const MSEdge* const e = MSEdge::dictionary(*j);
-        const MSEdge* prevEdge = 0;
-        const MSEdge* nextEdge = 0;
+        const MSEdge* prevEdge = nullptr;
+        const MSEdge* nextEdge = nullptr;
         bool onRoute = false;
         // the next if/the clause sets "onRoute", "prevEdge", and "nextEdge", depending on
         //  whether the currently seen edge is an internal one or a normal one
@@ -811,7 +811,7 @@ Helper::moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveN
             }
             // save prior and next edges
             prevEdge = e;
-            nextEdge = !onRoute || edgePos == currentRoute.end() - 1 ? 0 : *(edgePos + 1);
+            nextEdge = !onRoute || edgePos == currentRoute.end() - 1 ? nullptr : *(edgePos + 1);
 #ifdef DEBUG_MOVEXY_ANGLE
             std::cout << "normal:" << e->getID() << " prev:" << prevEdge->getID() << " next:";
             if (nextEdge != 0) {
@@ -826,15 +826,15 @@ Helper::moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveN
             // an internal edge
             // get the previous edge
             prevEdge = e;
-            while (prevEdge != 0 && prevEdge->isInternal()) {
+            while (prevEdge != nullptr && prevEdge->isInternal()) {
                 MSLane* l = prevEdge->getLanes()[0];
                 l = l->getLogicalPredecessorLane();
-                prevEdge = l == 0 ? 0 : &l->getEdge();
+                prevEdge = l == nullptr ? nullptr : &l->getEdge();
             }
             // check whether the previous edge is on the route (was on the route)
             ConstMSEdgeVector::const_iterator prevEdgePos = std::find(currentRoute.begin() + routePosition, currentRoute.end(), prevEdge);
             nextEdge = e;
-            while (nextEdge != 0 && nextEdge->isInternal()) {
+            while (nextEdge != nullptr && nextEdge->isInternal()) {
                 nextEdge = nextEdge->getSuccessors()[0]; // should be only one for an internal edge
             }
             if (prevEdgePos != currentRoute.end() && (prevEdgePos + 1) != currentRoute.end()) {
@@ -899,7 +899,7 @@ Helper::moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveN
 
     // get the best lane given the previously computed values
     double bestValue = 0;
-    MSLane* bestLane = 0;
+    MSLane* bestLane = nullptr;
     for (std::map<MSLane*, LaneUtility>::iterator i = lane2utility.begin(); i != lane2utility.end(); ++i) {
         MSLane* l = (*i).first;
         const LaneUtility& u = (*i).second;
@@ -917,17 +917,17 @@ Helper::moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveN
         std::cout << " x; l:" << l->getID() << " d:" << u.dist << " dN:" << distN << " aD:" << angleDiffN <<
                   " ID:" << idN << " oRN:" << onRouteN << " sEN:" << sameEdgeN << " value:" << value << std::endl;
 #endif
-        if (value > bestValue || bestLane == 0) {
+        if (value > bestValue || bestLane == nullptr) {
             bestValue = value;
             if (u.dist == FAR_AWAY) {
-                bestLane = 0;
+                bestLane = nullptr;
             } else {
                 bestLane = l;
             }
         }
     }
     // no best lane found, return
-    if (bestLane == 0) {
+    if (bestLane == nullptr) {
         return false;
     }
     const LaneUtility& u = lane2utility.find(bestLane)->second;
@@ -946,7 +946,7 @@ Helper::moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveN
            edges.push_back(&bestLane->getEdge());
            }
         */
-        if (u.nextEdge != 0) {
+        if (u.nextEdge != nullptr) {
             edges.push_back(u.nextEdge);
         }
         routeOffset = 0;
@@ -960,7 +960,7 @@ Helper::moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveN
 
 bool
 Helper::findCloserLane(const MSEdge* edge, const Position& pos, double& bestDistance, MSLane** lane) {
-    if (edge == 0) {
+    if (edge == nullptr) {
         return false;
     }
     const std::vector<MSLane*>& lanes = edge->getLanes();
@@ -992,10 +992,10 @@ Helper::moveToXYMap_matchingRoutePosition(const Position& pos, const std::string
     // find the closest upcoming edge on the route and then look for closer passed edges
 
     // look forward along the route
-    const MSEdge* prev = 0;
+    const MSEdge* prev = nullptr;
     for (int i = routeIndex; i < (int)currentRoute.size(); ++i) {
         const MSEdge* cand = currentRoute[i];
-        while (prev != 0) {
+        while (prev != nullptr) {
             // check internal edge(s)
             const MSEdge* internalCand = prev->getInternalFollowingEdge(cand);
             findCloserLane(internalCand, pos, bestDistance, lane);
@@ -1012,7 +1012,7 @@ Helper::moveToXYMap_matchingRoutePosition(const Position& pos, const std::string
         const MSEdge* cand = currentRoute[i];
         //std::cout << "  next=" << next->getID() << " cand=" << cand->getID() << " i=" << i << " routeIndex=" << routeIndex << "\n";
         prev = cand;
-        while (prev != 0) {
+        while (prev != nullptr) {
             // check internal edge(s)
             const MSEdge* internalCand = prev->getInternalFollowingEdge(next);
             if (findCloserLane(internalCand, pos, bestDistance, lane)) {
@@ -1028,7 +1028,7 @@ Helper::moveToXYMap_matchingRoutePosition(const Position& pos, const std::string
 
     assert(lane != 0);
     // quit if no solution was found, reporting a failure
-    if (lane == 0) {
+    if (lane == nullptr) {
 #ifdef DEBUG_MOVEXY
         std::cout << "  b failed - no best route lane" << std::endl;
 #endif

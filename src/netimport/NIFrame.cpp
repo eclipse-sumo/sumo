@@ -352,7 +352,7 @@ NIFrame::checkOptions() {
     }
     if (!oc.isSet("type-files")) {
         const char* sumoPath = std::getenv("SUMO_HOME");
-        if (sumoPath == 0) {
+        if (sumoPath == nullptr) {
             WRITE_WARNING("Environment variable SUMO_HOME is not set, using built in type maps.");
         } else {
             const std::string path = sumoPath + std::string("/data/typemap/");

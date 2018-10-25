@@ -61,7 +61,7 @@ MSInternalJunction::postloadInit() {
     assert(specialLane->getLinkCont().size() == 1);
     MSLink* thisLink = specialLane->getLinkCont()[0];
     const MSRightOfWayJunction* parent = dynamic_cast<const MSRightOfWayJunction*>(specialLane->getEdge().getToJunction());
-    if (parent == 0) {
+    if (parent == nullptr) {
         // parent has type traffic_light_unregulated
         return;
     }
@@ -73,7 +73,7 @@ MSInternalJunction::postloadInit() {
     for (std::vector<MSLane*>::iterator i = myInternalLanes.begin(); i != myInternalLanes.end(); ++i) {
         const MSLinkCont& lc = (*i)->getLinkCont();
         for (MSLinkCont::const_iterator q = lc.begin(); q != lc.end(); ++q) {
-            if ((*q)->getViaLane() != 0) {
+            if ((*q)->getViaLane() != nullptr) {
                 const int foeIndex = (*i)->getIncomingLanes()[0].viaLink->getIndex();
                 //std::cout << "       response=" << response << " index=" << ownLinkIndex << " foeIndex=" << foeIndex << " ibct=" << indirectBicycleTurn(specialLane, thisLink, *i, *q) << "\n";
                 if (response.test(foeIndex) || indirectBicycleTurn(specialLane, thisLink, *i, *q)) {
@@ -121,7 +121,7 @@ bool
 MSInternalJunction::indirectBicycleTurn(const MSLane* specialLane, const MSLink* thisLink, const MSLane* foeFirstPart, const MSLink* foeLink) const {
     if (specialLane->getPermissions() == SVC_BICYCLE && foeFirstPart->getPermissions() == SVC_BICYCLE
             && thisLink->getDirection() == LINKDIR_LEFT && foeLink->getDirection() == LINKDIR_LEFT
-            && thisLink->getViaLane() != 0
+            && thisLink->getViaLane() != nullptr
             && thisLink->getViaLane()->getShape().intersects(foeFirstPart->getShape())) {
         return true;
     } else {

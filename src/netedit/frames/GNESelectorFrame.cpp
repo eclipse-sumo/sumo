@@ -103,7 +103,7 @@ GNESelectorFrame::GNESelectorFrame(FXHorizontalFrame* horizontalFrameParent, GNE
     // Create groupbox for information about selections
     FXGroupBox* selectionHintGroupBox = new FXGroupBox(myContentFrame, "Information", GUIDesignGroupBoxFrame);
     // Create Selection Hint
-    new FXLabel(selectionHintGroupBox, " - Hold <SHIFT> for \n   rectangle selection.\n - Press <DEL> to\n   delete selected items.", 0, GUIDesignLabelFrameInformation);
+    new FXLabel(selectionHintGroupBox, " - Hold <SHIFT> for \n   rectangle selection.\n - Press <DEL> to\n   delete selected items.", nullptr, GUIDesignLabelFrameInformation);
 }
 
 
@@ -355,9 +355,9 @@ GNESelectorFrame::LockGLObjectTypes::IsObjectTypeLocked(GUIGlObjectType type) co
 
 
 GNESelectorFrame::LockGLObjectTypes::ObjectTypeEntry::ObjectTypeEntry(FXMatrix* parent, const std::string& label, const std::string& label2) {
-    count = new FXLabel(parent, "0", 0, GUIDesignLabelLeft);
-    typeName = new FXLabel(parent, label.c_str(), 0, GUIDesignLabelLeft);
-    locked = new FXMenuCheck(parent, ("lock\t\tLock " + label2 + " selection").c_str(), 0, 0, LAYOUT_FILL_X | LAYOUT_RIGHT);
+    count = new FXLabel(parent, "0", nullptr, GUIDesignLabelLeft);
+    typeName = new FXLabel(parent, label.c_str(), nullptr, GUIDesignLabelLeft);
+    locked = new FXMenuCheck(parent, ("lock\t\tLock " + label2 + " selection").c_str(), nullptr, 0, LAYOUT_FILL_X | LAYOUT_RIGHT);
 }
 
 // ---------------------------------------------------------------------------
@@ -493,7 +493,7 @@ GNESelectorFrame::MatchAttribute::MatchAttribute(GNESelectorFrame* selectorFrame
     // Create TextField for Match string
     myMatchString = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SELECTORFRAME_PROCESSSTRING, GUIDesignTextField);
     // Create help button
-    new FXButton(this, "Help", 0, this, MID_HELP, GUIDesignButtonRectangular);
+    new FXButton(this, "Help", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
     // Fill list of sub-items (first element will be "edge")
     enableMatchAttribute();
     // Set speed of edge as default attribute
@@ -538,7 +538,7 @@ GNESelectorFrame::MatchAttribute::enableMatchAttribute() {
     myMatchTagComboBox->setCurrentItem(0);
     myMatchTagComboBox->setNumVisible(myMatchTagComboBox->getNumItems());
     // Fill attributes with the current element type
-    onCmdSelMBTag(0, 0, 0);
+    onCmdSelMBTag(nullptr, 0, nullptr);
 }
 
 
@@ -617,7 +617,7 @@ GNESelectorFrame::MatchAttribute::onCmdSelMBTag(FXObject*, FXSelector, void*) {
         }
         // @ToDo: Here can be placed a button to set the default value
         myMatchAttrComboBox->setNumVisible(myMatchAttrComboBox->getNumItems());
-        onCmdSelMBAttribute(0, 0, 0);
+        onCmdSelMBAttribute(nullptr, 0, nullptr);
     } else {
         // change color to red and disable items
         myMatchTagComboBox->setTextColor(FXRGB(255, 0, 0));
@@ -757,7 +757,7 @@ GNESelectorFrame::MatchAttribute::onCmdHelp(FXObject*, FXSelector, void*) {
             << "     junction; type; '=priority' -> match all junctions of type 'priority', but not of type 'priority_stop'\n"
             << "     edge; speed; '>10' -> match all edges with a speed above 10\n";
     // Create label with the help text
-    new FXLabel(additionalNeteditAttributesHelpDialog, help.str().c_str(), 0, GUIDesignLabelFrameInformation);
+    new FXLabel(additionalNeteditAttributesHelpDialog, help.str().c_str(), nullptr, GUIDesignLabelFrameInformation);
     // Create horizontal separator
     new FXHorizontalSeparator(additionalNeteditAttributesHelpDialog, GUIDesignHorizontalSeparator);
     // Create frame for OK Button
@@ -818,13 +818,13 @@ GNESelectorFrame::SelectionOperation::SelectionOperation(GNESelectorFrame* selec
     FXGroupBox(selectorFrameParent->myContentFrame, "Operations for selections", GUIDesignGroupBoxFrame),
     mySelectorFrameParent(selectorFrameParent) {
     // Create "Clear List" Button
-    new FXButton(this, "Clear\t\t", 0, this, MID_CHOOSEN_CLEAR, GUIDesignButton);
+    new FXButton(this, "Clear\t\t", nullptr, this, MID_CHOOSEN_CLEAR, GUIDesignButton);
     // Create "Invert" Button
-    new FXButton(this, "Invert\t\t", 0, this, MID_CHOOSEN_INVERT, GUIDesignButton);
+    new FXButton(this, "Invert\t\t", nullptr, this, MID_CHOOSEN_INVERT, GUIDesignButton);
     // Create "Save" Button
-    new FXButton(this, "Save\t\tSave ids of currently selected objects to a file.", 0, this, MID_CHOOSEN_SAVE, GUIDesignButton);
+    new FXButton(this, "Save\t\tSave ids of currently selected objects to a file.", nullptr, this, MID_CHOOSEN_SAVE, GUIDesignButton);
     // Create "Load" Button
-    new FXButton(this, "Load\t\tLoad ids from a file according to the current modfication mode.", 0, this, MID_CHOOSEN_LOAD, GUIDesignButton);
+    new FXButton(this, "Load\t\tLoad ids from a file according to the current modfication mode.", nullptr, this, MID_CHOOSEN_LOAD, GUIDesignButton);
 }
 
 

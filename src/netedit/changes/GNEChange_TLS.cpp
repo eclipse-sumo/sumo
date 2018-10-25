@@ -52,7 +52,7 @@ GNEChange_TLS::GNEChange_TLS(GNEJunction* junction, NBTrafficLightDefinition* tl
     myForceInsert(forceInsert) {
     assert(myNet);
     myJunction->incRef("GNEChange_TLS");
-    if (myTlDef == 0) {
+    if (myTlDef == nullptr) {
         assert(forward);
         // potential memory leak if this change is never executed
         TrafficLightType type = SUMOXMLDefinitions::TrafficLightTypes.get(OptionsCont::getOptions().getString("tls.default-type"));

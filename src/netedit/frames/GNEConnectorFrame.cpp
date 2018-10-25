@@ -74,12 +74,12 @@ RGBColor GNEConnectorFrame::conflictColor;
 // ===========================================================================
 GNEConnectorFrame::GNEConnectorFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet):
     GNEFrame(horizontalFrameParent, viewNet, "Edit Connections"),
-    myCurrentLane(0) {
+    myCurrentLane(nullptr) {
     // Create groupbox for lane information
     myGroupBoxDescription = new FXGroupBox(myContentFrame, "Lane", GUIDesignGroupBoxFrame);
 
     // Create label for lane description and update it
-    myLaneDescriptionLabel = new FXLabel(myGroupBoxDescription, "", 0, GUIDesignLabelFrameInformation);
+    myLaneDescriptionLabel = new FXLabel(myGroupBoxDescription, "", nullptr, GUIDesignLabelFrameInformation);
     updateDescription();
 
     // Create GroupBox for Buttons
@@ -97,29 +97,29 @@ GNEConnectorFrame::GNEConnectorFrame(FXHorizontalFrame* horizontalFrameParent, G
 
     // Create "Select Dead Ends" button
     mySelectDeadEndsButton = new FXButton(myGroupBoxOperations, "Select Dead Ends\t\tSelects all lanes that have no outgoing connection (clears previous selection)",
-                                          0, this, MID_GNE_CONNECTORFRAME_SELECTDEADENDS, GUIDesignButton);
+                                          nullptr, this, MID_GNE_CONNECTORFRAME_SELECTDEADENDS, GUIDesignButton);
     // Create "Select Dead Starts" button
     mySelectDeadStartsButton = new FXButton(myGroupBoxOperations, "Select Dead Starts\t\tSelects all lanes that have no incoming connection (clears previous selection)",
-                                            0, this, MID_GNE_CONNECTORFRAME_SELECTDEADSTARTS, GUIDesignButton);
+                                            nullptr, this, MID_GNE_CONNECTORFRAME_SELECTDEADSTARTS, GUIDesignButton);
     // Create "Select Conflicts" button
     mySelectConflictsButton = new FXButton(myGroupBoxOperations, "Select Conflicts\t\tSelects all lanes with more than one incoming connection from the same edge (clears previous selection)",
-                                           0, this, MID_GNE_CONNECTORFRAME_SELECTCONFLICTS, GUIDesignButton);
+                                           nullptr, this, MID_GNE_CONNECTORFRAME_SELECTCONFLICTS, GUIDesignButton);
     // Create "Select Edges which may always pass" button
     mySelectPassingButton = new FXButton(myGroupBoxOperations, "Select Passing\t\tSelects all lanes with a connection that has has the 'pass' attribute set",
-                                         0, this, MID_GNE_CONNECTORFRAME_SELECTPASS, GUIDesignButton);
+                                         nullptr, this, MID_GNE_CONNECTORFRAME_SELECTPASS, GUIDesignButton);
     // Create "Clear Selected" button
     myClearSelectedButton = new FXButton(myGroupBoxOperations, "Clear Selected\t\tClears all connections of all selected objects",
-                                         0, this, MID_CHOOSEN_CLEAR, GUIDesignButton);
+                                         nullptr, this, MID_CHOOSEN_CLEAR, GUIDesignButton);
     // Create "Reset Selected" button
     myResetSelectedButton = new FXButton(myGroupBoxOperations, "Reset Selected\nJunctions\t\tRecomputes connections at all selected junctions",
-                                         0, this, MID_CHOOSEN_RESET, GUIDesignButton);
+                                         nullptr, this, MID_CHOOSEN_RESET, GUIDesignButton);
 
     // Create groupbox for selection hints
     myGroupBoxSelection = new FXGroupBox(myContentFrame, "Selection", GUIDesignGroupBoxFrame);
 
     // Selection Hint
-    myHoldShiftLabel = new FXLabel(myGroupBoxSelection, "Hold <SHIFT> while clicking\nto create unyielding\nconnections (pass=true).", 0, GUIDesignLabelFrameInformation);
-    myHoldControlLabel = new FXLabel(myGroupBoxSelection, "Hold <CTRL> while clicking\nto create conflicting\nconnections (i.e. at zipper nodes\nor with incompatible permissions)", 0, GUIDesignLabelFrameInformation);
+    myHoldShiftLabel = new FXLabel(myGroupBoxSelection, "Hold <SHIFT> while clicking\nto create unyielding\nconnections (pass=true).", nullptr, GUIDesignLabelFrameInformation);
+    myHoldControlLabel = new FXLabel(myGroupBoxSelection, "Hold <CTRL> while clicking\nto create conflicting\nconnections (i.e. at zipper nodes\nor with incompatible permissions)", nullptr, GUIDesignLabelFrameInformation);
 
     // init colors here to avoid static order fiasco (https://isocpp.org/wiki/faq/ctors#static-init-order)
     sourceColor = RGBColor::CYAN;
@@ -133,23 +133,23 @@ GNEConnectorFrame::GNEConnectorFrame(FXHorizontalFrame* horizontalFrameParent, G
     myGroupBoxLegend = new FXGroupBox(myContentFrame, "Legend", GUIDesignGroupBoxFrame);
 
     // create source label
-    mySourceLabel = new FXLabel(myGroupBoxLegend, "Source", 0, GUIDesignLabelLeft);
+    mySourceLabel = new FXLabel(myGroupBoxLegend, "Source", nullptr, GUIDesignLabelLeft);
     mySourceLabel->setBackColor(MFXUtils::getFXColor(sourceColor));
 
     // create target label
-    myTargetLabel = new FXLabel(myGroupBoxLegend, "Target", 0, GUIDesignLabelLeft);
+    myTargetLabel = new FXLabel(myGroupBoxLegend, "Target", nullptr, GUIDesignLabelLeft);
     myTargetLabel->setBackColor(MFXUtils::getFXColor(targetColor));
 
     // create possible target label
-    myPossibleTargetLabel = new FXLabel(myGroupBoxLegend, "Possible Target", 0, GUIDesignLabelLeft);
+    myPossibleTargetLabel = new FXLabel(myGroupBoxLegend, "Possible Target", nullptr, GUIDesignLabelLeft);
     myPossibleTargetLabel->setBackColor(MFXUtils::getFXColor(potentialTargetColor));
 
     // create target (pass) label
-    myTargetPassLabel = new FXLabel(myGroupBoxLegend, "Target (pass)", 0, GUIDesignLabelLeft);
+    myTargetPassLabel = new FXLabel(myGroupBoxLegend, "Target (pass)", nullptr, GUIDesignLabelLeft);
     myTargetPassLabel->setBackColor(MFXUtils::getFXColor(targetPassColor));
 
     // create conflict label
-    myConflictLabel = new FXLabel(myGroupBoxLegend, "Conflict", 0, GUIDesignLabelLeft);
+    myConflictLabel = new FXLabel(myGroupBoxLegend, "Conflict", nullptr, GUIDesignLabelLeft);
     myConflictLabel->setBackColor(MFXUtils::getFXColor(conflictColor));
 }
 
@@ -166,7 +166,7 @@ GNEConnectorFrame::handleLaneClick(const GNEViewNet::ObjectsUnderCursor &objects
 
 long
 GNEConnectorFrame::onCmdCancel(FXObject*, FXSelector, void*) {
-    if (myCurrentLane != 0) {
+    if (myCurrentLane != nullptr) {
         myViewNet->getUndoList()->p_abort();
         if (myNumChanges) {
             myViewNet->setStatusBarText("Changes reverted");
@@ -180,7 +180,7 @@ GNEConnectorFrame::onCmdCancel(FXObject*, FXSelector, void*) {
 
 long
 GNEConnectorFrame::onCmdOK(FXObject*, FXSelector, void*) {
-    if (myCurrentLane != 0) {
+    if (myCurrentLane != nullptr) {
         myViewNet->getUndoList()->p_end();
         if (myNumChanges) {
             myViewNet->setStatusBarText("Changes accepted");
@@ -277,7 +277,7 @@ GNEConnectorFrame::onCmdSelectPass(FXObject*, FXSelector, void*) {
 
 long
 GNEConnectorFrame::onCmdClearSelectedConnections(FXObject*, FXSelector, void*) {
-    onCmdCancel(0, 0, 0);
+    onCmdCancel(nullptr, 0, nullptr);
     myViewNet->getUndoList()->p_begin("clear connections from selected lanes, edges and " + toString(SUMO_TAG_JUNCTION) + "s");
     // clear junction's connection
     auto junctions = myViewNet->getNet()->retrieveJunctions(true);
@@ -308,13 +308,13 @@ GNEConnectorFrame::removeConnections(GNELane* lane) {
     for (auto i : myPotentialTargets) {
         buildConnection(i, false, false, false);  // deselect
     }
-    onCmdOK(0, 0, 0); // save
+    onCmdOK(nullptr, 0, nullptr); // save
 }
 
 
 long
 GNEConnectorFrame::onCmdResetSelectedConnections(FXObject*, FXSelector, void*) {
-    onCmdCancel(0, 0, 0);
+    onCmdCancel(nullptr, 0, nullptr);
     myViewNet->getUndoList()->p_begin("reset connections from selected lanes");
     auto junctions = myViewNet->getNet()->retrieveJunctions(true);
     for (auto i : junctions) {
@@ -327,7 +327,7 @@ GNEConnectorFrame::onCmdResetSelectedConnections(FXObject*, FXSelector, void*) {
 
 void
 GNEConnectorFrame::buildConnection(GNELane* lane, bool mayDefinitelyPass, bool allowConflict, bool toggle) {
-    if (myCurrentLane == 0) {
+    if (myCurrentLane == nullptr) {
         myCurrentLane = lane;
         myCurrentLane->setSpecialColor(&sourceColor);
         initTargets();
@@ -396,7 +396,7 @@ GNEConnectorFrame::buildConnection(GNELane* lane, bool mayDefinitelyPass, bool a
 
 void
 GNEConnectorFrame::updateDescription() const {
-    if (myCurrentLane == 0) {
+    if (myCurrentLane == nullptr) {
         myLaneDescriptionLabel->setText("No Lane Selected\n");
     } else {
         myLaneDescriptionLabel->setText(("Lane id: " + myCurrentLane->getMicrosimID() + "\nNumber of changes: " + toString(myNumChanges)).c_str());
@@ -444,12 +444,12 @@ void
 GNEConnectorFrame::cleanup() {
     // clean up
     for (std::set<GNELane*>::iterator it = myPotentialTargets.begin(); it != myPotentialTargets.end(); it++) {
-        (*it)->setSpecialColor(0);
+        (*it)->setSpecialColor(nullptr);
     }
     myPotentialTargets.clear();
     myNumChanges = 0;
-    myCurrentLane->setSpecialColor(0);
-    myCurrentLane = 0;
+    myCurrentLane->setSpecialColor(nullptr);
+    myCurrentLane = nullptr;
     myDeletedConnections.clear();
     updateDescription();
 }

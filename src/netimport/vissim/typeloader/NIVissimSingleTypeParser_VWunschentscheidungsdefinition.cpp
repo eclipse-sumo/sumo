@@ -83,7 +83,7 @@ NIVissimSingleTypeParser_VWunschentscheidungsdefinition::parse(std::istream& fro
     int numlane = TplConvert::_2int(lane.c_str()) - 1;
     int numv = TplConvert::_2int(vwunsch.c_str());
     NIVissimEdge* e = NIVissimEdge::dictionary(numid);
-    if (e == 0) {
+    if (e == nullptr) {
         NIVissimConnection* c = NIVissimConnection::dictionary(numid);
         const std::vector<int>& lanes = c->getToLanes();
         e = NIVissimEdge::dictionary(c->getToEdgeID());

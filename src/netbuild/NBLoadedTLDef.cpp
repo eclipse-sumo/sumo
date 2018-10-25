@@ -340,7 +340,7 @@ NBLoadedTLDef::myCompute(int brakingTimeSeconds) {
         for (NBConnectionVector::const_iterator it1 = myControlledLinks.begin(); it1 != myControlledLinks.end(); it1++) {
             const NBConnection& c1 = *it1;
             const int i1 = c1.getTLIndex();
-            if (i1 == NBConnection::InvalidTlIndex || state[i1] != 'g' || c1.getFrom() == 0 || c1.getTo() == 0) {
+            if (i1 == NBConnection::InvalidTlIndex || state[i1] != 'g' || c1.getFrom() == nullptr || c1.getTo() == nullptr) {
                 continue;
             }
             for (NBConnectionVector::const_iterator it2 = myControlledLinks.begin(); it2 != myControlledLinks.end(); it2++) {
@@ -349,7 +349,7 @@ NBLoadedTLDef::myCompute(int brakingTimeSeconds) {
                 if (i2 != NBConnection::InvalidTlIndex
                         && i2 != i1
                         && (state[i2] == 'G' || state[i2] == 'g')
-                        && c2.getFrom() != 0 && c2.getTo() != 0) {
+                        && c2.getFrom() != nullptr && c2.getTo() != nullptr) {
                     const bool rightTurnConflict = NBNode::rightTurnConflict(
                                                        c1.getFrom(), c1.getTo(), c1.getFromLane(), c2.getFrom(), c2.getTo(), c2.getFromLane());
                     if (forbids(c2.getFrom(), c2.getTo(), c1.getFrom(), c1.getTo(), true, controlledWithin) || rightTurnConflict) {
@@ -509,7 +509,7 @@ NBLoadedTLDef::collectLinks() {
             std::vector<NBEdge::Connection> elv = incoming->getConnectionsFromLane(j);
             for (std::vector<NBEdge::Connection>::iterator k = elv.begin(); k != elv.end(); k++) {
                 NBEdge::Connection el = *k;
-                if (el.toEdge != 0) {
+                if (el.toEdge != nullptr) {
                     myControlledLinks.push_back(NBConnection(incoming, j, el.toEdge, el.toLane));
                 }
             }
@@ -555,7 +555,7 @@ NBLoadedTLDef::findGroup(NBEdge* from, NBEdge* to) const {
             return (*i).second;
         }
     }
-    return 0;
+    return nullptr;
 }
 
 
@@ -567,12 +567,12 @@ NBLoadedTLDef::addToSignalGroup(const std::string& groupid,
     }
     mySignalGroups[groupid]->addConnection(connection);
     NBNode* n1 = connection.getFrom()->getToNode();
-    if (n1 != 0) {
+    if (n1 != nullptr) {
         addNode(n1);
         n1->addTrafficLight(this);
     }
     NBNode* n2 = connection.getTo()->getFromNode();
-    if (n2 != 0) {
+    if (n2 != nullptr) {
         addNode(n2);
         n2->addTrafficLight(this);
     }
@@ -659,7 +659,7 @@ int
 NBLoadedTLDef::getMaxIndex() {
     setParticipantsInformation();
     NBTrafficLightLogic* logic = compute(OptionsCont::getOptions());
-    if (logic != 0) {
+    if (logic != nullptr) {
         return logic->getNumLinks() - 1;
     } else {
         return -1;

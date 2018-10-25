@@ -339,13 +339,13 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::AttributeInput(GNEInspector
     myAttr(SUMO_ATTR_NOTHING),
     myMultiple(false) {
     // Create and hide label
-    myLabel = new FXLabel(this, "attributeLabel", 0, GUIDesignLabelAttribute);
+    myLabel = new FXLabel(this, "attributeLabel", nullptr, GUIDesignLabelAttribute);
     myLabel->hide();
     // Create and hide ButtonCombinableChoices
-    myButtonCombinableChoices = new FXButton(this, "AttributeButton", 0, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
+    myButtonCombinableChoices = new FXButton(this, "AttributeButton", nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
     myButtonCombinableChoices->hide();
     // create and hidde color editor
-    myColorEditor = new FXButton(this, "ColorButton", 0, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
+    myColorEditor = new FXButton(this, "ColorButton", nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
     myColorEditor->hide();
     // Create and hide textField for int attributes
     myTextFieldInt = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldInt);
@@ -729,10 +729,10 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::onCmdSetAttribute(FXObject*
         } else if (attrValues.isFloat() || attrValues.isTime()) {
             myTextFieldReal->setTextColor(FXRGB(0, 0, 0));
             myTextFieldReal->killFocus();
-        } else if (attrValues.isInt() && myTextFieldStrings != 0) {
+        } else if (attrValues.isInt() && myTextFieldStrings != nullptr) {
             myTextFieldInt->setTextColor(FXRGB(0, 0, 0));
             myTextFieldInt->killFocus();
-        } else if (myTextFieldStrings != 0) {
+        } else if (myTextFieldStrings != nullptr) {
             myTextFieldStrings->setTextColor(FXRGB(0, 0, 0));
             myTextFieldStrings->killFocus();
         }
@@ -751,9 +751,9 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::onCmdSetAttribute(FXObject*
             myChoicesCombo->killFocus();
         } else if (attrValues.isFloat() || attrValues.isTime()) {
             myTextFieldReal->setTextColor(FXRGB(255, 0, 0));
-        } else if (attrValues.isInt() && myTextFieldStrings != 0) {
+        } else if (attrValues.isInt() && myTextFieldStrings != nullptr) {
             myTextFieldInt->setTextColor(FXRGB(255, 0, 0));
-        } else if (myTextFieldStrings != 0) {
+        } else if (myTextFieldStrings != nullptr) {
             myTextFieldStrings->setTextColor(FXRGB(255, 0, 0));
         }
         // Write Warning in console if we're in testing mode
@@ -804,7 +804,7 @@ GNEInspectorFrame::AttributesEditor::AttributesEditor(GNEInspectorFrame* inspect
         myVectorOfAttributeInputs.push_back(new AttributeInput(this));
     }
     // Create help button
-    myHelpButton = new FXButton(this, "Help", 0, this, MID_HELP, GUIDesignButtonRectangular);
+    myHelpButton = new FXButton(this, "Help", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
 }
 
 
@@ -952,26 +952,26 @@ GNEInspectorFrame::NeteditAttributesEditor::NeteditAttributesEditor(GNEInspector
 
     // Create elements for additional parent
     myHorizontalFrameAdditionalParent = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    myLabelAdditionalParent = new FXLabel(myHorizontalFrameAdditionalParent, "Block move", 0, GUIDesignLabelAttribute);
+    myLabelAdditionalParent = new FXLabel(myHorizontalFrameAdditionalParent, "Block move", nullptr, GUIDesignLabelAttribute);
     myTextFieldAdditionalParent = new FXTextField(myHorizontalFrameAdditionalParent, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
 
     // Create elements for block movement
     myHorizontalFrameBlockMovement = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    myLabelBlockMovement = new FXLabel(myHorizontalFrameBlockMovement, "Block move", 0, GUIDesignLabelAttribute);
+    myLabelBlockMovement = new FXLabel(myHorizontalFrameBlockMovement, "Block move", nullptr, GUIDesignLabelAttribute);
     myCheckBoxBlockMovement = new FXCheckButton(myHorizontalFrameBlockMovement, "", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButtonAttribute);
 
     // Create elements for block shape
     myHorizontalFrameBlockShape = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    myLabelBlockShape = new FXLabel(myHorizontalFrameBlockShape, "Block shape", 0, GUIDesignLabelAttribute);
+    myLabelBlockShape = new FXLabel(myHorizontalFrameBlockShape, "Block shape", nullptr, GUIDesignLabelAttribute);
     myCheckBoxBlockShape = new FXCheckButton(myHorizontalFrameBlockShape, "", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButtonAttribute);
 
     // Create elements for close shape
     myHorizontalFrameCloseShape = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    myLabelCloseShape = new FXLabel(myHorizontalFrameCloseShape, "Close shape", 0, GUIDesignLabelAttribute);
+    myLabelCloseShape = new FXLabel(myHorizontalFrameCloseShape, "Close shape", nullptr, GUIDesignLabelAttribute);
     myCheckBoxCloseShape = new FXCheckButton(myHorizontalFrameCloseShape, "", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButtonAttribute);
 
     // Create help button
-    myHelpButton = new FXButton(this, "Help", 0, this, MID_HELP, GUIDesignButtonRectangular);
+    myHelpButton = new FXButton(this, "Help", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
 }
 
 
@@ -1213,16 +1213,16 @@ GNEInspectorFrame::GEOAttributesEditor::GEOAttributesEditor(GNEInspectorFrame* i
 
     // Create Frame for GEOAttribute
     myGEOAttributeFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    myGEOAttributeLabel = new FXLabel(myGEOAttributeFrame, "Undefined GEO Attribute", 0, GUIDesignLabelAttribute);
+    myGEOAttributeLabel = new FXLabel(myGEOAttributeFrame, "Undefined GEO Attribute", nullptr, GUIDesignLabelAttribute);
     myGEOAttributeTextField = new FXTextField(myGEOAttributeFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
 
     // Create Frame for use GEO
     myUseGEOFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    myUseGEOLabel = new FXLabel(myUseGEOFrame, toString(SUMO_ATTR_GEO).c_str(), 0, GUIDesignLabelAttribute);
+    myUseGEOLabel = new FXLabel(myUseGEOFrame, toString(SUMO_ATTR_GEO).c_str(), nullptr, GUIDesignLabelAttribute);
     myUseGEOCheckButton = new FXCheckButton(myUseGEOFrame, "false", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButtonAttribute);
 
     // Create help button
-    myHelpButton = new FXButton(this, "Help", 0, this, MID_HELP, GUIDesignButtonRectangular);
+    myHelpButton = new FXButton(this, "Help", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
 }
 
 
@@ -1374,7 +1374,7 @@ GNEInspectorFrame::GEOAttributesEditor::onCmdGEOAttributeHelp(FXObject*, FXSelec
             << " - Longitude: East-west position of a point on the Earth's surface.\n"
             << " - Latitude: North-south position of a point on the Earth's surface.\n"
             << " - CheckBox 'geo' enables or disables saving position in GEO coordinates\n";
-    new FXLabel(helpDialog, help.str().c_str(), 0, GUIDesignLabelFrameInformation);
+    new FXLabel(helpDialog, help.str().c_str(), nullptr, GUIDesignLabelFrameInformation);
     // "OK"
     new FXButton(helpDialog, "OK\t\tclose", GUIIconSubSys::getIcon(ICON_ACCEPT), helpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
     helpDialog->create();
@@ -1392,11 +1392,11 @@ GNEInspectorFrame::TemplateEditor::TemplateEditor(GNEInspectorFrame* inspectorFr
     myEdgeTemplate(nullptr) {
 
     // Create copy template button
-    myCopyTemplateButton = new FXButton(this, "", 0, this, MID_GNE_INSPECTORFRAME_COPYTEMPLATE, GUIDesignButton);
+    myCopyTemplateButton = new FXButton(this, "", nullptr, this, MID_GNE_INSPECTORFRAME_COPYTEMPLATE, GUIDesignButton);
     myCopyTemplateButton->hide();
 
     // Create set template button
-    mySetTemplateButton = new FXButton(this, "Set as Template\t\t", 0, this, MID_GNE_INSPECTORFRAME_SETTEMPLATE, GUIDesignButton);
+    mySetTemplateButton = new FXButton(this, "Set as Template\t\t", nullptr, this, MID_GNE_INSPECTORFRAME_SETTEMPLATE, GUIDesignButton);
     mySetTemplateButton->hide();
 }
 

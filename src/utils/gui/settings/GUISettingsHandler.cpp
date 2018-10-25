@@ -48,7 +48,7 @@ GUISettingsHandler::GUISettingsHandler(const std::string& content, bool isFile, 
     myDelay(-1), myLookFrom(-1, -1, -1), myLookAt(-1, -1, -1),
     myRotation(0),
     myCurrentColorer(SUMO_TAG_NOTHING),
-    myCurrentScheme(0),
+    myCurrentScheme(nullptr),
     myJamSoundTime(-1) {
     if (isFile) {
         XMLSubSys::runParser(*this, content);
@@ -71,35 +71,35 @@ GUISettingsHandler::myStartElement(int element,
     bool ok = true;
     switch (element) {
         case SUMO_TAG_BREAKPOINTS_FILE: {
-            std::string file = attrs.get<std::string>(SUMO_ATTR_VALUE, 0, ok);
+            std::string file = attrs.get<std::string>(SUMO_ATTR_VALUE, nullptr, ok);
             myBreakpoints = loadBreakpoints(file);
         }
         break;
         case SUMO_TAG_BREAKPOINT:
-            myBreakpoints.push_back(attrs.getSUMOTimeReporting(SUMO_ATTR_VALUE, 0, ok));
+            myBreakpoints.push_back(attrs.getSUMOTimeReporting(SUMO_ATTR_VALUE, nullptr, ok));
             break;
         case SUMO_TAG_VIEWSETTINGS:
-            myViewType = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, 0, ok, "default");
+            myViewType = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, nullptr, ok, "default");
             std::transform(myViewType.begin(), myViewType.end(), myViewType.begin(), tolower);
             break;
         case SUMO_TAG_DELAY:
-            myDelay = attrs.getOpt<double>(SUMO_ATTR_VALUE, 0, ok, myDelay);
+            myDelay = attrs.getOpt<double>(SUMO_ATTR_VALUE, nullptr, ok, myDelay);
             break;
         case SUMO_TAG_VIEWPORT: {
-            const double x = attrs.getOpt<double>(SUMO_ATTR_X, 0, ok, myLookFrom.x());
-            const double y = attrs.getOpt<double>(SUMO_ATTR_Y, 0, ok, myLookFrom.y());
-            const double z = attrs.getOpt<double>(SUMO_ATTR_ZOOM, 0, ok, myLookFrom.z());
+            const double x = attrs.getOpt<double>(SUMO_ATTR_X, nullptr, ok, myLookFrom.x());
+            const double y = attrs.getOpt<double>(SUMO_ATTR_Y, nullptr, ok, myLookFrom.y());
+            const double z = attrs.getOpt<double>(SUMO_ATTR_ZOOM, nullptr, ok, myLookFrom.z());
             myLookFrom.set(x, y, z);
-            const double cx = attrs.getOpt<double>(SUMO_ATTR_CENTER_X, 0, ok, myLookAt.x());
-            const double cy = attrs.getOpt<double>(SUMO_ATTR_CENTER_Y, 0, ok, myLookAt.y());
-            const double cz = attrs.getOpt<double>(SUMO_ATTR_CENTER_Z, 0, ok, myLookAt.z());
+            const double cx = attrs.getOpt<double>(SUMO_ATTR_CENTER_X, nullptr, ok, myLookAt.x());
+            const double cy = attrs.getOpt<double>(SUMO_ATTR_CENTER_Y, nullptr, ok, myLookAt.y());
+            const double cz = attrs.getOpt<double>(SUMO_ATTR_CENTER_Z, nullptr, ok, myLookAt.z());
             myLookAt.set(cx, cy, cz);
-            myRotation = attrs.getOpt<double>(SUMO_ATTR_ANGLE, 0, ok, myRotation);
+            myRotation = attrs.getOpt<double>(SUMO_ATTR_ANGLE, nullptr, ok, myRotation);
             break;
         }
         case SUMO_TAG_SNAPSHOT: {
             bool ok = true;
-            std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, 0, ok);
+            std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, nullptr, ok);
             if (file != "" && !FileHelpers::isAbsolute(file)) {
                 file = FileHelpers::getConfigurationRelative(getFileName(), file);
             }
@@ -108,7 +108,7 @@ GUISettingsHandler::myStartElement(int element,
         break;
         case SUMO_TAG_VIEWSETTINGS_SCHEME: {
             bool ok = true;
-            mySettings.name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, 0, ok, mySettings.name);
+            mySettings.name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, nullptr, ok, mySettings.name);
             if (gSchemeStorage.contains(mySettings.name)) {
                 mySettings = gSchemeStorage.get(mySettings.name);
             }
@@ -119,7 +119,7 @@ GUISettingsHandler::myStartElement(int element,
             break;
         case SUMO_TAG_VIEWSETTINGS_BACKGROUND: {
             bool ok = true;
-            mySettings.backgroundColor = RGBColor::parseColorReporting(attrs.getStringSecure("backgroundColor", toString(mySettings.backgroundColor)), "background", 0, true, ok);
+            mySettings.backgroundColor = RGBColor::parseColorReporting(attrs.getStringSecure("backgroundColor", toString(mySettings.backgroundColor)), "background", nullptr, true, ok);
             mySettings.showGrid = TplConvert::_2bool(attrs.getStringSecure("showGrid", toString(mySettings.showGrid)).c_str());
             mySettings.gridXSize = TplConvert::_2double(attrs.getStringSecure("gridXSize", toString(mySettings.gridXSize)).c_str());
             mySettings.gridYSize = TplConvert::_2double(attrs.getStringSecure("gridYSize", toString(mySettings.gridYSize)).c_str());
@@ -151,11 +151,11 @@ GUISettingsHandler::myStartElement(int element,
         }
         break;
         case SUMO_TAG_COLORSCHEME:
-            myCurrentScheme = 0;
-            myCurrentScaleScheme = 0;
+            myCurrentScheme = nullptr;
+            myCurrentScaleScheme = nullptr;
             if (myCurrentColorer == SUMO_TAG_VIEWSETTINGS_EDGES) {
                 myCurrentScheme = mySettings.laneColorer.getSchemeByName(attrs.getStringSecure(SUMO_ATTR_NAME, ""));
-                if (myCurrentScheme == 0) {
+                if (myCurrentScheme == nullptr) {
                     myCurrentScheme = mySettings.edgeColorer.getSchemeByName(attrs.getStringSecure(SUMO_ATTR_NAME, ""));
                 }
             }
@@ -176,42 +176,42 @@ GUISettingsHandler::myStartElement(int element,
             }
             if (myCurrentScheme && !myCurrentScheme->isFixed()) {
                 bool ok = true;
-                myCurrentScheme->setInterpolated(attrs.getOpt<bool>(SUMO_ATTR_INTERPOLATED, 0, ok, false));
+                myCurrentScheme->setInterpolated(attrs.getOpt<bool>(SUMO_ATTR_INTERPOLATED, nullptr, ok, false));
                 myCurrentScheme->clear();
             }
             break;
         case SUMO_TAG_SCALINGSCHEME:
-            myCurrentScheme = 0;
-            myCurrentScaleScheme = 0;
+            myCurrentScheme = nullptr;
+            myCurrentScaleScheme = nullptr;
             if (myCurrentColorer == SUMO_TAG_VIEWSETTINGS_EDGES) {
                 myCurrentScaleScheme = mySettings.laneScaler.getSchemeByName(attrs.getStringSecure(SUMO_ATTR_NAME, ""));
-                if (myCurrentScaleScheme == 0) {
+                if (myCurrentScaleScheme == nullptr) {
                     myCurrentScaleScheme = mySettings.edgeScaler.getSchemeByName(attrs.getStringSecure(SUMO_ATTR_NAME, ""));
                 }
             }
             if (myCurrentScaleScheme && !myCurrentScaleScheme->isFixed()) {
                 bool ok = true;
-                myCurrentScaleScheme->setInterpolated(attrs.getOpt<bool>(SUMO_ATTR_INTERPOLATED, 0, ok, false));
+                myCurrentScaleScheme->setInterpolated(attrs.getOpt<bool>(SUMO_ATTR_INTERPOLATED, nullptr, ok, false));
                 myCurrentScaleScheme->clear();
             }
             break;
 
         case SUMO_TAG_ENTRY:
-            if (myCurrentScheme != 0) {
+            if (myCurrentScheme != nullptr) {
                 bool ok = true;
-                RGBColor color = attrs.get<RGBColor>(SUMO_ATTR_COLOR, 0, ok);
+                RGBColor color = attrs.get<RGBColor>(SUMO_ATTR_COLOR, nullptr, ok);
                 if (myCurrentScheme->isFixed()) {
                     myCurrentScheme->setColor(attrs.getStringSecure(SUMO_ATTR_NAME, ""), color);
                 } else {
-                    myCurrentScheme->addColor(color, attrs.getOpt<double>(SUMO_ATTR_THRESHOLD, 0, ok, 0));
+                    myCurrentScheme->addColor(color, attrs.getOpt<double>(SUMO_ATTR_THRESHOLD, nullptr, ok, 0));
                 }
-            } else if (myCurrentScaleScheme != 0) {
+            } else if (myCurrentScaleScheme != nullptr) {
                 bool ok = true;
-                double scale = attrs.get<double>(SUMO_ATTR_COLOR, 0, ok);
+                double scale = attrs.get<double>(SUMO_ATTR_COLOR, nullptr, ok);
                 if (myCurrentScaleScheme->isFixed()) {
                     myCurrentScaleScheme->setColor(attrs.getStringSecure(SUMO_ATTR_NAME, ""), scale);
                 } else {
-                    myCurrentScaleScheme->addColor(scale, attrs.getOpt<double>(SUMO_ATTR_THRESHOLD, 0, ok, 0));
+                    myCurrentScaleScheme->addColor(scale, attrs.getOpt<double>(SUMO_ATTR_THRESHOLD, nullptr, ok, 0));
                 }
             }
             break;
@@ -279,16 +279,16 @@ GUISettingsHandler::myStartElement(int element,
             if (d.filename != "" && !FileHelpers::isAbsolute(d.filename)) {
                 d.filename = FileHelpers::getConfigurationRelative(getFileName(), d.filename);
             }
-            d.centerX = attrs.getOpt<double>(SUMO_ATTR_CENTER_X, 0, ok, d.centerX);
-            d.centerY = attrs.getOpt<double>(SUMO_ATTR_CENTER_Y, 0, ok, d.centerY);
-            d.centerZ = attrs.getOpt<double>(SUMO_ATTR_CENTER_Z, 0, ok, d.centerZ);
-            d.width = attrs.getOpt<double>(SUMO_ATTR_WIDTH, 0, ok, d.width);
-            d.height = attrs.getOpt<double>(SUMO_ATTR_HEIGHT, 0, ok, d.height);
+            d.centerX = attrs.getOpt<double>(SUMO_ATTR_CENTER_X, nullptr, ok, d.centerX);
+            d.centerY = attrs.getOpt<double>(SUMO_ATTR_CENTER_Y, nullptr, ok, d.centerY);
+            d.centerZ = attrs.getOpt<double>(SUMO_ATTR_CENTER_Z, nullptr, ok, d.centerZ);
+            d.width = attrs.getOpt<double>(SUMO_ATTR_WIDTH, nullptr, ok, d.width);
+            d.height = attrs.getOpt<double>(SUMO_ATTR_HEIGHT, nullptr, ok, d.height);
             d.altitude = TplConvert::_2double(attrs.getStringSecure("altitude", toString(d.height)).c_str());
             d.rot = TplConvert::_2double(attrs.getStringSecure("rotation", toString(d.rot)).c_str());
             d.tilt = TplConvert::_2double(attrs.getStringSecure("tilt", toString(d.tilt)).c_str());
             d.roll = TplConvert::_2double(attrs.getStringSecure("roll", toString(d.roll)).c_str());
-            d.layer = attrs.getOpt<double>(SUMO_ATTR_LAYER, 0, ok, d.layer);
+            d.layer = attrs.getOpt<double>(SUMO_ATTR_LAYER, nullptr, ok, d.layer);
             d.screenRelative = TplConvert::_2bool(attrs.getStringSecure("screenRelative", toString(d.screenRelative)).c_str());
             d.initialised = false;
             myDecals.push_back(d);
@@ -296,30 +296,30 @@ GUISettingsHandler::myStartElement(int element,
         break;
         case SUMO_TAG_VIEWSETTINGS_LIGHT: {
             GUISUMOAbstractView::Decal d;
-            d.filename = "light" + attrs.getOpt<std::string>(SUMO_ATTR_INDEX, 0, ok, "0");
-            d.centerX = attrs.getOpt<double>(SUMO_ATTR_CENTER_X, 0, ok, d.centerX);
-            d.centerY = attrs.getOpt<double>(SUMO_ATTR_CENTER_Y, 0, ok, d.centerY);
-            d.centerZ = attrs.getOpt<double>(SUMO_ATTR_CENTER_Z, 0, ok, d.centerZ);
-            d.width = attrs.getOpt<double>(SUMO_ATTR_WIDTH, 0, ok, d.width);
-            d.height = attrs.getOpt<double>(SUMO_ATTR_HEIGHT, 0, ok, d.height);
+            d.filename = "light" + attrs.getOpt<std::string>(SUMO_ATTR_INDEX, nullptr, ok, "0");
+            d.centerX = attrs.getOpt<double>(SUMO_ATTR_CENTER_X, nullptr, ok, d.centerX);
+            d.centerY = attrs.getOpt<double>(SUMO_ATTR_CENTER_Y, nullptr, ok, d.centerY);
+            d.centerZ = attrs.getOpt<double>(SUMO_ATTR_CENTER_Z, nullptr, ok, d.centerZ);
+            d.width = attrs.getOpt<double>(SUMO_ATTR_WIDTH, nullptr, ok, d.width);
+            d.height = attrs.getOpt<double>(SUMO_ATTR_HEIGHT, nullptr, ok, d.height);
             d.altitude = TplConvert::_2double(attrs.getStringSecure("altitude", toString(d.height)).c_str());
             d.rot = TplConvert::_2double(attrs.getStringSecure("rotation", toString(d.rot)).c_str());
             d.tilt = TplConvert::_2double(attrs.getStringSecure("tilt", toString(d.tilt)).c_str());
             d.roll = TplConvert::_2double(attrs.getStringSecure("roll", toString(d.roll)).c_str());
-            d.layer = attrs.getOpt<double>(SUMO_ATTR_LAYER, 0, ok, d.layer);
+            d.layer = attrs.getOpt<double>(SUMO_ATTR_LAYER, nullptr, ok, d.layer);
             d.initialised = false;
             myDecals.push_back(d);
         }
         break;
         case SUMO_TAG_VIEWSETTINGS_EVENT: {
-            const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
-            const std::string cmd = attrs.get<std::string>(SUMO_ATTR_COMMAND, 0, ok);
+            const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
+            const std::string cmd = attrs.get<std::string>(SUMO_ATTR_COMMAND, nullptr, ok);
             const double prob = attrs.get<double>(SUMO_ATTR_PROB, id.c_str(), ok);
             myEventDistributions[id].add(cmd, prob);
         }
         break;
         case SUMO_TAG_VIEWSETTINGS_EVENT_JAM_TIME:
-            myJamSoundTime = attrs.get<double>(SUMO_ATTR_VALUE, 0, ok);
+            myJamSoundTime = attrs.get<double>(SUMO_ATTR_VALUE, nullptr, ok);
             break;
         default:
             break;
@@ -335,7 +335,7 @@ GUISettingsHandler::parseTextSettings(
     return GUIVisualizationTextSettings(
                TplConvert::_2bool(attrs.getStringSecure(prefix + "_show", toString(defaults.show)).c_str()),
                TplConvert::_2double(attrs.getStringSecure(prefix + "_size", toString(defaults.size)).c_str()),
-               RGBColor::parseColorReporting(attrs.getStringSecure(prefix + "_color", toString(defaults.color)), "edges", 0, true, ok),
+               RGBColor::parseColorReporting(attrs.getStringSecure(prefix + "_color", toString(defaults.color)), "edges", nullptr, true, ok),
                TplConvert::_2bool(attrs.getStringSecure(prefix + "_constantSize", toString(defaults.constSize)).c_str()));
 }
 

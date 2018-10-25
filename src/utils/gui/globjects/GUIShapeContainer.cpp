@@ -93,7 +93,7 @@ bool
 GUIShapeContainer::removePolygon(const std::string& id) {
     AbstractMutex::ScopedLocker locker(myLock);
     GUIPolygon* p = dynamic_cast<GUIPolygon*>(myPolygons.get(id));
-    if (p == 0) {
+    if (p == nullptr) {
         return false;
     }
     myVis.removeAdditionalGLObject(p);
@@ -105,7 +105,7 @@ bool
 GUIShapeContainer::removePOI(const std::string& id) {
     AbstractMutex::ScopedLocker locker(myLock);
     GUIPointOfInterest* p = dynamic_cast<GUIPointOfInterest*>(myPOIs.get(id));
-    if (p == 0) {
+    if (p == nullptr) {
         return false;
     }
     myVis.removeAdditionalGLObject(p);
@@ -117,7 +117,7 @@ void
 GUIShapeContainer::movePOI(const std::string& id, const Position& pos) {
     AbstractMutex::ScopedLocker locker(myLock);
     GUIPointOfInterest* p = dynamic_cast<GUIPointOfInterest*>(myPOIs.get(id));
-    if (p != 0) {
+    if (p != nullptr) {
         myVis.removeAdditionalGLObject(p);
         static_cast<Position*>(p)->set(pos);
         myVis.addAdditionalGLObject(p);
@@ -129,7 +129,7 @@ void
 GUIShapeContainer::reshapePolygon(const std::string& id, const PositionVector& shape) {
     AbstractMutex::ScopedLocker locker(myLock);
     GUIPolygon* p = dynamic_cast<GUIPolygon*>(myPolygons.get(id));
-    if (p != 0) {
+    if (p != nullptr) {
         myVis.removeAdditionalGLObject(p);
         p->setShape(shape);
         myVis.addAdditionalGLObject(p);

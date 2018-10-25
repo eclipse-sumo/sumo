@@ -78,16 +78,16 @@ FXIMPLEMENT(GNECrossingFrame::crossingParameters, FXGroupBox,       GNECrossingP
 GNECrossingFrame::edgesSelector::edgesSelector(GNECrossingFrame* crossingFrameParent) :
     FXGroupBox(crossingFrameParent->myContentFrame, ("selection of " + toString(SUMO_TAG_EDGE) + "s").c_str(), GUIDesignGroupBoxFrame),
     myCrossingFrameParent(crossingFrameParent),
-    myCurrentJunction(0) {
+    myCurrentJunction(nullptr) {
 
     // Create button for selected edges
-    myUseSelectedEdges = new FXButton(this, ("Use selected " + toString(SUMO_TAG_EDGE) + "s").c_str(), 0, this, MID_GNE_ADDITIONALFRAME_USESELECTED, GUIDesignButton);
+    myUseSelectedEdges = new FXButton(this, ("Use selected " + toString(SUMO_TAG_EDGE) + "s").c_str(), nullptr, this, MID_GNE_ADDITIONALFRAME_USESELECTED, GUIDesignButton);
 
     // Create button for clear selection
-    myClearEdgesSelection = new FXButton(this, ("Clear " + toString(SUMO_TAG_EDGE) + "s").c_str(), 0, this, MID_GNE_ADDITIONALFRAME_CLEARSELECTION, GUIDesignButton);
+    myClearEdgesSelection = new FXButton(this, ("Clear " + toString(SUMO_TAG_EDGE) + "s").c_str(), nullptr, this, MID_GNE_ADDITIONALFRAME_CLEARSELECTION, GUIDesignButton);
 
     // Create button for invert selection
-    myInvertEdgesSelection = new FXButton(this, ("Invert " + toString(SUMO_TAG_EDGE) + "s").c_str(), 0, this, MID_GNE_ADDITIONALFRAME_INVERTSELECTION, GUIDesignButton);
+    myInvertEdgesSelection = new FXButton(this, ("Invert " + toString(SUMO_TAG_EDGE) + "s").c_str(), nullptr, this, MID_GNE_ADDITIONALFRAME_INVERTSELECTION, GUIDesignButton);
 }
 
 
@@ -124,7 +124,7 @@ GNECrossingFrame::edgesSelector::enableEdgeSelector(GNEJunction* currentJunction
 void
 GNECrossingFrame::edgesSelector::disableEdgeSelector() {
     // disable current junction
-    myCurrentJunction = NULL;
+    myCurrentJunction = nullptr;
     // disable all elements of the edgesSelector
     myUseSelectedEdges->disable();
     myClearEdgesSelection->disable();
@@ -136,16 +136,16 @@ GNECrossingFrame::edgesSelector::disableEdgeSelector() {
 
 void
 GNECrossingFrame::edgesSelector::restoreEdgeColors() {
-    if (myCurrentJunction != NULL) {
+    if (myCurrentJunction != nullptr) {
         // restore color of all lanes of edge candidates
         for (auto i : myCurrentJunction->getGNEEdges()) {
             for (auto j : i->getLanes()) {
-                j->setSpecialColor(0);
+                j->setSpecialColor(nullptr);
             }
         }
         // Update view net to show the new colors
         myCrossingFrameParent->getViewNet()->update();
-        myCurrentJunction = NULL;
+        myCurrentJunction = nullptr;
     }
 }
 
@@ -178,27 +178,27 @@ GNECrossingFrame::crossingParameters::crossingParameters(GNECrossingFrame* cross
     FXGroupBox(crossingFrameParent->myContentFrame, "Crossing parameters", GUIDesignGroupBoxFrame),
     myCrossingFrameParent(crossingFrameParent),
     myCurrentParametersValid(true) {
-    FXHorizontalFrame* crossingParameter = NULL;
+    FXHorizontalFrame* crossingParameter = nullptr;
     // create label and string textField for edges
     crossingParameter = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    myCrossingEdgesLabel = new FXLabel(crossingParameter, toString(SUMO_ATTR_EDGES).c_str(), 0, GUIDesignLabelAttribute);
+    myCrossingEdgesLabel = new FXLabel(crossingParameter, toString(SUMO_ATTR_EDGES).c_str(), nullptr, GUIDesignLabelAttribute);
     myCrossingEdges = new FXTextField(crossingParameter, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     myCrossingEdgesLabel->disable();
     myCrossingEdges->disable();
     // create label and checkbox for Priority
     crossingParameter = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    myCrossingPriorityLabel = new FXLabel(crossingParameter, toString(SUMO_ATTR_PRIORITY).c_str(), 0, GUIDesignLabelAttribute);
+    myCrossingPriorityLabel = new FXLabel(crossingParameter, toString(SUMO_ATTR_PRIORITY).c_str(), nullptr, GUIDesignLabelAttribute);
     myCrossingPriorityCheckButton = new FXCheckButton(crossingParameter, "", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButtonAttribute);
     myCrossingPriorityLabel->disable();
     myCrossingPriorityCheckButton->disable();
     // create label and textfield for width
     crossingParameter = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    myCrossingWidthLabel = new FXLabel(crossingParameter, toString(SUMO_ATTR_WIDTH).c_str(), 0, GUIDesignLabelAttribute);
+    myCrossingWidthLabel = new FXLabel(crossingParameter, toString(SUMO_ATTR_WIDTH).c_str(), nullptr, GUIDesignLabelAttribute);
     myCrossingWidth = new FXTextField(crossingParameter, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldReal);
     myCrossingWidthLabel->disable();
     myCrossingWidth->disable();
     // Create help button
-    myHelpCrossingAttribute = new FXButton(this, "Help", 0, this, MID_HELP, GUIDesignButtonRectangular);
+    myHelpCrossingAttribute = new FXButton(this, "Help", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
     myHelpCrossingAttribute->disable();
     // set colors
     myCandidateColor = RGBColor(0, 64, 0, 255);
@@ -226,7 +226,7 @@ GNECrossingFrame::crossingParameters::enableCrossingParameters(bool hasTLS) {
     myCrossingWidth->enable();
     myHelpCrossingAttribute->enable();
     // set values of parameters
-    onCmdSetAttribute(0, 0, 0);
+    onCmdSetAttribute(nullptr, 0, nullptr);
     myCrossingPriorityCheckButton->setCheck(hasTLS ? true :
                                             GNEAttributeCarrier::parse<bool>(tagProperties.getDefaultValue(SUMO_ATTR_PRIORITY)));
     myCrossingWidth->setText(tagProperties.getDefaultValue(SUMO_ATTR_WIDTH).c_str());
@@ -262,7 +262,7 @@ GNECrossingFrame::crossingParameters::isCrossingParametersEnabled() const {
 void
 GNECrossingFrame::crossingParameters::markEdge(GNEEdge* edge) {
     GNEJunction* currentJunction = myCrossingFrameParent->getEdgeSelector()->getCurrentJunction();
-    if (currentJunction != NULL) {
+    if (currentJunction != nullptr) {
         // Check if edge belongs to junction's edge
         if (std::find(currentJunction->getGNEEdges().begin(), currentJunction->getGNEEdges().end(), edge) != currentJunction->getGNEEdges().end()) {
             // Update text field with the new edge
@@ -277,7 +277,7 @@ GNECrossingFrame::crossingParameters::markEdge(GNEEdge* edge) {
             myCrossingEdges->setText(joinToString(crossingEdges, " ").c_str());
         }
         // Update colors and attributes
-        onCmdSetAttribute(0, 0, 0);
+        onCmdSetAttribute(nullptr, 0, nullptr);
     }
 }
 
@@ -286,7 +286,7 @@ void
 GNECrossingFrame::crossingParameters::clearEdges() {
     myCrossingEdges->setText("");
     // Update colors and attributes
-    onCmdSetAttribute(0, 0, 0);
+    onCmdSetAttribute(nullptr, 0, nullptr);
 }
 
 
@@ -300,7 +300,7 @@ GNECrossingFrame::crossingParameters::invertEdges(GNEJunction* parentJunction) {
     }
     myCrossingEdges->setText(joinToString(crossingEdges, " ").c_str());
     // Update colors and attributes
-    onCmdSetAttribute(0, 0, 0);
+    onCmdSetAttribute(nullptr, 0, nullptr);
 }
 
 
@@ -314,7 +314,7 @@ GNECrossingFrame::crossingParameters::useSelectedEdges(GNEJunction* parentJuncti
     }
     myCrossingEdges->setText(joinToString(crossingEdges, " ").c_str());
     // Update colors and attributes
-    onCmdSetAttribute(0, 0, 0);
+    onCmdSetAttribute(nullptr, 0, nullptr);
 }
 
 
@@ -375,7 +375,7 @@ GNECrossingFrame::crossingParameters::onCmdSetAttribute(FXObject*, FXSelector, v
         GNEEdge* edge = myCrossingFrameParent->getViewNet()->getNet()->retrieveEdge(i, false);
         GNEJunction* currentJunction = myCrossingFrameParent->getEdgeSelector()->getCurrentJunction();
         // Check that edge exists and belongs to Junction
-        if (edge == 0) {
+        if (edge == nullptr) {
             myCurrentParametersValid = false;
         } else if (std::find(currentJunction->getGNEEdges().begin(), currentJunction->getGNEEdges().end(), edge) == currentJunction->getGNEEdges().end()) {
             myCurrentParametersValid = false;
@@ -456,7 +456,7 @@ GNECrossingFrame::GNECrossingFrame(FXHorizontalFrame* horizontalFrameParent, GNE
     GNEFrame(horizontalFrameParent, viewNet, "Crossings") {
     // Create Groupbox for labels
     myGroupBoxLabel = new FXGroupBox(myContentFrame, "Junction", GUIDesignGroupBoxFrame);
-    myCurrentJunctionLabel = new FXLabel(myGroupBoxLabel, "No junction selected", 0, GUIDesignLabelLeft);
+    myCurrentJunctionLabel = new FXLabel(myGroupBoxLabel, "No junction selected", nullptr, GUIDesignLabelLeft);
 
     // Create edge Selector
     myEdgeSelector = new edgesSelector(this);
@@ -466,14 +466,14 @@ GNECrossingFrame::GNECrossingFrame(FXHorizontalFrame* horizontalFrameParent, GNE
 
     // Create groupbox for create crossings
     myGroupBoxButtons = new FXGroupBox(myContentFrame, "Create", GUIDesignGroupBoxFrame);
-    myCreateCrossingButton = new FXButton(myGroupBoxButtons, "Create crossing", 0, this, MID_GNE_CROSSINGFRAME_CREATECROSSING, GUIDesignButton);
+    myCreateCrossingButton = new FXButton(myGroupBoxButtons, "Create crossing", nullptr, this, MID_GNE_CROSSINGFRAME_CREATECROSSING, GUIDesignButton);
     myCreateCrossingButton->disable();
 
     // Create groupbox and labels for legends
     myGroupBoxLegend = new FXGroupBox(myContentFrame, "Legend", GUIDesignGroupBoxFrame);
-    myColorCandidateLabel = new FXLabel(myGroupBoxLegend, "Candidate", 0, GUIDesignLabelLeft);
+    myColorCandidateLabel = new FXLabel(myGroupBoxLegend, "Candidate", nullptr, GUIDesignLabelLeft);
     myColorCandidateLabel->setBackColor(MFXUtils::getFXColor(myCrossingParameters->getCandidateColor()));
-    myColorSelectedLabel = new FXLabel(myGroupBoxLegend, "Selected", 0, GUIDesignLabelLeft);
+    myColorSelectedLabel = new FXLabel(myGroupBoxLegend, "Selected", nullptr, GUIDesignLabelLeft);
     myColorSelectedLabel->setBackColor(MFXUtils::getFXColor(myCrossingParameters->getSelectedColor()));
 
     // disable edge selector
@@ -534,7 +534,7 @@ GNECrossingFrame::onCmdCreateCrossing(FXObject*, FXSelector, void*) {
                                           PositionVector::EMPTY,
                                           false, true), true);
             // clear selected edges
-            myEdgeSelector->onCmdClearSelection(0, 0, 0);
+            myEdgeSelector->onCmdClearSelection(nullptr, 0, nullptr);
         } else {
             WRITE_WARNING("There is already another crossing with the same edges in the junction; Duplicated crossing aren't allowed.");
         }

@@ -97,7 +97,7 @@ MSVehicleControl::buildVehicle(SUMOVehicleParameter* defs,
                                const MSRoute* route, MSVehicleType* type,
                                const bool ignoreStopErrors, const bool fromRouteFile) {
     myLoadedVehNo++;
-    MSVehicle* built = new MSVehicle(defs, route, type, type->computeChosenSpeedDeviation(fromRouteFile ? MSRouteHandler::getParsingRNG() : 0));
+    MSVehicle* built = new MSVehicle(defs, route, type, type->computeChosenSpeedDeviation(fromRouteFile ? MSRouteHandler::getParsingRNG() : nullptr));
     built->addStops(ignoreStopErrors);
     MSNet::getInstance()->informVehicleStateListener(built, MSNet::VEHICLE_STATE_BUILT);
     return built;
@@ -197,7 +197,7 @@ SUMOVehicle*
 MSVehicleControl::getVehicle(const std::string& id) const {
     VehicleDictType::const_iterator it = myVehicleDict.find(id);
     if (it == myVehicleDict.end()) {
-        return 0;
+        return nullptr;
     }
     return it->second;
 }
@@ -209,7 +209,7 @@ MSVehicleControl::deleteVehicle(SUMOVehicle* veh, bool discard) {
     if (discard) {
         myDiscarded++;
     }
-    if (veh != 0) {
+    if (veh != nullptr) {
         myVehicleDict.erase(veh->getID());
     }
     delete veh;
@@ -308,7 +308,7 @@ MSVehicleControl::getVType(const std::string& id, std::mt19937* rng) {
     if (it == myVTypeDict.end()) {
         VTypeDistDictType::iterator it2 = myVTypeDistDict.find(id);
         if (it2 == myVTypeDistDict.end()) {
-            return 0;
+            return nullptr;
         }
         return it2->second->get(rng);
     }
@@ -391,7 +391,7 @@ MSVehicleControl::getWaitingVehicle(const MSEdge* const edge, const std::set<std
             WRITE_WARNING(ridingID + " at edge '" + edge->getID() + "' position " + toString(position) + " cannot use waiting vehicle '" + (*it)->getID() + "' at position " + toString((*it)->getPositionOnLane()) + " because it is too far away.");
         }
     }
-    return 0;
+    return nullptr;
 }
 
 

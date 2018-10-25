@@ -224,7 +224,7 @@
 // static member variable definitions
 // ===========================================================================
 
-GUIIconSubSys* GUIIconSubSys::myInstance = 0;
+GUIIconSubSys* GUIIconSubSys::myInstance = nullptr;
 
 // ===========================================================================
 // member definitions
@@ -430,7 +430,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
 
     // ... and create them
     for (int i = 0; i < ICON_MAX; i++) {
-        if (myIcons[i] != 0) {
+        if (myIcons[i] != nullptr) {
             myIcons[i]->create();
         }
     }
@@ -460,7 +460,7 @@ GUIIconSubSys::getIcon(GUIIcon which) {
 void
 GUIIconSubSys::close() {
     delete myInstance;
-    myInstance = 0;
+    myInstance = nullptr;
 }
 
 

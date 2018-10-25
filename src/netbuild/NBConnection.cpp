@@ -35,7 +35,7 @@
 // static members
 // ===========================================================================
 const int NBConnection::InvalidTlIndex = -1;
-const NBConnection NBConnection::InvalidConnection("invalidFrom", 0, "invalidTo", 0);
+const NBConnection NBConnection::InvalidConnection("invalidFrom", nullptr, "invalidTo", nullptr);
 
 // ===========================================================================
 // method definitions
@@ -67,7 +67,7 @@ NBConnection::NBConnection(NBEdge* from, int fromLane,
     assert(myToLane<0||to->getNumLanes()>(int) myToLane);
     */
     myFromID = from->getID();
-    myToID = to != 0 ? to->getID() : "";
+    myToID = to != nullptr ? to->getID() : "";
 }
 
 
@@ -98,7 +98,7 @@ bool
 NBConnection::replaceFrom(NBEdge* which, NBEdge* by) {
     if (myFrom == which) {
         myFrom = by;
-        if (myFrom != 0) {
+        if (myFrom != nullptr) {
             myFromID = myFrom->getID();
         } else {
             myFromID = "invalidFrom";
@@ -114,7 +114,7 @@ NBConnection::replaceFrom(NBEdge* which, int whichLane,
                           NBEdge* by, int byLane) {
     if (myFrom == which && (myFromLane == whichLane || myFromLane < 0 || whichLane < 0)) {
         myFrom = by;
-        if (myFrom != 0) {
+        if (myFrom != nullptr) {
             myFromID = myFrom->getID();
         } else {
             myFromID = "invalidFrom";
@@ -132,7 +132,7 @@ bool
 NBConnection::replaceTo(NBEdge* which, NBEdge* by) {
     if (myTo == which) {
         myTo = by;
-        if (myTo != 0) {
+        if (myTo != nullptr) {
             myToID = myTo->getID();
         } else {
             myToID = "invalidTo";
@@ -148,7 +148,7 @@ NBConnection::replaceTo(NBEdge* which, int whichLane,
                         NBEdge* by, int byLane) {
     if (myTo == which && (myToLane == whichLane || myFromLane < 0 || whichLane < 0)) {
         myTo = by;
-        if (myTo != 0) {
+        if (myTo != nullptr) {
             myToID = myTo->getID();
         } else {
             myToID = "invalidTo";
@@ -190,7 +190,7 @@ bool
 NBConnection::check(const NBEdgeCont& ec) {
     myFrom = checkFrom(ec);
     myTo = checkTo(ec);
-    return myFrom != 0 && myTo != 0;
+    return myFrom != nullptr && myTo != nullptr;
 }
 
 

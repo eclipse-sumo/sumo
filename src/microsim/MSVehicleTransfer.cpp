@@ -39,7 +39,7 @@
 // ===========================================================================
 // static member definitions
 // ===========================================================================
-MSVehicleTransfer* MSVehicleTransfer::myInstance = 0;
+MSVehicleTransfer* MSVehicleTransfer::myInstance = nullptr;
 const double MSVehicleTransfer::TeleportMinSpeed = 1;
 const std::set<const MSVehicle*> MSVehicleTransfer::myEmptyVehicleSet;
 
@@ -55,7 +55,7 @@ MSVehicleTransfer::add(const SUMOTime t, MSVehicle* veh) {
     } else {
         veh->getLaneChangeModel().endLaneChangeManeuver(MSMoveReminder::NOTIFICATION_TELEPORT);
         MSNet::getInstance()->informVehicleStateListener(veh, MSNet::VEHICLE_STATE_STARTING_TELEPORT);
-        if (veh->succEdge(1) == 0) {
+        if (veh->succEdge(1) == nullptr) {
             WRITE_WARNING("Vehicle '" + veh->getID() + "' teleports beyond arrival edge '" + veh->getEdge()->getID() + "', time " + time2string(t) + ".");
             veh->onRemovalFromNet(MSMoveReminder::NOTIFICATION_TELEPORT_ARRIVED);
             MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
@@ -123,17 +123,17 @@ MSVehicleTransfer::checkInsertions(SUMOTime time) {
             // get the lane on which this vehicle should continue
             // first select all the lanes which allow continuation onto nextEdge
             //   then pick the one which is least occupied
-            MSLane* l = (nextEdge != 0 ? e->getFreeLane(e->allowedLanes(*nextEdge, vclass), vclass, departPos) :
-                         e->getFreeLane(0, vclass, departPos));
+            MSLane* l = (nextEdge != nullptr ? e->getFreeLane(e->allowedLanes(*nextEdge, vclass), vclass, departPos) :
+                         e->getFreeLane(nullptr, vclass, departPos));
             // handle teleporting vehicles, lane may be 0 because permissions were modified by a closing rerouter or TraCI
-            if (l != 0 && l->freeInsertion(*(desc.myVeh), MIN2(l->getSpeedLimit(), desc.myVeh->getMaxSpeed()), 0, MSMoveReminder::NOTIFICATION_TELEPORT)) {
+            if (l != nullptr && l->freeInsertion(*(desc.myVeh), MIN2(l->getSpeedLimit(), desc.myVeh->getMaxSpeed()), 0, MSMoveReminder::NOTIFICATION_TELEPORT)) {
                 WRITE_WARNING("Vehicle '" + desc.myVeh->getID() + "' ends teleporting on edge '" + e->getID() + "', time " + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
                 MSNet::getInstance()->informVehicleStateListener(desc.myVeh, MSNet::VEHICLE_STATE_ENDING_TELEPORT);
                 i = myVehicles.erase(i);
             } else {
                 // could not insert. maybe we should proceed in virtual space
                 if (desc.myProceedTime < time) {
-                    if (desc.myVeh->succEdge(1) == 0) {
+                    if (desc.myVeh->succEdge(1) == nullptr) {
                         WRITE_WARNING("Vehicle '" + desc.myVeh->getID() + "' teleports beyond arrival edge '" + e->getID() + "', time " + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
                         desc.myVeh->leaveLane(MSMoveReminder::NOTIFICATION_TELEPORT_ARRIVED);
                         MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(desc.myVeh);
@@ -162,7 +162,7 @@ MSVehicleTransfer::hasPending() const {
 
 MSVehicleTransfer*
 MSVehicleTransfer::getInstance() {
-    if (myInstance == 0) {
+    if (myInstance == nullptr) {
         myInstance = new MSVehicleTransfer();
     }
     return myInstance;
@@ -173,7 +173,7 @@ MSVehicleTransfer::MSVehicleTransfer() {}
 
 
 MSVehicleTransfer::~MSVehicleTransfer() {
-    myInstance = 0;
+    myInstance = nullptr;
 }
 
 
@@ -194,14 +194,14 @@ MSVehicleTransfer::saveState(OutputDevice& out) const {
 void
 MSVehicleTransfer::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset, MSVehicleControl& vc) {
     MSVehicle* veh = dynamic_cast<MSVehicle*>(vc.getVehicle(attrs.getString(SUMO_ATTR_ID)));
-    if (veh == 0) {
+    if (veh == nullptr) {
         // deleted
         return;
     }
     SUMOTime proceedTime = (SUMOTime)attrs.getLong(SUMO_ATTR_DEPART);
-    MSLane* parkingLane = attrs.hasAttribute(SUMO_ATTR_PARKING) ? MSLane::dictionary(attrs.getString(SUMO_ATTR_PARKING)) : 0;
-    myVehicles.push_back(VehicleInformation(-1, veh, proceedTime - offset, parkingLane != 0));
-    if (parkingLane != 0) {
+    MSLane* parkingLane = attrs.hasAttribute(SUMO_ATTR_PARKING) ? MSLane::dictionary(attrs.getString(SUMO_ATTR_PARKING)) : nullptr;
+    myVehicles.push_back(VehicleInformation(-1, veh, proceedTime - offset, parkingLane != nullptr));
+    if (parkingLane != nullptr) {
         parkingLane->addParking(veh);
         veh->setTentativeLaneAndPosition(parkingLane, veh->getPositionOnLane());
         veh->processNextStop(veh->getSpeed());

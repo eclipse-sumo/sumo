@@ -273,7 +273,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         TrafficLightType type = SUMOXMLDefinitions::TrafficLightTypes.get(oc.getString("tls.default-type"));
         for (std::vector<std::string>::const_iterator i = tlControlledNodes.begin(); i != tlControlledNodes.end(); ++i) {
             NBNode* node = myNodeCont.retrieve(*i);
-            if (node == 0) {
+            if (node == nullptr) {
                 WRITE_WARNING("Building a tl-logic for junction '" + *i + "' is not possible." + "\n The junction '" + *i + "' is not known.");
             } else {
                 myNodeCont.setAsTLControlled(node, myTLLCont, type);
@@ -646,7 +646,7 @@ NBNetBuilder::transformCoordinate(Position& from, bool includeInBoundary, GeoCon
     bool ok = true;
     if (GeoConvHelper::getNumLoaded() > 1
             && GeoConvHelper::getLoaded().usingGeoProjection()
-            && from_srs != 0
+            && from_srs != nullptr
             && from_srs->usingGeoProjection()
             && *from_srs != GeoConvHelper::getLoaded()) {
         from_srs->cartesian2geo(from);
@@ -656,7 +656,7 @@ NBNetBuilder::transformCoordinate(Position& from, bool includeInBoundary, GeoCon
     if (ok) {
         const NBHeightMapper& hm = NBHeightMapper::get();
         if (hm.ready()) {
-            if (from_srs != 0 && from_srs->usingGeoProjection()) {
+            if (from_srs != nullptr && from_srs->usingGeoProjection()) {
                 from_srs->cartesian2geo(orig);
             }
             double z = hm.getZ(orig);

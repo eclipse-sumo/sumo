@@ -185,8 +185,8 @@ GNEPolygonFrame::ShapeAttributeSingle::ShapeAttributeSingle(ShapeAttributes* sha
     myShapeAttributesParent(shapeAttributesParent),
     myShapeAttr(SUMO_ATTR_NOTHING) {
     // Create visual elements
-    myLabel = new FXLabel(this, "name", 0, GUIDesignLabelAttribute);
-    myColorEditor = new FXButton(this, "ColorButton", 0, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
+    myLabel = new FXLabel(this, "name", nullptr, GUIDesignLabelAttribute);
+    myColorEditor = new FXButton(this, "ColorButton", nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
     myTextFieldInt = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE_TEXT, GUIDesignTextFieldInt);
     myTextFieldReal = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE_TEXT, GUIDesignTextFieldReal);
     myTextFieldStrings = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE_TEXT, GUIDesignTextField);
@@ -394,7 +394,7 @@ long GNEPolygonFrame::ShapeAttributeSingle::onCmdSetColorAttribute(FXObject*, FX
     // execute dialog to get a new color
     if (colordialog.execute()) {
         myTextFieldStrings->setText(toString(MFXUtils::getRGBColor(colordialog.getRGBA())).c_str());
-        onCmdSetAttribute(0, 0, 0);
+        onCmdSetAttribute(nullptr, 0, nullptr);
     }
     return 0;
 }
@@ -413,7 +413,7 @@ GNEPolygonFrame::ShapeAttributes::ShapeAttributes(GNEPolygonFrame* polygonFrameP
     }
 
     // Create help button
-    new FXButton(this, "Help", 0, this, MID_HELP, GUIDesignButtonRectangular);
+    new FXButton(this, "Help", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
 }
 
 
@@ -531,20 +531,20 @@ GNEPolygonFrame::NeteditAttributes::NeteditAttributes(GNEPolygonFrame* polygonFr
     FXGroupBox(polygonFrameParent->myContentFrame, "Netedit attributes", GUIDesignGroupBoxFrame) {
     // Create Frame for block movement label and checkBox (By default disabled)
     FXHorizontalFrame* blockMovement = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    myBlockMovementLabel = new FXLabel(blockMovement, "block move", 0, GUIDesignLabelAttribute);
+    myBlockMovementLabel = new FXLabel(blockMovement, "block move", nullptr, GUIDesignLabelAttribute);
     myBlockMovementCheckButton = new FXCheckButton(blockMovement, "false", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButtonAttribute);
     myBlockMovementCheckButton->setCheck(false);
     // Create Frame for block shape label and checkBox (By default disabled)
     myBlockShapeFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    myBlockShapeLabel = new FXLabel(myBlockShapeFrame, "block shape", 0, GUIDesignLabelAttribute);
+    myBlockShapeLabel = new FXLabel(myBlockShapeFrame, "block shape", nullptr, GUIDesignLabelAttribute);
     myBlockShapeCheckButton = new FXCheckButton(myBlockShapeFrame, "false", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButtonAttribute);
     // Create Frame for block close polygon and checkBox (By default disabled)
     myClosePolygonFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    myClosePolygonLabel = new FXLabel(myClosePolygonFrame, "Close shape", 0, GUIDesignLabelAttribute);
+    myClosePolygonLabel = new FXLabel(myClosePolygonFrame, "Close shape", nullptr, GUIDesignLabelAttribute);
     myClosePolygonCheckButton = new FXCheckButton(myClosePolygonFrame, "false", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButtonAttribute);
     myBlockShapeCheckButton->setCheck(false);
     // Create help button
-    new FXButton(this, "Help", 0, this, MID_HELP, GUIDesignButtonRectangular);
+    new FXButton(this, "Help", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
 }
 
 
@@ -631,7 +631,7 @@ GNEPolygonFrame::NeteditAttributes::onCmdHelp(FXObject*, FXSelector, void*) {
             << "- Close shape: If enabled, the created polygon element will be closed. i.e. the last created geometry point\n"
             << "  will be connected with the first geometry point automatically. This option can be modified inspecting element.";
     // Create label with the help text
-    new FXLabel(polygonNeteditAttributesHelpDialog, help.str().c_str(), 0, GUIDesignLabelFrameInformation);
+    new FXLabel(polygonNeteditAttributesHelpDialog, help.str().c_str(), nullptr, GUIDesignLabelFrameInformation);
     // Create horizontal separator
     new FXHorizontalSeparator(polygonNeteditAttributesHelpDialog, GUIDesignHorizontalSeparator);
     // Create frame for OK Button
@@ -664,9 +664,9 @@ GNEPolygonFrame::DrawingMode::DrawingMode(GNEPolygonFrame* polygonFrameParent) :
     myPolygonFrameParent(polygonFrameParent),
     myDeleteLastCreatedPoint(false) {
     // create start and stop buttons
-    myStartDrawingButton = new FXButton(this, "Start drawing", 0, this, MID_GNE_POLYGONFRAME_STARTDRAWING, GUIDesignButton);
-    myStopDrawingButton = new FXButton(this, "Stop drawing", 0, this, MID_GNE_POLYGONFRAME_STOPDRAWING, GUIDesignButton);
-    myAbortDrawingButton = new FXButton(this, "Abort drawing", 0, this, MID_GNE_POLYGONFRAME_ABORTDRAWING, GUIDesignButton);
+    myStartDrawingButton = new FXButton(this, "Start drawing", nullptr, this, MID_GNE_POLYGONFRAME_STARTDRAWING, GUIDesignButton);
+    myStopDrawingButton = new FXButton(this, "Stop drawing", nullptr, this, MID_GNE_POLYGONFRAME_STOPDRAWING, GUIDesignButton);
+    myAbortDrawingButton = new FXButton(this, "Abort drawing", nullptr, this, MID_GNE_POLYGONFRAME_ABORTDRAWING, GUIDesignButton);
 
     // create information label
     std::ostringstream information;
@@ -679,7 +679,7 @@ GNEPolygonFrame::DrawingMode::DrawingMode(GNEPolygonFrame* polygonFrameParent) :
             << "  removes last created point.\n"
             << "- 'Abort drawing' or ESC\n"
             << "  removes drawed polygon.";
-    myInformationLabel = new FXLabel(this, information.str().c_str(), 0, GUIDesignLabelFrameInformation);
+    myInformationLabel = new FXLabel(this, information.str().c_str(), nullptr, GUIDesignLabelFrameInformation);
     // disable stop and abort functions as init
     myStopDrawingButton->disable();
     myAbortDrawingButton->disable();
@@ -1002,7 +1002,7 @@ GNEPolygonFrame::addPolygon(const std::map<SumoXMLAttr, std::string>& polyValues
     double angle = GNEAttributeCarrier::parse<double>(polyValues.at(SUMO_ATTR_ANGLE));
     std::string imgFile = polyValues.at(SUMO_ATTR_IMGFILE);
     bool relativePath = GNEAttributeCarrier::parse<bool>(polyValues.at(SUMO_ATTR_RELATIVEPATH));
-    PositionVector shape = GeomConvHelper::parseShapeReporting(polyValues.at(SUMO_ATTR_SHAPE), "user-supplied position", 0, ok, true);
+    PositionVector shape = GeomConvHelper::parseShapeReporting(polyValues.at(SUMO_ATTR_SHAPE), "user-supplied position", nullptr, ok, true);
     bool fill = GNEAttributeCarrier::parse<bool>(polyValues.at(SUMO_ATTR_FILL));
     double lineWidth = GNEAttributeCarrier::parse<double>(polyValues.at(SUMO_ATTR_LINEWIDTH));
     // parse layer
@@ -1032,7 +1032,7 @@ GNEPolygonFrame::addPOI(const std::map<SumoXMLAttr, std::string>& POIValues) {
     std::string type = POIValues.at(SUMO_ATTR_TYPE);
     RGBColor color = RGBColor::parseColor(POIValues.at(SUMO_ATTR_COLOR));
     std::string layerStr = POIValues.at(SUMO_ATTR_LAYER);
-    Position pos = GeomConvHelper::parseShapeReporting(POIValues.at(SUMO_ATTR_POSITION), "netedit-given", 0, ok, false)[0];
+    Position pos = GeomConvHelper::parseShapeReporting(POIValues.at(SUMO_ATTR_POSITION), "netedit-given", nullptr, ok, false)[0];
     double angle = GNEAttributeCarrier::parse<double>(POIValues.at(SUMO_ATTR_ANGLE));
     std::string imgFile = POIValues.at(SUMO_ATTR_IMGFILE);
     bool relativePath = GNEAttributeCarrier::parse<bool>(POIValues.at(SUMO_ATTR_RELATIVEPATH));

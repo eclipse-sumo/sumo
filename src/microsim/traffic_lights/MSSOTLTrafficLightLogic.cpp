@@ -39,8 +39,8 @@ MSSOTLTrafficLightLogic::MSSOTLTrafficLightLogic(
     SUMOTime delay,
     const std::map<std::string, std::string>& parameters)
     : MSPhasedTrafficLightLogic(tlcontrol, id, subid, phases, step, delay, parameters) {
-    this->mySensors = NULL;
-    this->myCountSensors = NULL;
+    this->mySensors = nullptr;
+    this->myCountSensors = nullptr;
     sensorsSelfBuilt = true;
     checkPhases();
     setupCTS();

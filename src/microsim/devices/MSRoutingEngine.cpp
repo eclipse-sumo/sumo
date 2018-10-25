@@ -48,15 +48,15 @@
 // ===========================================================================
 std::vector<double> MSRoutingEngine::myEdgeSpeeds;
 std::vector<std::vector<double> > MSRoutingEngine::myPastEdgeSpeeds;
-Command* MSRoutingEngine::myEdgeWeightSettingCommand = 0;
+Command* MSRoutingEngine::myEdgeWeightSettingCommand = nullptr;
 double MSRoutingEngine::myAdaptationWeight;
 int MSRoutingEngine::myAdaptationSteps;
 int MSRoutingEngine::myAdaptationStepsIndex = 0;
 SUMOTime MSRoutingEngine::myAdaptationInterval = -1;
 SUMOTime MSRoutingEngine::myLastAdaptation = -1;
 bool MSRoutingEngine::myWithTaz;
-SUMOAbstractRouter<MSEdge, SUMOVehicle>* MSRoutingEngine::myRouter = 0;
-AStarRouter<MSEdge, SUMOVehicle, SUMOAbstractRouterPermissions<MSEdge, SUMOVehicle> >* MSRoutingEngine::myRouterWithProhibited = 0;
+SUMOAbstractRouter<MSEdge, SUMOVehicle>* MSRoutingEngine::myRouter = nullptr;
+AStarRouter<MSEdge, SUMOVehicle, SUMOAbstractRouterPermissions<MSEdge, SUMOVehicle> >* MSRoutingEngine::myRouterWithProhibited = nullptr;
 double MSRoutingEngine::myRandomizeWeightsFactor = 0;
 std::map<std::pair<const MSEdge*, const MSEdge*>, const MSRoute*> MSRoutingEngine::myCachedRoutes;
 #ifdef HAVE_FOX
@@ -111,7 +111,7 @@ MSRoutingEngine::initEdgeWeights() {
                 }
             }
             if (useLoaded) {
-                myEdgeSpeeds[edge->getNumericalID()] = edge->getLength() / MSNet::getTravelTime(edge, 0, currentSecond);
+                myEdgeSpeeds[edge->getNumericalID()] = edge->getLength() / MSNet::getTravelTime(edge, nullptr, currentSecond);
             } else {
                 myEdgeSpeeds[edge->getNumericalID()] = edge->getMeanSpeed();
             }
@@ -141,7 +141,7 @@ MSRoutingEngine::getEffort(const MSEdge* const e, const SUMOVehicle* const v, do
 
 double
 MSRoutingEngine::getAssumedSpeed(const MSEdge* edge) {
-    return edge->getLength() / getEffort(edge, 0, 0);
+    return edge->getLength() / getEffort(edge, nullptr, 0);
 }
 
 
@@ -214,11 +214,11 @@ MSRoutingEngine::getCachedRoute(const std::pair<const MSEdge*, const MSEdge*>& k
 void
 MSRoutingEngine::reroute(SUMOVehicle& vehicle, const SUMOTime currentTime, const bool onInit) {
 #ifdef HAVE_FOX
-    const bool needThread = (myRouter == 0 && myThreadPool.isFull());
+    const bool needThread = (myRouter == nullptr && myThreadPool.isFull());
 #else
     const bool needThread = true;
 #endif
-    if (needThread && myRouter == 0) {
+    if (needThread && myRouter == nullptr) {
         OptionsCont& oc = OptionsCont::getOptions();
         const std::string routingAlgorithm = oc.getString("routing-algorithm");
         const bool mayHaveRestrictions = MSNet::getInstance()->hasPermissions() || oc.getInt("remote-port") != 0;
@@ -289,7 +289,7 @@ MSRoutingEngine::reroute(SUMOVehicle& vehicle, const SUMOTime currentTime, const
             new WorkerThread(myThreadPool, myRouter);
         }
         if (myThreadPool.size() < numThreads) {
-            myRouter = 0;
+            myRouter = nullptr;
         }
     }
     if (myThreadPool.size() > 0) {
@@ -309,7 +309,7 @@ MSRoutingEngine::setEdgeTravelTime(const MSEdge* const edge, const double travel
 
 SUMOAbstractRouter<MSEdge, SUMOVehicle>&
 MSRoutingEngine::getRouterTT(const MSEdgeVector& prohibited) {
-    if (myRouterWithProhibited == 0) {
+    if (myRouterWithProhibited == nullptr) {
         initWeightUpdate();
         initEdgeWeights();
         myRouterWithProhibited = new AStarRouter<MSEdge, SUMOVehicle, SUMOAbstractRouterPermissions<MSEdge, SUMOVehicle> >(
@@ -323,19 +323,19 @@ MSRoutingEngine::getRouterTT(const MSEdgeVector& prohibited) {
 void
 MSRoutingEngine::cleanup() {
     delete myRouterWithProhibited;
-    myRouterWithProhibited = 0;
+    myRouterWithProhibited = nullptr;
 #ifdef HAVE_FOX
     if (myThreadPool.size() > 0) {
         // we cannot wait for the static destructor to do the cleanup
         // because the output devices are gone by then
         myThreadPool.clear();
         // router deletion is done in thread destructor
-        myRouter = 0;
+        myRouter = nullptr;
         return;
     }
 #endif
     delete myRouter;
-    myRouter = 0;
+    myRouter = nullptr;
 }
 
 

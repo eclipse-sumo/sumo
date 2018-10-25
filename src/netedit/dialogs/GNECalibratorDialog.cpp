@@ -71,7 +71,7 @@ GNECalibratorDialog::GNECalibratorDialog(GNECalibrator* editedCalibrator) :
     // create add buton and label for routes
     FXHorizontalFrame* buttonAndLabelRoute = new FXHorizontalFrame(columnLeft, GUIDesignAuxiliarHorizontalFrame);
     myAddRoute = new FXButton(buttonAndLabelRoute, "", GUIIconSubSys::getIcon(ICON_ADD), this, MID_GNE_CALIBRATORDIALOG_ADD_ROUTE, GUIDesignButtonIcon);
-    new FXLabel(buttonAndLabelRoute, ("Add new " + toString(SUMO_TAG_ROUTE) + "s").c_str(), 0, GUIDesignLabelThick);
+    new FXLabel(buttonAndLabelRoute, ("Add new " + toString(SUMO_TAG_ROUTE) + "s").c_str(), nullptr, GUIDesignLabelThick);
 
     // Create table in left frame
     myRouteList = new FXTable(columnLeft, this, MID_GNE_CALIBRATORDIALOG_TABLE_ROUTE, GUIDesignTableAdditionals);
@@ -82,7 +82,7 @@ GNECalibratorDialog::GNECalibratorDialog(GNECalibrator* editedCalibrator) :
     // create add buton and label for vehicle types
     FXHorizontalFrame* buttonAndLabelVehicleType = new FXHorizontalFrame(columnLeft, GUIDesignAuxiliarHorizontalFrame);
     myAddVehicleType = new FXButton(buttonAndLabelVehicleType, "", GUIIconSubSys::getIcon(ICON_ADD), this, MID_GNE_CALIBRATORDIALOG_ADD_VEHICLETYPE, GUIDesignButtonIcon);
-    new FXLabel(buttonAndLabelVehicleType, ("Add new " + toString(SUMO_TAG_VTYPE) + "s").c_str(), 0, GUIDesignLabelThick);
+    new FXLabel(buttonAndLabelVehicleType, ("Add new " + toString(SUMO_TAG_VTYPE) + "s").c_str(), nullptr, GUIDesignLabelThick);
 
     // Create table in left frame
     myVehicleTypeList = new FXTable(columnLeft, this, MID_GNE_CALIBRATORDIALOG_TABLE_VEHICLETYPE, GUIDesignTableAdditionals);
@@ -93,7 +93,7 @@ GNECalibratorDialog::GNECalibratorDialog(GNECalibrator* editedCalibrator) :
     // create add buton and label for flows in right frame
     FXHorizontalFrame* buttonAndLabelFlow = new FXHorizontalFrame(columnRight, GUIDesignAuxiliarHorizontalFrame);
     myAddFlow = new FXButton(buttonAndLabelFlow, "", GUIIconSubSys::getIcon(ICON_ADD), this, MID_GNE_CALIBRATORDIALOG_ADD_FLOW, GUIDesignButtonIcon);
-    myLabelFlow = new FXLabel(buttonAndLabelFlow, ("Add new " + toString(SUMO_TAG_FLOW) + "s").c_str(), 0, GUIDesignLabelThick);
+    myLabelFlow = new FXLabel(buttonAndLabelFlow, ("Add new " + toString(SUMO_TAG_FLOW) + "s").c_str(), nullptr, GUIDesignLabelThick);
 
     // Create table in right frame
     myFlowList = new FXTable(columnRight, this, MID_GNE_CALIBRATORDIALOG_TABLE_FLOW, GUIDesignTableAdditionals);
@@ -360,7 +360,7 @@ GNECalibratorDialog::updateRouteTable() {
     myRouteList->getRowHeader()->setWidth(0);
     // Declare index for rows and pointer to FXTableItem
     int indexRow = 0;
-    FXTableItem* item = 0;
+    FXTableItem* item = nullptr;
     // iterate over routes
     for (auto i : myEditedAdditional->getViewNet()->getNet()->getAdditionalByType(SUMO_TAG_ROUTE)) {
         // Set ID
@@ -399,7 +399,7 @@ GNECalibratorDialog::updateFlowTable() {
     myFlowList->getRowHeader()->setWidth(0);
     // Declare index for rows and pointer to FXTableItem
     int indexRow = 0;
-    FXTableItem* item = 0;
+    FXTableItem* item = nullptr;
     // iterate over flows
     for (auto i : myEditedAdditional->getAdditionalChilds()) {
         // Set vehicle type
@@ -438,7 +438,7 @@ GNECalibratorDialog::updateVehicleTypeTable() {
     myVehicleTypeList->getRowHeader()->setWidth(0);
     // Declare index for rows and pointer to FXTableItem
     int indexRow = 0;
-    FXTableItem* item = 0;
+    FXTableItem* item = nullptr;
     // iterate over vehicle types
     for (auto i : myEditedAdditional->getViewNet()->getNet()->getAdditionalByType(SUMO_TAG_VTYPE)) {
         // Set id
