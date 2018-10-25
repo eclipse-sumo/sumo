@@ -1340,7 +1340,8 @@ GNEViewNet::abortOperation(bool clearSelection) {
             myViewParent->getSelectorFrame()->clearCurrentSelection();
         }
     } else if (myEditMode == GNE_MODE_CONNECT) {
-        myViewParent->getConnectorFrame()->onCmdCancel(nullptr, 0, nullptr);
+        // abort changes in Connector Frame
+        myViewParent->getConnectorFrame()->getConnectionModifications()->onCmdCancelModifications(0, 0, 0);
     } else if (myEditMode == GNE_MODE_TLS) {
         myViewParent->getTLSEditorFrame()->onCmdCancel(nullptr, 0, nullptr);
     } else if (myEditMode == GNE_MODE_MOVE) {
@@ -1387,7 +1388,8 @@ GNEViewNet::hotkeyDel() {
 void
 GNEViewNet::hotkeyEnter() {
     if (myEditMode == GNE_MODE_CONNECT) {
-        myViewParent->getConnectorFrame()->onCmdOK(nullptr, 0, nullptr);
+        // Accept changes in Connector Frame
+        myViewParent->getConnectorFrame()->getConnectionModifications()->onCmdSaveModifications(0, 0, 0);
     } else if (myEditMode == GNE_MODE_TLS) {
         myViewParent->getTLSEditorFrame()->onCmdOK(nullptr, 0, nullptr);
     } else if ((myEditMode == GNE_MODE_MOVE) && (myEditShapePoly != nullptr)) {
