@@ -7,7 +7,7 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    GNETAZEdge.cpp
+/// @file    GNETAZSink.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Apr 2017
 /// @version $Id$
@@ -26,7 +26,7 @@
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/GNEUndoList.h>
 
-#include "GNETAZEdge.h"
+#include "GNETAZSink.h"
 #include "GNETAZ.h"
 
 
@@ -34,55 +34,55 @@
 // member method definitions
 // ===========================================================================
 
-GNETAZEdge::GNETAZEdge(GNEAdditional* TAZParent, GNEEdge* edge, double departWeight, double arrivalWeight) :
-    GNEAdditional(TAZParent, TAZParent->getViewNet(), GLO_TAZ, SUMO_TAG_TAZEDGE, "", false),
+GNETAZSink::GNETAZSink(GNEAdditional* TAZParent, GNEEdge* edge, double departWeight, double arrivalWeight) :
+    GNEAdditional(TAZParent, TAZParent->getViewNet(), GLO_TAZ, SUMO_TAG_TAZSINK, "", false),
     myEdge(edge),
     myDepartWeight(departWeight),
     myArrivalWeight(arrivalWeight) {
 }
 
 
-GNETAZEdge::~GNETAZEdge() {}
+GNETAZSink::~GNETAZSink() {}
 
 
 void
-GNETAZEdge::moveGeometry(const Position&) {
+GNETAZSink::moveGeometry(const Position&) {
     // This additional cannot be moved
 }
 
 
 void
-GNETAZEdge::commitGeometryMoving(GNEUndoList*) {
+GNETAZSink::commitGeometryMoving(GNEUndoList*) {
     // This additional cannot be moved
 }
 
 
 void
-GNETAZEdge::updateGeometry(bool /*updateGrid*/) {
+GNETAZSink::updateGeometry(bool /*updateGrid*/) {
     // Currently this additional doesn't own a Geometry
 }
 
 
 Position
-GNETAZEdge::getPositionInView() const {
+GNETAZSink::getPositionInView() const {
     return myFirstAdditionalParent->getPositionInView();
 }
 
 
 std::string
-GNETAZEdge::getParentName() const {
+GNETAZSink::getParentName() const {
     return myFirstAdditionalParent->getID();
 }
 
 
 void
-GNETAZEdge::drawGL(const GUIVisualizationSettings&) const {
+GNETAZSink::drawGL(const GUIVisualizationSettings&) const {
     // Currently This additional isn't drawn
 }
 
 
 std::string
-GNETAZEdge::getAttribute(SumoXMLAttr key) const {
+GNETAZSink::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
             return getAdditionalID();
@@ -103,7 +103,7 @@ GNETAZEdge::getAttribute(SumoXMLAttr key) const {
 
 
 void
-GNETAZEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
+GNETAZSink::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     // this additional is the only that can edit a variable directly, see GNEAdditionalHandler::buildTAZEdge(...)
     if(undoList == nullptr) {
         setAttribute(key, value);
@@ -126,7 +126,7 @@ GNETAZEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList*
 
 
 bool
-GNETAZEdge::isValid(SumoXMLAttr key, const std::string& value) {
+GNETAZSink::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             return isValidAdditionalID(value);
@@ -142,13 +142,13 @@ GNETAZEdge::isValid(SumoXMLAttr key, const std::string& value) {
 
 
 std::string
-GNETAZEdge::getPopUpID() const {
+GNETAZSink::getPopUpID() const {
     return toString(getTag());
 }
 
 
 std::string
-GNETAZEdge::getHierarchyName() const {
+GNETAZSink::getHierarchyName() const {
     return toString(getTag()) + ": " + getAttribute(GNE_ATTR_TAZ_DEPARTWEIGHT) + "-" + getAttribute(GNE_ATTR_TAZ_ARRIVALWEIGHT);
 }
 
@@ -157,7 +157,7 @@ GNETAZEdge::getHierarchyName() const {
 // ===========================================================================
 
 void
-GNETAZEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
+GNETAZSink::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             changeAdditionalID(value);

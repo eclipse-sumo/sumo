@@ -2243,7 +2243,27 @@ GNEAttributeCarrier::fillAttributeCarriers() {
                                                "List of edges of the TAZ",
                                                "");
     }
-    currentTag = SUMO_TAG_TAZEDGE;
+    currentTag = SUMO_TAG_TAZSOURCE;
+    {
+        // set values of tag
+        myAllowedTags[currentTag] = TagValues(TAGPROPERTY_TAZ | TAGPROPERTY_PARENT, taz, ICON_TAZEDGE, SUMO_TAG_TAZ);
+        // set values of attributes
+        myAllowedTags[currentTag].addAttribute(SUMO_ATTR_ID,
+                                               ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
+                                               "The id of edge in the simulation network",
+                                               "");
+        myAllowedTags[currentTag].addAttribute(GNE_ATTR_TAZ_DEPARTWEIGHT,
+                                               ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_SYNONYM,
+                                               "Depart weight associated to this Edge",
+                                               "0",
+                                               SUMO_ATTR_WEIGHT);
+        myAllowedTags[currentTag].addAttribute(GNE_ATTR_TAZ_ARRIVALWEIGHT,
+                                               ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_SYNONYM,
+                                               "Arrival weight associated to this Edget",
+                                               "0",
+                                               SUMO_ATTR_WEIGHT);
+    }
+    currentTag = SUMO_TAG_TAZSINK;
     {
         // set values of tag
         myAllowedTags[currentTag] = TagValues(TAGPROPERTY_TAZ | TAGPROPERTY_PARENT, taz, ICON_TAZEDGE, SUMO_TAG_TAZ);

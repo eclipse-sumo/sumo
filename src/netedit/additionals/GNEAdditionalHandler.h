@@ -95,12 +95,19 @@ public:
      */
     void parseAndBuildTAZ(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
 
-    /**@brief Builds a TAZ Edge
+    /**@brief Builds a TAZ Source
      * @param[in] attrs SAX-attributes which define the vaporizer
      * @param[in] tag of the additional
      * @note recheck throwing the exception
      */
-    void parseAndBuildTAZEdge(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
+    void parseAndBuildTAZSource(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
+
+    /**@brief Builds a TAZ Sink
+     * @param[in] attrs SAX-attributes which define the vaporizer
+     * @param[in] tag of the additional
+     * @note recheck throwing the exception
+     */
+    void parseAndBuildTAZSink(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
 
     /**@brief Parses his values and builds a Variable Speed Signal (lane speed trigger)
      * @param[in] attrs SAX-attributes which define the trigger
@@ -666,18 +673,31 @@ public:
      */
     static GNEAdditional* buildTAZ(GNEViewNet* viewNet, bool allowUndoRedo, const std::string &id, const PositionVector &shape, const RGBColor &color, const std::vector<std::string> &edgeIDs, bool blockMovement);
 
-    /**@brief Builds a TAZEdge (Traffic Assignment Zone)
+    /**@brief Builds a TAZSource (Traffic Assignment Zone)
      * @param[in] viewNet viewNet in which element will be inserted
      * @param[in] allowUndoRedo enable or disable remove created additional with ctrl + Z / ctrl + Y
-     * @param[in] tagEdgeType check what kind of TAZ is build (GNETAZEdge, tazSource or tazSink)
-     * @param[in] TAZ Traffic Assignment Zone in which this TAZEdge is palced
-     * @param[in] ege edge in which TAZEdge is placed
-     * @param[in] departWeight depart weight of TAZEdge
-     * @param[in] arrivalWeight arrival weight of TAZEdge
+     * @param[in] tagEdgeType check what kind of TAZ is build (GNETAZSource, tazSource or tazSink)
+     * @param[in] TAZ Traffic Assignment Zone in which this TAZSource is palced
+     * @param[in] ege edge in which TAZSource is placed
+     * @param[in] departWeight depart weight of TAZSource
+     * @param[in] arrivalWeight arrival weight of TAZSource
      * @return true if was sucesfully created, false in other case
      * @exception ProcessError If the XML definition file is errornous
      */
-    static GNEAdditional* buildTAZEdge(GNEViewNet* viewNet, bool allowUndoRedo, const SumoXMLTag& tagEdgeType, GNEAdditional *TAZ, GNEEdge *edge, double departWeight, double arrivalWeight);
+    static GNEAdditional* buildTAZSource(GNEViewNet* viewNet, bool allowUndoRedo, const SumoXMLTag& tagEdgeType, GNEAdditional *TAZ, GNEEdge *edge, double departWeight, double arrivalWeight);
+
+    /**@brief Builds a TAZSink (Traffic Assignment Zone)
+     * @param[in] viewNet viewNet in which element will be inserted
+     * @param[in] allowUndoRedo enable or disable remove created additional with ctrl + Z / ctrl + Y
+     * @param[in] tagEdgeType check what kind of TAZ is build (GNETAZSink, tazSource or tazSink)
+     * @param[in] TAZ Traffic Assignment Zone in which this TAZSink is palced
+     * @param[in] ege edge in which TAZSink is placed
+     * @param[in] departWeight depart weight of TAZSink
+     * @param[in] arrivalWeight arrival weight of TAZSink
+     * @return true if was sucesfully created, false in other case
+     * @exception ProcessError If the XML definition file is errornous
+     */
+    static GNEAdditional* buildTAZSink(GNEViewNet* viewNet, bool allowUndoRedo, const SumoXMLTag& tagEdgeType, GNEAdditional *TAZ, GNEEdge *edge, double departWeight, double arrivalWeight);
 
     /**@brief Helper method to obtain the filename
      * @param[in] attrs The attributes to obtain the file name from

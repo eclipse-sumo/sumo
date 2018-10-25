@@ -128,8 +128,6 @@ enum SumoXMLTag {
     SUMO_TAG_SOURCE,
     /// @brief a traffic assignment zone
     SUMO_TAG_TAZ,
-    /// @brief a traffic assignment zone specific for edges (used in Netedit)
-    SUMO_TAG_TAZEDGE,
     /// @brief a source within a district (connection road)
     SUMO_TAG_TAZSOURCE,
     /// @brief a sink within a district (connection road)

@@ -7,15 +7,15 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    GNETAZEdge.h
+/// @file    GNETAZSink.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Apr 2017
 /// @version $Id$
 ///
 //
 /****************************************************************************/
-#ifndef GNETAZEdge_h
-#define GNETAZEdge_h
+#ifndef GNETAZSink_h
+#define GNETAZSink_h
 
 
 // ===========================================================================
@@ -40,17 +40,17 @@ class GNEEdge;
 // class definitions
 // ===========================================================================
 /**
- * @class GNETAZEdge
+ * @class GNETAZSink
  * class used to represent a interval used in Traffic Assignment Zones
  */
-class GNETAZEdge : public GNEAdditional {
+class GNETAZSink : public GNEAdditional {
 
 public:
     /// @brief constructor
-    GNETAZEdge(GNEAdditional* TAZParent, GNEEdge* edge, double departWeight, double arrivalWeight);
+    GNETAZSink(GNEAdditional* TAZParent, GNEEdge* edge, double departWeight, double arrivalWeight);
 
     /// @brief destructor
-    ~GNETAZEdge();
+    ~GNETAZSink();
 
     /// @name Functions related with geometry of element
     /// @{
@@ -130,10 +130,10 @@ private:
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
     /// @brief Invalidated copy constructor.
-    GNETAZEdge(const GNETAZEdge&) = delete;
+    GNETAZSink(const GNETAZSink&) = delete;
 
     /// @brief Invalidated assignment operator
-    GNETAZEdge& operator=(const GNETAZEdge&) = delete;
+    GNETAZSink& operator=(const GNETAZSink&) = delete;
 };
 
 #endif

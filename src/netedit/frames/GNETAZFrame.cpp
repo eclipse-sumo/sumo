@@ -36,7 +36,8 @@
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNELane.h>
 #include <netedit/additionals/GNETAZ.h>
-#include <netedit/additionals/GNETAZEdge.h>
+#include <netedit/additionals/GNETAZSink.h>
+#include <netedit/additionals/GNETAZSource.h>
 #include <netedit/additionals/GNEAdditionalHandler.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEAttributeCarrier.h>
@@ -185,11 +186,13 @@ GNETAZFrame::EdgesTAZSelector::selectEdge(GNEEdge *edge) {
         // enable save and cancel buttons
         myTAZFrameParent->mySaveTAZEdges->enableButtons();
         // if edge was found, that means that GNETAZEdge doesn't exist, then create it
+/*
         GNETAZEdge* TAZEdge = new GNETAZEdge(myTAZFrameParent->getCurrentTAZ()->getTAZ(), edge, 0, 0);
         // create a GNEChange_Additional command, but without adding it into UndoList
         myTAZFrameParent->myViewNet->getUndoList()->add(new GNEChange_Additional(TAZEdge, true), true);
         // update EdgeTAZ Rows (don't use updateList due flickering)
         myEdgeTAZRows.push_back(new EdgeTAZRow(this, TAZEdge, edge));
+*/
         // hide myCurrentEdgesLabel (because at least there is a EdgeTAZRow)
         myCurrentEdgesLabel->hide();
         // recalc frame
@@ -433,7 +436,7 @@ GNETAZFrame::TAZParameters::TAZParameters(GNETAZFrame* TAZFrameParent) :
     myTextFieldColor->setText("blue");
     // create Label and CheckButton for use innen edges with true as default value
     FXHorizontalFrame* useInnenEdges = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    FXLabel* useInnenEdgesLabel = new FXLabel(useInnenEdges, "Innen Edges", 0, GUIDesignLabelAttribute);
+    new FXLabel(useInnenEdges, "Innen Edges", 0, GUIDesignLabelAttribute);
     myUseInnenEdgesCheckButton = new FXCheckButton(useInnenEdges, "true", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButtonAttribute);
     myUseInnenEdgesCheckButton->setCheck(true);
     // Create help button
@@ -510,7 +513,7 @@ GNETAZFrame::TAZParameters::onCmdSetAttribute(FXObject*, FXSelector, void*) {
         currentParametersValid = false;
     }
     // change useInnenEdgesCheckButton text
-    if(myUseInnenEdgesCheckButton->getCheck() == true) {
+    if(myUseInnenEdgesCheckButton->getCheck() == TRUE) {
         myUseInnenEdgesCheckButton->setText("true");
     } else {
         myUseInnenEdgesCheckButton->setText("false");
