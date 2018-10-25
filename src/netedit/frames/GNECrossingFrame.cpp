@@ -575,8 +575,10 @@ GNECrossingFrame::addCrossing(const GNEViewNet::ObjectsUnderCursor &objectsUnder
 
 void 
 GNECrossingFrame::createCrossingHotkey() {
-    // simply call onCmdCreateCrossing of CreateCrossing modul
-    myCreateCrossing->onCmdCreateCrossing(0,0,0);
+    if (myEdgeSelector->getCurrentJunction()) {
+        // simply call onCmdCreateCrossing of CreateCrossing modul
+        myCreateCrossing->onCmdCreateCrossing(0,0,0);
+    }
 }
 
 /****************************************************************************/

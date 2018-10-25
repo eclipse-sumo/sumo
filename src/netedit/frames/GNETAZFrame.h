@@ -110,13 +110,16 @@ public:
 
         public:
             /// @brief constructor
-            EdgeTAZRow(EdgesTAZSelector *edgesTAZSelector, GNEAdditional *TAZEdge, GNEEdge *edge);
+            EdgeTAZRow(EdgesTAZSelector *edgesTAZSelector, GNEEdge *edge, GNEAdditional *TAZSource, GNEAdditional *TAZSink);
 
             /// @brief destructor
             ~EdgeTAZRow();
 
-            /// @brief pointer to associated TAZEdge
-            GNEAdditional *getEditedTAZEdge() const;
+            /// @brief pointer to associated TAZSource
+            GNEAdditional *getEditedTAZSource() const;
+
+            /// @brief pointer to associated TAZSink
+            GNEAdditional *getEditedTAZSink() const;
 
             /// @brief get remove button
             FXButton *getRemoveButton() const;
@@ -134,10 +137,13 @@ public:
             /// @brief pointer to Edges TAZSelector Parent
             EdgesTAZSelector *myEdgesTAZSelectorParent;
 
-            /// @brief pointer to edited TAZEdge
-            GNEAdditional *myEditedTAZEdge;
+            /// @brief pointer to edited TAZ Source
+            GNEAdditional *myEditedTAZSource;
 
-            /// @brief pointer to TAZEdge's edge
+            /// @brief pointer to edited TAZ Sink
+            GNEAdditional *myEditedTAZSink;
+
+            /// @brief pointer to Parent's edge
             GNEEdge *myEdge;
 
             /// @brief edge label

@@ -267,7 +267,6 @@ GNEAdditionalHandler::parseAndBuildTAZSource(const SUMOSAXAttributes& attrs, con
     // parse attributes of Vaporizer
     const std::string edgeID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_ID, abort);
     const double departWeight = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, edgeID, tag, SUMO_ATTR_WEIGHT, abort);
-    const double arrivalWeight = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, edgeID, tag, SUMO_ATTR_WEIGHT, abort);
     // Continue if all parameters were successfully loaded
     if (!abort) {
         // get edge and TAZ
@@ -279,7 +278,7 @@ GNEAdditionalHandler::parseAndBuildTAZSource(const SUMOSAXAttributes& attrs, con
         } else if (TAZ == nullptr) {
             WRITE_WARNING("A " + toString(tag) + " must be declared within the definition of a " + toString(SUMO_TAG_TAZ) + ".");
         } else {
-            myLastInsertedAdditional = buildTAZSource(myViewNet, myUndoAdditionals, tag, TAZ, edge, departWeight, arrivalWeight);
+            myLastInsertedAdditional = buildTAZSource(myViewNet, myUndoAdditionals, tag, TAZ, edge, departWeight);
             // save ID of last created element
             myParentElements.commitElementInsertion(myLastInsertedAdditional->getID());
         }
@@ -292,7 +291,6 @@ GNEAdditionalHandler::parseAndBuildTAZSink(const SUMOSAXAttributes& attrs, const
     bool abort = false;
     // parse attributes of Vaporizer
     const std::string edgeID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_ID, abort);
-    const double departWeight = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, edgeID, tag, SUMO_ATTR_WEIGHT, abort);
     const double arrivalWeight = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, edgeID, tag, SUMO_ATTR_WEIGHT, abort);
     // Continue if all parameters were successfully loaded
     if (!abort) {
@@ -305,7 +303,7 @@ GNEAdditionalHandler::parseAndBuildTAZSink(const SUMOSAXAttributes& attrs, const
         } else if (TAZ == nullptr) {
             WRITE_WARNING("A " + toString(tag) + " must be declared within the definition of a " + toString(SUMO_TAG_TAZ) + ".");
         } else {
-            myLastInsertedAdditional = buildTAZSink(myViewNet, myUndoAdditionals, tag, TAZ, edge, departWeight, arrivalWeight);
+            myLastInsertedAdditional = buildTAZSink(myViewNet, myUndoAdditionals, tag, TAZ, edge, arrivalWeight);
             // save ID of last created element
             myParentElements.commitElementInsertion(myLastInsertedAdditional->getID());
         }
@@ -2209,15 +2207,30 @@ GNEAdditionalHandler::buildTAZ(GNEViewNet* viewNet, bool allowUndoRedo, const st
 
 
 GNEAdditional* 
-GNEAdditionalHandler::buildTAZSource(GNEViewNet* viewNet, bool allowUndoRedo, const SumoXMLTag& tagEdgeType, GNEAdditional *TAZ, GNEEdge *edge, double departWeight, double arrivalWeight) {
-    // first check if TAZSource exist
+GNEAdditionalHandler::buildTAZSource(GNEViewNet* viewNet, bool allowUndoRedo, const SumoXMLTag& tagEdgeType, GNEAdditional *TAZ, GNEEdge *edge, double departWeight) {
+    // first check if a TAZSink in the same edge for the same TAZ
+    GNEAdditional *TAZSink = viewNet->getNet()->retrieveAdditional(SUMO_TAG_TAZSINK, edge->getID(), false);
+    // check if TAZSink has to be created
+    if(TAZSink == nullptr) {
+        // Create TAZ with weight 0 (default)
+        TAZSink = new GNETAZSink(TAZ, edge, 0);
+        if (allowUndoRedo) {
+            viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_TAZSINK));
+            viewNet->getUndoList()->add(new GNEChange_Additional(TAZSink, true), true);
+            viewNet->getUndoList()->p_end();
+        } else {
+            viewNet->getNet()->insertAdditional(TAZSink);
+            TAZ->incRef("buildTAZSink");
+        }
+    }
+    // now check check if TAZSource exist
     GNEAdditional *TAZSource = viewNet->getNet()->retrieveAdditional(SUMO_TAG_TAZSOURCE, edge->getID(), false);
     // check if TAZSource has to be created
     if(TAZSource == nullptr) {
         // Create TAZ only with departWeight
         TAZSource = new GNETAZSource(TAZ, edge, departWeight);
         if (allowUndoRedo) {
-            viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_TAZ));
+            viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_TAZSOURCE));
             viewNet->getUndoList()->add(new GNEChange_Additional(TAZSource, true), true);
             viewNet->getUndoList()->p_end();
         } else {
@@ -2227,7 +2240,7 @@ GNEAdditionalHandler::buildTAZSource(GNEViewNet* viewNet, bool allowUndoRedo, co
     } else {
         // update TAZ Attribute
         if (allowUndoRedo) {
-            viewNet->getUndoList()->p_begin("update " + toString(SUMO_TAG_TAZ));
+            viewNet->getUndoList()->p_begin("update " + toString(SUMO_TAG_TAZSOURCE));
             TAZSource->setAttribute(SUMO_ATTR_WEIGHT, toString(departWeight), viewNet->getUndoList());
             viewNet->getUndoList()->p_end();
         } else {
@@ -2240,15 +2253,30 @@ GNEAdditionalHandler::buildTAZSource(GNEViewNet* viewNet, bool allowUndoRedo, co
 
 
 GNEAdditional* 
-GNEAdditionalHandler::buildTAZSink(GNEViewNet* viewNet, bool allowUndoRedo, const SumoXMLTag& tagEdgeType, GNEAdditional *TAZ, GNEEdge *edge, double departWeight, double arrivalWeight) {
-    // first check if TAZSink exist
+GNEAdditionalHandler::buildTAZSink(GNEViewNet* viewNet, bool allowUndoRedo, const SumoXMLTag& tagEdgeType, GNEAdditional *TAZ, GNEEdge *edge, double arrivalWeight) {
+    // first check if a TAZSource in the same edge for the same TAZ
+    GNEAdditional *TAZSource = viewNet->getNet()->retrieveAdditional(SUMO_TAG_TAZSOURCE, edge->getID(), false);
+    // check if TAZSource has to be created
+    if(TAZSource == nullptr) {
+        // Create TAZ with empty value
+        TAZSource = new GNETAZSource(TAZ, edge, 0);
+        if (allowUndoRedo) {
+            viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_TAZSOURCE));
+            viewNet->getUndoList()->add(new GNEChange_Additional(TAZSource, true), true);
+            viewNet->getUndoList()->p_end();
+        } else {
+            viewNet->getNet()->insertAdditional(TAZSource);
+            TAZ->incRef("buildTAZSource");
+        }
+    }
+    // now create TAZ Sink, but first check if TAZ already exists
     GNEAdditional *TAZSink = viewNet->getNet()->retrieveAdditional(SUMO_TAG_TAZSINK, edge->getID(), false);
     // check if TAZSink has to be created
     if(TAZSink == nullptr) {
         // Create TAZ only with arrivalWeight
         TAZSink = new GNETAZSink(TAZ, edge, arrivalWeight);
         if (allowUndoRedo) {
-            viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_TAZ));
+            viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_TAZSINK));
             viewNet->getUndoList()->add(new GNEChange_Additional(TAZSink, true), true);
             viewNet->getUndoList()->p_end();
         } else {
@@ -2258,7 +2286,7 @@ GNEAdditionalHandler::buildTAZSink(GNEViewNet* viewNet, bool allowUndoRedo, cons
     } else {
         // update TAZ Attribute
         if (allowUndoRedo) {
-            viewNet->getUndoList()->p_begin("update " + toString(SUMO_TAG_TAZ));
+            viewNet->getUndoList()->p_begin("update " + toString(SUMO_TAG_TAZSINK));
             TAZSink->setAttribute(SUMO_ATTR_WEIGHT, toString(arrivalWeight), viewNet->getUndoList());
             viewNet->getUndoList()->p_end();
         } else {
