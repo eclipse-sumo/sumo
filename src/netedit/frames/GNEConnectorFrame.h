@@ -52,7 +52,6 @@ public:
     private:
         /// @brief Label for current Lane
         FXLabel* myCurrentLaneLabel;
-
     };
 
     // ===========================================================================
@@ -178,7 +177,6 @@ public:
 
         /// @brief hold control label
         FXLabel* myHoldControlLabel;
-
     };
 
     // ===========================================================================
@@ -258,8 +256,7 @@ public:
     /// @brief get pointer to ConnectionModifications modul
     ConnectionModifications *getConnectionModifications() const;
 
-protected:
-
+private:
     /// @brief the status of a target lane
     enum LaneStatus {
         UNCONNECTED,
