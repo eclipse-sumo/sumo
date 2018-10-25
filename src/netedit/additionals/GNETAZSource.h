@@ -47,7 +47,7 @@ class GNETAZSource : public GNEAdditional {
 
 public:
     /// @brief constructor
-    GNETAZSource(GNEAdditional* TAZParent, GNEEdge* edge, double departWeight, double arrivalWeight);
+    GNETAZSource(GNEAdditional* TAZParent, GNEEdge* edge, double departWeight);
 
     /// @brief destructor
     ~GNETAZSource();
@@ -121,9 +121,6 @@ protected:
 
     /// @brief depart Weight
     double myDepartWeight;
-
-    /// @brief arrival Weight
-    double myArrivalWeight;
 
 private:
     /// @brief method for setting the attribute and nothing else

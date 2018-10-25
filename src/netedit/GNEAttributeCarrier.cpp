@@ -2252,16 +2252,10 @@ GNEAttributeCarrier::fillAttributeCarriers() {
                                                ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
                                                "The id of edge in the simulation network",
                                                "");
-        myAllowedTags[currentTag].addAttribute(GNE_ATTR_TAZ_DEPARTWEIGHT,
-                                               ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_SYNONYM,
+        myAllowedTags[currentTag].addAttribute(SUMO_ATTR_WEIGHT,
+                                               ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE,
                                                "Depart weight associated to this Edge",
-                                               "0",
-                                               SUMO_ATTR_WEIGHT);
-        myAllowedTags[currentTag].addAttribute(GNE_ATTR_TAZ_ARRIVALWEIGHT,
-                                               ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_SYNONYM,
-                                               "Arrival weight associated to this Edget",
-                                               "0",
-                                               SUMO_ATTR_WEIGHT);
+                                               "0");
     }
     currentTag = SUMO_TAG_TAZSINK;
     {
@@ -2272,16 +2266,10 @@ GNEAttributeCarrier::fillAttributeCarriers() {
                                                ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
                                                "The id of edge in the simulation network",
                                                "");
-        myAllowedTags[currentTag].addAttribute(GNE_ATTR_TAZ_DEPARTWEIGHT,
-                                               ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_SYNONYM,
-                                               "Depart weight associated to this Edge",
-                                               "0",
-                                               SUMO_ATTR_WEIGHT);
-        myAllowedTags[currentTag].addAttribute(GNE_ATTR_TAZ_ARRIVALWEIGHT,
-                                               ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_SYNONYM,
+        myAllowedTags[currentTag].addAttribute(SUMO_ATTR_WEIGHT,
+                                               ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE,
                                                "Arrival weight associated to this Edget",
-                                               "0",
-                                               SUMO_ATTR_WEIGHT);
+                                               "0");
     }
     currentTag = SUMO_TAG_VTYPE;
     {

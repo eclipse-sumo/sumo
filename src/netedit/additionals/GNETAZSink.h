@@ -47,7 +47,7 @@ class GNETAZSink : public GNEAdditional {
 
 public:
     /// @brief constructor
-    GNETAZSink(GNEAdditional* TAZParent, GNEEdge* edge, double departWeight, double arrivalWeight);
+    GNETAZSink(GNEAdditional* TAZParent, GNEEdge* edge, double arrivalWeight);
 
     /// @brief destructor
     ~GNETAZSink();
@@ -118,9 +118,6 @@ public:
 protected:
     /// @brief edge
     GNEEdge *myEdge;
-
-    /// @brief depart Weight
-    double myDepartWeight;
 
     /// @brief arrival Weight
     double myArrivalWeight;

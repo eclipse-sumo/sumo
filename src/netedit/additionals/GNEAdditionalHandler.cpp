@@ -2183,10 +2183,10 @@ GNEAdditionalHandler::buildTAZ(GNEViewNet* viewNet, bool allowUndoRedo, const st
         // create TAZEdges
         for (auto i : edgeIDs) {
             // create TAZ Source using GNEChange_Additional
-            GNETAZSource* TAZSource = new GNETAZSource(TAZ, viewNet->getNet()->retrieveEdge(i), 0, 0);
+            GNETAZSource* TAZSource = new GNETAZSource(TAZ, viewNet->getNet()->retrieveEdge(i), 0);
             viewNet->getUndoList()->add(new GNEChange_Additional(TAZSource, true), true);
             // create TAZ Sink using GNEChange_Additional
-            GNETAZSink* TAZSink = new GNETAZSink(TAZ, viewNet->getNet()->retrieveEdge(i), 0, 0);
+            GNETAZSink* TAZSink = new GNETAZSink(TAZ, viewNet->getNet()->retrieveEdge(i), 0);
             viewNet->getUndoList()->add(new GNEChange_Additional(TAZSink, true), true);
         }
         viewNet->getUndoList()->p_end();
@@ -2195,11 +2195,11 @@ GNEAdditionalHandler::buildTAZ(GNEViewNet* viewNet, bool allowUndoRedo, const st
         TAZ->incRef("buildTAZ");
         for (auto i : edgeIDs) {
             // create TAZ Source
-            GNETAZSource* TAZSource = new GNETAZSource(TAZ, viewNet->getNet()->retrieveEdge(i), 0, 0);
+            GNETAZSource* TAZSource = new GNETAZSource(TAZ, viewNet->getNet()->retrieveEdge(i), 0);
             TAZSource->incRef("buildTAZ");
             TAZ->addAdditionalChild(TAZSource);
             // create TAZ Sink
-            GNETAZSink* TAZSink = new GNETAZSink(TAZ, viewNet->getNet()->retrieveEdge(i), 0, 0);
+            GNETAZSink* TAZSink = new GNETAZSink(TAZ, viewNet->getNet()->retrieveEdge(i), 0);
             TAZSink->incRef("buildTAZ");
             TAZ->addAdditionalChild(TAZSink);
         }
@@ -2215,7 +2215,7 @@ GNEAdditionalHandler::buildTAZSource(GNEViewNet* viewNet, bool allowUndoRedo, co
     // check if TAZSource has to be created
     if(TAZSource == nullptr) {
         // Create TAZ only with departWeight
-        TAZSource = new GNETAZSource(TAZ, edge, departWeight, 0);
+        TAZSource = new GNETAZSource(TAZ, edge, departWeight);
         if (allowUndoRedo) {
             viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_TAZ));
             viewNet->getUndoList()->add(new GNEChange_Additional(TAZSource, true), true);
@@ -2228,10 +2228,10 @@ GNEAdditionalHandler::buildTAZSource(GNEViewNet* viewNet, bool allowUndoRedo, co
         // update TAZ Attribute
         if (allowUndoRedo) {
             viewNet->getUndoList()->p_begin("update " + toString(SUMO_TAG_TAZ));
-            TAZSource->setAttribute(GNE_ATTR_TAZ_DEPARTWEIGHT, toString(departWeight), viewNet->getUndoList());
+            TAZSource->setAttribute(SUMO_ATTR_WEIGHT, toString(departWeight), viewNet->getUndoList());
             viewNet->getUndoList()->p_end();
         } else {
-            TAZSource->setAttribute(GNE_ATTR_TAZ_DEPARTWEIGHT, toString(departWeight), nullptr);
+            TAZSource->setAttribute(SUMO_ATTR_WEIGHT, toString(departWeight), nullptr);
             TAZ->incRef("buildTAZSource");
         }
     }
@@ -2246,7 +2246,7 @@ GNEAdditionalHandler::buildTAZSink(GNEViewNet* viewNet, bool allowUndoRedo, cons
     // check if TAZSink has to be created
     if(TAZSink == nullptr) {
         // Create TAZ only with arrivalWeight
-        TAZSink = new GNETAZSink(TAZ, edge, 0, arrivalWeight);
+        TAZSink = new GNETAZSink(TAZ, edge, arrivalWeight);
         if (allowUndoRedo) {
             viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_TAZ));
             viewNet->getUndoList()->add(new GNEChange_Additional(TAZSink, true), true);
@@ -2259,10 +2259,10 @@ GNEAdditionalHandler::buildTAZSink(GNEViewNet* viewNet, bool allowUndoRedo, cons
         // update TAZ Attribute
         if (allowUndoRedo) {
             viewNet->getUndoList()->p_begin("update " + toString(SUMO_TAG_TAZ));
-            TAZSink->setAttribute(GNE_ATTR_TAZ_ARRIVALWEIGHT, toString(arrivalWeight), viewNet->getUndoList());
+            TAZSink->setAttribute(SUMO_ATTR_WEIGHT, toString(arrivalWeight), viewNet->getUndoList());
             viewNet->getUndoList()->p_end();
         } else {
-            TAZSink->setAttribute(GNE_ATTR_TAZ_ARRIVALWEIGHT, toString(arrivalWeight), nullptr);
+            TAZSink->setAttribute(SUMO_ATTR_WEIGHT, toString(arrivalWeight), nullptr);
             TAZ->incRef("buildTAZSink");
         }
     }

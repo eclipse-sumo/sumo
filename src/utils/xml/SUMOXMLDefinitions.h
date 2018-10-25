@@ -879,10 +879,6 @@ enum SumoXMLAttr {
     GNE_ATTR_PARENT,
     /// @brief generic attribute
     GNE_ATTR_GENERIC,
-    /// @brief virtual attribute used in TAZs 
-    GNE_ATTR_TAZ_DEPARTWEIGHT,
-    /// @brief virtual attribute used in TAZs 
-    GNE_ATTR_TAZ_ARRIVALWEIGHT,
     // @}
 
     SUMO_ATTR_TARGETLANE,

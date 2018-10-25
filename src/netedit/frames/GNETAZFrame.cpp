@@ -238,7 +238,7 @@ GNETAZFrame::EdgesTAZSelector::onCmdSetAttribute(FXObject* obj, FXSelector, void
         if (obj == i->getDepartWeightTextField()) {
             // check if attribute is valid
             if (GNEAttributeCarrier::canParse<double>(i->getDepartWeightTextField()->getText().text()) && (GNEAttributeCarrier::parse<double>(i->getDepartWeightTextField()->getText().text()) >= 0)) {
-                i->getEditedTAZEdge()->setAttribute(GNE_ATTR_TAZ_DEPARTWEIGHT, toString(i->getDepartWeightTextField()->getText().text()), myTAZFrameParent->getViewNet()->getUndoList());
+                i->getEditedTAZEdge()->setAttribute(SUMO_ATTR_WEIGHT, toString(i->getDepartWeightTextField()->getText().text()), myTAZFrameParent->getViewNet()->getUndoList());
                 i->getDepartWeightTextField()->setTextColor(FXRGB(0, 0, 0));
                 i->getDepartWeightTextField()->killFocus();
             } else {
@@ -247,7 +247,7 @@ GNETAZFrame::EdgesTAZSelector::onCmdSetAttribute(FXObject* obj, FXSelector, void
         } else if (obj == i->getArrivalWeightTextField()) {
             // check if attribute is valid
             if (GNEAttributeCarrier::canParse<double>(i->getArrivalWeightTextField()->getText().text()) && (GNEAttributeCarrier::parse<double>(i->getArrivalWeightTextField()->getText().text()) >= 0)) {
-                i->getEditedTAZEdge()->setAttribute(GNE_ATTR_TAZ_ARRIVALWEIGHT, toString(i->getArrivalWeightTextField()->getText().text()), myTAZFrameParent->getViewNet()->getUndoList());
+                i->getEditedTAZEdge()->setAttribute(SUMO_ATTR_WEIGHT, toString(i->getArrivalWeightTextField()->getText().text()), myTAZFrameParent->getViewNet()->getUndoList());
                 i->getArrivalWeightTextField()->setTextColor(FXRGB(0, 0, 0));
                 i->getArrivalWeightTextField()->killFocus();
             } else {
@@ -297,14 +297,14 @@ GNETAZFrame::EdgesTAZSelector::EdgeTAZRow::EdgeTAZRow(EdgesTAZSelector *edgesTAZ
     myEdgeLabel = new FXLabel(horizontalFrameButton, toString("edge: " + myEditedTAZEdge->getAttribute(SUMO_ATTR_EDGE)).c_str(), 0, GUIDesignLabelLeftThick);
     // create Label and textfield for Arrival Weight
     FXHorizontalFrame* departWeightFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(departWeightFrame, toString(GNE_ATTR_TAZ_DEPARTWEIGHT).c_str(), 0, GUIDesignLabelAttribute);
+    new FXLabel(departWeightFrame, toString(SUMO_ATTR_WEIGHT).c_str(), 0, GUIDesignLabelAttribute);
     myDepartWeightTextField = new FXTextField(departWeightFrame, GUIDesignTextFieldNCol, edgesTAZSelector, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldReal);
-    myDepartWeightTextField->setText(myEditedTAZEdge->getAttribute(GNE_ATTR_TAZ_DEPARTWEIGHT).c_str());
+    myDepartWeightTextField->setText(myEditedTAZEdge->getAttribute(SUMO_ATTR_WEIGHT).c_str());
     // create Label and textfield for Arrival Weight
     FXHorizontalFrame* arrivalWeightFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(arrivalWeightFrame, toString(GNE_ATTR_TAZ_ARRIVALWEIGHT).c_str(), 0, GUIDesignLabelAttribute);
+    new FXLabel(arrivalWeightFrame, toString(SUMO_ATTR_WEIGHT).c_str(), 0, GUIDesignLabelAttribute);
     myArrivalWeightTextField = new FXTextField(arrivalWeightFrame, GUIDesignTextFieldNCol, edgesTAZSelector, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    myArrivalWeightTextField->setText(myEditedTAZEdge->getAttribute(GNE_ATTR_TAZ_ARRIVALWEIGHT).c_str());
+    myArrivalWeightTextField->setText(myEditedTAZEdge->getAttribute(SUMO_ATTR_WEIGHT).c_str());
     // set edge color
     for (auto j : myEdge->getLanes()) {
         j->setSpecialColor(&myEdgesTAZSelectorParent->myTAZFrameParent->getEdgeCandidateSelectedColor());

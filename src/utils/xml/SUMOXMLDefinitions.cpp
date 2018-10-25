@@ -598,8 +598,6 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "closedShape",                        GNE_ATTR_CLOSE_SHAPE },
     { "parentItem",                         GNE_ATTR_PARENT },
     { "genericParameter",                   GNE_ATTR_GENERIC },
-    { "departWeight",                       GNE_ATTR_TAZ_DEPARTWEIGHT },
-    { "arrivalWeight",                      GNE_ATTR_TAZ_ARRIVALWEIGHT },
 
     { "targetLanes", SUMO_ATTR_TARGETLANE },
     { "crossing", SUMO_ATTR_CROSSING },

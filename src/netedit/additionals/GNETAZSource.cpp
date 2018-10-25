@@ -34,11 +34,10 @@
 // member method definitions
 // ===========================================================================
 
-GNETAZSource::GNETAZSource(GNEAdditional* TAZParent, GNEEdge* edge, double departWeight, double arrivalWeight) :
+GNETAZSource::GNETAZSource(GNEAdditional* TAZParent, GNEEdge* edge, double departWeight) :
     GNEAdditional(TAZParent, TAZParent->getViewNet(), GLO_TAZ, SUMO_TAG_TAZSOURCE, "", false),
     myEdge(edge),
-    myDepartWeight(departWeight),
-    myArrivalWeight(arrivalWeight) {
+    myDepartWeight(departWeight) {
 }
 
 
@@ -88,10 +87,8 @@ GNETAZSource::getAttribute(SumoXMLAttr key) const {
             return getAdditionalID();
         case SUMO_ATTR_EDGE:
             return myEdge->getID();
-        case GNE_ATTR_TAZ_DEPARTWEIGHT:
+        case SUMO_ATTR_WEIGHT:
             return toString(myDepartWeight);
-        case GNE_ATTR_TAZ_ARRIVALWEIGHT:
-            return toString(myArrivalWeight);
         case GNE_ATTR_PARENT:
             return myFirstAdditionalParent->getID();
         case GNE_ATTR_GENERIC:
@@ -113,8 +110,7 @@ GNETAZSource::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLis
         }
         switch (key) {
             case SUMO_ATTR_ID:
-            case GNE_ATTR_TAZ_DEPARTWEIGHT:
-            case GNE_ATTR_TAZ_ARRIVALWEIGHT:
+            case SUMO_ATTR_WEIGHT:
             case GNE_ATTR_GENERIC:
                 undoList->p_add(new GNEChange_Attribute(this, key, value));
                 break;
@@ -130,8 +126,7 @@ GNETAZSource::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             return isValidAdditionalID(value);
-        case GNE_ATTR_TAZ_DEPARTWEIGHT:
-        case GNE_ATTR_TAZ_ARRIVALWEIGHT:
+        case SUMO_ATTR_WEIGHT:
             return canParse<double>(value) && (parse<double>(value) >= 0);
         case GNE_ATTR_GENERIC:
             return isGenericParametersValid(value);
@@ -149,7 +144,7 @@ GNETAZSource::getPopUpID() const {
 
 std::string
 GNETAZSource::getHierarchyName() const {
-    return toString(getTag()) + ": " + getAttribute(GNE_ATTR_TAZ_DEPARTWEIGHT) + "-" + getAttribute(GNE_ATTR_TAZ_ARRIVALWEIGHT);
+    return toString(getTag()) + ": " + getAttribute(SUMO_ATTR_WEIGHT);
 }
 
 // ===========================================================================
@@ -162,11 +157,8 @@ GNETAZSource::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             changeAdditionalID(value);
             break;
-        case GNE_ATTR_TAZ_DEPARTWEIGHT:
+        case SUMO_ATTR_WEIGHT:
             myDepartWeight = parse<double>(value);
-            break;
-        case GNE_ATTR_TAZ_ARRIVALWEIGHT:
-            myArrivalWeight = parse<double>(value);
             break;
         case GNE_ATTR_GENERIC:
             setGenericParametersStr(value);
