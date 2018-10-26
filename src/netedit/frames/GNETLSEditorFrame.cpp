@@ -190,15 +190,20 @@ GNETLSEditorFrame::parseTLSPrograms(const std::string& file) {
     std::set<NBTrafficLightDefinition*> origDefs;
     for (NBTrafficLightDefinition* def : tllCont.getDefinitions()) {
         // make a copy of every program
-        NBTrafficLightDefinition* copy = new NBLoadedSUMOTLDef(def, tllCont.getLogic(def->getID(), def->getProgramID()));
-        std::vector<NBNode*> nodes = def->getNodes();
-        for (auto it_node : nodes) {
-            GNEJunction* junction = myViewNet->getNet()->retrieveJunction(it_node->getID());
-            myViewNet->getUndoList()->add(new GNEChange_TLS(junction, def, false, false), true);
-            myViewNet->getUndoList()->add(new GNEChange_TLS(junction, copy, true), true);
+        NBTrafficLightLogic* logic = tllCont.getLogic(def->getID(), def->getProgramID());
+        if (logic != nullptr) {
+            NBTrafficLightDefinition* copy = new NBLoadedSUMOTLDef(def, logic);
+            std::vector<NBNode*> nodes = def->getNodes();
+            for (auto it_node : nodes) {
+                GNEJunction* junction = myViewNet->getNet()->retrieveJunction(it_node->getID());
+                myViewNet->getUndoList()->add(new GNEChange_TLS(junction, def, false, false), true);
+                myViewNet->getUndoList()->add(new GNEChange_TLS(junction, copy, true), true);
+            }
+            tmpTLLCont.insert(copy);
+            origDefs.insert(copy);
+        } else {
+            WRITE_WARNING("tlLogic '" + def->getID() + "', program '" + def->getProgramID() + "' could not be built");
         }
-        tmpTLLCont.insert(copy);
-        origDefs.insert(copy);
     }
     //std::cout << " initialized tmpCont with " << origDefs.size() << " defs\n";
     XMLSubSys::runParser(tllHandler, file);
