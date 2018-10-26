@@ -62,14 +62,14 @@ void
 MSMeanData_Harmonoise::MSLaneMeanDataValues::addTo(MSMeanData::MeanDataValues& val) const {
     MSLaneMeanDataValues& v = (MSLaneMeanDataValues&) val;
     v.sampleSeconds += sampleSeconds;
-    v.meanNTemp += (double) pow(10., HelpersHarmonoise::sum(meanNTemp) / 10.);
+    v.meanNTemp += meanNTemp;
     v.travelledDistance += travelledDistance;
 }
 
 
 void
 MSMeanData_Harmonoise::MSLaneMeanDataValues::update() {
-    meanNTemp += (double) pow(10., HelpersHarmonoise::sum(currentTimeN) / 10.);
+    meanNTemp += currentTimeN;
     currentTimeN = 0;
 }
 
