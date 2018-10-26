@@ -2241,7 +2241,7 @@ GNEAdditionalHandler::buildTAZSource(GNEViewNet* viewNet, bool allowUndoRedo, GN
             viewNet->getUndoList()->p_end();
         } else {
             viewNet->getNet()->insertAdditional(TAZSink);
-            TAZ->incRef("buildTAZSink");
+            TAZSink->incRef("buildTAZSource");
         }
     }
     // now check check if TAZSource exist
@@ -2262,7 +2262,7 @@ GNEAdditionalHandler::buildTAZSource(GNEViewNet* viewNet, bool allowUndoRedo, GN
             viewNet->getUndoList()->p_end();
         } else {
             viewNet->getNet()->insertAdditional(TAZSource);
-            TAZ->incRef("buildTAZSource");
+            TAZSource->incRef("buildTAZSource");
         }
     } else {
         // update TAZ Attribute
@@ -2272,7 +2272,7 @@ GNEAdditionalHandler::buildTAZSource(GNEViewNet* viewNet, bool allowUndoRedo, GN
             viewNet->getUndoList()->p_end();
         } else {
             TAZSource->setAttribute(SUMO_ATTR_WEIGHT, toString(departWeight), nullptr);
-            TAZ->incRef("buildTAZSource");
+            TAZSource->incRef("buildTAZSource");
         }
     }
     return TAZSource;
@@ -2298,7 +2298,7 @@ GNEAdditionalHandler::buildTAZSink(GNEViewNet* viewNet, bool allowUndoRedo, GNEA
             viewNet->getUndoList()->p_end();
         } else {
             viewNet->getNet()->insertAdditional(TAZSource);
-            TAZ->incRef("buildTAZSource");
+            TAZSource->incRef("buildTAZSink");
         }
     }
     GNEAdditional *TAZSink = nullptr;
@@ -2318,7 +2318,7 @@ GNEAdditionalHandler::buildTAZSink(GNEViewNet* viewNet, bool allowUndoRedo, GNEA
             viewNet->getUndoList()->p_end();
         } else {
             viewNet->getNet()->insertAdditional(TAZSink);
-            TAZ->incRef("buildTAZSink");
+            TAZSink->incRef("buildTAZSink");
         }
     } else {
         // update TAZ Attribute
@@ -2328,7 +2328,7 @@ GNEAdditionalHandler::buildTAZSink(GNEViewNet* viewNet, bool allowUndoRedo, GNEA
             viewNet->getUndoList()->p_end();
         } else {
             TAZSink->setAttribute(SUMO_ATTR_WEIGHT, toString(arrivalWeight), nullptr);
-            TAZ->incRef("buildTAZSink");
+            TAZSink->incRef("buildTAZSink");
         }
     }
     return TAZSink;

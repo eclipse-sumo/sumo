@@ -38,6 +38,8 @@ GNETAZSink::GNETAZSink(GNEAdditional* TAZParent, GNEEdge* edge, double arrivalWe
     GNEAdditional(TAZParent, TAZParent->getViewNet(), GLO_TAZ, SUMO_TAG_TAZSINK, "", false),
     myEdge(edge),
     myArrivalWeight(arrivalWeight) {
+    // set edge as child
+    addEdgeChild(edge);
 }
 
 

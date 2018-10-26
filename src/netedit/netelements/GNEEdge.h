@@ -284,7 +284,7 @@ public:
     std::vector<GNECrossing*> getGNECrossings();
 
     /// @brief remove Edge of Additional Parent
-    void removeEdgeOfAdditionalParents(GNEUndoList* undoList, bool allowEmpty);
+    void removeEdgeOfAdditionalParents(GNEUndoList* undoList);
 
     /// @brief make geometry smooth
     void smooth(GNEUndoList* undoList);

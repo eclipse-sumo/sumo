@@ -431,7 +431,7 @@ void
 GNENet::deleteEdge(GNEEdge* edge, GNEUndoList* undoList, bool recomputeConnections) {
     undoList->p_begin("delete " + toString(SUMO_TAG_EDGE));
     // remove edge of additional parents (For example, Rerouters)
-    edge->removeEdgeOfAdditionalParents(undoList, false);
+    edge->removeEdgeOfAdditionalParents(undoList);
     // delete all additionals childs of edge
     while (edge->getAdditionalChilds().size() > 0) {
         myViewNet->getViewParent()->getAdditionalFrame()->removeAdditional(edge->getAdditionalChilds().front());

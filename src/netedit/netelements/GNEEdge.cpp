@@ -778,18 +778,23 @@ GNEEdge::getGNECrossings() {
 
 
 void
-GNEEdge::removeEdgeOfAdditionalParents(GNEUndoList* undoList, bool allowEmpty) {
+GNEEdge::removeEdgeOfAdditionalParents(GNEUndoList* undoList) {
     // iterate over all additional parents of edge
-    for (auto i : myFirstAdditionalParents) {
-        // Obtain attribute EDGES of additional
-        std::vector<std::string>  edgeIDs = parse<std::vector<std::string> >(i->getAttribute(SUMO_ATTR_EDGES));
+    while (myFirstAdditionalParents.size() > 0) {
+        // Obtain attribute Edge or Edges of additional
+        std::vector<std::string> edgeIDs;
+        if(GNEAttributeCarrier::getTagProperties(myFirstAdditionalParents.front()->getTag()).hasAttribute(SUMO_ATTR_EDGES)) {
+            edgeIDs = parse<std::vector<std::string> >(myFirstAdditionalParents.front()->getAttribute(SUMO_ATTR_EDGES));
+        } else {
+            edgeIDs.push_back(myFirstAdditionalParents.front()->getAttribute(SUMO_ATTR_EDGE));
+        }
         // check that at least there is an Edge
         if (edgeIDs.empty()) {
             throw ProcessError("Additional edge childs is empty");
-        } else if ((edgeIDs.size() == 1) && (allowEmpty == false)) {
+        } else if (edgeIDs.size() == 1) {
             // remove entire Additional if SUMO_ATTR_EDGES cannot be empty
             if (edgeIDs.front() == getID()) {
-                undoList->add(new GNEChange_Additional(i, false), true);
+                undoList->add(new GNEChange_Additional(myFirstAdditionalParents.front(), false), true);
             } else {
                 throw ProcessError("Edge ID wasnt' found in Additional");
             }
@@ -798,7 +803,7 @@ GNEEdge::removeEdgeOfAdditionalParents(GNEUndoList* undoList, bool allowEmpty) {
             if (it != edgeIDs.end()) {
                 // set new attribute in Additional
                 edgeIDs.erase(it);
-                i->setAttribute(SUMO_ATTR_EDGES, toString(edgeIDs), undoList);
+                myFirstAdditionalParents.front()->setAttribute(SUMO_ATTR_EDGES, toString(edgeIDs), undoList);
             } else {
                 throw ProcessError("Edge ID wasnt' found in Additional");
             }
