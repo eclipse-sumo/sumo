@@ -3177,7 +3177,7 @@ MSLane::getSurroundingVehicles(double startPos, double downstreamDist, double up
 #ifdef DEBUG_SURROUNDING
     std::cout << "Scanning on lane " << myID << "(downstr. " << downstreamDist << ", upstr. " << upstreamDist << ", startPos " << startPos << "): " << std::endl;
 #endif
-    std::set<MSVehicle*> foundVehicles = getVehicles(MAX2(0., startPos-upstreamDist), MIN2(myLength, startPos + downstreamDist));
+    std::set<MSVehicle*> foundVehicles = getVehiclesInRange(MAX2(0., startPos-upstreamDist), MIN2(myLength, startPos + downstreamDist));
     if (startPos < upstreamDist) {
         // scan incoming lanes
         for (const IncomingLaneInfo& incomingInfo : getIncomingLanes()){
@@ -3215,7 +3215,7 @@ MSLane::getSurroundingVehicles(double startPos, double downstreamDist, double up
 
 
 std::set<MSVehicle*>
-MSLane::getVehicles(double a, double b) const {
+MSLane::getVehiclesInRange(double a, double b) const {
     std::set<MSVehicle*> res;
     const VehCont& vehs = getVehiclesSecure();
 

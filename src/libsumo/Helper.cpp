@@ -660,7 +660,7 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
                                 }
                                 // Add vehicles from corresponding range on opposite direction
                                 const MSLane* oppositeLane = *oppositeLaneIt;
-                                auto new_vehs = oppositeLane->getVehicles(lane->getLength()-range.second, lane->getLength()-range.first);
+                                auto new_vehs = oppositeLane->getVehiclesInRange(lane->getLength()-range.second, lane->getLength()-range.first);
                                 vehs.insert(new_vehs.begin(), new_vehs.end());
                             }
                         }
