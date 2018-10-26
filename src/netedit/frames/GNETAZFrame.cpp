@@ -254,22 +254,24 @@ GNETAZFrame::EdgesTAZSelector::onCmdSetAttribute(FXObject* obj, FXSelector, void
         if (obj == i->getDepartWeightTextField()) {
             // check if attribute is valid
             if (GNEAttributeCarrier::canParse<double>(i->getDepartWeightTextField()->getText().text()) && (GNEAttributeCarrier::parse<double>(i->getDepartWeightTextField()->getText().text()) >= 0)) {
+                // enable save buttons (To begin undo_list)
+                myTAZFrameParent->mySaveTAZEdges->enableButtons();
+                // change value
                 i->getEditedTAZSource()->setAttribute(SUMO_ATTR_WEIGHT, toString(i->getDepartWeightTextField()->getText().text()), myTAZFrameParent->getViewNet()->getUndoList());
                 i->getDepartWeightTextField()->setTextColor(FXRGB(0, 0, 0));
                 i->getDepartWeightTextField()->killFocus();
-                // enable save buttons
-                myTAZFrameParent->mySaveTAZEdges->enableButtons();
             } else {
                 i->getDepartWeightTextField()->setTextColor(FXRGB(255, 0, 0));
             }
         } else if (obj == i->getArrivalWeightTextField()) {
             // check if attribute is valid
             if (GNEAttributeCarrier::canParse<double>(i->getArrivalWeightTextField()->getText().text()) && (GNEAttributeCarrier::parse<double>(i->getArrivalWeightTextField()->getText().text()) >= 0)) {
+                // enable save buttons (To begin undo_list)
+                myTAZFrameParent->mySaveTAZEdges->enableButtons();
+                // change value
                 i->getEditedTAZSink()->setAttribute(SUMO_ATTR_WEIGHT, toString(i->getArrivalWeightTextField()->getText().text()), myTAZFrameParent->getViewNet()->getUndoList());
                 i->getArrivalWeightTextField()->setTextColor(FXRGB(0, 0, 0));
                 i->getArrivalWeightTextField()->killFocus();
-                // enable save buttons
-                myTAZFrameParent->mySaveTAZEdges->enableButtons();
             } else {
                 i->getArrivalWeightTextField()->setTextColor(FXRGB(255, 0, 0));
             }
@@ -284,6 +286,8 @@ GNETAZFrame::EdgesTAZSelector::onCmdRemoveEdgeTAZ(FXObject* obj, FXSelector, voi
     // search remove button in all EdgeTAZs
     for (int i = 0; i < (int)myEdgeTAZRows.size(); i++) {
         if(myEdgeTAZRows.at(i)->getRemoveButton() == obj) {
+            // enable save buttons and begin undo_list
+            myTAZFrameParent->mySaveTAZEdges->enableButtons();
             // Remove both GNETAZSource and GNETAZSink using GNEChange_Additional
             myTAZFrameParent->getViewNet()->getUndoList()->add(new GNEChange_Additional(myEdgeTAZRows.at(i)->getEditedTAZSource(), false), true);
             myTAZFrameParent->getViewNet()->getUndoList()->add(new GNEChange_Additional(myEdgeTAZRows.at(i)->getEditedTAZSink(), false), true);
