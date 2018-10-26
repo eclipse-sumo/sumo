@@ -269,7 +269,12 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
     if (myGeometry.shape.size() > 1) {
         glPushMatrix();
         glTranslated(0, 0, 128);
-        GLHelper::setColor(myColor);
+        // set cpñpr depending if is selected
+        if (isAttributeCarrierSelected()) {
+            GLHelper::setColor(s.selectionColor);
+        } else {
+            GLHelper::setColor(myColor);
+        }
         GLHelper::drawLine(myGeometry.shape);
         GLHelper::drawBoxLines(myGeometry.shape, 1);
         glPopMatrix();
@@ -286,8 +291,8 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
         // set colors
         RGBColor invertedColor, darkerColor;
         if (isAttributeCarrierSelected()) {
-            invertedColor = myViewNet->getNet()->selectionColor.invertedColor();
-            darkerColor = myViewNet->getNet()->selectedLaneColor;
+            invertedColor = s.selectionColor.invertedColor();
+            darkerColor = s.selectionColor.changedBrightness(-32);
         } else {
             invertedColor = GLHelper::getColor().invertedColor();
             darkerColor = GLHelper::getColor().changedBrightness(-32);
