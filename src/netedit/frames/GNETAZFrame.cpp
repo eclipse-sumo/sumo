@@ -323,12 +323,12 @@ GNETAZFrame::EdgesTAZSelector::EdgeTAZRow::EdgeTAZRow(EdgesTAZSelector *edgesTAZ
     myEdgeLabel = new FXLabel(horizontalFrameButton, toString("edge: " + edge->getID()).c_str(), 0, GUIDesignLabelLeftThick);
     // create Label and textfield for Arrival Weight
     FXHorizontalFrame* departWeightFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(departWeightFrame, toString(SUMO_ATTR_WEIGHT).c_str(), 0, GUIDesignLabelAttribute);
+    new FXLabel(departWeightFrame, "Source weight", 0, GUIDesignLabelAttribute);
     myDepartWeightTextField = new FXTextField(departWeightFrame, GUIDesignTextFieldNCol, edgesTAZSelector, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldReal);
     myDepartWeightTextField->setText(TAZSource->getAttribute(SUMO_ATTR_WEIGHT).c_str());
     // create Label and textfield for Arrival Weight
     FXHorizontalFrame* arrivalWeightFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(arrivalWeightFrame, toString(SUMO_ATTR_WEIGHT).c_str(), 0, GUIDesignLabelAttribute);
+    new FXLabel(arrivalWeightFrame, "Sink weight", 0, GUIDesignLabelAttribute);
     myArrivalWeightTextField = new FXTextField(arrivalWeightFrame, GUIDesignTextFieldNCol, edgesTAZSelector, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     myArrivalWeightTextField->setText(TAZSink->getAttribute(SUMO_ATTR_WEIGHT).c_str());
     // set edge color

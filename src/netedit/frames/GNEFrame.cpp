@@ -433,8 +433,8 @@ GNEFrame::ACHierarchy::showAttributeCarrierParents() {
         default: {
             // obtain tag property (only for improve code legibility)
             const auto& tagValue = GNEAttributeCarrier::getTagProperties(myAC->getTag());
-            // check if is an additional, and in other case return nullptr
-            if (tagValue.isAdditional()) {
+            // check if is an additional or a TAZ, and in other case return nullptr
+            if (tagValue.isAdditional() || tagValue.isTAZ()) {
                 // Obtain Additional
                 GNEAdditional* additional = myFrameParent->getViewNet()->getNet()->retrieveAdditional(myAC->getTag(), myAC->getID(), false);
                 if (additional) {
@@ -599,8 +599,8 @@ GNEFrame::ACHierarchy::showAttributeCarrierChilds(GNEAttributeCarrier* AC, FXTre
             break;
         }
         default: {
-            // check if is an additional
-            if (GNEAttributeCarrier::getTagProperties(AC->getTag()).isAdditional()) {
+            // check if is an additional or TAZ
+            if (GNEAttributeCarrier::getTagProperties(AC->getTag()).isAdditional() || GNEAttributeCarrier::getTagProperties(AC->getTag()).isTAZ()) {
                 // retrieve additional
                 GNEAdditional* additional = myFrameParent->getViewNet()->getNet()->retrieveAdditional(AC->getTag(), AC->getID(), false);
                 if (additional) {
