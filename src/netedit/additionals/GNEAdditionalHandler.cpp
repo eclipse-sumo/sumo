@@ -2224,8 +2224,13 @@ GNEAdditionalHandler::buildTAZ(GNEViewNet* viewNet, bool allowUndoRedo, const st
 
 GNEAdditional* 
 GNEAdditionalHandler::buildTAZSource(GNEViewNet* viewNet, bool allowUndoRedo, GNEAdditional *TAZ, GNEEdge *edge, double departWeight) {
+    GNEAdditional *TAZSink = nullptr;
     // first check if a TAZSink in the same edge for the same TAZ
-    GNEAdditional *TAZSink = viewNet->getNet()->retrieveAdditional(SUMO_TAG_TAZSINK, edge->getID(), false);
+    for (auto i : TAZ->getAdditionalChilds()) {
+        if((i->getTag() == SUMO_TAG_TAZSINK) && (i->getAttribute(SUMO_ATTR_EDGE) == edge->getID())) {
+            TAZSink = i;
+        }
+    }
     // check if TAZSink has to be created
     if(TAZSink == nullptr) {
         // Create TAZ with weight 0 (default)
@@ -2240,7 +2245,13 @@ GNEAdditionalHandler::buildTAZSource(GNEViewNet* viewNet, bool allowUndoRedo, GN
         }
     }
     // now check check if TAZSource exist
-    GNEAdditional *TAZSource = viewNet->getNet()->retrieveAdditional(SUMO_TAG_TAZSOURCE, edge->getID(), false);
+    GNEAdditional *TAZSource = nullptr;
+    // first check if a TAZSink in the same edge for the same TAZ
+    for (auto i : TAZ->getAdditionalChilds()) {
+        if((i->getTag() == SUMO_TAG_TAZSOURCE) && (i->getAttribute(SUMO_ATTR_EDGE) == edge->getID())) {
+            TAZSource = i;
+        }
+    }
     // check if TAZSource has to be created
     if(TAZSource == nullptr) {
         // Create TAZ only with departWeight
@@ -2270,8 +2281,13 @@ GNEAdditionalHandler::buildTAZSource(GNEViewNet* viewNet, bool allowUndoRedo, GN
 
 GNEAdditional* 
 GNEAdditionalHandler::buildTAZSink(GNEViewNet* viewNet, bool allowUndoRedo, GNEAdditional *TAZ, GNEEdge *edge, double arrivalWeight) {
-    // first check if a TAZSource in the same edge for the same TAZ
-    GNEAdditional *TAZSource = viewNet->getNet()->retrieveAdditional(SUMO_TAG_TAZSOURCE, edge->getID(), false);
+    GNEAdditional *TAZSource = nullptr;
+    // first check if a TAZSink in the same edge for the same TAZ
+    for (auto i : TAZ->getAdditionalChilds()) {
+        if((i->getTag() == SUMO_TAG_TAZSOURCE) && (i->getAttribute(SUMO_ATTR_EDGE) == edge->getID())) {
+            TAZSource = i;
+        }
+    }
     // check if TAZSource has to be created
     if(TAZSource == nullptr) {
         // Create TAZ with empty value
@@ -2285,8 +2301,13 @@ GNEAdditionalHandler::buildTAZSink(GNEViewNet* viewNet, bool allowUndoRedo, GNEA
             TAZ->incRef("buildTAZSource");
         }
     }
-    // now create TAZ Sink, but first check if TAZ already exists
-    GNEAdditional *TAZSink = viewNet->getNet()->retrieveAdditional(SUMO_TAG_TAZSINK, edge->getID(), false);
+    GNEAdditional *TAZSink = nullptr;
+    // first check if a TAZSink in the same edge for the same TAZ
+    for (auto i : TAZ->getAdditionalChilds()) {
+        if((i->getTag() == SUMO_TAG_TAZSINK) && (i->getAttribute(SUMO_ATTR_EDGE) == edge->getID())) {
+            TAZSink = i;
+        }
+    }
     // check if TAZSink has to be created
     if(TAZSink == nullptr) {
         // Create TAZ only with arrivalWeight
