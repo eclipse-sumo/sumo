@@ -59,7 +59,7 @@
 #include <netimport/NIImporter_OpenDrive.h>
 #include <netimport/NIImporter_MATSim.h>
 #include <netimport/NIImporter_ITSUMO.h>
-#include "typemap.h"
+#include <netimport/typemap.h>
 #include "NILoader.h"
 
 // ===========================================================================
