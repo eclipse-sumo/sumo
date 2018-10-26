@@ -116,7 +116,7 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
     glTranslated(0, 0, getType());
     // Set Color
     if (isAttributeCarrierSelected()) {
-        GLHelper::setColor(myViewNet->getNet()->selectedAdditionalColor);
+        GLHelper::setColor(s.selectedAdditionalColor);
     } else {
         GLHelper::setColor(RGBColor(83, 89, 172, 255));
     }
@@ -148,7 +148,7 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
         glScaled(exaggeration, exaggeration, 1);
         // Set base color
         if (isAttributeCarrierSelected()) {
-            GLHelper::setColor(myViewNet->getNet()->selectedAdditionalColor);
+            GLHelper::setColor(s.selectedAdditionalColor);
         } else {
             GLHelper::setColor(RGBColor(83, 89, 172, 255));
         }
@@ -158,7 +158,7 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
         glTranslated(0, 0, .1);
         // Set sign color
         if (isAttributeCarrierSelected()) {
-            GLHelper::setColor(myViewNet->getNet()->selectionColor);
+            GLHelper::setColor(s.selectionColor);
         } else {
             GLHelper::setColor(RGBColor(177, 184, 186, 171));
         }
@@ -167,7 +167,7 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
         // Draw sign 'C'
         if (s.scale * exaggeration >= 4.5) {
             if (isAttributeCarrierSelected()) {
-                GLHelper::drawText("P", Position(), .1, myCircleInText, myViewNet->getNet()->selectedAdditionalColor, myBlockIcon.rotation);
+                GLHelper::drawText("P", Position(), .1, myCircleInText, s.selectedAdditionalColor, myBlockIcon.rotation);
             } else {
                 GLHelper::drawText("P", Position(), .1, myCircleInText, RGBColor(83, 89, 172, 255), myBlockIcon.rotation);
             }

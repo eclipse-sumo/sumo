@@ -115,7 +115,7 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
     glTranslated(0, 0, getType());
     // Set Color
     if (isAttributeCarrierSelected()) {
-        GLHelper::setColor(myViewNet->getNet()->selectedAdditionalColor);
+        GLHelper::setColor(s.selectedAdditionalColor);
     } else {
         GLHelper::setColor(s.SUMO_color_chargingStation);
     }
@@ -145,7 +145,7 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
         glPushMatrix();
         // draw line with a color depending of the selection status
         if (isAttributeCarrierSelected()) {
-            GLHelper::drawText((toString(myChargingPower) + " W").c_str(), mySignPos + Position(1.2, 0), .1, 1.f, myViewNet->getNet()->selectionColor, myBlockIcon.rotation, FONS_ALIGN_LEFT);
+            GLHelper::drawText((toString(myChargingPower) + " W").c_str(), mySignPos + Position(1.2, 0), .1, 1.f, s.selectionColor, myBlockIcon.rotation, FONS_ALIGN_LEFT);
         } else {
             GLHelper::drawText((toString(myChargingPower) + " W").c_str(), mySignPos + Position(1.2, 0), .1, 1.f, s.SUMO_color_chargingStation, myBlockIcon.rotation, FONS_ALIGN_LEFT);
         }
@@ -157,7 +157,7 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
         glScaled(exaggeration, exaggeration, 1);
         // Set base color
         if (isAttributeCarrierSelected()) {
-            GLHelper::setColor(myViewNet->getNet()->selectedAdditionalColor);
+            GLHelper::setColor(s.selectedAdditionalColor);
         } else {
             GLHelper::setColor(s.SUMO_color_chargingStation);
         }
@@ -167,7 +167,7 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
         glTranslated(0, 0, .1);
         // Set sign color
         if (isAttributeCarrierSelected()) {
-            GLHelper::setColor(myViewNet->getNet()->selectionColor);
+            GLHelper::setColor(s.selectionColor);
         } else {
             GLHelper::setColor(s.SUMO_color_chargingStation_sign);
         }
@@ -176,7 +176,7 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
         // Draw sign 'C'
         if (s.scale * exaggeration >= 4.5) {
             if (isAttributeCarrierSelected()) {
-                GLHelper::drawText("C", Position(), .1, myCircleInText, myViewNet->getNet()->selectedAdditionalColor, myBlockIcon.rotation);
+                GLHelper::drawText("C", Position(), .1, myCircleInText, s.selectedAdditionalColor, myBlockIcon.rotation);
             } else {
                 GLHelper::drawText("C", Position(), .1, myCircleInText, s.SUMO_color_chargingStation, myBlockIcon.rotation);
             }

@@ -569,7 +569,7 @@ private:
         std::string reportDimensions();
 
         /// @brief draw rectangle selection
-        void drawRectangleSelection() const;
+        void drawRectangleSelection(const RGBColor& color) const;
     };
 
     /// @brief struct used to group all variables related with testing

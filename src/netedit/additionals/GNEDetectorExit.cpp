@@ -171,7 +171,7 @@ GNEDetectorExit::drawGL(const GUIVisualizationSettings& s) const {
 
     // Set initial values
     if (isAttributeCarrierSelected()) {
-        GLHelper::setColor(myViewNet->getNet()->selectedAdditionalColor);
+        GLHelper::setColor(s.selectedAdditionalColor);
     } else {
         GLHelper::setColor(s.SUMO_color_E3Exit);
     }
@@ -230,7 +230,7 @@ GNEDetectorExit::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::setColor(s.SUMO_color_E3Exit);
             GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
         } else if (isAttributeCarrierSelected()) {
-            GLHelper::drawText("E3", Position(), .1, 2.8, myViewNet->getNet()->selectedAdditionalColor);
+            GLHelper::drawText("E3", Position(), .1, 2.8, s.selectedAdditionalColor);
         } else {
             GLHelper::drawText("E3", Position(), .1, 2.8, s.SUMO_color_E3Exit);
         }
@@ -243,7 +243,7 @@ GNEDetectorExit::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::setColor(s.SUMO_color_E3Exit);
             GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
         } else if (isAttributeCarrierSelected()) {
-            GLHelper::drawText("Exit", Position(), .1, 1, myViewNet->getNet()->selectedAdditionalColor);
+            GLHelper::drawText("Exit", Position(), .1, 1, s.selectedAdditionalColor);
         } else {
             GLHelper::drawText("Exit", Position(), .1, 1, s.SUMO_color_E3Exit);
         }

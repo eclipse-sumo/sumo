@@ -685,7 +685,7 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
     glEnable(GL_DEPTH_TEST);
 
     // visualize rectangular selection
-    mySelectingArea.drawRectangleSelection();
+    mySelectingArea.drawRectangleSelection(myVisualizationSettings->selectionColor);
 
     // compute lane width
     double lw = m2p(SUMO_const_laneWidth);
@@ -3131,11 +3131,11 @@ GNEViewNet::SelectingArea::reportDimensions() {
 
 
 void 
-GNEViewNet::SelectingArea::drawRectangleSelection() const {
+GNEViewNet::SelectingArea::drawRectangleSelection(const RGBColor& color) const {
     if (selectingUsingRectangle) {
         glPushMatrix();
         glTranslated(0, 0, GLO_MAX - 1);
-        GLHelper::setColor(GNENet::selectionColor);
+        GLHelper::setColor(color);
         glLineWidth(2);
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
         glBegin(GL_QUADS);

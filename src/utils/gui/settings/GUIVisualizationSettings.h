@@ -305,6 +305,13 @@ public:
     /// @brief the current NETEDIT additional mode (temporary)
     int editAdditionalMode;
 
+    /// @brief NETEDIT special colors
+    RGBColor selectionColor;
+    RGBColor selectedEdgeColor;
+    RGBColor selectedLaneColor;
+    RGBColor selectedConnectionColor;
+    RGBColor selectedAdditionalColor;
+
     /// @brief the current selection scaling in NETEDIT (temporary)
     double selectionScale;
 

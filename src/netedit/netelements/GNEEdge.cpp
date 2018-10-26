@@ -488,7 +488,7 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::setColor(s.junctionColorer.getSchemes()[0].getColor(2));
         if (isAttributeCarrierSelected() && s.laneColorer.getActive() != 1) {
             // override with special colors (unless the color scheme is based on selection)
-            GLHelper::setColor(GNENet::selectionColor.changedBrightness(-20));
+            GLHelper::setColor(s.selectedEdgeColor.changedBrightness(-20));
         }
         // recognize full transparency and simply don't draw
         GLfloat color[4];

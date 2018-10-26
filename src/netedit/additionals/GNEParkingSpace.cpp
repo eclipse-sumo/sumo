@@ -127,7 +127,7 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
     if (!s.drawForSelecting) {
         // Set Color depending of selection
         if (isAttributeCarrierSelected()) {
-            GLHelper::setColor(myViewNet->getNet()->selectedConnectionColor);
+            GLHelper::setColor(s.selectedAdditionalColor);
         } else {
             GLHelper::setColor(RGBColor(0, 255, 0, 255));
         }
@@ -137,7 +137,7 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
     glTranslated(0, 0, 0.1);
     // Set Color depending of selection
     if (isAttributeCarrierSelected()) {
-        GLHelper::setColor(myViewNet->getNet()->selectedAdditionalColor);
+        GLHelper::setColor(s.selectedAdditionalColor);
     } else {
         GLHelper::setColor(RGBColor(255, 200, 200, 255));
     }

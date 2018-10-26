@@ -154,7 +154,7 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
 
     // set color
     if (isAttributeCarrierSelected()) {
-        GLHelper::setColor(myViewNet->getNet()->selectedAdditionalColor);
+        GLHelper::setColor(s.selectedAdditionalColor);
     } else {
         GLHelper::setColor(RGBColor(255, 216, 0));
     }
@@ -181,7 +181,7 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
     // position indicator (White)
     if ((width * exaggeration > 1) && !s.drawForSelecting) {
         if (isAttributeCarrierSelected()) {
-            GLHelper::setColor(myViewNet->getNet()->selectionColor);
+            GLHelper::setColor(s.selectionColor);
         } else {
             GLHelper::setColor(RGBColor::WHITE);
         }

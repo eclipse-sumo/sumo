@@ -190,7 +190,7 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
     glPushMatrix();
     // set color depending of selection
     if (mySelected) {
-        GLHelper::setColor(myViewNet->getNet()->selectedAdditionalColor);
+        GLHelper::setColor(s.selectedAdditionalColor);
     } else {
         GLHelper::setColor(s.SUMO_color_busStop);
     }

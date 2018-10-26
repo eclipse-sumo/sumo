@@ -301,8 +301,8 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
         // set colors
         RGBColor invertedColor, darkerColor;
         if (isAttributeCarrierSelected()) {
-            invertedColor = myNet->selectionColor.invertedColor();
-            darkerColor = myNet->selectedLaneColor;
+            invertedColor = s.selectionColor.invertedColor();
+            darkerColor = s.selectionColor.changedBrightness(-32);
         } else {
             invertedColor = GLHelper::getColor().invertedColor();
             darkerColor = GLHelper::getColor().changedBrightness(-32);

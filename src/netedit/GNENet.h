@@ -90,21 +90,6 @@ class GNENet : public GUIGlObject, public ShapeContainer {
     friend class GNEChange_Additional;
 
 public:
-    /// @name color of selected objects
-    /// @{
-    /// @brief color of selection
-    static const RGBColor selectionColor;
-
-    /// @brief color of selected lane
-    static const RGBColor selectedLaneColor;
-
-    /// @brief color of selected connection
-    static const RGBColor selectedConnectionColor;
-
-    /// @brief color of selected additionals
-    static const RGBColor selectedAdditionalColor;
-    /// @}
-
     /**@brief Constructor
      * @param[in] netbuilder the netbuilder which may already have been filled
      * GNENet becomes responsible for cleaning this up

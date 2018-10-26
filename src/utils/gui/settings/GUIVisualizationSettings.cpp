@@ -120,6 +120,11 @@ GUIVisualizationSettings::GUIVisualizationSettings(bool _netedit) :
     showSizeLegend(true),
     gaming(false),
     selectionScale(1),
+    selectionColor(0, 0, 204, 255),
+    selectedEdgeColor(0, 0, 204, 255),
+    selectedLaneColor(0, 0, 128, 255),
+    selectedConnectionColor(0, 0, 100, 255),
+    selectedAdditionalColor(0, 0, 150, 255),
     drawForSelecting(false) {
 
     if (netedit) {
@@ -1023,6 +1028,21 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
         return false;
     }
     if (backgroundColor != v2.backgroundColor) {
+        return false;
+    }
+    if (selectionColor != v2.selectionColor) {
+        return false;
+    }
+    if (selectedEdgeColor != v2.selectedEdgeColor) {
+        return false;
+    }
+    if (selectedLaneColor != v2.selectedLaneColor) {
+        return false;
+    }
+    if (selectedConnectionColor != v2.selectedConnectionColor) {
+        return false;
+    }
+    if (selectedAdditionalColor != v2.selectedAdditionalColor) {
         return false;
     }
     if (showGrid != v2.showGrid) {

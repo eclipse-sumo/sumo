@@ -175,7 +175,7 @@ GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
 
     // set color
     if (isAttributeCarrierSelected()) {
-        GLHelper::setColor(myViewNet->getNet()->selectedAdditionalColor);
+        GLHelper::setColor(s.selectedAdditionalColor);
     } else {
         GLHelper::setColor(s.SUMO_color_E1);
     }
@@ -201,7 +201,7 @@ GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
     if ((width * exaggeration > 1) && !s.drawForSelecting) {
         // set color
         if (isAttributeCarrierSelected()) {
-            GLHelper::setColor(myViewNet->getNet()->selectionColor);
+            GLHelper::setColor(s.selectionColor);
         } else {
             GLHelper::setColor(RGBColor::WHITE);
         }
@@ -219,7 +219,7 @@ GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
     if ((width * exaggeration > 1) && !s.drawForSelecting) {
         // set color
         if (isAttributeCarrierSelected()) {
-            GLHelper::setColor(myViewNet->getNet()->selectionColor);
+            GLHelper::setColor(s.selectionColor);
         } else {
             GLHelper::setColor(RGBColor::WHITE);
         }
@@ -245,7 +245,7 @@ GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
         glTranslated(-1, 0, 0);
         // draw E1 logo
         if (isAttributeCarrierSelected()) {
-            GLHelper::drawText("E1", Position(), .1, 1.5, myViewNet->getNet()->selectionColor);
+            GLHelper::drawText("E1", Position(), .1, 1.5, s.selectionColor);
         } else {
             GLHelper::drawText("E1", Position(), .1, 1.5, RGBColor::BLACK);
         }

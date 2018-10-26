@@ -460,6 +460,27 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
 
         myPolySizePanel = new SizePanel(m91, this, mySettings->polySize);
     }
+    if (settings->netedit) {
+        // Selection
+        new FXTabItem(tabbook, "Selection", nullptr, GUIDesignViewSettingsTabItemBook1);
+        FXScrollWindow* genScroll = new FXScrollWindow(tabbook);
+        FXVerticalFrame* frame10 = new FXVerticalFrame(genScroll, GUIDesignViewSettingsVerticalFrame2);
+
+        FXMatrix* m102 = new FXMatrix(frame10, 2, GUIDesignMatrixViewSettings);
+        new FXLabel(m102, "Default Selection Color", nullptr, GUIDesignViewSettingsLabel1);
+        new FXLabel(m102, "", nullptr, GUIDesignViewSettingsLabel1);
+
+        new FXLabel(m102, "Miscellaneous", nullptr, GUIDesignViewSettingsLabel1);
+        mySelectionColor = new FXColorWell(m102, MFXUtils::getFXColor(settings->selectionColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+        new FXLabel(m102, "Edge", nullptr, GUIDesignViewSettingsLabel1);
+        mySelectedEdgeColor = new FXColorWell(m102, MFXUtils::getFXColor(settings->selectedEdgeColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+        new FXLabel(m102, "Lane Edge", nullptr, GUIDesignViewSettingsLabel1);
+        mySelectedLaneColor = new FXColorWell(m102, MFXUtils::getFXColor(settings->selectedLaneColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+        new FXLabel(m102, "Connection", nullptr, GUIDesignViewSettingsLabel1);
+        mySelectedConnectionColor = new FXColorWell(m102, MFXUtils::getFXColor(settings->selectedConnectionColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+        new FXLabel(m102, "Additional", nullptr, GUIDesignViewSettingsLabel1);
+        mySelectedAdditionalColor = new FXColorWell(m102, MFXUtils::getFXColor(settings->selectedAdditionalColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+    }
     {
         // Legend
         new FXTabItem(tabbook, "Legend", nullptr, GUIDesignViewSettingsTabItemBook1);
@@ -571,6 +592,13 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* data) {
     rebuildColorMatrices(true);
 
     myBackgroundColor->setRGBA(MFXUtils::getFXColor(mySettings->backgroundColor));
+    if (mySettings->netedit) {
+        mySelectionColor->setRGBA(MFXUtils::getFXColor(mySettings->selectionColor));
+        mySelectedEdgeColor->setRGBA(MFXUtils::getFXColor(mySettings->selectedEdgeColor));
+        mySelectedLaneColor->setRGBA(MFXUtils::getFXColor(mySettings->selectedLaneColor));
+        mySelectedConnectionColor->setRGBA(MFXUtils::getFXColor(mySettings->selectedConnectionColor));
+        mySelectedAdditionalColor->setRGBA(MFXUtils::getFXColor(mySettings->selectedAdditionalColor));
+    }
 
     myLaneEdgeColorMode->setCurrentItem((FXint) mySettings->getLaneEdgeMode());
     myLaneEdgeScaleMode->setCurrentItem((FXint) mySettings->getLaneEdgeScaleMode());
@@ -763,6 +791,14 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
 
     tmpSettings.name = mySettings->name;
     tmpSettings.backgroundColor = MFXUtils::getRGBColor(myBackgroundColor->getRGBA());
+    if (mySettings->netedit) {
+        tmpSettings.selectionColor = MFXUtils::getRGBColor(mySelectionColor->getRGBA());
+        tmpSettings.selectedEdgeColor = MFXUtils::getRGBColor(mySelectedEdgeColor->getRGBA());
+        tmpSettings.selectedLaneColor = MFXUtils::getRGBColor(mySelectedLaneColor->getRGBA());
+        tmpSettings.selectedConnectionColor = MFXUtils::getRGBColor(mySelectedConnectionColor->getRGBA());
+        tmpSettings.selectedAdditionalColor = MFXUtils::getRGBColor(mySelectedAdditionalColor->getRGBA());
+    }
+
     tmpSettings.showGrid = (myShowGrid->getCheck() != FALSE);
     tmpSettings.gridXSize = (double) myGridXSizeDialer->getValue();
     tmpSettings.gridYSize = (double) myGridYSizeDialer->getValue();
