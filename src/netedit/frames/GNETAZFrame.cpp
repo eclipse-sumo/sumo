@@ -257,6 +257,8 @@ GNETAZFrame::EdgesTAZSelector::onCmdSetAttribute(FXObject* obj, FXSelector, void
                 i->getEditedTAZSource()->setAttribute(SUMO_ATTR_WEIGHT, toString(i->getDepartWeightTextField()->getText().text()), myTAZFrameParent->getViewNet()->getUndoList());
                 i->getDepartWeightTextField()->setTextColor(FXRGB(0, 0, 0));
                 i->getDepartWeightTextField()->killFocus();
+                // enable save buttons
+                myTAZFrameParent->mySaveTAZEdges->enableButtons();
             } else {
                 i->getDepartWeightTextField()->setTextColor(FXRGB(255, 0, 0));
             }
@@ -266,6 +268,8 @@ GNETAZFrame::EdgesTAZSelector::onCmdSetAttribute(FXObject* obj, FXSelector, void
                 i->getEditedTAZSink()->setAttribute(SUMO_ATTR_WEIGHT, toString(i->getArrivalWeightTextField()->getText().text()), myTAZFrameParent->getViewNet()->getUndoList());
                 i->getArrivalWeightTextField()->setTextColor(FXRGB(0, 0, 0));
                 i->getArrivalWeightTextField()->killFocus();
+                // enable save buttons
+                myTAZFrameParent->mySaveTAZEdges->enableButtons();
             } else {
                 i->getArrivalWeightTextField()->setTextColor(FXRGB(255, 0, 0));
             }
