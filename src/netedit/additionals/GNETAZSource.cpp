@@ -38,6 +38,8 @@ GNETAZSource::GNETAZSource(GNEAdditional* TAZParent, GNEEdge* edge, double depar
     GNEAdditional(TAZParent, TAZParent->getViewNet(), GLO_TAZ, SUMO_TAG_TAZSOURCE, "", false),
     myEdge(edge),
     myDepartWeight(departWeight) {
+    // set edge as child
+    addEdgeChild(edge);
 }
 
 
