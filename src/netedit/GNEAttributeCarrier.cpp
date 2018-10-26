@@ -2238,20 +2238,17 @@ GNEAttributeCarrier::fillAttributeCarriers() {
                                                ATTRPROPERTY_STRING | ATTRPROPERTY_COLOR | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
                                                "The RGBA color with which the TAZ shall be displayed",
                                                "red");
-        myAllowedTags[currentTag].addAttribute(SUMO_ATTR_EDGES,
-                                               ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_UNIQUE,
-                                               "List of edges of the TAZ",
-                                               "");
     }
     currentTag = SUMO_TAG_TAZSOURCE;
     {
         // set values of tag
         myAllowedTags[currentTag] = TagValues(TAGPROPERTY_TAZ | TAGPROPERTY_PARENT, taz, ICON_TAZEDGE, SUMO_TAG_TAZ);
         // set values of attributes
-        myAllowedTags[currentTag].addAttribute(SUMO_ATTR_ID,
-                                               ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
+        myAllowedTags[currentTag].addAttribute(SUMO_ATTR_EDGE,
+                                               ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_NONEDITABLE | ATTRPROPERTY_SYNONYM,
                                                "The id of edge in the simulation network",
-                                               "");
+                                               "",
+                                               SUMO_ATTR_ID);
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_WEIGHT,
                                                ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE,
                                                "Depart weight associated to this Edge",
@@ -2262,10 +2259,11 @@ GNEAttributeCarrier::fillAttributeCarriers() {
         // set values of tag
         myAllowedTags[currentTag] = TagValues(TAGPROPERTY_TAZ | TAGPROPERTY_PARENT, taz, ICON_TAZEDGE, SUMO_TAG_TAZ);
         // set values of attributes
-        myAllowedTags[currentTag].addAttribute(SUMO_ATTR_ID,
-                                               ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
+        myAllowedTags[currentTag].addAttribute(SUMO_ATTR_EDGE,
+                                               ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_NONEDITABLE | ATTRPROPERTY_SYNONYM,
                                                "The id of edge in the simulation network",
-                                               "");
+                                               "",
+                                               SUMO_ATTR_ID);
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_WEIGHT,
                                                ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE,
                                                "Arrival weight associated to this Edget",

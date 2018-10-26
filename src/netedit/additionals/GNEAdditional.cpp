@@ -409,30 +409,25 @@ GNEAdditional::sortAdditionalChilds() {
             throw ProcessError("Some additional childs were lost during sorting");
         }
     } else if (getTag() == SUMO_TAG_TAZ) {
-        // we need to sort TAZSource/TAZSinks due additional.xds model using edge as criterium
-        std::map<std::string, std::pair<GNEAdditional*, GNEAdditional*> > TAZChilds;
+        // we need to sort Entry/Exits due additional.xds model
+        std::vector<GNEAdditional*> sortedTAZSourceSink;
+        // obtain all TAZSources
         for (auto i : myAdditionalChilds) {
-            // first check if a new pair has to be added to TAZChilds
-            if(TAZChilds.count(i->getAttribute(SUMO_ATTR_EDGE)) == 0) {
-                TAZChilds[i->getAttribute(SUMO_ATTR_EDGE)] = std::make_pair(nullptr, nullptr);
-            }
-            // set TAZChilds depending of TAZ child type
-            if(i->getTag() == SUMO_TAG_TAZSOURCE) {
-                TAZChilds.at(i->getAttribute(SUMO_ATTR_EDGE)).first = i;
-            } else {
-                TAZChilds.at(i->getAttribute(SUMO_ATTR_EDGE)).second = i;
+            if (i->getTag() == SUMO_TAG_TAZSOURCE) {
+                sortedTAZSourceSink.push_back(i);
             }
         }
-        myAdditionalChilds.clear();
-        // restore additional childs
-        for (auto i : TAZChilds) {
-            // make sure that NULL pointers are added
-            if (i.second.first != nullptr) {
-                myAdditionalChilds.push_back(i.second.first);
+        // obtain all TAZSinks
+        for (auto i : myAdditionalChilds) {
+            if (i->getTag() == SUMO_TAG_TAZSINK) {
+                sortedTAZSourceSink.push_back(i);
             }
-            if (i.second.second != nullptr) {
-                myAdditionalChilds.push_back(i.second.second);
-            }
+        }
+        // change myAdditionalChilds for sortedEntryExits
+        if (sortedTAZSourceSink.size() == myAdditionalChilds.size()) {
+            myAdditionalChilds = sortedTAZSourceSink;
+        } else {
+            throw ProcessError("Some additional childs were lost during sorting");
         }
     } else {
         // declare a vector to keep sorted childs
