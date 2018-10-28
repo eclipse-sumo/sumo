@@ -24,6 +24,7 @@
 // ===========================================================================
 #include <config.h>
 
+#include <string>
 #include <vector>
 #include <xercesc/sax2/SAX2XMLReader.hpp>
 
