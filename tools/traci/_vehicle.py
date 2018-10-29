@@ -1439,13 +1439,22 @@ class VehicleDomain(Domain):
         Domain.subscribeContext(
             self, objectID, domain, dist, varIDs, begin, end)
 
-    def addSubscriptionFilterLanes(self, lanes):
-        """addSubscriptionFilterLanes(list(integer)) -> None
+    def addSubscriptionFilterLanes(self, lanes, noOpposite=False, downstreamDist=None, upstreamDist=None):
+        """addSubscriptionFilterLanes(list(integer), bool, double, double) -> None
 
         Adds a lane-filter to the last modified vehicle context subscription (call it just after subscribing).
         lanes is a list of relative lane indices (-1 -> right neighboring lane of the ego, 0 -> ego lane, etc.)
+        noOpposite specifies whether vehicles on opposite direction lanes shall be returned
+        downstreamDist and upstreamDist specify the range of the search for surrounding vehicles along the road net.
         """
         self._connection._addSubscriptionFilter(tc.FILTER_TYPE_LANES, lanes)
+        if noOpposite:
+            self.addSubscriptionFilterNoOpposite()
+        if downstreamDist != None:
+            self.addSubscriptionFilterDownstreamDistance(downstreamDist)
+        if downstreamDist != None:
+            self.addSubscriptionFilterUpstreamDistance(upstreamDist)
+                
 
     def addSubscriptionFilterNoOpposite(self):
         """addSubscriptionFilterNoOpposite() -> None
@@ -1471,19 +1480,26 @@ class VehicleDomain(Domain):
         """
         self._connection._addSubscriptionFilter(tc.FILTER_TYPE_UPSTREAM_DIST, dist)
 
-    def addSubscriptionFilterCFManeuver(self):
+    def addSubscriptionFilterCFManeuver(self, downstreamDist=None, upstreamDist=None):
         """addSubscriptionFilterCFManeuver() -> None
 
-        Restricts vehicles returned by the last modified vehicle context subscription to leader and follower of the ego
+        Restricts vehicles returned by the last modified vehicle context subscription to leader and follower of the ego.
+        downstreamDist and upstreamDist specify the range of the search for leader and follower along the road net.
         """
         self.addSubscriptionFilterLeadFollow([0])
+        if downstreamDist != None:
+            self.addSubscriptionFilterDownstreamDistance(downstreamDist)
+        if downstreamDist != None:
+            self.addSubscriptionFilterUpstreamDistance(upstreamDist)
 
-    def addSubscriptionFilterLCManeuver(self, direction):
+    def addSubscriptionFilterLCManeuver(self, direction, noOpposite=False, downstreamDist=None, upstreamDist=None):
         """addSubscriptionFilterLCManeuver(int) -> None
 
         Restricts vehicles returned by the last modified vehicle context subscription to neighbor and ego-lane leader
         and follower of the ego.
         direction - lane change direction (in {-1=right, 1=left})
+        noOpposite specifies whether vehicles on opposite direction lanes shall be returned
+        downstreamDist and upstreamDist specify the range of the search for leader and follower along the road net.
         Combine with: distance filters; vClass/vType filter.
         """
         if direction is None:
@@ -1494,6 +1510,12 @@ class VehicleDomain(Domain):
         else:
             lanes = [0, direction]
         self.addSubscriptionFilterLeadFollow(lanes)
+        if noOpposite:
+            self.addSubscriptionFilterNoOpposite()
+        if downstreamDist != None:
+            self.addSubscriptionFilterDownstreamDistance(downstreamDist)
+        if downstreamDist != None:
+            self.addSubscriptionFilterUpstreamDistance(upstreamDist)
         
     def addSubscriptionFilterLeadFollow(self, lanes):
         """addSubscriptionFilterLCManeuver() -> None
@@ -1506,7 +1528,7 @@ class VehicleDomain(Domain):
         self._connection._addSubscriptionFilter(tc.FILTER_TYPE_LANES, lanes)
 
     def addSubscriptionFilterTurn(self, downstreamDist=None, upstreamDist=None):
-        """addSubscriptionFilterTurnManeuver() -> None
+        """addSubscriptionFilterTurn() -> None
 
         Restricts vehicles returned by the last modified vehicle context subscription to foes on an upcoming junction
         """
