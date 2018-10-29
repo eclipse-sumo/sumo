@@ -238,16 +238,16 @@ public:
         /// @brief hide save TAZ Edges Modul
         void hideTAZEdgesCommonParametersModul();
 
-        /// @brief enable buttons save and cancel changes
-        void enableButtons();
+        /// @brief get default TAZSource weight
+        double getDefaultTAZSourceWeight() const;
+
+        /// @brief default TAZSink weight
+        double getDefaultTAZSinkWeight() const;
 
         /// @name FOX-callbacks
         /// @{
         /// @brief Called when the user press the button save changes
-        long onCmdSaveChanges(FXObject*, FXSelector, void*);
-
-        /// @brief Called when the user press the button cancel changes
-        long onCmdCancelChanges(FXObject*, FXSelector, void*);
+        long onCmdSetDefaultValues(FXObject* obj, FXSelector, void*);
         /// @}
 
     protected:
@@ -258,11 +258,26 @@ public:
         /// @brief pointer to TAZFrame parent
         GNETAZFrame* myTAZFrameParent;
 
-        /// @field FXButton for save changes in TAZEdges
-        FXButton* mySaveChangesButton;
+        /// @brief CheckButton to enable or disable Toggle edge Membership
+        FXCheckButton* myToggleMembership;
 
-        /// @field FXButton for cancel changes in TAZEdges
-        FXButton* myCancelChangesButton;
+        /// @brief CheckButton to enable or disables a default value for new TAZ Sources
+        FXCheckButton* myCheckBoxSetDefaultValueTAZSources;
+
+        /// @brief textField to set a default value for TAZ Sources
+        FXTextField* myTextFieldDefaultValueTAZSources;
+
+        /// @brief CheckButton to enable or disables a default value for new TAZ Sinks
+        FXCheckButton* myCheckBoxSetDefaultValueTAZSinks;
+
+        /// @brief textField to set a default value for TAZ Sinks
+        FXTextField* myTextFieldDefaultValueTAZSinks;
+
+        /// @brief default TAZSource weight
+        double myDefaultTAZSourceWeight;
+
+        /// @brief default TAZSink weight
+        double myDefaultTAZSinkWeight;
     };
 
     // ===========================================================================

@@ -61,8 +61,7 @@ FXDEFMAP(GNETAZFrame::TAZSaveEdges) TAZSaveEdgesMap[] = {
 };
 
 FXDEFMAP(GNETAZFrame::TAZEdgesCommonParameters) TAZEdgesCommonParametersMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_OK,         GNETAZFrame::TAZEdgesCommonParameters::onCmdSaveChanges),
-    FXMAPFUNC(SEL_COMMAND,  MID_CANCEL,     GNETAZFrame::TAZEdgesCommonParameters::onCmdCancelChanges),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNETAZFrame::TAZEdgesCommonParameters::onCmdSetDefaultValues),
 };
 
 FXDEFMAP(GNETAZFrame::TAZEdgesSelector) TAZEdgesSelectorMap[] = {
@@ -195,9 +194,9 @@ GNETAZFrame::TAZEdgesSelector::selectEdge(GNEEdge *edge) {
         }
         // enable save and cancel buttons
         myTAZFrameParent->myTAZSaveEdges->enableButtons();
-        // if edge was found, that means that GNETAZSource and GNETAZSink doesn't exist, then create it
-        GNETAZSource* TAZSource = new GNETAZSource(myTAZFrameParent->getTAZCurrent()->getTAZ(), edge, 1);
-        GNETAZSink* TAZSink = new GNETAZSink(myTAZFrameParent->getTAZCurrent()->getTAZ(), edge, 1);
+        // if edge was found, that means that GNETAZSource and GNETAZSink doesn't exist, then create it using the values of myTAZEdgesCommonParameters
+        GNETAZSource* TAZSource = new GNETAZSource(myTAZFrameParent->getTAZCurrent()->getTAZ(), edge, myTAZFrameParent->myTAZEdgesCommonParameters->getDefaultTAZSourceWeight());
+        GNETAZSink* TAZSink = new GNETAZSink(myTAZFrameParent->getTAZCurrent()->getTAZ(), edge, myTAZFrameParent->myTAZEdgesCommonParameters->getDefaultTAZSinkWeight());
         // create a GNEChange_Additional command, but without adding it into UndoList
         myTAZFrameParent->myViewNet->getUndoList()->add(new GNEChange_Additional(TAZSource, true), true);
         myTAZFrameParent->myViewNet->getUndoList()->add(new GNEChange_Additional(TAZSink, true), true);
@@ -469,17 +468,32 @@ GNETAZFrame::TAZSaveEdges::onCmdCancelChanges(FXObject*, FXSelector, void*) {
 // ---------------------------------------------------------------------------
 
 GNETAZFrame::TAZEdgesCommonParameters::TAZEdgesCommonParameters(GNETAZFrame* TAZFrameParent) : 
-    FXGroupBox(TAZFrameParent->myContentFrame, "Save TAZ Edges", GUIDesignGroupBoxFrame),
-    myTAZFrameParent(TAZFrameParent) {
-    // Create groupbox for save changes
-    mySaveChangesButton = new FXButton(this, "Save changes", GUIIconSubSys::getIcon(ICON_SAVE), this, MID_OK, GUIDesignButton);
-    mySaveChangesButton->disable();
-    // Create groupbox cancel changes
-    myCancelChangesButton = new FXButton(this, "Sancel changes", GUIIconSubSys::getIcon(ICON_CANCEL), this, MID_CANCEL, GUIDesignButton);
-    myCancelChangesButton->disable();
-    // Create groupbox and label for legend
-    FXLabel *colorSelectedLabel = new FXLabel(this, "Edge Selected", 0, GUIDesignLabelLeft);
-    colorSelectedLabel->setBackColor(MFXUtils::getFXColor(TAZFrameParent->getEdgeCandidateSelectedColor()));
+    FXGroupBox(TAZFrameParent->myContentFrame, "Default values", GUIDesignGroupBoxFrame),
+    myTAZFrameParent(TAZFrameParent),
+    myDefaultTAZSourceWeight(1),
+    myDefaultTAZSinkWeight(1) {
+    // create checkbox for toogle membership
+    FXHorizontalFrame* toogleMembershipFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    new FXLabel(toogleMembershipFrame, "Membership", 0, GUIDesignLabelAttribute);
+    myToggleMembership = new FXCheckButton(toogleMembershipFrame, "Toggle", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButtonAttribute);
+    // by default enabled
+    myToggleMembership->setCheck(TRUE);
+    // create default TAZ Source weight
+    FXHorizontalFrame* defaultTAZSourcesFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    myCheckBoxSetDefaultValueTAZSources = new FXCheckButton(defaultTAZSourcesFrame, "Def. source", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButtonAttributeLabel);
+    myTextFieldDefaultValueTAZSources = new FXTextField(defaultTAZSourcesFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldReal);
+    myTextFieldDefaultValueTAZSources->setText("1");
+    // by default disable
+    myCheckBoxSetDefaultValueTAZSources->setCheck(FALSE);
+    myTextFieldDefaultValueTAZSources->disable();
+    // create default TAZ Sink weight
+    FXHorizontalFrame* defaultTAZSinksFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    myCheckBoxSetDefaultValueTAZSinks = new FXCheckButton(defaultTAZSinksFrame, "Def. sink", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButtonAttributeLabel);
+    myTextFieldDefaultValueTAZSinks = new FXTextField(defaultTAZSinksFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldReal);
+    myTextFieldDefaultValueTAZSinks->setText("1");
+    // by default disable
+    myCheckBoxSetDefaultValueTAZSinks->setCheck(FALSE);
+    myTextFieldDefaultValueTAZSinks->disable();
 }
 
 
@@ -494,43 +508,88 @@ GNETAZFrame::TAZEdgesCommonParameters::showTAZEdgesCommonParametersModul() {
 
 void 
 GNETAZFrame::TAZEdgesCommonParameters::hideTAZEdgesCommonParametersModul() {
-    // cancel changes
-    onCmdCancelChanges(0,0,0);
     hide();
 }
 
 
-void
-GNETAZFrame::TAZEdgesCommonParameters::enableButtons() {
-    // enable mySaveChangesButton and myCancelChangesButton, and start a undolist set
-    if (!mySaveChangesButton->isEnabled()) {
-        mySaveChangesButton->enable();
-        myCancelChangesButton->enable();
-        myTAZFrameParent->myViewNet->getUndoList()->p_begin("TAZ attributes");
+double 
+GNETAZFrame::TAZEdgesCommonParameters::getDefaultTAZSourceWeight() const {
+    if (myCheckBoxSetDefaultValueTAZSources->getCheck() == TRUE) {
+        return myDefaultTAZSourceWeight;
+    } else {
+        return 1;
     }
 }
 
-long
-GNETAZFrame::TAZEdgesCommonParameters::onCmdSaveChanges(FXObject*, FXSelector, void*) {
-    // disable mySaveChangesButton and myCancelChangesButtonand, and finish undolist set
-    if (mySaveChangesButton->isEnabled()) {
-        mySaveChangesButton->disable();
-        myCancelChangesButton->disable();
-        myTAZFrameParent->myViewNet->getUndoList()->p_end();
+
+double 
+GNETAZFrame::TAZEdgesCommonParameters::getDefaultTAZSinkWeight() const {
+    if (myCheckBoxSetDefaultValueTAZSinks->getCheck() == TRUE) {
+        return myDefaultTAZSinkWeight;
+    } else {
+        return 1;
     }
-    return 1;
 }
 
 
 long
-GNETAZFrame::TAZEdgesCommonParameters::onCmdCancelChanges(FXObject*, FXSelector, void*) {
-    // cancel changes and disable buttons
-    if (mySaveChangesButton->isEnabled()) {
-        myTAZFrameParent->myViewNet->getUndoList()->p_abort();
-        mySaveChangesButton->disable();
-        myCancelChangesButton->disable();
-        // update list of myTAZEdgesSelector
-        myTAZFrameParent->myTAZEdgesSelector->updateList();
+GNETAZFrame::TAZEdgesCommonParameters::onCmdSetDefaultValues(FXObject* obj, FXSelector, void*) {
+    // find object
+    if(obj == myToggleMembership) {
+        // set text of myToggleMembership
+        if (myToggleMembership->getCheck() == TRUE) {
+            myToggleMembership->setText("toogle");
+        } else {
+            myToggleMembership->setText("keep");
+        }
+    } else if (obj == myCheckBoxSetDefaultValueTAZSources) {
+        // enable or disable myTextFieldDefaultValueTAZSources
+        if (myCheckBoxSetDefaultValueTAZSources->getCheck() == TRUE) {
+            myTextFieldDefaultValueTAZSources->enable();
+        } else {
+            myTextFieldDefaultValueTAZSources->disable();
+        }
+    } else if (obj == myTextFieldDefaultValueTAZSources) {
+        if (GNEAttributeCarrier::canParse<double>(myTextFieldDefaultValueTAZSources->getText().text())) {
+            myDefaultTAZSourceWeight = GNEAttributeCarrier::parse<double>(myTextFieldDefaultValueTAZSources->getText().text());
+            // check if myDefaultTAZSourceWeight is greather than 0
+            if (myDefaultTAZSourceWeight >= 0) {
+                // set valid color
+                myTextFieldDefaultValueTAZSources->setTextColor(FXRGB(0, 0, 0));
+            } else {
+                // set invalid color
+                myTextFieldDefaultValueTAZSources->setTextColor(FXRGB(255, 0, 0));
+                myDefaultTAZSourceWeight = 1;
+            }
+        } else {
+            // set invalid color
+            myTextFieldDefaultValueTAZSources->setTextColor(FXRGB(255, 0, 0));
+            myDefaultTAZSourceWeight = 1;
+        }
+    } else if (obj == myCheckBoxSetDefaultValueTAZSinks) {
+        // enable or disable myTextFieldDefaultValueTAZSources
+        if (myCheckBoxSetDefaultValueTAZSinks->getCheck() == TRUE) {
+            myTextFieldDefaultValueTAZSinks->enable();
+        } else {
+            myTextFieldDefaultValueTAZSinks->disable();
+        }
+    } else if (obj == myTextFieldDefaultValueTAZSinks) {
+        if (GNEAttributeCarrier::canParse<double>(myTextFieldDefaultValueTAZSinks->getText().text())) {
+            myDefaultTAZSinkWeight = GNEAttributeCarrier::parse<double>(myTextFieldDefaultValueTAZSinks->getText().text());
+            // check if myDefaultTAZSinkWeight is greather than 0
+            if (myDefaultTAZSinkWeight >= 0) {
+                // set valid color
+                myTextFieldDefaultValueTAZSinks->setTextColor(FXRGB(0, 0, 0));
+            } else {
+                // set invalid color
+                myTextFieldDefaultValueTAZSinks->setTextColor(FXRGB(255, 0, 0));
+                myDefaultTAZSinkWeight = 1;
+            }
+        } else {
+            // set invalid color
+            myTextFieldDefaultValueTAZSinks->setTextColor(FXRGB(255, 0, 0));
+            myDefaultTAZSinkWeight = 1;
+        }
     }
     return 1;
 }
