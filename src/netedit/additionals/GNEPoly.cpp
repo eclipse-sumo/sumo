@@ -770,8 +770,10 @@ GNEPoly::setGenericParametersStr(const std::string& value) {
 
 void
 GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
-    // first remove object from grid due almost modificactions affects to boundary
-    myNet->removeGLObjectFromGrid(this);
+    // first remove object from grid due almost modificactions affects to boundary (but avoided for certain attributes)
+    if((key != SUMO_ATTR_ID) && (key != GNE_ATTR_GENERIC) && (key != GNE_ATTR_SELECTED)) {
+        myNet->removeGLObjectFromGrid(this);
+    }
     switch (key) {
         case SUMO_ATTR_ID: {
             std::string oldID = myID;
@@ -880,8 +882,10 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
-    // add object into grid again
-    myNet->addGLObjectIntoGrid(this);
+    // add object into grid again (but avoided for certain attributes)
+    if((key != SUMO_ATTR_ID) && (key != GNE_ATTR_GENERIC) && (key != GNE_ATTR_SELECTED)) {
+        myNet->addGLObjectIntoGrid(this);
+    }
 }
 
 

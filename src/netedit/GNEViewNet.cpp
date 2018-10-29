@@ -1041,10 +1041,6 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                         } else {
                             myObjectsUnderCursor.attributeCarrier->selectAttributeCarrier();
                         }
-                        // update selector frame
-                        if (myViewParent->getSelectorFrame()->shown()) {
-                            myViewParent->getSelectorFrame()->getLockGLObjectTypes()->updateLockGLObjectTypes();
-                        }
                     }
                 }
                 // check if a rect for selecting is being created
@@ -1202,10 +1198,6 @@ GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
     } else if (mySelectingArea.selectingUsingRectangle) {
         bool shiftKeyPressed = ((FXEvent*)eventData)->state & SHIFTMASK;
         mySelectingArea.processRectangleSelection(this, shiftKeyPressed);
-        // update selector frame
-        if (myViewParent->getSelectorFrame()->shown()) {
-            myViewParent->getSelectorFrame()->getLockGLObjectTypes()->updateLockGLObjectTypes();
-        }
     }
     update();
     return 1;
@@ -3263,11 +3255,11 @@ GNEViewNet::SelectingArea::processBoundarySelection(GNEViewNet* viewNet, Boundar
             // first unselect AC of ACToUnselect and then selects AC of ACToSelect
             viewNet->myUndoList->p_begin("selection using rectangle");
             for (auto i : ACToUnselect) {
-                i->setAttribute(GNE_ATTR_SELECTED, "false", viewNet->myUndoList);
+                i->setAttribute(GNE_ATTR_SELECTED, "0", viewNet->myUndoList);
             }
             for (auto i : ACToSelect) {
                 if (GNEAttributeCarrier::getTagProperties(i->getTag()).isSelectable()) {
-                    i->setAttribute(GNE_ATTR_SELECTED, "true", viewNet->myUndoList);
+                    i->setAttribute(GNE_ATTR_SELECTED, "1", viewNet->myUndoList);
                 }
             }
             viewNet->myUndoList->p_end();

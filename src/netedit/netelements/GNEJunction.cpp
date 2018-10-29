@@ -151,10 +151,6 @@ GNEJunction::rebuildGNECrossings(bool rebuildNBNodeCrossings) {
                 // include reference to created GNECrossing
                 retrievedGNECrossing->incRef();
             }
-            // check if crossing is selected
-            if (retrievedGNECrossing->isAttributeCarrierSelected()) {
-                retrievedGNECrossing->selectAttributeCarrier();
-            }
         }
         // delete non retrieved GNECrossings (we don't need to extract if from Tree two times)
         for (auto it : myGNECrossings) {
@@ -1250,8 +1246,10 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
-    // After setting attribute always update Geometry
-    updateGeometry(true);
+    // Update Geometry after setting a new attribute (but avoided for certain attributes)
+    if((key != SUMO_ATTR_ID) && (key != GNE_ATTR_GENERIC) && (key != GNE_ATTR_SELECTED)) {
+        updateGeometry(true);
+    }
 }
 
 

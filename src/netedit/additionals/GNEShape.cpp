@@ -25,6 +25,7 @@
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/images/GUITextureSubSys.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
+#include <netedit/frames/GNESelectorFrame.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
@@ -98,7 +99,10 @@ GNEShape::selectAttributeCarrier(bool changeFlag) {
     if (!myNet) {
         throw ProcessError("Net cannot be nullptr");
     } else {
-        gSelected.select(dynamic_cast<GUIGlObject*>(this)->getGlID());
+        GUIGlObject* object = dynamic_cast<GUIGlObject*>(this);
+        gSelected.select(object->getGlID());
+        // add object into list of selected objects
+        myNet->getViewNet()->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->addedLockedObject(object->getType());
         if (changeFlag) {
             mySelected = true;
         }
@@ -111,7 +115,10 @@ GNEShape::unselectAttributeCarrier(bool changeFlag) {
     if (!myNet) {
         throw ProcessError("Net cannot be nullptr");
     } else {
-        gSelected.deselect(dynamic_cast<GUIGlObject*>(this)->getGlID());
+        GUIGlObject* object = dynamic_cast<GUIGlObject*>(this);
+        gSelected.deselect(object->getGlID());
+        // remove object of list of selected objects
+        myNet->getViewNet()->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->removeLockedObject(object->getType());
         if (changeFlag) {
             mySelected = false;
         }

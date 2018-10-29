@@ -504,7 +504,9 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value) {
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
     // Crossing are a special case and we need ot update geometry of junction instead of crossing
-    myParentJunction->updateGeometry(true);
+    if((key != SUMO_ATTR_ID) && (key != GNE_ATTR_GENERIC) && (key != GNE_ATTR_SELECTED)) {
+        myParentJunction->updateGeometry(true);
+    }
 }
 
 

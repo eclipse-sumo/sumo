@@ -40,6 +40,7 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/xml/SUMOSAXHandler.h>
+#include <netedit/frames/GNESelectorFrame.h>
 #include <netedit/netelements/GNELane.h>
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNEJunction.h>
@@ -1062,6 +1063,8 @@ GNEAdditional::selectAttributeCarrier(bool changeFlag) {
         throw ProcessError("ViewNet cannot be nullptr");
     } else {
         gSelected.select(dynamic_cast<GUIGlObject*>(this)->getGlID());
+        // add object of list into selected objects
+        myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->addedLockedObject(GLO_ADDITIONAL);
         if (changeFlag) {
             mySelected = true;
         }
@@ -1075,8 +1078,11 @@ GNEAdditional::unselectAttributeCarrier(bool changeFlag) {
         throw ProcessError("ViewNet cannot be nullptr");
     } else {
         gSelected.deselect(dynamic_cast<GUIGlObject*>(this)->getGlID());
+        // remove object of list of selected objects
+        myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->removeLockedObject(GLO_ADDITIONAL);
         if (changeFlag) {
             mySelected = false;
+
         }
     }
 }

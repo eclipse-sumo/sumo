@@ -24,6 +24,7 @@
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <netedit/additionals/GNEAdditional.h>
+#include <netedit/frames/GNESelectorFrame.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
@@ -142,9 +143,12 @@ GNENetElement::selectAttributeCarrier(bool changeFlag) {
     if (!myNet) {
         throw ProcessError("Net cannot be nullptr");
     } else {
-        gSelected.select(dynamic_cast<GUIGlObject*>(this)->getGlID());
+        gSelected.select(getGlID());
+        // add object into list of selected objects
+        myNet->getViewNet()->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->addedLockedObject(getType());
         if (changeFlag) {
             mySelected = true;
+            
         }
     }
 }
@@ -155,7 +159,9 @@ GNENetElement::unselectAttributeCarrier(bool changeFlag) {
     if (!myNet) {
         throw ProcessError("Net cannot be nullptr");
     } else {
-        gSelected.deselect(dynamic_cast<GUIGlObject*>(this)->getGlID());
+        gSelected.deselect(getGlID());
+        // remove object of list of selected objects
+        myNet->getViewNet()->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->removeLockedObject(getType());
         if (changeFlag) {
             mySelected = false;
         }

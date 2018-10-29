@@ -237,6 +237,9 @@
 
 /// @brief Matrix design extended over Frame and used for represent attributes and their values (Deprecated)
 #define GUIDesignMatrixAttributes           (LAYOUT_FILL_X | MATRIX_BY_COLUMNS | PACK_UNIFORM_WIDTH)
+
+/// @brief Matrix for pack GLTypes (used in GNESelectorFrame)
+#define GUIDesignMatrixLockGLTypes          (LAYOUT_FILL_X | LAYOUT_BOTTOM | LAYOUT_LEFT | MATRIX_BY_COLUMNS), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 /// @}
 
 
