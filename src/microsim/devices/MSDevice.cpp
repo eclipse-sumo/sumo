@@ -40,6 +40,7 @@
 #include "MSDevice_DriverState.h"
 #include "MSDevice_Bluelight.h"
 #include "MSDevice_FCD.h"
+#include "MSPersonDevice_Routing.h"
 #include "MSRoutingEngine.h"
 
 
@@ -102,6 +103,13 @@ MSDevice::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& int
     MSDevice_FCD::buildVehicleDevices(v, into);
 }
 
+
+void
+MSDevice::buildPersonDevices(MSTransportable& p, std::vector<MSPersonDevice*>& into) {
+    MSPersonDevice_Routing::buildDevices(p, into);
+}
+
+
 void
 MSDevice::cleanupAll() {
     MSRoutingEngine::cleanup();
@@ -110,65 +118,18 @@ MSDevice::cleanupAll() {
 }
 
 void
-MSDevice::insertDefaultAssignmentOptions(const std::string& deviceName, const std::string& optionsTopic, OptionsCont& oc) {
-    oc.doRegister("device." + deviceName + ".probability", new Option_Float(-1.0));// (default: no need to call RNG)
-    oc.addDescription("device." + deviceName + ".probability", optionsTopic, "The probability for a vehicle to have a '" + deviceName + "' device");
+MSDevice::insertDefaultAssignmentOptions(const std::string& deviceName, const std::string& optionsTopic, OptionsCont& oc, const bool isPerson) {
+    const std::string prefix = (isPerson ? "person-device." : "device.") + deviceName;
+    const std::string object = isPerson ? "person" : "vehicle";
+    oc.doRegister(prefix + ".probability", new Option_Float(-1.0));// (default: no need to call RNG)
+    oc.addDescription(prefix + ".probability", optionsTopic, "The probability for a " + object + " to have a '" + deviceName + "' device");
 
-    oc.doRegister("device." + deviceName + ".explicit", new Option_String());//!!! describe
-    oc.addSynonyme("device." + deviceName + ".explicit", "device." + deviceName + ".knownveh", true);
-    oc.addDescription("device." + deviceName + ".explicit", optionsTopic, "Assign a '" + deviceName + "' device to named vehicles");
+    oc.doRegister(prefix + ".explicit", new Option_String());
+    oc.addSynonyme(prefix + ".explicit", prefix + ".knownveh", true);
+    oc.addDescription(prefix + ".explicit", optionsTopic, "Assign a '" + deviceName + "' device to named " + object + "s");
 
-    oc.doRegister("device." + deviceName + ".deterministic", new Option_Bool(false)); //!!! describe
-    oc.addDescription("device." + deviceName + ".deterministic", optionsTopic, "The '" + deviceName + "' devices are set deterministic using a fraction of 1000");
-}
-
-
-bool
-MSDevice::equippedByDefaultAssignmentOptions(const OptionsCont& oc, const std::string& deviceName, SUMOVehicle& v, bool outputOptionSet) {
-    // assignment by number
-    bool haveByNumber = false;
-    bool numberGiven = false;
-    if (oc.exists("device." + deviceName + ".deterministic") && oc.getBool("device." + deviceName + ".deterministic")) {
-        numberGiven = true;
-        haveByNumber = MSNet::getInstance()->getVehicleControl().getQuota(oc.getFloat("device." + deviceName + ".probability")) == 1;
-    } else {
-        if (oc.exists("device." + deviceName + ".probability") && oc.getFloat("device." + deviceName + ".probability") >= 0) {
-            numberGiven = true;
-            haveByNumber = RandHelper::rand(&myEquipmentRNG) <= oc.getFloat("device." + deviceName + ".probability");
-        }
-    }
-    // assignment by name
-    bool haveByName = false;
-    bool nameGiven = false;
-    if (oc.exists("device." + deviceName + ".explicit") && oc.isSet("device." + deviceName + ".explicit")) {
-        nameGiven = true;
-        if (myExplicitIDs.find(deviceName) == myExplicitIDs.end()) {
-            myExplicitIDs[deviceName] = std::set<std::string>();
-            const std::vector<std::string> idList = OptionsCont::getOptions().getStringVector("device." + deviceName + ".explicit");
-            myExplicitIDs[deviceName].insert(idList.begin(), idList.end());
-        }
-        haveByName = myExplicitIDs[deviceName].count(v.getID()) > 0;
-    }
-    // assignment by abstract parameters
-    bool haveByParameter = false;
-    bool parameterGiven = false;
-    const std::string key = "has." + deviceName + ".device";
-    if (v.getParameter().knowsParameter(key)) {
-        parameterGiven = true;
-        haveByParameter = TplConvert::_2bool(v.getParameter().getParameter(key, "false").c_str());
-    } else if (v.getVehicleType().getParameter().knowsParameter(key)) {
-        parameterGiven = true;
-        haveByParameter = TplConvert::_2bool(v.getVehicleType().getParameter().getParameter(key, "false").c_str());
-    }
-    if (haveByName) {
-        return true;
-    } else if (parameterGiven) {
-        return haveByParameter;
-    } else if (numberGiven) {
-        return haveByNumber;
-    } else {
-        return !nameGiven && outputOptionSet;
-    }
+    oc.doRegister(prefix + ".deterministic", new Option_Bool(false));
+    oc.addDescription(prefix + ".deterministic", optionsTopic, "The '" + deviceName + "' devices are set deterministic using a fraction of 1000");
 }
 
 

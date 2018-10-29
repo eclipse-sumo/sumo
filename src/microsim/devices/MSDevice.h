@@ -31,7 +31,9 @@
 #include <set>
 #include <random>
 #include <microsim/MSMoveReminder.h>
+#include <microsim/MSVehicleControl.h>
 #include <utils/common/Named.h>
+#include <utils/common/TplConvert.h>
 #include <utils/common/UtilExceptions.h>
 
 
@@ -44,6 +46,7 @@ class MSTransportable;
 class OptionsCont;
 class SUMOSAXAttributes;
 class MSVehicleDevice;
+class MSPersonDevice;
 
 
 // ===========================================================================
@@ -71,11 +74,18 @@ public:
 
 
     /** @brief Build devices for the given vehicle, if needed
-     *
-     * @param[in] v The vehicle for which a device may be built
-     * @param[filled] into The vector to store the built device in
-     */
+    *
+    * @param[in] v The vehicle for which a device may be built
+    * @param[filled] into The vector to store the built device in
+    */
     static void buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& into);
+
+    /** @brief Build devices for the given person, if needed
+    *
+    * @param[in] p The person for which a device may be built
+    * @param[filled] into The vector to store the built device in
+    */
+    static void buildPersonDevices(MSTransportable& p, std::vector<MSPersonDevice*>& into);
 
     static std::mt19937* getEquipmentRNG() {
         return &myEquipmentRNG;
@@ -155,7 +165,7 @@ protected:
      * @param[in] optionsTopic The options topic into which the options shall be added
      * @param[filled] oc The options container to add the options to
      */
-    static void insertDefaultAssignmentOptions(const std::string& deviceName, const std::string& optionsTopic, OptionsCont& oc);
+    static void insertDefaultAssignmentOptions(const std::string& deviceName, const std::string& optionsTopic, OptionsCont& oc, const bool isPerson=false);
 
 
     /** @brief Determines whether a vehicle should get a certain device
@@ -164,7 +174,8 @@ protected:
      * @param[in] deviceName The name of the device type
      * @param[in] v The vehicle to determine whether it shall be equipped or not
      */
-    static bool equippedByDefaultAssignmentOptions(const OptionsCont& oc, const std::string& deviceName, SUMOVehicle& v, bool outputOptionSet);
+    template<class DEVICEHOLDER> 
+    static bool equippedByDefaultAssignmentOptions(const OptionsCont& oc, const std::string& deviceName, DEVICEHOLDER& v, bool outputOptionSet, const bool isPerson = false);
     /// @}
 
 
@@ -191,6 +202,56 @@ private:
     MSDevice& operator=(const MSDevice&);
 
 };
+
+
+template<class DEVICEHOLDER> bool
+MSDevice::equippedByDefaultAssignmentOptions(const OptionsCont& oc, const std::string& deviceName, DEVICEHOLDER& v, bool outputOptionSet, const bool isPerson) {
+    const std::string prefix = (isPerson ? "person-device." : "device.") + deviceName;
+    // assignment by number
+    bool haveByNumber = false;
+    bool numberGiven = false;
+    if (oc.exists(prefix + ".deterministic") && oc.getBool(prefix + ".deterministic")) {
+        numberGiven = true;
+        haveByNumber = MSNet::getInstance()->getVehicleControl().getQuota(oc.getFloat(prefix + ".probability")) == 1;
+    } else {
+        if (oc.exists(prefix + ".probability") && oc.getFloat(prefix + ".probability") >= 0) {
+            numberGiven = true;
+            haveByNumber = RandHelper::rand(&myEquipmentRNG) <= oc.getFloat(prefix + ".probability");
+        }
+    }
+    // assignment by name
+    bool haveByName = false;
+    bool nameGiven = false;
+    if (oc.exists(prefix + ".explicit") && oc.isSet(prefix + ".explicit")) {
+        nameGiven = true;
+        if (myExplicitIDs.find(deviceName) == myExplicitIDs.end()) {
+            myExplicitIDs[deviceName] = std::set<std::string>();
+            const std::vector<std::string> idList = OptionsCont::getOptions().getStringVector(prefix + ".explicit");
+            myExplicitIDs[deviceName].insert(idList.begin(), idList.end());
+        }
+        haveByName = myExplicitIDs[deviceName].count(v.getID()) > 0;
+    }
+    // assignment by abstract parameters
+    bool haveByParameter = false;
+    bool parameterGiven = false;
+    const std::string key = "has." + deviceName + ".device";
+    if (v.getParameter().knowsParameter(key)) {
+        parameterGiven = true;
+        haveByParameter = TplConvert::_2bool(v.getParameter().getParameter(key, "false").c_str());
+    } else if (v.getVehicleType().getParameter().knowsParameter(key)) {
+        parameterGiven = true;
+        haveByParameter = TplConvert::_2bool(v.getVehicleType().getParameter().getParameter(key, "false").c_str());
+    }
+    if (haveByName) {
+        return true;
+    } else if (parameterGiven) {
+        return haveByParameter;
+    } else if (numberGiven) {
+        return haveByNumber;
+    } else {
+        return !nameGiven && outputOptionSet;
+    }
+}
 
 
 #endif

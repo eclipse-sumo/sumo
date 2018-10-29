@@ -295,4 +295,3 @@ MSDevice_Routing::loadState(const SUMOSAXAttributes& attrs) {
 
 
 /****************************************************************************/
-

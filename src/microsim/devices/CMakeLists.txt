@@ -30,6 +30,8 @@ set(microsim_devices_STAT_SRCS
    MSDevice_FCD.cpp
    MSDevice_FCD.h
    MSPersonDevice.h
+   MSPersonDevice_Routing.cpp
+   MSPersonDevice_Routing.h
    MSRoutingEngine.cpp
    MSRoutingEngine.h
    MSVehicleDevice.h
