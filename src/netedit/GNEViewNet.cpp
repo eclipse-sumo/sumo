@@ -1353,9 +1353,9 @@ GNEViewNet::abortOperation(bool clearSelection) {
         if(myViewParent->getTAZFrame()->getDrawingShape()->isDrawing()) {
             // abort current drawing
             myViewParent->getPolygonFrame()->getDrawingShape()->abortDrawing();
-        } else if (myViewParent->getTAZFrame()->getCurrentTAZ()->getTAZ() != nullptr) {
+        } else if (myViewParent->getTAZFrame()->getTAZCurrent()->getTAZ() != nullptr) {
             // finish current editing TAZ
-            myViewParent->getTAZFrame()->getCurrentTAZ()->setTAZ(nullptr);
+            myViewParent->getTAZFrame()->getTAZCurrent()->setTAZ(nullptr);
         }
     } else if (myEditMode == GNE_MODE_PROHIBITION) {
         myViewParent->getProhibitionFrame()->onCmdCancel(nullptr, 0, nullptr);

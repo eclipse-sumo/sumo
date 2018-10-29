@@ -34,20 +34,20 @@ class GNETAZFrame : public GNEFrame {
 
 public:
     // ===========================================================================
-    // class CurrentTAZ
+    // class TAZCurrent
     // ===========================================================================
 
-    class CurrentTAZ : protected FXGroupBox {
+    class TAZCurrent : protected FXGroupBox {
 
     public:
         /// @brief constructor
-        CurrentTAZ(GNETAZFrame* TAZFrameParent);
+        TAZCurrent(GNETAZFrame* TAZFrameParent);
 
         /// @brief destructor
-        ~CurrentTAZ();
+        ~TAZCurrent();
 
         /// @brief set current TAZ
-        void setTAZ(GNETAZ* currentTAZ);
+        void setTAZ(GNETAZ* TAZCurrent);
 
         /// @brief get current TAZ
         GNETAZ* getTAZ() const;
@@ -57,31 +57,31 @@ public:
         GNETAZFrame* myTAZFrameParent;
 
         /// @brief current TAZ
-        GNETAZ* myCurrentTAZ;
+        GNETAZ* myTAZCurrent;
 
         /// @brief Label for current TAZ
-        FXLabel* myCurrentTAZLabel;
+        FXLabel* myTAZCurrentLabel;
     };
 
     // ===========================================================================
-    // class EdgesTAZSelector
+    // class TAZEdgesSelector
     // ===========================================================================
 
-    class EdgesTAZSelector : protected FXGroupBox {
+    class TAZEdgesSelector : protected FXGroupBox {
         /// @brief FOX-declaration
-        FXDECLARE(GNETAZFrame::EdgesTAZSelector)
+        FXDECLARE(GNETAZFrame::TAZEdgesSelector)
 
     public:
         /// @brief constructor
-        EdgesTAZSelector(GNETAZFrame* TAZFrameParent);
+        TAZEdgesSelector(GNETAZFrame* TAZFrameParent);
 
         /// @brief destructor
-        ~EdgesTAZSelector();
+        ~TAZEdgesSelector();
 
-        /// @brief show EdgesTAZSelector
+        /// @brief show TAZEdgesSelector
         void showEdgeTAZSelectorModul();
 
-        /// @brief hide EdgesTAZSelector
+        /// @brief hide TAZEdgesSelector
         void hideEdgeTAZSelectorModul();
 
         /// @brief select edge
@@ -102,7 +102,7 @@ public:
 
     protected:
         /// @brief FOX needs this
-        EdgesTAZSelector() {}
+        TAZEdgesSelector() {}
 
     private:
         /// @brief struct for show Edge TAZs in frame based on a vertical frame
@@ -110,7 +110,7 @@ public:
 
         public:
             /// @brief constructor
-            EdgeTAZRow(EdgesTAZSelector *edgesTAZSelector, GNEEdge *edge, GNEAdditional *TAZSource, GNEAdditional *TAZSink);
+            EdgeTAZRow(TAZEdgesSelector *TAZEdgesSelector, GNEEdge *edge, GNEAdditional *TAZSource, GNEAdditional *TAZSink);
 
             /// @brief destructor
             ~EdgeTAZRow();
@@ -135,7 +135,7 @@ public:
 
         private:
             /// @brief pointer to Edges TAZSelector Parent
-            EdgesTAZSelector *myEdgesTAZSelectorParent;
+            TAZEdgesSelector *myTAZEdgesSelectorParent;
 
             /// @brief pointer to edited TAZ Source
             GNEAdditional *myEditedTAZSource;
@@ -170,25 +170,25 @@ public:
     };
 
     // ===========================================================================
-    // class SaveTAZEdges
+    // class TAZSaveEdges
     // ===========================================================================
 
-    class SaveTAZEdges : protected FXGroupBox {
+    class TAZSaveEdges : protected FXGroupBox {
         /// @brief FOX-declaration
-        FXDECLARE(GNETAZFrame::SaveTAZEdges)
+        FXDECLARE(GNETAZFrame::TAZSaveEdges)
 
     public:
         /// @brief constructor
-        SaveTAZEdges(GNETAZFrame* TAZFrameParent);
+        TAZSaveEdges(GNETAZFrame* TAZFrameParent);
 
         /// @brief destructor
-        ~SaveTAZEdges();
+        ~TAZSaveEdges();
 
         /// @brief show save TAZ Edges Modul
-        void showSaveTAZEdgesModul();
+        void showTAZSaveEdgesModul();
 
         /// @brief hide save TAZ Edges Modul
-        void hideSaveTAZEdgesModul();
+        void hideTAZSaveEdgesModul();
 
         /// @brief enable buttons save and cancel changes
         void enableButtons();
@@ -204,7 +204,55 @@ public:
 
     protected:
         /// @brief FOX needs this
-        SaveTAZEdges() {}
+        TAZSaveEdges() {}
+
+    private:
+        /// @brief pointer to TAZFrame parent
+        GNETAZFrame* myTAZFrameParent;
+
+        /// @field FXButton for save changes in TAZEdges
+        FXButton* mySaveChangesButton;
+
+        /// @field FXButton for cancel changes in TAZEdges
+        FXButton* myCancelChangesButton;
+    };
+
+    // ===========================================================================
+    // class TAZEdgesCommonParameters
+    // ===========================================================================
+
+    class TAZEdgesCommonParameters : protected FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNETAZFrame::TAZEdgesCommonParameters)
+
+    public:
+        /// @brief constructor
+        TAZEdgesCommonParameters(GNETAZFrame* TAZFrameParent);
+
+        /// @brief destructor
+        ~TAZEdgesCommonParameters();
+
+        /// @brief show save TAZ Edges Modul
+        void showTAZEdgesCommonParametersModul();
+
+        /// @brief hide save TAZ Edges Modul
+        void hideTAZEdgesCommonParametersModul();
+
+        /// @brief enable buttons save and cancel changes
+        void enableButtons();
+
+        /// @name FOX-callbacks
+        /// @{
+        /// @brief Called when the user press the button save changes
+        long onCmdSaveChanges(FXObject*, FXSelector, void*);
+
+        /// @brief Called when the user press the button cancel changes
+        long onCmdCancelChanges(FXObject*, FXSelector, void*);
+        /// @}
+
+    protected:
+        /// @brief FOX needs this
+        TAZEdgesCommonParameters() {}
 
     private:
         /// @brief pointer to TAZFrame parent
@@ -304,7 +352,7 @@ public:
     DrawingShape* getDrawingShape() const;
 
     /// @brief get Current TAZ
-    CurrentTAZ* getCurrentTAZ() const;
+    TAZCurrent* getTAZCurrent() const;
 
 protected:
     /**@brief build a shaped element using the drawed shape
@@ -321,7 +369,7 @@ protected:
 
 private:
     /// @brief current TAZ
-    CurrentTAZ* myCurrentTAZ;
+    TAZCurrent* myTAZCurrent;
 
     /// @brief TAZ parameters
     TAZParameters* myTAZParameters;
@@ -333,10 +381,13 @@ private:
     DrawingShape* myDrawingShape;
 
     /// @brief save TAZ Edges
-    SaveTAZEdges* mySaveTAZEdges;
+    TAZSaveEdges* myTAZSaveEdges;
+
+    /// @brief TAZ Edges common parameters
+    TAZEdgesCommonParameters* myTAZEdgesCommonParameters;
 
     /// @brief edge TAZ selector
-    EdgesTAZSelector* myEdgesTAZSelector;
+    TAZEdgesSelector* myTAZEdgesSelector;
 };
 
 
