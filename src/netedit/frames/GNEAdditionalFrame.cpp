@@ -465,8 +465,10 @@ GNEAdditionalFrame::SelectorLaneParents::stopConsecutiveLaneSelector() {
         abortConsecutiveLaneSelector();
         return false;
     }
-    // fill valuesOfElement with attributes from Frame
+    // fill valuesOfElement with Additional attributes from Frame
     myAdditionalFrameParent->myAdditionalAttributes->getAttributesAndValues(valuesMap);
+    // fill valuesOfElement with Netedit attributes from Frame
+    myAdditionalFrameParent->myNeteditAttributes->getNeteditAttributesAndValues(valuesMap, nullptr);
     // Generate id of element
     valuesMap[SUMO_ATTR_ID] = myAdditionalFrameParent->generateID(nullptr);
     // obtain lane IDs
