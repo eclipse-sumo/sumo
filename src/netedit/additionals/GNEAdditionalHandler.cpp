@@ -1558,7 +1558,7 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, S
                 GNEEdge* edge = viewNet->getNet()->retrieveEdge(i, false);
                 if (edge == nullptr) {
                     WRITE_WARNING("Invalid " + toString(SUMO_TAG_EDGE) + " with ID = '" + i + "'.");
-                    return false;
+                    return nullptr;
                 } else {
                     edges.push_back(edge);
                 }
