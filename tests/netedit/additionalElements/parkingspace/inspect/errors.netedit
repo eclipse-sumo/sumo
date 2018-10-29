@@ -16,7 +16,7 @@ GLDebug: Inserted edge:gneE2 into SUMORTree with boundary -30.00,-14.80,80.00,50
 GLDebug: Inserted edge:gneE3 into SUMORTree with boundary -30.00,-10.00,80.00,54.80
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals saved, shapes saved
-Debug: Selected additional 'parkingArea' in AdditionalSelector
+Debug: Selected item 'parkingArea' in ItemSelector
 Debug: Adding parkingArea 'parkingArea_gneE2_0_0' in GNEChange_Additional
 GLDebug: Inserted parkingArea:parkingArea_gneE2_0_0 into SUMORTree with boundary -0.10,0.00,1.00,0.10
 GLDebug: Removed object parkingArea:parkingArea_gneE2_0_0 from SUMORTree with boundary -0.10,0.00,1.00,0.10
@@ -33,7 +33,7 @@ GLDebug: Removed object parkingArea:parkingArea_gneE2_0_0 from SUMORTree with bo
 GLDebug: Inserted parkingArea:parkingArea_gneE2_0_0 into SUMORTree with boundary -3.00,-9.60,47.00,30.40
 GLDebug: Removed object parkingArea:parkingArea_gneE2_0_1 from SUMORTree with boundary 12.00,-9.60,62.00,30.40
 GLDebug: Inserted parkingArea:parkingArea_gneE2_0_1 into SUMORTree with boundary 12.00,-9.60,62.00,30.40
-Debug: Selected additional 'space' in AdditionalSelector
+Debug: Selected item 'space' in ItemSelector
 Debug: Adding space 'parkingArea_gneE2_0_0space0' in GNEChange_Additional
 GLDebug: Inserted parkingSpace:parkingArea_gneE2_0_0space0 into SUMORTree with boundary -3.00,-9.60,47.00,30.40
 GLDebug: Removed object parkingSpace:parkingArea_gneE2_0_0space0 from SUMORTree with boundary -3.00,-9.60,47.00,30.40
@@ -46,6 +46,7 @@ GLDebug: Removed object parkingSpace:parkingArea_gneE2_0_0space1 from SUMORTree 
 GLDebug: Inserted parkingSpace:parkingArea_gneE2_0_0space1 into SUMORTree with boundary 12.00,-18.00,52.00,22.00
 GLDebug: Removed object parkingArea:parkingArea_gneE2_0_0 from SUMORTree with boundary -3.00,-9.60,47.00,30.40
 GLDebug: Inserted parkingArea:parkingArea_gneE2_0_0 into SUMORTree with boundary -3.00,-9.60,47.00,30.40
+Error: Shape of a(n) user-supplied position is broken: the position is neither x,y nor x,y,z.
 Debug: Value 'dummyPosition' for attribute pos of space isn't valid
 Debug: Value '' for attribute pos of space isn't valid
 Debug: Setting new attribute pos '-3.5,-3' into space 'parkingArea_gneE2_0_0space0'

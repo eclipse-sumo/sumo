@@ -1,6 +1,6 @@
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals saved, shapes saved
-Debug: Selected additional 'e2Detector' in AdditionalSelector
+Debug: Selected item 'e2Detector' in ItemSelector
 Debug: Adding e2Detector 'e2Detector_gneE0_0_0' in GNEChange_Additional
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, shapes saved
