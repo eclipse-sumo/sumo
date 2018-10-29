@@ -19,6 +19,7 @@
 // included modules
 // ===========================================================================
 #include <config.h>
+#include <string>
 #include <utils/xml/XMLSubSys.h>
 #include <netedit/changes/GNEChange_Additional.h>
 #include <netedit/netelements/GNEEdge.h>
