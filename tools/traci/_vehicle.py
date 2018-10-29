@@ -1452,7 +1452,7 @@ class VehicleDomain(Domain):
             self.addSubscriptionFilterNoOpposite()
         if downstreamDist != None:
             self.addSubscriptionFilterDownstreamDistance(downstreamDist)
-        if downstreamDist != None:
+        if upstreamDist != None:
             self.addSubscriptionFilterUpstreamDistance(upstreamDist)
                 
 
@@ -1489,7 +1489,7 @@ class VehicleDomain(Domain):
         self.addSubscriptionFilterLeadFollow([0])
         if downstreamDist != None:
             self.addSubscriptionFilterDownstreamDistance(downstreamDist)
-        if downstreamDist != None:
+        if upstreamDist != None:
             self.addSubscriptionFilterUpstreamDistance(upstreamDist)
 
     def addSubscriptionFilterLCManeuver(self, direction, noOpposite=False, downstreamDist=None, upstreamDist=None):
@@ -1514,7 +1514,7 @@ class VehicleDomain(Domain):
             self.addSubscriptionFilterNoOpposite()
         if downstreamDist != None:
             self.addSubscriptionFilterDownstreamDistance(downstreamDist)
-        if downstreamDist != None:
+        if upstreamDist != None:
             self.addSubscriptionFilterUpstreamDistance(upstreamDist)
         
     def addSubscriptionFilterLeadFollow(self, lanes):
