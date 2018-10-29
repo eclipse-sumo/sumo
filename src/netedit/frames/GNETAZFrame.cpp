@@ -468,9 +468,9 @@ GNETAZFrame::TAZParameters::TAZParameters(GNETAZFrame* TAZFrameParent) :
     myTextFieldColor->setText("blue");
     // create Label and CheckButton for use innen edges with true as default value
     FXHorizontalFrame* useInnenEdges = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(useInnenEdges, "Innen Edges", 0, GUIDesignLabelAttribute);
-    myUseInnenEdgesCheckButton = new FXCheckButton(useInnenEdges, "true", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButtonAttribute);
-    myUseInnenEdgesCheckButton->setCheck(true);
+    new FXLabel(useInnenEdges, "use edges within", 0, GUIDesignLabelAttribute);
+    myAddEdgesWithinCheckButton = new FXCheckButton(useInnenEdges, "true", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButtonAttribute);
+    myAddEdgesWithinCheckButton->setCheck(true);
     // Create help button
     myHelpTAZAttribute = new FXButton(this, "Help", 0, this, MID_HELP, GUIDesignButtonRectangular);
 }
@@ -498,8 +498,8 @@ GNETAZFrame::TAZParameters::isCurrentParametersValid() const {
 
 
 bool 
-GNETAZFrame::TAZParameters::isUseInnenEdgesEnabled() const {
-    return (myUseInnenEdgesCheckButton->getCheck() == TRUE);
+GNETAZFrame::TAZParameters::isAddEdgesWithinEnabled() const {
+    return (myAddEdgesWithinCheckButton->getCheck() == TRUE);
 }
 
 
@@ -545,10 +545,10 @@ GNETAZFrame::TAZParameters::onCmdSetAttribute(FXObject*, FXSelector, void*) {
         currentParametersValid = false;
     }
     // change useInnenEdgesCheckButton text
-    if(myUseInnenEdgesCheckButton->getCheck() == TRUE) {
-        myUseInnenEdgesCheckButton->setText("true");
+    if(myAddEdgesWithinCheckButton->getCheck() == TRUE) {
+        myAddEdgesWithinCheckButton->setText("true");
     } else {
-        myUseInnenEdgesCheckButton->setText("false");
+        myAddEdgesWithinCheckButton->setText("false");
     }
     return 0;
 }
@@ -668,7 +668,7 @@ GNETAZFrame::buildShape() {
         valuesOfElement[SUMO_ATTR_SHAPE] = toString(shape);
 
         // check if TAZ has to be created with edges
-        if (myTAZParameters->isUseInnenEdgesEnabled()) {
+        if (myTAZParameters->isAddEdgesWithinEnabled()) {
             std::vector<std::string> edgeIDs;
             auto ACsInBoundary = myViewNet->getAttributeCarriersInBoundary(shape.getBoxBoundary(), true);
             for (auto i : ACsInBoundary) {

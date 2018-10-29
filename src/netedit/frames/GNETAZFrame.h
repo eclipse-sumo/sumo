@@ -241,8 +241,8 @@ public:
         /// @brief check if current parameters are valid
         bool isCurrentParametersValid() const;
 
-        /// @brief check if innen edges has to be used after TAZ Creation
-        bool isUseInnenEdgesEnabled() const;
+        /// @brief check if edges within has to be used after TAZ Creation
+        bool isAddEdgesWithinEnabled() const;
 
         /// @brief get a map with attributes and their values
         std::map<SumoXMLAttr, std::string> getAttributesAndValues() const;
@@ -273,8 +273,8 @@ public:
         /// @brief textField to modify the default value of color parameter
         FXTextField* myTextFieldColor;
 
-        /// @brief CheckButton to enable or disable use innen edges
-        FXCheckButton* myUseInnenEdgesCheckButton;
+        /// @brief CheckButton to enable or disable use edges within TAZ after creation
+        FXCheckButton* myAddEdgesWithinCheckButton;
 
         /// @brief button for help
         FXButton* myHelpTAZAttribute;
