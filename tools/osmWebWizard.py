@@ -52,8 +52,10 @@ typemaps = {
 }
 
 vehicleParameters = {
-    "passenger":  ["--vehicle-class", "passenger",  "--vclass", "passenger",  "--prefix", "veh",   "--min-distance",
-                   "300",  "--trip-attributes", 'departLane="best"', "--validate"],
+    "passenger":  ["--vehicle-class", "passenger",  "--vclass", "passenger",  "--prefix", "veh",
+                   "--min-distance", "300",  "--trip-attributes", 'departLane="best"',
+                   "--fringe-start-attributes", 'departSpeed="max"',  "--allow-fringe.min-length", "1000",
+                   "--lanes", "--length", "--validate"],
     "truck":      ["--vehicle-class", "truck",      "--vclass", "truck",      "--prefix", "truck", "--min-distance",
                    "600",  "--trip-attributes", 'departLane="best"', "--validate"],
     "bus":        ["--vehicle-class", "bus",        "--vclass", "bus",        "--prefix", "bus",   "--min-distance",
