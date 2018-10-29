@@ -2197,10 +2197,10 @@ GNEAdditionalHandler::buildTAZ(GNEViewNet* viewNet, bool allowUndoRedo, const st
         // create TAZEdges
         for (auto i : edges) {
             // create TAZ Source using GNEChange_Additional
-            GNETAZSource* TAZSource = new GNETAZSource(TAZ, i, 0);
+            GNETAZSource* TAZSource = new GNETAZSource(TAZ, i, 1);
             viewNet->getUndoList()->add(new GNEChange_Additional(TAZSource, true), true);
             // create TAZ Sink using GNEChange_Additional
-            GNETAZSink* TAZSink = new GNETAZSink(TAZ, i, 0);
+            GNETAZSink* TAZSink = new GNETAZSink(TAZ, i, 1);
             viewNet->getUndoList()->add(new GNEChange_Additional(TAZSink, true), true);
         }
         viewNet->getUndoList()->p_end();
@@ -2209,11 +2209,11 @@ GNEAdditionalHandler::buildTAZ(GNEViewNet* viewNet, bool allowUndoRedo, const st
         TAZ->incRef("buildTAZ");
         for (auto i : edges) {
             // create TAZ Source
-            GNETAZSource* TAZSource = new GNETAZSource(TAZ, i, 0);
+            GNETAZSource* TAZSource = new GNETAZSource(TAZ, i, 1);
             TAZSource->incRef("buildTAZ");
             TAZ->addAdditionalChild(TAZSource);
             // create TAZ Sink
-            GNETAZSink* TAZSink = new GNETAZSink(TAZ, i, 0);
+            GNETAZSink* TAZSink = new GNETAZSink(TAZ, i, 1);
             TAZSink->incRef("buildTAZ");
             TAZ->addAdditionalChild(TAZSink);
         }
@@ -2234,7 +2234,7 @@ GNEAdditionalHandler::buildTAZSource(GNEViewNet* viewNet, bool allowUndoRedo, GN
     // check if TAZSink has to be created
     if(TAZSink == nullptr) {
         // Create TAZ with weight 0 (default)
-        TAZSink = new GNETAZSink(TAZ, edge, 0);
+        TAZSink = new GNETAZSink(TAZ, edge, 1);
         if (allowUndoRedo) {
             viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_TAZSINK));
             viewNet->getUndoList()->add(new GNEChange_Additional(TAZSink, true), true);
@@ -2291,7 +2291,7 @@ GNEAdditionalHandler::buildTAZSink(GNEViewNet* viewNet, bool allowUndoRedo, GNEA
     // check if TAZSource has to be created
     if(TAZSource == nullptr) {
         // Create TAZ with empty value
-        TAZSource = new GNETAZSource(TAZ, edge, 0);
+        TAZSource = new GNETAZSource(TAZ, edge, 1);
         if (allowUndoRedo) {
             viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_TAZSOURCE));
             viewNet->getUndoList()->add(new GNEChange_Additional(TAZSource, true), true);

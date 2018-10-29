@@ -2252,7 +2252,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_WEIGHT,
                                                ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE,
                                                "Depart weight associated to this Edge",
-                                               "0");
+                                               "1");
     }
     currentTag = SUMO_TAG_TAZSINK;
     {
@@ -2267,7 +2267,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_WEIGHT,
                                                ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE,
                                                "Arrival weight associated to this Edget",
-                                               "0");
+                                               "1");
     }
     currentTag = SUMO_TAG_VTYPE;
     {

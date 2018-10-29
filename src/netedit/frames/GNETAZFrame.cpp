@@ -186,8 +186,8 @@ GNETAZFrame::EdgesTAZSelector::selectEdge(GNEEdge *edge) {
         // enable save and cancel buttons
         myTAZFrameParent->mySaveTAZEdges->enableButtons();
         // if edge was found, that means that GNETAZSource and GNETAZSink doesn't exist, then create it
-        GNETAZSource* TAZSource = new GNETAZSource(myTAZFrameParent->getCurrentTAZ()->getTAZ(), edge, 0);
-        GNETAZSink* TAZSink = new GNETAZSink(myTAZFrameParent->getCurrentTAZ()->getTAZ(), edge, 0);
+        GNETAZSource* TAZSource = new GNETAZSource(myTAZFrameParent->getCurrentTAZ()->getTAZ(), edge, 1);
+        GNETAZSink* TAZSink = new GNETAZSink(myTAZFrameParent->getCurrentTAZ()->getTAZ(), edge, 1);
         // create a GNEChange_Additional command, but without adding it into UndoList
         myTAZFrameParent->myViewNet->getUndoList()->add(new GNEChange_Additional(TAZSource, true), true);
         myTAZFrameParent->myViewNet->getUndoList()->add(new GNEChange_Additional(TAZSink, true), true);
@@ -468,8 +468,8 @@ GNETAZFrame::TAZParameters::TAZParameters(GNETAZFrame* TAZFrameParent) :
     myTextFieldColor->setText("blue");
     // create Label and CheckButton for use innen edges with true as default value
     FXHorizontalFrame* useInnenEdges = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(useInnenEdges, "use edges within", 0, GUIDesignLabelAttribute);
-    myAddEdgesWithinCheckButton = new FXCheckButton(useInnenEdges, "true", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButtonAttribute);
+    new FXLabel(useInnenEdges, "Edges within", 0, GUIDesignLabelAttribute);
+    myAddEdgesWithinCheckButton = new FXCheckButton(useInnenEdges, "use", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButtonAttribute);
     myAddEdgesWithinCheckButton->setCheck(true);
     // Create help button
     myHelpTAZAttribute = new FXButton(this, "Help", 0, this, MID_HELP, GUIDesignButtonRectangular);
@@ -546,9 +546,9 @@ GNETAZFrame::TAZParameters::onCmdSetAttribute(FXObject*, FXSelector, void*) {
     }
     // change useInnenEdgesCheckButton text
     if(myAddEdgesWithinCheckButton->getCheck() == TRUE) {
-        myAddEdgesWithinCheckButton->setText("true");
+        myAddEdgesWithinCheckButton->setText("use");
     } else {
-        myAddEdgesWithinCheckButton->setText("false");
+        myAddEdgesWithinCheckButton->setText("not use");
     }
     return 0;
 }
