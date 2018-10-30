@@ -36,8 +36,6 @@ GLDebug: Inserted parkingArea:parkingArea_gneE2_1_1 into SUMORTree with boundary
 Debug: Value 'parkingArea_gneE2_1_1' for attribute id of parkingArea isn't valid
 Debug: Value 'Id with spaces' for attribute id of parkingArea isn't valid
 Debug: Setting new attribute id 'correctID' into parkingArea 'parkingArea_gneE2_1_0'
-GLDebug: Removed object parkingArea:correctID from SUMORTree with boundary -8.00,-6.40,42.00,33.60
-GLDebug: Inserted parkingArea:correctID into SUMORTree with boundary -8.00,-6.40,42.00,33.60
 Debug: Value 'dummy lane' for attribute lane of parkingArea isn't valid
 Debug: Setting new attribute lane 'gneE0_0' into parkingArea 'correctID'
 GLDebug: Removed object parkingArea:parkingArea_gneE2_1_1 from SUMORTree with boundary 12.00,-6.40,62.00,33.60
@@ -237,8 +235,6 @@ GLDebug: Removed object parkingArea:correctID from SUMORTree with boundary -8.00
 GLDebug: Inserted parkingArea:correctID into SUMORTree with boundary -8.00,-6.40,42.00,33.60
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute id 'parkingArea_gneE2_1_0' into parkingArea 'correctID'
-GLDebug: Removed object parkingArea:parkingArea_gneE2_1_0 from SUMORTree with boundary -8.00,-6.40,42.00,33.60
-GLDebug: Inserted parkingArea:parkingArea_gneE2_1_0 into SUMORTree with boundary -8.00,-6.40,42.00,33.60
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Removing parkingArea 'parkingArea_gneE2_1_1' in GNEChange_Additional
 GLDebug: Removed object parkingArea:parkingArea_gneE2_1_1 from SUMORTree with boundary 12.00,-6.40,62.00,33.60
@@ -267,8 +263,6 @@ GLDebug: Removed object parkingArea:parkingArea_gneE2_1_1 from SUMORTree with bo
 GLDebug: Inserted parkingArea:parkingArea_gneE2_1_1 into SUMORTree with boundary 12.00,-6.40,62.00,33.60
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute id 'correctID' into parkingArea 'parkingArea_gneE2_1_0'
-GLDebug: Removed object parkingArea:correctID from SUMORTree with boundary -8.00,-6.40,42.00,33.60
-GLDebug: Inserted parkingArea:correctID into SUMORTree with boundary -8.00,-6.40,42.00,33.60
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute lane 'gneE0_0' into parkingArea 'correctID'
 GLDebug: Removed object parkingArea:parkingArea_gneE2_1_1 from SUMORTree with boundary 12.00,-6.40,62.00,33.60

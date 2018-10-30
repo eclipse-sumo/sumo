@@ -17,11 +17,6 @@ Debug: Created connection 'from8_0to2_0' in retrieveGNEConnection()
 Debug: Created connection 'from8_0to3_0' in retrieveGNEConnection()
 Debug: Created connection 'from8_1to3_1' in retrieveGNEConnection()
 Debug: Created connection 'from8_1to1_1' in retrieveGNEConnection()
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 1 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 2 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 3 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 4 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Value '-1.00' for attribute visibility of connection isn't valid
 Debug: Value '-4' for attribute visibility of connection isn't valid
 Debug: Value '0' for attribute visibility of connection isn't valid

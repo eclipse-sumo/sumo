@@ -17,7 +17,6 @@ Debug: Created connection 'from8_0to2_0' in retrieveGNEConnection()
 Debug: Created connection 'from8_0to3_0' in retrieveGNEConnection()
 Debug: Created connection 'from8_1to3_1' in retrieveGNEConnection()
 Debug: Created connection 'from8_1to1_1' in retrieveGNEConnection()
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute selected 'true' into connection 'from5_0to2_0'
 Debug: Setting new attribute selected 'true' into connection 'from5_0to4_0'
 Debug: Setting new attribute selected 'true' into connection 'from5_1to2_1'
@@ -34,7 +33,6 @@ Debug: Setting new attribute selected 'true' into connection 'from8_0to2_0'
 Debug: Setting new attribute selected 'true' into connection 'from8_0to3_0'
 Debug: Setting new attribute selected 'true' into connection 'from8_1to1_1'
 Debug: Setting new attribute selected 'true' into connection 'from8_1to3_1'
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 16 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '6'
 Debug: declaring connections of edge '6' as loaded (It will not be removed)
 Debug: net has to be saved

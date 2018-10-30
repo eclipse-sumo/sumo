@@ -37,10 +37,8 @@ GLDebug: Inserted vaporizer:gneE0 into SUMORTree with boundary 27.50,4.80,67.50,
 GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
 GLDebug: Removed object vaporizer:gneE0 from SUMORTree with boundary 27.50,4.80,67.50,44.80
 GLDebug: Inserted vaporizer:gneE0 into SUMORTree with boundary 27.50,4.80,67.50,44.80
-GLDebug: Removed object vaporizer:gneE0 from SUMORTree with boundary 27.50,4.80,67.50,44.80
-GLDebug: Inserted vaporizer:gneE0 into SUMORTree with boundary -17.50,-21.60,22.50,18.40
 Debug: Setting new attribute begin '0' into vaporizer 'gneE0'
-GLDebug: Removed object vaporizer:gneE0 from SUMORTree with boundary -17.50,-21.60,22.50,18.40
+GLDebug: Removed object vaporizer:gneE0 from SUMORTree with boundary 27.50,4.80,67.50,44.80
 GLDebug: Inserted vaporizer:gneE0 into SUMORTree with boundary -17.50,-21.60,22.50,18.40
 Debug: Value '-10' for attribute begin of vaporizer isn't valid
 Debug: Setting new attribute begin '50' into vaporizer 'gneE0'
@@ -80,19 +78,17 @@ GLDebug: Inserted vaporizer:gneE3 into SUMORTree with boundary -17.50,-21.60,22.
 GLDebug: Inserted edge:gneE3 into SUMORTree with boundary -30.00,-10.00,80.00,54.80
 GLDebug: Removed object vaporizer:gneE3 from SUMORTree with boundary -17.50,-21.60,22.50,18.40
 GLDebug: Inserted vaporizer:gneE3 into SUMORTree with boundary -17.50,-21.60,22.50,18.40
-GLDebug: Removed object vaporizer:gneE3 from SUMORTree with boundary -17.50,-21.60,22.50,18.40
-GLDebug: Inserted vaporizer:gneE3 into SUMORTree with boundary 27.50,4.80,67.50,44.80
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Removing vaporizer 'gneE3' in GNEChange_Additional
 Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
-GLDebug: Removed object vaporizer:gneE3 from SUMORTree with boundary 27.50,4.80,67.50,44.80
+GLDebug: Removed object vaporizer:gneE3 from SUMORTree with boundary -17.50,-21.60,22.50,18.40
 GLDebug: Removed object edge:gneE3 from SUMORTree with boundary -30.00,-10.00,80.00,54.80
 GLDebug: Inserted edge:gneE3 into SUMORTree with boundary -30.00,-10.00,80.00,54.80
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Adding vaporizer 'gneE3' in GNEChange_Additional
-GLDebug: Inserted vaporizer:gneE3 into SUMORTree with boundary 27.50,4.80,67.50,44.80
-GLDebug: Removed object vaporizer:gneE3 from SUMORTree with boundary 27.50,4.80,67.50,44.80
+GLDebug: Inserted vaporizer:gneE3 into SUMORTree with boundary -17.50,-21.60,22.50,18.40
+GLDebug: Removed object vaporizer:gneE3 from SUMORTree with boundary -17.50,-21.60,22.50,18.40
 GLDebug: Inserted vaporizer:gneE3 into SUMORTree with boundary 27.50,4.80,67.50,44.80
 GLDebug: Removed object edge:gneE3 from SUMORTree with boundary -30.00,-10.00,80.00,54.80
 GLDebug: Removed object vaporizer:gneE3 from SUMORTree with boundary 27.50,4.80,67.50,44.80
@@ -108,11 +104,9 @@ GLDebug: Inserted vaporizer:gneE0 into SUMORTree with boundary 27.50,4.80,67.50,
 GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
 GLDebug: Removed object vaporizer:gneE0 from SUMORTree with boundary 27.50,4.80,67.50,44.80
 GLDebug: Inserted vaporizer:gneE0 into SUMORTree with boundary 27.50,4.80,67.50,44.80
-GLDebug: Removed object vaporizer:gneE0 from SUMORTree with boundary 27.50,4.80,67.50,44.80
-GLDebug: Inserted vaporizer:gneE0 into SUMORTree with boundary -17.50,-21.60,22.50,18.40
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute begin '0' into vaporizer 'gneE0'
-GLDebug: Removed object vaporizer:gneE0 from SUMORTree with boundary -17.50,-21.60,22.50,18.40
+GLDebug: Removed object vaporizer:gneE0 from SUMORTree with boundary 27.50,4.80,67.50,44.80
 GLDebug: Inserted vaporizer:gneE0 into SUMORTree with boundary -17.50,-21.60,22.50,18.40
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute begin '50' into vaporizer 'gneE0'

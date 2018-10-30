@@ -36,8 +36,6 @@ GLDebug: Inserted busStop:busStop_gneE2_1_1 into SUMORTree with boundary 12.00,-
 Debug: Value 'busStop_gneE2_1_1' for attribute id of busStop isn't valid
 Debug: Value 'Id with spaces' for attribute id of busStop isn't valid
 Debug: Setting new attribute id 'correctID' into busStop 'busStop_gneE2_1_0'
-GLDebug: Removed object busStop:correctID from SUMORTree with boundary -8.00,-3.20,42.00,36.80
-GLDebug: Inserted busStop:correctID into SUMORTree with boundary -8.00,-3.20,42.00,36.80
 Debug: Value 'dummy lane' for attribute lane of busStop isn't valid
 Debug: Setting new attribute lane 'gneE0_0' into busStop 'correctID'
 GLDebug: Removed object busStop:busStop_gneE2_1_1 from SUMORTree with boundary 12.00,-3.20,62.00,36.80
@@ -177,8 +175,6 @@ GLDebug: Removed object busStop:correctID from SUMORTree with boundary -8.00,-23
 GLDebug: Inserted busStop:correctID into SUMORTree with boundary -8.00,-3.20,42.00,36.80
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute id 'busStop_gneE2_1_0' into busStop 'correctID'
-GLDebug: Removed object busStop:busStop_gneE2_1_0 from SUMORTree with boundary -8.00,-3.20,42.00,36.80
-GLDebug: Inserted busStop:busStop_gneE2_1_0 into SUMORTree with boundary -8.00,-3.20,42.00,36.80
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Removing busStop 'busStop_gneE2_1_1' in GNEChange_Additional
 GLDebug: Removed object busStop:busStop_gneE2_1_1 from SUMORTree with boundary 12.00,-3.20,62.00,36.80
@@ -206,8 +202,6 @@ GLDebug: Removed object busStop:busStop_gneE2_1_1 from SUMORTree with boundary 1
 GLDebug: Inserted busStop:busStop_gneE2_1_1 into SUMORTree with boundary 12.00,-3.20,62.00,36.80
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute id 'correctID' into busStop 'busStop_gneE2_1_0'
-GLDebug: Removed object busStop:correctID from SUMORTree with boundary -8.00,-3.20,42.00,36.80
-GLDebug: Inserted busStop:correctID into SUMORTree with boundary -8.00,-3.20,42.00,36.80
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute lane 'gneE0_0' into busStop 'correctID'
 GLDebug: Removed object busStop:busStop_gneE2_1_1 from SUMORTree with boundary 12.00,-3.20,62.00,36.80

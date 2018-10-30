@@ -38,12 +38,8 @@ GLDebug: Removed object routeProbe:routeProbe_gneE3_1 from SUMORTree with bounda
 GLDebug: Inserted routeProbe:routeProbe_gneE3_1 into SUMORTree with boundary 29.50,4.80,69.50,44.80
 GLDebug: Inserted edge:gneE3 into SUMORTree with boundary -30.00,-10.00,80.00,54.80
 Debug: Setting new attribute id 'routeProbe_3_1' into routeProbe 'routeProbe_gneE3_0'
-GLDebug: Removed object routeProbe:routeProbe_3_1 from SUMORTree with boundary 29.50,4.80,69.50,44.80
-GLDebug: Inserted routeProbe:routeProbe_3_1 into SUMORTree with boundary 29.50,4.80,69.50,44.80
 Debug: Value 'Id with spaces' for attribute id of routeProbe isn't valid
 Debug: Setting new attribute id 'correctID' into routeProbe 'routeProbe_3_1'
-GLDebug: Removed object routeProbe:correctID from SUMORTree with boundary 29.50,4.80,69.50,44.80
-GLDebug: Inserted routeProbe:correctID into SUMORTree with boundary 29.50,4.80,69.50,44.80
 Debug: Value 'dummyEdge' for attribute edge of routeProbe isn't valid
 Debug: Setting new attribute edge 'gneE0' into routeProbe 'correctID'
 GLDebug: Removed object edge:gneE3 from SUMORTree with boundary -30.00,-10.00,80.00,54.80
@@ -113,12 +109,8 @@ GLDebug: Removed object routeProbe:correctID from SUMORTree with boundary -19.50
 GLDebug: Inserted routeProbe:correctID into SUMORTree with boundary 29.50,4.80,69.50,44.80
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute id 'routeProbe_3_1' into routeProbe 'correctID'
-GLDebug: Removed object routeProbe:routeProbe_3_1 from SUMORTree with boundary 29.50,4.80,69.50,44.80
-GLDebug: Inserted routeProbe:routeProbe_3_1 into SUMORTree with boundary 29.50,4.80,69.50,44.80
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute id 'routeProbe_gneE3_0' into routeProbe 'routeProbe_3_1'
-GLDebug: Removed object routeProbe:routeProbe_gneE3_0 from SUMORTree with boundary 29.50,4.80,69.50,44.80
-GLDebug: Inserted routeProbe:routeProbe_gneE3_0 into SUMORTree with boundary 29.50,4.80,69.50,44.80
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Removing routeProbe 'routeProbe_gneE3_1' in GNEChange_Additional
 GLDebug: Removed object routeProbe:routeProbe_gneE3_1 from SUMORTree with boundary 29.50,4.80,69.50,44.80
@@ -156,12 +148,8 @@ GLDebug: Inserted routeProbe:routeProbe_gneE3_1 into SUMORTree with boundary 29.
 GLDebug: Inserted edge:gneE3 into SUMORTree with boundary -30.00,-10.00,80.00,54.80
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute id 'routeProbe_3_1' into routeProbe 'routeProbe_gneE3_0'
-GLDebug: Removed object routeProbe:routeProbe_3_1 from SUMORTree with boundary 29.50,4.80,69.50,44.80
-GLDebug: Inserted routeProbe:routeProbe_3_1 into SUMORTree with boundary 29.50,4.80,69.50,44.80
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute id 'correctID' into routeProbe 'routeProbe_3_1'
-GLDebug: Removed object routeProbe:correctID from SUMORTree with boundary 29.50,4.80,69.50,44.80
-GLDebug: Inserted routeProbe:correctID into SUMORTree with boundary 29.50,4.80,69.50,44.80
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute edge 'gneE0' into routeProbe 'correctID'
 GLDebug: Removed object edge:gneE3 from SUMORTree with boundary -30.00,-10.00,80.00,54.80

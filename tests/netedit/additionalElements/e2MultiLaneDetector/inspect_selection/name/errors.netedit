@@ -54,7 +54,7 @@ GLDebug: Inserted edge:gneE4 into SUMORTree with boundary -5.00,-30.00,80.00,31.
 GLDebug: Inserted edge:gneE5 into SUMORTree with boundary -30.00,-30.00,55.00,31.60
 GLDebug: Removed object edge:gneE5 from SUMORTree with boundary -30.00,-30.00,55.00,31.60
 GLDebug: Inserted edge:gneE5 into SUMORTree with boundary -30.00,-30.00,55.00,31.60
-Debug: Selected additional 'e2MultilaneDetector' in AdditionalSelector
+Debug: Selected item 'e2MultilaneDetector' in ItemSelector
 Debug: Key ENTER pressed
 Debug: Adding e2MultilaneDetector 'e2MultilaneDetector_0' in GNEChange_Additional
 GLDebug: Inserted e2Detector:e2MultilaneDetector_0 into SUMORTree with boundary -0.10,0.00,1.00,0.10
@@ -75,9 +75,6 @@ GLDebug: Removed object e2Detector:e2MultilaneDetector_1 from SUMORTree with bou
 GLDebug: Inserted e2Detector:e2MultilaneDetector_1 into SUMORTree with boundary -9.00,-18.40,56.00,21.60
 GLDebug: Removed object e2Detector:e2MultilaneDetector_1 from SUMORTree with boundary -9.00,-18.40,56.00,21.60
 GLDebug: Inserted e2Detector:e2MultilaneDetector_1 into SUMORTree with boundary -9.00,-18.40,56.00,21.60
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 2 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Debug: Value '%%%;:..&&%$%$' for attribute name of e2MultilaneDetector isn't valid
 Debug: Setting new attribute name 'customName' into e2MultilaneDetector 'e2MultilaneDetector_0'
 GLDebug: Removed object e2Detector:e2MultilaneDetector_0 from SUMORTree with boundary -9.00,-21.60,56.00,18.40

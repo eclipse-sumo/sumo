@@ -36,8 +36,6 @@ GLDebug: Inserted containerStop:containerStop_gneE2_1_1 into SUMORTree with boun
 Debug: Value 'containerStop_gneE2_1_1' for attribute id of containerStop isn't valid
 Debug: Value 'Id with spaces' for attribute id of containerStop isn't valid
 Debug: Setting new attribute id 'correctID' into containerStop 'containerStop_gneE2_1_0'
-GLDebug: Removed object containerStop:correctID from SUMORTree with boundary -8.00,-3.20,42.00,36.80
-GLDebug: Inserted containerStop:correctID into SUMORTree with boundary -8.00,-3.20,42.00,36.80
 Debug: Value 'dummy lane' for attribute lane of containerStop isn't valid
 Debug: Setting new attribute lane 'gneE0_0' into containerStop 'correctID'
 GLDebug: Removed object containerStop:containerStop_gneE2_1_1 from SUMORTree with boundary 12.00,-3.20,62.00,36.80
@@ -177,8 +175,6 @@ GLDebug: Removed object containerStop:correctID from SUMORTree with boundary -8.
 GLDebug: Inserted containerStop:correctID into SUMORTree with boundary -8.00,-3.20,42.00,36.80
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute id 'containerStop_gneE2_1_0' into containerStop 'correctID'
-GLDebug: Removed object containerStop:containerStop_gneE2_1_0 from SUMORTree with boundary -8.00,-3.20,42.00,36.80
-GLDebug: Inserted containerStop:containerStop_gneE2_1_0 into SUMORTree with boundary -8.00,-3.20,42.00,36.80
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Removing containerStop 'containerStop_gneE2_1_1' in GNEChange_Additional
 GLDebug: Removed object containerStop:containerStop_gneE2_1_1 from SUMORTree with boundary 12.00,-3.20,62.00,36.80
@@ -206,8 +202,6 @@ GLDebug: Removed object containerStop:containerStop_gneE2_1_1 from SUMORTree wit
 GLDebug: Inserted containerStop:containerStop_gneE2_1_1 into SUMORTree with boundary 12.00,-3.20,62.00,36.80
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute id 'correctID' into containerStop 'containerStop_gneE2_1_0'
-GLDebug: Removed object containerStop:correctID from SUMORTree with boundary -8.00,-3.20,42.00,36.80
-GLDebug: Inserted containerStop:correctID into SUMORTree with boundary -8.00,-3.20,42.00,36.80
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute lane 'gneE0_0' into containerStop 'correctID'
 GLDebug: Removed object containerStop:containerStop_gneE2_1_1 from SUMORTree with boundary 12.00,-3.20,62.00,36.80

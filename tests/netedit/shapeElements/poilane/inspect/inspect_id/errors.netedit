@@ -29,12 +29,8 @@ Debug: Value 'POI_1' for attribute id of poiLane isn't valid
 Debug: Value '' for attribute id of poiLane isn't valid
 Debug: Value 'ID with spaces' for attribute id of poiLane isn't valid
 Debug: Setting new attribute id 'newID' into poiLane 'POI_0'
-GLDebug: Removed object poi:newID from SUMORTree with boundary 3.00,-1.40,9.00,4.60
-GLDebug: Inserted poi:newID into SUMORTree with boundary 3.00,-1.40,9.00,4.60
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute id 'POI_0' into poiLane 'newID'
-GLDebug: Removed object poi:POI_0 from SUMORTree with boundary 3.00,-1.40,9.00,4.60
-GLDebug: Inserted poi:POI_0 into SUMORTree with boundary 3.00,-1.40,9.00,4.60
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute blockMovement '0' into poiLane 'POI_1'
 GLDebug: Removed object poi:POI_1 from SUMORTree with boundary 9.00,-1.40,15.00,4.60
@@ -66,8 +62,6 @@ GLDebug: Removed object poi:POI_1 from SUMORTree with boundary 9.00,-1.40,15.00,
 GLDebug: Inserted poi:POI_1 into SUMORTree with boundary 9.00,-1.40,15.00,4.60
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute id 'newID' into poiLane 'POI_0'
-GLDebug: Removed object poi:newID from SUMORTree with boundary 3.00,-1.40,9.00,4.60
-GLDebug: Inserted poi:newID into SUMORTree with boundary 3.00,-1.40,9.00,4.60
 Debug: Shapes saved
 GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
 GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00,72.00,22.00

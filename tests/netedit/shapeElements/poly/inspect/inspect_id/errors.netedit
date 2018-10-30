@@ -35,12 +35,8 @@ Debug: Value 'poly_1' for attribute id of poly isn't valid
 Debug: Value '' for attribute id of poly isn't valid
 Debug: Value 'ID with spaces' for attribute id of poly isn't valid
 Debug: Setting new attribute id 'newID' into poly 'poly_0'
-GLDebug: Removed object polygon:poly_0 from SUMORTree with boundary 0.00,6.00,14.00,20.00
-GLDebug: Inserted polygon:newID into SUMORTree with boundary 0.00,6.00,14.00,20.00
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute id 'poly_0' into poly 'newID'
-GLDebug: Removed object polygon:newID from SUMORTree with boundary 0.00,6.00,14.00,20.00
-GLDebug: Inserted polygon:poly_0 into SUMORTree with boundary 0.00,6.00,14.00,20.00
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute blockShape '0' into poly 'poly_1'
 GLDebug: Removed object polygon:poly_1 from SUMORTree with boundary 20.00,6.00,34.00,20.00
@@ -80,8 +76,6 @@ GLDebug: Removed object polygon:poly_1 from SUMORTree with boundary 20.00,6.00,3
 GLDebug: Inserted polygon:poly_1 into SUMORTree with boundary 20.00,6.00,34.00,20.00
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute id 'newID' into poly 'poly_0'
-GLDebug: Removed object polygon:poly_0 from SUMORTree with boundary 0.00,6.00,14.00,20.00
-GLDebug: Inserted polygon:newID into SUMORTree with boundary 0.00,6.00,14.00,20.00
 Debug: Shapes saved
 GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
 GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00,72.00,22.00

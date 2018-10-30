@@ -1,6 +1,3 @@
-java version "1.8.0_181"
-Java(TM) SE Runtime Environment (build 1.8.0_181-b13)
-Java HotSpot(TM) 64-Bit Server VM (build 25.181-b13, mixed mode)
 Debug: Adding busStop 'busStop_1_0_7' in GNEChange_Additional
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, shapes saved
@@ -40,7 +37,7 @@ Debug: Created connection 'from8_1to1_1' in retrieveGNEConnection()
 Debug: Created connection 'from8_1to4_1' in retrieveGNEConnection()
 Debug: Created crossing ':Center_c0' in retrieveGNECrossing()
 Debug: Created crossing ':Center_c1' in retrieveGNECrossing()
-Error: Shape of a(n) user-supplied position is broken: the position is neither x,y nor x,y,z.
+Error: Shape of a(n) user-supplied shape is broken: the position is neither x,y nor x,y,z.
 Debug: Value 'dummy shape' for attribute shape of junction isn't valid
 Debug: Setting new attribute shape '43.60,60.40 56.40,60.40 52.00,53.00 60.40,56.40 60.40,43.60 52.00,47.00 56.40,39.60 43.60,39.60 48.00,47.00 39.60,43.60 39.60,56.40 48.00,53.00 43.60,60.40' into junction 'Center'
 Debug: net has to be saved

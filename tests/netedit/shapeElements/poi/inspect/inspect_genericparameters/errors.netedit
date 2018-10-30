@@ -17,54 +17,26 @@ Debug: Setting new attribute blockMovement 'false' into poi 'POI_0'
 GLDebug: Removed object poi:POI_0 from SUMORTree with boundary -1.00,15.00,5.00,21.00
 GLDebug: Inserted poi:POI_0 into SUMORTree with boundary -1.00,15.00,5.00,21.00
 Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into poi 'POI_0'
-GLDebug: Removed object poi:POI_0 from SUMORTree with boundary -1.00,15.00,5.00,21.00
-GLDebug: Inserted poi:POI_0 into SUMORTree with boundary -1.00,15.00,5.00,21.00
 Debug: Setting new attribute genericParameter 'key1=|key2=|key3=' into poi 'POI_0'
-GLDebug: Removed object poi:POI_0 from SUMORTree with boundary -1.00,15.00,5.00,21.00
-GLDebug: Inserted poi:POI_0 into SUMORTree with boundary -1.00,15.00,5.00,21.00
 Debug: Setting new attribute genericParameter '' into poi 'POI_0'
-GLDebug: Removed object poi:POI_0 from SUMORTree with boundary -1.00,15.00,5.00,21.00
-GLDebug: Inserted poi:POI_0 into SUMORTree with boundary -1.00,15.00,5.00,21.00
 Debug: Setting new attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into poi 'POI_0'
-GLDebug: Removed object poi:POI_0 from SUMORTree with boundary -1.00,15.00,5.00,21.00
-GLDebug: Inserted poi:POI_0 into SUMORTree with boundary -1.00,15.00,5.00,21.00
 Debug: Setting new attribute genericParameter 'key2=value2|key3=value3|keyInvalid.;%>%$$=value1' into poi 'POI_0'
-GLDebug: Removed object poi:POI_0 from SUMORTree with boundary -1.00,15.00,5.00,21.00
-GLDebug: Inserted poi:POI_0 into SUMORTree with boundary -1.00,15.00,5.00,21.00
 Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into poi 'POI_0'
-GLDebug: Removed object poi:POI_0 from SUMORTree with boundary -1.00,15.00,5.00,21.00
-GLDebug: Inserted poi:POI_0 into SUMORTree with boundary -1.00,15.00,5.00,21.00
 Debug: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' into poi 'POI_0'
-GLDebug: Removed object poi:POI_0 from SUMORTree with boundary -1.00,15.00,5.00,21.00
-GLDebug: Inserted poi:POI_0 into SUMORTree with boundary -1.00,15.00,5.00,21.00
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into poi 'POI_0'
-GLDebug: Removed object poi:POI_0 from SUMORTree with boundary -1.00,15.00,5.00,21.00
-GLDebug: Inserted poi:POI_0 into SUMORTree with boundary -1.00,15.00,5.00,21.00
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute genericParameter 'key2=value2|key3=value3|keyInvalid.;%>%$$=value1' into poi 'POI_0'
-GLDebug: Removed object poi:POI_0 from SUMORTree with boundary -1.00,15.00,5.00,21.00
-GLDebug: Inserted poi:POI_0 into SUMORTree with boundary -1.00,15.00,5.00,21.00
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into poi 'POI_0'
-GLDebug: Removed object poi:POI_0 from SUMORTree with boundary -1.00,15.00,5.00,21.00
-GLDebug: Inserted poi:POI_0 into SUMORTree with boundary -1.00,15.00,5.00,21.00
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute genericParameter '' into poi 'POI_0'
-GLDebug: Removed object poi:POI_0 from SUMORTree with boundary -1.00,15.00,5.00,21.00
-GLDebug: Inserted poi:POI_0 into SUMORTree with boundary -1.00,15.00,5.00,21.00
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute genericParameter 'key1=|key2=|key3=' into poi 'POI_0'
-GLDebug: Removed object poi:POI_0 from SUMORTree with boundary -1.00,15.00,5.00,21.00
-GLDebug: Inserted poi:POI_0 into SUMORTree with boundary -1.00,15.00,5.00,21.00
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute genericParameter 'key1=value1|key2=value2|key3=value3' into poi 'POI_0'
-GLDebug: Removed object poi:POI_0 from SUMORTree with boundary -1.00,15.00,5.00,21.00
-GLDebug: Inserted poi:POI_0 into SUMORTree with boundary -1.00,15.00,5.00,21.00
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute genericParameter '' into poi 'POI_0'
-GLDebug: Removed object poi:POI_0 from SUMORTree with boundary -1.00,15.00,5.00,21.00
-GLDebug: Inserted poi:POI_0 into SUMORTree with boundary -1.00,15.00,5.00,21.00
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute blockMovement '0' into poi 'POI_0'
 GLDebug: Removed object poi:POI_0 from SUMORTree with boundary -1.00,15.00,5.00,21.00
@@ -80,32 +52,18 @@ GLDebug: Removed object poi:POI_0 from SUMORTree with boundary -1.00,15.00,5.00,
 GLDebug: Inserted poi:POI_0 into SUMORTree with boundary -1.00,15.00,5.00,21.00
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into poi 'POI_0'
-GLDebug: Removed object poi:POI_0 from SUMORTree with boundary -1.00,15.00,5.00,21.00
-GLDebug: Inserted poi:POI_0 into SUMORTree with boundary -1.00,15.00,5.00,21.00
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute genericParameter 'key1=|key2=|key3=' into poi 'POI_0'
-GLDebug: Removed object poi:POI_0 from SUMORTree with boundary -1.00,15.00,5.00,21.00
-GLDebug: Inserted poi:POI_0 into SUMORTree with boundary -1.00,15.00,5.00,21.00
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute genericParameter '' into poi 'POI_0'
-GLDebug: Removed object poi:POI_0 from SUMORTree with boundary -1.00,15.00,5.00,21.00
-GLDebug: Inserted poi:POI_0 into SUMORTree with boundary -1.00,15.00,5.00,21.00
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into poi 'POI_0'
-GLDebug: Removed object poi:POI_0 from SUMORTree with boundary -1.00,15.00,5.00,21.00
-GLDebug: Inserted poi:POI_0 into SUMORTree with boundary -1.00,15.00,5.00,21.00
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute genericParameter 'key2=value2|key3=value3|keyInvalid.;%>%$$=value1' into poi 'POI_0'
-GLDebug: Removed object poi:POI_0 from SUMORTree with boundary -1.00,15.00,5.00,21.00
-GLDebug: Inserted poi:POI_0 into SUMORTree with boundary -1.00,15.00,5.00,21.00
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into poi 'POI_0'
-GLDebug: Removed object poi:POI_0 from SUMORTree with boundary -1.00,15.00,5.00,21.00
-GLDebug: Inserted poi:POI_0 into SUMORTree with boundary -1.00,15.00,5.00,21.00
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' into poi 'POI_0'
-GLDebug: Removed object poi:POI_0 from SUMORTree with boundary -1.00,15.00,5.00,21.00
-GLDebug: Inserted poi:POI_0 into SUMORTree with boundary -1.00,15.00,5.00,21.00
 Debug: Shapes saved
 GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
 GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00,72.00,22.00

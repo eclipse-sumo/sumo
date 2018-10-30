@@ -41,41 +41,25 @@ Debug: Created connection 'from8_1to2_1' in retrieveGNEConnection()
 Debug: Created connection 'from8_1to3_1' in retrieveGNEConnection()
 Debug: Created connection 'from8_2to3_2' in retrieveGNEConnection()
 Debug: Created connection 'from8_2to1_2' in retrieveGNEConnection()
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
-Debug: Setting new attribute selected 'true' into edge '1'
-Debug: Setting new attribute selected 'true' into edge '2'
-Debug: Setting new attribute selected 'true' into edge '3'
-Debug: Setting new attribute selected 'true' into edge '4'
-Debug: Setting new attribute selected 'true' into edge '5'
-Debug: Setting new attribute selected 'true' into edge '6'
-Debug: Setting new attribute selected 'true' into edge '7'
-Debug: Setting new attribute selected 'true' into edge '8'
-Debug: Setting new attribute selected 'true' into junction 'Center'
-Debug: Setting new attribute selected 'true' into busStop 'busStop_3_1_0'
-Debug: Setting new attribute selected 'true' into detEntry 'e3Detector_0detEntry0'
-Debug: Setting new attribute selected 'true' into detExit 'e3Detector_0detExit0'
-Debug: Setting new attribute selected 'true' into detEntry 'e3Detector_3detEntry0'
-Debug: Setting new attribute selected 'true' into detExit 'e3Detector_3detExit0'
-Debug: Setting new attribute selected 'true' into poly 'poly_0'
-Debug: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 5 Additionals, 0 Crossings, 1 Polygons, 0 POIs
-Debug: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 5 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Debug: Setting new attribute selected 'true' into edge '1'
-Debug: Setting new attribute selected 'true' into edge '2'
-Debug: Setting new attribute selected 'true' into edge '3'
-Debug: Setting new attribute selected 'true' into edge '4'
-Debug: Setting new attribute selected 'true' into edge '5'
-Debug: Setting new attribute selected 'true' into edge '6'
-Debug: Setting new attribute selected 'true' into edge '7'
-Debug: Setting new attribute selected 'true' into edge '8'
-Debug: Setting new attribute selected 'true' into junction 'Center'
-Debug: Setting new attribute selected 'true' into busStop 'busStop_3_1_0'
-Debug: Setting new attribute selected 'true' into detEntry 'e3Detector_1detEntry0'
-Debug: Setting new attribute selected 'true' into detExit 'e3Detector_1detExit0'
-Debug: Setting new attribute selected 'true' into detEntry 'e3Detector_2detEntry0'
-Debug: Setting new attribute selected 'true' into detExit 'e3Detector_2detExit0'
-Debug: Setting new attribute selected 'true' into poly 'poly_0'
-Debug: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 9 Additionals, 0 Crossings, 1 Polygons, 0 POIs
+Debug: Setting new attribute selected '1' into edge '1'
+Debug: Setting new attribute selected '1' into edge '2'
+Debug: Setting new attribute selected '1' into edge '3'
+Debug: Setting new attribute selected '1' into edge '4'
+Debug: Setting new attribute selected '1' into edge '5'
+Debug: Setting new attribute selected '1' into edge '6'
+Debug: Setting new attribute selected '1' into edge '7'
+Debug: Setting new attribute selected '1' into edge '8'
+Debug: Setting new attribute selected '1' into junction 'Center'
+Debug: Setting new attribute selected '1' into busStop 'busStop_3_1_0'
+Debug: Setting new attribute selected '1' into detEntry 'e3Detector_0detEntry0'
+Debug: Setting new attribute selected '1' into detExit 'e3Detector_0detExit0'
+Debug: Setting new attribute selected '1' into detEntry 'e3Detector_3detEntry0'
+Debug: Setting new attribute selected '1' into detExit 'e3Detector_3detExit0'
+Debug: Setting new attribute selected '1' into detEntry 'e3Detector_1detEntry0'
+Debug: Setting new attribute selected '1' into detExit 'e3Detector_1detExit0'
+Debug: Setting new attribute selected '1' into detEntry 'e3Detector_2detEntry0'
+Debug: Setting new attribute selected '1' into detExit 'e3Detector_2detExit0'
+Debug: Setting new attribute selected '1' into poly 'poly_0'
 Debug: Key DEL (delete) pressed
 Debug: Removing detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Debug: Removing detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
