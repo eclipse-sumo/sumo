@@ -35,6 +35,7 @@
 #include <utils/common/Named.h>
 #include <utils/common/TplConvert.h>
 #include <utils/common/UtilExceptions.h>
+#include <utils/options/OptionsCont.h>
 
 
 // ===========================================================================
@@ -43,7 +44,6 @@
 class OutputDevice;
 class SUMOVehicle;
 class MSTransportable;
-class OptionsCont;
 class SUMOSAXAttributes;
 class MSVehicleDevice;
 class MSPersonDevice;
