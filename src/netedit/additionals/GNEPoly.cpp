@@ -655,9 +655,13 @@ GNEPoly::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             return SUMOXMLDefinitions::isValidNetID(value) && (myNet->retrievePolygon(value, false) == nullptr);
         case SUMO_ATTR_SHAPE:
-        case SUMO_ATTR_GEOSHAPE: {
-            return canParse<PositionVector>(value);
-        }
+        case SUMO_ATTR_GEOSHAPE:
+            // empty shapes AREN'T allowed
+            if (value.empty()) {
+                return false;
+            } else {
+                return canParse<PositionVector>(value);
+            }
         case SUMO_ATTR_COLOR:
             return canParse<RGBColor>(value);
         case SUMO_ATTR_FILL:

@@ -1094,16 +1094,11 @@ GNEJunction::isValid(SumoXMLAttr key, const std::string& value) {
             return SUMOXMLDefinitions::isValidNetID(value) && (myNet->retrieveJunction(value, false) == nullptr);
         case SUMO_ATTR_TYPE:
             return SUMOXMLDefinitions::NodeTypes.hasString(value);
-        case SUMO_ATTR_POSITION: {
+        case SUMO_ATTR_POSITION:
             return canParse<Position>(value);
-        }
-        case SUMO_ATTR_SHAPE: {
-            if(value.empty()) {
-                return true;
-            } else {
-                return canParse<PositionVector>(value);
-            }
-        }
+        case SUMO_ATTR_SHAPE:
+            // empty shapes are allowed
+            return canParse<PositionVector>(value);
         case SUMO_ATTR_RADIUS:
             return canParse<double>(value);
         case SUMO_ATTR_TLTYPE:

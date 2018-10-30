@@ -916,6 +916,7 @@ GNELane::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ACCELERATION:
             return canParse<bool>(value);
         case SUMO_ATTR_CUSTOMSHAPE: {
+            // A lane shape can either empty or greather than 1
             if (value.empty()) {
                 return true;
             } else if (canParse<PositionVector>(value)) {
@@ -1021,11 +1022,8 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_CUSTOMSHAPE: {
             // first remove edge parent from net
             myNet->removeGLObjectFromGrid(&myParentEdge);
-            if (value.empty()) {
-                edge->setLaneShape(myIndex, PositionVector());
-            } else {
-                edge->setLaneShape(myIndex, parse<PositionVector>(value));
-            }
+            // set new shape
+            edge->setLaneShape(myIndex, parse<PositionVector>(value));
             // add edge parent into net again
             myNet->addGLObjectIntoGrid(&myParentEdge);
             break;

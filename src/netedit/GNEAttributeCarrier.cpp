@@ -761,15 +761,17 @@ GNEAttributeCarrier::parse(const std::string& string) {
 
 template<> PositionVector
 GNEAttributeCarrier::parse(const std::string& string) {
-    if (string.size() == 0) {
-        throw EmptyData();
+    PositionVector posVector;
+    // empty string are allowed (It means empty position vector)
+    if (string.empty()) {
+        return posVector;
     } else {
         bool ok = true;
-        PositionVector shape = GeomConvHelper::parseShapeReporting(string, "user-supplied shape", 0, ok, false, true);
+        posVector = GeomConvHelper::parseShapeReporting(string, "user-supplied shape", 0, ok, false, true);
         if (!ok) {
             throw NumberFormatException();
         } else {
-            return shape;
+            return posVector;
         }
     }
 }

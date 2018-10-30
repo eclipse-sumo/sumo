@@ -472,11 +472,8 @@ GNEConnection::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_SPEED:
             return canParse<double>(value) && (parse<double>(value) > 0);
         case SUMO_ATTR_CUSTOMSHAPE: {
-            if(value.empty()) {
-                return true;
-            } else {
-                return canParse<PositionVector>(value);
-            }
+            // empty custom shapes are allowed
+            return canParse<PositionVector>(value);
         }
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);

@@ -346,11 +346,8 @@ GNECrossing::isValid(SumoXMLAttr key, const std::string& value) {
                     && myParentJunction->getNBNode()->getControllingTLS().size() > 0
                     && (*myParentJunction->getNBNode()->getControllingTLS().begin())->getMaxValidIndex() >= parse<int>(value));
         case SUMO_ATTR_CUSTOMSHAPE: {
-            if (value.empty()) {
-                return true;
-            } else {
-                return canParse<PositionVector>(value);
-            }
+            // empty shapes are allowed
+            return canParse<PositionVector>(value);
         }
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);

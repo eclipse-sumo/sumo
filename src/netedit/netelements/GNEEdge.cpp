@@ -1089,13 +1089,9 @@ GNEEdge::isValid(SumoXMLAttr key, const std::string& value) {
             return canParseVehicleClasses(value);
         case SUMO_ATTR_TYPE:
             return true;
-        case SUMO_ATTR_SHAPE: {
-            if(value.empty()) {
-                return true;
-            } else {
-                return canParse<PositionVector>(value);
-            }
-        }
+        case SUMO_ATTR_SHAPE:
+            // empty shapes are allowed
+            return canParse<PositionVector>(value);
         case SUMO_ATTR_SPREADTYPE:
             return SUMOXMLDefinitions::LaneSpreadFunctions.hasString(value);
         case SUMO_ATTR_NAME:

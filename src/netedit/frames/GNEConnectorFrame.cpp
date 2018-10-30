@@ -539,7 +539,7 @@ GNEConnectorFrame::cleanup() {
     myPotentialTargets.clear();
     myNumChanges = 0;
     myCurrentEditedLane->setSpecialColor(0);
-    myCurrentLane = nullptr;
+    myCurrentEditedLane = nullptr;
     myDeletedConnections.clear();
     myCurrentLane->updateCurrentLaneLabel("");
 }
