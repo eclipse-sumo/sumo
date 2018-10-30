@@ -459,8 +459,12 @@ GNEFrame::ACAttributes::showACAttributesModul(const SumoXMLTag currentTag, const
     }
     // iterate over tag attributes and show it
     for (auto i : myTagProperties) {
-        myVectorOfsingleShapeParameter.at(i.second.getPositionListed())->showParameter(i.first, i.second, i.second.getDefaultValue());
+        //  make sure that only non-unique attributes are shown
+        if (!i.second.isUnique()) {
+            myVectorOfsingleShapeParameter.at(i.second.getPositionListed())->showParameter(i.first, i.second, i.second.getDefaultValue());
+        }
     }
+    // recalc frame and show again
     recalc();
     show();
 }
