@@ -57,15 +57,6 @@
 // FOX callback mapping
 // ===========================================================================
 
-FXDEFMAP(GNEAdditionalFrame::AdditionalAttributeSingle) AdditionalAttributeSingleMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_TEXT,     GNEAdditionalFrame::AdditionalAttributeSingle::onCmdSetAttribute),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_BOOL,     GNEAdditionalFrame::AdditionalAttributeSingle::onCmdSetBooleanAttribute),
-};
-
-FXDEFMAP(GNEAdditionalFrame::AdditionalAttributes) AdditionalAttributesMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_HELP,   GNEAdditionalFrame::AdditionalAttributes::onCmdHelp),
-};
-
 FXDEFMAP(GNEAdditionalFrame::SelectorLaneParents) ConsecutiveLaneSelectorMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_STOPSELECTION,  GNEAdditionalFrame::SelectorLaneParents::onCmdStopSelection),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_ABORTSELECTION, GNEAdditionalFrame::SelectorLaneParents::onCmdAbortSelection),
@@ -88,316 +79,10 @@ FXDEFMAP(GNEAdditionalFrame::SelectorLaneChilds) SelectorParentLanesMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEAdditionalFrame::AdditionalAttributeSingle,  FXHorizontalFrame,  AdditionalAttributeSingleMap,   ARRAYNUMBER(AdditionalAttributeSingleMap))
-FXIMPLEMENT(GNEAdditionalFrame::AdditionalAttributes,       FXGroupBox,         AdditionalAttributesMap,        ARRAYNUMBER(AdditionalAttributesMap))
 FXIMPLEMENT(GNEAdditionalFrame::SelectorLaneParents,        FXGroupBox,         ConsecutiveLaneSelectorMap,     ARRAYNUMBER(ConsecutiveLaneSelectorMap))
 FXIMPLEMENT(GNEAdditionalFrame::SelectorEdgeChilds,         FXGroupBox,         SelectorParentEdgesMap,         ARRAYNUMBER(SelectorParentEdgesMap))
 FXIMPLEMENT(GNEAdditionalFrame::SelectorLaneChilds,         FXGroupBox,         SelectorParentLanesMap,         ARRAYNUMBER(SelectorParentLanesMap))
 
-
-// ---------------------------------------------------------------------------
-// GNEAdditionalFrame::AdditionalAttributeSingle - methods
-// ---------------------------------------------------------------------------
-
-GNEAdditionalFrame::AdditionalAttributeSingle::AdditionalAttributeSingle(AdditionalAttributes* additionalAttributesParent) :
-    FXHorizontalFrame(additionalAttributesParent, GUIDesignAuxiliarHorizontalFrame),
-    myAdditionalAttributesParent(additionalAttributesParent),
-    myAdditionalAttr(SUMO_ATTR_NOTHING) {
-    // Create visual elements
-    myLabel = new FXLabel(this, "name", nullptr, GUIDesignLabelAttribute);
-    myTextFieldInt = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE_TEXT, GUIDesignTextFieldInt);
-    myTextFieldReal = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE_TEXT, GUIDesignTextFieldReal);
-    myTextFieldStrings = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE_TEXT, GUIDesignTextField);
-    myBoolCheckButton = new FXCheckButton(this, "Disabled", this, MID_GNE_SET_ATTRIBUTE_BOOL, GUIDesignCheckButtonAttribute);
-    // Hide elements
-    hideAdditionalAttribute();
-}
-
-
-GNEAdditionalFrame::AdditionalAttributeSingle::~AdditionalAttributeSingle() {}
-
-
-void
-GNEAdditionalFrame::AdditionalAttributeSingle::showAdditionalAttribute(SumoXMLAttr additionalAttr, std::string value) {
-    myAdditionalAttr = additionalAttr;
-    myInvalidValue = "";
-    myLabel->setText(toString(myAdditionalAttr).c_str());
-    myLabel->show();
-    // Retrieve attribute properties
-    const auto& attributeProperties = GNEAttributeCarrier::getTagProperties(myAdditionalAttributesParent->myAdditionalFrameParent->myItemSelector->getCurrentTypeTag()).getAttribute(additionalAttr);
-    if (attributeProperties.isInt()) {
-        myTextFieldInt->setTextColor(FXRGB(0, 0, 0));
-        myTextFieldInt->setText(toString(value).c_str());
-        myTextFieldInt->show();
-    } else if (attributeProperties.isFloat()) {
-        myTextFieldReal->setTextColor(FXRGB(0, 0, 0));
-        myTextFieldReal->setText(toString(value).c_str());
-        myTextFieldReal->show();
-    } else if (attributeProperties.isBool()) {
-        if (GNEAttributeCarrier::parse<bool>(value)) {
-            myBoolCheckButton->setCheck(true);
-            myBoolCheckButton->setText("true");
-        } else {
-            myBoolCheckButton->setCheck(false);
-            myBoolCheckButton->setText("false");
-        }
-        myBoolCheckButton->show();
-    } else {
-        myTextFieldStrings->setTextColor(FXRGB(0, 0, 0));
-        myTextFieldStrings->setText(value.c_str());
-        myTextFieldStrings->show();
-    }
-    show();
-}
-
-
-void
-GNEAdditionalFrame::AdditionalAttributeSingle::hideAdditionalAttribute() {
-    myAdditionalAttr = SUMO_ATTR_NOTHING;
-    myLabel->hide();
-    myTextFieldInt->hide();
-    myTextFieldReal->hide();
-    myTextFieldStrings->hide();
-    myBoolCheckButton->hide();
-    hide();
-}
-
-
-SumoXMLAttr
-GNEAdditionalFrame::AdditionalAttributeSingle::getAttr() const {
-    return myAdditionalAttr;
-}
-
-
-std::string
-GNEAdditionalFrame::AdditionalAttributeSingle::getValue() const {
-    // obtain attribute property (only for improve code legibility)
-    const auto& attrValue = GNEAttributeCarrier::getTagProperties(myAdditionalAttributesParent->myAdditionalFrameParent->myItemSelector->getCurrentTypeTag()).getAttribute(myAdditionalAttr);
-    // return value depending of attribute type
-    if (attrValue.isBool()) {
-        return (myBoolCheckButton->getCheck() == 1) ? "true" : "false";
-    } else if (attrValue.isInt()) {
-        return myTextFieldInt->getText().text();
-    } else if (attrValue.isFloat() || attrValue.isTime()) {
-        return myTextFieldReal->getText().text();
-    } else {
-        return myTextFieldStrings->getText().text();
-    }
-}
-
-
-const std::string&
-GNEAdditionalFrame::AdditionalAttributeSingle::isAttributeValid() const {
-    return myInvalidValue;
-}
-
-
-long
-GNEAdditionalFrame::AdditionalAttributeSingle::onCmdSetAttribute(FXObject*, FXSelector, void*) {
-    // We assume that current value is valid
-    myInvalidValue = "";
-    // get attribute Values (only for improve efficiency)
-    const auto& attrValues = GNEAttributeCarrier::getTagProperties(myAdditionalAttributesParent->myAdditionalFrameParent->myItemSelector->getCurrentTypeTag()).getAttribute(myAdditionalAttr);
-    // Check if format of current value of myTextField is correct
-    if (attrValues.isInt()) {
-        if (GNEAttributeCarrier::canParse<int>(myTextFieldInt->getText().text())) {
-            // convert string to int
-            int intValue = GNEAttributeCarrier::parse<int>(myTextFieldInt->getText().text());
-            // Check if int value must be positive
-            if (attrValues.isPositive() && (intValue < 0)) {
-                myInvalidValue = "'" + toString(myAdditionalAttr) + "' cannot be negative";
-            }
-        } else {
-            myInvalidValue = "'" + toString(myAdditionalAttr) + "' doesn't have a valid 'int' format";
-        }
-    } else if (attrValues.isTime()) {
-        // time attributes work as positive doubles
-        if (GNEAttributeCarrier::canParse<double>(myTextFieldReal->getText().text())) {
-            // convert string to double
-            double doubleValue = GNEAttributeCarrier::parse<double>(myTextFieldReal->getText().text());
-            // Check if parsed value is negative
-            if (doubleValue < 0) {
-                myInvalidValue = "'" + toString(myAdditionalAttr) + "' cannot be negative";
-            }
-        } else {
-            myInvalidValue = "'" + toString(myAdditionalAttr) + "' doesn't have a valid 'time' format";
-        }
-    } else if (attrValues.isFloat()) {
-        if (GNEAttributeCarrier::canParse<double>(myTextFieldReal->getText().text())) {
-            // convert string to double
-            double doubleValue = GNEAttributeCarrier::parse<double>(myTextFieldReal->getText().text());
-            // Check if double value must be positive
-            if (attrValues.isPositive() && (doubleValue < 0)) {
-                myInvalidValue = "'" + toString(myAdditionalAttr) + "' cannot be negative";
-                // check if double value is a probability
-            } else if (attrValues.isProbability() && ((doubleValue < 0) || doubleValue > 1)) {
-                myInvalidValue = "'" + toString(myAdditionalAttr) + "' takes only values between 0 and 1";
-            }
-        } else {
-            myInvalidValue = "'" + toString(myAdditionalAttr) + "' doesn't have a valid 'float' format";
-        }
-    } else if (attrValues.isFilename()) {
-        // check if filename format is valid
-        if (SUMOXMLDefinitions::isValidFilename(myTextFieldStrings->getText().text()) == false) {
-            myInvalidValue = "input contains invalid characters for a filename";
-        }
-    } else if (attrValues.isVClass() && attrValues.isList()) {
-        // check if VClasses are valid
-        if (canParseVehicleClasses(myTextFieldStrings->getText().text()) == false) {
-            myInvalidValue = "list of VClass isn't valid";
-        }
-    } else if (myAdditionalAttr == SUMO_ATTR_ROUTEPROBE) {
-        // check if filename format is valid
-        if (!SUMOXMLDefinitions::isValidNetID(myTextFieldStrings->getText().text())) {
-            myInvalidValue = "RouteProbe ID contains invalid characters";
-        }
-    } else if (myAdditionalAttr == SUMO_ATTR_NAME) {
-        // check if filename format is valid
-        if (SUMOXMLDefinitions::isValidAttribute(myTextFieldStrings->getText().text()) == false) {
-            myInvalidValue = "Name contains invalid characters";
-        }
-    } else if (myAdditionalAttr == SUMO_ATTR_VTYPES) {
-        // check if filename format is valid
-        if (SUMOXMLDefinitions::isValidListOfTypeID(myTextFieldStrings->getText().text()) == false) {
-            myInvalidValue = "Ids contains invalid characters for vehicle type ids";
-        }
-    }
-    // change color of text field depending of myCurrentValueValid
-    if (myInvalidValue.size() == 0) {
-        myTextFieldInt->setTextColor(FXRGB(0, 0, 0));
-        myTextFieldInt->killFocus();
-        myTextFieldReal->setTextColor(FXRGB(0, 0, 0));
-        myTextFieldReal->killFocus();
-        myTextFieldStrings->setTextColor(FXRGB(0, 0, 0));
-        myTextFieldStrings->killFocus();
-    } else {
-        // IF value of TextField isn't valid, change their color to Red
-        myTextFieldInt->setTextColor(FXRGB(255, 0, 0));
-        myTextFieldReal->setTextColor(FXRGB(255, 0, 0));
-        myTextFieldStrings->setTextColor(FXRGB(255, 0, 0));
-    }
-    // Update aditional frame
-    update();
-    return 1;
-}
-
-
-long
-GNEAdditionalFrame::AdditionalAttributeSingle::onCmdSetBooleanAttribute(FXObject*, FXSelector, void*) {
-    if (myBoolCheckButton->getCheck()) {
-        myBoolCheckButton->setText("true");
-    } else {
-        myBoolCheckButton->setText("false");
-    }
-    return 0;
-}
-
-// ---------------------------------------------------------------------------
-// GNEAdditionalFrame::AdditionalAttributes - methods
-// ---------------------------------------------------------------------------
-
-GNEAdditionalFrame::AdditionalAttributes::AdditionalAttributes(GNEAdditionalFrame* additionalFrameParent) :
-    FXGroupBox(additionalFrameParent->myContentFrame, "Internal attributes", GUIDesignGroupBoxFrame),
-    myAdditionalFrameParent(additionalFrameParent) {
-    // Create single parameters
-    for (int i = 0; i < GNEAttributeCarrier::getHigherNumberOfAttributes(); i++) {
-        myVectorOfsingleAdditionalParameter.push_back(new AdditionalAttributeSingle(this));
-    }
-    // Create help button
-    new FXButton(this, "Help", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
-}
-
-
-GNEAdditionalFrame::AdditionalAttributes::~AdditionalAttributes() {}
-
-
-void
-GNEAdditionalFrame::AdditionalAttributes::clearAttributes() {
-    // Hide all fields
-    for (int i = 0; i < (int)myVectorOfsingleAdditionalParameter.size(); i++) {
-        myVectorOfsingleAdditionalParameter.at(i)->hideAdditionalAttribute();
-    }
-}
-
-
-void
-GNEAdditionalFrame::AdditionalAttributes::addAttribute(SumoXMLAttr AdditionalAttributeSingle) {
-    // obtain attribute property (only for improve code legibility)
-    const auto& attrvalue = GNEAttributeCarrier::getTagProperties(myAdditionalFrameParent->myItemSelector->getCurrentTypeTag()).getAttribute(AdditionalAttributeSingle);
-    myVectorOfsingleAdditionalParameter.at(attrvalue.getPositionListed())->showAdditionalAttribute(AdditionalAttributeSingle, attrvalue.getDefaultValue());
-}
-
-
-void
-GNEAdditionalFrame::AdditionalAttributes::showAdditionalAttributesModul() {
-    recalc();
-    show();
-}
-
-
-void
-GNEAdditionalFrame::AdditionalAttributes::hideAdditionalAttributesModul() {
-    hide();
-}
-
-
-void
-GNEAdditionalFrame::AdditionalAttributes::getAttributesAndValues(std::map<SumoXMLAttr, std::string> &valuesMap) const {
-    // get standard parameters
-    for (int i = 0; i < (int)myVectorOfsingleAdditionalParameter.size(); i++) {
-        if (myVectorOfsingleAdditionalParameter.at(i)->getAttr() != SUMO_ATTR_NOTHING) {
-            valuesMap[myVectorOfsingleAdditionalParameter.at(i)->getAttr()] = myVectorOfsingleAdditionalParameter.at(i)->getValue();
-        }
-    }
-}
-
-
-void
-GNEAdditionalFrame::AdditionalAttributes::showWarningMessage(std::string extra) const {
-    std::string errorMessage;
-    // iterate over standard parameters
-    for (auto i : GNEAttributeCarrier::getTagProperties(myAdditionalFrameParent->myItemSelector->getCurrentTypeTag())) {
-        if (errorMessage.empty()) {
-            // Return string with the error if at least one of the parameter isn't valid
-            std::string attributeValue = myVectorOfsingleAdditionalParameter.at(i.second.getPositionListed())->isAttributeValid();
-            if (attributeValue.size() != 0) {
-                errorMessage = attributeValue;
-            }
-        }
-    }
-    // show warning box if input parameters aren't invalid
-    if (extra.size() == 0) {
-        errorMessage = "Invalid input parameter of " + toString(myAdditionalFrameParent->myItemSelector->getCurrentTypeTag()) + ": " + errorMessage;
-    } else {
-        errorMessage = "Invalid input parameter of " + toString(myAdditionalFrameParent->myItemSelector->getCurrentTypeTag()) + ": " + extra;
-    }
-
-    // set message in status bar
-    myAdditionalFrameParent->getViewNet()->setStatusBarText(errorMessage);
-    // Write Warning in console if we're in testing mode
-    WRITE_DEBUG(errorMessage);
-}
-
-
-bool
-GNEAdditionalFrame::AdditionalAttributes::areCurrentAdditionalAttributesValid() const {
-    // iterate over standar parameters
-    for (auto i : GNEAttributeCarrier::getTagProperties(myAdditionalFrameParent->myItemSelector->getCurrentTypeTag())) {
-        // Return false if error message of attriuve isn't empty
-        if (myVectorOfsingleAdditionalParameter.at(i.second.getPositionListed())->isAttributeValid().size() != 0) {
-            return false;
-        }
-    }
-    return true;
-}
-
-
-long
-GNEAdditionalFrame::AdditionalAttributes::onCmdHelp(FXObject*, FXSelector, void*) {
-    // open Help attributes dialog
-    myAdditionalFrameParent->openHelpAttributesDialog(myAdditionalFrameParent->myItemSelector->getCurrentTypeTag());
-    return 1;
-}
 
 // ---------------------------------------------------------------------------
 // GNEAdditionalFrame::SelectorLaneParents - methods
@@ -456,8 +141,7 @@ bool
 GNEAdditionalFrame::SelectorLaneParents::stopConsecutiveLaneSelector() {
     // obtain tagproperty (only for improve code legibility)
     const auto& tagValues = GNEAttributeCarrier::getTagProperties(myAdditionalFrameParent->myItemSelector->getCurrentTypeTag());
-    // Declare map to keep attributes from Frames from Frame
-    std::map<SumoXMLAttr, std::string> valuesMap;
+
     // abort if there isn't at least two lanes
     if (mySelectedLanes.size() < 2) {
         WRITE_WARNING(toString(myAdditionalFrameParent->myItemSelector->getCurrentTypeTag()) + " requieres at least two lanes.");
@@ -465,8 +149,8 @@ GNEAdditionalFrame::SelectorLaneParents::stopConsecutiveLaneSelector() {
         abortConsecutiveLaneSelector();
         return false;
     }
-    // fill valuesOfElement with Additional attributes from Frame
-    myAdditionalFrameParent->myAdditionalAttributes->getAttributesAndValues(valuesMap);
+    // Declare map to keep attributes from Frames from Frame
+    std::map<SumoXMLAttr, std::string> valuesMap = myAdditionalFrameParent->myAdditionalAttributes->getAttributesAndValues();
     // fill valuesOfElement with Netedit attributes from Frame
     myAdditionalFrameParent->myNeteditAttributes->getNeteditAttributesAndValues(valuesMap, nullptr);
     // Generate id of element
@@ -486,7 +170,7 @@ GNEAdditionalFrame::SelectorLaneParents::stopConsecutiveLaneSelector() {
         return false;
     }
     // show warning dialogbox and stop check if input parameters are valid
-    if (myAdditionalFrameParent->myAdditionalAttributes->areCurrentAdditionalAttributesValid() == false) {
+    if (myAdditionalFrameParent->myAdditionalAttributes->areValuesValid() == false) {
         myAdditionalFrameParent->myAdditionalAttributes->showWarningMessage();
         return false;
     } else if (GNEAdditionalHandler::buildAdditional(myAdditionalFrameParent->myViewNet, true, myAdditionalFrameParent->myItemSelector->getCurrentTypeTag(), valuesMap)) {
@@ -1024,7 +708,7 @@ GNEAdditionalFrame::GNEAdditionalFrame(FXHorizontalFrame* horizontalFrameParent,
     myItemSelector = new ItemSelector(this, GNEAttributeCarrier::TAGProperty::TAGPROPERTY_ADDITIONAL);
 
     // Create additional parameters
-    myAdditionalAttributes = new AdditionalAttributes(this);
+    myAdditionalAttributes = new ACAttributes(this);
 
     // Create Netedit parameter
     myNeteditAttributes = new NeteditAttributes(this);
@@ -1061,10 +745,7 @@ GNEAdditionalFrame::addAdditional(const GNEViewNet::ObjectsUnderCursor &objectsU
     const auto& tagValues = GNEAttributeCarrier::getTagProperties(myItemSelector->getCurrentTypeTag());
 
     // Declare map to keep attributes from Frames from Frame
-    std::map<SumoXMLAttr, std::string> valuesMap;
-
-    // fill valuesOfElement with attributes from Frame
-    myAdditionalAttributes->getAttributesAndValues(valuesMap);
+    std::map<SumoXMLAttr, std::string> valuesMap = myAdditionalAttributes->getAttributesAndValues();
 
     // fill netedit attributes
     if(!myNeteditAttributes->getNeteditAttributesAndValues(valuesMap, objectsUnderCursor.lane)) {
@@ -1119,19 +800,10 @@ GNEAdditionalFrame::getConsecutiveLaneSelector() const {
 
 void 
 GNEAdditionalFrame::enableModuls(const GNEAttributeCarrier::TagValues &tagProperties) {
-     // show NeteeditAttributes
+    // show additional attributes modul
+    myAdditionalAttributes->showACAttributesModul(myItemSelector->getCurrentTypeTag(), tagProperties);
+    // show netedit attributes
     myNeteditAttributes->showNeteditAttributesModul(tagProperties);
-    // Clear internal attributes
-    myAdditionalAttributes->clearAttributes();
-    // iterate over attributes of myCurrentAdditionalType
-    for (auto i : tagProperties) {
-        // only show attributes that aren't uniques
-        if (!i.second.isUnique()) {
-            myAdditionalAttributes->addAttribute(i.first);
-        }
-    }
-    // show additional attribute modul
-    myAdditionalAttributes->showAdditionalAttributesModul();
     // Show myAdditionalFrameParent if we're adding a additional with parent
     if (tagProperties.hasParent()) {
         mySelectorAdditionalParent->showSelectorAdditionalParentModul(tagProperties.getParentTag());
@@ -1165,7 +837,7 @@ GNEAdditionalFrame::enableModuls(const GNEAttributeCarrier::TagValues &tagProper
 void 
 GNEAdditionalFrame::disableModuls() {
     // hide all moduls if additional isn't valid
-    myAdditionalAttributes->hideAdditionalAttributesModul();
+    myAdditionalAttributes->hideACAttributesModul();
     myNeteditAttributes->hideNeteditAttributesModul();
     mySelectorAdditionalParent->hideSelectorAdditionalParentModul();
     mySelectorEdgeChilds->hideSelectorEdgeChildsModul();
@@ -1272,7 +944,7 @@ GNEAdditionalFrame::buildAdditionalOverEdge(std::map<SumoXMLAttr, std::string> &
         return false;
     }
     // show warning dialogbox and stop check if input parameters are valid
-    if (myAdditionalAttributes->areCurrentAdditionalAttributesValid() == false) {
+    if (myAdditionalAttributes->areValuesValid() == false) {
         myAdditionalAttributes->showWarningMessage();
         return false;
     } else if (GNEAdditionalHandler::buildAdditional(myViewNet, true, myItemSelector->getCurrentTypeTag(), valuesMap)) {
@@ -1310,7 +982,7 @@ GNEAdditionalFrame::buildAdditionalOverLane(std::map<SumoXMLAttr, std::string> &
         return false;
     }
     // show warning dialogbox and stop check if input parameters are valid
-    if (myAdditionalAttributes->areCurrentAdditionalAttributesValid() == false) {
+    if (myAdditionalAttributes->areValuesValid() == false) {
         myAdditionalAttributes->showWarningMessage();
         return false;
     } else if (GNEAdditionalHandler::buildAdditional(myViewNet, true, myItemSelector->getCurrentTypeTag(), valuesMap)) {
@@ -1362,7 +1034,7 @@ GNEAdditionalFrame::buildAdditionalOverLanes(std::map<SumoXMLAttr, std::string> 
             return false;
         }
         // show warning dialogbox and stop check if input parameters are valid
-        if (myAdditionalAttributes->areCurrentAdditionalAttributesValid() == false) {
+        if (myAdditionalAttributes->areValuesValid() == false) {
             myAdditionalAttributes->showWarningMessage();
             return false;
         } else if (GNEAdditionalHandler::buildAdditional(myViewNet, true, myItemSelector->getCurrentTypeTag(), valuesMap)) {
@@ -1393,7 +1065,7 @@ GNEAdditionalFrame::buildAdditionalOverView(std::map<SumoXMLAttr, std::string> &
         return false;
     }
     // show warning dialogbox and stop check if input parameters are valid
-    if (myAdditionalAttributes->areCurrentAdditionalAttributesValid() == false) {
+    if (myAdditionalAttributes->areValuesValid() == false) {
         myAdditionalAttributes->showWarningMessage();
         return false;
     } else if (GNEAdditionalHandler::buildAdditional(myViewNet, true, myItemSelector->getCurrentTypeTag(), valuesMap)) {

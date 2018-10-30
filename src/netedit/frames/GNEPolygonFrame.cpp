@@ -52,13 +52,13 @@ GNEPolygonFrame::GNEPolygonFrame(FXHorizontalFrame* horizontalFrameParent, GNEVi
     myItemSelector = new ItemSelector(this, GNEAttributeCarrier::TAGProperty::TAGPROPERTY_SHAPE);
 
     // Create shape parameters
-    myShapeAttributes = new GNEPolygonFrame::ACAttributes(this);
+    myShapeAttributes = new ACAttributes(this);
 
     // Create Netedit parameter
-    myNeteditAttributes = new GNEPolygonFrame::NeteditAttributes(this);
+    myNeteditAttributes = new NeteditAttributes(this);
 
     // Create drawing controls
-    myDrawingShape = new GNEPolygonFrame::DrawingShape(this);
+    myDrawingShape = new DrawingShape(this);
 
     // set polygon as default shape
     myItemSelector->setCurrentTypeTag(SUMO_TAG_POLY);

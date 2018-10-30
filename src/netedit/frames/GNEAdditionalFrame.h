@@ -33,135 +33,7 @@
 class GNEAdditionalFrame : public GNEFrame {
 
 public:
-    /// @brief class declaration
-    class AdditionalAttributes;
-
-    // ===========================================================================
-    // class AdditionalAttributeSingle
-    // ===========================================================================
-
-    class AdditionalAttributeSingle : protected FXHorizontalFrame {
-        /// @brief FOX-declaration
-        FXDECLARE(GNEAdditionalFrame::AdditionalAttributeSingle)
-
-    public:
-        /// @brief constructor
-        AdditionalAttributeSingle(AdditionalAttributes* additionalAttributesParent);
-
-        /// @brief destructor
-        ~AdditionalAttributeSingle();
-
-        /// @brief show name and value of attribute of type string
-        void showAdditionalAttribute(SumoXMLAttr additionalAttr, std::string value);
-
-        /// @brief hide all parameters
-        void hideAdditionalAttribute();
-
-        /// @brief return Attr
-        SumoXMLAttr getAttr() const;
-
-        /// @brief return value
-        std::string getValue() const;
-
-        /// @brief returns a empty string if current value is valid, a string with information about invalid value in other case
-        const std::string& isAttributeValid() const;
-
-        /// @name FOX-callbacks
-        /// @{
-        /// @brief called when user set the value of an attribute of type int/float/string
-        long onCmdSetAttribute(FXObject*, FXSelector, void*);
-
-        /// @brief called when user change the value of myBoolCheckButton
-        long onCmdSetBooleanAttribute(FXObject*, FXSelector, void*);
-        /// @}
-
-    protected:
-        /// @brief FOX needs this
-        AdditionalAttributeSingle() {}
-
-    private:
-        /// @brief additional attribute parent
-        AdditionalAttributes* myAdditionalAttributesParent;
-
-        /// @brief current XML attribute
-        SumoXMLAttr myAdditionalAttr;
-
-        /// @brief lael with the name of the parameter
-        FXLabel* myLabel;
-
-        /// @brief textField to modify the default value of int/float/string parameters
-        FXTextField* myTextFieldInt;
-
-        /// @brief textField to modify the default value of real/times parameters
-        FXTextField* myTextFieldReal;
-
-        /// @brief textField to modify the default value of string parameters
-        FXTextField* myTextFieldStrings;
-
-        /// @brief check button to enable/disable the value of boolean parameters
-        FXCheckButton* myBoolCheckButton;
-
-        /// @brief string which indicates the reason due current value is invalid
-        std::string myInvalidValue;
-    };
-
-    // ===========================================================================
-    // class AdditionalAttributes
-    // ===========================================================================
-
-    class AdditionalAttributes : protected FXGroupBox {
-        /// @brief FOX-declaration
-        FXDECLARE(GNEAdditionalFrame::AdditionalAttributes)
-
-        /// @brief friend class declaration
-        friend class AdditionalAttributeSingle;
-
-    public:
-        /// @brief constructor
-        AdditionalAttributes(GNEAdditionalFrame* additionalFrameParent);
-
-        /// @brief destructor
-        ~AdditionalAttributes();
-
-        /// @brief clear attributes
-        void clearAttributes();
-
-        /// @brief add attribute
-        void addAttribute(SumoXMLAttr AdditionalAttributeSingle);
-
-        /// @brief show group box
-        void showAdditionalAttributesModul();
-
-        /// @brief hide group box
-        void hideAdditionalAttributesModul();
-
-        /// @brief get attributes and their values into valuesMap
-        void getAttributesAndValues(std::map<SumoXMLAttr, std::string> &valuesMap) const;
-
-        /// @brief check if parameters of attributes are valid
-        bool areCurrentAdditionalAttributesValid() const;
-
-        /// @brief show warning message with information about non-valid attributes
-        void showWarningMessage(std::string extra = "") const;
-
-        /// @name FOX-callbacks
-        /// @{
-        /// @brief Called when help button is pressed
-        long onCmdHelp(FXObject*, FXSelector, void*);
-        /// @}
-
-    protected:
-        /// @brief FOX needs this
-        AdditionalAttributes() {}
-
-    private:
-        /// @brief pointer to additionalFrameParent
-        GNEAdditionalFrame* myAdditionalFrameParent;
-
-        /// @brief vector with the additional attributes
-        std::vector<AdditionalAttributeSingle*> myVectorOfsingleAdditionalParameter;
-    };
-
+   
     // ===========================================================================
     // class SelectorLaneParents
     // ===========================================================================
@@ -485,8 +357,8 @@ private:
     /// @brief item selector
     ItemSelector* myItemSelector;
 
-    /// @brief additional internal attributes
-    AdditionalAttributes* myAdditionalAttributes;
+    /// @brief internal additional attributes
+    ACAttributes* myAdditionalAttributes;
 
     /// @brief Netedit parameter
     NeteditAttributes* myNeteditAttributes;
