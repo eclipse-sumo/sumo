@@ -957,13 +957,15 @@ class VehicleDomain(Domain):
             "!BiBdBd", tc.TYPE_COMPOUND, 2, tc.TYPE_DOUBLE, speed, tc.TYPE_DOUBLE, duration)
         self._connection._sendExact()
 
-    def createGap(self, vehID, newHeadway, duration, changeRate, maxDecel = -1):
-        """slowDown(string, double, double, double, double) -> None
+    def openGap(self, vehID, newHeadway, duration, changeRate, maxDecel = -1):
+        """openGap(string, double, double, double, double) -> None
 
         Changes the vehicle's desired headway (cf-parameter tau) smoothly to the given new value
         using the given change rate. The vehicle is commanded to keep the increased headway for  
         the given duration once its target value is attained. Optionally, a maximal value for the 
-        deceleration (>0) can be given to prevent harsh braking due to the change of tau. 
+        deceleration (>0) can be given to prevent harsh braking due to the change of tau.
+        Note that this does only affect the following behavior regarding the current leader and does
+        not influence the gap acceptance during lane change, etc.
         """
         if type(duration) is int and duration >= 1000:
             warnings.warn("API change now handles duration as floating point seconds", stacklevel=2)
