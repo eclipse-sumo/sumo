@@ -94,9 +94,10 @@
 //#define DEBUG_ACTIONSTEPS
 //#define DEBUG_NEXT_TURN
 //#define DEBUG_TRACI
-//#define DEBUG_COND (getID() == "blocker")
+//#define DEBUG_COND (getID() == "follower")
 //#define DEBUG_COND (true)
 #define DEBUG_COND (isSelected())
+//#define DEBUG_COND(obj) (obj->getID() == "follower")
 
 
 #define STOPPING_PLACE_OFFSET 0.5
@@ -388,14 +389,38 @@ MSVehicle::Influencer::influenceSpeed(SUMOTime currentTime, double speed, double
 
 double
 MSVehicle::Influencer::gapControlSpeed(SUMOTime currentTime, const SUMOVehicle* veh, double speed, double vSafe, double vMin, double vMax) {
+#ifdef DEBUG_TRACI
+    if DEBUG_COND(veh) {
+        std::cout << currentTime << " Influencer::gapControlSpeed(): speed=" << speed
+                << ", vSafe=" << vSafe
+                << ", vMin=" << vMin
+                << ", vMax=" << vMax
+                << std::endl;
+    }
+#endif
     double gapControlSpeed = speed;
-    if (myGapControlState->active) {
+    if (myGapControlState != nullptr && myGapControlState->active) {
         // Determine leader and the speed that would be chosen by the gap controller
         const double currentSpeed = veh->getSpeed();
         const MSVehicle* msVeh = dynamic_cast<const MSVehicle*>(veh);
         assert(msVeh != nullptr);
-        const double desiredSpacing = myGapControlState->tauTarget*currentSpeed;
-        std::pair<const MSVehicle* const, double> leaderInfo = msVeh->getLeader(desiredSpacing);
+        const double desiredTargetSpacing = myGapControlState->tauTarget*currentSpeed;
+        std::pair<const MSVehicle* const, double> leaderInfo = msVeh->getLeader(desiredTargetSpacing);
+#ifdef DEBUG_TRACI
+    if DEBUG_COND(veh) {
+        const double desiredCurrentSpacing = myGapControlState->tauCurrent*currentSpeed;
+        std::cout <<  " Gap control active:"
+                << " currentSpeed=" << currentSpeed
+                << ", desiredTargetSpacing=" << desiredTargetSpacing
+                << ", desiredCurrentSpacing=" << desiredCurrentSpacing
+                << ", leader=" << (leaderInfo.first==nullptr ? "NULL" : leaderInfo.first->getID())
+                << ", dist=" << leaderInfo.second
+                << ",\n tauOriginal=" << myGapControlState->tauOriginal
+                << ", tauTarget=" << myGapControlState->tauTarget
+                << ", tauCurrent=" << myGapControlState->tauCurrent
+                << std::endl;
+    }
+#endif
         if (leaderInfo.first != nullptr) {
             if (myGapControlState->prevLeader != nullptr && myGapControlState->prevLeader != leaderInfo.first) {
                 // TODO: The leader changed. What to do?
@@ -410,22 +435,54 @@ MSVehicle::Influencer::gapControlSpeed(SUMOTime currentTime, const SUMOVehicle* 
             gapControlSpeed = MIN2(gapControlSpeed, msVeh->getCarFollowModel().followSpeed(msVeh, currentSpeed, leaderInfo.second, leaderInfo.first->getSpeed(),
                     leaderInfo.first->getVehicleType().getCarFollowModel().getApparentDecel(), nullptr));
             cfm->setHeadwayTime(origTau);
-
-            gapControlSpeed = MAX2(gapControlSpeed, currentSpeed - TS*myGapControlState->maxDecel);
+#ifdef DEBUG_TRACI
+            if DEBUG_COND(veh) {
+                std::cout << " -> gapControlSpeed="<<gapControlSpeed;
+                if (myGapControlState->maxDecel > 0) {
+                    std::cout << ", with maxDecel bound: " << MAX2(gapControlSpeed, currentSpeed - TS*myGapControlState->maxDecel);
+                }
+                std::cout << std::endl;
+            }
+#endif
+            if (myGapControlState->maxDecel > 0) {
+                gapControlSpeed = MAX2(gapControlSpeed, currentSpeed - TS*myGapControlState->maxDecel);
+            }
         }
 
         // Update gap controller
         // Check (1) if the gap control has established the desired gap,
         // and (2) if it has maintained active for the given duration afterwards
         if (myGapControlState->lastUpdate < currentTime) {
+#ifdef DEBUG_TRACI
+            if DEBUG_COND(veh) {
+                std::cout << " Updating GapControlState." << std::endl;
+            }
+#endif
             if (myGapControlState->tauCurrent == myGapControlState->tauTarget) {
                 if (!myGapControlState->gapAttained) {
                     // Check if the desired gap was established
-                    myGapControlState->gapAttained = leaderInfo.first == nullptr ||  leaderInfo.second > desiredSpacing;
+                    myGapControlState->gapAttained = leaderInfo.first == nullptr ||  leaderInfo.second > desiredTargetSpacing;
+#ifdef DEBUG_TRACI
+                    if DEBUG_COND(veh) {
+                        if (myGapControlState->gapAttained){
+                            std::cout << "   Target gap was established." << std::endl;
+                        }
+                    }
+#endif
                 } else {
                     // Count down remaining time if desired gap was established
                     myGapControlState->remainingDuration -= TS;
+#ifdef DEBUG_TRACI
+                        if DEBUG_COND(veh) {
+                            std::cout << "   Gap control remaining duration: " << myGapControlState->remainingDuration << std::endl;
+                        }
+#endif
                     if (myGapControlState->remainingDuration <= 0) {
+#ifdef DEBUG_TRACI
+                        if DEBUG_COND(veh) {
+                            std::cout << "   Gap control duration expired, deactivating control." << std::endl;
+                        }
+#endif
                         // switch off gap control
                         myGapControlState->deactivate();
                     }
@@ -434,17 +491,19 @@ MSVehicle::Influencer::gapControlSpeed(SUMOTime currentTime, const SUMOVehicle* 
                 myGapControlState->tauCurrent = MIN2(myGapControlState->tauCurrent + myGapControlState->changeRate*TS, myGapControlState->tauTarget);
             }
         }
+        if (myConsiderSafeVelocity) {
+            gapControlSpeed = MIN2(gapControlSpeed, vSafe);
+        }
+        if (myConsiderMaxAcceleration) {
+            gapControlSpeed = MIN2(gapControlSpeed, vMax);
+        }
+        if (myConsiderMaxDeceleration) {
+            gapControlSpeed = MAX2(gapControlSpeed, vMin);
+        }
+        return MIN2(speed, gapControlSpeed);
+    } else {
+        return speed;
     }
-    if (myConsiderSafeVelocity) {
-        gapControlSpeed = MIN2(gapControlSpeed, vSafe);
-    }
-    if (myConsiderMaxAcceleration) {
-        gapControlSpeed = MIN2(gapControlSpeed, vMax);
-    }
-    if (myConsiderMaxDeceleration) {
-        gapControlSpeed = MAX2(gapControlSpeed, vMin);
-    }
-    return MIN2(speed, gapControlSpeed);
 }
 
 double
@@ -1932,6 +1991,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
     if (myInfluencer != nullptr) {
         const double vMin = MAX2(0., cfModel.minNextSpeed(myState.mySpeed, this));
         v = myInfluencer->influenceSpeed(MSNet::getInstance()->getCurrentTimeStep(), v, v, vMin, maxV);
+        v = myInfluencer->gapControlSpeed(MSNet::getInstance()->getCurrentTimeStep(), this, v, v, vMin, maxV);
     }
     // all links within dist are taken into account (potentially)
     const double dist = SPEED2DIST(maxV) + cfModel.brakeGap(maxV);
@@ -2820,9 +2880,9 @@ double
 MSVehicle::processTraCISpeedControl(double vSafe, double vNext) {
     if (myInfluencer != nullptr) {
 #ifdef DEBUG_TRACI
-        if DEBUG_COND {
-        std::cout << SIMTIME << " MSVehicle::processTraCISpeedControl() for vehicle '" << getID() << "'"
-            << " vSafe=" << vSafe << " (init)vNext=" << vNext;
+        if DEBUG_COND(this) {
+            std::cout << SIMTIME << " MSVehicle::processTraCISpeedControl() for vehicle '" << getID() << "'"
+                    << " vSafe=" << vSafe << " (init)vNext=" << vNext;
         }
 #endif
         if (myInfluencer->isRemoteControlled()) {
@@ -2834,11 +2894,10 @@ MSVehicle::processTraCISpeedControl(double vSafe, double vNext) {
             vMin = MAX2(0., vMin);
         }
         vNext = myInfluencer->influenceSpeed(MSNet::getInstance()->getCurrentTimeStep(), vNext, vSafe, vMin, vMax);
-        vNext = myInfluencer->gapControlSpeed(MSNet::getInstance()->getCurrentTimeStep(), this, vNext, vSafe, vMin, vMax);
 #ifdef DEBUG_TRACI
-        if DEBUG_COND {
-        std::cout << " (processed)vNext=" << vNext << std::endl;
-    }
+        if DEBUG_COND(this) {
+            std::cout << " (processed)vNext=" << vNext << std::endl;
+        }
 #endif
     }
     return vNext;
