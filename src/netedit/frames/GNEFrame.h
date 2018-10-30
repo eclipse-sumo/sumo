@@ -90,6 +90,148 @@ public:
         bool myOnlyDrawables;
     };
 
+    /// @brief class declaration
+    class ACAttributes;
+
+    // ===========================================================================
+    // class ACAttributeRow
+    // ===========================================================================
+
+    class ACAttributeRow : public FXHorizontalFrame {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEFrame::ACAttributeRow)
+        
+    public:
+        /// @brief constructor
+        ACAttributeRow(ACAttributes* ACAttributesParent);
+
+        /// @brief destructor
+        ~ACAttributeRow();
+
+        /// @brief show name and value of attribute of type string
+        void showParameter(SumoXMLAttr const attr, const GNEAttributeCarrier::AttributeValues &attrProperties, const std::string &value);
+
+        /// @brief hide all parameters
+        void hideParameter();
+
+        /// @brief return Attr
+        SumoXMLAttr getAttr() const;
+
+        /// @brief return value
+        std::string getValue() const;
+
+        /// @brief returns a empty string if current value is valid, a string with information about invalid value in other case
+        const std::string& isAttributeValid() const;
+
+        /// @brief get shape attributes parent
+        ACAttributes* getACAttributesParent() const;
+
+        /// @name FOX-callbacks
+        /// @{
+        /// @brief called when user set the value of an attribute of type int/float/string
+        long onCmdSetAttribute(FXObject*, FXSelector, void*);
+
+        /// @brief called when user change the value of myBoolCheckButton
+        long onCmdSetBooleanAttribute(FXObject*, FXSelector, void*);
+
+        /// @brief called when user press the "Color" button
+        long onCmdSetColorAttribute(FXObject*, FXSelector, void*);
+        /// @}
+
+    protected:
+        /// @brief FOX needs this
+        ACAttributeRow() {}
+
+    private:
+        /// @brief pointer to ACAttributes
+        ACAttributes* myACAttributesParent;
+
+        /// @
+        GNEAttributeCarrier::AttributeValues myAttrProperties;
+
+        /// @brief current XML attribute
+        SumoXMLAttr myShapeAttr;
+
+        /// @brief lael with the name of the parameter
+        FXLabel* myLabel;
+
+        /// @brief textField to modify the default value of int/float/string parameters
+        FXTextField* myTextFieldInt;
+
+        /// @brief textField to modify the default value of real/times parameters
+        FXTextField* myTextFieldReal;
+
+        /// @brief textField to modify the default value of string parameters
+        FXTextField* myTextFieldStrings;
+
+        /// @brief check button to enable/disable the value of boolean parameters
+        FXCheckButton* myBoolCheckButton;
+
+        /// @brief Button for open color editor
+        FXButton* myColorEditor;
+
+        /// @brief string which indicates the reason due current value is invalid
+        std::string myInvalidValue;
+    };
+
+    // ===========================================================================
+    // class ACAttributes
+    // ===========================================================================
+
+    class ACAttributes : protected FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEFrame::ACAttributes)
+
+        // declare friend class
+        friend class ACAttributeRow;
+
+    public:
+        /// @brief constructor
+        ACAttributes(GNEFrame* frameParent);
+
+        /// @brief destructor
+        ~ACAttributes();
+
+        /// @brief show ACAttributes modul
+        void showACAttributesModul(const SumoXMLTag currentTag, const GNEAttributeCarrier::TagValues &myTagProperties);
+
+        /// @brief hide group box
+        void hideACAttributesModul();
+
+        /// @brief get attributes and their values
+        std::map<SumoXMLAttr, std::string> getAttributesAndValues() const;
+
+        /// @brief check if parameters of attributes are valid
+        bool areValuesValid() const;
+
+        /// @brief show warning message with information about non-valid attributes
+        void showWarningMessage(std::string extra = "") const;
+
+        /// @brief get number of added attributes
+        int getNumberOfAddedAttributes() const;
+
+        /// @name FOX-callbacks
+        /// @{
+        /// @brief Called when help button is pressed
+        long onCmdHelp(FXObject*, FXSelector, void*);
+        /// @}
+
+    protected:
+        /// @brief FOX needs this
+        ACAttributes() {}
+
+    private:
+        /// @brief pointer to Polygon Frame Parent
+        GNEFrame* myFrameParent;
+
+        SumoXMLTag myCurrentTag;
+
+        GNEAttributeCarrier::TagValues myTagProperties;
+
+        /// @brief vector with the shape parameters
+        std::vector<ACAttributeRow*> myVectorOfsingleShapeParameter;
+    };
+
     // ===========================================================================
     // class ACHierarchy
     // ===========================================================================
@@ -453,7 +595,7 @@ protected:
     virtual bool buildShape();
 
      /// @brief enable moduls depending of item selected in ItemSelector (can be reimplemented in frame childs)
-    virtual void enableModuls(const GNEAttributeCarrier::TagValues &tagValue);
+    virtual void enableModuls(const GNEAttributeCarrier::TagValues &tagProperties);
 
     /// @brief disable moduls if element selected in itemSelector isn't valid (can be reimplemented in frame childs)
     virtual void disableModuls();

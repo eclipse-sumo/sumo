@@ -31,6 +31,7 @@
 #include <utils/gui/div/GUIIOGlobals.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/images/GUIIconSubSys.h>
+#include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/gui/windows/GUIMainWindow.h>
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNELane.h>
@@ -60,6 +61,16 @@ FXDEFMAP(GNEFrame::ItemSelector) ItemSelectorMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_SET_TYPE,    GNEFrame::ItemSelector::onCmdSelectItem),
 };
 
+FXDEFMAP(GNEFrame::ACAttributeRow) ACAttributeRowMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_TEXT,     GNEFrame::ACAttributeRow::onCmdSetAttribute),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_BOOL,     GNEFrame::ACAttributeRow::onCmdSetBooleanAttribute),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,   GNEFrame::ACAttributeRow::onCmdSetColorAttribute),
+};
+
+FXDEFMAP(GNEFrame::ACAttributes) ACAttributesMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_HELP,   GNEFrame::ACAttributes::onCmdHelp),
+};
+
 FXDEFMAP(GNEFrame::ACHierarchy) ACHierarchyMap[] = {
     FXMAPFUNC(SEL_COMMAND,              MID_GNE_INSPECTORFRAME_CENTER,      GNEFrame::ACHierarchy::onCmdCenterItem),
     FXMAPFUNC(SEL_COMMAND,              MID_GNE_INSPECTORFRAME_INSPECT,     GNEFrame::ACHierarchy::onCmdInspectItem),
@@ -84,11 +95,13 @@ FXDEFMAP(GNEFrame::NeteditAttributes) NeteditAttributesMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEFrame::ItemSelector,             FXGroupBox,     ItemSelectorMap,                ARRAYNUMBER(ItemSelectorMap))
-FXIMPLEMENT(GNEFrame::ACHierarchy,              FXGroupBox,     ACHierarchyMap,                 ARRAYNUMBER(ACHierarchyMap))
-FXIMPLEMENT(GNEFrame::GenericParametersEditor,  FXGroupBox,     GenericParametersEditorMap,     ARRAYNUMBER(GenericParametersEditorMap))
-FXIMPLEMENT(GNEFrame::DrawingShape,             FXGroupBox,     DrawingShapeMap,                ARRAYNUMBER(DrawingShapeMap))
-FXIMPLEMENT(GNEFrame::NeteditAttributes,        FXGroupBox,     NeteditAttributesMap,           ARRAYNUMBER(NeteditAttributesMap))
+FXIMPLEMENT(GNEFrame::ItemSelector,             FXGroupBox,         ItemSelectorMap,                ARRAYNUMBER(ItemSelectorMap))
+FXIMPLEMENT(GNEFrame::ACAttributeRow,           FXHorizontalFrame,  ACAttributeRowMap,              ARRAYNUMBER(ACAttributeRowMap))
+FXIMPLEMENT(GNEFrame::ACAttributes,             FXGroupBox,         ACAttributesMap,                ARRAYNUMBER(ACAttributesMap))
+FXIMPLEMENT(GNEFrame::ACHierarchy,              FXGroupBox,         ACHierarchyMap,                 ARRAYNUMBER(ACHierarchyMap))
+FXIMPLEMENT(GNEFrame::GenericParametersEditor,  FXGroupBox,         GenericParametersEditorMap,     ARRAYNUMBER(GenericParametersEditorMap))
+FXIMPLEMENT(GNEFrame::DrawingShape,             FXGroupBox,         DrawingShapeMap,                ARRAYNUMBER(DrawingShapeMap))
+FXIMPLEMENT(GNEFrame::NeteditAttributes,        FXGroupBox,         NeteditAttributesMap,           ARRAYNUMBER(NeteditAttributesMap))
 
 
 // ===========================================================================
@@ -192,6 +205,336 @@ GNEFrame::ItemSelector::onCmdSelectItem(FXObject*, FXSelector, void*) {
     myTypeMatchBox->setTextColor(FXRGB(255, 0, 0));
     // Write Warning in console if we're in testing mode
     WRITE_DEBUG("Selected invalid item in ItemSelector");
+    return 1;
+}
+
+// ---------------------------------------------------------------------------
+// GNEFrame::ACAttributeRow - methods
+// ---------------------------------------------------------------------------
+
+GNEFrame::ACAttributeRow::ACAttributeRow(ACAttributes* ACAttributesParent) :
+    FXHorizontalFrame(ACAttributesParent, GUIDesignAuxiliarHorizontalFrame),
+    myACAttributesParent(ACAttributesParent),
+    myShapeAttr(SUMO_ATTR_NOTHING) {
+    // Create visual elements
+    myLabel = new FXLabel(this, "name", nullptr, GUIDesignLabelAttribute);
+    myColorEditor = new FXButton(this, "ColorButton", nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
+    myTextFieldInt = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE_TEXT, GUIDesignTextFieldInt);
+    myTextFieldReal = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE_TEXT, GUIDesignTextFieldReal);
+    myTextFieldStrings = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE_TEXT, GUIDesignTextField);
+    myBoolCheckButton = new FXCheckButton(this, "Disabled", this, MID_GNE_SET_ATTRIBUTE_BOOL, GUIDesignCheckButtonAttribute);
+    // Hide elements
+    hideParameter();
+}
+
+
+GNEFrame::ACAttributeRow::~ACAttributeRow() {}
+
+
+void
+GNEFrame::ACAttributeRow::showParameter(const SumoXMLAttr attr, const GNEAttributeCarrier::AttributeValues &attrProperties, const std::string &value) {
+    myAttrProperties = attrProperties;
+    myShapeAttr = attr;
+    myInvalidValue = "";
+    // show label or button for edit colors
+    if (myAttrProperties.isColor()) {
+        myColorEditor->setTextColor(FXRGB(0, 0, 0));
+        myColorEditor->setText(toString(myShapeAttr).c_str());
+        myColorEditor->show();
+    } else {
+        myLabel->setText(toString(myShapeAttr).c_str());
+        myLabel->show();
+    }
+    if (myAttrProperties.isInt()) {
+        myTextFieldInt->setTextColor(FXRGB(0, 0, 0));
+        myTextFieldInt->setText(value.c_str());
+        myTextFieldInt->show();
+    } else if (myAttrProperties.isFloat()) {
+        myTextFieldReal->setTextColor(FXRGB(0, 0, 0));
+        myTextFieldReal->setText(value.c_str());
+        myTextFieldReal->show();
+    } else if (myAttrProperties.isBool()) {
+        if (GNEAttributeCarrier::parse<bool>(value)) {
+            myBoolCheckButton->setCheck(true);
+            myBoolCheckButton->setText("true");
+        } else {
+            myBoolCheckButton->setCheck(false);
+            myBoolCheckButton->setText("false");
+        }
+        myBoolCheckButton->show();
+    } else {
+        myTextFieldStrings->setTextColor(FXRGB(0, 0, 0));
+        myTextFieldStrings->setText(value.c_str());
+        myTextFieldStrings->show();
+    }
+    show();
+}
+
+
+void
+GNEFrame::ACAttributeRow::hideParameter() {
+    myShapeAttr = SUMO_ATTR_NOTHING;
+    myLabel->hide();
+    myTextFieldInt->hide();
+    myTextFieldReal->hide();
+    myTextFieldStrings->hide();
+    myBoolCheckButton->hide();
+    myColorEditor->hide();
+    hide();
+}
+
+
+SumoXMLAttr
+GNEFrame::ACAttributeRow::getAttr() const {
+    return myShapeAttr;
+}
+
+
+std::string
+GNEFrame::ACAttributeRow::getValue() const {
+    if (myAttrProperties.isBool()) {
+        return (myBoolCheckButton->getCheck() == 1) ? "true" : "false";
+    } else if (myAttrProperties.isInt()) {
+        return myTextFieldInt->getText().text();
+    } else if (myAttrProperties.isFloat() || myAttrProperties.isTime()) {
+        return myTextFieldReal->getText().text();
+    } else {
+        return myTextFieldStrings->getText().text();
+    }
+}
+
+
+const std::string&
+GNEFrame::ACAttributeRow::isAttributeValid() const {
+    return myInvalidValue;
+}
+
+
+GNEFrame::ACAttributes*
+GNEFrame::ACAttributeRow::getACAttributesParent() const {
+    return myACAttributesParent;
+}
+
+
+long
+GNEFrame::ACAttributeRow::onCmdSetAttribute(FXObject*, FXSelector, void*) {
+    // We assume that current value is valid
+    myInvalidValue = "";
+    // Check if format of current value of myTextField is correct
+    if (myAttrProperties.isInt()) {
+        if (GNEAttributeCarrier::canParse<int>(myTextFieldInt->getText().text())) {
+            // convert string to int
+            int intValue = GNEAttributeCarrier::parse<int>(myTextFieldInt->getText().text());
+            // Check if int value must be positive
+            if (myAttrProperties.isPositive() && (intValue < 0)) {
+                myInvalidValue = "'" + toString(myShapeAttr) + "' cannot be negative";
+            }
+        } else {
+            myInvalidValue = "'" + toString(myShapeAttr) + "' doesn't have a valid 'int' format";
+        }
+    } else if (myAttrProperties.isTime()) {
+        // time attributes work as positive doubles
+        if (GNEAttributeCarrier::canParse<double>(myTextFieldReal->getText().text())) {
+            // convert string to double
+            double doubleValue = GNEAttributeCarrier::parse<double>(myTextFieldReal->getText().text());
+            // Check if parsed value is negative
+            if (doubleValue < 0) {
+                myInvalidValue = "'" + toString(myShapeAttr) + "' cannot be negative";
+            }
+        } else {
+            myInvalidValue = "'" + toString(myShapeAttr) + "' doesn't have a valid 'time' format";
+        }
+    } else if (myAttrProperties.isFloat()) {
+        if (GNEAttributeCarrier::canParse<double>(myTextFieldReal->getText().text())) {
+            // convert string to double
+            double doubleValue = GNEAttributeCarrier::parse<double>(myTextFieldReal->getText().text());
+            // Check if double value must be positive
+            if (myAttrProperties.isPositive() && (doubleValue < 0)) {
+                myInvalidValue = "'" + toString(myShapeAttr) + "' cannot be negative";
+                // check if double value is a probability
+            } else if (myAttrProperties.isProbability() && ((doubleValue < 0) || doubleValue > 1)) {
+                myInvalidValue = "'" + toString(myShapeAttr) + "' takes only values between 0 and 1";
+            }
+        } else {
+            myInvalidValue = "'" + toString(myShapeAttr) + "' doesn't have a valid 'float' format";
+        }
+    } else if (myAttrProperties.isColor()) {
+        // check if filename format is valid
+        if (GNEAttributeCarrier::canParse<RGBColor>(myTextFieldStrings->getText().text()) == false) {
+            myInvalidValue = "'" + toString(myShapeAttr) + "' doesn't have a valid 'RBGColor' format";
+        }
+    } else if (myAttrProperties.isFilename()) {
+        std::string file = myTextFieldStrings->getText().text();
+        // check if filename format is valid
+        if (SUMOXMLDefinitions::isValidFilename(file) == false) {
+            myInvalidValue = "input contains invalid characters for a filename";
+        } else if (myShapeAttr == SUMO_ATTR_IMGFILE) {
+            if (!file.empty()) {
+                // only load value if file isn't empty
+                if (GUITexturesHelper::getTextureID(file) == -1) {
+                    myInvalidValue = "doesn't exist image '" + file + "'";
+                }
+            }
+        }
+    }
+    // change color of text field depending of myCurrentValueValid
+    if (myInvalidValue.size() == 0) {
+        myTextFieldInt->setTextColor(FXRGB(0, 0, 0));
+        myTextFieldInt->killFocus();
+        myTextFieldReal->setTextColor(FXRGB(0, 0, 0));
+        myTextFieldReal->killFocus();
+        myTextFieldStrings->setTextColor(FXRGB(0, 0, 0));
+        myTextFieldStrings->killFocus();
+    } else {
+        // IF value of TextField isn't valid, change their color to Red
+        myTextFieldInt->setTextColor(FXRGB(255, 0, 0));
+        myTextFieldReal->setTextColor(FXRGB(255, 0, 0));
+        myTextFieldStrings->setTextColor(FXRGB(255, 0, 0));
+    }
+    // Update aditional frame
+    update();
+    return 1;
+}
+
+
+long
+GNEFrame::ACAttributeRow::onCmdSetBooleanAttribute(FXObject*, FXSelector, void*) {
+    if (myBoolCheckButton->getCheck()) {
+        myBoolCheckButton->setText("true");
+    } else {
+        myBoolCheckButton->setText("false");
+    }
+    return 0;
+}
+
+
+long GNEFrame::ACAttributeRow::onCmdSetColorAttribute(FXObject*, FXSelector, void*) {
+    // create FXColorDialog
+    FXColorDialog colordialog(this, tr("Color Dialog"));
+    colordialog.setTarget(this);
+    // If previous attribute wasn't correct, set black as default color
+    if (GNEAttributeCarrier::canParse<RGBColor>(myTextFieldStrings->getText().text())) {
+        colordialog.setRGBA(MFXUtils::getFXColor(RGBColor::parseColor(myTextFieldStrings->getText().text())));
+    } else {
+        colordialog.setRGBA(MFXUtils::getFXColor(RGBColor::parseColor(myAttrProperties.getDefaultValue())));
+    }
+    // execute dialog to get a new color
+    if (colordialog.execute()) {
+        myTextFieldStrings->setText(toString(MFXUtils::getRGBColor(colordialog.getRGBA())).c_str());
+        onCmdSetAttribute(nullptr, 0, nullptr);
+    }
+    return 0;
+}
+
+// ---------------------------------------------------------------------------
+// GNEFrame::NeteditAttributes- methods
+// ---------------------------------------------------------------------------
+
+GNEFrame::ACAttributes::ACAttributes(GNEFrame* frameParent) :
+    FXGroupBox(frameParent->myContentFrame, "Internal attributes", GUIDesignGroupBoxFrame),
+    myFrameParent(frameParent) {
+
+    // Create single parameters
+    for (int i = 0; i < GNEAttributeCarrier::getHigherNumberOfAttributes(); i++) {
+        myVectorOfsingleShapeParameter.push_back(new ACAttributeRow(this));
+    }
+
+    // Create help button
+    new FXButton(this, "Help", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
+}
+
+
+GNEFrame::ACAttributes::~ACAttributes() {
+}
+
+
+void
+GNEFrame::ACAttributes::showACAttributesModul(const SumoXMLTag currentTag, const GNEAttributeCarrier::TagValues &tagProperties) {
+    // get current tag Properties
+    myCurrentTag = currentTag;
+    myTagProperties = tagProperties;
+    // Hide all fields
+    for (int i = 0; i < (int)myVectorOfsingleShapeParameter.size(); i++) {
+        myVectorOfsingleShapeParameter.at(i)->hideParameter();
+    }
+    // iterate over tag attributes and show it
+    for (auto i : myTagProperties) {
+        myVectorOfsingleShapeParameter.at(i.second.getPositionListed())->showParameter(i.first, i.second, i.second.getDefaultValue());
+    }
+    recalc();
+    show();
+}
+
+
+void
+GNEFrame::ACAttributes::hideACAttributesModul() {
+    hide();
+}
+
+
+std::map<SumoXMLAttr, std::string>
+GNEFrame::ACAttributes::getAttributesAndValues() const {
+    std::map<SumoXMLAttr, std::string> values;
+    // get standard parameters
+    for (int i = 0; i < (int)myVectorOfsingleShapeParameter.size(); i++) {
+        if (myVectorOfsingleShapeParameter.at(i)->getAttr() != SUMO_ATTR_NOTHING) {
+            values[myVectorOfsingleShapeParameter.at(i)->getAttr()] = myVectorOfsingleShapeParameter.at(i)->getValue();
+        }
+    }
+    return values;
+}
+
+
+void
+GNEFrame::ACAttributes::showWarningMessage(std::string extra) const {
+    std::string errorMessage;
+    // iterate over standar parameters
+    for (auto i : myTagProperties) {
+        if (errorMessage.empty()) {
+            // Return string with the error if at least one of the parameter isn't valid
+            std::string attributeValue = myVectorOfsingleShapeParameter.at(i.second.getPositionListed())->isAttributeValid();
+            if (attributeValue.size() != 0) {
+                errorMessage = attributeValue;
+            }
+        }
+    }
+    // show warning box if input parameters aren't invalid
+    if (extra.size() == 0) {
+        errorMessage = "Invalid input parameter of " + toString(myCurrentTag) + ": " + errorMessage;
+    } else {
+        errorMessage = "Invalid input parameter of " + toString(myCurrentTag) + ": " + extra;
+    }
+
+    // set message in status bar
+    myFrameParent->getViewNet()->setStatusBarText(errorMessage);
+    // Write Warning in console if we're in testing mode
+    WRITE_DEBUG(errorMessage);
+}
+
+
+bool
+GNEFrame::ACAttributes::areValuesValid() const {
+    // iterate over standar parameters
+    for (auto i : myTagProperties) {
+        // Return false if error message of attriuve isn't empty
+        if (myVectorOfsingleShapeParameter.at(i.second.getPositionListed())->isAttributeValid().size() != 0) {
+            return false;
+        }
+    }
+    return true;
+}
+
+
+int
+GNEFrame::ACAttributes::getNumberOfAddedAttributes() const {
+    return (1);
+}
+
+
+long
+GNEFrame::ACAttributes::onCmdHelp(FXObject*, FXSelector, void*) {
+    // open Help attributes dialog
+    myFrameParent->openHelpAttributesDialog(myCurrentTag);
     return 1;
 }
 
@@ -1375,7 +1718,7 @@ GNEFrame::getFrameHeaderFont() const {
 
 bool 
 GNEFrame::buildShape() {
-    // this function has to be reimplemente in all child frames that needs to draw a polygon (for example, GNEPolygonFrame or GNETAZFrame)
+    // this function has to be reimplemente in all child frames that needs to draw a polygon (for example, GNEFrame or GNETAZFrame)
     return false;
 }
 

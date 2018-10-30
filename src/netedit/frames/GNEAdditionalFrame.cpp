@@ -1118,13 +1118,13 @@ GNEAdditionalFrame::getConsecutiveLaneSelector() const {
 
 
 void 
-GNEAdditionalFrame::enableModuls(const GNEAttributeCarrier::TagValues &tagValue) {
+GNEAdditionalFrame::enableModuls(const GNEAttributeCarrier::TagValues &tagProperties) {
      // show NeteeditAttributes
-    myNeteditAttributes->showNeteditAttributesModul(tagValue);
+    myNeteditAttributes->showNeteditAttributesModul(tagProperties);
     // Clear internal attributes
     myAdditionalAttributes->clearAttributes();
     // iterate over attributes of myCurrentAdditionalType
-    for (auto i : tagValue) {
+    for (auto i : tagProperties) {
         // only show attributes that aren't uniques
         if (!i.second.isUnique()) {
             myAdditionalAttributes->addAttribute(i.first);
@@ -1133,20 +1133,20 @@ GNEAdditionalFrame::enableModuls(const GNEAttributeCarrier::TagValues &tagValue)
     // show additional attribute modul
     myAdditionalAttributes->showAdditionalAttributesModul();
     // Show myAdditionalFrameParent if we're adding a additional with parent
-    if (tagValue.hasParent()) {
-        mySelectorAdditionalParent->showSelectorAdditionalParentModul(tagValue.getParentTag());
+    if (tagProperties.hasParent()) {
+        mySelectorAdditionalParent->showSelectorAdditionalParentModul(tagProperties.getParentTag());
     } else {
         mySelectorAdditionalParent->hideSelectorAdditionalParentModul();
     }
     // Show SelectorEdgeChilds if we're adding an additional that own the attribute SUMO_ATTR_EDGES
-    if (tagValue.hasAttribute(SUMO_ATTR_EDGES)) {
+    if (tagProperties.hasAttribute(SUMO_ATTR_EDGES)) {
         mySelectorEdgeChilds->showSelectorEdgeChildsModul();
     } else {
         mySelectorEdgeChilds->hideSelectorEdgeChildsModul();
     }
     // Show SelectorLaneChilds or consecutive lane selector if we're adding an additional that own the attribute SUMO_ATTR_LANES
-    if (tagValue.hasAttribute(SUMO_ATTR_LANES)) {
-        if(tagValue.hasParent() && tagValue.getParentTag() == SUMO_TAG_LANE) {
+    if (tagProperties.hasAttribute(SUMO_ATTR_LANES)) {
+        if(tagProperties.hasParent() && tagProperties.getParentTag() == SUMO_TAG_LANE) {
             // show selector lane parent and hide selector lane child
             mySelectorLaneParents->showSelectorLaneParentsModul();
             mySelectorLaneChilds->hideSelectorLaneChildsModul();

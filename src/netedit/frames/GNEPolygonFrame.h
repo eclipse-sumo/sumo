@@ -42,150 +42,6 @@ public:
         ADDSHAPE_NOTHING                // Nothing to do
     };
 
-    /// @brief class declaration
-    class ShapeAttributes;
-
-    // ===========================================================================
-    // class ShapeAttributeSingle
-    // ===========================================================================
-
-    class ShapeAttributeSingle : public FXHorizontalFrame {
-        /// @brief FOX-declaration
-        FXDECLARE(GNEPolygonFrame::ShapeAttributeSingle)
-        
-    public:
-        /// @brief constructor
-        ShapeAttributeSingle(ShapeAttributes* shapeAttributesParent);
-
-        /// @brief destructor
-        ~ShapeAttributeSingle();
-
-        /// @brief show name and value of attribute of type string
-        void showParameter(SumoXMLAttr shapeAttr, std::string value);
-
-        /// @brief hide all parameters
-        void hideParameter();
-
-        /// @brief return Attr
-        SumoXMLAttr getAttr() const;
-
-        /// @brief return value
-        std::string getValue() const;
-
-        /// @brief returns a empty string if current value is valid, a string with information about invalid value in other case
-        const std::string& isAttributeValid() const;
-
-        /// @brief get shape attributes parent
-        ShapeAttributes* getShapeAttributesParent() const;
-
-        /// @name FOX-callbacks
-        /// @{
-        /// @brief called when user set the value of an attribute of type int/float/string
-        long onCmdSetAttribute(FXObject*, FXSelector, void*);
-
-        /// @brief called when user change the value of myBoolCheckButton
-        long onCmdSetBooleanAttribute(FXObject*, FXSelector, void*);
-
-        /// @brief called when user press the "Color" button
-        long onCmdSetColorAttribute(FXObject*, FXSelector, void*);
-        /// @}
-
-    protected:
-        /// @brief FOX needs this
-        ShapeAttributeSingle() {}
-
-    private:
-        /// @brief pointer to ShapeAttributes
-        ShapeAttributes* myShapeAttributesParent;
-
-        /// @brief current XML attribute
-        SumoXMLAttr myShapeAttr;
-
-        /// @brief lael with the name of the parameter
-        FXLabel* myLabel;
-
-        /// @brief textField to modify the default value of int/float/string parameters
-        FXTextField* myTextFieldInt;
-
-        /// @brief textField to modify the default value of real/times parameters
-        FXTextField* myTextFieldReal;
-
-        /// @brief textField to modify the default value of string parameters
-        FXTextField* myTextFieldStrings;
-
-        /// @brief check button to enable/disable the value of boolean parameters
-        FXCheckButton* myBoolCheckButton;
-
-        /// @brief Button for open color editor
-        FXButton* myColorEditor;
-
-        /// @brief string which indicates the reason due current value is invalid
-        std::string myInvalidValue;
-    };
-
-    // ===========================================================================
-    // class ShapeAttributes
-    // ===========================================================================
-
-    class ShapeAttributes : protected FXGroupBox {
-        /// @brief FOX-declaration
-        FXDECLARE(GNEPolygonFrame::ShapeAttributes)
-
-        // declare friend class
-        friend class ShapeAttributeSingle;
-
-    public:
-        /// @brief constructor
-        ShapeAttributes(GNEPolygonFrame* polygonFrameParent);
-
-        /// @brief destructor
-        ~ShapeAttributes();
-
-        /// @brief clear attributes
-        void clearAttributes();
-
-        /// @brief add attribute
-        void addAttribute(SumoXMLAttr ShapeAttributeSingle);
-
-        /// @brief show ShapeAttributes modul
-        void showShapeAttributesModul();
-
-        /// @brief hide group box
-        void hideShapeAttributesModul();
-
-        /// @brief get attributes and their values
-        std::map<SumoXMLAttr, std::string> getAttributesAndValues() const;
-
-        /// @brief check if parameters of attributes are valid
-        bool areValuesValid() const;
-
-        /// @brief show warning message with information about non-valid attributes
-        void showWarningMessage(std::string extra = "") const;
-
-        /// @brief get number of added attributes
-        int getNumberOfAddedAttributes() const;
-
-        /// @brief get PolygonFrame parent
-        GNEPolygonFrame* getPolygonFrameParent() const;
-
-        /// @name FOX-callbacks
-        /// @{
-        /// @brief Called when help button is pressed
-        long onCmdHelp(FXObject*, FXSelector, void*);
-        /// @}
-
-    protected:
-        /// @brief FOX needs this
-        ShapeAttributes() {}
-
-    private:
-        /// @brief pointer to Polygon Frame Parent
-        GNEPolygonFrame* myPolygonFrameParent;
-
-        /// @brief vector with the shape parameters
-        std::vector<ShapeAttributeSingle*> myVectorOfsingleShapeParameter;
-    };
-
     /**@brief Constructor
     * @brief parent FXHorizontalFrame in which this GNEFrame is placed
     * @brief viewNet viewNet that uses this GNEFrame
@@ -219,7 +75,7 @@ protected:
     bool buildShape();
 
      /// @brief enable moduls depending of item selected in ItemSelector
-    void enableModuls(const GNEAttributeCarrier::TagValues &tagValue);
+    void enableModuls(const GNEAttributeCarrier::TagValues &tagProperties);
 
     /// @brief disable moduls if element selected in itemSelector isn't valid
     void disableModuls();
@@ -238,7 +94,7 @@ private:
     ItemSelector* myItemSelector;
 
     /// @brief shape internal attributes
-    ShapeAttributes* myShapeAttributes;
+    ACAttributes* myShapeAttributes;
 
     /// @brief Netedit parameter
     NeteditAttributes* myNeteditAttributes;
