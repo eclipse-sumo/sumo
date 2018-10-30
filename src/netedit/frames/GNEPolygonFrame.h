@@ -42,6 +42,51 @@ public:
         ADDSHAPE_NOTHING                // Nothing to do
     };
 
+    // ===========================================================================
+    // class GEOPOICreator
+    // ===========================================================================
+
+    class GEOPOICreator : protected FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEPolygonFrame::GEOPOICreator)
+
+    public:
+        /// @brief constructor
+        GEOPOICreator(GNEPolygonFrame* polygonFrameParent);
+
+        /// @brief destructor
+        ~GEOPOICreator();
+
+        /// @brief Show list of GEOPOICreator Modul
+        void showGEOPOICreatorModul();
+
+        /// @brief hide GEOPOICreator Modul
+        void hideGEOPOICreatorModul();
+
+        /// @name FOX-callbacks
+        /// @{
+        /// @brief called when user change the coordinates TextField
+        long onCmdSetCoordinates(FXObject*, FXSelector, void*);
+
+        /// @brief called when user type in search box
+        long onCmdCreateGEOPOI(FXObject*, FXSelector, void*);
+        /// @}
+
+    protected:
+        /// @brief FOX needs this
+        GEOPOICreator() {}
+
+    private:
+        /// @brief pointer to Shape frame parent
+        GNEPolygonFrame* myPolygonFrameParent;
+
+        /// @brief text field for given geo coordinates
+        FXTextField* myCoordinatesTextField;
+
+        /// @brief button for create GEO Coordinates
+        FXButton* myCreateGEOPOIButton;
+    };
+
     /**@brief Constructor
     * @brief parent FXHorizontalFrame in which this GNEFrame is placed
     * @brief viewNet viewNet that uses this GNEFrame
@@ -101,6 +146,9 @@ private:
 
     /// @brief Drawing shape
     DrawingShape* myDrawingShape;
+
+    /// @brief GEOPOICreator
+    GEOPOICreator* myGEOPOICreator;
 };
 
 

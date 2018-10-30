@@ -42,8 +42,61 @@
 
 
 // ===========================================================================
+// FOX callback mapping
+// ===========================================================================
+
+FXDEFMAP(GNEPolygonFrame::GEOPOICreator) GEOPOICreatorMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,      GNEPolygonFrame::GEOPOICreator::onCmdSetCoordinates),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSFRAME_CREATE,    GNEPolygonFrame::GEOPOICreator::onCmdCreateGEOPOI),
+};
+
+// Object implementation
+FXIMPLEMENT(GNEPolygonFrame::GEOPOICreator,     FXGroupBox,     GEOPOICreatorMap,   ARRAYNUMBER(GEOPOICreatorMap))
+
+
+// ===========================================================================
 // method definitions
 // ===========================================================================
+
+// ---------------------------------------------------------------------------
+// GNEPolygonFrame::GEOPOICreator - methods
+// ---------------------------------------------------------------------------
+
+GNEPolygonFrame::GEOPOICreator::GEOPOICreator(GNEPolygonFrame* polygonFrameParent) : 
+    FXGroupBox(polygonFrameParent->myContentFrame, "GEO POI Creator", GUIDesignGroupBoxFrame) {
+}
+
+
+GNEPolygonFrame::GEOPOICreator::~GEOPOICreator() {}
+
+
+void 
+GNEPolygonFrame::GEOPOICreator::showGEOPOICreatorModul() {
+    show();
+}
+
+
+void 
+GNEPolygonFrame::GEOPOICreator::hideGEOPOICreatorModul() {
+    hide();
+}
+
+
+long 
+GNEPolygonFrame::GEOPOICreator::onCmdSetCoordinates(FXObject*, FXSelector, void*) {
+    return 1;
+}
+
+
+long 
+GNEPolygonFrame::GEOPOICreator::onCmdCreateGEOPOI(FXObject*, FXSelector, void*) {
+    return 1;
+}
+
+
+// ---------------------------------------------------------------------------
+// GNEPolygonFrame - methods
+// ---------------------------------------------------------------------------
 
 GNEPolygonFrame::GNEPolygonFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
     GNEFrame(horizontalFrameParent, viewNet, "Shapes") {
@@ -59,6 +112,9 @@ GNEPolygonFrame::GNEPolygonFrame(FXHorizontalFrame* horizontalFrameParent, GNEVi
 
     // Create drawing controls
     myDrawingShape = new DrawingShape(this);
+
+    /// @brief GEOPOICreator
+    myGEOPOICreator = new GEOPOICreator(this);
 
     // set polygon as default shape
     myItemSelector->setCurrentTypeTag(SUMO_TAG_POLY);
@@ -213,9 +269,15 @@ GNEPolygonFrame::enableModuls(const GNEAttributeCarrier::TagValues &tagPropertie
     myNeteditAttributes->showNeteditAttributesModul(tagProperties);
     // Check if drawing mode has to be shown
     if (myItemSelector->getCurrentTypeTag() == SUMO_TAG_POLY) {
-        getDrawingShape()->showDrawingShape();
+        myDrawingShape->showDrawingShape();
     } else {
-        getDrawingShape()->hideDrawingShape();
+        myDrawingShape->hideDrawingShape();
+    }
+    // Check if GEO POI Creator has to be shown
+    if (myItemSelector->getCurrentTypeTag() == SUMO_TAG_POI) {
+        myGEOPOICreator->showGEOPOICreatorModul();
+    } else {
+        myGEOPOICreator->hideGEOPOICreatorModul();
     }
 }
 
@@ -225,7 +287,7 @@ GNEPolygonFrame::disableModuls() {
     // hide all widgets
     myShapeAttributes->hideACAttributesModul();
     myNeteditAttributes->hideNeteditAttributesModul();
-    getDrawingShape()->hideDrawingShape();
+    myDrawingShape->hideDrawingShape();
 }
 
 
