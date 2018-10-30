@@ -973,10 +973,8 @@ GNEAdditionalFrame::buildAdditionalOverLane(std::map<SumoXMLAttr, std::string> &
     }
     // Obtain position of the mouse over lane (limited over grid)
     double mousePositionOverLane = lane->getShape().nearest_offset_to_point2D(myViewNet->snapToActiveGrid(myViewNet->getPositionInformation())) / lane->getLengthGeometryFactor();
-    // Obtain position attribute if wasn't previously set in Frame
-    if (tagValues.hasAttribute(SUMO_ATTR_POSITION) && (valuesMap.find(SUMO_ATTR_POSITION) == valuesMap.end())) {
-        valuesMap[SUMO_ATTR_POSITION] = toString(mousePositionOverLane);
-    }
+    // set attribute position as mouse position over lane
+    valuesMap[SUMO_ATTR_POSITION] = toString(mousePositionOverLane);
     // parse common attributes
     if(!buildAdditionalCommonAttributes(valuesMap, tagValues)) {
         return false;
@@ -1055,11 +1053,8 @@ bool
 GNEAdditionalFrame::buildAdditionalOverView(std::map<SumoXMLAttr, std::string> &valuesMap, const GNEAttributeCarrier::TagValues &tagValues) {
     // Generate id of element
     valuesMap[SUMO_ATTR_ID] = generateID(nullptr);
-    // Obtain position attribute if wasn't previously set in Frame
-    if (tagValues.hasAttribute(SUMO_ATTR_POSITION) && (valuesMap.find(SUMO_ATTR_POSITION) == valuesMap.end())) {
-        // An attribute "position" can be either a float or a Position. If isn't float, we get the position over map
-        valuesMap[SUMO_ATTR_POSITION] = toString(myViewNet->snapToActiveGrid(myViewNet->getPositionInformation()));
-    }
+    // Obtain position as the clicked position over view
+    valuesMap[SUMO_ATTR_POSITION] = toString(myViewNet->snapToActiveGrid(myViewNet->getPositionInformation()));
     // parse common attributes
     if(!buildAdditionalCommonAttributes(valuesMap, tagValues)) {
         return false;
