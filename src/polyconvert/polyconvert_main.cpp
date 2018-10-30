@@ -54,7 +54,7 @@
 #include <polyconvert/PCTypeMap.h>
 #include <polyconvert/PCTypeDefHandler.h>
 #include <polyconvert/PCNetProjectionLoader.h>
-#include "pc_typemap.h"
+#include <polyconvert/pc_typemap.h>
 
 
 // ===========================================================================
