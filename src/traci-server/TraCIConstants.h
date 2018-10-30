@@ -65,6 +65,9 @@
 // command: set sublane (vehicle)
 #define CMD_CHANGESUBLANE 0x15
 
+// command: open gap
+#define CMD_OPENGAP 0x16
+
 // command: change target
 #define CMD_CHANGETARGET 0x31
 

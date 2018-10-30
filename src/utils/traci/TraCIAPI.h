@@ -759,6 +759,7 @@ public:
         void moveTo(const std::string& vehicleID, const std::string& laneID, double position) const;
         void moveToXY(const std::string& vehicleID, const std::string& edgeID, const int lane, const double x, const double y, const double angle, const int keepRoute) const;
         void slowDown(const std::string& vehicleID, double speed, double duration) const;
+        void openGap(const std::string& vehicleID, double newTau, double duration, double changeRate, double maxDecel) const;
         void setSpeed(const std::string& vehicleID, double speed) const;
         void setSpeedMode(const std::string& vehicleID, int mode) const;
         void setStop(const std::string vehicleID, const std::string edgeID, const double endPos = 1.,

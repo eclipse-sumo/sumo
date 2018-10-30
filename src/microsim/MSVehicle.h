@@ -1349,6 +1349,33 @@ public:
      * LaneChangeMode and any given laneTimeLine
      */
     class Influencer {
+    private:
+        /// @brief Container for state and parameters of the gap control
+        struct GapControlState {
+            GapControlState();
+            void activate(double tauOriginal, double tauTarget, double duration, double changeRate, double maxDecel);
+            void deactivate();
+            /// @brief Original value for the desired headway (will be reset after duration has expired)
+            double tauOriginal;
+            /// @brief Current, interpolated value for the desired headway
+            double tauCurrent;
+            /// @brief Target value for the desired headway
+            double tauTarget;
+            /// @brief Remaining duration for keeping the target headway
+            double remainingDuration;
+            /// @brief Rate by which the current headway is changed towards the target value
+            double changeRate;
+            /// @brief Maximal deceleration to be applied due to the adapted headway
+            double maxDecel;
+            /// @brief Whether the gap control is active
+            bool active;
+            /// @brief Whether the desired gap was attained during the current activity phase (induces the remaining duration to decrease)
+            bool gapAttained;
+            /// @brief The last recognized leader
+            const MSVehicle* prevLeader;
+            /// @brief Time of the last update of the gap control
+            SUMOTime lastUpdate;
+        };
     public:
         /// @brief Constructor
         Influencer();
@@ -1363,6 +1390,9 @@ public:
          */
         void setSpeedTimeLine(const std::vector<std::pair<SUMOTime, double> >& speedTimeLine);
 
+        /** @brief Sets a new velocity timeline, @see GapControlState
+         */
+        void activateGapController(double originalTau, double newTau, double duration, double changeRate, double maxDecel);
 
         /** @brief Sets a new lane timeline
          * @param[in] laneTimeLine The time line of lanes to use
@@ -1386,7 +1416,7 @@ public:
         }
         SUMOTime getLaneTimeLineDuration();
 
-        /** @brief Applies stored velocity information on the speed to use
+        /** @brief Applies stored velocity information on the speed to use.
          *
          * The given speed is assumed to be the non-influenced speed from longitudinal control.
          *  It is stored for further usage in "myOriginalSpeed".
@@ -1398,6 +1428,20 @@ public:
          * @return The speed to use
          */
         double influenceSpeed(SUMOTime currentTime, double speed, double vSafe, double vMin, double vMax);
+
+        /** @brief Applies gap control logic on the speed.
+         *
+         * The given speed is assumed to be the non-influenced speed from longitudinal control.
+         *  It is stored for further usage in "myOriginalSpeed".
+         * @param[in] currentTime The current simulation time
+         * @param[in] veh The controlled vehicle
+         * @param[in] speed The undisturbed speed
+         * @param[in] vSafe The safe velocity
+         * @param[in] vMin The minimum velocity
+         * @param[in] vMax The maximum simulation time
+         * @return The speed to use (<=speed)
+         */
+        double gapControlSpeed(SUMOTime currentTime, const SUMOVehicle* veh, double speed, double vSafe, double vMin, double vMax);
 
         /** @brief Applies stored LaneChangeMode information and laneTimeLine
          * @param[in] currentTime The current simulation time
@@ -1501,6 +1545,9 @@ public:
 
         /// @brief The lane usage time line to apply
         std::vector<std::pair<SUMOTime, int> > myLaneTimeLine;
+
+        /// @brief The gap control state
+        std::shared_ptr<GapControlState> myGapControlState;
 
         /// @brief The velocity before influence
         double myOriginalSpeed;

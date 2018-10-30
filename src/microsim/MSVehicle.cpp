@@ -38,6 +38,7 @@
 #include <cstdlib>
 #include <algorithm>
 #include <map>
+#include <memory>
 #include <utils/common/ToString.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/vehicle/DijkstraRouter.h>
@@ -234,11 +235,45 @@ MSVehicle::WaitingTimeCollector::passTime(SUMOTime dt, bool waiting) {
 
 
 
+/* -------------------------------------------------------------------------
+ * methods of MSVehicle::Influencer::GapControlState
+ * ----------------------------------------------------------------------- */
+MSVehicle::Influencer::GapControlState::GapControlState() :
+    tauOriginal(-1), tauCurrent(-1), tauTarget(-1), remainingDuration(-1),
+    changeRate(-1), maxDecel(-1), active(false), gapAttained(false), prevLeader(nullptr), lastUpdate(-1) {}
+
+
+void
+MSVehicle::Influencer::GapControlState::activate(double tauOrig, double tauNew, double dur, double rate, double decel) {
+    if (MSGlobals::gUseMesoSim) {
+        WRITE_ERROR("No gap control available for meso.")
+    } else {
+        tauOriginal = tauOrig;
+        tauCurrent = tauOrig;
+        tauTarget = tauNew;
+        remainingDuration = dur;
+        changeRate = rate;
+        maxDecel = decel;
+        active = true;
+        gapAttained = false;
+        prevLeader = nullptr;
+    }
+}
+
+void
+MSVehicle::Influencer::GapControlState::deactivate() {
+    remainingDuration = 0.0;
+    active = false;
+    gapAttained = false;
+    prevLeader = nullptr;
+}
+
 
 /* -------------------------------------------------------------------------
  * methods of MSVehicle::Influencer
  * ----------------------------------------------------------------------- */
 MSVehicle::Influencer::Influencer() :
+    myGapControlState(nullptr),
     myLatDist(0),
     mySpeedAdaptationStarted(true),
     myConsiderSafeVelocity(true),
@@ -254,8 +289,8 @@ MSVehicle::Influencer::Influencer() :
     mySublaneLC(LC_NOCONFLICT),
     myTraciLaneChangePriority(LCP_URGENT),
     myTraCISignals(-1),
-    myRoutingMode(0) {
-}
+    myRoutingMode(0)
+{}
 
 
 MSVehicle::Influencer::~Influencer() {}
@@ -265,6 +300,14 @@ void
 MSVehicle::Influencer::setSpeedTimeLine(const std::vector<std::pair<SUMOTime, double> >& speedTimeLine) {
     mySpeedAdaptationStarted = true;
     mySpeedTimeLine = speedTimeLine;
+}
+
+void
+MSVehicle::Influencer::activateGapController(double originalTau, double newTau, double duration, double changeRate, double maxDecel) {
+    if (myGapControlState == nullptr) {
+        myGapControlState = std::make_shared<GapControlState>();
+    }
+    myGapControlState->activate(originalTau, newTau, duration, changeRate, maxDecel);
 }
 
 
@@ -315,34 +358,94 @@ double
 MSVehicle::Influencer::influenceSpeed(SUMOTime currentTime, double speed, double vSafe, double vMin, double vMax) {
     // keep original speed
     myOriginalSpeed = speed;
+
     // remove leading commands which are no longer valid
     while (mySpeedTimeLine.size() == 1 || (mySpeedTimeLine.size() > 1 && currentTime > mySpeedTimeLine[1].first)) {
         mySpeedTimeLine.erase(mySpeedTimeLine.begin());
     }
-    // do nothing if the time line does not apply for the current time
-    if (mySpeedTimeLine.size() < 2 || currentTime < mySpeedTimeLine[0].first) {
-        return speed;
-    }
-    // compute and set new speed
-    if (!mySpeedAdaptationStarted) {
-        mySpeedTimeLine[0].second = speed;
-        mySpeedAdaptationStarted = true;
-    }
-    currentTime += DELTA_T;
-    const double td = STEPS2TIME(currentTime - mySpeedTimeLine[0].first) / STEPS2TIME(mySpeedTimeLine[1].first + DELTA_T - mySpeedTimeLine[0].first);
-    speed = mySpeedTimeLine[0].second - (mySpeedTimeLine[0].second - mySpeedTimeLine[1].second) * td;
-    if (myConsiderSafeVelocity) {
-        speed = MIN2(speed, vSafe);
-    }
-    if (myConsiderMaxAcceleration) {
-        speed = MIN2(speed, vMax);
-    }
-    if (myConsiderMaxDeceleration) {
-        speed = MAX2(speed, vMin);
+
+    if (!(mySpeedTimeLine.size() < 2 || currentTime < mySpeedTimeLine[0].first)) {
+        // Speed advice is active -> compute new speed according to speedTimeLine
+        if (!mySpeedAdaptationStarted) {
+            mySpeedTimeLine[0].second = speed;
+            mySpeedAdaptationStarted = true;
+        }
+        currentTime += DELTA_T;
+        const double td = STEPS2TIME(currentTime - mySpeedTimeLine[0].first) / STEPS2TIME(mySpeedTimeLine[1].first + DELTA_T - mySpeedTimeLine[0].first);
+        speed = mySpeedTimeLine[0].second - (mySpeedTimeLine[0].second - mySpeedTimeLine[1].second) * td;
+        if (myConsiderSafeVelocity) {
+            speed = MIN2(speed, vSafe);
+        }
+        if (myConsiderMaxAcceleration) {
+            speed = MIN2(speed, vMax);
+        }
+        if (myConsiderMaxDeceleration) {
+            speed = MAX2(speed, vMin);
+        }
     }
     return speed;
 }
 
+double
+MSVehicle::Influencer::gapControlSpeed(SUMOTime currentTime, const SUMOVehicle* veh, double speed, double vSafe, double vMin, double vMax) {
+    double gapControlSpeed = speed;
+    if (myGapControlState->active) {
+        // Determine leader and the speed that would be chosen by the gap controller
+        const double currentSpeed = veh->getSpeed();
+        const MSVehicle* msVeh = dynamic_cast<const MSVehicle*>(veh);
+        assert(msVeh != nullptr);
+        const double desiredSpacing = myGapControlState->tauTarget*currentSpeed;
+        std::pair<const MSVehicle* const, double> leaderInfo = msVeh->getLeader(desiredSpacing);
+        if (leaderInfo.first != nullptr) {
+            if (myGapControlState->prevLeader != nullptr && myGapControlState->prevLeader != leaderInfo.first) {
+                // TODO: The leader changed. What to do?
+            }
+            // Remember leader
+            myGapControlState->prevLeader = leaderInfo.first;
+
+            // Calculate desired following speed assuming the alternative headway time
+            MSCFModel* cfm = (MSCFModel*) &(msVeh->getVehicleType().getCarFollowModel());
+            const double origTau = cfm->getHeadwayTime();
+            cfm->setHeadwayTime(myGapControlState->tauCurrent);
+            gapControlSpeed = MIN2(gapControlSpeed, msVeh->getCarFollowModel().followSpeed(msVeh, currentSpeed, leaderInfo.second, leaderInfo.first->getSpeed(),
+                    leaderInfo.first->getVehicleType().getCarFollowModel().getApparentDecel(), nullptr));
+            cfm->setHeadwayTime(origTau);
+
+            gapControlSpeed = MAX2(gapControlSpeed, currentSpeed - TS*myGapControlState->maxDecel);
+        }
+
+        // Update gap controller
+        // Check (1) if the gap control has established the desired gap,
+        // and (2) if it has maintained active for the given duration afterwards
+        if (myGapControlState->lastUpdate < currentTime) {
+            if (myGapControlState->tauCurrent == myGapControlState->tauTarget) {
+                if (!myGapControlState->gapAttained) {
+                    // Check if the desired gap was established
+                    myGapControlState->gapAttained = leaderInfo.first == nullptr ||  leaderInfo.second > desiredSpacing;
+                } else {
+                    // Count down remaining time if desired gap was established
+                    myGapControlState->remainingDuration -= TS;
+                    if (myGapControlState->remainingDuration <= 0) {
+                        // switch off gap control
+                        myGapControlState->deactivate();
+                    }
+                }
+            } else {
+                myGapControlState->tauCurrent = MIN2(myGapControlState->tauCurrent + myGapControlState->changeRate*TS, myGapControlState->tauTarget);
+            }
+        }
+    }
+    if (myConsiderSafeVelocity) {
+        gapControlSpeed = MIN2(gapControlSpeed, vSafe);
+    }
+    if (myConsiderMaxAcceleration) {
+        gapControlSpeed = MIN2(gapControlSpeed, vMax);
+    }
+    if (myConsiderMaxDeceleration) {
+        gapControlSpeed = MAX2(gapControlSpeed, vMin);
+    }
+    return MIN2(speed, gapControlSpeed);
+}
 
 double
 MSVehicle::Influencer::getOriginalSpeed() const {
@@ -2731,13 +2834,14 @@ MSVehicle::processTraCISpeedControl(double vSafe, double vNext) {
             vMin = MAX2(0., vMin);
         }
         vNext = myInfluencer->influenceSpeed(MSNet::getInstance()->getCurrentTimeStep(), vNext, vSafe, vMin, vMax);
+        vNext = myInfluencer->gapControlSpeed(MSNet::getInstance()->getCurrentTimeStep(), this, vNext, vSafe, vMin, vMax);
 #ifdef DEBUG_TRACI
         if DEBUG_COND {
         std::cout << " (processed)vNext=" << vNext << std::endl;
     }
 #endif
-}
-return vNext;
+    }
+    return vNext;
 }
 
 

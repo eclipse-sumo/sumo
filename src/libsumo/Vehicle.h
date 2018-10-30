@@ -150,6 +150,7 @@ public:
     static void changeSublane(const std::string& vehicleID, double latDist);
 
     static void slowDown(const std::string& vehicleID, double speed, double duration);
+    static void openGap(const std::string& vehicleID, double newTau, double duration, double changeRate, double maxDecel);
     static void setSpeed(const std::string& vehicleID, double speed);
     static void setSpeedMode(const std::string& vehicleID, int speedMode);
     static void setLaneChangeMode(const std::string& vehicleID, int laneChangeMode);

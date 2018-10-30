@@ -1094,6 +1094,14 @@ Vehicle::slowDown(const std::string& vehicleID, double speed, double duration) {
 }
 
 void
+Vehicle::openGap(const std::string& vehicleID, double newTau, double duration, double changeRate, double maxDecel) {
+    // TODO: Warn for tau < TS in libsumo method
+    MSVehicle* veh = getVehicle(vehicleID);
+    const double originalTau = veh->getVehicleType().getCarFollowModel().getHeadwayTime();
+    veh->getInfluencer().activateGapController(originalTau, newTau, duration, changeRate, maxDecel);
+}
+
+void
 Vehicle::setSpeed(const std::string& vehicleID, double speed) {
     MSVehicle* veh = getVehicle(vehicleID);
     std::vector<std::pair<SUMOTime, double> > speedTimeLine;
