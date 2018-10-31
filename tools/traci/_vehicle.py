@@ -981,6 +981,14 @@ class VehicleDomain(Domain):
                 "!BiBdBdBdBd", tc.TYPE_COMPOUND, nParams, tc.TYPE_DOUBLE, newHeadway, tc.TYPE_DOUBLE, duration, tc.TYPE_DOUBLE, changeRate, tc.TYPE_DOUBLE, maxDecel)
         self._connection._sendExact()
 
+    def deactivateGapControl(self, vehID):
+        """deactivateGapControl(string) -> None
+        
+        Deactivate the vehicle's gap control
+        """
+        self.openGap(vehID, -1, -1, -1)
+
+
     def changeTarget(self, vehID, edgeID):
         """changeTarget(string, string) -> None
 

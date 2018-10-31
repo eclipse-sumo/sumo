@@ -44,6 +44,7 @@
 //#define DEBUG_EMERGENCYDECEL
 //#define DEBUG_COND (true)
 #define DEBUG_COND (veh->isSelected())
+//#define DEBUG_COND (veh->getID() == "follower")
 //#define DEBUG_COND2 (SIMTIME == 176)
 //#define DEBUG_COND2 (gDebugFlag1)
 
@@ -189,7 +190,7 @@ MSCFModel::finalizeSpeed(MSVehicle* const veh, double vPos) const {
 }
 #endif
 
-vMax = MAX2(vMin, vMax);
+    vMax = MAX2(vMin, vMax);
     // apply further speed adaptations
     double vNext = patchSpeedBeforeLC(veh, vMin, vMax);
     assert(vNext >= vMin);

@@ -493,34 +493,38 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 if (!server.readTypeCheckingDouble(inputStorage, newTau)) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The first create gap parameter must be the new desired headway (tau) given as a double.", outputStorage);
                 }
-                if (newTau <= 0) {
-                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The value for the new desired headway (tau) must be positive for create gap", outputStorage);
-                }
                 double duration = 0.;
                 if (!server.readTypeCheckingDouble(inputStorage, duration)) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The second create gap parameter must be the duration given as a double.", outputStorage);
-                }
-                if (duration < 0 || SIMTIME + duration > STEPS2TIME(SUMOTime_MAX - DELTA_T)) {
-                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Invalid time interval for create gap", outputStorage);
                 }
                 double changeRate = 0;
                 if (!server.readTypeCheckingDouble(inputStorage, changeRate)) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The third create gap parameter must be the change rate given as a double.", outputStorage);
                 }
-                if (changeRate <= 0) {
-                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The value for the change rate must be positive for create gap", outputStorage);
-                }
-                double maxDecel = -1;
-                if (nParameter == 4) {
-                    if (!server.readTypeCheckingDouble(inputStorage, maxDecel)) {
-                        return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The fourth create gap parameter must be the maximal deceleration given as a double.", outputStorage);
+
+                if (newTau == -1 && duration == -1 && changeRate == -1) {
+                    libsumo::Vehicle::deactivateGapControl(id);
+                } else {
+                    if (newTau <= 0) {
+                        return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The value for the new desired headway (tau) must be positive for create gap", outputStorage);
+                    }
+                    if (duration < 0 || SIMTIME + duration > STEPS2TIME(SUMOTime_MAX - DELTA_T)) {
+                        return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Invalid time interval for create gap", outputStorage);
                     }
                     if (changeRate <= 0) {
-                        return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The value for the maximal deceleration must be positive for create gap", outputStorage);
+                        return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The value for the change rate must be positive for create gap", outputStorage);
                     }
+                    double maxDecel = -1;
+                    if (nParameter == 4) {
+                        if (!server.readTypeCheckingDouble(inputStorage, maxDecel)) {
+                            return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The fourth create gap parameter must be the maximal deceleration given as a double.", outputStorage);
+                        }
+                        if (changeRate <= 0) {
+                            return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The value for the maximal deceleration must be positive for create gap", outputStorage);
+                        }
+                    }
+                    libsumo::Vehicle::openGap(id, newTau, duration, changeRate, maxDecel);
                 }
-                // Warn for tau < TS in libsumo method
-                libsumo::Vehicle::openGap(id, newTau, duration, changeRate, maxDecel);
             }
             break;
             case VAR_TYPE: {

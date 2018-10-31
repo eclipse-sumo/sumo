@@ -1390,9 +1390,13 @@ public:
          */
         void setSpeedTimeLine(const std::vector<std::pair<SUMOTime, double> >& speedTimeLine);
 
-        /** @brief Sets a new velocity timeline, @see GapControlState
+        /** @brief Activates the gap control with the given parameters, @see GapControlState
          */
         void activateGapController(double originalTau, double newTau, double duration, double changeRate, double maxDecel);
+
+        /** @brief Deactivates the gap control
+         */
+        void deactivateGapController();
 
         /** @brief Sets a new lane timeline
          * @param[in] laneTimeLine The time line of lanes to use
