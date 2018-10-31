@@ -62,7 +62,7 @@ def runSingle(targetHeadway, duration, changeRate, maxDecel):
         leader = results[tc.VAR_LEADER][0]
         leaderDist = results[tc.VAR_LEADER][1]
         followerSpeed = results[tc.VAR_SPEED]
-        currentHeadway = leaderDist/followerSpeed
+        currentHeadway = leaderDist/followerSpeed if followerSpeed > 0 else 10000
         currentTime = traci.simulation.getTime() 
         print("Time %s: Gap 'follower'->'%s' = %.3f (headway=%.3f)"%(currentTime, leader, leaderDist, currentHeadway))
         print("'follower' speed = %s"%followerSpeed)
