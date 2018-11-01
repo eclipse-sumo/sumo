@@ -91,7 +91,7 @@ MSPersonDevice_Routing::wrappedRerouteCommandExecute(SUMOTime currentTime) {
 
 
 void
-MSPersonDevice_Routing::reroute(const SUMOTime currentTime, const bool onInit) {
+MSPersonDevice_Routing::reroute(const SUMOTime currentTime, const bool /* onInit */) {
     MSRoutingEngine::initEdgeWeights();
     //check whether the weights did change since the last reroute
     if (myLastRouting >= MSRoutingEngine::getLastAdaptation()) {

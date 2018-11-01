@@ -944,10 +944,10 @@ GNEAdditionalFrame::buildAdditionalOverEdge(std::map<SumoXMLAttr, std::string> &
         return false;
     }
     // show warning dialogbox and stop check if input parameters are valid
-    if (myAdditionalAttributes->areValuesValid() == false) {
+    if (!myAdditionalAttributes->areValuesValid()) {
         myAdditionalAttributes->showWarningMessage();
         return false;
-    } else if (GNEAdditionalHandler::buildAdditional(myViewNet, true, myItemSelector->getCurrentTypeTag(), valuesMap)) {
+    } else if (GNEAdditionalHandler::buildAdditional(myViewNet, true, myItemSelector->getCurrentTypeTag(), valuesMap) != nullptr) {
         // Refresh additional Parent Selector (For additionals that have a limited number of childs)
         mySelectorAdditionalParent->refreshSelectorAdditionalParentModul();
         // clear selected eddges and lanes
@@ -963,7 +963,7 @@ GNEAdditionalFrame::buildAdditionalOverEdge(std::map<SumoXMLAttr, std::string> &
 bool 
 GNEAdditionalFrame::buildAdditionalOverLane(std::map<SumoXMLAttr, std::string> &valuesMap, GNELane* lane, const GNEAttributeCarrier::TagProperties &tagValues) {
     // check that lane exist
-    if (lane) {
+    if (lane != nullptr) {
         // Get attribute lane
         valuesMap[SUMO_ATTR_LANE] = lane->getID();
         // Generate id of element based on the lane
@@ -980,7 +980,7 @@ GNEAdditionalFrame::buildAdditionalOverLane(std::map<SumoXMLAttr, std::string> &
         return false;
     }
     // show warning dialogbox and stop check if input parameters are valid
-    if (myAdditionalAttributes->areValuesValid() == false) {
+    if (!myAdditionalAttributes->areValuesValid()) {
         myAdditionalAttributes->showWarningMessage();
         return false;
     } else if (GNEAdditionalHandler::buildAdditional(myViewNet, true, myItemSelector->getCurrentTypeTag(), valuesMap)) {

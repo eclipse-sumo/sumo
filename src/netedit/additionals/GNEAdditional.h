@@ -415,22 +415,16 @@ protected:
     /// @brief variable AdditionalMove
     AdditionalMove myMove;
 
-    /// @brief variable BlockIcon
-    BlockIcon myBlockIcon;
-
-    /// @brief variable ChildConnections
-    ChildConnections myChildConnections;
-
     /// @brief name of additional
     std::string myAdditionalName;
 
     /// @brief boolean to check if additional element is blocked (i.e. cannot be moved with mouse)
     bool myBlockMovement;
 
-    /// @brief pointer to first Addititional parent
+    /// @brief pointer to first Additional parent
     GNEAdditional* myFirstAdditionalParent;
 
-    /// @brief pointer to second Addititional parent
+    /// @brief pointer to second Additional parent
     GNEAdditional* mySecondAdditionalParent;
 
     /// @brief vector with the Additional childs
@@ -441,6 +435,12 @@ protected:
 
     /// @brief vector with the lane childs of this additional
     std::vector<GNELane*> myLaneChilds;
+
+    /// @brief variable BlockIcon
+    BlockIcon myBlockIcon;
+
+    /// @brief variable ChildConnections
+    ChildConnections myChildConnections;
 
     /// @brief change all attributes of additional with their default values (note: this cannot be undo)
     void setDefaultValues();

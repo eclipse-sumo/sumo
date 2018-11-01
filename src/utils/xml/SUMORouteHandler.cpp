@@ -48,8 +48,8 @@ SUMORouteHandler::SUMORouteHandler(const std::string& file, const std::string& e
     myVehicleParameter(nullptr),
     myLastDepart(-1),
     myActiveRouteColor(nullptr),
-    myCurrentVType(nullptr),
     myCurrentCosts(0.),
+    myCurrentVType(nullptr),
     myBeginDefault(string2time(OptionsCont::getOptions().getString("begin"))),
     myEndDefault(string2time(OptionsCont::getOptions().getString("end"))),
     myFirstDepart(-1), myInsertStopEdgesAt(-1) {

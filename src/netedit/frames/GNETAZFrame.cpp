@@ -790,7 +790,7 @@ GNETAZFrame::getTAZCurrent() const {
 bool
 GNETAZFrame::buildShape() {
     // show warning dialogbox and stop check if input parameters are valid
-    if (myTAZParameters->isCurrentParametersValid() == false) {
+    if (!myTAZParameters->isCurrentParametersValid()) {
         return false;
     } else if(myDrawingShape->getTemporalShape().size() == 0) {
         WRITE_WARNING("TAZ shape cannot be empty");
@@ -824,8 +824,8 @@ GNETAZFrame::buildShape() {
             // TAZ is created without edges
             valuesOfElement[SUMO_ATTR_EDGES] = "";
         }
-        // return true if TAZ was sucesfully created
-        return GNEAdditionalHandler::buildAdditional(myViewNet, true, SUMO_TAG_TAZ, valuesOfElement);
+        // return true if TAZ was successfully created
+        return GNEAdditionalHandler::buildAdditional(myViewNet, true, SUMO_TAG_TAZ, valuesOfElement) != nullptr;
     }
 }
 
