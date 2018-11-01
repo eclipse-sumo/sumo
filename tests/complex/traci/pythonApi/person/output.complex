@@ -1,5 +1,4 @@
 Loading configuration... done.
- Retrying in 1 seconds
 step 0
 step 1
 step 2
@@ -12,6 +11,7 @@ person count 5
 examining horiz
 speed 1.22501255666
 pos (759.1336009754515, 504.95000000000005)
+pos3D (759.1336009754515, 504.95000000000005, 0.0)
 angle 270.0
 road 2fi
 type pType2@horiz
@@ -37,6 +37,7 @@ person count 5
 examining horiz
 speed 1.30985007064
 pos (755.303019221229, 504.95000000000005)
+pos3D (755.303019221229, 504.95000000000005, 0.0)
 angle 270.0
 road 2fi
 type pType2@horiz

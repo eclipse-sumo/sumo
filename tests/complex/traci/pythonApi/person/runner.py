@@ -80,6 +80,7 @@ def check(personID):
     print("examining", personID)
     print("speed", traci.person.getSpeed(personID))
     print("pos", traci.person.getPosition(personID))
+    print("pos3D", traci.person.getPosition3D(personID))
     print("angle", traci.person.getAngle(personID))
     print("road", traci.person.getRoadID(personID))
     print("type", traci.person.getTypeID(personID))
