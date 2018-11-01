@@ -494,7 +494,11 @@ MSVehicle::Influencer::gapControlSpeed(SUMOTime currentTime, const SUMOVehicle* 
                     }
                 }
             } else {
-                myGapControlState->tauCurrent = MIN2(myGapControlState->tauCurrent + myGapControlState->changeRate*TS, myGapControlState->tauTarget);
+                if (myGapControlState->tauOriginal <= myGapControlState->tauTarget) {
+                    myGapControlState->tauCurrent = MIN2(myGapControlState->tauCurrent + myGapControlState->changeRate*TS, myGapControlState->tauTarget);
+                } else {
+                    myGapControlState->tauCurrent = MAX2(myGapControlState->tauCurrent - myGapControlState->changeRate*TS, myGapControlState->tauTarget);
+                }
             }
         }
         if (myConsiderSafeVelocity) {
