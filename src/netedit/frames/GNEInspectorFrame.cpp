@@ -373,7 +373,7 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::showAttribute(SumoXMLTag AC
     // set multiple
     myMultiple = GNEAttributeCarrier::parse<std::vector<std::string>>(value).size() > 1;
     // obtain attribute property (only for improve code legibility)
-    const auto& attrValue = GNEAttributeCarrier::getTagProperties(myTag).getAttribute(myAttr);
+    const auto& attrValue = GNEAttributeCarrier::getTagProperties(myTag).getAttributeProperties(myAttr);
     // enable all input values
     enableAttributeInputElements();
     if (attrValue.isColor()) {
@@ -632,7 +632,7 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::onCmdSetAttribute(FXObject*
     bool refreshGEOAndNeteditEditors = false;
     // get Tag and attribute Values (only for improve efficiency)
     const auto& tagValues = GNEAttributeCarrier::getTagProperties(myTag);
-    const auto& attrValues = tagValues.getAttribute(myAttr);
+    const auto& attrValues = tagValues.getAttributeProperties(myAttr);
     // First, obtain the string value of the new attribute depending of their type
     if (attrValues.isBool()) {
         // first check if we're editing boolean as a list of string or as a checkbox
@@ -816,15 +816,15 @@ GNEInspectorFrame::AttributesEditor::showAttributeEditorModul() {
         //  check if current AC is a Junction without TLSs (needed to hidde TLS options)
         bool disableTLSinJunctions = (dynamic_cast<GNEJunction*>(myInspectorFrameParent->getInspectedACs().front()) && (dynamic_cast<GNEJunction*>(myInspectorFrameParent->getInspectedACs().front())->getNBNode()->getControllingTLS().empty()));
         // Iterate over attributes
-        for (auto it : GNEAttributeCarrier::getTagProperties(ACFrontTag)) {
+        for (const auto &i : GNEAttributeCarrier::getTagProperties(ACFrontTag)) {
             // disable editing for unique attributes in case of multi-selection
-            if ((myInspectorFrameParent->getInspectedACs().size() > 1) && it.second.isUnique()) {
+            if ((myInspectorFrameParent->getInspectedACs().size() > 1) && i.second.isUnique()) {
                 continue;
             }
             // Declare a set of occuring values and insert attribute's values of item (note: We use a set to avoid repeated values)
             std::set<std::string> occuringValues;
             for (auto it_ac : myInspectorFrameParent->getInspectedACs()) {
-                occuringValues.insert(it_ac->getAttribute(it.first));
+                occuringValues.insert(it_ac->getAttribute(i.first));
             }
             // get current value
             std::ostringstream oss;
@@ -835,11 +835,11 @@ GNEInspectorFrame::AttributesEditor::showAttributeEditorModul() {
                 oss << *it_val;
             }
             // Show attribute
-            if ((disableTLSinJunctions && (ACFrontTag == SUMO_TAG_JUNCTION) && ((it.first == SUMO_ATTR_TLTYPE) || (it.first == SUMO_ATTR_TLID))) == false) {
+            if ((disableTLSinJunctions && (ACFrontTag == SUMO_TAG_JUNCTION) && ((i.first == SUMO_ATTR_TLTYPE) || (i.first == SUMO_ATTR_TLID))) == false) {
                 // first show AttributesEditor
                 show();
                 // show attribute
-                myVectorOfAttributeInputs[it.second.getPositionListed()]->showAttribute(ACFrontTag, it.first, oss.str());
+                myVectorOfAttributeInputs[i.second.getPositionListed()]->showAttribute(ACFrontTag, i.first, oss.str());
             }
         }
     }
@@ -868,15 +868,15 @@ GNEInspectorFrame::AttributesEditor::refreshAttributeEditor(bool forceRefreshSha
         //  check if current AC is a Junction without TLSs (needed to hidde TLS options)
         bool disableTLSinJunctions = (dynamic_cast<GNEJunction*>(myInspectorFrameParent->getInspectedACs().front()) && (dynamic_cast<GNEJunction*>(myInspectorFrameParent->getInspectedACs().front())->getNBNode()->getControllingTLS().empty()));
         // Iterate over attributes
-        for (auto it : GNEAttributeCarrier::getTagProperties(ACFrontTag)) {
+        for (const auto &i : GNEAttributeCarrier::getTagProperties(ACFrontTag)) {
             // disable editing for unique attributes in case of multi-selection
-            if ((myInspectorFrameParent->getInspectedACs().size() > 1) && it.second.isUnique()) {
+            if ((myInspectorFrameParent->getInspectedACs().size() > 1) && i.second.isUnique()) {
                 continue;
             }
             // Declare a set of occuring values and insert attribute's values of item
             std::set<std::string> occuringValues;
             for (auto it_ac : myInspectorFrameParent->getInspectedACs()) {
-                occuringValues.insert(it_ac->getAttribute(it.first));
+                occuringValues.insert(it_ac->getAttribute(i.first));
             }
             // get current value
             std::ostringstream oss;
@@ -887,24 +887,24 @@ GNEInspectorFrame::AttributesEditor::refreshAttributeEditor(bool forceRefreshSha
                 oss << *it_val;
             }
             // Show attribute
-            if ((disableTLSinJunctions && (ACFrontTag == SUMO_TAG_JUNCTION) && ((it.first == SUMO_ATTR_TLTYPE) || (it.first == SUMO_ATTR_TLID))) == false) {
+            if ((disableTLSinJunctions && (ACFrontTag == SUMO_TAG_JUNCTION) && ((i.first == SUMO_ATTR_TLTYPE) || (i.first == SUMO_ATTR_TLID))) == false) {
                 // refresh attribute, with a special case for allow/disallow vehicles
-                if (it.first  == SUMO_ATTR_ALLOW) {
-                    myAllowAttribute.first = myVectorOfAttributeInputs[it.second.getPositionListed()];
+                if (i.first  == SUMO_ATTR_ALLOW) {
+                    myAllowAttribute.first = myVectorOfAttributeInputs[i.second.getPositionListed()];
                     myAllowAttribute.second = oss.str();
-                } else if (it.first  == SUMO_ATTR_DISALLOW) {
-                    myDisallowAttribute.first = myVectorOfAttributeInputs[it.second.getPositionListed()];
+                } else if (i.first  == SUMO_ATTR_DISALLOW) {
+                    myDisallowAttribute.first = myVectorOfAttributeInputs[i.second.getPositionListed()];
                     myDisallowAttribute.second = oss.str();
                 } else {
                     // Check if refresh of Position or Shape has to be forced
-                    if ((it.first  == SUMO_ATTR_SHAPE) && forceRefreshShape) {
-                        myVectorOfAttributeInputs[it.second.getPositionListed()]->refreshAttributeInput(oss.str(), true);
-                    } else if ((it.first  == SUMO_ATTR_POSITION) && forceRefreshPosition) {
+                    if ((i.first  == SUMO_ATTR_SHAPE) && forceRefreshShape) {
+                        myVectorOfAttributeInputs[i.second.getPositionListed()]->refreshAttributeInput(oss.str(), true);
+                    } else if ((i.first  == SUMO_ATTR_POSITION) && forceRefreshPosition) {
                         // Refresh attributes maintain invalid values
-                        myVectorOfAttributeInputs[it.second.getPositionListed()]->refreshAttributeInput(oss.str(), true);
+                        myVectorOfAttributeInputs[i.second.getPositionListed()]->refreshAttributeInput(oss.str(), true);
                     } else {
                         // Refresh attributes maintain invalid values
-                        myVectorOfAttributeInputs[it.second.getPositionListed()]->refreshAttributeInput(oss.str(), false);
+                        myVectorOfAttributeInputs[i.second.getPositionListed()]->refreshAttributeInput(oss.str(), false);
                     }
                 }
             }

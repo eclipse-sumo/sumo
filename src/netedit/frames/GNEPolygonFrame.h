@@ -120,7 +120,7 @@ protected:
     bool buildShape();
 
      /// @brief enable moduls depending of item selected in ItemSelector
-    void enableModuls(const GNEAttributeCarrier::TagValues &tagProperties);
+    void enableModuls(const GNEAttributeCarrier::TagProperties &tagProperties);
 
     /// @brief disable moduls if element selected in itemSelector isn't valid
     void disableModuls();

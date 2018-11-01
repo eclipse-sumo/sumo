@@ -245,7 +245,7 @@ GNESelectorFrame::getMatches(SumoXMLTag ACTag, SumoXMLAttr ACAttr, char compOp, 
     for (auto it : allACbyTag) {
         if (expr == "") {
             result.push_back(it);
-        } else if (tagValue.hasAttribute(ACAttr) && tagValue.getAttribute(ACAttr).isNumerical()) {
+        } else if (tagValue.hasAttribute(ACAttr) && tagValue.getAttributeProperties(ACAttr).isNumerical()) {
             double acVal;
             std::istringstream buf(it->getAttribute(ACAttr));
             buf >> acVal;
@@ -700,7 +700,7 @@ GNESelectorFrame::MatchAttribute::onCmdSelMBString(FXObject*, FXSelector, void*)
     if (expr == "") {
         // the empty expression matches all objects
         mySelectorFrameParent->handleIDs(mySelectorFrameParent->getMatches(myCurrentTag, myCurrentAttribute, '@', 0, expr));
-    } else if (tagValue.hasAttribute(myCurrentAttribute) && tagValue.getAttribute(myCurrentAttribute).isNumerical()) {
+    } else if (tagValue.hasAttribute(myCurrentAttribute) && tagValue.getAttributeProperties(myCurrentAttribute).isNumerical()) {
         // The expression must have the form
         //  <val matches if attr < val
         //  >val matches if attr > val

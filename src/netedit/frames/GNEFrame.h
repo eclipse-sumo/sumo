@@ -109,7 +109,7 @@ public:
         ~ACAttributeRow();
 
         /// @brief show name and value of attribute of type string
-        void showParameter(SumoXMLAttr const attr, const GNEAttributeCarrier::AttributeValues &attrProperties, const std::string &value);
+        void showParameter(SumoXMLAttr const attr, const GNEAttributeCarrier::AttributeProperties &attrProperties, const std::string &value);
 
         /// @brief hide all parameters
         void hideParameter();
@@ -147,7 +147,7 @@ public:
         ACAttributes* myACAttributesParent;
 
         /// @
-        GNEAttributeCarrier::AttributeValues myAttrProperties;
+        GNEAttributeCarrier::AttributeProperties myAttrProperties;
 
         /// @brief current XML attribute
         SumoXMLAttr myShapeAttr;
@@ -193,7 +193,7 @@ public:
         ~ACAttributes();
 
         /// @brief show ACAttributes modul
-        void showACAttributesModul(const SumoXMLTag currentTag, const GNEAttributeCarrier::TagValues &myTagProperties);
+        void showACAttributesModul(const SumoXMLTag currentTag, const GNEAttributeCarrier::TagProperties &myTagProperties);
 
         /// @brief hide group box
         void hideACAttributesModul();
@@ -226,7 +226,7 @@ public:
 
         SumoXMLTag myCurrentTag;
 
-        GNEAttributeCarrier::TagValues myTagProperties;
+        GNEAttributeCarrier::TagProperties myTagProperties;
 
         /// @brief vector with the shape parameters
         std::vector<ACAttributeRow*> myVectorOfsingleShapeParameter;
@@ -473,7 +473,7 @@ public:
         ~NeteditAttributes();
 
         /// @brief show Netedit attributes modul
-        void showNeteditAttributesModul(const GNEAttributeCarrier::TagValues& tagValue);
+        void showNeteditAttributesModul(const GNEAttributeCarrier::TagProperties& tagValue);
 
         /// @brief hide Netedit attributes modul
         void hideNeteditAttributesModul();
@@ -595,7 +595,7 @@ protected:
     virtual bool buildShape();
 
      /// @brief enable moduls depending of item selected in ItemSelector (can be reimplemented in frame childs)
-    virtual void enableModuls(const GNEAttributeCarrier::TagValues &tagProperties);
+    virtual void enableModuls(const GNEAttributeCarrier::TagProperties &tagProperties);
 
     /// @brief disable moduls if element selected in itemSelector isn't valid (can be reimplemented in frame childs)
     virtual void disableModuls();

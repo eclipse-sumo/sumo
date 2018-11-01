@@ -2542,7 +2542,7 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
 
 void
 GNENet::replaceInListAttribute(GNEAttributeCarrier* ac, SumoXMLAttr key, const std::string& which, const std::string& by, GNEUndoList* undoList) {
-    assert(GNEAttributeCarrier::getTagProperties(ac->getTag()).getAttribute(key).isList());
+    assert(GNEAttributeCarrier::getTagProperties(ac->getTag()).getAttributeProperties(key).isList());
     std::vector<std::string> values = GNEAttributeCarrier::parse<std::vector<std::string> >(ac->getAttribute(key));
     std::vector<std::string> newValues;
     for (auto v : values) {

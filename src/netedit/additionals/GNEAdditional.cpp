@@ -138,7 +138,7 @@ GNEAdditional::~GNEAdditional() {}
 void
 GNEAdditional::writeAdditional(OutputDevice& device) const {
     // obtain tag properties
-    const TagValues& tagProperties = getTagProperties(getTag());
+    const TagProperties& tagProperties = getTagProperties(getTag());
     // first check if minimum number of childs is correct
     if ((tagProperties.hasMinimumNumberOfChilds() || tagProperties.hasMinimumNumberOfChilds()) && !checkAdditionalChildRestriction()) {
         WRITE_WARNING(toString(getTag()) + " with ID='" + getID() + "' cannot be written");
@@ -268,7 +268,7 @@ GNEAdditional::startGeometryMoving() {
     // always save original position over view
     myMove.originalViewPosition = getPositionInView();
     // obtain tag properties (to improve code legibility)
-    const TagValues& tagProperties = getTagProperties(getTag());
+    const TagProperties& tagProperties = getTagProperties(getTag());
     // check if position over lane or lanes has to be saved
     if (tagProperties.canBePlacedOverLane()) {
         if(tagProperties.canMaskStartEndPos()) {
@@ -624,7 +624,7 @@ GNEAdditional::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
     // Create table
     GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this, getTagProperties(getTag()).getNumberOfAttributes());
     // Iterate over attributes
-    for (auto i : getTagProperties(getTag())) {
+    for (const auto &i : getTagProperties(getTag())) {
         // Add attribute and set it dynamic if aren't unique
         if (i.second.isUnique()) {
             ret->mkItem(toString(i.first).c_str(), false, getAttribute(i.first));
@@ -956,7 +956,7 @@ GNEAdditional::ChildConnections::draw() const {
 void
 GNEAdditional::setDefaultValues() {
     // iterate over attributes and set default value
-    for (auto i : getTagProperties(getTag())) {
+    for (const auto &i : getTagProperties(getTag())) {
         if (i.second.hasDefaultValue()) {
             setAttribute(i.first, i.second.getDefaultValue());
         }

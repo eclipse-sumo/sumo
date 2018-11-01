@@ -91,13 +91,16 @@ public:
     };
 
     /// @brief struct with the attribute Properties
-    class AttributeValues {
+    class AttributeProperties {
     public:
         /// @brief default constructor
-        AttributeValues();
+        AttributeProperties();
 
         /// @brief parameter constructor
-        AttributeValues(int attributeProperty, int positionListed, const std::string& definition, const std::string& defaultValue, const std::vector<std::string>& discreteValues, SumoXMLAttr synonym);
+        AttributeProperties(int attributeProperty, int positionListed, const std::string& definition, const std::string& defaultValue, const std::vector<std::string>& discreteValues, SumoXMLAttr synonym);
+
+        /// @brief destructor
+        ~AttributeProperties();
 
         /// @brief check Attribute integrity (For example, throw an exception if tag has a Float default value, but given default value cannot be parse to float)
         void checkAttributeIntegrity();
@@ -239,16 +242,19 @@ public:
     };
 
     /// @brief struct with the attribute Properties
-    class TagValues {
+    class TagProperties {
     public:
         /// @brief default constructor
-        TagValues();
+        TagProperties();
 
         /// @brief parameter constructor
-        TagValues(int tagProperty, int &positionListed, GUIIcon icon, SumoXMLTag parentTag = SUMO_TAG_NOTHING, SumoXMLTag tagSynonym = SUMO_TAG_NOTHING);
+        TagProperties(int tagProperty, int &positionListed, GUIIcon icon, SumoXMLTag parentTag = SUMO_TAG_NOTHING, SumoXMLTag tagSynonym = SUMO_TAG_NOTHING);
+
+        /// @brief destructor
+        ~TagProperties();
 
         /// @brief check Tag integrity (this include all their attributes)
-        void checkTagIntegrity();
+        void checkTagIntegrity() const;
 
         /// @brief add attribute (duplicated attributed aren't allowed)
         void addAttribute(SumoXMLAttr attr, const int attributeProperty, const std::string& definition, const std::string& defaultValue, std::vector<std::string> discreteValues = std::vector<std::string>(), SumoXMLAttr synonym = SUMO_ATTR_NOTHING);
@@ -260,13 +266,13 @@ public:
         void addDeprecatedAttribute(SumoXMLAttr attr);
 
         /// @brief get attribute (throw error if doesn't exist)
-        const AttributeValues& getAttribute(SumoXMLAttr attr) const;
+        const AttributeProperties& getAttributeProperties(SumoXMLAttr attr) const;
 
         /// @brief get begin of attribute values (used for iterate)
-        std::map<SumoXMLAttr, AttributeValues>::const_iterator begin() const;
+        std::map<SumoXMLAttr, AttributeProperties>::const_iterator begin() const;
 
         /// @brief get end of attribute values (used for iterate)
-        std::map<SumoXMLAttr, AttributeValues>::const_iterator end() const;
+        std::map<SumoXMLAttr, AttributeProperties>::const_iterator end() const;
 
         /// @brief get number of attributes
         int getNumberOfAttributes() const;
@@ -286,7 +292,7 @@ public:
         /// @brief get tag synonym
         SumoXMLTag getTagSynonym() const;
 
-        /// @brief check if current TagValues owns the attribute attr
+        /// @brief check if current TagProperties owns the attribute attr
         bool hasAttribute(SumoXMLAttr attr) const;
 
         /// @brief return true if tag correspond to a netElement
@@ -381,7 +387,7 @@ public:
         int myTagProperty;
 
         /// @brief map with the attribute values vinculated with this Tag
-        std::map<SumoXMLAttr, AttributeValues> myAttributeValues;
+        std::map<SumoXMLAttr, AttributeProperties> myAttributeProperties;
 
         /// @brief icon associated to this Tag
         GUIIcon myIcon;
@@ -475,7 +481,7 @@ public:
     const std::string getID() const;
 
     /// @brief get Tag Properties
-    static const TagValues& getTagProperties(SumoXMLTag tag);
+    static const TagProperties& getTagProperties(SumoXMLTag tag);
 
     /// @brief get tags of all editable element types
     static std::vector<SumoXMLTag> allowedTags(bool onlyDrawables);
@@ -566,7 +572,7 @@ public:
         }
         std::string defaultValue, parsedAttribute;
         // obtain attribute properties (Only for improving efficiency)
-        const auto& attrProperties = tagProperties.getAttribute(attribute);
+        const auto& attrProperties = tagProperties.getAttributeProperties(attribute);
         // set additionalOfWarningMessage
         std::string additionalOfWarningMessage;
         if (objectID != "") {
@@ -831,17 +837,18 @@ protected:
     /// @brief method for check if mouse is over objects
     virtual void mouseOverObject(const GUIVisualizationSettings& s) const = 0;
 
-    /// @brief fill Attribute Carriers
-    static void fillAttributeCarriers();
-
     /// @brief the xml tag to which this attribute carrier corresponds
     const SumoXMLTag myTag;
 
     /// @brief boolean to check if this AC is selected (instead of GUIGlObjectStorage)
     bool mySelected;
 
-    /// @brief map with the tags values
-    static std::map<SumoXMLTag, TagValues> myAllowedTags;
+private:
+    /// @brief fill Attribute Carriers
+    static void fillAttributeCarriers();
+
+    /// @brief map with the tags properties
+    static std::map<SumoXMLTag, TagProperties> myTagProperties;
 
     /// @brief Invalidated copy constructor.
     GNEAttributeCarrier(const GNEAttributeCarrier&) = delete;

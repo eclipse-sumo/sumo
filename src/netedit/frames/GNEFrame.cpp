@@ -232,7 +232,7 @@ GNEFrame::ACAttributeRow::~ACAttributeRow() {}
 
 
 void
-GNEFrame::ACAttributeRow::showParameter(const SumoXMLAttr attr, const GNEAttributeCarrier::AttributeValues &attrProperties, const std::string &value) {
+GNEFrame::ACAttributeRow::showParameter(const SumoXMLAttr attr, const GNEAttributeCarrier::AttributeProperties &attrProperties, const std::string &value) {
     myAttrProperties = attrProperties;
     myShapeAttr = attr;
     myInvalidValue = "";
@@ -449,7 +449,7 @@ GNEFrame::ACAttributes::~ACAttributes() {
 
 
 void
-GNEFrame::ACAttributes::showACAttributesModul(const SumoXMLTag currentTag, const GNEAttributeCarrier::TagValues &tagProperties) {
+GNEFrame::ACAttributes::showACAttributesModul(const SumoXMLTag currentTag, const GNEAttributeCarrier::TagProperties &tagProperties) {
     // get current tag Properties
     myCurrentTag = currentTag;
     myTagProperties = tagProperties;
@@ -1367,7 +1367,7 @@ GNEFrame::NeteditAttributes::~NeteditAttributes() {}
 
 
 void
-GNEFrame::NeteditAttributes::showNeteditAttributesModul(const GNEAttributeCarrier::TagValues& tagValue) {
+GNEFrame::NeteditAttributes::showNeteditAttributesModul(const GNEAttributeCarrier::TagProperties& tagValue) {
     // we assume that frame will not be show
     bool showFrame = false;
     // check if lenght text field has to be showed
@@ -1728,7 +1728,7 @@ GNEFrame::buildShape() {
 
 
 void 
-GNEFrame::enableModuls(const GNEAttributeCarrier::TagValues&) {
+GNEFrame::enableModuls(const GNEAttributeCarrier::TagProperties&) {
     // this function has to be reimplemente in all child frames that uses a ItemSelector modul
 }
 
