@@ -83,8 +83,14 @@ public:
         /// @brief text field for given geo coordinates
         FXTextField* myCoordinatesTextField;
 
+        /// @brief button for enable or disable certer view after creation of GEO POI
+        FXCheckButton *myCenterViewAfterCreationCheckButton;
+
         /// @brief button for create GEO Coordinates
         FXButton* myCreateGEOPOIButton;
+
+        /// @brief FXLabel for the equivalent position of GEO Position in Cartesian Position
+        FXLabel *myLabelCartesianPosition;
     };
 
     /**@brief Constructor

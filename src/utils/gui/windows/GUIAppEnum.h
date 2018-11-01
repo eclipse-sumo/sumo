@@ -535,6 +535,8 @@ enum {
     MID_GNE_REMOVE_ATTRIBUTE,
     /// @brief attribute edited
     MID_GNE_SET_ATTRIBUTE,
+    /// @brief create something
+    MID_GNE_CREATE,
     /// @brief used to select a type of element in a combo box
     MID_GNE_SET_TYPE,
     /// @brief text attribute edited

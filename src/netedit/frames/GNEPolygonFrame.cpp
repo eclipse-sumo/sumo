@@ -47,7 +47,7 @@
 
 FXDEFMAP(GNEPolygonFrame::GEOPOICreator) GEOPOICreatorMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,      GNEPolygonFrame::GEOPOICreator::onCmdSetCoordinates),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSFRAME_CREATE,    GNEPolygonFrame::GEOPOICreator::onCmdCreateGEOPOI),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CREATE,             GNEPolygonFrame::GEOPOICreator::onCmdCreateGEOPOI),
 };
 
 // Object implementation
@@ -63,7 +63,18 @@ FXIMPLEMENT(GNEPolygonFrame::GEOPOICreator,     FXGroupBox,     GEOPOICreatorMap
 // ---------------------------------------------------------------------------
 
 GNEPolygonFrame::GEOPOICreator::GEOPOICreator(GNEPolygonFrame* polygonFrameParent) : 
-    FXGroupBox(polygonFrameParent->myContentFrame, "GEO POI Creator", GUIDesignGroupBoxFrame) {
+    FXGroupBox(polygonFrameParent->myContentFrame, "GEO POI Creator", GUIDesignGroupBoxFrame),
+    myPolygonFrameParent(polygonFrameParent) {
+    // create information label
+    new FXLabel(this, "GEO Format: Lon,lat", 0, GUIDesignLabelFrameInformation);
+    // create text field for coordinates
+    myCoordinatesTextField = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    // create checkBox 
+    myCenterViewAfterCreationCheckButton = new FXCheckButton(this, "Center View after creation", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButtonAttribute);
+    // create button for create GEO POIs
+    myCreateGEOPOIButton = new FXButton(this, "Create GEO POI", nullptr, this, MID_GNE_CREATE, GUIDesignButton);
+    // create information label
+    myLabelCartesianPosition = new FXLabel(this, "Cartesian equivalence:\n X = give valid longitude\n Y = give valid latitude", 0, GUIDesignLabelFrameInformation);
 }
 
 
@@ -72,6 +83,17 @@ GNEPolygonFrame::GEOPOICreator::~GEOPOICreator() {}
 
 void 
 GNEPolygonFrame::GEOPOICreator::showGEOPOICreatorModul() {
+    // check if there is an GEO Proj string is defined
+    if (GeoConvHelper::getFinal().getProjString() != "!") {
+        myCoordinatesTextField->enable();
+        myCoordinatesTextField->setText("");
+        myCoordinatesTextField->enable();
+        myCreateGEOPOIButton->enable();
+    } else  {
+        myCoordinatesTextField->setText("No geo-conversion defined");
+        myCoordinatesTextField->disable();
+        myCreateGEOPOIButton->disable();
+    }
     show();
 }
 
@@ -84,12 +106,53 @@ GNEPolygonFrame::GEOPOICreator::hideGEOPOICreatorModul() {
 
 long 
 GNEPolygonFrame::GEOPOICreator::onCmdSetCoordinates(FXObject*, FXSelector, void*) {
+    // simply check if given value can be parsed to Position
+    if (GNEAttributeCarrier::canParse<Position>(myCoordinatesTextField->getText().text())) {
+        myCoordinatesTextField->setTextColor(FXRGB(0, 0, 0));
+        myCoordinatesTextField->killFocus();
+        // convert coordinates into lon-lat
+        Position pos = GNEAttributeCarrier::parse<Position>(myCoordinatesTextField->getText().text());
+        GeoConvHelper::getFinal().x2cartesian_const(pos);
+        // update myLabelCartesianPosition
+        myLabelCartesianPosition->setText(("Cartesian equivalence:\n X = " + toString(pos.x()) + "\n Y = " + toString(pos.y())).c_str());
+    } else {
+        myCoordinatesTextField->setTextColor(FXRGB(255, 0, 0));
+        myLabelCartesianPosition->setText("Cartesian equivalence:\n X = give valid longitude\n Y = give valid latitude");
+    };
     return 1;
 }
 
 
 long 
 GNEPolygonFrame::GEOPOICreator::onCmdCreateGEOPOI(FXObject*, FXSelector, void*) {
+    // first check if current GEO Position is valid
+    if(GNEAttributeCarrier::canParse<Position>(myCoordinatesTextField->getText().text()) &&
+        myPolygonFrameParent->myShapeAttributes->areValuesValid()) {
+        // obtain shape attributes and values
+        auto valuesOfElement = myPolygonFrameParent->myShapeAttributes->getAttributesAndValues();
+        // obtain netedit attributes and values
+        myPolygonFrameParent->myNeteditAttributes->getNeteditAttributesAndValues(valuesOfElement, nullptr);
+        // generate new ID
+        valuesOfElement[SUMO_ATTR_ID] = myPolygonFrameParent->myViewNet->getNet()->generateShapeID(myPolygonFrameParent->myItemSelector->getCurrentTypeTag());
+        // force GEO attribute to true and obain position
+        valuesOfElement[SUMO_ATTR_GEO] = "true";
+        // convert coordinates into lon-lat
+        Position pos = GNEAttributeCarrier::parse<Position>(myCoordinatesTextField->getText().text());
+        GeoConvHelper::getFinal().x2cartesian_const(pos);
+        valuesOfElement[SUMO_ATTR_POSITION] = toString(pos);
+        // return ADDSHAPE_SUCCESS if POI was sucesfully created
+        if (myPolygonFrameParent->addPOI(valuesOfElement)) {
+            WRITE_WARNING("GEO POI sucesfully created");
+            // check if view has to be centered over created GEO POI
+            if(myCenterViewAfterCreationCheckButton->getCheck() == TRUE) {
+                // create a boundary over given GEO Position and center view over it
+                Boundary centerPosition;
+                centerPosition.add(pos);
+                centerPosition = centerPosition.grow(10);
+                myPolygonFrameParent->myViewNet->getViewParent()->getView()->centerTo(centerPosition);
+            }
+        }
+    }
     return 1;
 }
 
@@ -113,7 +176,7 @@ GNEPolygonFrame::GNEPolygonFrame(FXHorizontalFrame* horizontalFrameParent, GNEVi
     // Create drawing controls
     myDrawingShape = new DrawingShape(this);
 
-    /// @brief GEOPOICreator
+    /// @brief create GEOPOICreator
     myGEOPOICreator = new GEOPOICreator(this);
 
     // set polygon as default shape
@@ -144,6 +207,8 @@ GNEPolygonFrame::processClick(const Position& clickedPosition, GNELane* lane) {
         valuesOfElement[SUMO_ATTR_ID] = myViewNet->getNet()->generateShapeID(myItemSelector->getCurrentTypeTag());
         // obtain position
         valuesOfElement[SUMO_ATTR_POSITION] = toString(clickedPosition);
+        // set GEO Position as false (because we have created POI clicking over View
+        valuesOfElement[SUMO_ATTR_GEO] = "false";
         // return ADDSHAPE_SUCCESS if POI was sucesfully created
         if (addPOI(valuesOfElement)) {
             return ADDSHAPE_SUCCESS;
@@ -336,11 +401,11 @@ GNEPolygonFrame::addPOI(const std::map<SumoXMLAttr, std::string>& POIValues) {
     bool relativePath = GNEAttributeCarrier::parse<bool>(POIValues.at(SUMO_ATTR_RELATIVEPATH));
     double widthPOI = GNEAttributeCarrier::parse<double>(POIValues.at(SUMO_ATTR_WIDTH));
     double heightPOI = GNEAttributeCarrier::parse<double>(POIValues.at(SUMO_ATTR_HEIGHT));
-    // parse layer
     double layer = GNEAttributeCarrier::canParse<double>(layerStr) ? GNEAttributeCarrier::parse<double>(layerStr) : Shape::DEFAULT_LAYER_POI;
+    bool geo = GNEAttributeCarrier::parse<bool>(POIValues.at(SUMO_ATTR_GEO));
     // create new POI
     myViewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_POI));
-    if (myViewNet->getNet()->addPOI(id, type, color, pos, false, "", 0, 0, layer, angle, imgFile, relativePath, widthPOI, heightPOI)) {
+    if (myViewNet->getNet()->addPOI(id, type, color, pos, geo, "", 0, 0, layer, angle, imgFile, relativePath, widthPOI, heightPOI)) {
         // Set manually the attribute block movement
         GNEPOI* poi = myViewNet->getNet()->retrievePOI(id);
         poi->setAttribute(GNE_ATTR_BLOCK_MOVEMENT, POIValues.at(GNE_ATTR_BLOCK_MOVEMENT), myViewNet->getUndoList());
