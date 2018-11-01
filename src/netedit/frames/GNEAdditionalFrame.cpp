@@ -141,7 +141,6 @@ bool
 GNEAdditionalFrame::SelectorLaneParents::stopConsecutiveLaneSelector() {
     // obtain tagproperty (only for improve code legibility)
     const auto& tagValues = GNEAttributeCarrier::getTagProperties(myAdditionalFrameParent->myItemSelector->getCurrentTypeTag());
-
     // abort if there isn't at least two lanes
     if (mySelectedLanes.size() < 2) {
         WRITE_WARNING(toString(myAdditionalFrameParent->myItemSelector->getCurrentTypeTag()) + " requieres at least two lanes.");
@@ -770,7 +769,7 @@ GNEAdditionalFrame::addAdditional(const GNEViewNet::ObjectsUnderCursor &objectsU
 
 void
 GNEAdditionalFrame::removeAdditional(GNEAdditional* additional) {
-    myViewNet->getUndoList()->p_begin("delete " + toString(additional->getTag()));
+    myViewNet->getUndoList()->p_begin("delete " + toString(additional->getTagProperty().getTag()));
     // first remove all additional childs of this additional calling this function recursively
     while (additional->getAdditionalChilds().size() > 0) {
         removeAdditional(additional->getAdditionalChilds().front());
@@ -870,7 +869,7 @@ GNEAdditionalFrame::generateID(GNENetElement* netElement) const {
 bool 
 GNEAdditionalFrame::buildAdditionalWithParent(std::map<SumoXMLAttr, std::string> &valuesMap, GNEAdditional* additionalParent, const GNEAttributeCarrier::TagProperties &tagValues) {
     // if user click over an additional element parent, mark int in AdditionalParentSelector
-    if (additionalParent && (additionalParent->getTag() == tagValues.getParentTag())) {
+    if (additionalParent && (additionalParent->getTagProperty().getTag() == tagValues.getParentTag())) {
         valuesMap[GNE_ATTR_PARENT] = additionalParent->getID();
         mySelectorAdditionalParent->setIDSelected(additionalParent->getID());
     }

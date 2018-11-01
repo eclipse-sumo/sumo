@@ -119,7 +119,7 @@ GNEDetectorE3::moveGeometry(const Position& offset) {
 void
 GNEDetectorE3::commitGeometryMoving(GNEUndoList* undoList) {
     // commit new position allowing undo/redo
-    undoList->p_begin("position of " + toString(getTag()));
+    undoList->p_begin("position of " + toString(myTagProperty.getTag()));
     undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPosition), true, toString(myMove.originalViewPosition)));
     undoList->p_end();
 }
@@ -205,7 +205,7 @@ GNEDetectorE3::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_GENERIC:
             return getGenericParametersStr();
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(toString(myTagProperty.getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -221,7 +221,7 @@ GNEDetectorE3::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             // Change Ids of all Entry/Exits childs
             for (auto i : myAdditionalChilds) {
-                i->setAttribute(SUMO_ATTR_ID, generateAdditionalChildID(i->getTag()), undoList);
+                i->setAttribute(SUMO_ATTR_ID, generateAdditionalChildID(i->getTagProperty().getTag()), undoList);
             }
             break;
         }
@@ -238,7 +238,7 @@ GNEDetectorE3::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(toString(myTagProperty.getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -273,7 +273,7 @@ GNEDetectorE3::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_GENERIC:
             return isGenericParametersValid(value);
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(toString(myTagProperty.getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -284,9 +284,9 @@ GNEDetectorE3::checkAdditionalChildRestriction() const {
     int numExits = 0;
     // iterate over additional chidls and obtain number of entrys and exits
     for (auto i : myAdditionalChilds) {
-        if (i->getTag() == SUMO_TAG_DET_ENTRY) {
+        if (i->getTagProperty().getTag() == SUMO_TAG_DET_ENTRY) {
             numEntrys++;
-        } else if (i->getTag() == SUMO_TAG_DET_EXIT) {
+        } else if (i->getTagProperty().getTag() == SUMO_TAG_DET_EXIT) {
             numExits++;
         }
     }
@@ -304,13 +304,13 @@ GNEDetectorE3::checkAdditionalChildRestriction() const {
 
 std::string
 GNEDetectorE3::getPopUpID() const {
-    return toString(getTag()) + ":" + getID();
+    return toString(myTagProperty.getTag()) + ":" + getID();
 }
 
 
 std::string
 GNEDetectorE3::getHierarchyName() const {
-    return toString(getTag());
+    return toString(myTagProperty.getTag());
 }
 
 // ===========================================================================
@@ -358,7 +358,7 @@ GNEDetectorE3::setAttribute(SumoXMLAttr key, const std::string& value) {
             setGenericParametersStr(value);
             break;
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(toString(myTagProperty.getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
     // Update Geometry after setting a new attribute (but avoided for certain attributes)
     if((key != SUMO_ATTR_ID) && (key != GNE_ATTR_GENERIC) && (key != GNE_ATTR_SELECTED)) {

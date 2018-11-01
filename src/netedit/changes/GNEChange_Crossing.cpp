@@ -64,7 +64,7 @@ GNEChange_Crossing::~GNEChange_Crossing() {
 void GNEChange_Crossing::undo() {
     if (myForward) {
         // show extra information for tests
-        WRITE_DEBUG("removing " + toString(SUMO_TAG_CROSSING) + " from " + toString(myJunctionParent->getTag()) + " '" + myJunctionParent->getID() + "'");
+        WRITE_DEBUG("removing " + toString(SUMO_TAG_CROSSING) + " from " + toString(myJunctionParent->getTagProperty().getTag()) + " '" + myJunctionParent->getID() + "'");
         // remove crossing of NBNode
         myJunctionParent->getNBNode()->removeCrossing(myEdges);
         // rebuild GNECrossings
@@ -80,7 +80,7 @@ void GNEChange_Crossing::undo() {
         myNet->getViewNet()->update();
     } else {
         // show extra information for tests
-        WRITE_DEBUG("Adding " + toString(SUMO_TAG_CROSSING) + " into " + toString(myJunctionParent->getTag()) + " '" + myJunctionParent->getID() + "'");
+        WRITE_DEBUG("Adding " + toString(SUMO_TAG_CROSSING) + " into " + toString(myJunctionParent->getTagProperty().getTag()) + " '" + myJunctionParent->getID() + "'");
         // add crossing of NBNode
         NBNode::Crossing* c = myJunctionParent->getNBNode()->addCrossing(myEdges, myWidth, myPriority, myCustomTLIndex, myCustomTLIndex2, myCustomShape);
         // Check if Flag "haveNetworkCrossings" has to be enabled
@@ -110,7 +110,7 @@ void GNEChange_Crossing::undo() {
 void GNEChange_Crossing::redo() {
     if (myForward) {
         // show extra information for tests
-        WRITE_DEBUG("Adding " + toString(SUMO_TAG_CROSSING) + " into " + toString(myJunctionParent->getTag()) + " '" + myJunctionParent->getID() + "'");
+        WRITE_DEBUG("Adding " + toString(SUMO_TAG_CROSSING) + " into " + toString(myJunctionParent->getTagProperty().getTag()) + " '" + myJunctionParent->getID() + "'");
         // add crossing of NBNode and update geometry
         NBNode::Crossing* c = myJunctionParent->getNBNode()->addCrossing(myEdges, myWidth, myPriority, myCustomTLIndex, myCustomTLIndex2, myCustomShape);
         // Check if Flag "haveNetworkCrossings" has to be enabled
@@ -129,7 +129,7 @@ void GNEChange_Crossing::redo() {
         myNet->getViewNet()->update();
     } else {
         // show extra information for tests
-        WRITE_DEBUG("Removing " + toString(SUMO_TAG_CROSSING) + " from " + toString(myJunctionParent->getTag()) + " '" + myJunctionParent->getID() + "'");
+        WRITE_DEBUG("Removing " + toString(SUMO_TAG_CROSSING) + " from " + toString(myJunctionParent->getTagProperty().getTag()) + " '" + myJunctionParent->getID() + "'");
         // remove crossing of NBNode and update geometry
         myJunctionParent->getNBNode()->removeCrossing(myEdges);
         // rebuild GNECrossings

@@ -248,10 +248,13 @@ public:
         TagProperties();
 
         /// @brief parameter constructor
-        TagProperties(int tagProperty, int &positionListed, GUIIcon icon, SumoXMLTag parentTag = SUMO_TAG_NOTHING, SumoXMLTag tagSynonym = SUMO_TAG_NOTHING);
+        TagProperties(SumoXMLTag tag, int tagProperty, int &positionListed, GUIIcon icon, SumoXMLTag parentTag = SUMO_TAG_NOTHING, SumoXMLTag tagSynonym = SUMO_TAG_NOTHING);
 
         /// @brief destructor
         ~TagProperties();
+  
+        /// @brief get Tag vinculated with this attribute Property
+        SumoXMLTag getTag() const;
 
         /// @brief check Tag integrity (this include all their attributes)
         void checkTagIntegrity() const;
@@ -383,6 +386,9 @@ public:
         bool isAttributeDeprecated(SumoXMLAttr attr) const;
 
     private:
+        /// @brief Sumo XML Tag vinculated wit this tag Property
+        SumoXMLTag myTag;
+
         /// @brief Property of attribute
         int myTagProperty;
 
@@ -472,7 +478,10 @@ public:
     virtual std::string getAttributeForSelection(SumoXMLAttr key) const;
 
     /// @brief get XML Tag assigned to this object
-    SumoXMLTag getTag() const;
+    //SumoXMLTag getTag() const;
+
+    /// @brief get Tag Proprty assigned to this object
+    const TagProperties &getTagProperty() const;
 
     /// @brief get FXIcon associated to this AC
     FXIcon* getIcon() const;
@@ -838,7 +847,7 @@ protected:
     virtual void mouseOverObject(const GUIVisualizationSettings& s) const = 0;
 
     /// @brief the xml tag to which this attribute carrier corresponds
-    const SumoXMLTag myTag;
+    const TagProperties &myTagProperty;
 
     /// @brief boolean to check if this AC is selected (instead of GUIGlObjectStorage)
     bool mySelected;
@@ -849,6 +858,9 @@ private:
 
     /// @brief map with the tags properties
     static std::map<SumoXMLTag, TagProperties> myTagProperties;
+
+    /// @brief dummy TagProperty used for reference some elements (for Example, dummyEdge)
+    static TagProperties dummyTagProperty;
 
     /// @brief Invalidated copy constructor.
     GNEAttributeCarrier(const GNEAttributeCarrier&) = delete;

@@ -667,7 +667,7 @@ GNEFrame::ACHierarchy::createPopUpMenu(int X, int Y, GNEAttributeCarrier* ac) {
 FXTreeItem*
 GNEFrame::ACHierarchy::showAttributeCarrierParents() {
     // Switch gl type of ac
-    switch (myAC->getTag()) {
+    switch (myAC->getTagProperty().getTag()) {
         case SUMO_TAG_EDGE: {
             // obtain Edge
             GNEEdge* edge = myFrameParent->getViewNet()->getNet()->retrieveEdge(myAC->getID(), false);
@@ -779,22 +779,22 @@ GNEFrame::ACHierarchy::showAttributeCarrierParents() {
         }
         default: {
             // obtain tag property (only for improve code legibility)
-            const auto& tagValue = GNEAttributeCarrier::getTagProperties(myAC->getTag());
+            const auto& tagProperty = myAC->getTagProperty();
             // check if is an additional or a TAZ, and in other case return nullptr
-            if (tagValue.isAdditional() || tagValue.isTAZ()) {
+            if (tagProperty.isAdditional() || tagProperty.isTAZ()) {
                 // Obtain Additional
-                GNEAdditional* additional = myFrameParent->getViewNet()->getNet()->retrieveAdditional(myAC->getTag(), myAC->getID(), false);
+                GNEAdditional* additional = myFrameParent->getViewNet()->getNet()->retrieveAdditional(myAC->getTagProperty().getTag(), myAC->getID(), false);
                 if (additional) {
                     // first check if additional has another additional as parent (to add it into root)
-                    if (tagValue.hasParent() && tagValue.getParentTag() != SUMO_TAG_LANE) {
-                        GNEAdditional* additionalParent = myFrameParent->getViewNet()->getNet()->retrieveAdditional(tagValue.getParentTag(), additional->getAttribute(GNE_ATTR_PARENT));
+                    if (tagProperty.hasParent() && tagProperty.getParentTag() != SUMO_TAG_LANE) {
+                        GNEAdditional* additionalParent = myFrameParent->getViewNet()->getNet()->retrieveAdditional(tagProperty.getParentTag(), additional->getAttribute(GNE_ATTR_PARENT));
                         // create additional parent item
                         FXTreeItem* additionalParentItem = myTreelist->insertItem(nullptr, nullptr, additionalParent->getHierarchyName().c_str(), additionalParent->getIcon(), additionalParent->getIcon());
                         additionalParentItem->setExpanded(true);
                         // Save it in myTreeItemToACMap
                         myTreeItemToACMap[additionalParentItem] = additionalParent;
                     }
-                    if (tagValue.hasAttribute(SUMO_ATTR_EDGE)) {
+                    if (tagProperty.hasAttribute(SUMO_ATTR_EDGE)) {
                         // obtain edge parent
                         GNEEdge* edge = myFrameParent->getViewNet()->getNet()->retrieveEdge(additional->getAttribute(SUMO_ATTR_EDGE));
                         //inser Junctions of lane of edge in tree (Pararell because a edge has always two Junctions)
@@ -810,7 +810,7 @@ GNEFrame::ACHierarchy::showAttributeCarrierParents() {
                         myTreeItemToACMap[edgeItem] = edge;
                         // return edge item
                         return edgeItem;
-                    } else if (tagValue.hasAttribute(SUMO_ATTR_LANE)) {
+                    } else if (tagProperty.hasAttribute(SUMO_ATTR_LANE)) {
                         // obtain lane parent
                         GNELane* lane = myFrameParent->getViewNet()->getNet()->retrieveLane(additional->getAttribute(SUMO_ATTR_LANE));
                         // obtain edge parent
@@ -832,7 +832,7 @@ GNEFrame::ACHierarchy::showAttributeCarrierParents() {
                         myTreeItemToACMap[laneItem] = lane;
                         // return lane item
                         return laneItem;
-                    } else if (tagValue.hasAttribute(SUMO_ATTR_LANES)) {
+                    } else if (tagProperty.hasAttribute(SUMO_ATTR_LANES)) {
                         // obtain lane parent
                         std::vector<GNELane*> lanes = GNEAttributeCarrier::parse<std::vector<GNELane*> >(myFrameParent->getViewNet()->getNet(), additional->getAttribute(SUMO_ATTR_LANES));
                         // obtain edge parent
@@ -867,7 +867,7 @@ GNEFrame::ACHierarchy::showAttributeCarrierParents() {
 void
 GNEFrame::ACHierarchy::showAttributeCarrierChilds(GNEAttributeCarrier* AC, FXTreeItem* itemParent) {
     // Switch gl type of ac
-    switch (AC->getTag()) {
+    switch (AC->getTagProperty().getTag()) {
         case SUMO_TAG_JUNCTION: {
             // retrieve junction
             GNEJunction* junction = myFrameParent->getViewNet()->getNet()->retrieveJunction(AC->getID(), false);
@@ -947,9 +947,9 @@ GNEFrame::ACHierarchy::showAttributeCarrierChilds(GNEAttributeCarrier* AC, FXTre
         }
         default: {
             // check if is an additional or TAZ
-            if (GNEAttributeCarrier::getTagProperties(AC->getTag()).isAdditional() || GNEAttributeCarrier::getTagProperties(AC->getTag()).isTAZ()) {
+            if (AC->getTagProperty().isAdditional() || AC->getTagProperty().isTAZ()) {
                 // retrieve additional
-                GNEAdditional* additional = myFrameParent->getViewNet()->getNet()->retrieveAdditional(AC->getTag(), AC->getID(), false);
+                GNEAdditional* additional = myFrameParent->getViewNet()->getNet()->retrieveAdditional(AC->getTagProperty().getTag(), AC->getID(), false);
                 if (additional) {
                     // insert additional item
                     FXTreeItem* additionalItem = addACIntoList(AC, itemParent);
@@ -1367,11 +1367,11 @@ GNEFrame::NeteditAttributes::~NeteditAttributes() {}
 
 
 void
-GNEFrame::NeteditAttributes::showNeteditAttributesModul(const GNEAttributeCarrier::TagProperties& tagValue) {
+GNEFrame::NeteditAttributes::showNeteditAttributesModul(const GNEAttributeCarrier::TagProperties& tagProperty) {
     // we assume that frame will not be show
     bool showFrame = false;
     // check if lenght text field has to be showed
-    if(tagValue.canMaskStartEndPos()) {
+    if(tagProperty.canMaskStartEndPos()) {
         myLengthLabel->show();
         myLengthTextField->show();
         myReferencePointMatchBox->show();
@@ -1382,7 +1382,7 @@ GNEFrame::NeteditAttributes::showNeteditAttributesModul(const GNEAttributeCarrie
         myReferencePointMatchBox->hide();
     }
     // check if block movement check button has to be show
-    if (tagValue.canBlockMovement()) {
+    if (tagProperty.canBlockMovement()) {
         myBlockMovementLabel->show();
         myBlockMovementCheckButton->show();
         showFrame = true;
@@ -1391,7 +1391,7 @@ GNEFrame::NeteditAttributes::showNeteditAttributesModul(const GNEAttributeCarrie
         myBlockMovementCheckButton->hide();
     }
     // check if block shape check button has to be show
-    if (tagValue.canBlockShape()) {
+    if (tagProperty.canBlockShape()) {
         myBlockShapeLabel->show();
         myBlockShapeCheckButton->show();
         showFrame = true;
@@ -1400,7 +1400,7 @@ GNEFrame::NeteditAttributes::showNeteditAttributesModul(const GNEAttributeCarrie
         myBlockShapeCheckButton->hide();
     }
     // check if close shape check button has to be show
-    if (tagValue.canCloseShape()) {
+    if (tagProperty.canCloseShape()) {
         myClosePolygonLabel->show();
         myCloseShapeCheckButton->show();
         showFrame = true;

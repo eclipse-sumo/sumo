@@ -158,7 +158,7 @@ GNEInspectorFrame::inspectElement(GNEAttributeCarrier* AC) {
         if (AC->isAttributeCarrierSelected()) {
             std::vector<GNEAttributeCarrier*> selectedACs = myViewNet->getNet()->getSelectedAttributeCarriers();
             for (auto i : selectedACs) {
-                if (i->getTag() == AC->getTag()) {
+                if (i->getTagProperty().getTag() == AC->getTagProperty().getTag()) {
                     itemsToInspect.push_back(i);
                 }
             }
@@ -198,7 +198,7 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
         if (myInspectedACs.size() > 1) {
             headerString += toString(myInspectedACs.size()) + " ";
         }
-        headerString += toString(myInspectedACs.front()->getTag());
+        headerString += toString(myInspectedACs.front()->getTagProperty().getTag());
         if (myInspectedACs.size() > 1) {
             headerString += "s";
         }
@@ -581,7 +581,7 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::onCmdOpenAttributeDialog(FX
         if (GNEAttributeCarrier::canParse<RGBColor>(myTextFieldStrings->getText().text())) {
             colordialog.setRGBA(MFXUtils::getFXColor(RGBColor::parseColor(myTextFieldStrings->getText().text())));
         } else {
-            colordialog.setRGBA(MFXUtils::getFXColor(RGBColor::parseColor(GNEAttributeCarrier::getTagProperties(myAttributesEditorParent->getInspectorFrameParent()->getInspectedACs().front()->getTag()).getDefaultValue(myAttr))));
+            colordialog.setRGBA(MFXUtils::getFXColor(RGBColor::parseColor(myAttributesEditorParent->getInspectorFrameParent()->getInspectedACs().front()->getTagProperty().getDefaultValue(myAttr))));
         }
         // execute dialog to get a new color
         if (colordialog.execute()) {
@@ -812,7 +812,7 @@ void
 GNEInspectorFrame::AttributesEditor::showAttributeEditorModul() {
     if (myInspectorFrameParent->getInspectedACs().size() > 0) {
         // Gets tag (only for simplify code)
-        SumoXMLTag ACFrontTag = myInspectorFrameParent->getInspectedACs().front()->getTag();
+        SumoXMLTag ACFrontTag = myInspectorFrameParent->getInspectedACs().front()->getTagProperty().getTag();
         //  check if current AC is a Junction without TLSs (needed to hidde TLS options)
         bool disableTLSinJunctions = (dynamic_cast<GNEJunction*>(myInspectorFrameParent->getInspectedACs().front()) && (dynamic_cast<GNEJunction*>(myInspectorFrameParent->getInspectedACs().front())->getNBNode()->getControllingTLS().empty()));
         // Iterate over attributes
@@ -864,11 +864,11 @@ GNEInspectorFrame::AttributesEditor::refreshAttributeEditor(bool forceRefreshSha
         std::pair<GNEInspectorFrame::AttributesEditor::AttributeInput*, std::string> myAllowAttribute(nullptr, "");
         std::pair<GNEInspectorFrame::AttributesEditor::AttributeInput*, std::string> myDisallowAttribute(nullptr, "");
         // Gets tag (only for simplify code)
-        SumoXMLTag ACFrontTag = myInspectorFrameParent->getInspectedACs().front()->getTag();
+        SumoXMLTag ACFrontTag = myInspectorFrameParent->getInspectedACs().front()->getTagProperty().getTag();
         //  check if current AC is a Junction without TLSs (needed to hidde TLS options)
         bool disableTLSinJunctions = (dynamic_cast<GNEJunction*>(myInspectorFrameParent->getInspectedACs().front()) && (dynamic_cast<GNEJunction*>(myInspectorFrameParent->getInspectedACs().front())->getNBNode()->getControllingTLS().empty()));
         // Iterate over attributes
-        for (const auto &i : GNEAttributeCarrier::getTagProperties(ACFrontTag)) {
+        for (const auto &i : myInspectorFrameParent->getInspectedACs().front()->getTagProperty()) {
             // disable editing for unique attributes in case of multi-selection
             if ((myInspectorFrameParent->getInspectedACs().size() > 1) && i.second.isUnique()) {
                 continue;
@@ -937,7 +937,7 @@ GNEInspectorFrame::AttributesEditor::onCmdAttributeHelp(FXObject*, FXSelector, v
     // open Help attributes dialog if there is inspected ACs
     if (myInspectorFrameParent->getInspectedACs().size() > 0) {
         // open Help attributes dialog
-        myInspectorFrameParent->openHelpAttributesDialog(myInspectorFrameParent->getInspectedACs().front()->getTag());
+        myInspectorFrameParent->openHelpAttributesDialog(myInspectorFrameParent->getInspectedACs().front()->getTagProperty().getTag());
     }
     return 1;
 }
@@ -982,7 +982,7 @@ void
 GNEInspectorFrame::NeteditAttributesEditor::showNeteditAttributesEditor() {
     if (myInspectorFrameParent->getInspectedACs().size() > 0) {
         // obtain tag property (only for improve code legibility)
-        const auto& tagValue = GNEAttributeCarrier::getTagProperties(myInspectorFrameParent->getInspectedACs().front()->getTag());
+        const auto& tagValue = myInspectorFrameParent->getInspectedACs().front()->getTagProperty();
         // Check if item can be moved
         if (tagValue.canBlockMovement()) {
             // show NeteditAttributesEditor
@@ -1052,7 +1052,7 @@ GNEInspectorFrame::NeteditAttributesEditor::showNeteditAttributesEditor() {
             // show additional parent frame
             myHorizontalFrameAdditionalParent->show();
             // set Label and TextField with the Tag and ID of parent
-            myLabelAdditionalParent->setText((toString(additional->getTag()) + " parent").c_str());
+            myLabelAdditionalParent->setText((toString(additional->getTagProperty().getTag()) + " parent").c_str());
             myTextFieldAdditionalParent->setText(additional->getID().c_str());
         }
     }
@@ -1125,7 +1125,7 @@ GNEInspectorFrame::NeteditAttributesEditor::refreshNeteditAttributesEditor(bool 
         // Check if item has another item as parent (Currently only for single Additionals)
         if (myHorizontalFrameAdditionalParent->shown() && ((myTextFieldAdditionalParent->getTextColor() == FXRGB(0, 0, 0)) || forceRefresh)) {
             // set Label and TextField with the Tag and ID of parent
-            myLabelAdditionalParent->setText((toString(GNEAttributeCarrier::getTagProperties(myInspectorFrameParent->getInspectedACs().front()->getTag()).getParentTag()) + " parent").c_str());
+            myLabelAdditionalParent->setText((toString(myInspectorFrameParent->getInspectedACs().front()->getTagProperty().getParentTag()) + " parent").c_str());
             myTextFieldAdditionalParent->setText(myInspectorFrameParent->getInspectedACs().front()->getAttribute(GNE_ATTR_PARENT).c_str());
         }
     }
@@ -1234,9 +1234,9 @@ GNEInspectorFrame::GEOAttributesEditor::showGEOAttributesEditor() {
     // make sure that ACs has elements
     if (myInspectorFrameParent->getInspectedACs().size() > 0) {
         // obtain tag property (only for improve code legibility)
-        const auto& tagValue = GNEAttributeCarrier::getTagProperties(myInspectorFrameParent->getInspectedACs().front()->getTag());
+        const auto& tagProperty = myInspectorFrameParent->getInspectedACs().front()->getTagProperty();
         // check if item can use a geo position
-        if (tagValue.hasGEOPosition() || tagValue.hasGEOShape()) {
+        if (tagProperty.hasGEOPosition() || tagProperty.hasGEOShape()) {
             // show GEOAttributesEditor
             show();
             // Iterate over AC to obtain values
@@ -1260,7 +1260,7 @@ GNEInspectorFrame::GEOAttributesEditor::showGEOAttributesEditor() {
                 myUseGEOCheckButton->disable();
             }
             // now specify if a single position or an entire shape must be shown (note: cannot be shown both at the same time, and GEO Shape/Position only works for single selections)
-            if (tagValue.hasGEOPosition() && myInspectorFrameParent->getInspectedACs().size() == 1) {
+            if (tagProperty.hasGEOPosition() && myInspectorFrameParent->getInspectedACs().size() == 1) {
                 myGEOAttributeFrame->show();
                 myGEOAttributeLabel->setText(toString(SUMO_ATTR_GEOPOSITION).c_str());
                 myGEOAttributeTextField->setTextColor(FXRGB(0, 0, 0));
@@ -1272,7 +1272,7 @@ GNEInspectorFrame::GEOAttributesEditor::showGEOAttributesEditor() {
                     myGEOAttributeTextField->disable();
                     myGEOAttributeTextField->setText("No geo-conversion defined");
                 }
-            } else if (tagValue.hasGEOShape() && myInspectorFrameParent->getInspectedACs().size() == 1) {
+            } else if (tagProperty.hasGEOShape() && myInspectorFrameParent->getInspectedACs().size() == 1) {
                 myGEOAttributeFrame->show();
                 myGEOAttributeLabel->setText(toString(SUMO_ATTR_GEOSHAPE).c_str());
                 myGEOAttributeTextField->setTextColor(FXRGB(0, 0, 0));
@@ -1303,12 +1303,12 @@ GNEInspectorFrame::GEOAttributesEditor::hideGEOAttributesEditor() {
 void
 GNEInspectorFrame::GEOAttributesEditor::refreshGEOAttributesEditor(bool forceRefresh) {
     // obtain tag property (only for improve code legibility)
-    const auto& tagValue = GNEAttributeCarrier::getTagProperties(myInspectorFrameParent->getInspectedACs().front()->getTag());
+    const auto& tagProperty = myInspectorFrameParent->getInspectedACs().front()->getTagProperty();
     // Check that myGEOAttributeFrame is shown
     if ((GeoConvHelper::getFinal().getProjString() != "!") && myGEOAttributeFrame->shown() && ((myGEOAttributeTextField->getTextColor() == FXRGB(0, 0, 0)) || forceRefresh)) {
-        if (tagValue.hasGEOPosition()) {
+        if (tagProperty.hasGEOPosition()) {
             myGEOAttributeTextField->setText(myInspectorFrameParent->getInspectedACs().front()->getAttribute(SUMO_ATTR_GEOPOSITION).c_str());
-        } else if (tagValue.hasGEOShape()) {
+        } else if (tagProperty.hasGEOShape()) {
             myGEOAttributeTextField->setText(myInspectorFrameParent->getInspectedACs().front()->getAttribute(SUMO_ATTR_GEOSHAPE).c_str());
         }
         myGEOAttributeTextField->setTextColor(FXRGB(0, 0, 0));
@@ -1322,9 +1322,9 @@ GNEInspectorFrame::GEOAttributesEditor::onCmdSetGEOAttribute(FXObject* obj, FXSe
     if ((GeoConvHelper::getFinal().getProjString() != "!") && (myInspectorFrameParent->getInspectedACs().size() > 0)) {
         if (obj == myGEOAttributeTextField) {
             // obtain tag property (only for improve code legibility)
-            const auto& tagValue = GNEAttributeCarrier::getTagProperties(myInspectorFrameParent->getInspectedACs().front()->getTag());
+            const auto& tagProperty = myInspectorFrameParent->getInspectedACs().front()->getTagProperty();
             // Change GEO Attribute depending of type (Position or shape)
-            if (tagValue.hasGEOPosition()) {
+            if (tagProperty.hasGEOPosition()) {
                 if (myInspectorFrameParent->getInspectedACs().front()->isValid(SUMO_ATTR_GEOPOSITION, myGEOAttributeTextField->getText().text())) {
                     myInspectorFrameParent->getInspectedACs().front()->setAttribute(SUMO_ATTR_GEOPOSITION, myGEOAttributeTextField->getText().text(), myInspectorFrameParent->getViewNet()->getUndoList());
                     myGEOAttributeTextField->setTextColor(FXRGB(0, 0, 0));
@@ -1332,7 +1332,7 @@ GNEInspectorFrame::GEOAttributesEditor::onCmdSetGEOAttribute(FXObject* obj, FXSe
                     myGEOAttributeTextField->setTextColor(FXRGB(255, 0, 0));
                     myGEOAttributeTextField->killFocus();
                 }
-            } else if (tagValue.hasGEOShape()) {
+            } else if (tagProperty.hasGEOShape()) {
                 if (myInspectorFrameParent->getInspectedACs().front()->isValid(SUMO_ATTR_GEOSHAPE, myGEOAttributeTextField->getText().text())) {
                     myInspectorFrameParent->getInspectedACs().front()->setAttribute(SUMO_ATTR_GEOSHAPE, myGEOAttributeTextField->getText().text(), myInspectorFrameParent->getViewNet()->getUndoList());
                     myGEOAttributeTextField->setTextColor(FXRGB(0, 0, 0));
@@ -1414,7 +1414,7 @@ GNEInspectorFrame::TemplateEditor::~TemplateEditor() {
 
 void
 GNEInspectorFrame::TemplateEditor::showTemplateEditor() {
-    if (myInspectorFrameParent->getInspectedACs().front()->getTag() == SUMO_TAG_EDGE) {
+    if (myInspectorFrameParent->getInspectedACs().front()->getTagProperty().getTag() == SUMO_TAG_EDGE) {
         // show template editor
         show();
         // show "Copy Template" (caption supplied via onUpdate)

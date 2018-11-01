@@ -228,7 +228,7 @@ GNEViewNet::ObjectsUnderCursor::updateObjectUnderCursor(GUIGlID glIDObject, GNEP
         }
     } else {
         // obtain tag property (only for improve code legibility)
-        const auto& tagValue = GNEAttributeCarrier::getTagProperties(attributeCarrier->getTag());
+        const auto& tagValue = attributeCarrier->getTagProperty();
         // check if attributeCarrier can be casted into netElement, additional or shape
         if (tagValue.isNetElement()) {
             // cast netElement from attribute carrier
@@ -431,7 +431,7 @@ GNEViewNet::getAttributeCarriersInBoundary(const Boundary &boundary, bool forceS
             if (i != 0) {
                 GNEAttributeCarrier* retrievedAC = myNet->retrieveAttributeCarrier(i);
                 // in the case of a Lane, we need to change the retrieved lane to their the parent if mySelectEdges is enabled
-                if ((retrievedAC->getTag() == SUMO_TAG_LANE) && (mySelectEdges || forceSelectEdges)) {
+                if ((retrievedAC->getTagProperty().getTag() == SUMO_TAG_LANE) && (mySelectEdges || forceSelectEdges)) {
                     retrievedAC = &dynamic_cast<GNELane*>(retrievedAC)->getParentEdge();
                 }
                 // make sure that AttributeCarrier can be selected
@@ -606,12 +606,12 @@ GNEViewNet::beginMoveSelection(GNEAttributeCarrier* originAC, const Position& or
         myOriginPositionOfMovedJunctions[i] = i->getPositionInView();
     }
     // make special movement depending of clicked AC
-    if (originAC->getTag() == SUMO_TAG_JUNCTION) {
+    if (originAC->getTagProperty().getTag() == SUMO_TAG_JUNCTION) {
         // if clicked element is a junction, move shapes of all selected edges
         for (auto i : selectedEdges) {
             myOriginShapesMovedEntireShapes[i] = i->getNBEdge()->getInnerGeometry();
         }
-    } else if (originAC->getTag() == SUMO_TAG_EDGE) {
+    } else if (originAC->getTagProperty().getTag() == SUMO_TAG_EDGE) {
         // obtain clicked edge
         GNEEdge* clickedEdge = dynamic_cast<GNEEdge*>(originAC);
         // if clicked edge has origin and destiny junction selected, move shapes of all selected edges
@@ -975,7 +975,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
             case GNE_MODE_DELETE: {
                 if (myObjectsUnderCursor.attributeCarrier) {
                     // change the selected attribute carrier if mySelectEdges is enabled and clicked element is a lane
-                    if (mySelectEdges && (myObjectsUnderCursor.attributeCarrier->getTag() == SUMO_TAG_LANE)) {
+                    if (mySelectEdges && (myObjectsUnderCursor.attributeCarrier->getTagProperty().getTag() == SUMO_TAG_LANE)) {
                         myObjectsUnderCursor.swapLane2Edge();
                     }
                     // check if we are deleting a selection or an single attribute carrier
@@ -1000,7 +1000,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
             case GNE_MODE_INSPECT: {
                 if (myObjectsUnderCursor.attributeCarrier) {
                     // change the selected attribute carrier if mySelectEdges is enabled and clicked element is a lane
-                    if (mySelectEdges && (myObjectsUnderCursor.attributeCarrier->getTag() == SUMO_TAG_LANE)) {
+                    if (mySelectEdges && (myObjectsUnderCursor.attributeCarrier->getTagProperty().getTag() == SUMO_TAG_LANE)) {
                         myObjectsUnderCursor.swapLane2Edge();
                     }
                     // if Control key is Pressed, select instead inspect element
@@ -1030,7 +1030,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                 // first check that under cursor there is an attribute carrier and is selectable
                 if (myObjectsUnderCursor.attributeCarrier) {
                     // change the selected attribute carrier if mySelectEdges is enabled and clicked element is a lane
-                    if (mySelectEdges && (myObjectsUnderCursor.attributeCarrier->getTag() == SUMO_TAG_LANE)) {
+                    if (mySelectEdges && (myObjectsUnderCursor.attributeCarrier->getTagProperty().getTag() == SUMO_TAG_LANE)) {
                         myObjectsUnderCursor.swapLane2Edge();
                     }
                     // Check if this GLobject type is locked
@@ -1387,9 +1387,9 @@ GNEViewNet::hotkeyEnter() {
     } else if ((myEditMode == GNE_MODE_MOVE) && (myEditShapePoly != nullptr)) {
         // save edited junction's shape
         if (myEditShapePoly != nullptr) {
-            myUndoList->p_begin("custom " + toString(myEditShapePoly->getShapeEditedElement()->getTag()) + " shape");
+            myUndoList->p_begin("custom " + toString(myEditShapePoly->getShapeEditedElement()->getTagProperty().getTag()) + " shape");
             SumoXMLAttr attr = SUMO_ATTR_SHAPE;
-            if (GNEAttributeCarrier::getTagProperties(myEditShapePoly->getShapeEditedElement()->getTag()).hasAttribute(SUMO_ATTR_CUSTOMSHAPE)) {
+            if (myEditShapePoly->getShapeEditedElement()->getTagProperty().hasAttribute(SUMO_ATTR_CUSTOMSHAPE)) {
                 attr = SUMO_ATTR_CUSTOMSHAPE;
             }
             myEditShapePoly->getShapeEditedElement()->setAttribute(attr, toString(myEditShapePoly->getShape()), myUndoList);
@@ -2007,7 +2007,7 @@ GNEViewNet::onCmdTransformPOI(FXObject*, FXSelector, void*) {
     GNEPOI* POI = getPOIAtPopupPosition();
     if (POI) {
         // check what type of POI will be transformed
-        if (POI->getTag() == SUMO_TAG_POI) {
+        if (POI->getTagProperty().getTag() == SUMO_TAG_POI) {
             // obtain lanes around POI boundary
             std::vector<GUIGlID> GLIDs = getObjectsInBoundary(POI->getCenteringBoundary());
             std::vector<GNELane*> lanes;
@@ -2200,7 +2200,7 @@ GNEViewNet::onCmdOpenAdditionalDialog(FXObject*, FXSelector, void*) {
     // retrieve additional under cursor
     GNEAdditional* addtional = getAdditionalAtPopupPosition();
     // check if additional can open dialog
-    if (addtional && GNEAttributeCarrier::getTagProperties(addtional->getTag()).hasDialog()) {
+    if (addtional && addtional->getTagProperty().hasDialog()) {
         addtional->openAdditionalDialog();
     }
     return 1;
@@ -2993,7 +2993,7 @@ GNEViewNet::deleteSelectedAdditionals() {
         myUndoList->p_begin("delete selected additional" + plural);
         for (auto i : additionals) {
             // due there are additionals that are removed when their parent is removed, we need to check if yet exists before removing
-            if (myNet->retrieveAdditional(i->getTag(), i->getID(), false) != nullptr) {
+            if (myNet->retrieveAdditional(i->getTagProperty().getTag(), i->getID(), false) != nullptr) {
                 getViewParent()->getAdditionalFrame()->removeAdditional(i);
             }
         }
@@ -3226,7 +3226,7 @@ GNEViewNet::SelectingArea::processBoundarySelection(GNEViewNet* viewNet, Boundar
             std::vector<GNEEdge*> edgesToSelect;
             // iterate over ACToSelect and extract edges
             for (auto i : ACToSelect) {
-                if (i->getTag() == SUMO_TAG_EDGE) {
+                if (i->getTagProperty().getTag() == SUMO_TAG_EDGE) {
                     edgesToSelect.push_back(dynamic_cast<GNEEdge*>(i));
                 }
             }
@@ -3258,7 +3258,7 @@ GNEViewNet::SelectingArea::processBoundarySelection(GNEViewNet* viewNet, Boundar
                 i->setAttribute(GNE_ATTR_SELECTED, "0", viewNet->myUndoList);
             }
             for (auto i : ACToSelect) {
-                if (GNEAttributeCarrier::getTagProperties(i->getTag()).isSelectable()) {
+                if (i->getTagProperty().isSelectable()) {
                     i->setAttribute(GNE_ATTR_SELECTED, "1", viewNet->myUndoList);
                 }
             }

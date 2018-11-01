@@ -63,8 +63,8 @@ GNECalibratorFlowDialog::GNECalibratorFlowDialog(GNEAdditional* editedCalibrator
     myCalibratorFlowValid(false),
     myInvalidAttr(SUMO_ATTR_VEHSPERHOUR) {
     // change default header
-    std::string typeOfOperation = updatingElement ? "Edit " + toString(myEditedAdditional->getTag()) + " of " : "Create " + toString(myEditedAdditional->getTag()) + " for ";
-    changeAdditionalDialogHeader(typeOfOperation + toString(myEditedAdditional->getFirstAdditionalParent()->getTag()) + " '" + myEditedAdditional->getFirstAdditionalParent()->getID() + "'");
+    std::string typeOfOperation = updatingElement ? "Edit " + toString(myEditedAdditional->getTagProperty().getTag()) + " of " : "Create " + toString(myEditedAdditional->getTagProperty().getTag()) + " for ";
+    changeAdditionalDialogHeader(typeOfOperation + toString(myEditedAdditional->getFirstAdditionalParent()->getTagProperty().getTag()) + " '" + myEditedAdditional->getFirstAdditionalParent()->getID() + "'");
 
     // Create auxiliar frames for tables
     FXHorizontalFrame* columns = new FXHorizontalFrame(myContentFrame, GUIDesignUniformHorizontalFrame);
@@ -168,8 +168,8 @@ long
 GNECalibratorFlowDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     std::string operation1 = myUpdatingElement ? ("updating") : ("creating");
     std::string operation2 = myUpdatingElement ? ("updated") : ("created");
-    std::string parentTagString = toString(myEditedAdditional->getFirstAdditionalParent()->getTag());
-    std::string tagString = toString(myEditedAdditional->getTag());
+    std::string parentTagString = toString(myEditedAdditional->getFirstAdditionalParent()->getTagProperty().getTag());
+    std::string tagString = toString(myEditedAdditional->getTagProperty().getTag());
     if (myCalibratorFlowValid == false) {
         // write warning if netedit is running in testing mode
         WRITE_DEBUG("Opening FXMessageBox of type 'warning'");

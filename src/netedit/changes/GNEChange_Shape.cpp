@@ -55,17 +55,17 @@ GNEChange_Shape::~GNEChange_Shape() {
         // make sure that shape are removed of ShapeContainer (net) AND grid
         if (myNet->retrievePolygon(myShape->getID(), false) != nullptr) {
             // show extra information for tests
-            WRITE_DEBUG("Removing " + toString(myShape->getTag()) + " '" + myShape->getID() + "' from net in ~GNEChange_Shape()");
+            WRITE_DEBUG("Removing " + toString(myShape->getTagProperty().getTag()) + " '" + myShape->getID() + "' from net in ~GNEChange_Shape()");
             myNet->removeGLObjectFromGrid(dynamic_cast<GUIGlObject*>(myShape));
             myNet->myPolygons.remove(myShape->getID(), false);
         } else if (myNet->retrievePOI(myShape->getID(), false) != nullptr) {
             // show extra information for tests
-            WRITE_DEBUG("Removing " + toString(myShape->getTag()) + " '" + myShape->getID() + "' from net in ~GNEChange_Shape()");
+            WRITE_DEBUG("Removing " + toString(myShape->getTagProperty().getTag()) + " '" + myShape->getID() + "' from net in ~GNEChange_Shape()");
             myNet->removeGLObjectFromGrid(dynamic_cast<GUIGlObject*>(myShape));
             myNet->myPOIs.remove(myShape->getID(), false);
         }
         // show extra information for tests
-        WRITE_DEBUG("delete " + toString(myShape->getTag()) + " '" + myShape->getID() + "' in ~GNEChange_Shape()");
+        WRITE_DEBUG("delete " + toString(myShape->getTagProperty().getTag()) + " '" + myShape->getID() + "' in ~GNEChange_Shape()");
         delete myShape;
     }
 }
@@ -75,12 +75,12 @@ void
 GNEChange_Shape::undo() {
     if (myForward) {
         // show extra information for tests
-        WRITE_DEBUG("Removing " + toString(myShape->getTag()) + " '" + myShape->getID() + "' from viewNet");
+        WRITE_DEBUG("Removing " + toString(myShape->getTagProperty().getTag()) + " '" + myShape->getID() + "' from viewNet");
         // remove shape from net
         myNet->removeShape(myShape);
     } else {
         // show extra information for tests
-        WRITE_DEBUG("Adding " + toString(myShape->getTag()) + " '" + myShape->getID() + "' into viewNet");
+        WRITE_DEBUG("Adding " + toString(myShape->getTagProperty().getTag()) + " '" + myShape->getID() + "' into viewNet");
         // Add shape in net
         myNet->insertShape(myShape);
     }
@@ -95,12 +95,12 @@ void
 GNEChange_Shape::redo() {
     if (myForward) {
         // show extra information for tests
-        WRITE_DEBUG("Adding " + toString(myShape->getTag()) + " '" + myShape->getID() + "' into viewNet");
+        WRITE_DEBUG("Adding " + toString(myShape->getTagProperty().getTag()) + " '" + myShape->getID() + "' into viewNet");
         // Add shape in net
         myNet->insertShape(myShape);
     } else {
         // show extra information for tests
-        WRITE_DEBUG("Removing " + toString(myShape->getTag()) + " '" + myShape->getID() + "' from viewNet");
+        WRITE_DEBUG("Removing " + toString(myShape->getTagProperty().getTag()) + " '" + myShape->getID() + "' from viewNet");
         // remove shape from net
         myNet->removeShape(myShape);
     }
@@ -114,9 +114,9 @@ GNEChange_Shape::redo() {
 FXString
 GNEChange_Shape::undoName() const {
     if (myForward) {
-        return ("Undo create " + toString(myShape->getTag())).c_str();
+        return ("Undo create " + toString(myShape->getTagProperty().getTag())).c_str();
     } else {
-        return ("Undo delete " + toString(myShape->getTag())).c_str();
+        return ("Undo delete " + toString(myShape->getTagProperty().getTag())).c_str();
     }
 }
 
@@ -124,8 +124,8 @@ GNEChange_Shape::undoName() const {
 FXString
 GNEChange_Shape::redoName() const {
     if (myForward) {
-        return ("Redo create " + toString(myShape->getTag())).c_str();
+        return ("Redo create " + toString(myShape->getTagProperty().getTag())).c_str();
     } else {
-        return ("Redo delete " + toString(myShape->getTag())).c_str();
+        return ("Redo delete " + toString(myShape->getTagProperty().getTag())).c_str();
     }
 }

@@ -43,6 +43,7 @@
 // ===========================================================================
 
 std::map<SumoXMLTag, GNEAttributeCarrier::TagProperties> GNEAttributeCarrier::myTagProperties;
+GNEAttributeCarrier::TagProperties GNEAttributeCarrier::dummyTagProperty;
 
 const std::string GNEAttributeCarrier::FEATURE_LOADED = "loaded";
 const std::string GNEAttributeCarrier::FEATURE_GUESSED = "guessed";
@@ -340,6 +341,7 @@ GNEAttributeCarrier::AttributeProperties::isNonEditable() const {
 // ---------------------------------------------------------------------------
 
 GNEAttributeCarrier::TagProperties::TagProperties() :
+    myTag(SUMO_TAG_NOTHING),
     myTagProperty(0),
     myIcon(ICON_EMPTY),
     myPositionListed(0),
@@ -348,7 +350,8 @@ GNEAttributeCarrier::TagProperties::TagProperties() :
 }
 
 
-GNEAttributeCarrier::TagProperties::TagProperties(int tagProperty, int &positionListed, GUIIcon icon, SumoXMLTag parentTag, SumoXMLTag tagSynonym) :
+GNEAttributeCarrier::TagProperties::TagProperties(SumoXMLTag tag, int tagProperty, int &positionListed, GUIIcon icon, SumoXMLTag parentTag, SumoXMLTag tagSynonym) :
+    myTag(tag),
     myTagProperty(tagProperty),
     myIcon(icon),
     myPositionListed(positionListed),
@@ -361,6 +364,12 @@ GNEAttributeCarrier::TagProperties::TagProperties(int tagProperty, int &position
 
 
 GNEAttributeCarrier::TagProperties::~TagProperties() {}
+
+
+SumoXMLTag 
+GNEAttributeCarrier::TagProperties::getTag() const {
+    return myTag;
+}
 
 
 void 
@@ -702,7 +711,7 @@ GNEAttributeCarrier::TagProperties::isAttributeDeprecated(SumoXMLAttr attr) cons
 // ---------------------------------------------------------------------------
 
 GNEAttributeCarrier::GNEAttributeCarrier(SumoXMLTag tag) :
-    myTag(tag),
+    myTagProperty(getTagProperties(tag)),
     mySelected(false) {
 }
 
@@ -926,10 +935,16 @@ GNEAttributeCarrier::getAttributeForSelection(SumoXMLAttr key) const {
     return getAttribute(key);
 }
 
-
+/*
 SumoXMLTag
 GNEAttributeCarrier::getTag() const {
-    return myTag;
+    return myTagProperty.getTag();
+}
+*/
+
+const GNEAttributeCarrier::TagProperties &
+GNEAttributeCarrier::getTagProperty() const {
+    return myTagProperty;
 }
 
 
@@ -939,7 +954,7 @@ GNEAttributeCarrier::getIcon() const {
     if (myTagProperties.size() == 0) {
         fillAttributeCarriers();
     }
-    return GUIIconSubSys::getIcon(myTagProperties.at(myTag).getGUIIcon());
+    return GUIIconSubSys::getIcon(myTagProperty.getGUIIcon());
 }
 
 
@@ -954,6 +969,9 @@ GNEAttributeCarrier::getID() const {
 
 const GNEAttributeCarrier::TagProperties&
 GNEAttributeCarrier::getTagProperties(SumoXMLTag tag) {
+    if(tag == SUMO_TAG_NOTHING) {
+        return dummyTagProperty;
+    }
     // define on first access
     if (myTagProperties.size() == 0) {
         fillAttributeCarriers();
@@ -1112,7 +1130,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     SumoXMLTag currentTag = SUMO_TAG_EDGE;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(TAGPROPERTY_NETELEMENT | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_VIEW | TAGPROPERTY_SELECTABLE, netElement, ICON_EDGE);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGPROPERTY_NETELEMENT | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_VIEW | TAGPROPERTY_SELECTABLE, netElement, ICON_EDGE);
         // set values of attributes
         myTagProperties[currentTag].addAttribute(SUMO_ATTR_ID,
                                                  ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
@@ -1194,7 +1212,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_JUNCTION;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(TAGPROPERTY_NETELEMENT | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_VIEW | TAGPROPERTY_SELECTABLE, netElement, ICON_JUNCTION);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGPROPERTY_NETELEMENT | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_VIEW | TAGPROPERTY_SELECTABLE, netElement, ICON_JUNCTION);
         // set values of attributes
         myTagProperties[currentTag].addAttribute(SUMO_ATTR_ID,
                                                  ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
@@ -1234,7 +1252,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_LANE;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(TAGPROPERTY_NETELEMENT | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_VIEW | TAGPROPERTY_SELECTABLE, netElement, ICON_LANE);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGPROPERTY_NETELEMENT | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_VIEW | TAGPROPERTY_SELECTABLE, netElement, ICON_LANE);
         // set values of attributes
         myTagProperties[currentTag].addAttribute(SUMO_ATTR_ID,
                                                  ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_NONEDITABLE,
@@ -1279,7 +1297,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_CROSSING;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(TAGPROPERTY_NETELEMENT | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_JUNCTION | TAGPROPERTY_SELECTABLE, netElement, ICON_CROSSING, SUMO_TAG_JUNCTION);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGPROPERTY_NETELEMENT | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_JUNCTION | TAGPROPERTY_SELECTABLE, netElement, ICON_CROSSING, SUMO_TAG_JUNCTION);
         // set values of attributes
         myTagProperties[currentTag].addAttribute(SUMO_ATTR_ID,
                                                  ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_NONEDITABLE,
@@ -1313,7 +1331,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_CONNECTION;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(TAGPROPERTY_NETELEMENT | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_VIEW | TAGPROPERTY_SELECTABLE, netElement, ICON_CONNECTION, SUMO_TAG_EDGE);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGPROPERTY_NETELEMENT | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_VIEW | TAGPROPERTY_SELECTABLE, netElement, ICON_CONNECTION, SUMO_TAG_EDGE);
         // set values of attributes
         myTagProperties[currentTag].addAttribute(SUMO_ATTR_FROM,
                                                  ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_NONEDITABLE,
@@ -1367,7 +1385,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_BUS_STOP;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_LANE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_STOPPINGPLACE | TAGPROPERTY_BLOCKMOVEMENT | TAGPROPERTY_MASKSTARTENDPOS, additional, ICON_BUSSTOP, SUMO_TAG_LANE);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_LANE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_STOPPINGPLACE | TAGPROPERTY_BLOCKMOVEMENT | TAGPROPERTY_MASKSTARTENDPOS, additional, ICON_BUSSTOP, SUMO_TAG_LANE);
         // set values of attributes
         myTagProperties[currentTag].addAttribute(SUMO_ATTR_ID,
                                                  ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
@@ -1401,7 +1419,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_ACCESS;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_LANE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_PARENT | TAGPROPERTY_BLOCKMOVEMENT, additional, ICON_ACCESS, SUMO_TAG_BUS_STOP);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_LANE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_PARENT | TAGPROPERTY_BLOCKMOVEMENT, additional, ICON_ACCESS, SUMO_TAG_BUS_STOP);
         // set values of attributes
         myTagProperties[currentTag].addAttribute(SUMO_ATTR_LANE,
                                                  ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
@@ -1423,7 +1441,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_CONTAINER_STOP;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_LANE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_STOPPINGPLACE | TAGPROPERTY_BLOCKMOVEMENT | TAGPROPERTY_MASKSTARTENDPOS, additional, ICON_CONTAINERSTOP, SUMO_TAG_LANE);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_LANE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_STOPPINGPLACE | TAGPROPERTY_BLOCKMOVEMENT | TAGPROPERTY_MASKSTARTENDPOS, additional, ICON_CONTAINERSTOP, SUMO_TAG_LANE);
         // set values of attributes
         myTagProperties[currentTag].addAttribute(SUMO_ATTR_ID,
                                                  ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
@@ -1457,7 +1475,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_CHARGING_STATION;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_LANE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_STOPPINGPLACE | TAGPROPERTY_BLOCKMOVEMENT | TAGPROPERTY_MASKSTARTENDPOS, additional, ICON_CHARGINGSTATION, SUMO_TAG_LANE);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_LANE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_STOPPINGPLACE | TAGPROPERTY_BLOCKMOVEMENT | TAGPROPERTY_MASKSTARTENDPOS, additional, ICON_CHARGINGSTATION, SUMO_TAG_LANE);
         // set values of attributes
         myTagProperties[currentTag].addAttribute(SUMO_ATTR_ID,
                                                  ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
@@ -1503,7 +1521,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_PARKING_AREA;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_LANE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_STOPPINGPLACE | TAGPROPERTY_BLOCKMOVEMENT | TAGPROPERTY_MASKSTARTENDPOS, additional, ICON_PARKINGAREA, SUMO_TAG_LANE);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_LANE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_STOPPINGPLACE | TAGPROPERTY_BLOCKMOVEMENT | TAGPROPERTY_MASKSTARTENDPOS, additional, ICON_PARKINGAREA, SUMO_TAG_LANE);
         // set values of attributes
         myTagProperties[currentTag].addAttribute(SUMO_ATTR_ID,
                                                  ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
@@ -1549,7 +1567,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_PARKING_SPACE;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_VIEW | TAGPROPERTY_MASKXYZPOSITION | TAGPROPERTY_SELECTABLE | TAGPROPERTY_PARENT | TAGPROPERTY_REPARENT | TAGPROPERTY_BLOCKMOVEMENT, additional, ICON_PARKINGSPACE, SUMO_TAG_PARKING_AREA);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_VIEW | TAGPROPERTY_MASKXYZPOSITION | TAGPROPERTY_SELECTABLE | TAGPROPERTY_PARENT | TAGPROPERTY_REPARENT | TAGPROPERTY_BLOCKMOVEMENT, additional, ICON_PARKINGSPACE, SUMO_TAG_PARKING_AREA);
         // set values of attributes
         myTagProperties[currentTag].addAttribute(SUMO_ATTR_POSITION,
                                                  ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_POSITION, // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
@@ -1571,7 +1589,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_E1DETECTOR;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_LANE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_DETECTOR | TAGPROPERTY_BLOCKMOVEMENT, additional, ICON_E1, SUMO_TAG_LANE);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_LANE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_DETECTOR | TAGPROPERTY_BLOCKMOVEMENT, additional, ICON_E1, SUMO_TAG_LANE);
         // set values of attributes
         myTagProperties[currentTag].addAttribute(SUMO_ATTR_ID,
                                                  ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
@@ -1609,7 +1627,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_E2DETECTOR;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_LANE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_DETECTOR | TAGPROPERTY_BLOCKMOVEMENT, additional, ICON_E2, SUMO_TAG_LANE);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_LANE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_DETECTOR | TAGPROPERTY_BLOCKMOVEMENT, additional, ICON_E2, SUMO_TAG_LANE);
         // set "file" as deprecated attribute
         myTagProperties[currentTag].addDeprecatedAttribute(SUMO_ATTR_CONT);
         // set values of attributes
@@ -1665,7 +1683,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_E2DETECTOR_MULTILANE;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_LANES | TAGPROPERTY_SELECTABLE | TAGPROPERTY_DETECTOR | TAGPROPERTY_PARENT | TAGPROPERTY_SYNONYM | TAGPROPERTY_BLOCKMOVEMENT, additional, ICON_E2, SUMO_TAG_LANE, SUMO_TAG_E2DETECTOR);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_LANES | TAGPROPERTY_SELECTABLE | TAGPROPERTY_DETECTOR | TAGPROPERTY_PARENT | TAGPROPERTY_SYNONYM | TAGPROPERTY_BLOCKMOVEMENT, additional, ICON_E2, SUMO_TAG_LANE, SUMO_TAG_E2DETECTOR);
         // set "file" as deprecated attribute
         myTagProperties[currentTag].addDeprecatedAttribute(SUMO_ATTR_CONT);
         // set values of attributes
@@ -1721,7 +1739,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_E3DETECTOR;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_VIEW | TAGPROPERTY_SELECTABLE | TAGPROPERTY_DETECTOR | TAGPROPERTY_BLOCKMOVEMENT | TAGPROPERTY_MINIMUMCHILDS | TAGPROPERTY_AUTOMATICSORTING, additional, ICON_E3);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_VIEW | TAGPROPERTY_SELECTABLE | TAGPROPERTY_DETECTOR | TAGPROPERTY_BLOCKMOVEMENT | TAGPROPERTY_MINIMUMCHILDS | TAGPROPERTY_AUTOMATICSORTING, additional, ICON_E3);
         // set values of attributes
         myTagProperties[currentTag].addAttribute(SUMO_ATTR_ID,
                                                  ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
@@ -1759,7 +1777,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_DET_ENTRY;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_LANE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_DETECTOR | TAGPROPERTY_PARENT | TAGPROPERTY_REPARENT | TAGPROPERTY_BLOCKMOVEMENT, additional, ICON_E3ENTRY, SUMO_TAG_E3DETECTOR);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_LANE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_DETECTOR | TAGPROPERTY_PARENT | TAGPROPERTY_REPARENT | TAGPROPERTY_BLOCKMOVEMENT, additional, ICON_E3ENTRY, SUMO_TAG_E3DETECTOR);
         // set values of attributes
         myTagProperties[currentTag].addAttribute(SUMO_ATTR_LANE,
                                                  ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
@@ -1777,7 +1795,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_DET_EXIT;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_LANE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_DETECTOR | TAGPROPERTY_PARENT | TAGPROPERTY_REPARENT | TAGPROPERTY_BLOCKMOVEMENT, additional, ICON_E3EXIT, SUMO_TAG_E3DETECTOR);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_LANE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_DETECTOR | TAGPROPERTY_PARENT | TAGPROPERTY_REPARENT | TAGPROPERTY_BLOCKMOVEMENT, additional, ICON_E3EXIT, SUMO_TAG_E3DETECTOR);
         // set values of attributes
         myTagProperties[currentTag].addAttribute(SUMO_ATTR_LANE,
                                                  ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
@@ -1795,7 +1813,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_INSTANT_INDUCTION_LOOP;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_LANE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_DETECTOR | TAGPROPERTY_BLOCKMOVEMENT, additional, ICON_E1INSTANT);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_LANE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_DETECTOR | TAGPROPERTY_BLOCKMOVEMENT, additional, ICON_E1INSTANT);
         // set values of attributes
         myTagProperties[currentTag].addAttribute(SUMO_ATTR_ID,
                                                  ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
@@ -1829,7 +1847,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_VSS;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_VIEW | TAGPROPERTY_SELECTABLE | TAGPROPERTY_BLOCKMOVEMENT | TAGPROPERTY_DIALOG, additional, ICON_VARIABLESPEEDSIGN);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_VIEW | TAGPROPERTY_SELECTABLE | TAGPROPERTY_BLOCKMOVEMENT | TAGPROPERTY_DIALOG, additional, ICON_VARIABLESPEEDSIGN);
         // set "file" as deprecated attribute
         myTagProperties[currentTag].addDeprecatedAttribute(SUMO_ATTR_FILE);
         // set values of attributes
@@ -1853,7 +1871,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_STEP;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_PARENT, additional, ICON_VSSSTEP, SUMO_TAG_VSS);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGPROPERTY_ADDITIONAL | TAGPROPERTY_PARENT, additional, ICON_VSSSTEP, SUMO_TAG_VSS);
         // set values of attributes
         myTagProperties[currentTag].addAttribute(SUMO_ATTR_TIME,
                                                  ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME,
@@ -1867,7 +1885,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_CALIBRATOR;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_EDGE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_DIALOG, additional, ICON_CALIBRATOR);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_EDGE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_DIALOG, additional, ICON_CALIBRATOR);
         // set values of attributes
         myTagProperties[currentTag].addAttribute(SUMO_ATTR_ID,
                                                  ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
@@ -1901,7 +1919,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_LANECALIBRATOR;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_LANE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_SYNONYM | TAGPROPERTY_DIALOG, additional, ICON_CALIBRATOR, SUMO_TAG_NOTHING, SUMO_TAG_CALIBRATOR);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_LANE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_SYNONYM | TAGPROPERTY_DIALOG, additional, ICON_CALIBRATOR, SUMO_TAG_NOTHING, SUMO_TAG_CALIBRATOR);
         // set values of attributes
         myTagProperties[currentTag].addAttribute(SUMO_ATTR_ID,
                                                  ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
@@ -1935,7 +1953,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_FLOW;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_PARENT, additional, ICON_FLOW, SUMO_TAG_CALIBRATOR);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGPROPERTY_ADDITIONAL | TAGPROPERTY_PARENT, additional, ICON_FLOW, SUMO_TAG_CALIBRATOR);
         // set values of attributes
         myTagProperties[currentTag].addAttribute(SUMO_ATTR_TYPE,
                                                  ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE,
@@ -2019,7 +2037,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_ROUTE;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(TAGPROPERTY_ADDITIONAL, additional, ICON_ROUTE);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGPROPERTY_ADDITIONAL, additional, ICON_ROUTE);
         // set values of attributes
         myTagProperties[currentTag].addAttribute(SUMO_ATTR_ID,
                                                  ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
@@ -2037,7 +2055,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_REROUTER;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_VIEW | TAGPROPERTY_SELECTABLE | TAGPROPERTY_BLOCKMOVEMENT | TAGPROPERTY_DIALOG | TAGPROPERTY_WRITECHILDSSEPARATE, additional, ICON_REROUTER);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_VIEW | TAGPROPERTY_SELECTABLE | TAGPROPERTY_BLOCKMOVEMENT | TAGPROPERTY_DIALOG | TAGPROPERTY_WRITECHILDSSEPARATE, additional, ICON_REROUTER);
         // set values of attributes
         myTagProperties[currentTag].addAttribute(SUMO_ATTR_ID,
                                                  ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
@@ -2079,7 +2097,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_INTERVAL;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_PARENT, additional, ICON_REROUTERINTERVAL, SUMO_TAG_REROUTER);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGPROPERTY_ADDITIONAL | TAGPROPERTY_PARENT, additional, ICON_REROUTERINTERVAL, SUMO_TAG_REROUTER);
         // set values of attributes
         myTagProperties[currentTag].addAttribute(SUMO_ATTR_BEGIN,
                                                  ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUE,
@@ -2093,7 +2111,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_CLOSING_REROUTE;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_PARENT, additional, ICON_CLOSINGREROUTE, SUMO_TAG_INTERVAL);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGPROPERTY_ADDITIONAL | TAGPROPERTY_PARENT, additional, ICON_CLOSINGREROUTE, SUMO_TAG_INTERVAL);
         // set values of attributes
         myTagProperties[currentTag].addAttribute(SUMO_ATTR_EDGE,
                                                  ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_SYNONYM,
@@ -2112,7 +2130,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_CLOSING_LANE_REROUTE;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_PARENT, additional, ICON_CLOSINGLANEREROUTE, SUMO_TAG_INTERVAL);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGPROPERTY_ADDITIONAL | TAGPROPERTY_PARENT, additional, ICON_CLOSINGLANEREROUTE, SUMO_TAG_INTERVAL);
         // set values of attributes
         myTagProperties[currentTag].addAttribute(SUMO_ATTR_LANE,
                                                  ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_SYNONYM,
@@ -2131,7 +2149,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_DEST_PROB_REROUTE;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_PARENT, additional, ICON_DESTPROBREROUTE, SUMO_TAG_INTERVAL);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGPROPERTY_ADDITIONAL | TAGPROPERTY_PARENT, additional, ICON_DESTPROBREROUTE, SUMO_TAG_INTERVAL);
         // set values of attributes
         myTagProperties[currentTag].addAttribute(SUMO_ATTR_EDGE,
                                                  ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_SYNONYM,
@@ -2146,7 +2164,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_PARKING_ZONE_REROUTE;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_PARENT, additional, ICON_PARKINGZONEREROUTE, SUMO_TAG_INTERVAL);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGPROPERTY_ADDITIONAL | TAGPROPERTY_PARENT, additional, ICON_PARKINGZONEREROUTE, SUMO_TAG_INTERVAL);
         // set values of attributes
         myTagProperties[currentTag].addAttribute(SUMO_ATTR_PARKING,
                                                  ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_SYNONYM,
@@ -2165,7 +2183,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_ROUTE_PROB_REROUTE;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_PARENT, additional, ICON_ROUTEPROBREROUTE, SUMO_TAG_INTERVAL);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGPROPERTY_ADDITIONAL | TAGPROPERTY_PARENT, additional, ICON_ROUTEPROBREROUTE, SUMO_TAG_INTERVAL);
         // set values of attributes
         myTagProperties[currentTag].addAttribute(SUMO_ATTR_ROUTE,
                                                  ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_SYNONYM,
@@ -2180,7 +2198,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_ROUTEPROBE;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_EDGE | TAGPROPERTY_SELECTABLE, additional, ICON_ROUTEPROBE);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_EDGE | TAGPROPERTY_SELECTABLE, additional, ICON_ROUTEPROBE);
         // set values of attributes
         myTagProperties[currentTag].addAttribute(SUMO_ATTR_ID,
                                                  ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
@@ -2210,7 +2228,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_VAPORIZER;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_EDGE | TAGPROPERTY_SELECTABLE, additional, ICON_VAPORIZER);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_EDGE | TAGPROPERTY_SELECTABLE, additional, ICON_VAPORIZER);
         // set values of attributes
         myTagProperties[currentTag].addAttribute(SUMO_ATTR_ID,
                                                  ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
@@ -2232,7 +2250,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_TAZ;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(TAGPROPERTY_TAZ | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_VIEW | TAGPROPERTY_SELECTABLE | TAGPROPERTY_BLOCKMOVEMENT | TAGPROPERTY_BLOCKSHAPE | TAGPROPERTY_AUTOMATICSORTING, taz, ICON_TAZ);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGPROPERTY_TAZ | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_VIEW | TAGPROPERTY_SELECTABLE | TAGPROPERTY_BLOCKMOVEMENT | TAGPROPERTY_BLOCKSHAPE | TAGPROPERTY_AUTOMATICSORTING, taz, ICON_TAZ);
         // set values of attributes
         myTagProperties[currentTag].addAttribute(SUMO_ATTR_ID,
                                                  ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
@@ -2250,7 +2268,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_TAZSOURCE;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(TAGPROPERTY_TAZ | TAGPROPERTY_PARENT, taz, ICON_TAZEDGE, SUMO_TAG_TAZ);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGPROPERTY_TAZ | TAGPROPERTY_PARENT, taz, ICON_TAZEDGE, SUMO_TAG_TAZ);
         // set values of attributes
         myTagProperties[currentTag].addAttribute(SUMO_ATTR_EDGE,
                                                  ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_NONEDITABLE | ATTRPROPERTY_SYNONYM,
@@ -2265,7 +2283,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_TAZSINK;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(TAGPROPERTY_TAZ | TAGPROPERTY_PARENT, taz, ICON_TAZEDGE, SUMO_TAG_TAZ);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGPROPERTY_TAZ | TAGPROPERTY_PARENT, taz, ICON_TAZEDGE, SUMO_TAG_TAZ);
         // set values of attributes
         myTagProperties[currentTag].addAttribute(SUMO_ATTR_EDGE,
                                                  ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_NONEDITABLE | ATTRPROPERTY_SYNONYM,
@@ -2280,7 +2298,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_VTYPE;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_PARENT, additional, ICON_VTYPE);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGPROPERTY_ADDITIONAL | TAGPROPERTY_PARENT, additional, ICON_VTYPE);
         // set values of attributes
         myTagProperties[currentTag].addAttribute(SUMO_ATTR_ID,
                                                  ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
@@ -2396,7 +2414,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_POLY;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(TAGPROPERTY_SHAPE | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_VIEW | TAGPROPERTY_SELECTABLE | TAGPROPERTY_BLOCKMOVEMENT | TAGPROPERTY_BLOCKSHAPE | TAGPROPERTY_CLOSESHAPE | TAGPROPERTY_GEOSHAPE, shape, ICON_LOCATEPOLY /* temporal */);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGPROPERTY_SHAPE | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_VIEW | TAGPROPERTY_SELECTABLE | TAGPROPERTY_BLOCKMOVEMENT | TAGPROPERTY_BLOCKSHAPE | TAGPROPERTY_CLOSESHAPE | TAGPROPERTY_GEOSHAPE, shape, ICON_LOCATEPOLY /* temporal */);
         // set values of attributes
         myTagProperties[currentTag].addAttribute(SUMO_ATTR_ID,
                                                  ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
@@ -2442,7 +2460,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_POI;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(TAGPROPERTY_SHAPE | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_VIEW | TAGPROPERTY_SELECTABLE | TAGPROPERTY_BLOCKMOVEMENT | TAGPROPERTY_GEOPOSITION, shape, ICON_LOCATEPOI /* temporal */);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGPROPERTY_SHAPE | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_VIEW | TAGPROPERTY_SELECTABLE | TAGPROPERTY_BLOCKMOVEMENT | TAGPROPERTY_GEOPOSITION, shape, ICON_LOCATEPOI /* temporal */);
         // set values of attributes
         myTagProperties[currentTag].addAttribute(SUMO_ATTR_ID,
                                                  ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
@@ -2488,7 +2506,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_POILANE;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(TAGPROPERTY_SHAPE | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_LANE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_BLOCKMOVEMENT, shape, ICON_LOCATEPOI /* temporal */);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGPROPERTY_SHAPE | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_LANE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_BLOCKMOVEMENT, shape, ICON_LOCATEPOI /* temporal */);
         // set values of attributes
         myTagProperties[currentTag].addAttribute(SUMO_ATTR_ID,
                                                  ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,

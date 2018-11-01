@@ -805,7 +805,7 @@ GNELane::addShapeChild(GNEShape* shape) {
         // update Geometry of shape after add
         shape->updateGeometry(true);
     } else {
-        throw ProcessError(toString(shape->getTag()) + " with ID='" + shape->getID() + "' was already inserted in lane with ID='" + getID() + "'");
+        throw ProcessError(toString(shape->getTagProperty().getTag()) + " with ID='" + shape->getID() + "' was already inserted in lane with ID='" + getID() + "'");
     }
 }
 
@@ -817,7 +817,7 @@ GNELane::removeShapeChild(GNEShape* shape) {
     if (it != myShapes.end()) {
         myShapes.erase(it);
     } else {
-        throw ProcessError(toString(shape->getTag()) + " with ID='" + shape->getID() + "' doesn't exist in lane with ID='" + getID() + "'");
+        throw ProcessError(toString(shape->getTagProperty().getTag()) + " with ID='" + shape->getID() + "' doesn't exist in lane with ID='" + getID() + "'");
     }
 }
 
@@ -861,7 +861,7 @@ GNELane::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_GENERIC:
             return getGenericParametersStr();
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(toString(myTagProperty.getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -879,7 +879,7 @@ void
 GNELane::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     switch (key) {
         case SUMO_ATTR_ID:
-            throw InvalidArgument("Modifying attribute '" + toString(key) + "' of " + toString(getTag()) + " isn't allowed");
+            throw InvalidArgument("Modifying attribute '" + toString(key) + "' of " + toString(myTagProperty.getTag()) + " isn't allowed");
         case SUMO_ATTR_SPEED:
         case SUMO_ATTR_ALLOW:
         case SUMO_ATTR_DISALLOW:
@@ -894,7 +894,7 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(toString(myTagProperty.getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -930,7 +930,7 @@ GNELane::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_GENERIC:
             return isGenericParametersValid(value);
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(toString(myTagProperty.getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -1000,7 +1000,7 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value) {
     NBEdge* edge = myParentEdge.getNBEdge();
     switch (key) {
         case SUMO_ATTR_ID:
-            throw InvalidArgument("Modifying attribute '" + toString(key) + "' of " + toString(getTag()) + " isn't allowed");
+            throw InvalidArgument("Modifying attribute '" + toString(key) + "' of " + toString(myTagProperty.getTag()) + " isn't allowed");
         case SUMO_ATTR_SPEED:
             edge->setSpeed(myIndex, parse<double>(value));
             break;
@@ -1039,7 +1039,7 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value) {
             setGenericParametersStr(value);
             break;
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(toString(myTagProperty.getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
     // Update Geometry after setting a new attribute (but avoided for certain attributes)
     if((key != SUMO_ATTR_ID) && (key != GNE_ATTR_GENERIC) && (key != GNE_ATTR_SELECTED)) {

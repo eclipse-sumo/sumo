@@ -176,7 +176,7 @@ GNECalibratorFlow::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_GENERIC:
             return getGenericParametersStr();
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(toString(myTagProperty.getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -211,7 +211,7 @@ GNECalibratorFlow::setAttribute(SumoXMLAttr key, const std::string& value, GNEUn
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(toString(myTagProperty.getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -308,20 +308,20 @@ GNECalibratorFlow::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_GENERIC:
             return isGenericParametersValid(value);
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(toString(myTagProperty.getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
 
 std::string
 GNECalibratorFlow::getPopUpID() const {
-    return toString(getTag());
+    return toString(myTagProperty.getTag());
 }
 
 
 std::string
 GNECalibratorFlow::getHierarchyName() const {
-    return toString(getTag()) + ": " + getAttribute(SUMO_ATTR_BEGIN) + " -> " + getAttribute(SUMO_ATTR_END);
+    return toString(myTagProperty.getTag()) + ": " + getAttribute(SUMO_ATTR_BEGIN) + " -> " + getAttribute(SUMO_ATTR_END);
 }
 
 // ===========================================================================
@@ -395,7 +395,7 @@ GNECalibratorFlow::setAttribute(SumoXMLAttr key, const std::string& value) {
             setGenericParametersStr(value);
             break;
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(toString(myTagProperty.getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 

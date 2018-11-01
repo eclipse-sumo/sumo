@@ -140,7 +140,7 @@ GNENet::GNENet(NBNetBuilder* netBuilder) :
 
     // default vehicle type is always available
     GNECalibratorVehicleType* defaultVehicleType = new GNECalibratorVehicleType(myViewNet, DEFAULT_VTYPE_ID);
-    myAttributeCarriers.additionals.at(defaultVehicleType->getTag()).insert(std::make_pair(defaultVehicleType->getID(), defaultVehicleType));
+    myAttributeCarriers.additionals.at(defaultVehicleType->getTagProperty().getTag()).insert(std::make_pair(defaultVehicleType->getID(), defaultVehicleType));
     defaultVehicleType->incRef("GNENet::DEFAULT_VEHTYPE");
 }
 
@@ -158,14 +158,14 @@ GNENet::~GNENet() {
     for (auto it : myAttributeCarriers.edges) {
         it.second->decRef("GNENet::~GNENet");
         // show extra information for tests
-        WRITE_DEBUG("Deleting unreferenced " + toString(it.second->getTag()) + " '" + it.second->getID() + "' in GNENet destructor");
+        WRITE_DEBUG("Deleting unreferenced " + toString(it.second->getTagProperty().getTag()) + " '" + it.second->getID() + "' in GNENet destructor");
         delete it.second;
     }
     // Drop junctions
     for (auto it : myAttributeCarriers.junctions) {
         it.second->decRef("GNENet::~GNENet");
         // show extra information for tests
-        WRITE_DEBUG("Deleting unreferenced " + toString(it.second->getTag()) + " '" + it.second->getID() + "' in GNENet destructor");
+        WRITE_DEBUG("Deleting unreferenced " + toString(it.second->getTagProperty().getTag()) + " '" + it.second->getID() + "' in GNENet destructor");
         delete it.second;
     }
     // Drop Additionals (Only used for additionals that were inserted without using GNEChange_Additional)
@@ -174,7 +174,7 @@ GNENet::~GNENet() {
             // decrease reference manually (because it was increased manually in GNEAdditionalHandler)
             j.second->decRef();
             // show extra information for tests
-            WRITE_DEBUG("Deleting unreferenced " + toString(j.second->getTag()) + " '" + j.second->getID() + "' in GNENet destructor");
+            WRITE_DEBUG("Deleting unreferenced " + toString(j.second->getTagProperty().getTag()) + " '" + j.second->getID() + "' in GNENet destructor");
             delete j.second;
         }
     }
@@ -251,7 +251,7 @@ GNENet::addPOI(const std::string& id, const std::string& type, const RGBColor& c
             GNEPOI* poi = new GNEPOI(this, id, type, color, pos, geo, layer, angle, imgFile, relativePath, width, height, false);
             if (myPOIs.add(poi->getID(), poi)) {
                 if (myAllowUndoShapes) {
-                    myViewNet->getUndoList()->p_begin("add " + toString(poi->getTag()));
+                    myViewNet->getUndoList()->p_begin("add " + toString(poi->getTagProperty().getTag()));
                     myViewNet->getUndoList()->add(new GNEChange_Shape(poi, true), true);
                     myViewNet->getUndoList()->p_end();
                 } else {
@@ -269,7 +269,7 @@ GNENet::addPOI(const std::string& id, const std::string& type, const RGBColor& c
             GNEPOI* poi = new GNEPOI(this, id, type, color, layer, angle, imgFile, relativePath, retrievedLane, posOverLane, posLat, width, height, false);
             if (myPOIs.add(poi->getID(), poi)) {
                 if (myAllowUndoShapes) {
-                    myViewNet->getUndoList()->p_begin("add " + toString(poi->getTag()));
+                    myViewNet->getUndoList()->p_begin("add " + toString(poi->getTagProperty().getTag()));
                     myViewNet->getUndoList()->add(new GNEChange_Shape(poi, true), true);
                     myViewNet->getUndoList()->p_end();
                 } else {
@@ -594,7 +594,7 @@ GNENet::deleteCrossing(GNECrossing* crossing, GNEUndoList* undoList) {
 
 void
 GNENet::deleteShape(GNEShape* shape, GNEUndoList* undoList) {
-    undoList->p_begin("delete " + toString(shape->getTag()));
+    undoList->p_begin("delete " + toString(shape->getTagProperty().getTag()));
     // delete shape
     undoList->add(new GNEChange_Shape(shape, false), true);
     undoList->p_end();
@@ -1132,7 +1132,7 @@ GNENet::retrieveShapes(SumoXMLTag shapeTag, bool onlySelected) {
         // check if we need to return a POI or POILane
         for (auto it : getPOIs()) {
             GNEPOI* poi = dynamic_cast<GNEPOI*>(it.second);
-            if (poi && (poi->getTag() == shapeTag)) {
+            if (poi && (poi->getTagProperty().getTag() == shapeTag)) {
                 // return all POIs or POILanes depending of onlySelected
                 if (!onlySelected || poi->isAttributeCarrierSelected()) {
                     result.push_back(poi);
@@ -1330,7 +1330,7 @@ GNENet::computeEverything(GNEApplicationWindow* window, bool force, bool volatil
 
         // default vehicle type is always available
         GNECalibratorVehicleType* defaultVehicleType = new GNECalibratorVehicleType(myViewNet, DEFAULT_VTYPE_ID);
-        myAttributeCarriers.additionals.at(defaultVehicleType->getTag()).insert(std::make_pair(defaultVehicleType->getID(), defaultVehicleType));
+        myAttributeCarriers.additionals.at(defaultVehicleType->getTagProperty().getTag()).insert(std::make_pair(defaultVehicleType->getID(), defaultVehicleType));
         defaultVehicleType->incRef("GNENet::DEFAULT_VEHTYPE");
 
         // Create additional handler
@@ -1843,12 +1843,12 @@ GNENet::getNumberOfAdditionals(SumoXMLTag type) const {
 
 void
 GNENet::updateAdditionalID(const std::string& oldID, GNEAdditional* additional) {
-    if (myAttributeCarriers.additionals.at(additional->getTag()).count(oldID) == 0) {
-        throw ProcessError(toString(additional->getTag()) + " with old ID='" + oldID + "' doesn't exist");
+    if (myAttributeCarriers.additionals.at(additional->getTagProperty().getTag()).count(oldID) == 0) {
+        throw ProcessError(toString(additional->getTagProperty().getTag()) + " with old ID='" + oldID + "' doesn't exist");
     } else {
         // remove an insert additional again into container
-        myAttributeCarriers.additionals.at(additional->getTag()).erase(oldID);
-        myAttributeCarriers.additionals.at(additional->getTag()).insert(std::make_pair(additional->getID(), additional));
+        myAttributeCarriers.additionals.at(additional->getTagProperty().getTag()).erase(oldID);
+        myAttributeCarriers.additionals.at(additional->getTagProperty().getTag()).insert(std::make_pair(additional->getID(), additional));
         // additionals has to be saved
         requiereSaveAdditionals(true);
     }
@@ -1883,9 +1883,9 @@ GNENet::saveAdditionals(const std::string& filename) {
     for (auto i : myAttributeCarriers.additionals) {
         for (auto j : i.second) {
             // check if has to be fixed
-            if (GNEAttributeCarrier::getTagProperties(j.second->getTag()).canBePlacedOverLane() && !j.second->isAdditionalValid()) {
+            if (j.second->getTagProperty().canBePlacedOverLane() && !j.second->isAdditionalValid()) {
                 invalidSingleLaneAdditionals.push_back(j.second);
-            } else if (GNEAttributeCarrier::getTagProperties(j.second->getTag()).canBePlacedOverLanes() && !j.second->isAdditionalValid()) {
+            } else if (j.second->getTagProperty().canBePlacedOverLanes() && !j.second->isAdditionalValid()) {
                 invalidMultiLaneAdditionals.push_back(j.second);
             }
         }
@@ -2047,7 +2047,7 @@ GNENet::generateShapeID(SumoXMLTag shapeTag) const {
 
 void
 GNENet::changeShapeID(GNEShape* s, const std::string& OldID) {
-    if (s->getTag() == SUMO_TAG_POLY) {
+    if (s->getTagProperty().getTag() == SUMO_TAG_POLY) {
         if (myPolygons.get(OldID) == 0) {
             throw UnknownElement("Polygon " + OldID);
         } else {
@@ -2141,10 +2141,10 @@ GNENet::getNumberOfTLSPrograms() const {
 void
 GNENet::insertAdditional(GNEAdditional* additional) {
     // Check if additional element exists before insertion
-    if (myAttributeCarriers.additionals.at(additional->getTag()).count(additional->getID()) == 0) {
-        myAttributeCarriers.additionals.at(additional->getTag()).insert(std::make_pair(additional->getID(), additional));
+    if (myAttributeCarriers.additionals.at(additional->getTagProperty().getTag()).count(additional->getID()) == 0) {
+        myAttributeCarriers.additionals.at(additional->getTagProperty().getTag()).insert(std::make_pair(additional->getID(), additional));
         // only add drawable elements in grid
-        if (additional->getTagProperties(additional->getTag()).isDrawable()) {
+        if (additional->getTagProperty().isDrawable()) {
             myGrid.addAdditionalGLObject(additional);
         }
         // check if additional is selected
@@ -2156,7 +2156,7 @@ GNENet::insertAdditional(GNEAdditional* additional) {
         // additionals has to be saved
         requiereSaveAdditionals(true);
     } else {
-        throw ProcessError(toString(additional->getTag()) + " with ID='" + additional->getID() + "' already exist");
+        throw ProcessError(toString(additional->getTagProperty().getTag()) + " with ID='" + additional->getID() + "' already exist");
     }
 }
 
@@ -2164,15 +2164,15 @@ GNENet::insertAdditional(GNEAdditional* additional) {
 void
 GNENet::deleteAdditional(GNEAdditional* additional) {
     // Check if additional element exists before deletion
-    if (myAttributeCarriers.additionals.at(additional->getTag()).count(additional->getID()) == 0) {
-        throw ProcessError(toString(additional->getTag()) + " with ID='" + additional->getID() + "' doesn't exist");
+    if (myAttributeCarriers.additionals.at(additional->getTagProperty().getTag()).count(additional->getID()) == 0) {
+        throw ProcessError(toString(additional->getTagProperty().getTag()) + " with ID='" + additional->getID() + "' doesn't exist");
     } else {
         // remove it from Inspector Frame
         myViewNet->getViewParent()->getInspectorFrame()->removeInspectedAC(additional);
         // Remove from container
-        myAttributeCarriers.additionals.at(additional->getTag()).erase(additional->getID());
+        myAttributeCarriers.additionals.at(additional->getTagProperty().getTag()).erase(additional->getID());
         // only remove drawable elements of grid
-        if (additional->getTagProperties(additional->getTag()).isDrawable()) {
+        if (additional->getTagProperty().isDrawable()) {
             myGrid.removeAdditionalGLObject(additional);
         }
         // check if additional is selected
@@ -2329,7 +2329,7 @@ GNENet::deleteSingleEdge(GNEEdge* edge) {
 void
 GNENet::insertShape(GNEShape* shape) {
     // add shape depending of their type and if is selected
-    if (shape->getTag() == SUMO_TAG_POLY) {
+    if (shape->getTagProperty().getTag() == SUMO_TAG_POLY) {
         GUIPolygon* poly = dynamic_cast<GUIPolygon*>(shape);
         myGrid.addAdditionalGLObject(poly);
         myPolygons.add(shape->getID(), poly);
@@ -2344,7 +2344,7 @@ GNENet::insertShape(GNEShape* shape) {
         shape->selectAttributeCarrier(false);
     }
     // POILanes has to be added from lane
-    if (shape->getTag() == SUMO_TAG_POILANE) {
+    if (shape->getTagProperty().getTag() == SUMO_TAG_POILANE) {
         retrieveLane(shape->getAttribute(SUMO_ATTR_LANE))->addShapeChild(shape);
     }
     // insert shape requieres always save shapes
@@ -2358,7 +2358,7 @@ void
 GNENet::removeShape(GNEShape* shape) {
     // remove it from Inspector Frame
     myViewNet->getViewParent()->getInspectorFrame()->removeInspectedAC(shape);
-    if (shape->getTag() == SUMO_TAG_POLY) {
+    if (shape->getTagProperty().getTag() == SUMO_TAG_POLY) {
         GUIPolygon* poly = dynamic_cast<GUIPolygon*>(shape);
         myGrid.removeAdditionalGLObject(poly);
         myPolygons.remove(shape->getID(), false);
@@ -2372,7 +2372,7 @@ GNENet::removeShape(GNEShape* shape) {
         shape->unselectAttributeCarrier(false);
     }
     // POILanes has to be removed from lane
-    if (shape->getTag() == SUMO_TAG_POILANE) {
+    if (shape->getTagProperty().getTag() == SUMO_TAG_POILANE) {
         retrieveLane(shape->getAttribute(SUMO_ATTR_LANE))->removeShapeChild(shape);
     }
     // remove shape requires always save shapes
@@ -2488,7 +2488,7 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
         for (const auto& it : myAttributeCarriers.additionals) {
             for (const auto& j : it.second) {
                 // only remove drawable additionals
-                if (GNEAttributeCarrier::getTagProperties(j.second->getTag()).isDrawable()) {
+                if (j.second->getTagProperty().isDrawable()) {
                     myGrid.removeAdditionalGLObject(j.second);
                 }
             }
@@ -2542,7 +2542,7 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
 
 void
 GNENet::replaceInListAttribute(GNEAttributeCarrier* ac, SumoXMLAttr key, const std::string& which, const std::string& by, GNEUndoList* undoList) {
-    assert(GNEAttributeCarrier::getTagProperties(ac->getTag()).getAttributeProperties(key).isList());
+    assert(ac->getTagProperty().getAttributeProperties(key).isList());
     std::vector<std::string> values = GNEAttributeCarrier::parse<std::vector<std::string> >(ac->getAttribute(key));
     std::vector<std::string> newValues;
     for (auto v : values) {

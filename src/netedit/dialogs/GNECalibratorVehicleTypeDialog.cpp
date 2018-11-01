@@ -57,7 +57,7 @@ GNECalibratorVehicleTypeDialog::GNECalibratorVehicleTypeDialog(GNEAdditional* ed
     myCalibratorVehicleTypeValid(true),
     myInvalidAttr(SUMO_ATTR_NOTHING) {
     // change default header
-    changeAdditionalDialogHeader(updatingElement ? "Edit " + toString(myEditedAdditional->getTag()) + " of " : "Create " + toString(myEditedAdditional->getTag()));
+    changeAdditionalDialogHeader(updatingElement ? "Edit " + toString(myEditedAdditional->getTagProperty().getTag()) + " of " : "Create " + toString(myEditedAdditional->getTagProperty().getTag()));
 
     // Create auxiliar frames for values
     FXHorizontalFrame* columns = new FXHorizontalFrame(myContentFrame, GUIDesignUniformHorizontalFrame);
@@ -218,7 +218,7 @@ GNECalibratorVehicleTypeDialog::onCmdAccept(FXObject*, FXSelector, void*) {
         WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
         std::string operation1 = myUpdatingElement ? ("updating") : ("creating");
         std::string operation2 = myUpdatingElement ? ("updated") : ("created");
-        std::string tagString = toString(myEditedAdditional->getTag());
+        std::string tagString = toString(myEditedAdditional->getTagProperty().getTag());
         // open warning dialogBox
         FXMessageBox::warning(getApp(), MBOX_OK,
                               ("Error " + operation1 + " " + tagString).c_str(), "%s",

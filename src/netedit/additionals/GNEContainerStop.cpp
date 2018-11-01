@@ -228,7 +228,7 @@ GNEContainerStop::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_GENERIC:
             return getGenericParametersStr();
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(toString(myTagProperty.getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -252,7 +252,7 @@ GNEContainerStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUnd
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(toString(myTagProperty.getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -311,7 +311,7 @@ GNEContainerStop::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_GENERIC:
             return isGenericParametersValid(value);
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(toString(myTagProperty.getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -357,7 +357,7 @@ GNEContainerStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             setGenericParametersStr(value);
             break;
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(toString(myTagProperty.getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
     // Update Geometry after setting a new attribute (but avoided for certain attributes)
     if((key != SUMO_ATTR_ID) && (key != GNE_ATTR_GENERIC) && (key != GNE_ATTR_SELECTED)) {

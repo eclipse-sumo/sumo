@@ -107,7 +107,7 @@ GNEClosingReroute::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_GENERIC:
             return getGenericParametersStr();
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(toString(myTagProperty.getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -126,7 +126,7 @@ GNEClosingReroute::setAttribute(SumoXMLAttr key, const std::string& value, GNEUn
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(toString(myTagProperty.getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -145,20 +145,20 @@ GNEClosingReroute::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_GENERIC:
             return isGenericParametersValid(value);
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(toString(myTagProperty.getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
 
 std::string
 GNEClosingReroute::getPopUpID() const {
-    return toString(getTag());
+    return toString(myTagProperty.getTag());
 }
 
 
 std::string
 GNEClosingReroute::getHierarchyName() const {
-    return toString(getTag()) + ": " + myClosedEdge->getID();
+    return toString(myTagProperty.getTag()) + ": " + myClosedEdge->getID();
 }
 
 // ===========================================================================
@@ -184,7 +184,7 @@ GNEClosingReroute::setAttribute(SumoXMLAttr key, const std::string& value) {
             setGenericParametersStr(value);
             break;
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(toString(myTagProperty.getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 

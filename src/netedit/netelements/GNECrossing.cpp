@@ -278,7 +278,7 @@ GNECrossing::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_GENERIC:
             return getGenericParametersStr();
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(toString(myTagProperty.getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -290,7 +290,7 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
     }
     switch (key) {
         case SUMO_ATTR_ID:
-            throw InvalidArgument("Modifying attribute '" + toString(key) + "' of " + toString(getTag()) + " isn't allowed");
+            throw InvalidArgument("Modifying attribute '" + toString(key) + "' of " + toString(myTagProperty.getTag()) + " isn't allowed");
         case SUMO_ATTR_EDGES:
         case SUMO_ATTR_WIDTH:
         case SUMO_ATTR_PRIORITY:
@@ -302,7 +302,7 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
             undoList->add(new GNEChange_Attribute(this, key, value), true);
             break;
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(toString(myTagProperty.getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -354,7 +354,7 @@ GNECrossing::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_GENERIC:
             return isGenericParametersValid(value);
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(toString(myTagProperty.getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -443,7 +443,7 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value) {
     auto crossing = myParentJunction->getNBNode()->getCrossing(myCrossingEdges);
     switch (key) {
         case SUMO_ATTR_ID:
-            throw InvalidArgument("Modifying attribute '" + toString(key) + "' of " + toString(getTag()) + " isn't allowed");
+            throw InvalidArgument("Modifying attribute '" + toString(key) + "' of " + toString(myTagProperty.getTag()) + " isn't allowed");
         case SUMO_ATTR_EDGES: {
             // obtain GNEEdges
             std::vector<GNEEdge*> edges = parse<std::vector<GNEEdge*> >(myNet, value);
@@ -498,7 +498,7 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value) {
             setGenericParametersStr(value);
             break;
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(toString(myTagProperty.getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
     // Crossing are a special case and we need ot update geometry of junction instead of crossing
     if((key != SUMO_ATTR_ID) && (key != GNE_ATTR_GENERIC) && (key != GNE_ATTR_SELECTED)) {

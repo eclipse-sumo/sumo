@@ -97,37 +97,37 @@ GNERerouterIntervalDialog::GNERerouterIntervalDialog(GNEAdditional* rerouterInte
     myRouteProbReroutesValid(true) {
     // fill closing Reroutes
     for (auto i : myEditedAdditional->getAdditionalChilds()) {
-        if (i->getTag() == SUMO_TAG_CLOSING_REROUTE) {
+        if (i->getTagProperty().getTag() == SUMO_TAG_CLOSING_REROUTE) {
             myClosingReroutesEdited.push_back(i);
         }
     }
     // fill closing Lane Reroutes
     for (auto i : myEditedAdditional->getAdditionalChilds()) {
-        if (i->getTag() == SUMO_TAG_CLOSING_LANE_REROUTE) {
+        if (i->getTagProperty().getTag() == SUMO_TAG_CLOSING_LANE_REROUTE) {
             myClosingLaneReroutesEdited.push_back(i);
         }
     }
     // fill Dest Prob Reroutes
     for (auto i : myEditedAdditional->getAdditionalChilds()) {
-        if (i->getTag() == SUMO_TAG_DEST_PROB_REROUTE) {
+        if (i->getTagProperty().getTag() == SUMO_TAG_DEST_PROB_REROUTE) {
             myDestProbReroutesEdited.push_back(i);
         }
     }
     // fill Route Prob Reroutes
     for (auto i : myEditedAdditional->getAdditionalChilds()) {
-        if (i->getTag() == SUMO_TAG_ROUTE_PROB_REROUTE) {
+        if (i->getTagProperty().getTag() == SUMO_TAG_ROUTE_PROB_REROUTE) {
             myRouteProbReroutesEdited.push_back(i);
         }
     }
     // fill Parking Area reroutes
     for (auto i : myEditedAdditional->getAdditionalChilds()) {
-        if (i->getTag() == SUMO_TAG_PARKING_ZONE_REROUTE) {
+        if (i->getTagProperty().getTag() == SUMO_TAG_PARKING_ZONE_REROUTE) {
             myParkingAreaRerouteEdited.push_back(i);
         }
     }
     // change default header
-    std::string typeOfOperation = myUpdatingElement ? "Edit " + toString(myEditedAdditional->getTag()) + " of " : "Create " + toString(myEditedAdditional->getTag()) + " for ";
-    changeAdditionalDialogHeader(typeOfOperation + toString(myEditedAdditional->getFirstAdditionalParent()->getTag()) + " '" + myEditedAdditional->getFirstAdditionalParent()->getID() + "'");
+    std::string typeOfOperation = myUpdatingElement ? "Edit " + toString(myEditedAdditional->getTagProperty().getTag()) + " of " : "Create " + toString(myEditedAdditional->getTagProperty().getTag()) + " for ";
+    changeAdditionalDialogHeader(typeOfOperation + toString(myEditedAdditional->getFirstAdditionalParent()->getTagProperty().getTag()) + " '" + myEditedAdditional->getFirstAdditionalParent()->getID() + "'");
 
     // Create auxiliar frames for tables
     FXHorizontalFrame* columns = new FXHorizontalFrame(myContentFrame, GUIDesignUniformHorizontalFrame);
@@ -137,7 +137,7 @@ GNERerouterIntervalDialog::GNERerouterIntervalDialog(GNEAdditional* rerouterInte
 
     // create horizontal frame for begin and end label
     FXHorizontalFrame* beginEndElementsLeft = new FXHorizontalFrame(columnLeft, GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(beginEndElementsLeft, (toString(SUMO_ATTR_BEGIN) + " and " + toString(SUMO_ATTR_END) + " of " + toString(myEditedAdditional->getTag())).c_str(), nullptr, GUIDesignLabelLeftThick);
+    new FXLabel(beginEndElementsLeft, (toString(SUMO_ATTR_BEGIN) + " and " + toString(SUMO_ATTR_END) + " of " + toString(myEditedAdditional->getTagProperty().getTag())).c_str(), nullptr, GUIDesignLabelLeftThick);
     myCheckLabel = new FXLabel(beginEndElementsLeft, "", GUIIconSubSys::getIcon(ICON_CORRECT), GUIDesignLabelIcon32x32Thicked);
 
     // create horizontal frame for begin and end text fields
@@ -221,13 +221,13 @@ GNERerouterIntervalDialog::~GNERerouterIntervalDialog() {}
 long
 GNERerouterIntervalDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     // set strings for dialogs
-    std::string errorTitle = "Error" + toString(myUpdatingElement ? "updating" : "creating") + " " + toString(myEditedAdditional->getTag()) + " of " + toString(myEditedAdditional->getFirstAdditionalParent()->getTag());
-    std::string operationType = toString(myEditedAdditional->getFirstAdditionalParent()->getTag()) + "'s " + toString(myEditedAdditional->getTag()) + " cannot be " + (myUpdatingElement ? "updated" : "created") + " because ";
+    std::string errorTitle = "Error" + toString(myUpdatingElement ? "updating" : "creating") + " " + toString(myEditedAdditional->getTagProperty().getTag()) + " of " + toString(myEditedAdditional->getFirstAdditionalParent()->getTagProperty().getTag());
+    std::string operationType = toString(myEditedAdditional->getFirstAdditionalParent()->getTagProperty().getTag()) + "'s " + toString(myEditedAdditional->getTagProperty().getTag()) + " cannot be " + (myUpdatingElement ? "updated" : "created") + " because ";
     if (myBeginEndValid == false) {
         // write warning if netedit is running in testing mode
         WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
         // open warning Box
-        FXMessageBox::warning(getApp(), MBOX_OK, errorTitle.c_str(), "%s", (operationType + toString(myEditedAdditional->getTag()) + " defined by " + toString(SUMO_ATTR_BEGIN) + " and " + toString(SUMO_ATTR_END) + " is invalid.").c_str());
+        FXMessageBox::warning(getApp(), MBOX_OK, errorTitle.c_str(), "%s", (operationType + toString(myEditedAdditional->getTagProperty().getTag()) + " defined by " + toString(SUMO_ATTR_BEGIN) + " and " + toString(SUMO_ATTR_END) + " is invalid.").c_str());
         // write warning if netedit is running in testing mode
         WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
         return 0;
@@ -239,7 +239,7 @@ GNERerouterIntervalDialog::onCmdAccept(FXObject*, FXSelector, void*) {
         // write warning if netedit is running in testing mode
         WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
         // open warning Box
-        FXMessageBox::warning(getApp(), MBOX_OK, errorTitle.c_str(), "%s", (operationType + "at least one " + toString(myEditedAdditional->getTag()) + "'s element must be defined.").c_str());
+        FXMessageBox::warning(getApp(), MBOX_OK, errorTitle.c_str(), "%s", (operationType + "at least one " + toString(myEditedAdditional->getTagProperty().getTag()) + "'s element must be defined.").c_str());
         // write warning if netedit is running in testing mode
         WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
         return 0;

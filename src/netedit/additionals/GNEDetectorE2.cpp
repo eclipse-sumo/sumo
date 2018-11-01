@@ -240,11 +240,11 @@ GNEDetectorE2::commitGeometryMoving(GNEUndoList* undoList) {
     // commit geometry moving depending of number of lanes
     if(myLanes.size() == 1) {
         // commit new position allowing undo/redo
-        undoList->p_begin("position of " + toString(getTag()));
+        undoList->p_begin("position of " + toString(myTagProperty.getTag()));
         undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPositionOverLane), true, myMove.firstOriginalLanePosition));
         undoList->p_end();
     } else {
-        undoList->p_begin("position of " + toString(getTag()));
+        undoList->p_begin("position of " + toString(myTagProperty.getTag()));
         undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPositionOverLane), true, myMove.firstOriginalLanePosition));
         undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_ENDPOS, toString(myEndPositionOverLane), true, myMove.secondOriginalPosition));
         undoList->p_end();
@@ -457,7 +457,7 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
     // Check if the distance is enougth to draw details and isn't being drawn for selecting
     if ((s.scale * exaggeration >= 10) && !s.drawForSelecting) {
         // draw logo depending if this is an Multilane E2 detector
-        if(getTag() == SUMO_TAG_E2DETECTOR) {
+        if(myTagProperty.getTag() == SUMO_TAG_E2DETECTOR) {
             // Push matrix
             glPushMatrix();
             // Traslate to center of detector
@@ -558,7 +558,7 @@ GNEDetectorE2::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_GENERIC:
             return getGenericParametersStr();
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(toString(myTagProperty.getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -589,7 +589,7 @@ GNEDetectorE2::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(toString(myTagProperty.getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -647,7 +647,7 @@ GNEDetectorE2::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_GENERIC:
             return isGenericParametersValid(value);
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(toString(myTagProperty.getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -713,7 +713,7 @@ GNEDetectorE2::setAttribute(SumoXMLAttr key, const std::string& value) {
             setGenericParametersStr(value);
             break;
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(toString(myTagProperty.getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
     // Update Geometry after setting a new attribute (but avoided for certain attributes)
     if((key != SUMO_ATTR_ID) && (key != GNE_ATTR_GENERIC) && (key != GNE_ATTR_SELECTED)) {

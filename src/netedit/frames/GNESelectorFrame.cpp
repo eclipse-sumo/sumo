@@ -185,7 +185,7 @@ GNESelectorFrame::handleIDs(const std::vector<GNEAttributeCarrier*>& ACs, Modifi
         std::vector<GNEEdge*> edgesToSelect;
         // iterate over ACToSelect and extract edges
         for (auto i : ACToSelect) {
-            if (i.second->getTag() == SUMO_TAG_EDGE) {
+            if (i.second->getTagProperty().getTag() == SUMO_TAG_EDGE) {
                 edgesToSelect.push_back(dynamic_cast<GNEEdge*>(i.second));
             }
         }
@@ -214,12 +214,12 @@ GNESelectorFrame::handleIDs(const std::vector<GNEAttributeCarrier*>& ACs, Modifi
         // first unselect AC of ACToUnselect and then selects AC of ACToSelect
         myViewNet->getUndoList()->p_begin("selection using rectangle");
         for (auto i : ACToUnselect) {
-            if (GNEAttributeCarrier::getTagProperties(i.second->getTag()).isSelectable()) {
+            if (i.second->getTagProperty().isSelectable()) {
                 i.second->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
             }
         }
         for (auto i : ACToSelect) {
-            if (GNEAttributeCarrier::getTagProperties(i.second->getTag()).isSelectable()) {
+            if (i.second->getTagProperty().isSelectable()) {
                 i.second->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
             }
         }
@@ -966,7 +966,7 @@ GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) 
     // select additionals
     std::vector<GNEAdditional*> additionals = mySelectorFrameParent->getViewNet()->getNet()->retrieveAdditionals();
     for (auto i : additionals) {
-        if (GNEAttributeCarrier::getTagProperties(i->getTag()).isSelectable()) {
+        if (i->getTagProperty().isSelectable()) {
             i->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->getViewNet()->getUndoList());
         }
     }

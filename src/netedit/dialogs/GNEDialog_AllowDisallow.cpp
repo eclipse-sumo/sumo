@@ -58,7 +58,7 @@ GNEDialog_AllowDisallow::GNEDialog_AllowDisallow(GNEViewNet* viewNet, GNEAttribu
     FXDialogBox(viewNet->getApp(), ("Edit " + toString(SUMO_ATTR_ALLOW) + " " + toString(SUMO_ATTR_VCLASS) + "es").c_str(), GUIDesignDialogBox),
     myViewNet(viewNet),
     myAC(AC) {
-    assert(GNEAttributeCarrier::getTagProperties(AC->getTag()).hasAttribute(SUMO_ATTR_ALLOW));
+    assert(AC->getTagProperty().hasAttribute(SUMO_ATTR_ALLOW));
     // set vehicle icon for this dialog
     setIcon(GUIIconSubSys::getIcon(ICON_GREENVEHICLE));
     // create main frame

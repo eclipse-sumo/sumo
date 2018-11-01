@@ -232,7 +232,7 @@ GNETAZFrame::TAZEdgesSelector::updateList() {
                 TAZChilds[i->getAttribute(SUMO_ATTR_EDGE)] = std::make_pair(nullptr, nullptr);
             }
             // set TAZChilds depending of TAZ child type
-            if(i->getTag() == SUMO_TAG_TAZSOURCE) {
+            if(i->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) {
                 TAZChilds.at(i->getAttribute(SUMO_ATTR_EDGE)).first = i;
             } else {
                 TAZChilds.at(i->getAttribute(SUMO_ATTR_EDGE)).second = i;
@@ -815,7 +815,7 @@ GNETAZFrame::buildShape() {
             std::vector<std::string> edgeIDs;
             auto ACsInBoundary = myViewNet->getAttributeCarriersInBoundary(shape.getBoxBoundary(), true);
             for (auto i : ACsInBoundary) {
-                if(i.second->getTag() == SUMO_TAG_EDGE) {
+                if(i.second->getTagProperty().getTag() == SUMO_TAG_EDGE) {
                     edgeIDs.push_back(i.first);
                 }
             }
