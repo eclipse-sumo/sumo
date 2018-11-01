@@ -21,6 +21,7 @@
 /cmake-build*
 /cmake_build*
 /build/cmake-build*
+/build/cmake_build*
 /build/cmake-codeblocks*
 # bin dir
 /bin/TraCITestClient*
