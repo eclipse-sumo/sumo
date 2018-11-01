@@ -286,9 +286,12 @@ install(DIRECTORY tools/ DESTINATION share/sumo/tools
         PATTERN "sumolib4matlab/src" EXCLUDE
         PATTERN "traas" EXCLUDE
         PATTERN "traci4matlab/src" EXCLUDE
-        PATTERN ".git" EXCLUDE
-       )
+        PATTERN ".git" EXCLUDE)
 install(CODE "execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink ../../bin $ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/share/sumo/bin)")
+install(CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/build/setup-sumolib.py clean --all install --prefix $ENV{DESTDIR}${CMAKE_INSTALL_PREFIX})"
+        COMPONENT pysumolib)
+install(CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/build/setup-traci.py clean --all install --prefix $ENV{DESTDIR}${CMAKE_INSTALL_PREFIX})"
+        COMPONENT pytraci)
 
 # doc targets
 add_custom_target(doxygen

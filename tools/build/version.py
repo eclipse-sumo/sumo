@@ -64,7 +64,7 @@ def main():
     if len(sys.argv) > 1:
         versionDir = sys.argv[1]
         if sys.argv[1] == "-":
-            print(gitDescribe(gitDir=vcsDir))
+            sys.stdout.write(gitDescribe(gitDir=vcsDir))
             return
     else:
         versionDir = join(sumoRoot, "src")

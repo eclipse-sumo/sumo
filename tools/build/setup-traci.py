@@ -14,26 +14,26 @@
 # @version $Id$
 
 
-from setuptools import setup, find_packages
+from setuptools import setup
+import os
+import version
 
-VERSION = '0.31.0'
+SUMO_VERSION = version.gitDescribe()[1:-11].replace("_", ".").replace("+", ".")
+package_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 
 setup(
     name='traci',
-
-    version=VERSION,
-
+    version=SUMO_VERSION,
     url='http://sumo.dlr.de/wiki/TraCI/Interfacing_TraCI_from_Python',
     author='DLR and contributors',
     author_email='sumo@dlr.de',
-
-    license='EPL v2',
+    license='EPL-2.0',
 
     classifiers=[
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
         'Intended Audience :: Science/Research',
-        'LICENSE :: OSI Approved :: Eclipse Public License v2 (EPLv2)',
+        'LICENSE :: OSI Approved :: Eclipse Public License v2 (EPL-2.0)',
         'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
@@ -41,19 +41,12 @@ setup(
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
     ],
-
     keywords='traffic simulation traci sumo',
 
-    # automatically find packages
-    packages=find_packages(include=["traci", "traci.*"]),
+    packages=["traci"],
+    package_dir={'': package_dir},
 
-    script_name='./build/setup-traci.py',
-    data_files=['./build/setup-traci.py'],
-
-    # TODO: check requirements
-    install_requires=['sumolib>=%s' % VERSION],
-
-    # TODO: add extra dependencies for testing
-    extras_require={}
+    install_requires=['sumolib>='+SUMO_VERSION],
 )

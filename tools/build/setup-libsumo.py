@@ -7,14 +7,14 @@
 # http://www.eclipse.org/legal/epl-v20.html
 # SPDX-License-Identifier: EPL-2.0
 
-# @file    setup-sumolib.py
-# @author  Dominik Buse
+# @file    setup.py.in
+# @author  Benjamin Striner
 # @author  Michael Behrisch
 # @date    2017-01-26
 # @version $Id$
 
 
-from setuptools import setup, find_packages
+from setuptools import setup
 import os
 import version
 
@@ -22,9 +22,9 @@ SUMO_VERSION = version.gitDescribe()[1:-11].replace("_", ".").replace("+", ".")
 package_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 
 setup(
-    name='sumolib',
+    name='libsumo',
     version=SUMO_VERSION,
-    url='http://sumo.dlr.de/wiki/Tools/Sumolib',
+    url='http://sumo.dlr.de/wiki/Libsumo',
     author='DLR and contributors',
     author_email='sumo@dlr.de',
     license='EPL-2.0',
@@ -45,11 +45,7 @@ setup(
     ],
     keywords='traffic simulation traci sumo',
 
-    packages=find_packages(package_dir, include=["sumolib", "sumolib.*"]),
+    packages=['libsumo'],
     package_dir={'': package_dir},
-
-    # TODO: add extra dependencies for testing
-    extras_require={
-        'visualization': ['matplotlib'],
-    }
+    package_data={'libsumo': ['*.pyd', '*.so', '*.dylib']}
 )
