@@ -370,6 +370,11 @@ protected:
         /// @brief draw lock icon
         void draw(double size = 0.5) const;
 
+    private:
+        /// @brief pointer to additional parent
+        GNEAdditional *myAdditional;
+
+    public:
         /// @brief position of the block icon
         Position position;
 
@@ -378,10 +383,6 @@ protected:
 
         /// @brief The rotation of the block icon
         double rotation;
-
-    private:
-        /// @brief pointer to additional parent
-        GNEAdditional *myAdditional;
     };
 
     /// @brief struct for pack all variables and functions relative to connections between Additionals and their childs

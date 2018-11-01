@@ -137,14 +137,14 @@ public:
             /// @brief pointer to Edges TAZSelector Parent
             TAZEdgesSelector *myTAZEdgesSelectorParent;
 
+            /// @brief pointer to Parent's edge
+            GNEEdge *myEdge;
+
             /// @brief pointer to edited TAZ Source
             GNEAdditional *myEditedTAZSource;
 
             /// @brief pointer to edited TAZ Sink
             GNEAdditional *myEditedTAZSink;
-
-            /// @brief pointer to Parent's edge
-            GNEEdge *myEdge;
 
             /// @brief edge label
             FXLabel *myEdgeLabel;

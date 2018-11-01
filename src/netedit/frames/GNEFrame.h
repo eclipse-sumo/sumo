@@ -80,14 +80,14 @@ public:
         /// @brief comboBox with the list of elements type
         FXComboBox* myTypeMatchBox;
 
-        /// @brief actual type selected in the match Box (if invalid, it takes SUMO_TAG_NOTHING)
-        SumoXMLTag myCurrentType;
-
         /// @brief set of tags (NetElements, Additionals, Shapes...)
         GNEAttributeCarrier::TAGProperty myTagPropertyType;
 
         /// @brief show only drawable elements
         bool myOnlyDrawables;
+
+        /// @brief actual type selected in the match Box (if invalid, it takes SUMO_TAG_NOTHING)
+        SumoXMLTag myCurrentType;
     };
 
     /// @brief class declaration
@@ -351,6 +351,9 @@ public:
         GenericParametersEditor() {}
 
     private:
+        /// @brief pointer to inspector frame parent
+        GNEFrame* myFrameParent;
+
         /// @brief edited Attribute Carrier
         GNEAttributeCarrier* myAC;
 
@@ -359,9 +362,6 @@ public:
 
         /// @brief pointer to current vector of generic parameters
         std::vector<std::pair<std::string, std::string> >* myGenericParameters;
-
-        /// @brief pointer to inspector frame parent
-        GNEFrame* myFrameParent;
 
         /// @brief text field for write generic parameter
         FXTextField* myTextFieldGenericParameter;
@@ -496,7 +496,7 @@ public:
 
     private:
         /// @brief list of the reference points
-        enum additionalReferencePoint {
+        enum AdditionalReferencePoint {
             GNE_ADDITIONALREFERENCEPOINT_LEFT,
             GNE_ADDITIONALREFERENCEPOINT_RIGHT,
             GNE_ADDITIONALREFERENCEPOINT_CENTER,
@@ -546,7 +546,7 @@ public:
         bool myCurrentLengthValid;
 
         /// @brief actual additional reference point selected in the match Box
-        additionalReferencePoint myActualAdditionalReferencePoint;
+        AdditionalReferencePoint myActualAdditionalReferencePoint;
     };
 
     /**@brief Constructor

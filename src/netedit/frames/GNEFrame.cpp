@@ -1329,9 +1329,9 @@ GNEFrame::DrawingShape::onCmdAbortDrawing(FXObject*, FXSelector, void*) {
 
 GNEFrame::NeteditAttributes::NeteditAttributes(GNEFrame* frameParent) :
     FXGroupBox(frameParent->myContentFrame, "Netedit attributes", GUIDesignGroupBoxFrame),
-    myActualAdditionalReferencePoint(GNE_ADDITIONALREFERENCEPOINT_LEFT),
     myFrameParent(frameParent),
-    myCurrentLengthValid(true) {
+    myCurrentLengthValid(true),
+    myActualAdditionalReferencePoint(GNE_ADDITIONALREFERENCEPOINT_LEFT) {
     // Create FXListBox for the reference points and fill it
     myReferencePointMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBox);
     myReferencePointMatchBox->appendItem("reference left");

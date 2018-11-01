@@ -211,8 +211,15 @@ public:
     std::string phase;
     int next;
 };
+}
 
 
+#ifdef SWIG
+%template(TraCIPhaseVector) std::vector<libsumo::TraCIPhase>;
+#endif
+
+
+namespace libsumo {
 class TraCILogic {
 public:
     TraCILogic() {}
