@@ -80,7 +80,7 @@ GNEChange_Additional::~GNEChange_Additional() {
     myAdditional->decRef("GNEChange_Additional");
     if (myAdditional->unreferenced()) {
         // show extra information for tests
-        WRITE_DEBUG("Deleting unreferenced " + toString(myAdditional->getTagProperty().getTag()) + " '" + myAdditional->getID() + "'");
+        WRITE_DEBUG("Deleting unreferenced " + myAdditional->getTagStr() + " '" + myAdditional->getID() + "'");
         // make sure that additional isn't in net before removing
         if (myNet->retrieveAdditional(myAdditional->getTagProperty().getTag(), myAdditional->getID(), false)) {
             myNet->deleteAdditional(myAdditional);
@@ -94,7 +94,7 @@ void
 GNEChange_Additional::undo() {
     if (myForward) {
         // show extra information for tests
-        WRITE_DEBUG("Removing " + toString(myAdditional->getTagProperty().getTag()) + " '" + myAdditional->getID() + "' in GNEChange_Additional");
+        WRITE_DEBUG("Removing " + myAdditional->getTagStr() + " '" + myAdditional->getID() + "' in GNEChange_Additional");
         // delete additional of test
         myNet->deleteAdditional(myAdditional);
         // 1 - If additional own a lane parent, remove it from lane
@@ -123,7 +123,7 @@ GNEChange_Additional::undo() {
         }
     } else {
         // show extra information for tests
-        WRITE_DEBUG("Adding " + toString(myAdditional->getTagProperty().getTag()) + " '" + myAdditional->getID() + "' in GNEChange_Additional");
+        WRITE_DEBUG("Adding " + myAdditional->getTagStr() + " '" + myAdditional->getID() + "' in GNEChange_Additional");
         // insert additional of test
         myNet->insertAdditional(myAdditional);
         // 1 - If additional own a Lane parent, add it to lane
@@ -164,7 +164,7 @@ void
 GNEChange_Additional::redo() {
     if (myForward) {
         // show extra information for tests
-        WRITE_DEBUG("Adding " + toString(myAdditional->getTagProperty().getTag()) + " '" + myAdditional->getID() + "' in GNEChange_Additional");
+        WRITE_DEBUG("Adding " + myAdditional->getTagStr() + " '" + myAdditional->getID() + "' in GNEChange_Additional");
         // insert additional into net
         myNet->insertAdditional(myAdditional);
         // 1 - If additional own a Lane parent, add it to lane
@@ -193,7 +193,7 @@ GNEChange_Additional::redo() {
         }
     } else {
         // show extra information for tests
-        WRITE_DEBUG("Removing " + toString(myAdditional->getTagProperty().getTag()) + " '" + myAdditional->getID() + "' in GNEChange_Additional");
+        WRITE_DEBUG("Removing " + myAdditional->getTagStr() + " '" + myAdditional->getID() + "' in GNEChange_Additional");
         // delete additional of test
         myNet->deleteAdditional(myAdditional);
         // 1 - If additional own a lane parent, remove it from lane
@@ -233,9 +233,9 @@ GNEChange_Additional::redo() {
 FXString
 GNEChange_Additional::undoName() const {
     if (myForward) {
-        return ("Undo create " + toString(myAdditional->getTagProperty().getTag())).c_str();
+        return ("Undo create " + myAdditional->getTagStr()).c_str();
     } else {
-        return ("Undo delete " + toString(myAdditional->getTagProperty().getTag())).c_str();
+        return ("Undo delete " + myAdditional->getTagStr()).c_str();
     }
 }
 
@@ -243,8 +243,8 @@ GNEChange_Additional::undoName() const {
 FXString
 GNEChange_Additional::redoName() const {
     if (myForward) {
-        return ("Redo create " + toString(myAdditional->getTagProperty().getTag())).c_str();
+        return ("Redo create " + myAdditional->getTagStr()).c_str();
     } else {
-        return ("Redo delete " + toString(myAdditional->getTagProperty().getTag())).c_str();
+        return ("Redo delete " + myAdditional->getTagStr()).c_str();
     }
 }

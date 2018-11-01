@@ -57,7 +57,7 @@ void
 GNENetElement::addAdditionalParent(GNEAdditional* additional) {
     // First check that additional wasn't already inserted
     if (std::find(myFirstAdditionalParents.begin(), myFirstAdditionalParents.end(), additional) != myFirstAdditionalParents.end()) {
-        throw ProcessError(toString(additional->getTagProperty().getTag()) + " with ID='" + additional->getID() + "' was already inserted in " + toString(myTagProperty.getTag()) + " with ID='" + getID() + "'");
+        throw ProcessError(additional->getTagStr() + " with ID='" + additional->getID() + "' was already inserted in " + getTagStr() + " with ID='" + getID() + "'");
     } else {
         myFirstAdditionalParents.push_back(additional);
         // update geometry is needed for stacked additionals (routeProbes and Vaporicers)
@@ -71,7 +71,7 @@ GNENetElement::removeAdditionalParent(GNEAdditional* additional) {
     // First check that additional was already inserted
     auto it = std::find(myFirstAdditionalParents.begin(), myFirstAdditionalParents.end(), additional);
     if (it == myFirstAdditionalParents.end()) {
-        throw ProcessError(toString(additional->getTagProperty().getTag()) + " with ID='" + additional->getID() + "' doesn't exist in " + toString(myTagProperty.getTag()) + " with ID='" + getID() + "'");
+        throw ProcessError(additional->getTagStr() + " with ID='" + additional->getID() + "' doesn't exist in " + getTagStr() + " with ID='" + getID() + "'");
     } else {
         myFirstAdditionalParents.erase(it);
         // update geometry is needed for stacked additionals (routeProbes and Vaporizers)
@@ -84,7 +84,7 @@ void
 GNENetElement::addAdditionalChild(GNEAdditional* additional) {
     // First check that additional wasn't already inserted
     if (std::find(myAdditionalChilds.begin(), myAdditionalChilds.end(), additional) != myAdditionalChilds.end()) {
-        throw ProcessError(toString(additional->getTagProperty().getTag()) + " with ID='" + additional->getID() + "' was already inserted in " + toString(myTagProperty.getTag()) + " with ID='" + getID() + "'");
+        throw ProcessError(additional->getTagStr() + " with ID='" + additional->getID() + "' was already inserted in " + getTagStr() + " with ID='" + getID() + "'");
     } else {
         myAdditionalChilds.push_back(additional);
         // update geometry is needed for stacked additionals (routeProbes and Vaporicers)
@@ -98,7 +98,7 @@ GNENetElement::removeAdditionalChild(GNEAdditional* additional) {
     // First check that additional was already inserted
     auto it = std::find(myAdditionalChilds.begin(), myAdditionalChilds.end(), additional);
     if (it == myAdditionalChilds.end()) {
-        throw ProcessError(toString(additional->getTagProperty().getTag()) + " with ID='" + additional->getID() + "' doesn't exist in " + toString(myTagProperty.getTag()) + " with ID='" + getID() + "'");
+        throw ProcessError(additional->getTagStr() + " with ID='" + additional->getID() + "' doesn't exist in " + getTagStr() + " with ID='" + getID() + "'");
     } else {
         myAdditionalChilds.erase(it);
         // update geometry is needed for stacked additionals (routeProbes and Vaporizers)
@@ -180,7 +180,7 @@ GNENetElement::getPopUpID() const {
     if (myTagProperty.getTag() == SUMO_TAG_CONNECTION) {
         return getAttribute(SUMO_ATTR_FROM) + "_" + getAttribute(SUMO_ATTR_FROM_LANE) + " -> " + getAttribute(SUMO_ATTR_TO) + "_" + getAttribute(SUMO_ATTR_TO_LANE);
     } else {
-        return toString(myTagProperty.getTag()) + ": " + getID();
+        return getTagStr() + ": " + getID();
     }
 }
 
@@ -194,7 +194,7 @@ GNENetElement::getHierarchyName() const {
     } else if (myTagProperty.getTag() == SUMO_TAG_CROSSING) {
         return toString(SUMO_TAG_CROSSING) + " " + getAttribute(SUMO_ATTR_ID);
     } else {
-        return toString(myTagProperty.getTag());
+        return getTagStr();
     }
 }
 

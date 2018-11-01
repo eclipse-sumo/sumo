@@ -198,7 +198,7 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
         if (myInspectedACs.size() > 1) {
             headerString += toString(myInspectedACs.size()) + " ";
         }
-        headerString += toString(myInspectedACs.front()->getTagProperty().getTag());
+        headerString += myInspectedACs.front()->getTagStr();
         if (myInspectedACs.size() > 1) {
             headerString += "s";
         }
@@ -1052,7 +1052,7 @@ GNEInspectorFrame::NeteditAttributesEditor::showNeteditAttributesEditor() {
             // show additional parent frame
             myHorizontalFrameAdditionalParent->show();
             // set Label and TextField with the Tag and ID of parent
-            myLabelAdditionalParent->setText((toString(additional->getTagProperty().getTag()) + " parent").c_str());
+            myLabelAdditionalParent->setText((additional->getTagStr() + " parent").c_str());
             myTextFieldAdditionalParent->setText(additional->getID().c_str());
         }
     }

@@ -82,7 +82,7 @@ GNEJunction::~GNEJunction() {
         it->decRef();
         if (it->unreferenced()) {
             // show extra information for tests
-            WRITE_DEBUG("Deleting unreferenced " + toString(it->getTagProperty().getTag()) + " '" + it->getID() + "' in GNEJunction destructor");
+            WRITE_DEBUG("Deleting unreferenced " + it->getTagStr() + " '" + it->getID() + "' in GNEJunction destructor");
             delete it;
         }
     }
@@ -161,7 +161,7 @@ GNEJunction::rebuildGNECrossings(bool rebuildNBNodeCrossings) {
             }
             if (it->unreferenced()) {
                 // show extra information for tests
-                WRITE_DEBUG("Deleting unreferenced " + toString(it->getTagProperty().getTag()) + " in rebuildGNECrossings()");
+                WRITE_DEBUG("Deleting unreferenced " + it->getTagStr() + " in rebuildGNECrossings()");
                 delete it;
             }
         }
@@ -368,7 +368,7 @@ GNEJunction::addIncomingGNEEdge(GNEEdge* edge) {
     // Check if incoming edge was already inserted
     std::vector<GNEEdge*>::iterator i = std::find(myGNEIncomingEdges.begin(), myGNEIncomingEdges.end(), edge);
     if (i != myGNEIncomingEdges.end()) {
-        throw InvalidArgument("Incoming " + toString(SUMO_TAG_EDGE) + " with ID '" + edge->getID() + "' was already inserted into " + toString(myTagProperty.getTag()) + " with ID " + getID() + "'");
+        throw InvalidArgument("Incoming " + toString(SUMO_TAG_EDGE) + " with ID '" + edge->getID() + "' was already inserted into " + getTagStr() + " with ID " + getID() + "'");
     } else {
         // Add edge into containers
         myGNEIncomingEdges.push_back(edge);
@@ -383,7 +383,7 @@ GNEJunction::addOutgoingGNEEdge(GNEEdge* edge) {
     // Check if outgoing edge was already inserted
     std::vector<GNEEdge*>::iterator i = std::find(myGNEOutgoingEdges.begin(), myGNEOutgoingEdges.end(), edge);
     if (i != myGNEOutgoingEdges.end()) {
-        throw InvalidArgument("Outgoing " + toString(SUMO_TAG_EDGE) + " with ID '" + edge->getID() + "' was already inserted into " + toString(myTagProperty.getTag()) + " with ID " + getID() + "'");
+        throw InvalidArgument("Outgoing " + toString(SUMO_TAG_EDGE) + " with ID '" + edge->getID() + "' was already inserted into " + getTagStr() + " with ID " + getID() + "'");
     } else {
         // Add edge into containers
         myGNEOutgoingEdges.push_back(edge);
@@ -397,7 +397,7 @@ GNEJunction::removeIncomingGNEEdge(GNEEdge* edge) {
     // Check if incoming edge was already inserted
     std::vector<GNEEdge*>::iterator i = std::find(myGNEIncomingEdges.begin(), myGNEIncomingEdges.end(), edge);
     if (i == myGNEIncomingEdges.end()) {
-        throw InvalidArgument("Incoming " + toString(SUMO_TAG_EDGE) + " with ID '" + edge->getID() + "' doesn't found into " + toString(myTagProperty.getTag()) + " with ID " + getID() + "'");
+        throw InvalidArgument("Incoming " + toString(SUMO_TAG_EDGE) + " with ID '" + edge->getID() + "' doesn't found into " + getTagStr() + " with ID " + getID() + "'");
     } else {
         // remove edge from containers
         myGNEIncomingEdges.erase(i);
@@ -411,7 +411,7 @@ GNEJunction::removeOutgoingGNEEdge(GNEEdge* edge) {
     // Check if outgoing edge was already inserted
     std::vector<GNEEdge*>::iterator i = std::find(myGNEOutgoingEdges.begin(), myGNEOutgoingEdges.end(), edge);
     if (i == myGNEOutgoingEdges.end()) {
-        throw InvalidArgument("Outgoing " + toString(SUMO_TAG_EDGE) + " with ID '" + edge->getID() + "' doesn't found into " + toString(myTagProperty.getTag()) + " with ID " + getID() + "'");
+        throw InvalidArgument("Outgoing " + toString(SUMO_TAG_EDGE) + " with ID '" + edge->getID() + "' doesn't found into " + getTagStr() + " with ID " + getID() + "'");
     } else {
         // remove edge from containers
         myGNEOutgoingEdges.erase(i);
@@ -579,7 +579,7 @@ GNEJunction::moveGeometry(const Position& oldPos, const Position& offset) {
 void
 GNEJunction::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
     if (isValid(SUMO_ATTR_POSITION, toString(myNBNode.getPosition()))) {
-        undoList->p_begin("position of " + toString(myTagProperty.getTag()));
+        undoList->p_begin("position of " + getTagStr());
         undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myNBNode.getPosition()), true, toString(oldPos)));
         undoList->p_end();
     } else {
@@ -889,7 +889,7 @@ GNEJunction::retrieveGNECrossing(NBNode::Crossing* crossing, bool createIfNoExis
         // create new GNECrossing
         GNECrossing* createdGNECrossing = new GNECrossing(this, crossing->edges);
         // show extra information for tests
-        WRITE_DEBUG("Created " + toString(createdGNECrossing->getTagProperty().getTag()) + " '" + createdGNECrossing->getID() + "' in retrieveGNECrossing()");
+        WRITE_DEBUG("Created " + createdGNECrossing->getTagStr() + " '" + createdGNECrossing->getID() + "' in retrieveGNECrossing()");
         // insert it in Tree
         myNet->addGLObjectIntoGrid(createdGNECrossing);
         // update geometry after creating
@@ -956,7 +956,7 @@ GNEJunction::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_GENERIC:
             return getGenericParametersStr();
         default:
-            throw InvalidArgument(toString(myTagProperty.getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -989,7 +989,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
             undoList->p_end();
             break;
         case SUMO_ATTR_TYPE: {
-            undoList->p_begin("change " + toString(myTagProperty.getTag()) + " type");
+            undoList->p_begin("change " + getTagStr() + " type");
             if (NBNode::isTrafficLight(SUMOXMLDefinitions::NodeTypes.get(value))) {
                 if (getNBNode()->isTLControlled() &&
                         // if switching changing from or to traffic_light_right_on_red we need to remove the old plan
@@ -1082,7 +1082,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
             break;
         }
         default:
-            throw InvalidArgument(toString(myTagProperty.getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -1112,7 +1112,7 @@ GNEJunction::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_GENERIC:
             return isGenericParametersValid(value);
         default:
-            throw InvalidArgument(toString(myTagProperty.getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -1239,7 +1239,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
             setGenericParametersStr(value);
             break;
         default:
-            throw InvalidArgument(toString(myTagProperty.getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
     // Update Geometry after setting a new attribute (but avoided for certain attributes)
     if((key != SUMO_ATTR_ID) && (key != GNE_ATTR_GENERIC) && (key != GNE_ATTR_SELECTED)) {

@@ -255,6 +255,9 @@ public:
   
         /// @brief get Tag vinculated with this attribute Property
         SumoXMLTag getTag() const;
+        
+        /// @brief get Tag vinculated with this attribute Property in String Format (used to avoid multiple calls to toString(...)
+        const std::string &getTagStr() const;
 
         /// @brief check Tag integrity (this include all their attributes)
         void checkTagIntegrity() const;
@@ -389,6 +392,9 @@ public:
         /// @brief Sumo XML Tag vinculated wit this tag Property
         SumoXMLTag myTag;
 
+        /// @brief Sumo XML Tag vinculated wit this tag Property in String format
+        std::string myTagStr;
+
         /// @brief Property of attribute
         int myTagProperty;
 
@@ -479,6 +485,8 @@ public:
 
     /// @brief get XML Tag assigned to this object
     //SumoXMLTag getTag() const;
+
+    const std::string &getTagStr() const;
 
     /// @brief get Tag Proprty assigned to this object
     const TagProperties &getTagProperty() const;

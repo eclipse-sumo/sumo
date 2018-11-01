@@ -177,7 +177,7 @@ void
 GNEStoppingPlace::commitGeometryMoving(GNEUndoList* undoList) {
     // only commit geometry moving if at leats start or end positions is defined
     if (!myStartPosition.empty() || !myEndPosition.empty()) {
-        undoList->p_begin("position of " + toString(myTagProperty.getTag()));
+        undoList->p_begin("position of " + getTagStr());
         if (!myStartPosition.empty()) {
             undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_STARTPOS, myStartPosition, true, myMove.firstOriginalLanePosition));
         }
@@ -269,13 +269,13 @@ GNEStoppingPlace::setStoppingPlaceGeometry(double movingToSide) {
 
 std::string
 GNEStoppingPlace::getPopUpID() const {
-    return toString(myTagProperty.getTag()) + ": " + getID();
+    return getTagStr() + ": " + getID();
 }
 
 
 std::string
 GNEStoppingPlace::getHierarchyName() const {
-    return toString(myTagProperty.getTag());
+    return getTagStr();
 }
 
 /****************************************************************************/

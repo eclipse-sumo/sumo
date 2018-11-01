@@ -99,7 +99,7 @@ GNEChange_Attribute::~GNEChange_Attribute() {
     myAC->decRef("GNEChange_Attribute " + toString(myKey));
     if (myAC->unreferenced()) {
         // show extra information for tests
-        WRITE_DEBUG("Deleting unreferenced " + toString(myAC->getTagProperty().getTag()) + " '" + myAC->getID() + "' in GNEChange_Attribute");
+        WRITE_DEBUG("Deleting unreferenced " + myAC->getTagStr() + " '" + myAC->getID() + "' in GNEChange_Attribute");
         // Check if attribute carrier is a shape
         if (myShape) {
             // remove shape using pecify functions
@@ -118,7 +118,7 @@ GNEChange_Attribute::~GNEChange_Attribute() {
 void
 GNEChange_Attribute::undo() {
     // show extra information for tests
-    WRITE_DEBUG("Setting previous attribute " + toString(myKey) + " '" + myOrigValue + "' into " + toString(myAC->getTagProperty().getTag()) + " '" + myAC->getID() + "'");
+    WRITE_DEBUG("Setting previous attribute " + toString(myKey) + " '" + myOrigValue + "' into " + myAC->getTagStr() + " '" + myAC->getID() + "'");
     // set original value
     myAC->setAttribute(myKey, myOrigValue);
     // check if netElements, additional or shapes has to be saved (only if key isn't GNE_ATTR_SELECTED)
@@ -137,7 +137,7 @@ GNEChange_Attribute::undo() {
 void
 GNEChange_Attribute::redo() {
     // show extra information for tests
-    WRITE_DEBUG("Setting new attribute " + toString(myKey) + " '" + myNewValue + "' into " + toString(myAC->getTagProperty().getTag()) + " '" + myAC->getID() + "'");
+    WRITE_DEBUG("Setting new attribute " + toString(myKey) + " '" + myNewValue + "' into " + myAC->getTagStr() + " '" + myAC->getID() + "'");
     // set new value
     myAC->setAttribute(myKey, myNewValue);
     // check if netElements, additional or shapes has to be saved (only if key isn't GNE_ATTR_SELECTED)
@@ -161,13 +161,13 @@ GNEChange_Attribute::trueChange() {
 
 FXString
 GNEChange_Attribute::undoName() const {
-    return ("Undo change " + toString(myAC->getTagProperty().getTag()) + " attribute").c_str();
+    return ("Undo change " + myAC->getTagStr() + " attribute").c_str();
 }
 
 
 FXString
 GNEChange_Attribute::redoName() const {
-    return ("Redo change " + toString(myAC->getTagProperty().getTag()) + " attribute").c_str();
+    return ("Redo change " + myAC->getTagStr() + " attribute").c_str();
 }
 
 

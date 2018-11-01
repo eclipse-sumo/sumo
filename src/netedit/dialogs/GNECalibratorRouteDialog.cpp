@@ -57,7 +57,7 @@ GNECalibratorRouteDialog::GNECalibratorRouteDialog(GNEAdditional* editedCalibrat
     myCalibratorRouteValid(true) {
     // change default header
     std::string typeOfOperation =  + " for ";
-    changeAdditionalDialogHeader(myUpdatingElement ? "Edit " + toString(myEditedAdditional->getTagProperty().getTag()) + " of " : "Create " + toString(myEditedAdditional->getTagProperty().getTag()));
+    changeAdditionalDialogHeader(myUpdatingElement ? "Edit " + myEditedAdditional->getTagStr() + " of " : "Create " + myEditedAdditional->getTagStr());
 
     // Create auxiliar frames for data
     FXHorizontalFrame* columns = new FXHorizontalFrame(myContentFrame, GUIDesignUniformHorizontalFrame);
@@ -105,7 +105,7 @@ GNECalibratorRouteDialog::onCmdAccept(FXObject*, FXSelector, void*) {
         WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
         std::string operation1 = myUpdatingElement ? ("updating") : ("creating");
         std::string operation2 = myUpdatingElement ? ("updated") : ("created");
-        std::string tagString = toString(myEditedAdditional->getTagProperty().getTag());
+        std::string tagString = myEditedAdditional->getTagStr();
         // open warning dialog box
         FXMessageBox::warning(getApp(), MBOX_OK,
                               ("Error " + operation1 + " " + tagString).c_str(), "%s",

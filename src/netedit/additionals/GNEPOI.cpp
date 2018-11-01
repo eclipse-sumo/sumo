@@ -144,11 +144,11 @@ GNEPOI::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
         if (myGNELane) {
             // restore old position before commit new position
             double originalPosOverLane = myGNELane->getShape().nearest_offset_to_point2D(oldPos, false);
-            undoList->p_begin("position of " + toString(myTagProperty.getTag()));
+            undoList->p_begin("position of " + getTagStr());
             undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPosOverLane), true, toString(originalPosOverLane)));
             undoList->p_end();
         } else {
-            undoList->p_begin("position of " + toString(myTagProperty.getTag()));
+            undoList->p_begin("position of " + getTagStr());
             undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myNewPosition), true, toString(oldPos)));
             undoList->p_end();
         }
@@ -324,7 +324,7 @@ GNEPOI::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_GENERIC:
             return getGenericParametersStr();
         default:
-            throw InvalidArgument(toString(myTagProperty.getTag()) + " attribute '" + toString(key) + "' not allowed");
+            throw InvalidArgument(getTagStr() + " attribute '" + toString(key) + "' not allowed");
     }
 }
 
@@ -355,7 +355,7 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* und
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
         default:
-            throw InvalidArgument(toString(myTagProperty.getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -412,7 +412,7 @@ GNEPOI::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_GENERIC:
             return isGenericParametersValid(value);
         default:
-            throw InvalidArgument(toString(myTagProperty.getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -580,7 +580,7 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             setGenericParametersStr(value);
             break;
         default:
-            throw InvalidArgument(toString(myTagProperty.getTag()) + " attribute '" + toString(key) + "' not allowed");
+            throw InvalidArgument(getTagStr() + " attribute '" + toString(key) + "' not allowed");
     }
     // Update Geometry after setting a new attribute (but avoided for certain attributes)
     if((key != SUMO_ATTR_ID) && (key != GNE_ATTR_GENERIC) && (key != GNE_ATTR_SELECTED)) {

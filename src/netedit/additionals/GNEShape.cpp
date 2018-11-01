@@ -134,13 +134,13 @@ GNEShape::isAttributeCarrierSelected() const {
 
 std::string
 GNEShape::getPopUpID() const {
-    return toString(myTagProperty.getTag()) + ": " + getID();
+    return getTagStr() + ": " + getID();
 }
 
 
 std::string
 GNEShape::getHierarchyName() const {
-    return toString(myTagProperty.getTag());
+    return getTagStr();
 }
 
 

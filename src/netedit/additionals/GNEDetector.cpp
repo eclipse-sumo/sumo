@@ -99,13 +99,13 @@ GNEDetector::getParentName() const {
 
 std::string
 GNEDetector::getPopUpID() const {
-    return toString(myTagProperty.getTag()) + ": " + getID();
+    return getTagStr() + ": " + getID();
 }
 
 
 std::string
 GNEDetector::getHierarchyName() const {
-    return toString(myTagProperty.getTag());
+    return getTagStr();
 }
 
 /****************************************************************************/

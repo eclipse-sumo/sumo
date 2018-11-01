@@ -100,7 +100,7 @@ GNEEdge::~GNEEdge() {
         i->decRef("GNEEdge::~GNEEdge");
         if (i->unreferenced()) {
             // show extra information for tests
-            WRITE_DEBUG("Deleting unreferenced " + toString(i->getTagProperty().getTag()) + " '" + i->getID() + "' in GNEEdge destructor");
+            WRITE_DEBUG("Deleting unreferenced " + i->getTagStr() + " '" + i->getID() + "' in GNEEdge destructor");
             delete i;
         }
     }
@@ -109,7 +109,7 @@ GNEEdge::~GNEEdge() {
         i->decRef("GNEEdge::~GNEEdge");
         if (i->unreferenced()) {
             // show extra information for tests
-            WRITE_DEBUG("Deleting unreferenced " + toString(i->getTagProperty().getTag()) + " '" + i->getID() + "' in GNEEdge destructor");
+            WRITE_DEBUG("Deleting unreferenced " + i->getTagStr() + " '" + i->getID() + "' in GNEEdge destructor");
             delete i;
         }
     }
@@ -198,7 +198,7 @@ GNEEdge::commitShapeStartChange(const Position& oldPos, GNEUndoList* undoList) {
     // restore old shape start position
     setShapeStartPos(oldPos);
     // set attribute using undolist
-    undoList->p_begin("shape start of " + toString(myTagProperty.getTag()));
+    undoList->p_begin("shape start of " + getTagStr());
     undoList->p_add(new GNEChange_Attribute(this, GNE_ATTR_SHAPE_START, toString(modifiedShapeStartPos), true, toString(oldPos)));
     undoList->p_end();
 }
@@ -211,7 +211,7 @@ GNEEdge::commitShapeEndChange(const Position& oldPos, GNEUndoList* undoList) {
     // restore old shape end position
     setShapeEndPos(oldPos);
     // set attribute using undolist
-    undoList->p_begin("shape end of " + toString(myTagProperty.getTag()));
+    undoList->p_begin("shape end of " + getTagStr());
     undoList->p_add(new GNEChange_Attribute(this, GNE_ATTR_SHAPE_END, toString(modifiedShapeEndPos), true, toString(oldPos)));
     undoList->p_end();
 }
@@ -369,7 +369,7 @@ GNEEdge::commitShapeChange(const PositionVector& oldShape, GNEUndoList* undoList
     // restore old geometry to allow change attribute (And restore shape if during movement a new point was created
     setGeometry(oldShape, true, true);
     // commit new shape
-    undoList->p_begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + toString(myTagProperty.getTag()));
+    undoList->p_begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
     undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(innerShapeToCommit)));
     undoList->p_end();
 }
@@ -710,7 +710,7 @@ GNEEdge::remakeGNEConnections() {
         it->decRef();
         if (it->unreferenced()) {
             // show extra information for tests
-            WRITE_DEBUG("Deleting unreferenced " + toString(it->getTagProperty().getTag()) + " '" + it->getID() + "' in rebuildGNEConnections()");
+            WRITE_DEBUG("Deleting unreferenced " + it->getTagStr() + " '" + it->getID() + "' in rebuildGNEConnections()");
             delete it;
         }
     }
@@ -734,7 +734,7 @@ GNEEdge::clearGNEConnections() {
         // Delete GNEConnectionToErase if is unreferenced
         if (i->unreferenced()) {
             // show extra information for tests
-            WRITE_DEBUG("Deleting unreferenced " + toString(i->getTagProperty().getTag()) + " '" + i->getID() + "' in clearGNEConnections()");
+            WRITE_DEBUG("Deleting unreferenced " + i->getTagStr() + " '" + i->getID() + "' in clearGNEConnections()");
             delete i;
         }
     }
@@ -929,7 +929,7 @@ GNEEdge::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_GENERIC:
             return getGenericParametersStr();
         default:
-            throw InvalidArgument(toString(myTagProperty.getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -950,7 +950,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_SPEED:
         case SUMO_ATTR_ALLOW:
         case SUMO_ATTR_DISALLOW: {
-            undoList->p_begin("change " + toString(myTagProperty.getTag()) + " attribute");
+            undoList->p_begin("change " + getTagStr() + " attribute");
             const std::string origValue = myLanes.at(0)->getAttribute(key); // will have intermediate value of "lane specific"
             // lane specific attributes need to be changed via lanes to allow undo
             for (auto it : myLanes) {
@@ -962,7 +962,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
             break;
         }
         case SUMO_ATTR_FROM: {
-            undoList->p_begin("change  " + toString(myTagProperty.getTag()) + "  attribute");
+            undoList->p_begin("change  " + getTagStr() + "  attribute");
             // Remove edge from crossings of junction source
             removeEdgeFromCrossings(myGNEJunctionSource, undoList);
             // continue changing from junction
@@ -981,7 +981,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
             break;
         }
         case SUMO_ATTR_TO: {
-            undoList->p_begin("change  " + toString(myTagProperty.getTag()) + "  attribute");
+            undoList->p_begin("change  " + getTagStr() + "  attribute");
             // Remove edge from crossings of junction destiny
             removeEdgeFromCrossings(myGNEJunctionDestiny, undoList);
             // continue changing destiny junction
@@ -1038,7 +1038,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case GNE_ATTR_BIDIR:
             throw InvalidArgument("Attribute of '" + toString(key) + "' cannot be modified");
         default:
-            throw InvalidArgument(toString(myTagProperty.getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -1127,7 +1127,7 @@ GNEEdge::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_GENERIC:
             return isGenericParametersValid(value);
         default:
-            throw InvalidArgument(toString(myTagProperty.getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -1299,7 +1299,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
             setGenericParametersStr(value);
             break;
         default:
-            throw InvalidArgument(toString(myTagProperty.getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
     // Update Geometry after setting a new attribute (but avoided for certain attributes)
     if((key != SUMO_ATTR_ID) && (key != GNE_ATTR_GENERIC) && (key != GNE_ATTR_SELECTED)) {
@@ -1391,7 +1391,7 @@ GNEEdge::removeLane(GNELane* lane, bool recomputeConnections) {
     // boundary of edge depends of number of lanes. We need to extract if before add or remove lane
     myNet->removeGLObjectFromGrid(this);
     if (myLanes.size() == 0) {
-        throw ProcessError("Should not remove the last " + toString(SUMO_TAG_LANE) + " from an " + toString(myTagProperty.getTag()));
+        throw ProcessError("Should not remove the last " + toString(SUMO_TAG_LANE) + " from an " + getTagStr());
     }
     if (lane == nullptr) {
         lane = myLanes.back();
@@ -1408,7 +1408,7 @@ GNEEdge::removeLane(GNELane* lane, bool recomputeConnections) {
     // Delete lane if is unreferenced
     if (lane->unreferenced()) {
         // show extra information for tests
-        WRITE_DEBUG("Deleting unreferenced " + toString(lane->getTagProperty().getTag()) + " '" + lane->getID() + "' in removeLane()");
+        WRITE_DEBUG("Deleting unreferenced " + lane->getTagStr() + " '" + lane->getID() + "' in removeLane()");
         delete lane;
     }
     // udate indices
@@ -1505,7 +1505,7 @@ GNEEdge::removeConnection(NBEdge::Connection nbCon) {
         }
         if (con->unreferenced()) {
             // show extra information for tests
-            WRITE_DEBUG("Deleting unreferenced " + toString(con->getTagProperty().getTag()) + " '" + con->getID() + "' in removeConnection()");
+            WRITE_DEBUG("Deleting unreferenced " + con->getTagStr() + " '" + con->getID() + "' in removeConnection()");
             delete con;
             // actually we only do this to force a redraw
             updateGeometry(true);
@@ -1525,7 +1525,7 @@ GNEEdge::retrieveGNEConnection(int fromLane, NBEdge* to, int toLane, bool create
         // create new connection. Will be added to the rTree on first geometry computation
         GNEConnection* createdConnection = new GNEConnection(myLanes[fromLane], myNet->retrieveEdge(to->getID())->getLanes()[toLane]);
         // show extra information for tests
-        WRITE_DEBUG("Created " + toString(createdConnection->getTagProperty().getTag()) + " '" + createdConnection->getID() + "' in retrieveGNEConnection()");
+        WRITE_DEBUG("Created " + createdConnection->getTagStr() + " '" + createdConnection->getID() + "' in retrieveGNEConnection()");
         // insert it in Tree
         myNet->addGLObjectIntoGrid(createdConnection);
         // iterate over all additionals from "from" lane and check E2 multilane integrity

@@ -98,7 +98,7 @@ GNETAZ::moveGeometry(const Position& offset) {
 void
 GNETAZ::commitGeometryMoving(GNEUndoList* undoList) {
     // commit new position allowing undo/redo
-    undoList->p_begin("position of " + toString(myTagProperty.getTag()));
+    undoList->p_begin("position of " + getTagStr());
     undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(myGeometry.shape[0]), true, toString(myMove.originalViewPosition)));
     undoList->p_end();
 }
@@ -186,7 +186,7 @@ GNETAZ::commitShapeChange(const PositionVector& oldShape, GNEUndoList* undoList)
             shapeToCommit.push_back(shapeToCommit.front());
         }
         // commit new shape
-        undoList->p_begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + toString(myTagProperty.getTag()));
+        undoList->p_begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
         undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(shapeToCommit)));
         undoList->p_end();
     }
@@ -367,7 +367,7 @@ GNETAZ::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_GENERIC:
             return getGenericParametersStr();
         default:
-            throw InvalidArgument(toString(myTagProperty.getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -389,7 +389,7 @@ GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* und
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
         default:
-            throw InvalidArgument(toString(myTagProperty.getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -418,20 +418,20 @@ GNETAZ::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_GENERIC:
             return isGenericParametersValid(value);
         default:
-            throw InvalidArgument(toString(myTagProperty.getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
 
 std::string
 GNETAZ::getPopUpID() const {
-    return toString(myTagProperty.getTag()) + ":" + getID();
+    return getTagStr() + ":" + getID();
 }
 
 
 std::string
 GNETAZ::getHierarchyName() const {
-    return toString(myTagProperty.getTag());
+    return getTagStr();
 }
 
 // ===========================================================================
@@ -470,7 +470,7 @@ GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value) {
             setGenericParametersStr(value);
             break;
         default:
-            throw InvalidArgument(toString(myTagProperty.getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 

@@ -1387,7 +1387,7 @@ GNEViewNet::hotkeyEnter() {
     } else if ((myEditMode == GNE_MODE_MOVE) && (myEditShapePoly != nullptr)) {
         // save edited junction's shape
         if (myEditShapePoly != nullptr) {
-            myUndoList->p_begin("custom " + toString(myEditShapePoly->getShapeEditedElement()->getTagProperty().getTag()) + " shape");
+            myUndoList->p_begin("custom " + myEditShapePoly->getShapeEditedElement()->getTagStr() + " shape");
             SumoXMLAttr attr = SUMO_ATTR_SHAPE;
             if (myEditShapePoly->getShapeEditedElement()->getTagProperty().hasAttribute(SUMO_ATTR_CUSTOMSHAPE)) {
                 attr = SUMO_ATTR_CUSTOMSHAPE;

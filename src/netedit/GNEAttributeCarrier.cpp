@@ -352,6 +352,7 @@ GNEAttributeCarrier::TagProperties::TagProperties() :
 
 GNEAttributeCarrier::TagProperties::TagProperties(SumoXMLTag tag, int tagProperty, int &positionListed, GUIIcon icon, SumoXMLTag parentTag, SumoXMLTag tagSynonym) :
     myTag(tag),
+    myTagStr(toString(tag)),
     myTagProperty(tagProperty),
     myIcon(icon),
     myPositionListed(positionListed),
@@ -369,6 +370,12 @@ GNEAttributeCarrier::TagProperties::~TagProperties() {}
 SumoXMLTag 
 GNEAttributeCarrier::TagProperties::getTag() const {
     return myTag;
+}
+
+
+const std::string &
+GNEAttributeCarrier::TagProperties::getTagStr() const {
+    return myTagStr;
 }
 
 
@@ -941,6 +948,12 @@ GNEAttributeCarrier::getTag() const {
     return myTagProperty.getTag();
 }
 */
+
+const std::string &
+GNEAttributeCarrier::getTagStr() const {
+    return myTagProperty.getTagStr();
+}
+
 
 const GNEAttributeCarrier::TagProperties &
 GNEAttributeCarrier::getTagProperty() const {

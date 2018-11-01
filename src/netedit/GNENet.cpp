@@ -158,14 +158,14 @@ GNENet::~GNENet() {
     for (auto it : myAttributeCarriers.edges) {
         it.second->decRef("GNENet::~GNENet");
         // show extra information for tests
-        WRITE_DEBUG("Deleting unreferenced " + toString(it.second->getTagProperty().getTag()) + " '" + it.second->getID() + "' in GNENet destructor");
+        WRITE_DEBUG("Deleting unreferenced " + it.second->getTagStr() + " '" + it.second->getID() + "' in GNENet destructor");
         delete it.second;
     }
     // Drop junctions
     for (auto it : myAttributeCarriers.junctions) {
         it.second->decRef("GNENet::~GNENet");
         // show extra information for tests
-        WRITE_DEBUG("Deleting unreferenced " + toString(it.second->getTagProperty().getTag()) + " '" + it.second->getID() + "' in GNENet destructor");
+        WRITE_DEBUG("Deleting unreferenced " + it.second->getTagStr() + " '" + it.second->getID() + "' in GNENet destructor");
         delete it.second;
     }
     // Drop Additionals (Only used for additionals that were inserted without using GNEChange_Additional)
@@ -174,7 +174,7 @@ GNENet::~GNENet() {
             // decrease reference manually (because it was increased manually in GNEAdditionalHandler)
             j.second->decRef();
             // show extra information for tests
-            WRITE_DEBUG("Deleting unreferenced " + toString(j.second->getTagProperty().getTag()) + " '" + j.second->getID() + "' in GNENet destructor");
+            WRITE_DEBUG("Deleting unreferenced " + j.second->getTagStr() + " '" + j.second->getID() + "' in GNENet destructor");
             delete j.second;
         }
     }
@@ -251,7 +251,7 @@ GNENet::addPOI(const std::string& id, const std::string& type, const RGBColor& c
             GNEPOI* poi = new GNEPOI(this, id, type, color, pos, geo, layer, angle, imgFile, relativePath, width, height, false);
             if (myPOIs.add(poi->getID(), poi)) {
                 if (myAllowUndoShapes) {
-                    myViewNet->getUndoList()->p_begin("add " + toString(poi->getTagProperty().getTag()));
+                    myViewNet->getUndoList()->p_begin("add " + poi->getTagStr());
                     myViewNet->getUndoList()->add(new GNEChange_Shape(poi, true), true);
                     myViewNet->getUndoList()->p_end();
                 } else {
@@ -269,7 +269,7 @@ GNENet::addPOI(const std::string& id, const std::string& type, const RGBColor& c
             GNEPOI* poi = new GNEPOI(this, id, type, color, layer, angle, imgFile, relativePath, retrievedLane, posOverLane, posLat, width, height, false);
             if (myPOIs.add(poi->getID(), poi)) {
                 if (myAllowUndoShapes) {
-                    myViewNet->getUndoList()->p_begin("add " + toString(poi->getTagProperty().getTag()));
+                    myViewNet->getUndoList()->p_begin("add " + poi->getTagStr());
                     myViewNet->getUndoList()->add(new GNEChange_Shape(poi, true), true);
                     myViewNet->getUndoList()->p_end();
                 } else {
@@ -594,7 +594,7 @@ GNENet::deleteCrossing(GNECrossing* crossing, GNEUndoList* undoList) {
 
 void
 GNENet::deleteShape(GNEShape* shape, GNEUndoList* undoList) {
-    undoList->p_begin("delete " + toString(shape->getTagProperty().getTag()));
+    undoList->p_begin("delete " + shape->getTagStr());
     // delete shape
     undoList->add(new GNEChange_Shape(shape, false), true);
     undoList->p_end();
@@ -1844,7 +1844,7 @@ GNENet::getNumberOfAdditionals(SumoXMLTag type) const {
 void
 GNENet::updateAdditionalID(const std::string& oldID, GNEAdditional* additional) {
     if (myAttributeCarriers.additionals.at(additional->getTagProperty().getTag()).count(oldID) == 0) {
-        throw ProcessError(toString(additional->getTagProperty().getTag()) + " with old ID='" + oldID + "' doesn't exist");
+        throw ProcessError(additional->getTagStr() + " with old ID='" + oldID + "' doesn't exist");
     } else {
         // remove an insert additional again into container
         myAttributeCarriers.additionals.at(additional->getTagProperty().getTag()).erase(oldID);
@@ -2156,7 +2156,7 @@ GNENet::insertAdditional(GNEAdditional* additional) {
         // additionals has to be saved
         requiereSaveAdditionals(true);
     } else {
-        throw ProcessError(toString(additional->getTagProperty().getTag()) + " with ID='" + additional->getID() + "' already exist");
+        throw ProcessError(additional->getTagStr() + " with ID='" + additional->getID() + "' already exist");
     }
 }
 
@@ -2165,7 +2165,7 @@ void
 GNENet::deleteAdditional(GNEAdditional* additional) {
     // Check if additional element exists before deletion
     if (myAttributeCarriers.additionals.at(additional->getTagProperty().getTag()).count(additional->getID()) == 0) {
-        throw ProcessError(toString(additional->getTagProperty().getTag()) + " with ID='" + additional->getID() + "' doesn't exist");
+        throw ProcessError(additional->getTagStr() + " with ID='" + additional->getID() + "' doesn't exist");
     } else {
         // remove it from Inspector Frame
         myViewNet->getViewParent()->getInspectorFrame()->removeInspectedAC(additional);

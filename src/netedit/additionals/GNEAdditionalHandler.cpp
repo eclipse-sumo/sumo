@@ -515,7 +515,7 @@ GNEAdditionalHandler::parseGenericParameter(const SUMOSAXAttributes& attrs) {
         }
         // set parameter in last inserted additional
         if (ok) {
-            WRITE_DEBUG("Inserting generic parameter '" + key + "|" + val + "' into additional " + toString(myLastInsertedAdditional->getTagProperty().getTag()) + ".");
+            WRITE_DEBUG("Inserting generic parameter '" + key + "|" + val + "' into additional " + myLastInsertedAdditional->getTagStr() + ".");
             myLastInsertedAdditional->setParameter(key, val);
         }
     }
@@ -1900,7 +1900,7 @@ GNEAdditionalHandler::buildCalibratorRoute(GNEViewNet* viewNet, bool allowUndoRe
         // create route and add it to calibrator parent
         GNECalibratorRoute* route = new GNECalibratorRoute(viewNet, routeID, edges, color);
         if (allowUndoRedo) {
-            viewNet->getUndoList()->p_begin("add " + toString(route->getTagProperty().getTag()));
+            viewNet->getUndoList()->p_begin("add " + route->getTagStr());
             viewNet->getUndoList()->add(new GNEChange_Additional(route, true), true);
             viewNet->getUndoList()->p_end();
         } else {
@@ -1929,7 +1929,7 @@ GNEAdditionalHandler::buildVehicleType(GNEViewNet* viewNet, bool allowUndoRedo, 
                 laneChangeModel, carFollowModel, personCapacity, containerCapacity, boardingDuration,
                 loadingDuration, latAlignment, minGapLat, maxSpeedLat);
         if (allowUndoRedo) {
-            viewNet->getUndoList()->p_begin("add " + toString(vType->getTagProperty().getTag()));
+            viewNet->getUndoList()->p_begin("add " + vType->getTagStr());
             viewNet->getUndoList()->add(new GNEChange_Additional(vType, true), true);
             viewNet->getUndoList()->p_end();
         } else {
@@ -1954,7 +1954,7 @@ GNEAdditionalHandler::buildCalibratorFlow(GNEViewNet* viewNet, bool allowUndoRed
             arrivalLane, arrivalPos, arrivalSpeed, line, personNumber, containerNumber, reroute,
             departPosLat, arrivalPosLat, begin, end);
     if (allowUndoRedo) {
-        viewNet->getUndoList()->p_begin("add " + toString(flow->getTagProperty().getTag()));
+        viewNet->getUndoList()->p_begin("add " + flow->getTagStr());
         viewNet->getUndoList()->add(new GNEChange_Additional(flow, true), true);
         viewNet->getUndoList()->p_end();
     } else {
@@ -2010,7 +2010,7 @@ GNEAdditionalHandler::buildRerouterInterval(GNEViewNet* viewNet, bool allowUndoR
         // create rerouter interval and add it into rerouter parent
         GNERerouterInterval* rerouterInterval = new GNERerouterInterval(rerouterParent, begin, end);
         if (allowUndoRedo) {
-            viewNet->getUndoList()->p_begin("add " + toString(rerouterInterval->getTagProperty().getTag()));
+            viewNet->getUndoList()->p_begin("add " + rerouterInterval->getTagStr());
             viewNet->getUndoList()->add(new GNEChange_Additional(rerouterInterval, true), true);
             viewNet->getUndoList()->p_end();
         } else {
@@ -2030,7 +2030,7 @@ GNEAdditionalHandler::buildClosingLaneReroute(GNEViewNet* viewNet, bool allowUnd
     GNEClosingLaneReroute* closingLaneReroute = new GNEClosingLaneReroute(rerouterIntervalParent, closedLane, permissions);
     // add it to interval parent depending of allowUndoRedo
     if (allowUndoRedo) {
-        viewNet->getUndoList()->p_begin("add " + toString(closingLaneReroute->getTagProperty().getTag()));
+        viewNet->getUndoList()->p_begin("add " + closingLaneReroute->getTagStr());
         viewNet->getUndoList()->add(new GNEChange_Additional(closingLaneReroute, true), true);
         viewNet->getUndoList()->p_end();
     } else {
@@ -2047,7 +2047,7 @@ GNEAdditionalHandler::buildClosingReroute(GNEViewNet* viewNet, bool allowUndoRed
     GNEClosingReroute* closingReroute = new GNEClosingReroute(rerouterIntervalParent, closedEdge, permissions);
     // add it to interval parent depending of allowUndoRedo
     if (allowUndoRedo) {
-        viewNet->getUndoList()->p_begin("add " + toString(closingReroute->getTagProperty().getTag()));
+        viewNet->getUndoList()->p_begin("add " + closingReroute->getTagStr());
         viewNet->getUndoList()->add(new GNEChange_Additional(closingReroute, true), true);
         viewNet->getUndoList()->p_end();
     } else {
@@ -2064,7 +2064,7 @@ GNEAdditionalHandler::builDestProbReroute(GNEViewNet* viewNet, bool allowUndoRed
     GNEDestProbReroute* destProbReroute = new GNEDestProbReroute(rerouterIntervalParent, newEdgeDestination, probability);
     // add it to interval parent depending of allowUndoRedo
     if (allowUndoRedo) {
-        viewNet->getUndoList()->p_begin("add " + toString(destProbReroute->getTagProperty().getTag()));
+        viewNet->getUndoList()->p_begin("add " + destProbReroute->getTagStr());
         viewNet->getUndoList()->add(new GNEChange_Additional(destProbReroute, true), true);
         viewNet->getUndoList()->p_end();
     } else {
@@ -2081,7 +2081,7 @@ GNEAdditionalHandler::builParkingAreaReroute(GNEViewNet* viewNet, bool allowUndo
     GNEParkingAreaReroute* parkingAreaReroute = new GNEParkingAreaReroute(rerouterIntervalParent, newParkingArea, probability, visible);
     // add it to interval parent depending of allowUndoRedo
     if (allowUndoRedo) {
-        viewNet->getUndoList()->p_begin("add " + toString(parkingAreaReroute->getTagProperty().getTag()));
+        viewNet->getUndoList()->p_begin("add " + parkingAreaReroute->getTagStr());
         viewNet->getUndoList()->add(new GNEChange_Additional(parkingAreaReroute, true), true);
         viewNet->getUndoList()->p_end();
     } else {
@@ -2098,7 +2098,7 @@ GNEAdditionalHandler::buildRouteProbReroute(GNEViewNet* viewNet, bool allowUndoR
     GNERouteProbReroute* routeProbReroute = new GNERouteProbReroute(rerouterIntervalParent, newRouteId, probability);
     // add it to interval parent depending of allowUndoRedo
     if (allowUndoRedo) {
-        viewNet->getUndoList()->p_begin("add " + toString(routeProbReroute->getTagProperty().getTag()));
+        viewNet->getUndoList()->p_begin("add " + routeProbReroute->getTagStr());
         viewNet->getUndoList()->add(new GNEChange_Additional(routeProbReroute, true), true);
         viewNet->getUndoList()->p_end();
     } else {
@@ -2160,7 +2160,7 @@ GNEAdditionalHandler::buildVariableSpeedSignStep(GNEViewNet* viewNet, bool allow
     GNEVariableSpeedSignStep* variableSpeedSignStep = new GNEVariableSpeedSignStep(VSSParent, time, speed);
     // add it depending of allow undoRedo
     if (allowUndoRedo) {
-        viewNet->getUndoList()->p_begin("add " + toString(variableSpeedSignStep->getTagProperty().getTag()));
+        viewNet->getUndoList()->p_begin("add " + variableSpeedSignStep->getTagStr());
         viewNet->getUndoList()->add(new GNEChange_Additional(variableSpeedSignStep, true), true);
         viewNet->getUndoList()->p_end();
     } else {
@@ -2588,7 +2588,7 @@ GNEAdditionalHandler::HierarchyInsertedElements::retrieveAdditionalParent(GNEVie
             return nullptr;
         } else if (retrievedAdditional->getTagProperty().getTag() != expectedTag) {
             // invalid additional parent
-            WRITE_WARNING("A " + toString((myInsertedElements.end() - 1)->first) + " cannot be declared within the definition of a " + toString(retrievedAdditional->getTagProperty().getTag()) + ".");
+            WRITE_WARNING("A " + toString((myInsertedElements.end() - 1)->first) + " cannot be declared within the definition of a " + retrievedAdditional->getTagStr() + ".");
             return nullptr;
         } else {
             return retrievedAdditional;
