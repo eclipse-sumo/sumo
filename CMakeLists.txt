@@ -358,6 +358,7 @@ add_custom_target(examples DEPENDS sumo netconvert dfrouter duarouter jtrrouter
     COMMAND ${PYTHON_EXECUTABLE} tools/extractTest.py -x -f tests/examples.txt -p docs/examples/runAll.py
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
 set_property(TARGET examples PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
+set_property(TARGET examples PROPERTY FOLDER "doc")
 add_test(exampletest ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/docs/examples/runAll.py)
 find_package(Git)
 if (GIT_FOUND)

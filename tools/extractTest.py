@@ -202,7 +202,7 @@ def main(options):
                 call = ["netgenerate"] + appOptions
             elif app == "tools":
                 call = ["python"] + appOptions
-                call[1] = os.path.join(SUMO_HOME, call[1])
+                call[1] = join(SUMO_HOME, call[1])
             elif app == "complex":
                 call = ["python"]
                 for o in appOptions:
@@ -211,8 +211,8 @@ def main(options):
                     else:
                         call.append(o)
             else:
-                call = [app] + appOptions
-            pyBatch.write('subprocess.Popen(["%s"], cwd=r"%s"),\n' % ('", r"'.join(call), testPath))
+                call = [join(SUMO_HOME, "bin", app)] + appOptions
+            pyBatch.write('    subprocess.Popen([r"%s"], cwd=r"%s"),\n' % ('", r"'.join(call), testPath))
         if options.skip_configuration:
             continue
         oldWorkDir = os.getcwd()
@@ -237,7 +237,7 @@ def main(options):
                 open(nameBase + ".bat", "w").write(tool + " " + " ".join(appOptions[:-1]))
         os.chdir(oldWorkDir)
     if options.python_script:
-        pyBatch.write(']:\n  if p.wait() != 0:\n    sys.exit(1)\n')
+        pyBatch.write(']:\n    if p.wait() != 0:\n        sys.exit(1)\n')
 
 
 if __name__ == "__main__":
