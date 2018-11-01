@@ -24,6 +24,7 @@
 // ===========================================================================
 #include <config.h>
 
+#include <memory>
 #include <utils/common/TplConvert.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/vehicle/SUMOVehicle.h>
@@ -60,6 +61,15 @@
 
 #define DEFAULT_MANUAL_TYPE ""
 #define DEFAULT_AUTOMATED_TYPE ""
+
+
+
+
+// ---------------------------------------------------------------------------
+// static members
+// ---------------------------------------------------------------------------
+std::set<MSDevice_ToC*> MSDevice_ToC::instances = std::set<MSDevice_ToC*>();
+std::set<std::string> MSDevice_ToC::createdOutputFiles;
 
 // ===========================================================================
 // method definitions
@@ -100,12 +110,37 @@ MSDevice_ToC::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>&
         double initialAwareness = getInitialAwareness(v, oc);
         double mrmDecel = getMRMDecel(v, oc);
         bool useColoring = useColorScheme(v, oc);
+        std::string deviceID = "toc_" + v.getID();
+        std::string file = getOutputFilename(v, oc);
         // build the device
-        MSDevice_ToC* device = new MSDevice_ToC(v, "toc_" + v.getID(),
+        MSDevice_ToC* device = new MSDevice_ToC(v, deviceID, file,
                                                 manualType, automatedType, responseTime, recoveryRate,
                                                 initialAwareness, mrmDecel, useColoring);
         into.push_back(device);
     }
+}
+
+
+std::string
+MSDevice_ToC::getOutputFilename(const SUMOVehicle& v, const OptionsCont& oc) {
+    // Default of "" means no output
+    std::string file = "";
+    if (v.getParameter().knowsParameter("device.toc.file")) {
+        try {
+            file = v.getParameter().getParameter("device.toc.file", file);
+        } catch (...) {
+            WRITE_WARNING("Invalid value '" + v.getParameter().getParameter("device.toc.file", file) + "'for vehicle parameter 'ssm.measures'");
+        }
+    } else if (v.getVehicleType().getParameter().knowsParameter("device.toc.file")) {
+        try {
+            file = v.getVehicleType().getParameter().getParameter("device.toc.file", file);
+        } catch (...) {
+            WRITE_WARNING("Invalid value '" + v.getVehicleType().getParameter().getParameter("device.toc.file", file) + "'for vType parameter 'ssm.measures'");
+        }
+    } else {
+        file = oc.getString("device.toc.file") == "" ? file : oc.getString("device.toc.file");
+    }
+    return file;
 }
 
 std::string
@@ -148,7 +183,7 @@ MSDevice_ToC::useColorScheme(const SUMOVehicle& v, const OptionsCont& oc) {
 // ---------------------------------------------------------------------------
 // MSDevice_ToC-methods
 // ---------------------------------------------------------------------------
-MSDevice_ToC::MSDevice_ToC(SUMOVehicle& holder, const std::string& id,
+MSDevice_ToC::MSDevice_ToC(SUMOVehicle& holder, const std::string& id, const std::string& outputFilename,
                            std::string manualType, std::string automatedType,
                            SUMOTime responseTime, double recoveryRate, double initialAwareness,
                            double mrmDecel, bool useColoring) :
@@ -165,12 +200,25 @@ MSDevice_ToC::MSDevice_ToC(SUMOVehicle& holder, const std::string& id,
     myTriggerToCCommand(nullptr),
     myRecoverAwarenessCommand(nullptr),
     myExecuteMRMCommand(nullptr),
-    myPrepareToCCommand(nullptr) {
+    myPrepareToCCommand(nullptr),
+    myOutputFile(nullptr),
+    myEvents() {
     // Take care! Holder is currently being constructed. Cast occurs before completion.
     myHolderMS = static_cast<MSVehicle*>(&holder);
     // Ensure that the holder receives a driver state as soon as it is created (can't be done here, since myHolderMS is incomplete)
     MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(new WrappingCommand<MSDevice_ToC>(this, &MSDevice_ToC::ensureDriverStateExistence), SIMSTEP);
 
+    if (outputFilename != "") {
+        myOutputFile = &OutputDevice::getDevice(outputFilename);
+        // TODO: make xsd, include header
+        // myOutputFile.writeXMLHeader("ToCDeviceLog", "ToCDeviceLog.xsd");
+        if (createdOutputFiles.count(outputFilename) == 0) {
+            myOutputFile->openTag("ToCDeviceLog");
+            createdOutputFiles.insert(outputFilename);
+        }
+    }
+    // register at static instance container
+    instances.insert(this);
 
     // Check if the given vTypes for the ToC Device are vTypeDistributions
     MSVehicleControl& vehCtrl = MSNet::getInstance()->getVehicleControl();
@@ -210,6 +258,7 @@ MSDevice_ToC::MSDevice_ToC(SUMOVehicle& holder, const std::string& id,
 
 #ifdef DEBUG_TOC
     std::cout << "initialized device '" << id << "' with "
+              << "outputFilename=" << outputFilename << ", "
               << "myManualType=" << myManualTypeID << ", "
               << "myAutomatedType=" << myAutomatedTypeID << ", "
               << "myResponseTime=" << myResponseTime << ", "
@@ -344,6 +393,11 @@ MSDevice_ToC::requestToC(SUMOTime timeTillMRM) {
         myPrepareToCCommand = new WrappingCommand<MSDevice_ToC>(this, &MSDevice_ToC::ToCPreparationStep);
         MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(myPrepareToCCommand, SIMSTEP + DELTA_T);
         setState(PREPARING_TOC);
+
+        // Record event
+        if (generatesOutput()) {
+            myEvents.push(std::make_pair(SIMSTEP, "TOR"));
+        }
     } else {
         // Switch to automated mode is performed immediately
         // Note that the transition MRM/PREPARING_TOC->AUTOMATED, where a downward ToC is aborted, is handled here as well.
@@ -372,6 +426,11 @@ MSDevice_ToC::triggerMRM(SUMOTime /* t */) {
     switchHolderType(myAutomatedTypeID);
     setAwareness(1.);
 
+    // Record event
+    if (generatesOutput()) {
+        myEvents.push(std::make_pair(SIMSTEP, "MRM"));
+    }
+
     return 0;
 }
 
@@ -384,6 +443,11 @@ MSDevice_ToC::triggerUpwardToC(SUMOTime /* t */) {
     switchHolderType(myAutomatedTypeID);
     setAwareness(1.);
     setState(AUTOMATED);
+
+    // Record event
+    if (generatesOutput()) {
+        myEvents.push(std::make_pair(SIMSTEP, "ToCup"));
+    }
 
     descheduleToC();
     // Eventually stop ToC preparation process
@@ -416,6 +480,11 @@ MSDevice_ToC::triggerDownwardToC(SUMOTime /* t */) {
     myRecoverAwarenessCommand = new WrappingCommand<MSDevice_ToC>(this, &MSDevice_ToC::awarenessRecoveryStep);
     MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(myRecoverAwarenessCommand, SIMSTEP + DELTA_T);
     setState(RECOVERING);
+
+    // Record event
+    if (generatesOutput()) {
+        myEvents.push(std::make_pair(SIMSTEP, "ToCdown"));
+    }
 
     descheduleToC();
     // Eventually stop ToC preparation process
@@ -670,6 +739,34 @@ MSDevice_ToC::_2string(ToCState state) {
         return toString(state);
     }
 }
+
+
+void
+MSDevice_ToC::writeOutput() {
+    if (!generatesOutput()) {
+        assert(myEvents.empty());
+        return;
+    }
+    while(!myEvents.empty()) {
+        std::pair<SUMOTime, std::string> e = myEvents.front();
+        myOutputFile->openTag(e.second);
+        myOutputFile->writeAttr("id", myHolder.getID()).writeAttr("t", STEPS2TIME(e.first));
+        myOutputFile->closeTag();
+        myEvents.pop();
+    }
+}
+
+
+void
+MSDevice_ToC::cleanup() {
+    // Close xml bodies for all existing files
+    // TODO: Check if required
+    for (auto& fn : createdOutputFiles) {
+        OutputDevice* file = &OutputDevice::getDevice(fn);
+        file->closeTag();
+    }
+}
+
 
 /****************************************************************************/
 

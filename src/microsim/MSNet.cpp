@@ -75,6 +75,7 @@
 #include <microsim/devices/MSDevice_Tripinfo.h>
 #include <microsim/devices/MSDevice_BTsender.h>
 #include <microsim/devices/MSDevice_SSM.h>
+#include <microsim/devices/MSDevice_ToC.h>
 #include <microsim/output/MSBatteryExport.h>
 #include <microsim/output/MSEmissionExport.h>
 #include <microsim/output/MSFCDExport.h>
@@ -615,6 +616,7 @@ MSNet::clearAll() {
     MSCModel_NonInteracting::cleanup();
     MSDevice_BTsender::cleanup();
     MSDevice_SSM::cleanup();
+    MSDevice_ToC::cleanup();
     MSStopOut::cleanup();
     TraCIServer* t = TraCIServer::getInstance();
     if (t != nullptr) {
@@ -738,6 +740,14 @@ MSNet::writeOutput() {
     for (std::set<MSDevice_SSM*>::iterator di = MSDevice_SSM::getInstances().begin(); di != MSDevice_SSM::getInstances().end(); ++di) {
         MSDevice_SSM* dev = (*di);
         dev->updateAndWriteOutput();
+    }
+
+    // write ToC output
+    for (std::set<MSDevice_ToC*>::iterator di = MSDevice_ToC::getInstances().begin(); di != MSDevice_ToC::getInstances().end(); ++di) {
+        MSDevice_ToC* dev = (*di);
+        if (dev->generatesOutput()) {
+            dev->writeOutput();
+        }
     }
 }
 
