@@ -1,0 +1,14 @@
+<ToCDeviceLog>
+    <MRM id="ToC_veh" t="102.00"/>
+    <ToCup id="ToC_veh" t="202.00"/>
+    <TOR id="ToC_veh" t="207.00"/>
+    <MRM id="ToC_veh" t="217.00"/>
+    <ToCup id="ToC_veh" t="302.00"/>
+    <TOR id="ToC_veh" t="302.00"/>
+    <ToCdown id="ToC_veh" t="325.00"/>
+    <MRM id="ToC_veh" t="332.00"/>
+    <ToCup id="ToC_veh" t="402.00"/>
+    <TOR id="ToC_veh" t="402.00"/>
+    <ToCdown id="ToC_veh" t="425.00"/>
+    <MRM id="ToC_veh" t="452.00"/>
+</ToCDeviceLog>
