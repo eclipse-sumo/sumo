@@ -33,5 +33,6 @@ if (MSVC)
     set_target_properties(netedit PROPERTIES LINK_FLAGS_RELEASE "/SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup")
     target_link_libraries(netedit opengl32 glu32)
 endif ()
+add_dependencies(netedit generate-version-h)
 
 install(TARGETS netedit RUNTIME DESTINATION bin)

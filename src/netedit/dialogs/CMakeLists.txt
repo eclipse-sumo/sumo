@@ -29,3 +29,4 @@ set(netedit_dialogs_SRCS
 
 add_library(netedit_dialogs STATIC ${netedit_dialogs_SRCS})
 set_property(TARGET netedit_dialogs PROPERTY PROJECT_LABEL "z_netedit_dialogs")
+add_dependencies(netedit_dialogs generate-version-h)

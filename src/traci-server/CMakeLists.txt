@@ -34,3 +34,4 @@ SET(traciserver_STAT_SRCS
 
 add_library(traciserver STATIC ${traciserver_STAT_SRCS})
 set_property(TARGET traciserver PROPERTY PROJECT_LABEL "z_traciserver")
+add_dependencies(traciserver generate-version-h)

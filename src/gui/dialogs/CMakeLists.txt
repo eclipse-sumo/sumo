@@ -9,3 +9,4 @@ set(gui_dialogs_STAT_SRCS
 
 add_library(gui_dialogs STATIC ${gui_dialogs_STAT_SRCS})
 set_property(TARGET gui_dialogs PROPERTY PROJECT_LABEL "z_gui_dialogs")
+add_dependencies(gui_dialogs generate-version-h)
