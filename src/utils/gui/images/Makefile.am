@@ -89,6 +89,7 @@ modemove.xpm \
 modepolygon.xpm \
 modeprohibition.xpm \
 modeselect.xpm \
+modetaz.xpm \
 modetrafficlight.xpm \
 netedit_icon16.xpm \
 netedit_icon64.xpm \
@@ -135,6 +136,8 @@ stop.xpm \
 sumo_icon16.xpm \
 sumo_icon64.xpm \
 sumo_logo.xpm \
+taz.xpm \
+tazedge.xpm \
 undo.xpm \
 vaporizer.xpm \
 variablespeedsign.xpm \
