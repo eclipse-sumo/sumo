@@ -342,6 +342,54 @@ public:
         /// @brief button for help
         FXButton* myHelpTAZAttribute;
     };
+
+    // ===========================================================================
+    // class TAZEdgesGraphic
+    // ===========================================================================
+
+    class TAZEdgesGraphic : protected FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNETAZFrame::TAZEdgesGraphic)
+
+    public:
+        /// @brief constructor
+        TAZEdgesGraphic(GNETAZFrame* TAZFrameParent);
+
+        /// @brief destructor
+        ~TAZEdgesGraphic();
+
+        /// @brief show save TAZ Edges Modul
+        void showTAZEdgesGraphicModul();
+
+        /// @brief hide save TAZ Edges Modul
+        void hideTAZEdgesGraphicModul();
+
+        /// @name FOX-callbacks
+        /// @{
+        /// @brief Called when the user select one kind of representation
+        long onCmdChoosenBy(FXObject* obj, FXSelector, void*);
+        /// @}
+
+    protected:
+        /// @brief FOX needs this
+        TAZEdgesGraphic() {}
+
+    private:
+        /// @brief update edge colors;
+        void updateEdgeColors();
+
+        /// @brief pointer to TAZFrame parent
+        GNETAZFrame* myTAZFrameParent;
+
+        /// @brief add radio button
+        FXRadioButton* myColorBySourceWeight;
+
+        /// @brief add radio button
+        FXRadioButton* myColorBySinkWeight;
+
+        /// @brief add radio button
+        FXRadioButton* myColorBySourceAndSinkWeight;
+    };
     
     /**@brief Constructor
      * @brief parent FXHorizontalFrame in which this GNEFrame is placed
@@ -400,6 +448,9 @@ private:
 
     /// @brief TAZ Edges common parameters
     TAZEdgesCommonParameters* myTAZEdgesCommonParameters;
+
+    /// @brief TAZ Edges Graphic
+    TAZEdgesGraphic* myTAZEdgesGraphic;
 
     /// @brief edge TAZ selector
     TAZEdgesSelector* myTAZEdgesSelector;

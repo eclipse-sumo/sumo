@@ -64,6 +64,10 @@ FXDEFMAP(GNETAZFrame::TAZEdgesCommonParameters) TAZEdgesCommonParametersMap[] = 
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNETAZFrame::TAZEdgesCommonParameters::onCmdSetDefaultValues),
 };
 
+FXDEFMAP(GNETAZFrame::TAZEdgesGraphic) TAZEdgesGraphicMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_OPERATION,  GNETAZFrame::TAZEdgesGraphic::onCmdChoosenBy),
+};
+
 FXDEFMAP(GNETAZFrame::TAZEdgesSelector) TAZEdgesSelectorMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,      GNETAZFrame::TAZEdgesSelector::onCmdSetAttribute),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_REMOVE_ATTRIBUTE,   GNETAZFrame::TAZEdgesSelector::onCmdRemoveEdgeTAZ),
@@ -73,6 +77,7 @@ FXDEFMAP(GNETAZFrame::TAZEdgesSelector) TAZEdgesSelectorMap[] = {
 FXIMPLEMENT(GNETAZFrame::TAZParameters,             FXGroupBox,     TAZParametersMap,               ARRAYNUMBER(TAZParametersMap))
 FXIMPLEMENT(GNETAZFrame::TAZSaveEdges,              FXGroupBox,     TAZSaveEdgesMap,                ARRAYNUMBER(TAZSaveEdgesMap))
 FXIMPLEMENT(GNETAZFrame::TAZEdgesCommonParameters,  FXGroupBox,     TAZEdgesCommonParametersMap,    ARRAYNUMBER(TAZEdgesCommonParametersMap))
+FXIMPLEMENT(GNETAZFrame::TAZEdgesGraphic,           FXGroupBox,     TAZEdgesGraphicMap,             ARRAYNUMBER(TAZEdgesGraphicMap))
 FXIMPLEMENT(GNETAZFrame::TAZEdgesSelector,          FXGroupBox,     TAZEdgesSelectorMap,            ARRAYNUMBER(TAZEdgesSelectorMap))
 
 
@@ -102,7 +107,7 @@ GNETAZFrame::TAZCurrent::setTAZ(GNETAZ* TAZCurrent) {
     myTAZCurrent = TAZCurrent;
     // update label and moduls
     if(myTAZCurrent != nullptr) {
-        myTAZCurrentLabel->setText((std::string("Current TAZ: ") + myTAZCurrent->getID()).c_str());
+        myTAZCurrentLabel->setText((("Current TAZ: ") + myTAZCurrent->getID()).c_str());
         // hide TAZ parameters
         myTAZFrameParent->myTAZParameters->hideTAZParametersModul();
         // hide Netedit parameters
@@ -113,6 +118,8 @@ GNETAZFrame::TAZCurrent::setTAZ(GNETAZ* TAZCurrent) {
         myTAZFrameParent->myTAZSaveEdges->showTAZSaveEdgesModul();
         // show edge common parameters
         myTAZFrameParent->myTAZEdgesCommonParameters->showTAZEdgesCommonParametersModul();
+        // show Edges graphics
+        myTAZFrameParent->myTAZEdgesGraphic->showTAZEdgesGraphicModul();
         // show edge selector
         myTAZFrameParent->myTAZEdgesSelector->showEdgeTAZSelectorModul();
     } else {
@@ -125,6 +132,8 @@ GNETAZFrame::TAZCurrent::setTAZ(GNETAZ* TAZCurrent) {
         myTAZFrameParent->myDrawingShape->showDrawingShape();
         // show edge common parameters
         myTAZFrameParent->myTAZEdgesCommonParameters->hideTAZEdgesCommonParametersModul();
+        // hide Edges graphics
+        myTAZFrameParent->myTAZEdgesGraphic->hideTAZEdgesGraphicModul();
         // hide save TAZ Edges
         myTAZFrameParent->myTAZSaveEdges->hideTAZSaveEdgesModul();
         // hide edge selector
@@ -701,6 +710,80 @@ GNETAZFrame::TAZParameters::onCmdHelp(FXObject*, FXSelector, void*) {
 }
 
 // ---------------------------------------------------------------------------
+// GNETAZFrame::TAZEdgesGraphic - methods
+// ---------------------------------------------------------------------------
+
+GNETAZFrame::TAZEdgesGraphic::TAZEdgesGraphic(GNETAZFrame* TAZFrameParent) : 
+    FXGroupBox(TAZFrameParent->myContentFrame, "Edges", GUIDesignGroupBoxFrame),
+    myTAZFrameParent(TAZFrameParent) {
+    // create Radio button for show edges by source weight
+    myColorBySourceWeight = new FXRadioButton(this, "Color by Source", this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    // create Radio button for show edges by sink weight
+    myColorBySinkWeight = new FXRadioButton(this, "Color by Sink", this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    // create Radio button for show edges by source and sink weight
+    myColorBySourceAndSinkWeight = new FXRadioButton(this, "Color by Source+Sink", this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    // show by source as default
+    myColorBySourceWeight->setCheck(true);
+}
+
+
+GNETAZFrame::TAZEdgesGraphic::~TAZEdgesGraphic() {}
+
+
+void 
+GNETAZFrame::TAZEdgesGraphic::showTAZEdgesGraphicModul() {
+    // update edge colors
+    updateEdgeColors();
+    show();
+}
+
+
+void 
+GNETAZFrame::TAZEdgesGraphic::hideTAZEdgesGraphicModul() {
+    // obtain all edges of net
+    auto edges = myTAZFrameParent->getViewNet()->getNet()->retrieveEdges();
+    // iterate over all edges and restore color
+    for (const auto &i : edges) {
+        for (const auto j : i->getLanes() ) {
+            j->setSpecialColor(nullptr);
+        }
+    }
+    hide();
+}
+
+
+long
+GNETAZFrame::TAZEdgesGraphic::onCmdChoosenBy(FXObject* obj, FXSelector, void*) {
+    // check what radio was pressed and disable the others
+    if (obj == myColorBySourceWeight) {
+        myColorBySinkWeight->setCheck(FALSE);
+        myColorBySourceAndSinkWeight->setCheck(FALSE);
+    } else if (obj == myColorBySinkWeight) {
+        myColorBySourceWeight->setCheck(FALSE);
+        myColorBySourceAndSinkWeight->setCheck(FALSE);
+    } else if (obj == myColorBySourceAndSinkWeight) {
+        myColorBySourceWeight->setCheck(FALSE);
+        myColorBySinkWeight->setCheck(FALSE);
+    }
+    // update edge colors
+    updateEdgeColors();
+    return 1;
+}
+
+
+void 
+GNETAZFrame::TAZEdgesGraphic::updateEdgeColors() {
+    // obtain all edges of net
+    auto edges = myTAZFrameParent->getViewNet()->getNet()->retrieveEdges();
+    // iterate over all edges and set gray color
+    for (const auto &i : edges) {
+        for (const auto j : i->getLanes() ) {
+            j->setSpecialColor(&RGBColor::GREY);
+        }
+    }
+}
+
+// ---------------------------------------------------------------------------
 // GNETAZFrame - methods
 // ---------------------------------------------------------------------------
 
@@ -724,6 +807,9 @@ GNETAZFrame::GNETAZFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* v
 
     // Create TAZ Edges Common Parameters modul
     myTAZEdgesCommonParameters = new TAZEdgesCommonParameters(this);
+
+    // Create TAZ Edges Common Parameters modul
+    myTAZEdgesGraphic = new TAZEdgesGraphic(this);
 
     // Create edge Selector modul
     myTAZEdgesSelector = new TAZEdgesSelector(this);
