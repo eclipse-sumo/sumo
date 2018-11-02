@@ -937,7 +937,7 @@ GNEInspectorFrame::AttributesEditor::onCmdAttributeHelp(FXObject*, FXSelector, v
     // open Help attributes dialog if there is inspected ACs
     if (myInspectorFrameParent->getInspectedACs().size() > 0) {
         // open Help attributes dialog
-        myInspectorFrameParent->openHelpAttributesDialog(myInspectorFrameParent->getInspectedACs().front()->getTagProperty().getTag());
+        myInspectorFrameParent->openHelpAttributesDialog(myInspectorFrameParent->getInspectedACs().front()->getTagProperty());
     }
     return 1;
 }

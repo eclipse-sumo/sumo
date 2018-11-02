@@ -115,9 +115,7 @@ FXIMPLEMENT(GNEFrame::NeteditAttributes,        FXGroupBox,         NeteditAttri
 GNEFrame::ItemSelector::ItemSelector(GNEFrame* frameParent, GNEAttributeCarrier::TAGProperty type, bool onlyDrawables) :
     FXGroupBox(frameParent->myContentFrame, "Element", GUIDesignGroupBoxFrame),
     myFrameParent(frameParent),
-    myTagPropertyType(type),
-    myOnlyDrawables(onlyDrawables),
-    myCurrentType(SUMO_TAG_NOTHING) {
+    myCurrentTagProperties(GNEAttributeCarrier::dummyTagProperty) {
     // first check that property is valid
     switch (type)     {
         case GNEAttributeCarrier::TAGProperty::TAGPROPERTY_NETELEMENT:
@@ -136,11 +134,12 @@ GNEFrame::ItemSelector::ItemSelector(GNEFrame* frameParent, GNEAttributeCarrier:
             throw ProcessError("invalid tag property");
 
     }
-    // Create FXListBox in myTypeMatchBox
+    // fill myListOfTags
+    myListOfTags = GNEAttributeCarrier::allowedTagsByCategory(type, onlyDrawables);
+    // Create FXComboBox
     myTypeMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
-    // Add options to myTypeMatchBox based on tag
-    auto listOfTags = GNEAttributeCarrier::allowedTagsByCategory(myTagPropertyType, myOnlyDrawables);
-    for (auto i : listOfTags) {
+    // fill myTypeMatchBox with list of tags
+    for (const auto &i : myListOfTags) {
         myTypeMatchBox->appendItem(toString(i).c_str());
     }
     // Set visible items
@@ -153,9 +152,9 @@ GNEFrame::ItemSelector::ItemSelector(GNEFrame* frameParent, GNEAttributeCarrier:
 GNEFrame::ItemSelector::~ItemSelector() {}
 
 
-SumoXMLTag
-GNEFrame::ItemSelector::getCurrentTypeTag() const {
-    return myCurrentType;
+const GNEAttributeCarrier::TagProperties&
+GNEFrame::ItemSelector::getCurrentTagProperties() const {
+    return myCurrentTagProperties;
 }
 
 
@@ -166,13 +165,13 @@ GNEFrame::ItemSelector::setCurrentTypeTag(SumoXMLTag typeTag) {
         if (myTypeMatchBox->getItem(i).text() == toString(typeTag)) {
             myTypeMatchBox->setCurrentItem(i);
             // Set new current type
-            myCurrentType = typeTag;
+            myCurrentTagProperties = GNEAttributeCarrier::getTagProperties(typeTag);
         }
     }
     // Check that typeTag type is valid
-    if (myCurrentType != SUMO_TAG_NOTHING) {
+    if (myCurrentTagProperties.getTag() != SUMO_TAG_NOTHING) {
         // show moduls if selected item is valid
-        myFrameParent->enableModuls(GNEAttributeCarrier::getTagProperties(myCurrentType));
+        myFrameParent->enableModuls(myCurrentTagProperties);
     } else {
         // hide all moduls if selected item isn't valid
         myFrameParent->disableModuls();
@@ -180,25 +179,31 @@ GNEFrame::ItemSelector::setCurrentTypeTag(SumoXMLTag typeTag) {
 }
 
 
+void 
+GNEFrame::ItemSelector::refreshTagProperties() {
+    // simply call onCmdSelectItem (to avoid duplicated code)
+    onCmdSelectItem(0,0,0);
+}
+
+
 long
 GNEFrame::ItemSelector::onCmdSelectItem(FXObject*, FXSelector, void*) {
     // Check if value of myTypeMatchBox correspond of an allowed additional tags
-    auto listOfTags = GNEAttributeCarrier::allowedTagsByCategory(myTagPropertyType, myOnlyDrawables);
-    for (auto i : listOfTags) {
+    for (const auto &i : myListOfTags) {
         if (toString(i) == myTypeMatchBox->getText().text()) {
             // set color of myTypeMatchBox to black (valid)
             myTypeMatchBox->setTextColor(FXRGB(0, 0, 0));
             // Set new current type
-            myCurrentType = i;
+            myCurrentTagProperties = GNEAttributeCarrier::getTagProperties(i);
             // show moduls if selected item is valid
-            myFrameParent->enableModuls(GNEAttributeCarrier::getTagProperties(myCurrentType));
+            myFrameParent->enableModuls(myCurrentTagProperties);
             // Write Warning in console if we're in testing mode
             WRITE_DEBUG(("Selected item '" + myTypeMatchBox->getText() + "' in ItemSelector").text());
             return 1;
         }
     }
     // if additional name isn't correct, set SUMO_TAG_NOTHING as current type
-    myCurrentType = SUMO_TAG_NOTHING;
+    myCurrentTagProperties = myInvalidTagProperty;
     // hide all moduls if selected item isn't valid
     myFrameParent->disableModuls();
     // set color of myTypeMatchBox to red (invalid)
@@ -206,6 +211,11 @@ GNEFrame::ItemSelector::onCmdSelectItem(FXObject*, FXSelector, void*) {
     // Write Warning in console if we're in testing mode
     WRITE_DEBUG("Selected invalid item in ItemSelector");
     return 1;
+}
+
+
+GNEFrame::ItemSelector::ItemSelector() :
+    myCurrentTagProperties(GNEAttributeCarrier::dummyTagProperty) {
 }
 
 // ---------------------------------------------------------------------------
@@ -432,7 +442,8 @@ long GNEFrame::ACAttributeRow::onCmdSetColorAttribute(FXObject*, FXSelector, voi
 
 GNEFrame::ACAttributes::ACAttributes(GNEFrame* frameParent) :
     FXGroupBox(frameParent->myContentFrame, "Internal attributes", GUIDesignGroupBoxFrame),
-    myFrameParent(frameParent) {
+    myFrameParent(frameParent),
+    myTagProperties(GNEAttributeCarrier::dummyTagProperty) {
 
     // Create single parameters
     for (int i = 0; i < GNEAttributeCarrier::getHigherNumberOfAttributes(); i++) {
@@ -449,9 +460,8 @@ GNEFrame::ACAttributes::~ACAttributes() {
 
 
 void
-GNEFrame::ACAttributes::showACAttributesModul(const SumoXMLTag currentTag, const GNEAttributeCarrier::TagProperties &tagProperties) {
+GNEFrame::ACAttributes::showACAttributesModul(const GNEAttributeCarrier::TagProperties &tagProperties) {
     // get current tag Properties
-    myCurrentTag = currentTag;
     myTagProperties = tagProperties;
     // Hide all fields
     for (int i = 0; i < (int)myVectorOfsingleShapeParameter.size(); i++) {
@@ -504,9 +514,9 @@ GNEFrame::ACAttributes::showWarningMessage(std::string extra) const {
     }
     // show warning box if input parameters aren't invalid
     if (extra.size() == 0) {
-        errorMessage = "Invalid input parameter of " + toString(myCurrentTag) + ": " + errorMessage;
+        errorMessage = "Invalid input parameter of " + myTagProperties.getTagStr() + ": " + errorMessage;
     } else {
-        errorMessage = "Invalid input parameter of " + toString(myCurrentTag) + ": " + extra;
+        errorMessage = "Invalid input parameter of " + myTagProperties.getTagStr() + ": " + extra;
     }
 
     // set message in status bar
@@ -538,8 +548,13 @@ GNEFrame::ACAttributes::getNumberOfAddedAttributes() const {
 long
 GNEFrame::ACAttributes::onCmdHelp(FXObject*, FXSelector, void*) {
     // open Help attributes dialog
-    myFrameParent->openHelpAttributesDialog(myCurrentTag);
+    myFrameParent->openHelpAttributesDialog(myTagProperties);
     return 1;
+}
+
+
+GNEFrame::ACAttributes::ACAttributes() :
+    myTagProperties(GNEAttributeCarrier::dummyTagProperty) {
 }
 
 // ---------------------------------------------------------------------------
@@ -1740,17 +1755,16 @@ GNEFrame::disableModuls() {
 
 
 void
-GNEFrame::openHelpAttributesDialog(SumoXMLTag elementTag) const {
-    FXDialogBox* attributesHelpDialog = new FXDialogBox(myScrollWindowsContents, ("Parameters of " + toString(elementTag)).c_str(), GUIDesignDialogBoxResizable, 0, 0, 0, 0, 10, 10, 10, 38, 4, 4);
+GNEFrame::openHelpAttributesDialog(const GNEAttributeCarrier::TagProperties &tagProperties) const {
+    FXDialogBox* attributesHelpDialog = new FXDialogBox(myScrollWindowsContents, ("Parameters of " + tagProperties.getTagStr()).c_str(), GUIDesignDialogBoxResizable, 0, 0, 0, 0, 10, 10, 10, 38, 4, 4);
     // Create FXTable
     FXTable* myTable = new FXTable(attributesHelpDialog, attributesHelpDialog, MID_TABLE, GUIDesignTableNotEditable);
     attributesHelpDialog->setIcon(GUIIconSubSys::getIcon(ICON_MODEINSPECT));
-    const auto& attrs = GNEAttributeCarrier::getTagProperties(elementTag);
     int sizeColumnDescription = 0;
     int sizeColumnDefinitions = 0;
-    myTable->setVisibleRows((FXint)(attrs.getNumberOfAttributes()));
+    myTable->setVisibleRows((FXint)(tagProperties.getNumberOfAttributes()));
     myTable->setVisibleColumns(3);
-    myTable->setTableSize((FXint)(attrs.getNumberOfAttributes()), 3);
+    myTable->setTableSize((FXint)(tagProperties.getNumberOfAttributes()), 3);
     myTable->setBackColor(FXRGB(255, 255, 255));
     myTable->setColumnText(0, "Attribute");
     myTable->setColumnText(1, "Description");
@@ -1758,7 +1772,7 @@ GNEFrame::openHelpAttributesDialog(SumoXMLTag elementTag) const {
     myTable->getRowHeader()->setWidth(0);
     // Iterate over vector of additional parameters
     int itemIndex = 0;
-    for (auto i : attrs) {
+    for (auto i : tagProperties) {
         // Set attribute
         FXTableItem* attribute = new FXTableItem(toString(i.first).c_str());
         attribute->setJustify(FXTableItem::CENTER_X);
@@ -1793,7 +1807,7 @@ GNEFrame::openHelpAttributesDialog(SumoXMLTag elementTag) const {
     new FXButton(myHorizontalFrameOKButton, "OK\t\tclose", GUIIconSubSys::getIcon(ICON_ACCEPT), attributesHelpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
     new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
     // Write Warning in console if we're in testing mode
-    WRITE_DEBUG("Opening HelpAttributes dialog for tag '" + toString(elementTag) + "' showing " + toString(attrs.getNumberOfAttributes()) + " attributes");
+    WRITE_DEBUG("Opening HelpAttributes dialog for tag '" + tagProperties.getTagStr() + "' showing " + toString(tagProperties.getNumberOfAttributes()) + " attributes");
     // create Dialog
     attributesHelpDialog->create();
     // show in the given position
@@ -1803,7 +1817,7 @@ GNEFrame::openHelpAttributesDialog(SumoXMLTag elementTag) const {
     // open as modal dialog (will block all windows until stop() or stopModal() is called)
     getApp()->runModalFor(attributesHelpDialog);
     // Write Warning in console if we're in testing mode
-    WRITE_DEBUG("Closing HelpAttributes dialog for tag '" + toString(elementTag) + "'");
+    WRITE_DEBUG("Closing HelpAttributes dialog for tag '" + tagProperties.getTagStr() + "'");
 }
 
 

@@ -58,10 +58,13 @@ public:
         ~ItemSelector();
 
         /// @brief get current type tag
-        SumoXMLTag getCurrentTypeTag() const;
+        const GNEAttributeCarrier::TagProperties &getCurrentTagProperties() const;
 
         /// @brief set current type manually
         void setCurrentTypeTag(SumoXMLTag typeTag);
+
+        /// @brief due myCurrentTagProperties is a Reference, we need to refresh it when frameParent is show
+        void refreshTagProperties();
 
         /// @name FOX-callbacks
         /// @{
@@ -71,7 +74,7 @@ public:
 
     protected:
         /// @brief FOX needs this
-        ItemSelector() {}
+        ItemSelector();
 
     private:
         /// @brief pointer to Frame Parent
@@ -80,14 +83,14 @@ public:
         /// @brief comboBox with the list of elements type
         FXComboBox* myTypeMatchBox;
 
-        /// @brief set of tags (NetElements, Additionals, Shapes...)
-        GNEAttributeCarrier::TAGProperty myTagPropertyType;
+        /// @brief reference to current tag properties
+        GNEAttributeCarrier::TagProperties &myCurrentTagProperties;
 
-        /// @brief show only drawable elements
-        bool myOnlyDrawables;
+        /// @brief list of tags that will be shown in Match Box
+        std::vector<SumoXMLTag> myListOfTags;
 
-        /// @brief actual type selected in the match Box (if invalid, it takes SUMO_TAG_NOTHING)
-        SumoXMLTag myCurrentType;
+        /// @brief dummy tag properties used if user select an invalid tag
+        GNEAttributeCarrier::TagProperties myInvalidTagProperty; 
     };
 
     /// @brief class declaration
@@ -193,7 +196,7 @@ public:
         ~ACAttributes();
 
         /// @brief show ACAttributes modul
-        void showACAttributesModul(const SumoXMLTag currentTag, const GNEAttributeCarrier::TagProperties &myTagProperties);
+        void showACAttributesModul(const GNEAttributeCarrier::TagProperties &myTagProperties);
 
         /// @brief hide group box
         void hideACAttributesModul();
@@ -218,15 +221,14 @@ public:
 
     protected:
         /// @brief FOX needs this
-        ACAttributes() {}
+        ACAttributes();
 
     private:
         /// @brief pointer to Polygon Frame Parent
         GNEFrame* myFrameParent;
 
-        SumoXMLTag myCurrentTag;
-
-        GNEAttributeCarrier::TagProperties myTagProperties;
+        /// @brief reference to current edited Tag Properties
+        GNEAttributeCarrier::TagProperties &myTagProperties;
 
         /// @brief vector with the shape parameters
         std::vector<ACAttributeRow*> myVectorOfsingleShapeParameter;
@@ -601,7 +603,7 @@ protected:
     virtual void disableModuls();
 
     /// @brief Open help attributes dialog
-    void openHelpAttributesDialog(SumoXMLTag tag) const;
+    void openHelpAttributesDialog(const GNEAttributeCarrier::TagProperties &tagProperties) const;
 
     /// @brief get edge candidate color
     const RGBColor& getEdgeCandidateColor() const;

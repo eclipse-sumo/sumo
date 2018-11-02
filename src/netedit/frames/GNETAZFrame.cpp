@@ -696,7 +696,7 @@ GNETAZFrame::TAZParameters::onCmdSetAttribute(FXObject*, FXSelector, void*) {
 
 long
 GNETAZFrame::TAZParameters::onCmdHelp(FXObject*, FXSelector, void*) {
-    myTAZFrameParent->openHelpAttributesDialog(SUMO_TAG_TAZ);
+    myTAZFrameParent->openHelpAttributesDialog(GNEAttributeCarrier::getTagProperties(SUMO_TAG_TAZ));
     return 1;
 }
 

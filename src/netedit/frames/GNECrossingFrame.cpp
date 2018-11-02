@@ -411,11 +411,11 @@ GNECrossingFrame::CrossingParameters::onCmdSetAttribute(FXObject*, FXSelector, v
     for (auto i : myCrossingFrameParent->myEdgeSelector->getCurrentJunction()->getGNEEdges()) {
         if (std::find(myCurrentSelectedEdges.begin(), myCurrentSelectedEdges.end(), i) != myCurrentSelectedEdges.end()) {
             for (auto j : i->getLanes()) {
-                j->setSpecialColor(&myCrossingFrameParent->getEdgeCandidateColor());
+                j->setSpecialColor(&myCrossingFrameParent->getEdgeCandidateSelectedColor());
             }
         } else {
             for (auto j : i->getLanes()) {
-                j->setSpecialColor(&myCrossingFrameParent->getEdgeCandidateSelectedColor());
+                j->setSpecialColor(&myCrossingFrameParent->getEdgeCandidateColor());
             }
         }
     }
@@ -452,7 +452,7 @@ GNECrossingFrame::CrossingParameters::onCmdSetAttribute(FXObject*, FXSelector, v
 
 long
 GNECrossingFrame::CrossingParameters::onCmdHelp(FXObject*, FXSelector, void*) {
-    myCrossingFrameParent->openHelpAttributesDialog(SUMO_TAG_CROSSING);
+    myCrossingFrameParent->openHelpAttributesDialog(GNEAttributeCarrier::getTagProperties(SUMO_TAG_CROSSING));
     return 1;
 }
 

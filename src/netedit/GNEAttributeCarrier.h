@@ -847,6 +847,9 @@ public:
     /// @brief function to calculate circle resolution for all circles drawn in drawGL(...) functions
     static int getCircleResolution(const GUIVisualizationSettings& settings);
 
+    /// @brief dummy TagProperty used for reference some elements (for Example, dummyEdge or some Frame Moduls)
+    static TagProperties dummyTagProperty;
+
 protected:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
@@ -866,9 +869,6 @@ private:
 
     /// @brief map with the tags properties
     static std::map<SumoXMLTag, TagProperties> myTagProperties;
-
-    /// @brief dummy TagProperty used for reference some elements (for Example, dummyEdge)
-    static TagProperties dummyTagProperty;
 
     /// @brief Invalidated copy constructor.
     GNEAttributeCarrier(const GNEAttributeCarrier&) = delete;

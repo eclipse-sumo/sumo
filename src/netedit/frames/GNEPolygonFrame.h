@@ -102,15 +102,15 @@ public:
     /// @brief Destructor
     ~GNEPolygonFrame();
 
+    /// @brief show Frame
+    void show();
+
     /**@brief process click over Viewnet
     * @param[in] clickedPosition clicked position over ViewNet
     * @param[in] lane clicked lane
     * @return AddShapeStatus with the result of operation
     */
     AddShapeResult processClick(const Position& clickedPosition, GNELane* lane);
-
-    /// @brief show shape frame and update use selected edges/lanes
-    void show();
 
     /// @brief get list of selecte id's in string format
     static std::string getIdsSelected(const FXList* list);
