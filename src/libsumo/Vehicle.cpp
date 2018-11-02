@@ -1094,10 +1094,17 @@ Vehicle::slowDown(const std::string& vehicleID, double speed, double duration) {
 }
 
 void
-Vehicle::openGap(const std::string& vehicleID, double newTau, double duration, double changeRate, double maxDecel) {
+Vehicle::openGap(const std::string& vehicleID, double newTimeHeadway, double newSpaceHeadway, double duration, double changeRate, double maxDecel) {
     MSVehicle* veh = getVehicle(vehicleID);
     const double originalTau = veh->getVehicleType().getCarFollowModel().getHeadwayTime();
-    veh->getInfluencer().activateGapController(originalTau, newTau, duration, changeRate, maxDecel);
+    if (newTimeHeadway == -1) {
+        newTimeHeadway = originalTau;
+    }
+    if (originalTau > newTimeHeadway) {
+        WRITE_WARNING("Ignoring openGap(). New time headway must not be smaller than the original.");
+        return;
+    }
+    veh->getInfluencer().activateGapController(originalTau, newTimeHeadway, newSpaceHeadway, duration, changeRate, maxDecel);
 }
 
 void

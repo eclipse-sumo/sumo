@@ -1353,17 +1353,22 @@ public:
         /// @brief Container for state and parameters of the gap control
         struct GapControlState {
             GapControlState();
-            void activate(double tauOriginal, double tauTarget, double duration, double changeRate, double maxDecel);
+            void activate(double tauOriginal, double tauTarget, double additionalGap, double duration, double changeRate, double maxDecel);
             void deactivate();
             /// @brief Original value for the desired headway (will be reset after duration has expired)
             double tauOriginal;
-            /// @brief Current, interpolated value for the desired headway
+            /// @brief Current, interpolated value for the desired time headway
             double tauCurrent;
-            /// @brief Target value for the desired headway
+            /// @brief Target value for the desired time headway
             double tauTarget;
+            /// @brief Current, interpolated value for the desired space headway
+            double addGapCurrent;
+            /// @brief Target value for the desired space headway
+            double addGapTarget;
             /// @brief Remaining duration for keeping the target headway
             double remainingDuration;
-            /// @brief Rate by which the current headway is changed towards the target value
+            /// @brief Rate by which the current time and space headways are changed towards the target value.
+            ///        (A rate of one corresponds to reaching the target value within one second)
             double changeRate;
             /// @brief Maximal deceleration to be applied due to the adapted headway
             double maxDecel;
@@ -1375,6 +1380,8 @@ public:
             const MSVehicle* prevLeader;
             /// @brief Time of the last update of the gap control
             SUMOTime lastUpdate;
+            /// @brief cache storage for the headway increments of the current operation
+            double timeHeadwayIncrement, spaceHeadwayIncrement;
         };
     public:
         /// @brief Constructor
@@ -1392,7 +1399,7 @@ public:
 
         /** @brief Activates the gap control with the given parameters, @see GapControlState
          */
-        void activateGapController(double originalTau, double newTau, double duration, double changeRate, double maxDecel);
+        void activateGapController(double originalTau, double newTimeHeadway, double newSpaceHeadway, double duration, double changeRate, double maxDecel);
 
         /** @brief Deactivates the gap control
          */

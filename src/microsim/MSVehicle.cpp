@@ -240,33 +240,36 @@ MSVehicle::WaitingTimeCollector::passTime(SUMOTime dt, bool waiting) {
  * methods of MSVehicle::Influencer::GapControlState
  * ----------------------------------------------------------------------- */
 MSVehicle::Influencer::GapControlState::GapControlState() :
-    tauOriginal(-1), tauCurrent(-1), tauTarget(-1), remainingDuration(-1),
-    changeRate(-1), maxDecel(-1), active(false), gapAttained(false), prevLeader(nullptr), lastUpdate(-1) {}
+    tauOriginal(-1), tauCurrent(-1), tauTarget(-1), addGapCurrent(-1), addGapTarget(-1),
+    remainingDuration(-1), changeRate(-1), maxDecel(-1), active(false), gapAttained(false), prevLeader(nullptr),
+    lastUpdate(-1), timeHeadwayIncrement(0.0), spaceHeadwayIncrement(0.0) {}
 
 
 void
-MSVehicle::Influencer::GapControlState::activate(double tauOrig, double tauNew, double dur, double rate, double decel) {
+MSVehicle::Influencer::GapControlState::activate(double tauOrig, double tauNew, double additionalGap, double dur, double rate, double decel) {
     if (MSGlobals::gUseMesoSim) {
         WRITE_ERROR("No gap control available for meso.")
     } else {
         tauOriginal = tauOrig;
         tauCurrent = tauOrig;
         tauTarget = tauNew;
+        addGapCurrent = 0.0;
+        addGapTarget = additionalGap;
         remainingDuration = dur;
         changeRate = rate;
         maxDecel = decel;
         active = true;
         gapAttained = false;
         prevLeader = nullptr;
+        lastUpdate = SIMSTEP - DELTA_T;
+        timeHeadwayIncrement = changeRate*TS*(tauTarget - tauOriginal);
+        spaceHeadwayIncrement = changeRate*TS*addGapTarget;
     }
 }
 
 void
 MSVehicle::Influencer::GapControlState::deactivate() {
-    remainingDuration = 0.0;
     active = false;
-    gapAttained = false;
-    prevLeader = nullptr;
 }
 
 
@@ -304,11 +307,11 @@ MSVehicle::Influencer::setSpeedTimeLine(const std::vector<std::pair<SUMOTime, do
 }
 
 void
-MSVehicle::Influencer::activateGapController(double originalTau, double newTau, double duration, double changeRate, double maxDecel) {
+MSVehicle::Influencer::activateGapController(double originalTau, double newTimeHeadway, double newSpaceHeadway, double duration, double changeRate, double maxDecel) {
     if (myGapControlState == nullptr) {
         myGapControlState = std::make_shared<GapControlState>();
     }
-    myGapControlState->activate(originalTau, newTau, duration, changeRate, maxDecel);
+    myGapControlState->activate(originalTau, newTimeHeadway, newSpaceHeadway, duration, changeRate, maxDecel);
 }
 
 void
@@ -410,14 +413,14 @@ MSVehicle::Influencer::gapControlSpeed(SUMOTime currentTime, const SUMOVehicle* 
         const double currentSpeed = veh->getSpeed();
         const MSVehicle* msVeh = dynamic_cast<const MSVehicle*>(veh);
         assert(msVeh != nullptr);
-        const double desiredTargetSpacing = myGapControlState->tauTarget*currentSpeed;
-        std::pair<const MSVehicle* const, double> leaderInfo = msVeh->getLeader(desiredTargetSpacing + 20.);
+        const double desiredTargetTimeSpacing = myGapControlState->tauTarget*currentSpeed;
+        std::pair<const MSVehicle* const, double> leaderInfo = msVeh->getLeader(desiredTargetTimeSpacing + 20.);
 #ifdef DEBUG_TRACI
     if DEBUG_COND2(veh) {
         const double desiredCurrentSpacing = myGapControlState->tauCurrent*currentSpeed;
         std::cout <<  " Gap control active:"
                 << " currentSpeed=" << currentSpeed
-                << ", desiredTargetSpacing=" << desiredTargetSpacing
+                << ", desiredTargetTimeSpacing=" << desiredTargetTimeSpacing
                 << ", desiredCurrentSpacing=" << desiredCurrentSpacing
                 << ", leader=" << (leaderInfo.first==nullptr ? "NULL" : leaderInfo.first->getID())
                 << ", dist=" << leaderInfo.second
@@ -467,7 +470,7 @@ MSVehicle::Influencer::gapControlSpeed(SUMOTime currentTime, const SUMOVehicle* 
             if (myGapControlState->tauCurrent == myGapControlState->tauTarget) {
                 if (!myGapControlState->gapAttained) {
                     // Check if the desired gap was established (add the POSITIONAL_EPS to avoid infinite asymptotic behavior without having established the gap)
-                    myGapControlState->gapAttained = leaderInfo.first == nullptr ||  leaderInfo.second > desiredTargetSpacing - POSITION_EPS;
+                    myGapControlState->gapAttained = leaderInfo.first == nullptr ||  leaderInfo.second > MAX2(desiredTargetTimeSpacing, myGapControlState->addGapTarget) - POSITION_EPS;
 #ifdef DEBUG_TRACI
                     if DEBUG_COND2(veh) {
                         if (myGapControlState->gapAttained){
@@ -494,11 +497,9 @@ MSVehicle::Influencer::gapControlSpeed(SUMOTime currentTime, const SUMOVehicle* 
                     }
                 }
             } else {
-                if (myGapControlState->tauOriginal <= myGapControlState->tauTarget) {
-                    myGapControlState->tauCurrent = MIN2(myGapControlState->tauCurrent + myGapControlState->changeRate*TS, myGapControlState->tauTarget);
-                } else {
-                    myGapControlState->tauCurrent = MAX2(myGapControlState->tauCurrent - myGapControlState->changeRate*TS, myGapControlState->tauTarget);
-                }
+                // Adjust current headway values
+                myGapControlState->tauCurrent = MIN2(myGapControlState->tauCurrent + myGapControlState->timeHeadwayIncrement, myGapControlState->tauTarget);
+                myGapControlState->addGapCurrent = MIN2(myGapControlState->addGapCurrent + myGapControlState->spaceHeadwayIncrement, myGapControlState->addGapTarget);
             }
         }
         if (myConsiderSafeVelocity) {
