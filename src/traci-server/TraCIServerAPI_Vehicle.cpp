@@ -512,7 +512,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                     if (newTimeHeadway <= 0) {
                         if (newTimeHeadway != -1) {
                             return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The value for the new desired time headway (tau) must be positive for create gap", outputStorage);
-                        } // else: keep vehicles current headway
+                        } // else if == -1: keep vehicles current headway, see libsumo::Vehicle::openGap
                     }
                     if (newSpaceHeadway < 0) {
                         return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The value for the new desired space headway must be non-negative for create gap", outputStorage);
