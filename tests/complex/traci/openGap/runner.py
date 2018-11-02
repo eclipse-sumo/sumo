@@ -31,6 +31,8 @@ else:
 
 # id of vehicle that is controlled
 followerID = "follower"
+# id of vehicle that is followed
+leaderID = "leader"
 # time to simulate after gap control is released
 extraTime = 50.
 # Offset to trigger phase of keeping enlarged headway
@@ -49,6 +51,7 @@ def runSingle(targetTimeHeadway, targetSpaceHeadway, duration, changeRate, maxDe
     print("Subscribe to leader.")
     traci.vehicle.subscribeLeader(followerID, 500)
     traci.vehicle.subscribe(followerID, [tc.VAR_SPEED])
+    traci.vehicle.subscribe(leaderID, [tc.VAR_SPEED])
     
     gapControlActive = False
     targetGapEstablished = False
@@ -61,6 +64,7 @@ def runSingle(targetTimeHeadway, targetSpaceHeadway, duration, changeRate, maxDe
         leader = results[tc.VAR_LEADER][0]
         leaderDist = results[tc.VAR_LEADER][1]
         followerSpeed = results[tc.VAR_SPEED]
+        leaderSpeed = traci.vehicle.getSubscriptionResults(leaderID)[tc.VAR_SPEED]
         currentTimeHeadway = leaderDist/followerSpeed if followerSpeed > 0 else 10000
         currentTime = traci.simulation.getTime() 
         print("Time %s: Gap 'follower'->'%s' = %.3f (headway=%.3f)"%(currentTime, leader, leaderDist, currentTimeHeadway))
@@ -77,7 +81,7 @@ def runSingle(targetTimeHeadway, targetSpaceHeadway, duration, changeRate, maxDe
             print("Current/target headway: {0:.3f}/{1}".format(currentTimeHeadway, targetTimeHeadway))
             currentSpacing = currentTimeHeadway*followerSpeed
             targetSpacing = targetTimeHeadway*followerSpeed
-            if not targetGapEstablished and (leader == "" or currentSpacing > targetSpacing - POSITIONAL_EPS or prevLeader != leader):
+            if not targetGapEstablished and (leader == "" or (currentSpacing > max(targetSpacing, targetSpaceHeadway) - POSITIONAL_EPS) or prevLeader != leader):
                 if (leader != "" and prevLeader != leader):
                     traci.vehicle.deactivateGapControl(followerID)
                     print("## Deactivating gap control (leader has changed).")
@@ -93,6 +97,9 @@ def runSingle(targetTimeHeadway, targetSpaceHeadway, duration, changeRate, maxDe
                 print("## Gap control expired.")
             if remainingTime <= -extraTime:
                 testCompleted = True
+        if leaderSpeed == 0:
+            # Let leader go on slowly, to test space gap
+            traci.vehicle.setSpeed(leaderID, 1.)
         prevLeader = leader
         step += 1
         

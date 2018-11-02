@@ -27,6 +27,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <processing>
         <default.speeddev value="0"/>
+        <step-method.ballistic value="true" />
     </processing>
 
     <report>
