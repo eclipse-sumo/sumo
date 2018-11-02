@@ -8,9 +8,8 @@
 # SPDX-License-Identifier: EPL-2.0
 
 # @file    runner.py
-# @author  Daniel Krajzewicz
-# @author  Michael Behrisch
-# @date    2012-10-19
+# @author  Leonhard Luecken
+# @date    2018-11-02
 # @version $Id$
 
 from __future__ import absolute_import
@@ -37,7 +36,7 @@ extraTime = 50.
 # Offset to trigger phase of keeping enlarged headway
 POSITIONAL_EPS = 0.1
 
-def runSingle(targetHeadway, duration, changeRate, maxDecel):
+def runSingle(targetTimeHeadway, targetSpaceHeadway, duration, changeRate, maxDecel):
     step = 0
     traci.start(sumoCall + ["-c", "sumo.sumocfg"])
     #~ traci.init(port=54321)
@@ -62,22 +61,22 @@ def runSingle(targetHeadway, duration, changeRate, maxDecel):
         leader = results[tc.VAR_LEADER][0]
         leaderDist = results[tc.VAR_LEADER][1]
         followerSpeed = results[tc.VAR_SPEED]
-        currentHeadway = leaderDist/followerSpeed if followerSpeed > 0 else 10000
+        currentTimeHeadway = leaderDist/followerSpeed if followerSpeed > 0 else 10000
         currentTime = traci.simulation.getTime() 
-        print("Time %s: Gap 'follower'->'%s' = %.3f (headway=%.3f)"%(currentTime, leader, leaderDist, currentHeadway))
+        print("Time %s: Gap 'follower'->'%s' = %.3f (headway=%.3f)"%(currentTime, leader, leaderDist, currentTimeHeadway))
         print("'follower' speed = %s"%followerSpeed)
         if (not gapControlActive and not targetGapEstablished and currentTime > 50.):
             print("## Starting to open gap.")
-            print("(followerID, targetHeadway, duration, changeRate, maxDecel) = %s"%str((followerID, targetHeadway, duration, changeRate, maxDecel)))
+            print("(followerID, targetTimeHeadway, targetSpaceHeadway, duration, changeRate, maxDecel) = %s"%str((followerID, targetTimeHeadway, targetSpaceHeadway, duration, changeRate, maxDecel)))
             if maxDecel == -1:
-                traci.vehicle.openGap(followerID, targetHeadway, duration, changeRate)
+                traci.vehicle.openGap(followerID, targetTimeHeadway, targetSpaceHeadway, duration, changeRate)
             else:
-                traci.vehicle.openGap(followerID, targetHeadway, duration, changeRate, maxDecel)
+                traci.vehicle.openGap(followerID, targetTimeHeadway, targetSpaceHeadway, duration, changeRate, maxDecel)
             gapControlActive = True
         elif gapControlActive:
-            print("Current/target headway: {0:.3f}/{1}".format(currentHeadway, targetHeadway))
-            currentSpacing = currentHeadway*followerSpeed
-            targetSpacing = targetHeadway*followerSpeed
+            print("Current/target headway: {0:.3f}/{1}".format(currentTimeHeadway, targetTimeHeadway))
+            currentSpacing = currentTimeHeadway*followerSpeed
+            targetSpacing = targetTimeHeadway*followerSpeed
             if not targetGapEstablished and (leader == "" or currentSpacing > targetSpacing - POSITIONAL_EPS or prevLeader != leader):
                 if (leader != "" and prevLeader != leader):
                     traci.vehicle.deactivateGapControl(followerID)
@@ -101,12 +100,13 @@ def runSingle(targetHeadway, duration, changeRate, maxDecel):
     sys.stdout.flush()
 
 sys.stdout.flush()
-targetHeadway = float(sys.argv[2])
-duration = float(sys.argv[3])
-changeRate = float(sys.argv[4])
-if (len(sys.argv) > 5):
-    maxDecel = float(sys.argv[5])
+targetTimeHeadway = float(sys.argv[2])
+targetSpaceHeadway = float(sys.argv[3])
+duration = float(sys.argv[4])
+changeRate = float(sys.argv[5])
+if (len(sys.argv) > 6):
+    maxDecel = float(sys.argv[6])
 else:
     maxDecel = -1
-runSingle(targetHeadway, duration, changeRate, maxDecel)
+runSingle(targetTimeHeadway, targetSpaceHeadway, duration, changeRate, maxDecel)
 
