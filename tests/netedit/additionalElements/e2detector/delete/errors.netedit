@@ -22,6 +22,7 @@ GLDebug: Removed object e2Detector:E2_02 from SUMORTree with boundary 10.00,-18.
 GLDebug: Inserted e2Detector:E2_02 into SUMORTree with boundary 10.00,-18.40,60.00,21.60
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, shapes saved
+Debug: Selected item 'busStop' in ItemSelector
 Debug: Selected item 'e2Detector' in ItemSelector
 Debug: Adding e2Detector 'e2Detector_gneE0_0_2' in GNEChange_Additional
 GLDebug: Inserted e2Detector:e2Detector_gneE0_0_2 into SUMORTree with boundary -0.10,0.00,1.00,0.10

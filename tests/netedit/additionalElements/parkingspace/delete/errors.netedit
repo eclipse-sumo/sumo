@@ -34,6 +34,7 @@ GLDebug: Removed object parkingArea:parkingAreaLoaded_B from SUMORTree with boun
 GLDebug: Inserted parkingArea:parkingAreaLoaded_B into SUMORTree with boundary 13.00,-13.60,63.00,26.40
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, shapes saved
+Debug: Selected item 'busStop' in ItemSelector
 Debug: Selected item 'parkingArea' in ItemSelector
 Debug: Adding parkingArea 'parkingArea_gneE1_0_2' in GNEChange_Additional
 GLDebug: Inserted parkingArea:parkingArea_gneE1_0_2 into SUMORTree with boundary -0.10,0.00,1.00,0.10

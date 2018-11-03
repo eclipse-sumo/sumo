@@ -1,9 +1,11 @@
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals saved, shapes saved
 Debug: Selected item 'busStop' in ItemSelector
+Debug: Selected item 'busStop' in ItemSelector
 Debug: Adding busStop 'busStop_gneE0_0_0' in GNEChange_Additional
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Selected item 'poly' in ItemSelector
 Debug: Selected item 'poly' in ItemSelector
 Debug: Key ENTER pressed
 Debug: Key ENTER pressed

@@ -1,6 +1,7 @@
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals saved, shapes saved
 Debug: Selected item 'busStop' in ItemSelector
+Debug: Selected item 'busStop' in ItemSelector
 Debug: Adding busStop 'busStop_gneE0_0_0' in GNEChange_Additional
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, shapes saved
@@ -20,6 +21,7 @@ Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting net builder in GNENet destructor
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals saved, shapes saved
+Debug: Selected item 'busStop' in ItemSelector
 Debug: Selected item 'busStop' in ItemSelector
 Debug: Adding busStop 'busStop_gneE0_0_0' in GNEChange_Additional
 Debug: Additionals has to be saved
@@ -41,6 +43,7 @@ Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting net builder in GNENet destructor
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals saved, shapes saved
+Debug: Selected item 'busStop' in ItemSelector
 Debug: Selected item 'busStop' in ItemSelector
 Debug: Adding busStop 'busStop_gneE0_0_0' in GNEChange_Additional
 Debug: Additionals has to be saved

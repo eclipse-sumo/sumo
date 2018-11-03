@@ -8,6 +8,7 @@ GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30
 GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals saved, shapes saved
+Debug: Selected item 'busStop' in ItemSelector
 Debug: Selected item 'containerStop' in ItemSelector
 Debug: Adding containerStop 'containerStop_gneE0_0_0' in GNEChange_Additional
 GLDebug: Inserted containerStop:containerStop_gneE0_0_0 into SUMORTree with boundary -0.10,0.00,1.00,0.10

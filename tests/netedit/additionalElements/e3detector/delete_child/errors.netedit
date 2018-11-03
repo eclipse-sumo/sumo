@@ -43,6 +43,7 @@ GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 11.65,-13
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Debug: Current Viewport values: 25.00, 0.00, 25.00. Zoom = '280.00'
+Debug: Selected item 'busStop' in ItemSelector
 Debug: Selected item 'e3Detector' in ItemSelector
 Debug: Adding e3Detector 'e3Detector_2' in GNEChange_Additional
 GLDebug: Inserted e3Detector:e3Detector_2 into SUMORTree with boundary -0.10,0.00,1.00,0.10
@@ -128,6 +129,7 @@ GLDebug: Inserted e3Detector:e3Detector_2 into SUMORTree with boundary -3.00,-14
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Removing e3Detector 'e3Detector_2' in GNEChange_Additional
 GLDebug: Removed object e3Detector:e3Detector_2 from SUMORTree with boundary -3.00,-14.00,37.00,26.00
+Debug: Selected item 'detExit' in ItemSelector
 Debug: Selected item 'e3Detector' in ItemSelector
 Debug: Deleting unreferenced e3Detector 'e3Detector_2'
 Debug: Deleting unreferenced detEntry 'e3Detector_2detEntry0'
@@ -213,6 +215,7 @@ GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 11.
 GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 11.65,-13.64,51.65,26.36
 GLDebug: Removed object e3Detector:e3Detector_2 from SUMORTree with boundary -3.00,-14.00,37.00,26.00
 GLDebug: Inserted e3Detector:e3Detector_2 into SUMORTree with boundary -3.00,-14.00,37.00,26.00
+Debug: Selected item 'detExit' in ItemSelector
 Debug: Selected item 'detEntry' in ItemSelector
 Debug: Deleting unreferenced detEntry 'e3Detector_2detEntry0'
 Debug: Deleting unreferenced detExit 'e3Detector_2detExit0'

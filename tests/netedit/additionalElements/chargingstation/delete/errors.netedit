@@ -22,6 +22,7 @@ GLDebug: Removed object chargingStation:chargingStation_1 from SUMORTree with bo
 GLDebug: Inserted chargingStation:chargingStation_1 into SUMORTree with boundary 10.00,-18.40,60.00,21.60
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, shapes saved
+Debug: Selected item 'busStop' in ItemSelector
 Debug: Selected item 'chargingStation' in ItemSelector
 Debug: Adding chargingStation 'chargingStation_gneE0_0_2' in GNEChange_Additional
 GLDebug: Inserted chargingStation:chargingStation_gneE0_0_2 into SUMORTree with boundary -0.10,0.00,1.00,0.10

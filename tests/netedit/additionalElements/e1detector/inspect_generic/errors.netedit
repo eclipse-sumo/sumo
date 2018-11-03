@@ -16,6 +16,7 @@ GLDebug: Inserted edge:gneE2 into SUMORTree with boundary -30.00,-14.80,80.00,50
 GLDebug: Inserted edge:gneE3 into SUMORTree with boundary -30.00,-10.00,80.00,54.80
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals saved, shapes saved
+Debug: Selected item 'busStop' in ItemSelector
 Debug: Selected item 'e1Detector' in ItemSelector
 Debug: Adding e1Detector 'e1Detector_gneE2_1_0' in GNEChange_Additional
 GLDebug: Inserted e1Detector:e1Detector_gneE2_1_0 into SUMORTree with boundary -0.10,0.00,1.00,0.10

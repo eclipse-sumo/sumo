@@ -29,6 +29,7 @@ GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Debug: Current Viewport values: 25.00, 0.00, 25.00. Zoom = '280.00'
+Debug: Selected item 'busStop' in ItemSelector
 Debug: Selected item 'rerouter' in ItemSelector
 Debug: Invalid input parameter of rerouter: List of edges cannot be empty
 Debug: Removing rerouter 'rerouter_1' in GNEChange_Additional

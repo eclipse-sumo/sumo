@@ -26,6 +26,7 @@ GLDebug: Inserted routeProbe:routeProbe_02 into SUMORTree with boundary -19.50,-
 GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, shapes saved
+Debug: Selected item 'busStop' in ItemSelector
 Debug: Selected item 'routeProbe' in ItemSelector
 Debug: Adding routeProbe 'routeProbe_gneE1_2' in GNEChange_Additional
 GLDebug: Inserted routeProbe:routeProbe_gneE1_2 into SUMORTree with boundary -0.10,0.00,1.00,0.10

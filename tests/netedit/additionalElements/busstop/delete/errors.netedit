@@ -23,6 +23,7 @@ GLDebug: Inserted busStop:busStop_1 into SUMORTree with boundary 10.00,-16.80,60
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Debug: Selected item 'busStop' in ItemSelector
+Debug: Selected item 'busStop' in ItemSelector
 Debug: Adding busStop 'busStop_gneE0_0_2' in GNEChange_Additional
 GLDebug: Inserted busStop:busStop_gneE0_0_2 into SUMORTree with boundary -0.10,0.00,1.00,0.10
 GLDebug: Removed object busStop:busStop_gneE0_0_2 from SUMORTree with boundary -0.10,0.00,1.00,0.10

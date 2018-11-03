@@ -18,6 +18,7 @@ Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals saved, shapes saved
 Debug: Current Viewport values: 25.00, 20.00, 25.00. Zoom = '280.00'
 Debug: Selected item 'busStop' in ItemSelector
+Debug: Selected item 'busStop' in ItemSelector
 Debug: Adding busStop 'busStop_gneE2_1_0' in GNEChange_Additional
 GLDebug: Inserted busStop:busStop_gneE2_1_0 into SUMORTree with boundary -0.10,0.00,1.00,0.10
 GLDebug: Removed object busStop:busStop_gneE2_1_0 from SUMORTree with boundary -0.10,0.00,1.00,0.10

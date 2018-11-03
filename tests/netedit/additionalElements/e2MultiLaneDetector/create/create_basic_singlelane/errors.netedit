@@ -54,6 +54,7 @@ GLDebug: Inserted edge:gneE4 into SUMORTree with boundary -5.00,-30.00,80.00,31.
 GLDebug: Inserted edge:gneE5 into SUMORTree with boundary -30.00,-30.00,55.00,31.60
 GLDebug: Removed object edge:gneE5 from SUMORTree with boundary -30.00,-30.00,55.00,31.60
 GLDebug: Inserted edge:gneE5 into SUMORTree with boundary -30.00,-30.00,55.00,31.60
+Debug: Selected item 'busStop' in ItemSelector
 Debug: Selected item 'e2MultilaneDetector' in ItemSelector
 Debug: Key ENTER pressed
 GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-23.20,22.00,23.20
