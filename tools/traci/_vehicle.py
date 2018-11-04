@@ -191,7 +191,7 @@ class VehicleDomain(Domain):
         return self._getUniversal(tc.VAR_SPEED, vehID)
 
     def getAcceleration(self, vehID):
-        """getSpeed(string) -> double
+        """getAcceleration(string) -> double
 
         Returns the acceleration in m/s^2 of the named vehicle within the last step.
         """

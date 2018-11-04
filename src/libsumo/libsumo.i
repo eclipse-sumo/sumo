@@ -19,7 +19,7 @@
 
 // adding dummy init and close for easier traci -> libsumo transfer
 %pythoncode %{
-from traci import constants, exceptions, _vehicle, _person
+from traci import constants, exceptions, _vehicle, _person, _trafficlight
 
 def isLibsumo():
     return True
@@ -95,6 +95,7 @@ def simulationStep(step=0):
     }
     $1 = &vars;
 }
+
 %typemap(typecheck, precedence=SWIG_TYPECHECK_INTEGER) const std::vector<int>& {
     $1 = PySequence_Check($input) ? 1 : 0;
 }
@@ -329,5 +330,6 @@ vehicle.isStopped = wrapAsClassMethod(_vehicle.VehicleDomain.isStopped, vehicle)
 vehicle.setBusStop = wrapAsClassMethod(_vehicle.VehicleDomain.setBusStop, vehicle)
 vehicle.setParkingAreaStop = wrapAsClassMethod(_vehicle.VehicleDomain.setParkingAreaStop, vehicle)
 person.removeStages = wrapAsClassMethod(_person.PersonDomain.removeStages, person)
+trafficlight.setLinkState = wrapAsClassMethod(_trafficlight.TrafficLightDomain.setLinkState, trafficlight)
 %}
 #endif
