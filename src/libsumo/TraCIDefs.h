@@ -38,8 +38,8 @@
 // ===========================================================================
 // global definitions
 // ===========================================================================
-#define DEFAULT_VIEW "View #0"
-#define PRECISION 2
+// value for invalid queries
+#define INVALID_DOUBLE_VALUE -1073741824
 
 #define LIBSUMO_SUBSCRIPTION_API \
 static void subscribe(const std::string& objID, const std::vector<int>& vars = std::vector<int>(), double beginTime = INVALID_DOUBLE_VALUE, double endTime = INVALID_DOUBLE_VALUE); \
@@ -203,12 +203,13 @@ typedef std::map<std::string, SubscriptionResults> ContextSubscriptionResults;
 class TraCIPhase {
 public:
     TraCIPhase() {}
-    TraCIPhase(const double _duration, const double _duration1, const double _duration2, const std::string& _phase, int _next=-1)
-        : duration(_duration), duration1(_duration1), duration2(_duration2), phase(_phase), next(_next) {}
+    TraCIPhase(const double _duration, const std::string& _state, const double _minDur = INVALID_DOUBLE_VALUE, const double _maxDur = INVALID_DOUBLE_VALUE, const int _next = -1)
+        : duration(_duration), state(_state), minDur(_minDur), maxDur(_maxDur), next(_next) {}
     ~TraCIPhase() {}
 
-    double duration, duration1, duration2;
-    std::string phase;
+    double duration;
+    std::string state;
+    double minDur, maxDur;
     int next;
 };
 }
@@ -223,11 +224,11 @@ namespace libsumo {
 class TraCILogic {
 public:
     TraCILogic() {}
-    TraCILogic(const std::string& _subID, int _type, int _currentPhaseIndex, const std::vector<TraCIPhase>& _phases = std::vector<TraCIPhase>())
-        : subID(_subID), type(_type), currentPhaseIndex(_currentPhaseIndex), phases(_phases) {}
+    TraCILogic(const std::string& _programID, const int _type, const int _currentPhaseIndex)
+        : programID(_programID), type(_type), currentPhaseIndex(_currentPhaseIndex) {}
     ~TraCILogic() {}
 
-    std::string subID;
+    std::string programID;
     int type;
     int currentPhaseIndex;
     std::vector<TraCIPhase> phases;

@@ -99,9 +99,11 @@ MSTrafficLightLogic::SwitchCommand::deschedule(MSTrafficLightLogic* tlLogic) {
  * member method definitions
  * ----------------------------------------------------------------------- */
 MSTrafficLightLogic::MSTrafficLightLogic(MSTLLogicControl& tlcontrol, const std::string& id,
-        const std::string& programID, SUMOTime delay, const std::map<std::string, std::string>& parameters) :
+        const std::string& programID, const TrafficLightType logicType, const SUMOTime delay,
+        const std::map<std::string, std::string>& parameters) :
     Named(id), Parameterised(parameters),
     myProgramID(programID),
+    myLogicType(logicType),
     myCurrentDurationIncrement(-1),
     myDefaultCycleTime(0) {
     mySwitchCommand = new SwitchCommand(tlcontrol, this, delay);

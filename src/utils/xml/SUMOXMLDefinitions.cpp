@@ -704,7 +704,8 @@ StringBijection<LinkDirection>::Entry SUMOXMLDefinitions::linkDirectionValues[] 
 
 StringBijection<TrafficLightType>::Entry SUMOXMLDefinitions::trafficLightTypesValues[] = {
     { "static",         TLTYPE_STATIC },
-    { "rail",           TLTYPE_RAIL },
+    { "railSignal",     TLTYPE_RAIL_SIGNAL },
+    { "railCrossing",   TLTYPE_RAIL_CROSSING },
     { "actuated",       TLTYPE_ACTUATED },
     { "delay_based",    TLTYPE_DELAYBASED },
     { "sotl_phase",     TLTYPE_SOTL_PHASE },
@@ -714,6 +715,7 @@ StringBijection<TrafficLightType>::Entry SUMOXMLDefinitions::trafficLightTypesVa
     { "sotl_marching",  TLTYPE_SOTL_MARCHING },
     { "swarm",          TLTYPE_SWARM_BASED },
     { "deterministic",  TLTYPE_HILVL_DETERMINISTIC },
+    { "off",            TLTYPE_OFF },
     { "<invalid>",      TLTYPE_INVALID } //< must be the last one
 };
 

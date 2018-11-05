@@ -55,7 +55,8 @@ public:
      * @param[in] parameters Parameters defined for the tll
      */
     MSSOTLHiLevelTrafficLightLogic(MSTLLogicControl& tlcontrol,
-                                   const std::string& id, const std::string& subid, const Phases& phases,
+                                   const std::string& id, const std::string& subid,
+                                   const TrafficLightType logicType, const Phases& phases,
                                    int step, SUMOTime delay,
                                    const std::map<std::string, std::string>& parameters);
 
@@ -71,7 +72,8 @@ public:
      * @param[in] sensors The already defined sensor logic
      */
     MSSOTLHiLevelTrafficLightLogic(MSTLLogicControl& tlcontrol,
-                                   const std::string& id, const std::string& subid, const Phases& phases,
+                                   const std::string& id, const std::string& subid,
+                                   const TrafficLightType logicType, const Phases& phases,
                                    int step, SUMOTime delay,
                                    const std::map<std::string, std::string>& parameters,
                                    MSSOTLSensors* sensors);

@@ -1199,8 +1199,8 @@ NLHandler::addConnection(const SUMOSAXAttributes& attrs) {
             // make sure that the index is in range
             logic = myJunctionControlBuilder.getTLLogic(tlID).getActive();
             if ((tlLinkIdx < 0 || tlLinkIdx >= (int)logic->getCurrentPhaseDef().getState().size())
-                    && logic->getLogicType() != "railSignal"
-                    && logic->getLogicType() != "railCrossing") {
+                    && logic->getLogicType() != TLTYPE_RAIL_SIGNAL
+                    && logic->getLogicType() != TLTYPE_RAIL_CROSSING) {
                 WRITE_ERROR("Invalid " + toString(SUMO_ATTR_TLLINKINDEX) + " '" + toString(tlLinkIdx) +
                             "' in connection controlled by '" + tlID + "'");
                 return;

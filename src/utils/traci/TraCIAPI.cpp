@@ -1664,32 +1664,40 @@ TraCIAPI::TrafficLightScope::getCompleteRedYellowGreenDefinition(const std::stri
     myParent.processGET(inMsg, CMD_GET_TL_VARIABLE, TYPE_COMPOUND);
     std::vector<libsumo::TraCILogic> ret;
 
-    inMsg.readUnsignedByte();
-    inMsg.readInt();
-
     int logicNo = inMsg.readInt();
     for (int i = 0; i < logicNo; ++i) {
         inMsg.readUnsignedByte();
-        std::string subID = inMsg.readString();
+        inMsg.readInt();
         inMsg.readUnsignedByte();
-        int type = inMsg.readInt();
+        const std::string programID = inMsg.readString();
         inMsg.readUnsignedByte();
-        inMsg.readInt(); // add
+        const int type = inMsg.readInt();
         inMsg.readUnsignedByte();
-        int phaseIndex = inMsg.readInt();
+        const int phaseIndex = inMsg.readInt();
         inMsg.readUnsignedByte();
-        int phaseNumber = inMsg.readInt();
-        libsumo::TraCILogic logic(subID, type, phaseIndex);
-        for (int j = 0; j < phaseNumber; ++j) {
+        const int phaseNumber = inMsg.readInt();
+        libsumo::TraCILogic logic(programID, type, phaseIndex);
+        for (int j = 0; j < phaseNumber; j++) {
+            inMsg.readUnsignedByte();
+            inMsg.readInt();
             inMsg.readUnsignedByte();
             const double duration = inMsg.readDouble();
             inMsg.readUnsignedByte();
-            const double duration1 = inMsg.readDouble();
+            const std::string state = inMsg.readString();
             inMsg.readUnsignedByte();
-            const double duration2 = inMsg.readDouble();
+            const double minDur = inMsg.readDouble();
             inMsg.readUnsignedByte();
-            std::string phase = inMsg.readString();
-            logic.phases.emplace_back(libsumo::TraCIPhase(duration, duration1, duration2, phase));
+            const double maxDur = inMsg.readDouble();
+            inMsg.readUnsignedByte();
+            const int next = inMsg.readInt();
+            logic.phases.emplace_back(libsumo::TraCIPhase(duration, state, minDur, maxDur, next));
+        }
+        inMsg.readUnsignedByte();
+        const int paramNumber = inMsg.readInt();
+        for (int j = 0; j < paramNumber; j++) {
+            inMsg.readUnsignedByte();
+            const std::vector<std::string> par = inMsg.readStringList();
+            logic.subParameter[par[0]] = par[1];
         }
         ret.emplace_back(logic);
     }
@@ -1796,7 +1804,7 @@ TraCIAPI::TrafficLightScope::setCompleteRedYellowGreenDefinition(const std::stri
     content.writeUnsignedByte(TYPE_COMPOUND);
     content.writeInt(5 + 4 * (int)logic.phases.size());
     content.writeUnsignedByte(TYPE_STRING);
-    content.writeString(logic.subID);
+    content.writeString(logic.programID);
     content.writeUnsignedByte(TYPE_INTEGER);
     content.writeInt(logic.type);
     content.writeUnsignedByte(TYPE_COMPOUND);
@@ -1809,11 +1817,11 @@ TraCIAPI::TrafficLightScope::setCompleteRedYellowGreenDefinition(const std::stri
         content.writeUnsignedByte(TYPE_DOUBLE);
         content.writeDouble(p.duration);
         content.writeUnsignedByte(TYPE_DOUBLE);
-        content.writeDouble(p.duration1);
+        content.writeDouble(p.minDur);
         content.writeUnsignedByte(TYPE_DOUBLE);
-        content.writeDouble(p.duration2);
+        content.writeDouble(p.maxDur);
         content.writeUnsignedByte(TYPE_STRING);
-        content.writeString(p.phase);
+        content.writeString(p.state);
     }
     myParent.send_commandSetValue(CMD_SET_TL_VARIABLE, TL_COMPLETE_PROGRAM_RYG, tlsID, content);
     tcpip::Storage inMsg;

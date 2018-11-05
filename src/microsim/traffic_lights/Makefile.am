@@ -24,8 +24,6 @@ MSSOTLPlatoonPolicy.cpp MSSOTLPlatoonPolicy.h \
 MSSOTLRequestPolicy.cpp MSSOTLRequestPolicy.h \
 MSSOTLPolicyBasedTrafficLightLogic.cpp MSSOTLPolicyBasedTrafficLightLogic.h \
 MSSOTLPhaseTrafficLightLogic.cpp MSSOTLPhaseTrafficLightLogic.h \
-MSSOTLPlatoonTrafficLightLogic.cpp MSSOTLPlatoonTrafficLightLogic.h \
-MSSOTLRequestTrafficLightLogic.cpp MSSOTLRequestTrafficLightLogic.h \
 MSSOTLSensors.cpp MSSOTLSensors.h \
 MSSOTLTrafficLightLogic.cpp MSSOTLTrafficLightLogic.h \
 MSSOTLWaveTrafficLightLogic.cpp MSSOTLWaveTrafficLightLogic.h \

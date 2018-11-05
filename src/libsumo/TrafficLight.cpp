@@ -66,11 +66,10 @@ TrafficLight::getCompleteRedYellowGreenDefinition(const std::string& tlsID) {
     std::vector<TraCILogic> result;
     const std::vector<MSTrafficLightLogic*> logics = getTLS(tlsID).getAllLogics();
     for (MSTrafficLightLogic* logic : logics) {
-        TraCILogic l(logic->getProgramID(), 0, logic->getCurrentPhaseIndex());
+        TraCILogic l(logic->getProgramID(), (int)logic->getLogicType(), logic->getCurrentPhaseIndex());
         l.subParameter = logic->getParametersMap();
-        for (int j = 0; j < logic->getPhaseNumber(); ++j) {
-            MSPhaseDefinition phase = logic->getPhase(j);
-            l.phases.emplace_back(TraCIPhase(STEPS2TIME(phase.duration), STEPS2TIME(phase.minDuration), STEPS2TIME(phase.maxDuration), phase.getState(), phase.getNextPhase()));
+        for (const MSPhaseDefinition* const phase : logic->getPhases()) {
+            l.phases.emplace_back(TraCIPhase(STEPS2TIME(phase->duration), phase->getState(), STEPS2TIME(phase->minDuration), STEPS2TIME(phase->maxDuration), phase->getNextPhase()));
         }
         result.emplace_back(l);
     }
@@ -205,13 +204,13 @@ TrafficLight::setCompleteRedYellowGreenDefinition(const std::string& tlsID, cons
     }
     std::vector<MSPhaseDefinition*> phases;
     for (TraCIPhase phase : logic.phases) {
-        phases.push_back(new MSPhaseDefinition(TIME2STEPS(phase.duration), TIME2STEPS(phase.duration1), TIME2STEPS(phase.duration2), phase.phase, phase.next));
+        phases.push_back(new MSPhaseDefinition(TIME2STEPS(phase.duration), phase.state, TIME2STEPS(phase.minDur), TIME2STEPS(phase.maxDur), phase.next));
     }
-    if (vars.getLogic(logic.subID) == nullptr) {
-        MSTrafficLightLogic* mslogic = new MSSimpleTrafficLightLogic(MSNet::getInstance()->getTLSControl(), tlsID, logic.subID, phases, logic.currentPhaseIndex, 0, logic.subParameter);
-        vars.addLogic(logic.subID, mslogic, true, true);
+    if (vars.getLogic(logic.programID) == nullptr) {
+        MSTrafficLightLogic* mslogic = new MSSimpleTrafficLightLogic(MSNet::getInstance()->getTLSControl(), tlsID, logic.programID, TLTYPE_STATIC, phases, logic.currentPhaseIndex, 0, logic.subParameter);
+        vars.addLogic(logic.programID, mslogic, true, true);
     } else {
-        static_cast<MSSimpleTrafficLightLogic*>(vars.getLogic(logic.subID))->setPhases(phases, logic.currentPhaseIndex);
+        static_cast<MSSimpleTrafficLightLogic*>(vars.getLogic(logic.programID))->setPhases(phases, logic.currentPhaseIndex);
     }
 }
 

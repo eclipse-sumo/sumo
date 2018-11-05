@@ -43,10 +43,6 @@ set(microsim_traffic_lights_STAT_SRCS
    MSSOTLPolicyBasedTrafficLightLogic.h
    MSSOTLPhaseTrafficLightLogic.cpp
    MSSOTLPhaseTrafficLightLogic.h
-   MSSOTLPlatoonTrafficLightLogic.cpp
-   MSSOTLPlatoonTrafficLightLogic.h
-   MSSOTLRequestTrafficLightLogic.cpp
-   MSSOTLRequestTrafficLightLogic.h
    MSSOTLSensors.cpp
    MSSOTLSensors.h
    MSSOTLTrafficLightLogic.cpp

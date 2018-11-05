@@ -22,89 +22,84 @@ from .exceptions import TraCIException
 
 class Phase:
 
-    def __init__(self, duration, duration1, duration2, phaseDef):
-        self._duration = duration
-        self._duration1 = duration1  # minimum duration (only for actuated tls)
-        self._duration2 = duration2  # maximum duration (only for actuated tls)
-        self._phaseDef = phaseDef
+    def __init__(self, duration, state, minDur=-1, maxDur=-1, next=-1):
+        self.duration = duration
+        self.state = state
+        self.minDur = minDur  # minimum duration (only for actuated tls)
+        self.maxDur = maxDur  # maximum duration (only for actuated tls)
+        self.next = next
 
     def __repr__(self):
-        return ("Phase:\nduration: %s\nminDuration: %s\nmaxDuration: %s\nphaseDef: %s\n" %
-                (self._duration, self._duration1, self._duration2, self._phaseDef))
+        return ("Phase(duration=%s, state='%s', minDur=%s, maxDur=%s, next=%s)" %
+                (self.duration, self.state, self.minDur, self.maxDur, self.next))
 
 
 class Logic:
 
-    def __init__(self, subID, type, subParameter, currentPhaseIndex, phases):
-        self._subID = subID
-        self._type = type
-        self._subParameter = subParameter
-        self._currentPhaseIndex = currentPhaseIndex
-        self._phases = phases
+    def __init__(self, programID, type, currentPhaseIndex, phases=None, subParameter=None):
+        self.programID = programID
+        self.type = type
+        self.currentPhaseIndex = currentPhaseIndex
+        self.phases = phases if phases is not None else []
+        self.subParameter = subParameter if subParameter is not None else {}
 
     def getPhases(self):
-        return self._phases
+        return self.phases
 
     def getSubID(self):
-        return self._subID
+        return self.programID
 
     def getType(self):
-        return self._type
+        return self.type
 
     def getParameters(self):
-        return self._subParameter
+        return self.subParameter
+
+    def getParameter(self, key, default=None):
+        return self.subParameter.get(key, default)
 
     def __repr__(self):
-        result = ("Logic:\nsubID: %s\ntype: %s\nsubParameter: %s\ncurrentPhaseIndex: %s\n" %
-                  (self._subID, self._type, self._subParameter, self._currentPhaseIndex))
-        for p in self._phases:
-            result += str(p)
-        return result
+        return ("Logic(programID='%s', type=%s, currentPhaseIndex=%s, phases=%s, subParameter=%s)" %
+                  (self.programID, self.type, self.currentPhaseIndex, self.phases, self.subParameter))
 
 
 def _readLogics(result):
-    result.readLength()
-    nbLogics = result.read("!i")[0]    # Number of logics
+    numLogics = result.readInt()
     logics = []
-    for i in range(nbLogics):
-        result.read("!B")                       # Type of SubID
-        subID = result.readString()
-        result.read("!B")                       # Type of Type
-        type = result.read("!i")[0]             # Type
-        result.read("!B")                       # Type of SubParameter
-        subParameter = result.read("!i")[0]     # SubParameter
-        result.read("!B")                       # Type of Current phase index
-        currentPhaseIndex = result.read("!i")[0]    # Current phase index
-        result.read("!B")                       # Type of Number of phases
-        nbPhases = result.read("!i")[0]         # Number of phases
-        phases = []
-        for j in range(nbPhases):
-            result.read("!B")                   # Type of Duration
-            duration = result.read("!d")[0]     # Duration
-            result.read("!B")                   # Type of Duration1
-            duration1 = result.read("!d")[0]    # Duration1
-            result.read("!B")                   # Type of Duration2
-            duration2 = result.read("!d")[0]    # Duration2
-            result.read("!B")                   # Type of Phase Definition
-            phaseDef = result.readString()      # Phase Definition
-            phase = Phase(duration, duration1, duration2, phaseDef)
-            phases.append(phase)
-        logic = Logic(subID, type, subParameter, currentPhaseIndex, phases)
+    for _ in range(numLogics):
+        result.readCompound(5)
+        programID = result.readTypedString()
+        type = result.readTypedInt()
+        currentPhaseIndex = result.readTypedInt()
+        logic = Logic(programID, type, currentPhaseIndex)
+        numPhases = result.readCompound()
+        for __ in range(numPhases):
+            result.readCompound(5)
+            duration = result.readTypedDouble()
+            state = result.readTypedString()
+            minDur = result.readTypedDouble()
+            maxDur = result.readTypedDouble()
+            next = result.readTypedInt()
+            logic.phases.append(Phase(duration, state, minDur, maxDur, next))
+        numParams = result.readCompound()
+        for __ in range(numParams):
+            key, value = result.readTypedStringList()
+            logic.subParameter[key] = value
         logics.append(logic)
     return logics
 
 
 def _readLinks(result):
     result.readLength()
-    nbSignals = result.read("!i")[0]  # Length
+    numSignals = result.readInt()  # Length
     signals = []
-    for i in range(nbSignals):
+    for _ in range(numSignals):
         # Type of Number of Controlled Links
         result.read("!B")
         # Number of Controlled Links
         nbControlledLinks = result.read("!i")[0]
         controlledLinks = []
-        for j in range(nbControlledLinks):
+        for __ in range(nbControlledLinks):
             result.read("!B")                       # Type of Link j
             link = result.readStringList()          # Link j
             controlledLinks.append(link)
@@ -257,31 +252,31 @@ class TrafficLightDomain(Domain):
         See getCompleteRedYellowGreenDefinition.
         """
         length = 1 + 4 + 1 + 4 + \
-            len(tls._subID) + 1 + 4 + 1 + 4 + 1 + 4 + 1 + 4  # tls parameter
+            len(tls.programID) + 1 + 4 + 1 + 4 + 1 + 4 + 1 + 4  # tls parameter
         itemNo = 1 + 1 + 1 + 1 + 1
-        for p in tls._phases:
-            length += 1 + 8 + 1 + 8 + 1 + 8 + 1 + 4 + len(p._phaseDef)
+        for p in tls.phases:
+            length += 1 + 8 + 1 + 8 + 1 + 8 + 1 + 4 + len(p.state)
             itemNo += 4
         self._connection._beginMessage(
             tc.CMD_SET_TL_VARIABLE, tc.TL_COMPLETE_PROGRAM_RYG, tlsID, length)
         self._connection._string += struct.pack("!Bi",
                                                 tc.TYPE_COMPOUND, itemNo)
         # programID
-        self._connection._packString(tls._subID)
+        self._connection._packString(tls.programID)
         # type
         self._connection._string += struct.pack("!Bi", tc.TYPE_INTEGER, 0)
         # subitems
         self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 0)
         # index
         self._connection._string += struct.pack("!Bi",
-                                                tc.TYPE_INTEGER, tls._currentPhaseIndex)
+                                                tc.TYPE_INTEGER, tls.currentPhaseIndex)
         # phaseNo
         self._connection._string += struct.pack("!Bi",
-                                                tc.TYPE_INTEGER, len(tls._phases))
-        for p in tls._phases:
-            self._connection._string += struct.pack("!BdBdBd", tc.TYPE_DOUBLE, p._duration,
-                                                    tc.TYPE_DOUBLE, p._duration1, tc.TYPE_DOUBLE, p._duration2)
-            self._connection._packString(p._phaseDef)
+                                                tc.TYPE_INTEGER, len(tls.phases))
+        for p in tls.phases:
+            self._connection._string += struct.pack("!BdBdBd", tc.TYPE_DOUBLE, p.duration,
+                                                    tc.TYPE_DOUBLE, p.minDur, tc.TYPE_DOUBLE, p.maxDur)
+            self._connection._packString(p.state)
         self._connection._sendExact()
 
 

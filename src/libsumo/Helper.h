@@ -27,7 +27,6 @@
 #include <vector>
 #include <memory>
 #include <libsumo/Subscription.h>
-#include <libsumo/TraCIDefs.h>
 #include <microsim/MSNet.h>
 
 // ===========================================================================

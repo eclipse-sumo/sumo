@@ -328,8 +328,6 @@
 #define TYPE_DOUBLE 0x0B
 // 8 bit ASCII string
 #define TYPE_STRING 0x0C
-// list of traffic light phases
-#define TYPE_TLPHASELIST 0x0D
 // list of strings
 #define TYPE_STRINGLIST 0x0E
 // compound object
@@ -348,26 +346,15 @@
 // result type: error
 #define RTYPE_ERR 0xFF
 
+// ****************************************
+// special return or parameter values
+// ****************************************
 // return value for invalid queries (especially vehicle is not on the road), see Position::INVALID
 #define INVALID_DOUBLE_VALUE -1073741824
 // return value for invalid queries (especially vehicle is not on the road), see Position::INVALID
 #define INVALID_INT_VALUE -1073741824
 // maximum value for client ordering (2 ^ 30)
 #define MAX_ORDER 1073741824
-
-// ****************************************
-// TRAFFIC LIGHT PHASES
-// ****************************************
-// red phase
-#define TLPHASE_RED 0x01
-// yellow phase
-#define TLPHASE_YELLOW 0x02
-// green phase
-#define TLPHASE_GREEN 0x03
-// tl is blinking
-#define TLPHASE_BLINKING 0x04
-// tl is off and not blinking
-#define TLPHASE_NOSIGNAL 0x05
 
 
 // ****************************************

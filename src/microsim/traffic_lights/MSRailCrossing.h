@@ -93,17 +93,6 @@ public:
     /// @}
 
 
-    /// @name Static Information Retrieval
-    /// @{
-    /** @brief Returns the type of the logic as a string
-     * @return The type of the logic
-     */
-    const std::string getLogicType() const {
-        return "railCrossing";
-    }
-    /// @}
-
-
     /// @name Conversion between time and phase
     /// @{
 

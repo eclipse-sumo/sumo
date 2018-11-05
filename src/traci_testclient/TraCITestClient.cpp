@@ -600,30 +600,6 @@ TraCITestClient::readAndReportTypeDependent(tcpip::Storage& inMsg, int valueData
         answerLog << " RoadMapPositionValue: roadId=" << roadId
                   << " pos=" << pos
                   << " laneId=" << laneId << std::endl;
-    } else if (valueDataType == TYPE_TLPHASELIST) {
-        int length = inMsg.readUnsignedByte();
-        answerLog << " TLPhaseListValue: length=" << length << std::endl;
-        for (int i = 0; i < length; i++) {
-            std::string pred = inMsg.readString();
-            std::string succ = inMsg.readString();
-            int phase = inMsg.readUnsignedByte();
-            answerLog << " precRoad=" << pred << " succRoad=" << succ
-                      << " phase=";
-            switch (phase) {
-                case TLPHASE_RED:
-                    answerLog << "red" << std::endl;
-                    break;
-                case TLPHASE_YELLOW:
-                    answerLog << "yellow" << std::endl;
-                    break;
-                case TLPHASE_GREEN:
-                    answerLog << "green" << std::endl;
-                    break;
-                default:
-                    answerLog << "#Error: unknown phase value" << (int)phase << std::endl;
-                    return;
-            }
-        }
     } else if (valueDataType == TYPE_STRING) {
         std::string s = inMsg.readString();
         answerLog << " string value: " << s << std::endl;
@@ -954,21 +930,22 @@ TraCITestClient::testAPI() {
             answerLog << "      index=" << i << " link=" << j << " fromLane=" << links[i][j].fromLane << " viaLane=" << links[i][j].viaLane << " toLane=" << links[i][j].toLane << "\n";
         }
     }
-    std::vector<libsumo::TraCIPhase> phases({ libsumo::TraCIPhase(5, 5, 5, "rrrrrrr"), libsumo::TraCIPhase(10, 5, 15, "ggggggg"),
-                                            libsumo::TraCIPhase(3, 3, 3, "GGGGGGG"), libsumo::TraCIPhase(3, 3, 3, "yyyyyyy")
+    libsumo::TraCILogic logic("custom", 0, 3);
+    logic.phases = std::vector<libsumo::TraCIPhase>({ libsumo::TraCIPhase(5, "rrrrrrr", 5, 5), libsumo::TraCIPhase(10, "ggggggg", 5, 15),
+                                            libsumo::TraCIPhase(3, "GGGGGGG", 3, 3), libsumo::TraCIPhase(3, "yyyyyyy", 3, 3)
                                             });
-    trafficlights.setCompleteRedYellowGreenDefinition("n_m4", libsumo::TraCILogic("custom", 0, 3, phases));
+    trafficlights.setCompleteRedYellowGreenDefinition("n_m4", logic);
 
     std::vector<libsumo::TraCILogic> logics = trafficlights.getCompleteRedYellowGreenDefinition("n_m4");
     answerLog << "    completeDefinition:\n";
     for (int i = 0; i < (int)logics.size(); ++i) {
-        answerLog << "      subID=" << logics[i].subID << " type=" << logics[i].type << " phase=" << logics[i].currentPhaseIndex << "\n";
+        answerLog << "      subID=" << logics[i].programID << " type=" << logics[i].type << " phase=" << logics[i].currentPhaseIndex << "\n";
         answerLog << "      params=" << joinToString(logics[i].subParameter, " ", ":") << "\n";
         for (int j = 0; j < (int)logics[i].phases.size(); ++j) {
-            answerLog << "         phase=" << logics[i].phases[j].phase
+            answerLog << "         phase=" << logics[i].phases[j].state
                       << " dur=" << logics[i].phases[j].duration
-                      << " minDur=" << logics[i].phases[j].duration1
-                      << " maxDur=" << logics[i].phases[j].duration2
+                      << " minDur=" << logics[i].phases[j].minDur
+                      << " maxDur=" << logics[i].phases[j].maxDur
                       << "\n";
         }
     }

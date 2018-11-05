@@ -1050,7 +1050,8 @@ enum LinkDirection {
 /// @enum TrafficLightType
 enum TrafficLightType {
     TLTYPE_STATIC,
-    TLTYPE_RAIL,
+    TLTYPE_RAIL_SIGNAL,
+    TLTYPE_RAIL_CROSSING,
     TLTYPE_ACTUATED,
     TLTYPE_DELAYBASED,
     TLTYPE_SOTL_PHASE,
@@ -1060,6 +1061,7 @@ enum TrafficLightType {
     TLTYPE_SOTL_MARCHING,
     TLTYPE_SWARM_BASED,
     TLTYPE_HILVL_DETERMINISTIC,
+    TLTYPE_OFF,
     TLTYPE_INVALID //< must be the last one
 };
 

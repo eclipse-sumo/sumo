@@ -47,49 +47,47 @@ TraCIServerAPI_TrafficLight::processGet(TraCIServer& server, tcpip::Storage& inp
             switch (variable) {
                 case TL_COMPLETE_DEFINITION_RYG: {
                     std::vector<libsumo::TraCILogic> logics = libsumo::TrafficLight::getCompleteRedYellowGreenDefinition(id);
-                    server.getWrapperStorage().writeUnsignedByte(TYPE_COMPOUND);
-                    tcpip::Storage tempContent;
-                    int cnt = 0;
-                    tempContent.writeUnsignedByte(TYPE_INTEGER);
-                    tempContent.writeInt((int)logics.size());
-                    ++cnt;
+                    tcpip::Storage& storage = server.getWrapperStorage();
+                    storage.writeUnsignedByte(TYPE_COMPOUND);
+                    storage.writeInt((int)logics.size());
                     for (const libsumo::TraCILogic& logic : logics) {
-                        tempContent.writeUnsignedByte(TYPE_STRING);
-                        tempContent.writeString(logic.subID);
-                        ++cnt;
-                        // type (always 0 by now)
-                        tempContent.writeUnsignedByte(TYPE_INTEGER);
-                        tempContent.writeInt(logic.type);
-                        ++cnt;
-                        // subparameter (always 0 by now)
-                        tempContent.writeUnsignedByte(TYPE_COMPOUND);
-                        tempContent.writeInt(0);
-                        ++cnt;
+                        storage.writeUnsignedByte(TYPE_COMPOUND);
+                        storage.writeInt(5);
+                        storage.writeUnsignedByte(TYPE_STRING);
+                        storage.writeString(logic.programID);
+                        // type
+                        storage.writeUnsignedByte(TYPE_INTEGER);
+                        storage.writeInt(logic.type);
                         // (current) phase index
-                        tempContent.writeUnsignedByte(TYPE_INTEGER);
-                        tempContent.writeInt(logic.currentPhaseIndex);
-                        ++cnt;
+                        storage.writeUnsignedByte(TYPE_INTEGER);
+                        storage.writeInt(logic.currentPhaseIndex);
                         // phase number
-                        tempContent.writeUnsignedByte(TYPE_INTEGER);
-                        tempContent.writeInt((int)logic.phases.size());
-                        ++cnt;
+                        storage.writeUnsignedByte(TYPE_COMPOUND);
+                        storage.writeInt((int)logic.phases.size());
                         for (const libsumo::TraCIPhase& phase : logic.phases) {
-                            tempContent.writeUnsignedByte(TYPE_DOUBLE);
-                            tempContent.writeDouble(phase.duration);
-                            ++cnt;
-                            tempContent.writeUnsignedByte(TYPE_DOUBLE);
-                            tempContent.writeDouble(phase.duration1);
-                            ++cnt; // not implemented
-                            tempContent.writeUnsignedByte(TYPE_DOUBLE);
-                            tempContent.writeDouble(phase.duration2);
-                            ++cnt; // not implemented
-                            tempContent.writeUnsignedByte(TYPE_STRING);
-                            tempContent.writeString(phase.phase);
-                            ++cnt;
+                            storage.writeUnsignedByte(TYPE_COMPOUND);
+                            storage.writeInt(5);
+                            storage.writeUnsignedByte(TYPE_DOUBLE);
+                            storage.writeDouble(phase.duration);
+                            storage.writeUnsignedByte(TYPE_STRING);
+                            storage.writeString(phase.state);
+                            storage.writeUnsignedByte(TYPE_DOUBLE);
+                            storage.writeDouble(phase.minDur);
+                            storage.writeUnsignedByte(TYPE_DOUBLE);
+                            storage.writeDouble(phase.maxDur);
+                            storage.writeUnsignedByte(TYPE_INTEGER);
+                            storage.writeInt(phase.next);
+                        }
+                        // subparameter
+                        storage.writeUnsignedByte(TYPE_COMPOUND);
+                        storage.writeInt((int)logic.subParameter.size());
+                        for (const auto& item : logic.subParameter) {
+                            storage.writeUnsignedByte(TYPE_STRINGLIST);
+                            storage.writeInt(2);
+                            storage.writeString(item.first);
+                            storage.writeString(item.second);
                         }
                     }
-                    server.getWrapperStorage().writeInt((int)cnt);
-                    server.getWrapperStorage().writeStorage(tempContent);
                     break;
                 }
                 case TL_CONTROLLED_LINKS: {
@@ -249,8 +247,8 @@ TraCIServerAPI_TrafficLight::processSet(TraCIServer& server, tcpip::Storage& inp
                 inputStorage.readInt();
                 libsumo::TraCILogic logic;
                 int numPhases = 0;
-                if (!server.readTypeCheckingString(inputStorage, logic.subID)) {
-                    return server.writeErrorStatusCmd(CMD_SET_TL_VARIABLE, "set program: 1. parameter (subid) must be a string.", outputStorage);
+                if (!server.readTypeCheckingString(inputStorage, logic.programID)) {
+                    return server.writeErrorStatusCmd(CMD_SET_TL_VARIABLE, "set program: 1. parameter (programID) must be a string.", outputStorage);
                 }
                 if (!server.readTypeCheckingInt(inputStorage, logic.type)) {
                     return server.writeErrorStatusCmd(CMD_SET_TL_VARIABLE, "set program: 2. parameter (type) must be an int.", outputStorage);
@@ -280,7 +278,7 @@ TraCIServerAPI_TrafficLight::processSet(TraCIServer& server, tcpip::Storage& inp
                     if (!server.readTypeCheckingString(inputStorage, state)) {
                         return server.writeErrorStatusCmd(CMD_SET_TL_VARIABLE, "set program: 6.4. parameter (phase) must be a string.", outputStorage);
                     }
-                    logic.phases.emplace_back(libsumo::TraCIPhase(duration, minDuration, maxDuration, state));
+                    logic.phases.emplace_back(libsumo::TraCIPhase(duration, state, minDuration, maxDuration));
                 }
                 libsumo::TrafficLight::setCompleteRedYellowGreenDefinition(id, logic);
             }
