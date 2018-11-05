@@ -52,6 +52,9 @@ public:
         /// @brief get current TAZ
         GNETAZ* getTAZ() const;
 
+        /// @brief check if given edge belongs to current TAZ
+        bool isTAZEdge(GNEEdge* edge) const;
+
         /// @brief get current net edges
         const std::vector<GNEEdge*> &getNetEdges() const;
 
@@ -62,8 +65,11 @@ public:
         /// @brief current TAZ
         GNETAZ* myTAZCurrent;
 
-        /// @brief vector with pointers to net (it's used to avoid slowdowns during Source/Sinks manipulations)
+        /// @brief vector with pointers to edges (it's used to avoid slowdowns during Source/Sinks manipulations)
         std::vector<GNEEdge*> myNetEdges;
+
+        /// @brief vector with TAZ's edges
+        std::set<GNEEdge*> myTAZEdges;
 
         /// @brief Label for current TAZ
         FXLabel* myTAZCurrentLabel;
