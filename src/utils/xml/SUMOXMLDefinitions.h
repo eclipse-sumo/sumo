@@ -879,6 +879,18 @@ enum SumoXMLAttr {
     GNE_ATTR_PARENT,
     /// @brief generic attribute
     GNE_ATTR_GENERIC,
+    /// @brief min source (used only by TAZs)
+    GNE_ATTR_MIN_SOURCE,
+    /// @brief min sink (used only by TAZs)
+    GNE_ATTR_MIN_SINK,
+    /// @brief max source (used only by TAZs)
+    GNE_ATTR_MAX_SOURCE,
+    /// @brief max sink (used only by TAZs)
+    GNE_ATTR_MAX_SINK,
+    /// @brief average source (used only by TAZs)
+    GNE_ATTR_AVERAGE_SOURCE,
+    /// @brief average sink (used only by TAZs)
+    GNE_ATTR_AVERAGE_SINK,
     // @}
 
     SUMO_ATTR_TARGETLANE,

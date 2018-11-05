@@ -159,8 +159,29 @@ private:
     /// @brief squaredhint size of vertex
     static const double myHintSizeSquared;
 
+    /// @brief Max source weight
+    double myMaxWeightSource;
+
+    /// @brief Min source weight
+    double myMinWeightSource;
+
+    /// @brief Average source weight
+    double myAverageWeightSource;
+
+    /// @brief Max Sink weight
+    double myMaxWeightSink;
+
+    /// @brief Min Sink weight
+    double myMinWeightSink;
+
+    /// @brief Average Sink weight
+    double myAverageWeightSink;
+
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
+
+    /// @brief update TAZ after add or remove a Source/sink
+    void updateAdditionalParent();
 
     /// @brief Invalidated copy constructor.
     GNETAZ(const GNETAZ&) = delete;

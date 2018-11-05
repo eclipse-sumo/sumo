@@ -65,7 +65,14 @@ GNETAZ::GNETAZ(const std::string& id, GNEViewNet* viewNet, PositionVector shape,
     GNEAdditional(id, viewNet, GLO_TAZ, SUMO_TAG_TAZ, "", blockMovement),
     myColor(color),
     myBlockShape(false),
-    myCurrentMovingVertexIndex(-1) {
+    myCurrentMovingVertexIndex(-1),
+    myMaxWeightSource(0),
+    myMinWeightSource(0),
+    myAverageWeightSource(0),
+    myMaxWeightSink(0),
+    myMinWeightSink(0),
+    myAverageWeightSink(0) {
+    // set TAZ shape
     myGeometry.shape = shape;
 }
 
@@ -366,6 +373,18 @@ GNETAZ::getAttribute(SumoXMLAttr key) const {
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_GENERIC:
             return getGenericParametersStr();
+        case GNE_ATTR_MIN_SOURCE:
+            return toString(myMinWeightSource);
+        case GNE_ATTR_MIN_SINK:
+            return toString(myMinWeightSink);
+        case GNE_ATTR_MAX_SOURCE:
+            return toString(myMaxWeightSource);
+        case GNE_ATTR_MAX_SINK:
+            return toString(myMaxWeightSink);
+        case GNE_ATTR_AVERAGE_SOURCE:
+            return toString(myAverageWeightSource);
+        case GNE_ATTR_AVERAGE_SINK:
+            return toString(myAverageWeightSink);
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -472,6 +491,56 @@ GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
+}
+
+
+void 
+GNETAZ::updateAdditionalParent() {
+    // reset all stadistic variables
+    myMaxWeightSource = 0;
+    myMinWeightSource = -1;
+    myAverageWeightSource = 0;
+    myMaxWeightSink = 0;
+    myMinWeightSink = -1;
+    myAverageWeightSink = 0;
+    // declare an extra variables for saving number of childs
+    int numberOfSources = 0;
+    int numberOfSinks = 0;
+    // iterate over additional childs
+    for (auto i : myAdditionalChilds) {
+        if (i->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) {
+            double weight = parse<double>(i->getAttribute(SUMO_ATTR_WEIGHT));
+            // check max Weight
+            if (myMaxWeightSource < weight) {
+                myMaxWeightSource = weight;
+            }
+            // check min Weight
+            if (myMinWeightSource == -1 || (myMaxWeightSource < weight)) {
+                myMinWeightSource = weight;
+            }
+            // update Average
+            myAverageWeightSource += weight;
+            // update number of sources
+            numberOfSources++;
+        } else if (i->getTagProperty().getTag() == SUMO_TAG_TAZSINK) {
+            double weight = parse<double>(i->getAttribute(SUMO_ATTR_WEIGHT));
+            // check max Weight
+            if (myMaxWeightSink < weight) {
+                myMaxWeightSink = weight;
+            }
+            // check min Weight
+            if (myMinWeightSink == -1 || (myMaxWeightSink < weight)) {
+                myMinWeightSink = weight;
+            }
+            // update Average
+            myAverageWeightSink += weight;
+            // update number of sinks
+            numberOfSinks++;
+        }
+    }
+    // calculate average
+    myAverageWeightSource /= numberOfSources;
+    myAverageWeightSink /= numberOfSinks;
 }
 
 /****************************************************************************/

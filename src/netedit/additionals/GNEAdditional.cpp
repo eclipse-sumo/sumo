@@ -356,6 +356,8 @@ GNEAdditional::addAdditionalChild(GNEAdditional* additional) {
         if (myTagProperty.canAutomaticSortChilds()) {
             sortAdditionalChilds();
         }
+        // update additional parent after add additional (note: by default non-implemented)
+        updateAdditionalParent();
         // update geometry (for set geometry of lines between Parents and Childs)
         updateGeometry(true);
     }
@@ -374,6 +376,8 @@ GNEAdditional::removeAdditionalChild(GNEAdditional* additional) {
         if (myTagProperty.canAutomaticSortChilds()) {
             sortAdditionalChilds();
         }
+        // update additional parent after add additional (note: by default non-implemented)
+        updateAdditionalParent();
         // update geometry (for remove geometry of lines between Parents and Childs)
         updateGeometry(true);
     }
@@ -1054,6 +1058,12 @@ GNEAdditional::changeSecondAdditionalParent(const std::string& newAdditionalPare
         mySecondAdditionalParent->addAdditionalChild(this);
         updateGeometry(true);
     }
+}
+
+
+void 
+GNEAdditional::updateAdditionalParent() {
+    // by default nothing to do
 }
 
 
