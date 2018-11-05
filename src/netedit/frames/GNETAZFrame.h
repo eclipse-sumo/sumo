@@ -64,112 +64,6 @@ public:
     };
 
     // ===========================================================================
-    // class TAZEdgesSelector
-    // ===========================================================================
-
-    class TAZEdgesSelector : protected FXGroupBox {
-        /// @brief FOX-declaration
-        FXDECLARE(GNETAZFrame::TAZEdgesSelector)
-
-    public:
-        /// @brief constructor
-        TAZEdgesSelector(GNETAZFrame* TAZFrameParent);
-
-        /// @brief destructor
-        ~TAZEdgesSelector();
-
-        /// @brief show TAZEdgesSelector
-        void showEdgeTAZSelectorModul();
-
-        /// @brief hide TAZEdgesSelector
-        void hideEdgeTAZSelectorModul();
-
-        /// @brief select edge
-        bool selectEdge(GNEEdge *edge);
-
-        /// @brief update list of EdgeTAZRow
-        void updateList();
-
-        /// @name FOX-callbacks
-        /// @{
-
-        /// @brief called when user change a depart or arrival weight
-        long onCmdSetAttribute(FXObject* obj, FXSelector, void*);
-
-        /// @brieef called when user press a remove edgeTAZ button
-        long onCmdRemoveEdgeTAZ(FXObject* obj, FXSelector, void*);
-        /// @}
-
-    protected:
-        /// @brief FOX needs this
-        TAZEdgesSelector() {}
-
-    private:
-        /// @brief struct for show Edge TAZs in frame based on a vertical frame
-        class EdgeTAZRow : private FXVerticalFrame {
-
-        public:
-            /// @brief constructor
-            EdgeTAZRow(TAZEdgesSelector *TAZEdgesSelector, GNEEdge *edge, GNEAdditional *TAZSource, GNEAdditional *TAZSink);
-
-            /// @brief destructor
-            ~EdgeTAZRow();
-
-            /// @brief pointer to associated TAZSource
-            GNEAdditional *getEditedTAZSource() const;
-
-            /// @brief pointer to associated TAZSink
-            GNEAdditional *getEditedTAZSink() const;
-
-            /// @brief get remove button
-            FXButton *getRemoveButton() const;
-
-            /// @brief get textField for depart weight
-            FXTextField *getDepartWeightTextField() const;
-
-            /// @brief get textField for arrival weight
-            FXTextField *getArrivalWeightTextField() const;
-
-            /// @brief pointer to TAZEdge's edge
-            GNEEdge *getEdge() const;
-
-        private:
-            /// @brief pointer to Edges TAZSelector Parent
-            TAZEdgesSelector *myTAZEdgesSelectorParent;
-
-            /// @brief pointer to Parent's edge
-            GNEEdge *myEdge;
-
-            /// @brief pointer to edited TAZ Source
-            GNEAdditional *myEditedTAZSource;
-
-            /// @brief pointer to edited TAZ Sink
-            GNEAdditional *myEditedTAZSink;
-
-            /// @brief edge label
-            FXLabel *myEdgeLabel;
-
-            /// @brief remove button
-            FXButton *myRemoveButton;
-
-            /// @brief textField for depart weight
-            FXTextField *myDepartWeightTextField;
-
-            /// @brief textField for arrival weight
-            FXTextField *myArrivalWeightTextField;
-        };
-
-        /// @brief pointer to GNETAZFrame parent
-        GNETAZFrame* myTAZFrameParent;
-
-        /// @brief Label for current edges
-        FXLabel *myCurrentEdgesLabel;
-
-        /// @brief vector with the EdgeTAZ Rows
-        std::vector<EdgeTAZRow*> myEdgeTAZRows;
-    };
-
-    // ===========================================================================
     // class TAZSaveEdges
     // ===========================================================================
 
@@ -451,9 +345,6 @@ private:
 
     /// @brief TAZ Edges Graphic
     TAZEdgesGraphic* myTAZEdgesGraphic;
-
-    /// @brief edge TAZ selector
-    TAZEdgesSelector* myTAZEdgesSelector;
 };
 
 

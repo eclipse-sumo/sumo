@@ -68,17 +68,11 @@ FXDEFMAP(GNETAZFrame::TAZEdgesGraphic) TAZEdgesGraphicMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_OPERATION,  GNETAZFrame::TAZEdgesGraphic::onCmdChoosenBy),
 };
 
-FXDEFMAP(GNETAZFrame::TAZEdgesSelector) TAZEdgesSelectorMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,      GNETAZFrame::TAZEdgesSelector::onCmdSetAttribute),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_REMOVE_ATTRIBUTE,   GNETAZFrame::TAZEdgesSelector::onCmdRemoveEdgeTAZ),
-};
-
 // Object implementation
 FXIMPLEMENT(GNETAZFrame::TAZParameters,             FXGroupBox,     TAZParametersMap,               ARRAYNUMBER(TAZParametersMap))
 FXIMPLEMENT(GNETAZFrame::TAZSaveEdges,              FXGroupBox,     TAZSaveEdgesMap,                ARRAYNUMBER(TAZSaveEdgesMap))
 FXIMPLEMENT(GNETAZFrame::TAZEdgesCommonParameters,  FXGroupBox,     TAZEdgesCommonParametersMap,    ARRAYNUMBER(TAZEdgesCommonParametersMap))
 FXIMPLEMENT(GNETAZFrame::TAZEdgesGraphic,           FXGroupBox,     TAZEdgesGraphicMap,             ARRAYNUMBER(TAZEdgesGraphicMap))
-FXIMPLEMENT(GNETAZFrame::TAZEdgesSelector,          FXGroupBox,     TAZEdgesSelectorMap,            ARRAYNUMBER(TAZEdgesSelectorMap))
 
 
 // ===========================================================================
@@ -120,8 +114,6 @@ GNETAZFrame::TAZCurrent::setTAZ(GNETAZ* TAZCurrent) {
         myTAZFrameParent->myTAZEdgesCommonParameters->showTAZEdgesCommonParametersModul();
         // show Edges graphics
         myTAZFrameParent->myTAZEdgesGraphic->showTAZEdgesGraphicModul();
-        // show edge selector
-        myTAZFrameParent->myTAZEdgesSelector->showEdgeTAZSelectorModul();
     } else {
         myTAZCurrentLabel->setText("No TAZ selected");
         // show TAZ parameters
@@ -136,8 +128,6 @@ GNETAZFrame::TAZCurrent::setTAZ(GNETAZ* TAZCurrent) {
         myTAZFrameParent->myTAZEdgesGraphic->hideTAZEdgesGraphicModul();
         // hide save TAZ Edges
         myTAZFrameParent->myTAZSaveEdges->hideTAZSaveEdgesModul();
-        // hide edge selector
-        myTAZFrameParent->myTAZEdgesSelector->hideEdgeTAZSelectorModul();
     }
 }
 
@@ -145,260 +135,6 @@ GNETAZFrame::TAZCurrent::setTAZ(GNETAZ* TAZCurrent) {
 GNETAZ* 
 GNETAZFrame::TAZCurrent::getTAZ() const {
     return myTAZCurrent;
-}
-
-// ---------------------------------------------------------------------------
-// GNETAZFrame::EdgesSelector - methods
-// ---------------------------------------------------------------------------
-
-GNETAZFrame::TAZEdgesSelector::TAZEdgesSelector(GNETAZFrame* TAZFrameParent) :
-    FXGroupBox(TAZFrameParent->myContentFrame, ("Selection of " + toString(SUMO_TAG_EDGE) + "s").c_str(), GUIDesignGroupBoxFrame),
-    myTAZFrameParent(TAZFrameParent) {
-    myCurrentEdgesLabel = new FXLabel(this, "TAZ without edges", 0, GUIDesignLabelLeft);
-    // update current edges label
-    if(myTAZFrameParent->getTAZCurrent()->getTAZ() && (myTAZFrameParent->getTAZCurrent()->getTAZ()->getEdgeChilds().size() > 0)) {
-        myCurrentEdgesLabel->hide();
-    } else {
-        myCurrentEdgesLabel->show();
-    }
-    // update list
-    updateList();
-}
-
-
-GNETAZFrame::TAZEdgesSelector::~TAZEdgesSelector() {
-}
-
-
-void 
-GNETAZFrame::TAZEdgesSelector::showEdgeTAZSelectorModul() {
-    // update list
-    updateList();
-    show();
-}
-
-
-void 
-GNETAZFrame::TAZEdgesSelector::hideEdgeTAZSelectorModul() {
-    // remove all EdgeTAZRows
-    for (auto i : myEdgeTAZRows) {
-        delete i;
-    }
-    myEdgeTAZRows.clear();
-    // hidde selector modul
-    hide();
-}
-
-
-bool 
-GNETAZFrame::TAZEdgesSelector::selectEdge(GNEEdge *edge) {
-    if(edge) {
-        // first check if edge is already selected
-        for (auto i : myEdgeTAZRows) {
-            if (i->getEdge() == edge) {
-                // simply call remove edge TAZ giving as argument the button of EdgeTAZRow
-                onCmdRemoveEdgeTAZ(i->getRemoveButton(), 0, 0);
-                return true;
-            }
-        }
-        // enable save and cancel buttons
-        myTAZFrameParent->myTAZSaveEdges->enableButtons();
-        // if edge was found, that means that GNETAZSource and GNETAZSink doesn't exist, then create it using the values of myTAZEdgesCommonParameters
-        GNETAZSource* TAZSource = new GNETAZSource(myTAZFrameParent->getTAZCurrent()->getTAZ(), edge, myTAZFrameParent->myTAZEdgesCommonParameters->getDefaultTAZSourceWeight());
-        GNETAZSink* TAZSink = new GNETAZSink(myTAZFrameParent->getTAZCurrent()->getTAZ(), edge, myTAZFrameParent->myTAZEdgesCommonParameters->getDefaultTAZSinkWeight());
-        // create a GNEChange_Additional command, but without adding it into UndoList
-        myTAZFrameParent->myViewNet->getUndoList()->add(new GNEChange_Additional(TAZSource, true), true);
-        myTAZFrameParent->myViewNet->getUndoList()->add(new GNEChange_Additional(TAZSink, true), true);
-        // update EdgeTAZ Rows (don't use updateList due flickering)
-        myEdgeTAZRows.push_back(new EdgeTAZRow(this, edge, TAZSource, TAZSink));
-        // hide myCurrentEdgesLabel (because at least there is a EdgeTAZRow)
-        myCurrentEdgesLabel->hide();
-        // recalc frame
-        recalc();
-        // update view
-        myTAZFrameParent->getViewNet()->update();
-        return true;
-    } else {
-        return false;
-    }
-}
-
-
-void 
-GNETAZFrame::TAZEdgesSelector::updateList() {
-    // remove all EdgeTAZRows
-    for (auto i : myEdgeTAZRows) {
-        delete i;
-    }
-    myEdgeTAZRows.clear();
-    // fill myEdgeTAZRows again
-    if (myTAZFrameParent->myTAZCurrent->getTAZ()) {
-        // declare a container to group TAZ Childs by Edge
-        std::map<std::string, std::pair<GNEAdditional*, GNEAdditional*> > TAZChilds;
-        for (auto i : myTAZFrameParent->myTAZCurrent->getTAZ()->getAdditionalChilds()) {
-            // first check if a new pair has to be added to TAZChilds
-            if(TAZChilds.count(i->getAttribute(SUMO_ATTR_EDGE)) == 0) {
-                TAZChilds[i->getAttribute(SUMO_ATTR_EDGE)] = std::make_pair(nullptr, nullptr);
-            }
-            // set TAZChilds depending of TAZ child type
-            if(i->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) {
-                TAZChilds.at(i->getAttribute(SUMO_ATTR_EDGE)).first = i;
-            } else {
-                TAZChilds.at(i->getAttribute(SUMO_ATTR_EDGE)).second = i;
-            }
-        }
-        // iterate over TAZChilds and add rows
-        for (auto i : TAZChilds) {
-            myEdgeTAZRows.push_back(new EdgeTAZRow(this, myTAZFrameParent->myViewNet->getNet()->retrieveEdge(i.first), i.second.first, i.second.second));
-        }
-        // check if myCurrentEdgesLabel has to be shown
-        if(myEdgeTAZRows.size() > 0) {
-            myCurrentEdgesLabel->hide();
-        } else {
-            myCurrentEdgesLabel->show();
-        }
-    }
-    // recalc frame
-    recalc();
-    // update view
-    myTAZFrameParent->getViewNet()->update();
-}
-
-
-long 
-GNETAZFrame::TAZEdgesSelector::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
-    // find edited attribute
-    for (auto i : myEdgeTAZRows) {
-        if (obj == i->getDepartWeightTextField()) {
-            // check if attribute is valid
-            if (GNEAttributeCarrier::canParse<double>(i->getDepartWeightTextField()->getText().text()) && (GNEAttributeCarrier::parse<double>(i->getDepartWeightTextField()->getText().text()) >= 0)) {
-                // enable save buttons (To begin undo_list)
-                myTAZFrameParent->myTAZSaveEdges->enableButtons();
-                // change value
-                i->getEditedTAZSource()->setAttribute(SUMO_ATTR_WEIGHT, toString(i->getDepartWeightTextField()->getText().text()), myTAZFrameParent->getViewNet()->getUndoList());
-                i->getDepartWeightTextField()->setTextColor(FXRGB(0, 0, 0));
-                i->getDepartWeightTextField()->killFocus();
-            } else {
-                i->getDepartWeightTextField()->setTextColor(FXRGB(255, 0, 0));
-            }
-        } else if (obj == i->getArrivalWeightTextField()) {
-            // check if attribute is valid
-            if (GNEAttributeCarrier::canParse<double>(i->getArrivalWeightTextField()->getText().text()) && (GNEAttributeCarrier::parse<double>(i->getArrivalWeightTextField()->getText().text()) >= 0)) {
-                // enable save buttons (To begin undo_list)
-                myTAZFrameParent->myTAZSaveEdges->enableButtons();
-                // change value
-                i->getEditedTAZSink()->setAttribute(SUMO_ATTR_WEIGHT, toString(i->getArrivalWeightTextField()->getText().text()), myTAZFrameParent->getViewNet()->getUndoList());
-                i->getArrivalWeightTextField()->setTextColor(FXRGB(0, 0, 0));
-                i->getArrivalWeightTextField()->killFocus();
-            } else {
-                i->getArrivalWeightTextField()->setTextColor(FXRGB(255, 0, 0));
-            }
-        }
-    }
-    return 1;
-}
-
-
-long 
-GNETAZFrame::TAZEdgesSelector::onCmdRemoveEdgeTAZ(FXObject* obj, FXSelector, void*) {
-    // search remove button in all EdgeTAZs
-    for (int i = 0; i < (int)myEdgeTAZRows.size(); i++) {
-        if(myEdgeTAZRows.at(i)->getRemoveButton() == obj) {
-            // enable save buttons and begin undo_list
-            myTAZFrameParent->myTAZSaveEdges->enableButtons();
-            // Remove both GNETAZSource and GNETAZSink using GNEChange_Additional
-            myTAZFrameParent->getViewNet()->getUndoList()->add(new GNEChange_Additional(myEdgeTAZRows.at(i)->getEditedTAZSource(), false), true);
-            myTAZFrameParent->getViewNet()->getUndoList()->add(new GNEChange_Additional(myEdgeTAZRows.at(i)->getEditedTAZSink(), false), true);
-            // delete EdgeTAZRows and remove it from myEdgeTAZRows
-            delete myEdgeTAZRows.at(i);
-            myEdgeTAZRows.erase(myEdgeTAZRows.begin() + i);
-            // check if label has to be shown
-            if(myEdgeTAZRows.size() > 0) {
-                myCurrentEdgesLabel->hide();
-            } else {
-                myCurrentEdgesLabel->show();
-            }
-            // recalc frame
-            recalc();
-            // update view
-            myTAZFrameParent->getViewNet()->update();
-            return 1;
-        }
-    }
-    return 0;
-}
-
-
-GNETAZFrame::TAZEdgesSelector::EdgeTAZRow::EdgeTAZRow(TAZEdgesSelector *TAZEdgesSelector, GNEEdge *edge, GNEAdditional *TAZSource, GNEAdditional *TAZSink) :
-    FXVerticalFrame(TAZEdgesSelector, GUIDesignAuxiliarHorizontalFrame),
-    myTAZEdgesSelectorParent(TAZEdgesSelector),
-    myEdge(edge),
-    myEditedTAZSource(TAZSource),
-    myEditedTAZSink(TAZSink) {
-    // create Edge Label and button
-    FXHorizontalFrame* horizontalFrameButton = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    myRemoveButton = new FXButton(horizontalFrameButton, "", GUIIconSubSys::getIcon(ICON_REMOVE), TAZEdgesSelector, MID_GNE_REMOVE_ATTRIBUTE, GUIDesignButtonIcon);
-    myEdgeLabel = new FXLabel(horizontalFrameButton, toString("edge: " + edge->getID()).c_str(), 0, GUIDesignLabelLeftThick);
-    // create Label and textfield for Arrival Weight
-    FXHorizontalFrame* departWeightFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(departWeightFrame, "Source weight", 0, GUIDesignLabelAttribute);
-    myDepartWeightTextField = new FXTextField(departWeightFrame, GUIDesignTextFieldNCol, TAZEdgesSelector, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldReal);
-    myDepartWeightTextField->setText(TAZSource->getAttribute(SUMO_ATTR_WEIGHT).c_str());
-    // create Label and textfield for Arrival Weight
-    FXHorizontalFrame* arrivalWeightFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(arrivalWeightFrame, "Sink weight", 0, GUIDesignLabelAttribute);
-    myArrivalWeightTextField = new FXTextField(arrivalWeightFrame, GUIDesignTextFieldNCol, TAZEdgesSelector, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    myArrivalWeightTextField->setText(TAZSink->getAttribute(SUMO_ATTR_WEIGHT).c_str());
-    // set edge color
-    for (auto j : myEdge->getLanes()) {
-        j->setSpecialColor(&myTAZEdgesSelectorParent->myTAZFrameParent->getEdgeCandidateSelectedColor());
-    }
-    // create EdgeTAZRow (and their childs)
-    create();
-}
-
-
-GNETAZFrame::TAZEdgesSelector::EdgeTAZRow::~EdgeTAZRow() {
-    // restore edge color
-    for (auto j : myEdge->getLanes()) {
-        j->setSpecialColor(nullptr);
-    }
-}
-
-
-GNEAdditional*
-GNETAZFrame::TAZEdgesSelector::EdgeTAZRow::getEditedTAZSource() const {
-    return myEditedTAZSource;
-}
-
-
-GNEAdditional*
-GNETAZFrame::TAZEdgesSelector::EdgeTAZRow::getEditedTAZSink() const {
-    return myEditedTAZSink;
-}
-
-
-FXButton*
-GNETAZFrame::TAZEdgesSelector::EdgeTAZRow::getRemoveButton() const {
-    return myRemoveButton;
-}
-
-
-FXTextField*
-GNETAZFrame::TAZEdgesSelector::EdgeTAZRow::getDepartWeightTextField() const {
-    return myDepartWeightTextField;
-}
-
-
-FXTextField*
-GNETAZFrame::TAZEdgesSelector::EdgeTAZRow::getArrivalWeightTextField() const {
-    return myArrivalWeightTextField;
-}
-
-
-GNEEdge*
-GNETAZFrame::TAZEdgesSelector::EdgeTAZRow::getEdge() const {
-    return myEdge;
 }
 
 // ---------------------------------------------------------------------------
@@ -466,8 +202,6 @@ GNETAZFrame::TAZSaveEdges::onCmdCancelChanges(FXObject*, FXSelector, void*) {
         myTAZFrameParent->myViewNet->getUndoList()->p_abort();
         mySaveChangesButton->disable();
         myCancelChangesButton->disable();
-        // update list of myTAZEdgesSelector
-        myTAZFrameParent->myTAZEdgesSelector->updateList();
     }
     return 1;
 }
@@ -811,9 +545,6 @@ GNETAZFrame::GNETAZFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* v
     // Create TAZ Edges Common Parameters modul
     myTAZEdgesGraphic = new TAZEdgesGraphic(this);
 
-    // Create edge Selector modul
-    myTAZEdgesSelector = new TAZEdgesSelector(this);
-
     // by default there isn't a TAZ
     myTAZCurrent->setTAZ(nullptr);
 }
@@ -850,10 +581,6 @@ GNETAZFrame::processClick(const Position& clickedPosition, GNETAZ *TAZ, GNEEdge*
         } else {
             return false;
         }
-    } else if (edge) {
-        // select edge if is unselected, or unselect if it was already selected
-        myTAZEdgesSelector->selectEdge(edge);
-        return true;
     } else {
         // nothing to do
         return false;
