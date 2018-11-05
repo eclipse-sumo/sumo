@@ -112,6 +112,10 @@ GNETAZFrame::TAZCurrent::setTAZ(GNETAZ* TAZCurrent) {
         myTAZFrameParent->myTAZSaveEdges->showTAZSaveEdgesModul();
         // show edge common parameters
         myTAZFrameParent->myTAZEdgesCommonParameters->showTAZEdgesCommonParametersModul();
+        // show edge common parameters
+        myTAZFrameParent->myTAZCommonStatistics->showTAZCommonStatisticsModul();
+        // show edge Selection parameters
+        myTAZFrameParent->myTAZSelectionStatistics->showTAZSelectionStatisticsModul();
         // show Edges graphics
         myTAZFrameParent->myTAZEdgesGraphic->showTAZEdgesGraphicModul();
     } else {
@@ -122,8 +126,12 @@ GNETAZFrame::TAZCurrent::setTAZ(GNETAZ* TAZCurrent) {
         myTAZFrameParent->myNeteditAttributes->showNeteditAttributesModul(GNEAttributeCarrier::getTagProperties(SUMO_TAG_TAZ));
         // show drawing shape
         myTAZFrameParent->myDrawingShape->showDrawingShape();
-        // show edge common parameters
+        // hide edge common parameters
         myTAZFrameParent->myTAZEdgesCommonParameters->hideTAZEdgesCommonParametersModul();
+        // hide edge common parameters
+        myTAZFrameParent->myTAZCommonStatistics->hideTAZCommonStatisticsModul();
+        // hide edge Selection parameters
+        myTAZFrameParent->myTAZSelectionStatistics->hideTAZSelectionStatisticsModul();
         // hide Edges graphics
         myTAZFrameParent->myTAZEdgesGraphic->hideTAZEdgesGraphicModul();
         // hide save TAZ Edges
@@ -338,6 +346,68 @@ GNETAZFrame::TAZEdgesCommonParameters::onCmdSetDefaultValues(FXObject* obj, FXSe
 }
 
 // ---------------------------------------------------------------------------
+// GNETAZFrame::TAZCommonStatistics - methods
+// ---------------------------------------------------------------------------
+
+GNETAZFrame::TAZCommonStatistics::TAZCommonStatistics(GNETAZFrame* TAZFrameParent) : 
+    FXGroupBox(TAZFrameParent->myContentFrame, "TAZ Statistics", GUIDesignGroupBoxFrame),
+    myTAZFrameParent(TAZFrameParent) {
+    // create label for statistics
+    myStatisticsLabel = new FXLabel(this, "Statistics", 0, GUIDesignLabelLeft);
+}
+
+
+GNETAZFrame::TAZCommonStatistics::~TAZCommonStatistics() {}
+
+
+void 
+GNETAZFrame::TAZCommonStatistics::showTAZCommonStatisticsModul() {
+    show();
+}
+
+
+void 
+GNETAZFrame::TAZCommonStatistics::hideTAZCommonStatisticsModul() {
+    hide();
+}
+
+
+void 
+GNETAZFrame::TAZCommonStatistics::updateStatistics() {
+}
+
+// ---------------------------------------------------------------------------
+// GNETAZFrame::TAZSelectionStatistics - methods
+// ---------------------------------------------------------------------------
+
+GNETAZFrame::TAZSelectionStatistics::TAZSelectionStatistics(GNETAZFrame* TAZFrameParent) : 
+    FXGroupBox(TAZFrameParent->myContentFrame, "Selection Statistics", GUIDesignGroupBoxFrame),
+    myTAZFrameParent(TAZFrameParent) {
+    // create label for statistics
+    myStatisticsLabel = new FXLabel(this, "Statistics", 0, GUIDesignLabelLeft);
+}
+
+
+GNETAZFrame::TAZSelectionStatistics::~TAZSelectionStatistics() {}
+
+
+void 
+GNETAZFrame::TAZSelectionStatistics::showTAZSelectionStatisticsModul() {
+    show();
+}
+
+
+void 
+GNETAZFrame::TAZSelectionStatistics::hideTAZSelectionStatisticsModul() {
+    hide();
+}
+
+
+void 
+GNETAZFrame::TAZSelectionStatistics::updateStatistics() {
+}
+
+// ---------------------------------------------------------------------------
 // GNETAZFrame::TAZParameters- methods
 // ---------------------------------------------------------------------------
 
@@ -541,6 +611,12 @@ GNETAZFrame::GNETAZFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* v
 
     // Create TAZ Edges Common Parameters modul
     myTAZEdgesCommonParameters = new TAZEdgesCommonParameters(this);
+
+    // Create TAZ Edges Common Statistics modul
+    myTAZCommonStatistics = new TAZCommonStatistics(this);
+
+    // Create TAZ Edges Selection Statistics modul
+    myTAZSelectionStatistics = new TAZSelectionStatistics(this);
 
     // Create TAZ Edges Common Parameters modul
     myTAZEdgesGraphic = new TAZEdgesGraphic(this);

@@ -175,6 +175,66 @@ public:
     };
 
     // ===========================================================================
+    // class TAZCommonStatistics
+    // ===========================================================================
+
+    class TAZCommonStatistics : protected FXGroupBox {
+
+    public:
+        /// @brief constructor
+        TAZCommonStatistics(GNETAZFrame* TAZFrameParent);
+
+        /// @brief destructor
+        ~TAZCommonStatistics();
+
+        /// @brief show save TAZ Edges Modul
+        void showTAZCommonStatisticsModul();
+
+        /// @brief hide save TAZ Edges Modul
+        void hideTAZCommonStatisticsModul();
+
+        /// @brief update Statistics label
+        void updateStatistics();
+
+    private:
+        /// @brief pointer to TAZFrame parent
+        GNETAZFrame* myTAZFrameParent;
+
+        /// @brief Statistics labels
+        FXLabel *myStatisticsLabel;
+    };
+
+    // ===========================================================================
+    // class TAZSelectionStatistics
+    // ===========================================================================
+
+    class TAZSelectionStatistics : protected FXGroupBox {
+
+    public:
+        /// @brief constructor
+        TAZSelectionStatistics(GNETAZFrame* TAZFrameParent);
+
+        /// @brief destructor
+        ~TAZSelectionStatistics();
+
+        /// @brief show save TAZ Edges Modul
+        void showTAZSelectionStatisticsModul();
+
+        /// @brief hide save TAZ Edges Modul
+        void hideTAZSelectionStatisticsModul();
+
+        /// @brief update Statistics label
+        void updateStatistics();
+
+    private:
+        /// @brief pointer to TAZFrame parent
+        GNETAZFrame* myTAZFrameParent;
+
+        /// @brief Statistics labels
+        FXLabel *myStatisticsLabel;
+    };
+
+    // ===========================================================================
     // class TAZParameters
     // ===========================================================================
 
@@ -342,6 +402,12 @@ private:
 
     /// @brief TAZ Edges common parameters
     TAZEdgesCommonParameters* myTAZEdgesCommonParameters;
+
+    /// @brief TAZ Edges common parameters
+    TAZCommonStatistics* myTAZCommonStatistics;
+
+    /// @brief TAZ Edges selection parameters
+    TAZSelectionStatistics* myTAZSelectionStatistics;
 
     /// @brief TAZ Edges Graphic
     TAZEdgesGraphic* myTAZEdgesGraphic;
