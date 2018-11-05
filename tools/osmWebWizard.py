@@ -444,8 +444,9 @@ parser = ArgumentParser(
 parser.add_argument("--remote", action="store_true",
                     help="In remote mode, SUMO GUI will not be automatically opened instead a zip file " +
                     "will be generated.")
+parser.add_argument("--osm-file", default="osm_bbox.osm.xml", dest="osmFile", help="use input file from path.")
 parser.add_argument("--test-output", default=None, dest="testOutputDir",
-                    help="Run with pre-defined options on file 'osm_bbox.xml' and write output to the given directory.")
+                    help="Run with pre-defined options on file 'osm_bbox.osm.xml' and write output to the given directory.")
 parser.add_argument("--address", default="", help="Address for the Websocket.")
 parser.add_argument("--port", type=int, default=8010,
                     help="Port for the Websocket. Please edit script.js when using an other port than 8010.")
@@ -459,7 +460,7 @@ if __name__ == "__main__":
                               u'bicycle': {u'count': 2, u'fringeFactor': 2},
                               u'pedestrian': {u'count': 4, u'fringeFactor': 1},
                               u'ship': {u'count': 1, u'fringeFactor': 40}},
-                u'osm': os.path.abspath('osm_bbox.osm.xml'),
+                u'osm': os.path.abspath(args.osmFile),
                 u'poly': True,
                 u'publicTransport': True,
                 u'leftHand': False,
