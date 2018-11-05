@@ -41,11 +41,11 @@ public:
     /** @brief Constructor
      * @param[in] tlcontrol The tls control responsible for this tls
      * @param[in] id This tls' id
-     * @param[in] subid This tls' sub-id (program id)
+     * @param[in] programID This tls' sub-id (program id)
      * @param[in] parameters This tls' parameters
      */
     MSRailCrossing(MSTLLogicControl& tlcontrol,
-                   const std::string& id, const std::string& subid,
+                   const std::string& id, const std::string& programID,
                    const std::map<std::string, std::string>& parameters);
 
 

@@ -246,37 +246,34 @@ class TrafficLightDomain(Domain):
             tc.CMD_SET_TL_VARIABLE, tc.TL_PHASE_DURATION, tlsID, phaseDuration)
 
     def setCompleteRedYellowGreenDefinition(self, tlsID, tls):
-        """setCompleteRedYellowGreenDefinition(string, ) -> None
+        """setCompleteRedYellowGreenDefinition(string, Logic) -> None
 
         Sets a new program for the given tlsID from a Logic object.
         See getCompleteRedYellowGreenDefinition.
         """
         length = 1 + 4 + 1 + 4 + \
-            len(tls.programID) + 1 + 4 + 1 + 4 + 1 + 4 + 1 + 4  # tls parameter
-        itemNo = 1 + 1 + 1 + 1 + 1
+            len(tls.programID) + 1 + 4 + 1 + 4 + 1 + 4  # tls parameter
         for p in tls.phases:
-            length += 1 + 8 + 1 + 8 + 1 + 8 + 1 + 4 + len(p.state)
-            itemNo += 4
+            length += 1 + 4 + 1 + 8 + 1 + 4 + len(p.state) + 1 + 8 + 1 + 8 + 1 + 4
+        length += 1 + 4 # subparams
+        for k, v in tls.subParameter.items():
+            length += 1 + 4 + 4 + len(k) + 4 + len(v)
         self._connection._beginMessage(
             tc.CMD_SET_TL_VARIABLE, tc.TL_COMPLETE_PROGRAM_RYG, tlsID, length)
-        self._connection._string += struct.pack("!Bi",
-                                                tc.TYPE_COMPOUND, itemNo)
-        # programID
+        self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 5)
         self._connection._packString(tls.programID)
-        # type
-        self._connection._string += struct.pack("!Bi", tc.TYPE_INTEGER, 0)
-        # subitems
-        self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 0)
-        # index
-        self._connection._string += struct.pack("!Bi",
-                                                tc.TYPE_INTEGER, tls.currentPhaseIndex)
-        # phaseNo
-        self._connection._string += struct.pack("!Bi",
-                                                tc.TYPE_INTEGER, len(tls.phases))
+        self._connection._string += struct.pack("!Bi", tc.TYPE_INTEGER, tls.type)
+        self._connection._string += struct.pack("!Bi", tc.TYPE_INTEGER, tls.currentPhaseIndex)
+        self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, len(tls.phases))
         for p in tls.phases:
-            self._connection._string += struct.pack("!BdBdBd", tc.TYPE_DOUBLE, p.duration,
-                                                    tc.TYPE_DOUBLE, p.minDur, tc.TYPE_DOUBLE, p.maxDur)
+            self._connection._string += struct.pack("!BiBd", tc.TYPE_COMPOUND, 5, tc.TYPE_DOUBLE, p.duration)
             self._connection._packString(p.state)
+            self._connection._string += struct.pack("!BdBdBi", tc.TYPE_DOUBLE, p.minDur, tc.TYPE_DOUBLE, p.maxDur,
+                                                                tc.TYPE_INTEGER, p.next)
+        # subparams
+        self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, len(tls.subParameter))
+        for par in tls.subParameter.items():
+            self._connection._packStringList(par)
         self._connection._sendExact()
 
 

@@ -64,7 +64,7 @@ public:
      * @brief Constructor without sensors passed
      * @param[in] tlcontrol The tls control responsible for this tls
      * @param[in] id This traffic light id
-     * @param[in] subid This tls' sub-id (program id)
+     * @param[in] programID This tls' sub-id (program id)
      * @param[in] logicType This tls' type (static, actuated etc.)
      * @param[in] phases Definitions of the phases
      * @param[in] step The initial phase index
@@ -72,7 +72,7 @@ public:
      * @param[in] parameters Parameters defined for the tll
      */
     MSSOTLTrafficLightLogic(MSTLLogicControl& tlcontrol, const std::string& id,
-                            const std::string& subid, const TrafficLightType logicType, const Phases& phases, int step,
+                            const std::string& programID, const TrafficLightType logicType, const Phases& phases, int step,
                             SUMOTime delay,
                             const std::map<std::string, std::string>& parameters);
 
@@ -80,7 +80,7 @@ public:
      * @brief Constructor with sensors passed
      * @param[in] tlcontrol The tls control responsible for this tls
      * @param[in] id This tls' id
-     * @param[in] subid This tls' sub-id (program id)
+     * @param[in] programID This tls' sub-id (program id)
      * @param[in] logicType This tls' type (static, actuated etc.)
      * @param[in] phases Definitions of the phases
      * @param[in] step The initial phase index
@@ -89,7 +89,7 @@ public:
      * @param[in] sensors The already defined sensor logic
      */
     MSSOTLTrafficLightLogic(MSTLLogicControl& tlcontrol, const std::string& id,
-                            const std::string& subid, const TrafficLightType logicType, const Phases& phases, int step,
+                            const std::string& programID, const TrafficLightType logicType, const Phases& phases, int step,
                             SUMOTime delay,
                             const std::map<std::string, std::string>& parameters,
                             MSSOTLSensors* sensors);

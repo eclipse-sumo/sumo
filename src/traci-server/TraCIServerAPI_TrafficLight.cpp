@@ -246,39 +246,52 @@ TraCIServerAPI_TrafficLight::processSet(TraCIServer& server, tcpip::Storage& inp
                 //read itemNo
                 inputStorage.readInt();
                 libsumo::TraCILogic logic;
-                int numPhases = 0;
                 if (!server.readTypeCheckingString(inputStorage, logic.programID)) {
                     return server.writeErrorStatusCmd(CMD_SET_TL_VARIABLE, "set program: 1. parameter (programID) must be a string.", outputStorage);
                 }
                 if (!server.readTypeCheckingInt(inputStorage, logic.type)) {
                     return server.writeErrorStatusCmd(CMD_SET_TL_VARIABLE, "set program: 2. parameter (type) must be an int.", outputStorage);
                 }
-                if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
-                    return server.writeErrorStatusCmd(CMD_SET_TL_VARIABLE, "set program: 3. parameter (subparams) must be a compound object.", outputStorage);
-                }
-                inputStorage.readInt();
                 if (!server.readTypeCheckingInt(inputStorage, logic.currentPhaseIndex)) {
-                    return server.writeErrorStatusCmd(CMD_SET_TL_VARIABLE, "set program: 4. parameter (index) must be an int.", outputStorage);
+                    return server.writeErrorStatusCmd(CMD_SET_TL_VARIABLE, "set program: 3. parameter (index) must be an int.", outputStorage);
                 }
-                if (!server.readTypeCheckingInt(inputStorage, numPhases)) {
-                    return server.writeErrorStatusCmd(CMD_SET_TL_VARIABLE, "set program: 5. parameter (phase number) must be an int.", outputStorage);
+                if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
+                    return server.writeErrorStatusCmd(CMD_SET_TL_VARIABLE, "A compound object is needed for the phases.", outputStorage);
                 }
+                const int numPhases = inputStorage.readInt();
                 for (int j = 0; j < numPhases; ++j) {
+                    if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
+                        return server.writeErrorStatusCmd(CMD_SET_TL_VARIABLE, "A compound object is needed for every phase.", outputStorage);
+                    }
+                    inputStorage.readInt();
                     double duration = 0., minDuration = 0., maxDuration = 0.;
+                    int next = -1;
                     if (!server.readTypeCheckingDouble(inputStorage, duration)) {
-                        return server.writeErrorStatusCmd(CMD_SET_TL_VARIABLE, "set program: 6.1. parameter (duration) must be a double.", outputStorage);
-                    }
-                    if (!server.readTypeCheckingDouble(inputStorage, minDuration)) {
-                        return server.writeErrorStatusCmd(CMD_SET_TL_VARIABLE, "set program: 6.2. parameter (min duration) must be a double.", outputStorage);
-                    }
-                    if (!server.readTypeCheckingDouble(inputStorage, maxDuration)) {
-                        return server.writeErrorStatusCmd(CMD_SET_TL_VARIABLE, "set program: 6.3. parameter (max duration) must be a double.", outputStorage);
+                        return server.writeErrorStatusCmd(CMD_SET_TL_VARIABLE, "set program: 4.1. parameter (duration) must be a double.", outputStorage);
                     }
                     std::string state;
                     if (!server.readTypeCheckingString(inputStorage, state)) {
-                        return server.writeErrorStatusCmd(CMD_SET_TL_VARIABLE, "set program: 6.4. parameter (phase) must be a string.", outputStorage);
+                        return server.writeErrorStatusCmd(CMD_SET_TL_VARIABLE, "set program: 4.2. parameter (phase) must be a string.", outputStorage);
                     }
-                    logic.phases.emplace_back(libsumo::TraCIPhase(duration, state, minDuration, maxDuration));
+                    if (!server.readTypeCheckingDouble(inputStorage, minDuration)) {
+                        return server.writeErrorStatusCmd(CMD_SET_TL_VARIABLE, "set program: 4.3. parameter (min duration) must be a double.", outputStorage);
+                    }
+                    if (!server.readTypeCheckingDouble(inputStorage, maxDuration)) {
+                        return server.writeErrorStatusCmd(CMD_SET_TL_VARIABLE, "set program: 4.4. parameter (max duration) must be a double.", outputStorage);
+                    }
+                    if (!server.readTypeCheckingInt(inputStorage, next)) {
+                        return server.writeErrorStatusCmd(CMD_SET_TL_VARIABLE, "set program: 4.5. parameter (next) must be an int.", outputStorage);
+                    }
+                    logic.phases.emplace_back(libsumo::TraCIPhase(duration, state, minDuration, maxDuration, next));
+                }
+                if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
+                    return server.writeErrorStatusCmd(CMD_SET_TL_VARIABLE, "set program: 5. parameter (subparams) must be a compound object.", outputStorage);
+                }
+                const int numParams = inputStorage.readInt();
+                for (int j = 0; j < numParams; j++) {
+                    std::vector<std::string> par;
+                    server.readTypeCheckingStringList(inputStorage, par);
+                    logic.subParameter[par[0]] = par[1];
                 }
                 libsumo::TrafficLight::setCompleteRedYellowGreenDefinition(id, logic);
             }

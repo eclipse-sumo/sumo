@@ -39,9 +39,9 @@
 // method definitions
 // ===========================================================================
 MSRailCrossing::MSRailCrossing(MSTLLogicControl& tlcontrol,
-                               const std::string& id, const std::string& subid,
+                               const std::string& id, const std::string& programID,
                                const std::map<std::string, std::string>& parameters) :
-    MSSimpleTrafficLightLogic(tlcontrol, id, subid, TLTYPE_RAIL_CROSSING, Phases(), 0, DELTA_T, parameters),
+    MSSimpleTrafficLightLogic(tlcontrol, id, programID, TLTYPE_RAIL_CROSSING, Phases(), 0, DELTA_T, parameters),
     // XXX make this configurable
     mySecurityGap(TIME2STEPS(15)),
     myMinGreenTime(TIME2STEPS(5)),

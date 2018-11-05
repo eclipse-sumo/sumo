@@ -1802,26 +1802,36 @@ void
 TraCIAPI::TrafficLightScope::setCompleteRedYellowGreenDefinition(const std::string& tlsID, const libsumo::TraCILogic& logic) const {
     tcpip::Storage content;
     content.writeUnsignedByte(TYPE_COMPOUND);
-    content.writeInt(5 + 4 * (int)logic.phases.size());
+    content.writeInt(5);
     content.writeUnsignedByte(TYPE_STRING);
     content.writeString(logic.programID);
     content.writeUnsignedByte(TYPE_INTEGER);
     content.writeInt(logic.type);
-    content.writeUnsignedByte(TYPE_COMPOUND);
-    content.writeInt(0);
     content.writeUnsignedByte(TYPE_INTEGER);
     content.writeInt(logic.currentPhaseIndex);
-    content.writeUnsignedByte(TYPE_INTEGER);
+    content.writeUnsignedByte(TYPE_COMPOUND);
     content.writeInt((int)logic.phases.size());
     for (const libsumo::TraCIPhase& p : logic.phases) {
+        content.writeUnsignedByte(TYPE_COMPOUND);
+        content.writeInt(5);
         content.writeUnsignedByte(TYPE_DOUBLE);
         content.writeDouble(p.duration);
+        content.writeUnsignedByte(TYPE_STRING);
+        content.writeString(p.state);
         content.writeUnsignedByte(TYPE_DOUBLE);
         content.writeDouble(p.minDur);
         content.writeUnsignedByte(TYPE_DOUBLE);
         content.writeDouble(p.maxDur);
-        content.writeUnsignedByte(TYPE_STRING);
-        content.writeString(p.state);
+        content.writeUnsignedByte(TYPE_INTEGER);
+        content.writeInt(p.next);
+    }
+    content.writeUnsignedByte(TYPE_COMPOUND);
+    content.writeInt((int)logic.subParameter.size());
+    for (const auto& item : logic.subParameter) {
+        content.writeUnsignedByte(TYPE_STRINGLIST);
+        content.writeInt(2);
+        content.writeString(item.first);
+        content.writeString(item.second);
     }
     myParent.send_commandSetValue(CMD_SET_TL_VARIABLE, TL_COMPLETE_PROGRAM_RYG, tlsID, content);
     tcpip::Storage inMsg;
