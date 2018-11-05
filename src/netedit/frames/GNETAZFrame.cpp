@@ -353,7 +353,7 @@ GNETAZFrame::TAZCommonStatistics::TAZCommonStatistics(GNETAZFrame* TAZFrameParen
     FXGroupBox(TAZFrameParent->myContentFrame, "TAZ Statistics", GUIDesignGroupBoxFrame),
     myTAZFrameParent(TAZFrameParent) {
     // create label for statistics
-    myStatisticsLabel = new FXLabel(this, "Statistics", 0, GUIDesignLabelLeft);
+    myStatisticsLabel = new FXLabel(this, "Statistics", 0, GUIDesignLabelFrameInformation);
 }
 
 
@@ -362,6 +362,8 @@ GNETAZFrame::TAZCommonStatistics::~TAZCommonStatistics() {}
 
 void 
 GNETAZFrame::TAZCommonStatistics::showTAZCommonStatisticsModul() {
+    // always update statistics after show
+    updateStatistics();
     show();
 }
 
@@ -374,6 +376,21 @@ GNETAZFrame::TAZCommonStatistics::hideTAZCommonStatisticsModul() {
 
 void 
 GNETAZFrame::TAZCommonStatistics::updateStatistics() {
+    if (myTAZFrameParent->myTAZCurrent->getTAZ()) {
+        // create statistics label
+        std::ostringstream information;
+        information
+            << "- Min source: " << myTAZFrameParent->myTAZCurrent->getTAZ()->getAttribute(GNE_ATTR_MIN_SOURCE) << "\n"
+            << "- Max source: " << myTAZFrameParent->myTAZCurrent->getTAZ()->getAttribute(GNE_ATTR_MAX_SOURCE) << "\n"
+            << "- Average source: " << myTAZFrameParent->myTAZCurrent->getTAZ()->getAttribute(GNE_ATTR_AVERAGE_SOURCE) << "\n"
+            << "- Min sink: " << myTAZFrameParent->myTAZCurrent->getTAZ()->getAttribute(GNE_ATTR_MIN_SINK) << "\n"
+            << "- Max sink: " << myTAZFrameParent->myTAZCurrent->getTAZ()->getAttribute(GNE_ATTR_MAX_SINK) << "\n"
+            << "- Average sink: " << myTAZFrameParent->myTAZCurrent->getTAZ()->getAttribute(GNE_ATTR_AVERAGE_SINK);
+        // set new label
+        myStatisticsLabel->setText(information.str().c_str());
+    } else {
+        myStatisticsLabel->setText("No TAZ Selected");
+    }
 }
 
 // ---------------------------------------------------------------------------
