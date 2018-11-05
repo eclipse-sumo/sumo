@@ -402,6 +402,7 @@ GNETAZFrame::TAZCommonStatistics::updateStatistics() {
         // declare ostringstream for statistics
         std::ostringstream information;
         information
+            << "- Number of Edges: " << toString(myTAZFrameParent->myTAZCurrent->getTAZ()->getAdditionalChilds().size()/2) << "\n"
             << "- Min source: " << myTAZFrameParent->myTAZCurrent->getTAZ()->getAttribute(GNE_ATTR_MIN_SOURCE) << "\n"
             << "- Max source: " << myTAZFrameParent->myTAZCurrent->getTAZ()->getAttribute(GNE_ATTR_MAX_SOURCE) << "\n"
             << "- Average source: " << myTAZFrameParent->myTAZCurrent->getTAZ()->getAttribute(GNE_ATTR_AVERAGE_SOURCE) << "\n"
@@ -442,7 +443,7 @@ GNETAZFrame::TAZSelectionStatistics::showTAZSelectionStatisticsModul() {
 void 
 GNETAZFrame::TAZSelectionStatistics::hideTAZSelectionStatisticsModul() {
     // clear childs before hide
-    clearTAZChild();
+    clearTAZChilds();
     hide();
 }
 
@@ -492,7 +493,7 @@ GNETAZFrame::TAZSelectionStatistics::edgeSelected(GNEEdge* edge) {
 
 
 void 
-GNETAZFrame::TAZSelectionStatistics::clearTAZChild() {
+GNETAZFrame::TAZSelectionStatistics::clearTAZChilds() {
     myTAZChildSelected.clear();
     updateStatistics();
 }
@@ -541,19 +542,27 @@ GNETAZFrame::TAZSelectionStatistics::updateStatistics() {
         averageWeightSink /= myTAZChildSelected.size();
         // declare ostringstream for statistics
         std::ostringstream information;
+        std::string edgeInformation;
+        // first fill edgeInformation
+        if(myTAZChildSelected.size() == 1) {
+            edgeInformation = "- Edge ID: " + myTAZChildSelected.begin()->first->getID();
+        } else {
+            edgeInformation = "- Number of edges: " + toString(myTAZChildSelected.size());
+        }
+        // fill rest of information
         information
-            << "- Number of Sources/Sinks: " << toString(myTAZChildSelected.size()) << "\n"
+            << edgeInformation << "\n"
             << "- Min source: " << toString(minWeightSource) << "\n"
             << "- Max source: " << toString(maxWeightSource) << "\n"
             << "- Average source: " << toString(averageWeightSource) << "\n"
             << "\n"
             << "- Min sink: " << toString(minWeightSink) << "\n"
-            << "- Max sink: " << toString(averageWeightSink) << "\n"
+            << "- Max sink: " << toString(maxWeightSink) << "\n"
             << "- Average sink: " << toString(averageWeightSink);
         // set new label
         myStatisticsLabel->setText(information.str().c_str());
     } else {
-        myStatisticsLabel->setText("No TAZ Selected");
+        myStatisticsLabel->setText("No edge selected");
     }
 }
 
@@ -832,11 +841,10 @@ GNETAZFrame::processClick(const Position& clickedPosition, GNETAZ *TAZ, GNEEdge*
         }
         // make sure that both  TAZSource and TAZSink exist befor adding it into myTAZSelectionStatistics
         if(edge && TAZSource && TAZSink) {
-            if(myTAZSelectionStatistics->edgeSelected(edge)) {
-                myTAZSelectionStatistics->unselectEdge(edge);
-            } else {
-                myTAZSelectionStatistics->selectEdge(edge, TAZSource, TAZSink);
-            }
+            // first clear current selection
+            myTAZSelectionStatistics->clearTAZChilds();
+            // now select edge (and their Source/Sinks)
+            myTAZSelectionStatistics->selectEdge(edge, TAZSource, TAZSink);
             return true;
         } else {
             return false;

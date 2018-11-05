@@ -244,8 +244,8 @@ public:
         /// @brief check if an edge is selected
         bool edgeSelected(GNEEdge* edge);
 
-        /// @brief clear current child
-        void clearTAZChild();
+        /// @brief clear current TAZ childs
+        void clearTAZChilds();
 
     protected:
         /// @brief update TAZSelectionStatistics
