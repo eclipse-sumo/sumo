@@ -52,12 +52,18 @@ public:
         /// @brief get current TAZ
         GNETAZ* getTAZ() const;
 
+        /// @brief get current net edges
+        const std::vector<GNEEdge*> &getNetEdges() const;
+
     private:
         /// @brief pointer to TAZ Frame
         GNETAZFrame* myTAZFrameParent;
 
         /// @brief current TAZ
         GNETAZ* myTAZCurrent;
+
+        /// @brief vector with pointers to net (it's used to avoid slowdowns during Source/Sinks manipulations)
+        std::vector<GNEEdge*> myNetEdges;
 
         /// @brief Label for current TAZ
         FXLabel* myTAZCurrentLabel;
@@ -223,7 +229,20 @@ public:
         /// @brief hide save TAZ Edges Modul
         void hideTAZSelectionStatisticsModul();
 
-        /// @brief update Statistics label
+        /// @brief add an edge and their TAZ Childs in the list of selected items
+        void selectEdge(GNEEdge* edge, GNEAdditional* TAZSource, GNEAdditional* TAZSink);
+
+        /// @brief un select an edge (and their TAZ Childs)
+        void unselectEdge(GNEEdge* edge);
+
+        /// @brief check if an edge is selected
+        bool edgeSelected(GNEEdge* edge);
+
+        /// @brief clear current child
+        void clearTAZChild();
+
+    protected:
+        /// @brief update TAZSelectionStatistics
         void updateStatistics();
 
     private:
@@ -232,6 +251,9 @@ public:
 
         /// @brief Statistics labels
         FXLabel *myStatisticsLabel;
+
+        /// @brief vector with the current selected edges and their associated childs
+        std::map<GNEEdge*, std::pair<GNEAdditional*, GNEAdditional*> > myTAZChildSelected;
     };
 
     // ===========================================================================
@@ -318,6 +340,9 @@ public:
         /// @brief hide save TAZ Edges Modul
         void hideTAZEdgesGraphicModul();
 
+        /// @brief update edge colors;
+        void updateEdgeColors();
+
         /// @name FOX-callbacks
         /// @{
         /// @brief Called when the user select one kind of representation
@@ -329,9 +354,6 @@ public:
         TAZEdgesGraphic() {}
 
     private:
-        /// @brief update edge colors;
-        void updateEdgeColors();
-
         /// @brief pointer to TAZFrame parent
         GNETAZFrame* myTAZFrameParent;
 

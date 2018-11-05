@@ -102,6 +102,8 @@ GNETAZFrame::TAZCurrent::setTAZ(GNETAZ* TAZCurrent) {
     // update label and moduls
     if(myTAZCurrent != nullptr) {
         myTAZCurrentLabel->setText((("Current TAZ: ") + myTAZCurrent->getID()).c_str());
+        // obtain a copy of all edges of the net (to avoid slowdown during manipulations
+        myNetEdges = myTAZFrameParent->getViewNet()->getNet()->retrieveEdges();
         // hide TAZ parameters
         myTAZFrameParent->myTAZParameters->hideTAZParametersModul();
         // hide Netedit parameters
@@ -119,7 +121,10 @@ GNETAZFrame::TAZCurrent::setTAZ(GNETAZ* TAZCurrent) {
         // show Edges graphics
         myTAZFrameParent->myTAZEdgesGraphic->showTAZEdgesGraphicModul();
     } else {
+        // restore label
         myTAZCurrentLabel->setText("No TAZ selected");
+        // clear net edges
+        myNetEdges.clear();
         // show TAZ parameters
         myTAZFrameParent->myTAZParameters->showTAZParametersModul();
         // show Netedit parameters
@@ -143,6 +148,12 @@ GNETAZFrame::TAZCurrent::setTAZ(GNETAZ* TAZCurrent) {
 GNETAZ* 
 GNETAZFrame::TAZCurrent::getTAZ() const {
     return myTAZCurrent;
+}
+
+
+const std::vector<GNEEdge*>&
+GNETAZFrame::TAZCurrent::getNetEdges() const {
+    return myNetEdges;
 }
 
 // ---------------------------------------------------------------------------
@@ -377,12 +388,13 @@ GNETAZFrame::TAZCommonStatistics::hideTAZCommonStatisticsModul() {
 void 
 GNETAZFrame::TAZCommonStatistics::updateStatistics() {
     if (myTAZFrameParent->myTAZCurrent->getTAZ()) {
-        // create statistics label
+        // declare ostringstream for statistics
         std::ostringstream information;
         information
             << "- Min source: " << myTAZFrameParent->myTAZCurrent->getTAZ()->getAttribute(GNE_ATTR_MIN_SOURCE) << "\n"
             << "- Max source: " << myTAZFrameParent->myTAZCurrent->getTAZ()->getAttribute(GNE_ATTR_MAX_SOURCE) << "\n"
             << "- Average source: " << myTAZFrameParent->myTAZCurrent->getTAZ()->getAttribute(GNE_ATTR_AVERAGE_SOURCE) << "\n"
+            << "\n"
             << "- Min sink: " << myTAZFrameParent->myTAZCurrent->getTAZ()->getAttribute(GNE_ATTR_MIN_SINK) << "\n"
             << "- Max sink: " << myTAZFrameParent->myTAZCurrent->getTAZ()->getAttribute(GNE_ATTR_MAX_SINK) << "\n"
             << "- Average sink: " << myTAZFrameParent->myTAZCurrent->getTAZ()->getAttribute(GNE_ATTR_AVERAGE_SINK);
@@ -401,7 +413,7 @@ GNETAZFrame::TAZSelectionStatistics::TAZSelectionStatistics(GNETAZFrame* TAZFram
     FXGroupBox(TAZFrameParent->myContentFrame, "Selection Statistics", GUIDesignGroupBoxFrame),
     myTAZFrameParent(TAZFrameParent) {
     // create label for statistics
-    myStatisticsLabel = new FXLabel(this, "Statistics", 0, GUIDesignLabelLeft);
+    myStatisticsLabel = new FXLabel(this, "Statistics", 0, GUIDesignLabelFrameInformation);
 }
 
 
@@ -410,18 +422,128 @@ GNETAZFrame::TAZSelectionStatistics::~TAZSelectionStatistics() {}
 
 void 
 GNETAZFrame::TAZSelectionStatistics::showTAZSelectionStatisticsModul() {
+    // update Statistics before show
+    updateStatistics();
     show();
 }
 
 
 void 
 GNETAZFrame::TAZSelectionStatistics::hideTAZSelectionStatisticsModul() {
+    // clear childs before hide
+    clearTAZChild();
     hide();
 }
 
 
 void 
+GNETAZFrame::TAZSelectionStatistics::selectEdge(GNEEdge* edge, GNEAdditional* TAZSource, GNEAdditional* TAZSink) {
+    if(edge && TAZSource && TAZSink) {
+        if (myTAZChildSelected.count(edge) == 0) {
+            // add edge and their TAZ Childs into myTAZChildSelected
+            myTAZChildSelected[edge] = std::make_pair(TAZSource, TAZSink);
+            // always update statistics after insertion
+            updateStatistics();
+            // update edge colors
+            myTAZFrameParent->myTAZEdgesGraphic->updateEdgeColors();
+        } else {
+            throw ProcessError("edge already selected");
+        }
+    } else {
+        throw ProcessError("Invalid edge or TAZ Childs");
+    }
+}
+
+
+void 
+GNETAZFrame::TAZSelectionStatistics::unselectEdge(GNEEdge* edge) {
+    if(edge) {
+        if (myTAZChildSelected.count(edge) ==1) {
+            // remove edge (their TAZ Childs will be automatic removed)
+            myTAZChildSelected.erase(edge);
+            // always update statistics after insertion
+            updateStatistics();
+            // update edge colors
+            myTAZFrameParent->myTAZEdgesGraphic->updateEdgeColors();
+        } else {
+            throw ProcessError("edge isn't selected");
+        }
+    } else {
+        throw ProcessError("Invalid edge");
+    }
+}
+
+
+bool 
+GNETAZFrame::TAZSelectionStatistics::edgeSelected(GNEEdge* edge) {
+    return myTAZChildSelected.count(edge) != 0;
+}
+
+
+void 
+GNETAZFrame::TAZSelectionStatistics::clearTAZChild() {
+    myTAZChildSelected.clear();
+    updateStatistics();
+}
+
+
+void 
 GNETAZFrame::TAZSelectionStatistics::updateStatistics() {
+    if (myTAZChildSelected.size() > 0) {
+        // declare stadistic variables
+        double weight = 0;
+        double maxWeightSource = 0;
+        double minWeightSource = -1;
+        double averageWeightSource = 0;
+        double maxWeightSink = 0;
+        double minWeightSink = -1;
+        double averageWeightSink = 0;
+        // iterate over additional childs
+        for (auto i : myTAZChildSelected) {
+            //start with sources
+            weight = GNEAttributeCarrier::parse<double>(i.second.first->getAttribute(SUMO_ATTR_WEIGHT));
+            // check max Weight
+            if (maxWeightSource < weight) {
+                maxWeightSource = weight;
+            }
+            // check min Weight
+            if (minWeightSource == -1 || (maxWeightSource < weight)) {
+                minWeightSource = weight;
+            }
+            // update Average
+            averageWeightSource += weight;
+            // continue with sinks
+            weight = GNEAttributeCarrier::parse<double>(i.second.second->getAttribute(SUMO_ATTR_WEIGHT));
+            // check max Weight
+            if (maxWeightSink < weight) {
+                maxWeightSink = weight;
+            }
+            // check min Weight
+            if (minWeightSink == -1 || (maxWeightSink < weight)) {
+                minWeightSink = weight;
+            }
+            // update Average
+            averageWeightSink += weight;
+        }
+        // calculate average
+        averageWeightSource /= myTAZChildSelected.size();
+        averageWeightSink /= myTAZChildSelected.size();
+        // declare ostringstream for statistics
+        std::ostringstream information;
+        information
+            << "- Number of Sources/Sinks: " << toString(myTAZChildSelected) << "\n"
+            << "- Min source: " << toString(minWeightSource) << "\n"
+            << "- Max source: " << toString(maxWeightSource) << "\n"
+            << "- Average source: " << toString(averageWeightSource) << "\n"
+            << "\n"
+            << "- Min sink: " << toString(minWeightSink) << "\n"
+            << "- Max sink: " << toString(averageWeightSink) << "\n"
+            << "- Average sink: " << toString(averageWeightSink);
+        // set new label
+        myStatisticsLabel->setText(information.str().c_str());
+    } else {
+        myStatisticsLabel->setText("No TAZ Selected");
+    }
 }
 
 // ---------------------------------------------------------------------------
@@ -573,6 +695,24 @@ GNETAZFrame::TAZEdgesGraphic::hideTAZEdgesGraphicModul() {
 }
 
 
+void 
+GNETAZFrame::TAZEdgesGraphic::updateEdgeColors() {
+    // iterate over all edges and set gray color
+    for (const auto &i : myTAZFrameParent->myTAZCurrent->getNetEdges()) {
+        if(myTAZFrameParent->myTAZSelectionStatistics->edgeSelected(i)) {
+            // set color editor
+            for (const auto j : i->getLanes() ) {
+                j->setSpecialColor(&myTAZFrameParent->getEdgeCandidateSelectedColor());
+            }
+        } else {
+            for (const auto j : i->getLanes() ) {
+                j->setSpecialColor(&RGBColor::GREY);
+            }
+        }
+    }
+}
+
+
 long
 GNETAZFrame::TAZEdgesGraphic::onCmdChoosenBy(FXObject* obj, FXSelector, void*) {
     // check what radio was pressed and disable the others
@@ -589,19 +729,6 @@ GNETAZFrame::TAZEdgesGraphic::onCmdChoosenBy(FXObject* obj, FXSelector, void*) {
     // update edge colors
     updateEdgeColors();
     return 1;
-}
-
-
-void 
-GNETAZFrame::TAZEdgesGraphic::updateEdgeColors() {
-    // obtain all edges of net
-    auto edges = myTAZFrameParent->getViewNet()->getNet()->retrieveEdges();
-    // iterate over all edges and set gray color
-    for (const auto &i : edges) {
-        for (const auto j : i->getLanes() ) {
-            j->setSpecialColor(&RGBColor::GREY);
-        }
-    }
 }
 
 // ---------------------------------------------------------------------------
@@ -673,6 +800,28 @@ GNETAZFrame::processClick(const Position& clickedPosition, GNETAZ *TAZ, GNEEdge*
             return true;
         } else {
             return false;
+        }
+    } else if (edge != nullptr) {
+        // declare a vector to save TAZ Childs
+        GNEAdditional* TAZSource = nullptr;
+        GNEAdditional* TAZSink = nullptr;
+        for (const auto &i : myTAZCurrent->getTAZ()->getAdditionalChilds()) {
+            // check if clicked edge correspond to TAZSource/sink's edge
+            if (i->getAttribute(SUMO_ATTR_EDGE) == edge->getID()) {
+                if(i->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) {
+                    TAZSource = i;
+                } else {
+                    TAZSink = i;
+                }
+            }
+        }
+        // make sure that both  TAZSource and TAZSink exist befor adding it into myTAZSelectionStatistics
+        if(edge && TAZSource && TAZSink) {
+            if(myTAZSelectionStatistics->edgeSelected(edge)) {
+                myTAZSelectionStatistics->unselectEdge(edge);
+            } else {
+                myTAZSelectionStatistics->selectEdge(edge, TAZSource, TAZSink);
+            }
         }
     } else {
         // nothing to do
