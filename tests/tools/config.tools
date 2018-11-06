@@ -198,6 +198,7 @@ osmbatch:0.001
 osmlines:0.0101
 osmstops:0.0101
 osmtrips:0.0101
+ptroutes:0.0101
 summary:0.0001
 
 [unordered_text]
