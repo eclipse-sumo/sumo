@@ -641,7 +641,7 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
                     // Number of opposite lanes to be checked (assumes filterLanes.size()>0, see assertion above) determined as hypothetical offset
                     // overlap into opposing edge from the vehicle's current lane.
                     // TODO: offset<0 may indicate opposite query when vehicle is on opposite itself (-> use min_element(filterLanes...) instead, etc)
-                    unsigned int nOpp = MAX2(0, (*std::max_element(filterLanes.begin(), filterLanes.end())) - ((int)vehEdge->getLanes().size() - 1 - vehLane->getIndex()));
+                    const int nOpp = MAX2(0, (*std::max_element(filterLanes.begin(), filterLanes.end())) - ((int)vehEdge->getLanes().size() - 1 - vehLane->getIndex()));
                     // Collect vehicles from opposite lanes
                     if (nOpp > 0) {
                         for (auto& laneCov : *checkedLanesInDrivingDir) {
@@ -655,7 +655,7 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
                             auto leftMostOppositeLaneIt = opposite->getLanes().rbegin();
                             for (auto oppositeLaneIt = leftMostOppositeLaneIt;
                                     oppositeLaneIt != opposite->getLanes().rend(); ++oppositeLaneIt) {
-                                if (oppositeLaneIt - leftMostOppositeLaneIt == nOpp) {
+                                if ((int)(oppositeLaneIt - leftMostOppositeLaneIt) == nOpp) {
                                     break;
                                 }
                                 // Add vehicles from corresponding range on opposite direction

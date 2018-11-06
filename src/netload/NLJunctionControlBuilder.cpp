@@ -295,21 +295,23 @@ NLJunctionControlBuilder::closeTrafficLightLogic(const std::string& basePath) {
                     myAdditionalParameter, basePath);
             break;
         case TLTYPE_STATIC:
-            tlLogic =
-                new MSSimpleTrafficLightLogic(getTLLogicControlToUse(),
-                                              myActiveKey, myActiveProgram, TLTYPE_STATIC,
-                                              myActivePhases, step, firstEventOffset,
-                                              myAdditionalParameter);
+            tlLogic = new MSSimpleTrafficLightLogic(getTLLogicControlToUse(),
+                                                    myActiveKey, myActiveProgram, TLTYPE_STATIC,
+                                                    myActivePhases, step, firstEventOffset,
+                                                    myAdditionalParameter);
             break;
         case TLTYPE_RAIL_SIGNAL:
             tlLogic = new MSRailSignal(getTLLogicControlToUse(),
-                                        myActiveKey, myActiveProgram,
-                                        myAdditionalParameter);
+                                       myActiveKey, myActiveProgram,
+                                       myAdditionalParameter);
             break;
         case TLTYPE_RAIL_CROSSING:
             tlLogic = new MSRailCrossing(getTLLogicControlToUse(),
                                          myActiveKey, myActiveProgram,
                                          myAdditionalParameter);
+            break;
+        case TLTYPE_OFF:
+            tlLogic = new MSOffTrafficLightLogic(getTLLogicControlToUse(), myActiveKey);
             break;
         case TLTYPE_INVALID:
             throw ProcessError("Invalid traffic light type '" + toString(myLogicType) + "'");
