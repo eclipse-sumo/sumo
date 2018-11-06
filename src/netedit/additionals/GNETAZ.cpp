@@ -515,7 +515,7 @@ GNETAZ::updateAdditionalParent() {
                 myMaxWeightSource = weight;
             }
             // check min Weight
-            if (myMinWeightSource == -1 || (myMaxWeightSource < weight)) {
+            if ((myMinWeightSource == -1) || (weight < myMinWeightSource)) {
                 myMinWeightSource = weight;
             }
             // update Average
@@ -529,7 +529,7 @@ GNETAZ::updateAdditionalParent() {
                 myMaxWeightSink = weight;
             }
             // check min Weight
-            if (myMinWeightSink == -1 || (myMaxWeightSink < weight)) {
+            if ((myMinWeightSink == -1) || (weight < myMinWeightSink)) {
                 myMinWeightSink = weight;
             }
             // update Average

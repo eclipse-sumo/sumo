@@ -48,6 +48,9 @@ public:
             /// @brief destructor (needed because RGBColors has to be deleted)
             ~TAZEdge();
 
+            /// @brief update colors
+            void updateColors();
+
             /// @brief TAZ edge
             GNEEdge* edge;
 
@@ -267,10 +270,10 @@ public:
         void hideTAZSelectionStatisticsModul();
 
         /// @brief add an edge and their TAZ Childs in the list of selected items
-        void selectEdge(GNEEdge* edge, GNEAdditional* TAZSource, GNEAdditional* TAZSink);
+        bool selectEdge(const TAZCurrent::TAZEdge &edge);
 
         /// @brief un select an edge (and their TAZ Childs)
-        void unselectEdge(GNEEdge* edge);
+        bool unselectEdge(GNEEdge* edge);
 
         /// @brief check if an edge is selected
         bool isEdgeSelected(GNEEdge* edge);
@@ -279,7 +282,7 @@ public:
         void clearSelectedEdges();
 
         /// @brief get map with edge and TAZChilds
-        std::map<GNEEdge*, std::pair<GNEAdditional*, GNEAdditional*> > getEdgeAndTAZChildsSelected() const;
+        const std::vector<TAZCurrent::TAZEdge> &getEdgeAndTAZChildsSelected() const;
 
     protected:
         /// @brief update TAZSelectionStatistics
@@ -293,7 +296,7 @@ public:
         FXLabel *myStatisticsLabel;
 
         /// @brief vector with the current selected edges and their associated childs
-        std::map<GNEEdge*, std::pair<GNEAdditional*, GNEAdditional*> > myEdgeAndTAZChildsSelected;
+        std::vector<TAZCurrent::TAZEdge> myEdgeAndTAZChildsSelected;
     };
 
     // ===========================================================================

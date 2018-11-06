@@ -96,10 +96,16 @@ GNETAZSource::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_GENERIC:
             return getGenericParametersStr();
         case GNE_ATTR_TAZCOLOR: {
-            // obtain max weight source
+            // obtain max and min weight source
             double maxWeightSource = parse<double>(myFirstAdditionalParent->getAttribute(GNE_ATTR_MAX_SOURCE));
-            // calculate color [0,255]
-            return toString((maxWeightSource * 255) / myDepartWeight);
+            double minWeightSource = parse<double>(myFirstAdditionalParent->getAttribute(GNE_ATTR_MIN_SOURCE));
+            // avoid division between zero
+            if ((maxWeightSource - minWeightSource) == 0) {
+                return "127";
+            } else {
+                // calculate color [0,255]
+                return toString((int)(127 + ((myDepartWeight - minWeightSource) * 128) / (maxWeightSource - minWeightSource)));
+            }
         }
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
