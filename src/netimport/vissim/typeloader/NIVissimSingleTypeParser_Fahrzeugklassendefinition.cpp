@@ -63,13 +63,13 @@ NIVissimSingleTypeParser_Fahrzeugklassendefinition::parse(std::istream& from) {
         int r, g, b;
         r = TplConvert::_2int(colorName.c_str());
         if (!(from >> g)) {
-            throw NumberFormatException();
+            throw NumberFormatException("");
         }
         if (!(from >> b)) {
-            throw NumberFormatException();
+            throw NumberFormatException("");
         }
         if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255) {
-            throw NumberFormatException();
+            throw NumberFormatException("");
         }
         color = RGBColor((unsigned char)r, (unsigned char)g, (unsigned char)b, 255);
     }

@@ -234,7 +234,7 @@ RGBColor::parseColor(std::string coldef) {
                     a = static_cast<unsigned char>(TplConvert::_2int(st[3].c_str()));
                 }
                 if (r <= 1 && g <= 1 && b <= 1 && (st.size() == 3 || a <= 1)) {
-                    throw NumberFormatException();
+                    throw NumberFormatException("(color component) " + coldef);
                 }
             } catch (NumberFormatException&) {
                 r = static_cast<unsigned char>(TplConvert::_2double(st[0].c_str()) * 255. + 0.5);

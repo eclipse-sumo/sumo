@@ -98,8 +98,8 @@ public:
 class NumberFormatException : public FormatException {
 public:
     /// @brief constructor
-    NumberFormatException()
-        : FormatException("Number Format") {}
+    NumberFormatException(const std::string& data)
+        : FormatException("Invalid Number Format '" + data + "'") {}
 };
 
 
@@ -111,8 +111,8 @@ public:
 class BoolFormatException : public FormatException {
 public:
     /// @brief constructor
-    BoolFormatException()
-        : FormatException("Bool Format") {}
+    BoolFormatException(const std::string& data)
+        : FormatException("Invalid Bool Format '" + data + "'") {}
 };
 
 

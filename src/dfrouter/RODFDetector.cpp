@@ -391,7 +391,7 @@ RODFDetector::writeEmitterDefinition(const std::string& file,
                             } else if (posDesc[8] == '-') {
                                 position -= TplConvert::_2double(posDesc.substr(9).c_str());
                             } else {
-                                throw NumberFormatException();
+                                throw NumberFormatException("");
                             }
                         }
                         out.writeAttr(SUMO_ATTR_DEPARTPOS, position);

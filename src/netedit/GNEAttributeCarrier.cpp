@@ -773,7 +773,7 @@ GNEAttributeCarrier::parse(const std::string& string) {
         bool ok = true;
         PositionVector pos = GeomConvHelper::parseShapeReporting(string, "user-supplied position", 0, ok, false, true);
         if (!ok || (pos.size() != 1)) {
-            throw NumberFormatException();
+            throw NumberFormatException("(Position) " + string);
         } else {
             return pos[0];
         }
@@ -791,7 +791,7 @@ GNEAttributeCarrier::parse(const std::string& string) {
         bool ok = true;
         posVector = GeomConvHelper::parseShapeReporting(string, "user-supplied shape", 0, ok, false, true);
         if (!ok) {
-            throw NumberFormatException();
+            throw NumberFormatException("(Position List) " + string);
         } else {
             return posVector;
         }

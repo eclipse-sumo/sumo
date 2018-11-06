@@ -32,6 +32,7 @@
 #include <algorithm>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/StdDefs.h>
+#include <utils/common/ToString.h>
 
 
 // ===========================================================================
@@ -149,7 +150,7 @@ public:
     static int _2int(const E* const data) {
         long long int result = _2long(data);
         if (result > std::numeric_limits<int>::max() || result < std::numeric_limits<int>::min()) {
-            throw NumberFormatException();
+            throw NumberFormatException(toString(result) + " int overflow");
         }
         return (int)result;
     }
@@ -170,7 +171,7 @@ public:
     static int _hex2int(const E* const data) {
         long long int result = _hex2long(data);
         if (result > std::numeric_limits<int>::max() || result < std::numeric_limits<int>::min()) {
-            throw NumberFormatException();
+            throw NumberFormatException(toString(result) + " int overflow");
         }
         return (int)result;
     }
@@ -220,7 +221,7 @@ public:
             // !!! need to catch overflows
             char akt = (char) data[i];
             if (akt < '0' || akt > '9') {
-                throw NumberFormatException();
+                throw NumberFormatException("(integer) " + _2str(data));
             }
             ret += akt - 48;
         }
@@ -274,7 +275,7 @@ public:
             } else if (akt >= 'a' && akt <= 'f') {
                 ret += akt - 'a' + 10;
             } else {
-                throw NumberFormatException();
+                throw NumberFormatException("(hex) " +  _2str(data));
             }
         }
         if (i == 0) {
@@ -326,7 +327,7 @@ public:
                     pointPos = i;
                     continue;
                 }
-                throw NumberFormatException();
+                throw NumberFormatException(_2str(data));
             }
             digits--;
             if (digits >= 0) { // we skip the digits which don't fit into long long int
@@ -346,7 +347,7 @@ public:
             return ret * sgn * (double) pow(10.0, _2int(data + i + 1) + exponent);
         } catch (EmptyData&) {
             // the exponent was empty
-            throw NumberFormatException();
+            throw NumberFormatException("");
         }
     }
 
@@ -393,7 +394,7 @@ public:
         } else if (s == "0" || s == "no" || s == "false" || s == "off" || s == "-" || s == "f") {
             return false;
         } else {
-            throw BoolFormatException();
+            throw BoolFormatException(s);
         }
     }
 

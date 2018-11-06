@@ -313,7 +313,7 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
                     MSTLLogicControl::TLSLogicVariants& vars = net->getTLSControl().get(d.filename.substr(3, linkStringIdx - 3));
                     const int linkIdx = TplConvert::_2int(d.filename.substr(linkStringIdx + 1).c_str());
                     if (linkIdx < 0 || linkIdx >= static_cast<int>(vars.getActive()->getLinks().size())) {
-                        throw NumberFormatException();
+                        throw NumberFormatException("");
                     }
                     const MSLink* const l = vars.getActive()->getLinksAt(linkIdx)[0];
                     osg::Switch* switchNode = new osg::Switch();
