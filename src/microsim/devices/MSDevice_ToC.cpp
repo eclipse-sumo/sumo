@@ -96,6 +96,8 @@ MSDevice_ToC::insertOptions(OptionsCont& oc) {
     oc.addDescription("device.toc.mrmDecel", "ToC Device", "Deceleration rate applied during a 'minimum risk maneuver'.");
     oc.doRegister("device.toc.useColorScheme", new Option_Bool(true));
     oc.addDescription("device.toc.useColorScheme", "ToC Device", "Whether a coloring scheme shall by applied to indicate the different ToC stages.");
+    oc.doRegister("device.toc.file", new Option_String());
+    oc.addDescription("device.toc.file", "ToC Device", "Switches on output by specifying an output filename.");
 }
 
 
