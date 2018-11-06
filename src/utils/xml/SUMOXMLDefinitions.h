@@ -891,6 +891,8 @@ enum SumoXMLAttr {
     GNE_ATTR_AVERAGE_SOURCE,
     /// @brief average sink (used only by TAZs)
     GNE_ATTR_AVERAGE_SINK,
+    /// @brief Color of TAZSources/TAZChilds
+    GNE_ATTR_TAZCOLOR,
     // @}
 
     SUMO_ATTR_TARGETLANE,

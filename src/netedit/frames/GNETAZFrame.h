@@ -40,6 +40,30 @@ public:
     class TAZCurrent : protected FXGroupBox {
 
     public:
+        /// @brief struct for edges and the source/sink colors
+        struct TAZEdge {
+            /// @brief constructor
+            TAZEdge(GNEEdge* _edge, GNEAdditional *_TAZSource, GNEAdditional *_TAZSink);
+            
+            /// @brief destructor (needed because RGBColors has to be deleted)
+            ~TAZEdge();
+
+            /// @brief TAZ edge
+            GNEEdge* edge;
+
+            /// @brief source TAZ
+            GNEAdditional *TAZSource;
+
+            /// @brif sink TAZ
+            GNEAdditional *TAZSink;
+
+            /// @brief source Color
+            RGBColor sourceColor;
+
+            /// @brief sink Color
+            RGBColor sinkColor;
+        };
+
         /// @brief constructor
         TAZCurrent(GNETAZFrame* TAZFrameParent);
 
@@ -58,6 +82,13 @@ public:
         /// @brief get current net edges
         const std::vector<GNEEdge*> &getNetEdges() const;
 
+        /// @brief get TAZEdges
+        const std::vector<TAZCurrent::TAZEdge> &getTAZEdges() const;
+
+    protected:
+        /// @brief add TAZChild
+        void addTAZChild(GNEAdditional *additional);
+
     private:
         /// @brief pointer to TAZ Frame
         GNETAZFrame* myTAZFrameParent;
@@ -69,7 +100,7 @@ public:
         std::vector<GNEEdge*> myNetEdges;
 
         /// @brief vector with TAZ's edges
-        std::set<GNEEdge*> myTAZEdges;
+        std::vector<TAZEdge> myTAZEdges;
 
         /// @brief Label for current TAZ
         FXLabel* myTAZCurrentLabel;
@@ -244,11 +275,11 @@ public:
         /// @brief check if an edge is selected
         bool isEdgeSelected(GNEEdge* edge);
 
-        /// @brief return true if currently there are edges selected
-        bool edgesSelected() const;
-
         /// @brief clear current TAZ childs
         void clearSelectedEdges();
+
+        /// @brief get map with edge and TAZChilds
+        std::map<GNEEdge*, std::pair<GNEAdditional*, GNEAdditional*> > getEdgeAndTAZChildsSelected() const;
 
     protected:
         /// @brief update TAZSelectionStatistics
@@ -262,7 +293,7 @@ public:
         FXLabel *myStatisticsLabel;
 
         /// @brief vector with the current selected edges and their associated childs
-        std::map<GNEEdge*, std::pair<GNEAdditional*, GNEAdditional*> > myTAZChildSelected;
+        std::map<GNEEdge*, std::pair<GNEAdditional*, GNEAdditional*> > myEdgeAndTAZChildsSelected;
     };
 
     // ===========================================================================

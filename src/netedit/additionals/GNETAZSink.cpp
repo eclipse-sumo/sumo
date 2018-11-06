@@ -95,6 +95,12 @@ GNETAZSink::getAttribute(SumoXMLAttr key) const {
             return myFirstAdditionalParent->getID();
         case GNE_ATTR_GENERIC:
             return getGenericParametersStr();
+        case GNE_ATTR_TAZCOLOR: {
+            // obtain max weight sink
+            double maxWeightSink = parse<double>(myFirstAdditionalParent->getAttribute(GNE_ATTR_MAX_SINK));
+            // calculate color [0,255]
+            return toString((maxWeightSink * 255) / myArrivalWeight);
+        }
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
