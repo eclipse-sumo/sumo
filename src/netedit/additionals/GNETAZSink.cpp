@@ -98,7 +98,7 @@ GNETAZSink::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_TAZCOLOR: {
             // obtain max and min weight source
             double maxWeightSink = parse<double>(myFirstAdditionalParent->getAttribute(GNE_ATTR_MAX_SINK));
-            double minWeightSink = parse<double>(myFirstAdditionalParent->getAttribute(GNE_ATTR_MAX_SINK));
+            double minWeightSink = parse<double>(myFirstAdditionalParent->getAttribute(GNE_ATTR_MIN_SINK));
             // avoid division between zero
             if ((maxWeightSink - minWeightSink) == 0) {
                 return "127";

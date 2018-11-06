@@ -87,8 +87,6 @@ GNETAZFrame::TAZCurrent::TAZEdge::TAZEdge(GNEEdge* _edge, GNEAdditional *_TAZSou
     edge(_edge),
     TAZSource(_TAZSource),
     TAZSink(_TAZSink) {
-    // first update colors
-    updateColors();
 }
 
 
@@ -97,13 +95,20 @@ GNETAZFrame::TAZCurrent::TAZEdge::~TAZEdge() {}
 
 void 
 GNETAZFrame::TAZCurrent::TAZEdge::updateColors() {
+    unsigned char r = 127;
+    unsigned char g = 127;
     // Check that bot source and sink exist
     if (TAZSource) {
-        sourceColor = RGBColor((unsigned char)GNEAttributeCarrier::parse<int>(TAZSource->getAttribute(GNE_ATTR_TAZCOLOR)), 0, 0);
+        r = (unsigned char)GNEAttributeCarrier::parse<int>(TAZSource->getAttribute(GNE_ATTR_TAZCOLOR));
+
     }
     if (TAZSink) {
-        sinkColor = RGBColor(0, GNEAttributeCarrier::parse<double>(TAZSink->getAttribute(GNE_ATTR_TAZCOLOR)), 0);
+        g = (unsigned char)GNEAttributeCarrier::parse<double>(TAZSink->getAttribute(GNE_ATTR_TAZCOLOR));
     }
+    // set new colors
+    sourceColor = RGBColor(r, 0, 0);
+    sinkColor = RGBColor(0, g, 0);
+    sourceSinkColor = RGBColor(r, g, 0);
 }
 
 
@@ -132,6 +137,10 @@ GNETAZFrame::TAZCurrent::setTAZ(GNETAZ* TAZCurrent) {
         myTAZEdges.clear();
         for (const auto &i : myTAZCurrent->getAdditionalChilds()) {
             addTAZChild(i);
+        }
+        // now update all colors
+        for (auto &i : myTAZEdges) {
+            i.updateColors();
         }
         // hide TAZ parameters
         myTAZFrameParent->myTAZParameters->hideTAZParametersModul();
@@ -812,8 +821,14 @@ GNETAZFrame::TAZEdgesGraphic::updateEdgeColors() {
     for (const auto &i : myTAZFrameParent->myTAZCurrent->getTAZEdges()) {
         // set candidate color (in this case, 
         for (const auto j : i.edge->getLanes() ) {
-            // check what will be painted (source or sink)
-            j->setSpecialColor(&i.sourceColor);
+            // check what will be painted (source, sink or both)
+            if (myColorBySourceWeight->getCheck() == TRUE) {
+                j->setSpecialColor(&i.sourceColor);
+            } else if (myColorBySinkWeight->getCheck() == TRUE) {
+                j->setSpecialColor(&i.sinkColor);
+            } else {
+                j->setSpecialColor(&i.sourceSinkColor);
+            }
         }
     }
     // as last step paint candidate colors
@@ -823,6 +838,8 @@ GNETAZFrame::TAZEdgesGraphic::updateEdgeColors() {
             j->setSpecialColor(&myTAZFrameParent->getEdgeCandidateSelectedColor());
         }
     }
+    // always update view after setting new colors
+    myTAZFrameParent->getViewNet()->update();
 }
 
 

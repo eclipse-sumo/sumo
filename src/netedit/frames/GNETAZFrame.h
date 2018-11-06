@@ -65,6 +65,9 @@ public:
 
             /// @brief sink Color
             RGBColor sinkColor;
+
+            /// @brief source and sink Color
+            RGBColor sourceSinkColor;
         };
 
         /// @brief constructor
