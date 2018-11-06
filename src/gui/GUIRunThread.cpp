@@ -102,7 +102,16 @@ GUIRunThread::init(GUINet* net, SUMOTime start, SUMOTime end) {
         myOk = false;
         mySimulationInProgress = false;
 #ifndef _DEBUG
+    } catch (std::runtime_error& e2) {
+        if (std::string(e2.what()) != std::string("Runtime Error") && std::string(e2.what()) != std::string("")) {
+            WRITE_ERROR(e2.what());
+        }
+        MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
+        myHalting = true;
+        myOk = false;
+        mySimulationInProgress = false;
     } catch (...) {
+        MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
         myHalting = true;
         myOk = false;
         mySimulationInProgress = false;
@@ -226,7 +235,20 @@ GUIRunThread::makeStep() {
         myHalting = true;
         myOk = false;
 #ifndef _DEBUG
+    } catch (std::runtime_error& e2) {
+        if (std::string(e2.what()) != std::string("Runtime Error") && std::string(e2.what()) != std::string("")) {
+            WRITE_ERROR(e2.what());
+        }
+        MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
+        mySimulationLock.unlock();
+        mySimulationInProgress = false;
+        e = new GUIEvent_SimulationEnded(MSNet::SIMSTATE_ERROR_IN_SIM, myNet->getCurrentTimeStep());
+        myEventQue.add(e);
+        myEventThrow.signal();
+        myHalting = true;
+        myOk = false;
     } catch (...) {
+        MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
         mySimulationLock.unlock();
         mySimulationInProgress = false;
         e = new GUIEvent_SimulationEnded(MSNet::SIMSTATE_ERROR_IN_SIM, myNet->getCurrentTimeStep());
