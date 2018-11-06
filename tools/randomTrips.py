@@ -90,7 +90,7 @@ def get_options(args=None):
                          default=False, help="Allow departing on edges that leave the network and arriving on edges " +
                          "that enter the network (via turnarounds or as 1-edge trips")
     optParser.add_option("--allow-fringe.min-length", type="float", dest="allow_fringe_min_length",
-                         default=0.0, help="Allow departing on edges that leave the network and arriving on edges " +
+                         help="Allow departing on edges that leave the network and arriving on edges " +
                          "that enter the network, if they have at least the given length")
     optParser.add_option("--min-distance", type="float", dest="min_distance",
                          default=0.0, help="require start and end edges for each trip to be at least <FLOAT> m apart")
@@ -229,8 +229,8 @@ def get_prob_fun(options, fringe_bonus, fringe_forbidden):
             return 0  # not allowed
         if fringe_bonus is None and edge.is_fringe() and not options.pedestrians:
             return 0  # not suitable as intermediate way point
-        if (fringe_forbidden is not None and edge.is_fringe(getattr(edge, fringe_forbidden)) and
-                edge.getLength() < options.allow_fringe_min_length and not options.pedestrians):
+        if (fringe_forbidden is not None and edge.is_fringe(getattr(edge, fringe_forbidden)) and not options.pedestrians and
+                (options.allow_fringe_min_length is None or edge.getLength() < options.allow_fringe_min_length)):
             return 0  # the wrong kind of fringe
         prob = 1
         if options.length:
