@@ -39,6 +39,9 @@ action_step_negative_warning
 # exit on too many teleports
 too_many_teleports
 
+# the value for  key=has.rerouting.device is not a bool
+invalid_param
+
 # Tests for broken routes
 routes
 
