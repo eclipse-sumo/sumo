@@ -573,6 +573,9 @@ private:
         /// @brief process rectangle Selection
         void processRectangleSelection(GNEViewNet* viewNet, bool shiftKeyPressed);
 
+        /// @brief process rectangle Selection (only limited to Edges)
+        std::vector<GNEEdge*> processEdgeRectangleSelection(GNEViewNet* viewNet, bool shiftKeyPressed);
+
         /// @brief process shape selection
         void processShapeSelection(GNEViewNet* viewNet, const PositionVector &shape);
 

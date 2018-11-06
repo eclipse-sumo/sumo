@@ -242,10 +242,13 @@ public:
         void unselectEdge(GNEEdge* edge);
 
         /// @brief check if an edge is selected
-        bool edgeSelected(GNEEdge* edge);
+        bool isEdgeSelected(GNEEdge* edge);
+
+        /// @brief return true if currently there are edges selected
+        bool edgesSelected() const;
 
         /// @brief clear current TAZ childs
-        void clearTAZChilds();
+        void clearSelectedEdges();
 
     protected:
         /// @brief update TAZSelectionStatistics
@@ -393,11 +396,17 @@ public:
     */
     bool processClick(const Position& clickedPosition, GNETAZ* taz, GNEEdge* edge);
 
-    /// @brief get drawing mode editor
+    /// @brief process selection of edges in view net
+    void processEdgeSelection(const std::vector<GNEEdge*>& edges);
+
+    /// @brief get drawing mode modul
     DrawingShape* getDrawingShape() const;
 
-    /// @brief get Current TAZ
+    /// @brief get Current TAZ modul
     TAZCurrent* getTAZCurrent() const;
+
+    /// @brief get TAZ Selection Statistics modul
+    TAZSelectionStatistics* getTAZSelectionStatistics() const;
 
 protected:
     /**@brief build a shaped element using the drawed shape

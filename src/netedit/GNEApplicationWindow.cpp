@@ -29,38 +29,39 @@
 #include <sstream>
 #include <algorithm>
 
+#include <netbuild/NBFrame.h>
+#include <netedit/additionals/GNEAdditionalHandler.h>
+#include <netedit/additionals/GNEPOI.h>
+#include <netedit/dialogs/GNEDialog_About.h>
+#include <netedit/frames/GNETAZFrame.h>
+#include <netedit/frames/GNETLSEditorFrame.h>
+#include <netedit/netelements/GNEEdge.h>
+#include <netedit/netelements/GNEJunction.h>
+#include <netimport/NIFrame.h>
+#include <netimport/NIImporter_SUMO.h>
+#include <netwrite/NWFrame.h>
+#include <utils/common/SystemFrame.h>
 #include <utils/common/ToString.h>
-#include <utils/foxtools/MFXUtils.h>
 #include <utils/foxtools/FXLinkLabel.h>
-#include <utils/xml/XMLSubSys.h>
+#include <utils/foxtools/MFXUtils.h>
 #include <utils/geom/GeoConvHelper.h>
-#include <utils/options/OptionsCont.h>
-#include <utils/gui/div/GUIMessageWindow.h>
+#include <utils/gui/div/GLHelper.h>
+#include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/div/GUIDialog_GLChosenEditor.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GUIIOGlobals.h>
-#include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/div/GUIMessageWindow.h>
 #include <utils/gui/div/GUIUserIO.h>
-#include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/div/GLHelper.h>
 #include <utils/gui/events/GUIEvent_Message.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/images/GUITextureSubSys.h>
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
 #include <utils/gui/settings/GUISettingsHandler.h>
 #include <utils/gui/windows/GUIAppEnum.h>
-#include <netimport/NIFrame.h>
-#include <netbuild/NBFrame.h>
-#include <netwrite/NWFrame.h>
-#include <utils/common/SystemFrame.h>
-#include <netimport/NIImporter_SUMO.h>
-#include <netedit/frames/GNETLSEditorFrame.h>
-#include <netedit/dialogs/GNEDialog_About.h>
 #include <utils/gui/windows/GUIDialog_Options.h>
-#include <netedit/netelements/GNEEdge.h>
-#include <netedit/netelements/GNEJunction.h>
-#include <netedit/additionals/GNEPOI.h>
-#include <netedit/additionals/GNEAdditionalHandler.h>
+#include <utils/options/OptionsCont.h>
+#include <utils/xml/XMLSubSys.h>
 
 #include "GNEApplicationWindow.h"
 #include "GNELoadThread.h"
@@ -1357,12 +1358,23 @@ GNEApplicationWindow::onCmdOpenSUMOGUI(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdAbort(FXObject*, FXSelector, void*) {
-    if (getView()) {
+    // obtain pointer to view net (only for improve code legibility)
+    GNEViewNet *viewNet = getView();
+    // check that view exists
+    if (viewNet) {
         // show extra information for tests
         WRITE_DEBUG("Key ESC (abort) pressed");
-        // abort current operation
-        getView()->abortOperation();
-        getView()->update();
+        // first check if we're selecting a subset of edges in TAZ Frame
+        if(viewNet->getViewParent()->getTAZFrame()->getTAZSelectionStatistics()->edgesSelected()) {
+            // show extra information for tests
+            WRITE_DEBUG("Cleaning current selected edges");
+            // clear current selection
+            viewNet->getViewParent()->getTAZFrame()->getTAZSelectionStatistics()->clearSelectedEdges();
+        } else {
+            // abort current operation
+            viewNet->abortOperation();
+            viewNet->update();
+        }
     }
     return 1;
 }

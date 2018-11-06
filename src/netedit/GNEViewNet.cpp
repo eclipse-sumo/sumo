@@ -1115,13 +1115,20 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                 if (myObjectsUnderCursor.lane) {
                     myObjectsUnderCursor.swapLane2Edge();
                 }
-                // check if process click was scuesfully
-                if(myViewParent->getTAZFrame()->processClick(snapToActiveGrid(getPositionInformation()), myObjectsUnderCursor.taz, myObjectsUnderCursor.edge)) {
-                    // view net must be always update
-                    update();
+                // check if we want to create a rect for selecting edges
+                if (myObjectsUnderCursor.shiftKeyPressed() && (myViewParent->getTAZFrame()->getTAZCurrent()->getTAZ() != nullptr)) {
+                    mySelectingArea.selectingUsingRectangle = true;
+                    mySelectingArea.selectionCorner1 = getPositionInformation();
+                    mySelectingArea.selectionCorner2 = getPositionInformation();
+                } else {
+                    // check if process click was scuesfully
+                    if(myViewParent->getTAZFrame()->processClick(snapToActiveGrid(getPositionInformation()), myObjectsUnderCursor.taz, myObjectsUnderCursor.edge)) {
+                        // view net must be always update
+                        update();
+                    }
+                    // process click
+                    processClick(evt, eventData);
                 }
-                // process click
-                processClick(evt, eventData);
                 break;
             }
             case GNE_MODE_POLYGON: {
@@ -1161,6 +1168,8 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
 long
 GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
     GUISUMOAbstractView::onLeftBtnRelease(obj, sel, eventData);
+    // obtan flag to check if shift key was pressed
+    bool shiftKeyPressed = ((FXEvent*)eventData)->state & SHIFTMASK;
     if (myMovingSelection) {
         finishMoveSelection();
     } else if (myMovedItems.polyToMove) {
@@ -1196,8 +1205,13 @@ GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
         myMovedItems.tazToMove->commitShapeChange(myMoveSingleElementValues.movingOriginalShape, myUndoList);
         myMovedItems.tazToMove = nullptr;
     } else if (mySelectingArea.selectingUsingRectangle) {
-        bool shiftKeyPressed = ((FXEvent*)eventData)->state & SHIFTMASK;
-        mySelectingArea.processRectangleSelection(this, shiftKeyPressed);
+        // check if we're selecting all type of elements o we only want a set of edges for TAZ
+        if(myEditMode == GNE_MODE_SELECT) { 
+            mySelectingArea.processRectangleSelection(this, shiftKeyPressed);
+        } else if(myEditMode == GNE_MODE_TAZ) {  
+            // process edge selection
+            myViewParent->getTAZFrame()->processEdgeSelection(mySelectingArea.processEdgeRectangleSelection(this, myShiftKeyPressed));
+        }
     }
     update();
     return 1;
@@ -3152,6 +3166,32 @@ GNEViewNet::SelectingArea::processRectangleSelection(GNEViewNet* viewNet, bool s
         rectangleBoundary.add(selectionCorner2);
         processBoundarySelection(viewNet, rectangleBoundary);
     }
+}
+
+
+std::vector<GNEEdge*>
+GNEViewNet::SelectingArea::processEdgeRectangleSelection(GNEViewNet* viewNet, bool shiftKeyPressed) {
+    std::vector<GNEEdge*> result;
+    // stop select using rectangle
+    selectingUsingRectangle = false;
+    // shift held down on mouse-down and mouse-up
+    if (shiftKeyPressed) {
+        Boundary rectangleBoundary;
+        rectangleBoundary.add(selectionCorner1);
+        rectangleBoundary.add(selectionCorner2);
+        if (viewNet->makeCurrent()) {
+            // obtain all ACs in Rectangle BOundary
+            std::set<std::pair<std::string, GNEAttributeCarrier*> > ACsInBoundary = viewNet->getAttributeCarriersInBoundary(rectangleBoundary);
+            // Filter ACs in Boundary and get only edges
+            for (auto i : ACsInBoundary) {
+                if(i.second->getTagProperty().getTag() == SUMO_TAG_EDGE) {
+                    result.push_back(dynamic_cast<GNEEdge*>(i.second));
+                }
+            }
+            viewNet->makeNonCurrent();
+        }
+    }
+    return result;
 }
 
 
