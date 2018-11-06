@@ -93,25 +93,6 @@ GNETAZFrame::TAZCurrent::TAZEdge::TAZEdge(GNEEdge* _edge, GNEAdditional *_TAZSou
 GNETAZFrame::TAZCurrent::TAZEdge::~TAZEdge() {}
 
 
-void 
-GNETAZFrame::TAZCurrent::TAZEdge::updateColors() {
-    unsigned char r = 127;
-    unsigned char g = 127;
-    // Check that bot source and sink exist
-    if (TAZSource) {
-        r = (unsigned char)GNEAttributeCarrier::parse<int>(TAZSource->getAttribute(GNE_ATTR_TAZCOLOR));
-
-    }
-    if (TAZSink) {
-        g = (unsigned char)GNEAttributeCarrier::parse<double>(TAZSink->getAttribute(GNE_ATTR_TAZCOLOR));
-    }
-    // set new colors
-    sourceColor = RGBColor(r, 0, 0);
-    sinkColor = RGBColor(0, g, 0);
-    sourceSinkColor = RGBColor(r, g, 0);
-}
-
-
 GNETAZFrame::TAZCurrent::TAZCurrent(GNETAZFrame* TAZFrameParent) : 
     FXGroupBox(TAZFrameParent->myContentFrame, "TAZ", GUIDesignGroupBoxFrame),
     myTAZFrameParent(TAZFrameParent),
@@ -137,10 +118,6 @@ GNETAZFrame::TAZCurrent::setTAZ(GNETAZ* TAZCurrent) {
         myTAZEdges.clear();
         for (const auto &i : myTAZCurrent->getAdditionalChilds()) {
             addTAZChild(i);
-        }
-        // now update all colors
-        for (auto &i : myTAZEdges) {
-            i.updateColors();
         }
         // hide TAZ parameters
         myTAZFrameParent->myTAZParameters->hideTAZParametersModul();
@@ -774,6 +751,25 @@ GNETAZFrame::TAZParameters::onCmdHelp(FXObject*, FXSelector, void*) {
 GNETAZFrame::TAZEdgesGraphic::TAZEdgesGraphic(GNETAZFrame* TAZFrameParent) : 
     FXGroupBox(TAZFrameParent->myContentFrame, "Edges", GUIDesignGroupBoxFrame),
     myTAZFrameParent(TAZFrameParent) {
+    // create label for color information
+    new FXLabel(this,"Minor -> major", nullptr, GUIDesignLabelLeft);
+    // fill scale colors
+    myScaleColors.push_back(RGBColor(232, 35,  0));
+    myScaleColors.push_back(RGBColor(255, 165, 0));
+    myScaleColors.push_back(RGBColor(255, 255, 0));
+    myScaleColors.push_back(RGBColor(28,  215, 0));
+    myScaleColors.push_back(RGBColor(0,   181, 100));
+    myScaleColors.push_back(RGBColor(0,   255, 191));
+    myScaleColors.push_back(RGBColor(178, 255, 255));
+    myScaleColors.push_back(RGBColor(0,   112, 184));
+    myScaleColors.push_back(RGBColor(56,  41,  131));
+    myScaleColors.push_back(RGBColor(127, 0,   255));
+    // create frame for color scale
+    FXHorizontalFrame *horizontalFrameColors = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    for (const auto &i : myScaleColors) {
+        FXLabel *colorLabel = new FXLabel(horizontalFrameColors,"", nullptr, GUIDesignLabelLeft);
+        colorLabel->setBackColor(MFXUtils::getFXColor(i));
+    }
     // create Radio button for show edges by source weight
     myColorBySourceWeight = new FXRadioButton(this, "Color by Source", this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     // create Radio button for show edges by sink weight
@@ -823,11 +819,11 @@ GNETAZFrame::TAZEdgesGraphic::updateEdgeColors() {
         for (const auto j : i.edge->getLanes() ) {
             // check what will be painted (source, sink or both)
             if (myColorBySourceWeight->getCheck() == TRUE) {
-                j->setSpecialColor(&i.sourceColor);
+                j->setSpecialColor(&myScaleColors.front());
             } else if (myColorBySinkWeight->getCheck() == TRUE) {
-                j->setSpecialColor(&i.sinkColor);
+                j->setSpecialColor(&myScaleColors.front());
             } else {
-                j->setSpecialColor(&i.sourceSinkColor);
+                j->setSpecialColor(&myScaleColors.front());
             }
         }
     }

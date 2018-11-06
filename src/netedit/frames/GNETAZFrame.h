@@ -48,9 +48,6 @@ public:
             /// @brief destructor (needed because RGBColors has to be deleted)
             ~TAZEdge();
 
-            /// @brief update colors
-            void updateColors();
-
             /// @brief TAZ edge
             GNEEdge* edge;
 
@@ -59,15 +56,6 @@ public:
 
             /// @brif sink TAZ
             GNEAdditional *TAZSink;
-
-            /// @brief source Color
-            RGBColor sourceColor;
-
-            /// @brief sink Color
-            RGBColor sinkColor;
-
-            /// @brief source and sink Color
-            RGBColor sourceSinkColor;
         };
 
         /// @brief constructor
@@ -411,6 +399,9 @@ public:
 
         /// @brief add radio button
         FXRadioButton* myColorBySourceAndSinkWeight;
+
+        /// @brief vector wit the scale colors
+        std::vector<RGBColor> myScaleColors;
     };
     
     /**@brief Constructor
