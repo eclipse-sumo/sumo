@@ -240,7 +240,7 @@ MSE3Collector::enter(const SUMOVehicle& veh, const double entryTimestep, const d
     v.frontLeaveTime = 0;
     v.backLeaveTime = 0;
     v.speedSum = speedFraction;
-    v.haltingBegin = veh.getSpeed() < myHaltingSpeedThreshold ? entryTimestep : -1;
+    v.haltingBegin = veh.getSpeed() < myHaltingSpeedThreshold ? TIME2STEPS(entryTimestep) : -1;
     v.intervalSpeedSum = entryTimestep >= STEPS2TIME(myLastResetTime) ? speedFraction : 0;
     v.haltings = 0;
     v.intervalHaltings = 0;
@@ -409,9 +409,11 @@ MSE3Collector::detectorUpdate(const SUMOTime step) {
         values.intervalSpeedSum += veh->getSpeed() * TS;
         if (veh->getSpeed() < myHaltingSpeedThreshold) {
             if (values.haltingBegin == -1) {
-                values.haltingBegin = STEPS2TIME(step);
+                values.haltingBegin = step;
             }
-            if (step - values.haltingBegin > myHaltingTimeThreshold) {
+            SUMOTime haltingDuration = step - values.haltingBegin;
+            if (haltingDuration >= myHaltingTimeThreshold 
+                    && haltingDuration < (myHaltingTimeThreshold + DELTA_T)) {
                 values.haltings++;
                 values.intervalHaltings++;
                 myCurrentHaltingsNumber++;

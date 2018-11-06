@@ -379,7 +379,7 @@ protected:
         /// @brief The sum of haltings the vehicle has/had within the area
         int haltings;
         /// @brief Begin time of last halt begin
-        double haltingBegin;
+        SUMOTime haltingBegin;
         /// @brief The sum of registered speeds the vehicle has/had inside the area during the current interval
         double intervalSpeedSum;
         /// @brief The sum of haltings the vehicle has/had within the area during the current interval
