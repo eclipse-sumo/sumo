@@ -28,7 +28,10 @@
 #include <algorithm>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
+#include <utils/options/OptionsCont.h>
 #include "NBEdge.h"
+#include "NBOwnTLDef.h"
+#include "NBTrafficLightLogicCont.h"
 #include "NBNodeCont.h"
 #include "NBTypeCont.h"
 #include "NBNode.h"
@@ -147,8 +150,8 @@ NBNodesEdgesSorter::swapWhenReversed(const NBNode* const n,
 // NBNodeTypeComputer
 // ---------------------------------------------------------------------------
 void
-NBNodeTypeComputer::computeNodeTypes(NBNodeCont& nc) {
-    validateRailCrossings(nc);
+NBNodeTypeComputer::computeNodeTypes(NBNodeCont& nc, NBTrafficLightLogicCont& tlc) {
+    validateRailCrossings(nc, tlc);
     for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
         NBNode* n = (*i).second;
         // the type may already be set from the data
@@ -205,7 +208,7 @@ NBNodeTypeComputer::computeNodeTypes(NBNodeCont& nc) {
 
 
 void
-NBNodeTypeComputer::validateRailCrossings(NBNodeCont& nc) {
+NBNodeTypeComputer::validateRailCrossings(NBNodeCont& nc, NBTrafficLightLogicCont& tlc) {
     for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
         NBNode* n = (*i).second;
         if (n->myType == NODETYPE_RAIL_CROSSING) {
@@ -233,7 +236,17 @@ NBNodeTypeComputer::validateRailCrossings(NBNodeCont& nc) {
                 n->myType = NODETYPE_PRIORITY;
             } else if (numNonRailwayNonPed > 2) {
                 // does not look like a rail crossing (roads in conflict). maybe a traffic light?
-                n->myType = NODETYPE_PRIORITY;
+                WRITE_WARNING("Converting invalid rail_crossing to traffic_light at junction '" + n->getID() + "'");
+                TrafficLightType type = SUMOXMLDefinitions::TrafficLightTypes.get(OptionsCont::getOptions().getString("tls.default-type"));
+                NBTrafficLightDefinition* tlDef = new NBOwnTLDef(n->getID(), n, 0, type);
+                n->myType = NODETYPE_TRAFFIC_LIGHT;
+                if (!tlc.insert(tlDef)) {
+                    // actually, nothing should fail here
+                    n->removeTrafficLight(tlDef);
+                    n->myType = NODETYPE_PRIORITY;
+                    delete tlDef;
+                    WRITE_WARNING("Could not allocate tls '" + n->getID() + "'.");
+                }
             }
         }
     }

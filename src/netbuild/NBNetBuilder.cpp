@@ -179,7 +179,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
             }
             myNodeCont.addJoinExclusion(nodeIDs);
         }
-        NBNodeTypeComputer::validateRailCrossings(myNodeCont);
+        NBNodeTypeComputer::validateRailCrossings(myNodeCont, myTLLCont);
     }
     // join junctions (may create new "geometry"-nodes so it needs to come before removing these
     if (mayAddOrRemove && oc.exists("junctions.join-exclude") && oc.isSet("junctions.join-exclude")) {
@@ -371,7 +371,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     //
     before = SysUtils::getCurrentMillis();
     PROGRESS_BEGIN_MESSAGE("Computing node types");
-    NBNodeTypeComputer::computeNodeTypes(myNodeCont);
+    NBNodeTypeComputer::computeNodeTypes(myNodeCont, myTLLCont);
     PROGRESS_TIME_MESSAGE(before);
     //
     myNetworkHaveCrossings = oc.getBool("walkingareas");
