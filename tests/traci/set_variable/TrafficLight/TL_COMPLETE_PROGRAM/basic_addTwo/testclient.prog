@@ -1,7 +1,7 @@
 simstep2 10
-% subid type subelems index phaseno duration1 duration2 duration3 phase duration1 duration2 duration3 phase %
-setvalue 0xc2 0x2c 1/1 <compound> 13 <string> t1 <int> 0 <compound> 0 <int> 0 <int> 2 <double> 10 <double> 0 <double> 0 <string> rrrrrrrrrrrrrrrr <double> 10 <double> 0 <double> 0 <string> yyyyyyyyyyyyyyyy
+% programID type index phaseno duration state minDur maxDur next duration state minDur maxDur next subparams %
+setvalue 0xc2 0x2c 1/1 <compound> 5 <string> t1 <int> 0 <int> 0 <compound> 2 <compound> 5 <double> 10 <string> rrrrrrrrrrrrrrrr <double> 0 <double> 0 <int> -1 <compound> 5 <double> 10 <string> yyyyyyyyyyyyyyyy <double> 0 <double> 0 <int> -1 <compound> 0
 simstep2 31
-% subid type subelems index phaseno duration1 duration2 duration3 phase duration1 duration2 duration3 phase %
-setvalue 0xc2 0x2c 1/1 <compound> 13 <string> t2 <int> 0 <compound> 0 <int> 0 <int> 2 <double> 5 <double> 0 <double> 0 <string> rrrrrrrrrrrrrrrr <double> 5 <double> 0 <double> 0 <string> yyyyyyyyyyyyyyyy
+% programID type index phaseno duration state minDur maxDur next duration state minDur maxDur next subparams %
+setvalue 0xc2 0x2c 1/1 <compound> 5 <string> t2 <int> 0 <int> 0 <compound> 2 <compound> 5 <double> 5 <string> rrrrrrrrrrrrrrrr <double> 0 <double> 0 <int> -1 <compound> 5 <double> 5 <string> yyyyyyyyyyyyyyyy <double> 0 <double> 0 <int> -1 <compound> 0
 simstep2 51
