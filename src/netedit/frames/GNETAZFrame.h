@@ -48,6 +48,9 @@ public:
             /// @brief destructor (needed because RGBColors has to be deleted)
             ~TAZEdge();
 
+            /// @brief update colors
+            void updateColors();
+
             /// @brief TAZ edge
             GNEEdge* edge;
 
@@ -56,6 +59,18 @@ public:
 
             /// @brif sink TAZ
             GNEAdditional *TAZSink;
+
+            /// @brief color by source [0-9]
+            int sourceColor;
+
+            /// @brief color by sink [0-9]
+            int sinkColor;
+
+            /// @brief color by source + sink [0-9]
+            int sourcePlusSinkColor;
+
+            /// @brief color by source - sink [0-9]
+            int sourceMinusSinkColor;
         };
 
         /// @brief constructor
@@ -79,6 +94,9 @@ public:
         /// @brief get TAZEdges
         const std::vector<TAZCurrent::TAZEdge> &getTAZEdges() const;
 
+        /// @brief refresh TAZEdges
+        void refreshTAZEdges();
+
     protected:
         /// @brief add TAZChild
         void addTAZChild(GNEAdditional *additional);
@@ -101,28 +119,58 @@ public:
     };
 
     // ===========================================================================
-    // class TAZSaveEdges
+    // class TAZCommonStatistics
     // ===========================================================================
 
-    class TAZSaveEdges : protected FXGroupBox {
-        /// @brief FOX-declaration
-        FXDECLARE(GNETAZFrame::TAZSaveEdges)
+    class TAZCommonStatistics : protected FXGroupBox {
 
     public:
         /// @brief constructor
-        TAZSaveEdges(GNETAZFrame* TAZFrameParent);
+        TAZCommonStatistics(GNETAZFrame* TAZFrameParent);
 
         /// @brief destructor
-        ~TAZSaveEdges();
+        ~TAZCommonStatistics();
 
-        /// @brief show save TAZ Edges Modul
-        void showTAZSaveEdgesModul();
+        /// @brief show TAZ Common Statistics Modul
+        void showTAZCommonStatisticsModul();
 
-        /// @brief hide save TAZ Edges Modul
-        void hideTAZSaveEdgesModul();
+        /// @brief hide TAZ Common Statistics Modul
+        void hideTAZCommonStatisticsModul();
 
-        /// @brief enable buttons save and cancel changes
-        void enableButtons();
+        /// @brief update Statistics label
+        void updateStatistics();
+
+    private:
+        /// @brief pointer to TAZFrame parent
+        GNETAZFrame* myTAZFrameParent;
+
+        /// @brief Statistics labels
+        FXLabel *myStatisticsLabel;
+    };
+
+    // ===========================================================================
+    // class TAZSaveChanges
+    // ===========================================================================
+
+    class TAZSaveChanges : protected FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNETAZFrame::TAZSaveChanges)
+
+    public:
+        /// @brief constructor
+        TAZSaveChanges(GNETAZFrame* TAZFrameParent);
+
+        /// @brief destructor
+        ~TAZSaveChanges();
+
+        /// @brief show TAZ Save Changes Modul
+        void showTAZSaveChangesModul();
+
+        /// @brief hide TAZ Save Changes Modul
+        void hideTAZSaveChangesModul();
+
+        /// @brief enable buttons save and cancel changes (And begin Undo List)
+        void enableButtonsAndBeginUndoList();
 
         /// @name FOX-callbacks
         /// @{
@@ -135,7 +183,7 @@ public:
 
     protected:
         /// @brief FOX needs this
-        TAZSaveEdges() {}
+        TAZSaveChanges() {}
 
     private:
         /// @brief pointer to TAZFrame parent
@@ -163,10 +211,10 @@ public:
         /// @brief destructor
         ~TAZEdgesCommonParameters();
 
-        /// @brief show save TAZ Edges Modul
+        /// @brief show TAZ Edges CommonParameters Modul
         void showTAZEdgesCommonParametersModul();
 
-        /// @brief hide save TAZ Edges Modul
+        /// @brief hide TAZ Edges CommonParameters Modul
         void hideTAZEdgesCommonParametersModul();
 
         /// @brief get default TAZSource weight
@@ -174,6 +222,9 @@ public:
 
         /// @brief default TAZSink weight
         double getDefaultTAZSinkWeight() const;
+
+        /// @brief check if toggle membership is enabled 
+        bool getToggleMembership() const;
 
         /// @name FOX-callbacks
         /// @{
@@ -212,36 +263,6 @@ public:
     };
 
     // ===========================================================================
-    // class TAZCommonStatistics
-    // ===========================================================================
-
-    class TAZCommonStatistics : protected FXGroupBox {
-
-    public:
-        /// @brief constructor
-        TAZCommonStatistics(GNETAZFrame* TAZFrameParent);
-
-        /// @brief destructor
-        ~TAZCommonStatistics();
-
-        /// @brief show save TAZ Edges Modul
-        void showTAZCommonStatisticsModul();
-
-        /// @brief hide save TAZ Edges Modul
-        void hideTAZCommonStatisticsModul();
-
-        /// @brief update Statistics label
-        void updateStatistics();
-
-    private:
-        /// @brief pointer to TAZFrame parent
-        GNETAZFrame* myTAZFrameParent;
-
-        /// @brief Statistics labels
-        FXLabel *myStatisticsLabel;
-    };
-
-    // ===========================================================================
     // class TAZSelectionStatistics
     // ===========================================================================
 
@@ -254,10 +275,10 @@ public:
         /// @brief destructor
         ~TAZSelectionStatistics();
 
-        /// @brief show save TAZ Edges Modul
+        /// @brief show TAZ Selection Statistics Modul
         void showTAZSelectionStatisticsModul();
 
-        /// @brief hide save TAZ Edges Modul
+        /// @brief hide TAZ Selection Statistics Modul
         void hideTAZSelectionStatisticsModul();
 
         /// @brief add an edge and their TAZ Childs in the list of selected items
@@ -368,10 +389,10 @@ public:
         /// @brief destructor
         ~TAZEdgesGraphic();
 
-        /// @brief show save TAZ Edges Modul
+        /// @brief show TAZ Edges Graphic Modul
         void showTAZEdgesGraphicModul();
 
-        /// @brief hide save TAZ Edges Modul
+        /// @brief hide TAZ Edges Graphic Modul
         void hideTAZEdgesGraphicModul();
 
         /// @brief update edge colors;
@@ -391,14 +412,17 @@ public:
         /// @brief pointer to TAZFrame parent
         GNETAZFrame* myTAZFrameParent;
 
-        /// @brief add radio button
+        /// @brief add radio button "color by source"
         FXRadioButton* myColorBySourceWeight;
 
-        /// @brief add radio button
+        /// @brief add radio button "color by sink"
         FXRadioButton* myColorBySinkWeight;
 
-        /// @brief add radio button
-        FXRadioButton* myColorBySourceAndSinkWeight;
+        /// @brief add radio button "color source + sink"
+        FXRadioButton* myColorBySourcePlusSinkWeight;
+
+        /// @brief add radio button "color source - Sink"
+        FXRadioButton* myColorBySourceMinusSinkWeight;
 
         /// @brief vector wit the scale colors
         std::vector<RGBColor> myScaleColors;
@@ -442,16 +466,16 @@ protected:
      * @note called when user stop drawing shape
      */
     bool buildShape();
-
-     /// @brief enable moduls depending of item selected in ItemSelector
-    void enableModuls(const GNEAttributeCarrier::TagProperties &tagProperties);
-
-    /// @brief disable moduls if element selected in itemSelector isn't valid
-    void disableModuls();
+    
+    /// @brief add or remove a TAZSource and a TAZSink, or remove it if edge is in the list of TAZ Childs
+    bool addOrRemoveTAZMember(GNEEdge *edge);
 
 private:
     /// @brief current TAZ
     TAZCurrent* myTAZCurrent;
+
+    /// @brief TAZ Edges common parameters
+    TAZCommonStatistics* myTAZCommonStatistics;
 
     /// @brief TAZ parameters
     TAZParameters* myTAZParameters;
@@ -463,13 +487,10 @@ private:
     DrawingShape* myDrawingShape;
 
     /// @brief save TAZ Edges
-    TAZSaveEdges* myTAZSaveEdges;
+    TAZSaveChanges* myTAZSaveChanges;
 
     /// @brief TAZ Edges common parameters
     TAZEdgesCommonParameters* myTAZEdgesCommonParameters;
-
-    /// @brief TAZ Edges common parameters
-    TAZCommonStatistics* myTAZCommonStatistics;
 
     /// @brief TAZ Edges selection parameters
     TAZSelectionStatistics* myTAZSelectionStatistics;
