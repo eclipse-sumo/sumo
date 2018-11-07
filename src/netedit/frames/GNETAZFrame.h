@@ -137,6 +137,7 @@ public:
         /// @brief hide TAZ Common Statistics Modul
         void hideTAZCommonStatisticsModul();
 
+    protected:
         /// @brief update Statistics label
         void updateStatistics();
 
@@ -255,6 +256,9 @@ public:
         /// @brief textField to set a default value for TAZ Sinks
         FXTextField* myTextFieldDefaultValueTAZSinks;
 
+        /// @brief information label
+        FXLabel *myInformationLabel;
+
         /// @brief default TAZSource weight
         double myDefaultTAZSourceWeight;
 
@@ -267,6 +271,8 @@ public:
     // ===========================================================================
 
     class TAZSelectionStatistics : protected FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNETAZFrame::TAZSelectionStatistics)
 
     public:
         /// @brief constructor
@@ -296,13 +302,34 @@ public:
         /// @brief get map with edge and TAZChilds
         const std::vector<TAZCurrent::TAZEdge> &getEdgeAndTAZChildsSelected() const;
 
+        /// @name FOX-callbacks
+        /// @{
+        /// @brief Called when the user set a new value
+        long onCmdSetNewValues(FXObject* obj, FXSelector, void*);
+        /// @}
+
     protected:
+        /// @brief FOX needs this
+        TAZSelectionStatistics() {}
+
         /// @brief update TAZSelectionStatistics
         void updateStatistics();
 
     private:
         /// @brief pointer to TAZFrame parent
         GNETAZFrame* myTAZFrameParent;
+
+        /// @brief Horizontal Frame for default TAZ Source Weight
+        FXHorizontalFrame* myTAZSourceFrame;
+
+        /// @brief textField for TAZ Source weight
+        FXTextField* myTextFieldTAZSourceWeight;
+
+        /// @brief Horizontal Frame for default TAZ Sink Weight
+        FXHorizontalFrame* myTAZSinkFrame;
+
+        /// @brief textField for TAZ Sink weight
+        FXTextField* myTextFieldTAZSinkWeight;
 
         /// @brief Statistics labels
         FXLabel *myStatisticsLabel;
