@@ -272,6 +272,7 @@ private:
     FXCheckButton* myLaneColorInterpolation;
     FXButton* myLaneColorRainbow;
     FXButton* myJunctionColorRainbow;
+    FXTextField* myEdgeParam;
 
     /// ... lane scaler
     FXComboBox* myLaneEdgeScaleMode;

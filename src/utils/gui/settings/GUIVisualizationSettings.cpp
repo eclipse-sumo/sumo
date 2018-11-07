@@ -91,6 +91,7 @@ GUIVisualizationSettings::GUIVisualizationSettings(bool _netedit) :
     showLaneDirection(false),
     showSublanes(true),
     spreadSuperposed(false),
+    edgeParam("KEY"),
     vehicleQuality(0), showBlinker(true),
     drawLaneChangePreference(false), drawMinGap(false),
     showBTRange(false), vehicleSize(1),
@@ -301,7 +302,9 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.addColor(RGBColor::YELLOW, (double)10);
     scheme.addColor(RGBColor::RED, (double)100);
     laneColorer.addScheme(scheme);
-    scheme = GUIColorScheme("by TAZ (streetwise)", RGBColor(204, 204, 204));
+    scheme = GUIColorScheme("by TAZ (streetwise)", RGBColor(204, 204, 204), "no TAZ", true);
+    laneColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by param (numerical, streetwise)", RGBColor(204, 204, 204));
     laneColorer.addScheme(scheme);
 
 
@@ -684,7 +687,7 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.addColor(RGBColor::YELLOW, (double)10);
     scheme.addColor(RGBColor::RED, (double)100);
     edgeColorer.addScheme(scheme);
-    scheme = GUIColorScheme("by TAZ (streetwise)", RGBColor(204, 204, 204));
+    scheme = GUIColorScheme("by TAZ (streetwise)", RGBColor(204, 204, 204), "no TAZ", true);
     edgeColorer.addScheme(scheme);
 
 
@@ -923,6 +926,7 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.writeAttr("showDirection", showLaneDirection);
     dev.writeAttr("showSublanes", showSublanes);
     dev.writeAttr("spreadSuperposed", spreadSuperposed);
+    dev.writeAttr("edgeParam", edgeParam);
     dev.lf();
     dev << "               ";
     edgeName.print(dev, "edgeName");
@@ -1112,6 +1116,9 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
         return false;
     }
     if (spreadSuperposed != v2.spreadSuperposed) {
+        return false;
+    }
+    if (edgeParam != v2.edgeParam) {
         return false;
     }
     if (!(vehicleColorer == v2.vehicleColorer)) {

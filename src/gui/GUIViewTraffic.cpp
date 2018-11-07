@@ -174,7 +174,7 @@ GUIViewTraffic::setColorScheme(const std::string& name) {
 
 
 void
-GUIViewTraffic::buildColorRainbow(GUIColorScheme& scheme, int active, GUIGlObjectType objectType) {
+GUIViewTraffic::buildColorRainbow(const GUIVisualizationSettings& s, GUIColorScheme& scheme, int active, GUIGlObjectType objectType) {
     assert(!scheme.isFixed());
     double minValue = std::numeric_limits<double>::infinity();
     double maxValue = -std::numeric_limits<double>::infinity();
@@ -195,7 +195,7 @@ GUIViewTraffic::buildColorRainbow(GUIColorScheme& scheme, int active, GUIGlObjec
             } else {
                 const std::vector<MSLane*>& lanes = (*it)->getLanes();
                 for (std::vector<MSLane*>::const_iterator it_l = lanes.begin(); it_l != lanes.end(); it_l++) {
-                    const double val = static_cast<GUILane*>(*it_l)->getColorValue(active);
+                    const double val = static_cast<GUILane*>(*it_l)->getColorValue(s, active);
                     minValue = MIN2(minValue, val);
                     maxValue = MAX2(maxValue, val);
                 }

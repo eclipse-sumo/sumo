@@ -807,7 +807,7 @@ GUILane::getPopUpMenu(GUIMainWindow& app,
 GUIParameterTableWindow*
 GUILane::getParameterWindow(GUIMainWindow& app,
                             GUISUMOAbstractView&) {
-    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this, 15);
+    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this, 15 + myEdge->getParametersMap().size());
     // add items
     ret->mkItem("maxspeed [m/s]", false, getSpeedLimit());
     ret->mkItem("length [m]", false, myLength);
@@ -824,7 +824,9 @@ GUILane::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("allowed vehicle class", false, getVehicleClassNames(myPermissions));
     ret->mkItem("disallowed vehicle class", false, getVehicleClassNames(~myPermissions));
     ret->mkItem("permission code", false, myPermissions);
-    // close building
+    for (const auto& kv : myEdge->getParametersMap()) {
+        ret->mkItem(("edgeParam:" + kv.first).c_str(), false, kv.second);
+    }
     ret->closeBuilding();
     return ret;
 }
@@ -911,8 +913,8 @@ GUILane::setColor(const GUIVisualizationSettings& s) const {
         col = static_cast<const GUIEdge*>(myEdge)->getMesoColor();
     } else {
         const GUIColorer& c = s.laneColorer;
-        if (!setFunctionalColor(c, col) && !setMultiColor(c, col)) {
-            col = c.getScheme().getColor(getColorValue(c.getActive()));
+        if (!setFunctionalColor(c, col) && !setMultiColor(s, c, col)) {
+            col = c.getScheme().getColor(getColorValue(s, c.getActive()));
         }
     }
     GLHelper::setColor(col);
@@ -973,7 +975,7 @@ GUILane::setFunctionalColor(const GUIColorer& c, RGBColor& col, int activeScheme
 
 
 bool
-GUILane::setMultiColor(const GUIColorer& c, RGBColor& col) const {
+GUILane::setMultiColor(const GUIVisualizationSettings& s, const GUIColorer& c, RGBColor& col) const {
     const int activeScheme = c.getActive();
     myShapeColors.clear();
     switch (activeScheme) {
@@ -982,14 +984,14 @@ GUILane::setMultiColor(const GUIColorer& c, RGBColor& col) const {
                 myShapeColors.push_back(c.getScheme().getColor(ii->z()));
             }
             // osg fallback (edge height at start)
-            col = c.getScheme().getColor(getColorValue(21));
+            col = c.getScheme().getColor(getColorValue(s, 21));
             return true;
         case 24: // color by inclination  at segment start
             for (int ii = 1; ii < (int)myShape.size(); ++ii) {
                 const double inc = (myShape[ii].z() - myShape[ii - 1].z()) / MAX2(POSITION_EPS, myShape[ii].distanceTo2D(myShape[ii - 1]));
                 myShapeColors.push_back(c.getScheme().getColor(inc));
             }
-            col = c.getScheme().getColor(getColorValue(23));
+            col = c.getScheme().getColor(getColorValue(s, 23));
             return true;
         default:
             return false;
@@ -998,7 +1000,7 @@ GUILane::setMultiColor(const GUIColorer& c, RGBColor& col) const {
 
 
 double
-GUILane::getColorValue(int activeScheme) const {
+GUILane::getColorValue(const GUIVisualizationSettings& s, int activeScheme) const {
     switch (activeScheme) {
         case 0:
             switch (myPermissions) {
@@ -1099,6 +1101,15 @@ GUILane::getColorValue(int activeScheme) const {
             return getElectricityConsumption() / myLength;
         case 29:
             return getPendingEmits();
+        case 31: {
+            // by numerical edge param value
+            try {
+                return TplConvert::_str2double(myEdge->getParameter(s.edgeParam, "0"));
+            } catch (NumberFormatException& e) {
+                WRITE_WARNING("Edge parameter '" + myEdge->getParameter(s.edgeParam, "0") + "' key '" + s.edgeParam + "' is not a number for edge '" + myEdge->getID() + "'");
+                return 0;
+            }
+        }
     }
     return 0;
 }

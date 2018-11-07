@@ -182,6 +182,9 @@ public:
     bool showSublanes;
     /// @brief Whether to improve visualisation of superposed (rail) edges
     bool spreadSuperposed;
+
+    /// @brief key for coloring by edge parameter
+    std::string edgeParam;
     //@}
 
 

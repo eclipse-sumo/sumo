@@ -249,7 +249,7 @@ public:
     }
 
     /// @brief gets the color value according to the current scheme index
-    double getColorValue(int activeScheme) const;
+    double getColorValue(const GUIVisualizationSettings& s, int activeScheme) const;
 
     /// @brief whether this lane is selected in the GUI
     bool isSelected() const;
@@ -301,7 +301,7 @@ private:
     double getScaleValue(int activeScheme) const;
 
     /// @brief sets multiple colors according to the current scheme index and some lane function
-    bool setMultiColor(const GUIColorer& c, RGBColor& col) const;
+    bool setMultiColor(const GUIVisualizationSettings& s, const GUIColorer& c, RGBColor& col) const;
 
     /// @brief sets the color according to the currente settings
     RGBColor setColor(const GUIVisualizationSettings& s) const;
