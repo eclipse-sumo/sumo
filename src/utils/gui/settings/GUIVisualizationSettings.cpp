@@ -305,6 +305,7 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme = GUIColorScheme("by TAZ (streetwise)", RGBColor(204, 204, 204), "no TAZ", true);
     laneColorer.addScheme(scheme);
     scheme = GUIColorScheme("by param (numerical, streetwise)", RGBColor(204, 204, 204));
+    scheme.setAllowsNegativeValues(true);
     laneColorer.addScheme(scheme);
 
 
