@@ -808,8 +808,7 @@ NIImporter_OpenStreetMap::NodesHandler::myEndElement(int element) {
 // ---------------------------------------------------------------------------
 NIImporter_OpenStreetMap::EdgesHandler::EdgesHandler(
     const std::map<long long int, NIOSMNode*>& osmNodes,
-    std::map<long long int, Edge*>& toFill, std::map<long long int, Edge*>& platformShapes)
-    :
+    std::map<long long int, Edge*>& toFill, std::map<long long int, Edge*>& platformShapes):
     SUMOSAXHandler("osm - file"),
     myOSMNodes(osmNodes),
     myEdgeMap(toFill),
@@ -821,6 +820,7 @@ NIImporter_OpenStreetMap::EdgesHandler::EdgesHandler(
     mySpeedMap["DE:rural"] = 100.;
     mySpeedMap["DE:urban"] = 50.;
     mySpeedMap["DE:living_street"] = 10.;
+    myAllAttributes = OptionsCont::getOptions().getBool("osm.all-attributes");
 
 }
 
@@ -899,7 +899,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
                 key = "ignore";
             }
         }
-        if ((key == "bridge" || key == "tunnel") && OptionsCont::getOptions().getBool("osm.all-attributes")) {
+        if (myAllAttributes && (key == "bridge" || key == "tunnel")) {
             myCurrentEdge->setParameter(key, "true"); // could be differentiated further if necessary
         }
         // we check whether the key is relevant (and we really need to transcode the value) to avoid hitting #1636
@@ -1036,6 +1036,9 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
         } else if (key == "name") {
             myCurrentEdge->streetName = value;
         } else if (key == "layer") {
+            if (myAllAttributes) {
+                myCurrentEdge->setParameter(key, value);
+            }
             try {
                 myCurrentEdge->myLayer = TplConvert::_2int(value.c_str());
             } catch (...) {
@@ -1053,7 +1056,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
                 WRITE_WARNING("Value of key '" + key + "' is not numeric ('" + value + "') in edge '" +
                               toString(myCurrentEdge->id) + "'.");
             }
-        } else if (key == "postal_code" && OptionsCont::getOptions().getBool("osm.all-attributes")) {
+        } else if (myAllAttributes && key == "postal_code") {
             myCurrentEdge->setParameter(key, value);
         } else if (key == "railway:preferred_direction") {
             // this param is special because it influences network building (duplicate rail edges)
