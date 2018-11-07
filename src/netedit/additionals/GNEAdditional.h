@@ -304,6 +304,9 @@ public:
      */
     static bool isRouteValid(const std::vector<GNEEdge*>& edges, bool report);
 
+    /// @brief update parent after add or remove a child (can be reimplemented, for example used for stadistics)
+    virtual void updateAdditionalParent();
+
 protected:
     /// @brief struct for pack all variables related with geometry of elemement
     struct AdditionalGeometry {
@@ -494,9 +497,6 @@ private:
 
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
-
-    /// @brief update parent after add or remove a child (can be reimplemented, for example used for stadistics)
-    virtual void updateAdditionalParent();
 
     /// @brief method for check if mouse is over objects
     void mouseOverObject(const GUIVisualizationSettings& s) const;

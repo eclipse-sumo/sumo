@@ -699,6 +699,12 @@ GNEAdditional::isRouteValid(const std::vector<GNEEdge*>& edges, bool report) {
 }
 
 
+void 
+GNEAdditional::updateAdditionalParent() {
+    // by default nothing to do
+}
+
+
 GNEAdditional::AdditionalGeometry::AdditionalGeometry() {}
 
 
@@ -1058,12 +1064,6 @@ GNEAdditional::changeSecondAdditionalParent(const std::string& newAdditionalPare
         mySecondAdditionalParent->addAdditionalChild(this);
         updateGeometry(true);
     }
-}
-
-
-void 
-GNEAdditional::updateAdditionalParent() {
-    // by default nothing to do
 }
 
 

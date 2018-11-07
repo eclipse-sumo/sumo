@@ -104,7 +104,8 @@ GNETAZFrame::TAZCurrent::TAZEdge::~TAZEdge() {}
 
 void 
 GNETAZFrame::TAZCurrent::TAZEdge::updateColors() {
-    //
+    sourceColor = GNEAttributeCarrier::parse<int>(TAZSource->getAttribute(GNE_ATTR_TAZCOLOR));
+    sinkColor = GNEAttributeCarrier::parse<int>(TAZSink->getAttribute(GNE_ATTR_TAZCOLOR));
 }
 
 
@@ -639,6 +640,63 @@ GNETAZFrame::TAZSelectionStatistics::getEdgeAndTAZChildsSelected() const {
 
 long
 GNETAZFrame::TAZSelectionStatistics::onCmdSetNewValues(FXObject* obj, FXSelector, void*) {
+    if (obj == myTextFieldTAZSourceWeight) {
+        // check if given value is valid
+        if (GNEAttributeCarrier::canParse<double>(myTextFieldTAZSourceWeight->getText().text())) {
+            double newTAZSourceWeight = GNEAttributeCarrier::parse<double>(myTextFieldTAZSourceWeight->getText().text());
+            // check if myDefaultTAZSourceWeight is greather than 0
+            if (newTAZSourceWeight >= 0) {
+                // set valid color in TextField
+                myTextFieldTAZSourceWeight->setTextColor(FXRGB(0, 0, 0));
+                // enable save button
+                myTAZFrameParent->myTAZSaveChanges->enableButtonsAndBeginUndoList();
+                // update weight of all TAZSources
+                for (const auto  &i : myEdgeAndTAZChildsSelected) {
+                    i.TAZSource->setAttribute(SUMO_ATTR_WEIGHT, myTextFieldTAZSourceWeight->getText().text(), myTAZFrameParent->getViewNet()->getUndoList());
+                }
+                // update colors after setting all values
+                for (auto  &i : myEdgeAndTAZChildsSelected) {
+                    i.updateColors();
+                }
+                // update edge colors
+                myTAZFrameParent->myTAZEdgesGraphic->updateEdgeColors();
+            } else {
+                // set invalid color
+                myTextFieldTAZSourceWeight->setTextColor(FXRGB(255, 0, 0));
+            }
+        } else {
+            // set invalid color
+            myTextFieldTAZSourceWeight->setTextColor(FXRGB(255, 0, 0));
+        }
+    } else if (obj == myTextFieldTAZSinkWeight) {
+        // check if given value is valid
+        if (GNEAttributeCarrier::canParse<double>(myTextFieldTAZSinkWeight->getText().text())) {
+            double newTAZSinkWeight = GNEAttributeCarrier::parse<double>(myTextFieldTAZSinkWeight->getText().text());
+            // check if myDefaultTAZSinkWeight is greather than 0
+            if (newTAZSinkWeight >= 0) {
+                // set valid color in TextField
+                myTextFieldTAZSinkWeight->setTextColor(FXRGB(0, 0, 0));
+                // enable save button
+                myTAZFrameParent->myTAZSaveChanges->enableButtonsAndBeginUndoList();
+                // update weight of all TAZSources
+                for (const auto  &i : myEdgeAndTAZChildsSelected) {
+                    i.TAZSink->setAttribute(SUMO_ATTR_WEIGHT, myTextFieldTAZSinkWeight->getText().text(), myTAZFrameParent->getViewNet()->getUndoList());
+                }
+                // update colors after setting all values
+                for (auto  &i : myEdgeAndTAZChildsSelected) {
+                    i.updateColors();
+                }
+                // update edge colors
+                myTAZFrameParent->myTAZEdgesGraphic->updateEdgeColors();
+            } else {
+                // set invalid color
+                myTextFieldTAZSinkWeight->setTextColor(FXRGB(255, 0, 0));
+            }
+        } else {
+            // set invalid color
+            myTextFieldTAZSinkWeight->setTextColor(FXRGB(255, 0, 0));
+        }
+    }
     return 1;
 }
 
@@ -649,9 +707,9 @@ GNETAZFrame::TAZSelectionStatistics::updateStatistics() {
         // show TAZSources/Sinks frames
         myTAZSourceFrame->show();
         myTAZSinkFrame->show();
-        // declare string vectors for TextFields
-        std::vector<std::string> weightSourceTextField;
-        std::vector<std::string> weightSinkTextField;
+        // declare string sets for TextFields (to avoid duplicated values)
+        std::set<std::string> weightSourceSet;
+        std::set<std::string> weightSinkSet;
         // declare stadistic variables
         double weight = 0;
         double maxWeightSource = 0;
@@ -664,8 +722,8 @@ GNETAZFrame::TAZSelectionStatistics::updateStatistics() {
         for (const auto  &i : myEdgeAndTAZChildsSelected) {
             //start with sources
             weight = GNEAttributeCarrier::parse<double>(i.TAZSource->getAttribute(SUMO_ATTR_WEIGHT));
-            // save source weight in weightSinkTextField
-            weightSourceTextField.push_back(toString(weight));
+            // insert source weight in weightSinkTextField
+            weightSourceSet.insert(toString(weight));
             // check max Weight
             if (maxWeightSource < weight) {
                 maxWeightSource = weight;
@@ -679,7 +737,7 @@ GNETAZFrame::TAZSelectionStatistics::updateStatistics() {
             // continue with sinks
             weight = GNEAttributeCarrier::parse<double>(i.TAZSink->getAttribute(SUMO_ATTR_WEIGHT));
             // save sink weight in weightSinkTextField
-            weightSinkTextField.push_back(toString(weight));
+            weightSinkSet.insert(toString(weight));
             // check max Weight
             if (maxWeightSink < weight) {
                 maxWeightSink = weight;
@@ -715,9 +773,11 @@ GNETAZFrame::TAZSelectionStatistics::updateStatistics() {
             << "- Average sink: " << toString(averageWeightSink);
         // set new label
         myStatisticsLabel->setText(information.str().c_str());
-        // set TextFields
-        myTextFieldTAZSourceWeight->setText(joinToString(weightSourceTextField, " ").c_str());
-        myTextFieldTAZSinkWeight->setText(joinToString(weightSinkTextField, " ").c_str());
+        // set TextFields (Text and color)
+        myTextFieldTAZSourceWeight->setText(joinToString(weightSourceSet, " ").c_str());
+        myTextFieldTAZSourceWeight->setTextColor(FXRGB(0, 0, 0));
+        myTextFieldTAZSinkWeight->setText(joinToString(weightSinkSet, " ").c_str());
+        myTextFieldTAZSinkWeight->setTextColor(FXRGB(0, 0, 0));
     } else {
         // hide TAZSources/Sinks frames
         myTAZSourceFrame->hide();

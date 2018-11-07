@@ -101,10 +101,18 @@ GNETAZSource::getAttribute(SumoXMLAttr key) const {
             double minWeightSource = parse<double>(myFirstAdditionalParent->getAttribute(GNE_ATTR_MIN_SOURCE));
             // avoid division between zero
             if ((maxWeightSource - minWeightSource) == 0) {
-                return "127";
+                return "0";
             } else {
-                // calculate color [0,255]
-                return toString((int)(127 + ((myDepartWeight - minWeightSource) * 128) / (maxWeightSource - minWeightSource)));
+                // calculate percentage relative to the max and min weight
+                double percentage = (myDepartWeight - minWeightSource) / (maxWeightSource - minWeightSource);
+                // convert percentage to a value between [0-9] (because we have only 10 colors)
+                if(percentage >= 1) {
+                    return "9";
+                } else if(percentage < 0) {
+                    return "0";
+                } else {
+                    return toString((int)(percentage*10));
+                }
             }
         }
         default:
@@ -173,6 +181,8 @@ GNETAZSource::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_WEIGHT:
             myDepartWeight = parse<double>(value);
+            // update statictis of TAZ parent
+            myFirstAdditionalParent->updateAdditionalParent();
             break;
         case GNE_ATTR_GENERIC:
             setGenericParametersStr(value);

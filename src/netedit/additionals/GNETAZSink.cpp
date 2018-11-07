@@ -101,10 +101,18 @@ GNETAZSink::getAttribute(SumoXMLAttr key) const {
             double minWeightSink = parse<double>(myFirstAdditionalParent->getAttribute(GNE_ATTR_MIN_SINK));
             // avoid division between zero
             if ((maxWeightSink - minWeightSink) == 0) {
-                return "127";
+                return "0";
             } else {
-                // calculate color [0,255]
-                return toString((int)(127 + ((myArrivalWeight - minWeightSink) * 128) / (maxWeightSink - minWeightSink)));
+                // calculate percentage relative to the max and min weight
+                double percentage = (myArrivalWeight - minWeightSink) / (maxWeightSink - minWeightSink);
+                // convert percentage to a value between [0-9] (because we have only 10 colors)
+                if(percentage >= 1) {
+                    return "9";
+                } else if(percentage < 0) {
+                    return "0";
+                } else {
+                    return toString((int)(percentage*10));
+                }
             }
         }
         default:
@@ -173,6 +181,8 @@ GNETAZSink::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_WEIGHT:
             myArrivalWeight = parse<double>(value);
+            // update statictis of TAZ parent
+            myFirstAdditionalParent->updateAdditionalParent();
             break;
         case GNE_ATTR_GENERIC:
             setGenericParametersStr(value);

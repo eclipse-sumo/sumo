@@ -453,46 +453,6 @@ GNETAZ::getHierarchyName() const {
     return getTagStr();
 }
 
-// ===========================================================================
-// private
-// ===========================================================================
-
-void
-GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value) {
-    switch (key) {
-        case SUMO_ATTR_ID:
-            changeAdditionalID(value);
-            break;
-        case SUMO_ATTR_SHAPE:
-            myViewNet->getNet()->removeGLObjectFromGrid(this);
-            myGeometry.shape = parse<PositionVector>(value);
-            myViewNet->getNet()->addGLObjectIntoGrid(this);
-            break;
-        case SUMO_ATTR_COLOR:
-            myColor = parse<RGBColor>(value);
-            break;
-        case SUMO_ATTR_EDGES:
-            break;
-        case GNE_ATTR_BLOCK_MOVEMENT:
-            myBlockMovement = parse<bool>(value);
-        case GNE_ATTR_BLOCK_SHAPE:
-            myBlockShape = parse<bool>(value);
-            break;
-        case GNE_ATTR_SELECTED:
-            if (parse<bool>(value)) {
-                selectAttributeCarrier();
-            } else {
-                unselectAttributeCarrier();
-            }
-            break;
-        case GNE_ATTR_GENERIC:
-            setGenericParametersStr(value);
-            break;
-        default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
-    }
-}
-
 
 void 
 GNETAZ::updateAdditionalParent() {
@@ -541,6 +501,46 @@ GNETAZ::updateAdditionalParent() {
     // calculate average
     myAverageWeightSource /= numberOfSources;
     myAverageWeightSink /= numberOfSinks;
+}
+
+// ===========================================================================
+// private
+// ===========================================================================
+
+void
+GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value) {
+    switch (key) {
+        case SUMO_ATTR_ID:
+            changeAdditionalID(value);
+            break;
+        case SUMO_ATTR_SHAPE:
+            myViewNet->getNet()->removeGLObjectFromGrid(this);
+            myGeometry.shape = parse<PositionVector>(value);
+            myViewNet->getNet()->addGLObjectIntoGrid(this);
+            break;
+        case SUMO_ATTR_COLOR:
+            myColor = parse<RGBColor>(value);
+            break;
+        case SUMO_ATTR_EDGES:
+            break;
+        case GNE_ATTR_BLOCK_MOVEMENT:
+            myBlockMovement = parse<bool>(value);
+        case GNE_ATTR_BLOCK_SHAPE:
+            myBlockShape = parse<bool>(value);
+            break;
+        case GNE_ATTR_SELECTED:
+            if (parse<bool>(value)) {
+                selectAttributeCarrier();
+            } else {
+                unselectAttributeCarrier();
+            }
+            break;
+        case GNE_ATTR_GENERIC:
+            setGenericParametersStr(value);
+            break;
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
 }
 
 /****************************************************************************/

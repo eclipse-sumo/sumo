@@ -142,6 +142,9 @@ public:
     std::string getHierarchyName() const;
     /// @}
 
+    /// @brief update TAZ after add or remove a Source/sink, or change their weight
+    void updateAdditionalParent();
+
 protected:
     /// @brief TAZ Color
     RGBColor myColor;
@@ -179,9 +182,6 @@ private:
 
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
-
-    /// @brief update TAZ after add or remove a Source/sink
-    void updateAdditionalParent();
 
     /// @brief Invalidated copy constructor.
     GNETAZ(const GNETAZ&) = delete;
