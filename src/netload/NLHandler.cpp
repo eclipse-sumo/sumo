@@ -66,7 +66,6 @@ NLHandler::NLHandler(const std::string& file, MSNet& net,
     myEdgeControlBuilder(edgeBuilder), myJunctionControlBuilder(junctionBuilder),
     myAmParsingTLLogicOrJunction(false), myCurrentIsBroken(false),
     myHaveWarnedAboutDeprecatedLanes(false),
-    myLastParameterised(nullptr),
     myHaveSeenInternalEdge(false),
     myHaveSeenNeighs(false),
     myHaveSeenAdditionalSpeedRestrictions(false),
@@ -77,7 +76,6 @@ NLHandler::NLHandler(const std::string& file, MSNet& net,
 
 
 NLHandler::~NLHandler() {}
-
 
 void
 NLHandler::myStartElement(int element,
@@ -253,6 +251,7 @@ NLHandler::myEndElement(int element) {
             break;
         case SUMO_TAG_LANE:
             myEdgeControlBuilder.closeLane();
+            myLastParameterised.pop_back();
             break;
         case SUMO_TAG_JUNCTION:
             if (!myCurrentIsBroken) {
@@ -316,9 +315,6 @@ NLHandler::myEndElement(int element) {
             break;
     }
     MSRouteHandler::myEndElement(element);
-    if (element != SUMO_TAG_PARAM) {
-        myLastParameterised = nullptr;
-    }
 }
 
 
@@ -390,6 +386,7 @@ NLHandler::beginEdgeParsing(const SUMOSAXAttributes& attrs) {
             myEdgeControlBuilder.addCrossingEdges(crossingEdgesVector);
         }
     }
+    myLastParameterised.push_back(&myLastEdgeParameters);
 }
 
 
@@ -402,9 +399,12 @@ NLHandler::closeEdge() {
     try {
         MSEdge* e = myEdgeControlBuilder.closeEdge();
         MSEdge::dictionary(e->getID(), e);
+        e->updateParameter(myLastEdgeParameters.getParametersMap());
     } catch (InvalidArgument& e) {
         WRITE_ERROR(e.what());
     }
+    myLastEdgeParameters.clearParameter();
+    myLastParameterised.clear();
 }
 
 
@@ -448,9 +448,9 @@ NLHandler::addLane(const SUMOSAXAttributes& attrs) {
                 delete lane;
                 WRITE_ERROR("Another lane with the id '" + id + "' exists.");
                 myCurrentIsBroken = true;
-                myLastParameterised = nullptr;
+                myLastParameterised.push_back(nullptr);
             } else {
-                myLastParameterised = lane;
+                myLastParameterised.push_back(lane);
             }
         } catch (InvalidArgument& e) {
             WRITE_ERROR(e.what());
@@ -535,8 +535,8 @@ NLHandler::addParam(const SUMOSAXAttributes& attrs) {
     const std::string key = attrs.get<std::string>(SUMO_ATTR_KEY, nullptr, ok);
     // circumventing empty string test
     const std::string val = attrs.hasAttribute(SUMO_ATTR_VALUE) ? attrs.getString(SUMO_ATTR_VALUE) : "";
-    if (myLastParameterised != nullptr) {
-        myLastParameterised->setParameter(key, val);
+    if (myLastParameterised.size() > 0 && myLastParameterised.back() != nullptr) {
+        myLastParameterised.back()->setParameter(key, val);
     }
     // set
     if (ok && myAmParsingTLLogicOrJunction) {
