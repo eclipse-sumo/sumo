@@ -684,6 +684,8 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.addColor(RGBColor::YELLOW, (double)10);
     scheme.addColor(RGBColor::RED, (double)100);
     edgeColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by TAZ (streetwise)", RGBColor(204, 204, 204));
+    edgeColorer.addScheme(scheme);
 
 
     /// add edge scaling schemes

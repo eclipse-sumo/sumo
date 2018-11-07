@@ -921,8 +921,10 @@ GUILane::setColor(const GUIVisualizationSettings& s) const {
 
 
 bool
-GUILane::setFunctionalColor(const GUIColorer& c, RGBColor& col) const {
-    const int activeScheme = c.getActive();
+GUILane::setFunctionalColor(const GUIColorer& c, RGBColor& col, int activeScheme) const {
+    if (activeScheme < 0) {
+        activeScheme = c.getActive();
+    }
     switch (activeScheme) {
         case 0:
             if (myEdge->isCrossing()) {

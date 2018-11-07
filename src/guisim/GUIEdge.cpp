@@ -381,24 +381,31 @@ void
 GUIEdge::setColor(const GUIVisualizationSettings& s) const {
     myMesoColor = RGBColor(0, 0, 0); // default background color when using multiColor
     const GUIColorer& c = s.edgeColorer;
-    if (!setFunctionalColor(c.getActive()) && !setMultiColor(c)) {
+    if (!setFunctionalColor(c) && !setMultiColor(c)) {
         myMesoColor = c.getScheme().getColor(getColorValue(c.getActive()));
     }
 }
 
 
 bool
-GUIEdge::setFunctionalColor(int activeScheme) const {
+GUIEdge::setFunctionalColor(const GUIColorer& c) const {
+    const int activeScheme = c.getActive();
+    int activeMicroScheme = -1;
     switch (activeScheme) {
-        case 9: {
-            const PositionVector& shape = getLanes()[0]->getShape();
-            double hue = GeomHelper::naviDegree(shape.beginEndAngle()); // [0-360]
-            myMesoColor = RGBColor::fromHSV(hue, 1., 1.);
-            return true;
-        }
+        case 0: 
+            activeMicroScheme = 0; // color uniform
+            break;
+        case 9: 
+            activeMicroScheme = 18; // color by angle
+            break;
+        case 17: 
+            activeMicroScheme = 30; // color by TAZ
+            break;
         default:
             return false;
     }
+    GUILane* guiLane = static_cast<GUILane*>(getLanes()[0]);
+    return guiLane->setFunctionalColor(c, myMesoColor, activeMicroScheme);
 }
 
 

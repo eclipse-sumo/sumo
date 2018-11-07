@@ -254,6 +254,11 @@ public:
     /// @brief whether this lane is selected in the GUI
     bool isSelected() const;
 
+    /* @brief sets the color according to the current scheme index and some lane function
+     * @param[in] id override active scheme when calling from meso gui
+     */
+    bool setFunctionalColor(const GUIColorer& c, RGBColor& col, int activeScheme=-1) const;
+
 protected:
     /// moves myTmpVehicles int myVehicles after a lane change procedure
     void swapAfterLaneChange(SUMOTime t);
@@ -294,9 +299,6 @@ private:
 
     /// @brief gets the scaling value according to the current scheme index
     double getScaleValue(int activeScheme) const;
-
-    /// @brief sets the color according to the current scheme index and some lane function
-    bool setFunctionalColor(const GUIColorer& c, RGBColor& col) const;
 
     /// @brief sets multiple colors according to the current scheme index and some lane function
     bool setMultiColor(const GUIColorer& c, RGBColor& col) const;
