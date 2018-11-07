@@ -1110,6 +1110,15 @@ GUILane::getColorValue(const GUIVisualizationSettings& s, int activeScheme) cons
                 return 0;
             }
         }
+        case 32: {
+            // by numerical lane param value
+            try {
+                return TplConvert::_str2double(getParameter(s.laneParam, "0"));
+            } catch (NumberFormatException& e) {
+                WRITE_WARNING("Lane parameter '" + getParameter(s.laneParam, "0") + "' key '" + s.laneParam + "' is not a number for lane '" + getID() + "'");
+                return 0;
+            }
+        }
     }
     return 0;
 }

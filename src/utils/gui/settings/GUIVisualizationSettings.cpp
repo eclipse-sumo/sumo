@@ -69,6 +69,9 @@ const RGBColor GUIVisualizationSettings::SUMO_color_E2(0, 204, 204);
 const RGBColor GUIVisualizationSettings::SUMO_color_E3Entry(0, 92, 64);
 const RGBColor GUIVisualizationSettings::SUMO_color_E3Exit(92, 0, 0);
 
+const std::string GUIVisualizationSettings::SCHEME_NAME_EDGE_PARAM_NUMERICAL("by param (numerical, streetwise)");
+const std::string GUIVisualizationSettings::SCHEME_NAME_LANE_PARAM_NUMERICAL("by param (numerical, lanewise)");
+
 // ===========================================================================
 // member method definitions
 // ===========================================================================
@@ -91,7 +94,8 @@ GUIVisualizationSettings::GUIVisualizationSettings(bool _netedit) :
     showLaneDirection(false),
     showSublanes(true),
     spreadSuperposed(false),
-    edgeParam("KEY"),
+    edgeParam("EDGE_KEY"),
+    laneParam("LANE_KEY"),
     vehicleQuality(0), showBlinker(true),
     drawLaneChangePreference(false), drawMinGap(false),
     showBTRange(false), vehicleSize(1),
@@ -304,7 +308,10 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     laneColorer.addScheme(scheme);
     scheme = GUIColorScheme("by TAZ (streetwise)", RGBColor(204, 204, 204), "no TAZ", true);
     laneColorer.addScheme(scheme);
-    scheme = GUIColorScheme("by param (numerical, streetwise)", RGBColor(204, 204, 204));
+    scheme = GUIColorScheme(SCHEME_NAME_EDGE_PARAM_NUMERICAL, RGBColor(204, 204, 204));
+    scheme.setAllowsNegativeValues(true);
+    laneColorer.addScheme(scheme);
+    scheme = GUIColorScheme(SCHEME_NAME_LANE_PARAM_NUMERICAL, RGBColor(204, 204, 204));
     scheme.setAllowsNegativeValues(true);
     laneColorer.addScheme(scheme);
 
@@ -928,6 +935,7 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.writeAttr("showSublanes", showSublanes);
     dev.writeAttr("spreadSuperposed", spreadSuperposed);
     dev.writeAttr("edgeParam", edgeParam);
+    dev.writeAttr("laneParam", laneParam);
     dev.lf();
     dev << "               ";
     edgeName.print(dev, "edgeName");
@@ -1120,6 +1128,9 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
         return false;
     }
     if (edgeParam != v2.edgeParam) {
+        return false;
+    }
+    if (laneParam != v2.laneParam) {
         return false;
     }
     if (!(vehicleColorer == v2.vehicleColorer)) {

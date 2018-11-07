@@ -144,6 +144,7 @@ GUISettingsHandler::myStartElement(int element,
             mySettings.showSublanes = TplConvert::_2bool(attrs.getStringSecure("showSublanes", toString(mySettings.showSublanes)).c_str());
             mySettings.spreadSuperposed = TplConvert::_2bool(attrs.getStringSecure("spreadSuperposed", toString(mySettings.spreadSuperposed)).c_str());
             mySettings.edgeParam = attrs.getStringSecure("edgeParam", mySettings.edgeParam);
+            mySettings.laneParam = attrs.getStringSecure("laneParam", mySettings.laneParam);
             myCurrentColorer = element;
             mySettings.edgeColorer.setActive(laneEdgeMode);
             mySettings.edgeScaler.setActive(laneEdgeScaleMode);

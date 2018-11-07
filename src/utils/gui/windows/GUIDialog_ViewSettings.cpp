@@ -164,8 +164,8 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
         myLaneColorSettingFrame = new FXVerticalFrame(frame22, GUIDesignViewSettingsVerticalFrame4);
         myLaneColorRainbow = new FXButton(frame22, "Recalibrate Rainbow", nullptr, this, MID_SIMPLE_VIEW_COLORCHANGE,
                                           (BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT), 0, 0, 0, 0, 20, 20, 4, 4);
-        myEdgeParam = new FXTextField(frame22, 1, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignTextFielWidth100);
-        myEdgeParam->setText(mySettings->edgeParam.c_str());
+        myParamKey = new FXTextField(frame22, 1, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignTextFielWidth100);
+        myParamKey->disable();
 
         new FXHorizontalSeparator(frame2, GUIDesignHorizontalSeparator);
         //  ... scale settings
@@ -617,7 +617,6 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* data) {
     myShowLaneDirection->setCheck(mySettings->showLaneDirection);
     myShowSublanes->setCheck(mySettings->showSublanes);
     mySpreadSuperposed->setCheck(mySettings->spreadSuperposed);
-    myEdgeParam->setText(mySettings->edgeParam.c_str());
     myLaneWidthUpscaleDialer->setValue(mySettings->laneWidthExaggeration);
     myLaneMinWidthDialer->setValue(mySettings->laneMinSize);
 
@@ -826,7 +825,13 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     tmpSettings.showLaneDirection = (myShowLaneDirection->getCheck() != FALSE);
     tmpSettings.showSublanes = (myShowSublanes->getCheck() != FALSE);
     tmpSettings.spreadSuperposed = (mySpreadSuperposed->getCheck() != FALSE);
-    tmpSettings.edgeParam = myEdgeParam->getText().text();
+    if (sender == myParamKey) {
+        if (tmpSettings.laneColorer.getScheme().getName() == GUIVisualizationSettings::SCHEME_NAME_EDGE_PARAM_NUMERICAL) {
+            tmpSettings.edgeParam = myParamKey->getText().text();
+        } else if (tmpSettings.laneColorer.getScheme().getName() == GUIVisualizationSettings::SCHEME_NAME_LANE_PARAM_NUMERICAL) {
+            tmpSettings.laneParam = myParamKey->getText().text();
+        }
+    }
     tmpSettings.laneWidthExaggeration = (double) myLaneWidthUpscaleDialer->getValue();
     tmpSettings.laneMinSize = (double) myLaneMinWidthDialer->getValue();
 
@@ -1470,6 +1475,16 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) {
         myJunctionColorRainbow->disable();
     } else {
         myJunctionColorRainbow->enable();
+    }
+    const std::string activeSchemeName = myLaneEdgeColorMode->getText().text();
+    if (activeSchemeName == GUIVisualizationSettings::SCHEME_NAME_EDGE_PARAM_NUMERICAL) {
+        myParamKey->setText(mySettings->edgeParam.c_str());
+        myParamKey->enable();
+    } else if (activeSchemeName == GUIVisualizationSettings::SCHEME_NAME_LANE_PARAM_NUMERICAL) {
+        myParamKey->setText(mySettings->laneParam.c_str());
+        myParamKey->enable();
+    } else {
+        myParamKey->disable();
     }
     myLaneColorSettingFrame->getParent()->recalc();
 
