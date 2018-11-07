@@ -43,7 +43,7 @@ public:
         /// @brief struct for edges and the source/sink colors
         struct TAZEdge {
             /// @brief constructor
-            TAZEdge(GNEEdge* _edge, GNEAdditional *_TAZSource, GNEAdditional *_TAZSink);
+            TAZEdge(TAZCurrent* TAZCurrentParent, GNEEdge* _edge, GNEAdditional *_TAZSource, GNEAdditional *_TAZSink);
             
             /// @brief destructor (needed because RGBColors has to be deleted)
             ~TAZEdge();
@@ -71,6 +71,10 @@ public:
 
             /// @brief color by source - sink [0-9]
             int sourceMinusSinkColor;
+
+        private:
+            /// @brief pointer to TAZCurrentParent
+            TAZCurrent* myTAZCurrentParent;
         };
 
         /// @brief constructor
@@ -116,6 +120,18 @@ public:
 
         /// @brief Label for current TAZ
         FXLabel* myTAZCurrentLabel;
+
+        /// @brief maximum source plus sink value of current TAZ Edges
+        double myMaxSourcePlusSinkWeight;
+
+        /// @brief minimum source plus sink value of current TAZ Edges
+        double myMinSourcePlusSinkWeight;
+
+        /// @brief maximum source minus sink value of current TAZ Edges
+        double myMaxSourceMinusSinkWeight;
+
+        /// @brief minimum source minus sink value of current TAZ Edges
+        double myMinSourceMinusSinkWeight;
     };
 
     // ===========================================================================
