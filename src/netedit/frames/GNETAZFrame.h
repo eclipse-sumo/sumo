@@ -80,7 +80,7 @@ public:
         ~TAZCurrent();
 
         /// @brief set current TAZ
-        void setTAZ(GNETAZ* TAZCurrent);
+        void setTAZ(GNETAZ* editedTAZ);
 
         /// @brief get current TAZ
         GNETAZ* getTAZ() const;
@@ -105,8 +105,8 @@ public:
         /// @brief pointer to TAZ Frame
         GNETAZFrame* myTAZFrameParent;
 
-        /// @brief current TAZ
-        GNETAZ* myTAZCurrent;
+        /// @brief current edited TAZ
+        GNETAZ* myEditedTAZ;
 
         /// @brief vector with pointers to edges (it's used to avoid slowdowns during Source/Sinks manipulations)
         std::vector<GNEEdge*> myNetEdges;
@@ -197,25 +197,25 @@ public:
     };
 
     // ===========================================================================
-    // class TAZEdgesCommonParameters
+    // class TAZChildDefaultParameters
     // ===========================================================================
 
-    class TAZEdgesCommonParameters : protected FXGroupBox {
+    class TAZChildDefaultParameters : protected FXGroupBox {
         /// @brief FOX-declaration
-        FXDECLARE(GNETAZFrame::TAZEdgesCommonParameters)
+        FXDECLARE(GNETAZFrame::TAZChildDefaultParameters)
 
     public:
         /// @brief constructor
-        TAZEdgesCommonParameters(GNETAZFrame* TAZFrameParent);
+        TAZChildDefaultParameters(GNETAZFrame* TAZFrameParent);
 
         /// @brief destructor
-        ~TAZEdgesCommonParameters();
+        ~TAZChildDefaultParameters();
 
-        /// @brief show TAZ Edges CommonParameters Modul
-        void showTAZEdgesCommonParametersModul();
+        /// @brief show TAZ child default parameters Modul
+        void showTAZChildDefaultParametersModul();
 
-        /// @brief hide TAZ Edges CommonParameters Modul
-        void hideTAZEdgesCommonParametersModul();
+        /// @brief hide TAZ child default parameters Modul
+        void hideTAZChildDefaultParametersModul();
 
         /// @brief get default TAZSource weight
         double getDefaultTAZSourceWeight() const;
@@ -228,13 +228,13 @@ public:
 
         /// @name FOX-callbacks
         /// @{
-        /// @brief Called when the user press the button save changes
+        /// @brief Called when the user changes default values
         long onCmdSetDefaultValues(FXObject* obj, FXSelector, void*);
         /// @}
 
     protected:
         /// @brief FOX needs this
-        TAZEdgesCommonParameters() {}
+        TAZChildDefaultParameters() {}
 
     private:
         /// @brief pointer to TAZFrame parent
@@ -243,14 +243,14 @@ public:
         /// @brief CheckButton to enable or disable Toggle edge Membership
         FXCheckButton* myToggleMembership;
 
-        /// @brief CheckButton to enable or disables a default value for new TAZ Sources
-        FXCheckButton* myCheckBoxSetDefaultValueTAZSources;
+        /// @brief Horizontal Frame for default TAZ Source Weight
+        FXHorizontalFrame* myDefaultTAZSourceFrame;
 
         /// @brief textField to set a default value for TAZ Sources
         FXTextField* myTextFieldDefaultValueTAZSources;
 
-        /// @brief CheckButton to enable or disables a default value for new TAZ Sinks
-        FXCheckButton* myCheckBoxSetDefaultValueTAZSinks;
+        /// @brief Horizontal Frame for default TAZ Sink Weight
+        FXHorizontalFrame* myDefaultTAZSinkFrame;
 
         /// @brief textField to set a default value for TAZ Sinks
         FXTextField* myTextFieldDefaultValueTAZSinks;
@@ -489,8 +489,8 @@ private:
     /// @brief save TAZ Edges
     TAZSaveChanges* myTAZSaveChanges;
 
-    /// @brief TAZ Edges common parameters
-    TAZEdgesCommonParameters* myTAZEdgesCommonParameters;
+    /// @brief TAZ child defaults parameters
+    TAZChildDefaultParameters* myTAZChildDefaultParameters;
 
     /// @brief TAZ Edges selection parameters
     TAZSelectionStatistics* myTAZSelectionStatistics;
