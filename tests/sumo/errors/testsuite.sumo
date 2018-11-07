@@ -14,6 +14,9 @@ invalid_time
 # the value for --begin is too large
 high_time
 
+# the value for --scale is too large
+high_double
+
 # the value for --begin is larger than the one for --end
 begin_after_end
 
