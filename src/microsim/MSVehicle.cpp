@@ -3729,12 +3729,14 @@ MSVehicle::getSpaceTillLastStanding(const MSLane* l, bool& foundStopped) const {
     double lengths = 0;
     const MSLane::VehCont& vehs = l->getVehiclesSecure();
     for (MSLane::VehCont::const_iterator i = vehs.begin(); i != vehs.end(); ++i) {
-        if ((*i)->getSpeed() < SUMO_const_haltingSpeed && !(*i)->getLane()->getEdge().isRoundabout()
-                && (*i) != this
+        const MSVehicle* last = *i;
+        if (last->getSpeed() < SUMO_const_haltingSpeed && !last->getLane()->getEdge().isRoundabout()
+                && last != this
                 // @todo recheck
-                && (*i)->isFrontOnLane(l)) {
+                && last->isFrontOnLane(l)) {
             foundStopped = true;
-            const double ret = (*i)->getPositionOnLane() - (*i)->getVehicleType().getLengthWithGap() - lengths;
+            const double lastBrakeGap = last->getCarFollowModel().brakeGap(last->getSpeed());
+            const double ret = last->getBackPositionOnLane() + lastBrakeGap - lengths;
             l->releaseVehicles();
             return ret;
         }
@@ -3748,7 +3750,6 @@ MSVehicle::getSpaceTillLastStanding(const MSLane* l, bool& foundStopped) const {
 void
 MSVehicle::checkRewindLinkLanes(const double lengthsInFront, DriveItemVector& lfLinks) const {
     if (MSGlobals::gUsingInternalLanes && !myLane->getEdge().isRoundabout() && !getLaneChangeModel().isOpposite()) {
-        bool hadVehicle = false;
         double seenSpace = -lengthsInFront;
 #ifdef DEBUG_CHECKREWINDLINKLANES
         if (DEBUG_COND) {
@@ -3772,7 +3773,6 @@ MSVehicle::checkRewindLinkLanes(const double lengthsInFront, DriveItemVector& lf
                 } else {
                     item.availableSpace = seenSpace;
                 }
-                item.hadVehicle = hadVehicle;
 #ifdef DEBUG_CHECKREWINDLINKLANES
                 if (DEBUG_COND) {
                     std::cout << " avail=" << item.availableSpace << "\n";
@@ -3785,23 +3785,20 @@ MSVehicle::checkRewindLinkLanes(const double lengthsInFront, DriveItemVector& lf
             if (approachedLane != nullptr) {
                 if (keepClear(item.myLink)) {
                     seenSpace = seenSpace - approachedLane->getBruttoVehLenSum();
-                    hadVehicle |= approachedLane->getVehicleNumber() != 0;
                     if (approachedLane == myLane) {
                         seenSpace += getVehicleType().getLengthWithGap();
                     }
                 } else {
                     seenSpace = seenSpace + getSpaceTillLastStanding(approachedLane, foundStopped);// - approachedLane->getBruttoVehLenSum() + approachedLane->getLength();
-                    hadVehicle |= approachedLane->getVehicleNumber() != 0;
                 }
                 item.availableSpace = seenSpace;
-                item.hadVehicle = hadVehicle;
 #ifdef DEBUG_CHECKREWINDLINKLANES
                 if (DEBUG_COND) std::cout
                             << " approached=" << approachedLane->getID()
                             << " approachedBrutto=" << approachedLane->getBruttoVehLenSum()
                             << " avail=" << item.availableSpace
                             << " seenSpace=" << seenSpace
-                            << " hadVehicle=" << item.hadVehicle
+                            << " hadStoppedVehicle=" << item.hadStoppedVehicle
                             << " lengthsInFront=" << lengthsInFront
                             << "\n";
 #endif
@@ -3810,50 +3807,29 @@ MSVehicle::checkRewindLinkLanes(const double lengthsInFront, DriveItemVector& lf
             approachedLane = item.myLink->getLane();
             const MSVehicle* last = approachedLane->getLastAnyVehicle();
             if (last == nullptr || last == this) {
-                seenSpace += approachedLane->getLength();
+                if (approachedLane->getLength() > getVehicleType().getLength() 
+                        || keepClear(item.myLink)) {
+                    seenSpace += approachedLane->getLength();
+                }
                 item.availableSpace = seenSpace;
 #ifdef DEBUG_CHECKREWINDLINKLANES
                 if (DEBUG_COND) {
                     std::cout << " last=" << Named::getIDSecure(last) << " laneLength=" << approachedLane->getLength() << " avail=" << item.availableSpace << "\n";
                 }
 #endif
-            } else if (!last->isFrontOnLane(approachedLane)) {
-                /// XXX backward compatibility: why should partial occupators be treated differently here?
-                /// XXX MAX2 redundant?
-                item.availableSpace = MAX2(seenSpace, seenSpace + last->getBackPositionOnLane(approachedLane) + last->getCarFollowModel().brakeGap(last->getSpeed()));
-                hadVehicle = true;
-                /// XXX spaceTillLastStanding should already be covered by getPartialOccupatorEnd()
-                seenSpace = seenSpace + getSpaceTillLastStanding(approachedLane, foundStopped);// - approachedLane->getBruttoVehLenSum() + approachedLane->getLength();
-                /// XXX why not check BRAKELIGHT?
-                if (last->myHaveToWaitOnNextLink) {
-                    foundStopped = true;
-                }
-#ifdef DEBUG_CHECKREWINDLINKLANES
-                if (DEBUG_COND) std::cout
-                            << " approached=" << approachedLane->getID()
-                            << " lastPoc=" << last->getID()
-                            << " avail=" << item.availableSpace
-                            << " seenSpace=" << seenSpace
-                            << " lastHasToWait=" << last->myHaveToWaitOnNextLink
-                            << "\n";
-#endif
             } else {
-
-                if (last->signalSet(VEH_SIGNAL_BRAKELIGHT)) {
-                    const double lastBrakeGap = last->getCarFollowModel().brakeGap(last->getSpeed());
-                    const double lastGap = last->getBackPositionOnLane(approachedLane) + lastBrakeGap - last->getSpeed() * last->getCarFollowModel().getHeadwayTime()
-                                           // gap of last up to the next intersection
-                                           - last->getVehicleType().getMinGap();
-                    item.availableSpace = MAX2(seenSpace, seenSpace + lastGap);
-                    seenSpace += getSpaceTillLastStanding(approachedLane, foundStopped);// - approachedLane->getBruttoVehLenSum() + approachedLane->getLength();
-                } else {
-                    seenSpace += getSpaceTillLastStanding(approachedLane, foundStopped);
-                    item.availableSpace = seenSpace;
-                }
-                if (last->myHaveToWaitOnNextLink) {
+                bool foundStopped2 = false;
+                const double spaceTillLastStanding = getSpaceTillLastStanding(approachedLane, foundStopped2);
+                seenSpace += spaceTillLastStanding;
+                if (foundStopped2) {
                     foundStopped = true;
+                    item.hadStoppedVehicle = true;
                 }
-                hadVehicle = true;
+                item.availableSpace = seenSpace;
+                if (last->myHaveToWaitOnNextLink || last->isStopped()) {
+                    foundStopped = true;
+                    item.hadStoppedVehicle = true;
+                }
 #ifdef DEBUG_CHECKREWINDLINKLANES
                 if (DEBUG_COND) std::cout
                             << " approached=" << approachedLane->getID()
@@ -3864,26 +3840,40 @@ MSVehicle::checkRewindLinkLanes(const double lengthsInFront, DriveItemVector& lf
                             << " lastGap=" << (last->getBackPositionOnLane(approachedLane) + last->getCarFollowModel().brakeGap(last->getSpeed()) - last->getSpeed() * last->getCarFollowModel().getHeadwayTime()
                                                // gap of last up to the next intersection
                                                - last->getVehicleType().getMinGap())
+                            << " stls=" << spaceTillLastStanding
                             << " avail=" << item.availableSpace
                             << " seenSpace=" << seenSpace
                             << " foundStopped=" << foundStopped
+                            << " foundStopped2=" << foundStopped2
                             << "\n";
 #endif
             }
-            item.hadVehicle = hadVehicle;
         }
 
         // check which links allow continuation and add pass available to the previous item
         for (int i = ((int)lfLinks.size() - 1); i > 0; --i) {
             DriveProcessItem& item = lfLinks[i - 1];
-            const bool canLeaveJunction = item.myLink->getViaLane() == nullptr || lfLinks[i].mySetRequest;
-            const bool opened = item.myLink != nullptr && canLeaveJunction && (item.myLink->havePriority() ||
-                                (myInfluencer != nullptr && !myInfluencer->getRespectJunctionPriority()) ||
-                                item.myLink->opened(item.myArrivalTime, item.myArrivalSpeed,
+            DriveProcessItem& nextItem = lfLinks[i];
+            const bool canLeaveJunction = item.myLink->getViaLane() == nullptr || nextItem.myLink == nullptr || nextItem.mySetRequest;
+            const bool opened = item.myLink != nullptr && canLeaveJunction && (
+                    item.myLink->havePriority() 
+                    || i == 1 // the upcoming link (item 0) is checked in executeMove anyway. No need to use outdata approachData here
+                    || (myInfluencer != nullptr && !myInfluencer->getRespectJunctionPriority()) 
+                    || item.myLink->opened(item.myArrivalTime, item.myArrivalSpeed,
                                                     item.getLeaveSpeed(), getVehicleType().getLength(),
                                                     getImpatience(), getCarFollowModel().getMaxDecel(), getWaitingTime(), getLateralPositionOnLane()));
-            bool allowsContinuation = item.myLink == nullptr || item.myLink->isCont() || !lfLinks[i].hadVehicle || opened;
+            bool allowsContinuation = (item.myLink == nullptr || item.myLink->isCont() || opened) && !item.hadStoppedVehicle;
+#ifdef DEBUG_CHECKREWINDLINKLANES
+            if (DEBUG_COND) std::cout
+                << "   link=" << (item.myLink == 0 ? "NULL" : item.myLink->getViaLaneOrLane()->getID())
+                    << " canLeave=" << canLeaveJunction
+                    << " opened=" << opened
+                    << " allowsContinuation=" << allowsContinuation
+                    << " foundStopped=" << foundStopped
+                    << "\n";
+#endif
             if (!opened && item.myLink != nullptr) {
+                foundStopped = true;
                 if (i > 1) {
                     DriveProcessItem& item2 = lfLinks[i - 2];
                     if (item2.myLink != nullptr && item2.myLink->isCont()) {
@@ -3892,13 +3882,19 @@ MSVehicle::checkRewindLinkLanes(const double lengthsInFront, DriveItemVector& lf
                 }
             }
             if (allowsContinuation) {
-                item.availableSpace = lfLinks[i].availableSpace;
+                item.availableSpace = nextItem.availableSpace;
+#ifdef DEBUG_CHECKREWINDLINKLANES
+                if (DEBUG_COND) std::cout
+                    << "   link=" << (item.myLink == nullptr ? "NULL" : item.myLink->getViaLaneOrLane()->getID())
+                        << " copy nextAvail=" << nextItem.availableSpace
+                        << "\n";
+#endif
             }
         }
 
         // find removalBegin
         int removalBegin = -1;
-        for (int i = 0; hadVehicle && i < (int)lfLinks.size() && removalBegin < 0; ++i) {
+        for (int i = 0; foundStopped && i < (int)lfLinks.size() && removalBegin < 0; ++i) {
             // skip unset links
             const DriveProcessItem& item = lfLinks[i];
             if (item.myLink == nullptr) {

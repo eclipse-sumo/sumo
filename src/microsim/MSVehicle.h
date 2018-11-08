@@ -1862,7 +1862,7 @@ protected:
         double myArrivalSpeedBraking;
         double myDistance;
         double accelV;
-        bool hadVehicle;
+        bool hadStoppedVehicle;
         double availableSpace;
 
         DriveProcessItem(MSLink* link, double vPass, double vWait, bool setRequest,
@@ -1874,7 +1874,7 @@ protected:
             myArrivalTime(arrivalTime), myArrivalSpeed(arrivalSpeed),
             myArrivalTimeBraking(arrivalTimeBraking), myArrivalSpeedBraking(arrivalSpeedBraking),
             myDistance(distance),
-            accelV(leaveSpeed), hadVehicle(false), availableSpace(0) {
+            accelV(leaveSpeed), hadStoppedVehicle(false), availableSpace(0) {
             assert(vWait >= 0 || !MSGlobals::gSemiImplicitEulerUpdate);
             assert(vPass >= 0 || !MSGlobals::gSemiImplicitEulerUpdate);
         };
@@ -1886,7 +1886,7 @@ protected:
             myArrivalTime(0), myArrivalSpeed(0),
             myArrivalTimeBraking(0), myArrivalSpeedBraking(0),
             myDistance(distance),
-            accelV(-1), hadVehicle(false), availableSpace(_availableSpace) {
+            accelV(-1), hadStoppedVehicle(false), availableSpace(_availableSpace) {
             assert(vWait >= 0 || !MSGlobals::gSemiImplicitEulerUpdate);
         };
 
