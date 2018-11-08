@@ -206,29 +206,7 @@ public:
         if (data == 0 || data[0] == 0) {
             throw EmptyData();
         }
-        long long int sgn = 1;
-        int i = 0;
-        if (data[0] == '+') {
-            i++;
-        }
-        if (data[0] == '-') {
-            i++;
-            sgn = -1;
-        }
-        long long int ret = 0;
-        for (; data[i] != 0; i++) {
-            ret *= 10;
-            // !!! need to catch overflows
-            char akt = (char) data[i];
-            if (akt < '0' || akt > '9') {
-                throw NumberFormatException("(integer) " + _2str(data));
-            }
-            ret += akt - 48;
-        }
-        if (i == 0) {
-            throw EmptyData();
-        }
-        return ret * sgn;
+        return _str2long(_2str(data));
     }
 
     /**@brief converts a string into the long value described by it by calling the char-type converter, which
@@ -236,7 +214,18 @@ public:
      * @throw NumberFormatException - exception when the string does not contain a long integer
      */
     static long long int _str2long(const std::string& sData) {
-        return _2long(sData.c_str());
+        try {
+            size_t idx = -1;
+            const long long int result = std::stoll(sData, &idx);
+            if (idx != sData.size()) {
+                throw NumberFormatException("(long long) " + sData);
+            } else {
+                return result;
+            }
+        } catch (...) {
+            // invalid_argument or out_of_range
+            throw NumberFormatException("(long long) " + sData);
+        }
     }
 
     /**@brief converts a char-type array with a hex value into the long value described by it
@@ -307,8 +296,7 @@ public:
         if (data == 0 || data[0] == 0) {
             throw EmptyData();
         }
-        double result = _str2double(_2str(data));
-        return result;
+        return _str2double(_2str(data));
     }
 
     /**@brief converts a string into the double value described by it by calling the char-type converter
@@ -316,13 +304,18 @@ public:
      * @throw a NumberFormatException - exception when the string does not contain a double
      */
     static double _str2double(const std::string& sData) {
-        double result;
-        std::istringstream buf(sData);
-        buf >> result;
-        if (buf.fail()) {
+        try {
+            size_t idx = -1;
+            const double result = std::stod(sData, &idx);
+            if (idx != sData.size()) {
+                throw NumberFormatException("(double) " + sData);
+            } else {
+                return result;
+            }
+        } catch (...) {
+            // invalid_argument or out_of_range
             throw NumberFormatException("(double) " + sData);
         }
-        return result;
     }
 
     /**@brief converts a 0-terminated char-type array into the double value described by it

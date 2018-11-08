@@ -25,6 +25,8 @@
 
 #include <string>
 #include <algorithm>
+#include "TplConvert.h"
+#include "SUMOTime.h"
 
 
 // ===========================================================================
@@ -39,55 +41,31 @@ public:
     /// @brief check if a String can be parsed into a int
     /// @ToDo check overflows
     static bool _str2int(const std::string& data) {
-        // Data empty does't mean 0
-        if (data.size() == 0) {
+        try {
+            const int i = TplConvert::_str2int(data);
+            return true;
+        } catch (...) {
             return false;
         }
-        for (int i = 0; i < (int)data.size(); i++) {
-            if (data.at(i) == '+' || data.at(i) == '-') {
-                if (i != 0) {
-                    return false;
-                }
-            } else if (data.at(i) < '0' || data.at(i) > '9') {
-                return false;
-            }
-        }
-        return true;
     }
 
     /// @brief check if a String can be parsed into a double
     /// @ToDo check overflows
     static bool _str2double(const std::string& data) {
-        bool dot = false;
-        if (data.size() == 0) {
+        try {
+            const double d = TplConvert::_str2double(data);
+            return true;
+        } catch (...) {
             return false;
         }
-        for (int i = 0; i < (int)data.size(); i++) {
-            if (data.at(i) == '+' || data.at(i) == '-') {
-                if (i != 0) {
-                    return false;
-                }
-            } else if (data.at(i) == '.') {
-                if (data.at(i) == '.' && !dot) {
-                    dot = true;
-                } else {
-                    return false;
-                }
-            } else if (data.at(i) < '0' || data.at(i) > '9') {
-                return false;
-            }
-        }
-        return true;
     }
 
     /// @brief check if a String can be parsed into a Bool
     static bool _str2bool(const std::string& data) {
-        std::string dataToLower = data;
-        std::transform(dataToLower.begin(), dataToLower.end(), dataToLower.begin(), ::tolower);
-        if (data == "1" || data == "yes" || data == "true"  || data == "on"  || data == "x" || data == "t" ||
-                data == "0" || data == "no"  || data == "false" || data == "off" || data == "-" || data == "f") {
+        try {
+            const bool b = TplConvert::_str2Bool(data);
             return true;
-        } else {
+        } catch (BoolFormatException&) {
             return false;
         }
     }
@@ -95,20 +73,12 @@ public:
     /// @brief check if a String can be parsed into a SUMOTime
     /// @ToDo check overflows
     static bool _str2SUMOTime(const std::string& data) {
-        // Data empty does't mean 0
-        if (data.size() == 0) {
+        try {
+            const SUMOTime t = string2time(data);
+            return true;
+        } catch (ProcessError&) {
             return false;
         }
-        for (int i = 0; i < (int)data.size(); i++) {
-            if (data.at(i) == '+') {
-                if (i != 0) {
-                    return false;
-                }
-            } else if (data.at(i) < '0' || data.at(i) > '9') {
-                return false;
-            }
-        }
-        return true;
     }
 };
 
