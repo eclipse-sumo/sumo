@@ -545,6 +545,8 @@ enum {
     MID_GNE_SET_ATTRIBUTE_BOOL,
     /// @brief attribute edited trought dialog
     MID_GNE_SET_ATTRIBUTE_DIALOG,
+    /// @brief use selected elements
+    MID_GNE_USE_SELECTED,
     /// @}
 
 

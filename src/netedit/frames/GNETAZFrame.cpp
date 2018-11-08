@@ -62,6 +62,7 @@ FXDEFMAP(GNETAZFrame::TAZSaveChanges) TAZSaveChangesMap[] = {
 
 FXDEFMAP(GNETAZFrame::TAZChildDefaultParameters) TAZChildDefaultParametersMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNETAZFrame::TAZChildDefaultParameters::onCmdSetDefaultValues),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_USE_SELECTED,   GNETAZFrame::TAZChildDefaultParameters::onCmdUseSelectedEdges),
 };
 
 FXDEFMAP(GNETAZFrame::TAZSelectionStatistics) TAZSelectionStatisticsMap[] = {
@@ -171,8 +172,10 @@ GNETAZFrame::TAZCurrent::setTAZ(GNETAZ* editedTAZ) {
     // update label and moduls
     if (myEditedTAZ != nullptr) {
         myTAZCurrentLabel->setText(("Current TAZ: " + myEditedTAZ->getID()).c_str());
-        // obtain a copy of all edges of the net (to avoid slowdown during manipulations
+        // obtain a copy of all edges of the net (to avoid slowdown during manipulations)
         myNetEdges = myTAZFrameParent->getViewNet()->getNet()->retrieveEdges();
+        // obtain a copy of all SELECTED edges of the net (to avoid slowdown during manipulations)
+        mySelectedEdges = myTAZFrameParent->getViewNet()->getNet()->retrieveEdges(true);
         // resfresh TAZ Edges
         refreshTAZEdges();
         // hide TAZ parameters
@@ -208,6 +211,8 @@ GNETAZFrame::TAZCurrent::setTAZ(GNETAZ* editedTAZ) {
         myTAZCurrentLabel->setText("No TAZ selected");
         // clear net edges (always the last step due hideTAZEdgesGraphicModul() function)
         myNetEdges.clear();
+        // clear selected edges
+        mySelectedEdges.clear();
         // reset all weight values
         myMaxSourcePlusSinkWeight = 0;
         myMinSourcePlusSinkWeight = -1;
@@ -239,6 +244,12 @@ GNETAZFrame::TAZCurrent::isTAZEdge(GNEEdge* edge) const {
 const std::vector<GNEEdge*>&
 GNETAZFrame::TAZCurrent::getNetEdges() const {
     return myNetEdges;
+}
+
+
+const std::vector<GNEEdge*>&
+GNETAZFrame::TAZCurrent::getSelectedEdges() const {
+    return mySelectedEdges;
 }
 
 
@@ -497,6 +508,9 @@ GNETAZFrame::TAZChildDefaultParameters::TAZChildDefaultParameters(GNETAZFrame* T
     new FXLabel(myDefaultTAZSinkFrame, "New sink", 0, GUIDesignLabelAttribute);
     myTextFieldDefaultValueTAZSinks = new FXTextField(myDefaultTAZSinkFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldReal);
     myTextFieldDefaultValueTAZSinks->setText("1");
+    // Create groupbox for save changes
+    myUseSelectedEdges = new FXButton(this, "Use selected Edges", nullptr, this, MID_GNE_USE_SELECTED, GUIDesignButton);
+    myUseSelectedEdges->disable();
     // Create information label
     std::ostringstream information;
     information
@@ -517,6 +531,12 @@ GNETAZFrame::TAZChildDefaultParameters::showTAZChildDefaultParametersModul() {
         myTAZFrameParent->myTAZSelectionStatistics->showTAZSelectionStatisticsModul();
     } else {
         myTAZFrameParent->myTAZSelectionStatistics->hideTAZSelectionStatisticsModul();
+    }
+    // check if use selected edges has to be enabled
+    if (myTAZFrameParent->myTAZCurrent->getSelectedEdges().size() > 0) {
+        myUseSelectedEdges->enable();
+    } else {
+        myUseSelectedEdges->disable();
     }
     // show modul
     show();
@@ -623,6 +643,24 @@ GNETAZFrame::TAZChildDefaultParameters::onCmdSetDefaultValues(FXObject* obj, FXS
             myTextFieldDefaultValueTAZSinks->setTextColor(FXRGB(255, 0, 0));
             myDefaultTAZSinkWeight = 1;
         }
+    }
+    return 1;
+}
+
+
+long 
+GNETAZFrame::TAZChildDefaultParameters::onCmdUseSelectedEdges(FXObject* obj, FXSelector, void*) {
+    // select edge or create new TAZ Source/Child, depending of myToggleMembership
+    if(myToggleMembership->getCheck() == TRUE) {
+        // iterate over selected edges
+        for (const auto &i : myTAZFrameParent->myTAZCurrent->getSelectedEdges()) {
+            // check that edge isn't a TAZEdge
+            if (!myTAZFrameParent->myTAZCurrent->isTAZEdge(i)) {
+                myTAZFrameParent->addOrRemoveTAZMember(i);
+            }
+        }
+    } else {
+        myTAZFrameParent->processEdgeSelection(myTAZFrameParent->myTAZCurrent->getSelectedEdges());
     }
     return 1;
 }

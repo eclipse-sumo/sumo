@@ -95,6 +95,9 @@ public:
         /// @brief get current net edges
         const std::vector<GNEEdge*> &getNetEdges() const;
 
+        /// @brief get current selected edges
+        const std::vector<GNEEdge*> &getSelectedEdges() const;
+
         /// @brief get TAZEdges
         const std::vector<TAZCurrent::TAZEdge> &getTAZEdges() const;
 
@@ -114,6 +117,9 @@ public:
 
         /// @brief vector with pointers to edges (it's used to avoid slowdowns during Source/Sinks manipulations)
         std::vector<GNEEdge*> myNetEdges;
+
+        /// @brief vector with pointers to selected edges
+        std::vector<GNEEdge*> mySelectedEdges;
 
         /// @brief vector with TAZ's edges
         std::vector<TAZEdge> myTAZEdges;
@@ -250,6 +256,9 @@ public:
         /// @{
         /// @brief Called when the user changes default values
         long onCmdSetDefaultValues(FXObject* obj, FXSelector, void*);
+
+        /// @brief Called when the user press use selected edges
+        long onCmdUseSelectedEdges(FXObject* obj, FXSelector, void*);
         /// @}
 
     protected:
@@ -274,6 +283,9 @@ public:
 
         /// @brief textField to set a default value for TAZ Sinks
         FXTextField* myTextFieldDefaultValueTAZSinks;
+
+        /// @brief button for use selected edges
+        FXButton *myUseSelectedEdges;
 
         /// @brief information label
         FXLabel *myInformationLabel;
