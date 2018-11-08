@@ -215,7 +215,7 @@ public:
      */
     static long long int _str2long(const std::string& sData) {
         try {
-            size_t idx = -1;
+            size_t idx = 0;
             const long long int result = std::stoll(sData, &idx);
             if (idx != sData.size()) {
                 throw NumberFormatException("(long long) " + sData);
@@ -305,7 +305,7 @@ public:
      */
     static double _str2double(const std::string& sData) {
         try {
-            size_t idx = -1;
+            size_t idx = 0;
             const double result = std::stod(sData, &idx);
             if (idx != sData.size()) {
                 throw NumberFormatException("(double) " + sData);
