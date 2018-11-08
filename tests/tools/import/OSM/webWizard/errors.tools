@@ -1931,23 +1931,10 @@ Warning: busStop '30731700' on lane '167272531#9_0' is too short for vehicle 'pt
 Warning: busStop '1668497956' on lane '153537614#2_0' is too short for vehicle 'pt_tram_M1:2.0'.
 Warning: busStop '3869306762' on lane '111251382#2_1' is too short for vehicle 'pt_bus_147:0.0'.
 Warning: busStop '2071423352' on lane '295250361_0' is too short for vehicle 'pt_subway_U6:0.0'.
-Warning: Teleporting vehicle 'veh110'; waited too long (jam), lane='136571494#6_1', time=932.00.
-Warning: Vehicle 'veh110' ends teleporting on edge '562707499', time 932.00.
-Warning: Teleporting vehicle 'veh152'; waited too long (jam), lane='136571494#6_1', time=1247.00.
-Warning: Vehicle 'veh152' ends teleporting on edge '562707499', time 1247.00.
-Warning: Teleporting vehicle 'veh149'; waited too long (jam), lane='136571494#6_1', time=1570.00.
-Warning: Vehicle 'veh149' ends teleporting on edge '562707499', time 1570.00.
-Warning: Teleporting vehicle 'pt_bus_N65:1.1'; waited too long (jam), lane='-534588621#0_2', time=1810.00.
-Warning: Vehicle 'pt_bus_N65:1.1' ends teleporting on edge '606078071#2', time 1813.00.
-Warning: Teleporting vehicle 'veh163'; waited too long (jam), lane='136571494#6_1', time=1891.00.
-Warning: Vehicle 'veh163' ends teleporting on edge '562707499', time 1891.00.
 Warning: Person 'ped26' aborted waiting for M5:1 at busStop '30731481'.
-Warning: Person 'ped5' aborted waiting for M5:3 at busStop '30731508'.
-Warning: Person 'ped151' aborted waiting for M4:3 at busStop '30731508'.
 Warning: Person 'ped37' aborted waiting for M5:2 at busStop '1633759766'.
-Warning: Person 'ped22' aborted waiting for M4:1 at busStop '1633759766'.
-Warning: Person 'ped41' aborted waiting for M4:1 at busStop '1633759766'.
 Warning: Person 'ped69' aborted waiting for M4:1 at busStop '1633759766'.
-Warning: Person 'ped23' aborted waiting for TXL:1 at busStop '271296293'.
 Warning: Person 'ped178' aborted waiting for 248:0 at busStop '3867910417'.
+Warning: Person 'ped139' aborted waiting for U6:1 at busStop '2071423334'.
+Warning: Person 'ped59' aborted waiting for 147:0 at busStop '-3869306773'.
 Warning: Person 'ped158' aborted waiting for 147:3 at busStop '3869306772'.
