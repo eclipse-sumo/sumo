@@ -263,6 +263,7 @@ class Colorgen:
         if opt == 'random':
             return random.random()
         elif opt == 'cycle':
+            # the 255 below is intentional to get all color values when cycling long enough
             self.cycle[index] = (self.cycle[index] + 24) % 255
             return self.cycle[index] / 255.0
         else:
