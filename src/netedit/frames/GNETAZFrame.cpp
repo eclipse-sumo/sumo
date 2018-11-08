@@ -1030,8 +1030,8 @@ GNETAZFrame::TAZParameters::onCmdHelp(FXObject*, FXSelector, void*) {
 GNETAZFrame::TAZEdgesGraphic::TAZEdgesGraphic(GNETAZFrame* TAZFrameParent) : 
     FXGroupBox(TAZFrameParent->myContentFrame, "Edges", GUIDesignGroupBoxFrame),
     myTAZFrameParent(TAZFrameParent),
-    myEdgeDefaultColor(RGBColor::GREY.changedBrightness(-50)),
-    myEdgeSelectedColor(RGBColor::GREY.changedBrightness(50)) {
+    myEdgeDefaultColor(RGBColor::GREY),
+    myEdgeSelectedColor(RGBColor::MAGENTA) {
     // create label for non taz edge color information
     FXLabel *NonTAZEdgeLabel = new FXLabel(this,"Non TAZ Edge", nullptr, GUIDesignLabelCenter);
     NonTAZEdgeLabel->setBackColor(MFXUtils::getFXColor(myEdgeDefaultColor));
@@ -1040,7 +1040,7 @@ GNETAZFrame::TAZEdgesGraphic::TAZEdgesGraphic(GNETAZFrame* TAZFrameParent) :
     FXLabel *selectedTAZEdgeLabel = new FXLabel(this,"Selected TAZ Edge", nullptr, GUIDesignLabelCenter);
     selectedTAZEdgeLabel->setBackColor(MFXUtils::getFXColor(myEdgeSelectedColor));
     // create label for color information
-    new FXLabel(this,"Minor -> major", nullptr, GUIDesignLabelCenterThick);
+    new FXLabel(this,"Scala: Min -> Max", nullptr, GUIDesignLabelCenterThick);
     // fill scale colors
     myScaleColors.push_back(RGBColor(232, 35,  0  ));
     myScaleColors.push_back(RGBColor(255, 165, 0  ));
