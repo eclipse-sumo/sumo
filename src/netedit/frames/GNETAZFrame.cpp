@@ -994,8 +994,15 @@ GNETAZFrame::TAZEdgesGraphic::TAZEdgesGraphic(GNETAZFrame* TAZFrameParent) :
     myTAZFrameParent(TAZFrameParent),
     myEdgeDefaultColor(RGBColor::GREY.changedBrightness(-50)),
     myEdgeSelectedColor(RGBColor::GREY.changedBrightness(50)) {
+    // create label for non taz edge color information
+    FXLabel *NonTAZEdgeLabel = new FXLabel(this,"Non TAZ Edge", nullptr, GUIDesignLabelCenter);
+    NonTAZEdgeLabel->setBackColor(MFXUtils::getFXColor(myEdgeDefaultColor));
+    NonTAZEdgeLabel->setTextColor(MFXUtils::getFXColor(RGBColor::WHITE));
+    // create label for selected TAZEdge color information
+    FXLabel *selectedTAZEdgeLabel = new FXLabel(this,"Selected TAZ Edge", nullptr, GUIDesignLabelCenter);
+    selectedTAZEdgeLabel->setBackColor(MFXUtils::getFXColor(myEdgeSelectedColor));
     // create label for color information
-    new FXLabel(this,"Minor -> major", nullptr, GUIDesignLabelLeftThick);
+    new FXLabel(this,"Minor -> major", nullptr, GUIDesignLabelCenterThick);
     // fill scale colors
     myScaleColors.push_back(RGBColor(232, 35,  0  ));
     myScaleColors.push_back(RGBColor(255, 165, 0  ));
