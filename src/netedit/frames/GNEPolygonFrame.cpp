@@ -288,7 +288,7 @@ GNEPolygonFrame::getIdsSelected(const FXList* list) {
 
 
 GNEPolygonFrame::DrawingShape*
-GNEPolygonFrame::getDrawingShape() const {
+GNEPolygonFrame::getDrawingShapeModul() const {
     return myDrawingShape;
 }
 

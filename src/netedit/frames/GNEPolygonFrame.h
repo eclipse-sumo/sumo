@@ -116,7 +116,7 @@ public:
     static std::string getIdsSelected(const FXList* list);
 
     /// @brief get drawing mode editor
-    DrawingShape* getDrawingShape() const;
+    DrawingShape* getDrawingShapeModul() const;
 
 protected:
     /**@brief build a shaped element using the drawed shape
