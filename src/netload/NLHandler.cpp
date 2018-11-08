@@ -251,7 +251,9 @@ NLHandler::myEndElement(int element) {
             break;
         case SUMO_TAG_LANE:
             myEdgeControlBuilder.closeLane();
-            myLastParameterised.pop_back();
+            if (!myCurrentIsInternalToSkip && !myCurrentIsBroken) {
+                myLastParameterised.pop_back();
+            }
             break;
         case SUMO_TAG_JUNCTION:
             if (!myCurrentIsBroken) {
@@ -386,12 +388,14 @@ NLHandler::beginEdgeParsing(const SUMOSAXAttributes& attrs) {
             myEdgeControlBuilder.addCrossingEdges(crossingEdgesVector);
         }
     }
+    myLastEdgeParameters.clearParameter();
     myLastParameterised.push_back(&myLastEdgeParameters);
 }
 
 
 void
 NLHandler::closeEdge() {
+    myLastParameterised.clear();
     // omit internal edges if not wished and broken edges
     if (myCurrentIsInternalToSkip || myCurrentIsBroken) {
         return;
@@ -403,8 +407,6 @@ NLHandler::closeEdge() {
     } catch (InvalidArgument& e) {
         WRITE_ERROR(e.what());
     }
-    myLastEdgeParameters.clearParameter();
-    myLastParameterised.clear();
 }
 
 
