@@ -184,8 +184,8 @@ private:
         /// @brief hide frames
         void hideFrames();
 
-        /// @brief set width in all frames
-        void setWidth(double width);
+        /// @brief set new width in all frames
+        void setWidth(int frameWidth);
 
         /// @brief return true if at least there is a frame shown
         bool isFrameShown() const;

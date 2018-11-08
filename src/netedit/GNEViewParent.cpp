@@ -487,18 +487,18 @@ GNEViewParent::Frames::hideFrames() {
 
 
 void 
-GNEViewParent::Frames::setWidth(double width) {
+GNEViewParent::Frames::setWidth(int frameWidth) {
     // set width in all frames
-    inspectorFrame->setFrameWidth(width);
-    selectorFrame->setFrameWidth(width);
-    connectorFrame->setFrameWidth(width);
-    TLSEditorFrame->setFrameWidth(width);
-    additionalFrame->setFrameWidth(width);
-    crossingFrame->setFrameWidth(width);
-    TAZFrame->setFrameWidth(width);
-    deleteFrame->setFrameWidth(width);
-    polygonFrame->setFrameWidth(width);
-    prohibitionFrame->setFrameWidth(width);
+    inspectorFrame->setFrameWidth(frameWidth);
+    selectorFrame->setFrameWidth(frameWidth);
+    connectorFrame->setFrameWidth(frameWidth);
+    TLSEditorFrame->setFrameWidth(frameWidth);
+    additionalFrame->setFrameWidth(frameWidth);
+    crossingFrame->setFrameWidth(frameWidth);
+    TAZFrame->setFrameWidth(frameWidth);
+    deleteFrame->setFrameWidth(frameWidth);
+    polygonFrame->setFrameWidth(frameWidth);
+    prohibitionFrame->setFrameWidth(frameWidth);
 }
 
 
