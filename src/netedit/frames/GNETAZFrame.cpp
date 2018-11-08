@@ -267,6 +267,8 @@ GNETAZFrame::TAZCurrent::refreshTAZEdges() {
         for (auto &i : myTAZEdges) {
             i.updateColors();
         }
+        // update edge colors
+        myTAZFrameParent->myTAZEdgesGraphic->updateEdgeColors();
     }
 }
 
@@ -466,8 +468,6 @@ GNETAZFrame::TAZSaveChanges::onCmdCancelChanges(FXObject*, FXSelector, void*) {
         myTAZFrameParent->myViewNet->getUndoList()->p_abort();
         // always refresh TAZ Edges after removing TAZSources/Sinks
         myTAZFrameParent->myTAZCurrent->refreshTAZEdges();
-        // update edge colors
-        myTAZFrameParent->myTAZEdgesGraphic->updateEdgeColors();
     }
     return 1;
 }
@@ -754,12 +754,8 @@ GNETAZFrame::TAZSelectionStatistics::onCmdSetNewValues(FXObject* obj, FXSelector
                 for (const auto  &i : myEdgeAndTAZChildsSelected) {
                     i.TAZSource->setAttribute(SUMO_ATTR_WEIGHT, myTextFieldTAZSourceWeight->getText().text(), myTAZFrameParent->getViewNet()->getUndoList());
                 }
-                // update colors after setting all values
-                for (auto  &i : myEdgeAndTAZChildsSelected) {
-                    i.updateColors();
-                }
-                // update edge colors
-                myTAZFrameParent->myTAZEdgesGraphic->updateEdgeColors();
+                // refresh TAZ Edges
+                myTAZFrameParent->getTAZCurrentModul()->refreshTAZEdges();
             } else {
                 // set invalid color
                 myTextFieldTAZSourceWeight->setTextColor(FXRGB(255, 0, 0));
@@ -782,12 +778,8 @@ GNETAZFrame::TAZSelectionStatistics::onCmdSetNewValues(FXObject* obj, FXSelector
                 for (const auto  &i : myEdgeAndTAZChildsSelected) {
                     i.TAZSink->setAttribute(SUMO_ATTR_WEIGHT, myTextFieldTAZSinkWeight->getText().text(), myTAZFrameParent->getViewNet()->getUndoList());
                 }
-                // update colors after setting all values
-                for (auto  &i : myEdgeAndTAZChildsSelected) {
-                    i.updateColors();
-                }
-                // update edge colors
-                myTAZFrameParent->myTAZEdgesGraphic->updateEdgeColors();
+                // refresh TAZ Edges
+                myTAZFrameParent->getTAZCurrentModul()->refreshTAZEdges();
             } else {
                 // set invalid color
                 myTextFieldTAZSinkWeight->setTextColor(FXRGB(255, 0, 0));
@@ -999,7 +991,9 @@ GNETAZFrame::TAZParameters::onCmdHelp(FXObject*, FXSelector, void*) {
 
 GNETAZFrame::TAZEdgesGraphic::TAZEdgesGraphic(GNETAZFrame* TAZFrameParent) : 
     FXGroupBox(TAZFrameParent->myContentFrame, "Edges", GUIDesignGroupBoxFrame),
-    myTAZFrameParent(TAZFrameParent) {
+    myTAZFrameParent(TAZFrameParent),
+    myEdgeDefaultColor(RGBColor::GREY.changedBrightness(-50)),
+    myEdgeSelectedColor(RGBColor::GREY.changedBrightness(50)) {
     // create label for color information
     new FXLabel(this,"Minor -> major", nullptr, GUIDesignLabelLeftThick);
     // fill scale colors
@@ -1061,7 +1055,7 @@ GNETAZFrame::TAZEdgesGraphic::updateEdgeColors() {
     for (const auto &i : myTAZFrameParent->myTAZCurrent->getNetEdges()) {
         // set candidate color (in this case, gray)
         for (const auto j : i->getLanes() ) {
-            j->setSpecialColor(&RGBColor::GREY);
+            j->setSpecialColor(&myEdgeDefaultColor);
         }
     }
     // now paint Source/sinks colors
@@ -1084,7 +1078,7 @@ GNETAZFrame::TAZEdgesGraphic::updateEdgeColors() {
     for (const auto &i : myTAZFrameParent->myTAZSelectionStatistics->getEdgeAndTAZChildsSelected()) {
         // set candidate selected color
         for (const auto &j : i.edge->getLanes() ) {
-            j->setSpecialColor(&myTAZFrameParent->getEdgeCandidateSelectedColor());
+            j->setSpecialColor(&myEdgeSelectedColor);
         }
     }
     // always update view after setting new colors
@@ -1322,8 +1316,6 @@ GNETAZFrame::addOrRemoveTAZMember(GNEEdge *edge) {
                 myViewNet->getUndoList()->add(new GNEChange_Additional(i.TAZSink, false), true);
                 // always refresh TAZ Edges after removing TAZSources/Sinks
                 myTAZCurrent->refreshTAZEdges();
-                // update edge colors
-                myTAZEdgesGraphic->updateEdgeColors();
                 return true;
             }
         }
@@ -1337,8 +1329,6 @@ GNETAZFrame::addOrRemoveTAZMember(GNEEdge *edge) {
         myViewNet->getUndoList()->add(new GNEChange_Additional(TAZSink, true), true);
         // always refresh TAZ Edges after adding TAZSources/Sinks
         myTAZCurrent->refreshTAZEdges();
-        // update edge colors
-        myTAZEdgesGraphic->updateEdgeColors();
         return true;
     } else {
         throw ProcessError("Edge cannot be null");

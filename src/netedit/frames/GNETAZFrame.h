@@ -472,6 +472,12 @@ public:
 
         /// @brief vector wit the scale colors
         std::vector<RGBColor> myScaleColors;
+
+        /// @brief default RGBColor for all edges
+        RGBColor myEdgeDefaultColor;
+
+        /// @brief RGBColor color for selected egdes
+        RGBColor myEdgeSelectedColor;
     };
     
     /**@brief Constructor
@@ -508,6 +514,7 @@ public:
 
     /// @brief get TAZ Save Changes modul
     TAZSaveChanges* getTAZSaveChangesModul() const;
+
 protected:
     /**@brief build a shaped element using the drawed shape
      * return true if was sucesfully created
