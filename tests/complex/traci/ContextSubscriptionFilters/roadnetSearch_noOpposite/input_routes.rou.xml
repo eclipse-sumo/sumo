@@ -16,8 +16,8 @@
     <vehicle id="v1" route="r1" depart="0" departPos="50">
         <stop lane="NS3_0" endPos="50" duration="100" />
     </vehicle>
-    <vehicle id="v2" route="r2" depart="0" departPos="10">
-        <stop lane="WE4_0" endPos="10" duration="100" />
+    <vehicle id="v2" route="r2" depart="0" departPos="11">
+        <stop lane="WE4_0" endPos="11" duration="100" />
     </vehicle>
     <vehicle id="v3" route="r3" depart="0" departPos="10">
         <stop lane="EW1_0" endPos="10" duration="100" />
