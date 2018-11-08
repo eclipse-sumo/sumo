@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Tue Oct 16 23:40:07 2018
+TraCITestClient output file. Date: Thu Nov  8 09:17:27 2018
 
 
 -> Command sent: <SimulationStep>:
@@ -119,6 +119,12 @@ testAPI:
     getRemainingStages: 1
     getVehicle: 
     getEdges: e_m3 e_m4
+    getPosition: TraCIPosition(1500,490.47,0)
+    getPosition3D: TraCIPosition(1500,490.47,0)
+    getAngle: 90.00
+    getLanePosition: 0.00
+    getLength: 0.21
+    getColor: TraCIColor(255,255,0,128)
     param: bar
     getSpeed: 2.60
     getRemainingStages: 4

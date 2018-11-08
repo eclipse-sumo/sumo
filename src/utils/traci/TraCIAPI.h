@@ -804,6 +804,7 @@ public:
         int getIDCount() const;
         double getSpeed(const std::string& personID) const;
         libsumo::TraCIPosition getPosition(const std::string& personID) const;
+        libsumo::TraCIPosition getPosition3D(const std::string& personID) const;
         std::string getRoadID(const std::string& personID) const;
         std::string getTypeID(const std::string& personID) const;
         double getWaitingTime(const std::string& personID) const;
@@ -812,10 +813,14 @@ public:
         int getRemainingStages(const std::string& personID) const;
         int getStage(const std::string& personID, int nextStageIndex = 0) const;
         std::vector<std::string> getEdges(const std::string& personID, int nextStageIndex = 0) const;
-        // TODO:
-        // double getAngle(const std::string& personID) const;
-        // double getLanePosition(const std::string& personID) const;
-        // libsumo::TraCIColor getColor(const std::string& personID) const;
+        double getAngle(const std::string& personID) const;
+        double getLanePosition(const std::string& personID) const;
+        libsumo::TraCIColor getColor(const std::string& personID) const;
+
+        /// @name vehicle type value retrieval shortcuts
+        /// @{
+        double getLength(const std::string& personID) const;
+        /// @}
 
 
         void removeStages(const std::string& personID) const;

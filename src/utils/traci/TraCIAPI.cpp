@@ -2971,6 +2971,31 @@ TraCIAPI::PersonScope::getPosition(const std::string& personID) const {
     return myParent.getPosition(CMD_GET_PERSON_VARIABLE, VAR_POSITION, personID);
 }
 
+libsumo::TraCIPosition
+TraCIAPI::PersonScope::getPosition3D(const std::string& personID) const {
+    return myParent.getPosition3D(CMD_GET_PERSON_VARIABLE, VAR_POSITION3D, personID);
+}
+
+double
+TraCIAPI::PersonScope::getAngle(const std::string& personID) const {
+    return myParent.getDouble(CMD_GET_PERSON_VARIABLE, VAR_ANGLE, personID);
+}
+
+double
+TraCIAPI::PersonScope::getLanePosition(const std::string& personID) const {
+    return myParent.getDouble(CMD_GET_PERSON_VARIABLE, VAR_LANEPOSITION, personID);
+}
+
+libsumo::TraCIColor
+TraCIAPI::PersonScope::getColor(const std::string& personID) const {
+    return myParent.getColor(CMD_GET_PERSON_VARIABLE, VAR_COLOR, personID);
+}
+
+double
+TraCIAPI::PersonScope::getLength(const std::string& personID) const {
+    return myParent.getDouble(CMD_GET_PERSON_VARIABLE, VAR_LENGTH, personID);
+}
+
 std::string
 TraCIAPI::PersonScope::getRoadID(const std::string& personID) const {
     return myParent.getString(CMD_GET_PERSON_VARIABLE, VAR_ROAD_ID, personID);
