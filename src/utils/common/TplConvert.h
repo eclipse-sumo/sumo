@@ -307,48 +307,8 @@ public:
         if (data == 0 || data[0] == 0) {
             throw EmptyData();
         }
-        int i = 0;
-        double sgn = 1;
-        if (data[0] == '+') {
-            i++;
-        }
-        if (data[0] == '-') {
-            i++;
-            sgn = -1;
-        }
-        // we try to parse it as a long long int storing the decimal point pos
-        int pointPos = -1;
-        int digits = std::numeric_limits<long long int>::digits10;
-        long long int ret = 0;
-        for (; data[i] != 0 && data[i] != 'e' && data[i] != 'E'; i++) {
-            char akt = (char) data[i];
-            if (akt < '0' || akt > '9') {
-                if (pointPos < 0 && (akt == '.' || akt == ',')) {
-                    pointPos = i;
-                    continue;
-                }
-                throw NumberFormatException(_2str(data));
-            }
-            digits--;
-            if (digits >= 0) { // we skip the digits which don't fit into long long int
-                ret = ret * 10 + akt - 48;
-            }
-        }
-        int exponent = digits >= 0 ? 0 : -digits;
-        if (pointPos != -1) {
-            exponent += pointPos - i + 1;
-        }
-        // check what has happened - end of string or exponent
-        if (data[i] == 0) {
-            return ret * sgn * (double) pow(10.0, exponent);
-        }
-        // now the exponent
-        try {
-            return ret * sgn * (double) pow(10.0, _2int(data + i + 1) + exponent);
-        } catch (EmptyData&) {
-            // the exponent was empty
-            throw NumberFormatException("");
-        }
+        double result = _str2double(_2str(data));
+        return result;
     }
 
     /**@brief converts a string into the double value described by it by calling the char-type converter
@@ -356,7 +316,13 @@ public:
      * @throw a NumberFormatException - exception when the string does not contain a double
      */
     static double _str2double(const std::string& sData) {
-        return _2double(sData.c_str());
+        double result;
+        std::istringstream buf(sData);
+        buf >> result;
+        if (buf.fail()) {
+            throw NumberFormatException("(double) " + sData);
+        }
+        return result;
     }
 
     /**@brief converts a 0-terminated char-type array into the double value described by it
