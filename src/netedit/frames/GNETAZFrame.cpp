@@ -433,6 +433,14 @@ GNETAZFrame::TAZSaveChanges::enableButtonsAndBeginUndoList() {
     }
 }
 
+
+bool 
+GNETAZFrame::TAZSaveChanges::isChangesPending() const {
+    // simply check if save Changes Button is enabled
+    return mySaveChangesButton->isEnabled();
+}
+
+
 long
 GNETAZFrame::TAZSaveChanges::onCmdSaveChanges(FXObject*, FXSelector, void*) {
     // check that save changes is enabled
@@ -1171,9 +1179,10 @@ GNETAZFrame::processClick(const Position& clickedPosition, GNETAZ *TAZ, GNEEdge*
             myDrawingShape->addNewPoint(clickedPosition);
         }
         return true;
-    } else if (myTAZCurrent->getTAZ() == nullptr) {
-        // avoid reset of Frame if user doesn't click over an TAZ
+    } else if ((myTAZCurrent->getTAZ() == nullptr) || (TAZ && myTAZCurrent->getTAZ() && !myTAZSaveChanges->isChangesPending())) {
+        // if user click over an TAZ and there isn't changes pending, then select a new TAZ
         if (TAZ) {
+            // avoid reset of Frame if user doesn't click over an TAZ
             myTAZCurrent->setTAZ(TAZ);
             return true;
         } else {
@@ -1233,20 +1242,26 @@ GNETAZFrame::processEdgeSelection(const std::vector<GNEEdge*>& edges) {
 
 
 GNETAZFrame::DrawingShape*
-GNETAZFrame::getDrawingShape() const {
+GNETAZFrame::getDrawingShapeModul() const {
     return myDrawingShape;
 }
 
 
 GNETAZFrame::TAZCurrent* 
-GNETAZFrame::getTAZCurrent() const {
+GNETAZFrame::getTAZCurrentModul() const {
     return myTAZCurrent;
 }
 
 
 GNETAZFrame::TAZSelectionStatistics* 
-GNETAZFrame::getTAZSelectionStatistics() const {
+GNETAZFrame::getTAZSelectionStatisticsModul() const {
     return myTAZSelectionStatistics;
+}
+
+
+GNETAZFrame::TAZSaveChanges* 
+GNETAZFrame::getTAZSaveChangesModul() const {
+    return myTAZSaveChanges;
 }
 
 

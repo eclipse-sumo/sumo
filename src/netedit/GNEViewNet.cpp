@@ -1117,7 +1117,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                     myObjectsUnderCursor.swapLane2Edge();
                 }
                 // check if we want to create a rect for selecting edges
-                if (myObjectsUnderCursor.shiftKeyPressed() && (myViewParent->getTAZFrame()->getTAZCurrent()->getTAZ() != nullptr)) {
+                if (myObjectsUnderCursor.shiftKeyPressed() && (myViewParent->getTAZFrame()->getTAZCurrentModul()->getTAZ() != nullptr)) {
                     mySelectingArea.selectingUsingRectangle = true;
                     mySelectingArea.selectionCorner1 = getPositionInformation();
                     mySelectingArea.selectionCorner2 = getPositionInformation();
@@ -1221,7 +1221,7 @@ GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
 
 long GNEViewNet::onRightBtnPress(FXObject* obj, FXSelector sel, void* eventData) {
     // disable right button press during drawing polygon
-    if ((myEditMode == GNE_MODE_POLYGON) && myViewParent->getPolygonFrame()->getDrawingShape()->isDrawing()) {
+    if ((myEditMode == GNE_MODE_POLYGON) && myViewParent->getPolygonFrame()->getDrawingShapeModul()->isDrawing()) {
         return 1;
     } else {
         return GUISUMOAbstractView::onRightBtnPress(obj, sel, eventData);
@@ -1231,7 +1231,7 @@ long GNEViewNet::onRightBtnPress(FXObject* obj, FXSelector sel, void* eventData)
 
 long GNEViewNet::onRightBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
     // disable right button release during drawing polygon
-    if ((myEditMode == GNE_MODE_POLYGON) && myViewParent->getPolygonFrame()->getDrawingShape()->isDrawing()) {
+    if ((myEditMode == GNE_MODE_POLYGON) && myViewParent->getPolygonFrame()->getDrawingShapeModul()->isDrawing()) {
         return 1;
     } else {
         return GUISUMOAbstractView::onRightBtnRelease(obj, sel, eventData);
@@ -1245,8 +1245,8 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* eventData) {
     // update shift key pressed
     myShiftKeyPressed = ((FXEvent*)eventData)->state & SHIFTMASK;
     // change "delete last created point" depending if during movement shift key is pressed
-    if ((myEditMode == GNE_MODE_POLYGON) && myViewParent->getPolygonFrame()->getDrawingShape()->isDrawing()) {
-        myViewParent->getPolygonFrame()->getDrawingShape()->setDeleteLastCreatedPoint(myShiftKeyPressed);
+    if ((myEditMode == GNE_MODE_POLYGON) && myViewParent->getPolygonFrame()->getDrawingShapeModul()->isDrawing()) {
+        myViewParent->getPolygonFrame()->getDrawingShapeModul()->setDeleteLastCreatedPoint(myShiftKeyPressed);
     }
     // calculate offset
     Position offsetMovement = snapToActiveGrid(getPositionInformation()) - myMoveSingleElementValues.movingOriginalPosition;
@@ -1305,10 +1305,10 @@ GNEViewNet::onKeyPress(FXObject* o, FXSelector sel, void* eventData) {
     // update shift key pressed
     myShiftKeyPressed = ((FXEvent*)eventData)->state & SHIFTMASK;
     // change "delete last created point" depending of shift key
-    if ((myEditMode == GNE_MODE_POLYGON) && myViewParent->getPolygonFrame()->getDrawingShape()->isDrawing()) {
-        myViewParent->getPolygonFrame()->getDrawingShape()->setDeleteLastCreatedPoint(myShiftKeyPressed);
-    } else if ((myEditMode == GNE_MODE_TAZ) && myViewParent->getTAZFrame()->getDrawingShape()->isDrawing()) {
-        myViewParent->getTAZFrame()->getDrawingShape()->setDeleteLastCreatedPoint(myShiftKeyPressed);
+    if ((myEditMode == GNE_MODE_POLYGON) && myViewParent->getPolygonFrame()->getDrawingShapeModul()->isDrawing()) {
+        myViewParent->getPolygonFrame()->getDrawingShapeModul()->setDeleteLastCreatedPoint(myShiftKeyPressed);
+    } else if ((myEditMode == GNE_MODE_TAZ) && myViewParent->getTAZFrame()->getDrawingShapeModul()->isDrawing()) {
+        myViewParent->getTAZFrame()->getDrawingShapeModul()->setDeleteLastCreatedPoint(myShiftKeyPressed);
     }
     update();
     return GUISUMOAbstractView::onKeyPress(o, sel, eventData);
@@ -1320,8 +1320,8 @@ GNEViewNet::onKeyRelease(FXObject* o, FXSelector sel, void* eventData) {
     // update shift key pressed
     myShiftKeyPressed = ((FXEvent*)eventData)->state & SHIFTMASK;
     // change "delete last created point" depending of shift key
-    if ((myEditMode == GNE_MODE_POLYGON) && myViewParent->getPolygonFrame()->getDrawingShape()->isDrawing()) {
-        myViewParent->getPolygonFrame()->getDrawingShape()->setDeleteLastCreatedPoint(myShiftKeyPressed);
+    if ((myEditMode == GNE_MODE_POLYGON) && myViewParent->getPolygonFrame()->getDrawingShapeModul()->isDrawing()) {
+        myViewParent->getPolygonFrame()->getDrawingShapeModul()->setDeleteLastCreatedPoint(myShiftKeyPressed);
     }
     // check if selecting using rectangle has to be disabled
     if (mySelectingArea.selectingUsingRectangle && !myShiftKeyPressed) {
@@ -1355,14 +1355,14 @@ GNEViewNet::abortOperation(bool clearSelection) {
         stopEditCustomShape();
     } else if (myEditMode == GNE_MODE_POLYGON) {
         // abort current drawing
-        myViewParent->getPolygonFrame()->getDrawingShape()->abortDrawing();
+        myViewParent->getPolygonFrame()->getDrawingShapeModul()->abortDrawing();
     } else if (myEditMode == GNE_MODE_TAZ) {
-        if(myViewParent->getTAZFrame()->getDrawingShape()->isDrawing()) {
+        if(myViewParent->getTAZFrame()->getDrawingShapeModul()->isDrawing()) {
             // abort current drawing
-            myViewParent->getPolygonFrame()->getDrawingShape()->abortDrawing();
-        } else if (myViewParent->getTAZFrame()->getTAZCurrent()->getTAZ() != nullptr) {
+            myViewParent->getPolygonFrame()->getDrawingShapeModul()->abortDrawing();
+        } else if (myViewParent->getTAZFrame()->getTAZCurrentModul()->getTAZ() != nullptr) {
             // finish current editing TAZ
-            myViewParent->getTAZFrame()->getTAZCurrent()->setTAZ(nullptr);
+            myViewParent->getTAZFrame()->getTAZCurrentModul()->setTAZ(nullptr);
         }
     } else if (myEditMode == GNE_MODE_PROHIBITION) {
         myViewParent->getProhibitionFrame()->onCmdCancel(nullptr, 0, nullptr);
@@ -1413,22 +1413,25 @@ GNEViewNet::hotkeyEnter() {
             update();
         }
     } else if (myEditMode == GNE_MODE_POLYGON) {
-        if (myViewParent->getPolygonFrame()->getDrawingShape()->isDrawing()) {
+        if (myViewParent->getPolygonFrame()->getDrawingShapeModul()->isDrawing()) {
             // stop current drawing
-            myViewParent->getPolygonFrame()->getDrawingShape()->stopDrawing();
+            myViewParent->getPolygonFrame()->getDrawingShapeModul()->stopDrawing();
         } else {
             // start drawing
-            myViewParent->getPolygonFrame()->getDrawingShape()->startDrawing();
+            myViewParent->getPolygonFrame()->getDrawingShapeModul()->startDrawing();
         }
     } else if (myEditMode == GNE_MODE_CROSSING) {
         myViewParent->getCrossingFrame()->createCrossingHotkey();
     } else if (myEditMode == GNE_MODE_TAZ) {
-        if (myViewParent->getTAZFrame()->getDrawingShape()->isDrawing()) {
+        if (myViewParent->getTAZFrame()->getDrawingShapeModul()->isDrawing()) {
             // stop current drawing
-            myViewParent->getTAZFrame()->getDrawingShape()->stopDrawing();
-        } else {
+            myViewParent->getTAZFrame()->getDrawingShapeModul()->stopDrawing();
+        } else if (myViewParent->getTAZFrame()->getTAZCurrentModul()->getTAZ() == nullptr) {
             // start drawing
-            myViewParent->getTAZFrame()->getDrawingShape()->startDrawing();
+            myViewParent->getTAZFrame()->getDrawingShapeModul()->startDrawing();
+        } else if (myViewParent->getTAZFrame()->getTAZSaveChangesModul()->isChangesPending()) {
+            // save pending changes
+            myViewParent->getTAZFrame()->getTAZSaveChangesModul()->onCmdSaveChanges(0, 0, 0);
         }
     } else if (myEditMode == GNE_MODE_ADDITIONAL) {
         if (myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->isSelectingLanes()) {
@@ -3389,12 +3392,12 @@ GNEViewNet::drawTemporalDrawShape() const {
     PositionVector temporalShape;
     bool deleteLastCreatedPoint = false;
     // obtain temporal shape and delete last created point flag
-    if(myViewParent->getPolygonFrame()->getDrawingShape()->isDrawing()) {
-        temporalShape = myViewParent->getPolygonFrame()->getDrawingShape()->getTemporalShape();
-        deleteLastCreatedPoint = myViewParent->getPolygonFrame()->getDrawingShape()->getDeleteLastCreatedPoint();
-    } else if(myViewParent->getTAZFrame()->getDrawingShape()->isDrawing()) {
-        temporalShape = myViewParent->getTAZFrame()->getDrawingShape()->getTemporalShape();
-        deleteLastCreatedPoint = myViewParent->getTAZFrame()->getDrawingShape()->getDeleteLastCreatedPoint();
+    if(myViewParent->getPolygonFrame()->getDrawingShapeModul()->isDrawing()) {
+        temporalShape = myViewParent->getPolygonFrame()->getDrawingShapeModul()->getTemporalShape();
+        deleteLastCreatedPoint = myViewParent->getPolygonFrame()->getDrawingShapeModul()->getDeleteLastCreatedPoint();
+    } else if(myViewParent->getTAZFrame()->getDrawingShapeModul()->isDrawing()) {
+        temporalShape = myViewParent->getTAZFrame()->getDrawingShapeModul()->getTemporalShape();
+        deleteLastCreatedPoint = myViewParent->getTAZFrame()->getDrawingShapeModul()->getDeleteLastCreatedPoint();
     }
     // check if we're in drawing mode
     if(temporalShape.size() > 0) {

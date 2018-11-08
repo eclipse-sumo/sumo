@@ -189,6 +189,9 @@ public:
         /// @brief enable buttons save and cancel changes (And begin Undo List)
         void enableButtonsAndBeginUndoList();
 
+        /// @brief return true if there is changes to save
+        bool isChangesPending() const;
+
         /// @name FOX-callbacks
         /// @{
         /// @brief Called when the user press the button save changes
@@ -495,14 +498,16 @@ public:
     void processEdgeSelection(const std::vector<GNEEdge*>& edges);
 
     /// @brief get drawing mode modul
-    DrawingShape* getDrawingShape() const;
+    DrawingShape* getDrawingShapeModul() const;
 
     /// @brief get Current TAZ modul
-    TAZCurrent* getTAZCurrent() const;
+    TAZCurrent* getTAZCurrentModul() const;
 
     /// @brief get TAZ Selection Statistics modul
-    TAZSelectionStatistics* getTAZSelectionStatistics() const;
+    TAZSelectionStatistics* getTAZSelectionStatisticsModul() const;
 
+    /// @brief get TAZ Save Changes modul
+    TAZSaveChanges* getTAZSaveChangesModul() const;
 protected:
     /**@brief build a shaped element using the drawed shape
      * return true if was sucesfully created
