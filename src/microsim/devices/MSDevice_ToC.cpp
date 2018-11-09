@@ -304,6 +304,8 @@ MSDevice_ToC::ensureDriverStateExistence(SUMOTime /* t */) {
 }
 
 MSDevice_ToC::~MSDevice_ToC() {
+    // unregister from static instance container
+    instances.erase(this);
     // deschedule commands associated to this device
     if (myTriggerMRMCommand != nullptr) {
         myTriggerMRMCommand->deschedule();
@@ -750,7 +752,7 @@ MSDevice_ToC::writeOutput() {
         return;
     }
     while(!myEvents.empty()) {
-        std::pair<SUMOTime, std::string> e = myEvents.front();
+        std::pair<SUMOTime, std::string>& e = myEvents.front();
         myOutputFile->openTag(e.second);
         myOutputFile->writeAttr("id", myHolder.getID()).writeAttr("t", STEPS2TIME(e.first));
         myOutputFile->closeTag();
